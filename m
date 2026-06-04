@@ -1,450 +1,1025 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6833FF1DC
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C0C376A0E
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780567025; cv=none; b=tNe+VeIyfIkQyC/9/70y8c+4nQkjAyaNNZla6iV1j/hDXVA3RnAcJDOBPAD0wvkZCwZpjx/UNzhpy/MZ5cWk1utYUWKjnELy+GQ9OUVXfqMOQtjtHtNhm9byLrVujiZZCRRPEL4YeA22sziTRMgH+++b3N1YbOkjjr3TOG36TbE=
+	t=1780567164; cv=none; b=QfSFtzgQu7AUs7lERcPt1CEAZQKQvCpBNJqR/wJBR056MiOCQq4AHiM7XpMbYkdYNNSGq4hmRXnwy0yfzZa+rqWQ+adUN6LI80cufnIM0aT6spZ9AFh+O/d1da/xlFxP51JtSpEXelAeI/5A5xD5rjXSx/LEF2gHE8NmTARtx9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780567025; c=relaxed/simple;
-	bh=evaDaa31llaNDA1fKuLNIMrcVIoSuwe6xA6Yyspx69Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e/9TY3pvZM7Zpd3NsG58bIa0gtg9h0IK5PIGujRpmbjw0fcBge3q5tmdhNyYnfncHX92yzd5MZLilXGnY+Rqp4ev8WdJqNbYIGaQiDwPWENWssHhl4u94Tvd+YJ/TcMx6SkfpycXsR6PQeCHxw5M/JHwmGPhdmwaPK+QtOLENTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nK/cY5WR; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780567164; c=relaxed/simple;
+	bh=fBY9r5p/Res2urKB8Xo5iKQi34Gll8o22sLon6mFNCY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XIQXTWYRhaIVTEyKCH1Gnew5DjLgD5kfCWrQBjWHOa5H+iGE6lgamcB1l/WEFrXrWSlOIn+Esf6UHqzxMG30EOPvJo1XQqwCmjqCsvPZzp489421VHfkJSjTCTjpe2XVNyJlqsFsrpGhv993kTMHsmqw6LV/ECAFdtkTB9iG3jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PMKjYmYg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EXp2E5RV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nK/cY5WR"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490b12270b3so3179285e9.1
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:57:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PMKjYmYg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EXp2E5RV"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6544ssuL1039351
+	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 09:59:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PUsiL+sMTqw2BA6pSSQlXtUhqDxTlOvEKEB4d/D5wsM=; b=PMKjYmYg7tDzkNfL
+	54nihwYnoojM1vkFUagTBALspgONiH0Uj0w2NCfuesxrLISx7+5P+ZmTeAYJjvQm
+	sv9ec08U3WQCidSf7LwqpEsVvSDY9Sf48mVB2wvpTLiFKDCCAv73IY917lfNqgvb
+	z62yun4Z8V0WLx1asbVW7kmMFTlrsZVRynKerUZCjWH9NQ9GPLMaqmu33SK7x5lX
+	Fi+wUiDyIQzuugEWJUCEATiRlcxu6J/wa2ZjnmKuJm1i8RLMwkNHrpxk+ctXQnn+
+	16HFpKgbb67ACLrx+KrcjiEK2jLPIfWF4Sx5/cb1IUPShQN3hxhze6XZ3N7I7LKV
+	v3mxOA==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejtj8js2n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 09:59:21 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c85798977dcso390199a12.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:59:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780567019; x=1781171819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sKLaORJorgMTbBd/sx2zZmtjtloHrdymYnVNk+b0fwk=;
-        b=nK/cY5WRPlTr/WPviRVz8Plji3lOsJqD1gv44UxxCOkOJwsx/3NaK2aHx1MhdEY7iA
-         YNgvzNDLu5B5BhXpgRgrZuzlzQHbBKzWFTaeg3taIMIsZS5joqETcy9u4W5PQJkpWB9f
-         0Yrpv5NwbtdZDlBQ8Sdd4aaLQ05ysL7yIHE4yLzTS43L42Vi0ayWUP4KoRWZEBHDdEEq
-         2l1V2asQIyA1y/BYEq3ZxGyadl9MHoDDjSnqqrF6jT6sHIklHX/zzgoL6SurtAK8J/63
-         TbuvspgKGzQYicPZn/QXUAcxXYNI7dM454s6702NNp8Sl6WhlGxDWQ7Ro5g38kgIhBmD
-         OqNg==
+        d=oss.qualcomm.com; s=google; t=1780567161; x=1781171961; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PUsiL+sMTqw2BA6pSSQlXtUhqDxTlOvEKEB4d/D5wsM=;
+        b=EXp2E5RVetYSd7qsDlf5hBHE4umiarWWeBNg5tQlzKvKmdCDvLlB+Es2u0RTCveg+o
+         DdA7kT1bl25FYFkA+Zisfsx55PjbImpMZHnEvBj/pDcBMLwg6Z608x3bQwBWn3l9oYUc
+         wYl2K78T7N6ZApvclLCXUvmBXnaWFkU+G/gTi0/dWbDiNDpqfmCPvzarslHdasAsev21
+         SUY7PRiGe3hoFUhSn4dLlU60E4uNBpt6quKcfeppY8RgZ8e2q7ulwDQ2RjLAvadhWYCv
+         4NCo+KgFVqWRZeDmAr/Nyuina5xnIdNcPPq+gHZ0Erx3LObV43lneczBL6X5Jm48Pf6/
+         fxqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780567019; x=1781171819;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=sKLaORJorgMTbBd/sx2zZmtjtloHrdymYnVNk+b0fwk=;
-        b=lub1RvPd6Kpsurx+m0FzzsDcs8cveb4r8PlCjacbEeZN+84joBe2FMT43H9pxwalRN
-         Nsfs9dZEeKrQNKWZZkvawJ2mT1G4I5I9B+wg2KHzLV/Ld4z+fC+rbd6X10Wv5MzDS3B9
-         KbpOKmTXw7DdJfi36HKtuMBREkIwmywMj9FTMTAleblf2Jwj+2aUJfFXvdZtCNZhPf1B
-         p0+8WnLLMV5qOdjomeACAvm9Aur18fZ/6TS3hc8FRQPW9kQG6uTbjfvxRKcHMsxIHlmn
-         CkDUYs1CROuaxzM+e4sDOFYLMt6qBbnrOII53FuIEVpcED+ednef3PdcxpXtIJ2z7eR7
-         EQQw==
-X-Forwarded-Encrypted: i=1; AFNElJ/cIgJEdEpLRw8BRWCemkP/GsDUKy5vRfimU1+hcnMdFn91xuHg34lMpB0oIPLrb3WBw9G/yelmg5b7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwITF7VLUegjsQ0ju5FJnhi5Tpie3+39SC8pAttFjocoBgm7URP
-	Fb3J8JpjL9OEtuJ9kFe5IC2SZFWSfKb2eLbtPwpLmWecQnYWKhVK5FYo
-X-Gm-Gg: Acq92OF3tzs0e7ShBHJaXlO11pEkA9o8OjL+alAgSXFHO5/XyT3cANmHDTeOIaYEmE8
-	pU8WroLv1aXpYuSxolGq/aSUKLPeloXsuelNadmtDYQYd/Gm+tQusOLHqgg/4O+pa9wmt/KqGT6
-	tJwkbe8CNCeQHfU1y2K44bLU8sKCMDzge45xDRE1F6voNBZcDuspnjLypRByFMQUs22V11Fw46V
-	TWDHeu2iwifydhvInrlLmJBuhoavubht8RG9M4g1NNy8qdsU8/Ud2arado4COIlD5fW7n+mWWa/
-	zwilyjWGXDhS1F0lUTPjVIIJx5Rtg+t6saR62Ogfkl6GKj/FhQkrjZXXWHKOZKhUzyLWvYZkyk6
-	0ifapw/lGMbrF/lhKt7eIPHfU4cIE/vP6HNM0RCYAkj7Dv9Ykn98v7tmXZyQNU4wmWqBlwYJPkc
-	Xf89wcSCjAE36vH6W2eH6hODkmGoGATHUQwJmbv4+jEJ3cVUdULpnN5qmEf4Y=
-X-Received: by 2002:a05:600c:a4b:b0:490:3d62:eb0 with SMTP id 5b1f17b1804b1-490b60ed881mr111383535e9.24.1780567019397;
-        Thu, 04 Jun 2026 02:56:59 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a700:7301:1615:3574:e0c0:837d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490be1f69bcsm38037335e9.8.2026.06.04.02.56.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 02:56:59 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v6 10/11] dt-bindings: pwm: Document RZ/G3E GPT support
-Date: Thu,  4 Jun 2026 10:56:40 +0100
-Message-ID: <20260604095647.108654-11-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260604095647.108654-1-biju.das.jz@bp.renesas.com>
-References: <20260604095647.108654-1-biju.das.jz@bp.renesas.com>
+        d=1e100.net; s=20251104; t=1780567161; x=1781171961;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PUsiL+sMTqw2BA6pSSQlXtUhqDxTlOvEKEB4d/D5wsM=;
+        b=jA3siDFoSMPA/HhZoxcVTaZI5qbuI7Oc/s2WeAnsnRG7XHLVWDR3tGOjXakw8hRFuT
+         d+0U0CSBTYsnhzeJdddZCmV0amCSpbtKAicw3Y+E4g5Fev5SccwlmwUiwK6jYmtZW9R3
+         CKupjF9gVCPhSSH8hPlyr9A4x5XpVbXOtEhwojTqyO4uQxO5yDs1QX5Gj/A+p+rcoVVy
+         BWU6EpTMowMbMQFTSp9UfWnijB3ZABUWEgHWJbRe2eEV+XgEz7d322U5kSj0by/3PiWj
+         npnYO2u2SzEWwINxvw0ZyX01Xby0BKoJU08UnkPtVzsE5BQQdemqDbj6djnnH9TYx6ys
+         3C5w==
+X-Forwarded-Encrypted: i=1; AFNElJ9rQNITOpoPMyZxb7DMlzbn805r9uY3XnlPLVVh9UPmpjATlhGdKKeKzG1IB2g5aBTYLB5Xr7DRjXtf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOrZSfkRsQl2DaDtWB1Cv2WW+KS36fy2QBlnLMo6tpOiQHL4Ep
+	Ztvp5Ou7pVwKEYMvrqewwrdPMsNSDNPv4jT7TRMo5NwHXazJ+KXLlKrKUMuLtApquRN6oB31ajT
+	YolwIguEMql8OvQTkHAp3yc4JFWCFzo2hMAsA5KFbZCdmTx2BNQjrB50XibX5Wz6q
+X-Gm-Gg: Acq92OElcocN6Qe/72qhtFiEvUTZXENE1elgWFPKDUJOn+tPQP0uVwyglvwUBNDa+v1
+	BOT05FFJmjbtBUYvDSdag2/1V0d0sw7IgpkTp/HQaEe7183sCu1n9AXzOpr84w9UyFoPX3/4ZNo
+	PBLSNNHwE4D/58Zvrq3SQfv39/EHLwtQMS1nYeIPlGLi00+sNVxDWQzbPljz0VL6NYwD2GuSkhY
+	qb41xqDF8CkbLG3lW1MHQTua7N+0/BqslTc/VuqWfcdCFoMPSipwlif7eGMMtYlDG86jTO/xUUy
+	atC40Ikgji+ZG3w7NKSv8V3JZ35cQNGDV2/JFKhhV4wE/4wql215ZvhVo5btGdJiRNcfqEzN69H
+	YJvktNlvI6V1X2ZHUFfZt6b0ddnMXaEnzUsOIEwAteAJJDItc57dN0ywpCReIFyhTLSyRT4FZxd
+	8iATALCchXrSPB9vVRDBkjXiiaJ4WIaHfSA/7HElD3DOYhKbIycph0xz1qZw==
+X-Received: by 2002:a17:903:22ce:b0:2c0:b5c1:8e3e with SMTP id d9443c01a7336-2c1639ec7f3mr78133385ad.8.1780567160631;
+        Thu, 04 Jun 2026 02:59:20 -0700 (PDT)
+X-Received: by 2002:a17:903:22ce:b0:2c0:b5c1:8e3e with SMTP id d9443c01a7336-2c1639ec7f3mr78132985ad.8.1780567160065;
+        Thu, 04 Jun 2026 02:59:20 -0700 (PDT)
+Received: from [10.79.138.73] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d59csm50731415ad.4.2026.06.04.02.59.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 02:59:19 -0700 (PDT)
+Message-ID: <6d2ca392-148a-4539-92b8-05bdab1d07e3@oss.qualcomm.com>
+Date: Thu, 4 Jun 2026 15:29:12 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim
+ 7x Gen11
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Douglas Anderson
+ <dianders@chromium.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
+Content-Language: en-US
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+In-Reply-To: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: KxQudN8bxUYElG87l4R8JZtuH4S7hHgs
+X-Proofpoint-GUID: KxQudN8bxUYElG87l4R8JZtuH4S7hHgs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDA5NSBTYWx0ZWRfX8rFbwOpqX4B6
+ VVMJ0Cej6aVrq+7QemN4mXyj2T3HMfUYuIiWkM4HM6sjT8NLmcNFhzRCQz3fUJZk2VzChhbwPX4
+ 57CUf4bfLBrC61kqNpEKGIYjDifdlth4yf2Jv+W1KSzvZCWsQQ60uxVsrDWsqgFewOvEt7QdivR
+ TXTJP830lslJStCwGZjz8h82DzB43n/GBnTrs35OckNvF3L6VsyEw0whWYVqB97TqKWwpTpxuxK
+ Q5DN/pw7eWojgjrYa5+zweuHdlG4psuLHpjfJNm27v2b0kZwgiygaE5+VPAh4bnn7vyoz+R/3eU
+ 2oTDvVRG+o2CZTudhGGFLoRuctfrA2jsRbOBwQFvZpui0dwEIxi8k5lr9X5FaPHmoN3m9fquc0M
+ UOTMeX4ym9BbHv/d5DzAEH3rRtQxMe6KMMW+GGJGZt5FejllgKUdVS02SjzEpOH/ANw2yPss0Gj
+ 9OtcZIoqFzxVquoli9g==
+X-Authority-Analysis: v=2.4 cv=f4p4wuyM c=1 sm=1 tr=0 ts=6a214c79 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fkFsjA6a2Lb9G7MwmvcA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-04_03,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606040095
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Document support for the GPT found on the Renesas RZ/G3E (R9A09G047)
-SoC.
 
-The GPT is a 32-bit timer with 16 hardware channels (GPT0: 8 channel
-and GPT1: 8channels). The hardware supports simultaneous control of
-all channels. PWM waveforms can be generated by controlling the
-up-counter, downcounter, or up- and down-counter.
+On 6/4/2026 1:36 PM, Konrad Dybcio wrote:
+> Introduce a device tree for the Glymur-based Lenovo Yoga Slim 7x Gen11
+> laptop. It's fairly similar to the reference design, although there are
+> a couple of major differences, including a different EC.
+> 
+> Currently working:
+> - Audio playback and capture
+> - GPU, Display
+> - Keyboard, touchpad, touchscreen, lid switch
+> - Privacy LED
+> - Charging, Type-C
+> - Wi-Fi, Bluetooth
+> - Modem should work on the SKUs that have it, but it remains untested
+>    due to lack of access to such a device
+> 
+> Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Co-developed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+>   .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    | 1237 ++++++++++++++++++++
+>   2 files changed, 1238 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 6f33c4e2f09c3990e90e1b25a6f7d618891948c5..4d2864b371e29925a3b3bf4de50efe709b971851 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= apq8096sg-db820c.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-ifc6640.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= eliza-mtp.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= glymur-lenovo-yoga-slim7x.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
+>   
+>   hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..e7eb20ea81fa4e9b735b7daf4c27bb0feeeb6060
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+> @@ -0,0 +1,1237 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +/dts-v1/;
+> +
+> +#include "glymur.dtsi"
+> +
+> +#include "pmcx0102.dtsi"        /* SPMI0: SID-2/3 SPMI1: SID-2/3 */
+> +#include "pmh0101.dtsi"         /* SPMI0: SID-1                  */
+> +#include "pmh0110-glymur.dtsi"  /* SPMI0: SID-5/7 SPMI1: SID-5   */
+> +#include "pmh0104-glymur.dtsi"  /* SPMI0: SID-8/9 SPMI1: SID-11  */
+> +#include "pmk8850.dtsi"         /* SPMI0: SID-0                  */
+> +#include "smb2370.dtsi"         /* SPMI2: SID-9/10/11            */
+> +
+> +#include <dt-bindings/input/gpio-keys.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> +
+> +/ {
+> +	model = "Lenovo Yoga Slim 7x Gen 11";
+> +	compatible = "lenovo,yoga-slim7x-gen11", "qcom,glymur";
+> +
+> +	aliases {
+> +		serial0 = &uart21;
+> +		serial1 = &uart14;
+> +		i2c0 = &i2c0;
+> +		i2c5 = &i2c5;
+> +		i2c8 = &i2c8;
+> +		i2c9 = &i2c9;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	clocks {
+> +		xo_board: xo-board {
+> +			compatible = "fixed-clock";
+> +			clock-frequency = <38400000>;
+> +			#clock-cells = <0>;
+> +		};
+> +
+> +		sleep_clk: sleep-clk {
+> +			compatible = "fixed-clock";
+> +			clock-frequency = <32000>;
+> +			#clock-cells = <0>;
+> +		};
+> +	};
+> +
+> +	gpio-keys {
+> +		compatible = "gpio-keys";
+> +
+> +		pinctrl-0 = <&key_vol_up_default>, <&hall_int_n_default>;
+> +		pinctrl-names = "default";
+> +
+> +		switch-lid {
+> +			label = "lid";
+> +			gpios = <&tlmm 92 GPIO_ACTIVE_LOW>;
+> +			linux,input-type = <EV_SW>;
+> +			linux,code = <SW_LID>;
+> +			wakeup-source;
+> +			wakeup-event-action = <EV_ACT_DEASSERTED>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +		compatible = "gpio-leds";
+> +
+> +		pinctrl-0 = <&cam_indicator_en>;
+> +		pinctrl-names = "default";
+> +
+> +		privacy_led: privacy-led {
+> +			function = LED_FUNCTION_INDICATOR;
+> +			color = <LED_COLOR_ID_WHITE>;
+> +			gpios = <&tlmm 111 GPIO_ACTIVE_HIGH>;
+> +			default-state = "off";
+> +			panic-indicator;
+> +		};
+> +	};
+> +
+> +	pmic-glink {
+> +		compatible = "qcom,glymur-pmic-glink",
+> +			     "qcom,pmic-glink";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		/* Left side display-adjacent port */
+> +		connector@0 {
+> +			compatible = "usb-c-connector";
+> +			reg = <0>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in: endpoint {
+> +						remote-endpoint = <&usb_0_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in: endpoint {
+> +						remote-endpoint = <&usb_0_qmpphy_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		/* Left side user-adjacent port */
+> +		connector@1 {
+> +			compatible = "usb-c-connector";
+> +			reg = <1>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in1: endpoint {
+> +						remote-endpoint = <&usb_1_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in1: endpoint {
+> +						remote-endpoint = <&usb_1_qmpphy_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		/* Right side port */
+> +		connector@2 {
+> +			compatible = "usb-c-connector";
+> +			reg = <2>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in2: endpoint {
+> +						remote-endpoint = <&usb_2_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in2: endpoint {
+> +						remote-endpoint = <&usb_2_qmpphy_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	vreg_edp_3p3: regulator-edp-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_EDP_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&edp_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_misc_3p3: regulator-misc-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_MISC_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&pmh0110_f_e0_gpios 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&misc_3p3_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_nvme: regulator-nvme {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_NVME_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&pmh0101_gpios 14 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&nvme_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_wcn_0p95: regulator-wcn-0p95 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_WCN_0P95";
+> +		regulator-min-microvolt = <950000>;
+> +		regulator-max-microvolt = <950000>;
+> +
+> +		vin-supply = <&vreg_wcn_3p3>;
+> +	};
+> +
+> +	vreg_wcn_3p3: regulator-wcn-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_WCN_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 94 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&wcn_sw_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_wwan: regulator-wwan {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_WWAN_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 246 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&wwan_reg_en>;
+> +		pinctrl-names = "default";
+> +	};
+> +
+> +	sound {
+> +		compatible = "qcom,glymur-sndcard";
+> +		model = "GLYMUR-LENOVO-Yoga-Slim7x";
+> +		audio-routing = "WooferLeft IN", "WSA WSA_SPK1 OUT",
+> +				"TweeterLeft IN", "WSA WSA_SPK2 OUT",
+> +				"WooferRight IN", "WSA2 WSA_SPK1 OUT",
+> +				"TweeterRight IN", "WSA2 WSA_SPK2 OUT",
+> +				"VA DMIC0", "vdd-micb",
+> +				"VA DMIC1", "vdd-micb",
+> +				"VA DMIC2", "vdd-micb",
+> +				"VA DMIC3", "vdd-micb";
+> +
+> +		va-dai-link {
+> +			link-name = "VA Capture";
+> +
+> +			codec {
+> +				sound-dai = <&lpass_vamacro 0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +		wsa-dai-link {
+> +			link-name = "WSA Playback";
+> +
+> +			codec {
+> +				sound-dai = <&left_woofer>, <&left_tweeter>,
+> +					    <&swr0 0>, <&lpass_wsamacro 0>,
+> +					    <&right_woofer>, <&right_tweeter>,
+> +					    <&swr3 0>, <&lpass_wsa2macro 0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +	};
+> +
+> +	wcn7850-pmu {
+> +		compatible = "qcom,wcn7850-pmu";
+> +
+> +		vdd-supply = <&vreg_wcn_0p95>;
+> +		vddio-supply = <&vreg_l15b_e0>;
+> +		vddaon-supply = <&vreg_l15b_e0>;
+> +		vdddig-supply = <&vreg_l15b_e0>;
+> +		vddrfa1p2-supply = <&vreg_l15b_e0>;
+> +		vddrfa1p8-supply = <&vreg_l15b_e0>;
+> +
+> +		wlan-enable-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+> +		bt-enable-gpios = <&tlmm 116 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&wcn_wlan_bt_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulators {
+> +			vreg_pmu_rfa_cmn: ldo0 {
+> +				regulator-name = "vreg_pmu_rfa_cmn";
+> +			};
+> +
+> +			vreg_pmu_aon_0p59: ldo1 {
+> +				regulator-name = "vreg_pmu_aon_0p59";
+> +			};
+> +
+> +			vreg_pmu_wlcx_0p8: ldo2 {
+> +				regulator-name = "vreg_pmu_wlcx_0p8";
+> +			};
+> +
+> +			vreg_pmu_wlmx_0p85: ldo3 {
+> +				regulator-name = "vreg_pmu_wlmx_0p85";
+> +			};
+> +
+> +			vreg_pmu_btcmx_0p85: ldo4 {
+> +				regulator-name = "vreg_pmu_btcmx_0p85";
+> +			};
+> +
+> +			vreg_pmu_rfa_0p8: ldo5 {
+> +				regulator-name = "vreg_pmu_rfa_0p8";
+> +			};
+> +
+> +			vreg_pmu_rfa_1p2: ldo6 {
+> +				regulator-name = "vreg_pmu_rfa_1p2";
+> +			};
+> +
+> +			vreg_pmu_rfa_1p8: ldo7 {
+> +				regulator-name = "vreg_pmu_rfa_1p8";
+> +			};
+> +
+> +			vreg_pmu_pcie_0p9: ldo8 {
+> +				regulator-name = "vreg_pmu_pcie_0p9";
+> +			};
+> +
+> +			vreg_pmu_pcie_1p8: ldo9 {
+> +				regulator-name = "vreg_pmu_pcie_1p8";
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible = "qcom,pmh0101-rpmh-regulators";
+> +		qcom,pmic-id = "B_E0";
+> +
+> +		vreg_l1b_e0: ldo1 {
+> +			regulator-name = "vreg_l1b_e0";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l7b_e0: ldo7 {
+> +			regulator-name = "vreg_l7b_e0";
+> +			regulator-min-microvolt = <3072000>;
+> +			regulator-max-microvolt = <3072000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l8b_e0: ldo8 {
+> +			regulator-name = "vreg_l8b_e0";
+> +			regulator-min-microvolt = <3304000>;
+> +			regulator-max-microvolt = <3304000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l9b_e0: ldo9 {
+> +			regulator-name = "vreg_l9b_e0";
+> +			regulator-min-microvolt = <2960000>;
+> +			regulator-max-microvolt = <2960000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l10b_e0: ldo10 {
+> +			regulator-name = "vreg_l10b_e0";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l11b_e0: ldo11 {
+> +			regulator-name = "vreg_l11b_e0";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l12b_e0: ldo12 {
+> +			regulator-name = "vreg_l12b_e0";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l15b_e0: ldo15 {
+> +			regulator-name = "vreg_l15b_e0";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l17b_e0: ldo17 {
+> +			regulator-name = "vreg_l17b_e0";
+> +			regulator-min-microvolt = <2504000>;
+> +			regulator-max-microvolt = <2504000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l18b_e0: ldo18 {
+> +			regulator-name = "vreg_l18b_e0";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-1 {
+> +		compatible = "qcom,pmcx0102-rpmh-regulators";
+> +		qcom,pmic-id = "C_E1";
+> +
+> +		vreg_l1c_e1: ldo1 {
+> +			regulator-name = "vreg_l1c_e1";
+> +			regulator-min-microvolt = <912000>;
+> +			regulator-max-microvolt = <912000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2c_e1: ldo2 {
+> +			regulator-name = "vreg_l2c_e1";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3c_e1: ldo3 {
+> +			regulator-name = "vreg_l3c_e1";
+> +			regulator-min-microvolt = <936000>;
+> +			regulator-max-microvolt = <936000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4c_e1: ldo4 {
+> +			regulator-name = "vreg_l4c_e1";
+> +			regulator-min-microvolt = <912000>;
+> +			regulator-max-microvolt = <912000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-2 {
+> +		compatible = "qcom,pmh0110-rpmh-regulators";
+> +		qcom,pmic-id = "F_E0";
+> +
+> +		vreg_s7f_e0: smps7 {
+> +			regulator-name = "vreg_s7f_e0";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_s8f_e0: smps8 {
+> +			regulator-name = "vreg_s8f_e0";
+> +			regulator-min-microvolt = <952000>;
+> +			regulator-max-microvolt = <952000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2f_e0: ldo2 {
+> +			regulator-name = "vreg_l2f_e0";
+> +			regulator-min-microvolt = <936000>;
+> +			regulator-max-microvolt = <936000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3f_e0: ldo3 {
+> +			regulator-name = "vreg_l3f_e0";
+> +			regulator-min-microvolt = <912000>;
+> +			regulator-max-microvolt = <912000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-3 {
+> +		compatible = "qcom,pmh0110-rpmh-regulators";
+> +		qcom,pmic-id = "F_E1";
+> +
+> +		vreg_l1f_e1: ldo1 {
+> +			regulator-name = "vreg_l1f_e1";
+> +			regulator-min-microvolt = <880000>;
+> +			regulator-max-microvolt = <904000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2f_e1: ldo2 {
+> +			regulator-name = "vreg_l2f_e1";
+> +			regulator-min-microvolt = <880000>;
+> +			regulator-max-microvolt = <880000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4f_e1: ldo4 {
+> +			regulator-name = "vreg_l4f_e1";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-4 {
+> +		compatible = "qcom,pmh0110-rpmh-regulators";
+> +		qcom,pmic-id = "H_E0";
+> +
+> +		vreg_l1h_e0: ldo1 {
+> +			regulator-name = "vreg_l1h_e0";
+> +			regulator-min-microvolt = <936000>;
+> +			regulator-max-microvolt = <936000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2h_e0: ldo2 {
+> +			regulator-name = "vreg_l2h_e0";
+> +			regulator-min-microvolt = <880000>;
+> +			regulator-max-microvolt = <880000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3h_e0: ldo3 {
+> +			regulator-name = "vreg_l3h_e0";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4h_e0: ldo4 {
+> +			regulator-name = "vreg_l4h_e0";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +};
+> +
+> +&gpu {
+> +	status = "okay";
+> +};
+> +
+> +&gmu {
+> +	status = "okay";
+> +};
+> +
+> +&i2c0 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	touchpad@2c {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x2c>;
+> +
+> +		hid-descr-addr = <0x20>;
+> +		interrupts-extended = <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		vdd-supply = <&vreg_misc_3p3>;
+> +		vddl-supply = <&vreg_l15b_e0>;
+> +
+> +		pinctrl-0 = <&tpad_default>;
+> +		pinctrl-names = "default";
+> +
+> +		wakeup-source;
+> +	};
+> +
+> +	keyboard@3a {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x3a>;
+> +
+> +		hid-descr-addr = <0x1>;
+> +		interrupts-extended = <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		vdd-supply = <&vreg_misc_3p3>;
+> +		vddl-supply = <&vreg_l15b_e0>;
+> +
+> +		pinctrl-0 = <&kybd_default>;
+> +		pinctrl-names = "default";
+> +
+> +		wakeup-source;
+> +	};
+> +
+> +	/* Something @ 0x5b */
+> +};
+> +
+> +&i2c5 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&i2c8 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	touchscreen@14 {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x14>;
+> +
+> +		hid-descr-addr = <0x1>;
+> +		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		post-power-on-delay-ms = <200>;
+> +
+> +		vdd-supply = <&vreg_misc_3p3>;
+> +		vddl-supply = <&vreg_l15b_e0>;
+> +
+> +		pinctrl-0 = <&ts0_default>;
+> +		pinctrl-names = "default";
+> +	};
+> +};
+> +
+> +&i2c9 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	/* EC @ 0x70, irq = TLMM 66 */
+> +};
+> +
+> +&lpass_vamacro {
+> +	pinctrl-0 = <&dmic01_default>, <&dmic23_default>;
+> +	pinctrl-names = "default";
+> +	qcom,dmic-sample-rate = <4800000>;
+> +};
+> +
+> +&mdss {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp0 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp0_out {
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +};
+> +
+> +&mdss_dp1 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp1_out {
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +};
+> +
+> +&mdss_dp2 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp2_out {
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +};
+> +
+> +&mdss_dp3 {
+> +	/delete-property/ #sound-dai-cells;
+> +
+> +	status = "okay";
+> +
+> +	aux-bus {
+> +		panel {
+> +			compatible = "samsung,atna40hq08", "samsung,atna33xc20";
+> +			enable-gpios = <&tlmm 18 GPIO_ACTIVE_HIGH>;
+> +			power-supply = <&vreg_edp_3p3>;
+> +
+> +			pinctrl-0 = <&edp_bl_en>;
+> +			pinctrl-names = "default";
+> +
+> +			port {
+> +				edp_panel_in: endpoint {
+> +					remote-endpoint = <&mdss_dp3_out>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&mdss_dp3_out {
+> +	data-lanes = <0 1 2 3>;
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +
+> +	remote-endpoint = <&edp_panel_in>;
+> +};
+> +
+> +&mdss_dp3_phy {
+> +	vdda-phy-supply = <&vreg_l2f_e1>;
+> +	vdda-pll-supply = <&vreg_l4f_e1>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie4 {
+> +	pinctrl-0 = <&pcie4_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie4_phy {
+> +	vdda-phy-supply = <&vreg_l1c_e1>;
+> +	vdda-pll-supply = <&vreg_l4f_e1>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie4_port0 {
+> +	reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
+> +	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
+> +
+> +	wifi@0 {
+> +		compatible = "pci17cb,1107";
+> +		reg = <0x10000 0x0 0x0 0x0 0x0>;
+> +
+> +		vddaon-supply = <&vreg_pmu_aon_0p59>;
+> +		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+> +		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+> +		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+> +		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+> +		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+> +		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+> +		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
+> +		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
+> +	};
+> +};
+> +
+> +&pcie5 {
+> +	vddpe-3v3-supply = <&vreg_nvme>;
+> +
+> +	pinctrl-0 = <&pcie5_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie5_phy {
+> +	vdda-phy-supply = <&vreg_l2f_e0>;
+> +	vdda-pll-supply = <&vreg_l4h_e0>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie5_port0 {
+> +	reset-gpios = <&tlmm 152 GPIO_ACTIVE_LOW>;
+> +	wake-gpios = <&tlmm 154 GPIO_ACTIVE_LOW>;
+> +};
+> +
+> +&pcie6 {
+> +	vddpe-3v3-supply = <&vreg_wwan>;
+> +
+> +	pinctrl-0 = <&pcie6_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie6_phy {
+> +	vdda-phy-supply = <&vreg_l1c_e1>;
+> +	vdda-pll-supply = <&vreg_l4f_e1>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie6_port0 {
+> +	reset-gpios = <&tlmm 149 GPIO_ACTIVE_LOW>;
+> +	wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
+> +};
+> +
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v5->v6:
- * No change.
-v4->v5:
- * No change.
-v3->v4:
- * No change.
-v2->v3:
- * Added Rb tag from Rob.
-v1->v2:
- * Created separate document for RZ/G3E GPT.
- * Updated commit header and description.
----
- .../bindings/pwm/renesas,rzg3e-gpt.yaml       | 323 ++++++++++++++++++
- 1 file changed, 323 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
+Hi Konrad,
 
-diff --git a/Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml b/Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
-new file mode 100644
-index 000000000000..cb4ffab5f47f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
-@@ -0,0 +1,323 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/renesas,rzg3e-gpt.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Renesas RZ/G3E General PWM Timer (GPT)
-+
-+maintainers:
-+  - Biju Das <biju.das.jz@bp.renesas.com>
-+
-+description: |
-+  RZ/G3E General PWM Timer (GPT) composed of 16 channels with 32-bit
-+  timer. It supports the following functions
-+  * 32 bits x 16 channels.
-+  * Up-counting or down-counting (saw waves) or up/down-counting
-+    (triangle waves) for each counter.
-+  * Clock sources independently selectable for each channel.
-+  * Four I/O pins per channel.
-+  * Two output compare/input capture registers per channel.
-+  * For the two output compare/input capture registers of each channel,
-+    four registers are provided as buffer registers and are capable of
-+    operating as comparison registers when buffering is not in use.
-+  * In output compare operation, buffer switching can be at crests or
-+    troughs, enabling the generation of laterally asymmetric PWM waveforms.
-+  * Registers for setting up frame cycles in each channel (with capability
-+    for generating interrupts at overflow or underflow)
-+  * Generation of dead times in PWM operation.
-+  * Synchronous starting, stopping and clearing counters for arbitrary
-+    channels.
-+  * Count start, count stop, count clear, up-count, down-count, or input
-+    capture operation in response to a maximum of 8 ELC events.
-+  * Count start, count stop, count clear, up-count, down-count, or input
-+    capture operation in response to the status of two input pins.
-+  * Starting, clearing, stopping and up/down counters in response to a
-+    maximum of four external triggers.
-+  * Output pin disable function by detected short-circuits between output
-+    pins.
-+  * A/D converter start triggers can be generated.
-+  * Compare match A to F event and overflow/underflow event can be output
-+    to the ELC.
-+  * Enables the noise filter for input capture.
-+  * Logical operation between the channel output.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r9a09g047-gpt  # RZ/G3E
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#pwm-cells':
-+    const: 3
-+
-+  interrupts:
-+    items:
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.0
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.0
-+      - description: A and B both high interrupt for channel GPT{0,1}.0
-+      - description: A and B both low interrupt for channel GPT{0,1}.0
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.1
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.1
-+      - description: A and B both high interrupt for channel GPT{0,1}.1
-+      - description: A and B both low interrupt for channel GPT{0,1}.1
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.2
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.2
-+      - description: A and B both high interrupt for channel GPT{0,1}.2
-+      - description: A and B both low interrupt for channel GPT{0,1}.2
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.3
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.3
-+      - description: A and B both high interrupt for channel GPT{0,1}.3
-+      - description: A and B both low interrupt for channel GPT{0,1}.3
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.4
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.4
-+      - description: A and B both high interrupt for channel GPT{0,1}.4
-+      - description: A and B both low interrupt for channel GPT{0,1}.4
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.5
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.5
-+      - description: A and B both high interrupt for channel GPT{0,1}.5
-+      - description: A and B both low interrupt for channel GPT{0,1}.5
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.6
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.6
-+      - description: A and B both high interrupt for channel GPT{0,1}.6
-+      - description: A and B both low interrupt for channel GPT{0,1}.6
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.7
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.7
-+      - description: A and B both high interrupt for channel GPT{0,1}.7
-+      - description: A and B both low interrupt for channel GPT{0,1}.7
-+
-+  interrupt-names:
-+    items:
-+      - const: gtcia0
-+      - const: gtcib0
-+      - const: gtcic0
-+      - const: gtcid0
-+      - const: gtcie0
-+      - const: gtcif0
-+      - const: gtcih0
-+      - const: gtcil0
-+      - const: gtcia1
-+      - const: gtcib1
-+      - const: gtcic1
-+      - const: gtcid1
-+      - const: gtcie1
-+      - const: gtcif1
-+      - const: gtcih1
-+      - const: gtcil1
-+      - const: gtcia2
-+      - const: gtcib2
-+      - const: gtcic2
-+      - const: gtcid2
-+      - const: gtcie2
-+      - const: gtcif2
-+      - const: gtcih2
-+      - const: gtcil2
-+      - const: gtcia3
-+      - const: gtcib3
-+      - const: gtcic3
-+      - const: gtcid3
-+      - const: gtcie3
-+      - const: gtcif3
-+      - const: gtcih3
-+      - const: gtcil3
-+      - const: gtcia4
-+      - const: gtcib4
-+      - const: gtcic4
-+      - const: gtcid4
-+      - const: gtcie4
-+      - const: gtcif4
-+      - const: gtcih4
-+      - const: gtcil4
-+      - const: gtcia5
-+      - const: gtcib5
-+      - const: gtcic5
-+      - const: gtcid5
-+      - const: gtcie5
-+      - const: gtcif5
-+      - const: gtcih5
-+      - const: gtcil5
-+      - const: gtcia6
-+      - const: gtcib6
-+      - const: gtcic6
-+      - const: gtcid6
-+      - const: gtcie6
-+      - const: gtcif6
-+      - const: gtcih6
-+      - const: gtcil6
-+      - const: gtcia7
-+      - const: gtcib7
-+      - const: gtcic7
-+      - const: gtcid7
-+      - const: gtcie7
-+      - const: gtcif7
-+      - const: gtcih7
-+      - const: gtcil7
-+
-+  clocks:
-+    items:
-+      - description: Core clock (PCLKD)
-+      - description: Bus clock (PCLKA)
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: bus
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    items:
-+      - description: Reset for bus clock (PCLKA/PCLKD)
-+      - description: Reset for core clock (PCLKD)
-+
-+  reset-names:
-+    items:
-+      - const: rst_p
-+      - const: rst_s
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - resets
-+  - reset-names
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/renesas,r9a09g047-cpg.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    pwm@13010000 {
-+        compatible = "renesas,r9a09g047-gpt";
-+        reg = <0x13010000 0x10000>;
-+        interrupts = <GIC_SPI 538 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 546 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 554 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 562 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 570 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 578 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 586 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 594 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 539 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 547 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 555 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 563 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 571 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 579 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 587 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 595 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 540 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 548 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 556 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 564 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 572 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 580 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 588 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 596 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 541 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 549 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 557 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 565 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 573 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 581 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 589 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 597 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 542 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 550 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 558 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 566 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 574 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 582 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 590 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 598 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 543 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 551 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 559 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 567 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 575 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 583 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 591 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 599 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 544 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 552 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 560 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 568 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 576 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 584 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 592 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 600 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 545 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 553 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 561 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 569 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 577 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 585 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 593 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>;
-+        interrupt-names = "gtcia0", "gtcib0", "gtcic0", "gtcid0",
-+                          "gtcie0", "gtcif0", "gtcih0", "gtcil0",
-+                          "gtcia1", "gtcib1", "gtcic1", "gtcid1",
-+                          "gtcie1", "gtcif1", "gtcih1", "gtcil1",
-+                          "gtcia2", "gtcib2", "gtcic2", "gtcid2",
-+                          "gtcie2", "gtcif2", "gtcih2", "gtcil2",
-+                          "gtcia3", "gtcib3", "gtcic3", "gtcid3",
-+                          "gtcie3", "gtcif3", "gtcih3", "gtcil3",
-+                          "gtcia4", "gtcib4", "gtcic4", "gtcid4",
-+                          "gtcie4", "gtcif4", "gtcih4", "gtcil4",
-+                          "gtcia5", "gtcib5", "gtcic5", "gtcid5",
-+                          "gtcie5", "gtcif5", "gtcih5", "gtcil5",
-+                          "gtcia6", "gtcib6", "gtcic6", "gtcid6",
-+                          "gtcie6", "gtcif6", "gtcih6", "gtcil6",
-+                          "gtcia7", "gtcib7", "gtcic7", "gtcid7",
-+                          "gtcie7", "gtcif7", "gtcih7", "gtcil7";
-+        clocks = <&cpg CPG_MOD 0x31>, <&cpg CPG_MOD 0x31>;
-+        clock-names = "core", "bus";
-+        power-domains = <&cpg>;
-+        resets = <&cpg 0x59>, <&cpg 0x5a>;
-+        reset-names = "rst_p", "rst_s";
-+        #pwm-cells = <3>;
-+    };
--- 
-2.43.0
+> +&pmh0101_gpios {
+> +	nvme_reg_en: nvme-reg-en-state {
+> +		pins = "gpio14";
+> +		function = "normal";
+> +		bias-disable;
+> +	};
+> +};
 
+[...]
+
+> +&pmh0101_gpios {
+> +	key_vol_up_default: key-vol-up-default-state {
+> +		pins = "gpio6";
+> +		function = "normal";
+> +		output-disable;
+> +		bias-pull-up;
+> +	};
+> +};
+The &pmh0101_gpios node is extended twice here. Please merge both
+pinctrl states into a single block, similar to the fix already sent
+for glymur-crd.dtsi [1].
+
+While at it, could you also take a look at [1]? It addresses the
+same issue in glymur-crd.dtsi and has been awaiting review.
+
+[1] 
+https://lore.kernel.org/all/20260602-merge-duplicate-pmh0101-gpios-node-v2-1-251107b3d9fe@oss.qualcomm.com/
+
+Thanks,
+Gopikrishna Garmidi.
