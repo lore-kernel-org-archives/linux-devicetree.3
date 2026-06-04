@@ -1,63 +1,63 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D5D33F59A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026DB33E35C
 	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 15:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780586344; cv=none; b=halCLZqTNPEingKhjQqXJhjIx0JoMQwwuWhISyTPvn6M9/zBVo9tKsyDZMmADMwtlBEJBmyUYlouJFUJ2mQz9zzed/3EEWgtTrUaowXgqj8CpK4ip9ezt6ES1Fn6040reeMuPxsE0JI9cfkLkNy+lQkqdlUh4oQODGOI9eNoZi8=
+	t=1780586344; cv=none; b=KvsKcx8VW2rsIMS3CY1uR1ubTadxJwiSr89olMaKhctWRBA4MCsfhVEfDadOI5yyAdKi9TzOTOc2IaTunB8c18HN5lYIDfc9pY7JrfcB7uyKj71h8NzbJrwG5PDB0WSmB66s0oVw1agHZrNPuLEN3PKc/SO1LbE6FUr8hJWKbv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780586344; c=relaxed/simple;
-	bh=CRpSLWc+6zDoJo5DNd7dh84E5+rddROJ9ABvBxZmhN0=;
+	bh=yL2qAKI2jcxosbs/pLkS1PbpJbGzxbxr0FtX8S8lgC4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=llfVWuZQtKm8MH7PY0dWqHnHWzed9c5jYxuhSsSWX9b3XhCs4MEjvDX5ZLiiT7M6pQVjoLtZtvW0ByrdXCJuV8pTWej07rbyBzhIZo5pCTKD7/mgFnMZ0C8DE+l6XRxPVOZs7UzagaSsx6t/Hqmd16X7FUGr+Qy8X3wC71yoA14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iFcG6c2R; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=EPHz1yOzPeoEXPoaHCmy9koD0HvjoXur434CAA+6oxFV+dc99CJs/rTTOwUQNYfvVAnjnlZ6aB6QEVewxTa6vfp/OsOHi0sJ/v4ymDWgvF1QkPQ5mpzvaDeS257xFoEvfXim34c1D0aAbGsnQs8LA7ADkJ2mO35uLfD9IfrgxBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SFW47HuH; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iFcG6c2R"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490ae94a89eso8297895e9.1
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 08:19:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SFW47HuH"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490b43e2b95so7211195e9.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 08:19:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1780586341; x=1781191141; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6/LibZY7W+c/BPC7aBAGNpRUQAiRLmLNuIcbki5KxVc=;
-        b=iFcG6c2RhliYcUmpFoVEkXBokbIxDorzW1n18WxHW+w0h+YyGbc5jcRn+OvDEAjdt2
-         0Dm/yqNEaEh0gads/x5OpbeI2sqZfCqPhNbtGzocPWqvMo0vzO5eRLvNs83eW031OpTM
-         ZTdXb8NhgS63rlKOVBZzuLRT7ikzoThWXfmBRzdwHlcP6alegCJo5GqSNvnhX1fYvu2l
-         SkqO4f9oOSck8KjLDmdCjiKtsvezKngG0/xNaWBQMdXABgoHi3zxYiOO4VjiCEwdqRe5
-         fdEMpCVI5EXJVNv1EA6BISw1nooHrANdjgXxsSOeZIjGkGMJhRqm3u67ZFpJ0QKjP5Cb
-         c4Ew==
+        bh=LWUcXwhNpagO6TYVN1qjS6SxZrgnvhazVIX5TODrDgE=;
+        b=SFW47HuHzzQ7+WwHoHu81QT0srelIUtYheHA53exrwdCVnNhskIczaDqa+pupoSY5g
+         ATfv1vpPRxuLtgWoGgbPhyvlPLal+bkGIH5/PT2VZ5rZMLyBc3c/HaCZnj9JLHPlZ0j+
+         n1NzrdtHgl5Qn2chCKnaM5imudNypFvHITfaZGKXlNxLw1rlRu6wrRhvU6kG5mM2uFFQ
+         DVUrUeSpT4WAY38BibBmpwTuOxP+Ou4cdejPzDBaH/R78UiXUDRT0Wz+pJHIT9DOsrBK
+         UI/nf3lZcMIKgNFiRfw71T1oklM3NvBswtUPJty5cQnVwGJ9p0+WsXfVKixlYtUJKwyQ
+         RPkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1780586341; x=1781191141;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6/LibZY7W+c/BPC7aBAGNpRUQAiRLmLNuIcbki5KxVc=;
-        b=s5pu8wnQXZ1puo/hwNtSNHv1ESd6iTIWj0DEEMqro4fpCsBVqsA/y0QWMLJXHxPaoX
-         eRkcKLT2lJvSL7840nayf89JvlyFj8eWGFAHuDtu9dI+q8aPhjmuUrox/ns0Qmous6O8
-         QhXhFvcLHXqSBb8VpPQqN3fgKAH9K2eM3X3/WOA15CCpGgvNKs60yUaGIHaJlxbAtS89
-         pjUAQVQo1tXgfBlS5EXZEW6fnbanJYMujuxEJDkpvR5mhT7IGoil6sKqP68Np09YPwN5
-         AMH1QFcNlFTs3DQ8EIQ42siGJq5yznMKPtzavJOhWrKVhD6MO341VgkZB6fnabkS81ps
-         bBeA==
-X-Forwarded-Encrypted: i=1; AFNElJ8OrdIBN7+olFN1I4YTds6V53JNZAWxeFk39RZeTWFRL4PZHpkbUZ+dEXCkGGOpy/oL6PnpjOOVhjkn@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjNM2CuCaba3OaeYWHITm7RH116ICVwtAImGaiksLrSvCr4WbT
-	VxQ6rFEtQbbdSmGgEoUKJlRxvnz8J40ud6JhidFkG2FnEzBETM/Gwrvn
-X-Gm-Gg: Acq92OHZ9yJZmVQkmny1CE7tA+ULH+Ix32dk7B+icE8hrcTVNdx7znurfqvFrie3ABg
-	hOLeym8tOCFXNjuHxdk8UTZVfGfNlhZFc5ueaJ08mKNmpG4BaNbqntlY8joC8GPU77+o+ickKEy
-	TPLyNBa7Y/ceq8YSGrFfNfaCl5Ej7cWGzh+1n75eHkipFz3fz77E4D6KI9wgMK4qDZbu6Yb+Hug
-	onTSQKk2grfHJPryHe5+/oXDxD35i+xdbQ0euCmcMgdi0TffyP284it927HCnBeda0iJgYyYfqO
-	7jTza9MLMZ1MiqqSfMGLvFas5IF6ZZ271/qcMn+diU+2oSqfH6vmcYaHgOmd4pV8MnsuVEszSEL
-	15ZERrMuQZ6egSZIZ8iH6vOcny+C9oE3a8KLFFYQ8W5zYnDJdEbrChFVrKHPOTu53HbgGZMqh9R
-	v0HsLWKgXc3jO9lxlsdi3SWxzKeVBNoFTqLuhO4qlt2WdB+fktx8uhF0MoCAM=
-X-Received: by 2002:a05:600c:a09:b0:490:4e3e:b483 with SMTP id 5b1f17b1804b1-490b5fe66ebmr139763285e9.22.1780586340547;
-        Thu, 04 Jun 2026 08:19:00 -0700 (PDT)
+        bh=LWUcXwhNpagO6TYVN1qjS6SxZrgnvhazVIX5TODrDgE=;
+        b=KsFxrrL/gwlsKhin/eD+4BTIq6KiNF7zUI895H0XGUPWlibBeQmZwdfnzAS9B2cZXy
+         0Quu6IxOytJGfPUOG8vtiJS3DaUZiRPJTZvRXgD6VDOnJ9ATVnqmHZtRB8tjDn/6MX3x
+         eX+lniY8esJzTwqva3sJaHBMx96+6ib/3nSlBnboQtG9VjBy9X5x1XuRayH4RAKvXtgd
+         PHgC4BuuZeS5x62ovOMrkDmph7vP2RuHr3FeHcR7kDouMCz3V1380D02gXIgE3LF3yrg
+         t2DBLGHKhUBflAqsE6+aBFKD1a4BejQwUDkI+K4Yfas837kaJhXUJ5HAaOyF0PiIzqVs
+         8UZg==
+X-Forwarded-Encrypted: i=1; AFNElJ+fqc5aeR42OoOSQMQGI3J0YJrcEMqpDNe2i6VlSTKp88PWJpktS3qUv97iB/wEpbw2/CW9Jq6jQYmo@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjPMzhYIOKSXeLdd74NbEipqGVPaKw2PJ9HlVxP1SIErDAr17C
+	UwGPFJBAzkXMuYmwGu1oZs5gCAAgSRMUVJnvH+IHny8ydTWaknUpenqQ
+X-Gm-Gg: Acq92OEMb8hddLM78Psw19bw5y17ptt9HGWQMLKEr53H+Hm3fCFvQ+/W0gjpYETIfcr
+	ODHE6pGG0dkwiM7lEOFu8OWmoKObNI0s1mhRsnTVS4/lKIVprkbD33ayxBgAXEskC9VI1OHJHxZ
+	OWZZyXNLvShoz6VXz9wh4ZqgKCjo93GxU5NjcT/HHR7OJACWtO9KeHADLLJzdRJbGkO+9Zr9qzJ
+	d62/oiLIcg7o6rTjKOAB5DoLwWGz25HxnzfHjG8s8vxw7VHxwOEqbLPRnyiTWkDqivy7QLKgFnd
+	DK9k7HiXdUbBAdeYkUZq4DGlBiQg0oer/jZKndXm2pvWKWIhLae2J/MpqnxgmUADhi6fAmUW09Y
+	qB2tmRLHW+yJy2f8cATok1jQVst+N3PlYLP8OHEiCg7+80oul0p1th2jr2+Gb1PlCbbslxBJkeK
+	Jrgv7m/UwLWiS5HZdyx+Q6EweWeLGj351jkqZ+Wwse1eu7Nz1vSt3E/+5Q2P8=
+X-Received: by 2002:a05:600c:5288:b0:490:b0f1:c27e with SMTP id 5b1f17b1804b1-490b5ee1c64mr140495465e9.24.1780586341284;
+        Thu, 04 Jun 2026 08:19:01 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a700:7301:1615:3574:e0c0:837d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b82sm82776805e9.1.2026.06.04.08.18.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b82sm82776805e9.1.2026.06.04.08.19.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 08:19:00 -0700 (PDT)
+        Thu, 04 Jun 2026 08:19:01 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -71,9 +71,9 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	linux-kernel@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 2/3] arm64: dts: renesas: r9a08g046: Add Mali-G31 GPU node
-Date: Thu,  4 Jun 2026 16:18:50 +0100
-Message-ID: <20260604151855.307772-3-biju.das.jz@bp.renesas.com>
+Subject: [PATCH 3/3] arm64: dts: renesas: rzg3l-smarc-som: Enable Mali-G31
+Date: Thu,  4 Jun 2026 16:18:51 +0100
+Message-ID: <20260604151855.307772-4-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260604151855.307772-1-biju.das.jz@bp.renesas.com>
 References: <20260604151855.307772-1-biju.das.jz@bp.renesas.com>
@@ -87,160 +87,49 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add the Mali-G31 GPU node to the SoC DTSI.
+Enable the Mali-G31 (GPU) node on the RZ/G3L SMARC SoM board.
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
-This patch depend upon [1]
-[1] https://lore.kernel.org/all/20260603065731.93243-16-biju.das.jz@bp.renesas.com/
+This patch depend upon [1] and [2]
+[1] https://lore.kernel.org/all/20260603065731.93243-17-biju.das.jz@bp.renesas.com/
+[2] https://lore.kernel.org/all/20260603065731.93243-18-biju.das.jz@bp.renesas.com/
 ---
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 126 +++++++++++++++++++++
- 1 file changed, 126 insertions(+)
+ arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index ce42c945fdf4..0c1cb22aada0 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -64,6 +64,110 @@ opp-1200000000 {
- 		};
+diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+index 3d5e6b8489a9..fd2aa064f9a4 100644
+--- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
++++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+@@ -51,6 +51,15 @@ memory@48000000 {
+ 		reg = <0x0 0x48000000 0x0 0x78000000>;
  	};
  
-+	gpu_opp_table: opp-table-1 {
-+		compatible = "operating-points-v2";
-+
-+		opp-600000000 {
-+			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-533330000 {
-+			opp-hz = /bits/ 64 <533330000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-500000000 {
-+			opp-hz = /bits/ 64 <500000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-400000000 {
-+			opp-hz = /bits/ 64 <400000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-300000000 {
-+			opp-hz = /bits/ 64 <300000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-266667000 {
-+			opp-hz = /bits/ 64 <266667000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-250000000 {
-+			opp-hz = /bits/ 64 <250000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-200000000 {
-+			opp-hz = /bits/ 64 <200000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-150000000 {
-+			opp-hz = /bits/ 64 <150000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-133333000 {
-+			opp-hz = /bits/ 64 <133333000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-125000000 {
-+			opp-hz = /bits/ 64 <125000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-100000000 {
-+			opp-hz = /bits/ 64 <100000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-75000000 {
-+			opp-hz = /bits/ 64 <75000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-66667000 {
-+			opp-hz = /bits/ 64 <66667000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-62500000 {
-+			opp-hz = /bits/ 64 <62500000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-50000000 {
-+			opp-hz = /bits/ 64 <50000000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-18750000 {
-+			opp-hz = /bits/ 64 <18750000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-16667000 {
-+			opp-hz = /bits/ 64 <16667000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-15625000 {
-+			opp-hz = /bits/ 64 <15625000>;
-+			opp-microvolt = <1000000>;
-+		};
-+
-+		opp-12500000 {
-+			opp-hz = /bits/ 64 <12500000>;
-+			opp-microvolt = <1000000>;
-+		};
++	reg_1p0v: regulator-1p0v {
++		compatible = "regulator-fixed";
++		regulator-name = "fixed-1.0V";
++		regulator-min-microvolt = <1000000>;
++		regulator-max-microvolt = <1000000>;
++		regulator-boot-on;
++		regulator-always-on;
 +	};
 +
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-@@ -592,6 +696,28 @@ ssi3: ssi@100e4c00 {
- 			status = "disabled";
- 		};
+ 	reg_1p8v: regulator-1p8v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "fixed-1.8V";
+@@ -119,6 +128,11 @@ &extal_clk {
+ 	clock-frequency = <24000000>;
+ };
  
-+		gpu: gpu@108b0000 {
-+			compatible = "renesas,r9a08g046-mali",
-+				     "arm,mali-bifrost";
-+			reg = <0x0 0x108b0000 0x0 0x10000>;
-+			interrupts = <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 179 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "job", "mmu", "gpu", "event";
-+			clocks = <&cpg CPG_MOD R9A08G046_GE3D_CLK>,
-+				 <&cpg CPG_MOD R9A08G046_GE3D_AXI_CLK>,
-+				 <&cpg CPG_MOD R9A08G046_GE3D_ACE_CLK>;
-+			clock-names = "gpu", "bus", "bus_ace";
-+			power-domains = <&cpg>;
-+			resets = <&cpg R9A08G046_GE3D_RESETN>,
-+				 <&cpg R9A08G046_GE3D_AXI_RESETN>,
-+				 <&cpg R9A08G046_GE3D_ACE_RESETN>;
-+			reset-names = "rst", "axi_rst", "ace_rst";
-+			operating-points-v2 = <&gpu_opp_table>;
-+			status = "disabled";
-+		};
++&gpu {
++	status = "okay";
++	mali-supply = <&reg_1p0v>;
++};
 +
- 		cpg: clock-controller@11010000 {
- 			compatible = "renesas,r9a08g046-cpg";
- 			reg = <0 0x11010000 0 0x10000>;
+ &i2c0 {
+ 	pinctrl-0 = <&i2c0_pins>;
+ 	pinctrl-names = "default";
 -- 
 2.43.0
 
