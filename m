@@ -1,174 +1,94 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010047.outbound.protection.outlook.com [52.101.84.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D608351C34;
-	Thu,  4 Jun 2026 19:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780600550; cv=fail; b=cleX4lXH3vgxI/ev8ubjT7O30iNw9FlnFxdYI7UfE/AimYhpKgm29g8bZ3/qrjLmRRP6qExqjPM48ShDRsDGPoc4ZboTfR0gl22hih3BVsFdO1ncsy3ZM1ARJaf+GOPQgxxCleebsXmDKGRZRQOYo1oY2m7Z0gyEngaQqBW8zGk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780600550; c=relaxed/simple;
-	bh=UvdrL/1V8I3pX0waX/br1lYgukScTR6oVfb7eScZo4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TkkZXolgH4LUOUogxPPNGFgtVCn6Y+idQm0zGD7xvitv+/YlnKhSeLndmKZBjbPsdfTRy1xT007OnAsTzDBaLy36b4CKM7KCBHYyZbdtP5Tni8QeL1vmLyzjgFzxKGTBt9B9K7/qK+6mY4YsCDgofxEWUroGc4mD/os0tm63ajc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=IdgBlu8u; arc=fail smtp.client-ip=52.101.84.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753BF3AEF47;
+	Thu,  4 Jun 2026 19:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780601443; cv=none; b=dRy6zi5MPtIK8cKEUYNyCp92IW8SqeTTZZyQPGM2WuhZfYaGptzJ+khY02Th2mQeaj4hkKB9uzCh//SF2x5928lsJIzcAMcgk348RPm7MEtKkx8qiMDsU7OpKKRcfFfRTwafCw94/p6YWUAyGMIjN2mszJb0npk0llqJudx6lQQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780601443; c=relaxed/simple;
+	bh=Pin8H9BogkJ7U717XiJLUN2vmpYZFYMvJMGkm2VhZ1M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rP0TRkzlCAdoP+tcS6BLrA5qGC5x5T3xJX2A93ej3RqeurIGMru775mM1oIjpjoLzjRNSq3ZxuV7XXHCmWsEHaXfLr+bqoTFw5uhBCd679RdHkXe2ybz8qyDd6xaXMJ2LE/YhJgv2AER0oUDmSWGGzbIFBcN4ML6Wc+f4q/sotk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWnHP30x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="IdgBlu8u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M6EDwvHNx/GtApqKb7bjnZUtKNVtxg15i7K0Ne3LqlIb8TPSFeUf2qa09kYm+U8+5RdXBI9TuG+Gl9LnaXe/CzwoYb9fr0Hsml555DB4+mmdngKKLXX1ufvrq0p2kFusJzMLFd66x2XdVSZ6ZDMF+sNit8GYfAV0jZAoZRzx4RZRwMPDGS+7pdqbDLd+P2U9LWoxwVsxmUjw/gELU/sa5N+92nEDFXHYkS9s03e+i0XKn6U9t8QWZLWKzYWe6zj/MdQYdlSzjAP92G/h1uKcLW1DusLO2H6C77Hjaku7onkQFMMJoOV8WOSDwQZ9ndbPRuMSbiOLvFxOE6/CBhOEiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W6EGrg5UwnV5IvidGXvqgZQhsMkGhuFYeQPlqZ4EPK8=;
- b=wC7diGh7/yYiTsdNuFga67YMSTZjmS8ggod3J1J2kTeiZMzDojoDT3PtLGla2txbLoA7O4RAwkRdnZ5fAx7Pkp06MQFg7neElbeW4bO8lNsCiwwXbDGTQjjiMXeBY9fJ5A2Mw8WityEzQAE/HzdNMuMJCjzPTxysLSG95vQDtkBRZxjxZUgYnygceOiMsf5tIPT+RnBciM9mu16FdLcMTAmovqj8vTqGbXAPpc+51AzD5otN8JTfIw8rhai4f+M19qxak/CtBIQmDgCpw0q1rnBr+tQu/qocC9YSSZeU1vxDKWuGlXLO+b4TLDiEnraF2t//wZfQC8LmCpK4SQAhyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W6EGrg5UwnV5IvidGXvqgZQhsMkGhuFYeQPlqZ4EPK8=;
- b=IdgBlu8uz5zhrU/B2fwQiGIoVgGkqLV4OAn6tqykknKx4c2uQbZ9s3RiHjEpUSF0L1lvRBXilGEfVJUAxWqjQxxy752DYvWnJ3GbA3MzGcZs7J1Lh+rwmmFmETQpf0kV1pXTN8MuEVgy8fdaexY+EGyoJr/xzhsTDE+yRoeArFRIOVRXwCAAUYtRgCYmnD/pi2hmegDl9TPw5xd79WMTs5L1eDOkQ/dvJEyiojuMLMfIxsmeunmBr90kZPHg/ROVneBI+q4HrXQbiN06C61SvhAwj4iwz4lw7RyUSi+KjNFMsGou+ZTUvdJVFQ/MbjgTbDSS2XTOpzu4g9g1u4QptQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AS8PR04MB9176.eurprd04.prod.outlook.com (2603:10a6:20b:44b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 19:15:45 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
- 19:15:45 +0000
-Date: Thu, 4 Jun 2026 15:15:38 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Daniel J Blueman <daniel@quora.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,sm8550-iris: Allow IOVA
- reservation memory-region
-Message-ID: <aiHO2sjVL96zEVJi@lizhi-Precision-Tower-5810>
-References: <20260601041336.9497-1-daniel@quora.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601041336.9497-1-daniel@quora.org>
-X-ClientProxiedBy: SA0PR11CA0192.namprd11.prod.outlook.com
- (2603:10b6:806:1bc::17) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWnHP30x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3A91F00893;
+	Thu,  4 Jun 2026 19:30:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780601442;
+	bh=oNcPvIY/PL/9K3Doc4NxgXT4TXrB146o28IS/0HWf4Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FWnHP30xglry+v0j2mbdw3Sr8mFJCZbV5f97LYzjV6Yhws9RlyAp9BsxA8xlqwgaw
+	 l3iZVLZQk3KwO92yfb1uzEI7MOmbGPE4GyO0KkKJ68XUh+3OXvoyozrflv/m5YmF5a
+	 /1cWjLuJ9+83MoOFSOU/lZ5ad67oLjFvLEYhF1iPRxWQsLkheLkmn4n4cXnVdUbGyw
+	 Ka849exeLq3PaeUocTIUZmtHtL+nSAI/8BIABbQkkBuIFbwsYXM3GgKkyMyWSopgoE
+	 sjzmeQvbFQBfjkc0S11sagHHzp4n6ffYXQnYu6JuJhaNJvzbZHWaT2VN/wsgEQ2ZFx
+	 38DnzBwJVCdDw==
+Date: Thu, 4 Jun 2026 14:30:41 -0500
+From: Rob Herring <robh@kernel.org>
+To: Wandun <chenwandun1@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH 1/2] of: reserved_mem: avoid stack buffer overflow in
+ fdt_scan_reserved_mem()
+Message-ID: <20260604193041.GA1057262-robh@kernel.org>
+References: <20260604073611.3954433-2-chenwandun1@gmail.com>
+ <20260604074520.D5B181F00893@smtp.kernel.org>
+ <757480ae-2d7d-40e9-9900-edd14ed3b3ac@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB9176:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44866be3-2bfe-4b30-2b8d-08dec26dad4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|52116014|1800799024|38350700014|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	b7sQ8u027c5HABFHZBeAQQ8xLouXUkQF3nIWgXdY+GKOfEm8WaI8U0dcGAL5COgjECRZeKqr1cNazwl8nEfzQTwaOyyxI2x2nQk0tPJUbc+mpOnnu9OiGhFppPkFhey9aLZ+pEEW5BEDW73jPeQKJ1zTiBvEwJ+SRl+9xfXtyRSd64suMvkuF5VnDOFgTq06HU62vGG0Is6ZHZj4eaXKsC62EZMYyWzYdsuWXUYZuypciIiAPMiJJqQ3SKUKcfMJyL+bLDq5Z7k6fJD9Law2KdkLtCrt1WRfLb7S7wmPCSTpGNCCpjGtUPZELZwrrf6b5vMMUBUUjrcTPXqiKiVlOpQVYJv0Ui3rl/rpTmiF4aWQVn2xAK/tOeOp76j0wd/M++IQAtKa3YJG/ifBMZiyXAaz9UsXuBiUHI9LS2UoVG6CQdtDw3SxA5JHDtuYTtV8SjE+UfX0kmIyj+ZExHAF+NZBwhiGiJpLUkCxnDbUA+5dCyei0to86jGJ+m2DfhQdydT9rVcZ1jpI7Vzu1iKGW7pOohld+4AEnN9gjbuqI1963RgtX5ejKrWzXvC7GqUmKs+q4qyFcYl843cqNZLOna3SpRPR2FSk3VLyxOeum/ru0SzB5x0WLO5nJKafKGfW3TLLq2RxvdCsKhY0QsoDPwn1qKWc5WI8aot0M9ZoJ0gRrmfxamRWsw/eVY76segKt7QmS/J2akjden2i4UMqeAnjPo+pUfO6CyaCfLEa07oblPwc9pIDQIxpRB8prsUs
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(52116014)(1800799024)(38350700014)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YzmeA79QBHkFeDSxBA9kNbRVYCDmKZwvsxxi9J7lQlkkj6RdeVZ5yPP7142G?=
- =?us-ascii?Q?VvwY4i9byOQyZ/0hYYofJ947HOJHyZGa6NQ0mF9KvkWZ6IvipMTXgaB3xK3/?=
- =?us-ascii?Q?bB2yHvhbCZ+XxKQNSMJQdZ+qJ+bfM63kVCJfeNJteqVrFxAqo4x91XAzZZox?=
- =?us-ascii?Q?I/YT38j9LtEcXrM0hfxIkqP8UNdGqjzz2mYIcZ0i3Ms1cIV4ZEWti/34X/9X?=
- =?us-ascii?Q?9bf2eH2COun9GpqvJJ4SIf3OiIz7OeU4d9xTGeTgpa7FfRM14ur9giXvyjzF?=
- =?us-ascii?Q?DzZCvw+Js07UYUCLyz7uLys+GvMCzm74pnFvFIj+JnQ+yM9dw//TviVxDAna?=
- =?us-ascii?Q?8EZ2Rd/R02QbnXm8jcxaNkUjfZk4zU/zke+L5FhF5XdF7p/SdKW+Df1PN54K?=
- =?us-ascii?Q?mCDpLfVkHqro1B245L/0jg3B5AE2vso+gAWi3yUtGpzpjqspV+XF9CEcdH7w?=
- =?us-ascii?Q?lRG7LEVhgyn2KTI9vmM5HPKtuBvAgv47BA4OhrPtDembnnqJk13WluCJ/YF0?=
- =?us-ascii?Q?2uzkNJsncimI18hc4DYG9c3kKFt0Vu9chT3gkkZ7wCZ9OODY7qBtIpEci7zM?=
- =?us-ascii?Q?wiFo1dkrXePZTUAcR5sMSY5RjXvea6+m8CiNbt4NizoHPntMKM+FfeBMcZ8M?=
- =?us-ascii?Q?siITaEW4ae5D1HIJtaA0ZkgzHQPMJIgk520AW0RtgZgofIfXqw9lymtaFE1T?=
- =?us-ascii?Q?vVSOr2Z5BJ30I25HwXAv497qDqvJTWDmUqNkMR/8+/saTCPNBTVVoFMlz7zd?=
- =?us-ascii?Q?h2GpruAn0sLqqRjn1CYHnccmGJccNKQb2tBBu1hBJ4DUai9uV7BpjGjrot55?=
- =?us-ascii?Q?FFymUP4+4nU+ZgLwQqtPp9VuM6a/Q0k6RFQSujojbnDoXlZzyGUvF/KYrHbT?=
- =?us-ascii?Q?opWBpnQTtcmr+m1x2ShveWNRx5h6ucJ1+6ij31eFZWzlXmPrvGkz3h6YGWEJ?=
- =?us-ascii?Q?YkCssAA7ZX4GnHZOYIG6KPUfXcHdC8ZzFwPgK41V851uDjNU64drf0X8LYp4?=
- =?us-ascii?Q?OgmkP2J+oqWl5GBUx7bI8ZX46Sdsnx5QR1GOxVEqPwklqLFerZaixPmXMLhC?=
- =?us-ascii?Q?vqTinGLx/HhrM/3rcUOdP+sgF4botUJNsyU5BOf2QNj6yqwBU0u1m7iCU6z9?=
- =?us-ascii?Q?P2oSg7ivi1ZHliFYd/RixRwWiCEidc2HEMjDozGgoO1HnATN2sCBM2MG+O2M?=
- =?us-ascii?Q?g9h1K4pwiv663BwQJgi44AwcqkLvb9v9HemuLFuwz46ptIvEUaORI7S8iadl?=
- =?us-ascii?Q?TkR/zSf130qT28fLAox81SWuCVLiGl2zrYc4BezAhecVEc8eEhveh+fDYz9L?=
- =?us-ascii?Q?w5uBsr6Gw2GVnFipVK/AIasogEz1cwH02PlymZbk6QJUimAQQNT4O0lSBI/d?=
- =?us-ascii?Q?dN7bOVp/o+eJGvHIKwEsr+Uq77jAaIh/rR6O2XIcJbhYExdZWeT/ihN7OCms?=
- =?us-ascii?Q?3PBfYgQyWocuMFyqdy4Fz8WrAGOOVzipJXbmxL3Yg8vwM8z5WlJTkJaf6hMS?=
- =?us-ascii?Q?Hy+AEsEF/R9iLZoQDgb0TCsGJY9/TE7BCLkwowwxG21BUCVjn3v59wmiweET?=
- =?us-ascii?Q?mmfeUhD1erP55OyCZgOULJhuOTR9MFbYbWJFA3W196cA6Okv4+rCMJkigYDR?=
- =?us-ascii?Q?WuDxyaaNf0k+sEaZz+5ZXGvyFzSgKm69W/2GqbnvSNdmwdtrEx/o/KKhKm3K?=
- =?us-ascii?Q?OMqo/Ds4hv/drowArMzaHHE7O4DBhIe/KOmJbwNGb2amzprMX34A82JRN19e?=
- =?us-ascii?Q?Jriy6faHqg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44866be3-2bfe-4b30-2b8d-08dec26dad4c
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 19:15:44.9573
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aIHQL3X5ZD0KGPrz2FsHXli857HCXPpOGQmAxRbsVhN2H73Ek1Ls97UouN0+//AeatAkrmu2i9Sql3cjTyyHLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9176
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <757480ae-2d7d-40e9-9900-edd14ed3b3ac@gmail.com>
 
-On Mon, Jun 01, 2026 at 12:13:33PM +0800, Daniel J Blueman wrote:
-> In addition to the firmware-loaded codec carveout, some Iris platforms
-> need to declare an IOMMU IOVA reservation (a reserved-memory node with
-> iommu-addresses) to keep DMA away from IOVA ranges that earlier
-> firmware stages have already mapped through the SMMU.
->
-> Permit a second memory-region phandle for this purpose, and describe
-> the meaning of each entry so the ordering is unambiguous.
->
-> Signed-off-by: Daniel J Blueman <daniel@quora.org>
-> ---
->  Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 9c4b760508b5..6359e4953d42 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -80,7 +80,11 @@ properties:
->    dma-coherent: true
->
->    memory-region:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      - description: Firmware-loaded codec carveout
-> +      - description: IOMMU IOVA reservation region
+On Thu, Jun 04, 2026 at 05:18:09PM +0800, Wandun wrote:
+> 
+> 
+> On 6/4/26 15:45, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] The newly added bounds check for `dynamic_nodes_cnt` is placed outside the block that evaluates whether a node is actually a dynamically-placed region, leading to spurious error logs.
+> > --
+> > 
+> > commit 6a79f526de5e1185b7c79fb469545f4094fb402f
+> > Author: Wandun Chen <chenwandun@lixiang.com>
+> > 
+> > of: reserved_mem: avoid stack buffer overflow in fdt_scan_reserved_mem()
+> > 
+> > This commit adds bounds checking on dynamic_nodes_cnt to prevent a
+> > potential stack buffer overflow in fdt_scan_reserved_mem().
+> > 
+> > Link: https://sashiko.dev/#/patchset/20260604015332.3669384-1-chenwandun1%40gmail.com?part=1 [1]
+> > 
+> > > diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> > > --- a/drivers/of/of_reserved_mem.c
+> > > +++ b/drivers/of/of_reserved_mem.c
+> > [ ... ]
+> > 
+> > > @@ -341,6 +341,12 @@ int __init fdt_scan_reserved_mem(void)
+> > >   		err = __reserved_mem_reserve_reg(child, uname);
+> > >   		if (!err)
+> > >   			count++;
+> > > +
+> > > +		if (dynamic_nodes_cnt >= MAX_RESERVED_REGIONS) {
+> > > +			pr_err_once("Reserved memory: reached MAX_RESERVED_REGIONS(%d)\n",
+> > > +				    MAX_RESERVED_REGIONS);
+> > > +			continue;
+> > > +		}
+> > [Severity: Medium]
+> > Will this bounds check trigger spurious error logs for statically-placed
+> > regions?
+> Yes, it indeed, will fix in v2.
 
-Suppose you want to special iova space. does dma-ranges work for it?
+I now have the same change (and same problems) in another submission:
 
-bus {
-     dma-ranges = <start size>;
-     iris {
-	...
-     }
-}
+https://lore.kernel.org/all/20260603152709.941788-1-ekffu200098@gmail.com/
 
-Frank
->
->    operating-points-v2: true
->
-> --
-> 2.53.0
->
+See my comment there.
+
+Rob
