@@ -1,174 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F6F47F2EF;
-	Thu,  4 Jun 2026 14:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EFA47F2EF
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780584092; cv=none; b=raa3Ns4+jDVtwCcIHDSWaTHUXQzQIxgWS6CIEfj/t4IHmGpxBHNYEJZD0nG1SVPwYqRnHvhlROLhHLrYlb2a30oRiS0rWJgbRVK/s1+p89tD9zlw/jmTKy3XbK/5IWr1rH6XxT7uwiJ3cZck+S0Uz8/f/7NoMW1AJgksT23qJv4=
+	t=1780584163; cv=none; b=EM4copWnghycQMn/fu0jxjL5NGQchcRYPrbCT1U414Q9uQ5hqoxqThcpqYdPEq6knT0D+INFJET2yyimI1n55EWnrs7dnqO1RiHfO0nj+6XJRNxPmqAH9afVeiUJ9ocMJaHAGlcIG18Y0IGYc53w/iyc+3P6yjji219CaekaLOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780584092; c=relaxed/simple;
-	bh=f/aXHOec7Fjcos7o3+A+y8v+N+9N2ix6sZj9maqXNzs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y25XmFJ4n8L7JxwPkhK+nVEeCpBSfZvB/UhD81UcfcrVYpTJGQ2w3Wyr5Z1D7N8FLCTRcnCtw4HaDSVwVymQAIuUgnq1VD0eTQ7WklhHuF/OCDlQWyOxG6/1IIdZzdrcduRF+yGEu5YpjbpizXiAlltqfrXCyJ7ciNzoh5vSL2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGPMgeEo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780584163; c=relaxed/simple;
+	bh=vhH90Bm+Y5GOubvalLv78JVsHd8rKxCyWDTSa6rsBA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T4jnGQ7RuTx44NijrFcBSp3JgD9FynjyXBODEN0VjTUBWa0e5QolVvOec8GlgceBHVFTeSdNqKbjque5xMukghu8BGPUWEzp7J4//hrO7BZLp7I0JB+cPAxntg3q0yqyg7Jcw0jat13RMGCGnrRLb4WHXmLTItd7IM/nVJ98abY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=IaViTx2P; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGPMgeEo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB031F00893;
-	Thu,  4 Jun 2026 14:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780584090;
-	bh=G1LRRSGvnTn7hc3Xb40pGpMrp8iky4bWn+rYEzQz8MU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DGPMgeEoCrqYXuuVTbYSbYcsRO3AiG/2FFJHpRXk26iapmry5XAL1HAIMVwTpVf09
-	 m6pyvh+eIVASwkzhfYb1XB3gIfTqSuQkqsp3h2C/etYltwCIG2ASHtqvozsb6lb6LV
-	 a56lcWw2BMD5KUdMxuZEEAYi8qpEW03KYlnkildlF7KAVd/o4bO+g5kSCxMZumPfxM
-	 udlOkDji874ATX0eupvydA19fCLB3xhSyTo9BI16DoehP7SK3PNDl71kOscO8TZE2g
-	 K6EQDiYBENoTMcCE6ytJYsXvpxL8gISdPZxgS+oWVuqEzDmqaMI+yoClvG/550R3ae
-	 PCO19ENt0I5ug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 16/22] media: i2c: maxim-serdes: add MAX96717 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260604-gmsl2-3_serdes-v13-16-9d8a4919983b@analog.com>
-References: <20260604-gmsl2-3_serdes-v13-16-9d8a4919983b@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:41:30 +0000
-Message-Id: <20260604144130.8AB031F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="IaViTx2P"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-68e5f7c1131so1485969a12.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 07:42:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=imd-tec.com; s=google; t=1780584161; x=1781188961; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=vhH90Bm+Y5GOubvalLv78JVsHd8rKxCyWDTSa6rsBA8=;
+        b=IaViTx2PqjtTj51chp9MWnZ+wdIKHxJ2+KApRN9DpHrRO6TmPyna9wcaeco7aoaARa
+         N7lettrEoh4c8o61E7TFxP0//sfLKj7Zpt4AON0HdrmKEUqdAYs244hoeRnzYQZpejPB
+         ucdt9eSdreTci2g0GvOLS5lFv0JCYh0U377H6l2VEepjHOko2pNDePldYQl6dtTZsJRt
+         tP8k2szFiO+muPRjkb5Ff0uNfWMVIbrTVnvtAhfpVEH9keDDZ+h6I463pK7DisCrrGZY
+         6O0fJ7XeB4albQ95PUC2nJC9i2CfLFRCkfO6qh29wzHYqNSLmOPyO2zXqhvwIQc3FjGX
+         xUoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780584161; x=1781188961;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=vhH90Bm+Y5GOubvalLv78JVsHd8rKxCyWDTSa6rsBA8=;
+        b=msgyrMtCcopO6EFg42qwUqFi2ykb2sKXI/D2WnwsiKn9t1yMMzmnUfPuKDWgE5K+2w
+         b41Sf1SF+Gy41hTm/8f5ysC7VeR9Nyg++IJC25N2RmEruFY/k+pw15Ek97rxKnlpO/al
+         aT+bUKjByxX00BYu8GSoe5TkeHx6Uj34smJ3aR4stuqfQcZOCA9yQBm9Gv+6+n64gspk
+         iJadDD6C5/Svb/v6M+v02rKl3F4pcI1xb8FFp/9rvesJrtvHHrsloTttTckIY1Nmgfdo
+         Bl2In80hyNbB2/kooMu2uNWLIbwq9h6u7YkAcmVQE67H2y9kohEYnEnwjkIvLB38YfmQ
+         2m/w==
+X-Forwarded-Encrypted: i=1; AFNElJ8vUs/nfyrzyD1zEn/YbhYRYz5+q1DwkKWVlBnyWcWzo5IV8PM9kcIpM4KFoLAu8ctml/M/CSl4wNEH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIwU1Vl0ImLPHTIcan8pDgHa7ra3dkdH1n8egrx6NggGRVzTAC
+	j0FBLaOwHui3vgYAJ9CIc4Iyr8rW3smLAZzyRWadiz44lBfAeU2vj/ZjhiIK8jnoBVQ=
+X-Gm-Gg: Acq92OFPeIFDcxRZcAQsZOLnw/Bed7/MS78bkHF+p9V+CZRUxu+cUbtxy/vuUQSKihd
+	xxjWogZXdbL0//ocoAaXHW/gyxuWw+JDg/aaB3bgSOHP2CVWVloE+ntAur+oJzi8mTY+rZAp919
+	4YucffhYUnudP8fvFCYqhMylIi6i0C6RL/kwLqhqPTKCmWZGMIzJiMolepUygve70WWssVz6AfS
+	huErS5FfnUtjYJGwSjUSqy4l2RjmnvSnqwTvQjzhRLl2dU2fLrGXJ/lLDvUO2Hs/oSJ/fSLsIjk
+	HX2xcfgzRE2VyohDiwYodiS4eft/mggL/oPqKlDq6wJZ81rkf4Vg654pR/gHAXqJAR3l+MH7Tmh
+	g64K1SzGsXo0RF+bl64A/xiGGs4Ex9sREchR+9+BH4abAe8rYTfOkbc/FDsyeDZYfZn8kev3RPk
+	kVNMQWGo9Bufvio9uauBNwqDWwkMvqUyFmd54sQuOtSJkvF1YEjY+NWrKTzdAfT8eGZu1PyKmE7
+	Gc9UEqW1R7TNSScqJlW0WQrAylcRER19IY/bqBTBMVHIug0rI1aJC4oWWw=
+X-Received: by 2002:a05:6402:4310:b0:68b:b599:870f with SMTP id 4fb4d7f45d1cf-68e7283b37bmr4564387a12.24.1780584161114;
+        Thu, 04 Jun 2026 07:42:41 -0700 (PDT)
+Received: from will-Legion-Slim-5-16APH8 ([82.71.135.85])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65b55d81sm2642563a12.27.2026.06.04.07.42.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 07:42:40 -0700 (PDT)
+Date: Thu, 4 Jun 2026 15:42:38 +0100
+From: William Bright <william.bright@imd-tec.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Ram Boukobza <ram@imd-tec.com>,
+	Tendai Makumire <tendai.makumire@imd-tec.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
+Message-ID: <aiGO3rNYlJ3oE2_d@will-Legion-Slim-5-16APH8>
+References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] GPIO input direction fails to enable the input receiver buffer (`R=
-X_EN`).
-- [Medium] Incorrect mapping of GPIO offsets to slew rate control registers.
-- [Medium] Hardcoded pin multiplexing unconditionally overrides device tree=
- pinmux settings.
-- [Low] Unsigned arithmetic underflow in clock rate difference calculation =
-causes incorrect clock rate selection.
---
+Hi all,
 
-commit 4178fabfcdc008cf3c6660e1fd752427f037448c
-Author: Cosmin Tanislav <demonsingur@gmail.com>
+Gentle ping on this patch.
 
-media: i2c: maxim-serdes: add MAX96717 driver
-
-Add a new MAX96717 driver that also supports MAX9295A, MAX96717F and
-MAX96793. Integrate it with the common serializer framework.
-
-> diff --git a/drivers/media/i2c/maxim-serdes/max96717.c b/drivers/media/i2=
-c/maxim-serdes/max96717.c
-> new file mode 100644
-> index 0000000000000..6cc4060e10f34
-> --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max96717.c
-[ ... ]
-> +static int max96717_get_pin_config_reg(unsigned int offset, u32 param,
-> +				       unsigned int *reg, unsigned int *mask,
-> +				       unsigned int *val)
-> +{
-[ ... ]
-> +	switch (param) {
-> +	case PIN_CONFIG_SLEW_RATE:
-> +		if (offset < 3) {
-> +			*reg =3D MAX96717_PIO_SLEW_0;
-> +			if (offset =3D=3D 0)
-> +				*mask =3D MAX96717_PIO_SLEW_0_PIO00_SLEW;
-> +			else if (offset =3D=3D 1)
-> +				*mask =3D MAX96717_PIO_SLEW_0_PIO01_SLEW;
-> +			else
-> +				*mask =3D MAX96717_PIO_SLEW_0_PIO02_SLEW;
-> +		} else if (offset < 5) {
-> +			*reg =3D MAX96717_PIO_SLEW_1;
-> +			if (offset =3D=3D 3)
-> +				*mask =3D MAX96717_PIO_SLEW_1_PIO05_SLEW;
-
-[Severity: Medium]
-Is the mapping of GPIO offsets to register masks correct here?
-
-It looks like the pinctrl subsystem passes the physical GPIO pin number
-as the offset, but the switch logic appears to mix up a contiguous
-index array with the actual GPIO numbers. For example, passing offset 3
-configures the mask for PIO05 instead of PIO03. Could this cause valid
-pins like offset 5 to fail entirely by erroneously hitting the offset < 7
-branch later in the code?
-
-[ ... ]
-> +static int max96717_conf_pin_config_set_one(struct max96717_priv *priv,
-> +					    unsigned int offset,
-> +					    unsigned long config)
-> +{
-[ ... ]
-> +	switch (param) {
-> +	case PIN_CONFIG_BIAS_PULL_DOWN:
-> +	case PIN_CONFIG_BIAS_PULL_UP:
-> +		arg =3D arg >=3D MAX96717_BIAS_PULL_STRENGTH_1000000_OHM;
-> +		config =3D pinconf_to_config_packed(MAX96717_PINCTRL_PULL_STRENGTH_HIG=
-H, arg);
-> +		return max96717_conf_pin_config_set_one(priv, offset, config);
-> +	case PIN_CONFIG_LEVEL:
-> +		config =3D pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 1);
-> +		return max96717_conf_pin_config_set_one(priv, offset, config);
-> +	case PIN_CONFIG_OUTPUT_ENABLE:
-> +		config =3D pinconf_to_config_packed(MAX96717_PINCTRL_RX_EN, 0);
-> +		return max96717_conf_pin_config_set_one(priv, offset, config);
-> +	case MAX96717_PINCTRL_TX_ID:
-
-[Severity: High]
-Does configuring a pin as an input properly re-enable the receiver buffer?
-
-When a pin is configured as an output, this logic explicitly sets RX_EN
-to 0. If that pin is later switched back to an input via
-PIN_CONFIG_INPUT_ENABLE, there doesn't seem to be matching logic to
-restore MAX96717_PINCTRL_RX_EN to 1. Will the pin's input buffer remain
-disabled and always read as 0?
-
-[ ... ]
-> +static unsigned int max96717_clk_find_best_index(struct max96717_priv *p=
-riv,
-> +						 unsigned long rate)
-> +{
-> +	unsigned int i, idx =3D 0;
-> +	unsigned long diff_new, diff_old =3D U32_MAX;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(max96717_predef_freqs); i++) {
-> +		diff_new =3D abs(rate - max96717_predef_freqs[i].freq);
-
-[Severity: Low]
-Can this calculation underflow and fail to compile?
-
-Because both rate and predef_freqs[i].freq are unsigned long, the
-subtraction will underflow rather than become negative. Additionally,
-the kernel's abs() macro strictly checks for signed types and evaluates
-to a void expression when passed an unsigned type. Would using abs_diff()
-work better here?
-
-[ ... ]
-> +static int max96717_register_clkout(struct max96717_priv *priv)
-> +{
-> +	struct device *dev =3D &priv->client->dev;
-> +	struct clk_init_data init =3D { .ops =3D &max96717_clk_ops };
-> +	int ret;
-> +
-> +	ret =3D max96717_mux_set_rclkout(priv, MAX96717_RCLK_MFP);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does this unconditionally overwrite device tree pinmux configurations?
-
-During initialization, the pinctrl core applies device tree hogs (for
-example, routing rclkout to MFP2) via pinctrl_enable() in
-max96717_gpiochip_probe(). Calling max96717_mux_set_rclkout() here
-immediately afterward appears to silently override the DT settings,
-forcefully routing rclkout to MFP4 instead.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-gmsl2-3_se=
-rdes-v13-0-9d8a4919983b@analog.com?part=3D16
+Thanks,
+Will
