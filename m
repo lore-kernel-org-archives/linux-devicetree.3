@@ -1,132 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6123CEB9D
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D252D3D890F
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780576977; cv=none; b=rRFRUHiKV2/N6J7Mc5oXzpmrlxjDzOtnVfE9h6Z9jVxjMNQo23b0cYpghVRC5b6H8Vd8wfDzaHKB3xuiWjzf/ULOcN4cF+5o+1ffLQERzNa68sdGbK0ACEu2e1i4iQPIhSRj3Xdnw5fHDphp9QGwAKULr8vZs+cu7/XNhtPpjlg=
+	t=1780577026; cv=none; b=cQPfVFDUsb/hPCGt59hkAojCxSB2QYf2gMJIqeyMNk4v//jv5KvODpha/fDkPPXeAFVtoVIE8qIYZG5706arZgOr/b0SrtgZvhyU6xfBjBUzzD4oG43juCQN7DwTmXaP/ZIVYeYNTZk8ywd6fjvcw6Hly4fiFQP0eq6yQTaxtXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780576977; c=relaxed/simple;
-	bh=VUDpeABM3/XVnIzPB4/sBPTW29yc5oBXa/zrVpJPebY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JIqX8+jhJNsuqEAYu0jaZ1Hrz8vZwJIClaF5yBH7HFnZvt4kbxqRffogWeVGCkXfgAp+5xiq1VN871f98hvgDjqDuHNo9aNJFpPmzG9yG6YLKpmLoxxUnooUESwrOgJxMjbLaO5VYcNJe7UCUp+Ynj5c9F4IDzLAVKr4TPaC6zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAOrChVy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAOrChVy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5F8C1F00893;
-	Thu,  4 Jun 2026 12:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780576976;
-	bh=jD8qpfRVjwx0jAz7MGdrBNzskXrvc6kAcSzecnuB80U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nAOrChVyqMmG9A/O5Omi6+0F3K9Ifze4JGUYtspTFtnFIvPPyQVCFmqZEg4YXUiTh
-	 uqA03c5uCtUWAqKXxMq9FfmUkqiT4qvd60AvUp111y/aAg3aydH0uiYRFaASD9S92m
-	 oq6pd/N2skjjsBmzebkvl+VYLRSbFapF8hyRen1bI0cuELfTcNg7yWHrTj335Anlr6
-	 eRNz8EaT/x84OOmo3VY0JsJN1HF8hpTDjx+F8MPGw+ZMhkng7Ix2FkqogTMxjUCXgs
-	 0eJA/NnZKWJQzhToSGaI9blYDhVm/F/dgL23w9qx2JkGAhflxoAP9E1vH5DOIiCkYr
-	 CHVWejSQghSPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: qcm2290: Add Shikra
- MDSS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604-shikra-display-v2-1-b3c1b2b67edc@oss.qualcomm.com>
-References: <20260604-shikra-display-v2-1-b3c1b2b67edc@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 12:42:55 +0000
-Message-Id: <20260604124255.C5F8C1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780577026; c=relaxed/simple;
+	bh=9+GSC26KP9x8VFStwlQNXOXJrB+sq+AeP2Y3FBXhgHg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HBR8YfOW8SGDhGHYEJvB8sJfLW+nBe34+uAV/iEwaMEJ5/AwScNEg6JkOynDMbGdFokg8eXJ6/E7NvrQhDNZ5sjJcnCayq6ZWY+DS1MSx0VVPnTYUuDPuBevNv9S+/eFnYQ9YUCVRmJFmXKjMsheRysLxIfHrXe5gva16SdQEpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-963a7e48493so521144241.1
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:43:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780577024; x=1781181824;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RwkE2UGx4d0O/VfWYwU5eSId48QfcIZRSOkCnuIrTXw=;
+        b=jrxcCQqQsynOT8xHRZkf19KcPAVILY7jXOxhFdiSeOgo3HT5+VJvzGdRRKNr14JlgX
+         P+JDc0iWWkpuvM7AK+WGT/cLmZkw2Y6i7DODLh8KH3kYLANFLnCBmluEpGc8vzhCfNYo
+         J1lA48jZsNCDA9fQlJrTJd/qI+FWT0PzFYnogZVDWid2kFHPbhnatTGPb99ZeNrEmX75
+         4KrInN/5tKhJYXfn3DhVkm/9l5sDfmC1qUTQyk4EqykXvie0Z7RGs+OaGqNGhoxly8H5
+         oihsH+4fp947UCbXalf77WfOpwVw8+A7qKHp8tJlxELx+eaIlhD06ngOlhS6H+zkuwtM
+         4T8g==
+X-Forwarded-Encrypted: i=1; AFNElJ+tafVPe1/Bu7MkKRcQDN18MDzm8YkaQjWTM+GZnbgah/2bn0odtotAE8EN5QOtgpIQu4nEla/LvjlC@vger.kernel.org
+X-Gm-Message-State: AOJu0YxStde6ogT9Qlo3U6npivHFFhGTerDrClcxRgAePD6ZXDD9bsZY
+	Iy1nNpVbri6prtcpoVyNNeaLr70PNWwcfWIqvewazMosF0drw4XtNTU60ZD7yBLOg/g=
+X-Gm-Gg: Acq92OFQ1pQ9X3xTqFTwomEWrfuuQvz/TCjMO3eO3lXiC7NYANeYrKTlsfVeKvty0pL
+	N3x3HtgDdc7UNe5csi9K5VAMP3wglNt8KqVDUibEFbXwhor0CUItK++d/KauaWcZzKpUpGAj5g3
+	Yz/bfr0GX9jMJ5g1NdSWXbuMNxBFrCGYRqbFeSa6AXp+4hy/TzUcyI+UCqSac2OdilfxssMjg4S
+	SiQAIKZTGgQ8ef7EzeX4QP9KkBdY1E22AIFqswf9xqe9MOHC0kEk/jMPUhzUKewYU5lEuDhUHpY
+	mDnOvpnBKVDTvYDDxaxyIZxpqdLQPmGDbSQ0Usg1xBNnPiEuhiyHBqmZLXArGBHu3sQ1g4LSMmF
+	bY2+mc+oZYzKKjBhTv9zlWXRnJgKUIB2cX0IcM4ijLoIVK4niDPbaUPQ5OaEJqXYG/fhu5gTcN9
+	foaJLFZVK5RfSr3svalEOVFzGzx5KdeBPNnyvturMuj5MC9SGrXuRc+4A0MAH1ddIcgItxC94=
+X-Received: by 2002:a05:6102:94f:b0:631:ec2d:12b2 with SMTP id ada2fe7eead31-6ec2b17cf54mr5108833137.1.1780577023749;
+        Thu, 04 Jun 2026 05:43:43 -0700 (PDT)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com. [209.85.217.46])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6eb5745d325sm4925084137.4.2026.06.04.05.43.42
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 05:43:42 -0700 (PDT)
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-6c534af2470so462428137.3
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:43:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ85Z/2kE/DuNVPeaJSYoU3NqT5s+iYtUUanfLEm1wDHqXrS+NPTlBvEwt/31aKcgOKHzsrisRgUJ6M9@vger.kernel.org
+X-Received: by 2002:a05:6102:f12:b0:633:c6c4:b321 with SMTP id
+ ada2fe7eead31-6ec4710d8d3mr4931144137.18.1780577022139; Thu, 04 Jun 2026
+ 05:43:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com> <20260525110603.4018170-8-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260525110603.4018170-8-john.madieu.xa@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 4 Jun 2026 14:43:29 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUDTXYG3hEz_DjYX95TrQtC+WAbcaigcJbB6+ahgLuLRQ@mail.gmail.com>
+X-Gm-Features: AVVi8CcFSLH-fFepPuSUo9_HZp_pXmYIByM4nJDNELTvumtfJ3RhzJ9KYGckeGA
+Message-ID: <CAMuHMdUDTXYG3hEz_DjYX95TrQtC+WAbcaigcJbB6+ahgLuLRQ@mail.gmail.com>
+Subject: Re: [PATCH v4 7/8] arm64: dts: renesas: rzg3e-smarc-som: add audio
+ pinmux definitions
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	bmasney@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, john.madieu@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Unresolvable DT schema contradiction for Shikra DSI compatible s=
-trings.
-- [Medium] Missing schema conditional constraints for Shikra DSI controller.
---
+Hi John,
 
-commit a65ad60044f8d36574550891df31ee37428077f9
-Author: Nabige Aala <nabige.aala@oss.qualcomm.com>
+On Mon, 25 May 2026 at 13:07, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
+> Add pinmux definitions for SSI3/SSI4 audio interface on RZ/G3E SMARC SoM:
+>
+> - sound_clk_pins: AUDIO_CLKB and AUDIO_CLKC clock outputs
+> - sound_pins: SSI3_SCK, SSI3_WS, SSI3_SDATA (playback) and
+>   SSI4_SDATA (capture)
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 
-dt-bindings: display: msm: qcm2290: Add Shikra MDSS
+Thanks for your patch!
 
-Shikra SoC uses the same MDSS/DPU/DSI hardware as QCM2290 (DPU 6.5),
-sharing the same register layout, DSI controller and 14nm DSI PHY.
-Add qcom,shikra-mdss to the qcm2290-mdss binding compatible enum
-rather than introducing a separate binding file.
+> --- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
+> @@ -353,6 +353,18 @@ sd2-pwen {
+>                 };
+>         };
+>
+> +       sound_clk_pins: sound_clk {
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller=
--main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-m=
-ain.yaml
-> index dbc0613e427ed..a2f3e91104af3 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.y=
-aml
-> @@ -33,6 +33,7 @@ properties:
->                - qcom,sdm660-dsi-ctrl
->                - qcom,sdm670-dsi-ctrl
->                - qcom,sdm845-dsi-ctrl
-> +              - qcom,shikra-dsi-ctrl
+Please no underscores in node names.
 
-[Severity: Medium]
-Should qcom,shikra-dsi-ctrl also be added to the allOf:if conditional
-block that enforces clock constraints?
+> +               pinmux = <RZG3E_PORT_PINMUX(4, 2, 8)>, /* AUDIO_CLKB */
+> +                        <RZG3E_PORT_PINMUX(4, 3, 8)>; /* AUDIO_CLKC */
+> +       };
+> +
+> +       sound_pins: sound {
+> +               pinmux = <RZG3E_PORT_PINMUX(0, 3, 9)>, /* SSI3_SCK */
+> +                        <RZG3E_PORT_PINMUX(0, 4, 9)>, /* SSI3_WS */
+> +                        <RZG3E_PORT_PINMUX(0, 2, 9)>, /* SSI3_SDATA */
+> +                        <RZG3E_PORT_PINMUX(0, 5, 9)>; /* SSI4_SDATA */
 
-The QCM2290 and Shikra DSI controllers require 6 clocks and
-assigned-clocks. While qcom,qcm2290-dsi-ctrl was already missing from
-the clock validation block, omitting the newly added qcom,shikra-dsi-ctrl
-allows incomplete device tree nodes for Shikra to silently pass validation
-without providing the mandatory clocks.
+Please sort by GPIO number.
 
->                - qcom,sm6115-dsi-ctrl
->                - qcom,sm6125-dsi-ctrl
+> +       };
+> +
 
-[ ... ]
+Gr{oetje,eeting}s,
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-m=
-dss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.=
-yaml
-> index bb09ecd1a5b4f..7184b09a87749 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
+                        Geert
 
-[ ... ]
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> @@ -60,9 +79,14 @@ patternProperties:
-> =20
->      properties:
->        compatible:
-> -        items:
-> -          - const: qcom,qcm2290-dsi-ctrl
-> -          - const: qcom,mdss-dsi-ctrl
-> +        oneOf:
-> +          - items:
-> +              - const: qcom,qcm2290-dsi-ctrl
-> +              - const: qcom,mdss-dsi-ctrl
-> +          - items:
-> +              - const: qcom,shikra-dsi-ctrl
-> +              - const: qcom,qcm2290-dsi-ctrl
-> +              - const: qcom,mdss-dsi-ctrl
-
-[Severity: Medium]
-Does this create an unresolvable contradiction for Shikra device tree nodes
-during schema validation?
-
-These changes to qcom,qcm2290-mdss.yaml enforce a 3-item compatible string
-array for Shikra. However, the earlier change adding qcom,shikra-dsi-ctrl to
-dsi-controller-main.yaml places it in an enum block that strictly enforces
-a 2-item array.
-
-Could this mismatch prevent valid Shikra nodes from passing validation,
-since any configuration valid for one schema will be rejected by the other?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-shikra-dis=
-play-v2-0-b3c1b2b67edc@oss.qualcomm.com?part=3D1
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
