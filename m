@@ -1,106 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A5E3B6360
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:35:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C2140961E;
+	Thu,  4 Jun 2026 16:36:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780590953; cv=none; b=lff3SoJpbsLuizyprVXwrpMWflwFZIHHNfVMkn5YBjz4YjTNNmnE3qvPaGpulUaoAGhz1otlsHldfzO7A+l6P7uGTvRSQia0Hj9Iz5vVU6hpKRtPYnKwVqSh99Mu/h0PosOfpg9JaC5xkUY8a++pWKOLc9qrpG8PT5+VL/3TmVc=
+	t=1780590981; cv=none; b=hcJCyfMaRqoyRcV2uAqzSdZAkGgThW8XS8mf66GJzXp71gyCv4hRRNHYkI6GWowe/TMRBJzn+7eXyceywwfB+vZLI/N7mEQlM1T790vfpd0dBea45NePwTKrSWApYvr+3kOHgeoigOYPLCbelwFMXgxWz7VXz9drpIvx6gIPW5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780590953; c=relaxed/simple;
-	bh=j9lJhRg+ZhFxemRZSqrdvq5qkHkHxZcFSFwRlnnDtHo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ELcgdR4zsHFLUWe5n/LLZyFKr6eYwLQCzs++4/DcPPDKUxKxHkhb98jRhtC+VjjgSlQR3Xt7LpI5u3QC3jQQvoRY35ndtFpWZ9HDjjKSSbVM0c2FOTU6cVwfX5AkS0srV/VS8CD6QgberS/pz1MnDovAmwIetUQdMtN4JdhhUSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4SXp9lw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780590981; c=relaxed/simple;
+	bh=79767qT4cxoYvoYC9/wCqAKQO0v9jT3L2K/ugsJBoLI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i93+sqyzKzq4yQ4fJB2euaTjtJangEXiHl1R+Ih3GsnRDH9afeHe3FuM9vvtXugJCd24O5lMAHUvLuKRnijCmStExprw29HpAkftIj+GzuBGc5oLPSORQaUhva4ISajNAkAMUo0M5fEf4nxv0a/rI4a8AmCWXQhRMuQ/mMWchQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeJbxwqN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4SXp9lw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D3D1F00893;
-	Thu,  4 Jun 2026 16:35:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeJbxwqN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F214D1F00893;
+	Thu,  4 Jun 2026 16:36:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780590951;
-	bh=UaG4JoD4Ag1gCc2/KIKJ8SQJbCudS0QvXwE96U7Z1+M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q4SXp9lwkvlkLYjNUHCNzCv6N6RShlThfojebxaLYSu3hNcPEGFS9KO6qHoerIWBm
-	 xZf4rYgCjQCopwBEMKUOiqPFPMjXDkGk6CADs0ao7AtdEHOyNCGOQ+9Uj3AI5PM4GO
-	 ELvKPwnY78b/6nSWNHE4Uo1LNl6ZR/kOitvcpxexmSYgvgBuRzf6Yl0jhMfxCprV73
-	 b5Wa/fsSAAoN+XAADukPAlASnK5IZzBlLYUZ716PaivfLhHB/+P1B2cOf1yLii236f
-	 UGf6R92nnCIzRVXLnnhGI+up2e45sOLNVEdGb7lVABThHOWxx+2x9jL5kxhzhI8pZw
-	 O7vnp+/ttzMag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/10] arm64: dts: qcom: sc8280xp-arcata: model the
- PMU of the on-board wcn6855
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SsOpcsO0bWUgZGUgQnJldGFnbmUgdmlhIEI0IFJlbGF5?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604-surface-sp9-5g-for-next-v3-8-6aa6f6612c10@gmail.com>
-References: <20260604-surface-sp9-5g-for-next-v3-8-6aa6f6612c10@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 16:35:50 +0000
-Message-Id: <20260604163551.20D3D1F00893@smtp.kernel.org>
+	s=k20260515; t=1780590980;
+	bh=79767qT4cxoYvoYC9/wCqAKQO0v9jT3L2K/ugsJBoLI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UeJbxwqNUrMAoASAFTbAhPd7x6kg0LyZyTe09Aq5Fj0mG5kt3Pug43cVhKlgMvG18
+	 lmLzxJFIvevDeWXHTE4r3etdwIiTwmzCyrrJ0GpYA3wIw6Fs28liplDRy68UOPzXjJ
+	 fEnVWxHoef0dWOPrYsVspsiVpPdjhEIAzFt7O98xOY/njlqugajhLFcac+lThvA0zZ
+	 cKGpZD9RV8pa6mpnwNGX73Crg3Ixo1JmCPA28nQbA+HpoTRWi0cY0wfoWH2xfwKC73
+	 ONBmOFyzb5I0iwhSRGWeuooZBeumd+cI3H35RrDnE/saQHV8k3xS8K2ErSHOpdTkCJ
+	 ZAAR7Um/zNPfA==
+Date: Thu, 4 Jun 2026 17:36:15 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: "Parthiban.Veerasooran@microchip.com" <Parthiban.Veerasooran@microchip.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
+	"andrew@lunn.ch" <andrew@lunn.ch>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Conor.Dooley@microchip.com" <Conor.Dooley@microchip.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
+ be active low, level triggered
+Message-ID: <20260604-swimwear-garnet-3eb092e6fda7@spud>
+References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
+ <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
+ <20260602-rebel-snide-5036c97e410d@spud>
+ <CY8PR02MB92493D2E5491AAE5416C05A283122@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <a5abb9b8-6ebf-4f95-a684-fc889b98acea@microchip.com>
+ <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dDRoXKzkAjgb7RZm"
+Content-Disposition: inline
+In-Reply-To: <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Mismatch between commit message claim and DT bindings for the bl=
-uetooth node's vddrfa supply.
---
 
-commit 62919a7033473f4fbba869d7f0a02d1322f1605a
-Author: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+--dDRoXKzkAjgb7RZm
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: qcom: sc8280xp-arcata: model the PMU of the on-board wcn6855
+On Thu, Jun 04, 2026 at 03:21:47PM +0000, Selvamani Rajagopal wrote:
+> > Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt typ=
+e to be active low,
+> > level triggered
+> >=20
+> > Hi Conor & Selvamani,
 
-This commit aligns the Surface Pro 9 5G model with other sc8280xp-based
-models by adding a node for the PMU of the WCN6855. It reworks the inputs
-for the wifi and bluetooth nodes to consume the PMU outputs. This also
-removes the always-on properties for some regulators.
+To be clear, my angle here is making sure that the microchip device is
+not deviant from the spec. I don't know or care about this hardware in
+particular.
+I just made the assumption that what was in the example worked, and
+wanted clarification that what the example was changed to actually
+reflected something else that worked on the hardware in question before
+I gave an ack. I'm a dt-binding maintainer, not someone with knowledge
+of these devices.
 
-Link: https://lore.kernel.org/all/20241018-sc8280xp-pwrseq-v6-0-8da8310d956=
-4@linaro.org/
+> >=20
+> [.]
+> > One possible alternative could be to use a threaded IRQ handler with
+> > IRQF_ONESHOT, where the IRQ line is disabled until the handler
+> > completes, and sleeping is allowed. In that case, we could perform the
+> > SPI transfer in the threaded handler to send the data header and
+> > deassert the interrupt, while deferring the remaining work to a separate
+> > kthread (the current SPI thread). However, I have not yet tried this
+> > implementation, so I cannot comment on its behavior or effectiveness
+> > without implementing and testing it.
+>=20
+> I can test this in my setup.
+>=20
+> >=20
+> > I may be missing something here and am trying to clarify my
+> > understanding. I am also curious why this issue reproduces on our system
+> > but does not appear in Selvamani=E2=80=99s setup with an active=E2=80=
+=91low level
+> > interrupt configuration. If possible, could you share details of your
+> > setup and how the testing is being performed?
+>=20
+> My setup is similar to yours. We have Raspberry Pi boards (P-4 & Pi-5) co=
+nnected
+> to our MAC-PHY evaluation board. As you could see in my patch submissions=
+,=20
+> there are no changes to oa_tc6.c in the way interrupts are handled.
+>=20
+> >=20
+> > Best regards,
+> > Parthiban V
+> > >
+> > >>
+> > >> Cheers,
+> > >> Conor.
+> > >>
+> > >>>
+>=20
 
-> Use the fixed BT vddrfa1p7-supply supply name to align with bindings.
+--dDRoXKzkAjgb7RZm
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: Medium]
-Does the qcom,wcn6855-bt.yaml binding actually require vddrfa1p8-supply
-instead? Looking at the documentation in that file, vddrfa1p7-supply is
-marked as deprecated and replaced by vddrfa1p8-supply.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> index f92c37bfe9c72..d1f72cddebf1d 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-[ ... ]
-> @@ -820,20 +892,16 @@ &uart2 {
->  	bluetooth {
->  		compatible =3D "qcom,wcn6855-bt";
-> =20
-> -		vddio-supply =3D <&vreg_s10b>;
-> -		vddbtcxmx-supply =3D <&vreg_s12b>;
-> -		vddrfacmn-supply =3D <&vreg_s12b>;
-> -		vddrfa0p8-supply =3D <&vreg_s12b>;
-> -		vddrfa1p2-supply =3D <&vreg_s11b>;
-> -		vddrfa1p7-supply =3D <&vreg_s1c>;
-> +		vddrfacmn-supply =3D <&vreg_pmu_rfa_cmn_0p8>;
-> +		vddaon-supply =3D <&vreg_pmu_aon_0p8>;
-> +		vddwlcx-supply =3D <&vreg_pmu_wlcx_0p8>;
-> +		vddwlmx-supply =3D <&vreg_pmu_wlmx_0p8>;
-> +		vddbtcmx-supply =3D <&vreg_pmu_btcmx_0p8>;
-> +		vddrfa0p8-supply =3D <&vreg_pmu_rfa_0p8>;
-> +		vddrfa1p2-supply =3D <&vreg_pmu_rfa_1p2>;
-> +		vddrfa1p7-supply =3D <&vreg_pmu_rfa_1p7>;
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiGpfgAKCRB4tDGHoIJi
+0tLdAQDyZP4DBC3h3sB2EKG6Xrs/w0FHmzR69qe7gr1KiN8fnQEAxQq0LUEp574U
+u25Oy7xpfeAn/+cFEAMtRdExAl7tzgY=
+=xdbe
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-Would it be better to update this property to vddrfa1p8-supply to match the
-binding schema? The wifi@0 node updated earlier in this same patch
-successfully migrated to vddrfa1p8-supply, so using the deprecated property
-name here might cause dtbs_check validation failures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-surface-sp=
-9-5g-for-next-v3-0-6aa6f6612c10@gmail.com?part=3D8
+--dDRoXKzkAjgb7RZm--
