@@ -1,86 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FB64968F1;
-	Thu,  4 Jun 2026 17:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3242E35B650;
+	Thu,  4 Jun 2026 17:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780593207; cv=none; b=LI3N3CK0RHP54onuPTx2VOa/V56iXA0JNXKnDzMLQLf71vWewakaiZ7blCi2VPcvOD0koSYWcOVIu55cBaXeKZNScKJK3mdggAamy3dFEAm7WMjQ+i1hgrOApnLEPoaVhJ8NgM+3CJPjmRgBu10unpKieXpfQGhNgrl+jR2UkQw=
+	t=1780594935; cv=none; b=R6YMP/Hw6ORsLSO+37tICFqVvWbk38ZHzoCX1X5g4ow5oaHblm0vQ2B2ZemgcvOBj5LK+cMqH3uwS6ARKRDaqw5C7FhART0O36yM5JVXmI3t+RCxOBhvuf+lcmUrqWgqi9jWT3aTGDa0mweTG9HY7i1rV0JSVeREw54gH2+9vwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780593207; c=relaxed/simple;
-	bh=M9HqPMUgUTrZJq/Oda3TrjUQxjZBJ4y86DavhVAAMKI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ReWA4/jEsw5YrOHx0vHlFbjfGhxbz/RJg8P+eY5Jke76ILwTaZI8bEi8OFq1G5AmZr+FjzEenKNnGvC7aWJqAaoE8xDDDJXge7Na+riLnlm8wEgfu+iNQjr1yyNKc6Vjh4kHgukpGWxEMTLOLvhiE2E7B9XcjVNmX2uPJKXrm+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVJyKJwi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780594935; c=relaxed/simple;
+	bh=231xMYKGXDG7S0Y4pm6uU1IHjoIcdcBMgYM7hS6SwW0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gdT6oXuKogKbPjR74JFvDADPgRnU/okpQ+n/GVCKsNR5wtLBEBulETwfTN1rInQRRCVvhFOidzR5gvV7Ytr3Fncgq4NAdz0A6jRhl/5WL4HJKE488dTxx1a4xdhzw8Qf79hodhMspna1DD5MUe2WXeLAGRij/mqB2CVFcG79FE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lftjjPC4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVJyKJwi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231EA1F00893;
-	Thu,  4 Jun 2026 17:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780593204;
-	bh=3mNke4DPpjdjtMGcSKZlm7XTAekMgE3bOVU/KndyzOI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PVJyKJwiKn4E+C2SFTGIzj7eZ0Pfz8EP9cwAr4kKCEOszyGFgTbErgFQUsdUm56hr
-	 j4MFUxmPCMVR7CuieAhrJEFRlowxFkZK21I/gA2ohkxEJq5SLxSpEMVUWu4/NmhmVF
-	 cB6zsftZUDCZyqbsRSepsPxbeYMHsKriG96aznk/2a8vNPE1V59Y+W81M40xOmjqkT
-	 u/Oc5IwDzDJ6UG5bt2ih+hx4v87eP8j7JimkOqJDMi2fyiPZBEVJ/nVCWMUB7YhSmK
-	 sKZxiO2rUIqnz6hdvX+x9kjlD+sZpM0ykNqMkj2qqDERYLCUGKRzBNmdxJG3nUiXEK
-	 qo5+YOx6oJ5hQ==
-Date: Thu, 4 Jun 2026 18:13:19 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v3 09/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys2-pinctrl
-Message-ID: <20260604-veggie-constrain-16a72066e82f@spud>
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
- <20260603055347.66845-10-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lftjjPC4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D73FC2BCB8;
+	Thu,  4 Jun 2026 17:42:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780594934;
+	bh=231xMYKGXDG7S0Y4pm6uU1IHjoIcdcBMgYM7hS6SwW0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=lftjjPC43Bz1tsSd18xZvNjAigNWb0SKusouolA+Vm6re7n5a6OvKrQ/blKFzzzAv
+	 0AuUw1vOpsCrOkT3W4OCgzpE2Uwa+c1auz2fFmnBzwxM+1GuRUBPZTUttRAdmcE8zd
+	 Bag2mCzDntVEYEYNf98txpkim8aGbNzV0EEiwa+/zMP9c/6wWNDqAxxP3QzPfNxRXK
+	 m5eCtcah4y6xlh5QKOVaCPCXw3zrNmxFJSsU30JQ9Y+ircHXzWexavb2TARxC93X8N
+	 3XeO4Ng6i3Dst++qUUV0O4X4sDvKyal0r48kUQSBUagdGv4/wDEKzdbiE43hRGGDpI
+	 ybqDE0FgzXeNg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81EA6CD6E75;
+	Thu,  4 Jun 2026 17:42:14 +0000 (UTC)
+From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
+Date: Thu, 04 Jun 2026 19:40:14 +0200
+Subject: [PATCH RFC] arm64: dts: qcom: hamoa: Drop cluster_cl5 idle state
+ from CPU clusters
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7KP5dV2MCZU0dpPN"
-Content-Disposition: inline
-In-Reply-To: <20260603055347.66845-10-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260604-dc_zva_mitigation-v1-1-d1148c1c0259@oldschoolsolutions.biz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMwMT3ZTk+KqyxPjczJLM9MQSoGpdIxPT1OQU0xRzS/M0JaC+gqLUtMw
+ KsJnRSkFuzkqxtbUAfq78lGgAAAA=
+X-Change-ID: 20260604-dc_zva_mitigation-245ecd5d797f
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Steev Klimaszewski <threeway@gmail.com>, 
+ Icecream95 <ixn@disroot.org>, Marc Zyngier <maz@kernel.org>, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780594933; l=3529;
+ i=jens.glathe@oldschoolsolutions.biz; s=20240919;
+ h=from:subject:message-id;
+ bh=/rH8YcV139zvO6dOehQpAdl9iLkHcjBRC9U6y6wbGdg=;
+ b=9nM7259tcv1rWqzpQGOxVIgH+Ja+KagwMrfG70GmEKBMtFuhyS9sZa2hxWLqYVfAl1CTu8T2h
+ +GRKvt1wTwQA6FPWM8I3yihdh7YQ2ct+nGbWLHdWZuPR0gQUtMrsAr8
+X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
+ pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
+X-Endpoint-Received: by B4 Relay for
+ jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
+X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reply-To: jens.glathe@oldschoolsolutions.biz
+
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+
+The cluster_cl5 idle state triggers DC ZVA misbehavior that resets
+X1 SoCs. Remove it from cluster_pd0/1/2 domain-idle-states for now.
+
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+---
+This is an RFC for a mitigation of a stability issue observed on
+Snapdragon X1-based SoCs (Hamoa and Purwa).
+
+Affected systems experience spontaneous resets under the following
+conditions:
+ - During intensive `git fetch` / `git pull` activity
+ - During mostly idle periods (Bitburner and similar workloads were
+   frequently mentioned)
+
+Steev Klimaszewski first connected the crashes to git operations.
+Subsequent discussion in #aarch64-laptops led icecream95 to isolate
+DC ZVA as the triggering instruction and to create a reliable
+reproducer [1].
+
+Further debugging showed that the issue is strongly related to deep
+cluster idle states. Marc Zyngier suggested removing the deepest
+cluster state (`cluster_cl5`), which resolved the problem on all tested
+consumer hardware.
+
+This patch implements that change by removing `&cluster_cl5` from the
+`domain-idle-states` of `cluster_pd0`, `cluster_pd1`, and `cluster_pd2`.
+
+Testing:
+ - Lenovo ThinkPad T14s G6 (X1E-78-100, Hamoa)
+ - Lenovo ThinkBook 16 G7 QOY (X1P-42-100, Purwa)
+ - Lenovo IdeaPad 5 2-in-1 14Q8X9 (X1P-42-100, Purwa)
+ - Lenovo IdeaPad Slim 3x 15Q8X10 (X1-26-100, Purwa)
+
+All consumer devices became stable with this change.
+
+On the Snapdragon Dev Kit (X1E-001-DE, Hamoa) the situation is
+different: the firmware does not advertise OSI mode. Even with this
+patch the device still crashes with the x1e-crash reproducer. Stability
+is only achieved by passing `cpuidle.off=1`, which of course increases
+power consumption but makes the devkit a bit faster, so there's that.
+
+The different behaviour correlates with PSCI mode:
+- Consumer firmwares enable OSI mode
+- Devkit firmware stays in platform-coordinated mode
+
+This patch is therefore only a band-aid. All evidence points to a
+firmware/microcode issue where DC ZVA can hit caches that have been
+powered down by PSCI idle states. A proper fix would be either a
+Qualcomm firmware update or a kernel erratum that disables DZE on
+these SoCs.
+
+[1] https://github.com/icecream95/x1e-crash
+---
+ arch/arm64/boot/dts/qcom/hamoa.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+index 4ba751a65142b..8ec39ba621946 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
++++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+@@ -442,19 +442,19 @@ cpu_pd11: power-domain-cpu11 {
+ 
+ 		cluster_pd0: power-domain-cpu-cluster0 {
+ 			#power-domain-cells = <0>;
+-			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
++			domain-idle-states = <&cluster_cl4>;
+ 			power-domains = <&system_pd>;
+ 		};
+ 
+ 		cluster_pd1: power-domain-cpu-cluster1 {
+ 			#power-domain-cells = <0>;
+-			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
++			domain-idle-states = <&cluster_cl4>;
+ 			power-domains = <&system_pd>;
+ 		};
+ 
+ 		cluster_pd2: power-domain-cpu-cluster2 {
+ 			#power-domain-cells = <0>;
+-			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
++			domain-idle-states = <&cluster_cl4>;
+ 			power-domains = <&system_pd>;
+ 		};
+ 
+
+---
+base-commit: a225caacc36546a09586e3ece36c0313146e7da9
+change-id: 20260604-dc_zva_mitigation-245ecd5d797f
+
+Best regards,
+-- 
+Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
 
---7KP5dV2MCZU0dpPN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Jun 02, 2026 at 10:53:35PM -0700, Changhuang Liang wrote:
-> +          power-source:
-> +            enum: [ 0, 2 ]
-> +            description: |
-> +                0: power supply of 3.3V
-> +                2: power supply of 1.8V
-
-I'd rather these were given in e.g. microvolts, rather than what look
-like register values, that have no meaning when looking at the dts.
-
---7KP5dV2MCZU0dpPN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiGyLwAKCRB4tDGHoIJi
-0qJ/AQCQ/vPUMhGA0s99RrlfmIhY43MmG9ypad6INnfVMc+/ogD/XOOCyrLph3nG
-xf3MOhu5OXndhUYDq+Zw0JVREEKimwI=
-=gfH/
------END PGP SIGNATURE-----
-
---7KP5dV2MCZU0dpPN--
