@@ -1,207 +1,89 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93CE2AD35
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 11:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8EE409136
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 11:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780571045; cv=none; b=tpFBEruYr5DANeJ9FvyPfrwDYpLVMZ74Cl76J0PqY+JziDEIwd+k+PRE1Ids7VmaRtKozbghY19g6a1Vf5Px5eGKbUaDnnNHU06QYneJM75TyFoAwWt1Au3qcORqaFYiLG8N75GWDMQ5u3IfXlDaLnebNNjKvf92SSpynwl9DEg=
+	t=1780571252; cv=none; b=lyXoR4StPNVQpJNJoD1LbXKpo3sDVdiyemEpfoT0xz+4ln0ND9TtRJEHVI3LVQMhw+2qnmcDD0Uf85okOC692yfjhvLkwEzZQlHFrpTByqJ2P2JxRTCr/B15k6pcrLATPNCrJS+E8s0L0mdilTL3slQOonflVB8LSTh60jQIJPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780571045; c=relaxed/simple;
-	bh=B/gjocXEAZZGmLbh3FhqexUI+meJYXHmU7OgkVbES/w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WUycPdT/SyewWmJP/oOeeDBD4C0Wyp7Swkw1nvTDIcqz2CWFpxvyHt5BA6sVYzY9v1qImOaTN2GBiPqX+vzZ9Bcs47auli9z0DJrSjghejPzH2+cs5eFCorzbpcmFkkXHHilzIm4V+uC/dBl5JEki5hdf4PlEs3VxI+fNOAhfkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=egzYeACY; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="egzYeACY"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bec2ddee9bbso111684966b.3
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 04:04:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780571042; x=1781175842; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qrF+chW03A8IR47Oi/Ih5ziYJf7j0S60VPCDD4Eshmo=;
-        b=egzYeACY/cONw7OtjXY7yu5siA2UTWV/K0rYaoBh+KK42Bt4hbXMaTSmyvSURtFfl6
-         8HfdqpDHtDDGic9XQmrWdJ7bwiR0xoCClRtjhwZQO9gNDRkAg/tXOkrVo32JWGeS9DSo
-         GE0Tv/6gSbU1xM1SwBptsp6UxopG3cnoJGbFuhonWKkWOzd9DLinpT5GeWi8XOWN2AAf
-         uF3UESuyavQuhU2UgqNYyE+PxDI3m8BvKPBUCn3lf4KPFj7AXmGA3JDkjzqpMSo8A7cq
-         wSb3I7Sb+/3FHmLIM51JAZSBY0qnHJuaftxSW9gy+EEtoVCtUeB/T9YPZf1NSYYpD9no
-         oT7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780571042; x=1781175842;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qrF+chW03A8IR47Oi/Ih5ziYJf7j0S60VPCDD4Eshmo=;
-        b=CulfobwnSGO2XeS2qExXhnPFnEM6a7k8jeoLnG1pJtxJSvIEpNoEjjQblAjYL5ZhL3
-         L+gV8YrW9o3GBTdeE1irsh0rheyj8opNpVS33lD5Pa0+SJHwInSlmq+93og+1S+Pa/d2
-         pt/P1ZgqhbL/GQK/jR8gK/Y9qeQeM+7VXFmmcwsN6+EU2JT+OYeNEBBNdjgW47a3murV
-         /6le9bXscuW2P8ogw4MLCd3SVthCZhAzh6/1tJNzygv6PWNQqX0DR4ElQBeFZQuU9l6x
-         gGAwVZs9F39pZRNvvUVwV293/9I9B9vpDzd5OPX7mlLOIapGw4iSJKe+QlSx/L8VuKvq
-         2ghg==
-X-Forwarded-Encrypted: i=1; AFNElJ9yz4ZetmnOfXSBCvBRpnk32yaU1lyEk/kXdOzIpe87yhPfXQ1WduW55fg/EF7jG1+2JyedQxUQMYyf@vger.kernel.org
-X-Gm-Message-State: AOJu0YykBZrXaUWajgDo6b2yegSV/E2LZbYNLDicCWhfCzNFM4aPAmZ1
-	NsvEFb7urbW5ONIOx4qsknoHBnMj5C2+vQvXlBiMGibg/Ri/BIV2KWPxrwMMPys+63k=
-X-Gm-Gg: Acq92OFjyPnPhLaNaU5cWdwvRyzbJGiuLlwf+2ZeG3az7vyE1rSfqohy5ERZSp/6sEa
-	DHxJXEprO/DiwTU54qoI4HjOfmcbS6qYPF7iK+xoPe6eMuXU/1VXFYoL2lMslqsf6MY0d7NAhzg
-	cx5ViSrixwNBj5lkMq7uFCuRkW9+gbDt30TlmCfAOgm9W4RUEZFA58wvpL/tOHBK2NVgaLQ9s09
-	iJbpYrBppfS3Dlk/QF/Ct16MqodOrigSb3jJRuLMZz59xXuEUqtond4YyZSj3J2LwbsuK5deXpj
-	ufxwEnLzrMepmrGWc4/ot8A/t2NRiYxzR5b1/ZR2zwYODlt9uavAOmFGUBDKVtI2bBWNKNE1v64
-	tNO6HqTv4V1nuBvDSibH2EpMfmdEmS9a/EQsF+d6XCse6hUS5FmS7iZMDtEQnirPWqta+n2MRFx
-	99+0B1fHo9drl+z/uyEDJW27d4CsmK0PPTkK1tGqv2wqrrrFI=
-X-Received: by 2002:a17:907:6092:b0:bd2:bd3:1ef8 with SMTP id a640c23a62f3a-bf0ab021c93mr446755866b.35.1780571041852;
-        Thu, 04 Jun 2026 04:04:01 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.175.228])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf05228a16csm287937966b.28.2026.06.04.04.04.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 04:04:01 -0700 (PDT)
-Message-ID: <139130d0-1f59-49aa-b174-9e1860eb8465@linaro.org>
-Date: Thu, 4 Jun 2026 12:04:00 +0100
+	s=arc-20240116; t=1780571252; c=relaxed/simple;
+	bh=r61IsFZ3swYwz17mLPEb7M6IRDu0lmNu/FPvdX3aGJ4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=C5Bb2VQA0kNhys8vtylwhwwEzWkrvAyYqyye4oHCIc+u/41KVAHaaL2liQqc0VOJX+v6LU74u1BkVzgc9/ls4VR7JB6K44GJUwpmJqhWrwIuCq1vlWtldaGtUOPcRb7/bmIsNPDKCcFEIZtI9LZEiLaAkDPQljet7O9Q1hLphPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <jre@pengutronix.de>)
+	id 1wV5v0-0000OO-HM; Thu, 04 Jun 2026 13:07:22 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Subject: [PATCH 0/2] leds: pwm-multicolor: Fix default-trigger by allowing
+ default-intensity
+Date: Thu, 04 Jun 2026 13:06:56 +0200
+Message-Id: <20260604-multicolor-default-v1-0-b07bff431537@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
- <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
- <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
- <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
- <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
- <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
- <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
- <83c12dc5-fcb4-4089-9917-9f0fcc4f940d@linaro.org>
- <1b107aca-a857-4e58-a763-39c82af67747@linaro.org>
- <67b6f6ae-bfca-4afd-adfb-6ec1741105d8@linaro.org>
- <9ab0d8f4-e1b6-415b-976b-721ab7a29194@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <9ab0d8f4-e1b6-415b-976b-721ab7a29194@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFFcIWoC/yXMQQ6DIBRF0a2QP5YE0DroVowDhKf9jYoBbZoY9
+ y7q8Azu3SkhMhK9xU4RP04c5gxdCHIfOw+Q7LPJKFOrWlVy2saVXRhDlB69zZJao+zgPNTLUg6
+ XiJ7/97RpH6et+8Kt14mO4wSqqXbHdgAAAA==
+X-Change-ID: 20260604-multicolor-default-11e3becde05a
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, 
+ Sven Schwermer <sven.schwermer@disruptive-technologies.com>
+Cc: Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1181; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=r61IsFZ3swYwz17mLPEb7M6IRDu0lmNu/FPvdX3aGJ4=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshSjMnIKFnkvsaU1+r6hbWG0a4nf68X3S6dKH9i9zR2f
+ tHgr/ZLOkpZGMS4GGTFFFli1eQUhIz9r5tV2sXCzGFlAhnCwMUpABMp3M7I8N2Gp3uyO99C4TqV
+ HwlLolbcuPtjwZTsR9f2tpixaX+1OMjwP+NQ+97pkU8VOPh+KFQv+6GawX1N+bd3TJyYqJBg3/1
+ lXAA=
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::ac
+X-SA-Exim-Mail-From: jre@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On 04/06/2026 10:20, Vladimir Zapolskiy wrote:
-> On 6/4/26 12:06, Bryan O'Donoghue wrote:
->> On 04/06/2026 09:46, Vladimir Zapolskiy wrote:
->>> On 6/4/26 03:30, Bryan O'Donoghue wrote:
->>>> On 04/06/2026 01:07, Vladimir Zapolskiy wrote:
->>>>> On 6/4/26 00:18, Bryan O'Donoghue wrote:
->>>>>> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
->>>>>>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
->>>>>>> If CSIPHYs are true subdevices under the umbrella CAMSS device and
->>>>>>> well
->>>>>>> described as subnodes, then likely none of power domains are needed
->>>>>>> to be
->>>>>>> repeatedly described in the children device nodes, since this
->>>>>>> information
->>>>>>> can be obtained from the parent device by the driver.
->>>>>>>
->>>>>>> Technically 'power-domains' property can be safely removed, I 
->>>>>>> believe.
->>>>>>
->>>>>> The policy is to describe the power-domain dependency fully since DT
->>>>>> describes hardware not software architecture.
->>>>>
->>>>> It brings no contardiction to the statement I've given above, the 
->>>>> needed
->>>>> power domans will be properly described in the parent device, and 
->>>>> there
->>>>> is no
->>>>> sense to repeat the properties it again and again in every child
->>>>> subdevice.
->>>>>
->>>>>> Also for a very practical reason a sub-devices can probe/run
->>>>>> asynchronously of the parent device being active so in fact we do 
->>>>>> need
->>>>>> to describe the PDs fully.
->>>>>
->>>>> In opposite to the above this one is precisely a software centric
->>>>> argument,
->>>>> which should be excluded from the consideration, as well it's not a 
->>>>> big
->>>>> deal to make a proper async initialization, removing excessive dt
->>>>> properties
->>>>> is worth it.
->>>>>
->>>>
->>>> Right look forget about that.
->>>>
->>>> - DT requires you to describe your hardware. You're not entitled to 
->>>> have
->>>>      some other device vote for a clock or a PD you rely on.
->>>>
->>>
->>> Above are two uncorrelated between each other sentences.
->>>
->>> A device ("consumer") can ask another device ("provider") to behave in
->>> one or another way, this is the only possible and thus natually selected
->>> system design, and nothing behind it was asked. There is no 
->>> justification
->>> for the proposed flood of multiply repeated data, it's avoidable.
->>
->> CAMSS or rather the components of CAMSS modelled in the current node,
->> is/are not the provider of the GDSCs or the power-domains, it/they are
->> consumers themselves from CAMCC.
-> 
-> Well, this is the argument about software, and software can be changed.
-> 
->> The producer/consumer model is CAMCC to components within the Camera
->> block. Some components depend on say MXA, MXC, some do not. Nothing in
->> CAMSS itself is a power-domain provider.
->>>>      That's exactly the type of downstream short cut we are trying 
->>>> to zap.
->>>>
->>>> - In our case we also need to vote on PDs individually when the PHY
->>>>      is active.
->>>>
->>>> In extremis say we are only running the TPG then we have no reason to
->>>> vote for CSIPHY specific rails or operating points in the parent 
->>>> device.
->>>
->>> So, TPG shall communicate with CAMSS, there is no CSIPHY in the 
->>> equation.
->>
->> Right but it would be inappropriate to enable all of the PDs for all of
->> the components in the CAMSS block when we can do so more granularly.
-> 
-> Whenever it is actually necessary, it should be possible to split PDs into
-> generic/parent and subdevice specific groups, it's a part of software
-> implementation. In some cases there might be no need to define any child
-> side PDs, likely CSIPHY falls into this category.
+Typically using linux,default-trigger allows turning LEDs on on initialization
+or triggering on e.g. a kernel panic regardless of how early.
 
+While supported in pwm-multicolor, this was not usable because the
+individual color components multiplication factor (intensity), defaulted
+all to 0 (black) and the LED remains off regardless of its overall
+"brightness" value.
 
-Completely not a discussion about software. DT needs to represent 
-hardware. Its a different mindset.
+Allow setting defaults for each component's intensity to make the other
+"default-" properties actually usable here.
 
-I don't think we are going to resolve this debating the same thing again.
+Update binding documentation accordingly.
 
-My position is the CSIPHY should list the set of power-domain 
-dependencies it has. The PDs don't come from any other thing in the 
-CAMSS block so the producer/consumer model is CSIPHY to CAMCC and CSIPHY 
-to RPMPD respectively.
-
-I'll just ask @Rob, @Krzysztof or @Conor to offer up their opinion as DT 
-maintainers and work from there.
-
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
 ---
-bod
+Jonas Rebmann (2):
+      dt-bindings: leds: Add default-intensity property
+      leds: pwm-multicolor: Introduce default-intensity property
+
+ Documentation/devicetree/bindings/leds/common.yaml             | 10 ++++++++++
+ .../devicetree/bindings/leds/leds-pwm-multicolor.yaml          |  4 ++++
+ drivers/leds/rgb/leds-pwm-multicolor.c                         |  2 ++
+ 3 files changed, 16 insertions(+)
+---
+base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
+change-id: 20260604-multicolor-default-11e3becde05a
+
+Best regards,
+--  
+Jonas Rebmann <jre@pengutronix.de>
+
