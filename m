@@ -1,145 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F8232E729;
-	Thu,  4 Jun 2026 15:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860DB31D381
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 15:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780586337; cv=none; b=GBzKPnlkiGihaxJjW6Di1iPHU3kgGWn1Bv9oGjaYPAuTuhoiEWmic1Z4Uh+pGMshqhd5gBRrABmearOPfqgSiiPEhGS0PVPudbkYLY74Tmp+AHAAEV+ptmnJmufjOPX15+PH4WF1gjRhMjUvgBb78VBX8TDk98n/XKCajwDlw6g=
+	t=1780586342; cv=none; b=kvBlwlUa6ucJKQy3ekPFdumrnudtZrV6PWwe7z7g+OO/kNlbivWiOVYKX/H+oDp6iU/UAC5/w0SE+rvsTkcq/Iji4pOeyB6JaT2WMPqY3GNhgwI2qnT+ZEqplfj3Z+isp1CXmdtAKbWI549ammX7InAO/tnrUULIfvnRrWbE02g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780586337; c=relaxed/simple;
-	bh=b+fW8zwMTMGUGHowx/wkKTKNFVgu98jHJd4EOxWoMgU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DJJBSk+khMUECvlp5mho5L3IeoSpJo6MYk29nUdzI5Xeod7zIB65CoprVu/1qw3FRuZuRWFKKoqWBHwwB70hKJmUM2M8kqVOos9C56nXijQwffDpwBVF7CjWUXkzal5Z3Qg+vu0JIIs7pfBET2u3LjXBzNOMJWik8m6Su4BTlkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7sRv7zK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780586342; c=relaxed/simple;
+	bh=FsJzusXRvjkVBK8CC4DoLzl0EEg02IPeRG+NSu1x/s8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IS5cH34DaEv9vcA6nvwXeeXSqEUsSvhOdvWPSw6SDHgWHzrtdOEWOuWXn+7ly60ivCTX2XRZpfu9YEyLATOsC8iJKyqgsClH9Tn/w4s9ApyFmzUBD28zEIeUsMtIztKIVv6I+6XrMtdrCCNGGuBnWt+dMpKES48KfTaSc5G1lNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o2JuDYDM; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7sRv7zK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826881F00893;
-	Thu,  4 Jun 2026 15:18:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780586335;
-	bh=wsQ2D6sGDRflb4Xncywk3hOuEnHx4PAWsgnktJcsiqo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q7sRv7zKCHlB/C3Ny7OcwXQOhejcKGOeZur4ZBzypkSZ/yiY1l3YpkmMHvgdW3PCj
-	 YC3xAKuYcOwaf8cS8MCPYWeI9vgdrxLm81uTZmcdFUfnNdjX34FSIbbclah9cCf01H
-	 hdlorqZ7hdOZ+OTmHvB1JLeLPes8Ld5lCyr1v4NDpQFPCXAhYqNIzSEtqb7ONSW90y
-	 ZpZ3uXGfJYA38py5Dn4wWywYyZCXq+XKJ9htpUvWvoxzV1PZ1iC4N14xxUCOz4a4SR
-	 6nDscSy5feK+AIZiF5UgIS3AzMlmxGPHolADmwAF1aEyS03XgrXomjoQhDgWDXH1kr
-	 +1MTeiJmDC4zA==
-Message-ID: <799fea04-e7d0-4184-b9ae-4cebfdac38d5@kernel.org>
-Date: Thu, 4 Jun 2026 17:18:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o2JuDYDM"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b9318997so6427325e9.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 08:19:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780586339; x=1781191139; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=v5Yo1OVsaBzd6nBAtTG4s9KPM7zpBpOTGHL8RzytDbE=;
+        b=o2JuDYDMnnaKL72OufOMaJTrWIxe8MvV4t7cgEQWQ0sKAoOm3mGDKWFc0X4mc/uBbm
+         feD0ngnBXt7RUBGIvaP7dVcLILHn5waHybtPpBSSERJsBDZvFRrL/VXuml5DYPjVMTpe
+         rITvAW8Zi+c91u48xon3sO/w1L9+fYfqjYpMi/hc6e1329JV9RqW0dlnSxwEiPdjo6Ju
+         LAcSm5cMteooyViGW0jjeG5+fuc/joiSuWhRflTg+D5sgPpIRT/wjgBhnHUcTe07svVp
+         KHgrlUPQJYlP6PXy3oDdb5PEXex3qNBF5goUM8PNIZU+gKVhOO54ef1hoA0xQ3NI8sGn
+         ewaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780586339; x=1781191139;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v5Yo1OVsaBzd6nBAtTG4s9KPM7zpBpOTGHL8RzytDbE=;
+        b=lDgnR3s9wocLgxdNeiQ7hOfWMmOEAt3NLS1M8PvMl3TneFsyTMmoyMK0HBH+pajOpj
+         w7e7N5O6TKm7J9PsPCEk8YN0LyZaZND1JMWBRvTQ5J9huqz0lPoBhHzjhzfE3tKECanS
+         99ysjYNsOVt+wkUJF6Wko5lXYvwKByjDOr1W0uSvDbWsxPMKaDTT7F+2+qMAH/5JpmR7
+         24rCpfjJxpjMak1b0vyLaaMSfhjBUO6IvMCKVc7jO8G1mxYnQ+t/hKQnHBfvNLxf3NcU
+         gG0w5mRpJ5NL5Hqnc5bvxsCcvQjhgjBITXI4yz5V1VERe0uvfCNX0Vjih5YFrSWJqOic
+         10CA==
+X-Forwarded-Encrypted: i=1; AFNElJ/5LJb449hATO0yAqrH9gtCChWDXPB6ZUWAlFBbKYJwUq/X1SKUyDKA0axOSYUqGFZ7ZxkYYHyFbHcI@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCxLnCuW54xHAbFD7AdU2UqKyKTHbk9IpFl8TbmTJZR7LrmwWU
+	leY8hcvFESDRhQ6pj/NPOGrg1cpQPuaXwtDt7tHtta0QgxZuiV8JcvZA
+X-Gm-Gg: Acq92OE7qD8yO7oYVpJ98RHtALvuywC6cIhA4MKJjEtDHZ/HPwh5g9/viDJfQJenmZy
+	RHs0tvF67yWla605zy0XpN8GXVGzDwHTV6jahZsDRgg555GFk2hq40a5iJKtf0Ib/5s/PShAW1U
+	e131y5cIO1u1uVyobIvNHjrgR4wGFloNNS4iwDRF0GcYIniy/n3z8Jd4eiR0AD9sz/OPgMIsJET
+	OFZki60puDDwmFsThMkmF71pYZMyRAzQXH+8JeMkc5RNSTRJYAJMK1mSmCLQ5QGseV5RPr6i8wk
+	NMjx50RlXJ3+5uMwsoALnWWHo0592RxjK0idgEZ/YQU5qGTbwUGEyMs14g8dJZPcgnvZmtu+3Ch
+	cmvDfEJR7hU7eO2uivqdZnDL7QKAQpH4ijVH7dI/8bkempxsnSvXykFjYTvTVIgv+C6SbFRT1iC
+	hTgecyRW9rrvkRQlbMnVHWPIrxVeMQ/PCcP6Ztu4hEqbGa4Bg3mbmmFsClctw=
+X-Received: by 2002:a05:600c:470e:b0:490:601f:d775 with SMTP id 5b1f17b1804b1-490b5e83527mr132886395e9.5.1780586338813;
+        Thu, 04 Jun 2026 08:18:58 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:1615:3574:e0c0:837d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b82sm82776805e9.1.2026.06.04.08.18.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 08:18:58 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Brian Masney <bmasney@redhat.com>,
+	linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/3] Add GFX support for RZ/G3L SoC
+Date: Thu,  4 Jun 2026 16:18:48 +0100
+Message-ID: <20260604151855.307772-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
-To: rob.clark@oss.qualcomm.com
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Douglas Anderson
- <dianders@chromium.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
- <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
- <7a330941-8715-4523-9f39-10b57586c69d@kernel.org>
- <CACSVV03J7Y4-ADRNE+4qArqsWvQZ3qmTc04r7vmY64s0qDYFkw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CACSVV03J7Y4-ADRNE+4qArqsWvQZ3qmTc04r7vmY64s0qDYFkw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/06/2026 17:13, Rob Clark wrote:
-> On Thu, Jun 4, 2026 at 8:09 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 04/06/2026 10:06, Konrad Dybcio wrote:
->>> The Yoga Slim 7x Gen11 is a Snapdragon X2 Elite-based 14" laptop from
->>> Lenovo, featuring an OLED touch panel. Add a compatible for it.
->>>
->>> According to the spec page [1], there  also exist other variations
->>> (based on the Mahua SoC and/or with a different type of display panel),
->>> but those are to be described separately
->>>
->>> [1] https://psref.lenovo.com/Product/Yoga_Slim_7_14Q8Y11?tab=spec
->>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>> ---
->>>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->>>  1 file changed, 1 insertion(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
->>> index 50cc18a6ec5eddaf48542b85387c2d430cd4721a..fca3d180489d4cd3eb2726a722f15febe44f03ad 100644
->>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->>> @@ -68,6 +68,7 @@ properties:
->>>
->>>        - items:
->>>            - enum:
->>> +              - lenovo,yoga-slim7x-gen11
->>
->> I imagine you might want different panel variants, just like T14s has
->> LCD and OLED?
-> 
-> I expect this will be the case.
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Then better to prepare for this now, otherwise later you need to change
-bindings. If unsure what other variants are, then at least make this
-compatible panel-specific, e.g. lenovo,yoga-slim7x-gen11-oled-foo-bar.
+Hi all,
 
-Adding fallback compatible is not usually incompatible ABI change, thus
-you can always do it later if needed.
+This patch series aims to add GFX support for RZ/G3L SoC
 
-Best regards,
-Krzysztof
+This patch series depend upon[1] for clk and dtsi patches
+[1] https://lore.kernel.org/all/20260603065731.93243-1-biju.das.jz@bp.renesas.com/
+
+Biju Das (3):
+  clk: renesas: r9a08g046: Add clock and reset entries for GE3D
+  arm64: dts: renesas: r9a08g046: Add Mali-G31 GPU node
+  arm64: dts: renesas: rzg3l-smarc-som: Enable Mali-G31
+
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 126 ++++++++++++++++++
+ .../boot/dts/renesas/rzg3l-smarc-som.dtsi     |  14 ++
+ drivers/clk/renesas/r9a08g046-cpg.c           |  23 ++++
+ 3 files changed, 163 insertions(+)
+
+-- 
+2.43.0
+
