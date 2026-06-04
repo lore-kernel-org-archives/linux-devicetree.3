@@ -1,159 +1,188 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2116.outbound.protection.partner.outlook.cn [139.219.17.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8541B4224;
-	Thu,  4 Jun 2026 02:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.116
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780539021; cv=fail; b=s5qSBbJM4qlchHAvxdUC28F4WMTA0myQs9BxzhQa5ArHc1V/gGSsf2cljxK4e3O6pRQuzCJudvDQMzqqdxa25fmkL9mtuBwbfaEGVB8YgtNnQ9Tvteo/Z2cif4UmIEjejTvfed4vqo1a8gIu8lk7jVplvpa7MVHbIoWLgU+Bgzk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780539021; c=relaxed/simple;
-	bh=ZGN88Mg8HyqLMvzsaExyTrpKGQbbcK3ecjFce/FxiRc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ui6DbdQkKnjIrs1V7b/VkAYwfEhVoomN0ry0NYCwlE+25ATvxYXNt2sOcrRhmAnUtzeS0T/bzwdS1CvYFs0l+aiZhZy6fkf8TlpCdawQ2JyDn4DYL7L33i2cD9w00qqjUhN9Vdqf8aXGdmfuhZvHfkw9zMxV7hhBzHyk7NQL1+0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=etYmupaaIGWkV0uGDZXkFht2DKVSnfItVFdbaP+50QU+jayxJd/1AGM6/IlCdT9u2/8og+BpLd2ojjHbWCdm/Zsn9bwRAOb7G47QZPCLLiZ92TU4fyhGKO0S3YJ9VmiTG2EVwzUPAum6/c6qrJygwFQVWEeqYoR0yk9sp4Up1qjkmxnYfoHMhANTJH9cXmcBrurJnCPyDEVXhApBg6c6sdPS9hFf7P0Q6aZUfpKWa3r5lbbDGJblZVp24Jl5iu/CM4+eAcRIk1LF4q4W9b3zx+oV7F+p+l0FFs4E8y/PK9ZO7x5PkEglbQiiypnLfGJKJoNQL62EbpRjBcP4BJZGFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1SwlBrsDshKVkGkQpFT5G8DbmmYXdviiRXqzU4btQyg=;
- b=LQ8aOrVpl0VXevkM6r7c00fDQ0aBf432cCHziPVP6apObOKYXcUcSQ3TZiZ2UVadMCuAbKBzVzmiIs+vtFfVc03BRu/TUy+NI+ZN0Qq+l9chEV/FhkmJhJ2+4Limx9gE4ck4vY2JBvFT9XZn1jiWXOqTxb9rZh/YfPsALqTzUNYR2Lm+5d8SpBfAK8eSQzqT54bN+lP8J8FoEoAJ/9GlzYcHoQyScCj2EazkensKmWoMr7B14YLKUVXVkYVtSuf5HO6Arn1CihXnGD5+vyzK/QTpeslmfcr0Bj+13NxuuDtwKtD3XrHzPshHOll1muQY0EpNdr1YcFa4/Tfn8dlZaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1267.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 01:37:00 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.21.0092.006; Thu, 4 Jun 2026 01:37:00 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Lianfeng Ouyang
-	<lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v3 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Thread-Topic: [PATCH v3 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Thread-Index: AQHc8x1i0QxsrZUKB0iH+Mtg4VCWKbYtCeWAgACVJWA=
-Date: Thu, 4 Jun 2026 01:37:00 +0000
-Message-ID:
- <ZQ4PR01MB12022B5C460A34260ABFCE9FF2102@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
- <20260603055347.66845-4-changhuang.liang@starfivetech.com>
- <20260603-groin-valid-a1d4445f7a6b@spud>
-In-Reply-To: <20260603-groin-valid-a1d4445f7a6b@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1267:EE_
-x-ms-office365-filtering-correlation-id: b5833999-4197-4d14-0719-08dec1d9c5f5
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|38070700021|56012099006|4143699003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- bVTVwPdnHI9RuFD3pWO8mNfNa6H8oy9wal/W8ZFt1zHJqu9tTbbyiotJdm79vqDOunPbsNj7xw8NxHO41MCkh4cGseuW7FTWpIbZaffo/8bQRrLMT5DnEqJmbTLflbtAMOeMGTR/yWa88970UGCNFF7KGtL23wknHsPoa+QuzVCZ8Y9GmkgKF5RcncDzVqL1nHJJN67wTQwj9lkVDGsI+nILT24QhhTJ+CmEmyeI700dSxSPBlJAs5Kr7uD1JcD4nlBo22++N2LnHZGmERUhdzhpPloECYX6qb9bAr2nqZN4BBFEU/xp8iua6TQwl7jkvLaLzg4PnYha9/prkU9XP6XFb9ONpuXKxmdxorkBRP6ALRRWenMDm/JJoNvilimvxMBzGLo6+F+j6a5w2+q/hgJdaqqinKKL2U+tXXB2GaFTgB6hTeiaDAxrBD+fdgvS63MCtV0LLL8Q8pNeQELnrkw7t94JOzVp1F5AU9xCbxur3M+smkG7Reldcemw2dueBtY0dPuDCI2oq+UM+1IUI6KUZcLLDHhf4y2pbawhafk+tWX41yx0A3SYvWEb6RsY
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?BB9m94dKs7aZIHhP7fOWCGjAm4jTHjofM//Jfl4oAz5oWc6HX2aZgOEOghXJ?=
- =?us-ascii?Q?jbkIYwQ/E9TPpBleFNgQamxizy46/djLmZ/lwt5uSd5FbALLtyEzzWBI91so?=
- =?us-ascii?Q?4MF0cJcXJdO0MOwAB8yCLgkMxM4Tdtwm2sngAj1V1pGyN3E/BSP6Y+RuZ9ev?=
- =?us-ascii?Q?iSE1ClWIYmTJ7NkY59An++rbY50wCKUQordGsDMrZW5iOPd8a2d3cjyij8y1?=
- =?us-ascii?Q?aofe1ULRDrpChB3QT0Ujx6lyomWGOab3sKX/P9YK5XU3kIDL6Wg7Rjs2OqMr?=
- =?us-ascii?Q?sXp6yrVbTQFjec1P34MWNWQr1egbjI5nEuGP35kmAt9L1zDpNpuJk1ZR0LXH?=
- =?us-ascii?Q?DlEo3Yc6iPrdMtw1fRTEqQxmmZZ9wfB4/ORu2bxmMUDdhF3Ko29HxpmumFZa?=
- =?us-ascii?Q?PiORcMEQa1ivOcz3QTx4odS+JMav4O09X8fykXrYL+oB/YkrF3K0A1GC0OHx?=
- =?us-ascii?Q?pQxVsLbW6BYlP06D2TNfQdWLH4pk2KkyyhEvPKXVpC44tXZRk3LINGbcKcKf?=
- =?us-ascii?Q?1HHpMwP1qwZT5FrQZ8bX0+TotNom1z2oT1F5BcYAlLmE1bjZ8CBU3ijHGgrf?=
- =?us-ascii?Q?ivLY7AsSi93x5mv11QWtvibBvEczA1KVlWlRjeCyeSerAp1ozY2Ui6YWUHOC?=
- =?us-ascii?Q?ndh0lOmZjxSkCkJ80W8Ilq1ykMX8k0TrSwsInbrNg+MK27q4tAhHSxUdTfIT?=
- =?us-ascii?Q?F+Pp8g6F9WmsG+dkYryOWkuRJSvn5ellV6DJUJEkxT0tDJfXh1d8/VEkdQs5?=
- =?us-ascii?Q?Iwp2Vm9xRdN7WsGujZxZ/SAjPcDmTbpyFatSU08YF9+Ush35MXnlMnJCckDq?=
- =?us-ascii?Q?9/l2cHR0QeQqgGI2mn59PidKQryFL9avKg0zJmFj5SLlp4+9GGHLDY8Prl0y?=
- =?us-ascii?Q?nZs9IFLHwtwwcnULmVnkDEq/3uxnKwDh2i7xenB4YHLqFItjg7txPFGUx4Al?=
- =?us-ascii?Q?nyKKTxatEa7NdzVT0Dyqln9L3qAVTMBEOiaNPI67aE/LsGoLjmhnjIzVQrJ6?=
- =?us-ascii?Q?T+zQEHZ2LrjueGcpo+vaZBzorkDDD8Df784s+WQPTo/a+NqYRKfhTEhmoWe9?=
- =?us-ascii?Q?X892XGG+8hjn1dhGwWk9526bFg87oSJFhEMsLXyVOnIwqaOKsB6/NyjjEVYF?=
- =?us-ascii?Q?7WZ3rjdsYXE2vx24qROOJubtBEeKjh/2/4w3BGNAEvxucSyjObEzp8jipaH1?=
- =?us-ascii?Q?g5xINK95kByx+yqaIqRHe5YU4Jp41KO3X8EF/rWpPxwTkTGVtNiqT/TasqHv?=
- =?us-ascii?Q?FN1jZRlwwn+zlpqjXOQOWyrjX4/Gt8/Dd31Si/BGRk7o+rPsyiXN8WpDXdZG?=
- =?us-ascii?Q?EWXCKNBfa3v1rJIYxaunwpXO5YULleqXU3jfSI9hF+TtgBIsvCQfD/mlxw1t?=
- =?us-ascii?Q?WNX/XdoXFpXODSziGTUm19GlyFGfDt9VMuBQ+G7PXQSvt/+dWSKLGNcXdtel?=
- =?us-ascii?Q?srdhUYWVxpJE6OEJ7Q9trKhRw6mfUOp8k4nDqP7htSmrVGxvRWdG8EZswiY0?=
- =?us-ascii?Q?dpge/mJDMBhbA5t6ww3Yk1RgdLIKHG+Ufffh4Gv98d4w7SYDPVAgAnJrqgdv?=
- =?us-ascii?Q?mrhxsuqcbr9LFWlr7asXC0Uaz0nlg3p9rYzRfLwax3cbuweU5qxDCdG1xcZU?=
- =?us-ascii?Q?gmt3fvC8nNUtNe2N90As/AMVB9eFYR5SEJdQop1yCjzML4j8d9rDSJpUkyL1?=
- =?us-ascii?Q?Dfa4rf9eHQx8IoM+ooww94voqMZTonXDJUYktg3IHnKjJbLU2+8eO/N3R4Zy?=
- =?us-ascii?Q?BLF11ZRSH6SfhRxXbaoxy4H6vMaLXMo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52F9129D267;
+	Thu,  4 Jun 2026 02:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780539105; cv=none; b=eq3L67ML34BIGqMRFjNpHi9YII4McvEar8ieoMd74Z/0cbsf/a0xPv6Qn2NypGjDg9oBzBX+lXf6py3GREy6kJIoUtJUsMLn48Cdta6Z0Rvag6h2RCwOOAYnOapV9ZCwFcelorBP6Ggi/viFZYczMvWPMzad39yZVxEqrZmzUJ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780539105; c=relaxed/simple;
+	bh=x0rjkB6VSM2DpvHGtAv6lYGGTUZrteHbc6IfcLCKDsI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H0XOAS8LR8PYg/xc5M9AOSxd+cbx3L9ubAfuH5nEMAj41nIcoheSql8bGrO0520aMiVgjOLuLS+I8ctBv+n/tDnJ2kiWZ7GtppHloJiyjPymSD0AUiV9Lx0UdhVDSeYXiFV1CVXlmJ9fsQ4nRGiZgx10meIhdrkiVAL6zl+t/SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.59])
+	by gateway (Coremail) with SMTP id _____8Axp3jd3iBqMGEQAA--.20838S3;
+	Thu, 04 Jun 2026 10:11:41 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.59])
+	by front1 (Coremail) with SMTP id qMiowJBx78LZ3iBq1UabAA--.33017S4;
+	Thu, 04 Jun 2026 10:11:40 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>
+Subject: [PATCH v2 2/7] ASoC: loongson: Add Loongson-2K0300 I2S controller support
+Date: Thu,  4 Jun 2026 10:11:22 +0800
+Message-ID: <4b003425d16a18049c5b90dbdaf91024e265cd8e.1780538113.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1780538113.git.zhoubinbin@loongson.cn>
+References: <cover.1780538113.git.zhoubinbin@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5833999-4197-4d14-0719-08dec1d9c5f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2026 01:37:00.6059
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: I3sXz8f9m47fmKQoV6Ia2WR1o3ClW2xoUrMVsNaqn/nHtAPN78IEsh9a294WUNhOrjoaYiYoN+2U3LFYnVIfm/IdaPpuMZTySZE4rcrrVqI+RphCJ28NWU9iA5MIDuH7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1267
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBx78LZ3iBq1UabAA--.33017S4
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEICGofwl8ZYAAAsR
+X-Coremail-Antispam: 1Uk129KBj93XoWxXFyfZF13ZF1kZF1kKw4UGFX_yoWrWr1fpr
+	sxCaySgrWYgF1akFZxJrWkAF15uryftasrGF47Gw4xG3sIy34Fvwn5KF1ayF4xCFyDCryU
+	Xa95KFW8CF45WFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8EoGPUUUUU==
 
-Hi, Conor
+The Loongson-2K0300 I2S interface differs significantly from the
+Loongson-2K1000. Although both utilize external DMA controllers, the
+Loongson-2K0300 does not require additional registers for routing
+configuration.
 
-Thanks for the review.
+Due to hardware design flaw, an extra controller reset sequence is
+required during probe.
 
-> On Tue, Jun 02, 2026 at 10:53:29PM -0700, Changhuang Liang wrote:
->=20
-> > +          slew-rate:
-> > +            enum: [ 0, 1 ]
-> > +            default: 0
-> > +            description: |
-> > +                0: slow (half frequency)
->=20
-> Half frequency? Slew rates are usually measured in volts per second, not =
-hertz.
-> Do you know what the slew rates actually are and could put them in here a=
-s
-> the real units? Or is it just "slow" and "fast" in your docs with no prec=
-ise
-> numbers?
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ sound/soc/loongson/loongson_i2s_plat.c | 42 +++++++++++++++++++++-----
+ 1 file changed, 35 insertions(+), 7 deletions(-)
 
-Yes, there are no precise numbers in our documentation. I will remove "(hal=
-f frequency)" in the next version.
+diff --git a/sound/soc/loongson/loongson_i2s_plat.c b/sound/soc/loongson/loongson_i2s_plat.c
+index ac054b6ce632..b4d807ee7f8f 100644
+--- a/sound/soc/loongson/loongson_i2s_plat.c
++++ b/sound/soc/loongson/loongson_i2s_plat.c
+@@ -2,7 +2,7 @@
+ //
+ // Loongson I2S controller master mode dirver(platform device)
+ //
+-// Copyright (C) 2023-2024 Loongson Technology Corporation Limited
++// Copyright (C) 2023-2026 Loongson Technology Corporation Limited
+ //
+ // Author: Yingkun Meng <mengyingkun@loongson.cn>
+ //         Binbin Zhou <zhoubinbin@loongson.cn>
+@@ -21,6 +21,7 @@
+ #include "loongson_i2s.h"
+ #include "loongson_dma.h"
+ 
++/* Loongson-2K1000 APBDMA routing */
+ #define LOONGSON_I2S_RX_DMA_OFFSET	21
+ #define LOONGSON_I2S_TX_DMA_OFFSET	18
+ 
+@@ -30,6 +31,11 @@
+ #define LOONGSON_DMA3_CONF	0x3
+ #define LOONGSON_DMA4_CONF	0x4
+ 
++struct loongson_i2s_plat_config {
++	int rev_id;
++	int (*i2s_dma_config)(struct platform_device *pdev);
++};
++
+ static int loongson_i2s_apbdma_config(struct platform_device *pdev)
+ {
+ 	int val;
+@@ -47,8 +53,18 @@ static int loongson_i2s_apbdma_config(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++static struct loongson_i2s_plat_config ls2k1000_i2s_plat_config = {
++	.rev_id = 0,
++	.i2s_dma_config = loongson_i2s_apbdma_config,
++};
++
++static struct loongson_i2s_plat_config ls2k0300_i2s_plat_config = {
++	.rev_id = 1,
++};
++
+ static int loongson_i2s_plat_probe(struct platform_device *pdev)
+ {
++	const struct loongson_i2s_plat_config *plat_config;
+ 	struct device *dev = &pdev->dev;
+ 	struct loongson_i2s *i2s;
+ 	struct resource *res;
+@@ -59,12 +75,17 @@ static int loongson_i2s_plat_probe(struct platform_device *pdev)
+ 	if (!i2s)
+ 		return -ENOMEM;
+ 
+-	ret = loongson_i2s_apbdma_config(pdev);
+-	if (ret)
+-		return ret;
++	plat_config = device_get_match_data(dev);
++	if (!plat_config)
++		return -EINVAL;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	i2s->reg_base = devm_ioremap_resource(&pdev->dev, res);
++	if (plat_config->i2s_dma_config) {
++		ret = plat_config->i2s_dma_config(pdev);
++		if (ret)
++			return ret;
++	}
++
++	i2s->reg_base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(i2s->reg_base))
+ 		return dev_err_probe(dev, PTR_ERR(i2s->reg_base),
+ 				     "devm_ioremap_resource failed\n");
+@@ -87,11 +108,17 @@ static int loongson_i2s_plat_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2s_clk))
+ 		return dev_err_probe(dev, PTR_ERR(i2s_clk), "clock property invalid\n");
+ 	i2s->clk_rate = clk_get_rate(i2s_clk);
++	i2s->rev_id = plat_config->rev_id;
+ 
+ 	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
+ 	dev_set_name(dev, LS_I2S_DRVNAME);
+ 	dev_set_drvdata(dev, i2s);
+ 
++	if (i2s->rev_id == 1) {
++		regmap_update_bits(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_RESET, I2S_CTRL_RESET);
++		fsleep(200);
++	}
++
+ 	ret = devm_snd_soc_register_component(dev, &loongson_i2s_edma_component,
+ 					      &loongson_i2s_dai, 1);
+ 	if (ret)
+@@ -102,7 +129,8 @@ static int loongson_i2s_plat_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct of_device_id loongson_i2s_ids[] = {
+-	{ .compatible = "loongson,ls2k1000-i2s" },
++	{ .compatible = "loongson,ls2k0300-i2s", .data = &ls2k0300_i2s_plat_config },
++	{ .compatible = "loongson,ls2k1000-i2s", .data = &ls2k1000_i2s_plat_config },
+ 	{ /* sentinel */ },
+ };
+ MODULE_DEVICE_TABLE(of, loongson_i2s_ids);
+-- 
+2.52.0
 
-> I've got no questions other than this, so once this question is sorted, I=
-'ll be
-> happy to ack all the bindings provided they're effectively the same.
->=20
-> > +                1: fast
-
-Best Regards,
-Changhuang
