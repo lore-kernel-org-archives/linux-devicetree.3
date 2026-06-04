@@ -1,104 +1,118 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3EF47DD65
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 13:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE38447D959
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 13:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780580678; cv=none; b=Ykqt1zvHvSYlVGpsN8a1rH0UpzU9f2/wsU0TFrAlo0EmHUNOKhD6dSFfpjIyI67rPso7U61puNkv1WMzfNSQEDd6lUaLRqr7rItq1TB0HgW93XFJtiRCTPUTmkGa91wKyfNivuv21+Z7fGaA5TuAVz/5hVElfhkb8pBy4w3eUUU=
+	t=1780580700; cv=none; b=hZF/iOzZsAOI+oLmMe5shSp8EYTZtexysPmeQ41qFWKbk97dI5vMOlzcY/8lH4fbE76Tfe+udDAa1Q/ERgsKXmpCZL8X4AwB01s9lsGVbx/Ry835itu2m4G7vww/qkJ6AKY40K3/bKCdkq8FAdtbG43v+E6zbMqMGU74bnjkELg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780580678; c=relaxed/simple;
-	bh=JAYNoi9z2XrkP30NSWWkWVNm0tZX6tGRbCpHrwaHTcI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Hx5nGVa2nK1s7ZYKFoIvOrkuX2pUe9NL4S6AWm0NXsP970lf46P80Eo7JRHtehOPulKc1QS9mfI9W1nERpAEpHX0kFbIiWaGwQGatgwe6N3Zd5zeghTaHOlb782AeY9RBt4yY3lH9TscCw6pasJPMTlG7ggq7ZCi8We/TuqsSTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wV8Mz-0000Us-9i; Thu, 04 Jun 2026 15:44:25 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wV8Mz-0015UZ-0i;
-	Thu, 04 Jun 2026 15:44:25 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wV8Mz-00000000AB7-0Z7A;
-	Thu, 04 Jun 2026 15:44:25 +0200
-Message-ID: <15ab692f367e9fb607324a3d648ae9fd0b5a5af9.camel@pengutronix.de>
-Subject: Re: [PATCH RFC v3 3/5] clk: zte: Introduce a driver for zx297520v3
- top clocks and resets.
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Stefan =?ISO-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,  Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Brian Masney	 <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Thu, 04 Jun 2026 15:44:24 +0200
-In-Reply-To: <7973709.EvYhyI6sBW@strix>
-References: <20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com>
-	 <20260529-zx29clk-v3-3-c7fe54ea388f@gmail.com>
-	 <99743c29fe81a90d3c1f51889d42ef9d4766de3c.camel@pengutronix.de>
-	 <7973709.EvYhyI6sBW@strix>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1780580700; c=relaxed/simple;
+	bh=uJd0WjMrsXaQQnIp2QM24bY71Pb1ZOJy40sxvJ8TPzM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cUE5MmBuY07t05wgTNUR/Wlp80Vupw2aERA9MhKFVG2g+Iq6kfEUU81eI5vXyw9v3TNX8oPJjU/TwejdP21waZxgB6/zuBAWY2eZGDdhCGYbyMlvKBONwONeMLCckz1wzhG9/LAHhJwyb4GTMMT3IaXqvK39VhkQH9w/zcN93r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKg2HkWN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKg2HkWN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C311F00893;
+	Thu,  4 Jun 2026 13:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780580699;
+	bh=ic3QQy90ZAY+oDkvHOUWU4oVvq7B5SGU79Eorx/sEu4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DKg2HkWNpjHr+whUKfJblGLmXB7D/WJtbh/2OyweWaswE61+BV4d1hcPyBl6n4BDO
+	 llyxca5gU8ORonb9+2dKTRhtkdbip9pqX0A4KMbeqJLjIlixP+CK0Ac+nZVDSOrhSm
+	 iKYqd/4xQS7ZaAPLGnveDyCkMiC2iaOKUAtNRts9XwEwjhD1jCnnkPWsXX1Ga8P7TO
+	 DcU0AhKu21yzh37HJszL+RB2ZPR0aBxxwhUHoISM0d4AUTRgkZekQr/kfktyYS/N6k
+	 IRBfhFudaTqPZ1BrbTg1IMGhRmZ99te+EHNBerM1qDYJaH9FqxATjATXxjrC4MVMMR
+	 mitRS+TxpdfJg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 7/9] clk: eyeq: Convert clocks declaration to
+ eqc_clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QmVub8OudCBNb25pbg==?= <benoit.monin@bootlin.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260604-clk-eyeq7-v8-7-53f618174cf6@bootlin.com>
+References: <20260604-clk-eyeq7-v8-7-53f618174cf6@bootlin.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Thu, 04 Jun 2026 13:44:58 +0000
+Message-Id: <20260604134458.F1C311F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Mi, 2026-06-03 at 23:49 +0300, Stefan D=C3=B6singer wrote:
-> Hi,
->=20
-> Thanks for the comments!
->=20
-> Am Mittwoch, 3. Juni 2026, 12:14:21 Ostafrikanische Zeit schrieb Philipp=
-=20
-> Zabel:
->=20
-> > Is this delay long enough for all potential users of reset_control_rese=
-t()?
-> > Are there actually any at all?
->=20
-> You mean drivers that are in use on this SoC that call reset_control_rese=
-t?=20
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Yes.
+Pre-existing issues:
+- [High] Missing Spinlock for Shared Register
+--
 
-> Afaics not, they all call reset_assert/reset_deassert, or only ever deass=
-ert a=20
-> reset that is set on boot. It isn't called at runtime and the only driver=
-=20
-> calling it that is in use on zx297520v3 is stmmac, which only calls it if=
-=20
-> assert/deassert aren't available.
->=20
-> I implemented the reset() callback because other drivers had it and grabb=
-ed=20
-> the magic usleep(100) from ZTE's USB code. It looks like I should just /d=
-ev/
-> null it.
+commit 8a6ca96f73accf716971f013f35f97d51b0a39dd
+Author: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
 
-If it is not used, please just drop it.
+clk: eyeq: Convert clocks declaration to eqc_clock
 
-The .reset callback exists for self-clearing resets [1]. It's ok to
-emulate those in software for the benefit of consumer drivers that have
-to work with both types of reset controllers, but I'd like this to be
-limited to those case where it's actually needed.
+Convert all declarations of PLLs, dividers, and fixed factors to struct
+eqc_clock for the EyeQ5, EyeQ6H, EyeQ6L, and EyeQ6Lplus, both for the
+match data used during probe and the early match data used in early
+initialization.
 
-[1] https://docs.kernel.org/driver-api/reset.html#c.reset_control_ops
+> diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
+> index 7b8de08388d3b..8a38ad9afb5ef 100644
+> --- a/drivers/clk/clk-eyeq.c
+> +++ b/drivers/clk/clk-eyeq.c
+[ ... ]
+> @@ -776,33 +715,10 @@ static const struct eqc_match_data eqc_eyeq6h_east_=
+match_data =3D {
+[ ... ]
+> +static const struct eqc_clock eqc_eyeq6h_south_clks[] =3D {
+> +	PLL_FRACG(EQ6HC_SOUTH_PLL_VDI, PARENT_BY_FWNAME, "pll-vdi", "ref", 0x00=
+0),
+> +	PLL_FRACG(EQ6HC_SOUTH_PLL_PCIE, PARENT_BY_FWNAME, "pll-pcie", "ref", 0x=
+008),
+> +	PLL_FRACG(EQ6HC_SOUTH_PLL_PER, PARENT_BY_FWNAME, "pll-per", "ref", 0x01=
+0),
+> +	PLL_FRACG(EQ6HC_SOUTH_PLL_ISP, PARENT_BY_FWNAME, "pll-isp", "ref", 0x01=
+8),
+> =20
+> -static const struct eqc_div eqc_eyeq6h_south_divs[] =3D {
+> -	{
+[ ... ]
+> +	DIV(EQ6HC_SOUTH_DIV_EMMC, EQ6HC_SOUTH_PLL_PER, "div-emmc", NULL, 0x070,=
+ 4, 4),
+> +	DIV(EQ6HC_SOUTH_DIV_OSPI_REF, EQ6HC_SOUTH_PLL_PER, "div-ospi-ref", NULL=
+, 0x090, 4, 4),
+> +	DIV(EQ6HC_SOUTH_DIV_OSPI_SYS, EQ6HC_SOUTH_PLL_PER, "div-ospi-sys", NULL=
+, 0x090, 8, 1),
 
->=20
-regards
-Philipp
+[Severity: High]
+This isn't a bug introduced by this patch, but since both "div-ospi-ref" and
+"div-ospi-sys" share the same hardware register at 0x090, does this need a
+spinlock?
+
+Looking at eqc_probe_divider() in drivers/clk/clk-eyeq.c, it passes a NULL
+spinlock argument to clk_hw_register_divider_table_parent_data():
+
+drivers/clk/clk-eyeq.c:eqc_probe_divider() {
+	...
+	hw =3D clk_hw_register_divider_table_parent_data(dev, clk->name,
+			&parent_data, 0, base + clk->div.reg, clk->div.shift,
+			clk->div.width, clk->div.flags, clk->div.table, NULL);
+	...
+}
+
+Will concurrent rate changes via clk_set_rate() execute unprotected
+read-modify-write cycles on this shared register and cause register corrupt=
+ion?
+
+> +	DIV(EQ6HC_SOUTH_DIV_TSU, EQ6HC_SOUTH_PLL_PCIE, "div-tsu", NULL, 0x098, =
+4, 8),
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-clk-eyeq7-=
+v8-0-53f618174cf6@bootlin.com?part=3D7
