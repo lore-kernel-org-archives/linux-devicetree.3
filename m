@@ -1,120 +1,101 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A6C313E10
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8927B368D50;
+	Thu,  4 Jun 2026 09:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780565113; cv=none; b=Nt5orccqx/AexYVaRJ9UPV39i3GFJOreQwsynKeUxaf5MTofJrUK9CypDmIb0NKJKaYajoyc7ot+7gN2d5KUBI1QeQMryWtDmlvEjzKIfIXwYNv0XcSfwY6RlF1Jfj5LTHF3U/a/g4W7pIO/cqIKspnKfHbKxFPV8tm4U9imj0U=
+	t=1780565825; cv=none; b=i7vYp0llZwE11BPWDH0PXmDVs5FfGsUbSd7eTES0ybZt3GUXIWaveXeHzP/TNDI4kA7eZIYtHhb3KplT1drq/EwDfyr/j0XRKT2yjVxIu0yRSHvGGOVMa1TxjdSKYGv2h/uQHq2yZU6s62AAtWow08MN5sW5CyJqPEgWwD6WjpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780565113; c=relaxed/simple;
-	bh=rz20gXhQdVOrTdEhmhCpXq0m1jn6BoI/ZelHshCeHzA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jjgnHYaMmonZgZiJBASaZUMsPGCkmxhLGgLo6x1iarYrbpsZSNd5sGgU1uzzH9Qk00IaDG+37O7MLRSl6HlD0WUavPlch9yaTwNJBTJs1KVRooJqd0K56YEGW+4ElgdI/3niQ6MGxqVpSHnXwhtBci/etTOSSuX5CPk3T0g/HrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nmw+4LnL; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780565825; c=relaxed/simple;
+	bh=mcKH1td+rU55hxoN0MayIxKisg3K7myzFZKj3PPbIYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=glivMfi/mGkVR3nxDId47cdyL5ds9xXqCa8HvKJjckW0w71zXWJWMcHZKLtI1wx7bSVRkBMMv+fu9aLa2Pwqmx4QcM33rOlc/K1y9wP20pwhwj6tgSEi6Xs3zOCBJDQYeW7L0voE/GWud8BufPepE2Y4mLULBidA87mk13mni5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FVLCpC8R; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nmw+4LnL"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-36c68964315so253971a91.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:25:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780565111; x=1781169911; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rz20gXhQdVOrTdEhmhCpXq0m1jn6BoI/ZelHshCeHzA=;
-        b=Nmw+4LnLVpRJV/IdI8giZDLWdDFcOinq0XfLqgygraUWndBHFfgddC/UVbXFelmjHW
-         PjYbVmh7cSrtlIBBR+hZuknotPTR1kCt2UJYw/5kyaj9lf55xCBy/o7W3mN0o/WrxvTl
-         3n5thIhFRPcJWVoNu1TjEXNZMo+6zNJ0tEcdyn3ZKX7LQSMq8e15qOX/SowNahdDvGxi
-         xZbIC9D6dmEIFCiLYxM0nsesZ+fwvnCj6Nyy5Inw1/3k4HDiWTgNxzAOifBNVK4x07Qk
-         iK+Wy5xscApkBflsgaFIBMYcBMZv8PC9sxiJFW7rdgApczRQ1EKYEuH3zNh43yKg/3AE
-         haEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780565111; x=1781169911;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rz20gXhQdVOrTdEhmhCpXq0m1jn6BoI/ZelHshCeHzA=;
-        b=PnOZwmtH6VcbqtV4+bbZCd1cbsmGaSnjCWKBh5Sb8e95PskZmlxr6w5GamMyOIenB+
-         5EPkdNyt+AK0+Etzc/s5JyJ/3ELJ9at9XMgbbdlBnVS776U/SwMGRt2IfX7kSqOlenfa
-         bcRBCSUvraOTtpq0kDUm7ot+BO2UE0fwRND6aP0x8WUmwODpNQoAFqRSiK+5J95aeLcv
-         LXWWU6ZozMT7qEgfdY9K7Y+ivbTfRTDa7m2OK5MWHcBakWO0cB/YZ5uLnL9NXJDyuaMk
-         Th92sEEPYE/DvXai8p7d+JeILjSzQdIqq1Q2sAtTbDOe4yA4nsaEjllWQRwN1bYdT2lg
-         NF+w==
-X-Forwarded-Encrypted: i=1; AFNElJ+RpYHml6RDdNUl0RosEdDe9hCoKrMYalAvdW7+Mjf1tku2h8c5bhOv+o7MGlV6jcdOO6PW2wi3HS1U@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywh41D+uwyfcQr+DAuBnrHJr6XyQ9HwcHqizi3nSHakSUuHgnDO
-	Uvuf0htZm1Vvj6Yii67WR1Jx25ISgc9zxH76w/5gQcmOKcpjYFGDiV/V
-X-Gm-Gg: Acq92OEMMQaIoVp/M3RZxbHG7v+R726S0zBDmvOYQ8l4gvGF1Rwsx8RR6tk7FdD3OpY
-	7UVdKBf9ukVzfjUdqzcuBXEKXrYvLafmlgiEKGMiPsV6BE8l1QUJA3/6GMQjCgc5j/U/2KNfrWM
-	gf8QRix+PCBi8EmxcFMGWDjDMY83Rvva5ieD4kcm3WuYGYkMeMv7mmRZ2P5qwy16IkdqBj70U9g
-	KNyAy94l7LRHdEnAmP14/QgpEcdi9ync8pkCyEBzM8ROJoCrlPQ6P2U82KPXP4LD0OhEjvdk3Xx
-	YP49y2duBmihL2lYY42uITtoSPh//Ldk7TzTOto8zR6OaOjpU5O9cc4LBi042ckEefrZlsu09o3
-	Y2ddZS33cklMlYTyEJOYEL8z/r1r1i+gXlt4dM96zAVhWJ0V17z7iYtosQTS2v0gbDPZkt2AWfJ
-	O/7uAaVWddcRJYZMNbGS6F8fAE+eqSAWAa6pWIZS2nrAdl3lvQs0J4NN02CYPdxRFtEZAOrLOL1
-	NpE3m/lhGilGA==
-X-Received: by 2002:a17:90b:53ce:b0:36d:c159:8f11 with SMTP id 98e67ed59e1d1-36e34775d33mr6490845a91.26.1780565111106;
-        Thu, 04 Jun 2026 02:25:11 -0700 (PDT)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36e7014f288sm3459212a91.2.2026.06.04.02.25.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 02:25:10 -0700 (PDT)
-Message-ID: <b90b4b9e-9e11-40c4-9407-ac9bdc83b0b1@gmail.com>
-Date: Thu, 4 Jun 2026 17:25:07 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FVLCpC8R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780565825; x=1812101825;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mcKH1td+rU55hxoN0MayIxKisg3K7myzFZKj3PPbIYg=;
+  b=FVLCpC8RHNRIcdeWDq4AWgtsjS9Ch7Dyj4QGaSwkyN6CnhTvhiLvJZke
+   xUX8ehLW06GvTavv/Z7sCoYoB8/UPRSgrL4/hD6eQeVzez3Ok2YRYB4fL
+   aRaDSZdp2MKWNw8QtcRUkg8w7oTiqZnvzyFFcLX0b1hVCqyWds++AuIX8
+   KsqmkPMOaZ6ROyw1/tG+gPmmPii6usvhGOgF/x2I0Lt83Y5vH96V18Az9
+   Ligl1p9f9kyPYd6wPoAuwJSsSkYhQjhUr3n4zaMtTJ1sHtx941G+J4lb3
+   T0vNmxJvMKyXbCdNGNX2kvKNbyJjHshXVP70wmNrK+PkGuyWd/8HD8R7Z
+   A==;
+X-CSE-ConnectionGUID: 82sJGJcqQiGe66WsghP/qQ==
+X-CSE-MsgGUID: pIM+WPE3QMihZm50y25m1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="81134127"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; 
+   d="scan'208";a="81134127"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 02:37:04 -0700
+X-CSE-ConnectionGUID: XvDdQygJTymuR+H+/ph8Wg==
+X-CSE-MsgGUID: QZljXeyfROeZ7z0HRuORjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; 
+   d="scan'208";a="244581732"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 02:37:00 -0700
+Date: Thu, 4 Jun 2026 12:36:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/3] iio: dac: ad3530r: Add support for AD3532R/AD3532
+Message-ID: <aiFHOj0dVv2fasD1@ashevche-desk.local>
+References: <20260604-iio-ad3532r-support-v1-0-c3552f9031de@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: spi: Add for Nuvoton MA35D1 SoC QSPI
- Controller
-To: Conor Dooley <conor@kernel.org>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-References: <20260603043551.1062112-1-cwweng.linux@gmail.com>
- <20260603043551.1062112-2-cwweng.linux@gmail.com>
- <20260603-daybed-absentee-1b64f5caabe0@spud>
- <41914879-5fd0-41dd-b097-2be80096e464@gmail.com>
- <20260604-anthem-jokingly-8d8312ff0c3f@spud>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <20260604-anthem-jokingly-8d8312ff0c3f@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260604-iio-ad3532r-support-v1-0-c3552f9031de@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Conor,
+On Thu, Jun 04, 2026 at 03:13:42PM +0800, Kim Seer Paller wrote:
+> This series adds support for the AD3532R/AD3532, a 16-channel, 16-bit
+> voltage output DAC, to the existing ad3530r driver.
+> 
+> The AD3532R uses a dual-bank register architecture (bank 0 at 0x1000
+> for channels 0-7, bank 1 at 0x3000 for channels 8-15), which required
+> refactoring the register access paths. A table-driven register bank
+> approach is introduced where per-chip register address arrays in
+> chip_info are iterated by helper functions, replacing the single-register
+> setup calls for existing variants and scaling naturally to the AD3532R's
+> dual-bank layout.
+> 
+> The series also adds AD3532R-specific powerdown modes (1kohm_to_gnd,
+> 10kohm_to_gnd, three_state) and a new ABI entry for the 10kohm_to_gnd
+> powerdown mode.
 
-Thanks for the clarification.
+This cover letter misses two required things:
+- why do we need a brand new driver (provide an explanation)?
+- where to get the datasheet (provide a link)?
 
-I will keep using my personal mail account for sending the patches to
-avoid the corporate confidentiality footer, but I will set the commit
-author and Signed-off-by to my Nuvoton address in v2.
+Just reply to this email and if new version is required do not forget
+to add it to the cover letter.
 
-Best regards,
-Chi-Wen
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Conor Dooley 於 2026/6/4 下午 04:55 寫道:
-> On Thu, Jun 04, 2026 at 03:07:31PM +0800, Chi-Wen Weng wrote:
->> Hi Conor,
->>
->> Thanks for the review.
->>
->>> Missing commit message for one, but why can't your Nuvoton mail be used
->>> here?
->> I apologize for the missing commit message; I will add a proper description
->> in v2.
->>
->> Regarding the email address, my Nuvoton mail adds a corporate
->> confidentiality disclaimer to outgoing
->> external mail, so I use my personal address for sending kernel patches.
-> This prevents you sending with your work email account, but you can still
-> set your commit author to your Nuvoton address FWIW.
->
->> Conor Dooley 於 2026/6/3 下午 11:24 寫道:
->>> On Wed, Jun 03, 2026 at 12:35:50PM +0800, Chi-Wen Weng wrote:
->>>> Signed-off-by: Chi-Wen Weng <cwweng.linux@gmail.com>
+
