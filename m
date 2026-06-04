@@ -1,153 +1,142 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010070.outbound.protection.outlook.com [52.101.56.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B42386C10;
-	Thu,  4 Jun 2026 12:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B04425CF7
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780574852; cv=fail; b=HHHP/0DlMEtBOuWf9hfrFKwBeoMXIfHP/EEc0R4RLrtfDBmf2sstb4yZUIp9lkn4Xbtuf5OOiyY+Yc0Lv+MbjLhlnP7aMVToMCqbcNmutgQB450cIYZV5fBrT6bY5HIjpeP6tzUGwNqlAvGlmy8EeeH+sRXYsJ2dS+O5EtGsEu0=
+	t=1780574959; cv=pass; b=hnZc87Vn+MYTR2fqcAL4UtbHwzNTVW6e5b5GLesYLQUG6u/TltuF/sS1E1V7PUubDPD1DDKKa94nPFK1C0f7USy1wEJjEm7nRGiRJSw3CAp06ynwAnr8czNXr6YmvlVuajCTqfEozxiOnqcdoFi1taukZd2PgCh8lV+YkRl7arA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780574852; c=relaxed/simple;
-	bh=B6dtPAl15du7qHoJLaKepGwC4/qGTZkEu7lpT4Z5J0M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=WOHo4Qei7AvT09e3v87OFmzlQzU09MxXupuqRda9msjnWD6p7MunslDP2PjD9kAz1bCyuPtGE8RGmpnllOoo+FE6AX07ZWvLz1FG1hFavQ7Gl2LF+KPGfr/3GIIQoF50LeJdshzourjNS0XrfzVz2I9mBaNrbKvdYGfsK+loEKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=oPtbSbhF; arc=fail smtp.client-ip=52.101.56.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1780574959; c=relaxed/simple;
+	bh=uj4K88qc6lPcbN3Yc1wC9i/Igrgsbe/5UqnLXF7tFxw=;
+	h=In-Reply-To:MIME-Version:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ssNlW/PsWYVItk78L/nYWakr/HHm8og3vvS2RTydKkMBpNMtc2eZ2ivRCKDoPLe3+kh9E1lpjy8zmLL92PLoiErsaUap4v/Jt2vp92S5NRXDFSdE6DYPJMG8HNfxqIGRZEnYOHC7KLV2FDJVAyUdtgCusOTQOdhI5F94IofpcpY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SS+26SIH; arc=pass smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="oPtbSbhF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KKGihtrjODIfycndxBhncHQ6Dga7dTz9/2s6cZD173hhrjvfjxjsmNCW0HirhYjUWOtTrAqNCxkc4D9JUxslXZhhivTlGpmEgSiip4A3BWFv1ZmTMsD1FmmuYvHkFv2IjiuRqkNLQ4r63skAC/77RKsLB4G63sX2SybLr0bp42QwIA7GDcE+Ejw2eUDssdXiOCgwHitxrb4P/6geTjqjzVhY/kxYHeOFBaT+pALbpRqHhVE8aWIIq+2GDgkx2/4umuKVzbuJwrJVvArep+a/LQ1VcH0h7LuYcW+SUsP0UbE1y92QVXcyFOI/WiuWUBmMNQRaNADB9MFTXRaq6jEepg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2Ym/Lmb5cj6OnhD24Ihvmdn9GKZdeLhXb689jIuXqNc=;
- b=lZfBJR+5uvHQm7YoAdcwNnNZXUvtr3WW4nR0T4SHTQg4zRVIvCG6rFqF/UICSd1yaSWwIX2dBGnmFnYGSj3Ku6GRgIJHNJuc+nfSPrvBqOqJrmPLac5fRrUkir/0B1PfC9+61lFYbVIgpF9bbqSCDCENW7oDzFO7bOeeUa/lvU6dLAmXBN1TTv0/WyhkjKZOSwh5h4MnSgo137CnUINiqihFmDjrUdPyxm3XmENDqK8kXgqu5V56Ui+tIax7vhsc8oRC5zB8xCD1JCMZTXjezjMRg+G3OaLmGkXDQj7BLoSWYWFBRKm+YR5MLM9DPWbiXhs5utDNJ6HGqOOiLVgAuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Ym/Lmb5cj6OnhD24Ihvmdn9GKZdeLhXb689jIuXqNc=;
- b=oPtbSbhFA8N6GzDVHtojBnEetN2ElFfJTNNyHaIobCoCejysqYSnZxF0ulndewykGE1/aFfWQvHaQQQ3WI9ETCDf0mT1yVnDT66Os9bdqJ6ahuqgeBgp2eFe2whYAzF7UcRHsAACtbLaAwRpXJsQI+1veRydyoAer0L6l69jDHY=
-Received: from DS0PR17CA0016.namprd17.prod.outlook.com (2603:10b6:8:191::7) by
- SN4PR10MB997921.namprd10.prod.outlook.com (2603:10b6:806:4fe::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 12:07:28 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:8:191:cafe::6e) by DS0PR17CA0016.outlook.office365.com
- (2603:10b6:8:191::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
- Jun 2026 12:07:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 12:07:27 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 4 Jun
- 2026 07:07:26 -0500
-Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 4 Jun
- 2026 07:07:25 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 4 Jun 2026 07:07:25 -0500
-Received: from [172.24.233.254] (santhoshkumark.dhcp.ti.com [172.24.233.254])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 654C7KQR3330008;
-	Thu, 4 Jun 2026 07:07:21 -0500
-Message-ID: <ab32fe1b-850e-4dda-b87b-188f0b7edc85@ti.com>
-Date: Thu, 4 Jun 2026 17:37:20 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SS+26SIH"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-65eb226b1ceso675919d50.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:09:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780574957; cv=none;
+        d=google.com; s=arc-20240605;
+        b=SxMyQghlMlQ6lKj9rApIlmDbERmPgbtXOT+0chcFDdJrrroxgLOXfjYRevh1tYoW/5
+         ggAibRKpSX113HFWKU7NbLImf0VIUkCnk7+rOld9wjQGDSwIVNXwVpiq9JHrF1Nf0iFP
+         hpPEg+NX+4Z+zDRRSDRAc/6sU6sKHTo4yXaIt05f1cyL4Cy+UkcHAEwKNwuw1ChRCG4L
+         fk4nxFqzCz53we7jeUWcP20c1HXkbNSBxvnd532sO6/W+ct5ubn5NNFzSToz32HQ36/0
+         z1EYpE7z3mwZyNDQ3waj9b3UOS+uBtrSU14USbZRZ5dPtiS5uew/IY8+pA8HYKlDANhC
+         IN2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:references:mime-version
+         :in-reply-to:dkim-signature;
+        bh=6ifSH017/6XeBpJ1mk56x+Yz6Ui1nA/vUxvuucn89y4=;
+        fh=gNd/AiSxcP+iVlVjbDIVzBRg4ZW4NCXPpafi9YLfXqY=;
+        b=Anrv012kqwUejNeufahp5A6vU/qczRCvhAGOpeMZZNRxihsnllrv9AJk27se2FThoE
+         Ip7Wyw5F2BRsUDIjD5xc66PmR+IJz//HY2kKj5gPq1Ba1kuLi24XJQDyQVG9dkkEqD1T
+         jw4Fw+4O1NjZtvcqU2gqfVgOaI3FLKNvOlDsgx6TFcWZaYLwMpyiK96bdbxLqbIBy1/h
+         TykKiS8yBJwo33sXxtbJ1h0x/v7hHQe6pOxWG3dloCvsDaFn2TY2gwB3uW6wgh5fQsM+
+         W7e3YapnoVgcWd1hMfZAPMe6KUcDR7g0AebJh4q6o6OewyrnsLun5jamfSM7ecMaq6lu
+         eOfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780574957; x=1781179757; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:references:mime-version
+         :in-reply-to:from:to:cc:subject:date:message-id:reply-to;
+        bh=6ifSH017/6XeBpJ1mk56x+Yz6Ui1nA/vUxvuucn89y4=;
+        b=SS+26SIHrEnTCl1BZkXHSOrEkPe4W0Ol5RQudc9dU/rC3sx+nLUfIQyocnJxTVlYf+
+         sqkts8xWA4OUjbDG5cQkV91E5D+LR1LiWPKRPpxmcIh0+JWbfc75VKTSx8vKmBXl5tcm
+         CfmGDjn7QCVz+dY5GdeTuqG19N2PUICfF7eygp4iKviHEsVoqqQH5ktTjuHBhKv6LWZF
+         HxhgTUajRR0IK4r26UZC2qvgw4SUHpEgWQfBgNpE5z3+WbZ0ongby2Ye2XEX39DeFepF
+         PVdbNGZaAW4Cd1tQ+2SeHWgK/OToxe+7uW2XfYKLITM7D7xF2S4VulEbta/hFY9hWkXN
+         75ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780574957; x=1781179757;
+        h=cc:to:subject:message-id:date:from:references:mime-version
+         :in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6ifSH017/6XeBpJ1mk56x+Yz6Ui1nA/vUxvuucn89y4=;
+        b=RCcsab2xq5K610jKeYh4rVgug7h9FnTf95LL5FQG4hKesR2ZezK1eJCTLO49yWUCUU
+         Db/m/M2OtAa+5To33MyzEpiAzuaEJMgv8jyni8iuOPS+s4Ic6NlhO13Uz9CXqcm+vDqw
+         AzRQUu1jAnydiZuTz0ukR7tGgdMcw61QmGmH77cAigxMNApchw/XHxArF4ZWube9pjWd
+         v/3M/XnX704QTJF9ne1YoG03+d4iMaHbh/a0U2ItGzXh3vFBwWenDQoAoEnuB/w0wKLA
+         bI11MR2se1GV7N2jOvk66h986tRrbu+Wq6Lt3+8Q1SCq+Fye2dbxUGhKbmgNKzvdOTVM
+         eiaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/SEGmdmpIO8g8ADnJWt5iMURXunfq75sP1OFsMnOIaH0FghM9kt0kyVQGkJRZha/rh4VBcPUQAhPjU@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE+p0+gFp/noNXz6VG0hLDGPYTS3TMHxFq902+58/8KretUuxD
+	Phlm+2htuQL3lm+XztikgnR17G+c0+Nziv5LjLEKSjTFhAtOu3IGJXvrEY4C7ZBfI7oIdCHuMWM
+	JEuRCBR1/UsnAPpzHgQ9FAxMCCS9tMZImezmf
+X-Gm-Gg: Acq92OEmz+VQ+Au5dJ43FYoA4o+4ZeOZcVlHD/SMv+nmT3Qn8Er+b39KocBc6Pu2wd5
+	BG+2XGPyrgN6IIDtLJ0dQWacJV09fgSkU4kMS4CqmHd+WdWmmm9CGaIFg3uBsrhKk/J13dpjzyx
+	GXFPSeGqheaScihE4JMz5GxwM20IqxCKYoLUw0Doys6XLG0J9Ph6h4aJcsKy3tDx6/zyE+E9w9A
+	70qgxFmho6KJ79B+n48h6pWI7q31pbsHk8fTQT3dgRxIQR4XTxpU7v8KxdmYtDeNasnxY/6qfe4
+	dHIpjidj5Q08yqF27YI=
+X-Received: by 2002:a53:edc1:0:b0:65e:b223:c15 with SMTP id
+ 956f58d0204a3-660dc561bf3mr5574275d50.49.1780574957417; Thu, 04 Jun 2026
+ 05:09:17 -0700 (PDT)
+Received: from 922524751902 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 4 Jun 2026 08:09:16 -0400
+Received: from 922524751902 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 4 Jun 2026 08:09:16 -0400
+In-Reply-To: <76bb3e5b-e4fa-400c-b7fb-98f95c7a068a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY tuning
- pattern partition property
-To: Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>
-CC: <broonie@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<richard@nod.at>, <vigneshr@ti.com>, <pratyush@kernel.org>,
-	<takahiro.kuwano@infineon.com>, <linux-spi@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mtd@lists.infradead.org>, <praneeth@ti.com>, <u-kumar1@ti.com>,
-	<a-dutta@ti.com>, <s-k6@ti.com>
-References: <20260527175527.2247679-1-s-k6@ti.com>
- <20260527175527.2247679-3-s-k6@ti.com>
- <20260602164945.GA475455-robh@kernel.org> <87zf1by5oc.fsf@bootlin.com>
- <CAL_JsqJwxgcFOB=kE7bVQYDn740-w4RppMF5W-3Ne9=9qV9OrQ@mail.gmail.com>
- <DIZN96NYLDUJ.DS1LFFAS2JH9@kernel.org>
-Content-Language: en-US
-From: Santhosh Kumar K <s-k6@ti.com>
-In-Reply-To: <DIZN96NYLDUJ.DS1LFFAS2JH9@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|SN4PR10MB997921:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28a94cdf-fd6a-4c54-e74b-08dec231d8c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|82310400026|376014|36860700016|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	T7pYyw6E4XzJCPccTwxsmSqtoPSgOqf6SX5NAHFIhhF5exUJ0r4lG8jw17c61SBHPobdmSMROKfqbYgQFbFNlxAXJ6SAFzebV8DYo1bgKkIie88WZgFnnfFrCdHBAV4q7WS1pewAM+2GyaAfCbb4ar4cwGRJ4rVSr7kZ+8C3jWWvYxZRGPfCatiSZ2K4Xbz1Tvfr7y/KRdskVjM0s43ptjKDsH6dpVPx9GtjEINeUrCq61u9pYI6MTOy2ipLuvX3Lqswy4LvzbEaQplR7ieBFAYWyqyAQ0m7H6OFPIdcHL7NnQeqxYoVIwQl/g4VNX/tcKBMtbagrDbI2awdSyf0lHG8Juz+0Mby6JJGhbcn0t3XR+bsp/RZTuHt7aY+pANMYjI39PzvYp7xnTdakM5D0/Pvnwo9vGFatM9dHX2LYq35ffqEmrLI8JNapgEAjJBQeqbqyaZfwj1Lnihr61ewE5fMIRKnoFkP8507e/gVYEq9yfBR4aOPJ/L9/qWVzT6+JbUS/eFzICu1umDNa7DV/6elAWIqtPpS35BlZGnQyA8nUFlBg/6hJ6Jry/xAxKm94u722k/ywxl5Ruvs4IY8JxkKccAGaPgZaewlVIXZ8PGq/zuNnmMYX2b0lyC/iUl2t4ZYmY44DkWZuZS7h3K4FFVNB/YWJ8QXIgpEZQszFDc5/TA7MI9gP1b4xz87GE97Hvm/5t+wTZMtgk8RuUYWkiZishP4MRGvaPwZu+kkQY0=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(82310400026)(376014)(36860700016)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	JrlMrq8vUu85A1k4Dan/mENMqiMKi0O3++VwX5XogNnek1bEyM/wS2L5WdSklTJbvyClklVYE/jPD3sRhE1mGKqS+aKYe9hBGYBpVYpVyJR1hxD79YIwqXDlIuNMReINeTKmynRIbjeHr85lmcSD08XWj6q1W8slSjcJxMSXuhidTNDx1rErQA3b0NLiZC0r2FmhmUEyIWtemnFqNeMQImkby5sYbrwIptS0jgiFSoO+rgtzjR5jff9FuauXNjzxAyXmErYV3oZmvV1uaDGLqatQk8Vx/HtBmfJUDb2cfba2bB3F28OhikkUvg9KCgZt8FVvBig78cawADFgnAT76GDcSuL2pgf+MgcuP8ekpvVP+R/4QbTWSZ3u6mDpUQg+Tfn2fNoQ6H3RsIy1kV13/5gNIwHUQoIXGxdOKEGC/zfy+iI8RU2AAMPJ1FGxYvDH
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 12:07:27.8454
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28a94cdf-fd6a-4c54-e74b-08dec231d8c7
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR10MB997921
+References: <20260529-hawi-pcie-v2-0-de87c6cc230c@oss.qualcomm.com>
+ <20260530-mutant-gecko-of-anger-ce8803@quoll> <76bb3e5b-e4fa-400c-b7fb-98f95c7a068a@oss.qualcomm.com>
+From: Manivannan Sadhasivam <manisadhasivam.linux@gmail.com>
+Date: Thu, 4 Jun 2026 08:09:16 -0400
+X-Gm-Features: AVHnY4IchoeFwiwuUzc7MAm7ADNP4K3glOC3B0Du3JAMkFblKsf5YvA0cBqg6dg
+Message-ID: <CAGyK6coCyziKzffGmj+fGs4U+mXEeYJ0Q2+z6xHCA+i=gop2oA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] PCI: qcom: Add PCIe support for upcoming Hawi SoC
+To: Matthew Leung <matthew.leung@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Michael,
+On Wed, 3 Jun 2026 01:26:53 +0200, Matthew Leung
+<matthew.leung@oss.qualcomm.com> said:
+>
+>
+> On 5/30/2026 3:06 AM, Krzysztof Kozlowski wrote:
+>> On Fri, May 29, 2026 at 01:10:07AM +0000, Matthew Leung wrote:
+>>> This series adds PCIe support for the Qualcomm Hawi SoC. The Hawi
+>>> platform features two PCIe controllers: one capable of Gen3 x2 operation
+>>> and one capable of Gen4 x1 operation. The first patch adds the device
+>>> tree bindings documentation for the Hawi PCIe controller, and the second
+>>> patch adds driver support by enabling the Hawi compatible string in the
+>>> existing qcom PCIe driver.
+>>>
+>>> This series depends on the following series queued on linux-next:
+>>> - [PATCH v3 0/7] clk: qcom: Add initial clock controllers for the
+>>>   upcoming Hawi SoC (Change-ID: 20260316-clk-hawi-1ad4cad36d6a:v3)
+>>> - [PATCH v4 0/2] interconnect: qcom: Add support for upcoming Hawi SoC
+>>>   (Change-ID: 20260311-icc-hawi-d6dc165f8935:v4)
+>>
+>> It cannot depend there it makes it unmergeable and untestable. I skip
+>> review in such case, please follow standard documented practices about
+>> decoupling independent works.
+>
+> Thanks for the feedback. On checking the dependencies, the changes are
+> applied in their respective maintainer trees:
+> - clk: applied to qcom/linux.git for-next, commit d6cd9d5692ba
+> - icc: applied to djakov/icc.git icc-next, commit 07548b04dc36
+>
+> Both commits are present in my linux-next base-commit and have checked
+> dt_binding_check passes cleanly.
+>
+> I can resend with the dependency references updated accordingly.
+>
 
-On 04/06/26 00:30, Michael Walle wrote:
-> On Wed Jun 3, 2026 at 7:38 PM CEST, Rob Herring wrote:
->> However, you already have to support using label, so anything else
->> is supporting a 2nd way whether it is compatible or a phandle
->> property. Is it really worth it here?
-> 
-> Do we? I don't think we have. That was among my very first feedback
-> on this series. Don't use hardcoded partition names for this, but a
-> phandle. A compatible sounds even better though.
-> 
-> Also, I don't undestand why this property has a cdns prefix. This
-> can also be relevant for any other SPI controller.
+No. It will still break the pci tree when this series gets merged. Please
+resubmit after v7.2-rc1.
 
-Good point. The cdns, prefix is a mistake.
-
-I agree that this is not Cadence-specific and should be described as a
-generic SPI peripheral property. I'll rename it to
-spi-phy-pattern-partition and move it under spi-peripheral-props in v4.
-
-Thanks,
-Santhosh.
-
-> 
-> -michael
-> 
-
+- Mani
