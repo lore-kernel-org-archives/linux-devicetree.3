@@ -1,123 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D643A1D0C;
-	Thu,  4 Jun 2026 08:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7FF305682
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 08:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780561041; cv=none; b=WpN9CLfWZgrGCyuo+4iuFte9qieFCT5+w4sISUE5AZ79agWgMfwnbEVxob6dnqoIhWLnj3k5rIWeC+Wcf0Z2IxL2uQKJv6zVKQNjGyJS9fzj8A3niJmoKXRoeDzPtJCo3FolZ/kEZ75c7mYSOe64zdcCqtc4tvisZ2kqPgx1BdY=
+	t=1780561347; cv=none; b=G32dTVaM6azlyW4GvQ2HoUlbWC/wkUkTgAGZP3mI0Uhqq11GramD+/JFwKOQDtf7fgwlb2AW1syCd0IzMBgsvFwvpOnBpGOyJ2mezZsJ8ia16ojIuXSIjGtDZ/aILf9wn3ux8udYh2XYDnuoGVJVQqZAOXIOJX1iv2ZUgj520HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780561041; c=relaxed/simple;
-	bh=WaIpu+mYBmXerhjCY+gB3dP/XRakT3MaV9043JcrdvU=;
+	s=arc-20240116; t=1780561347; c=relaxed/simple;
+	bh=qIf0q6nPGKv9Kn7b5/DqMsF0DvqjDrnhgzFo5r92Dyk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KmTkkZqQwcb2g+BvfUXjSzOHtQIitX6MmtT5I2HlTi5Gkf+WQlNw2E3VqhFl2KYvtQlkHUfVHarCCb5MDp02zzQ6idSQaG4bg5xvQZ5Bk8QuIIYXMd3XCLeGJYR9lc2BvowUUKX9T/CsmxxY9uj5Wu6ylKpm6ElSqG3bTDO8oSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fdKvQUzA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=klk1hECoUvKJ4Qtv0BJ0aFvjqGwZR5MQ2xhboMGZgtx9OWpf0rjPVCfBVOiTL+oMoQm5doJ1ut3hr+5wQ+Yg1zEAmb2Pno4IwZx/xwJYSHfvaMLqpHehl7mAsE4flPsJOJ/f92CuSwJctX763ZBfdYDnr8Iwd9CGCx2lUGHxjLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQHjIXSc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fdKvQUzA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5251F00893;
-	Thu,  4 Jun 2026 08:17:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQHjIXSc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 787D21F00893;
+	Thu,  4 Jun 2026 08:22:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780561040;
-	bh=FJVAbbEBWYarbWavIQRTcWPKhCK7h4/HOCYcRtl00Io=;
+	s=k20260515; t=1780561346;
+	bh=qLESv79Gs9i/g3fBG1Ar34reaAJiM2FZ8YIohVIqRUw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fdKvQUzAqyg1fnVi/p5vHmdm/+g7xD/h4NwFFFFVEkQDhTuss6mVu60ikBy4i225V
-	 nYkuPgFBijeptACObd9eyNUEV9Wpw3SjTuKzZnO9PKGnQdMDLa/RiCpOyzqfyO7Lcb
-	 RW5xrxnAJU+rCFQiUhMYiQF5HW46IriZx4gocRmQhlgCNtWTQGF3GOsduZkbaNeJ4C
-	 6S2/LPQ2ybySnzhXpdFyZ1yUktMkZWJumSOHHKoVuBdIdM2WUWBXgoQ03HRjSlxi/a
-	 VKiWQQoiTxFbkmgdBwpEzpXhKCVGrSjfl33djxqamb0LpOKxxJmxoMRwMCzVf/bmhA
-	 jh5ZzRH3PEM7Q==
+	b=SQHjIXScgJXDMfdK5itfyUkXp+9Cw8vo5GPX2aWf9CosmbKN9v8hZrfbSCVzBsRK9
+	 LMt1VQn6YCO/Itla9b+u01m5hewVzPAAggChb6Ug1pC3PB83HURSnIjxgYmJXHqCpD
+	 ARQSmjqmJlG5ZE231wrX0NqDa1Uuae6/xhRxo86cCyoXmaa/otBBd/2hfoiG+Q6iFS
+	 3QZpRvbiPfTfvpbup1rInNJM4x2bWIMpX6M9SVymg1q98rQf5H2x/TT/NM8CeooCPR
+	 6w3AkhqRSesYg/kpSlmZI1zJ9lwMu6pA6XRgmOel17q5rzQ/6KKI1zpBryNc1lzG8y
+	 tYRsN8G8T+Lcw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] hwmon: Add Eswin EIC7700 PVT sensor driver
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim
+ 7x Gen11
 Reply-To: sashiko-reviews@lists.linux.dev
-To: hehuan1@eswincomputing.com
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260604080552.169-1-hehuan1@eswincomputing.com>
-References: <20260604080552.169-1-hehuan1@eswincomputing.com>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
+References: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 08:17:19 +0000
-Message-Id: <20260604081720.5D5251F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 08:22:25 +0000
+Message-Id: <20260604082226.787D21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Clearing the interrupt status before disabling sensor conversions =
-in init_iface() creates a race condition that can lead to an unhandled inte=
-rrupt storm.
-- [Medium] Missing pm_runtime_disable() in the device cleanup path causes a=
-n unbalanced PM runtime state.
+- [High] Missing `vdd-micb-supply` in `lpass_vamacro` node breaks DMIC capt=
+ure.
+- [Low] Missing `key-volume-up` subnode in `gpio-keys` despite claiming its=
+ pinctrl.
+- [Low] The `nvme_sec_reg_en` pinctrl node is defined but never referenced.
 --
 
-commit 5842ad32271f7d967e9f1e10c13474a5b57da8ad
-Author: Huan He <hehuan1@eswincomputing.com>
+commit cf25549a8fd93e158d3d638230deeb2a24306da5
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-hwmon: Add Eswin EIC7700 PVT sensor driver
+arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim 7x Gen11
 
-Add support for ESWIN EIC7700 Voltage and Temperature sensor. The driver
-supports temperature and voltage monitoring with polynomial conversion,
-and provides sysfs interface for sensor data access.
+This commit introduces the device tree for the Lenovo Yoga Slim 7x Gen11
+laptop. It defines nodes and configurations for several supported hardware
+features such as audio, GPU, keyboard, and networking.
 
-> diff --git a/drivers/hwmon/eic7700-pvt.c b/drivers/hwmon/eic7700-pvt.c
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arc=
+h/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
 > new file mode 100644
 > --- /dev/null
-> +++ b/drivers/hwmon/eic7700-pvt.c
+> +++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
 [ ... ]
-> +static int eic7700_pvt_init_iface(struct pvt_hwmon *pvt)
-> +{
-> +	/*
-> +	 * Make sure controller are disabled so not to accidentally have ISR
-> +	 * executed before the driver data is fully initialized. Clear the IRQ
-> +	 * status as well.
-> +	 */
-> +	eic7700_pvt_update(pvt->regs + PVT_INT, PVT_INT_CLR, PVT_INT_CLR);
-> +	eic7700_pvt_update(pvt->regs + PVT_ENA, PVT_ENA_EN, 0);
+> +	gpio-keys {
+> +		compatible =3D "gpio-keys";
+> +
+> +		pinctrl-0 =3D <&key_vol_up_default>, <&hall_int_n_default>;
+> +		pinctrl-names =3D "default";
+> +
+> +		switch-lid {
+> +			label =3D "lid";
+> +			gpios =3D <&tlmm 92 GPIO_ACTIVE_LOW>;
+> +			linux,input-type =3D <EV_SW>;
+> +			linux,code =3D <SW_LID>;
+> +			wakeup-source;
+> +			wakeup-event-action =3D <EV_ACT_DEASSERTED>;
+> +		};
+> +	};
+
+[Severity: Low]
+Does this code miss a subnode for the volume up key?
+
+The pinctrl state for key_vol_up_default is claimed by the gpio-keys node
+here, but without a corresponding child node, the input subsystem will not
+register the volume up button.
+
+[ ... ]
+> +&lpass_vamacro {
+> +	pinctrl-0 =3D <&dmic01_default>, <&dmic23_default>;
+> +	pinctrl-names =3D "default";
+> +	qcom,dmic-sample-rate =3D <4800000>;
+> +};
 
 [Severity: High]
-Could this clear-then-disable sequence cause an unhandled interrupt storm?
+Should this node include a vdd-micb-supply property pointing to vreg_l1b_e0?
 
-If a bootloader left the sensor active, a conversion might complete in the
-small window between clearing PVT_INT_CLR and disabling PVT_ENA_EN. This
-would assert the IRQ line.
+The audio routing connects the digital microphones to the vdd-micb DAPM
+widget. Without a vdd-micb-supply property here, the lpass-va-macro driver
+falls back to a dummy regulator.
 
-When the IRQ is later requested in probe(), the ISR eic7700_pvt_hard_isr()
-will fire immediately. However, since the device is suspended,
-pm_runtime_get_if_active() returns <=3D 0, causing the ISR to return IRQ_NO=
-NE
-without clearing the interrupt.
-
-Because the interrupt is level-triggered (IRQF_TRIGGER_HIGH), would this
-result in a continuous interrupt storm that ultimately forces the kernel
-to permanently disable the IRQ line?
-
-Should the conversion engine be disabled before the interrupt is cleared?
+Since the physical supply (vreg_l1b_e0) has no consumers and lacks a boot-on
+or always-on property, the kernel regulator core will disable it. Will this
+leave the microphones without bias power and result in silent audio capture?
 
 [ ... ]
-> +static void eic7700_pvt_disable_pm_runtime(void *data)
-> +{
-> +	struct pvt_hwmon *pvt =3D data;
-> +
-> +	pm_runtime_dont_use_autosuspend(pvt->dev);
-> +	pm_runtime_force_suspend(pvt->dev);
-> +
-> +	if (!IS_ENABLED(CONFIG_PM))
-> +		clk_disable_unprepare(pvt->clk);
-> +}
+> +&pmh0110_f_e1_gpios {
+> +	nvme_sec_reg_en: nvme-reg-en-state {
+> +		pins =3D "gpio14";
+> +		function =3D "normal";
+> +		bias-disable;
+> +	};
+> +};
 
-[Severity: Medium]
-Does this device cleanup path need a call to pm_runtime_disable()?
+[Severity: Low]
+Is this pinctrl state needed?
 
-In eic7700_pvt_probe(), pm_runtime_enable() is called, which alters the
-PM core's disable_depth count. Since pm_runtime_disable() is missing here,
-if the driver is unbound and later rebound, the next pm_runtime_enable()
-will encounter an unbalanced depth.
-
-Could this trigger an "Unbalanced pm_runtime_enable!" warning and cause
-inconsistent PM state tracking?
+It is defined here but does not appear to be referenced by any device node's
+pinctrl properties. Could this be leftover dead code from a reference desig=
+n?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604080430.126-=
-1-hehuan1@eswincomputing.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-topic-yoga=
+_submission-v1-0-57c70c23d0d6@oss.qualcomm.com?part=3D3
