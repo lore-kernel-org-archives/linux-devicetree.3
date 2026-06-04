@@ -1,66 +1,66 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3F9426EB7
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 23:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EE6199D8
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 00:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780531135; cv=none; b=Wg9CZd48umwyojFkLlrBVg9aMyEX1IJdRuvQHwExFfJX+Yo97a+41U4KGedpVIhX1xCyAjdriAqxlQXWuWS3cMN4NxZs8HkzSKrlGNISCMdVEovrljpSoM5SXkmaJfMmOYWFhfeUGa+inznj8Jf1W1ALMyhdEaoT/jrVvKpzX2s=
+	t=1780531636; cv=none; b=PY0xicV5JPC/721gzaItQS1Wsm4ybZdYU4mq2KojwWfMN2MxV6sn/OekmBR7q4aaxfcCaxZjV2VJXtRjYEmbL7wljBMdZLFu6QcUPA53npn7Ofd5/0n9yJBZRuELXzpuqkvKqwWlqgvFbhSFBS85xoBfGPnX3u8STiGX/jKULWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780531135; c=relaxed/simple;
-	bh=kWMiMYyYTblMdxaqUykMu540IEbsJMH91t9UFLHf35E=;
+	s=arc-20240116; t=1780531636; c=relaxed/simple;
+	bh=C637yNthbMUvn8T3TsDQxIEK1Jz9TI/2RKy1ek0Ml1A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iUy+xolPp6AXd719NF3wfbmCUqjCgRwhg6DVCaPJjpxeO9CxxOrdm7g8qzeohaZt5w7eZzPOaQo7YebB9TD16c4yducLe5gX3q1ToZ5w+wcGxiSDCt0NTC6XM+gkleRHNWxPYRytHXsni8+2Al83zMlDBiOQTvpl7S9njphRzsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AEHtQGbs; arc=none smtp.client-ip=209.85.167.42
+	 In-Reply-To:Content-Type; b=pEZF/n7scjTcMM8br7GReOAyQ+3ZCzUTI57LheayzYb8bk4XLy/cvGE/S74g/YSSchRktR6Ia7FY8aJiDWPxnC9ao9NrMiqQKx04nJLzSCG6rCsVgqxaz1P5N3ZbPB1o1uIf4eGMheS7JU91zl9j2IEHF4whGBVddIL05Q+fEOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=a1Z4nW+n; arc=none smtp.client-ip=209.85.167.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AEHtQGbs"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aa679cc2c9so11295e87.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 16:58:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="a1Z4nW+n"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aa68da4e45so8780e87.2
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 17:07:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780531133; x=1781135933; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1780531633; x=1781136433; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+1SCC74DIXhE8DyDejW1+bo9tsnjHROThMMbJp6vt8s=;
-        b=AEHtQGbsoAYiTKBciyB26ntjRTa3U/5vlurTZQ6MIivjc6Hd6LFg1VJ68Mpj1eazeG
-         DINJTnIyYpFSwLbd2boAPf/73wVDZ/I+7V/c6GUBh8bo9xUsXJb70PWSFzEXwrqKXaRv
-         6Ww3A5tTfp3FdRv12Xyjbe187WGD+bhK3tffQxh43xAtWxWqysaJ6CHf8iijuQspl2EW
-         a5fmQPW9/W1GHEsFXeIJj+8Z0pvHIKEQHGGwJTNBecV7laCHgGsGvhXJNKVWlzHu3oNx
-         SBQk9yAnFuy8QWjpOopiIZ0QFpjMl9HtYGKGFNBwdtvgEffZIOJFtaYsf8isGt+7NsE5
-         X1Pw==
+        bh=9WKFOB3y1f0a/8eMDecdjOklsltsKxIJ4YPYh7+XMfw=;
+        b=a1Z4nW+n7g+0A30hcKGq266GFg8E5rlkT+NcLCiH9MPZfIvbymxAhKDPHkpVzyAo2A
+         RXq+fIav85jUTs8vgvUF2oVgh5AW0LTDbWxWB7YtHPaSzUfDlyy3vF+oPvkUE2BuHq8W
+         5N/ksiXggPwhZbpcOKKFhpGgj4joDjTc64W40pw771ucwqkBjlk9TP/bx+GdI9I2PgzW
+         /2c67CPVLuXoD/tuK22bxwPzKYYECff5gou/PUDmhOuchxMGoxgf4ZFn5g54v1eIkrO/
+         Vu41H0KRWIGfipFbX4EVoGooWrUcREarUe0RzXnuSQCeXEI5L503FDNdt4TdN2XrJhO4
+         5ncA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780531133; x=1781135933;
+        d=1e100.net; s=20251104; t=1780531633; x=1781136433;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+1SCC74DIXhE8DyDejW1+bo9tsnjHROThMMbJp6vt8s=;
-        b=XTLOz/Auv2dVgMHD4fKiub4xcxhWMaMsZqRS2K9dnGiWyw+W+Rf+MV6ezupYEiziLz
-         2of1KM7+aVmrrwqg/N+lT1jL5Wbj8xaAgHpUF8i4BO5/ThciLZhH5hSADf9cbjWeLcpS
-         XHBf65J7ewrLQAw4O678aPEpSrr/agjf4xp0bZX/AyC8/kejBt40ke+6xUUrXBOHycu3
-         6VecOg+T6R4RjU2DZH6w6ouSYrZui8XdCJefVXGX6Fbm558QKdd7RzS4U5T2uLB1d6zp
-         U5NALLPYtZqS/cG8ev9V+JT+9uGZgJlOfUwG/emD5zrCbkksXSFzWjR4axJF4OvZBzRW
-         YV8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+wqUNbeHgICX3LiW8uSoddrK1qTDjUqlKArJ0+FThf/blaRiuj0R+HVwyFH3+0uxx8Xp8LvIJNSOgt@vger.kernel.org
-X-Gm-Message-State: AOJu0YzalgnBvHvlPiF63oPIySVLSrsYGD4rFoZQsk4JoJEcc7v6XHnG
-	mcbAKdtOHZvKWHvAQGYJH9JzRxnwxftOdsHJH3lgwnjjcu+KM+SyNkljnVh5rJjvFHM=
-X-Gm-Gg: Acq92OEnfhEejo0fhs09/n+jTeJdaLyLvlwqj9f2G+a11IZ8J/rcnADdscxKQRgGc2F
-	CS4Inx2oCDQzrW4Of3tbZ8aYRqDwYSglmaQnFQacT38MdJsSQLnMXnppKGJ5yBKcaBFTlE7bAW3
-	UiB3AebdB7t53ifmIiHviQOkTGKKzqs+qYulTnJkPfJ1CEZttEAIguKpnqIFFV7IL7dFLKRurM1
-	8DuQgYZJHrV4ov3g9QQopD4XbQg8chmY4wfHCMWZhCC3I3kcR3qGQDrgTY/wuDMarRYt6h2B2ys
-	3Q913uLZWAq2qJKC0S37DX+qor2jPGW0O9hgSUXQWpCgyT5O1vewgW8W2+NPDquQlgC92YTXIkB
-	vXLJG0NFANDRkC6j53+yZFPxkvDFHzwbnCxV551fDeOITsyF7TDinWHAFVhFO0GYJ64MaHb/q4d
-	7Tvs28eRzLdN7uvEtG5ocMvowNpGdm/1N0ipGlmAtT1SsSp90eJaAJ+BXpSPDyRJCEEajr+z10G
-	oEdj9a/AW7fe1X6
-X-Received: by 2002:a05:6512:6404:b0:5aa:635f:7c08 with SMTP id 2adb3069b0e04-5aa7bf5279dmr878301e87.7.1780531132531;
-        Wed, 03 Jun 2026 16:58:52 -0700 (PDT)
+        bh=9WKFOB3y1f0a/8eMDecdjOklsltsKxIJ4YPYh7+XMfw=;
+        b=H54uUyb5MtAilGNdi8BKivXDUAM2yBaGYqIvC2/MSkfGMAP/RYNUFidmsv6w850619
+         wXWsYv0aVstKlHdCro7ITARlYd2uxGE8Xqy6uIO/BBkWUFUJk6GhTyJeUHVfZ1hg2hTC
+         qEli2Uucil+veAsggWPtTwOEonC3aC0lY1nZavg6ZfajG08KMfxaXPByTNH89qwpfogq
+         0+WCISMqLV2N1kzyCzAGAQA8Z9Z9q3vvKSlN1VbA7tP/gOyHH3aBjcSOKFYLk/jgANAF
+         dVfkegEfywBefwJimBHCPtDgh8qXRM3jkjrvOeOX/rVNRkbigfNCs6pTW6rDT8plS9EL
+         Y1Iw==
+X-Forwarded-Encrypted: i=1; AFNElJ9mXASbS0HOuQRRuEk4vVYTF0xnhvCOfN17ig+sz8sOn9n+dYbKwx5tEoU48natTX/QO1tEQkjpLIfg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwAmjBR/vJHFmqShDw+BVp9tkHvxJTVYTeqYDQDPPei1zTp0CpI
+	sjJNwMhsVntHzVrF+4OqUXDYANTtzl2isfujanqEHpIEfASpXOvrmHH+G5UWqXF3MbQ=
+X-Gm-Gg: Acq92OHjWmVlxYgH/rsXomS/PKMoKFdGz1i5wM7YAQdsWeFP01Ho/ctzZ+p3xY27Zzo
+	L+0zivU4x6hr9JPWCZiKOyvJhAtjrbG5gfKdDHg4kCWM2XdLudNA3FU++sN3vQFZJwTpJHk7SOq
+	gO6H5aaudR+O/I3a9jVG0mMkXgozUy/IBBoo57YeYb6ASJ1IyKHBfHZpPsN/5WkvZyVvUE1K+dG
+	WzPnxXGKdH4SbVGvdAuknWQ+JPN7fLtnuNkjplqAO2eme0pCXqOZZut4MFswekVRFQsHZycQ6sp
+	ZA8rofyWCycYDHzrI7cY1gip8CoEdRMG8w9GyRtwyq4WfHd0PtJB+1pLZxKsqjAIMkbarluMXwH
+	GNuETJGGMIej5Yguk/jJCTPR1GVPBWd+R673sUHFugIWtR+Kn9mesPwmm9pTDBtpHzR37drNWXO
+	xttSPFhu5EC76d0X6Z2/8GToXSFNUsUOUNE2pnaS0d+wmmJZsNRB0BtUnU8fdqAd3XTCUdkzJhL
+	z1gIeRjbRM2MVUS
+X-Received: by 2002:a05:651c:1594:b0:38a:325a:8a0b with SMTP id 38308e7fff4ca-396bf26804fmr522041fa.5.1780531632840;
+        Wed, 03 Jun 2026 17:07:12 -0700 (PDT)
 Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed659sm899338e87.12.2026.06.03.16.58.51
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2ed9e1sm12353711fa.38.2026.06.03.17.07.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 16:58:51 -0700 (PDT)
-Message-ID: <374f17c6-f08e-4f4b-a6c1-ef2cd1b87631@linaro.org>
-Date: Thu, 4 Jun 2026 02:58:50 +0300
+        Wed, 03 Jun 2026 17:07:12 -0700 (PDT)
+Message-ID: <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
+Date: Thu, 4 Jun 2026 03:07:11 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,70 +68,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
 To: Bryan O'Donoghue <bod@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
- <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
- <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
- <be3e1abe-5148-4247-930b-2e23164eea73@linaro.org>
- <c6aetoiz3dcedlxwjmt5cqh2mngswtmanf6p4s2molemnviwdc@btotpaqwcsoy>
- <f6c91099-0002-4580-a5e8-5611b089024b@linaro.org>
- <v4vz7cistjb2iuzha4oykglar7duw4y2uuyhumzs33yvpwrxcu@i5tsg4uzpuwc>
- <8eb709ce-3469-4303-9c3d-8d1a221cb8de@linaro.org>
- <4QKRXnKlt962x7eipKO1dLr9tzEF6a3M65FZXI8PNsXwx_RhKzJtEfQKOOwI8synBSe0GtUZxWVFFeD1qVlGnA==@protonmail.internalid>
- <6e962010-8097-4b52-9369-0727c0d5a31a@linaro.org>
- <41ab1685-3d0a-4c8b-b7a9-6e9299c48400@kernel.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
+ <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+ <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
+ <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
+ <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
+ <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
+ <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
+ <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <41ab1685-3d0a-4c8b-b7a9-6e9299c48400@kernel.org>
+In-Reply-To: <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 6/4/26 00:12, Bryan O'Donoghue wrote:
-> On 03/06/2026 21:42, Vladimir Zapolskiy wrote:
->>>> Split configurations explicitly use other lanes for clocks. E.g. check
->>>> the RB5 Navigation schematics, CAM0B connector.
->>> Can you please check:
->>>
->>> CSI_3PHASE_COMMON.CSI_COMMON_CTRL5
->>>
->>> 0 LN0_PWRDN_B Lane 0
->>> ...
->>> 7 LNCK_PWRDN_B Clock Lane
->> Please note that media devices have a numeration scheme of lanes starting
->> from 1 (it'd be easy to check/confirm it), for instance today CAMSS has
->> lane numeration starting from 0 is out of the accepted scheme, and here
->> it'd be better to correct it and not enter the same pit.
+On 6/4/26 00:18, Bryan O'Donoghue wrote:
+> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
+>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
+>> If CSIPHYs are true subdevices under the umbrella CAMSS device and well
+>> described as subnodes, then likely none of power domains are needed to be
+>> repeatedly described in the children device nodes, since this information
+>> can be obtained from the parent device by the driver.
+>>
+>> Technically 'power-domains' property can be safely removed, I believe.
 > 
-> Yes fair point CAMSS has done this wrong since forever. data-lanes = <1
-> 2 3 4> => LN0, LN1, LN2, LN3>
->> I don't have access to the IP spec, anyway I do not grasp it, where are
->> 8 lanes on the CSIPHY found? Each CSIPHY IP has 4+1 D-PHY lanes, not 8.
-> 
-> Max CSI2 data-lanes is 8
-> 
-> #define V4L2_MBUS_CSI2_MAX_DATA_LANES          8
-> 
+> The policy is to describe the power-domain dependency fully since DT
+> describes hardware not software architecture.
 
-Judging by the name that's something V4L2 or in other words software
-specific, while I do reference to the actual pads of Qualcomm SoCs,
-and I do not see 8 differential pairs per a CSIPHY, but only 5 lanes.
+It brings no contardiction to the statement I've given above, the needed
+power domans will be properly described in the parent device, and there is no
+sense to repeat the properties it again and again in every child subdevice.
 
-If that's correct, the data/clock lane numbers should lay in 1 to 5 range.
+> Also for a very practical reason a sub-devices can probe/run
+> asynchronously of the parent device being active so in fact we do need
+> to describe the PDs fully.
 
-> That doesn't really explain why this register has seven data-lanes and
-> one-clock lane.
-> 
-> It just is what it is.
-> 
+In opposite to the above this one is precisely a software centric argument,
+which should be excluded from the consideration, as well it's not a big
+deal to make a proper async initialization, removing excessive dt properties
+is worth it.
 
 -- 
 Best wishes,
