@@ -1,133 +1,96 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com [209.85.216.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C57B39DBCC;
-	Thu,  4 Jun 2026 07:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D6C31F986
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 07:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780558117; cv=none; b=Dqe32y9mz0Iw636tTu79xDkJiVKDg0dKFwykuWhLopQ+TzNQuvdQsuqQQi94SeUFVoreg78wr/4q8c8h83VAbZcDDsTfdJML8t4+4hraorJ/cHM47jtCVD72Y/hlSe/Uko6qE/+r06FmJy3Gvsni5IPCHrT+ZuT2sDOWputqgpc=
+	t=1780558581; cv=none; b=UrFCmuq4EFb0+48qMeCoJvEyoeJuZTUYo4LeoR956nUKNqhprLfd8RaCvSm/vxGNh+q9iH+/gRw6/QxjNDzMZfq3usDPvF67Ruw15FprGEDe8r+7sbGlWuKUbiuzcmjIullminV9mJU8Yx0x/dus+Nkhmfz8WGmJ9TiUsHMgPJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780558117; c=relaxed/simple;
-	bh=N3FYJH0Na6n0IvoTQRLh82Jz6KolB+LqBxz9CxTQz94=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hVn1U90s0bLKaQMaihAWuIfF5TfGBl+ghYsM9HVoSkrGc12JSWHGjmAbPZREG/G8cUFBaxrQkKlBWaohl8GlSmSfE91LEfRjRow8Cw4lgZAbAFLha+friT3ipKGjFXk6sgx00PbwdZPeIWZQqIy2T86f9T6FdaMyheNs/XW9SDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dMdEvho4; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780558581; c=relaxed/simple;
+	bh=E5vXWTNHkTRzDtH/veP8aO8YMLP8CY9Ty/5IFbJYIjU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RoGPEsUdRvg+zFAuGX2CqEi3uXDGT5ROLrA/XgAZSvkM+/wNelVROPTwXsECrtNMD5FSFXe2BsiLO3G8sYISX/N2upjLcrDcdDNSRz+7IJUhNLhr4odibI8fnVpgFkN0cVHISANQqtWeJ0t8N0Jyb+65t7e/YpHpvUEmD3igJnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P0AbR1XI; arc=none smtp.client-ip=209.85.216.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dMdEvho4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 02051C6344A;
-	Thu,  4 Jun 2026 07:28:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D1AD45FEF7;
-	Thu,  4 Jun 2026 07:28:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 456D4106A1395;
-	Thu,  4 Jun 2026 09:28:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780558113; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=N3FYJH0Na6n0IvoTQRLh82Jz6KolB+LqBxz9CxTQz94=;
-	b=dMdEvho48GdK6q0uOpDC6L/F42yGqD6zMP7d3/DWu1YG2xKyP41yvy8Ls25V2u26R+R6mw
-	Ll8krPj+hKwrsNoDpMuj6gqO1kVC+8FcKaFegFHR63i2FrG67i9r6U8z8dRxVmTqI13OQA
-	NX2h+kXu06x/b60IjPtlrP5XOA2ctB2D1VbJrrCyv+UqChU71mwngXqLITHqc0KydvPqmL
-	cbnLanbbpXYvPYaGr97h/TB2WNJjKlhWQgdfl1rKPz0RdVX3ZtPAm+UGv36GIz2XtI32oW
-	GfA4m28YL1V5ltQLEpS1UbcvdoPPjQ7phMVD5k/7mEnV5IG5CEJjfLEZJXDryg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Santhosh Kumar K <s-k6@ti.com>,  broonie@kernel.org,
-  krzk+dt@kernel.org,  conor+dt@kernel.org,  richard@nod.at,
-  vigneshr@ti.com,  pratyush@kernel.org,  mwalle@kernel.org,
-  takahiro.kuwano@infineon.com,  linux-spi@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-mtd@lists.infradead.org,  praneeth@ti.com,  u-kumar1@ti.com,
-  a-dutta@ti.com
-Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY
- tuning pattern partition property
-In-Reply-To: <CAL_JsqJwxgcFOB=kE7bVQYDn740-w4RppMF5W-3Ne9=9qV9OrQ@mail.gmail.com>
-	(Rob Herring's message of "Wed, 3 Jun 2026 12:38:46 -0500")
-References: <20260527175527.2247679-1-s-k6@ti.com>
-	<20260527175527.2247679-3-s-k6@ti.com>
-	<20260602164945.GA475455-robh@kernel.org> <87zf1by5oc.fsf@bootlin.com>
-	<CAL_JsqJwxgcFOB=kE7bVQYDn740-w4RppMF5W-3Ne9=9qV9OrQ@mail.gmail.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Thu, 04 Jun 2026 09:28:29 +0200
-Message-ID: <87cxy6ydb6.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P0AbR1XI"
+Received: by mail-pj1-f68.google.com with SMTP id 98e67ed59e1d1-36bcbd7821fso168518a91.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 00:36:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780558579; x=1781163379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PvMIfx1POTAyaZla+RUcmznikw/7VMfKwxZ5AANjs1o=;
+        b=P0AbR1XIFfuP//F+r5y5W5P3F/9byVlWPkhSipcqdm6UmvIx0iAZP720QehTf8dTzM
+         6n+RPPvgUC7lmO3zbRfhCxdh5zmpZV2V1q04R/xVetaycAH4NfyVvJ6KromLX9CqlqEK
+         6AlxRloVRyBlIm2OPatVoKYEq9XWuyhhQZ+xzRnJZceWDNp0BSWvDtFTuPlbIvHUyo6s
+         KYWdilWGLYEsg0cz5nMOe4yfXn1/Lp3QkHX7S/COtDMwAy4BGpXH4PkvccBYWpv0CWSZ
+         HyyoDTRfc/P48lLRP7Wj0gavb5LUhm+b4mZO0inDj21PIrgkAzMDMByzG/4HrCR+fU3E
+         taHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780558579; x=1781163379;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PvMIfx1POTAyaZla+RUcmznikw/7VMfKwxZ5AANjs1o=;
+        b=V+eMo23UMkHr4UYUWzIsTJXT8etCwmSZYYVk4HVBx+73VX8R9Q+NlogruGYtiGIIDo
+         TnhLSMeXeJWPtboiKcduBwOQRms9PzlbiA7BKZVgY+Ys3KCL95WrkX8qR9Wfp6+07Zrz
+         gocIFrGiDiGqFD7GW2RTfVGLeKWxlevxTIoKIqKXyEJS0cHM4OA64+Mxl2E2s08wrOfL
+         Had3rw1WYMWiZvIfDNVWcDyj16jCZg9hEzA7xizEgxENdf8zky7k5QJIa2vqYeAIc1RG
+         c2URTRjSbCM1MJhmHqOInVtZ+l3YgHtxDyyIQ4/9MLHu/U9yrdZ5UWb8/dr7eKAXNXa7
+         G4sA==
+X-Gm-Message-State: AOJu0YyJQkjVFesbrCqRgY4eNIr4I7Vcjhz29C0WFkQwOf9Ww9IFUfH7
+	3kWbXztS7gw8sCqnjfQdis7SU3yHGGrtLByOlS+EYpuP4LM6aT8pBZmPpFLBflGgGku6xg==
+X-Gm-Gg: Acq92OGs1L0Kw9j/0FywI8p2/TCRoVOKqif146Jd9Pgrc4QEeXUDUAVBO9rdjzTw393
+	MZc8rFOcR807GoGMQF44hJgeQHl9umhkXJuannNwVkeRimJWqdeMwWM8Kl3pqAY9fTam+RwqaWS
+	HLgZCKWdQ97ED+fiLHTMQsmyhl7Nt26e01SSlSNTAANCDVGCMLSh3nyzRxW3iLDG/Q0tvmmvAUT
+	a+X6c4+vq/MwmISOlXGPQp/hdGTImC6paaxTcIu76VLj7lchLfzsy7iS9DKek6BlMlvlzVxzg2y
+	Ql2aRq9xbN03mszBJXNM0yhF0IDxIu2K4p7Wx9DPpS1uQ4GpH20RzUCZuSak4Z+OnvWhk46v9jz
+	vu/ismzXBmfGh1Xu0wt4xe+6PDYVYAg82ZCHvqlSo3egc5+NojoRjClOQ3q9sa+VAjMcE3nI9UO
+	2j7zc1wuPNyCa/UbYyW/Et8io2Qqlcqi82MvfP7u9nl8T3V1d32H+9r0Koug==
+X-Received: by 2002:a17:90b:4ac7:b0:369:2e00:1ff0 with SMTP id 98e67ed59e1d1-36e30553627mr6462714a91.6.1780558578780;
+        Thu, 04 Jun 2026 00:36:18 -0700 (PDT)
+Received: from intel.company.local ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6dba8521sm2063074a91.15.2026.06.04.00.36.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 00:36:18 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: robh@kernel.org,
+	saravanak@kernel.org
+Subject: [PATCH 0/2] of: reserved_mem: fix stack overflow and make dynamic reserved region configurable
+Date: Thu,  4 Jun 2026 15:36:09 +0800
+Message-ID: <20260604073611.3954433-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 03/06/2026 at 12:38:46 -05, Rob Herring <robh@kernel.org> wrote:
+From: Wandun Chen <chenwandun@lixiang.com>
 
-> On Wed, Jun 3, 2026 at 11:01=E2=80=AFAM Miquel Raynal <miquel.raynal@boot=
-lin.com> wrote:
->>
->> Hello,
->>
->> On 02/06/2026 at 11:49:45 -05, Rob Herring <robh@kernel.org> wrote:
->>
->> > On Wed, May 27, 2026 at 11:25:16PM +0530, Santhosh Kumar K wrote:
->> >> PHY tuning requires a known data pattern to be readable from flash.
->> >> When no partition is explicitly identified, the controller must search
->> >> all available partitions to locate the pattern by label, which adds
->> >> overhead and relies on label naming conventions outside the
->> >> controller's control.
->> >
->> > I agree 'label' is not the best choice. Software should not care what
->> > 'label' contains. It should really be 'compatible' instead.
->>
->> But compatible does not seem relevant in this case, right? We are just
->> flagging the location of "some useful data for the controller".
->
-> compatible is what tells us what a region contains and how to use it.
-> That seems exactly what we need to define here.
+Patch 1 fixes a stack buffer overflow in fdt_scan_reserved_mem() when the
+DTS contains more than 64 reserved-memory regions.
 
-We usually talk about "programming model" when it comes to compatible,
-here we just need to point at an offset which is in no way different
-(from a hardware standpoint) than the other offsets. I honestly feel
-like a phandle property would be simpler, also because compatibles in
-MTD are already quite complex to manage and I would prefer not to add
-more complexity into the parsing logic.
+Patch 2 makes the limit configurable via Kconfig
+(OF_RESERVED_MEM_DYNAMIC_REGIONS) so platforms with many such regions
+can modify it without patching the source.
 
->> >> Add cdns,phy-pattern-partition, a phandle property that allows the DT
->> >> author to directly reference the flash partition holding the PHY tuni=
-ng
->> >> pattern. The controller uses this partition during calibration, avoid=
-ing
->> >> the partition search entirely.
->> >
->> > Do you have any data that this approach being "direct" is faster? In
->> > fact, it might be worse. Instead of searching just the limited number =
-of
->> > partition subnodes, you now search the entire tree for a matching
->> > phandle value. We do have phandle caching, so that might save you
->> > here.
->>
->> True, but besides performance considerations, I personally do not find
->> elegant using a partition name/label, but maybe that's just personal
->> taste :-)
->
-> I agree. That's true for all the partition nodes with only node name
-> or label to go on. We should fix that at the source. However, you
-> already have to support using label,
+Wandun Chen (2):
+  of: reserved_mem: avoid stack buffer overflow in
+    fdt_scan_reserved_mem()
+  of: reserved_mem: add config to extend dynamic reserved memory regions
 
-Hum, no? There is downstream support for labels in TI kernels, but we
-explicitly asked Santhosh to drop it for mainline inclusion. His commit
-message may be a bit misleading on this regard because he is mentioning
-labels like if we were already using them, despite the fact that we are
-not.
+ drivers/of/Kconfig           | 11 +++++++++++
+ drivers/of/of_private.h      |  2 +-
+ drivers/of/of_reserved_mem.c |  6 ++++++
+ 3 files changed, 18 insertions(+), 1 deletion(-)
 
-> so anything else is supporting a
-> 2nd way whether it is compatible or a phandle property. Is it really
-> worth it here?
->
-> Rob
+-- 
+2.43.0
 
-Thanks,
-Miqu=C3=A8l
