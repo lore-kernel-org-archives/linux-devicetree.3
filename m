@@ -1,89 +1,102 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EFA47F2EF
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E632207A32
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780584163; cv=none; b=EM4copWnghycQMn/fu0jxjL5NGQchcRYPrbCT1U414Q9uQ5hqoxqThcpqYdPEq6knT0D+INFJET2yyimI1n55EWnrs7dnqO1RiHfO0nj+6XJRNxPmqAH9afVeiUJ9ocMJaHAGlcIG18Y0IGYc53w/iyc+3P6yjji219CaekaLOY=
+	t=1780584618; cv=none; b=JfTEOqxF9gKVyWSxb6ViqK7jZty47KE6aqrALM4e+PXCGYt4XQwuvnlLCrx6VebtFnBVdWj7hZf/atQl0I+bRVXVPKRu0slaiVDa9sWfipAC8dUGBtcrs1m53zsEcX9D1ofAgxVSA9Pv9Qm0JI9REpooqSS2ZOgfCuQsZonIFoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780584163; c=relaxed/simple;
-	bh=vhH90Bm+Y5GOubvalLv78JVsHd8rKxCyWDTSa6rsBA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4jnGQ7RuTx44NijrFcBSp3JgD9FynjyXBODEN0VjTUBWa0e5QolVvOec8GlgceBHVFTeSdNqKbjque5xMukghu8BGPUWEzp7J4//hrO7BZLp7I0JB+cPAxntg3q0yqyg7Jcw0jat13RMGCGnrRLb4WHXmLTItd7IM/nVJ98abY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=IaViTx2P; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1780584618; c=relaxed/simple;
+	bh=0qspJYpzGsY9WYhvHcmW9D93mqh5ca5DYlgQJcbG/+g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QSoME/9M3dN90I7tkaBxIXhV+3Ezzym71kjVVr/SpDjvZDqsRngKjch17JFadzIfmLqiJGGR3joImkb84HVmBWbsnAt6mRQqOyJgYvGnRsACgPEWWtSiwNz/p2Ye8miHRxuZd5nsFdaohpHLgEjaK5QyT4IQ3wX869QTgQ+A8q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/HbAhDz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="IaViTx2P"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-68e5f7c1131so1485969a12.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 07:42:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1780584161; x=1781188961; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vhH90Bm+Y5GOubvalLv78JVsHd8rKxCyWDTSa6rsBA8=;
-        b=IaViTx2PqjtTj51chp9MWnZ+wdIKHxJ2+KApRN9DpHrRO6TmPyna9wcaeco7aoaARa
-         N7lettrEoh4c8o61E7TFxP0//sfLKj7Zpt4AON0HdrmKEUqdAYs244hoeRnzYQZpejPB
-         ucdt9eSdreTci2g0GvOLS5lFv0JCYh0U377H6l2VEepjHOko2pNDePldYQl6dtTZsJRt
-         tP8k2szFiO+muPRjkb5Ff0uNfWMVIbrTVnvtAhfpVEH9keDDZ+h6I463pK7DisCrrGZY
-         6O0fJ7XeB4albQ95PUC2nJC9i2CfLFRCkfO6qh29wzHYqNSLmOPyO2zXqhvwIQc3FjGX
-         xUoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780584161; x=1781188961;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vhH90Bm+Y5GOubvalLv78JVsHd8rKxCyWDTSa6rsBA8=;
-        b=msgyrMtCcopO6EFg42qwUqFi2ykb2sKXI/D2WnwsiKn9t1yMMzmnUfPuKDWgE5K+2w
-         b41Sf1SF+Gy41hTm/8f5ysC7VeR9Nyg++IJC25N2RmEruFY/k+pw15Ek97rxKnlpO/al
-         aT+bUKjByxX00BYu8GSoe5TkeHx6Uj34smJ3aR4stuqfQcZOCA9yQBm9Gv+6+n64gspk
-         iJadDD6C5/Svb/v6M+v02rKl3F4pcI1xb8FFp/9rvesJrtvHHrsloTttTckIY1Nmgfdo
-         Bl2In80hyNbB2/kooMu2uNWLIbwq9h6u7YkAcmVQE67H2y9kohEYnEnwjkIvLB38YfmQ
-         2m/w==
-X-Forwarded-Encrypted: i=1; AFNElJ8vUs/nfyrzyD1zEn/YbhYRYz5+q1DwkKWVlBnyWcWzo5IV8PM9kcIpM4KFoLAu8ctml/M/CSl4wNEH@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIwU1Vl0ImLPHTIcan8pDgHa7ra3dkdH1n8egrx6NggGRVzTAC
-	j0FBLaOwHui3vgYAJ9CIc4Iyr8rW3smLAZzyRWadiz44lBfAeU2vj/ZjhiIK8jnoBVQ=
-X-Gm-Gg: Acq92OFPeIFDcxRZcAQsZOLnw/Bed7/MS78bkHF+p9V+CZRUxu+cUbtxy/vuUQSKihd
-	xxjWogZXdbL0//ocoAaXHW/gyxuWw+JDg/aaB3bgSOHP2CVWVloE+ntAur+oJzi8mTY+rZAp919
-	4YucffhYUnudP8fvFCYqhMylIi6i0C6RL/kwLqhqPTKCmWZGMIzJiMolepUygve70WWssVz6AfS
-	huErS5FfnUtjYJGwSjUSqy4l2RjmnvSnqwTvQjzhRLl2dU2fLrGXJ/lLDvUO2Hs/oSJ/fSLsIjk
-	HX2xcfgzRE2VyohDiwYodiS4eft/mggL/oPqKlDq6wJZ81rkf4Vg654pR/gHAXqJAR3l+MH7Tmh
-	g64K1SzGsXo0RF+bl64A/xiGGs4Ex9sREchR+9+BH4abAe8rYTfOkbc/FDsyeDZYfZn8kev3RPk
-	kVNMQWGo9Bufvio9uauBNwqDWwkMvqUyFmd54sQuOtSJkvF1YEjY+NWrKTzdAfT8eGZu1PyKmE7
-	Gc9UEqW1R7TNSScqJlW0WQrAylcRER19IY/bqBTBMVHIug0rI1aJC4oWWw=
-X-Received: by 2002:a05:6402:4310:b0:68b:b599:870f with SMTP id 4fb4d7f45d1cf-68e7283b37bmr4564387a12.24.1780584161114;
-        Thu, 04 Jun 2026 07:42:41 -0700 (PDT)
-Received: from will-Legion-Slim-5-16APH8 ([82.71.135.85])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65b55d81sm2642563a12.27.2026.06.04.07.42.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 07:42:40 -0700 (PDT)
-Date: Thu, 4 Jun 2026 15:42:38 +0100
-From: William Bright <william.bright@imd-tec.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ram Boukobza <ram@imd-tec.com>,
-	Tendai Makumire <tendai.makumire@imd-tec.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
-Message-ID: <aiGO3rNYlJ3oE2_d@will-Legion-Slim-5-16APH8>
-References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/HbAhDz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A071F00893;
+	Thu,  4 Jun 2026 14:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780584615;
+	bh=oeqrCV/lPSuy/QvSHJh5Lbf4b+oXzKeFA0RbomU3bLE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J/HbAhDzcwGUN0gnl5SdQ0N9tS7sLztQVd2t52oVVKblaj5jh93u/FUUWsWy5w++C
+	 QRUkRld0fw3dhbmb7Yoieu9cDJsHDHqkdY/sx+thDcfczyURBTREo71OyRjcdcbjgE
+	 K5N9b5RXjiUb9Qn9pyZz4E/yh4bWpLk10G2VFXVIhs+m8CDhWZOWkox35mrHP5Mh9f
+	 Rhy1rjTj/jD6MSDR0OSqMk74tCunpeTwJD6g2WeC1mCwzJWlHukm0TKWB5CHjfMT01
+	 WGSJQ54XiEGtcC9mrrRoyZpNGdx+YUME0oq2sV9Qu5uXvjzdL/RIuPsGd8nrNxlRUw
+	 YEENClTRR4HqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 7/7] riscv: dts: tenstorrent: Add Atlantis platform
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joel Stanley" <joel@jms.id.au>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260604143957.668047-8-joel@jms.id.au>
+References: <20260604143957.668047-8-joel@jms.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 14:50:15 +0000
+Message-Id: <20260604145015.83A071F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
 
-Hi all,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The device tree assigns `CLK_RCPU_ROOT` as its own parent, creat=
+ing an invalid cyclic clock dependency.
+--
 
-Gentle ping on this patch.
+commit edef4717eb8086a5ba285a43a4a322f90272540a
+Author: Joel Stanley <joel@jms.id.au>
 
-Thanks,
-Will
+riscv: dts: tenstorrent: Add Atlantis platform
+
+Add initial support for the Tenstorrent Atlantis platform, based on the
+Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
+
+[ ... ]
+
+> diff --git a/arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi b/arch/ris=
+cv/boot/dts/tenstorrent/atlantis-soc.dtsi
+> new file mode 100644
+> index 0000000000000..2513f0dcc62e5
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
+
+[ ... ]
+
+> +		prcm_rcpu: clock-controller@d0000000 {
+> +			compatible =3D "tenstorrent,atlantis-prcm-rcpu";
+> +			reg =3D <0x00 0xd0000000 0x00 0x10000>;
+> +			clocks =3D <&osc_24m>;
+> +			#clock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +			assigned-clocks =3D <&prcm_rcpu CLK_RCPU_ROOT>, <&prcm_rcpu CLK_NOCC_=
+CLK>;
+> +			assigned-clock-parents =3D <&prcm_rcpu CLK_RCPU_ROOT>,
+> +						 <&prcm_rcpu CLK_NOC_PLL>;
+
+[Severity: Medium]
+Does this configuration intentionally set CLK_RCPU_ROOT as its own parent?
+
+The assigned-clocks property specifies <&prcm_rcpu CLK_RCPU_ROOT> as its
+first entry, and the corresponding mapped entry in assigned-clock-parents
+is also <&prcm_rcpu CLK_RCPU_ROOT>.
+
+This instructs the Common Clock Framework to set the clock's parent to itse=
+lf.
+The CCF does not support self-parenting and will return an error or trigger
+cycle detection warnings, preventing proper clock initialization. Is it pos=
+sible
+an external oscillator or upstream PLL was intended as the parent here?
+
+> +		};
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604143957.6680=
+47-1-joel@jms.id.au?part=3D7
