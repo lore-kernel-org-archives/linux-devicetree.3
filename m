@@ -1,131 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266E1409E07;
-	Thu,  4 Jun 2026 11:12:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5769409123
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 11:13:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780571560; cv=none; b=DXnv+aQ7Svlb+NOnDSROLa1nHXlbvNJ/r+aGA6SMUggTcB9hbakofAGPRCndmENuXqIm0816sKiL0WZnIDsG/P2drAKGB8DJnE86pqlrYHWE7i32AcZgx2TujjDfnZY05/bvYpA+PZ/rV01a+irDNmEcrlBehrB7Lsj2RD6OUpE=
+	t=1780571586; cv=none; b=JLyqvU/Wsx/ySZKj9G0oVie9LNfcDBxR7YT+TXQ6R448L8SGLPmcsBScQ8PKt2BLQCwe8TkMggVKZsYOIYirK3jwy63fGp1F8/r0clOSzMsRe2m2HxtBSUR/O5dLHmfaGDqmmQmFzLcl97SShb/tnEiU7u71rwkPvmPARpj7OCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780571560; c=relaxed/simple;
-	bh=I88HAvooNXAVPw8et8v7wZotnTTMMoPuZDI3XrkfNDM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ST/1DWLJNZo1JoG6k35RakZUtuZAVa5oAzKtr0bXmQbJD52XObfxqs+e2tSTg9AY7ZfciB2lOdF0ZvaDtujzmMab5QBa9W8YN1TZ546oQzsuC5Y553SDy88JiDznOxBsUxU+P23h4jej5ms5OjAFlwtOi4UqaGXsUvLJYNplooA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZ4LecXb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780571586; c=relaxed/simple;
+	bh=nGKsqalP4bhNi9Jay87mrSVhaoSEf8yTeiSD5GYIbAA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qzC20u2UNV8eDmMTqPZcZCv8V8v3VHwhyS4w9z5hnDxNdnp4l9S/AIVx3Qg4kxhIN0eqwyX/GBa2zdX8I+fTlCue8AAnp/5wsguKnlG1T7Y/AVjspLZTI3Sp3oIctyjSkSsqXF5tZtjqf177Sqtr1nJAXTytbT2BFhYO52JAZaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TaV3LgN+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZ4LecXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1891F00893;
-	Thu,  4 Jun 2026 11:12:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TaV3LgN+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663DE1F00893;
+	Thu,  4 Jun 2026 11:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780571558;
-	bh=sZQ6a4Dsms3if87ljXUV9N/jMfWtTZ5A6QMP9+mvWcM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VZ4LecXbsqHS1ifoNGgx4ZZDqRtVBGq4jk6Weo/TXACMfPjSQ+flOlvRxTPi6+R9h
-	 tgr8wcZlTCTcWcJS4eYjwVLbcuc+hMEl87mMK5ZAq01lRuWqoXGeNS/Pf53IDmtks7
-	 cPYyJu8xJmugv0GjCGl+xdSfMiufgvhXaw+nA93E3FRosHZxICcEi/spQO28FmmYGo
-	 4wV++uWOnVQxQlugw/Ljcj1AJX1Eu6F/ZBYBXGhjgqcYJGweDEOpXFY0WuUtcME0L7
-	 C3DxG7j7YqyI9xMmXgy221Bxb5ZHCo5+6IxOKaBRDsbL0Vg8+sftXqpqlQoZbZW2X4
-	 ZuTUUaJpFiZVg==
-Message-ID: <dc1c2c1c-73f1-43a9-a157-7cd362faf89f@kernel.org>
-Date: Thu, 4 Jun 2026 14:12:34 +0300
+	s=k20260515; t=1780571585;
+	bh=0XVEElmgTWyD1ZFJk2uddTiqmRmjOgbKdtdq7v2pRpA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TaV3LgN+39zsqI6Cp6jiE1LeNb9unG0e0zNIL+YKlIRWXOmSgHFGsENw36JRW7Ow/
+	 Zz5E4KpYeaJoOA5G3EHyufYvSeKA9Nz72kDTjLh/8HIXv1GZFQB+zKVlYes8QZCJ8s
+	 yypQUF0Rwz+HoLBa0nbDaJixSqfcDEUrA0g6OzM00aSYr65dJibj40iAHVH9QVD7ud
+	 jtRaDMROf4cXcFpBdR/jeb+3ss12rr5tt/gsjhx2EaG8fF3WUrtcRWdh/SRg/2vM/z
+	 iSS0cfRA7YQQfzJgqbGoRG+Do5ri3X1rs6rVU2bqt7bumpv3AnPdrMhxNC4N+VV5JV
+	 jXA24+c7CkSKg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: leds: Add default-intensity property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jonas Rebmann" <jre@pengutronix.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260604-multicolor-default-v1-1-b07bff431537@pengutronix.de>
+References: <20260604-multicolor-default-v1-1-b07bff431537@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 11:13:04 +0000
+Message-Id: <20260604111305.663DE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
- claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
- <20260522102251.1723392-10-claudiu.beznea@kernel.org>
- <ahBMKWrKQDko3cG8@shikoro> <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
- <ahXQnt4MTVoBB9bF@shikoro>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <ahXQnt4MTVoBB9bF@shikoro>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Hi, Wolfram,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The example in `leds-pwm-multicolor.yaml` incorrectly uses `linux,d=
+efault-intensity` instead of the newly defined `default-intensity` property=
+, causing dt_binding_check validation to fail.
+- [Low] The description for `default-intensity` contains a grammatical erro=
+r that makes the sentence confusing.
+--
 
-On 5/26/26 19:55, Wolfram Sang wrote:
-> Hi Claudiu,
-> 
->> Could you please let me know what do you consider we should do here? Do you
->> think we could drop these pin controller setting and do some particular I3C
->> controller settings instead?
-> 
-> My original thought was: If it was a boolean state which is active when
-> suspending and disabled when resuming, then we wouldn't need a customer
-> specific binding for it and just do this in the suspend/resume functions
-> of the pin-controller...
-> 
-> ... BUT ...
-> 
-> reading more about this in the manual, just raises more questions for
-> me.
-> 
->> The output is fixed at Hi-Z and no data is transmitted to the inside even if
->> data is input from outside. “Standby mode” is available when using I2C mode
->> only. (Not available when using I3C mode).
->>
->> The current driver proposal don't take into account the IP mode when setting
->> STBN though
->> pinctrl_pm_select_sleep_state()/pinctrl_pm_select_default_state() to keep
->> the code simpler, relying on the "Not available when using I3C mode" part of
->> the note, and considering setting it when the IP is in I3C mode is harmless.
-> 
-> This is one question I also had: What does "not available" actually
-> mean? Did you confirm with HW guys that it is really harmles?
-> 
-> I also wonder about the intended use-case of this mode. "no data is
-> transmitted to the inside even if data is input from outside" doesn't
-> really sound like a mode intended when the whole SoC goes to sleep. Why
-> or how would input be even transmitted to the inside if everything is in
-> a deep-sleep state? I could also imagine that this mode is rather used
-> to hide from the bus for a while for some corner-case reason.
-> 
-> And finally: does this really save energy? Could you measure a benefit?
-> Maybe there is nothing driven at all in the sleep state? Then, nothing
-> is gained? Not clear from the datasheet.
-> 
-> Because the datasheet is so sparse with information and because it
-> doesn't say how STBN is intended to be used, I would argue we should
-> skip it until we know what it is for and how it is used. If we know this
-> somewhen, we can still add this in a second step.
-> 
-> But for now, enabling I3C realiably is the first step, and for that we
-> surley need the POC bit to select the voltage. This is easily
-> understandable and straightforward to do. So, my suggestion is to pick
-> this low-hanging fruit now and reach for the other one once we have more
-> information about it.
+commit 99b08e914db877e1b3d69129c24e623ae6ddf4d3
+Author: Jonas Rebmann <jre@pengutronix.de>
 
-This is what I've got from the HW team:
+dt-bindings: leds: Add default-intensity property
 
-The purpose of STBN is to control the standby state on the I2C side. It is not 
-intended to control transitions to a low power consumption mode such as VBAT mode.
+Document the default-intensity property to set a default color on
+multicolor LEDs. Update pwm-multicolor to support it and update the example
+to turn the LED red on boot.
 
-In I2C mode, enabling standby mode places the device in a non-communicating 
-standby state while maintaining the I2C configuration. The outputs are set to 
-Hi-Z, internal transmission is stopped, and communication is disabled. As a 
-result, the bus is effectively not actively driven.
+> diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documen=
+tation/devicetree/bindings/leds/common.yaml
+> index f4e44b33f56d1..159a89f77982b 100644
+> --- a/Documentation/devicetree/bindings/leds/common.yaml
+> +++ b/Documentation/devicetree/bindings/leds/common.yaml
+> @@ -73,6 +73,16 @@ properties:
+>        - keep
+>      default: off
+> =20
+> +  default-intensity:
+> +    description:
+> +      The initial intensity of the LED color component. Used only during
+> +      initialization. Defaults to 0. As the intensity of each sub-LED is
+> +      multiplied with the overall brightness, without this property on a
+> +      sub-LED is effectively initialized at minimum brightness regardles=
+s of
 
-In I3C mode, standby control via STBN is ignored even if configured. STBN can 
-therefore remain set to 1 while the clock is turned on and off. In I2C mode as 
-well, it is acceptable to keep STBN = 1 while toggling the clock on and off. It 
-is also possible to change the STBN setting while the clock remains enabled.
+[Severity: Low]
+This isn't a bug, but there appears to be a grammatical error in this sente=
+nce.
+Should it be "without this property, a sub-LED is effectively initialized"
+instead of "without this property on a sub-LED is effectively initialized"?
 
-Standby mode is not intended for power consumption control, but rather for 
-placing the I2C interface into a standby (non-communicating) state.
+> +      its linux,default-trigger and default-brightness attributes.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 0
+> +
 
--- 
-Thank you,
-Claudiu
+[ ... ]
 
+> diff --git a/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.y=
+aml b/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
+> index a31a202afe5cc..05cc83f4bb825 100644
+> --- a/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
+> +++ b/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
+
+[ ... ]
+
+> @@ -63,12 +65,14 @@ examples:
+> =20
+>          multi-led {
+>              color =3D <LED_COLOR_ID_RGB>;
+> +            linux,default-trigger =3D "default-on";
+>              function =3D LED_FUNCTION_INDICATOR;
+>              max-brightness =3D <65535>;
+> =20
+>              led-red {
+>                  pwms =3D <&pwm1 0 1000000>;
+>                  color =3D <LED_COLOR_ID_RED>;
+> +                linux,default-intensity =3D <65535>;
+
+[Severity: Low]
+Is this example property name correct? The new property is defined as
+default-intensity, not linux,default-intensity. Does this mismatch cause
+schema validation to fail during make dt_binding_check?
+
+>              };
+> =20
+>              led-green {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-multicolor=
+-default-v1-0-b07bff431537@pengutronix.de?part=3D1
