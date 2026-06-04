@@ -1,271 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797BA20FA81
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62EC259C80;
+	Thu,  4 Jun 2026 14:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780582252; cv=none; b=opX0XOhJ67V0S3Oz8s+Jjm2ikNGUo/wyGhwM+kZYEe+8A2LzGD+yHSeaMj9JPlpQQS9JkVQVbx/GD3GjYVhOhqN/ZJ06d44RRw/UJRzRPc/iRMQSTziNE3CC6hWIVdP0Wgw12PUs6PgSvSenVL2FUrD6QTbLM3ewmCoTKYF5bP4=
+	t=1780582299; cv=none; b=ddvnutLRemxuNOOW3HVtb1Z5D7DOW+qzQxNdWZ0OWToFShcqm4n04qXrKa8V9s3He6xDcIMUd0uqgNSU6ai+jwT0M4+23B6r/4eFk0I1WSFtJ7oduTe0cg9kjiUHOGbno+US4UcxgjjNWMTakhewl0UftYn79psgn1BOhWfw+Ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780582252; c=relaxed/simple;
-	bh=Uf7wBQ/TlTwNXyKw/l2HRJL8NlLp0P+eflZqgucS41U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mzj3Dp1IpDkaIPnTWGqZM89bwX/Untuvmm7mo67V4UP3ldCob4dPBJ4pAoQay5AtLB291NHUUtiuOae1Qco/84uAWsI6V4m90aHcHpbm2jK/Vt3jENls1G1LP8B5j06Ct22A+Me0qoX/Zzlfe98qxEFBZTf2Pmcjp17IZijoq/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpUNTxFm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780582299; c=relaxed/simple;
+	bh=c8MRTraEcn0OO+rGytzTy1mD4h0gR3K/7RG7LVvZFt8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RFQp+jW/NSGRSTGIQQH9z+yERm4wnSaPzIoZOVrmc6jHR7iXgp5BWeBDYtCE3mEYBgBuCedAVI+fYWT2JY7qJTlffMsjBQ8CdwYT0+9QU1O2jLBxSmBrTx6mhKM+rJG5TwjxjdQRpT60r8MmDXOZNUQpKaSuS2hxO7oV0en0Aro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XOgx2IWr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpUNTxFm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38211F00893;
-	Thu,  4 Jun 2026 14:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XOgx2IWr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9E91F00893;
+	Thu,  4 Jun 2026 14:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780582251;
-	bh=5TT/lYWkb0Er7E9DGPx2aoH9f3cQJSTb6G1KcVgwSoc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mpUNTxFm1JxBI0+cZxuRGR/cfycG26+bSN/oIBXgy9ypfgDAxJpXyZ/4PAK/6xeTT
-	 ytEo1jo2LEjZm1F0ss2gU2+L1Y0l/Ef3zdx+FndZvqX/ZXUea4Lf71CwMmnhPn/CL9
-	 aI6nxU96ZfX/8Afm4wGZKJ8RN/jY7IBlT7DkkGneWXc4VMuAbcrNXdxy+JtT/VFvJ1
-	 AqAXPwKP3+jlbbYRwbl8RRyKspuhMKr4oJV9W/vx/+3wDpDuplCHX7zm4yuGvbqcX6
-	 fR74vgj8uOFJDnzb5LoQtydkgu04HAnT+I1RDIEiVllWjxXHoq8zg17YSFCREJudzs
-	 EYoI7D1oymS+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 4/9] accel: rocket: Reset the NPU before
- detaching the IOMMU on timeout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Midgy BALON" <midgy971@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604135255.62682-5-midgy971@gmail.com>
-References: <20260604135255.62682-5-midgy971@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:10:50 +0000
-Message-Id: <20260604141050.D38211F00893@smtp.kernel.org>
+	s=k20260515; t=1780582297;
+	bh=0Sh8NbjgSm3sX3rE5H27Sw9yGDX3iYRRahDZnYRzigY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XOgx2IWry6BQMO6hf28wILss3wx9fWI9pLICcpBiEVvTiBYLRWH76sW0VccP0wsD6
+	 x6Rp4lgpXHKOwgxN7oGX5zC0Ei4svwjET5+bnxB07wPuFNMNIQjU93gMZ8agZUJkm+
+	 j0jhV99LPtm1d9A2nOAmT964FlZr8ApxETSo9q2G5esDbwSCW4mTxcsEIV573cdI/9
+	 RL+/pdbC+5hBwMJ6PSxYhkuue/2TI2vZgDeNel2pyMmGlonrJQtlTNJk5vuH8Mi1iW
+	 PmLjfaIbytO+sCNgAFxGSN4VTEeChsII1Vx6HOPJMbaR7X1oreY3CGSQjHKg2EiJ2d
+	 XKvrYEL43jJFw==
+Date: Thu, 4 Jun 2026 09:11:36 -0500
+From: Rob Herring <robh@kernel.org>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+	kuninori.morimoto.gx@renesas.com, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, john.madieu@gmail.com
+Subject: Re: [PATCH] ASoC: dt-bindings: sound: renesas,r9a09g047: Fix
+ dma-names list and ports schema
+Message-ID: <20260604141136.GA328529-robh@kernel.org>
+References: <20260603202805.3530046-1-john.madieu.xa@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260603202805.3530046-1-john.madieu.xa@bp.renesas.com>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
+On Wed, Jun 03, 2026 at 08:28:05PM +0000, John Madieu wrote:
+> Express the dvc/src/ssiu dma-names as an items list rather than an
+> allOf-wrapped single schema, and drop the now-redundant maxItems. Fix
+> the ports container to reference graph.yaml's ports definition instead
+> of port-base (a ports container is not itself a port), keeping
+> port-base on the port@N children, and constrain each playback/capture
+> phandle-array entry to a single phandle.
+> 
+> While at it, drop the unused top-level #address-cells/#size-cells since
+> no child node uses a unit address and the ports node provides its own,
+> require interrupts/dmas/dma-names on the src sub-nodes to match the
+> ssi/ssiu sub-nodes and the driver, pin clocks and resets to their fixed
+> counts (47 and 14) to match the clock-names/reset-names lists, and put
+> compatible and reg first in the example.
+> 
+> Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
+>  .../sound/renesas,r9a09g047-sound.yaml        | 71 +++++++++++--------
+>  1 file changed, 43 insertions(+), 28 deletions(-)
 
-Pre-existing issues:
-- [Critical] Double free of rjob->tasks array when copy_from_user() fails.
-- [High] The shared IRQ handler unconditionally accesses hardware registers=
- without verifying the device's PM active state.
-- [High] Missing PM reference drop and unsignaled fence return on error pat=
-hs in `rocket_job_run()`.
-- [High] Concurrent hardware reset and IRQ handler execution can cause an e=
-xternal abort.
-- [High] Unbalanced teardown order in rocket_core_fini() causes UAF and dat=
-a races.
-- [High] NULL pointer dereference of job->domain in rocket_job_cleanup() on=
- early error paths.
-- [High] Missing `synchronize_irq()` in runtime suspend callback.
-- [Medium] The TDR reset path permanently leaks power by preventing the dev=
-ice from entering runtime suspend.
-- [Medium] The hardware reset is performed after dropping the PM runtime re=
-ference, potentially targeting an unpowered device.
---
 
-commit 323afa3b038052ef6c02ee0548658a65126910a0
-Author: Midgy BALON <midgy971@gmail.com>
+> @@ -143,11 +139,12 @@ properties:
+>                through the list to find a free channel.
+>  
+>            dma-names:
+> -            maxItems: 5
+> -            allOf:
+> -              - items:
+> -                  enum:
+> -                    - tx
+> +            items:
+> +              - const: tx
+> +              - const: tx
+> +              - const: tx
+> +              - const: tx
+> +              - const: tx
 
-accel: rocket: Reset the NPU before detaching the IOMMU on timeout
+All you need is:
 
-On a job timeout the NPU AXI master can be left wedged with outstanding
-transactions. rocket_reset() detached the IOMMU group before resetting
-the hardware, causing the IOMMU core to stall. Assert the core reset
-first to quiesce the master so the detach completes cleanly.
+maxItems: 5
+items:
+  const: tx
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -364,14 +364,20 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
->  		if (core->in_flight_job)
->  			pm_runtime_put_noidle(core->dev);
+(The schema form (vs. list form) of 'items' applies to all items.)
 
-[Severity: Medium]
-This is a pre-existing issue, but does this TDR reset path permanently leak
-power by preventing the device from entering runtime suspend?
+>  
+>          required:
+>            - dmas
+> @@ -203,12 +200,22 @@ properties:
+>                falls through the list to find a free channel.
+>  
+>            dma-names:
+> -            maxItems: 10
+> -            allOf:
+> -              - items:
+> -                  enum:
+> -                    - tx
+> -                    - rx
+> +            items:
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
 
-It appears pm_runtime_put_noidle() drops the reference without triggering an
-idle power-down. If the timed-out job was the last active job, the usage co=
-unt
-reaches zero but the device remains in the RPM_ACTIVE state indefinitely,
-staying powered on until another job is submitted and correctly triggers
-autosuspend.
-
-> -		iommu_detach_group(NULL, core->iommu_group);
-> -
->  		core->in_flight_job =3D NULL;
->  	}
-> =20
-> -	/* Proceed with reset now. */
-> +	/*
-> +	 * Reset the NPU hardware before detaching the IOMMU. A timed-out job
-> +	 * leaves the NPU AXI master wedged; detaching the IOMMU then issues a
-> +	 * stall request that never drains and times out (warning in the IOMMU
-> +	 * core). Asserting the core reset first quiesces the master so the
-> +	 * detach completes cleanly.
-> +	 */
->  	rocket_core_reset(core);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can a concurrent hardware re=
-set
-and IRQ handler execution cause an external abort?
-
-rocket_core_reset() asserts a hardware reset without first disabling device
-interrupts. If an interrupt fires just before or during the reset,
-rocket_job_irq_handler() will execute and perform MMIO reads and writes to =
-the
-bus while the hardware is actively in reset.
-
-[Severity: Medium]
-This is also a pre-existing issue, but is it safe to perform the hardware
-reset after dropping the PM runtime reference?
-
-Dropping the PM reference via pm_runtime_put_noidle() earlier decrements the
-usage count. A concurrently scheduled autosuspend timer could expire precis=
-ely
-in this window and power down the device before or during the reset operati=
-ons.
-
-Asserting resets on a suspended device can lead to system bus faults. Should
-the PM reference be dropped after the hardware reset is complete?
+maxItems: 10
+items:
+  enum: [ tx, rx ]
 
 > +
-> +	iommu_detach_group(NULL, core->iommu_group);
-> +
->  	/* NPU has been reset, we can clear the reset pending bit. */
->  	atomic_set(&core->reset.pending, 0);
+> +        required:
+> +          - interrupts
+> +          - dmas
+> +          - dma-names
+>  
+>    ssiu:
+>      type: object
+> @@ -229,12 +236,17 @@ properties:
+>                falls through the list to find a free channel.
+>  
+>            dma-names:
+> -            maxItems: 10
+> -            allOf:
+> -              - items:
+> -                  enum:
+> -                    - tx
+> -                    - rx
+> +            items:
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
+> +              - enum: [ tx, rx ]
 
+And same here.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the shared IRQ handler
-unconditionally access hardware registers without verifying the device's PM
-active state?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
-
-The driver registers rocket_job_irq_handler() with the IRQF_SHARED flag.
-Without first calling pm_runtime_get_if_active(), if the NPU is runtime
-suspended, this read accesses an unpowered register domain. This typically
-returns 0xffffffff (causing spurious handling) or triggers a synchronous
-external abort.
-
-
-[Severity: High]
-This is a pre-existing issue, but does rocket_job_run() leak the PM referen=
-ce
-and return an unsignaled fence on error paths?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_run() {
-    ...
-    ret =3D pm_runtime_get_sync(core->dev);
-    if (ret < 0)
-        return fence;
-    ...
-}
-
-If pm_runtime_get_sync() or iommu_attach_group() fails, the function returns
-a newly created, un-signaled fence instead of an error pointer, and leaves
-the PM usage counter incremented. Because the hardware submission step is
-skipped, the hardware will never signal this fence, causing the DRM schedul=
-er
-to hang indefinitely.
-
-
-[Severity: High]
-This is a pre-existing issue, but does the teardown order in rocket_core_fi=
-ni()
-cause a use-after-free and data races?
-
-drivers/accel/rocket/rocket_core.c:rocket_core_fini() {
-    ...
-    iommu_group_put(core->iommu_group);
-    core->iommu_group =3D NULL;
-    rocket_job_fini(core);
-    ...
-}
-
-Resources are torn down in the wrong order. The iommu_group and attached_do=
-main
-members are freed, and pm_runtime_disable() is called before rocket_job_fin=
-i().
-
-If a scheduled job is processed by the DRM scheduler during this window,
-rocket_job_run() will concurrently access the now-NULL iommu_group without
-locking. Should rocket_job_fini() be called first to stop the scheduler and
-wait for jobs?
-
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but is there a double free of the
-rjob->tasks array when copy_from_user() fails?
-
-drivers/accel/rocket/rocket_job.c:rocket_copy_tasks() {
-    ...
-fail:
-    kvfree(rjob->tasks);
-    return ret;
-}
-
-If copy_from_user() fails, it frees rjob->tasks but leaves the dangling poi=
-nter.
-
-The function returns an error, prompting rocket_ioctl_submit_job() to jump =
-to
-out_cleanup_job and call rocket_job_put(rjob). This invokes
-rocket_job_cleanup(), which unconditionally calls kvfree(job->tasks),
-resulting in a double-free.
-
-
-[Severity: High]
-This is a pre-existing issue, but does rocket_job_cleanup() dereference a N=
-ULL
-job->domain on early error paths?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_cleanup() {
-    ...
-    rocket_iommu_domain_put(job->domain);
-    ...
-}
-
-The job->domain structure is initially NULL and only populated late in the
-function. If an earlier step fails (such as rocket_copy_tasks()), the clean=
-up
-unconditionally calls rocket_iommu_domain_put(job->domain).
-
-This wrapper dereferences the domain struct to access its kref without a
-NULL check:
-
-drivers/accel/rocket/rocket_drv.c:rocket_iommu_domain_put() {
-    kref_put(&domain->kref, rocket_iommu_domain_destroy);
-}
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing
-synchronize_irq() in the runtime suspend callback?
-
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
-    ...
-    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
-                               rdev->cores[core].clks);
-    ...
-}
-
-The driver registers a shared interrupt but fails to call synchronize_irq().
-Disabling the clocks while the IRQ handler is executing concurrently on ano=
-ther
-CPU could cause an AXI bus fault or a hard system crash.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604135255.6268=
-2-1-midgy971@gmail.com?part=3D4
+Rob
