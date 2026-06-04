@@ -1,58 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C2140961E;
-	Thu,  4 Jun 2026 16:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674053AFCE8;
+	Thu,  4 Jun 2026 16:39:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780590981; cv=none; b=hcJCyfMaRqoyRcV2uAqzSdZAkGgThW8XS8mf66GJzXp71gyCv4hRRNHYkI6GWowe/TMRBJzn+7eXyceywwfB+vZLI/N7mEQlM1T790vfpd0dBea45NePwTKrSWApYvr+3kOHgeoigOYPLCbelwFMXgxWz7VXz9drpIvx6gIPW5I=
+	t=1780591179; cv=none; b=dSc5KYMUIld31SCGxcKWBwMPXaKmKJxAM9H6oDfQ2JSJW9MRLhap5q00lvul5vjH6ihGCOGIt/XdCJ2U81bZrVbktJAF3imIkl3YtoknrK+2hFY8P3bOS0BXl+1hIS9SMcv/XJHiesDv9v///vPr2mMc4c3Lu1THY/KInqZPZYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780590981; c=relaxed/simple;
-	bh=79767qT4cxoYvoYC9/wCqAKQO0v9jT3L2K/ugsJBoLI=;
+	s=arc-20240116; t=1780591179; c=relaxed/simple;
+	bh=c37l7/my8PeBcqolj2D0YxpepY2LnMLvvONRHTXMPyg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i93+sqyzKzq4yQ4fJB2euaTjtJangEXiHl1R+Ih3GsnRDH9afeHe3FuM9vvtXugJCd24O5lMAHUvLuKRnijCmStExprw29HpAkftIj+GzuBGc5oLPSORQaUhva4ISajNAkAMUo0M5fEf4nxv0a/rI4a8AmCWXQhRMuQ/mMWchQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeJbxwqN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GB0hkgex74G9EjFSw1IOMH6AYLGDWDsSxe3Okr6kUHr6ukW9qJ5bQwR8HlRTlZ5XAziMS/8ya6f0FV2KjVsi6P5LY/TXtOIZKnC0/S/2ZDNpqgeg2R9y1UY7KCwNRgFw63DAy67FmtTwzIGqv5SHXIRhGPN4sb/kpFMuXA8YZgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OA9vIs9p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeJbxwqN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F214D1F00893;
-	Thu,  4 Jun 2026 16:36:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OA9vIs9p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9201F00898;
+	Thu,  4 Jun 2026 16:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780590980;
-	bh=79767qT4cxoYvoYC9/wCqAKQO0v9jT3L2K/ugsJBoLI=;
+	s=k20260515; t=1780591178;
+	bh=4KZsy5obdlZxh/b5c8a6JTkwwxyP0LH4cSc0OEXfIcY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UeJbxwqNUrMAoASAFTbAhPd7x6kg0LyZyTe09Aq5Fj0mG5kt3Pug43cVhKlgMvG18
-	 lmLzxJFIvevDeWXHTE4r3etdwIiTwmzCyrrJ0GpYA3wIw6Fs28liplDRy68UOPzXjJ
-	 fEnVWxHoef0dWOPrYsVspsiVpPdjhEIAzFt7O98xOY/njlqugajhLFcac+lThvA0zZ
-	 cKGpZD9RV8pa6mpnwNGX73Crg3Ixo1JmCPA28nQbA+HpoTRWi0cY0wfoWH2xfwKC73
-	 ONBmOFyzb5I0iwhSRGWeuooZBeumd+cI3H35RrDnE/saQHV8k3xS8K2ErSHOpdTkCJ
-	 ZAAR7Um/zNPfA==
-Date: Thu, 4 Jun 2026 17:36:15 +0100
+	b=OA9vIs9pIPYZ7nlFvWVaT0sGcqXPSIgkM2xGgElld8VamNpZ9SWpPbOaiIvTUw//C
+	 mOEePXq14cPfzDO6knZ2uIzRGROV2bLUhxff5SbEiGjCgmU3C/Cha/QcCxXp7P52j7
+	 yeRTrRKXS8H4izNPyd/Pfd2ORkg2+lERfq2atgAhmlpT3ChXBeMLwbv3JAjraMAhqH
+	 ahDErjcLn/98KqHLtxsavHeK5T3qOr0TlEOQYEtQ8eMX53VLYqellTqyRokNwPYy+x
+	 TklmwBAiXsabTvpzBc9OhuW2hwEWbz62Mn8CCGFQS/o9e45aGjCIir8lKFtpDyOgc/
+	 R4bW96XyA3Ghw==
+Date: Thu, 4 Jun 2026 17:39:32 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: "Parthiban.Veerasooran@microchip.com" <Parthiban.Veerasooran@microchip.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	"andrew@lunn.ch" <andrew@lunn.ch>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Conor.Dooley@microchip.com" <Conor.Dooley@microchip.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Message-ID: <20260604-swimwear-garnet-3eb092e6fda7@spud>
-References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
- <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
- <20260602-rebel-snide-5036c97e410d@spud>
- <CY8PR02MB92493D2E5491AAE5416C05A283122@CY8PR02MB9249.namprd02.prod.outlook.com>
- <a5abb9b8-6ebf-4f95-a684-fc889b98acea@microchip.com>
- <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
+To: ciprian.regus@analog.com
+Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v3 01/13] dt-bindings: net: Add ADIN1140
+Message-ID: <20260604-devoutly-registry-6564d8cd3ed8@spud>
+References: <20260604-adin1140-driver-v3-0-5debdb3173c4@analog.com>
+ <20260604-adin1140-driver-v3-1-5debdb3173c4@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,79 +54,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dDRoXKzkAjgb7RZm"
+	protocol="application/pgp-signature"; boundary="wPqzZuWB6wYVv20r"
 Content-Disposition: inline
-In-Reply-To: <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
+In-Reply-To: <20260604-adin1140-driver-v3-1-5debdb3173c4@analog.com>
 
 
---dDRoXKzkAjgb7RZm
-Content-Type: text/plain; charset=utf-8
+--wPqzZuWB6wYVv20r
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 04, 2026 at 03:21:47PM +0000, Selvamani Rajagopal wrote:
-> > Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt typ=
-e to be active low,
-> > level triggered
-> >=20
-> > Hi Conor & Selvamani,
+On Thu, Jun 04, 2026 at 07:32:46PM +0300, Ciprian Regus via B4 Relay wrote:
+> From: Ciprian Regus <ciprian.regus@analog.com>
+>=20
+> The ADIN1140 is a single port 10BASE-T1S Ethernet controller that
+> includes both the MAC and a PHY in the same package.
+>=20
+> Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
+>=20
+> ---
+> v3 changelog:
+>  - set adi,ad3306 as a fallback compatible.
+> v2 changelog:
+>  - Reorder the compatible entries in the dt schema (ad3306, adin1140).
+>  - Removed "dt-bindings" from the commit title and message.
+>  - Updated the DT example to use IRQ_TYPE_LEVEL_LOW instead of
+>    IRQ_TYPE_EDGE_FALLING for the interrupt trigger condition.
+>  - "implements" -> "tries to implement" in the description.
+>  - Removed the MAINTAINERS entry, as it will be added in a later patch
+>    in the series.
+>  - Reordered as the first patch of the series
+> ---
+>  .../devicetree/bindings/net/adi,adin1140.yaml      | 71 ++++++++++++++++=
+++++++
 
-To be clear, my angle here is making sure that the microchip device is
-not deviant from the spec. I don't know or care about this hardware in
-particular.
-I just made the assumption that what was in the example worked, and
-wanted clarification that what the example was changed to actually
-reflected something else that worked on the hardware in question before
-I gave an ack. I'm a dt-binding maintainer, not someone with knowledge
-of these devices.
+File should probably be named after the fallback compatible, but
+otherwise this looks okay.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-> >=20
-> [.]
-> > One possible alternative could be to use a threaded IRQ handler with
-> > IRQF_ONESHOT, where the IRQ line is disabled until the handler
-> > completes, and sleeping is allowed. In that case, we could perform the
-> > SPI transfer in the threaded handler to send the data header and
-> > deassert the interrupt, while deferring the remaining work to a separate
-> > kthread (the current SPI thread). However, I have not yet tried this
-> > implementation, so I cannot comment on its behavior or effectiveness
-> > without implementing and testing it.
->=20
-> I can test this in my setup.
->=20
-> >=20
-> > I may be missing something here and am trying to clarify my
-> > understanding. I am also curious why this issue reproduces on our system
-> > but does not appear in Selvamani=E2=80=99s setup with an active=E2=80=
-=91low level
-> > interrupt configuration. If possible, could you share details of your
-> > setup and how the testing is being performed?
->=20
-> My setup is similar to yours. We have Raspberry Pi boards (P-4 & Pi-5) co=
-nnected
-> to our MAC-PHY evaluation board. As you could see in my patch submissions=
-,=20
-> there are no changes to oa_tc6.c in the way interrupts are handled.
->=20
-> >=20
-> > Best regards,
-> > Parthiban V
-> > >
-> > >>
-> > >> Cheers,
-> > >> Conor.
-> > >>
-> > >>>
->=20
-
---dDRoXKzkAjgb7RZm
+--wPqzZuWB6wYVv20r
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiGpfgAKCRB4tDGHoIJi
-0tLdAQDyZP4DBC3h3sB2EKG6Xrs/w0FHmzR69qe7gr1KiN8fnQEAxQq0LUEp574U
-u25Oy7xpfeAn/+cFEAMtRdExAl7tzgY=
-=xdbe
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiGqRAAKCRB4tDGHoIJi
+0hSnAP40G5o4GiXBt3J2g0xEBk1CvhYU08hklJOuK6koHHrslgD/Y+cm6b3gd+wh
+ER0xd3SqY21oFM3je23FnyAEqrFgrQE=
+=sJ8C
 -----END PGP SIGNATURE-----
 
---dDRoXKzkAjgb7RZm--
+--wPqzZuWB6wYVv20r--
