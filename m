@@ -1,104 +1,59 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBBF3264EB
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780589094; cv=pass; b=sy4QiqCsLga2tSkkpUP9OJwlqdBJy7nsO21yWFTi1Vxe3xufnTG7UGsqjG9ajSWJXKFT+rLSBSLbB2QvnxUiD03OSDJKFYZ0SbwuUOd0pqNuVAszCstVhCFhBa68sAf344M24MOEoWBxOx4Jgpcw+ptRzkekGquYTfINlCtYrjU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780589094; c=relaxed/simple;
-	bh=Ruf7zIoOv3SUomYRTm6IZBJjqUF3kMs9qPFBCiopdGE=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=P/xBBMAKZigGyBOrzlcSMeK8aO7YKYL79fY/T+nq+3KEwk8BHhAF+g8CUn+ruTxzS7miv2mlAEhyJUUaxI6Ze7CA6EYCAvIGRFPe1R6H3ImLdW3F3MuYZgxWO/yVDUir2CmRZZIJaE1lKteORfLmJB/RHC0Vhfc3lT2FzY5bnDU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F/Ic9GRL; arc=pass smtp.client-ip=209.85.222.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F/Ic9GRL"
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-963a35acfaaso300880241.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 09:04:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780589092; cv=none;
-        d=google.com; s=arc-20240605;
-        b=cXKjub//TIBlmhQBYAY5XR2JPc8kzty88E0czHfZNlqCEHE5a3/6BrDASyK5WFUI6X
-         uqFxxmiB0t4yRziokYmJQibEKlo+FYOe9i51E2/Ye6WZq8BMrF/v9Kp6aS8DAo8T6P8e
-         lPFtDfLHMHnveIQeAgJazSPFEuEeY35+0zFzxoDO0jXBwRo4iyYAoHFnwSht1QbTwmxQ
-         mIuUiqId7gZPx+t0yi0fGIBHxdNCwNsgznm5dGlh8Y4wntd3c218cgJOTnDFrdVcb3nr
-         UrVEjMWfDPJaBtSlnjrcZ0CLomiW+SF1cfxsySElIXmrFIvj7CJRKt0s91h89H3Q/vKc
-         S5OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Ruf7zIoOv3SUomYRTm6IZBJjqUF3kMs9qPFBCiopdGE=;
-        fh=RMdN6hmd0YyHxoIdXgl3wABPkYXRFw5YmmpABTRUjc4=;
-        b=Erh8mPQkOWmV/3wbIz1IiL8Ekvm+aw5cQqV0Ymgf1ANUg/rduOGIE71UdVD4dmXS5E
-         gGqfEUbkgapJmJoWs2Zv/1Dyt/AJFkFz2DJW/Sbn+vsY0mwKw9hvSmUbKidhVRGWeTnb
-         hYYCGsnkblyHMdQM66EO15YOcUbYbecjs48PwibaVw2T5tvJtw/xMsnySSV9uP30VAtC
-         Eht3/VYujBdl11cAYSy+DBOWhYwz/5jfjnrhVCp9WcUPWbRYHoKQaZ0r71zgRYQ2MB2p
-         IDFrM5s7aRmg7hVqP2PO4Y3tfknSj2bAJ5Z3dDIv07IunySzH9bMHDPvmYqYp9K35s9R
-         v03A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780589092; x=1781193892; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Ruf7zIoOv3SUomYRTm6IZBJjqUF3kMs9qPFBCiopdGE=;
-        b=F/Ic9GRLw2ZiDd2BfCsHySJk5k3UegqtdFo4nB0vXjEFjTYFUk8bh2AAjTVYmSdfNV
-         tHDXq3oix4wQtkVokOtmjsnb5uuDvZUGfr/Z7ERS3sRfKb0jYZk49LS9xT4m9UU0tL0H
-         M7KFgvg3YM5WVKthS78b8O5iSpu4PBsOfcLShNEvAjp07ruXgIhYsl6s6wGsWGry9A/g
-         P4dBaQ0iUuC1MMgodcYBFnmnaocFJPrritWvDWBWEiqSKERWLAt9iF3gOpz1k4c959FV
-         4WRC1xwWJfbxpR/HwBw6tDMVuZTK2WV3X2M/GV1bbOq7xlW4+kwj/i1CE+WcoMdEWlxA
-         CrNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780589092; x=1781193892;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ruf7zIoOv3SUomYRTm6IZBJjqUF3kMs9qPFBCiopdGE=;
-        b=ANAa7VokNQI1/aGqL9XEpOC9kfGM2Dzf9ZQLMi14WfYVoHzoOLcfvahYsxqtNPJCvn
-         c4fR9yTSgZn5RXxUr02+qDMTq04WE7bE9lqaL9uAX1FOWC1h0o1ATbWFVjWA5sBRXYcg
-         So1B0v7/JOLo1mvxVWRiVH4VN9w4zSzRzQb6v4mLnnGSx+4UQ0Qalp0UqTYKSayOPi6l
-         Voxgok37WgajS4qZCvELmwbxkf51YVYCBEOERBUVk5mjRniuOrVFeGzU8brYkjo9R3eC
-         cICFYW5KJfofmNKe/s7or18T+vJ2P0tH6g21hg7Q24QirsFymeM1vL7tZy7H1r7GHvOG
-         OiVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/8bkLo90fpkQnI8cMfwssrYQnXE7yOitvsEnEofVYfmoXkp37+Wu6SQerPLaz47eX8iThp62bl8rDK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBmxiPre2Hg/RATD40GvMp06wOeAWOIDeYoNDaObCh1bKErI2Q
-	aIYyJApljXUrayArd2mNWPhRhIbiwDdFYWxcNHjtpjqiqT5blgi4bhxtADkcqWOu7uU669MI43z
-	ocp+KJvkt+z13JHprnTqBO44Nt2H0doY=
-X-Gm-Gg: Acq92OEYf2XLlSF6p1DvmhV83F39FofQRlYVwdB4RcUT3py2hLN/r1OygRy9llZ1Zoo
-	CLFFq4CGDxKdgpdIg/dg6tGCWPT12K8vbgofGBBLnSgHx35NWh+uNp/Sf+ziOrkUJDUeLLshh76
-	fPjq5PpWUYkX27mHur37KLdq1YlZw8arb7kOlUCfLlA8ssnPsVvOx6zAPhKA4timG66J53EfG+E
-	jPtRdCRQWaCTJYctimCD7V4xiysr95y1lh1FgsdnE5C/rpC92rQcF4Xn/l0xpybvR3l7hVnrufA
-	V+VgGE5eQixAelFG33w=
-X-Received: by 2002:a05:6122:829f:b0:575:44b3:300d with SMTP id
- 71dfb90a1353d-5a6e8b0d0f6mr4956435e0c.10.1780589091435; Thu, 04 Jun 2026
- 09:04:51 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFEB3ACA6E;
+	Thu,  4 Jun 2026 16:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780589157; cv=none; b=J0EvfyhXT3O1rxiII1DNDmSgzUpPZIfxPWy7vEh+9e3OKhzPOKKFWwDKYfqq+YQ7WyDC7nvABhq3G+UKxTK0cyIff6KkgfWMRKFlAnyseKhakEnRdZbByzEC5jnCNVHAe9UQwPrN5OMj9mHJo2yYyUWVOa6pKY2RAo5zKsyTCjM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780589157; c=relaxed/simple;
+	bh=GwkbEHH7aEYOncu2D6n2F9/P5LqzvyyDOt+VBohz2ik=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=YdiqhDt/Sc1Y/qRiSbpYDqXaRrVADTWAV1+iiTKUVFTqNtbs96nupD+Gw3vU6a3zRSLV8Z5TdkCirf7dhdFSEMVTRudOo86aa4GHRvxxZ78S8GhsGeS2COuG7vo1q37YuYLwSzJChG3VnDRQ72rE/e0VNn/hBzFjvN4E+DtZNaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6023B1F00898;
+	Thu,  4 Jun 2026 16:05:56 +0000 (UTC)
+Received: by venus (Postfix, from userid 1000)
+	id 2642F181D82; Thu, 04 Jun 2026 18:05:54 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+ =?utf-8?q?Jonas_Schw=C3=B6bel?= <jonasschwoebel@yahoo.de>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org
+In-Reply-To: <20260507134608.76222-1-clamor95@gmail.com>
+References: <20260507134608.76222-1-clamor95@gmail.com>
+Subject: Re: [PATCH v4 0/2] power: supply: Add support for Surface RT
+ battery and charger
+Message-Id: <178058915412.2707129.13808686364711300875.b4-ty@collabora.com>
+Date: Thu, 04 Jun 2026 18:05:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Yedaya Katsman <yedaya.ka@gmail.com>
-Date: Thu, 4 Jun 2026 19:04:39 +0300
-X-Gm-Features: AVVi8CeP15rSUsk1XI2OXrVWneBp1BIu7jE_glXWnX0Ij_ztSucqY3e24-FT7Rs
-Message-ID: <CAHuF_ZpTvYmARzx2_be1foM6XUVCdE0bNmb+YcHkH7tFhrYF8w@mail.gmail.com>
-Subject: Old patch version was applied accidently
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-Hello, an old version of a patch I sent was applied, presumably since the patch
-series title changed between versions (learned for next time).
-Can the newest version be picked up?
-The patch that was picked up:
-https://lore.kernel.org/all/20260314-panel-patches-v4-3-1ecbb2c0c3c8@gmail.com/
-The up to date patch:
-https://lore.kernel.org/all/20260320-panel-patches-v7-3-3eaefc4b3878@gmail.com/
-The difference is only in the name of the compatible (O to zero), and
-the updated
-compatible in the driver is already applied in next.
-I don't want a release to come out with a wrong compatible.
 
-Thanks, Yedaya
+On Thu, 07 May 2026 16:46:05 +0300, Svyatoslav Ryhel wrote:
+> Add support for Embedded Controller found in the Microsoft Surface RT and
+> used to monitor battery cell and charger input status and properties.
+> Controller works both for UEFI and APX booting.
+> 
+
+Applied, thanks!
+
+[1/2] dt-bindings: embedded-controller: Document Surface RT EC
+      commit: de296b53775cd1ccb6b448b4cc8d843c8858e1df
+[2/2] power: supply: Add support for Surface RT battery and charger
+      commit: 3d6529b837de49294cea0d4600144353f5f084dd
+
+Best regards,
+-- 
+Sebastian Reichel <sebastian.reichel@collabora.com>
+
