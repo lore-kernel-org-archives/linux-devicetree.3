@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C28438FE3;
-	Thu,  4 Jun 2026 16:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E98047A0C4;
+	Thu,  4 Jun 2026 16:18:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780589929; cv=none; b=drpe1I9EdFQPIfmBLYYi/07gn+keQrpec3ckIVoCgqeNeetSxd/us4Hzao6Mz/5TGL0DbBHrvar7JqvQK/tnuqD+3OzVR6bGIfm1WHKkSAX1MS4FaTOV7XeozMyScaeP6dHSIMwZAeYi6wCC5W+x1EDzk1nxlHVoNLbZg0qhUE8=
+	t=1780589930; cv=none; b=fEjDCMMKhznOqsLK4hvFOAp4mhZH4BndqB69Zwsgs6I6L0jhpmy5iT1nfa+o0goAszTo0lYwIhzFlvGrWYRqw0p1GNAj9vrwEz8WEgrV6Vl0WsbQqzhC9bXHhPPHDsxEGqVuLuHzJn2NFw7YuRXJ0WDy4WbNw77+5QwXT6zUZ5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780589929; c=relaxed/simple;
-	bh=VCO8JqZhi5cjTjlswWubLHARJbdDOER9+j65tRfAaug=;
+	s=arc-20240116; t=1780589930; c=relaxed/simple;
+	bh=OAdJDoexPkQT9ots4EbkSWm5SFdMRsHbuuzQVtz1jwM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=t82Aa3kQqjjsS/YNNxu8659ywo2FMumiT0DGsWBS22Zasg8Qryr0zCxnNioIzAAY0udnhdnjV0zRzdm9J86XQqba5G29hqKjLlif7zKGTe1i67SVzBY1urnN0k4TdGWxR81LDjo5gFz+fmUddm/XFkdaLlNREF3mnoG+wSI4V8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+MnytzC; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=N2o9yqY4k5CVdjSTostNbEZiasKlwPRSw2HgYEhx8d0aMFpMwnUHN8JR10va1+SsFBwTsPR4Ftj3ZmJm+9Wkb3827xGk5217HAt9ptQOaau0oFdv7HIa5lgYtSraCXRV6kOtYVBnMynVDkYAQo8yGEGvakrZzZdpr//nCFY26qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzCSB/GM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+MnytzC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 71631C2BCC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzCSB/GM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9530BC4AF0B;
 	Thu,  4 Jun 2026 16:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780589929;
-	bh=VCO8JqZhi5cjTjlswWubLHARJbdDOER9+j65tRfAaug=;
+	bh=OAdJDoexPkQT9ots4EbkSWm5SFdMRsHbuuzQVtz1jwM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=E+MnytzCOfQX4UswM77e39rtukI90iucgKgTaBqT/8bcUZ6UXVWnRh+ga3ZAnTIJu
-	 zy8rFxKN4E9AHBtSFZMwIjE0N8qOLxi0RDXpPQF+BHYPXFMOU0VCpjF9d9DWT9qdNx
-	 b9/1i2s+NPpmGPRQrENW5DfsZASb+OXF9rsnFHPo8dl3rAH3WASXU9eOxhf7wmidKR
-	 gpof/keFc0Yi4Hm0RGlqLjhZHVi4cFKMfMz/8Ils1gaW2/RJqLh32GghRtBa56LhJX
-	 e/43HsH7eqrr19ynIFi03Gy24kDqe3Is6MPq1stYD9y9lAJkUJjxCwHfPH0J9kWV47
-	 H5e26gERD/E7Q==
+	b=nzCSB/GMqT9c0C6S29GK+f70N6/myCM6DAVGuS0iHs6Y0udeeNcjNzf1oNEn0/SDf
+	 ovfRKUoZLqw43z6BiyiEpYTMKR0GDk7to+CBPmbKJFTFjMNns09IeNQArXEs5fA3R8
+	 sGQaFrflNcLTc7fNXII5VU5REr2EI+9ojVkKJd6ZkCjY+gqfxc0k8s8bPxdHyzXdIG
+	 F6Fb3o4ZWhMI5E/LcKji093w2Wuq2HoWnSUndMtRbUErdj2IBzA2gH8bpCTGjI+DCi
+	 NqgEzWgkiLe36rXs+E2hZtzDh+sw+nIqUaZCq39qGeQrNqU/N645jsWcHeFp62lnT0
+	 XALpE54Kk31ew==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A77ECD6E6D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83A15CD6E77;
 	Thu,  4 Jun 2026 16:18:49 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Thu, 04 Jun 2026 18:18:37 +0200
-Subject: [PATCH v3 01/10] arm64: dts: qcom: sc8280xp-arcata: Enable
- backlight
+Date: Thu, 04 Jun 2026 18:18:38 +0200
+Subject: [PATCH v3 02/10] arm64: dts: qcom: sc8280xp-arcata: Enable the eDP
+ display
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260604-surface-sp9-5g-for-next-v3-1-6aa6f6612c10@gmail.com>
+Message-Id: <20260604-surface-sp9-5g-for-next-v3-2-6aa6f6612c10@gmail.com>
 References: <20260604-surface-sp9-5g-for-next-v3-0-6aa6f6612c10@gmail.com>
 In-Reply-To: <20260604-surface-sp9-5g-for-next-v3-0-6aa6f6612c10@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -52,11 +52,11 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780589927; l=1778;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780589927; l=2658;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=eap9AjvywFW4CRahWMk+1c1QXImrokJWDaGBrZsuJlM=;
- b=3tXzrsYkeVtI2/g69iggmkUTRMpsy3qoHuce1Xm318dro9xFUPFu4AYwTVbcnlhVQsUnBxpxd
- Ap4YZysZQqiD0RZfgBjQ+Is3k5SkThFhpY17ag0/vZGvzNQw25LedLa
+ bh=ArT83CzUHU9cMXn/mN7oML+/ug0Ds8jF1qJcB4FmuvI=;
+ b=lANYZAicxjZ8LNulmHH0rOmW7fIAuJ/s77PgW1FVIg/FdZMQlI/7PYoukgJikvcg0qILuh8Pi
+ qJkVjNdYEgCAutYGtV5ighRqnKkKA/F5EbOzOxmRlTBtBZx28v91fGX
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -66,73 +66,117 @@ Reply-To: jerome.debretagne@gmail.com
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Add backlight nodes and enable backlight so that it can be controlled
-with the corresponding buttons found on Surface Pro Type Cover keyboards.
+Add the vreg_edp_3p3, edp_reg_en and mdss0_dp3 nodes to enable the
+Surface Pro 9 5G eDP-based LCD display (LG LP129WT232166).
 
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 64 ++++++++++++++++++++--
+ 1 file changed, 59 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index f2b4470d4407fb5b6a3dbac8bc972c010c31bd06..f24f60dc73afea6eeee0ea26472cda3223811752 100644
+index f24f60dc73afea6eeee0ea26472cda3223811752..476e17415da273330e3638e040db9cd4ed408bf1 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -46,6 +46,15 @@ wcd938x: audio-codec {
- 		#sound-dai-cells = <1>;
+@@ -136,6 +136,22 @@ pmic_glink_con1_sbu: endpoint {
+ 		};
  	};
  
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pmc8280c_lpg 3 1000000>;
-+		enable-gpios = <&pmc8280_1_gpios 8 GPIO_ACTIVE_HIGH>;
++	vreg_edp_3p3: regulator-edp-3p3 {
++		compatible = "regulator-fixed";
 +
-+		pinctrl-0 = <&edp_bl_en>, <&edp_bl_pwm>;
++		regulator-name = "VREG_EDP_3P3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++
++		gpio = <&tlmm 36 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&edp_reg_en>;
 +		pinctrl-names = "default";
++
++		regulator-boot-on;
 +	};
 +
- 	pmic-glink {
- 		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
+ 	vreg_nvme: regulator-nvme {
+ 		compatible = "regulator-fixed";
  
-@@ -553,6 +562,10 @@ &pcie4_phy {
+@@ -344,7 +360,6 @@ vreg_l6b: ldo6 {
+ 			regulator-max-microvolt = <880000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-boot-on;
+-			regulator-always-on;	// FIXME: VDD_A_EDP_0_0P9
+ 		};
+ 	};
+ 
+@@ -448,10 +463,6 @@ &dispcc0 {
  	status = "okay";
  };
  
-+&pmc8280c_lpg {
+-&dispcc1 {
+-	status = "okay";
+-};
+-
+ &gpi_dma0 {
+ 	status = "okay";
+ };
+@@ -494,6 +505,42 @@ &mdss0_dp1_out {
+ 	remote-endpoint = <&usb_1_qmpphy_dp_in>;
+ };
+ 
++&mdss0_dp3 {
++	compatible = "qcom,sc8280xp-edp";
++	/delete-property/ #sound-dai-cells;
++
++	data-lanes = <0 1 2 3>;
++
++	status = "okay";
++
++	aux-bus {
++		panel {
++			compatible = "edp-panel";
++
++			backlight = <&backlight>;
++			power-supply = <&vreg_edp_3p3>;
++
++			port {
++				edp_panel_in: endpoint {
++					remote-endpoint = <&mdss0_dp3_out>;
++				};
++			};
++		};
++	};
++};
++
++&mdss0_dp3_out {
++	remote-endpoint = <&edp_panel_in>;
++};
++
++&mdss0_dp3_phy {
++	compatible = "qcom,sc8280xp-edp-phy";
++	vdda-phy-supply = <&vreg_l6b>;
++	vdda-pll-supply = <&vreg_l3b>;
++
 +	status = "okay";
 +};
 +
- &pmk8280_pon_pwrkey {
- 	status = "okay";
- };
-@@ -853,6 +866,13 @@ &lpass_tlmm {
- 	status = "okay";
- };
- 
-+&pmc8280_1_gpios {
-+	edp_bl_en: edp-bl-en-state {
-+		pins = "gpio8";
-+		function = "normal";
-+	};
-+};
-+
- &pmc8280_2_gpios {
- 	wwan_sw_en: wwan-sw-en-state {
- 		pins = "gpio1";
-@@ -860,6 +880,13 @@ wwan_sw_en: wwan-sw-en-state {
+ &pcie2a {
+ 	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
+ 	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
+@@ -910,6 +957,13 @@ hstp-sw-ctrl-pins {
+ 		};
  	};
- };
  
-+&pmc8280c_gpios {
-+	edp_bl_pwm: edp-bl-pwm-state {
-+		pins = "gpio8";
-+		function = "func1";
++	edp_reg_en: edp-reg-en-state {
++		pins = "gpio36";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
 +	};
-+};
 +
- &pmr735a_gpios {
- 	hastings_reg_en: hastings-reg-en-state {
- 		pins = "gpio1";
+ 	nvme_reg_en: nvme-reg-en-state {
+ 		pins = "gpio135";
+ 		function = "gpio";
 
 -- 
 2.47.3
