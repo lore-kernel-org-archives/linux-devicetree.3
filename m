@@ -1,117 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.netcube.li (mail.netcube.li [173.249.15.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F4A402BB1;
-	Thu,  4 Jun 2026 12:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2149477E36;
+	Thu,  4 Jun 2026 12:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.249.15.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780577609; cv=none; b=V3VQFAiDgjdVSYM8+jHRMN2yQBuvBDMPqXEGmmtUt748y1QEI7KeDZwb0TGOLg0LMusMkvuMhsjKBLQNkkONBgTIiaHXAzCT4iC+F9rGLK/r55fdqdyuaxYuox7e6sgAfosFG66XHP2HIoERuW5KJWJZJSSU5CWe0RDohOTXMEA=
+	t=1780577648; cv=none; b=PeQ5f/0qCUGK3WBoxkQajTAxpUJnGYLk1ew0vn/ENcwgU05fjl24VZWJZzo5hesv29U0JYwWrFiFEft2DQTkR2YJrybK1b+XYJbMn5AfDPdbI2Xkc2pC4hqEnEo9ulmgZJSOtyGKjq29ebWbDXBw19I+JS7CI0RNUTTYL1yfvMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780577609; c=relaxed/simple;
-	bh=WJsnflVna9Ydw5TmKx2+DGE/v/BJGNt0JgjCA6hH9Es=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r6pKk5FYhHXFqsirUq1sTH8zVgoGk+V7Q69zeEmdHEDA3/Hw1m7lJ4Z4TwkQu2hpmXwRBmpUR5tmeWtrdAIzOXlcGta6TzwFUWhaPIaBAsBksoVq5lZdAnWjPO//YY4jP5ftzXbBER2PXT1qiyNAz0MlLQxz1vYA7J6qr337hKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYiPzwaT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780577648; c=relaxed/simple;
+	bh=5b00GmUiSFv3WKhr9k8/OOcX9CZ8exV4Ba2rX9Ze1cI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H62BTUaJaBqs5UnJx7v6hbH7myE9eeR/UTG+dytEXyBOXYxH1OS/ObLBPHKeso9qo3OguZ0NHy8gEQju0O8kh/1AHKwd/PulR8MDHw0ZlCveJSztNGmfcavyiWZZNuHOfLGEW8RQ40DTyh0dSaQ/qrCQj9hzKCRbsARkXL8b5ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=netcube.li; spf=pass smtp.mailfrom=netcube.li; dkim=pass (1024-bit key) header.d=netcube.li header.i=@netcube.li header.b=EM/tXpU1; arc=none smtp.client-ip=173.249.15.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=netcube.li
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netcube.li
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYiPzwaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C151F00893;
-	Thu,  4 Jun 2026 12:53:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780577608;
-	bh=WJsnflVna9Ydw5TmKx2+DGE/v/BJGNt0JgjCA6hH9Es=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aYiPzwaT1N94e/REIHDyVlaIvQ5LAPw/3553a2S/+8pBUNLuA0FjXp17ilO61O+dL
-	 SAK9xy83LdmkE2F28hL6jUGKvDIi++xyNKN4mV0do05HpkMwM7x2smSXfVEknHclFr
-	 xL+DQ2oXUNlg8piFHcP4tL3MMQTt/0wZjZM5507sO0QwUDJoMYMk4guDrUwW6wU88V
-	 soLKc04k0l2TTv9k6e9NnVn7jKH12vl7v7kp0Iu2Nn+id/nkRBK0XthjJiVxvw8njT
-	 HGqeXvOlEvA7QmYRbu7zEtdX2bas4GUVr9BBmLQLBCVI+cRw5CIJ3wzN5yAo5g56Ee
-	 2cCGj5tO6fLjw==
-Message-ID: <0bbfd60c-236e-43e5-a150-93738961f3de@kernel.org>
-Date: Thu, 4 Jun 2026 14:53:14 +0200
+	dkim=pass (1024-bit key) header.d=netcube.li header.i=@netcube.li header.b="EM/tXpU1"
+dkim-signature: v=1; a=rsa-sha256; d=netcube.li; s=s1;
+	c=relaxed/relaxed; q=dns/txt; h=From:Subject:Date:Message-ID:To:CC:MIME-Version:Content-Transfer-Encoding;
+	bh=oWMn64nYBWSIvUnLnrokvGf+sjSPmoshxyBWnGTXZ/E=;
+	b=EM/tXpU1wlQHYFGsc/bUXmHgoo59oVfIKpgMEhB4dC3NlM3mPBkClH2fl95cIFZItsMAMGoZKnacPbFGf73FHd2Np1JvjyOHu3qraYCA+4GCPpXhfNYXc1YCW/ckbq9DhzJucu1OI3m+oJHfUqgejF//Z7oWi3SEHVnV5hLVGVw=
+Received: from lukas-hpz440workstation.lan.sk100508.local (194-166-56-114.hdsl.highway.telekom.at [194.166.56.114])
+	by mail.netcube.li with ESMTPA
+	; Thu, 4 Jun 2026 13:53:06 +0200
+From: Lukas Schmid <lukas.schmid@netcube.li>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Maxime Ripard <mripard@kernel.org>
+Cc: Lukas Schmid <lukas.schmid@netcube.li>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [PATCH v1 0/3] Add support for NetCube Systems OpenNMC (dobermann)
+Date: Thu,  4 Jun 2026 13:52:31 +0200
+Message-ID: <20260604115241.1358528-1-lukas.schmid@netcube.li>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] arm64: defconfig: Enable ILI7807S DSI panel driver
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260604-shikra-display-v2-0-b3c1b2b67edc@oss.qualcomm.com>
- <20260604-shikra-display-v2-2-b3c1b2b67edc@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260604-shikra-display-v2-2-b3c1b2b67edc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/06/2026 14:30, Nabige Aala wrote:
-> Enable the ILI7807S 1080x1920 video-mode DSI panel driver as a module,
-> used on the Shikra CQM EVK board.
+This series adds support for the NetCube Systems OpenNMC
+
+Signed-off-by: Lukas Schmid <lukas.schmid@netcube.li>
+---
+Lukas Schmid (3):
+  dt-bindings: arm: sunxi: Add NetCube Systems OpenNMC (dobermann)
+  riscv: dts: allwinner: d1s-t113: Add uart4 pinctrl required by NetCube
+    Systems OpenNMC
+  ARM: dts: sunxi: add support for NetCube Systems OpenNMC (dobermann)
+
+ .../devicetree/bindings/arm/sunxi.yaml        |   1 +
+ .../sun8i-t113s-netcube-dobermann.dts         | 149 ++++++++++++++++++
+ .../boot/dts/allwinner/sunxi-d1s-t113.dtsi    |   6 +
+ 3 files changed, 156 insertions(+)
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-t113s-netcube-dobermann.dts
+
+-- 
+2.47.3
 
 
-Does Samsung Shikra CQM EVK have it? I guess no.
-
-Best regards,
-Krzysztof
