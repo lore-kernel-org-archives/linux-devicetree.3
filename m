@@ -1,229 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012053.outbound.protection.outlook.com [40.107.200.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FA42F7F14
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 10:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780568618; cv=none; b=Sp/R2XY2tQUCVnphUBYKf8HCEezBHzGR1FAMt9Qhu2/gmjmQlrbdZ1cWZWyLKQwB9uOjFsux41e14/5tMwB/kwdVJSf7he6fkXAQjUivC9bRWxiwy1csK/EAWEQqbbsyzCljp20P9sjFQp/JSrmWGgeLfsBFCsZD3nXO1BnFCR8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780568618; c=relaxed/simple;
-	bh=pMrU86ypFhkDCBxR/4xBHCI/uT80UMz9Cxl43WYUtCA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DMh/61WKlxfLk71W8Lu1zs46PY0O9KMMpQ+CvNLbH63tusbryRMIxLaFvZ5z5SrO5UWMmN8DLUg6j9uyXXKHHhyJKTo2nsQ2Djh2KIkuWtZ1xHI0AUdkhZIzJc2d+U6zFEc/4Y43TcEhCuoVJiw3C3SzOJewuwjChvwmaOR5HPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TIWhDF4z; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F1E399007;
+	Thu,  4 Jun 2026 10:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780570226; cv=fail; b=hcxfHH/nG75TmFrejmidxgvEwPh7TR8g5MyXIQoXcqn/LkYUr3LvGEjCIFYA8b4UjIyO3Gu1ZZeIWjf0KMoa/GJ4RpP5RzR0zWp0o1r4KE/I9v3CChmAvznXzWgcH93rXzX44/x99Sl8MPXrXpGs5dWG//HZ0ZTZLAW5TIjKJKs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780570226; c=relaxed/simple;
+	bh=VENncm7tlhcI6aEBgF3hHg5GDDXz5ZgMD5tfK5y5kIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=QXn3Ha6M7LyExNtAyQ3r0TKcW/29Tjam68xSwMDptCP5s3rDUp3pazKnfP3l1qGVNwhw596hy0DuuJQaoPWCAAK4GXRsruA8mKHGnKsJDowngFLf+LdoWCqV/HInnvsoLK06CdwdTnRXjn3RFiuTMYbMBa0D61LOit0J1s4vtp8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=TOnpZy8x; arc=fail smtp.client-ip=40.107.200.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TIWhDF4z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2431F00893;
-	Thu,  4 Jun 2026 10:23:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780568617;
-	bh=Q1LsA3nSmSROFbmp+n5+LgDT4N55hEX8eHiUDKDjrRI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TIWhDF4zRlBRWBhpahWdyWncCH0zZ9jAZLk4PpFNc+IQoZVNqc7AfldIyGFcKoiG0
-	 3KLYA1MtHBJe+KCIl9JL99NaTX14zjfFWn9nXlhfzGMwGvDqMm57ohCaY6lJbLP4bv
-	 5cJsn3PVVZBKGft8XdfMZrluqOIh+p8uubnJmftL+1Yp98JQ2Xy11Y9at3cQ55H6nT
-	 Gw/DRuPDMr61aIXl15oUo7zmxHGsUQe0oFC3uxGq0nmpa+R88FvfCi27lmBs7equyW
-	 wKfDm/QBB/5VvGhM1UatvJKBYp1WPJrnvMWEtIf5T8BvmAoZ7pSC242rXQWWu/Ms9N
-	 g7zCSqyJy4faA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] phy: nuvoton: Add MA35D1 USB2 OTG PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org
-In-Reply-To: <20260604101220.1092822-3-a0987203069@gmail.com>
-References: <20260604101220.1092822-3-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 10:23:35 +0000
-Message-Id: <20260604102336.3F2431F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="TOnpZy8x"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eI35GdnVHHUvplwXXbnY4HPh/gModEcQsciN3uZTRwe2milAfUCfuhtyyGAfiyUE1L0ePvKxR/6CZZs/raf/yJtKjgjx6jDXyF3LpW1wCtaez5B3hmPoDkvoMN+oauhGzgsScHlHfmRzcp9IIeh26RoGZhlxPuZ/mdlo3+DvBOG0m4Yb6iOmi0deHaqHX6F6WD/0vHjgCNoWccWMo5Zsb5xALcjwEvXpnO6JN5Srd83mfzZeFzpu+X4DOspUIagJrpPNSQpd/H9p+ZZ4yZ0Wi5JIjP9OUSodtrLUizU2kBf/lewKNLlvIgNItniUjfe8wPm+8OzBvDhEZj1j7Y4OCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9DspxAAcTSJDakdu2++cQE9nvEO0XTFrI+bL6wQtn7k=;
+ b=it86PuZMx6AxQJTtUCHHbXWNLv6XEgNcZQdK92jw75+lXAOJIKQuO7odKA++zUQ+B7dKXhlXr5Ro8tai7I2od+VPTZQFNLLU3vjj7Nr91Tc5v2YUg2Ml2OEDfrTjyB3CUYDX6ZggGqmX/eV0nvgdD9c14LC3rPGVtUrXqysa3iu8EwKtilf9ys6gjDssytvbEI1kjX/ilRiG3Wkqn0ith1I1aMv1/rGmvmY+T/9nKAbanT7XgcR5G49O4Cd0aX4dIxCP0TgDjZ/q5hgEkh8o2kzQ7XH+dVm/toTgu8qo95R1L1jU8J8KL0+w7kvG5nkSxx6BbCHQRr1jyZZWhKH8IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9DspxAAcTSJDakdu2++cQE9nvEO0XTFrI+bL6wQtn7k=;
+ b=TOnpZy8x46e1xNbA41vngPkiB7yAMZnzk+sJKBEqFSz6Vdz4ZLZOfgaRI2ioBgrHva8StOe+KKhDWdeSnkCcorvx2fgR2e8EGDbOrpvQo3J0A3rUsYSqyEZLt41HX5ZCQ9Rv3NAgxPwIWIT+n9ogAikYtkGbM5jNVfaYADCaYuGTgaOspR7BCyStJYBnTXpYUhCz1XTnAwo3Myh+ajBtqZVe/K5u+mkoDpsDL4roWLKXRCGEo2WrKsBW6hxkckgubJjYQFOgW7i4YYlkohK05icHWx9woARnUxLhfNWkhJMuETEfU51EueK9ml8vRzJEPTx8FJhUpGrYg9Fg3vDcKA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by PHXPR03MB989234.namprd03.prod.outlook.com (2603:10b6:510:3ca::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
+ 10:50:22 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%6]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
+ 10:50:22 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: dinguyen@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] arm64: dts: socfpga: Enable SMMU and add DMA coherency for XGMAC
+Date: Thu,  4 Jun 2026 03:50:18 -0700
+Message-ID: <20260604105020.24782-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0008.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c0::13) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|PHXPR03MB989234:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42434e0f-18a1-4fc7-bbb3-08dec227135a
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|55112099003|18002099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	OvGKAFn9YABi4a+rBPsbx77YDW74McKleswKxtB8fHdZOUdIQ49a5IMxy+MTHzF5rrFElthyKNj66ngpjMt7e0yFGDCrRu7FvFW46RHJUhZlsZMABNCnVUpPlNF7tr8WL4YdM+29ML8hyk9OtEXBrJgRYYXbYk6MgkPs6WmCfg0mloM+JyReEF2rIxyQXa5d5MRI8xWzzWd9Q9uRSSQs7l5Uqwgt3Iv1CGsFamKD4Bz2o9JLDfEOFQmRegeq3X3t5MY9tMLPS/QcRlY7vEVvQfQq+7drX6JqrlYmKc89TI4PwUv1QFSThwt0c5lNOTzzSv4wovYi1Qs3i3MUATQ5zFCbR5cX50DIKz5mrhcf9nnz1G3U/cfink5TWQLcUUT+bPSuy8nlrv3rx9hKmAtQ6AcwJSdLMiUyWMQdXQZG5s7UBSIsld8KtGMqYUckdSkqNJA9QI8b09l0Yg3tSNkFigESX545n/W3ohnZ7Tbw2pD1DzhZKH5Vdvk6Oj6+0rTiFoQgqorwS2ULeppQAULDkRgdMRelnKpht3CjbD46JIhSzryl1jPl1w1XqYCo7/BvREwJK4cxnvtdssJZ9nCTc4qCUuwQ5FOoOn2Dv5DcfOE8NBb0/8wz6nYIBWoryFuvR61hZjQ3t4Jg4T2me6XRBSVUAQEZK3gCHeKyi0MM6LQfhsU+/joCi9CjdeLqVDZQ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(55112099003)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?C48+qIEy6HSrvooDtaLQrx2SpNLWPANi3iYOOOAlLchfKeBHe005mVIDH4WE?=
+ =?us-ascii?Q?Zm+cLcKyQdyGAJOsnep/uU0o42AdkjUDtQ2QiBybWtphKq6Az5IHS4FSYM6b?=
+ =?us-ascii?Q?rt26u1kbk80dFQ8MMk2JIbxY1GZPwfWIO4SJj/saSJ2buFBn+zeiFgIrdKtF?=
+ =?us-ascii?Q?AohwfvFSh5AtRrzSnQ7xEiUeDeDf8Fwug0fGg3qkOzQqcozaeYMc1AdyrtzC?=
+ =?us-ascii?Q?ca3L076JB5QhAP6sFKzJKem3wFbJv3dyd9vwLmp7S3kgspg71etjyK6nTvri?=
+ =?us-ascii?Q?IVsaHeL6636enxLlqG6rWq2BLzdbLbjIRqhpnyfbhKZ4kbkVcirPBQuslh1N?=
+ =?us-ascii?Q?/V2xxSAfKbWIwv+39OmPFIbRFHWlYfIqIsBpQ/0TZotJUrrCpLU+YqnRoJmF?=
+ =?us-ascii?Q?VF9VdhK43/68N3QO+f+u97Kc01MZXJsgN08gJadXhyIn6ooxHxKnfCrb7FCm?=
+ =?us-ascii?Q?1Zlwesp3gVQQKQ9BcwoIWSscpYzpYz1+t4can2AYlVn8v1mxi+67o9bFAjaL?=
+ =?us-ascii?Q?1+MUiHeXy/3r4uUHY52xgXsYLw9K2EgmeTy0G3CE1pMAc3QKWoUofyskxyUp?=
+ =?us-ascii?Q?bRMaXU5xrUdLNDjAeATyvMSIlw4WV4yLHjZhptW0j9z4CNF3E5F9Xji6xn81?=
+ =?us-ascii?Q?L9VoCocf92SmNMIYqg8axkt7yL0V9RrJlal2vFq2fG0bAMd/Tv3LzyURZjN8?=
+ =?us-ascii?Q?ODHvlqBZGrOCsW7LQvKSVzE3GdEOAcTTId7ApJuau9jD0cPNRC3SVra3zgYZ?=
+ =?us-ascii?Q?X/psfcK5bsqZKQCBC5eGTIdMs37Qk0c/H+R30wRmniIh3SVNfvrW2gm7EwaW?=
+ =?us-ascii?Q?HN8Dz+MsttwJiKrcIK4LQ0Avjh4uJWXDT8PFzoU3s2ZxKSxddX3FqWbhHkkj?=
+ =?us-ascii?Q?F5EbmbPFH7hySDJtC8gcRp7Mk0cO4nhcO/bI3+XNWtK+edgQ9iwjgYle7fi9?=
+ =?us-ascii?Q?9DWdfv8+evMx4Fmyosp0BYxqUxYEZChHSBQkeP1Kj8TXbQ4tBiCbzabk0rxy?=
+ =?us-ascii?Q?CmaHeA53yUEzWTVrxXlmhzXQuhoqjeq/QPLAHhUZdWhpA9QgL/ne2eoFvfHc?=
+ =?us-ascii?Q?LO/58z2wXW8KY6EYOCvnAZgYke9doDIiSeQg41aj7MUAiOzFJu0ZukMqGirh?=
+ =?us-ascii?Q?SlT4vDspGEhezL/eFtQC3vp82qkWrNT3I2EsDBNneGXsCbYWmK+R6yXpi6TN?=
+ =?us-ascii?Q?4WmP+XMys8xI4n1osUe7uiJAHSr0pAefUGP91w3273Hf5TCSImY/y+eCPlnK?=
+ =?us-ascii?Q?4LbzoCJIHkpCLOLroDUPhvJRWJaucJqTt1iBuGuAQ3bGVA5wPXFV6YLcIKzE?=
+ =?us-ascii?Q?eL6LppvjPs/AmX+tYqvGlLOoHP8hU8IduRGD5SkOURpCPYCrIAEbjbeD9d6x?=
+ =?us-ascii?Q?B/dUX+iPxlrPe2NXdvIOvZM/IjVoX7Hv8/cNGr9crT0Pks2Pos5uxgmefeX0?=
+ =?us-ascii?Q?ABX+R6kSRQQNovs+edmdWTQDLTQYVSXYxMBPeM796JtFTQ71iFFSEFy8H7Ba?=
+ =?us-ascii?Q?Ui0x0nJZnw6wg5PmUFy2DIKUgyGgGJBR+cC4lIjhvqm8BnRCSTUPWTYiTrZs?=
+ =?us-ascii?Q?2LV28jevkUme3mQPncIB3zQtCfvf7Y7oEMlKsYJ8jtDTTcKXDIB8OfTZWL0N?=
+ =?us-ascii?Q?ZLuWWjuNccMxJWSbNOFKaZUouVmUdxvcdNBdQTjOlO43HT30ZtSinQBjJvqa?=
+ =?us-ascii?Q?clb+ifOBagd2YZtAUJ7o6wSrflyGY0eAVup9RH2LBvoezVwYPv4SASb7EWaU?=
+ =?us-ascii?Q?mrUukfhJ4ccAbJbn3d67Tx7TLEt96KuFBSsMQ9bqmFmBPkpr8307ngYZu+vz?=
+X-MS-Exchange-AntiSpam-MessageData-1: Z25FVOxX9grToA==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42434e0f-18a1-4fc7-bbb3-08dec227135a
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 10:50:22.0682
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4bbuwpCdMLwrCUY5PPu6MyrtZMo2B3DyiqzrMTMyYNo4rh/TxuyWmfwjpsqaBANenP19nXtxmu7go7MH4yXZyYFciFHdOi92hDwqbP8vm4bU4gdrPz+14zVQFlfP/5/wCiYaG9+yheRB2l8z5da/Og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR03MB989234
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The driver implements a dummy USB role switch that falsely reports=
- success without modifying hardware state.
-- [High] Race condition exposing the PHY provider before initialization com=
-pletes leads to a Use-After-Free.
-- [High] PHY initialization fails due to polling clock stability bits while=
- the PHY clock is disabled.
-- [Medium] Ignoring the return value of `regmap_read()` results in the use =
-of uninitialized stack memory.
---
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-commit 9e57cc2572b36a8f75f7ca9bc25a14c367c18b1a
-Author: Joey Lu <a0987203069@gmail.com>
-Subject: phy: nuvoton: Add MA35D1 USB2 OTG PHY driver
+This series enables the SMMU and adds DMA coherency support for the
+XGMAC nodes across the affected board device trees.
 
-Add a PHY driver for the USB 2.0 PHYs in the Nuvoton MA35D1 SoC. It=20
-implements Power-On Reset sequence, optional resistor calibration trim,=20
-and a USB role switch.
+Patch 1 enables the SMMU for the SoCFPGA board device trees where it
+was missing. The SoC uses a different memory-mapped base address for
+its peripherals, which requires the SMMU to be active so that the
+Secure Device Manager (SDM) can correctly access those regions through
+address translation.
 
-> diff --git a/drivers/phy/nuvoton/phy-ma35d1-otg.c b/drivers/phy/nuvoton/p=
-hy-ma35d1-otg.c
-> new file mode 100644
-> index 0000000000000..53bc6ddf755e6
-> --- /dev/null
-> +++ b/drivers/phy/nuvoton/phy-ma35d1-otg.c
-[ ... ]
-> +static int ma35_otg_phy_init(struct phy *phy)
-> +{
-> +	struct ma35_otg_phy *p =3D phy_get_drvdata(phy);
-> +	unsigned int n =3D p->phy_idx;
-> +	u32 ready_mask =3D USBPMISCR_PHY_HOST_READY(n);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	regmap_read(p->sysreg, MA35_SYS_USBPMISCR, &val);
-> +	if ((val & ready_mask) =3D=3D ready_mask)
-> +		return 0;
+Patch 2 adds the dma-coherent property to the XGMAC nodes. The SMMU
+is enabled and transactions going through it are cache coherent.
+Adding dma-coherent prevents redundant cache flush/invalidate
+operations and potential stale data issues.
 
-[Severity: Medium]
-Does ignoring the return value of regmap_read() risk evaluating uninitializ=
-ed
-stack memory here?
+Changes in v3:
+- Fix commit header to follow subsystem naming convention (patches 1 and 2)
+- Remove commit body line that restated the subject
+- Clarify which file had the SMMU disabled
 
-If the read fails, val remains uninitialized, and using it in the bitwise
-operation could cause non-deterministic behavior, such as incorrectly skipp=
-ing
-the PHY power-on reset sequence.
+Changes in v2:
+- Move SMMU enable into the base DTSI file instead of individual DTS files
+- Move dma-coherent property into the base DTSI file instead of individual DTS files
+- Improve commit messages and cover letter descriptions with more context on why the changes are needed
 
-> +
-> +	regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
-> +			   USBPMISCR_PHY_CTL_MASK(n),
-> +			   USBPMISCR_PHY_POR(n) | USBPMISCR_PHY_SUSPEND(n));
-> +	msleep(20);
-> +
-> +	regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
-> +			   USBPMISCR_PHY_CTL_MASK(n),
-> +			   USBPMISCR_PHY_SUSPEND(n));
-> +
-> +	ret =3D regmap_read_poll_timeout(p->sysreg, MA35_SYS_USBPMISCR, val,
-> +				       (val & ready_mask) =3D=3D ready_mask,
-> +				       10, 1000);
+Nazim Amirul (2):
+  arm64: dts: socfpga: agilex5: Enable the SMMU
+  arm64: dts: socfpga: agilex5: Add dma-coherent to XGMAC nodes
 
-[Severity: High]
-Is it possible for this polling to time out because the PHY clock isn't
-enabled yet?
+ arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The polling expects the PHY clock to be stable, but the PHY clock (p->clk) =
-is
-only enabled later in ma35_otg_phy_power_on(). Because the Linux PHY framew=
-ork
-guarantees that phy_init() is called before phy_power_on(), the PHY referen=
-ce
-clock remains disabled during this stability polling.
+-- 
+2.43.7
 
-> +	if (ret) {
-> +		dev_err(p->dev, "USB PHY%u clock not stable (USBPMISCR=3D0x%08x)\n",
-> +			n, val);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static enum usb_role ma35_otg_read_id(struct ma35_otg_phy *p)
-> +{
-> +	unsigned int val;
-> +
-> +	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
-> +	return (val & PWRONOTP_USBP0ID) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
-> +}
-
-[Severity: Medium]
-Can this return an arbitrary USB role if regmap_read() fails?
-
-If the read fails, the uninitialized stack variable val is evaluated, leadi=
-ng
-to a potentially incorrect role being reported.
-
-> +
-> +static int ma35_otg_role_sw_set(struct usb_role_switch *sw,
-> +				enum usb_role role)
-> +{
-> +	struct ma35_otg_phy *p =3D usb_role_switch_get_drvdata(sw);
-> +
-> +	p->cur_role =3D role;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Since the hardware mux is entirely automatic based on the physical USB ID p=
-in,
-should this .set callback return an error instead of falsely reporting succ=
-ess?
-
-Writing to p->cur_role doesn't configure any hardware register, and the .get
-callback correctly queries the hardware directly. Returning 0 here defeats =
-the
-subsystem's -EOPNOTSUPP rejection for read-only switches, as writes from
-userspace will appear to succeed but will not change the actual hardware st=
-ate.
-
-> +
-> +static enum usb_role ma35_otg_role_sw_get(struct usb_role_switch *sw)
-> +{
-> +	struct ma35_otg_phy *p =3D usb_role_switch_get_drvdata(sw);
-> +
-> +	return ma35_otg_read_id(p);
-> +}
-> +
-> +static int ma35_otg_role_switch_init(struct platform_device *pdev,
-> +				     struct ma35_otg_phy *p)
-> +{
-> +	struct usb_role_switch_desc sw_desc =3D { };
-> +
-> +	p->cur_role =3D ma35_otg_read_id(p);
-> +
-> +	sw_desc.set =3D ma35_otg_role_sw_set;
-> +	sw_desc.get =3D ma35_otg_role_sw_get;
-> +	sw_desc.allow_userspace_control =3D true;
-
-[Severity: High]
-Is it appropriate to set allow_userspace_control to true given that the swi=
-tch
-strictly reflects an automatic hardware state?
-
-> +	sw_desc.driver_data =3D p;
-> +	sw_desc.fwnode =3D dev_fwnode(&pdev->dev);
-[ ... ]
-> +static int ma35_otg_phy_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	provider =3D devm_of_phy_provider_register(&pdev->dev,
-> +						 of_phy_simple_xlate);
-> +	if (IS_ERR(provider))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(provider),
-> +				     "Failed to register PHY provider\n");
-> +
-> +	if (p->phy_idx =3D=3D 0) {
-> +		ret =3D ma35_otg_role_switch_init(pdev, p);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Could registering the PHY provider before role switch initialization risk a
-use-after-free?
-
-If devm_of_phy_provider_register() exposes the PHY globally, a consumer on
-another CPU could look up the PHY and call phy_init(), acquiring a referenc=
-e.
-
-If ma35_otg_role_switch_init() subsequently fails, probe returns an error,
-triggering the devm cleanup which frees the struct ma35_otg_phy *p memory.
-Because the consumer already holds a valid reference, subsequent calls to
-PHY APIs will dereference the freed pointer.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604101220.1092=
-822-1-a0987203069@gmail.com?part=3D2
