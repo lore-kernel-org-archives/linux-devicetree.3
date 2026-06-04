@@ -1,121 +1,131 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB84F3E2751
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 11:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266E1409E07;
+	Thu,  4 Jun 2026 11:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780571252; cv=none; b=RsvQh7xWs4OvlsSLHySdyKqnG2aoW+uLICXotl662znUU+7AJkrLJluQaVc9xIRVYkWb8fxYfnTDtDHulfgN++SV5lqB5Ez5UNrCkAMgoZjycFSSRZy/q9SVDCn9qOd3QvUUYTbaz2pRr0kZQJAaZNiFHT6M0IAGjfZxKcyS1g0=
+	t=1780571560; cv=none; b=DXnv+aQ7Svlb+NOnDSROLa1nHXlbvNJ/r+aGA6SMUggTcB9hbakofAGPRCndmENuXqIm0816sKiL0WZnIDsG/P2drAKGB8DJnE86pqlrYHWE7i32AcZgx2TujjDfnZY05/bvYpA+PZ/rV01a+irDNmEcrlBehrB7Lsj2RD6OUpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780571252; c=relaxed/simple;
-	bh=UI19ptAfbs+/bxokWYB04OjuLUR0nA8sE9SP4yeoLAs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Lub01Vt+f62Nfl2v+CN1h13nzDF6geUxeLu9GwsxjlRbjGE40CB5Z5UPON4UZwrOrH3WpRe7gc+8W5wV/NyoxL9KzFLlgGcmcdkZlaWP2tm8QjmsltV8IGBLRsL5IGuveVrGQNfHDT+W5JZAg4fyZFY4usl6YS0tOOt/bUb+etQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <jre@pengutronix.de>)
-	id 1wV5v0-0000OO-JM; Thu, 04 Jun 2026 13:07:22 +0200
-From: Jonas Rebmann <jre@pengutronix.de>
-Date: Thu, 04 Jun 2026 13:06:57 +0200
-Subject: [PATCH 1/2] dt-bindings: leds: Add default-intensity property
+	s=arc-20240116; t=1780571560; c=relaxed/simple;
+	bh=I88HAvooNXAVPw8et8v7wZotnTTMMoPuZDI3XrkfNDM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ST/1DWLJNZo1JoG6k35RakZUtuZAVa5oAzKtr0bXmQbJD52XObfxqs+e2tSTg9AY7ZfciB2lOdF0ZvaDtujzmMab5QBa9W8YN1TZ546oQzsuC5Y553SDy88JiDznOxBsUxU+P23h4jej5ms5OjAFlwtOi4UqaGXsUvLJYNplooA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZ4LecXb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZ4LecXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1891F00893;
+	Thu,  4 Jun 2026 11:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780571558;
+	bh=sZQ6a4Dsms3if87ljXUV9N/jMfWtTZ5A6QMP9+mvWcM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VZ4LecXbsqHS1ifoNGgx4ZZDqRtVBGq4jk6Weo/TXACMfPjSQ+flOlvRxTPi6+R9h
+	 tgr8wcZlTCTcWcJS4eYjwVLbcuc+hMEl87mMK5ZAq01lRuWqoXGeNS/Pf53IDmtks7
+	 cPYyJu8xJmugv0GjCGl+xdSfMiufgvhXaw+nA93E3FRosHZxICcEi/spQO28FmmYGo
+	 4wV++uWOnVQxQlugw/Ljcj1AJX1Eu6F/ZBYBXGhjgqcYJGweDEOpXFY0WuUtcME0L7
+	 C3DxG7j7YqyI9xMmXgy221Bxb5ZHCo5+6IxOKaBRDsbL0Vg8+sftXqpqlQoZbZW2X4
+	 ZuTUUaJpFiZVg==
+Message-ID: <dc1c2c1c-73f1-43a9-a157-7cd362faf89f@kernel.org>
+Date: Thu, 4 Jun 2026 14:12:34 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260604-multicolor-default-v1-1-b07bff431537@pengutronix.de>
-References: <20260604-multicolor-default-v1-0-b07bff431537@pengutronix.de>
-In-Reply-To: <20260604-multicolor-default-v1-0-b07bff431537@pengutronix.de>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Jacek Anaszewski <jacek.anaszewski@gmail.com>, 
- Sven Schwermer <sven.schwermer@disruptive-technologies.com>
-Cc: Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Jonas Rebmann <jre@pengutronix.de>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2359; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=UI19ptAfbs+/bxokWYB04OjuLUR0nA8sE9SP4yeoLAs=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshSjMnQm7TuP8OUFb0Lub/29k18ZNfWvkNCy3hVu/SB/
- eZCGfm7OkpZGMS4GGTFFFli1eQUhIz9r5tV2sXCzGFlAhnCwMUpABPZncXI8M3O+KDeXOsvlYeE
- /CuKnt5zv+D3Y3Hz4pjigIO6RWue2zH8L+9b72vW41N5zFeqj5Gz76/k7JMqn5h8ipfJak9jjvv
- HBQA=
-X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
- fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::ac
-X-SA-Exim-Mail-From: jre@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+ claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
+ <20260522102251.1723392-10-claudiu.beznea@kernel.org>
+ <ahBMKWrKQDko3cG8@shikoro> <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
+ <ahXQnt4MTVoBB9bF@shikoro>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <ahXQnt4MTVoBB9bF@shikoro>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Document the default-intensity property to set a default color on
-multicolor LEDs.
+Hi, Wolfram,
 
-Update pwm-multicolor to support it and update the example to turn the
-LED red on boot.
+On 5/26/26 19:55, Wolfram Sang wrote:
+> Hi Claudiu,
+> 
+>> Could you please let me know what do you consider we should do here? Do you
+>> think we could drop these pin controller setting and do some particular I3C
+>> controller settings instead?
+> 
+> My original thought was: If it was a boolean state which is active when
+> suspending and disabled when resuming, then we wouldn't need a customer
+> specific binding for it and just do this in the suspend/resume functions
+> of the pin-controller...
+> 
+> ... BUT ...
+> 
+> reading more about this in the manual, just raises more questions for
+> me.
+> 
+>> The output is fixed at Hi-Z and no data is transmitted to the inside even if
+>> data is input from outside. “Standby mode” is available when using I2C mode
+>> only. (Not available when using I3C mode).
+>>
+>> The current driver proposal don't take into account the IP mode when setting
+>> STBN though
+>> pinctrl_pm_select_sleep_state()/pinctrl_pm_select_default_state() to keep
+>> the code simpler, relying on the "Not available when using I3C mode" part of
+>> the note, and considering setting it when the IP is in I3C mode is harmless.
+> 
+> This is one question I also had: What does "not available" actually
+> mean? Did you confirm with HW guys that it is really harmles?
+> 
+> I also wonder about the intended use-case of this mode. "no data is
+> transmitted to the inside even if data is input from outside" doesn't
+> really sound like a mode intended when the whole SoC goes to sleep. Why
+> or how would input be even transmitted to the inside if everything is in
+> a deep-sleep state? I could also imagine that this mode is rather used
+> to hide from the bus for a while for some corner-case reason.
+> 
+> And finally: does this really save energy? Could you measure a benefit?
+> Maybe there is nothing driven at all in the sleep state? Then, nothing
+> is gained? Not clear from the datasheet.
+> 
+> Because the datasheet is so sparse with information and because it
+> doesn't say how STBN is intended to be used, I would argue we should
+> skip it until we know what it is for and how it is used. If we know this
+> somewhen, we can still add this in a second step.
+> 
+> But for now, enabling I3C realiably is the first step, and for that we
+> surley need the POC bit to select the voltage. This is easily
+> understandable and straightforward to do. So, my suggestion is to pick
+> this low-hanging fruit now and reach for the other one once we have more
+> information about it.
 
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
----
- Documentation/devicetree/bindings/leds/common.yaml             | 10 ++++++++++
- .../devicetree/bindings/leds/leds-pwm-multicolor.yaml          |  4 ++++
- 2 files changed, 14 insertions(+)
+This is what I've got from the HW team:
 
-diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documentation/devicetree/bindings/leds/common.yaml
-index f4e44b33f56d..159a89f77982 100644
---- a/Documentation/devicetree/bindings/leds/common.yaml
-+++ b/Documentation/devicetree/bindings/leds/common.yaml
-@@ -73,6 +73,16 @@ properties:
-       - keep
-     default: off
- 
-+  default-intensity:
-+    description:
-+      The initial intensity of the LED color component. Used only during
-+      initialization. Defaults to 0. As the intensity of each sub-LED is
-+      multiplied with the overall brightness, without this property on a
-+      sub-LED is effectively initialized at minimum brightness regardless of
-+      its linux,default-trigger and default-brightness attributes.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 0
-+
-   linux,default-trigger:
-     description:
-       This parameter, if present, is a string defining the trigger assigned to
-diff --git a/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml b/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
-index a31a202afe5c..05cc83f4bb82 100644
---- a/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
-+++ b/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
-@@ -45,6 +45,8 @@ properties:
- 
-           color: true
- 
-+          default-intensity: true
-+
-         required:
-           - pwms
-           - color
-@@ -63,12 +65,14 @@ examples:
- 
-         multi-led {
-             color = <LED_COLOR_ID_RGB>;
-+            linux,default-trigger = "default-on";
-             function = LED_FUNCTION_INDICATOR;
-             max-brightness = <65535>;
- 
-             led-red {
-                 pwms = <&pwm1 0 1000000>;
-                 color = <LED_COLOR_ID_RED>;
-+                linux,default-intensity = <65535>;
-             };
- 
-             led-green {
+The purpose of STBN is to control the standby state on the I2C side. It is not 
+intended to control transitions to a low power consumption mode such as VBAT mode.
+
+In I2C mode, enabling standby mode places the device in a non-communicating 
+standby state while maintaining the I2C configuration. The outputs are set to 
+Hi-Z, internal transmission is stopped, and communication is disabled. As a 
+result, the bus is effectively not actively driven.
+
+In I3C mode, standby control via STBN is ignored even if configured. STBN can 
+therefore remain set to 1 while the clock is turned on and off. In I2C mode as 
+well, it is acceptable to keep STBN = 1 while toggling the clock on and off. It 
+is also possible to change the STBN setting while the clock remains enabled.
+
+Standby mode is not intended for power consumption control, but rather for 
+placing the I2C interface into a standby (non-communicating) state.
 
 -- 
-2.54.0.129.g3edf2eeba9
+Thank you,
+Claudiu
 
