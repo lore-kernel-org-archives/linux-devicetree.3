@@ -1,154 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A328481A82
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08E9492506
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780591675; cv=none; b=ZYFCznlpd1EGVPJpqa8+rBCSVIuxox9Q/nvYpup8CoRlGhX98ygCoAJa1/XP5+S5EA9K3nI7M8x0bXszbDMpN3acyKdlBYqrxv2A+PzIjEAvDsMJV8n6TboFXP8X1lDCzC+nYuAYHtFHcNtmSneh+UTu8+ZfqId8ZMjz83q6Ygc=
+	t=1780591985; cv=none; b=JJgKi6ka3jhKBrwARTfNZQW5jdjFajynYj8o30ejiZ8znxvwn1Zw9po9B/VYO70xOhWMlj5OU1TtSCTXIVGtlwYm782kQb4H1nvIadaRhx+NcVZ392eBDDUoCSEHOsQWR2Zmk6E0gKIuiutmpEENSTEG8vpwNHAjGH0Mn10XX1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780591675; c=relaxed/simple;
-	bh=2UQDoiib3864P9l16CxKK15Me14wqk0CVQeYnQybbvg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LtYOL6yHb2Mcj148gcrqz5YDCDLoxYXeZB4klT0Q8XzgHFOJgPCoMGroeu5aprCpg96H3x2rnd60fxkz1dwoL5GA8w5UE1Q/kR27f0i9H6jJrXXDu/vorNFoJ+k+ixWStjYzAuczJwBTDVDLEqsgpDcoarJjxpY0VGCNK6/J6Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgWfs5Et; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780591985; c=relaxed/simple;
+	bh=DujpzWHuCpkRquiGMIckVgEimX8F463Lhioff0jElbc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u/57aujdNYG2S9snh4H5boeW2MvidBnnvAysra3jjvKjMx0fbUrF4UiCj1oeO3Ceah9RnL1Rf0YJoHxI9RkHKaoycF3DKzk75nWMOt7MP+BoDS6jJ8LlVMHI/BBz6m/0hNlNNtHjagtOG625RBB4gSvbjJHcEn6UqDX+zxr4jPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=meaHmGA7; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgWfs5Et"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976151F00893;
-	Thu,  4 Jun 2026 16:47:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780591674;
-	bh=nasvWE4HN6FoYWPjRuasq47sL/PqP5x+XqWIasfwnkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HgWfs5EtBRK3Zvzs3hNPbxFaPrdIqthSWJg27cbrhryRmcLyxQ07Trc46m973UL9h
-	 MeBnnHcPgMdWGdfRjgVJQImhLInOl+8PE96XrEHLQpKLKlUR5Y4cWDf9ma2tNjXUwi
-	 NehfmOM4cKVdZzPG5isbSZ2OzgX/mEIg6LpX3moOBFNZa/pKjZlxU/8LOYHXF+Akap
-	 HX8yy0XE5pCfypTZ80wtSuzQRJ0z68WL6h77gR5BP4fUrC/rpXhseLibj7IK+58KwC
-	 62PLLswizXoGdarT6JuXzTTiWUZuL/i+ODBXqf5bK2ltqHzae9PttvwLfMDTYFksum
-	 036BEUSDCZrWQ==
-Date: Thu, 4 Jun 2026 17:47:49 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 7/7] riscv: dts: tenstorrent: Add Atlantis platform
-Message-ID: <20260604-pacifier-sludge-196f47ab3c11@spud>
-References: <20260604143957.668047-1-joel@jms.id.au>
- <20260604143957.668047-8-joel@jms.id.au>
+	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="meaHmGA7"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-36ba285e98bso951614a91.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 09:53:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=vayavyalabs.com; s=google; t=1780591983; x=1781196783; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eJ5R9P1dnmg3IyG7KfWqJbZp8cv4vMhVOrqa2zxuQyk=;
+        b=meaHmGA7Pm8KFL9PEVz1l4RZ4Afi5ruuqZyn1a/Q+jLfhCmZ9mqNbUmoM/nlV7hzVJ
+         K8ute/hYiOod1nYDqE0TEeb7+KtQX8ebakD5JvpZUFhsbxCT6Hxo1K8jANRZBf/3cEic
+         D6MM8SDZGOENniPTyHiYVDb4VJkvcnCzySzqs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780591983; x=1781196783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eJ5R9P1dnmg3IyG7KfWqJbZp8cv4vMhVOrqa2zxuQyk=;
+        b=CsYDaUf7QmKqMptKC3S/U5HquYstrlqMru/FfX9U3dXrNQfZN267QjHb4vM8LRFIPe
+         JXn7+Rv0wa31oPX78lGNJKLSzItkqb8YKycYiTC6MGcPzqZagVAworY1CvFg6f1DOAxJ
+         m8znB1XndKqoMFc3332ii/kns+l/R/BESIQgRDaByfqh/BBSk2J5Sgp+nnstdHazCFaL
+         GHdC7UtoDnotuRbux+uye9HHF5bDSXUPOCW9N6Jl/8CMEI4hUoykcyWzeVPn/wTpGnM7
+         OogGDQ9iofOpNY4zuQOTmzO9QJG3eJQFKpWGhHTgHNstCZYPZUULiWbuN5ydXsgEblTt
+         nfpw==
+X-Forwarded-Encrypted: i=1; AFNElJ+tQ5S3oub7DNXO37UY2pBYDqG6p7kn0vKvfcMWp/ylgcAVZCsainmrjRU6MG6jPpklwzVtpc23SaS2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqGQ/JzaztFe4upKF5y8lmKu4mz13VW29U1J5D8sTB8mbLhYd5
+	h/EzW0l/PgcdUJha6VloffCaKci0LTHIdklJPgpmwdDTdhYw9WosPdYASoQIHpEikLU=
+X-Gm-Gg: Acq92OGXVeMh77IMxiGGExwcnBGSGL//1haxwroIqLSo5whcH61vqv0y5dTPHr/vCpl
+	pq2LdfV3EY0dn1YSdS++/v/OSBhYdx0jByrdgA6f1yMncVF0RomKzRg4bek3xhmVdMQTKwLzgFL
+	IoY/LK3/SMAFgvPAJevmHgODhH5q19uC/FlGYowR8XWCgWYj//OTi113seI/IfWjlh2DiE3BEP2
+	GHJqwwPCbLhh89SgoPkDlnLmzqRc5iQNGVLBWU9PYxSHjWXk+7+6FvEsSpPT0Yocv0v9aVbMeyq
+	5ay8CDs4gxVoQQkpzp5Tx5P7RrtMOneO9/EgLO/YvtZoKguSNGLuN5WOJTxlGgKU0J7lGSY6X4p
+	BEhOV0XnVHo05zYI77uHUKInLbIFeiopNzeCzl/jzpIBheJ40JXlrJ2/HwEfdIXNE9Dc44FJZOF
+	xvcTuqc9kKePct4KU8EgaubesWr8vEvkGzX5oNpvVDlrZXGUYGkysKE7FswTsPfvp8kWCtIV0uC
+	AzywLGUykMY7hHyXKyWe6AfwbtfJM0+qnTUl9YyhdYPq+Yp9z9r+z5pcWRJxqmtw7LMHjweKPbd
+	ylb7x5WrTebD
+X-Received: by 2002:a17:90b:48c5:b0:369:73a:326a with SMTP id 98e67ed59e1d1-36e33bb9468mr9959531a91.13.1780591983198;
+        Thu, 04 Jun 2026 09:53:03 -0700 (PDT)
+Received: from localhost.localdomain ([103.108.57.9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f711e7b53sm3689229a91.14.2026.06.04.09.52.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 09:53:01 -0700 (PDT)
+From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+To: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	herbert@gondor.apana.org.au,
+	robh@kernel.org
+Cc: conor+dt@kernel.org,
+	Ruud.Derwig@synopsys.com,
+	rbannerm@synopsys.com,
+	manjunath.hadli@vayavyalabs.com,
+	adityak@vayavyalabs.com,
+	navami.telsang@vayavyalabs.com,
+	bhoomikak@vayavyalabs.com,
+	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Subject: [PATCH v13 0/4] crypto: spacc - Add SPAcc Crypto Driver
+Date: Thu,  4 Jun 2026 22:22:06 +0530
+Message-Id: <20260604165210.1141842-1-pavitrakumarm@vayavyalabs.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7nOzAiGyNegD+Wr6"
-Content-Disposition: inline
-In-Reply-To: <20260604143957.668047-8-joel@jms.id.au>
+Content-Transfer-Encoding: 8bit
+
+Add the driver for SPAcc(Security Protocol Accelerator), which is a
+crypto acceleration IP from Synopsys. The SPAcc supports multiple ciphers,
+hashes and AEAD algorithms with various modes. The driver currently supports
+below
+
+hash:
+- cmac(aes)
+- xcbc(aes)
+- cmac(sm4)
+- xcbc(sm4)
+- hmac(md5)
+- md5
+- hmac(sha1)
+- sha1
+- sha224
+- sha256
+- sha384
+- sha512
+- hmac(sha224)
+- hmac(sha256)
+- hmac(sha384)
+- hmac(sha512)
+- sha3-224
+- sha3-256
+- sha3-384
+- sha3-512
+- michael_mic
+
+changelog:
+  v1->v2 changes:
+    - Added local_bh_disable() and local_bh_enable() for the below calls.
+      a. for ciphers skcipher_request_complete()
+      b. for aead aead_request_complete()
+      c. for hash ahash_request_complete()
+    - dt-bindings updates
+      a. removed snps,vspacc-priority and made it into config option
+      b. renamed snps,spacc-wdtimer to snps,spacc-internal-counter
+      c. Added description to all properties
+    - Updated corresponding dt-binding changes to code
+
+  v2->v3 changes:
+    - cra_init and cra_exit replaced with init_tfm and exit_tfm for hashes.
+    - removed mutex_lock/unlock for spacc_skcipher_fallback call
+    - dt-bindings updates
+     a. updated SOC related information
+     b. renamed compatible string as per SOC
+   - Updated corresponding dt-binding changes to code
+
+  v3->v4 changes:
+   - removed snps,vspacc-id from the dt-bindings
+   - removed mutex_lock from ciphers
+   - replaced magic numbers with macros
+   - removed sw_fb variable from struct mode_tab and associated code from the
+     hashes
+   - polling code is replaced by wait_event_interruptible
+
+  v4->v5 changes:
+   - Updated to register with the crypto-engine
+   - Used semaphore to manage SPAcc device hardware context pool
+   - This patchset supports Hashes only
+   - Dropping the support for Ciphers and AEADs in this patchset
+   - Added Reviewed-by tag on the Device tree patch since it was reviewed on
+     v4 patch by Krzysztof Kozlowski and Rob Herring (Arm)
+
+  v5->v6 changes:
+   - Removed CRYPTO_DEV_SPACC_CIPHER and CRYPTO_DEV_SPACC_AEAD Kconfig options,
+     since the cipher and aead support is not part of this patchset
+   - Dropped spacc_skcipher.o and spacc_aead.o from Makefile to fix build errors
+     reported by kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v6->v7 changes:
+   - Fixed build error reported by Kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v7->v8 changes:
+   - Fixed misleading comment: Clarified that only HMAC key pre-processing
+     is done in software, while the actual HMAC operation is performed by
+     hardware
+   - Simplified do_shash() function signature by removing unused parameters
+   - Updated all do_shash() call sites to use new simplified signature
+   - Fixed commit message formatting by adding "crypto: spacc - <subject>" to
+     all patches
+   - used __free() for scope based resource management
+
+  v8->v9 changes:
+   - Updated the software fallback implementation to use HASH_FBREQ_ON_STACK
+   - Corrected dynamic allocation of statesize and reqsize in init_tfm
+   - Fixed synchronization issues in the digest request
+
+  v9->v10 changes:
+   - Fixed unused variable warning
+
+  v10->v11 changes:
+   - Removed the redundant crypto_alloc_ahash in the init_tfm function
+   - Removed the redundant crypto_free_ahash in exit_tfm function
+   - Removed the redundant crypto_ahash_setkey call in setkey function
+
+  v11->v12 changes:
+   - Removed do_shash() and switched to lib/crypto API in spacc_hash_setkey
+   - Dropped support for SM3 algorithm
+   - Improved multi-device safety by encapsulating handling within priv
+   - Added memzero_explicit() in sensitive paths
+   - Minor code cleanups and style fixes
+   - Algorithm registration cleanups
+
+   v12->v13 chnages:
+    - Removed all the sleep function from setkey function
+    - Added shash implemntation for aes algorthims
+
+Pavitrakumar Managutte (4):
+  dt-bindings: crypto: Document support for SPAcc
+  crypto: spacc - Add SPAcc ahash support
+  crypto: spacc - Add SPAcc AUTODETECT Support
+  crypto: spacc - Add SPAcc Kconfig and Makefile
+
+ .../bindings/crypto/snps,dwc-spacc.yaml       |   50 +
+ drivers/crypto/Kconfig                        |    1 +
+ drivers/crypto/Makefile                       |    1 +
+ drivers/crypto/dwc-spacc/Kconfig              |   88 +
+ drivers/crypto/dwc-spacc/Makefile             |    8 +
+ drivers/crypto/dwc-spacc/spacc_ahash.c        |  897 ++++++
+ drivers/crypto/dwc-spacc/spacc_core.c         | 2413 +++++++++++++++++
+ drivers/crypto/dwc-spacc/spacc_core.h         |  838 ++++++
+ drivers/crypto/dwc-spacc/spacc_device.c       |  275 ++
+ drivers/crypto/dwc-spacc/spacc_device.h       |  237 ++
+ drivers/crypto/dwc-spacc/spacc_hal.c          |  374 +++
+ drivers/crypto/dwc-spacc/spacc_hal.h          |  114 +
+ drivers/crypto/dwc-spacc/spacc_interrupt.c    |  329 +++
+ drivers/crypto/dwc-spacc/spacc_manager.c      |  611 +++++
+ 14 files changed, 6236 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
+ create mode 100644 drivers/crypto/dwc-spacc/Kconfig
+ create mode 100644 drivers/crypto/dwc-spacc/Makefile
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_ahash.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_interrupt.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_manager.c
 
 
---7nOzAiGyNegD+Wr6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+base-commit: 5624ea54f3ba5c83d2e5503411a31a8be0278c1e
+--
+2.25.1
 
-On Fri, Jun 05, 2026 at 12:09:53AM +0930, Joel Stanley wrote:
-> Add initial support for the Tenstorrent Atlantis platform, based on the
-> Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
->=20
-> The evb machine represents an internal bringup vehicle with just the
-> interrupt controllers and a UART. This will be replaced in time with a
-> full featured machine once details are available.
->=20
-> Co-developed-by: Drew Fustini <fustini@kernel.org>
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> v2:
->  - Update mtimer compatible
->  - Add Drew's co-developed-by
->  - Correct aplic num-sources count
-> ---
->  arch/riscv/boot/dts/tenstorrent/Makefile      |   1 +
->  .../boot/dts/tenstorrent/atlantis-evb.dts     |  33 ++
->  .../boot/dts/tenstorrent/atlantis-soc.dtsi    | 471 ++++++++++++++++++
->  3 files changed, 505 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts
->  create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
->=20
-> diff --git a/arch/riscv/boot/dts/tenstorrent/Makefile b/arch/riscv/boot/d=
-ts/tenstorrent/Makefile
-> index 2c81faaba462..92d8bb1a683f 100644
-> --- a/arch/riscv/boot/dts/tenstorrent/Makefile
-> +++ b/arch/riscv/boot/dts/tenstorrent/Makefile
-> @@ -1,2 +1,3 @@
->  # SPDX-License-Identifier: GPL-2.0
->  dtb-$(CONFIG_ARCH_TENSTORRENT) +=3D blackhole-card.dtb
-> +dtb-$(CONFIG_ARCH_TENSTORRENT) +=3D atlantis-evb.dtb
-> diff --git a/arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts b/arch/risc=
-v/boot/dts/tenstorrent/atlantis-evb.dts
-> new file mode 100644
-> index 000000000000..06259cca8357
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts
-> @@ -0,0 +1,33 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +/dts-v1/;
-> +
-> +#include "atlantis-soc.dtsi"
-> +
-> +/ {
-> +	model =3D "Tenstorrent Atlantis development platform";
-> +	compatible =3D "tenstorrent,atlantis-evb", "tenstorrent,atlantis";
-> +
-> +	#address-cells =3D <2>;
-> +	#size-cells =3D <2>;
-> +
-> +	memory@0 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x00000000 0x0 0x80000000>,
-> +		      <0x1 0x80000000 0x0 0x80000000>;
-> +	};
-> +
-> +	aliases {
-> +		serial0 =3D &uart1;
-> +	};
-> +
-> +	chosen {
-> +		bootargs =3D "earlycon console=3DttyS0";
-
-FYI, this should not be in here.
-
-> +		stdout-path =3D "serial0";
-> +	};
-> +};
-> +
-> +&uart1 {
-> +	/delete-property/ clocks;
-
-Why are you doing this? Looks kinda suspect!
-
-> +	clock-frequency =3D <5000000>;
-> +	status =3D "okay";
-> +};
-
---7nOzAiGyNegD+Wr6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiGsNQAKCRB4tDGHoIJi
-0k11APoC9uyXuvUKHUahGQCA8rahOvHmjS5NyUcgIE0C3qEMzQEAh+rjnggmJGjZ
-X3am5MjUhIm+dr8M92IwCqWuPfr+7gA=
-=PLbm
------END PGP SIGNATURE-----
-
---7nOzAiGyNegD+Wr6--
