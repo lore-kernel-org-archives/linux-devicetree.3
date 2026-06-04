@@ -1,114 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C8E2BE7CD;
-	Thu,  4 Jun 2026 19:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F25B35B650
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 20:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780602723; cv=none; b=BzYxYCXLsFhfoC6PrtkgTQgVaqRXLDe4VM23WlLKEGVc65DTZkk7S9GbqVMWbPPirLcgKvvUdSFHdYAI2QkKirp+dp9EfP+c3l+FWpP94XrVMl7CmLgcHlXMztmk5kRd55qRpYkxm552erRYNUiDirlOO/0XO+BJK2nBChCI+1o=
+	t=1780604275; cv=none; b=GZ2QXHfdIoqEnc39SRAEm6/XeL7ODKiePOIDCH48jviji6jKJSQixWSznIkoQTiy83uZ8nZxELe3PEOW5TLrDV17Ya3ujEbKdkkJv9GELQnVNy22qzYo+hX65q0orGo88ya35YFnq1dS62VZ/ac5xMYjS6xQq9aF47IICZg88DQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780602723; c=relaxed/simple;
-	bh=T3ON8U+Lc0mMTzbjnCLobpvwbCqKFznwnEswAAqae7c=;
+	s=arc-20240116; t=1780604275; c=relaxed/simple;
+	bh=5USPnixnroDY2Ii176W0lkmp5qUYAY3f8YiS24Bm3zM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OkwAImxjgTmFuR9mFKtmOFQv6Hv/Xjo/uSo4KLb/lRb4+gqpR97YIZmyBelvB0jHUD6X/seKBpoY2sLgI1S8TTnXC1h2A6Ag5Lv2Bp5PAAsX0hnXgYmPP3BfPAgOtugwIplZ3z5iehD1tbz43OQGUOe9WJZEq7kQCspFSwBkjLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hVd4a2IB; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pz9JnVV3EoOVObWcV66JZP34oxbsjRIT9aPvYoAxQrTwizlsnOA39jjS9WpowpqRmTU8+pW5nDN6G/IqDG+Fvx50N+tWg55wYzRLe4xsMK2rF3EdcGg2wyAGLqSHJsw1cSQaiB5Uc49fcFkTE6qrH+IKgrSPIQi/+nFYTBScOUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=XJAO3cPT; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hVd4a2IB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780602722; x=1812138722;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=T3ON8U+Lc0mMTzbjnCLobpvwbCqKFznwnEswAAqae7c=;
-  b=hVd4a2IBB0+GgnTY+NPh4kKcDyF7lHFWS3uAeIKKVk6419wdQnfsoJ4U
-   9pDAncLRBpvQ6vSw1EjCSU/brQRG/71NwBM4BffSG39Abf0M0xQOGYbSe
-   sLAJwCbRaRDDqeuVIoM+FYM+kdw36hureGG+ZlJt+xoCQ7db/FUVluQx6
-   yBER/12n4GU0kYAFvd/bqXGNIgjQ0NL8/GYri02I7NTOTpqq34DQtYQv4
-   f22eQEGEOYDTBuXf3ffxCF4XC4qO7XisUKET2b6HLHz5SKWAt9FkvNdx+
-   9/6Mudo65dsskFVOJT9otq/KL8nhfl1ymhEfcYlg5OtYBYATGyyHGOoEz
-   Q==;
-X-CSE-ConnectionGUID: 7cCSEYN1TCylFxfFHcvGWw==
-X-CSE-MsgGUID: WWNVk9lgTNKU6pBxTkEs6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81436922"
-X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
-   d="scan'208";a="81436922"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 12:52:02 -0700
-X-CSE-ConnectionGUID: y7yeIrLtTGK7pVjwDRpjtQ==
-X-CSE-MsgGUID: IHnfC1g9RO6glRyHfCs3NA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
-   d="scan'208";a="268334198"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 12:51:57 -0700
-Date: Thu, 4 Jun 2026 22:51:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
-	rodrigo.alencar@analog.com,
-	Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 09/12] iio: dac: ad5686: implement new sync() op for the
- spi bus
-Message-ID: <aiHXWwRK2LQxdRYv@ashevche-desk.local>
-References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
- <20260602-ad5686-new-features-v1-9-691e01883d27@analog.com>
- <ah8roqGqZ_VhAPaa@ashevche-desk.local>
- <ylp2jf3wbojbwoozhow433vcvnz24ahvqlr35hhdoctm42rqqn@irrv3f76gr7k>
- <20260603135525.41331916@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="XJAO3cPT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=DqGT
+	LZeMUHe7mZh6wHehvpuUwVazb5ezhmruKOpiiHY=; b=XJAO3cPTK5IeKDlxxO3u
+	/+NCKM+BH+aIl115LTWq8jeE1E8t3P7eTKbitOBNMrdKcz/S6wCP/RHgsxMK+lVl
+	Z2b+hZ8j/O6V0ANbtxmyk4c6fFnx800qxFqlv3y0JMkcAA3VUn8Uv9o0wVjyNSmL
+	KigfcB2wsoiRCwSZcpCq539Zv4JNFuj52qLzSdsKt1ug7sMk8EszDrNVsB5fMdXH
+	h51z819ReIxPeZJ+SikU/ucFGz7a6Fy/iycGtQbKYsZsqdTgn9Ujt/o9HT2v3C0b
+	wmQraQ12JJN3muH9cFM/3FgF06YDvgVw6ZAuzrkrLJu1eya+y3E27buWs7hNYriy
+	WA==
+Received: (qmail 3752435 invoked from network); 4 Jun 2026 22:17:49 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Jun 2026 22:17:49 +0200
+X-UD-Smtp-Session: l3s3148p1@pGDrPHNToLxtKDDL
+Date: Thu, 4 Jun 2026 22:17:48 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+	claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
+Message-ID: <aiHdbC2wxXpdqBd9@shikoro>
+References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
+ <20260522102251.1723392-10-claudiu.beznea@kernel.org>
+ <ahBMKWrKQDko3cG8@shikoro>
+ <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
+ <ahXQnt4MTVoBB9bF@shikoro>
+ <dc1c2c1c-73f1-43a9-a157-7cd362faf89f@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qvGIMNYVtV8rCBXY"
+Content-Disposition: inline
+In-Reply-To: <dc1c2c1c-73f1-43a9-a157-7cd362faf89f@kernel.org>
+
+
+--qvGIMNYVtV8rCBXY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260603135525.41331916@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Jun 03, 2026 at 01:55:25PM +0100, Jonathan Cameron wrote:
-> On Wed, 3 Jun 2026 13:26:43 +0100
-> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
-> > On 26/06/02 10:14PM, Andy Shevchenko wrote:
-> > > On Tue, Jun 02, 2026 at 05:33:56PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> > >   
-> > > > Use of local SPI bus data to manage a collection of SPI transfers and
-> > > > flush them to the SPI platform driver with the sync() operation. This
-> > > > allows for faster handling of multiple channel DAC writes, avoiding kernel
-> > > > overhead per spi_sync() call, which will be helpful when enabling
-> > > > triggered buffer support.  
-> > > 
-> > > Why spi_message_alloc() can't be used instead of manual handling?
-> > > (Seems no current users, so you even can modify it for your needs.)  
-> > 
-> > I need to manually call spi_message_add_tail() to append messages.
-> > I suppose that such function is a bit weird and no wonder why it
-> > is not being used. struct spi_message_with_transfers might need
-> > to be properly declared so that users can populate the transfer
-> > array without manually moving pointers or having to redefine the type.
-> >  
-> Agreed it would be significant surgery. Perhaps worth it as a follow up
-> if you can find a couple of drivers open coding the equivalent.
-> 
-> Otherwise perhaps send a patch removing spi_message_alloc()
+Hi Claudiu,
 
-My experience with removing of dead code in SPI is that Mark is reluctant
-doing that. Maybe if somebody tries that  it will work this time.
+> Standby mode is not intended for power consumption control, but rather for
+> placing the I2C interface into a standby (non-communicating) state.
 
--- 
-With Best Regards,
-Andy Shevchenko
+As I suspected before, to hide from the bus. Linux doesn't support that,
+so we can skip this bit IMHO.
+
+Happy hacking,
+
+   Wolfram
 
 
+--qvGIMNYVtV8rCBXY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoh3WEACgkQFA3kzBSg
+KbZD8g/6AsqOQ+LHt+PVp68Wk6LgkRF901h/EvOexy/tREHjWUtSAKQjaM4RUIzk
+F80+yoBROP5T8gRFl7l9qsrGR12fwHRc4zX0YiCHisyhE1uTEYQLJfoJX8Roy2YS
+Ou4XiKl0G5ytkYHIR9YDeyt5021P6eEvbASZs5P7/2hPNEax7KVXrKRVopjERWqe
+hzgbWqC8flqQTOBCSsZPnyunG9Ed70x/iIWwEIFgNDlOcKSZXItLYJc2fz+xNhL9
+F3l7kgE7jBKSHqbT/ayyO8FamPIISvnZ2Yl/i10HKpgjDEQW7Iqfefh10nTw7IOh
+RnewP3edmULxOzy2DeeOHuteCeVqQmaWyVhXBxWoyBhLQY7mg1ZPFlt9xP5G9RGo
+zS0nIcpD89ttlWqkjTY59j0eIrquKjVK+R2DuExv5I98GPi97G9WHLaaqHp7mAQ3
+8M35UHwBjLV3qS8g/Z30r+NGRSNBTZyjzMH795B1MnPlnhFh1sAiAot+5ta9vwkS
+ZMsWciBIQeD1qQSPfPHyfZLnPTG2dTESHx/vXYQt/1sAecC206Ns3OBzguZLn0e+
+/d4QF060IG3Bp6szVGpO6DIjew+9tpKpxeBnDdOe9l8zZxQ/zjnbyL7zyvxJ23F4
+gEePXhggiXCmRo9U/RrGqGVvSXmhYdqxMQP1bt58ZkMMRkLjQoE=
+=9Shs
+-----END PGP SIGNATURE-----
+
+--qvGIMNYVtV8rCBXY--
