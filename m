@@ -1,63 +1,63 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC7347ECC3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D02480329
 	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 13:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780581182; cv=none; b=rT8W0vzc9SMvBDygP541g5uXqgOOaVm0/Mp2HqLLxm9xTkFqui98aRqRHF//ycJmAaUbSMLYTLt1dRvHO4LTVhn2hQw3hSY+DUqxXNHnY8HR0IIEoe/fyzuodjWfmIlDUL/nDLnXdfSnsdWjAoEjvERVx81i5i6BD27YhfrV7qM=
+	t=1780581183; cv=none; b=udOA9CyBoLrmAppOPXgIHJ2oHoqVvlm0u+4OohXju8q0UKFkEJP+3tMo8/Czv/Ed8okWLHa8AhTDLGqYPi5Uh+vg9c/ptk+pc9c0Wcso9/dgwVVq9WCaatpsGrXyiyEV6wmkI2DY7gu4vDzqpRPvwEa6Y3AuPTTYEzx26/KXncY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780581182; c=relaxed/simple;
-	bh=3gEVhhj+iXOXtZyQzBEw1EMPFfRMLcnW4HxpQXk5wqE=;
+	s=arc-20240116; t=1780581183; c=relaxed/simple;
+	bh=W36aVe4XoVMHBTmbHT/sY2wCfTe4v14esBNFui5pE/k=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=G4cXcNIuNo6Yna3nNXHjEsjRRkoP90pbEXp8hjVu6Om3Hr0o4gqU7171ErDlpBXye7lS95eg41yM+Y90/NhkuJUUIjkP1i5FB1MwAwosovUH/FXjSTFamjFqMj4OnXDzPBmucv34FTSuVc9nK7Lrblk2QcpindYYHfMZqNtJewc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ODWVS0G8; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=KKvMr1xE0iLuMDd4JQ3LmXVk3G9s9AGIhUWVt7B8cGR2i8XY1iacyQPMfoHCI0E7fGGXmi8p/vWzNIPzVWgafay7/oeymL9I5wfoQDub/+obbOqLBtq6BDD4vr5oISnfZei2sA6WJGJDX0alL+Bvo50y+7V1Ikw7l7xeZoioIKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hVrywGPI; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ODWVS0G8"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490ae94a89eso7271445e9.1
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 06:53:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hVrywGPI"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-46013161068so387177f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 06:53:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1780581180; x=1781185980; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9Un/RS4Nm0nYyy9KkMqgz4u8u1TfsaZHefTb9UE6rtQ=;
-        b=ODWVS0G8cOZymqsBeRu3/giGhX7sBsnL+rPP6efC5odh7mTr9t1sOf1I+YIn8ztqev
-         G1Om9jMUgYUhv0L+vBGOVW+viobO54RfFHPL4z98dPser8fw8TZAUodwZQyyBcCG/65C
-         wHxNfTcNPhR+RJkBS95m3M0BVbiIQeCd2eURIW1wxSyQNl4UKfs1KrfY8+T2VzYOawry
-         eVXR3drRDBruytJEQHkXZ2vwNlOmkL5UrZ8TLbDT6J6HuOAT1uDacP9kqETOKOitLvRO
-         7FFKSdf7M5PebcvckF1ETcfwZ6tGO+LAKe1ApzHs1Nf/1TQVrpr5SP2PO6IeWDVVG20H
-         4JNw==
+        bh=fvTkXFm0z4CjuuOw/gsrhETvrrwMcV/B+e1Vnh/OZd8=;
+        b=hVrywGPIA4lULYhsxGgKHLi2dCFRox5FEspi6ULpd/hHvbY6K5qq8hoZwgLfIgMHxJ
+         ozEh9JH7DdgnF55tQB1ttpz4RNSP2E0o50U2Ge+9N1haAp7iUU2n+a9yfUWHfEgiRG4W
+         8BMKZK6IOxl93gynjDHk1gh/WQpsWqvmVwLqQZf8qS6x4NHPJ6Kwz//tiTPNbmHTmuDi
+         sSKrFw6rans8+H1fyNyTB3KuzhJExSTCuYJb4hyrfANwKDRPWefY0PAk5Y/qKBzW9dD/
+         zjQDTzHakoeAwbsK6cE5wfoucr/We49P33dDTTymUhDixwaNVnbjMVB1emBd0Oxuk1k8
+         ScVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1780581180; x=1781185980;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=9Un/RS4Nm0nYyy9KkMqgz4u8u1TfsaZHefTb9UE6rtQ=;
-        b=jc6/TJhATWo19n/aOB5IeRlrShVEV8Fmk0BabhDM/wFvqPZs2HE6NDZUev5VDKYKxN
-         C3fRcrjCPLokPrVsnyro/d69B31rh4NM9mN7KGHXDEjV17+YKeqqsvWOJfXb8VmkVuK7
-         p0yOkGMnYJl/40fniW3H6e9Kf5giQIG+8F3IU+wMXi1P/8vDuf5u977uo7LLuSWUgWJ2
-         ysluNW//1ZR1gxMV8RTd3Y0bNaBHXC1vcvJNstcd5NFOgyEWDCqz/V57ku6LfuzyZ+AU
-         i//0+/M/+G+Bhz93sLr8dE6k8HZ7VHx7ScoMkMec/ziSpHa0SO3xy++e78dcy+kQsaww
-         dVBQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+ILjqWzYChyrSBAlXE3S5fdJ8DdhlJZ2SgX6XWWzsl8OPFwYMO11HeLaS0uK8FdY9Lg4AXfWzaEf4R@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4MW/BektuIzed87bc/4McVKmkq05K8xsUqORwTxQCujgu9TaP
-	0xOv+iWPskBIIYFsbs/0US9KeHMvU7v6qQo7KPc2oqAZ/2RwHSYdQ48E
-X-Gm-Gg: Acq92OG32DMdMoZDEQee+BsV0k2drWKIBRb7kPCRIRHqn2+QXAHd/w25jD53jV84hV1
-	3xs5JFH0NV8UiQlwd9SMIIjya0AVYlrG4UuBT46pC84J18JE4sXXhxam7DRmQ9P0D7Cxf0UWMry
-	VNJvRB4bL9USdwvI/Yg7cxZAWdNV8eQSUhq8TDpd9Q1QFUzH4v3X+wSx0gSef8tH7KRLuc3Bsfh
-	tTmTjSEwl1daC0O9zLorOL5PSoU8HyzqJfRX1exA9ehbj73CuAr81T+PNJFjo3kaKn8eR+4DsBJ
-	O4R/39wvGH+lba8vyw1lFAQEqx11ClMER/H86TFrwj0dEacVBawxsOFUyqHdoshrq5rrFXLEr/h
-	SUS9zU6deENYgZWQoiPDUzx+p+fvbDWxCxaiEm/U0RqiSBY/bQ/dYmqbyK97QtREAmfVaWlegVX
-	JgwpsXF2ilkcOQdsu7+gb+RFs4657tVS6bgZ9NqT0qD/pnNo//hECIcaA8sqtPTa0=
-X-Received: by 2002:a05:600c:1551:b0:490:5466:8576 with SMTP id 5b1f17b1804b1-490b5e9fca9mr132980675e9.1.1780581179316;
-        Thu, 04 Jun 2026 06:52:59 -0700 (PDT)
+        bh=fvTkXFm0z4CjuuOw/gsrhETvrrwMcV/B+e1Vnh/OZd8=;
+        b=jfGmKX1wqaH4UNzkUCPb2voRcBhMFccNwZtUZUj0ITL7X0vexGD3qKhRpOKEsg4Dah
+         qzWIww7ZriUaZyKj/eIoFflFr594dtaf7qWWllx5a0GdbFKPkdclC/d0Tmgjx8w79w0a
+         d3oNQLGFIJALlKKZ+9G35tAB34Nk5JTghmHBlfsx+XiibLf5u00BlZi11QIOblLIFagh
+         IGhFqZewRojrDRHDGzGqSmLtL30VSlNaKI7OOa4eHO19O7UfycrTlxF7dg54yXuDx4HX
+         v9yZ7qTX1h368BM5it4BBNM1Cq4xy9sE4sturJIQ66e5JFtAAdiM0bdYiU1e0sVtoT31
+         iPng==
+X-Forwarded-Encrypted: i=1; AFNElJ/cNQ8LV84G28F+CBKkkc0Xa3YXV6nCuNR8Lt2qz/kgClrEbwLC4VRnruMaZ49F0gPSVJWcQ7Js0MyQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+ufs4I6NVSB1xijvxkvIJ1N2ooUDpoRRtPuMZ5PFJ6pbj7aau
+	gM8QwlvEFlxsMGM6CaVUIGS6t8MN4EcKcPFdtJ2HYmNLpPdpAAuWPhhe
+X-Gm-Gg: Acq92OGhOQnGLVfkqxOQNBz3yc/ahqpBbdAGECgkjJ82+aF6Bf8lJKF5rCHRCiLSqzX
+	D24k4tAxyBwYgdILYRbhD4q5jozrLkJkhZMTjMhgCNE2UjVSjNEyyzlRPKf1r4om9pCKBJ2l/PE
+	tsLnsAZNNFm5GsPU4K0IAIwUZpHFHswRYE0K6Yc+xw9rrA64wdFQgiHx03fOeiMPiFAi3IzW8xC
+	EO26zAWzlrcB9EYZI8KM6mma6FJrEXwWzyuXHvcDErLwmRgpR2RtdYjeVcHngQ2ZMVoYi6s4VSH
+	xRwQwo52zba/xQErPHh5NFy8sSTUWfXTzRqH2sJeVVJe6OlFh0yDXPpGjgVBrdPaturrs3dXQ2z
+	iDuZeiiiSvtZw2VZOi484tJhz4xD38bYqdwAZbT+z7m1FjMCZ15YUGQ2yab4v+sS63nHOacca+S
+	k6lVM0ztTMYR1qzBp+JfobviLK0O6S59qhCrBYg/xT73KZ4WUmHB++9Wh3KK2fE7c=
+X-Received: by 2002:a05:6000:180a:b0:45e:d6b2:e6a5 with SMTP id ffacd0b85a97d-460218654afmr9596752f8f.34.1780581180021;
+        Thu, 04 Jun 2026 06:53:00 -0700 (PDT)
 Received: from compiler-rock3b.tailb81abf.ts.net ([2a01:e0a:104a:4d80:be24:11ff:fe12:2776])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f0a43e9sm16661068f8f.0.2026.06.04.06.52.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f0a43e9sm16661068f8f.0.2026.06.04.06.52.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 06:52:58 -0700 (PDT)
+        Thu, 04 Jun 2026 06:52:59 -0700 (PDT)
 From: Midgy BALON <midgy971@gmail.com>
 To: tomeu@tomeuvizoso.net,
 	ogabbay@kernel.org,
@@ -74,9 +74,9 @@ Cc: robin.murphy@arm.com,
 	linux-arm-kernel@lists.infradead.org,
 	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v3 2/9] accel: rocket: Derive DMA width and core count from match data
-Date: Thu,  4 Jun 2026 13:52:48 +0000
-Message-Id: <20260604135255.62682-3-midgy971@gmail.com>
+Subject: [RFC PATCH v3 3/9] accel: rocket: Add RK3568 SoC support
+Date: Thu,  4 Jun 2026 13:52:49 +0000
+Message-Id: <20260604135255.62682-4-midgy971@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260604135255.62682-1-midgy971@gmail.com>
 References: <20260604135255.62682-1-midgy971@gmail.com>
@@ -88,124 +88,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The probe already has the per-SoC match data, which now records the core
-count and DMA width.  Use it for the cores array allocation and the
-device DMA mask instead of re-scanning the device tree for available core
-nodes.
+The RK3568 has a single core of the same NVDLA-derived NPU IP as the
+RK3588, with a 32-bit AXI master.  Unlike the RK3588 it must be powered
+on and de-idled through the PMU, and its PVTPLL clock started via SCMI,
+before the NPU is reachable.  Add rk3568_soc_data with an noc_init
+callback performing this bring-up.
 
 Signed-off-by: Midgy BALON <midgy971@gmail.com>
 ---
- drivers/accel/rocket/rocket_core.h   |  2 ++
- drivers/accel/rocket/rocket_device.c | 15 +++++----------
- drivers/accel/rocket/rocket_device.h |  3 ++-
- drivers/accel/rocket/rocket_drv.c    |  7 ++++++-
- 4 files changed, 15 insertions(+), 12 deletions(-)
+ drivers/accel/rocket/rocket_core.c |  9 +++++
+ drivers/accel/rocket/rocket_core.h |  3 ++
+ drivers/accel/rocket/rocket_drv.c  | 53 ++++++++++++++++++++++++++++++
+ 3 files changed, 65 insertions(+)
 
+diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+index 09c445af7de73..a8de876365873 100644
+--- a/drivers/accel/rocket/rocket_core.c
++++ b/drivers/accel/rocket/rocket_core.c
+@@ -88,6 +88,15 @@ int rocket_core_init(struct rocket_core *core)
+ 		return err;
+ 	}
+ 
++	if (core->soc_data->noc_init) {
++		err = core->soc_data->noc_init(core);
++		if (err) {
++			pm_runtime_put_sync(dev);
++			rocket_job_fini(core);
++			return err;
++		}
++	}
++
+ 	version = rocket_pc_readl(core, VERSION);
+ 	version += rocket_pc_readl(core, VERSION_NUM) & 0xffff;
+ 
 diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
-index 8ee105a0be40e..d6421251670dc 100644
+index d6421251670dc..66d138a8ed773 100644
 --- a/drivers/accel/rocket/rocket_core.h
 +++ b/drivers/accel/rocket/rocket_core.h
-@@ -16,9 +16,11 @@ struct rocket_core;
- 
- /**
+@@ -18,10 +18,13 @@ struct rocket_core;
   * struct rocket_soc_data - per-SoC configuration data
-+ * @num_cores: Number of NPU cores in this SoC.
+  * @num_cores: Number of NPU cores in this SoC.
   * @dma_bits: Physical address width reachable by the NPU's AXI master.
++ * @noc_init: Optional callback to power on and de-idle the NPU NOC bus.
++ *            Required on RK3568, where this is done through the PMU.
   */
  struct rocket_soc_data {
-+	unsigned int num_cores;
+ 	unsigned int num_cores;
  	unsigned int dma_bits;
++	int (*noc_init)(struct rocket_core *core);
  };
  
-diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
-index 46e6ee1e72c5f..6186f4faa3a2a 100644
---- a/drivers/accel/rocket/rocket_device.c
-+++ b/drivers/accel/rocket/rocket_device.c
-@@ -6,18 +6,16 @@
- #include <linux/clk.h>
- #include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
--#include <linux/of.h>
- 
- #include "rocket_device.h"
- 
- struct rocket_device *rocket_device_init(struct platform_device *pdev,
--					 const struct drm_driver *rocket_drm_driver)
-+					 const struct drm_driver *rocket_drm_driver,
-+					 const struct rocket_soc_data *soc_data)
- {
- 	struct device *dev = &pdev->dev;
--	struct device_node *core_node;
- 	struct rocket_device *rdev;
- 	struct drm_device *ddev;
--	unsigned int num_cores = 0;
- 	int err;
- 
- 	rdev = devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_device, ddev);
-@@ -27,17 +25,14 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
- 	ddev = &rdev->ddev;
- 	dev_set_drvdata(dev, rdev);
- 
--	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
--		if (of_device_is_available(core_node))
--			num_cores++;
--
--	rdev->cores = devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_KERNEL);
-+	rdev->cores = devm_kcalloc(dev, soc_data->num_cores, sizeof(*rdev->cores),
-+				   GFP_KERNEL);
- 	if (!rdev->cores)
- 		return ERR_PTR(-ENOMEM);
- 
- 	dma_set_max_seg_size(dev, UINT_MAX);
- 
--	err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
-+	err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(soc_data->dma_bits));
- 	if (err)
- 		return ERR_PTR(err);
- 
-diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
-index ce662abc01d3d..2f74e078974e3 100644
---- a/drivers/accel/rocket/rocket_device.h
-+++ b/drivers/accel/rocket/rocket_device.h
-@@ -22,7 +22,8 @@ struct rocket_device {
- };
- 
- struct rocket_device *rocket_device_init(struct platform_device *pdev,
--					 const struct drm_driver *rocket_drm_driver);
-+					 const struct drm_driver *rocket_drm_driver,
-+					 const struct rocket_soc_data *soc_data);
- void rocket_device_fini(struct rocket_device *rdev);
- #define to_rocket_device(drm_dev) \
- 	((struct rocket_device *)(container_of((drm_dev), struct rocket_device, ddev)))
+ #define rocket_pc_readl(core, reg) \
 diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 384c38e13acce..c18840e5aff76 100644
+index c18840e5aff76..5a72d0b5f4dff 100644
 --- a/drivers/accel/rocket/rocket_drv.c
 +++ b/drivers/accel/rocket/rocket_drv.c
-@@ -159,11 +159,15 @@ static const struct drm_driver rocket_drm_driver = {
+@@ -9,9 +9,11 @@
+ #include <linux/clk.h>
+ #include <linux/err.h>
+ #include <linux/iommu.h>
++#include <linux/mfd/syscon.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regmap.h>
  
- static int rocket_probe(struct platform_device *pdev)
- {
-+	const struct rocket_soc_data *soc_data = of_device_get_match_data(&pdev->dev);
- 	int ret;
- 
-+	if (!soc_data)
-+		return -EINVAL;
-+
- 	if (rdev == NULL) {
- 		/* First core probing, initialize DRM device. */
--		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
-+		rdev = rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
- 		if (IS_ERR(rdev)) {
- 			dev_err(&pdev->dev, "failed to initialize rocket device\n");
- 			return PTR_ERR(rdev);
-@@ -214,6 +218,7 @@ static void rocket_remove(struct platform_device *pdev)
+ #include "rocket_device.h"
+ #include "rocket_drv.h"
+@@ -217,12 +219,63 @@ static void rocket_remove(struct platform_device *pdev)
+ 	}
  }
  
++/*
++ * On RK3568 the NPU NOC bus is gated and idle out of reset and must be
++ * powered on and de-idled through the PMU before the NPU is reachable.  PMU
++ * registers use a write-mask protocol: the upper 16 bits enable writes to the
++ * matching lower 16 bits.
++ *
++ * The NPU's high-speed clock is a PVTPLL managed by TF-A via SCMI and must be
++ * running before the NOC acknowledges the de-idle request.  Force a real SCMI
++ * rate change (an intermediate rate defeats the clock framework's
++ * unchanged-rate shortcut) now that the power domain is on and clocks enabled.
++ */
++#define ROCKET_RK3568_SCMI_CLK	2
++
++static int rk3568_noc_init(struct rocket_core *core)
++{
++	struct regmap *pmu;
++	unsigned int val;
++	int ret;
++
++	clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 600000000UL);
++	clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 1000000000UL);
++
++	pmu = syscon_regmap_lookup_by_phandle(core->dev->of_node, "rockchip,pmu");
++	if (IS_ERR(pmu))
++		return dev_err_probe(core->dev, PTR_ERR(pmu),
++				     "failed to get PMU regmap\n");
++
++	/* Power on the NPU power domain (PWR_GATE_SFTCON bit 1 = 0). */
++	regmap_write(pmu, 0xa0, BIT(1 + 16));
++
++	/* Disable NPU NOC auto-idle (NOC_AUTO_CON0 bit 2). */
++	regmap_write(pmu, 0x70, BIT(2 + 16));
++
++	/* Request NPU bus de-idle (BUS_IDLE_SFTCON0 bit 2 = 0). */
++	regmap_write(pmu, 0x50, BIT(2 + 16));
++
++	/* Wait for the bus to report active (BUS_IDLE_ST bit 2 = 0). */
++	ret = regmap_read_poll_timeout(pmu, 0x68, val, !(val & BIT(2)), 10, 1000);
++	if (ret)
++		dev_err(core->dev, "timed out waiting for NPU bus de-idle\n");
++
++	return ret;
++}
++
++static const struct rocket_soc_data rk3568_soc_data = {
++	.num_cores = 1,
++	.dma_bits = 32,
++	.noc_init = rk3568_noc_init,
++};
++
  static const struct rocket_soc_data rk3588_soc_data = {
-+	.num_cores = 3,
+ 	.num_cores = 3,
  	.dma_bits = 40,
  };
  
+ static const struct of_device_id dt_match[] = {
++	{ .compatible = "rockchip,rk3568-rknn-core", .data = &rk3568_soc_data },
+ 	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
+ 	{}
+ };
 -- 
 2.39.5
 
