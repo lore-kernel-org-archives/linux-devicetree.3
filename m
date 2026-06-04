@@ -1,71 +1,71 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB4245BD6B
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:34:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FC3472776
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780576493; cv=none; b=Dj+EBieRMjr4SDqJlPYGp92snatN/8TrZk9vKaemRmXblIGQtFgnl9CpHRh3cW88g5fa2tW3WWmZHYdPOfVmD2cEK23/2/9m/ak8P6Y8jB/x6PxqIj74iUXkmo8srzo+MntKPFGhLp4kapZQWIIJlHm5zcdGdKpZ7LUSDU2vik8=
+	t=1780576647; cv=none; b=fpQ6qx3OHBbZ9nsbgAW+4lJMIVbg+aBuADeJ3hvL4AxR454b83XvLEuT9rkJ1sJ/5S0+0kP7lxylT3QAzA2MyfM0X5PXf8yP4O1FnXadvW0ZifcTVEucHbYmA4s5qKiIYS4ukTEksRnp54P3qjWHp59PSyGVLLO9ITSy5jSfBgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780576493; c=relaxed/simple;
-	bh=yW03jyIaXvDzqIO05bz6BGBjkIGqHU8ZE+ZN1NOsK4I=;
+	s=arc-20240116; t=1780576647; c=relaxed/simple;
+	bh=Vu59IXWoqahv904gjXxamc81lnnIdAi+ZPq7oroe/dE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uZkDZkcIPZAFsC5SE707PFe9aRM9OOwoDhBMOXfZ/ij0AocOOTIbJnrwSUGeY8Epo8Jzc3/yfI+w4mGl9ihYzOghOldJw3o3heFubrVaUcACH/EXeexmApbR6GVHz1DrYVWk8djl/pHTpKA/nTtV/MqY9ynRrspBkvDMEenfy8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
+	 To:Cc:Content-Type; b=a7FJyfF1RQ9yxQXApLWozA09PhG77ya40m79hz8Ti3IRgDPGMpDA9AbG5dQ4NPefZ51zpKo8xUqd35pkDcU+Bi4IPgifpRdaRGz3qHreX8WU+swbj3cAHVFKbRacJsG3FjCwSpaPLHJ4ab0mZyeWLTefL71qjFUV3g4dLVAKeU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-6c6507549c3so1241029137.0
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:34:51 -0700 (PDT)
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-961556c15ceso197884241.3
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:37:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780576490; x=1781181290;
+        d=1e100.net; s=20251104; t=1780576644; x=1781181444;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ocjXr/qWGa2IO/F+fdPQn1MjiaT2nZR31qV/kAYxrTI=;
-        b=aUNW1w90VxJepo7MGshMYR5QnmlS+9QMf/wPTEg59a03YTsDTxLfd9lKAgTGMmawDV
-         ls1h4RenSQWv/PLUM5TgV7W2WsLZKtaGInUAaN+AsNtoLHYXPkrobGhAtK500h/VzAfb
-         zFqCxJZ2A+yVMK0yJwuGqDvRymoCmNP+ORcoLCQmY+Kh+nP6dWX19VsQKChQgah/Z8ML
-         jsKoEG4m2QjtaNjgXKpu8pSDrn5PPWDv8G/TeQaAwe1/UKXwzQxlEzw2D4JDSKxgq19C
-         HMckKkU7CjqeMK9HKZmb6/jRDLGUt+lwE0aBQDX7+/ZjlIohDR7Wg0Gaox0B0SdgnvHn
-         yQlA==
-X-Forwarded-Encrypted: i=1; AFNElJ/iMJx1500D/IrmF33/8L1A7erM+NhsDEHgP6PoWAYAemEnwb5267IQZFZAK/eUaN9rW1+K5TGkMoCC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGGAKk7bYDCOH7yqJ5TO1Z+3q+6qiBUNEQzTHbw4UjRnlYQUj9
-	Bj12ZiucJHOHdVdCyX5fIqhvy1wL1mwZvf4eIZnkkxwet9f+6LKZdycqPlAX6P5InM8=
-X-Gm-Gg: Acq92OFBvEWZEAlAmljLqaz0Xf6qPzx7bGtNiPyhPMOJjoL6XF8CR5xdUb8SGUOnzMM
-	TbvEQ8BgJCKm9ibyH/TxAaglpjjOdxk28WizgkjtQoy8/Ihj9hKbTUghGsGe1UsjXUC+4U1IV3b
-	V2O1u2Ztm2YUyURGGNwgKXpPmjzQPQ80sepe5xY+QR5cnOIoCqwpuxmeVk+GGnk/bETdEn4xSsZ
-	XoTgNeITkFq4T6pr4d6drafUvBUzIxOvlCOQ3n0VpU8RLW25QPNGH69aLoeVjhjGcDtXdueZZbc
-	J5ZZgm+pu17p2hONFL3HeB6BvX+ynfhRalNkhTLcM7OGVt/8+89usVHQvDDYTZjqK4/1aZGKLW0
-	bvUNIOFw+B8hxduKZnAil42stwnTB/QqiP9sExK/tYFwKvBSiIaBz8bEi6DZTvA5MwEzHbvM5YH
-	QJo8aCuElKxiWS5d0mKoPGRDv0YVCZuKIejMxjOhHs2IY6HuTA7KX0dAyQ3Uzr+4OvIEhwZW0=
-X-Received: by 2002:a05:6102:3e12:b0:65a:fec7:137b with SMTP id ada2fe7eead31-6f52f48203fmr1566600137.0.1780576490333;
-        Thu, 04 Jun 2026 05:34:50 -0700 (PDT)
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com. [209.85.222.45])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6eb649b710csm4744054137.7.2026.06.04.05.34.47
+        bh=rQTWlarxfkJvz4aV2P+qXhfE+LdhATPUYr6EStsDJy0=;
+        b=Gel3E7JadYumi1m5h7dinUKTGxa/QoJGineGejWADUT1aiBSkD1PSI2w9R4VTqYhn7
+         +DYdsMBuoLDwwWT3ZAODlu/HfywYu3lPqF+aqTkWi0zfxc2y8h4OEjPflyM8EQ0pIZzU
+         yRKAbzYVu4CaXZITRZR6AQHn8SmKOo7X8VXCq3XuUKZiy73LzqmmMjyVO/pQTQ4pbgrA
+         JjWExWer5BepqQgzuAGHlU9DqYY8hRJXfOMooeCm8Xpa+8Wf8sxNnrsrLeAFtky91pDD
+         ZpOH0/nxr/fvh1yQ59MOjdfgjI5zYJ8OYUXTaoew8D5dKFfKPl4/w0jLhm6wc5g8c0hY
+         bHnA==
+X-Forwarded-Encrypted: i=1; AFNElJ+j+AFx2HERTED+luIwdTnanqgZsfjV6vnoVo22O5M1Io308A+1bJcuuJFugez9H/sf/axZkLzJbAXH@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwmMYAWmCOEGO0UwD30XYrNi9MegcbMwMSsjRZ4nLvcdF2sOYR
+	jFmq+bW5QQjblJmvH0J010IsJLygz8TRRhbduUYu1n221f9T8urgkBdF6GA0dewTXBk=
+X-Gm-Gg: Acq92OGxbTNH16cIaDZg+r6w1XnVPbvR2+vWVqlAj7eSv7VzU4O9VOlVXl+IpvtW/yT
+	OeXKcRvZgcxHohQXSLhDy7cbn6rpA+7ZEq2fbG3bxb38wiZwuxPQAWUwWOzMptvPBh2ql3goizI
+	HXnHUPAkmg6EuaiTd8frrABkwmzIYrSxMSiS3k9ma+iFQ5RHttS5XGzm0A1necedAI88UL+Amq/
+	Woh3dZwOxtSMFLdICmnRskS6SgWLo8ADSwFsiTcxUnipNplnA7ziPX7AWmSlyRatTedCoPSWy85
+	knr1bSj5XWXy+vlUu8DC2mTLbScZX6Xh4Wh0AHHO5Z9bLqJOdKgiAYHTqkNx0kkWGiD8YXGCwLy
+	idFCQHb5iXCEHIQQEJhZRwRyq79c1eZdIrczvWZsFg7O0QBoTGu1ljOvP90Z5mgql5+s0V8Id2H
+	xgNC/gjRVJPU3ePmYmIK264pwxKKjCnRawreu4REEJCBH6xXrDXaAGuDR2EMIBWczKS4xZPgX7Y
+	Tj/gxbfng==
+X-Received: by 2002:a05:6102:511e:b0:631:af51:7d8e with SMTP id ada2fe7eead31-6ec42bbec84mr3782249137.17.1780576644184;
+        Thu, 04 Jun 2026 05:37:24 -0700 (PDT)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9641414e1d7sm4309504241.12.2026.06.04.05.37.23
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 05:34:48 -0700 (PDT)
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9638f7e9896so1184782241.1
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:34:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8bMj5KZUivLlYtys3lTQczITmqCA28WScLdYz+nDKH2JrIyL7Z6kOXiirmf/HL6pPMKm5c/DDf7Wk+@vger.kernel.org
-X-Received: by 2002:a67:fdcf:0:b0:6c5:94a0:37cf with SMTP id
- ada2fe7eead31-6f544240339mr1047511137.8.1780576487197; Thu, 04 Jun 2026
- 05:34:47 -0700 (PDT)
+        Thu, 04 Jun 2026 05:37:23 -0700 (PDT)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9638d15f871so212660241.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:37:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/yCUpGkU8LsdmiMO6PfEgDl81twhHynQBS68suuQX7zPIB0bNqhJ5yjU117InliyJ5bcH2C74fjNYi@vger.kernel.org
+X-Received: by 2002:a67:e701:0:b0:633:e67f:b7f with SMTP id
+ ada2fe7eead31-6ec46679e58mr3392792137.25.1780576643147; Thu, 04 Jun 2026
+ 05:37:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com> <20260525110603.4018170-6-john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260525110603.4018170-6-john.madieu.xa@bp.renesas.com>
+References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com> <20260525110603.4018170-7-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260525110603.4018170-7-john.madieu.xa@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 4 Jun 2026 14:34:32 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVSgVe4ufTEvrD0ATwApF1xwiVa8t=P9O3rxh=sBegV_A@mail.gmail.com>
-X-Gm-Features: AVVi8CcBcbjPZ-LGjktNLR06D20t6UAro7xtsfCHuzIIFQf2Ba_2cx9aOlEskTc
-Message-ID: <CAMuHMdVSgVe4ufTEvrD0ATwApF1xwiVa8t=P9O3rxh=sBegV_A@mail.gmail.com>
-Subject: Re: [PATCH v4 5/8] arm64: dts: renesas: rzg3e-smarc-som: Add Versa3
- clock generator
+Date: Thu, 4 Jun 2026 14:37:10 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWEV0iydvRQvR8j934OpbAkMP0eo5KO=0=4coBDPojKHg@mail.gmail.com>
+X-Gm-Features: AVVi8CdW_DNBZw_4xjeS4zyp_RzBGilzh1a7HpuO0jzATgzOq6tO3Hu4fHvpTjg
+Message-ID: <CAMuHMdWEV0iydvRQvR8j934OpbAkMP0eo5KO=0=4coBDPojKHg@mail.gmail.com>
+Subject: Re: [PATCH v4 6/8] arm64: dts: renesas: rzg3e-smarc-som: Add I2C1 support
 To: John Madieu <john.madieu.xa@bp.renesas.com>
 Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
 	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
@@ -75,54 +75,15 @@ Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
 	biju.das.jz@bp.renesas.com, john.madieu@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi John,
-
 On Mon, 25 May 2026 at 13:07, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
-> Add the Renesas 5P35023 (Versa3) programmable clock generator on the
-> I2C2 bus along with its 24MHz input clock (x2 oscillator) to feed the
-> audio subsystem.
->
-> The Versa3 provides the following audio-related clock outputs:
-> - Output 0: 24MHz (reference)
-> - Output 1: 12.288MHz (audio, 48kHz family)
-> - Output 2: 11.2896MHz (audio, 44.1kHz family)
-> - Output 3: 12.288MHz (audio)
->
-> These clocks are required for the audio codec found on the RZ/G3E SMARC
-> EVK.
+> Add and enable I2C1 controller support with pin configuration.
+> The I2C1 bus is routed to the carrier board and used for peripherals
+> such as the audio codec.
 >
 > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 
-Thanks for your patch!
-
-> --- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-
-> @@ -130,6 +136,20 @@ raa215300: pmic@12 {
->
->                 interrupts-extended = <&pinctrl RZG3E_GPIO(S, 1) IRQ_TYPE_EDGE_FALLING>;
->         };
-> +
-> +       versa3: clock-generator@68 {
-> +               compatible = "renesas,5p35023";
-> +               reg = <0x68>;
-> +               #clock-cells = <1>;
-> +               clocks = <&x2>;
-> +
-> +               assigned-clocks = <&versa3 0>, <&versa3 1>,
-> +                                 <&versa3 2>, <&versa3 3>,
-> +                                 <&versa3 4>, <&versa3 5>;
-> +               assigned-clock-rates = <24000000>, <12288000>,
-> +                                      <11289600>, <12288000>,
-> +                                      <25000000>, <25000000>;
-
-Please add output 4 (DIFF1) in the patch description; it is needed
-for Ethernet.
-
-Please drop output 5 (DIFF2), as it is not connected.
-
-> +       };
->  };
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
 
 Gr{oetje,eeting}s,
 
