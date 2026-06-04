@@ -1,109 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB8F44B662
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246B7466B44;
+	Thu,  4 Jun 2026 12:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780576415; cv=none; b=tnSO9oFk5M+na6UWHlisIotYNujqszXS+2xRy3dmAQmcfEdh9W0c+vuDMrCCTEZFwhr9iUmkzxqkn65hO49pOUAYMGvWMxwOKGXA3YIlPrg/fRBDhpd0kMkota/p7Q8ZWYXaL88nxqICYeZ824aLB7VzCYHQ0WoO7Sxkb4fOYfI=
+	t=1780576435; cv=none; b=EwNp0q6dLB0GKkwY4lG4Fg9iZNNO3NX3MY3KvqWETCAaS/Cb9ivLoSOZJ33Dy1eauFOxMtXNelrzom9svn5r6tesY2+hP7Gq8bZ8I2HrPCmfY1V76SPNWTrJEcNGi2IdJywnJ2NXjaXUOrAoKGbuBALX2NtGjO5l0GQGtjVJPDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780576415; c=relaxed/simple;
-	bh=5kiOPwwtw5er+j3pQh3lrbhA4I9B2m+C9oKB0UBWW9E=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LMfaxkFs7hPfpdwDFxXRVv2XcZQ+h8D9zJk00FMjqp628YvW1ub7QysMo84//h8M+8OfI+qJOfvPVXJwt9A0Bm5XWX5Wj2tKkR0gDR2s5k4tRVuyXbAVLxhHeKLCuJTa5i8qI8YkBfA8vEHRnKTuUxmz01UVuU+5CVzLsIaDKTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fP9rNTi5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780576435; c=relaxed/simple;
+	bh=OJ3Uqeo1IwOJW6q6880uQtHS9eNIQRcj3ScJXz4WdBA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=RuEzXcTOLEw04K+0LjwtnN34nkgfb9HoPnnDQVh5g9rzJ+hUGXGZeb30k9MMCd/vHxMHY9rprCbXTNrOdQx6rR97+f/a4PJFvIVbYy6x0JVzCBdC8c0hVSL0CRTN7qKQdZi4f2Obt/pCGK5NMYaK3I6otHGkCiuHnHLAAYPb3dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=paFWhExG; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=+M4nbtGk; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fP9rNTi5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9B1F1F00A23
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 12:33:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780576413;
-	bh=5kiOPwwtw5er+j3pQh3lrbhA4I9B2m+C9oKB0UBWW9E=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=fP9rNTi5MtE7GCGm/x/LyhMZobzDw2BPjzDPFH8vu6A2Ihc1x0gZCGx/8KHtKr+NQ
-	 9VU8hrkHxq4QD3yOaMQhJxyg5QmB193Bl0ZPkoFOqK9aG4fqijPuyGUaShi+2Kcg6Q
-	 WNJyWoBtHQTw/ffnZhT2lBeH4E+j/daht+qed1ocXq5IaM7LCqk8LdZ6oiRSFoFWGH
-	 qVMkffhSF4xNFZpT0RuH0BP/QIMVy9iVKoOdwGpjFzetMPvPPN/kFu3cFOoETaSWHA
-	 xRtqHx+25lqBcSS+qwunrA10HLhbGycr55T5kf3P4VR83pcARAwuSQhBeLmDEXT+H3
-	 auAKRLtqmlw3w==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3967620ceabso5981201fa.0
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 05:33:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ85lDZPfdVg+RFrkPnOHXHKQHi7UvS+Zw1gP5RUmhYsNvvfQGG2+T/lIIbquMMZ91SuKg1wXLGwUXjd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+8YLU9SLdB+lr15lqBAFs7kLs/geXdqVfLZZGWfHzdfDoqdXM
-	zcaNIGZ43kgXV1+ZAf1KqmUnA4zZXfTWwVYRJdk/nyjj1QYrcoFxA8quyllNqaiwlVGv5GCRucb
-	q3TNb6D1Lz5JiBfj+9uqL7iNPSl/2hwyoL7zXF4ISVA==
-X-Received: by 2002:a05:6512:2256:b0:5aa:6bd0:b1e3 with SMTP id
- 2adb3069b0e04-5aa7c038408mr3094935e87.8.1780576412192; Thu, 04 Jun 2026
- 05:33:32 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 4 Jun 2026 05:33:30 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 4 Jun 2026 05:33:29 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <ah9O15bMlAYgSlHx@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="paFWhExG";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="+M4nbtGk"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1780576420; bh=kU+i7g8pqOTCGjUW+H8X7o/
+	tBXoM+LzHFNQrdKZ87oQ=; b=paFWhExG6MmKynuibQT97ubMi6MiMrQApDPN/SYJcqYXKGlc/c
+	MKfUx0k+JTNU6L6Yub0lHAJNZMwCjVurPvmcLsNMmhp/b9oHKfJJJdxG2o/JyaI7kdhqeioTrXn
+	AZR52fWixg1iCgx8cAyoXFtj4EC6zth5ZTyCYFLn9xNp+xgxbp8g0uPWKogIhG07Rr+fPqakB7q
+	W87v0e7XSyYmTT3OD+TktXMw6NuhJ3igCFIIAxtCDBDr6KVN2C8iKNbi4FvZyJRrIldIbBLfHTD
+	RU9y3ekoO7XlCppdeD+PffOX/vf7M1tLz/CWC6Ado7uGJsqWtKhXc6LH7vw0UfMPXVw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1780576420; bh=kU+i7g8pqOTCGjUW+H8X7o/
+	tBXoM+LzHFNQrdKZ87oQ=; b=+M4nbtGke1FBzzH6cDhb7MIhnGK7ozUuqUnPCrz874rXusc+Ni
+	CKwO2yRl6XjT8tVdHa4Kv5cuumyS5YyRp7Bg==;
+Date: Thu, 04 Jun 2026 14:33:37 +0200
+From: =?ISO-8859-1?Q?Barnab=E1s_Cz=E9m=E1n?= <barnabas.czeman@mainlining.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stephan Gerhold <stephan@gerhold.net>
+CC: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_3/7=5D_remoteproc=3A_qcom=5Fq6v5?=
+ =?US-ASCII?Q?=5Fmss=3A_Use_mss_as_regulator_for_MSM8953?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <35e8f654-214d-4e8b-843f-87fa8cc1a782@oss.qualcomm.com>
+References: <20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org> <20260327-sdm632-rpmpd-v1-3-6098dc997d66@mainlining.org> <35e8f654-214d-4e8b-843f-87fa8cc1a782@oss.qualcomm.com>
+Message-ID: <C5AF7872-093B-4039-9F3A-72BF855BB3D1@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-8-88c324a1b8d2@oss.qualcomm.com> <ah9O15bMlAYgSlHx@ashevche-desk.local>
-Date: Thu, 4 Jun 2026 05:33:29 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeFxtwwXvOD7FLmbhjpraDKa2O7KdwMaUXM-mNj7Ob2ow@mail.gmail.com>
-X-Gm-Features: AVHnY4L20t8vC6nB7rdbE5RCKEyJuG_U-L0VQ-6S9fbqED8WJ64Vn6Fpm8JRl-0
-Message-ID: <CAMRc=MeFxtwwXvOD7FLmbhjpraDKa2O7KdwMaUXM-mNj7Ob2ow@mail.gmail.com>
-Subject: Re: [PATCH 08/23] driver core: platform: provide platform_device_set_of_node_from_dev()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Mark Brown <broonie@opensource.wolfsonmicro.com>, 
-	Thierry Reding <thierry.reding@avionic-design.de>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Srinivas Kandagatla <srini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, 
-	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Maximilian Luz <luzmaximilian@gmail.com>, 
-	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
-	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org, 
-	iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
-	linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2 Jun 2026 23:44:55 +0200, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> said:
-> On Thu, May 21, 2026 at 10:36:31AM +0200, Bartosz Golaszewski wrote:
->> Provide a platform-specific variant of device_set_of_node_from_dev(). In
->> addition to bumping the reference count of the OF node being assigned,
->> it also assigns the fwnode of the platform device.
+
+
+On 16 April 2026 15:32:25 CEST, Konrad Dybcio <konrad=2Edybcio@oss=2Equalc=
+omm=2Ecom> wrote:
+>On 3/27/26 9:11 PM, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wrote:
+>> MSM8953 MSS is using mss-supply as regulator what is usually pm8953_s1=
+=2E
+>>=20
+>> Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas=2Eczeman@mainli=
+ning=2Eorg>
+>> ---
+>>  drivers/remoteproc/qcom_q6v5_mss=2Ec | 9 ++++++++-
+>>  1 file changed, 8 insertions(+), 1 deletion(-)
+>>=20
+>> diff --git a/drivers/remoteproc/qcom_q6v5_mss=2Ec b/drivers/remoteproc/=
+qcom_q6v5_mss=2Ec
+>> index 4e9eb5bd11fa=2E=2E86edd826ede8 100644
+>> --- a/drivers/remoteproc/qcom_q6v5_mss=2Ec
+>> +++ b/drivers/remoteproc/qcom_q6v5_mss=2Ec
+>> @@ -2705,6 +2705,14 @@ static const struct rproc_hexagon_res msm8953_ms=
+s =3D {
+>>  		},
+>>  		{}
+>>  	},
+>> +	=2Eactive_supply =3D (struct qcom_mss_reg_res[]) {
+>> +		{
+>> +			=2Esupply =3D "mss",
+>> +			=2EuV =3D 1050000,
+>> +			=2EuA =3D 100000,
 >
-> Can we rather investigate the way how to make that of node reuse thingy
-> (which is used solely by pin control) differently and then drop this confusing
-> device_set_of_node_from_dev() call altogether?
+>I don't know if it's a typo, but msm8953-regulator=2Edtsi on msm-3=2E18
+>suggests one more zero
+I do not see any load values there only init-voltage what have six zeros=
+=2E
 >
-
-Possibly but I can't do everything in a single series. Let's take it one step
-at a time. The goal of this is to make software node handling for platform
-devices more correct.
-
-Bart
+>Konrad
