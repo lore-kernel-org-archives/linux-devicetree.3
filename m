@@ -1,116 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outbound11.mail.transip.nl (outbound11.mail.transip.nl [136.144.136.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F5733EF
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 10:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14973352F87;
+	Thu,  4 Jun 2026 10:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780567581; cv=none; b=Cw8DLHoFQx4IynGsbS1mItN99G34OiUcOs9nhPzdBI6kbhQR1wcF1n5pvKw9cemlFFuIiOrDEzorL2mNur671JgGXs+Am9AtsEQSCi2GGlloU6liQrrteCXJHc/RBvDY+w/11/OjAmPH4o/TJvNWVf2BhlalFlirdIg1UmSDCc8=
+	t=1780567592; cv=none; b=VSDJToINViyUg84B2ixkDhRcWq/lNHw2lF4vwhjrcB6k8uSG9p5TBK/WhF4LdnIYYQgkjk4qA6ZeXgKlGqMjGQpc2fQgF2bLTc/6JwNRP2yGUuVvPZAlHBvvRL7Y2quGEDwZlLwXbk+upXtFHdIxhRqr+XUApY+7qAMg5LdnILA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780567581; c=relaxed/simple;
-	bh=yOaFXcdXPPm47/F9k7GtuW2IpRDhEGq72XRvP1nxFIQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JkW/WOkU2gDOFpQtx9MLHhSWlBsbgWiORfV92CZ8LUmNrOIBWrwGi3i07gghpVgTkDqX5lKJDzw0eCjRdTpvU97xOLOJOBa9XzDF94jWRM2FB0EC8S3bk1Q8UXhaB8zt5hJOnYzRzodukNsrHWNNCuhOHpr07AWxdu6ZdgNdI/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jg93pwqT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780567592; c=relaxed/simple;
+	bh=hLMSJkLaFcgr9nifWBGyhT3a2LjIiAbZE2LYvUbhrcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TyOczASNse1VZPZjXfomzttYneZ80WcJcq9S+zKWLezWsqGNDmTUHTvXEBmQYYIxrMo/2z9P2MLvk+ZI9Ai5p+02J7SUZ/C92G/I+cUBotxr+E/PrzoKVUXHTDTUkLNZnux8VfTy3HmLPvuw9wh1Da8sb9uby5u0JOqRCfg+gaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=vIenSS77; arc=none smtp.client-ip=136.144.136.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jg93pwqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75EC51F00893;
-	Thu,  4 Jun 2026 10:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780567579;
-	bh=s7DJZQhkQEu9G7myNftG1G/cbLeeivD3jnjNm9Z3yy0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jg93pwqTObIaLhDGfptXl9uPVtdrkB5n0lvca/QmJjCF6QAhtpg62rukYrawIciPs
-	 ihRyaoU6V2+65iIU6q46obA93bRr4W/+CIqt0tIXN2hr7Oo1TkR8KaMV2TPaRNBRGj
-	 pijaiSM5ebI9n4vBCgyejY6HZJaw1/k4huj/8/FWpYSUYMwrOU0rnoiI3vzrWen4QJ
-	 Qwsn22VRnqMKWu35TYodSkvF+p/aRg5Xro0UB7Cx5eneVlRIrepwfJTXw78gGI6eZf
-	 +PqudJQRXvhz3Q6O50tJtetldIHwVVI7i/x/7GOsPk6wsTt1e/5peJD+FxOH4bHzyD
-	 fD9IalmYwEgxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 02/11] dt-bindings: pwm: rzg2l-gpt: Document
- renesas,poegs property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604095647.108654-3-biju.das.jz@bp.renesas.com>
-References: <20260604095647.108654-3-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 10:06:19 +0000
-Message-Id: <20260604100619.75EC51F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="vIenSS77"
+Received: from submission11.mail.transip.nl (unknown [10.103.8.162])
+	by outbound11.mail.transip.nl (Postfix) with ESMTP id 4gWKwD6gK2zkQP0C;
+	Thu,  4 Jun 2026 12:06:20 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission11.mail.transip.nl (Postfix) with ESMTPA id 4gWKwD1p0Yz3R3nyx;
+	Thu,  4 Jun 2026 12:06:20 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	tomasborquez13@gmail.com,
+	masneyb@onstation.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Herman van Hazendonk <github.com@herrie.org>
+Subject: [PATCH v3 3/3] iio: light: isl29018: support cover-glass gain compensation via DT
+Date: Thu,  4 Jun 2026 12:06:17 +0200
+Message-ID: <20260604100617.3486541-4-github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260604100617.3486541-1-github.com@herrie.org>
+References: <20260604100617.3486541-1-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission11.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780567580; h=from:subject:to:cc:
+ references:in-reply-to:date:mime-version;
+ bh=85+MdLr3OIbGUYUhr0bZoSZqPIhO6EkXOi7pDmhyjqw=;
+ b=vIenSS77dzrgPZzgXuEI0fwnl2sYqt3fDUJ/1N7hS8mPFzknJyLE6i8RXjeUfukP9tRnos
+ dxmwv+/En0tUehUr/VBiGbk/GakKSdHDUrykjxjvMkICX39bTH6w2CHgJMK57OXGhvbLbv
+ KTCgFRU91vLA54KMTeWpp27uTRcw7vrP0pNsUUpGWuwPcj+zgTs7cnyRMH2Q19wLoUZ3TJ
+ UDsKwY2VbeC1Cth2NULecd9zndu+rzlmnW05xQClXiYcmHxE0kU0uoNp7bltFmBsFAI7Au
+ Iqvql2zwgMC8MeItyJJH815tXqJeJVmDh8ifc8e7xAPp+73C0PZUdSr3LKn/Sg==
+X-Report-Abuse-To: abuse@transip.nl
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `renesas,poegs` property improperly encodes the consumer's c=
-hannel index as a phandle specifier, which is a Devicetree anti-pattern and=
- breaks standard phandle-array parsing semantics.
---
+Boards that mount the ISL29018 behind tinted or coated cover glass
+experience optical loss that effectively reduces the sensor's apparent
+sensitivity.  The existing in_illuminance0_calibscale sysfs attribute
+can correct for this at runtime, but firmware knows the loss factor at
+design time and there is no way to seed it without a userspace helper.
 
-commit 9d7f9847d3f320fb715022b6159c9c7e869aeedd
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+Add support for an optional "isil,cover-comp-gain" device-tree property
+that initialises calibscale at probe time.  If the property is present
+but cannot be read, probe returns an error via dev_err_probe() so the
+root cause is visible in the log.  If absent, calibscale defaults to 1
+(unity gain, matching the previous behaviour).  Userspace can still
+override the value at runtime through the sysfs attribute.
 
-dt-bindings: pwm: rzg2l-gpt: Document renesas,poegs property
+The approach follows the precedent set by the TSL2563 driver.
 
-RZ/G2L GPT IP supports output pin disable function by dead time
-error and detecting short-circuits between output pins.
-Add documentation for the optional property renesas,poegs to
-link a pair of GPT IOs with POEG.
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+ drivers/iio/light/isl29018.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-> diff --git a/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml=
- b/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
-> --- a/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
+diff --git a/drivers/iio/light/isl29018.c b/drivers/iio/light/isl29018.c
+index f3312ad670d9..9daacb9b02bc 100644
+--- a/drivers/iio/light/isl29018.c
++++ b/drivers/iio/light/isl29018.c
+@@ -711,10 +711,13 @@ static int isl29018_probe(struct i2c_client *client)
+ 	struct iio_dev *indio_dev;
+ 	const void *ddata = NULL;
+ 	const char *name;
++	struct device *dev;
+ 	int dev_id;
+ 	int err;
+ 
+-	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*chip));
++	dev = &client->dev;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*chip));
+ 	if (!indio_dev)
+ 		return -ENOMEM;
+ 
+@@ -733,8 +736,16 @@ static int isl29018_probe(struct i2c_client *client)
+ 	mutex_init(&chip->lock);
+ 
+ 	chip->type = dev_id;
+-	chip->calibscale = 1;
+ 	chip->ucalibscale = 0;
++	if (device_property_present(dev, "isil,cover-comp-gain")) {
++		err = device_property_read_u32(dev, "isil,cover-comp-gain",
++					       &chip->calibscale);
++		if (err)
++			return dev_err_probe(dev, err,
++					     "invalid isil,cover-comp-gain\n");
++	} else {
++		chip->calibscale = 1;
++	}
+ 	chip->int_time = ISL29018_INT_TIME_16;
+ 	chip->scale = isl29018_scales[chip->int_time][0];
+ 	chip->suspended = false;
+-- 
+2.43.0
 
-[ ... ]
-
-> @@ -245,6 +245,28 @@ properties:
->    resets:
->      maxItems: 1
-> =20
-> +  renesas,poegs:
-> +    minItems: 1
-> +    maxItems: 8
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      items:
-> +        - description: phandle to POEG instance that serves the output d=
-isable
-> +        - enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-> +          description: |
-> +            An index identifying pair of GPT channels.
-
-[Severity: Medium]
-Does this property correctly follow standard Devicetree phandle semantics?
-
-By Devicetree specification, phandle arguments in a phandle-array are
-defined and interpreted by the target provider node, with their length
-dictated by a cell-count property on the provider.
-
-This definition appears to invert that model by using the specifier to enco=
-de
-the consumer's (GPT) own channel index rather than a provider argument.
-
-Additionally, standard OS-agnostic DT parsers might fail to resolve this
-because the referenced provider binding (renesas,rzg2l-poeg.yaml) enforces
-additionalProperties: false and natively lacks a #poeg-cells property to
-dictate the specifier length.
-
-Is it possible to redesign this binding so it doesn't encode the consumer's
-index into the provider's phandle argument, or at least ensure the POEG
-provider specifies a #poeg-cells property?
-
-> +              <0> : GPT channels 0 and 1
-> +              <1> : GPT channels 2 and 3
-> +              <2> : GPT channels 4 and 5
-> +              <3> : GPT channels 6 and 7
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604095647.1086=
-54-1-biju.das.jz@bp.renesas.com?part=3D2
