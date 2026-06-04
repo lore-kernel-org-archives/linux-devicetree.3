@@ -1,161 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5543F36F43E
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 02:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117043A3E72;
+	Thu,  4 Jun 2026 02:31:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780540029; cv=none; b=F8b7EN/6Z7j9L/KE8ViLCydc2CqtnfHpB2m+dSe2jF6yz3W6kQz6x+9C7uooAqC7yAqNiga8lOCTqRQfBJDAVWwA5o7GhF2/uwZQqJ0yb0m/DeDSULBvKaaDxvRg38zQJQxniszIeVyDtcHY8Hg28bdGk6trlFeAO4NyzV40pew=
+	t=1780540278; cv=none; b=b0QAz+GS6vBhGLV7FG/HsAPlC1F8zUOTNvSwnOdoeBgqBQMZ/QOiNgqKupjLa4QOLnXku50YYi3IOaimDbJdUASOP/uHsEpO5V0A1Zw/tkew5CuFAr5txhYEiKSLwgQH+oMg6rpjDhlbLJ8HPFjKIfMdrKCRz/PXSxbQrCWWsLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780540029; c=relaxed/simple;
-	bh=XQ8HsYCFI4l6qDDYKQRDRpXfLiDxNRkZVAr8mIMHJf0=;
+	s=arc-20240116; t=1780540278; c=relaxed/simple;
+	bh=XObjbK30ogcOrtRoHbgRSgylo8bxHwR4jXvNswZ3Sv4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OCYenXy5DEHlyZZg62KwxSyjT4lWWjdDwzKaHuVQMAzoZ23jRszNLYKF1vU8MKu0ZNHKPaDjxYKvAmE18HaEebC7uOVUyDG3vMtG5MhM0kJaUIzROBCGSftMmOHyDRvhC4hZQqB4fgksA9eo0UX5GK9TTkgVdowdI2UVJKNMUlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+h6k6B7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=o/GlS+Br8E6nfCp7ELMC3A5eL4I1r/r0p+SbZnN7IgHo4/+VmoY0YowLs7Ejq1CfOgBvfuXd4USATlHjaF9oURfScuxZHyWBebykoE5551eR2ShSw+9RH+OMIPqbBXZCa8DAls86cUNMAcjdTivOQq9Z4WY2ElxkTbJ+rx1mtis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e9DwHvez; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+h6k6B7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8AD1F00893;
-	Thu,  4 Jun 2026 02:27:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e9DwHvez"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA981F00893;
+	Thu,  4 Jun 2026 02:31:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780540024;
-	bh=CMwI9J9MuA83fPo3elyni1CiOr6saeW8qDAeQhy/Ayo=;
+	s=k20260515; t=1780540276;
+	bh=v7m8T3B3xs5vDvtKuPhQ1LQ2/+3RLF2epXWRl2F9ldc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M+h6k6B7VDPsZSIAWLUsWgGvqj/DiaJ1eUHyqpHEkEqLscvOjEIs8IUIgG7CZCEpG
-	 JpGQr9bUPipzaC0rhCNK88n59XLpQVlktcwy5VCmHdKXDBBCTl62O3CrtKMycjW4eM
-	 r/gtP/25iSWrF/33u3FVjsgyULININCL+RUTW2b2ueJMOTAKBDBNFx6+s826s7cY62
-	 SrO22jecIATPKFBnEa+SEmxsVa+zOf48QpFxOs1XtnYyK612Th0u04ihJSKMi6xvSk
-	 4/h4fXIQVAoLEoyzDH/cU5KMQfFhqNb+l5Fvrd8YFMOaq6sb1ziob9zVQzN24EPmby
-	 gp/koB4INZMiw==
+	b=e9DwHvez/NufEpXssEHW2o4TgMfULgM1H3isymw4opFopTVlfQ67bdB0v5o2VWiGV
+	 CVT1rG2c05Yl2O/VO16LtdGbFtXm/6s0ufYG6gIPsxsHzcv9+I3Vx8HqRsx1vUnwuJ
+	 BhJZ3XBb0wZ0Qudr87kVXwLOoe3hMobvLnlqf4KDuxuc/kk7TcnEYmjUuGfrd3AaCn
+	 UstI88mmKgqZF0DRDlYT3XZgd1pP4O18Ks1BE4oti8uzKuXENjXeGLbVzcW4DEh+gj
+	 rDnqyXu+ygLHhxwVjlIf/8SvMOVriShi8gZ8pBqHeAfzdZWoo6TEpOGaXnCehjG72+
+	 2YsA/c1iK/4UQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/7] ASoC: loongson: Add headphone jack detection and
- DAPM routing
+Subject: Re: [PATCH v1] arm64: dts: imx94: Add Root Port node and PERST
+ property
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <2736a44ee11bcc0bbf282c69e99cb05b12469207.1780538113.git.zhoubinbin@loongson.cn>
-References: <2736a44ee11bcc0bbf282c69e99cb05b12469207.1780538113.git.zhoubinbin@loongson.cn>
+To: hongxing.zhu@oss.nxp.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260604022420.120294-1-hongxing.zhu@oss.nxp.com>
+References: <20260604022420.120294-1-hongxing.zhu@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 02:27:04 +0000
-Message-Id: <20260604022704.6E8AD1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 02:31:16 +0000
+Message-Id: <20260604023116.6AA981F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The headphone mute GPIO is incorrectly asserted when the headphone=
- widget powers on, muting the audio.
-- [High] Double-free / reference count underflow of the headphone detection=
- GPIO descriptor on device unbind or probe failure.
-- [Medium] The sound card probe fails completely if the optional headphone =
-detection GPIO is omitted from the device tree.
+- [Medium] The newly added Root Port PERST# properties incorrectly use `res=
+et-gpio` instead of `reset-gpios`, causing the PCI core to silently ignore =
+them, violating DT schema, and falling back to the deprecated legacy bindin=
+g.
 --
 
-commit 5cf0c58f5dc0c2adba751fce8cc39fa382767c93
-Author: Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: ASoC: loongson: Add headphone jack detection and DAPM routing
+commit 10fdcd113cd4d5825e1430558167b9577d3cf633
+Author: Richard Zhu <hongxing.zhu@oss.nxp.com>
 
-This commit adds headphone jack detection and DAPM routing to the Loongson
-audio machine driver. It enables proper switching between headphones and
-speakers on the Loongson-2K0300 ATK-DL2K0300B board.
+arm64: dts: imx94: Add Root Port node and PERST property
 
-> diff --git a/sound/soc/loongson/loongson_card.c b/sound/soc/loongson/loon=
-gson_card.c
-> index 9200e8476c1fa..ee0cf305187a7 100644
-> --- a/sound/soc/loongson/loongson_card.c
-> +++ b/sound/soc/loongson/loongson_card.c
+This commit adds Root Port nodes to the i.MX943 PCIe controllers and attemp=
+ts
+to migrate the PERST reset property from the host bridge to these new Root
+Port nodes.
 
-[ ... ]
-
-> +/* DAPM widget event: control headphone mute GPIO */
-> +static int headphone_widget_event(struct snd_soc_dapm_widget *w,
-> +				  struct snd_kcontrol *kcontrol, int event)
-> +{
-> +	struct snd_soc_card *card =3D snd_soc_dapm_to_card(w->dapm);
-> +	struct loongson_card_data *priv =3D snd_soc_card_get_drvdata(card);
-> +
-> +	gpiod_set_value_cansleep(priv->gpiod_hp_mute, SND_SOC_DAPM_EVENT_ON(eve=
-nt));
-
-[Severity: High]
-Does this logic assert the mute signal exactly when the headphones should be
-active?=20
-
-The hp-mute GPIO is initialized with GPIOD_OUT_LOW (unmuted) during probe.
-When the widget powers on, SND_SOC_DAPM_EVENT_ON evaluates to 1, asserting
-the mute and resulting in no sound. When it powers off, it evaluates to 0,
-unmuting.
-
-Should this logic be inverted so the headphones remain muted while powered
-off and unmuted when active?
-
-> +
-> +	return 0;
-> +}
+> diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/bo=
+ot/dts/freescale/imx943-evk.dts
+> index 7cfd424689507..ed3abd3e76e56 100644
+> --- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
+> @@ -1034,12 +1034,17 @@ &pcie0 {
 
 [ ... ]
 
-> +static int loongson_asoc_machine_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct snd_soc_card *card =3D rtd->card;
-> +	struct loongson_card_data *ls_priv =3D snd_soc_card_get_drvdata(card);
-> +	int ret =3D 0;
-> +
-> +	if (!ls_priv->cfg->add_hp_jack)
-> +		return 0;
-> +
-> +	ret =3D snd_soc_card_jack_new_pins(card, "Headphones Jack",
-> +					 SND_JACK_HEADPHONE,
-> +					 &loongson_asoc_hp_jack,
-> +					 loongson_asoc_hp_jack_pins,
-> +					 ARRAY_SIZE(loongson_asoc_hp_jack_pins));
-> +	if (ret) {
-> +		dev_err(rtd->dev, "Headphones Jack creation failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	loongson_asoc_hp_jack_gpio.desc =3D ls_priv->gpiod_hp_det;
-> +
-> +	ret =3D snd_soc_jack_add_gpios(&loongson_asoc_hp_jack, 1, &loongson_aso=
-c_hp_jack_gpio);
+> +	/* This property is deprecated, use reset-gpios from the Root Port node=
+. */
+>  	reset-gpio =3D <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
+>  	vpcie3v3aux-supply =3D <&reg_m2_wlan>;
+>  	supports-clkreq;
+>  	status =3D "okay";
+>  };
+> =20
+> +&pcie0_port0 {
+> +	reset-gpio =3D <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
+> +};
 
 [Severity: Medium]
-Will this cause the sound card probe to fail completely if the optional
-headphone detection GPIO is omitted from the device tree?
+The commit message mentions adding the reset-gpios property, but is it
+intended to use reset-gpio here instead?
 
-The loongson,hp-det GPIO is acquired using devm_gpiod_get_optional() during
-loongson_asoc_card_probe(), which returns NULL if the property is absent.
+The Linux PCI core function pci_host_common_parse_perst() explicitly parses
+the Root Port's reset GPIO using of_property_present(np, "reset-gpios"),
+which strictly checks for the plural form.
 
-If the descriptor is NULL, passing it to snd_soc_jack_add_gpios() without
-setting gpiod_dev causes it to return -EINVAL. This propagates back through
-the DAI link initialization, breaking the device initialization.
+Because of this typo, will the Root Port's PERST GPIO be ignored, causing
+the driver to fall back to imx_pcie_parse_legacy_binding() to parse the
+deprecated legacy property left on the Host Bridge node? This appears to
+defeat the migration effort and violate the PCI bus DT schema.
 
-[Severity: High]
-Will this result in a double-free of the headphone detection GPIO descriptor
-on device unbind or probe failure?
+> =20
+>  &pcie0_ep {
 
-The gpiod_hp_det descriptor is acquired with devm_gpiod_get_optional(), whi=
-ch
-registers a devres action to call gpiod_put() when the device is unbound.
+[ ... ]
 
-Passing this explicitly acquired descriptor directly to
-snd_soc_jack_add_gpios() transfers ownership, as it registers its own devres
-action that also unconditionally calls gpiod_put().=20
+> @@ -1058,12 +1063,17 @@ &pcie1 {
 
-On probe failure or unbind, devres will execute both cleanup actions, causi=
-ng
-a reference count underflow and leading to a use-after-free of the gpio_dev=
-ice.
+[ ... ]
 
-> +	if (ret)
-> +		dev_err(rtd->dev, "Headphone GPIO not added: %d\n", ret);
-> +
-> +	return ret;
-> +}
+> +	/* This property is deprecated, use reset-gpios from the Root Port node=
+. */
+>  	reset-gpio =3D <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
+>  	vpcie3v3aux-supply =3D <&reg_slot_pwr>;
+>  	supports-clkreq;
+>  	status =3D "okay";
+>  };
+> =20
+> +&pcie1_port0 {
+> +	reset-gpio =3D <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
+> +};
+
+[Severity: Medium]
+Does this also suffer from the same typo as the pcie0_port0 node?
+
+Using reset-gpio instead of reset-gpios will likely cause this property
+to be similarly ignored by the PCI core's Root Port parser.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780538113.gi=
-t.zhoubinbin@loongson.cn?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604022420.1202=
+94-1-hongxing.zhu@oss.nxp.com?part=3D1
