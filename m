@@ -1,109 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCE2369D69
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB92F3EDE67;
+	Thu,  4 Jun 2026 09:06:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780564001; cv=none; b=RtEzrYXnMcfzwNgUHYpSxaHuGtn4eZJJhJkt6pyGsiLMkGAxeGEjHvwo1NXsctL59bOG2mBwXBDD8bUi1BSdsdkRBupS9RvBY7ZkvhlQVrvMg4/6o7hnwEFFk2sig96fCcLZf+VvrPTC2b2ubZAOZUu6nOwccKO5H6jd3hYntCo=
+	t=1780564011; cv=none; b=cr/s9xT0O6uMAn9tVXhO7BTNtO72lmIw91TiPrNHB8dUNAiBLLBvWL1F12h7WXY8OL45rkiH2firQobh1WdppCm10rNKB+izANb5yUPq8hUMFeAxPpFa/QqjWGzDlynwqxLn8/n8iX8YwvNA3Z6tPOJjHhlIBbweya1KruQBSF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780564001; c=relaxed/simple;
-	bh=l9EJd6eCAOm30xsTUKABVr7KhIAfGQURNxkvtmopcNM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RauX314BA1WT0FaVIRsk18j8cPWjAkCnpCBG8TpQSCcs4jlkp01C9TlF+OVLZiFvNPBtOXFu1QWAFWlVYCutQudyKxqXnkXJmmZriUvsDuM2RPxiHJENO2iKDtUxX1hhoiDzpcWpLlbHQQJskv4NUQWy2XurUdHjzKVn5PulAsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mstnDBFR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780564011; c=relaxed/simple;
+	bh=pzO/hUhIdm2xnYffmhkX+QqsoCzo448WOXd4EYvdDYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z5IvGWYTqC6BGa0lHYMfXZt/PIWCQNfaHfykbb1aIKUtxy1XsoD0EeTrHHyKeQ33+RxsZEJ84SBhIAn6X0p/nhY1GNBays5aGpJekm51yG45w6NKreQBeV8UJhk2L8qluRf0sxUvpHOJ3IJe9uqnj6m2oqKXNzFU+tGl4i116pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfpefsoS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mstnDBFR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40751F00893;
-	Thu,  4 Jun 2026 09:06:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfpefsoS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1601F00898;
+	Thu,  4 Jun 2026 09:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780564000;
-	bh=tkeYPWXEAPxj0AWpRR3es7QnxH79QnuybIneW2XNCYM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mstnDBFRhw4SE48d+GkRFFF76mo6KQndIOKytH1EwZCXkPL5KE3CJgCUEqAYnUxZ+
-	 ST/m6Ev2BYI1vLPoViEH138PCkNQzmhXnh5dIW2azHjchzQ5ANL1svWvYwQHWKPedE
-	 6MtNc/Qy51QY74EmlfxzHvohBK/Hm2z4AI+zS6cRAIGn689IO8tfGaDm/teANzjDOZ
-	 IzT04HFnk9+cdRyf9HM2sJ3xJIiPvZxoK3vHzP//UAX5Rx2oFFNMXxQhEQ6m19PwLN
-	 RkFCQEmemKYNI9YwIOsFXICltC5Tvj1FiQnPBFl115cGCefmquCWPrelBjVOKA+sOp
-	 XNRSv+DNr7ZAA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604085220.2862986-2-damon.ding@rock-chips.com>
-References: <20260604085220.2862986-2-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 09:06:37 +0000
-Message-Id: <20260604090639.D40751F00893@smtp.kernel.org>
+	s=k20260515; t=1780564010;
+	bh=pzO/hUhIdm2xnYffmhkX+QqsoCzo448WOXd4EYvdDYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XfpefsoS9YKGQTXxZBIquD7gLbILYHBSCWKXhJL+DC7paRQqrbgdTLFwOnmX+nxN7
+	 +I4imkQQTdwTRWqxIn2FBFZQ4GivVuU2gDDQYrVGH9NStkmANhpunQW1LVwSxBPjzb
+	 +DZxDUjzZIQuG2cqClV7teLam4ubg4B2azHoK53vaJgEs8ujxElUS/YmptvSaNkarz
+	 HLwkxD5UBiBO7HNUV8ywwcvBCtv8g/mZY7gPYSF+/b22f7pORPOALzvI/kCdeOdrDv
+	 cae1qINYa68yDuIJbYw7ks/7Nyn/PWlGnks0S/1yKe+C70PWAmP9b1AX39ZbtLQLnL
+	 /8iYOGWIxZiIg==
+Date: Thu, 4 Jun 2026 10:06:47 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+	conor+dt@kernel.org, kvm@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v3 13/15] riscv: cpufeature: Introduce ISA bases bitmap
+ and rva23u64 detection
+Message-ID: <20260604-handwash-junkyard-ed931f40d678@spud>
+References: <20260603-rva23u64-hwprobe-v2-v3-13-5529a7b28384@gmail.com>
+ <20260602233750.B03631F00893@smtp.kernel.org>
+ <CA+Ck9FaHADhss2sV=Z-vX4zr6VL+X=goFX_vznYE9JWBGCjwZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="L6Z/nkLzzY0eiXog"
+Content-Disposition: inline
+In-Reply-To: <CA+Ck9FaHADhss2sV=Z-vX4zr6VL+X=goFX_vznYE9JWBGCjwZQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `data-lanes` property is defined strictly for the `endpoint`=
- node name, causing schema validation to fail or miss constraints if applie=
-d to valid unit-addressed nodes like `endpoint@0`.
---
 
-commit c6792a12ea4c785878c85982c6a4537b6a1901d6
-Author: Damon Ding <damon.ding@rock-chips.com>
+--L6Z/nkLzzY0eiXog
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpo=
-int
-   =20
-This commit adds data-lanes property support to the port@1 endpoint in
-the analogix-dp bridge binding to allow physical lane mapping configuration.
-It also updates the Rockchip eDP DT node example to demonstrate its usage.
+On Thu, Jun 04, 2026 at 02:46:36PM +0800, Guodong Xu wrote:
+> Hi,
+>=20
+> On Wed, Jun 3, 2026 at 7:37=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+> >
+> > Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> > - [Medium] Detection of the RVA23U64 profile fails on compliant platfor=
+ms because it strictly requires the unratified `RISCV_ISA_EXT_B` bundle ins=
+tead of the formally ratified bitmanip extensions (`Zba`, `Zbb`, `Zbs`).
+>=20
+> I disagree. But I would welcome more ideas.
+>=20
+> My reply is threaded in v2, FYI:
+> Link: https://lore.kernel.org/linux-riscv/CAH1PCMa-5W9PsX8cDLUk6-MkcM53HO=
+z2QtaxCHd+XOr7DgH5+w@mail.gmail.com/#t
+> [1]
 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
-.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> index 62f0521b09245..ecf206871cdde 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> @@ -42,13 +42,22 @@ properties:
->      properties:
->        port@0:
+The v2 argument you made makes sense to me.
 
-[ ... ]
+--L6Z/nkLzzY0eiXog
+Content-Type: application/pgp-signature; name="signature.asc"
 
->        port@1:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Port node with one endpoint connected to a dp-connector node.
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: Port node with one endpoint connected to sink devic=
-e node.
-> +        properties:
-> +          endpoint:
-             ^^^^^^^^
-[Severity: Medium]
-Does restricting this to the exact node name 'endpoint' cause validation
-issues for unit-addressed nodes?
+-----BEGIN PGP SIGNATURE-----
 
-Because JSON Schema strictly matches object keys, a node named endpoint@0
-under port@1 will bypass this block, meaning the video-interfaces $ref
-and data-lanes validation constraints are never applied.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiFAJwAKCRB4tDGHoIJi
+0u+3AP9x32Ds6znHleKlkiiRURSzdLvPa17smm81pUNtZKhw5QD/aYzHPjnRJzQq
+D5/QLeE6qCpk/BA4NNLFM6goTl5hIg8=
+=z8cp
+-----END PGP SIGNATURE-----
 
-Should this use patternProperties: "^endpoint(@[0-9a-f]+)?$": instead
-of properties: endpoint: to ensure unit-addressed endpoint nodes don't
-bypass these constraints?
-
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 0, 1, 2, 3 ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604085220.2862=
-986-1-damon.ding@rock-chips.com?part=3D1
+--L6Z/nkLzzY0eiXog--
