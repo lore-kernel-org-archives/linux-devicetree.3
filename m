@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6133DD871
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 07:08:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BD33DDDC7
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 07:08:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780556897; cv=none; b=hdIfX9luwBBL1LlebSGURY6eRFvhre5sTJtpQfVwDJ4xUEISybcuZ+hOXv1EvLejyuy5wOZVXhqmDrYWNWysY70aHTJXolMtNgU2VTqWzjbQwcvf3LBBsSMzR57YM+o8cXoTqvw0x28u5BiyfmjtXNy3lTFKPze8uK6qZ4kszA4=
+	t=1780556898; cv=none; b=dy+P0YpSPbjn9GLhNDU749M/1K8oqHrLPU+VCFUqH0en3O07+JxYAurAHw6wMrwe4X5AeReDJ/Ob23Tn0Z8znGVBGH738XvufwcmTgorGKIzVMEgxDE+IRSVSs+ipez40a8TmBUK/C0K4w0yBXGLKMabDZIW26GSYpmhbKroStk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780556897; c=relaxed/simple;
-	bh=1dvu/0LLTLR90O0gqLSPoOmo08aBaWTNMO5iUwIC680=;
+	s=arc-20240116; t=1780556898; c=relaxed/simple;
+	bh=wKb15RiCdoQLWCfnrHec7iEVm33TQKi9kkmPlzGwJgo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XhXocnVBm/BaCYk8aCx6h2qdkTgKGszyWzurKsC1gOJZR27PrW/TidE6CxTbNldrM7eCU0ywTectDSjE4yy3HUE1o6gmYsjgNK+gCuTZMASq0i4x4b+3bghF4Aj68cB1q05hA4h4LHJknVpWdcGR+zFQ4NgIS2Wzhc1gJmlknjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YZTWob//; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uhyCOoNReB6z2nkxtAHg+rGz8HyFeAlDgOuaczQ2pDYW+S0es748JuxkZyeaXHAFp/LnVY4gHo5DfaLZnHT6jGLNeKNJVoonWZEZ2Z75aNSIyU8qDks0kKZRCOGlONcYU6DkqHZFw8fmY5zVqY3qqMeDCx4VZtw1AIXZgVAFAHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i06CV7LD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YZTWob//"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 257491F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i06CV7LD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9DEC1F00898;
 	Thu,  4 Jun 2026 07:08:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780556896;
-	bh=+zLSbGogwb064Eke+QTyFLFklQEMGuOqWVZhHbCaSOs=;
+	s=k20260515; t=1780556897;
+	bh=sUk+isGJQR4jvlnkPDM0eOe7IxuUlMa2VydZM+2DvrU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YZTWob//31KDNMPemQIHComreNaNKy5xTmSX2PMdlT/Nq8ChNSu43RfqKQeg+Da36
-	 OqRfP+IlvsjA/54C1Q9ugTrupEEzfp6Fr0gzUhMSiW+jlH8/1dtLTw/AphUh4yGQzr
-	 MZ9q2JU0bWpnrALzV0pJ8Xr+XGNMeldTAVhXQs/rHB/WtCBT9DaRDvJOnnS6DoMEaw
-	 FiVzRAEhyHsWTVusLXvyCvIsWVuomMH/SlFdXgirB0VywvSE2+WySrVryUjsn6Zmmf
-	 XrPPzvnvqxxUGXPaCQSB2rZStLsOlR0kC32k+RSrGstXxoxGclNmkoO4wIV6/epcME
-	 UHE2tumzSAy/w==
+	b=i06CV7LD1aDrcgL1JfB16rGytBodsI5uuMVO5Ej82GIOZ0Ui7XKQJjtc1DpK/0O8v
+	 BhBzN368JFg8va2ixudoC/Re86O/Jdq+1kALizSaxlpuTs6HOqWv0LH0mbGKto4T1F
+	 MCTntwg8wj0Rou7/vX6+hm+JcKnGDAJshSNBFPO06wIxGQMzv5GKfDci81j/Z3mK9Z
+	 Shp6F+3Y1RoX3Nx9v1zFXU52vfg5ncHcXBDj9r930AU9NHhzJ5po/evThkIL3VOGia
+	 1UIn/iwJZW0eMfwAW87iYQC5n3zLlIKtXzpHJu0566Ov5T5tW/ZTe5QZSZvO+ZXs6A
+	 CxF+BKPrImkkg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 07/10] ARM: tegra: tf701t: Fix BCM4334 configuration
+Subject: Re: [PATCH v3 2/4] spi: qcom-geni: Use geni_se_resources_init() for
+ resource initialization
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604065556.137614-8-clamor95@gmail.com>
-References: <20260604065556.137614-8-clamor95@gmail.com>
+To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260604-enable-spi-on-sa8255p-v3-2-43984eac4c67@oss.qualcomm.com>
+References: <20260604-enable-spi-on-sa8255p-v3-2-43984eac4c67@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 07:08:15 +0000
-Message-Id: <20260604070816.257491F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 07:08:16 +0000
+Message-Id: <20260604070816.D9DEC1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,51 +46,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The patch silently changes the WiFi node's compatible string to =
-include 'brcm,bcm43340-fmac', which contradicts the commit message stating =
-it fixes 'BCM4334' configuration.
+
+Pre-existing issues:
+- [High] The driver ignores the return value of pm_runtime_get_sync() befor=
+e accessing hardware registers in spi_geni_init().
 --
 
-commit e6b9085d18e1ff9ab5d22d698abaaba30676ee22
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit 297907766125fb69231313b230385906933609be
+Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
 
-ARM: tegra: tf701t: Fix BCM4334 configuration
+spi: qcom-geni: Use geni_se_resources_init() for resource initialization
 
-This commit removes the reset GPIO from the Bluetooth node and adds the
-lpo clock to both the WiFi and Bluetooth nodes to fix configuration.
+Replace resources initialization such as clocks, ICC path and OPP with the
+common geni_se_resources_init() function to avoid code duplication. This
+handles all these resources internally, ensuring consistent resource
+management across GENI SE drivers.
 
-> diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm=
-/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> index 73276f2aa7fe4..e3e0b4ba7eb86 100644
-> --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> index a04cdc1e5ad4d..333216df922e8 100644
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
 
 [ ... ]
 
-> @@ -2382,9 +2382,12 @@ mmc@78000000 {
->  		vqmmc-supply =3D <&vdd_1v8_vio>;
+> @@ -1104,24 +1092,12 @@ static int spi_geni_probe(struct platform_device =
+*pdev)
+>  	if (spi->target)
+>  		spi->target_abort =3D spi_geni_target_abort;
 > =20
->  		wifi@1 {
-> -			compatible =3D "brcm,bcm4329-fmac";
-> +			compatible =3D "brcm,bcm43340-fmac", "brcm,bcm4329-fmac";
-
-[Severity: Medium]
-The commit message notes this fixes BCM4334 configuration, and explicitly
-mentions dropping a GPIO and adding an lpo clock, but it does not mention
-modifying the compatible string.
-
-Could the commit message be updated to document this change? Also, is
-brcm,bcm43340-fmac the correct value here, or is it a typo for
-brcm,bcm4334-fmac, given the commit title and the Bluetooth node both
-specify BCM4334?
-
->  			reg =3D <1>;
+> -	ret =3D geni_icc_get(&mas->se, NULL);
+> -	if (ret)
+> -		return ret;
+> -
+>  	pm_runtime_use_autosuspend(&pdev->dev);
+>  	pm_runtime_set_autosuspend_delay(&pdev->dev, 250);
+>  	ret =3D devm_pm_runtime_enable(dev);
+>  	if (ret)
+>  		return ret;
 > =20
-> +			clocks =3D <&palmas_clk32k>;
-> +			clock-names =3D "lpo";
-> +
->  			interrupt-parent =3D <&gpio>;
+> -	/* Set the bus quota to a reasonable value for register access */
+> -	mas->se.icc_paths[GENI_TO_CORE].avg_bw =3D Bps_to_icc(CORE_2X_50_MHZ);
+> -	mas->se.icc_paths[CPU_TO_GENI].avg_bw =3D GENI_DEFAULT_BW;
+> -
+> -	ret =3D geni_icc_set_bw(&mas->se);
+> -	if (ret)
+> -		return ret;
+> -
+>  	ret =3D spi_geni_init(mas);
+
+[Severity: High]
+This is a pre-existing issue, but does spi_geni_init() fail to check the
+return value of pm_runtime_get_sync() before accessing hardware registers?
+
+drivers/spi/spi-geni-qcom.c:spi_geni_init() {
+    ...
+    pm_runtime_get_sync(mas->dev);
+
+    proto =3D geni_se_read_proto(se);
+    ...
+}
+
+The pm_runtime_get_sync() function can return a negative error code if the
+device fails to resume. By not checking the return value, spi_geni_init()
+proceeds to read from the hardware via geni_se_read_proto().
+
+On QCOM platforms, reading from unclocked or powered-off peripheral
+registers causes a synchronous external abort (bus error), leading to a
+kernel panic.
+
+>  	if (ret)
+>  		return ret;
+> =20
+> -	/*
+> -	 * TX is required per GSI spec, see setup_gsi_xfer().
+> -	 */
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604065556.1376=
-14-1-clamor95@gmail.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-enable-spi=
+-on-sa8255p-v3-0-43984eac4c67@oss.qualcomm.com?part=3D2
