@@ -1,100 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D9B1A6800
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 20:30:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41983DFC8F
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 20:45:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780605055; cv=none; b=oV7UAcLDt5f4HgECa/UqnQFGU0agxjFVzTQFkUpNLcXbpH177i/3IsC9xL+GAOyyTk5aCyemwLYA3neFiD5BPmgg7M9xxxlxHQQlAKTCDNWNauTt6C8hRYMslL44sbAmea2t27oFsO4UdFQ9QdJqKnExLH7VnHsO5PfBiWZYT7c=
+	t=1780605909; cv=none; b=mTQtVU0q4tRMHh/dYs1WHWIWLfGmw9W4F3W1TwmmOIvxUNgcKtdon9h9gchBKhCdDyNmwUWIbS1Ej2o0R0jWmFGjfv/yhj6cnq/6rwKzmftnPdIV8gMkfPlv8QM4Gh9A/R3JVNIg2wB38fmdAluWPcGbk3xRegVx3AnUrX3KHFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780605055; c=relaxed/simple;
-	bh=tBrEaiWKFaYMJT1d8Hc7LrFnEaE28GkXLO3tnS7fca8=;
+	s=arc-20240116; t=1780605909; c=relaxed/simple;
+	bh=fnxuFjsk27LRLgBJedoJGhu5j+HJTdT4KydJw+zNHKk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SJtsL40YqkqRSc4B2YngEK4YC0oCWsQ2ASFmH+I1dBCWuUIAdw6N9LnJToOTXL9a78IN/7aWXzGBsyrpQ6xodOMrI/c4cR16t7R2i8aGLwsTSRihQJ2VdqPoyQAz32+7JqrYLBlIoDnzXxJ2DU/assFkGsB5jqyQesa50nCDZ1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNs7nGVe; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mpLrftgG+I0IBKKOXxmx2fPx0HjKpldX5pd6OZioAy3asqYNea5ygSqdX3TW/AbO72IQrrn03p141PR4f+m3MhHXdPkAc74ybad/oH1BMu1l5+43Q1pv9+CK8vCRcP15Cd0hFEyHF4CI3YNlf0VaOji+hXj6uBClHhAKAg6U31A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AssVGOtl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNs7nGVe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED4B1F00893;
-	Thu,  4 Jun 2026 20:30:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AssVGOtl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126881F00893;
+	Thu,  4 Jun 2026 20:45:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780605053;
-	bh=KkJGfuhiSJ5B53mNHgtwzsHHAF7qVFocM8B16/P4J9o=;
+	s=k20260515; t=1780605908;
+	bh=stowl0EbPDcRMLkEbV+ANGMYqP7KCxS179Gq/4jGXEk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CNs7nGVea9rS0/sfu0qBKRqBIiAHRy7rTJPnwnTRH4WrLHqQPZcPdktG1By1O/FyH
-	 OYToCguAONGMr0uyr46E1OtbfF545ZM/NWxF+xxaFFlgDqBXAtjyZ8hEISDa1NZb+e
-	 MCTLNFm0h+jiSqw3MrbQ/UQlphDj3Vo+U917b5G8uW6wy5FLybvj10CVH5EMnRZAsA
-	 4UzKWxhuQhCxeOWoi4U19X4GEJrwR2corUuDbTIhZCcM/p0vObT2wnXWlYWkNSzvSx
-	 qPvBrqSMiukXmxj69PEt4muJRMIW7P/IPUTVNEsZMpHddFg22TVkwvONmtp3NOcIKZ
-	 tFtMaUrBar7dQ==
+	b=AssVGOtlXrtCr+prEpnB82WpAuhMVfjQW6tL6AeCyE+vAoLOdf3TAU/y+UNcnaZwL
+	 rt9aNiuVaMMPVTwc2+cSlmdtf0XFG59mq3q7sPc+fDdsgMg2Q/IClnMHKD0zLk5qGC
+	 X81AspE3XdWvGMKeDbFtQ0UKfLBK4jjmIjQrgnEBJiu5yH2kjnvj2yuIHMJBSOANh9
+	 3rX10iyJVARu8bN3HiXwc4nMyx6M9qcfU1z6vKrVZksrSdLUG3TwNm+scFW00vVl5y
+	 parGokw/Ybr5GkPeM+0k+syymvNBCgw3VCD1VPl3fgHun2vvMNt7xI1RGMoJX6HiYY
+	 83ui+D8V+TsvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
- add initial device tree
+Subject: Re: [PATCH V10 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Erikas Bitovtas" <xerikasxx@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604-yukon-eagle-v3-2-9e3b57d306a8@gmail.com>
-References: <20260604-yukon-eagle-v3-2-9e3b57d306a8@gmail.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260604201832.60656-4-macroalpha82@gmail.com>
+References: <20260604201832.60656-4-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:30:53 +0000
-Message-Id: <20260604203053.8ED4B1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 20:45:07 +0000
+Message-Id: <20260604204508.126881F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] [Valid Concern] Missing pinctrl configurations for board-specifi=
-c GPIO and interrupt pins.
+- [High] The driver state structure `st` is never saved to the device's drv=
+data, leading to a guaranteed NULL pointer dereference in PM callbacks.
+- [Low] Redundant error code argument in `dev_err_probe()` format string.
 --
 
-commit 0d3ad64620f5f2b167411a5e45e162a58e8c3259
-Author: Erikas Bitovtas <xerikasxx@gmail.com>
+commit d1ce5988d50518ee3fa99e6870abfe673fb42169
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle: add initial device tree
+    iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+   =20
+    Add the core component of a new inv_icm42607 driver. This includes
+    a few setup functions and the full register definition in the
+    header file.
 
-This commit introduces the initial device tree for the Sony Xperia M2
-(sony-eagle) smartphone based on the Qualcomm MSM8926 SoC. It enables
-initial support for features such as the framebuffer, storage, sensors,
-and GPIO buttons.
-
-> diff --git a/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts b=
-/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
 > new file mode 100644
-> index 0000000000000..2c1e5755a50af
+> index 0000000000000..74d4cb03f7b86
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 
 [ ... ]
 
-> +	gpio-keys {
-> +		compatible =3D "gpio-keys";
+> +int inv_icm42607_core_probe(struct regmap *regmap,
+> +			    const struct inv_icm42607_hw *hw,
+> +			    inv_icm42607_bus_setup bus_setup)
+> +{
+> +	struct device *dev =3D regmap_get_device(regmap);
+> +	struct inv_icm42607_state *st;
+> +	int ret;
 > +
-> +		button-camera-focus {
-> +			label =3D "Camera Focus";
-> +			gpios =3D <&tlmm 108 GPIO_ACTIVE_LOW>;
+> +	st =3D devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+> +	if (!st)
+> +		return -ENOMEM;
+> +
+> +	ret =3D devm_mutex_init(dev, &st->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->hw =3D hw;
+> +	st->map =3D regmap;
+> +
+> +	ret =3D iio_read_mount_matrix(dev, &st->orientation);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to retrieve mounting matrix %d\n", ret);
 
-[Severity: Medium]
-Are the pinctrl configurations missing for this GPIO and other external
-interrupt lines in this device tree?
+[Severity: Low]
+This isn't a bug, but is it necessary to include the %d format specifier and
+ret argument in this dev_err_probe() call?
 
-Nodes such as this gpio-keys button, accelerometer@f, light-sensor@48,
-nfc@28, and sdhc_2 utilize GPIOs and external interrupts but lack explicit
-pinctrl-names and pinctrl-0 properties.
+The dev_err_probe() API natively prefixes the log message with the provided
+error code, so passing it as an explicit format argument might result in the
+error code being printed twice.
 
-Without explicitly defined pinctrl hardware states, the pinmux and bias
-states remain strictly dependent on bootloader defaults. Could this lead to
-undefined peripheral states or spurious interrupts across suspend/resume
-cycles or with different bootloader versions?
-
-> +			linux,code =3D <KEY_CAMERA_FOCUS>;
-> +			debounce-interval =3D <15>;
-> +		};
+> +
+> +	ret =3D devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get vdd regulator\n");
 
 [ ... ]
+
+> +	/* Setup chip registers (includes WHOAMI check, reset check, bus setup)=
+ */
+> +	ret =3D inv_icm42607_setup(st, bus_setup);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Should this code save the driver state structure to the device's drvdata?
+
+Because runtime PM is enabled at the end of the driver series,
+inv_icm42607_runtime_suspend() will automatically trigger after the
+autosuspend delay.
+
+It calls dev_get_drvdata(dev) to retrieve the state structure, which will
+return NULL since it was never set here.
+
+Could this lead to a NULL pointer dereference shortly after initialization
+when the PM callbacks try to access the state structure?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-yukon-eagl=
-e-v3-0-9e3b57d306a8@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604201832.6065=
+6-1-macroalpha82@gmail.com?part=3D3
