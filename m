@@ -1,181 +1,182 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAB9E2C1586;
-	Thu,  4 Jun 2026 01:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F31388E6E
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 02:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780538399; cv=none; b=JmWD6AhK/QjSQi9wbXualuWSrEBhHZ7vlGikuxLDTEFtksG+M52UaCX4DaXOaZj/PiWEMS+lg9cidshmgVINbG70uLVTQhMCVjTXXlHl44eWaqzaeKIb5NIfXsJ9nD/3p0I4dQjydLtGadiqaHX+e2BZgdFl0zBUCyqyQUmIZGM=
+	t=1780538574; cv=none; b=iLuj6jC1Mqosw4vbJLvCgvzij2TDOj/9bk1O1SMDk38QjzF45Au/e0QHhL4qnv5RthhwME+bny/UQqFRJPSOS5zJ9RWsDkaAzE2dqLxVEJD+4g4nN51XUpKPO3qC/1CKe8lpJHBO/Eo10k5Rq9mwglhC5NyJBWwRGXfQ5y0rB2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780538399; c=relaxed/simple;
-	bh=9LpJ178pAQvNzrfh3/t7+78v3aMt4vS7RyuBMKK1H58=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SzAIDwGvhfZ4NdOpJ+1CBMwn4Iq//VYzQnRTZh7/N+stJi0v7lCstGhnU2sDddkNb1fkPSrw2euexSV0yocoih0tW+R1hjrf8LBKiVCySvPFTEH4/0OtT7Yx6vXqSsARMeNgPYcgppzRBCXiqKY1lb8u6tJmZpFAKmsaWzSu36g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8AxZngb3CBq5l8QAA--.20829S3;
-	Thu, 04 Jun 2026 09:59:55 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJDxSMEV3CBqvESbAA--.17953S4;
-	Thu, 04 Jun 2026 09:59:54 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Hongliang Wang <wanghongliang@loongson.cn>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
-Date: Thu,  4 Jun 2026 09:58:48 +0800
-Message-Id: <20260604015848.18643-3-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260604015848.18643-1-wanghongliang@loongson.cn>
-References: <20260604015848.18643-1-wanghongliang@loongson.cn>
+	s=arc-20240116; t=1780538574; c=relaxed/simple;
+	bh=ydKZYR+Y656Yw/RzkG9VPOvC0WJNSVkB9Fl1bWPPzlI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hvZsAk7C4Ur66Y3xoAnDb+gLGMSKF+TkyxzGJKuPmqE0SnkRnzFMTh4V5H9TJxSR3U/PviJ5W7ovB6yY86lIYlWpQ3CbKQALLZuZNhubOEjirGRlUTRrBk70/NoWoH8n9ByJjp7IO6QqzTKG8woXA33iV14+EHqOhxUQnxtOOA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PSpSDJ1t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q2jweFwD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PSpSDJ1t";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q2jweFwD"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65402oBn1476732
+	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 02:02:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Q85xjLd3JmVGen8gRY9Dym5jEmwnZApOCk0ggYyeWL0=; b=PSpSDJ1t5OoimHBA
+	jvqZnpMh9pg9bCxwbtMYRfGU8QplH4XRwr3xEefRECnriMhKUD1z0mW9NnQw11ij
+	9du+os2xYW4MCj+4wg8v+4CUNTgQlAeFYuWcZLWe/fS2Km5sskX3cn3kF9tQpXr2
+	NsK9n8g1wOkxF3txSaNynqzzPAM/bRhqDL8qohqdaESN3qWMmdyakzhS2PhGpMF1
+	2RlQHdxih8G6JhQPLIU+wrioI9CRUDtb8hNgPzDKND36Xg+5Q9yg77o234XAR4rS
+	CCmYOP4hk7QMvZf4IC1zSaXyeLuDoNmzK2cqTB61m8ZVTeNJmZdKEpU7sDJjLx9x
+	/yT7jA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejp6ntha2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:02:51 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c85a2cda4d0so117387a12.3
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 19:02:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780538571; x=1781143371; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Q85xjLd3JmVGen8gRY9Dym5jEmwnZApOCk0ggYyeWL0=;
+        b=Q2jweFwDYYD0yYhabW+nqFrJR96b+9j8uVeT0BjAyI568HqJumLSxJWQ0f9H3838LE
+         0SQY1iA0+Ldn9KJhJbdvNnntld1QdO3Df++hnHIorftnJTFtVf+tQz2ho8mujtEPTiB3
+         +fbPkHeE9cdrbJmpvowlmINaw4eHEQugEF7QmoSKw1I+rjuiSzvTCwyFK3JcdpLciqCG
+         iRIuR6Vo7YaiqDrEmPtLdxuI6rDzHWyjZ6C9R79fpeAoZypbiYWXE/QsmZIjQbA7W769
+         M3PGUgnktTM0L3NicbQ+RdNR4v/JQ//YEqpeqfrdx8I7Pfsvbmy/an6VTLeaZpRvE3h5
+         f3KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780538571; x=1781143371;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q85xjLd3JmVGen8gRY9Dym5jEmwnZApOCk0ggYyeWL0=;
+        b=SXFcl7xOfuP7d+bI9TBXN1zb3SIufR/VX1FqfnAIljpAoqSe+MsHR0+yVjXpRS1tST
+         ALykOYpN8iY6SiUU9j3yt8Lxd4XFOn74YpBLgH++UkJz/hOcnLGWZ522cSDVLx2v99+k
+         UvDD2r2PXN4EY7pI0eDxvc2+8ors4CUlqbiyVpQMvliIDRyzqBoVYAx/2aBnfzsVdKr/
+         Apg7H8WnJzOsF4TNeaWqdydOZsG2cj/ejZ3SeIx6rRI2k/7sGKUdwahIZl0mde4ehX+1
+         hgDf//+NwCJlLzfYVym04e44fdAYLIonTtjx5lMcRLBGDXGbuouQqEIFrMWTy81atpOC
+         NXVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/nViLGLCBN3c6NSrmfGxRxCI4dPRpwSQP9gaEDAJSH5XyGOhrLmeBOXDSFKfLO8epgUFKrBuCZUHoc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/ueCvAXnKLHjEuOVMBNgFbEk4Pq+Sg2F+PtGxpRoksExxZeRY
+	DnkWGZqARJHcg1Qj2od+mExrC2amiUoyipBKdBBNjzdfK8nXLI+eQ3q62mANhaPYBVC/FgciTqy
+	xCi8ARSQOGXZXjQb9TKcpMbmX3Hw+ZEaoLpgKjQ5HnsX7uijEbZgCH7zK2P5OPYW+
+X-Gm-Gg: Acq92OGecLs06owSEGMK6i7IsErCCY8Si1UVi/Ni4ZVM4sfi79eNQ3/Mn1w5DXtbplM
+	1fiMFzSlfayT+EJzYTjPGtWBqfeKpf413Epp33yc5k4n2up0iYAev+RMl4LGFWDlqnhKvReSaf2
+	Af60y48Qhmy4v0FTSjCiusYU/8snOqQp+aJsziABB/tyML3aFsU0uZChdYDLgGvW19owTzrsFVO
+	Qqo/8cgxYDjnvWEtQ16rjlWkaj6xzWX0IiSPspO5E63Q+4OoU+JhIitfoYcRMzUwPL81PCaDTHM
+	qhcDIYqtlEnbN4SBFirnwSwG0NGv2GgRH1fFAw1jAa9qhNcVhoTj4u1loIiN/jskWMVX9oWTYOy
+	Jha8XDVNBi3Mcuncm3YZXzcWQW79d3CLBMXm0ogLCk8tbdDYxqHwsblvfLA==
+X-Received: by 2002:a05:6a20:728d:b0:39f:9eb3:1d09 with SMTP id adf61e73a8af0-3b49766b7f2mr6538683637.37.1780538571140;
+        Wed, 03 Jun 2026 19:02:51 -0700 (PDT)
+X-Received: by 2002:a05:6a20:728d:b0:39f:9eb3:1d09 with SMTP id adf61e73a8af0-3b49766b7f2mr6538631637.37.1780538570626;
+        Wed, 03 Jun 2026 19:02:50 -0700 (PDT)
+Received: from [10.239.155.28] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85deeb2bdesm3413401a12.0.2026.06.03.19.02.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 19:02:50 -0700 (PDT)
+Message-ID: <9927f5d7-1eca-4936-b38c-678e76ac11cb@oss.qualcomm.com>
+Date: Thu, 4 Jun 2026 10:02:43 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] soc: qcom: rpmh: Allow non-child devices to issue
+ write commands
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Maulik Shah <maulik.shah@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260528-pinctrl-level-shifter-v2-0-3a6a025392bf@oss.qualcomm.com>
+ <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
+ <4ac5hjmr6divqs4myhcw5sveuboj265sw2jwslbivrfwh5e7ce@6d7ajvgikkgt>
+ <18235340-cd42-4d88-bfdb-19aecdd63d68@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <18235340-cd42-4d88-bfdb-19aecdd63d68@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxSMEV3CBqvESbAA--.17953S4
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCr15KF15uw15Xw1DAw4fZwc_yoWrXF1rpF
-	W5CFZ5Gr4qqF42grnaq3W7ZFyYyws5JayUCFy7tw1xW3Z3Xr1DZa4ftFn09F4vgF97uayU
-	XayDGr43CFyUZrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0epB3UUUUU==
+X-Proofpoint-GUID: EGyUsHczmnwqz_qjn67CxV4i4_RGmIHn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDAxNyBTYWx0ZWRfXx2y/NoodV1Cq
+ TiBzepUThAbIkHWNRaFHgNSBy6zqClcY/ENe4VWJcfIFzV6O7MxhB4/9FB+HppJk5201/RGCeIY
+ abylSueWvDR7DTrN2bM0mga8QbuP1ZfxjET6WGPZSl57dt7iCB6MMdExxyu6Ixw8wFbuVAbB4wp
+ 2blLcrnvQjRnkI17VRquKBjbwpqkQT5IL23SEcT15xy5ZvDzFPVl32LH2271mT7Giwh5W6RRGzD
+ HGNwsEdVadCVqzh9g+T0GqqWVYF/ig3HyOKqjmbl8QI/GgEFvtQof97qIqHscug10YfAjRAuOhF
+ f+ZbNRrxgr3Lv1WrIH8aFtG6RKgqRupfHSTj0ynr2lSTT+buMmKl9pPFMBlEmR4OJuOMnTWH0O3
+ PWKhrX7VxNQlDMtXDCgWwvw9Yad++nNpOCXLTrs8Uz8O9UMypCaHzsN9DnIew25RGf3rz01J0RP
+ FLStFkY9D/wTOqr981Q==
+X-Authority-Analysis: v=2.4 cv=DbcnbPtW c=1 sm=1 tr=0 ts=6a20dccb cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=m7le24t4bVehakb2-XAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: EGyUsHczmnwqz_qjn67CxV4i4_RGmIHn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-04_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 adultscore=0 spamscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040017
 
-The i2c-ls2x driver supports dts and acpi parameter passing.
 
-In dts, uses clock framework, by parsing clocks property to
-get i2c bus reference clock, and define the div of reference
-clock by device data.
-
-In acpi, by passing clocks property to describe i2c bus reference
-clock and clock-div property to describe the div of reference clock.
-
-Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-and div, calculate the prcescale of i2c divider register. The
-calculation formula is
-
-prcescale = (clock_a*10)/(div*clock_s)-1
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
----
- drivers/i2c/busses/i2c-ls2x.c | 36 ++++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index b475dd27b7af..46dafa11b301 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/clk.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -63,11 +64,18 @@
- /* The default bus frequency, which is an empirical value */
- #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
- 
-+/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
-+#define LS2X_I2C_2K_CLOCK_DIV	40
-+
-+/* The div of i2c reference clock on LS7A1000/7A2000 */
-+#define LS2X_I2C_7A_CLOCK_DIV	50
-+
- struct ls2x_i2c_priv {
- 	struct i2c_adapter	adapter;
- 	void __iomem		*base;
- 	struct i2c_timings	i2c_t;
- 	struct completion	cmd_complete;
-+	unsigned int		div;
- };
- 
- /*
-@@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
- static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- {
- 	u16 val;
-+	u32 pclk, div;
-+	struct clk *clk;
- 	struct i2c_timings *t = &priv->i2c_t;
- 	struct device *dev = priv->adapter.dev.parent;
- 	u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
-@@ -107,12 +117,30 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- 	else
- 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
- 
-+	if (dev_of_node(dev)) {
-+		clk = devm_clk_get_optional_enabled(dev, NULL);
-+		if (!IS_ERR_OR_NULL(clk))
-+			pclk = clk_get_rate(clk);
-+		else
-+			pclk = LS2X_I2C_PCLK_FREQ;
-+
-+		div = priv->div;
-+
-+		val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
-+	} else {
-+		/* clocks and clock-div are only ACPI properties. */
-+		if (!device_property_read_u32(dev, "clocks", &pclk) &&
-+		    !device_property_read_u32(dev, "clock-div", &div))
-+			val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
-+		else
-+			val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
-+	}
-+
- 	/*
- 	 * According to the chip manual, we can only access the registers as bytes,
- 	 * otherwise the high bits will be truncated.
- 	 * So set the I2C frequency with a sequential writeb() instead of writew().
- 	 */
--	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
- 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
- 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
- }
-@@ -295,6 +323,8 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->div = (unsigned long)device_get_match_data(dev);
-+
- 	/* Map hardware registers */
- 	priv->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->base))
-@@ -349,8 +379,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
- 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
- 
- static const struct of_device_id ls2x_i2c_id_table[] = {
--	{ .compatible = "loongson,ls2k-i2c" },
--	{ .compatible = "loongson,ls7a-i2c" },
-+	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
-+	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
--- 
-2.47.2
-
+On 6/2/2026 3:29 PM, Fenglin Wu wrote:
+>
+> On 6/1/2026 9:37 PM, Dmitry Baryshkov wrote:
+>> On Thu, May 28, 2026 at 06:05:35PM -0700, Fenglin Wu wrote:
+>>> Currently, the RPMH driver only allows child devices of the RPMH
+>>> controller to issue commands, as it assumes dev->parent points to the
+>>> RSC device.
+>>>
+>>> There is a possibility that certain devices which are not children of
+>>> the RPMH controller want to send commands for special control at the
+>>> RPMH side. For example, in PMH0101 PMICs, there are bidirectional
+>>> level shifter (LS) peripherals, and each LS works with a pair of PMIC
+>>> GPIOs. The control of the LS, which is combined with the GPIO
+>>> configuration, is handled by RPMH firmware for sharing the resource
+>>> between different subsystems. From a hardware point of view, the LS
+>>> functionality is tied to a pair of PMIC GPIOs, so its control is more
+>>> suitable to be added in the pinctrl-spmi-gpio driver by adding the
+>>> level-shifter function. However, the pinctrl-spmi-gpio device is a
+>>> child device of the SPMI controller, not the RPMH controller.
+>> This replicates the story of the PMIC regulators. There are two drivers,
+>> one SPMI and one RPMh. Why don't we add a separate, RPMh-based GPIO
+>> driver targeting only those paired GPIOs (and we don't even need to
+>> represent them as a pair, it might be just one pin).
+>
+> Thanks for the suggestion.
+>
+> I agree that adding a separate, RPMh-based GPIO driver would be more 
+> straightforward from RPMh control perspective. It makes the new device 
+> as a child of the RSC device then it can naturally use the APIs for 
+> RPMh commands. The main challenge here is, we need to make the 
+> level-shifter mutually exclusive with other GPIO functions when the 
+> GPIO pairs are used in level-shifter function, which means we need to 
+> write SPMI commands to disable the associated GPIO modules. I am not 
+> sure if AOP already handles this; as far as I know, AOP only manages 
+> the BIDIR_LVL_SHIFTER module registers. Let me double check on this 
+> internally, if the GPIO modules could be controlled along 
+> with BIDIR_LVL_SHIFTER module registers at AOP side, and get back.
+>
+I checked on this internally, AOP only handles BIDIR_LVL_SHIFTER module 
+registers, it doesn't disable the associated GPIO modules. Also, I still 
+have no idea how could we make the "level-shifter" function to be 
+mutually exclusive with other GPIO functions after moved it into a 
+separate driver. Do you have further suggestions?
