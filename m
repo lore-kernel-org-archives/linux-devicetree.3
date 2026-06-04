@@ -1,108 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49212.qiye.163.com (mail-m49212.qiye.163.com [45.254.49.212])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EC73F6C23;
-	Thu,  4 Jun 2026 08:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630483F7A87;
+	Thu,  4 Jun 2026 08:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.212
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780563497; cv=none; b=sW/A9aG3EW6+hDGJHZb+DO4IpNOSVuNaMgKNGMUhy64bZcgcimJWx6iMprTAPUXmSg+RQ5CvCnk9pxDPuhfquFmrg63p96I5cO59m4Txnj5ShTyzYTL2K6uJPsdlR1UTkSTOSvgfLHd9rfdBWN1plNiXqXVpHyusPK6HH+VNKc8=
+	t=1780563517; cv=none; b=bPAwuVsAesYwH3DOg2Z+soZ4EfKtopKam8e6YK33QrqqWGy2/n/d6iqWrykuVt7LY/eq63YgDnfQj480lcoo6ecEGgSvGq7l7Um40n95wawQTXWJXSbZcQUxwHsl989IVp/poekIVqXUUjtJWY5Qnd5dnobs7R5e0kCnMgZ7eqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780563497; c=relaxed/simple;
-	bh=Oqw/BTCOa4qOEyv2l2dqeSFwZ0yug7JH+UYGmIjLZNs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=agTGcyIUtcviuAHIYZCiIQ+VUuXY/w5CYhHrHmbbDsSh4PqM59AShENS3feU42FvTEtEtyHLwhM+8XjkgQs2ColM9lGOY1MDSrv3s9o3zFu2qloWWRtFqd54XkrvXmPwYnQxLC2M+s7Navs8xb/ZQyMPLmsjYOVB32vMN7GQ9Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VrtUb5ZB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780563517; c=relaxed/simple;
+	bh=6pUnD1VZFUVIHo2dUlqvjxwiN9CPLJBTFjP0mdEpF98=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NGnV3PGkftuFkYZXdwW/mmfvpv2pmbXdpfRiAV6d+ZmI/xwcy6uKKh+iK9jqzEhzpBC3H5yWS2XeQrHrawGzRv7Kd1LylVx12+GPo8vT0evbxAS+jY8cIyibEfad8z6wFf95pQ8c/JYnOr7JVpfxnQs7K5gzIlKuwvYS6UxPSt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ISOkaqn3; arc=none smtp.client-ip=45.254.49.212
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VrtUb5ZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B11B1F00898;
-	Thu,  4 Jun 2026 08:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780563496;
-	bh=Oqw/BTCOa4qOEyv2l2dqeSFwZ0yug7JH+UYGmIjLZNs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VrtUb5ZByRFiEFpZbrtRgmfNuv36YbTyPsQBNkllK7Qky3PEBUSDGTtyingVW4rzw
-	 wniw0homTKR7hKmjD7BPqSbRSsHVM6HISvLe4tmV0rwnOVzrtV6zNK6O/V/BeCEV0U
-	 UqH12BDhN7woIDNfu0uuWWk2sPnIm5+XCthrHgN08MOYz00l0LY5KS29ugwjxj1lLD
-	 tNt1ajpYluj4t+uwoCWjUYKk278IIrOaEFOhvTnQB6+wMArEdPIMFfo6CAUTgqUGVR
-	 n859YBTDEkLN8hzklqdEMoEI5c5rqc1/Lb7gcr5J9Lc6scWRJqbWNKnoJP161BtF/j
-	 RWKf07FUXqhkw==
-Date: Thu, 4 Jun 2026 09:58:12 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: SP_ISW1_AT@novatek.com.tw, andi.shyti@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ben_huang@novatek.com.tw, toby_chui@novatek.com.tw,
-	shihpei_hsu@novatek.com.tw
-Subject: Re: [PATCH 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC i2c
- driver.
-Message-ID: <20260604-grievance-esophagus-a607a9d734eb@spud>
-References: <20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw>
- <f6cce361-47ef-4488-ac1e-5f60d3cd578b@kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ISOkaqn3"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 410f6c9da;
+	Thu, 4 Jun 2026 16:53:16 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v5 2/4] drm/dp: Add helper to validate DP lane counts
+Date: Thu,  4 Jun 2026 16:52:18 +0800
+Message-Id: <20260604085220.2862986-3-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260604085220.2862986-1-damon.ding@rock-chips.com>
+References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OH38BFenAuLHnwQx"
-Content-Disposition: inline
-In-Reply-To: <f6cce361-47ef-4488-ac1e-5f60d3cd578b@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e91d63bbd03a8kunm52a01cd0409908
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTktCVhkdGh1DGE4YQkoaTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ISOkaqn33xDGR1+G5j0ZVei2/HBuEVAzaVlXIYZNFH8pjcu3U5DesmPqPNH3xI8kRkuc9lksYWo2zhgHIGxFzozvq2/jyGOz45rHazQTFzXJs0heJ4v4QmH9QEv9GZMb08zLj5fMOMQkzCO4W6QdTmohhmv5cMekmME4J1EyPEI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=9dIv0NNIoT30XW+12t9f4ox/v0SxbNDGY/P6QADqWYk=;
+	h=date:mime-version:subject:message-id:from;
 
+Add a generic helper function drm_dp_lane_count_is_valid() to check
+if a DisplayPort lane count is valid. According to the DP specification,
+only 1, 2, or 4 lanes are supported.
 
---OH38BFenAuLHnwQx
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This helper avoids duplicating DP lane count validation logic across
+individual DisplayPort drivers.
 
-On Thu, Jun 04, 2026 at 09:26:56AM +0200, Krzysztof Kozlowski wrote:
-> On 04/06/2026 08:04, SP_ISW1_AT@novatek.com.tw wrote:
-> > CONFIDENTIALITY NOTICE: This message, including attachments, contains=
-=20
-> > information which may be confidential and privileged, and is intended o=
-nly for=20
-> > use by the addressees designated above. Unless you are the intended rec=
-ipient,=20
-> > any use, copying, disclosure, or distribution is prohibited. If you hav=
-e=20
-> > received the message in error, please immediately delete the message an=
-d destroy=20
->=20
-> So can I review it or not?
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ include/drm/display/drm_dp_helper.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Given the state of the binding patch, you probably don't want to review
-it anyway!
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 8c2d77a032f0..c904cb480d84 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -138,6 +138,12 @@ bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_C
+ 
+ int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
+ 
++static inline bool
++drm_dp_lane_count_is_valid(int lane_count)
++{
++	return lane_count == 1 || lane_count == 2 || lane_count == 4;
++}
++
+ static inline int
+ drm_dp_max_link_rate(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ {
+-- 
+2.34.1
 
->=20
-> Patch is obviously incorrect, but not sure if I am not breaking your
-> confidentiality rules.
->=20
-> > all copies thereof and notify the sender by reply email.=E6=9C=AC=E9=83=
-=B5=E4=BB=B6=E5=8F=8A=E4=BB=BB=E4=BD=95=E9=99=84=E4=BB=B6=E5=9D=87=E5=B1=AC=
-=E6=A9=9F=20
-> > =E5=AF=86=EF=BC=8C=E5=83=85=E4=BE=9B=E5=85=B6=E4=B8=8A=E6=8C=87=E5=AE=
-=9A=E5=9C=B0=E5=9D=80=E4=B9=8B=E6=94=B6=E4=BB=B6=E4=BA=BA=E4=BD=BF=E7=94=A8=
-=E3=80=82=E9=99=A4=E9=9D=9E=E6=82=A8=E6=98=AF=E6=8C=87=E5=AE=9A=E4=B9=8B=E6=
-=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=8C=E5=90=A6=E5=89=87=E8=AB=8B=E5=8B=BF=E4=BD=
-=BF=E7=94=A8=E3=80=81=E8=A4=87=E8=A3=BD=E3=80=81=E6=8F=AD=E9=9C=B2=20
-> > =E6=88=96=E6=95=A3=E5=B8=83=E6=9C=AC=E9=83=B5=E4=BB=B6=E4=B9=8B=E4=BB=
-=BB=E4=BD=95=E9=83=A8=E4=BB=BD=E3=80=82=E8=8B=A5=E6=82=A8=E9=8C=AF=E8=AA=A4=
-=E5=9C=B0=E6=94=B6=E5=88=B0=E6=AD=A4=E9=83=B5=E4=BB=B6=EF=BC=8C=E8=AB=8B=E7=
-=AB=8B=E5=8D=B3=E5=9B=9E=E8=A6=86=E9=9B=BB=E5=AD=90=E9=83=B5=E4=BB=B6=E9=80=
-=9A=E7=9F=A5=E5=AF=84=E4=BB=B6=E4=BA=BA=EF=BC=8C=E4=B8=A6=E8=AB=8B=20
-> > =E5=AE=8C=E5=85=A8=E5=88=AA=E9=99=A4=E4=B8=94=E9=8A=B7=E6=AF=80=E6=9C=
-=AC=E9=83=B5=E4=BB=B6=E5=8F=8A=E5=85=B6=E8=A4=87=E6=9C=AC=E3=80=82
-
---OH38BFenAuLHnwQx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiE+IwAKCRB4tDGHoIJi
-0j9oAQD8t2bqErB10S9guhRMT8guD9pstkggxN4KH+ehUhSwGAEAuRyg6J3JBBI5
-xUrDk2oG/xY/CXH2F41HW7RicGaCwAw=
-=c9N8
------END PGP SIGNATURE-----
-
---OH38BFenAuLHnwQx--
