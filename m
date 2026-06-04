@@ -1,102 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477E937BE8A
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:27:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290F433A9FF;
+	Thu,  4 Jun 2026 16:29:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780590473; cv=none; b=SPKS0tzpISZZF+24bsBVvHkZme2cfZ8rgVEwRIiAwZQ+4zEH+LZeeKvZfm/JZRsWPIS3tpLt+TmcaW8WUgpsO5eiG5bRg4DvXVCbS5pTsEeGmUVDyTNEvLtTzRv+h8WekpDtcHfazGAcygjOjIRKfRrMxpzXaG0Uw9hmsj8ks9g=
+	t=1780590546; cv=none; b=JthqyjTNlovNwRBXyeCcw9He3Ac2o8/M5e/FHEq3xkmm9s8OkG2TkMggZtyBGBtGX0ONBLkCsBBEa+m4/hU7tbvFq3yu+I02YAgMG5Mv0b0V7KOcRa58CD2xTZ9TZix8oM+iD3sQ6dwW0nrRxzuy76x6SLYKjwtwxaUVqdWsU0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780590473; c=relaxed/simple;
-	bh=3j8MhvS8b+aczEMK1dQCzVigM/U8A7T/VkMiJU2zrMs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sJtief4SrhlIA7QwgDHSPeag//o7iYqJdIGjX74ARAeaZcB9weVR4N1eWoyq77SX1qSbyz5GjVRqfG1pA59+U8niIsrpBWrAWWSjxYUCHE/pr2BdG5oVd0ooKiVSgbjswI+MlVlp5HBDPNDqjRSbXvrZjHgfmkoiodjwpc/NQIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wz9tuDkM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780590546; c=relaxed/simple;
+	bh=MDyqratiLi05/uyBtnVhplm4LWe2ncyRf8w2liNJtvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gapgsCUGRXdxUwiX7/tQGSFm9/EvVMycrU1XFch1i+MO1KEJjaE8KTuOmmwQU6vOwoemaadtAfhGIH7txz4Sm6z3yKqnZ7N/FifPiMOzGm8fFzY6G3j94z833+zVZo/48E1xpSwrv4WSjisD6VtB7IdS5DhkRmO0x7C3fxXfPWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuseX9g3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wz9tuDkM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6AE1F00893;
-	Thu,  4 Jun 2026 16:27:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuseX9g3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5E31F00893;
+	Thu,  4 Jun 2026 16:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780590471;
-	bh=BkBfj4eVuTPlihOFE/3EUw1V547G+q1HvX+zAA9FYdY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wz9tuDkMFVxQKW0pujAsaiD6hBc77xRhXPru00qaHwqR6cnIwVbcjpcsS+4NEOSiz
-	 yPDiZifB4B2Ib2HF/80T1SuE2VUs9HK74jnTk/Qo6zWDr+Tw4eUjPzPP+VxPYNquLt
-	 hlDVOCIb3qe7Gw2jKJ5gqn9M714aKCcz35klLu0gp5YKOJ3bPpZdq/oZcv6FqGzz3B
-	 dOeMSVG/XP6ULfKmXkEE/K+Qt/3dUj8BV3aB4ENZuFU2S+7TaMvK6M0GDKxaFjzdL+
-	 FrcrPc87qL003XopzstKaHFRYQWnklawB+cfPggB7KjUj6GnEUwPrO/ojr94rjPcst
-	 2xnx/kD274tQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/10] arm64: dts: qcom: sc8280xp-arcata: Enable the
- eDP display
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SsOpcsO0bWUgZGUgQnJldGFnbmUgdmlhIEI0IFJlbGF5?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604-surface-sp9-5g-for-next-v3-2-6aa6f6612c10@gmail.com>
-References: <20260604-surface-sp9-5g-for-next-v3-2-6aa6f6612c10@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 16:27:51 +0000
-Message-Id: <20260604162751.AD6AE1F00893@smtp.kernel.org>
+	s=k20260515; t=1780590541;
+	bh=s7vqTQyEXNNXtpVsO2TTPhoidp7pJW7kCKN/X/mQRWI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HuseX9g3x2esz5tWdSRaffD0vdC5Ld4Dz9yENuKR1qheyFwvr6EkcttK7Lci4Cdpx
+	 SuS+4bz3pbrLrAD4vIQyF0JjWW/Jt90QnfbclwemsCLyoXgQxwhBUgxNEzlCXJuLYA
+	 0VO38/S5jnHzodKuVrf646Sjod273AFYjwJbIebFsWO/KKwYPo7HP2LpNzESDSVlIA
+	 RTphQjJa1E5FLAyEMWR1oHtgO0Zjx7xSfyaSp7jEs0AWN+tHPTeZ0sZiGnYajETvy+
+	 DONBiEQ3h5qMYKspX8UNK2/D+i8IRwXNWRD4bsPbSQH/H3YWJnc+0f5XKJYHHgNC2M
+	 cq/3zGLswFt/A==
+Date: Thu, 4 Jun 2026 17:28:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, kvm@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 08/15] riscv: Add Zic64b to cpufeature and hwprobe
+Message-ID: <20260604-activate-antidote-ebb9197b286f@spud>
+References: <20260603-rva23u64-hwprobe-v2-v3-8-5529a7b28384@gmail.com>
+ <20260602232800.768311F00893@smtp.kernel.org>
+ <CA+Ck9FbKRM0wjJMg1fQpdwmow8cf_zTfir7V6+T=CRxU+vomdg@mail.gmail.com>
+ <20260604-rice-protegee-3a0b8e4cb609@spud>
+ <u52q565xhv5s7gz3wbh4heplhbm4pv732s5kqvf4deiw6ceb4t@n4bnpzu5kabs>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UqEY10bqswxCer84"
+Content-Disposition: inline
+In-Reply-To: <u52q565xhv5s7gz3wbh4heplhbm4pv732s5kqvf4deiw6ceb4t@n4bnpzu5kabs>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit silently removes the `status =3D "okay";` override fo=
-r the `&dispcc1` node and the `regulator-always-on` property from the `vreg=
-_l6b` regulator without mentioning these functional changes in the commit m=
-essage.
---
 
-commit 225c01f9a1d48e2b3f638fa8c5a506daa682de98
-Author: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+--UqEY10bqswxCer84
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
+On Thu, Jun 04, 2026 at 09:31:36PM -0400, Guodong Xu wrote:
+> On 2026-06-04 10:17, Conor Dooley wrote:
+> > On Thu, Jun 04, 2026 at 02:42:22PM +0800, Guodong Xu wrote:
+> > > On Wed, Jun 3, 2026 at 7:28=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+> > > >
+> > > > > @@ -154,6 +154,23 @@ static int riscv_ext_zicbop_validate(const s=
+truct riscv_isa_ext_data *data,
+> > > > >       return 0;
+> > > > >  }
+> > > > >
+> > > > > +static int riscv_ext_zic64b_validate(const struct riscv_isa_ext_=
+data *data,
+> > > > > +                                  const unsigned long *isa_bitma=
+p)
+> > > > > +{
+> > > > > +     /*
+> > > > > +      * Zic64b mandates 64-byte naturally aligned cache blocks; =
+cross-check the
+> > > > > +      * cbom/cbop/cboz block-size device-tree properties to avoi=
+d inconsistency.
+> > > > > +      */
+> > > > > +     if (riscv_cbom_block_size !=3D 64 ||
+> > > > > +         riscv_cbop_block_size !=3D 64 ||
+> > > > > +         riscv_cboz_block_size !=3D 64) {
+> > > >
+> > > > [Severity: Medium]
+> > > > Will this check erroneously disable Zic64b if a platform does not i=
+mplement
+> > > > all three CBO extensions?
+> > >=20
+> > > Zic64b is mandatory in RVA22/RVA23, which also mandate Zicbom,
+> > > Zicbop and Zicboz, so all three block sizes must be present on any Zi=
+c64b
+> > > platform.
+> >=20
+> > Where do you get that conclusion from? That's not how we treat any other
+> > extension defined in the profiles spec. My understanding was that even
+> > if things are defined in the profiles spec that they're fair game for
+> > independent use.
+>=20
+> Ok, I get your point. Agree, Zic64b/Zicbom/cbop/cboz can be implemented
+> on each hart independently (at least spec doesn't say no). With this in
+> mind, the validation of Zic64b should be like this:
+>=20
+>     if ((riscv_cbom_block_size && riscv_cbom_block_size !=3D 64) ||
+>        (riscv_cbop_block_size && riscv_cbop_block_size !=3D 64) ||
+>        (riscv_cboz_block_size && riscv_cboz_block_size !=3D 64))
 
-This commit adds the vreg_edp_3p3, edp_reg_en, and mdss0_dp3 nodes
-to enable the eDP-based LCD display on the Surface Pro 9 5G.
+Or you could check for the extension instead of the left-hand sides
+here, but I think that becomes more complex because you need to start
+returning EPROBE_DEFER sometimes etc.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> index f24f60dc73afe..476e17415da27 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-[ ... ]
-> @@ -344,7 +360,6 @@ vreg_l6b: ldo6 {
->  			regulator-max-microvolt =3D <880000>;
->  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
->  			regulator-boot-on;
-> -			regulator-always-on;	// FIXME: VDD_A_EDP_0_0P9
+>     return -EINVAL;
+>=20
+> This will allow :
+> 1. A Zic64b hart with 0, 1, 2, or 3 CBO extension and block_size 64
+>    passes the validation.
 
-[Severity: Medium]
-The removal of regulator-always-on allows dynamic power management, which
-seems correct for eDP enablement. Could this functional power management
-cleanup be documented in the commit message?
+I'm not too worried about the 0 case here, people shouldn't be using
+zic64b if they don't have a corresponding extension after all.
 
->  		};
->  	};
-> =20
-[ ... ]
-> @@ -448,10 +463,6 @@ &dispcc0 {
->  	status =3D "okay";
->  };
-> =20
-> -&dispcc1 {
-> -	status =3D "okay";
-> -};
-> -
+> 2. A Zic64b hart with CBO extensions but block_size is not 64
+>    fails the validation
+>=20
+> Thanks for the catch.
+>=20
+> I will fix that in v4.
 
-[Severity: Medium]
-Is the silent removal of the dispcc1 status override intentional?=20
+btw, can you fix your system time? It's like 12 hours in the future and
+that impacts the timestamps on emails you send.
 
-Disabling the clock controller is a functional change. Should it be=20
-mentioned in the commit message to clarify the patch's impact and aid=20
-future bisectability?
+Cheers,
+Conor.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-surface-sp=
-9-5g-for-next-v3-0-6aa6f6612c10@gmail.com?part=3D2
+--UqEY10bqswxCer84
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiGnygAKCRB4tDGHoIJi
+0jalAP9FtdZ57Gi9zqLt2uUSAeF6mH9GDBRQVZs/amLehpDPIwD/bbvLTDnhX8Nh
+QU4AIz0bQgcQ6NL0WZG49D7VpBxZCQY=
+=ctqz
+-----END PGP SIGNATURE-----
+
+--UqEY10bqswxCer84--
