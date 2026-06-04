@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C348D1F30A9
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 02:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F096175A6E
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 02:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780538617; cv=none; b=BQL+5XTsbLtJpRrQODZkG/FK/K4tttW0IjdlKfVahOzAAqmGYRdADnJ/H6cwqT/FPm6ouSUWuh8MJMqSwDRDLUpSYvB570VUqVs/cxHoQQ1336q7p5zhjRimPRcWgVsvV+QLHBpD6evqJxfOELPtO4AtOXgIBfLvX87fhmiyfiM=
+	t=1780538848; cv=none; b=UNwh/YAcBo1gMqS1ENJyqM2zvCRe12XmFqA3H+OnXRLppF+NyhjBHVVSyITfHjDl7f8htHEUXnNznZpbh7t8XgQgsSUMTH8M/EdbEsihZPbKuQx25OgOiuulx1DZiJwAzSFlPnkXkqhhazvhCT3l1x52+3K5HsJa0TmPqfqmYNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780538617; c=relaxed/simple;
-	bh=JDWnhhCgkiRp5HJaWLTMd/f5uiK5IZswAKzRAoFzm1k=;
+	s=arc-20240116; t=1780538848; c=relaxed/simple;
+	bh=uPQ/LC7XjmZJDqvNF1OgHD9sfsre+CqQmLcQHV06wNQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RefeImgmNKXMwXbTDldEzpVHs7j5cM+ZbIfyFpp8El+VP969Si2Mm4FnONBwLEHGTKPBfMa01jiU3YcdKJ2fvslCtmfr4tVdHNQ2ziwhqOaal47K3WL+7y8TFJu1fABxkMb9fH+1XIxp/mY1eDr88bBn8JdnwjhlJtupOYR7Ais=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pfhhunzy; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qQF3NMMdmGS13sZatrHC3TfioOT4nYfUgWtOS0cpd9syS62/+Z4jfc/xXHo4H7sl1ZzMxwnPwNSrRNq0DzMwHXbD/YRlANmMUfNE7OsAPawXWvKaVaSWuG6WBHwY+06B3TZzRLtd3lXn6mcQfrrLTMW5mKPt15caADA6b2tEirE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iwf9ipt/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pfhhunzy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A5F1F00893;
-	Thu,  4 Jun 2026 02:03:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iwf9ipt/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A0B1F00893;
+	Thu,  4 Jun 2026 02:07:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780538616;
-	bh=MI/xN/Fr1P9xwXckYAc2dIst4TH3ClfXkFt4KFzuH9I=;
+	s=k20260515; t=1780538846;
+	bh=6WkFurCUem9g8lrAbGLGw6sJlyGKIQVkPVUeCs0VNL8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pfhhunzy/MC1AlLbTvUsJZMZuRupBgPzhniVmOe/8g9OW29jG3FqS9uUmKaLjG/kF
-	 7dp6mqJf+S7gp0kXSBC1ylsBFDBIsyP8s3daj3thI7sLtKG9koaL/Qb2jXX0ptr1qm
-	 6Xup+VJ9f+oC3uciuYBXgJRW34o3wD6Mg8CcBM/Bz9C8bIEbvO/dNjgRrpBvwp0POB
-	 +ON/h8Oumj6k8K0KXnzNWOVPxjhPGn/kgMXTHJvj0CnB6jO0u90ZycC+EIZ6/eQnch
-	 qeJKCmYxjDZc2I4vGjY8gb5zJnAc0+515ROzdCbdj+kdD3jeHZeqJsV986e67Rwn8Z
-	 CDIai3KGm2iWQ==
+	b=Iwf9ipt/84pBCl+nVkJLIclMERg9PiaX17CZ7kJ7wsHy3OXBe5e2b9H9ODhL+oHUu
+	 R87akv8hL7BO3LX730qpeowL9a50b1JyVBbEWzaw9GovqCBXl6ReWOth1htxG1k95B
+	 kTztNZqqDSSaXDwV9u83mcyGBeQWybJWDxJGYoIw+CdapwMGnao+p1WZROeEzvCdBR
+	 h56XPJnzQQ1wHHjNPsIFxFgB8P+wMuZL8JeoaDDjxdh/qI1EOiH9mDanrkzwAZ04QU
+	 Lm0M8vCSqD9tCb3XqgC3G8ElD0YmVjKDqexIoyLbDVLEVLeP4eZAUFulEvGtUOHP8e
+	 Uubz91p5k2unQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] of: reserved_mem: avoid post-init UAF when
- alloc_reserved_mem_array() fails
+Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
+ clock-frequency properties
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604015332.3669384-1-chenwandun1@gmail.com>
-References: <20260604015332.3669384-1-chenwandun1@gmail.com>
+To: "Hongliang Wang" <wanghongliang@loongson.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260604015848.18643-2-wanghongliang@loongson.cn>
+References: <20260604015848.18643-2-wanghongliang@loongson.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 02:03:35 +0000
-Message-Id: <20260604020336.45A5F1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 02:07:26 +0000
+Message-Id: <20260604020726.95A0B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,62 +46,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] A maliciously crafted Device Tree can cause a stack buffer overflo=
-w due to missing bounds checking on `dynamic_nodes_cnt`.
+- [Low] The `clocks` property is used in the binding example but is not dec=
+lared in the `properties` block, causing `dt_binding_check` to fail.
 --
 
-commit 3cff43cb4eafb6dda732ba65e80fb9410ac03943
-Author: Wandun Chen <chenwandun@lixiang.com>
+commit 2429ce4ee39320cf5271a51cef0c60497b97ce80
+Author: Hongliang Wang <wanghongliang@loongson.cn>
 
-of: reserved_mem: avoid post-init UAF when alloc_reserved_mem_array() fails
+dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
 
-This patch resets the reserved_mem_count to 0 when alloc_reserved_mem_array=
-()
-fails. This prevents post-init use-after-free bugs that could occur when
-of_reserved_mem_lookup() dereferences freed memory.
+This commit adds clocks and clock-frequency properties to the
+loongson,ls2x-i2c dt-binding examples.
 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 8d5777cb5d1b3..deaea58c74f2a 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-[ ... ]
-> @@ -266,7 +275,8 @@ void __init fdt_scan_reserved_mem_late(void)
->  	}
+Cc: stable@vger.kernel.org
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+
+> diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml=
+ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> index 67882ec6e06af..baa26684bbed0 100644
+> --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> @@ -33,11 +33,14 @@ unevaluatedProperties: false
 > =20
->  	/* Attempt dynamic allocation of a new reserved_mem array */
-> -	alloc_reserved_mem_array();
-> +	if (alloc_reserved_mem_array())
-> +		return;
+>  examples:
+>    - |
+> +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
+>      #include <dt-bindings/interrupt-controller/irq.h>
 > =20
->  	if (__reserved_mem_check_root(node)) {
->  		pr_err("Reserved memory: unsupported node format, ignoring\n");
+>      i2c0: i2c@1fe21000 {
+>          compatible =3D "loongson,ls2k-i2c";
+>          reg =3D <0x1fe21000 0x8>;
+> +        clock-frequency =3D <100000>;
+> +        clocks =3D <&clk LOONGSON2_APB_CLK>;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can a maliciously crafted
-Device Tree cause a stack buffer overflow in fdt_scan_reserved_mem() due to
-missing bounds checking on dynamic_nodes_cnt?
+[Severity: Low]
+Will this cause dt_binding_check to fail? The schema specifies
+unevaluatedProperties: false, and while clock-frequency is pulled in
+from the referenced i2c-controller.yaml schema, clocks is not explicitly
+defined in the properties block.
 
-In drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem():
+Should the clocks property be added to the properties block to prevent
+validation errors on the example?
 
-	int dynamic_nodes_cnt =3D 0, count =3D 0;
-	int dynamic_nodes[MAX_RESERVED_REGIONS];
-	...
-	fdt_for_each_subnode(child, fdt, node) {
-		...
-		if (err =3D=3D -ENOENT && of_get_flat_dt_prop(child, "size", NULL)) {
-			dynamic_nodes[dynamic_nodes_cnt] =3D child;
-			dynamic_nodes_cnt++;
-		}
-	}
-
-There doesn't seem to be a bounds check to verify that dynamic_nodes_cnt is
-strictly less than MAX_RESERVED_REGIONS before this write. If an untrusted
-Device Tree contains more than MAX_RESERVED_REGIONS (64) dynamically
-allocated reserved memory regions, could this write past the end of the
-dynamic_nodes stack array?
+>          interrupt-parent =3D <&extioiic>;
+>          interrupts =3D <22 IRQ_TYPE_LEVEL_LOW>;
+>          #address-cells =3D <1>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604015332.3669=
-384-1-chenwandun1@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604015848.1864=
+3-1-wanghongliang@loongson.cn?part=3D1
