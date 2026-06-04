@@ -1,62 +1,62 @@
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8975130E859
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 22:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD4630D3FF
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 22:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780611029; cv=none; b=Yghfhoy8A2jS4nFWG+ssWwOga2ErzlES2K2glE/8OihHAV8sadK3wUFB5gHyv9LILlxtTyEyRYqA/SIvTEC+F1OzIHi3nsalpuGWrtsdQtCVHTkKfn6kSljoZalbG2sGaWpCmCOuusWQScFLshrmI0IAj+D+JlC8STG9xfY+Rag=
+	t=1780611030; cv=none; b=YLSyxVJIYiZGVK26GlSzSjQc0XJpOf0XwtrApD77W2k2POdoBh1lYvJngOgFKrNznh7nPOBF6U9op0rUvT0SkYy3MqZe0XNOuJupkuydQtlJv9A2KhEI7Gp0f8WWtBKAAnEppyK/+wOiSPWrusc2oqLvx9EV4ESgwr/bncnbVx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780611029; c=relaxed/simple;
-	bh=0NME0sM49RF5DaMChUXyALkrZCsgLNDsxmIMYYiB3/M=;
+	s=arc-20240116; t=1780611030; c=relaxed/simple;
+	bh=h16FxQ9LeBL7g2PGDen5jhLJl5SKnIhmOES21ImhNTs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=az3J3h2jREuwBXA1y7rokMlJUiD1jw8sKkoCTQ5tTEN8rtSkt0sj/H6ThVJJ+xioL/E3GKpkVry/az5EnSkbI9nt2WBF++5CB0DyunHY7Adi8tAgrhZ4wETuDT99yINoLwaZTeoHZilvEn4+71zDSrHFl8udYsiG2Tbetbzw7KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQLOVY3A; arc=none smtp.client-ip=209.85.160.44
+	 MIME-Version; b=Y4o6jvAz4tw8nzGBjQWEGUO2IeGemyVXgfNedB6DANrIKDjJ6hPiuJWkzMw/uOeSedUVbPhNW6Ui6b43P9m8+8dhvZPeuNGLfeczQVvMVHYMaDWxAygUq/VhywRbpWdqkSROVoDW3itUvTd/f7YUbx2QFFon+Xx294FxkWVhwAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2AUQRIh; arc=none smtp.client-ip=209.85.210.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQLOVY3A"
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-43f1f2b82c6so986383fac.3
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 15:10:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2AUQRIh"
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7e6deacafa8so1391165a34.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 15:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1780611027; x=1781215827; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FI9ZQ9CgMmpb7a0bvB8JNCWm0010rqvUn1D/bvnZnqE=;
-        b=ZQLOVY3ABLAutgwMPMtaK4EyaR+b/RtYjbqlDHk43q2n9qmM9ynF2fD4BD/RYbsxNc
-         UTPpoanFwCjpfidQZzzNzb1qRdSvXMyrh19ii0EgGzemC85hEuvX70Y0vba4hbQh1qml
-         B8OYUkSvtKyZ2SibHmzh3gY4pMeQjWPVWxOlliX7JyIPmn+5M/81lwdIKLIRDNqQvuXF
-         gMBnycytc1ax7Oy6YngDLdFfk0UxK+HoI2+uqDWbPUZd0xBM35fpbnENoTYeOH0UYkU+
-         ZSED8lin+k/pDl/Y+5ccaUjDI3Hi6bO/Aa3io3Ue2WZwGXJMsQBKPGZgZGS0Aj2Keenu
-         UfQA==
+        bh=zrT2I0gTFoPhQKAjjif3nZTAg/YS49742lzdIqJ0pcc=;
+        b=e2AUQRIhNJsoSTRQnkDXMhKS9Tq6bKiCnJm0ooO9k+d8Wm5SU0E4ctK6DSiu9g5FhI
+         HIx3u4x8VAgeTSF8Og8BIObTdnMunDzheXvXC1CDCyhPOaOuANwsSkkgqg+TY8cVPB1g
+         znCS3dsvc7pEmG3yf9bb1M+FQDtgehqIpwGbFtB78Y5iFJ+lyTLreCyw6vSXhlLY1hzs
+         +zjYRHGWZ2DVUo5xJwPMjasrFWVgbAtiFKM15WJmAoVOaaXGuIGHyFT9deuTsdQDRxkE
+         152MJZRgYEEBhtjIlOjSb+Tf+7zR9HZmUkNfAP6zmq3LKxK45e+s+yDBkuCtgwNrw/vt
+         W0/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1780611027; x=1781215827;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FI9ZQ9CgMmpb7a0bvB8JNCWm0010rqvUn1D/bvnZnqE=;
-        b=BgLM51Y3pLhpsUTjb9Eg/GjKaXRt1ZafnzEbGrcUGuuX8rpN8UPffPuoBVMUC90/U7
-         wwqr5SuTYD59ACRCJ0MyHmRPX6DImkoGZ685P2gU8PGkewcEoMOT+88y0kNZqqzXJsQT
-         IdiPExz1lTuQY0vGIxP8HIICM50GoaT0LmgbMqTjZaAPm7V91egHZrvjv0lkphBnN3XZ
-         u3uFPorFlHD8OGIcJel+R4+F5rMQHRUPnmpkuYsvdsDxXswdDkJbu+KuX3i9nUzN1zyT
-         w6yIOgsFNCIUhlY96MT008GJTxJZh4NOSV8G0kxcj7g0DuleUTMtU3sPFt54ILDl6NDw
-         kawQ==
-X-Gm-Message-State: AOJu0YzHUMa1mwF5qSLTv2hVmBGSbmDduMUziJm5iVWcW+QM0Z0pyYDR
-	DiKTkbhRH257/AqTD2WUjyOH/rkNh3HHuPp0nL47f8JamrZxHmWnHM4D
-X-Gm-Gg: Acq92OHzOJVbcuOrmFbG0LroNkiloHwZgwn4n0G/Gkd3yd+DvAIK8cpJhpiMpY0e/kP
-	sayCqYw8DSwT4Jtsrnz1FdPC7f4Zg4mkpIDd4Ggkv42Jax1dELT2qqfGoR5yaErOn3yPxkremy4
-	LjKNuGlRne0XnHNRoU8uVTnWruK+/VsJoqiuisZj+Lwfq/HWvD0DBFvbQov1OF1avXlaZi/l61C
-	ZB/wS9sXYo6KiDFSc1YXYVFVHK6Li9o3Oy07xxp5WTnaDtrkZRTNHSshKyxhaoQooZIBvD0MZp+
-	796sl8KGP2ahSexilOAKo6IYFs9URMwwpS8XcIHS1gpB0R0/k1kZ5nr2FuHN/ybcX4V8zCMH/Cq
-	hq9cPjbhLcnqIyuU92o6A0w9t65kjiVieAu3sgmtBbRbX8pmoTsWEdisolbYuwKrNyc4AKgtaVV
-	RTGCse8s78p4s7F7fPKImdAzHXJCStHNM=
-X-Received: by 2002:a05:6820:1844:b0:69d:ff30:172f with SMTP id 006d021491bc7-69e68b5f811mr585576eaf.21.1780611027662;
-        Thu, 04 Jun 2026 15:10:27 -0700 (PDT)
+        bh=zrT2I0gTFoPhQKAjjif3nZTAg/YS49742lzdIqJ0pcc=;
+        b=qIefZRE9ihf3eoWCtj/X0rkVwXYWxirdShNkIQSxP4bHQjahA8VhpPOM1eXf3/T8vr
+         oJKzadnTZlSiB6lgZDUF/3j0MMav67P75EwatfF6bm9133HG9kjOrVWb2H/Ut2ebxXXI
+         e/31Q2wtDOGiXW4lmicBfn6/ImDJ2nch3JsN1qt67Eqh8x4Mfeu7KgAedkdH2uNK/nAd
+         JypacVRrlZ7IuA7NigIQryTia+4sy/irVU3LSRdATCYI6W+xKUDpU6BQWeteMUknxkzx
+         LUXKl8xG4u/sDO2eN+k8pm6fuCBWQcrwJDWXukKaAZDbYr2UDbPniouG7wnvYg3p1zXG
+         O79g==
+X-Gm-Message-State: AOJu0YzPzOZZKpIxL7FxdbckTqpHmtYtRWB3AIQjbPMmSpk8jzFv7vXr
+	tJ/QggeQh21PytSvO5Quoae6yP/UPwwqMT4gC8OyMRM8d7n0fEieud6c
+X-Gm-Gg: Acq92OELZIuD/2iZpm+idKsGj3yGUqDqnriSjHDm3yShTlT5MnBKJxW6miqS9Chc+Or
+	zviP8ARQIMY5QAmX42i9h2ZACU7WH9s0MYZcL9Eu4VwjoLW9FFBHYLdSSdgBhwk0TCSujFgBBIq
+	gIz1I6DvBqBRE9KHDvwkdNBa/FHidafA5JZ0802srN6d3Atgo6VmBWH2dl7UbDkGlIGPjRL+/IB
+	tbNSarM97ZvXrNIU1iEFlz5kroCUX2rc/0oHQTmFWY1dasHkheI+N/huRVUtIofyzMxkesAEsEP
+	+hS9vG03M85LsuvtsDzdwizQ3oFcSQx8SQ71QKurzRH5A/2vO/OG8T1cqLQFblvX9RXo1jwalSt
+	Q6Ea0uQMN32QMyyzEtg9HaK3aDCvZpGX2I+UKjrxKvSmIOxxYy5pCQLPPrylg6mfczoEFhM59mY
+	pXCnwaDd9K3g+ey35ts8mpHux6jsWxbrT/N6A2eIM34A==
+X-Received: by 2002:a4a:edc5:0:b0:69e:37c2:ee40 with SMTP id 006d021491bc7-69e590840f2mr2633432eaf.25.1780611026628;
+        Thu, 04 Jun 2026 15:10:26 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-440d84c0ce2sm6802987fac.16.2026.06.04.15.10.26
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-440d84c0ce2sm6802987fac.16.2026.06.04.15.10.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 15:10:27 -0700 (PDT)
+        Thu, 04 Jun 2026 15:10:26 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-rockchip@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -74,9 +74,9 @@ Cc: devicetree@vger.kernel.org,
 	krzk+dt@kernel.org,
 	robh@kernel.org,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V5 3/6] dt-bindings: display: panel: Add Anbernic TD4310 panel
-Date: Thu,  4 Jun 2026 17:07:58 -0500
-Message-ID: <20260604220802.119107-4-macroalpha82@gmail.com>
+Subject: [PATCH V5 2/6] power: supply: sgm41542: Add SG Micro sgm41542 charger
+Date: Thu,  4 Jun 2026 17:07:57 -0500
+Message-ID: <20260604220802.119107-3-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260604220802.119107-1-macroalpha82@gmail.com>
 References: <20260604220802.119107-1-macroalpha82@gmail.com>
@@ -90,88 +90,1132 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-The panel used by Anbernic in the RG Vita-Pro is a DSI panel based
-on the TD4310 controller IC. It measures approximately 5.5 inches
-diagonally and is 1080x1920 in resolution.
+Add support for the SG Micro SGM41542 charger/boost converter.
+Driver was adapted from Rockchip BSP driver [1] and confirmed
+with vendor datasheet [2].
+
+[1] https://github.com/rockchip-linux/kernel/blob/develop-6.6/drivers/power/supply/sgm41542_charger.c
+[2] https://www.sg-micro.de/rect/assets/1e8de70b-657e-4156-be68-a64fdbe8e418/SGM41541_SGM41542.pdf
 
 Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 ---
- .../display/panel/anbernic,td4310.yaml        | 66 +++++++++++++++++++
- 1 file changed, 66 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+ drivers/power/supply/Kconfig            |    8 +
+ drivers/power/supply/Makefile           |    1 +
+ drivers/power/supply/sgm41542_charger.c | 1074 +++++++++++++++++++++++
+ 3 files changed, 1084 insertions(+)
+ create mode 100644 drivers/power/supply/sgm41542_charger.c
 
-diff --git a/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
+index 83392ed6a8da..57dae0913472 100644
+--- a/drivers/power/supply/Kconfig
++++ b/drivers/power/supply/Kconfig
+@@ -856,6 +856,14 @@ config CHARGER_RK817
+ 	help
+ 	  Say Y to include support for Rockchip RK817 Battery Charger.
+ 
++config CHARGER_SGM41542
++	tristate "SGM41542 charger driver"
++	depends on I2C
++	depends on GPIOLIB || COMPILE_TEST
++	select REGMAP_I2C
++	help
++	  Say Y to enable support for the SGM41542 battery charger.
++
+ config CHARGER_SMB347
+ 	tristate "Summit Microelectronics SMB3XX Battery Charger"
+ 	depends on I2C
+diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
+index 7ee839dca7f3..c376889db317 100644
+--- a/drivers/power/supply/Makefile
++++ b/drivers/power/supply/Makefile
+@@ -107,6 +107,7 @@ obj-$(CONFIG_CHARGER_BQ25890)	+= bq25890_charger.o
+ obj-$(CONFIG_CHARGER_BQ25980)	+= bq25980_charger.o
+ obj-$(CONFIG_CHARGER_BQ256XX)	+= bq256xx_charger.o
+ obj-$(CONFIG_CHARGER_RK817)	+= rk817_charger.o
++obj-$(CONFIG_CHARGER_SGM41542)	+= sgm41542_charger.o
+ obj-$(CONFIG_CHARGER_SMB347)	+= smb347-charger.o
+ obj-$(CONFIG_CHARGER_TPS65090)	+= tps65090-charger.o
+ obj-$(CONFIG_CHARGER_TPS65217)	+= tps65217_charger.o
+diff --git a/drivers/power/supply/sgm41542_charger.c b/drivers/power/supply/sgm41542_charger.c
 new file mode 100644
-index 000000000000..6f7f92b9c860
+index 000000000000..7aac4dd65507
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/anbernic,td4310.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/power/supply/sgm41542_charger.c
+@@ -0,0 +1,1074 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Chrager driver for Sgm4154x
++ *
++ * Copyright (c) 2026 Rockchip Electronics Co., Ltd.
++ *
++ * Author: Xu Shengfei <xsf@rock-chips.com>
++ */
 +
-+title: Anbernic TD4310 Based Panels
++#include <linux/delay.h>
++#include <linux/devm-helpers.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/power_supply.h>
++#include <linux/regmap.h>
++#include <linux/regulator/driver.h>
++#include <linux/regulator/of_regulator.h>
++#include <linux/regulator/machine.h>
++#include <linux/types.h>
 +
-+maintainers:
-+  - Chris Morgan <macromorgan@hotmail.com>
++#define SGM4154X_MANUFACTURER			"SGMICRO"
++#define SGM4154X_NAME				"sgm41542"
 +
-+description:
-+  Anbernic TD4310 Based Panels, such as the RG-Vita-Pro panel
-+  (a 1080x1920 5.5 inch panel).
++#define SGM4154X_CHRG_CTRL_0			0x00
++#define SGM4154X_HIZ_EN				BIT(7)
++#define SGM4154X_IINDPM_I_MASK			GENMASK(4, 0)
++#define SGM4154X_IINDPM_I_MIN_UA		100000
++#define SGM4154X_IINDPM_I_MAX_UA		3800000
++#define SGM4154X_IINDPM_STEP_UA			100000
++#define SGM4154X_IINDPM_DEF_UA			2400000
 +
-+allOf:
-+  - $ref: panel-common.yaml#
++#define SGM4154X_CHRG_CTRL_1			0x01
++#define SGM4154X_WDT_RST			BIT(6)
++#define SGM4154X_OTG_EN				BIT(5)
++#define SGM4154X_CHRG_EN			BIT(4)
 +
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - anbernic,panel-vita-pro
-+      - const: anbernic,td4310
++#define SGM4154X_CHRG_CTRL_2			0x02
++#define SGM4154X_BOOST_LIM			BIT(7)
++#define SGM4154X_ICHRG_CUR_MASK			GENMASK(5, 0)
++#define SGM4154X_ICHRG_I_STEP_UA		60000
++#define SGM4154X_ICHRG_I_MIN_UA			0
++#define SGM4154X_ICHRG_I_MAX_UA			3780000
++#define SGM4154X_ICHRG_I_DEF_UA			2040000
 +
-+  reg:
-+    maxItems: 1
++#define SGM4154X_CHRG_CTRL_3			0x03
++#define SGM4154X_PRECHRG_CUR_MASK		GENMASK(7, 4)
++#define SGM4154X_PRECHRG_CURRENT_STEP_UA	60000
++#define SGM4154X_PRECHRG_I_MIN_UA		60000
++#define SGM4154X_PRECHRG_I_MAX_UA		780000
++#define SGM4154X_PRECHRG_I_DEF_UA		180000
++#define SGM4154X_TERMCHRG_CUR_MASK		GENMASK(3, 0)
++#define SGM4154X_TERMCHRG_CURRENT_STEP_UA	60000
++#define SGM4154X_TERMCHRG_I_MIN_UA		60000
++#define SGM4154X_TERMCHRG_I_MAX_UA		960000
++#define SGM4154X_TERMCHRG_I_DEF_UA		180000
 +
-+  vdd-supply:
-+    description: Panel power supply
++#define SGM4154X_CHRG_CTRL_4			0x04
++#define SGM4154X_VREG_V_MASK			GENMASK(7, 3)
++#define SGM4154X_VREG_V_MAX_UV			4624000
++#define SGM4154X_VREG_V_MIN_UV			3856000
++#define SGM4154X_VREG_V_DEF_UV			4208000
++#define SGM4154X_VREG_V_STEP_UV			32000
++#define SGM4154X_VRECHARGE			BIT(0)
++#define SGM4154X_VRECHRG_STEP_MV		100
++#define SGM4154X_VRECHRG_OFFSET_MV		100
 +
-+required:
-+  - compatible
-+  - port
-+  - reg
-+  - reset-gpios
-+  - vdd-supply
++#define SGM4154X_CHRG_CTRL_5			0x05
++#define SGM4154X_TERM_EN			BIT(7)
++#define SGM4154X_WDT_TIMER_MASK			GENMASK(5, 4)
++#define SGM4154X_WDT_TIMER_40S			BIT(4)
++#define SGM4154X_WDT_TIMER_80S			BIT(5)
++#define SGM4154X_WDT_TIMER_160S			(BIT(4) | BIT(5))
++#define SGM4154X_WDT_TIMER_DISABLE		0
 +
-+unevaluatedProperties: false
++#define SGM4154X_CHRG_CTRL_6			0x06
++#define SGM4154X_VAC_OVP_MASK			GENMASK(7, 6)
++#define SGM4154X_OVP_14V			(BIT(7) | BIT(6))
++#define SGM4154X_OVP_10_5V			BIT(7)
++#define SGM4154X_OVP_6_5V			BIT(6)
++#define SGM4154X_OVP_5_5V			0
++#define SGM4154X_OVP_DEFAULT			SGM4154X_OVP_14V
++#define SGM4154X_BOOSTV				GENMASK(5, 4)
++#define SGM4154X_VINDPM_V_MASK			GENMASK(3, 0)
++#define SGM4154X_VINDPM_V_MIN_UV		3900000
++#define SGM4154X_VINDPM_V_MAX_UV		12000000
++#define SGM4154X_VINDPM_STEP_UV			100000
++#define SGM4154X_VINDPM_DEF_UV			4500000
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++#define SGM4154X_CHRG_CTRL_7			0x07
 +
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++#define SGM4154X_CHRG_STAT		0x08
++#define SGM4154X_VBUS_STAT_MASK		GENMASK(7, 5)
++#define SGM4154X_OTG_MODE		(BIT(7) | BIT(6) | BIT(5))
++#define SGM4154X_NON_STANDARD		(BIT(7) | BIT(6))
++#define SGM4154X_UNKNOWN		(BIT(7) | BIT(5))
++#define SGM4154X_USB_DCP		(BIT(6) | BIT(5))
++#define SGM4154X_USB_CDP		BIT(6)
++#define SGM4154X_USB_SDP		BIT(5)
++#define SGM4154X_NOT_CHRGING		0
++#define SGM4154X_CHG_STAT_MASK		GENMASK(4, 3)
++#define SGM4154X_TERM_CHRG		(BIT(4) | BIT(3))
++#define SGM4154X_FAST_CHRG		BIT(4)
++#define SGM4154X_PRECHRG		BIT(3)
++#define SGM4154X_PG_STAT		BIT(2)
++#define SGM4154X_THERM_STAT		BIT(1)
++#define SGM4154X_VSYS_STAT		BIT(0)
 +
-+        panel@0 {
-+            compatible = "anbernic,panel-vita-pro", "anbernic,td4310";
-+            reg = <0>;
-+            backlight = <&backlight>;
-+            enable-gpios = <&gpio0 9 GPIO_ACTIVE_HIGH>;
-+            reset-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
-+            rotation = <270>;
-+            vdd-supply = <&vdd_lcd>;
++#define SGM4154X_CHRG_FAULT		0x09
++#define SGM4154X_TEMP_MASK		GENMASK(2, 0)
++#define SGM4154X_TEMP_HOT		(BIT(2) | BIT(1))
++#define SGM4154X_TEMP_COLD		(BIT(2) | BIT(0))
++#define SGM4154X_TEMP_COOL		(BIT(1) | BIT(0))
++#define SGM4154X_TEMP_WARM		BIT(1)
++#define SGM4154X_TEMP_NORMAL		BIT(0)
 +
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
++#define SGM4154X_CHRG_CTRL_A		0x0a
++#define SGM4154X_VBUS_GOOD		BIT(7)
++#define SGM4154X_VINDPM_INT_MASK	BIT(1)
++#define SGM4154X_IINDPM_INT_MASK	BIT(0)
 +
-+...
++#define SGM4154X_CHRG_CTRL_B		0x0b
++#define SGM4154X_PN_ID			(BIT(6) | BIT(5) | BIT(3))
++#define SGM4154X_PN_MASK		GENMASK(6, 3)
++
++#define SGM4154X_CHRG_CTRL_C		0x0c
++
++#define SGM4154X_CHRG_CTRL_D		0x0d
++#define SGM4154X_JEITA_EN		BIT(0)
++
++#define SGM4154X_INPUT_DET		0x0e
++#define SGM4154X_DPDM_ONGOING		BIT(7)
++
++#define SGM4154X_CHRG_CTRL_F		0x0f
++#define SGM4154X_VINDPM_OS_MASK	 GENMASK(1, 0)
++
++#define SGM4154X_DEFAULT_INPUT_CUR	(500 * 1000)
++
++struct sgm4154x_init_data {
++	int ilim;	/* input current limit */
++	int vlim;	/* minimum system voltage limit */
++	int iterm;	/* termination current */
++	int iprechg;	/* precharge current */
++	int max_ichg;	/* maximum charge current */
++	int max_vreg;	/* maximum charge voltage */
++};
++
++struct sgm4154x_state {
++	bool vsys_stat;
++	bool therm_stat;
++	bool online;
++	u8 chrg_stat;
++	bool chrg_en;
++	bool vbus_gd;
++	u8 chrg_type;
++	u8 health;
++	u8 chrg_fault;
++	u8 ntc_fault;
++};
++
++struct sgm4154x_device {
++	struct i2c_client *client;
++	struct device *dev;
++	struct power_supply *charger;
++	struct regmap *regmap;
++	char model_name[I2C_NAME_SIZE];
++	struct sgm4154x_init_data init_data;
++	struct sgm4154x_state state;
++	struct regulator_dev *otg_rdev;
++	bool watchdog_enable;
++	struct workqueue_struct *sgm_monitor_wq;
++	struct delayed_work sgm_delay_work;
++};
++
++enum SGM4154X_VINDPM_OS {
++	VINDPM_OS_3900MV,
++	VINDPM_OS_5900MV,
++	VINDPM_OS_7500MV,
++	VINDPM_OS_10500MV,
++};
++
++static int sgm4154x_set_term_curr(struct sgm4154x_device *sgm, int cur_ua)
++{
++	int reg_val;
++	int ret;
++
++	cur_ua = clamp(cur_ua, SGM4154X_TERMCHRG_I_MIN_UA, SGM4154X_TERMCHRG_I_MAX_UA);
++	reg_val = (cur_ua - SGM4154X_TERMCHRG_I_MIN_UA) / SGM4154X_TERMCHRG_CURRENT_STEP_UA;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_3,
++				 SGM4154X_TERMCHRG_CUR_MASK,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set term current error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_set_prechrg_curr(struct sgm4154x_device *sgm, int cur_ua)
++{
++	int reg_val;
++	int ret;
++
++	cur_ua = clamp(cur_ua, SGM4154X_PRECHRG_I_MIN_UA, SGM4154X_PRECHRG_I_MAX_UA);
++	reg_val = (cur_ua - SGM4154X_PRECHRG_I_MIN_UA) / SGM4154X_PRECHRG_CURRENT_STEP_UA;
++
++	reg_val = reg_val << 4;
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_3,
++				 SGM4154X_PRECHRG_CUR_MASK,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set precharge current error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_set_ichrg_curr(struct sgm4154x_device *sgm, int cur_ua)
++{
++	int reg_val;
++	int ret;
++
++	cur_ua = clamp(cur_ua, SGM4154X_ICHRG_I_MIN_UA, sgm->init_data.max_ichg);
++	reg_val = cur_ua / SGM4154X_ICHRG_I_STEP_UA;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_2,
++				 SGM4154X_ICHRG_CUR_MASK,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set icharge current error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_get_ichrg_curr(struct sgm4154x_device *sgm)
++{
++	u32 reg;
++	int ret, val;
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_CTRL_2, &reg);
++	if (ret) {
++		dev_err(sgm->dev, "get charge current error!\n");
++		return ret;
++	}
++
++	val = FIELD_GET(SGM4154X_ICHRG_CUR_MASK, reg);
++
++	return val * SGM4154X_ICHRG_I_STEP_UA;
++}
++
++static int sgm4154x_set_chrg_volt(struct sgm4154x_device *sgm, int chrg_volt)
++{
++	int reg_val;
++	int ret;
++
++	/*
++	 * Note that the value of 0x01111 represents a "special value"
++	 * corresponding to 4352000uV instead of the expected 4336000uV,
++	 * per the datasheet. All other values are as expected. So not
++	 * only do we need to clamp between max and min values, but
++	 * also clamp anything below 4352000uv to 4304000uv to prevent
++	 * overcharging.
++	 */
++	if (chrg_volt < 4352000)
++		chrg_volt = clamp(chrg_volt, SGM4154X_VREG_V_MIN_UV, 4304000);
++	chrg_volt = clamp(chrg_volt, SGM4154X_VREG_V_MIN_UV, sgm->init_data.max_vreg);
++	reg_val = (chrg_volt - SGM4154X_VREG_V_MIN_UV) / SGM4154X_VREG_V_STEP_UV;
++	reg_val = reg_val << 3;
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_4,
++				 SGM4154X_VREG_V_MASK,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set charge voltage error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_get_chrg_volt(struct sgm4154x_device *sgm)
++{
++	u32 reg;
++	int ret, val;
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_CTRL_4, &reg);
++	if (ret) {
++		dev_err(sgm->dev, "get charge voltage error!\n");
++		return ret;
++	}
++
++	val = FIELD_GET(SGM4154X_VREG_V_MASK, reg);
++
++	/*
++	 * 0x01111 is a special value meaning 4352000uV, all other
++	 * values are as expected based on the offset and step values.
++	 */
++	if (val == 0x0f)
++		return 4352000;
++
++	return val * SGM4154X_VREG_V_STEP_UV + SGM4154X_VREG_V_MIN_UV;
++}
++
++static int sgm4154x_set_input_volt_lim(struct sgm4154x_device *sgm,
++				       unsigned int vindpm)
++{
++	enum SGM4154X_VINDPM_OS os_val;
++	unsigned int offset;
++	u8 reg_val;
++	int ret;
++
++
++	if (vindpm < SGM4154X_VINDPM_V_MIN_UV ||
++	    vindpm > SGM4154X_VINDPM_V_MAX_UV) {
++		dev_err(sgm->dev, "input voltage limit %u outside range\n", vindpm);
++		return -EINVAL;
++	}
++
++	/*
++	 * Supported ranges per the datasheet are as follows:
++	 * 3.9v - 5.4v with a 3.9v offset
++	 * 5.9v - 7.4v with a 5.9v offset
++	 * 7.5v - 9.0v with a 7.5v offset
++	 * 10.5v - 12.0v with a 10.5v offset
++	 * Step size is a constant 100mv
++	 */
++	if (vindpm < 5900000) {
++		vindpm = clamp(vindpm, VINDPM_OS_3900MV, 5400000);
++		os_val = VINDPM_OS_3900MV;
++		offset = 3900000;
++	} else if (vindpm >= 5900000 && vindpm < 7500000) {
++		vindpm = clamp(vindpm, VINDPM_OS_5900MV, 7400000);
++		os_val = VINDPM_OS_5900MV;
++		offset = 5900000;
++	} else if (vindpm >= 7500000 && vindpm < 10500000) {
++		vindpm = clamp(vindpm, VINDPM_OS_7500MV, 9000000);
++		os_val = VINDPM_OS_7500MV;
++		offset = 7500000;
++	} else {
++		vindpm = clamp(vindpm, VINDPM_OS_10500MV, 12000000);
++		os_val = VINDPM_OS_10500MV;
++		offset = 10500000;
++	}
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_F,
++				 SGM4154X_VINDPM_OS_MASK,
++				 os_val);
++	if (ret) {
++		dev_err(sgm->dev, "set vin dpm error!\n");
++		return ret;
++	}
++
++	reg_val = (vindpm - offset) / SGM4154X_VINDPM_STEP_UV;
++
++	ret = regmap_update_bits(sgm->regmap, SGM4154X_CHRG_CTRL_6,
++				 SGM4154X_VINDPM_V_MASK, reg_val);
++	if (ret)
++		dev_err(sgm->dev, "input voltage error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_set_input_curr_lim(struct sgm4154x_device *sgm, int iindpm)
++{
++	int reg_val;
++	int ret;
++
++	if (iindpm < SGM4154X_IINDPM_I_MIN_UA)
++		return -EINVAL;
++
++	/*
++	 * Per the datasheet, values between 100000uA and 3100000uA work
++	 * as expected with the register defined as having a step of
++	 * 100000 and a min/max of 100000 (0x00) through 3100000 (0x1e).
++	 * The register value of 0x1f however corresponds to 3800000uA not
++	 * 3200000uA as one would expect.
++	 */
++	if ((iindpm > SGM4154X_IINDPM_I_MAX_UA) || (iindpm > sgm->init_data.ilim))
++		iindpm = min(SGM4154X_IINDPM_I_MAX_UA, sgm->init_data.ilim);
++
++	if (iindpm > 3100000 && iindpm < SGM4154X_IINDPM_I_MAX_UA)
++		iindpm = 3100000;
++
++	if (iindpm == SGM4154X_IINDPM_I_MAX_UA)
++		reg_val = 0x1f;
++	else
++		reg_val = (iindpm - SGM4154X_IINDPM_I_MIN_UA) / SGM4154X_IINDPM_STEP_UA;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_0,
++				 SGM4154X_IINDPM_I_MASK,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set input current limit error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_get_input_curr_lim(struct sgm4154x_device *sgm)
++{
++	int ret;
++	int ilim;
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_CTRL_0, &ilim);
++	if (ret) {
++		dev_err(sgm->dev, "get input current limit error!\n");
++		return ret;
++	}
++
++	/* Max value is not 3200000uA as expected but is 3800000uA */
++	if (SGM4154X_IINDPM_I_MASK == (ilim & SGM4154X_IINDPM_I_MASK))
++		return SGM4154X_IINDPM_I_MAX_UA;
++
++	ilim = (ilim & SGM4154X_IINDPM_I_MASK) * SGM4154X_IINDPM_STEP_UA + SGM4154X_IINDPM_I_MIN_UA;
++
++	return ilim;
++}
++
++static int sgm4154x_watchdog_timer_reset(struct sgm4154x_device *sgm)
++{
++	int ret;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_1,
++				 SGM4154X_WDT_RST,
++				 SGM4154X_WDT_RST);
++
++	if (ret)
++		dev_err(sgm->dev, "set watchdog timer error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_set_watchdog_timer(struct sgm4154x_device *sgm, int time)
++{
++	u8 reg_val;
++	int ret;
++
++	if (time == 0)
++		reg_val = SGM4154X_WDT_TIMER_DISABLE;
++	else if (time == 40)
++		reg_val = SGM4154X_WDT_TIMER_40S;
++	else if (time == 80)
++		reg_val = SGM4154X_WDT_TIMER_80S;
++	else
++		reg_val = SGM4154X_WDT_TIMER_160S;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_5,
++				 SGM4154X_WDT_TIMER_MASK,
++				 reg_val);
++
++	if (ret) {
++		dev_err(sgm->dev, "set watchdog timer error!\n");
++		return ret;
++	}
++
++	if (time) {
++		if (!sgm->watchdog_enable)
++			queue_delayed_work(sgm->sgm_monitor_wq,
++					   &sgm->sgm_delay_work,
++					   msecs_to_jiffies(1000 * 5));
++		sgm->watchdog_enable = true;
++	} else {
++		sgm->watchdog_enable = false;
++		sgm4154x_watchdog_timer_reset(sgm);
++	}
++
++	return ret;
++}
++
++static int sgm4154x_enable_charger(struct sgm4154x_device *sgm)
++{
++	int ret;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_1,
++				 SGM4154X_CHRG_EN,
++				 SGM4154X_CHRG_EN);
++	if (ret)
++		dev_err(sgm->dev, "enable charger error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_disable_charger(struct sgm4154x_device *sgm)
++{
++	int ret;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_1,
++				 SGM4154X_CHRG_EN,
++				 0);
++	if (ret)
++		dev_err(sgm->dev, "disable charger error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_set_vac_ovp(struct sgm4154x_device *sgm)
++{
++	int reg_val;
++	int ret;
++
++	reg_val = SGM4154X_OVP_DEFAULT & SGM4154X_VAC_OVP_MASK;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_6,
++				 SGM4154X_VAC_OVP_MASK,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set vac ovp error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_set_recharge_volt(struct sgm4154x_device *sgm, int recharge_volt)
++{
++	int reg_val;
++	int ret;
++
++	reg_val = (recharge_volt - SGM4154X_VRECHRG_OFFSET_MV) / SGM4154X_VRECHRG_STEP_MV;
++
++	ret = regmap_update_bits(sgm->regmap,
++				 SGM4154X_CHRG_CTRL_4,
++				 SGM4154X_VRECHARGE,
++				 reg_val);
++	if (ret)
++		dev_err(sgm->dev, "set recharger error!\n");
++
++	return ret;
++}
++
++static int sgm4154x_get_state(struct sgm4154x_device *sgm,
++			      struct sgm4154x_state *state)
++{
++	int reg, ret;
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_STAT, &reg);
++	if (ret) {
++		dev_err(sgm->dev, "read SGM4154X_CHRG_STAT fail\n");
++		return ret;
++	}
++	state->chrg_type = reg & SGM4154X_VBUS_STAT_MASK;
++	state->chrg_stat = reg & SGM4154X_CHG_STAT_MASK;
++	state->online = !!(reg & SGM4154X_PG_STAT);
++	state->therm_stat = !!(reg & SGM4154X_THERM_STAT);
++	state->vsys_stat = !!(reg & SGM4154X_VSYS_STAT);
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_FAULT, &reg);
++	if (ret) {
++		dev_err(sgm->dev, "read SGM4154X_CHRG_FAULT fail\n");
++		return ret;
++	}
++	state->chrg_fault = reg;
++	state->ntc_fault = reg & SGM4154X_TEMP_MASK;
++	state->health = state->ntc_fault;
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_CTRL_A, &reg);
++	if (ret) {
++		dev_err(sgm->dev, "read SGM4154X_CHRG_CTRL_A fail\n");
++		return ret;
++	}
++	state->vbus_gd = !!(reg & SGM4154X_VBUS_GOOD);
++
++	return ret;
++}
++
++static int sgm4154x_property_is_writeable(struct power_supply *psy,
++					  enum power_supply_property prop)
++{
++	switch (prop) {
++	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE:
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT:
++	case POWER_SUPPLY_PROP_ONLINE:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static int sgm4154x_charger_set_property(struct power_supply *psy,
++					 enum power_supply_property prop,
++					 const union power_supply_propval *val)
++{
++	struct sgm4154x_device *sgm = power_supply_get_drvdata(psy);
++	int ret = -EINVAL;
++
++	switch (prop) {
++	case POWER_SUPPLY_PROP_ONLINE:
++		if (val->intval) {
++			ret = sgm4154x_enable_charger(sgm);
++			sgm4154x_set_watchdog_timer(sgm, SGM4154X_WDT_TIMER_40S);
++		} else {
++			sgm4154x_set_watchdog_timer(sgm, 0);
++			ret = sgm4154x_disable_charger(sgm);
++		}
++		break;
++
++	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
++		ret = sgm4154x_set_input_curr_lim(sgm, val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT:
++		ret = sgm4154x_set_ichrg_curr(sgm, val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE:
++		ret = sgm4154x_set_chrg_volt(sgm, val->intval);
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
++static int sgm4154x_charger_get_property(struct power_supply *psy,
++					 enum power_supply_property psp,
++					 union power_supply_propval *val)
++{
++	struct sgm4154x_device *sgm = power_supply_get_drvdata(psy);
++	struct sgm4154x_state state;
++	int ret;
++
++	ret = sgm4154x_get_state(sgm, &state);
++	if (ret) {
++		dev_err(sgm->dev, "get state error!\n");
++		return ret;
++	}
++	sgm->state = state;
++
++	switch (psp) {
++	case POWER_SUPPLY_PROP_STATUS:
++		if (!state.chrg_type || (state.chrg_type == SGM4154X_OTG_MODE))
++			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
++		else if (!state.chrg_stat)
++			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
++		else if (state.chrg_stat == SGM4154X_TERM_CHRG)
++			val->intval = POWER_SUPPLY_STATUS_FULL;
++		else
++			val->intval = POWER_SUPPLY_STATUS_CHARGING;
++		break;
++	case POWER_SUPPLY_PROP_CHARGE_TYPE:
++		switch (state.chrg_stat) {
++		case SGM4154X_PRECHRG:
++			val->intval = POWER_SUPPLY_CHARGE_TYPE_TRICKLE;
++			break;
++		case SGM4154X_FAST_CHRG:
++			val->intval = POWER_SUPPLY_CHARGE_TYPE_FAST;
++			break;
++		case SGM4154X_TERM_CHRG:
++			val->intval = POWER_SUPPLY_CHARGE_TYPE_TRICKLE;
++			break;
++		case SGM4154X_NOT_CHRGING:
++			val->intval = POWER_SUPPLY_CHARGE_TYPE_NONE;
++			break;
++		default:
++			val->intval = POWER_SUPPLY_CHARGE_TYPE_UNKNOWN;
++		}
++		break;
++	case POWER_SUPPLY_PROP_MANUFACTURER:
++		val->strval = SGM4154X_MANUFACTURER;
++		break;
++
++	case POWER_SUPPLY_PROP_MODEL_NAME:
++		val->strval = SGM4154X_NAME;
++		break;
++
++	case POWER_SUPPLY_PROP_ONLINE:
++		val->intval = state.online;
++		break;
++	case POWER_SUPPLY_PROP_PRESENT:
++		val->intval = state.vbus_gd;
++		break;
++	case POWER_SUPPLY_PROP_TYPE:
++		val->intval = POWER_SUPPLY_TYPE_USB;
++		break;
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE:
++		val->intval = sgm4154x_get_chrg_volt(sgm);
++		if (val->intval < 0)
++			return -EINVAL;
++		break;
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT:
++		val->intval = sgm4154x_get_ichrg_curr(sgm);
++		if (val->intval < 0)
++			return -EINVAL;
++		break;
++	case POWER_SUPPLY_PROP_INPUT_VOLTAGE_LIMIT:
++		val->intval = sgm->init_data.vlim;
++		break;
++	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
++		val->intval = sgm4154x_get_input_curr_lim(sgm);
++		if (val->intval < 0)
++			return  -EINVAL;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
++static irqreturn_t sgm4154x_irq_handler_thread(int irq, void *private)
++{
++	struct sgm4154x_device *sgm4154x = private;
++	struct sgm4154x_state state;
++	int ret;
++
++	ret = sgm4154x_get_state(sgm4154x, &state);
++	if (ret) {
++		dev_err(sgm4154x->dev, "get state error!\n");
++		return IRQ_NONE;
++	}
++	sgm4154x->state = state;
++	if (state.vbus_gd) {
++		if (sgm4154x->init_data.ilim >= SGM4154X_DEFAULT_INPUT_CUR) {
++			ret = sgm4154x_set_input_curr_lim(sgm4154x, sgm4154x->init_data.ilim);
++			if (ret) {
++				dev_err(sgm4154x->dev, "set input current error!\n");
++				return IRQ_NONE;
++			}
++		}
++	}
++	power_supply_changed(sgm4154x->charger);
++
++	return IRQ_HANDLED;
++}
++
++static enum power_supply_property sgm4154x_power_supply_props[] = {
++	POWER_SUPPLY_PROP_TYPE,
++	POWER_SUPPLY_PROP_MANUFACTURER,
++	POWER_SUPPLY_PROP_MODEL_NAME,
++	POWER_SUPPLY_PROP_STATUS,
++	POWER_SUPPLY_PROP_ONLINE,
++	POWER_SUPPLY_PROP_INPUT_VOLTAGE_LIMIT,
++	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
++	POWER_SUPPLY_PROP_CHARGE_TYPE,
++	POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE,
++	POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT,
++	POWER_SUPPLY_PROP_PRESENT
++};
++
++static char *sgm4154x_charger_supplied_to[] = {
++	"battery-monitor",
++};
++
++static struct power_supply_desc sgm4154x_power_supply_desc = {
++	.name = "sgm4154x-charger",
++	.type = POWER_SUPPLY_TYPE_USB,
++	.properties = sgm4154x_power_supply_props,
++	.num_properties = ARRAY_SIZE(sgm4154x_power_supply_props),
++	.get_property = sgm4154x_charger_get_property,
++	.set_property = sgm4154x_charger_set_property,
++	.property_is_writeable = sgm4154x_property_is_writeable,
++};
++
++static const struct regmap_config sgm4154x_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = SGM4154X_CHRG_CTRL_F,
++	.cache_type = REGCACHE_NONE,
++};
++
++static int sgm4154x_power_supply_init(struct sgm4154x_device *sgm,
++				      struct device *dev)
++{
++	struct power_supply_config psy_cfg = { .drv_data = sgm,
++					       .fwnode = dev->fwnode, };
++
++	psy_cfg.supplied_to = sgm4154x_charger_supplied_to;
++	psy_cfg.num_supplicants = ARRAY_SIZE(sgm4154x_charger_supplied_to);
++	psy_cfg.fwnode = dev->fwnode;
++	sgm->charger = devm_power_supply_register(sgm->dev,
++						  &sgm4154x_power_supply_desc,
++						  &psy_cfg);
++	if (IS_ERR(sgm->charger))
++		return PTR_ERR(sgm->charger);
++
++	return 0;
++}
++
++static int sgm4154x_hw_init(struct sgm4154x_device *sgm)
++{
++	struct power_supply_battery_info *bat_info;
++	int ret;
++	u32 val;
++
++	/*
++	 * If unable to read devicetree info, use default/reset
++	 * values from hardware.
++	 */
++	sgm->init_data.iprechg = SGM4154X_PRECHRG_I_DEF_UA;
++	sgm->init_data.iterm = SGM4154X_TERMCHRG_I_DEF_UA;
++	sgm->init_data.max_ichg = SGM4154X_ICHRG_I_DEF_UA;
++	sgm->init_data.max_vreg = SGM4154X_VREG_V_DEF_UV;
++	sgm->init_data.vlim = SGM4154X_VINDPM_DEF_UV;
++	sgm->init_data.ilim = SGM4154X_IINDPM_DEF_UA;
++
++	ret = power_supply_get_battery_info(sgm->charger, &bat_info);
++	if (!ret) {
++		if (bat_info->constant_charge_current_max_ua)
++			sgm->init_data.max_ichg = bat_info->constant_charge_current_max_ua;
++		if (bat_info->constant_charge_voltage_max_uv)
++			sgm->init_data.max_vreg = bat_info->constant_charge_voltage_max_uv;
++		if (bat_info->charge_term_current_ua)
++			sgm->init_data.iterm = bat_info->charge_term_current_ua;
++		if (bat_info->precharge_current_ua)
++			sgm->init_data.iprechg = bat_info->precharge_current_ua;
++
++		power_supply_put_battery_info(sgm->charger, bat_info);
++	} else
++		dev_warn(sgm->dev, "sgm4154x: cannot read battery info\n");
++
++	ret = device_property_read_u32(sgm->dev,
++				       "input-voltage-limit-microvolt",
++				       &val);
++	if (!ret)
++		sgm->init_data.vlim = clamp(val, SGM4154X_VINDPM_V_MIN_UV,
++					    SGM4154X_VINDPM_V_MAX_UV);
++
++	ret = device_property_read_u32(sgm->dev,
++				       "input-current-limit-microamp",
++				       &val);
++	if (!ret)
++		sgm->init_data.ilim = clamp(val, SGM4154X_IINDPM_I_MIN_UA,
++					    SGM4154X_IINDPM_I_MAX_UA);
++
++	ret = sgm4154x_set_watchdog_timer(sgm, 0);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_prechrg_curr(sgm, sgm->init_data.iprechg);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_chrg_volt(sgm, sgm->init_data.max_vreg);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_term_curr(sgm, sgm->init_data.iterm);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_ichrg_curr(sgm, sgm->init_data.max_ichg);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_input_volt_lim(sgm, sgm->init_data.vlim);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_input_curr_lim(sgm, sgm->init_data.ilim);
++	if (ret)
++		return ret;
++
++	ret = sgm4154x_set_vac_ovp(sgm);
++	if (ret)
++		return ret;
++
++	regmap_update_bits(sgm->regmap,
++			   SGM4154X_CHRG_CTRL_D,
++			   SGM4154X_JEITA_EN,
++			   0);
++
++	regmap_update_bits(sgm->regmap,
++			   SGM4154X_CHRG_CTRL_A,
++			   SGM4154X_IINDPM_INT_MASK,
++			   SGM4154X_IINDPM_INT_MASK);
++
++	regmap_update_bits(sgm->regmap,
++			   SGM4154X_CHRG_CTRL_A,
++			   SGM4154X_VINDPM_INT_MASK,
++			   SGM4154X_VINDPM_INT_MASK);
++
++	/*
++	 * Recharge voltage set to 200 by BSP driver instead of hardware
++	 * default value of 100.
++	 */
++	ret = sgm4154x_set_recharge_volt(sgm, 200);
++
++	return ret;
++}
++
++static const u32 sgm4154x_chg_otg_cur_ua[] = {
++	1200000, 2000000,
++};
++
++static const struct regulator_ops sgm4154x_vbus_ops = {
++	.list_voltage = regulator_list_voltage_linear,
++	.enable = regulator_enable_regmap,
++	.disable = regulator_disable_regmap,
++	.is_enabled = regulator_is_enabled_regmap,
++	.set_voltage_sel = regulator_set_voltage_sel_regmap,
++	.get_voltage_sel = regulator_get_voltage_sel_regmap,
++	.set_current_limit = regulator_set_current_limit_regmap,
++	.get_current_limit = regulator_get_current_limit_regmap,
++};
++
++static const struct regulator_desc sgm4154x_otg_rdesc = {
++	.of_match = "otg-vbus",
++	.name = "otg-vbus",
++	.regulators_node = of_match_ptr("regulators"),
++	.ops = &sgm4154x_vbus_ops,
++	.owner = THIS_MODULE,
++	.type = REGULATOR_VOLTAGE,
++	.min_uV = 4850000,
++	.uV_step = 150000,
++	.n_voltages = 4,
++	.vsel_reg = SGM4154X_CHRG_CTRL_6,
++	.vsel_mask = SGM4154X_BOOSTV,
++	.enable_reg = SGM4154X_CHRG_CTRL_1,
++	.enable_mask = SGM4154X_OTG_EN,
++	.curr_table = sgm4154x_chg_otg_cur_ua,
++	.n_current_limits = ARRAY_SIZE(sgm4154x_chg_otg_cur_ua),
++	.csel_reg = SGM4154X_CHRG_CTRL_2,
++	.csel_mask = SGM4154X_BOOST_LIM,
++};
++
++static int sgm4154x_vbus_regulator_register(struct sgm4154x_device *sgm)
++{
++	struct regulator_config config = {
++		.dev = sgm->dev,
++		.regmap = sgm->regmap,
++		.driver_data = sgm,
++	};
++
++	sgm->otg_rdev = devm_regulator_register(sgm->dev,
++						&sgm4154x_otg_rdesc,
++						&config);
++
++	return PTR_ERR_OR_ZERO(sgm->otg_rdev);
++}
++
++static int sgm4154x_hw_chipid_detect(struct sgm4154x_device *sgm)
++{
++	int ret;
++	int val;
++
++	ret = regmap_read(sgm->regmap, SGM4154X_CHRG_CTRL_B, &val);
++	if (ret)
++		return ret;
++
++	if ((val & SGM4154X_PN_MASK) != SGM4154X_PN_ID)
++		dev_warn(sgm->dev, "sgm4154x device ID mismatch\n");
++
++	return 0;
++}
++
++static void sgm_charger_work(struct work_struct *work)
++{
++	struct sgm4154x_device *sgm =
++		container_of(work,
++			     struct sgm4154x_device,
++			     sgm_delay_work.work);
++
++	sgm4154x_watchdog_timer_reset(sgm);
++	if (sgm->watchdog_enable)
++		queue_delayed_work(sgm->sgm_monitor_wq,
++				   &sgm->sgm_delay_work,
++				   msecs_to_jiffies(1000 * 5));
++}
++
++static int sgm4154x_probe(struct i2c_client *client)
++{
++	const struct i2c_device_id *id = i2c_client_get_device_id(client);
++	struct device *dev = &client->dev;
++	struct sgm4154x_device *sgm;
++	int ret;
++
++	sgm = devm_kzalloc(dev, sizeof(*sgm), GFP_KERNEL);
++	if (!sgm)
++		return -ENOMEM;
++
++	sgm->client = client;
++	sgm->dev = dev;
++
++	strscpy(sgm->model_name, id->name, I2C_NAME_SIZE);
++
++	sgm->regmap = devm_regmap_init_i2c(client, &sgm4154x_regmap_config);
++	if (IS_ERR(sgm->regmap))
++		return dev_err_probe(dev, PTR_ERR(sgm->regmap),
++				     "Failed to allocate register map\n");
++
++	i2c_set_clientdata(client, sgm);
++
++	ret = sgm4154x_hw_chipid_detect(sgm);
++	if (ret)
++		return dev_err_probe(dev, ret, "Unable to read HW ID\n");
++
++	device_init_wakeup(dev, 1);
++
++	sgm->sgm_monitor_wq = devm_alloc_ordered_workqueue(dev, "%s",
++			WQ_MEM_RECLAIM | WQ_FREEZABLE, "sgm-monitor-wq");
++	if (!sgm->sgm_monitor_wq)
++		return -EINVAL;
++
++	ret = devm_delayed_work_autocancel(dev, &sgm->sgm_delay_work,
++					   sgm_charger_work);
++	if (ret)
++		return dev_err_probe(dev, ret, "Unable to register delayed work\n");
++
++	ret = sgm4154x_power_supply_init(sgm, dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to register power supply\n");
++
++	ret = sgm4154x_hw_init(sgm);
++	if (ret)
++		return dev_err_probe(dev, ret, "Cannot initialize the chip.\n");
++
++	if (client->irq) {
++		ret = devm_request_threaded_irq(dev, client->irq, NULL,
++						sgm4154x_irq_handler_thread,
++						IRQF_TRIGGER_FALLING |
++						IRQF_ONESHOT,
++						"sgm41542-irq", sgm);
++		if (ret)
++			return ret;
++
++		enable_irq_wake(client->irq);
++	}
++
++	ret = sgm4154x_vbus_regulator_register(sgm);
++	if (ret) {
++		disable_irq_wake(client->irq);
++		return dev_err_probe(dev, ret,
++				     "Unable to register VBUS regulator\n");
++	}
++
++	return 0;
++}
++
++static void sgm4154x_charger_shutdown(struct i2c_client *client)
++{
++	struct sgm4154x_device *sgm = i2c_get_clientdata(client);
++
++	sgm4154x_set_prechrg_curr(sgm, SGM4154X_PRECHRG_I_DEF_UA);
++	sgm4154x_disable_charger(sgm);
++}
++
++static void sgm4154x_charger_remove(struct i2c_client *client)
++{
++	disable_irq_wake(client->irq);
++}
++
++static const struct i2c_device_id sgm4154x_i2c_ids[] = {
++	{ "sgm41542" },
++	{ },
++};
++MODULE_DEVICE_TABLE(i2c, sgm4154x_i2c_ids);
++
++static const struct of_device_id sgm4154x_of_match[] = {
++	{ .compatible = "sgmicro,sgm41542", },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, sgm4154x_of_match);
++
++static struct i2c_driver sgm4154x_driver = {
++	.driver = {
++		.name = "sgm4154x-charger",
++		.of_match_table = sgm4154x_of_match,
++	},
++	.probe = sgm4154x_probe,
++	.shutdown = sgm4154x_charger_shutdown,
++	.remove = sgm4154x_charger_remove,
++	.id_table = sgm4154x_i2c_ids,
++};
++
++module_i2c_driver(sgm4154x_driver);
++
++MODULE_AUTHOR("Xu Shengfei <xsf@rock-chips.com>");
++MODULE_DESCRIPTION("sgm4154x charger driver");
++MODULE_LICENSE("GPL");
 -- 
 2.43.0
 
