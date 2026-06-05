@@ -1,63 +1,63 @@
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CD23090D4
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 01:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC25B361DB8
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 01:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780621282; cv=none; b=lHDLVSZ2YyXD43G5o9vW+GRNyp13c4GzyGbg4BAhRfW8yFWi6dMYMlBXEIljlm0iXbQUjC0MT+Ekha2OfQpE5KNSgMpBqGlcGhPnBXFYG8R+CkzqxkJ4e3YG1Lz5ZbABNn//WjYGcQhrByQ+EnHr+NFvdz7Wr/qFvt2igSijVsA=
+	t=1780621286; cv=none; b=BzQK6CZgckU5ScHebPWMCFKawRoRnN22iQcBPJnKrafkVo5vyifThqZfZnslw2Fp1Kwyh83KXicmV+/c5rE7jOJtO41ZsEdg1H/K4hU4hTe4D4+ioN85ngMFeUiaIh9761S3pYwbvaFXxhbM2GHaycakMwXcxZ177A4X6jxQ1bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780621282; c=relaxed/simple;
-	bh=jVce/FGPrlppCYirHntYfI3PY05wNfUxhYZHb68/6qI=;
+	s=arc-20240116; t=1780621286; c=relaxed/simple;
+	bh=Q/ZNVyWH5+7aUXeLq9mlW50Vwgq0fqg1xk8VkFefUX8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BTPFxN8pUXCqe/zcIYoYV5Zo137G9xgqhvRUQmRVxLYzFQd1da44M9B5/1F+TLmhdpqO7m30Z3tKNmgz8cV2AhbIV6KrwESCTou4FRsjZCXa+E+yPTm+HS9GpK2Oc8FkWOEJV5ILPlWSzkPYNox+vXmUrt7Pz/aPUK4M/1ZB11k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=w06WhaNI; arc=none smtp.client-ip=209.85.167.175
+	 MIME-Version; b=okRBhtGNC61VodgBmAbYDUzARZB4OMXAlnyhhQ1gtyH5VrH8tptHotbQeoa4QgkMC9/Kwvm+dy2VPKiYJm98yM04W+R740BJL1Uc4EYKDZeUh5gRQA0rIkPazwxMrYLFNbFPiKwj1fBpp8f/fZ+9RDg5eLCfyANW8vSKLzZhB+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VBA0oiYL; arc=none smtp.client-ip=209.85.167.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="w06WhaNI"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4863eae453eso644586b6e.1
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 18:00:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VBA0oiYL"
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4854d5cc708so852147b6e.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 18:01:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621257; x=1781226057; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621260; x=1781226060; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7bUHKe8xq0j7moOuD73/H9vKbxT6KczY0fAxl1satXM=;
-        b=w06WhaNI0tK9parGISgOsJDUgg+EH1tx+BYvqyGqjEyDScU7oQ5LFXfdFTmN9qLEDv
-         caBecHYIXYjrjf2Sn2SgFaStgF1VLff0gRuWMFURgGC421uIEkqv4gdodYzxuTPzXx51
-         13LcOwmJxFqIjIs7qAN8vqorYhukvfBmn+1E9sxHZrcX7F+AarmSklfOEHAe1vn5XJaC
-         6j6fWSH74qW0899k1lxAmiaCkEfuSa6ytGa88CR2yu0QLd/kgLagO2d3EA4/yPIXzAIv
-         /SGRe4HmaZIpK3U0yHWTN24SZkn/qkdEQbFbGjeVoYdk1XMmfr7tFaOJrgHfj6YwIJ4k
-         S47Q==
+        bh=/ZIGHz/o3y+3ogj7r6nfssUl4myckUIIzkFFbrT9qoc=;
+        b=VBA0oiYLEp5RT1MN3a1hVsJ8aRjH4SnEjm8N5ALMhxnEZFGvXRgXW34Zan/sKl+2x5
+         deTqZHtZXgnm2dOSmEAm+PTuNrLpnF1OsuLx6ixjUnOyTcyesBZe5KEwogK+OY9HEu66
+         rVMgEtkStXsK3Pj5d3ODn57cpdsvFOgeritiO7eAdpEbwCcRelRrDh38Av2IqceiEWlf
+         594CitBmTaWgZU0eG+zjXP9rq9k++r7nyvZo3wJMZ3VfKBGJr/8Yn5uksoGqC/0LZcun
+         PeQsD6SW9F3FTfxRr2T7e/Bo6u7mP9nOo1jfT+QxRPIk6VL7pqNDdqEVS5yk7//ZAhMQ
+         9g8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780621257; x=1781226057;
+        d=1e100.net; s=20251104; t=1780621260; x=1781226060;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=7bUHKe8xq0j7moOuD73/H9vKbxT6KczY0fAxl1satXM=;
-        b=RphsYBCV69kJpb4Yyj1S7Mo6jZxa4/Vv76IXW9QmHUG11CyGyyzRifo45uuuYo1YVM
-         4vR0WT3T0+VP4hXBzo01aelBFtx68FuH3rePsOZin3B4krIqAih5uDj0NMnk4FBLOkSt
-         nX1U7pYOwGlvA32oR83vnCTe4aljI+9Ii9oZIWvh1sw4WGNr1XwX+7AWNbUbC2wHzBdL
-         I4+UtdgsJdbM+kzTGJuhavvnNdI24frSiAiXPe6F0S8eiWBXbFkuSh/7dhBxyZty+nxN
-         dFAaf3S1eewbCvU+8KNXxeD2azb34z0AYH5zBPDKFwQQP1rZPxhcLk2GWCKA+JCx191A
-         6++w==
-X-Forwarded-Encrypted: i=1; AFNElJ+co4+LFb3VUG+ge61yz6TzoGDQv3d94eiQ5VVM+qW3MQH0YKpKG5Ie1dAveNDuIaFXP76dVmfQBwVb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5rlDA1GOPgojVs6aFOyrGq2Eg1bi+9M5FpvLDxdXan7U89l27
-	pJp6FJI2HstrPXmMOqjLX1DSVAf4VVPmnPi4O5Axkxnfwwkl/4P3EROt0SpcN38uGCY=
-X-Gm-Gg: Acq92OGSfi73nVakx27zk5pdIvw1zhyQtAhxXy6isgfqow6knQW76CAs3AEk1NLAY5K
-	jbEnWU8UMi8BUtVNC4CO4t+f+f152CcxKUQItE3Cl+AR1/KAzyswdNvXgf0q8n9enUZoSaK7QqZ
-	nc7LgThLC3JjyI2Epx8g4kWMalPfykFQFKj5kBv4xUBfQnMJ6CJ0GHPilzVJ1nhU2CRxAtTLyjQ
-	12fLdUre4LIwm9uzySHndKvG2kNmOHIKZw66a2xHd69l5KgSyNq8cCR/mAslcZNTNraI/rLg6YS
-	RDvhIjkc5r/sgh+tUd8O0o1uSNyefh0pbcimQDUfS7/xwGrDlZFZOX34YfsT/jvYSWo+R7e4qUs
-	v/Rip0hWeo3uoFVvNxEdXK2xzmY4G6yL5PS7snFSdxoBMnZXfu9bRlxR1UTifZWp1msdbNhrKeT
-	QGZfhx10OXeQyeepA58SjWUWTwzsOJOp0d+Yt+7Q==
-X-Received: by 2002:a05:6808:1794:b0:486:3537:2193 with SMTP id 5614622812f47-4868dc58812mr926917b6e.11.1780621256480;
-        Thu, 04 Jun 2026 18:00:56 -0700 (PDT)
+        bh=/ZIGHz/o3y+3ogj7r6nfssUl4myckUIIzkFFbrT9qoc=;
+        b=OyxBcqPbU31O1DH4uWSwnk8fKn+/2+QuyosBUhsElOMir6UVSN7IBWfJfVrV6sI2oQ
+         WylmoQUZ5ELIA9lpZ6CE4qKjCRixaXsFeQuk5XK7b2axhI3uyva9n5XbTWHf6q5G/Lls
+         zT7Z/mEoYoVQxus36FlovuKrRQwL68G5mKLp02fqh4xInB3k9S7ZlVRDAvgY8Os8Ni0O
+         8m8OHZR5Hz1z+DdFT3ayAKY/ZMklpIPMZ0jgFLvN7nyY1FayC2MhF+J2CwHT1YZOs4Kd
+         gjQVoSO+Osxmb28Bj0QUCP1k9bGyAMCoawbd0HwLp/tcHcmsYvu4usWo/q7ct+mNOgYx
+         npGg==
+X-Forwarded-Encrypted: i=1; AFNElJ+hLQEgU5ecCNjZN3cWIw1sgO0d2nQ/3qQhLZ9uGx4jgEqi6zRZio2aJA6p1FcuXFrQJiqiLr0Kn2aA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxM2EOoF6cHCYxpds8qKUkA6MmiuQQ+as24uLHT/hSaqdpc34xy
+	gzRsanBYjqzmRJbND+7lGLz9wRsIHHPnHjU+u/DukF8AdVUYS8IOHVqGgzrBinSYw1E=
+X-Gm-Gg: Acq92OHfSQJUFUctaofqDWA3NuWhBkGRJBkPLSvjpbqlMOBru0wRT/SMiHIVKakziWk
+	xE3RnlZse7qG4Qd20yUQnBpYh0/hGiDd63aWCwF53CiqNRFsJn4gmgPgJb+gY6nl5+njT7xUK65
+	VWQCWs5N5nGtBN3Um9p7PCUBEzV2pUcHpUJ56SUOXQ22kggVjn1MjqjPnrBH2Zmx5/1KhlU/Z8M
+	2spluSs3k9J3eT3zXIo+Sb+PuNm5Nmyqjc+7TiULzZnYgmY+hIgXty3fx1X+kcButg0Ozd0IfJ8
+	qV1eeStAiBCG45xpobGhCJt9Ll9XsS8SwIY8f6ZovXm+CkHqkr/FsqWL1BwyQvpb7tt0s2yTaVM
+	oTxeBAQnExFp2setml6TxEc+MXDCqt6GRRGy20iz+8kYkPokug28EVY8CjleOGoX9y1LsMClDe0
+	DIAwshYdJAiKQpNXP8FApkcVDqv3xCtMvBSK/MHg==
+X-Received: by 2002:a05:6808:11cb:b0:467:de0e:feb6 with SMTP id 5614622812f47-4868dc583f1mr883548b6e.11.1780621259486;
+        Thu, 04 Jun 2026 18:00:59 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.53
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 18:00:55 -0700 (PDT)
+        Thu, 04 Jun 2026 18:00:59 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -108,9 +108,9 @@ Cc: Daniel Thompson <daniel@riscstar.com>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 09/14] net: stmmac: dwxgmac2: export symbols for XGMAC 3.01a DMA
-Date: Thu,  4 Jun 2026 20:00:16 -0500
-Message-ID: <20260605010022.968612-10-elder@riscstar.com>
+Subject: [PATCH net-next v2 10/14] dt-bindings: net: toshiba,tc9654-dwmac: add TC9564 Ethernet bridge
+Date: Thu,  4 Jun 2026 20:00:17 -0500
+Message-ID: <20260605010022.968612-11-elder@riscstar.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260605010022.968612-1-elder@riscstar.com>
 References: <20260605010022.968612-1-elder@riscstar.com>
@@ -124,119 +124,175 @@ Content-Transfer-Encoding: 8bit
 
 From: Daniel Thompson <daniel@riscstar.com>
 
-Toshiba TC956x is an Ethernet-AVB/TSN bridge and is essentially a
-small and highly-specialised SoC. Ethernet on this chip is provided
-by a DesignWare XGMAC.
+Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
+bridges.
 
-One consequence of the SoC-like design is that the internal AXI bus
-(used by the XGMAC for DMA) maps the PCI DMA space with a non-zero base
-address. This requires a translation step (happily just simple addition)
-to convert the PCI DMA address to the hardware DMA address.
+The TC9564 contains a PCIe switch with one upstream and three downstream
+PCIe ports.  The third PCIe downstream port has an attached embedded PCIe
+endpoint, and that endpoint implements two PCIe functions.  Each internal
+PCIe function has a Synopsys XGMAC Ethernet interface capable of 10 Gbps
+operation.
 
-This is pretty funky so rather than push that translation logic into
-the core driver we intend to keep that logic inside the TC956x
-platform code. In order to do that we need to export a few symbols
-to allow us to override some of the DMA and descriptor op tables.
+The TC9564 also implements an embedded GPIO controller, which exposes
+10 lines externally.  Some platforms use these GPIO lines, so this
+GPIO controller is managed by a separate driver.  Other embedded
+peripherals (like a microcontroller, SRAM, and UART) are currently
+unused.
 
-FWIW this approach to overriding the ops tables is similar to the
-mechanism currently found in dwmac-loongson.c (with the exception
-that we have also exported a couple of functions so we don't
-have to replicate their content in the TC956x platform code).
+The GPIO controller is managed by registers accessed via MMIO on an
+internal PCIe function's registers.
 
 Signed-off-by: Daniel Thompson <daniel@riscstar.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h |  7 +++++++
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c    |  1 +
- .../ethernet/stmicro/stmmac/dwxgmac2_descs.c   |  1 +
- .../net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 18 ++++++++++--------
- 4 files changed, 19 insertions(+), 8 deletions(-)
+ .../bindings/net/toshiba,tc9564-dwmac.yaml    | 120 ++++++++++++++++++
+ MAINTAINERS                                   |   6 +
+ 2 files changed, 126 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index bcf59ad8a1939..8cecde1bef8a1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -468,4 +468,11 @@ extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
- extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
- extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
- 
-+void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
-+			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
-+			       u32 chan);
-+void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
-+			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
-+			       u32 chan);
+diff --git a/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
+new file mode 100644
+index 0000000000000..6e7a63dfcf86a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
+@@ -0,0 +1,120 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/toshiba,tc9564-dwmac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- #endif /* __STMMAC_DWXGMAC2_H__ */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index f02b434bbd505..c9547dc6912a3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -1556,6 +1556,7 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
++title: Toshiba TC956x Ethernet-AVB/TSN Controller
++
++maintainers:
++  - Alex Elder <elder@riscstar.com>
++  - Daniel Thompson <daniel@riscstar.com>
++
++description: |
++  The Toshiba TC9564 (and more generally, TC956x) incorporates a PCIe
++  gen 3 switch with one upstream and three downstream ports.  The first
++  two downstream ports are exposed externally, while the third is used
++  by an internal PCIe endpoint.  The PCIe endpoint implements two PCIe
++  functions, and attached to each of these is a 10 Gbps capable Synopsys
++  Ethernet controller.
++
++  The TC956x additionally implements other internal IP blocks, and in
++  particular it implements a GPIO controller.  Ten of the 35 GPIO lines
++  implemented are exposed externally and are usable by the platform.
++  It is platform-dependent whether the GPIO function must be exposed,
++  and if it is, PCIe function 0 supplies it.
++
++              ----------------------------------
++              |              Host              |
++              ------+...+----------+........+---
++                    |i2c|          |  PCIe  |
++    ----------------+...+----------+........+------
++    | TC956x        |I2C|          |upstream|     |
++    |               -----        --+--------+---  |
++    |  -----  ------  -------    | PCIe switch |  |
++    |  |SPI|  |GPIO|  |reset|    |             |  |
++    |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
++    |                 -------    ---++--++--++--  |
++    |  -----  ------     downstream//    \\  \\   |  downstream
++    |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
++    |  -----  ------   //PCIe port 3       \\     |
++    |                  ||                   \======= downstream
++    |  ----+-----------++-----------+----         |  PCIe port 2
++    |  | M | internal PCIe endpoint | M |         |
++    |  | S |------------------------| S |  ------ |
++    |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
++    |  | G |function 0|  |function 1| G |  ------ |
++    |  | E |----++----|  |----++----| E |         |
++    |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
++    --------+.......+------+.....+-----------------
++            |USXGMII|      |SGMII|
++          --+.......+--  --+.....+--
++          |  ARQ113C  |  | QEP8121 |
++          |    PHY    |  |   PHY   |
++          -------------  -----------
++
++properties:
++  compatible:
++    enum:
++      - pci1179,0220 # Toshiba TC9564 (a.k.a. Qualcomm QPS615)
++
++  gpio:
++    type: object
++    description: Embedded GPIO controller
++    $ref: /schemas/gpio/gpio.yaml#
++
++  ethernet:
++    type: object
++    description: XGMAC Ethernet controller
++    $ref: /schemas/net/ethernet-controller.yaml#
++    properties:
++      mdio:
++        $ref: snps,dwmac.yaml#/properties/mdio
++    required:
++      - mdio
++
++required:
++  - compatible
++
++allOf:
++  - $ref: /schemas/pci/pci-device.yaml#
++  - $ref: /schemas/pci/pci-bus-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    pcie {
++        #address-cells = <3>;
++        #size-cells = <2>;
++
++        pci@0,0 {
++            compatible = "pci1179,0220";
++            reg = <0x50000 0x0 0x0 0x0 0x0>;
++            #address-cells = <3>;
++            #size-cells = <2>;
++            device_type = "pci";
++            ranges;
++
++            gpio {
++                  gpio-controller;
++                  #gpio-cells = <2>;
++            };
++
++            ethernet {
++                phy-mode = "10gbase-r";
++                phy-handle = <&tc9564_emac0_phy>;
++
++                mdio {
++                  compatible = "snps,dwmac-mdio";
++                  #address-cells = <1>;
++                  #size-cells = <0>;
++
++                  tc9564_emac0_phy: ethernet-phy@1c {
++                      compatible = "ethernet-phy-id311c.1c12";
++                      reg = <0x1c>;
++                  };
++              };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2aa6ea012c848..f976c9fa9d9c0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27052,6 +27052,12 @@ F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+ F:	drivers/media/i2c/tc358743*
+ F:	include/media/i2c/tc358743.h
  
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(dwxgmac2_setup);
- 
- int dwxlgmac2_setup(struct stmmac_priv *priv)
- {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-index b5f200a874840..cc67d8e1a920a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-@@ -368,3 +368,4 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
- 	.set_vlan = dwxgmac2_set_vlan,
- 	.set_tbs = dwxgmac2_set_tbs,
- };
-+EXPORT_SYMBOL_GPL(dwxgmac210_desc_ops);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index 584ab28d7f7f5..f564b9bd7d128 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -62,10 +62,10 @@ static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv,
- 	writel(XGMAC_DMA_INT_DEFAULT_EN, ioaddr + XGMAC_DMA_CH_INT_EN(chan));
- }
- 
--static void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
--				      void __iomem *ioaddr,
--				      struct stmmac_dma_cfg *dma_cfg,
--				      dma_addr_t phy, u32 chan)
-+void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
-+			       void __iomem *ioaddr,
-+			       struct stmmac_dma_cfg *dma_cfg,
-+			       dma_addr_t phy, u32 chan)
- {
- 	u32 rxpbl = dma_cfg->rxpbl ?: dma_cfg->pbl;
- 	u32 value;
-@@ -77,11 +77,11 @@ static void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
- 	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
- 	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
- }
-+EXPORT_SYMBOL_GPL(dwxgmac2_dma_init_rx_chan);
- 
--static void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv,
--				      void __iomem *ioaddr,
--				      struct stmmac_dma_cfg *dma_cfg,
--				      dma_addr_t phy, u32 chan)
-+void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
-+			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
-+			       u32 chan)
- {
- 	u32 txpbl = dma_cfg->txpbl ?: dma_cfg->pbl;
- 	u32 value;
-@@ -93,6 +93,7 @@ static void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv,
- 	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
- 	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
- }
-+EXPORT_SYMBOL_GPL(dwxgmac2_dma_init_tx_chan);
- 
- static void dwxgmac2_dma_axi(void __iomem *ioaddr, struct stmmac_axi *axi)
- {
-@@ -672,3 +673,4 @@ const struct stmmac_dma_ops dwxgmac301_dma_ops = {
- 	.enable_sph = dwxgmac2_enable_sph,
- 	.enable_tbs = dwxgmac2_enable_tbs,
- };
-+EXPORT_SYMBOL_GPL(dwxgmac301_dma_ops);
++TOSHIBA TC956X/QUALCOMM QPS615 DWMAC ETHERNET DRIVER
++M:	Alex Elder <elder@kernel.org>
++M:	Daniel Thompson <danielt@kernel.org>
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
++
+ TOSHIBA WMI HOTKEYS DRIVER
+ M:	Azael Avalos <coproscefalo@gmail.com>
+ L:	platform-driver-x86@vger.kernel.org
 -- 
 2.51.0
 
