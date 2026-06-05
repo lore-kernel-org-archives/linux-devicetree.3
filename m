@@ -1,63 +1,63 @@
 Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0E234041B
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 01:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CD23090D4
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 01:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780621277; cv=none; b=D8yA7mIy1EBT0ZPrau+819e/UBTFE8Pq+bLFLeoV5ACbQQk5um5sTCNbw1CxpAUG78A/gWtGLFPpsXOwjd5Pipw0+qAVVaeE0ka752v0OIvFloJr7ZJmaEiQM0HoGkxsxYGQ1hmGmFsCY9rzeZAnnxq63VQJ90oRvh/vCbCzJDY=
+	t=1780621282; cv=none; b=lHDLVSZ2YyXD43G5o9vW+GRNyp13c4GzyGbg4BAhRfW8yFWi6dMYMlBXEIljlm0iXbQUjC0MT+Ekha2OfQpE5KNSgMpBqGlcGhPnBXFYG8R+CkzqxkJ4e3YG1Lz5ZbABNn//WjYGcQhrByQ+EnHr+NFvdz7Wr/qFvt2igSijVsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780621277; c=relaxed/simple;
-	bh=rpLXgYSA9ynFB3Z3mEXcg+Fu+uSw2ie7fIqqWqhCqXU=;
+	s=arc-20240116; t=1780621282; c=relaxed/simple;
+	bh=jVce/FGPrlppCYirHntYfI3PY05wNfUxhYZHb68/6qI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NVMMigfBOtwQLIwCDboja3tWF/phzMKHmJHdVkme0n12skh2IyJf9VYgE7CZ0Hki+HwlE+zDAh3MhtftvMSU8sDyGXpkcfMqCMB6VX/XdaDx+25T4zfG6kIYuLkrt+TQX03Knxtcc/bWegJhNbbOd9iRQbyVCr+6bMX3NiWtaPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=hg8jbsVK; arc=none smtp.client-ip=209.85.167.175
+	 MIME-Version; b=BTPFxN8pUXCqe/zcIYoYV5Zo137G9xgqhvRUQmRVxLYzFQd1da44M9B5/1F+TLmhdpqO7m30Z3tKNmgz8cV2AhbIV6KrwESCTou4FRsjZCXa+E+yPTm+HS9GpK2Oc8FkWOEJV5ILPlWSzkPYNox+vXmUrt7Pz/aPUK4M/1ZB11k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=w06WhaNI; arc=none smtp.client-ip=209.85.167.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="hg8jbsVK"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-486852c7b68so546182b6e.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 18:00:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="w06WhaNI"
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4863eae453eso644586b6e.1
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 18:00:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621253; x=1781226053; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621257; x=1781226057; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cuK6dXKBAsFNVUM3IcE6hxmCyNGfHV5JrrNTNHc8ejQ=;
-        b=hg8jbsVKKDt6HQSVftMw9VZQcH5AJ+PHQMwDx3+Ym5jxtWlUXS9RI5WczFruEDwkcM
-         N47+zcfrZ+QSlHHvAGFpFVxuZIhOYtYTSalNG+UIbSQTidg0r0lflImIGKFGe+lyOzN7
-         +X/OzrrxUxafeDZqzEe986p+iXv8og5kq+/jC0QLY8bTBPCUhqWe5K++KbHk9P1E6g/x
-         KirHj0Qf6PmmdakwjmR6fntZXmcSVixFlAW49Fs+huTHN5d8nyYqB6YkTeaNdqYGSYdU
-         Dm5N8ssSC/ttPzmN4PWRX1OXVcJ8YHpHmZULd1L67C/1EAPyLjtyjvRKzgVBIVWoKG2p
-         YvUA==
+        bh=7bUHKe8xq0j7moOuD73/H9vKbxT6KczY0fAxl1satXM=;
+        b=w06WhaNI0tK9parGISgOsJDUgg+EH1tx+BYvqyGqjEyDScU7oQ5LFXfdFTmN9qLEDv
+         caBecHYIXYjrjf2Sn2SgFaStgF1VLff0gRuWMFURgGC421uIEkqv4gdodYzxuTPzXx51
+         13LcOwmJxFqIjIs7qAN8vqorYhukvfBmn+1E9sxHZrcX7F+AarmSklfOEHAe1vn5XJaC
+         6j6fWSH74qW0899k1lxAmiaCkEfuSa6ytGa88CR2yu0QLd/kgLagO2d3EA4/yPIXzAIv
+         /SGRe4HmaZIpK3U0yHWTN24SZkn/qkdEQbFbGjeVoYdk1XMmfr7tFaOJrgHfj6YwIJ4k
+         S47Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780621253; x=1781226053;
+        d=1e100.net; s=20251104; t=1780621257; x=1781226057;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=cuK6dXKBAsFNVUM3IcE6hxmCyNGfHV5JrrNTNHc8ejQ=;
-        b=YzK86XEkDVurvrF46WxDYH3kssM4ceik3l/rkbGWRLI0uI+oTvy9xuMaAagyY7e0/J
-         hneYGDh6qabA6pY52o3Y2AZJDAX+R+ZdKhjRq4MWCOeRmCw6pi/DjuYqoBmQW848/Ovt
-         7GYfrI/D2HVMrgWeaprES3badC7W3nSz3PcWo1aMnPjFX3QnKk2u4/qaWTRMK+qFLelF
-         767rVpGPG11Y80T9k0i2Afefou6wjeNVIurMF4W2Qtp3t7/b/tQjtX7udyF4G98O0sIn
-         O5jiyr3Czg8bHcdnQ4pPv13k8+FVI0GdPtE5ehbP7Tbkre/jZG+I49+FxAR55fI54BE2
-         RvVw==
-X-Forwarded-Encrypted: i=1; AFNElJ/WC/MO/31FQgDgyP51SsU6HVUgXSwzvaRqRs8C0RXb/4AvKitsNZHClMUZ/vfr45Y6PiN5N09x9eD1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+WaM/1MF6sxPFJ6lbnY6dtKbt1ykrnXVnsAFsgpYMsBPggwVa
-	Zw0oyjiS9+LimctP8ZxrxljiH67iTrTUo8Sv45u3/VKqUHM6rr0hrtR9MU2No1ZMEqE=
-X-Gm-Gg: Acq92OGOs1+gMrA0cOfope04zAuMeQTaaskUE31da0LkTmiw0u25jTszM4MEM1GtKoI
-	sr24cXOkpeUVHeTrwXOk1CMaLzaYrHg9tnE7WBrfivy/yfMMJXU8DKKOfVJZKuxhIw6tU/WL9pS
-	WNx4MyouhNc7zu3aPrHjUK29ONAC9cVEW05iuLT2PpSYlcVkpnq7KdSIyW28ZWGni6ExgDekiY5
-	2Z9rKwsEOVXpddvnhXP3hfw547Y2rt/0zM/AJA3YOss/1aXxqPlxuTD5WffyPirV6k7wdvlj8tE
-	Eripb7HHnJLMyD+cNaMP7l+zcVvx88AVN9zEJL3tciH2OK9Jzz7iPYO0skmYfHjHIA3NVoT5URx
-	1N5yTbKae/LZAWnbWMsAXtm5cnrAJag6XeGcdZY/3OCM50AVjH7QMkQaVRYOQSodUk9iLRlqeap
-	sB2CSVelrgeWybYPwaA0W8nKdqy82zwUbYaUTGkqcXidrXgfmK
-X-Received: by 2002:a05:6808:d49:b0:479:e869:5424 with SMTP id 5614622812f47-4868dc7df9bmr777929b6e.19.1780621253368;
-        Thu, 04 Jun 2026 18:00:53 -0700 (PDT)
+        bh=7bUHKe8xq0j7moOuD73/H9vKbxT6KczY0fAxl1satXM=;
+        b=RphsYBCV69kJpb4Yyj1S7Mo6jZxa4/Vv76IXW9QmHUG11CyGyyzRifo45uuuYo1YVM
+         4vR0WT3T0+VP4hXBzo01aelBFtx68FuH3rePsOZin3B4krIqAih5uDj0NMnk4FBLOkSt
+         nX1U7pYOwGlvA32oR83vnCTe4aljI+9Ii9oZIWvh1sw4WGNr1XwX+7AWNbUbC2wHzBdL
+         I4+UtdgsJdbM+kzTGJuhavvnNdI24frSiAiXPe6F0S8eiWBXbFkuSh/7dhBxyZty+nxN
+         dFAaf3S1eewbCvU+8KNXxeD2azb34z0AYH5zBPDKFwQQP1rZPxhcLk2GWCKA+JCx191A
+         6++w==
+X-Forwarded-Encrypted: i=1; AFNElJ+co4+LFb3VUG+ge61yz6TzoGDQv3d94eiQ5VVM+qW3MQH0YKpKG5Ie1dAveNDuIaFXP76dVmfQBwVb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5rlDA1GOPgojVs6aFOyrGq2Eg1bi+9M5FpvLDxdXan7U89l27
+	pJp6FJI2HstrPXmMOqjLX1DSVAf4VVPmnPi4O5Axkxnfwwkl/4P3EROt0SpcN38uGCY=
+X-Gm-Gg: Acq92OGSfi73nVakx27zk5pdIvw1zhyQtAhxXy6isgfqow6knQW76CAs3AEk1NLAY5K
+	jbEnWU8UMi8BUtVNC4CO4t+f+f152CcxKUQItE3Cl+AR1/KAzyswdNvXgf0q8n9enUZoSaK7QqZ
+	nc7LgThLC3JjyI2Epx8g4kWMalPfykFQFKj5kBv4xUBfQnMJ6CJ0GHPilzVJ1nhU2CRxAtTLyjQ
+	12fLdUre4LIwm9uzySHndKvG2kNmOHIKZw66a2xHd69l5KgSyNq8cCR/mAslcZNTNraI/rLg6YS
+	RDvhIjkc5r/sgh+tUd8O0o1uSNyefh0pbcimQDUfS7/xwGrDlZFZOX34YfsT/jvYSWo+R7e4qUs
+	v/Rip0hWeo3uoFVvNxEdXK2xzmY4G6yL5PS7snFSdxoBMnZXfu9bRlxR1UTifZWp1msdbNhrKeT
+	QGZfhx10OXeQyeepA58SjWUWTwzsOJOp0d+Yt+7Q==
+X-Received: by 2002:a05:6808:1794:b0:486:3537:2193 with SMTP id 5614622812f47-4868dc58812mr926917b6e.11.1780621256480;
+        Thu, 04 Jun 2026 18:00:56 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.50
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 18:00:53 -0700 (PDT)
+        Thu, 04 Jun 2026 18:00:55 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -108,9 +108,9 @@ Cc: Daniel Thompson <daniel@riscstar.com>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 08/14] net: stmmac: dwxgmac2: Add XGMAC 3.01a support
-Date: Thu,  4 Jun 2026 20:00:15 -0500
-Message-ID: <20260605010022.968612-9-elder@riscstar.com>
+Subject: [PATCH net-next v2 09/14] net: stmmac: dwxgmac2: export symbols for XGMAC 3.01a DMA
+Date: Thu,  4 Jun 2026 20:00:16 -0500
+Message-ID: <20260605010022.968612-10-elder@riscstar.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260605010022.968612-1-elder@riscstar.com>
 References: <20260605010022.968612-1-elder@riscstar.com>
@@ -124,121 +124,119 @@ Content-Transfer-Encoding: 8bit
 
 From: Daniel Thompson <daniel@riscstar.com>
 
-XGMAC 2.x and 3.x are architecturally very similar.  That means that
-for everything except one erratum we can simply use the XGMAC 2.x
-callback functions in the stmmac_dma_ops structure.
+Toshiba TC956x is an Ethernet-AVB/TSN bridge and is essentially a
+small and highly-specialised SoC. Ethernet on this chip is provided
+by a DesignWare XGMAC.
 
-Only the set_rx_ring_len callback is specific to XGMAC 3.01.  It
-limits the number of outstanding write requests that can be serviced
-per DMA.
+One consequence of the SoC-like design is that the internal AXI bus
+(used by the XGMAC for DMA) maps the PCI DMA space with a non-zero base
+address. This requires a translation step (happily just simple addition)
+to convert the PCI DMA address to the hardware DMA address.
 
-The other erratum addressed in this patch is simply a comment to
-ensure that a feature that stmmac doesn't currently use is not enabled
-without contemplating the errata.
+This is pretty funky so rather than push that translation logic into
+the core driver we intend to keep that logic inside the TC956x
+platform code. In order to do that we need to export a few symbols
+to allow us to override some of the DMA and descriptor op tables.
+
+FWIW this approach to overriding the ops tables is similar to the
+mechanism currently found in dwmac-loongson.c (with the exception
+that we have also exported a couple of functions so we don't
+have to replicate their content in the TC956x platform code).
 
 Signed-off-by: Daniel Thompson <daniel@riscstar.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 53 +++++++++++++++++++
- 2 files changed, 56 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h |  7 +++++++
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c    |  1 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c   |  1 +
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 18 ++++++++++--------
+ 4 files changed, 19 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 9b0b5cc619556..bcf59ad8a1939 100644
+index bcf59ad8a1939..8cecde1bef8a1 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -374,6 +374,8 @@
- #define XGMAC_DMA_CH_RxDESC_TAIL_LPTR(x)	(0x0000312c + (0x80 * (x)))
- #define XGMAC_DMA_CH_TxDESC_RING_LEN(x)		(0x00003130 + (0x80 * (x)))
- #define XGMAC_DMA_CH_RxDESC_RING_LEN(x)		(0x00003134 + (0x80 * (x)))
-+#define XGMAC_OWRQ			GENMASK(25, 24)
-+#define XGMAC_RDRL			GENMASK(15, 0)
- #define XGMAC_DMA_CH_INT_EN(x)		(0x00003138 + (0x80 * (x)))
- #define XGMAC_NIE			BIT(15)
- #define XGMAC_AIE			BIT(14)
-@@ -463,6 +465,7 @@
- extern const struct stmmac_ops dwxgmac210_ops;
- extern const struct stmmac_ops dwxlgmac2_ops;
- extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
-+extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
+@@ -468,4 +468,11 @@ extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
+ extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
  extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
  
++void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
++			       u32 chan);
++void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
++			       u32 chan);
++
  #endif /* __STMMAC_DWXGMAC2_H__ */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index f02b434bbd505..c9547dc6912a3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -1556,6 +1556,7 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(dwxgmac2_setup);
+ 
+ int dwxlgmac2_setup(struct stmmac_priv *priv)
+ {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+index b5f200a874840..cc67d8e1a920a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+@@ -368,3 +368,4 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
+ 	.set_vlan = dwxgmac2_set_vlan,
+ 	.set_tbs = dwxgmac2_set_tbs,
+ };
++EXPORT_SYMBOL_GPL(dwxgmac210_desc_ops);
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index a84601ac32153..584ab28d7f7f5 100644
+index 584ab28d7f7f5..f564b9bd7d128 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -38,6 +38,14 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
- 		value = u32_replace_bits(value, XGMAC_INTM_MODE1,
- 					 XGMAC_INTM_MASK);
- 
-+	/*
-+	 * A friendly warning to future adventurers. If Descriptor Posted
-+	 * Write support, which is off by default, is ever enabled then be sure
-+	 * to make it optional. This is required by errata for at least XGMAC
-+	 * 3.01A... and the XGMAC 2.x and 3.x are architecturally similar so we
-+	 * use dwxgmac2 support for the 3.x family as well.
-+	 */
-+
- 	writel(value, ioaddr + XGMAC_DMA_MODE);
+@@ -62,10 +62,10 @@ static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv,
+ 	writel(XGMAC_DMA_INT_DEFAULT_EN, ioaddr + XGMAC_DMA_CH_INT_EN(chan));
  }
  
-@@ -490,6 +498,20 @@ static void dwxgmac2_set_rx_ring_len(struct stmmac_priv *priv,
- 	writel(len, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
- }
- 
-+static void dwxgmac301_set_rx_ring_len(struct stmmac_priv *priv,
-+				       void __iomem *ioaddr, u32 len, u32 chan)
-+{
-+	u32 val = FIELD_PREP(XGMAC_RDRL, len);
-+
-+	/*
-+	 * Reduce the number of outstanding write requests to 3 (from default
-+	 * of 4). This is an errata workaround for XGMAC 3.01a.
-+	 */
-+	val |= FIELD_PREP(XGMAC_OWRQ, 3);
-+
-+	writel(val, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
-+}
-+
- static void dwxgmac2_set_tx_ring_len(struct stmmac_priv *priv,
- 				     void __iomem *ioaddr, u32 len, u32 chan)
+-static void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
+-				      void __iomem *ioaddr,
+-				      struct stmmac_dma_cfg *dma_cfg,
+-				      dma_addr_t phy, u32 chan)
++void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
++			       void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg,
++			       dma_addr_t phy, u32 chan)
  {
-@@ -619,3 +641,34 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
+ 	u32 rxpbl = dma_cfg->rxpbl ?: dma_cfg->pbl;
+ 	u32 value;
+@@ -77,11 +77,11 @@ static void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
+ 	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
+ 	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
+ }
++EXPORT_SYMBOL_GPL(dwxgmac2_dma_init_rx_chan);
+ 
+-static void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv,
+-				      void __iomem *ioaddr,
+-				      struct stmmac_dma_cfg *dma_cfg,
+-				      dma_addr_t phy, u32 chan)
++void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
++			       u32 chan)
+ {
+ 	u32 txpbl = dma_cfg->txpbl ?: dma_cfg->pbl;
+ 	u32 value;
+@@ -93,6 +93,7 @@ static void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv,
+ 	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
+ 	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
+ }
++EXPORT_SYMBOL_GPL(dwxgmac2_dma_init_tx_chan);
+ 
+ static void dwxgmac2_dma_axi(void __iomem *ioaddr, struct stmmac_axi *axi)
+ {
+@@ -672,3 +673,4 @@ const struct stmmac_dma_ops dwxgmac301_dma_ops = {
  	.enable_sph = dwxgmac2_enable_sph,
  	.enable_tbs = dwxgmac2_enable_tbs,
  };
-+
-+/* All but one field are the same as dwxgmac210_dma_ops */
-+const struct stmmac_dma_ops dwxgmac301_dma_ops = {
-+	.reset = dwxgmac2_dma_reset,
-+	.init = dwxgmac2_dma_init,
-+	.init_chan = dwxgmac2_dma_init_chan,
-+	.init_rx_chan = dwxgmac2_dma_init_rx_chan,
-+	.init_tx_chan = dwxgmac2_dma_init_tx_chan,
-+	.axi = dwxgmac2_dma_axi,
-+	.dump_regs = dwxgmac2_dma_dump_regs,
-+	.dma_rx_mode = dwxgmac2_dma_rx_mode,
-+	.dma_tx_mode = dwxgmac2_dma_tx_mode,
-+	.enable_dma_irq = dwxgmac2_enable_dma_irq,
-+	.disable_dma_irq = dwxgmac2_disable_dma_irq,
-+	.start_tx = dwxgmac2_dma_start_tx,
-+	.stop_tx = dwxgmac2_dma_stop_tx,
-+	.start_rx = dwxgmac2_dma_start_rx,
-+	.stop_rx = dwxgmac2_dma_stop_rx,
-+	.dma_interrupt = dwxgmac2_dma_interrupt,
-+	.get_hw_feature = dwxgmac2_get_hw_feature,
-+	.rx_watchdog = dwxgmac2_rx_watchdog,
-+	.set_rx_ring_len = dwxgmac301_set_rx_ring_len,	/* Only 3.01 */
-+	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
-+	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
-+	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
-+	.enable_tso = dwxgmac2_enable_tso,
-+	.qmode = dwxgmac2_qmode,
-+	.set_bfsize = dwxgmac2_set_bfsize,
-+	.enable_sph = dwxgmac2_enable_sph,
-+	.enable_tbs = dwxgmac2_enable_tbs,
-+};
++EXPORT_SYMBOL_GPL(dwxgmac301_dma_ops);
 -- 
 2.51.0
 
