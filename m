@@ -1,84 +1,81 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6742FE575
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FF930DECB
 	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 12:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780662017; cv=none; b=ioOWIyFJpR9YZs30sCwKvw3d6Qm3jU/CKNWC6KrNFNPZDsvrQpo+H3Bpe6GBuxWdmnvFy5S9l43j4N/k6ja734OGRjsI5d91JXL4cBxMnT2x61wLXHIDDrRoM17mTwu282x+i8ukw7q4wzXfsbdz4+vzwAL5+GWFr8Sogcqlk+E=
+	t=1780662018; cv=none; b=VrXs5Ee3RL7X2ViIqBFbkCx/xPsfvkaHMr4i5YLrfQXDuoOaLAtGTKflygkmF9a6R1ceb4HVpCJM01zPMiH6MkxpEPo5mnbHHb83h+uQCrioY13DTLuX+W4MyzZIhNIYhQrTPK6KsnDvMhxzGNeKWLDBAnCdfCU1zQ08abQs6qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780662017; c=relaxed/simple;
-	bh=mms02jd2Y08DdGXCELeBv310xtf56vpwiepMA7Ykwhg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BUJi8qNjUR1tUDf3SKrbicqpSL2iUwSZX/R+UI4j/VoYPz5ew9s6axHX86yPmAnz2Xnp7oPBXojv60TRYCGyeykY3uyMLbXwknfbD0j5BHdIoVHj7SuxqI8SJOkIvZmyaazh4Cg88twVB9OPB/YUgVkaL8e5kXd6WVwcSUXdZYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=ALCmHBaB; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1780662018; c=relaxed/simple;
+	bh=4fqm41jFg92gyqFNJrCUrFZlM+usXbmuU/UIVhRwMzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RRw9IJlSzc+N7/eB5/FOwcFwE+Cz3fctSCCo8DBpRVDFh8D6RGp6KdCPCwpYaji0ZsKzu02E9U3tL5T7rFK5tPU+HJHnEp8fyRi0NE+2PszCf4ryfc8/EanB7O3lncBApyNeCM4+YMrpQd2cRfBv0s5XZUtGcshRvzQqPtiOAtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rQwYiDBA; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="ALCmHBaB"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-45e9f4a3510so946755f8f.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rQwYiDBA"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c85893bce34so730286a12.1
         for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 05:20:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1780662013; x=1781266813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UD2qTAkKIsCSLn6BgEV5Nc9NLwoB56XEwtzbqoJwN28=;
-        b=ALCmHBaBm0r9S2Q/FpnOTL/Mx1V4C9nhZUopxUBs6uMeu9FfEoZRyxag0hACbNMWZ7
-         Tu80L9TPhE+EqvJwt0qlazQRFd6u2DakWdeY4vni7Rdq3ucdm30806npkrYCpFXQY/iY
-         /dB0XRZBjCkvufmd5uHXHUo5Bc3KI0mv2htak=
+        d=gmail.com; s=20251104; t=1780662014; x=1781266814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hEMew3UN10dz8c+0NrezgyqXaJn7p0nQbi3hUDkdphs=;
+        b=rQwYiDBA2v1cp7ijR7UaPzj+O+UiK1Jr4EWeNEt4EE+2swB8DTID5yxNDsa05CcXvC
+         tcaihovzlOML0L20FXote2nlqRrePx5EEf7QX59ijlFbKjmm+GBPffApDGL3AZplwMWh
+         HlMONwFkxzFrOQMoomrrFYaHzk70LE+3QnUE7D4pmcsOzykvG0rWkNUFqy0xNVeqDR/l
+         pfTYfzjqiykQ+IYEXaZ1JzYhkkfAv76c+c0NyL90zGqZLl9xDqCHRR5bf4Gvf2wmX9KB
+         YgvbStlZsxaSPnMeA1idd8+l6W21eRH+gWN8a3vfb50oEiwWK+ND2fyuPMxyFi1VkkOu
+         4OWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780662013; x=1781266813;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=UD2qTAkKIsCSLn6BgEV5Nc9NLwoB56XEwtzbqoJwN28=;
-        b=an0NvWVzEEDuiOhaDM36pzPm4nRdEn0joZjndZtPoKRdinVGyOIsLhCiIsq4NR9u3M
-         hmfloG0I4T+NXMLne18jhFN0U6f/qbQ3LMzrTBgnN/GRFNo+agitT5rwJqbp8KRJnFuL
-         oglDxMXVVd11gfSdGl+9d1Kag2OgYQumJMTz4A1Ao3brvkuKfCk7At5aOYHvnJFA54aX
-         AV383c8TTAG1SVuHSth8wVPu4PqR0vUCwKpDsJXqvkM/xQvFUXj/LEfKfeyt+wOQ8SMp
-         qDa9YgMjTtC/ABuQ8Wi2dy31X9dqVFRK2WtH+5LsMyVA+0IovnCjs96vRmbYDSDx9Pgg
-         4tow==
-X-Forwarded-Encrypted: i=1; AFNElJ8bEWIttuNZQpfZegNXgTZtNDPIGrUhxOycGRJMQXPCnJaPc/HA4kM2QVKZI2hiprNC6LcFWOdRdYWk@vger.kernel.org
-X-Gm-Message-State: AOJu0YyttMU8w9p3eI9P/nXjAo5QNDOojf1bFYnrZ6IHIZhjcqPlOq+k
-	vPXkMEkb+9uym9GNA6xwM14dNWA37S8SCt5fyRMRTJh8NuCEB1wA6V6JrMF7y7xsaBUYt3n5Dno
-	IqKAQ
-X-Gm-Gg: Acq92OFgqJ4m/ej26jv4q6YoTgL0Xy/83iNEYGc8oxBt2EeeaSCkJJPvTFyDKtQFR7i
-	aBAwA6NLgDn007KEAYOye1w9hm/zcf87RgQEyJAWS77Fk51On9WCUxyCAlsQER8xBwfwPB3U0l4
-	Uf82GyQ7daMzmNPSVor1xthxPWSzebCCmhXyxFj2WiP+12ScN8EYd6o8HIZiidK1a7sl636QOf8
-	glhwS6eA2b++aEmzkuI78sKCGqpitSPtUJFYrg0j0rc972HkouSdhdIIzwFowfctjBEEiRLXpX/
-	9rq89KSP+enU+nKQubN1hqLhiWfX9CMY1UuUtn8JzxhP458IDDBwuz+ezmBI+g5gBnRIdEdajf9
-	LSKkz+Bafc//n4J6mVcj5DV4E2EcO9gh3tlsGd8gjhYZkwS/L5vZZr32izJvFW7WvDNULqAD92p
-	AfeSATWPgSxMBREZj/4RKVn0E+av1hpNQfnb5AvqeF12gnEiI2pH6z8aTNnGM7dLY0179t7KxQc
-	6kUwd1wfCrm1ougSJky72kGjEhjSLbIC05T6nUHEmJNuRZzENb1YH4M/Fu83gfDk4fazSafYqt5
-	cARRdE433v3KkPOq06bOpLwp2ZZI+fMkdrbnAE2aDuSBQw==
-X-Received: by 2002:a05:6000:4029:b0:45e:f798:5531 with SMTP id ffacd0b85a97d-460306095b2mr6077813f8f.23.1780662012591;
-        Fri, 05 Jun 2026 05:20:12 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-82-48-44-238.retail.telecomitalia.it. [82.48.44.238])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcb13sm24785883f8f.2.2026.06.05.05.20.11
+        d=1e100.net; s=20251104; t=1780662014; x=1781266814;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hEMew3UN10dz8c+0NrezgyqXaJn7p0nQbi3hUDkdphs=;
+        b=s7U/mQZPSKdMwNLboWxJCUMkQi/i2k7km3zpuD1lvYd8LGTQNaH1H1LjjYP4FVI0WM
+         IsW5LGU5iDWgN9I/9xQuvYxJM4zv863mxfOz8ITnq81Yv1jloj5zKtGVldH/mKBpQ5pS
+         SIMnUufANPPY894yHVfhTxZBluWRLoCQFfL6RWqEqttnjsDdH5VHEeXmqaUa5R60Pewc
+         CWlpDp1OZX19KQdxz5XhRqP8/Nj8KCNk7zHYRvIbRUTg5VR8mswBm5F9Akvix3VKOnlB
+         n/OMLyL/x4pSaJocNDeZD4B5HSQMvGrfDAE/OSpDhdQxp1Bw3A8Crdb4hK0crGhiLLV4
+         QXMw==
+X-Forwarded-Encrypted: i=1; AFNElJ+2geFvUMh5X/R5g3Z7uALan+Bv0gC2G6PrvsY7scGndqypgICMLKpIK0ksE+4JbG3Luu9EF3ew3A3A@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUYf0XNwrmscv1r4nvNp3ctJ/eXrj/jPTZnhYkmo2Wc7+RObW0
+	3bP2S+KTag3yYzkWe7LL2JmCwjoaxu4lFlpyDh4HcjzaDEm2vDJk2H/S
+X-Gm-Gg: Acq92OH8viUwSmYVKEgM1D0OBcgZEpRgm9TC7eC2/PI1UMznkqXcibuGv7kEdDZv0dX
+	ML5yfMec78hcmbPyoSvczNZKnQxHqPPn7SrjCnXXZQNS83Cr06Ai7H7bP06wTPmHswxU+XVNd4E
+	Bz+Zrn/D8d1E3IC1JHxW0w1a/HPgrYzLQ9Wl/4Bc3SP/2FCR/EsIv6KASrEWMLv2t8b3u5tY3ug
+	L3OuZgv8pd/4yroCdJhsnnPmpzPRPR9sutBDOXpLIVsp0HVRUwx39sAqNe5ZPwY123S4ASt5tdw
+	9XEi6/wazDTQrSMyO4CPq78ZdKXOWAcZFWgH/+rzODCobmXCBT3nGLAEIjaBNAVbCPCfd2HB7fF
+	BBFltIHJFo2IMHUZzJZ5sZ09ArvM6Oy0sBv9q+t6qgVvy48lkhyMKk3cw3HIg/5y2cp6PjsfVzC
+	O/EnCf4kr4a/wOivOzFmueTIbdGZRN0kwS6PCZvnq5ig6tvaVWZFb/B5NR21YmfrVfMAmq
+X-Received: by 2002:aa7:88c1:0:b0:842:68d3:e29f with SMTP id d2e1a72fcca58-842b0e14e3bmr3304903b3a.3.1780662013791;
+        Fri, 05 Jun 2026 05:20:13 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282221059sm8594381b3a.7.2026.06.05.05.20.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 05:20:12 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	domenico.acri@engicam.com,
-	francesco.utel@engicam.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Fri, 05 Jun 2026 05:20:13 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Mark Brown <broonie@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v4 05/14] arm64: dts: st: add ltdc pins for stm32mp25
-Date: Fri,  5 Jun 2026 14:18:16 +0200
-Message-ID: <20260605121957.78409-6-dario.binacchi@amarulasolutions.com>
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v4 00/10] ASoC: renesas: fsi: Fix system hang by adding SPU clock
+Date: Fri,  5 Jun 2026 19:19:44 +0700
+Message-ID: <20260605121955.105661-1-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260605121957.78409-1-dario.binacchi@amarulasolutions.com>
-References: <20260605121957.78409-1-dario.binacchi@amarulasolutions.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,98 +84,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the LTDC pins used on MicroGEA-STM32MP257-RMM board.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
+Hi all,
 
-(no changes since v1)
+The FSI on r8a7740 requires the SPU clock to be enabled before accessing
+its internal registers. Without it, register accesses may hang the system
+even when the FSI functional clock is enabled.
 
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 71 +++++++++++++++++++
- 1 file changed, 71 insertions(+)
+Previously, the SPU clock remained enabled because it was left running by
+the bootloader. After adding the SPU clock to the device tree, it is
+automatically disabled once system initialization completes.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index db485b9ed904..05bd07a0a561 100644
---- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -260,6 +260,77 @@ pins {
- 		};
- 	};
+This series adds the missing clocks and aligns their names with those used
+by the driver.
+
+Following feedback from Morimoto-san, the driver is also refactored to
+improve stability. Clock initialization is moved from the runtime path to
+the probe function to simplify the flow and avoid redundant setup.
+Additionally, the shutdown sequence is reordered to ensure the stream is
+stopped before the hardware is shut down.
+
+The driver currently uses clk_enable()/clk_disable() without matching
+clk_prepare()/clk_unprepare() handling. This series adds the missing
+prepare/unprepare operations and moves them into startup/shutdown paths,
+since clk_prepare() may sleep and therefore must not be called from 
+atomic contexts.
+
+The series also fixes a race where in-flight IRQ handlers may continue
+accessing registers after the SPU clock has been disabled during shutdown.
+
+Changes in v4:
+ - use fsi_stream_is_working() for Fixed a race where in-flight IRQ 
+   handlers following Morimoto-san's suggestions
+ - Handle the return value of fsi_clk_init() to properly support deferred 
+   probe, as suggested by Mark.
+ - Split the clock refactoring into a devm cleanup patch and a refactor 
+   patch, as suggested by Morimoto-san.
+ - Update dt-bindings based on feedback from Krzysztof, Rob, and Geert.
+
+Changes in v3:
+ - Reordered the patches following Morimoto-san's suggestions
+ - Updated the DT bindings based on Geert's feedback and renamed the
+   "own" clock to "fck"
+ - Added fsi_clk_prepare()/fsi_clk_unprepare() and moved them into
+   dai_startup()/dai_shutdown()
+ - Fixed a race where in-flight IRQ handlers could continue accessing
+   registers after the SPU clock had been disabled
+
+Changes in v2:
+ - DT Bindings:
+   Define "own" clock and add "spu", "icka/b", "diva/b", "xcka/b" to the 
+   clock tree.
+   Use YAML anchors and "if" rules to enforce clock-names and r8a7740 
+   requirements.
+   Relocate allOf block and update example with full 8-clock configuration.
+
+ - DTS:
+   Rename "fsi" clock to "own" to match driver implementation.
+   Add missing clock names: "icka", "ickb", "diva", "divb", "xcka", "xckb".
  
-+	/omit-if-no-ref/
-+	ltdc_pins_a: ltdc-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('C',  6, AF14)>, /* LCD_CLK */
-+				 <STM32_PINMUX('G',  2, AF13)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('G',  1, AF13)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('C',  5, AF14)>, /* LCD_DE */
-+				 <STM32_PINMUX('H',  4, AF10)>, /* LCD_R0 */
-+				 <STM32_PINMUX('F',  7, AF13)>, /* LCD_R1 */
-+				 <STM32_PINMUX('C', 11, AF13)>, /* LCD_R2 */
-+				 <STM32_PINMUX('A',  1, AF11)>, /* LCD_R3 */
-+				 <STM32_PINMUX('B', 15, AF13)>, /* LCD_R4 */
-+				 <STM32_PINMUX('G',  3, AF13)>, /* LCD_R5 */
-+				 <STM32_PINMUX('A', 10, AF12)>, /* LCD_R6 */
-+				 <STM32_PINMUX('G',  7, AF13)>, /* LCD_R7 */
-+				 <STM32_PINMUX('F',  8, AF13)>, /* LCD_G0 */
-+				 <STM32_PINMUX('H',  5, AF10)>, /* LCD_G1 */
-+				 <STM32_PINMUX('C',  9, AF13)>, /* LCD_G2 */
-+				 <STM32_PINMUX('C', 10, AF13)>, /* LCD_G3 */
-+				 <STM32_PINMUX('A',  6, AF10)>, /* LCD_G4 */
-+				 <STM32_PINMUX('G', 11, AF13)>, /* LCD_G5 */
-+				 <STM32_PINMUX('G', 12, AF13)>, /* LCD_G6 */
-+				 <STM32_PINMUX('A',  9, AF12)>, /* LCD_G7 */
-+				 <STM32_PINMUX('F',  6, AF13)>, /* LCD_B0 */
-+				 <STM32_PINMUX('A',  3, AF11)>, /* LCD_B1 */
-+				 <STM32_PINMUX('G', 15, AF13)>, /* LCD_B2 */
-+				 <STM32_PINMUX('I',  0, AF13)>, /* LCD_B3 */
-+				 <STM32_PINMUX('I',  1, AF13)>, /* LCD_B4 */
-+				 <STM32_PINMUX('A',  7, AF10)>, /* LCD_B5 */
-+				 <STM32_PINMUX('F',  5, AF13)>, /* LCD_B6 */
-+				 <STM32_PINMUX('I',  4, AF13)>; /* LCD_B7 */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	ltdc_sleep_pins_a: ltdc-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('C',  6, ANALOG)>, /* LCD_CLK */
-+				 <STM32_PINMUX('G',  2, ANALOG)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('G',  1, ANALOG)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('C',  5, ANALOG)>, /* LCD_DE */
-+				 <STM32_PINMUX('H',  4, ANALOG)>, /* LCD_R0 */
-+				 <STM32_PINMUX('F',  7, ANALOG)>, /* LCD_R1 */
-+				 <STM32_PINMUX('C', 11, ANALOG)>, /* LCD_R2 */
-+				 <STM32_PINMUX('A',  1, ANALOG)>, /* LCD_R3 */
-+				 <STM32_PINMUX('B', 15, ANALOG)>, /* LCD_R4 */
-+				 <STM32_PINMUX('G',  3, ANALOG)>, /* LCD_R5 */
-+				 <STM32_PINMUX('A', 10, ANALOG)>, /* LCD_R6 */
-+				 <STM32_PINMUX('G',  7, ANALOG)>, /* LCD_R7 */
-+				 <STM32_PINMUX('F',  8, ANALOG)>, /* LCD_G0 */
-+				 <STM32_PINMUX('H',  5, ANALOG)>, /* LCD_G1 */
-+				 <STM32_PINMUX('C',  9, ANALOG)>, /* LCD_G2 */
-+				 <STM32_PINMUX('C', 10, ANALOG)>, /* LCD_G3 */
-+				 <STM32_PINMUX('A',  6, ANALOG)>, /* LCD_G4 */
-+				 <STM32_PINMUX('G', 11, ANALOG)>, /* LCD_G5 */
-+				 <STM32_PINMUX('G', 12, ANALOG)>, /* LCD_G6 */
-+				 <STM32_PINMUX('A',  9, ANALOG)>, /* LCD_G7 */
-+				 <STM32_PINMUX('F',  6, ANALOG)>, /* LCD_B0 */
-+				 <STM32_PINMUX('A',  3, ANALOG)>, /* LCD_B1 */
-+				 <STM32_PINMUX('G', 15, ANALOG)>, /* LCD_B2 */
-+				 <STM32_PINMUX('I',  0, ANALOG)>, /* LCD_B3 */
-+				 <STM32_PINMUX('I',  1, ANALOG)>, /* LCD_B4 */
-+				 <STM32_PINMUX('A',  7, ANALOG)>, /* LCD_B5 */
-+				 <STM32_PINMUX('F',  5, ANALOG)>, /* LCD_B6 */
-+				 <STM32_PINMUX('I',  4, ANALOG)>; /* LCD_B7 */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	ospi_port1_clk_pins_a: ospi-port1-clk-0 {
- 		pins {
+ - In the driver:
+   Refactor clock initialization.
+   Reorder shutdown: stop stream before hardware shutdown.
+   Move SPU clock enable/disable handling to fsi_hw_startup/shutdown.
+
+v3 links:
+   https://lore.kernel.org/all/20260510084303.122426-1-phucduc.bui@gmail.com/
+v2 links: 
+   https://lore.kernel.org/all/20260413100700.30995-1-phucduc.bui@gmail.com/
+v1 links : 
+   https://lore.kernel.org/all/20260403112655.167593-1-phucduc.bui@gmail.com/
+
+Testing:
+  - Verified on r8a7740 (Armadillo-800EVA): FSI slave / Codec master mode.
+    The system no longer hangs. aplay works correctly, while arecord has 
+    some noise in the recorded file (this likely needs further tuning, but
+    it is not part of this patch series). 
+  - FSI master mode is currently compile-tested only. Full verification
+    requires a dedicated HDMI driver (FSIB) or hardware modifications 
+    (resoldering board resistors) (FSIA).
+  - Youtube video link of the test process (from v3 verification):
+    https://youtu.be/w3H4v5djr7M
+
+Best regards,
+Phuc
+
+bui duc phuc (10):
+  ASoC: dt-bindings: renesas,fsi: add support multiple clocks
+  ARM: dts: renesas: r8a7740: Add clocks for FSI
+  ASoC: renesas: fsi: Fix trigger stop ordering
+  ASoC: renesas: fsi: Move fsi_stream_is_working()
+  ASoC: renesas: fsi: Fix register access from in-flight IRQ after
+    shutdown
+  ASoC: renesas: fsi: Move fsi_clk_init()
+  ASoC: renesas: fsi: Use devm_clk_get_optional() for optional clocks
+  ASoC: renesas: fsi: refactor clock initialization
+  ASoC: renesas: fsi: add fsi_clk_prepare/unprepare()
+  ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+
+ .../bindings/sound/renesas,fsi.yaml           |  61 +++-
+ arch/arm/boot/dts/renesas/r8a7740.dtsi        |  12 +-
+ sound/soc/renesas/fsi.c                       | 272 +++++++++++++-----
+ 3 files changed, 260 insertions(+), 85 deletions(-)
+
 -- 
 2.43.0
 
