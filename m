@@ -1,179 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com [209.85.216.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F69223702;
-	Fri,  5 Jun 2026 02:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08144372B51
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 02:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780625768; cv=none; b=n2pCgCBIYg1dQtAp63xeogr8ebhGIULdFuYhwmO/97hm9i8opWuh40w23KbryTX+SM8E5/GYmLqfToUlMoEdB3djyR8zmeNrCK/Y5nG04Cy1+I3ObkDt9hEfDI8ohZg8qRqJ0otNBW2mhzGAZW1rofibk9ongyHPMZNomUcFGLM=
+	t=1780626107; cv=none; b=Np0WDhpth/4yiNW99XwBEu8jicJEvF1EEtAizfeMCAf758To01hYeOLLOwxx23bCVAh91d64lELdmd7hVMG18d4U2a6nHBK3MDoGmoSGdW3E3nSNre7XrXwclDz3aEcBh4V8vuvQqkJorYKzlO2J1nCBJpeKR5W6on7oo/A3qGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780625768; c=relaxed/simple;
-	bh=KdpIQa+ZSBNPY5VBlTWAKPy+3aE/BgfTSAeEZ5V9l5c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EIvQJU++wmUpXZMJ4tp5Iw2JtEPpD7rwXz84W6KRzREDZfOa9qTpWpuBFspMeBcFTeYgIxKZA63P7XF+IiEHvMG9K96t0OPF7HDtocmcOsPhGA0P6eAtLqHOY6HC/42DhnvqXT1oVWcHj+jbNvkKCci6euVinmsrVXDf6yqMSiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvTFyun+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780626107; c=relaxed/simple;
+	bh=UpSqqvDHDdTEzixob6x+tfaItodOdKYq5bD+PPOrbxA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EvzWp2uzGBBUl75OaOe1rnZOgt8nwxMj+0/ph92oleHBi3ebkeIzdS5tD6x044xMYhkfF0D2fhWNndFCvr9UBhyq1d1gsLUILN+MX6WlN4OvNjLqss8nDiBclu09sPBm9VoYVJE7XZp9MnQsXpj4O6KbHVqOoURdAU/x5OvloCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NmsL8FVZ; arc=none smtp.client-ip=209.85.216.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvTFyun+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3381F00893;
-	Fri,  5 Jun 2026 02:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780625763;
-	bh=3yMRtKR4ZhuRjBTav1g1vshqsW6Ba9SLhytTLqiw86w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kvTFyun+xp2ZyDBo7Jzaoepdg4/C49ON7x66b5cUZOzRrhBvyFZxSgfhSHM/vRaR/
-	 thw6LoZzWYoBvJXVuVpMBfMsPGcO6zJTPTffyj5OI+sasplfRAMF7GJRvOgVSFjz4y
-	 htYpEothxwdYDfhNtc7irejdnGT7MVdyYT87qa5YT4VViCSnL7pwJRBQQFNPK2rRoU
-	 krKX63t9DoV7JA0lHSTJc3JSoue2NwisVCkkY7JIx+1MwMU74nAv6bDTZo+rr/i18v
-	 6/4Tb5f+xeljgTME+ughWYDd0B1GbCXlreVVu5V3wqrkLF0TV5/z8Q/AIMoBKPHigU
-	 BKKBb+ajzyERg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] hwmon: pmbus: Add support for Silergy SQ24860
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ziming Zhu" <zmzhu0630@163.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260605020450.89638-3-zmzhu0630@163.com>
-References: <20260605020450.89638-3-zmzhu0630@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 02:16:02 +0000
-Message-Id: <20260605021603.2B3381F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NmsL8FVZ"
+Received: by mail-pj1-f65.google.com with SMTP id 98e67ed59e1d1-36da151a152so998010a91.1
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 19:21:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780626101; x=1781230901; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QqLcGGd7rvwHMlJMGTwOXykGd0+t/FmTCrqNKr3eqvo=;
+        b=NmsL8FVZX0NohIoqrw0t4LFQuA8mBZNNPQskuGIT6DK66I9DoNe4A8pP0kMtYtWCxj
+         fJevjp0iE8mZDf7R+dG7YyV7m6yAFZF3T4EFv3kVQGktwQGzlF6s3869h4ZLGAbNtonl
+         nB0jCVj7UxsLw8EnzMEBUt4UydLtNxf34FVZ5z3i63Z1WzClGUN6u7UiFZnfhhXFnvYZ
+         gmiXP0gXOOfih+G26W3Lwq8HZ9L+jicMn0MsDyeRG0mjD2YrBXDinNeWxTdtRx06j3Ea
+         HRYNeFSf0HV9OlZ4/gZQEfHkSljZjIXw73/gxvl/cQ+PTltg/J8LaihYlnkeSdYxhyza
+         09lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780626101; x=1781230901;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QqLcGGd7rvwHMlJMGTwOXykGd0+t/FmTCrqNKr3eqvo=;
+        b=pFyUF+F66JXvmKabhuGUqHiSE9DIfq2e5oMS/kVt9veyHD70+dXRAKLxl9skegh0CY
+         87ykuGcHjGl+OEVUvdq++dplJjuxrh0k7dJCIN3IAElT66jVWhgq7W1ptpSVbU4xGjuh
+         SYkM8PasReW7QXDbNz0orFrt6TulUkqO1De+o1TeFHwJRhijh24ZXHDQMPVzTaxBd+Mw
+         g/QcKluHlNDIOR65kG0M4IhzKLga6D6jBkO6YVHqXRfkaLXaS1MYIxCGlLjzGyuASiV6
+         aiv+1PINH/q4b/kBMKf6D80gBKkXd4cQHBtW75WmCvqxOzgqfQt2EUGoGgGPxgR1hlyi
+         vllQ==
+X-Gm-Message-State: AOJu0Yx1z7EYiDQ0aO/pskojPthtcMlo82RLkc2mhHy8AZP5d2wK2tZm
+	DjEKDxEQXbXKqG9lP2j1Uao2ZBENfxYhhKXzCcQZTY24LM3MZCo9F39+vKLvcTKVlggTyQ==
+X-Gm-Gg: Acq92OECvr7zeak8iUH7pGNA+Q0+Mip+ZR2SPQAqcd7e9jT8AFu61EdKMKcoIv1y0Ow
+	sdJwEt1z+4WgGqlA2A2VpQ+eUUEd7iDSQQtXzMLz1D/lx383lOuP45QGWsSHcwHhSwIQAX8vsaG
+	tVCB+YTUuUQjXLFueS4AOXhj3qIv2H5cbVQIUJKvMkCXTbsxmu2ZxWUGwi3y+DpXwFM3BFmBhOc
+	tylcPnyEM9FDg4lCweHKIkXFWWOY+eJycVZL0GGu2yRSM5jNAFyiIsuLYyTNT28ZvGzuAvgLQi2
+	mrZEOKOgVibidu3GVii7Vd7ysoeru35gZabJCkFx3c6KrWfqUM9t5KtPqwTzuJ9XBRQ3fA6G18E
+	3OtMykuJhhPhujkcuqxIjxnOxExhPCvqNsnt0rrjFlfAbTOtRTko5Pw6b4Ne+ljuU6lN3rvFPsO
+	3AC/PK7xiQ3KAM4Vff/8weYHPLQKUfgAnuGB1u73BDzw==
+X-Received: by 2002:a17:90b:4fd0:b0:36d:66d4:270e with SMTP id 98e67ed59e1d1-370ee5450e3mr1789679a91.5.1780626100917;
+        Thu, 04 Jun 2026 19:21:40 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6dba8573sm6088363a91.14.2026.06.04.19.21.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 19:21:40 -0700 (PDT)
+Message-ID: <da7ff688-3d16-4954-a2da-6d3e7d214996@gmail.com>
+Date: Fri, 5 Jun 2026 10:21:34 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] of: reserved_mem: add config to extend dynamic
+ reserved memory regions
+To: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ saravanak@kernel.org
+References: <20260604073611.3954433-1-chenwandun1@gmail.com>
+ <20260604073611.3954433-3-chenwandun1@gmail.com>
+ <20260604193336.GB1057262-robh@kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260604193336.GB1057262-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Missing validation for the `silergy,rimon-micro-ohms` device tree =
-property allows a division by zero kernel panic and integer truncation.
-- [High] Unchecked subtraction in the `PMBUS_IIN_OC_FAULT_LIMIT` calculatio=
-n leads to an integer underflow that defeats hardware over-current protecti=
-on.
-- [Low] Using a `GENMASK` macro as the exponent for a bitwise shift operati=
-on is conceptually incorrect and brittle.
-- [Low] A comment regarding `PSC_CURRENT_IN` and `PSC_POWER` scaling parame=
-ters describes software scaling logic that does not exist in the code.
---
 
-commit 837bf8e7761b5fce46f4967982468008be6c4700
-Author: Ziming Zhu <ziming.zhu@silergycorp.com>
 
-hwmon: pmbus: Add support for Silergy SQ24860
+On 6/5/26 03:33, Rob Herring wrote:
+> On Thu, Jun 04, 2026 at 03:36:11PM +0800, Wandun Chen wrote:
+>> From: Wandun Chen <chenwandun@lixiang.com>
+>>
+>> Nowadays, the dynamic reserved memory regions is 64 by default, If
+>> the count of reserved memory regions defined in DTS bigger than 64,
+>> only 64 reserved memory can be handled properly.
+>>
+>> So add a config to configure the actual dynamic reserved memory
+>> regions count instead of modify the code.
+>>
+>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+>> ---
+>>   drivers/of/Kconfig           | 11 +++++++++++
+>>   drivers/of/of_private.h      |  2 +-
+>>   drivers/of/of_reserved_mem.c |  2 +-
+>>   3 files changed, 13 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/of/Kconfig b/drivers/of/Kconfig
+>> index 50697cc3b07e..d6496ec3765c 100644
+>> --- a/drivers/of/Kconfig
+>> +++ b/drivers/of/Kconfig
+>> @@ -99,6 +99,17 @@ config OF_IRQ
+>>   config OF_RESERVED_MEM
+>>   	def_bool OF_EARLY_FLATTREE
+>>   
+>> +config OF_RESERVED_MEM_DYNAMIC_REGIONS
+>> +	int "Maximum count of the dynamic reserved memory regions"
+>> +	depends on OF_RESERVED_MEM
+>> +	default 64
+>> +	range 1 256
+> My opinion on making this a config option is well documented. That's the
+> primary reason we split dynamic regions.
+Get it.
+>
+> How many do you need and why do you need so many regions? Seems like an
+> abuse of reserved memory.
+I also agree that 64 dynamic regions should be sufficient for reasonable 
+use cases.
+To give some context on why I wrote this patch: the 64 dynamic region 
+limit is implicit, there is no message to inform the user, but more than 
+64 regions also seems like an abuse of reserved memory. I will drop this 
+patch as well, thanks for the review. Best regards, Wandun
+>
+> Rob
 
-Add PMBus hwmon support for the Silergy SQ24860 eFuse. The driver reports
-input voltage, output voltage, auxiliary voltage, input current, input
-power, and temperature.
-
-> diff --git a/drivers/hwmon/pmbus/sq24860.c b/drivers/hwmon/pmbus/sq24860.c
-> new file mode 100644
-> index 0000000000000..1c3b2bf2a026f
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/sq24860.c
-
-[ ... ]
-
-> +static int sq24860_write_iin_cal_gain(struct i2c_client *client, u32 rim=
-on, u32 gimon)
-> +{
-> +	u64 temp =3D (u64)6400 * 1000000000 * 1000;
-> +	u16 word =3D temp / ((u64)rimon * gimon);
-
-[Severity: High]
-If the silergy,rimon-micro-ohms property is read as 0 from the device tree
-during sq24860_probe(), will this division by zero cause a kernel panic
-during boot?
-
-Additionally, if a user provides a very small value (e.g., < 5394 micro-ohm=
-s),
-the quotient will exceed U16_MAX. Since the result is directly assigned to
-a u16, could this cause silent truncation and result in garbage calibration
-values being written to the hardware?
-
-> +	int ret =3D i2c_smbus_write_word_data(client, SQ24860_IIN_CAL_GAIN,
-> +						word);
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static int sq24860_write_word_data(struct i2c_client *client,
-> +				    int page, int reg, u16 value)
-> +{
-> +	int ret;
-> +
-> +	switch (reg) {
-
-[ ... ]
-
-> +	case PMBUS_IIN_OC_FAULT_LIMIT:
-> +		value -=3D SQ24860_IIN_OCF_OFF;
-
-[Severity: High]
-Does this unchecked subtraction risk an integer underflow if a user
-requests a limit smaller than SQ24860_IIN_OCF_OFF (165)?
-
-If value -=3D 165 underflows and wraps around to a large number, the
-subsequent clamp_val() would hit its upper bound of 63. Could this
-cause a safely low requested limit to configure the hardware's maximum
-possible over-current limit, bypassing the safety threshold?
-
-> +		value =3D DIV_ROUND_CLOSEST(((unsigned int)value) * SQ24860_IIN_OCF_DI=
-V,
-> +					  SQ24860_IIN_OCF_NUM);
-> +		value =3D clamp_val(value, 0, 0x3f);
-> +		ret =3D pmbus_write_byte_data(client, page, SQ24860_VIREF, value);
-> +		break;
-> +
-> +	case PMBUS_VIRT_SAMPLES:
-> +		value =3D clamp_val(value, 1, 1 << PK_MIN_AVG_AVG_CNT);
-
-[Severity: Low]
-Is it safe to use PK_MIN_AVG_AVG_CNT as a shift exponent here?
-
-Since PK_MIN_AVG_AVG_CNT is defined as GENMASK(2, 0), it evaluates
-to 7. While 1 << 7 coincidentally produces the correct limit of 128
-samples, using a bitmask macro as a shift exponent is brittle. If the field
-were to shift (for example, GENMASK(3, 1) evaluating to 14), would this log=
-ic
-break catastrophically while still passing compilation?
-
-> +		value =3D ilog2(value);
-> +		ret =3D pmbus_update_byte_data(client, page, SQ24860_PK_MIN_AVG,
-> +					     PK_MIN_AVG_AVG_CNT,
-> +					     FIELD_PREP(PK_MIN_AVG_AVG_CNT, value));
-> +		break;
-
-[ ... ]
-
-> +static const struct pmbus_driver_info sq24860_base_info =3D {
-> +	.pages =3D 1,
-> +	.format[PSC_VOLTAGE_IN] =3D direct,
-
-[ ... ]
-
-> +	.format[PSC_TEMPERATURE] =3D direct,
-> +	.m[PSC_TEMPERATURE] =3D 1,
-> +	.b[PSC_TEMPERATURE] =3D 0,
-> +	.R[PSC_TEMPERATURE] =3D 0,
-> +	/*
-> +	 * Current and Power measurement depends on the ohm value
-> +	 * of Rimon. m is multiplied by 1000 below to have an integer
-> +	 * and -3 is added to R to compensate.
-> +	 */
-
-[Severity: Low]
-Is this comment accurate for the current implementation?
-
-The driver info struct definitions below merely set .m =3D 16 and .R =3D 0,
-with no multiplication by 1000 or -3 added to R. Is this an orphaned
-copy-paste comment from another PMBus driver?
-
-> +	.format[PSC_CURRENT_IN] =3D direct,
-> +	.m[PSC_CURRENT_IN] =3D 16,
-> +	.b[PSC_CURRENT_IN] =3D 0,
-> +	.R[PSC_CURRENT_IN] =3D 0,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605020450.8963=
-8-1-zmzhu0630@163.com?part=3D2
