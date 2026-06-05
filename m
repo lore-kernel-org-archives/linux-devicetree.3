@@ -1,141 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CCB3DD864;
-	Fri,  5 Jun 2026 14:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB3C3F4832
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 15:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780671269; cv=none; b=XURFfdMpC/md6jqHfwBOB9U8ftXfzpl1ZkqI/2XmO8AOsB7oKqDqMIS1JHgEzW3OI1dTGSiohkOeiWBBgIrSWNLN2eOja0JBVhLsu33ZKToXg9bJO0aB9yPfkYK2+XIv0Jqqh8C4FVizPvRM35QV9NIcK4WYTYdCXTNWWZH5iY4=
+	t=1780671629; cv=none; b=f4cwTmEOqC/mWBTSqaARFaDNwi0sTcNIq3FxlnHaCtyPteOhSbbAhyiPYR8qcX8NKlatAtsXnfXgpY4o8EUe3yRPTXtXMoxPcFNO4CxdO77FKUeZ06R1i87BWH+6W1QQBWII3rE0pO8Ut31rDntTXqYugyr4VQ0pjaxLGavPxag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780671269; c=relaxed/simple;
-	bh=4tMeiKXzH2reWHQd2Do3LiCn4ypOHk0Io4ayzbOXR2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uE69f7oEiRrURVD1baumey7QqDInL9iiWqiBfGrbP5jySeDDdkIWnvId4Zf4wiZOFUXt7Fyis0KDmSaGMqnDlbDIpCmY4fdq7H7yRTtig4qNyHktkoRtpRpFzScC1n7mwTj9WBhmpQ79TwXmcWmtMrlDOHt6uy4wEdK01J2e/nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ViCrIBCD; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780671629; c=relaxed/simple;
+	bh=956BUcuV4AJyy/IBmEM9FVIRCr2ewPfucLDtoPpENCM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XHHloX4aai2s6tIidPTRxAzuJ91DMk1sQlKCeGoh7sz6tRQLhhjne+fT9pxQHHnzLCPC8GtUcHDxx8DqzaM2McQlzMUmee9sMLp/xHuB5R2bPiaf4nwN7PBuLzUoj+OztPIxmGZw98ulcLE7qdQuWleSFUfM5QccewgW7jW8ESE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EA5QY6zG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ViCrIBCD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780671269; x=1812207269;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4tMeiKXzH2reWHQd2Do3LiCn4ypOHk0Io4ayzbOXR2A=;
-  b=ViCrIBCD8lCv6XAbtpT81FQ631uftKlCzal7av3ErRIqeaKCKymlgqn6
-   AoZVkeupiO2Xg79jhTTe77rFaGCtOmmBblSg8R0tb2lR31byKp3B6Y335
-   GzHmCh/RAMtIxamW2Ot1DumW6coJAGxX3Vv2f6pQRwLXWS8yBRVHbJkNO
-   SvAu7aJAScvOVWTCSvnnIfXc42pEaCW2PeESJFwBerwUF2SaUh2QdynjL
-   KUhMC7j1zNE5snvNw7VYH2wqff3SV/h/qaLcJm79GCnPjGAIeIkytw/fO
-   rLX/Vk9j3d+uZk9UOSchtxYi9OaNPMkWQ0LMC21U27AagpVieYbzloWS5
-   Q==;
-X-CSE-ConnectionGUID: 9ou23hR/QfCF9CuA/UpSrQ==
-X-CSE-MsgGUID: liEgSng5SJaoz8YLlT4+Pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81565442"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="81565442"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 07:54:28 -0700
-X-CSE-ConnectionGUID: h9Rk7ixqSzO/yh1S6oBceQ==
-X-CSE-MsgGUID: mgvGmj4gSWyogJmBey9GTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="243768683"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.178])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 07:54:14 -0700
-Date: Fri, 5 Jun 2026 17:54:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Lee Jones <lee@kernel.org>,
-	Mark Brown <broonie@opensource.wolfsonmicro.com>,
-	Thierry Reding <thierry.reding@avionic-design.de>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Peter Chen <peter.chen@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
-	Maximilian Luz <luzmaximilian@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
-	iommu@lists.linux.dev, linux-pm@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 22/23] reset: rzg2l: use
- platform_device_set_of_node_from_dev()
-Message-ID: <aiLjE0SLwrDytyw0@ashevche-desk.local>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
- <6af284545729f03a60d06479339862a2f08c6b7e.camel@pengutronix.de>
- <ah9QtExF2rUUTMNo@ashevche-desk.local>
- <aiK-qZqpuC-OEigf@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EA5QY6zG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EA21F00898;
+	Fri,  5 Jun 2026 15:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780671626;
+	bh=X7qt2U5Kg8IS800RLQD5ASsMKUGPjHTZz9MSULneqNU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EA5QY6zGsUG6lvlR64rxb0syyPBEBZlp2A23phx+8F53MP2F6vvcAqhzM8shszQ3X
+	 N9t4Jwz+siQWTWrda1TgDM6oL7Z0pGy0vnLzvqnn1uvgqwNSExk5UMIa0oWBxhtrAv
+	 c5J4GtCbzmzaZ5q0eg6viDYcf0QCNN/GRdY3zVdLBh607fbYkyJxQZcBe6BCQaKQMT
+	 33PfdI5vbZWUcbASV5peeNSx//cZ/TPshZ7PFpacszi8KFJxbvAL8+x9U94WD5qbA8
+	 49PavjJ/vk5gxVaET4phNyLGGoIIVm+vmvB6x8KXewjx3aFgzn1/YroAseDQd2qz/v
+	 Lf7EAAyR+OQcA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] drm: panel: add support for the Renesas R63419
+ based dual-DSI video mode Display Panels
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
+References: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 15:00:25 +0000
+Message-Id: <20260605150025.C6EA21F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiK-qZqpuC-OEigf@hovoldconsulting.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Jun 05, 2026 at 02:18:49PM +0200, Johan Hovold wrote:
-> On Wed, Jun 03, 2026 at 12:52:52AM +0300, Andy Shevchenko wrote:
-> > On Tue, Jun 02, 2026 at 10:24:41AM +0200, Philipp Zabel wrote:
-> > > On Do, 2026-05-21 at 10:36 +0200, Bartosz Golaszewski wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The panel is added to the DRM subsystem before its DSI links are f=
+ully configured and attached, creating a race condition.
+- [High] Asymmetric panel `.prepare`/`.enable` and `.disable`/`.unprepare` =
+callbacks.
+- [High] Missing device link to the secondary DSI host allows it to be unbo=
+und while the panel is still active, leading to a use-after-free.
+--
 
-...
+commit c609396440aafc34634a32d089165e7df2d383ce
+Author: KancyJoe <kancy2333@outlook.com>
 
-> > > > -	device_set_of_node_from_dev(&vdev->dev, dev);
-> > > > +	platform_device_set_of_node_from_dev(vdev, dev);
-> > 
-> > Same Q here, why it uses inherited call? Cargo cult?
-> > 
-> > 'reused' flag is solely pin control (provider!) thingy as far as I remember.
-> 
-> No, it's needed for pin control *consumers*, which can be any device,
-> and potentially any other resource managed by driver core or bus code.
+drm: panel: add support for the Renesas R63419 based dual-DSI video mode Di=
+splay Panels
 
-Why don't we set it for every pin control consumer automatically?
+Implement support for the Renesas 63419 based dual-DSI video mode Display
+Panels found in the Ayaneo gaming handled devices.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/d=
+rm/panel/panel-renesas-r63419.c
+> new file mode 100644
+> index 0000000000000..a70de95d4f215
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
+> @@ -0,0 +1,366 @@
+[ ... ]
+> +static const struct drm_panel_funcs renesas_r63419_panel_funcs =3D {
+> +	.disable =3D renesas_r63419_disable,
+> +	.prepare =3D renesas_r63419_prepare,
+> +	.unprepare =3D renesas_r63419_unprepare,
+> +	.get_modes =3D renesas_r63419_get_modes,
+> +	.get_orientation =3D renesas_r63419_get_orientation,
+> +};
 
+[Severity: High]
+Does this create asymmetric panel callbacks by providing .disable without
+an .enable? If the DRM core or a bridge driver performs a simple display cy=
+cle
+by calling drm_panel_disable() followed by drm_panel_enable() without a full
+unprepare/prepare cycle, the panel will be turned off in .disable but never
+turned back on since .enable is NULL.
 
+Should the DSI power-on commands in renesas_r63419_on() be moved to an .ena=
+ble
+callback, or alternatively, should the power-off commands be moved to .unpr=
+epare
+and .disable removed entirely?
+
+[ ... ]
+> +static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	/* Register the second DSI device */
+> +	ctx->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, &inf=
+o);
+> +	if (IS_ERR(ctx->dsi[1]))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
+> +				     "Failed to register second DSI device\n");
+
+[Severity: High]
+Does this leave the secondary DSI device vulnerable to uncoordinated unbind=
+ing?
+Since ctx->dsi[1] is registered as a child of dsi1_host, if dsi1_host is un=
+bound
+via sysfs or module removal, the driver core will automatically unregister =
+and
+free its children.
+
+Without a device link to dsi1_host->dev, the panel driver is not notified of
+this removal and will retain a dangling pointer to ctx->dsi[1]. If the pane=
+l is
+subsequently disabled or unbound, it could dereference ctx->dsi[1] in
+renesas_r63419_disable() or trigger a double-unregister in the devres clean=
+up
+path.
+
+[ ... ]
+> +	ret =3D devm_drm_panel_add(dev, &ctx->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add panel\n");
+> +
+> +	/* Configure and attach both DSI devices */
+> +	for (i =3D 0; i < ARRAY_SIZE(ctx->dsi); i++) {
+> +		ctx->dsi[i]->lanes =3D ctx->desc->lanes;
+> +		ctx->dsi[i]->format =3D ctx->desc->format;
+> +		ctx->dsi[i]->mode_flags =3D ctx->desc->mode_flags;
+> +
+> +		ret =3D devm_mipi_dsi_attach(dev, ctx->dsi[i]);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to attach DSI device %d\n", i);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Could this expose the panel to the DRM subsystem too early? Calling
+devm_drm_panel_add() before configuring and attaching the DSI devices creat=
+es
+a race condition where a display controller could bind and attempt to enable
+the panel immediately.
+
+This would invoke the panel's .prepare() callback before the DSI lanes, for=
+mat,
+and mode flags are applied, and before the DSI hosts are actually attached,
+potentially leading to DCS command transmission failures or hardware
+configuration errors. Should devm_drm_panel_add() be called after the DSI
+devices are successfully attached?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-topic-sm86=
+50-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org?part=3D2
