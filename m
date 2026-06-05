@@ -1,217 +1,164 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE702EEE72;
-	Thu,  4 Jun 2026 22:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780613018; cv=pass; b=gyin01bKz91BUxFfc0ZltnZZ6yWQw5MzYOMFDa8lX6u5T09Q4DHMcBlvdwXUlW981oUKdzjoOda4doqBpkH8U4D0ro4mdozVuqur/9AT96Y4q5K5n39ExVXmbTWSEdXei09mzGFENYwYLxWXXv5gXe6xF+cxn4mgTz42Czhs7Ko=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780613018; c=relaxed/simple;
-	bh=RK8ldNIq4y4q218TvWRfgdxiF5Rc1tBIcygYULlykJQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265182EEE94
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 23:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780616003; cv=none; b=N8mJMRYdpgXW0+WCRZ1TrZ3FkUZMC9IFIc8gN912kOCDzYZzUtL75JKjiicX9dHRs2Ukmt5Pqkq0/tI8Jjiuo6hHOwR4/sFyIT9hE1Sz6iUK8QNJsBDJrkGyPxEoTzVhBqaxQUArXVLNhUh7XdN6Quj1+5wMUg+4FUKfapotOFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780616003; c=relaxed/simple;
+	bh=Lb+xLGteN8rGNFfXJPGYAlrX4zLjvvSOH8R+LOVRa9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nP8ktjwb9WS5RrByIwOh2Hbxf58XebFBWSAXyYw7dxlMgIdIwtmlxd7Ws1FX/Ei0R6+1N4lg3XOWD+JbPcWJtB2ax5DVkf0oRb/2kY7JuVBIpt7oeqAVEsWcseqZRDXDaAzDwciRyR13yg+4YY08WWU5I7XtEKvo/zPp3Dg+G8c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=ifxeqzMd; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sT2WDekeHji3yONIhOIG3HQrb7nIK7PmMU6fVW1TxtEtHM1DPB7JsTD4tp6dDInkWYD7M1KJxwIXxav16eiDh7LjJP0zNkV2gXn2RQewbIUPw23tKf2RhKsV1mqenZx9twGLXYskzcSgvS8PfWlZaAKaSI08ZyOGjQcTsmA5PVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wc7CO9e/; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="ifxeqzMd"
-ARC-Seal: i=1; a=rsa-sha256; t=1780613002; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VvtuU39/xkeO0kBPui+ZcRVhlOW1UCYLZWZBmOyG7FjSiUCT1O8zBA/jAr8cXCWDANAzVkk7x/Xt1EyAoHxZTvZBBLtfCGC09N6CTT72KTSqGDWv0EPLqH2a14+MUmnUMazFqFrqlbfnCY+rMpUqLM3qgi48QMotGU82kG2HGwM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1780613002; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pdqX7LQ1wxWcyGd/5yWW3kd9MJdu3ozrKdic9+rKC7I=; 
-	b=b4fLeGgQNDExTQF3b8hbG+oEJTjbgsXmwkJySUxBuN2UwQ3J9K1pm7CZgS9T6n6/uZOW8I6ThCUpuf5oMD2Pg1cSfTqF1r2sQu5K+t2v3XqGH4QX0LFev4Ru+uvbZ06EI9RToYXI6vvQ10fv6ISUsCk78rAoc4223Vvle7PXiu4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780613002;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=pdqX7LQ1wxWcyGd/5yWW3kd9MJdu3ozrKdic9+rKC7I=;
-	b=ifxeqzMdovNulTQgVjUkOCiSTwqbHfjn6bERrIMc3GqoBMhO1gTNp6YO3gqggw30
-	gimua9Aw7CYIVvlDDsCu59ijbXIxHdUwXr36h0G7VyW4A5v8uZGRRL2ghLLQK8gg1S9
-	9Wyx+B20yNR6c5Bfyvxc6AnSgQev61/Xx2aodPwI=
-Received: by mx.zohomail.com with SMTPS id 178061300020975.38972895762834;
-	Thu, 4 Jun 2026 15:43:20 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 74078183856; Fri, 05 Jun 2026 00:43:16 +0200 (CEST)
-Date: Fri, 5 Jun 2026 00:43:16 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: power: supply: maxim,max8903: add DC
- and USB input current-limit controls
-Message-ID: <aiH9IOUWjmpkpko_@venus>
-References: <20260603071519.807604-1-github.com@herrie.org>
- <20260603071519.807604-2-github.com@herrie.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wc7CO9e/"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c858b392697so641122a12.3
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 16:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780616001; x=1781220801; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iGFlwyuNaR2/Raijzn5hJY/deT6FrQc+hecXmcS90Nw=;
+        b=Wc7CO9e/1SVK/5UNc/UMJQQXwXKmIl1vdT8lkXps89RnnRKVLa8uUmXcU+CCljUSeZ
+         iXj7nsWrdoiXLd4EbMObF4D0oEIXkv43lP1tHT8bEPlb61JdfqWW048iGhEAbwqCGGOy
+         x26LUUlFQRwKUkwX8uVySXgRiC1r7nyfZpbdoFQpXtLGCyXfdG5eWxhRGgaJdkeXbKaP
+         23u6OVCjSlzSTVFLtxWM0SIRN1RHcYopbDiH3rAfgk/6CQAtmBy/p/Ur21naCJxddy0G
+         4nVnGBUjs/XJy1KjqmXYIYWGpQrLkB+l3vjuQ4gjIP1SvL/G6cQiBPzSha02F7yuZ5cD
+         2ANQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780616001; x=1781220801;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iGFlwyuNaR2/Raijzn5hJY/deT6FrQc+hecXmcS90Nw=;
+        b=ls05bC9uKmIOiNZ/sYWv2jZd87XmIbB5/GvdXbyjMgU+alKA3pRQUML49V2p8v8hoI
+         Ere3TlfN9iGHUHy7nUaM70XtoT0twDTox1TqT7z8KfWAEWXsUB0renD1VoyRt7W791ch
+         6PT22uJ963sECPB3h96Nm9N1VCnVbjVPTJCyehZYMXDqtT/75yLZwRuB/Cp4IhyjzNvo
+         EtbUUXrYLxNZO7iGDfzhQXgBt7yWGfS4NhXfaeQGxHzfyoxCXCfbnCBbllrl5o+Gjtuc
+         UR8DhmBmqncn4fsohddwa1bmUfGjFLZslO4HoDcQcdvkzv0+kOvlTW9uFjeNxrUmDaVV
+         KRSg==
+X-Forwarded-Encrypted: i=1; AFNElJ/uEKii55VzYEn5qYqYoJHiFo3Kq8SkRmg4+cM+3I8neAruvT9wZ5AzQVtBgzixswhTcNfIvoqW0CUK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7NvA0AgP+Cx8MjEf3731/b6SeB9Ev2sn1EJElnoFQCHYY68GO
+	sce9L9xUW56QC75Vub9Yr7TlHMkOv151xFFYci1e8L3IZ30zxHKFqE35
+X-Gm-Gg: Acq92OGmsr6qCWfATjVKet0OGZEro89LWA/0iuPmBWtz/bcSilv949KZ57rEVPxfTij
+	hYWM2Mc8BTjn/7g/Gui1UTyvB6zRfs8pszUykAy2sIeKceLZb8X64YA7BdjutxAldnCCrAxO2EX
+	qk8pSZEbk5ELK7O1nCmifPeSh4EY05y29lQSXcgjJcdHkl+b+vD9Zeqsxxij6n0atsmlUfBzJKE
+	ZYYc4stW2aCFsbZpPxzoQrWDkSo2Dc60yP/8HbQjSuacs3KgpTR/doE2i18B67Pn9XmzQursZWu
+	4rnaprYcqiZrUwKOhUs80NQ8YJpQVqguLc0l9HF7NLGmUF0xyeCcdIWrDQb40KnUCHJIa9+7pqD
+	TP94POQ/fqdEMVy0Unr/9WGmT4qVdrmZna7vdk3bW1FM8rWNk/t2aBIKwmCdC2dt1WZ9MoN7gft
+	PvKmAXkA==
+X-Received: by 2002:a05:6a21:9d4c:b0:398:89b6:1b41 with SMTP id adf61e73a8af0-3b4cd066bc8mr1219019637.32.1780616001275;
+        Thu, 04 Jun 2026 16:33:21 -0700 (PDT)
+Received: from localhost ([2a12:a305:4::305d])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df0a505fsm6146958a12.20.2026.06.04.16.33.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 16:33:20 -0700 (PDT)
+Date: Fri, 5 Jun 2026 07:32:42 -0400
+From: Guodong Xu <docular.xu@gmail.com>
+To: Qingwei Hu <qingwei.hu@bytedance.com>
+Cc: Conor Dooley <conor@kernel.org>, sashiko-reviews@lists.linux.dev, 
+	kvm@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 08/15] riscv: Add Zic64b to cpufeature and hwprobe
+Message-ID: <a2o7tkslomyf43dcs4tultdmrzcjgvkjh736l7lqemasljhs2j@tyixe5krxw6z>
+References: <20260603-rva23u64-hwprobe-v2-v3-8-5529a7b28384@gmail.com>
+ <20260602232800.768311F00893@smtp.kernel.org>
+ <CA+Ck9FbKRM0wjJMg1fQpdwmow8cf_zTfir7V6+T=CRxU+vomdg@mail.gmail.com>
+ <20260604-rice-protegee-3a0b8e4cb609@spud>
+ <u52q565xhv5s7gz3wbh4heplhbm4pv732s5kqvf4deiw6ceb4t@n4bnpzu5kabs>
+ <6940420B-C9C3-4D60-AB7F-7FBC4B93D855@bytedance.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cqfzidfxitp4ifnn"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20260603071519.807604-2-github.com@herrie.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.604.68
-X-ZohoMailClient: External
+In-Reply-To: <6940420B-C9C3-4D60-AB7F-7FBC4B93D855@bytedance.com>
 
+Hi, Qingwei
 
---cqfzidfxitp4ifnn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] dt-bindings: power: supply: maxim,max8903: add DC
- and USB input current-limit controls
-MIME-Version: 1.0
-
-Hi,
-
-On Wed, Jun 03, 2026 at 09:15:18AM +0200, Herman van Hazendonk wrote:
-> Add four optional properties to the MAX8903 charger binding to
-> describe board-level GPIO control of the DC and USB input current
-> limits:
->=20
-> DC input (TA / DOK pin):
->   - dc-current-limit-gpios (1..4 GPIOs): mux control lines feeding
->     the MAX8903 IDC resistor mux;
->   - dc-current-limit-mapping (uint32-matrix of {microamps,
->     gpio_bit_pattern} pairs): the available current levels and the
->     GPIO bit pattern that selects each level.
->=20
-> USB input (USB / UOK pin):
->   - usb-current-limit-gpios: a single GPIO driving the IUSB
->     tri-state pin (low / high);
->   - usb-current-limit-values: the two microamp values that the IUSB
->     pin selects.
+On 2026-06-05 00:43, Qingwei Hu wrote:
 >
-> These let userspace clamp the input draw via the standard
-> POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT power_supply attribute. The HP
-> TouchPad uses both: two TLMM lines select between 0.5 A, 1.0 A,
-> 1.5 A and 2.0 A DC input current limits behind the MAX8903B
-> charger, and a third TLMM line picks the IUSB 100 mA / 500 mA
-> limit.
->=20
-> These are purely additive; existing platforms remain unaffected.
->=20
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-> ---
->  .../bindings/power/supply/maxim,max8903.yaml  | 58 +++++++++++++++++++
->  1 file changed, 58 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/power/supply/maxim,max8903=
-=2Eyaml b/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
-> index 86af38378999..5e970ebc08df 100644
-> --- a/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
-> @@ -44,6 +44,41 @@ properties:
->      maxItems: 1
->      description: USB suspend pin (active high, output)
-> =20
-> +  dc-current-limit-gpios:
-> +    minItems: 1
-> +    maxItems: 4
-> +    description:
-> +      GPIOs controlling DC input current limit via resistor mux.
-> +      Used with dc-current-limit-mapping to select charging current.
-> +
-> +  dc-current-limit-mapping:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +    minItems: 2
-> +    maxItems: 16
-> +    description: |
-> +      Array of (current_microamps, gpio_bit_pattern) pairs defining avai=
-lable
-> +      DC current limits. The gpio_bit_pattern is applied to dc-current-l=
-imit-gpios
-> +      to select that current level.
-> +    items:
-> +      items:
-> +        - description: Current limit in microamps
-> +        - description: GPIO bit pattern value
-> +
-> +  usb-current-limit-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO controlling USB input current limit.
-> +      Low =3D usb-current-limit-values[0], High =3D usb-current-limit-va=
-lues[1].
-> +
-> +  usb-current-limit-values:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 2
-> +    maxItems: 2
-> +    default: [100000, 500000]
-> +    description:
-> +      USB current limits in microamps for GPIO low and high states.
-> +      Default is 100mA (low) and 500mA (high) per USB specification.
+>
+>> Ok, I get your point. Agree, Zic64b/Zicbom/cbop/cboz can be implemented
+>> on each hart independently (at least spec doesn't say no). With this in
+>> mind, the validation of Zic64b should be like this:
+>>
+>>    if ((riscv_cbom_block_size && riscv_cbom_block_size != 64) ||
+>>       (riscv_cbop_block_size && riscv_cbop_block_size != 64) ||
+>>       (riscv_cboz_block_size && riscv_cboz_block_size != 64))
+>>    return -EINVAL;
+>>
+>> This will allow :
+>> 1. A Zic64b hart with 0, 1, 2, or 3 CBO extension and block_size 64
+>>   passes the validation.
+>> 2. A Zic64b hart with CBO extensions but block_size is not 64
+>>   fails the validation
+>>
+>> Thanks for the catch.
+>>
+>> I will fix that in v4.
+>>
+>> BR,
+>> Guodong
+>
+>Hi Guodong,
+>
+>Thanks for working on this.
+>
+>This overlaps with my earlier Zic64b cpufeature patch[1].
 
-The IUSB pin always selects between 100mA and 500mA for the MAX8903
-according to the datasheet, so why is there a DT property?
+Thanks, and you're right that your patch predates mine. Your validation
+was also correct (at least resonate with what I planned to do in v4)
+from the start.
 
-Greetings,
+>
+>and Greg confirmed that Zic64b does not imply support for any CMO
+>extensions[2]. It only has meaning for whichever CMO extensions are
 
--- Sebastian
+I'll add a link to quote this in v4. Great info. Thanks for checking
+with them.
 
-> +
->  required:
->    - compatible
-> =20
-> @@ -65,3 +100,26 @@ examples:
->        chg-gpios =3D <&gpio3 15 GPIO_ACTIVE_LOW>;
->        cen-gpios =3D <&gpio2 5 GPIO_ACTIVE_LOW>;
->      };
-> +  - |
-> +    /* Example with DC and USB current limit control */
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    charger-with-current-limit {
-> +      compatible =3D "maxim,max8903";
-> +      dok-gpios =3D <&gpio2 3 GPIO_ACTIVE_LOW>;
-> +      flt-gpios =3D <&gpio2 2 GPIO_ACTIVE_LOW>;
-> +      chg-gpios =3D <&gpio3 15 GPIO_ACTIVE_LOW>;
-> +      cen-gpios =3D <&gpio2 5 GPIO_ACTIVE_LOW>;
-> +      dcm-gpios =3D <&gpio2 6 GPIO_ACTIVE_HIGH>;
-> +
-> +      /* DC input current limit via IDC resistor mux */
-> +      dc-current-limit-gpios =3D <&gpio1 0 GPIO_ACTIVE_HIGH>,
-> +                               <&gpio1 1 GPIO_ACTIVE_HIGH>;
-> +      dc-current-limit-mapping =3D <750000 0>,  /* GPIO[1:0]=3D0b00 */
-> +                                 <900000 1>,  /* GPIO[1:0]=3D0b01 */
-> +                                 <1400000 3>, /* GPIO[1:0]=3D0b11 */
-> +                                 <2000000 2>; /* GPIO[1:0]=3D0b10 */
-> +
-> +      /* USB current control */
-> +      usb-current-limit-gpios =3D <&gpio1 2 GPIO_ACTIVE_HIGH>;
-> +      usb-current-limit-values =3D <100000 500000>; /* 100mA / 500mA */
-> +    };
-> --=20
-> 2.43.0
->=20
+>implemented.
+>
+>Since the Zic64b cpufeature support in this patch overlaps with my
+>earlier patch, if you keep this work in your series and base it on that
 
---cqfzidfxitp4ifnn
-Content-Type: application/pgp-signature; name="signature.asc"
+Yes, I'd like to, and I prefer, take the your patch into this series, and
+credit you properly. In this series, I also added dt-binding, documentation
+and howprobe, and make it consumed by rva23u64 detection.
 
------BEGIN PGP SIGNATURE-----
+>patch, could you please put my sign-off credit for the Zic64b cpufeature part?
+>
+>For example:
+>
+>Signed-off-by: Qingwei Hu <qingwei.hu@bytedance.com>
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoh/4AACgkQ2O7X88g7
-+pr4cA//fOqQ7w8bYspjrUW3LnS/rmz+8gUdTh92bGjGyP3+oyK4EIHXZNvBUyaz
-141DzjDX4WkZXmB6PMl815vvuT/FeHnEgTZfxiHPzLJC5GyYyX7wgVVnZ5W7mGAl
-pxDmCYxkBWGUO+FRVhPY8aKMBW54A60nT+9aKGF/WAXnmIdRDOSkwfL0qaoDZGAu
-K1DnIE7hKzi/H1IKJKAmThTi3QEJUPAgDA3QDU+Vb3BvLqJWYJcyPvHDBRBJFqlu
-xfsIbCb8WfChsp8T5vPkafifRfYIfXMh3QhSc3IHLYcBWx9UKD7WZA8YKqwztGAx
-cNW1emZ2ZrZvMXy1qor3mZ6zcRN2oO6ZW6no/U81ZXkP2dcW70nk/0VxNboHFZUz
-J78ZL51HPbfCXMmE7tCo9Z9ANCvggKkBTRbNEG616qDek4SCMR+1mEIw5/cdXwTt
-gJjjrs/OLBl43hBRuyUBRYEdMd8c9PqhctbVDzdZ+XVDRGAG6EgQbBYn8VVfVCJb
-PGjkvmazjvs+WDaab8Y/NYrs9W/pJWjxZtQR19bRyZfjHky09dl9SewAX0ded6fK
-ftiJPtRLzTvHP7FR1KiFNmxCZPfPmGr33vKTxKFpZQS5gF4AIdOpAIKx/qJ5OiAn
-kw2bYg1HvEBqZ45WOkbx9mRw/NO10IMNcGL4u7Uko+yD1nIhHQY=
-=uvqI
------END PGP SIGNATURE-----
+Yes, since your work came first, I'm happy for you to be the author of the
+cpufeature patch, with me as Co-developed-by:
 
---cqfzidfxitp4ifnn--
+     From: Qingwei Hu <qingwei.hu@bytedance.com>
+     ...
+     ...
+     Signed-off-by: Qingwei Hu <qingwei.hu@bytedance.com>
+     Co-developed-by: Guodong Xu <docular.xu@gmail.com>
+     Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+
+Let me know whether this works for you.
+
+Thank you for pointing me to your existing patch.
+
+BR,
+Guodong
+
+>
+>[1] Link: https://lore.kernel.org/all/20260528141630.2741710-1-qingwei.hu@bytedance.com/
+>[2] Link: https://lists.riscv.org/g/tech-unprivileged/topic/question_about_zic64b_and/119631059
+>
+>Best regards,
+>Qingwei Hu
