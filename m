@@ -1,116 +1,368 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA03D3C1F24
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 22:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780698589; cv=pass; b=mXxDNUCGgqL+6L8F7yTuHsedCcPbw4sMJygwdPHH+tSoteShqAfVRARdgjLS/mMzdC/ctoBJajqKtMm74RRXPpbgiVEs6RfPsDNUlD/cPo2n5I8c8uC50r9wfPipY7ZTkNHAxfD3oTUit9ghVg1wRVA1D+hBy7x0mgBA65RyVJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780698589; c=relaxed/simple;
-	bh=+hJ82CmdEVkqjDDHhsyrW4LNqGqxDk6mnNaahYCx5HY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G6wPFnijRypgyZvlkp8n3NO/klkgK7rYXOk+PpGAqTiyTUooE7dNinFqi3+GFk1k8GnmSNJSJtDy8ig9834cxKVTRcb5sPBftLwoKSIybMXxUdEep2KOmyk2WFY9ckvPXqSXo3drk8nhjG71O/7vRsx86Vix7BM4/ggAbkHrjQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ggF/rBcU; arc=pass smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C7D3D25DC;
+	Fri,  5 Jun 2026 22:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780699007; cv=none; b=M9ftBxjRCxWWYiPklCcjDSeAUZ1b46aM5jJD/R0t40eAJpmjSmr57MjbXEc3aIQowTrZTyN+TByJbCWbLrYQRgOmrhtOjdOeJL1MDtnesYYa3M5lJdcgskqrUA5XgCgFjkiP+BRsvoRANlhl+yKa7y0wS36gpXChDyLsb1xvSgM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780699007; c=relaxed/simple;
+	bh=yIn+5oAXtQvKQ6RfyT5VGlK8I9c90ZfgJGaV60fo3Gk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X2swWk7e+w+L3bjAQkC4e7JwQKvr4nYQjRQ8yM0ce3iGotdpb1B9YI8ihYuQ+GYCoa7y1xyqvm+HccquMp7mMUjEuTPSnYhJUnMCUNN4qDn15XTozb47QG2hC+M/oJsVIJyVJJIgSwtM/18RrIT8TNi4tj96XGVB5RnNJW8dhbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8yafOxF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ggF/rBcU"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c8589498839so1107273a12.2
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 15:29:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780698587; cv=none;
-        d=google.com; s=arc-20240605;
-        b=YmiSlSKqeLntdAKFPGJ6ZUqNtz6tzADsSz0BmHlsn4JbcAqiaV2l2215hUqQK+UBQL
-         iSk+JEVhCN46dwdwxXbUzSLut9N3zmB/D97jek5KmgfFTkbcbhgkB2+jMIStWOa5k5ri
-         /7EHgKUfhvnPmED5JvnPPyttvKvTQ8Q3ntHwpVqeG9WP2Nl1IM56LvI9vyB7PzdL3N6U
-         swS6Y5z4So/yxWUAHPO9sealjetpdMvqpz4BPDXNrAz6zNQzSPmOe27km813fgjKNs5K
-         jAxs5YZupeCj+QmigIjaVhvP1pj8zcJGxYEv2AEl0KgwK/UZv5iqT4OLCjC9+C4APNez
-         7DKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=hV9ULzaG79qCwwmOnfVk6C9FBfxcQdzVGSaD3MY9TpE=;
-        fh=NoprP26afL5+bKLGzXCq8Gz6P/kh4+aOklOhHqFW04s=;
-        b=CT7L7wHpBJ1aVNzULlITrX04eQqqc6WWlOd8qqqJuz66abAq07ZnEcBNoxCkq7SjYI
-         1VXpg4coWclEYyQb2KnygdpVTVJRZI/8EpaJ/5hysDBw/4snHU38hWoJX00B+wpm6Y6l
-         kSr1l1ubOUUaFEHilSUdeF8PXFd87JFn5q/YWwJz1CYrygQBWdqSErftekjhzusuDoAt
-         hIGDG5Ty3UURe1bTATeadedpN62W8hFnWXmafRYas9kmeNfo6ZSi6GVnX41eaSEaL+0z
-         ihQfIRIUBRelscG8X5JPEhJoh0VDQ81IPcJ7X/Wdwqg4cYI/7rrjxrRB3cMTHoSLmCrl
-         wMWg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780698587; x=1781303387; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=hV9ULzaG79qCwwmOnfVk6C9FBfxcQdzVGSaD3MY9TpE=;
-        b=ggF/rBcUcl99HOvxNPzHwpMMrmOUW699YoLTrMY5uPui/IAYAqH+nnbU1mM62ACL82
-         P67nb0j5d6rftNk+bltUOFbn/PtxzbbcFdYEmrZlD1fhDrrpNcX+6dYrtWxBF4KpsG1e
-         1oKWWmwAZAih1TjrMXThWb+n2r4ql2xyAiOg8qPAtOFA4e/4kxN33jzQRbrmp6snd9tm
-         U1vRsLHNvittaVgbXYYLkf6ICXVMay/FKmtGF3jn+uw44a8wVwi7x+MBKKFEsKGztiqg
-         ENLIOsoFUH5p6LLIuQrmPconDbR8NPz90r4WnWpE3X3vOjwW6NEn1tiKPJ7CRtJAT3JG
-         MxjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780698587; x=1781303387;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hV9ULzaG79qCwwmOnfVk6C9FBfxcQdzVGSaD3MY9TpE=;
-        b=ea5yssjNDK59WQfQqxKIJqV9k/oZmHOsa8yW5u2i9WA6j/1Mn0fnLmz5ZgBDtqMzau
-         GbjEEQnK1PeRduJcmefVVRD0ol+tLGQ2UtN/CekPv2qwm1EgihOEfQVgf968pzti/FLS
-         BW0TDaj4hg6x7fLkR4igp9spMrXdP7llsWjtUedJGeOy4G5MfL2cfLbcydojkZLVSIKC
-         MBZJ7ucfvVyxFWusHtH+H9R9lf7jHv0cIlfIBJ0tyKlf8Kzqx4JCQ/KzXbxfo5hag+WX
-         fvOEBp/FBZBGCp3EeHpGG+INWqhSc7z8VRq4mR/fS08Jvud8oRB72AB/nYhHZRMhyHFm
-         pVqw==
-X-Forwarded-Encrypted: i=1; AFNElJ9FIwMhTEAcu1txerqxWK62XGmSqaBSIPss/aDcYJE4Q2yQe8A+4rIcHG6QtnMadlyPvpnnHW2gkBtg@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxv9xSMxdLdQElx1y41SndWn5bPS70WvkGNrBivhZyYi6SPHcg7
-	5eRipjiavUj/WR/0yVmMQLmEx3mjKztOjt5Kd6R8O5dJAcMNcPYvTjPu7lgiabRDiBrW7+M+IRT
-	GJL/pBQeySbTJ50oVxwC/dmWriNVEH08=
-X-Gm-Gg: Acq92OFxAEOP3v3DsykCq9LPXT5DaqPXSDeWb7eqEpgcfhe0wKXAoiRYDNbOK4E9dM/
-	6gLTEV2fg7GKFD/7pORyc/bbx30jaRrdpsMxCdmr8EIuEmw9XeHAFUUNB6N5unn7NNMKCiLfOki
-	JwHiEB3/D38IYtATO+VbyBkDXVsJiVK7XAbIaPxGCn5cA5lLa2ZsTPSWCw1LArgd20+3HYgNpKS
-	NbWrZR5kKoMbg18c/3XNT2eOfJMM+PH328wer1hS6dpM9xp7VDAzzJXMxjEkj7AlKn7Y/0oiNlk
-	JjhCz8Ol9vD0QXiM9Pab/Obv78NewXau7l0An633TY5pQXtBZEL93zdhAPz9qPM9zLxZbDvrsoC
-	ClSlnbw==
-X-Received: by 2002:a05:6a00:3d47:b0:842:6fec:1296 with SMTP id
- d2e1a72fcca58-842b0e2f70emr5369705b3a.4.1780698587138; Fri, 05 Jun 2026
- 15:29:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8yafOxF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D09FC2BCB9;
+	Fri,  5 Jun 2026 22:36:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780699007;
+	bh=yIn+5oAXtQvKQ6RfyT5VGlK8I9c90ZfgJGaV60fo3Gk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Z8yafOxFKdlUA9hSPM13fHtpMWcuvuRqhPWwl/cjtThWYOKbH9xIVO0GglPYl4Rvl
+	 gVZtJQ2beNNm0VMgV/2wwGq5AtEaq5XK2aWQPTlEJt++4MP5bdGEBLfbRBZrw04GUd
+	 8s6eIMxgbJXHMWfsLr1nCn8ShDWj78sRbLnbFB/RfaS1LXsUDNP9jixth6qyIo8FWx
+	 AmktoThxFgSieMorHjatJKgZ+dHGUz2vhmvHqRBJ+RafT25sO82r4G7iqjR/j1SnME
+	 T25o0/9vN1GEKZ0QHL2BeTsU/vU+5irs27gFJgcPq99gsr1rRVViebVdSoFir925ex
+	 RridNk/Jgtbig==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E88B3CD6E7B;
+	Fri,  5 Jun 2026 22:36:46 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Fri, 05 Jun 2026 17:36:37 -0500
+Subject: [PATCH] arm64: dts: qcom: sm8750: add cpu OPP table with DDR and
+ LLCC bandwidths
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605121955.105661-1-phucduc.bui@gmail.com>
- <20260605121955.105661-11-phucduc.bui@gmail.com> <68a03a72-07f3-4738-bad4-6b92bafec318@sirena.org.uk>
-In-Reply-To: <68a03a72-07f3-4738-bad4-6b92bafec318@sirena.org.uk>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Sat, 6 Jun 2026 05:29:35 +0700
-X-Gm-Features: AVHnY4IxKGU0FIWOFBZ5YgXOV7kRSiKXHpEfhImiSr4YmJecxoXq6aFVUBTuuBg
-Message-ID: <CAABR9nHGNVWuOLyuqvjrsYYJBXOFs8W0ZN5PUs3AX4+rM2RmMw@mail.gmail.com>
-Subject: Re: [PATCH v4 10/10] ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
-To: Mark Brown <broonie@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260605-sm8750-ddr-bw-scaling-v1-1-f39f918c95a7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMwNT3eJcC3NTA92UlCLdpHLd4uTEnMy8dF3LZGOjJAtjM4PEJAsloN6
+ CotS0zAqwudGxtbUAu47vY2cAAAA=
+X-Change-ID: 20260605-sm8750-ddr-bw-scaling-9c32b8360ab8
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780699006; l=9235;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=kbb/4boOUdkbOmNk6sJ8HJw1jKtiEVCgZD941A51xxk=;
+ b=Fo8YhRp3cJyhsK/swh443JmVamp3uQSrN2QczJXtXVicwUpeFWbeMejJg109ZAdKdruZDRczb
+ OLNmKMG5QKJAVLkDtBclmAPXK7Mar0EAjYWXTUhYZ5RwVLjgQFkO7Yt
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-Hi Mark, Morimoto-san,
+From: Aaron Kling <webgeek1234@gmail.com>
 
->
-> The indentation here seems wrong.  We're also using spu_count to
-> separately guard the clk_prepare() in fsi_clk_prepare() which seems
-> problematic, I'm having to think too hard about how this might be
-> robust.
+Add the OPP tables for each CPU cluster (cpu0-1-2-3-4-5 & cpu6-7) to
+permit scaling the Last Level Cache Controller (LLCC) and DDR frequency
+by aggregating bandwidth requests of all CPU core with reference to the
+current OPP they are configured in by the hardware.
 
-Thank you for your reviews.
-I think we can just drop spu_count and let the clk core handle it,
-since the core already refcounts via enable_count/prepare_count.
+The effect is proper caches & DDR frequency scaling when CPU cores
+change frequency.
 
-What do you think, Morimoto-san?
+The OPP tables were built using the downstream memlat ddr & llcc tables
+for each cluster types with the actual cpufreq LUT tables from running a
+CQ8725S device.
+
+Also add the interconnect entry for each cpu, with 2 different paths:
+- CPU to Last Level Cache Controller (LLCC)
+- Last Level Cache Controller (LLCC) to DDR
+
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+arm64: dts: qcom: sm8750: add cpu OPP table with DDR and LLCC bandwidths
+---
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 200 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 200 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index fafed417c66fc2..6f44c393649918 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -44,6 +44,11 @@ cpu0: cpu@0 {
+ 			next-level-cache = <&l2_0>;
+ 			power-domains = <&cpu_pd0>, <&scmi_dvfs 0>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu0_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 
+ 			l2_0: l2-cache {
+@@ -61,6 +66,11 @@ cpu1: cpu@100 {
+ 			next-level-cache = <&l2_0>;
+ 			power-domains = <&cpu_pd1>, <&scmi_dvfs 0>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu0_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 		};
+ 
+@@ -72,6 +82,11 @@ cpu2: cpu@200 {
+ 			next-level-cache = <&l2_0>;
+ 			power-domains = <&cpu_pd2>, <&scmi_dvfs 0>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu0_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 		};
+ 
+@@ -83,6 +98,11 @@ cpu3: cpu@300 {
+ 			next-level-cache = <&l2_0>;
+ 			power-domains = <&cpu_pd3>, <&scmi_dvfs 0>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu0_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 		};
+ 
+@@ -94,6 +114,11 @@ cpu4: cpu@400 {
+ 			next-level-cache = <&l2_0>;
+ 			power-domains = <&cpu_pd4>, <&scmi_dvfs 0>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu0_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 		};
+ 
+@@ -105,6 +130,11 @@ cpu5: cpu@500 {
+ 			next-level-cache = <&l2_0>;
+ 			power-domains = <&cpu_pd5>, <&scmi_dvfs 0>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu0_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 		};
+ 
+@@ -116,6 +146,11 @@ cpu6: cpu@10000 {
+ 			next-level-cache = <&l2_1>;
+ 			power-domains = <&cpu_pd6>, <&scmi_dvfs 1>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu6_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 
+ 			l2_1: l2-cache {
+@@ -133,6 +168,11 @@ cpu7: cpu@10100 {
+ 			next-level-cache = <&l2_1>;
+ 			power-domains = <&cpu_pd7>, <&scmi_dvfs 1>;
+ 			power-domain-names = "psci", "perf";
++			operating-points-v2 = <&cpu6_opp_table>;
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+ 			#cooling-cells = <2>;
+ 		};
+ 
+@@ -256,6 +296,166 @@ memory@a0000000 {
+ 		reg = <0x0 0xa0000000 0x0 0x0>;
+ 	};
+ 
++	cpu0_opp_table: opp-table-cpu0 {
++		compatible = "operating-points-v2";
++		opp-shared;
++
++		opp-384000000 {
++			opp-hz = /bits/ 64 <384000000>;
++			opp-peak-kBps = <(547000 * 16) (350000 * 4)>;
++		};
++
++		opp-556800000 {
++			opp-hz = /bits/ 64 <556800000>;
++			opp-peak-kBps = <(547000 * 16) (350000 * 4)>;
++		};
++
++		opp-748800000 {
++			opp-hz = /bits/ 64 <748800000>;
++			opp-peak-kBps = <(547000 * 16) (350000 * 4)>;
++		};
++
++		opp-960000000 {
++			opp-hz = /bits/ 64 <960000000>;
++			opp-peak-kBps = <(1353000 * 16) (350000 * 4)>;
++		};
++
++		opp-1152000000 {
++			opp-hz = /bits/ 64 <1152000000>;
++			opp-peak-kBps = <(1353000 * 16) (350000 * 4)>;
++		};
++
++		opp-1363200000 {
++			opp-hz = /bits/ 64 <1363200000>;
++			opp-peak-kBps = <(1555000 * 16) (350000 * 4)>;
++		};
++
++		opp-1555200000 {
++			opp-hz = /bits/ 64 <1555200000>;
++			opp-peak-kBps = <(1555000 * 16) (350000 * 4)>;
++		};
++
++		opp-1785600000 {
++			opp-hz = /bits/ 64 <1785600000>;
++			opp-peak-kBps = <(2092000 * 16) (533000 * 4)>;
++		};
++
++		opp-1996800000 {
++			opp-hz = /bits/ 64 <1996800000>;
++			opp-peak-kBps = <(2092000 * 16) (533000 * 4)>;
++		};
++
++		opp-2227200000 {
++			opp-hz = /bits/ 64 <2227200000>;
++			opp-peak-kBps = <(2092000 * 16) (533000 * 4)>;
++		};
++
++		opp-2400000000 {
++			opp-hz = /bits/ 64 <2400000000>;
++			opp-peak-kBps = <(2092000 * 16) (533000 * 4)>;
++		};
++
++		opp-2745600000 {
++			opp-hz = /bits/ 64 <2745600000>;
++			opp-peak-kBps = <(3187000 * 16) (806000 * 4)>;
++		};
++
++		opp-2918400000 {
++			opp-hz = /bits/ 64 <2918400000>;
++			opp-peak-kBps = <(3187000 * 16) (806000 * 4)>;
++		};
++
++		opp-3072000000 {
++			opp-hz = /bits/ 64 <3072000000>;
++			opp-peak-kBps = <(3686000 * 16) (933000 * 4)>;
++		};
++
++		opp-3321600000 {
++			opp-hz = /bits/ 64 <3321600000>;
++			opp-peak-kBps = <(3686000 * 16) (933000 * 4)>;
++		};
++
++		opp-3532800000 {
++			opp-hz = /bits/ 64 <3532800000>;
++			opp-peak-kBps = <(3686000 * 16) (933000 * 4)>;
++		};
++	};
++
++	cpu6_opp_table: opp-table-cpu6 {
++		compatible = "operating-points-v2";
++		opp-shared;
++
++		opp-1017600000 {
++			opp-hz = /bits/ 64 <1017600000>;
++			opp-peak-kBps = <(1353000 * 16) (350000 * 4)>;
++		};
++
++		opp-1209600000 {
++			opp-hz = /bits/ 64 <1209600000>;
++			opp-peak-kBps = <(1353000 * 16) (350000 * 4)>;
++		};
++
++		opp-1401600000 {
++			opp-hz = /bits/ 64 <1401600000>;
++			opp-peak-kBps = <(1353000 * 16) (350000 * 4)>;
++		};
++
++		opp-1689600000 {
++			opp-hz = /bits/ 64 <1689600000>;
++			opp-peak-kBps = <(2092000 * 16) (533000 * 4)>;
++		};
++
++		opp-1958400000 {
++			opp-hz = /bits/ 64 <1958400000>;
++			opp-peak-kBps = <(2092000 * 16) (533000 * 4)>;
++		};
++
++		opp-2246400000 {
++			opp-hz = /bits/ 64 <2246400000>;
++			opp-peak-kBps = <(3187000 * 16) (806000 * 4)>;
++		};
++
++		opp-2438400000 {
++			opp-hz = /bits/ 64 <2438400000>;
++			opp-peak-kBps = <(3187000 * 16) (806000 * 4)>;
++		};
++
++		opp-2649600000 {
++			opp-hz = /bits/ 64 <2649600000>;
++			opp-peak-kBps = <(3187000 * 16) (806000 * 4)>;
++		};
++
++		opp-2841600000 {
++			opp-hz = /bits/ 64 <2841600000>;
++			opp-peak-kBps = <(3686000 * 16) (933000 * 4)>;
++		};
++
++		opp-3072000000 {
++			opp-hz = /bits/ 64 <3072000000>;
++			opp-peak-kBps = <(3686000 * 16) (933000 * 4)>;
++		};
++
++		opp-3283200000 {
++			opp-hz = /bits/ 64 <3283200000>;
++			opp-peak-kBps = <(3686000 * 16) (933000 * 4)>;
++		};
++
++		opp-3513600000 {
++			opp-hz = /bits/ 64 <3513600000>;
++			opp-peak-kBps = <(4224000 * 16) (1066000 * 4)>;
++		};
++
++		opp-3801600000 {
++			opp-hz = /bits/ 64 <3801600000>;
++			opp-peak-kBps = <(4224000 * 16) (1066000 * 4)>;
++		};
++
++		opp-4089600000 {
++			opp-hz = /bits/ 64 <4089600000>;
++			opp-peak-kBps = <(4224000 * 16) (1066000 * 4)>;
++		};
++	};
++
+ 	pmu {
+ 		compatible = "arm,armv8-pmuv3";
+ 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW>;
+
+---
+base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
+change-id: 20260605-sm8750-ddr-bw-scaling-9c32b8360ab8
 
 Best regards,
-Phuc
+-- 
+Aaron Kling <webgeek1234@gmail.com>
+
+
