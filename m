@@ -1,122 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415DD3D9DA9;
-	Fri,  5 Jun 2026 08:04:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E382948C8CF;
+	Fri,  5 Jun 2026 08:06:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780646670; cv=none; b=HpVCqyurDTlMYIyi6CW2s9z/fp222UD7BECyyJSxiQVWLYy7BQnSUXoqJvE1+LuM813HhElFSDbiOIIt3LorUGwRYDnwy21XiGxE4YYw8mXmOOoSlmcqvNRUZU4tIoX8gsMnfYID7rfG7urTjDs87hJ23LSBMjS8FxjLML7E+xI=
+	t=1780646767; cv=none; b=QB5nwftW5HxPsXj7GIEkJh6RJUO1WBHS9nNNACRxfggE/IWkZYReaSx3dtkWL37jAbTa1UIpj0eUrDFceS6oz8em0ufyAqy65d5uGQjEBrqEbuwjsl9Tx5jPm3XnEw0hGGm19HFkRAzZ+/ZyUt+9F860OC7Bq4yNftFaQLXjG9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780646670; c=relaxed/simple;
-	bh=AHpWtjLIZerdJ/EdeTV+QHreRSB1Oe9vytnUvsOuvnE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WlPi8S6ZTs9HORj8KF4NrH2SS+vfcfjrn37cgLOVPyKhIS+Apc0X+/jtN8W2DucsSWAe9jK+DEzUx3qevADEedDe3V8Z7xcGwbWHSl3vrOiLyTE90AvXjqjcC146sX2yP5ZATcnwr7RBc6nWUdsP/OE+0kF1v+gVEDblpXx4wpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCEmviWx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780646767; c=relaxed/simple;
+	bh=kY1do4kUInWVtWNUomY8hPqOXdXkh1FfPmsTJWlYDGk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ntdgAAO17laYFM6HEcphDzvH1xe1B4JtCgDXNkoYvaEa2rbepmEDj8UFCm1WOsSoGfUyEv8HOrbx2DU3Ns2qXTSeOG1J0GIzqIuwnMxPaUm8LsV5ClJxCsWAMx3rNXFgdQCvxBhb/s+n1oQFH7MMZFWWB7mwCS3O9sJB8vyec4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iylheQQk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCEmviWx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ADBA1F00893;
-	Fri,  5 Jun 2026 08:04:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iylheQQk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879931F00893;
+	Fri,  5 Jun 2026 08:06:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780646668;
-	bh=3vL+8eiqMQ/wPXlAvyt5eyJvY8YKqg4O0tWDk77XqEc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fCEmviWxl+UF7scLNTMQ2yj2Mo5lWgYU6ipoTAbIBts+gdQECSEBVd6NMjvXAGj01
-	 p2q0uMNnP5LVTTx5UD2G4nlwBLDnf+KOeuzQGr8bV9RnLCs9NecHrJiDI7rsqj3ucb
-	 a2CoXs41FkEZtMm3Z/PMdTDKO4/gX1IKJ9L6HDLVx2LD3ARMjUX0x79OO3+rASh3g2
-	 LMSJ+UbptuSjeSv96y2re/9VoSrOPHdhsEuNrewUVUKxzlo38XzPJBdo6cJZ5AwxLM
-	 JlG+gzZQGfTzhU2nNkH6vTEHtRVHAkz0Ohf4GNbZG5dHp0baddxnF+hhuAJVKZ7Rg6
-	 J3dgpRigNTnKQ==
-Message-ID: <f1ff225d-c20a-4859-8bea-eaab0d1ea467@kernel.org>
-Date: Fri, 5 Jun 2026 10:04:21 +0200
+	s=k20260515; t=1780646765;
+	bh=ZkO4TQoorawjATu9YptGJfbbBe6b6tFrB+zEo7jVabM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iylheQQkfo9ydTsxDQzWUxM8r87rGtS3m1YNoBCyzytH8wBHqKZ5ZpuiCWMmL1c6D
+	 EffAtqJPOuNfQZolNUeCPC+EqZOTN0wlQfARovHjwW3ClKdO0HkIlbT0AgvlHyhkDV
+	 1/BzMKVwrRUoevkymZ127Zed6M8qMegRM9vd4dPYfKSL01l1hZRf3Zxo73zjw+1zBc
+	 EpnEo0hdPgFt0D6HK6KSt3PtcqgGeXgngTYDFT9fUZ390CWbuej3uPxqtThO3Fn0Vn
+	 qI2QqUsUVw3VpOtRxcvO0G7hswhq82JpbGTV1J0sOIa5Q/VF27lUGO1koCk8W9XxDM
+	 dFdVpjzK4igkA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wVPZ5-00000009gQx-2UtJ;
+	Fri, 05 Jun 2026 08:06:03 +0000
+Date: Fri, 05 Jun 2026 09:09:23 +0100
+Message-ID: <87bjdp9znw.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steev Klimaszewski <threeway@gmail.com>,
+	Icecream95 <ixn@disroot.org>
+Subject: Re: [PATCH RFC] arm64: dts: qcom: hamoa: Drop cluster_cl5 idle state from CPU clusters
+In-Reply-To: <20260604-dc_zva_mitigation-v1-1-d1148c1c0259@oldschoolsolutions.biz>
+References: <20260604-dc_zva_mitigation-v1-1-d1148c1c0259@oldschoolsolutions.biz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] pinctrl: qcom: Introduce Pinctrl for the upcoming
- Maili SoC
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
- tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
- yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260522-maili-pinctrl-v1-0-0a6636f5c277@oss.qualcomm.com>
- <20260530-primitive-encouraging-quail-ee8af1@quoll>
- <c7b5f9cb-09a4-448f-8f49-bdc9570d6b29@oss.qualcomm.com>
- <87b24725-1c78-4830-a61c-e486c4cd4f3f@kernel.org>
- <c88b955b-5aaa-472e-a928-eae8bbc7feb5@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <c88b955b-5aaa-472e-a928-eae8bbc7feb5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: jens.glathe@oldschoolsolutions.biz, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, threeway@gmail.com, ixn@disroot.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 05/06/2026 07:54, Jingyi Wang wrote:
->>> Hi Krzysztof,
->>>
->>> Maili is similar to Hawi which is not announced yet, so we refer to Hawi
->>> to use "upcoming Qualcomm Maili SoC" to describe it, shall we expose details
->>> now or add info after announcement?
->>
->> Just briefly or how much you can describe above.
->>
+Hi Jens,
+
+Thanks for sending this.
+
+On Thu, 04 Jun 2026 18:40:14 +0100,
+Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org> wrote:
 > 
-> I have added a description in:
-> https://lore.kernel.org/all/20260604-maili-soc-binding-v2-0-21b5e9bd1aa5@oss.qualcomm.com/
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 > 
-> I think it might not be necessary to respin this pinctrl series and one-line bindings(e.g. SMMU)?
-> Please let me know if you have any concerns.
+> The cluster_cl5 idle state triggers DC ZVA misbehavior that resets
+> X1 SoCs. Remove it from cluster_pd0/1/2 domain-idle-states for now.
+> 
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> ---
+> This is an RFC for a mitigation of a stability issue observed on
+> Snapdragon X1-based SoCs (Hamoa and Purwa).
+> 
+> Affected systems experience spontaneous resets under the following
+> conditions:
+>  - During intensive `git fetch` / `git pull` activity
+>  - During mostly idle periods (Bitburner and similar workloads were
+>    frequently mentioned)
+> 
+> Steev Klimaszewski first connected the crashes to git operations.
+> Subsequent discussion in #aarch64-laptops led icecream95 to isolate
+> DC ZVA as the triggering instruction and to create a reliable
+> reproducer [1].
+> 
+> Further debugging showed that the issue is strongly related to deep
+> cluster idle states. Marc Zyngier suggested removing the deepest
+> cluster state (`cluster_cl5`), which resolved the problem on all tested
+> consumer hardware.
+> 
+> This patch implements that change by removing `&cluster_cl5` from the
+> `domain-idle-states` of `cluster_pd0`, `cluster_pd1`, and `cluster_pd2`.
+> 
+> Testing:
+>  - Lenovo ThinkPad T14s G6 (X1E-78-100, Hamoa)
+>  - Lenovo ThinkBook 16 G7 QOY (X1P-42-100, Purwa)
+>  - Lenovo IdeaPad 5 2-in-1 14Q8X9 (X1P-42-100, Purwa)
+>  - Lenovo IdeaPad Slim 3x 15Q8X10 (X1-26-100, Purwa)
+> 
+> All consumer devices became stable with this change.
+> 
+> On the Snapdragon Dev Kit (X1E-001-DE, Hamoa) the situation is
+> different: the firmware does not advertise OSI mode. Even with this
+> patch the device still crashes with the x1e-crash reproducer. Stability
+> is only achieved by passing `cpuidle.off=1`, which of course increases
+> power consumption but makes the devkit a bit faster, so there's that.
+> 
+> The different behaviour correlates with PSCI mode:
+> - Consumer firmwares enable OSI mode
+> - Devkit firmware stays in platform-coordinated mode
+> 
+> This patch is therefore only a band-aid. All evidence points to a
+> firmware/microcode issue where DC ZVA can hit caches that have been
+> powered down by PSCI idle states. A proper fix would be either a
+> Qualcomm firmware update or a kernel erratum that disables DZE on
+> these SoCs.
+> 
+> [1] https://github.com/icecream95/x1e-crash
+> ---
+>  arch/arm64/boot/dts/qcom/hamoa.dtsi | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> index 4ba751a65142b..8ec39ba621946 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> @@ -442,19 +442,19 @@ cpu_pd11: power-domain-cpu11 {
+>  
+>  		cluster_pd0: power-domain-cpu-cluster0 {
+>  			#power-domain-cells = <0>;
+> -			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
+> +			domain-idle-states = <&cluster_cl4>;
+>  			power-domains = <&system_pd>;
+>  		};
+>  
+>  		cluster_pd1: power-domain-cpu-cluster1 {
+>  			#power-domain-cells = <0>;
+> -			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
+> +			domain-idle-states = <&cluster_cl4>;
+>  			power-domains = <&system_pd>;
+>  		};
+>  
+>  		cluster_pd2: power-domain-cpu-cluster2 {
+>  			#power-domain-cells = <0>;
+> -			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
+> +			domain-idle-states = <&cluster_cl4>;
+>  			power-domains = <&system_pd>;
+>  		};
+>  
+> 
 
-Thanks, it's fine with me.
+It may be worth adding a comment somewhere in the DTS file, as
+cluster_cl5 is not referenced anymore.
 
-Best regards,
-Krzysztof
+Ideally we'd simply mark cluster-sleep-1 with 'status = "disabled"',
+but I'm not sure Linux (and other OSs that consume this) actively
+parse this property.
+
+Overall, I'd like clarity from the vendor on what can be done to
+better mitigate issues like this. So far, we have been randomly
+disabling features and CPU capabilities each and every time we find
+something broken on these machines, and the list is getting long.
+
+I don't think such course of action is sustainable, and maybe we
+should simply consider marking the full X1 platform as BROKEN so that
+people know what to expect.
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
