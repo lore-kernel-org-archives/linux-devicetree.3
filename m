@@ -1,196 +1,145 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB1944CAEA;
-	Fri,  5 Jun 2026 07:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27474534AC;
+	Fri,  5 Jun 2026 07:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780642860; cv=none; b=nn5JiZhmcy7L1/j3b8v2KkOzmKTA77bXwLON+3lFT5ioS+B07WnyMDC9M6kemSrY4BdVcQ7AfMfBxnl3u1vspOm4HK7RqU5Rd8w6MUwVxRDDnh4izT5AXL6iEyZd5YFDoUisF5gLZcpc0+AMQiBqPOfedHw8d37xsbCFAIfU7Do=
+	t=1780642981; cv=none; b=sl3zxa2FgIcBNbUfE5qNrEXDpbdhUV6xT7JJi7AQseoUUq4e/IovspLoQZRO8MG/7M6k0kM+zIlaASrai/ajZrqva6AJM/fClIYDuZnjsp8g4t6qZQvkwQZWfSf46QcSF99JsM2YQ4rmYgeEKv2IqJZWa5SpwssF9SjxYRavoDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780642860; c=relaxed/simple;
-	bh=xdyh2vxrj3LiGIwHOvIqIAR/3ybTlOR3E9FR7Dqfpa4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZfBdb+1EYn9TxFzpXLM5eEuVhwwTeEo0H2jYLkp5OMYUF+hBF4pjqrY/LvdukWB95z/DWggi5/KL9a4qFiznGK7lN2NoawG6yNjwoCehfdFaS4jwLrlj8LwBh/srFpWPOPoMP15/1meC4MqQg+if/TZtHxd1/Pmewz0ZT6hdwHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=opKaYSNS; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1780642981; c=relaxed/simple;
+	bh=Y8Z2M5Q2AeM9IRirB6d/i+iL8gaMxICKzExEhAwqy4c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pr+IShUTaZCiQHYLd/mPSM7nHx+sU/JjlMH0ADNUzADywH6gqC9ZKSRUsiKpmxSrCdTU9XQzyV0G79tIAF3XlHs2RnFFwcxbKdccF9ry0hhFYMuOF7Y936nwq6dnvMJt+33IJ1TK8yjQ65DNVm7h+rlwHg3ayI68PXVVkSUlyLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlBhJ/rA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="opKaYSNS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=vaoF5rZkwsU+N1JWPgwtDAZ59NZOwBQt/1XnFYImb6Q=; b=opKaYSNSDV66q6c4olA58Aja0M
-	352HXJt0qTeMAoH2dyyssSWpen8FoUZrlh9SE5exgUGI+3uFQjZcO/p9iAB0bml1xRy4+8bEXzJyM
-	1qVnSkIVuU3FbyYShV0Kbs+f1oGkBMI853AfcDnzSo33BesuOIgvhVN9tqssJotGAY1+wRvUikFFI
-	yDVg464vJYUFNkir612OCVQD6z/XsWt5hlkWAkqu4LT24yap493Tg49qPy/OJCWsKzjCGrwZZApda
-	+ypRME3PAEE+2iBGMRmTUIOcaNrA2zIPl4ReXlx8p+1jm9ZUyuPZVaaflgO5sjxszZ9z0LIvKyoMS
-	BEDCVTzw==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wVOXv-000Fje-08;
-	Fri, 05 Jun 2026 09:00:51 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wVOXu-000PmQ-2F;
-	Fri, 05 Jun 2026 09:00:46 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: sashiko-reviews@lists.linux.dev, Frank Li <Frank.li@nxp.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev,
- wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, robh@kernel.org
-Subject:
- Re: [PATCH v4 2/4] arm64: dts: freescale: add initial device tree for
- TQMa8MPQS with i.MX8MP
-Date: Fri, 05 Jun 2026 09:00:45 +0200
-Message-ID: <4788246.iIbC2pHGDl@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <aiBnWwW2x1TOsGcy@lizhi-Precision-Tower-5810>
-References:
- <20260603093621.2504490-2-alexander.stein@ew.tq-group.com>
- <20260603100559.6E7E21F00893@smtp.kernel.org>
- <aiBnWwW2x1TOsGcy@lizhi-Precision-Tower-5810>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlBhJ/rA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 61BB5C2BCB4;
+	Fri,  5 Jun 2026 07:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780642981;
+	bh=Y8Z2M5Q2AeM9IRirB6d/i+iL8gaMxICKzExEhAwqy4c=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=WlBhJ/rAYDA++hOb7LWfJ1dt6tRx7ICzwhd0ky0E9WFfYCq+X7/jXU2VwE4CnwHN/
+	 shkyY1B/ATzcLFTDIpVOlwKkg3c04p+Aj7wLDWa52ajE1famiVlg6QzYlfEuSHvk51
+	 Qs7Af6rb1Z9g/NgiuutXJOzXZdADJw/LYBV75LcvRD7LEQWeJ2cnwHrK754duxqLxU
+	 FG43TA+FGqwQs+VgHEnWeUwF1jHmBJohVgMKCbU2e88eA6B7W4n++pd8/WroROBbdB
+	 PzcmVu0oVTzYd9Hpcj2CymHKfr+jhzs4MzLgfBs2espE6MsLrqleBZ2Nr/mxEHfYmQ
+	 Cj1oSqYaFRotA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4568CCD6E5D;
+	Fri,  5 Jun 2026 07:03:01 +0000 (UTC)
+From: Herman van Hazendonk via B4 Relay <devnull+github.com.herrie.org@kernel.org>
+Subject: [PATCH v3 0/2] media: i2c: add Aptina MT9M113 SoC sensor driver
+Date: Fri, 05 Jun 2026 09:02:59 +0200
+Message-Id: <20260605-submit-media-mt9m113-v3-0-dc3e07d5d70b@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (Could not determine AV Version)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKN0ImoC/4WOTQ6CMBCFr0Jm7Zj+CBVX3sOwqGUKsyiQFomG9
+ O5WLuDye8n73tshUWRKcKt2iLRx4nkqoE8VuNFOAyH3hUEJ1YhG1Jhez8ArBurZYljbIKXG2jo
+ ttWmN9BZKdYnk+X1oH13hkdM6x8+xsqlf+ke4KRTYk3TuKoy/OH8fKZaj5zkO0OWcvz94hXK5A
+ AAA
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780642979; l=3168;
+ i=github.com@herrie.org; s=20240417; h=from:subject:message-id;
+ bh=Y8Z2M5Q2AeM9IRirB6d/i+iL8gaMxICKzExEhAwqy4c=;
+ b=m8SSE3XZdAKe/3bYZ1taJSmzXFseqPs7jmVF1lLClb68vyc88tAENXRifkRZQ6JwJcqkKx8BL
+ joptN0M7X8lB+tIOGHhL2bpzNn3Ch2UELonUw32ZiYENiPHD3SSpdbp
+X-Developer-Key: i=github.com@herrie.org; a=ed25519;
+ pk=YYxdq8fb5O9vhkW3n2dCH044FPZZO5718v/du7fRhFw=
+X-Endpoint-Received: by B4 Relay for github.com@herrie.org/20240417 with
+ auth_id=809
+X-Original-From: Herman van Hazendonk <github.com@herrie.org>
+Reply-To: github.com@herrie.org
 
-Am Mittwoch, 3. Juni 2026, 19:41:47 CEST schrieb Frank Li:
-> On Wed, Jun 03, 2026 at 10:05:59AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 2 potential is=
-sue(s) to consider:
-> > - [High] Incorrect `reset-gpios` polarity on `dp_bridge` will permanent=
-ly disable the device.
-> > - [Medium] Missing `interrupts` property for the DisplayPort bridge des=
-pite hardware routing.
-> > --
-> >
-> > commit ec4a92e3f2baae5d65ed787df020c8a40c851231
-> > Author: Paul Gerber <paul.gerber@tq-group.com>
-> >
-> > arm64: dts: freescale: add initial device tree for TQMa8MPQS with i.MX8=
-MP
-> >
-> > This adds support for TQMa8MPQS module on MB-SMARC-2 board.
-> >
-> > > diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs.dtsi b/ar=
-ch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs.dtsi
-> > > new file mode 100644
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs.dtsi
-> >
-> > [ ... ]
-> >
-> > > +&i2c3 {
-> > > +	clock-frequency =3D <384000>;
-> > > +	pinctrl-names =3D "default", "gpio";
-> > > +	pinctrl-0 =3D <&pinctrl_i2c3>;
-> > > +	pinctrl-1 =3D <&pinctrl_i2c3_gpio>;
-> > > +	scl-gpios =3D <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> > > +	sda-gpios =3D <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> > > +	status =3D "okay";
-> > > +
-> > > +	dp_bridge: dp-bridge@f {
-> > > +		compatible =3D "toshiba,tc9595", "toshiba,tc358767";
-> > > +		reg =3D <0xf>;
-> > > +		pinctrl-names =3D "default";
-> > > +		pinctrl-0 =3D <&pinctrl_tc9595>;
-> > > +		clock-names =3D "ref";
-> > > +		clocks =3D <&clk_dp>;
-> >
-> > [Severity: Medium]
-> > Is this node missing the interrupt properties for the Hot Plug Detect s=
-ignal?
-> >
-> > The pinctrl node pinctrl_tc9595 configures GPIO5_IO21 (DP_HPD_INT), but
-> > without the interrupt-parent and interrupts properties here, the tc3587=
-67
-> > driver won't be able to request the hardware IRQ.
-> >
-> > Will this cause the driver to silently fall back to 10-second software
-> > polling for HPD and link training events instead of using the hardware
-> > interrupt?
-> >
-> > > +		reset-gpios =3D <&expander0 4 GPIO_ACTIVE_HIGH>;
-> >
-> > [Severity: High]
-> > Will this reset-gpios polarity leave the device permanently held in res=
-et?
-> >
-> > The tc358767 driver initializes the reset GPIO to logical 0, pulses it =
-to
-> > logical 1 to assert, and returns it to logical 0 to deassert. Since this
-> > is specified as GPIO_ACTIVE_HIGH, the final logical 0 maps to a physical
-> > LOW signal.
-> >
-> > If this pin controls the bridge's Enable or active-low Reset, won't hol=
-ding
-> > it physically LOW leave the bridge permanently disabled? Does this need=
- to be
-> > GPIO_ACTIVE_LOW so the driver's logical 0 maps to a physical HIGH inste=
-ad?
->=20
-> Does AI said correctly?
+v3:
+ - Add MAINTAINERS entry for the new driver + binding (patchwork /
+   checkpatch warned about the missing entry on v2).
+ - No other changes.
 
-Currently in next there is only one position where the reset-gpio is touche=
-d in
-tc358767:
+v2 (sent 2026-06-05): pure re-send.  v1 was sent on 2026-06-04 but
+PATCH 2/2 (the driver itself) was silently dropped by my outbound
+SMTP relay during the original send - the cover letter and PATCH 1/2
+reached the lists, the driver patch did not.  v2 routed through b4
++ kernel.org so the driver actually landed.
 
-/* Reset GPIO is optional */
-tc->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-if (IS_ERR(tc->reset_gpio))
-	return PTR_ERR(tc->reset_gpio);
+To: Herman van Hazendonk <github.com@herrie.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-if (tc->reset_gpio) {
-	gpiod_set_value_cansleep(tc->reset_gpio, 1);
-	usleep_range(5000, 10000);
-}
+This series adds a V4L2 subdev driver and DT binding for the Aptina
+MT9M113, a 1.3 Mpx SoC sensor with an on-chip ISP and a small MCU
+running a "SOC1040" firmware that performs auto-exposure, auto white
+balance and lens-shading correction.  The sensor talks to the host
+over MIPI CSI-2 (1 or 2 data lanes); register access is over I2C
+using the Qualcomm CCI helper.
 
-So yes, the reset GPIO is set to logical 0 and to 1 afterwards. The RESX in=
-put
-(reset) is indeed active-low. So AFAICS the driver is assuming
-GPIO_ACTIVE_HIGH anyway.
-Nevertheless right now the bridge is not functioning at all without
-additional patches [1].
+Hardware layout exposed to userspace:
 
-Without the polarity cleared/fixed in tc358767, there is not much benefit
-in addressing the polarity in DT.
+    +-------------------+    +-----------------+
+    | Pixel Array (PA)  |--->| IFP / ISP       |--->[CSI-2]
+    | sink-less subdev  |    | MCU + pipe      |
+    +-------------------+    +-----------------+
+
+PA carries V4L2_CID_PIXEL_RATE and V4L2_CID_LINK_FREQ so that
+downstream receivers walking the graph from the CSIPHY (camss does
+this) find them on the entity flagged MEDIA_ENT_F_CAM_SENSOR.
+
+V4L2 controls implemented:
+  - exposure / gain / hflip / vflip
+  - test pattern
+  - V4L2_CID_COLORFX (sepia / mono / negative / aqua / vivid)
+  - V4L2_CID_POWER_LINE_FREQUENCY (50/60 Hz flicker avoidance)
+
+Tested on a HP TouchPad (APQ8060, MSM8x60 family) with the on-board
+front 1.3 Mpx MT9M113.  Probes cleanly, both PA and IFP subdevs
+register, csiphy_stream_on() picks up link_freq from PA, and the
+preview pipeline up through CAMSS produces frames.  A bounded
+3-attempt retry around s_stream(1) handles a residual silicon-level
+wedge that occasionally leaves the MCU's SEQ_CMD in an inconsistent
+state on cold start.
+
+The DTS patches that enable the sensor on the HP TouchPad will be
+sent separately to the ARM/DTS tree.
+
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+Herman van Hazendonk (2):
+      dt-bindings: media: i2c: add aptina,mt9m113
+      media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
+
+ .../bindings/media/i2c/aptina,mt9m113.yaml         |  127 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mt9m113.c                        | 2971 ++++++++++++++++++++
+ 5 files changed, 3119 insertions(+)
+---
+base-commit: 944125b4c454b58d2fe6e35f1087a932b2050dff
+change-id: 20260605-submit-media-mt9m113-5ac3137971fa
 
 Best regards,
-Alexander
-
-[1] https://lore.kernel.org/all/20240625122824.148163-1-marex@denx.de/
-
-> Frank
->=20
-> >
-> > > +		toshiba,hpd-pin =3D <0>;
-> > > +		status =3D "disabled";
-> > > +
-> > > +		ports {
-> >
-> > [ ... ]
-> >
-> > --
-> > Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260603093621.250=
-4490-1-alexander.stein@ew.tq-group.com?part=3D2
->=20
-
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+-- 
+Herman van Hazendonk <github.com@herrie.org>
 
 
