@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800D83E4C81;
-	Fri,  5 Jun 2026 09:12:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECE73CF679;
+	Fri,  5 Jun 2026 09:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780650726; cv=none; b=rDbNo1nQuXfI3NuSLzKAMY2rObRJvRJUYFTmbnGninF7gtK0pgpyzi7pTB/+OzweoNoFibMl8I16MtaB7k5XIftDip4qLNUHyrwFSDYLxxqF37E0eJ8wS3AURv9x4U7OLeTNYDrU38j1L63naCjuaxq+1ehXVwxJqx5LRl3Ej9g=
+	t=1780650774; cv=none; b=elzW3IkIszzT6tF66c6sww1YJStt9relNokTlCP1R+YyRRbR4O+n0yQq/ztJlp3+NTWCLXtsZOXU+mKupSyFwb7Su4XI1LKDgS5kamhem6cgQMw+R706Y2EK6PqADXYB43+DZ2/kmZtDoDmutcOEKxhltQ3+pFglphek9q/DrJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780650726; c=relaxed/simple;
-	bh=ICmwNN4eLL76tCGS2Kn+RRGQbYpXXRePeKL9PXeDkdI=;
+	s=arc-20240116; t=1780650774; c=relaxed/simple;
+	bh=JMxbxerh7Ria2S9mM6lYJztI/nZdQol+FDa7aBH3z8M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KiBU2Oo/3DAmI+s0Er7+ShdxrF5dgcZ6jHp1AQys5xDruT8KaU10y51K9C5Gs8J/4c7YeXgM+yme/biddTpoKaYYLXCPGlbbVShG6oXCy4z0eJ5vzJOtqgaJ2GcQNqPr+5tFXhhmrJ5DMlQ+EsFzPpJmYcVUxA0CvnFChMxKQIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4jjUShM; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=E5rj61ZHkny/rLRHsIatqUuvwehyfMH/NRzSrq3IuiHuZfnbvVv5UXyWrKXJU80XHI+uU0GCKclqWItjxq9ogfydzh9h7fDRzCkOCeWB0/wpYVUYubi+ygkot2k+IM/aRBBaMdo3LHaDru0BDGZRfBqwM2331GZWWlH5w4CJ8CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=goEy+FDm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4jjUShM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CA11F00893;
-	Fri,  5 Jun 2026 09:11:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="goEy+FDm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A821F00893;
+	Fri,  5 Jun 2026 09:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780650725;
-	bh=d7e/64Lm4FJCHnz40nUrkUeXHtudnHaWROVmMiFI1MM=;
+	s=k20260515; t=1780650773;
+	bh=CaabFFEF94DYE5ayisbaNypa/MQjpGeC7iY451kremk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b4jjUShMkrkAmKNxKHC+rOncDO9lTBGvhVgQKmVj7x8ATGjGdsoqadL19HOJzjcxR
-	 abVTB3dLsl7EZQ2p2CPYahFdM4sgLY65GgoMHPZuL7sb7PSbwBdnznsIqcbMKnMOjt
-	 XTHTs1ZE4p3L6MxoST7yq0c+wxGMdPmtJwK2TMfXoZIljRBthAQ2h7zEsml9KWCxdL
-	 dAdzswtSkYkPB7Psqhpere9y5gLq0e8V2bg3fS7jUTi6jVBsAsuPxhlt5P48hVgeez
-	 rbz/xNkuNK7+DyNURO2sbUzqDd9qW8Gmmk+yn9qr9o/aSVbwXaRdOnaOWse3qXTmgc
-	 K3bZT7ZX4PBGg==
-Message-ID: <8387afa5-f2d9-4006-a1c9-d2122ea6245d@kernel.org>
-Date: Fri, 5 Jun 2026 11:11:55 +0200
+	b=goEy+FDmYqAbvY8JZP3+zsUeUGNr2Ty1b2AbcCiYXrLO19Q7k+hmtM/fgdOW+rway
+	 j0TlshHMicsjdzWvuAJTVc3pZJCoXLZ7sxOtySXXxUmSO834zMa7xLLd/vlVjHUKB2
+	 RLENsyM6QxIfR0B+EG0ExMTOhW1LleeccmBqDBe6sTrplEWydfh0MvoO53rgZCASZ3
+	 rUDcWN46/NYGLYIZP6IvnIkKSwUNl1A2CZ/Wx9rR2HxSTOB1o/bsde3XQ908QQUpCn
+	 sIJkfi4aTuPeCDzULog5VReDU9aA41ycYo8POIN9JoSItyQeKFW7ULMheGMw/Sb91h
+	 huuL8xeZFbjGw==
+Message-ID: <be15f8f5-0826-4851-a5b6-788f3be3007a@kernel.org>
+Date: Fri, 5 Jun 2026 11:12:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,34 +35,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
-To: Frank Li <Frank.li@nxp.com>
-Cc: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>,
- Chancel Liu <chancel.liu@nxp.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "mturquette@baylibre.com" <mturquette@baylibre.com>,
- "sboyd@kernel.org" <sboyd@kernel.org>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
+Subject: Re: [PATCH 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC i2c
+ driver.
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: =?UTF-8?B?QmVuIEh1YW5nKOm7g+Wjq+i7kik=?= <Ben_Huang@novatek.com.tw>,
+ Conor Dooley <conor@kernel.org>, Novatek i2c <SP_ISW1_AT@novatek.com.tw>,
+ "andi.shyti@kernel.org" <andi.shyti@kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-References: <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
- <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <20260519-macho-degu-from-nibiru-960af2@quoll>
- <AM9PR04MB8353B563519EBC1AD6C5BFE1E3012@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <e23a610f-e1ad-4536-80fb-8b5707e77f39@kernel.org>
- <ag3GMdmxw60B15Oe@lizhi-Precision-Tower-5810>
- <74eb56fb-546d-4b2c-9bbc-01a40937f5d3@kernel.org>
- <AM9PR04MB835333895276201A81251210E30A2@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <8046287e-87a2-4d18-ad3d-248620a752a9@kernel.org>
- <ah9WzQmwPrP4yWTC@lizhi-Precision-Tower-5810>
+ =?UTF-8?B?VG9ieSBDaHVpKOW+kOWNk+aclyk=?= <Toby_Chui@novatek.com.tw>,
+ =?UTF-8?B?U2hpaHBlaSBIc3Uo6Kix6Kmp54+uKQ==?= <Shihpei_Hsu@novatek.com.tw>
+References: <20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw>
+ <f6cce361-47ef-4488-ac1e-5f60d3cd578b@kernel.org>
+ <20260604-grievance-esophagus-a607a9d734eb@spud>
+ <PUZPR04MB61094E3F7A824A3C8D81D8AEB7102@PUZPR04MB6109.apcprd04.prod.outlook.com>
+ <0df042cb-591a-46f1-a53e-04f94bca2c1c@kernel.org> <aiHd4wpuR69tyG1V@shikoro>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -108,171 +98,25 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <ah9WzQmwPrP4yWTC@lizhi-Precision-Tower-5810>
+In-Reply-To: <aiHd4wpuR69tyG1V@shikoro>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03/06/2026 00:18, Frank Li wrote:
-> On Mon, May 25, 2026 at 02:28:32PM +0200, Krzysztof Kozlowski wrote:
->> On 25/05/2026 08:26, Chancel Liu (OSS) wrote:
->>>>>>>>>>>>> +description:
->>>>>>>>>>>>> +  The NXP I/O connector represents a physically present I/O
->>>>>>>>>>>>> +connector on the
->>>>>>>>>>>>> +  base board. It acts as a nexus that exposes a constrained
->>>>>>>>>>>>> +set
->>>>>>>> of
->>>>>>>>>>>>> +I/O
->>>>>>>>>>>>> +  resources, such as GPIOs, clocks, PWMs and interrupts,
->>>>>>>>>>>>> +through fixed
->>>>>>>>>>>>> +  electrical wiring. All actual hardware providers reside on
->>>>>>>>>>>>> +the
->>>>>>>> base
->>>>>>>>>> board.
->>>>>>>>>>>>> +  The connector node only defines index-based mappings to
->>>>>>>>>>>>> + those
->>>>>>>>>>>> providers.
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +properties:
->>>>>>>>>>>>> +  compatible:
->>>>>>>>>>>>> +    const: fsl,io-connector
->>>>>>>>>>>>
->>>>>>>>>>>> Everything is IO. Everything is connector, so your compatible
->>>>>>>>>>>> does not match requirements from writing bindings.
->>>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> Yes, this compatible is too generic. I will rename the
->>>>>>>>>>> compatible to fsl,aud-io-connector.
->>>>>>>>>>
->>>>>>>>>> aud is not much better. Which boards have it? What's the pinout?
->>>>>>>> What's
->>>>>>>>>> standard? Is it described anywhere? If so, provide reference to
->>>>>>>> spec/docs.
->>>>>>>>>>
->>>>>>>>>
->>>>>>>>> This is not an industry standard electrical interface. This
->>>>>>>>> connector
->>>>>>>>
->>>>>>>> Then if you do not have standard, then you have board specific
->>>>>>>> layouts thus you need board-specific compatibles. You can use
->>>>>>>> fallbacks. Generic fallback could work, but both io-connector and
->>>>>>>> aud-io-connector are just too generic. Every connector is
->>>>>>>> "connector" and "io", thus absolutely anything can be
->>>>>>>> "io-connector". "aud" improves it only a bit, thus honestly I would
->>>> go with board specific fallback as well.
->>>>>>>>
->>>>>>>
->>>>>>> How about board specific + common fallback compatible like this:
->>>>>>>   compatible:
->>>>>>>     items:
->>>>>>>       - enum:
->>>>>>>           - fsl,imx95-19x19-evk-aud-io-connector
->>>>>>>           - fsl,imx952-evk-aud-io-connector
->>>>>>>       - const: fsl,imx-aud-io-connector Since the daughter board is
->>>>>>> named “IMX-AUD-IO” in publicly available
->>>>>>
->>>>>> I don't think it is named like that.
->>>>>>
->>>>>> git grep -i imx-aud-io
->>>>>>
->>>>>>> documentation, common compatible clearly indicates that this
->>>>>>> connector is intended for that.
->>>>>>>
->>>>>>> Also, I want to talk about the topic of generic connector. It's a
->>>>>>> common design that daughter board is connected to base board through
->>>>>>> a connector. This connector more often acts as a nexus that exposes
->>>>>>> a constrained subset of GPIO, clock, PWM and interrupt resources to
->>>>>>> the daughter board. Can we document this kind of connector as a
->>>>>>> generic binding?
->>>>>>
->>>>>> So this binding is the connector between carrier and some addon? Then
->>>>>> you don't get a compatible for that at all, because it is not
->>>>>> necessary, not useful and NEVER used. Do you see socket LGA "connector"
->>>> bindings? No.
->>>>>
->>>>> Not exactly. Any connector connects a carrier board with an add-on
->>>> board.
->>>>> The key point here is that this connector type is reused across
->>>>> different boards, even though it is not an industry-standard
->>>>> connector. Both the signal definitions and the mechanical layout are
->>>> defined.
->>>>>
->>>>> The same add-on boards can therefore be reused across different base
->>>>> boards that use this type of connector.
->>>>>
->>>>> There are also GPIO mappings involved. For example, pin 1 on the
->>>>> connector may represent reset-gpios, but it could be connected to
->>>>> GPIO0 on board A and GPIO1 on board B.
->>>>>
->>>>> Without a connector definition layer, this would create an N × M
->>>>> combination problem. The Nexus node discussion already covered this
->>>> topic:
->>>>> https://osseu2025.sched.com/event/25Vrw
->>>>>
->>>>> An LGA socket is a CPU socket, where the signals are completely
->>>>> transparent to software, so it is not a good comparison. A PCIe M.2
->>>>> Key-M/E connector would be a more appropriate comparison.
->>>>>
->>>>
->>>> So the terminology of daughter and carrier boards was confusing. If this
->>>> is a hat, mezzanine or other addon, it's fine.
->>>>
+On 04/06/2026 22:19, Wolfram Sang wrote:
+> 
+>>> 	Sorry for late response.
 >>>
->>> The IMX-AUD-IO is an add-on board that attaches to the base board. To
->>> make it clearer, I will replace "daughter board" with "add-on board"
->>> throughout descriptions.
->>>
->>>> I still insist on board specific compatibles - fallback and specific.
->>>>
->>>
->>> The base board has a slot component that is mechanically compatible
->>> with a PCIe x8 connector. However, it carries no PCIe signals and the
->>> pins are repurposed to carry fixed board-level audio I/O related
->>> signals.
->>>
->>> I think we can name a compatible reflects a standard mechanical form
->>> factor.
->>> For the compatibles (specific + fallback) I propose:
->>> - enum:
->>>     - fsl,imx95-19x19-evk-aud-io-pcie-x8-slot
->>>     - fsl,imx952-evk-aud-io-pcie-x8-slot
->>> - const: fsl,aud-io-pcie-x8-slot
+>>> 	Please help review the modification in MAINTAINERS.
+>>> 	I am still looking for internal help to remove HTML-related messages.
 >>
->> Does not solve my request, so I won't ack it. Maybe you will get ack
->> from other DT maintainer then.
+>> It's confidential, no?
 > 
-> Krzysztof:
-> 	Thank you for your support. This type header/slot is difficult to
-> name it.
+> No need to be sarcastic, he is working on it.
 > 
-> After read again previous comments
-> 
-> "Then if you do not have standard, then you have board specific layouts
-> thus you need board-specific compatibles. You can use fallbacks. Generic
-> fallback could work, but both io-connector and aud-io-connector are just
-> too generic. Every connector is "connector" and "io", thus absolutely
-> anything can be "io-connector". "aud" improves it only a bit, thus
-> honestly I would go with board specific fallback as well."
-> 
-> Do you means
-> oneOf
->   - items:
->       - enum:
->           - fsl,imx943-evk-aud-io-pcie-x8-slot
->           - fsl,imx952-evk-aud-io-pcie-x8-slot
->       - const: fsl,imx95-19x19-evk-aud-io-pcie-x8-slot
->  - const: fsl,imx95-19x19-evk-aud-io-pcie-x8-slot
 
-Yes, could be a bit shorter like fsl,imx95-19x19-evk-aud-io-slot or even
-without slot because prefixing it with board compatible makes it very
-specific.
-
-> 
-> Frank
-> 
->>
->> Best regards,
->> Krzysztof
-
+He didn't confirm that in reply to me. Asked for review though and I
+wasn't sarcastic here. I replied honestly why I cannot review them,
+regardless how many times I would be asked for it.
 
 Best regards,
 Krzysztof
