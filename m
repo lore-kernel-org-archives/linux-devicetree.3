@@ -1,235 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CBA4C77C5
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 10:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639783E123E;
+	Fri,  5 Jun 2026 10:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780656681; cv=none; b=HGpzQ6jZroL/tlz+Ehfd6YcaROomfWEIM7Bn3O6KjIv/M5kLL7GfF1sk+J76QoLZtPcq7MNV2a95GCg9skRelef/nakShxOkgoZNez+xWa/6mp6dKEwi3JUEle0KWfuDBVoA1kKSTcgZ3n3H5XWEQW7YrRguG0EbxJuxYOU+JuY=
+	t=1780656756; cv=none; b=Jdpgx2nOUEoOhmOrZrBM7uDLPeDStuf63CaIAvly8PVUIVspuZYEfkqzjRN4Y0JNXuauGzgyTTralmKu/jLZl7kMoxDE+6MgD2by1YdEGmjcxTmFb8rn340wJi2tjlkBXLyl/FPgKM6+55hY7GiS0ljek3/6PGPKlYFy4g5jPVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780656681; c=relaxed/simple;
-	bh=98hDPUQR/i/2fj6WfgF4L9xLr/tuksNceWfnH3jgbeg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bTKILuttyVfcl18TsvhrZQm6wv7oTAXL3Gc4PtzhxV9Y2Zxn2+3k6B3AaBqb9cWhSfOi0qOXxSrGwRN21BMiYwYQ4O+bVaQSlv45dGFHlQ/QXPTqPIZnLMBlzBloLzBpYziwO4W03dxZOMDFLkfZ7EUG5IuKuGPyJ1ciGUbgBsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGugwwK6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780656756; c=relaxed/simple;
+	bh=Zisja1Bl0dQzuYf2h54m2bC/qEmi70FTkC/gHRg5f/Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J4XMdNDzxICFIqk2jj0koJUL0P7yvAJaAds9X8d9b0RmZPu22WgDWEKYSn9uHM1ahNeFczgb8vSyiOElr2GAQ57XX4zPxtO3lLywqbHmXMo3pzlJHQzQnJw3u3EYqOyZIIvxwEY8R+HAHcpRxpUm+4yw3qHmmFRzc7+//qeC00s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YRf6SjA/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGugwwK6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B4D1F00893;
-	Fri,  5 Jun 2026 10:51:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YRf6SjA/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E1B1F00893;
+	Fri,  5 Jun 2026 10:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780656679;
-	bh=oUqEKvykaaixjPPfbpRYQHHHgXBpQHd9aRUs8NpQDpI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bGugwwK6wCz0kbZC8aLg0LCUu2aK3fVFm0fWkZaKMAYazM8xmzpBhilVEvBGBx1Jr
-	 nOjlXC/HOx1I9jlh+1NSWXc9o8pUMML4+brio48GSR/XFc8McLvmGFNYWGrDfZ24qn
-	 fsk4EMG8uTaFjNsqFG7/kGycy7ctjSfTcb+1cp+0t8pt6APBUED8aY326w63H3UKb5
-	 B1fntXCoup75OZ6N9dbmKgrpItQyVZMcMQAqQm56dvst+Z4peM4eu9BVtb8EZT+Obz
-	 cI2ns2BXsIOG5pvbuEEmCJf79dx62tUdkcCaikx7BSmpqQWTSyUhivrPgqLx/aZOhB
-	 5Fh4NWxAAlTRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/13] ASoC: qcom: Add QAIF shared data structures and
- variant interface
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260605103739.3557573-6-harendra.gautam@oss.qualcomm.com>
-References: <20260605103739.3557573-6-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 10:51:19 +0000
-Message-Id: <20260605105119.B0B4D1F00893@smtp.kernel.org>
+	s=k20260515; t=1780656755;
+	bh=Y34w090599Xd3z24JK3MJUMlHyjLYd5sE8XfSkjXFFo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YRf6SjA/Bc5alqQDxclm4VUz/Tx3gSWBBRdi1tJhxkgXAiNK7TQwxdw0ZKUtskLAM
+	 bqg79L8SGwkvkoXbhGp2PzdqFExVckLP0DsIZDtqyiDVr74GukphMLFRbP6EtfrSB1
+	 5LbIRbkHUFzoteYPQZpcJEBIWF0cZj7FGXT2SJYA/AMz+DFjOAy6ydkdPfCVmruik7
+	 /PLUvfykjwrn9mZrxe4Cl0mcd1jUwDw8YRs7hzOP4NcfvdaaeFVFDFRXnvoq4kwSyv
+	 hN7y47M8UUaGGMG+0kCZlHElzEkoyLsxU7YgfL2RD0IYH80BMMIhvGfQK4PynozAiy
+	 Nx0eAtU94FGuA==
+Message-ID: <d38d849e-1ecb-4600-814a-23fa8d523dbb@kernel.org>
+Date: Fri, 5 Jun 2026 12:52:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/13] MAINTAINERS: Add Qualcomm QAIF driver entry
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
+ <20260605103739.3557573-4-harendra.gautam@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260605103739.3557573-4-harendra.gautam@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Client status register bitmasks omit critical summary IRQ bits, wh=
-ich can lead to an unhandled interrupt storm.
-- [High] The `qaif_drv_data` structure lacks a lock to serialize concurrent=
- process accesses to shared mutable state, leading to data races and channe=
-l double-allocation.
-- [Medium] The commit message explicitly claims to define 'QAIF-private MI2=
-S port IDs used for the senary and septenary interfaces', but these definit=
-ions are missing from the patch.
-- [Low] Generic identifiers `enum dma_type` and `DMA_TYPE_MAX` pollute the =
-global subsystem namespace.
---
+On 05/06/2026 12:37, Harendra Gautam wrote:
+> Add MAINTAINERS coverage for the Qualcomm Audio Interface (QAIF) driver
+> so changes to its devicetree binding, CPU DAI driver, and PCM platform
+> driver are routed to the Qualcomm ASoC maintainers and lists.
+> 
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> ---
+>  MAINTAINERS | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f877e5aaf2c7..b38f03680ef3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -21707,6 +21707,16 @@ F:	sound/soc/codecs/wcd93*.*
+>  F:	sound/soc/codecs/wsa88*.*
+>  F:	sound/soc/qcom/
+>  
+> +QCOM AUDIO INTERFACE (QAIF) DRIVER
+> +M:	Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> +M:	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> +L:	linux-sound@vger.kernel.org
+> +L:	linux-arm-msm@vger.kernel.org
+> +S:	Supported
+> +F:	Documentation/devicetree/bindings/sound/qcom,qaif.yaml
+> +F:	include/dt-bindings/sound/qcom,qaif.h
+> +F:	sound/soc/qcom/qaif*
 
-commit 54235d0e0d62830d345de2e4cee5111d43b55417
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+No such file.
 
-ASoC: qcom: Add QAIF shared data structures and variant interface
-
-This commit introduces the qaif.h header, defining common data structures,
-macros, and enums used by QAIF CPU DAI and PCM platform drivers. It includes
-definitions for DMA control, IRQ mapping helpers, and the SOC variant
-descriptor.
-
-> Also define the QAIF-private MI2S port IDs used for the senary and
-> septenary interfaces.
-
-[Severity: Medium]
-Are these MI2S port IDs missing from the patch? The commit message explicit=
-ly
-claims to define QAIF-private MI2S port IDs for the senary and septenary
-interfaces, but these definitions do not appear to be present in the provid=
-ed
-code.
-
-> diff --git a/sound/soc/qcom/qaif.h b/sound/soc/qcom/qaif.h
-> new file mode 100644
-> index 0000000000000..d0f3b3026f5d9
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif.h
-
-[ ... ]
-
-> +enum qaif_dma_type {
-> +	QAIF_AIF_DMA =3D 0,
-> +	QAIF_CIF_DMA =3D 1,
-> +	DMA_TYPE_MAX
-> +};
-
-[Severity: Low]
-Does DMA_TYPE_MAX overlap confusingly with enum dma_type? It is defined ins=
-ide
-enum qaif_dma_type instead of enum dma_type.
-
-[ ... ]
-
-> +struct qaif_drv_data {
-> +
-> +	/* MI2S bit clock (derived from system clock by a divider) */
-> +	struct clk *mi2s_bit_clk[LPASS_MAX_MI2S_PORTS];
-> +
-> +	/* SOC specific clock list */
-> +	struct clk_bulk_data *clks;
-> +	int num_clks;
-> +
-> +	struct clk *aud_dma_clk;
-> +	struct clk *aud_dma_mem_clk;
-> +
-> +	/* Qualcomm audio interface (QAIF) registers */
-> +	void __iomem *audio_qaif;
-> +
-> +	/* regmap backed by the Qualcomm audio interface (QAIF) registers */
-> +	struct regmap *audio_qaif_map;
-> +
-> +	/* interrupts from the Qualcomm audio interface (QAIF) */
-> +	int audio_qaif_irq;
-> +
-> +	/* QAIF init config refcount*/
-> +	unsigned int qaif_init_ref_cnt;
-
-[Severity: High]
-Does this structure lack a lock to serialize concurrent access?=20
-
-Multiple PCMs mapped to different DAIs can be opened simultaneously by
-userspace. Since ALSA only serializes operations per PCM via the PCM open
-mutex, this allows concurrent execution of operations like PCM open for
-different PCMs.
-
-Could this lead to data races and channel double-allocation if multiple str=
-eams
-concurrently read and increment qaif_init_ref_cnt or modify the channel
-tracking bitmaps below?
-
-> +
-> +	/* SOC specific variations in the QAIF IP integration */
-> +	const struct qaif_variant *variant;
-> +
-> +	/* Runtime-allocated regmap field handles (populated at probe) */
-> +	struct qaif_dmactl *aif_rd_dmactl;
-> +	struct qaif_dmactl *aif_wr_dmactl;
-> +	struct qaif_dmactl *cif_rd_dmactl;
-> +	struct qaif_dmactl *cif_wr_dmactl;
-> +	struct qaif_aud_intfctl *aif_intfctl;
-> +	struct qaif_cdc_intfctl *cif_rddma_intfctl;
-> +	struct qaif_cdc_intfctl *cif_wrdma_intfctl;
-> +	struct qaif_aif_config aif_intf_cfg[QAIF_MAX_AIF_CFG_CNT];
-> +
-> +	/* bit map to keep track of dma idx allocations */
-> +	unsigned long aif_dma_idx_bit_map;
-> +	unsigned long cif_dma_idx_bit_map;
-
-[ ... ]
-
-> +enum qaif_summary_irq_bitmask {
-> +	QAIF_SUMMARY_BITMASK_AIF_PERIOD_RDDMA		=3D BIT(0),
-> +	QAIF_SUMMARY_BITMASK_AIF_UNDERFLOW_RDDMA	=3D BIT(1),
-> +	QAIF_SUMMARY_BITMASK_AIF_ERR_RSP_RDDMA		=3D BIT(2),
-> +	QAIF_SUMMARY_BITMASK_AIF_PERIOD_WRDMA		=3D BIT(3),
-> +	QAIF_SUMMARY_BITMASK_AIF_OVERFLOW_WRDMA		=3D BIT(4),
-> +	QAIF_SUMMARY_BITMASK_AIF_ERR_RSP_WRDMA		=3D BIT(5),
-> +
-> +	QAIF_SUMMARY_BITMASK_AUD_OVERFLOW			=3D BIT(6),
-> +	QAIF_SUMMARY_BITMASK_AUD_UNDERFLOW			=3D BIT(7),
-> +
-> +	QAIF_SUMMARY_BITMASK_RATE_DET				=3D BIT(8),
-> +	QAIF_SUMMARY_BITMASK_VFR					=3D BIT(9),
-> +	QAIF_SUMMARY_BITMASK_GRP					=3D BIT(10),
-> +	QAIF_SUMMARY_BITMASK_RDDMA_OVERLAP			=3D BIT(11),
-> +	QAIF_SUMMARY_BITMASK_WRDMA_OVERLAP			=3D BIT(12),
-> +	QAIF_SUMMARY_BITMASK_INTF_OVERLAP			=3D BIT(13),
-> +	QAIF_SUMMARY_BITMASK_GRP_OVERLAP			=3D BIT(14),
-> +
-> +	QAIF_SUMMARY_BITMASK_CIF_OVERLAP_RDDMA		=3D BIT(15),
-> +	QAIF_SUMMARY_BITMASK_CIF_OVERLAP_WRDMA		=3D BIT(17),
-> +	QAIF_SUMMARY_BITMASK_CIF_PERIOD_RDDMA		=3D BIT(18),
-> +	QAIF_SUMMARY_BITMASK_CIF_UNDERFLOW_RDDMA	=3D BIT(19),
-> +	QAIF_SUMMARY_BITMASK_CIF_ERR_RSP_RDDMA		=3D BIT(20),
-> +	QAIF_SUMMARY_BITMASK_CIF_PERIOD_WRDMA		=3D BIT(24),
-> +	QAIF_SUMMARY_BITMASK_CIF_OVERFLOW_WRDMA		=3D BIT(25),
-> +	QAIF_SUMMARY_BITMASK_CIF_ERR_RSP_WRDMA		=3D BIT(26)
-> +
-> +};
-> +
-> +enum qaif_client_status_register_bitmask_info {
-> +	QAIF_BITMASK_GROUP_INF			=3D 0x400,
-> +	QAIF_BITMASK_AIF_RDDMA_WRDMA	=3D 0x3F,
-> +	QAIF_BITMASK_CIF_RDDMA_WRDMA	=3D 0x71c0000,
-> +	QAIF_BITMASK_DP_RDDMA			=3D 0xe00000,
-> +	QAIF_BITMASK_AUD_INF			=3D 0xC0,
-> +};
-
-[Severity: High]
-Are critical summary IRQ bits missing from these routing masks?=20
-
-The client status register bitmasks appear to omit several bits defined in
-enum qaif_summary_irq_bitmask, such as the overlap bits (e.g., bit 15
-QAIF_SUMMARY_BITMASK_CIF_OVERLAP_RDDMA), RATE_DET (bit 8), and VFR (bit 9).
-
-If the hardware asserts an omitted bit, could the top-level IRQ handler ret=
-urn
-IRQ_NONE and fail to clear it? This might lead to an unhandled interrupt st=
-orm
-where the kernel IRQ subsystem eventually disables the IRQ line, breaking a=
-ll
-QAIF audio streams.
-
-> +
-> +struct qaif_irq_map {
-> +	int client_id;
-> +	u32 mask;
-> +	irqreturn_t (*client_irq_handler)(struct qaif_drv_data *drvdata, u32 ir=
-q_status);
-> +};
-> +
-> +enum dma_type {
-> +	DMA_TYPE_RDDMA,
-> +	DMA_TYPE_WRDMA
-> +};
-
-[Severity: Low]
-Could this generic enum name cause namespace collisions? Defining enum
-dma_type with values like DMA_TYPE_RDDMA in a shared SOC header lacks a
-subsystem-specific prefix like qaif_. This risks colliding with other heade=
-rs
-in the global namespace.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605103739.3557=
-573-1-harendra.gautam@oss.qualcomm.com?part=3D5
+Best regards,
+Krzysztof
