@@ -1,225 +1,278 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287124C0409;
-	Fri,  5 Jun 2026 09:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800D83E4C81;
+	Fri,  5 Jun 2026 09:12:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780650634; cv=none; b=by+mVv1hQ1pvuM6Zs+iBXlOgDaA/2rYyUl0d4AQojVnA920JU3AoROPcxt8nesFP88h6Tz2w+Q/4NBQN56bAhHHUDDPZrDKzZbFeRqjEP3IPN1PTlgCPRsgWrIOr3i32RxhkwLBGfRCeHAREsDCGu2YN0VQpZRGk6EpAvGYtwoA=
+	t=1780650726; cv=none; b=rDbNo1nQuXfI3NuSLzKAMY2rObRJvRJUYFTmbnGninF7gtK0pgpyzi7pTB/+OzweoNoFibMl8I16MtaB7k5XIftDip4qLNUHyrwFSDYLxxqF37E0eJ8wS3AURv9x4U7OLeTNYDrU38j1L63naCjuaxq+1ehXVwxJqx5LRl3Ej9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780650634; c=relaxed/simple;
-	bh=wmvUgqY5BZyHeFmqPz4uKT3rEQ0+QazR2avhAdS3rdo=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=REh6Td/1ik0Ah0mPXNDRiXNQChvIOjEt9iCLqqmmtQQAV0miBDN/h7poshWCdSi4yjwkTcvc0RDFqGqUb1SVEg9U6b7S0G9A5MhDIMYzkpCZZYgZUeCg5QuDn8JkGiT4+FMATVeuRnTYXwGW/9TNITuL/MRC8fbCfSTDP41MSY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vI0C77rl; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1780650726; c=relaxed/simple;
+	bh=ICmwNN4eLL76tCGS2Kn+RRGQbYpXXRePeKL9PXeDkdI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KiBU2Oo/3DAmI+s0Er7+ShdxrF5dgcZ6jHp1AQys5xDruT8KaU10y51K9C5Gs8J/4c7YeXgM+yme/biddTpoKaYYLXCPGlbbVShG6oXCy4z0eJ5vzJOtqgaJ2GcQNqPr+5tFXhhmrJ5DMlQ+EsFzPpJmYcVUxA0CvnFChMxKQIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4jjUShM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vI0C77rl"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gWwdJ6LJbz9tqP;
-	Fri,  5 Jun 2026 11:10:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1780650628;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pZu3uHIMs3CS8SP0rLKrzCVJEON6Er92uMM8TGXVtnE=;
-	b=vI0C77rlpZ/kb5L+pgPubmrB62QzwYFwz/UtAHRj2WIe5QWJcrcdlu7DJXp+bnp/mZOxPW
-	SxRfQrvUedLB+UfTzhRQlEINbsmW82fK4jS7YGqo5HGrMgiLgebZLvvOH9Vjqh/ToRynXG
-	D3B+rRbWwyqls/Fl0rMv4gORxurK1z8WaEAA7cAQ+Ebasckmi6oshlvuUm0Ip8Q8s+4P5L
-	qDlCaBMvu/zJI0UTVyQV3m+ia9Do+7DllCFdH4JJJDJP6rKQH7NEz/HqzwxP5Gynq2hisJ
-	CHtaDC81fMXVh/G28KF5Ofk9RDloHe/p7aoANWUmKQq5Ds8lfZmJLTzAtofBxw==
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 05 Jun 2026 17:09:56 +0800
-Message-Id: <DJ0ZYF5C8MMH.2GBBY188VVPSH@mailbox.org>
-Cc: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <sophgo@lists.linux.dev>,
- <hanguidong02@gmail.com>, <michael.opdenacker@rootcommit.com>,
- "linux-riscv" <linux-riscv-bounces@lists.infradead.org>
-Subject: Re: [PATCH v5 RESEND 5/5] riscv64: dts: sophgo: add initial Milk-V
- Duo S board support
-From: "Shuwei Wu" <shuwei.wu@mailbox.org>
-To: "Joshua Milas" <josh.milas@gmail.com>, <tglx@kernel.org>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <pjw@kernel.org>, <samuel.holland@sifive.com>, <unicorn_wang@outlook.com>,
- <inochiama@gmail.com>, <daniel.lezcano@linaro.org>, <palmer@dabbelt.com>,
- <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <liujingqi@lanxincomputing.com>,
- <alexander.sverdlin@gmail.com>, <rabenda.cn@gmail.com>, <dlan@kernel.org>,
- <chao.wei@sophgo.com>, <anup@brainfault.org>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4jjUShM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CA11F00893;
+	Fri,  5 Jun 2026 09:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780650725;
+	bh=d7e/64Lm4FJCHnz40nUrkUeXHtudnHaWROVmMiFI1MM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b4jjUShMkrkAmKNxKHC+rOncDO9lTBGvhVgQKmVj7x8ATGjGdsoqadL19HOJzjcxR
+	 abVTB3dLsl7EZQ2p2CPYahFdM4sgLY65GgoMHPZuL7sb7PSbwBdnznsIqcbMKnMOjt
+	 XTHTs1ZE4p3L6MxoST7yq0c+wxGMdPmtJwK2TMfXoZIljRBthAQ2h7zEsml9KWCxdL
+	 dAdzswtSkYkPB7Psqhpere9y5gLq0e8V2bg3fS7jUTi6jVBsAsuPxhlt5P48hVgeez
+	 rbz/xNkuNK7+DyNURO2sbUzqDd9qW8Gmmk+yn9qr9o/aSVbwXaRdOnaOWse3qXTmgc
+	 K3bZT7ZX4PBGg==
+Message-ID: <8387afa5-f2d9-4006-a1c9-d2122ea6245d@kernel.org>
+Date: Fri, 5 Jun 2026 11:11:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260530173347.33533-1-josh.milas@gmail.com>
- <20260530173347.33533-6-josh.milas@gmail.com>
-In-Reply-To: <20260530173347.33533-6-josh.milas@gmail.com>
-X-MBO-RS-META: ty4b5d94rbfqutfk8wi54pxq6xud5tic
-X-MBO-RS-ID: 68716531ea3f837e9e1
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
+To: Frank Li <Frank.li@nxp.com>
+Cc: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>,
+ Chancel Liu <chancel.liu@nxp.com>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "mturquette@baylibre.com" <mturquette@baylibre.com>,
+ "sboyd@kernel.org" <sboyd@kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+References: <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
+ <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
+ <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
+ <20260519-macho-degu-from-nibiru-960af2@quoll>
+ <AM9PR04MB8353B563519EBC1AD6C5BFE1E3012@AM9PR04MB8353.eurprd04.prod.outlook.com>
+ <e23a610f-e1ad-4536-80fb-8b5707e77f39@kernel.org>
+ <ag3GMdmxw60B15Oe@lizhi-Precision-Tower-5810>
+ <74eb56fb-546d-4b2c-9bbc-01a40937f5d3@kernel.org>
+ <AM9PR04MB835333895276201A81251210E30A2@AM9PR04MB8353.eurprd04.prod.outlook.com>
+ <8046287e-87a2-4d18-ad3d-248620a752a9@kernel.org>
+ <ah9WzQmwPrP4yWTC@lizhi-Precision-Tower-5810>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <ah9WzQmwPrP4yWTC@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Joshua,
+On 03/06/2026 00:18, Frank Li wrote:
+> On Mon, May 25, 2026 at 02:28:32PM +0200, Krzysztof Kozlowski wrote:
+>> On 25/05/2026 08:26, Chancel Liu (OSS) wrote:
+>>>>>>>>>>>>> +description:
+>>>>>>>>>>>>> +  The NXP I/O connector represents a physically present I/O
+>>>>>>>>>>>>> +connector on the
+>>>>>>>>>>>>> +  base board. It acts as a nexus that exposes a constrained
+>>>>>>>>>>>>> +set
+>>>>>>>> of
+>>>>>>>>>>>>> +I/O
+>>>>>>>>>>>>> +  resources, such as GPIOs, clocks, PWMs and interrupts,
+>>>>>>>>>>>>> +through fixed
+>>>>>>>>>>>>> +  electrical wiring. All actual hardware providers reside on
+>>>>>>>>>>>>> +the
+>>>>>>>> base
+>>>>>>>>>> board.
+>>>>>>>>>>>>> +  The connector node only defines index-based mappings to
+>>>>>>>>>>>>> + those
+>>>>>>>>>>>> providers.
+>>>>>>>>>>>>> +
+>>>>>>>>>>>>> +properties:
+>>>>>>>>>>>>> +  compatible:
+>>>>>>>>>>>>> +    const: fsl,io-connector
+>>>>>>>>>>>>
+>>>>>>>>>>>> Everything is IO. Everything is connector, so your compatible
+>>>>>>>>>>>> does not match requirements from writing bindings.
+>>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> Yes, this compatible is too generic. I will rename the
+>>>>>>>>>>> compatible to fsl,aud-io-connector.
+>>>>>>>>>>
+>>>>>>>>>> aud is not much better. Which boards have it? What's the pinout?
+>>>>>>>> What's
+>>>>>>>>>> standard? Is it described anywhere? If so, provide reference to
+>>>>>>>> spec/docs.
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> This is not an industry standard electrical interface. This
+>>>>>>>>> connector
+>>>>>>>>
+>>>>>>>> Then if you do not have standard, then you have board specific
+>>>>>>>> layouts thus you need board-specific compatibles. You can use
+>>>>>>>> fallbacks. Generic fallback could work, but both io-connector and
+>>>>>>>> aud-io-connector are just too generic. Every connector is
+>>>>>>>> "connector" and "io", thus absolutely anything can be
+>>>>>>>> "io-connector". "aud" improves it only a bit, thus honestly I would
+>>>> go with board specific fallback as well.
+>>>>>>>>
+>>>>>>>
+>>>>>>> How about board specific + common fallback compatible like this:
+>>>>>>>   compatible:
+>>>>>>>     items:
+>>>>>>>       - enum:
+>>>>>>>           - fsl,imx95-19x19-evk-aud-io-connector
+>>>>>>>           - fsl,imx952-evk-aud-io-connector
+>>>>>>>       - const: fsl,imx-aud-io-connector Since the daughter board is
+>>>>>>> named “IMX-AUD-IO” in publicly available
+>>>>>>
+>>>>>> I don't think it is named like that.
+>>>>>>
+>>>>>> git grep -i imx-aud-io
+>>>>>>
+>>>>>>> documentation, common compatible clearly indicates that this
+>>>>>>> connector is intended for that.
+>>>>>>>
+>>>>>>> Also, I want to talk about the topic of generic connector. It's a
+>>>>>>> common design that daughter board is connected to base board through
+>>>>>>> a connector. This connector more often acts as a nexus that exposes
+>>>>>>> a constrained subset of GPIO, clock, PWM and interrupt resources to
+>>>>>>> the daughter board. Can we document this kind of connector as a
+>>>>>>> generic binding?
+>>>>>>
+>>>>>> So this binding is the connector between carrier and some addon? Then
+>>>>>> you don't get a compatible for that at all, because it is not
+>>>>>> necessary, not useful and NEVER used. Do you see socket LGA "connector"
+>>>> bindings? No.
+>>>>>
+>>>>> Not exactly. Any connector connects a carrier board with an add-on
+>>>> board.
+>>>>> The key point here is that this connector type is reused across
+>>>>> different boards, even though it is not an industry-standard
+>>>>> connector. Both the signal definitions and the mechanical layout are
+>>>> defined.
+>>>>>
+>>>>> The same add-on boards can therefore be reused across different base
+>>>>> boards that use this type of connector.
+>>>>>
+>>>>> There are also GPIO mappings involved. For example, pin 1 on the
+>>>>> connector may represent reset-gpios, but it could be connected to
+>>>>> GPIO0 on board A and GPIO1 on board B.
+>>>>>
+>>>>> Without a connector definition layer, this would create an N × M
+>>>>> combination problem. The Nexus node discussion already covered this
+>>>> topic:
+>>>>> https://osseu2025.sched.com/event/25Vrw
+>>>>>
+>>>>> An LGA socket is a CPU socket, where the signals are completely
+>>>>> transparent to software, so it is not a good comparison. A PCIe M.2
+>>>>> Key-M/E connector would be a more appropriate comparison.
+>>>>>
+>>>>
+>>>> So the terminology of daughter and carrier boards was confusing. If this
+>>>> is a hat, mezzanine or other addon, it's fine.
+>>>>
+>>>
+>>> The IMX-AUD-IO is an add-on board that attaches to the base board. To
+>>> make it clearer, I will replace "daughter board" with "add-on board"
+>>> throughout descriptions.
+>>>
+>>>> I still insist on board specific compatibles - fallback and specific.
+>>>>
+>>>
+>>> The base board has a slot component that is mechanically compatible
+>>> with a PCIe x8 connector. However, it carries no PCIe signals and the
+>>> pins are repurposed to carry fixed board-level audio I/O related
+>>> signals.
+>>>
+>>> I think we can name a compatible reflects a standard mechanical form
+>>> factor.
+>>> For the compatibles (specific + fallback) I propose:
+>>> - enum:
+>>>     - fsl,imx95-19x19-evk-aud-io-pcie-x8-slot
+>>>     - fsl,imx952-evk-aud-io-pcie-x8-slot
+>>> - const: fsl,aud-io-pcie-x8-slot
+>>
+>> Does not solve my request, so I won't ack it. Maybe you will get ack
+>> from other DT maintainer then.
+> 
+> Krzysztof:
+> 	Thank you for your support. This type header/slot is difficult to
+> name it.
+> 
+> After read again previous comments
+> 
+> "Then if you do not have standard, then you have board specific layouts
+> thus you need board-specific compatibles. You can use fallbacks. Generic
+> fallback could work, but both io-connector and aud-io-connector are just
+> too generic. Every connector is "connector" and "io", thus absolutely
+> anything can be "io-connector". "aud" improves it only a bit, thus
+> honestly I would go with board specific fallback as well."
+> 
+> Do you means
+> oneOf
+>   - items:
+>       - enum:
+>           - fsl,imx943-evk-aud-io-pcie-x8-slot
+>           - fsl,imx952-evk-aud-io-pcie-x8-slot
+>       - const: fsl,imx95-19x19-evk-aud-io-pcie-x8-slot
+>  - const: fsl,imx95-19x19-evk-aud-io-pcie-x8-slot
 
-On Sun May 31, 2026 at 1:33 AM CST, Joshua Milas wrote:
-> This adds initial riscv support for the Milk-V Duo S board
-> [1] making it possible to boot Linux to the command line.
->
-> Link: https://milkv.io/duo-s [1]
->
-> Signed-off-by: Joshua Milas <josh.milas@gmail.com>
-> ---
->  arch/riscv/boot/dts/sophgo/Makefile           |  1 +
->  .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
->  2 files changed, 86 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
->
-> diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/so=
-phgo/Makefile
-> index 6f65526d4193b..58cc6b70d8de4 100644
-> --- a/arch/riscv/boot/dts/sophgo/Makefile
-> +++ b/arch/riscv/boot/dts/sophgo/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D cv1800b-milkv-duo.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D cv1812h-huashan-pi.dtb
-> +dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2000-milkv-duo-s.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2002-licheerv-nano-b.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-milkv-pioneer.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-evb-v1.dtb
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/ris=
-cv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> new file mode 100644
-> index 0000000000000..8632470f43ab0
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> @@ -0,0 +1,85 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +
-> +/dts-v1/;
-> +
-> +#include "sg2000.dtsi"
-> +
-> +/ {
-> +	model =3D "Milk-V Duo S";
-> +	compatible =3D "milkv,duo-s", "sophgo,sg2000";
-> +
-> +	aliases {
-> +		i2c4 =3D &i2c4;
-> +		mmc0 =3D &sdhci0;
-> +		serial0 =3D &uart0;
-> +		spi3 =3D &spi3;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +	};
-> +};
-> +
-> +&osc {
-> +	clock-frequency =3D <25000000>;
-> +};
-> +
-> +&dmac {
-> +	status =3D "okay";
-> +};
-> +
-> +&emmc {
-> +	bus-width =3D <4>;
-> +	no-1-8-v;
-> +	cap-mmc-hw-reset;
-> +	no-sd;
-> +	no-sdio;
-> +	non-removable;
-> +	status =3D "okay";
-> +};
-> +
-> +&gmac0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&i2c4 {
-> +	status =3D "okay";
-> +};
-> +
-> +&mdio {
-> +	status =3D "okay";
-> +};
-> +
-> +&saradc {
-> +	status =3D "okay";
-> +};
-> +
-> +&sdhci0 {
-> +	bus-width =3D <4>;
-> +	no-1-8-v;
-> +	disable-wp;
-> +	status =3D "okay";
-> +};
-> +
-> +&sdhci1 {
-> +	bus-width =3D <4>;
-> +	cap-sdio-irq;
-> +	no-mmc;
-> +	no-sd;
-> +	non-removable;
-> +	status =3D "okay";
-> +};
-> +
-> +&spi3 {
-> +	status =3D "okay";
-> +};
-> +
-> +&uart0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&usb {
-> +	dr_mode =3D "host";
-> +	status =3D "okay";
-> +};
-> +
+Yes, could be a bit shorter like fsl,imx95-19x19-evk-aud-io-slot or even
+without slot because prefixing it with board compatible makes it very
+specific.
 
-I tested this series on a Milk-V Duo S board with a RISC-V mainline kernel.
+> 
+> Frank
+> 
+>>
+>> Best regards,
+>> Krzysztof
 
-The board boots successfully with sg2000-milkv-duo-s.dtb. UART works, the S=
-D
-card is detected and readable, Ethernet works after enabling the MDIO mux
-options, and the DMA, USB host, I2C4, SPI3 and SARADC nodes all probe
-successfully.
 
-One thing I noticed is that the Wi-Fi SDIO device is not enumerated with th=
-e
-mainline DT. The sdhci1 host itself probes:
-
-  mmc1: SDHCI controller on 4320000.mmc [4320000.mmc] using ADMA 64-bit
-  mmc1: Failed to initialize a non-removable card
-
-and /sys/bus/sdio/devices remains empty.
-
-With the vendor image on the same board, the Wi-Fi SDIO device is detected =
-on
-the corresponding controller:
-
-  mmc1: SDHCI controller on 4320000.wifi-sd [4320000.wifi-sd] using ADMA 64=
--bit
-  sdio vendor ID: 0xc8a1
-  sdio device ID: 0x0082
-  aicwf_sdio_chipmatch USE AIC8800D80
-  sdio ready
-
-So it looks like the SDHCI host comes up, but the SDIO device behind it is =
-not
-discovered. I may still be missing some config option.
-
-Have you seen this issue on your side? If not, could you please share the
-relevant kernel config used for your testing?
-
---=20
 Best regards,
-Shuwei Wu
+Krzysztof
