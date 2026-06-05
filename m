@@ -1,142 +1,108 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound10.mail.transip.nl (outbound10.mail.transip.nl [136.144.136.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA283264D8
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 03:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780629377; cv=pass; b=PFcWLMkT4QqqxVYfPYkK0r+dB1Xx4fPNt0GbgYaZCW9iernI94G/lbXpx2bJdueagh855azVr5oaX6sEKyZC5UWK6B98o0evpEO8Aq8XKvMaa64xUGsQsWGjSFGBrbxp6BhHT2h0Xd47bmPzB7nkLLSXFf+c83ksO8tl+57k/Qo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780629377; c=relaxed/simple;
-	bh=dYRrm5JNSUnk7c4nDW//lJb97LaLyQ3ZyJS+ASQu0K8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mTHw2HtflJ74lAUlUAoUhQgyZUCHvA/9leyJrFWhn9B80L1Vosb/Fo/O7ADN7v2nloWbTWcf/L2rNSXKgZFkJyTN8uWgcfa+fwn8wSDlKakI6MuSKL5+EhxEHuI5t1YLll4J4fs3Oymw9bVwMHln9O0A46+vREl7QvDPHh32/XM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=fxh6x2Fv; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3983BBFB8;
+	Fri,  5 Jun 2026 03:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780629628; cv=none; b=C2fs3W5xvEaG9Yo7V94uKMSL5GwzfzjpcU3SQNo8q2WNqEKRdxdl+Bhv4eB2m3gxGDIeprKtThT/hD+ddQIW2xF4BAf3Bg29HNFX4NN9dehGQ/m86rYhevO75rZARvtgEnbPxzSylGdHYasIA49skelZXuJXv0F9lGw0Jb7cBLc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780629628; c=relaxed/simple;
+	bh=ApbxPaKFFEexR8wnxfVsRKseWLe6S8mZXKmP8pnfq5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H2WcKKt+wcGxzUb3Cq3j6n7G20cPJw9ek9cpX3UacS1v0DJTcd0enmdYPwRMrAM0cSAGwO0iwDcf4oqr9qSa3ZpMQYddSkxwMXz4r/W88XDabCXQDeVqiLcVa1Fkc4mR8pyJB8jshSzrhqaz2xr0hOGd1Rep7RX0vXCDrd4bPlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=sBeXdkby; arc=none smtp.client-ip=136.144.136.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="fxh6x2Fv"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7dbd25309f7so16860167b3.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 20:16:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780629371; cv=none;
-        d=google.com; s=arc-20240605;
-        b=AA0q7caOGpcqtPtET8/fwl4RPzfyYR5EdOSMMBNEH51zZjKY65A0K8swU3TF88gbml
-         rRHmrZqKNYu5axxTgSM3/uaDUkA7CUonLKpOfOg4mCuj2GYH71W9+dH6FNGYYgkbKEs5
-         Ot6uxnqrg4YGt5YEgfaeLPJbUkJ6XsItvyS1mAInxUpGp74aPQcPXfoxgybb/MGG6X4z
-         yONYoApAQR6b4Ka6XcFk67jlCYZFAhDOwVwhU6s6V3CU3cYu7ehCpHg683wU1SjwAecB
-         ZP+IjwRB0ZSxAJFTXrafEscA6WOZHOtkwxj5TlpJaKN6Io7v0bjPGMPrBxR6QW7UCOeu
-         NaRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DYRAaYwduwwMFPEJSpIv6yQaYPElDxs+NUQslYWVbos=;
-        fh=Y1gx4EdQo8/Ys/Qe3g4Z2HJZnIcq/kFS0y+Rx5EKpwE=;
-        b=WQ3i2T+xSL1JydFvelQUtua+pn+UOv2L14IjkleJeoJM+QlqWJyegNv9bPgtUBp0mr
-         Jdwfxtu27Su2Zcy8JZonC8Ic6q0TZ0NdHn5scJ7IhMddmsjV7zZ8hVleu1+NEjXC93X1
-         FFMfGW4s+Hwy5uyWaYvSWPD9qL+GfG0/fv7Vm2bkZxffUdHVlR4G7poWMfWlze4Emyky
-         eqebHqR+/TR2zhUA0vv14LcaPoXzRj80x600P6H5SgPW64+t08jjt5TIWs2KlJ2T/bSq
-         hUla1jm71C+1HuygMHZZrRh8EexpPwr4+9a+eOrBsZUNOgjhtpTYnhMilan3IIDax6oI
-         16Kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1780629371; x=1781234171; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DYRAaYwduwwMFPEJSpIv6yQaYPElDxs+NUQslYWVbos=;
-        b=fxh6x2FvHHnsgUHNIZV96WS/5wUgTHpk8w9OV83YX8lkOcKErirUV8hU1jlzu+8nbO
-         c+UpzeUsJNEFRqJUSmcvnKLFUzdmi5KZr3Ys42iS6lvmhbiwkfcnySIHhjig+YhqK+6k
-         bYfn4ICuV/zYeL6/TW1Hkuyn2ItUHBOZi5qscW246bV4iYghWuUFF7wpCX1/0f2T5Nam
-         GCW7QSUQAL0cT9NEkPueMmRZtq/0aPof1BDMX9GoqV0NTYL33tEqSjMiKgoCnfV7aeB7
-         FlVlISmU+DCYV9miDUHxDJ6uif0s2vFOMlQAGefLuyORT1CCFzGGDT59K9RRn1gE4b/l
-         HgMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780629371; x=1781234171;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=DYRAaYwduwwMFPEJSpIv6yQaYPElDxs+NUQslYWVbos=;
-        b=gUkMcmV4uUkNykLjDKFfHBVuGi0CbqKmM0fFbV4xisVNORemrTEAzQOuvRV6PRR8xG
-         PPysraEn9mppxSvTR/enQ5ij+O5lqbhXG16TJ3tgWmVZzLUxqRX1C2mHQ6qGEN1Xg/N4
-         gGECx39DTCj029YtyLU/v1wJs3zmGgEg935lp6Rg8WTEfcoWOwpVX3M8T3sM2zcNXlzG
-         UIllttPALo3M3I7RJvLzuuvzggMtSfPasMwl3QL1Ju+VqMw5omdZIZWsxvVMVYMa+8qw
-         w6f986VyI++SilfttisMILaPYmpsHtiMO4RMekGGdQMJqZBbLqyy7QmruLCR/ZLV7/Qp
-         fKjw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Wmdss6nAP4S6zS8W4z8/IGR6fLZ2heiyv+Ypinq9+4LwQao//fUAOoS8mip/BpAOJbPgc5NGk/jat@vger.kernel.org
-X-Gm-Message-State: AOJu0Yye0uS23b0FUV5IZkW3OI/g1l2GOPOATFgIoTtJp32pYkUXbhOJ
-	siIkFXG7EAb98eMN/IeefEHFtY6yrxRHenD9sgRMXK8n98AHEfR6CvUGu9AWWoYnXLY75GAIIg3
-	gOSm5iBRuvMcNcLN70z8zhkzkqk9pn7BVjBPKDAGJLA==
-X-Gm-Gg: Acq92OH7kPH2Sk9CDd46e+ZDi3zkkVoi9lxPgUIjyi4o+icf1zzCP3x5X+RyHBUe9/D
-	DTU2+j0L5hpOClpG3KRv/LwEHnJLGdaf3yXTwuNEtkVdZnqKGACg1khHlgpvFHewz3/4yg+b3Wn
-	xr5uzLogvc0+5IEguTiZDy07wJhsG0FrrEiwi38bBLyqIdZefBo0mC0boZIeWnrmyqPDdfCDkr9
-	C7+u9yvCK8/Z/p2mM60+otAP4MFr9gPVJrKfWsZJ0goKI4N+UjvL10M9IO5eSksTedwoMGYNZAs
-	Q/GEBTYPPqNrm4VC7gel6iuCK6p0N6sI+luiXgouyDrQCaoTU+coCvfJsSMzDEMs98uWDuVwW6F
-	GgCzvR5A=
-X-Received: by 2002:a05:690c:600a:b0:7c0:4f0:7bc1 with SMTP id
- 00721157ae682-7ed0f825e7emr16245817b3.31.1780629371403; Thu, 04 Jun 2026
- 20:16:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="sBeXdkby"
+Received: from submission1.mail.transip.nl (unknown [10.100.4.70])
+	by outbound10.mail.transip.nl (Postfix) with ESMTP id 4gWmsG70pHzTPNxd;
+	Fri,  5 Jun 2026 05:20:18 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission1.mail.transip.nl (Postfix) with ESMTPA id 4gWmsG29gwzJjhYK;
+	Fri,  5 Jun 2026 05:20:18 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Herman van Hazendonk <github.com@herrie.org>
+Subject: [PATCH 0/2] media: i2c: add Aptina MT9M113 SoC sensor driver
+Date: Fri,  5 Jun 2026 05:20:15 +0200
+Message-ID: <cover.1780601033.git.github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604143957.668047-1-joel@jms.id.au> <20260604143957.668047-8-joel@jms.id.au>
-In-Reply-To: <20260604143957.668047-8-joel@jms.id.au>
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Date: Thu, 4 Jun 2026 22:15:59 -0500
-X-Gm-Features: AVVi8Cdt4ovc7avZtDiQZF3NkqfzmPFNT9hCzsKPZLJGyudq_YtX5OFBV7Nin_I
-Message-ID: <CAEev2e-OuutFYQUo2mtzvM5z_brneR+qn_WrPbp5_DeNq-7Fmg@mail.gmail.com>
-Subject: Re: [PATCH v2 7/7] riscv: dts: tenstorrent: Add Atlantis platform
-To: Joel Stanley <joel@jms.id.au>
-Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@kernel.org>, Drew Fustini <fustini@kernel.org>, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission1.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780629618; h=from:subject:to:cc:date:
+ mime-version; bh=kViDbVFZ0fYEjw6HUxIoRCbf8V2Xv6QN5U5aVmfaMCE=;
+ b=sBeXdkbyLxQreQpSREhZriW5Xh1VjSDhEI5XdQB8bRnTxIrSEpDzBLKrcuPmyu2208ylkU
+ 37W3wrHKHm1CWfNpSvMGDzGNDZOlAiPUUXaMHrXryuvv+h4S7yRTWoyX0sGimRjvjG8LOm
+ M+9hyp7V6l55yv707KlK3WF4Ubu16ymTh6Ey5L/jIJa4bdZdyrv6WdE3NsQrFd6s4J1zCK
+ qag7sRqT6eYDMIIhrAZ3T/5cVKHtzTA/Yr3bi7oyLo5x1eR9Hp65ENDy68/i/UsdrCSDeA
+ g4muatoEp37j42enUdwxiMqAcAcosCJJkyFjPJ9tCt5aXhkB+LnNNUT4HIVDFA==
+X-Report-Abuse-To: abuse@transip.nl
 
-On Thu, Jun 4, 2026 at 9:41=E2=80=AFAM Joel Stanley <joel@jms.id.au> wrote:
->
-> Add initial support for the Tenstorrent Atlantis platform, based on the
-> Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
->
-> The evb machine represents an internal bringup vehicle with just the
-> interrupt controllers and a UART. This will be replaced in time with a
-> full featured machine once details are available.
->
-> Co-developed-by: Drew Fustini <fustini@kernel.org>
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> v2:
->  - Update mtimer compatible
->  - Add Drew's co-developed-by
->  - Correct aplic num-sources count
-> ---
->  arch/riscv/boot/dts/tenstorrent/Makefile      |   1 +
->  .../boot/dts/tenstorrent/atlantis-evb.dts     |  33 ++
->  .../boot/dts/tenstorrent/atlantis-soc.dtsi    | 471 ++++++++++++++++++
->  3 files changed, 505 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts
->  create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
+This series adds a V4L2 subdev driver and DT binding for the Aptina
+MT9M113, a 1.3 Mpx SoC sensor with an on-chip ISP and a small MCU
+running a "SOC1040" firmware that performs auto-exposure, auto white
+balance and lens-shading correction.  The sensor talks to the host
+over MIPI CSI-2 (1 or 2 data lanes); register access is over I2C
+using the Qualcomm CCI helper.
 
-> +
-> +               prcm_rcpu: clock-controller@d0000000 {
-> +                       compatible =3D "tenstorrent,atlantis-prcm-rcpu";
-> +                       reg =3D <0x00 0xd0000000 0x00 0x10000>;
-> +                       clocks =3D <&osc_24m>;
-> +                       #clock-cells =3D <1>;
-> +                       #reset-cells =3D <1>;
-> +                       assigned-clocks =3D <&prcm_rcpu CLK_RCPU_ROOT>, <=
-&prcm_rcpu CLK_NOCC_CLK>;
-> +                       assigned-clock-parents =3D <&prcm_rcpu CLK_RCPU_R=
-OOT>,
-> +                                                <&prcm_rcpu CLK_NOC_PLL>=
-;
+Hardware layout exposed to userspace:
 
-This should be
-assigned-clock-parents =3D <&prcm_rcpu CLK_RCPU_PLL>,
-                                <&prcm_rcpu CLK_NOC_PLL>;
+    +-------------------+    +-----------------+
+    | Pixel Array (PA)  |--->| IFP / ISP       |--->[CSI-2]
+    | sink-less subdev  |    | MCU + pipe      |
+    +-------------------+    +-----------------+
+
+PA carries V4L2_CID_PIXEL_RATE and V4L2_CID_LINK_FREQ so that
+downstream receivers walking the graph from the CSIPHY (camss does
+this) find them on the entity flagged MEDIA_ENT_F_CAM_SENSOR.
+
+V4L2 controls implemented:
+  - exposure / gain / hflip / vflip
+  - test pattern
+  - V4L2_CID_COLORFX (sepia / mono / negative / aqua / vivid)
+  - V4L2_CID_POWER_LINE_FREQUENCY (50/60 Hz flicker avoidance)
+
+Tested on a HP TouchPad (APQ8060, MSM8x60 family) with the on-board
+front 1.3 Mpx MT9M113.  Probes cleanly, both PA and IFP subdevs
+register, csiphy_stream_on() picks up link_freq from PA, and the
+preview pipeline up through CAMSS produces frames.  A bounded
+3-attempt retry around s_stream(1) handles a residual silicon-level
+wedge that occasionally leaves the MCU's SEQ_CMD in an inconsistent
+state on cold start.
+
+The DTS patches that enable the sensor on the HP TouchPad will be
+sent separately to the ARM/DTS tree.
+
+Herman van Hazendonk (2):
+  dt-bindings: media: i2c: add aptina,mt9m113
+  media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
+
+ .../bindings/media/i2c/aptina,mt9m113.yaml    |  127 +
+ drivers/media/i2c/Kconfig                     |   12 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/mt9m113.c                   | 2971 +++++++++++++++++
+ 4 files changed, 3111 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.yaml
+ create mode 100644 drivers/media/i2c/mt9m113.c
+
+-- 
+2.43.0
+
