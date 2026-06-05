@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4FD3859D7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0FC37F74A;
 	Fri,  5 Jun 2026 12:41:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780663299; cv=none; b=NshNnbCNKK26HCNdGeq1myJcHYZvKCoabZ9M1PYDKy3qf4RFq57Ph7nO1850VGto7QNKdblJDQVw9v99Yio5mYQ7hi2/UcXcNuJ1+lm7/bKnmI7B1RxHD98L4zUb8QFFIhYISV+JfKr3N80UjdlcpaktoPGBn8WfyLxeMdKkWSk=
+	t=1780663299; cv=none; b=lou+oEhOshw7HicWHNSBM0Z8Q/dy74ERC4poeq7OyCIm0JBtlZQ0i43NScl5HwJJsI3bpL/TgFOAroluy+ZpEmZAjo8ZkIxKjB1ZVLxd8JcgY488x3JUGKRyVXnS2MZiXq8jWxSt4aCGNBpyP4ocrb/XFMx6w1S+mx5OGVozNVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780663299; c=relaxed/simple;
-	bh=MHonpYPDMxu6OCmszC5LL+NjrY8r/y0Ipf59wp1R70c=;
+	bh=96+55tXFmTQ8vBo+6ftEpOb+5/z/w8m26jdwVC9AxW4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=c4/JAplDVZ4CpEwMJ36kda17W/7Of0ecoL+VDgQBh8/r0qj2kYFY6rS7yrcrvc3dhQIVU8Uue1F5w67g7typh/ZuwHHnnzV9WFBxOmHA75t7XixNkje2pA0qlgHmedx5cAOzjtWapArNvoZ8n33kn0VliGYuT73skdRxYoSeX6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bW9QGRBV; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=FfMnpxG+3g18myA2zzNqbENd2ItGb68sR4/yCqbqRZ5gm8OX3puwMdyjPw5r96kTAAa2ignsxmpWl/gsJ2NWO/gTxb/bs759cvOLivi734Kh/U3LIf4b3ienuopV3ZSRTJnP6V7rGK8imP2PQtJV6Wms4BCHjfW3cU5vxLJwRyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XTJyZRPp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bW9QGRBV"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 301A7C2BCC9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XTJyZRPp"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1F8DBC2BCC4;
 	Fri,  5 Jun 2026 12:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780663299;
-	bh=MHonpYPDMxu6OCmszC5LL+NjrY8r/y0Ipf59wp1R70c=;
+	bh=96+55tXFmTQ8vBo+6ftEpOb+5/z/w8m26jdwVC9AxW4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bW9QGRBVPPBPg0XxS2PSC7b0CEnK7TAWqGjyssS45Ub8Gg0kWyf6KKi21kl1T9fHC
-	 YvigMwBGdOoQqzJ+pnbAtnAG2cbEUuFlCXNRdQo/KKHFK4FGXWGIXwDEF/OsSoXj1f
-	 uxcpDapHp6lbKFr/5n1ttmj4Y0gCjfYAky4fz9wYombzToFVUZYkUGocDsq28BAlaD
-	 NpZi4Tql4tkpiDMRcMB3oSN8klfLgPD95fED6yy8PMmkTs/IV99uMW9JSJ68RJtdnR
-	 NlilCYHe/IjtD0Ci8gbkw9SW6P5Kw+u5ck6Eg2hCNx1w9IfoRqTBTt0TUNA0o7zweL
-	 9ePqjcYX6znqQ==
+	b=XTJyZRPpMMSiNCESwHWrAVrhtgzqfQhoRBTO2BjoNy+KvSPZKODIS64YqO7OtF0kl
+	 u/ObMpu5+0X+E42mpk+0mZ1PehuuZxa+cdhSJO2jiM8je+1raksfuwPEpT7U9+rT9L
+	 o4WfKp9uLDkhJLuxv9qUWnJj2JmmBvByGJpHZDGb7x0ljJpIRMHS5kWITqEZR7huNF
+	 8JUwSzoo0IDZGTvi3YeoGIYcbGJgujR8EgNkLBjKD+47HtrKqxQBmXLKPKm1fOxDFU
+	 XBs90bOToSP56C+PVL7BSe2daFOr000SlvIsL6LZ9KCHD0Q6t7StxeHYDWTeCm2vd1
+	 3uGO7/SpZe7yQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AD5DCD6E7D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08CC1CD6E79;
 	Fri,  5 Jun 2026 12:41:39 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Fri, 05 Jun 2026 16:41:27 +0400
-Subject: [PATCH v3 2/4] dt-bindings: net: qca,ar803x: Add clocks for
- IPQ5018 PHY
+Date: Fri, 05 Jun 2026 16:41:26 +0400
+Subject: [PATCH v3 1/4] dt-bindings: net: ethernet-phy: increase max clock
+ count to two
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-ipq5018-gephy-clocks-v3-2-f232d9ca0966@outlook.com>
+Message-Id: <20260605-ipq5018-gephy-clocks-v3-1-f232d9ca0966@outlook.com>
 References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
 In-Reply-To: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
@@ -56,14 +56,13 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  linux-arm-msm@vger.kernel.org, 
- George Moussalem <george.moussalem@outlook.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780663297; l=1860;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780663297; l=1689;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=9Z6aakN1HhLaGxa1OIpuGJQY0KdKMjoTdfWwUAWMHF8=;
- b=35vQ31A2+T17FdYHX7YbK3+f5sFkkYEKYcD//bJOBSMWqZ/OLQc7yybfbzinL6bN6VT3HtvsI
- HtS42u2mHmVAmzwfUK7DmlabPItaAz96c6JMzn7Fm1rl0Jok8KiZmES
+ bh=LaY00tRcmZfFwiKiQy3sLDDbN7PRP6JIqJfZseU/bhY=;
+ b=Ej4W7dTZsUe7bJ0nU4A8yVnozkz8GdTH0hVntcxUuPQzJYRIsytXROniAzIPdr//9IZNg5gT7
+ v3gRNnJPwSyBrYZgLw1DkNcHByDhSIeIwj8v/9VIfxL8OqOfnSPTCny
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -73,67 +72,43 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Further testing revealed that the RX and TX clocks of the IPQ5018 PHY
-need to be explicitly enabled. As such, add the required clocks to the
-schema.
+The clocks property has a restriction to maximum one.
+Yet, some PHYs may require more than 1 clock such as the IPQ5018 PHY
+which requires two clocks for RX and TX. As such, increase maxItems to
+two.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- Documentation/devicetree/bindings/net/qca,ar803x.yaml | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Commit 350b7a258f20 introduced the clocks property with a restriction to
+maximum 1 to the main ethernet-phy.yaml binding for Realtek to add an
+optional external clock source. This is restrictive to all PHY bindings,
+as some PHYs may require more than 1 clock such as the IPQ5018 PHY which
+requires 2 clocks (for RX and TX).
+---
+ Documentation/devicetree/bindings/net/ethernet-phy.yaml | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/qca,ar803x.yaml b/Documentation/devicetree/bindings/net/qca,ar803x.yaml
-index 7ae5110e7aa2..53f648c4135f 100644
---- a/Documentation/devicetree/bindings/net/qca,ar803x.yaml
-+++ b/Documentation/devicetree/bindings/net/qca,ar803x.yaml
-@@ -28,6 +28,16 @@ allOf:
-         reg:
-           const: 7  # This PHY is always at MDIO address 7 in the IPQ5018 SoC
+diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+index 21a1a63506f0..c3ebb3af8b52 100644
+--- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
++++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+@@ -106,10 +106,13 @@ properties:
+       by software.
  
-+        clocks:
-+          items:
-+            - description: RX clock
-+            - description: TX clock
-+
-+        clock-names:
-+          items:
-+            - const: rx
-+            - const: tx
-+
-         resets:
-           items:
-             - description:
-@@ -42,6 +52,11 @@ allOf:
-             of this PHY are directly connected to an RJ45 connector.
-           type: boolean
+   clocks:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
+     description:
+-      External clock connected to the PHY. If not specified it is assumed
+-      that the PHY uses a fixed crystal or an internal oscillator.
++      External clock connected to the PHY or RX and TX clocks that the PHY
++      requires to enable explicitly. If not specified it is assumed
++      that the PHY uses a fixed crystal or an internal oscillator or that the
++      RX/TX clocks are hardware enabled by default.
  
-+      required:
-+        - clocks
-+        - clock-names
-+        - resets
-+
- properties:
-   compatible:
-     enum:
-@@ -162,6 +177,7 @@ examples:
-         };
-     };
-   - |
-+    #include <dt-bindings/clock/qcom,gcc-ipq5018.h>
-     #include <dt-bindings/reset/qcom,gcc-ipq5018.h>
- 
-     mdio {
-@@ -172,6 +188,9 @@ examples:
-             compatible = "ethernet-phy-id004d.d0c0";
-             reg = <7>;
- 
-+            clocks = <&gcc GCC_GEPHY_RX_CLK>,
-+                     <&gcc GCC_GEPHY_TX_CLK>;
-+            clock-names = "rx", "tx";
-             resets = <&gcc GCC_GEPHY_MISC_ARES>;
-         };
-     };
+   enet-phy-lane-swap:
+     $ref: /schemas/types.yaml#/definitions/flag
 
 -- 
 2.53.0
