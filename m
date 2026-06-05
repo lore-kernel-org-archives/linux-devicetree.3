@@ -1,67 +1,33 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010043.outbound.protection.outlook.com [52.101.69.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68911480DD3;
-	Fri,  5 Jun 2026 07:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780646175; cv=fail; b=P0Z4RTLMqTEVVj9AAywRky3WjPZ48oXJsih5UwIMoJR2WTti+UJv0Xedotlwsd3VGqgr/2mRBR3Hg+HpWb5IP4CrJxflA2+3on7nHIhD/3aCKCX+I0F0TidJ97kqYtP/q92q+D9FYte09BgmI9RCook0uCeWvQg57wJ2rz0mdB8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780646175; c=relaxed/simple;
-	bh=D4qJ+FgaTfoZzQvLeqfxPwtCrsepAybvwAlkwFUuluY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eubJi2UNxDl0A0K4M22MlUjxSunJUYKnx7X6ifkU1P0xfBwn2YVFSIW87zXEJneBgjMc7ItKxxI5nn+pfxGWIXTIaXr706w90SHesJ0ErTXAKM03a2szShweSdycMbZcXmlhg8iQxEaukqgnmhCQ9lXBqBsrssJAZx0t4bmb/uM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=WG4EZrAs; arc=fail smtp.client-ip=52.101.69.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B5748B388;
+	Fri,  5 Jun 2026 08:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780646589; cv=none; b=KUiEQz91SwSbeT5EtvsWZLEbt/dE9TP8qKcpPd960M4TpMQmRuYQe6JpO6TxPC82tXBAX8/PyH8gbtSCrMQL5fLSkN/lNQViMpHBHIMlXBKJK1Tp126+JqqprLALkR+ZrwZFuB1H0g9a8VoBrZehpMJ4fpA1cnjchLkyzb1P9Aw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780646589; c=relaxed/simple;
+	bh=kWBCDDTJ5w/8sEvzWk4en6EepdKYJ4fH3t4zei0KoI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cIy5f6UlGbAMspGokwFExaV0aZaNsZ9QTjWPfLfI51jiUQG46Xojjq4ldfplHAip3McN9NuYDSBx3oG4ZhOM+OdBfyG77B6w6Wmvvkg9p8vBFLOYHQA/6Cvmko9Q4rdkmeCr4UZ9AD6035SgTXYY3Tp5OGa+3xFwBaFaYM10mrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YfAxCDBB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="WG4EZrAs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QK382C3hSdOX3ONgn3RxdaITG8oTIRWQ0gc07/5Ku0DfIXcmXV5UqhAvtQsTXGOKXSL5YtQ0uV2cHEEOBEDG2LstgX2plydWUe9/G++UFp7tCeDdqSYm4sxIskLIgnqiHj6jUz6OjWZd8sCyekt6+x0hvt70BH7umNR48hZ63zlrhxYqURkr47BvulPxe93SWjX3nFiv7h9Bj3tOSu5N2A5X7XzzXtbWvtY7zzEhpY41q+vK6vZAguRvbtD09kes8s7vN8urJs35/AaUsyWK/yIaVewW7iJq7cCnAOjAflL7IOzkT/J1TBeRl71vLc4+vnO41ILzM5Mm9JrtoACkwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ONt0+xv4q9nreWmNOldmDPow1Qe2VMIgXwFfXgu/2es=;
- b=q5kCDF09S+Y+LctVpQgjhsgN8ozK2Mv+rkt5A0y1d+zQeSjHk8TMxdaeagb5mmDw7cuD3SBgaZtFxfSQPEEkoirwD+ZeSptp9CNxMbmd6cMv3vrLqOUZsALP/l036TOLpscyx15he9AQsM5g/FTUMJwzZpv+g4IbRnW0enGmSyermXR8IpAWj0CaeGUOFz4x8WblXNbMGnAz/bq+RTUUu3QF3r2Wx1Bt+cZRXXPfmuoNXVTd437N8y1dEOHssOwRAI+CNTVYbX1J7bnJEwkLVhz9LZxXDNEielQaPO96a81gQPyusK7eDLZb05fcKV9wH2azruQHhpVt41/9D1oTDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=amarulasolutions.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ONt0+xv4q9nreWmNOldmDPow1Qe2VMIgXwFfXgu/2es=;
- b=WG4EZrAs3S+7dOKfwBE7BZXh4rl2V0L/xYluEtAXd6pkKG4oK+zyXe0R8lebBu20NohdumMGF95ItkxZKaxhZbOtwkfu58my5UHwAW9HijBKJlT74jiIDXxh9PtziyVNWlibMsHweENbKhEGIk/YFE7cVEJ/TlTu3P421gAaek/VmWcEoeSK5JkS/xmKbz6l/9mTzLIAd6uDcZHoYixWm0SqY094zfD6r9M/QTZL7MpZMu9io0IJOxGtEYWkeQYQiFzuLbgactZrzScoR0rYNPW9+iR6hap5x4JPIx7tIEYTQ2WMNUvtmDxiA6KCgh9p6XKGZMbklMrLrg4Zx0zdCQ==
-Received: from DB9PR06CA0025.eurprd06.prod.outlook.com (2603:10a6:10:1db::30)
- by PAVPR10MB6789.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:2fc::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 07:56:07 +0000
-Received: from DU6PEPF00009529.eurprd02.prod.outlook.com
- (2603:10a6:10:1db:cafe::83) by DB9PR06CA0025.outlook.office365.com
- (2603:10a6:10:1db::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
- Jun 2026 07:56:07 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU6PEPF00009529.mail.protection.outlook.com (10.167.8.10) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 07:56:07 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 5 Jun
- 2026 09:59:15 +0200
-Received: from [10.48.87.71] (10.48.87.71) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 5 Jun
- 2026 09:55:29 +0200
-Message-ID: <08a2e8ec-9dd4-4530-be04-f06b7c1137fa@foss.st.com>
-Date: Fri, 5 Jun 2026 09:55:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YfAxCDBB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EA61F00893;
+	Fri,  5 Jun 2026 08:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780646587;
+	bh=BqhhtvDC0thhfchbiXN8CIGmtmp+dcilLWjv10TfrlY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YfAxCDBBws/K7lHQFkeKBLxBG43LhplgaDlKKP/hpx0ywo/2DnsLdL37M3uluvqBW
+	 VeHnut5tQYBUMmBFXX0/V2fTX5crKA1IeWLBwFSqeoslpMmtpuvQcEcqrz0gVw09ek
+	 oX87tzFmkCaC0/ssRwTHXnDV/ayU0Z6iNETlnsILEUFEv+BNixbxQFnIjAeFGZPUnY
+	 PlDbn9JSvhW18pydvjeDDsTjgdmmcPgZaTP9EBajwgRHz5YY9fm2O5Rrw9RVheceBQ
+	 GO3jTUK6yaFIhcVT2SfHgqA9IDcrwqCW8pmFxpnz12kHhjHa8WVOg4GHWWVmTGDIoE
+	 obUBdXolXcYkw==
+Message-ID: <926487d1-d949-4516-b906-892d46cb956c@kernel.org>
+Date: Fri, 5 Jun 2026 10:03:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,434 +35,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-stm32] [PATCH v3 13/14] arm64: dts: st: support Engicam
- MicroGEA-STM32MP257-RMM board
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	<linux-kernel@vger.kernel.org>
-CC: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>, <francesco.utel@engicam.com>,
-	<domenico.acri@engicam.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, <michael@amarulasolutions.com>,
-	<linux-amarula@amarulasolutions.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>
-References: <20260605062900.368376-1-dario.binacchi@amarulasolutions.com>
- <20260605062900.368376-14-dario.binacchi@amarulasolutions.com>
+Subject: Re: [PATCH 1/2] regulator: dt-bindings: qcom,sdm845-refgen-regulator:
+ Document IPQ9650
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
+ <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
+ <b8758150-00a8-4d6e-bd2d-c1985d70ceac@kernel.org>
+ <d24238d5-7b71-40e6-b6dd-c2f1aa150d77@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20260605062900.368376-14-dario.binacchi@amarulasolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <d24238d5-7b71-40e6-b6dd-c2f1aa150d77@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF00009529:EE_|PAVPR10MB6789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87ad815e-4954-4f6c-ba4e-08dec2d7e6a6
-X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|7416014|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- 2nxnVF/mPDX0HlYd+XBzW1+IH+23On1lfI7s+nd/dBAOJpuN8yZ/PBoR44liWl8cR9JS1mYJbmKuJ4B165I0veChm6X9K+Yjz1CMZgm0RfLkO/KeJI6RWWJoiT7XN2JjRxF2Tbjof5bLLKXf4bs/8fD3YnKUq57naKVG3wz7AVAnrPwXUwvBf1+a4uf4/BgxctQspO4rUIE+L8wrFFvQEmQDdn9Hvx+ewrgAjdOdzceBJW8zRIkQgXTfPcNQ+MX97oBXu9bV/MC72j2elYQltiXZhdY60OXINihApoSmdz+mfdiXDrpQ9QtZYmxshE3QLqZ1ryayF1I5K//IILTbKk3FxuroBCbr9QYZlsSYh7whUuteKi9JKl5CgXTDp51bLaUn1mTV7zhtFU789inh59jTDGH8JeFNZA0KQICo5Zj0cbQh7TNCqAyEMNQ+TZ1Kj58Nj/End7z7jTobC4IyqAlcDeKlY03c1vYF4xY4qE0wIH0QfrprCCTc49uAKKfqpkH6zs0wcDM4aQpUojNCstOSjOFERq2bRApE42j84pHX4yaf8/Cz1OAyxpuTzHx1SAqdBMRSLX5R+4mP1ecSCj2cbZBp1W7/kenOv41iI6LOQfNe6XvwLQ+9ub3HGU0pMII30Yt6v0CuRg9SuF6hAafySVMMZcgkRxWDZrSPiAKj+YW+emGa+RlIFOXf10Im/zzbkb9/7nh2sxBe2CXrxSmNRXKJ+UQmwb4Uiirrdpo=
-X-Forefront-Antispam-Report:
- CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(7416014)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- vE2zDxgqOqN/drdkOVyStuVflrY2shxmnT800XghACN4xBOjPtjXYESjSn6ogaqzMGYs2GG/1+dFwJ3qBbt2PSIRD+AFvJ48fijT10TMrncF0Rj+RWIYEpkTCtSda9tpgzN/6awX65OJGyc1q+1ecFw9jgkYsYHc3fdUpK1WTljvsCXJnyKFBU57iRL6Tuw/8bmtYRDTi3X3M49J84gPH3M4jlZpmUmJ3DXHbT36tdp2HFPnRstYmhIufndmGwWsKqbh6IJEmyat7uhF+RFW1zSy0wGX2p1AGEWh0+a0GKBi5mjuOezBEiPoLGE9v++UQGOkIQQQhxcDFNnL08CFnDCXlUXqUjhEQlv+JkJqdXhXyO0HUUJyo7pk8B60mL0rMHVxRvsNMp1lMfJt7BlBwcgVt9H5Z6Wp7/0L2fRq15aTIZoZ1rTM/goUzWwUG3RH
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 07:56:07.5517
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87ad815e-4954-4f6c-ba4e-08dec2d7e6a6
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF00009529.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR10MB6789
 
-Hi Dario,
+On 05/06/2026 08:51, Kathiravan Thirumoorthy wrote:
 
-On 6/5/26 08:27, Dario Binacchi wrote:
-> Support for Engicam MicroGEA-STM32MP257-RMM board with:
+>>>   
+>>> +  clocks:
+>>> +    items:
+>>> +      - description: Core reference clock
+>>> +      - description: AHB interface clock
+>>> +
+>>> +  clock-names:
+>>> +    items:
+>>> +      - const: core
+>>> +      - const: hclk
+>> You just added clocks to each variant, which is not explained in commit
+>> msg. And it would be a separate commit anyway. Probably you wanted to
+>> add proper constraints (:false).
 > 
->   - 8 GB eMMC Flash
->   - 2 GB LPDDR4 DRAM
->   - CAN
->   - LEDs
->   - LCD panel with touchscreen
->   - Micro SD card connector
->   - Audio codec
->   - Buzzer
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> 
-> ---
-> 
-> (no changes since v2)
-> 
-> Changes in v2:
-> - Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
->    to avoid overriding the peripheral bus clock reference defined in the base
->    SoC device tree. Suggested by Sashiko.
-> - Reference the existing labeled nodes directly at the root level using
->    &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
->    redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
-> - Drop the #clock-cells property from sai1a and remove the reference to sai1a from
->    the clocks array in sai1b, relying strictly on the st,sync property to handle
->    internal synchronization.
-> 
->   arch/arm64/boot/dts/st/Makefile               |   1 +
->   .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 ++++++++++++++++++
->   2 files changed, 320 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-> 
-> diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-> index 63908113ae36..386eca593c54 100644
-> --- a/arch/arm64/boot/dts/st/Makefile
-> +++ b/arch/arm64/boot/dts/st/Makefile
-> @@ -2,5 +2,6 @@
->   dtb-$(CONFIG_ARCH_STM32) += \
->   	stm32mp215f-dk.dtb \
->   	stm32mp235f-dk.dtb \
-> +	stm32mp257-engicam-microgea-rmm.dtb \
->   	stm32mp257f-dk.dtb \
->   	stm32mp257f-ev1.dtb
-> diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-> new file mode 100644
-> index 000000000000..0212c03aae1a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-> @@ -0,0 +1,319 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> + * Copyright (C) 2026 Engicam srl
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +
-> +#include "stm32mp257-engicam-microgea.dtsi"
-> +
-> +/ {
-> +	model = "Engicam MicroGEA STM32MP257D RMM Board";
+> Ack, will make the change to define the clock and clock-names only for 
+> IPQ9650 compatible under the allOf block.
 
-If the SoC is an STM32MP257D, as mentionned in the board model, 
-stm32mp25xf.dtsi should not be included in 
-stm32mp257-engicam-microgea.dtsi (in PATCH 12).
-Unless the SoM can be fitted with any STM32MP257, in which case, when 
-stm32mp25xf.dtsi is populated, you will need to add /delete-node/ 
-statements on the board side, to remove the HW crypto support.
 
-Regards,
-Amelie
+No, That;s not what I said. That definition is fine, but you miss
+constraints. See example-schema.
 
-> +	compatible = "engicam,microgea-stm32mp257-rmm",
-> +		     "engicam,microgea-stm32mp257", "st,stm32mp257";
-> +
-> +	aliases {
-> +		mmc0 = &sdmmc1;
-> +		mmc1 = &sdmmc2;
-> +		serial0 = &usart2;
-> +		serial1 = &usart1;
-> +	};
-> +
-> +	backlight: backlight {
-> +		compatible = "pwm-backlight";
-> +		brightness-levels = <0 100>;
-> +		num-interpolated-steps = <100>;
-> +		default-brightness-level = <85>;
-> +		pwms = <&pwm2 0 100000 0>;
-> +	};
-> +
-> +	buzzer {
-> +		compatible = "pwm-beeper";
-> +		pwms = <&pwm4 0 1000000 0>;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		framebuffer {
-> +			compatible = "simple-framebuffer";
-> +			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
-> +			lcd-supply = <&reg_3v3>;
-> +			status = "disabled";
-> +		};
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +
-> +		led-0 {
-> +			gpios = <&gpioh 2 GPIO_ACTIVE_HIGH>;
-> +			default-state = "off";
-> +			status = "okay";
-> +		};
-> +
-> +		led-1 {
-> +			gpios = <&gpioh 6 GPIO_ACTIVE_HIGH>;
-> +			default-state = "off";
-> +			status = "okay";
-> +		};
-> +	};
-> +
-> +	mclk: clock-mclk {
-> +		compatible = "fixed-clock";
-> +		#clock-cells = <0>;
-> +		clock-frequency = <24000000>;
-> +	};
-> +
-> +	reg_1v8: regulator-1v8 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "1v8";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +	};
-> +
-> +	reg_3v3: regulator-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "3v3";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +	};
-> +
-> +	reg_ext_pwr: regulator-ext-pwr {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "ext-pwr";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +		gpio = <&gpiog 0 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-always-on;
-> +	};
-> +
-> +	sound {
-> +		compatible = "audio-graph-card";
-> +		label = "STM32MP25-RMM";
-> +		widgets = "Headphone", "Headphone Jack",
-> +			  "Microphone", "Microphone Jack";
-> +		routing = "Headphone Jack", "HP_OUT",
-> +			  "MIC_IN", "Microphone Jack",
-> +			  "Microphone Jack", "Mic Bias";
-> +		dais = <&sai1a_port &sai1b_port>;
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&arm_wdt {
-> +	timeout-sec = <32>;
-> +	status = "okay";
-> +};
-> +
-> +&i2c1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c1_pins_a>;
-> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
-> +	i2c-scl-rising-time-ns = <185>;
-> +	i2c-scl-falling-time-ns = <20>;
-> +	status = "okay";
-> +	/* spare dmas for other usage */
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	touchscreen@38 {
-> +		compatible = "edt,edt-ft5306";
-> +		reg = <0x38>;
-> +		interrupt-parent = <&gpiob>;
-> +		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
-> +		touchscreen-size-x = <1280>;
-> +		touchscreen-size-y = <800>;
-> +	};
-> +};
-> +
-> +&i2c2 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c2_pins_a>;
-> +	pinctrl-1 = <&i2c2_sleep_pins_a>;
-> +	i2c-scl-rising-time-ns = <185>;
-> +	i2c-scl-falling-time-ns = <20>;
-> +	status = "okay";
-> +	/* spare dmas for other usage */
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	sgtl5000: codec@a {
-> +		compatible = "fsl,sgtl5000";
-> +		reg = <0x0a>;
-> +		#sound-dai-cells = <0>;
-> +		clocks = <&mclk>;
-> +
-> +		VDDA-supply = <&reg_3v3>;
-> +		VDDIO-supply = <&reg_3v3>;
-> +		VDDD-supply = <&reg_1v8>;
-> +
-> +		sgtl5000_port: port {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			sgtl5000_tx_endpoint: endpoint@0 {
-> +				reg = <0>;
-> +				remote-endpoint = <&sai1a_endpoint>;
-> +				frame-master = <&sgtl5000_tx_endpoint>;
-> +				bitclock-master = <&sgtl5000_tx_endpoint>;
-> +			};
-> +
-> +			sgtl5000_rx_endpoint: endpoint@1 {
-> +				reg = <1>;
-> +				remote-endpoint = <&sai1b_endpoint>;
-> +				frame-master = <&sgtl5000_rx_endpoint>;
-> +				bitclock-master = <&sgtl5000_rx_endpoint>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&ltdc {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&ltdc_pins_a>;
-> +	pinctrl-1 = <&ltdc_sleep_pins_a>;
-> +	status = "okay";
-> +
-> +	port {
-> +		ltdc_out: endpoint {
-> +			remote-endpoint = <&panel_in>;
-> +		};
-> +	};
-> +};
-> +
-> +&m_can1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&m_can1_pins_a>;
-> +	pinctrl-1 = <&m_can1_sleep_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> +&sai1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&sai1a_pins_a>, <&sai1b_pins_a>;
-> +	pinctrl-1 = <&sai1a_sleep_pins_a>, <&sai1b_sleep_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> +&sai1a {
-> +	dma-names = "tx";
-> +	status = "okay";
-> +
-> +	sai1a_port: port {
-> +		sai1a_endpoint: endpoint {
-> +			remote-endpoint = <&sgtl5000_tx_endpoint>;
-> +			dai-format = "i2s";
-> +			mclk-fs = <512>;
-> +		};
-> +	};
-> +};
-> +
-> +&sai1b {
-> +	dma-names = "rx";
-> +	st,sync = <&sai1a 2>;
-> +	clocks = <&rcc CK_KER_SAI1>;
-> +	clock-names = "sai_ck";
-> +	status = "okay";
-> +
-> +	sai1b_port: port {
-> +		sai1b_endpoint: endpoint {
-> +			remote-endpoint = <&sgtl5000_rx_endpoint>;
-> +			dai-format = "i2s";
-> +			mclk-fs = <512>;
-> +		};
-> +	};
-> +};
-> +
-> +/* MicroSD */
-> +&sdmmc1 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	broken-cd;
-> +	disable-wp;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&scmi_v3v3>;
-> +	vqmmc-supply = <&scmi_vddio1>;
-> +	no-1-8-v;
-> +	status = "okay";
-> +};
-> +
-> +&spi1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&spi1_pins_a>;
-> +	pinctrl-1 = <&spi1_sleep_pins_a>;
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	cs-gpios = <&gpioh 8 GPIO_ACTIVE_HIGH>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
-> +	status = "okay";
-> +
-> +	display: display@0 {
-> +		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
-> +		reg = <0>;
-> +		vdd-supply = <&reg_3v3>;
-> +		spi-max-frequency = <10000000>;
-> +		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
-> +		backlight = <&backlight>;
-> +
-> +		port {
-> +			panel_in: endpoint {
-> +				remote-endpoint = <&ltdc_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&timers2 {
-> +	status = "okay";
-> +
-> +	pwm2: pwm {
-> +		pinctrl-0 = <&pwm2_pins_a>;
-> +		pinctrl-1 = <&pwm2_sleep_pins_a>;
-> +		pinctrl-names = "default", "sleep";
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&timers4 {
-> +	status = "okay";
-> +
-> +	pwm4: pwm {
-> +		pinctrl-names = "default", "sleep";
-> +		pinctrl-0 = <&pwm4_pins_a>;
-> +		pinctrl-1 = <&pwm4_sleep_pins_a>;
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&usart1 {
-> +	pinctrl-names = "default", "idle", "sleep";
-> +	pinctrl-0 = <&usart1_pins_b>;
-> +	pinctrl-1 = <&usart1_idle_pins_b>;
-> +	pinctrl-2 = <&usart1_sleep_pins_b>;
-> +	/delete-property/ dmas;
-> +	/delete-property/ dma-names;
-> +	status = "okay";
-> +};
-> +
-> +&usart2 {
-> +	pinctrl-names = "default", "idle", "sleep";
-> +	pinctrl-0 = <&usart2_pins_a>;
-> +	pinctrl-1 = <&usart2_idle_pins_a>;
-> +	pinctrl-2 = <&usart2_sleep_pins_a>;
-> +	/delete-property/ dmas;
-> +	/delete-property/ dma-names;
-> +	status = "okay";
-> +};
 
+Best regards,
+Krzysztof
