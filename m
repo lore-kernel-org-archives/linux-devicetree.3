@@ -1,38 +1,39 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EA71B78F3;
-	Fri,  5 Jun 2026 21:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF7737CD33;
+	Fri,  5 Jun 2026 21:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780694221; cv=none; b=QfVGx8XoztLnQsqc/7MBueEkJn08uxN8qivjCVOn6Ka1H6Rt3/XwnOFBT3ABiZ9bs0Ye8yf6T5y0uSOceQU9nfiewBhEbv9J033jm/5ecf4EBG6bemhMBFdEFdq95qBaohc9AZIdZH3DEXKwAS2HKbrm4EyoMCAxqehS1M3M5a4=
+	t=1780694222; cv=none; b=lLC/8DEakFIxU2W19yCOeYgrQxnBXV1WIacgSwl2d390qdOaLixEWlXxNThVxC02oWc3mEclzdMuhvf4Y1XJmpso6eDl4yU3GtSnAKSC6kdbA2wQvAseaqKJQWHjCo4oVTPSVkzzxZ5bdDkfaSjjXaTnTox6mNaVfXxb6MQhGsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780694221; c=relaxed/simple;
-	bh=2mWo7qvKGtyRI8zqGN0FALEm5qQx8MEDXClpk7ipdxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CckOhBkIFzMktkecy7/UK+VP3i5kcmn2E4xTtAmsm7oQw0ixHDzu2DqZz+uR+7BPZK4DLVKb271VndEXPIozvZ5SVSn+lcoo8+2q6e7YE5qp3Q+2Qfa8u6JqeXkSU2EXT9gKRmRRwWsu6dgGTAWwoqKnDiqmJqjHO5cFOGiFGq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=bqzZ5NLe; arc=none smtp.client-ip=212.227.15.18
+	s=arc-20240116; t=1780694222; c=relaxed/simple;
+	bh=qLhJDnbaRNz19Fi8K3B7gjVfvak74cSaN2hmdY8LxEU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aZ1qmp4S7lP5YSc075Gd75AcXd+feFiFMkfZtvXDFfLoka9bZQWUhybkD+k99T6JkLgyL7EA7DU17Y0pyyxRKtZtmm+VlEC4k/rZVZWsG4n7fEFW35nhhEb7hT02+RhJRGqWXUYxl7ZToFXDz9pZ8F0I/yLFB1DiK+4Zk4KftUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=UBRskOvd; arc=none smtp.client-ip=212.227.15.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="bqzZ5NLe"
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="UBRskOvd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1780694217; x=1781299017;
+	s=s31663417; t=1780694218; x=1781299018;
 	i=markus.stockhausen@gmx.de;
-	bh=oFxcuMJ6osgASjMsSZwVcfM+b3rzYyEUR7in+7BB8lM=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
+	bh=8ObT6umpC5lXX2oOCAOJJzvgIq7v4mFjIxpxD0yyQqU=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=bqzZ5NLe0zjL1OpLySt4h2W7rHSdVACXwKbszAoWTSxaNVHtGzG8I5J7qAq+wKHs
-	 o4J0r9/zLlrrVtIC5ry8Zat/jtY5cAN+Ig26HID+h82xVB3iXm2xJ0VkB5QfKwBCO
-	 8Nun4w5IC1ngkXcvvJB4tjY0kh6fWA6Wyq+rSm8cQjIu4iaoHWU0UAXrJeT32kfnP
-	 J81MWVVFPROSvSUXgi0VOt/uAvn17y9jbn//NtAjaP943a9hQQ15YuC4oRV0DfEm2
-	 QiwYvaGCdiuLp4L//Fpt49HfQ+0HmBRa1wSt2ipuDup+K99d1NSUV/312ENmqackL
-	 DgJ72Geb0ZSIU9h5Fg==
+	b=UBRskOvdZD+VnFo7pzwdExqQdd9iYh60Kov+Szu+q2bbw7yYS0stRoTRe1+7SSNd
+	 DXzSUklprLXmY/jTLwSGKjbbMRYv5FdlVe0a6KPi1HWLlg2si+vYL0RJTejwHChRF
+	 WXqeq8Z8jBe0f7V2PC6nEmc2/z2Ij54GYZCJ8qauhgMvXoA0vr8V6B/KwrAJj903x
+	 6bTSm+VVCRSONqi9jW6/h0lUGngmERTQ+H8FQZ+F0VMRpJhjRT0eluVgY/cw0jTPX
+	 0oAQN2IvdE6G78QJw5dcWaRkeagEFiLufUB5Bw/aQA28dEwLrPCvVuctfGq+GLA8T
+	 7qOTy1Jv8PqozltG5w==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MWzk3-1wkkC0346D-00SPPm; Fri, 05
- Jun 2026 23:16:57 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mj8qd-1xA9KZ2SPd-00cQKU; Fri, 05
+ Jun 2026 23:16:58 +0200
 From: Markus Stockhausen <markus.stockhausen@gmx.de>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -44,10 +45,12 @@ To: robh@kernel.org,
 	tglx@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH 0/7] irqchip/irq-realtek-rtl: Add multi parent support
-Date: Fri,  5 Jun 2026 23:16:39 +0200
-Message-ID: <20260605211646.2101652-1-markus.stockhausen@gmx.de>
+Subject: [PATCH 4/7] irqchip/irq-realtek-rtl: Add mask for interrupt handling
+Date: Fri,  5 Jun 2026 23:16:43 +0200
+Message-ID: <20260605211646.2101652-5-markus.stockhausen@gmx.de>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260605211646.2101652-1-markus.stockhausen@gmx.de>
+References: <20260605211646.2101652-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,134 +58,147 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:R44xBIaN35ZZpkrt3W16OPyne1Ze6Pn96K9j4AoqdJja0FAD1Hd
- wfE4z2brRFmfWD49el3AqEN/GhzEo3r8g0S546UM/VfYFuMgwk6GWsDX/AzN0G+weqGS+7D
- 3ePIJw6W1McvDsb2etV8f8JVAxuPRuHrpufcktbsr0ux1CSbEEj5ocSrRq6F4cL/aTcboi+
- INkP0QqBj5X9jP4U5yBBw==
+X-Provags-ID: V03:K1:JJLzGYBRdGpSl4teYOtU44xWk/WjceSUYoKOKgonqxnsSGksbeU
+ lAof3zQ3r1s3mmpc7+Q+BnCqB8daIDSc1r3fm3iwmhhTAEjdZZ33T9khnvhcLhOB3ZLou84
+ vdy/vWAP5c62sgw+rZI0WSbsQUUSaHhHk0ocmnd+IvuJeBKo2B1uXODhEJz95pQzYxp6RbK
+ JeOESFA/rXHx7aLP3sixg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:lnA4qbkwHok=;Bbl3UIdls2xjS6DU7z2S521nirb
- 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
- Bo2WbxbsJccp3MV3PYpU5lRnIHw=
+UI-OutboundReport: notjunk:1;M01:P0:ja9SdPxTc8w=;GktF1nmwmzGc7n1LWx1X/PDfSFJ
+ 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
 
-The Realtek Otto switch series consists of multiple devices.
-
-- RTL838x: single core (Realtek proprietary IRQ controller)
-- RTL839x: multi core (Realtek proprietary IRQ controller)
-- RTL930x: multi core (Realtek proprietary IRQ controller)
-- RTL931x: multi core (MIPS GIC controller)
-
-The proprietary interrupt controller supports hardware interrupt
-routing. To be precise:
-
-- The hardware knows up to 32 different interrupts.
-- These can be assigned dynamically to the normal MIPS=20
-  interrupts (2-6).
-
-For this each of the 32 hardware interrupts has a routing
-register. If properly set up, important interrupts (like
-timers) can be prioritized.
-
-Until now all interrupts are always routed to the low priority
-MIPS interrupt 2. This series extends the driver by registering
-multiple domains for the different MIPS interrupts and adding
-the possibility for hardware devices to map a desired parent
-interrupt.
+When using multiple domains for the Interrupt controller, each one
+must know which hardware interrupts it serves. Add a mask that is
+filled during setup and apply it during interrupt handling.
 
 Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
 =2D--
+ drivers/irqchip/irq-realtek-rtl.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-
-
-Markus Stockhausen (7):
-  dt-bindings: interrupt-controller: realtek,rtl-intc: Allow 2 interrupt
-    cells
-  irqchip/irq-realtek-rtl: Use helper for parent setup
-  irqchip/irq-realtek-rtl: Add interrupt data structure
-  irqchip/irq-realtek-rtl: Add mask for interrupt handling
-  irqchip/irq-realtek-rtl: Add a select function
-  irqchip/irq-realtek-rtl: Allow shuffled interrupt order
-  irqchip/irq-realtek-rtl: Activate multiple parents
-
- .../realtek,rtl-intc.yaml                     |   5 +-
- drivers/irqchip/irq-realtek-rtl.c             | 152 +++++++++++++-----
- 2 files changed, 113 insertions(+), 44 deletions(-)
-
+diff --git a/drivers/irqchip/irq-realtek-rtl.c b/drivers/irqchip/irq-realt=
+ek-rtl.c
+index 9629b4bed635..508c2dae7ec1 100644
+=2D-- a/drivers/irqchip/irq-realtek-rtl.c
++++ b/drivers/irqchip/irq-realtek-rtl.c
+@@ -27,6 +27,7 @@
+=20
+ struct realtek_ictl_output {
+ 	struct irq_domain *domain;
++	u32 mask;
+ };
+=20
+ static DEFINE_RAW_SPINLOCK(irq_lock);
+@@ -109,15 +110,17 @@ static struct irq_chip realtek_ictl_irq =3D {
+ 	.irq_set_affinity	=3D realtek_ictl_irq_affinity,
+ };
+=20
+-static int intc_map(struct irq_domain *d, unsigned int irq, irq_hw_number=
+_t hw)
++static int intc_map(struct irq_domain *d, unsigned int irq, irq_hw_number=
+_t hw_irq)
+ {
++	struct realtek_ictl_output *output =3D d->host_data;
+ 	unsigned int cpu;
+=20
+ 	irq_set_chip_and_handler(irq, &realtek_ictl_irq, handle_level_irq);
+=20
+ 	guard(raw_spinlock_irqsave)(&irq_lock);
++	output->mask |=3D BIT(hw_irq);
+ 	for_each_present_cpu(cpu)
+-		write_irr(cpu, hw, 1);
++		write_irr(cpu, hw_irq, 1);
+=20
+ 	return 0;
+ }
+@@ -136,7 +139,7 @@ static void realtek_irq_dispatch(struct irq_desc *desc=
+)
+ 	unsigned int hw_irq;
+=20
+ 	chained_irq_enter(chip, desc);
+-	pending =3D readl(REG(cpu, RTL_ICTL_GIMR)) & readl(REG(cpu, RTL_ICTL_GIS=
+R));
++	pending =3D readl(REG(cpu, RTL_ICTL_GIMR)) & readl(REG(cpu, RTL_ICTL_GIS=
+R)) & output->mask;
+=20
+ 	if (unlikely(!pending)) {
+ 		spurious_interrupt();
 =2D-=20
 2.54.0
 
