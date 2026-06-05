@@ -1,88 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.netcube.li (mail.netcube.li [173.249.15.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9C1377543;
-	Fri,  5 Jun 2026 19:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213D9388E71;
+	Fri,  5 Jun 2026 19:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.249.15.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780686401; cv=none; b=qRGDGd8B02Emv4qD7o+VLZdx8E+TWh6l9OMNyPZMt2K9aZJ+53+C2FBCkszqCGD1bgFoE6mUu9MOlW68hQa9gQqU+SlkSKGa2xuQtrCp8JYgZ0pkVoWl1hglulXPrNk2mSaMwq5e0Qv0hRp+lDl9BFnXosCyl1OQQFoN90yfJkI=
+	t=1780686859; cv=none; b=j3P9+gjnlFnR9ox8EZZ3LCRqEN6i3zDC7KWUFnlTg2fE4scoMjw1useMtO5r16KDyY1cl28mh3aMzmmgI7bqeaWWgEap5Ccw+9CKSXYsxAXMgB29ksO57Nb/QCDxDoBX4MSn5F+mKz2MwCIQ1SGF5cwPENRxuAsPl3E9dHpZz8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780686401; c=relaxed/simple;
-	bh=HBQj2WAAvsjLsPaPYx78bH6HEFEJLEckWJTIF2mvvnM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qjd+hVNm10+cNZAruvCWBTsZRYCqG/sI3jAif9zM7020KkwAybZUk94nxFng/Y3Rlxy23pgFYsDNTzpNVqFmvRbTNjUtFGv+tcA2Ay2MwtCif2kuQz5BuAmmH/e5ORHysk2Jt1Bil76vRbxQbcjZVTKGjmtmoMqoixggOB9w9kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/HIQKuU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780686859; c=relaxed/simple;
+	bh=27FZggmFfooUbRXK18oUXNCON2FidPig+TucrvZfa70=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RQrFTkmn7am9kUVwnvoo91i6FdacfRwbbeAcQweg16BhZu8EOKkFwbb1GDAH53ZXhC3STr9/XQ0gWK88mhfxN/gHAp8pQPsRbTcsehPnhxCHLFpauwvwJ6rULj4YW1I3HqeZCfpl1REui/rvVyQegAJ3TZXT6BgKF23eYwOO7t4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=netcube.li; spf=pass smtp.mailfrom=netcube.li; dkim=pass (1024-bit key) header.d=netcube.li header.i=@netcube.li header.b=YJzz/5vB; arc=none smtp.client-ip=173.249.15.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=netcube.li
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netcube.li
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/HIQKuU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF6D1F00893;
-	Fri,  5 Jun 2026 19:06:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780686400;
-	bh=bQdCIlR4TmbHaM9znLMb84vsVtHdadCejRiPSH1vb5U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i/HIQKuUcaZgfPFAZ5IssdsE+mNsFymCVsX8tmr5CYCJNchoNgXkXVTndjq2eCzTd
-	 C8THXRONz3LDXDQFPbA3MLa3lz56fkSSsqSuj/8evfhqCPz3EoiTPsjyAcnLzrVr5Z
-	 /0XDZTvzO0O6VeyNJ/Lro+JcT5L7AXw/CofQzkcu/8A4ROdpgfNhOZ9LXvDpCxjkVl
-	 yaei2UF3t5nipAgno5y6BKjpt2nz0WL56jZK2YW8KQ4rQZVI3Jlm/vzfWokTfedO37
-	 Ojqy4CCWhy1QeSg27AR7n19a3FB/19q0k9ZY4QqGI9CEEq55SwIj30Dw/XSM52ttVy
-	 QxBtTUDE9/0kg==
-Date: Fri, 5 Jun 2026 14:06:38 -0500
-From: Rob Herring <robh@kernel.org>
-To: Oliver White <oliverjwhite07@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (1024-bit key) header.d=netcube.li header.i=@netcube.li header.b="YJzz/5vB"
+dkim-signature: v=1; a=rsa-sha256; d=netcube.li; s=s1;
+	c=relaxed/relaxed; q=dns/txt; h=From:Subject:Date:Message-ID:To:CC:MIME-Version:Content-Transfer-Encoding:In-Reply-To:References;
+	bh=xgNX3BfF0sHR956gYPtFqiQRwqATyVW0rwVI7QS8mHU=;
+	b=YJzz/5vBlwx7hPqGyZX8pBBWsNwfEMrzwPWls6nFnV6qkSpbeJm7yG8G6s32Dg4oaKOzIAqeJ4AtYCxAGfUnJvVGA+B2tS4Sy+W0MLRxCJxuAKalh9oINWhQeuHIMZJkT3w0/xG9qGkQr9MiT90w2ZwsZEWkZXbyiRk9R+D1MYg=
+Received: from lukas-hpz440workstation.lan.sk100508.local (194-166-56-114.hdsl.highway.telekom.at [194.166.56.114])
+	by mail.netcube.li with ESMTPA
+	; Fri, 5 Jun 2026 21:14:02 +0200
+From: Lukas Schmid <lukas.schmid@netcube.li>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Felipe Balbi <balbi@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: usb: dwc3: document
- snps,reinit-phy-on-resume
-Message-ID: <20260605190638.GA4188454-robh@kernel.org>
-References: <20260601231236.20402-1-oliverjwhite07@gmail.com>
- <20260601231236.20402-2-oliverjwhite07@gmail.com>
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Maxime Ripard <mripard@kernel.org>
+Cc: Lukas Schmid <lukas.schmid@netcube.li>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [PATCH v2 1/3] dt-bindings: arm: sunxi: Add NetCube Systems OpenNMC (dobermann)
+Date: Fri,  5 Jun 2026 21:13:13 +0200
+Message-ID: <20260605191322.1920944-2-lukas.schmid@netcube.li>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260605191322.1920944-1-lukas.schmid@netcube.li>
+References: <20260605191322.1920944-1-lukas.schmid@netcube.li>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601231236.20402-2-oliverjwhite07@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 02, 2026 at 11:12:34AM +1200, Oliver White wrote:
-> Add the documentation for the 'snps,reinit-phy-on-resume' boolean
-> property. When set, the DWC3 core will perform a full phy_exit() +
-> phy_init() cycle on each USB2 PHY during the host-mode fast resume
-> path. This is needed on platforms where the USB2 PHY power domain
-> is gated during deep sleep even when device_may_wakeup is true.
-> 
-> Signed-off-by: Oliver White <oliverjwhite07@gmail.com>
-> ---
->  .../devicetree/bindings/usb/snps,dwc3-common.yaml      | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> index 6c0b8b653824..d12f6ae81ab8 100644
-> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> @@ -212,6 +212,16 @@ properties:
->        When set, run the SOF/ITP counter based on ref_clk.
->      type: boolean
->  
-> +  snps,reinit-phy-on-resume:
-> +    description:
-> +      When set, the DWC3 will re-initialize the USB2 PHYs during the
-> +      host-mode fast resume path (device_may_wakeup). Some platforms
-> +      cut PHY power during deep sleep even when USB wake is enabled,
-> +      and the standard PHY runtime PM resume is insufficient to restore
-> +      the PHY register state. This quirk forces a full phy_exit() +
-> +      phy_init() cycle on each USB2 PHY.
-> +    type: boolean
+The OpenNMC is an open replacement for APC SmartSlot management cards
+based on the Nagami System-on-Module.
 
-This should be implied from a platform specific compatible string.
+Signed-off-by: Lukas Schmid <lukas.schmid@netcube.li>
+---
+ Documentation/devicetree/bindings/arm/sunxi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Rob
+diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+index e6443c266fa1..077b65507645 100644
+--- a/Documentation/devicetree/bindings/arm/sunxi.yaml
++++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+@@ -598,6 +598,7 @@ properties:
+       - description: NetCube Systems Nagami SoM based boards
+         items:
+           - enum:
++              - netcube,dobermann
+               - netcube,nagami-basic-carrier
+               - netcube,nagami-keypad-carrier
+           - const: netcube,nagami
+-- 
+2.47.3
+
+
