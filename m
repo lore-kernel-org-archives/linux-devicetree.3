@@ -1,145 +1,99 @@
-Received: from outbound2.mail.transip.nl (outbound2.mail.transip.nl [149.210.149.73])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FF440E8C0;
-	Fri,  5 Jun 2026 13:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.210.149.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0BA40E8C9;
+	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780665537; cv=none; b=UiJIapdWP0lZU5MMaB5mlJTowKDzDracyFVDTkYlBUMjXRV+XNnot5VZ+F2smPcQ44HdeG1isfjyFO+NzaO9/cU6K00OrYWFKRRxE4QYJV7sUuibJkd+jILv8u5Mwr6XWfgVZPIHwok54LTjp8WCY3KLBCBZCEdxRJFvfwNZHo8=
+	t=1780665562; cv=none; b=pRQGMrIPx1H/JRLFxNfgjq4izmDz1zuwFjAqf9OqZE4KXXttiS2eOK+MjVLxcpGVxZylUVpOHveRueJOiFZIeKMlb7XEirp64QXh/219UEARqMwHOW7Rl0C4b8u41sLSsGnmNv8xcTWq0uUk9xi134nAGVcuT4NIZxYFAonEh8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780665537; c=relaxed/simple;
-	bh=RwrbHH9+9wSryIYzjtFHFD7K/OAgolLTQNAo59cIB1A=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=EzzEoUgbmdWJS1lv0j3fzdY3E0BPd6ylA/gr0M6u+/0sIBejq1PURC/pZMFNQ7DY7Z3harB4NIAmDbb+she2sIBpKwEq9/1M9S/PUlpoEH6U7oQkOl2F3BhjaQ6t1p5WX/aBV8J4MQo6r5OSGJrQrdigZ0mAfrSBPRpi2QeqT5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=iuOBXaDG; arc=none smtp.client-ip=149.210.149.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780665562; c=relaxed/simple;
+	bh=AibvCBZ8Yr4YAy8YqBvl7h6bbfZ1zXprocEIa1dOlVo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DIXqCtA2zlglWXx4v6vKY4lzgBer72nq5fWWBncs7T9J/WURvhP9x9px36B5h21hsJjl4gukgBX0t3o4XSa32OOnFQSWITkoE2H2tlfBL/foPVip1inHLjq3tSZyHj8zolOvOC3SfdYDxbTYtB/QF10IrUtdTpYIxy+9Z0/BDv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zu87s7KW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="iuOBXaDG"
-Received: from submission14.mail.transip.nl (unknown [10.103.8.165])
-	by outbound2.mail.transip.nl (Postfix) with ESMTP id 4gX27l3ZG9zYdrq;
-	Fri,  5 Jun 2026 15:18:43 +0200 (CEST)
-Received: from transip.email (unknown [10.103.8.120])
-	by submission14.mail.transip.nl (Postfix) with ESMTPA id 4gX27j5kYqz3RgQtt;
-	Fri,  5 Jun 2026 15:18:41 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zu87s7KW"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 80340C2BCC4;
+	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780665562;
+	bh=AibvCBZ8Yr4YAy8YqBvl7h6bbfZ1zXprocEIa1dOlVo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Zu87s7KW7LU2GDWszePJeTuMTj7FXM19dhs2jOpuJhukz9X8qareLWbyd4+8S/FcP
+	 QvlJrrDf/Pal/PQG95iCltNkSgWh5ok019T7i/V1ddE2bvslRGTXWtw/5LxpfQbA5c
+	 CbGkxkxtkcrqf/lIrlUxEk5eJv1VL/UfpAoEqOQ1tAHscQ396i6zbQs+qP9cvHJIZ8
+	 RmU0T8JRLhTvYe+exP33z+tJt6eknfgjWsm64hh+idiHBaifdzfYYS7k5iJpSLwFbP
+	 wOveRnd2PQN8aQcNywqMBzqZudRPo7NXUf1krKteN8DBJcLgplpoST3bJ32lyJOK1k
+	 mnObnnSK/ERVg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 677D4CD6E7D;
+	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
+From: David Wales via B4 Relay <devnull+daviewales.disroot.org@kernel.org>
+Date: Fri, 05 Jun 2026 23:19:11 +1000
+Subject: [PATCH v4 1/2] dt-bindings: arm: qcom: Add Motorola Moto G2 (2014)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 05 Jun 2026 15:18:41 +0200
-From: me@herrie.org
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>, Herman van Hazendonk
- <github.com@herrie.org>, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- tomasborquez13@gmail.com, masneyb@onstation.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: iio: light: isl29018: add
- isil,cover-comp-gain
-Reply-To: github.com@herrie.org
-Mail-Reply-To: github.com@herrie.org
-In-Reply-To: <20260605140449.1d7538ee@jic23-huawei>
-References: <20260604100617.3486541-1-github.com@herrie.org>
- <20260604100617.3486541-3-github.com@herrie.org>
- <20260604-energy-lid-e7949164431a@spud>
- <20260605140449.1d7538ee@jic23-huawei>
-User-Agent: Webmail
-Message-ID: <b6919a62f06ad8e4e80232d9b2a0e706@herrie.org>
-X-Sender: me@herrie.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: ClueGetter at submission14.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780665523; h=from:reply-to:subject:to:
- cc:references:in-reply-to:date:mime-version:content-type;
- bh=09KWYWN3aDGlrvx5eZ+tQ7JdO5jM2Se3rJrxGagpMz8=;
- b=iuOBXaDGiRGXGJzsHc1qGmOqznJVr6hvFDmx4hCZUOdCIIIAsgq6MI4zq2KnGPtQ03O6Vi
- wdV+Hzk0jWaZOMDhsedGGatDEotRQQeQ4FB9Cp/iOOxiEUyeGzV1F3dld5vCyH7IViK0r3
- 2JKajZK5BYRC7e5iFddmqRI0B2u8rwNLStv8s+LGMIdVSN6rTcY4oDRLoXcbQl8NfZybWt
- QO/62GcfjM3qXJc2qg4ybqsmnSi0W3WQUKZYd9htvBpRGYfc9Byoy9JTxbUyDLbvwfeo6i
- 96yYwLze4e01yZ+y+cmMpNAGaK0xsN3ptYNAQMrwF3hnwLFQY97J7VPDy5u/Sg==
-X-Report-Abuse-To: abuse@transip.nl
+Message-Id: <20260605-device-motorola-titan-mainline-v4-1-08a7be31f05c@disroot.org>
+References: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
+In-Reply-To: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ David Wales <daviewales@disroot.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=871;
+ i=daviewales@disroot.org; h=from:subject:message-id;
+ bh=jBv/WRLzVN0AQTAYpLJKebbhWke/WqhwJrSIev0LDSE=;
+ b=owEBbQGS/pANAwAKAW1jV4FG9KFmAcsmYgBqIszXdatheWB4D+GMsg3dy2VNNVFI9RNKhj8vE
+ aao/Uf6bvuJATMEAAEKAB0WIQTXikd3yUPmOPWSLPJtY1eBRvShZgUCaiLM1wAKCRBtY1eBRvSh
+ ZurpB/9crbf6RjfUb+3kGTIEenHrWZGD5rbK3BaKczpRvVbEO23nAEzycPVUh7bBslnamz1ev5a
+ mnRCBOiV058RFyUFqdeiHYCMUE/nPOlEYMjI4eBl5fli1asnq2yxjC8Q5WjCdZv8qdsI1bWJdRO
+ oRZgQf5s+z242yDy5DiKrk0dAmoY4LQsNxrlRi3GTRxpxFheHFHzDtdBYT4gegZqeky2VRGCYRx
+ X1Ovgl5eFNv71T+hML+vDgSVsO7pGeFGbzKsbUAFIdhPBj5uD7YedCtGArBi6Tz4jQK2fRYbypL
+ f8ZF3NEuDB0qbobe5BD+TpIDkY4e7aUHDspUMWNyqhlRxuKj
+X-Developer-Key: i=daviewales@disroot.org; a=openpgp;
+ fpr=8F5BAFB15444A769DC3B61684022B817D275D037
+X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
+ auth_id=737
+X-Original-From: David Wales <daviewales@disroot.org>
+Reply-To: daviewales@disroot.org
 
-On 2026-06-05 15:04, Jonathan Cameron wrote:
-> On Thu, 4 Jun 2026 18:01:08 +0100
-> Conor Dooley <conor@kernel.org> wrote:
-> 
->> On Thu, Jun 04, 2026 at 12:06:16PM +0200, Herman van Hazendonk wrote:
->> > Document the new optional property that seeds the ISL29018 calibration
->> > scale factor at boot from firmware, allowing boards with tinted cover
->> > glass to ship with correct luminance readings without a userspace helper.
->> >
->> > The value is a positive integer (minimum 1, maximum 65535) that is
->> > multiplied with the raw lux reading.  Userspace can still override it
->> > at runtime through in_illuminance0_calibscale.
->> >
->> > Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
->> > ---
->> >  .../devicetree/bindings/iio/light/isl29018.yaml     | 13 +++++++++++++
->> >  1 file changed, 13 insertions(+)
->> >
->> > diff --git a/Documentation/devicetree/bindings/iio/light/isl29018.yaml b/Documentation/devicetree/bindings/iio/light/isl29018.yaml
->> > index 0ea278b07d1c..92ea2742bbd3 100644
->> > --- a/Documentation/devicetree/bindings/iio/light/isl29018.yaml
->> > +++ b/Documentation/devicetree/bindings/iio/light/isl29018.yaml
->> > @@ -34,6 +34,19 @@ properties:
->> >    vcc-supply:
->> >      description: Regulator that provides power to the sensor
->> >
->> > +  isil,cover-comp-gain:
->> > +    description: |
->> > +      Multiplier applied to the ambient-light reading at startup to
->> > +      compensate for optical loss in the board's cover glass. Boards
->> > +      that mount the sensor under a tinted or coated window typically
->> > +      need a value between a few and a few hundred.
-> 
-> Is it useful to support decimal points on these values?  The userspace 
-> interface
-> does and you mention the 'right' answer might be only a few which means 
-> precision
-> at that range will be terrible - less of an issue if 100s!
-> 
-> Thanks
-> 
-> Jonathan
-> 
-Hard to say, my old HP TouchPad needs 100 as a value here (taken from 
-legacy 2.6.35
-kernel and binaries). So we probably don't need precision, but I have no 
-other
-references to substantiate.
+From: David Wales <daviewales@disroot.org>
 
-Thanks
-Herman
-> 
-> 
->> 
->> > The value seeds
->> > +      in_illuminance0_calibscale, so it can still be retuned at
->> > +      runtime through sysfs.
->> 
->> Delete this, driver implementation stuff isn't relevant to the
->> devicetree binding.
->> 
->> With that gone,
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> 
->> pw-bot: changes-requested
->> 
->> Cheers,
->> Conor.
->> 
->> > +    $ref: /schemas/types.yaml#/definitions/uint32
->> > +    minimum: 1
->> > +    maximum: 65535
->> > +    default: 1
->> > +
->> >  required:
->> >    - compatible
->> >    - reg
->> > --
->> > 2.43.0
->> >
+Document the Motorola Moto G2 (2014), which is a smartphone based on the
+Qualcomm MSM8226 SoC.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: David Wales <daviewales@disroot.org>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index d48c625d3fc4..3dec521bfd11 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -72,6 +72,7 @@ properties:
+               - microsoft,makepeace
+               - microsoft,moneypenny
+               - motorola,falcon
++              - motorola,titan
+               - samsung,ms013g
+               - samsung,s3ve3g
+           - const: qcom,msm8226
+
+-- 
+2.54.0
+
+
