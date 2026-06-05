@@ -1,286 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7730D4D2EDE
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF9B4D8D91
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780658114; cv=none; b=SS1/xIE6vIIwVTny94cY7cr5qb3nwK027ARGhcVinKLWPKx0uVyDTDFeOTgpoXDACgrgQ3xRliMaSxjMy+l0Xf4JQo4e9AsYi0JtYI8r9rPCaKpiKsRxl6xFpmr+KSQu6WNoWkudtaICp872UXaa4qBI5Hg85XFUh3RQmnK9E0o=
+	t=1780658369; cv=none; b=sK98ryX83DaHbadpaT4YRdOe8V0rJVsEfXiq2zRa9E8z/2h4tvXlK/7uh747AaGJ5YFVbJwrz1zu+ZUojRKtTeshwiDS/hGBl91CvRVYZwCwXE/UzpQD4gKxHOHkoBMpWaHi0f6tUBv0Ww1i5WY1EMXHLNc25Ivv754GZ7r1XVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780658114; c=relaxed/simple;
-	bh=046iIU+6XdHj/RATYrhQOf3blG2kSuAp6B5tONx8jzw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ALEUezXZST+FeifL0vMuGorzhRFNnyN9Iiw4+qXzEm19PWRKdDYu/owLAetW3C9/nre3UDLm76TFsQgLfZSx7/Jiwzq4cLSLw0E9hnSSf7HO0gEfPxvqoooGrcEKLsiclwNEcvZnG+8KIpOCZDxkGPo6jYbGqPBS6EonroKNqVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwkH8xgY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780658369; c=relaxed/simple;
+	bh=Hno3yiqDgD9bZJJwY7n5fLKWiLMFOXKg1w6K7rsVM88=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JY2iMM4y0DbEu0J+utvfgdvlE7LtaFpxfOnUS8BXEziGAKNFAdmqddPzm8w7K0nFGs55cFRklRA+UiEF31xMPrTnnm7HZ7zqC4BFFpE1KrtZQ8vhr1pDBZBX3ZvD5XjL7LY1EKo1e04zUdokg5/DjhfXvcI6W3x+8JOl/k45nbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ThW7AMW/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IEdeIjhF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwkH8xgY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B341F00893;
-	Fri,  5 Jun 2026 11:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780658113;
-	bh=MEXR3q2oValdEaZuNIPPM3JxWXwlBoAMpKPSIyHEtuw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CwkH8xgYo9S9FthjIVf2o6FuAgY8y3aNjr2Yu9xeyJBKecoJ929EBUbXPxjANFPyy
-	 Smjhd406C0IfyFCLpW0seAnjb4rTY7Ha6juwamtg+TEy9txk301gJ6v04bjVjBhSI9
-	 ruupyhwGmurWVx00l6phRnbRvGyogK5hHDio8fV0lYQVpspCcgwqX1IgLVoEjSswnw
-	 3/7B5Ifloa6odqLsXnqQdClS6D+2dZPCq8uXPfMy5WIjev7x0ik9c8ABO0rNKjRa4K
-	 nlOnBRcPHHjavoA0MlAEFy8pumHOVhl17wunJP1YBC3EXRFt70ZpJffSjlTBLvGsOI
-	 r5g6WiimoiRSg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/13] ASoC: qcom: Add QAIF regmap, DT parsing and
- platform init
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260605103739.3557573-11-harendra.gautam@oss.qualcomm.com>
-References: <20260605103739.3557573-11-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 11:15:12 +0000
-Message-Id: <20260605111512.E9B341F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ThW7AMW/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IEdeIjhF"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65575YhT1501999
+	for <devicetree@vger.kernel.org>; Fri, 5 Jun 2026 11:19:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=FQqVQt5Xe7OTDM8AnHOfVt
+	1NXuwCB3WyrISJperJfGU=; b=ThW7AMW/iPZ4fmrXI7tfwQs2hv/iXvBblj7btD
+	0WHSUVdV5zSd1i0A6d5+IZvomKvdLwwv5dw8qEBsFeb1C+4sYuWSBVRHdchdi7Q5
+	8Ura+L5bZjjW4izWSe63gCJOJzYRXxTW56GzIqe1tTZsRJROst4lOT8Yz875UwGY
+	WE1DHKjCuRyULZ0xHKlzk5nXzoIRFGWejRg1vhh9+82PwooSIILDX3FDvSMG8+Yw
+	od+PHFy1/Hk+kjJ+vXqD5uU5gC2quPI5f8Ui8Ofw+2OwaL6BN7/aoEue/1cwucSc
+	xgn6BuKinLsYqQW//o61SwMOE7CLFeu59491WZnoR5QZERug==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eksrwry6f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 11:19:25 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2bf243973c2so13241805ad.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 04:19:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780658365; x=1781263165; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FQqVQt5Xe7OTDM8AnHOfVt1NXuwCB3WyrISJperJfGU=;
+        b=IEdeIjhFL9c3LYeF2ZxU6YNlZ9kRP34naCrgLfkxkv6sI+OIFrkScZbauokSs8YhCF
+         FQ8ge0PQPQH1VniLx1N7GnSzA1MCC2KSw75bQE8Ur96wvkYrcxJbKHLvWAV6ObwlF1I9
+         AGl2XD0jcwrPhThVzd6j37NubRMQLD6N0u6CZEt+NfqZcfPm+ZznhuXFPNfm0BjhVGIx
+         3cdkuurXWaIRexuOfqm0UK5f4bkTK64quCcirNQPS9f3ePCwHzIr0Vq3kYVAsGpHW/Oj
+         RE3mHgnYQ2xuJuyGGBWTHOqFlEhLcPbcmdXZPyIBLoSTosTZK6LhBA9Z99Qzv93/Somt
+         BpCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780658365; x=1781263165;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FQqVQt5Xe7OTDM8AnHOfVt1NXuwCB3WyrISJperJfGU=;
+        b=nGgrX7ZyOf4mGPfyHYxXDwGR6XmFOUXktSypTjX8s9rCbdM33V1d958C3SFIyUpRmv
+         Hn8n+vVz2SdDF5DwXokVOH/wCkEHsriOQazqvwqgBGW2+Gnb6VFIdlKcXWUkhH2f7MT8
+         QKNbvvZvJENelZzx6m2J5v4JVIQxEltfQaa71hhl8h3WhRxV3ouwp031bQKlMhTfddU6
+         mvxqplbMuMaIiZLLXdutLtnLpDrpSzqsYiQBt2kRQDQRp/4VLlmXJs7f0nSEW3R9PJew
+         McAFENu8wFkjgpzExeZhVY3zQmmoA82mN6afjDrC8OgkMHrurp3sqSyktQsh3R/700if
+         LPbg==
+X-Forwarded-Encrypted: i=1; AFNElJ9VLDSM5iqMBzBlvkgjVzkUEdvfnrQdZV8AYwor+ujknWxfxmG//BVTKnxeFvEGtD+Xdt5SrP1p3D97@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6oge6+WudKm8Oq+Dv1jAkt3axwTSu6oI1RoWFaHsBWOZjvD56
+	WX/PsMV0qZaum6XBxYjVZzSR42b81EEAZoejWKGs4GDb7v/x25AvR5qU8V0My9ylfLMnB42FtoJ
+	OAeecQDOgptBiVhrqeKCrLF49y+e2pBYExqc3Mabj3mFgI7MGTgjdW1NXySVzALAb
+X-Gm-Gg: Acq92OF12JOIS5UPgOUadsVC+WjRCyu4nWLfANh1VDCNGyYthXFRcosInyHvWJlGPr1
+	diiabzQyw3GLkb3No9XVfQ6oDIxPIUaNyGcn3A8APpFI0ySM/FLeHKgVjJI5XPhGFADjq0S2aWp
+	J9fi/EEE9Ej/VKn1eWHsa6gqZ6w+D3O03ekgQ1bYf3t/dD3PUXWuHPr2iRStdclnzbJ0ImWAB+x
+	uzdfHRvQsa3x/Aa9M6zGjJSZsECQLbTmZ0uezkc7gqfSbb7wJ54CLhLKEl/XuDn3RLYkM2GHNg2
+	t1s6JPclVHatvlG2aQM4LVaYQfcaTxVcqBujss/+hS2V2lXnWgKgCLErCQZbsh255VamDsu67db
+	etKbvwJLdZLvrarLCLsvxNrKyYJZVmwZTazCu1FPzuNA/hM6/Bub1pVFEh6f29Lk=
+X-Received: by 2002:a17:903:4b47:b0:2c0:a57c:ebff with SMTP id d9443c01a7336-2c1e79e2110mr32863265ad.2.1780658364705;
+        Fri, 05 Jun 2026 04:19:24 -0700 (PDT)
+X-Received: by 2002:a17:903:4b47:b0:2c0:a57c:ebff with SMTP id d9443c01a7336-2c1e79e2110mr32862645ad.2.1780658364171;
+        Fri, 05 Jun 2026 04:19:24 -0700 (PDT)
+Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d395sm124551665ad.17.2026.06.05.04.19.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 04:19:23 -0700 (PDT)
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Subject: [PATCH v4 0/4] clk: qcom: Add RPMCC and GCC support for the
+ Qualcomm Shikra SoC
+Date: Fri, 05 Jun 2026 16:49:10 +0530
+Message-Id: <20260605-shikra-gcc-rpmcc-clks-v4-0-a0a7bfb44455@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK6wImoC/4XNyQ6CMBQF0F8hXVvy6EDBlf9hXJQO0CCDrRIN4
+ d8tbNhI3NzkvuSeN6NgvDMBnZMZeTO54IY+FnZKkGpkXxvsdOyIAMmBkRKHxrVe4lop7Mcuprq
+ 3ARMomdHWWloBitvRG+vem3u9xd648Bz8Z3szZev1nzhlGLCiSgvBeVEJeRlCSB8veVdD16Ux0
+ ApPZMc4FEcYiVhBCS0qSRjkcIDRHcshO8JoxESuGOeWay7KH9iyLF9pdHWRWwEAAA==
+X-Change-ID: 20260429-shikra-gcc-rpmcc-clks-2094edfff3b0
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Brian Masney <bmasney@redhat.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=L5ktheT8 c=1 sm=1 tr=0 ts=6a22b0bd cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vqexoKkBG-sCeqS34qIA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA1MDExMCBTYWx0ZWRfXz3JJshWMuvox
+ kB26mHjZR0H7SIP4qCvP0jullyDTL6WU9nJcsXvEBhQnGyZ7Xrpot6fz22rKGnU2rG2P2EhD0X+
+ TWg4MUq8a2Gl6PNAlNJ5UfWVZKi7qomHtWP+mkUZhVn9HtSUZJkTVSoTlW/7KPElMti+AzI8mGq
+ 5u+XSVbL+ORgnUeIh54XHA5JZjj4dHc8wkxHtjT4cspLLPWJCjvr+bQF1Yg4YNFBl1ihi2hwscd
+ IW+/RFT/aFCnM48VmErqJqls4JYase1Pc0eKGG5I45kFytbX3qQwb6Xtqtgy/vQ28e1R0+q9PP4
+ c78mC2idtqtgi712JrE8hbpvHKRF3ZaFsG5q2nQ933E5+tomT5KvplY/J8577reOSuxjGnunyOM
+ cvylcmtdxht1eFs4rgH1Jw/Wz9bcM1f8F52WoMAsPHBWRvZIID651McAWK2to5m2uuScnmG7IyJ
+ VY/iNmEEq8Ij19dQ8hw==
+X-Proofpoint-ORIG-GUID: 9f7G3W4EhQibpEiiFjtTlRe9QjFHxsZ9
+X-Proofpoint-GUID: 9f7G3W4EhQibpEiiFjtTlRe9QjFHxsZ9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-05_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606050110
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Missing lock protection around `qaif_init_ref_cnt` leads to un-ser=
-ialized hardware initialization data race.
-- [High] Using `GENMASK` with unchecked channel counts (e.g., `v->num_rddma=
- - 1`) causes integer underflow and undefined behavior if the count is zero.
-- [High] Component teardown order is inverted, shutting down hardware befor=
-e devm-managed ALSA components are unregistered.
-- [High] Modifying the global static `regmap_config` structure during probe=
- causes race conditions and an out-of-bounds register access bug.
-- [High] The error code from enabling the AIF CTL register is overwritten w=
-ithout being returned, allowing a stream to silently fail to start.
-- [High] A missing `qcom,qaif-aif-bits-per-lane` property defaults to 0, ca=
-using underflows during regmap writes and setting the DAI bitclock to 0Hz.
-- [Medium] Variable `intf_idx` is declared as an unsigned 32-bit integer, m=
-aking the error check `if (intf_idx < 0)` tautologically false.
-- [Medium] Accumulating negative error codes using bitwise OR (`ret |=3D re=
-gmap_write(...)`) corrupts the return value.
---
+This series adds support for the Global Clock Controller (GCC) and
+RPM-managed clocks on Qualcomm Shikra SoC.
 
-commit 84915833d4dcf01d21e4e1a894c18953827f441d
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Qualcomm Shikra SoC details:
+ - https://lore.kernel.org/all/20260428-shikra-socid-v1-0-6ff16bad5ea2@oss.qualcomm.com/
 
-    ASoC: qcom: Add QAIF regmap, DT parsing and platform init
-   =20
-    Add the core CPU and platform bring-up needed for the Qualcomm Audio
-    Interface driver.
-   =20
-    The existing QAIF DAI code needs device-level infrastructure before it =
-can
-    configure interfaces or run PCM streams. Add the MMIO regmap setup,
-    including readable, writable and volatile register tables, so the driver
-    can safely access QAIF control, DMA, interrupt and SHRAM registers.
+Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+---
+Changes in v4:
+- Updated GCC critical cbcrs list to add GCC LPASS clocks which are
+  required for Audiocorecc register access.
+- Link to v3: https://lore.kernel.org/r/20260601-shikra-gcc-rpmcc-clks-v3-0-76c455f5d579@oss.qualcomm.com
 
-> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
-> index c9c8d78c5f5f8..e1030f5b17524 100644
-> --- a/sound/soc/qcom/qaif-cpu.c
-> +++ b/sound/soc/qcom/qaif-cpu.c
-> @@ -783,3 +783,804 @@ const struct snd_soc_dai_ops asoc_qcom_qaif_aif_cpu=
-_dai_ops =3D {
->  	.trigger	=3D qaif_aif_cpu_daiops_trigger,
->  };
+Changes in v3:
+- Squashed GCC USB3 DP PHY reset support changes and picked the R-by tags
+  from the following GCC USB reset series.
+  - https://lore.kernel.org/all/20260526-shikra-gcc-usb-resets-v1-0-6d9e7fee2998@oss.qualcomm.com/
+- Added R-By tag received on v2
+- Link to v2: https://lore.kernel.org/r/20260508-shikra-gcc-rpmcc-clks-v2-0-83238ba24060@oss.qualcomm.com
 
-[Severity: High]
-Does qaif_aif_cpu_daiops_trigger() overwrite the error code from enabling t=
-he
-AIF CTL register?
+Changes in v2:
+- Dropped defconfig patch and enabled driver from Kconfig [Krzysztof]
+- Updated GCC bindings and driver patches
+- Added R-By tags received on v1
+- Link to v1: https://lore.kernel.org/r/20260429-shikra-gcc-rpmcc-clks-v1-0-c3cd77558b7a@oss.qualcomm.com
 
-In the SNDRV_PCM_TRIGGER_START path of qaif_aif_cpu_daiops_trigger(), the
-driver calls regmap_fields_write() to turn on the interface. If this write
-fails, it logs an error but proceeds to call clk_enable(), overwriting the
-ret variable.
+---
+Imran Shaik (4):
+      dt-bindings: clock: qcom,rpmcc: Add Qualcomm Shikra SoC RPMCC
+      dt-bindings: clock: qcom: Add Qualcomm Shikra SoC Global Clock Controller
+      clk: qcom: smd-rpm: Add support for RPM clocks on Qualcomm Shikra SoC
+      clk: qcom: Add Global clock controller support on Qualcomm Shikra SoC
 
-If the clock enables successfully, the trigger function returns 0 (success)
-to the ALSA core. The framework and application will falsely assume the
-stream is running, but the hardware interface remains disabled, resulting
-in silent audio playback/capture failures.
+ .../devicetree/bindings/clock/qcom,rpmcc.yaml      |    2 +
+ .../devicetree/bindings/clock/qcom,shikra-gcc.yaml |   70 +
+ drivers/clk/qcom/Kconfig                           |   10 +
+ drivers/clk/qcom/Makefile                          |    1 +
+ drivers/clk/qcom/clk-smd-rpm.c                     |   39 +
+ drivers/clk/qcom/gcc-shikra.c                      | 4431 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,shikra-gcc.h        |  263 ++
+ 7 files changed, 4816 insertions(+)
+---
+base-commit: b99ae45861eccff1e1d8c7b05a13650be805d437
+change-id: 20260429-shikra-gcc-rpmcc-clks-2094edfff3b0
 
-[ ... ]
-> +static int of_qaif_parse_aif_intf_cfg(struct device *dev,
-> +					struct qaif_drv_data *data)
-> +{
-[ ... ]
-> +		if (v->get_dma_idx) {
-> +			intf_idx =3D v->get_dma_idx(dai_id);
-> +			if (intf_idx < 0) {
+Best regards,
+-- 
+Imran Shaik <imran.shaik@oss.qualcomm.com>
 
-[Severity: Medium]
-Since intf_idx is declared as a u32, will this check for negative error cod=
-es
-ever evaluate to true?
-
-If v->get_dma_idx() returns a negative error code like -EINVAL, it wraps to=
- a
-large positive integer. The check intf_idx < 0 will always evaluate to fals=
-e,
-bypassing this error path. The error is only caught by the subsequent bounds
-check, which will print a misleading error message instead of failing prope=
-rly.
-
-[ ... ]
-> +		/* Parse frame configuration */
-> +		cfg->full_cycle_en =3D of_property_read_bool(intf_np, "qcom,qaif-aif-f=
-ull-cycle-en");
-> +
-> +		ret =3D of_property_read_u32(intf_np, "qcom,qaif-aif-bits-per-lane", &=
-cfg->bits_per_lane);
-> +		if (ret) {
-> +			dev_warn(dev, "Missing bits-per-lane for interface %d\n", num_interfa=
-ces);
-> +			cfg->bits_per_lane =3D 0;
-
-[Severity: High]
-Does assigning 0 as a default here cause an integer underflow later?
-
-When this default value is used in qaif_aif_cpu_daiops_hw_params(), it caus=
-es
-an integer underflow: (slot_width * 0) - 1 evaluates to 0xFFFFFFFF. This
-illegal value is then written directly to the bits_per_lane hardware
-register field. It also causes clk_set_rate() to request exactly 0Hz
-for the IBIT clock.
-
-[ ... ]
-> +int asoc_qcom_qaif_cpu_platform_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return -EINVAL;
-> +
-> +	audio_qaif_regmap_config.max_register =3D resource_size(res);
-
-[Severity: High]
-Does modifying this global static struct cause a data race if multiple
-QAIF instances are probed concurrently?
-
-Also, resource_size(res) defines the maximum inclusive valid register
-address. Setting max_register exactly to the resource size permits regmap
-accesses one byte beyond the valid mapped region.
-
-> +
-> +	drvdata->audio_qaif_map =3D devm_regmap_init_mmio(dev, drvdata->audio_q=
-aif,
-> +				&audio_qaif_regmap_config);
-[ ... ]
-> +void asoc_qcom_qaif_cpu_platform_remove(struct platform_device *pdev)
-> +{
-> +	struct qaif_drv_data *drvdata =3D platform_get_drvdata(pdev);
-> +
-> +	if (drvdata->variant->exit)
-> +		drvdata->variant->exit(pdev);
-
-[Severity: High]
-Does shutting down the hardware here invert the component teardown order?
-
-The driver registers sound components and IRQs using devm-managed functions,
-meaning they are unregistered after the remove() callback returns. Manually
-calling the exit() variant here disables the hardware clocks while the ALSA
-component is still fully registered and accessible to userspace.
-
-If an active stream or concurrent operation attempts unclocked regmap
-accesses during this window, it could cause a synchronous external abort
-or kernel panic.
-
-> +}
-[ ... ]
-
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
-m.c
-> new file mode 100644
-> index 0000000000000..b298ee9d865ee
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-platform.c
-[ ... ]
-> +static int qaif_map_ee_resource(struct qaif_drv_data *drvdata)
-> +{
-> +	const struct qaif_variant *v =3D drvdata->variant;
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +	int ret =3D 0;
-> +	u32 mask;
-> +
-> +	mask =3D GENMASK(v->num_rddma - 1, 0);
-
-[Severity: High]
-If a hardware variant has 0 channels for a specific DMA type, does this cau=
-se
-an integer underflow?
-
-Calling GENMASK(0xFFFFFFFF, 0) invokes an out-of-bounds right shift in the
-kernel's __GENMASK macro, which is undefined behavior. This can generate
-invalid bitmasks and potentially grant access to nonexistent channels or
-corrupt registers.
-
-> +	ret |=3D regmap_write(map, QAIF_EE_RDDMA_MAP_REG(v), mask);
-> +
-> +	mask =3D GENMASK(v->num_wrdma - 1, 0);
-> +	ret |=3D regmap_write(map, QAIF_EE_WRDMA_MAP_REG(v), mask);
-
-[Severity: Medium]
-Is it safe to accumulate negative error codes using bitwise OR?
-
-regmap_write() returns a negative error code (e.g., -EINVAL) on failure.
-If multiple writes fail, their bitwise combination can result in an
-arbitrary and misleading error code, masking the true cause of the failure
-and confusing upper layers.
-
-[ ... ]
-> +static int qaif_map_dma_path(struct qaif_drv_data *drvdata)
-> +{
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +	const struct qaif_variant *v =3D drvdata->variant;
-> +	int ret =3D 0;
-> +	int qxm_sel =3D v->qxm_type;
-> +
-> +	if (qxm_sel !=3D QXM0) {
-> +		dev_err(regmap_get_device(map),
-> +			"%s: only QXM0 is supported, qxm_type=3D%d\n",
-> +			__func__, qxm_sel);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret |=3D regmap_write(map, QAIF_RDDMA_MAP_QXM, qxm_sel);
-> +	ret |=3D regmap_write(map, QAIF_WRDMA_MAP_QXM, qxm_sel);
-
-[Severity: Medium]
-Could bitwise ORing the return values here corrupt standard error values?
-
-If multiple regmap_write() calls return negative standard error codes,
-combining them via bitwise OR will result in arbitrary and misleading error
-values.
-
-[ ... ]
-> +static int qaif_init(struct snd_soc_component *component)
-> +{
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	int ret =3D 0;
-> +
-> +	if (drvdata->qaif_init_ref_cnt) {
-> +		dev_dbg(component->dev, "%s: QAIF init is done already: ref cnt: %d\n",
-> +				__func__, drvdata->qaif_init_ref_cnt);
-> +		return 0;
-> +	}
-
-[Severity: High]
-Is it possible for concurrent PCM opens to race on this lockless check?
-
-qaif_init() checks qaif_init_ref_cnt without holding any locks. Its caller,
-qaif_platform_pcmops_open(), calls qaif_init() and then increments the
-counter. Since ALSA's pcm->open_mutex is per-PCM device, different DAIs
-can be opened concurrently by userspace, causing a data race.
-
-This could result in simultaneous writes to shared hardware registers and
-corrupted hardware state.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605103739.3557=
-573-1-harendra.gautam@oss.qualcomm.com?part=3D10
