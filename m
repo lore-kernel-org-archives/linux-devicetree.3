@@ -1,204 +1,140 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DAF3E51D3
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DB13D890E
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780659280; cv=none; b=jWKF5VjLDdh8wu9iidyos/a3UObQA5jCuSSO1ax6XfNdWzCNuLXoNt5iU5QYw4fyivfDCCATTToN50ycb3REEE4UCLkaQi59rw1s5ZWR6OTvJ9mYYThZjot39rq6XY8TtT0LGym+2d4XGmRPOlE24LgCql22e1a15SzVnlMWcS8=
+	t=1780659477; cv=none; b=aNKwo9zzoH/f0Hv8aLoiNutCe3ARl9OaP4RAEU/YihYMTKa6Pa3vmfctsjsxhKxGK7gIKzkIX5Ycx1YrtUDHnt3ffUJahZ5hrtlDjGJ+SKxZBXxjGhD1FQ3wuD4rkdmvkq1iVw8ICaQUdSUdyYGztoAUcN0EyOU3xhwAAmwEvqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780659280; c=relaxed/simple;
-	bh=RTjhxEGvOy+F+VQ/siDtUUts+dyofnFoSYDC7g4FuG4=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cFVW1lRWl8CFzfNC3f4HCmBezKeLNQ1IcF/f3Ei47qMcCGQFCLHBJjnelSKeShaUge4zwDEgv7xkDWGVf1VLI2fwGjWlFQRVuSWU88OvnMrvBu8DzyXy6lJsGVU36oJJdkKMbLTfFYXnDGVyhDhVWOh0kD34sJfZna8V+RE+4mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wmq3kPUV; arc=none smtp.client-ip=209.85.221.41
+	s=arc-20240116; t=1780659477; c=relaxed/simple;
+	bh=ud1+XTOztQEAwav4x9KhbkFv14fOVw5zbe6eOpJ7gUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jJtFBtgOmQ03UGmPsh1eHJYyQXGdISBkee+qDV5jRAKhutblmJMHbxfY4bsfxN723E0zNGOjA7Lj5itN1Hgm4LPC06QuXMSVBpE6oMT387csNYr9hlNOWiSPDkjePQrINkWAK2eebu2kIe4lcdDzqn3NnlYW+OAC0Qjahwbd0wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LiO6o03K; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wmq3kPUV"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45ef5146b56so1869000f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 04:34:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LiO6o03K"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-460166910e6so992734f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 04:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780659277; x=1781264077; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hJRmfaxPaWcnCvs7QB4gUgP5UAYanEHUPfa/m1ombOs=;
-        b=Wmq3kPUV9UQPwUwMfcEXS9nkcfIrne1+VxRzzjUKdhZSQLt92iAY6nYOEznZG/ER34
-         DI+Ud3o2CrPMIs80JfWzrStGQL2ggC+z8+t/N0Z9zJtlWanXANkgmfUTohUzM0ZeWDtu
-         GlweRSmz9jODSRyF7mOAblmcPhpdIfjohDSeviSD+UKuZ2V1LPE2w7QjwBhhowwetEB0
-         LqDEmOuK7vAJdyDpzNLW4ZjT6MX+Ffq5dqimPRyIZQW61NZ0z06mJK/GcMfaDN5mpcJO
-         mWKElBxtngM5oQCC8uS34uksuJNFEZ7I6AIRQZnOUN+L2qyOZaeFzBx0bx3cqYg8tiIR
-         vkDg==
+        d=gmail.com; s=20251104; t=1780659475; x=1781264275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W3r95IPdKLEoIca50s981PYU1XFf+JhCBe7GdZYnQ8c=;
+        b=LiO6o03KzxpoA8hVBc+vIFXU4BjfWLV04t0T7W5VlnVVefIsrd24QcP1JnxG45Ot69
+         BCNp9EeqoHOVupNDSlb0xRTAkpgAqK0V6Eo8yY/1asKrSMIi9OXgP4SZnozuHQtCwowf
+         Q7NoQPFpd0tWf5pBuC8u1XawavYxBRl6c7oUKWL5OwB/XggDa8LfH7cz3aobWt9ERP2V
+         ZqdxZyMSrZV7151WTzSHq0eHB55WUGLA029wZD2JkspsScrOcc+FwxoqlTU7uG1STItq
+         wVD/GWqQfH97YFtTolHo+6WY1Rf78020zaB4EeutyXjH+lsDtjWxxNkHeHC1ztlWnyaY
+         Ifvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780659277; x=1781264077;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hJRmfaxPaWcnCvs7QB4gUgP5UAYanEHUPfa/m1ombOs=;
-        b=RdK8x6SAxP75NGAJE3g1o4VNFS7QFjyqk/m6A8YWB9ZdYEtz1pnSyXWVN5Nis27QH7
-         ifDYCZbby6BEb5amTYOgiwVBosoStHwKjj4+/KhHp9HJyKNGI4HWnhVYGQ4fK46jasO/
-         kDNqK7EWMP24a4OpAgw7eOQt1gRJG27gJKaTtKLWww1pjXH4ZT4eHwq3sBNWTvobK6mX
-         vxOMfMByrM1BGil5C3QPdtxB0Ch1QUgHEg1QXAifuGw5klR3sgABWUhIIE5KtDY42dfm
-         snHdnpr7cg3yhTymU6XdzwWpNWrpFTEF92JxFTW/MqibU7E/6H4L0nYQh5gU9dqc0PCu
-         Mdxg==
-X-Forwarded-Encrypted: i=1; AFNElJ82zkp/CFCwTiu56qhrz968uybgsYw37cQf3ZmO/CnuUeuxcUZpZY/yOlszHNZggteVQIYOJzPXepaU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsQi3eix7dlDEMWSAaAm3xlvkqmpuMx0aJW4jSFZz6DVL/yTyz
-	LqBT/u1QGzTMvDam/l5nvqRWo4gO6L6mWaHWIxDps3DpYUtY8RjKdkQu
-X-Gm-Gg: Acq92OG1NEfHQHuRCYrDTi3lbAcCy1R57koh7uM7DZoz3ubn/RGzwhYuEAhetSpviz0
-	3imxNi3yhQz1cB7mFlZjtbiUuCf/u5uW6luk99IRDpyCOXQmrP9kzq0/LAiHZxOUIm6l65gZixt
-	q3ZDkljUC9Uwui7JGy6XTHgn+yd0Go/RIdkH1M7tY67+evkJnK/XSaqUwHTLgsS7QdjRdcBq83q
-	SCeAJnIEQRJSSW3WqicfOoXwxpJoVv5fzkuuIJj0LxXOB3ImQ2pSEzme8EurNUqT26YoKkEslCI
-	fb073hwBcVGnC6I6FvhiSmQRXnSj+gJqjAFxihs+MpeHINHv7vB/n1m7KzXMyUNDZEZQb3eeCdf
-	bVUoUiEj297+ohR+4o4j0ZppRmvitqP+82S+gnLRbeCXJPc++kLcd/LYi/ViqqwaNqQNH3SZVqA
-	KWpL1kz56rTL7ODxGdX/1ducIG96J3mZ0LDZs8ETKkQPfcUxto5z50PwmuDtOnJyZ1wLRm7I+yx
-	YoKf+uCNxIVi/n3IfxficbcOQijmjJCLV0+BC8roDzx78RWj4lmtTTptH84
-X-Received: by 2002:a05:6000:491a:b0:45e:dc0a:bcb with SMTP id ffacd0b85a97d-46032db42fcmr3878302f8f.22.1780659277189;
-        Fri, 05 Jun 2026 04:34:37 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46028a6dce6sm17068219f8f.30.2026.06.05.04.34.35
+        d=1e100.net; s=20251104; t=1780659475; x=1781264275;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W3r95IPdKLEoIca50s981PYU1XFf+JhCBe7GdZYnQ8c=;
+        b=gpBk4OPxiYKz+SYEsgwo8rAQ8IZk98ec/n8J+OgFQBnim2nyKFsICvLNyyhDq8+9x1
+         xTMLj0/6aqfUbiOWblRdGs2BHN5t7Yfu4/aaGlMAN0+nmSyenAeor9r8vBBYH0chdGtS
+         p7qzilgm4Cvb6X5r7VSqsOAGUlAP4E9hFI03TOqkgJ1MZNPS9Vz0p+l3wVACOu+d8mes
+         l2tcTzXlA1SZMRYrHgM39aNYeDSUodYLy4T8Hvxs0venqbilA6ajRPmutC5t1w9tf3xG
+         sppER9+5m1WdOYg15XNZSbPy6Dhyfn7/GmQKEKrudbex75ETbXbiHi9FoQNZoKHHWWIn
+         YAbg==
+X-Forwarded-Encrypted: i=1; AFNElJ+3wMQmSpDnOv004buJ0pSa3nYEF+UZct3xARc4AyzMaKWUZIP+QrJVfGqXQbD2n9o/UGVSkuKsFW8P@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRRrfKtl2o7EI7k4RRV4Rq2V1RXgC5HUGKgU3wBTpV2S0/k1dR
+	hAE+ip2EYXfC2rHvivET4Q0c1JFPgZeOHgNeUvcTqqwTTMPoB2T1uZ+L
+X-Gm-Gg: Acq92OGZIX19Bd/yTiQlsf0hDGcpIV5jXNkkY2R0Nx9KhP4A2UOLQINJwSi1Jv4n0Tz
+	iUsMTlg1136ludnf0zOAT3S+hRJWrrwTyPaiP4fHQtsTJQaqtXTFC+uhSHYGSSsLiTbcykEhP+o
+	Yb+BGBzaJsWar5MxDOIH+MoplD36LutsKwhRRcnnRhoeoElUVOzZwQ7qRXPoAFpjtiSP1eWqiQE
+	vqDgaNbqylTQ9IRbkvNNLla01CCVYCGTMB8UzjidvrJYen+c2BGxo3IrELqj1UfK6j44r0SAnfC
+	uuypgHcw7lLIQ67cXKGeWr+dIv9JUCHeEzeJ9EAsEj/11CBjFirGU4/RXOCEibo7p1U4r6lcG9o
+	iBCiY0liglsz4qyhL1wt/qe1Xx3zGSopRJ+etGFfzFy80H6DReBKhI+lxCQSgS4B8Iw8J/Fh9fa
+	b3EBDwidz+Uh77/FuL5v2NlSZcvwPZToAiHLI5dZmyBE2jgDeqvURBKZ2EWg9O
+X-Received: by 2002:a05:6000:bce:b0:45f:f142:d56e with SMTP id ffacd0b85a97d-460302e4674mr4256841f8f.13.1780659474765;
+        Fri, 05 Jun 2026 04:37:54 -0700 (PDT)
+Received: from SMW024614.wbi.nxp.com ([128.77.115.158])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46028a6dcbdsm15262439f8f.7.2026.06.05.04.37.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 04:34:36 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Fri, 5 Jun 2026 12:34:31 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>, 
-	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 10/12] iio: dac: ad5686: add triggered buffer support
-Message-ID: <i3wvatdosla3cszhhtizgoetcbknl56be3mpipzdxqx2jzvch2@l4hzeer5zoa7>
-References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
- <20260602-ad5686-new-features-v1-10-691e01883d27@analog.com>
- <20260603134151.7cf1654b@jic23-huawei>
+        Fri, 05 Jun 2026 04:37:54 -0700 (PDT)
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Peng Fan <peng.fan@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Daniel Baluta <daniel.baluta@oss.nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/4] Add RPROC support for the MX95-15x15-FRDM board
+Date: Fri,  5 Jun 2026 04:36:17 -0700
+Message-ID: <20260605113621.1479-1-laurentiumihalcea111@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260603134151.7cf1654b@jic23-huawei>
+Content-Transfer-Encoding: 8bit
 
-On 26/06/03 01:41PM, Jonathan Cameron wrote:
-> On Tue, 02 Jun 2026 17:33:57 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Implement trigger handler by leveraging the LDAC gpio to update all DAC
-> > channels at once when it is available. Also, the multiple channel writes
-> > can be flushed at once with the sync() operation.
+From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-...
+Hi folks,
 
-> > +static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-> > +{
-> > +	struct iio_poll_func *pf = p;
-> > +	struct iio_dev *indio_dev = pf->indio_dev;
-> > +	struct iio_buffer *buffer = indio_dev->buffer;
-> > +	struct ad5686_state *st = iio_priv(indio_dev);
-> > +	u16 val[AD5686_MAX_CHANNELS] = { };
-> > +	int ret, ch, i = 0;
-> > +	bool async_update;
-> > +	u8 cmd;
-> > +
-> > +	ret = iio_pop_from_buffer(buffer, val);
-> > +	if (ret)
-> > +		goto out;
-> > +
-> > +	mutex_lock(&st->lock);
-> > +
-> > +	async_update = st->ldac_gpio && bitmap_weight(indio_dev->active_scan_mask,
-> > +						      iio_get_masklength(indio_dev)) > 1;
-> > +	if (async_update) {
-> > +		/* use ldac to update all channels simultaneously */
-> > +		cmd = AD5686_CMD_WRITE_INPUT_N;
-> > +		gpiod_set_value_cansleep(st->ldac_gpio, 0);
-> > +	} else {
-> > +		cmd = AD5686_CMD_WRITE_INPUT_N_UPDATE_N;
-> > +	}
-> > +
-> > +	iio_for_each_active_channel(indio_dev, ch) {
-> > +		ret = st->ops->write(st, cmd, indio_dev->channels[ch].address, val[i++]);
-> > +		if (ret)
-> > +			goto cleanup;
-> > +	}
-> > +
-> > +	if (st->ops->sync)
-> > +		ret = st->ops->sync(st); /* flush all pending transfers */
-> > +
-> > +cleanup:
+As you can see from the title, this series attempts to introduce/enable
+RPROC support for the MX95-15x15-FRDM board.
 
-It turns out that this label is not really needed. When sync() op is available
-it must be called regardless of write failure, so the bus data can reset its
-state. Then moving "cleanup" up would just make it useless.
+For a while now, the imx_rproc driver has been using the reserved memory
+DT nodes as the carveout names, which would force DT writers to go against
+the DT specification's recommendation and use non-generic names (e.g.
+"vdev0vring0", "vdev0vring1", etc...). This series also tries to fix this
+issue by introducing the "memory-region-names" property and using it in
+the imx_rproc driver to figure out the carveout names. The driver will
+still allow the old way of doing things (i.e. no "memory-region-names"
+property) but a warning will now be printed since this should be
+discouraged.
 
-> > +	if (async_update)
-> 
-> Error paths are always fun.  Do we care about setting ldac_gpio to 1 if
-> we failed to write the channel values?  That will set any that did successfully
-> update, but not all of them.  Note I'm not sure on the right answer for this.
-> There may not be one!
+---
 
-I would not see a problem with that, as there is no much we can do with errors
-in a interrupt handler.
+Changes in v2:
 
-> 
-> > +		gpiod_set_value_cansleep(st->ldac_gpio, 1);
-> > +
-> > +	mutex_unlock(&st->lock);
-> > +out:
-> > +	iio_trigger_notify_done(indio_dev->trig);
-> We get this pattern so often (though not always).  Feels like maybe
-> we should put some effort into a generic opt in solution for this.
-> 
-> A job for another day but options that come to mind.
-> 1) (hideous) a flag
-> 2) Maybe an alternative callback. thread_always_complete or
->    something like that.  Pain to wire through all the calls though
->    and injecting the necessary wrapper isn't great either.
->    Implementation wise would be a case of popping in a wrapper function
->    in iio_trigger_attach_poll() call to request_threaded_irq().
-> 3) Maybe a helper macro?  Bit ugly as we'd need one to generate
->    the wrapper function and another to use the same name for
->    the registration function.
-> 
-> Hmm. Those are all ugly (maybe 2 is ok ish).  Suggestions welcome!
+* change commit message of binding patch to describe why it's needed
+* drop restrictions on the string names passed via "memory-region-names"
+* drop patch moving the CM7 node to the SoC DTSI. CM7 node is now added
+in the RPMSG DT overlay
+* rewrite commit message of patch removing some of the RMEM regions from
+the bord DTS - previous version was a stale version from first iterations
+of this series
+* change "micfil" node status from "disabled" to "reserved"
+* add check against rmem phandle count and string count mismatch
+* include "of_reserved_mem.h" in "imx_rproc.h" to avoid having to rely on
+the consumers including it
 
-using a cleanup.h? with something like:
+---
 
-	static inline void iio_trigger_always_done(struct iio_poll_func **ppf)
-	{
-		iio_trigger_notify_done((*ppf)->indio_dev->trig);
-	}
+Laurentiu Mihalcea (4):
+  dt-bindings: remoteproc: imx_rproc: document optional
+    "memory-region-names"
+  remoteproc: imx_rpoc: fix carveout name parsing
+  arm64: dts: freescale: imx95-15x15-frdm: remove some rmem regions
+  arm64: dts: freescale: add DT overlay for MX95-15x15-FRDM RPMSG usage
 
-	static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-	{
-		struct iio_poll_func *pf __cleanup(iio_trigger_always_done) = p;
-		/* ... */
-
-		ret = iio_pop_from_buffer(buffer, val);
-		if (ret)
-			return IRQ_HANDLED;
-
-		/* ... */
-
-		return IRQ_HANDLED;
-	}
-
-> 
-> > +
-> > +	return IRQ_HANDLED;
-> > +}
+ .../bindings/remoteproc/fsl,imx-rproc.yaml    |  4 ++
+ arch/arm64/boot/dts/freescale/Makefile        |  3 +
+ .../dts/freescale/imx95-15x15-frdm-rpmsg.dtso | 67 +++++++++++++++++++
+ .../boot/dts/freescale/imx95-15x15-frdm.dts   | 21 ------
+ drivers/remoteproc/imx_rproc.c                | 13 +++-
+ drivers/remoteproc/imx_rproc.h                | 21 ++++++
+ 6 files changed, 106 insertions(+), 23 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
 
 -- 
-Kind regards,
+2.43.0
 
-Rodrigo Alencar
