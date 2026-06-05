@@ -1,169 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA90F1C5F39
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 16:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525F3342CB1
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 16:33:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780676803; cv=none; b=VSAl15/pcIDm0tD5gTKDyKvs6d2Ka9m8KXn3kNJ0VRnHnvtQgC5R1YZjgpDOFSqruwNus9zdkKHqx2Qd4RwVgaN599qnI7aLjauWLRX6VWS6zihCilR0kxx1kSPOB0APn82mrcHd7fUGXg45xWbATPccpPMDh13Xbq7FJRoRUyA=
+	t=1780677197; cv=none; b=eWHMTWRDaPWpe8441Vqchpr5YZAXiVn2BWdSU4AKGmZOlwfYKGsfgV0oFAoAJerbY3xKWzN+swm2dz5vEmO2vUyL3Pf7dlBe88w9dz+SZ7qwQqdLRUIG4H+k8VwuGesMoCcL6czZkieLetjXoQvWyMwaR79+qQeChIzXRCuqKKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780676803; c=relaxed/simple;
-	bh=9VikqXsU08fbyphHi0rkr7e2f6VvDu0uRkmBtU84b2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LSQkElQ91lq28Bn9dmZIiOb20b487eymLMQoudaD4eUQwGHhNTsd3BPiXwmdR0nYmxnHco7reaNvVIi9MMgttKCPCSL9QwwOa732EB0rIW0h3akUcEajX+sPcIT/74iU6tyYHtljn+j+WFPzSeOBjPvl5+98C4vMxPDe2D5QGgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgOQ5SJQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780677197; c=relaxed/simple;
+	bh=DHDmaXa4Nkify3KK396PaXtpKcCD34GSHApE6f2CrAo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D5+2n1J11zNIEF7Svjw8p/8qHwq1S8UtVAiPRBUpqV5xURJ3ksQu9ra4lVx1Jjp8GbHTBTLPCcNCIvwAskOGZaWeafbTKSaP2+SKP6d48VsVi15PiL18YrvhRbw5Ts4FpbGdSO+dBlgqlM76hrn8ioD1WBpYPKjmBRsu/uOMw3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZITWUrPj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgOQ5SJQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079C31F00893;
-	Fri,  5 Jun 2026 16:26:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZITWUrPj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890081F00893;
+	Fri,  5 Jun 2026 16:33:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780676801;
-	bh=TDkJX3CC6ghJvaftv3jQASO7eqNjjXTkyuVDTdp/ScI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JgOQ5SJQ1QgrMS3Hn9s8P0qgFtx+m1AbuDD1+R06pmKcILq35OnCyplA4sBULMUtQ
-	 fP6As5l98FZRyNwm9m+zQ5VyNIyC1G9OPHU9cyeso3lfxd0jlHEBZrfCghgX62jT/3
-	 7arajdfT431RhkQqkNuQ4pXLybjlU2xuCk1HsPzR7xRQY5KbErkqGlLgSYEw2i4yZG
-	 /ep3neWwwfCIgVbVh7CJoufJjA36qkGbIMksZSFiC0eLamSqRXvRgR/y/z9/kZ7Nwa
-	 2nyO1u8MuiLikyQI/JJFP8mHdVYVDpqt6nm0iy3ZusAgYGndvdpx3RMb2/IkLwayXX
-	 UjtO+xqJK7Yfg==
-Date: Fri, 5 Jun 2026 17:26:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
-	airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
-	maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
-	neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V5 3/6] dt-bindings: display: panel: Add Anbernic TD4310
- panel
-Message-ID: <20260605-carless-mouth-92684e2ee74e@spud>
-References: <20260604220802.119107-1-macroalpha82@gmail.com>
- <20260604220802.119107-4-macroalpha82@gmail.com>
+	s=k20260515; t=1780677191;
+	bh=Ib30e9pkVemNcAyXtDX9VsNwhcET0Xi40aVgfUP5do4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZITWUrPjx/rHaVGgcq5lyuZQsHzWnvefMBbOZMe+oKQOQ/PnWRqcsGNol4KpUDtMP
+	 oCkSqzyx7hdFkTQTHDpFfInQiFCUC9DtCbilhc7jiQBpGvTd9QjesKEjIK+47mhQoz
+	 g016qs1vJOIMCg0FY+xESHMroqS6NrS7QStH8Wd98UnvQCrjSm9vocgBUQomiYlNU9
+	 adiwf5mp9X1DZlvAnKd8GyN4RDI3N0rE6PrRM6hTRoryWoXo9Ei0YOnSKL9MGbckuA
+	 trFkV35m7EmKHgQzK6vE5k2t8SneIxpeKOQ2+VJj6Fy5mWPBhtATP8MyErd3jeFPDb
+	 9kxro4JLXbJeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 02/13] net: ethernet: oa_tc6: Handle the OA
+ TC6 SPI protected mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ciprian Regus via B4 Relay" <devnull+ciprian.regus.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260604-adin1140-driver-v3-2-5debdb3173c4@analog.com>
+References: <20260604-adin1140-driver-v3-2-5debdb3173c4@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 16:33:10 +0000
+Message-Id: <20260605163311.890081F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="puxlIvdh/rKnMLXj"
-Content-Disposition: inline
-In-Reply-To: <20260604220802.119107-4-macroalpha82@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---puxlIvdh/rKnMLXj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Pre-existing issues:
+- [High] The `size` parameter in `oa_tc6_check_ctrl_write_reply()` is typed=
+ as `u8`, causing integer truncation for SPI transfer sizes of 256 bytes or=
+ more. This leads to an underflow in the `memcmp` length calculation, resul=
+ting in a massive out-of-bounds memory read and kernel panic.
+--
 
-On Thu, Jun 04, 2026 at 05:07:58PM -0500, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
->=20
-> The panel used by Anbernic in the RG Vita-Pro is a DSI panel based
-> on the TD4310 controller IC. It measures approximately 5.5 inches
-> diagonally and is 1080x1920 in resolution.
->=20
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> ---
->  .../display/panel/anbernic,td4310.yaml        | 66 +++++++++++++++++++
->  1 file changed, 66 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/anber=
-nic,td4310.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/display/panel/anbernic,td4=
-310.yaml b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.=
-yaml
-> new file mode 100644
-> index 000000000000..6f7f92b9c860
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
-> @@ -0,0 +1,66 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/anbernic,td4310.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Anbernic TD4310 Based Panels
-> +
-> +maintainers:
-> +  - Chris Morgan <macromorgan@hotmail.com>
-> +
-> +description:
-> +  Anbernic TD4310 Based Panels, such as the RG-Vita-Pro panel
-> +  (a 1080x1920 5.5 inch panel).
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - anbernic,panel-vita-pro
-> +      - const: anbernic,td4310
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply:
-> +    description: Panel power supply
-> +
-> +required:
-> +  - compatible
-> +  - port
-> +  - reg
-> +  - reset-gpios
-> +  - vdd-supply
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        panel@0 {
-> +            compatible =3D "anbernic,panel-vita-pro", "anbernic,td4310";
-> +            reg =3D <0>;
-> +            backlight =3D <&backlight>;
-> +            enable-gpios =3D <&gpio0 9 GPIO_ACTIVE_HIGH>;
-> +            reset-gpios =3D <&gpio0 13 GPIO_ACTIVE_LOW>;
-> +            rotation =3D <270>;
-> +            vdd-supply =3D <&vdd_lcd>;
-> +
-> +            port {
-> +                panel_in: endpoint {
+commit afec089ed8ebeec6d0ad251fec33bc20cdb36a86
+Author: Ciprian Regus <ciprian.regus@analog.com>
 
-Drop the label if you respin.
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+net: ethernet: oa_tc6: Handle the OA TC6 SPI protected mode
 
-> +                    remote-endpoint =3D <&dsi_out>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> --=20
-> 2.43.0
->=20
+This commit implements the OA TC6 standard defined protected mode for
+control transactions. It handles 1's complement values of the data field
+in SPI transfer frames for integrity checking.
 
---puxlIvdh/rKnMLXj
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+> index 91a906a7918a2..baba5aad84dfa 100644
+> --- a/drivers/net/ethernet/oa_tc6.c
+> +++ b/drivers/net/ethernet/oa_tc6.c
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiL4uwAKCRB4tDGHoIJi
-0irKAP9L+hIB/TYnCd82iGYGbBpXm8onM2v9d1tkIAL4ndCnAQEAiXWKVveu8dZx
-zselpGMyAyU19cu2tFx1NY1q2/1BdAs=
-=wQ7A
------END PGP SIGNATURE-----
+> @@ -283,10 +320,10 @@ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, =
+u32 address, u32 value[],
+>  	u16 size;
+>  	int ret;
+> =20
+> -	/* Prepare control command and copy to SPI control buffer */
+> -	oa_tc6_prepare_ctrl_spi_buf(tc6, address, value, length, reg_op);
+> +	size =3D oa_tc6_calculate_ctrl_buf_size(length, tc6->prot_ctrl);
+> =20
+> -	size =3D oa_tc6_calculate_ctrl_buf_size(length);
+> +	/* Prepare control command and copy to SPI control buffer */
+> +	oa_tc6_prepare_ctrl_spi_buf(tc6, address, value, length, reg_op, size);
+> =20
+>  	/* Perform SPI transfer */
+>  	ret =3D oa_tc6_spi_transfer(tc6, OA_TC6_CTRL_HEADER, size);
 
---puxlIvdh/rKnMLXj--
+[ ... ]
+
+> @@ -301,7 +338,7 @@ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, u3=
+2 address, u32 value[],
+>  		return oa_tc6_check_ctrl_write_reply(tc6, size);
+
+[Severity: High]
+This is a pre-existing issue, but does passing the u16 size to
+oa_tc6_check_ctrl_write_reply() lead to an integer truncation here?
+
+Looking at the function signature, oa_tc6_check_ctrl_write_reply() takes
+size as a u8:
+
+static int oa_tc6_check_ctrl_write_reply(struct oa_tc6 *tc6, u8 size)
+
+Since oa_tc6_calculate_ctrl_buf_size() computes a size up to 1032 bytes in
+protected mode, any value of 256 or more will be truncated when implicitly
+cast to a u8.
+
+If a write sequence results in a buffer size that truncates to a value
+less than OA_TC6_CTRL_IGNORED_SIZE (4 bytes), could the subtraction in
+the integrity check underflow?
+
+static int oa_tc6_check_ctrl_write_reply(struct oa_tc6 *tc6, u8 size)
+{
+        ...
+        if (memcmp(tx_buf, rx_buf, size - OA_TC6_CTRL_IGNORED_SIZE))
+                return -EPROTO;
+}
+
+For example, if the calculated size is exactly 256 bytes (which can
+happen when writing 31 registers in protected mode), the truncated
+size becomes 0.
+
+The subtraction 0 - 4 results in -4, which becomes SIZE_MAX - 3 when
+passed as the size_t parameter to memcmp(), resulting in an
+out-of-bounds read and likely a kernel panic.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-adin1140-d=
+river-v3-0-5debdb3173c4@analog.com?part=3D2
