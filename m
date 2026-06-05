@@ -1,171 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA50380FF9
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:21:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1081F330B2E;
+	Fri,  5 Jun 2026 14:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780669267; cv=none; b=cahA0rvJJyL4kowfaESHJLtc4xJqzw4yxe7MRP/jWDBHAGzW2SxhZrkU2oHnQh6huR2HXexxwuGUFptys4+L98jJv8dPdyWQ4oRuUzgqGe1Xs2Bq04v1RVZkc59ZEH5g9y02U7EDArXS3mGFg2XNc2kjU9pWwP5B1r4Ew0acDys=
+	t=1780669301; cv=none; b=NpHOHb9Zv/6fLl9Mj9sb78QoNE80rSXmuzyzODzFhXpuPFjPCEAdeSnNR7bW7oftW8Ry0TknFcjOM+WR7asynAryNwWT5yxc7HBpBQa6pOaMHgeC7bgZgDr1jlEBhes7wg8NbAFvBHKmiPdloSboy8JYKJezHbMbShKbA9Y71+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780669267; c=relaxed/simple;
-	bh=H1Prb1bgOg3WKPFIWNClGBQhJfoA3SPsGhsYV4nvtsY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NYxgGr7QCEyT4S7ZMu4nUdRaB7ktLdOPLkgN1fC7han297MT1LFeLjLXSZ88KfVjw8cW+7a/U4/YORfowvA6kxZ+QtnVGrmHPb4DABfidRRem4RHvAU6MSISZdNIPDe2VokhDiskOj/PSucLdqkPTRuBHPF+iDWyaZiyGa1Ol0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPeMvzO8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780669301; c=relaxed/simple;
+	bh=8YL72t44yE4RHjLWnzT9Cs0Y+8NCQpiDFvM9EEwwibA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oGRfSPtNiQVSIOXTjBzjjTNTGn91pbw5zw3CvcYENlzG8OyZgBYffpvDvDPVNW5I8752uSJgknchxBGudPRRXsozdVYV98xy81cVBlvA6wgbE/8VyTPyAy6wlf3ziqOvtrdrr3P9XnRGiMOzqRY0fsI5S3la2C81UTZd9IX85uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hw+U0HjQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPeMvzO8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B0F1F00893;
-	Fri,  5 Jun 2026 14:21:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hw+U0HjQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05A61F00893;
+	Fri,  5 Jun 2026 14:21:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780669264;
-	bh=83ILjfmY/Eq/wTBY0Zk4CcAxMc8bC51phyMS3u4RcZ8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UPeMvzO8QfX0gvIzxXad9pVYgRUbpU2dGR+EOJ3EM+EwSQT2/ijro6BWMD8DJTWAq
-	 nqJy6Asqh5ElmYOYAUjVKhPqnt2JOoXazLgbDzxWJLPFIH3NRoFjTg+o+ymsEQlY3x
-	 5U8Cm519o4SfDaicFwzk8jj8P1gNt0+3ayPlprpsyyI4AfuaFZl+iDg5c8CMnv3Om7
-	 noYtsq/ynZtUnjiMA/tGEe0qMvlwD8xc7qo0xXRs7rDfARgHWPWsmvH83x3SbyvsBI
-	 RyBksayQ6cGrzdOKfk3otYuR3EiGZSgph/OmL3Npq6k7GpIT7PHF3h2zmDIkeJc/Cm
-	 RZAcHkflAnByg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/10] ASoC: renesas: fsi: add
- fsi_clk_prepare/unprepare()
-Reply-To: sashiko-reviews@lists.linux.dev
+	s=k20260515; t=1780669300;
+	bh=UbSa3ODwt/Ewf2SZXpIlClLvhhn/p7bCuK3p6KqCz0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hw+U0HjQnNbnt9KxUAPI2UFbqmqu3tRenc4wRuIA4wMGQxLiNv4YVZAWHqFq1gcDe
+	 MLQ+UNAzqN/CwsuW1gr4oDoaSjwiVKK2GIm/woYzrfC+75a0Vb767dYlKxF5wkStYp
+	 jv6mFO3fWA1T8wZjnB1UzdSKtq+cQJliv63vU5951Z5MFesKPgsFYqqL7h6WC8vNkz
+	 WwqeammPuCJrRUVQRu1FRxMBoITkhVd2a6+QogBFqpi2N5nsTo9HqT9mcritUePk6t
+	 ChtEVP8w2gSZR/HJ13IRoDU5gWLts1b2ikA2nCv8nP+xC6Zu0CNDOjZtGkLyds0PLP
+	 3ynWeC6Spsfwg==
+Date: Fri, 5 Jun 2026 15:21:35 +0100
+From: Mark Brown <broonie@kernel.org>
 To: phucduc.bui@gmail.com
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260605121955.105661-10-phucduc.bui@gmail.com>
-References: <20260605121955.105661-10-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 14:21:02 +0000
-Message-Id: <20260605142103.47B0F1F00893@smtp.kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 10/10] ASoC: renesas: fsi: Add SPU clock control in
+ hw_startup/shutdown
+Message-ID: <68a03a72-07f3-4738-bad4-6b92bafec318@sirena.org.uk>
+References: <20260605121955.105661-1-phucduc.bui@gmail.com>
+ <20260605121955.105661-11-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pvn0gmD5q1QTwXci"
+Content-Disposition: inline
+In-Reply-To: <20260605121955.105661-11-phucduc.bui@gmail.com>
+X-Cookie: Error in operator: add beer
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-New issues:
-- [High] fsi_clk_prepare() and fsi_clk_unprepare() incorrectly use clock->c=
-ount to skip operations, leading to leaked clock prepares and underflows.
-- [High] The error rollback path in fsi_clk_prepare() unconditionally unpre=
-pares the shared SPU clock, and the conditional prepare relies on spu_count=
- which tracks the incorrect state.
+--pvn0gmD5q1QTwXci
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Pre-existing issues:
-- [High] fsi_clk_enable() breaks full-duplex operation by returning -EINVAL=
- for the second stream.
---
+On Fri, Jun 05, 2026 at 07:19:54PM +0700, phucduc.bui@gmail.com wrote:
 
-commit 4aab60e129c589df9d885da5f08b55e2f1002c6c
-Author: bui duc phuc <phucduc.bui@gmail.com>
+> Enable and disable the SPU clock in fsi_hw_startup() and
+> fsi_hw_shutdown() to ensure the clock is active while the
+> driver accesses hardware registers.
 
-ASoC: renesas: fsi: add fsi_clk_prepare/unprepare()
+> +	/* enable spu clock */
+> +	if (fsi->master->clk_spu) {
+> +		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
+> +			if (fsi->master->spu_count == 0) {
+> +				ret = clk_enable(fsi->master->clk_spu);
+> +				if (ret < 0)
+> +					return ret;
+> +			}
+> +				fsi->master->spu_count++;
 
-Add fsi_clk_prepare() and fsi_clk_unprepare() helpers and call them
-from fsi_dai_startup() and fsi_dai_shutdown(). This ensures clk_prepare()
-and clk_unprepare() are executed from sleepable contexts and keeps clocks
-prepared only while audio streams are active.
+The indentation here seems wrong.  We're also using spu_count to
+separately guard the clk_prepare() in fsi_clk_prepare() which seems
+problematic, I'm having to think too hard about how this might be
+robust.
 
-Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+--pvn0gmD5q1QTwXci
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> index 3f303e15e8351..6537321242c04 100644
-> --- a/sound/soc/renesas/fsi.c
-> +++ b/sound/soc/renesas/fsi.c
-> @@ -730,6 +731,78 @@ static int fsi_clk_is_valid(struct fsi_priv *fsi)
-> =20
-> +static int fsi_clk_prepare(struct fsi_priv *fsi)
-> +{
-> +	struct fsi_clk *clock =3D &fsi->clock;
-> +	struct clk *spu =3D fsi->master->clk_spu;
-> +	struct clk *xck =3D clock->xck;
-> +	struct clk *ick =3D clock->ick;
-> +	struct clk *div =3D clock->div;
-> +	int ret;
-> +
-> +	if (clock->count !=3D 0)
-> +		return 0;
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Since clock->count tracks the hardware enablement state (modified during AL=
-SA
-trigger START/STOP via fsi_clk_enable/disable), could using it here during
-the ALSA startup/shutdown (open/close) phase lead to unbalanced clock
-prepares?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoi224ACgkQJNaLcl1U
+h9BkdAf+IjsYXqEFmaRdkBWIeWhxpQqeA1zBqSdnHnXswCKMa+XQXoMCSRIguVUi
+GSo4pY57A3x3s8EZMfy+kKVUI4t8m7bo4AdFW2IJub6hW2lBI/UMGizz/vFApu7S
+IdsQd+59S216HHJvTmm5kBBtYOmhxEHDBK38fAnStSLk9Nztx+OemR8JzCKqdfWm
+dssRjktzCSanRakdmumgmSLis/bKDTLKqs3fK+gQYbkCzmEc8Z2zyRDRxQ/vCblA
+AwVAxKLMG6WWkGVBHP/bdUlPhqPI59ZpFJMJ/r6kcWPPYjl441/ydPzw4w4jMoaz
+J9XHJwv0k6oIMFP30EbnRoQY6C3KiQ==
+=B88h
+-----END PGP SIGNATURE-----
 
-If Stream A opens, clock->count is 0, and the clocks are prepared.
-If Stream A then starts, clock->count becomes 1.
-
-If Stream B opens while Stream A is running, clock->count is 1, so we return
-early and skip clk_prepare().
-
-When Stream A stops, clock->count becomes 0.
-When Stream A closes, clock->count is 0, so the clocks are unprepared.
-When Stream B closes, clock->count is 0, so the clocks are unprepared again,
-potentially causing a CCF prepare count underflow.
-
-> +
-> +	if (!IS_ERR_OR_NULL(spu) && fsi->master->spu_count =3D=3D 0) {
-> +		ret =3D clk_prepare(spu);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-[ ... ]
-
-> +err_ick:
-> +	clk_unprepare(ick);
-> +err_xck:
-> +	clk_unprepare(xck);
-> +err_spu:
-> +	clk_unprepare(spu);
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-If fsi->master->spu_count > 0, we skip preparing the spu clock above.
-However, if a subsequent clock (like xck) fails to prepare, we jump to
-err_spu and unconditionally call clk_unprepare(spu).
-
-Will this forcefully unprepare the shared spu clock that the first active
-stream is currently relying on?
-
-Also, since spu_count tracks START/STOP instead of OPEN/CLOSE, does it
-suffer from the same unbalanced prepare/unprepare regression as clock->coun=
-t?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while looking at clock->count
-usage, I noticed fsi_clk_enable() appears to prevent full-duplex operation
-by returning -EINVAL for the second stream:
-
-sound/soc/renesas/fsi.c:fsi_clk_enable() {
-        int ret =3D -EINVAL;
-
-        if (!fsi_clk_is_valid(fsi))
-                return ret;
-
-        if (0 =3D=3D clock->count) {
-                ret =3D clock->set_rate(dev, fsi);
-                ...
-                clock->count++;
-        }
-
-        return ret;
-}
-
-If a second stream attempts to start while the first is active
-(clock->count =3D=3D 1), the function skips the block and returns the
-initialized -EINVAL. Does this cause the ALSA trigger to fail and prevent
-simultaneous playback and capture?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605121955.1056=
-61-1-phucduc.bui@gmail.com?part=3D9
+--pvn0gmD5q1QTwXci--
