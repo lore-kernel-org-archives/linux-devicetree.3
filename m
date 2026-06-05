@@ -1,86 +1,164 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799DD240611;
-	Fri,  5 Jun 2026 14:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FC11DA62E
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780669428; cv=none; b=QqZqR6DE4oAQc6qS26rqEgW6fHX3YAxS8LiUIUatf2+zstOd4iT54P+p/+0+ktNlOomC5o/3Ly7b/Ae0bK7iRG+0w8tyM3JWWDw7f7f8gve5J2ns3iB0CPJuSR6/jAhzwRdHhFkl4u3jNxy7+zXWQ5U8n7+DGuSwxFA/9HSsufk=
+	t=1780669977; cv=none; b=F/U3hlquu3gVVeCz+rC6Qkd+pGh+UTgXWb+p7krbgFrmDO6hCKDbod8bjImVxex0Zx+qGoJKNSTa00Zp8K2AqCf0eMjE6QkKVBYDiG6tqwuF9mPsdtIsQEeFJVhgWsNznH0wwgophKwKKogKiPQtXXkP7nk7P5UxdFWq2UiSh7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780669428; c=relaxed/simple;
-	bh=zL/lzmmfDWFwKDK6wayFDCPYUxjUxgUjqtCDO63UrME=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PvK0DqU4RjyR2Ql+as78ToyVLTnJuLLPRgthQBnr855hjyDXlpWcHVnh4fpoN4tMJx0g/1kfFCHV49HGbelwQkNX8c3ZlJEXHJzh/oBB8DKHiRzIoiy8/IWNj/6IZh+7ArX74g5NYAwVZ/xZiuzjuPKmzyEaHOFSUitt3LWSbHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tqii02+1; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1780669977; c=relaxed/simple;
+	bh=v5XS3kJZrsUJ6HkLgu3eFjvP/VQmPAzJraSpxxHLTS8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GPj8LC33ZRWnJQvk3erRe2RO0NTeq+W3U835qGVQmV5BoAKwU0AEBcFG7nJxAMFy2kBx4hSv9SeVSmip8m+ZBQPnMhiLjbeekOxlWpMUlaC9NA0u5xqCYA6zIVLY0Spl69Q9oeyYVzq285bPF+zBrDisdDgspR4yF3Zwgks1YSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fv86dJmA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tqii02+1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+UiFjH/LSoAAZHIka7f4lJYjS+IOQfYaLPHOaPjIJ8I=; b=tqii02+1PtEivWqPu92L/19Quo
-	YKVckFRAaKjOfz/TcXF27THNktSd1r0boIOdIWlznzydn+yMJbZps5DsJCbmNGuKRs2ELkS/RjoKc
-	poLGldVHwd/E6T3VXZtBtfEAbNtUcT4i9/0IC6fXnsiMas7AEkISnuIpculFtONbbcEg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wVVSR-006F80-Ut; Fri, 05 Jun 2026 16:23:35 +0200
-Date: Fri, 5 Jun 2026 16:23:35 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: george.moussalem@outlook.com
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] net: phy: at803x: add RX and TX clock management
- for IPQ5018 PHY
-Message-ID: <36cd63f4-749e-4b09-b8a6-cbf6924dea88@lunn.ch>
-References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
- <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fv86dJmA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7EA71F00893;
+	Fri,  5 Jun 2026 14:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780669976;
+	bh=rsCCr2Cd8eoILECoaPPBMuJIb4qDsL10k/bqUTMjOLk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fv86dJmAuwUpt+63H3ikkLq7guEiWnd18y61m7gbugrWfQDNEfa3ezVLpxeIXKWQF
+	 DUF7yggPhegLSryr+ELhl+LMwFOJV8cnGotIZepnw2juuCxQKZcBryGdOvGUXXAZyv
+	 31/bdQwHqMyA0IANMOjfMukKMx6b8EckrAqTijeb9o+smXRLbszBZ2FXqFOYwFsJg/
+	 x5NskX8ltTA344PiawNEiZGUCPgPp1L7cIaRq257U2lGXa3OIWT4cJw1l2dRDTnGBw
+	 HcYYhG0Ho16cBF0TJgGOtu5Dzl7csogkpAuuVsrn72edz8hY3Cnc86P833PRr8MA42
+	 8DElzOoMx6OeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 10/10] ASoC: renesas: fsi: Add SPU clock control in
+ hw_startup/shutdown
+Reply-To: sashiko-reviews@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260605121955.105661-11-phucduc.bui@gmail.com>
+References: <20260605121955.105661-11-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 14:32:55 +0000
+Message-Id: <20260605143255.D7EA71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
 
-On Fri, Jun 05, 2026 at 04:41:29PM +0400, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Acquire and manage the RX and TX clocks for the IPQ5018 PHY.
-> These clocks are required for the PHY's datapath to function correctly.
-> Gate the clocks upon link state changes for improved power management.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The SPU clock is never disabled, and spu_count is leaked, when the=
+ FSI operates as a clock master due to an early return in fsi_hw_shutdown().
+- [High] Missing rollback of SPU clock and spu_count on fsi_clk_enable() fa=
+ilure during fsi_hw_startup().
+- [High] Overloading spu_count breaks the clock prepare/unprepare lifecycle=
+ logic, leading to clk_enable() on an unprepared clock.
+- [Medium] Data race on fsi->master->spu_count in fsi_clk_prepare() and fsi=
+_clk_unprepare().
+--
 
->  static void ipq5018_link_change_notify(struct phy_device *phydev)
+commit ce2afa5bc93fefd1e8f98233a0baba78b987617d
+Author: bui duc phuc <phucduc.bui@gmail.com>
+
+ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+
+This commit enables and disables the spu clock within fsi_hw_startup() and
+fsi_hw_shutdown() to keep the clock active during hardware register accesse=
+s.
+It tracks the clock state using fsi->master->spu_count.
+
+> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> index 6537321242c04..d7cc5a14a0998 100644
+> --- a/sound/soc/renesas/fsi.c
+> +++ b/sound/soc/renesas/fsi.c
+> @@ -1585,6 +1585,19 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
+>                            struct device *dev)
 >  {
-> +	struct ipq5018_priv *priv = phydev->priv;
-> +	int ret;
+>          u32 data =3D 0;
+> +       int ret;
 > +
-> +	if (phydev->link) {
-> +		if (!__clk_is_enabled(priv->rx_clk)) {
+> +       /* enable spu clock */
+> +       if (fsi->master->clk_spu) {
+> +               scoped_guard(spinlock_irqsave, &fsi->master->lock) {
+> +                       if (fsi->master->spu_count =3D=3D 0) {
+> +                               ret =3D clk_enable(fsi->master->clk_spu);
+> +                               if (ret < 0)
+> +                                       return ret;
+> +                       }
+> +                               fsi->master->spu_count++;
 
-Using __ methods is usually a bad sign.
+[Severity: High]
+Does tracking active stream starts with spu_count interfere with the existi=
+ng
+clock prepare logic?
 
-The logical also seems a bit odd. In order to get link, you need to Rx
-and Tx. Or is this device able to perform autoneg, send link pulses,
-without these clocks?
+Before this patch, fsi_clk_prepare() and fsi_clk_unprepare() checked if
+spu_count =3D=3D 0 before calling clk_prepare() and clk_unprepare().
 
-Maybe when we have a better understanding of the requirements, we can
-find a better way to use the CCF without needing to go to its insides.
+By modifying spu_count during trigger start and stop, a second stream openi=
+ng
+while the first is running might observe spu_count > 0 and skip clk_prepare=
+().
 
-     Andrew
+Could this lead to calling clk_enable() on an unprepared clock?
+
+[Severity: Medium]
+Since spu_count is now dynamically modified here under the fsi->master->loc=
+k,
+is it safe that fsi_clk_prepare() and fsi_clk_unprepare() read spu_count
+without acquiring this lock?
+
+Could alsa pcm open and close operations running concurrently with trigger
+operations result in a data race?
+
+> +               }
+> +       }
+
+[ ... ]
+
+>          /* fifo init */
+>          fsi_fifo_init(fsi, io, dev);
+> =20
+>          /* start master clock */
+>          if (fsi_is_clk_master(fsi))
+>                  return fsi_clk_enable(dev, fsi);
+
+[Severity: High]
+If fsi_clk_enable() fails here, the function returns the error immediately.
+
+Because the audio core does not execute a stop trigger rollback if the
+start trigger fails, fsi_hw_shutdown() will not be called.
+
+Does this regression leave the spu clock erroneously enabled and spu_count
+incremented forever?
+
+> =20
+>          return 0;
+>  }
+> =20
+>  static int fsi_hw_shutdown(struct fsi_priv *fsi,
+>                             struct device *dev)
+>  {
+>          /* stop master clock */
+>          if (fsi_is_clk_master(fsi))
+>                  return fsi_clk_disable(dev, fsi);
+
+[Severity: High]
+If the fsi operates as a clock master, this early return bypasses the newly
+added spu clock disable logic.
+
+Does this regression permanently leak the spu_count and leave the spu clock
+enabled whenever a clock master stream is stopped?
+
+> +       if (fsi->master->clk_spu) {
+> +               scoped_guard(spinlock_irqsave, &fsi->master->lock) {
+> +                       if (--fsi->master->spu_count =3D=3D 0)
+> +                               clk_disable(fsi->master->clk_spu);
+> +               }
+> +       }
+> =20
+>          return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605121955.1056=
+61-1-phucduc.bui@gmail.com?part=3D10
