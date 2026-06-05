@@ -1,469 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA09940E8C0;
-	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3066F40E8E8
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 13:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780665562; cv=none; b=TvV9iGo2nPuatQ3lNciJvj7fo0InS9wzOl1nborC7m84XI4E3ll3qbbYQ+x29+8mD5J7FGqrcQhRA6HCI29EkEfWblAK287NAWB0WpWnqSA18pMXbqTpWyl/FVzRvr4NCPtgyehGJsiiftNlj+UdXlYMqdCHX+rE/R8hHsVCFjE=
+	t=1780665603; cv=none; b=RJQLNUk8R6TvZsAoQkd9qmU7opuHNs6tuwgFZ320gsi5BA2ocjNJsCRAw1EWtpReXelFqGIzq/ArahTHE2x24ysfkbOcJifHkX/fMpiz+4ZjXm5MJxOmUalHXJkg0UcLgM2hRvBxOQkAUBZVo8XAs+aVaZRMdG1vh3UpSPJce0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780665562; c=relaxed/simple;
-	bh=hQh2zjyVjuQBKr0YpJWHnvsA0HHlhrxVboDTXf1As0s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rpjq3MOpkF/nYRt2ylXQl1gT1rQLFHF3cS6VFPFRBawmIvFO/k42ZLmQoHsr9bykFasDoOHHrYPvR4TwhCI/Frz8iS45eOCZd0er3CvvkKCGSI27Ecr737UysISzo+CT7WxzOlx7Sea35c7Gws69V4ezcU3TBMiL7F0fL+F6HKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzRAB7z4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780665603; c=relaxed/simple;
+	bh=HE5cLOdLTkkn74dczFDyXyTRhzZlaa/PXwAaGp7vmV0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CzkkDsHfolgsaAnX6OImPK8yrCbYb+2wmiN4kwWPwMv+mnad04J8t5s8pfRxl5Q/uOPY14QcwH/pb29/7kejp5lbQvGgOc4J1H4KuZp039Aoa5K1Uz8K01DGVbcBZgb67qvF5r5rVtWcSrOHnDB776/OzGCOcyEKYNQwfPFk7XQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaplmJp3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzRAB7z4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CDDEC2BCB9;
-	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780665562;
-	bh=hQh2zjyVjuQBKr0YpJWHnvsA0HHlhrxVboDTXf1As0s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=YzRAB7z4EXHoXQxXL/43jBMoW7pfl9h2dLwOe3OFvf6rFSZIdd7ANHay9MM3f7Whm
-	 Q/j+8+EU3+3c7fgdYMaPZ1RhIr5KU54IqqhWBGxGyZy14ovAe9obkuvS2opSMXIM5k
-	 R2xTq7J9Njl7hwU/vD3b046xeiOJGPn55t0VsZD33pWzg6lJ/tCAsK0Pa73BnkE3qJ
-	 H0F5Wowj0ZSe54L40kpMdOn42aVtf5xuTw/09T7dmHXhCrxeZClMMDlfCKKQYP7st4
-	 dNuLf7stOt9WB7pjW+ZmJDiBcAhe67Crcvjn/O7294VLPOQnpWGh3IHi1vBoIH7cz+
-	 2f0LfYZbBU+yA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7841DCD8C81;
-	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
-From: David Wales via B4 Relay <devnull+daviewales.disroot.org@kernel.org>
-Date: Fri, 05 Jun 2026 23:19:12 +1000
-Subject: [PATCH v4 2/2] ARM: dts: qcom: Support Motorola Moto G2 (2014)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaplmJp3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA67A1F00898;
+	Fri,  5 Jun 2026 13:20:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780665602;
+	bh=ukZZ62BzyocIAus/TBqkxmLZQTo5eDHe39Yq0OAfEX8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MaplmJp3HOzo/BYbLcCMVPo4gQlCxBGHXLkOu4sThjZF8nebhZRYDHyb3t+4UagmS
+	 wGhOt5C6iPPg2coIarmn2CU2bANRG7gqsmz6Pi4av83xAuAeBNwe/GcTpckrHeGOf7
+	 2FCGVLXV3eQ51Dk1OKTfzjJe1SxOLn58NdNAUXaRRs5mUB5CVjVmOgkAnSKyFxqg9s
+	 THRERk5oILHnbfbhiTkViWXzkNxjZCg/OrL6B8cuzgcrLkEHyZVijFNc+T7mMqtA0O
+	 V94tI3KHY2nrNmowI/FfapEBRW9E2unhDrSqS/xEIepnT6JFo5F2E7ZeaFnv8de9J1
+	 8puac85DxvWzQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 05/10] ASoC: renesas: fsi: Fix register access from
+ in-flight IRQ after shutdown
+Reply-To: sashiko-reviews@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260605121955.105661-6-phucduc.bui@gmail.com>
+References: <20260605121955.105661-6-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 13:20:01 +0000
+Message-Id: <20260605132001.DA67A1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-device-motorola-titan-mainline-v4-2-08a7be31f05c@disroot.org>
-References: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
-In-Reply-To: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- David Wales <daviewales@disroot.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9155;
- i=daviewales@disroot.org; h=from:subject:message-id;
- bh=+XSLlvQ/n1aHJc8ncvfg4DeYbWfEmkHRb9XOmV5aUtI=;
- b=owGbwMvMwMWYmxze6PZlYRrjabUkhiylMzdSjEprI7b4uf1iT+JOmpf9pGtuWI/6jFs3zgaYz
- uDQ16nsZDRmYWDkYpAVU2S53uVeftL5mcXXSTqfYAaxMoFMYeDiFICJLF7B/les7sLGXu6Yn3lH
- j9dPf1Ewb87nGOG6hFnd8+bc4puRuuNvvMGNpSobpn1wZ/I4KKioLpq6Ie7HxOhFhnNZOl8b7pW
- RFv6fu0HpqWDTBiMF+YVKZwJn85e8a+Bj5i0Pkg56Fyy4ibEqSiNElbPv0O3bRVmWpxVvRGSbJE
- 4LsnRqiizlXPv8wOvjGx/9MuGQPFu1J6m7iMk3PnzfFK6U2ykTvdz2cShK3q/Rs9pfPu/Qgfqe4
- j35oY2am2fumf88UPNjaVwZs1bQQqWKht99f+Q/yM2KEDitvJFtsalplHmY3Bbmk+rMkssadEPK
- PedsTehWXiwRyrclO7Z66o0F6QeZozjyjskv4MvY+PglAA==
-X-Developer-Key: i=daviewales@disroot.org; a=openpgp;
- fpr=8F5BAFB15444A769DC3B61684022B817D275D037
-X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
- auth_id=737
-X-Original-From: David Wales <daviewales@disroot.org>
-Reply-To: daviewales@disroot.org
 
-From: David Wales <daviewales@disroot.org>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Add device tree for Motorola Moto G2 (2014) (motorola-titan) smartphone
-based on the Qualcomm MSM8226 SoC.
+New issues:
+- [High] The patch fails to completely fix the hardware hang due to imprope=
+r ordering with clock shutdown and introduces a Time-Of-Check to Time-Of-Us=
+e (TOCTOU) race condition.
 
-Initially supported features:
-  - Buttons (Volume Down/Up, Power)
-  - eMMC
-  - Hall Effect Sensor
-  - Simple framebuffer display
-  - Vibrator
+Pre-existing issues:
+- [High] Potential NULL pointer dereference in `fsi_pointer_update()` if a =
+DMA completion callback runs after stream shutdown.
+- [High] The driver releases DMA channels in `remove` before unregistering =
+the ALSA component, creating a Use-After-Free race condition.
+--
 
-Based on device tree for similar device msm8226-motorola-falcon.
-Initial commit for falcon notes that dhob and shob reserved-memory
-regions seem to be related to a Motorola specific mechanism. [1]
+commit c264d5f1cdc59e54f0e7191a60f9c8c00661657c
+Author: bui duc phuc <phucduc.bui@gmail.com>
+ASoC: renesas: fsi: Fix register access from in-flight IRQ after shutdown
 
-[1] https://github.com/LineageOS/android_kernel_motorola_msm8226/blob/cm-14.1/Documentation/devicetree/bindings/misc/hob_ram.txt
+This commit attempts to prevent system hangs by adding checks in the
+in-flight IRQ handlers to skip hardware access if the stream is no
+longer working. It relies on fsi_stream_is_working to detect if the
+stream is active before reading or writing registers.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: David Wales <daviewales@disroot.org>
----
- arch/arm/boot/dts/qcom/Makefile                   |   1 +
- arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts | 350 ++++++++++++++++++++++
- 2 files changed, 351 insertions(+)
+> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> index 429c3c9b6ede4..0f350bddeb1d5 100644
+> --- a/sound/soc/renesas/fsi.c
+> +++ b/sound/soc/renesas/fsi.c
+> @@ -470,6 +470,10 @@ static int fsi_get_current_fifo_samples(struct fsi_p=
+riv *fsi,
+> =20
+>  static void fsi_count_fifo_err(struct fsi_priv *fsi)
+>  {
+> +	if (!fsi_stream_is_working(fsi, &fsi->playback) &&
+> +	    !fsi_stream_is_working(fsi, &fsi->capture))
+> +		return;
+> +
 
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index c7873dcef154..de311293ce16 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_QCOM) += \
- 	msm8226-motorola-falcon.dtb \
-+	msm8226-motorola-titan.dtb \
- 	qcom-apq8016-sbc.dtb \
- 	qcom-apq8026-asus-sparrow.dtb \
- 	qcom-apq8026-huawei-sturgeon.dtb \
-diff --git a/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
-new file mode 100644
-index 000000000000..1609fb21c544
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
-@@ -0,0 +1,350 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026, David Wales <daviewales@disroot.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "qcom-msm8226.dtsi"
-+#include "pm8226.dtsi"
-+
-+/delete-node/ &smem_region;
-+
-+/ {
-+	model = "Motorola Moto G2 (2014)";
-+	compatible = "motorola,titan", "qcom,msm8226";
-+	chassis-type = "handset";
-+
-+	aliases {
-+		mmc0 = &sdhc_1; /* eMMC */
-+	};
-+
-+	chosen {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		framebuffer@3200000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x03200000 0x800000>;
-+			width = <720>;
-+			height = <1280>;
-+			stride = <(720 * 3)>;
-+			format = "r8g8b8";
-+			vsp-supply = <&reg_lcd_pos>;
-+			vsn-supply = <&reg_lcd_neg>;
-+			vddio-supply = <&vddio_disp_vreg>;
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_BYTE0_CLK>,
-+				 <&mmcc MDSS_ESC0_CLK>,
-+				 <&mmcc MDSS_MDP_CLK>,
-+				 <&mmcc MMSS_MISC_AHB_CLK>,
-+				 <&mmcc MDSS_PCLK0_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			power-domains = <&mmcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		event-hall-sensor {
-+			label = "Hall Effect Sensor";
-+			gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			linux,can-disable;
-+		};
-+
-+		key-volume-down {
-+			label = "Volume Down";
-+			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+		};
-+
-+		key-volume-up {
-+			label = "Volume Up";
-+			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	vddio_disp_vreg: regulator-vddio-disp {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vddio_disp";
-+
-+		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
-+		startup-delay-us = <300>;
-+		enable-active-high;
-+		regulator-boot-on;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		framebuffer@3200000 {
-+			reg = <0x03200000 0xfa0000>;
-+			no-map;
-+		};
-+
-+		dhob@f500000 {
-+			reg = <0x0f500000 0x40000>;
-+			no-map;
-+		};
-+
-+		shob@f540000 {
-+			reg = <0x0f540000 0x2000>;
-+			no-map;
-+		};
-+
-+		smem_region: smem@fa00000 {
-+			reg = <0x0fa00000 0x100000>;
-+			no-map;
-+		};
-+
-+		reserved@fb00000 {
-+			reg = <0x0fb00000 0x400000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&blsp1_i2c4 {
-+	status = "okay";
-+
-+	regulator@3e {
-+		compatible = "ti,tps65132";
-+		reg = <0x3e>;
-+
-+		pinctrl-0 = <&reg_lcd_default>;
-+		pinctrl-names = "default";
-+
-+		reg_lcd_pos: outp {
-+			regulator-name = "outp";
-+			regulator-min-microvolt = <5400000>;
-+			regulator-max-microvolt = <5600000>;
-+			regulator-active-discharge = <1>;
-+			regulator-boot-on;
-+			enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		reg_lcd_neg: outn {
-+			regulator-name = "outn";
-+			regulator-min-microvolt = <5400000>;
-+			regulator-max-microvolt = <5600000>;
-+			regulator-active-discharge = <1>;
-+			regulator-boot-on;
-+			enable-gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+};
-+
-+&pm8226_vib {
-+	status = "okay";
-+};
-+
-+&rpm_requests {
-+	regulators {
-+		compatible = "qcom,rpm-pm8226-regulators";
-+
-+		pm8226_s3: s3 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1300000>;
-+		};
-+
-+		pm8226_s4: s4 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2200000>;
-+		};
-+
-+		pm8226_s5: s5 {
-+			regulator-min-microvolt = <1150000>;
-+			regulator-max-microvolt = <1150000>;
-+		};
-+
-+		pm8226_l1: l1 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l3: l3 {
-+			regulator-min-microvolt = <750000>;
-+			regulator-max-microvolt = <1337500>;
-+		};
-+
-+		pm8226_l4: l4 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l5: l5 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l6: l6 {
-+			/* Hall effect sensor */
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-always-on;
-+		};
-+
-+		pm8226_l7: l7 {
-+			regulator-min-microvolt = <1850000>;
-+			regulator-max-microvolt = <1850000>;
-+		};
-+
-+		pm8226_l8: l8 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l9: l9 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l10: l10 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l12: l12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l14: l14 {
-+			regulator-min-microvolt = <2750000>;
-+			regulator-max-microvolt = <2750000>;
-+		};
-+
-+		pm8226_l15: l15 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8226_l16: l16 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3350000>;
-+		};
-+
-+		pm8226_l17: l17 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l18: l18 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l19: l19 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+		};
-+
-+		pm8226_l20: l20 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3075000>;
-+		};
-+
-+		pm8226_l21: l21 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l22: l22 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l23: l23 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l24: l24 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1350000>;
-+		};
-+
-+		pm8226_l25: l25 {
-+			regulator-min-microvolt = <1775000>;
-+			regulator-max-microvolt = <2125000>;
-+		};
-+
-+		pm8226_l26: l26 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l27: l27 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l28: l28 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3400000>;
-+			regulator-boot-on;
-+		};
-+
-+		pm8226_lvs1: lvs1 {
-+			/* Pull-up for I2C lines */
-+			regulator-always-on;
-+		};
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8226_l17>;
-+	vqmmc-supply = <&pm8226_l6>;
-+	bus-width = <8>;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&smbb {
-+	qcom,fast-charge-safe-current = <2000000>;
-+	qcom,fast-charge-current-limit = <1900000>;
-+	qcom,fast-charge-safe-voltage = <4400000>;
-+	qcom,minimum-input-voltage = <4300000>;
-+
-+	status = "okay";
-+};
-+
-+&usb {
-+	extcon = <&smbb>;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	extcon = <&smbb>;
-+	v1p8-supply = <&pm8226_l10>;
-+	v3p3-supply = <&pm8226_l20>;
-+};
-+
-+&tlmm {
-+	reg_lcd_default: reg-lcd-default-state {
-+		pins = "gpio12", "gpio13";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+};
+[Severity: High]
+Does this introduce a time-of-check to time-of-use race condition?
 
--- 
-2.54.0
+Since fsi_stream_is_working acquires and drops the master lock, an
+interrupt can check the status and drop the lock. Before the handler
+reads the hardware registers below, another thread could call
+fsi_hw_shutdown, disabling the clock and causing a hang.
+
+Additionally, when stopping the stream in fsi_dai_trigger, the hardware
+shutdown is called before the substream is cleared:
+
+sound/soc/renesas/fsi.c:fsi_dai_trigger() {
+    ...
+    fsi_stream_stop(fsi, io);
+    if (!ret)
+        ret =3D fsi_hw_shutdown(fsi, dai->dev);
+    fsi_stream_quit(fsi, io);
+    ...
+}
+
+Because the clock is disabled before io->substream is cleared, an
+in-flight IRQ will still pass the fsi_stream_is_working check
+and access the registers.=20
+
+The same ordering issue occurs in __fsi_suspend, where io->substream is
+never cleared at all.
+
+>  	u32 ostatus =3D fsi_reg_read(fsi, DOFF_ST);
+>  	u32 istatus =3D fsi_reg_read(fsi, DIFF_ST);
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but is there a potential NULL pointer
+dereference in fsi_pointer_update during stream shutdown?
+
+When stopping a DMA stream, fsi_dma_push_start_stop uses
+dmaengine_terminate_all, which terminates asynchronously:
+
+sound/soc/renesas/fsi.c:fsi_dma_push_start_stop() {
+    ...
+    dmaengine_terminate_all(io->chan);
+    ...
+}
+
+Immediately after, fsi_stream_quit sets io->substream to NULL. If the
+DMA callback fsi_dma_complete fires or is still running concurrently
+after io->substream is cleared, it will call fsi_pointer_update which
+dereferences the pointer without checking:
+
+sound/soc/renesas/fsi.c:fsi_pointer_update() {
+    struct snd_pcm_substream *substream =3D io->substream;
+    struct snd_pcm_runtime *runtime =3D substream->runtime;
+    ...
+}
+
+Could this cause a kernel panic if the callback executes after cleanup?
 
 
+[Severity: High]
+This is a pre-existing issue, but does fsi_remove create a use-after-free
+race condition by releasing DMA channels before ALSA unregistration?
+
+In fsi_probe, the ALSA component is registered via devres using
+devm_snd_soc_register_component, meaning it unregisters automatically
+after fsi_remove completes. However, fsi_remove manually destroys
+the stream resources:
+
+sound/soc/renesas/fsi.c:fsi_remove() {
+    ...
+    fsi_stream_remove(&master->fsia);
+    fsi_stream_remove(&master->fsib);
+    ...
+}
+
+Since the ALSA device is still accessible to userspace while the DMA
+channels are being freed, an application could trigger audio playback.
+If playback is started concurrently, it calls fsi_dma_transfer which
+dereferences the freed channel:
+
+sound/soc/renesas/fsi.c:fsi_dma_transfer() {
+    ...
+    desc =3D dmaengine_prep_dma_cyclic(io->chan, ...);
+    ...
+    dma_async_issue_pending(io->chan);
+}
+
+Could this lead to accessing a freed DMA channel pointer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605121955.1056=
+61-1-phucduc.bui@gmail.com?part=3D5
