@@ -1,94 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C442128725B;
-	Fri,  5 Jun 2026 18:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DEE3A3821;
+	Fri,  5 Jun 2026 18:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780682919; cv=none; b=XJ4/jKO/Sx10TwaLSX7ZcibZqYbcHJZl66H9n29HAH7c9JVlOFZLVLvjgMjiFRgqnL2tl+8DVFNX3sFJhGOi8kVHVJjYX5ezSKa98O//dtADj0r9DhIpvzU/WvG4ZdDF2c9Z0NMSfMfc/z+BiI5DK52JJJsytpUrBsziVxKbkdo=
+	t=1780683297; cv=none; b=GKbfeMpjOlyoZrqg/kywW42i//k2/idlpOQsJAFWJbjVUeYWRw6wwgKcm7VUHL/yXsnqi0/ng3NRV/EvXKzVicfv8aYORf7MJduyiZyYXpU/Y4jnBZCREPMvJvt5W6bPKJLnSu6F3l5whiJrwVxG1rzOCp7t9B4Ay0GoP27GO8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780682919; c=relaxed/simple;
-	bh=2+brnzUx990MOInGWsL6ZxNrK90ERrXAKzKSiSYXsPw=;
+	s=arc-20240116; t=1780683297; c=relaxed/simple;
+	bh=Ge2nsXbXVB11wGz26n/HR93zpsXWkFswt9H/b+SLtgA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z6Yu9a5cbZZWhxMax+LJyvFD7G4RYWsLRMoAvwYbArvuKA2Vpufmtw4jnKLdwcWxeyQU4lnBuIQiv5WNtsuu2pW0AlDQmmdRnnX3E9LOzEkQNCkTTNtKl+OPBNwXiffR9lRzmXtRM7/q9Kjwap2+KmA4hJb13+WI8trEolB6riM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SGmG13yi; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=C7JmOc7bZSzPLbTY/w/2CkYSCLyPpumvnJOxnr4xpBhB9xfomEJO0lj5ldK6u+0KWsXwktw2FlOQVR++kh+DntDzriendpWvy/LDY+4+KlygHoMoJF0vghbpjyzIZ9UWmNXlu9/S7EvBKZS0PHt828hWQX8f0qS7XdRyGR+tGx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kKvXX5Tw; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SGmG13yi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780682918; x=1812218918;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=2+brnzUx990MOInGWsL6ZxNrK90ERrXAKzKSiSYXsPw=;
-  b=SGmG13yi5ICaHrNhVW0XS4A+9VKTqsLLt9t5aOEl0J+xMNH+FXj6RXT2
-   4PFKxagC40PygNd4w1KRBF+/naQfpdm2K9O8Axo7iQXMRsMDqLETtM4sk
-   qkSK0OZ3H4DLS7BW0yTSDDrfqb2T5oOZgIze7DNF/qFxsy1PMmyavW83P
-   4GN3ETqSibUSNXvlRWBtDfYZpQfkxzyr4DfChJluLu9HwHgJVD8QNR0z1
-   bI9Oyhz5HaXloYx1PSpe2XMUQzQTTKDji0Jb9qfQcutc75ZfdjRIMjqiR
-   RSYCetZocdKsOe4NfywFLsY4JzhG6vIxWQ8n1/OBQGJcVC8L+2uM+XZUh
-   w==;
-X-CSE-ConnectionGUID: o9PSHtK3S36Ym5axgKn9+Q==
-X-CSE-MsgGUID: GE54KMuDTbyT/HzsWrXVgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="80555507"
-X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; 
-   d="scan'208";a="80555507"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 11:08:37 -0700
-X-CSE-ConnectionGUID: VodKQM33QyCJKHA7Nq4egQ==
-X-CSE-MsgGUID: DA8IULWcTiShoZurc3E7Gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; 
-   d="scan'208";a="268590591"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.178])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 11:08:34 -0700
-Date: Fri, 5 Jun 2026 21:08:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kKvXX5Tw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=CWSJhxCvKNv8WF2H5sZ3YZCpqe7EisvdRxWuvZCt+Lg=; b=kKvXX5Tw3k1zYXky5H61GA2eAn
+	YQCNCAOfKkOUytJ/ySMIjmGQwwTn903T3ajubR8xq7X2ymdVcWy5etV9+6ZpEv+kQYn2SsTy4QiUX
+	2hr4X3WWaFNDEQkSscWHthsGXvO+PfTiaXqUzXBmUkiw/Z45LVwc3z3cRtPm9l6SHmlg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wVZ43-006H9d-S1; Fri, 05 Jun 2026 20:14:39 +0200
+Date: Fri, 5 Jun 2026 20:14:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] iio: light: add support for veml6031x00 ALS series
-Message-ID: <aiMQoKociwhOUDvJ@ashevche-desk.local>
-References: <20260524-veml6031x00-v3-0-29165609b2b5@gmail.com>
- <20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
- <20260526185933.0084679f@jic23-huawei>
- <aiMPJ9Qqcg7XTJt0@ashevche-desk.local>
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] net: phy: at803x: add RX and TX clock management
+ for IPQ5018 PHY
+Message-ID: <afdced5b-73b9-4214-a94a-c13fadd39dce@lunn.ch>
+References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
+ <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
+ <36cd63f4-749e-4b09-b8a6-cbf6924dea88@lunn.ch>
+ <SN7PR19MB673634FEEF98FB8BCBBB15979D112@SN7PR19MB6736.namprd19.prod.outlook.com>
+ <471a21f2-7ab0-410c-861d-5722a94b127d@lunn.ch>
+ <SN7PR19MB67363B4F852FB37071637A299D112@SN7PR19MB6736.namprd19.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aiMPJ9Qqcg7XTJt0@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <SN7PR19MB67363B4F852FB37071637A299D112@SN7PR19MB6736.namprd19.prod.outlook.com>
 
-On Fri, Jun 05, 2026 at 09:02:22PM +0300, Andy Shevchenko wrote:
-> On Tue, May 26, 2026 at 06:59:33PM +0100, Jonathan Cameron wrote:
-> > On Sun, 24 May 2026 23:53:56 +0200
-> > Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
+> >> This PHY is integrated into the IPQ5018 SoC, connected to the first GMAC
+> >> (GMAC0) and probed upon boot. However, this PHY is not used on all
+> >> boards because an external PHY or switch can be wired to the SoC's
+> >> second GMAC instead (through a PCS). So from a power management
+> >> perspective, it would be better if we can disable the clocks if there's
+> >> no link detected.
+> > 
+> > Humm, is link the correct criteria? If the PHY is not used,
+> > .config_aneg should not be called. Why not have the probe method get
+> > the optional clocks, but leave them off. When .config_aneg is called
+> > for the first time, enable the clocks?
+> 
+> Will check if config_aneg is called and test accordingly.
+> 
+> ip link set eth0 up/down and cable (un)plug do trigger
+> link_change_notify, and based on the link state the RX/TX clocks are
+> turned off/on properly.
 
-...
+You are talking about something else here. You say the device is not
+used. If it is not used, .config_aneg should not be called.
 
-> I have a déjà vu that I have given already same comments.
-> Why are they not addressed?
+This is a second use case, the device is used, and you want to limit
+the power it consumes, when there is no link. Do you have any numbers?
+How much power is actually saved?
 
-Okay, it's v3, I reviewed already v4.
+> Could you explain why to use _optional variants of devm_clk_get as these
+> clocks are required? There are currently no users upstream.
 
--- 
-With Best Regards,
-Andy Shevchenko
+This last bit is important. We don't want to cause regressions on
+existing systems by adding in requirements which were not there in the
+past. But if you say there are currently no users, that is fine.
 
-
+	Andrew
