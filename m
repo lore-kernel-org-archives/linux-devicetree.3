@@ -1,64 +1,64 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A581646AEE2
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 07:10:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0DB47885F
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 07:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780643405; cv=none; b=Fm+YbxKDWU+Mw+5Z6G70gyLBh/DXszTPjz7QPyGwA4JUn+MUSocJb8cPmunPZS2vjUPzgn/ecZKxtqj2Scj75iV/+aAo9Zg8NQjAk06p14mU90Lab/lUd2rBqk3Nhp5uXo34vVHTGwJqaOTDEkTjB4ghDKc7Bm3sPjKsJ04laqk=
+	t=1780643406; cv=none; b=Ns4iy2yt72E57nR6dJxfqHpbdLz/0/ojZKkJlFD2Frfu2fFhc7pDKko4uSYq+z4hT6LGoUrXcjZ/Tbsok71TEAT3/xDUB4VVgjm+cdhzMkGHMFC7KtRGERXx56KqFVPD7ygQh9/ynOeyU3IpExOKRfdaluVHciCS1n8Q94JMyps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780643405; c=relaxed/simple;
-	bh=7MDbaMfdfDFcEL1euNDkSuzapxJuUtssv4QW4CSalUc=;
+	s=arc-20240116; t=1780643406; c=relaxed/simple;
+	bh=5WZ+tBexvdJk8/8pbvHz1XquFaJAKiQawiGF8mrATF0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c7jbjmjqSLtuGSVJKEUUBi/Lyzf9lCnWJtwBQ4bpqHEGFxw/tLg4domPUQAdCmefP2pugwyBBFd+xLIuUfNOxtR95x73WXV59QaOoyRuPfwu3inW14wipa0jZ6FAQYVtp8sPbBMPnMNYCbl0pdSMLBIeQjzNgD6lKrW0a/oxr0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fSy9aAf/; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=dK2w1VsyJn+NGkSOAsqns5aaVVMMvP/2D+ZsxxVWM2cJTghqoftqadjeEVcifeVsKt9DQmoHZnA2NEpivC6CG11x24nDoDkJvd5AAfs1NmdyHbfUbWYc6gHUXOWEZBL2CBI/CiCD8/Hs60KgceMPdZbkKzNoqg16hEsgIAbvwFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6YcQJsB; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fSy9aAf/"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4600ddc4017so1191113f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 00:10:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6YcQJsB"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45ef4223be7so860728f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 00:10:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780643401; x=1781248201; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780643404; x=1781248204; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oL4Y31r8dtXqoPXz/W9R/fk3pvn98vrw1YoAz+z4buw=;
-        b=fSy9aAf/UppHL2XCuU87VFTQmEsCIb/b4p5MU/uaQTdP3j0fbn3QW9kZS7IsOgGmRL
-         A9TPjxfxioz3hQWmTBq09svrElNUeclNmT2W9ke2a5hAxeFXvlJlWrTBsvdg41zF6PT+
-         1UH1MBTL7K6BuWC03AvGOaI/bIExTFWtIKvBUe+V2soaQGIynTuTKpa/mbeO73NRF2i4
-         Eq1fhyuIYKelTNDBdOqoIKYUAc+N0Ss0RmsukBtY6KzvCVWmH+I2/SdQpQG6n0N74BcJ
-         CkHrDAK0l1+w8y1tumNFf/bq1BA1stF45eWrgJwtJImvUu6/DtAfS21ibRka+z5zvlda
-         CMQg==
+        bh=ti3aO8Zn2qwqlJrE/LtPSs6G2aaVeGfvnqG893sDUic=;
+        b=E6YcQJsB0D+womB3Rz+vlMOwxEHEwTtvamnQq4sx0MbbXCMQCLnM2/nLCH0pp/t7wN
+         /smqVU8IWIecX7nFGmQs6t8jrpqmnemfeZVzMLeMNbfsAmL/eihOOg5vttelPT4FZ+/2
+         XRqWWQdkXvWBc6pkv1hnJXWReQ4Pt4IAUq0aFCBIqGNqpcbEmTnAsnBdXvQx0w92Iqga
+         +ujMo/0HQm32RzMDRaUp46GxqmzNlfZkj8TfbCJfeNLuDhhRQEgtdlvL10awq7ikvO0k
+         70RBh2GawqssT5TtOuTBlfz4BnLKRirfwNGrnSMEYLzal/8DeU1ZNOTbemFe5bMh0YXt
+         GwbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780643401; x=1781248201;
+        d=1e100.net; s=20251104; t=1780643404; x=1781248204;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oL4Y31r8dtXqoPXz/W9R/fk3pvn98vrw1YoAz+z4buw=;
-        b=lxnoLF6FFi3l5gxAbNXVYdPPIUH14qhErhre733KWXkmCnojiIZtZfQjnUAaCPJnjP
-         ABb6BeF/1gjRtAzSz4rhz1sDmDkEwl7iLFFI8U9V/DrdQZsc34jHtWj9B6eYqv/dmm7K
-         S5X9MzEemeROkMlo8sKnbm18s4N0Ee8EVc32sr5dt7/6+3YUbRZFZ2XjtpN/jrpAqpKA
-         xEWcq0xgC7xNh5NqHfWE1o0RLNWm2O1h1opiePwjxO8DrzcXWxwgAklfkHULj1OOOvj2
-         7GGmsYBDjMqFcPoq5lZpWkwL5e/Vg+y0w/ZvwmurwjjYM1ok8K96OBfM9eM25O4OYshp
-         8oaA==
-X-Forwarded-Encrypted: i=1; AFNElJ9R3wvqr6+b3Zm0TFlpgdOmgmGo5Kst8DXoKLhRH+iNBlZ1+6gV+yPnwHawb7oa5s32dqGBA9wqtHuO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyfzt3RZh3bYFAI+SuYGH/EWooFMyAK+MEqDnRbRF+AtejoNs2w
-	urKLChbXpcMbFF5zsgt2IpklHxxUkBPTI2xaesl0x10BSMBgbkzBbBtR
-X-Gm-Gg: Acq92OH9uheVrNPbTQbfcJZu5kpBzxJR+SQP6a5FuUtNWdfc/b4N94FHf2ScYZRnkTx
-	Hu36aaEgWIx1Lf7d/Z9B0UwTSlHdn8w9N6ayR1r92qxYKe3YpBSBM4qcnPyCXf+QaIXOaKKDQM3
-	udl4MFz8sfN/2K4uWBaQ8a2V9oegnhO+PVMRdu0qzOHInh6O9bIxsIkJDeWtKSKmi0SUGXFsRHu
-	SQta6SxsYmzCtDhbsNeN+/V/eqpk2pRbPSkcnlAjDDfYyb/1Tju5fQJDpLYIXQVHtO/c0r7NMxu
-	ykcyIoH+iXFRlbc7Gal94/Pt3HzCmSBG6zLH8Ed3+ZxjLHB1LGH2RKpvr7opkne+bvg1S3LesZi
-	N5Am6nDzc/4AtgGi3Q441tgPy3iy98B3YcWd5DrtXs1tzGZP8A5SpM/MVfRUWSTQvhdAOlsZiZC
-	CUsL/FaDkVRiimZgtHa6d7MecVPtMwHcztQ2QQnPL2uQ1razW99gbHT8tC6V0LO1CfA7w+kfWJP
-	DLtdLffihAXfGRzi7Y55cwYPRGZT+Qk
-X-Received: by 2002:a05:6000:178e:b0:460:3234:293d with SMTP id ffacd0b85a97d-46032342a62mr2372600f8f.40.1780643400949;
-        Fri, 05 Jun 2026 00:10:00 -0700 (PDT)
+        bh=ti3aO8Zn2qwqlJrE/LtPSs6G2aaVeGfvnqG893sDUic=;
+        b=c9dOuvS/sgfnvDgUynYAY/tfhTjYVPkLfKb0xXKV1ooHT/E0whWCW4BGLN8ZXl8cQW
+         Y15koJPmn5Zr2w//OPA55k0HBtH533yC2UARY6/hGUJhmCzKSUmvI8i/4k6iJGfatBdB
+         hfakSTD3x6mwBMjbdCwIofuErGwYQOA5+8VLEn74oOqSqW18+u8yQTH28chOg8B1u8Xa
+         IsvcFVRMJri7k0EqS3uyluVi33aQ0Y1NsbdmqlZUDJ+dG+c3GzOsYJrx+sKjGKcENb9W
+         nh0XM40hpLtBusc/GrJ8pfiMhOgd5TI5Aoo3TDqyJfHcRk+VAzaL9o8a+ZIz9jUDMf27
+         eHjw==
+X-Forwarded-Encrypted: i=1; AFNElJ9oFHehGJwcs5PQy4JdMLDmDrjAh5zZsYoboZHNfm8S83DhENCnuXLDgm/0OjFb29D+FsDp4/CXgG0J@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQ4pjjjojr79LjHWLI7zHdeAeIfKfgiOp8KwrWrhcpBlRE7wrU
+	XPGIIHhrVAtDpyyxJ3hXePd3xOww1jrgBCFtj56C1q7GEyDf7vdyefMq
+X-Gm-Gg: Acq92OFQjsrdYBZr1tFeKDkb7BCLjE6R1yEiGw93+9BGFqZFXgsId/cYA7ycoaKH0g8
+	XEnzwdHIjB6HXjbCv6iKjoYXVnASjfm9tVmy6iKSOEybdaIug3nwOuyknjNNUFb6k8m2emKEtup
+	MwUzMch9XpbOLWQs6J/MmDulzP96o6XweXqI9WFaVT8/gGFM0AYdTzDUBrFQ6bD/8r6SNrv2tl5
+	anjoyRYTJB3QaX/014b5O6/GRooGMkvsCfSVeDyDMuNDlf+1czg2cKXOW8dc25r60pdB0Zo2gHd
+	KM0FSBSVvc6I9vaN35lVXVB1Ie9UOjvXNNqV4mLqSQ+eTP21mSOdNw3xxLxIrJTm6fxHvwX68ct
+	iwaKs9b3ibnVElcGDMtLT4Twf+r7DEctPHQ84Be9CqnV0/a73nTHrdXZKDez6l739dVRrhgtaOt
+	/GGN6srnuL+df+urj82AGjhrCX3RAY2StkL/xdt4lDkSLOvcxEcTrlV9y0BgqkALex1Hi/VI3X3
+	xzrJVyUz6wYBmREENvuNw==
+X-Received: by 2002:adf:fe01:0:b0:43d:775b:c9bd with SMTP id ffacd0b85a97d-460304fadf5mr2671883f8f.10.1780643403511;
+        Fri, 05 Jun 2026 00:10:03 -0700 (PDT)
 Received: from localhost.localdomain (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcad5sm25132882f8f.5.2026.06.05.00.09.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcad5sm25132882f8f.5.2026.06.05.00.10.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 00:10:00 -0700 (PDT)
+        Fri, 05 Jun 2026 00:10:03 -0700 (PDT)
 From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 To: linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev
@@ -82,11 +82,10 @@ Cc: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v4 3/7] dt-bindings: arm: sunxi: Add Baijie HelperBoard A133 compatible
-Date: Fri,  5 Jun 2026 09:09:17 +0200
-Message-ID: <20260605070923.3045073-4-alexander.sverdlin@gmail.com>
+	linux-input@vger.kernel.org
+Subject: [PATCH v4 5/7] arm64: dts: allwinner: a100: Add LRADC node
+Date: Fri,  5 Jun 2026 09:09:19 +0200
+Message-ID: <20260605070923.3045073-6-alexander.sverdlin@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260605070923.3045073-1-alexander.sverdlin@gmail.com>
 References: <20260605070923.3045073-1-alexander.sverdlin@gmail.com>
@@ -98,41 +97,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Baijie HelperBoard A133 is a development board around their A133 Core
-board. Introduce a compatible for both the Core and the development
-boards.
+A100/A133 SoCs feature a Low Rate ADC (LRADC) for Key application.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Specs:
+- Power supply voltage: 1.8 V
+- Reference voltage: 1.35 V
+- Interrupt support
+- Support Hold Key and General Key
+- Support normal, continue and single work mode
+- 6-bits resolution, sample rate up to 2 kHz
+- Voltage input range between 0 and 1.35 V
+
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 ---
 Changelog:
 v4:
-- renamed "Baijie Helper A133" -> "Baijie A133 HelperBoard"
-- renamed "baijie,helper-a133" -> "baijie,helperboard-a133"
+- added allwinner,sun50i-a100-lradc compatible
 v3:
-- no separate section for "core" .dtsi
-v2:
-- introduced baijie,helper-a133-core compatible for the Core (SoM) board
- Documentation/devicetree/bindings/arm/sunxi.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+- new patch
 
-diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
-index e6443c266fa1..82dd58b95f8a 100644
---- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-+++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-@@ -96,6 +96,12 @@ properties:
-           - const: allwinner,ba10-tvbox
-           - const: allwinner,sun4i-a10
+ arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
+index b3fb1e0ee796..7cb06b19b5a5 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
+@@ -466,6 +466,15 @@ ths: thermal-sensor@5070400 {
+ 			#thermal-sensor-cells = <1>;
+ 		};
  
-+      - description: Baijie A133 HelperBoard
-+        items:
-+          - const: baijie,helperboard-a133
-+          - const: baijie,helperboard-a133-core
-+          - const: allwinner,sun50i-a100
++		lradc: lradc@5070800 {
++			compatible = "allwinner,sun50i-a100-lradc", "allwinner,sun50i-r329-lradc";
++			reg = <0x05070800 0x400>;
++			interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_LRADC>;
++			resets = <&ccu RST_BUS_LRADC>;
++			status = "disabled";
++		};
 +
-       - description: BananaPi
-         items:
-           - const: lemaker,bananapi
+ 		usb_otg: usb@5100000 {
+ 			compatible = "allwinner,sun50i-a100-musb",
+ 				     "allwinner,sun8i-a33-musb";
 -- 
 2.54.0
 
