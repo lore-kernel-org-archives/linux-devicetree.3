@@ -1,266 +1,202 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BB14C9566
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:02:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0351D4D2EC1
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:02:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780657337; cv=none; b=oMihCV1ktD3J89UB0WMr8kfRpCkhiQm+crSpYlrzx5CHz/QMTHJz5Spbb6kwTyD0L/IDZL4UjIKXAX2tisYXtvlu0Ric9AxS3pYYzZVNyKxb6w03V1CIopSD0L9qEfaED3Sj1Ev69UWA//TQRDodgSFCqUBlF2BPwPdmpel1nMg=
+	t=1780657341; cv=none; b=uP/6ufUrSsaMdz6tPhTYK73vcU6g/blvrtWjrXLoHYmNyklcNXXHXADHZXh/9FBBLsRdldE9pFZftk5sKNkNJFpaOB8rTRV7PYVXFkXmHSBC0qjYT6mR/PMlFcXG+8hdSGznVH8abUph9dUtM5Res9NrKFeas+C6LoK080ckBzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780657337; c=relaxed/simple;
-	bh=jUYKX5bKaYnbJboRMmj6dc+uujyObWlPSVn+NP0VwyI=;
+	s=arc-20240116; t=1780657341; c=relaxed/simple;
+	bh=nl02YEq7sZPA5oj8nsu45AmKEX0aB5pdRyBs7RbQgsU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BrcNIY4mYQcUy+1VIXehXIL3NjHGtrbZ+11Oir1lHhh8J5joL63XU3PyKEEjgElNSfq5Lc5l0c8Q6+j5zar8/Ej8LAR8aC3apROarMaAkXNHCkUf/NehTgkDB7oH+1nPbwW4adNuNUApo0hR82omu7cN+3+Fl2ERD8T1Pv8MYIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQFDEOwV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GP3Wo5mHkOrlERu0nPq9KnNZoycO46wbRN6tm5We0oNXt5vucJmP03XyPy6G1hTvULXv2h/heMC0f4aXT7RYzB2wsJPTxnFR10JYlMNVhesJHQESInZKowznRqc7Pjl8fI7bAnkCASwD6eEtHE/VS9X9Cb73WgECdkb+ixP/968=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6Zgm66D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQFDEOwV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16C81F00898;
-	Fri,  5 Jun 2026 11:02:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6Zgm66D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4501F00893;
+	Fri,  5 Jun 2026 11:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780657333;
-	bh=6G24CCuVMK6QRM6vMcEK4wa2dcuKrXEHKmymgF+lN/o=;
+	s=k20260515; t=1780657339;
+	bh=YQaoIUExIMzdrJm/CtspNpPzxZEcZFl9sw7EXzzTcXM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dQFDEOwVG36SvkoLuv8tFq7O2KBn4v25heu9wkG8SREnS5WmqauS1j7ZFOtr0HWnG
-	 FwTYngkFz19M7Y+31Ql41BNPjvKwV/+1JSBrmgp9M3GIwbgLgsMyOrWz6qHI/BT0EZ
-	 +/uFmGGiM4L00s6yXnAWzUNbb/BNonKXFFh9UT81HCuyooY2S2PV+bb3Fou7/111gd
-	 tfq/q3QD1QGkZy6r41noUx2AFvgEaxqKdM75qvoWYaZ/QpzwctZmnxiCDlmjTG5M2s
-	 AqHW29rXLcWM3e2dAmeYcPGJoP/5w7OiV2+XkvrTgZ1yWUm2uBuHSv62YNbmWGCdE5
-	 PnTx2IkgQV1tw==
+	b=U6Zgm66DcKUaBa7vQnESQkrJsmV24Bt2/Q78zxPCa4Qp4gG81EB2/GxSKp4PofHGv
+	 EOif3t1zklMZITcqxlnJuuzwI38IZXBOIru6gr2hGUcyfzkPviiiGEKpwG3+rSRyxU
+	 tYej5aDqmpMNMDltAknvOqcWdK9YrsmB91miTpzTfeg1KHzUx3MFtyzb34+Y7RGdCd
+	 teFakwbBouqmu1pV7wO6vsNxZNfrZnfXCmFhT5uP4ik68fVqbFpma2vV0CIRAZD6fU
+	 rcnQtAuUz4TtLuPoagKgyBoSm/XkX540Jc9YaNBXyPPQHFluIU/Pa5fNh1GNIQNqBi
+	 mQtt3SCR5nm0g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/13] ASoC: qcom: Add QAIF PCM operations
+Subject: Re: [PATCH 13/13] ASoC: qcom: Add Shikra QAIF support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260605103739.3557573-12-harendra.gautam@oss.qualcomm.com>
-References: <20260605103739.3557573-12-harendra.gautam@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260605103739.3557573-14-harendra.gautam@oss.qualcomm.com>
+References: <20260605103739.3557573-14-harendra.gautam@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 11:02:13 +0000
-Message-Id: <20260605110213.A16C81F00898@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 11:02:18 +0000
+Message-Id: <20260605110219.5B4501F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Critical] Incorrect DMA buffer type `SNDRV_DMA_TYPE_CONTINUOUS` for `dma=
-_alloc_coherent` memory leads to arbitrary physical memory mappings.
-- [High] Missing `free_stream_dma_idx` cleanup in the `qaif_init` failure p=
-ath.
-- [High] The ALSA pointer callback returns raw negative error codes directl=
-y, corrupting the ALSA core pointer math.
-- [High] Mismatched device structs between coherent DMA memory allocation a=
-nd mapping for CIF streams.
-- [High] Missing constraint to enforce period and buffer sizes as multiples=
- of 8 bytes.
-- [High] Concurrent `prepare` calls unconditionally overwrite global DMA cl=
-ock rates.
-- [Medium] Memory leak and uninitialized buffer values used for unrecognize=
-d DAIs.
-- [Medium] Data race / TOCTOU on `qaif_init_ref_cnt` leading to multiple si=
-multaneous hardware initializations.
-- [Low] Bitwise OR operations are performed on negative error codes, scramb=
-ling the returned error values.
+
+New issues:
+- [High] Core clocks are disabled in `remove()` before devres unregisters t=
+he ALSA component and IRQ handler, creating a race condition for bus crashe=
+s.
+- [Low] DAI mapping arrays are missing the `static` keyword, polluting the =
+global namespace.
+- [Low] Latent build breakage risk due to `module_platform_driver()` within=
+ a variant file linked into a generic module.
+- [Low] Using `of_match_ptr()` with an unconditionally defined match table =
+triggers compiler warnings when `CONFIG_OF` is disabled.
+
+Pre-existing issues:
+- [High] Unprotected increment and decrement of the global reference counte=
+r `qaif_init_ref_cnt`.
 --
 
-commit 282c91bcb4ac4fdd53a4566b6b00d7be3a79bcbc
+commit 977cd466322e3f1bab9395ba1c325fb256edb595
 Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Subject: ASoC: qcom: Add QAIF PCM operations
 
-This commit adds PCM operation callbacks for the QAIF platform driver
-to manage the DMA stream lifecycle for AIF and CIF DAIs.
+ASoC: qcom: Add Shikra QAIF support
 
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
-m.c
-> index b298ee9d865ee..beebec55222a5 100644
-> --- a/sound/soc/qcom/qaif-platform.c
-> +++ b/sound/soc/qcom/qaif-platform.c
-> @@ -280,3 +280,570 @@ static int qaif_init(struct snd_soc_component *comp=
-onent)
-[ ... ]
-> +static int qaif_platform_pcmops_open(struct snd_soc_component *component,
-> +				      struct snd_pcm_substream *substream)
-> +{
-[ ... ]
-> +	buf =3D &substream->dma_buffer;
-> +	buf->dev.dev =3D component->dev;
-> +	buf->private_data =3D NULL;
-> +	buf->dev.type =3D SNDRV_DMA_TYPE_CONTINUOUS;
-
-[Severity: Critical]
-Does this code assign the wrong DMA buffer type?
-
-Because the memory is allocated with dma_alloc_coherent() (via
-qaif_mem_alloc_attach()), tagging it as SNDRV_DMA_TYPE_CONTINUOUS causes
-ALSA's default mmap handler to assume the virtual address is linearly
-mapped. The handler then attempts to use virt_to_page() to resolve
-physical addresses, which can return incorrect page frames for vmalloc
-or IOVA-backed addresses on ARM64. This could potentially allow
-unprivileged userspace mapping of arbitrary physical memory.
+This commit adds the Shikra variant data for the Qualcomm Audio Interface
+driver. It provides the register layout, DMA-to-DAI mappings, clocks, and
+DAI descriptors required to enable playback or capture on Shikra platforms.
+The new file is built as part of the snd-soc-qcom-qaif module.
 
 [ ... ]
-> +	ret =3D qaif_init(component);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "qaif_init failed: %d\n", ret);
-> +		clk_disable_unprepare(drvdata->aud_dma_mem_clk);
-> +		clk_disable_unprepare(drvdata->aud_dma_clk);
-> +		qaif_mem_dealloc_detach(component->dev, dma_mem_info);
-> +		kfree(data);
-> +		return -EINVAL;
-> +	}
 
-[Severity: High]
-Does this error path leak the DMA stream index?
-
-The stream_dma_idx was dynamically allocated earlier, but it is not
-released via v->free_stream_dma_idx() here. A few initialization
-failures might exhaust the stream index pool and permanently break the
-DAI until module reload.
-
-> +	drvdata->qaif_init_ref_cnt++;
-
-[Severity: Medium]
-Could this refcount increment lead to a race condition?
-
-The qaif_init() function checks if qaif_init_ref_cnt is zero before
-executing the hardware setup. However, the increment happens here, after
-qaif_init() has returned successfully. Since PCM devices have individual
-locks, open() might be called simultaneously across different DAIs,
-allowing multiple threads to see a zero refcount and simultaneously
-execute hardware setup.
-
-[ ... ]
-> +	switch (dai_id) {
-> +	case QAIF_MI2S_TDM_AIF0 ... QAIF_MI2S_TDM_AIF12:
-[ ... ]
-> +	case QAIF_CDC_DMA_RX0 ... QAIF_CDC_DMA_RX9:
-[ ... ]
-> +	default:
-> +		break;
-> +	}
+> diff --git a/sound/soc/qcom/qaif-shikra.c b/sound/soc/qcom/qaif-shikra.c
+> new file mode 100644
+> index 0000000000000..e835645030879
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-shikra.c
+> @@ -0,0 +1,585 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * qaif-shikra.c -- ALSA SoC CPU-Platform DAI driver for QTi QAIF
+> + */
 > +
-> +	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
-
-[Severity: Medium]
-Does this code proceed with uninitialized buffer values for unrecognized
-DAIs?
-
-The switch ignores unrecognized DAIs via the default branch. The function
-then proceeds to configure the ALSA runtime buffer with an uninitialized
-buf->bytes and buf->addr. The memory allocated for dma_mem_info earlier
-in the function also appears to be leaked.
-
-[ ... ]
-> +static int qaif_platform_pcmops_prepare(struct snd_soc_component *compon=
-ent,
-> +					 struct snd_pcm_substream *substream)
-> +{
-[ ... ]
-> +	clk_set_rate(drvdata->aud_dma_clk, rate * bitwidth * channels * QAIF_DM=
-A_CLK_RATE_MULTIPLIER);
-> +	clk_set_rate(drvdata->aud_dma_mem_clk, rate * bitwidth * channels * QAI=
-F_DMA_CLK_RATE_MULTIPLIER);
-
-[Severity: High]
-Can concurrent prepare calls break active streams by clobbering these
-global clocks?
-
-These global clocks provide the base frequency for the entire QAIF
-hardware block. Because they are unconditionally overwritten here based
-on the specific rate, channels, and bitwidth of the preparing stream,
-concurrent streams with different formats might starve or break streams
-that are already running.
-
-[ ... ]
-> +	ret =3D regmap_write(map, QAIF_DMABUFF_REG(v, idx, dir, dai_id),
-> +			(snd_pcm_lib_buffer_bytes(substream) >> QAIF_DMA_BYTES_TO_WORDS_SHIFT=
-) - 1);
-
-[Severity: High]
-Can this shift operation truncate buffer sizes and cause data corruption?
-
-Because there is no ALSA constraint (like snd_pcm_hw_constraint_step)
-enforcing an 8-byte alignment, userspace might request a size that is
-not divisible by 8. QAIF_DMA_BYTES_TO_WORDS_SHIFT is 3, so the right
-shift will silently truncate the remaining bytes. This makes the hardware
-DMA buffer smaller than ALSA's software tracking expects, leading to
-wrap-around mismatches.
-
-[ ... ]
-> +static int qaif_platform_irq_clear(struct qaif_drv_data *drvdata,
-> +				int dir, enum qaif_irq_type irq_type, int idx)
-> +{
-> +	int ret =3D 0;
-> +	const struct qaif_variant *v =3D drvdata->variant;
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +	unsigned int val_irqclr =3D BIT(idx);
+> +#include <linux/module.h>
+> +#include <sound/pcm.h>
+> +#include <sound/soc.h>
+> +#include <linux/pm.h>
+> +#include "qaif.h"
 > +
-> +	if (dir =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-> +		ret |=3D regmap_write(map, QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, irq_typ=
-e), val_irqclr);
-> +		ret |=3D regmap_write(map, QAIF_EE_RDDMA_UNDERFLOW_IRQ_CLR_REG(v, irq_=
-type), val_irqclr);
-> +		ret |=3D regmap_write(map, QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, irq_ty=
-pe), val_irqclr);
+> +struct qaif_dmaidx_dai_map shikra_aif_dma_dai_map[] =3D {
+> +		{ QAIF_MI2S_TDM_AIF0 },
+> +		{ QAIF_MI2S_TDM_AIF1 },
+> +		{ QAIF_MI2S_TDM_AIF2 },
+> +		{ QAIF_MI2S_TDM_AIF3 }
+> +};
+> +
+> +struct qaif_dmaidx_dai_map shikra_cif_rx_dma_dai_map[] =3D {
+> +		{ QAIF_CDC_DMA_RX0 },
+> +		{ QAIF_CDC_DMA_RX1 },
+> +		{ QAIF_CDC_DMA_RX2 },
+> +		{ QAIF_CDC_DMA_RX3 }
+> +};
+> +
+> +struct qaif_dmaidx_dai_map shikra_cif_tx_dma_dai_map[] =3D {
+> +		{ QAIF_CDC_DMA_TX0 },
+> +		{ QAIF_CDC_DMA_TX1 },
+> +		{ QAIF_CDC_DMA_TX2 },
+> +		{ QAIF_CDC_DMA_TX3 }
+> +};
+> +
+> +struct qaif_dmaidx_dai_map shikra_cif_va_dma_dai_map[] =3D {
+> +		{ QAIF_CDC_DMA_VA_TX0 },
+> +		{ QAIF_CDC_DMA_VA_TX1 },
+> +		{ QAIF_CDC_DMA_VA_TX2 },
+> +		{ QAIF_CDC_DMA_VA_TX3 }
+> +};
 
 [Severity: Low]
-Does this code inadvertently scramble error values?
+Are these mapping arrays intended to be globally visible?
 
-The regmap_write() functions can return negative error codes. Two's
-complement integers combined with bitwise OR operations will produce
-incorrect error semantics or completely invalid codes, corrupting the
-return value given to the caller.
+Since they appear to only be used locally in shikra_qaif_get_dma_idx(),
+could they be marked static to prevent namespace pollution and avoid
+sparse warnings?
 
 [ ... ]
-> +static snd_pcm_uframes_t qaif_platform_pcmops_pointer(
-> +		struct snd_soc_component *component,
-> +		struct snd_pcm_substream *substream)
+
+> +static int shikra_qaif_exit(struct platform_device *pdev)
 > +{
-[ ... ]
-> +	idx =3D v->get_dma_idx(dai_id);
+> +	struct qaif_drv_data *drvdata =3D platform_get_drvdata(pdev);
 > +
-> +	if (idx < 0) {
-> +		dev_err(soc_runtime->dev, "%s: Invalid DMA index: %d\n", __func__, idx=
-);
+> +	if (!drvdata || !drvdata->clks)
 > +		return -EINVAL;
-> +	}
-
-[Severity: High]
-Does this pointer callback return raw negative error codes?
-
-The ALSA core pointer callback is defined to return snd_pcm_uframes_t
-(unsigned long). A negative error code like -EINVAL will cast to an
-enormous frame position, completely breaking ALSA's period math and
-stream state. Consider returning SNDRV_PCM_POS_XRUN or 0 on error.
-
-[ ... ]
-> +static int qaif_platform_cdc_dma_mmap(struct snd_pcm_substream *substrea=
-m,
-> +				       struct vm_area_struct *vma)
-> +{
-> +	struct snd_pcm_runtime *runtime =3D substream->runtime;
 > +
-> +	return dma_mmap_coherent(substream->pcm->card->dev, vma,
-> +				 runtime->dma_area, runtime->dma_addr,
-> +				 runtime->dma_bytes);
+> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> +	return 0;
 > +}
 
 [Severity: High]
-Is the wrong device pointer being used for this DMA mapping?
+Does disabling core clocks here create a race condition during teardown?
 
-In qaif_mem_alloc_attach(), the memory is allocated using component->dev:
+If shikra_qaif_exit() disables clocks directly from the remove() callback,
+devm-managed resources like the QAIF IRQ handler and ALSA component will
+still be active since devres cleanup happens after remove() completes.
 
-	dma_mem_info->vaddr =3D dma_alloc_coherent(dev, alloc_size,
-						 &dma_mem_info->dma_addr,
-						 GFP_KERNEL);
+If an IRQ fires or userspace accesses ALSA during this window, could
+accessing the unclocked regmap trigger a synchronous external abort?
 
-However, this mapping operation uses substream->pcm->card->dev. DMA API
-constraints require mapping operations to use the exact same device
-pointer used for memory allocation. If these devices belong to different
-IOMMU domains, this could cause IOMMU faults or failed mmaps.
+[ ... ]
+
+> +static struct platform_driver shikra_qaif_cpu_platform_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "shikra-qaif-cpu",
+> +		.of_match_table =3D of_match_ptr(shikra_qaif_cpu_device_id),
+
+[Severity: Low]
+Could using of_match_ptr() here cause a compiler warning when CONFIG_OF is
+disabled?
+
+The shikra_qaif_cpu_device_id array is compiled unconditionally, so if
+of_match_ptr() evaluates to NULL on non-OF builds, the array would be
+left unreferenced.
+
+> +		.pm =3D &shikra_qaif_pm_ops,
+> +	},
+> +	.probe =3D asoc_qcom_qaif_cpu_platform_probe,
+> +	.remove =3D asoc_qcom_qaif_cpu_platform_remove,
+> +	.shutdown =3D asoc_qcom_qaif_cpu_platform_shutdown,
+> +};
+> +module_platform_driver(shikra_qaif_cpu_platform_driver);
+
+[Severity: Low]
+Does using module_platform_driver() in a variant file cause issues for the
+generic module?
+
+Since snd-soc-qcom-qaif.ko links multiple object files, tying the module's
+init and cleanup symbols directly to the Shikra variant might cause a multi=
+ple
+definition build failure if another variant file is added later that also
+calls module_platform_driver().
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential problem in the
+linked qaif-platform.c driver. When qaif_platform_pcmops_open() increments
+the counter:
+
+qaif_platform_pcmops_open()
+    drvdata->qaif_init_ref_cnt++;
+
+Since different DAIs map to different ALSA PCM streams, their open and
+close callbacks can execute concurrently. Does this non-atomic increment
+allow two concurrent opens to both read the counter as 0, race on the
+hardware initialization, and corrupt the refcount?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605103739.3557=
-573-1-harendra.gautam@oss.qualcomm.com?part=3D11
+573-1-harendra.gautam@oss.qualcomm.com?part=3D13
