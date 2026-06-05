@@ -1,33 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5203F822D;
-	Fri,  5 Jun 2026 10:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2A64183D6
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 10:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780656132; cv=none; b=t9il6q9sK1wgDm93y0o52goMjw7h2tjvwuMCHgARm8npoLReP8ik3g5f8csgcKfk7eG9oEOQbj/cYBsZJaPpFrpvUYY1GR0bdYOyLOvvG/9EJpMMSmhVnk8REsE00xCvW203Xkhh8+dwb6oRJ5oCxl5XoM3++DuVrnJCCOnWqn4=
+	t=1780656269; cv=none; b=bHbW+MzDSonBfRnuh7V8afOP7BVrhEc56RSAgMUPxd4l4t1wKmI03ncqD3SJAv5muaPa4fbxx0bnJwA3+lqZFlI7wJFsBmZZaHF2ZjjSIvuZlcrN28kMfKKBC/pZXvYJFlD/2OFS03+b+uWFGn17b0T/FytMDUEr6x2L/tX2deY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780656132; c=relaxed/simple;
-	bh=J0h6tTPLBqBzFB3093crVNp64vtuAbi8eULUrZLaM6k=;
+	s=arc-20240116; t=1780656269; c=relaxed/simple;
+	bh=25yQeO6z/Sv42/XFzm0mTMdMDNT6A9j02g1aaly+XVM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h6sAs1T6+KrSRiYUbhzTVsMXSLTS11T3lUtuBKgHcS9PG8LPqmfrs0e+Ib+1qlZ/md6m/wfdxP4nRKvrML4btxKHvOM4XbbiCyZhRneOM2JHU+At7hg3xuCLyH3ApwPc+lxqUKZ+MFhNI4E6kbCAvsX5YQY4hLvyrSdArKV3vXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqz6PanE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=hmGzFYCEq2MQut+BTKjHkFRnW/Y/whiR/4UKhjqvgmWcdNSuAF4GIc16fRrV603jHK1Fjms9ceY8zk/ZdCtlKA0XeIAUvL1V7jmFYNrBVYPotolhkU+WJF01lgk2QqRhJLh4gP/3bC6BKOeKvslWMhHAGbLYm+EOhf133xAu4bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQ6+IxP/; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqz6PanE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B461F00893;
-	Fri,  5 Jun 2026 10:42:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780656131;
-	bh=loZtY1wUeFLErX3KgMafhwkOURDj1k96YTlVuDim+hs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iqz6PanE19is3J8q9sdxWykmxU7GY/cxgCjqzpvsUKZdW7Zq+5aMgykn1grsJ1OrZ
-	 drOjFYtYOYjwjaIzgsxSO4LBnYElKPB005i4xS0pSjosSrXuflT/ejK49hNCbQBC9M
-	 URjEXPMPahkthtOiohdxjjFCV56qaVazs2lnuF+XQeHPHJilVyisVkYpipO2wYlkD0
-	 7eL7/YB+MfMjMXUJ8KnJbhL27jtQ7KgIjiARIOmsfBF2oh1K9UaA3JU/PXOk4Z9m03
-	 NwlJwhSRWfLuqFueCHwLZhCI3dd/VRBgFHqDMdz33vqZX799op43BfNVSq6omOzr6X
-	 /kqJYn0J+rU3g==
-Message-ID: <0b1c870c-b22b-458e-b845-866bc23d0d79@kernel.org>
-Date: Fri, 5 Jun 2026 12:42:04 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQ6+IxP/"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45ef189aa1cso1265992f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 03:44:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780656266; x=1781261066; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Gn6KVcQqqwpDjyvuwkRjE231Xsgcb7/5TEFaLWl5LFs=;
+        b=aQ6+IxP/YZPiGc4rjULO+I8pnzxM++uhOZ5H6cT49SFKs8CeSvbCIEgG2pIzUS7OhP
+         vfUpUksmm46nd/JW/LcW3yas5YQ9XOo8AzHab4z2MGlLqtYSnwhRnd06ukTGSWT9SQgK
+         lxGFpWaNhPW9RVJ8ydTWQyw/7vNjnNND3IM6JkB89BdK6ZaeUCN2Ogtufl8X4qGyRQ4I
+         jFjbAYmP8ImCc8V+T+GO5IDspKPpMHxp0MJaAC4/iW+XvEEsuY/IQUnoRQJlrochUQ0r
+         Y+22mC2IGfszshR3hi6/ZN7vsfCGaHp/G1uGrGW8DuRGfQlePbL78sg2UE+HSrZiHzU7
+         Q1sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780656266; x=1781261066;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Gn6KVcQqqwpDjyvuwkRjE231Xsgcb7/5TEFaLWl5LFs=;
+        b=BY14A17Xwb7O6wvPsSCjuEBsKC5xZttjFM5hA1rqj8RLlE9elgE8b0tBlAK7Phi3TE
+         IIb9HFElyPLHgrs/kKwlvV57O/6bzGyQtqH+Q5wpUMMPnTuOz0IOkhfhWUFmxLgUaAwP
+         FaMjtTF152kG6AECfpuFWeq8kh6bGOgpidC0RY4sCgQzoyMqFF9JE+42DQifN/AdsBW/
+         +BTb7s1dn39Gw0+KiysCG5T1Xo231JZP75yq0ztbmieQ+k40+xsjgkw/3OE0cqvLgdBX
+         kXnczpOKqVd4F/beK9V4D8SjqN1a9qBbhmSs1/uk1PoCFxmedfTB4seTsTUL11D/aX9r
+         xZ/g==
+X-Gm-Message-State: AOJu0YwAvDzPcr8dr5nyRNL2HPVwS2vEtXrrlizPWpCsx0LOkzdqeR6o
+	qzG7nfhbQbDh/9tN5Flbo5IZxk3jUClIKm8skdlolY8598Z1NUXy+C19
+X-Gm-Gg: Acq92OFQyqoCFDFZdl+OLeq5kH5Tx7sn6cG7hiwbq43WqRjuBKByFUfKoJOHFrtO5Af
+	kZs1l3lbVRsVQWM1daTOUDbAwjwWx/zQbJHuHjxcdMxyVKSMpetoG131Uo18dkeoj28ZmgU074g
+	0YQE9YzVc6w9m3zSat8qNxAMsXYx8s//XBTZ3Bd/DHHErkTlZ/RTtEETpJ3SiVecqD589q637Qu
+	IHPDq8lwe4ZXTkIpv3NdclEbztF3ETaUVc/QogcxGRfm11T2AmnwgFDl2f5qzxA5C2HKpWs3iYZ
+	kAQ6STOaooLOqVU16JLLa43b4g7HuINRHj0qUhgOfTV4GqxY24SiZbHjnsq9aMYGBZ4v7cvvWPC
+	faVH2FEUq4XAWsJy7oXivd4CQCuRXA6GtbHI4ce8KWWfxn2ejphhwjszRjUV36ql/gMshfNMZc6
+	VFP4iLmkG5L4QEhddO1HONrv+Nvuj2otBAcdgwrG98zvyCvEiJzGuWT6Uv0Sx63DhLTQ==
+X-Received: by 2002:adf:e00f:0:20b0:45f:f142:d55c with SMTP id ffacd0b85a97d-4603063a8ffmr3523153f8f.22.1780656266046;
+        Fri, 05 Jun 2026 03:44:26 -0700 (PDT)
+Received: from [10.25.213.68] ([128.77.115.158])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2e4004sm25066376f8f.9.2026.06.05.03.44.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 03:44:25 -0700 (PDT)
+Message-ID: <cf7b4c03-e1f4-4439-8077-2f8677bb2cea@gmail.com>
+Date: Fri, 5 Jun 2026 03:44:23 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,73 +67,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/13] dt-bindings: sound: Add Qualcomm QAIF DAI ID header
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
- <20260605103739.3557573-2-harendra.gautam@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v4 1/3] dt-bindings: dma: fsl-edma: add dma-channel-mask
+ property description
+To: Joy Zou <joy.zou@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, Ye Li <ye.li@nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260211-b4-imx95-v2x-v4-0-10852754b267@nxp.com>
+ <20260211-b4-imx95-v2x-v4-1-10852754b267@nxp.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260605103739.3557573-2-harendra.gautam@oss.qualcomm.com>
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+In-Reply-To: <20260211-b4-imx95-v2x-v4-1-10852754b267@nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/06/2026 12:37, Harendra Gautam wrote:
-> Add a dt-bindings header for the Qualcomm Audio Interface (QAIF) controller
-> DAI IDs. This provides shared constants for devicetree sound-dai references
-> and QAIF aif-interface reg values instead of using raw numeric IDs.
+
+
+On 2/11/2026 1:28 AM, Joy Zou wrote:
+> Add documentation for the dma-channel-mask property in the fsl-edma
+> binding. This property uses an inverted bit definition: bit value 0
+> indicates the channel is available, while bit value 1 indicates
+> unavailable.
 > 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> That was already used widely for i.MX8, i.MX9. Correcting the definition
+> will break backward compatibility. This reversal only impacts the eDMA
+> dts node and driver, and doesn't impact DMA consumer. Therefore,
+> keep the inverted definition.
+> 
+> Also add a note at the top of the binding to highlight this inverted
+> definition to prevent confusion.
+> 
+> Signed-off-by: Joy Zou <joy.zou@nxp.com>
+Hi,
 
-This is is never a separate patch from the binding.
+I believe this patch hasn't been picked up yet even though it's been ACK'd by one of the
+DT binding maintainers.
 
-Best regards,
-Krzysztof
+Frank Li, can you please take it into your tree?
+
+
+Thanks,
+Laurentiu
