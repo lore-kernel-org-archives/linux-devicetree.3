@@ -1,218 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E03B405C25;
-	Fri,  5 Jun 2026 10:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422654183B4;
+	Fri,  5 Jun 2026 10:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780655869; cv=none; b=UZclQiXLQcOcmMZFkbn0855h8jtEQtSciKJ366fMYTqoYRfN5h6YPs56R2iKHCxwpYnDSEddulDto7pD+GjHna34KiEG1+22YYmxwgQHjus4dcEEaSJeHcQtR1pyvs75CiCQqf36XTllwmr3v1STf2Pi8qnSJv61CuI93zboEkY=
+	t=1780655874; cv=none; b=OzwgtgtwKOw7Ym4ONWWrmhlgUOxFJFOrbpQh/8Q74Jw81cFZtC4pZq8HyO2Bav+hYxX+QU8rulFE8jyu4APjQ+EOnXGhwihjZGa9L0EUXsh4s2oOdp6kdSxUodD/2S7zAeolVNp0orcMnssHgQqNbjdsRyWOKIOW7ULIUtIDdSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780655869; c=relaxed/simple;
-	bh=FIzdTczJRHmOyzHmlid1zzuPA3wHoAdl+dKfG7bIf4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RLFH4Z1Rjo67wLHrKQSEoh66D67yOfOfpLeFknAAjA6Tf4yvDajPqHvhzDKoJG6cquNa1KhirdLX/n6ihdmhwXuf+oAz4foadqgZxLrvt+zcbzyuaF9WepYeaMnZfSpYLYmPIMM5HeUtW7508VXW6dOr1c41lbC+F9sBnYPP19Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXFFssKd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780655874; c=relaxed/simple;
+	bh=kcyrPjeuJZWd42rDn1Kr2nTfDV78yRex3n2tZqdSn3k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=sISXvMkPCXiHO4e3oVRntLQOIx9LmUobzD1hmcFDZJb9YDUoZ2emZVuKTPXCgaC51kpF6eBMQ6MTy0/unJFNrPr3WJH4LlQd3Yv6o2YEUTXS7RIfdf1gho7WavnKAVyTWZx62FyPMRhbKS9Ycb+NWj2Lit/dWmPOIwJJANwDh24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d0sq4+f9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXFFssKd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585D81F00893;
-	Fri,  5 Jun 2026 10:37:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780655867;
-	bh=7zKPX2gJZRGl22ScmucAkq8WKAzIuvDi/pQbxdTFxD8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MXFFssKdC98J/AqcEWwQ/KPiXv5VrVNkVItvZt2mpZ4STU7mEMFsIWq/TB1qwWytY
-	 yI2Ri0Sjz/J0BoUDmCE6FiFHCQe9BXqr8yMRnvREiXGi9Rf3tZ3Fir2Emc4HDczU8p
-	 NM9jRoz6JWS/7IShW4CQWo7dBaT8K37jNRCnoc4dECyBa8Rc9h3S/IypiA8aasTL8n
-	 3ABlijYf7N1jsb8w12KYIT3b5UZOc8o8xX40OR+SiOpIIHxnQz85x0XggxW206SJ8L
-	 f2u1kogRYzIcoRQhy/nbjsQB3giLVZmxb1Lb+ILKFCgqM8F2NkYzwRbEFRyqbwxf3Q
-	 uKql4t3PCcwLA==
-Message-ID: <ffb9c16e-5a5a-45c4-8d4b-369b0a4fe314@kernel.org>
-Date: Fri, 5 Jun 2026 12:37:40 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d0sq4+f9"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6555uY683112556;
+	Fri, 5 Jun 2026 10:37:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=mV06m0R56Lo45XWSWGcP3i
+	8G4AJJBc+jc7mnE7Gw0p0=; b=d0sq4+f9ZqgZh6Ok7h/yAJss/tgupMi7gOnqc7
+	LXA0kaiWcahGr1vTPpUFzUY1e86yg6NuPuCIXLYBhrFjj5pjubhipK/hN1NNc3Us
+	AlDCf2Z60jQ84RTz9vbCmWydAxVrjdbFxRs6oqAG3agDOZikbTJytPQA1cz9SP7k
+	u/vozmpXSFjk2B6duX/lFpeFYggBRhFPASEznCodo6b0e0ucR25LWTfeumA4KEp3
+	B2T68XZS0ts9WGNhr+mbr8VRML8nJZwXydYYLGPH4TJOkUmT9XgiSwR8kWEGBOYs
+	V5UYRvtmL3KCfU6euFEsZdBHAfQiHKDLvfIea5y6nXgvIOnQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ekfv732yd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 05 Jun 2026 10:37:50 +0000 (GMT)
+Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 655Abk6l011714;
+	Fri, 5 Jun 2026 10:37:46 GMT
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH 0/13] ASoC: qcom: Add QAIF driver for Shikra audio platform
+Date: Fri,  5 Jun 2026 16:07:26 +0530
+Message-Id: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: i2c: add Novatek NT726xx SoC i2c
- controller
-To: SP_ISW1_AT@novatek.com.tw, andi.shyti@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: ben_huang@novatek.com.tw, toby_chui@novatek.com.tw,
- shihpei_hsu@novatek.com.tw
-References: <20260605035558.383330-1-SP_ISW1_AT@novatek.com.tw>
- <20260605035614.383387-1-SP_ISW1_AT@novatek.com.tw>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260605035614.383387-1-SP_ISW1_AT@novatek.com.tw>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-Proofpoint-GUID: csZUSwm1ARqs2xr0vk2W5lZCE4Twi-d_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA1MDEwMyBTYWx0ZWRfX2v4Xa3jrUVOk
+ O5A79pGFkxoF+yAjftgUGP6Uj8siyo/jJhN5pfMialOFi7dRNv72M8ZvVhnhMkSek3/UxFlLa/u
+ /3fnvVXTPT5PyGtQ+Oa2P1cO9WUzOsTBs11hbLTYn5arhFMa+obM1XR+ULW7eXcyMIinKH86drB
+ JsehxrCkbM4U1dXY5Dk6GdkoXjj0327LRgSIag4Nf5ITb5QVtMP5lVoSNjNTeAFp4FlNOHWYmqO
+ YbDzB4AA3D8NhBIuHyQ+NfOStE0X1ipQZeLK6ZoZXenYtUQmmGFkkjTwOmLadPXEvbyhLcZaEbD
+ 6dJT6KtCY/Hk2+zy+5VM0gk6ATgRB7XkxNDLqU0A0DLypKTk0YvsEwl8+MxZM/Hn00XKAoPr3eG
+ rK0NolGKNL12jRYyX4Gm7LMrEuOzLrGcA+qUw3iakfcWK5+zQO5ZAlyXTQCImE9QplWrrUKoKcy
+ ekQK0ZR1T4FseFLE+nQ==
+X-Authority-Analysis: v=2.4 cv=JNULdcKb c=1 sm=1 tr=0 ts=6a22a6fe cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=qLBaUGd7TCgKCsoal_sA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: csZUSwm1ARqs2xr0vk2W5lZCE4Twi-d_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-05_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ clxscore=1011 adultscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606050103
 
-On 05/06/2026 05:56, SP_ISW1_AT@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
-> 
-> Add device tree documentation for Novatek NT726xx SoC i2c controller.
-> 
-> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-> Signed-off-by: Novatek i2c <SP_ISW1_AT@novatek.com.tw>
-
-This won't work. Please see submitting patches and explanation of DCO.
-
-
-> ---
-> v2:
-
-
-Please version your patches correctly, e.g. use b4 or git format-patch
--vX, and add changelog in cover letter or under '---' of individual
-patches describing changes from previous version.
-
-
-Limited review.
-
-> - Add Novatek i2c to Signed-off-by email list.
-> - Remove confidential related statements and HTML messages.
-> - Fix the potential issues in the device tree document and
->   i2c driver source codes.
-> - Fix typos.
-> 
-> v1:
-> https://lore.kernel.org/lkml/20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw/T/#t
-> ---
->  .../bindings/i2c/novatek,nt726xx-i2c.yaml     | 48 +++++++++++++++++++
->  1 file changed, 48 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
-> new file mode 100644
-> index 000000000000..d9dfdaaec205
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
-> @@ -0,0 +1,48 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i2c/novatek,nt726xx-i2c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +maintainers:
-> +  - Ben Huang <ben_huang@novatek.com.tw>
-> +  - Jason JJ Wu <jason_jj_wu@novatek.com.tw>
-> +
-> +title: Novatek NT726xx SoC I2C master controller
-> +
-> +allOf:
-> +  - $ref: /schemas/i2c/i2c-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: novatek,nt726xx-i2c
-> +
-> +  reg:
-> +    maxItems: 4
-
-You need to list the items instead.
-
-> +
-> +  interrupts:
-> +    maxItems: 3
-
-You need to list the items instead.
-
-> +
-> +  clock-frequency:
-> +    description: Operation clock frequency of i2c in Hz.
-
-Drop
-
-> +    default: 100000
-> +    enum: [ 100000, 400000 ]
-> +
-> +  novatek,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Name of each i2c pin, must be named with "i2cX". (X is
-> +                 an integer starting from 0)
-> +    minItems: 1
-
-There is no such syntax. Please do not invent own style.
-
-Anyway, I don't understand the property - drop.
-
-> +
-> +  novatek,stbc:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Set if this i2c master controlled by stbc.
-
-No clue what does that mean. What is stbc? Acronym of something? Why
-would that be a property of a board?
-
-> +    minItems: 1
-
-Please open existing code. Do you see anywhere uint32 with minItems?
-Like anywhere? I really wonder what process lead to such code...
+This series introduces the Qualcomm Audio Interface (QAIF) driver for
+the Shikra audio platform.
 
 
+Hardware IP Overview
+====================
+QAIF (Qualcomm Audio Interface) is a fully configurable DMA-based audio
+subsystem used to transmit and receive audio data over serial audio
+interfaces (PCM, TDM, MI2S) and to provide a DMA interface for internal
+codec connections. It manages two independent data paths:
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - novatek,hwmods
-> +
-> +unevaluatedProperties: false
+  Unified Audio Interface (AIF): Serialises and deserialises PCM audio
+  between system memory and external serial audio peripherals. Each
+  interface supports up to 8 independent data lanes, each configurable
+  as TX (speaker) or RX (mic). All lanes of an interface share a single
+  bit clock and frame sync. The AUD_INTFa hardware block controls the
+  serial protocol -- sync source (master/slave), sync mode (short/long
+  PCM, TDM, MI2S), sync delay and inversion, slot and sample widths,
+  active slot masks, lane enable/direction, mono/stereo mode and
+  full-cycle path support for long chip-to-chip connections.
 
-Missing example. Please open existing bindings and look how it is done.
-do you see i2c controllers without examples?
+  Codec DMA Interface (CIF): Provides a parallel DMA interface to the
+  internal Bolero digital codec. The RDDMA path carries playback data
+  to Bolero and the WRDMA path carries capture data from Bolero. Each
+  channel has an INTF_CFG register controlling the active channel enable
+  mask, frame-sync selection, frame-sync delay, frame-sync output gating,
+  dynamic clock gating and 16-bit packing/unpacking.
 
-This binding has several trivial issues which means you did not really
-use existing code as starting point, did not read the docs or tutorials
-from OSS conferences. I encourage to start with these.
+  DMA Engine: Read DMAs (RDDMA) fetch audio from DDR/TCM/LPM into a
+  shared on-chip SRAM latency buffer (SHRAM) and drain it to the
+  interface. Write DMAs (WRDMA) collect data from the interface into
+  SHRAM and write it to memory. Each DMA channel owns a private SHRAM
+  region. Two QSB master ports (QXM0 and QXM1) provide the memory
+  fabric. Burst sizes of 1/2/4/8/16 beats and up to 4 outstanding
+  transactions per DMA are supported.
 
-Best regards,
-Krzysztof
+  Execution Environments (EE): Resources (DMAs, audio interfaces,
+  interface groups) are partitioned among up to 5 EEs via map registers.
+  Each EE receives an independent interrupt output. The interrupt
+  hierarchy has two levels: a summary register identifies the event class
+  (DMA period, underflow/overflow, error response, AUD_INTF
+  underflow/overflow, group done, rate detector, VFR), and per-resource
+  status registers identify the specific channel and event type.
+
+  Interface Grouping (Bonding): Multiple AIF and CIF interfaces can be
+  bonded into a group to start synchronously and align their DMA period
+  interrupts within half a frame duration using the RDDMA padding feature.
+
+  Rate Detector: Two rate detector blocks measure the frequency of
+  incoming frame sync or word select signals and generate interrupts on
+  rate change, undetected rate or sync timeout.
+
+Block Diagram
+=============
+
+  System Memory (DDR / LPM / TCM)
+  +---------------------------------+
+  |  Circular Buffers (ping-pong)   |
+  +----------+----------+-----------+
+             |          ^
+       64-bit AXI  64-bit AXI
+             |          |
+  +----------v----------+-----------+
+  |        QSB Master Ports         |
+  |  +----------+  +----------+     |
+  |  |   QXM0   |  |   QXM1   |     |
+  |  +----+-----+  +-----+----+     |
+  +-------|--------------|----------+
+          |              |
+  +-------v--------------v----------+
+  |         Shared RAM (SHRAM)       |
+  |  +------------+  +------------+ |
+  |  | QXM0 Read  |  | QXM0 Write | |
+  |  | SHRAM      |  | SHRAM      | |
+  |  +------------+  +------------+ |
+  |  +------------+  +------------+ |
+  |  | QXM1 Read  |  | QXM1 Write | |
+  |  | SHRAM      |  | SHRAM      | |
+  |  +------------+  +------------+ |
+  +---+--------+--------+-------+---+
+      |        |        |       |
+  +---v--+  +--v---+ +--v---+ +-v----+
+  |RDDMA |  |RDDMA | |WRDMA | |WRDMA |
+  | AIF  |  | CIF  | | AIF  | | CIF  |
+  |[0..n]|  |[0..n]| |[0..n]| |[0..n]|
+  +--+---+  +--+---+ +--+---+ +-+----+
+     |         |       ^          ^
+     | TX      | TX    | RX       | RX
+     v         v       |          |
+  +--+--------------------+  +----+----------+
+  |  Unified Audio Intf   |  | Codec DMA     |
+  |  (AIF 0..12)          |  | Interface     |
+  |                       |  | (CIF)         |
+  |  AUD_INTFa block:     |  |               |
+  |  - Serializer (TX)    |  | RDDMA: DDR -> |
+  |  - De-serializer (RX) |  |   internal    |
+  |  - Sync gen/detect    |  |   codec       |
+  |  - Up to 8 data lanes |  | WRDMA: codec  |
+  |  - PCM / TDM / MI2S   |  |   -> DDR      |
+  |  - Near Pad Logic     |  | Up to 16 ch   |
+  +--+--------------------+  +----+----------+
+     |  Lane 0..7 (TX/RX)       |  Parallel bus
+     |  Bit clk + Frame sync    |  + Frame sync
+     v                          v
+  +--+--------+          +------+------+
+  | External  |          | Internal    |
+  | Serial    |          | Digital     |
+  | Peripherals|         | Codec       |
+  | (PCM/TDM/ |          | (Bolero/    |
+  |  MI2S)    |          |  WCD)       |
+  +-----------+          +-------------+
+
+Software Design
+===============
+The driver follows the standard ALSA SoC split:
+
+  qaif-cpu.c: CPU DAI component. Manages clocks, initialises regmap
+  bitfield handles for all DMA and interface control registers, implements
+  DAI ops (startup/shutdown/hw_free/hw_params/trigger) for both AIF and
+  CIF paths, registers an of_xlate_dai_name callback so that sound-dai
+  references using non-sequential DAI IDs resolve correctly, and parses
+  per-interface TDM/MI2S configuration from DT child nodes.
+
+  qaif-platform.c: PCM platform component. Handles DMA buffer allocation
+  (dma_alloc_pages()), PCM ops (open/close/hw_params/prepare/trigger/
+  pointer/mmap/copy), two-level IRQ dispatch with period-elapsed
+  notification, and component suspend/resume across power collapse.
+
+  qaif-shikra.c: Shikra SoC-specific variant descriptor. Provides all
+  register field definitions, DMA-to-DAI index maps, SHRAM geometry,
+  clock names and the DAI driver array. This abstraction keeps the core
+  driver portable across future QAIF integrations.
+
+  qaif.h / qaif-reg.h: Shared data structures, constants and the complete
+  MMIO register address map consumed by both the CPU and platform drivers.
+
+  common.c/h: This series also adds asoc_qcom_of_xlate_dai_name(), a shared
+  helper that resolves a sound-dai phandle argument to a DAI name by
+  searching the component DAI driver array by ID. Both lpass-cpu.c and
+  qaif-cpu.c use thin wrappers around this helper, replacing duplicate
+  private implementations.
+
+The series is split by functionality to aid review -- register map and
+data structures first, then CIF ops, AIF ops, probe infrastructure, PCM
+ops, IRQ handling and finally the Shikra variant glue.
+
+Tested on Shikra with 48 kHz stereo MI2S playback and capture over the
+Audio Interface Zero (AIF0) and Bolero CDC DMA RX/TX paths.
+
+
+Harendra Gautam (13):
+  dt-bindings: sound: Add Qualcomm QAIF DAI ID header
+  dt-bindings: sound: Add Qualcomm QAIF binding
+  MAINTAINERS: Add Qualcomm QAIF driver entry
+  ASoC: qcom: Add QAIF hardware register map
+  ASoC: qcom: Add QAIF shared data structures and variant interface
+  ASoC: qcom: Add QAIF CIF (CDC DMA) DAI ops
+  ASoC: qcom: Add QAIF AIF DAI ops
+  ASoC: qcom: Add generic of_xlate_dai_name helper to common
+  ASoC: qcom: lpass-cpu: Use asoc_qcom_of_xlate_dai_name helper
+  ASoC: qcom: Add QAIF regmap, DT parsing and platform init
+  ASoC: qcom: Add QAIF PCM operations
+  ASoC: qcom: Add QAIF IRQ handling, suspend/resume and platform register
+  ASoC: qcom: Add Shikra QAIF support
+
+ .../devicetree/bindings/sound/qcom,qaif.yaml  |  361 ++++
+ MAINTAINERS                                   |   10 +
+ include/dt-bindings/sound/qcom,qaif.h         |   92 ++
+ sound/soc/qcom/Kconfig                        |   11 +
+ sound/soc/qcom/Makefile                       |    2 +
+ sound/soc/qcom/common.c                       |   34 +
+ sound/soc/qcom/common.h                       |    5 +
+ sound/soc/qcom/lpass-cpu.c                    |   19 +-
+ sound/soc/qcom/qaif-cpu.c                     | 1586 ++++++++++++++++++++
+ sound/soc/qcom/qaif-platform.c                | 1169 +++++++++++++++
+ sound/soc/qcom/qaif-reg.h                     |  405 +++++
+ sound/soc/qcom/qaif-shikra.c                  |  585 ++++++++
+ sound/soc/qcom/qaif.h                         |  504 +++++++
+ 13 files changed, 4769 insertions(+), 14 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,qaif.yaml
+ create mode 100644 include/dt-bindings/sound/qcom,qaif.h
+ create mode 100644 sound/soc/qcom/qaif-cpu.c
+ create mode 100644 sound/soc/qcom/qaif-platform.c
+ create mode 100644 sound/soc/qcom/qaif-reg.h
+ create mode 100644 sound/soc/qcom/qaif-shikra.c
+ create mode 100644 sound/soc/qcom/qaif.h
+
+-- 
+2.34.1
