@@ -1,63 +1,63 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865554DD6DF
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 12:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6484E3773
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 12:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780662060; cv=none; b=oZdnxAYddtPGgNxsp+LedTa2c+1Lar7itJL31RwOLPpqZ87A5oLWcGmDL/6YUq1U6yuGbcNYlprLS2E/DpCrke7Sq2IxAx2wU0owGNZ73YzMMzQBoHnUhi3e8d+vBkBAYnQRgJ138kNajkVxJXUg4h0edNb3aN3Q3ya7cX3b778=
+	t=1780662064; cv=none; b=gMjrBZRbx3QJeSDGnVHdHZlIGN2BNRG1XMJqrynUjiuK9LcvagJvGdBymYLT2i/L8o99bpRG/9fzm6UWSTDqJH/CSLMjy02q5UWIbvzm7dNvzZL338iF2MDPGpD+DcjMsovMq6CI8zmrT4A4L8BDxNMWuDILy2tgmTUmLya4pSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780662060; c=relaxed/simple;
-	bh=ceY3n9dzbLrF6UzskKUXhtBxJklxdTRM4gCgSQyi9G0=;
+	s=arc-20240116; t=1780662064; c=relaxed/simple;
+	bh=JQixsyyJcxvuq6vRrhWqfb0xYNZFr9S1o/h/Dp63Ezk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hLY9yXE714dPyHwmQpvPOSDPOsjZWLovoqMwNt3YukZNCbcYZwOSwfMojekoS0Ezeo/bik1Qw0SU/toRx2qRBMJy59WWDTb5xbQUAAwM3gel8ATBbqjJDEOVhBpqZTAJyaNjiCtHYPMIzOuc3nQXfAcl0/fxXnxV5U684spY7Ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXMcPuMo; arc=none smtp.client-ip=209.85.210.175
+	 MIME-Version; b=EfikytxXrxAS8vOyHGS61K6mzzHJM8sPlrGadmNSJl84CJzhhP2NNQzRSfBuNtSl0yDEMq4BAb3VHEXjbkGG7OTcg9Bbk3ytT4v04X77VxottMIlH9K3ERCmYghVkYCHhNZMwrT4r+Q9D/MtZYvi8a1xr4wdrVeNFcE8AjcssHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=McV40nA2; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXMcPuMo"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8423610ec93so1445837b3a.2
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 05:20:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="McV40nA2"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-36b9ec98144so1233646a91.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 05:21:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780662058; x=1781266858; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780662062; x=1781266862; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uRIkhCmMLekSBDwmbxb2dx0SojXZ81/d3iroLxefd9A=;
-        b=iXMcPuMoXYl5EXmyoVRDxdb1Ar7YmqbkVx7ARA4mwLoLiDoF/DZSoMlNn/Maww8iZK
-         J4JSlZzX8fo7GafYlV2SNshAFOZ435f22S8Iv61cLLyENFweXITtCAJF7Zc/hjQR+yvk
-         M/IBGxAiiQnxdDPWkjDMSKxPtyl2SwjAT5TuUHvsmN+BEZqoFwHmaLb4X5j5BdfzOKj7
-         E1OhX6Fno+aRz5Udix5HRL5aV8kk9zENN1f6xBV1lKCj5mJf3OhWin3AGwleYxi1xSdy
-         khF/aGVvCSEO/bu7+u7Yhquz7Nt7tDJfls7BQulHiI7XioRCMJ9LpUWrxZI7I8YfT/Pt
-         BHxg==
+        bh=tLfT4vQgEatwltGv+p1FnX+A7JnfmLWZ/F6m5Pdu0sU=;
+        b=McV40nA2V6AKKc4/J8JDKMvC75hnCF1tNzuEQvxPC1ShJ7X/3Bjot5YanYmdpZpEr2
+         uw1hxT4bWg6YVvSSOPCiMPgn5p8hspjiF5jXeMdh7Qv9ug2uPqoFWM2xyOEyz2l5Y/lI
+         GM8I/DDE+CXvjol6jkqgTpYbob1AAo1OfCiNS24vfHrXDUvaXSmBqNuo+m7+k9+5PZvv
+         57Hbh2K8i5h7FaqJn5FEq3nSqSbKKCGvdBv8bwlRvj/O8tvlLxZRcVP1YW3RFSkRxfAS
+         Kcw4ZspX2L4WqRUar1SD1HNvSjSQMVa8cYfz7t12dn5LWRMXQLslSZapnrMzye9q0TEz
+         3ZCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780662058; x=1781266858;
+        d=1e100.net; s=20251104; t=1780662062; x=1781266862;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=uRIkhCmMLekSBDwmbxb2dx0SojXZ81/d3iroLxefd9A=;
-        b=j7MUagYVn1R89FlgbewrgnBFYGeKGbSdmxQu++CAnyCHSqlxemloFomJdyD3NqD8LB
-         MnHtBazlNpS4cgdozOLAsY2ng0FoUAFfMNR/wq8XlE7n7wCbSdeLBoVJRb+MtX/vubOV
-         ExPypFVTA3Zgo+MYbONTXqcPozpT11vsca9XhTaXIAgzbsFZ3JjRny5sKspsZRmSDLso
-         5XzIGi2Q3f1ykM1E2o5wtiZL46dCJvk118sDQu2hpCZrLnijIxPeOFk1duZuGfRWwoBI
-         jdUQkYcNTfQ3Filz2a5iqRaIW15ctpskcWW1a+/6GL6EAvTgydaKI4R7z1tPYulvA3q7
-         fPLA==
-X-Forwarded-Encrypted: i=1; AFNElJ8qBmVcoAe5ukxHOwrORu70yVgr5mI6X37N725sbjJNd1t/c/lsd1batXVtwLEQLuuQ1AtzI3htn1hU@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBEAKR1UoyLSTmpDNUSgSO0gg2oMUskQRXDA4KhiW4hL7eunbJ
-	W4zSm6cUwzo49hiRIdBKzWm3aLepsL+pGwx9+gv5zDHWZajOs2MA5cUj
-X-Gm-Gg: Acq92OHcx17hCR/yn3jOW9gFkxb6To4kW0yKvfxxzSuoLrntyEnUqJh00Rp5FVb2vNM
-	fVPh8uYumdOmcBBt2SXowUoLgkgSNGqfYQkOt57fNbH/UcF3lH33zMYy5RdQGN1QPlcVxOG6Xqo
-	zvHrkK5NRyeLPB+My/TXdAgkFcW4ekONiIrbBSCqJ758sAuexpxKnU/2e2djQ30p9Fa60GSSmQu
-	ZXT+WMrlMWkU1AJ7Vnmxy4QYJQ9TDwm8cZTwS/gKAdNfoFCTKihqzaLBzXmdNI5nrGiCqpinaMn
-	uglEtjYMNJTRlPrxFLhEoYpaVx7cVKQ5/sDI+Eb9ofb6wLhTaLaGHWm9htiD4XncVoSYj1kZRTW
-	HP1eUm9FpBRTJ856sEABO59SQ7Wxjr1C/GwNyf7XvQS8y8WH39wRyKuBld4lgpYuk5F8M7+9HkS
-	/H0xnNyx8w37mL4ZgwNs7ezMge4V+qMMiTM5OLewu4DQC/NwR3mYq1KJ5hTmI3aMs26T2V
-X-Received: by 2002:a05:6a00:1d8e:b0:842:6099:c55c with SMTP id d2e1a72fcca58-842b0d82a44mr3266499b3a.3.1780662057726;
-        Fri, 05 Jun 2026 05:20:57 -0700 (PDT)
+        bh=tLfT4vQgEatwltGv+p1FnX+A7JnfmLWZ/F6m5Pdu0sU=;
+        b=NGpPpA67+XnQpR8Se8K8XorUOEZBXwhNXEBcFkkfvMhI9nitE8t7VksgTAG0Q/gM7x
+         Mew18ggc0f1nXaU4Ju489yDNhNmAn3+KbYEzbePP6YQExGOvEOU0FUAtTzoDYCfAVj/I
+         e8WefVQov9Fo0of2AW2dim8OLOlsaJIALUO9KcG9KW058JBmsBppw46jJxo3Qm2Eog8z
+         NErf5/AvBaxm9/eWcAbxT5hOfT+MyCwNJ/RfUuQN0Z7uuJCCXCMzIMgjfjIpBu3Z5WW9
+         1XMCSEsLXyRtNWFlTVSMfGGyBgSDBude9AtfCcVRsv3Njr47cyF33nK24taIzBC4clMi
+         XVSg==
+X-Forwarded-Encrypted: i=1; AFNElJ/UKPtlf2cjV6r9S48ULgeZndwNsFC4GKI4HJ8mGC6ifHkMhME9YJp65WIqz3WwYxFeWazj736FIXnB@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBv0MrGO1rBJp1ivZf3rSO7Fe94mqXa5xItiyFRMtOnXI94RMN
+	W4VMK5SlOnt7dpO0+o0REv9iuekbcPsjlofcrLYF0/0Hukig5Ko7njcP8mis6Q==
+X-Gm-Gg: Acq92OFCclQqOW1WeDrkdJdc87avXEdiB5SeNS/zuk7COk0B0jg5QI6r4JOR67y88oW
+	gziqlR6Evk/mVMDoXfizxUFNwhHgWvDMRoziidAaUN276z/zgvGdKf/hxp3xv4X8NsN6HxW//nb
+	KPKyb3pt1fsUZb0OtL47qQDrRm/s21t8WUdEyFMKuf8olOUG2LrYDEybSUfogNbuThbq5a18S44
+	CuxXHHTzaVqCUCkZscB02lDOTPG7xY0BaCWRsRqB7TYC574O/zmTUsFoHyzNmWh0pnjBZ4/ByoS
+	/ekzmtq0hFaj1HTPNS0AVnFJjQLMyHUh/zulqSLtnzhAsO0I392NjcJzb5frRMebhkTZ84qM2J9
+	dSRZ9V8Cbrc01F2dmgbO/WvY8R2fCY1dzAiJ4BkQL5NkCjG7tHOz8PXWtDf/a9UBDnVO3xU5qJS
+	RtIq6GnsP+MipVnwak0onkXLMLsRM4XdYIS5+VIvElMN0WSUZdVRMGE1M0sp6r7u+NBtVq
+X-Received: by 2002:a17:90b:558d:b0:369:747b:48b8 with SMTP id 98e67ed59e1d1-370ef3e8b74mr3862879a91.8.1780662062568;
+        Fri, 05 Jun 2026 05:21:02 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282221059sm8594381b3a.7.2026.06.05.05.20.53
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282221059sm8594381b3a.7.2026.06.05.05.20.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 05:20:57 -0700 (PDT)
+        Fri, 05 Jun 2026 05:21:02 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -74,9 +74,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v4 09/10] ASoC: renesas: fsi: add fsi_clk_prepare/unprepare()
-Date: Fri,  5 Jun 2026 19:19:53 +0700
-Message-ID: <20260605121955.105661-10-phucduc.bui@gmail.com>
+Subject: [PATCH v4 10/10] ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+Date: Fri,  5 Jun 2026 19:19:54 +0700
+Message-ID: <20260605121955.105661-11-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260605121955.105661-1-phucduc.bui@gmail.com>
 References: <20260605121955.105661-1-phucduc.bui@gmail.com>
@@ -90,139 +90,53 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Add fsi_clk_prepare() and fsi_clk_unprepare() helpers and call them
-from fsi_dai_startup() and fsi_dai_shutdown().
-This ensures clk_prepare() and clk_unprepare() are executed from
-sleepable contexts and keeps clocks prepared only while audio streams
-are active.
+Enable and disable the SPU clock in fsi_hw_startup() and
+fsi_hw_shutdown() to ensure the clock is active while the
+driver accesses hardware registers.
 
 Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
-
-Changes in v4:
- - Move clock->count early return check to the beginning of 
-   fsi_clk_[un]prepare() to simplify the code.
-
- sound/soc/renesas/fsi.c | 77 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 76 insertions(+), 1 deletion(-)
+ sound/soc/renesas/fsi.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-index 3f303e15e835..6537321242c0 100644
+index 6537321242c0..d7cc5a14a099 100644
 --- a/sound/soc/renesas/fsi.c
 +++ b/sound/soc/renesas/fsi.c
-@@ -294,6 +294,7 @@ struct fsi_master {
- 	struct fsi_priv fsib;
- 	struct clk *clk_spu;
- 	const struct fsi_core *core;
-+	int spu_count;
- 	spinlock_t lock;
- };
- 
-@@ -730,6 +731,78 @@ static int fsi_clk_is_valid(struct fsi_priv *fsi)
- 		fsi->clock.rate;
- }
- 
-+static int fsi_clk_prepare(struct fsi_priv *fsi)
-+{
-+	struct fsi_clk *clock = &fsi->clock;
-+	struct clk *spu = fsi->master->clk_spu;
-+	struct clk *xck = clock->xck;
-+	struct clk *ick = clock->ick;
-+	struct clk *div = clock->div;
+@@ -1585,6 +1585,19 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
+ 			  struct device *dev)
+ {
+ 	u32 data = 0;
 +	int ret;
 +
-+	if (clock->count != 0)
-+		return 0;
-+
-+	if (!IS_ERR_OR_NULL(spu) && fsi->master->spu_count == 0) {
-+		ret = clk_prepare(spu);
-+		if (ret)
-+			return ret;
++	/* enable spu clock */
++	if (fsi->master->clk_spu) {
++		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
++			if (fsi->master->spu_count == 0) {
++				ret = clk_enable(fsi->master->clk_spu);
++				if (ret < 0)
++					return ret;
++			}
++				fsi->master->spu_count++;
++		}
 +	}
-+
-+	if (!IS_ERR_OR_NULL(xck)) {
-+		ret = clk_prepare(xck);
-+		if (ret)
-+			goto err_spu;
-+	}
-+
-+	if (!IS_ERR_OR_NULL(ick)) {
-+		ret = clk_prepare(ick);
-+		if (ret)
-+			goto err_xck;
-+	}
-+
-+	if (!IS_ERR_OR_NULL(div)) {
-+		ret = clk_prepare(div);
-+		if (ret)
-+			goto err_ick;
-+	}
-+
-+	return 0;
-+
-+err_ick:
-+	clk_unprepare(ick);
-+err_xck:
-+	clk_unprepare(xck);
-+err_spu:
-+	clk_unprepare(spu);
-+
-+	return ret;
-+}
-+
-+static void fsi_clk_unprepare(struct fsi_priv *fsi)
-+{
-+	struct fsi_clk *clock = &fsi->clock;
-+	struct clk *spu = fsi->master->clk_spu;
-+	struct clk *xck = clock->xck;
-+	struct clk *ick = clock->ick;
-+	struct clk *div = clock->div;
-+
-+	if (clock->count != 0)
-+		return;
-+
-+	if (!IS_ERR_OR_NULL(div))
-+		clk_unprepare(div);
-+
-+	if (!IS_ERR_OR_NULL(ick))
-+		clk_unprepare(ick);
-+
-+	if (!IS_ERR_OR_NULL(xck))
-+		clk_unprepare(xck);
-+
-+	if (!IS_ERR_OR_NULL(spu) && fsi->master->spu_count == 0)
-+		clk_unprepare(spu);
-+}
-+
- static int fsi_clk_enable(struct device *dev,
- 			  struct fsi_priv *fsi)
- {
-@@ -1580,7 +1653,7 @@ static int fsi_dai_startup(struct snd_pcm_substream *substream,
  
- 	fsi_clk_invalid(fsi);
+ 	/* clock setting */
+ 	if (fsi_is_clk_master(fsi))
+@@ -1642,6 +1655,12 @@ static int fsi_hw_shutdown(struct fsi_priv *fsi,
+ 	/* stop master clock */
+ 	if (fsi_is_clk_master(fsi))
+ 		return fsi_clk_disable(dev, fsi);
++	if (fsi->master->clk_spu) {
++		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
++			if (--fsi->master->spu_count == 0)
++				clk_disable(fsi->master->clk_spu);
++		}
++	}
  
--	return 0;
-+	return fsi_clk_prepare(fsi);
+ 	return 0;
  }
- 
- static void fsi_dai_shutdown(struct snd_pcm_substream *substream,
-@@ -1588,6 +1661,7 @@ static void fsi_dai_shutdown(struct snd_pcm_substream *substream,
- {
- 	struct fsi_priv *fsi = fsi_get_priv(substream);
- 
-+	fsi_clk_unprepare(fsi);
- 	fsi_clk_invalid(fsi);
- }
- 
-@@ -1975,6 +2049,7 @@ static int fsi_probe(struct platform_device *pdev)
- 
- 	/* master setting */
- 	master->core		= core;
-+	master->spu_count	= 0;
- 	spin_lock_init(&master->lock);
- 
- 	/* FSI A setting */
 -- 
 2.43.0
 
