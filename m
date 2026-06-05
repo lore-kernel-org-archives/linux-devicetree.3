@@ -1,168 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB88380FE4;
-	Fri,  5 Jun 2026 14:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9443CDBD5
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780670882; cv=none; b=Ch923Z+TN+aJrYJRRMXO8Rv+5uZFxpB/mHh1dUcPL6Q1PnzKTEuUpBC3Tj/TnMjaMDpQW6mFLRZqQ8F8m1pSKwJpp0W0+o1JzxRdxWtS8maXlcoKVq90IHLbqTVw0zseSO7kSwy1TS+X9QJ7TAl+Wg5CU5sBIuOm+OdgNGkZ7qc=
+	t=1780671055; cv=none; b=AcraSeOaROftwznW1AiTZ/eoc8foWEVPMwpHLDQ0pIaIvlGy7k85Ez1IFHox/bBciRfviZAvHdajEu/yPoqRPsvI1aeHJiUeascb3noog81criPiwQHb2Krx9nDM/bcDw7nGzCAC8nSjPGpOifc5HSQ8+jsYH4+V5zWXKoDKMvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780670882; c=relaxed/simple;
-	bh=7VaHs4Hw2+bW+MLwlO7NNzAUukc9UC/1+NVhpE7Mqc4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cwI1iMYGtW5dTG7c1P4BgqvQ8BKVxeHmjI+XmzSj6RI9CuLCij2mPX7F1swYnLKZBgtMYiCgC9yBbRemslxciBQjgKKyofm33NNMea8E5MORfh+2ao1lqY6HINWCW/MnTMpp/Zsw3EoFL6cna/2qEPeGakGxuuWyacNpuPLImKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcDIn0z0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780671055; c=relaxed/simple;
+	bh=noLWCZ7k/hogDRaJM1qtY69Rcq9ht/JpS1l/lTFXwLs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WE3XKLmgdvl637pcCCHkFo0UIAp1cWrhoLqUc0bVwZzE/lXJQ/YrtF26aHZzU4iwSsBil91b9D4OshSMbffYHe4nJOixeclWCPW014fn/7D5WiT68DjBbbIBgmhcKPGXpicl52tFeC4t6+BcylXknjk+9mX6HqXdZBB6RmyxXPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SJ/Or5HF; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcDIn0z0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E051F00893;
-	Fri,  5 Jun 2026 14:47:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780670879;
-	bh=bfFH8ZVDSQVCgdkYKT1+TMLQUY2s3jnNF65qom08fFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YcDIn0z0biXIa+Od9GsBSTOJ6pAH9BCXCH0NzNYZHwJ4KR6orHsNPrVwhARZtUESp
-	 OfefIB+JQzAYPEJuu2J3LvHDwoWFp8awD03ZQ6Ex/NhPDXM4YI/xPao97CuyJ2lPwk
-	 5v3vGO29giHR0jblizx5wkkOoaJHIsI+0Cr8w2Pg4d1HeInCpGIZqsSNapx+UUhD00
-	 hfR+J+9fg+K2ZMjd4ybYE1mn5/IZtuvlV6CvREIwCZsJViRaL/NVGtLTUt06naaEA0
-	 lhrogLAmQTsiA59CvWJ7K0W0FmKbRwRUgp/eHEcZn4393IUGJDIZXYhJddrFW7TBIu
-	 4kjMdRx3q74Eg==
-Date: Fri, 5 Jun 2026 09:47:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
-	gregkh@linuxfoundation.org, Daniel Thompson <daniel@riscstar.com>,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 13/14] net: stmmac: tc956x: add TC956x/QPS615
- support
-Message-ID: <20260605144758.GB3659201-robh@kernel.org>
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-14-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SJ/Or5HF"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490afc47455so10150855e9.2
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 07:50:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780671052; x=1781275852; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=V0j4B4g7G9TNgdgRoQeZbJsIdkpUUijRXOBtL+WYeVA=;
+        b=SJ/Or5HFnolqnGOOaD8aDRtpUJ7UnOgr/HxKnBZRDwNpNPoFsJgMYQNVld/H0GpC1U
+         kDHpBYItNLI30paJ1iVCMCBcEGu4VznealEx+h2fa5tR64UYVJCYP3rf1q33LyCRFghA
+         qmwPHnXZAynzt6v3gc4d7XqM7gC62rpbbnBrl/CxrP/j+cH8KxX9SDdQPejFD4+xaPK6
+         864dCKEd7ZRT3pVcpgijwYZAyL5VZdK1bDemAROFgnS/oRGVNJBOy27qWcnutOVHK0UK
+         z2Y7TvCOR5o8cFYjhrucecv5f8hLf/rDN5lxq6D2bFBSIeZYW4A7G5vCQavTbROPlLdJ
+         lnhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780671052; x=1781275852;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V0j4B4g7G9TNgdgRoQeZbJsIdkpUUijRXOBtL+WYeVA=;
+        b=kzy/KmZhWN+kreZmd48jjNM4wAWTONJFyFEssjIh+zrY7zlzRa8X4F18cxY0ikQnLL
+         RoFTWOgluba4mRGCzGVQ6y6p0slVJyJHy++Y87TQ/EkTNKOKNjvWOQswABu5nHFi0O9O
+         YD6C0tR66cU4e0utbb/1s6mDa6nP7KMixNLe9lOFP2dB8c4LQaGdRkWmhSvFXzCaqGVH
+         3RdFD8GJ7zZdj+MRRn3Yk7N9VVlUEDLpbsM3GjRjC9UurU1yjv6XpmSqDdX6y3GFqTUY
+         EtjILw1MUxykk1prTTx7cynqxxL1/0v/45T2/+YxCw56Qrayu7kYcq+Rxcin9rh1kGqN
+         jkMQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+0WkizOn3i3HWglWASqB92j5t/uyRyhUnKHEwCmVb4Nc/38GuANDHAv5qquCEI+bTFkTq+KaNWLkjr@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBJxjxSMT8Boj7EuU+byP1odAKS2zc7ObEJRWWaPJ5mRYwUxGI
+	9+qSY7EXDb14Qm9cwE2QOOW6cYOxShv3voWYz/REfNDYk2re36Fo4f9aBHlfxHw+oYs=
+X-Gm-Gg: Acq92OFa9PQ/Z3izNnjLT9DqNNVjanlGku/smPCzeSbJ/bB78Gnu38fvgYpXngA20iJ
+	tzdOyzid+q9XIVeCmK26SsSEY13tGrREC9hguMymZIOLhpbwiZi7CcJK7fJ6I4Q5b0CZXw0MX+k
+	jC1G+iVr7iqwtrAC968EM9+W2uyXK8nZuhb4VAMbjCIHcc6sS2FiLLGRgjwQ7rq0Jt91tMZJixl
+	FYbDRz4Sg8kMWuWq6dcp66dMiwT3eebRg4M2NblC9zJcnItjUIcLNN10xyq4duL2X6jDJUjKT89
+	bNybqxvWwARzFA//BUTfkNJEwi1C5hHl2c4V8mCIJa49wt2FTyb9FVddi3MRaN7xQSLV+UTHQHm
+	5huiJG4+MlF7g+voYCPalv5zXAxjNVodk8fJuGWBOn/oeCIlaEYWmIh+QKFNDA/l9qvo9KCj4Cq
+	hx2xHdCGu1qVA3jNMwiTMJaYbd3O6OAsnhJniXoJiwgiodvK6tBm9VqXlMFEheAZOSUA==
+X-Received: by 2002:a05:600c:1c1e:b0:490:44eb:c1e0 with SMTP id 5b1f17b1804b1-490c26056a4mr68528555e9.21.1780671052262;
+        Fri, 05 Jun 2026 07:50:52 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3d663csm176178315e9.11.2026.06.05.07.50.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 07:50:51 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v7 0/2] drm: panel: support the R63419 based dual-DSI video
+ mode Display Panels
+Date: Fri, 05 Jun 2026 16:50:47 +0200
+Message-Id: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605010022.968612-14-elder@riscstar.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEfiImoC/5XQy07EIBQG4FeZsBYDh0uLK9/DuKBwmMFLaaA2T
+ iZ9d2Fc2DguKmHzJ4fvP+FCCuaIhTwcLiTjEktMYw3d3YG4kx2PSKOvmQADzST0dE5TdLS891o
+ xas92xESn5F5xpgVo1kJyQ7EDqTsEP7BAKjVlDPHzWvP0/J3Lx/CCbm52mzjFMqd8vu6x8Db3z
+ 8qFU0ZNz3FQtl7FH9/iaHO6T/lIWucCG1WwnSo0lVvHmVTCM3ejih9VMblTFU0NmrsA0uIQblS
+ 5UeuDfaqs6tAbMDYoNH/8gNqowHeqqqreq44xMEYYdqPqrQo7VV1VrtHXY83vXdd1/QLqdF0Mm
+ QIAAA==
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
+To: Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Conor Dooley <conor.dooley@microchip.com>, KancyJoe <kancy2333@outlook.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2735;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=noLWCZ7k/hogDRaJM1qtY69Rcq9ht/JpS1l/lTFXwLs=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqIuJK66bVPMQ1g9Q/2C8MA7ktzUvGIRC7z+2QQSUq
+ gLYjO8OJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaiLiSgAKCRB33NvayMhJ0e+CEA
+ CRYThuOvq3cuir9RXhER/VOuVviw44dKQkZG9ueWjPmdbMF6QuWbXSPu0JGa+Ej4cpbtmbF6BZBu3E
+ P8n+4qIjovTvcgaZ7+uuiiflqkgNl4zzmwykG5ZjWcwZT8RbLmT6LGt1S3BLnOXMju3TIKclRaAQsU
+ Hoso5dtmjywHD5II3meXR7FZ45rJOIinR4/JR2L6hAvc+dyYZ5HzhWW/AdXV415orxIRytMxDVYzkS
+ FbvDg2rEdgO7P9PNmBqI4rRxbF4LqNL9B/UUFzGaNeFX8qQci09hmuTyF0ZcjF2vMore1JOZOG5Pt/
+ MfuLf+/Y058EKxVZAztViJ6J04k7depqEkoiqM82GpElRTIL9OSN1D2UlFJLJXO4SlQPFDNBC+1m5w
+ ZX8Yt6t6doMXkYbvBZeL+0McML0MHCazZvlBUofZPicZunaHq1BrxruW3J4J2pfGqPzF/5IARdhrUG
+ f3vqUZ0/+Okdn1xKj10pfJucrDJQHsyr3y/kL0WA4AXgzwM1HVyFOxbawyPS/6en8RAiA9dJsZxpwB
+ eTRNIbTPsL5ulGwMhm9hEQx2LRSUvxUpEJWYKPOPhBEzvXZ1F8t/xuOCrijfWjVr82PeVgJaDhdMvO
+ 0TRH7Hr5fEuOd4ASp0+1yCvK3FNRdgVIrQyUfvdcgX/EgQyaprw5edOz36fQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Thu, Jun 04, 2026 at 08:00:20PM -0500, Alex Elder wrote:
-> From: Daniel Thompson <daniel@riscstar.com>
-> 
-> Toshiba TC956x is an Ethernet AVB/TSN bridge and is essentially a
-> small and highly-specialized SoC. TC956x includes an "eMAC" subsystem
-> that can be accessed, along with several other peripherals, via two
-> PCIe endpoint functions. There is a main driver for the endpoint that
-> decomposes things and creates auxiliary bus devices to model the SoC.
-> 
-> The eMAC consists of a Designware XGMAC, XPCS and PMA. Each eMAC is
-> supported by an MSIGEN that bridges TC956x level interrupts to PCIe
-> MSIs.
-> 
-> Add a driver for the eMAC/MSIGEN combination.
-> 
-> Co-developed-by: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Add support for the Renesas 63419 based dual-DSI video mode
+Display Panels found in the Ayaneo gaming handled devices.
 
-The order is wrong here unless you worked on it and then Daniel took 
-over. Tags should be chronological order.
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v7:
+- Reverse "on" command order
+- Rebase on drm-misc-next
+- Link to v6: https://patch.msgid.link/20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-0-16edddda9951@linaro.org
 
-> ---
->  MAINTAINERS                                   |   2 +
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  14 +
->  drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +
->  .../ethernet/stmicro/stmmac/dwmac-tc956x.c    | 818 ++++++++++++++++++
->  4 files changed, 836 insertions(+)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0439607d1155f..418537cbefbbb 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27059,6 +27059,8 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
->  F:	drivers/gpio/gpio-tc956x.c
->  F:	drivers/misc/tc956x_pci.c
-> +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> +F:	include/soc/toshiba/tc956x-dwmac.h
->  
->  TOSHIBA WMI HOTKEYS DRIVER
->  M:	Azael Avalos <coproscefalo@gmail.com>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index e3dd5adda5aca..8d247e033e356 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -404,6 +404,20 @@ config DWMAC_MOTORCOMM
->  	  This enables glue driver for Motorcomm DWMAC-based PCI Ethernet
->  	  controllers. Currently only YT6801 is supported.
->  
-> +config DWMAC_TC956X
-> +	tristate "Toshiba TC956X DWMAC support"
-> +	depends on PCI
-> +	depends on COMMON_CLK
-> +	depends on TOSHIBA_TC956X_PCI
-> +	default TOSHIBA_TC956X_PCI
-> +	select GENERIC_IRQ_CHIP
-> +	help
-> +	  This selects the Toshiba TC956X (and Qualcomm QPS615) support in the
-> +	  stmmac driver.
-> +
-> +	  This provides support for the ethernet controllers found on these
-> +	  devices.
-> +
->  config STMMAC_PCI
->  	tristate "STMMAC PCI bus support"
->  	depends on PCI
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> index a1cea2f57252e..e8e7f95dbe3e8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> @@ -51,4 +51,6 @@ obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
->  obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
->  obj-$(CONFIG_DWMAC_LOONGSON)	+= dwmac-loongson.o
->  obj-$(CONFIG_DWMAC_MOTORCOMM)	+= dwmac-motorcomm.o
-> +obj-$(CONFIG_TC956X_PCI)	+= tc956x-pci.o
-> +obj-$(CONFIG_DWMAC_TC956X)	+= dwmac-tc956x.o
->  stmmac-pci-objs:= stmmac_pci.o
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> new file mode 100644
-> index 0000000000000..c77585e4a50e6
-> --- /dev/null
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> @@ -0,0 +1,818 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
-> + *
-> + * Derived from code having the following copyrights:
-> + * Copyright (C) 2011-2012  Vayavya Labs Pvt Ltd
-> + * Copyright (C) 2025 Toshiba Electronic Devices & Storage Corporation
-> + */
-> +
-> +#include <linux/auxiliary_bus.h>
+Changes in v6:
+- Get new dt bindings review from Conor
+- Properly init dsi_ctx
+- Link to v5: https://patch.msgid.link/20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org
 
-Based on the block diagram, these are PCI devices. Auxiliary bus is the 
-wrong thing to use here.
+Changes in v5:
+- Import panel-common-dual.yaml in bindings
+- Set reg as required
+- fix bindings example typo
+- Add helper to switch link in order to use single dsi_ctx to properly handle errors
+- Disable vdd supplies if vcc supplied fail to enable
+- Precise the power off sequence is recommended by the vendor spec
+- Drop passing of node to second dsi to avoid re-probing the driver twice
+- Link to v4: https://patch.msgid.link/20260519-topic-sm8650-ayaneo-pocket-s2-r63419-v4-0-b8929af5e951@linaro.org
 
-Rob
+Changes in v4:
+- Moved height/width in the drm_mode, duplicated modes to use drm_connector_helper_get_modes_fixed
+- Create dsi_info on the stack with proper OF node and name passed
+- Switched to devm_drm_panel_add/devm_mipi_dsi_attach & dropped remove
+- Link to v3: https://patch.msgid.link/20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-0-9f61cf24aebf@linaro.org
+
+Changes in v3:
+- Added DDIC compatible as fallback
+- Added rotation in bindings example
+- Fixed bindings subject
+- Added second MODULE_AUTHOR entry and re-ordered signed-off-by order
+- Link to v2: https://patch.msgid.link/20260430-topic-sm8650-ayaneo-pocket-s2-r63419-v2-0-91ac10453d0c@linaro.org
+
+Changes in v2:
+- Add missing rotation property into bindings
+- Fix commit message & subject typos
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org
+
+---
+KancyJoe (1):
+      drm: panel: add support for the Renesas R63419 based dual-DSI video mode Display Panels
+
+Neil Armstrong (1):
+      dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
+
+ .../bindings/display/panel/renesas,r63419.yaml     |  98 ++++++
+ drivers/gpu/drm/panel/Kconfig                      |  12 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-renesas-r63419.c       | 366 +++++++++++++++++++++
+ 4 files changed, 477 insertions(+)
+---
+base-commit: 640c57d6ca1346a1c2363a3f473b405af979e046
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
+
