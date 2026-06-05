@@ -1,106 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B193F825E;
-	Fri,  5 Jun 2026 11:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBB64D8D95;
+	Fri,  5 Jun 2026 11:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780660419; cv=none; b=VDM24XZjyuL5F+gigx7dn/LfLmRMFbZ9ZEEQpXCq3hPVdsie1aNAYYT/TUwr4fm8Sx/lTOEYlhlpmE2kbIJbg7uKauavGZ+Koed4pdwkuFtUS3blzrYdZ3ErIKBRXavTg8zKDnQvr5qW0E6iniln3eoNUIKfNAKKBztr5dpkISA=
+	t=1780660483; cv=none; b=kFWPwDxIQzohZLOgEqBhZpZGVT4Vjcrg5fj/B37UWBn7DI/qvXqXNv/jBWqy6Kc3SgX+Ul4rw+zSALnqYcfquiaXa8H0kEkRBSAoe7EjpEajiUMGBH60WGC0TT9fvVmQIh0ul/rCi6LWeUqByCXM9ndNfxsuFU9owrLiplo4yMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780660419; c=relaxed/simple;
-	bh=wZ0PApAQIp/ARhdjZK3fiA5s9UijCfxrwVNjoOOCqwo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dEXPEZmjLEo5fBSCmmqwSps8Qzon+quBiUkyEFG7sgbeP0gsoL+cDlbQ5Y54xCmHs1+NTDIUCaGyw5v6jOfhq8IOqSH21Te+ZCbdKcu2P562os1ACpK0xqEMKau2zd6+t4auqHU8aSxPEBe6Iw7tvc7QkUR1VVilHG7J72NiBbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zd9IXFGF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780660483; c=relaxed/simple;
+	bh=4quFrMpJWBka7KBZ3BJNo1AoS735u/57CPXK32qFVzo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lpA++wJkJUzDNUTYd36lBlcRFLgI3hgI6sazzNE6+z0RXOmXREse6NnJeI1ZvpmwXSo06MDlgaUk6IDOV+oe47ad3IlGXHEXQawxhXMXMmW/VpVryxEvau2KKgc3g4+WVCUcdJ4ZjmKWHV7ZMzwQnBkyRC1pkokVy0mSYARWzlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFGcH8ok; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zd9IXFGF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1815D1F00893;
-	Fri,  5 Jun 2026 11:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780660418;
-	bh=5aIKpvnTj3sLnXmmm5ahROVi2ECJn3r11IRBWH+G2kw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Zd9IXFGFSOxCCMsNKbeIAqurvUBmzIvJ8L5EOqZeczbLkPAniMb6IXIijhZWV2MRl
-	 ck6bfgYgZYkHLSLB6SLVyN1dwXbi1vjVPjlwpeVbcgFtyh/TmONJ36c6zG1YLBYVUP
-	 eK6ljMovMrcGuf5NDn/SNSzeLJbFzzIdL8aLkaTqv0wHFhbN2EaWCjmrOUGGHRhDlS
-	 QaBf6rmY+iVfadO+G4KJHF544V80c7AGd/xQ2I8NQVBwMFy4wQy/dTRTSGbnGYbE4C
-	 tn9qGOKmIqxh37+jkzuuqivvCv1U8dMPIhXlJLe4oAZzGfCzFUBKMmylDGTOelzTdM
-	 y0StRH0Z9OSeg==
-Date: Fri, 5 Jun 2026 12:53:32 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Cc: Puranjay Mohan <puranjay@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
- Petazzoni <thomas.petazzoni@bootlin.com>, Wil Stark
- <wil_stark@keysight.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: ti,tmp117: add binding for the
- TMP119
-Message-ID: <20260605125332.151b92f8@jic23-huawei>
-In-Reply-To: <20260605-tmp119-v1-1-349f45f17d12@bootlin.com>
-References: <20260605-tmp119-v1-0-349f45f17d12@bootlin.com>
-	<20260605-tmp119-v1-1-349f45f17d12@bootlin.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFGcH8ok"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B32AC2BCB9;
+	Fri,  5 Jun 2026 11:54:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780660483;
+	bh=4quFrMpJWBka7KBZ3BJNo1AoS735u/57CPXK32qFVzo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=VFGcH8okXd/OrQDwMPf5JEGiAs7tqJZDQr97c46fTNJg8jQxH0cm+S371F4wmHFuD
+	 uGHZpnox6AC5tkozD8c9rl3YwxyeTsDQIjsurTvsbP3e+rMjtzhoWLbnBZrjPAYy5h
+	 7eU3/3pTzvBFXs6oajovMr1EqIL7ER1iS2YfISCxumTtA6v56YxGtzNQC++ICU51iI
+	 OSdlHvQ2cPYXBfdtJjBCRpdyg50vroKGRhja0SQIWZvXKteOO5o/dNK57cr07+pfy8
+	 8dS08EJdwEcOYxLFRUTE2ArcpD+H7TixgjqNgeWrg/6/Jr4FTNtErPvGX0ZO6wDDhD
+	 517pPIBnpVKqg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71BF7CD6E79;
+	Fri,  5 Jun 2026 11:54:43 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Date: Fri, 05 Jun 2026 13:54:35 +0200
+Subject: [PATCH] arm64: dts: rockchip: fix regulator names on NanoPC-T6
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260605-rk3588-dts-rockchip-nanopct6-fix-schematic-names-v1-1-15dd3b23ab1a@pardini.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UCaYhu8irhIJ1MzlqYlE0Uov
+ btRl+/zeW8H5SyscGl2yPwSlTVVaE8NUPTpziihMlhje9ObDvPcnZ3DUBTzSjNF2TD5tG5Uepz
+ kjUqRF1+E6rywom9HF+wwOcsDVO2Wud5+yevtz/ocH0zl24Hj+AC4kf6rlAAAAA==
+X-Change-ID: 20260603-rk3588-dts-rockchip-nanopct6-fix-schematic-names-a1b8d27f82e7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4043;
+ i=ricardo@pardini.net; h=from:subject:message-id;
+ bh=kgSZTfQ3v8bdt151HvlymrV22R4yaefcQJY9/TyNagE=;
+ b=owEBiQF2/pANAwAIATteP+Oex+3pAcsmYgBqIrkCKjjYJPyA0jamo3cGmC4t1a33loZ4y4QVl
+ 8IxJe1nsWOJAU8EAAEIADkWIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCaiK5AhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQO14/457H7enpNwf7BYfuQLgrCLiVvn1YHpmkizBLJrhd1kQ
+ 78tWZjq4WLqeGryGR/BFiSoyZ0dsYH9tdah9Cz4MPpsLn5RvLv2rKUTRm8Ucy4kEKkijZ5aDytg
+ dC7lzmx9l3iMXLbR0q80dUcn4oTRxcW4TZ8WY2MvqOccfl2C+EkQOPVhKRoEzdMCF3XbrBrnnCN
+ moTgXuQQ2hDscxrEEsu+eveq2jK3jDfZwNxtmIqC8ZfW7Tv92e9Jai5hJBK5kDvoi5cnIfroKI0
+ aEDi6Pp4MNYQU6NLEfnjz+FPHQOKzD4dXbouQAjB1V8hFppyve5pPhcEytS98D5oXjx1RfsrFLp
+ wTJyfKLfHLw==
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
 
-On Fri, 05 Jun 2026 11:01:35 +0200
-Romain Gantois <romain.gantois@bootlin.com> wrote:
+From: Ricardo Pardini <ricardo@pardini.net>
 
-> The TMP119 has the same register layout as the TMP117, and a better local
-> sensor accuracy.
+Three fixed-regulator names on the NanoPC-T6 don't match the board
+schematic [1].
 
-Sounds like (and the driver changes pretty much confirm) that this could
-use a fallback compatible to the tmp117.
+- vcc3v3_pcie2x1l0 -> vdd_mpcie_3v3
+  This GPIO-switched 3v3 regulator is labeled vcc3v3_pcie2x1l0, but
+  it is wired to and consumed by &pcie2x1l1. Per the schematic,
+  the GPIO PCIE_M2_1_PWREN controls the power net VDD_MPCIE_3.3V;
+  rename to match.
+- vdd_2v0_pldo_s3 -> vcc_2v0_pldo_s3
+  Typo in the regulator-name property of RK806-1 DCDC reg7. The node
+  label and the schematic power-net name both already use the vcc_
+  form; only the regulator-name string had vdd_.
+- vcc3v3_pcie30 -> vcc3v3_pcie_m2_0
+  The GPIO-switched 3v3 feeding the M.2 M-Key (NVMe) slot is named
+  after the PCIe controller it sits behind rather than the schematic
+  power net. The schematic names it VCC3V3_PCIE_M2_0 (produced by an
+  MP2143-based buck off VCC_5V0, enabled by PCIE_M2_0_PWREN); rename
+  to match.
 
-The second patch then just resolves the print that would happen on older
-kernels using that fallback due to ID mismatch.  That's fine but nice
-if older kernels can work with this part.
+No functional change.
 
-Thanks,
+[1] https://wiki.friendlyelec.com/wiki/images/9/97/NanoPC-T6_2301_SCH.PDF
 
-Jonathan
+Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+---
+Align three fixed-regulator names on the NanoPC-T6 (and LTS) with
+the labels used in the board schematic: the mini-PCIe 3v3 regulator
+(whose current name is actively misleading), a vdd_/vcc_ typo on
+RK806-1 DCDC reg7, and the M.2 M-Key 3v3 supply (named after the
+PCIe controller rather than the schematic power net).
 
-	
-> 
-> Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
-> ---
->  Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml b/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
-> index fbba5e934861c..9f3b74274b16e 100644
-> --- a/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
-> +++ b/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
-> @@ -7,10 +7,11 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: TI TMP117 - Digital temperature sensor with integrated NV memory
->  
->  description: |
-> -    TI TMP116/117 - Digital temperature sensor with integrated NV memory that
-> -    supports I2C interface.
-> +    TI TMP116/117/119 - Digital temperature sensor with integrated NV memory
-> +    that supports I2C interface.
->        https://www.ti.com/lit/gpn/tmp116
->        https://www.ti.com/lit/gpn/tmp117
-> +      https://www.ti.com/lit/gpn/tmp119
->  
->  maintainers:
->    - Puranjay Mohan <puranjay12@gmail.com>
-> @@ -20,6 +21,7 @@ properties:
->      enum:
->        - ti,tmp116
->        - ti,tmp117
-> +      - ti,tmp119
->  
->    reg:
->      maxItems: 1
-> 
+Using actual schematic names was pointed out by Sebastian during
+review of an earlier (and mostly unrelated) series [1].
+
+No functional change.
+
+[1] https://lore.kernel.org/linux-rockchip/ah2AYT4XmYR03I7z@venus/
+---
+ arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+index 84b6b53f016ab..b44aff39cb32e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+@@ -201,25 +201,25 @@ vbus5v0_usb: regulator-vbus5v0-usb {
+ 		vin-supply = <&vcc5v0_sys>;
+ 	};
+ 
+-	vcc3v3_pcie2x1l0: regulator-vcc3v3-pcie2x1l0 {
++	vdd_mpcie_3v3: regulator-vdd-mpcie-3v3 {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+ 		gpio = <&gpio4 RK_PC2 GPIO_ACTIVE_HIGH>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pcie_m2_1_pwren>;
+-		regulator-name = "vcc3v3_pcie2x1l0";
++		regulator-name = "vdd_mpcie_3v3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		vin-supply = <&vcc5v0_sys>;
+ 	};
+ 
+-	vcc3v3_pcie30: regulator-vcc3v3-pcie30 {
++	vcc3v3_pcie_m2_0: regulator-vcc3v3-pcie-m2-0 {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+ 		gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pcie_m2_0_pwren>;
+-		regulator-name = "vcc3v3_pcie30";
++		regulator-name = "vcc3v3_pcie_m2_0";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		vin-supply = <&vcc5v0_sys>;
+@@ -639,7 +639,7 @@ &pcie2x1l0 {
+ 
+ &pcie2x1l1 {
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+-	vpcie3v3-supply = <&vcc3v3_pcie2x1l0>;
++	vpcie3v3-supply = <&vdd_mpcie_3v3>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie2_1_rst>;
+ 	status = "okay";
+@@ -659,7 +659,7 @@ &pcie30phy {
+ 
+ &pcie3x4 {
+ 	reset-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
+-	vpcie3v3-supply = <&vcc3v3_pcie30>;
++	vpcie3v3-supply = <&vcc3v3_pcie_m2_0>;
+ 	status = "okay";
+ };
+ 
+@@ -965,7 +965,7 @@ vcc_2v0_pldo_s3: dcdc-reg7 {
+ 				regulator-min-microvolt = <2000000>;
+ 				regulator-max-microvolt = <2000000>;
+ 				regulator-ramp-delay = <12500>;
+-				regulator-name = "vdd_2v0_pldo_s3";
++				regulator-name = "vcc_2v0_pldo_s3";
+ 
+ 				regulator-state-mem {
+ 					regulator-on-in-suspend;
+
+---
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+change-id: 20260603-rk3588-dts-rockchip-nanopct6-fix-schematic-names-a1b8d27f82e7
+
+Best regards,
+--  
+Ricardo Pardini <ricardo@pardini.net>
+
 
