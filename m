@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B5748B388;
-	Fri,  5 Jun 2026 08:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415DD3D9DA9;
+	Fri,  5 Jun 2026 08:04:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780646589; cv=none; b=KUiEQz91SwSbeT5EtvsWZLEbt/dE9TP8qKcpPd960M4TpMQmRuYQe6JpO6TxPC82tXBAX8/PyH8gbtSCrMQL5fLSkN/lNQViMpHBHIMlXBKJK1Tp126+JqqprLALkR+ZrwZFuB1H0g9a8VoBrZehpMJ4fpA1cnjchLkyzb1P9Aw=
+	t=1780646670; cv=none; b=HpVCqyurDTlMYIyi6CW2s9z/fp222UD7BECyyJSxiQVWLYy7BQnSUXoqJvE1+LuM813HhElFSDbiOIIt3LorUGwRYDnwy21XiGxE4YYw8mXmOOoSlmcqvNRUZU4tIoX8gsMnfYID7rfG7urTjDs87hJ23LSBMjS8FxjLML7E+xI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780646589; c=relaxed/simple;
-	bh=kWBCDDTJ5w/8sEvzWk4en6EepdKYJ4fH3t4zei0KoI4=;
+	s=arc-20240116; t=1780646670; c=relaxed/simple;
+	bh=AHpWtjLIZerdJ/EdeTV+QHreRSB1Oe9vytnUvsOuvnE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cIy5f6UlGbAMspGokwFExaV0aZaNsZ9QTjWPfLfI51jiUQG46Xojjq4ldfplHAip3McN9NuYDSBx3oG4ZhOM+OdBfyG77B6w6Wmvvkg9p8vBFLOYHQA/6Cvmko9Q4rdkmeCr4UZ9AD6035SgTXYY3Tp5OGa+3xFwBaFaYM10mrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YfAxCDBB; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=WlPi8S6ZTs9HORj8KF4NrH2SS+vfcfjrn37cgLOVPyKhIS+Apc0X+/jtN8W2DucsSWAe9jK+DEzUx3qevADEedDe3V8Z7xcGwbWHSl3vrOiLyTE90AvXjqjcC146sX2yP5ZATcnwr7RBc6nWUdsP/OE+0kF1v+gVEDblpXx4wpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCEmviWx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YfAxCDBB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EA61F00893;
-	Fri,  5 Jun 2026 08:03:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCEmviWx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ADBA1F00893;
+	Fri,  5 Jun 2026 08:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780646587;
-	bh=BqhhtvDC0thhfchbiXN8CIGmtmp+dcilLWjv10TfrlY=;
+	s=k20260515; t=1780646668;
+	bh=3vL+8eiqMQ/wPXlAvyt5eyJvY8YKqg4O0tWDk77XqEc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YfAxCDBBws/K7lHQFkeKBLxBG43LhplgaDlKKP/hpx0ywo/2DnsLdL37M3uluvqBW
-	 VeHnut5tQYBUMmBFXX0/V2fTX5crKA1IeWLBwFSqeoslpMmtpuvQcEcqrz0gVw09ek
-	 oX87tzFmkCaC0/ssRwTHXnDV/ayU0Z6iNETlnsILEUFEv+BNixbxQFnIjAeFGZPUnY
-	 PlDbn9JSvhW18pydvjeDDsTjgdmmcPgZaTP9EBajwgRHz5YY9fm2O5Rrw9RVheceBQ
-	 GO3jTUK6yaFIhcVT2SfHgqA9IDcrwqCW8pmFxpnz12kHhjHa8WVOg4GHWWVmTGDIoE
-	 obUBdXolXcYkw==
-Message-ID: <926487d1-d949-4516-b906-892d46cb956c@kernel.org>
-Date: Fri, 5 Jun 2026 10:03:00 +0200
+	b=fCEmviWxl+UF7scLNTMQ2yj2Mo5lWgYU6ipoTAbIBts+gdQECSEBVd6NMjvXAGj01
+	 p2q0uMNnP5LVTTx5UD2G4nlwBLDnf+KOeuzQGr8bV9RnLCs9NecHrJiDI7rsqj3ucb
+	 a2CoXs41FkEZtMm3Z/PMdTDKO4/gX1IKJ9L6HDLVx2LD3ARMjUX0x79OO3+rASh3g2
+	 LMSJ+UbptuSjeSv96y2re/9VoSrOPHdhsEuNrewUVUKxzlo38XzPJBdo6cJZ5AwxLM
+	 JlG+gzZQGfTzhU2nNkH6vTEHtRVHAkz0Ohf4GNbZG5dHp0baddxnF+hhuAJVKZ7Rg6
+	 J3dgpRigNTnKQ==
+Message-ID: <f1ff225d-c20a-4859-8bea-eaab0d1ea467@kernel.org>
+Date: Fri, 5 Jun 2026 10:04:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] regulator: dt-bindings: qcom,sdm845-refgen-regulator:
- Document IPQ9650
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
- <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
- <b8758150-00a8-4d6e-bd2d-c1985d70ceac@kernel.org>
- <d24238d5-7b71-40e6-b6dd-c2f1aa150d77@oss.qualcomm.com>
+Subject: Re: [PATCH 0/2] pinctrl: qcom: Introduce Pinctrl for the upcoming
+ Maili SoC
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
+ tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+ yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260522-maili-pinctrl-v1-0-0a6636f5c277@oss.qualcomm.com>
+ <20260530-primitive-encouraging-quail-ee8af1@quoll>
+ <c7b5f9cb-09a4-448f-8f49-bdc9570d6b29@oss.qualcomm.com>
+ <87b24725-1c78-4830-a61c-e486c4cd4f3f@kernel.org>
+ <c88b955b-5aaa-472e-a928-eae8bbc7feb5@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,33 +96,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <d24238d5-7b71-40e6-b6dd-c2f1aa150d77@oss.qualcomm.com>
+In-Reply-To: <c88b955b-5aaa-472e-a928-eae8bbc7feb5@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/06/2026 08:51, Kathiravan Thirumoorthy wrote:
-
->>>   
->>> +  clocks:
->>> +    items:
->>> +      - description: Core reference clock
->>> +      - description: AHB interface clock
->>> +
->>> +  clock-names:
->>> +    items:
->>> +      - const: core
->>> +      - const: hclk
->> You just added clocks to each variant, which is not explained in commit
->> msg. And it would be a separate commit anyway. Probably you wanted to
->> add proper constraints (:false).
+On 05/06/2026 07:54, Jingyi Wang wrote:
+>>> Hi Krzysztof,
+>>>
+>>> Maili is similar to Hawi which is not announced yet, so we refer to Hawi
+>>> to use "upcoming Qualcomm Maili SoC" to describe it, shall we expose details
+>>> now or add info after announcement?
+>>
+>> Just briefly or how much you can describe above.
+>>
 > 
-> Ack, will make the change to define the clock and clock-names only for 
-> IPQ9650 compatible under the allOf block.
+> I have added a description in:
+> https://lore.kernel.org/all/20260604-maili-soc-binding-v2-0-21b5e9bd1aa5@oss.qualcomm.com/
+> 
+> I think it might not be necessary to respin this pinctrl series and one-line bindings(e.g. SMMU)?
+> Please let me know if you have any concerns.
 
-
-No, That;s not what I said. That definition is fine, but you miss
-constraints. See example-schema.
-
+Thanks, it's fine with me.
 
 Best regards,
 Krzysztof
