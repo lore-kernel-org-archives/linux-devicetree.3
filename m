@@ -1,212 +1,197 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012013.outbound.protection.outlook.com [52.103.23.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25ABC3D34A5
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5BE3D0908;
+	Fri,  5 Jun 2026 14:45:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780670706; cv=pass; b=rmQGwfEiMrdLcCjnNFXMqz1eRe4adQ1uDkaNU07D7NwTptcYUX1z2JpQEMOCt+277N5oi9vWk3ze1EZ0HVLfnOoc6RX+HRDvQ1E8bM50l4ghHH+PLyfZoHTKBw7SadKJfvRU/DHbWD+NkCjV05HvzGamcK3QgTj67gUOQCAd7Wo=
+	t=1780670726; cv=fail; b=nfbHkVnd/fUEuP91EFSucmuKZEF9NE3ESoP4nKwW9SFazCbr1tpczl/8alBGk2IrqirYhazAiX3G2aIaOA5Am5DOD8RO/35ssMDUoDMZtkbZc1lEhvpcUrCFeg6LAwrsSDnYPj/uZqocgT14D6tLZHvNU1BQ1k9kf4tgHlvCuLc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780670706; c=relaxed/simple;
-	bh=V99FgU+T9GXepKQjZbwcvobP8EXHRxrvdmdHmWGWLss=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IHff4cIpSG9nEW3KspP1LrJXfNEXtReJN9Y/SCjOhsDGIscIAoV2prOIToChNVf83I+3UVQ97CUReoLTfqEyo2hYJfwQhGRtp9D9BLFWqJz74k/O2C18mIOKZy0vpOn9frd83fc7s8mgIj9WcRjJiXSlGwbxFfeBo4gaDxoMpgc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDEG+Jds; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780670726; c=relaxed/simple;
+	bh=gSqCJYPJ9ha0bGZZCSBHd/1dV09jzguv97bmztmX2tU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dNYXqh1IR81CGa6Pq8fzJIVn2yCFwYZ61miV0FyUmiRkwgsaUj0QUghV4b4+B0z7kySSqaa/9xLAJC7LGu33oXIZu7AivR6PU8GUITRJJgLXinTaXZdVHYfXVuia6uJAwxfNRMx5pNj/uWKQjBIqfgkYDSaimDHo+FLikph+ENA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=VAuA4EFC; arc=fail smtp.client-ip=52.103.23.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDEG+Jds"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-68c3421b009so4531856a12.1
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 07:45:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780670700; cv=none;
-        d=google.com; s=arc-20240605;
-        b=WYRDGjeaHXVHl4ZSz8Wx0d4fhd6rEnz9BWwM5peDUTAoF2BKK6UWidDU8oAL5EZFI7
-         2PUaBsTowDVztCt2gvDG+CpXP94tFR6UzNJ4Bxl546MGTdI1ZGo9rdkyryIEBxRcQQfn
-         BLlQQjcnO1Lpwx6wDzypNux3tZd5OMHQi6Fg1nbQxCnmE/fgw7K5s2Hwsv/35tAg9uHh
-         g6QWIuWixw6WEF6hi+gPngAKbxoP43X2FO4CTWSr+vHNslTaDiX8Uua3hik2oW1t0XuI
-         Vw5ojFI0ILSFPiKtNqwyYlyttUdTEMY6YTTQb9Z98tM7xmxHbIfZCIpTpTSSH6FOA1t4
-         BxJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fcZIkbRV/9Yp73cfd2Dm5cvs461vRsgl4cer6irrsmM=;
-        fh=oydrPjxhXqfUmc1lurfYOkPpyJdKKHxN5STldbc2cKM=;
-        b=VkcQ1ykUsCEdYI7g0f+S4PipGa9jEkNfmEeNr1n17D+SBh8HJQGHUiSvbmUZ0KlfLT
-         FOeFR1C1JNwCb2aJn7p9pc6FiXMvNZQUVG0p7NjFEp781pt3vveYI9MDZ7eWHIWFImGY
-         Z3fGxYH3Hl58iRTHEoyPm4QxSQAi9Q+BTOUxQpXIuZJjtJx1S2FJMsedQ+Sh4uVt5m2o
-         vdX7GV8ynfDhyY2lbsecpFFmkLtxIVGYAeGS5wenQLNLoJRZjkFR5sYYE1+YV86W451Z
-         6BN3TIUGu3OtQ1UNh9fhUvFcf86yymvratPma8R65hMSJrwHovavbfqvSrQQZgHZ6iJV
-         00fw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780670700; x=1781275500; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fcZIkbRV/9Yp73cfd2Dm5cvs461vRsgl4cer6irrsmM=;
-        b=QDEG+JdsCi/nGhsGKHWrmakZCAAAKH94mJTgHAZsugCteBQLJ25F//75ar+srWpCPd
-         4A44v/U3CUW6nqTQRd/qKB+M+kFmeYbE9+nlRqymKwDmadGXMH6dBGJmZdWsAmVxrAT7
-         KQDiapY7mTQSL0SPpNNwC/gfnu5wSLuXrg8ImJufJh/kr6HXBKRo/DFW97P7T+zTTvvH
-         TkDi9uk8k2lvgiv36m4CuHV0WEy+hy7MPDtcbXT2e8UbponLrOXhgjoSA2oV1gzmuamT
-         4TGt6CiJV/ngqyzr6vxhrNQYyd/D0/IeX/v+xbt9Emomtg/Slf1iJYdzIdejRULLkKiu
-         rlXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780670700; x=1781275500;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=fcZIkbRV/9Yp73cfd2Dm5cvs461vRsgl4cer6irrsmM=;
-        b=c25eKTt42G8UnKpAisSM/b7xQuu0HMqd5jmJJ1sbnm1Wk8oJWssPGU+nL2/ThpEq5s
-         d8mHDho4lxeEHX8OVW/QPNrbjM0/J12O2EiK+O/vLMoBKf6GnwweB3yHYgVkzs6QQmTY
-         D5xbUS/XI3whvzoBWZLRzL1kPLoVLqXuZLVXh/65/PdCsQOhxrn+PiR2xzsxh6Fxj3MI
-         nJqUfIqNSBYitq92Fo8pBjhmRpxwL0vOMcuWkeehh+vlKR3gIhhs3Z3A3D2BzbOcII1n
-         Gy+3UUS8Z0HHVCmE0AUgdzq4jw/W6drctiJuGZ7WAd9P4GaxnEfFLmHxIGgdgaF9phey
-         iN4w==
-X-Forwarded-Encrypted: i=1; AFNElJ8e2ANY9TUy/8fSj5PJkmQC9FqvQZ6WFLKqZstFGiY3c+1DB4LL6MMhy/FAs+PUUisnqnTafPJHw+9I@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1rYvipMfjscBMVac4DcVUSYh7cjaKH83BynqbJZmdjbvry2/Y
-	nSP/m26TlLiYWV/KsqBGqajp7sY18u7dSZwzqaYN5euV9goeUOCE43cBMFUD58n/2B80g2rvDoA
-	oHxgWDlC8895cKrSfKNYKS0O/ViR6K+M=
-X-Gm-Gg: Acq92OHkmMMi2ZPT6P/pnUZ6LlOK5vg8n/U8IfZryanvgnJS7+jVli70pQNUzBWg/Ao
-	y2Iq3vm1q2NsXtPULjr63JVjfk1JkC3+DK/Yub0nNA/k5elUb9Ky7yHacP5lZUcTmRXEZN1YGxc
-	ee59DZg/MdvZpDivFPajPmnyRGWQf2vUpAsIXBKXgs6TsYm+p7FL0NhMJVbq/QM8vHNjigGbvsn
-	GwI+1YS1qelxwW0kV9U539HEgaFiMXt4wTc9C1AH2kMrT5cguaM4PXzwfCSXFTmDIG2d9j7QzQF
-	iec5y2ivM/ojhJlwvHp+dsAp+ErwbPcPXxliuc579EmHwg10z6rJZIWEmz1GFNqbTY7mLL/O0zX
-	mlJQ=
-X-Received: by 2002:a17:907:972a:b0:bdb:5c26:d499 with SMTP id
- a640c23a62f3a-bf3a8a06e97mr148149566b.22.1780670700008; Fri, 05 Jun 2026
- 07:45:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="VAuA4EFC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QGdYzBWFV8Osn5Q3B7OCjYcyYkv/sYvLMRtd3WmutI8/6ZtJwrkwVXrS+TP3V9TbI4eK95+0tVLFNjxxiMXS/EyEvOIuqfwPPTlfp8ft1JZyg6jYe0gUHzUx6rUspDIeCsgLbmBGnlogE1mrj5hqCIhd0glkw6kx8VKfZ6OWOHbPmTX9Z9uNuXnDfEFfHmipj/bvTtPplQ5ByV72B1iXmfcsjz7fxqgGc8UhTFRPmqpmF2BEgyQJBpTiTcDnHwBReBFHfQZ2sXEx3ZlYaf8ycgflIKGoXJA4diQB9odCmi0P9yWWjMr82X7iiRwvn/Mfqh41F9fbqVOa/8v2ovCyqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kT5T+GOyaU+WKnbmBVZx8dXLwxSeCrKOIABJZ9zIjYM=;
+ b=T4CvC7x6/YUh7/+nVcXys4vXrIePh5P4ut7VkjTaEbSO/77b7mW25rH1Bz3sLjzWKhsYMZyF0Inw6k7jK01h9nHWeibkraoJiZiB3mf6I8UF8vIXODkrEqbBADQfxjdL1z6iqNovCtNMT1R45PcwMDrvB9jWUekJz/TgB4xHSfLXMW4rNPCKTZjiYKAnKxVYngoFtPw+BhBfTduB9IlIkGrihNE10fh0FajCqMBcSO/B0kfs7E6uoHkmabGEuAEWT2Z7pqvIpHp5wetRmx1YRJM3hsAnNTvBQqm4/smLDhEcwmZrtukAEepJG31kDyVtwI8Cp2Vm6kAUTdygAArQeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kT5T+GOyaU+WKnbmBVZx8dXLwxSeCrKOIABJZ9zIjYM=;
+ b=VAuA4EFCvjtLEmqhi0AyIAECcjkIzrRPB4Sw52PKbRvwQRB9/CgwwVAyN3cZH2rM7Hzh/okEwaa+rcdKdK39H7Z19Zf1UW58DyACbE0yPnq3Bz8+mRa1qbyGAqwltD2a/w+1+vzzeEFMHv66nTK9VRKbjrx8B+q7tQr1pu4DnMdQ5a2Owv6kVb3U5UShi9lohoCp/wuAjIKa3J3+1buBbiBnqqk0GChgmz4E8nf/bnUrm0rjKBD1inJg3dKtW0Tk3GGIcTi4ulupVA2Lh6Eh0TY/NhjFH+vDMNIvlfUvcVyhcKQ1DR1e474oIelvo/450jXz6wOlHr3cDGtyW5dZMw==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by DS4PPFA96D1C9B4.namprd19.prod.outlook.com (2603:10b6:f:fc00::a44) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Fri, 5 Jun 2026
+ 14:45:22 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
+ 14:45:19 +0000
+Message-ID:
+ <SN7PR19MB673634FEEF98FB8BCBBB15979D112@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Fri, 5 Jun 2026 18:45:09 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] net: phy: at803x: add RX and TX clock management
+ for IPQ5018 PHY
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
+References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
+ <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
+ <36cd63f4-749e-4b09-b8a6-cbf6924dea88@lunn.ch>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <36cd63f4-749e-4b09-b8a6-cbf6924dea88@lunn.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR1P264CA0166.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:347::12) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <45169cd4-77c9-4153-9382-7e0565a4e460@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260511191910.1945705-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdWVjvdX2Ve-Sf91oJoCWcO-fF-363ytO66Pr=SBA69N+g@mail.gmail.com>
-In-Reply-To: <CAMuHMdWVjvdX2Ve-Sf91oJoCWcO-fF-363ytO66Pr=SBA69N+g@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 5 Jun 2026 15:44:32 +0100
-X-Gm-Features: AVVi8CcZWc8NSzDAQ_aVku7QXQXrcmHdaazPbFgpm7kgo3ZnjYI1QxUBkTayMTw
-Message-ID: <CA+V-a8uYEOB2DcOjQ63hLDW-vYxGLTpphvDXyAwV3g1-GrHhgA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
- frequency for calculations
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|DS4PPFA96D1C9B4:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b73c0fd-86f1-4497-0959-08dec3110ff9
+X-MS-Exchange-SLBlob-MailProps:
+	znQPCv1HvwUXBahuwteIkQeW30lJPuxOeUl1GXz9pBEczOX9FX++RYQv85sIraT8HVhxetZkowD5uePlnHIB3UAl4lvLynrZq/FYq+DTpg+NQkWoHrncZLdR3qGSmNjjs1gSt7N1EogHCr19DytyPJXrwh1LRTg2fCSAEx7F/+rCW4SqvRPHuLgohV24FZG5+fjr5X0Dw+nCJYK+LIgnALmDSSrpveXQ5z3LRvFoEeC/+ReeSUALUtxCCgBQXKcKgaU8tWmucvp3VOl6wkGhb/i2cgBOEMXob/hywE5NRcEgvV+IGyahowNJNS9jgy62ipsMuycKLD7DqcI3Yy+YJ7OgtonLqod75cvLBAS1rW1X1aPNnSUHxwShH+FJ/BaBk69SGFd410PToESIJJGEkxzEF+GWhYAkU2noIcp6O+er+MKztx5RNADCaWWPAyF2mKWSvU2q3/2zlDKONlaZ4r7IyIxZ+r7KaOi1L+HZPD6dv7tR12oivK436kJ2sZsh9/PRMgRp2PLjSBCD82jAdOtaTCQ22cpySPdSm5bqZDg6fdj6FGFeYtI2/09yZ/9CVLh7AVkSjBvAxh5cP/fXCjdM0Ra1HRh8GXoTmK4Ul0hiWgYcVfTpM1CQo7SIGxYgWTq3Vy6weCrH502s79Fo9g51kftav5nsNvYfxXUgaSY2j41abGVwrpZyU/3+8wEh5iQlGYCb3icICMrLWKs51HmnFaqjorDaIL03E2hSXeodqve5kvqTBCGUFFVUO2efvmi8n2JOAjs=
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|19110799012|23021999003|8060799015|15080799012|51005399006|37011999003|55001999006|24021099003|6090799003|3412199025|440099028|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OXhzYjFJSm96dEttOUh5NnN0VUZNUEUvQzJRZTlTdWdtRW9jUHh0YWVKc1ln?=
+ =?utf-8?B?Y3ZnK2pXUlR2MlRnOHBSeSszMWE3NjZZcmkrVlNuVlFsRko1K1RSdXZ1UStr?=
+ =?utf-8?B?WXhYYzdDckh1cDVjZU9MWCtENEM2eVBUamtPZ3lSc0JrL3I4cHZLNXgxZ082?=
+ =?utf-8?B?RlNxZldQYjNHQ2p5NXBReGx4NFcwcTdtcHhFK0t5TGl6TGo2enV3SlFvcTZk?=
+ =?utf-8?B?aEcyUVdNOCtIZVlrMXNsUCtIOUkwSkZQVUhVNzZNUFFjSjJ1N05ua200bHN3?=
+ =?utf-8?B?MGlCb2RNQzBHUFJrd3lVOEFRQnNTZmhHVHdFdk9xcHFsUkJtcDZFUkhwRGZv?=
+ =?utf-8?B?akZGOUlsK0lOOEJSSndiTmZWSGx0S3NlZWFQeGJNeFU5TWRVRjhRRkVwRE8r?=
+ =?utf-8?B?TXB1ZCsrekpsenBYeVBGRUkxaklHOEh0d1VMSHVzek9CdXB5KzR6c0RTVXll?=
+ =?utf-8?B?Q0FtUHNzNk90VlhHbFQxTjE1Q3Z5aFlVRFdDcnBiL0JFYzVGL0o0VW5HT2lC?=
+ =?utf-8?B?TTNKZVhUNzY2Q0dIWUc2b0RwSVJleFdQK1NVSFpWVkV1V1dWMStCZnNxU1F2?=
+ =?utf-8?B?c3BySDhNdVl6NDZFNUxyOEVUWXBJdmt2SWkweGRqN2g4dzI1Zm5LdUlBUnQw?=
+ =?utf-8?B?c1lKS25Ia05WMCt5U09CU2pGa0NLcVdnaThqS1Z6RVRFbWhDUmpqUUNoRTlG?=
+ =?utf-8?B?b0dab1NrQXVrMmIxVlhrdDZsYUkvNGV2dkphb3BlNUZTTkNCdktCcFhvN1pC?=
+ =?utf-8?B?alJROUd1Q082NTAxbndUVmxBR05pa2ZINk9PSHZKYkN3VU1KSTVmZXRKSXRW?=
+ =?utf-8?B?VnVNMDdnUWVPQzhIUjJqamtsWFVndkZXN3BMWktpbFpkUENJaXNGQnJ5NVNz?=
+ =?utf-8?B?SlhINGszMEUxaG10dWJrM2h1MGZQZ3YwTlNUZ0luTVlTa1F0UkFZOGJxY1VL?=
+ =?utf-8?B?Ry91OWc4eU41Z2JNY1NKYlpWQlZVRE90S3ZiQlpVQmE3K2hFTEtQQllmalBx?=
+ =?utf-8?B?ajRvQ2podmpKL1RqRTI5QTBrNUcwVFd3OXZKU0RjRWtJWFM4TlBvcnNrNVlE?=
+ =?utf-8?B?MVRpMlZ2eWwxTS9veTVqS2lRNzNUL2g2RjFXYWZRS0lzcXpWOXBMQVlrSFV0?=
+ =?utf-8?B?c1hFSy9SMVh5UFlkVUlrbGxscVB5aGN0Nk1KV24rMWtKMFpCd2hrMFNJYU5X?=
+ =?utf-8?B?QWF2QlZHNUgwZWMzVUp5U25XRXVXcTRXeFVvcGZFb1FMdGJRUWk0Z0dZODB4?=
+ =?utf-8?B?V1lsQzRJZjU1NHZWYlFNV0g1U3pVOUFUc1FZU2oyMVYvY1lXRHh2K09veXpP?=
+ =?utf-8?B?NE0vSG5OVk8zd3RDTkVFRzlnWkRvcnE2eXFibDdpd2dKUStkcytnME1FeFN5?=
+ =?utf-8?B?aGtCLzBUZmkwREE9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RlJNeW5lSjBxaWJtdlpWa2twdHg3K3dSRnJkVlhSZGFvMnZzaU1TcXdXcVdY?=
+ =?utf-8?B?cEhMN0xteUcrYzJBSUMybEpTdmRZYWVBSW9EYkpLcVhrWkxtdkl5RGdLb3Fy?=
+ =?utf-8?B?QlhUajl0OVR5YW8yZnhHR0k3Uk5semhRRi9tVW95RVVocTZycnlZS2J0OXlD?=
+ =?utf-8?B?eGpxUmEvc0gyelZHQ2tsMFUvSnVBdS9lYStuREpmUjFmYWdxemQweE9XN1VK?=
+ =?utf-8?B?SVdZMGxsTjNNVzM0dkpaUHFFRGFRdTZkWXpTR2dubU9lOG1KSDRJMmFxN1Yv?=
+ =?utf-8?B?NXNnSytwbVdwL0Z0SlF2ZXNESXhEc2d4QW13KzltTDYyZkRGb0JUZzJRbTZE?=
+ =?utf-8?B?aEM4S05PTWF6OHNCR1Z6dXJUdVlrc2YrZjZSTVEzVWVsTFR2TndIdEVHd0oz?=
+ =?utf-8?B?YkRLajBJcHg4NHdOb1kydWxUa3ZJQnQ5SzQwL0FWMHJNMm9jVXNqbTh4VnBJ?=
+ =?utf-8?B?NHcwUzFhYUEwK1dEbHhsMWlZMkR3UEoxWnlUWmdobTdsU1dneGlSRE9RbVFP?=
+ =?utf-8?B?OGVrb1hWSG44YmNYNlVuNUdiMk9OWHVwZlBuUXl3TDNaMUFpWjZ0NUlhUW90?=
+ =?utf-8?B?TEcxYzA5eHVUbit6SnF6dTBKSlhLcEFnYjdrdFdReldOaGRsOFNGcnBud2Mw?=
+ =?utf-8?B?RUN2UkpTR0ZFOWs5L1lVdkFPUnkvR0Mxc2RHRzZ6MVM4WHRROVdaWGhWMkMw?=
+ =?utf-8?B?c2huaWlkejgvZng1UnFZY1BOMjl4YVdUZzVUT2VrVHg1SnVCTHljN0Z3RWFH?=
+ =?utf-8?B?N0s0RkJFMUIxRzZFZU9qc0JlNS9BUFp4eHNNcFl0bUg3YTIwYlF1ak1GNlN0?=
+ =?utf-8?B?RFh2QW85RTVFenNvUUlOV0RuZlNBZUkyMitMRlY1T3YwUFdKMFo5bm5ydm1h?=
+ =?utf-8?B?cDM3WGVJamZTMTk1aG9MOTd6QVJPWHI5Y3MxZEF3MmtYUDNQWFF6SzI5Smkr?=
+ =?utf-8?B?ZVBVenVEeEZzak44SDREMGxFVjRCcTZIRjBZR2gvbldtdXJtSVYyMHhVTTVB?=
+ =?utf-8?B?OVo1VFBiYjFBVzNyeU9MNHlpQnp5UzNYa0RJdUFLYjQ2b2pIUkZteG9tUlBa?=
+ =?utf-8?B?Y3ZKQ0V4cW1FU1hjRWM4a0p0SFBiUFZqcWlicnVFRHIwck9kMzNoeU5NdG1B?=
+ =?utf-8?B?Z3VqRWtqSmR0cEdxaHJiS3MzOVE4Wlgrd1hLTnZiMVphR05XM0U4MXlBb2tS?=
+ =?utf-8?B?d0hETzVSZUZ1dy9SbFUrckVjK24zTytJUlFQYkszais1d2k0TFZzS3Zaelhr?=
+ =?utf-8?B?aXV5ZlJ5MHp2RGpwYy9VZDhONUFDclFYQitmUzhZWTZWMnFVZWd2MFhJbG81?=
+ =?utf-8?B?a1NiamFVQVcwOUgvQ2lTWmMxZVZNQ2g2VERUN2lQS0dyT3pSQXIvSWk4Q0Zq?=
+ =?utf-8?B?K0RJOWt2cVN3T25FYllpQS85T0g1MGkwNHppNWt0UlhjaEVRclBTWGM5OUFY?=
+ =?utf-8?B?ZkdKUGk0cENGOHd4R0x5eGZYeUV5TTNmZGdtTXFLT1BKMnlwdXFkS21iSjh0?=
+ =?utf-8?B?V3ZRVUl4Z3MzU1dHSHNReXdKazdXYUZEbUFJcVY3eWhKZ3VrN1RDczBrMlZr?=
+ =?utf-8?B?dUJQUEZUc2NUUkdZZ0FBV21WSG9CNnFQbndDNXl3WlR1bHV1ZU4zcFFuc3B0?=
+ =?utf-8?B?VXFrVU0wK1BpOWI4R0JxMG5lenE4ZVdBcFMybmZVL2t2MFIvZ1pFdDFTK0w3?=
+ =?utf-8?B?MXpvSFk2TUV3c3RFMjZpZU5GS1ZUUFAvZVAwVzdrV0I0SFhNSndkUGUrZENT?=
+ =?utf-8?B?MU1GRmtUR0ZGRUhocXYrcGQxRUdiemdRdkJ0STh1RFREYjNORVNRVFJNeFdC?=
+ =?utf-8?B?LzhOYktjdWNOVFJOZzF5R1YzejFpR0FxNWdJOEZaaEVzU0FpYzFyM2hnK1hU?=
+ =?utf-8?B?Q1BSYnN3QVlYc1g4eDNHdGM5clZSSWloNWpLU1B1TzBIWGc9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b73c0fd-86f1-4497-0959-08dec3110ff9
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 14:45:19.3412
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFA96D1C9B4
 
-Hi Geert,
+On 6/5/26 18:23, Andrew Lunn wrote:
+> On Fri, Jun 05, 2026 at 04:41:29PM +0400, George Moussalem via B4 Relay wrote:
+>> From: George Moussalem <george.moussalem@outlook.com>
+>>
+>> Acquire and manage the RX and TX clocks for the IPQ5018 PHY.
+>> These clocks are required for the PHY's datapath to function correctly.
+>> Gate the clocks upon link state changes for improved power management.
+> 
+>>  static void ipq5018_link_change_notify(struct phy_device *phydev)
+>>  {
+>> +	struct ipq5018_priv *priv = phydev->priv;
+>> +	int ret;
+>> +
+>> +	if (phydev->link) {
+>> +		if (!__clk_is_enabled(priv->rx_clk)) {
+> 
+> Using __ methods is usually a bad sign.
+> 
+> The logical also seems a bit odd. In order to get link, you need to Rx
+> and Tx. Or is this device able to perform autoneg, send link pulses,
+> without these clocks?
 
-Thank you for the review.
+No, RX and TX are critical and need to be enabled for any ethernet data
+to pass. Link state detection works without these clocks though which
+explains the approach to enabling/disabling them upon link state changes.
 
-On Fri, Jun 5, 2026 at 2:37=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Prabhakar,
->
-> On Mon, 11 May 2026 at 21:19, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Use a per-SoC PLL reference input frequency for PLL parameter
-> > calculations instead of relying on the hardcoded 24MHz constant.
-> >
-> > Add an input_fref field to struct rzv2h_pll_limits and derive the PLL
-> > reference frequency from it in rzv2h_get_pll_pars(). Fall back to the
-> > existing 24MHz value when no SoC-specific input is provided.
-> >
-> > This allows the existing PLL divider calculation logic to be reused
-> > unchanged on SoCs such as RZ/T2H, which use a 48MHz PLL reference
-> > input instead of the 24MHz reference used on RZ/V2H(P), while keeping
-> > current RZ/V2H(P) behaviour intact.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Thanks for your patch!
->
-> > --- a/drivers/clk/renesas/rzv2h-cpg.c
-> > +++ b/drivers/clk/renesas/rzv2h-cpg.c
-> > @@ -242,6 +242,7 @@ struct rzv2h_plldsi_div_clk {
-> >  bool rzv2h_get_pll_pars(const struct rzv2h_pll_limits *limits,
-> >                         struct rzv2h_pll_pars *pars, u64 freq_millihz)
-> >  {
-> > +       unsigned long input_fref =3D limits->input_fref ?: RZ_V2H_OSC_C=
-LK_IN_MEGA;
-> >         u64 fout_min_millihz =3D mul_u32_u32(limits->fout.min, MILLI);
-> >         u64 fout_max_millihz =3D mul_u32_u32(limits->fout.max, MILLI);
-> >         struct rzv2h_pll_pars p, best;
->
-> > --- a/include/linux/clk/renesas.h
-> > +++ b/include/linux/clk/renesas.h
-> > @@ -53,6 +53,8 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 d=
-ivider, int target) { }
-> >   * various parameters used to configure a PLL. These limits ensure
-> >   * the PLL operates within valid and stable ranges.
-> >   *
-> > + * @input_fref: Reference input frequency to the PLL (in MHz)
->
-> Iff there is a default, it should be documented here?
->
-Agreed.
+> 
+> Maybe when we have a better understanding of the requirements, we can
+> find a better way to use the CCF without needing to go to its insides.
 
-> > + *
-> >   * @fout: Output frequency range (in MHz)
-> >   * @fout.min: Minimum allowed output frequency
-> >   * @fout.max: Maximum allowed output frequency
-> > @@ -78,6 +80,8 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 d=
-ivider, int target) { }
-> >   * @k.max: Maximum delta-sigma value
-> >   */
-> >  struct rzv2h_pll_limits {
-> > +       u32 input_fref;
-> > +
-> >         struct {
-> >                 u32 min;
-> >                 u32 max;
-> > @@ -156,6 +160,7 @@ struct rzv2h_pll_div_pars {
-> >
-> >  #define RZV2H_CPG_PLL_DSI_LIMITS(name)                                =
- \
-> >         static const struct rzv2h_pll_limits (name) =3D {              =
-   \
-> > +               .input_fref =3D 24 * MEGA,                             =
-   \
->
-> Why add this if 24 * MEGA is the default value anyway?
-> Why not do the same for the two similar RZ/G3E macros?
-> Perhaps the default handling and the RZ_V2H_OSC_CLK_IN_MEGA macro
-> should just be dropped?
->
-Agreed. I will drop this change and get rid of RZ_V2H_OSC_CLK_IN_MEGA mcro.
+This PHY is integrated into the IPQ5018 SoC, connected to the first GMAC
+(GMAC0) and probed upon boot. However, this PHY is not used on all
+boards because an external PHY or switch can be wired to the SoC's
+second GMAC instead (through a PCS). So from a power management
+perspective, it would be better if we can disable the clocks if there's
+no link detected.
 
-Cheers,
-Prabhakar
+> 
+>      Andrew
 
-> >                 .fout =3D { .min =3D 25 * MEGA, .max =3D 375 * MEGA }, =
-       \
-> >                 .fvco =3D { .min =3D 1600 * MEGA, .max =3D 3200 * MEGA =
-},     \
-> >                 .m =3D { .min =3D 64, .max =3D 533 },                  =
-       \
->
-> Gr{oetje,eeting}s,
->
->                         Geert
->
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
->
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
+George
