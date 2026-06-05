@@ -1,39 +1,39 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885E43CBE80;
-	Fri,  5 Jun 2026 21:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E283D413F;
+	Fri,  5 Jun 2026 21:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780694223; cv=none; b=o+6+b+5rJaUdWq44M//lyB0ZxQ7iX4/p0xhNehWlOXwhALRBAu7eHEPUUB4C036TVfYmYPTIfTpJ0fzVvdv7Yq8H8kkAfjgZA5dp0J5fU+wHDS1fcs8syn0xtBgp9xbkdI1fMB4jjQhsbumHl4EBByVSX5x/tKl7xo95GCOIuS4=
+	t=1780694225; cv=none; b=tLIZEGbMmI+8/aozn6tb0fGOonoMAiOpBTo67F3gAsC5+YoduVCc6F8wrN5IWZrCNpQWntjmxbgEAByzNfbnizyLOUiATY9aMDlCpWI7avyb2zLfrn9UN1SCRJZjHkZKpF29FTlEEm6F2NFOc8LIxIzA09LVtONbgeew56twz1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780694223; c=relaxed/simple;
-	bh=bGBa6574lYMBcACrzqd+1waqq++tmxM6kUS/zVzR734=;
+	s=arc-20240116; t=1780694225; c=relaxed/simple;
+	bh=rJDlytkk0qZaUsWk1KvAiNsYUXM7xX4ozyANRdhbtuM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DS+u5Nv19MTxbIF/+DwogcMJ3nR++VJGvxHQfpmdTozI/B01Qqvkr30uUIgAc3FWj/F3L7d0/gzXD35u8ZOj1R//2cnHC3K4z3PVuwFMCHXAHiHQzoLvLesrhEstLf+1U6tmlmTlxulqF5g2aNo/AWJp2BLUeywGaZCg5x7JYY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=c56Nbihn; arc=none smtp.client-ip=212.227.15.18
+	 MIME-Version; b=cAGdlX31JmAuj/9+LCeoYWI4xJg3QTwmqTMrcR6eg7yjEzOQxBENj23oCvmcrdqqTt4L16MOCQub+HmygTfAO/QPs9AIrmxauukLgJqkJQCpBCjwhoKVH4o4eGfJ75ILp7hcf9jlASGRgkecdW/N1uOCw/DTzTAjuF+J2PGjtQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=c49iJZvP; arc=none smtp.client-ip=212.227.15.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="c56Nbihn"
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="c49iJZvP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1780694219; x=1781299019;
+	s=s31663417; t=1780694218; x=1781299018;
 	i=markus.stockhausen@gmx.de;
-	bh=sJKBaHJ0xBGt4U0SgxxwEOltdZ90kiMQjkElu+hdHTw=;
+	bh=pu9EaWKuAqw8OfN0nFpNhk1J4kQu0c6fGx0swq2DOxU=;
 	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=c56Nbihnqfrl/xk1ntrRdFfPMnJyptpFe2dwS0ibdMuk9Yub0oGYl+kBtJn64/H3
-	 LTqsZbr4FEE/piM5UmYUXt16GinrXfbJw9PnSDhaO9T3RJzmQeOluVQUXcn5KkJft
-	 4Rfxh4OAa7+zWYKNKlV3+FWZDlG2LjcL84LkVVBjctVayf3wpe/DApH/GRUxMSAIG
-	 F0uKPE/FxXW5/DpU52Na+f2uIg+JiZOwUd7gHzfBXrgW5ZJkWPI9NW63Ghy4d0udN
-	 OJZrylmk51hj82qt5ivGhNC2B627EG3EqgXFoIfKcJY0RqDCnZlZEBtgdlKHeVj0a
-	 egLwMonKeXQJyVGyfQ==
+	b=c49iJZvPt/D3tYqnS8dCWFx9uRvOIzvFNbS/g5uoUlvZY0N/v5DZYTmfETk4sq4a
+	 PoqxYHX1rsFmF55ZibnU992/V3kMBIerz59KUNjpAOifKNSfg3nVAsXnkmCi/ym+/
+	 0yqYRsH4Rt3njKF3qciUKEt01DtxsCreG8SjCZo0WOixQiwaXurHdDF13JVC7XN2R
+	 37xu2IkkVelQ0AhHPWYLqGEYWUhqo82D8KCL/qxAHP4iN1e2hjFnwSgNs4OtqITQr
+	 ob0yNhwaz1ghYUEr/yy0xdIW1aWo2Fl6lTerYvFG4zEn6Zn7r8uJFhypfgvREy6er
+	 zG/NRlK3Lf7KLPTPWg==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MSc1L-1wgMTK06kj-00Wn8U; Fri, 05
- Jun 2026 23:16:59 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MN5iZ-1wo6EZ1aJZ-00P8hy; Fri, 05
+ Jun 2026 23:16:58 +0200
 From: Markus Stockhausen <markus.stockhausen@gmx.de>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -45,9 +45,9 @@ To: robh@kernel.org,
 	tglx@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH 6/7] irqchip/irq-realtek-rtl: Allow shuffled interrupt order
-Date: Fri,  5 Jun 2026 23:16:45 +0200
-Message-ID: <20260605211646.2101652-7-markus.stockhausen@gmx.de>
+Subject: [PATCH 3/7] irqchip/irq-realtek-rtl: Add interrupt data structure
+Date: Fri,  5 Jun 2026 23:16:42 +0200
+Message-ID: <20260605211646.2101652-4-markus.stockhausen@gmx.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260605211646.2101652-1-markus.stockhausen@gmx.de>
 References: <20260605211646.2101652-1-markus.stockhausen@gmx.de>
@@ -58,162 +58,217 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:jk9kcW84vkJ0GWb/S6x0w620wAfqNiru5ACr7kHoXUs7ZTiu1qv
- KwRwcFpwLiONifvJfYm4wqSUG+4pn0ZB1F3XyxOGGvxY3eThiRE+4To1lPLZGzbfFGhvJ3/
- riGPh9UVr/9Y2I6zfiCBZaDLHX0BfL9NcDwgSBQyKuHMAh4EX6MGGuLZ7WrayzyW42ypc4+
- nPK+fS9WSLvSB5R72aoBw==
+X-Provags-ID: V03:K1:/FIl1pZHTqKfV+LdAYK6nzf2kD/+qEG7In6mooLHLJYAMDBg2ND
+ QukIBMdj/hU5HcDOG/NgWjahKbGG758L5L+OONvQ5UMh4L0e/8fRgwmwkOnh2B7ZO2yGbq6
+ QHOFa1kpYNz9RSp2eja45+ZE2zN6afy11V2dw9iD8igh8JIicLpswPvX9qSHOK6/ziUv3a4
+ rVbx+XTW7peI0JP/AnkbQ==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:7KlsK7VYK+A=;bKnQKeXl5q81SRUqswM+bagm750
- 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
- KvFgPqGGpKXR42pnc2Tlo+eeEvkFNQQzqNsApQY
+UI-OutboundReport: notjunk:1;M01:P0:NGFiWOGunr4=;/G70ADXS6GW/tRaouTNs8j/tIVz
+ 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
+ tfHY89rUW6ldjWCVUM=
 
-The driver silently assumes that the first given interrupt in
-the device tree is nailed to "2". Any deviation from this will
-break the driver. Fix this by storing the given interrupt
-in the domain data structure and writing the proper value
-to the routing register.
+To prepare for multiple parent interrupt domains add an intermediate
+data structure. For now this will only host the link to the domain.
+Additionally adapt a deviating variable name to driver standard "hw_irq".
 
 Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
 =2D--
- drivers/irqchip/irq-realtek-rtl.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/irqchip/irq-realtek-rtl.c | 48 ++++++++++++++++++++++---------
+ 1 file changed, 34 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/irqchip/irq-realtek-rtl.c b/drivers/irqchip/irq-realt=
 ek-rtl.c
-index 546d294bad35..5c5097edbc98 100644
+index 3b4508ec7198..9629b4bed635 100644
 =2D-- a/drivers/irqchip/irq-realtek-rtl.c
 +++ b/drivers/irqchip/irq-realtek-rtl.c
-@@ -28,6 +28,8 @@
- struct realtek_ictl_output {
- 	struct fwnode_handle *fwnode;
- 	struct irq_domain *domain;
-+	unsigned int parent_irq;
-+	unsigned int parent_hwirq;
- 	unsigned int index;
- 	u32 mask;
- };
-@@ -122,7 +124,7 @@ static int intc_map(struct irq_domain *d, unsigned int=
- irq, irq_hw_number_t hw_i
- 	guard(raw_spinlock_irqsave)(&irq_lock);
- 	output->mask |=3D BIT(hw_irq);
- 	for_each_present_cpu(cpu)
--		write_irr(cpu, hw_irq, 1);
-+		write_irr(cpu, hw_irq, output->parent_hwirq - 1);
+@@ -25,6 +25,10 @@
 =20
- 	return 0;
- }
-@@ -175,6 +177,7 @@ static int __init realtek_setup_parents(struct device_=
-node *node)
+ #define REG(cpu, x)		(realtek_ictl_base[cpu] + x)
+=20
++struct realtek_ictl_output {
++	struct irq_domain *domain;
++};
++
+ static DEFINE_RAW_SPINLOCK(irq_lock);
+ static void __iomem *realtek_ictl_base[NR_CPUS];
+=20
+@@ -125,11 +129,11 @@ static const struct irq_domain_ops irq_domain_ops =
+=3D {
+=20
+ static void realtek_irq_dispatch(struct irq_desc *desc)
  {
- 	int err, parent_irq, num_parents =3D of_irq_count(node);
- 	struct realtek_ictl_output *output;
-+	struct irq_data *parent_data;
++	struct realtek_ictl_output *output =3D irq_desc_get_handler_data(desc);
+ 	struct irq_chip *chip =3D irq_desc_get_chip(desc);
+ 	unsigned int cpu =3D smp_processor_id();
+-	struct irq_domain *domain;
+ 	unsigned long pending;
+-	unsigned int soc_int;
++	unsigned int hw_irq;
+=20
+ 	chained_irq_enter(chip, desc);
+ 	pending =3D readl(REG(cpu, RTL_ICTL_GIMR)) & readl(REG(cpu, RTL_ICTL_GIS=
+R));
+@@ -139,9 +143,8 @@ static void realtek_irq_dispatch(struct irq_desc *desc=
+)
+ 		goto out;
+ 	}
+=20
+-	domain =3D irq_desc_get_handler_data(desc);
+-	for_each_set_bit(soc_int, &pending, RTL_ICTL_NUM_INPUTS)
+-		generic_handle_domain_irq(domain, soc_int);
++	for_each_set_bit(hw_irq, &pending, RTL_ICTL_NUM_INPUTS)
++		generic_handle_domain_irq(output->domain, hw_irq);
+=20
+ out:
+ 	chained_irq_exit(chip, desc);
+@@ -149,10 +152,15 @@ static void realtek_irq_dispatch(struct irq_desc *de=
+sc)
+=20
+ static int __init realtek_setup_parents(struct device_node *node)
+ {
+-	int parent_irq, num_parents =3D of_irq_count(node);
++	int err, parent_irq, num_parents =3D of_irq_count(node);
++	struct realtek_ictl_output *output;
  	struct of_phandle_args oirq;
  	struct irq_domain *domain;
 =20
-@@ -207,6 +210,12 @@ static int __init realtek_setup_parents(struct device=
++	output =3D kcalloc(1, sizeof(*output), GFP_KERNEL);
++	if (!output)
++		return -ENOMEM;
++
+ 	if (WARN_ON(!num_parents)) {
+ 		/*
+ 		 * If DT contains no parent interrupts, assume MIPS IRQ 2 (HW0) is
+@@ -160,8 +168,10 @@ static int __init realtek_setup_parents(struct device=
 _node *node)
- 		goto err_out;
+ 		 */
+ 		oirq.np =3D of_find_compatible_node(NULL, NULL,
+ 						  "mti,cpu-interrupt-controller");
+-		if (!oirq.np)
+-			return -EINVAL;
++		if (!oirq.np) {
++			err =3D -EINVAL;
++			goto err_out;
++		}
+=20
+ 		oirq.args_count =3D 1;
+ 		oirq.args[0] =3D 2;
+@@ -171,17 +181,27 @@ static int __init realtek_setup_parents(struct devic=
+e_node *node)
+ 		parent_irq =3D of_irq_get(node, 0);
  	}
 =20
-+	parent_data =3D irq_get_irq_data(parent_irq);
-+	if (!parent_data) {
-+		err =3D -EINVAL;
+-	if (parent_irq <=3D 0)
+-		return parent_irq ? parent_irq : -ENODEV;
++	if (parent_irq <=3D 0) {
++		err =3D parent_irq ? parent_irq : -ENODEV;
 +		goto err_out;
 +	}
-+
+=20
  	domain =3D irq_domain_create_linear(of_fwnode_handle(node), RTL_ICTL_NUM=
 _INPUTS,
- 					  &irq_domain_ops, output);
- 	if (!domain) {
-@@ -217,6 +226,8 @@ static int __init realtek_setup_parents(struct device_=
-node *node)
- 	output->domain =3D domain;
- 	output->fwnode =3D of_fwnode_handle(node);
- 	output->index =3D 0;
-+	output->parent_irq =3D parent_irq;
-+	output->parent_hwirq =3D irqd_to_hwirq(parent_data);
- 	irq_set_chained_handler_and_data(parent_irq, realtek_irq_dispatch, outpu=
+-					  &irq_domain_ops, NULL);
+-	if (!domain)
+-		return -ENOMEM;
++					  &irq_domain_ops, output);
++	if (!domain) {
++		err =3D -ENOMEM;
++		goto err_out;
++	}
+=20
+-	irq_set_chained_handler_and_data(parent_irq, realtek_irq_dispatch, domai=
+n);
++	output->domain =3D domain;
++	irq_set_chained_handler_and_data(parent_irq, realtek_irq_dispatch, outpu=
 t);
 =20
  	return 0;
++
++err_out:
++	kfree(output);
++
++	return err;
+ }
+=20
+ static int __init realtek_rtl_of_init(struct device_node *node, struct de=
+vice_node *parent)
 =2D-=20
 2.54.0
 
