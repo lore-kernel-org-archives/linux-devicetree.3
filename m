@@ -1,130 +1,93 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B292F745D;
-	Fri,  5 Jun 2026 21:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780695404; cv=pass; b=Hkz2Jq0mHQ0Or5ZNnp7r/N+YjQtiHjkqXbaIDef85dxq1Uyoyqftd1IcA5Qccl3qcdY8EzSOyeiQwoPtkhKCysk2h8yHfwPfDZV1+6IpaoFOqS6rnlaXJEguSaNSfkWB0i8z1cEzQp0Zpc2ljZTqpvyCOAa2IJRUuFa3vB0ekFo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780695404; c=relaxed/simple;
-	bh=svLTHubM8kTwsp+XVeVR0+myZZSUyQeQm8uzL5t1S2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OpwoVVM1dqlsKcMSzi/RxdpT+0oX3z1cotVMm0wbDlqoI79JSMrqo2q4LWvBEfyViTFLng4lEL3d2CFPhN7JB3r1LLbELA8Zc4RiEZChgd1Z5KocpWGHOJCFnGRPONy137YzVkXBkQKpHtul9X01njRQ7hpg02ZwiPfn3QkPsbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=DDWuc+Uw; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A15E37BE74;
+	Fri,  5 Jun 2026 21:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780696164; cv=none; b=HxkuMPYxTBcKrnBKPpC/a2iOZHaBWMQtRGvm55j/9nNMEPDEA6s2omk4wgjGeN4EnVf7YNFsGrQOphm/+T3y1yhzAGkYIXUXsg4WcEgBK8+mkxdQvIB9Ychc838iJxpp1Y79Mw9zKcgoVKB52n6ZJrmSfX6ZKW6vvxLbx5dO3mk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780696164; c=relaxed/simple;
+	bh=OAS4olxbrpvpcUkxuRn6v9A1t3vkU7Qutn4uR3BehGw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AxH0RsxVQkAbJ5gxL+ZtON9hSo60kJge7Vb5aqbgNwDvqGUO5knF1zop/6HpIHGbkL0OIRqhioIXLk69FKJmgxAevGx8fyeiv2dFP1Jj0nuWPuZ1lHE1uI+F2qSpd6ZQmyYcEzFU6dMLsyWNh9Z4MFZ7cq4rleREna7UPzKqaf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OE/5STLP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="DDWuc+Uw"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4gXFB80nTNzyQ4;
-	Sat, 06 Jun 2026 00:36:31 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1780695392;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pU0x3uSHUqkJVgJTsk55EB8SawA/d1X33Aek+VkYZ4A=;
-	b=DDWuc+Uwdht9dDQTQhmRHc5NirTpZ7yE9vU/PNgq7Pzuh/fOCVwJItz++jsTaSzZJaBaZW
-	Q7HLMj6lardIFdUTxjoUxlNL3wRD+btE6lDuYbAGFA9j79qrNOynldsjjS0hu07QbOVOa3
-	Uu7iVL6OYIH1tmqg79Zht4pWEcww/DQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1780695392;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pU0x3uSHUqkJVgJTsk55EB8SawA/d1X33Aek+VkYZ4A=;
-	b=vGsVpAcmKm1qO9zuZ8jLCv1fqmKPUVriezkhllEPBZO5Jbow8rGVmviEe7LLuYYwbTGfMi
-	Js6B7SDb4RfehIOphjCATcQHOsn2znsGlXK/IdQFFrTbYPyG2AzH07mxjbqKeOSe/N+4/Z
-	B72+l0pZ7N6zZgEmM3/gOIm1Bnv5ZjQ=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1780695392;
-	b=Hza4GXta7uZgaqVcsfxBNBoukoM3fRem+QaNwIkSXuHTrdOF0mEgG0mQrdLoSE3k/0A9B3
-	FQT7Ud3dcK25M8xAr2Bkbt+CnqkMb8TUDlD5CVyZ7b2ZIx1YWr4RAr4bwC4HnEO2QPGIwe
-	22XbcVhjj8bdhxXW8qCajMDfeQewI8Q=
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 60F82634C50;
-	Sat, 06 Jun 2026 00:36:31 +0300 (EEST)
-Date: Sat, 6 Jun 2026 00:36:31 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)" <linux-media@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: media: Add macros for video interface
- devices
-Message-ID: <aiNBXzmezUX9fB6_@valkosipuli.retiisi.eu>
-References: <20260605150309.2451456-1-kieran.bingham@ideasonboard.com>
- <20260605151353.GB4350@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OE/5STLP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EE990C2BCC9;
+	Fri,  5 Jun 2026 21:49:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780696164;
+	bh=OAS4olxbrpvpcUkxuRn6v9A1t3vkU7Qutn4uR3BehGw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=OE/5STLPngv1vv4/9mJZMj6HJ1+9OWrEhR+rokZ+fE6GV0NK4pc+ymnv3Qrmr2ZFt
+	 g09SlxXOjBcSLMmigwrgoXnC7kmuNUlmimeWpmtwClRas0ADcOQKqFIap3dFOJpLHB
+	 iR/fhNf2X4hBfEskj4Pv5NCC2DR7b7BKCUHZMot1F+HyrK/3XzMxVRk0USbSLB/ins
+	 FNeXXJ+kuQsFIlWPpF68+1ffvQg+JGH8JswpeHyFXZbb/Sl/+ph/yfKqADVOzmlPNX
+	 eb+WNnVl4UHx5NPIjHtaZlWf9YZgKvIlNrpQQB/c6StLYjQ6Un4n9bgb2E2ejqvlA6
+	 jmNtXBwaxWqRA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0D8FCD6E7E;
+	Fri,  5 Jun 2026 21:49:23 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Fri, 05 Jun 2026 16:49:08 -0500
+Subject: [PATCH 2/2] soc: qcom: socinfo: Add CQ8725S SoC ID
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605151353.GB4350@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260605-cq8725s-soc-id-v1-2-bb1ef93de649@gmail.com>
+References: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+In-Reply-To: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780696163; l=731;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=wkySf1dgX9Cw4+8ob2ohV1kwlJW81Sedb4xXGiINUAU=;
+ b=Vvly/oG1MGvCiurwMdwBi0y5wrzw4aKDl4gtomZNK0IQZPfuJOmP3MUP7ITEyoYD228Wee8Nm
+ U7RBv/Zm2sEAlVWIyrFj8dJ8Ux9LYrJYAY4XHnK5Ssh/Wz44f5hsKxu
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-Hi Laurent, Kieran,
+From: Teguh Sobirin <teguh@sobir.in>
 
-On Fri, Jun 05, 2026 at 06:13:53PM +0300, Laurent Pinchart wrote:
-> CC'ing Sakari.
+Add the ID for the Qualcomm CQ8725S SoC which represents the Pakala
+platform.
 
-Thanks for cc'ing me.
+Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ drivers/soc/qcom/socinfo.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> 
-> On Fri, Jun 05, 2026 at 04:03:08PM +0100, Kieran Bingham wrote:
-> > Add a new dt-bindings/media/video-interface-devices.h header that
-> > defines macros corresponding to the orientation enumeration types from
-> > media/video-interface-devices.yaml.
-> > 
-> > This allows avoiding hardcoded constants in device tree sources.
-> > 
-> > Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-> > ---
-> >  include/dt-bindings/media/video-interface-devices.h | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >  create mode 100644 include/dt-bindings/media/video-interface-devices.h
-> > 
-> > diff --git a/include/dt-bindings/media/video-interface-devices.h b/include/dt-bindings/media/video-interface-devices.h
-> > new file mode 100644
-> > index 000000000000..d2340b457292
-> > --- /dev/null
-> > +++ b/include/dt-bindings/media/video-interface-devices.h
-> > @@ -0,0 +1,13 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-> > +/*
-> > + * Copyright (C) 2026 Kieran Bingham <kieran.bingham@ideasonboard.com>
-> > + */
-> > +
-> > +#ifndef __DT_BINDINGS_MEDIA_VIDEO_INTERFACE_DEVICES_H__
-> > +#define __DT_BINDINGS_MEDIA_VIDEO_INTERFACE_DEVICES_H__
-> > +
-> > +#define MEDIA_ORIENTATION_FRONT		0
-> > +#define MEDIA_ORIENTATION_BACK		1
-> > +#define MEDIA_ORIENTATION_EXTERNAL	2
-> > +
-> > +#endif /* __DT_BINDINGS_MEDIA_VIDEO_INTERFACE_DEVICES_H__ */
-> 
-
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
+index af418adad7aaf3..2b1395a85af45e 100644
+--- a/drivers/soc/qcom/socinfo.c
++++ b/drivers/soc/qcom/socinfo.c
+@@ -540,6 +540,7 @@ static const struct soc_id soc_id[] = {
+ 	{ qcom_board_id(QCS9075) },
+ 	{ qcom_board_id(QCS615) },
+ 	{ qcom_board_id(SA8797P) },
++	{ qcom_board_id(CQ8725S) },
+ 	{ qcom_board_id(CQ7790M) },
+ 	{ qcom_board_id(CQ7790S) },
+ 	{ qcom_board_id(CQ2390M) },
 
 -- 
-Kind regards,
+2.53.0
 
-Sakari Ailus
+
