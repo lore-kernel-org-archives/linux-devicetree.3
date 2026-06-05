@@ -1,168 +1,188 @@
-Received: from mail-m49245.qiye.163.com (mail-m49245.qiye.163.com [45.254.49.245])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9863AA19B;
-	Fri,  5 Jun 2026 01:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D97B3932EE;
+	Fri,  5 Jun 2026 02:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780623722; cv=none; b=r8KgA8Y4nv/L44f9XCVF346N4eim3Di9p7hnGuQuSfkO2lQwR7LvbeBdaF8qNyXNscp2+1DjmVFtaQ29v1zF06FHZ4/5ZYrTLM9KEaubSfEDQUbvdGmfd+pijAmSRtaJ70f3OIs4Q70KcVaKzV4Us+s8zhlUrw/fi1fR8ljJNOw=
+	t=1780625155; cv=none; b=mrlTgIWGe3izuK+FeK/rzaywvkJ7G6lFLPqC+ks9ZPSduI+HsnuWSGlQrRnJHcKSULVGtwveuPdbYrvPxUnJaHajvUv/lEK1B05ZNGmGsPqK+twU7shI72u7JN7vH9jTqDCKJStHRCX7tRo0opA570SOuUycS56TX+X0zV9hTLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780623722; c=relaxed/simple;
-	bh=uJYvNCr/c5HUn21+r8FWHHDGyHEvQ8Kp+jDg4Zohvuo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U+Kaf4S1uQOxdEeo4OmKZuJPfhi2QfYWtHEwkX3Fv4/kafVG1uF5jtN+vLxmi2BgIcL/HBAtra411HfuHUeNhjxp3GZpUguMg+fNl5QXY7RMG+sz88greCUob+dDS+B45jDE4LglUbq8/MUPTIKAFgUbQ4gkdBoWO0AKi7fH61o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=g8ev1URP; arc=none smtp.client-ip=45.254.49.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1780625155; c=relaxed/simple;
+	bh=ncAsXFcYB9+tI8BWusAz1SdAtp4v42J/790HGF41wik=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pH2ektN4josYh/Nz1VVHjg0JbgqVaRS8W1HGZLot26VO5doKjA5rMaPLvsO2w9hWOs377YYUulKko5yvemPpsNRoEpHO3F+9BZbPhlhOEXf0WOI/uLA5Z6q57cq3JkTICNVvAcXXNNmWYWrX67Dc7IUFV/GwpWAmYlImpY4S0Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GjMWQdsM; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="g8ev1URP"
-Received: from [172.16.12.90] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 412733262;
-	Fri, 5 Jun 2026 09:36:30 +0800 (GMT+08:00)
-Message-ID: <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
-Date: Fri, 5 Jun 2026 09:36:28 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GjMWQdsM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=X9
+	/TiF/Qz6KbmWNEuOOERR0ARs9jh9FBZxL+cbHl9U4=; b=GjMWQdsMwjMg1Rm+82
+	+BvRxCskvX+IzNA24SYHKbQh8x1uB7PicsgjynBkGfW7qhludKKHQRk00WGUHeHa
+	XSm+rLzwJTJeakFAlon4nslWSsFRi+T6jTb1+OJ3aCHxNVs1HTpqGsGdenuJl67d
+	npJMObgiOveiNkzhUfn3aPXD8=
+Received: from ZM.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wAXVW_FLiJq4ffOBQ--.62174S5;
+	Fri, 05 Jun 2026 10:05:06 +0800 (CST)
+From: Ziming Zhu <zmzhu0630@163.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Ziming Zhu <ziming.zhu@silergycorp.com>
+Subject: [PATCH 3/3] hwmon: Add documentation for SQ24860
+Date: Fri,  5 Jun 2026 10:04:50 +0800
+Message-Id: <20260605020450.89638-4-zmzhu0630@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260605020450.89638-1-zmzhu0630@163.com>
+References: <20260605020450.89638-1-zmzhu0630@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
-To: Midgy BALON <midgy971@gmail.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260604135255.62682-1-midgy971@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260604135255.62682-1-midgy971@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e956cb64203a7kunmae8f212e3422d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0wfSVZLHUpPGBlJTR
-	gdT01WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=g8ev1URPnB1NrgJV5kyG2ccC0Z11vTCKLanZgIdbPpNH/WcdJb7etuf0v1vH5Z8ewFZJisgwJzSBNw9D0lV0kcycsy/Y2Dt2CODLOhtPHvRztbQlKmEjudCshdaKw1b2qQtCANaxbApui4H/bao+cA21Bhx+GO+rzJmfLVfiyDI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=HZCd1/QFQRA8WZXHUaIlNXNKsRQnvTVs8VCYQyYdCeo=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAXVW_FLiJq4ffOBQ--.62174S5
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJF1DXry3Kw47urW5KFW8Crg_yoWruw4UpF
+	93GrySkw1UXrW7WFW3tw18Zr45Gay8Ar43AF1kJryrZFn8Ar1vkrnrKF13Ja4DKrn5AFWr
+	KF4UtrWUJw4jkFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ud9N-UUUUU=
+X-CM-SenderInfo: x2p2x3aqwtiqqrwthudrp/xtbC6BLi22oiLtIJbwAA3R
 
-Hello Midgy,
+From: Ziming Zhu <ziming.zhu@silergycorp.com>
 
-On 6/4/2026 9:52 PM, Midgy BALON wrote:
-> RFC, not for merge. End-to-end inference does not produce correct output
-> yet (see Status), so per the v2 discussion this is a request for design
-> feedback. It now probes, attaches, and submits cleanly on a stock
-> v7.1-rc6 tree; what remains is one hardware-internal issue.
-> 
-> The RK3568 has a single NVDLA-derived NPU core, the same IP family as the
-> RK3588 NPU the driver already supports; the register layout matches. The
-> RK3568 differences are a 32-bit NPU AXI/IOMMU (vs 40-bit) and explicit
-> PVTPLL/PMU bring-up to power and de-idle the NPU before it is reachable.
-> 
-> Patches:
->   1-2  rocket: per-SoC data struct, then derive DMA width and core count
->        from match data (refactors, no functional change).
->   3    rocket: RK3568 SoC data + PVTPLL/PMU/NOC bring-up.
->   4    rocket: reset the NPU before detaching the IOMMU on a job timeout
->        (the detach otherwise stalls a wedged AXI master and WARNs).
->   5    rocket: keep the IOMMU domain attached across jobs instead of
->        re-attaching per job (the per-job rk_iommu handshake on the idle
->        NPU MMU is slow and noisy).
->   6    iommu/rockchip: clear AUTO_GATING bit 1 on the RK356x v1 IOMMU so
->        the page-walker keeps its clock (else a TLB-miss walk never
->        completes).
->   7    dt-bindings: add the RK3568 NPU compatible.
->   8-9  arm64 dts: add the NPU and its IOMMU, and enable them on ROCK 3B.
-> 
-> Dependency. The NPU MMU is rockchip-iommu v1 (32-bit) while the rest of
-> the RK3568 uses v2 (40-bit). They cannot coexist until the driver carries
-> per-device ops; this series is developed on top of Simon Xue's
-> "iommu/rockchip: Drop global rk_ops in favor of per-device ops" [1].
-> Without it the NPU IOMMU fails to probe on a full RK3568 boot.
->
+Document the supported sysfs attributes for the Silergy SQ24860 PMBus
+hwmon driver.
 
-Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than
-v1, implying it should support 40-bit PAs. Nevertheless, please note that
-the upper limit for DTE is 32 bits.
+Signed-off-by: Ziming Zhu <ziming.zhu@silergycorp.com>
+---
+ Documentation/hwmon/index.rst   |  1 +
+ Documentation/hwmon/sq24860.rst | 96 +++++++++++++++++++++++++++++++++
+ 2 files changed, 97 insertions(+)
+ create mode 100644 Documentation/hwmon/sq24860.rst
 
-> Power bring-up. The NPU is brought up through the power-domain layer (no
-> driver hack): the NPU power-domain keeps its clocks but drops the pm_qos
-> phandle (qos_npu sits behind the gated NPU NoC, so genpd's power-off QoS
-> save faults reading it), and vdd_npu is marked always-on so the rail is
-> up before genpd de-idles the NoC at power-on. The PMU de-idle then ACKs
-> without PVTPLL running; PVTPLL is only needed for compute.
->
-
-Can these operations not be completed via the pmdomain driver?
-If some operations are controlled by TF-A, are you using open
-source TF-A? Thank you.
-
-> Status. On v7.1-rc6 the driver probes, creates /dev/accel/accel0,
-> attaches an IOMMU domain, and submits jobs; the program controller
-> fetches and broadcasts the command list. Inference output is still wrong,
-> and the cause is split across three layers:
->   - kernel (this series): the RK3568 differences appear handled;
->   - mesa/Teflon userspace: still emits RK3588-tuned config, wrong for
->     RK3568 (to be filed separately on mesa-dev);
->   - hardware: with corrected config the NPU's DMA reads the full input
->     and weight tensors (confirmed via its DMA bandwidth counters), but
->     the MAC/output stage never completes, the job times out, and the
->     output stays at the buffer's zero-point. I have not found the missing
->     step; it is not in the command list (replaying the vendor's
->     byte-exact command list behaves the same). Pointers welcome,
->     especially from anyone with RK3568 NPU experience.
-> 
-> Known residual. On the first IOMMU attach the NPU MMU is idle with paging
-> already enabled; the rk_iommu stall/reset handshake does not complete in
-> that state and logs one burst of timeouts before the (kept) domain
-> settles. It is harmless here because the job times out regardless, but it
-> points at an idle-MMU reconfiguration corner the rk_iommu code does not
-> handle on this block.
-> 
-> [1] https://lore.kernel.org/linux-rockchip/20260310105303.128859-1-xxm@rock-chips.com/
-> 
-> Changes since v2:
->   - Tagged RFC; now tested on a stock v7.1-rc6 tree.
->   - Bring-up moved into the power-domain/DT layer (no initcall hack).
->   - Added the IOMMU detach-on-timeout and attach-once driver fixes.
->   - Split the driver patch (Heiko): soc_data / match-data / RK3568.
->   - Derive DMA width and core count from match data; drop the DT rescans.
->   - Binding describes the hardware; added the missing $ref on rockchip,pmu.
->   - Disclosed the per-device-ops IOMMU dependency.
-> 
-> Midgy BALON (9):
->   accel: rocket: Introduce per-SoC rocket_soc_data
->   accel: rocket: Derive DMA width and core count from match data
->   accel: rocket: Add RK3568 SoC support
->   accel: rocket: Reset the NPU before detaching the IOMMU on timeout
->   accel: rocket: Keep the IOMMU domain attached across jobs
->   iommu/rockchip: Clear AUTO_GATING bit 1 on the RK356x v1 IOMMU
->   dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568
->   arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
->   arm64: dts: rockchip: rk3568-rock-3b: Enable the NPU
-> 
->  .../npu/rockchip,rk3588-rknn-core.yaml        | 18 ++++-
->  .../boot/dts/rockchip/rk3568-rock-3b.dts      | 14 +++-
->  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 38 +++++++++++
->  drivers/accel/rocket/rocket_core.c            | 22 ++++++-
->  drivers/accel/rocket/rocket_core.h            | 19 ++++++
->  drivers/accel/rocket/rocket_device.c          | 15 ++---
->  drivers/accel/rocket/rocket_device.h          |  3 +-
->  drivers/accel/rocket/rocket_drv.c             | 66 ++++++++++++++++++-
->  drivers/accel/rocket/rocket_job.c             | 35 ++++++++--
->  drivers/iommu/rockchip-iommu.c                | 12 ++++
->  10 files changed, 219 insertions(+), 23 deletions(-)
-> 
-> 
-> base-commit: 52c800fdcf11888ebeb50c3d707f782cc15b66eb
-
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index 8b655e5d6b68..1888905cd234 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -242,6 +242,7 @@ Hardware Monitoring Kernel Drivers
+    smsc47m192
+    smsc47m1
+    sparx5-temp
++   sq24860
+    spd5118
+    stpddc60
+    surface_fan
+diff --git a/Documentation/hwmon/sq24860.rst b/Documentation/hwmon/sq24860.rst
+new file mode 100644
+index 000000000000..7029f612e1b9
+--- /dev/null
++++ b/Documentation/hwmon/sq24860.rst
+@@ -0,0 +1,96 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++Kernel driver sq24860
++=====================
++
++Supported chips:
++
++  * Silergy SQ24860
++
++    Prefix: 'sq24860'
++
++Author:
++
++	Ziming Zhu <ziming.zhu@silergycorp.com>
++
++Description
++------------
++
++This driver implements support for the Silergy SQ24860 eFuse. The device is an
++integrated circuit protection and power management device with a PMBus
++interface.
++
++The device supports direct format for reading input voltage, output voltage,
++auxiliary voltage, input current, input power, and temperature.
++
++The current and power measurement scale depends on the resistor connected
++between the IMON pin and ground. The resistor value can be configured with the
++``sy,rimon-micro-ohms`` device tree property. See
++``Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml`` for details.
++
++Due to the specificities of the chip, all history reset attributes are tied
++together. Resetting the history of one sensor resets the history of all sensors.
++
++Sysfs entries
++-------------
++
++The following attributes are supported. Limits are read-write; all other
++attributes are read-only.
++
++======================= ======================================================
++in1_label               "vin"
++in1_input               Measured input voltage.
++in1_average             Average measured input voltage.
++in1_min                 Minimum input voltage limit.
++in1_lcrit               Critical low input voltage limit.
++in1_max                 Maximum input voltage limit.
++in1_crit                Critical high input voltage limit.
++in1_min_alarm           Input voltage low warning alarm.
++in1_lcrit_alarm         Input voltage low fault alarm.
++in1_max_alarm           Input voltage high warning alarm.
++in1_crit_alarm          Input voltage high fault alarm.
++in1_highest             Historical maximum input voltage.
++in1_lowest              Historical minimum input voltage.
++in1_reset_history       Write any value to reset history.
++
++in2_label               "vmon"
++in2_input               Measured auxiliary input voltage.
++
++in3_label               "vout1"
++in3_input               Measured output voltage.
++in3_average             Average measured output voltage.
++in3_min                 Minimum output voltage limit.
++in3_min_alarm           Output voltage low alarm.
++in3_lowest              Historical minimum output voltage.
++in3_reset_history       Write any value to reset history.
++
++curr1_label             "iin"
++curr1_input             Measured input current.
++curr1_average           Average measured input current.
++curr1_max               Maximum input current warning limit.
++curr1_crit              Critical input over-current fault limit.
++curr1_max_alarm         Input current warning alarm.
++curr1_crit_alarm        Input over-current fault alarm.
++curr1_highest           Historical maximum input current.
++curr1_reset_history     Write any value to reset history.
++
++power1_label            "pin"
++power1_input            Measured input power.
++power1_average          Average measured input power.
++power1_max              Maximum input power warning limit.
++power1_alarm            Input power warning alarm.
++power1_input_highest    Historical maximum input power.
++power1_reset_history    Write any value to reset history.
++
++temp1_input             Measured temperature.
++temp1_average           Average measured temperature.
++temp1_max               Maximum temperature warning limit.
++temp1_crit              Critical temperature fault limit.
++temp1_max_alarm         Temperature warning alarm.
++temp1_crit_alarm        Temperature fault alarm.
++temp1_highest           Historical maximum temperature.
++temp1_reset_history     Write any value to reset history.
++
++samples                 Number of samples used for average values.
++======================= ======================================================
++
 -- 
-Best, 
-Chaoyi
+2.25.1
+
