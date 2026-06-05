@@ -1,168 +1,204 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3491030568D
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 12:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780662332; cv=none; b=THPaAbRsWQi3UGnZcJl173SNka5n3M4x/qcAPNh2zdu6i5D+iapsTop914S02Q/s+xI708GV5q8Bd0fnF9J4zfFIizH049ALdGotwBUA59b8FiG6BHQLl0ld3fmMHfGuV4OcCZpnrjQEqrY+EDzk/fAep+5zyJw250GLo5cC6bE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780662332; c=relaxed/simple;
-	bh=Cco+vFiWz8nH8jHJl25YPtjf0AjyxuJKLseQuLXyV6w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MP/g3GjG391o7agKBAVo9nYnSsTvMP8csowmom8qFHLZCqLDiAN9iTvcoOEI+inx0grqQmxbneXjwl0XY/48+koF1l9jgS9K68VvVNzhRldgLttWNsCLl57bxkKZeBWLUKcH/ZNi1hRfKKI6DvwM9nNRKUpM4RjP30eOfoVUrdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=tUMtqLec; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D4E30568D
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 12:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780662423; cv=pass; b=k5NXOXKJpRfmmfd5cmq7jK/i6MdHJexOX1dwJbOaF13bdNPMApzueh/NvHbswmcVI3toPukcO+fJwzEkvmZZwE6H/eSWcgJPGsRdeH5/Nr46JqF0DPPKeIraaZ574KscBd+YPgLVMv7AkDJa9HEk/o9pMwx8h856ZUfBiCEBohs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780662423; c=relaxed/simple;
+	bh=xRyIoJkiWmYFBusBGMqgFvQtAqkYAb4bTRPHKxP1J5E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D2NSOVSRzRvB06gxEyt+pDX0cndgg+nhO+IVHC8ntAV4oBBlY1BjNTJPufvDlkVhH3u4AgV4zUCtu/aoY3MirWE8ewQBp8uV2xsYsX+h1+jEJn4ldStW1TGcEzg1G1/m2DPC+op7HMUZmtymRQQwzJvpHyqnA4xquMG5CBRqIa8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVbOLJN9; arc=pass smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="tUMtqLec"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e6da33a561so1488790a34.3
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 05:25:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVbOLJN9"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2bf36a6905cso12807605ad.3
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 05:26:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780662418; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KKp5iPMzd1EwFMiw+uBkCcmf2/Ycu5SWTEn3y0R/XJ8dmqFBzN+7zIKvWsTo05+14e
+         Qc4cOtUTafXjCJbueYi28zcR9zd+bR4aEr6A2KZWu965u7TUbCxgi8TUZ6puYADpBC1N
+         Olw2rpP7nJNRgbr/aG22wgLjppwlZiEaah2rUqAy45JXfa4+DdSWqKG/DG+T1+TL88aX
+         3S4htfYsOp1MvnGu8aC78cTqIS9edNkmu3tPg8rB90Ko6DPzxk9xAXW4ImNuoV/HbYGs
+         ZjLrjAIVINrCF55GqPxX785PzlnGvcXiQnB+CH4+OUPEn1/V8ec+xXTKA5xx9eg8d3OA
+         e3Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ssGNGVnOiVxBL6C23hP126AB3gXcNT/8fTpeLJ+MunY=;
+        fh=SEkX80ucuogthtlspW1/riM7D+rSRJBbP0gPhb2dGm0=;
+        b=OV1CETLa0wCBJxZaAsZhmgBa2+mgpMujnO/e3pd64XgVORXnsCS5ej9g+AreTFrvBs
+         G3QEZy/Q7HOAF5pSpLxEFLoaqvv/CzAVm6DYTcxL0oLJzTD8PGVirbRHC5l+Eyv9e115
+         Q2aMDzteiaT33WTj7AsUSDwGzS6Tp6TzSb9vBkmSBlrIw6LCwZwu7ydG266RyrrblXoz
+         LTf2FSLN33fueJT9dmc4JYdMvLNDNbhDNI+amkwadsHoO5S08t2ehtwb3+0YtEYRpjlO
+         8c9E023pTRi05uI7MJS85aIvAqIzQKj5+J3MXlhvjRpY78bH0jzcV9keVIm6DIersjs2
+         RHeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780662330; x=1781267130; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hOWy2W3C8F0epU9cKoqDrCPhuhX/iOel8Vt4x+uvwak=;
-        b=tUMtqLecdeNiQfmnCangw9uIxBJT/E1QFVahFrNmyeF4vG+kGclSuDkVfdn/cTn2FE
-         y96Whio74QV2/5QtORKyOzL05kuZVCGVjvaqhCiCgqmsO6GRYdyGZsEcyxEhZtHgynHx
-         LdzzGk8Q59EzezCjYkyEKO69UK+xv0YFKRuzF7t4CErPNlFQirp98qROPXTkpfc2wb7r
-         qbdcaPCGEbcpxMxtlV94hIXpYi6Sd2LmW2P8cfioGpodNFZ02i2Xi8vUL9opx68VX68T
-         wz2XTSACWkijiS6GtkoDT+Z5q6QthEC9Exl2raiI8iIvLtqNwAPe0hIkQH0LiZCRPf3r
-         4hdg==
+        d=gmail.com; s=20251104; t=1780662418; x=1781267218; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ssGNGVnOiVxBL6C23hP126AB3gXcNT/8fTpeLJ+MunY=;
+        b=GVbOLJN949vdwxDiD7mOkptJeQme7Dk8EQnV+roEPTEC6zJ9mtXdFT7xPfZaTZYHdp
+         0x80ICgiZRGUKoB6szAFOo9Irqz+RrUkrQykIRrKrqh6RLiBcEfNIf0UXyLxK6+7ZV7X
+         VCgApO2fp9ySiiGlexhevUuRM3F50T806b+gFK68NFim7+1iDRBdJodYXxuOMGru0OQn
+         8SZrnk46x1y9517ueeEVNSKkuaseA7nBOF2BGwpCkLR3TH83hFPrW9+RgYN6tsapl2fx
+         8lFS/EbAAR55TAYjISLu3hmoomeWa+Zgv/1E7s9/s30iIr/H/jr+YC0OPp9kDG/xa5jz
+         903A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780662330; x=1781267130;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hOWy2W3C8F0epU9cKoqDrCPhuhX/iOel8Vt4x+uvwak=;
-        b=H7wc4il6BoEGwYp6rPGmtvRf05asZ4MTyVRcZNrXXpm+3Qm28wRewgqbk4nqgUTKkY
-         56b5p06UnnwcO6yLMGsnVlo04KSelt4RooFRW/c+q6ozRe4rInCA+svgmwxAAJlhqsU/
-         Y/UxdmJKjOofwi5J88Oi1bmjZGtTp4G2HvGKI29AI4LdlasO/1BLmrfSBIxy218dzgaY
-         nQB+tNfr9LYsfKZ1X3L3/konrT1q12NkYDRJd3Cj7UN+X3TW/9LZnTpcK+gLEzTucIPX
-         cRo+S6GRcA8tsmJ7i3+mU2qwGdzz4OhWkJw+hmVi9zDPgnDoN/9hxmqk0aiNPQzkCRMD
-         QzXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9I9stZlVyrs01SGcnyXph+6EptQgH3XS6bG4Ia9TpfTwtk2ahTuHxz8xShI0PsvCNqRiE5Pu7/Z3eZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7sajTUt/KpRD3obp6V5yI0bmeMQv9lwEn0OHAbP/4jesQpofu
-	vPJsFJDUcvtluNYBfvPAPmSR/DgjsbYYSuEmSmRC42pth8m7VgwIQuTNS2ZzF0yxpDo=
-X-Gm-Gg: Acq92OEWCJQYLHvMBqQBZTdmUJpdqZJuDpUn1NOcS2I1kIQQxlS1P6YRlwUZIMi3YZ8
-	ogK24DFo/LJbnVfF2qsZ9CkaDNKnUe4OJ6BGXgCylJLkoQ0Plr4R5iD6ato72++uqIXdBCsmHDr
-	r4Yufand+cM4NyAc0BHnioK+ADlJ5xTQy5lsmbdM6U9mR+HRZuZV1cA1abXQI2cxxo0yMolPGeT
-	WW8P7RGly2akyJlat8B8Qh+iicHDztYmJgZMxryblwl11450HKUfiBABeR9uTPrx1ygld7Ul5S8
-	jqi8HCdvhXgPH2vrjVen6/DNwwEm+4WTIcsFKWMihJIFPK5EojAGGvsbeeOa3vmolCJcVg3KBDO
-	DbfwxrBpzzRcq5YbnsPbr2XoR4jOULo8ADfvn+NxvaCWmcNDlJNPWzc8pKi2Z3W7wP67d7z3x04
-	qbDVYqEqYLAyILhIXVodtILsotiPptsbX/CSk=
-X-Received: by 2002:a05:6830:6685:b0:7e6:deb1:484d with SMTP id 46e09a7af769-7e70c7b1386mr1725355a34.13.1780662284484;
-        Fri, 05 Jun 2026 05:24:44 -0700 (PDT)
-Received: from [172.22.22.234] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e6e7974f22sm5817653a34.25.2026.06.05.05.24.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Jun 2026 05:24:44 -0700 (PDT)
-Message-ID: <bd2c09d4-462d-4392-bb3f-ca91b2f08bd7@riscstar.com>
-Date: Fri, 5 Jun 2026 07:24:40 -0500
+        d=1e100.net; s=20251104; t=1780662418; x=1781267218;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ssGNGVnOiVxBL6C23hP126AB3gXcNT/8fTpeLJ+MunY=;
+        b=CqEmu1IhQP3uoVkJWbUJaGn3smKqQwsZLPgTgvMwIIaUVNtZ4W49fxMGVLQsSG0n6S
+         VMl2mCC62LlTtK8B9sSd0+entYFCjy3l1AsCRE/8DpxrmAx3gZYpBNM+K3OJ2XWeZiDC
+         3cUMC+VKmF0495vcXMeY69RJCOlY17vX6eccDeyWRnDtHcNnRCWaCFBhoE8oF7UZU+Dk
+         mpUdlh/YqcoUsoN8PTPvx2l7izPPhRhyrgpBWrrlWXloTt2ZiHnEG9Iy/INDH2PPeIbu
+         fYbfN4m7XJ2XSe51U4M7zUNV/HQkEwnYjoMsu5jA8+F0H0r7MwjrW9Ux3lREaFrRo42N
+         1bBA==
+X-Forwarded-Encrypted: i=1; AFNElJ9dDeigTHdH8bXCkw+R8asnb3ZyXz1UgsbGcfP6qQ/SQr8VR1sifNUVOVOXerkEFurtHh1jCv12ti2Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YyavK+XXkVMmnyQXq2T9UNeuXcHqtumRhFk+ovJkY3yQfe2PDKQ
+	A0R7fTh3ripZAhAYvPc5ZMZ6hJEKYT/LiDfZ4km/CSlLxpwiOG+0eKdE3gnjsMvsFG8IMmcYuGv
+	wqCD7v+QEWprcRJeBAtPH8R+kQl/AX1c=
+X-Gm-Gg: Acq92OFtCGUG7ByHCOueFTEZ1LF3IXPKBvkJ7VEmyCnTGhBAPmce4DWe25novoT/1dt
+	LJC3EfDN+wc3OYKAmGFF9Q6674Dd+JTCEC4/2fQp0ODJeU/AGKURokOJSWgf3b4CoZ7tWLxaQhj
+	HmJDOJLxNpyJfv2/SOaDPdQdzHB5FV+60tDe1+eC2doROjbWk3fW0N4FrbScqpQivqFCx8wKA3C
+	T3yG0L7BB3n5IWweG6QPdjq0PCHqQ9OZJ2D2QeZ3OQJ6kZFptI03BhcJBEXRqHBDp3SrBN0Be2G
+	9T/GjcD8USXVPmTnwyJbATu6z+0iLdrnuqGmmFdQBhVHZt4x
+X-Received: by 2002:a17:902:f711:b0:2c0:f807:9bf3 with SMTP id
+ d9443c01a7336-2c1e7e619afmr36032955ad.10.1780662418276; Fri, 05 Jun 2026
+ 05:26:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 10/14] dt-bindings: net: toshiba,tc9654-dwmac:
- add TC9564 Ethernet bridge
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: weishangjuan@eswincomputing.com, linux-gpio@vger.kernel.org,
- inochiama@gmail.com, davem@davemloft.net, devicetree@vger.kernel.org,
- kuba@kernel.org, me@ziyao.cc, hawk@kernel.org, arnd@arndb.de,
- konradybcio@kernel.org, mohd.anwar@oss.qualcomm.com, hkallweit1@gmail.com,
- pabeni@redhat.com, ast@kernel.org, maxime.chevallier@bootlin.com,
- bpf@vger.kernel.org, boon.khai.ng@altera.com, linusw@kernel.org,
- andersson@kernel.org, sdf@fomichev.me, linux-kernel@vger.kernel.org,
- livelycarpet87@gmail.com, a0987203069@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org,
- conor+dt@kernel.org, rohan.g.thomas@altera.com, gregkh@linuxfoundation.org,
- Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
- andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com, edumazet@google.com,
- siyanteng@cqsoftware.com.cn, wens@kernel.org, brgl@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- julianbraha@gmail.com, netdev@vger.kernel.org, chenhuacai@kernel.org,
- prabhakar.mahadev-lad.rj@bp.renesas.com
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-11-elder@riscstar.com>
- <178062720108.1744752.12164392208085928081.robh@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <178062720108.1744752.12164392208085928081.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260510084303.122426-4-phucduc.bui@gmail.com> <20260511224436.A0B19C2BCB0@smtp.kernel.org>
+In-Reply-To: <20260511224436.A0B19C2BCB0@smtp.kernel.org>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Fri, 5 Jun 2026 19:26:46 +0700
+X-Gm-Features: AVHnY4KlForSbJj-T4sYhoMos5-qD93OAeW7Ky_lKkfAhDdxYrZzSVLpgVzlQsQ
+Message-ID: <CAABR9nHfTtnUxLoq6rHJVmkjWjrAqqU1tawvAKQi-06_XXsKAw@mail.gmail.com>
+Subject: Re: [PATCH v3 03/10] ASoC: renesas: fsi: Fix trigger stop ordering
+To: sashiko@lists.linux.dev
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
+	wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/4/26 9:40 PM, Rob Herring (Arm) wrote:
-> 
-> On Thu, 04 Jun 2026 20:00:17 -0500, Alex Elder wrote:
->> From: Daniel Thompson <daniel@riscstar.com>
->>
->> Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
->> bridges.
->>
->> The TC9564 contains a PCIe switch with one upstream and three downstream
->> PCIe ports.  The third PCIe downstream port has an attached embedded PCIe
->> endpoint, and that endpoint implements two PCIe functions.  Each internal
->> PCIe function has a Synopsys XGMAC Ethernet interface capable of 10 Gbps
->> operation.
->>
->> The TC9564 also implements an embedded GPIO controller, which exposes
->> 10 lines externally.  Some platforms use these GPIO lines, so this
->> GPIO controller is managed by a separate driver.  Other embedded
->> peripherals (like a microcontroller, SRAM, and UART) are currently
->> unused.
->>
->> The GPIO controller is managed by registers accessed via MMIO on an
->> internal PCIe function's registers.
->>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->>   .../bindings/net/toshiba,tc9564-dwmac.yaml    | 120 ++++++++++++++++++
->>   MAINTAINERS                                   |   6 +
->>   2 files changed, 126 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
->>
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
+The points raised may be valid.
+However, this patch series is currently focused on fixing the system hang i=
+ssue.
+The other concerns will be addressed in a separate follow-up series.
 
-Thank you for this report.  After upgrading the "dtschema" package I
-also see these errors.  The "gpio" and "ethernet" properties will
-have an "unevaluatedProperties: false" constraint added in the next
-version of this series.  The name of the binding file will also be
-correct in the MAINTAINERS file.
-
-					-Alex
-
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml: gpio: Missing additionalProperties/unevaluatedProperties constraint
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml: ethernet: Missing additionalProperties/unevaluatedProperties constraint
-> 
-> doc reference errors (make refcheckdocs):
-> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> MAINTAINERS: Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> 
-> See https://patchwork.kernel.org/project/devicetree/patch/20260605010022.968612-11-elder@riscstar.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
-
+On Tue, May 12, 2026 at 5:44=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+> - [High] TOCTOU race and lack of synchronization in stream stopping leads=
+ to NULL pointer dereference.
+> - [High] Teardown asymmetry in `fsi_remove` leads to use-after-free and N=
+ULL pointer dereference.
+> - [High] Lockless read-modify-write on shared FSI port registers causes h=
+ardware corruption.
+> - [High] Lockless modifications to shared `clock->count` cause reference =
+count corruption.
+> --
+>
+> commit 7ce4e3deeaefe8e811044e7b0472a2e9a2ae1d64
+> Author: bui duc phuc <phucduc.bui@gmail.com>
+>
+> ASoC: renesas: fsi: Fix trigger stop ordering
+>
+> This commit reorders calls in the stop trigger to execute fsi_stream_stop=
+()
+> before fsi_hw_shutdown(). It ensures register accesses complete before th=
+e
+> clock is disabled to prevent a system hang.
+>
+> > diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> > index 8cbd7acc26f49..94ab2e4908108 100644
+> > --- a/sound/soc/renesas/fsi.c
+> > +++ b/sound/soc/renesas/fsi.c
+> > @@ -1586,9 +1586,9 @@ static int fsi_dai_trigger(struct snd_pcm_substre=
+am *substream, int cmd,
+> >                       ret =3D fsi_stream_transfer(io);
+> >               break;
+> >       case SNDRV_PCM_TRIGGER_STOP:
+>
+> Playback and capture substreams on the same FSI port share port-level
+> configuration registers like CKG1, CKG2, and OUT_SEL.
+>
+> Since the ALSA core serializes triggers at the substream level using
+> the self_group.lock, playback and capture triggers for the same DAI
+> can execute concurrently on different CPUs.
+>
+> Does fsi_hw_startup() perform lockless read-modify-write operations on th=
+ese
+> shared registers, and can this lack of exclusion lead to lost writes and
+> corrupted hardware state?
+>
+> > +             fsi_stream_stop(fsi, io);
+>
+> During a stream stop, fsi_stream_stop() disables DMA via
+> dmaengine_terminate_all() and masks device interrupts, but it does not ap=
+pear
+> to wait for in-flight DMA callbacks or IRQ handlers to finish.
+>
+> Concurrently, an executing IRQ handler calling fsi_pio_transfer() will
+> temporarily take master->lock in fsi_stream_is_working(), drop it, and th=
+en
+> locklessly access io->substream->runtime inside fsi_pio_get_area().
+>
+> Similarly, an asynchronous fsi_dma_complete() callback unconditionally
+> dereferences io->substream in fsi_pointer_update().
+>
+> Since there is no dmaengine_terminate_sync() or synchronize_irq(), could
+> fsi_stream_quit() race with these callbacks and clear io->substream,
+> resulting in a NULL pointer dereference?
+>
+> The driver uses managed resources during fsi_probe(), meaning the IRQ han=
+dler
+> and ALSA component are unregistered after fsi_remove() returns. However,
+> fsi_remove() explicitly tears down the DMA streams via fsi_stream_remove(=
+),
+> which calls dma_release_channel(io->chan) and sets io->chan to NULL.
+>
+> Because the ALSA component is still fully registered and active while
+> fsi_remove() completes, userspace can still trigger ALSA operations.
+>
+> If a STOP trigger occurs during this window, would calling
+> dmaengine_terminate_all(io->chan) here cause a NULL pointer dereference?
+>
+> >               if (!ret)
+> >                       ret =3D fsi_hw_shutdown(fsi, dai->dev);
+>
+> The shared clock state for an FSI port is tracked using clock->count insi=
+de
+> fsi_priv.
+>
+> Since playback and capture triggers for the same port can execute
+> concurrently on different CPUs, do fsi_clk_enable() and fsi_clk_disable()
+> manually modify this counter without holding any lock?
+>
+> Could concurrent updates to clock->count corrupt the counter, potentially
+> leaving the peripheral clocks enabled permanently or disabling them while=
+ a
+> stream is still active?
+>
+> > -             fsi_stream_stop(fsi, io);
+> >               fsi_stream_quit(fsi, io);
+> >               break;
+> >       }
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.12=
+2426-1-phucduc.bui@gmail.com?part=3D3
