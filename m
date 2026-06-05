@@ -1,183 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E382948C8CF;
-	Fri,  5 Jun 2026 08:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05BF21E091
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 08:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780646767; cv=none; b=QB5nwftW5HxPsXj7GIEkJh6RJUO1WBHS9nNNACRxfggE/IWkZYReaSx3dtkWL37jAbTa1UIpj0eUrDFceS6oz8em0ufyAqy65d5uGQjEBrqEbuwjsl9Tx5jPm3XnEw0hGGm19HFkRAzZ+/ZyUt+9F860OC7Bq4yNftFaQLXjG9w=
+	t=1780647233; cv=none; b=nxY1BHBNj/SJ7IqVqB6oXa/DDZZGBJxg2Q+aHrrLTpR7NRNk2fd0z4vJ+CKvAXJ+vfavMpuAhoYJ2yiDkxc911tcI/DtNypnJXGmrRLIcIlmrKjBaywaX22Db6lC153b3pJXAG/O5VTu46gMIHF5JKmttKoYTI3Zgl055ihiwgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780646767; c=relaxed/simple;
-	bh=kY1do4kUInWVtWNUomY8hPqOXdXkh1FfPmsTJWlYDGk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ntdgAAO17laYFM6HEcphDzvH1xe1B4JtCgDXNkoYvaEa2rbepmEDj8UFCm1WOsSoGfUyEv8HOrbx2DU3Ns2qXTSeOG1J0GIzqIuwnMxPaUm8LsV5ClJxCsWAMx3rNXFgdQCvxBhb/s+n1oQFH7MMZFWWB7mwCS3O9sJB8vyec4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iylheQQk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780647233; c=relaxed/simple;
+	bh=oRAjiGpD7P1Ud6ErzTaM6Xngz8vzwGWWetH1gEJyS/U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=no11RqbRqIi5ztQmuF9ZCEwSCkr8RsA8ECU82usb2F7Kb9u31jDkrthVarufGIP25Imxfv+W++GxDtAUiMsbEnQOXGIJ1ww7vv0KzhbmijRd8MTLTIbgm7NlBmUBpqeSztCHhmLQypP8q29f6XqRWsdkA312Dmg8LTrLI8UvvGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kTyf2l1H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=csnnT1TO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iylheQQk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879931F00893;
-	Fri,  5 Jun 2026 08:06:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780646765;
-	bh=ZkO4TQoorawjATu9YptGJfbbBe6b6tFrB+zEo7jVabM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iylheQQkfo9ydTsxDQzWUxM8r87rGtS3m1YNoBCyzytH8wBHqKZ5ZpuiCWMmL1c6D
-	 EffAtqJPOuNfQZolNUeCPC+EqZOTN0wlQfARovHjwW3ClKdO0HkIlbT0AgvlHyhkDV
-	 1/BzMKVwrRUoevkymZ127Zed6M8qMegRM9vd4dPYfKSL01l1hZRf3Zxo73zjw+1zBc
-	 EpnEo0hdPgFt0D6HK6KSt3PtcqgGeXgngTYDFT9fUZ390CWbuej3uPxqtThO3Fn0Vn
-	 qI2QqUsUVw3VpOtRxcvO0G7hswhq82JpbGTV1J0sOIa5Q/VF27lUGO1koCk8W9XxDM
-	 dFdVpjzK4igkA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wVPZ5-00000009gQx-2UtJ;
-	Fri, 05 Jun 2026 08:06:03 +0000
-Date: Fri, 05 Jun 2026 09:09:23 +0100
-Message-ID: <87bjdp9znw.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steev Klimaszewski <threeway@gmail.com>,
-	Icecream95 <ixn@disroot.org>
-Subject: Re: [PATCH RFC] arm64: dts: qcom: hamoa: Drop cluster_cl5 idle state from CPU clusters
-In-Reply-To: <20260604-dc_zva_mitigation-v1-1-d1148c1c0259@oldschoolsolutions.biz>
-References: <20260604-dc_zva_mitigation-v1-1-d1148c1c0259@oldschoolsolutions.biz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kTyf2l1H";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="csnnT1TO"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 655750lW3528845
+	for <devicetree@vger.kernel.org>; Fri, 5 Jun 2026 08:13:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	A2knAYQo8qTsSztcnLRKd5OpNfUB7oMRepo81yAe0UA=; b=kTyf2l1Ha3Q6YYnx
+	tuzE3guEt2Ge86yi81CMWmmJzaDj0oGajfhciwNwcDTevtXuc2RJv6D87upb/oan
+	0LANEcgHF/igs+WtMFv/Ykf4C8ZpcymxFPe3v3sxrZ+rmgNd66XMxivT2G+a5QNq
+	O0qvRcozl07d4o1N2CCfyjNmn6ST9wf+iJ6yzS+q1el8arMYNiPWYfjoh01O8osL
+	U1w3cHZM4xSbonHjbBywyOt36ZQY8m9+RAIPYRnKq/eXKWzlIoRw5nTM4GLkcVjp
+	kJoSf88YzYwZ2vDYefKHXYw0vzOmLMimtih//LxY13087v7LHv7MOOIeVF4sYE0x
+	75Y+lQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eksrp880p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 08:13:51 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84238e83851so1073497b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 01:13:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780647231; x=1781252031; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=A2knAYQo8qTsSztcnLRKd5OpNfUB7oMRepo81yAe0UA=;
+        b=csnnT1TONy7LtQcmovamyPuL46NmZv1iGD905mVtaJjZ2+2Qk8G3+hqCfe7j//RY2H
+         kvQp1b70LWZA820fa6eRIcimBIeR81QAOMsy0GUIKNA99Ok+7/V4aVWav/6gVN0ccD0t
+         Y25ESC8qZdFvpgEt7F9D1uDOvqPuq9pcSsjJ222OzvuaqbeWzp4trmDWCa4KC6atO3hx
+         1iNGrew2EaXYc85Q5dqFniw8BohPp5gjlo7GHYzdK9XhSLebfnKQ8q2mgkW9rvNxQzXm
+         JLAsxz0rzePUiswz1pAbee/ihsppSG1QwTpmwlylKsxrkCu0ZuQEzjNLzyT2+aRu+QgW
+         tEPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780647231; x=1781252031;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=A2knAYQo8qTsSztcnLRKd5OpNfUB7oMRepo81yAe0UA=;
+        b=cTr3SIuAJ9ElS7dwjnwTUiYMVLMT1cnk9r6h1WuHe0ef7ML6Kfyi5nxrm/rQ/NVVYk
+         5RNdYCGnF8+hoP7Uhm0gBxuwUJw/J7O66gUzV5+zzVw3iZlXp2WlGZPfG0DDQt0LYDB3
+         fWtnk3eiFwyF3ESa8f0emL3J1iA3jsPBVCDxmxxb101ieklEXqVgeIFJigJeE4tLugjx
+         0ZmBchZMy6l/NfNciujxN25Q8MQbH+BOZT68RCZSCEYF6Ey50Tnb4KoQeFlBb90+JRqA
+         tKDWbwlUvnXgXp4vmrkOW7+E76/5+1mi1roHqYEMpJHqtwWbE4l6VH/Yyd9Dl1Q1VJBG
+         q42A==
+X-Forwarded-Encrypted: i=1; AFNElJ++t+aoAbPNP3DJfaSx6+R7hI0y/rI/uNO69KNfaTFehRPPDPEjoWptJ3081WvodmD8FpuUhxy7DocE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx96hz97FFinOzsHZz7sxNzn1q66tFmJ9pT5c+sgXAMxNODywnE
+	AkV/7Sy0GkE+66Crn+1JtBbH+D8wGzQow6Czoy9oobL7zSCuJWxHQMKmYWzwkma0E1bkpcQiaqk
+	vqfw1VNacXnybr0C5V5QPaxwd+DeViVc0/zvr1tHFfGiid681cYPv0JrJcDWh4uKf
+X-Gm-Gg: Acq92OFl0UuQ/YJkYsA50yGcNIfIAVNnJO49loGp1gIficE0WIlv9dDnd6QKXxhT1SN
+	7g5p6h5eYkC/dNeXmAYgd2o5jqBDD7EhqHZ7zft0bNZACjmDFyaBQ3ZB7hsxY5GV6iCQsZb3ats
+	y0T9iZweV3s2EyUXQUU+Rgq0JFCIKsLxLqypU9j8tdhTd/hHEObxr+FMMQNp1mhHAS+3mOLX0Vg
+	Y8hHQmiKus8hEMeo0RDeWddDTcgektdyMgx9EaIQswr4W07YwlCuFDEBAts4Ze26AxhNUTY94n1
+	Prp66EiGmEyGWqmbCF2j9CeH7IhrY0973/rkZ/Z+1kTlbUmKzJzGeAWmtswnxHo2K3zu6rvAhp0
+	/ufPUzKMRhfg3aFzywToJkfnGPaUKPjYz46lBVJzbwXNR66hMBQ4/22Olizu9XY2Nm+Os6gZs+3
+	rYAQ==
+X-Received: by 2002:a05:6a00:4c0a:b0:83e:b443:965e with SMTP id d2e1a72fcca58-842b0e2f87fmr2314745b3a.3.1780647230657;
+        Fri, 05 Jun 2026 01:13:50 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4c0a:b0:83e:b443:965e with SMTP id d2e1a72fcca58-842b0e2f87fmr2314711b3a.3.1780647230199;
+        Fri, 05 Jun 2026 01:13:50 -0700 (PDT)
+Received: from [10.152.203.161] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428221d1absm10011448b3a.9.2026.06.05.01.13.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 05 Jun 2026 01:13:49 -0700 (PDT)
+Message-ID: <4e50e30e-e9dc-40b0-bf6c-f0642ed44b9b@oss.qualcomm.com>
+Date: Fri, 5 Jun 2026 13:43:44 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: jens.glathe@oldschoolsolutions.biz, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, threeway@gmail.com, ixn@disroot.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] regulator: dt-bindings: qcom,sdm845-refgen-regulator:
+ Document IPQ9650
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
+ <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
+ <b8758150-00a8-4d6e-bd2d-c1985d70ceac@kernel.org>
+ <d24238d5-7b71-40e6-b6dd-c2f1aa150d77@oss.qualcomm.com>
+ <926487d1-d949-4516-b906-892d46cb956c@kernel.org>
+Content-Language: en-US
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <926487d1-d949-4516-b906-892d46cb956c@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: vCZpzCpweb_eqy1ZykWDIQr4z69LTgLT
+X-Proofpoint-ORIG-GUID: vCZpzCpweb_eqy1ZykWDIQr4z69LTgLT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA1MDA3OCBTYWx0ZWRfX8xnubgwvmBZP
+ Xigya/fV8CYVjzwkkMkazkH9tnz9HD9jxBOEqyKre51SdmPFtonTvd0PJBN4X01WHxFZiXNY4ec
+ Ss+kmDuQXeTXSDy1EhvPqkMBNTMkIVBy1+i1bQ/6+LyslglTlXEzAR3hCnlJ0GdcSHHBV/g6YPp
+ I67OZBcgsl9G9pnzdpYcOjSa8Ve9soXWKsk3Y3w7PTb651nuEIoRWQwAghFc7jjI9Bm9SyzX1J1
+ oNblsHyLQpHSUPBzr4PY069ft338Pb27hAjK+Kec5X0B/1kINq6Rn+EVfwx+vphVsueXUR8LfPF
+ X7k+B2VL3aZF2AEkfVt1El3XqbZio1tVLnTX5RvwU+R/sWXlmpx3nIiJNF8pKJ9dd4REo5vnOzQ
+ OkW5mHb7mj8Rlfguoyb2YrzCB78qEew0uu9GJwIVViIr0Okv2iyMI36oDypO43CYt6TCMeXwi3/
+ yXwFyYkApxEsl7xMcdw==
+X-Authority-Analysis: v=2.4 cv=bJEm5v+Z c=1 sm=1 tr=0 ts=6a22853f cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=Dzw-2j_16JttndEX2SAA:9 a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-05_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606050078
 
-Hi Jens,
 
-Thanks for sending this.
+On 6/5/2026 1:33 PM, Krzysztof Kozlowski wrote:
+> On 05/06/2026 08:51, Kathiravan Thirumoorthy wrote:
+>
+>>>>    
+>>>> +  clocks:
+>>>> +    items:
+>>>> +      - description: Core reference clock
+>>>> +      - description: AHB interface clock
+>>>> +
+>>>> +  clock-names:
+>>>> +    items:
+>>>> +      - const: core
+>>>> +      - const: hclk
+>>> You just added clocks to each variant, which is not explained in commit
+>>> msg. And it would be a separate commit anyway. Probably you wanted to
+>>> add proper constraints (:false).
+>> Ack, will make the change to define the clock and clock-names only for
+>> IPQ9650 compatible under the allOf block.
+>
+> No, That;s not what I said. That definition is fine, but you miss
+> constraints. See example-schema.
 
-On Thu, 04 Jun 2026 18:40:14 +0100,
-Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org> wrote:
-> 
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> The cluster_cl5 idle state triggers DC ZVA misbehavior that resets
-> X1 SoCs. Remove it from cluster_pd0/1/2 domain-idle-states for now.
-> 
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
-> This is an RFC for a mitigation of a stability issue observed on
-> Snapdragon X1-based SoCs (Hamoa and Purwa).
-> 
-> Affected systems experience spontaneous resets under the following
-> conditions:
->  - During intensive `git fetch` / `git pull` activity
->  - During mostly idle periods (Bitburner and similar workloads were
->    frequently mentioned)
-> 
-> Steev Klimaszewski first connected the crashes to git operations.
-> Subsequent discussion in #aarch64-laptops led icecream95 to isolate
-> DC ZVA as the triggering instruction and to create a reliable
-> reproducer [1].
-> 
-> Further debugging showed that the issue is strongly related to deep
-> cluster idle states. Marc Zyngier suggested removing the deepest
-> cluster state (`cluster_cl5`), which resolved the problem on all tested
-> consumer hardware.
-> 
-> This patch implements that change by removing `&cluster_cl5` from the
-> `domain-idle-states` of `cluster_pd0`, `cluster_pd1`, and `cluster_pd2`.
-> 
-> Testing:
->  - Lenovo ThinkPad T14s G6 (X1E-78-100, Hamoa)
->  - Lenovo ThinkBook 16 G7 QOY (X1P-42-100, Purwa)
->  - Lenovo IdeaPad 5 2-in-1 14Q8X9 (X1P-42-100, Purwa)
->  - Lenovo IdeaPad Slim 3x 15Q8X10 (X1-26-100, Purwa)
-> 
-> All consumer devices became stable with this change.
-> 
-> On the Snapdragon Dev Kit (X1E-001-DE, Hamoa) the situation is
-> different: the firmware does not advertise OSI mode. Even with this
-> patch the device still crashes with the x1e-crash reproducer. Stability
-> is only achieved by passing `cpuidle.off=1`, which of course increases
-> power consumption but makes the devkit a bit faster, so there's that.
-> 
-> The different behaviour correlates with PSCI mode:
-> - Consumer firmwares enable OSI mode
-> - Devkit firmware stays in platform-coordinated mode
-> 
-> This patch is therefore only a band-aid. All evidence points to a
-> firmware/microcode issue where DC ZVA can hit caches that have been
-> powered down by PSCI idle states. A proper fix would be either a
-> Qualcomm firmware update or a kernel erratum that disables DZE on
-> these SoCs.
-> 
-> [1] https://github.com/icecream95/x1e-crash
-> ---
->  arch/arm64/boot/dts/qcom/hamoa.dtsi | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> index 4ba751a65142b..8ec39ba621946 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> @@ -442,19 +442,19 @@ cpu_pd11: power-domain-cpu11 {
->  
->  		cluster_pd0: power-domain-cpu-cluster0 {
->  			#power-domain-cells = <0>;
-> -			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
-> +			domain-idle-states = <&cluster_cl4>;
->  			power-domains = <&system_pd>;
->  		};
->  
->  		cluster_pd1: power-domain-cpu-cluster1 {
->  			#power-domain-cells = <0>;
-> -			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
-> +			domain-idle-states = <&cluster_cl4>;
->  			power-domains = <&system_pd>;
->  		};
->  
->  		cluster_pd2: power-domain-cpu-cluster2 {
->  			#power-domain-cells = <0>;
-> -			domain-idle-states = <&cluster_cl4>, <&cluster_cl5>;
-> +			domain-idle-states = <&cluster_cl4>;
->  			power-domains = <&system_pd>;
->  		};
->  
-> 
+Thanks.. Let me add the constraints with the else block.
 
-It may be worth adding a comment somewhere in the DTS file, as
-cluster_cl5 is not referenced anymore.
-
-Ideally we'd simply mark cluster-sleep-1 with 'status = "disabled"',
-but I'm not sure Linux (and other OSs that consume this) actively
-parse this property.
-
-Overall, I'd like clarity from the vendor on what can be done to
-better mitigate issues like this. So far, we have been randomly
-disabling features and CPU capabilities each and every time we find
-something broken on these machines, and the list is getting long.
-
-I don't think such course of action is sustainable, and maybe we
-should simply consider marking the full X1 platform as BROKEN so that
-people know what to expect.
-
-Thanks,
-
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+>
+>
+> Best regards,
+> Krzysztof
