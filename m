@@ -1,322 +1,286 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CED40242E
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:13:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7730D4D2EDE
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:15:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780658030; cv=none; b=sYi13yWWC4Sr01pBgte2tIMpE/qQpzaQnWpMSH4oSPaIMS3U4kTCN71Ca/xA+c/XLGaOpDGEGGRSjuEKdxyVswzF/36cjAw94D0P8kkXxKYbUje7jLDgjzwfBGJw+r7jwXmbZgqOpQDiewmBzwTU4tpNZtjZZOYJ7XsjniTFfZ8=
+	t=1780658114; cv=none; b=SS1/xIE6vIIwVTny94cY7cr5qb3nwK027ARGhcVinKLWPKx0uVyDTDFeOTgpoXDACgrgQ3xRliMaSxjMy+l0Xf4JQo4e9AsYi0JtYI8r9rPCaKpiKsRxl6xFpmr+KSQu6WNoWkudtaICp872UXaa4qBI5Hg85XFUh3RQmnK9E0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780658030; c=relaxed/simple;
-	bh=2sS2u0QXr1Q7rWajILMNHKgHGPZ7vxseM8nuZyZqOQQ=;
+	s=arc-20240116; t=1780658114; c=relaxed/simple;
+	bh=046iIU+6XdHj/RATYrhQOf3blG2kSuAp6B5tONx8jzw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SwkhWMKfqpOfcVGAN9YsUKjYW7620Ypl1h/BBAMFCIh6/339s4HB7Mz3Q3nnSGF9GEyJg8mYRCFRZ73MwR7t4bn2whus51WCE+h3B+kmmckZn/EHupsEn+Clw5QeBKxHYUBog2Qf+6+vWxxFs+OIGu3aMA8eGlqCYbKDkmAiz40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d2SU712J; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ALEUezXZST+FeifL0vMuGorzhRFNnyN9Iiw4+qXzEm19PWRKdDYu/owLAetW3C9/nre3UDLm76TFsQgLfZSx7/Jiwzq4cLSLw0E9hnSSf7HO0gEfPxvqoooGrcEKLsiclwNEcvZnG+8KIpOCZDxkGPo6jYbGqPBS6EonroKNqVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwkH8xgY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d2SU712J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0951E1F00893;
-	Fri,  5 Jun 2026 11:13:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwkH8xgY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B341F00893;
+	Fri,  5 Jun 2026 11:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780658027;
-	bh=qDeyRIz1D5vmfbVsVMM/TBsIht23Vtk3OkKIuTWrB+E=;
+	s=k20260515; t=1780658113;
+	bh=MEXR3q2oValdEaZuNIPPM3JxWXwlBoAMpKPSIyHEtuw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d2SU712JXm2Cji2XN5CKqkZeY9n6vGPCtlaGn2NAPF09Eu6g4O7vX/6GqXiOtk3OG
-	 Xfc5C2uv4Lhgizaw7QaG/BaXLNg7V7Ttpe7jASXqCns6cjKGR0u56y8GOFai2hE7Fk
-	 aMLJTlAakkKsv/2WMMg/SLrJOnNbeOfqHRTXzqBWtDAXUxjNQXokqo+Eg93Myl2aYr
-	 sQys59KMApu2T8bbH1awhrmozZIlcbaWszxdVHf02x8bAt7utOdLy6mBGbhQiwpFn3
-	 adcQb4UqU4cfiHr1CQk9nmfOFWt3WRFRdNdHMal4aQtO4PVw1VuaMd96E/UmGAMJqm
-	 VTmOE/WhwxnmA==
+	b=CwkH8xgYo9S9FthjIVf2o6FuAgY8y3aNjr2Yu9xeyJBKecoJ929EBUbXPxjANFPyy
+	 Smjhd406C0IfyFCLpW0seAnjb4rTY7Ha6juwamtg+TEy9txk301gJ6v04bjVjBhSI9
+	 ruupyhwGmurWVx00l6phRnbRvGyogK5hHDio8fV0lYQVpspCcgwqX1IgLVoEjSswnw
+	 3/7B5Ifloa6odqLsXnqQdClS6D+2dZPCq8uXPfMy5WIjev7x0ik9c8ABO0rNKjRa4K
+	 nlOnBRcPHHjavoA0MlAEFy8pumHOVhl17wunJP1YBC3EXRFt70ZpJffSjlTBLvGsOI
+	 r5g6WiimoiRSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/13] ASoC: qcom: Add QAIF IRQ handling, suspend/resume
- and platform register
+Subject: Re: [PATCH 10/13] ASoC: qcom: Add QAIF regmap, DT parsing and
+ platform init
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260605103739.3557573-13-harendra.gautam@oss.qualcomm.com>
-References: <20260605103739.3557573-13-harendra.gautam@oss.qualcomm.com>
+In-Reply-To: <20260605103739.3557573-11-harendra.gautam@oss.qualcomm.com>
+References: <20260605103739.3557573-11-harendra.gautam@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 11:13:46 +0000
-Message-Id: <20260605111347.0951E1F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 11:15:12 +0000
+Message-Id: <20260605111512.E9B341F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-
-New issues:
-- [Critical] The IRQ handler accesses memory-mapped registers without ensur=
-ing that the required device clocks are enabled.
-- [Critical] `qaif_platform_pcmops_resume` unconditionally attempts to writ=
-e to hardware registers via `regcache_sync` while clocks are disabled.
-- [High] Hardcoded DT parsing of the 'iommus' property makes the driver bri=
-ttle and violates standard bindings.
-- [High] Masking the interrupt clear register write leaves unhandled bits s=
-et, causing an infinite IRQ storm.
-- [High] The DMA clocks are not properly balanced during system suspend/res=
-ume if multiple streams are open.
-- [High] `snd_pcm_stop()` is called from the IRQ handler without holding th=
-e required ALSA stream lock.
-- [High] Unprotected double-read of `substream[stream_dma_idx]` can lead to=
- dereferencing a NULL pointer in the IRQ handler.
-- [Medium] Clock enables are leaked if `regcache_sync()` fails during syste=
-m resume.
-
-Pre-existing issues:
-- [High] The DMA memory is mapped to userspace with a different device poin=
-ter than the one used to allocate it.
-- [High] Concurrent `.open` and `.close` operations lack locking, leading t=
-o data races on `qaif_init_ref_cnt`.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Missing lock protection around `qaif_init_ref_cnt` leads to un-ser=
+ialized hardware initialization data race.
+- [High] Using `GENMASK` with unchecked channel counts (e.g., `v->num_rddma=
+ - 1`) causes integer underflow and undefined behavior if the count is zero.
+- [High] Component teardown order is inverted, shutting down hardware befor=
+e devm-managed ALSA components are unregistered.
+- [High] Modifying the global static `regmap_config` structure during probe=
+ causes race conditions and an out-of-bounds register access bug.
+- [High] The error code from enabling the AIF CTL register is overwritten w=
+ithout being returned, allowing a stream to silently fail to start.
+- [High] A missing `qcom,qaif-aif-bits-per-lane` property defaults to 0, ca=
+using underflows during regmap writes and setting the DAI bitclock to 0Hz.
+- [Medium] Variable `intf_idx` is declared as an unsigned 32-bit integer, m=
+aking the error check `if (intf_idx < 0)` tautologically false.
+- [Medium] Accumulating negative error codes using bitwise OR (`ret |=3D re=
+gmap_write(...)`) corrupts the return value.
 --
 
-commit 79f7f868b0ea8024295676f54c8ca826ce51828f
+commit 84915833d4dcf01d21e4e1a894c18953827f441d
 Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-ASoC: qcom: Add QAIF IRQ handling, suspend/resume and platform register
+    ASoC: qcom: Add QAIF regmap, DT parsing and platform init
+   =20
+    Add the core CPU and platform bring-up needed for the Qualcomm Audio
+    Interface driver.
+   =20
+    The existing QAIF DAI code needs device-level infrastructure before it =
+can
+    configure interfaces or run PCM streams. Add the MMIO regmap setup,
+    including readable, writable and volatile register tables, so the driver
+    can safely access QAIF control, DMA, interrupt and SHRAM registers.
 
-Complete the QAIF PCM platform support by registering the component,
-requesting the QAIF interrupt, and handling DMA interrupt events.
+> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
+> index c9c8d78c5f5f8..e1030f5b17524 100644
+> --- a/sound/soc/qcom/qaif-cpu.c
+> +++ b/sound/soc/qcom/qaif-cpu.c
+> @@ -783,3 +783,804 @@ const struct snd_soc_dai_ops asoc_qcom_qaif_aif_cpu=
+_dai_ops =3D {
+>  	.trigger	=3D qaif_aif_cpu_daiops_trigger,
+>  };
+
+[Severity: High]
+Does qaif_aif_cpu_daiops_trigger() overwrite the error code from enabling t=
+he
+AIF CTL register?
+
+In the SNDRV_PCM_TRIGGER_START path of qaif_aif_cpu_daiops_trigger(), the
+driver calls regmap_fields_write() to turn on the interface. If this write
+fails, it logs an error but proceeds to call clk_enable(), overwriting the
+ret variable.
+
+If the clock enables successfully, the trigger function returns 0 (success)
+to the ALSA core. The framework and application will falsely assume the
+stream is running, but the hardware interface remains disabled, resulting
+in silent audio playback/capture failures.
+
+[ ... ]
+> +static int of_qaif_parse_aif_intf_cfg(struct device *dev,
+> +					struct qaif_drv_data *data)
+> +{
+[ ... ]
+> +		if (v->get_dma_idx) {
+> +			intf_idx =3D v->get_dma_idx(dai_id);
+> +			if (intf_idx < 0) {
+
+[Severity: Medium]
+Since intf_idx is declared as a u32, will this check for negative error cod=
+es
+ever evaluate to true?
+
+If v->get_dma_idx() returns a negative error code like -EINVAL, it wraps to=
+ a
+large positive integer. The check intf_idx < 0 will always evaluate to fals=
+e,
+bypassing this error path. The error is only caught by the subsequent bounds
+check, which will print a misleading error message instead of failing prope=
+rly.
+
+[ ... ]
+> +		/* Parse frame configuration */
+> +		cfg->full_cycle_en =3D of_property_read_bool(intf_np, "qcom,qaif-aif-f=
+ull-cycle-en");
+> +
+> +		ret =3D of_property_read_u32(intf_np, "qcom,qaif-aif-bits-per-lane", &=
+cfg->bits_per_lane);
+> +		if (ret) {
+> +			dev_warn(dev, "Missing bits-per-lane for interface %d\n", num_interfa=
+ces);
+> +			cfg->bits_per_lane =3D 0;
+
+[Severity: High]
+Does assigning 0 as a default here cause an integer underflow later?
+
+When this default value is used in qaif_aif_cpu_daiops_hw_params(), it caus=
+es
+an integer underflow: (slot_width * 0) - 1 evaluates to 0xFFFFFFFF. This
+illegal value is then written directly to the bits_per_lane hardware
+register field. It also causes clk_set_rate() to request exactly 0Hz
+for the IBIT clock.
+
+[ ... ]
+> +int asoc_qcom_qaif_cpu_platform_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return -EINVAL;
+> +
+> +	audio_qaif_regmap_config.max_register =3D resource_size(res);
+
+[Severity: High]
+Does modifying this global static struct cause a data race if multiple
+QAIF instances are probed concurrently?
+
+Also, resource_size(res) defines the maximum inclusive valid register
+address. Setting max_register exactly to the resource size permits regmap
+accesses one byte beyond the valid mapped region.
+
+> +
+> +	drvdata->audio_qaif_map =3D devm_regmap_init_mmio(dev, drvdata->audio_q=
+aif,
+> +				&audio_qaif_regmap_config);
+[ ... ]
+> +void asoc_qcom_qaif_cpu_platform_remove(struct platform_device *pdev)
+> +{
+> +	struct qaif_drv_data *drvdata =3D platform_get_drvdata(pdev);
+> +
+> +	if (drvdata->variant->exit)
+> +		drvdata->variant->exit(pdev);
+
+[Severity: High]
+Does shutting down the hardware here invert the component teardown order?
+
+The driver registers sound components and IRQs using devm-managed functions,
+meaning they are unregistered after the remove() callback returns. Manually
+calling the exit() variant here disables the hardware clocks while the ALSA
+component is still fully registered and accessible to userspace.
+
+If an active stream or concurrent operation attempts unclocked regmap
+accesses during this window, it could cause a synchronous external abort
+or kernel panic.
+
+> +}
+[ ... ]
 
 > diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
 m.c
-> index beebec55222a5..8cf4d68f72b1c 100644
-> --- a/sound/soc/qcom/qaif-platform.c
+> new file mode 100644
+> index 0000000000000..b298ee9d865ee
+> --- /dev/null
 > +++ b/sound/soc/qcom/qaif-platform.c
-> @@ -847,3 +847,323 @@ static int qaif_platform_pcmops_mmap(struct snd_soc=
-_component *component,
-> =20
->  	return snd_pcm_lib_default_mmap(substream, vma);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does qaif_platform_cdc_dma_mmap map the
-DMA buffer using the correct device pointer?
-
-The buffer appears to be allocated using dma_alloc_coherent() with the
-component device pointer, but qaif_platform_cdc_dma_mmap() maps it using:
-
-return dma_mmap_coherent(substream->pcm->card->dev, vma, ...);
-
-Could passing a different device pointer for mapping violate the DMA API
-and cause IOMMU faults on platforms where only the component device is
-attached to the SMMU domain?
-
-> +
-> +static irqreturn_t qaif_process_dma_irq(struct qaif_drv_data *drvdata,
 [ ... ]
-> +	mask =3D GENMASK(num_dma-1, 0);
-> +	rv =3D regmap_read(drvdata->audio_qaif_map, stat_reg_addr, &reg);
-> +	if (rv) {
-> +		dev_err(regmap_get_device(drvdata->audio_qaif_map),
-> +			"error reading stat reg 0x%x: %d\n", stat_reg_addr, rv);
-> +		return IRQ_NONE;
-> +	}
-> +
-> +	regmap_write(drvdata->audio_qaif_map, clr_reg_addr, reg & mask);
-
-[Severity: High]
-If the hardware asserts bits outside of the computed mask, will those bits
-remain uncleared?
-
-Because the IRQ is level-triggered (IRQF_TRIGGER_HIGH), could failing to
-clear all asserted bits cause the interrupt controller to immediately
-re-invoke the handler, leading to an interrupt storm and CPU lockup?
-
-> +
-> +	for (dma_idx =3D 0; dma_idx < num_dma; dma_idx++) {
-> +		stream_dma_idx =3D dma_idx + stream_offset;
-> +		if ((reg & BIT(dma_idx)) && substream[stream_dma_idx]) {
-> +			stream =3D substream[stream_dma_idx];
-
-[Severity: High]
-Is there a risk of a null pointer dereference here due to a time-of-check
-to time-of-use race?
-
-If a concurrent close operation locklessly nullifies the substream array
-entry between checking substream[stream_dma_idx] and assigning it to stream:
-
-CPU1 (close)
-drvdata->aif_substream[data->stream_dma_idx] =3D NULL;
-
-CPU2 (qaif_process_dma_irq)
-if ((reg & BIT(dma_idx)) && substream[stream_dma_idx]) {
-    stream =3D substream[stream_dma_idx];
-
-Would the handler then pass a NULL stream pointer to snd_pcm_stop()?
-Should this use READ_ONCE() or be protected by a lock?
-
-> +			switch (irq) {
-> +			case QAIF_IRQ_PERIOD:
-> +				snd_pcm_period_elapsed(stream);
-> +				ret =3D IRQ_HANDLED;
-> +				break;
-> +
-> +			case QAIF_IRQ_OVERFLOW:
-> +			case QAIF_IRQ_UNDERFLOW:
-> +				dev_warn_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
-> +						     "QAIF DMA xRun\n");
-> +				ret =3D IRQ_HANDLED;
-> +				break;
-> +
-> +			case QAIF_IRQ_ERROR:
-> +				snd_pcm_stop(stream, SNDRV_PCM_STATE_DISCONNECTED);
-
-[Severity: High]
-Can this call to snd_pcm_stop() corrupt the PCM state?
-
-The ALSA core API snd_pcm_stop() manipulates the substream's runtime state
-and expects the caller to hold the PCM stream lock.  Could calling it
-locklessly from this interrupt handler introduce a data race with
-concurrent userspace or ALSA core operations?
-
-Would using the IRQ-safe snd_pcm_stop_xrun() or manually acquiring the lock
-be more appropriate here?
-
-[ ... ]
-> +static irqreturn_t asoc_platform_qaif_irq(int irq, void *data)
+> +static int qaif_map_ee_resource(struct qaif_drv_data *drvdata)
 > +{
-> +	struct qaif_drv_data *drvdata =3D data;
 > +	const struct qaif_variant *v =3D drvdata->variant;
-> +	u32 summary_irq_status;
-> +	int rv, client;
-> +	irqreturn_t ret =3D IRQ_NONE;
+> +	struct regmap *map =3D drvdata->audio_qaif_map;
+> +	int ret =3D 0;
+> +	u32 mask;
 > +
-> +	rv =3D regmap_read(drvdata->audio_qaif_map,
-> +			QAIF_SUMMARY_IRQSTAT_REG(v), &summary_irq_status);
-
-[Severity: Critical]
-Is it possible for this MMIO read to trigger a synchronous external abort?
-
-If an interrupt fires (e.g. spurious or shared line activity) while no PCM
-streams are active (qaif_init_ref_cnt =3D=3D 0), the hardware clocks might =
-be
-physically disabled.
-
-Since the handler unconditionally executes regmap_read() on
-QAIF_SUMMARY_IRQSTAT_REG, could this unclocked access cause a bus stall
-and kernel panic?
-
-[ ... ]
-> +static int qaif_platform_pcmops_suspend(struct snd_soc_component *compon=
-ent)
-> +{
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	struct regmap *map;
-> +
-> +	map =3D drvdata->audio_qaif_map;
-> +
-> +	regcache_cache_only(map, true);
-> +	regcache_mark_dirty(map);
-> +	if (drvdata->qaif_init_ref_cnt > 0) {
-> +		clk_disable(drvdata->aud_dma_clk);
-> +		clk_disable(drvdata->aud_dma_mem_clk);
-> +	}
+> +	mask =3D GENMASK(v->num_rddma - 1, 0);
 
 [Severity: High]
-Does this leave the hardware clocks running if multiple streams are active?
+If a hardware variant has 0 channels for a specific DMA type, does this cau=
+se
+an integer underflow?
 
-If clk_prepare_enable() is called for every new stream, the clock's
-reference count is incremented N times for N active streams.
+Calling GENMASK(0xFFFFFFFF, 0) invokes an out-of-bounds right shift in the
+kernel's __GENMASK macro, which is undefined behavior. This can generate
+invalid bitmasks and potentially grant access to nonexistent channels or
+corrupt registers.
 
-However, qaif_platform_pcmops_suspend() only calls clk_disable() once if
-qaif_init_ref_cnt > 0.  If more than one stream was active, wouldn't the
-enable count remain at N - 1, keeping the physical hardware clocks running
-throughout system suspend?
-
-> +	return 0;
-> +}
+> +	ret |=3D regmap_write(map, QAIF_EE_RDDMA_MAP_REG(v), mask);
 > +
-> +static int qaif_platform_pcmops_resume(struct snd_soc_component *compone=
-nt)
-> +{
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +	int ret;
-> +
-> +	if (drvdata->qaif_init_ref_cnt > 0) {
-> +		ret =3D clk_enable(drvdata->aud_dma_clk);
-> +		if (ret)
-> +			return ret;
-> +		ret =3D clk_enable(drvdata->aud_dma_mem_clk);
-> +		if (ret) {
-> +			clk_disable(drvdata->aud_dma_clk);
-> +			return ret;
-> +		}
-> +	}
-> +	regcache_cache_only(map, false);
-> +	return regcache_sync(map);
-
-[Severity: Critical]
-Can this regcache_sync() call cause an unclocked access exception?
-
-If no streams were active before suspend (qaif_init_ref_cnt =3D=3D 0), the
-driver skips enabling the clocks.
-
-Because the system suspend callback executed regcache_mark_dirty(map), this
-unconditional regcache_sync() attempt will write to the hardware registers.
-Could writing to the MMIO registers of a clock-gated IP block cause an
-SError and system crash?
+> +	mask =3D GENMASK(v->num_wrdma - 1, 0);
+> +	ret |=3D regmap_write(map, QAIF_EE_WRDMA_MAP_REG(v), mask);
 
 [Severity: Medium]
-Does this leak the clock enables if regcache_sync() fails?
+Is it safe to accumulate negative error codes using bitwise OR?
 
-If regcache_sync(map) returns an error, it fails to call clk_disable() on
-the previously enabled aud_dma_clk and aud_dma_mem_clk.
-
-Could transient regmap failures during successive suspend/resume cycles
-continuously increment the clock reference counts and prevent the clocks
-from ever being turned off?
+regmap_write() returns a negative error code (e.g., -EINVAL) on failure.
+If multiple writes fail, their bitwise combination can result in an
+arbitrary and misleading error code, masking the true cause of the failure
+and confusing upper layers.
 
 [ ... ]
-> +static const struct snd_soc_component_driver qaif_component_driver =3D {
-> +	.name		=3D DRV_NAME,
-> +	.open		=3D qaif_platform_pcmops_open,
-
-[Severity: High]
-This is a pre-existing issue, but are concurrent calls to
-qaif_platform_pcmops_open() and qaif_platform_pcmops_close() safe?
-
-The global drvdata->qaif_init_ref_cnt is modified locklessly in these
-functions. Since a single component can expose multiple DAIs and
-independent PCMs, could concurrent open and close calls for different PCMs
-race on the read-modify-write operations and corrupt the counter?
-
-Could this lead to premature clock disablement during active playback?
-
-[ ... ]
-> +static int qaif_parse_smmu_sid(struct platform_device *pdev,
-> +				struct qaif_drv_data *drvdata)
+> +static int qaif_map_dma_path(struct qaif_drv_data *drvdata)
 > +{
-> +	struct device_node *np =3D pdev->dev.of_node;
-> +	int ret;
-> +	u32 sid;
+> +	struct regmap *map =3D drvdata->audio_qaif_map;
+> +	const struct qaif_variant *v =3D drvdata->variant;
+> +	int ret =3D 0;
+> +	int qxm_sel =3D v->qxm_type;
 > +
-> +	ret =3D of_property_read_u32_index(np, "iommus", 1, &sid);
+> +	if (qxm_sel !=3D QXM0) {
+> +		dev_err(regmap_get_device(map),
+> +			"%s: only QXM0 is supported, qxm_type=3D%d\n",
+> +			__func__, qxm_sel);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret |=3D regmap_write(map, QAIF_RDDMA_MAP_QXM, qxm_sel);
+> +	ret |=3D regmap_write(map, QAIF_WRDMA_MAP_QXM, qxm_sel);
+
+[Severity: Medium]
+Could bitwise ORing the return values here corrupt standard error values?
+
+If multiple regmap_write() calls return negative standard error codes,
+combining them via bitwise OR will result in arbitrary and misleading error
+values.
+
+[ ... ]
+> +static int qaif_init(struct snd_soc_component *component)
+> +{
+> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
+nt);
+> +	int ret =3D 0;
+> +
+> +	if (drvdata->qaif_init_ref_cnt) {
+> +		dev_dbg(component->dev, "%s: QAIF init is done already: ref cnt: %d\n",
+> +				__func__, drvdata->qaif_init_ref_cnt);
+> +		return 0;
+> +	}
 
 [Severity: High]
-Does hardcoding the DT parsing of the "iommus" property break probe on
-platforms with different IOMMU bindings?
+Is it possible for concurrent PCM opens to race on this lockless check?
 
-By bypassing standard OF parsing APIs (like of_parse_phandle_with_args)
-and fetching the SMMU SID at index 1 directly, this assumes a specific
-layout.
+qaif_init() checks qaif_init_ref_cnt without holding any locks. Its caller,
+qaif_platform_pcmops_open(), calls qaif_init() and then increments the
+counter. Since ALSA's pcm->open_mutex is per-PCM device, different DAIs
+can be opened concurrently by userspace, causing a data race.
 
-What happens on platforms where #iommu-cells =3D <2> (where index 1 might be
-the ID and index 2 the mask, or index 0 is phandle), or on platforms
-without an IOMMU? Will this return a fatal error and completely prevent
-audio initialization?
+This could result in simultaneous writes to shared hardware registers and
+corrupted hardware state.
 
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "failed to read SMMU SID from iommus property: %d\=
-n", ret);
-> +		return ret;
-> +	}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605103739.3557=
-573-1-harendra.gautam@oss.qualcomm.com?part=3D12
+573-1-harendra.gautam@oss.qualcomm.com?part=3D10
