@@ -1,77 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51643D5C06;
-	Fri,  5 Jun 2026 15:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B28E3126B1;
+	Fri,  5 Jun 2026 16:06:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780675200; cv=none; b=qPaw8KAHOUa8hvurvAMuKogxXkdNo52Dwl5Q9NdmKToaojGnzMOeVRr/HBJCuhDlOqsIjgcpDBOAP5gLXGFOhmcZSiC6Pw38yqAg47OdFOnJ5TPrUxYinIu/a54CvwoVagrBIIN4n7TKLcELaDbdcr1ToSEueNpHv7jJgcUdjME=
+	t=1780675575; cv=none; b=YLZf4R1xVPK2r4M8xjfERhTE7Hg+UKLECFpVgDZeygQi8QxBGWCaxXpEiVXasRSvYaqL+8a1aXOjcE8/l/5idzLj1iu816JiFcbmyHvYonG1riNa+30malDbyIyizWPo9is/PYhmsYzNSyzhs3iXVyukR39zv5eojfn+FWT0wtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780675200; c=relaxed/simple;
-	bh=yCAGbq/6JlyTZp4QI10TckEayK0yDn1kPsMjsDABZF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M/xP3qwl3yrnMJEVjdmOX1v4ANHsA539y82rXu3qia59vQSqL7WQ2Uta9KZ6r7/HYXJx0Div6kgkaDnK7nCsfJQtUgGnC0z9WWa/Yo3m3Hat90LNeG80P/fj+FyI1eet2xB7tRsE4SHgV0W3ml3PJBswbKX4AyiFUHmTviEGkXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VRmTccUp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780675575; c=relaxed/simple;
+	bh=lbQ0ZHWF0gkTF8f1YGmLlH6N5pd9CUfqcDjT2PzWmrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F/vlczdGkKZwvt3w1zRdmPOMaMSQR1t8M49teDjM48l0vRnucrnRMWHMTspx/VcnukmEYXf503TVFV0n5CHOmq3TXzPUqO3DGNjYLEFC9zns74gklc8DwJzvmGEL5Jb/TKqdN5kbcfL6nHBuhnzaUqVUeA+P1DAXksQnDoq2oxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zvphM/Ca; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VRmTccUp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3551F00893;
-	Fri,  5 Jun 2026 15:59:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780675197;
-	bh=ObS4SJI1Hi4ANlAVGEHF39GV4a6SL8/PZg5/oxRIZLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VRmTccUpapuDZg1/Vo2DsF06NMWmciMkNXi/GgmSGq3xx93DqVQHxLpPk4g/WCV2U
-	 EspohMbt6QuyOFDYwEftJjiC9mwsZYm1zh5s3g/Pc0pFxvQflbAmZYMIfLguDRvKZC
-	 KdVcyQGeu6j+/RCkux/B2CP/JSz/gX06GALj81XaV4nmYmdQipIGfMFSPlPS2e5WQ0
-	 jGfhtTpvcey86tuJk/JvHD4lta2OBBcHqx41l52ANQtq+cMXyqSwl8vTarHNdfJnc7
-	 /N4o+bCi3Menj58/hh6WGqLKKa6Vyd9sI7jNHJtDqvCvram8JzqRLePprdObZ7zYEB
-	 BZ3vvnXgLpOAA==
-Date: Fri, 5 Jun 2026 10:59:56 -0500
-From: Rob Herring <robh@kernel.org>
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: net: ethernet-phy: increase max
- clock count to two
-Message-ID: <20260605155956.GA3788055-robh@kernel.org>
-References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
- <20260605-ipq5018-gephy-clocks-v3-1-f232d9ca0966@outlook.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zvphM/Ca"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6F166C58478;
+	Fri,  5 Jun 2026 16:06:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9FF855FED1;
+	Fri,  5 Jun 2026 16:06:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 50A83106A2533;
+	Fri,  5 Jun 2026 18:05:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780675569; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=xk45BjVakQOeHi7wm8QKE6eINYQ/jNZGrkwgZV41tIw=;
+	b=zvphM/CawlI8lv+bypTyNGk5QI0aaFSd+ta/nOlof5HxsbAqYwrTcdlBWPnIuvZ2nkCCPu
+	hbcuN8XA2utGYiVw3vAMz/EUcccOZ6nAVIPhuIwnmU/ZvEKqcCf+mrXrS7xQPsGjH5VnyL
+	jfU+2CYStZaWkh9I/v2V82G2VXEFEMjU8prhXTzet2GaJQCHCWFcuFFJnXiVHMYzele/m8
+	M2jI6t+La0RoeTKiZzWM/fX9/gkeeAapQr2r4/psEj0S1ukX9nQtJ224jAudfxQR6QRZIR
+	I2AoympPGcN2+ig3zx84LnAejH56/NY9zf9b6R90qA0XuuKGwk4feZJ5SaU+tg==
+Message-ID: <c60d1819-18d7-4d4c-a997-586599323d7e@bootlin.com>
+Date: Fri, 5 Jun 2026 18:05:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605-ipq5018-gephy-clocks-v3-1-f232d9ca0966@outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 13/14] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, rmk+kernel@armlinux.org.uk, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
+ gregkh@linuxfoundation.org
+Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260605010022.968612-1-elder@riscstar.com>
+ <20260605010022.968612-14-elder@riscstar.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260605010022.968612-14-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Jun 05, 2026 at 04:41:26PM +0400, George Moussalem wrote:
-> The clocks property has a restriction to maximum one.
-> Yet, some PHYs may require more than 1 clock such as the IPQ5018 PHY
-> which requires two clocks for RX and TX. As such, increase maxItems to
-> two.
+Hi Alex,
+
+On 6/5/26 03:00, Alex Elder wrote:
+> From: Daniel Thompson <daniel@riscstar.com>
 > 
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> Toshiba TC956x is an Ethernet AVB/TSN bridge and is essentially a
+> small and highly-specialized SoC. TC956x includes an "eMAC" subsystem
+> that can be accessed, along with several other peripherals, via two
+> PCIe endpoint functions. There is a main driver for the endpoint that
+> decomposes things and creates auxiliary bus devices to model the SoC.
+> 
+> The eMAC consists of a Designware XGMAC, XPCS and PMA. Each eMAC is
+> supported by an MSIGEN that bridges TC956x level interrupts to PCIe
+> MSIs.
+> 
+> Add a driver for the eMAC/MSIGEN combination.
+> 
+> Co-developed-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
 > ---
-> Commit 350b7a258f20 introduced the clocks property with a restriction to
-> maximum 1 to the main ethernet-phy.yaml binding for Realtek to add an
-> optional external clock source. This is restrictive to all PHY bindings,
-> as some PHYs may require more than 1 clock such as the IPQ5018 PHY which
-> requires 2 clocks (for RX and TX).
-> ---
->  Documentation/devicetree/bindings/net/ethernet-phy.yaml | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
+[...]
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> +static int tc956x_lookup_max_speed(phy_interface_t phy_interface)
+> +{
+> +	switch (phy_interface) {
+> +	case PHY_INTERFACE_MODE_SGMII:
+
+The SGMII definition we use in the kernel is the Cisco SGMII de-facto
+standard that only supports 10/100/1000M. Some vendors use flavours with
+names such as HS-SGMII and such, that's basically SGMII clocked at 2.5G
+with aneg disabled. It kinda becomes 2500BaseX then.
+
+So all in all, we don't support 2500M on SGMII.
+
+> +	case PHY_INTERFACE_MODE_2500BASEX:
+> +		return SPEED_2500;
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+
+Maxime
