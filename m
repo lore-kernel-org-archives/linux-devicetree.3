@@ -1,106 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49228.qiye.163.com (mail-m49228.qiye.163.com [45.254.49.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CA63E0752
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 02:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED643E2AA4;
+	Fri,  5 Jun 2026 02:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780627128; cv=none; b=koMCtOiSl9zTReijRwTYDSkgt1A/lCHFImvSMdadJDU0rNwWQ5Clzbb+/2dNk+DPL6k0Gtmg77yF6Sk1vx/dOzmfCVeuF98AaPSvcoHLCLhpgRWoUY3dzSF9CYEQVZGzrH8swJa01/lVZOrpsmbZEBTBomkI1zEje73Mhf560Ec=
+	t=1780627132; cv=none; b=hQSOa1NIBn8iWCR1SgIQ8yoqKc1BJBE5Ud/92rxbfWd15oU/Dwn6rn6Ini08z38C2PawOkeGy7F/PbvS9+XuBatjkZUkIN74gKRThfufuq7aF+Bsl7RnsFURZM+no0duS1THZeWuyl6bukdVf4jbNhbSDW5JyrISMCfI9nt++2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780627128; c=relaxed/simple;
-	bh=IkrJCouyKBu8b6+raSJt6DmdTV0ZFT/WkO7boEIqbIU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AlESfdo9eqMQdoYtOs4Bw/VPfBWWQCtfQb0UC+0V6rLwCifnZ7CDKAVjFKx9tZq3O7vN0LzuKujppPseSAWTyPbZAo3S+JnjOX3VUPNGFxOeazWp7WINJhle0bWnzKzVJgGMzAAZ6XIcUQI0uqPlZPADrEFxBFiXnEwcSMYkY8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4D9C3z+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780627132; c=relaxed/simple;
+	bh=6H+Ces+9bYYbn8t7HfbY6qVPgNGXR71TmborUaSVSX0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W9kYk4kebVwJUk+76Xtq86eD9+pLnBPCBHzGtoJ0c8sgaui+fRJeGney/zM58kVFAb4QBpZ4hoaJosT/9fsUNAXzdvb4QYX15XJBZZU9vj76SsSqYUsYwNyrv7KUIac3RwzO66cZINsj/N22PpWn/C7sRvCMj8Xp1fHgYiS0KA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ewF0gHb2; arc=none smtp.client-ip=45.254.49.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4D9C3z+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 716251F0089C;
-	Fri,  5 Jun 2026 02:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780627117;
-	bh=2a0zvNVeReHvvfOfNxf8zdsJcAYvxcv/YbDysjZv1BI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P4D9C3z+1bgOMSv1Hj3yZaggRP7oyDysHzTQO9r/xLq3g6gnHk6jcihJm6gW7CZCA
-	 E0C1he1rmLgLr46OtLm/OAgKvIv6lBZW/QmbxxhrQXvT7dM//vGUFMYSG8iqPGHEGF
-	 k4ll/rlzj0ZH/O6VVwF41e68PP0fPIPS0m0rwv0kF2erVPIf05u1kBwvVQ6jYVfTxb
-	 Rc+nTRvAIk3ZggwAMXCltxYzVvxx12fgFW6Z4iwpjaa2ZR2abhvqXE4tM/j5ij0ShB
-	 Pnx1b/1wYJnhYKWqMh0btf9HB6uCeWh+VQpTNqw90stZ+IRdLjIL7R5z4k4aaTcZ85
-	 HfSJfv8JTGgSg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/3] arm64: dts: rockchip: Add eDP node for RK3576
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260605022305.3058853-4-damon.ding@rock-chips.com>
-References: <20260605022305.3058853-4-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 02:38:37 +0000
-Message-Id: <20260605023837.716251F0089C@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ewF0gHb2"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 412944ced;
+	Fri, 5 Jun 2026 10:23:16 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	heiko@sntech.de
+Cc: sebastian.reichel@collabora.com,
+	nicolas.frattaroli@collabora.com,
+	alchark@gmail.com,
+	detlev.casanova@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	michael.riesch@collabora.com,
+	andy.yan@rock-chips.com,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v11 0/3] Add eDP support for RK3576
+Date: Fri,  5 Jun 2026 10:23:02 +0800
+Message-Id: <20260605022305.3058853-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e9597895003a8kunm9494c84840184
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSR4eVkofS0xDSx4dH0wdSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ewF0gHb2zHUhiXplbtvTOiSdLmIrvk2wdjGSa3oZuRSgLnSPGyinOjtTNeX5rpkfpgKs072cLKevW9ysr47eTnYLsDIBn6J2iO3nec+AcinsH9ATOiNb9/5IdegKIM9mEDxA7wgYh8KrYDTP1lxk4ka0KJw3/QKikNHIsqnB58U=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=qmd31Xl8YEPF78aS746HOGoMm6a1yS/+/Q2ASXjijrU=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Missing dt-binding documentation and driver support for 'rockchi=
-p,rk3576-edp' compatible string.
-- [Medium] Device tree schema violation and unmanaged clock due to incorrec=
-t clock-names mapping.
---
+Picked from:
+https://lore.kernel.org/all/20260601065100.1103873-1-damon.ding@rock-chips.com/
 
-commit e47ec8c7e8e01e5a72a889c3a37a5a2d40321b07
-Author: Damon Ding <damon.ding@rock-chips.com>
+Patch 1-2 are to add missing clock "hclk" for RK3588 eDP nodes.
+Patch 3 is to add the RK3576 eDP node.
 
-arm64: dts: rockchip: Add eDP node for RK3576
-   =20
-Add full device tree definition for the integrated eDP controller
-on RK3576, following the existing RK3588 hardware layout.
+Damon Ding (3):
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
+  arm64: dts: rockchip: Add eDP node for RK3576
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3576.dtsi
-> index 28175d8200d57..733449cb88b15 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-[ ... ]
-> @@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
->  			};
->  		};
-> =20
-> +		edp: edp@27dc0000 {
-> +			compatible =3D "rockchip,rk3576-edp";
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 28 +++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  4 +--
+ .../arm64/boot/dts/rockchip/rk3588-extra.dtsi |  4 +--
+ 3 files changed, 32 insertions(+), 4 deletions(-)
 
-[Severity: Medium]
-Will this trigger a schema validation error during make dtbs_check?
+---
 
-The new compatible string is declared here without a fallback string like
-"rockchip,rk3588-edp". If this string is not documented in the device tree
-bindings (rockchip,analogix-dp.yaml) and lacks a match in the Rockchip Anal=
-ogix
-DP driver, the driver might not probe successfully.=20
+Changes in v2:
+- Split out separate patches to add the "hclk" clock reference.
+- Split out separate patches to enable the "hclk" clock.
+- Add Reviewed-by tag.
 
-Should a fallback compatible be provided if the hardware is fully compatibl=
-e,
-or do the binding and driver need to be updated alongside this patch?
+Changes in v3:
+- Add a patch to expand descriptions for clocks of the eDP node.
+- Add Reviewed-by tag.
 
-> +			reg =3D <0x0 0x27dc0000 0x0 0x1000>;
-> +			clocks =3D <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT=
->;
-> +			clock-names =3D "dp", "pclk", "hclk";
+Changes in v4:
+- Modify commit msg.
 
-[Severity: Medium]
-Does naming this third clock "hclk" violate the device tree schema and
-prevent the driver from managing it?
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
+- Add Acked-by tag.
 
-The dt-binding schema for rockchip,analogix-dp.yaml explicitly restricts the
-third clock name to "grf". The eDP driver attempts to fetch the third clock
-using devm_clk_get_optional(dev, "grf").=20
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
 
-With the name set to "hclk" here, will the driver silently fail to find it,
-causing the HCLK_VO0_ROOT clock to be ignored and left unprepared?
+Changes in v7:
+- List all valid clock names at the top level, and constrain the clock
+  count for each platform with minItems/maxItems in allOf.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605022305.3058=
-853-1-damon.ding@rock-chips.com?part=3D3
+Changes in v8:
+- Fix indentation to 10 for enum in clock-names property.
+
+Changes in v9:
+- Restore the explicit clock-names for RK3399 and RK3588 eDP dt-bindings.
+
+Changes in v10:
+- Use automatic cleanup to fix OF node reference leak reported by
+  Sashiko.
+
+Changes in v11:
+- Pick and rebase DT related patches.
+
+-- 
+2.34.1
+
