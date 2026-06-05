@@ -1,150 +1,141 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AF84192E3;
-	Fri,  5 Jun 2026 09:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6113B71C2;
+	Fri,  5 Jun 2026 09:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780652019; cv=none; b=RlZsp1WM9eCoD7+oZ+sYIkyqwODHmi/8Z+OMEF8SivxEBy70wP//xP1HEF/NRIzM31BtnW2SFr9glxnXgmyOdSgoX/5fDBqxLw+bkHd3DMQOVEdUBDXtuVqqZJvMjqdlBwS4HTpoW6Lxg3M12vY13ZMt1isIw4l2uToMeVnCpJo=
+	t=1780652143; cv=none; b=GRBi38oD57Oad5YWaYFHYWTtSDaivTZ+W6idUS68vSABTNDCLpORxMlQXAGqEKYOqj2oM8Q0KsEqACrvMHArBYTwOw26SmiECLZGcAWZ5Ci4GYRbi9JCgnTmTNYOJcomDUgsjU3XiVGiLCdw21zAtoeMQik4zDE+FKKZz0WoRKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780652019; c=relaxed/simple;
-	bh=6bNZUcvnY+5Blv3aY9YAqimAK5AIGlF+H59bfPEl9HE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=VEC5bOvWpm9aG/Y6TnbknvONrHvC0ReWzc35kseQjE0FOENQxif7kSg2HZFFo00oiGdwfhj2VxQWz96ZiyQ84G6SMfaeF7gailIiB2e4VO8vi7wfbzR5o1ZlDMa8wT2GpBQ6KHe1L9Cv8WdUE4mqqC/bselv6w+X6x2/SsS0/Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Qhv75Hp5; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1780652143; c=relaxed/simple;
+	bh=uUr2WX0hfhqFblDSBBPdFGtDvl61n05tGhgtx80/7Yg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XKlZvyNztRbkYK6LWMXPPCeT4JOct2I1rIT3SLryqt2KiagjVzsbb3hVm7lnvF+GHkAMWbm3KhXqc390yymJcrSS3XOXYNbx2cD/FmHrevMX/LW6pGOhbonTxcWoI71A37Ig//Gq8H+EIfUXyYeecRiEm8hZzo1E+7ZJwC49TJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=e/C67GuI; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Qhv75Hp5"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gWx7x26TDz9twd;
-	Fri,  5 Jun 2026 11:33:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1780652013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3QhLZZ7DF5RQcecWKZHROUBnz5EbLkvAFAJ8ZXow1xg=;
-	b=Qhv75Hp5L7mhw4yvb9CtlBJWQgGZJ0hczOCA7bUsBW/xavDLSqRI3Qtd59VcpkyZZFFIoN
-	5TGJRbhXsiwhimVe/mfUqrhxDaFSgzCOVRkdqM2kjFVZ7jYr+0+z0bpIl3yGVymhPmnyUF
-	XIr4fx10cX6eAV5tV1JWJgxH8K3C+2BWVoRCJMvdi8XkQuWeaDCRaLlykuTQrnGRn1u2xt
-	3OCykKdhQHhxmyKt34pr2R74/42tMYdGQl1jpFLbq2BQknDp2eZMp8u+rq4lw28Av9X8Zc
-	8LUGDogh3C/U5JE0pg3ZCw5PWyREMgacDMsfWbxIuE2B2awLPQVSrDScA3AO7g==
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="e/C67GuI"
+X-UUID: e78ec9f060c111f1b1788b6acf885367-20260605
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=/dslgzlo3e3q4Fp9CcQ8kHNOhLW06kFWzrlqwahyqjg=;
+	b=e/C67GuIIBsuhtHyBRwL1cUOjGokQV2yFDzJ6p/4H1Dg48FL9cOD8tVE59fiseEniTvMKlrvQHvHsCWh+SvogjatflD1eu6CjAPqY4BncPT483M/4cgwjEvGMBFhmr8TcDIuL3Y2CllpxsUZIUf9c+J/rxepD+EzPpANhRLkc2w=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.15,REQID:27bc5fc0-2e3e-409a-9b46-e237767fffd5,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:e276073,CLOUDID:95aa8503-5b7c-4de7-bc39-cc187eea3c57,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
+	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e78ec9f060c111f1b1788b6acf885367-20260605
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
+	(envelope-from <irui.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1236832425; Fri, 05 Jun 2026 17:35:35 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 5 Jun 2026 17:35:33 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 5 Jun 2026 17:35:33 +0800
+From: Irui Wang <irui.wang@mediatek.com>
+To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh+dt@kernel.org>, Matthias Brugger
+	<matthias.bgg@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	<angelogioacchino.delregno@collabora.com>, <nicolas.dufresne@collabora.com>,
+	Tiffany Lin <tiffany.lin@mediatek.com>, kyrie wu <kyrie.wu@mediatek.com>
+CC: Yunfei Dong <yunfei.dong@mediatek.com>, Maoguang Meng
+	<maoguang.meng@mediatek.com>, Longfei Wang <longfei.wang@mediatek.com>, Irui
+ Wang <irui.wang@mediatek.com>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, "Rob Herring (Arm)" <robh@kernel.org>
+Subject: [PATCH v7 1/6] media: dt-bindings: mediatek,vcodec-encoder: Add MT8196
+Date: Fri, 5 Jun 2026 17:35:13 +0800
+Message-ID: <20260605093519.13695-2-irui.wang@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260605093519.13695-1-irui.wang@mediatek.com>
+References: <20260605093519.13695-1-irui.wang@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 05 Jun 2026 17:33:23 +0800
-Message-Id: <DJ10GDDAE672.1N365YARL5KV1@mailbox.org>
-Cc: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <sophgo@lists.linux.dev>,
- <hanguidong02@gmail.com>, <michael.opdenacker@rootcommit.com>,
- "linux-riscv" <linux-riscv-bounces@lists.infradead.org>
-Subject: Re: [PATCH v5 RESEND 4/5] riscv64: dts: sophgo: add SG2000 dtsi
-From: "Shuwei Wu" <shuwei.wu@mailbox.org>
-To: "Joshua Milas" <josh.milas@gmail.com>, <tglx@kernel.org>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <pjw@kernel.org>, <samuel.holland@sifive.com>, <unicorn_wang@outlook.com>,
- <inochiama@gmail.com>, <daniel.lezcano@linaro.org>, <palmer@dabbelt.com>,
- <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <liujingqi@lanxincomputing.com>,
- <alexander.sverdlin@gmail.com>, <rabenda.cn@gmail.com>, <dlan@kernel.org>,
- <chao.wei@sophgo.com>, <anup@brainfault.org>
-References: <20260530173347.33533-1-josh.milas@gmail.com>
- <20260530173347.33533-5-josh.milas@gmail.com>
-In-Reply-To: <20260530173347.33533-5-josh.milas@gmail.com>
-X-MBO-RS-META: cnakhfhm6eenn8abomp48ddt71ztasak
-X-MBO-RS-ID: e6d4df9cfa9ec01b400
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Hi Joshua,
+Add support for MT8196 video encoder which uses VCP (Video Co-Processor)
+for firmware management. Unlike previous platforms that use SCP/VPU, MT8196
+requires VCP to load and execute the video encoding firmware, with the
+encoder communicating through VCP to perform encoding operations.
 
-On Sun May 31, 2026 at 1:33 AM CST, Joshua Milas wrote:
-> Adds sg2000.dtsi on the RISCV side.
->
-> Signed-off-by: Joshua Milas <josh.milas@gmail.com>
-> ---
->  arch/riscv/boot/dts/sophgo/sg2000.dtsi | 53 ++++++++++++++++++++++++++
->  1 file changed, 53 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/sophgo/sg2000.dtsi
->
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2000.dtsi b/arch/riscv/boot/dts=
-/sophgo/sg2000.dtsi
-> new file mode 100644
-> index 0000000000000..412adacc00576
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/sophgo/sg2000.dtsi
-> @@ -0,0 +1,53 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +
-> +#define SOC_PERIPHERAL_IRQ(nr)	((nr) + 16)
-> +
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +#include <dt-bindings/pinctrl/pinctrl-sg2000.h>
-> +#include "cv180x-cpus.dtsi"
-> +#include "cv180x.dtsi"
-> +#include "cv181x.dtsi"
-> +
-> +/ {
-> +	compatible =3D "sophgo,sg2000";
-> +
-> +	memory@80000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x80000000 0x10000000>;
-> +	};
+Add the "mediatek,mt8196-vcodec-enc" compatible string and introduce
+the "mediatek,vcp" property to reference the VCP device, which is
+required for MT8196 encoder operation.
 
-I noticed that this describes 256 MiB of RAM. The Milk-V Duo documentation =
-lists
-the SG2000-based Duo boards as having 512 MB of DRAM [1].
-Is the 256 MiB size intentional here, or should the Duo S board DTS overrid=
-e it
-with the documented 512 MB DRAM size?
-[1] https://milkv.io/docs/duo/overview
+Signed-off-by: Irui Wang <irui.wang@mediatek.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+---
+ .../media/mediatek,vcodec-encoder.yaml        | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-> +
-> +	soc {
-> +		interrupt-parent =3D <&plic>;
-> +		dma-noncoherent;
-> +
-> +		pinctrl: pinctrl@3001000 {
-> +			compatible =3D "sophgo,sg2000-pinctrl";
-> +			reg =3D <0x03001000 0x1000>,
-> +			      <0x05027000 0x1000>;
-> +			reg-names =3D "sys", "rtc";
-> +		};
-> +
-> +		clk: clock-controller@3002000 {
-> +			compatible =3D "sophgo,sg2000-clk";
-> +			reg =3D <0x03002000 0x1000>;
-> +			clocks =3D <&osc>;
-> +			#clock-cells =3D <1>;
-> +		};
-> +
-> +		plic: interrupt-controller@70000000 {
-> +			compatible =3D "sophgo,sg2000-plic", "thead,c900-plic";
-> +			reg =3D <0x70000000 0x4000000>;
-> +			interrupts-extended =3D <&cpu0_intc 11>, <&cpu0_intc 9>;
-> +			interrupt-controller;
-> +			#address-cells =3D <0>;
-> +			#interrupt-cells =3D <2>;
-> +			riscv,ndev =3D <101>;
-> +		};
-> +
-> +		clint: timer@74000000 {
-> +			compatible =3D "sophgo,sg2000-clint", "thead,c900-clint";
-> +			reg =3D <0x74000000 0x10000>;
-> +			interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_intc 7>;
-> +		};
-> +	};
-> +};
-
---=20
-Best regards,
-Shuwei Wu
+diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+index ebc615584f92..72698456374a 100644
+--- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+@@ -24,6 +24,7 @@ properties:
+               - mediatek,mt8188-vcodec-enc
+               - mediatek,mt8192-vcodec-enc
+               - mediatek,mt8195-vcodec-enc
++              - mediatek,mt8196-vcodec-enc
+       - items:
+           - const: mediatek,mt8186-vcodec-enc
+           - const: mediatek,mt8183-vcodec-enc
+@@ -58,6 +59,13 @@ properties:
+     description:
+       Describes point to scp.
+ 
++  mediatek,vcp:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Reference to the VCP (Video Co-Processor) device that loads and executes
++      the video encoding firmware. The encoder communicates with the firmware
++      through VCP to perform encoding operations.
++
+   power-domains:
+     maxItems: 1
+ 
+@@ -76,6 +84,20 @@ required:
+   - iommus
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - mediatek,mt8196-vcodec-enc
++
++    then:
++      required:
++        - mediatek,vcp
++    else:
++      properties:
++        mediatek,vcp: false
++
+   - if:
+       properties:
+         compatible:
+-- 
+2.45.2
 
