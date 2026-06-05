@@ -1,51 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B6740E8E2;
-	Fri,  5 Jun 2026 14:10:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DE6382361;
+	Fri,  5 Jun 2026 14:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780668604; cv=none; b=GxV0VsRmwU8+Q67F91N77LrmeHgNFHfPHgVLDS9ZE1LStnW27+hhr36NIEhAVMI9h0ffWvrx31A31p7A2n3uQPaV9erR8A6ABj+XDgDHt1wkCALUAfw0BI9wVpDYRfAacaPB+Q3EwC028Glj6iegqC7idMd8Lg00jlrz4kODVoo=
+	t=1780669223; cv=none; b=Bax9CXzU+2f7EHEj5TTV58FXqTQaS/i58YUjNRmJawbrhd8gy29O4yqa0+iAcQKaYi7xagVGdS233UOOihkNddmcNid3mAXDCsuroZeFFRbSljxJkrY0jpe8FfVHe+AaXWllh/hwMKtJN0E2r/Yo+5gus6gpGI66qRFCVbY9T5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780668604; c=relaxed/simple;
-	bh=xB1Mo0ZL1kEYBMQPeShV1xsBEhsJmlbe5Pi6nQWqLvA=;
+	s=arc-20240116; t=1780669223; c=relaxed/simple;
+	bh=pDx1/G8ZYOcUKTOmsRidQLTb0hxM7jQ+i738NgKeizw=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I5ohYcwrdEr00c2CU/q02sYu2+s2trJcSuOndLyXraahuLQ8hyMuqsK60lMaYac/ntXJsI2cyjV3kBQyV4f8SchXx0hJnhruEnrPIUViUr2tdWbXbSJvPc3ZQhwJ67RUkhPDmq4evOLrE7pntbNE4l07/20X4QokKELP9jyZc+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7CiFcEB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XekFbaZVskwbsGpAj1h/GzATX2wPEsrJXAh8vRz2peX8Ble+iQgGgOQNm1hVkEvlmTwlE0bTImlH2YPqbwDz7+A+Xo8VVf/4/Q+VwXvCmDmFFc7HIa4hINI6MhXa1zOoMDEwgSotJzR2gQdB9Tvq8/QgjZ/xc9ALPh76uBnwq6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQ5qFcv9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7CiFcEB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5D21F00893;
-	Fri,  5 Jun 2026 14:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQ5qFcv9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B990D1F00893;
+	Fri,  5 Jun 2026 14:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780668602;
-	bh=Xv79vCkfi3tsuNiev9znO8IdUX1iN7cx6A7mjZ930sI=;
+	s=k20260515; t=1780669215;
+	bh=HgVBt5hB/cB9fifRQqctexQyLLTrMia8NOV3hyAOvnc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=E7CiFcEB2KsHHpwXRUL2YxFR6HNto+hVjb6eODvSQQUh6Qey0Fd+fV0xM52TEciwy
-	 ocf4RGW/tmnTQjVmuBuRWMpdnzlALgWvAa9yxHVZgcTSIuKPkzSZb1AlHXHV/Xxq5/
-	 vpvc/bOG3jbNNtnIyIbRFuz0uop0EM+NkbzFQWjkLUo19oioaacbU9xsRvFt51U+SG
-	 9Q/2bKmSapdi8nYT6RxgKp88/kvwbsDeW7aQNGOJCt4QiRWp/LS2s3FuXbuMKxNctI
-	 xNNC2Sg3eo20m3Z6ipcCs27JgZRj7uKGGSI4elZc7zVpMaU3cQUfp1wTjoQ1OISYox
-	 24dnf1TmunpwA==
-Date: Fri, 5 Jun 2026 15:09:51 +0100
+	b=jQ5qFcv9GiAAziFNmdjTDRibQDynnyaJszCzJqLwXfmYJ4iPRYJj8lVGFsPcUmDpr
+	 FplohwBIdOZSSd2JQMKVj7FhX5OGd0/7YQk770nW+Zr/ZyNG8YYpkzRKKcMiV3zILK
+	 iv+T2HeQdfYwd76NDw5tbgXcy4wvcboA70HbEwiz1ch2DBGb6nlZF2LeiOP2bR5HaO
+	 C+p2g6fCjxO0BoFUKtPPXLmNzMioTPeUy0dj6fnUZvRdfG9FxfV8cxQ1XZD3L7dGGc
+	 ezd6yZJndVuVHdxl00fsRgOL7IUzYcP0gpC7aijj/FG3Tk4kpAjyYukGYtmIG+SY0r
+	 ChKt7TmUWb8sg==
+Date: Fri, 5 Jun 2026 15:20:05 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>,
- rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
- <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 10/12] iio: dac: ad5686: add triggered buffer support
-Message-ID: <20260605150951.1c793b76@jic23-huawei>
-In-Reply-To: <i3wvatdosla3cszhhtizgoetcbknl56be3mpipzdxqx2jzvch2@l4hzeer5zoa7>
-References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
-	<20260602-ad5686-new-features-v1-10-691e01883d27@analog.com>
-	<20260603134151.7cf1654b@jic23-huawei>
-	<i3wvatdosla3cszhhtizgoetcbknl56be3mpipzdxqx2jzvch2@l4hzeer5zoa7>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Cc: Puranjay Mohan <puranjay@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
+ Petazzoni <thomas.petazzoni@bootlin.com>, Wil Stark
+ <wil_stark@keysight.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: ti,tmp117: add binding for the
+ TMP119
+Message-ID: <20260605152005.4d888f6b@jic23-huawei>
+In-Reply-To: <ft-705oeTSiaftSGNjv94A@bootlin.com>
+References: <20260605-tmp119-v1-0-349f45f17d12@bootlin.com>
+	<20260605-tmp119-v1-1-349f45f17d12@bootlin.com>
+	<20260605125332.151b92f8@jic23-huawei>
+	<ft-705oeTSiaftSGNjv94A@bootlin.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -56,142 +54,71 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 5 Jun 2026 12:34:31 +0100
-Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+On Fri, 05 Jun 2026 14:24:45 +0200
+Romain Gantois <romain.gantois@bootlin.com> wrote:
 
-> On 26/06/03 01:41PM, Jonathan Cameron wrote:
-> > On Tue, 02 Jun 2026 17:33:57 +0100
-> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> Hi Jonathan,
+> 
+> On Friday, 5 June 2026 13:53:32 CEST Jonathan Cameron wrote:
+> > On Fri, 05 Jun 2026 11:01:35 +0200
+> > 
+> > Romain Gantois <romain.gantois@bootlin.com> wrote:  
+> > > The TMP119 has the same register layout as the TMP117, and a better local
+> > > sensor accuracy.  
+> > 
+> > Sounds like (and the driver changes pretty much confirm) that this could
+> > use a fallback compatible to the tmp117.
 > >   
-> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > 
-> > > Implement trigger handler by leveraging the LDAC gpio to update all DAC
-> > > channels at once when it is available. Also, the multiple channel writes
-> > > can be flushed at once with the sync() operation.  
 > 
-> ...
+> What do you mean by "fallback compatible" in this case? Do you mean we should 
+> do something like this in the bindings:
 > 
-> > > +static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-> > > +{
-> > > +	struct iio_poll_func *pf = p;
-> > > +	struct iio_dev *indio_dev = pf->indio_dev;
-> > > +	struct iio_buffer *buffer = indio_dev->buffer;
-> > > +	struct ad5686_state *st = iio_priv(indio_dev);
-> > > +	u16 val[AD5686_MAX_CHANNELS] = { };
-> > > +	int ret, ch, i = 0;
-> > > +	bool async_update;
-> > > +	u8 cmd;
-> > > +
-> > > +	ret = iio_pop_from_buffer(buffer, val);
-> > > +	if (ret)
-> > > +		goto out;
-> > > +
-> > > +	mutex_lock(&st->lock);
-> > > +
-> > > +	async_update = st->ldac_gpio && bitmap_weight(indio_dev->active_scan_mask,
-> > > +						      iio_get_masklength(indio_dev)) > 1;
-> > > +	if (async_update) {
-> > > +		/* use ldac to update all channels simultaneously */
-> > > +		cmd = AD5686_CMD_WRITE_INPUT_N;
-> > > +		gpiod_set_value_cansleep(st->ldac_gpio, 0);
-> > > +	} else {
-> > > +		cmd = AD5686_CMD_WRITE_INPUT_N_UPDATE_N;
-> > > +	}
-> > > +
-> > > +	iio_for_each_active_channel(indio_dev, ch) {
-> > > +		ret = st->ops->write(st, cmd, indio_dev->channels[ch].address, val[i++]);
-> > > +		if (ret)
-> > > +			goto cleanup;
-> > > +	}
-> > > +
-> > > +	if (st->ops->sync)
-> > > +		ret = st->ops->sync(st); /* flush all pending transfers */
-> > > +
-> > > +cleanup:  
-> 
-> It turns out that this label is not really needed. When sync() op is available
-> it must be called regardless of write failure, so the bus data can reset its
-> state. Then moving "cleanup" up would just make it useless.
-> 
-> > > +	if (async_update)  
-> > 
-> > Error paths are always fun.  Do we care about setting ldac_gpio to 1 if
-> > we failed to write the channel values?  That will set any that did successfully
-> > update, but not all of them.  Note I'm not sure on the right answer for this.
-> > There may not be one!  
-> 
-> I would not see a problem with that, as there is no much we can do with errors
-> in a interrupt handler.
-> 
-> >   
-> > > +		gpiod_set_value_cansleep(st->ldac_gpio, 1);
-> > > +
-> > > +	mutex_unlock(&st->lock);
-> > > +out:
-> > > +	iio_trigger_notify_done(indio_dev->trig);  
-> > We get this pattern so often (though not always).  Feels like maybe
-> > we should put some effort into a generic opt in solution for this.
-> > 
-> > A job for another day but options that come to mind.
-> > 1) (hideous) a flag
-> > 2) Maybe an alternative callback. thread_always_complete or
-> >    something like that.  Pain to wire through all the calls though
-> >    and injecting the necessary wrapper isn't great either.
-> >    Implementation wise would be a case of popping in a wrapper function
-> >    in iio_trigger_attach_poll() call to request_threaded_irq().
-> > 3) Maybe a helper macro?  Bit ugly as we'd need one to generate
-> >    the wrapper function and another to use the same name for
-> >    the registration function.
-> > 
-> > Hmm. Those are all ugly (maybe 2 is ok ish).  Suggestions welcome!  
-> 
-> using a cleanup.h? with something like:
-> 
-> 	static inline void iio_trigger_always_done(struct iio_poll_func **ppf)
-> 	{
-> 		iio_trigger_notify_done((*ppf)->indio_dev->trig);
-> 	}
-> 
-> 	static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-> 	{
-> 		struct iio_poll_func *pf __cleanup(iio_trigger_always_done) = p;
+> ```
+> enum:
+>        - ti,tmp116
+>        - ti,tmp119
+> const:
+>        - ti,tmp117
+> ```
+Something like (I can never remember the syntax so this is modified from
+another binding doc and untested)
 
-That's not a nice pattern given the lack of any local constructing. The ownership
-transfer isn't obvious as both p and pf are really same type (it's slightly
-hidden by the void * nature of p) - ideally we'd want p to be unusable after
-that transfer.  Could do something hideous like 
-		struct iio_poll_func *pf __cleanup(iio_trigger_always_done) =
-			__get_and_null(p, NULL);
-where p is set NULL so it becomes dead but that is ugly and not what that
-is for so I doubt it would be popular and so we'd end up with yet another
-weird macro.  There is some precedence with take_fd() but the use of that
-is complex and I think it is only used to grab ownership from a local CLASS()
-defined cleanup.
+    oneOf:
+      - enum:
+          - ti,tmp116
+          - ti,tmp117
+      - items:
+          - enum:  #enum here because once we have one we tend to get more ;)
+              - ti,tmp119
+          - const: ti,tmp117
 
-So it would work, but I've actively argued against this style elsewhere
-in the kernel so don't really want it in IIO either!
+> 
+> But wouldn't this invalidate existing device trees which only have:
+> 
+> `compatible = "ti,tmp116";`
+> 
+> > The second patch then just resolves the print that would happen on older
+> > kernels using that fallback due to ID mismatch.  That's fine but nice
+> > if older kernels can work with this part.  
+> 
+> Sorry I don't quite understand: since this is a feature patch, I don't expect 
+> it would get backported onto older kernels. Therefore why would the second 
+> patch resolve the print happening on older kernels?
+> 
+The point of a fallback compatible is that we don't have to backport anything.
+New device tree comes along that lists
 
-Key disadvantage is that it is yet another weird bit of cleanup.h stuff for
-people to learn and we have enough of those already.
+compatible = "ti,tmp119", "ti,tmp117"
 
-So indeed an option but I'm not really liking it.
+will just work. Older kernel will think it has a tmp117 which is fine as they
+are register interface compatible.  It will print a message to say that it
+found an unknown ID but then assume it is what the firmware told it, here the
+tmp117 fallback.  With your second patch in place, that harmless message will
+disappear for new kernels.
 
 Jonathan
 
-> 		/* ... */
-> 
-> 		ret = iio_pop_from_buffer(buffer, val);
-> 		if (ret)
-> 			return IRQ_HANDLED;
-> 
-> 		/* ... */
-> 
-> 		return IRQ_HANDLED;
-> 	}
-> 
-> >   
-> > > +
-> > > +	return IRQ_HANDLED;
-> > > +}  
+
+> Thanks,
 > 
 
