@@ -1,178 +1,159 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CAE47B436
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 08:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32CF3C062D
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 08:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780647297; cv=none; b=rosRwHTnQTDDWx4zltbJIgniZDiEfhqGwvXeiDNiZBWlJ1zL/N/EzuWRaXUzwRhFLsbiWLlH6oOmXCCYXjrNveUgrDkujSNsZTIEWmIjoH0yjYjIdlW/X4DGviUJy/UzLe9eFNRF7kaWkXbID8YEFmiQeDPE279R80zaI3lLrlg=
+	t=1780647412; cv=none; b=gKM8CBsoalvDNnOVNkTJTkF5Cc3wpZ31yXnFyOyxz+/xHXMxcX++TrJVFhpkthQ9ryuFlSl0n19r0Su2ns5kuBXl+aCz0JbmCCW3PQFaXvAmRnhryr9TQ7OzliKrl/0K3/EjsRiRj+fYaDwBg/v9ExI2X3sAgwW0ohaHG8MF9Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780647297; c=relaxed/simple;
-	bh=BHv3rmL4c+xpusDAqHop9aJRkPe3z2wi/ycyAj77XhI=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=DjRMq8fxZFaButGLXDbtTw7qk/D8ZzMRASqJHHm+TofD/W/RW0ylSSNemOVdkK/e7lhRIaPRkLbU4ey7q9D/R0uP9SZkz6Ka0c7hMu/66iPo3+WaD3P7fCOqd3RfaZhKPuPcTPbUXj772+6n+KyTgyzk+80u5dk24GNr48NUaD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SQ7NSEJu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W9U6juiw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780647412; c=relaxed/simple;
+	bh=1MdTFwon4JOk/xjZuVBgQseoutxqvisxz2XLn2wr3E4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NPKeGcB5lWoHz40z6N3Y+7vz//hQhDP9NkhoO76oSoPLTnGL1K3mDYhRX7+SyMbTjZfR1DBGTfisspziAvaNdV8wtppbW4hLmu0CsAFGndQSy/L+5NxJkiNq7qT1VsykIo+z2OIZN8Drlp+F4eNFQfR73+JuwQFnXMIudcR196g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d69+2dcr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SQ7NSEJu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W9U6juiw"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6553YYlR2975103
-	for <devicetree@vger.kernel.org>; Fri, 5 Jun 2026 08:14:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3hyN4FWQ42UtCdi3stZ8OuDHs+Nvt6sgvZFCISUmdog=; b=SQ7NSEJu2/NdgmeJ
-	H6Dk16Etiz6jZBcxkJazYjnEtGqQYByqrBDXZL5bcLOH01GsgCbFEkqB314QTbj2
-	sTSdeCqL/b6TIedH4R0zAqzWjUQbwq0XSCsm3nEmRtzExjZARxRVYGwqCCIsq0wr
-	DAtEATIwPsy9EiISrbxHIfPFciOt41ckIhyaGqvSQt4vr5977326HahTgRjaJoL3
-	osJuxcamitgfLK3yzj5G+EY9OQB2OoZ+mWwDTU2s7WWDjyyKh1X0hI5/Cxsn7OST
-	VdwVFDQD9UB9NqIoD7ge2grOHe8DWFpanP/+chE42a+v837UfHc3PrsHYemzaEUf
-	nSi72w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ekpnu8yg2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 08:14:55 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36d97415004so3481873a91.2
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 01:14:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780647294; x=1781252094; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3hyN4FWQ42UtCdi3stZ8OuDHs+Nvt6sgvZFCISUmdog=;
-        b=W9U6juiwkPI/kU/60XS0+FxQ1FZF1pUmDnqJRzMYsQKvCJURTIxh8NO1VSnziL0GvK
-         c3Ll55X/uDAln6KruMEglFu9649hUNAHCCOGUPJPLc7wC3Z1IrjM5koRX9930fO+zEq/
-         1iMdOxevaSmADDtXq7rr1ZSbpYZNoZ/ahI+Br0E86TnFObB9UWlK4HmKUXxOf0fx0QS0
-         Y6w/OvSrRKOWwyHsQRCdpXnMTiEw902Tx0HomECdALy409kaWjabckKMMtgYRCabyX+4
-         ISlIiRCUZj0cDNEQtTznu7VEKIQkgU7lsvZTuzNruknje5i3NE+Q48oZ78B2JcNZkntF
-         OPFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780647294; x=1781252094;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3hyN4FWQ42UtCdi3stZ8OuDHs+Nvt6sgvZFCISUmdog=;
-        b=oC72TMsfN696VFBZa4oV8n5Y0s/61vo/Yb2C/sM/4oHW4StbwUJ56XniIxXColHcK2
-         29ektUSoQxl9x+qSP8KqC/rs1YfcOW29xZs8A84shaCcnD4GpLAuNwgMhQ8rN7zqvyTj
-         uYqE+rSe9bsh1CyVfqqBJPtfhcguY5Bk0LjTD8AS4926T3W4NY64MRkFMTh4j++0Vg19
-         ih+lqyECxEIZVrCCfBp45hE7El1plpQjcQA+6qi1ZNnel6yhtFodEbSg+IrRWTn8hFLM
-         i6AOAzPwYp972Pm/iLMjtLG6HnIi2qGGXz2TJ6JKPNdz0USdO1efkuUivmmlNztyl3CL
-         1XCA==
-X-Forwarded-Encrypted: i=1; AFNElJ8XNnlKjFlu1H0sel5NzZGDTEqVjZuSnU97lRGCeN3mbl5wig/cDmGdCSICxRiBWcsjk8HhyrRgztq8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlRYlOBNridmsGxgNlqaawaThrjf+W5H6aYUrbCzzmWsJO+gnb
-	0MMIeyVjIf9Cr5Rk12Z2fiCAdQIHa91g3dJZAlc5HnuBRuJNASH3blFhXuXrqNLhMcBISxourl2
-	WgIJZAw2aPGG0XNAr6RhCUSI8kgTw+SXDOxdpfvb8F4IMr/67KQrFxnAaawnqeBla
-X-Gm-Gg: Acq92OHaBgdKTPup2bllJY1FXTONwt86EJRqF65io42P0tVeDaa2yRKi3bBnjDFFk/z
-	ny12ouPLRdTL8qqeKIxM+pY0Q21FB/zoy9I/LCBZI2cSlU3kTg6arZio4MVkHUkvr9ldtumjYlS
-	IyZnMEJ2dtY3FEm+RBfuM08w/tMWOiRhoV5kvQv3If1nzPIoCXWEFuNPg7lX9KBtNBKZVVDZDwg
-	1EFhSLJe6Jyi6B+tklH4Og5bT4ZG7x59G2M9M8CAR+odkjaLjmBAOwmIVETNoILt5S3owXZ6UZr
-	LPp/GvS3hVKv42BC6KGlQrCGPneo4mwYHoM0seO03MZCdeML1gvi/uC2Z44g6KHt/CPbnZ2KBN3
-	eyKj/YR9OL/8NbWEP3s9KXv4yISSoAFBF5XK2A6oFDQ6Hso+20Z5/mmPELVVY
-X-Received: by 2002:a17:90b:5707:b0:36d:63cb:cf63 with SMTP id 98e67ed59e1d1-370f0f44b04mr3107397a91.20.1780647294318;
-        Fri, 05 Jun 2026 01:14:54 -0700 (PDT)
-X-Received: by 2002:a17:90b:5707:b0:36d:63cb:cf63 with SMTP id 98e67ed59e1d1-370f0f44b04mr3107359a91.20.1780647293870;
-        Fri, 05 Jun 2026 01:14:53 -0700 (PDT)
-Received: from [10.217.222.63] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df04a0e9sm6241744a12.13.2026.06.05.01.14.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Jun 2026 01:14:53 -0700 (PDT)
-Subject: Re: [PATCH v6 0/3] Enable Inline crypto engine for kodiak and monaco
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: ulf.hansson@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        ulfh@kernel.org, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260310113557.348502-1-neeraj.soni@oss.qualcomm.com>
- <07a7d2f8-4a6c-d9f9-71b5-49a1dae693fd@oss.qualcomm.com>
- <CAPx+jO9kc7-QCV+ZgeeQQGdTaLAcvedLgvOpdSxqt4ezz-Lxhg@mail.gmail.com>
-From: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Message-ID: <cfd0d0df-055c-1e8e-3e54-4e781480796a@oss.qualcomm.com>
-Date: Fri, 5 Jun 2026 13:44:48 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d69+2dcr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76251F00893;
+	Fri,  5 Jun 2026 08:16:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780647410;
+	bh=+DG/q+/O7eWR1y+akr6BwSaLvKrOI4jiO5eXL4wrPHo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d69+2dcr78bHU9RCMLUF/XzxOJHEPp/AamFL6xVAY9gjA0B7B49QxafRmrWlnBa6Z
+	 VbhyS4lwcDxnmuQW2+xWG4ooQa7/CysqEWuXm1WB/uKVGejmvDApraCkJ819Uffn4A
+	 ajqtqNsi9X//2lfvxoC/9QwCsnSg7bqdf2uI1Pt6mIaEM5wdj0qrHjzObAIRwCCwUz
+	 8Db1ZYyCXf2nNgu2Fkk1QXDoTQcBVmEp12Ldy3WPTl71pSwjBQiGepiDO2yFQ1hSot
+	 18HWGKKa6YSPII8HIpOCDtOeEOwOr0HLQFb7pvwKslPFLz2C0eua89vsu07uep35Of
+	 M4mK3uQcE+X+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v5 3/5] net: dsa: tag_ks8995: Add the KS8995
+ tag handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260604-ks8995-to-ksz8-v5-3-98baeb45e665@kernel.org>
+References: <20260604-ks8995-to-ksz8-v5-3-98baeb45e665@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 08:16:49 +0000
+Message-Id: <20260605081649.C76251F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <CAPx+jO9kc7-QCV+ZgeeQQGdTaLAcvedLgvOpdSxqt4ezz-Lxhg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: ihAEQuBR8HP5hpdeh9pHhA4NpwoS8K22
-X-Authority-Analysis: v=2.4 cv=Ksl9H2WN c=1 sm=1 tr=0 ts=6a22857f cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xTBwjhZbDR9UlUe_VggA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA1MDA3OCBTYWx0ZWRfX94f5ZkBI4clr
- PS/VQx84m4OwgSHlFZF0npYc8B0+K7B4/BpJCs0h8inDlL/ClQIxxKaMLI9iq/TAK0iaHenw7Br
- M/6P1g6CynAEADbJId5FAfYpEwc2VLlwJkDnHENcNGxm/TmimImlucf6vgmW/W/e0VVxjMRhn21
- Iyu9yL9FQrU1O2HHNXqiAuIjqA8FuDoCom6OuKom57Virqds5Z4DHVOCLZWNuZ70V79Hlh76hMo
- pVDoTc9gPUG7vr5eaQckt9vTKPRTCkJGUGGOK9DHLzIrYvXoftshy7Xq9GRRHCod5xZqaiRYybi
- DIfjEHFbd/uMlbPczXiPtEQiBrZS6XmKpe8tA8l5PHtTzHlDR1shQPF+LZwcu48K6xERyUIsh3n
- D4qpdR3GNpKumClqUPboaPHdWgAWritp3AjUe93eqzoriYFlA6F/y/nWyS6aEFI2vDXi6hIU46+
- f7bBa/avY0CNZVKL0Xw==
-X-Proofpoint-ORIG-GUID: ihAEQuBR8HP5hpdeh9pHhA4NpwoS8K22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-05_01,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 spamscore=0 malwarescore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606050078
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] Double free of skb in ks8995_xmit() and ks8995_rcv() on tag al=
+location failures.
+- [High] ks8995_xmit() fails to clear hardware-accelerated VLAN tags for no=
+n-802.1Q protocols (like 802.1ad QinQ), breaking DSA port isolation.
+--
 
+commit 69e87755967f9829df353d79046ed354251e2a4a
+Author: Linus Walleij <linusw@kernel.org>
 
-On 5/29/2026 8:26 PM, Ulf Hansson wrote:
-> On Fri, May 22, 2026 at 11:34 AM Neeraj Soni
-> <neeraj.soni@oss.qualcomm.com> wrote:
->>
->> On 3/10/2026 5:05 PM, Neeraj Soni wrote:
->>> Document Inline Crypto Engine (ICE) handle for SDHC and add its device-tree
->>> node to enable it for kodiak and monaco.
->>>
->>> How this patch was tested:
->>> - export ARCH=arm64
->>> - export CROSS_COMPILE=aarch64-linux-gnu-
->>> - make menuconfig
->>> - make defconifg
->>> - make DT_SCHEMA_FILES=Documentation/devicetree/bindings/mmc/sdhci-msm.yaml dt_binding_check
->>> - make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CHECK_DTBS=y dtbs
->>>
->>> ---
->>
->> Hi Ulf/Bjorn,
->>
->> We are looking to target this patch series to be part of 7.2 merge window
->> if there are no further review comments.
->> If if is fine, Ulf can you please ack the dt-binding patch (1/3) so that
->> this entire series be picked via Bjorn tree.
->>
->> Bjorn i hope this is fine with you.
->>
->> The v5 of this patch series was "Reviewed-by" Krzysztof for dt-binding changes:
->> https://lore.kernel.org/all/20260307-llama-of-massive-downpour-2e512a@quoll/
->> but i missed to add it in v6. Requesting to please apply the tag while picking
->> the patch series.
-> 
-> It's been a little messy to keep my backlog up to date while changing
-> employment, please re-submit a new version of the series.
-> 
-Okay i will post v7.
+net: dsa: tag_ks8995: Add the KS8995 tag handling
 
-> Also note, I don't pick up arm64 dts patches (unless very specific
-> reasons), so that parts need to go with the soc/platform maintainer.
-> 
-> Kind regards
-> Uffe
->
+This commit adds ingress and egress tagging support for the KS8995 100Mbit
+switch in the DSA subsystem. The tag is implemented as a modified 0x8100
+ethertype tag.
 
-Regards,
-Neeraj
- 
+> diff --git a/net/dsa/tag_ks8995.c b/net/dsa/tag_ks8995.c
+> new file mode 100644
+> index 0000000000000..5bdb182715827
+> --- /dev/null
+> +++ b/net/dsa/tag_ks8995.c
+
+[ ... ]
+
+> +static struct sk_buff *ks8995_xmit(struct sk_buff *skb, struct net_devic=
+e *dev)
+> +{
+> +	struct vlan_ethhdr *hdr =3D vlan_eth_hdr(skb);
+> +	bool have_hwaccel_tag =3D false;
+> +	u16 tci =3D 0, portmask;
+> +
+> +	/* Prepare the special KS8995 tags */
+> +	portmask =3D dsa_xmit_port_mask(skb, dev);
+> +
+> +	if (skb_vlan_tag_present(skb) && skb->vlan_proto =3D=3D htons(ETH_P_802=
+1Q)) {
+> +		tci =3D skb_vlan_tag_get(skb);
+> +		__vlan_hwaccel_clear_tag(skb);
+> +		have_hwaccel_tag =3D true;
+> +	}
+
+[Severity: High]
+Does this strict check for ETH_P_8021Q fail to clear hardware-accelerated
+VLAN tags for other protocols, such as 802.1ad?
+
+If a non-802.1Q hwaccel tag is left intact, the conduit driver might offload
+it as the outermost tag on the wire. Since the KS8995 switch expects its
+STPID tag to immediately follow the MAC addresses, could seeing the unclear=
+ed
+tag instead cause it to misinterpret the DSA routing tag and bypass port
+isolation?
+
+> +
+> +	if (have_hwaccel_tag || hdr->h_vlan_proto !=3D htons(ETH_P_8021Q)) {
+> +		skb =3D vlan_insert_tag(skb, KS8995M_STPID(portmask), tci);
+> +		if (!skb)
+> +			return NULL;
+
+[Severity: Critical]
+Can this cause a double-free of the skb on allocation failure?
+
+Looking at vlan_insert_tag(), it unconditionally consumes and frees the skb=
+ if
+it fails to allocate memory. However, returning NULL from a DSA tagger's xm=
+it
+routine instructs the caller, dsa_user_xmit(), to explicitly free the origi=
+nal
+skb again.
+
+> +		hdr =3D vlan_eth_hdr(skb);
+> +		netdev_dbg(dev, "%s: inserted VLAN TAG %04x TCI %04x\n",
+> +			   __func__, hdr->h_vlan_proto, hdr->h_vlan_TCI);
+> +	} else {
+
+[ ... ]
+
+> +static struct sk_buff *ks8995_rcv(struct sk_buff *skb, struct net_device=
+ *dev)
+> +{
+> +	int portmask;
+> +	u16 etype;
+
+[ ... ]
+
+> +	/* Move the custom DSA+VLAN tag into the hwaccel area and strip
+> +	 * it from the skb head
+> +	 */
+> +	skb =3D skb_vlan_untag(skb);
+> +	if (!skb) {
+> +		netdev_err(dev, "%s: unable to untag skb\n", __func__);
+> +		return NULL;
+> +	}
+
+[Severity: Critical]
+Will this result in a double-free of the skb?
+
+Similar to the xmit path, skb_vlan_untag() frees the skb when it encounters=
+ an
+error. Returning NULL from ks8995_rcv() instructs dsa_switch_rcv() to free =
+the
+skb a second time.
+
+> +
+> +	portmask =3D FIELD_GET(KS8995M_STPID_PORTMASK, etype);
+> +	netdev_dbg(dev, "%s: etype %04x portmask %04x (%d)\n",
+> +		   __func__, etype, portmask, ilog2(portmask));
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-ks8995-to-=
+ksz8-v5-0-98baeb45e665@kernel.org?part=3D3
