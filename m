@@ -1,171 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2E3377563;
-	Fri,  5 Jun 2026 17:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457B13955DC;
+	Fri,  5 Jun 2026 18:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780681944; cv=none; b=aMb4S/yQh8mDXh8S5JIw0S1HZjtf7F4PZWIPamTaE555Dh0Eqnk3f/sb+C56trnRta+Po25TS2sQvFmNPkSbJYdw3enq1OjhdG/wnHZn5N1+qSV3z2KcueN92yVrX7V0xElJcsH6rWYfWwyqbgqnE0q7KMbQMFkmOZPu+KnpUDI=
+	t=1780682544; cv=none; b=G+ipzHomkIC7+6PCEO3FKRNCOauQNgxf5tn4QyPfsMAVfUmm8EIVUA9rC3qv7vT9Q7xeY+qHMd8vIEPgP3ykGYfyeMadUeLm3OGGvPMuaCpgkneEvmAgL7ToQGVKXINuT8fO77N+g95/unJPB41vY2cMOEkueU1P/g5nz/9c3yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780681944; c=relaxed/simple;
-	bh=UP95N0DlzO2m6BFHxSdTVRvxptLOM2N2fHvS+eCzIcA=;
+	s=arc-20240116; t=1780682544; c=relaxed/simple;
+	bh=C8o+Feus096h0Uz102T1DCDSL3wzEZgY/+zUm2CvINc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H4fKWm4+65Rh7W3NQ81PRDrw45yhs8C1ZeRxmyYIQI5tzf7gCpKtN51bjGp7zj1oDjek7Z2X9ksvH/zclgOJjpLYzlvP8Euzr5Tu1c+bMlHEwUK1/vC1F0i15R2VQcuF/wriRXyunFTRIiy0O07j7qBG7fjbqLDAsHfGTEuaJjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hk+M56vZ; arc=none smtp.client-ip=192.198.163.11
+	 Content-Type:Content-Disposition:In-Reply-To; b=iPSjdjbbXEMV4Ib7K5MQ87vaUivSDCYSF5XZm0+mJxXW2gaUfqyhiVcMXJxRhlduos3/dRuiRcI8M/2mSZEwYO1PmxeNKtx2f5Ci0RKBCNtQ+Fc27YH/4WJ7jR1zJkCohKSdAOPVam+2UDLMgcwCmJJH+NK3RiGC7zmoAEu/4ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c7gO/Dt9; arc=none smtp.client-ip=198.175.65.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hk+M56vZ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c7gO/Dt9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780681940; x=1812217940;
+  t=1780682543; x=1812218543;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UP95N0DlzO2m6BFHxSdTVRvxptLOM2N2fHvS+eCzIcA=;
-  b=hk+M56vZySU8CGZJ6SVSN8ymCSQLqsZuREbbFIndkwvTYtlUFpvPlHSg
-   Ccna46gOV3HZ71/mOgLYgNUdhmsDVowHzso9Ug3yWb5q0EU86/ps/kkIs
-   saK5PsNDNAdxpvWhABt5ZsMb0qGon0iyZy7DUH0OrAHoLZ0dohiUgLb06
-   A/FAhCJnPa1dNMXsb0pM03um0EXGQ07W+1WsTs5sySTNv86DiO7g2+57q
-   q7/zIxqrA7Y3ir5WWDjF78/6Z0vkwpGWFwxzlcd6Ex/7kxNSlGt3a43i7
-   Y3ctXPKOeR9g1AluwH4iqg1Pe400L2AN9mkQmHP66oainrVCLwTmvsSZR
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=C8o+Feus096h0Uz102T1DCDSL3wzEZgY/+zUm2CvINc=;
+  b=c7gO/Dt9cyGDvBUNC+no4CbD3WpyQ64vGPkvuASf/mdamMaN4h5AQARX
+   ZeeKNgcLh9J14TszOL2qTG6x/GdoEKss1s/0HlpE8bNn8EvD42ujGr7Q7
+   hGwVBKKYrpY4+ay10rrjYSw764E1VoBGgqjpzJzMlZVS+Mc7HosvgoAKA
+   nYi4uMd0FZzxTuLnF14P0V+cw2NjH8yE4vv1vzYtncUohj660SdJZCaHb
+   JN9ml4LRMUs9rV1gqbtCqgWusph5FLK/wrcDUxKt9sDqMac/FEuzm45Z5
+   OlstRcJuVZ0l9YKzT+IaCqe6OH53Gl302/lrLDHbTpttX5xe7pcOLWDKT
    w==;
-X-CSE-ConnectionGUID: 3Dj6T6g7TXO2I2EjsYClDQ==
-X-CSE-MsgGUID: 8vQj4DjaTi28zFgzrl9AQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="92089615"
+X-CSE-ConnectionGUID: 3jUTfQg1Rsalf+TAOX8Fgw==
+X-CSE-MsgGUID: n77aAdOITRisyJiGhCXWZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="91834723"
 X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; 
-   d="scan'208";a="92089615"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 10:52:19 -0700
-X-CSE-ConnectionGUID: tKKG8e4VQsa7InrUwgs+Aw==
-X-CSE-MsgGUID: 4nes/u9/TSe792NXfEUjwg==
+   d="scan'208";a="91834723"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 11:02:22 -0700
+X-CSE-ConnectionGUID: 82ostdTaTBWKpezxDiFWOA==
+X-CSE-MsgGUID: 9LFON0bcQHuG2jIdBXDWQA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; 
-   d="scan'208";a="245024817"
+   d="scan'208";a="249242284"
 Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.178])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 10:52:15 -0700
-Date: Fri, 5 Jun 2026 20:52:13 +0300
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 11:02:18 -0700
+Date: Fri, 5 Jun 2026 21:02:15 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: jic23@kernel.org, linusw@kernel.org, denis.ciocca@st.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
-	sanjayembeddedse@gmail.com, maudspierings@gocontroll.com,
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
 	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: magnetometer: st_magn: honour st,fullscale-mg
- DT property
-Message-ID: <aiMMzSf8-C9fTlWW@ashevche-desk.local>
-References: <cover.1780652883.git.github.com@herrie.org>
- <a8b63f5997700aba85883816a5d7520dcb28a96d.1780652883.git.github.com@herrie.org>
+Subject: Re: [PATCH v3 2/4] iio: light: add support for veml6031x00 ALS series
+Message-ID: <aiMPJ9Qqcg7XTJt0@ashevche-desk.local>
+References: <20260524-veml6031x00-v3-0-29165609b2b5@gmail.com>
+ <20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
+ <20260526185933.0084679f@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <a8b63f5997700aba85883816a5d7520dcb28a96d.1780652883.git.github.com@herrie.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260526185933.0084679f@jic23-huawei>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Jun 05, 2026 at 12:08:43PM +0200, Herman van Hazendonk wrote:
-> The ST magnetometer core's common probe hardcodes fs_avl[0] -- the
-> highest-sensitivity full-scale supported by the chip -- as the
-> starting range. For the LSM303DLH that is +/-1.3 G; for the
-> LSM303DLHC and LSM303DLM it is +/-2 G; for the LIS3MDL it is +/-4 G.
-> 
-> That is the right default for "minimal noise floor at a desk", but
-> it leaves no margin for boards that pick up appreciable DC bias from
-> nearby PCB structures. On the HP TouchPad (apq8060 / tenderloin) the
-> LSM303DLH magnetometer is mounted close enough to the surrounding
-> power planes that X reads back as the chip's 0xF000 overflow
-> sentinel (== -4096 raw, the value the chip publishes when the ADC
-> saturates) on every sample at the chip-default range, while Y and Z
-> fall well within the +/-1.3 G window.
-> 
-> Parse the st,fullscale-mg device-tree property (documented separately
-> in dt-bindings/iio/st,st-sensors.yaml) in the magnetometer common
-> probe to select the initial fs_avl entry by its mg value. The driver
-> tolerates an unknown / unsupported value by falling back to the chip
-> default and warning, so the property is purely additive -- existing
-> in-tree DTSes are unaffected.
-> 
-> Per-sensor mg ranges are listed in st_magn_sensors_settings[]. For
-> LSM303DLH the valid values are 1300, 1900, 2500, 4000, 4700, 5600
-> and 8100; for LSM303DLHC they are 1300, 1900, 2500, 4000, 4700, 5600,
-> 8100 (same code path); for LIS3MDL they are 4000, 8000, 12000, 16000;
-> and so on. Sensors with a fixed full-scale (fs.addr == 0) simply
-> ignore the property.
-> 
-> Empirical scale sweep on the HP TouchPad confirmed that on this
-> board any fs_avl >= 1 produces non-saturated X readings:
-> 
->     scale (0.001 G/LSB)  | X raw    Y raw    Z raw
->     --------------------+-------------------------------
->             1.100        | -4096    44       46    (X saturated)
->             0.855        |  -547    37       37    (clean)
->             0.670        |  -433    94      103    (clean)
->             0.450        |  -266    44       71    (clean)
->             0.400        |  -235    34       65    (clean)
->             0.330        |  -196    27       56    (clean)
->             0.230        |  -145    15       40    (clean)
-> 
-> 2500 mg is the natural choice for tenderloin: comfortably outside
-> the saturation regime while keeping useful precision for compass
-> applications.
+On Tue, May 26, 2026 at 06:59:33PM +0100, Jonathan Cameron wrote:
+> On Sun, 24 May 2026 23:53:56 +0200
+> Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
 
 ...
 
-> +	{
+> > +#include <linux/bitfield.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/module.h>
+> 
+> mod_devicetable.h is missing. Please check again for others.
 
-Oh, no. Use
+Yep. Please, follow IWYU principle.
 
-	const char *propname;
-	...
-	propname = "st,fullscale-mg";
-	if (device_property_present(..., propname)) {
-		struct st_sensor_fullscale *fs = &mdata->sensor_settings->fs;
-		u32 fs_mg;
+> > +#include <linux/pm_runtime.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/units.h>
 
-		ret = device_property_read_u32(parent, propname, &fs_mg);
-		if (ret)
-			return ret;
+Also add a blank line here to group out the linux/iio/*.
 
-		...
-	}
+> > +#include <linux/iio/iio.h>
+> > +#include <linux/iio/sysfs.h>
+> This isn't needed yet - bring it in when it is.
+> 
+> > +#include <linux/iio/iio-gts-helper.h>
 
-instead.
+...
 
-> +		u32 fs_mg;
+> > +	regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
+> > +	if (IS_ERR(regmap))
 
-> +		if (!device_property_read_u32(parent, "st,fullscale-mg",
-> +					      &fs_mg)) {
-> +			struct st_sensor_fullscale *fs =
-> +				&mdata->sensor_settings->fs;
-> +			int i;
-> +
-> +			for (i = 0; i < ST_SENSORS_FULLSCALE_AVL_MAX; i++) {
-> +				if (!fs->fs_avl[i].num)
-> +					break;
+> > +		return dev_err_probe(dev, PTR_ERR(regmap),
+> > +				     "Failed to set regmap\n");
 
-This is strange. What's the point to go via the whole table? Does it have gaps?
+It's okay to have it on a single line.
 
-> +				if (fs->fs_avl[i].num == fs_mg) {
-> +					mdata->current_fullscale =
-> +						&fs->fs_avl[i];
-> +					break;
-> +				}
-> +			}
-> +			if (mdata->current_fullscale->num != fs_mg)
-> +				dev_warn(parent,
-> +					 "st,fullscale-mg=%u not supported, using %u\n",
+...
 
-Also use %s and propname.
+> > +	data->dev = dev;
+> > +	data->regmap = regmap;
 
-> +					 fs_mg, mdata->current_fullscale->num);
-> +		}
-> +	}
+This is not needed. Use one of them.
+
+...
+
+I have a déjà vu that I have given already same comments.
+Why are they not addressed?
 
 -- 
 With Best Regards,
