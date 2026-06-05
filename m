@@ -1,161 +1,120 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C21F3D9DB9;
-	Fri,  5 Jun 2026 09:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0493DC861
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 09:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780652148; cv=none; b=r5qBkypNpv99ZBEwi6e0VJN1iaunIvPzAhGJxhKHY6VDQ5LRdTCMzqMzSTnaJdH3xlTnBKHnGzT7Zw4CJQsyhbV7X1hXjvJxgGYzkU5XLzwRZLHts6QcUyn9joXcI9x8hzxrCG6dBWB2EvRkgpUnGnx8R4jl1eLB220xQSMaGIw=
+	t=1780653197; cv=none; b=LiYpA7XKlwoRQp4P6hCbadLKg/t7UdOaVkX5JXjctkLzmeTWW/HOYlp5jXvH7y5DORxen3Cepb37ob/Fa2JpBQH5MZXcTCK9C8iwoUaAeoGq794u9lDIiywtEH9dsvSwl5fOgmigNGj2gMtR542S9lv2a3TOQN8sTjD+4M4mhxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780652148; c=relaxed/simple;
-	bh=mCc6QWEsUUXASeDU6iAQveVIbQvPxdY1EiMWUfGtSU4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fc4fPpSj3a7FfnT6uPVAnb4Did2HtnUWIhx5b+6Z3+giFY2Ae/e32SXpWCUEc41GeYpaV9uILJIV9nRs+G10lKwbUtDoLIyW4S1zsdNsfCMyrwSh/+RilSZl+uVVtSzquxFzxxmPdX/m3/vVfNO8ySHIIVplD7Saz2/UPo6w6LM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Lu8ohuBt; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Lu8ohuBt"
-X-UUID: ead6accc60c111f18dc8c9802ae25ab1-20260605
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=C1I5Z16CZKuV8AfZRvYqbgqVxI+Ku9jR+lC7PC+UB8U=;
-	b=Lu8ohuBtvR1xwVsgndEEva5ZSXHW8BbB2QsS74w7rUuZ+k/9Gq99tzY5BshKupCH5WK7UoAS8EFPr8gcV/PpbJ0/KSIp2MRArxnqK+TXtslzxgM12EfI7aTQmki+Rm2ZN494+bKizn5/pT2QYM1+FDo7KBMCDLB115asCjLfKvM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.15,REQID:e0a68141-9d01-46d2-b3cb-632b7ebbaf11,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e276073,CLOUDID:cfdd542a-13d2-4d29-83ea-b8014339a000,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ead6accc60c111f18dc8c9802ae25ab1-20260605
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw02.mediatek.com
-	(envelope-from <irui.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1702566548; Fri, 05 Jun 2026 17:35:41 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 5 Jun 2026 17:35:39 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 5 Jun 2026 17:35:38 +0800
-From: Irui Wang <irui.wang@mediatek.com>
-To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Rob Herring <robh+dt@kernel.org>, Matthias Brugger
-	<matthias.bgg@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	<angelogioacchino.delregno@collabora.com>, <nicolas.dufresne@collabora.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>, kyrie wu <kyrie.wu@mediatek.com>
-CC: Yunfei Dong <yunfei.dong@mediatek.com>, Maoguang Meng
-	<maoguang.meng@mediatek.com>, Longfei Wang <longfei.wang@mediatek.com>, Irui
- Wang <irui.wang@mediatek.com>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>
-Subject: [PATCH v7 6/6] media: mediatek: encoder: Add MT8196 encoder compatible data
-Date: Fri, 5 Jun 2026 17:35:18 +0800
-Message-ID: <20260605093519.13695-7-irui.wang@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260605093519.13695-1-irui.wang@mediatek.com>
-References: <20260605093519.13695-1-irui.wang@mediatek.com>
+	s=arc-20240116; t=1780653197; c=relaxed/simple;
+	bh=XegPlP0QUg8N4ZbYcx0a/twqRUS5iUtjIM8XQ1lg9EA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jZWUofTvBX2V0E7wpDNTpucctxm+bva+/yJY7jhfxEv2eZYnyt1mQkv+IkMS8hY9eRBeUOv57RuaoMYPbDPyaz7jvxMmjjtZKclkBbppOtSQWNAkfzjg0aYGHOgH2oRnyBXIJsuuG0UL+n1udyrKKcA06UYKCpwcCXVF5siwIQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8cceaa6f75bso26106556d6.0
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 02:53:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780653195; x=1781257995;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=frpOI/birEQQyfTPmqA3egHq/XurZUvg89/zJvb+Gi8=;
+        b=FIl6q3zS4G0tQOnqLe87MpY8JMJ0MSAbZfjt3SW0Wx3Sp4PNzA5KdiBGkceX7xM/SU
+         iaROYu0gRG/YIDu9aLbGe8boIcvZS9O+iypzvoGwQ+mUlDHq0Cm9l+SXojPWoEk1XStN
+         yL/n3b6r8pSoFoTclmuzS439aw7HlPuUnmseEqHIAIdH09E1DD3AX/7bCpTMr6sktWg+
+         l//wf6E0ZZwcX++bCUXRARuLUbr5wGKGlCKJifvf8YFiO/pk22U9v/7unlBmFGUAnInh
+         EJvRzLjAbG3S3UCpPu/S3aOwJpoEwm9u05svk9w1GJLssIbHaajsoFvaJs41/DaoNB+v
+         SKmg==
+X-Forwarded-Encrypted: i=1; AFNElJ+DgQJJNduOpuyGSPuyM1e0IdZweXef0QuOEY7V4iP03920TZ0puWk8zUELGapzs8h7kgq68clQA+KZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx46+u36MLtzhqP913Sg2FzNrMx60YT4JuiCW2iO7sGGRiIIWJh
+	VsmB6GCQPEIFPOpiONj7/f+efP9Tk62Rz+FCopgLp6Wt2pIUjSoblvmPzkL4zWTr
+X-Gm-Gg: Acq92OHtY2bjzIot5/kxJkDQuPEbfRdNRX4IuDKyfjAnLk0IQ5vNH7sFONWgvU10k0v
+	XUiRgocEwAE2Woc9YG/90Pit4TLzCWs3yXpCafpWLinHm3dvukbXFLk8CjsXKjGQmfjG0ae2XkY
+	i5706Wr35GiziFrxxPYzJx0u//FcNiFnNeDSmhOT54CiQFsZsgSL8eDEb1oAQEgTOj+vjNgA9a3
+	JBfYoS7YaV+3yc6N8EeAvGUDzC4/RIibDWnJ/M/vtrb9pbyqgcglFAbkYFaP7YkzPPMmN4c7MXl
+	/kD9SJKrCp0OYxxSiXnAL2YXaZ9KfaRwt9sOD3Bc8Ink7MWncMquOJQkKDPvdGiUDI0Ru6ygEYu
+	cnXNhwb1LYS9HMZ821CuI6wiOudMYL4l3BLmk7KdCyeV1zpAKXdVqi7o61Uaou/c1uHtO+MpL4b
+	MM9Kk3OU/VePhPz4levNodz7V0KgIzXyMNYCoo+2ZLw1E37c5/jKvnh3IxADxStUKoZPwI9GksY
+	c8=
+X-Received: by 2002:ad4:524a:0:b0:8cc:f135:529e with SMTP id 6a1803df08f44-8cee614a20bmr36371426d6.34.1780653194799;
+        Fri, 05 Jun 2026 02:53:14 -0700 (PDT)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com. [209.85.222.172])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ceccdcc968sm81711456d6.22.2026.06.05.02.53.14
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 05 Jun 2026 02:53:14 -0700 (PDT)
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-91591f19c30so276176085a.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 02:53:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+uYxY1+k3aHipQXpECxcXFDLAj2rerncB4YWHHcFI9PR6UPcYuDzGuARFz1MUyDTz5C4lrM4ujnpXz@vger.kernel.org
+X-Received: by 2002:a05:6102:5094:b0:631:26f6:701a with SMTP id
+ ada2fe7eead31-6ff156acf6fmr1089364137.29.1780652873088; Fri, 05 Jun 2026
+ 02:47:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+References: <20260603151642.4075678-1-claudiu.beznea@kernel.org>
+ <20260603151642.4075678-2-claudiu.beznea@kernel.org> <CAMuHMdU_T=G7os6KBG6xTnphnhQ9pQtd88BUkg61S7286bZmFw@mail.gmail.com>
+ <TY3PR01MB11346903E1B762B66EDB8CB8486102@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346903E1B762B66EDB8CB8486102@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 5 Jun 2026 11:47:41 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV5SE7KsiWsp+6eFpO2R_pA6k4+sjAQcOQFC+pgOY9chA@mail.gmail.com>
+X-Gm-Features: AVVi8Cd8crXCTmvuTR9VXD3Qx0xyM45BlA1nZ2BpfmDiwjntvYP3B16PpfLU8T8
+Message-ID: <CAMuHMdV5SE7KsiWsp+6eFpO2R_pA6k4+sjAQcOQFC+pgOY9chA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use raw_spinlock_irqsave()
+ on power source update
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Claudiu Beznea <claudiu.beznea@kernel.org>, 
+	"geert+renesas@glider.be" <geert+renesas@glider.be>, "linusw@kernel.org" <linusw@kernel.org>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	"Claudiu.Beznea" <claudiu.beznea@tuxon.dev>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-MT8196 encoder use common firmware interface, add compatible data to
-support MT8196 encoding, and need set dma mask to support 34bit.
+Hi Biju,
 
-Signed-off-by: Irui Wang <irui.wang@mediatek.com>
----
- .../vcodec/encoder/mtk_vcodec_enc_drv.c       | 22 +++++++++++++++++++
- .../vcodec/encoder/mtk_vcodec_enc_drv.h       |  2 ++
- 2 files changed, 24 insertions(+)
+On Thu, 4 Jun 2026 at 12:58, Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > From: Geert Uytterhoeven <geert@linux-m68k.org>
+> > Sent: 04 June 2026 10:49
+> > Subject: Re: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use raw_spinlock_irqsave() on power source update
+> >
+> > On Wed, 3 Jun 2026 at 17:17, Claudiu Beznea <claudiu.beznea@kernel.org> wrote:
+> > > From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > >
+> > > The rest of the driver uses
+> > > raw_spin_lock_irqsave()/raw_spin_unlock_irqrestore() for locking. To
+> > > avoid concurrency issues or deadlocks, use raw_spinlock_irqsave() via
+> > > the scoped_guard() helper for power source updates as well.
+>
+> Just a question, will rzg2l_set_power_source() called from IRQ context?
+>
+> This driver does not have IRQ. If any consumer calls rzg2l_set_power_source()
+> in IRQ contest?
+>
+> Have we seen any such dead locks/concurrency issue during any testing?
 
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 5f1feb3b07a6..bc6dfb564026 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -20,6 +20,8 @@
- #include "mtk_vcodec_enc_pm.h"
- #include "../common/mtk_vcodec_intr.h"
- 
-+#define VENC_DMA_BIT_MASK 34
-+
- static const struct mtk_video_fmt mtk_video_formats_output[] = {
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12M,
-@@ -298,6 +300,9 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 		goto err_res;
- 	}
- 
-+	if (dev->venc_pdata->set_dma_bit_mask)
-+		dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(VENC_DMA_BIT_MASK));
-+
- 	mutex_init(&dev->enc_mutex);
- 	mutex_init(&dev->dev_mutex);
- 	spin_lock_init(&dev->dev_ctx_lock);
-@@ -461,6 +466,22 @@ static const struct mtk_vcodec_enc_pdata mt8195_pdata = {
- 	.fw_init = mtk_vcodec_fw_scp_init,
- };
- 
-+static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
-+	.venc_model_num = 8196,
-+	.capture_formats = mtk_video_formats_capture_h264,
-+	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
-+	.output_formats = mtk_video_formats_output,
-+	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
-+	.min_bitrate = 64,
-+	.max_bitrate = 100000000,
-+	.core_id = VENC_SYS,
-+	.uses_common_fw_iface = true,
-+	.set_dma_bit_mask = true,
-+	.fw_type = VCP,
-+	.fw_init = mtk_vcodec_fw_vcp_init,
-+	.ipi_id = VCP_IPI_ENCODER,
-+};
-+
- static const struct of_device_id mtk_vcodec_enc_match[] = {
- 	{.compatible = "mediatek,mt8173-vcodec-enc",
- 			.data = &mt8173_avc_pdata},
-@@ -470,6 +491,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
- 	{.compatible = "mediatek,mt8188-vcodec-enc", .data = &mt8188_pdata},
- 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
- 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
-+	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
-index 8a69168c350e..1aad27008ce6 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
-@@ -32,6 +32,7 @@
-  * @core_id: stand for h264 or vp8 encode index
-  * @uses_34bit: whether the encoder uses 34-bit iova
-  * @uses_common_fw_iface: whether the encoder uses common driver interface
-+ * @set_dma_bit_mask: whether the encoder need set extra DMA bit mask
-  * @fw_type: firmware type (VPU, SCP, or VCP)
-  * @fw_init: firmware-specific initialization callback
-  * @ipi_id: IPI ID for encoder communication with firmware
-@@ -48,6 +49,7 @@ struct mtk_vcodec_enc_pdata {
- 	u8 core_id;
- 	bool uses_34bit;
- 	bool uses_common_fw_iface;
-+	bool set_dma_bit_mask;
- 	enum mtk_vcodec_fw_type fw_type;
- 	struct mtk_vcodec_fw *(*fw_init)(void *priv, enum mtk_vcodec_fw_use fw_use);
- 	int ipi_id;
+All pin control drivers use the irqsave variants.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.45.2
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
