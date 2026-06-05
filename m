@@ -1,154 +1,127 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B083FA5F3
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 10:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FB140B372
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 10:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780655426; cv=none; b=C4SFeyn60rtl/mCBlf1OTapgW7L0Ji/57DIv6X1/vsFaGJEjQaaodLGmV+xh2mJPF0wGgcHabsY82/QFSDdEIHsbC8m93SUl8q8zL9aSau9k3axkr9SdE8BpnB+UKEvXGN0Uqu5sS9lE+zkkzYFQF9FLlzNG6Fzlz7c54UKc4gI=
+	t=1780655427; cv=none; b=gTPxniNVldOxdwpNOyVwJHmpp8GvvPfPWB76vT8s6eJU+W64Nyw/WV4Wep+YoMMp7Z9vFXKyU0JE21TjnOPfk7ij5rOMLUoVp+cbmcfkwBFzR3ngWNUll3hDR+TIiws2zPu6mZFPdWQmBVGFtkJGyuAH+qMQG2XrSXiNDXQRpV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780655426; c=relaxed/simple;
-	bh=JCn5atXy7+hqmWtx95xYBqS+yLokJfA+OcgvkCj21+g=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eChPlR/1uKlXxDgiRwsXDRGCBxOP+nqCjDPBebXT6geOkp2kzinBUR6Zb5pFkIXw/SAG7K0hwD8AjV6AYHJfYFlUoVBAyrHUd8JfGJKEppElxJo9R27gsCseSrZ1cWjOTocuFnq49RyQkCnnPFX075RN+JZvZp9HdZGAKmv8M2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=dIiRNt5U; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1780655427; c=relaxed/simple;
+	bh=gnS8iRTedo9sLWcRxLMg15lZgLFIOaXZiTRitU221LY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z/gCVczmyQ1wf0e1quVSjUekr88Q6TrYRGSvx9BAhbnXDhKyN1UyckUz55iEs1ARCxsNGOD84qzBtldkq1rJjNZ9pKANPq8HkbaZcoPidVhNyoN4K3eG+L0s+j+Y3tew4kfAlrEg23J8ZtmTNJTi0EOWqPqCCWSjZy8P7s+Xt5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Y4NuGziS; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="dIiRNt5U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1780655425; x=1812191425;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JCn5atXy7+hqmWtx95xYBqS+yLokJfA+OcgvkCj21+g=;
-  b=dIiRNt5Ub6OoNVuP/UjAdEXMHIu8cWnu7j4YmM7eiFEKouiRLW1x0sbG
-   ZpzIIJNkioDTWi4VI1F3g4mbBMUTJQy0Ta8hQb7CBemc1ua4jcKCdwn0n
-   LlOSj2zCT8/PcWxlhMoH9Q7FVPh6GwjVtXItD5tGV9RtGJfO4RbilPCHj
-   6u/+vx1PpTiIg64RIujMUJLQua8doHk6WdgyeuG14aOBqOGvTE069Tbga
-   TZqK/Ve5iN2TlnPTHNz6fAcbdA1R5L7f7auKMa81wF2nqkIfr8k6Elqqt
-   2QFsEz8yX+v/ZIshww1A4ZNUm6OKRPA4D7UUq78ffNbkcKz0JQEzjXqQf
-   g==;
-X-CSE-ConnectionGUID: uJwvOoOWSnSZB8tKZGw+jg==
-X-CSE-MsgGUID: LJk6C14tRK6j2j0P7occ5g==
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="asc'?scan'208";a="58647235"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 03:30:18 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Fri, 5 Jun 2026 03:30:16 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 5 Jun 2026 03:30:15 -0700
-Date: Fri, 5 Jun 2026 11:29:31 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Jonas Rebmann <jre@pengutronix.de>
-CC: <devicetree@vger.kernel.org>, <conor+dt@kernel.org>, <robh@kernel.org>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	<sashiko-reviews@lists.linux.dev>
-Subject: Re: [PATCH v2 1/2] dt-bindings: leds: Add default-intensity property
-Message-ID: <20260605-factsheet-giving-69f8767bc5d7@wendy>
-References: <20260605-multicolor-default-v2-1-ed07271df6b0@pengutronix.de>
- <20260605073816.E916D1F00893@smtp.kernel.org>
- <3cbee0dc-87a9-4b87-9d22-b3e378fa57c3@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Y4NuGziS"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bec2ddee9bbso364131366b.3
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 03:30:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780655424; x=1781260224; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0KPVu9xlZpg9ZdiY7RZ3Kuoe5dMqAtDeJAk4rvD4TuY=;
+        b=Y4NuGziSZTd03acHFiarntfV/G7Rprv34WsD0NKPje0O1n1Cw7vvGX3EDgDMjr8qyp
+         SJp80SDGMabrgaAyYZmBIRk+V2+PVVMcYAs/RIUKfXOi6jR7Ke6+ORxe2gRnYNlbTS6y
+         2neN0CFItu2Zi546iBEH7JfGuzHNDjE4Yousi2WFPs0V59HE8qFyvQWp3bTNthfJtF9v
+         N3YmLXHjlkKf0T4RcjsHw0yC7UuhtZVjRV+GMTwTCJV6DsMunxLdJTE0n67EwEI41mKd
+         Gkq97NDeqP/+TsnkbZ6ebdPDrrCfQKjwHElubmoNQLQReS6klrNOOTOZ0enBR9MBua+u
+         Wjkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780655424; x=1781260224;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0KPVu9xlZpg9ZdiY7RZ3Kuoe5dMqAtDeJAk4rvD4TuY=;
+        b=jnlYqVceVnvyTMGOK3jTbjo0X0s0JKHoRdazVSNDt98WlNKr5ac457/seA4L9u8EuJ
+         cHqMPYKuZDeTKkyxUk3xLiWwL72yMDMnUm+5kqr1JZZrK415F6zOAZe5fC/NdDcKplMO
+         gcxAqe5LQqSxLjfsdR/Bvg3n+dX5S2k2TmMkQdMQmlS1kg3DTEpYfDURxKz1xDrbyjsr
+         3D8NyC9Qv7T3hc6zFkOoGX5V9QVpNLvjUM9lxGiiY/p9C29tkAy1CBEw9V85DOK98kRk
+         D7IYFeEMGyHPaNm6HbqlfXi5i3s7GL3HxS2zH2nFgIhgwgOkVhA5sr2LyjvBuAaYg5ko
+         4KEg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Bn2CEfnOqjGwYffKiuIM2I3yHYGv9ZwJhZe+qdtFE5PV/5aFgILpWxks+N7cTPINDhE3Tlu+1jGV9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5zaOg258uV3Qert6wyoPr/6LC9GtrFjH8fB2VFuP7C+HlIPf3
+	bQtq81snSJ/i96eydb8mY4+yK6pQt/cNIwZRim8oLItjRxVeV0W7YBD4DTwxzsPEnk4=
+X-Gm-Gg: Acq92OG7WH+ClUQHi9Aqe/VlTAmJfbtc25EWcmkxevQ1QDJVVc25IVrqdYTTTOX95/X
+	sqE1OCTHWG/aPVnC0pgwI2a2dKe84h/4zlRl1XZlnEQkWVFPFRBEg34tFxdtDCYP5N6NGWLvt9B
+	3jEyTSUSsWTAR+DoZNzG4e50QwFNoGh/YW6nhYVKZ0RW1ypawbbwPtU82WTjOsyXCWRTtCKP079
+	1PwUAJbRcJP1hpCYc82+afcClavfj49PsDtVrTKjqGplQHx/9VbaavJkgm1ciw3anKLZQXze1sE
+	KI1yDIILsf77/WM2QOiIr9AuT1fSBWkqkV2RMqAJFOjTRCzbD9LaJOwgJ3OYbTMbKKdYq0Ec+t5
+	oi5oQbbn+O9x8cBRiu7WLW/ngNOXjJRUbLo11RX9GEd8L81KFYAW1mSGLATzh39qQ+OCqAYoy9W
+	UQPcU9RfwojOuYy45Jg0gl03lHyGPeIO0foUrQQlOsFLS8
+X-Received: by 2002:a17:907:7b82:b0:bd2:bd3:1ef8 with SMTP id a640c23a62f3a-bf372d28df7mr147592166b.35.1780655424300;
+        Fri, 05 Jun 2026 03:30:24 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.32.74])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055303fc6sm446486166b.42.2026.06.05.03.30.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 05 Jun 2026 03:30:23 -0700 (PDT)
+Message-ID: <33989515-322d-4189-bf84-1d62a0c2d294@linaro.org>
+Date: Fri, 5 Jun 2026 11:30:22 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="nBlbV6IctgwcPDct"
-Content-Disposition: inline
-In-Reply-To: <3cbee0dc-87a9-4b87-9d22-b3e378fa57c3@pengutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Bryan O'Donoghue
+ <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
+ <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
+ <be3e1abe-5148-4247-930b-2e23164eea73@linaro.org>
+ <c6aetoiz3dcedlxwjmt5cqh2mngswtmanf6p4s2molemnviwdc@btotpaqwcsoy>
+ <f6c91099-0002-4580-a5e8-5611b089024b@linaro.org>
+ <v4vz7cistjb2iuzha4oykglar7duw4y2uuyhumzs33yvpwrxcu@i5tsg4uzpuwc>
+ <8eb709ce-3469-4303-9c3d-8d1a221cb8de@linaro.org>
+ <b6a8c860-8b47-4250-a428-5225d0e64a1c@oss.qualcomm.com>
+ <htxqjgwjczsghunsbvo44lwkadzeg2kp6wfcksf3hkmcubvs2d@cw5r67uxskvu>
+ <59331aa7-8430-4754-861c-4ba6a4810ccd@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <59331aa7-8430-4754-861c-4ba6a4810ccd@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---nBlbV6IctgwcPDct
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 05/06/2026 10:31, Nihal Kumar Gupta wrote:
+>> Having clock-names property doesn't mean that all values are valid.
+>>
+> CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
+> - Bits [0,2,4,6] → D-PHY data lanes(LN0, LN2, LN4, LN6)
+> - Bits [1,3,5] → C-PHY trio lanes(LN1, LN3, LN5)
+> - Bit [7] → D-PHY clock lane(LNCK) dedicated clock enable
+> 
+> In combo mode, only LN6 can be configurable as a clock lane.
+> 
+> The lane-enable computation in phy_qcom_mipi_csi2_lanes_enable() uses
+> BIT(data[i].pos) directly, assuming physical bit positions <0 2 4 6>,
+> but the DT [1] uses conventional indices <0 1 2 3>, producing 0x8F
+> instead of the correct 0xD5.
+> 
+> This goes unnoticed because the wrong value is immediately overwritten by the
+> hardcoded 0xD5 in lane_regs_x1e80100, making the dynamic computation effectively dead.
+> 
+> Could you please fix the driver to map logical lane indices, consistent with the gen2 camss convention.
+> 
+> [1]https://lore.kernel.org/all/20260326-x1e-camss-csi2-phy-dtsi- 
+> v3-5-1d5a9306116a@linaro.org
 
-On Fri, Jun 05, 2026 at 10:45:12AM +0200, Jonas Rebmann wrote:
-> Hello,
->=20
-> On 2026-06-05 09:38, sashiko-bot@kernel.org wrote:
-> > > @@ -73,6 +73,17 @@ properties:
-> > >         - keep
-> > >       default: off
-> > > +  default-intensity:
-> > > +    description:
-> > > +      The initial intensity of the LED color component. Used only du=
-ring
-> > > +      initialization. Defaults to 0. As the intensity of each sub-LE=
-D is
+That's great, thank you for sharing this information, it moves us from 
+"I think" to "the documentation says"
 
-I'd drop sentence two here, it just duplicates sentence one.
-
-> > > +      multiplied with the overall brightness, without this property =
-on a
-> > > +      sub-LED, the leds-pwm-multicolor-LED is effectively initialize=
-d at
-> > > +      minimum brightness regardless of its linux,default-trigger and
-> > > +      default-brightness properties.
-> >=20
-> > [Severity: Low]
-> > This isn't a bug, but the description for default-intensity explicitly
-> > mentions the specific driver name leds-pwm-multicolor-LED.
-> >=20
-> > Since common.yaml is intended to be a hardware-agnostic specification
-> > for all LED bindings, could this wording be updated to refer generically
-> > to the multicolor LED or simply the LED to avoid leaking an
-> > implementation detail into the generic schema?
->=20
-> I'll be leaving this as-is until human feedback.
->=20
-> I think documenting the property in common.yaml is correct because the
-> default-intensity itself is applicable to other multicolor-LED drivers,
-
-I think this is fine.
-
-> I just only implemented it for pwm-multicolor because that's what I use.
-> But we could just as well move it to leds-pwm-multicolor.yaml for as
-> long as that's the only driver supporting it.
-
-But this is probably also fine and it can be moved if other users crop
-up.
-
-> I intentionally included the "pwm" in that sentence because the
-> described issue that default-intensity is effectively required when
-> using linux,default-trigger may be pwm-multicolor specific.
-
-I don't think this is fine. However, it is almost certainly fine if you
-just do s/the leds-pwm-multicolour-LED/it/ because you're no longer
-tying the description to the name of one driver.
-
->=20
-> I would not like to omit the sentence either because this situation is
-> the reason why one might actually need (not just want)
-> default-intensity (for -pwm-).
->=20
-> Regards,
-> Jonas
->=20
-> --=20
-> Pengutronix e.K.                           | Jonas Rebmann               |
-> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
-
---nBlbV6IctgwcPDct
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiKlCwAKCRB4tDGHoIJi
-0jC0AQCEHoWLe+5TFNAzSgkGHZhdk8s9J0oaQGSzUePaWqfVggD/erMf7u/13mUV
-Eg5QTIjIrpEsYtxbkziBkXisFFcsMQs=
-=HsAO
------END PGP SIGNATURE-----
-
---nBlbV6IctgwcPDct--
+---
+bod
