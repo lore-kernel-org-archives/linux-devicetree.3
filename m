@@ -1,129 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525F3342CB1
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 16:33:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAE133D6D5
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 16:33:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780677197; cv=none; b=eWHMTWRDaPWpe8441Vqchpr5YZAXiVn2BWdSU4AKGmZOlwfYKGsfgV0oFAoAJerbY3xKWzN+swm2dz5vEmO2vUyL3Pf7dlBe88w9dz+SZ7qwQqdLRUIG4H+k8VwuGesMoCcL6czZkieLetjXoQvWyMwaR79+qQeChIzXRCuqKKQ=
+	t=1780677197; cv=none; b=YdcRfKJfEv0xSC/AYnRYQy4+vWQihsHYsKE1yFtcgZbYXUPc3EHjXMs1CkWtzM9PywZ9UTR/qMfzOkjmcqSFvFqRDezSgq9I2NQL9Zvn69ZYnHphUBd7XPs/VEwOFs1ZV/LwStnpvbpQn8FZ1JJU9V0Wx2dOW38XORyKIq38FJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780677197; c=relaxed/simple;
-	bh=DHDmaXa4Nkify3KK396PaXtpKcCD34GSHApE6f2CrAo=;
+	bh=diHDzqrHcJ9gk1alHJcd3boy26xQATOxGPrJmlI+vhM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D5+2n1J11zNIEF7Svjw8p/8qHwq1S8UtVAiPRBUpqV5xURJ3ksQu9ra4lVx1Jjp8GbHTBTLPCcNCIvwAskOGZaWeafbTKSaP2+SKP6d48VsVi15PiL18YrvhRbw5Ts4FpbGdSO+dBlgqlM76hrn8ioD1WBpYPKjmBRsu/uOMw3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZITWUrPj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=c7I1l+b/fm30WxrKDGh/0KrE0O2f7MjbNeXAeTS9dhEajyrZA1C7gsp3iecSDSS33kcXg3HiuNYSsnml7PnqF5qeLZduf81t/zgHgF6Sj3ITFrRKi1aZZsniYL+AiDW+l3e2eyjo5qd5lFbsMcY+PqFxZDrs3BkNhAD48LqTxEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HWaSUcHi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZITWUrPj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890081F00893;
-	Fri,  5 Jun 2026 16:33:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HWaSUcHi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20EB1F00899;
+	Fri,  5 Jun 2026 16:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780677191;
-	bh=Ib30e9pkVemNcAyXtDX9VsNwhcET0Xi40aVgfUP5do4=;
+	s=k20260515; t=1780677193;
+	bh=Trsp06jMCT6RwOWTxb9geTvy5Ku4Yn9JTiZ0jRKjY+w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZITWUrPjx/rHaVGgcq5lyuZQsHzWnvefMBbOZMe+oKQOQ/PnWRqcsGNol4KpUDtMP
-	 oCkSqzyx7hdFkTQTHDpFfInQiFCUC9DtCbilhc7jiQBpGvTd9QjesKEjIK+47mhQoz
-	 g016qs1vJOIMCg0FY+xESHMroqS6NrS7QStH8Wd98UnvQCrjSm9vocgBUQomiYlNU9
-	 adiwf5mp9X1DZlvAnKd8GyN4RDI3N0rE6PrRM6hTRoryWoXo9Ei0YOnSKL9MGbckuA
-	 trFkV35m7EmKHgQzK6vE5k2t8SneIxpeKOQ2+VJj6Fy5mWPBhtATP8MyErd3jeFPDb
-	 9kxro4JLXbJeQ==
+	b=HWaSUcHiiU9jZuXSwRB9wKjdhdWOOjlO9dbHywSm5kZJRTdw92SbcElba4+x+JBk2
+	 8yK107dLJL/D0PNLQNWfAl1Cu4reeKmkf43UYttMW94iwCn2Yzfb5IHOMCvDjOyu9e
+	 +xfIGmsMRJpc/PGIKIsSwBk4IJoC33jSlA69ChELa4kPWvpYrQuFpLg1DhhqYmj2D6
+	 aO2ZIlQGXpBuJmrt7DxySQyX+37D4zGr18iwwpVZwd1FGKq2wdN5gUu7QQGCQMUeuH
+	 R9T/T4puR+r3mwyEen1TeCY76VBByy8FQjFQYHjvxyf9l0PZAuus35bmqkjTBM+cCR
+	 eo4eXW34GoDYQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 02/13] net: ethernet: oa_tc6: Handle the OA
- TC6 SPI protected mode
+Subject: Re: [PATCH net-next v3 04/13] net: ethernet: oa_tc6: Export the C45
+ access functions
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ciprian Regus via B4 Relay" <devnull+ciprian.regus.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260604-adin1140-driver-v3-2-5debdb3173c4@analog.com>
-References: <20260604-adin1140-driver-v3-2-5debdb3173c4@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260604-adin1140-driver-v3-4-5debdb3173c4@analog.com>
+References: <20260604-adin1140-driver-v3-4-5debdb3173c4@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 16:33:10 +0000
-Message-Id: <20260605163311.890081F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 16:33:12 +0000
+Message-Id: <20260605163312.C20EB1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Low] Missing forward declaration of `struct mii_bus` in `include/linux/o=
+a_tc6.h` makes the header not self-contained.
+
 Pre-existing issues:
-- [High] The `size` parameter in `oa_tc6_check_ctrl_write_reply()` is typed=
- as `u8`, causing integer truncation for SPI transfer sizes of 256 bytes or=
- more. This leads to an underflow in the `memcmp` length calculation, resul=
-ting in a massive out-of-bounds memory read and kernel panic.
+- [High] Lockless check in `oa_tc6_start_xmit` races with the SPI thread, l=
+eaving the network transmit queue permanently stopped (TX deadlock).
 --
 
-commit afec089ed8ebeec6d0ad251fec33bc20cdb36a86
+commit 03dcdcc6f016c85b284a9ab34918acf9f00e484a
 Author: Ciprian Regus <ciprian.regus@analog.com>
 
-net: ethernet: oa_tc6: Handle the OA TC6 SPI protected mode
+net: ethernet: oa_tc6: Export the C45 access functions
 
-This commit implements the OA TC6 standard defined protected mode for
-control transactions. It handles 1's complement values of the data field
-in SPI transfer frames for integrity checking.
+This commit exports the C45 MDIO bus access functions from the oa_tc6
+driver. It modifies the function signatures to be non-static and adds
+their declarations to the driver header file.
 
-> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-> index 91a906a7918a2..baba5aad84dfa 100644
-> --- a/drivers/net/ethernet/oa_tc6.c
-> +++ b/drivers/net/ethernet/oa_tc6.c
+> diff --git a/include/linux/oa_tc6.h b/include/linux/oa_tc6.h
+> index 62e3d89f80ed0..2660eefa35043 100644
+> --- a/include/linux/oa_tc6.h
+> +++ b/include/linux/oa_tc6.h
+> @@ -31,3 +31,7 @@ int oa_tc6_read_registers(struct oa_tc6 *tc6, u32 addre=
+ss, u32 value[],
+>  			  u8 length);
+>  netdev_tx_t oa_tc6_start_xmit(struct oa_tc6 *tc6, struct sk_buff *skb);
+>  int oa_tc6_zero_align_receive_frame_enable(struct oa_tc6 *tc6);
+> +int oa_tc6_mdiobus_read_c45(struct mii_bus *bus, int addr, int devnum,
+> +			    int regnum);
+> +int oa_tc6_mdiobus_write_c45(struct mii_bus *bus, int addr, int devnum,
+> +			     int regnum, u16 val);
 
-[ ... ]
+[Severity: Low]
+Is a forward declaration for struct mii_bus missing in this header?
 
-> @@ -283,10 +320,10 @@ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, =
-u32 address, u32 value[],
->  	u16 size;
->  	int ret;
-> =20
-> -	/* Prepare control command and copy to SPI control buffer */
-> -	oa_tc6_prepare_ctrl_spi_buf(tc6, address, value, length, reg_op);
-> +	size =3D oa_tc6_calculate_ctrl_buf_size(length, tc6->prot_ctrl);
-> =20
-> -	size =3D oa_tc6_calculate_ctrl_buf_size(length);
-> +	/* Prepare control command and copy to SPI control buffer */
-> +	oa_tc6_prepare_ctrl_spi_buf(tc6, address, value, length, reg_op, size);
-> =20
->  	/* Perform SPI transfer */
->  	ret =3D oa_tc6_spi_transfer(tc6, OA_TC6_CTRL_HEADER, size);
-
-[ ... ]
-
-> @@ -301,7 +338,7 @@ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, u3=
-2 address, u32 value[],
->  		return oa_tc6_check_ctrl_write_reply(tc6, size);
+Since struct mii_bus is used in the parameter list but not declared, it is
+scoped to the function prototype. Any file including this header before
+declaring struct mii_bus will produce a warning about it not being visible
+outside of this declaration.
 
 [Severity: High]
-This is a pre-existing issue, but does passing the u16 size to
-oa_tc6_check_ctrl_write_reply() lead to an integer truncation here?
+This is a pre-existing issue, but could the lockless check in
+oa_tc6_start_xmit() race with the SPI thread and cause a TX deadlock?
 
-Looking at the function signature, oa_tc6_check_ctrl_write_reply() takes
-size as a u8:
+Looking at oa_tc6_start_xmit() in drivers/net/ethernet/oa_tc6.c:
 
-static int oa_tc6_check_ctrl_write_reply(struct oa_tc6 *tc6, u8 size)
+	if (tc6->waiting_tx_skb) {
+		netif_stop_queue(tc6->netdev);
+		return NETDEV_TX_BUSY;
+	}
 
-Since oa_tc6_calculate_ctrl_buf_size() computes a size up to 1032 bytes in
-protected mode, any value of 256 or more will be truncated when implicitly
-cast to a u8.
+If this evaluates to true, but concurrently the SPI kthread running
+oa_tc6_try_spi_transfer() takes tx_skb_lock, moves waiting_tx_skb to
+ongoing_tx_skb, and sets waiting_tx_skb to NULL, could the queue wake up be
+missed?
 
-If a write sequence results in a buffer size that truncates to a value
-less than OA_TC6_CTRL_IGNORED_SIZE (4 bytes), could the subtraction in
-the integrity check underflow?
+oa_tc6_try_spi_transfer() evaluates the queue status:
 
-static int oa_tc6_check_ctrl_write_reply(struct oa_tc6 *tc6, u8 size)
-{
-        ...
-        if (memcmp(tx_buf, rx_buf, size - OA_TC6_CTRL_IGNORED_SIZE))
-                return -EPROTO;
-}
+		if (!tc6->waiting_tx_skb && netif_queue_stopped(tc6->netdev))
+			netif_wake_queue(tc6->netdev);
 
-For example, if the calculated size is exactly 256 bytes (which can
-happen when writing 31 registers in protected mode), the truncated
-size becomes 0.
-
-The subtraction 0 - 4 results in -4, which becomes SIZE_MAX - 3 when
-passed as the size_t parameter to memcmp(), resulting in an
-out-of-bounds read and likely a kernel panic.
+If the kthread evaluates netif_queue_stopped() as false before
+oa_tc6_start_xmit() calls netif_stop_queue(), start_xmit will then
+unconditionally stop the queue. Since waiting_tx_skb is now NULL, the SPI
+thread will not process TX packets and wake the queue again, potentially
+deadlocking the TX path permanently unless RX traffic generates an interrup=
+t.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-adin1140-d=
-river-v3-0-5debdb3173c4@analog.com?part=3D2
+river-v3-0-5debdb3173c4@analog.com?part=3D4
