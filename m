@@ -1,166 +1,276 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2C84C77D7
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 10:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C4B30C629;
+	Fri,  5 Jun 2026 10:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780656789; cv=none; b=Y1BhaiAj2kQ7VepysIILyKK5hdM/MEi1iCdaKX4sfP4YD7Iga5+p4Qj4Rm2SCrgijo36O1JvZfa70vnv2vM+tojYiScj+v0gn2tDnMTtwgR5KobvVYkRZNaKijG+NnmlWswBDAKx3mDm/LQalzyzekK3sK+talp9KorIVwIAt04=
+	t=1780657091; cv=none; b=XkIxbGG5WmEYAJlwkGAna1vUAUxqcey72LDEP8w7ARNnmaNrfj57O6/HqHCzBFMI66d5uEYHuQKsReWEgKT3OFr4RImYA5X8WVQ/Fm9QLxM4n94LPTSElckyOpSo0D7ECgchoRsf1BHEZj3mFS0apDZwlPR8ztuZk0WmXSdPg/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780656789; c=relaxed/simple;
-	bh=eko3ejY1AKL8S/i3X/Usf5JDfNK2dEIqUhYr1ERevno=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E7Rty3VnUL53hJJTVAlyGudOthybBf36lWLgpgNayxC0Uym+j21ffFnrQFzcx4XZcGpL1CdAm0yTP7I/z3N9LzQb8cnSkGE7y2/51VHC3f675uomdrYiJ9DlPG61rP5KBkis5rbNdD3nb+8thEnLfZcO9nyd0TRR5P9ImhARvf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=iKMy53Fd; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1780657091; c=relaxed/simple;
+	bh=wGGVS93ASZq1Wi1PBhkxT8yl+BDnoXj9jlp0ra3d/2Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XnYVQa4TvHwH/jP5hSpo5jrXSTOBlKRDX4kAvcLP79nO4dg0Ujc8eZevta96Gy+ku8kbP73vNFU++n2Csce59AeWdQ0spLEfFrLL4gGF12fU2FZqo62TpZCKVJUHoXnQoPt1+At1OK8bvcsSICR8pJnmEN/aetUre4PBWrGWjPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZiGCqXRn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="iKMy53Fd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1780656786; x=1812192786;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eko3ejY1AKL8S/i3X/Usf5JDfNK2dEIqUhYr1ERevno=;
-  b=iKMy53FdvFcVl2Z40ywJicH9wxclttGHSRs3IaZ2uacrigS3qwwEGhtb
-   Zh6WY4jSDkMjYu/+c+ls1e/vgfG3HEw5QsuVaJmHFzEBI1K4VxoMNWUdK
-   +rsqQGP45JEH51LQAXtLrkR9slJVxKHLH4G7g0uWy1niJGsREdQoQ5qCa
-   1tQcSUnqcG9BbsNzByilk+XZYMuBt9GpEm5eKe/kNLOrgI/+rpQlEyYVi
-   13J80bfrQ18078BN/ZGVz7cIN3x1P2woHElh+8oQdnP9HqwK2LbnZ76V3
-   1cwtjwxdzr0HpnRCKR2zjEY0RMAWRrfOiwHcJLvNnQGLmBTAhy3lnt1/k
-   Q==;
-X-CSE-ConnectionGUID: /HEGIi8URK2IGcijAbVT8Q==
-X-CSE-MsgGUID: X/asKt5zRO2ijWBY7kwauA==
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="asc'?scan'208";a="59053131"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 05 Jun 2026 03:53:05 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex02.mchp-main.com (10.10.87.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 5 Jun 2026 03:53:05 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 5 Jun 2026 03:53:03 -0700
-Date: Fri, 5 Jun 2026 11:52:19 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Jonas Rebmann <jre@pengutronix.de>
-CC: <devicetree@vger.kernel.org>, <conor+dt@kernel.org>, <robh@kernel.org>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	<sashiko-reviews@lists.linux.dev>
-Subject: Re: [PATCH v2 1/2] dt-bindings: leds: Add default-intensity property
-Message-ID: <20260605-widow-griminess-7c5dd14aa308@wendy>
-References: <20260605-multicolor-default-v2-1-ed07271df6b0@pengutronix.de>
- <20260605073816.E916D1F00893@smtp.kernel.org>
- <3cbee0dc-87a9-4b87-9d22-b3e378fa57c3@pengutronix.de>
- <20260605-factsheet-giving-69f8767bc5d7@wendy>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZiGCqXRn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316DF1F00893;
+	Fri,  5 Jun 2026 10:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780657090;
+	bh=WoQYpwLqys1HKd275mQQZSCn3qoccYG+WZuCTOzum3w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZiGCqXRne5sfw4oDsmh3hq65XsR3qlUV0r1+QF46WkBZNPKu4kLAmvafGZcFPWDsc
+	 9weKbfS+lZW9H5Bd5hbuNHR1iYbt/nJqKJxadj4mfg2ynpd30gfym1um83kB6mF9r5
+	 O2BWQyjcDcBq9qswNlKgOYBrYpCQZDwCRrLGqINNB3MMJrNcSYlJwDF9ahzDLYViEk
+	 ztlX4LnoLQQc+7cFdSYXILpg9V9Fy+fH1yfkSERCRoVn4xRgJS/25GiAa6intP/ON2
+	 KDaNoZTfRORhmRw0xawSoSatd2zZrALwwlB/G3ElzY6BnROpvcQnkYcqXfwviRQVQu
+	 7XEZziNAe1aDw==
+Message-ID: <d82f95fe-4c74-4488-9b1c-ecf28a59a602@kernel.org>
+Date: Fri, 5 Jun 2026 12:58:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FG1YpU5IGLvFTb7z"
-Content-Disposition: inline
-In-Reply-To: <20260605-factsheet-giving-69f8767bc5d7@wendy>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/13] ASoC: qcom: Add Shikra QAIF support
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
+ <20260605103739.3557573-14-harendra.gautam@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260605103739.3557573-14-harendra.gautam@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---FG1YpU5IGLvFTb7z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 05/06/2026 12:37, Harendra Gautam wrote:
+> diff --git a/sound/soc/qcom/qaif-shikra.c b/sound/soc/qcom/qaif-shikra.c
+> new file mode 100644
+> index 000000000000..e83564503087
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-shikra.c
+> @@ -0,0 +1,585 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * qaif-shikra.c -- ALSA SoC CPU-Platform DAI driver for QTi QAIF
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <sound/pcm.h>
+> +#include <sound/soc.h>
+> +#include <linux/pm.h>
+> +#include "qaif.h"
+> +
+> +struct qaif_dmaidx_dai_map shikra_aif_dma_dai_map[] = {
 
-On Fri, Jun 05, 2026 at 11:29:31AM +0100, Conor Dooley wrote:
-> On Fri, Jun 05, 2026 at 10:45:12AM +0200, Jonas Rebmann wrote:
-> > Hello,
-> >=20
-> > On 2026-06-05 09:38, sashiko-bot@kernel.org wrote:
-> > > > @@ -73,6 +73,17 @@ properties:
-> > > >         - keep
-> > > >       default: off
-> > > > +  default-intensity:
-> > > > +    description:
-> > > > +      The initial intensity of the LED color component. Used only =
-during
-> > > > +      initialization. Defaults to 0. As the intensity of each sub-=
-LED is
->=20
-> I'd drop sentence two here, it just duplicates sentence one.
+Why is this global? And why not const?
 
-Also drop "Defaults to 0." since that duplicates the default: 0.
+I have doubts this passes builds without warnings.
 
-> > > > +      multiplied with the overall brightness, without this propert=
-y on a
-> > > > +      sub-LED, the leds-pwm-multicolor-LED is effectively initiali=
-zed at
-> > > > +      minimum brightness regardless of its linux,default-trigger a=
-nd
-> > > > +      default-brightness properties.
-> > >=20
-> > > [Severity: Low]
-> > > This isn't a bug, but the description for default-intensity explicitly
-> > > mentions the specific driver name leds-pwm-multicolor-LED.
-> > >=20
-> > > Since common.yaml is intended to be a hardware-agnostic specification
-> > > for all LED bindings, could this wording be updated to refer generica=
-lly
-> > > to the multicolor LED or simply the LED to avoid leaking an
-> > > implementation detail into the generic schema?
-> >=20
-> > I'll be leaving this as-is until human feedback.
-> >=20
-> > I think documenting the property in common.yaml is correct because the
-> > default-intensity itself is applicable to other multicolor-LED drivers,
->=20
-> I think this is fine.
->=20
-> > I just only implemented it for pwm-multicolor because that's what I use.
-> > But we could just as well move it to leds-pwm-multicolor.yaml for as
-> > long as that's the only driver supporting it.
->=20
-> But this is probably also fine and it can be moved if other users crop
-> up.
->=20
-> > I intentionally included the "pwm" in that sentence because the
-> > described issue that default-intensity is effectively required when
-> > using linux,default-trigger may be pwm-multicolor specific.
->=20
-> I don't think this is fine. However, it is almost certainly fine if you
-> just do s/the leds-pwm-multicolour-LED/it/ because you're no longer
-> tying the description to the name of one driver.
->=20
-> >=20
-> > I would not like to omit the sentence either because this situation is
-> > the reason why one might actually need (not just want)
-> > default-intensity (for -pwm-).
-> >=20
-> > Regards,
-> > Jonas
-> >=20
-> > --=20
-> > Pengutronix e.K.                           | Jonas Rebmann             =
-  |
-> > Steuerwalder Str. 21                       | http://www.pengutronix.de/=
-  |
-> > 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0  =
-  |
-> > Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9  =
-  |
+Please run standard kernel tools for static analysis, like coccinelle,
+smatch and sparse, and fix reported warnings. Also please check for
+warnings when building with W=1 for gcc and clang. Most of these
+commands (checks or W=1 build) can build specific targets, like some
+directory, to narrow the scope to only your code. The code here looks
+like it needs a fix. Feel free to get in touch if the warning is not clear.
+
+> +		{ QAIF_MI2S_TDM_AIF0 },
+> +		{ QAIF_MI2S_TDM_AIF1 },
+> +		{ QAIF_MI2S_TDM_AIF2 },
+> +		{ QAIF_MI2S_TDM_AIF3 }
+> +};
+> +
+
+...
+
+> +
+> +static int shikra_qaif_init(struct platform_device *pdev)
+> +{
+> +	struct qaif_drv_data *drvdata = platform_get_drvdata(pdev);
+> +	const struct qaif_variant *v = drvdata->variant;
+> +	struct device *dev = &pdev->dev;
+> +	int ret, i;
+> +
+> +	if (!v) {
+> +		dev_err(dev, "No variant data\n");
+> +		return -EINVAL;
+> +	}
+> +	if (v->num_clks == 0 || v->num_clks > QAIF_MAX_VARIANT_CLKS) {
+> +		dev_err(dev, "Invalid clock count: %d\n", v->num_clks);
+> +		return -EINVAL;
+> +	}
+> +	drvdata->clks = devm_kcalloc(dev, v->num_clks,
+> +				     sizeof(*drvdata->clks), GFP_KERNEL);
+> +	if (!drvdata->clks)
+> +		return -ENOMEM;
+> +
+> +	drvdata->num_clks = v->num_clks;
+> +
+> +	for (i = 0; i < drvdata->num_clks; i++)
+> +		drvdata->clks[i].id = v->clk_name[i];
+> +
+> +	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to get clocks %d\n", ret);
+
+Is this probe path? If so, use dev_err_probe - please look at other
+drivers how they are written.
+
+Also, probe calls should be obvious, so often suffixed  "probe" not
+"init". But maybe it's not probe path...
+
+> +		return ret;
+> +	}
+> +
+> +	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+> +	if (ret) {
+> +		dev_err(dev, "shikra clk_enable failed\n");
+> +		return ret;
+> +	}
+> +
 
 
+...
 
---FG1YpU5IGLvFTb7z
-Content-Type: application/pgp-signature; name="signature.asc"
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_BIT_WIDTH_CFG (0x4008 + 0x1000*a) */
+> +	.aif_sample_width_rx					= REG_FIELD_ID(0x4008, 24, 28, 4, 0x1000),
+> +	.aif_sample_width_tx					= REG_FIELD_ID(0x4008, 16, 20, 4, 0x1000),
+> +	.aif_slot_width_rx						= REG_FIELD_ID(0x4008, 8, 12, 4, 0x1000),
+> +	.aif_slot_width_tx						= REG_FIELD_ID(0x4008, 0, 4, 4, 0x1000),
+> +
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_FRAME_CFG (0x400C + 0x1000*a) */
+> +	.aif_bits_per_lane						= REG_FIELD_ID(0x400C, 0, 9, 4, 0x1000),
+> +
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_ACTV_SLOT_EN_TX (0x4010 + 0x1000*a) */
+> +	.aif_slot_en_tx_mask					= REG_FIELD_ID(0x4010, 0, 31, 4, 0x1000),
+> +
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_ACTV_SLOT_EN_RX (0x4030 + 0x1000*a) */
+> +	.aif_slot_en_rx_mask					= REG_FIELD_ID(0x4030, 0, 31, 4, 0x1000),
+> +
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_LANE_CFG (0x4050 + 0x1000*a) */
+> +	.aif_loopback_en						= REG_FIELD_ID(0x4050, 31, 31, 4, 0x1000),
+> +	.aif_ctrl_data_oe						= REG_FIELD_ID(0x4050, 16, 16, 4, 0x1000),
+> +	.aif_lane_en							= REG_FIELD_ID(0x4050, 8, 15, 4, 0x1000),
+> +	.aif_lane_dir							= REG_FIELD_ID(0x4050, 0, 7, 4, 0x1000),
+> +
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_MI2S_CFG (0x4054 + 0x1000*a) */
+> +	.aif_mono_mode_rx						= REG_FIELD_ID(0x4054, 1, 1, 4, 0x1000),
+> +	.aif_mono_mode_tx						= REG_FIELD_ID(0x4054, 0, 0, 4, 0x1000),
+> +
+> +	/* AUDIO_CORE_QAIF_AUD_INTFa_CFG (0x4058 + 0x1000*a) */
+> +	.aif_full_cycle_en						= REG_FIELD_ID(0x4058, 0, 0, 4, 0x1000),
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiKqYwAKCRB4tDGHoIJi
-0vsfAQD2B/woMBteEYBiU98oBWwXt5vsU+GiwOOpiWiZTszvRwEAiB3uNnGhqzDK
-tAIrzUODvmUPoCrTVrs+y+V7IiZZrgM=
-=VEdq
------END PGP SIGNATURE-----
+Honestly, I find everything above completely unreadable.
 
---FG1YpU5IGLvFTb7z--
+> +
+> +	.clk_name			= (const char*[]) {
+> +							"lpass_config_clk",
+> +							"lpass_core_axim_clk",
+> +							"bus_clk"
+> +						},
+
+Same here.
+
+> +	.num_clks			= 3,
+> +
+> +	.dai_driver			= shikra_qaif_cpu_dai_driver,
+> +	.num_dai			= ARRAY_SIZE(shikra_qaif_cpu_dai_driver),
+> +
+> +	.dai_osr_clk_names		= (const char *[]) {
+> +							"null"
+> +							},
+> +	.dai_bit_clk_names		= (const char *[]) {
+> +							"aif_if0_ibit_clk",
+> +							"aif_if1_ibit_clk",
+> +							"aif_if2_ibit_clk",
+> +							"aif_if3_ibit_clk"
+> +							},
+> +	.init					= shikra_qaif_init,
+> +	.exit					= shikra_qaif_exit,
+> +	.alloc_stream_dma_idx	= shikra_qaif_alloc_stream_dma_idx,
+> +	.free_stream_dma_idx	= shikra_qaif_free_stream_dma_idx,	
+> +	.get_dma_idx			= shikra_qaif_get_dma_idx,
+> +};
+> +
+> +static const struct of_device_id shikra_qaif_cpu_device_id[] = {
+> +	{.compatible = "qcom,shikra-qaif-cpu", .data = &shikra_qaif_data},
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, shikra_qaif_cpu_device_id);
+> +
+> +static struct platform_driver shikra_qaif_cpu_platform_driver = {
+> +	.driver = {
+> +		.name = "shikra-qaif-cpu",
+> +		.of_match_table = of_match_ptr(shikra_qaif_cpu_device_id),
+
+You have warnings here. Drop of_match_ptr.
+
+> +		.pm = &shikra_qaif_pm_ops,
+> +	},
+> +	.probe = asoc_qcom_qaif_cpu_platform_probe,
+> +	.remove = asoc_qcom_qaif_cpu_platform_remove,
+> +	.shutdown = asoc_qcom_qaif_cpu_platform_shutdown,
+> +};
+> +module_platform_driver(shikra_qaif_cpu_platform_driver);
+> +
+> +MODULE_DESCRIPTION("Qualcomm Audio Interface (QAIF) Shikra variant driver");
+> +MODULE_AUTHOR("Harendra Gautam <harendra.gautam@oss.qualcomm.com>");
+> +MODULE_LICENSE("GPL");
+
+
+Best regards,
+Krzysztof
