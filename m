@@ -1,202 +1,276 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0351D4D2EC1
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83B441931B;
+	Fri,  5 Jun 2026 11:02:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780657341; cv=none; b=uP/6ufUrSsaMdz6tPhTYK73vcU6g/blvrtWjrXLoHYmNyklcNXXHXADHZXh/9FBBLsRdldE9pFZftk5sKNkNJFpaOB8rTRV7PYVXFkXmHSBC0qjYT6mR/PMlFcXG+8hdSGznVH8abUph9dUtM5Res9NrKFeas+C6LoK080ckBzA=
+	t=1780657372; cv=none; b=RaMK7IQ+HaXK1JmdVPB04FfinMhhf5WC03Ca82Gum3TD1EqQrCoZ3EMh/7E8Cpprj7lkIuCewyz03SH3l01c9R57eVt+8ALuKHX2asp3BUm4DaaO01VwXd0EsP6cmNx/mjqjgV2yhPP3sAQQT0SjJG+sXe5hVWDvHr3r1pnIZQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780657341; c=relaxed/simple;
-	bh=nl02YEq7sZPA5oj8nsu45AmKEX0aB5pdRyBs7RbQgsU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GP3Wo5mHkOrlERu0nPq9KnNZoycO46wbRN6tm5We0oNXt5vucJmP03XyPy6G1hTvULXv2h/heMC0f4aXT7RYzB2wsJPTxnFR10JYlMNVhesJHQESInZKowznRqc7Pjl8fI7bAnkCASwD6eEtHE/VS9X9Cb73WgECdkb+ixP/968=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6Zgm66D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780657372; c=relaxed/simple;
+	bh=ATKuZrmjh0+nxYwrl5UozVjZ4MFh7N8Xie5aZebTgJo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FuwoVq3fM+kfTSlwsIw8WF/PEQky5YyRf5uTGTWdwvGREjA40KQIyv50PhH0miBNXpp6INA0yYa+CZHS+EWcjxQgFKJlRRfprMUBiUjtd+QI8LI2aPnHB6FpNHBuTJ2pR8J8Fpd4UQyft0BSIF0UMOk8UDsk0JAc/bjatXNyedc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArwlXFJ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6Zgm66D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4501F00893;
-	Fri,  5 Jun 2026 11:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArwlXFJ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF681F00893;
+	Fri,  5 Jun 2026 11:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780657339;
-	bh=YQaoIUExIMzdrJm/CtspNpPzxZEcZFl9sw7EXzzTcXM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U6Zgm66DcKUaBa7vQnESQkrJsmV24Bt2/Q78zxPCa4Qp4gG81EB2/GxSKp4PofHGv
-	 EOif3t1zklMZITcqxlnJuuzwI38IZXBOIru6gr2hGUcyfzkPviiiGEKpwG3+rSRyxU
-	 tYej5aDqmpMNMDltAknvOqcWdK9YrsmB91miTpzTfeg1KHzUx3MFtyzb34+Y7RGdCd
-	 teFakwbBouqmu1pV7wO6vsNxZNfrZnfXCmFhT5uP4ik68fVqbFpma2vV0CIRAZD6fU
-	 rcnQtAuUz4TtLuPoagKgyBoSm/XkX540Jc9YaNBXyPPQHFluIU/Pa5fNh1GNIQNqBi
-	 mQtt3SCR5nm0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/13] ASoC: qcom: Add Shikra QAIF support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260605103739.3557573-14-harendra.gautam@oss.qualcomm.com>
-References: <20260605103739.3557573-14-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 11:02:18 +0000
-Message-Id: <20260605110219.5B4501F00893@smtp.kernel.org>
+	s=k20260515; t=1780657371;
+	bh=SOrwkWwzDpnmIIcj/befEioPqvfrPdVPjZKeLNjoeGQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ArwlXFJ4RJftwlThQuOdEOEcjNo3dB9sqJ7OS44qN+HFaJcW63P+//yzsU86ayT38
+	 +38jJ+QhXylXI5/ux7t1SPIQL5WNPA3Wb+xN/sdQfcgpmSp2x1Zc30F3Rw3WYELSGu
+	 c/uWq8ieO9o3KxCkbpR+PPhR1g8TiYZoK9X2+rQtLOi+tmX/SsOBqasLnUPnO9gH53
+	 g/qRPAp9LwSwcy1K5KFw+XEoMH05OZdfnpZEgNJqdkFGbuqtTfogqg6RtAnZjFNDsF
+	 bXaNbyxo0nY7ESq7nWQ65hXlhglLsVwPpvNFV36tnAMMJTbYjpbHy1Yy7UyXbPxxOg
+	 xcx/QVEgLZqJA==
+Message-ID: <0f0fe294-a6c8-4b2d-a038-9f699845ab58@kernel.org>
+Date: Fri, 5 Jun 2026 13:02:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/13] ASoC: qcom: Add QAIF regmap, DT parsing and
+ platform init
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
+ <20260605103739.3557573-11-harendra.gautam@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260605103739.3557573-11-harendra.gautam@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Core clocks are disabled in `remove()` before devres unregisters t=
-he ALSA component and IRQ handler, creating a race condition for bus crashe=
-s.
-- [Low] DAI mapping arrays are missing the `static` keyword, polluting the =
-global namespace.
-- [Low] Latent build breakage risk due to `module_platform_driver()` within=
- a variant file linked into a generic module.
-- [Low] Using `of_match_ptr()` with an unconditionally defined match table =
-triggers compiler warnings when `CONFIG_OF` is disabled.
-
-Pre-existing issues:
-- [High] Unprotected increment and decrement of the global reference counte=
-r `qaif_init_ref_cnt`.
---
-
-commit 977cd466322e3f1bab9395ba1c325fb256edb595
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-
-ASoC: qcom: Add Shikra QAIF support
-
-This commit adds the Shikra variant data for the Qualcomm Audio Interface
-driver. It provides the register layout, DMA-to-DAI mappings, clocks, and
-DAI descriptors required to enable playback or capture on Shikra platforms.
-The new file is built as part of the snd-soc-qcom-qaif module.
-
-[ ... ]
-
-> diff --git a/sound/soc/qcom/qaif-shikra.c b/sound/soc/qcom/qaif-shikra.c
-> new file mode 100644
-> index 0000000000000..e835645030879
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-shikra.c
-> @@ -0,0 +1,585 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * qaif-shikra.c -- ALSA SoC CPU-Platform DAI driver for QTi QAIF
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <sound/pcm.h>
-> +#include <sound/soc.h>
-> +#include <linux/pm.h>
-> +#include "qaif.h"
-> +
-> +struct qaif_dmaidx_dai_map shikra_aif_dma_dai_map[] =3D {
-> +		{ QAIF_MI2S_TDM_AIF0 },
-> +		{ QAIF_MI2S_TDM_AIF1 },
-> +		{ QAIF_MI2S_TDM_AIF2 },
-> +		{ QAIF_MI2S_TDM_AIF3 }
-> +};
-> +
-> +struct qaif_dmaidx_dai_map shikra_cif_rx_dma_dai_map[] =3D {
-> +		{ QAIF_CDC_DMA_RX0 },
-> +		{ QAIF_CDC_DMA_RX1 },
-> +		{ QAIF_CDC_DMA_RX2 },
-> +		{ QAIF_CDC_DMA_RX3 }
-> +};
-> +
-> +struct qaif_dmaidx_dai_map shikra_cif_tx_dma_dai_map[] =3D {
-> +		{ QAIF_CDC_DMA_TX0 },
-> +		{ QAIF_CDC_DMA_TX1 },
-> +		{ QAIF_CDC_DMA_TX2 },
-> +		{ QAIF_CDC_DMA_TX3 }
-> +};
-> +
-> +struct qaif_dmaidx_dai_map shikra_cif_va_dma_dai_map[] =3D {
-> +		{ QAIF_CDC_DMA_VA_TX0 },
-> +		{ QAIF_CDC_DMA_VA_TX1 },
-> +		{ QAIF_CDC_DMA_VA_TX2 },
-> +		{ QAIF_CDC_DMA_VA_TX3 }
-> +};
-
-[Severity: Low]
-Are these mapping arrays intended to be globally visible?
-
-Since they appear to only be used locally in shikra_qaif_get_dma_idx(),
-could they be marked static to prevent namespace pollution and avoid
-sparse warnings?
-
-[ ... ]
-
-> +static int shikra_qaif_exit(struct platform_device *pdev)
+On 05/06/2026 12:37, Harendra Gautam wrote:
+> +int asoc_qcom_qaif_cpu_platform_probe(struct platform_device *pdev)
 > +{
-> +	struct qaif_drv_data *drvdata =3D platform_get_drvdata(pdev);
+> +	struct qaif_drv_data *drvdata;
+> +	struct resource *res;
+> +	const struct qaif_variant *variant;
+> +	struct device *dev = &pdev->dev;
+> +	const struct of_device_id *match;
+> +	int ret, i, dai_id, idx;
+> +	bool variant_init_done = false;
 > +
-> +	if (!drvdata || !drvdata->clks)
+> +	dev_dbg(dev, "%s\n", __func__);
+
+NAK, see further. This is clear, old known antipattern. Don't send such
+code anymore.
+
+> +	drvdata = devm_kzalloc(dev, sizeof(struct qaif_drv_data), GFP_KERNEL);
+
+sizeof(*), and with third argument - lack of dev_err_probe - means you
+just sent us old junk vendor code.
+
+That's waste of the time - we will have to point you all standard
+issues, we solved already years ago.
+
+No. Drop all this code and start from current kernel code as your base
+so you won't be repeating same old poor patterns.
+
+> +	if (!drvdata)
+> +		return -ENOMEM;
+> +	platform_set_drvdata(pdev, drvdata);
+> +
+> +	match = of_match_device(dev->driver->of_match_table, dev);
+> +	if (!match || !match->data)
 > +		return -EINVAL;
 > +
-> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-> +	return 0;
+> +	drvdata->variant = (const struct qaif_variant *)match->data;
+
+Why do you need to cast?
+
+> +	variant = drvdata->variant;
+> +	if (!variant) {
+> +		dev_err(dev, "No variant data\n");
+
+Is it a possible condition? Probably no, so why printing messages?
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = of_qaif_parse_aif_intf_cfg(dev, drvdata);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to parse aif interfaces: %d\n", ret);
+> +		return -EINVAL;
+> +	}
+> +
+> +	drvdata->audio_qaif =
+> +			devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(drvdata->audio_qaif))
+> +		return PTR_ERR(drvdata->audio_qaif);
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return -EINVAL;
+> +
+> +	audio_qaif_regmap_config.max_register = resource_size(res);
+> +
+> +	drvdata->audio_qaif_map = devm_regmap_init_mmio(dev, drvdata->audio_qaif,
+> +				&audio_qaif_regmap_config);
+
+Your code is barely readable.
+
+> +	if (IS_ERR(drvdata->audio_qaif_map))
+> +		return PTR_ERR(drvdata->audio_qaif_map);
+> +
+> +	ret = of_qaif_cdc_dma_clks_parse(dev, drvdata);
+> +	if (ret) {
+> +		dev_err(dev, "failed to get cdc dma clocks %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (variant->init) {
+> +		ret = variant->init(pdev);
+> +		if (ret) {
+> +			dev_err(dev, "error initializing variant: %d\n", ret);
+> +			return ret;
+> +		}
+> +		variant_init_done = true;
+> +	}
+> +
+> +	for (i = 0; i < variant->num_dai; i++) {
+> +		dai_id = variant->dai_driver[i].id;
+> +		if (is_cif_dma_port(dai_id))
+> +			continue;
+> +		idx = variant->get_dma_idx(dai_id);
+> +		if (idx < 0)
+> +			continue;
+> +
+> +		drvdata->mi2s_bit_clk[idx] = devm_clk_get(dev,
+> +						variant->dai_bit_clk_names[idx]);
+> +		if (IS_ERR(drvdata->mi2s_bit_clk[idx])) {
+> +			dev_err(dev,
+> +				"error getting %s: %ld\n",
+> +				variant->dai_bit_clk_names[idx],
+> +				PTR_ERR(drvdata->mi2s_bit_clk[idx]));
+> +			ret = PTR_ERR(drvdata->mi2s_bit_clk[idx]);
+
+Heh....
+
+> +			goto err;
+> +		}
+> +	}
+> +
+> +	ret = qaif_aif_cpu_init_bitfields(dev, drvdata->audio_qaif_map);
+> +	if (ret) {
+> +		dev_err(dev, "error init cif bitfield: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret = qaif_aif_cfg_cpu_init_bitfields(dev, drvdata->audio_qaif_map);
+> +	if (ret) {
+> +		dev_err(dev, "error init aif_intfctl field: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret = qaif_cif_cpu_init_bitfields(dev, drvdata->audio_qaif_map);
+> +	if (ret) {
+> +		dev_err(dev, "error init cif bitfield: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret = devm_snd_soc_register_component(dev, &qaif_cpu_comp_driver,
+> +								variant->dai_driver,
+> +								variant->num_dai);
+> +	if (ret) {
+> +		dev_err(dev, "error registering cpu driver: %d\n", ret);
+
+Why aren't you using modern style? dev_err_probe?
+
+> +		goto err;
+> +	}
+> +
+> +	ret = asoc_qcom_qaif_platform_register(pdev);
+> +	if (ret) {
+> +		dev_err(dev, "error registering platform driver: %d\n", ret);
+> +		goto err;
+> +	}
+> +	dev_dbg(&pdev->dev, "%s: QAIF CPU-Platform Driver Registered Successfully\n", __func__);
+
+Drop. This does not look like useful printk message. Drivers should be
+silent on success:
+https://elixir.bootlin.com/linux/v6.15-rc7/source/Documentation/process/coding-style.rst#L913
+https://elixir.bootlin.com/linux/v6.15-rc7/source/Documentation/process/debugging/driver_development_debugging_guide.rst#L79
+
+Especially trivial probe successes are useless - core handles it.
+
+> +err:
+> +	if (ret && variant_init_done && variant->exit)
+> +		variant->exit(pdev);
+> +	return ret;
 > +}
+> +EXPORT_SYMBOL_GPL(asoc_qcom_qaif_cpu_platform_probe);
 
-[Severity: High]
-Does disabling core clocks here create a race condition during teardown?
+Every exported function should have kerneldoc.
 
-If shikra_qaif_exit() disables clocks directly from the remove() callback,
-devm-managed resources like the QAIF IRQ handler and ALSA component will
-still be active since devres cleanup happens after remove() completes.
+> +
+> +void asoc_qcom_qaif_cpu_platform_remove(struct platform_device *pdev)
+> +{
+> +	struct qaif_drv_data *drvdata = platform_get_drvdata(pdev);
+> +
+> +	if (drvdata->variant->exit)
+> +		drvdata->variant->exit(pdev);
+> +}
+> +EXPORT_SYMBOL_GPL(asoc_qcom_qaif_cpu_platform_remove);
+> +
 
-If an IRQ fires or userspace accesses ALSA during this window, could
-accessing the unclocked regmap trigger a synchronous external abort?
 
-[ ... ]
 
-> +static struct platform_driver shikra_qaif_cpu_platform_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "shikra-qaif-cpu",
-> +		.of_match_table =3D of_match_ptr(shikra_qaif_cpu_device_id),
 
-[Severity: Low]
-Could using of_match_ptr() here cause a compiler warning when CONFIG_OF is
-disabled?
-
-The shikra_qaif_cpu_device_id array is compiled unconditionally, so if
-of_match_ptr() evaluates to NULL on non-OF builds, the array would be
-left unreferenced.
-
-> +		.pm =3D &shikra_qaif_pm_ops,
-> +	},
-> +	.probe =3D asoc_qcom_qaif_cpu_platform_probe,
-> +	.remove =3D asoc_qcom_qaif_cpu_platform_remove,
-> +	.shutdown =3D asoc_qcom_qaif_cpu_platform_shutdown,
-> +};
-> +module_platform_driver(shikra_qaif_cpu_platform_driver);
-
-[Severity: Low]
-Does using module_platform_driver() in a variant file cause issues for the
-generic module?
-
-Since snd-soc-qcom-qaif.ko links multiple object files, tying the module's
-init and cleanup symbols directly to the Shikra variant might cause a multi=
-ple
-definition build failure if another variant file is added later that also
-calls module_platform_driver().
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in the
-linked qaif-platform.c driver. When qaif_platform_pcmops_open() increments
-the counter:
-
-qaif_platform_pcmops_open()
-    drvdata->qaif_init_ref_cnt++;
-
-Since different DAIs map to different ALSA PCM streams, their open and
-close callbacks can execute concurrently. Does this non-atomic increment
-allow two concurrent opens to both read the counter as 0, race on the
-hardware initialization, and corrupt the refcount?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605103739.3557=
-573-1-harendra.gautam@oss.qualcomm.com?part=3D13
+Best regards,
+Krzysztof
