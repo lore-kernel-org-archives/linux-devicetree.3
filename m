@@ -1,98 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AB830649C
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 07:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C664447DD7E
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 07:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780645098; cv=none; b=N1nyXGVfeCOl5eMp5IarEq7Z211W1Vg4IxDnB01AIN2GCkWXfbGe70o8SBswHc+2m1NKStyLFTrZkgYvzbXFlF+9KLiEmgIygiqiPd1r77xhucAG8+jWUa5JCrvYLsAA+qRLnnydj+XnUmZT2uUIgLpLAyEHEMHqpTb7KcGOgzA=
+	t=1780645346; cv=none; b=o0TUNFUlYb+XaSQpwMGLQj8NnX53+R119EFPGzLwHQlRJ3SY1h75xfDpjOt1ClwJ6044v9Xmi836c/gz2EIjGBBF13nSXpp+URrSBMea1SdXBeG8lSS4+KU68f+JMfmh/xkJZo9D1gP2aCECJeIJ1bkkLuN4SpmGDKGVibW1VdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780645098; c=relaxed/simple;
-	bh=9+1FfuL96+G5EbBugIjo04s5a5tpFrER27oKSs4YlRE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q8Ag2SnUb9vSYLLz/IQK41WbXB67bMnB8LQBTq5nbcw2rTu5FTP8wljIn2pcVVG/AupSK0pRqhsI3Jb2whaOX3lEBw6A8DO97AqA+M6HrUcb6Md7wncvTgZpC2GuoUUIviSNIZ2MqYlQwF0YNCCwCNLDcJ2VTeHYqeQVYppr5pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kiq9X1e2; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kiq9X1e2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E916D1F00893;
-	Fri,  5 Jun 2026 07:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780645097;
-	bh=AxAylSaNTM/DaOJ9SVGH0wt3dFesgUlu6V7gNVtEq6U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kiq9X1e28PYaWtdooPGihO9Kqt+GV8x2JvPQh0F+N9si9DBTsZKq0oHzpKxNRrfaF
-	 endX445yXHLSjrQtLb9UHmt8imd8K4cc67Q9usogsQTFWWGv5EHIhKR8eo+dtKP9QE
-	 an9qO3qyLRGhi5XYFspgv82X6yo3L5EhvN5JLGzMOKdv3JoAxvqfxh2AuhKZITsNPO
-	 DC74TgsKRLd7VvYmxnkhpDXA/MINsjNyGY23H8QJXTuUp+o8WVokGpz6/o6SmgYAtW
-	 jzHzMyGqY9w6oioXn8yeljaXoxN8CzgXSbfrALsINPjX7IJMS5JlbAiEcczS/nR1dA
-	 B0sJJ/u1q0MMA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: leds: Add default-intensity
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonas Rebmann" <jre@pengutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260605-multicolor-default-v2-1-ed07271df6b0@pengutronix.de>
-References: <20260605-multicolor-default-v2-1-ed07271df6b0@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1780645346; c=relaxed/simple;
+	bh=e5UX+o3Ku7JIQHG4csWXu1S6QXVTcVMCPLgKWMI7c8Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=n7i2HdEzfY2UGKg8WloxELGJduzo0xHLuy1p9iMJ/a9BOkMLTlG1KI0yj+yjQ9pTmSTYOB+sJ2hs0jpAsdTMY3N+P0JvuB2bJFCienAvhl/NgDzbK5R22h/tjm/H0umkjsnFUFPhVyykyl+79oBDhqsN7l+IjkD9Ixo63JocEhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wVPBx-0001an-EM; Fri, 05 Jun 2026 09:42:09 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wVPBw-001Cpv-25;
+	Fri, 05 Jun 2026 09:42:08 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wVPBw-000000002rx-2NXJ;
+	Fri, 05 Jun 2026 09:42:08 +0200
+Message-ID: <78e26b2459b89b107b24bf9f86d251ba16be3848.camel@pengutronix.de>
+Subject: Re: [PATCH v2 4/5] clk: cix: add sky1 audss clock controller
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: joakim.zhang@cixtech.com, mturquette@baylibre.com, sboyd@kernel.org, 
+	bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	gary.yang@cixtech.com
+Cc: cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Date: Fri, 05 Jun 2026 09:42:08 +0200
+In-Reply-To: <20260605032225.523669-5-joakim.zhang@cixtech.com>
+References: <20260605032225.523669-1-joakim.zhang@cixtech.com>
+	 <20260605032225.523669-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 07:38:16 +0000
-Message-Id: <20260605073816.E916D1F00893@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Driver-specific name hardcoded in the generic `common.yaml` schema =
-description.
---
-
-commit 9beb7b4f88908b2864bd519c143e1a370071aec1
-Author: Jonas Rebmann <jre@pengutronix.de>
-
-dt-bindings: leds: Add default-intensity property
-
-This commit documents the default-intensity property to set a default color
-on multicolor LEDs. It also updates the pwm-multicolor binding and its
-example to support this new initialization property.
-
-> diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documen=
-tation/devicetree/bindings/leds/common.yaml
-> index f4e44b33f56d1..a34de0a34b422 100644
-> --- a/Documentation/devicetree/bindings/leds/common.yaml
-> +++ b/Documentation/devicetree/bindings/leds/common.yaml
-
-[ ... ]
-
-> @@ -73,6 +73,17 @@ properties:
->        - keep
->      default: off
-> =20
-> +  default-intensity:
-> +    description:
-> +      The initial intensity of the LED color component. Used only during
-> +      initialization. Defaults to 0. As the intensity of each sub-LED is
-> +      multiplied with the overall brightness, without this property on a
-> +      sub-LED, the leds-pwm-multicolor-LED is effectively initialized at
-> +      minimum brightness regardless of its linux,default-trigger and
-> +      default-brightness properties.
-
-[Severity: Low]
-This isn't a bug, but the description for default-intensity explicitly
-mentions the specific driver name leds-pwm-multicolor-LED.
-
-Since common.yaml is intended to be a hardware-agnostic specification
-for all LED bindings, could this wording be updated to refer generically
-to the multicolor LED or simply the LED to avoid leaking an
-implementation detail into the generic schema?
-
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    default: 0
+On Fr, 2026-06-05 at 11:22 +0800, joakim.zhang@cixtech.com wrote:
+> From: Joakim Zhang <joakim.zhang@cixtech.com>
+>=20
+> Add a platform driver for the Cix Sky1 Audio Subsystem (AUDSS) internal
+> clock controller. The driver binds to a cix,sky1-audss-clock device tree
+> node under the AUDSS syscon, obtains the parent regmap via
+> syscon_node_to_regmap(), and registers mux/divider/gate composite clocks
+> for DSP, SRAM, HDA, DMAC, watchdog, timer, mailbox and I2S outputs. Six
+> SoC-level audio reference clocks are brought up as inputs to the tree.
+>=20
+> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> ---
+>  drivers/clk/Kconfig              |    1 +
+>  drivers/clk/Makefile             |    1 +
+>  drivers/clk/cix/Kconfig          |   16 +
+>  drivers/clk/cix/Makefile         |    3 +
+>  drivers/clk/cix/clk-sky1-audss.c | 1129 ++++++++++++++++++++++++++++++
+>  5 files changed, 1150 insertions(+)
+>  create mode 100644 drivers/clk/cix/Kconfig
+>  create mode 100644 drivers/clk/cix/Makefile
+>  create mode 100644 drivers/clk/cix/clk-sky1-audss.c
+>=20
+[...]
+> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-=
+audss.c
+> new file mode 100644
+> index 000000000000..899452d5ed14
+> --- /dev/null
+> +++ b/drivers/clk/cix/clk-sky1-audss.c
+> @@ -0,0 +1,1129 @@
+[...]
+> +/* register sky1 audio subsystem clocks */
+> +static int sky1_audss_clk_probe(struct platform_device *pdev)
+> +{
+> +	const struct sky1_audss_clks_devtype_data *devtype_data;
+> +	struct sky1_audss_clks_priv *priv;
+> +	struct device_node *parent_np;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct reset_control *rst_noc;
+> +	struct clk_hw **clk_table;
+> +	struct regmap *regmap_cru;
+> +	int i, ret;
 > +
+> +	parent_np =3D of_get_parent(pdev->dev.of_node);
+> +	regmap_cru =3D syscon_node_to_regmap(parent_np);
+> +	of_node_put(parent_np);
+> +	if (IS_ERR(regmap_cru))
+> +		return dev_err_probe(dev, PTR_ERR(regmap_cru),
+> +				     "unable to get audss cru regmap");
+> +
+> +	devtype_data =3D device_get_match_data(dev);
+> +	if (!devtype_data)
+> +		return -ENODEV;
+> +
+> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_init(&priv->lock);
+> +
+> +	priv->clk_data =3D devm_kzalloc(&pdev->dev,
+> +				      struct_size(priv->clk_data, hws, AUDSS_MAX_CLKS),
+> +				      GFP_KERNEL);
+> +	if (!priv->clk_data)
+> +		return -ENOMEM;
+> +
+> +	priv->clk_data->num =3D AUDSS_MAX_CLKS;
+> +	clk_table =3D priv->clk_data->hws;
+> +
+> +	priv->dev =3D dev;
+> +	priv->regmap_cru =3D regmap_cru;
+> +	priv->devtype_data =3D devtype_data;
+> +
+> +	ret =3D sky1_audss_clks_get(priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	rst_noc =3D devm_reset_control_get(dev, NULL);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-multicolor=
--default-v2-0-ed07271df6b0@pengutronix.de?part=3D1
+Please use devm_reset_control_get_exclusive() directly.
+
+[...]
+> +static int __maybe_unused sky1_audss_clk_runtime_suspend(struct device *=
+dev)
+> +{
+> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
+> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
+pe_data;
+> +	unsigned long flags;
+> +	int i;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +	for (i =3D 0; i < devtype_data->reg_save_size; i++)
+> +		regmap_read(priv->regmap_cru,
+> +			    devtype_data->reg_save[i][0], &devtype_data->reg_save[i][1]);
+> +	spin_unlock_irqrestore(&priv->lock, flags);
+> +
+> +	sky1_audss_clks_disable(priv);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused sky1_audss_clk_runtime_resume(struct device *d=
+ev)
+> +{
+> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
+> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
+pe_data;
+> +	unsigned long flags;
+> +	int i, ret;
+> +
+> +	ret =3D sky1_audss_clks_enable(priv);
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable clocks\n");
+> +		return ret;
+> +	}
+> +
+> +	reset_control_deassert(priv->rst_noc);
+
+Deasserted on resume but not asserted on suspend, is this on purpose?
+
+regards
+Philipp
