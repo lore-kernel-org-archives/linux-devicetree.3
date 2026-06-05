@@ -1,133 +1,197 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5B835CB6A
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:04:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B6740E8E2;
+	Fri,  5 Jun 2026 14:10:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780668254; cv=none; b=rio6p0dw2nqxMWVg67wcLJp8gw3wgRv7QyjKOro8025bnCVaZtpnixmY50bkdHwvB16TZMRLAs7DQBKNH1sPTmnYSLWVzPmGRT2azkmgpf3TjUecwI+thLmtmwd6xAyk4CeoKxVpr9A6bM7q/2ga1OofH2ucBD42xbbBje6lRZA=
+	t=1780668604; cv=none; b=GxV0VsRmwU8+Q67F91N77LrmeHgNFHfPHgVLDS9ZE1LStnW27+hhr36NIEhAVMI9h0ffWvrx31A31p7A2n3uQPaV9erR8A6ABj+XDgDHt1wkCALUAfw0BI9wVpDYRfAacaPB+Q3EwC028Glj6iegqC7idMd8Lg00jlrz4kODVoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780668254; c=relaxed/simple;
-	bh=Xo2hFHtyKCsSF8RLQqHJE7GMwdSmwWbFyUfFPVgdm7o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E8slFIAgN9yr6/ckw62JUQv97vZ63l+GNxU51lw9eCJVdg2Q443Vfk3dl9rc4T7j541/OwMiGQ2Y/x3VJJaGyw8pUT3uWyDBnecpTTZE3ikjxEsvtZEMx8ym12mKLXU5qSmVeBo+Lv9J4QShjxto7+zKSYjhhNXa1Y3cKfodQAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+FnFUgJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780668604; c=relaxed/simple;
+	bh=xB1Mo0ZL1kEYBMQPeShV1xsBEhsJmlbe5Pi6nQWqLvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I5ohYcwrdEr00c2CU/q02sYu2+s2trJcSuOndLyXraahuLQ8hyMuqsK60lMaYac/ntXJsI2cyjV3kBQyV4f8SchXx0hJnhruEnrPIUViUr2tdWbXbSJvPc3ZQhwJ67RUkhPDmq4evOLrE7pntbNE4l07/20X4QokKELP9jyZc+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7CiFcEB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+FnFUgJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2A81F00898;
-	Fri,  5 Jun 2026 14:04:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7CiFcEB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5D21F00893;
+	Fri,  5 Jun 2026 14:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780668253;
-	bh=aOHUT2Ksa9+eTBrlEuneSYRR/2rvuY0xgQ+fmf7/3Z0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O+FnFUgJoOKGpajFLKJ086PMLhTye7CxGvS7bOHzTCQXHIB3aSwYZhZSzdotTwruc
-	 f4i0i7hO81e/8H1I+vtFSyI8JdNDr+O9zmG1bbhKmzuYO1Lr1otBtlxXdzqrfOLzb5
-	 6Z3uOhvmgt+Z/NK7gH5R5aH42/Gq8XE3CfdcqsZZEEwSP7lHdYn5Ws4IBKjxxmMDlL
-	 ZNH0HVZ31IQYQcQbTh8yOr9yIIUNjhsveuJCSHmfwmIGtnwtbJ0YUkOwTX78sZVbIH
-	 Coux5i31gvRc4bSvgRKP17mpK2EdKDeEbp6KRHlKA+NdScYXCWWwLLYnQ1SODTppAn
-	 SQFWW4aDSRzxA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/10] ASoC: renesas: fsi: refactor clock
- initialization
-Reply-To: sashiko-reviews@lists.linux.dev
-To: phucduc.bui@gmail.com
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260605121955.105661-9-phucduc.bui@gmail.com>
-References: <20260605121955.105661-9-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 14:04:12 +0000
-Message-Id: <20260605140412.CB2A81F00898@smtp.kernel.org>
+	s=k20260515; t=1780668602;
+	bh=Xv79vCkfi3tsuNiev9znO8IdUX1iN7cx6A7mjZ930sI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=E7CiFcEB2KsHHpwXRUL2YxFR6HNto+hVjb6eODvSQQUh6Qey0Fd+fV0xM52TEciwy
+	 ocf4RGW/tmnTQjVmuBuRWMpdnzlALgWvAa9yxHVZgcTSIuKPkzSZb1AlHXHV/Xxq5/
+	 vpvc/bOG3jbNNtnIyIbRFuz0uop0EM+NkbzFQWjkLUo19oioaacbU9xsRvFt51U+SG
+	 9Q/2bKmSapdi8nYT6RxgKp88/kvwbsDeW7aQNGOJCt4QiRWp/LS2s3FuXbuMKxNctI
+	 xNNC2Sg3eo20m3Z6ipcCs27JgZRj7uKGGSI4elZc7zVpMaU3cQUfp1wTjoQ1OISYox
+	 24dnf1TmunpwA==
+Date: Fri, 5 Jun 2026 15:09:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>,
+ rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH 10/12] iio: dac: ad5686: add triggered buffer support
+Message-ID: <20260605150951.1c793b76@jic23-huawei>
+In-Reply-To: <i3wvatdosla3cszhhtizgoetcbknl56be3mpipzdxqx2jzvch2@l4hzeer5zoa7>
+References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
+	<20260602-ad5686-new-features-v1-10-691e01883d27@analog.com>
+	<20260603134151.7cf1654b@jic23-huawei>
+	<i3wvatdosla3cszhhtizgoetcbknl56be3mpipzdxqx2jzvch2@l4hzeer5zoa7>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, 5 Jun 2026 12:34:31 +0100
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-New issues:
-- [High] Missing cleanup for previously allocated FSIA DMA channels if FSIB=
- clock initialization fails in probe.
+> On 26/06/03 01:41PM, Jonathan Cameron wrote:
+> > On Tue, 02 Jun 2026 17:33:57 +0100
+> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> >   
+> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > 
+> > > Implement trigger handler by leveraging the LDAC gpio to update all DAC
+> > > channels at once when it is available. Also, the multiple channel writes
+> > > can be flushed at once with the sync() operation.  
+> 
+> ...
+> 
+> > > +static irqreturn_t ad5686_trigger_handler(int irq, void *p)
+> > > +{
+> > > +	struct iio_poll_func *pf = p;
+> > > +	struct iio_dev *indio_dev = pf->indio_dev;
+> > > +	struct iio_buffer *buffer = indio_dev->buffer;
+> > > +	struct ad5686_state *st = iio_priv(indio_dev);
+> > > +	u16 val[AD5686_MAX_CHANNELS] = { };
+> > > +	int ret, ch, i = 0;
+> > > +	bool async_update;
+> > > +	u8 cmd;
+> > > +
+> > > +	ret = iio_pop_from_buffer(buffer, val);
+> > > +	if (ret)
+> > > +		goto out;
+> > > +
+> > > +	mutex_lock(&st->lock);
+> > > +
+> > > +	async_update = st->ldac_gpio && bitmap_weight(indio_dev->active_scan_mask,
+> > > +						      iio_get_masklength(indio_dev)) > 1;
+> > > +	if (async_update) {
+> > > +		/* use ldac to update all channels simultaneously */
+> > > +		cmd = AD5686_CMD_WRITE_INPUT_N;
+> > > +		gpiod_set_value_cansleep(st->ldac_gpio, 0);
+> > > +	} else {
+> > > +		cmd = AD5686_CMD_WRITE_INPUT_N_UPDATE_N;
+> > > +	}
+> > > +
+> > > +	iio_for_each_active_channel(indio_dev, ch) {
+> > > +		ret = st->ops->write(st, cmd, indio_dev->channels[ch].address, val[i++]);
+> > > +		if (ret)
+> > > +			goto cleanup;
+> > > +	}
+> > > +
+> > > +	if (st->ops->sync)
+> > > +		ret = st->ops->sync(st); /* flush all pending transfers */
+> > > +
+> > > +cleanup:  
+> 
+> It turns out that this label is not really needed. When sync() op is available
+> it must be called regardless of write failure, so the bus data can reset its
+> state. Then moving "cleanup" up would just make it useless.
+> 
+> > > +	if (async_update)  
+> > 
+> > Error paths are always fun.  Do we care about setting ldac_gpio to 1 if
+> > we failed to write the channel values?  That will set any that did successfully
+> > update, but not all of them.  Note I'm not sure on the right answer for this.
+> > There may not be one!  
+> 
+> I would not see a problem with that, as there is no much we can do with errors
+> in a interrupt handler.
+> 
+> >   
+> > > +		gpiod_set_value_cansleep(st->ldac_gpio, 1);
+> > > +
+> > > +	mutex_unlock(&st->lock);
+> > > +out:
+> > > +	iio_trigger_notify_done(indio_dev->trig);  
+> > We get this pattern so often (though not always).  Feels like maybe
+> > we should put some effort into a generic opt in solution for this.
+> > 
+> > A job for another day but options that come to mind.
+> > 1) (hideous) a flag
+> > 2) Maybe an alternative callback. thread_always_complete or
+> >    something like that.  Pain to wire through all the calls though
+> >    and injecting the necessary wrapper isn't great either.
+> >    Implementation wise would be a case of popping in a wrapper function
+> >    in iio_trigger_attach_poll() call to request_threaded_irq().
+> > 3) Maybe a helper macro?  Bit ugly as we'd need one to generate
+> >    the wrapper function and another to use the same name for
+> >    the registration function.
+> > 
+> > Hmm. Those are all ugly (maybe 2 is ok ish).  Suggestions welcome!  
+> 
+> using a cleanup.h? with something like:
+> 
+> 	static inline void iio_trigger_always_done(struct iio_poll_func **ppf)
+> 	{
+> 		iio_trigger_notify_done((*ppf)->indio_dev->trig);
+> 	}
+> 
+> 	static irqreturn_t ad5686_trigger_handler(int irq, void *p)
+> 	{
+> 		struct iio_poll_func *pf __cleanup(iio_trigger_always_done) = p;
 
-Pre-existing issues:
-- [High] The DAI trigger callback executes sleeping clock operations while =
-holding a PCM spinlock.
---
+That's not a nice pattern given the lack of any local constructing. The ownership
+transfer isn't obvious as both p and pf are really same type (it's slightly
+hidden by the void * nature of p) - ideally we'd want p to be unusable after
+that transfer.  Could do something hideous like 
+		struct iio_poll_func *pf __cleanup(iio_trigger_always_done) =
+			__get_and_null(p, NULL);
+where p is set NULL so it becomes dead but that is ugly and not what that
+is for so I doubt it would be popular and so we'd end up with yet another
+weird macro.  There is some precedence with take_fd() but the use of that
+is complex and I think it is only used to grab ownership from a local CLASS()
+defined cleanup.
 
-commit 7a2af4d59dffa88627e517f84d651b199bf13ef8
-Author: bui duc phuc <phucduc.bui@gmail.com>
+So it would work, but I've actively argued against this style elsewhere
+in the kernel so don't really want it in IIO either!
 
-ASoC: renesas: fsi: refactor clock initialization
+Key disadvantage is that it is yet another weird bit of cleanup.h stuff for
+people to learn and we have enough of those already.
 
-This commit moves the fsi_clk_init() function call from fsi_dai_set_fmt()
-into the fsi_probe() path. It aims to ensure that clock resources are
-validated early during the driver probe rather than deferring the lookup
-to hardware configuration.
+So indeed an option but I'm not really liking it.
 
-> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> index a2d7d17dd2bb0..3f303e15e8351 100644
-> --- a/sound/soc/renesas/fsi.c
-> +++ b/sound/soc/renesas/fsi.c
+Jonathan
 
-[ ... ]
+> 		/* ... */
+> 
+> 		ret = iio_pop_from_buffer(buffer, val);
+> 		if (ret)
+> 			return IRQ_HANDLED;
+> 
+> 		/* ... */
+> 
+> 		return IRQ_HANDLED;
+> 	}
+> 
+> >   
+> > > +
+> > > +	return IRQ_HANDLED;
+> > > +}  
+> 
 
-> @@ -898,6 +904,11 @@ static int fsi_clk_set_rate_cpg(struct device *dev,
->  	int ackmd, bpfmd;
->  	int ret =3D -EINVAL;
-> =20
-> +	if (!ick || !div) {
-> +		dev_err(dev, "ick clock or div clock is missing\n");
-> +		return -EINVAL;
-> +	}
-> +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this clock initializati=
-on
-path ultimately lead to sleeping while atomic?
-
-The ASoC framework invokes fsi_dai_trigger() in an atomic context with the
-PCM stream spinlock held and IRQs disabled. For the start command, the call
-chain executes:
-
-fsi_dai_trigger()
-  fsi_hw_startup()
-    fsi_clk_enable()
-      fsi_clk_set_rate_cpg()
-        clk_set_rate()
-
-clk_set_rate() attempts to acquire the global prepare_lock mutex in the com=
-mon
-clock framework, which will trigger a scheduling-while-atomic panic when
-called from the atomic trigger path.
-
-[ ... ]
-
-> @@ -1985,6 +2000,9 @@ static int fsi_probe(struct platform_device *pdev)
->  	fsi->master	=3D master;
->  	fsi_port_info_init(fsi, &info.port_b);
->  	fsi_handler_init(fsi, &info.port_b);
-> +	ret =3D fsi_clk_init(&pdev->dev, fsi);
-> +	if (ret)
-> +		return ret;
->  	ret =3D fsi_stream_probe(fsi, &pdev->dev);
->  	if (ret < 0) {
->  		dev_err(&pdev->dev, "FSIB stream probe failed\n");
-
-[Severity: High]
-If this fails, does the direct return bypass the cleanup for FSIA?
-
-Earlier in fsi_probe(), FSIA is probed and successfully allocates
-non-devres managed DMA channels. If fsi_clk_init() subsequently fails for
-FSIB (for example, returning -EPROBE_DEFER for an unavailable clock), the
-error path directly returns instead of executing the cleanup routine.
-
-Would this lead to a permanent leak of the DMA channels and other stream
-resources allocated for FSIA? Might a goto statement targeting the exit_fsia
-label be needed here so that fsi_stream_remove() can safely clean up?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605121955.1056=
-61-1-phucduc.bui@gmail.com?part=3D8
