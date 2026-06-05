@@ -1,144 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6915A2EEE94;
-	Fri,  5 Jun 2026 06:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A864413230;
+	Fri,  5 Jun 2026 06:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780641679; cv=none; b=nFXodsJiMh8mcOmzRHg7LDgoOWbD/IIDyYgusqYlpRnCTbfc+S6J3wjDYGPDhmbOHLiQPguQKKGiGBglC/q2t3N6TaJbcAJWGMpK2rG1LVmb2YJ53dB3QVhvFmXRpQms8keSn2v6DweQcDWxVZIQRlbeN9VBgfns10vQzp9aB5o=
+	t=1780641954; cv=none; b=AOw2YZk3/Ywwrn6RJgoJzzOJUZ6wI7dgBrSu8v6ZMR1+m/8EwvwqrJOg8Leg9ecY2eHmux7lYp+RwvYo/HYLDM7yNqDa6GBGVMz2wkqmiW/ND9AsNTxWCr6k3A+FkyU2X5vDsCRawYEXjeKInRz0Gqvwh3Dbq04Hro7OiVTPEx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780641679; c=relaxed/simple;
-	bh=uR8m2yLwYEWQ1SbuKy0/li2AhC9n3f4vozlm5rWOwLs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fsh2le8ZzpLC6UIV3Ew4Wcp3X8QhVcgSYRfq6UzOZv8PgAqxI06xdlK81v2atzdJhelz4fXBjqrz2WxWvOCPbU09BjYGQv86vf1uca52UYGcjXL/UtxTr1WLNIoC4tsQS36l0G5pGP58K1da7bagxtlPDQez/MnQeGVXK0TogVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/Afc4cj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780641954; c=relaxed/simple;
+	bh=YJpo32jO83UGLMU8gDwSrkla4iGpcMmeia16+cxd3fo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PebHRuZPHNl/BHy7h2seOdOxWbHtH16wO37TF1ivC3tazilc3mMW+gT16GSxQLtlqLzXAsHmxB//OYGRseupgQ0kL5WGY1R15jdoACySouH26v30us5U2z/QMab03zOximya+xyuh9cy0H//zBFtRw/uhXf+onvYPFn7uuSRyNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B77iAmzD; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/Afc4cj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7BD31F00893;
-	Fri,  5 Jun 2026 06:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780641678;
-	bh=ud3k7fZU9XfEFQU9vT/+h49lwVNX//F+OZPEFdeaMwI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B/Afc4cjleMcdoIUAiXR2NHXX57phBVPl/YuhSehXvFSxUMQuZo7zK53Npp1nR6Tq
-	 RPgZuau/frF9Frj8h0WXfKW/zgGyBNHzkD6UIcleAB75mHGdCAjLSb9IZYsXuU2UoN
-	 W+Mjd+8qRtM3x7IzK4d7cyRYfVowiBPY/GBhYqGSvthuiO2en91BBFKhEvH3nKxg3o
-	 lE2PiTNrxjNIPCw0Vg87Xf5GJ9trs3F7/sU0eRWbx5EXJYvL95lE8TKgCat7XVJ94+
-	 78p77CCQFUtUPiFgReLNQgJuoDWuxSndWPd7bmMvjPrT9lZo5GOL0ojlizw59CTGwg
-	 uZlc9MYpoSxyg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] hwmon: pmbus: Add support for Silergy SQ24860
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ziming Zhu" <zmzhu0630@163.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260605063042.91776-3-zmzhu0630@163.com>
-References: <20260605063042.91776-3-zmzhu0630@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 06:41:17 +0000
-Message-Id: <20260605064117.B7BD31F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B77iAmzD"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A49F04E40776;
+	Fri,  5 Jun 2026 06:45:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6E3895FED1;
+	Fri,  5 Jun 2026 06:45:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE2A7106A1EBD;
+	Fri,  5 Jun 2026 08:45:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780641948; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=TKj5g8/lTeOWFoQK37ljdSXM22TotCuzq0IiX82cl6o=;
+	b=B77iAmzDGqP2LQRUinIChZycZ8eIsD5vXpR2K4QMSECuNKKn/tYKa5XLIVUmHtCJUGpL1m
+	C3x6DT6ILwh26Xvgaf4NiFJVFeODu3PQ8qKFz/FjJO0Q4to0kghX+wt/mV/vSGnqo+8X/Z
+	ZTSAtTjvJBzg16ALrljjbx+55oCpz3ghYjheOTJnvU0gUDuBvjuEixKGkt6/eVKLO4d/03
+	vvEATcHB7THSWpvM+OEDPw2JLyYAgb4iWPRfzv81vCcsOjHJjBd+MzpdvawMUDyAMwQ+Zb
+	izt1c7Twaq/RqZ55NrX3E/iEA46DH0Exj9Or0bUiPB3T77XoM29XZhRt+PQ/ow==
+Date: Fri, 5 Jun 2026 08:45:43 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, Saravana
+ Kannan <saravanak@kernel.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Kalle Niemi <kaleposti@gmail.com>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>
+Cc: driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Allan Nielsen <allan.nielsen@microchip.com>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>, Daniel Machon
+ <daniel.machon@microchip.com>, Steen Hegelund
+ <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v7 0/2] lan966x pci device: Add support for SFPs,
+ simple-bus part
+Message-ID: <20260605084543.4701ea28@bootlin.com>
+In-Reply-To: <20260511155902.34534-1-herve.codina@bootlin.com>
+References: <20260511155902.34534-1-herve.codina@bootlin.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Passing a 64-bit divisor to `div_u64()` silently truncates the div=
-isor to 32 bits, causing an incorrect calculation that unconditionally fail=
-s probe, and potentially triggering a kernel panic due to division by zero.
-- [High] Unsigned underflow when writing a low `PMBUS_IIN_OC_FAULT_LIMIT` v=
-alue inadvertently configures the maximum hardware over-current limit, defe=
-ating hardware protection.
---
+Hi all,
 
-commit ba80340cc247f7eb04cd41303e3f6374716421eb
-Author: Ziming Zhu <ziming.zhu@silergycorp.com>
+On Mon, 11 May 2026 17:58:58 +0200
+Herve Codina <herve.codina@bootlin.com> wrote:
 
-hwmon: pmbus: Add support for Silergy SQ24860
+> Hi,
+> 
+> Previously, I sent a big picture series adding support for SFP ports
+> available on the LAN966x PCI device [0].
+> 
+> In this series patches touch several parts and sub-system in the kernel.
+> Reviews have be done and it makes sense to split the series and send
+> parts separately.
+> 
+> This current series is the extraction of patches related to the
+> simple-bus driver. It has to be seen as a continuation of the big
+> picture series but related to this specific simple-bus part.
+> 
+> Patches 1 and 2 makes the simple-bus driver compatible with fw_devlink
+> expectation consisting in creating its child devices at probe.
+> 
+> [0] https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+> 
 
-Add PMBus hwmon support for the Silergy SQ24860 eFuse.
-The driver reports input voltage, output voltage, auxiliary voltage,
-input current, input power, and temperature.
+I haven't receive any comment on the series.
 
-> diff --git a/drivers/hwmon/pmbus/sq24860.c b/drivers/hwmon/pmbus/sq24860.c
-> new file mode 100644
-> index 0000000000000..43a2cb542169c
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/sq24860.c
+Is there anything I can do to move forward on this simple-bus driver?
 
-[ ... ]
+Best regards,
+Hervé
 
-> +static int sq24860_write_iin_cal_gain(struct i2c_client *client, u32 rim=
-on,
-> +					u32 gimon)
-> +{
-> +	u64 temp =3D (u64)6400 * 1000000000 * 1000;
-> +	u64 denom;
-> +	u64 word;
-> +
-> +	if (!rimon || !gimon)
-> +		return -EINVAL;
-> +
-> +	denom =3D (u64)rimon * gimon;
-> +	word =3D div_u64(temp, denom);
-> +	if (word > U16_MAX)
-> +		return -ERANGE;
-
-[Severity: High]
-Does this code inadvertently truncate the 64-bit divisor?
-
-Because denom is a 64-bit unsigned integer, passing it to div_u64() which
-expects a 32-bit divisor will silently truncate denom to its lower 32 bits.
-
-With the default values (rimon =3D 1600000000, gimon =3D 18180), denom eval=
-uates
-to 29,088,000,000,000. Truncating this to 32 bits yields 1,044,881,408, cau=
-sing
-the division to incorrectly yield 6,125,096 instead of 220.
-
-Since this exceeds U16_MAX, won't this unconditionally return -ERANGE and
-fail the probe? Also, if denom happens to be an exact multiple of 2^32,
-could the truncated divisor become 0 and trigger a kernel panic?
-
-Should this use div64_u64() instead?
-
-[ ... ]
-
-> +static int sq24860_write_word_data(struct i2c_client *client,
-> +				    int page, int reg, u16 value)
-> +{
-> +	int ret;
-> +
-> +	switch (reg) {
-
-[ ... ]
-
-> +	case PMBUS_IIN_OC_FAULT_LIMIT:
-> +		value -=3D SQ24860_IIN_OCF_OFF;
-> +		value =3D DIV_ROUND_CLOSEST(((unsigned int)value) * SQ24860_IIN_OCF_DI=
-V,
-> +					  SQ24860_IIN_OCF_NUM);
-> +		value =3D clamp_val(value, 0, 0x3f);
-> +		ret =3D pmbus_write_byte_data(client, page, SQ24860_VIREF, value);
-> +		break;
-
-[Severity: High]
-Will subtracting from value underflow if it is less than 165?
-
-Since value is an unsigned 16-bit integer, if user space requests a
-restrictive over-current limit corresponding to a value less than
-SQ24860_IIN_OCF_OFF (165), value will underflow and wrap around to a
-large positive number.
-
-Because this large value is subsequently clamped to 0x3f (63), won't
-attempting to set a restrictive over-current limit inadvertently configure
-the hardware to its absolute maximum limit instead?
-
-Could value be checked against SQ24860_IIN_OCF_OFF before the subtraction
-to prevent silently defeating the hardware protection?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605063042.9177=
-6-1-zmzhu0630@163.com?part=3D2
