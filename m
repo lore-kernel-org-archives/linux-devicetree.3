@@ -1,118 +1,157 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07E1403E99;
-	Fri,  5 Jun 2026 06:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBCD3370E4
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 06:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780640172; cv=none; b=PNj777JS8kh+26fm3OEl8cmVJEVx8fnPYHJMxfI1g1ao6hSP3ncQQLje5Q8jPmQJRLOMrYAw6AnfjiS3u13GkFNofINN6VgAd0tExWwwDSVbSKg7ZyLAO91hEb/rvQ1/ETJTiHayi3g8ol09pA/62ZZiF6RViY0/e4WJ1y79bUM=
+	t=1780640948; cv=none; b=h2DrA9FDLriwJIzvYAHWXAbvzbdh6NJlIC6uAHeWrjXlyR4k+EzncBSaLi9Idkw/2uOBuRKq0vD1iPrxKII1aDAdwvSEVpkuDIbbbl4LJ6regVD2PZoIa8J6wRLF9bEkNeCWDAnJIdwWQFE8CbWSQ3JtO/oe7JQf6BUWvKYOAGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780640172; c=relaxed/simple;
-	bh=tooW/XxqZtgoRZGuqoPGpyAcWluv8ktlW6V5MDUZHPk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rV2T/hwyF74NAi6NyLXP22Lb/MyqRJsU9Jb3uFu8AvDr+K4PgBZz+4JZIjjMNupGvft9UsGO8Gr/GHdSeLa1aFirOZa1iRFdA/ylDMVDSpaTHzx76AFe1dMnVTZAIgHcNcx9Rq64BW+VjRivVVwbXjIl5LBlbBed5EqfFNSQ0EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cHzlsZS2; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780640948; c=relaxed/simple;
+	bh=Cof7aE4eQnsVYjaR0fbi9fOkRC0fRGuk82Gr3nU9rD8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=saKQ8tvGgVbBQYrQUF+/iz4nL86NSHZsDjcXc4Cg0Wy9+b8kp35yIp+NHzrhqgBQ2pwj8p+funq5gT4hl4/ag729S4K00Yixpj40/Wi3eJ39QjRxBKI/CoZKx1Mfv5yVUP5fDrHRR5pcK1CSPWpPOKKazurgfvVbT4G/No6YE+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=iZiLYzjy; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cHzlsZS2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5B7A6C5846E;
-	Fri,  5 Jun 2026 06:16:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B77BA5FED1;
-	Fri,  5 Jun 2026 06:16:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E923106A1EE4;
-	Fri,  5 Jun 2026 08:15:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780640163; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=deiuXUFDNSX7cfC+kx+/zdue7rrj2MqboxTE2cMg8zE=;
-	b=cHzlsZS2hSySMxs5YUSmcxkzm4CHL4ifkBgF3iZ+s0sxiTlqKSFgF3Ygfz6DjgQr2eS/N6
-	dQdX/HnAaJ6AuiDDIRsOpRXSdkppcayDYo0Bv9zJ6dUAS5xT9DRhyX6hmupWwkr5oiZXIS
-	aLvyCQdark05GVxMuc5TdJm9W5NfjBTcYsfnxbZiDysCviCZwSVWrpoW1LX95R63CLrTk+
-	Juo/BjZ5OutF7onvPh5K1UEOuyskhoaGcqrS9EdYXll1ThE6jYJ3jKDotEIzWwOWhqXw9D
-	RNmF+7TlRBdVFRZXG4XCvNnBGZ/yftz4c+MbbEh8eAQt1EWy6xLbSjHkQ9OLog==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
-  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
-  <a-dutta@ti.com>
-Subject: Re: [PATCH v3 04/13] spi: spi-mem: add spi_mem_apply_base_freq_cap()
-In-Reply-To: <354e81b1-3070-439b-b404-20a2c30bd774@ti.com> (Santhosh Kumar
-	K.'s message of "Thu, 4 Jun 2026 17:40:26 +0530")
-References: <20260527175527.2247679-1-s-k6@ti.com>
-	<20260527175527.2247679-5-s-k6@ti.com> <87fr3bhqkk.fsf@bootlin.com>
-	<354e81b1-3070-439b-b404-20a2c30bd774@ti.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 05 Jun 2026 08:15:57 +0200
-Message-ID: <87fr31wm02.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="iZiLYzjy"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-45fe59255beso719210f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 23:29:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1780640946; x=1781245746; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4lejUpnv31Ki2j4Ud4YtaN/+X332KUHa0P0BjhrqFno=;
+        b=iZiLYzjyfgXzhuKHvATTKCP+6xa241Vv05xmB1JsLP85FUdhbQJBocUjm0WSrYvfXk
+         5M13Z++jNSeEfRAAjHyghk8OKG4n2kMg39NCsAiVknvZt76C3QQxwoYWcijQqZOfIiFM
+         xBYg/K3/hYZrpnBJAykBS+Gdf6Pffz6E0KEFc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780640946; x=1781245746;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4lejUpnv31Ki2j4Ud4YtaN/+X332KUHa0P0BjhrqFno=;
+        b=NEkp/dgnflGPDqRpKKcC/rtH4VoUx3bJn2nR390ekuG5JXmcqQKU2vd1OfC8+87Syu
+         6+gj3lZByAhid5aQRSOErc3SNwohpql91FU7Do2kIsROZcMC8lW5hH++bQSSzvSQSzgg
+         8mEv4PV1vSZfJA9lZEBtb8e8xUDZ/cs3q9suAWXSgiD+n+aEFrJsIrLQkflPM9FADsFw
+         nHS92XX/oMlASjkVQhLv4T6lmlhExMDOfuPOp0LLFeu0bJwxwMirHtSqWf4SK3NWMoc/
+         OwpUbei6N0Ef1vrsocAsPo352vuBh3odHhhXa72F2gNgo8HykjvHidfkWbNuLQ1JuAcj
+         y3tw==
+X-Forwarded-Encrypted: i=1; AFNElJ/ReP9PqNYbqmAGJKvoxei0Tc/Zlhd9p0/Fej4nI/CPpXhlVu28sDH2TjeI1KCBrjvbGj6M8scaH4kc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3lYg+pEEG3dfCSzQxaLmyuchW+gIk10M8GSIAyZSEkzFreUdd
+	hlqV1BBOHbiG7kPZ2T4oEfI9MmBIMEeiwKTNEPT2jftc1GXaHXNfAtrWtmUWbKXAiFs=
+X-Gm-Gg: Acq92OGx142OzVdkbZFX44p05cC2KMNmjqBGInX2xfnmpBl7Y8OE8n2wlAtKEUMOxlR
+	TmFLPgxxJAnWVYYR7gfHgtcZdAuPHQjoWtLMCp9GpJCUz/P9hqcGWBPknBaWkNxuimGqSVioKmw
+	5UAecbsRgbxVtia2jvqQQiTncWJrDOb3xlgbiz8Arab1mXiwnypsUTYsmYMHX43qm4Qm+7CUnou
+	qmM1cknRt4dNvgtA71ozugOHKAlDAfRWeNHZMbFy1H4J6dMRqUziL2qAKyHUqPSu7VVc5aSm1yn
+	ezkszMWOd+UI3Tvq5X+PPd94Qp9DNHgNBhmuDgGTal/m0mPuIT8kZ4byU5D2pZZ91FV4lTPhnLq
+	QYfye2rMBjWgy+zGwy1mqQUcHdH7tY4qPUbWkohABHYATeXGfJKOYQyHNQaeQ4UxfzUvqAQz9t/
+	znx+9L89bAO0d83WyvLl9+O+aLkvnyKIyBEMVpvYc0JUUUB0IQKkrSwZLmSM3vY09Kx3iDN6Etb
+	2zRj94JihR5LjqyIPeRjrbwCFzI8+RBLBCsjigBscLwg7Dy98mODKU35dhVKF5MEXLshQrCmt+j
+	6B61AbbKh8q6CyY6vEq0gqEm5P7rzj/lAjk=
+X-Received: by 2002:a05:6000:298e:10b0:45e:93ac:769e with SMTP id ffacd0b85a97d-460302dc502mr2224770f8f.6.1780640945279;
+        Thu, 04 Jun 2026 23:29:05 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-82-48-44-238.retail.telecomitalia.it. [82.48.44.238])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344148sm23022648f8f.19.2026.06.04.23.29.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 23:29:04 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: domenico.acri@engicam.com,
+	francesco.utel@engicam.com,
+	michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Christophe Parant <c.parant@phytec.fr>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Huang Shijie <shijie@os.amperecomputing.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	Sven Peter <sven@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v3 00/14] arm64: support Engicam MicroGEA-STM32MP257-RMM board
+Date: Fri,  5 Jun 2026 08:27:28 +0200
+Message-ID: <20260605062900.368376-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Santhosh,
+This series adds initial support for the Engicam MicroGEA-STM32MP257-RMM
+board based on the MicroGEA-STM32MP257 SoM.
 
-On 04/06/2026 at 17:40:26 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
+The support includes device tree descriptions for both the SoM and the
+carrier board, together with the required pinctrl definitions for the
+peripherals used.
 
-> Hello Miquel,
->
-> On 28/05/26 14:13, Miquel Raynal wrote:
->> Hi Santhosh,
->>=20
->>> --- a/drivers/spi/spi-mem.c
->>> +++ b/drivers/spi/spi-mem.c
->>> @@ -398,7 +398,11 @@ int spi_mem_exec_op(struct spi_mem *mem, const str=
-uct spi_mem_op *op)
->>>   	u8 *tmpbuf;
->>>   	int ret;
->>>   -	/* Make sure the operation frequency is correct before going
->>> futher */
->>> +	/*
->>> +	 * Ops not configured for maximum speed are limited to the conservati=
-ve
->>> +	 * base speed; spi_mem_adjust_op_freq() then caps to the device maxim=
-um.
->>> +	 */
->>> +	spi_mem_apply_base_freq_cap(mem, (struct spi_mem_op *)op);
->>>   	spi_mem_adjust_op_freq(mem, (struct spi_mem_op *)op);
->> There are many more spi_mem_adjust_op_freq() calls in the core where
->> we would
->> not apply the base frequency. Aren't we missing these places? Wouldn't it
->> be more appropriate to call spi_mem_apply_base_freq_cap() at the beginni=
-ng
->> of spi_mem_adjust_op_freq() ?
->
-> Moving spi_mem_apply_base_freq() into spi_mem_adjust_op_freq() would
-> affect operation selection.
+The series also updates the arm64 defconfig accordingly.
 
-Yes, and that is precisely what we want.
+Changes in v3:
+- Add power-domains property in the SDMMC2 node.
+- Drop patch "arm64: defconfig: cleanup the defconfig"
 
-> spi_mem_adjust_op_freq() is used during variant evaluation through
-> spinand_select_op_variant() and spi_mem_calc_op_duration().
+Changes in v2:
+- Add Acked-by of Conor Dooley for patch 0/1 "dt-bindings: arm: stm32:
+  support Engicam MicroGEA-STM32MP257-RMM board"
+- Add resets property to dts CAN node. Suggested by Sashiko.
+- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
+  to avoid overriding the peripheral bus clock reference defined in the base
+  SoC device tree. Suggested by Sashiko.
+- Reference the existing labeled nodes directly at the root level using
+  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
+  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
+- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
+  the clocks array in sai1b, relying strictly on the st,sync property to handle
+  internal synchronization.
 
-And this is a one time specific initialization path. There we need more
-logic, probably.
+Dario Binacchi (14):
+  dt-bindings: arm: stm32: support Engicam MicroGEA-STM32MP257-RMM board
+  arm64: dts: st: add SDMMC2 support on stm32mp25
+  arm64: dts: st: add CAN1 support on stm32mp25
+  arm64: dts: st: add i2c1 pins for stm32mp25
+  arm64: dts: st: add ltdc pins for stm32mp25
+  arm64: dts: st: add can1 pins for stm32mp25
+  arm64: dts: st: add pwm2/pwm4 pins for stm32mp25
+  arm64: dts: st: add sai1 pins for stm32mp25
+  arm64: dts: st: add sdmmc2 pins for stm32mp25
+  arm64: dts: st: add spi1 pins for stm32mp25
+  arm64: dts: st: add usart1 pins for stm32mp25
+  arm64: dts: st: support Engicam MicroGEA-STM32MP257 SoM
+  arm64: dts: st: support Engicam MicroGEA-STM32MP257-RMM board
+  arm64: defconfig: enable configs for Engicam  MicroGEA-STM32MP257-RMM
 
-> Applying the
-> cap there would cause all candidates to be evaluated at base_speed_hz
-> rather than the actual max_speed_hz. As a result, variant selection
-> could converge on a different operation than the one that would be
-> optimal.
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   7 +
+ arch/arm64/boot/dts/st/Makefile               |   1 +
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 328 ++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  16 +
+ arch/arm64/boot/dts/st/stm32mp253.dtsi        |  16 +
+ .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 +++++++++++++++++
+ .../dts/st/stm32mp257-engicam-microgea.dtsi   |  64 ++++
+ arch/arm64/configs/defconfig                  |   4 +
+ 8 files changed, 755 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
 
-But this is only a single place. Whereas in your implementation you push
-the complexity in every place using the spi mem interface, I don't think
-this is wise as you will likely end up with many unseen corner cases.
+-- 
+2.43.0
 
-Thanks,
-Miqu=C3=A8l
+base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
+branch: stm32mp257d-microgea-v3
