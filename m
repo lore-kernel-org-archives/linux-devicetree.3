@@ -1,156 +1,144 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD643ED124;
-	Fri,  5 Jun 2026 18:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784993EE1D4
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 18:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780685054; cv=none; b=b8ecDleDJ1weuDmHHlDRxfNGIAae8EVOiti/UfG/AjQJobXMhtF9s7ozqzGw7Qedr0LyFkZoTzIT5D/F4MQpTX1+UB4pjCfmByAlZqVgr7fGtR1TpPYwZU6xA4/m23UmTKcgGTbI5ubldb0drFSsH+FcIhfQTRzHy6JDOPSEU+I=
+	t=1780685057; cv=none; b=eVV1NPHCnZ/UeU+kgz98W4gkq8J+tVFWP0zlxBCclOGE2tBqoHDlZdPiYXoYKO5pHR7+h9FkmGNxOECI54PqYIiSyGfblZhjW0ejTCkEAnqT3J0lj+bXMLPJW2U6CJEKbWy/ftRi/uFcbBNH6L4uYOaYjE7o1bBhqvf4mQt6Eqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780685054; c=relaxed/simple;
-	bh=VkS+9PTi0bQprMQXirOvrqsFrc81uGcDDom9cGbtCYc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=syJybyI1OIqIs26LYyaTQ1tjPg0EAwkgVEQ/y6fe80VnK2ZMiH+4AI1pHtEB39MX7J/U+BdyIQcJO/whPXdMELudAWKs1gLQHCN/6+RMljGh43k9dFSHWlKkJUlnZvfUvnCRLdwvCvlZInqHEnfARCYjctTD3FaNODnsr36Maug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gc4GYF29; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780685057; c=relaxed/simple;
+	bh=rggEst5YuLi66LiA8emhb0xmTsqSnB25I+HGxLW5rAo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HqvXqfn/hoCjT5jc3tZmnoEgtXzh3Z4oOyeZGz4myT48BxW3dPfGf1YyGQe0VlvJjgjt0EOiDuu9WIIYcrS55ULU0WFGJfG3Y5f1gvCuuOUovIbHAcWA1IAUQAAB4sR9RZiKr1owev5NFfycngiRQK16O5hisWaVBzEbtkqXr88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTV1JzEA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gc4GYF29"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7ED05C5847B;
-	Fri,  5 Jun 2026 18:44:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8F4885FED1;
-	Fri,  5 Jun 2026 18:44:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A962106A25E4;
-	Fri,  5 Jun 2026 20:44:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780685046; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references:autocrypt;
-	bh=VkS+9PTi0bQprMQXirOvrqsFrc81uGcDDom9cGbtCYc=;
-	b=gc4GYF29BRUao23NMlI0LlyMYh33Db14Qxyye3dpp+chRGxjIbo8V04fYY5mSH2fVXC+NM
-	jKWN3o57sxbYH0CImLh5FtHdZLSCcyr/2Jlb3AQHa91atGW73LU9UG7DjjEYAzxP5h+P4t
-	hpPgF7AWeTOwfg9LlVtmHA+pqbUFa2WeyHlzLNef0fvmJXji4tZ6tFwF45MCzn1MeaVnOl
-	rU2+0D9fScncvf3GlIK++n0wR/ZBU0emOSPmd/Sya7gz6X5EyI4kSduDdnj5x5LuI8LJFJ
-	NS3PS/O8/GU5kG9q5KRIMxEDn9vQdgiH/ZUaL2HnmrC2KRzHnzO5+qpz237oCA==
-Message-ID: <4c56014675089901aba5cf648f0e79caa66852c8.camel@bootlin.com>
-Subject: Re: [PATCH v5 5/5] watchdog: aaeon: Add watchdog driver for
- SRG-IMX8P MCU
-From: Thomas Perrot <thomas.perrot@bootlin.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij	 <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Shawn Guo	 <shawnguo@kernel.org>, Sascha
- Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- =?ISO-8859-1?Q?J=E9r=E9mie?= Dautheribes <jeremie.dautheribes@bootlin.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Lee Jones	 <lee@kernel.org>
-Cc: "thomas.perrot@bootlin.com" <thomas.perrot@bootlin.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal
- <miquel.raynal@bootlin.com>
-Date: Fri, 05 Jun 2026 20:42:50 +0200
-In-Reply-To: <bcc88b28-fa45-4a75-8a09-98d25a9377c9@roeck-us.net>
-References: <20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668@bootlin.com>
-			 <20260408-dev-b4-aaeon-mcu-driver-v5-5-ad98bd481668@bootlin.com>
-			 <bcc88b28-fa45-4a75-8a09-98d25a9377c9@roeck-us.net>
-Autocrypt: addr=thomas.perrot@bootlin.com; prefer-encrypt=mutual;
- keydata=mQGNBF+/ZOUBDAC2DghCjZvmgYcve02OG7dGZ7Iy58uEwne3LB7w7nRwdAxKw7ZaiVqwY
- O+yNGVi+GVx7oA6Wn4pv46z+QDRLQiq6OseuXhkSGCg7U/yBCUq12B/GRGO1Qt2Qi1mJJT1s+1qZ5
- Gxv6Nypz9qKVn94GM2bR1hXBga0t87vBpebThOHmX5d/0dqIcVxRCM7onNb0dDyRoVgLS5rBhQzrL
- CMrJaCy39xZUy0J1SOlH4Mgk6EhJIPYY4wlzikGX6urg+Tc9EjGd78ry0e0p5U5qgjFR5QGJDy1Gn
- U3CfwbT9sowdCASDbQDUoltlv2iWJCLa0xl97KVchCa0pr7HKbFA3J5SLKqFYUBCkFL+5WudYlz2n
- XxiUgyviMQxyK+ij66kEi6/2zFDAecd43pHV7790ptqZBC3Jc67Emj7Vo3ShX6RXPPxxbeCTOF2uk
- I45aJ9XcVFH/MFE96NjXj8uahnIsiTPyuCUoJu8tj7TSQyue874qJqVQvqlFyt2aZYJZ8ruq8AEQE
- AAbQpVGhvbWFzIFBlcnJvdCA8dGhvbWFzLnBlcnJvdEBib290bGluLmNvbT6JAc4EEwEIADgCGwMF
- CwkIBwIGFQoJCAsCBBYCAwECHgECF4AWIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCX79mdwAKCRCfw
- AsFcf4K7fhbC/wP0kSl6id2E/K3+UdXk6CLMVRbCFLCREzQs5WFpQ6l/I0WGOamhrOgegdszheiVF
- orlUP8d37XSpFAqydhKGaN78V5Dps0Wmwm4lIlS4MtQXJtSLUHXDJLIZLW0pw8tiPLKsd1o/yDkXE
- dnpsjJTRG6SdDSHnyOB2/gh4p+yTaLytFdARk/r4/P26+L+FiH0fFl+RnBt19LPklfKgeDc7GwIif
- ja+nIWpp3W23DAUuI6xduEut25Q89yu7Ci8CliLfAiLy9bIGjBQWU2Y+1/j/7KuPj6VbBsZWLTZY0
- hUmpJSTnWAqc9SMsNxo7NSQuddgviz5e2tqucaRqxP02FGzNa8U4NAKdWaXrlHG5Dglj9XH0DK+SH
- +c96qqFewYD8VPQ6XAGxQcXbrtJmiMor1R2DfziispLRvJcfYs8xqabbCtoS3ouXB9XRi8hn7A2kh
- ME1ryS+Oh63JshXHnw6bmjCpVd/p+fGLIGU6A47pJOpviKR4jEO84pl2ejtDZ3Tc=
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-D+anXI9Ca6rCMw2yVrbP"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTV1JzEA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879341F00898;
+	Fri,  5 Jun 2026 18:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780685056;
+	bh=oFhLD9vOWjoOCdFleEscPaEuQ9oYMs1ixaa4B9Qqgl8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eTV1JzEAZBKsnM+ZWPIV9a1g6cyOhuFqeHA9QxHshpuq+Opr0+VYr8sqn+RJstfWd
+	 1Uo/0z5ReSJyQmusERN80K1UgkRks8pTFR8xCMsQs1+yyrBEXDTkbDNrvG/RJT1F2b
+	 TMXcu2fgqRnwEml2G05Gx4aQ4K+jvdHqqGKu1Pcf9WftzOyl/qZ+XMql8xl1+UFNJS
+	 KmBV+ietUfQLr/agmMj+iYKpifGIw1KdmsudU75Gb4vdsKjabDVrTon94aWOQLV582
+	 f0qOsZwGS6S+lINQifExg5XConFHJpzV4hbkVs4SvD0VWAFgD+KbSOaC2Rl6TDO7mw
+	 7ro4qLaD+XwwQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexander Koskovich" <akoskovich@pm.me>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260605-asteroids-panel-support-v2-2-44b96c6eca91@pm.me>
+References: <20260605-asteroids-panel-support-v2-2-44b96c6eca91@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 18:44:15 +0000
+Message-Id: <20260605184415.879341F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The reset GPIO is requested with `GPIOD_OUT_LOW`, which deasserts =
+it and can backpower the unpowered panel.
+- [High] The backlight callback modifies `dsi->mode_flags` without locking =
+and permanently corrupts the state if the DSI transfer fails.
+- [Low] The macro `MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT` is undefined in the=
+ kernel, causing a build failure.
+--
 
---=-D+anXI9Ca6rCMw2yVrbP
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit 3b5fdc2d207db00cc147a18d14281a4361ece19b
+Author: Alexander Koskovich <akoskovich@pm.me>
 
-Hello Guenter,
+drm/panel: Add driver for Raydium RM69220 DDIC
 
-On Fri, 2026-04-10 at 08:49 -0700, Guenter Roeck wrote:
-> On 4/8/26 10:21, Thomas Perrot (Schneider Electric) wrote:
-> > Add watchdog driver for the Aaeon SRG-IMX8P embedded controller.
-> > This driver provides system monitoring and recovery capabilities
-> > through the MCU's watchdog timer.
-> >=20
-> > The watchdog supports start, stop, and ping operations with a
-> > maximum
-> > hardware heartbeat of 25 seconds and a default timeout of 240
-> > seconds.
-> >=20
-> > snip
-> >=20
->=20
-> Odd, unusual, unnecessary, I would argue that most people would
-> consider a fixed
-> timeout of 240s as anything but reasonable, and as the comment says
-> arbitrary.
-> Since I am sure that I pointed this out before, you still insist, and
-> I am
-> tired of arguing: Your funeral, so
->=20
+Add a panel driver for Raydium RM69220 DDIC based displays such as the
+BOE BF068MWM-TD0 found in the Nothing Phone (3a).
 
-I apologize for not addressing this in previous iterations.
+> diff --git a/drivers/gpu/drm/panel/panel-raydium-rm69220.c b/drivers/gpu/=
+drm/panel/panel-raydium-rm69220.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-raydium-rm69220.c
 
-This will be addressed in v6 to make the software timeout configurable.
-The 240s value remains as the default fallback.
+[ ... ]
 
-Kind regards,
-Thomas
+> +static int raydium_rm69220_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> +	u16 brightness =3D backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +
+> +	return 0;
+> +}
 
-> Acked-by: Guenter Roeck <linux@roeck-us.net>
->=20
-> Guenter
->=20
-> >=20
-> >=20
+[Severity: High]
+Does this error path permanently corrupt the DSI mode flags?
+
+If mipi_dsi_dcs_set_display_brightness_large() fails, the function returns
+early without restoring MIPI_DSI_MODE_LPM. Userspace can trigger this easily
+by writing to the backlight sysfs node while the display is powered off,
+which will cause a transfer timeout. All future DSI initialization commands
+will then incorrectly be sent in high-speed mode, preventing the panel from
+turning back on until the system is rebooted.
+
+[ ... ]
+
+> +static int raydium_rm69220_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+> +	struct raydium_rm69220 *ctx;
+> +	int ret;
+
+[ ... ]
+
+> +	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Failed to get reset-gpios\n");
+
+[Severity: High]
+Is GPIOD_OUT_LOW the correct initialization here?
+
+Because the reset pin is typically active-low, a logical 0 translates to
+driving the physical pin HIGH. This happens at probe time before the
+regulators are enabled, which can drive voltage into the panel's reset pin
+while its power supplies are off. This forward-biases the panel's ESD
+protection diodes, leaking current into the power plane and potentially
+causing hardware damage. Should this be initialized to GPIOD_OUT_HIGH to
+hold it safely in reset (0V) until power is applied?
+
+> +
+> +	ctx->dsi =3D dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes =3D 4;
+> +	dsi->format =3D MIPI_DSI_FMT_RGB101010;
+> +	dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
+> +			  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM |
+> +			  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT;
+
+[Severity: Low]
+Will this compile correctly?
+
+The macro MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT appears to be undefined in the
+upstream kernel, possibly a leftover from a vendor tree. Compiling this
+driver will likely result in an undeclared identifier error.
 
 --=20
-Thomas Perrot, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
-
---=-D+anXI9Ca6rCMw2yVrbP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCAAdFiEEh0B3xqajCiMDqBIhn8ALBXH+Cu0FAmojGKoACgkQn8ALBXH+
-Cu1ZQQwApYSqbfzLii5Qn294byLHYxr56RVOi+0rrMZsZzcmBNOHG6H+JE6QGpRb
-/UJIX7OVQ/ACKJIEL/QKR3SvF2DLvY97BCX2wBslodNzcRyVuHvTMEppM/bmQVpL
-5LFpUdHxXDVoT6dUmwqPCGOH+HGx0OX1L8EBo0UbEcNin7gyYspy5cI4V+0lsK7Y
-64HdBFpCtJmsu0OfWl+W0RLhZpxEPSFB8NbUJg5V0TqAzZZi3p+uBsLWqX944ocT
-la5kreLGE/fKZQ6ctWCN5+nT0neZ3lJe7LofrUYjJx8GapWavmD+cSPscqf537Sw
-oxdfMxcmlmWUEFOPLo1MlUrASdoss8zNuNfEGt0MitxTbZizPqS/wxteZib1gb6O
-x6Klhpl0Q+CCfP0ZIhSbVWMD9GY+ggelFfDEmn9HoDoH/Hz4Xbw1h3k4YWYp8d4f
-0YUf1QZC51lDB3J2DXJLVDCAzuSxDW3Sw+8eJ2gcBtcRD53nk75t11uZOCNafXnL
-Q3BgaQyl
-=ns9k
------END PGP SIGNATURE-----
-
---=-D+anXI9Ca6rCMw2yVrbP--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-asteroids-=
+panel-support-v2-0-44b96c6eca91@pm.me?part=3D2
