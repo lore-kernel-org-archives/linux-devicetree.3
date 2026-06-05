@@ -1,133 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE723C3787
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 08:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.229.168.213])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5AF5A37B003;
+	Fri,  5 Jun 2026 08:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.229.168.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780647414; cv=none; b=Z5VYS3KFEAy9tkuYYjULRmmPKnNQQTUTSiiRn9RMRtPSBzftjEHl4p97c/5YsbRxqO+xd0hPnlJjFalMf3QPEXWNaUHpFiel7tgRP+LzLF8AM3RsaTdy9fuaAUv071WEcXooCeFllXnglf8yLqED3IIQjMohlPOc+MoKAMOjHpo=
+	t=1780647788; cv=none; b=oqtKdxAtHUKO0U2bGtB9Plj+4KStdJcwjF1bi/xx78NtnZ8DpcNQLUsB7RX9WfHB5doTLb5Ckv5sYrgRHv/kWRQbP45E7XLLSNerfXgcwbT5wS7Z+0BB6+CN5HFBtMk3RUw80eu1YFH84jxl9errxO4SOIPOL2RnJIhvPRfoXi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780647414; c=relaxed/simple;
-	bh=jmWPwB+VvwOS3U2BpullmrMkM8peUqE4CIfFy2USKAY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DSGnfo+UwconX/mR+quKJJMcvbvFeJ89U+HNruc8wtPnX3AKxDF11O4cuS42YZ+yiw5eUjFhuebuWAO9DfU2RaTaiuWPlawnLhWCcq48YRGXglEESpzDZUSZuhP8kqeaRUscV7EmqRZnF3W3NNwTJ4RZcTfXPB//GeonGBS2neU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cH0W1Z50; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cH0W1Z50"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865581F00898;
-	Fri,  5 Jun 2026 08:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780647410;
-	bh=IvoRvDrIeOWZs4QgqGRqJk36pwE+3rWSHFgJZGgZvCU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cH0W1Z50f7ewlqTWydfgF1kGopXUWQ1JoP+VtnsgPqSMuN71ufUn/+xaSsB2xX0ph
-	 Yk01Yzm8dSWkz2FbqIAPIZHLlhT4XIoNXFDjBeMst7guim+3F9/C17seViSuT29sLk
-	 X+si3yKUlCJCC/V7vSKPxQIFUYkLZs/ibYj/ZvSIjTxcGeJ09B0JO4FCrLLmpHqN3N
-	 8Nzg5TjvAyScXOZLgnI+x0We2x3dRQi1Ni0JQebKhKPOPATWeogmch3dkJCStrmv8c
-	 ld7PmC7uMAgQawWgj+mhQpGdhy++G2uKHiqrADmYoVZgtHrbg9AdstoLSe87IsamAh
-	 ZNj4CG43NwDbw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 5/5] net: dsa: ks8995: Delete surplus driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604-ks8995-to-ksz8-v5-5-98baeb45e665@kernel.org>
-References: <20260604-ks8995-to-ksz8-v5-5-98baeb45e665@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 08:16:50 +0000
-Message-Id: <20260605081650.865581F00898@smtp.kernel.org>
+	s=arc-20240116; t=1780647788; c=relaxed/simple;
+	bh=Q3VEabBAwTRu3bC94XG7+/5RGVcMyLNzvrhkOmgJMbc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=toPXAeTMWBmBU7Sv6lZcVIvXWf50ulOhLgBSIoR31IOONaUlEbSNdSFktJLS+Bhu3crowLdeQBdLj+1+MXAzwY3xel/SDyzKc7LCaB+iQn0cHl4EI0TVypx+YFOqLqkv9aWSdrURFHbDdxK7epsB9cAme4KCY/55+LckfHwwoIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.229.168.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app1 (Coremail) with SMTP id TAJkCgCnPHFWhyJqw1siAA--.55022S2;
+	Fri, 05 Jun 2026 16:22:47 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: ukleinek@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ben-linux@fluff.org,
+	ben.dooks@codethink.co.uk,
+	p.zabel@pengutronix.de,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com,
+	wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	Xuyang Dong <dongxuyang@eswincomputing.com>
+Subject: [PATCH v7 0/2] Update designware pwm driver
+Date: Fri,  5 Jun 2026 16:22:42 +0800
+Message-Id: <20260605082242.1541-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgCnPHFWhyJqw1siAA--.55022S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3ArW5Xw1DKF1fJrW3uw15Jwb_yoWxJr4kpa
+	y8GrWakrWkWryxXan7X3W8uFyYqan3JF4jgw1fJ3W7Zws0yayUXrZY9F15tF9Fvr1kXa4Y
+	ya4fG3W29a4jyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUSLvNUUUUU=
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The transitional Kconfig symbol NET_DSA_KS8995 becomes invisible b=
-y removing its prompt string, causing it to be silently dropped during conf=
-ig migration and failing to enable the new driver.
-- [High] The new ksz_spi driver fails to probe when instantiated via platfo=
-rm data (non-DT), breaking existing non-DT ks8995 users.
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
+
+There is already a patch [1] for the DesignWare PWM driver,
+which is posted by Ben and still under review.
+Based on this patch, this series is a continuation of [1]
+to add support for IP versions 2.11a and later, which
+includes support for "Pulse Width Modulation with 0%
+and 100% Duty Cycle".
+
+Supported chips:
+ESWIN EIC7700 series SoC.
+
+Test:
+Tested this patch on the Sifive HiFive Premier P550 (which uses the EIC7700
+SoC).
+
+[1] https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
+
+Updates:
+  Changes in v7:
+  - YAML:
+    - Dropped Conor's Acked-by due to significant schema changes.
+    - Rename patch 1 from "dt-bindings: pwm: dwc: add optional reset" to
+      "dt-bindings: pwm: dwc: Add eswin compatible and resets property".
+    - Update the commit message to explain why the EIC7700 supports only
+      one reset.
+    - Add contstraints 'minItems: 1' and 'maxItems: 1' for the resets
+      property of eswin,eic7700-pwm.
+    - Add an example for eswin,eic7700-pwm.
+
+  - Link to v6: https://lore.kernel.org/all/20260424094529.1691-1-dongxuyang@eswincomputing.com/
+
+  Changes in v6:
+  - YAML:
+    - Drop properties resets and its items description for eswin,eic7700-pwm.
+
+  - Link to v5: https://lore.kernel.org/all/20260423083644.1168-1-dongxuyang@eswincomputing.com/
+
+  Changes in v5:
+  - YAML:
+    - Add 'eswin,eic7700-pwm' compatible string.
+    - Add the items description for the resets property and set minItems to 1.
+    - Require resets property with exactly 1 reset for eswin,eic7700-pwm compatible.
+  - Driver:
+    - Add support for 'eswin,eic7700-pwm' compatible.
+    - Add structure dwc_pwm_plat_data to manage the API for obtaining resets.
+
+  - Link to v4: https://lore.kernel.org/all/20260415094908.1539-1-dongxuyang@eswincomputing.com/
+
+  Changes in v4:
+  - YAML:
+    - Change maxItems from 1 to 2. As there is a corresponding reset signal
+      for each clock domain, the effective maxItems of the resets property
+      is set to 2.
+    - Update the YAML commit message to describe the hardware.
+  - Driver:
+    - Replace devm_reset_control_get_optional_exclusive() with
+      devm_reset_control_array_get_optional_exclusive(). Since the number
+      of reset signals has increased from one to two, we need to use the
+      array API to acquire them.
+
+  - Link to v3: https://lore.kernel.org/all/20260402091718.1608-1-dongxuyang@eswincomputing.com/
+
+  Changes in v3:
+  - YAML:
+    - Added a clear justification for the optional resets property. It is
+      required to support proper controller initialization when no PWM
+      channel is active at boot time, while allowing the driver to skip
+      reset deassertion if any channel is already enabled.
+  - Driver:
+    - Update the boundary value check of tmp in __dwc_pwm_configure_timer()
+      for DWC_TIM_CTRL_0N100PWM_EN.
+    - Replace 'sizeof(struct dwc_pwm_drvdata)' with
+      'struct_size(data, chips, 1)'.
+    - Drop devm_clk_get_enabled() in favor of devm_clk_get() with explicit
+      clk_prepare_enable() and clk_disable_unprepare() allowing runtime PM
+      to manage clock state.
+    - Replace devm_reset_control_get_optional_exclusive_deasserted() with
+      devm_reset_control_get_optional_exclusive() and issue a full reset via
+      reset_control_reset() only when no PWM channel is active at probe time.
+    - Detect bootloader-enabled PWM channels by reading the enable bit, and
+      initialize runtime PM as active for those channels by calling
+      pm_runtime_set_active() and pm_runtime_get_noresume().
+    - Remove autosuspend as it is not required for this driver.
+    - Use explicit pm_runtime_enable() and pm_runtime_disable() instead of
+      the managed devm_pm_runtime_enable() variant to ensure correct cleanup.
+    - On device removal, recheck the channel enable status. If any channel
+      remains active, call pm_runtime_put_noidle() before disabling clocks
+      via clk_disable_unprepare().
+      Resume device before register access during removal if it is runtime
+      suspended, and re-suspend it afterward.
+    - If device is suspended, resume it before register access during system
+      resume/suspend.
+    - Use pm_ptr() instead of pm_sleep_ptr() for correct PM operation.
+
+  - Link to v2: https://lore.kernel.org/all/20260306093000.2065-1-dongxuyang@eswincomputing.com/
+
+  Changes in v2:
+  - YAML:
+    - Remove eswin,eic7700-pwm.yaml. Use snps,dw-apb-timers-pwm2.yaml.
+      The description in snps,dw-apb-timers-pwm2.yaml is better.
+    - Add the resets property as optional, as defined in the databook.
+    - Remove snps,pwm-full-range-enable as no additional property is needed.
+  - Driver:
+    - Change the file from pwm-dwc-eic7700.c to pwm-dwc-of.c from [1].
+    - Define DWC_TIM_VERSION_ID_2_11A 2.11a as the baseline version.
+    - Enable the 0% and 100% duty cycle mode by setting dwc->feature if
+      the version read from the TIMERS_COMP_VERSION register is later
+      than or equal to DWC_TIM_VERSION_ID_2_11A.
+    - Use the DIV_ROUND_UP_ULL() to calculate width in the .apply and
+      .get_state.
+    - Additionally, Power Management (PM) support has been added to the
+      pwm-dwc-of.c driver.
+    - Drop the headers that are not used.
+    - Use devm_clk_get_enabled() instead of devm_clk_get().
+    - Drop of_match_ptr.
+    - Fix build error with 1ULL << 32.
+      Reported-by: kernel test robot <lkp@intel.com>
+      Closes: https://lore.kernel.org/oe-kbuild-all/202512061720.j31AsgM7-lkp@intel.com/
+
+  - Link to v1: https://lore.kernel.org/all/20251205090411.1388-1-dongxuyang@eswincomputing.com/
+  - Link to v9: https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
+
+Xuyang Dong (2):
+  dt-bindings: pwm: dwc: Add eswin compatible and resets property
+  pwm: dwc: add of/platform support
+
+ .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml |  38 +-
+ drivers/pwm/Kconfig                           |  10 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-dwc-core.c                    | 101 +++--
+ drivers/pwm/pwm-dwc-of.c                      | 346 ++++++++++++++++++
+ drivers/pwm/pwm-dwc.h                         |  25 +-
+ 6 files changed, 488 insertions(+), 33 deletions(-)
+ create mode 100644 drivers/pwm/pwm-dwc-of.c
+
 --
+2.34.1
 
-commit 8ed57f24bf56fd7cb6ebaef9e6fc435940681d6f
-Author: Linus Walleij <linusw@kernel.org>
-
-net: dsa: ks8995: Delete surplus driver
-
-This commit deletes the old ks8995 driver since the Microchip ksz driver
-now handles these switches. It leaves a stub in Kconfig to automatically
-transition users to the new symbol when migrating their configurations.
-
-> The Microchip ksz driver now handles all switches that the
-> old driver was handling, but better.
-
-[Severity: High]
-Does the new ksz_spi driver support non-Device-Tree (platform data)
-instantiations like the old ks8995 driver did?
-
-Looking at ksz_spi_probe() in drivers/net/dsa/microchip/ksz_spi.c, it
-aborts the probe when no match data is found:
-
-	chip =3D device_get_match_data(ddev);
-	if (!chip)
-		return -EINVAL;
-
-For non-DT instantiations, this relies on the driver_data field in
-the SPI ID table. However, ksz_spi_ids[] in the same file does not define
-driver_data mappings for any chip entries:
-
-static const struct spi_device_id ksz_spi_ids[] =3D {
-	{ "ks8995" },
-	{ "ksz8463" },
-
-This means bus fallback matching will provide a NULL chip data structure,
-causing the probe to unconditionally fail with -EINVAL. Could this break
-support for existing non-Device-Tree users migrating to the new driver?
-
-> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-> index e704ab702c189..f2a48c5bfc12b 100644
-> --- a/drivers/net/dsa/Kconfig
-> +++ b/drivers/net/dsa/Kconfig
-> @@ -98,13 +98,15 @@ config NET_DSA_RZN1_A5PSW
->  	  RZ/N1 SoC.
-> =20
->  config NET_DSA_KS8995
-> -	tristate "Micrel KS8995 family 5-ports 10/100 Ethernet switches"
-> +	tristate
->  	depends on SPI
-
-[Severity: High]
-Does removing the prompt string make this symbol invisible to Kconfig?
-
-Without a prompt or a default attribute, an invisible symbol unconditionally
-evaluates to n. During config migration, such as when running make oldconfi=
-g,
-the user's previous selection in .config would be ignored and dropped.
-
-Consequently, the select NET_DSA_MICROCHIP_KSZ_SPI statement below would ne=
-ver
-be triggered, causing users to silently lose switch functionality when upgr=
-ading
-their kernels.
-
-Would it be better to retain the prompt with an obsolete label or provide
-a default fallback to retain the old value?
-
-> -	depends on !NET_DSA_MICROCHIP_KSZ_SPI
-> -	select NET_DSA_TAG_NONE
-> +	select NET_DSA_MICROCHIP_KSZ_COMMON
-> +	select NET_DSA_MICROCHIP_KSZ_SPI
->  	help
-> -	  This driver supports the Micrel KS8995 family of 10/100 Mbit ethernet
-> -	  switches, managed over SPI.
-> +	  This is a transitional option for users who had NET_DSA_KS8995
-> +	  enabled. It automatically enables the new NET_DSA_MICROCHIP_KSZ_SPI
-> +	  driver which supersedes it. This option will be removed in a future
-> +	  kernel release.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-ks8995-to-=
-ksz8-v5-0-98baeb45e665@kernel.org?part=3D5
