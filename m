@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B2A4183AD;
-	Fri,  5 Jun 2026 10:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5203F822D;
+	Fri,  5 Jun 2026 10:42:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780656023; cv=none; b=Ugs5S4fEajTskzShGxq+4EfHthKwN2RF/msqAVbJ3YbUfzp9KN1MxCe7avfCz8LVPRxOWRdSQ6LdElNeOcbfZGm4xUOrvlNoVU9A9XUEqFoNOQzuDEpHqyKciMUo2E8X4WuRJkEs6laC0DS4f320Kp5l6TsTjqPsp3Z3nVOeMYI=
+	t=1780656132; cv=none; b=t9il6q9sK1wgDm93y0o52goMjw7h2tjvwuMCHgARm8npoLReP8ik3g5f8csgcKfk7eG9oEOQbj/cYBsZJaPpFrpvUYY1GR0bdYOyLOvvG/9EJpMMSmhVnk8REsE00xCvW203Xkhh8+dwb6oRJ5oCxl5XoM3++DuVrnJCCOnWqn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780656023; c=relaxed/simple;
-	bh=bfKCFDguTYk6SE4TlvKE7ppSFHoriE0eYSWZmTpNBHs=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=r+DTc08OyaPUVwjA82j0xxQQnl9se8cVmdXV/zfylsiZe4SjNQkCgiPXHTo2SjAjze2b030xVLG9sQI/waEzSoRyD8pX5GaOYXGpjb4jGRq+aZjvQ72RaYAC/Y6fGixM2ZUFIpsvr22GT0GtzGR8i7Y5UEUInc5W0wvbyY9Izfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NG+u57t7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780656132; c=relaxed/simple;
+	bh=J0h6tTPLBqBzFB3093crVNp64vtuAbi8eULUrZLaM6k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h6sAs1T6+KrSRiYUbhzTVsMXSLTS11T3lUtuBKgHcS9PG8LPqmfrs0e+Ib+1qlZ/md6m/wfdxP4nRKvrML4btxKHvOM4XbbiCyZhRneOM2JHU+At7hg3xuCLyH3ApwPc+lxqUKZ+MFhNI4E6kbCAvsX5YQY4hLvyrSdArKV3vXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqz6PanE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NG+u57t7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3FA51F00893;
-	Fri,  5 Jun 2026 10:40:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqz6PanE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B461F00893;
+	Fri,  5 Jun 2026 10:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780656021;
-	bh=aSxblTHp4Wr76A7dKxI6DpC/5PeOcQyVnWngmkyC4AE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=NG+u57t7DDqJgJDw/3LuulBdcDWw4BUaiX5vi8VlRsLET+HBw9GAQipkgPk4+Qqna
-	 rzIyZeITsfvH5YoWBj8a8843IUUragaK4FB6Rzcuo0FGq1J/PiG5k1XoZZHkOkZjbA
-	 81tubBYQiCKndoT0VnDwcUTGyPnMyJa6TQQRQeduYbXEQ2ndXO/8nfqsTetmbSLbPg
-	 TQgT7ZBqmjZKYCS6pCuXGNjyVINSz2PHFzNzv2+hFLjODg8nFmcBmQqFI/QX2pzdLi
-	 c2Vt7LKaEHvhORht/0hkDC6DLZHk/RtA7HTgpBMRShvNtNXlEOX4Hr1qJWcC771ANZ
-	 tkIbr5NbJT9fg==
-Message-ID: <61c140d0-e7c3-4f81-b282-d158a2d37113@kernel.org>
-Date: Fri, 5 Jun 2026 12:40:15 +0200
+	s=k20260515; t=1780656131;
+	bh=loZtY1wUeFLErX3KgMafhwkOURDj1k96YTlVuDim+hs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iqz6PanE19is3J8q9sdxWykmxU7GY/cxgCjqzpvsUKZdW7Zq+5aMgykn1grsJ1OrZ
+	 drOjFYtYOYjwjaIzgsxSO4LBnYElKPB005i4xS0pSjosSrXuflT/ejK49hNCbQBC9M
+	 URjEXPMPahkthtOiohdxjjFCV56qaVazs2lnuF+XQeHPHJilVyisVkYpipO2wYlkD0
+	 7eL7/YB+MfMjMXUJ8KnJbhL27jtQ7KgIjiARIOmsfBF2oh1K9UaA3JU/PXOk4Z9m03
+	 NwlJwhSRWfLuqFueCHwLZhCI3dd/VRBgFHqDMdz33vqZX799op43BfNVSq6omOzr6X
+	 /kqJYn0J+rU3g==
+Message-ID: <0b1c870c-b22b-458e-b845-866bc23d0d79@kernel.org>
+Date: Fri, 5 Jun 2026 12:42:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: i2c: add Novatek NT726xx SoC i2c
- controller
+Subject: Re: [PATCH 1/13] dt-bindings: sound: Add Qualcomm QAIF DAI ID header
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
+ <20260605103739.3557573-2-harendra.gautam@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: SP_ISW1_AT@novatek.com.tw, andi.shyti@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: ben_huang@novatek.com.tw, toby_chui@novatek.com.tw,
- shihpei_hsu@novatek.com.tw
-References: <20260605035558.383330-1-SP_ISW1_AT@novatek.com.tw>
- <20260605035614.383387-1-SP_ISW1_AT@novatek.com.tw>
- <ffb9c16e-5a5a-45c4-8d4b-369b0a4fe314@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -90,69 +90,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <ffb9c16e-5a5a-45c4-8d4b-369b0a4fe314@kernel.org>
+In-Reply-To: <20260605103739.3557573-2-harendra.gautam@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/06/2026 12:37, Krzysztof Kozlowski wrote:
->> +title: Novatek NT726xx SoC I2C master controller
->> +
->> +allOf:
->> +  - $ref: /schemas/i2c/i2c-controller.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    const: novatek,nt726xx-i2c
+On 05/06/2026 12:37, Harendra Gautam wrote:
+> Add a dt-bindings header for the Qualcomm Audio Interface (QAIF) controller
+> DAI IDs. This provides shared constants for devicetree sound-dai references
+> and QAIF aif-interface reg values instead of using raw numeric IDs.
+> 
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-One more thing - you must have specific compatibles. This is EXPLICITLY
-requested in writing bindings. Please carefully read entire file.
-
->> +
->> +  reg:
->> +    maxItems: 4
-> 
-> You need to list the items instead.
-> 
->> +
->> +  interrupts:
->> +    maxItems: 3
-> 
-> You need to list the items instead.
-> 
->> +
->> +  clock-frequency:
->> +    description: Operation clock frequency of i2c in Hz.
-> 
-> Drop
-> 
->> +    default: 100000
->> +    enum: [ 100000, 400000 ]
->> +
->> +  novatek,hwmods:
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    description: Name of each i2c pin, must be named with "i2cX". (X is
->> +                 an integer starting from 0)
->> +    minItems: 1
-> 
-> There is no such syntax. Please do not invent own style.
-> 
-> Anyway, I don't understand the property - drop.
-> 
->> +
->> +  novatek,stbc:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: Set if this i2c master controlled by stbc.
-> 
-> No clue what does that mean. What is stbc? Acronym of something? Why
-> would that be a property of a board?
-> 
->> +    minItems: 1
-> 
-> Please open existing code. Do you see anywhere uint32 with minItems?
-> Like anywhere? I really wonder what process lead to such code...
-
-
-Heh, and now I see you never tested it even before sending it.
+This is is never a separate patch from the binding.
 
 Best regards,
 Krzysztof
