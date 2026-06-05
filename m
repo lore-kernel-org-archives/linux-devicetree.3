@@ -1,110 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64521EB1AA
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 13:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D00E1EB1AA
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 13:32:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780666368; cv=none; b=tDAcLiI0Yzp9mKGQ0pP/dF2MaJ2cqS/Wptv9hFnQlUBUEPxxBzvneEx41mC0T1naBIORtMC7D8OWenljczMJi5NaBYIJtHea5ceOQ7GN2f10TT1aq8jq/8UNX2VHhLB9Wzs4Yuaup1PA1QvJhiCDFiYfkV8JtGO0R7uPou7SiSM=
+	t=1780666373; cv=none; b=GNevc1jC/Gk0AxH5erxR7gv+ekmSD6rC+cVqUwEg0lXrwfYAapIIJaVuUzNPkIMncr7dK7n4CeENsfOPD+W3q68a+iW5cV8XY9VNqWeEMN1DHqCEO46sdNijTqUk4GrTCzHWFkVAXekafEkR/AF4SrWaRBjYBLtBjXs/aWj91KY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780666368; c=relaxed/simple;
-	bh=2WFbGRb+z0bzRXBqVgBhabAcFQmkDaUDT2fZIK5N0Zo=;
+	s=arc-20240116; t=1780666373; c=relaxed/simple;
+	bh=y4UyHgL8uYHp6lQsJofrpUyLUrh94JNYk6G7H8G5GPs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=trEvylkqWna4058l+GG6xo5SQURT7S9bJlWJIHoFWn8bCQ3peZcOjy7Dyx4gByqI9fbtSvFct2PzlXz5ZjQTaPFu8hn2+dWaPngZsBS3HKzm+yCQJUZa4GcabvAh9bo5E70YKInGSzTpLzJLQbDV+rYQtpy19fWbHbUH5fbcDho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EdkW7krm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=j6gzdH0RB6aBFNUkjz9eMvczS/h0OTVSpWO0jdyY4NzOVFBJ4Up1eb+/rdrlM313kkupF0BvrLD84u0Og6KR64tYMVwOfzJOZIQbe37PNm1ciqWA+V5Ad/860eewPdGPnNqqZkAvtWAKXj01vjcaDJXZ30yTeNmE4OwQY4uoUsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQ03DGO9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EdkW7krm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3661F00893;
-	Fri,  5 Jun 2026 13:32:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQ03DGO9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B50121F00893;
+	Fri,  5 Jun 2026 13:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780666366;
-	bh=BkwYseeHuFbK9tm0zf/vf4QaKGWXDW8nHlYTkDCIjtw=;
+	s=k20260515; t=1780666372;
+	bh=L7FxRwOvsbBXNNR9+ucZyirewKSJ09X4RO3PruAVxCM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EdkW7krmFIvLxLWVurzjrcbyTdrmErZPoPsmb2DabNSgeZNGH7R1nJTNSXpsGHfqp
-	 Ml6mvdD68osxtzNjMteidEiQpHH6Zz3Y63L7h9uiRkTsUZNNOP4GrC0DUN9DEy7iEB
-	 w+asHVvgycixXAKy0fWFULzAU2dIgc5x2CUujFbnNEXnpVGl2nlnb+LLYwEZoSob71
-	 mtHRc3El4YrCk92z0uaRNMSQZgKwezBcBbrOZe7KjMqKhF6FFdv2HR4E3WJMQJm1KZ
-	 m7CXPap/mvXn+pVg4jEfEx1PkiH4fYaVwxsXyEun84WhuE2gguFAtrjCJaXVqaNlA/
-	 BVzS0GCVz2/Ag==
+	b=nQ03DGO9wtRd/q9Ao69L1qykFyrhyiFBEJxsTaX1jqS5swGypckgCMeMoBV/rK9li
+	 pbUb80zMtnb0aKe+otkSq9MdBfO1AQHPUDM5L8lPduB+LJX+bd8sIB9fiW983pGY42
+	 AAgIVOmZZi5iK+YBlJWtiVaA2zVnWk7bh4RDK9mnfLp6SpiGGO+SGheAY7rLl4OXUC
+	 /cri/sdPVJNGKD6OuNvX15b/c3syk+WHHWUtokOq+ENemZv6AU8NxClkyEWEpn0ToY
+	 01aV9CideecTKO0cjg8TSDPYOZ005G0qGyeZjpkCqJi6d29kd0QLAO7HghfbkYR6v6
+	 fDci6DFZ+z1ww==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] ARM: dts: qcom: Support Motorola Moto G2 (2014)
+Subject: Re: [PATCH v4 06/10] ASoC: renesas: fsi: Move fsi_clk_init()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Wales via B4 Relay" <devnull+daviewales.disroot.org@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260605-device-motorola-titan-mainline-v4-2-08a7be31f05c@disroot.org>
-References: <20260605-device-motorola-titan-mainline-v4-2-08a7be31f05c@disroot.org>
+To: phucduc.bui@gmail.com
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
+In-Reply-To: <20260605121955.105661-7-phucduc.bui@gmail.com>
+References: <20260605121955.105661-7-phucduc.bui@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 13:32:45 +0000
-Message-Id: <20260605133245.BD3661F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 13:32:51 +0000
+Message-Id: <20260605133251.B50121F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The fixed regulator `vddio_disp_vreg` is missing its `vin-supply` =
-link to `pm8226_l8`, which will cause the display VDDIO to be unpowered aft=
-er boot.
+
+Pre-existing issues:
+- [High] The newly introduced `fsi_stream_is_working()` function creates a =
+Time-of-Check to Time-of-Use (TOCTOU) race condition because it drops the l=
+ock before returning.
+- [High] The patchset attempts to prevent system hangs from in-flight IRQs =
+when clocks are disabled, but fails because the interrupt handler still unc=
+onditionally accesses hardware registers before any stream status checks.
 --
 
-commit 70499333aacadd0ef2c646a655f7350a4c0e3f57
-Author: David Wales <daviewales@disroot.org>
-ARM: dts: qcom: Support Motorola Moto G2 (2014)
+commit 9e7d9a809265c034ddb9794125d27b1e46ac61db
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-This commit adds the initial device tree for the Motorola Moto G2 (2014)
-smartphone based on the Qualcomm MSM8226 SoC. It adds support for buttons,
-eMMC, a Hall Effect Sensor, simple framebuffer display, and a vibrator.
+ASoC: renesas: fsi: Move fsi_clk_init()
 
-Link: https://github.com/LineageOS/android_kernel_motorola_msm8226/blob/cm-=
-14.1/Documentation/devicetree/bindings/misc/hob_ram.txt
+This patch moves the fsi_clk_init() function after set_rate() functions to
+prepare for subsequent refactoring.
 
-> diff --git a/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts b/arch/arm=
-/boot/dts/qcom/msm8226-motorola-titan.dts
-> new file mode 100644
-> index 0000000000000..1609fb21c5448
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
+> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> index 0f350bddeb1d5..43e6772c06d5d 100644
+> --- a/sound/soc/renesas/fsi.c
+> +++ b/sound/soc/renesas/fsi.c
 
 [ ... ]
 
-> +	vddio_disp_vreg: regulator-vddio-disp {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vddio_disp";
-> +
-> +		gpio =3D <&tlmm 10 GPIO_ACTIVE_HIGH>;
-> +		startup-delay-us =3D <300>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +	};
+While reviewing this patch, I noticed a couple of pre-existing issues in
+this file.
+
+sound/soc/renesas/fsi.c:fsi_stream_is_working()
+{
+	struct fsi_master *master =3D fsi_get_master(fsi);
+
+	guard(spinlock_irqsave)(&master->lock);
+
+	return !!(io->substream && io->substream->runtime);
+}
 
 [Severity: High]
-Will this regulator fail to supply power if its upstream source is turned
-off?
+This isn't a bug introduced by this patch, but does this function introduce=
+ a
+Time-of-Check to Time-of-Use (TOCTOU) race condition?
 
-This fixed regulator controls the display VDDIO power via a GPIO, but it
-seems to be missing its vin-supply link to pm8226_l8. Without the
-vin-supply property, the regulator core is unaware of the parent-child
-dependency, so enabling vddio_disp_vreg won't automatically enable
-pm8226_l8.
+The fsi_stream_is_working() function checks if io->substream is active
+while holding master->lock, but immediately drops the lock using a scoped
+guard before returning.
+
+In the interrupt handler, fsi_count_fifo_err() and fsi_irq_clear_status()
+call this function and proceed to read hardware registers without holding a=
+ny
+locks if it returns true:
+
+sound/soc/renesas/fsi.c:fsi_count_fifo_err()
+{
+	if (!fsi_stream_is_working(fsi, &fsi->playback) &&
+	    !fsi_stream_is_working(fsi, &fsi->capture))
+		return;
+
+	u32 ostatus =3D fsi_reg_read(fsi, DOFF_ST);
+	...
+}
+
+If a concurrent SNDRV_PCM_TRIGGER_STOP on another CPU executes
+fsi_hw_shutdown() (which disables the SPU clock) right after
+fsi_stream_is_working() returns true but before the register accesses,
+can this lead to a fatal system hang when the interrupt handler accesses
+registers with the disabled clock?
 
 [ ... ]
 
-> +		pm8226_l8: l8 {
-> +			regulator-min-microvolt =3D <1800000>;
-> +			regulator-max-microvolt =3D <1800000>;
-> +		};
+sound/soc/renesas/fsi.c:fsi_interrupt()
+{
+	struct fsi_master *master =3D data;
+	u32 int_st =3D fsi_irq_get_status(master);
+
+	/* clear irq status */
+	fsi_master_mask_set(master, SOFT_RST, IR, 0);
+	...
+}
 
 [Severity: High]
-Will this regulator get disabled by the regulator core during late init?
+This isn't a bug introduced by this patch, but does the interrupt handler
+unconditionally access hardware registers before any stream status checks?
 
-Because pm8226_l8 is not referenced by vddio_disp_vreg or any other
-consumer, and it is not marked regulator-always-on, it appears it will be
-disabled as an unused regulator. When this happens, will power to the
-display be cut, causing the screen to go blank?
+The commit message for a previous patch claims that the IRQ handler will
+return immediately if no streams are active. However, fsi_interrupt()
+unconditionally calls fsi_irq_get_status() and fsi_master_mask_set() at
+the very beginning of the function, before any stream checks are performed.
+
+These functions read and write the INT_ST and SOFT_RST registers, which
+sit behind the SPU bus. If an in-flight IRQ executes after the SPU clock has
+been disabled, will these initial register accesses immediately hang the
+system, completely bypassing the downstream fsi_stream_is_working() checks?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-device-mot=
-orola-titan-mainline-v4-0-08a7be31f05c@disroot.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605121955.1056=
+61-1-phucduc.bui@gmail.com?part=3D6
