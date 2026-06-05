@@ -1,109 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3416F3FB067;
-	Fri,  5 Jun 2026 10:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B083FA5F3
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 10:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780655376; cv=none; b=Nw6pmZ2Aa0k41SBbMXZRAvwk3jIzi+ojPMUJOGkFxlTuVhp+CcXlkfmn76q4Ccbrnk8NLIsefehkjBJ80B+o/boUn3yMnsGvqj8tAoQyRjKo8j3brrUK9A9C7fyLaZbE+gy1+VE+sLPcQaEjaNlhjTUFfPFVJp5AXLWyRcIhcK0=
+	t=1780655426; cv=none; b=C4SFeyn60rtl/mCBlf1OTapgW7L0Ji/57DIv6X1/vsFaGJEjQaaodLGmV+xh2mJPF0wGgcHabsY82/QFSDdEIHsbC8m93SUl8q8zL9aSau9k3axkr9SdE8BpnB+UKEvXGN0Uqu5sS9lE+zkkzYFQF9FLlzNG6Fzlz7c54UKc4gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780655376; c=relaxed/simple;
-	bh=7SbcHLIf57Mjj+9oaXZdwmABHzy8Var3aHq6IUGmBlI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qrB6XARttM+i0SjCo8I2P/OTbqhRcMyLN7AKYKg40PfUAmI8NwlXGJ8FXMfAMHtF3Ib64EQwrRSEsrbErqLH8Jp6uHXIWlDt1fi9/oNQmEltsxTox+2h5+Dw9X2NsoqWGQfTBKmBSWFYnEGZGZqkecVhlwdHtMivoYhuDaKe5+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KBCJYjs7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780655426; c=relaxed/simple;
+	bh=JCn5atXy7+hqmWtx95xYBqS+yLokJfA+OcgvkCj21+g=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eChPlR/1uKlXxDgiRwsXDRGCBxOP+nqCjDPBebXT6geOkp2kzinBUR6Zb5pFkIXw/SAG7K0hwD8AjV6AYHJfYFlUoVBAyrHUd8JfGJKEppElxJo9R27gsCseSrZ1cWjOTocuFnq49RyQkCnnPFX075RN+JZvZp9HdZGAKmv8M2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=dIiRNt5U; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KBCJYjs7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6671F00893;
-	Fri,  5 Jun 2026 10:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780655373;
-	bh=nd3ICY+M6psvuR2PIaYEOd1jBzznmp/WFBKJHDxq+QE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KBCJYjs7txMR2NaKeCfyiYezSBUwPbsXMJRZsnDfHysAH6LyZXhQZuobcvHfwJi1u
-	 RTAabnqzgP0v4DOzc/V+imaukKD46tBc0bPSpuIT6EkfmEXbC4X1a3KdhLxZiVkVSv
-	 T9vcmq+qI3GYS4xCwReFeivYLtV3btHB3JmDKfqVKpIR4t2xD5aDC70dqcBPYe2ane
-	 oVaA8MXi+Dz1c+or22djR8ap4UvxB9U9plrUaE/V2r8X//2nwXinvDgQ/h8+7Q4bHt
-	 OZXqg8U3loeap03hNghLcre5moxPhWhLg5eMEXAEq+5jjhvqY96pbBsd8x7VN2Jgdh
-	 G62/7idJ9Mltw==
-Message-ID: <41d72453-10cf-4ccd-87da-575b04532f08@kernel.org>
-Date: Fri, 5 Jun 2026 12:29:26 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="dIiRNt5U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1780655425; x=1812191425;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JCn5atXy7+hqmWtx95xYBqS+yLokJfA+OcgvkCj21+g=;
+  b=dIiRNt5Ub6OoNVuP/UjAdEXMHIu8cWnu7j4YmM7eiFEKouiRLW1x0sbG
+   ZpzIIJNkioDTWi4VI1F3g4mbBMUTJQy0Ta8hQb7CBemc1ua4jcKCdwn0n
+   LlOSj2zCT8/PcWxlhMoH9Q7FVPh6GwjVtXItD5tGV9RtGJfO4RbilPCHj
+   6u/+vx1PpTiIg64RIujMUJLQua8doHk6WdgyeuG14aOBqOGvTE069Tbga
+   TZqK/Ve5iN2TlnPTHNz6fAcbdA1R5L7f7auKMa81wF2nqkIfr8k6Elqqt
+   2QFsEz8yX+v/ZIshww1A4ZNUm6OKRPA4D7UUq78ffNbkcKz0JQEzjXqQf
+   g==;
+X-CSE-ConnectionGUID: uJwvOoOWSnSZB8tKZGw+jg==
+X-CSE-MsgGUID: LJk6C14tRK6j2j0P7occ5g==
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="asc'?scan'208";a="58647235"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 03:30:18 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Fri, 5 Jun 2026 03:30:16 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 5 Jun 2026 03:30:15 -0700
+Date: Fri, 5 Jun 2026 11:29:31 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Jonas Rebmann <jre@pengutronix.de>
+CC: <devicetree@vger.kernel.org>, <conor+dt@kernel.org>, <robh@kernel.org>,
+	"kernel@pengutronix.de" <kernel@pengutronix.de>,
+	<sashiko-reviews@lists.linux.dev>
+Subject: Re: [PATCH v2 1/2] dt-bindings: leds: Add default-intensity property
+Message-ID: <20260605-factsheet-giving-69f8767bc5d7@wendy>
+References: <20260605-multicolor-default-v2-1-ed07271df6b0@pengutronix.de>
+ <20260605073816.E916D1F00893@smtp.kernel.org>
+ <3cbee0dc-87a9-4b87-9d22-b3e378fa57c3@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC i2c
- driver.
-To: SP_ISW1_AT@novatek.com.tw
-Cc: Ben_Huang@novatek.com.tw, Shihpei_Hsu@novatek.com.tw,
- Toby_Chui@novatek.com.tw, andi.shyti@kernel.org, conor+dt@kernel.org,
- conor@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org,
- wsa+renesas@sang-engineering.com
-References: <be15f8f5-0826-4851-a5b6-788f3be3007a@kernel.org>
- <20260605102330.397329-1-SP_ISW1_AT@novatek.com.tw>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260605102330.397329-1-SP_ISW1_AT@novatek.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="nBlbV6IctgwcPDct"
+Content-Disposition: inline
+In-Reply-To: <3cbee0dc-87a9-4b87-9d22-b3e378fa57c3@pengutronix.de>
 
-On 05/06/2026 12:23, SP_ISW1_AT@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
-> 
-> Hi,
-> 
-> Apologies for attaching the confidential messages in these patches.
-> Since received potential code vulnerabilities from code reviews, may I send next patches for your review? No confidential messages will be added.
+--nBlbV6IctgwcPDct
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes, of course. Send a v2. I recommend using b4 relay for avoiding
-corporate emails (see google "b4 relay").
+On Fri, Jun 05, 2026 at 10:45:12AM +0200, Jonas Rebmann wrote:
+> Hello,
+>=20
+> On 2026-06-05 09:38, sashiko-bot@kernel.org wrote:
+> > > @@ -73,6 +73,17 @@ properties:
+> > >         - keep
+> > >       default: off
+> > > +  default-intensity:
+> > > +    description:
+> > > +      The initial intensity of the LED color component. Used only du=
+ring
+> > > +      initialization. Defaults to 0. As the intensity of each sub-LE=
+D is
 
-Best regards,
-Krzysztof
+I'd drop sentence two here, it just duplicates sentence one.
+
+> > > +      multiplied with the overall brightness, without this property =
+on a
+> > > +      sub-LED, the leds-pwm-multicolor-LED is effectively initialize=
+d at
+> > > +      minimum brightness regardless of its linux,default-trigger and
+> > > +      default-brightness properties.
+> >=20
+> > [Severity: Low]
+> > This isn't a bug, but the description for default-intensity explicitly
+> > mentions the specific driver name leds-pwm-multicolor-LED.
+> >=20
+> > Since common.yaml is intended to be a hardware-agnostic specification
+> > for all LED bindings, could this wording be updated to refer generically
+> > to the multicolor LED or simply the LED to avoid leaking an
+> > implementation detail into the generic schema?
+>=20
+> I'll be leaving this as-is until human feedback.
+>=20
+> I think documenting the property in common.yaml is correct because the
+> default-intensity itself is applicable to other multicolor-LED drivers,
+
+I think this is fine.
+
+> I just only implemented it for pwm-multicolor because that's what I use.
+> But we could just as well move it to leds-pwm-multicolor.yaml for as
+> long as that's the only driver supporting it.
+
+But this is probably also fine and it can be moved if other users crop
+up.
+
+> I intentionally included the "pwm" in that sentence because the
+> described issue that default-intensity is effectively required when
+> using linux,default-trigger may be pwm-multicolor specific.
+
+I don't think this is fine. However, it is almost certainly fine if you
+just do s/the leds-pwm-multicolour-LED/it/ because you're no longer
+tying the description to the name of one driver.
+
+>=20
+> I would not like to omit the sentence either because this situation is
+> the reason why one might actually need (not just want)
+> default-intensity (for -pwm-).
+>=20
+> Regards,
+> Jonas
+>=20
+> --=20
+> Pengutronix e.K.                           | Jonas Rebmann               |
+> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+
+--nBlbV6IctgwcPDct
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiKlCwAKCRB4tDGHoIJi
+0jC0AQCEHoWLe+5TFNAzSgkGHZhdk8s9J0oaQGSzUePaWqfVggD/erMf7u/13mUV
+Eg5QTIjIrpEsYtxbkziBkXisFFcsMQs=
+=HsAO
+-----END PGP SIGNATURE-----
+
+--nBlbV6IctgwcPDct--
