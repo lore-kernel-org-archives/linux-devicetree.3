@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B88A309EFA;
-	Fri,  5 Jun 2026 19:04:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9C1377543;
+	Fri,  5 Jun 2026 19:06:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780686298; cv=none; b=JdyzYtRhVEgBx0lsOuWyPo6Swf01AJSl3Ai1Eb7Vjpt1RBPLbXHLzABywj264H6upVp70d9z/LXdHz8a41NCT8S2rx7ocPij2Vs+aClgjzsCYhEWLEXuWXb74H8k3Bx32XPGKgFCnQwjhKRFUznCQmefVW5mNbsQxmo8i1+YxcI=
+	t=1780686401; cv=none; b=qRGDGd8B02Emv4qD7o+VLZdx8E+TWh6l9OMNyPZMt2K9aZJ+53+C2FBCkszqCGD1bgFoE6mUu9MOlW68hQa9gQqU+SlkSKGa2xuQtrCp8JYgZ0pkVoWl1hglulXPrNk2mSaMwq5e0Qv0hRp+lDl9BFnXosCyl1OQQFoN90yfJkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780686298; c=relaxed/simple;
-	bh=r1wlywnJiQ74kt5wDlJ1Ja1cshRmDMMYYHoc6SRbhSE=;
+	s=arc-20240116; t=1780686401; c=relaxed/simple;
+	bh=HBQj2WAAvsjLsPaPYx78bH6HEFEJLEckWJTIF2mvvnM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QqZsYazuM3ueOH8akbTD33OS40Wg61JcWWXnQ5PtXaH50+Y4wjTPxmCjztXEPksaq2NQ3iWhtmb8EJcTrosIIv2Pn2CRaW2CLUhmSgeSSTV1iXlPjjeDKIP9jR7d0iizax9vlQtjaalJOI+XsPWcx3Jn90ygHv4aowtESZbBT7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hm5LKmx+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qjd+hVNm10+cNZAruvCWBTsZRYCqG/sI3jAif9zM7020KkwAybZUk94nxFng/Y3Rlxy23pgFYsDNTzpNVqFmvRbTNjUtFGv+tcA2Ay2MwtCif2kuQz5BuAmmH/e5ORHysk2Jt1Bil76vRbxQbcjZVTKGjmtmoMqoixggOB9w9kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/HIQKuU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hm5LKmx+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14FD81F00893;
-	Fri,  5 Jun 2026 19:04:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/HIQKuU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF6D1F00893;
+	Fri,  5 Jun 2026 19:06:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780686295;
-	bh=Yse0SqJjEnbdUJl6eHAZpQ7EdaKzGdPFnXWp4ZHcKng=;
+	s=k20260515; t=1780686400;
+	bh=bQdCIlR4TmbHaM9znLMb84vsVtHdadCejRiPSH1vb5U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hm5LKmx+R9my0USGZtnjUidWmmc3a0Ick8ey1lhhvjn+YlomoCYpBVpfnGV8ZwVzD
-	 e+Aix/+uzmGiy3JEOhaBtkmz4SbNx9v3UnDoTcv+qNXygUDDy3nZL5/iz0JoZ0tLLs
-	 1yYluIXXdRt1kTAJ98Q7wRkcP/g6LJ5J/govIWZ/qyb+IxB0R6jES9Yqiqmg39h5IS
-	 6lw+6+jSj82wcAn/K17qd4ku6lxWXc0hibLmfBInTLkLqAY34Jmhg0eI6q0UZkQ3E0
-	 F4dCo6EJopot1yOKNYeBlhwcgMoSUJSlECwDOlV6kf+yxS8TTRUVaDzIYQWhz/iJ3M
-	 rxZevRcs8fV6g==
-Date: Fri, 5 Jun 2026 14:04:54 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	b=i/HIQKuUcaZgfPFAZ5IssdsE+mNsFymCVsX8tmr5CYCJNchoNgXkXVTndjq2eCzTd
+	 C8THXRONz3LDXDQFPbA3MLa3lz56fkSSsqSuj/8evfhqCPz3EoiTPsjyAcnLzrVr5Z
+	 /0XDZTvzO0O6VeyNJ/Lro+JcT5L7AXw/CofQzkcu/8A4ROdpgfNhOZ9LXvDpCxjkVl
+	 yaei2UF3t5nipAgno5y6BKjpt2nz0WL56jZK2YW8KQ4rQZVI3Jlm/vzfWokTfedO37
+	 Ojqy4CCWhy1QeSg27AR7n19a3FB/19q0k9ZY4QqGI9CEEq55SwIj30Dw/XSM52ttVy
+	 QxBtTUDE9/0kg==
+Date: Fri, 5 Jun 2026 14:06:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Oliver White <oliverjwhite07@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Tanjeff Moos <tanjeff.moos@westermo.com>,
-	linux-phy@lists.infradead.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	devicetree@vger.kernel.org, Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH phy-next 01/13] dt-bindings: phy: lynx-10g: initial
- document
-Message-ID: <178068629376.4187871.11165995094571921556.robh@kernel.org>
-References: <20260528172404.733196-1-vladimir.oltean@nxp.com>
- <20260528172404.733196-2-vladimir.oltean@nxp.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Felipe Balbi <balbi@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: usb: dwc3: document
+ snps,reinit-phy-on-resume
+Message-ID: <20260605190638.GA4188454-robh@kernel.org>
+References: <20260601231236.20402-1-oliverjwhite07@gmail.com>
+ <20260601231236.20402-2-oliverjwhite07@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,29 +51,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260528172404.733196-2-vladimir.oltean@nxp.com>
+In-Reply-To: <20260601231236.20402-2-oliverjwhite07@gmail.com>
 
-
-On Thu, 28 May 2026 20:23:52 +0300, Vladimir Oltean wrote:
-> Add a schema for the 10G Lynx SerDes. This is very similar to the modern
-> form of the 28G Lynx SerDes, which is very much the intention.
+On Tue, Jun 02, 2026 at 11:12:34AM +1200, Oliver White wrote:
+> Add the documentation for the 'snps,reinit-phy-on-resume' boolean
+> property. When set, the DWC3 core will perform a full phy_exit() +
+> phy_init() cycle on each USB2 PHY during the host-mode fast resume
+> path. This is needed on platforms where the USB2 PHY power domain
+> is gated during deep sleep even when device_may_wakeup is true.
 > 
-> We allow both forms of #phy-cells = <1> in the top-level provider
-> and #phy-cells = <0> in the per-lane provider for more flexibility to
-> consumers, and because the kernel code is shared with the 28G Lynx which
-> already has that support for compatibility reasons.
-> 
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Oliver White <oliverjwhite07@gmail.com>
 > ---
-> Cc: devicetree@vger.kernel.org
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> ---
->  .../devicetree/bindings/phy/fsl,lynx-10g.yaml | 131 ++++++++++++++++++
->  1 file changed, 131 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+>  .../devicetree/bindings/usb/snps,dwc3-common.yaml      | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
+> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> index 6c0b8b653824..d12f6ae81ab8 100644
+> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> @@ -212,6 +212,16 @@ properties:
+>        When set, run the SOF/ITP counter based on ref_clk.
+>      type: boolean
+>  
+> +  snps,reinit-phy-on-resume:
+> +    description:
+> +      When set, the DWC3 will re-initialize the USB2 PHYs during the
+> +      host-mode fast resume path (device_may_wakeup). Some platforms
+> +      cut PHY power during deep sleep even when USB wake is enabled,
+> +      and the standard PHY runtime PM resume is insufficient to restore
+> +      the PHY register state. This quirk forces a full phy_exit() +
+> +      phy_init() cycle on each USB2 PHY.
+> +    type: boolean
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+This should be implied from a platform specific compatible string.
 
+Rob
