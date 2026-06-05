@@ -1,72 +1,72 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F362EEE73
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 13:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70422F49F1
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 13:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780666754; cv=none; b=VzQl1+vgia75d7R6XK3A58j58KqNSOsZImJNI+ereAFkububE9P42qBF2i6go0214P8LvmOnhQF1HTZeqKrdFiWcZIYGpbrZLRdOXhMTJ9so+I7qjZepVzWlq8iqBAStg3FEA8DHg+3oRDj9CYLIZF+WJtisFUigmYQTQIJ2kYM=
+	t=1780667078; cv=none; b=sS2uVuVi+1sI/RKs301iOtSDEBeMOuCsDIaRmOi2rl+uXUrGTlUJoFyX/SzjBKVuwTWOtvKaFfwahcb2DpeaoY4RW+azD1vcbTSXMligrd+83oMHdevT2roDScV8uJ0+jImor3NTsbJGvFFjfBxV2+P/Om1u0mFqWisW79vWQ78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780666754; c=relaxed/simple;
-	bh=neuVlX5E09C2CCGMgZEk9w7Fn/XLCZt+ud6kGcA9fkQ=;
+	s=arc-20240116; t=1780667078; c=relaxed/simple;
+	bh=CFF3h2aKCRs0mVERo0w9Jab73K/yL/FpUgQ+LRq2KzQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mQLFd85LGJwhKaJLb8c1Wf7tVDHBgRpOqEifuxdZWkuXD7OxaybYfX1FGWDsf2SqmJ0Ogu7KWq3xaZbZEjb2HP+i+KAI9vWg/db+PPfZpadQ8OeXJLerh16S5g1lUmqcmNfIXskT6f8po3kQSKFGKJV/PRTElZlSQLh26/0mRdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
+	 To:Cc:Content-Type; b=KzMyohYZdKPQFJ4ubcLr66AUm8yN5uwKEGNbtUpS5dVnNVP7mCrc9llgd2Qa8mZqzl+rqQEZDD3pNXPoCMOBXgkcJXrQf5ioYSe7XuOtJBflyl97HDhqqp4z66fiAeL/faRdiOZiXe2gydPeBGtwe49f6iPSDBnS1fz+3XAVnTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-59dc1714d44so614686e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 06:39:12 -0700 (PDT)
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36b8d414666so1180529a91.3
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 06:44:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780666752; x=1781271552;
+        d=1e100.net; s=20251104; t=1780667074; x=1781271874;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ng6MztXRVUw+6gX3lTf5HZ3/GBPHOvI81OwZahcGNXA=;
-        b=IZbLR+bEJP69pfHqwW6GJsyi9iUxAJcu8N0qIO6y8zEYMJpYy8LwcWEEw/JovzauXB
-         P7RNrjydVc2nZHZ4ZSTvQPooBWi3Nvxm2x2ISS02HqpUZWS1fBo5a/v+nc+2yWcwvRAT
-         3oAcdoBU8Y3wZpUydYD8KoYaLv85JbRdT7i8jV9nMXgYZknv+WqFLqfDh7jmsAnPeepF
-         krpkr+zQ+yu/Khw1R7vg5fZ1jQ2J2mrq5SpPaoHoZZb7i0c4Rii1lm/WqeW973jdwGCc
-         ikjV+c7SxGaogGDVd4MApUxPYG6hFPmr4afSGOe7HnlvgWFZiBMjQIQ/B/e/3ar/mWU6
-         rLEg==
-X-Forwarded-Encrypted: i=1; AFNElJ9Pk7n5sTCC0RQhLhjOXf2PZxMaX4fFoPEufoB1eIz+T0MRG1ggd7eBif3P+BfIHGIvwrMt/r5stuNs@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgtKGPbidK3eDizUygntmwN792YPTUa8ETfp60oqBpnoiu5jll
-	RPeliPJRqIeLB8hOAibtMfQue1fyfanq2PMZXLNQw42kD0YXCObzU8WWdYEizUpv
-X-Gm-Gg: Acq92OENlSgYom8ZvLjSjGL9MO4G+YuLObv5Q4tkw2ytt7G3JPbpEJDi24OOHWuSgY5
-	rSXW3OEKLFI7157TWHT1pSBb35XnnQyUCPT5KDy0gLAT7NTm3MwriJpV9tD4ZT5+GqsIEhmaunn
-	CHQjlRILRgmwTfXCGdpNx/vK0G3HHuM/mIXI57Cuc1pwNxIlgGdNS5mtJc8WfOpCDCtGearXlqw
-	VDulV3HAXek38cg097qkwj/xbbSA28Yib6+cDhd+MEDrlPFDLaMLgp7KiYteigcW3syap84u6e/
-	iwAJU+pFYqS6cH1d/49EKdyC0uTUD5UgJEf4s6dQtbMqNvdA17XtCeUHXLxBKAmG5fmosnvLlld
-	8ufle75aUjufWAIc9EmrhtdSeFphLfcw0xav94pwj8b/TUow8C2K9EAc72oIKZoLabvBOsEjVS+
-	WA+VCEpTnOr2kfFNcfkMkHKr79evDRf6yNXdfMCXAUBonYzz95crk0+CbQ9plGoc8acsMQ9lGMT
-	dvipZnEJIyu7Q==
-X-Received: by 2002:a05:6102:e0c:b0:62f:357a:3297 with SMTP id ada2fe7eead31-6feef474e29mr1770087137.5.1780666751901;
-        Fri, 05 Jun 2026 06:39:11 -0700 (PDT)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com. [209.85.221.172])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6eb5745d325sm7640126137.4.2026.06.05.06.39.10
+        bh=7/NHmMIAbF26BQ6q+U+2X1MzRNnwP89We/x5SvIc/NU=;
+        b=KwQJQXxFyhGFiilWYRDc4HZD3k2/JctcI7Ub7bUmE8LrAS4KjXNxk+91uuB9bQ7O//
+         JNCUF5G0kd8aKtF2eLMqfxbVGvjkN9W9+9gNJNJzSWeaqnJVeFPkNPWlK5TsqgEAsbjQ
+         rdV4xps+fVW1w0VPlUb1+NU5C/xruM6vf5UY9Hj/nXYpEW1tD7CIGwjhFjtHrfqgryKo
+         uXSfNYRsmGXN+TqNByasMp6yTWzfYRvnh6vImGwHqgRScpIu1xBh2xJTddwfzKEFqKlO
+         /9kK5aydbB3tyP/GeV3Opvr+QpRWA2WdeHkz4MeHu5hLMU4z7g31j64wPcFBKwREimn2
+         Epkw==
+X-Forwarded-Encrypted: i=1; AFNElJ+zv9slXCTLjAK9LEu9NubWXaoBilPwJHbQ+BdVU+sjy0MEC432vMaHhdueFpdl2KplE/uZcx5ME02A@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5Uvf6bXOAP49bf41otXUUjoDP23CCZ9tAbjd/vv0OSEi3yl1m
+	wYJa+cOv8ZTlSEGjdf9A2/e33cctkfa8kjEDvnpfLyY1t42DXANKzF/qvsvnnx0y
+X-Gm-Gg: Acq92OHUN9eBnG7h9FFnswtbdQOJXbI1liSCzX09+YfDkPsj56S4gutuTiF9u+1IRrI
+	WOFOhoDMluxQdLTFHybmWD3m91EOZVNr8fFoo/xcOwrYS7x+QHJBsdjefARdf3rxzm+YgqdFdxl
+	7An8IFuB3eQVUHjY+5T3MliYROFPZ9JzgIpVRi/ILW09PUFlUSpa3lKi25PVAFvDKGIG6f8fhFq
+	8UXFjJKPou1xp5mh5uHUzpdapeXJk/rIsHo5coXqJF1ruYIEL9ort//4gGfwUk4Rm6O4JWHj0jB
+	60e5s2FJRNyWIFjODkjFeADMrEclDQXCssUM3lj2ZCa0lXozZ4tYXQu4CiojZ02uj6JUHQNlZP1
+	tJIYpQLcY5IpTjF2MBumrFEaQTrnvss81+1+xazpJe6zjX+ubwwc0R83lujhYAcsiEgUJ3s7PRI
+	hJ78ROyJnforCkbKFKCoygJKFsjgyOGceCIsH5o3gq9s/MKT3h9wv7NdMO0VqFyD3AA92I1MWv5
+	g==
+X-Received: by 2002:a17:90b:2583:b0:36d:649b:ea46 with SMTP id 98e67ed59e1d1-370eeff1e59mr4045852a91.2.1780667074387;
+        Fri, 05 Jun 2026 06:44:34 -0700 (PDT)
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com. [74.125.82.171])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6c6748f9sm6411681a91.5.2026.06.05.06.44.34
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Jun 2026 06:39:11 -0700 (PDT)
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-59d541955f8so623220e0c.1
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 06:39:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/q/rODU3tJBolE5Oimzci+efPOxou4LGdvfZMpcD6z4KmbKx7a4PENINISBrtTMOSxXkPyWFXUJ5ot@vger.kernel.org
-X-Received: by 2002:a05:6122:2895:b0:5a1:19d4:a363 with SMTP id
- 71dfb90a1353d-5ac4da02fb1mr1517139e0c.3.1780666750627; Fri, 05 Jun 2026
- 06:39:10 -0700 (PDT)
+        Fri, 05 Jun 2026 06:44:34 -0700 (PDT)
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-304f0039c02so3288347eec.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 06:44:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9tJu3USfCAGUYZx26j6wZ84jXIKwchCg+19V4R3zw8hmO1HLbtSo1C/pBfDSBYTuSwAoBvPWzD/Fyf@vger.kernel.org
+X-Received: by 2002:a05:6102:6447:b0:6f0:3c5c:76a with SMTP id
+ ada2fe7eead31-6fede2771c1mr1647286137.0.1780666709130; Fri, 05 Jun 2026
+ 06:38:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260511191910.1945705-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260511191910.1945705-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260511191910.1945705-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260511191910.1945705-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 5 Jun 2026 15:38:59 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXh6YhDp7nEra3GbrR9hkhqqj15UXnv0DHeei=mj56XJQ@mail.gmail.com>
-X-Gm-Features: AVVi8CesdJciMHdsefYeL2Id77B4Nq_zyNVq-BWBcQxt_zUG2CODWutZURFB3Cs
-Message-ID: <CAMuHMdXh6YhDp7nEra3GbrR9hkhqqj15UXnv0DHeei=mj56XJQ@mail.gmail.com>
-Subject: Re: [PATCH 4/4] clk: renesas: r9a09g077: Add LCDC and PLL3 clock
- support for RZ/T2H display pipeline
+Date: Fri, 5 Jun 2026 15:38:18 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVBT7NFYCC-NrSxV7+Y1+76ZPc_ikGK5keRLCXEs-2_8A@mail.gmail.com>
+X-Gm-Features: AVVi8CclYwL9WKaFhvlLy2AwgRj6jcLeq2B2Tj0Wg7PaSGMN4PnbodDRHC61qUc
+Message-ID: <CAMuHMdVBT7NFYCC-NrSxV7+Y1+76ZPc_ikGK5keRLCXEs-2_8A@mail.gmail.com>
+Subject: Re: [PATCH 2/4] clk: renesas: cpg-mssr: Add table-driven MSTP
+ dummy-read delay for LCDC on RZ/T2H
 To: Prabhakar <prabhakar.csengg@gmail.com>
 Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -82,196 +82,189 @@ Hi Prabhakar,
 On Mon, 11 May 2026 at 21:19, Prabhakar <prabhakar.csengg@gmail.com> wrote:
 > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> Add the clock definitions and PLL logic required to supply the LCDC
-> (VSPD/FCPVD/DU) blocks on the RZ/T2H (R9A09G077) SoC. The RZ/T2H display
-> subsystem depends on a dedicated PLL (PLL3) and a set of new derived
-> clocks.
+> Per the RZ/T2H hardware manual, to secure processing after release from
+> the module-stop state, dummy read the same MSTPCRm register at least
+> seven times for most IP blocks, at least 100 times for LCDC and at
+> least 300 times for RTC before proceeding with subsequent processing.
 >
-> Introduce a new PLL clock type and implement rate recalculation,
-> programming and locking sequences for PLL3 using the RZ/T2H specific
-> divider and VCO limits. Add the corresponding muxes and divider entries,
-> expose the LCDC core clock, and register the LCDC module clock using the
-> correct PCLK parent.
+> The existing udelay(10) satisfies the seven dummy-read requirement for
+> most IP blocks. Extend this to support per-IP dummy-read requirements
+> by introducing a table-driven lookup, rzt2h_mstp_delay_table, where
+> each entry records the MSTPCRm register index, bit position and the
+> minimum dummy-read count from the hardware manual, converted to
+> microseconds via RZT2H_MSTP_READS_TO_US().
 >
-> This enables the RZ/T2H clock driver to generate the display pipeline
-> clocking tree needed by the DU and VSP-based composition engines, allowing
-> upcoming display support to be integrated without duplicating CPG logic.
+> Introduce cpg_rzt2h_mstp_get_delay_us() to replace the open-coded
+> udelay(10) calls. In cpg_mstp_clock_endisable() the exact register and
+> bit are known so the lookup matches on both fields. In
+> cpg_mssr_resume_noirq() the register is known but not the individual
+> bit, so pass RZT2H_MSTP_ANY_BIT causing the lookup to match on the
+> register alone and return the delay for the first matching entry.
+>
+> Add an entry for LCDC which requires at least 100 dummy reads. Adding
+> support for further IP blocks with non-default requirements only needs
+> a new entry in rzt2h_mstp_delay_table with no logic changes needed.
 >
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
 Thanks for your patch!
 
-> --- a/drivers/clk/renesas/Kconfig
-> +++ b/drivers/clk/renesas/Kconfig
-> @@ -218,10 +218,12 @@ config CLK_R9A09G057
->  config CLK_R9A09G077
->         bool "RZ/T2H clock support" if COMPILE_TEST
->         select CLK_RENESAS_CPG_MSSR
-> +       select CLK_RZV2H
-
-That includes a lot. Perhaps spin off the required functionality in a
-separate file, like CLK_RCAR_CPG_LIB?
-That would impact the MODULE_IMPORT_NS("RZV2H_CPG") in
-drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c, too, though.
-
+> --- a/drivers/clk/renesas/renesas-cpg-mssr.c
+> +++ b/drivers/clk/renesas/renesas-cpg-mssr.c
+> @@ -96,6 +96,24 @@ static const u16 mstpcr_for_gen4[] = {
+>  #define RZT2H_MSTPCR_BLOCK(x)          ((x) >> RZT2H_MSTPCR_BLOCK_SHIFT)
+>  #define RZT2H_MSTPCR_OFFSET(x)         ((x) & RZT2H_MSTPCR_OFFSET_MASK)
 >
->  config CLK_R9A09G087
->         bool "RZ/N2H clock support" if COMPILE_TEST
->         select CLK_RENESAS_CPG_MSSR
-> +       select CLK_RZV2H
->
->  config CLK_SH73A0
->         bool "SH-Mobile AG5 clock support" if COMPILE_TEST
-> diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9a09g077-cpg.c
-> index f777601a23b9..48052e7b93fd 100644
-> --- a/drivers/clk/renesas/r9a09g077-cpg.c
-> +++ b/drivers/clk/renesas/r9a09g077-cpg.c
-
-> @@ -66,11 +73,26 @@
->  #define DIVSCI2ASYNC   CONF_PACK(SCKCR3, 10, 2)
->  #define DIVSCI3ASYNC   CONF_PACK(SCKCR3, 12, 2)
->  #define DIVSCI4ASYNC   CONF_PACK(SCKCR3, 14, 2)
-> +#define LCDCDIVSEL     CONF_PACK(SCKCR3, 20, 4)
+> +/* Dummy read counts as specified by the RZ/T2H hardware manual */
+> +#define RZT2H_MSTP_DEFAULT_DUMMY_READS 7
+> +#define RZT2H_MSTP_LCDC_DUMMY_READS    100
 > +
-> +#define PLL3EN         FIELD_PREP_CONST(OFFSET_MASK, (0xc0))
+> +/*
+> + * Time per dummy read in nanoseconds, derived from the original udelay(10)
+> + * which was used to satisfy the 7 dummy-read requirement:
+> + * 10000 ns / 7 reads = 1429 ns per read.
+> + */
+> +#define RZT2H_MSTP_DUMMY_READ_NS       1429
+> +#define RZT2H_MSTP_READS_TO_US(n)      (((n) * RZT2H_MSTP_DUMMY_READ_NS) / 1000)
+
+IMHO this is overly complicated and hard to follow...
+
+> +#define RZT2H_MSTP_DEFAULT_DELAY_US    RZT2H_MSTP_READS_TO_US(RZT2H_MSTP_DEFAULT_DUMMY_READS)
+
+i.e. this is just 10 again?
+
 > +
-> +#define CPG_PLLEN              BIT(0)
+> +#define RZT2H_MSTPCRM_INDEX            12
+> +#define RZT2H_MSTPCRM04_LCDC           4
 
-CPG_PLL_EN_EN, for consistency with CPG_PLL_MON_LOCK below?
+Everywhere else (DEF_MOD(), DTS) we refer to module clocks using the
+sparse base-10 combined number, i.e. "1204", so I think it would be
+better to do the same here.
 
-> +#define CPG_PLL3_VCO_CTR0(x)   ((x) + 0x4)
-> +#define CPG_PLL3_VCO_CTR0_PDIV GENMASK(21, 16)
-> +#define CPG_PLL3_VCO_CTR0_MDIV GENMASK(9, 0)
-> +#define CPG_PLL3_VCO_CTR1(x)   ((x) + 0x8)
-> +#define CPG_PLL3_VCO_CTR1_KDIV GENMASK(31, 16)
-> +#define CPG_PLL3_VCO_CTR1_SDIV GENMASK(2, 0)
-> +#define CPG_PLL_MON(x)         ((x) - 0x10)
-> +#define CPG_PLL_MON_LOCK       BIT(0)
-
-So all registers are calculated based on the CPG_PLL3EN register
-address...
-
->
->  enum rzt2h_clk_types {
->         CLK_TYPE_RZT2H_DIV = CLK_TYPE_CUSTOM,   /* Clock with divider */
->         CLK_TYPE_RZT2H_MUX,                     /* Clock with clock source selector */
->         CLK_TYPE_RZT2H_FSELXSPI,                /* Clock with FSELXSPIn source selector */
-> +       CLK_TYPE_RZT2H_PLL3,                    /* PLL3 Clock */
-> +       CLK_TYPE_RZT2H_LCDCDIV,                 /* LCDC divider clock */
+> +
+> +#define RZT2H_MSTP_ANY_BIT             U32_MAX
+> +
+>  static const u16 mstpcr_for_rzt2h[] = {
+>         RZT2H_MSTPCR(0, 0x300), /* MSTPCRA */
+>         RZT2H_MSTPCR(0, 0x304), /* MSTPCRB */
+> @@ -113,6 +131,35 @@ static const u16 mstpcr_for_rzt2h[] = {
+>         RZT2H_MSTPCR(1, 0x334), /* MSTPCRN */
 >  };
 >
->  #define DEF_DIV(_name, _id, _parent, _conf, _dtable) \
-> @@ -83,10 +105,51 @@ enum rzt2h_clk_types {
->  #define DEF_DIV_FSELXSPI(_name, _id, _parent, _conf, _dtable) \
->         DEF_TYPE(_name, _id, CLK_TYPE_RZT2H_FSELXSPI, .conf = _conf, \
->                  .parent = _parent, .dtable = _dtable, .flag = 0)
-> +#define DEF_PLL3(_name, _id, _parent, _conf) \
-> +       DEF_TYPE(_name, _id, CLK_TYPE_RZT2H_PLL3, .conf = _conf, \
-> +                .parent = _parent)
-> +#define DEF_DIV_LCDC(_name, _id, _parent, _conf, _dtable) \
-> +       DEF_TYPE(_name, _id, CLK_TYPE_RZT2H_LCDCDIV, .conf = _conf, \
-> +                .parent = _parent, .dtable = _dtable, .flag = CLK_SET_RATE_PARENT)
+> +/**
+> + * struct rzt2h_mstp_delay_entry - MSTP dummy-read requirement for RZ/T2H
+> + *
+> + * @reg: Index into control_regs[]. Exact match.
+> + * @bit: MSTP bit position, or RZT2H_MSTP_ANY_BIT for register-level match.
+> + * @delay_us: Computed delay in microseconds to satisfy the dummy read requirement.
+> + */
+> +struct rzt2h_mstp_delay_entry {
+> +       u32 reg;
+> +       u32 bit;
 
-I assume you can't reuse DEF_DIV() because you need the extra accuracy
-from interfacing with rzv2h_get_pll_divs_pars()?
+The sparse base-10 combined number or packed index would need just a
+single u32...
 
-> +
-> +struct pll_clk {
-> +       void __iomem *reg;
-
-This is the PLLxEN register address, from which all other register
-addresses are calculated: pllen?
-
-> +       const struct rzv2h_pll_limits *limits;
-> +       struct device *dev;
-> +       struct rzv2h_pll_pars pll_parameters;
-> +       struct clk_hw hw;
-> +       unsigned long cur_rate;
+> +       u32 delay_us;
 > +};
 > +
-> +#define to_pll(_hw)    container_of(_hw, struct pll_clk, hw)
-> +
-> +struct r9a09g077_lcdc_div_clk {
-> +       const struct clk_div_table *dtable;
-> +       void __iomem *reg;
-> +       struct device *dev;
-> +       struct clk_hw hw;
-> +       u32 conf;
-> +       u8 divider;
+> +/*
+> + * Per RZ/T2H HW manual: to secure processing after release from the
+> + * module-stop state, dummy read the same register at least seven times
+> + * (except RTC and LCDC) after writing to initiate release from the
+> + * module-stop state. For RTC, dummy read at least 300 times and for
+> + * LCDC, at least 100 times.
+> + *
+> + * Instead of performing the actual dummy reads, an equivalent delay is
+> + * added using udelay(), computed from the required read count via
+> + * RZT2H_MSTP_READS_TO_US().
+> + */
+> +static const struct rzt2h_mstp_delay_entry rzt2h_mstp_delay_table[] = {
+> +       { RZT2H_MSTPCRM_INDEX, RZT2H_MSTPCRM04_LCDC,
+> +         RZT2H_MSTP_READS_TO_US(RZT2H_MSTP_LCDC_DUMMY_READS) },
+
+"210" (us)?
+
 > +};
 > +
-> +#define to_lcdc_div_clk(_hw) \
-> +       container_of(_hw, struct r9a09g077_lcdc_div_clk, hw)
-> +
-> +#define RZT2H_MAX_LCDC_DIV_TABLES      16
-> +
-> +static const struct rzv2h_pll_limits r9a09g077_cpg_pll3_limits = {
-> +       .input_fref = 48 * MEGA,
-> +       .fout = { .min = 25 * MEGA, .max = 430 * MEGA },
-> +       .fvco = { .min = 1600 * MEGA, .max = 3200 * MEGA },
-> +       .m = { .min = 0x40, .max = 0x3ff },
-> +       .p = { .min = 0x2, .max = 0x8 },
-> +       .s = { .min = 0x0, .max = 0x6 },
-> +       .k = { .min = -32768, .max = 32767 },
-> +};
->
->  enum clk_ids {
->         /* Core Clock Outputs exported to DT */
-> -       LAST_DT_CORE_CLK = R9A09G077_PCLKCAN,
-> +       LAST_DT_CORE_CLK = R9A09G077_LCDC_CLKD,
->
->         /* External Input Clocks */
->         CLK_EXTAL,
-
-> @@ -242,6 +335,8 @@ static const struct cpg_core_clk r9a09g077_core_clks[] __initconst = {
->                          FSELXSPI1, dtable_6_8_16_32_64),
->         DEF_MUX("PCLKCAN", R9A09G077_PCLKCAN, FSELCANFD,
->                 sel_clk_pll4d3_div10_div20, ARRAY_SIZE(sel_clk_pll4d3_div10_div20), 0),
-> +       DEF_DIV_LCDC("LCDCDIV", R9A09G077_LCDC_CLKD, CLK_SEL_CLK_PLL3, LCDCDIVSEL,
-
-"LCDC_CLKD"
-
-
-> +                    dtable_2_32),
->  };
->
->  static const struct mssr_mod_clk r9a09g077_mod_clks[] __initconst = {
-
-> @@ -481,6 +577,272 @@ r9a09g077_cpg_fselxspi_div_clk_register(struct device *dev,
->         return hw->clk;
+>  /*
+>   * Standby Control Register offsets (RZ/A)
+>   * Base address is FRQCR register
+> @@ -253,6 +300,20 @@ static void cpg_rzt2h_mstp_write(struct cpg_mssr_priv *priv, u16 offset, u32 val
+>         writel(value, base + RZT2H_MSTPCR_OFFSET(offset));
 >  }
 >
-> +static unsigned long r9a09g077_cpg_pll3_clk_recalc_rate(struct clk_hw *hw,
-> +                                                       unsigned long parent_rate)
+> +static unsigned int cpg_rzt2h_mstp_get_delay_us(u32 reg, u32 bit)
 > +{
-> +       struct pll_clk *pll_clk = to_pll(hw);
-> +       unsigned int ctr0, ctr1;
+> +       unsigned int i;
+> +
+> +       for (i = 0; i < ARRAY_SIZE(rzt2h_mstp_delay_table); i++) {
+> +               const struct rzt2h_mstp_delay_entry *e = &rzt2h_mstp_delay_table[i];
+> +
+> +               if (e->reg == reg && (e->bit == bit || bit == RZT2H_MSTP_ANY_BIT))
+> +                       return e->delay_us;
+> +       }
 
-u32
+Given there are only two modules (LCDC and RTC) that need special
+handling, a table sounds like overkill to me.
+For exact matching, a switch() statement with two entries and a default
+would do.
+For wildcard bit matching, perhaps you can use a mask?
 
-> +       u8 pdiv, sdiv;
-> +       u64 rate;
-> +       u16 mdiv;
-> +       s16 kdiv;
+    unsigned int mask = bit_valid ? GENMASK(31, 0) : GENMASK(31, 5));
+
+    if (idx == (MOD_CLK_PACK(1204) & mask)) {
+            /* LCDC needs 300 dummy reads, or 210 us */
+            return 210;
+    } else if (idx == (MOD_CLK_PACK(605) & mask)) {
+            /* RTC needs 100 dummy reads, or 70 us */
+            return 70;
+    } else {
+            /* default 7 dummy reads, or 10 us */
+            return 10;
+    }
+
+What do you think?
+
 > +
-> +       ctr0 = readl(CPG_PLL3_VCO_CTR0(pll_clk->reg));
-> +       ctr1 = readl(CPG_PLL3_VCO_CTR1(pll_clk->reg));
-> +
-> +       pdiv = FIELD_GET(CPG_PLL3_VCO_CTR0_PDIV, ctr0);
-> +       mdiv = FIELD_GET(CPG_PLL3_VCO_CTR0_MDIV, ctr0);
-> +       kdiv = (s16)FIELD_GET(CPG_PLL3_VCO_CTR1_KDIV, ctr1);
-> +       sdiv = FIELD_GET(CPG_PLL3_VCO_CTR1_SDIV, ctr1);
-> +
-> +       rate = mul_u64_u32_shr(parent_rate, (mdiv << 16) + kdiv, 16 + sdiv);
-> +
-> +       return DIV_ROUND_CLOSEST_ULL(rate, pdiv);
+> +       return RZT2H_MSTP_DEFAULT_DELAY_US;
+
+You might as well just do the udelay() here, too.
+
 > +}
+> +
+>  static int cpg_mstp_clock_endisable(struct clk_hw *hw, bool enable)
+>  {
+>         struct mstp_clock *clock = to_mstp_clock(hw);
+> @@ -312,7 +373,7 @@ static int cpg_mstp_clock_endisable(struct clk_hw *hw, bool enable)
+>                  * register, we simply add a delay after the read operation.
+>                  */
+>                 cpg_rzt2h_mstp_read(priv, priv->control_regs[reg]);
+> -               udelay(10);
+> +               udelay(cpg_rzt2h_mstp_get_delay_us(reg, bit));
 
-The rest LGTM.
+In this function, you do have the packed clock index (clock->index).
+
+>                 return 0;
+>         }
+>
+> @@ -1142,7 +1203,7 @@ static int cpg_mssr_resume_noirq(struct device *dev)
+>                         cpg_rzt2h_mstp_write(priv, priv->control_regs[reg], newval);
+>                         /* See cpg_mstp_clock_endisable() on why this is necessary. */
+>                         cpg_rzt2h_mstp_read(priv, priv->control_regs[reg]);
+> -                       udelay(10);
+> +                       udelay(cpg_rzt2h_mstp_get_delay_us(reg, RZT2H_MSTP_ANY_BIT));
+
+Here you don't have it, but idx = reg * 32, and bit_valid = false;
+
+>                         continue;
+>                 } else
+>                         writel(newval, priv->pub.base0 + priv->control_regs[reg]);
 
 Gr{oetje,eeting}s,
 
                         Geert
+
 
 --
 Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
