@@ -1,213 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2F4355F25;
-	Fri,  5 Jun 2026 14:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B0B3B6360
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780670435; cv=none; b=jb6DC0kb7vSUnwNC5f6Xpb10M8veWkjkbslfGYvTU3vIeAgw+Sh+44nzaHD7fKuiWpu1LFr6oSrdAw3fTr37yVIyqY7CEh8b7BLxjt5G8inlR9UJ/P60q23S0WFA20WUz9XV12msUfVF1VPyK5Ovjh4EoVlW7FJxtpNlRUm3lDM=
+	t=1780670446; cv=none; b=dLwkID38mFe+wTvzmycltDhgYT2binsIPbPlxBhjw+P6Ro5BJis2Rg82PxoPjNLzCc5oER1YbJGpPpZNWeDpfOzfkWQjg4p1vzNPAAGIr/BdkdNBiZiOlbrlFQHyBT+NNtGNt87yN9D+CIEAiC2N9OUU671sajVKJxaPKElq22E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780670435; c=relaxed/simple;
-	bh=7E/NOmTNocC/WEyNgoJKQWTmU7zo2ab+uVA1ao4XvWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bedfgRXOJGRBMIvAditgLy+LFx9S0eJWWeA4kfr+V/iR/qa5KHhM0IdjSKJ901q0ml+oHMxl+3c2J6X7Ort98uB4f2uGoRv7eLfcewRQzXHbHtFUf5VxmbjPcFCeZt1qP8E6bj8fj0t0t3hyo/GMHmQIj2P058oOlFsv5lT6Ovw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAB+w2Kh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780670446; c=relaxed/simple;
+	bh=2fn4fU2NfDRDPQchK0bwTdWV8aPxHMeupbQse3mEPGE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=sdyIcKr92HGjLMtw0LP+XnQM6bUYyCYV81uKOwUGx+3o+2UWQDsJx54bgaoxqya5Ww1sNOTqikz1brLssSYqAOeMwWNi7DghIjPnMvK7TtGVEJQ4vospdBev7cAQgu0HS19RISydO34GX8q10hfV0aDnQhkiPjpAVsBPqyAEXes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YqC35VhB; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAB+w2Kh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C291F00893;
-	Fri,  5 Jun 2026 14:40:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780670433;
-	bh=HBdEaxKJ/QaWxr/2mdJ3GwGXzFp8BgaoQqxpPy/Cpgc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HAB+w2Kho16GGymIhaGe5gcuYH/Kd65BNSM7PWtW/9HpWhab9RYvn2qg0mrGXTyRy
-	 rr9cURPmAh2E2CPwzX7JI76h9jDqwZ47+Njo+5WY7j01wCDdpzB6+BZPMeI0meBRUs
-	 CHCroh7yfhWYtIxPixkdavdjIV1kCU5b+DxiAbRCmtj1YmbbOyrFJNwhtmAmcoFv4p
-	 YChGrMdeB2HjIIeTIoPint6dghaOhpHGMlP0+p6Re5Yuqv9+R1Y6jd+/1AAyKyAgYQ
-	 2pEZqgE8IMbiwUkEmRy6E8V8ePnkT83CH+NLQX1tBELC9fdBzo9kei+2rE4LlvAuKl
-	 n53qncG7cbD+Q==
-Date: Fri, 5 Jun 2026 09:40:32 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
-	gregkh@linuxfoundation.org, Daniel Thompson <daniel@riscstar.com>,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 10/14] dt-bindings: net:
- toshiba,tc9654-dwmac: add TC9564 Ethernet bridge
-Message-ID: <20260605144032.GA3659201-robh@kernel.org>
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-11-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YqC35VhB"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso11423785e9.2
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 07:40:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780670443; x=1781275243; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=skr1dG/uETuGik9GgZErIJKqeHCvcO7qNrhexVQ3Vl8=;
+        b=YqC35VhBjKHFoEPcqjey68IrGKQ8Uwlum7E6DrWI+MfPjMhe2JruiBcc1V80ilbLqJ
+         xp5J7w5Q7SlTAREQE/17ZWsu/Lzkw9Z5KaS8gzuZnJSXEB4c2KC/EUn3GFsvKLNXJ8SK
+         Do/izmCcRbdhVE2oavl+RFkI9/g38/Z0PRYDxAVzbivhgXHXV0hOElyJpUiBFHIlLzq9
+         FatckGw4e4FO1+r97gZyTVhCMfwtjHI4Nk1DsM2DmENREp2NP84AfEfJc9KhkC188spI
+         2QoarO15BWWFww42/JPReZYGJVI+TJJF/xjC5XQLkDnC9sBZHPtlv7MJz3aKeBWzoW7v
+         xL0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780670443; x=1781275243;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=skr1dG/uETuGik9GgZErIJKqeHCvcO7qNrhexVQ3Vl8=;
+        b=bk4IWx8axlzBBVvTlEFDwAc27I/SDXYejI5EPrtKujpjwY5B8GySRF83y5aGI1lLW0
+         +K7B+L3Bp9bu6LyyE+HL3LLl2BXKgNsWfV56FCA3sYuhgA/oAhcQjyx751mXBFOziH17
+         NTALRsvX3IkAjM7hdmVW+lwjqYakOCoeuJrNf8bD1mNxovu90YI0EgdaV7Hk9FQ2SnrW
+         kj7nUcY47umlJUeLJh18XcEeX6zjyD7VemLf3PhowfrS/EleeAP0q6N7Vr50nAGGSDHO
+         y5hgTlkKHNltjt3iJbc0WiPkR3AN5OuXTORi2Xd5V07RM1rv6ivfj6oafCzKlTVyRIPA
+         uKPg==
+X-Forwarded-Encrypted: i=1; AFNElJ+tORdgD1btU9C8FY+A1SkN7YljB+Nnul2z9yqKl7ProjHYteJmBB3/CPaurDoXLI6NvCNr+Xrz5uO5@vger.kernel.org
+X-Gm-Message-State: AOJu0YwceWsMq20wF6l8EKdQ5eHdpQqCbPMeyPOiADeXtoG1fcXma6OA
+	N8bGPRBeW0sCh4yzg46ZXCC4n3CXlHCvjJSoGiuPMuYQ5Kq0JidyiVlxwVTUOxBnTU4=
+X-Gm-Gg: Acq92OHd4gKSRNvws80fUWVb7Sm6WowKv10fylB3dkTrRDOj6FjZWl1GjnN5BGxSMHL
+	ywkvD0J15Ib3qR/65QzwSHXpocSr0lcpYdncTzk9J4FL2I5P1BiW0vCqj2jIJwwSetJevGhyhAl
+	FvCrMQ7QjTpjwVHLy/QTdQmmTtQGsozcpzBpLbMwv3IfLSt3lvSTctBB1rCF4v8deSzHLcjryNv
+	JjdO1KQ6fw7qN8J24C6liKtSl6mcS2oDzoBWPpozT4YIe9f+KAIu6trWmclNCCur8vXeU1xIS64
+	YMJUpJPi0oLuafHtIPuF85dspmFSp9qLD/cDrd6aSbdYAk6EfXtfnAbeLbJJP4t+TIAzupnvahL
+	U9VYZAySMHTvAXlhVS7GksKHXhLztqW9t3GttxEjDWHrPG+4E+P0tzb3/2F97Jqdzeg6HcEu13P
+	zJ0ERUOsHmL0V0+MBng/sFOn/QwO1zSTeJa2ux3e8s+9JYANWnwnZ1xE3ZEpw7CPpihg==
+X-Received: by 2002:a05:600c:354a:b0:490:44eb:c1e5 with SMTP id 5b1f17b1804b1-490c2607c39mr62305025e9.31.1780670442943;
+        Fri, 05 Jun 2026 07:40:42 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3e4b5asm166123485e9.13.2026.06.05.07.40.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 07:40:42 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: dri-devel@lists.freedesktop.org, Marek Vasut <marex@nabladev.com>
+Cc: Kael D'Alcamo <dev@kael-k.io>, 
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260422210806.80948-1-marex@nabladev.com>
+References: <20260422210806.80948-1-marex@nabladev.com>
+Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
+Message-Id: <178067044206.1089225.4621525773604895263.b4-ty@b4>
+Date: Fri, 05 Jun 2026 16:40:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605010022.968612-11-elder@riscstar.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-On Thu, Jun 04, 2026 at 08:00:17PM -0500, Alex Elder wrote:
-> From: Daniel Thompson <daniel@riscstar.com>
-> 
-> Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
-> bridges.
-> 
-> The TC9564 contains a PCIe switch with one upstream and three downstream
-> PCIe ports.  The third PCIe downstream port has an attached embedded PCIe
-> endpoint, and that endpoint implements two PCIe functions.  Each internal
-> PCIe function has a Synopsys XGMAC Ethernet interface capable of 10 Gbps
-> operation.
-> 
-> The TC9564 also implements an embedded GPIO controller, which exposes
-> 10 lines externally.  Some platforms use these GPIO lines, so this
-> GPIO controller is managed by a separate driver.  Other embedded
-> peripherals (like a microcontroller, SRAM, and UART) are currently
-> unused.
-> 
-> The GPIO controller is managed by registers accessed via MMIO on an
-> internal PCIe function's registers.
-> 
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  .../bindings/net/toshiba,tc9564-dwmac.yaml    | 120 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 126 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
-> new file mode 100644
-> index 0000000000000..6e7a63dfcf86a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
-> @@ -0,0 +1,120 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/toshiba,tc9564-dwmac.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Toshiba TC956x Ethernet-AVB/TSN Controller
-> +
-> +maintainers:
-> +  - Alex Elder <elder@riscstar.com>
-> +  - Daniel Thompson <daniel@riscstar.com>
-> +
-> +description: |
-> +  The Toshiba TC9564 (and more generally, TC956x) incorporates a PCIe
-> +  gen 3 switch with one upstream and three downstream ports.  The first
-> +  two downstream ports are exposed externally, while the third is used
-> +  by an internal PCIe endpoint.  The PCIe endpoint implements two PCIe
-> +  functions, and attached to each of these is a 10 Gbps capable Synopsys
-> +  Ethernet controller.
-> +
-> +  The TC956x additionally implements other internal IP blocks, and in
-> +  particular it implements a GPIO controller.  Ten of the 35 GPIO lines
-> +  implemented are exposed externally and are usable by the platform.
-> +  It is platform-dependent whether the GPIO function must be exposed,
-> +  and if it is, PCIe function 0 supplies it.
-> +
-> +              ----------------------------------
-> +              |              Host              |
-> +              ------+...+----------+........+---
-> +                    |i2c|          |  PCIe  |
-> +    ----------------+...+----------+........+------
-> +    | TC956x        |I2C|          |upstream|     |
-> +    |               -----        --+--------+---  |
-> +    |  -----  ------  -------    | PCIe switch |  |
-> +    |  |SPI|  |GPIO|  |reset|    |             |  |
-> +    |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
-> +    |                 -------    ---++--++--++--  |
-> +    |  -----  ------     downstream//    \\  \\   |  downstream
-> +    |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
-> +    |  -----  ------   //PCIe port 3       \\     |
-> +    |                  ||                   \======= downstream
-> +    |  ----+-----------++-----------+----         |  PCIe port 2
-> +    |  | M | internal PCIe endpoint | M |         |
-> +    |  | S |------------------------| S |  ------ |
-> +    |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
-> +    |  | G |function 0|  |function 1| G |  ------ |
+Hi,
 
-I don't see nodes for these PCI functions. Boot this platform with 
-CONFIG_PCI_DYNAMIC_OF_NODES enabled and use the resulting DT node 
-structure. Anything else is wrong. This will give you the DTS:
+On Wed, 22 Apr 2026 23:07:23 +0200, Marek Vasut wrote:
+> Add "displaytech" vendor prefix for Displaytech Ltd. .
 
-dtc -O dts /proc/device-tree
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-The ethernet nodes should be just these PCI function nodes. You need to 
-make the DWMAC PCI driver (stmmac_pci.c) bind to those 2 PCI devices. 
-And really, a DT node for them should be completely optional (unless 
-there's some power on ctrl needed).
+[1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
+[2/3] dt-bindings: display: simple: Document Displaytech DT050BTFT-PTS panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
+[3/3] drm/panel: simple: Add Displaytech DT050BTFT-PTS panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
 
-Everything else like SPI, GPIO, UART, etc. should be under the PCIe 
-switch upstream node in a pci-ep-bus.
+-- 
+Neil
 
-
-> +    |  | E |----++----|  |----++----| E |         |
-> +    |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
-> +    --------+.......+------+.....+-----------------
-> +            |USXGMII|      |SGMII|
-> +          --+.......+--  --+.....+--
-> +          |  ARQ113C  |  | QEP8121 |
-> +          |    PHY    |  |   PHY   |
-> +          -------------  -----------
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - pci1179,0220 # Toshiba TC9564 (a.k.a. Qualcomm QPS615)
-> +
-> +  gpio:
-> +    type: object
-> +    description: Embedded GPIO controller
-> +    $ref: /schemas/gpio/gpio.yaml#
-
-gpio.yaml alone does not define a GPIO controller. How many #gpio-cells 
-needs to be defined.
-
-Is there no address associated with the controller? 
-
-> +
-> +  ethernet:
-> +    type: object
-> +    description: XGMAC Ethernet controller
-> +    $ref: /schemas/net/ethernet-controller.yaml#
-> +    properties:
-> +      mdio:
-> +        $ref: snps,dwmac.yaml#/properties/mdio
-
-Either all of snps,dwmac.yaml should apply or none of it. Generally, we 
-only reference whole schema files (OF graph being a notable exception).
-
-> +    required:
-> +      - mdio
-> +
-> +required:
-> +  - compatible
-> +
-> +allOf:
-> +  - $ref: /schemas/pci/pci-device.yaml#
-> +  - $ref: /schemas/pci/pci-bus-common.yaml#
-
-These 2 are just pci-pci-bridge.yaml.
-
-Rob
