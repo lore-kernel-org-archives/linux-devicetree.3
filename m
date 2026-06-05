@@ -1,114 +1,79 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255414D8D85
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDF54CA26E;
+	Fri,  5 Jun 2026 11:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780659495; cv=none; b=ihDnpSfHOP28W5uaCijs1kRja7ANrJK8C1twz8YjKu93QgTLcoT1mrgEuhf/g/0e+Bl7Is9EKpyJjry9NEI5dSZ0ioVo+6035CVMk0LlZHk8K+eknc5LbpzVBjmMPGDWIzg+xZ//TN3WWOMBToh+JTn+ddlbfLGn1F8fSa+W6Ng=
+	t=1780659562; cv=none; b=PgknFlzy5oGylFvxUAhVpsuF2XwVr+i5nAEVuzFYp6hMd/XvljSWw9Rzy02fSNb5w0DSgztXHI+XGfWl5CmNRq49MdI8/AFXIqJ0V+8QdNZlPWJw6lirCaVploIsCff+OvLDXmmIoJX+X+FxvI8YAiPIorL1b6giUTtj3JaTA6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780659495; c=relaxed/simple;
-	bh=2ghoS6no9AaHRf7BNxhJ8BH+3mX/8y4443oHD+TL/s4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HLf93obMwETYMs8eF9Z3vlFG5U8YtBbH0zsi06k32PMUaYd3UrN6V2o1NHYmsIQ2vdS/7AVj3rYPGemMQY4WJpk6KPZoRNORI/5kZQardK2j+5KwJt/EP9HkN2SU4K7E20+Ai9UFF2OrdIY+EhrRsudLi7Xmz8SXwZgEdKORyws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QE4eRpYi; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780659562; c=relaxed/simple;
+	bh=zqH0Q9ITwZQODfgiXtS4y+OJk5FtZCErLivlcfamoMc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X1hllozU1ofdB2JUxhTMW2X9eGBA5yIcfiaBA4xMDwafXQzA7vr8/k5PGvD7tYEdBROC8RIh1NOzG8RWiKqrWLv5uIUXpoOQ0EGB0NlzeaYeLGDHrYFqYmqmj2M65ZDDhsT8lLclxYVsDbZpdNmKN2q/heEtPftZhAuIZdsMVKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=en0nmYR0; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QE4eRpYi"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9D1351A0924;
-	Fri,  5 Jun 2026 11:38:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F3845FED1;
-	Fri,  5 Jun 2026 11:38:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1AFA5106A2122;
-	Fri,  5 Jun 2026 13:38:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780659487; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=fMdwehU3dvdlFcRAg/UEX6VsNEVgYxvT3ihO0867UDk=;
-	b=QE4eRpYiT1i6Jt+O+rFdTnlxB4/HiPVHnYt+GdpVKisAKGB2J8+HgSPMzOYsXVGqp3Eqw0
-	paliopc4KbDpciRnIlkhq41cumtfHs73vYKYwTJ2jOW1G/yLUmnZKPhZQUOmgIWZNoRr74
-	6wEJxYmORZkjXARpig1kbIIx07NzNRJscIpnWkJuqcV/vFQ0jSS9TB1keuCiVwWq8utJ8O
-	+htP0I5hWe4zaMLyUexsvg44TJ7gRckX00juEJpZdmAeqXq2hrH9at4qh7VVfuNIMXPYDY
-	74IllUC3slK/KLvivnUkpSLDxhNzCDnHm8MrJOlq2ZcTS41TI2wzcStxRMGowg==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add TI TMP119 support
-Date: Fri, 05 Jun 2026 13:38:01 +0200
-Message-ID: <18PCQgHDRMeFeQrJjHXSqQ@bootlin.com>
-In-Reply-To: <20260605110802.74B701F00893@smtp.kernel.org>
-References:
- <20260605-tmp119-v1-2-349f45f17d12@bootlin.com>
- <20260605110802.74B701F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="en0nmYR0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=CHFPaICTJPqItjzPT3W6kuckW8eRD1ugtO9S1RGUb0U=; 
+	b=en0nmYR0NtYoq2N/hRP19z/02wCbOpSkAmac2uob0FcV7wp+skXXBBBFQAA2dhUXsXsmsz+38I+
+	8gCrPRppb7ohdmZ4CjVfanJMPCnhfg1bY3xO1pRGL8zeE1yiSK/oa9xBc+TN+47yn/7u+LBQhpM8f
+	BBCRv0ftK1wIkllkFBlDq2RYvBovm6655DA8yw+VOeVZiplRsfGGX3I1xFOFe9vcdsLi81k3QEmDH
+	17g2Owg4Yit88ZKvmxGLjH8dxMmJx5XwjT66yyfBGzQ40ov4MKXhczYwyY0aCNi3yh2zC2wt/ujT1
+	ND9T95T178jCgz8V8ZPlMnzyGzSQxQE8vx4Q==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
+	id 1wVStN-002olC-2u;
+	Fri, 05 Jun 2026 19:39:14 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 05 Jun 2026 19:39:13 +0800
+Date: Fri, 5 Jun 2026 19:39:13 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH 0/2] dt-bindings: crypto: Add Qualcomm Hawi crypto support
+Message-ID: <aiK1YfeKShMTApph@gondor.apana.org.au>
+References: <20260521-hawi-crypto-v1-0-9176a3b51bc0@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextParteYA6NtF9QaaxaqfKzKG7sw";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521-hawi-crypto-v1-0-9176a3b51bc0@kernel.org>
 
---nextParteYA6NtF9QaaxaqfKzKG7sw
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add TI TMP119 support
-Date: Fri, 05 Jun 2026 13:38:01 +0200
-Message-ID: <18PCQgHDRMeFeQrJjHXSqQ@bootlin.com>
-In-Reply-To: <20260605110802.74B701F00893@smtp.kernel.org>
-MIME-Version: 1.0
-
-On Friday, 5 June 2026 13:08:02 CEST sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider: - [Medium] The IIO device name for the TMP119 sensor
-...
+On Thu, May 21, 2026 at 12:36:19PM +0000, Manivannan Sadhasivam wrote:
+> Hi,
 > 
-> And indio_dev->name is assigned from match_data->name later in
+> This series adds the crypto (ICE, TRNG) dt-binding support for Qualcomm's
+> upcoming Hawi SoC.
 > 
-> tmp117_probe():
->         indio_dev->name = match_data->name;
+> Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+> ---
+> Manivannan Sadhasivam (2):
+>       dt-bindings: crypto: qcom,prng: Document Hawi TRNG
+>       dt-bindings: crypto: qcom,inline-crypto-engine: Document Hawi ICE
 > 
-> Does this break userspace applications or udev rules that rely on reading
-> the correct sensor part name ("tmp119") from sysfs?
+>  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
+>  Documentation/devicetree/bindings/crypto/qcom,prng.yaml                 | 1 +
+>  2 files changed, 2 insertions(+)
+> ---
+> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+> change-id: 20260521-hawi-crypto-138bfd2a6ec5
 
-While unlikely that userspace applications would need to differentiate between 
-these two sensors, it is preferable that the correct part name appears in 
-sysfs. I'll fix this in version 2.
-
+All applied.  Thanks.
 -- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---nextParteYA6NtF9QaaxaqfKzKG7sw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmoitRkACgkQKCYAIARz
-eA6LGw//a6T4jpcIFoIQXqRspnSKYDv49lNsWsan/6sAAAa6q/TNo9UwDbzpHnH0
-/HqVgmtfjPgfR9FGZswQiFJ8gCRNNh+codapkgbyT1rr3jpuofGsTo9ECq9yTCCr
-4PkRGF0jIrE55y1tyLmmlGmJvonY9UogN0SzHwgxeOQns2Dq8+OLqgtz7pdEjE1J
-S8Ud9LJ38p/6fKt9UUJ9J2Py/s+RHqSV6axXKqm+7R3GSoo/+cPGL5SPTiGZdKUQ
-HElq6vmtTzcxZoLxtwHeUw4z8FfknVeVqr+GETcYIJw2Rhhlp06Rd4RXOwgPgDkp
-dZU27T2sHsDsQmI6gjjmhvvsXxKKztaWHqy3Ys0hJgs3Cue1V9eqQElKDQJkk+y2
-oPeA81ip1XymFNy92Znup8r5vUpK4N42ztzxtx5Eq2mDkvUC6oQalpJ+63CxwZZL
-CluxSNBSRTQs49pc9/ixlD9uJipGmCwDqaze6CPOGBQBnieg+kTQvXZdwv/N7sC5
-kv0B/tgGir3vYXbVl6OgbRWrRWn2hMzkWq81WCarq6eVYPRO2c2pCEphb2CAmC+3
-9sG9rlVh7wZbsYD45HprjyUfC1d7BLtMbcwRIFxS3QrFjeM3uqiE2RcmdKRXtDnI
-UQHee/7RItbEFJdpbjmsIZNj588BlFaNWlyR/Ys/dnGLxQkiPmM=
-=VSSn
------END PGP SIGNATURE-----
-
---nextParteYA6NtF9QaaxaqfKzKG7sw--
-
-
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
