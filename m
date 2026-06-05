@@ -1,106 +1,212 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B0B3B6360
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780670446; cv=none; b=dLwkID38mFe+wTvzmycltDhgYT2binsIPbPlxBhjw+P6Ro5BJis2Rg82PxoPjNLzCc5oER1YbJGpPpZNWeDpfOzfkWQjg4p1vzNPAAGIr/BdkdNBiZiOlbrlFQHyBT+NNtGNt87yN9D+CIEAiC2N9OUU671sajVKJxaPKElq22E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780670446; c=relaxed/simple;
-	bh=2fn4fU2NfDRDPQchK0bwTdWV8aPxHMeupbQse3mEPGE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=sdyIcKr92HGjLMtw0LP+XnQM6bUYyCYV81uKOwUGx+3o+2UWQDsJx54bgaoxqya5Ww1sNOTqikz1brLssSYqAOeMwWNi7DghIjPnMvK7TtGVEJQ4vospdBev7cAQgu0HS19RISydO34GX8q10hfV0aDnQhkiPjpAVsBPqyAEXes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YqC35VhB; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25ABC3D34A5
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 14:45:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780670706; cv=pass; b=rmQGwfEiMrdLcCjnNFXMqz1eRe4adQ1uDkaNU07D7NwTptcYUX1z2JpQEMOCt+277N5oi9vWk3ze1EZ0HVLfnOoc6RX+HRDvQ1E8bM50l4ghHH+PLyfZoHTKBw7SadKJfvRU/DHbWD+NkCjV05HvzGamcK3QgTj67gUOQCAd7Wo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780670706; c=relaxed/simple;
+	bh=V99FgU+T9GXepKQjZbwcvobP8EXHRxrvdmdHmWGWLss=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IHff4cIpSG9nEW3KspP1LrJXfNEXtReJN9Y/SCjOhsDGIscIAoV2prOIToChNVf83I+3UVQ97CUReoLTfqEyo2hYJfwQhGRtp9D9BLFWqJz74k/O2C18mIOKZy0vpOn9frd83fc7s8mgIj9WcRjJiXSlGwbxFfeBo4gaDxoMpgc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDEG+Jds; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YqC35VhB"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso11423785e9.2
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 07:40:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDEG+Jds"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-68c3421b009so4531856a12.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 07:45:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780670700; cv=none;
+        d=google.com; s=arc-20240605;
+        b=WYRDGjeaHXVHl4ZSz8Wx0d4fhd6rEnz9BWwM5peDUTAoF2BKK6UWidDU8oAL5EZFI7
+         2PUaBsTowDVztCt2gvDG+CpXP94tFR6UzNJ4Bxl546MGTdI1ZGo9rdkyryIEBxRcQQfn
+         BLlQQjcnO1Lpwx6wDzypNux3tZd5OMHQi6Fg1nbQxCnmE/fgw7K5s2Hwsv/35tAg9uHh
+         g6QWIuWixw6WEF6hi+gPngAKbxoP43X2FO4CTWSr+vHNslTaDiX8Uua3hik2oW1t0XuI
+         Vw5ojFI0ILSFPiKtNqwyYlyttUdTEMY6YTTQb9Z98tM7xmxHbIfZCIpTpTSSH6FOA1t4
+         BxJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fcZIkbRV/9Yp73cfd2Dm5cvs461vRsgl4cer6irrsmM=;
+        fh=oydrPjxhXqfUmc1lurfYOkPpyJdKKHxN5STldbc2cKM=;
+        b=VkcQ1ykUsCEdYI7g0f+S4PipGa9jEkNfmEeNr1n17D+SBh8HJQGHUiSvbmUZ0KlfLT
+         FOeFR1C1JNwCb2aJn7p9pc6FiXMvNZQUVG0p7NjFEp781pt3vveYI9MDZ7eWHIWFImGY
+         Z3fGxYH3Hl58iRTHEoyPm4QxSQAi9Q+BTOUxQpXIuZJjtJx1S2FJMsedQ+Sh4uVt5m2o
+         vdX7GV8ynfDhyY2lbsecpFFmkLtxIVGYAeGS5wenQLNLoJRZjkFR5sYYE1+YV86W451Z
+         6BN3TIUGu3OtQ1UNh9fhUvFcf86yymvratPma8R65hMSJrwHovavbfqvSrQQZgHZ6iJV
+         00fw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780670443; x=1781275243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780670700; x=1781275500; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=skr1dG/uETuGik9GgZErIJKqeHCvcO7qNrhexVQ3Vl8=;
-        b=YqC35VhBjKHFoEPcqjey68IrGKQ8Uwlum7E6DrWI+MfPjMhe2JruiBcc1V80ilbLqJ
-         xp5J7w5Q7SlTAREQE/17ZWsu/Lzkw9Z5KaS8gzuZnJSXEB4c2KC/EUn3GFsvKLNXJ8SK
-         Do/izmCcRbdhVE2oavl+RFkI9/g38/Z0PRYDxAVzbivhgXHXV0hOElyJpUiBFHIlLzq9
-         FatckGw4e4FO1+r97gZyTVhCMfwtjHI4Nk1DsM2DmENREp2NP84AfEfJc9KhkC188spI
-         2QoarO15BWWFww42/JPReZYGJVI+TJJF/xjC5XQLkDnC9sBZHPtlv7MJz3aKeBWzoW7v
-         xL0Q==
+        bh=fcZIkbRV/9Yp73cfd2Dm5cvs461vRsgl4cer6irrsmM=;
+        b=QDEG+JdsCi/nGhsGKHWrmakZCAAAKH94mJTgHAZsugCteBQLJ25F//75ar+srWpCPd
+         4A44v/U3CUW6nqTQRd/qKB+M+kFmeYbE9+nlRqymKwDmadGXMH6dBGJmZdWsAmVxrAT7
+         KQDiapY7mTQSL0SPpNNwC/gfnu5wSLuXrg8ImJufJh/kr6HXBKRo/DFW97P7T+zTTvvH
+         TkDi9uk8k2lvgiv36m4CuHV0WEy+hy7MPDtcbXT2e8UbponLrOXhgjoSA2oV1gzmuamT
+         4TGt6CiJV/ngqyzr6vxhrNQYyd/D0/IeX/v+xbt9Emomtg/Slf1iJYdzIdejRULLkKiu
+         rlXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780670443; x=1781275243;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1780670700; x=1781275500;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=skr1dG/uETuGik9GgZErIJKqeHCvcO7qNrhexVQ3Vl8=;
-        b=bk4IWx8axlzBBVvTlEFDwAc27I/SDXYejI5EPrtKujpjwY5B8GySRF83y5aGI1lLW0
-         +K7B+L3Bp9bu6LyyE+HL3LLl2BXKgNsWfV56FCA3sYuhgA/oAhcQjyx751mXBFOziH17
-         NTALRsvX3IkAjM7hdmVW+lwjqYakOCoeuJrNf8bD1mNxovu90YI0EgdaV7Hk9FQ2SnrW
-         kj7nUcY47umlJUeLJh18XcEeX6zjyD7VemLf3PhowfrS/EleeAP0q6N7Vr50nAGGSDHO
-         y5hgTlkKHNltjt3iJbc0WiPkR3AN5OuXTORi2Xd5V07RM1rv6ivfj6oafCzKlTVyRIPA
-         uKPg==
-X-Forwarded-Encrypted: i=1; AFNElJ+tORdgD1btU9C8FY+A1SkN7YljB+Nnul2z9yqKl7ProjHYteJmBB3/CPaurDoXLI6NvCNr+Xrz5uO5@vger.kernel.org
-X-Gm-Message-State: AOJu0YwceWsMq20wF6l8EKdQ5eHdpQqCbPMeyPOiADeXtoG1fcXma6OA
-	N8bGPRBeW0sCh4yzg46ZXCC4n3CXlHCvjJSoGiuPMuYQ5Kq0JidyiVlxwVTUOxBnTU4=
-X-Gm-Gg: Acq92OHd4gKSRNvws80fUWVb7Sm6WowKv10fylB3dkTrRDOj6FjZWl1GjnN5BGxSMHL
-	ywkvD0J15Ib3qR/65QzwSHXpocSr0lcpYdncTzk9J4FL2I5P1BiW0vCqj2jIJwwSetJevGhyhAl
-	FvCrMQ7QjTpjwVHLy/QTdQmmTtQGsozcpzBpLbMwv3IfLSt3lvSTctBB1rCF4v8deSzHLcjryNv
-	JjdO1KQ6fw7qN8J24C6liKtSl6mcS2oDzoBWPpozT4YIe9f+KAIu6trWmclNCCur8vXeU1xIS64
-	YMJUpJPi0oLuafHtIPuF85dspmFSp9qLD/cDrd6aSbdYAk6EfXtfnAbeLbJJP4t+TIAzupnvahL
-	U9VYZAySMHTvAXlhVS7GksKHXhLztqW9t3GttxEjDWHrPG+4E+P0tzb3/2F97Jqdzeg6HcEu13P
-	zJ0ERUOsHmL0V0+MBng/sFOn/QwO1zSTeJa2ux3e8s+9JYANWnwnZ1xE3ZEpw7CPpihg==
-X-Received: by 2002:a05:600c:354a:b0:490:44eb:c1e5 with SMTP id 5b1f17b1804b1-490c2607c39mr62305025e9.31.1780670442943;
-        Fri, 05 Jun 2026 07:40:42 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3e4b5asm166123485e9.13.2026.06.05.07.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 07:40:42 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: dri-devel@lists.freedesktop.org, Marek Vasut <marex@nabladev.com>
-Cc: Kael D'Alcamo <dev@kael-k.io>, 
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
- Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260422210806.80948-1-marex@nabladev.com>
-References: <20260422210806.80948-1-marex@nabladev.com>
-Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
-Message-Id: <178067044206.1089225.4621525773604895263.b4-ty@b4>
-Date: Fri, 05 Jun 2026 16:40:42 +0200
+        bh=fcZIkbRV/9Yp73cfd2Dm5cvs461vRsgl4cer6irrsmM=;
+        b=c25eKTt42G8UnKpAisSM/b7xQuu0HMqd5jmJJ1sbnm1Wk8oJWssPGU+nL2/ThpEq5s
+         d8mHDho4lxeEHX8OVW/QPNrbjM0/J12O2EiK+O/vLMoBKf6GnwweB3yHYgVkzs6QQmTY
+         D5xbUS/XI3whvzoBWZLRzL1kPLoVLqXuZLVXh/65/PdCsQOhxrn+PiR2xzsxh6Fxj3MI
+         nJqUfIqNSBYitq92Fo8pBjhmRpxwL0vOMcuWkeehh+vlKR3gIhhs3Z3A3D2BzbOcII1n
+         Gy+3UUS8Z0HHVCmE0AUgdzq4jw/W6drctiJuGZ7WAd9P4GaxnEfFLmHxIGgdgaF9phey
+         iN4w==
+X-Forwarded-Encrypted: i=1; AFNElJ8e2ANY9TUy/8fSj5PJkmQC9FqvQZ6WFLKqZstFGiY3c+1DB4LL6MMhy/FAs+PUUisnqnTafPJHw+9I@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1rYvipMfjscBMVac4DcVUSYh7cjaKH83BynqbJZmdjbvry2/Y
+	nSP/m26TlLiYWV/KsqBGqajp7sY18u7dSZwzqaYN5euV9goeUOCE43cBMFUD58n/2B80g2rvDoA
+	oHxgWDlC8895cKrSfKNYKS0O/ViR6K+M=
+X-Gm-Gg: Acq92OHkmMMi2ZPT6P/pnUZ6LlOK5vg8n/U8IfZryanvgnJS7+jVli70pQNUzBWg/Ao
+	y2Iq3vm1q2NsXtPULjr63JVjfk1JkC3+DK/Yub0nNA/k5elUb9Ky7yHacP5lZUcTmRXEZN1YGxc
+	ee59DZg/MdvZpDivFPajPmnyRGWQf2vUpAsIXBKXgs6TsYm+p7FL0NhMJVbq/QM8vHNjigGbvsn
+	GwI+1YS1qelxwW0kV9U539HEgaFiMXt4wTc9C1AH2kMrT5cguaM4PXzwfCSXFTmDIG2d9j7QzQF
+	iec5y2ivM/ojhJlwvHp+dsAp+ErwbPcPXxliuc579EmHwg10z6rJZIWEmz1GFNqbTY7mLL/O0zX
+	mlJQ=
+X-Received: by 2002:a17:907:972a:b0:bdb:5c26:d499 with SMTP id
+ a640c23a62f3a-bf3a8a06e97mr148149566b.22.1780670700008; Fri, 05 Jun 2026
+ 07:45:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+References: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260511191910.1945705-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdWVjvdX2Ve-Sf91oJoCWcO-fF-363ytO66Pr=SBA69N+g@mail.gmail.com>
+In-Reply-To: <CAMuHMdWVjvdX2Ve-Sf91oJoCWcO-fF-363ytO66Pr=SBA69N+g@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 5 Jun 2026 15:44:32 +0100
+X-Gm-Features: AVVi8CcZWc8NSzDAQ_aVku7QXQXrcmHdaazPbFgpm7kgo3ZnjYI1QxUBkTayMTw
+Message-ID: <CA+V-a8uYEOB2DcOjQ63hLDW-vYxGLTpphvDXyAwV3g1-GrHhgA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
+ frequency for calculations
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Geert,
 
-On Wed, 22 Apr 2026 23:07:23 +0200, Marek Vasut wrote:
-> Add "displaytech" vendor prefix for Displaytech Ltd. .
+Thank you for the review.
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+On Fri, Jun 5, 2026 at 2:37=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
+.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Mon, 11 May 2026 at 21:19, Prabhakar <prabhakar.csengg@gmail.com> wrot=
+e:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Use a per-SoC PLL reference input frequency for PLL parameter
+> > calculations instead of relying on the hardcoded 24MHz constant.
+> >
+> > Add an input_fref field to struct rzv2h_pll_limits and derive the PLL
+> > reference frequency from it in rzv2h_get_pll_pars(). Fall back to the
+> > existing 24MHz value when no SoC-specific input is provided.
+> >
+> > This allows the existing PLL divider calculation logic to be reused
+> > unchanged on SoCs such as RZ/T2H, which use a 48MHz PLL reference
+> > input instead of the 24MHz reference used on RZ/V2H(P), while keeping
+> > current RZ/V2H(P) behaviour intact.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Thanks for your patch!
+>
+> > --- a/drivers/clk/renesas/rzv2h-cpg.c
+> > +++ b/drivers/clk/renesas/rzv2h-cpg.c
+> > @@ -242,6 +242,7 @@ struct rzv2h_plldsi_div_clk {
+> >  bool rzv2h_get_pll_pars(const struct rzv2h_pll_limits *limits,
+> >                         struct rzv2h_pll_pars *pars, u64 freq_millihz)
+> >  {
+> > +       unsigned long input_fref =3D limits->input_fref ?: RZ_V2H_OSC_C=
+LK_IN_MEGA;
+> >         u64 fout_min_millihz =3D mul_u32_u32(limits->fout.min, MILLI);
+> >         u64 fout_max_millihz =3D mul_u32_u32(limits->fout.max, MILLI);
+> >         struct rzv2h_pll_pars p, best;
+>
+> > --- a/include/linux/clk/renesas.h
+> > +++ b/include/linux/clk/renesas.h
+> > @@ -53,6 +53,8 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 d=
+ivider, int target) { }
+> >   * various parameters used to configure a PLL. These limits ensure
+> >   * the PLL operates within valid and stable ranges.
+> >   *
+> > + * @input_fref: Reference input frequency to the PLL (in MHz)
+>
+> Iff there is a default, it should be documented here?
+>
+Agreed.
 
-[1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
-[2/3] dt-bindings: display: simple: Document Displaytech DT050BTFT-PTS panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
-[3/3] drm/panel: simple: Add Displaytech DT050BTFT-PTS panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
+> > + *
+> >   * @fout: Output frequency range (in MHz)
+> >   * @fout.min: Minimum allowed output frequency
+> >   * @fout.max: Maximum allowed output frequency
+> > @@ -78,6 +80,8 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 d=
+ivider, int target) { }
+> >   * @k.max: Maximum delta-sigma value
+> >   */
+> >  struct rzv2h_pll_limits {
+> > +       u32 input_fref;
+> > +
+> >         struct {
+> >                 u32 min;
+> >                 u32 max;
+> > @@ -156,6 +160,7 @@ struct rzv2h_pll_div_pars {
+> >
+> >  #define RZV2H_CPG_PLL_DSI_LIMITS(name)                                =
+ \
+> >         static const struct rzv2h_pll_limits (name) =3D {              =
+   \
+> > +               .input_fref =3D 24 * MEGA,                             =
+   \
+>
+> Why add this if 24 * MEGA is the default value anyway?
+> Why not do the same for the two similar RZ/G3E macros?
+> Perhaps the default handling and the RZ_V2H_OSC_CLK_IN_MEGA macro
+> should just be dropped?
+>
+Agreed. I will drop this change and get rid of RZ_V2H_OSC_CLK_IN_MEGA mcro.
 
--- 
-Neil
+Cheers,
+Prabhakar
 
+> >                 .fout =3D { .min =3D 25 * MEGA, .max =3D 375 * MEGA }, =
+       \
+> >                 .fvco =3D { .min =3D 1600 * MEGA, .max =3D 3200 * MEGA =
+},     \
+> >                 .m =3D { .min =3D 64, .max =3D 533 },                  =
+       \
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
