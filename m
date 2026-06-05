@@ -1,153 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49245.qiye.163.com (mail-m49245.qiye.163.com [45.254.49.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4263B7B93;
-	Fri,  5 Jun 2026 01:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9863AA19B;
+	Fri,  5 Jun 2026 01:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780623193; cv=none; b=jNleUH5SYmuBX4d52xtCEfHXUGf1xuFfEnFSkqmKMBowI62LbeaTLVOyXU06VxjrG1si4Sbz29iafVXqYy8Sag++9cSedMg/8j4MTNij90p8DqtjDvpklI+x779Zt09lkZqqbdBbWoQrAiwzNYBny7r+1rMF4Xl7oXw6GtoKX64=
+	t=1780623722; cv=none; b=r8KgA8Y4nv/L44f9XCVF346N4eim3Di9p7hnGuQuSfkO2lQwR7LvbeBdaF8qNyXNscp2+1DjmVFtaQ29v1zF06FHZ4/5ZYrTLM9KEaubSfEDQUbvdGmfd+pijAmSRtaJ70f3OIs4Q70KcVaKzV4Us+s8zhlUrw/fi1fR8ljJNOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780623193; c=relaxed/simple;
-	bh=LWN8fiboKockRcgT6EHTV8jtVOiXIbjNSMKEl9uMPVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OOdrf6275uFoSaGf4tTiQT3GHrkLgRMEG6h7NnC3uC10WBM9qSoOqv0i0+gIAcnbQ5vyw51DWmGKFLgwKdjV5DCxI9VgVs6JvYeZICtUyCr5Otl/dIrhr+415NBizZfhEt15POSz35F3MU7Yg/s00ppSyA+5gNPfo14T2RUZD8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J44XSzBS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780623722; c=relaxed/simple;
+	bh=uJYvNCr/c5HUn21+r8FWHHDGyHEvQ8Kp+jDg4Zohvuo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U+Kaf4S1uQOxdEeo4OmKZuJPfhi2QfYWtHEwkX3Fv4/kafVG1uF5jtN+vLxmi2BgIcL/HBAtra411HfuHUeNhjxp3GZpUguMg+fNl5QXY7RMG+sz88greCUob+dDS+B45jDE4LglUbq8/MUPTIKAFgUbQ4gkdBoWO0AKi7fH61o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=g8ev1URP; arc=none smtp.client-ip=45.254.49.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J44XSzBS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086481F00893;
-	Fri,  5 Jun 2026 01:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780623187;
-	bh=C2+SL4in8IWp8bHwp1BHBRMxAHSPizaARVU+G4BqjAs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J44XSzBSG2WWnJM9HqAh3HKSMU6WfXyhYYRKRhL3TrELSDFg3fEY2US/zwdvvBkDz
-	 fGFAkXjlIRU5W+99H5/aSBLEUTNWQRXPt685jRWG7FnpiJEwx+3NR4VjEB9G7oi40N
-	 HhXzHzoFA0+TYkCStaT95V3jnqo6aZmDP8TaJEWaiotDDSVGrDlaGub2nP3grHn5zF
-	 r0zF9wqOYIbxJxxKWNBAiNVDbsDCP2QzmAlkhW5CRNtBFbQ+G56vAd9WDzjCsWI6Pw
-	 bhDGx2ffGvahk0PNn0AyfppA6cyLPDH2UKm2Fp1Czj962BmMC5Pg2SKCwgJtb9maaz
-	 0gA4d5LfSUxgQ==
-From: Jakub Kicinski <kuba@kernel.org>
-To: devnull+george.moussalem.outlook.com@kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	f.fainelli@gmail.com,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	konrad.dybcio@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	george.moussalem@outlook.com
-Subject: Re: [PATCH v2 4/4] net: phy: at803x: add RX and TX clock management for IPQ5018 PHY
-Date: Thu,  4 Jun 2026 18:33:05 -0700
-Message-ID: <20260605013305.3533509-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260602-ipq5018-gephy-clocks-v2-4-65a1f1d881f3@outlook.com>
-References: <20260602-ipq5018-gephy-clocks-v2-4-65a1f1d881f3@outlook.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="g8ev1URP"
+Received: from [172.16.12.90] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 412733262;
+	Fri, 5 Jun 2026 09:36:30 +0800 (GMT+08:00)
+Message-ID: <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+Date: Fri, 5 Jun 2026 09:36:28 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+To: Midgy BALON <midgy971@gmail.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260604135255.62682-1-midgy971@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260604135255.62682-1-midgy971@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e956cb64203a7kunmae8f212e3422d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0wfSVZLHUpPGBlJTR
+	gdT01WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=g8ev1URPnB1NrgJV5kyG2ccC0Z11vTCKLanZgIdbPpNH/WcdJb7etuf0v1vH5Z8ewFZJisgwJzSBNw9D0lV0kcycsy/Y2Dt2CODLOhtPHvRztbQlKmEjudCshdaKw1b2qQtCANaxbApui4H/bao+cA21Bhx+GO+rzJmfLVfiyDI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=HZCd1/QFQRA8WZXHUaIlNXNKsRQnvTVs8VCYQyYdCeo=;
+	h=date:mime-version:subject:message-id:from;
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: phy: at803x: add RX and TX clock management for IPQ5018 PHY
+Hello Midgy,
 
-This commit adds RX and TX clock acquisition for the IPQ5018 PHY using
-devm_clk_get_enabled(). It also attempts to manage power by manually toggling
-these clocks in ipq5018_link_change_notify() based on the link state.
+On 6/4/2026 9:52 PM, Midgy BALON wrote:
+> RFC, not for merge. End-to-end inference does not produce correct output
+> yet (see Status), so per the v2 discussion this is a request for design
+> feedback. It now probes, attaches, and submits cleanly on a stock
+> v7.1-rc6 tree; what remains is one hardware-internal issue.
+> 
+> The RK3568 has a single NVDLA-derived NPU core, the same IP family as the
+> RK3588 NPU the driver already supports; the register layout matches. The
+> RK3568 differences are a 32-bit NPU AXI/IOMMU (vs 40-bit) and explicit
+> PVTPLL/PMU bring-up to power and de-idle the NPU before it is reachable.
+> 
+> Patches:
+>   1-2  rocket: per-SoC data struct, then derive DMA width and core count
+>        from match data (refactors, no functional change).
+>   3    rocket: RK3568 SoC data + PVTPLL/PMU/NOC bring-up.
+>   4    rocket: reset the NPU before detaching the IOMMU on a job timeout
+>        (the detach otherwise stalls a wedged AXI master and WARNs).
+>   5    rocket: keep the IOMMU domain attached across jobs instead of
+>        re-attaching per job (the per-job rk_iommu handshake on the idle
+>        NPU MMU is slow and noisy).
+>   6    iommu/rockchip: clear AUTO_GATING bit 1 on the RK356x v1 IOMMU so
+>        the page-walker keeps its clock (else a TLB-miss walk never
+>        completes).
+>   7    dt-bindings: add the RK3568 NPU compatible.
+>   8-9  arm64 dts: add the NPU and its IOMMU, and enable them on ROCK 3B.
+> 
+> Dependency. The NPU MMU is rockchip-iommu v1 (32-bit) while the rest of
+> the RK3568 uses v2 (40-bit). They cannot coexist until the driver carries
+> per-device ops; this series is developed on top of Simon Xue's
+> "iommu/rockchip: Drop global rk_ops in favor of per-device ops" [1].
+> Without it the NPU IOMMU fails to probe on a full RK3568 boot.
+>
 
-> diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
-> index 63726cf98cd42..b7361a14220d8 100644
-> --- a/drivers/net/phy/qcom/at803x.c
-> +++ b/drivers/net/phy/qcom/at803x.c
+Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than
+v1, implying it should support 40-bit PAs. Nevertheless, please note that
+the upper limit for DTE is 32 bits.
 
-[ ... ]
+> Power bring-up. The NPU is brought up through the power-domain layer (no
+> driver hack): the NPU power-domain keeps its clocks but drops the pm_qos
+> phandle (qos_npu sits behind the gated NPU NoC, so genpd's power-off QoS
+> save faults reading it), and vdd_npu is marked always-on so the rail is
+> up before genpd de-idles the NoC at power-on. The PMU de-idle then ACKs
+> without PVTPLL running; PVTPLL is only needed for compute.
+>
 
-> @@ -1062,6 +1065,16 @@ static int ipq5018_config_init(struct phy_device *phydev)
->  
->  static void ipq5018_link_change_notify(struct phy_device *phydev)
->  {
-> +	struct ipq5018_priv *priv = phydev->priv;
-> +
-> +	if (phydev->link) {
-> +		clk_enable(priv->rx_clk);
-> +		clk_enable(priv->tx_clk);
+Can these operations not be completed via the pmdomain driver?
+If some operations are controlled by TF-A, are you using open
+source TF-A? Thank you.
 
-[Severity: Medium]
-Should the return values of clk_enable() be checked here?
+> Status. On v7.1-rc6 the driver probes, creates /dev/accel/accel0,
+> attaches an IOMMU domain, and submits jobs; the program controller
+> fetches and broadcasts the command list. Inference output is still wrong,
+> and the cause is split across three layers:
+>   - kernel (this series): the RK3568 differences appear handled;
+>   - mesa/Teflon userspace: still emits RK3588-tuned config, wrong for
+>     RK3568 (to be filed separately on mesa-dev);
+>   - hardware: with corrected config the NPU's DMA reads the full input
+>     and weight tensors (confirmed via its DMA bandwidth counters), but
+>     the MAC/output stage never completes, the job times out, and the
+>     output stays at the buffer's zero-point. I have not found the missing
+>     step; it is not in the command list (replaying the vendor's
+>     byte-exact command list behaves the same). Pointers welcome,
+>     especially from anyone with RK3568 NPU experience.
+> 
+> Known residual. On the first IOMMU attach the NPU MMU is idle with paging
+> already enabled; the rk_iommu stall/reset handshake does not complete in
+> that state and logs one burst of timeouts before the (kept) domain
+> settles. It is harmless here because the job times out regardless, but it
+> points at an idle-MMU reconfiguration corner the rk_iommu code does not
+> handle on this block.
+> 
+> [1] https://lore.kernel.org/linux-rockchip/20260310105303.128859-1-xxm@rock-chips.com/
+> 
+> Changes since v2:
+>   - Tagged RFC; now tested on a stock v7.1-rc6 tree.
+>   - Bring-up moved into the power-domain/DT layer (no initcall hack).
+>   - Added the IOMMU detach-on-timeout and attach-once driver fixes.
+>   - Split the driver patch (Heiko): soc_data / match-data / RK3568.
+>   - Derive DMA width and core count from match data; drop the DT rescans.
+>   - Binding describes the hardware; added the missing $ref on rockchip,pmu.
+>   - Disclosed the per-device-ops IOMMU dependency.
+> 
+> Midgy BALON (9):
+>   accel: rocket: Introduce per-SoC rocket_soc_data
+>   accel: rocket: Derive DMA width and core count from match data
+>   accel: rocket: Add RK3568 SoC support
+>   accel: rocket: Reset the NPU before detaching the IOMMU on timeout
+>   accel: rocket: Keep the IOMMU domain attached across jobs
+>   iommu/rockchip: Clear AUTO_GATING bit 1 on the RK356x v1 IOMMU
+>   dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568
+>   arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
+>   arm64: dts: rockchip: rk3568-rock-3b: Enable the NPU
+> 
+>  .../npu/rockchip,rk3588-rknn-core.yaml        | 18 ++++-
+>  .../boot/dts/rockchip/rk3568-rock-3b.dts      | 14 +++-
+>  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 38 +++++++++++
+>  drivers/accel/rocket/rocket_core.c            | 22 ++++++-
+>  drivers/accel/rocket/rocket_core.h            | 19 ++++++
+>  drivers/accel/rocket/rocket_device.c          | 15 ++---
+>  drivers/accel/rocket/rocket_device.h          |  3 +-
+>  drivers/accel/rocket/rocket_drv.c             | 66 ++++++++++++++++++-
+>  drivers/accel/rocket/rocket_job.c             | 35 ++++++++--
+>  drivers/iommu/rockchip-iommu.c                | 12 ++++
+>  10 files changed, 219 insertions(+), 23 deletions(-)
+> 
+> 
+> base-commit: 52c800fdcf11888ebeb50c3d707f782cc15b66eb
 
-If clk_enable(priv->rx_clk) succeeds but clk_enable(priv->tx_clk) fails,
-the hardware might be left in a partially enabled state without any logged
-warning. Would it be better to explicitly rollback and disable the
-previously enabled clocks if an error occurs to maintain a consistent state?
-
-> +	} else {
-> +		clk_disable(priv->rx_clk);
-> +		clk_disable(priv->tx_clk);
-> +	}
-> +
->  	/*
->  	 * Reset the FIFO buffer upon link disconnects to clear any residual data
->  	 * which may cause issues with the FIFO which it cannot recover from.
-
-[ ... ]
-
-> @@ -1084,6 +1097,16 @@ static int ipq5018_probe(struct phy_device *phydev)
->  	priv->set_short_cable_dac = of_property_read_bool(dev->of_node,
->  							  "qcom,dac-preset-short-cable");
->  
-> +	priv->rx_clk = devm_clk_get_enabled(dev, "rx");
-
-[Severity: High]
-Does mixing devm_clk_get_enabled() with manual clk_enable() and clk_disable()
-cause enable count imbalances?
-
-Since devm_clk_get_enabled() establishes a base enable count of 1 and
-registers an unconditional devres teardown action to call
-clk_disable_unprepare(), manually toggling the clocks in
-ipq5018_link_change_notify() could lead to a few unintended behaviors:
-
-1. The count initializes to 1. If the link comes up, the count increases
-   to 2. When the link goes down, it drops to 1. The hardware clocks are
-   never actually gated since the count never reaches 0.
-
-2. If the driver is unbound while the link is down (after a manual
-   clk_disable()), devres will call clk_disable() again, dropping the
-   enable_count below zero and triggering a kernel WARN.
-
-3. If phy_stop() halts the PHY, it invokes the notify callback before
-   phydev->link is cleared. If the link was up, clk_enable() is called
-   again, inflating the count to 3. Devres cleanup will then only drop
-   the count by 1, permanently leaking the clock reference.
-
-Could this be resolved by using devm_clk_get() instead, and handling the
-prepare/enable states directly?
-
-> +	if (IS_ERR(priv->rx_clk))
-> +		return dev_err_probe(dev, PTR_ERR(priv->rx_clk),
-> +				     "failed to get and enable RX clock\n");
-> +
-> +	priv->tx_clk = devm_clk_get_enabled(dev, "tx");
-> +	if (IS_ERR(priv->tx_clk))
-> +		return dev_err_probe(dev, PTR_ERR(priv->tx_clk),
-> +				     "failed to get and enable TX clock\n");
-> +
->  	priv->rst = devm_reset_control_array_get_exclusive(dev);
-
-[ ... ]
 -- 
-pw-bot: cr
+Best, 
+Chaoyi
