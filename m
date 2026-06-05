@@ -1,181 +1,169 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010013.outbound.protection.outlook.com [40.93.198.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE9847ECE4;
-	Thu,  4 Jun 2026 13:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780579789; cv=fail; b=GgfaGotrGZVzJGnZ+5FOhEAcgpkbtHSbiuP3eg/rt9dA35S/66yAwuMu198aRYYV2fpiG7ZZLNmFoiMjpHYNwvXPsMAnbxY9ZEaqhrI2vL6s5xNWuqc+57cFmMp6iXxDQvv8znJHWiZLqf4VmPodpzXGtll2W29RhohIaNU0fgE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780579789; c=relaxed/simple;
-	bh=QduDFGkhVG7l5Cwv77fOewR1zYqTJHP2BTQMigLPCq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=myW4paaj9k5eU5tHYV5jtLhVsHlAaf5YR3u3c+DEHx/+hrfeGVxwIYsU7gxToNaNAxcTvzQ+l6Xi0hWYHU1y7S+bkI9wb6f7pEnNjCFKeDDnqXKIrV656L25i21rtz1REvrG1t/I+hjDOpxLKOdAWEAA2QYIlG12ju8juaOrKS4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=vYiNs4Tt; arc=fail smtp.client-ip=40.93.198.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574B943637C
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 13:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780579937; cv=none; b=C0voRThR3dtfZ2kJTLCQyrM0FGEa2IqhbarbD9GKBk5N+qfNEnx6yqFxSDnIiC96vjU8+acdTh+/IaxdNIo0UBSIEHw8N8QaDyjdUQJV5v4sIEejIioXvpsVFFuLOnO5kZ9OzdEbxa0sUc+gcXvcfPUqM7yLTLFOt9szq8jepsk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780579937; c=relaxed/simple;
+	bh=nu95rR029uAcXuRs570urNlakiAUvYt4SjrzMfO77F0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C5uEPiGB1C+m2fIT7h7H8TSXvcL9e/5mhl52Veslv9CnqG5rXUxjL+4sbJEe8raMUErwExQ66TJilCtrigm7EPrg4iDG+0poGcjLlN+yvUo1topmdDqrvFdI2RfzIXi8GxRKFuGNwwQeOYEM5M+5R3OzWnHMHMvpI/G64EEotek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IONg/XX1; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="vYiNs4Tt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m0N80djnCG8EMxaFkYJ67CYfDorYxAO4/IfdLWjbOdsdl2MufBrG0U9iWkDD3NyYLzxWlC1g4gydabeGlzciDyzhVKKaqajTuN1XjaRvvhw5P5Xbkju8UqnqS6UFQ8GLcp8Ouy/r3nbuQxoVYutcnhrOGCLbCVDi8iNSk/DTr3K6CrWYa7mlUdeRrB8zx0CnG490oHz3Y/p+PieIUylJMH+UQGcFeid0lGpAs+7oDV+paudW8yIQ0JRwg25IW8jaYhzyhnASyH6AkZYjocziBgQtFZSrjxe5QN4hKucrcscXjujuTzsjj06APqZrdkJfkFysy0TynYhFUSNp7Y0lKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2QZdPuiF3s/K/hP6adyb62JYNxigoWxMG1szuuNaHkc=;
- b=UnxkCHnF6l6P7eYW0iALO4EWGAI0v98Y5XmEOAXTWBn+6DjRFurKYT0aLvS3hNgbryiAxi48Ww306176Xr6h9DwpJKuSzXiC1S7/cqnxW15S2thHeHX5fvE13LmNmbXWhitdhD5FVT4shXRu8CwHnDhoI0vogLmj6/YxCRo6pHyRMXxyodDMtDhJVmyfpZYqNpAwld2b5PkEk9J35lg26ves2mVYxyrlT1XsfchaFkR7C5j+/iwtiK3vod+H/k385NlCE6fiXL5pgZ0UAEU0E3dntSBX1FJNbKBeToc/ND1IZlHjDLoY8y+QTiX9oEq42c6IlfKBcGREqvOrGGJYbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2QZdPuiF3s/K/hP6adyb62JYNxigoWxMG1szuuNaHkc=;
- b=vYiNs4Tt9ia2xNkGDO1uJNlMtnceurxK3UXd1MZLeASODsUzPB7J7EvmwKtNJJrnfyI87bW+dpqX7+G4ADXxmhGJPY/KtRksDhW3aRBXwNBb0XwZ4JTJJjYuaESvRsBTSt8rS/nIcyio3uQOkuknnmoOsuygjABRTJAPeIUXMJ8=
-Received: from MN2PR05CA0057.namprd05.prod.outlook.com (2603:10b6:208:236::26)
- by SA2PR10MB4747.namprd10.prod.outlook.com (2603:10b6:806:110::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 13:29:45 +0000
-Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
- (2603:10b6:208:236:cafe::66) by MN2PR05CA0057.outlook.office365.com
- (2603:10b6:208:236::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
- Jun 2026 13:29:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 13:29:43 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 4 Jun
- 2026 08:29:42 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 4 Jun
- 2026 08:29:42 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 4 Jun 2026 08:29:42 -0500
-Received: from [10.249.42.149] ([10.249.42.149])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 654DTf8t3453466;
-	Thu, 4 Jun 2026 08:29:41 -0500
-Message-ID: <203d82b2-216e-4f5d-aa3d-f653228d397a@ti.com>
-Date: Thu, 4 Jun 2026 08:29:41 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IONg/XX1"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2bf2e8ccca1so5382655ad.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 06:32:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780579934; x=1781184734; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=W7kgLmd1Eju/DnzGMNjOTAqLfs8KBtASrK9bbu61Jiw=;
+        b=IONg/XX1iOViiO1nqAAKPh2YuK5AHnwOYa57zg0Ks+QDvVx/e9oWYk8opGxouDS7xe
+         zvkcxS5WiSurgKTsyhw9hM1ZoqVJMfCgLhkIlH0Tn8e+PCo+4TTbTRQXrjERjE6J34Rc
+         xJ+aoLizk2yhCdJXb3aoep/6UqpvUZBHg6w5swSr8wtqnqjyPnSTbMBxN+CfJDP5Yl4U
+         MThtTJ4WBWZl59nOMYaQSZ3Fv3y5IpisM0svCc/VH81BDB2qUoP3rSpQ6SnBIdC0R+UP
+         C6zaxEIQc/DelJF0jyVklcUt7QSwU58NoOIPBBTpFMATnxARTUFofHZ3UGbDr6qSdXuw
+         tnGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780579934; x=1781184734;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=W7kgLmd1Eju/DnzGMNjOTAqLfs8KBtASrK9bbu61Jiw=;
+        b=R6HfJtx8J7WU5WF9+l4K0NYEPnQ5KzmkO4R6ctZ5UazsoRCKOdGI1cf7XJ+0izGHsb
+         aVF+UFdl+mGAcCzT6OmQR9ylY6S0ECwLfbz/ox8WwrZcw/DoX05rCPlrJmWYaiGiDQ83
+         wBPBaxOjlX9PiK/Z35f7TCQtDHG6LRhZV8KNRhhzHheaHu9zt106QlraRYuKFS42or6p
+         FI+LxyROPkedyP1tzRdvVrcP4/xQN/dVzFYK28ExRYlZGIqy3YnCbP7HVBkTpTql/eeS
+         8amr89J9q43c2+1drpSZCoPa6R2Ntni/zHB09UVW30Y+UwEgjcTUqUafGz3iHnoCSKcs
+         rQow==
+X-Forwarded-Encrypted: i=1; AFNElJ8718OsYi7E0e7Itr2oT04lxXL2Q4mH8IsZSkEb+9MCMJeLaxkdF2D+G/SIBBdqINMphWFbgaVYvwKI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9jZrOrTqL6BheqjNHaosAivgAaF0j/JiU/+SvttyzP0tqWTst
+	5K3jpK4jOftAsXrOdMhiBZOWdDYNjOD+I8DwSjo9CSNDMpz14ARPUQ8f8rRZNk0qKoc=
+X-Gm-Gg: Acq92OEQpnLL/FSWyKtBMNWzNdu8EpB+JG0wIn/GlzvfO6NJWuW6J/mV7jQB+ceZ0tq
+	2WKzOMTjH8UAfcrouW3iilgiFH4vhPDxYxio5s9fec6/eIdqvTCcViHLGZbcGqwjsMtu3k+dH7h
+	bB+6Uk9YMMfyVufeh5uEX6G/1hDlkc7nRrRqWvaKZBTr3XePG41wPWiNYGXRQFKPqy4x+2sZU6m
+	0a7gllgx/nvlyaDFXWPXa8Zy4n7FX23E/YYBvFItKFqPUfCQX609djIFxLh+n7VtLSb8vDaQiyX
+	8F/quoOR1pVU2D94DMOysLepBWxcgfWJB2yDgsrziaCEY/pMqej7PMrxRbmiAK5PK01G33fDzlw
+	V1QOXzzNDSl7P36TzxwLpGsjwz+kacXZSJw9P8A3fQsOSyrPOU1irE1AqfZVrbmSn85DTzMnqqS
+	8ZEWRoUQ==
+X-Received: by 2002:a17:903:b8f:b0:2b2:67ca:5ff9 with SMTP id d9443c01a7336-2c16361add2mr76803875ad.0.1780579934415;
+        Thu, 04 Jun 2026 06:32:14 -0700 (PDT)
+Received: from localhost ([2a12:a305:4::305d])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f85de1sm58805815ad.20.2026.06.04.06.32.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 06:32:14 -0700 (PDT)
+Date: Thu, 4 Jun 2026 21:31:36 -0400
+From: Guodong Xu <docular.xu@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, kvm@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 08/15] riscv: Add Zic64b to cpufeature and hwprobe
+Message-ID: <u52q565xhv5s7gz3wbh4heplhbm4pv732s5kqvf4deiw6ceb4t@n4bnpzu5kabs>
+References: <20260603-rva23u64-hwprobe-v2-v3-8-5529a7b28384@gmail.com>
+ <20260602232800.768311F00893@smtp.kernel.org>
+ <CA+Ck9FbKRM0wjJMg1fQpdwmow8cf_zTfir7V6+T=CRxU+vomdg@mail.gmail.com>
+ <20260604-rice-protegee-3a0b8e4cb609@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: dts: ti: k3-am67a-beagley-ai: Add overlay
- for IMX219 on CSI0
-To: Nishanth Menon <nm@ti.com>, Jai Luthra <jai.luthra@ideasonboard.com>
-CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Nelson <robertcnelson@gmail.com>,
-	Devarsh Thakkar <devarsht@ti.com>, Tomi Valkeinen
-	<tomi.valkeinen@ideasonboard.com>, <linux-arm-kernel@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260515-beagley-cameras-v2-0-f6acb66c9995@ideasonboard.com>
- <20260515-beagley-cameras-v2-3-f6acb66c9995@ideasonboard.com>
- <20260529150119.dqzzruc7xqliftwp@bullhorn>
-Content-Language: en-US
-From: Andrew Davis <afd@ti.com>
-In-Reply-To: <20260529150119.dqzzruc7xqliftwp@bullhorn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|SA2PR10MB4747:EE_
-X-MS-Office365-Filtering-Correlation-Id: 316b6f94-fa86-458f-8492-08dec23d56f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|36860700016|13003099007|22082099003|18002099003|5023799004|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gq2d/GemulBTXe3/pXa0FVUE/YsKZjJcTzDAJAM9mjrurG+HYDY2jUBJbJSCuvSJqgWbbbmI/c2TCagQT8Q50ibLrxmLP2VH7npkxvYUfhUl7jA5J255pF8LcpPXdsb8eiQHPgiV7HgPBuzy9OkB/eY2kAZ+8UTuFR+Zw7orcb0UbA/NX3Jmvc8a17V2JiMB3Ecx+hGvfWsM2TQAJcjT45EkrqgFHwqw2nfWXZPrm7+LHVHRR/gX+ejpu2baN46Hsdb3QxyjE0aAkbnSKwcYWoq5C3LP6ZzhWF3iaVLl0XIZQyuiWu+tV9NLH2tcEfm1ccslCR1bY5mflwhM3wyQV4UjiNK0TcWfhllqHP7PCkDDs3XqaL92ouahW40dIm5FCOJYtIfvMbju+ArowckvnECCtf1ZvFBkzncrx260qtgb2UDtoZ0PG2U68bbKLhURI7U305PaCOltBlbPXFa4TJaFxwl02H6ItmkyZSfbNsXgPqSL/ENj37RDYBtKBng3YV6NwRrGX0T2q4a1RozipEiDB4QmNpGhvkGUSqdwBerY30u6sKZCc6y05AOWOfDazajbXezDmP3iVvGm/QFq0J5ppP7gR2tfkwDX2M8Ao6M8B9IAJlP8HD/UZoxoMQoycC0u1tyLTOxtjCT+xhzA+y9VgNLlO8q8gAv/rb50zWeuY6CKsGDC+hFDNaImxmZZ
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700016)(13003099007)(22082099003)(18002099003)(5023799004)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8ATxqa74a+ctuapL15k+LHEYobWomREs2gnn/bzCQ4pZhcSsNgB0kZjJVP1ljvbIm1Oo6qtsb0ajdULymit68EEcCKAciIqouiicSkkDxnhJan/fcmoM5E8RRN2m4ocbaGeVnQIZHOe1NYS0mRt+uaaPsjTo9Y4dpXNdjKSVUwfrK8q6vV8b9nDMH0iIaO9pruqY5XCI5dcMAeFXl2yX8/f66VTM0ESeaWdmoCppBNsNzZGL6B6lmuPz7FtGQdEKt6WYclvy+2s4nyjRBYFBM8R4n7xlnWkWtopobNLA6qYsFSB1yMo8kl/cDlVCYn0hpW1wTLgOIpNbewFgcGRNTUiWQA6BfBFfHs0vObkaNZnTMNztPOiGEsVH+4VdMJs+XipVg4bNW4ApDtAVfbwxl/CekXag7y0hNV4iLCdLMQAVt4u069ukby1kt9IPgOnn
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 13:29:43.9799
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 316b6f94-fa86-458f-8492-08dec23d56f5
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB58.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4747
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260604-rice-protegee-3a0b8e4cb609@spud>
 
-On 5/29/26 10:01 AM, Nishanth Menon wrote:
-> On 06:46-20260515, Jai Luthra wrote:
->> RPi v2 Camera (IMX219) is an 8MP camera that can be used with BeagleY AI
->> through the 22-pin CSI-RX connectors. Add a DT overlay to enable use of
->> this camera sensor through the CSI0 connector.
+On 2026-06-04 10:17, Conor Dooley wrote:
+>On Thu, Jun 04, 2026 at 02:42:22PM +0800, Guodong Xu wrote:
+>> On Wed, Jun 3, 2026 at 7:28 AM <sashiko-bot@kernel.org> wrote:
+>> >
+>> > > @@ -154,6 +154,23 @@ static int riscv_ext_zicbop_validate(const struct riscv_isa_ext_data *data,
+>> > >       return 0;
+>> > >  }
+>> > >
+>> > > +static int riscv_ext_zic64b_validate(const struct riscv_isa_ext_data *data,
+>> > > +                                  const unsigned long *isa_bitmap)
+>> > > +{
+>> > > +     /*
+>> > > +      * Zic64b mandates 64-byte naturally aligned cache blocks; cross-check the
+>> > > +      * cbom/cbop/cboz block-size device-tree properties to avoid inconsistency.
+>> > > +      */
+>> > > +     if (riscv_cbom_block_size != 64 ||
+>> > > +         riscv_cbop_block_size != 64 ||
+>> > > +         riscv_cboz_block_size != 64) {
+>> >
+>> > [Severity: Medium]
+>> > Will this check erroneously disable Zic64b if a platform does not implement
+>> > all three CBO extensions?
 >>
->> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
->> ---
->>   arch/arm64/boot/dts/ti/Makefile                    |   4 +
->>   .../dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso    | 121 +++++++++++++++++++++
-> 
-> Oh man..
-> https://lore.kernel.org/linux-arm-kernel/20240702164403.29067-1-afd@ti.com/
-> comes to memory.. Afd - what ever happened to that?
-> 
+>> Zic64b is mandatory in RVA22/RVA23, which also mandate Zicbom,
+>> Zicbop and Zicboz, so all three block sizes must be present on any Zic64b
+>> platform.
+>
+>Where do you get that conclusion from? That's not how we treat any other
+>extension defined in the profiles spec. My understanding was that even
+>if things are defined in the profiles spec that they're fair game for
+>independent use.
 
-Good question, others have taken over the torch for the most part. Nice
-little talk[0] I found on some current status updates for the topic.
+Ok, I get your point. Agree, Zic64b/Zicbom/cbop/cboz can be implemented
+on each hart independently (at least spec doesn't say no). With this in
+mind, the validation of Zic64b should be like this:
 
-They even mention my little proof of concept around the 19min mark :D but
-kinda just dismiss it as it doesn't support hotplug, which is a requirement
-for their usecase. But my solution doesn't support hotplug because DT
-doesn't support hotplug. And to add that kind of support to DT they are
-pushing to change the DTC[1], the FDT format[2] (which hasn't changed in 19
-years and is the basis for claiming DT is a firmware/"ABI"), and make an
-alternative to DT overlays called "addon DTs"..
+     if ((riscv_cbom_block_size && riscv_cbom_block_size != 64) ||
+        (riscv_cbop_block_size && riscv_cbop_block_size != 64) ||
+        (riscv_cboz_block_size && riscv_cboz_block_size != 64))
+     return -EINVAL;
 
-What I proposed was something that can work today without any changes
-to existing DT infra. My only goal being to prevent needless duplication
-in overlays like we see here where you have a new overlay for each
-connector the device could be connected to. Just look at our evil vendor
-tree to see what this problem can look like, go here[3] and search "fpdlink".
-We have 14(!) overlays for just one camera sensor (IMX390) with the only
-difference between each being a single line to select the FPD-Link port
-where the sensor is connected.
+This will allow :
+1. A Zic64b hart with 0, 1, 2, or 3 CBO extension and block_size 64
+    passes the validation.
+2. A Zic64b hart with CBO extensions but block_size is not 64
+    fails the validation
 
-Jai, I see you have already posted v3 of this series, but could you take
-a look at what I've proposed here[4] and see if this could be used to make
-a single IMX219 overlay that would work for both CSI ports? If you can
-pull that off then we avoid the combinatorial explosion of an overlay
-for each port on each board for each camera sensor.
+Thanks for the catch.
 
-Andrew
+I will fix that in v4.
 
-[0] https://www.youtube.com/watch?v=C8dEQ4OzMnc
-[1] https://lore.kernel.org/devicetree-compiler/20260112142009.1006236-1-herve.codina@bootlin.com/
-[2] https://lore.kernel.org/devicetree-compiler/20260409115426.352214-1-herve.codina@bootlin.com/
-[3] https://git.ti.com/cgit/ti-linux-kernel/ti-linux-kernel/tree/arch/arm64/boot/dts/ti?h=ti-linux-6.18.y
-[4] https://lore.kernel.org/linux-arm-kernel/20240702164403.29067-1-afd@ti.com/
+BR,
+Guodong
 
-> other than the dsi mux, painful to see so much duplication..
-> 
-> Other than that, there is the previous comment (ordering etc, repeated
-> here). I also suggest people put the url of the board/part that the
-> overlay is supposed to refer to when creating overlays.. at least, some
-> sort of canonical link so folks are'nt confused in a future date.
-> 
-> 
+>
+>>
+>> And architecturally, all the block sizes are one quantity: under Zic64b
+>> that value is 64, so the three must all read 64.
+>>
+>> Anything else is a misconfigured DT, and the kernel should not trust
+>> the zic64b it claims.
+>>
+>> BR,
+>> Guodong
+>>
+>> >
+>> > If a hardware platform implements Zic64b but omits an optional extension
+>> > like Zicbop, the riscv,cbop-block-size property might be absent from the
+>> > device tree, leaving riscv_cbop_block_size initialized at 0.
+>> >
+>> > This unconditional check evaluates 0 != 64 as true, which would spuriously
+>> > trigger this error path and disable the valid Zic64b extension.
+>> >
+>> > Should this validation only enforce the 64-byte size if the corresponding
+>> > block size variable is non-zero, indicating the extension is actually present?
+>> >
+>> > > +             pr_err("Zic64b detected in ISA string, disabling as the cache block size is not 64 bytes\n");
+>> > > +             return -EINVAL;
+>> > > +     }
+>> > > +
+>> > > +     return 0;
+>> > > +}
+>> >
+>> > --
+>> > Sashiko AI review · https://sashiko.dev/#/patchset/20260603-rva23u64-hwprobe-v2-v3-0-5529a7b28384@gmail.com?part=8
+
 
