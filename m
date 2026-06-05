@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBA64183C6;
-	Fri,  5 Jun 2026 09:21:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB5E346E4E;
+	Fri,  5 Jun 2026 09:24:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780651268; cv=none; b=M1oA71zmydX/nukBNrXNYRy6Buzr0Hf3WIpjIkoTi6B7o9MEiiSUMe280HMTRdDZzrjEBi330TCPpLO8kachC1GThNXGty/jjMrGkeBuV7pYPKcCtgEQ9l7fhHWKc/oUzyPXNaCfLLryytjinbZh8vZgqU23WD6V1OLq3d8qxSU=
+	t=1780651469; cv=none; b=czCy+0PotyHxAGqXRfkXLNjpnH0pePXOYGuqNktyCVO/pdypIwy0Fqw3LJQgkA3bri4JluPv93Kscpr16628UPwwWwU7tGrXnFu+oyOYIruWbXxOp0whiRi0zzvZGZLDxBiB/iFE4ZFBNZxXkzXLDVHNcVBacUwfbg/8bDBuDWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780651268; c=relaxed/simple;
-	bh=2YM6yBg2LNmMdYIZnNwy+Qweazhy0nANSLeg2Pl/zgE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=H8quD92UYlWcSfsiYo4a5uuXiyEGjqleWlS+xdwvCIUuRUg9lbjbgaY2cruCi7cqkTH27xYiWEkrXYX78Ebvd45hpHQkB4kPCAHrFumSctXwzIMqnbYfNIeR8kx4suNnXClPhHbsKMKwT28ICHaw6zAyn6NxipeZMMYY+kzjfiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzaGVqca; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780651469; c=relaxed/simple;
+	bh=gM2UWa7/uzeOvrvC001j48atEJd8OHs/yz8Mk+Xx3P8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lUOelR43b5Y7vNKAFUwwjUDYvDk2Z0sZtwdjP2AOGMZgs01Cd52Ot8xJ6J8/sKRAV9/MQGclMZSGXsLuS+IuMCKYRZx3nI4HoNFgkMYgBNB18IPh166qggSJSg3whsuIV5OHLrYaguVn/cnhmWlV18CbJ7qnybBeiYDOkJksGeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=osK+X5j9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzaGVqca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340701F00893;
-	Fri,  5 Jun 2026 09:21:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="osK+X5j9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E411A1F00893;
+	Fri,  5 Jun 2026 09:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780651267;
-	bh=XEUAsGMtdNzDgndj69FsKblOuBRL8Ku3HxYE6FoW0zc=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=VzaGVqca9K38zjtsHRyzZdq20PcHwzQepcSLW3OUimCaF1ULdcYptPZ+X/I11YKYN
-	 QdvFEod9CpwP0XSDNaNslKOO1IAcVFvOHl4oOJIIavKXpsPsvmq5/4rewbSsc1PwLb
-	 DzW2Kxz0VXtKLHPRytWTkHtw4UnjIr7j3y22NSPzBXN8SRkLd8bgjhS/jBE1Xu4M2x
-	 BUJ4LNdvviyz4mMBnNPKf1jaTSED2Y21oGGX9VEn9PRdCZRsDSbAdDPzPQglvxb0qQ
-	 8kAv/fEGowYA2YXdohLt75PjBQHL3xT+5gG0qBg64MmzR4AaoWQ9RN2tKuYhJSI4ME
-	 Sz3RO8+XGYzBQ==
-Message-ID: <b005d5cc-3b9b-47a6-b6fe-91ace2db4089@kernel.org>
-Date: Fri, 5 Jun 2026 11:21:00 +0200
+	s=k20260515; t=1780651468;
+	bh=kgp+/h4QmDMqtLCE1Y/k0cVkhXW2cBE4H6XqM6EAxrQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=osK+X5j9wl/8jlopXvzZEshpgKE7tl/vlNHdFLMt3jRVXUwb1QD9liFa1VbmqN/y4
+	 uH/GsW1o/KKHGxWyay9NXrQiSVzAUq0+RMfTsc6fOPv8wj0GEZIPn714C2GA8GEAhE
+	 YKmG/C0bQpPQ4N6L0+okdFS5UKMD340S/+JYtG821P5+wVt3qVquY7DxPeA3n2ZU6V
+	 k83M0QaCM2WKeCYlSc+2nhJ1GvotyZ9fzc4nfBD49sz7hOYqHIxXGYJgz+wvKLhnDm
+	 2SMx6KExhKDJ/VlUXFMLM0xFeOhgjzOOaBogjaHVyqxrhNEc5K5pkdJj1LtlWHq9zD
+	 Z4hH5o6fkAE4Q==
+Message-ID: <6c87641d-d505-44ff-a994-eeabf55f4c73@kernel.org>
+Date: Fri, 5 Jun 2026 11:24:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,9 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: soc: cix,sky1-system-control: add
- audss system control
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 3/5] dt-bindings: clock: cix,sky1-audss-clock: add
+ audss clock controller
 To: joakim.zhang@cixtech.com, mturquette@baylibre.com, sboyd@kernel.org,
  bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org, p.zabel@pengutronix.de, gary.yang@cixtech.com
@@ -45,8 +44,8 @@ Cc: cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
 References: <20260605032225.523669-1-joakim.zhang@cixtech.com>
- <20260605032225.523669-2-joakim.zhang@cixtech.com>
- <17528d9a-738c-48fe-ac24-b8d90875a74f@kernel.org>
+ <20260605032225.523669-4-joakim.zhang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -91,56 +90,117 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <17528d9a-738c-48fe-ac24-b8d90875a74f@kernel.org>
+In-Reply-To: <20260605032225.523669-4-joakim.zhang@cixtech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/06/2026 11:18, Krzysztof Kozlowski wrote:
-> On 05/06/2026 05:22, joakim.zhang@cixtech.com wrote:
->>    compatible:
->> -    items:
->> -      - enum:
->> -          - cix,sky1-system-control
->> -          - cix,sky1-s5-system-control
->> -      - const: syscon
->> +    oneOf:
->> +      - items:
->> +          - enum:
->> +              - cix,sky1-system-control
->> +              - cix,sky1-s5-system-control
->> +          - const: syscon
->> +      - items:
->> +          - const: cix,sky1-audss-system-control
->> +          - const: simple-mfd
->> +          - const: syscon
->>  
->>    reg:
->>      maxItems: 1
->> @@ -27,6 +32,11 @@ properties:
->>    '#reset-cells':
->>      const: 1
->>  
->> +  clock-controller:
->> +    $ref: /schemas/clock/cix,sky1-audss-clock.yaml#
->> +    description:
->> +      AUDSS internal clock provider (cix,sky1-audss-system-control only).
-> 
-> Are you sure this patch builds? Your cover letter should explain merging
+On 05/06/2026 05:22, joakim.zhang@cixtech.com wrote:
+> +description: |
+> +  Clock provider for the Cix Sky1 audio subsystem (AUDSS).
+> +
+> +  This node is a child of a cix,sky1-audss-system-control MFD/syscon node
+> +  (see cix,sky1-system-control.yaml). It does not have a reg property; clock
+> +  mux, divider and gate fields are accessed through the parent register block.
+> +
+> +  Software reset lines for AUDSS blocks are exposed on the parent syscon via
+> +  #reset-cells. Reset indices are defined in
+> +  include/dt-bindings/reset/cix,sky1-audss-system-control.h.
+> +
+> +  Six SoC-level reference clocks listed in clocks/clock-names feed the AUDSS
+> +  clock tree. The provider exposes the internal AUDSS clocks to other devices
+> +  via #clock-cells; indices are defined in cix,sky1-audss.h.
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-audss-clock
+> +
+> +  '#clock-cells':
+> +    const: 1
+> +    description:
+> +      Clock indices are defined in include/dt-bindings/clock/cix,sky1-audss.h.
+> +
+> +  clocks:
+> +    minItems: 6
 
-I am sure it does not...
+Drop
 
-I recommend switching to compatible-style of defining subnodes in parent
-schema which would decouple patches.
+> +    maxItems: 6
+> +    description:
+> +      Six SoC-level audio reference clocks that feed the audio subsystem,
+> +      in the same order as clock-names.
+> +
+> +  clock-names:
+> +    items:
+> +      - const: audio_clk0
+> +      - const: audio_clk1
+> +      - const: audio_clk2
+> +      - const: audio_clk3
+> +      - const: audio_clk4
+> +      - const: audio_clk5
 
-example:
-https://elixir.bootlin.com/linux/v7.1-rc6/source/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml#L41
+Pretty pointless names. Names matching indexes have no benefits, drop
+all of them and instead list items in "clocks" with description.
 
-> dependencies/strategy/constraints in the first chapter. You start with
-> THE MOST important information.
-> 
-> You need to disallow node for other variants.
-> 
->
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: Audio subsystem NoC (or bus) reset line.
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +    description: Audio subsystem power domain.
+
+So the clock part has power domain but reset part does not? This is odd.
+Especially that parent is audss (right?) and here you describe that this
+is audss poer domain.
+
+Same question about resets.
+
+> +
+> +required:
+> +  - compatible
+> +  - '#clock-cells'
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - power-domains
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/cix,sky1.h>
+> +    #include <dt-bindings/reset/cix,sky1-audss-system-control.h>
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    audss_syscon: system-controller@7110000 {
+> +        compatible = "cix,sky1-audss-system-control", "simple-mfd", "syscon";
+> +        reg = <0x7110000 0x10000>;
+> +        #reset-cells = <1>;
+
+Drop parent node.
+
+> +
+> +        audss_clk: clock-controller {
+> +            compatible = "cix,sky1-audss-clock";
+> +            power-domains = <&smc_devpd 0>;
+> +            #clock-cells = <1>;
+> +            clocks = <&scmi_clk CLK_TREE_AUDIO_CLK0>, <&scmi_clk CLK_TREE_AUDIO_CLK1>,
+> +                     <&scmi_clk CLK_TREE_AUDIO_CLK2>, <&scmi_clk CLK_TREE_AUDIO_CLK3>,
+> +                     <&scmi_clk CLK_TREE_AUDIO_CLK4>, <&scmi_clk CLK_TREE_AUDIO_CLK5>;
+> +            clock-names = "audio_clk0", "audio_clk1", "audio_clk2",
+> +                          "audio_clk3", "audio_clk4", "audio_clk5";
+> +            resets = <&src SKY1_AUDIO_HIFI5_NOC_RESET_N>;
+> +        };
+> +    };
+
+
+
+> +#define CLK_MCLK4		40
+> +
+> +#define AUDSS_MAX_CLKS		41
+
+Drop
 
 
 Best regards,
