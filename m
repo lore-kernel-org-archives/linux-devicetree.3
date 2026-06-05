@@ -1,197 +1,124 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E977537CD33
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 20:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3F23C4B90
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 20:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780692721; cv=none; b=IWu7f89Z8emY3+EusDoYAqaqJv4E3MLNJUUdDMQkcN4JoP2Q5ev2U4CNGEZp623hFCZXNzbVvlc9wrAb9sC8mpcS9ycO91loNgyWUcsNSoT81QMoX+DafHXV5vmzAbEzeIDbY3h74AEKnAauI1cVALkHkXgG0X2DkNEG+GaQFnI=
+	t=1780692983; cv=none; b=cOVmu48WxtNsyDHXFXw5960fauqPtZV5H9i4RvPnfDjzvSPjAHcH3ndbTJyPzHOzSfwpTccEHPkCPIkLA5pfi9WKISCJO2EdQkLJpSlDzozoe1yOYgQc5cXOOK6IG3IKlJydZrEokSv+TkCCoX1dJ264HNVLJDaTplN0X3WsZes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780692721; c=relaxed/simple;
-	bh=cwXikz+lLbmRr5N7JJ078/Uw2Dp9IDZdcO75SW0+G4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fdL3M7B2C/X7+kKq2exQ2g7Iwb/u6eij+ZkspBeBHgxACS946J1s2cNRHYnaw+hTed7vY8UZLszk5jQD7yNp6s8tkw/QYLN1/x9IE9OqjsgBCHqNyYEOA+NBXFVpiyKiTUzDWhds7GmGdQ3hNfaOW4EfRb3nc2TYsicRYg36XlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Ti1Sd1pr; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1780692983; c=relaxed/simple;
+	bh=8bUD9x4wOou8wQASyhytt6PqZWOsrt8nWYzwb9KNst0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bqYarm6muDwxJZWwXq9WFTN+He+Z6MUv4UvBSl+GdrFA/DR+0e1WYqe9zAaMcyorWqif3fBjXM/137UUSQhy8kFeDHOIwwXOMWvLi5Wq3x/8ZCuUO/iR4lCNEPYISMiO3lrMjeMNkIXMmdPKB0HbkjN8bg0mKtaG68sVb/s+gfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/TA6/+f; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Ti1Sd1pr"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-46019b190b6so1753528f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 13:51:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/TA6/+f"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2bf1497de04so3688255ad.3
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 13:56:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1780692718; x=1781297518; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4752DjrAFfM455Jumpwe99BPH46nw67ZETlya+2HAFs=;
-        b=Ti1Sd1prnBMxSC6LUglkYqWDh9KiGzjihqKd2tHSpOEeTgFc4TnfPp/V7A9rwoEH4Y
-         LeRI7IGFs0H6pvRz+NtiCAjNbZltQATdqxQY9V/yrPPTY/mvjp3gRFGqpnTfM8Wd1uCm
-         CmoHMhauSNKhjac0JHvAC83bp0ZW8VWWh4aX5McjpuGzis47j/jKWMuWdQtNIyfxYQtj
-         oCEd/8dIJWG5fTxvLCL1EU6dwoaouFoFQ2zdfc9X9vaoKi0K4vcXKsGc7mhpQBx6v+8L
-         dw3H7CP/nFsyLj/pMMh9gXROxMF/PbhmKMCjYK8+VR1kjNQvuc0lxl8JmOoK98WkfuJn
-         MmtA==
+        d=gmail.com; s=20251104; t=1780692982; x=1781297782; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OjzwKrMQNmV3nC64BV60pa2u05CadfM/qOaHGnybv9k=;
+        b=R/TA6/+fD+UwFQxC++pIOBZ1Ix5ovHvacyEb+uquu8CAxGKMw8jGvqHMs6UgfY96vV
+         7SRhgkFH4qvcyKYSYNFLSr3rBwP+u0G+nbmB0CjK0POzLsHLwslWg7/J4iD9hWw4w0dA
+         LA7Tg+KjY+OrFsJA8iA6Z0LhIEVCKoa4dS6N6mqqIZ6XtDZrm/VBD/ffNNYVlSdTkXTY
+         z9q7AzeXSGZbP2+RclP1r0gMFUbzlKWecMw8n2al2c5rU6uiFcJs2p0ftBkavQMHwTeI
+         58HSdyRZsnENZaryw+ZbSe7MQ2wSTyQ/khLXPckIwBBkIuLvgkjiNHNaaUX0he66u70S
+         jWxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780692718; x=1781297518;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4752DjrAFfM455Jumpwe99BPH46nw67ZETlya+2HAFs=;
-        b=qxh6m9vN1KwGchuzUa0rrZrIAEdzRVgt7qK8q3Uw0fAiPsAEa+ubTc6mM5FLAyrH6F
-         B3xanByOmaXnZSWluKqIFVqK4zrQiSI2pspvVbPH1h4FaQwBWa6HtCTkpo5R/Z6wPent
-         YFo7ipJdK2+/WEBoLN698a2F+us9s+WrP/YElxRGXKgGGrMK6NaKir+ScQvLte8WWJMl
-         keRNcrzv1m6aEurDR2IWhFfdpo5557d/mEkhUSTkuqFo1QO71j3kDZ1+CbHEDALiGuuL
-         +rcMjrtiTpyDSLb/04zSWz2TZE/M8O0ST1c5xY8adtXp+T07XzzUAOgvU/Bf13r1qmko
-         btQQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+13Bh+FQnIEwbrJMIwBI2iJWKnomDH4BPpniobkkmmu9xkgc/6GKD1+kRTtSwNhBM/m0k9aWeoYSW6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpTD4U3n0uChp71rCiAnJpAJ1QG8O1KG47imcpcAHepUZZFrnp
-	LLC08uzYS293MzM4h2SYsPU+MX7Nf700NA0OjaarA7yHjGhBxqgUF/5PaE8ooGNXdTQ=
-X-Gm-Gg: Acq92OEEZVmeCpb6mCDFSsmX/I2OnieuMhWyp5ovCF3+tEn87QC1Z/BLZuSQFJzJuND
-	VvezurNQ6wHDQjNuPf7mWRRTG2CAAqlDa1w8wt4QEfTqfY7UvZWbZgf0rAO3D3BwlwBbs8fOE6c
-	5mHFeUlTTDfYgUueDtLrX7lDg1KsUw1VpNtMD5dyb1cQVdXoGqbjh4T5VPeLvCjJ9whW6MZspZa
-	D+kSjRM5qBY6SwH+FB3Tkb0efB179N+nhsuqAIRtw6MIYdpKE8ltzypah6k+pQetr66hHk5bi+o
-	nhnb28r4SId48FEmZ0z0PqkckWXMWA2g1ehfjPaAGCp0Z6XaO+xioeJvTRmm1JTOtut9u837PAj
-	HKEQlI0eWNxOfy/DLrQ5Tfp5HIZyf9IqMjv+0LVErzwEyjsgW+KFvx1fK8CwMiczlVti2nqSlYI
-	d5bs0WILtCgl+JPMqYdOPmyaZTkPJW+hrkQwcHqdhLU5LSfR4nig==
-X-Received: by 2002:a05:6000:4697:b0:45e:739b:3e43 with SMTP id ffacd0b85a97d-46030186d90mr6010770f8f.0.1780692718359;
-        Fri, 05 Jun 2026 13:51:58 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:559d:eec2:887f:c200])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4601f35133csm28128682f8f.25.2026.06.05.13.51.56
+        d=1e100.net; s=20251104; t=1780692982; x=1781297782;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OjzwKrMQNmV3nC64BV60pa2u05CadfM/qOaHGnybv9k=;
+        b=ZdWq4urLQxf8hB/Y3X2XrlT5uaffJkGlDuEpBujSX/t+Om2fR5z5n+f/CNQZ345aQs
+         dHB12vhoI8Tf4vMDpwNqbehC9fFzZQudPIZjjJfcrkZ/KYg162mgiaQeYAcDY8qFrwA0
+         sKlDs7ReJSGF71DCD+NXvmT44wkPLuQUfc4vpZMpeR+lOtGDdOimRFDo7nolggM3k16k
+         nz0fBkO8ocYCKLs8/yJ+yQ8NMpm1V0hi55P4Mmuc3Mga0YOK0mwdg8gMl93CBWdSgxt3
+         2AnR4aFdgDrG4KXn3I4BmBEs6SAaKip7WXmGW4pPcu26ys+ShKzvNPoqzETVDSZzXFML
+         J9Vw==
+X-Gm-Message-State: AOJu0YyLJy8Tl6mxdPd/ODIt4fFXlbcKoNHguwuQwAQ9vW8otDdN01q7
+	qivVcV+bn7TaYU50sh26onP2EoJ7Knem5o4PGDKT7+BFQPQZWfo9nCVF
+X-Gm-Gg: Acq92OFaBHidtHbZheyNje9bdSiEVerwtAiOV5bC7J5g2f0JK3xrsEKmszNLQPHKlSd
+	OG3AosFwgZG6Sh5Tmh2c/ujeNMQM2SJxDJdnGL5AhjgaOZLPt80Vo6sBkTQq4uj06G9X/H+Z53o
+	U4lKMhTpmmvUdkjJsD4hEwksA40hax+psQto4+hLhd4DiUo+7WKTXUwJm54N1C8vS0CRrd1KOam
+	nigbYXbnTTV5SU4ueh7JusAVHYgnr4UHMCkUuW31xlJsbimfuboIxCoxscLTX7KY1iID1qAObu3
+	D2nOu0U4hDfoD28cALss4pBBjkRlCG6lRl3Md+fuCNcmaV4Ur1t3SCD0TBn2ZUDUvtt41xKk39r
+	7D4X0B29ov9Ajmkis/on9Std9L3wkjf8i7BJ7361Yk11EneBOIDPqfqjiXxVcIfL5PIjNVZhqEw
+	VYtY0WDld2SsYWl+v2M9Nt+fKcKBL4fjvKcikBUbtrBUrFkZez4zGy
+X-Received: by 2002:a17:90b:35c1:b0:36b:54f3:64d5 with SMTP id 98e67ed59e1d1-370f0b54c09mr2508256a91.6.1780692981525;
+        Fri, 05 Jun 2026 13:56:21 -0700 (PDT)
+Received: from [192.168.1.3] ([2401:4900:881c:baba:b3d5:d6d:608b:987f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3712fcb2607sm2197036a91.0.2026.06.05.13.56.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 13:51:57 -0700 (PDT)
-Date: Fri, 5 Jun 2026 22:51:56 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, Kevin Hilman <khilman@baylibre.com>
-Subject: Re: [PATCH v4 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <aiM0VlVXAWs54v-G@monoceros>
-References: <8eef956a5eb473f051bbda89ec4c9991c1b47de2.1780498640.git.andrea.porta@suse.com>
- <20260603154716.1B5C41F00893@smtp.kernel.org>
- <aiGAINsTG8VZLn28@apocalypse>
- <aiHn5-gQMbjttrR6@monoceros>
- <aiL-DWqU5bnIPL8B@apocalypse>
+        Fri, 05 Jun 2026 13:56:21 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH 0/3] Convert ti,irq-crossbar binding to DT schema
+Date: Sat, 06 Jun 2026 02:26:09 +0530
+Message-Id: <20260606-crossbar-v1-0-f67f7cb9ee50@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tyzbnupcwsiwxiir"
-Content-Disposition: inline
-In-Reply-To: <aiL-DWqU5bnIPL8B@apocalypse>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDUyML3eSi/OLipMQiXaMky0QzE8MUI0MTMyWg8oKi1LTMCrBR0bEQfnF
+ pUlZqcglIv1JtLQDI031WbAAAAA==
+X-Change-ID: 20260528-crossbar-2b9a641d2146
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Sricharan R <r.sricharan@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-omap@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780692975; l=1324;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=8bUD9x4wOou8wQASyhytt6PqZWOsrt8nWYzwb9KNst0=;
+ b=/eR3ZJOIkfskq17CqohJCaBfvzb880A6wx1qSIIujYuL3Z5BErE6Yt3iCoE59dGvYmyOaxRcN
+ dBtrQoj+KbqC3j2UdNNZs0lW02e2SSo7tfExOuRHnqOXZ2dfsjcNkPk
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
+This series converts the TI IRQ Crossbar binding from the legacy text
+format to a YAML DT schema and resolves a property name conflict with
+an existing binding.
 
---tyzbnupcwsiwxiir
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
+The property name 'ti,irqs-reserved' is already defined in
+ti,pruss-intc.yaml as a uint8 bitmask. while irq-crossbar uses it as
+uint32-array causing dtbs_binding_check errors.
 
-Hello Andrea,
+To resolve errors following changes are introduced: 
 
-On Fri, Jun 05, 2026 at 06:49:17PM +0200, Andrea della Porta wrote:
-> On 23:28 Thu 04 Jun     , Uwe Kleine-K=F6nig wrote:
-> > Thinking again, the tohw() callback could be a bit more clever and also
-> > use period_ticks =3D 0xffffffff, as this fine if duty_ticks is less than
-> > this value and if duty_ticks =3D period_ticks =3D 0xffffffff you can st=
-ill
-> > configure the hardware using period_ticks =3D 0xfffffffe to achieve the
-> > 100% relative dutycycle. (But keeping the current behaviour is fine for
-> > me, too.)
->=20
-> I think this is what it's currently doing in this patch iteration. I stand
-> corrected here when I said that period_ticks should be at max U32_MAX-1: =
-logically
-> it can be U32_MAX but it's getting 'translated' into U32_MAX-1 as the val=
-ue which=20
-> is fed to the register. So the period is still U32_MAX, accounting for th=
-e extra
-> tick at the end. So I guess we're on the same page.
+  1. Rename the property to 'ti,crossbar-irqs-reserved'
+  2. Update driver to accept both old and new names.
+  3. Update DTS to use the new name.
 
-Not sure you got what I wrote. You can use the maximal value possible in
-hardware, because for all but 100% relative duty cycle it works as
-expected. You only need to map 100% relative duty cycle with that
-maximal period to a different 100% relative duty cycle setting. I think
-PWM_DEBUG even doesn't yell at you for that. (And if it does, that needs
-fixing.)
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Bhargav Joshi (3):
+      dt-bindings: interrupt-controller: ti,irq-crossbar: Convert to DT schema
+      irqchip: irq-crossbar: Handle renamed irqs-reserved property
+      ARM: dts: omap: dra7: Use new property name ti,crossbar-irqs-reserved
 
-> > > I'm not sure whether an inverted polarity pin shoudl stay low when di=
-sabled.
-> > > After all, the inactive state for a reversed pin is high.
-> >=20
-> > Sashiko's concern is correctly stated, if you go from
-> >=20
-> > 	polarity =3D inversed, enabled
-> >=20
-> > to
-> >=20
-> > 	polarity =3D normal, disabled
-> >=20
-> > the output stays high, which is active for polarity =3D normal.
->=20
-> Ack. I'll set the polarity first so there will be no uncovered corner
-> case.
+ .../devicetree/bindings/arm/omap/crossbar.txt      | 55 ------------
+ .../interrupt-controller/ti,irq-crossbar.yaml      | 98 ++++++++++++++++++++++
+ arch/arm/boot/dts/ti/omap/dra7.dtsi                |  2 +-
+ drivers/irqchip/irq-crossbar.c                     | 15 +++-
+ 4 files changed, 111 insertions(+), 59 deletions(-)
+---
+base-commit: eb3f4b7426cfd2b79d65b7d37155480b32259a11
+change-id: 20260528-crossbar-2b9a641d2146
 
-You can, but as I wrote below, being lazy is also fine.
-=20
-> > However the behaviour of a disabled PWM isn't specified, so any
-> > behaviour is fine, the only objective is to save power. And if the
-> > consumer relies on a constant inactive output, it's supposed to not
-> > disable it.
-> >=20
-> > For me both behaviours are fine. Making the hardware emit the inactive
-> > level might prevent a surprise if the consumer isn't aware of the
-> > missing guarantee, but being lazy and so surprise the consumer is also
-> > fine as this might uncover that wrong assumption and allow the consumer
-> > to be fixed.
-> >=20
-> > (And not all PWM implementations allow to configure the output level, so
-> > a guarantee cannot be given. Some go to 0 irrespective of the configured
-> > polarity, some go to High-Z.)
->=20
-> I was just curious about sashiko saying it's violating the pwm framework
-> expectations, while according to your words it seems there's no constrain=
-ts.
+Best regards,
+-- 
+Bhargav
 
-In doubt trust me :-)
-
-> BTW, I've tried to install sashiko and use it on my patches but it's obvi=
-ous
-> that some custom settings are in order, since all I can get is some error
-> aborting the review after 3 attempts. Any chance you can share your Setti=
-ngs.toml
-> or any customization so I can test it in advance before submitting the ne=
-w patchset
-> or do you recommend just throwing the new V5 at your script?
-
-Note that sashiko is not "my script", it was setup by Google engineers
-and I have nothing to do with it (apart from benefitting from its review
-feedback). Kevin (added to Cc) tried to setup a local instance with his
-Claude plan, but (IIUC) it quickly ate his day's amount of tokens before
-completing review of a series of only 4 patches.
-
-So without knowing the size of Kevin's or your AI plan, probably it's
-easier to just rely on the public instance. (And IMHO that's nothing to
-be afraid of, just handle it like a human reviewer. For these you also
-don't know what they will reply for your next revision.)
-
-Best regards
-Uwe
-
---tyzbnupcwsiwxiir
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmojNukACgkQj4D7WH0S
-/k7yIAgAuG/1LknG+8WFsQWqsfZx2XFKVf2uKi1Dn3FMvb2WbA9LQRZl44B9eRgH
-vhBZT+pohmM3Aiq+1QbBgbcs5W+EtAP8YzX4PJh16EYJzoeYr5f+SMJN3Vo5p7XK
-EqFWKwsGTtE5TnZt+YyZsEE4ofpCEQkHLNWnu//EisOWGMLDLeGlmZ4hp74dQfFy
-bezEPihHw78I/Bhzm6Y9bBoeufvYJh6uzkBkM88QwCbEhYGeZDrlGgMmbBtLB6fI
-0JAEOB2cred6vUkvLhfPdVxAC0DEC1QTPtwgbGBV/bcWIfNWz1yz1H3B0Kx+Djre
-QNy0bli78fy8sSZC/fXQ9mfEowYUxQ==
-=zWWX
------END PGP SIGNATURE-----
-
---tyzbnupcwsiwxiir--
