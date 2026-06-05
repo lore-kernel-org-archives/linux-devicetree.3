@@ -1,113 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D644071F9;
-	Fri,  5 Jun 2026 21:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780694970; cv=none; b=haFcVb8ONq8+S1Ev4J7+LIEAD50VuodSqnlpNCv70HEVQUYh1LGqOYUKY78dGJmbig0o4E0c0kzHAh4qDKT/zP1ZnKFYWcdTTZgD6M+hBYvSICeDi6WovM8hthgXjbJj+VsJ5qF4k+CKhHqjZUIaIgeH9WSoASYXxONhH0xZaMo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780694970; c=relaxed/simple;
-	bh=2KWf50awt6+PWOzqGfsckiRayFkdP15qzZBLba2lUVY=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=eIkZJM4wGDyyje8ZL43IJeqrqI7RF7oa02yH0XEYD+P2+MONLmmb4+ptHTppx77ZVj2yckEJMveHNYuyvjl/rxhjnr0ceLhqs/O/4gayALM481pWeSrR+ONST/Wt85h4mV3Bf0RLcYDl+Wb1u6RmFR5o7x/tgNMRlIfRgkO4CxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2gBKJMx; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B292F745D;
+	Fri,  5 Jun 2026 21:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780695404; cv=pass; b=Hkz2Jq0mHQ0Or5ZNnp7r/N+YjQtiHjkqXbaIDef85dxq1Uyoyqftd1IcA5Qccl3qcdY8EzSOyeiQwoPtkhKCysk2h8yHfwPfDZV1+6IpaoFOqS6rnlaXJEguSaNSfkWB0i8z1cEzQp0Zpc2ljZTqpvyCOAa2IJRUuFa3vB0ekFo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780695404; c=relaxed/simple;
+	bh=svLTHubM8kTwsp+XVeVR0+myZZSUyQeQm8uzL5t1S2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OpwoVVM1dqlsKcMSzi/RxdpT+0oX3z1cotVMm0wbDlqoI79JSMrqo2q4LWvBEfyViTFLng4lEL3d2CFPhN7JB3r1LLbELA8Zc4RiEZChgd1Z5KocpWGHOJCFnGRPONy137YzVkXBkQKpHtul9X01njRQ7hpg02ZwiPfn3QkPsbs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=DDWuc+Uw; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2gBKJMx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C11D1F00893;
-	Fri,  5 Jun 2026 21:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780694968;
-	bh=DcggTgsolLSUNA/DEK7Z2qW7ZFvhwm16TwbPdXE5VG8=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=O2gBKJMxeZHllrkj33LYj93AkovV1OYYfOY5xDb4U/Y8qzdqM8q08G5GbIm/tLozg
-	 xtgwDkr36+BgJvakus/JUTgqcprymmdtN4nqk3az1pPfUpYSm+r7FlDfwTk3y+K2B7
-	 vqbLhveLDDqWo+XuGqG9i8jQJKZ2GJMVt9Xil/zz4eJk3xgwXKFhCDToreAjf04Poo
-	 1n/VnumaSyrMTJ0e1meTXfZKOmY8jZ4bOEbJ5qy24h+ygqDAOP0xwJ0X7NBwuFH62j
-	 6ea2Th8FG7pLON/gFQ39zNdb46eSVjUIwuxPPd01lLclDpz2mbw0Tdi0PvNoQyhjAY
-	 N4eNNNTsXQUpA==
-Date: Fri, 05 Jun 2026 16:29:27 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="DDWuc+Uw"
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4gXFB80nTNzyQ4;
+	Sat, 06 Jun 2026 00:36:31 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1780695392;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pU0x3uSHUqkJVgJTsk55EB8SawA/d1X33Aek+VkYZ4A=;
+	b=DDWuc+Uwdht9dDQTQhmRHc5NirTpZ7yE9vU/PNgq7Pzuh/fOCVwJItz++jsTaSzZJaBaZW
+	Q7HLMj6lardIFdUTxjoUxlNL3wRD+btE6lDuYbAGFA9j79qrNOynldsjjS0hu07QbOVOa3
+	Uu7iVL6OYIH1tmqg79Zht4pWEcww/DQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1780695392;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pU0x3uSHUqkJVgJTsk55EB8SawA/d1X33Aek+VkYZ4A=;
+	b=vGsVpAcmKm1qO9zuZ8jLCv1fqmKPUVriezkhllEPBZO5Jbow8rGVmviEe7LLuYYwbTGfMi
+	Js6B7SDb4RfehIOphjCATcQHOsn2znsGlXK/IdQFFrTbYPyG2AzH07mxjbqKeOSe/N+4/Z
+	B72+l0pZ7N6zZgEmM3/gOIm1Bnv5ZjQ=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1780695392;
+	b=Hza4GXta7uZgaqVcsfxBNBoukoM3fRem+QaNwIkSXuHTrdOF0mEgG0mQrdLoSE3k/0A9B3
+	FQT7Ud3dcK25M8xAr2Bkbt+CnqkMb8TUDlD5CVyZ7b2ZIx1YWr4RAr4bwC4HnEO2QPGIwe
+	22XbcVhjj8bdhxXW8qCajMDfeQewI8Q=
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 60F82634C50;
+	Sat, 06 Jun 2026 00:36:31 +0300 (EEST)
+Date: Sat, 6 Jun 2026 00:36:31 +0300
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)" <linux-media@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: media: Add macros for video interface
+ devices
+Message-ID: <aiNBXzmezUX9fB6_@valkosipuli.retiisi.eu>
+References: <20260605150309.2451456-1-kieran.bingham@ideasonboard.com>
+ <20260605151353.GB4350@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- biju.das.jz@bp.renesas.com, lgirdwood@gmail.com, magnus.damm@gmail.com, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- john.madieu@gmail.com, geert+renesas@glider.be, krzk+dt@kernel.org, 
- kuninori.morimoto.gx@renesas.com, broonie@kernel.org, conor+dt@kernel.org
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260605200526.683577-1-john.madieu.xa@bp.renesas.com>
-References: <20260605200526.683577-1-john.madieu.xa@bp.renesas.com>
-Message-Id: <178069496769.286078.10840905064274842451.robh@kernel.org>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: sound: renesas,r9a09g047: Fix
- dma-names and ports schema
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260605151353.GB4350@killaraus.ideasonboard.com>
 
+Hi Laurent, Kieran,
 
-On Fri, 05 Jun 2026 20:05:26 +0000, John Madieu wrote:
-> Replace the allOf-wrapped enum in the dvc/src/ssiu dma-names with a plain
-> scalar items schema bounded by minItems/maxItems and point the ports
-> container at graph.yaml's ports definition instead of port-base (a ports
-> container is not itself a port).
+On Fri, Jun 05, 2026 at 06:13:53PM +0300, Laurent Pinchart wrote:
+> CC'ing Sakari.
+
+Thanks for cc'ing me.
+
 > 
-> While at it, drop the unused top-level #address-cells/#size-cells since no
-> child node uses a unit address and the ports node provides its own, require
-> interrupts/dmas/dma-names on the src sub-nodes to match the ssi/ssiu
-> sub-nodes and the driver, and pin clocks and resets to their fixed counts
-> (47 and 14) to match the clock-names/reset-names lists. In the example, put
-> compatible and reg first, include renesas,r9a09g047-cpg.h, and restore the
-> CPG_MOD cell on the clock specifiers.
-> 
-> Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> ---
-> 
-> Changes:
-> 
-> v2:
->  - dma-names: drop the per-position items list in favour of a scalar items
->    schema with minItems/maxItems. The list form forced exactly N entries,
->    and a scalar items schema needs both bounds to satisfy string-array.yaml
->    (Rob Herring, sashiko-bot).
->  - Example: restore the CPG_MOD cell on the clock specifiers and add the
->    renesas,r9a09g047-cpg.h include (Geert Uytterhoeven).
-> 
-> v1:
->  - https://lore.kernel.org/r/20260603202805.3530046-1-john.madieu.xa@bp.renesas.com
-> 
->  .../sound/renesas,r9a09g047-sound.yaml        | 100 +++++++++---------
->  1 file changed, 50 insertions(+), 50 deletions(-)
+> On Fri, Jun 05, 2026 at 04:03:08PM +0100, Kieran Bingham wrote:
+> > Add a new dt-bindings/media/video-interface-devices.h header that
+> > defines macros corresponding to the orientation enumeration types from
+> > media/video-interface-devices.yaml.
+> > 
+> > This allows avoiding hardcoded constants in device tree sources.
+> > 
+> > Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> > ---
+> >  include/dt-bindings/media/video-interface-devices.h | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >  create mode 100644 include/dt-bindings/media/video-interface-devices.h
+> > 
+> > diff --git a/include/dt-bindings/media/video-interface-devices.h b/include/dt-bindings/media/video-interface-devices.h
+> > new file mode 100644
+> > index 000000000000..d2340b457292
+> > --- /dev/null
+> > +++ b/include/dt-bindings/media/video-interface-devices.h
+> > @@ -0,0 +1,13 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
+> > +/*
+> > + * Copyright (C) 2026 Kieran Bingham <kieran.bingham@ideasonboard.com>
+> > + */
+> > +
+> > +#ifndef __DT_BINDINGS_MEDIA_VIDEO_INTERFACE_DEVICES_H__
+> > +#define __DT_BINDINGS_MEDIA_VIDEO_INTERFACE_DEVICES_H__
+> > +
+> > +#define MEDIA_ORIENTATION_FRONT		0
+> > +#define MEDIA_ORIENTATION_BACK		1
+> > +#define MEDIA_ORIENTATION_EXTERNAL	2
+> > +
+> > +#endif /* __DT_BINDINGS_MEDIA_VIDEO_INTERFACE_DEVICES_H__ */
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-yamllint warnings/errors:
+-- 
+Kind regards,
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.example.dtb: sound@13c00000 (renesas,r9a09g047-sound): ports:port@0:endpoint:capture:0: [6, 7, 8] is too long
-	from schema $id: http://devicetree.org/schemas/sound/renesas,r9a09g047-sound.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.example.dtb: sound@13c00000 (renesas,r9a09g047-sound): ports:port@0:endpoint:playback:0: [3, 4, 5] is too long
-	from schema $id: http://devicetree.org/schemas/sound/renesas,r9a09g047-sound.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260605200526.683577-1-john.madieu.xa@bp.renesas.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Sakari Ailus
