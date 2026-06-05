@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA13C40E8D4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA09940E8C0;
 	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780665562; cv=none; b=fjVztfSmvAM6WT7VeL/t3FHoISm7VFvc0o7our/vj6uUcqQ8LlkoDbxfy0NTf8X3/4iUGTqb76GHt9mb1GDg1pLgq9KG61il3vt/BqGGvPg0RNYvQxiImTz+sXlmO5XCslRbh7RapnLwRmke5pAbtqBD418uAwO/2mq22IFzKhU=
+	t=1780665562; cv=none; b=TvV9iGo2nPuatQ3lNciJvj7fo0InS9wzOl1nborC7m84XI4E3ll3qbbYQ+x29+8mD5J7FGqrcQhRA6HCI29EkEfWblAK287NAWB0WpWnqSA18pMXbqTpWyl/FVzRvr4NCPtgyehGJsiiftNlj+UdXlYMqdCHX+rE/R8hHsVCFjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780665562; c=relaxed/simple;
-	bh=J/BBiDOtg87dY6XX/rpTbFHNhKF1CVqcYk+STuw6bIo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CIR8A4Abjzhwz04Xqe/ZMHzqfj3rnA8bJh4IASELp2xFLfZghI9g9i8fj1wkjVAANZYuQbxEfgVY3iFtP/2rLTKAqsM3IA4ZyIgbHSy1liyyQeb3AxbNeWK33K8NCKJdcQ9k88xLPmmqtAX2qnDiLFBE5Srm4HUruPDRY+My3PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkXJIE+i; arc=none smtp.client-ip=10.30.226.201
+	bh=hQh2zjyVjuQBKr0YpJWHnvsA0HHlhrxVboDTXf1As0s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rpjq3MOpkF/nYRt2ylXQl1gT1rQLFHF3cS6VFPFRBawmIvFO/k42ZLmQoHsr9bykFasDoOHHrYPvR4TwhCI/Frz8iS45eOCZd0er3CvvkKCGSI27Ecr737UysISzo+CT7WxzOlx7Sea35c7Gws69V4ezcU3TBMiL7F0fL+F6HKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzRAB7z4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkXJIE+i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B5DAC2BCB4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzRAB7z4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CDDEC2BCB9;
 	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780665562;
-	bh=J/BBiDOtg87dY6XX/rpTbFHNhKF1CVqcYk+STuw6bIo=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=jkXJIE+i2tU6A8RMnyOHBN+RjXXgWqZ+4yXYlz+RzSnqGga8c7ofs2Ke6kQechjpU
-	 jQI54yH1X5NXCRMMT8ep776OzX5Q5pCu9nbLr64aFaKDvIf9LmacSh494n6OxXdNG8
-	 ukLjfWWC8Ibb7jvzMFMNJJbhj8kauZ3ob5wKKfXtmAxMWk0uhRq0VIBsU2OLZEij3C
-	 cpQ7kI36zuE7KUUIMdeJDxO0JuA3rpxpXV5kovA1EbHLHgSrcYINDOwgshk1eM5od9
-	 WWs62ZUYLHHE/IgSVeoU1+hT14e2hxmKyp56nSLcM7xSWTt/40z3EojVeR/NAY+TWj
-	 BHQLEJKd7b/lg==
+	bh=hQh2zjyVjuQBKr0YpJWHnvsA0HHlhrxVboDTXf1As0s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=YzRAB7z4EXHoXQxXL/43jBMoW7pfl9h2dLwOe3OFvf6rFSZIdd7ANHay9MM3f7Whm
+	 Q/j+8+EU3+3c7fgdYMaPZ1RhIr5KU54IqqhWBGxGyZy14ovAe9obkuvS2opSMXIM5k
+	 R2xTq7J9Njl7hwU/vD3b046xeiOJGPn55t0VsZD33pWzg6lJ/tCAsK0Pa73BnkE3qJ
+	 H0F5Wowj0ZSe54L40kpMdOn42aVtf5xuTw/09T7dmHXhCrxeZClMMDlfCKKQYP7st4
+	 dNuLf7stOt9WB7pjW+ZmJDiBcAhe67Crcvjn/O7294VLPOQnpWGh3IHi1vBoIH7cz+
+	 2f0LfYZbBU+yA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55497CD6E7C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7841DCD8C81;
 	Fri,  5 Jun 2026 13:19:22 +0000 (UTC)
 From: David Wales via B4 Relay <devnull+daviewales.disroot.org@kernel.org>
-Subject: [PATCH v4 0/2] Add initial device tree for Motorola Moto G (2014)
-Date: Fri, 05 Jun 2026 23:19:10 +1000
-Message-Id: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
+Date: Fri, 05 Jun 2026 23:19:12 +1000
+Subject: [PATCH v4 2/2] ARM: dts: qcom: Support Motorola Moto G2 (2014)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,32 +40,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOzW7CMBAE4FdBPtfVep0ftyfeA3FwnTVsBXZlm
- wgU5d3rUCRa9ZDjSKNvZhKZElMW75tJJBo5cww1NC8b4Y42HEjyULNAwA4aaORQS47kOZaY4sn
- KwsUGebYcThxIet91xmtsO/SiIl+JPF/vA7v9T86Xj09yZVGXxpFzpW73B6Naeo8x1Gtjo5IgS
- RmlLaBxzmwHzinG8hrTQSxzIz7BFnAVxAq6/k1h37u+Afsf1L/BdhXUFTTeeYsGqB3gLzjP8zc
- GGszWggEAAA==
-X-Change-ID: 20260404-device-motorola-titan-mainline-ff668f32562f
+Message-Id: <20260605-device-motorola-titan-mainline-v4-2-08a7be31f05c@disroot.org>
+References: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
+In-Reply-To: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- David Wales <daviewales@disroot.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ David Wales <daviewales@disroot.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1857;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9155;
  i=daviewales@disroot.org; h=from:subject:message-id;
- bh=J/BBiDOtg87dY6XX/rpTbFHNhKF1CVqcYk+STuw6bIo=;
- b=owEBbQGS/pANAwAKAW1jV4FG9KFmAcsmYgBqIszXmtullhdX19O3o0UI3LZETYtj6yQqyAecw
- 0GWZZfC9/aJATMEAAEKAB0WIQTXikd3yUPmOPWSLPJtY1eBRvShZgUCaiLM1wAKCRBtY1eBRvSh
- ZuSqB/9sSAXxItl+Zc/4i1daKZqk4mpqVE8gdw5+ozK9UxosI684gM/XqmhsbjcuKxQN7dP+es0
- oXWheuLIlSbbd0gt2oKM4iPuXs8EiZHZd4LBBUmESMBUpjW1Ehjn/GQwVQSAbIP3D0xwVIVOjps
- 75Nx4wXqqHmhhcb2fq4o3Mf5BVF7LnbSgPaVGwh7N9q0HrDZtruR+ovKgvf4yAywSChfI9QAV6M
- WvovgR5nkb7bgagTtZIkADj6AYqIUbdTKbtuM3G+ANkLG0EF8Bfmo8w6aCTSQ6uiNHmyRGM/b6T
- 2Hpo9qWc3ME4mZPc+WA26IJSle3oqLpx5rJd2ndWZ9WHVfmh
+ bh=+XSLlvQ/n1aHJc8ncvfg4DeYbWfEmkHRb9XOmV5aUtI=;
+ b=owGbwMvMwMWYmxze6PZlYRrjabUkhiylMzdSjEprI7b4uf1iT+JOmpf9pGtuWI/6jFs3zgaYz
+ uDQ16nsZDRmYWDkYpAVU2S53uVeftL5mcXXSTqfYAaxMoFMYeDiFICJLF7B/les7sLGXu6Yn3lH
+ j9dPf1Ewb87nGOG6hFnd8+bc4puRuuNvvMGNpSobpn1wZ/I4KKioLpq6Ie7HxOhFhnNZOl8b7pW
+ RFv6fu0HpqWDTBiMF+YVKZwJn85e8a+Bj5i0Pkg56Fyy4ibEqSiNElbPv0O3bRVmWpxVvRGSbJE
+ 4LsnRqiizlXPv8wOvjGx/9MuGQPFu1J6m7iMk3PnzfFK6U2ykTvdz2cShK3q/Rs9pfPu/Qgfqe4
+ j35oY2am2fumf88UPNjaVwZs1bQQqWKht99f+Q/yM2KEDitvJFtsalplHmY3Bbmk+rMkssadEPK
+ PedsTehWXiwRyrclO7Z66o0F6QeZozjyjskv4MvY+PglAA==
 X-Developer-Key: i=daviewales@disroot.org; a=openpgp;
  fpr=8F5BAFB15444A769DC3B61684022B817D275D037
 X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
@@ -73,55 +69,401 @@ X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
 X-Original-From: David Wales <daviewales@disroot.org>
 Reply-To: daviewales@disroot.org
 
-The Motorola Moto G (2014) is the second device in the Moto G series,
-with codename motorola-titan.
+From: David Wales <daviewales@disroot.org>
 
-This series documents the motorola-titan, and adds an initial device
-tree.
+Add device tree for Motorola Moto G2 (2014) (motorola-titan) smartphone
+based on the Qualcomm MSM8226 SoC.
 
-These patches have been previously discussed and merged into the
-downstream msm8226-mainline fork:
-https://github.com/msm8226-mainline/linux/pull/18
+Initially supported features:
+  - Buttons (Volume Down/Up, Power)
+  - eMMC
+  - Hall Effect Sensor
+  - Simple framebuffer display
+  - Vibrator
 
+Based on device tree for similar device msm8226-motorola-falcon.
+Initial commit for falcon notes that dhob and shob reserved-memory
+regions seem to be related to a Motorola specific mechanism. [1]
+
+[1] https://github.com/LineageOS/android_kernel_motorola_msm8226/blob/cm-14.1/Documentation/devicetree/bindings/misc/hob_ram.txt
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: David Wales <daviewales@disroot.org>
 ---
-Changes in v4:
-- Remove reg_vddio_disp_default as it is not used.
-- Link to v3: https://patch.msgid.link/20260505-device-motorola-titan-mainline-v3-0-8fcfa280e5d0@disroot.org
-
-Changes in v3:
-- Add missing trailers to commits
-- Link to v2: https://patch.msgid.link/20260502-device-motorola-titan-mainline-v2-0-c791277c740a@disroot.org
-
-Changes in v2:
-- Remove active-high from reg_lcd_default.
-- Add reg_vddio_disp_default, which I somehow missed in the last version.
-  (Assuming this also shouldn't use active-high)
-- Link to v1: https://patch.msgid.link/20260423-device-motorola-titan-mainline-v1-0-e1813a028cc8@disroot.org
-
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-David Wales (2):
-      dt-bindings: arm: qcom: Add Motorola Moto G2 (2014)
-      ARM: dts: qcom: Support Motorola Moto G2 (2014)
-
- Documentation/devicetree/bindings/arm/qcom.yaml   |   1 +
  arch/arm/boot/dts/qcom/Makefile                   |   1 +
  arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts | 350 ++++++++++++++++++++++
- 3 files changed, 352 insertions(+)
----
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260404-device-motorola-titan-mainline-ff668f32562f
+ 2 files changed, 351 insertions(+)
 
-Best regards,
---  
-David Wales <daviewales@disroot.org>
+diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
+index c7873dcef154..de311293ce16 100644
+--- a/arch/arm/boot/dts/qcom/Makefile
++++ b/arch/arm/boot/dts/qcom/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_QCOM) += \
+ 	msm8226-motorola-falcon.dtb \
++	msm8226-motorola-titan.dtb \
+ 	qcom-apq8016-sbc.dtb \
+ 	qcom-apq8026-asus-sparrow.dtb \
+ 	qcom-apq8026-huawei-sturgeon.dtb \
+diff --git a/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
+new file mode 100644
+index 000000000000..1609fb21c544
+--- /dev/null
++++ b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
+@@ -0,0 +1,350 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, David Wales <daviewales@disroot.org>
++ */
++
++/dts-v1/;
++
++#include "qcom-msm8226.dtsi"
++#include "pm8226.dtsi"
++
++/delete-node/ &smem_region;
++
++/ {
++	model = "Motorola Moto G2 (2014)";
++	compatible = "motorola,titan", "qcom,msm8226";
++	chassis-type = "handset";
++
++	aliases {
++		mmc0 = &sdhc_1; /* eMMC */
++	};
++
++	chosen {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		framebuffer@3200000 {
++			compatible = "simple-framebuffer";
++			reg = <0x03200000 0x800000>;
++			width = <720>;
++			height = <1280>;
++			stride = <(720 * 3)>;
++			format = "r8g8b8";
++			vsp-supply = <&reg_lcd_pos>;
++			vsn-supply = <&reg_lcd_neg>;
++			vddio-supply = <&vddio_disp_vreg>;
++
++			clocks = <&mmcc MDSS_AHB_CLK>,
++				 <&mmcc MDSS_AXI_CLK>,
++				 <&mmcc MDSS_BYTE0_CLK>,
++				 <&mmcc MDSS_ESC0_CLK>,
++				 <&mmcc MDSS_MDP_CLK>,
++				 <&mmcc MMSS_MISC_AHB_CLK>,
++				 <&mmcc MDSS_PCLK0_CLK>,
++				 <&mmcc MDSS_VSYNC_CLK>;
++			power-domains = <&mmcc MDSS_GDSC>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			linux,can-disable;
++		};
++
++		key-volume-down {
++			label = "Volume Down";
++			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEDOWN>;
++			debounce-interval = <15>;
++		};
++
++		key-volume-up {
++			label = "Volume Up";
++			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++		};
++	};
++
++	vddio_disp_vreg: regulator-vddio-disp {
++		compatible = "regulator-fixed";
++		regulator-name = "vddio_disp";
++
++		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
++		startup-delay-us = <300>;
++		enable-active-high;
++		regulator-boot-on;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		framebuffer@3200000 {
++			reg = <0x03200000 0xfa0000>;
++			no-map;
++		};
++
++		dhob@f500000 {
++			reg = <0x0f500000 0x40000>;
++			no-map;
++		};
++
++		shob@f540000 {
++			reg = <0x0f540000 0x2000>;
++			no-map;
++		};
++
++		smem_region: smem@fa00000 {
++			reg = <0x0fa00000 0x100000>;
++			no-map;
++		};
++
++		reserved@fb00000 {
++			reg = <0x0fb00000 0x400000>;
++			no-map;
++		};
++	};
++};
++
++&blsp1_i2c4 {
++	status = "okay";
++
++	regulator@3e {
++		compatible = "ti,tps65132";
++		reg = <0x3e>;
++
++		pinctrl-0 = <&reg_lcd_default>;
++		pinctrl-names = "default";
++
++		reg_lcd_pos: outp {
++			regulator-name = "outp";
++			regulator-min-microvolt = <5400000>;
++			regulator-max-microvolt = <5600000>;
++			regulator-active-discharge = <1>;
++			regulator-boot-on;
++			enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		};
++
++		reg_lcd_neg: outn {
++			regulator-name = "outn";
++			regulator-min-microvolt = <5400000>;
++			regulator-max-microvolt = <5600000>;
++			regulator-active-discharge = <1>;
++			regulator-boot-on;
++			enable-gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>;
++		};
++	};
++};
++
++&pm8226_vib {
++	status = "okay";
++};
++
++&rpm_requests {
++	regulators {
++		compatible = "qcom,rpm-pm8226-regulators";
++
++		pm8226_s3: s3 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1300000>;
++		};
++
++		pm8226_s4: s4 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2200000>;
++		};
++
++		pm8226_s5: s5 {
++			regulator-min-microvolt = <1150000>;
++			regulator-max-microvolt = <1150000>;
++		};
++
++		pm8226_l1: l1 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8226_l2: l2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l3: l3 {
++			regulator-min-microvolt = <750000>;
++			regulator-max-microvolt = <1337500>;
++		};
++
++		pm8226_l4: l4 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l5: l5 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l6: l6 {
++			/* Hall effect sensor */
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-always-on;
++		};
++
++		pm8226_l7: l7 {
++			regulator-min-microvolt = <1850000>;
++			regulator-max-microvolt = <1850000>;
++		};
++
++		pm8226_l8: l8 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l9: l9 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8226_l10: l10 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l12: l12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l14: l14 {
++			regulator-min-microvolt = <2750000>;
++			regulator-max-microvolt = <2750000>;
++		};
++
++		pm8226_l15: l15 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8226_l16: l16 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3350000>;
++		};
++
++		pm8226_l17: l17 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l18: l18 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l19: l19 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2850000>;
++		};
++
++		pm8226_l20: l20 {
++			regulator-min-microvolt = <3075000>;
++			regulator-max-microvolt = <3075000>;
++		};
++
++		pm8226_l21: l21 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++			regulator-allow-set-load;
++		};
++
++		pm8226_l22: l22 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l23: l23 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l24: l24 {
++			regulator-min-microvolt = <1300000>;
++			regulator-max-microvolt = <1350000>;
++		};
++
++		pm8226_l25: l25 {
++			regulator-min-microvolt = <1775000>;
++			regulator-max-microvolt = <2125000>;
++		};
++
++		pm8226_l26: l26 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8226_l27: l27 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8226_l28: l28 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3400000>;
++			regulator-boot-on;
++		};
++
++		pm8226_lvs1: lvs1 {
++			/* Pull-up for I2C lines */
++			regulator-always-on;
++		};
++	};
++};
++
++&sdhc_1 {
++	vmmc-supply = <&pm8226_l17>;
++	vqmmc-supply = <&pm8226_l6>;
++	bus-width = <8>;
++	non-removable;
++
++	status = "okay";
++};
++
++&smbb {
++	qcom,fast-charge-safe-current = <2000000>;
++	qcom,fast-charge-current-limit = <1900000>;
++	qcom,fast-charge-safe-voltage = <4400000>;
++	qcom,minimum-input-voltage = <4300000>;
++
++	status = "okay";
++};
++
++&usb {
++	extcon = <&smbb>;
++	dr_mode = "peripheral";
++
++	status = "okay";
++};
++
++&usb_hs_phy {
++	extcon = <&smbb>;
++	v1p8-supply = <&pm8226_l10>;
++	v3p3-supply = <&pm8226_l20>;
++};
++
++&tlmm {
++	reg_lcd_default: reg-lcd-default-state {
++		pins = "gpio12", "gpio13";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
+
+-- 
+2.54.0
 
 
