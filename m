@@ -1,63 +1,63 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2819637104C
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47654D8D9D
+	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 11:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780659485; cv=none; b=qiAn1Lyl2aLjWfeIzpS/Q0Jcm/SwQqN4t1QcpQqy7IzstWR/7Rtnydfq9Ln2HXc+y9pLu+P0dBsz8VoemWMSg1sAehUdoPHFlZ5MUQuirGxpJ+x2t9zlHcHs2c6VfmPEEOSd3LD1Yr/fg/8RbGhgCczhX6CgYfzw4wtwgij7iMM=
+	t=1780659487; cv=none; b=owJkLi2kIX07QN2KYCn26omSGcCxOrBCvhLxfrKtcXe6EXUmOaEu7xjhvjC7DhscyRynHtx97021HSfzFU5aOJxoR9gAwxS6buIbWH8yilub++shZWUTt40IQ6Zh4LdiBnUBwdFyM2152vS2QD+3rPOCJsmWJJqhCP14FH/S9CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780659485; c=relaxed/simple;
-	bh=0vd+vO7kT/Bwe+zNKztgtx34weofQNBHZTUxt16DUFQ=;
+	s=arc-20240116; t=1780659487; c=relaxed/simple;
+	bh=7+PuTcFr4lv1Emq9smWBnZ+5CR1n6JckIWsQMdS8GdA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iTreWx9GEcp+wCVJQcpniEOyPvTM3QJ+OAR+T9tEtAO7t/4YmX/XKZfcngqforrfCNGdT6guacY1hXLff4lv4tBqL9R0yWaa2OoCNfVjU+XiGZvjQhiuHw2OBFkCPX4ut469FwOIu3EhrWK64vAG17NcICv4jnrLHjhuvifJxFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=je4y5F63; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=O1BMBWr1ZapiTl4ShTRIZ9qCtTrGfBWNivToaI28ShoYfkGaM/kU3xAvjgSncfje8ANigPe/aPt97DT9q4jLE8rOTfbrM/bdES4vhDkZoUlBTAlXRxMsPRIQpJJA/U8ZVfA028P5pvU7+uD1lxq4lLTnY+HOW5MjZCJiz4X+0ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kGq55n9y; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="je4y5F63"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso9743605e9.2
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 04:38:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kGq55n9y"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-45ef4223be7so1015835f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 04:38:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780659481; x=1781264281; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780659484; x=1781264284; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6daWXnyshURFrvLbUnWsTDQNHdO5cag/yMoMIvHA3zY=;
-        b=je4y5F63vJ0t4nHG4Qe82KFnMnixF7PIQSfbaVCqTHot5p/CkaW/OP8OofAdWPTy/g
-         VTKsOcCVgKFqAZPJ7BjXvT+UQ06SymjNFe5kkqmWf1Am9cLUmxMpGfcinxTRvbPsG28G
-         LJpWvftRMd7sJxjY6aLJhDnmz4NlXdbDTszLIj6PZtNV8k1v9ZWdnXwD10S4/OfuKXpg
-         5NM7DMgHNroUvJiZqlhOo4CMGTfk90ZlFiIllFDHtsO965PeZ3u3EvpFQasNaob/mAkP
-         gpeJ1ZjZA5UJGGk+RFeRpZTnMU0HC0VGwOfvE7X5/ukMr1QNCauF2nji8JnYzRVTlunc
-         3O8g==
+        bh=CFbJYflDDV02dtarv4YB5PHu3EiVcrVU9/w1VgU1PjM=;
+        b=kGq55n9yVRkwibr8hIjUU2uX+jY+pyOnmFoO8e12Kg1O1K2A4hp+aRKt9oze21sDuk
+         ZValtRPHAczPNrSpAVQCS2HE9ci72S5PMzHh6QMX3MCUsEv6Q/qASsZBSfAQ4desi+4D
+         p1JY/f3pNoFQF6cXDiEVxSEyav4fpKjs1PwF0T7x5FnquATv/Gv4WA1dlCBC0WpsRVXg
+         6W3tYKA2Tw+sWYnWf/P7Qt0mLNo7ue9eRf4kkvq8Tw4pBpeejGAep43ljUETN0SZid8A
+         gXvdxa5Gld/+psb0YAZoOpe/8jlg2ldUKdeJxBPgILOUbii5BW7nOSqqpDMC5na7cCG1
+         3c4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780659482; x=1781264282;
+        d=1e100.net; s=20251104; t=1780659484; x=1781264284;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6daWXnyshURFrvLbUnWsTDQNHdO5cag/yMoMIvHA3zY=;
-        b=K5W0tWm60RBLCv/DGrw1Z5z7IkxIsZj5k037qAnYNGNqqyc54yuGmuLGHcMZfqgXbe
-         GXPOTYnPTJ6eI6LG+B8HerYLIgQoaF6z1XV5cmt/thFFqntTp2NgfeZmKn0Bc932+4T2
-         npb+hnWHNcZSqooX883s4nB3lrSYHB2/EDRHdNpfMoV3oQ3Sk/vAkCPQVzsAiAeVoBHY
-         /gt3Z8a4cdUShdUYwBNbFn3AxOR8b0OsZrMswxFueixoTBOLHAsyV1YACeGBW+Sp2lCo
-         VXd8Z18H4aXcyKnk/9K3M/WXVTjRhrtqklp2I0Xo/X0iQAkAYJUDUzcXp9iU9NiSke0+
-         sW9A==
-X-Forwarded-Encrypted: i=1; AFNElJ8S+efX6SK//QXDjoLBhmqP/tqL3AEabmvlbCgqHfdcMiNQEQh2xzxSlhrITKhUENHzUMyOOLMeOIU7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1oo4NiU4mGPn4UoK8uwq/f7q1PLoFWoWaWJU5FFe/Liw8Cujq
-	8goZPkxhhZalH4FN2ziDZWMwBaHNvaK1kS+owQ7xM0QjIPSO523Khid/
-X-Gm-Gg: Acq92OEbxt0f1EpzhyC2B68La9qTWtNmlNgCGopJ0Xpb9h18Au6tLQsIzJIMEUP4Qx1
-	KWoibQt6ItFu/zh2BczMFN9pa+y2bn2l3UXFVQ5gmy/yitaJ3SS+AReVkHMc6/LV6oZtodsA82r
-	IwopNkxh1E196c1EQGeVOMaC+OZS8T1Xp8vD8htnG8FUddznXyy/Qb6mOOApDrmGkrTzWezu/hq
-	bfM1EDxwUwqND0PBESLWyF2Ekhars5ASeY3bU6PwbXdJPfofZIC/VMQJ3LuSLOlIcH81HBuyQid
-	j0EmogAZrUg61EGVcNwpAHogvJs5Gt7QGaZulUOno5gs/Fi51Jyovo2yakseZ4RnPi6B9r8eMsL
-	zcIK1oHOntlSYHISnP46vNo/ltOuNW/7QChvss/IwB0WuWkwLxDgMPGCn9egW5y/+KsVJBD3eYQ
-	ebUsj3XiHiN5Bdl10UzJca9WnlYT3jocx4pcTCKKvEdO7xAn22rwo4Ayd8EQRO
-X-Received: by 2002:a05:600c:c0d3:b0:48e:6db3:ff33 with SMTP id 5b1f17b1804b1-490c265c091mr36372165e9.14.1780659481627;
-        Fri, 05 Jun 2026 04:38:01 -0700 (PDT)
+        bh=CFbJYflDDV02dtarv4YB5PHu3EiVcrVU9/w1VgU1PjM=;
+        b=V3zELTfH3jwj33g1aCKGkvL2L/46Bts7CLqFE4/WLuhdUMmb0MP2xMHsTGxah2FBz/
+         77GGqOfTrOqUUg+dXTFAKTgxXAS6IayFtWAlCfS1nCNLUzcPDp5xZMDYO5jTPeWkYQk7
+         4uOMyZQqtpQM/2Wv/Xr/Sm0Gv3xghW0BCfv4/N7QQPvRc9EH8/rwXtglT8Rn4VUzPf+d
+         Kmj31QU4YIDBlJijhwqgm1L11SXv5pGB8SxMMpQYT1LHdZsyDG4QGvdPfF0IzKKscxod
+         AOqSCajvo/hdhZUxbL+rFOOJI55CmhnKuTdCX6pfgLt5O1OeLb5lPVJ64rEJuUpXYZGl
+         0sEw==
+X-Forwarded-Encrypted: i=1; AFNElJ+qUsbQJK9AmWBBuIRY0xFaYLe9f4mSJMaN/Q5lo5mzwn0BzsGRJdO0CTR8DU4WQxtPnx1i2qU4Fu1Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmBOBaKdYdmfdTTRcj2ZdFUwy66BbeXgr/+WXcDZXG2qbElaBH
+	eJ2eYTUxcfEFGWSu7pDRvKVK5unCzSqg9FVCYKc7e5xVDf3m+lCSKVyR
+X-Gm-Gg: Acq92OFxvgeYTgE1xFzozVhcGaUEo8B+zUbaKPTxDeVAbiMrw9wSjZ2kyHaYRgC0lvc
+	LjM1sUgjrlxd0I2DYxyGQnlLsJbfnvpGyykZmdY7kdA90bLZ/GV4RChjJwcFY8yddFpFaYV44UM
+	ACIYb+rGo+1X35AI72OK+AgnuhxBRiS28ukYAUCfvtqlzODUootskQFCCmSCvaJSv4Tt2PQ066P
+	b4lVBrh3ytl6F5s++lYR920Zlkrhc0s2k5bd3gnSD7yFezCmOuscf+fcudJ8b7IqsJJrzMMadJy
+	twWrzbMQHlA0hrDdOF8NrpjIpwJiVbtWm6PjThoaXTajALaeS++t+kuSTCzvL3RnL/0mo/a6npJ
+	PPs29/mI2Mz6xRMJn6Yd1/29mVYGKu0B/hytvK2Ic6d4vqopIVVTPY0tUL1pwFVw9xVRBXYPJyP
+	oGMgZ+fA7z8uVvJVuT+qP4tA8Nq5wSx3fLChgs8PknJ0+FiaSu0KtMf34MDieQ
+X-Received: by 2002:a05:6000:a91:b0:460:1755:160e with SMTP id ffacd0b85a97d-46030757dd4mr3877576f8f.33.1780659484157;
+        Fri, 05 Jun 2026 04:38:04 -0700 (PDT)
 Received: from SMW024614.wbi.nxp.com ([128.77.115.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46028a6dcbdsm15262439f8f.7.2026.06.05.04.37.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46028a6dcbdsm15262439f8f.7.2026.06.05.04.38.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 04:38:01 -0700 (PDT)
+        Fri, 05 Jun 2026 04:38:03 -0700 (PDT)
 From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>,
@@ -74,9 +74,9 @@ Cc: linux-remoteproc@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] remoteproc: imx_rpoc: fix carveout name parsing
-Date: Fri,  5 Jun 2026 04:36:19 -0700
-Message-ID: <20260605113621.1479-3-laurentiumihalcea111@gmail.com>
+Subject: [PATCH v2 3/4] arm64: dts: freescale: imx95-15x15-frdm: remove some rmem regions
+Date: Fri,  5 Jun 2026 04:36:20 -0700
+Message-ID: <20260605113621.1479-4-laurentiumihalcea111@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260605113621.1479-1-laurentiumihalcea111@gmail.com>
 References: <20260605113621.1479-1-laurentiumihalcea111@gmail.com>
@@ -90,97 +90,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-The imx remoteproc driver assumes that the names of the reserved memory
-regions reflect their usage (e.g. "vdevbuffer", "vdev0vring0", etc.). This
-conflicts with the devicetree specification's recommendation, which states
-that the names of the devicetree nodes should be generic.
-
-Therefore, instead of relying on the node names, use the names passed via
-the "memory-region-names" property if present. Otherwise, keep the old
-behavior.
-
-The definition of imx_rproc_rmem_to_resource() is added to a common place
-as imx_dsp_rproc.c can also use it given that it suffers from the same
-aforementioned problem.
+Remove some of the remoteproc reserved memory regions, which are currently
+not being used for anything. These will be added in the DT overlay
+enabling remoteproc support for this board.
 
 Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 ---
- drivers/remoteproc/imx_rproc.c | 13 +++++++++++--
- drivers/remoteproc/imx_rproc.h | 21 +++++++++++++++++++++
- 2 files changed, 32 insertions(+), 2 deletions(-)
+ .../boot/dts/freescale/imx95-15x15-frdm.dts   | 21 -------------------
+ 1 file changed, 21 deletions(-)
 
-diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-index 7662ebd9d2f4..74719066905d 100644
---- a/drivers/remoteproc/imx_rproc.c
-+++ b/drivers/remoteproc/imx_rproc.c
-@@ -672,7 +672,7 @@ static int imx_rproc_prepare(struct rproc *rproc)
- 		int err;
- 		struct resource res;
+diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+index 0f43e3be7058..f9b0e266754d 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+@@ -188,16 +188,6 @@ linux_cma: linux,cma {
+ 			linux,cma-default;
+ 		};
  
--		err = of_reserved_mem_region_to_resource(np, i++, &res);
-+		err = imx_rproc_rmem_to_resource(np, i++, &res);
- 		if (err)
- 			break;
+-		vdev0vring0: memory@88000000 {
+-			reg = <0 0x88000000 0 0x8000>;
+-			no-map;
+-		};
+-
+-		vdev0vring1: memory@88008000 {
+-			reg = <0 0x88008000 0 0x8000>;
+-			no-map;
+-		};
+-
+ 		vdev1vring0: memory@88010000 {
+ 			reg = <0 0x88010000 0 0x8000>;
+ 			no-map;
+@@ -208,17 +198,6 @@ vdev1vring1: memory@88018000 {
+ 			no-map;
+ 		};
  
-@@ -850,11 +850,20 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
- 	if (nph <= 0)
- 		return 0;
- 
-+	if (!of_property_present(np, "memory-region-names")) {
-+		dev_warn(dev, "using node names for carveouts should be avoided\n");
-+	} else {
-+		if (nph != of_property_count_strings(np, "memory-region-names")) {
-+			dev_err(dev, "invalid reserved memory name count\n");
-+			return -EINVAL;
-+		}
-+	}
-+
- 	/* remap optional addresses */
- 	for (a = 0; a < nph; a++) {
- 		struct resource res;
- 
--		err = of_reserved_mem_region_to_resource(np, a, &res);
-+		err = imx_rproc_rmem_to_resource(np, a, &res);
- 		if (err) {
- 			dev_err(dev, "unable to resolve memory region\n");
- 			return err;
-diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
-index 0d7d48352a10..3632bc375c71 100644
---- a/drivers/remoteproc/imx_rproc.h
-+++ b/drivers/remoteproc/imx_rproc.h
-@@ -7,6 +7,8 @@
- #ifndef _IMX_RPROC_H
- #define _IMX_RPROC_H
- 
-+#include <linux/of_reserved_mem.h>
-+
- /* address translation table */
- struct imx_rproc_att {
- 	u32 da;	/* device address (From Cortex M4 view)*/
-@@ -45,4 +47,23 @@ struct imx_rproc_dcfg {
- 	u32				reset_vector_mask;
- };
- 
-+static inline int imx_rproc_rmem_to_resource(struct device_node *np,
-+					     int index,
-+					     struct resource *res)
-+{
-+	int ret;
-+
-+	ret = of_reserved_mem_region_to_resource(np, index, res);
-+	if (ret)
-+		return ret;
-+
-+	/* "memory-region-names" is optional */
-+	ret = of_property_read_string_index(np, "memory-region-names",
-+					    index, &res->name);
-+	if (ret == -EINVAL)
-+		return 0;
-+
-+	return ret;
-+}
-+
- #endif /* _IMX_RPROC_H */
+-		vdevbuffer: memory@88020000 {
+-			compatible = "shared-dma-pool";
+-			reg = <0 0x88020000 0 0x100000>;
+-			no-map;
+-		};
+-
+-		rsc_table: memory@88220000 {
+-			reg = <0 0x88220000 0 0x1000>;
+-			no-map;
+-		};
+-
+ 		vpu_boot: memory@a0000000 {
+ 			reg = <0 0xa0000000 0 0x100000>;
+ 			no-map;
 -- 
 2.43.0
 
