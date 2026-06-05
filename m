@@ -1,120 +1,156 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4CD3C98B5
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 18:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD643ED124;
+	Fri,  5 Jun 2026 18:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780684641; cv=none; b=Ti15WByghlxELK4nPqh2bM+qS77Sta3zw5qKuh6jFeUneDjD2+dQc69yiX9t37597F/7h1SjcUC/vM0lGFPXVA0sjhaIJaqBxj78OtTUpIx95DayB0bdg4UNs5giB8VmAoD3lDvGMMljkofIDfqkflf+n7EL1X4bkkkLnsrep6k=
+	t=1780685054; cv=none; b=b8ecDleDJ1weuDmHHlDRxfNGIAae8EVOiti/UfG/AjQJobXMhtF9s7ozqzGw7Qedr0LyFkZoTzIT5D/F4MQpTX1+UB4pjCfmByAlZqVgr7fGtR1TpPYwZU6xA4/m23UmTKcgGTbI5ubldb0drFSsH+FcIhfQTRzHy6JDOPSEU+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780684641; c=relaxed/simple;
-	bh=+TpvU/R0Io7brKOuQMO4MbPS134eFVMpmzHUVQzaxDw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VGKA7ccsFRE2zrlBJcNVNKb/5Xsb8boM03DDFYLy9K5PWt1CsN340lMJTQJVUCWPUTe1lVtu14eVDe+IU2EXhLhlhHDBLMr45hJ/pvTpt1WhKAO66TXxTjkYMYAO/imjmc+ISTRdPWSSe00c/3Gxs8D41eEsXgcs9tr0jWe3tYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=l+FIJSoX; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1780685054; c=relaxed/simple;
+	bh=VkS+9PTi0bQprMQXirOvrqsFrc81uGcDDom9cGbtCYc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=syJybyI1OIqIs26LYyaTQ1tjPg0EAwkgVEQ/y6fe80VnK2ZMiH+4AI1pHtEB39MX7J/U+BdyIQcJO/whPXdMELudAWKs1gLQHCN/6+RMljGh43k9dFSHWlKkJUlnZvfUvnCRLdwvCvlZInqHEnfARCYjctTD3FaNODnsr36Maug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gc4GYF29; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="l+FIJSoX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1780684638; x=1780943838;
-	bh=HnEAjbYdrwt2ZUBl5XxwHoVRcBJydiwq0iDN1d+q7u8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=l+FIJSoX5x3n1UATFHj8/Ype1pLqIadVPMTkCkyWat6I/v0T/WyhWzUrpcFT/Uz2K
-	 EREYc4rF8m2XTLPaoFwO3L1MDC8mJLS7zJ9XM7u9NHqrPNQfATchTq53w5FtLOn9Uy
-	 DkROlaYwsgBi76MPt90uBHED51wNNWoCJNDc69GADAMR3xcfeK5adRfrNa6VrZDZVx
-	 HINt51xDCuxaoUkB/E9Fq6jDaEKyRRS+FOZletyxtjzwCSV4/JJYQztBnk2JlJX/YZ
-	 PGbvgbjKkKgQ6okNMxrq2sjL5HW1TffD+cKHmytwso0cM3xuTV6fqD2Lr9qKXJkris
-	 dSCBWQGZC0Cpg==
-Date: Fri, 05 Jun 2026 18:37:11 +0000
-To: sashiko-reviews@lists.linux.dev
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Document Raydium RM69220 DDIC
-Message-ID: <bz9vWgofmc_257MBAJFRETCchlU3NkTiEkOl-ADSbDOR0ncCQTluKglcHRQgL8ojI8yXSPPbYzCwnMyaBZQAGSEOWL0DBHXqpfUR9eKbg3w=@pm.me>
-In-Reply-To: <20260605183434.273CE1F00893@smtp.kernel.org>
-References: <20260605-asteroids-panel-support-v2-1-44b96c6eca91@pm.me> <20260605183434.273CE1F00893@smtp.kernel.org>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 28cb9d9c2537be9b600771d9e8ce5df823ee51d2
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gc4GYF29"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7ED05C5847B;
+	Fri,  5 Jun 2026 18:44:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8F4885FED1;
+	Fri,  5 Jun 2026 18:44:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A962106A25E4;
+	Fri,  5 Jun 2026 20:44:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780685046; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references:autocrypt;
+	bh=VkS+9PTi0bQprMQXirOvrqsFrc81uGcDDom9cGbtCYc=;
+	b=gc4GYF29BRUao23NMlI0LlyMYh33Db14Qxyye3dpp+chRGxjIbo8V04fYY5mSH2fVXC+NM
+	jKWN3o57sxbYH0CImLh5FtHdZLSCcyr/2Jlb3AQHa91atGW73LU9UG7DjjEYAzxP5h+P4t
+	hpPgF7AWeTOwfg9LlVtmHA+pqbUFa2WeyHlzLNef0fvmJXji4tZ6tFwF45MCzn1MeaVnOl
+	rU2+0D9fScncvf3GlIK++n0wR/ZBU0emOSPmd/Sya7gz6X5EyI4kSduDdnj5x5LuI8LJFJ
+	NS3PS/O8/GU5kG9q5KRIMxEDn9vQdgiH/ZUaL2HnmrC2KRzHnzO5+qpz237oCA==
+Message-ID: <4c56014675089901aba5cf648f0e79caa66852c8.camel@bootlin.com>
+Subject: Re: [PATCH v5 5/5] watchdog: aaeon: Add watchdog driver for
+ SRG-IMX8P MCU
+From: Thomas Perrot <thomas.perrot@bootlin.com>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Linus Walleij	 <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Shawn Guo	 <shawnguo@kernel.org>, Sascha
+ Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ =?ISO-8859-1?Q?J=E9r=E9mie?= Dautheribes <jeremie.dautheribes@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Lee Jones	 <lee@kernel.org>
+Cc: "thomas.perrot@bootlin.com" <thomas.perrot@bootlin.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal
+ <miquel.raynal@bootlin.com>
+Date: Fri, 05 Jun 2026 20:42:50 +0200
+In-Reply-To: <bcc88b28-fa45-4a75-8a09-98d25a9377c9@roeck-us.net>
+References: <20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668@bootlin.com>
+			 <20260408-dev-b4-aaeon-mcu-driver-v5-5-ad98bd481668@bootlin.com>
+			 <bcc88b28-fa45-4a75-8a09-98d25a9377c9@roeck-us.net>
+Autocrypt: addr=thomas.perrot@bootlin.com; prefer-encrypt=mutual;
+ keydata=mQGNBF+/ZOUBDAC2DghCjZvmgYcve02OG7dGZ7Iy58uEwne3LB7w7nRwdAxKw7ZaiVqwY
+ O+yNGVi+GVx7oA6Wn4pv46z+QDRLQiq6OseuXhkSGCg7U/yBCUq12B/GRGO1Qt2Qi1mJJT1s+1qZ5
+ Gxv6Nypz9qKVn94GM2bR1hXBga0t87vBpebThOHmX5d/0dqIcVxRCM7onNb0dDyRoVgLS5rBhQzrL
+ CMrJaCy39xZUy0J1SOlH4Mgk6EhJIPYY4wlzikGX6urg+Tc9EjGd78ry0e0p5U5qgjFR5QGJDy1Gn
+ U3CfwbT9sowdCASDbQDUoltlv2iWJCLa0xl97KVchCa0pr7HKbFA3J5SLKqFYUBCkFL+5WudYlz2n
+ XxiUgyviMQxyK+ij66kEi6/2zFDAecd43pHV7790ptqZBC3Jc67Emj7Vo3ShX6RXPPxxbeCTOF2uk
+ I45aJ9XcVFH/MFE96NjXj8uahnIsiTPyuCUoJu8tj7TSQyue874qJqVQvqlFyt2aZYJZ8ruq8AEQE
+ AAbQpVGhvbWFzIFBlcnJvdCA8dGhvbWFzLnBlcnJvdEBib290bGluLmNvbT6JAc4EEwEIADgCGwMF
+ CwkIBwIGFQoJCAsCBBYCAwECHgECF4AWIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCX79mdwAKCRCfw
+ AsFcf4K7fhbC/wP0kSl6id2E/K3+UdXk6CLMVRbCFLCREzQs5WFpQ6l/I0WGOamhrOgegdszheiVF
+ orlUP8d37XSpFAqydhKGaN78V5Dps0Wmwm4lIlS4MtQXJtSLUHXDJLIZLW0pw8tiPLKsd1o/yDkXE
+ dnpsjJTRG6SdDSHnyOB2/gh4p+yTaLytFdARk/r4/P26+L+FiH0fFl+RnBt19LPklfKgeDc7GwIif
+ ja+nIWpp3W23DAUuI6xduEut25Q89yu7Ci8CliLfAiLy9bIGjBQWU2Y+1/j/7KuPj6VbBsZWLTZY0
+ hUmpJSTnWAqc9SMsNxo7NSQuddgviz5e2tqucaRqxP02FGzNa8U4NAKdWaXrlHG5Dglj9XH0DK+SH
+ +c96qqFewYD8VPQ6XAGxQcXbrtJmiMor1R2DfziispLRvJcfYs8xqabbCtoS3ouXB9XRi8hn7A2kh
+ ME1ryS+Oh63JshXHnw6bmjCpVd/p+fGLIGU6A47pJOpviKR4jEO84pl2ejtDZ3Tc=
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-D+anXI9Ca6rCMw2yVrbP"
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+X-Last-TLS-Session-Version: TLSv1.3
+
+
+--=-D+anXI9Ca6rCMw2yVrbP
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Friday, June 5th, 2026 at 2:34 PM, sashiko-bot@kernel.org <sashiko-bot@k=
-ernel.org> wrote:
+Hello Guenter,
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] The newly added DT binding schema introduces a dtbs_check regress=
-ion for an existing dummy panel node in `arch/arm64/boot/dts/qcom/milos-not=
-hing-asteroids.dts`. The existing device tree uses `compatible =3D "boe,bf0=
-68mwm-td0"` for a simple-framebuffer dummy node, but lacks the strictly req=
-uired properties mandated by the new schema.
-> --
+On Fri, 2026-04-10 at 08:49 -0700, Guenter Roeck wrote:
+> On 4/8/26 10:21, Thomas Perrot (Schneider Electric) wrote:
+> > Add watchdog driver for the Aaeon SRG-IMX8P embedded controller.
+> > This driver provides system monitoring and recovery capabilities
+> > through the MCU's watchdog timer.
+> >=20
+> > The watchdog supports start, stop, and ping operations with a
+> > maximum
+> > hardware heartbeat of 25 seconds and a default timeout of 240
+> > seconds.
+> >=20
+> > snip
+> >=20
 >=20
-> commit 6315e592e65e15de511f78a600454fa1ddbaf9e2
-> Author: Alexander Koskovich <akoskovich@pm.me>
+> Odd, unusual, unnecessary, I would argue that most people would
+> consider a fixed
+> timeout of 240s as anything but reasonable, and as the comment says
+> arbitrary.
+> Since I am sure that I pointed this out before, you still insist, and
+> I am
+> tired of arguing: Your funeral, so
 >=20
-> dt-bindings: display: panel: Document Raydium RM69220 DDIC
->=20
-> Document the Raydium RM69220 DDIC and the BOE BF068MWM-TD0 6.77"
-> 1080x2392 AMOLED display panel used in the Nothing Phone (3a).
->=20
-> > diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm=
-69220.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm6922=
-0.yaml
-> > new file mode 100644
-> > index 0000000000000..7423b192d892c
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/panel/raydium,rm69220.y=
-aml
-> [ ... ]
-> > +properties:
-> > +  compatible:
-> > +    items:
-> > +      - enum:
-> > +          - boe,bf068mwm-td0
-> > +      - const: raydium,rm69220
->=20
-> [Severity: Low]
-> Will this strict compatible requirement trigger dtbs_check failures for t=
-he
-> existing dummy panel node in
-> arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts?
->=20
-> That file currently uses this compatible string for a dummy node:
->=20
-> =09=09=09/* Dummy panel for simple-framebuffer dimension info */
-> =09=09=09panel: dummy-panel {
-> =09=09=09=09compatible =3D "boe,bf068mwm-td0";
-> =09=09=09=09height-mm =3D <157>;
-> =09=09=09=09width-mm =3D <71>;
-> =09=09=09};
->=20
-> Since the new schema mandates a two-item array with "raydium,rm69220" and
-> several other required properties like dvdd-supply, reg, and port, valida=
-ting
-> the existing dts against this schema appears to cause validation failures=
-.
->=20
-> Should the dummy node's compatible string be updated to avoid conflicting=
- with
-> the actual hardware schema, or should the dts update be included in this
-> series?
 
-The dummy node is being dropped here:
-https://lore.kernel.org/linux-arm-msm/20260603-asteroids-drop-simplefb-v1-1=
--34d73477c9d4@pm.me
+I apologize for not addressing this in previous iterations.
 
+This will be addressed in v6 to make the software timeout configurable.
+The 240s value remains as the default fallback.
+
+Kind regards,
+Thomas
+
+> Acked-by: Guenter Roeck <linux@roeck-us.net>
 >=20
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-asteroid=
-s-panel-support-v2-0-44b96c6eca91@pm.me?part=3D1
-> 
+> Guenter
+>=20
+> >=20
+> >=20
+
+--=20
+Thomas Perrot, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
+--=-D+anXI9Ca6rCMw2yVrbP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCAAdFiEEh0B3xqajCiMDqBIhn8ALBXH+Cu0FAmojGKoACgkQn8ALBXH+
+Cu1ZQQwApYSqbfzLii5Qn294byLHYxr56RVOi+0rrMZsZzcmBNOHG6H+JE6QGpRb
+/UJIX7OVQ/ACKJIEL/QKR3SvF2DLvY97BCX2wBslodNzcRyVuHvTMEppM/bmQVpL
+5LFpUdHxXDVoT6dUmwqPCGOH+HGx0OX1L8EBo0UbEcNin7gyYspy5cI4V+0lsK7Y
+64HdBFpCtJmsu0OfWl+W0RLhZpxEPSFB8NbUJg5V0TqAzZZi3p+uBsLWqX944ocT
+la5kreLGE/fKZQ6ctWCN5+nT0neZ3lJe7LofrUYjJx8GapWavmD+cSPscqf537Sw
+oxdfMxcmlmWUEFOPLo1MlUrASdoss8zNuNfEGt0MitxTbZizPqS/wxteZib1gb6O
+x6Klhpl0Q+CCfP0ZIhSbVWMD9GY+ggelFfDEmn9HoDoH/Hz4Xbw1h3k4YWYp8d4f
+0YUf1QZC51lDB3J2DXJLVDCAzuSxDW3Sw+8eJ2gcBtcRD53nk75t11uZOCNafXnL
+Q3BgaQyl
+=ns9k
+-----END PGP SIGNATURE-----
+
+--=-D+anXI9Ca6rCMw2yVrbP--
