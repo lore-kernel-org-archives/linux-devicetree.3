@@ -1,94 +1,134 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8BC47B431
-	for <devicetree@vger.kernel.org>; Fri,  5 Jun 2026 08:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657E02C1595;
+	Fri,  5 Jun 2026 08:58:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780649118; cv=none; b=lvnftEDBbVRRfqot4X+AkPc2Sas1uMBpcP8+KJgzmqS4xTVnSXTsFZKebDGxcw40p8xZXwEWGw7QoDwwBueyZlk3zqQMXwRZ55iXqMqZbnOMb/7fi7s2vAA2yP2PQOqucRjicL4ypW0yNRv6bA9I2XWKkC3UKzNnTcfRj/xg/XA=
+	t=1780649888; cv=none; b=gfrJu8Qn3r2mklesUw3iOQaPBXxPTnjg8qfRFAEZ6iDeEDgcdpJ/p1nZBXQ3Qx/MeeEqKk39ZdzNq4lI0MX2Fgqco3OgyMfyzEaGL4MHkmoBNXtUFma6Uym+nfAQ5PrhGSXaXWLwHh6esoxaVcp8X0MrfXaopiYBki1XNiJu/H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780649118; c=relaxed/simple;
-	bh=8WCPoeh0BcZLAKb8hLkhJB2+pNWKzYNgBA/oVZlehgY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nYj08cX7R2kSK6TMEYz6NASQgQg7wAS6FoiQu+uEnV+VN+axj0hGDYQsxzgxcjH+WQTiuluknWpKYdonSoFoCNaPhDZvi/Riw2ukmZCWrnXeVsQpNAipHtYyRTQpYRtJhhytz3mWdBQ1MdiCfu/YdU/oJT6M/xCV0D7tCK5C64M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <jre@pengutronix.de>)
-	id 1wVQAz-0003dG-DJ; Fri, 05 Jun 2026 10:45:13 +0200
-Message-ID: <3cbee0dc-87a9-4b87-9d22-b3e378fa57c3@pengutronix.de>
-Date: Fri, 5 Jun 2026 10:45:12 +0200
+	s=arc-20240116; t=1780649888; c=relaxed/simple;
+	bh=C3/r97cvGGhLJX1Xn8jXPRnoiEseV6sdbd3P2WAeicE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jtCJypdd91Azhz7AM66H9chaFt9d5bplR8tz7zc2cg+P1xwdSC9BiasTQ3Vv1lN+gf7Stcidvw/QiZfSFLW2+N+WfJKYqrZpVTz8H1Vzhs7WkDd3kwfJuz3GUPiziIaJHon+R/GSdiGlXgyVRK9MUYdtPWnMuu9TVkV/5Vvr03Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZooJwy7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZooJwy7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 763EC1F00893;
+	Fri,  5 Jun 2026 08:58:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780649887;
+	bh=vrTp+Zp3JQ83tPZI8WFTcJrcku+BrM25I8gPXoRu00s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eZooJwy7No+NiA5mGCXKPhhxRgkfbPnq1r1z/VZHxsSyt3aAFEyzw7+/EyQvPjA+/
+	 e9lBR4zEV2LfDztZB+44URcKzJnHDE+LKQ6E43HN8zqzLnURRwxrpq86XBZoPxKWih
+	 coCzmeGl+gyY6LvwdgKuaizZqeNpLDS7lYLjw7YluJPl4TcdNljJBb0KL8moPk2FJI
+	 RA7x6DKl6v4ZglbX8s3hAqTPg8xDPVsTP6W3diVP78F9GXTTVXKg/E92vKo/OMXhc+
+	 QK2w3FHqncGdfgaiw9D3TSzmDQaXg5/gsPFbpEZdVk4WEBOBtGau1NXmo84qpYNUPd
+	 gZEBgLjBsrwMg==
+Date: Fri, 5 Jun 2026 08:58:02 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: E Shattow <e@freeshell.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Inochi Amaoto <inochiama@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dts: riscv: spacemit: k3: Fix I/O power settings
+Message-ID: <20260605085802-GKD3727415@kernel.org>
+References: <20260518-07-dts-pinctrl-io-power-v1-1-abe19c14a726@kernel.org>
+ <9585b7c7-100c-4d77-bed1-d2b6b25b3940@freeshell.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: leds: Add default-intensity property
-To: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-Cc: "kernel@pengutronix.de" <kernel@pengutronix.de>,
- sashiko-reviews@lists.linux.dev
-References: <20260605-multicolor-default-v2-1-ed07271df6b0@pengutronix.de>
- <20260605073816.E916D1F00893@smtp.kernel.org>
-Content-Language: en-US
-From: Jonas Rebmann <jre@pengutronix.de>
-In-Reply-To: <20260605073816.E916D1F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: jre@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9585b7c7-100c-4d77-bed1-d2b6b25b3940@freeshell.de>
 
-Hello,
+Hi E Shattow,
 
-On 2026-06-05 09:38, sashiko-bot@kernel.org wrote:
->> @@ -73,6 +73,17 @@ properties:
->>         - keep
->>       default: off
->>   
->> +  default-intensity:
->> +    description:
->> +      The initial intensity of the LED color component. Used only during
->> +      initialization. Defaults to 0. As the intensity of each sub-LED is
->> +      multiplied with the overall brightness, without this property on a
->> +      sub-LED, the leds-pwm-multicolor-LED is effectively initialized at
->> +      minimum brightness regardless of its linux,default-trigger and
->> +      default-brightness properties.
+On 13:17 Wed 03 Jun     , E Shattow wrote:
 > 
-> [Severity: Low]
-> This isn't a bug, but the description for default-intensity explicitly
-> mentions the specific driver name leds-pwm-multicolor-LED.
+> Hi Yixun,
 > 
-> Since common.yaml is intended to be a hardware-agnostic specification
-> for all LED bindings, could this wording be updated to refer generically
-> to the multicolor LED or simply the LED to avoid leaking an
-> implementation detail into the generic schema?
+> This property on its own does not seem to be enough to get the ethernet
+> network port functional on Sipeed K3 Pico-ITX 32GB model that I have,
+> when it is loading Debian 13 Trixie debian-installer netinst initramfs
+> (with cross-compiled Linux kernel and modules from -next 20260602).
+> 
+I don't think your problem directly connect to this pacth..
 
-I'll be leaving this as-is until human feedback.
+> Reproducer instructions for cross-compiling and debian-installer netinst
+> initramfs modification at:
+> https://wiki.debian.org/InstallingDebianOn/SpacemiT/K3PicoITX?action=recall&rev=2
+> 
+> In addition to those instructions above I am using within the factory
+> pre-installed vendor U-Boot the following commands to try what your
+> patch does:
+> 
+> fdt addr $fdt_addr_r
+> fdt resize
+> fdt header get filesize totalsize
+> fdt rm /soc/pinctrl@d401e000 spacemit,apbc
+> fdt get value spacemit_apbc_phandle /soc/system-controller@d4015000 phandle
+> fdt set /soc/pinctrl@d401e000 spacemit,apbc <$spacemit_apbc_phandle>
+> 
+> I then verify within Linux environment the presence of
+> /sys/firmware/devicetree/base/soc/pinctrl@d401e000/spacemit,apbc
+> 
+> The same Linux kernel and modules as modified into the installer then do
+> have functional ethernet networking on that board if running from the
+> installed system and with the spacemit,apbc devicetree property. Is this
+> a dependency or ordering issue of the modules, or the Kconfig options?
+> 
+I've checked with the failure kernel dmesg log (you provided offline),
+the dwmac driver has been probed twice, with first time failed, it
+might be the PHY driver not been initialized, adjust following 
+configuration works for me..
 
-I think documenting the property in common.yaml is correct because the
-default-intensity itself is applicable to other multicolor-LED drivers,
-I just only implemented it for pwm-multicolor because that's what I use.
-But we could just as well move it to leds-pwm-multicolor.yaml for as
-long as that's the only driver supporting it.
+CONFIG_STMMAC_ETH=y
+CONFIG_REALTEK_PHY=y
+CONFIG_I2C_K1=y
 
-I intentionally included the "pwm" in that sentence because the
-described issue that default-intensity is effectively required when
-using linux,default-trigger may be pwm-multicolor specific.
+the PMIC/Power Regulator rely on I2C driver..
 
-I would not like to omit the sentence either because this situation is
-the reason why one might actually need (not just want)
-default-intensity (for -pwm-).
+> Also, the more general problem is that cycling rmmod and modprobe on the
+> ethernet networking related modules fails:
+> 
+> rmmod dwmac_spacemit
+> rmmod stmmac_platform
+> rmmod stmmac
+> rmmod mdio
+> modprobe dwmac_spacemit
+> 
+> [ 1487.618517] mdio_bus stmmac-0: MDIO device at address 1 is missing.
+> 
+> [ 1487.623815] spacemit-dwmac cac80000.ethernet end0: renamed from eth0
+> 
+> rmmod dwmac_spacemit
+> rmmod stmmac_platform
+> rmmod stmmac
+> rmmod mdio
+> modprobe dwmac_spacemit
+> 
+Need to investigate, could be problem of resource deinitialization issue..
 
-Regards,
-Jonas
+> [ 1539.374486] spacemit-dwmac cac80000.ethernet end0: cannot attach to
+> PHY (erro
+> r: -ENODEV)
+> [ 1615.299451] spacemit-dwmac cac80000.ethernet end0: stmmac_dvr_remove:
+> removin
+> g driver
+> 
+> Please advise how to troubleshoot?  Thanks,
+> 
+> - E Shattow
+> 
 
 -- 
-Pengutronix e.K.                           | Jonas Rebmann               |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+Yixun Lan (dlan)
