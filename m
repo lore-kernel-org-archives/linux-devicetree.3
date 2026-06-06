@@ -1,165 +1,315 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8574328371;
-	Sat,  6 Jun 2026 15:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C39523BD1B;
+	Sat,  6 Jun 2026 15:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780759258; cv=none; b=mYc4SxrHgUIGhI6cTXk9XMkcBEt9nciwi6IIbjz0XZ7ChoXU46vTJ3693g7xgMHL/iyBTlWmKGm6k3mwMwvjTZVpjmugInOAXIRl9BYagEshw31b/JOxE+rZueHujB/ZBROaHNMzB52QkSI6re2/f6SRJfSvEhTjZcgFagrvin4=
+	t=1780759757; cv=none; b=HgBSDC8AWhQOyLut2et4loqW3j7H7iREX+B9HQPYvrRCzW9+MB/X7C4TxYAtf1rfcMfeFw0pIKlv5zEnJRTLf5pk7dok2HCZXhHBJ8NGdQuk9+uHdqcc15orPMkRktXmOKPsl84XVeCoRnmpk1L4A3yaMLbBxRCjAMpJJO5PABc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780759258; c=relaxed/simple;
-	bh=E+7MlXMZBFsMqaasNRcRRlL86EZAL3PlGz9YqYmiQao=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BJbanlsBUTEeQ/EonUgrPA/rE/ox80VBheSSUBVzmIPhGHAZWTmuFvmqJXZ5CR7thLTheU2f5WphLR9p9vhml2Ffw2M1qPAy7aQPstuVCYsPpNZifXdLHvIeeEoCTg+4/g2VsKXZTA8NIPHEedUilUHih4ZqODTtgKO5h6GI4xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f27VoBJ8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780759757; c=relaxed/simple;
+	bh=lAgHSjWrGPCLr+UAktxESvxGWk2CswLVUi2LmW61X8E=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=RyWGg1FTYECU52gpahtSDGLZF+ZWBaiurKPs6qCx9QUfkO/wZ+NPRTUN8wli01X1RidCnda5zyUYObTABApqfY3mBQKntFe/OwYnsORqZ9tFMtjMKoGN7afZLl+RgwLBJXJfOELigsXquaJjEpnmxh7rI2e+7cfpx95an23D1zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=knjed57o; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f27VoBJ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77161F00893;
-	Sat,  6 Jun 2026 15:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780759257;
-	bh=9YSlc33MJ+RqRLNKmkClZGu824oEjAFa0dZkAAtlIp8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f27VoBJ8ekns3NIBJ6qIg0zmGePtXDytDN0CifSZ5lm0+5sq9zaio7DeO9ufdLHZ9
-	 pNfBg7JbI0RTDV/Ja4izeFOMI4EEZH4JMO2e9A6sODqLMV/PmuLd79s9Bth4/g/TVe
-	 rXjL8JhLjBgK5uJTKR/bfekkHkAiUdq3E2V2eTcruSTRy+NvqfMLk+CfD3aO6n5Z9/
-	 s9HdFZCkvLMoRsMi2N15Fd7pQIu9b5k2mrrmk2xx5PF2NYdBqdir9y79+KguUyotPX
-	 WYYO10Dl9nlGTqgY93p0JN7OqKx686o1G5ksJqO/3RaT68OyiH1uZKxN/0f9diHS+X
-	 YgvivsCspBMWw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 8/8] Input: cap11xx - add support for CAP1114
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, linux-input@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260606150458.250606-9-jerrysteve1101@gmail.com>
-References: <20260606150458.250606-9-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 15:20:56 +0000
-Message-Id: <20260606152056.B77161F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="knjed57o"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:476d:c684:fe78:389f:7375])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E791E63C;
+	Sat,  6 Jun 2026 17:28:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780759727;
+	bh=lAgHSjWrGPCLr+UAktxESvxGWk2CswLVUi2LmW61X8E=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=knjed57ofP+A+RTTM/kzNPJh1UKICtyvtYGtwFaNCpZfNYwAva2zI0k79sDyyEUzj
+	 0ZHO8LjdSZXj1I0nVTLS0APGEwnG6XzuTzoomwf/EAnVEljM/yRBJ9YMQb2LV2dKJc
+	 +tyZu586tXSZZway8jUJCpfDmffNz6JwTsGRmj+g=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <PN3P287MB18292FBAEABB556C051434848B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260605-imx678-v4-0-58e57c67143d@ideasonboard.com> <20260605-imx678-v4-2-58e57c67143d@ideasonboard.com> <PN3P287MB1829593C2DF9AFF8F24A39AF8B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM> <178075217188.9570.14789474340505402551@freya> <PN3P287MB18292FBAEABB556C051434848B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v4 2/2] media: i2c: imx678: Add driver for Sony IMX678
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Lachlan Michael <Lachlan.Michael@sony.com>, Ryuichi Tadano <Ryuichi.Tadano@sony.com>, Kengo Hayasaka <Kengo.Hayasaka@sony.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Tarang Raval <tarang.raval@siliconsignals.io>
+Date: Sat, 06 Jun 2026 20:59:08 +0530
+Message-ID: <178075974823.9570.15829300390679437100@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Buffer overflow when reading the 'microchip,calib-sensitivity' dev=
-ice tree property for devices with >8 channels.
-- [High] Failure to mask `STATUS1` before ORing `STATUS2` can cause phantom=
- key presses for channels 7 and 8.
-- [Low] Bitmask calculation for 'microchip,signal-guard' truncates settings=
- for channels 8 and above.
---
+Quoting Tarang Raval (2026-06-06 20:15:48)
+> Hi Jai.
+>=20
+> > Quoting Tarang Raval (2026-06-06 13:47:36)
+> > > Hi Jai,
+> > >
+> > > Sorry, in my first review I missed a few minor issues listed below.
+> > >
+> >
+> > No worries, thank you for the reviews.
+> >
+> > > I also noticed one major issue in the driver. Please check the commen=
+ts below.
+> > >
+> > > Other than that, the driver looks perfect.
+> > >
+> > > > Add a V4L2 subdev driver for the Sony IMX678 image sensor.
+> > > >
+> > > > IMX678 is a diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type
+> > > > solid-state image sensor with a square pixel array and 8.40 M effec=
+tive
+> > > > pixels.
+> > > >
+> > > > The following features are supported by this driver:
+> > > > - MIPI RAW12 output
+> > > > - Monochrome and Color (Bayer filter) variants
+> > > > - Multiple input clock frequencies
+> > > > - Multiple link frequencies
+> > > > - VBLANK and HBLANK control for variable framerate
+> > > > - VFLIP and HFLIP control for flipping readout
+> > > > - Exposure and analogue gain control
+> > > > - Test pattern control
+> > > >
+> > > > Following features are not currently supported:
+> > > > - MIPI RAW10 output
+> > > > - Pixel-perfect crop reporting, accounting for the shift-by-1 when
+> > > >   doing HFLIP/VFLIP where the sensor maintains RGGB bayer ordering
+> > > >
+> > > > Along with the ones below which depend on the new raw sensor model:
+> > > > - Embedded data stream
+> > > > - Freely configurable cropping
+> > > > - Increased framerate when cropping
+> > > > - 2x2 binning support
+> > > >
+> > > > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> > >
+> > > ...
+> > >
+> > > > +static const u32 codes_bayer[] =3D {
+> > > > +       MEDIA_BUS_FMT_SRGGB12_1X12,
+> > > > +};
+> > > > +
+> > > > +static const u32 codes_monochrome[] =3D {
+> > > > +       MEDIA_BUS_FMT_Y12_1X12,   /* 12-bit mono */
+> > >
+> > > Above comment adds no useful information and can be dropped.
+> > >
+> > > > +};
+> > > > +
+> > > > +static const struct imx678_model_info imx678_aaqr_info =3D {
+> > > > +       .type =3D IMX678_COLOR,
+> > > > +       .codes =3D codes_bayer,
+> > > > +       .num_codes =3D ARRAY_SIZE(codes_bayer),
+> > > > +};
+> > > > +
+> > > > +static const struct imx678_model_info imx678_aamr_info =3D {
+> > > > +       .type =3D IMX678_MONOCHROME,
+> > > > +       .codes =3D codes_monochrome,
+> > > > +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
+> > > > +};
+> > > > +
+> > > > +static const char * const imx678_supply_name[] =3D {
+> > > > +       "avdd",  /* Analog (3.3V) supply */
+> > > > +       "dvdd",  /* Digital Core (1.1V) supply */
+> > > > +       "ovdd",  /* IF (1.8V) supply */
+> > > > +};
+> > > > +
+> > > > +struct imx678 {
+> > > > +       struct v4l2_subdev sd;
+> > > > +       struct media_pad pad;
+> > > > +       struct regmap *cci;
+> > > > +
+> > > > +       const struct imx678_model_info *info;
+> > > > +
+> > > > +       struct clk *xclk;
+> > > > +       u32 xclk_freq;
+> > > > +
+> > > > +       /* chosen INCK_SEL register value */
+> > > > +       u8  inck_sel_val;
+> > > > +
+> > > > +       /* Link configurations */
+> > > > +       enum imx678_lanemode lane_mode;
+> > > > +       unsigned long link_freq_bitmap;
+> > > > +
+> > > > +       struct gpio_desc *reset_gpio;
+> > > > +       struct regulator_bulk_data supplies[ARRAY_SIZE(imx678_suppl=
+y_name)];
+> > > > +
+> > > > +       struct v4l2_ctrl_handler ctrl_handler;
+> > > > +
+> > > > +       /* V4L2 Controls */
+> > > > +       struct v4l2_ctrl *exposure;
+> > > > +       struct v4l2_ctrl *vblank;
+> > > > +       struct v4l2_ctrl *hblank;
+> > > > +
+> > > > +       /* Tracking sensor VMAX/HMAX value */
+> > > > +       u32 vmax;
+> > > > +};
+> > > > +
+> > > > +static inline struct imx678 *to_imx678(struct v4l2_subdev *_sd)
+> > > > +{
+> > > > +       return container_of(_sd, struct imx678, sd);
+> > >
+> > > Use container_of_const.
+> > >
+> >
+> > Why is that necessary?
+>=20
+> container_of_const() preserves const and avoids accidentally casting it a=
+way.
+> For non-const pointers it behaves the same as container_of(), while for c=
+onst
+> pointers it preserves constness.
+>=20
+> >
+> > > > +}
+> > >
+> > > ...
+> > >
+> > > > +static int imx678_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > > +{
+> > > > +       struct imx678 *imx678 =3D container_of(ctrl->handler, struc=
+t imx678,
+> > > > +                                            ctrl_handler);
+> > >
+> > > Use container_of_const.
+> > >
+> > > > +       struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->=
+sd);
+> > > > +       const struct v4l2_mbus_framefmt *format;
+> > > > +       struct v4l2_subdev_state *state;
+> > > > +       int rpm_in_use;
+> > > > +       int ret =3D 0;
+> > > > +
+> > > > +       state =3D v4l2_subdev_get_locked_active_state(&imx678->sd);
+> > > > +       format =3D v4l2_subdev_state_get_format(state, IMX678_SOURC=
+E_PAD);
+> > > > +
+> > > > +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> > > > +               u32 current_exposure =3D imx678->exposure->cur.val;
+> > > > +
+> > > > +               imx678->vmax =3D format->height + ctrl->val;
+> > >
+> > > ........(1)
+> > >
+> > > > +
+> > > > +               current_exposure =3D clamp_t(u32, current_exposure,
+> > > > +                                          IMX678_EXPOSURE_MIN,
+> > > > +                                          imx678->vmax - IMX678_SH=
+R_MIN);
+> > > > +               ret =3D __v4l2_ctrl_modify_range(imx678->exposure,
+> > > > +                                              IMX678_EXPOSURE_MIN,
+> > > > +                                              imx678->vmax - IMX67=
+8_SHR_MIN,
+> > > > +                                              1, current_exposure);
+> > > > +               if (ret)
+> > > > +                       return ret;
+> > > > +       }
+> > > > +
+> > > > +       /*
+> > > > +        * Applying V4L2 control value only happens when power is u=
+p for
+> > > > +        * streaming
+> > > > +        */
+> > > > +       rpm_in_use =3D pm_runtime_get_if_in_use(&client->dev);
+> > > > +       if (!rpm_in_use)
+> > > > +               return 0;
+> > >
+> > > As in the last revision, as I suggested before, I will again suggest =
+using
+> > > pm_runtime_get_if_active() here instead of pm_runtime_get_if_in_use().
+> > >
+> > > This does not seem to align with the comment above:
+> > > Applying V4L2 control value only happens when power is up for streami=
+ng
+> > >
+> > > "Power is up" implies that the device is in the runtime PM ACTIVE sta=
+te,
+> > > rather than simply having a non-zero usage count.
+> > >
+> >
+> > I agree with the comment being slightly misleading, but same as the last
+> > revision, I still don't fully buy your argument here :-)
+> >
+> > In the case you talk about, where PM is ACTIVE but usage count =3D=3D 0=
+, we
+> > anyway know that the count will only increase when .enable_streams is
+> > called, at which point the driver will anyway write *all* the registers
+> > including calling set_ctrl for each control with the cached values.
+> >
+> > So why should we do (redundant) writes here?
+>=20
+> I think this is mostly a difference in expectations.
+>=20
+> My view is that if the device is runtime PM ACTIVE, the hardware is acces=
+sible
+> and register writes can be performed. In that case, I would expect a cont=
+rol
+> change to be applied to hardware immediately.
+>=20
+> With pm_runtime_get_if_in_use(), there is a state where the device is sti=
+ll
+> ACTIVE but control changes are only cached in software and not written to
+> hardware until streaming starts again. While the value is not lost, I wou=
+ld
+> expect hardware and control state to remain synchronized whenever the dev=
+ice
+> is already active.
+>=20
+> So I understand the cached-control argument, but if the hardware is acces=
+sible,
+> I would prefer applying the control immediately rather than deferring it.
+>=20
 
-commit 8885b1d0f98cb8d5ca53ba5fd9a458743481d5be
-Author: Jun Yan <jerrysteve1101@gmail.com>
+Why does it matter if some sensor register doesn't match the value in the
+cached controls for a brief period after streaming stopped and sensor is
+powered off? We don't have autosuspend timer here like other drivers.
 
-Input: cap11xx - add support for CAP1114
+I'll update the comment in v5 for future readers/developers in case that
+changes.
 
-CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
-and hardware reset support. The CAP1114 uses two separate control registers
-for LED output management and requires two button status registers for touch
-input state reporting.
+> > > I also don't understand why we need to be strict here and require the
+> > > runtime PM usage count to be greater than zero. What matters before a=
+ccessing
+> > > the hardware registers is that the device is powered and accessible, =
+not
+> > > whether there is an active user holding a runtime PM reference.
+> > >
+> > > Anyway, rpm_in_use does not seem necessary here. The check could be s=
+implified to:
+> > > if (pm_runtime_get_if_active(&client->dev) <=3D 0)
+> >
+> > The rpm_in_use value is used below in this function to ensure we don't =
+do
+> > pm_runtime_put() in case of a negative retval. This is not really handl=
+ed
+> > by most drivers today, but I wanted to fix it here given recent discuss=
+ion
+> > [1] and annoying Sashiko reports.
+> >
+> > [1]: https://lore.kernel.org/all/ahyh0ZlwlZqr7VNa%40kekkonen.localdomain
+>=20
+> Thats my understanding as well. With:
+> if (pm_runtime_get_if_active(&client->dev) <=3D 0)
+>         return 0;
+>=20
+> both the 0 and negative return paths exit immediately, so neither the swi=
+tch
+> statement nor pm_runtime_put() can be reached.
 
-> diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
-p11xx.c
-> index 408880cf65167..2aba3b508947d 100644
-> --- a/drivers/input/keyboard/cap11xx.c
-> +++ b/drivers/input/keyboard/cap11xx.c
+If we do that no controls will be written to the hardware if userspace has
+disabled runtime.
 
-[ ... ]
+>=20
+> Best Regards,
+> Tarang
 
-> @@ -311,6 +337,20 @@ static irqreturn_t cap11xx_thread_func(int irq_num, =
-void *data)
->  	if (ret < 0)
->  		goto out;
-> =20
-> +	if (priv->model->num_channels > 8) {
-> +		unsigned int status2;
-> +
-> +		ret =3D regmap_read(priv->regmap, priv->model->sensor_input_reg_base +=
- 1, &status2);
-> +		if (ret < 0)
-> +			goto out;
-> +
-> +		/*
-> +		 * CAP1114 STATUS1 register only contains data for the first 6 channel=
-s.
-> +		 * the remaining channels is stored in STATUS2.
-> +		 */
-> +		status |=3D FIELD_PREP(GENMASK(13, 6), status2);
-
-[Severity: High]
-If the hardware sets reserved bits 6 or 7 in the first status register to 1,
-will they be preserved and incorrectly reported as touch events for channels
-7 and 8?
-
-Since the status variable (which holds STATUS1) is not masked before this OR
-operation, any reserved bits set in STATUS1 could overlap with the shifted
-status2 values.
-
-Should the status variable be masked to clear bits 6 and 7 before ORing in
-status2?
-
-> +	}
-> +
->  	for (i =3D 0; i < priv->idev->keycodemax; i++)
-
-[ ... ]
-
-> @@ -572,6 +625,14 @@ static const struct cap11xx_hw_model cap1106_model =
-=3D {
->  	.has_repeat_en =3D true,
->  };
-> =20
-> +static const struct cap11xx_hw_model cap1114_model =3D {
-> +	.product_id =3D 0x3a,
-> +	.led_output_control_reg_base =3D CAP1114_REG_LED_OUTPUT_CONTROL1,
-> +	.sensor_input_reg_base =3D CAP1114_REG_BUTTON_STATUS1,
-> +	.num_channels =3D 14, .num_leds =3D 11, .num_sensor_thresholds =3D 8,
-
-[Severity: High]
-Does configuring num_channels to 14 cause a buffer overflow when parsing the
-device tree?
-
-In struct cap11xx_priv, calib_sensitivities is defined as a fixed 8-element
-array:
-
-struct cap11xx_priv {
-        ...
-        u32 calib_sensitivities[8];
-        u32 keycodes[];
-};
-
-When cap11xx_init_keys() parses the microchip,calib-sensitivity property, it
-requests num_channels elements:
-
-of_property_read_u32_array(node, "microchip,calib-sensitivity",
-                           priv->calib_sensitivities,
-                           priv->model->num_channels)
-
-If the device tree provides 14 elements, won't this write 56 bytes into the
-32-byte array, overflowing into the adjacent keycodes flexible array?
-
-[Severity: Low]
-Additionally, does setting num_channels to 14 cause truncation in the
-microchip,signal-guard bitmask logic?
-
-In cap11xx_init_keys(), priv->signal_guard_inputs_mask is typed as a u8, but
-the initialization loop runs up to num_channels:
-
-if (u32_val)
-        priv->signal_guard_inputs_mask |=3D 0x01 << i;
-
-For i >=3D 8, does the shifted bit exceed the 8-bit width and get silently
-truncated to 0 during the assignment?
-
-> +	.has_grouped_sensors =3D true,
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606150458.2506=
-06-1-jerrysteve1101@gmail.com?part=3D8
+Thanks,
+    Jai
