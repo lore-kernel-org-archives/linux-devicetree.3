@@ -1,226 +1,147 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20C62E8897
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 13:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780752229; cv=none; b=CD99fTQlYrZe5T45OLOZtrD2j8PgM9BbtI6QfrsLp/Aoz1NKuQY2EhGGbwv/ePL9uGbdimV9EBlfnH3rtqEUKBBEdgxV+Ouc50ekKSiF3p95nZPrf6/lAbMuVoda4R/oZ/TrKRfgt6Si3htRgcRQot3PTekh35Kg8vX9MgIza7M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780752229; c=relaxed/simple;
-	bh=ascq50Gto/BYzlD/1Iw9YsYIZvHWXVQK4s3uDyj5Nb0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tZMOVptTD33vIwH355gep5TZ6/w9Br7Tabg1pigFRTKgzxTmMO2kP/OWXg/1Bx0Rgb5bhhw+Au7vF01S/UI3yxHCrVij6XDAzVJPAiGnDU1TtlavfrDOJDmfRt2poxYCfuFjqNXpKvSYHTEEu8i86Ey945wubRNLkMhbViq6vDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o8oSnspX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bQ50NSd4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5EC346ACC
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 13:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780753964; cv=pass; b=aJhRD+CBZPXuo/zIZJEYsjP3MVhj6DlofHYgO5ROwo+QTZk3ke0/QbXj/cRi6yMD6b6HZmloPmpI9ouwDpUyPlUVzA7tOWWjfUH5DAnvO76qJqcT1RAOqqb3A7exAxoi/2fu87YLorVeFi5+6cwgILxZAD2L8deGKik4PStYCYk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780753964; c=relaxed/simple;
+	bh=8CZOIp0iGytiz6Ffz4l5O1e5skqqCt9s6Yl5NU1Ixvw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uX21MTohYpPD6YizGyrwqg89rpP8Y4uwHRqe9lKb8bl2gp1HdWXuZxwlrOCOdz8p4SAEA0ukkUd7SFfQiKRnz4qp9jz3CcO0p7qD6z8JSTPPdFz0Wzuq036U2EQmY/N+pskn1OlS7stHKwsAeXlb3WHUb9WwL4FCsXQv6DnBS5g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ni4UwVJB; arc=pass smtp.client-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o8oSnspX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bQ50NSd4"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 656BEXoC1332267
-	for <devicetree@vger.kernel.org>; Sat, 6 Jun 2026 13:23:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ksjiIivO5NlJD1LbbhDu0ri6
-	r1Xvc7dbP55abanCnT8=; b=o8oSnspXna5nsUXSC+KfBSoGEJdK61nyM4vg9ygr
-	3vgG4eO/s4iyr0+c/KuFA5I3N0rUSokBV4wuQaWUDtWyuhJQbYKzdOQNmwI73XP8
-	rDJRx36feN3QhdKmFvX4BiV6OTZmUZ2ggr6QWIg2fo9cdCNvVjNARPkyE9wA0g8h
-	LyP05vrvHNDwArQg1OX7pvzGV6bhSGkXh0yf7BtbiakWieBxVm7rs3mTnPcfnqJD
-	YhM97MEmoXvIL4izG9iO+4I2fIwzX2T0lKfB58Eh3uRvfnnJTqbLzRw+DbUyMJpT
-	200WcqPOPdgyc6b1994FbuJeJhdAe0iemgfsovZtwOIoTA==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4em98csp1d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 13:23:46 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5a94a743521so2263927e0c.2
-        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 06:23:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ni4UwVJB"
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-6cfb0a137c9so1830922137.1
+        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 06:52:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780753962; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CiwnVHwD7KzioNtB+zHDYhbVfP7/l0J5OfuzCkSfD5DFgPNdmtLe4Tj0zN9AI5fKRJ
+         Ws8t9Z5+PDK0d45wY9uVhSz9UvlpYKPLC9AKOKiOWgaVhkNf4308aWCpVgC2TTkJ65mA
+         G8iAvnJ4g3djg2lQySpyhekjxNUw95Mw0lHIDCDmI2HUNKPiI8hLdW7K4/XPb/lZSREh
+         lLh0rsVv4y58R5duI0ZIvJcz5jFGEyYSM3WkrBVzN6n3B1asJHr7eiAFuDOrl5L0Xrz2
+         BUBcWGCMAcX59L32HQB1wBMq8YRLz2XZgy6KRPCRrHBXonbH1weYrUOikhjWFjxYvj0R
+         MH5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8CZOIp0iGytiz6Ffz4l5O1e5skqqCt9s6Yl5NU1Ixvw=;
+        fh=LmXUEn0+WqPqHbQ9zRX3pGNFnPLGkWe1ZA816qX1lgY=;
+        b=jZNuG1Uyx3Ho9ZnnA66QnMBIaugOHJv3za2SKczFE4I0rF2lLS8ztPahB1KCRlqS9c
+         ia2BqcSSeFsaE6MvLK3l67verSgOg4cwPxsp7JGS0FBYx1oBdHF9YQF08mW5/tepju7C
+         +d0nesGMAwenD1+KX307Y4STNEAP7bWgR8OhFMxvzdBXttkn3Lo4MzzKbAAinMxZk1uI
+         eZ4dI2qiCjQEkS8yS41+23c7qp6GqRwYqV5bGyy8ArYUtNlNI35Rx3UAig2qb6KmstrU
+         aOWTf4XePcvLUkFpDWZq+banfcqWF171J1ywrYdWeykw6066Jz9RBfsKWAvhzmMpRS6s
+         zWlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780752226; x=1781357026; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ksjiIivO5NlJD1LbbhDu0ri6r1Xvc7dbP55abanCnT8=;
-        b=bQ50NSd4q/B+GfNKHjPInDqJgHq0GIPHHkBwoMGUEpq/QJuhFPn3VXw4+ST25UkHOL
-         PewJS0WtgIDRoPUm7hzVIK8+hZ9HmqDfoLeyJrZwbWHZEpRXGari2W7V4RcTOcmlA+Vg
-         SLJ5WFekRYvQAyGLhn7RNIZ7izj2C6i4NdGd+z+tU23OiVvj3YtxpTb91ib9fLtd6HAU
-         gEV7v4O/cyXomnIHx6mUwAAXYTYfJjvOWyAkT1t3oem2xX99DCykARpeUndUmrh6R6zG
-         2rvvB3Amt9pWuAM1hBapaPL2VReiodu/DHVdTCikZPsVjfxoF/1Mcr413wWoc/fr4PTv
-         MSlQ==
+        d=gmail.com; s=20251104; t=1780753962; x=1781358762; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8CZOIp0iGytiz6Ffz4l5O1e5skqqCt9s6Yl5NU1Ixvw=;
+        b=Ni4UwVJBbP1YVfw4ZNAnFqSKQkpJRbqGBydf05LCk8wi1PzbqZat80vU48JQI0GX1H
+         zYnfzRaWL2+j8gS+O++K4vmFYoFU1LEh+zXbFzHHWVqkknkGd4U6OfS6h2uxd019GQK0
+         LR6OqB+WdHFmCHlGUPz5LT1rPObN9AyTfuxOPxocRQ3jmB4qpfMWrEfofa9nYLITf//+
+         jzl9peJtdwhykkWYoZCId3WoUtsKhZv2B0NFVZH5Qcb6UWxb4l31VEUQRwEZbAMtgs7S
+         tTAqZ5ralzR0yChIIbHkN5iOhT5gwdn5KZnS6I8SVawgGunS3EfqXYk5Mae5I/PO4JXI
+         zKqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780752226; x=1781357026;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ksjiIivO5NlJD1LbbhDu0ri6r1Xvc7dbP55abanCnT8=;
-        b=ejT/ae827eVzZKpJn0t1WG28e6rWMWTRtUEFGz3wlwPjJ7O/yK4R9MFW0h84uXPZ50
-         ttRrtlg7vSSevd9pjHOg/deaow0B/nkVmG+9dXTs7kP60X/BQM8GJscIyF/Zv0bZXB50
-         e8pWycpG9SizJiha7UJtehDtk0TZDbYGqwvprfFtQZaoLGaXq8T7JuEB273qZUH4H9fp
-         BV4WQ/fpYrPwKu/suMnc3sGAFhQ28h+cIzcqu6QVrAHk5NHemfFXxpsHsszb6Bb3bfve
-         CStws/z74oZqSPT3k9rzj8/LvvCbqZI4ZIQZuLWzzFWlAEzTbEYjPGaA3hzLHs5YDn+h
-         HvfA==
-X-Forwarded-Encrypted: i=1; AFNElJ95nVZIgu3Mbq7n08HwRAiKAHIhxVcrSXZXfHl/tyIdbuA4NKH/nwzPmY1619X2UIzEehovuBBWJQ3b@vger.kernel.org
-X-Gm-Message-State: AOJu0YxghxWv/48/6zE/dDGjVGCHdqTfE6lV5DviWUsJCmZmNGCMdqQ8
-	DNY5LOxu8+vtr6d7gSbWtvWR0xQsMaCB0QvagXWUaoYRjJzk86L6OwWQuNNrrGRFksy4IsqChYF
-	6Z4OmvFA7kLWl1sIg3jUoLh3b+A1PF6vNgskAds3WcFxUi8tohHYuaWxQPyvTgRIK
-X-Gm-Gg: Acq92OGDnR+byHXdeCqxfHzmUdYquq2a0oY/glCGX1K6LiKDgOLzt2r/e2+LJvaio3+
-	4YrRfHyWUI4JgYDQ21DBShy9ovw4d4Ik4LDyPpdhqYC3VvZqcvSoejFW+6ql8aw3d5Lo3dJiZLI
-	ih58RUsuCKmPLyb8H4zFsEnqtx3wi+xA4bmqSkJEiFYw+AlOpjBT3EqYdzjrhoH6pjRs1UZGU5A
-	elSQZJbD0wLoHf7A359Az9qKuitDq7GnQYaJ0orm6eGYYnAyKvyZe3t+X2tFilrZrv2K1uLzh4a
-	ot3L2Y1BWHcHw5uvpsvPaGeBQ4j+3GtE0Oo3+W8IuBxVwXSF7XcRjgXGY7nntRyshLYA6CPPdG8
-	zijzyDcrDaWfMvvgsbnfFSegMMzV6u/OGBwR6wKir/N/VKhIgz3v1/UsxdQs0zu+MaQPVXpBZ+N
-	wHxFXqnM0tHDYbm6G5kgKYpAzObwtWzxAq2aB+i0EGb/ZSnw==
-X-Received: by 2002:a05:6102:4410:b0:631:44bc:c0fd with SMTP id ada2fe7eead31-6ff051aa733mr3964435137.8.1780752225852;
-        Sat, 06 Jun 2026 06:23:45 -0700 (PDT)
-X-Received: by 2002:a05:6102:4410:b0:631:44bc:c0fd with SMTP id ada2fe7eead31-6ff051aa733mr3964422137.8.1780752225368;
-        Sat, 06 Jun 2026 06:23:45 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2d6282sm31177541fa.30.2026.06.06.06.23.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 06:23:44 -0700 (PDT)
-Date: Sat, 6 Jun 2026 16:23:42 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: interconnect: qcom: add msm8660 NoC
-Message-ID: <wypnu53w5pesj52zyrj3pydqzf2rbfrxa72uplz3mq64u447wf@gypyaug7iwkd>
-References: <20260606-submit-interconnect-msm8660-v3-0-f9da0158cdf8@herrie.org>
- <20260606-submit-interconnect-msm8660-v3-1-f9da0158cdf8@herrie.org>
+        d=1e100.net; s=20251104; t=1780753962; x=1781358762;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8CZOIp0iGytiz6Ffz4l5O1e5skqqCt9s6Yl5NU1Ixvw=;
+        b=IyINn2nr0pQu2bqNxMfsedfjz55Dp2Kv+OTw8TT+6pp4phNcBIS633gjTdoKN1zkXm
+         VQcPMtQ8E5u3wst7yUiVaHCChidJWUPAEIN68sFCdLoJ5BuI/aSJtQ97kw0m+w7cJqai
+         LiMU5Agq6/oSMcSraGEGAfejMe0mAtH1uQ0s0vDPn8FzGE/8BIfIjLJKBNPPYlTAuhsq
+         QSg8AgYsJucS9+SHCkuD979ScAYlKzUgZwxHtH0MiwBmlUD10+DEn5o9Pn6QR+v5z2fh
+         cX+xXOOBE8VvjgsEP99f0EeVArs6WxNROF6JsHykJgickxhdxUrqL4IvsBXPFCi2Cxaf
+         uXTg==
+X-Forwarded-Encrypted: i=1; AFNElJ+AMcrqx/HtNJcZ1Ilp2z3AI3hujniDH4vbEgugbyVHdsLo40HRDiyhjAXOelcEvGgFOZ59kM2WMoaq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8p7uVB8TyUt4GdLuwiUVpQY4c1RLVcM3JUdgmYdTAE9CkP/UY
+	feuXg03EhF3W/AveY/N8v1lbc0LjcwSP/cy8ZWSBD/smHqhsNebGasdv8EyKDwndkfb6N3WoJD3
+	Dcdw9GlvA+EU2K645R/XCvlBusdwKyO/Zd0VSlFU=
+X-Gm-Gg: Acq92OGawjy0hEf7xFDYJm+xkJNedn6xhsdlm3LVGhCP1k173uXL6K3+NM+va6xXOyZ
+	TMQJiXJIMzAKQHu8JRuVUo9RxsPklJ9wRj0w3NTNDX2LrGPtLuVFIU8Hsdl52HZBsMvoJsB7xcS
+	vyiYTLF9UTncyRtqBsSwkifSv/jnwFSz6Pir0FPCwGTLcP71mMCiMDB8AkSMIcSQy338gO8qIj8
+	ADk82BLFxQnIFp31PX0SdaQ/enq3FyHzNnUyZXVXaSfUKBqM5YwOeVcjQpTsdHZiJuA3zdYaeel
+	4WzQYRIXf5RhaqqnozKdZYD3WVT66H0d55evOEr8xiA0P3CuqA==
+X-Received: by 2002:a05:6102:c91:b0:6cc:16d2:3100 with SMTP id
+ ada2fe7eead31-6fef1098102mr4590673137.13.1780753962030; Sat, 06 Jun 2026
+ 06:52:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260606-submit-interconnect-msm8660-v3-1-f9da0158cdf8@herrie.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDEzNSBTYWx0ZWRfX8hzZFuZG4gV0
- JmBsB3PiJ+1M+q3jEhj78XBOxibUqT4dt7S2ViwkQZMX+DekE+kA6hsigQf5oOFcPlWui1OTnPM
- OjWojJaHWJDuifH9eUBItiEcxE5gyE4CK+GBTC7Qi5c/K82ac0zAZyfImfH00ZRHbpcpBzvY3WI
- DBg/ySsZwNquN9uQKUjZC1W2rFwE6ajY0oTYtYg9DZLqOjLjanIRAWCa0dGJemhVZfv8PDCazz0
- vn90Hyb9jKlIQEaIimorpnSVO7+20DMsr5KDU5CiQeD5J+LHH4rWThskQQSJLV4eVzrSDyvflXz
- qsB1qtAfeAVVeZ7KNJkNrBLuGxmXNDoqz6zhTnbKdFtV7srAvInr7IO9wx3Lma8wAFktTMyku9k
- BjhIxEFconvvsL3L+y0H6/Y+8zU3Ge2IX9lYHkqDF/TcxxGXMdgUKibT/Q2dUUXrau4WXDPGh9u
- 5sT35+bsx717JNU1shg==
-X-Proofpoint-ORIG-GUID: yxt0qnlrvoRzJCvJg2WutbcIWEYlkBk9
-X-Proofpoint-GUID: yxt0qnlrvoRzJCvJg2WutbcIWEYlkBk9
-X-Authority-Analysis: v=2.4 cv=A/pc+aWG c=1 sm=1 tr=0 ts=6a241f62 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8
- a=cTwmTnRGAAAA:8 a=KCr-RzwM3x1iQMyl6jsA:9 a=CjuIK1q_8ugA:10
- a=hhpmQAJR8DioWGSBphRh:22 a=sptkURWiP4Gy88Gu7hUp:22 a=GUWCSGlMWfG-xDt5EnV5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-06_03,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0
- adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606060135
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+ <178040480680.1778078.1165164069560552075.b4-review@b4> <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
+ <178073773007.397244.9871455646149843167.b4-reply@b4> <7ecda3d0f91b0d96bcec44ddf485ed5146788220.camel@iscas.ac.cn>
+ <178073918523.417326.15121723011916371966.b4-reply@b4> <1c33b1dd7d187b17b21b17339a4f1990e59d2f77.camel@iscas.ac.cn>
+In-Reply-To: <1c33b1dd7d187b17b21b17339a4f1990e59d2f77.camel@iscas.ac.cn>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Sat, 6 Jun 2026 21:51:26 +0800
+X-Gm-Features: AVVi8Cdt4JdBlUpf2MpnLITXCI-yOov0kLlRKmMeUF7C4TVsX9iBtGHi-7qPpE4
+Message-ID: <CAH2e8h7y9PivdMh-h78VSqMf8i2vSR2fvVaO0P1eYBT8qgEdUA@mail.gmail.com>
+Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels
+ according to DSDT
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Jun 06, 2026 at 02:34:50PM +0200, Herman van Hazendonk wrote:
-> Add a dt-binding schema and an interconnect master/slave ID header for
-> the MSM8x60 family (MSM8260/MSM8660/APQ8060) Network-on-Chip.  The
-> chip exposes four NoC fabrics that the qnoc-msm8660 driver models:
-> 
->   AFAB  - Applications fabric (Scorpion CPU + L2)
->   SFAB  - System fabric (DMA, SPS, security)
->   MMFAB - Multimedia fabric (MDP, GPU, camera, video, rotator)
->   DFAB  - Daytona fabric (SDC, ADM master/slave)
-> 
-> The schema covers all four compatible strings, per-fabric clock-name
-> lists (bus / bus_a / ebi1 / ebi1_a for AFAB; bus / bus_a / smi /
-> smi_a for MMFAB; bus / bus_a for SFAB and DFAB), the required
-> qcom,rpm phandle through which the provider hands the arbitration
-> buffer to RPM firmware, and #interconnect-cells = <1>.
-> 
-> The ID header lists per-fabric master / slave / gateway indices
-> derived from the legacy vendor msm_bus_board_8660.c enums,
-> normalised to the upstream interconnect-framework naming convention.
-> 
-> Assisted-by: Claude:claude-opus-4-7 Sashiko:claude-haiku-4-5
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-> ---
->  .../bindings/interconnect/qcom,msm8660.yaml        | 166 +++++++++++++++++++++
->  include/dt-bindings/interconnect/qcom,msm8660.h    | 156 +++++++++++++++++++
->  2 files changed, 322 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8660.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8660.yaml
-> new file mode 100644
-> index 000000000000..ff28c7d46c32
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8660.yaml
-> @@ -0,0 +1,166 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/interconnect/qcom,msm8660.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm MSM8x60 family Network-On-Chip interconnect
-> +
-> +maintainers:
-> +  - Herman van Hazendonk <github.com@herrie.org>
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,rpmcc.h>
-> +
-> +    interconnect-afab {
-> +        compatible = "qcom,msm8660-apps-fabric";
-> +        clocks = <&rpmcc RPM_APPS_FABRIC_CLK>,
-> +                 <&rpmcc RPM_APPS_FABRIC_A_CLK>,
-> +                 <&rpmcc RPM_EBI1_CLK>,
-> +                 <&rpmcc RPM_EBI1_A_CLK>;
-> +        clock-names = "bus", "bus_a", "ebi1", "ebi1_a";
-> +        qcom,rpm = <&rpm>;
-> +        #interconnect-cells = <1>;
-> +    };
-> +
-> +    interconnect-sfab {
-> +        compatible = "qcom,msm8660-system-fabric";
-> +        clocks = <&rpmcc RPM_SYS_FABRIC_CLK>,
-> +                 <&rpmcc RPM_SYS_FABRIC_A_CLK>;
-> +        clock-names = "bus", "bus_a";
-> +        qcom,rpm = <&rpm>;
-> +        #interconnect-cells = <1>;
-> +    };
-> +
-> +    interconnect-mmfab {
-> +        compatible = "qcom,msm8660-mmss-fabric";
-> +        clocks = <&rpmcc RPM_MM_FABRIC_CLK>,
-> +                 <&rpmcc RPM_MM_FABRIC_A_CLK>,
-> +                 <&rpmcc RPM_SMI_CLK>,
-> +                 <&rpmcc RPM_SMI_A_CLK>;
-> +        clock-names = "bus", "bus_a", "smi", "smi_a";
-> +        qcom,rpm = <&rpm>;
-> +        #interconnect-cells = <1>;
-> +    };
-> +
-> +    interconnect-dfab {
-> +        compatible = "qcom,msm8660-daytona-fabric";
-> +        clocks = <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
-> +                 <&rpmcc RPM_DAYTONA_FABRIC_A_CLK>;
+On Sat, Jun 6, 2026 at 9:21=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac.=
+cn> wrote:
+>
+> =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 17:46 +0800=EF=BC=8CPengyu Luo=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > On 2026-06-06 17:28:35+08:00, Icenowy Zheng wrote:
+> > > =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 17:22 +0800=EF=BC=8CPengyu Luo=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > > On 2026-06-02 21:21:27+08:00, Icenowy Zheng wrote:
+> > > >
+> > > > The magnetic keyboard (USB HID) can't be connected somehow,
+> > > > others
+> > > > are
+> > > > fine, such as the spi touchscreen (not upstream yet), which
+> > > > utilizes
+> > > > DMA definitely. My config is here https://pastebin.com/SdjuyJYk
+> > >
+> > > Is this a defconfig?
+> > >
+> >
+> > Yes.
+> >
+> > > BTW it seems that CONFIG_ASYNC_TX_DMA needs to be selected too for
+> > > exhibiting the problem (because there should be "public" GPI DMA
+> > > consumers to trigger the stuck/reset).
+> > >
+> >
+> > Is this still necessary? I checked the fedora discussion and your GPI
+> > DMA fix. And GPI DMA is only for the QUP-supported peripherals as the
+> > binding mentioned, devicetree/bindings/dma/qcom,gpi.yaml
+>
+> The devicetree without this fix seems to be still incorrect, because
+> with the device tree fix even if the GPI DMA driver misbehaves the
+> system won't be stuck (although it will iterate all GPI channels and
+> then fail to function at all).
+>
 
-Looking at it, I don't think those clocks sould be exposed here. Please
-follow what Konrad did some time ago for smd-rpm interconnects: add
-direct voting to the interconnect driver, them drop them from the clocks
-driver. Ping me if you need help finding corresponding patch series (as
-there were few more tricks.
+Back to the start. You said some GPI interfaces aren't available to
+HLOS, your mask is 0xb(0b1011), so I use 0x4(0b100) did a quick test,
+and spi6 consumed it, no stuck or reset. Could you give me a
+unavailable channel?
 
-> +        clock-names = "bus", "bus_a";
-> +        qcom,rpm = <&rpm>;
-> +        #interconnect-cells = <1>;
-> +    };
-> +...
-
--- 
-With best wishes
-Dmitry
+Best wishes,
+Pengyu
