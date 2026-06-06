@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DE62F8EA3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8294305676;
 	Sat,  6 Jun 2026 05:42:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780724569; cv=none; b=YX9he+lY1gLMkyL7YF7E5NuNO0d1l7dH1q1z9I2zk5wTRsmFdNW/PXgRte9/D6t5rBfCyVqc+bSH+3mAnsub7gw1+H8P6LqXJ7t9FxlQ8CHwQ6RSNnaUudFKEfVFmLzByyE7EFBaAFiXsQyj8JxGLOY45PlOtQTEY7bcf8Q90l8=
+	t=1780724569; cv=none; b=TqYe2HZnMrfUfTWLDFzWI9ly0FlmpIIF5ykBhwxjTtHpDecKSmGHojQ4gQQTjS+h1cxn1Waf8TLmvZFs1KNjUtI0jZp08xyuKAzWFlHt/XNetK5E6GDcOOfdTeztSDlmqAsIscUfNGZJx3UZ9TqPv+OS6aDmOORGuS5oK2AtfZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780724569; c=relaxed/simple;
-	bh=SmYwTrh69xadUhUcelpIIAfDK+nVXETKXpTKd0NEGsg=;
+	bh=pZvTlPEHnVoq7eY/dHY7MDK1DnQZ3Ydm8xyowN1LaiU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XTnrdBQD0XE/pSuBUCJ8V0U0L7Mi1NFV6qEQC4VZIl61g4jqttoltlsURsmdvs2IpsD3i8Ke9RTxWUSoasLEUhNeo0ywXCbgKv80t9YOc245rG2WoRS8k2UPxOi5F9FqH5rNAGpE5o1a21ol8LTc/2ZLvD1zqzhsJZmSrPNk/+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltEDzHKH; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=hK78hi6cf7aEOQXD7oH+cnTOCwCzicZihcxfaoqTRgEkaQOYEoPFpQh5+4STuYTwsew9+JeoQbUffBfT1XqXL6tKahkhH3FLkqY5NsFkMCANMNlL0ZwGArCGYcDy3WoVV6GB1lt7fJhr7sfLp0UbngsZZOWyEjthtQyzm+HHUn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I29lxOed; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltEDzHKH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5FED9C4AF0C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I29lxOed"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9EEDDC2BCFD;
 	Sat,  6 Jun 2026 05:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780724569;
-	bh=SmYwTrh69xadUhUcelpIIAfDK+nVXETKXpTKd0NEGsg=;
+	bh=pZvTlPEHnVoq7eY/dHY7MDK1DnQZ3Ydm8xyowN1LaiU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ltEDzHKHhilnURIxH9O4Zwlj4G+ce8sW9L4i4q1T0mO9yi484FhzhiULTxW+MEAc0
-	 RfCC13d3bf1jRcDyWc8ZbPty8tiyvnDzCDJSbPFUcCWCOtXhBhXMZHX8nK17rSlDF2
-	 4PgqLFM2n6BIlJHIcVKtR/+r0dCghaYOlLCT0kajNGUdUHU3S0DeMUqKdgzjdMQc85
-	 KbXau/VnXzW38gy3TnajACTEeDmRK9q6bN3pUyIGA26uDpFidOPMa4EW2+132YSUj5
-	 Gj3Gc1apyINVSCJjj39+BHz7HNErDTM9sk4KGZ3VgEE+5HEDrtGlAauwtXb2MU58Or
-	 wzd5PVmrGF+Kg==
+	b=I29lxOedxsboQnhEI0SONS1bEEYZBrkNjQ90YqRMstupDQE5n3OgIN+2LpQmMKwBJ
+	 OrXvj9ASj2AkNi1oQzASF46bF6VWnm7pl16m+QkwvZoFOjOZKkiFKvFGBN7yQjlK6E
+	 iTRnZp0fxSCP7uaVUz8jMFAjqOmmoIowC5IBtPDCKTL4bzMe+UIX/2RKrkIZqjM0Qc
+	 n+ktvTeOmO2Nj5k3y38E4CispczWJOSHTzmAOyTBhEZ8qSN3rnfgOOKqs47yK9NK4i
+	 CiGl7ryykkGOQm6fylxlKmPsu889zcxs4VjnR6/QQrOLITg4j+GzowOfhJA3aj3hze
+	 gdbPVBRwtzzKg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 517BFCD8C8E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 982E6CD8C90;
 	Sat,  6 Jun 2026 05:42:49 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Fri, 05 Jun 2026 22:42:35 -0700
-Subject: [PATCH net-next v4 04/16] net: phy: microchip_t1s: Use generic
- APIs for C45 read and write
+Date: Fri, 05 Jun 2026 22:42:39 -0700
+Subject: [PATCH net-next v4 08/16] net: ethernet: oa_tc6: Remove FCS size
+ in RX frame
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-s2500-mac-phy-support-v4-4-de0fbc13c6d8@onsemi.com>
+Message-Id: <20260605-s2500-mac-phy-support-v4-8-de0fbc13c6d8@onsemi.com>
 References: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
 In-Reply-To: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
 To: Andrew Lunn <andrew@lunn.ch>, 
@@ -62,11 +62,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jerry Ray <jerry.ray@microchip.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780724562; l=2443;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780724562; l=1396;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=6sTUcccS7JT5OwyvQOGywuignQ32VFAFjNX0fljOxUI=;
- b=itPmpMHWoPWnso/Qb9QuMMu3T6jnObSBOWOdQYubTo9lEaCWR4sEp24QGd3dC7wQXbUd3CyNC
- Cq6XtW7R34ABTMB+YMKyJsbxyNkRtUUvA4wnS9vHc0/5/3yVvG81sV3
+ bh=Nwz8ph63R7fgKGIZDndf/9epwjHtj0F853lNYFbk53o=;
+ b=EkPoE0N561Rn6mpFwlh2B8OkMCBA4T9JKP5di9atN9IusrrG4l799ud9ZyAEVXZYpc5C9VJS3
+ +mSc/YXu2pyAT0kjQIiCQ85m8Tqggx1D5x6K486h+gwMsU2u0b79nSm
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -76,64 +76,42 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Replace vendor implementation with generic API to read and write
-PHY registers using C45 bus protocol.
+OA TC6 MAC-PHY appends FCS to the incoming frame.
+It is removed from the frame before being passed to the stack.
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 ---
- drivers/net/phy/microchip_t1s.c | 32 ++------------------------------
- 1 file changed, 2 insertions(+), 30 deletions(-)
+ drivers/net/ethernet/oa_tc6/oa_tc6.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
-index e601d56b2507..0c4dc70641d8 100644
---- a/drivers/net/phy/microchip_t1s.c
-+++ b/drivers/net/phy/microchip_t1s.c
-@@ -506,34 +506,6 @@ static int lan86xx_read_status(struct phy_device *phydev)
- 	return 0;
+diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6.c b/drivers/net/ethernet/oa_tc6/oa_tc6.c
+index 2f9ace655e81..26033373f16f 100644
+--- a/drivers/net/ethernet/oa_tc6/oa_tc6.c
++++ b/drivers/net/ethernet/oa_tc6/oa_tc6.c
+@@ -782,12 +782,22 @@ static void oa_tc6_submit_rx_skb(struct oa_tc6 *tc6)
+ {
+ 	oa_tc6_update_ts_in_rx_skb(tc6);
+ 
++	/* MAC-PHY delivers each frame with its Ethernet FCS attached.
++	 * Strip it before handing over to the stack, unless the user
++	 * has asked to keep it via NETIF_F_RXFCS. Keeping the FCS
++	 * in the frame is harmless for IP traffic, but is parsed as
++	 * a (malformed) suffix TLV by PTP, which makes ptp4l reject
++	 * every message with "bad message" error.
++	 */
++	if (!(tc6->netdev->features & NETIF_F_RXFCS) &&
++			tc6->rx_skb->len > ETH_FCS_LEN)
++		skb_trim(tc6->rx_skb, tc6->rx_skb->len - ETH_FCS_LEN);
++
+ 	tc6->rx_skb->protocol = eth_type_trans(tc6->rx_skb, tc6->netdev);
+ 	tc6->netdev->stats.rx_packets++;
+ 	tc6->netdev->stats.rx_bytes += tc6->rx_skb->len;
+ 
+ 	netif_rx(tc6->rx_skb);
+-
+ 	tc6->rx_skb = NULL;
  }
  
--/* OPEN Alliance 10BASE-T1x compliance MAC-PHYs will have both C22 and
-- * C45 registers space. If the PHY is discovered via C22 bus protocol it assumes
-- * it uses C22 protocol and always uses C22 registers indirect access to access
-- * C45 registers. This is because, we don't have a clean separation between
-- * C22/C45 register space and C22/C45 MDIO bus protocols. Resulting, PHY C45
-- * registers direct access can't be used which can save multiple SPI bus access.
-- * To support this feature, set .read_mmd/.write_mmd in the PHY driver to call
-- * .read_c45/.write_c45 in the OPEN Alliance framework
-- * drivers/net/ethernet/oa_tc6.c
-- */
--static int lan865x_phy_read_mmd(struct phy_device *phydev, int devnum,
--				u16 regnum)
--{
--	struct mii_bus *bus = phydev->mdio.bus;
--	int addr = phydev->mdio.addr;
--
--	return __mdiobus_c45_read(bus, addr, devnum, regnum);
--}
--
--static int lan865x_phy_write_mmd(struct phy_device *phydev, int devnum,
--				 u16 regnum, u16 val)
--{
--	struct mii_bus *bus = phydev->mdio.bus;
--	int addr = phydev->mdio.addr;
--
--	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
--}
--
- static struct phy_driver microchip_t1s_driver[] = {
- 	{
- 		PHY_ID_MATCH_EXACT(PHY_ID_LAN867X_REVB1),
-@@ -584,8 +556,8 @@ static struct phy_driver microchip_t1s_driver[] = {
- 		.features           = PHY_BASIC_T1S_P2MP_FEATURES,
- 		.config_init        = lan865x_revb_config_init,
- 		.read_status        = lan86xx_read_status,
--		.read_mmd           = lan865x_phy_read_mmd,
--		.write_mmd          = lan865x_phy_write_mmd,
-+		.read_mmd           = genphy_phy_read_mmd,
-+		.write_mmd          = genphy_phy_write_mmd,
- 		.get_plca_cfg	    = genphy_c45_plca_get_cfg,
- 		.set_plca_cfg	    = lan86xx_plca_set_cfg,
- 		.get_plca_status    = genphy_c45_plca_get_status,
 
 -- 
 2.43.0
