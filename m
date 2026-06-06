@@ -1,346 +1,159 @@
-Received: from mail-m12782.qiye.163.com (mail-m12782.qiye.163.com [115.236.127.82])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2022D8DD0;
-	Sat,  6 Jun 2026 19:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD163B5314;
+	Sat,  6 Jun 2026 19:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780772653; cv=none; b=AxQxT0kyLCHN/zrBDEIsm+KR39xVsIbt4y8diIgg3G+CinDNijv1pU+r1WcpPLCjuFbTbQJfp/xQIRZW2UrDRUlH+NDAWSPR5bVyUPH9Dc2emF0ua3OGrLkjOYK6JeT9uR3o7KWVWNudNsHUkp0M4qVg6MAW5h8fX0rxL3xf4Zo=
+	t=1780773190; cv=none; b=NHd6ub/qmfqGVvkDfppZX9cyKI6KWx1bNrzcCXejcuSMbTasJbwFdnFX3GQZwTUwtz7+4qNUslPGc13ZabzqBmm8ydhcnJrgbgOds0Pe0nXk+AAu0ZKIhfiN+GRNWPg4X4PQNL8R3y7PAwFcFWri13QRX3fmozzjaTG51IIMQFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780772653; c=relaxed/simple;
-	bh=xhGx9btUBJ7PbSENKiLTzAu2Pwgm8GyTghkEQBUGyqg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nAhb1p2XcDDvtislk5G+E+Kqkt2PUyzHwC6EZIdOzRheS9rCyRDba+cHIwBiwqhS3BB4Wea9h04X3TF77pUBkhtwQHvGYRYmQ0gAPza7fX/txKw56cD0s49wyqsKylNdMEWG0oaTXn48JwMS9+U6H7LZjN4gngr5QsrHDp+Bk/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=bD1MJLPe; arc=none smtp.client-ip=115.236.127.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1780773190; c=relaxed/simple;
+	bh=noMB+ePnB9H9kuCxlgqLw6ucylWZoq7R3EbSq8liaH0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=n0660qbwd1Q6KIuDSresHF1J49mYoO7WNsXR6D1YjSbTRvlUKciqA9zQb6Tsq//Kh1i2cioXTnSpe2BEeJjBqlu/XzcBFy9QU2Ig7QxYUoKZ5OS9LtrrbONmJvoQzXWJa53t158QztskoDVxHDJpN8Xef2wEkKQGhMxSpV2ToSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVOnVEIl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="bD1MJLPe"
-Received: from [127.0.1.1] (unknown [113.235.125.44])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 415a25048;
-	Sun, 7 Jun 2026 02:58:49 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Sun, 07 Jun 2026 02:58:21 +0800
-Subject: [PATCH 5/5] arm64: dts: qcom: qcs6490-rubikpi3: Add audio support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVOnVEIl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884C41F00893;
+	Sat,  6 Jun 2026 19:13:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780773188;
+	bh=SHH2cil3xPmegNJkbefYpPtqE9n6STIGuriAlPk5B/w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aVOnVEIlGIZXPZ0FSSeVn9DDfLkD6Ffiw0EsIMLADKitLqHiEwFdP8N6P0qgQMHjz
+	 9sY8BVxK92g7gMtApj88t1o3KyrAKilJYfO+Xb3CKeqNI2sQUvgQFSQ0CVeVTqblOJ
+	 Ovw9Hn//Rmj+0dWZnzl/jqcRf4UEO4OYoxhgiF+mBBLisNy07whVikYHyzU3kiyfiD
+	 SG5OqnWVzgS2C1hkBhNiwydw/GMoWJk14azqGSppMiEEMfiyDfoIdkdBXiviB5bV6q
+	 H5TObGvzcDpmxEo7K89pYsGBhMl5i4OGFKFF/4hyQjw+W4ZnKKfKAEsgyCMN/0qmbY
+	 SA6NLnvpWaVYg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] media: i2c: add Aptina MT9M113 1.3 Mpx SoC
+ sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Herman van Hazendonk via B4 Relay" <devnull+github.com.herrie.org@kernel.org>
+Cc: conor+dt@kernel.org, linux-media@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260606-submit-media-mt9m113-v6-2-8f6d0f79f4d1@herrie.org>
+References: <20260606-submit-media-mt9m113-v6-2-8f6d0f79f4d1@herrie.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 06 Jun 2026 19:13:08 +0000
+Message-Id: <20260606191308.884C41F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260607-rubikpi-next-20260605-v1-5-7f334e16fea6@thundersoft.com>
-References: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
-In-Reply-To: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
- mohammad.rafi.shaik@oss.qualcomm.com, rosh@debian.org
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780772320; l=6149;
- i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
- bh=xhGx9btUBJ7PbSENKiLTzAu2Pwgm8GyTghkEQBUGyqg=;
- b=Mn66vPLzlmABgaAUUrZHmG14UEMVyB3JmaGGiItMcwXP5ZTDvZJ35XA4cDV70j+YXTjuCDXD9
- Kg2Y3s34YNsCpONU6F0YCHxS2DzDiEbs3rlIn2FDSl6QhokimEk791W
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
-X-HM-Tid: 0a9e9e4d59c609d5kunm343af971138b07
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGh9IVkkaS0hLH05MH0geSlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
-	tJT09PSFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=bD1MJLPe6WiIC1Tw1WWbTRLJaPKkjJi3D5HA/IhsJFvulrcuWATzkH391PJVO72xvO3sv2eZHpieFCvqWOqq3JYTCBqsHg/JahDQluUKPr+Ixu9+rgUBbaA/QCtR5HxPw0r++Ga24OeeMLRYNagEKN+dNZ3dLSewUDuRpFhCxsg=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=Fhw4hjclec77QznNiSsI18O2qX1bXG4rCI/YfxKzWfs=;
-	h=date:mime-version:subject:message-id:from;
 
-Add audio support for the Thundercomm RubikPi3 board.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `mt9m113_start_streaming()` error path explicitly powers off t=
+he hardware but leaves the PM state as `RPM_ACTIVE`. Subsequent operations =
+(like STREAMON retries, `s_ctrl`, or `remove`) trust the active PM state an=
+d perform illegal operations, causing clk/regulator refcount underflows and=
+ I2C timeouts.
+- [High] Tying the allocation lifetime of the sensor structure to V4L2 subd=
+ev `.release` callbacks introduces a memory leak on unbound initialization =
+and a Use-After-Free during bridge unbind.
+- [High] Concurrency between `VIDIOC_S_CTRL` / `VIDIOC_STREAMON` ioctls and=
+ `mt9m113_remove()` causes Use-After-Free on devres-managed resources (e.g.=
+, `regmap`, `clk`).
+--
 
-Enable AudioReach and describe the ES8316 headset codec, the LT9611
-HDMI codec endpoint and the SPDIF TX/RX endpoints exposed on the
-40-pin header. Add the sound card DAI links, LPASS pin configuration
-and ES8316 fixed 3.3V supply.
+commit f0fc2c67299ebd9a65a3dfa2e680f9a4ff64a2cb
+Author: Herman van Hazendonk <github.com@herrie.org>
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 196 +++++++++++++++++++++
- 1 file changed, 196 insertions(+)
+    media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
+   =20
+    Add a V4L2 subdev driver for the Aptina MT9M113 1.3 Megapixel SoC
+    image sensor (1280x1024 active pixel array) with on-chip ISP.
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-index f47efca42d48..3249176b4c77 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-@@ -19,6 +19,7 @@
- #include "pm7325.dtsi"
- #include "pm8350c.dtsi" /* PM7350C */
- #include "pmk8350.dtsi" /* PMK7325 */
-+#include "qcs6490-audioreach.dtsi"
- 
- /delete-node/ &adsp_mem;
- /delete-node/ &cdsp_mem;
-@@ -128,6 +129,23 @@ fan0: pwm-fan {
- 		pinctrl-names = "default";
- 	};
- 
-+	vreg_es8316_3v3: vreg-es8316-3v3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_es8316_3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&es8316_power_on>;
-+		pinctrl-names = "default";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
- 	vreg_eth_1v8: regulator-eth-1v8 {
- 		compatible = "regulator-fixed";
- 
-@@ -346,6 +364,16 @@ active-config0 {
- 		};
- 	};
- 
-+	spdif_rx: spdif-rx {
-+		compatible = "linux,spdif-dir";
-+		#sound-dai-cells = <0>;
-+	};
-+
-+	spdif_tx: spdif-tx {
-+		compatible = "linux,spdif-dit";
-+		#sound-dai-cells = <0>;
-+	};
-+
- 	usb1-sbu-mux {
- 		compatible = "pericom,pi3usb102", "gpio-sbu-mux";
- 
-@@ -727,6 +755,23 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/qcs6490/a660_zap.mbn";
- };
- 
-+&i2c0 {
-+	status = "okay";
-+
-+	es8316: audio-codec@11 {
-+		compatible = "everest,es8316";
-+		reg = <0x11>;
-+		#sound-dai-cells = <0>;
-+
-+		clocks = <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "mclk";
-+
-+		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_BOTH>;
-+
-+		everest,jack-detect-inverted;
-+	};
-+};
-+
- /* Pin 3, 5 in 40-pin connector */
- &i2c1 {
- 	status = "okay";
-@@ -740,6 +785,7 @@ &i2c9 {
- 	lt9611_codec: hdmi-bridge@39 {
- 		compatible = "lontium,lt9611";
- 		reg = <0x39>;
-+		#sound-dai-cells = <1>;
- 
- 		interrupts-extended = <&tlmm 20 IRQ_TYPE_EDGE_FALLING>;
- 		reset-gpios = <&tlmm 21 GPIO_ACTIVE_HIGH>;
-@@ -970,6 +1016,15 @@ &pon_resin {
- 	status = "okay";
- };
- 
-+&q6apmbedai {
-+	pinctrl-0 = <&mi2s0_data0>, <&mi2s0_data1>, <&mi2s0_mclk>,
-+		    <&mi2s0_sclk>, <&mi2s0_ws>,
-+		    <&lpass_qua_mi2s_sclk>, <&lpass_qua_mi2s_ws>, <&lpass_qua_mi2s_data>,
-+		    <&lpass_lpi_i2s1_clk>, <&lpass_lpi_i2s1_ws>,
-+		    <&lpass_lpi_i2s1_data0>, <&lpass_lpi_i2s1_data1>;
-+	pinctrl-names = "default";
-+};
-+
- &qupv3_id_0 {
- 	firmware-name = "qcom/qcm6490/qupv3fw.elf";
- 
-@@ -1006,6 +1061,96 @@ &sdhc_2 {
- 	status = "okay";
- };
- 
-+&sound {
-+	compatible = "thundercomm,qcs6490-rubikpi3-sndcard";
-+	model = "QCS6490-Thundercomm-RubikPi3";
-+
-+	audio-routing =
-+		"Headphone Jack", "HPOL",
-+		"Headphone Jack", "HPOR",
-+		"MIC2", "Mic Jack";
-+
-+	mi2s-playback-dai-link {
-+		link-name = "MI2S-LPAIF-RX-PRIMARY";
-+
-+		codec {
-+			sound-dai = <&es8316>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+
-+	mi2s-capture-dai-link {
-+		link-name = "MI2S-LPAIF-TX-PRIMARY";
-+
-+		codec {
-+			sound-dai = <&es8316>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai PRIMARY_MI2S_TX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+
-+	quaternary-mi2s-playback-dai-link {
-+		link-name = "MI2S-LPAIF_RXTX-RX-PRIMARY";
-+
-+		codec {
-+			sound-dai = <&lt9611_codec 0>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai QUATERNARY_MI2S_RX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+
-+	tert-mi2s-playback-dai-link {
-+		link-name = "MI2S-LPAIF-RX-TERTIARY";
-+
-+		codec {
-+			sound-dai = <&spdif_tx>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai TERTIARY_MI2S_RX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+
-+	tert-mi2s-capture-dai-link {
-+		link-name = "MI2S-LPAIF-TX-TERTIARY";
-+
-+		codec {
-+			sound-dai = <&spdif_rx>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai TERTIARY_MI2S_TX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+};
-+
- /* Pin 19, 21, 23, 24 in 40-pin connector */
- &spi12 {
- 	status = "okay";
-@@ -1220,6 +1365,50 @@ &sdc2_data {
- 	drive-strength = <10>;
- };
- 
-+&lpass_tlmm {
-+	lpass_qua_mi2s_sclk: qua-mi2s-sclk-state {
-+		pins = "gpio0";
-+		function = "qua_mi2s_sclk";
-+		drive-strength = <8>;
-+		bias-disable;
-+		output-high;
-+	};
-+
-+	lpass_qua_mi2s_ws: qua-mi2s-ws-state {
-+		pins = "gpio1";
-+		function = "qua_mi2s_ws";
-+		drive-strength = <8>;
-+		output-high;
-+	};
-+
-+	lpass_qua_mi2s_data: qua-mi2s-data-state {
-+		pins = "gpio2", "gpio3", "gpio4";
-+		function = "qua_mi2s_data";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	lpass_lpi_i2s1_clk: lpi-i2s1-clk-state {
-+		pins = "gpio6";
-+		function = "i2s1_clk";
-+	};
-+
-+	lpass_lpi_i2s1_ws: lpi-i2s1-ws-state {
-+		pins = "gpio7";
-+		function = "i2s1_ws";
-+	};
-+
-+	lpass_lpi_i2s1_data0: lpi-i2s1-data0-state {
-+		pins = "gpio8";
-+		function = "i2s1_data";
-+	};
-+
-+	lpass_lpi_i2s1_data1: lpi-i2s1-data1-state {
-+		pins = "gpio9";
-+		function = "i2s1_data";
-+	};
-+};
-+
- &tlmm {
- 	pcie1_reset_n: pcie1-reset-n-state {
- 		pins = "gpio2";
-@@ -1387,6 +1576,13 @@ pcie0_wake_n: pcie0-wake-n-state {
- 		bias-pull-up;
- 	};
- 
-+	es8316_power_on: es8316-power-on-state {
-+		pins = "gpio117";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
- 	wifi_power_on: wifi-power-on-state {
- 		pins = "gpio125";
- 		function = "gpio";
+> diff --git a/drivers/media/i2c/mt9m113.c b/drivers/media/i2c/mt9m113.c
+> --- a/drivers/media/i2c/mt9m113.c
+> +++ b/drivers/media/i2c/mt9m113.c
+> @@ -1876,14 +1876,8 @@ static int mt9m113_start_streaming(struct mt9m113 =
+*sensor,
+[ ... ]
+>  	sensor->chip_off =3D true;
+>  	pm_runtime_put_noidle(dev);
+>  	return ret;
+>  }
 
--- 
-2.43.0
+[Severity: High]
+Does this leave the PM state as RPM_ACTIVE while the hardware is physically
+powered off?
 
+If the retry loop exhausts all attempts, the hardware is explicitly powered
+down. However, because the PM state is left active, subsequent operations
+like ioctls or remove() will trust the PM state and attempt hardware access=
+es
+or call power down again.
+
+Could this lead to clock and regulator refcount underflows in remove() or
+I2C timeouts in s_ctrl() since they believe the chip is powered on?
+
+[ ... ]
+
+> @@ -2293,12 +2293,7 @@ static int mt9m113_ifp_registered(struct v4l2_subd=
+ev *sd)
+>  {
+>  	struct mt9m113 *sensor =3D ifp_to_mt9m113(sd);
+>  	int ret;
+> =20
+>  	ret =3D v4l2_device_register_subdev(sd->v4l2_dev, &sensor->pa.sd);
+
+[ ... ]
+
+> @@ -3246,26 +3246,12 @@ static void mt9m113_remove(struct i2c_client *cli=
+ent)
+[ ... ]
+>  	pm_runtime_disable(dev);
+>  	pm_runtime_dont_use_autosuspend(dev);
+>  	if (!pm_runtime_status_suspended(dev))
+>  		mt9m113_power_off(sensor);
+
+[Severity: High]
+Can the sensor structure be freed before remove() is called or leaked
+entirely?
+
+The allocation lifetime of the sensor structure is tied to the V4L2 subdev
+release callbacks, using an atomic release_count initialized to 2. However,
+the pixel array subdev pa.sd is only registered in mt9m113_ifp_registered()
+when a bridge attaches.
+
+If the module is unloaded before a bridge binds, pa.sd is never registered,
+its release callback never runs, and the sensor structure leaks.
+
+Conversely, if a bridge unbinds, v4l2_device_unregister_subdev() invokes
+the release callbacks for both subdevs, freeing the sensor structure. A
+subsequent execution of remove() would then dereference the already freed
+sensor when calling mt9m113_power_off() and v4l2_async_unregister_subdev().
+
+Could this result in a use-after-free?
+
+>  	pm_runtime_set_suspended(dev);
+> =20
+>  	v4l2_async_unregister_subdev(&sensor->ifp.sd);
+
+[Severity: High]
+Does this remove process leave devres-managed resources vulnerable to a
+use-after-free from concurrent ioctls?
+
+By deferring the freeing of the sensor structure to the subdev release
+callbacks, the control handlers can outlive remove() if an application holds
+an open file descriptor.
+
+Hardware resources like sensor->regmap and sensor->clk are managed by devres
+and are automatically freed when remove() returns.
+
+If an ioctl like VIDIOC_S_CTRL successfully calls pm_runtime_get_if_in_use()
+just before remove() calls pm_runtime_disable(), will the control handler
+thread attempt to use the regmap structure after devres has already destroy=
+ed
+it?
+
+>  	/* @sensor may already be freed here; do not dereference it. */
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-submit-med=
+ia-mt9m113-v6-0-8f6d0f79f4d1@herrie.org?part=3D2
