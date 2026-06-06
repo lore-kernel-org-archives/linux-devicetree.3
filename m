@@ -1,61 +1,63 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D043722652D
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 15:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD8D26CE32
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 15:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780758322; cv=none; b=HdVigsDU7pBtqpNUjohfZxI3l0TeyK2ToRn3dV+2UnGVe3MBNnwWTTcSiS8avB9z/Yt4AdtJBwt5NbdxymDo9BtuEM7biDYWc64DDwIcDGnwK5CiYLR5NrYsNmBibHl1LP1Wpeg80WORxYi8ZSykOI8jk0iKEzt4oSpgCTwuSBM=
+	t=1780758331; cv=none; b=ZNHxpd48rHCAtRam9P2878f0eWFPO6RIloZ/LLDNuJ+q+5GufAulrVRAv/E+uXelCTA15Tc/uArrV4ZqsNe+vyYnRDIVMrTENOBhrOpM2aPdDVrvJOiYHzd16vDcq9ETpwqberqk0j++QqJunGXBo8ykcrdKeZPhIgMafwxwA+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780758322; c=relaxed/simple;
-	bh=NjLkm9mYmm8B70ayavRAnDtp5W0P2+QJpDX+0PkbbiI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rWXvPQL29I6gyfgN79JxBrKAn1jVfoWaiV5FnUvPJEih/Scs1i/qQ5lEG2VZeWUrgydNNRE1671pNKSsogd2q+e+vB62/uEb482V+K4zk1Ld7Id231zemrZRS7zy5OV2s5HmE1cEe4Kut00qGErb2dzN3Cm/HVW1LKfnKbA8R1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jOTGIjSe; arc=none smtp.client-ip=74.125.82.49
+	s=arc-20240116; t=1780758331; c=relaxed/simple;
+	bh=5eyF2S7ViTpP1C7easdlz2xSG10ngTk27LKK60dNnt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pZQBiqtmszs4/e1IBX9xVXr6s3Ep574r/V9qJZqscstU0d6m2Dmnc5WYV8kvmJ/MIU+EetIz/K/OBQVG1Nxnrxq8XwDRWKiaYHJqsiJQCW2Kbk8uXPnKK+BlJHo/ZiMAcTvVfkjz5FHVPyMIr939MujfLMWquMSEwcaOn6CAc9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IMgzhZVs; arc=none smtp.client-ip=74.125.82.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jOTGIjSe"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-137eb0d76beso2204274c88.0
-        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 08:05:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IMgzhZVs"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-137dd523634so4740836c88.1
+        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 08:05:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780758321; x=1781363121; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=G2TbMHCwcm5U+hLOH+EuDpxcZ8w5TOO6sVqeTTwO0uA=;
-        b=jOTGIjSeNCQqklAC/mPGlztmFdHj+ySz602FDdvcNySfnTY38JG3fwXjbYBk0vBx/n
-         MD1CdAosigiNbVE/XmansyfpAowUpBFDNCyKt3tVFajA/GDBsQGoxKRSpHruAlkAUwra
-         vMaKOlKg2fKlTHw2hjIf2YUKnc/h684kY5smrLSXkJE0FcJ/KyZV3+OC+MpP5bnRL6tJ
-         euO2mKpSyM6UalEXqIvmeM9Dn8qh/JzBYTszF1Wb9jfU8wu+uFLZbTITPJG9qDMlgqtl
-         7nKpP602zW8szKG1xEj7IYV6FcWuvuzDZP6QEuI5PqpTuncwT61PragDD9WnZCP8pNIp
-         486Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780758321; x=1781363121;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780758330; x=1781363130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G2TbMHCwcm5U+hLOH+EuDpxcZ8w5TOO6sVqeTTwO0uA=;
-        b=atFZ2KbRpQxKg0Q8lI/j5GdlxWU4iTAY2A56XugDD9cC9I5SMGp5Bk36cp3tuqIGoi
-         WmkYJqD8iUoApHHcU0XnnsrI2SnZndfe9YTuGcjaWQCwaEZnbCNCBwo1kuo+MNzruFjf
-         rCBsj3xf4OorL1N3HBCYuN8i7ghKLVCiDqPIh5hxk50VdKKvDh5+7E+HKT5etsBNdgxv
-         294mMzVL5frWeI0Q7pVOOCockl3Icba94iopo1UMTVxfozBkfodvU79U8lVFae68ejPP
-         6gSX43rpj7CkDseSnV8VbNlWTjOftxCD8kbedzma+ZZ9n3ZWRboakGdsN902nPPJS7GI
-         Xy+w==
-X-Forwarded-Encrypted: i=1; AFNElJ8x46S8yPEd15F3TPYZusmfLuSWhkPcmYtsohi2buTWTd2sIE0BeGgnRAjqzscxweVe9d3lwHKeDaMj@vger.kernel.org
-X-Gm-Message-State: AOJu0YyA0FOXe9uTvlpU6Xhx4Tj+7lAbyk6cz3m1qY13ffnEujlP+TMk
-	oy6/AiHjYXFcJVnQB/ynDfToftT9xc4+fkSdbubO7DAUahtT3teRwqZq
-X-Gm-Gg: Acq92OGVFXOGQ75r99LhnoT5aI36u+Wvg1uvgFlIJY3H8R1FhGAA2vVKlUEcdAQo/6W
-	HIGvkY+3UqetreQsRg0uXHcz0gp9XmX9dkNcFon1o4ERCi5J8ELey5PYObdE82KUqQSzy8Jeg/q
-	DK5RylMfDKh/ePu53cURi70f3WnD/XEKOENfEXkiJAWVAXEfk5CRZMk1vpImylrI6zpzIQKN8dF
-	wfRhjLSwHXERUyzo2Sz/AMa2B1jPV01sZE0qia8DUFb1TiiHciwcxkcMu9v4Uf2DJY8Ky8tqkj4
-	WBd9z7w3H2Z2ncLexGjGZhgH1NeXSVHxghtflracR1N5yC5YGuMtkMFcK9WH6Bd3rltVbSRDu/p
-	5U9EN10SNBRvMAdTRHgsVD+/8XVHEbhXAnQEZOI8K1MVKds3+nGbJ3AbCgYpum33N/2XJNFZ92r
-	ncRuqn1Gh94L57E8KjLRQq/EXarre7tydo4ww1gaJ/cXOcg3aX4g==
-X-Received: by 2002:a05:7022:ea32:b0:12a:6abf:ab1c with SMTP id a92af1059eb24-13807d60704mr4187917c88.11.1780758320900;
-        Sat, 06 Jun 2026 08:05:20 -0700 (PDT)
+        bh=QDvvIEJ397Z9hz/fjkFik69Td5t/Laz7R7T1FL6xIOQ=;
+        b=IMgzhZVsmse/rKO+/jmbUK6hsIqLyIefjhObsNDHWQIWAntOhG23iKWC4vBNtEYBQE
+         FSgmziwlWYv2o39Zn2w5jvB2KeIK6SyBLhQniJavJO+G1uKJLESfgU2L5q6XbHznsYkS
+         utFEr3DT5ZVRxEVLAeSD3QO/DH22UIWvSwxU/bSisnEkGjumfUR1R6GJGYqnYbAh53CR
+         FZ5dxWtQMDrwfOnRbH1fkpofpTiIdhen5K91def5CmdKuLqNfNWX4n2+biMnl4ND1w0J
+         ETGGCynrT3pkj+HyV5VjAHj2nv2s0ZTbJcJn7ExAEm3acC9sJ059vKxQiAcHZ67CDq0U
+         a/eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780758330; x=1781363130;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=QDvvIEJ397Z9hz/fjkFik69Td5t/Laz7R7T1FL6xIOQ=;
+        b=AWuEzlOCySkHPdRQoyB5aHOc2CvHvEG7VKcVirsMvpWnhchq0aMKxIxgEUrzQhNJm4
+         MqeSYiylFFnof7odtnPazN/YDqspzdif1CnIFRnHlTIj8yjLSn9bv83hv0lgqL1qSN93
+         ambVkC/ZFm6CbCipRLkGDSPuuznn08+pAAP0Almq5c7ICQmqB4gg/UahG3CV7mLS8TBk
+         hoKOgDqTdXARAsp71sB4opE50BMpicZCMqp5+Whn1sfGqaKdk60W0Nk5lbuvIzcFDzh8
+         Xk3NUCcmJsOMnWAO5y0XIn6nmsAj83QynUK85hsVtkZdTX8WQoZs/WFQ69ULlqMbTOxV
+         plUA==
+X-Forwarded-Encrypted: i=1; AFNElJ9lL3SKARaUDIlfWPWhitbS1mPRW9DuStGb9q6IHJDqb+xOxKJiK5YdQJv3bauCYCBL63yuoo4xgWNI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8NUoljhSzXLDL419kfxhy14n7MBRMmeZSepK/Uiao8dp14tJJ
+	yEvL+pAtjTNRjqkMRAC7bwi+pVwWl25UZfBEIEDblW5GAkNOsuZl8O9E
+X-Gm-Gg: Acq92OFcVDhcUMuI7UQtBZfEcIzwSbfUtByfno20NEWj21zPY3KD87vmBnRngI01fpA
+	nOnVD8P4MdfEUnPL6z4unULZmM0DooBzcm83Cep/38PZJ0QBjMd+HccoiZ5AWfpKYTyNoCQv9SP
+	ymv+BlEO1gthMykYeZpQGALAZAPi1RYqmce2hyuXXMzvVu9Tuw1mFVKpyB28RDNQTiKoJQlfOvI
+	6Doeq3A6d/tQdiE4VC6KQ8Tw0wkilSa6He1SS9QvOwC0MxB7V7fyouawQwpSEYmfPYYu5oaAMBS
+	zvLyj5AU6AXO0aHInPQUQZywApEssc0ATPaK+Jvd/tcypdrjTr1GoVHobxhW4fdPTLVSKTMQsRs
+	/tm1f30Hyr9x9aRnbayDVlp2WVVHHf6p7ufv7fSFulbxGxnaRH5NBviYVPQgI7AHO+ZsmBm9FRX
+	eeF+yP2RSQgFfzs1OAYULq1gUKcSg9jfxQHeCh1ZQixqj2YLb4qA==
+X-Received: by 2002:a05:7022:221e:b0:137:fe07:8a2c with SMTP id a92af1059eb24-1380671fdfamr4297594c88.22.1780758329731;
+        Sat, 06 Jun 2026 08:05:29 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5539035sm8415607c88.11.2026.06.06.08.05.17
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5539035sm8415607c88.11.2026.06.06.08.05.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 08:05:20 -0700 (PDT)
+        Sat, 06 Jun 2026 08:05:29 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -65,10 +67,12 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/8] Input: cap11xx - Add support for CAP1114
-Date: Sat,  6 Jun 2026 23:03:53 +0800
-Message-ID: <20260606150458.250606-1-jerrysteve1101@gmail.com>
+Subject: [PATCH 1/8] Input: cap11xx - clean up duplicate log and add probe error logs
+Date: Sat,  6 Jun 2026 23:03:54 +0800
+Message-ID: <20260606150458.250606-2-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260606150458.250606-1-jerrysteve1101@gmail.com>
+References: <20260606150458.250606-1-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,28 +81,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
-and hardware reset support.
+Duplicated device detection log exists at line 537 and line 542,
+which brings redundant repeated kernel print messages. Drop one
+redundant log entry to clean up dmesg output.
 
-PATCH 1~3 mainly focus on cleaning up the driver and dt-bindings.
-PATCH 4~5 add reset-gpios support for CAP11xx.
-PATCH 6~8 add support for CAP1114.
+Meanwhile add missing error logs when I2C communication fails
+during driver probe(), helping capture abnormal hardware access
+for debug.
 
-Jun Yan (8):
-  Input: cap11xx - clean up duplicate log and add probe error logs
-  Input: cap11xx - remove unused register macros
-  dt-bindings: input: microchip,cap11xx: Cleanup and refine LED
-    constraints
-  dt-bindings: input: microchip,cap11xx: Add reset-gpios property
-  Input: cap11xx - add reset gpio support
-  Input: cap11xx - refactor code for better CAP1114 support.
-  dt-bindings: input: microchip,cap11xx: Add CAP1114 support
-  Input: cap11xx - add support for CAP1114
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ drivers/input/keyboard/cap11xx.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
- .../bindings/input/microchip,cap11xx.yaml     |  93 ++++++--
- drivers/input/keyboard/cap11xx.c              | 223 +++++++++++-------
- 2 files changed, 215 insertions(+), 101 deletions(-)
-
+diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/cap11xx.c
+index 2447c1ae2166..485d8ba97723 100644
+--- a/drivers/input/keyboard/cap11xx.c
++++ b/drivers/input/keyboard/cap11xx.c
+@@ -512,7 +512,7 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
+ 
+ 	error = regmap_read(priv->regmap, CAP11XX_REG_PRODUCT_ID, &val);
+ 	if (error)
+-		return error;
++		return dev_err_probe(dev, error, "Failed to read product ID\n");
+ 
+ 	if (val != cap->product_id) {
+ 		dev_err(dev, "Product ID: Got 0x%02x, expected 0x%02x\n",
+@@ -522,7 +522,7 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
+ 
+ 	error = regmap_read(priv->regmap, CAP11XX_REG_MANUFACTURER_ID, &val);
+ 	if (error)
+-		return error;
++		return dev_err_probe(dev, error, "Failed to read manufacturer ID\n");
+ 
+ 	if (val != CAP11XX_MANUFACTURER_ID) {
+ 		dev_err(dev, "Manufacturer ID: Got 0x%02x, expected 0x%02x\n",
+@@ -531,11 +531,8 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
+ 	}
+ 
+ 	error = regmap_read(priv->regmap, CAP11XX_REG_REVISION, &rev);
+-	if (error < 0)
+-		return error;
+-
+-	dev_info(dev, "CAP11XX detected, model %s, revision 0x%02x\n",
+-			 id->name, rev);
++	if (error)
++		return dev_err_probe(dev, error, "Failed to read revision\n");
+ 
+ 	priv->model = cap;
+ 
 -- 
 2.54.0
 
