@@ -1,131 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F8A2C2374
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 11:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A724830C63A
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 11:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780746562; cv=none; b=k4bZv7WEcvqAM48/iw/is6bUkMqckFN1pu/oasEGnTRaMRSn8n1afSXto8T4rW47eA9aj80qgaoUStLn4lYjwiavu6DnAFdpprVY0JHuYNyGO02gsea7kVSaHJtp7aODvTLZ98CO717t5HL0kBMhjmpJwM+En999a2EK4/Fll2c=
+	t=1780747044; cv=none; b=d9Y7vnfu1UpIpHqaFxC5gPWO+D6L0i+ugRMB25BSeNeWT8iVwNdxerv7ZMHg/JyI1qGvtQNe7VbNYg7weaxA6kZNcs4UmcqfoIV/1cq10YUBlwQHAa/JQUaIipUB6KyLlQiePnXPg2zSEDMFKQT7LZPVJ/hVSUwjNP03HN0UngQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780746562; c=relaxed/simple;
-	bh=TXxaa0hr88gvaGYe3kubA2J2vzP3XFuWS1pRAn4alPE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J3n7ZTa3VXr8+L1kb/q8jmhOdxJQWd6MIqY5b+yOPBhPCwjBsq1J1R5oisDgn+B+MYq58bYi9nHfnqbMc+9eUooMpH1ds+hQF7yAKuyh0c95m8xhWz9MQe0WBN9JKsxjD4k0elZbGAmAcIeiaavI8zB7SlYy/oqf61DAJ1IJSso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A7HAXDSX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780747044; c=relaxed/simple;
+	bh=waentt4KdOym2AZ3UJsiVMq3XU727IXciRZfMq1s/E4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UM0FenOwWgWA5yG1MsJieVBG5aWUswcied9Ce9qNa4wiN2IQwg05RpszlywIKGKabE3Zobsa61jmdVMvZECPUo8kfNBaj1oBMSJKa3HVrXUGgUivUkfQbq7bi06EgdpRASwbWWYopYYAnQFDDupJ6rambta/3/wEzfRkbEa5vl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GCfvyYzI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f++tpMUM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A7HAXDSX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9FFC1F00898;
-	Sat,  6 Jun 2026 11:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780746561;
-	bh=trNrhoulzt7edJycrHlDpACtdVsxW+An5cECgOXGgRw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A7HAXDSXKzXkIXvu+S5kP1j2ouvWOUoxj+gTbaqrEFvIdLmIHW0Qz2qneHcqKqJoo
-	 UAw6KJUeDYr+/kk495uK9a5FxxsmEkEDqpIcuyHi/BO9wnEZ42fkkTYuxFd5RFZ+Fi
-	 NzmCziUyOJBpyoS/ZLjPA4aly9WxLga4i3sYogofUSRJfTC+lpcJPNYhU9O7e+SqyI
-	 FyovdRBW2uxRM5bhHgIFVYFTdC45JvRxfZ834n6FGvzieD4foC0J1UwGRfVr3AXU/m
-	 99Uun2W+JSvAxfiTqAW7PYLuwRRHW7zl3uQUwGTZfTC0gbOELOIVfcgx7yYuh/SavR
-	 ehuGDiABYLCoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] arm64: dts: rockchip: describe PCIe RTL8125
- Ethernet on NanoPC-T6
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ricardo Pardini via B4 Relay" <devnull+ricardo.pardini.net@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-2-8a8857b39daf@pardini.net>
-References: <20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-2-8a8857b39daf@pardini.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 11:49:20 +0000
-Message-Id: <20260606114920.B9FFC1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GCfvyYzI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f++tpMUM"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 656BtWDA1417188
+	for <devicetree@vger.kernel.org>; Sat, 6 Jun 2026 11:57:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Wey/tSMTRv7+4E+9tdIhwUzz
+	H5WVe3KCUdKb6rs33XA=; b=GCfvyYzI9LedX8KY+DsjhJmlSx9hqQ/4EuycW68N
+	Eki2VCs42WH24iqhUIJkDHrWxbzzw7UQFAzz5rNcxesGFCVLAIDk5lqUw8MIeX45
+	3cBc6qqs/lQRIutv2dpn5m43QARfk0JwCwWqyDevHjijZIgd8+KSEN2GlAxDenXs
+	WVfXxs2B47HS6JISUFC2JyTTAE1k4Kz/pKpYft6grMsRsuoqtRSoRG7crM9OWW+3
+	gW1R9RXXvJvewmMjcbDO2KkBscrGUUCOveCKMlq0sZoQyz1quTmrMj3b4IJZhdkw
+	mQW5JjZ+lQBpik3gIoFQm1Ss8Kdzz7dTKwf3ZP02DD2kQQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4em98csgea-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 11:57:23 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6c4335eef08so2969651137.0
+        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 04:57:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780747042; x=1781351842; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Wey/tSMTRv7+4E+9tdIhwUzzH5WVe3KCUdKb6rs33XA=;
+        b=f++tpMUMPoTPi5E/QFdQ5yDZfbprjmigPPKkwo+KWgz1SejX0rgZmjfvm8H1arKirG
+         JfL8C8j/sPCL5ef0sLgxU9OGi94uF9aUF+zpnlOi/KxY6pRX2JT2bO5iAP23b3dP/U3x
+         uV12USXE765UwDdCeYeXCmYfx2FUUCbAHqB+G5lv5KANfNvRPzb5fNQIhAguLoF/WA+U
+         1yC5oPK42B4rvBSCEL1bc2WqiKgekBSkZV0VGZMo63T5zh/FGftxEptNvVf4cc8rU+aI
+         6yo5kPmZ9wQeLCrYgrOpUamv2foajIujCOMyxllFqj8BkE0nY1OgQHJLYmBZ2zpWTRaw
+         9cGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780747042; x=1781351842;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Wey/tSMTRv7+4E+9tdIhwUzzH5WVe3KCUdKb6rs33XA=;
+        b=RbQegiP3gAKdCw8ZVWr1HyD0ZadnKvIOl7v2c9v37V68+zmoeQcoULS3di8RcUSLYO
+         LXsmCR/rjc6rs6AH7n4RgBE9pkppU5bd8D9ym/F0fF+yXUd0FADIH/4x5xpz7Hbq6NE/
+         WFJqgsO0sQpMLG8kilOSjNY+wxIhRhNQXKFQjr288Y9OA8lJ5U4hzWv/N8L0GEanaEQP
+         sQ41/RorLrS5I60+jzI1kv+BY7Yh9Tc3HnxR3nNHjoCNAavbMBLrcRvRQLgWH3UAnhYZ
+         +EeeFrjp18G2v4MEadUv83BAdS4ZQS2imnSDBOod2RuBiLUvSj5wa5ygzGdYv3VchwkL
+         68Wg==
+X-Forwarded-Encrypted: i=1; AFNElJ9gUhzL8in16oZVqA5Loamq9X4evqP2t74CTL7Y/JdFoKWZFRJ9DDEUVT9yayEJWF4RZ8D1yEUWO8Zm@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBIMtCJ15Cvq6zj1UDxyCwKjvFYAmm1Kk8jovg/f00DzN17BpR
+	13MtRBQ4Ms7yAgTzTNZJ6BVoC7JqOGhllXc1oasS9CHPYbpFTG3tZBIeghTLk6ozycE8VL+Q/S4
+	VYhaoNGuybtNY7VvV5gj8kbnPnJHQyrW35Vj3H7OaoWljvC0Yaw6hFOiLe9YEuACx4AMSvH1U
+X-Gm-Gg: Acq92OEZJBwgWp6LGhj1GL/uPICBeVo/iPYFtejsQqQK018dhUaeB3SXDGTdl+dZDZr
+	tTJdAL6qIeYtxWLZ9yFs84J3s5r8S2R4sXW7gFGnOAGfszFdbDrukRkSk1sbPkVSyuGy9V5ZnUZ
+	R39qlJSzP6zh7VLXdjgcMMuTE82jmbVLoer344X2GVU8RGltN55sBeYQuYv7XT+NPJj+QaOdW2v
+	75CDQITDIf6EKGg1+DYQ0d2gdjHTWyoA6nFXuajS6Tsw90wKSKTHxePN42N2fpHtpGBz0cHgMSk
+	uSx0vuahnUuJa7NahrwWl8Ocee5cqiUtxPnoCd9qlTmOa9jP/WHrkXQ1EjOEKCNBvO8nzLqDKXW
+	w0uGCkRhLBq5l6vfkOcu1alfmR3NHkshKP8a1nFIlsgxLIpuyJDpCcH9STXYJNgpuxolGiC8fCp
+	JAc6A4bPEi5hz3NKOTk+Fw9N6D8Pp5fF/cHiVgSHXPUT7lTg==
+X-Received: by 2002:a05:6102:6447:b0:6c8:eb6e:a078 with SMTP id ada2fe7eead31-6feea045839mr3844008137.0.1780747042068;
+        Sat, 06 Jun 2026 04:57:22 -0700 (PDT)
+X-Received: by 2002:a05:6102:6447:b0:6c8:eb6e:a078 with SMTP id ada2fe7eead31-6feea045839mr3843996137.0.1780747041664;
+        Sat, 06 Jun 2026 04:57:21 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b99ca90sm2474531e87.84.2026.06.06.04.57.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 06 Jun 2026 04:57:20 -0700 (PDT)
+Date: Sat, 6 Jun 2026 14:57:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: webgeek1234@gmail.com
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Teguh Sobirin <teguh@sobir.in>
+Subject: Re: [PATCH 2/2] soc: qcom: socinfo: Add CQ8725S SoC ID
+Message-ID: <aqjyspitfk3xqb3xorae4upqrdx3whg7ficlb6p4uw3xowoobc@ccdwxeetaokn>
+References: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+ <20260605-cq8725s-soc-id-v1-2-bb1ef93de649@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260605-cq8725s-soc-id-v1-2-bb1ef93de649@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDExOCBTYWx0ZWRfX39jwaghPaDkT
+ dg+8HvOluYB9jNzPaLDtbc72Jt6llrDWF/bDFXGpRmlX160AICvFeB0gMCmYxuWPb3Ete9Ls3gD
+ mOf+HwP7RqNwYaYOua+iifAdL4HgSpgVll59FXBysLHpaUqFbDiSZq2KLNed7fnTccs8bsMkUrn
+ azme51nnGvRaq0V/ewuc3qtEJYhTSWhCbo7Lj1FBZ6Jc3VWhJycZwV/K93I2d/V27JdXBjiDH0H
+ 2yoopExx7ftaTXc1/vhIkkPe51eDZ2SrqAttDEu1apDzV7ohsmkDlg8T5IAc6Q39I4Seti99I6w
+ j4uDGMHas9ZPHUpOP+HC/WbHsPHZ0eZSrpWWWCV/Pt6ZlUzbm1aOEQt6q/mpkMHrJfpE25Ffw+y
+ N3CmMZ8lbgzJTKf9gx88r9+73UFR7VkWHckf0lXgz+htiVntjna+FegfDJwjVTMUJOzo9S/jpjO
+ /0xmr5uYuSVq4ikAaCw==
+X-Proofpoint-ORIG-GUID: z734yq-dv03cXmek6CWra4vJ5BeWNVt-
+X-Proofpoint-GUID: z734yq-dv03cXmek6CWra4vJ5BeWNVt-
+X-Authority-Analysis: v=2.4 cv=A/pc+aWG c=1 sm=1 tr=0 ts=6a240b23 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
+ a=l1xjegFVcgAHJcQvvZEA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-06_03,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606060118
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incorrect `bus-range` property in PCI root port nodes causes pri=
-mary and secondary bus numbers to overlap.
---
+On Fri, Jun 05, 2026 at 04:49:08PM -0500, Aaron Kling via B4 Relay wrote:
+> From: Teguh Sobirin <teguh@sobir.in>
+> 
+> Add the ID for the Qualcomm CQ8725S SoC which represents the Pakala
+> platform.
 
-commit a2c7d2bee242af770a15bcba84f406c04640467d
-Author: Ricardo Pardini <ricardo@pardini.net>
+What is Pakala? It wasn't described beforehand, so please add a note.
 
-arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on NanoPC-T6
+> 
+> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>  drivers/soc/qcom/socinfo.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> 
 
-The FriendlyElec NanoPC-T6 carries two on-board Realtek RTL8125 NICs.
-This commit describes the fixed function nodes and attaches ethernet aliases
-so U-Boot can inject stable MAC addresses.
-
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-
-[ ... ]
-
-> @@ -635,6 +637,20 @@ &pcie2x1l0 {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pcie2_0_rst>;
->  	status =3D "okay";
-> +
-> +	pcie@0,0 {
-> +		reg =3D <0x200000 0 0 0 0>;
-> +		#address-cells =3D <3>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +		device_type =3D "pci";
-> +		bus-range =3D <0x20 0x2f>;
-
-[Severity: Medium]
-Does this bus-range create an overlapping PCI topology?
-
-The reg property places the PCI-to-PCI bridge on primary bus 0x20, but the
-bus-range property specifies the downstream secondary and subordinate bus
-numbers starting at 0x20. This claims that the secondary bus perfectly
-overlaps the primary bus.
-
-Since the child ethernet node uses bus 0x21 (reg =3D <0x210000 0 0 0 0>),
-should the bus-range start at 0x21 instead, such as <0x21 0x2f>?
-
-> +
-> +		rtl_eth0: ethernet@0,0 {
-> +			compatible =3D "pci10ec,8125";
-> +			reg =3D <0x210000 0 0 0 0>;
-> +		};
-> +	};
->  };
-
-[ ... ]
-
-> @@ -651,6 +667,20 @@ &pcie2x1l2 {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pcie2_2_rst>;
->  	status =3D "okay";
-> +
-> +	pcie@0,0 {
-> +		reg =3D <0x400000 0 0 0 0>;
-> +		#address-cells =3D <3>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +		device_type =3D "pci";
-> +		bus-range =3D <0x40 0x4f>;
-
-[Severity: Medium]
-Is this bus-range similarly overlapping?
-
-Like the node above, the bridge is on primary bus 0x40, but this sets the
-secondary bus to also start at 0x40. Since the child node is at 0x41,
-would it be more accurate to set this bus-range to <0x41 0x4f>?
-
-> +
-> +		rtl_eth1: ethernet@0,0 {
-> +			compatible =3D "pci10ec,8125";
-> +			reg =3D <0x410000 0 0 0 0>;
-> +		};
-> +	};
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-rk3588-dts=
--rtl-eth-describe-dt-alias-v3-0-8a8857b39daf@pardini.net?part=3D2
+-- 
+With best wishes
+Dmitry
