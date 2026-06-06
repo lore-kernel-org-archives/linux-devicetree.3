@@ -1,123 +1,92 @@
-Received: from mail-m49195.qiye.163.com (mail-m49195.qiye.163.com [45.254.49.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E888730E0EC;
-	Sat,  6 Jun 2026 21:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2843C4B72
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 21:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780780902; cv=none; b=BPlyX7t6znIqQyCDYvhFI2AYeibniSpZ9YcfZH7HaPEK3Qzpk0rVbjqt5tWbYSXwGpTuRL4eBnw+3CqRUPqINK+/aYJHfLr5u8pLoLBF2s+mZSgGnJg45xoSPjtwOCZixHV5SYO1JWPTjA7CBWvH/xl2Oirh1M7CbnmYZY+MyWg=
+	t=1780781288; cv=none; b=NYSZF4PbMef2/nQ+bJxBsj/Fipy1tPWJ8g7TyviJjBy43LR6zd/Do+0LItVH3TrAq6pVz0vIwvVa9dnPJNHidqiKcNOUpFOAFkujfoFKvVnnxBZ8JHYpSIbHK3jHoxCZ2YYlOUjGtstFGBGjDeW4ZFtesSbQY5YghSOCyoNpXqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780780902; c=relaxed/simple;
-	bh=7EG4MYgDN65VriGUaMdngMbhhxlSmg7pk8t2q5/VPVg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SNGu0C/Bqb4z400Xneqf+kLQfvH3Bwsy4m8LOmLjE3PlbIb06/To3CdlKZDGf2x8ET45nqso+f4KwcnG9M0sN/RWeP+kN/qs+3dp8HJ+k6Azjxg3EP70yKXfFk2HMUac9uOyfC9/qxRDtURxirWGABOfPLTnE1O4o+ZLNNJkJS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=kGlvO1TT; arc=none smtp.client-ip=45.254.49.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1780781288; c=relaxed/simple;
+	bh=bRYaG8J91NM2baD8BW/U5F6w74wF+8OGKWf2RJDd47I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qBB83Gq4LpT1IJiaSeITuGpU1KiazV5Ql9xMaKILOXNc7SNPa3sUOF2JAooIoiv1dpyQ31S+cTKitcdS5BrCEe8iYWwFJxadgaSe88LI1DP/Htyq7MybuvZ0jpfL8HNjBbDBcQ/7gTsnLX62kKRJOsIk+3ixFhSFgae0+sIBD+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0fw+7RL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="kGlvO1TT"
-Received: from [127.0.1.1] (unknown [113.235.125.44])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 415a25042;
-	Sun, 7 Jun 2026 02:58:46 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Sun, 07 Jun 2026 02:58:19 +0800
-Subject: [PATCH 3/5] ASoC: qcom: qdsp6: q6prm: add the missing MCLK clock
- IDs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0fw+7RL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF611F00893;
+	Sat,  6 Jun 2026 21:28:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780781287;
+	bh=61rXf7wc+sM9/sNY1AZiqnpIXoTP2+8Tyhs+Jlsqwsw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K0fw+7RLdX8W0dTw43Glakd8STkfFGEeUo6k/XnHV3DK76Bra1ZiliBvj3rpkiDY3
+	 Uec9yKSfcelRfxS8WYwKcneOezJDxGdiocQCtjLihR9w5T1xhbOjNdhhSVjyET80Ve
+	 tbIisc2uFyMcGu/HaeO1X42aZBnaUimRyDO6yPSqgt2wVxIeThbMVlFXRgBTOhstrm
+	 xV+UpYKV3FMmFaDPhiOuHaWrhphDkLPYxtjcB9oHm36MzMq5AMLvahhP0WfhOb3Yud
+	 2mn3BA//LlRgcH/buQxVGyTs7ouscwPgdAN8KSHWeUokO52i7AF2RuPpGIXH49k6Xr
+	 n+i27ehhVjZ0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/5] ASoC: qcom: sc8280xp: Add per-card data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongyang Zhao" <hongyang.zhao@thundersoft.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260607-rubikpi-next-20260605-v1-4-7f334e16fea6@thundersoft.com>
+References: <20260607-rubikpi-next-20260605-v1-4-7f334e16fea6@thundersoft.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 06 Jun 2026 21:28:06 +0000
+Message-Id: <20260606212806.ECF611F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260607-rubikpi-next-20260605-v1-3-7f334e16fea6@thundersoft.com>
-References: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
-In-Reply-To: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
- mohammad.rafi.shaik@oss.qualcomm.com, rosh@debian.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780772320; l=2011;
- i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
- bh=18JeWlh/iLVQ3WjYzzzqk8im+NKs9pPPa8nkOS33lBo=;
- b=T9LCr9wz2J7vcjSJTheM2EFdk1rv2Y74UXf1/D2RijnZFFwCoGm3Lzd1mBR+iav/4miJ//SNS
- CIYI/Vl2IJoDsB9/DCCO6YPuOqcarnTb+65bJtcWnnISPFULk6h80Uh
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
-X-HM-Tid: 0a9e9e4d4afd09d5kunm343af971138af5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTE5LVkhNThpLTUIeSRhLS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
-	tJT09PSFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=kGlvO1TTYTANWGOTdSfaZmNcqwO3QB5R0NKf2HYdIeV6bL4URxyyGa/mXs5RowJrt4HGrqkfxUxgKCtM9ur8dI+BUVT+exyHdSaksr4O0ww4wcaqqLwG/EIvn+f436Umx64/p+Wd0jxSbQA3jcXCVM/CcEFdvCM6m6JU+3139BU=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=O43pN37qUkYihSLgp1vhj4/ZPYt2n5s4WelMktsks3g=;
-	h=date:mime-version:subject:message-id:from;
 
-From: Neil Armstrong <neil.armstrong@linaro.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect DAPM pin mask for 'Mic Jack' in qcs6490_rubikpi3_heads=
+et_jack_pins causes microphone detection failure.
+--
 
-Add the missing MCLK ids for the q6prm DSP interface.
+commit 869054356ad0f6ae035a50e1d5d5e99577638b9b
+Author: Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- sound/soc/qcom/qdsp6/q6prm-clocks.c |  5 +++++
- sound/soc/qcom/qdsp6/q6prm.h        | 11 +++++++++++
- 2 files changed, 16 insertions(+)
+ASoC: qcom: sc8280xp: Add per-card data
 
-diff --git a/sound/soc/qcom/qdsp6/q6prm-clocks.c b/sound/soc/qcom/qdsp6/q6prm-clocks.c
-index 4c574b48ab00..51b131fa9531 100644
---- a/sound/soc/qcom/qdsp6/q6prm-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6prm-clocks.c
-@@ -42,6 +42,11 @@ static const struct q6dsp_clk_init q6prm_clks[] = {
- 	Q6PRM_CLK(LPASS_CLK_ID_INT5_MI2S_IBIT),
- 	Q6PRM_CLK(LPASS_CLK_ID_INT6_MI2S_IBIT),
- 	Q6PRM_CLK(LPASS_CLK_ID_QUI_MI2S_OSR),
-+	Q6PRM_CLK(LPASS_CLK_ID_MCLK_1),
-+	Q6PRM_CLK(LPASS_CLK_ID_MCLK_2),
-+	Q6PRM_CLK(LPASS_CLK_ID_MCLK_3),
-+	Q6PRM_CLK(LPASS_CLK_ID_MCLK_4),
-+	Q6PRM_CLK(LPASS_CLK_ID_MCLK_5),
- 	Q6PRM_CLK(LPASS_CLK_ID_WSA_CORE_MCLK),
- 	Q6PRM_CLK(LPASS_CLK_ID_WSA_CORE_NPL_MCLK),
- 	Q6PRM_CLK(LPASS_CLK_ID_VA_CORE_MCLK),
-diff --git a/sound/soc/qcom/qdsp6/q6prm.h b/sound/soc/qcom/qdsp6/q6prm.h
-index a988a32086fe..6917e70bcb8a 100644
---- a/sound/soc/qcom/qdsp6/q6prm.h
-+++ b/sound/soc/qcom/qdsp6/q6prm.h
-@@ -52,6 +52,17 @@
- /* Clock ID for QUINARY MI2S OSR CLK  */
- #define Q6PRM_LPASS_CLK_ID_QUI_MI2S_OSR                         0x116
- 
-+/* Clock ID for MCLK1 */
-+#define Q6PRM_LPASS_CLK_ID_MCLK_1                                 0x300
-+/* Clock ID for MCLK2 */
-+#define Q6PRM_LPASS_CLK_ID_MCLK_2                                 0x301
-+/* Clock ID for MCLK3 */
-+#define Q6PRM_LPASS_CLK_ID_MCLK_3                                 0x302
-+/* Clock ID for MCLK4 */
-+#define Q6PRM_LPASS_CLK_ID_MCLK_4                                 0x303
-+/* Clock ID for MCLK5 */
-+#define Q6PRM_LPASS_CLK_ID_MCLK_5                                 0x304
-+
- #define Q6PRM_LPASS_CLK_ID_WSA_CORE_MCLK			0x305
- #define Q6PRM_LPASS_CLK_ID_WSA_CORE_NPL_MCLK			0x306
- 
+This commit converts the sc8280xp machine driver match data to a per-card d=
+ata
+structure to support board-specific MI2S codec requirements. It adds data f=
+or
+the QCS6490 RubikPi3 and a common headset jack helper.
 
--- 
-2.43.0
+> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+> index 7925aa3f63ba0..1ccd7437cc52d 100644
+> --- a/sound/soc/qcom/sc8280xp.c
+> +++ b/sound/soc/qcom/sc8280xp.c
 
+[ ... ]
+
+> +static struct snd_soc_jack_pin qcs6490_rubikpi3_headset_jack_pins[] =3D {
+> +	{
+> +		.pin =3D "Mic Jack",
+> +		.mask =3D SND_JACK_HEADPHONE,
+
+[Severity: Medium]
+Does this mask prevent correct DAPM routing for the microphone? It looks li=
+ke
+SND_JACK_HEADPHONE is used instead of SND_JACK_MICROPHONE for the Mic Jack =
+pin.
+
+> +	},
+> +	{
+> +		.pin =3D "Headphone Jack",
+> +		.mask =3D SND_JACK_HEADPHONE,
+> +	},
+> +};
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607-rubikpi-ne=
+xt-20260605-v1-0-7f334e16fea6@thundersoft.com?part=3D4
