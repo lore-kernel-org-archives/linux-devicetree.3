@@ -1,219 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD042F361E;
-	Sat,  6 Jun 2026 08:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8704204E
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 09:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780734675; cv=none; b=K62cX1mjmnqSI8KX8otC/WNfgf3aXCCcCJGLNKqRuLCTlBf6jlJ5W9UQ1ldOgcNa87kcpI4dwOY6oZT8fexv69WKfx9KJTufLG/4Kb3XIkOIucjQv1FPEj+XGwrfuQKAoB6BU8riJqjw68rGexUpH3Jg4kMr6uIRByl3/upjMdU=
+	t=1780737806; cv=none; b=Iqf2vkioxCZSVrXlkzF0xCmMelpNP4e+Fzs3IlKwpkcYEFy09AjUdXfTF2qHnTJx+y0Ny5G0bhQikf5GpNcbDrJ/8Kp5+NvNruQHOZJIG2lPK07JyxDpRaGUBjJllfLCNTsfzMag5ukSxmw3ThMqyGNdVBNZDpCjMyII6RwmztE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780734675; c=relaxed/simple;
-	bh=VVbdE4q/0Z2aRyOeM7MmDAdDZjnwnrjdudKVlAUt3P4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gDWnq1zBrR9ljfYs54NZxBRdVJe4e2P5uLr83zsiM/eZXfj0k+e5msuo73YElB4UR/MqICkQPsuAqklNeVelra6G2pTbrpTFLpe1fgosKTRH0K9tqTZtRwKH10FdnYZIcEgRgYSMo/3ut974zNtOXMqiKgmS3VbZW2oqNQjFSas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktBS5mr4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780737806; c=relaxed/simple;
+	bh=mDkPGwiVHQoklipRC1lQByxUrrOmsEjd/nyIvxoNglU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=uT5Jb5TkFFMp8lD8eOp3ybQVt5EHYKNIvWqXTAk4yJq42HX+vX5hOZjkLa6DxAeeWqc4ez0/HlvN1HSuj9BgrLWXSFWYGlZBZACDwW3aK/oxZOwiY+hkPP/E+p+HL0hNq08c2MpnjPgwsb6ww3+G5XTz6NYZ54tLE4e1wKFJ47Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xwu79pNv; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktBS5mr4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CE2F1F00893;
-	Sat,  6 Jun 2026 08:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780734673;
-	bh=wDCTVaOFuCTm/GJQpTSl0rwG7lZZ4vUUkunHheOiv94=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ktBS5mr4s8lttTI87ktE9M7kp5gv4kF4hehAumrwcMZb6xNAJOapIaaKObLa6clae
-	 OAk/Rh3AdcefnLfB9bJHpc8fmE18yaZ3gAPtvG38tsN4Syvk42WLP9TcTuetXhSCuP
-	 lNF6B5Pkn3oljm0MTyh6yOzBRg+WKzCrCN6k8iGRjm24B/ZWwY6lguVtsrzyGxxnZ5
-	 xevaCAhlyPFY5lCmFbl6/RsYtpJWxFkcvw6jk3xLEUFqnp4R/QiThMxuQjLQz+FsXE
-	 mVkYI79xmd+xMEnv1YV/muyYTzJhLRDJZPJlm4+1hTmOG49OCYdyNRwZ6ZavKbPoXn
-	 2ohC/KkOqKwYQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] media: i2c: add Aptina MT9M113 1.3 Mpx SoC
- sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk via B4 Relay" <devnull+github.com.herrie.org@kernel.org>
-Cc: linux-media@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260606-submit-media-mt9m113-v4-2-046b4cbc7f94@herrie.org>
-References: <20260606-submit-media-mt9m113-v4-2-046b4cbc7f94@herrie.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 08:31:12 +0000
-Message-Id: <20260606083113.2CE2F1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xwu79pNv"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-842848fd613so2226501b3a.3
+        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 02:23:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780737805; x=1781342605; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=i90N6kve85T3Z6vhC3b/4AAHhPovipRsLvYZQX6Fo9M=;
+        b=Xwu79pNvNAJyAcpUIp+V5v7QdyVZQJzxE6qCUCNzeSpks1kkEBD50Crxr/4ETF2sCs
+         zB8O9HgMf6s5oMqBzAtFd110xvib8O9wyJU3FqfMqaDHOywAxaXTVsrmPjMxufNTgwDb
+         EHHcSesYcM8l46MYcrLwwIniZ/C8d+cl21sDgg954Nv2iDpKAXqi7ZFYFAUIXP53LHBF
+         PYiFOOGnI8iAdNQTeoICT6bSJkdY37/EwF+QJTI+a1hmdjURCDwqobIARgQo0NPhiR7W
+         HrppKk/ZZ2MzTTCVk9sG45j0rWxY4/C7vgzXrLa0l6bq5Jnwa2kFeyzaISOn1cL4JN34
+         Zn9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780737805; x=1781342605;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=i90N6kve85T3Z6vhC3b/4AAHhPovipRsLvYZQX6Fo9M=;
+        b=hKTafUqQY4aozlFNlDUV50zb71UpUh8+pODwyi6TsK8WxDuDAaB3DSWtCRJcwy772K
+         r2ZH6hwrKVq8osbWXBozsd3+yZVSIjXlhjygsllaTG1vQ+MqNivRmF88vIsWPxBkhINj
+         u4t8/d3lff0HTBhanBZG34ubSrxupC3Kyg90ix7YDAQWEUHbo1wXgkth7vk7xehVcV7q
+         pmCfBJZYN13p42G9Gxr5Q6963NpogaX7Hibizoy7dcChTFV/cSr1LeeNIAwEAU0I1LnS
+         ivEPuPvl9E+xEdAZYoNh/D1qlCeRyg5oNU4nUbOhKu4oymgeGDcxGxli+IVQPyBr8r/y
+         PnEQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+XIRbqfhHSllXL16edPpkvUM7PnPAPyR7vcrthXVChgZa8oFz47cr6hs8Z7A4cAQ1J5UhK4XUAFtQ0@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0mYOxBkCwtdTL6+JuHDWhyKxzQfptEbClWqPibI9bmK9fkhu8
+	lFU1oqRTxswUTq1pAzUYj/FN26Q6Pkh4M4Lt01QaeX4wxlgoJkdwnG5g
+X-Gm-Gg: Acq92OHg0+nrC7i8ssnJ1WldB8AeCWwWrlFkc2hz9S7cyKsuVDVk0Qf5N9h06OvnyUR
+	F39cGsRKx2Ts3pkOghyySFJm6QShi/XK/rr003y46ojqQ9Q+RNoAnpEqmxrV+s/9pZ9ctw+dc4i
+	chxNnt7Sd9mk62MT8XzNbY+34U0n/mU7Z4RQXFqv7Cb115xk7cvfLwEenY0CfZR+3pDqe8cEcSD
+	KYvyloXo8B0m8JHXqotjDEc9e6n2LNuLuF+eSezc9MVxlyxnqDg6aJbhlmV9JGFog9zz+2Tnith
+	eVDulBNWNX20227OEEPHlfrf9yqyS9GORhSRFlFWlSXiWAWbeUza6xqaPhc2xAVMMgMYOF4mSqR
+	CX6jhTXOkdO54vZCvA1AWsSKVi2JTddQe/jDDm5bE9+EWLC3VVufbMgbxbEz0zUDi35WdQuEQ8R
+	RViNyiScPYN6/xBQ1hUF/67PXUNYtudj0wirFdDCzBSH3L7S73Oc+iwA==
+X-Received: by 2002:a05:6a00:1304:b0:842:3801:47f with SMTP id d2e1a72fcca58-842b0efa50dmr7854414b3a.17.1780737804994;
+        Sat, 06 Jun 2026 02:23:24 -0700 (PDT)
+Received: from [10.46.148.203] ([2001:19f0:8001:53c:5400:4ff:fe86:d241])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428235006dsm12236720b3a.13.2026.06.06.02.23.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 06 Jun 2026 02:23:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels
+ according to DSDT
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Pengyu Luo <mitltlatltl@gmail.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+ <178040480680.1778078.1165164069560552075.b4-review@b4>
+ <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
+Date: Sat, 06 Jun 2026 17:22:10 +0800
+Message-Id: <178073773007.397244.9871455646149843167.b4-reply@b4>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Stream-start retry loop fails to power-cycle the sensor due to PM =
-device links.
-- [High] Use-after-free and locking freed memory during concurrent ioctls d=
-ue to missing devnode synchronization in `remove()`
-- [High] mt9m113_stream_context_a ignores the SEQ_CMD_RUN timeout, defeatin=
-g the stream-start retry mechanism.
-- [Medium] State Desynchronization on V4L2_CID_TEST_PATTERN failure
-- [Low] Missing Kconfig Dependency for V4L2_FWNODE
---
+On 2026-06-02 21:21:27+08:00, Icenowy Zheng wrote:
+> 在 2026-06-02二的 20:53 +0800，Pengyu Luo写道：
+> 
+> > On Tue, 02 Jun 2026 16:14:45 +0800, Icenowy Zheng
+> > <zhengxingda@iscas.ac.cn> wrote:
+> > 
+> > I don't focus on the upstream for a while, was this problem still
+> > here
+> > recently? Could you attach the base commit, so I can reproduce it.
+> 
+> I tested on v7.0.10 (with some extra patches, but not related to
+> sc8280xp).
+> 
+> It seems that raid456 module will lead to the hang because improper
+> usage of GPI DMA, and without it loaded it seems to be working fine.
+> 
+> Could you check whether you have any problems with CONFIG_MD_RAID456=y
+> set?
+> 
 
-commit 2bce75457f74983c7027490425c51795edae1c92
-Author: Herman van Hazendonk <github.com@herrie.org>
+The magnetic keyboard (USB HID) can't be connected somehow, others are
+fine, such as the spi touchscreen (not upstream yet), which utilizes
+DMA definitely. My config is here https://pastebin.com/SdjuyJYk
 
-media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
+Which device are you testing? Please attach more information if
+possible.
 
-Add a V4L2 subdev driver for the Aptina MT9M113 1.3 Megapixel SoC
-image sensor with on-chip ISP. The sensor exposes dual context operation,
-single-lane MIPI CSI-2 output, and implements a stream-start retry
-mechanism to recover the MCU.
+> Thanks,
+> Icenowy
 
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-[ ... ]
-> @@ -302,6 +302,18 @@ config VIDEO_MT9M111
->  	  This driver supports MT9M111, MT9M112 and MT9M131 cameras from
->  	  Micron/Aptina
-> =20
-> +config VIDEO_MT9M113
-> +	tristate "Aptina MT9M113 sensor support"
-> +	select V4L2_CCI_I2C
 
-[Severity: Low]
-Is this missing a select for V4L2_FWNODE? The driver calls
-v4l2_fwnode_endpoint_alloc_parse() and v4l2_fwnode_endpoint_free() during
-probe and remove. If the driver is enabled but V4L2_FWNODE is disabled,
-can this cause a build failure with undefined references?
-
-> diff --git a/drivers/media/i2c/mt9m113.c b/drivers/media/i2c/mt9m113.c
-> --- /dev/null
-> +++ b/drivers/media/i2c/mt9m113.c
-[ ... ]
-> +static int mt9m113_stream_context_a(struct mt9m113 *sensor, u16 output_c=
-trl_val,
-> +				    u32 code)
-> +{
-[ ... ]
-> +	dev_dbg(dev, "MT9M113: Writing SEQ_CMD_RUN\n");
-> +	ret =3D mt9m113_write_mcu_var(sensor, MT9M113_SEQ_CMD, MT9M113_SEQ_CMD_=
-RUN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D mt9m113_poll_mcu_var(sensor, MT9M113_SEQ_CMD, 0x0000, 500);
-> +	if (ret < 0)
-> +		dev_warn(dev, "MT9M113: SEQ_CMD_RUN did not complete\n");
-> +
-> +	mt9m113_reassert_output(sensor, output_ctrl_val,
-> +				MT9M113_MODE_OUTPUT_FORMAT_A, code);
-> +	msleep(20);
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this code silently ignore the failure if mt9m113_poll_mcu_var() times
-out? By unconditionally returning 0, the error code in ret is discarded.
-Could this falsely report success back to mt9m113_start_streaming() and
-completely bypass the retry mechanism for Context A, leaving the MCU
-wedged?
-
-[ ... ]
-> +static int mt9m113_start_streaming(struct mt9m113 *sensor,
-> +				   struct v4l2_subdev_state *state)
-> +{
-> +	struct device *dev =3D &sensor->client->dev;
-> +	unsigned int attempt;
-> +	int ret =3D 0;
-[ ... ]
-> +	for (attempt =3D 0; attempt < MT9M113_STREAM_START_RETRIES; attempt++) {
-> +		ret =3D pm_runtime_resume_and_get(dev);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D mt9m113_stream_on(sensor, state);
-> +		if (!ret) {
-> +			sensor->streaming =3D true;
-> +			return 0;
-> +		}
-> +
-> +		pm_runtime_put_sync_suspend(dev);
-> +		if (attempt + 1 < MT9M113_STREAM_START_RETRIES)
-> +			dev_warn(dev,
-> +				 "MT9M113: stream start failed (%d), power-cycle + retry %u/%u\n",
-> +				 ret, attempt + 1, MT9M113_STREAM_START_RETRIES - 1);
-> +	}
-
-[Severity: High]
-Does pm_runtime_put_sync_suspend() successfully suspend the sensor here?
-
-Because V4L2 subdevices have managed device links (DL_FLAG_PM_RUNTIME)
-connecting them to the host bridge, the bridge is active while calling
-s_stream.
-
-Will the PM core reject the suspend attempt with -EBUSY, preventing the
-sensor from actually powering down? It seems the subsequent
-pm_runtime_resume_and_get() would immediately return without invoking the
-runtime_resume callback, leaving the hardware wedged and defeating the
-retry loop.
-
-[ ... ]
-> +static int mt9m113_s_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-[ ... ]
-> +	case V4L2_CID_TEST_PATTERN:
-> +		if (ctrl->val =3D=3D 0) {
-[ ... ]
-> +		} else {
-> +			/*
-> +			 * Enable test pattern mode.
-[ ... ]
-> +			 */
-> +			sensor->test_pattern_active =3D true;
-> +			sensor->test_pattern_value =3D ctrl->val;
-> +			dev_dbg(&sensor->client->dev,
-> +				 "MT9M113: Enabling test pattern %d\n", ctrl->val);
-> +			if (sensor->streaming)
-> +				ret =3D mt9m113_apply_test_pattern(sensor,
-> +								 ctrl->val);
-> +		}
-
-[Severity: Medium]
-What happens if mt9m113_apply_test_pattern() fails and returns an error?
-The internal state (test_pattern_active and test_pattern_value) is already
-updated before verifying the hardware write succeeded.
-
-If the I2C write fails, V4L2 will reject the control change, but wouldn't
-the driver's internal state remain permanently stuck with test_pattern_acti=
-ve
-set to true? It looks like this would cause all subsequent V4L2 controls
-to skip the required mt9m113_refresh() call because they mistakenly think
-the MCU is halted for a test pattern.
-
-[ ... ]
-> +static void mt9m113_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct mt9m113 *sensor =3D ifp_to_mt9m113(sd);
-> +	struct device *dev =3D &client->dev;
-> +
-> +	v4l2_async_unregister_subdev(&sensor->ifp.sd);
-> +	v4l2_subdev_cleanup(&sensor->ifp.sd);
-> +	v4l2_ctrl_handler_free(&sensor->ifp.hdl);
-> +	media_entity_cleanup(&sensor->ifp.sd.entity);
-
-[Severity: High]
-Is it safe to free the control handlers and rely on devres to free the
-sensor structure here without waiting for active ioctls to finish?
-
-The driver registers a devnode for userspace access via
-V4L2_SUBDEV_FL_HAS_DEVNODE. While v4l2_async_unregister_subdev() calls
-video_unregister_device() to mark the device as unregistered, it does not
-block waiting for active ioctls to conclude.
-
-If a userspace process has the devnode open and is executing an ioctl like
-VIDIOC_S_CTRL, it holds the control handler's mutex. When the ioctl
-completes, could it access freed memory and attempt to unlock a destroyed
-mutex when devres frees the sensor structure?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-submit-med=
-ia-mt9m113-v4-0-046b4cbc7f94@herrie.org?part=3D2
