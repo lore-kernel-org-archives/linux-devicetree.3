@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DED12F7F00;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DE62F8EA3;
 	Sat,  6 Jun 2026 05:42:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780724569; cv=none; b=QyHmjTKb7vpBTI6FTVeLbUTc+Vci2zcdp27cfw7TmKkm3lFqogMIkrZ79AWxhLioWxb/G+0iAQS053XD3OHg9BoPztePjOivQr2GnDUGh4CZ8Qaq2fpDM6UbxtGBS/dc980aUetfpV/8NtLIgvMerw7XKFyOijWp23JmevnvpNo=
+	t=1780724569; cv=none; b=YX9he+lY1gLMkyL7YF7E5NuNO0d1l7dH1q1z9I2zk5wTRsmFdNW/PXgRte9/D6t5rBfCyVqc+bSH+3mAnsub7gw1+H8P6LqXJ7t9FxlQ8CHwQ6RSNnaUudFKEfVFmLzByyE7EFBaAFiXsQyj8JxGLOY45PlOtQTEY7bcf8Q90l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780724569; c=relaxed/simple;
-	bh=LjX0iNDA1QuH0fa/aAzAd20F0ug7JO+NaJvzlquleo4=;
+	bh=SmYwTrh69xadUhUcelpIIAfDK+nVXETKXpTKd0NEGsg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nSnLRwrdah8mKV0wi2jQRfntDDp3J9rRN7q/peoiBIC33+DNRKyngtmhlA98va1f04DD6r3fF+9JIeZl/a7Jn/epGr6y6uDAZnW3qBOhI1PoLbv/peMf2i79xDjghwZ+kHaXVGCOlJjnWLIm7Ee66KvvXFzsbqGHBTwFVkaNjL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3lOqoZH; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=XTnrdBQD0XE/pSuBUCJ8V0U0L7Mi1NFV6qEQC4VZIl61g4jqttoltlsURsmdvs2IpsD3i8Ke9RTxWUSoasLEUhNeo0ywXCbgKv80t9YOc245rG2WoRS8k2UPxOi5F9FqH5rNAGpE5o1a21ol8LTc/2ZLvD1zqzhsJZmSrPNk/+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltEDzHKH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3lOqoZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 273CCC2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltEDzHKH"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5FED9C4AF0C;
 	Sat,  6 Jun 2026 05:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780724569;
-	bh=LjX0iNDA1QuH0fa/aAzAd20F0ug7JO+NaJvzlquleo4=;
+	bh=SmYwTrh69xadUhUcelpIIAfDK+nVXETKXpTKd0NEGsg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=b3lOqoZHf/c6KTKbDNiZLpO1GWlrjRkUEm4I4L1Q+fcoLzrn1Ea7H4gxee1ob3JF7
-	 vJJ56vNwDacXzB9iAFmCfJZ1qQxQNfl7IYaF7dkxNdTMFBgqdwZIdFAUy5PHMzIBjX
-	 h831BuTHPSfXxa/ZVs0MH0ZSo9CuoKDc2e6TAQAREdFqhYSt/+oAVlWuC9jSBbbsYw
-	 u7LSGqEq77hLnTKxfuG8P8eDDtyZr7xoWrbZBC47IC2Y3gqjViQWEfTgmK5aSvySqi
-	 zVbzwxmCp2okzWVpCMhr7OlgjIVyecGu8kGayvu9x4bceFy6PsmzLgCwByffOSdvYg
-	 NeX4obGw7WBNA==
+	b=ltEDzHKHhilnURIxH9O4Zwlj4G+ce8sW9L4i4q1T0mO9yi484FhzhiULTxW+MEAc0
+	 RfCC13d3bf1jRcDyWc8ZbPty8tiyvnDzCDJSbPFUcCWCOtXhBhXMZHX8nK17rSlDF2
+	 4PgqLFM2n6BIlJHIcVKtR/+r0dCghaYOlLCT0kajNGUdUHU3S0DeMUqKdgzjdMQc85
+	 KbXau/VnXzW38gy3TnajACTEeDmRK9q6bN3pUyIGA26uDpFidOPMa4EW2+132YSUj5
+	 Gj3Gc1apyINVSCJjj39+BHz7HNErDTM9sk4KGZ3VgEE+5HEDrtGlAauwtXb2MU58Or
+	 wzd5PVmrGF+Kg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1242BCD8C85;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 517BFCD8C8E;
 	Sat,  6 Jun 2026 05:42:49 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Fri, 05 Jun 2026 22:42:32 -0700
-Subject: [PATCH net-next v4 01/16] net: phy: Helper to read and write
- through C45 without lock
+Date: Fri, 05 Jun 2026 22:42:35 -0700
+Subject: [PATCH net-next v4 04/16] net: phy: microchip_t1s: Use generic
+ APIs for C45 read and write
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260605-s2500-mac-phy-support-v4-1-de0fbc13c6d8@onsemi.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260605-s2500-mac-phy-support-v4-4-de0fbc13c6d8@onsemi.com>
 References: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
 In-Reply-To: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
 To: Andrew Lunn <andrew@lunn.ch>, 
@@ -62,11 +62,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jerry Ray <jerry.ray@microchip.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780724562; l=3459;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780724562; l=2443;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=JvvJXQtiELpn1FGIsjj4sr5oo2VlfTINRAZf1k5i42I=;
- b=y6DMdh9smhvvWef/6NBQQFDz0anPehbu1rQUl6u/PaXM+u/UUKbuu9HObang8430hF8xDin9w
- yS0GcRb19+qAIVJLzQr2yRfdG0nTHd44a0VfZijWHNbf1iCZ1+7mkuy
+ bh=6sTUcccS7JT5OwyvQOGywuignQ32VFAFjNX0fljOxUI=;
+ b=itPmpMHWoPWnso/Qb9QuMMu3T6jnObSBOWOdQYubTo9lEaCWR4sEp24QGd3dC7wQXbUd3CyNC
+ Cq6XtW7R34ABTMB+YMKyJsbxyNkRtUUvA4wnS9vHc0/5/3yVvG81sV3
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -76,97 +76,64 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Generic helper function to initiate read and write through C45 bus
-protocol without mdio bus lock. This will help PHYs to avoid indirect C22
-API calls for C45 bus protocol which may not be supported by the PHY.
+Replace vendor implementation with generic API to read and write
+PHY registers using C45 bus protocol.
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 ---
- drivers/net/phy/phy_device.c | 55 ++++++++++++++++++++++++++++++++++++++++++++
- include/linux/phy.h          |  4 ++++
- 2 files changed, 59 insertions(+)
+ drivers/net/phy/microchip_t1s.c | 32 ++------------------------------
+ 1 file changed, 2 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 3370eb822017..20c92fde4fbb 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -2781,6 +2781,61 @@ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
+diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
+index e601d56b2507..0c4dc70641d8 100644
+--- a/drivers/net/phy/microchip_t1s.c
++++ b/drivers/net/phy/microchip_t1s.c
+@@ -506,34 +506,6 @@ static int lan86xx_read_status(struct phy_device *phydev)
+ 	return 0;
  }
- EXPORT_SYMBOL(genphy_write_mmd_unsupported);
  
-+/**
-+ * genphy_phy_read_mmd - Helper for reading a register without lock
-+ * from the given MMD and PHY.
-+ * @phydev: The phy_device struct
-+ * @devnum: The MMD to read from
-+ * @regnum: The register on the MMD to read
-+ *
-+ * Description: PHYs can have both C22 and C45 registers space. Once PHY
-+ * is discovered via C22 bus protocol, it uses C22 indirect access to
-+ * access C45 registers. Some PHYs, like 10Base-T1S PHYs defined by OPEN
-+ * Alliance 10BASE‑T1x, support only direct access.
-+ *
-+ * If PHY indicates C45 support through DTS entry, it avoid C22 APIs
-+ * entirely and therefore generic MDIO registers are inaccessible.
-+ *
-+ * MDIO bus isn't locked here because when called through read_mmd
-+ * callback of phy_driver, caller is expected to lock the bus as
-+ * implemented in phy_read_mmd.
-+ *
-+ * Returns: Register value if successful, negative error code on failure.
-+ */
-+int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
-+			u16 regnum)
-+{
-+	struct mii_bus *bus = phydev->mdio.bus;
-+	int addr = phydev->mdio.addr;
-+
-+	lockdep_assert_held(&bus->mdio_lock);
-+	return __mdiobus_c45_read(bus, addr, devnum, regnum);
-+}
-+EXPORT_SYMBOL(genphy_phy_read_mmd);
-+
-+/**
-+ * genphy_phy_write_mmd - Helper for writing a register without lock
-+ * to the given MMD and PHY.
-+ * @phydev: The phy_device struct
-+ * @devnum: The MMD to write to
-+ * @regnum: The register on the MMD to write
-+ * @val:    Value to write
-+ *
-+ * Description: Similar to genphy_phy_read_mmd
-+ *
-+ * Returns: 0 if successful, negative error code on failure.
-+ */
-+int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
-+			 u16 regnum, u16 val)
-+{
-+	struct mii_bus *bus = phydev->mdio.bus;
-+	int addr = phydev->mdio.addr;
-+
-+	lockdep_assert_held(&bus->mdio_lock);
-+	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
-+}
-+EXPORT_SYMBOL(genphy_phy_write_mmd);
-+
- int genphy_suspend(struct phy_device *phydev)
- {
- 	return phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN);
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 199a7aaa341b..8266dd4a8dbe 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -2301,6 +2301,10 @@ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
- 				u16 regnum);
- int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
- 				 u16 regnum, u16 val);
-+int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
-+			 u16 regnum, u16 val);
-+int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
-+			u16 regnum);
- 
- /* Clause 37 */
- int genphy_c37_config_aneg(struct phy_device *phydev);
+-/* OPEN Alliance 10BASE-T1x compliance MAC-PHYs will have both C22 and
+- * C45 registers space. If the PHY is discovered via C22 bus protocol it assumes
+- * it uses C22 protocol and always uses C22 registers indirect access to access
+- * C45 registers. This is because, we don't have a clean separation between
+- * C22/C45 register space and C22/C45 MDIO bus protocols. Resulting, PHY C45
+- * registers direct access can't be used which can save multiple SPI bus access.
+- * To support this feature, set .read_mmd/.write_mmd in the PHY driver to call
+- * .read_c45/.write_c45 in the OPEN Alliance framework
+- * drivers/net/ethernet/oa_tc6.c
+- */
+-static int lan865x_phy_read_mmd(struct phy_device *phydev, int devnum,
+-				u16 regnum)
+-{
+-	struct mii_bus *bus = phydev->mdio.bus;
+-	int addr = phydev->mdio.addr;
+-
+-	return __mdiobus_c45_read(bus, addr, devnum, regnum);
+-}
+-
+-static int lan865x_phy_write_mmd(struct phy_device *phydev, int devnum,
+-				 u16 regnum, u16 val)
+-{
+-	struct mii_bus *bus = phydev->mdio.bus;
+-	int addr = phydev->mdio.addr;
+-
+-	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
+-}
+-
+ static struct phy_driver microchip_t1s_driver[] = {
+ 	{
+ 		PHY_ID_MATCH_EXACT(PHY_ID_LAN867X_REVB1),
+@@ -584,8 +556,8 @@ static struct phy_driver microchip_t1s_driver[] = {
+ 		.features           = PHY_BASIC_T1S_P2MP_FEATURES,
+ 		.config_init        = lan865x_revb_config_init,
+ 		.read_status        = lan86xx_read_status,
+-		.read_mmd           = lan865x_phy_read_mmd,
+-		.write_mmd          = lan865x_phy_write_mmd,
++		.read_mmd           = genphy_phy_read_mmd,
++		.write_mmd          = genphy_phy_write_mmd,
+ 		.get_plca_cfg	    = genphy_c45_plca_get_cfg,
+ 		.set_plca_cfg	    = lan86xx_plca_set_cfg,
+ 		.get_plca_status    = genphy_c45_plca_get_status,
 
 -- 
 2.43.0
