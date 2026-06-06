@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BEE26ED3C;
-	Sat,  6 Jun 2026 19:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C138730C155;
+	Sat,  6 Jun 2026 19:50:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780775287; cv=none; b=V25/6tJP8JWROszW/gOCF/Giym4qJazUmrWMYesJGThdQpt+f1xuKnPUiLfofDhfmUNyglsNR9A+dBO6hqy8nwtPlQGHoc5aUi/G86B8l+JotV5LD5L3VyTsMQ3/MPEE7FIN3Jrz24j5PwTDf97Lz240POb73+fAPCrD/EOg1Rc=
+	t=1780775440; cv=none; b=GHw+YS9NxYY0nnPREyVW64KzQzIwQoCH3JnATnKRqYaDXcIr5UfqMjKPAifQshI57FbhJhA1ZnLO7QQTGwe6NKW97AhahhhfiiOhQwCO7XEidRQOv0wL3WiVomJSjWoZzDH6fNLSyZFvRy7WbNALlybfGiZkFxyAvA1joq2VL9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780775287; c=relaxed/simple;
-	bh=kAS4xef3rZKbtAWZa5rpyoVfomxWowcRNE2ZbMHoSPE=;
+	s=arc-20240116; t=1780775440; c=relaxed/simple;
+	bh=cpE0hhVkOHu+hhw4alYKWyWhbPKMuKDGDSqK9fiwrBM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AGFdBxLxObTbvL7ftsBLJFaRxzjKQ2Qc8YDrhWFr4loeMLJaEbQ+8ArXb2EMO3HfraYik5PW5Y1g2X4oWfWkbwksi06ddwikSnoyPInk57Z6u2EoqL5L6pyT+f/2kL7euonCO1tN5AiWpuMYG6xfhyqXgIe4T7p/DwWv0UAN4/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LN1w8Y2C; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=RUeLokRgP1fJ4JhCgS0AQ/87GmK3pDV8EFR0E9GItAz1klydy0L64TMqfOIBZeKrHLqGL+oyjbUCCJ3CtmcDPwS2uws+pB5Mw/tv/Qq6lVU4+YhG8UND7okmk1IKleWX10Zcd6IaVFHm0RfZu71WS70LREwGDaTOxh3LZAkYTHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBatmmhG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LN1w8Y2C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4929B1F00893;
-	Sat,  6 Jun 2026 19:48:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBatmmhG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284441F00893;
+	Sat,  6 Jun 2026 19:50:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780775286;
-	bh=0Sx0YU3Ol9PcuiPsDE7wFPYzsYJ5sybdb29ZbLaBHYY=;
+	s=k20260515; t=1780775439;
+	bh=aipNwt5sgwd6I2ivj9RCM0/ZrytwIZT9mhs5XO0w3Nc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LN1w8Y2C1O16epX73Ktyl7vVwIyAmmCIBwnaPu9A/wzKAriKWD/h0lT4yMxDhhPUP
-	 A1AXohmeAkQGnoDdAxphNNkP7F8uRvi72Q0Ie6JfQOWBVdT5cSBJlusn06S5WKKu3a
-	 kqz6kRswCYtjXJt6+DH2TzR3UZlHI1lpv6JYDn48XMaRZLELml09vtw0X4nUFfgDts
-	 2GcVKdlt7ECh+oHX2xdD3pFghZzWUKSX1+0JIbfeTurr9uKP/LDcB5n7OiU3GJJW9d
-	 OEPjBpF/kC2/NICtMoKCuu7DiMrc1N1mpWxMoag8AwRAEIu34nsOg0Fidnxeq5IIu1
-	 2ZFUxElBtNcCQ==
-Message-ID: <0b3a7b64-252e-4d86-8561-c5f16808054c@kernel.org>
-Date: Sat, 6 Jun 2026 21:48:00 +0200
+	b=BBatmmhGWqi9eJTmjrUzToe40xnJnfEp0udQE+1O5/+aleAB1H/Zi3VOv7FLJi+3u
+	 QvaRez4MZSYvtwnKKom2Hsh3F9Mj+qrOie85lL/AzZPxsdqHEhTgKPajHXKvc8+AUY
+	 uZ8QYb1AfNk2VhHvsMLdUS0TLHWJRmVFrdKsO7QdMLizHFFgANjeakGSPA09oRvZQO
+	 nXqX3+PEtBK2j/voxnOlBhHX5lN4cyuPy/rgeRNlIZ+EgFMV48ELubRdd6Ho9BjJpd
+	 rpSasQ4syxftD+jk9zkACGjYTw5Ig81g43VP8L21E7PmUTmosTWPIPk26jEam6lk/A
+	 UpwOL8HYf0zAA==
+Message-ID: <1661f2c0-2fbe-4ae3-a08f-1b31183eca16@kernel.org>
+Date: Sat, 6 Jun 2026 21:50:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,13 +35,29 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] soc: qcom: socinfo: Add CQ8725S SoC ID
-To: webgeek1234@gmail.com, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-References: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: display: msm: qcm2290: Add Shikra
+ MDSS
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+References: <20260605-shikra-display-v3-0-9846ba5fe635@oss.qualcomm.com>
+ <20260605-shikra-display-v3-1-9846ba5fe635@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,20 +103,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+In-Reply-To: <20260605-shikra-display-v3-1-9846ba5fe635@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/06/2026 23:49, Aaron Kling via B4 Relay wrote:
-> Add the ID for the CQ8725S which is a variant of SM8750.
-> 
-> ---
-> Teguh Sobirin (2):
->       dt-bindings: arm: qcom,ids: Add SoC ID for CQ8725S
->       soc: qcom: socinfo: Add CQ8725S SoC ID
+On 05/06/2026 12:18, Nabige Aala wrote:
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+> index be6cd8adb3b6..e166a73651df 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+> @@ -13,8 +13,11 @@ $ref: /schemas/display/msm/dpu-common.yaml#
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,qcm2290-dpu
+> -
 
-Where is DTS using this? Or anything? We do not add SoC IDs alone, it's
-pointless for a DT platform.
+Do not introduce additional changes. Blank line was there on purpose.
 
 Best regards,
 Krzysztof
