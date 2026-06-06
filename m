@@ -1,170 +1,265 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C898302146
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 12:48:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FD0302146;
+	Sat,  6 Jun 2026 12:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780750111; cv=none; b=C0DwZh0pR7zGuimuFUQZOugIHinH/BbYA1VjS+bllmvZsiNkZoZEd8YOvVLkFW4pJ/Ps/pTwGbKFFqcryl2r2ThOkjK/U9Pbxsbg5b+/sClv9vYx9Apc0GmTQrUH/XhkdTeIdp7qjivSRPMi8iST8wESoG9ZJr5EZBPA+kgmLP8=
+	t=1780750182; cv=none; b=D8mCoPt1+de1y23PfdxjrrtaQIOpgNYFA7ZXnuyVXEKSSwS9z8kc+ShEjdukuV6rvzovy7jNCqdjE+Y3Fj7RrC/il2WmoBXacgyzGRETSLNzUS8+2c8ZSqMcBIWhqUbjMmAcyYhx80HAkdxvPAR09LUPDI1tm0KSV2VKkxV65Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780750111; c=relaxed/simple;
-	bh=RJOqGOXdfiU8RznROh5NMv0YKBm9ihN97IWgbpvis40=;
+	s=arc-20240116; t=1780750182; c=relaxed/simple;
+	bh=foUKfqoAO7kDFDZSsoVcguR216/NdnQe4nvJ1gsjBAs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ECu9KqbdQoGqsd1b1wscSTlBVYXeMrplNbKuoOnd5C3OHq9olsXKq5qZDYcOxPGQZ3aaJHwV4ILel0BQh7Hz9CjHd7KsOJpI5QFRlsKvVJYf4LkNliL5UVvHB+P5x3EC5A+FnlkR+uCU297nrZ607G0Q9T9ek+/eFn78gnro63k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRXKHH2/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eOgBlqtqOD1k6shP3FdAyrWJtVf+hrbQ79irRLuHAMAjTtNqSNesk3Cga1pkU49BUbT2JgFnCgq81Y+qHkr3pAlE9BIp21yfsWdrjZe1fIkSR5lXvYHalVc0e4inBgBhAN6AhvToBFaiW/luna73w3n+hp1ac5Au4tUn9Qnkpsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vne32v4p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRXKHH2/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CDE1F00898;
-	Sat,  6 Jun 2026 12:48:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vne32v4p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F16601F00893;
+	Sat,  6 Jun 2026 12:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780750110;
-	bh=Kh075M5sx6/VCuoZopmooaPl2jLxm38bLoLeeOjv22Y=;
+	s=k20260515; t=1780750181;
+	bh=aTlF+ko3wojba2peysOGp9I8KU0Gm6rkjkzwtSkbt64=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aRXKHH2/sJ25lG9lC1q4Tb9u5lwnrUyKJkUwOMp4CzLeytT+nXZ9oqscC+MjZ2+Xm
-	 4qVWw2+L5SJYEB781ETR4ncMXA06v2CTzoZxlEc9hz1g8X0N70R//oFlM9LHD7RSMz
-	 7FIUUzUvqZ2t1crZuYsVqG7kUo0c4MrNCEWVhmByWlukseOJxlMXhywNPf4fAvyEr0
-	 w/e/rOg17ZvPEz1JGQNw1JnH6llfyfx+AdGpmU3Xb4WrH6BlxUNOTyaEmLhrFgAW31
-	 aJDgiHt9gIBfOQTow1WrsSsaYAmJejA9IlNc3E9qKASG3i8YgTgPoqPn5+XElgx7k0
-	 XLTEiLG0f0ohg==
+	b=Vne32v4pGuewrhu6pixG0rq41amXB0uJBbgmZxun113rs99WHHIkOgtIJqLy01UU9
+	 ASpHGRyCK3A6mNqKrHpUNWVQPr9ZBXIFR2LroyPZBAjNQ0XF10OVBDXx7bAo0I1mHt
+	 OxhZCXhXYS5zAwHCVJDJ3LH0HrsNhTUI3k+GPE9Z8s0I+IG0+0J6lrQEsjoPzSvcul
+	 85Aewg01FiI3425kHYcJKif9AhWMzQ7r/PwI8KPf0o2/Tu7dDTOtuYX+p0g47GCBLk
+	 Q8vAhsBv5uo2p/bDmiU+lmWoTfAx6UNY9nZNTLq7RzBOzA80KKqGOZ5S/XIM7g0aaQ
+	 OcUtOld0tdZmg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] interconnect: qcom: add MSM8x60 NoC driver
+Subject: Re: [PATCH v5 2/2] media: i2c: add Aptina MT9M113 1.3 Mpx SoC
+ sensor driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk" <github.com@herrie.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260606-submit-interconnect-msm8660-v3-2-f9da0158cdf8@herrie.org>
-References: <20260606-submit-interconnect-msm8660-v3-2-f9da0158cdf8@herrie.org>
+To: "Herman van Hazendonk via B4 Relay" <devnull+github.com.herrie.org@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260606-submit-media-mt9m113-v5-2-2088c7358e11@herrie.org>
+References: <20260606-submit-media-mt9m113-v5-2-2088c7358e11@herrie.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 12:48:29 +0000
-Message-Id: <20260606124829.E5CDE1F00898@smtp.kernel.org>
+Date: Sat, 06 Jun 2026 12:49:40 +0000
+Message-Id: <20260606124940.F16601F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Memory leak of dynamically allocated target nodes on probe failure.
-- [High] Use-After-Free (UAF) of cross-fabric nodes upon driver unbind.
-- [High] Bandwidth starvation due to incorrect node clock rate calculation.
+- [High] Use-after-free of the `sensor` structure in `mt9m113_remove()`.
+- [High] Use-after-free of the `link_frequencies` array via the V4L2 contro=
+l handler.
+- [High] Use-after-free of `devm`-managed resources (e.g., `regmap`) in `mt=
+9m113_s_ctrl()`.
+- [High] Runtime PM state desynchronization leading to clock and regulator =
+underflows in `mt9m113_start_streaming()`.
+- [Medium] Memory leak of the dynamically allocated `sensor` structure on e=
+arly probe error paths.
+- [Medium] V4L2 API compliance violation: incorrectly rejecting `V4L2_SUBDE=
+V_FORMAT_TRY` queries while streaming.
 --
 
-commit 5d22619e7f59ed3d33c0640a610abb2e710a6a9c
+commit fc8d6a3b86a58b31fdfee3e786e86929c5b8b724
 Author: Herman van Hazendonk <github.com@herrie.org>
+Subject: media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
 
-interconnect: qcom: add MSM8x60 NoC driver
+Adds a V4L2 subdev driver for the Aptina MT9M113 1.3 Megapixel SoC image=20
+sensor with on-chip ISP, supporting Context A and B operation modes.
 
-Add a Qualcomm interconnect driver for the MSM8x60 family modelling the
-four NoC fabrics (APPSS, System, MMSS, Daytona) that connect masters
-and slaves on these Scorpion-class SoCs.
-
-> diff --git a/drivers/interconnect/qcom/msm8660.c b/drivers/interconnect/q=
-com/msm8660.c
-> new file mode 100644
+> diff --git a/drivers/media/i2c/mt9m113.c b/drivers/media/i2c/mt9m113.c
 > --- /dev/null
-> +++ b/drivers/interconnect/qcom/msm8660.c
+> +++ b/drivers/media/i2c/mt9m113.c
 [ ... ]
-> @@ -1231,23 +1231,23 @@ static int msm8660_icc_set(struct icc_node *src, =
-struct icc_node *dst)
+> +static int mt9m113_start_streaming(struct mt9m113 *sensor,
+> +				   struct v4l2_subdev_state *state)
+> +{
+> +	struct device *dev =3D &sensor->client->dev;
 [ ... ]
-> +	list_for_each_entry(n, &provider->nodes, node_list) {
-> +		u64 node_bw =3D max(icc_units_to_bps(n->avg_bw),
-> +				  icc_units_to_bps(n->peak_bw));
-> +		u64 node_rate =3D div_u64(node_bw, qp->desc->bus_width);
-
-[Severity: High]
-Does this calculation incorrectly starve narrow links by using the global
-fabric bus width?
-
-The clock rate is calculated by dividing the node's bandwidth by the overall
-fabric bus width (qp->desc->bus_width). However, some peripheral nodes
-(like sfab_to_system_fpb) have a narrower bus width (4 bytes) than the full
-fabric (8 bytes).
-
-Dividing a 4-byte node's bandwidth by 8 instead of its own width halves the
-resulting requested clock frequency, mathematically guaranteeing these narr=
-ower
-links will be starved of bandwidth.
-
-Should this use ((struct msm8660_icc_node *)n->data)->buswidth instead?
-
-[ ... ]
-> @@ -1563,30 +1563,30 @@ static int msm8660_icc_probe(struct platform_devi=
-ce *pdev)
-[ ... ]
-> +		for (j =3D 0; j < qnodes[i]->num_links; j++) {
-> +			ret =3D icc_link_nodes(node,
-> +					     &qnodes[i]->link_nodes[j]->node);
-> +			if (ret)
-> +				goto err_remove_nodes;
+> +		ret =3D mt9m113_sensor_init(sensor);
+> +		if (ret) {
+> +			mt9m113_power_off(sensor);
+> +			break;
 > +		}
-> +
-> +		data->nodes[i] =3D node;
 > +	}
 > +
-> +	ret =3D icc_provider_register(provider);
-> +	if (ret)
-> +		goto err_remove_nodes;
-> +
-> +	platform_set_drvdata(pdev, qp);
-> +
-> +	dev_info(dev, "MSM8660 interconnect provider registered\n");
-> +
-> +	return 0;
-> +
-> +err_remove_nodes:
-> +	icc_nodes_remove(provider);
-> +	msm8660_clear_node_cache(qnodes, num_nodes);
-
-[Severity: High]
-Does this error path leak memory for target nodes that were allocated
-during icc_link_nodes() but not yet added to the provider?
-
-If probe fails (e.g., -ENOMEM in icc_node_set_name()), the error path calls
-icc_nodes_remove(), which frees nodes that have already been fully initiali=
-zed
-and added to provider->nodes.
-
-The driver then calls msm8660_clear_node_cache(), which zeroes all
-qnodes[k]->node pointers. This destroys the only reference to any un-added
-target nodes that were allocated mid-loop by icc_link_nodes(), resulting in=
- a
-memory leak.
-
-[ ... ]
-> @@ -1604,11 +1604,11 @@ static void msm8660_icc_remove(struct platform_de=
-vice *pdev)
-> +static void msm8660_icc_remove(struct platform_device *pdev)
-> +{
-> +	struct msm8660_icc_provider *qp =3D platform_get_drvdata(pdev);
-> +	const struct msm8660_icc_desc *desc =3D of_device_get_match_data(&pdev-=
->dev);
-> +
-> +	icc_provider_deregister(&qp->provider);
-> +	icc_nodes_remove(&qp->provider);
-
-[Severity: High]
-Can this cause a use-after-free of cross-fabric nodes if a fabric is unbound
-via sysfs?
-
-The interconnect fabrics are registered as separate platform devices.
-Cross-fabric links are established by storing a raw pointer to the target
-node in the source node's links array.
-
-Because there is no .suppress_bind_attrs =3D true, fabrics can be individua=
-lly
-unbound via sysfs. Unbinding a target fabric triggers icc_nodes_remove(),
-which destroys and frees its nodes. The still-bound source fabric then reta=
-ins
-a dangling pointer to the freed node in its links array, which will be
-dereferenced during path finding operations.
-
-> +	if (desc)
-> +		msm8660_clear_node_cache(desc->nodes, desc->num_nodes);
-> +	/* clk cleanup happens via devm_add_action_or_reset on remove. */
+> +	/*
+> +	 * Every break above leaves the chip powered off (the final attempt
+> +	 * branch, the power_on failure branch and the sensor_init failure
+> +	 * branch each call mt9m113_power_off before breaking). Just sync the
+> +	 * PM core to SUSPENDED so a later resume re-invokes power_on, and
+> +	 * drop the reference taken at the top of this function.
+> +	 */
+> +	pm_runtime_set_suspended(dev);
+> +	pm_runtime_put_noidle(dev);
+> +	return ret;
 > +}
 
+[Severity: High]
+Does this cause a runtime PM state desynchronization?
+
+Calling pm_runtime_set_suspended() here while runtime PM is still enabled=20
+fails silently with -EAGAIN, leaving the PM core in the RPM_ACTIVE state.=20
+Later, when the usage counter drops to zero and auto-suspend fires,=20
+mt9m113_runtime_suspend() will execute and call mt9m113_power_off() a=20
+second time.
+
+Could this mismatched disable lead to clk_disable_unprepare() and=20
+regulator_bulk_disable() underflow warnings?
+
+[ ... ]
+> +static int mt9m113_ifp_set_fmt(struct v4l2_subdev *sd,
+> +			       struct v4l2_subdev_state *state,
+> +			       struct v4l2_subdev_format *fmt)
+> +{
+> +	struct mt9m113 *sensor =3D ifp_to_mt9m113(sd);
+[ ... ]
+> +	/*
+> +	 * Reject geometry/format changes while the pipeline is live.
+> +	 * The sensor is only programmed in mt9m113_stream_on(); silently
+> +	 * updating the active state would let userspace see one format while
+> +	 * the wire still carries the previous one.
+> +	 */
+> +	if (sensor->streaming)
+> +		return -EBUSY;
+
+[Severity: Medium]
+Is it intentional to reject V4L2_SUBDEV_FORMAT_TRY queries while streaming?
+
+This check blocks all format changes when sensor->streaming is true, but=20
+V4L2_SUBDEV_FORMAT_TRY is used by userspace to safely test formatting=20
+parameters without affecting the active hardware pipeline.=20
+
+Could this check be narrowed to allow TRY requests during streaming?
+
+[ ... ]
+> +static int mt9m113_s_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct mt9m113 *sensor =3D container_of(ctrl->handler,
+> +					       struct mt9m113, ifp.hdl);
+> +	int pm_ret, ret =3D 0;
+> +
+> +	/*
+> +	 * pm_runtime_get_if_in_use() returns >0 on success (HW active, kref
+> +	 * incremented), 0 if the device is suspended, and -EINVAL when
+> +	 * CONFIG_PM is disabled. Treat -EINVAL as "PM core is absent, HW is
+> +	 * always on" and proceed without taking a kref (the matching put at
+> +	 * the tail must then be skipped). Only 0 means "skip silently".
+> +	 */
+> +	pm_ret =3D pm_runtime_get_if_in_use(&sensor->client->dev);
+> +	if (pm_ret =3D=3D 0)
+> +		return 0;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_HFLIP: {
+> +		u64 mode_a, mode_b;
+> +
+> +		ret =3D mt9m113_read_mcu_var(sensor, MT9M113_SENSOR_READ_MODE_A,
+> +					   &mode_a);
+
+[Severity: High]
+Can this lead to a use-after-free of devm-managed resources?
+
+If a user-space application holds the subdevice file descriptor open and=20
+calls VIDIOC_S_CTRL after unbind, mt9m113_s_ctrl() will execute. Because=20
+pm_runtime_disable() was called in remove(), pm_runtime_get_if_in_use()=20
+will return -EINVAL.
+
+Since the check is exactly pm_ret =3D=3D 0, the negative error code allows =
+the=20
+code to proceed and access sensor->regmap to write hardware registers. At=20
+this point, the devm-managed regmap has already been freed by the driver=20
+core.
+
+[ ... ]
+> +static int mt9m113_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct mt9m113 *sensor;
+> +	int ret;
+> +
+> +	sensor =3D kzalloc(sizeof(*sensor), GFP_KERNEL);
+> +	if (!sensor)
+> +		return -ENOMEM;
+> +
+> +	sensor->client =3D client;
+> +	/*
+> +	 * Initialise to 2 so kfree(sensor) only runs after both the PA and IFP
+> +	 * release callbacks have fired (i.e. all open /dev/v4l-subdev* fds have
+> +	 * been closed). See mt9m113_pa_release() for the full rationale.
+> +	 */
+> +	atomic_set(&sensor->release_count, 2);
+> +
+> +	sensor->regmap =3D devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(sensor->regmap))
+> +		return PTR_ERR(sensor->regmap);
+> +
+> +	ret =3D mt9m113_parse_dt(sensor);
+> +	if (ret < 0)
+> +		return ret;
+
+[Severity: Medium]
+Does this leak the dynamically allocated sensor structure?
+
+The sensor struct is allocated with kzalloc() to tie its lifetime to the=20
+V4L2 subdevice character devices. However, if early probe operations like=20
+devm_cci_regmap_init_i2c() or mt9m113_parse_dt() fail, the driver returns=20
+directly.=20
+
+Could these error paths be updated to ensure kfree(sensor) is called?
+
+[ ... ]
+> +	v4l2_ctrl_handler_init(&sensor->pa.hdl, 2);
+> +	{
+> +		struct v4l2_ctrl *link_freq_ctrl;
+> +
+> +		link_freq_ctrl =3D v4l2_ctrl_new_int_menu(&sensor->pa.hdl, NULL,
+> +				V4L2_CID_LINK_FREQ,
+> +				sensor->bus_cfg.nr_of_link_frequencies - 1, 0,
+> +				sensor->bus_cfg.link_frequencies);
+[ ... ]
+> +static void mt9m113_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> +	struct mt9m113 *sensor =3D ifp_to_mt9m113(sd);
+> +	struct device *dev =3D &client->dev;
+[ ... ]
+> +	v4l2_async_unregister_subdev(&sensor->ifp.sd);
+> +
+> +	v4l2_fwnode_endpoint_free(&sensor->bus_cfg);
+> +
+> +	pm_runtime_disable(dev);
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	if (!pm_runtime_status_suspended(dev))
+> +		mt9m113_power_off(sensor);
+> +	pm_runtime_set_suspended(dev);
+> +}
+
+[Severity: High]
+Can this cause a use-after-free of the sensor structure?
+
+v4l2_async_unregister_subdev() detaches the subdevices, which results in=20
+the synchronous invocation of their release callbacks if no file=20
+descriptors are currently open. The driver's release callbacks decrement=20
+release_count and free the sensor struct.=20
+
+When v4l2_async_unregister_subdev() returns, the driver continues to=20
+access sensor->bus_cfg and passes the freed sensor pointer to=20
+mt9m113_power_off(), leading to a direct use-after-free.
+
+[Severity: High]
+Could v4l2_fwnode_endpoint_free() here also cause a use-after-free of the=20
+link_frequencies array via the V4L2 control handler?
+
+During probe, the driver passes sensor->bus_cfg.link_frequencies to=20
+v4l2_ctrl_new_int_menu(), which stores the array pointer directly in=20
+ctrl->qmenu_int.=20
+
+In mt9m113_remove(), v4l2_fwnode_endpoint_free() frees the=20
+link_frequencies array. However, the V4L2 control handler's lifetime is=20
+tied to the subdevice file descriptor. If a user-space process holds the=20
+file descriptor open after the device is unbound, a subsequent=20
+VIDIOC_QUERYMENU ioctl will read from the freed qmenu_int pointer.
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-submit-int=
-erconnect-msm8660-v3-0-f9da0158cdf8@herrie.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-submit-med=
+ia-mt9m113-v5-0-2088c7358e11@herrie.org?part=3D2
