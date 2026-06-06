@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F1830D3E5;
-	Sat,  6 Jun 2026 19:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF80721A434
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 19:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780773995; cv=none; b=UMq15aMFPchBIT4Pe8CUYsUyDSo6QbpJafXERwSgoTcUL4yPslpGXY0TVsBFMJPFLg34/50FoPp7g/C42Cjk3ituEAfpzgTK8aHEK+dJlZVMPK3k0Keid09F1OWYFvsTR3lWp8MKnlKmNgNbsmk/kmUx3RXMbqmhOXI04mqo2kA=
+	t=1780774225; cv=none; b=f9hgky+s2AnplgWjNdO2LzHrOwLECAirSpOzmA8R6fPwSyQQfU95A0uU2ngph3Ak5hjwey27nL//8Y85wmm44eqL285zJ8SKp0K9KyxdF9+Jd8gNXU7Hpymx14mc0BHULeuwDh316cnMgjiI/T40NZ+uknd17gKmOHZYjvI2aZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780773995; c=relaxed/simple;
-	bh=lZt6H7XdaI7reH5WcStHmqtyDchmQu70asicveCrHDg=;
+	s=arc-20240116; t=1780774225; c=relaxed/simple;
+	bh=QKYHY0qgMcMoBTNwpncxRqngwXcB4yMBhr4n9IkeS10=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DQIsJJwBQRdbYSXiY6gHYvPmB7oMBK3IepC3KfE47vIHRbKisk83Z80bWX4GXGF1pK8t+uQ62Th7yLcP+zEll3P8KZYmHitFpZjmf/ReLIVNemBytJbKexUUysQGVEvpQDOIKKuqYTjyJXjVPiUz1nPArk4mra0sp3QL/JsCYms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeBWjbm7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ugjaQTRgB/bmYQeh3lVP0HYrOo+IF0C9FLCcdG76qFRuJNiWJPCSYjVlc+9/7n932+jl9u3XPwUW1tvSO4yjt3guvFperSoWf/TD4zFWG8xJ/87GNI9GWb6ET+rqjJSNmLwj16Mvjfmq/bBrjoNeF4Gyth2zgUNBWQKQvTqVEGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUyWH2Ns; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeBWjbm7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E930A1F00893;
-	Sat,  6 Jun 2026 19:26:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUyWH2Ns"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591D61F00893;
+	Sat,  6 Jun 2026 19:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780773994;
-	bh=Lztxtfeb8rYO41Wn0tUA+/PTnrKdkzQdkeVccRyfme4=;
+	s=k20260515; t=1780774222;
+	bh=jE4HYmDjPwCf/zXFM46m6catfSXXNqYLsPE71lyrV7Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DeBWjbm7p2JlTTLM4GzmzELHhZqie7dQjg9P7hdCp8GtZ2kkAXJktM1u6wVg7qH+j
-	 hBBMNcd7qrnfYqCCmMR+AP8jYyuFz2Ubu/XmUwgp3PObZsfS97flSwAcYYLszxR9Y6
-	 gX5dECePEVSZLeSOMeyN3U5qjRzVQqNSYT6bLQRQ7WoKobFDiSRaGFLssQEJRltwJb
-	 2Q3RS57EdbjF/tjfqi3V0EhrxWGLGaNIzq3pX+ZyfRbG0dlCpXEw7De52cKC2SelGN
-	 drkPSpIPDmXMUu+2pRqrrJp1HZvY7vzdPh6GeC+qFygth0uKHCzOw0shXLTnFYdgZm
-	 EdzyCUpImbTjg==
+	b=QUyWH2Nsy5q09AJL8L3emnv3b1TAfYiTprTeJQuu43CoSaO8WIhQZpmeDxyZD7+1Y
+	 GwlvSSmSyg8ZFGYM2bW/aAPDM6RAH+x5TUlQPH/dT3R0o+C0Ryd5vCYXmdmtgtrfyE
+	 TICJ9SnQMEd1tYF9HN6NpHdgGnVyQQWFdGCb/tQbExuPL+T06Ox9FJ7vcy1UUTpRlW
+	 NI3dLXaQFr9sZ5cM2fijZLuAgb0p913yNWzBCbA4Fq43gLTy8aOpOAiw0UEkC5j6J5
+	 t2KY8Y/CyKOJ5PMwMugQ8wmDtZihoclatbq8iKm95G7p2cD8qS1ikRzVwL7tjR1hM8
+	 tLKf6fN7k9Y2g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] ARM: dts: sunxi: add support for NetCube Systems
- OpenNMC (dobermann)
+Subject: Re: [PATCH] arm64: dts: qcom: qcs6490-rubikpi3: Move PCIe GPIOs to
+ root ports
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lukas Schmid" <lukas.schmid@netcube.li>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260606191649.2347704-4-lukas.schmid@netcube.li>
-References: <20260606191649.2347704-4-lukas.schmid@netcube.li>
+To: "Hongyang Zhao" <hongyang.zhao@thundersoft.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260607-rubikpi-bugfix-next-20260605-v1-1-ff97c5e35bf6@thundersoft.com>
+References: <20260607-rubikpi-bugfix-next-20260605-v1-1-ff97c5e35bf6@thundersoft.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 19:26:33 +0000
-Message-Id: <20260606192633.E930A1F00893@smtp.kernel.org>
+Date: Sat, 06 Jun 2026 19:30:21 +0000
+Message-Id: <20260606193022.591D61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,42 +46,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The device tree source file is incorrectly added to the Makefile wi=
-th a `.dts` extension instead of `.dtb`, which prevents the build system fr=
-om generating the compiled device tree blob.
+- [High] Moving reset-gpios to the root port node without moving `phys` bre=
+aks PCIe reset initialization, leaving the endpoints stuck in reset.
 --
 
-commit 050625703589dd3473dcaea2f70357c5bd2c45b5
-Author: Lukas Schmid <lukas.schmid@netcube.li>
+commit 061c47f23072e39770a5af921fae6283ad631fb1
+Author: Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
-ARM: dts: sunxi: add support for NetCube Systems OpenNMC (dobermann)
+arm64: dts: qcom: qcs6490-rubikpi3: Move PCIe GPIOs to root ports
 
-This commit adds device tree support for the NetCube Systems OpenNMC board,
-which acts as an open replacement for APC SmartSlot Management Cards based =
-on
-the Nagami System-on-Module.
+This commit moves the PCIe0 and PCIe1 reset and wake GPIOs to their
+root port nodes in the qcs6490-thundercomm-rubikpi3 device tree. This
+keeps the GPIO ownership with the device below the root port to match
+the updated PCIe binding expectations.
 
-> diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/all=
-winner/Makefile
-> index f71392a55df87..220a20734dc24 100644
-> --- a/arch/arm/boot/dts/allwinner/Makefile
-> +++ b/arch/arm/boot/dts/allwinner/Makefile
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/=
+arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+> index f47efca42d48d..5c08ab53cdbd9 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
 [ ... ]
-> @@ -261,6 +262,7 @@ dtb-$(CONFIG_MACH_SUN8I) +=3D \
->  	sun8i-s3-lichee-zero-plus.dtb \
->  	sun8i-s3-pinecube.dtb \
->  	sun8i-t113s-mangopi-mq-r-t113.dtb \
-> +	sun8i-t113s-netcube-dobermann.dts \
+> @@ -830,10 +827,12 @@ &pcie0_phy {
+>  	status =3D "okay";
+>  };
+> =20
+> -&pcie1 {
+> -	perst-gpios =3D <&tlmm 2 GPIO_ACTIVE_LOW>;
+> -	wake-gpios =3D <&tlmm 3 GPIO_ACTIVE_LOW>;
+> +&pcie0_port {
+> +	reset-gpios =3D <&tlmm 87 GPIO_ACTIVE_LOW>;
+> +	wake-gpios =3D <&tlmm 89 GPIO_ACTIVE_HIGH>;
+> +};
 
-[Severity: Low]
-Does this target need to use the .dtb extension instead of .dts? Kbuild
-expects the compiled device tree blob targets in the dtb-y lists to resolve
-the compilation rules. Listing the source .dts file here might cause the bu=
-ild
-system to skip compiling the new device tree blob entirely.
+[Severity: High]
+Does moving reset-gpios to the root port node without also moving the
+phys property break PCIe reset initialization?
 
+In drivers/pci/controller/dwc/pcie-qcom.c, qcom_pcie_parse_port() expects
+to find the phys property on the port node:
+
+qcom_pcie_parse_port() {
+        ...
+        phy =3D devm_of_phy_get(dev, node, NULL);
+        if (IS_ERR(phy))
+                return PTR_ERR(phy);
+        ...
+}
+
+Because phys remains defined on the host node in the underlying base
+dtsi, this returns -ENODEV and falls back to qcom_pcie_parse_legacy_binding=
+().
+
+The legacy parser then looks for perst-gpios on the host node:
+
+qcom_pcie_parse_legacy_binding() {
+        ...
+        reset =3D devm_gpiod_get_optional(dev, "perst", GPIOD_OUT_HIGH);
+        if (IS_ERR(reset))
+                return PTR_ERR(reset);
+        ...
+}
+
+Since this patch removes perst-gpios from the host node, this silently
+returns NULL and the driver proceeds without acquiring the reset GPIO.
+
+With pinctrl configuring the pin as output-low, won't the endpoints remain
+stuck in reset indefinitely?
+
+> =20
+> +&pcie1 {
+>  	pinctrl-0 =3D <&pcie1_clkreq_n>,
+>  		    <&pcie1_reset_n>,
+>  		    <&pcie1_wake_n>;
 [ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606191649.2347=
-704-1-lukas.schmid@netcube.li?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607-rubikpi-bu=
+gfix-next-20260605-v1-1-ff97c5e35bf6@thundersoft.com?part=3D1
