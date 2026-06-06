@@ -1,112 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FBC26A0DD;
-	Sat,  6 Jun 2026 02:10:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02FC282F00
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780711828; cv=none; b=HK3XAJLyVh7as68iWNP/ITEl7al7FTnoj8nY3hcUapGsftmxvhrsrq+qs8zHaSwaWcKbcXuHVrxDtGYnJUclgsJH2IkVrF9GqPhfY3pyYdcI6+w/7No0bpm+Ldx1T+2ZGETgmjbi/f7Nwme9XOwS7QwMgqrNwciAG8gi5wS3NbQ=
+	t=1780721463; cv=none; b=lUJGS/KGx1rGXW8ebCBGbgoEbkINklM7JAP07b5lRkAVgCa5oF48V4/3toc2hQMMQ//KcUjk4e2PoTYLCcgBXky2KQiZ2bDutO8+C8HyWJ/Q5TqDps6ohq0DaILWvFgZGhgYTLb2iblT8T03mgMF4qLo+O9LGKKx8PxPs9fK2yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780711828; c=relaxed/simple;
-	bh=3oET53BtoKjeKejtdmFfbuVC8CFcPGGTFD5nOUfdbAI=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=oZ4te+a3foh0Dt2R533CqaN+C/0gdpLXZR3HOJ6RtINgsw33EkQMu+EmQl399SmYXPdZMopbeJlLWZWIfwg+pHV7jHaFUacl8m67HR2fMlZ48yPekFtw49p+h8aFlHmqbkdI9bHwp8tEovcaXq3T6Z2fL0E2tQ6+KPwyaMQju7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TfEVPsW2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780721463; c=relaxed/simple;
+	bh=/u4C1kWYVbZiPw/N/UA7MQei+1M1gBnUoiL6TjXpJMs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r9UH73w9sWZX6mF2Q26TVHirInEpL+fedPt0FDZ/HHqXf9s1BhK+oWBUMBrs+MhSftHV9zelHWwbOFz/HdWTgxEs9eQaSocosjZG9RRHdPeWdxzq+zwauEurjpDkumf1g+288eSV4vMC98yQWqvNQjPpfbNTROGWl8S5GVszq2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmkq+X4D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TfEVPsW2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B5F1F00893;
-	Sat,  6 Jun 2026 02:10:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmkq+X4D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4651F0089A
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:51:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780711825;
-	bh=kMLca7nfWY9RizQfqQEviPppjRfuz0UhEGaO/4cVevs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=TfEVPsW2JDPmWdJxiQloAJKrWYcn3IRGJ6yfNo8yR35J7dWRDFDbOaS5l/Duu393s
-	 r61sP4XE9OxzRF3L2TvMvtCPVtG0h5Ra9cTPqTrSsZLOyLQ0ml2m9dpVfmL0CfEFm2
-	 ywl+PjirMHj7sUS/bAKuVauTatFDdExPcn7dEzpqCn8XPOTKQbnnPdnoy7pi5GDfOV
-	 v8PZ01Lu+CQBfaf+Kgl0lmFfCpfTjvsYzFAwvAAqwLgVyALQXaEEnPk+QGNkWTqEzd
-	 zk7o8yl41w5La+mgN8zQGebVZHqlF8dqKb2QvKyoPSPTablFn0J9XqamR5xjFK8duD
-	 OnilhwFDZ9uWg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198E43930A9C;
-	Sat,  6 Jun 2026 02:10:27 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1780721462;
+	bh=sKz22jwoXiX77X9+l1832laRA/oVlQe98Ct+8CuxsJ4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cmkq+X4D7gn5Wy/QtPOGGldw5QYXyKrpGRBzG/OaLIEXmGAiVmTD//4RCGWFZtImp
+	 Tc8PhbvtGDd2EFFczm3JJjxuZKUoec3t5WS0CzV/WH3hEkH22rA36BE7Ed7m+HfdYv
+	 /ivPseYVrpb2rEjTqE07SXwZEVNmYOJZP+reT7oOIVzuI2gkP699oMSngUfsSzoW4b
+	 8ha3jY+Gx02T+kWeR2Z1o3fSIhb+/bPKyU2lXfkP3wcNO0n+Bxu66zBtZ4bY9Uh6eV
+	 dW0Z/rFhgri0YR5rXMnSk+EDCNUFRKykPtecZa+2IlivwtpjI8VAv68W7N9EaUfVlO
+	 4XEKA97P0TFKg==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68d232e119dso4212956a12.0
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 21:51:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+NbH8DAOXZFAE3FQgxtIFIwRKsJo1AAPUfUT0WInNdNrBYqaAoHZCgn9q3GvZULAfrHwy18HQv1d51@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhFTxGrm/XaEu9PxHRJSRIyL+TiSyjlsY+aik/wV7F6xg5eeCz
+	/vPtlzRf0tbAhC4UIgI8hio2gLEXVPbmTo6geALKVSITwqEkYDsS4frHFDmDVMzurVAfvvFaom6
+	U0S2JiJZGdAhrtSuzdYlIeV/T7HiMJ2M=
+X-Received: by 2002:a05:6402:27ce:b0:687:5157:1d4f with SMTP id
+ 4fb4d7f45d1cf-68fa524d249mr3187355a12.26.1780721461112; Fri, 05 Jun 2026
+ 21:51:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v9 0/6] net: airoha: Support multiple net_devices
- connected to the same GDM port
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178071182563.3993660.16859528929943768907.git-patchwork-notify@kernel.org>
-Date: Sat, 06 Jun 2026 02:10:25 +0000
-References: <20260603-airoha-eth-multi-serdes-v9-0-5d476bc2f426@kernel.org>
-In-Reply-To: <20260603-airoha-eth-multi-serdes-v9-0-5d476bc2f426@kernel.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ansuelsmth@gmail.com, benjamin.larsson@genexis.eu,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org, xuegang.lu@airoha.com,
- madhur.agrawal@airoha.com
+References: <20260604015848.18643-1-wanghongliang@loongson.cn>
+ <20260604015848.18643-2-wanghongliang@loongson.cn> <20260604183813.GA982803-robh@kernel.org>
+In-Reply-To: <20260604183813.GA982803-robh@kernel.org>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 6 Jun 2026 12:50:49 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H648_nNzR67ZCJ9myUG2PQy5q1EHWo1yRjKTUB+4Q+5+Q@mail.gmail.com>
+X-Gm-Features: AVVi8Cd1pBWQh2AK-e5GGLwTOpjGHeDAqe2xsmKUiF49BygdYoawTYdPqMMbYQk
+Message-ID: <CAAhV-H648_nNzR67ZCJ9myUG2PQy5q1EHWo1yRjKTUB+4Q+5+Q@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
+ clock-frequency properties
+To: Rob Herring <robh@kernel.org>
+Cc: Hongliang Wang <wanghongliang@loongson.cn>, Binbin Zhou <zhoubinbin@loongson.cn>, 
+	Andi Shyti <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, stable@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+Hi, Rob,
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+On Fri, Jun 5, 2026 at 2:38=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
+>
+> On Thu, Jun 04, 2026 at 09:58:47AM +0800, Hongliang Wang wrote:
+> > Add clocks and clock-frequency properties to examples.
+> >
+> > Cc: stable@vger.kernel.org
+>
+> Not stable material unless there's a warning in the example (and there
+> is not).
+It is me who told Hongliang to CC stable because the 2nd patch is
+needed. If the 1st one is unnecessary, then please send a new version.
+And for the whole series:
 
-On Wed, 03 Jun 2026 08:00:14 +0200 you wrote:
-> EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
-> Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
-> manages the traffic in a TDM manner. As a result multiple net_devices can
-> connect to the same GDM{3,4} port and there is a theoretical "1:n"
-> relation between GDM ports and net_devices.
-> 
->            ┌─────────────────────────────────┐
->            │                                 │    ┌──────┐
->            │                         P1 GDM1 ├────►MT7530│
->            │                                 │    └──────┘
->            │                                 │      ETH0 (DSA conduit)
->            │                                 │
->            │              PSE/FE             │
->            │                                 │
->            │                                 │
->            │                                 │    ┌─────┐
->            │                         P0 CDM1 ├────►QDMA0│
->            │  P4                     P9 GDM4 │    └─────┘
->            └──┬─────────────────────────┬────┘
->               │                         │
->            ┌──▼──┐                 ┌────▼────┐
->            │ PPE │                 │   ARB   │
->            └─────┘                 └─┬─────┬─┘
->                                      │     │
->                                   ┌──▼──┐┌─▼───┐
->                                   │ ETH ││ USB │
->                                   └─────┘└─────┘
->                                    ETH1   ETH2
-> 
-> [...]
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Here is the summary with links:
-  - [net-next,v9,1/6] dt-bindings: net: airoha: Add GDM port ethernet child node
-    https://git.kernel.org/netdev/net-next/c/a4597204b681
-  - [net-next,v9,2/6] net: airoha: Remove private net_device pointer in airoha_gdm_dev struct
-    https://git.kernel.org/netdev/net-next/c/4408f5206809
-  - [net-next,v9,3/6] net: airoha: Support multiple net_devices for a single FE GDM port
-    https://git.kernel.org/netdev/net-next/c/a9c2ca61fec7
-  - [net-next,v9,4/6] net: airoha: Do not stop GDM port if it is shared
-    https://git.kernel.org/netdev/net-next/c/99b9d095d71e
-  - [net-next,v9,5/6] net: airoha: Introduce WAN device flag
-    https://git.kernel.org/netdev/net-next/c/7758cb462ff7
-  - [net-next,v9,6/6] net: airoha: Support multiple LAN/WAN interfaces for hw MAC address configuration
-    https://git.kernel.org/netdev/net-next/c/ef2aee987174
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+> > ---
+> >  Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> > index ee09c6d9c5f0..0beb7f2515c8 100644
+> > --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> > +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> > @@ -37,11 +37,14 @@ unevaluatedProperties: false
+> >
+> >  examples:
+> >    - |
+> > +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
+> >      #include <dt-bindings/interrupt-controller/irq.h>
+> >
+> >      i2c0: i2c@1fe21000 {
+> >          compatible =3D "loongson,ls2k-i2c";
+> >          reg =3D <0x1fe21000 0x8>;
+> > +        clock-frequency =3D <100000>;
+> > +        clocks =3D <&clk LOONGSON2_APB_CLK>;
+> >          interrupt-parent =3D <&extioiic>;
+> >          interrupts =3D <22 IRQ_TYPE_LEVEL_LOW>;
+> >          #address-cells =3D <1>;
+> > --
+> > 2.47.2
+> >
+>
