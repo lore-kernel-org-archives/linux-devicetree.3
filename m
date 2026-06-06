@@ -1,61 +1,63 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977A52F8EAB
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212CD3002DC
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780721887; cv=none; b=Nq8NsMrBN39by89jktD7zKvFtO/m+GLk5tIRCRJNeRKSG4mboBx1Mqj467ECJvDZTvcWttcS9Q9nHbYoU2mBjbyisg47jNusUhGmpV1167aQmWx7w10x05mTv5uUd7RxCUaTAdprO42Smyz1xJEdnPhJZRGJIYzv3ZQpDo0UTQs=
+	t=1780721890; cv=none; b=mcuzHRIcq3pX9blHprSGonjGBatK22cSfkgr/1CdHzF2ewmjYVKrxo71bJTPSupOQtsVWsD8mkIgI5BnZEFSxSwB6y6J7Cn55Y98mAiwK0xy7RqaN2x3/TT6tPQiUf15SC32VNmNduAztFFdqIqtOBl4fivQ2unn4avyvO4B+Ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780721887; c=relaxed/simple;
-	bh=sChSctaNk/iJ7rMo4OneEoqRj9NRpGu5gBeih5JX6Jg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lb+rzEFTjVBAAnWhTTeosiFfHGoERTHvJSebIKoZbKcLfiUojL+XaDq8WDn0GJlnxnuNsvJePU11Ewx7SLRYsbxkfOFXnCES//V4nVeQIME/KQqngQpcRnAGSWgtqkl7YA/4JiwTcUi5QRsb8k4myEYVltiDDHTvarY8k99TI08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSfs//8t; arc=none smtp.client-ip=209.85.208.45
+	s=arc-20240116; t=1780721890; c=relaxed/simple;
+	bh=ri7st6VQxv7zgJDG81aZW390zfSIszmCcRBtlHflWUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L3C1YSnPaHAD8zEMsYTqeCdRDC81ksYfWRhfwGlmjPO9AE36pOnEnTbplttr6U+WN05qTADUyH601b5Oo0SK07r9SZUVev56ne28QgdvG05n/3U6PPMcufa5p9HOPVUonNRD6URcOSIqVkVuPLX+e7sPI1/5pS1l3XTOM9XZgvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yz9iQpn8; arc=none smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSfs//8t"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-687ed9aabb3so5108952a12.1
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 21:58:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yz9iQpn8"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bebc80100efso281638266b.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 21:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780721884; x=1781326684; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ijiDIJoRq4DW5gmq2cKgL9VuesBVH2zWjg+vtHwI5sw=;
-        b=sSfs//8t7+hi4vevAcVnNjxy1AQom4JuITz2efSHK9eMjRSjnhpigeGBbwFOXFrODK
-         Z/GiP+EFP3SMYvbl4RrWp2DnpUEOX0iMA5Q/A2irlBbF9bhlwDPTzhgHtcuqUHU8s+82
-         mkv1VTrkmYfkGhYaxh9vnrs4JLVn/LsLDpnUd7r/6F4PIaRIyKXQfh2mkrPhtDJnAKAk
-         nTbRKpBufwY78nqOkIVVvt2hNHNMKNJBXqN0r7tKtMRW5LIRcH+8ojfBz7eKgb/OP7X8
-         ODt15qnp7y9J9fLIctqWHekiPiqRPH2rcCdxN7sd4EFopcLlVydJPXxJ42T5rVSnDS72
-         IrIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780721884; x=1781326684;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780721888; x=1781326688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ijiDIJoRq4DW5gmq2cKgL9VuesBVH2zWjg+vtHwI5sw=;
-        b=Z3ASAyqYroLOrHDgJv7VNB05QTF6P6m3PAH+K2HxAkMUmswnyeb9A4k0orKXfv6+Ft
-         jx1HBl/HhdoiCX97ab1F6o0kUJhITNSeltgPxC5ai+vVBaVdVlP0rq8N6DvCqnkUDa3f
-         Ff+SZlgtDA0ehoxtbG98R2OyZqHI+CmQwR2BLfptAkibDZ3xhdzeJp/F29yv+LVexGvD
-         jzEH8hjGsz+Hiq1KLV069cImCxpNs6Tu4Ydl4HP4GuGxhClP1mw1N5/51Vpq632sLwei
-         ljn8pNe0sdB/2t773wUdTug0wF9LjkSm75rUm3TYOALmTq9lcqFhR4NvoW9/ow2KcSgn
-         H8Xg==
-X-Forwarded-Encrypted: i=1; AFNElJ9UZqGAt9vcP6Casg1q/y8N9fPNa0kibaE3jFuHRlkwYSvbrwsX+Vx5tL062B7fzGVTqqNSOW3XmC96@vger.kernel.org
-X-Gm-Message-State: AOJu0YwaruIA6NJD3aYxNwTu1UZ8JVCf6WT2DAjlw3+6g+FWg2duxJAa
-	cqmZSVglP4EzSu4TPY0H2hXZtVABf5277skQ0K20OQr8lhXtzrrow7R7
-X-Gm-Gg: Acq92OGQ+LMWHUwSqv13WTWcBfja4tboVrJXCAHEEQJgE5I2wSP6KrzD7Lh2WSEBjyH
-	/PIO5gzKMYBtExRF8tZHElL8yG1ufapwgRtcgtX6MVmYgRnzgMCCZsiLNhUheNasgNvVny3yBRO
-	67NupHcRYaLalPCXz9XI53lIfQL9YhIi0xjx6fFoGKPc0dBWusBoUOS5AlRezS2VI9gb34g1LLR
-	P7VWFgIjSHSE7tQPJP/e+ewqm7uvKD/iRbu9iMHcoUYTDCYdk1X/qeo64wXtwHmFk9EQSU4d+Zl
-	Zm20RiE5y69q0ezHePOwjOj6FrT1FlRBshZYjIDLVxWRGz6miEWnOGUXezh/9DFvW8f5tSTyA2s
-	zhP4Gf2OWz0EftDGRqaNWE/AKvGC7kDmH3r9fYJebfpZr9fWkAwSimC9FWee4YjYkbQJG49UlEI
-	THxxf/qhShNaGjEXKbvQ8lZYO2syQPaqROXQ==
-X-Received: by 2002:a17:906:8a79:b0:bee:bcf6:6a23 with SMTP id a640c23a62f3a-bf3749d7f03mr231807166b.43.1780721883699;
-        Fri, 05 Jun 2026 21:58:03 -0700 (PDT)
+        bh=shI03q1w0e4L+IBi9B5rha1pksieDLncgskbwjM0zrc=;
+        b=Yz9iQpn8SIm/fG3Bzdx8iOYjp+PdrwX7pHpE/XcNAnWfLNhsC7uhlFwpw/ifchDson
+         y2OeD96GlFUWEh1PLb2HwlhHMVPEoDU7SrqXpitpU50Uo2aetrmHGxl6OZvkTcqviuEg
+         tJauMmqo1NPua3IJGWBP+WFx6eysV15VIVyCbtkIHPpzhBkoeqQVd1ukcPgHNStytlfI
+         2L/i2ZaVsKEO0YE1mBIXts7GXmFoTuBdyjk4r2PfesdN6aJqqyTTwJz3F7Sh9fYOQvWH
+         b8rYZpIEkSyNkwkJ+kATe8Fn19VOHfzGQ91hE9VvjgZKoafSpUc5v0Oi0FO6IJ99+Pft
+         C/SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780721888; x=1781326688;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=shI03q1w0e4L+IBi9B5rha1pksieDLncgskbwjM0zrc=;
+        b=YgWi/eMlMaxlaFI6qTtqej8Mq+MU7LE0DWBMjsFGwoYmSHWmhJFYiWw8yDrjnlKIHD
+         OrBBthsIQ2O5tUtbiK7mtKNCcpK7bKrjeXYThkPQGZx9dneyaHScf5o5I5fa8Nvf3/bI
+         6tUjPQbSWhf2c8DhuSW2ZUcCwZionYiSBos1kRASf5Ko5VSg/FsirK95Q3lt8ojtUVt1
+         dX7Weu4ecRQl1QT0jDpA2uEWNrnpt3NmmaROwfE7ktsy6n6SWvqsw2umxkQtjyKDP8VZ
+         AHT7zzXQnAmpu+a9Rddoub9u7n9T3zHOm2oCVB6ib0S3wfkXzL2YaPcryZHemt5auZg4
+         CYpg==
+X-Forwarded-Encrypted: i=1; AFNElJ8q/vfFupJ408lRIO3bHceg7C8hSKBrmS3IE6OCSL7k5EJGkJ4JAGRD/W5b03GJ/Rt9TTZvO5r0ky/6@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLlM60dZznoY8j6WnqAcdB2msdMMYVr+4NmYPxQT1882VSWtzG
+	s/T1pJNo4yixW0tA8I6n8xx6WbjMCPn5w4Ud11Vmf5Zh7AE3/uougTzV
+X-Gm-Gg: Acq92OHFJdChS46JN0xzUIktFbxvvccKBW5RVD0ZPphf6zQEjAIFmrBAyNptBHSWrEe
+	UxW4xSx3TRDvsrgPVyOTNMxaLzdhkysTYi7afK3dxzEKSzSW53iIurKp3it9rItipzI6sm3poKy
+	4L0WL5H4BukkdynJmx/G5jdivaRS5BVcj6POQ2KqNN1p34WDD53dKjHQWGvF6MXnEozdEf6Ghfr
+	LV9MHtFvHAhv1vMCGFr8Zypj77jfOi7E63nY/zauGyDOUJ94jECreL8n3Ifgnl2G/QlHDheD0XS
+	jmG4Ei/5N1/oXx73No2Vl5ji133WwM0Yd3nNzdPrtbUboiaA/AYfVJli51MQVj39TYZLP0sMQ7Y
+	FI2x0KhgOrJcgkaMnOJffLnd6rbyj9LQu0TCZhE6KsWBAlNcn3MdLnYxtV1zy8DYrM9aQdOrv+I
+	vvH5BpZyYoMPbLkXKQ2hAlLJk=
+X-Received: by 2002:a17:907:2d92:b0:bf0:59a2:4ccc with SMTP id a640c23a62f3a-bf36fd9bc68mr379384866b.3.1780721887268;
+        Fri, 05 Jun 2026 21:58:07 -0700 (PDT)
 Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf054e086fesm570597166b.32.2026.06.05.21.57.59
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf054e086fesm570597166b.32.2026.06.05.21.58.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 21:58:01 -0700 (PDT)
+        Fri, 05 Jun 2026 21:58:05 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Daniel Thompson <danielt@kernel.org>,
@@ -77,10 +79,12 @@ Cc: Johan Hovold <johan@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-iio@vger.kernel.org,
 	linux-fbdev@vger.kernel.org
-Subject: [PATCH v4 00/14] mfd: lm3533: convert to OF bindings, improve support
-Date: Sat,  6 Jun 2026 07:57:24 +0300
-Message-ID: <20260606045738.21050-1-clamor95@gmail.com>
+Subject: [PATCH v4 01/14] dt-bindings: leds: Document TI LM3533 LED controller
+Date: Sat,  6 Jun 2026 07:57:25 +0300
+Message-ID: <20260606045738.21050-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260606045738.21050-1-clamor95@gmail.com>
+References: <20260606045738.21050-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,93 +93,346 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert LM3533 to OF bindings, add missing VIN supply, add support for
-setting mapping mode and LED sources based on device tree. 
+Document the LM3533 - a complete power source for backlight, keypad and
+indicator LEDs in smartphone handsets. The high-voltage inductive boost
+converter provides the power for two series LED strings display backlight
+and keypad functions.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Jonathan Cameron <jic23@kernel.org> #for light sensor
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backlight
 ---
-Changes in v2:
-
-schema
-- maximum led sources for leds set to 4
-- anyOf > oneOf in ALS
-- improved ALS descriptions
-- adjusted example
-drivers
-- dropped devm convertion of irq and mfd helpers
-- all als configuration moved into lm3533_als_setup
-- added regulator/consumer.h
-- lm3533_bl_setup set before sysfs_create_group in backlight
-- added check if LVLED is valid
-- LM3533_REG_OUTPUT_CONF1 > LM3533_REG_OUTPUT_CONF2 for LVLED4 and LVLED5
-
-Changes in v3:
-
-- ohm -> ohms
-- added default PWM mask to schema
-- added commit removing driver regmap wrappers
-- added commits which flatten pdata helpers
-- adjusted check if als->irq > 0 since als->irq can be negative if error/missing
-- added count for children defined in device tree and mfd_cell is allocated
-  via devm_kcalloc to be able to contain all of them
-- fixed backlight boundary check
-- fixed count increased unconditionally
-- dev_err returns node name instead of reg value
-- LM3533_MAX_CURRENT_* defines moved to common header since they are used to clamp
-  current values read from the tree
-- mapping mode commit splitted into 2 (sysfs logic improvement > mode from DT)
-- backlight mode configuration set before sysfs group is created
-- fixed LVLED check on LEDs setup
-- added check if HVLED is valid
-- fixed wrong err_sysfs_remove goto in lm3533_bl
-- added commit implementing backlight_scale property
-
-Changes in v4:
-
-- fixed regmap_update_bits val and mask swap in lm3533_als_set_int_mode
-- fixed als->irq check in store_thresh_either_en
-- removed clamping of r_select in als driver
-- added use_of_reg and of_reg for backlight and leds registration
-- added intermediate step in asigning props.brightness
-- fixed HVLED/LVLED configuration overwriting
-- added bounds check for num_leds in leds and backlight driver
-- switched to regmap_clean/set/assign/test_bits helpers where appropriate
-- dropped extern from header function declartions
-- switched lm3533 pointer in cell structures to regmap
-- sysfs_create_group > device_add_group
-- changes in backlight sysfs were expanded to all properties
----
-
-Svyatoslav Ryhel (14):
-  dt-bindings: leds: Document TI LM3533 LED controller
-  mfd: lm3533: Remove driver specific regmap wrappers
-  mfd: lm3533: Remove extern from shared functions in the header
-  mfd: lm3533: Pass only regmap and light sensor presence to child
-    devices
-  iio: light: lm3533-als: Remove redundant pdata helpers
-  mfd: lm3533-core: Remove redundant pdata helpers
-  mfd: lm3533: Switch sysfs_create_group() to device_add_group()
-  mfd: lm3533: Convert to use OF bindings
-  mfd: lm3533: Add support for VIN power supply
-  mfd: lm3533: Set DMA mask
-  video: backlight: lm3533_bl: Improve logic of sysfs functions
-  video: backlight: lm3533_bl: Set initial mapping mode from DT
-  video: backlight: lm3533_bl: Implement backlight_scale property
-  video: leds: backlight: lm3533: Support getting LED sources from DT
-
- .../leds/backlight/ti,lm3533-backlight.yaml   |  69 ++++
- .../bindings/leds/ti,lm3533-leds.yaml         |  67 ++++
- .../devicetree/bindings/leds/ti,lm3533.yaml   | 169 ++++++++
- drivers/iio/light/lm3533-als.c                | 179 ++++-----
- drivers/leds/leds-lm3533.c                    | 181 ++++++---
- drivers/mfd/lm3533-core.c                     | 365 +++++++-----------
- drivers/mfd/lm3533-ctrlbank.c                 |  27 +-
- drivers/video/backlight/lm3533_bl.c           | 223 ++++++-----
- include/linux/mfd/lm3533.h                    |  75 +---
- 9 files changed, 806 insertions(+), 549 deletions(-)
+ .../leds/backlight/ti,lm3533-backlight.yaml   |  69 +++++++
+ .../bindings/leds/ti,lm3533-leds.yaml         |  67 +++++++
+ .../devicetree/bindings/leds/ti,lm3533.yaml   | 169 ++++++++++++++++++
+ 3 files changed, 305 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
 
+diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
+new file mode 100644
+index 000000000000..a25846e9b375
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/backlight/ti,lm3533-backlight.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI LM3533 high voltage series LED strings
++
++description:
++  This is part of the TI LM3533 MFD device. It represents two high voltage series
++  LED strings for display backlight controlled by the TI LM3533.
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++allOf:
++  - $ref: /schemas/leds/backlight/common.yaml#
++
++properties:
++  compatible:
++    const: ti,lm3533-backlight
++
++  reg:
++    description: Control bank selection (0 = bank A, 1 = bank B).
++    maximum: 1
++
++  led-max-microamp:
++    description: maximum current in uA with a 800 uA step.
++    minimum: 5000
++    maximum: 29800
++    default: 5000
++
++  led-sources:
++    description: |
++      HVLED strings associated with this control bank:
++        0 - HVLED1
++        1 - HVLED2
++    minItems: 1
++    maxItems: 2
++    items:
++      maximum: 1
++
++  ti,pwm-config-mask:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      Control Bank PWM Configuration Register mask that allows to configure
++      PWM input in Zones 0-4
++      BIT(0) - PWM Input is enabled
++      BIT(1) - PWM Input is enabled in Zone 0
++      BIT(2) - PWM Input is enabled in Zone 1
++      BIT(3) - PWM Input is enabled in Zone 2
++      BIT(4) - PWM Input is enabled in Zone 3
++      BIT(5) - PWM Input is enabled in Zone 4
++    default: 0
++
++  ti,linear-mapping-mode:
++    description:
++      Enable linear mapping mode. If disabled, then it will use exponential
++      mapping mode in which the ramp up/down appears to have a more uniform
++      transition to the human eye.
++    type: boolean
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++# see ti,lm3533.yaml for an example
+diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml b/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
+new file mode 100644
+index 000000000000..d8dbefef3323
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/ti,lm3533-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI LM3533 low voltage control banks for individual LEDs
++
++description:
++  This is part of the TI LM3533 MFD device. It represents four low voltage
++  control banks for individual LEDs provided by the TI LM3533.
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++allOf:
++  - $ref: /schemas/leds/common.yaml#
++
++properties:
++  compatible:
++    const: ti,lm3533-leds
++
++  reg:
++    description:
++      Control bank selection (2 = bank C, 3 = bank D, 4 = bank E, 5 = bank F).
++    minimum: 2
++    maximum: 5
++
++  led-max-microamp:
++    description: maximum current in uA with a 800 uA step.
++    minimum: 5000
++    maximum: 29800
++    default: 5000
++
++  led-sources:
++    description: |
++      LVLED associated with this control bank. May be more than 1 source per bank.
++        0 - LVLED1
++        1 - LVLED2
++        2 - LVLED3
++        3 - LVLED4
++        4 - LVLED5
++    minItems: 1
++    maxItems: 5
++    items:
++      maximum: 4
++
++  ti,pwm-config-mask:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      Control Bank PWM Configuration Register mask that allows to configure
++      PWM input in Zones 0-4
++      BIT(0) - PWM Input is enabled
++      BIT(1) - PWM Input is enabled in Zone 0
++      BIT(2) - PWM Input is enabled in Zone 1
++      BIT(3) - PWM Input is enabled in Zone 2
++      BIT(4) - PWM Input is enabled in Zone 3
++      BIT(5) - PWM Input is enabled in Zone 4
++    default: 0
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++# see ti,lm3533.yaml for an example
+diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533.yaml b/Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+new file mode 100644
+index 000000000000..bdc05a9f3d66
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+@@ -0,0 +1,169 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/ti,lm3533.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI LM3533 Complete Lighting Power Solution
++
++description: >
++  The LM3533 is a complete power source for backlight, keypad, and indicator LEDs
++  in smartphone handsets. The high-voltage inductive boost converter provides the
++  power for two high voltage series LED strings for display backlight and four low
++  voltage control banks for individual LEDs. Additionally, LM3533 features an
++  interface for an external light sensor.
++
++  https://www.ti.com/product/LM3533
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    const: ti,lm3533
++
++  reg:
++    maxItems: 1
++
++  enable-gpios:
++    description: GPIO connected to the HWEN pin.
++    maxItems: 1
++
++  vin-supply:
++    description: Supply connected to the IN line (2.7 V to 5.5 V).
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  ti,boost-ovp-microvolt:
++    description: boost OVP select (16V, 24V, 32V, 40V)
++    enum: [ 16000000, 24000000, 32000000, 40000000 ]
++    default: 16000000
++
++  ti,boost-freq-hz:
++    description: boost frequency select (500KHz or 1MHz)
++    enum: [ 500000, 1000000 ]
++    default: 500000
++
++  light-sensor:
++    type: object
++    additionalProperties: false
++
++    properties:
++      compatible:
++        const: ti,lm3533-als
++
++      interrupts:
++        maxItems: 1
++
++      ti,resistor-ohms:
++        description:
++          Internal configuration resistor value when light sensor is in
++          Analog Sensor mode and PWM mode is disabled. The expectation is
++          the input is a current from the external analog light sensor and
++          this is used to convert it to a voltage within the target range.
++        minimum: 1575
++        maximum: 200000
++
++      ti,pwm-mode:
++        type: boolean
++        description:
++          Switch for mode in which light sensor interface is running. If
++          this property is set then the light sensor interface is running
++          in PWM mode, internal resistor value is set to high-impedance (0)
++          and ti,resistor-ohms property is ignored.
++
++    required:
++      - compatible
++
++    oneOf:
++      - required:
++          - ti,resistor-ohms
++      - required:
++          - ti,pwm-mode
++
++patternProperties:
++  "^backlight@[01]$":
++    $ref: /schemas/leds/backlight/ti,lm3533-backlight.yaml#
++
++  "^led@[2-5]$":
++    $ref: /schemas/leds/ti,lm3533-leds.yaml#
++
++required:
++  - compatible
++  - reg
++  - '#address-cells'
++  - '#size-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        led-controller@36 {
++            compatible = "ti,lm3533";
++            reg = <0x36>;
++
++            enable-gpios = <&gpio 110 GPIO_ACTIVE_HIGH>;
++            vin-supply = <&vdd_3v3_bat>;
++
++            ti,boost-ovp-microvolt = <24000000>;
++            ti,boost-freq-hz = <500000>;
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            backlight@0 {
++                compatible = "ti,lm3533-backlight";
++                reg = <0>;
++
++                default-brightness = <113>;
++
++                led-max-microamp = <23400>;
++                led-sources = <0 1>;
++            };
++
++            led@2 {
++                compatible = "ti,lm3533-leds";
++                reg = <2>;
++
++                led-max-microamp = <23400>;
++                led-sources = <0 1>;
++            };
++
++            led@4 {
++                compatible = "ti,lm3533-leds";
++                reg = <4>;
++
++                led-max-microamp = <23400>;
++                led-sources = <2>;
++            };
++
++            led@5 {
++                compatible = "ti,lm3533-leds";
++                reg = <5>;
++
++                led-max-microamp = <23400>;
++                led-sources = <3 4>;
++            };
++
++            light-sensor {
++                compatible = "ti,lm3533-als";
++
++                interrupt-parent = <&gpio>;
++                interrupts = <80 IRQ_TYPE_LEVEL_LOW>;
++
++                ti,pwm-mode;
++            };
++        };
++    };
++...
 -- 
 2.53.0
 
