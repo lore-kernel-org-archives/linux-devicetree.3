@@ -1,159 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m9328.xmail.ntesmail.com (mail-m9328.xmail.ntesmail.com [103.126.93.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD163B5314;
-	Sat,  6 Jun 2026 19:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED953016FB;
+	Sat,  6 Jun 2026 19:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.126.93.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780773190; cv=none; b=NHd6ub/qmfqGVvkDfppZX9cyKI6KWx1bNrzcCXejcuSMbTasJbwFdnFX3GQZwTUwtz7+4qNUslPGc13ZabzqBmm8ydhcnJrgbgOds0Pe0nXk+AAu0ZKIhfiN+GRNWPg4X4PQNL8R3y7PAwFcFWri13QRX3fmozzjaTG51IIMQFc=
+	t=1780773265; cv=none; b=VJKOtxjUP6bKUQxXr7I1sTijBelgHH/yp0D6H4TS6v5UySTcl1DOUFKBn5AybMnUL/mDsA6i7mW741D2wIeKspb50Oam434kzSwdsv4/kLPKMn+bCvPjw+9Lh4EgXS89HuHEgqrvKcb/sJP6QwGtFzkOPJK5VyvQLBngTG9rLbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780773190; c=relaxed/simple;
-	bh=noMB+ePnB9H9kuCxlgqLw6ucylWZoq7R3EbSq8liaH0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=n0660qbwd1Q6KIuDSresHF1J49mYoO7WNsXR6D1YjSbTRvlUKciqA9zQb6Tsq//Kh1i2cioXTnSpe2BEeJjBqlu/XzcBFy9QU2Ig7QxYUoKZ5OS9LtrrbONmJvoQzXWJa53t158QztskoDVxHDJpN8Xef2wEkKQGhMxSpV2ToSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVOnVEIl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780773265; c=relaxed/simple;
+	bh=MeGVjaMxjH769oiq2fSMjLP0j+/dHsFf8sy3tDKl1p4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jMqIw8qi5cEkCFzELsEUN8yzoyMidEyvGXQKaOR2MuxRPdyqpQGdpMlJMphoMtVjkCsUly/wp3QUqZPdH+bSpopk/WCLYPaqHE6+Cnx9a4u0mSx6CTKS7seVfxWXcoNddVuhjt2TzM1FLthsJp+Gsspo+976tsWnGwiMJK9Z8uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=Q6kJZErv; arc=none smtp.client-ip=103.126.93.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVOnVEIl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884C41F00893;
-	Sat,  6 Jun 2026 19:13:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780773188;
-	bh=SHH2cil3xPmegNJkbefYpPtqE9n6STIGuriAlPk5B/w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aVOnVEIlGIZXPZ0FSSeVn9DDfLkD6Ffiw0EsIMLADKitLqHiEwFdP8N6P0qgQMHjz
-	 9sY8BVxK92g7gMtApj88t1o3KyrAKilJYfO+Xb3CKeqNI2sQUvgQFSQ0CVeVTqblOJ
-	 Ovw9Hn//Rmj+0dWZnzl/jqcRf4UEO4OYoxhgiF+mBBLisNy07whVikYHyzU3kiyfiD
-	 SG5OqnWVzgS2C1hkBhNiwydw/GMoWJk14azqGSppMiEEMfiyDfoIdkdBXiviB5bV6q
-	 H5TObGvzcDpmxEo7K89pYsGBhMl5i4OGFKFF/4hyQjw+W4ZnKKfKAEsgyCMN/0qmbY
-	 SA6NLnvpWaVYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] media: i2c: add Aptina MT9M113 1.3 Mpx SoC
- sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk via B4 Relay" <devnull+github.com.herrie.org@kernel.org>
-Cc: conor+dt@kernel.org, linux-media@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260606-submit-media-mt9m113-v6-2-8f6d0f79f4d1@herrie.org>
-References: <20260606-submit-media-mt9m113-v6-2-8f6d0f79f4d1@herrie.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 19:13:08 +0000
-Message-Id: <20260606191308.884C41F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="Q6kJZErv"
+Received: from [127.0.1.1] (unknown [113.235.125.44])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 415a3a861;
+	Sun, 7 Jun 2026 03:14:13 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Date: Sun, 07 Jun 2026 03:13:49 +0800
+Subject: [PATCH] arm64: dts: qcom: qcs6490-rubikpi3: Move PCIe GPIOs to
+ root ports
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260607-rubikpi-bugfix-next-20260605-v1-1-ff97c5e35bf6@thundersoft.com>
+X-B4-Tracking: v=1; b=H4sIAGxxJGoC/y3MQQqDMBCF4avIrB2IKcbiVcRFkk7iKERJTBHEu
+ ze1Xf68x3dCosiUoK9OiPTmxGso0dQV2EkHT8iv0iCFVEKJDmM2vGyMJnvHBwY6dvyPLT7sU1p
+ NSneugUJskcrp5ofx1ymbmez+NeG6PikmpmCAAAAA
+X-Change-ID: 20260607-rubikpi-bugfix-next-20260605-3c82cae6a7f1
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rosh@debian.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780773253; l=2259;
+ i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
+ bh=MeGVjaMxjH769oiq2fSMjLP0j+/dHsFf8sy3tDKl1p4=;
+ b=f2vs41GsoUcJBD9h6rWOU2jvjVDmgt0NtP3cnYI9Un5G/8CQTgRw7K4DLM78TI/pNpWH+QWgd
+ pr7ALCcTA8vAks1XNDS0N06dRxukewRoElqUh7wIBgrltwWjK7VfneR
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
+X-HM-Tid: 0a9e9e5b714209d5kunm4bbfa1de139e81
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTxlDVklLT0lOHhpLGB9MSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
+	tJT09PSFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=Q6kJZErvAEVVOR2dVtP42TGPfr92yyF1m4fAqfgK9sdx1RF6u+mwSzVmHgchQQrVuetvGKQ4m7zSzXH+ffWYnqZNXLtZPPrCwscfDTfuE/nLVxrTs+kcRK4NTvvVNbBSXu9SfJ/HSWP3YdPFaVDOyTmGBQ0z82J696BR4deEEsw=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=2ydJ8/WjXBtIfiJFXOyfkVQHcRbJXJdGqMLYUNx89/I=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `mt9m113_start_streaming()` error path explicitly powers off t=
-he hardware but leaves the PM state as `RPM_ACTIVE`. Subsequent operations =
-(like STREAMON retries, `s_ctrl`, or `remove`) trust the active PM state an=
-d perform illegal operations, causing clk/regulator refcount underflows and=
- I2C timeouts.
-- [High] Tying the allocation lifetime of the sensor structure to V4L2 subd=
-ev `.release` callbacks introduces a memory leak on unbound initialization =
-and a Use-After-Free during bridge unbind.
-- [High] Concurrency between `VIDIOC_S_CTRL` / `VIDIOC_STREAMON` ioctls and=
- `mt9m113_remove()` causes Use-After-Free on devres-managed resources (e.g.=
-, `regmap`, `clk`).
---
+The Qualcomm PCIe binding deprecates perst-gpios on the host
+bridge and expects endpoint reset GPIOs to be described on the root
+port as reset-gpios.
 
-commit f0fc2c67299ebd9a65a3dfa2e680f9a4ff64a2cb
-Author: Herman van Hazendonk <github.com@herrie.org>
+Move the PCIe0 and PCIe1 reset and wake GPIOs to their root port
+nodes. This keeps the GPIO ownership with the device below the root
+port and matches the PCIe binding.
 
-    media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
-   =20
-    Add a V4L2 subdev driver for the Aptina MT9M113 1.3 Megapixel SoC
-    image sensor (1280x1024 active pixel array) with on-chip ISP.
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+Fix the PCIe reset and wake GPIO description for the Thundercomm
+RubikPi3 board.
 
-> diff --git a/drivers/media/i2c/mt9m113.c b/drivers/media/i2c/mt9m113.c
-> --- a/drivers/media/i2c/mt9m113.c
-> +++ b/drivers/media/i2c/mt9m113.c
-> @@ -1876,14 +1876,8 @@ static int mt9m113_start_streaming(struct mt9m113 =
-*sensor,
-[ ... ]
->  	sensor->chip_off =3D true;
->  	pm_runtime_put_noidle(dev);
->  	return ret;
->  }
+The board currently describes PERST# and wake GPIOs on the Qualcomm
+PCIe host bridge nodes. The Qualcomm PCIe binding deprecates this
+and expects endpoint reset GPIOs on the root port nodes as
+reset-gpios.
 
-[Severity: High]
-Does this leave the PM state as RPM_ACTIVE while the hardware is physically
-powered off?
+Move the PCIe0 and PCIe1 GPIOs to the corresponding root port
+nodes.
+---
+ .../arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-If the retry loop exhausts all attempts, the hardware is explicitly powered
-down. However, because the PM state is left active, subsequent operations
-like ioctls or remove() will trust the PM state and attempt hardware access=
-es
-or call power down again.
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+index f47efca42d48..5c08ab53cdbd 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+@@ -812,9 +812,6 @@ &mdss_dsi_phy {
+ };
+ 
+ &pcie0 {
+-	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
+-
+ 	pinctrl-0 = <&pcie0_clkreq_n>,
+ 		    <&pcie0_reset_n>,
+ 		    <&pcie0_wake_n>;
+@@ -830,10 +827,12 @@ &pcie0_phy {
+ 	status = "okay";
+ };
+ 
+-&pcie1 {
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
++&pcie0_port {
++	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
++};
+ 
++&pcie1 {
+ 	pinctrl-0 = <&pcie1_clkreq_n>,
+ 		    <&pcie1_reset_n>,
+ 		    <&pcie1_wake_n>;
+@@ -849,6 +848,11 @@ &pcie1_phy {
+ 	status = "okay";
+ };
+ 
++&pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
++};
++
+ &pm7325_gpios {
+ 	kypd_vol_up_n: kypd-vol-up-n-state {
+ 		pins = "gpio6";
 
-Could this lead to clock and regulator refcount underflows in remove() or
-I2C timeouts in s_ctrl() since they believe the chip is powered on?
+---
+base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
+change-id: 20260607-rubikpi-bugfix-next-20260605-3c82cae6a7f1
 
-[ ... ]
+Best regards,
+--  
+Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
-> @@ -2293,12 +2293,7 @@ static int mt9m113_ifp_registered(struct v4l2_subd=
-ev *sd)
->  {
->  	struct mt9m113 *sensor =3D ifp_to_mt9m113(sd);
->  	int ret;
-> =20
->  	ret =3D v4l2_device_register_subdev(sd->v4l2_dev, &sensor->pa.sd);
-
-[ ... ]
-
-> @@ -3246,26 +3246,12 @@ static void mt9m113_remove(struct i2c_client *cli=
-ent)
-[ ... ]
->  	pm_runtime_disable(dev);
->  	pm_runtime_dont_use_autosuspend(dev);
->  	if (!pm_runtime_status_suspended(dev))
->  		mt9m113_power_off(sensor);
-
-[Severity: High]
-Can the sensor structure be freed before remove() is called or leaked
-entirely?
-
-The allocation lifetime of the sensor structure is tied to the V4L2 subdev
-release callbacks, using an atomic release_count initialized to 2. However,
-the pixel array subdev pa.sd is only registered in mt9m113_ifp_registered()
-when a bridge attaches.
-
-If the module is unloaded before a bridge binds, pa.sd is never registered,
-its release callback never runs, and the sensor structure leaks.
-
-Conversely, if a bridge unbinds, v4l2_device_unregister_subdev() invokes
-the release callbacks for both subdevs, freeing the sensor structure. A
-subsequent execution of remove() would then dereference the already freed
-sensor when calling mt9m113_power_off() and v4l2_async_unregister_subdev().
-
-Could this result in a use-after-free?
-
->  	pm_runtime_set_suspended(dev);
-> =20
->  	v4l2_async_unregister_subdev(&sensor->ifp.sd);
-
-[Severity: High]
-Does this remove process leave devres-managed resources vulnerable to a
-use-after-free from concurrent ioctls?
-
-By deferring the freeing of the sensor structure to the subdev release
-callbacks, the control handlers can outlive remove() if an application holds
-an open file descriptor.
-
-Hardware resources like sensor->regmap and sensor->clk are managed by devres
-and are automatically freed when remove() returns.
-
-If an ioctl like VIDIOC_S_CTRL successfully calls pm_runtime_get_if_in_use()
-just before remove() calls pm_runtime_disable(), will the control handler
-thread attempt to use the regmap structure after devres has already destroy=
-ed
-it?
-
->  	/* @sensor may already be freed here; do not dereference it. */
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-submit-med=
-ia-mt9m113-v6-0-8f6d0f79f4d1@herrie.org?part=3D2
