@@ -1,592 +1,226 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5125C22D781;
-	Sat,  6 Jun 2026 13:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20C62E8897
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 13:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780752189; cv=none; b=UtSp3kjCzo83CcagN52c9pG3O7cFJqMui/r3aL+M95WrYTNTX0BcQ/iRrtKw/UEYV55Kzf0WpB+MK5LPYKjG+1KHKZ6gA8WYKPlAz6qEcN1ddQGwk6a11bec3C50W+3CuZR+nqRvBjnyWqTEJnr9Cd98XP8CNzwgYISd0cgLM6M=
+	t=1780752229; cv=none; b=CD99fTQlYrZe5T45OLOZtrD2j8PgM9BbtI6QfrsLp/Aoz1NKuQY2EhGGbwv/ePL9uGbdimV9EBlfnH3rtqEUKBBEdgxV+Ouc50ekKSiF3p95nZPrf6/lAbMuVoda4R/oZ/TrKRfgt6Si3htRgcRQot3PTekh35Kg8vX9MgIza7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780752189; c=relaxed/simple;
-	bh=RLIAVCK//KrMS+pM+b/MVl5xFIl2q8enEjIUDkU6NOk=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=is9GGjwpEpO9Ktdy0FmXOaV/0RCJvj0aytHfJq2WZUu/mR72xwF9VUOkWPH2XKBTDTJdBctqWmOziD0bSfTW84T7UBCs7ah9UzC4zfLZf2smaYbhfqp9P9ITy9EU9IkH2VYtMkPK+Va/V9jO5fXOvyzdSTO7snA8SkPf/FFCpPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i587/LT3; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1780752229; c=relaxed/simple;
+	bh=ascq50Gto/BYzlD/1Iw9YsYIZvHWXVQK4s3uDyj5Nb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZMOVptTD33vIwH355gep5TZ6/w9Br7Tabg1pigFRTKgzxTmMO2kP/OWXg/1Bx0Rgb5bhhw+Au7vF01S/UI3yxHCrVij6XDAzVJPAiGnDU1TtlavfrDOJDmfRt2poxYCfuFjqNXpKvSYHTEEu8i86Ey945wubRNLkMhbViq6vDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o8oSnspX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bQ50NSd4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i587/LT3"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:476d:c684:fe78:389f:7375])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B7E4063C;
-	Sat,  6 Jun 2026 15:22:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780752151;
-	bh=RLIAVCK//KrMS+pM+b/MVl5xFIl2q8enEjIUDkU6NOk=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=i587/LT3vt+e/MY439X4JyUTGMUChOhIuiNACrMO3olA91vzHDXilvGzVDGdrldj3
-	 2xTykk/1wCQFHCbppUP0tNcLDM6vBhhlaatcg9ioQYP33/bFeUV6FjV1O3/czSRQVV
-	 H5fl5ldQB1gcSdRZKoQGMZSMfIwAvj1U372pVK2k=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o8oSnspX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bQ50NSd4"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 656BEXoC1332267
+	for <devicetree@vger.kernel.org>; Sat, 6 Jun 2026 13:23:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ksjiIivO5NlJD1LbbhDu0ri6
+	r1Xvc7dbP55abanCnT8=; b=o8oSnspXna5nsUXSC+KfBSoGEJdK61nyM4vg9ygr
+	3vgG4eO/s4iyr0+c/KuFA5I3N0rUSokBV4wuQaWUDtWyuhJQbYKzdOQNmwI73XP8
+	rDJRx36feN3QhdKmFvX4BiV6OTZmUZ2ggr6QWIg2fo9cdCNvVjNARPkyE9wA0g8h
+	LyP05vrvHNDwArQg1OX7pvzGV6bhSGkXh0yf7BtbiakWieBxVm7rs3mTnPcfnqJD
+	YhM97MEmoXvIL4izG9iO+4I2fIwzX2T0lKfB58Eh3uRvfnnJTqbLzRw+DbUyMJpT
+	200WcqPOPdgyc6b1994FbuJeJhdAe0iemgfsovZtwOIoTA==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4em98csp1d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 13:23:46 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5a94a743521so2263927e0c.2
+        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 06:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780752226; x=1781357026; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ksjiIivO5NlJD1LbbhDu0ri6r1Xvc7dbP55abanCnT8=;
+        b=bQ50NSd4q/B+GfNKHjPInDqJgHq0GIPHHkBwoMGUEpq/QJuhFPn3VXw4+ST25UkHOL
+         PewJS0WtgIDRoPUm7hzVIK8+hZ9HmqDfoLeyJrZwbWHZEpRXGari2W7V4RcTOcmlA+Vg
+         SLJ5WFekRYvQAyGLhn7RNIZ7izj2C6i4NdGd+z+tU23OiVvj3YtxpTb91ib9fLtd6HAU
+         gEV7v4O/cyXomnIHx6mUwAAXYTYfJjvOWyAkT1t3oem2xX99DCykARpeUndUmrh6R6zG
+         2rvvB3Amt9pWuAM1hBapaPL2VReiodu/DHVdTCikZPsVjfxoF/1Mcr413wWoc/fr4PTv
+         MSlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780752226; x=1781357026;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ksjiIivO5NlJD1LbbhDu0ri6r1Xvc7dbP55abanCnT8=;
+        b=ejT/ae827eVzZKpJn0t1WG28e6rWMWTRtUEFGz3wlwPjJ7O/yK4R9MFW0h84uXPZ50
+         ttRrtlg7vSSevd9pjHOg/deaow0B/nkVmG+9dXTs7kP60X/BQM8GJscIyF/Zv0bZXB50
+         e8pWycpG9SizJiha7UJtehDtk0TZDbYGqwvprfFtQZaoLGaXq8T7JuEB273qZUH4H9fp
+         BV4WQ/fpYrPwKu/suMnc3sGAFhQ28h+cIzcqu6QVrAHk5NHemfFXxpsHsszb6Bb3bfve
+         CStws/z74oZqSPT3k9rzj8/LvvCbqZI4ZIQZuLWzzFWlAEzTbEYjPGaA3hzLHs5YDn+h
+         HvfA==
+X-Forwarded-Encrypted: i=1; AFNElJ95nVZIgu3Mbq7n08HwRAiKAHIhxVcrSXZXfHl/tyIdbuA4NKH/nwzPmY1619X2UIzEehovuBBWJQ3b@vger.kernel.org
+X-Gm-Message-State: AOJu0YxghxWv/48/6zE/dDGjVGCHdqTfE6lV5DviWUsJCmZmNGCMdqQ8
+	DNY5LOxu8+vtr6d7gSbWtvWR0xQsMaCB0QvagXWUaoYRjJzk86L6OwWQuNNrrGRFksy4IsqChYF
+	6Z4OmvFA7kLWl1sIg3jUoLh3b+A1PF6vNgskAds3WcFxUi8tohHYuaWxQPyvTgRIK
+X-Gm-Gg: Acq92OGDnR+byHXdeCqxfHzmUdYquq2a0oY/glCGX1K6LiKDgOLzt2r/e2+LJvaio3+
+	4YrRfHyWUI4JgYDQ21DBShy9ovw4d4Ik4LDyPpdhqYC3VvZqcvSoejFW+6ql8aw3d5Lo3dJiZLI
+	ih58RUsuCKmPLyb8H4zFsEnqtx3wi+xA4bmqSkJEiFYw+AlOpjBT3EqYdzjrhoH6pjRs1UZGU5A
+	elSQZJbD0wLoHf7A359Az9qKuitDq7GnQYaJ0orm6eGYYnAyKvyZe3t+X2tFilrZrv2K1uLzh4a
+	ot3L2Y1BWHcHw5uvpsvPaGeBQ4j+3GtE0Oo3+W8IuBxVwXSF7XcRjgXGY7nntRyshLYA6CPPdG8
+	zijzyDcrDaWfMvvgsbnfFSegMMzV6u/OGBwR6wKir/N/VKhIgz3v1/UsxdQs0zu+MaQPVXpBZ+N
+	wHxFXqnM0tHDYbm6G5kgKYpAzObwtWzxAq2aB+i0EGb/ZSnw==
+X-Received: by 2002:a05:6102:4410:b0:631:44bc:c0fd with SMTP id ada2fe7eead31-6ff051aa733mr3964435137.8.1780752225852;
+        Sat, 06 Jun 2026 06:23:45 -0700 (PDT)
+X-Received: by 2002:a05:6102:4410:b0:631:44bc:c0fd with SMTP id ada2fe7eead31-6ff051aa733mr3964422137.8.1780752225368;
+        Sat, 06 Jun 2026 06:23:45 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2d6282sm31177541fa.30.2026.06.06.06.23.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 06 Jun 2026 06:23:44 -0700 (PDT)
+Date: Sat, 6 Jun 2026 16:23:42 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: interconnect: qcom: add msm8660 NoC
+Message-ID: <wypnu53w5pesj52zyrj3pydqzf2rbfrxa72uplz3mq64u447wf@gypyaug7iwkd>
+References: <20260606-submit-interconnect-msm8660-v3-0-f9da0158cdf8@herrie.org>
+ <20260606-submit-interconnect-msm8660-v3-1-f9da0158cdf8@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <PN3P287MB1829593C2DF9AFF8F24A39AF8B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-References: <20260605-imx678-v4-0-58e57c67143d@ideasonboard.com> <20260605-imx678-v4-2-58e57c67143d@ideasonboard.com> <PN3P287MB1829593C2DF9AFF8F24A39AF8B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-Subject: Re: [PATCH v4 2/2] media: i2c: imx678: Add driver for Sony IMX678
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Lachlan Michael <Lachlan.Michael@sony.com>, Ryuichi Tadano <Ryuichi.Tadano@sony.com>, Kengo Hayasaka <Kengo.Hayasaka@sony.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Tarang Raval <tarang.raval@siliconsignals.io>
-Date: Sat, 06 Jun 2026 18:52:51 +0530
-Message-ID: <178075217188.9570.14789474340505402551@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260606-submit-interconnect-msm8660-v3-1-f9da0158cdf8@herrie.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDEzNSBTYWx0ZWRfX8hzZFuZG4gV0
+ JmBsB3PiJ+1M+q3jEhj78XBOxibUqT4dt7S2ViwkQZMX+DekE+kA6hsigQf5oOFcPlWui1OTnPM
+ OjWojJaHWJDuifH9eUBItiEcxE5gyE4CK+GBTC7Qi5c/K82ac0zAZyfImfH00ZRHbpcpBzvY3WI
+ DBg/ySsZwNquN9uQKUjZC1W2rFwE6ajY0oTYtYg9DZLqOjLjanIRAWCa0dGJemhVZfv8PDCazz0
+ vn90Hyb9jKlIQEaIimorpnSVO7+20DMsr5KDU5CiQeD5J+LHH4rWThskQQSJLV4eVzrSDyvflXz
+ qsB1qtAfeAVVeZ7KNJkNrBLuGxmXNDoqz6zhTnbKdFtV7srAvInr7IO9wx3Lma8wAFktTMyku9k
+ BjhIxEFconvvsL3L+y0H6/Y+8zU3Ge2IX9lYHkqDF/TcxxGXMdgUKibT/Q2dUUXrau4WXDPGh9u
+ 5sT35+bsx717JNU1shg==
+X-Proofpoint-ORIG-GUID: yxt0qnlrvoRzJCvJg2WutbcIWEYlkBk9
+X-Proofpoint-GUID: yxt0qnlrvoRzJCvJg2WutbcIWEYlkBk9
+X-Authority-Analysis: v=2.4 cv=A/pc+aWG c=1 sm=1 tr=0 ts=6a241f62 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8
+ a=cTwmTnRGAAAA:8 a=KCr-RzwM3x1iQMyl6jsA:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22 a=sptkURWiP4Gy88Gu7hUp:22 a=GUWCSGlMWfG-xDt5EnV5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-06_03,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606060135
 
-Hi Tarang,
+On Sat, Jun 06, 2026 at 02:34:50PM +0200, Herman van Hazendonk wrote:
+> Add a dt-binding schema and an interconnect master/slave ID header for
+> the MSM8x60 family (MSM8260/MSM8660/APQ8060) Network-on-Chip.  The
+> chip exposes four NoC fabrics that the qnoc-msm8660 driver models:
+> 
+>   AFAB  - Applications fabric (Scorpion CPU + L2)
+>   SFAB  - System fabric (DMA, SPS, security)
+>   MMFAB - Multimedia fabric (MDP, GPU, camera, video, rotator)
+>   DFAB  - Daytona fabric (SDC, ADM master/slave)
+> 
+> The schema covers all four compatible strings, per-fabric clock-name
+> lists (bus / bus_a / ebi1 / ebi1_a for AFAB; bus / bus_a / smi /
+> smi_a for MMFAB; bus / bus_a for SFAB and DFAB), the required
+> qcom,rpm phandle through which the provider hands the arbitration
+> buffer to RPM firmware, and #interconnect-cells = <1>.
+> 
+> The ID header lists per-fabric master / slave / gateway indices
+> derived from the legacy vendor msm_bus_board_8660.c enums,
+> normalised to the upstream interconnect-framework naming convention.
+> 
+> Assisted-by: Claude:claude-opus-4-7 Sashiko:claude-haiku-4-5
+> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+> ---
+>  .../bindings/interconnect/qcom,msm8660.yaml        | 166 +++++++++++++++++++++
+>  include/dt-bindings/interconnect/qcom,msm8660.h    | 156 +++++++++++++++++++
+>  2 files changed, 322 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8660.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8660.yaml
+> new file mode 100644
+> index 000000000000..ff28c7d46c32
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8660.yaml
+> @@ -0,0 +1,166 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interconnect/qcom,msm8660.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm MSM8x60 family Network-On-Chip interconnect
+> +
+> +maintainers:
+> +  - Herman van Hazendonk <github.com@herrie.org>
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,rpmcc.h>
+> +
+> +    interconnect-afab {
+> +        compatible = "qcom,msm8660-apps-fabric";
+> +        clocks = <&rpmcc RPM_APPS_FABRIC_CLK>,
+> +                 <&rpmcc RPM_APPS_FABRIC_A_CLK>,
+> +                 <&rpmcc RPM_EBI1_CLK>,
+> +                 <&rpmcc RPM_EBI1_A_CLK>;
+> +        clock-names = "bus", "bus_a", "ebi1", "ebi1_a";
+> +        qcom,rpm = <&rpm>;
+> +        #interconnect-cells = <1>;
+> +    };
+> +
+> +    interconnect-sfab {
+> +        compatible = "qcom,msm8660-system-fabric";
+> +        clocks = <&rpmcc RPM_SYS_FABRIC_CLK>,
+> +                 <&rpmcc RPM_SYS_FABRIC_A_CLK>;
+> +        clock-names = "bus", "bus_a";
+> +        qcom,rpm = <&rpm>;
+> +        #interconnect-cells = <1>;
+> +    };
+> +
+> +    interconnect-mmfab {
+> +        compatible = "qcom,msm8660-mmss-fabric";
+> +        clocks = <&rpmcc RPM_MM_FABRIC_CLK>,
+> +                 <&rpmcc RPM_MM_FABRIC_A_CLK>,
+> +                 <&rpmcc RPM_SMI_CLK>,
+> +                 <&rpmcc RPM_SMI_A_CLK>;
+> +        clock-names = "bus", "bus_a", "smi", "smi_a";
+> +        qcom,rpm = <&rpm>;
+> +        #interconnect-cells = <1>;
+> +    };
+> +
+> +    interconnect-dfab {
+> +        compatible = "qcom,msm8660-daytona-fabric";
+> +        clocks = <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
+> +                 <&rpmcc RPM_DAYTONA_FABRIC_A_CLK>;
 
-Quoting Tarang Raval (2026-06-06 13:47:36)
-> Hi Jai,
->=20
-> Sorry, in my first review I missed a few minor issues listed below.
->=20
+Looking at it, I don't think those clocks sould be exposed here. Please
+follow what Konrad did some time ago for smd-rpm interconnects: add
+direct voting to the interconnect driver, them drop them from the clocks
+driver. Ping me if you need help finding corresponding patch series (as
+there were few more tricks.
 
-No worries, thank you for the reviews.
+> +        clock-names = "bus", "bus_a";
+> +        qcom,rpm = <&rpm>;
+> +        #interconnect-cells = <1>;
+> +    };
+> +...
 
-> I also noticed one major issue in the driver. Please check the comments b=
-elow.
->=20
-> Other than that, the driver looks perfect.
->=20
-> > Add a V4L2 subdev driver for the Sony IMX678 image sensor.
-> >
-> > IMX678 is a diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type
-> > solid-state image sensor with a square pixel array and 8.40 M effective
-> > pixels.
-> >
-> > The following features are supported by this driver:
-> > - MIPI RAW12 output
-> > - Monochrome and Color (Bayer filter) variants
-> > - Multiple input clock frequencies
-> > - Multiple link frequencies
-> > - VBLANK and HBLANK control for variable framerate
-> > - VFLIP and HFLIP control for flipping readout
-> > - Exposure and analogue gain control
-> > - Test pattern control
-> >
-> > Following features are not currently supported:
-> > - MIPI RAW10 output
-> > - Pixel-perfect crop reporting, accounting for the shift-by-1 when
-> >   doing HFLIP/VFLIP where the sensor maintains RGGB bayer ordering
-> >
-> > Along with the ones below which depend on the new raw sensor model:
-> > - Embedded data stream
-> > - Freely configurable cropping
-> > - Increased framerate when cropping
-> > - 2x2 binning support
-> >
-> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
->=20
-> ...
->=20
-> > +static const u32 codes_bayer[] =3D {
-> > +       MEDIA_BUS_FMT_SRGGB12_1X12,
-> > +};
-> > +
-> > +static const u32 codes_monochrome[] =3D {
-> > +       MEDIA_BUS_FMT_Y12_1X12,   /* 12-bit mono */
->=20
-> Above comment adds no useful information and can be dropped.
->=20
-> > +};
-> > +
-> > +static const struct imx678_model_info imx678_aaqr_info =3D {
-> > +       .type =3D IMX678_COLOR,
-> > +       .codes =3D codes_bayer,
-> > +       .num_codes =3D ARRAY_SIZE(codes_bayer),
-> > +};
-> > +
-> > +static const struct imx678_model_info imx678_aamr_info =3D {
-> > +       .type =3D IMX678_MONOCHROME,
-> > +       .codes =3D codes_monochrome,
-> > +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
-> > +};
-> > +
-> > +static const char * const imx678_supply_name[] =3D {
-> > +       "avdd",  /* Analog (3.3V) supply */
-> > +       "dvdd",  /* Digital Core (1.1V) supply */
-> > +       "ovdd",  /* IF (1.8V) supply */
-> > +};
-> > +
-> > +struct imx678 {
-> > +       struct v4l2_subdev sd;
-> > +       struct media_pad pad;
-> > +       struct regmap *cci;
-> > +
-> > +       const struct imx678_model_info *info;
-> > +
-> > +       struct clk *xclk;
-> > +       u32 xclk_freq;
-> > +
-> > +       /* chosen INCK_SEL register value */
-> > +       u8  inck_sel_val;
-> > +
-> > +       /* Link configurations */
-> > +       enum imx678_lanemode lane_mode;
-> > +       unsigned long link_freq_bitmap;
-> > +
-> > +       struct gpio_desc *reset_gpio;
-> > +       struct regulator_bulk_data supplies[ARRAY_SIZE(imx678_supply_na=
-me)];
-> > +
-> > +       struct v4l2_ctrl_handler ctrl_handler;
-> > +
-> > +       /* V4L2 Controls */
-> > +       struct v4l2_ctrl *exposure;
-> > +       struct v4l2_ctrl *vblank;
-> > +       struct v4l2_ctrl *hblank;
-> > +
-> > +       /* Tracking sensor VMAX/HMAX value */
-> > +       u32 vmax;
-> > +};
-> > +
-> > +static inline struct imx678 *to_imx678(struct v4l2_subdev *_sd)
-> > +{
-> > +       return container_of(_sd, struct imx678, sd);
->=20
-> Use container_of_const.
->=20
-
-Why is that necessary?
-
-> > +}
->=20
-> ...
->=20
-> > +static int imx678_set_ctrl(struct v4l2_ctrl *ctrl)
-> > +{
-> > +       struct imx678 *imx678 =3D container_of(ctrl->handler, struct im=
-x678,
-> > +                                            ctrl_handler);
->=20
-> Use container_of_const.
->=20
-> > +       struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
-> > +       const struct v4l2_mbus_framefmt *format;
-> > +       struct v4l2_subdev_state *state;
-> > +       int rpm_in_use;
-> > +       int ret =3D 0;
-> > +
-> > +       state =3D v4l2_subdev_get_locked_active_state(&imx678->sd);
-> > +       format =3D v4l2_subdev_state_get_format(state, IMX678_SOURCE_PA=
-D);
-> > +
-> > +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> > +               u32 current_exposure =3D imx678->exposure->cur.val;
-> > +
-> > +               imx678->vmax =3D format->height + ctrl->val;
->=20
-> ........(1)
->=20
-> > +
-> > +               current_exposure =3D clamp_t(u32, current_exposure,
-> > +                                          IMX678_EXPOSURE_MIN,
-> > +                                          imx678->vmax - IMX678_SHR_MI=
-N);
-> > +               ret =3D __v4l2_ctrl_modify_range(imx678->exposure,
-> > +                                              IMX678_EXPOSURE_MIN,
-> > +                                              imx678->vmax - IMX678_SH=
-R_MIN,
-> > +                                              1, current_exposure);
-> > +               if (ret)
-> > +                       return ret;
-> > +       }
-> > +
-> > +       /*
-> > +        * Applying V4L2 control value only happens when power is up for
-> > +        * streaming
-> > +        */
-> > +       rpm_in_use =3D pm_runtime_get_if_in_use(&client->dev);
-> > +       if (!rpm_in_use)
-> > +               return 0;
->=20
-> As in the last revision, as I suggested before, I will again suggest using
-> pm_runtime_get_if_active() here instead of pm_runtime_get_if_in_use().
->=20
-> This does not seem to align with the comment above:
-> Applying V4L2 control value only happens when power is up for streaming
->=20
-> "Power is up" implies that the device is in the runtime PM ACTIVE state,
-> rather than simply having a non-zero usage count.
->=20
-
-I agree with the comment being slightly misleading, but same as the last
-revision, I still don't fully buy your argument here :-)
-
-In the case you talk about, where PM is ACTIVE but usage count =3D=3D 0, we
-anyway know that the count will only increase when .enable_streams is
-called, at which point the driver will anyway write *all* the registers
-including calling set_ctrl for each control with the cached values.
-
-So why should we do (redundant) writes here?
-
-> I also don't understand why we need to be strict here and require the
-> runtime PM usage count to be greater than zero. What matters before acces=
-sing
-> the hardware registers is that the device is powered and accessible, not
-> whether there is an active user holding a runtime PM reference.
->=20
-> Anyway, rpm_in_use does not seem necessary here. The check could be simpl=
-ified to:
-> if (pm_runtime_get_if_active(&client->dev) <=3D 0)
-
-The rpm_in_use value is used below in this function to ensure we don't do
-pm_runtime_put() in case of a negative retval. This is not really handled
-by most drivers today, but I wanted to fix it here given recent discussion
-[1] and annoying Sashiko reports.
-
-[1]: https://lore.kernel.org/all/ahyh0ZlwlZqr7VNa%40kekkonen.localdomain
-
->=20
-> > +
-> > +       switch (ctrl->id) {
-> > +       case V4L2_CID_VBLANK:
-> > +               cci_write(imx678->cci, IMX678_REG_VMAX, imx678->vmax, &=
-ret);
-> > +               fallthrough; /* SHR =3D VMAX - exposure, so update it */
-> > +       case V4L2_CID_EXPOSURE: {
-> > +               u32 shr =3D imx678->vmax - imx678->exposure->val;
-> > +
-> > +               cci_write(imx678->cci, IMX678_REG_SHR, shr, &ret);
-> > +               break;
-> > +       }
-> > +       case V4L2_CID_ANALOGUE_GAIN:
-> > +               cci_write(imx678->cci, IMX678_REG_GAIN, ctrl->val, &ret=
-);
-> > +               break;
-> > +       case V4L2_CID_HBLANK: {
-> > +               u32 hmax =3D (format->width + ctrl->val) / IMX678_PIX_P=
-ER_CLK;
-> > +
-> > +               cci_write(imx678->cci, IMX678_REG_HMAX, hmax, &ret);
-> > +               break;
-> > +       }
-> > +       case V4L2_CID_TEST_PATTERN: {
-> > +               cci_write(imx678->cci, IMX678_REG_TPG_COLORWIDTH,
-> > +                         IMX678_TPG_COLORWIDTH_160PIX, &ret);
-> > +               cci_write(imx678->cci, IMX678_REG_TPG_PATSEL_DUOUT,
-> > +                         imx678_tpg_val[ctrl->val], &ret);
-> > +               cci_write(imx678->cci, IMX678_REG_TPG_EN_DUOUT,
-> > +                         (ctrl->val) ? 1 : 0,
-> > +                         &ret);
-> > +               break;
-> > +       }
-> > +       case V4L2_CID_HFLIP:
-> > +               cci_write(imx678->cci, IMX678_REG_WINMODEH, ctrl->val, =
-&ret);
-> > +               break;
-> > +       case V4L2_CID_VFLIP:
-> > +               cci_write(imx678->cci, IMX678_REG_WINMODEV, ctrl->val, =
-&ret);
-> > +               break;
-> > +       default:
-> > +               dev_warn(&client->dev,
-> > +                        "ctrl(id:0x%x,val:0x%x) is not handled\n",
-> > +                        ctrl->id, ctrl->val);
-> > +               break;
-> > +       }
-> > +
-> > +       if (rpm_in_use > 0)
-> > +               pm_runtime_put(&client->dev);
-> > +
-> > +       return ret;
-> > +}
-> > +
->=20
-> ...
->=20
-> > +static int imx678_set_pad_format(struct v4l2_subdev *sd,
-> > +                                struct v4l2_subdev_state *sd_state,
-> > +                                struct v4l2_subdev_format *fmt)
-> > +{
-> > +       struct imx678 *imx678 =3D to_imx678(sd);
-> > +       struct v4l2_mbus_framefmt *format;
-> > +       const struct v4l2_rect *crop;
-> > +       int ret =3D 0;
-> > +
-> > +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE &&
-> > +           v4l2_subdev_is_streaming(sd))
-> > +               return -EBUSY;
-> > +
-> > +       crop =3D v4l2_subdev_state_get_crop(sd_state, fmt->pad);
-> > +
-> > +       fmt->format.width =3D crop->width;
-> > +       fmt->format.height =3D crop->height;
-> > +       fmt->format.code =3D imx678_get_format_code(imx678, fmt->format=
-.code);
-> > +       fmt->format.field =3D V4L2_FIELD_NONE;
-> > +       fmt->format.colorspace =3D V4L2_COLORSPACE_RAW;
-> > +       fmt->format.ycbcr_enc =3D V4L2_YCBCR_ENC_DEFAULT;
-> > +       fmt->format.quantization =3D V4L2_QUANTIZATION_FULL_RANGE;
-> > +       fmt->format.xfer_func =3D V4L2_XFER_FUNC_NONE;
-> > +
-> > +       format =3D v4l2_subdev_state_get_format(sd_state, fmt->pad);
-> > +
-> > +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE)
-> > +               ret =3D imx678_set_framing_limits(imx678, &fmt->format);
-> > +
-> > +       if (!ret)
-> > +               *format =3D fmt->format;
->=20
-> Update the ACTIVE format before adjusting the framing controls so that co=
-ntrol
-> callbacks operate on the correct frame dimensions.
->=20
-> Currently, the VBLANK control handler recalculates the exposure limits us=
-ing
-> the previous height value.
->=20
-> You can verify this by adding a debug print at (1) (In imx678_set_ctrl) f=
-or format->height.
->=20
-
-Yikes, my bad. I updated this function at the last moment to not mess with
-the active format in case set_framing_limit gives an error, but missed that
-the active state format is used by s_ctrl.
-
-> For example:
-> Streaming is running with a format of 3856 =C3=97 2160.
-> Streaming is stopped.
-> The media link is reconfigured to 1920 =C3=97 1080.
->=20
-> At this point, the ACTIVE format has not yet been updated. As a result, t=
-he
-> debug print at (1) will still show 2160 instead of 1080.
->=20
-
-Although it shouldn't cause issues as we don't allow changing resolution at
-all.. at least not in this patch. I'll still fix it in my branch with crop
-and binning support.
-
-I just realized though that we don't need to call set_framing_limits at all
-in a fixed-resolution driver. I'll drop it in next revision.
-
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx678_get_selection(struct v4l2_subdev *sd,
-> > +                               struct v4l2_subdev_state *sd_state,
-> > +                               struct v4l2_subdev_selection *sel)
-> > +{
-> > +       switch (sel->target) {
-> > +       case V4L2_SEL_TGT_CROP:
-> > +               sel->r =3D *v4l2_subdev_state_get_crop(sd_state, sel->p=
-ad);
-> > +               return 0;
-> > +
-> > +       case V4L2_SEL_TGT_NATIVE_SIZE:
-> > +               sel->r =3D imx678_native_area;
-> > +               return 0;
-> > +
-> > +       case V4L2_SEL_TGT_CROP_DEFAULT:
-> > +       case V4L2_SEL_TGT_CROP_BOUNDS:
-> > +               sel->r =3D imx678_active_area;
-> > +               return 0;
-> > +       }
-> > +
-> > +       return -EINVAL;
-> > +}
-> > +
-> > +static int imx678_init_state(struct v4l2_subdev *sd,
-> > +                            struct v4l2_subdev_state *state)
-> > +{
-> > +       struct imx678 *imx678 =3D to_imx678(sd);
-> > +       struct v4l2_rect *crop;
-> > +       struct v4l2_subdev_format fmt =3D {
-> > +               .which =3D V4L2_SUBDEV_FORMAT_TRY,
-> > +               .pad =3D IMX678_SOURCE_PAD,
-> > +               .format =3D {
-> > +                       .code =3D imx678_default_mbus_code(imx678),
-> > +                       .width =3D imx678_active_area.width,
-> > +                       .height =3D imx678_active_area.height,
-> > +               },
-> > +       };
-> > +
-> > +       crop =3D v4l2_subdev_state_get_crop(state, IMX678_SOURCE_PAD);
-> > +       *crop =3D imx678_active_area;
-> > +       imx678_set_pad_format(sd, state, &fmt);
-> > +
-> > +       return 0;
->=20
-> return imx678_set_pad_format(..).
->=20
-> > +}
->=20
-> ...
->=20
-> > +static int imx678_identify_model(struct imx678 *imx678)
-> > +{
-> > +       struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
-> > +       const struct imx678_model_info *info;
-> > +       enum imx678_type detected;
-> > +       int ret =3D 0;
-> > +       u64 val =3D 0;
->=20
-> val =3D 0 initialization is unnecessary, as val is populated by cci_read()
-> before it is used.
->=20
-
-Similar to ret, I personally find it easier to read when values that are
-used but not explicitly written to within the same function, are
-initialized to 0.
-
-> > +
-> > +       info =3D device_get_match_data(&client->dev);
-> > +
-> > +       /*
-> > +        * This sensor's ID registers become accessible 80ms after comi=
-ng out
-> > +        * of STANDBY mode.
-> > +        */
-> > +       cci_write(imx678->cci, IMX678_REG_MODE_SELECT, 0, &ret);
-> > +       fsleep(IMX678_MODULE_ID_DELAY);
-> > +
-> > +       cci_read(imx678->cci, IMX678_REG_MODULE_ID, &val, &ret);
-> > +
-> > +       if (ret) {
-> > +               dev_err(&client->dev,
-> > +                       "I2C transaction failed ret =3D %d\n", ret);
-> > +               return ret;
-> > +       }
-> > +
-> > +       if (val !=3D IMX678_ID) {
-> > +               dev_err(&client->dev,
-> > +                       "Chip ID mismatch: %x!=3D%llx\n", IMX678_ID, va=
-l);
-> > +               return -ENXIO;
-> > +       }
-> > +
-> > +       cci_read(imx678->cci, IMX678_REG_MONOCHROME, &val, &ret);
-> > +
-> > +       if (ret) {
-> > +               dev_err(&client->dev,
-> > +                       "I2C transaction failed ret =3D %d\n", ret);
-> > +               return ret;
-> > +       }
-> > +
-> > +       detected =3D val & IMX678_TYPE;
-> > +
-> > +       /* Prefer to use sensor type specified in device tree */
-> > +       if (info) {
-> > +               imx678->info =3D info;
-> > +               if (detected !=3D info->type)
-> > +                       dev_err(&client->dev,
-> > +                               "detected %s sensor, DT specifies %s; u=
-sing DT value\n",
-> > +                               detected =3D=3D IMX678_COLOR ? "color" =
-: "mono",
-> > +                               info->type =3D=3D IMX678_COLOR ? "color=
-" : "mono");
-> > +       } else {
-> > +               imx678->info =3D detected =3D=3D IMX678_MONOCHROME ?
-> > +                              &imx678_aamr_info : &imx678_aaqr_info;
-> > +               dev_info(&client->dev,
-> > +                        "sensor type missing in DT; detected %s sensor=
-\n",
-> > +                        detected =3D=3D IMX678_MONOCHROME ? "mono" : "=
-color");
-> > +       }
-> > +
-> > +       return 0;
-> > +}
->=20
-> ...
->=20
-> > +static int imx678_probe(struct i2c_client *client)
-> > +{
-> > +       struct device *dev =3D &client->dev;
-> > +       struct imx678 *imx678;
-> > +       int ret, i;
-> > +
-> > +       imx678 =3D devm_kzalloc(&client->dev, sizeof(*imx678), GFP_KERN=
-EL);
-> > +       if (!imx678)
-> > +               return -ENOMEM;
-> > +
-> > +       v4l2_i2c_subdev_init(&imx678->sd, client, &imx678_subdev_ops);
-> > +
-> > +       imx678->cci =3D devm_cci_regmap_init_i2c(client, 16);
-> > +       if (IS_ERR(imx678->cci))
-> > +               return dev_err_probe(dev, PTR_ERR(imx678->cci),
-> > +                                    "failed to init CCI\n");
-> > +
-> > +       if (imx678_check_hwcfg(dev, imx678))
-> > +               return -EINVAL;
-> > +
-> > +       imx678->xclk =3D devm_v4l2_sensor_clk_get(dev, NULL);
-> > +       if (IS_ERR(imx678->xclk))
-> > +               return dev_err_probe(dev, PTR_ERR(imx678->xclk),
-> > +                                    "failed to get xclk\n");
-> > +
-> > +       imx678->xclk_freq =3D clk_get_rate(imx678->xclk);
-> > +
-> > +       for (i =3D 0; i < ARRAY_SIZE(imx678_inck_table); ++i) {
-> > +               if (imx678_inck_table[i].xclk_hz =3D=3D imx678->xclk_fr=
-eq) {
-> > +                       imx678->inck_sel_val =3D imx678_inck_table[i].i=
-nck_sel;
-> > +                       break;
-> > +               }
-> > +       }
-> > +
-> > +       if (i =3D=3D ARRAY_SIZE(imx678_inck_table))
-> > +               return dev_err_probe(dev, -EINVAL,
-> > +                                    "unsupported XCLK rate %u Hz\n",
-> > +                                    imx678->xclk_freq);
-> > +
-> > +       for (i =3D 0; i < ARRAY_SIZE(imx678_supply_name); i++)
-> > +               imx678->supplies[i].supply =3D imx678_supply_name[i];
-> > +
-> > +       ret =3D devm_regulator_bulk_get(&client->dev,
-> > +                                     ARRAY_SIZE(imx678_supply_name),
-> > +                                     imx678->supplies);
-> > +       if (ret)
-> > +               return dev_err_probe(dev, ret, "failed to get regulator=
-s\n");
-> > +
-> > +       imx678->reset_gpio =3D devm_gpiod_get_optional(dev, "reset",
-> > +                                                    GPIOD_OUT_HIGH);
-> > +       if (IS_ERR(imx678->reset_gpio))
-> > +               return dev_err_probe(dev, PTR_ERR(imx678->reset_gpio),
-> > +                                    "failed to get reset GPIO\n");
-> > +
-> > +       ret =3D imx678_power_on(dev);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret =3D imx678_identify_model(imx678);
-> > +       if (ret)
-> > +               goto error_power_off;
-> > +
-> > +       pm_runtime_set_active(dev);
-> > +       pm_runtime_enable(dev);
-> > +
-> > +       ret =3D imx678_init_controls(imx678);
-> > +       if (ret)
-> > +               goto error_pm_runtime;
-> > +
-> > +       imx678->sd.internal_ops =3D &imx678_internal_ops;
-> > +       imx678->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE |
-> > +                               V4L2_SUBDEV_FL_HAS_EVENTS;
->=20
-> Drop V4L2_SUBDEV_FL_HAS_EVENTS flag.
->=20
-
-Ack.
-
-[snip]
-
-Thanks,
-    Jai
+-- 
+With best wishes
+Dmitry
