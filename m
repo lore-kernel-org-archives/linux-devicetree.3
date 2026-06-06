@@ -1,199 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F702F7F02
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 05:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000382264D6
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 05:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780723280; cv=none; b=V4AUUhstAmklA7U++ZFVSTNCd5ECsZXQ4qfAwz4j2XBzkF5DwNEmbXEYpaKHlmOEz96oBiRsQxfIhiADDd/h8oXaufQR2Ay2UnRGcEVnD+4Y0Sc9KU6xABeomc67HKtmordf8VRnfpJfLyVZUqVo9+jp8Av2CVKHmz6dY4qZYkY=
+	t=1780723658; cv=none; b=G+fI4ZNQYafRQbLOcYjlH1pjfdwrr+Jo6+mdu6WI5+qg4mIh7CkbAITERrcaOTzAgGil07Mtyr7PoPRa5CxVhdwUFYEKz3EjJkLHCraiD4vniZh+XGeJmi4a9Xv1P8rANGF9a1dBWbU8h6FVDI/Sdz4zVPd7kogyupTC83GWEGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780723280; c=relaxed/simple;
-	bh=oxRIyjJx0Inw62TTuMnFKH1m+7SNz4IG7Y4V/O2ziNU=;
+	s=arc-20240116; t=1780723658; c=relaxed/simple;
+	bh=NK3Q8OLs8apNPwMhhdC4yAd8nT/4QaarkrTNguWilYo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S7XLh0BF/Ga80+hTdZqJeP8UXksypeRuphl36cXFVquWvexrJlj14Wo9vDWFVQEfGc4mVOCqy2MexynzImX3yubNF//iz2XvTgxazXNdiuw5EkJlqEHP4guTW0CTAmziyRRYYeiDUx8BhAiXijLxWd79+7z1JDe37mr3PfiTKJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JaAazTYw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pcEHOJGwws7ghNqOpUkRgtmKQCWhqadzqOivyFxNWSGiq9HtGW4B0nqSf343Eq/VlJxrXXk+triLSs3hEHLG906lkh1oJyT8osWC22l8fVO6H3uVCb15VpSBQDaDKDaPO0CZ/DTglzXk4k3HlSpdV5HYAfHflIgX4fAbPcpUbyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hfy6D2OX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JaAazTYw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0AD1F00893;
-	Sat,  6 Jun 2026 05:21:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hfy6D2OX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438441F00893;
+	Sat,  6 Jun 2026 05:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780723279;
-	bh=XO29lp4DIKtLpHy11y3aMvZyk+ugcHbeFFI4txRjcMY=;
+	s=k20260515; t=1780723657;
+	bh=++trZLkulDlKR+KwSBPZnEDNlugbKHhvuuthuJftWwY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JaAazTYwVVuzx4fSXTWh9/BjDSppL84lNog9wG94phil+nPV59C8b7TLJj66Mq0VY
-	 6m9GqCvvCaGtAn55WeDkkv4t78YWK+4OQ/PnDOOiffrUWn/wfkbh1RGhY4T7pQjBjs
-	 ZW5IYBtFm9mJLtfxYlmHf80DZNK3xYx4ZeYLZjnpuPKKEeQbsMp4zi1nlhAI37Bm9R
-	 sx+aTkGRVoaDuGxJWQ+1TnomwxqruusXHOCU4euVAAz49hJ7cWugR/p/8Qlv0Ykljn
-	 6BwAtYI2FZVxbUql9wnuP0GLMrGO60pF0zEowOT4Sly7dv0BnnBCFagC091wphn7MH
-	 /Ablb9lbP86bA==
+	b=Hfy6D2OXLbjprVMLKn/EPSnMg7aGgIrTwupAPISfitp4zNaBQqsaX5jSpt4j4Qdjm
+	 BNvtL9gPZxZ25++rBg0O0MpZ+KM+fPSbHKsIAPhdIDrm7t3+wRunzn9zuAC2IAzuxH
+	 aVZr/lnxWFucq8C9Kjv7v9ylaEXFtcmdHezno7JED9ghkuCP4kYugTZeu8BwJ4CQ+m
+	 3Ewo4qITDyA6MtpBn/tCwVoyD9wN3uHo1c8qsDwqdk8SAbLv2wyZWih9tdfXYwljCY
+	 0nQ3r0Txj1BwM713HSToOmvWRCNev4vG5YbM+5W6UlFPRK7BjlLSagV2ACkzQZQ9Zp
+	 WuNZ5XOxrXDpQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 14/14] video: leds: backlight: lm3533: Support
- getting LED sources from DT
+Subject: Re: [PATCH v4 1/5] dt-bindings: iio: adc: add xlnx,versal-sysmon
+ binding
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260606045738.21050-15-clamor95@gmail.com>
-References: <20260606045738.21050-15-clamor95@gmail.com>
+To: "Salih Erim" <salih.erim@amd.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260606051707.535281-2-salih.erim@amd.com>
+References: <20260606051707.535281-2-salih.erim@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 05:21:18 +0000
-Message-Id: <20260606052118.EE0AD1F00893@smtp.kernel.org>
+Date: Sat, 06 Jun 2026 05:27:36 +0000
+Message-Id: <20260606052737.438441F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Probe returns 0 on failure during LED sources validation, causing =
-a double-free on removal.
-- [High] Out-of-bounds bitmask calculation for LM3533_REG_OUTPUT_CONF1 corr=
-upts regcache and causes probe failures on SMBus.
-- [Medium] Probe returns a positive integer on failure, violating the drive=
-r core API and generating an incorrect error code.
-- [Low] Negative error codes from missing properties are evaluated as true,=
- causing redundant regmap operations.
+- [Low] Schema Validation Flaw: Ineffective `minimum` and `maximum` constra=
+ints on `reg` arrays.
 --
 
-commit a17954bc9b86db17d86986ace3623a64fc46dd3b
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit 68825d18816914117a9f77e82be41b25ec550f42
+Author: Salih Erim <salih.erim@amd.com>
 
-video: leds: backlight: lm3533: Support getting LED sources from DT
-   =20
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+dt-bindings: iio: adc: add xlnx,versal-sysmon binding
 
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index a661aedcdc60a..fe3e01b265e10 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
+Add devicetree binding for the AMD/Xilinx Versal System Monitor (SysMon).
+The hardware supports up to 160 supply voltage measurement points and up to
+64 temperature satellites. The channels are described as child nodes under
+container nodes.
+
+> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,versal-sysmon=
+.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,versal-sysmon.yaml
+> new file mode 100644
+> index 0000000000000..1ad58e3d61631
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,versal-sysmon.yaml
+
 [ ... ]
-> @@ -623,7 +631,35 @@ static const struct attribute_group *lm3533_led_attr=
-ibute_groups[] =3D {
-> =20
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> -	int ret;
-> +	u32 output_cfg_shift =3D 0;
-> +	u32 output_cfg_val =3D 0;
-> +	u32 output_cfg_mask =3D 0;
-> +	int ret, i;
-> +
-> +	if (led->num_leds) {
+
+> +  voltage-channels:
+> +    type: object
+> +    description:
+> +      Container for voltage measurement channels.
+
+[ ... ]
+
+> +    patternProperties:
+> +      '^channel@([0-9a-f]|[1-9][0-9a-f])$':
+> +        $ref: adc.yaml
+
+[ ... ]
+
+> +        properties:
+> +          reg:
+> +            minimum: 0
+> +            maximum: 159
 
 [Severity: Low]
-If the led-sources property is not present, device_property_count_u32()
-returns a negative error code. Does this cause the condition to evaluate
-to true, skipping the loop but triggering an unnecessary regmap_update_bits=
-()
-with a 0 mask?
+Because the reg property is evaluated as an array in dt-schema, applying
+minimum and maximum directly to it will be silently ignored by the JSON sch=
+ema
+validator.=20
 
-> +		for (i =3D 0; i < led->num_leds; i++) {
-> +			if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
-> +				continue;
+Should these constraints be placed under an items array, or can they be
+dropped entirely since the patternProperties regex already implicitly restr=
+icts
+the range?
+
+> +            description:
+> +              Voltage measurement register index assigned by the hardware
+> +              design tool.
 > +
-> +			output_cfg_shift =3D led->leds[i] * 2;
-> +			output_cfg_val |=3D led->id << output_cfg_shift;
-> +			output_cfg_mask |=3D OUTPUT_LVLED_MASK << output_cfg_shift;
-> +		}
-> +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
-> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
-> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
+> +        required:
+> +          - reg
 
-[Severity: High]
-For LVLED4 and LVLED5, output_cfg_mask could have bits 6 or 8 set. When
-shifted left by OUTPUT_CONF1_SHIFT (2), the mask exceeds 8 bits. Since
-LM3533_REG_OUTPUT_CONF1 is an 8-bit register, does this corrupt the regmap
-cache or cause SMBus probe failures by passing a mask larger than 0xFF?
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* LVLED4 and LVLED5 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
-> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
-> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-> +		if (ret)
-> +			return ret;
-> +	}
 [ ... ]
-> @@ -700,6 +736,26 @@ static int lm3533_led_probe(struct platform_device *=
-pdev)
->  	led->pwm =3D 0;
->  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
-> =20
-> +	led->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-> +	if (led->num_leds > LM3533_LVCTRLBANK_MAX) {
-> +		dev_err(&pdev->dev, "num of LED sources exceeds max %d: %d\n",
-> +			LM3533_LVCTRLBANK_MAX, led->num_leds);
-> +		goto err_deregister;
 
-[Severity: High]
-Since led_classdev_register() was already called earlier in this function a=
-nd
-returned 0, ret is still 0 here. Will jumping to err_deregister return 0 on
-failure, leading to a double-free on driver removal when
-led_classdev_unregister() is called again and corrupting leds_list?
+> +  temperature-channels:
+> +    type: object
+> +    description:
+> +      Container for temperature satellite measurement channels.
 
-> +	}
 [ ... ]
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index 2aa4b86042ff2..ed358fb3c7596 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
+
+> +    patternProperties:
+> +      '^channel@([1-9a-f]|[1-3][0-9a-f]|40)$':
+> +        $ref: adc.yaml
+
 [ ... ]
-> @@ -232,13 +237,30 @@ static struct attribute_group lm3533_bl_attribute_g=
-roup =3D {
->  static int lm3533_bl_setup(struct lm3533_bl *bl)
->  {
->  	int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
-> -	int ret;
-> +	u32 output_cfg_val =3D 0;
-> +	u32 output_cfg_mask =3D 0;
-> +	int ret, i;
-> =20
->  	ret =3D regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
->  				 CTRLBANK_AB_BCONF_MODE(ctrlbank), bl->linear);
->  	if (ret)
->  		return ret;
-> =20
-> +	if (bl->num_leds) {
+
+> +        properties:
+> +          reg:
+> +            minimum: 1
+> +            maximum: 64
 
 [Severity: Low]
-Similar to lm3533_led_setup(), if the led-sources property is absent,
-device_property_count_u32() returns a negative error code. Will this cause
-the condition to evaluate to true and trigger an unnecessary I2C write with
-a 0 mask?
-
-> +		for (i =3D 0; i < bl->num_leds; i++) {
-> +			if (bl->led_strings[i] >=3D LM3533_HVCTRLBANK_COUNT)
-> +				continue;
-[ ... ]
-> @@ -316,6 +338,25 @@ static int lm3533_bl_probe(struct platform_device *p=
-dev)
-> =20
->  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
-> =20
-> +	bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-> +	if (bl->num_leds > LM3533_HVCTRLBANK_COUNT)
-> +		return dev_err_probe(&pdev->dev, bl->num_leds,
-> +				     "num of LED sources exceeds max %d\n",
-> +				     LM3533_HVCTRLBANK_COUNT);
-
-[Severity: Medium]
-Because bl->num_leds is strictly positive here, does returning it via
-dev_err_probe() violate the driver core API which expects a negative error
-code? The driver core negates positive return values, which could result in=
- an
-unrelated error code like -ESRCH.
-
-> +
-> +	/*
+Similarly here, are these constraints ineffective because JSON schema ignor=
+es
+numeric constraints on non-numeric types like the reg array?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606045738.2105=
-0-1-clamor95@gmail.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606051707.5352=
+81-1-salih.erim@amd.com?part=3D1
