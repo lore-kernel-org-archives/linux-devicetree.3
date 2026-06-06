@@ -1,38 +1,29 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3D830F95F;
-	Sat,  6 Jun 2026 05:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A80F28B4E2
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 05:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780724570; cv=none; b=ucWJsuaeMCuEdCXDBJyTvxGpdOTEwGeWpTn8Resyv+Eilq+TYx85XaA5GvvW19POydV2aLS972S3Lt0g/D2FG3EmrzqJR/TsLvPuL89wjt5c/mdmOQcKC79cwoK2zXxm0+OuZAhq3O5CrBVOmzgj3/9CRBTmqGaUitfTgt9iqlw=
+	t=1780725466; cv=none; b=dLNCRqOSGiAPdyvH3S4L9C5gZKWcWWDB1LUquBg7yMTJezawAd2jgsmnT5+KhCXDNPTWJsSf6iOVTkPrcI2maf12YXoxth+zm3Ukjmw/VY/78UM3FiEvNkgsBzRrJw2SYuaVhnDn7uZ2XikO+RNNvC7zboLbRAK32PWUOTo+3no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780724570; c=relaxed/simple;
-	bh=LwObKbMYH5trZ9xLMT05dZHy//hBzE5Yhld+T95HsCU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MMTttzEvS/bVz+o/PNAuMA2xgloBPSPIJWKquEGOItVodhuVD4qVjiNXf89uFLxHOwWEm3S6TzDMhn9QG5VmjQbOODM1u9jlbsGHOnLYN+At9X69BOscUUyw7FZG26BAyI3ispnMRkVIuQE48FN7adWLHC807euV4rcqH49CPzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p53DixIh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780725466; c=relaxed/simple;
+	bh=OYenO9hv+4Q5MAIk9Trfdi3xTWeNFZScrLZSmUlASIQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Yn6OnhZGqguYmmeKBmbwTRFxvELVI7oyt7mBgzOivSEjpLfqYVqXwolZo/t6iY+zJGkqafS+acatVBUlTmR8QbH0wVR3G3p9aCedoQa16tqQD7tFPbyHHCCibo5rHe3RNGEuuV3Z4QdoDiNxwT+QrgL/OQCFO+b9JCcq9bgG4Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=TaQgKyrH; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p53DixIh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3AF4BC2BCFC;
-	Sat,  6 Jun 2026 05:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780724570;
-	bh=LwObKbMYH5trZ9xLMT05dZHy//hBzE5Yhld+T95HsCU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=p53DixIhEszCg6onyjTt0EzJ/lU/vnhSiUhDxpyYl0oAXq6qJa9APftdf56Aesh4n
-	 GgyovOcrU34yMeQBfL5jIbpo3WPFuYMhsNDUls4CeJpRKATJ1EyLCIQoxUczszkH3t
-	 1gQ3Eyq2E92w1qj6UH27zoHnOF+/IyNSiZ3/PYRRPYhB+LQ6hJ0aaZYV+bHqse4c8C
-	 tjGYUa6IqNQgL/U6qIVnmBDejJDLbNgIyZudtbi8CcZBjP33p1X5uiWtdIzpco3X7g
-	 ekLMJ/Zl/LBnmT8S/3XT2XpAZlX+Du9CiSi7BURJXQm4IwpH/dcB+G3YgD7jT7BcMH
-	 jihxbiJrwSHnQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 342A7CD8C93;
-	Sat,  6 Jun 2026 05:42:50 +0000 (UTC)
-From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Fri, 05 Jun 2026 22:42:47 -0700
-Subject: [PATCH net-next v4 16/16] Documentation: networking: Add timestamp
- related APIs to OA TC6 framework
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="TaQgKyrH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=+GBkWRX6H9gOUgMZTnqGbya6xJVuSSQvz
+	zT0etgBV+M=; b=TaQgKyrHvxnPMCr8ST9G89t6IoU/Ok2s9DuiCYAByE+ojULFj
+	lz33sJpU4oUiSlh0Bf3EYHxAq+obRttPbsfUo9J8T6rAs2MLtGgM33Yx/Ypv+TyS
+	TIAbnO5CGgg23Y//1DbeWGcpeI0VZ3R3MmjQax/jjKACoV0thiI0GAPOo4=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYULFtiNqCvAIAA--.8801S2;
+	Sat, 06 Jun 2026 13:57:25 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,143 +31,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-s2500-mac-phy-support-v4-16-de0fbc13c6d8@onsemi.com>
-References: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
-In-Reply-To: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
-To: Andrew Lunn <andrew@lunn.ch>, 
- Piergiorgio Beruto <pier.beruto@onsemi.com>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
- Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
- Jerry Ray <jerry.ray@microchip.com>, 
- Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780724562; l=4814;
- i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=qMIzLX0eC5ihmFdaKnhKOPCk6N1TEOL8NPk1LNjEmH4=;
- b=K/RVcj2az8TbAlcs1pGNk3cydG43TjXs/KRPyZsvcKVB3OaD4G9k8JQhjkhDTT5aAmn8cLobV
- zxHaDTIL7c0D3+u/dd3GjUT4UkNsmV0Hi2iBU3pP3IYSv9MncQfKNMF
-X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
- pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
-X-Endpoint-Received: by B4 Relay for
- Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
-X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Reply-To: Selvamani.Rajagopal@onsemi.com
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: Add UltraRISC DP1000
+ pinctrl controller
+From: Jia Wang <wangjia@ultrarisc.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260601100602.A4F931F00898@smtp.kernel.org>
+References: <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
+ <20260601100602.A4F931F00898@smtp.kernel.org>
+Date: Sat, 06 Jun 2026 13:56:47 +0800
+Message-Id: <178072540755.310568.3446097812860239551.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780725407; l=2510;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=OYenO9hv+4Q5MAIk9Trfdi3xTWeNFZScrLZSmUlASIQ=;
+ b=7Ou+5/kb4W5x2QMzJFxdho5Zou+1EgZ/QRO0YXlvEsG/7N0bX73L/8lt1n/lBjRWEmWXRBvOb
+ JM/DwBXX9tOCep3d9yNR9wUQRxwghs8lUJe3A5oh/5ZKm2m5HvDT2Hj
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwAnYULFtiNqCvAIAA--.8801S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFWUKFW7ZrWfKFyDAFyxKrg_yoW8Kry5pF
+	ZxGFWayFy8XrW3J3y8t3W8Zw1fJw4xAFW3Aan0q340vayYgFn7tFZIkw45Xan8WrW8tFyS
+	qa45W3sFv3WDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkEb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY
+	02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07boDG
+	rUUUUU=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgAnsh
 
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+On 2026-06-01 10:06 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The conditional schema constraints fail to prevent non-LPC pins (Ports A-D) from being assigned the 'lpc' or 'espi' mux functions.
+> --
+> 
+> commit 579eeac83b351ad50317d72079e0436d73706e08
+> Author: Jia Wang <wangjia@ultrarisc.com>
+> 
+> dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl controller
+> 
+> This commit adds the device tree binding documentation for the pin controller
+> found on the UltraRISC DP1000 RISC-V SoC. It defines properties for ports
+> A-D and LPC pins, including supported mux functions and pin configurations.
+> 
+> > diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
+> 
+> [ ... ]
+> 
+> > +patternProperties:
+> > +  '.*-pins$':
+> > +    type: object
+> > +    unevaluatedProperties: false
+> > +    allOf:
+> > +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
+> > +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
+> > +      - if:
+> > +          properties:
+> > +            pins:
+> > +              contains:
+> > +                pattern: '^LPC([0-9]|1[0-2])$'
+> > +        then:
+> > +          properties:
+> > +            function:
+> > +              enum:
+> > +                - lpc
+> > +                - espi
+> 
+> [Severity: Low]
+> Does this schema allow Ports A-D to incorrectly select the lpc or espi
+> functions?
+> 
+> The if-then block restricts LPC pins to the lpc or espi functions, but it
+> appears to lack a reciprocal constraint preventing non-LPC pins from being
+> assigned to these functions.
+> 
+> Because lpc and espi are included in the base function enum defined later in
+> the schema, an invalid device tree might silently pass schema validation if it
+> mistakenly assigns the lpc or espi functions to Ports A-D.
+> 
+> Would it be helpful to add an else clause here, or a separate if-then block,
+> to explicitly forbid lpc and espi on non-LPC pins?
+>
 
-Added new APIs to support hardware timestamp feature as defined in
-OPEN Alliance 10BASE-T1x MAC-PHY serial interface specification.
-
-Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
----
- Documentation/networking/oa-tc6-framework.rst | 76 +++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
-
-diff --git a/Documentation/networking/oa-tc6-framework.rst b/Documentation/networking/oa-tc6-framework.rst
-index fe2aabde923a..694d9485b1c5 100644
---- a/Documentation/networking/oa-tc6-framework.rst
-+++ b/Documentation/networking/oa-tc6-framework.rst
-@@ -153,6 +153,10 @@ OPEN Alliance TC6 Framework
- - Forwards the received Ethernet frame from 10Base-T1x MAC-PHY to n/w
-   subsystem.
+Thanks for the review. I'll update the schema to also reject lpc/espi
+functions on non-LPC pins in v3.
  
-+- If supported by the hardware and enabled, updates hardware timestamp
-+  in skb, when indicated by one of the three timestamp capture registers
-+  through TSC fields of the header.
-+
- Data Transaction
- ~~~~~~~~~~~~~~~~
- 
-@@ -495,3 +499,75 @@ the MAC-PHY.
- Zero align receive frame feature can be enabled to align all receive ethernet
- frames data to start at the beginning of any receive data chunk payload with a
- start word offset (SWO) of zero.
-+
-+.. c:function:: int oa_tc6_ptp_register(struct oa_tc6 *tc6, \
-+                                        struct ptp_clock_info *info);
-+
-+Registers the PTP hardware clock related functions with the kernel.
-+This API simply registers. Initialization of the fields in the
-+ptp_clock_info structure are left to the vendor as programming hardware
-+timer is expected to be vendor dependent. The fields max_adj, owner,
-+and all the functions for the clock operations, like adjfine, gettimex64,
-+settime64, adjtime are expected to be initialized in the structure before
-+calling the registering the hardware clock.
-+
-+.. c:function:: void oa_tc6_ptp_unregister(struct oa_tc6 *tc6);
-+
-+Unregisters the PTP hardware clock related callbacks.
-+
-+.. c:function:: int oa_tc6_ioctl(struct oa_tc6 *tc6, struct ifreq *rq, \
-+                                 int cmd);
-+
-+ioctl interface to handle hardware timestamp and PHY related commands.
-+
-+.. c:function:: int oa_tc6_get_ts_info(struct oa_tc6 *tc6, \
-+                                       struct kernel_ethtool_ts_info *info);
-+
-+Provides timestamp related settings that are supported to ethtool.
-+
-+.. c:function:: void oa_tc6_hwtstamp_get(struct oa_tc6 *tc6, \
-+                                         struct kernel_hwtstamp_config *cfg);
-+
-+Returns hardware timestamp configuration. Part of net_device_ops callbacks.
-+
-+.. c:function:: void oa_tc6_get_ts_stats(struct oa_tc6 *tc6, \
-+                                         struct ethtool_ts_stats *ts_stats);
-+
-+Provides hardware timestamp related traffic statistics for ethtool.
-+
-+.. c:function:: int oa_tc6_hwtstamp_set(struct oa_tc6 *tc6, \
-+                                         struct kernel_hwtstamp_config *cfg);
-+
-+Helper to set hardware timestamp configuration. Part of net_device_ops
-+callbacks.
-+
-+.. c:function:: void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms);
-+
-+Helper to map MDIO_MMD_VEND1 command to vendor specific Memory Map Select
-+(MMS) value. This function offers flexibility for vendors that may have
-+used any MMS value between 10 and 15 as allowed by the specification.
-+MDIO_MMD_VEND2 is already mapped to MMS4 in the OA TC6 frame work code.
-+
-+.. c:function:: int oa_tc6_write_registers_mms(struct oa_tc6 *tc6, \
-+                                               u16 address, u16 mms, \
-+                                               u32 value[], u8 length);
-+Writing multiple consecutive registers starting from @address for the
-+given @mms memory map selector in the MAC-PHY. Maximum of 128 consecutive
-+registers can be written starting at @address.
-+
-+.. c:function:: int oa_tc6_write_register_mms(struct oa_tc6 *tc6, \
-+                                              u16 address, u16 mms, \
-+                                              u32 value);
-+Write a single register addressed by @address and @mms in the MAC-PHY.
-+
-+.. c:function:: int oa_tc6_read_registers_mms(struct oa_tc6 *tc6, \
-+                                              u16 address, u16 mms, \
-+                                              u32 value[], u8 length);
-+Reading multiple consecutive registers starting from @address for the
-+given @mms memory map selector value, in the MAC-PHY. Maximum of 128
-+consecutive registers can be read starting at @address.
-+
-+.. c:function:: int oa_tc6_read_register_mms(struct oa_tc6 *tc6, \
-+                                             u16 address, u16 mms, \
-+                                             u32 *value);
-+Read a single register addressed by @address and @mms in the MAC-PHY.
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260601-ultrarisc-pinctrl-v2-0-07ac5130a96d@ultrarisc.com?part=1
+> 
 
--- 
-2.43.0
+Best regards,
+Jia Wang
 
 
