@@ -1,165 +1,87 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail.netcube.li (mail.netcube.li [173.249.15.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94892356D9
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 20:50:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1EA3B18A;
+	Sat,  6 Jun 2026 20:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.249.15.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780779024; cv=none; b=dO0okunnWc52T0BV8JL/K6VEmY48bGnQmYB3lUkTCLiXkk7efKspbuHy0z+obUaW4Y+tqPaSUBeiWk0twscI5/DKru/5rGpuRXVBbmH5c7/IeHk13n5yljVz+ZKcmOSMjTx4Bk/ytmcvufdCWKha0XdIQOvHFr8Yyqy36hTmKN8=
+	t=1780779313; cv=none; b=UNnZDtwv5TJYZsh2tVXtpCc4N8xQUM6ENUETD5udVZ0kkjo3dBYvVZXI9OUTiuA/FHk2mmGTFcVQo80xdMfNgDcb9fYE5mUkjuRxBgep1CfvrYovVqQrM4xVN4rf0NgIvTQwu2QyKtmhs7ifYdKuLuOTHAoXiG+/spOtSwW/E70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780779024; c=relaxed/simple;
-	bh=ab89G/27l/5o7tuJPd46KvxXOp2HCBuR6xIqDz8zGn0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=scZzTdNxT0H7yo4Ds0OlELvxIJLTivLgG9jNDgvpP/mmC6lBpHXNycRJXeZlLPannekam73+9UBTJFyYE3Z/DVT+ntr4iPbg5CeY3sRF7aSe3dnArbnkIdW/JivyXp+zlvDLBpsvyVH/JtaJ7A1c/lR6i6KvbAPAVdodnZ/NjVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYQfggFB; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780779313; c=relaxed/simple;
+	bh=MDFuXDEC0+TRcryVMmW9QZQjVy3dLKKLNjW031DPXHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sRSzUtp2Qum7U8DJeJBvUiXstvZCSdMi5SuW0Hy6MdCeQZrv4X6P1M8RjZX27Cl2Ure3I1Gv7P/OMOe0BLQweLnTkfgrtd0aTq6iidJ0gHRvICemsLSpcsTH9lPz9YDbxb6gF7b91M6Mc3pJX2ROEtuiSJdFQ23fH/wC0HZXhA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=netcube.li; spf=pass smtp.mailfrom=netcube.li; dkim=pass (1024-bit key) header.d=netcube.li header.i=@netcube.li header.b=r5zMAq45; arc=none smtp.client-ip=173.249.15.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=netcube.li
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netcube.li
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYQfggFB"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490b4e1ade7so32971275e9.0
-        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 13:50:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780779021; x=1781383821; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KICvSmr67GVRpflb7Bqnkr43eQwEX55VG2vB71Ne/XY=;
-        b=YYQfggFBRnj/hmo8ymAFncLuqRxLm7FzmFwU9UlzoeBHbCom//18HGAKELMuX1q6Jq
-         IqyYqtgw+OodhpoLbgR8O/1Kz8UaxrLqaYcSMmadETNDPHAbV5JM0dshIhyRYdkRrWBo
-         uh47ss83wnGfjDAipzg3p1bEDoEhDO5mZMG2afSr17/P1VGQywP6t2DWzKMZpSD+vR9q
-         W3qIIuP2TO6jznJPkzXII0DJKvvDrOkhrY+brN9SZ+fC5/Z8ssRwtAtVY0azhJ8f0+TW
-         6qbY8dkA5aA5Eawtq7SOzQjXVoPMl3LvcRMn2ejOmA9cXd/bsveFfnOgaw5VrWm5Ipv/
-         CMZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780779021; x=1781383821;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KICvSmr67GVRpflb7Bqnkr43eQwEX55VG2vB71Ne/XY=;
-        b=Hnu9dqmFGs1HT5FjLHUrN2i+FAGeW5meSE6hok+b3FDy+7T3PFcmKzvoFQ97ilYXIZ
-         rS5G9gIWu9AWVIvSJvZ0ocOpgHcbCF8dsi7iGZq+AUck3tkrHktHOnGHaStl0aeVU6R6
-         qc9UM0iJY6iuYyD8P3ZX6a7rCyiLO6S7AetTYEmsEgtuDgrKXLx4Cp5Ka/gk+jzUvVOB
-         EwwHfF6ULLPvCjFRYMlup0SDeAOeUGAhN53T6QrmONr3D1Pzuh1VUWCWSJpWWVizS0rH
-         Ha3uxQfwrvLvqZPy+uLeGUgdDWcS/OlSrqBTGbpxFhdHIwV+ORos8pi6VSqeaX90fSQy
-         TWZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+CyCXAp5Tvo/mFYWrJ+tpS9pG6M2iQTLxq1Y8UVc01m2yPCIAE7eyaziGKwxCN6CCUZK2rNJBl2s6M@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgUr9sOeezKwqzgeX1rjU4yWYuEQ1SUf3NtCH6v0yfIxBBj0Eh
-	l+j26JxBqaNbVIXomRDKYvxHxRAEgp/6yMJYN+pa7LGbxZioJhOlLLvS
-X-Gm-Gg: Acq92OG3T2WhBSqgKau5/ce2Bhy3GdcrYaFcWTCK89d6xffnlFYzvaTmJbLbyFaPieD
-	gyyyEhh+zlUg4titd3cVUKMXS3yO7uHakJmWULDFeDIDGgyUOvTXGymMF/0jUxkmweOUQWWUqJ1
-	er2a+9cMqmTEuHM/EXyMBcarPYdFwq7JU0itUsJ7DpTiu0VhAdEt1E/qk518l2UepD+naSVV+cE
-	zLdWHNgn9nsIYbT0ocDdNeq6Uex07/bEC51j06F0uTqV9hGGmAB4DNhce6uyyqzAdWrJ03fMtgv
-	aW21n/YC0q4BnGAObUS9arYWt0/3XQNmMSv42zPRg2wxuTewZ1+cbnkyNYtwulTEbj9M1tsW1bT
-	Qgxfpd4bSRG0ljQsO0K9hUHFN+puRtVDDW2crKC2Jdp041BcxcjM1kvIggHMjP31T1ng3N3ynqw
-	IG01qJVKrWpmJ8r7v0Bsbq7gxpYj0WGHP+R9cBFGMTsKO8VKtpuNZVIF8pJZbBX6xg8NPHp4JSE
-	Oy8M88zhKuww/MQnYXgDxDXE9gMdL7iUOKiryTdSYzPtctI+hl4Ui297Q4n0+wZI1mrLJ4=
-X-Received: by 2002:a05:600c:4708:b0:48a:6fd4:d3d3 with SMTP id 5b1f17b1804b1-490c2604735mr151296265e9.20.1780779020992;
-        Sat, 06 Jun 2026 13:50:20 -0700 (PDT)
-Received: from ?IPV6:2003:ea:8f4a:1a00:ac2e:7640:d3:7bd5? (p200300ea8f4a1a00ac2e764000d37bd5.dip0.t-ipconnect.de. [2003:ea:8f4a:1a00:ac2e:7640:d3:7bd5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3cbfe4sm259925885e9.7.2026.06.06.13.50.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 06 Jun 2026 13:50:20 -0700 (PDT)
-Message-ID: <667f64e0-2b3e-41bf-9c97-3562696d3af7@gmail.com>
-Date: Sat, 6 Jun 2026 22:50:19 +0200
+	dkim=pass (1024-bit key) header.d=netcube.li header.i=@netcube.li header.b="r5zMAq45"
+dkim-signature: v=1; a=rsa-sha256; d=netcube.li; s=s1;
+	c=relaxed/relaxed; q=dns/txt; h=From:Subject:Date:Message-ID:To:CC:MIME-Version:Content-Transfer-Encoding;
+	bh=zysp9UOZdYQfuJRmcjZPPdnKqn46r6J7N0CZfMxHtOA=;
+	b=r5zMAq45/5Z11yp/G/J+9sop5mOoMLh6/SXq2vpDo5vPmSekLuvzNnFIKO03su98P6J7kiScr59CeEVPF9xU8zXzQtw514letH0xQi3lj3B6R3Bj8zNG0unV8et+fbqR8b6+yijgyIx7hz0jKXomvMaup+uHw53pPk8UWF2a8JA=
+Received: from lukas-hpz440workstation.lan.sk100508.local (194-166-56-114.hdsl.highway.telekom.at [194.166.56.114])
+	by mail.netcube.li with ESMTPA
+	; Sat, 6 Jun 2026 22:55:09 +0200
+From: Lukas Schmid <lukas.schmid@netcube.li>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Maxime Ripard <mripard@kernel.org>
+Cc: Lukas Schmid <lukas.schmid@netcube.li>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [PATCH v4 0/3] Add support for NetCube Systems OpenNMC (dobermann)
+Date: Sat,  6 Jun 2026 22:54:40 +0200
+Message-ID: <20260606205452.2386930-1-lukas.schmid@netcube.li>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: net: add Realtek r8169 family PCIe
- Ethernet
-To: Ricardo Pardini <ricardo@pardini.net>, nic_swsd@realtek.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-0-8a8857b39daf@pardini.net>
- <20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-1-8a8857b39daf@pardini.net>
- <b7cc8eba-ff6e-417d-8e74-b3bb24e08a26@gmail.com>
- <26da1dfa-3408-4654-9046-36ed6d57059c@pardini.net>
-Content-Language: en-US
-From: Heiner Kallweit <hkallweit1@gmail.com>
-In-Reply-To: <26da1dfa-3408-4654-9046-36ed6d57059c@pardini.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06.06.2026 07:03, Ricardo Pardini wrote:
-> On 05/06/2026 17:48, Heiner Kallweit wrote:
->> On 05.06.2026 13:49, Ricardo Pardini via B4 Relay wrote:
->>> From: Ricardo Pardini <ricardo@pardini.net>
->>>
->>> Add a binding for fixed/soldered Realtek PCIe Ethernet controllers
->>> driven by the r8169 driver (RTL8125/8126/8127/8168 and variants).
->>>
->>> The "pciVVVV,DDDD" compatibles are the Open Firmware PCI Bus Binding
->>> spelling, auto-derived from PCI-SIG vendor/device IDs, but they still
->>> need a binding when used in a board DT - analogous to "usbVVVV,PPPP"
->>> compatibles documented in their own bindings (e.g. microchip,lan95xx)
->>> so board DTs attaching properties (fixed MAC, nvmem cell, ...) to
->>> these PCI function nodes can be validated.
->>>
->>
->> The of node seems to be created by of_pci_make_dev_node(). But this
->> function is called for bridges only in pci_bus_add_device().
->> So where is the node created in your case? Did you test node creation?
->>
-> 
-> Hi Heiner,
-> 
-> Seems to me of_pci_make_dev_node() is not at play here - that's the DT-synthesis path. For nodes already present in DT, the of_node is bound earlier, during pci_setup_device() -> pci_set_of_node() -> of_pci_find_child_device() via the 5-cell reg.
-> 
-I see, thanks. If the matching is done based on the reg property, then I just wonder
-if and where the compatible string is used. Or would the logic also work with a
-random compatible string?
+This series adds support for the NetCube Systems OpenNMC.
 
-> Ref testing: yes; with this series on a NanoPC-T6 I get, for example:
-> /sys/bus/pci/devices/0004:41:00.0/of_node -> /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0 and u-boot correctly adds local-mac-address property there which is correctly picked up kernel-side:
-> 
-> => setenv eth1addr 8e:b4:90:66:66:66
-> => boot
-> 
-> ...
-> 
-> # readlink -f /sys/bus/pci/devices/0004:41:00.0/of_node
-> /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0
-> 
-> # xxd /sys/bus/pci/devices/0004:41:00.0/of_node/local-mac-address
-> 00000000: 8eb4 9066 6666                           ...fff
-> 
-> # ip link show dev end1 | grep ether
->     link/ether 8e:b4:90:66:66:66 brd ff:ff:ff:ff:ff:ff
-> 
-> 
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - pci10ec,8125  # RTL8125 2.5GbE
->>> +      - pci10ec,8126  # RTL8126 5GbE
->>> +      - pci10ec,8127  # RTL8127
->>> +      - pci10ec,8161  # RTL8168 variant
->>> +      - pci10ec,8162  # RTL8168 variant
->>> +      - pci10ec,8168  # RTL8168/8111 GbE
->>
->> This list reflects just some of the PCI id's handled by r8169.
->> Any specific reason for this exact selection?
-> I went for "chips likely to be soldered down on an SBC", but that was indeed speculative.
-> 
-> I guess I should trim to pci10ec,8125, which is all this series describes? (further IDs can be added by the patches that introduce boards using them)
-> 
-Yes, I'd prefer this approach. Considering that RTL8168 has been supported for
-about 20yrs now, your use case seems to be exotic. Otherwise I would have
-such a patch much earlier.
+Sorry for the quick resend. This v4 includes the corrected Makefile
+target name.
 
-> -- 
-> Regards,
-> Ricardo
-> 
+Changes in v4:
+ - fix the ARM Makefile target name for the new board
+
+Changes in v3:
+ - actually add the Makefile changes
+
+Changes in v2:
+ - fixed ordering of compatible enum
+ - fixed gpio line names
+
+Signed-off-by: Lukas Schmid <lukas.schmid@netcube.li>
+---
+Lukas Schmid (3):
+  dt-bindings: arm: sunxi: Add NetCube Systems OpenNMC (dobermann)
+  riscv: dts: allwinner: d1s-t113: Add uart4 pinctrl required by NetCube
+    Systems OpenNMC
+  ARM: dts: sunxi: add support for NetCube Systems OpenNMC (dobermann)
+
+ .../devicetree/bindings/arm/sunxi.yaml        |   1 +
+ arch/arm/boot/dts/allwinner/Makefile          |   2 +
+ .../sun8i-t113s-netcube-dobermann.dts         | 149 ++++++++++++++++++
+ .../boot/dts/allwinner/sunxi-d1s-t113.dtsi    |   6 +
+ 4 files changed, 158 insertions(+)
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-t113s-netcube-dobermann.dts
+
+-- 
+2.47.3
 
