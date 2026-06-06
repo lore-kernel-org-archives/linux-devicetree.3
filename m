@@ -1,113 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011009.outbound.protection.outlook.com [52.101.62.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEF926AF4
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 05:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780723022; cv=none; b=f4Bp0g1W7M8+NxILC/OPZMxTurbkAoczxHxPCIIuewkdfhHB9eAi6Jcl3BKmUAZRXX5RKKOy4ciLVlDqrvuyLkMs15CHuj+opvrwr0RLDZPsLo/un6CmJuvaZ46RKGcZ/56pUi57ih4VBT/zHLs9C5zb5Kv3+ua3HLk+jVzftHc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780723022; c=relaxed/simple;
-	bh=ApwgZ0P89xFpWrYDY7+QyrgcIQl93APnzbkOQ/o1XZ0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SwxjzE2HHRhfU30nSVGKIpVQukmTjbnUNfQDiHOixFdqDQaM2AvI3Amfp6yO8yvx/VotezaoMtSzUleiEtgjmwNzbiMS8WTvpg8/FAiUTa8SlqC3Oh3svfCL91usLhYIU5r895wDNq4T1eOwlFRpt4Cq04XwCN5WuB6EwEVaaXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lhr3NnSz; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA4118A6D4;
+	Sat,  6 Jun 2026 05:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780723055; cv=fail; b=qVKqdmepndxgzBwTYmkUK6mx4XIopKNmu5U42Gdwxco01uIaVUltwZcBEA83bCSVY07lqXQXU8MqmEtFFmaEKtaSig9pTtuqyNPmNgNoyzbbtCZP4i+m5ZApHrkI4Ga4hWNmDNt01FshPEiCfNRriIGogwujvdlDGzP3X4WZIxw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780723055; c=relaxed/simple;
+	bh=za7AS6Lqw+Ltaq3B4JDLL5a1TBl+Nn1iEf2lt3uIH7U=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KHBG71ZhtUQabaFYLcxvbj1xxjyten3ZI0jRwXMZo3apn2QE445e+4ARy97YnmaI2UMwEmxqlnktxrxxymp+gocQUqc9/FMAWDrtRYBnG/WAXNUuonFdyzHHOEjJkwqCd6mxj16iqaslrm4BoB+F2rHCDyEZpQnIXBzcvFcsZQk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Ohll0HEd; arc=fail smtp.client-ip=52.101.62.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lhr3NnSz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51F021F00893;
-	Sat,  6 Jun 2026 05:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780723021;
-	bh=Z+vUT6ASl/W9wavZsQkTnSdOSYy2iux4uoddAcnjSLQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Lhr3NnSzDZWEgupsHqErKRsoj06dqcSRM8Ww2K/3tWesyelVqxQ+TRAt+A1UvdRJq
-	 mF8V9Whl5zdOiVdMD9P1ylfuARkdAyAEVOFpZuo7zn8uDoQbSF9tmyDU7LddGBDv1h
-	 qlgxiGDddgmibk5o3VI1SAQ7SpCwK4oDDaem0Bbt5mtRJ/Mn3A5zvTGAAjjB7lFCMT
-	 pnVuXWISpOWNI8r/rIpZ8OpoMXRVUSZmQ/PkjSBfndUBIeLscrEFH/apR2/Vx01yzY
-	 lKcdpgqCUVH2blT+PPfRWqhhO1cGgh2RghozsHj2/N6uC2EZ2pkZel3y9y25Yfq50X
-	 OtcgrMkJqTohg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 13/14] video: backlight: lm3533_bl: Implement
- backlight_scale property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260606045738.21050-14-clamor95@gmail.com>
-References: <20260606045738.21050-14-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 05:17:00 +0000
-Message-Id: <20260606051701.51F021F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Ohll0HEd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T2yfiw9fMm12uYXWZEoS8R3/q2qo4X4mu/5VE2pgonuRdjHnrmAkIbo2y9w1dfr9hep1KdQ4CcUC9A2RlQ+nLYz20aCg7n7EthtDYhDG3kaaQ9EdmBp3eOPOIR7OcNCtnUmDzDD+qsfBpHtMoQTvgd+t+37qJ2cDUWgB7+Leqswy5aLoT4jWBldkeKbd09S3HEledXwTE/OlrqBeOgAusCcr2UcKcD1DqqcI77qp/2HvtbuEk2LDlqOKppRn9sBWxNWBG0kwC5GnLTPPs6cm1lnwFTjB6ZtGjFjfM7y1bXoqieDIvIIOTkTL2vGDStjyWe7stiux7MObkRSh36lHuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=44W2ru1BfcEqZeiSYna6D/4z1jXSsBmr8qcKEMZEnFw=;
+ b=gGpBVF5VWyuGtmrOoQoE1+qiZJkfiP/ETz3vOQTMy8XgC2K6n37F2a9BYVBTCCTX/EQzv+LxI2pNhvO8mVPzyJd8Z8oKOBiy2tBtq6yYk4xiu3SUJI5L1E3CZmXEgxZ3HlIOcuZO7rnLWrSG1G6+SHJjp9jiSde5O0QO0PW2UbcRR33eoF0f4Cd+YX/ArOplOnkH0SBE6ASeLon5JsQQX2EX9Ct8d1SytjJzTubNhWSCC6N1oQfM2hFVS95jiBdveeP5FVpgZZBjb6iYYrmsoZMlEDrjYgf0YHHtYvNJSyPz7tLwJddHaroE0aQ+Q8w3pxx0o7PXNEfogaxQQ/cykQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=44W2ru1BfcEqZeiSYna6D/4z1jXSsBmr8qcKEMZEnFw=;
+ b=Ohll0HEdL5l8YJqMBBtGz7axRmpSs4XrtLY72FYPRc0bfUyu8U4IYGiaprat9K0pBQX1xWnYfHWUnTW4/H/84WlKyeCui0igjynCXXa5bxmkN54SVE04W+vPBfg7JGnRxSmVy0qtQ3K/cByyDx/EbAaQZWjxWgY0S845yiVA8GE=
+Received: from BY1P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::8)
+ by SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Sat, 6 Jun 2026
+ 05:17:26 +0000
+Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
+ (2603:10b6:a03:59d:cafe::9d) by BY1P220CA0012.outlook.office365.com
+ (2603:10b6:a03:59d::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.11 via Frontend Transport; Sat, 6
+ Jun 2026 05:17:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Sat, 6 Jun 2026 05:17:26 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sat, 6 Jun
+ 2026 00:17:26 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
+ 2026 22:17:25 -0700
+Received: from xirsalihe40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Sat, 6 Jun 2026 00:17:24 -0500
+From: Salih Erim <salih.erim@amd.com>
+To: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>
+CC: David Lechner <dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?=
+	<nuno.sa@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Conall O'Griofa
+	<conall.ogriofa@amd.com>, Michal Simek <michal.simek@amd.com>, Guenter Roeck
+	<linux@roeck-us.net>, Salih Erim <erimsalih@gmail.com>,
+	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Salih Erim <salih.erim@amd.com>
+Subject: [PATCH v4 0/5] iio: adc: add AMD/Xilinx Versal SysMon driver
+Date: Sat, 6 Jun 2026 06:17:02 +0100
+Message-ID: <20260606051707.535281-1-salih.erim@amd.com>
+X-Mailer: git-send-email 2.37.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|SJ2PR12MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0be89c8-70b5-4d38-dd5a-08dec38ae61d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|36860700016|82310400026|1800799024|13003099007|6133799003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	JUoIIDS/rhIOl4Ii9Ehgoiw3Ns2SLTaI9k1zX+rDiPt4aFdgKee0N/IEL4/xrs5RmeNSlbuk6tZJKtJ4G1GX5ve9cS5YgmXQIJUNrZXKryP2cH22qznHIcoIO/dVtfR11xrqCVPwueUnKAsbHzg8V8Sbe8BMmicnWAEAU8k/hOvV4Lebe8lgvgvohcZHisK1MIXXnK5jgYSr+UPUjjAQkgpWVL46OXXwwyVwK/XFawNBP06iLlHUcreDnvHBz+70Z174Dl+mQg2bkjXLDq6y0n/xhAWYyRisXKH5YyQhDEDWV7NGxP0X7Eucq1CH/oQooLPiN7K/Qr+5wSdBqymBSBd9PR8M2LZZCZjYSO9b43GvoezmnjZtZ3RwNcZU/nbM5MsQwdX0/oI3cOh/QoxzW5SrPnCaUHUxs4lfOlyyRR5dtD9QaHYQ83i63RycXUI5xifBmzb6WCDmEMbPY0xAAZg9Ix0bmNxwABHDVC/cdh8Atl6TEAgGpJrkPYD1IR7Bt/J+Do25nxlHcx/ykNDNPtFUtSocCFu/vR/hzODOHrnkq0Q4SOo5BR47nRYgaWY4ggnPAz8luksK3XeIzcuC4o4aOiibc5BXMQPlDBXipK06De+DNwYOVulC9sbR58rKf76CE7MhrLDrkxlEkuLSKejwEpMrYqC9ScJP8j2Hu3bsDGQ7I99n/OneLbcMILnFE4LfTkJmIOFAN7Uf6F9PpX1JqeMdRJesXsheTZw8/gE=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(82310400026)(1800799024)(13003099007)(6133799003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	A4r5OxMQgDzu0BFv7b7sGldEZQWq7NTrVEkzjZQkmslcIrxu3pmG+GgwNKwVIQk+q4zTP5eUCmjCa2bUEyQU6ChabjJjLCqY1bYvFaIuTKqtzGo6KWU4MzAbRgVuqQWTcCK6dpebqoy42Nj+X3/gum2DUlvwATQRAFBff9X8ZM3CJXzSLZFCV9cvtlDEcm7H077zuP13D6j+bEmtj6S0340Rghg2sPjUw6NpqQM1zAu6J/MKZSDdA/itMyFH27R3JWCqC5yNXdXZhWx4I3/BHCfuINaU+JRjFtOZR85gjtPnqBjh46Z+wwUcTJIy+eeW39xnYnmAdIr5IVwmB8qesI/s79K1H4V4gby/1WOgNYaUtlqZoo1RhKCW40UgtASgkC9TJTsndV/g2oGNR/C9RnbNn7nI35UM7fS70LSm0Br8wTsGMjkhvxemplsczyP3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2026 05:17:26.6053
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0be89c8-70b5-4d38-dd5a-08dec38ae61d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CE4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Sysfs show functions `show_linear` and `show_als_en` incorrectly t=
-reat a set hardware bit as an error, leaking uninitialized kernel memory to=
- userspace.
---
+This series adds a new IIO driver for the AMD/Xilinx Versal System
+Monitor (SysMon), providing on-chip voltage and temperature monitoring.
 
-commit 5b473ee9a07b0b9fd223194515f44e1ffe1b934d
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+The Versal SysMon measures up to 160 supply voltages and reads up to
+64 temperature satellites distributed across the SoC. The hardware
+also provides aggregated device temperature registers: the current
+max and min across all active satellites, and peak/trough values
+recorded since last hardware reset. The device can be accessed via
+memory-mapped I/O or via an I2C interface.
 
-video: backlight: lm3533_bl: Implement backlight_scale property
+The driver is split into a bus-agnostic core module using the regmap
+API, an MMIO platform driver, and an I2C driver. This allows the
+same IIO logic to be shared across different bus transports.
 
-Since the device supports linear and non-linear modes, implement the
-backlight_scale property to describe this state.
+Previous submissions:
+  v3: https://lore.kernel.org/all/20260527114211.174288-1-salih.erim@amd.com/
+  v2: https://lore.kernel.org/all/20260502111951.538488-1-salih.erim@amd.com/
+  v1: https://lore.kernel.org/all/cover.1757061697.git.michal.simek@amd.com/
 
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index 4f8cde9f290d0..2aa4b86042ff2 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-> @@ -142,6 +142,7 @@ static ssize_t store_linear(struct device *dev, struc=
-t device_attribute *attr,
->  {
->  	struct lm3533_bl *bl =3D dev_get_drvdata(dev);
->  	int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
-> +	struct backlight_device *bd =3D bl->bd;
->  	unsigned long linear;
->  	int ret;
-> =20
-> @@ -153,6 +154,9 @@ static ssize_t store_linear(struct device *dev, struc=
-t device_attribute *attr,
->  	if (ret)
->  		return ret;
-> =20
-> +	bd->props.scale =3D linear ? BACKLIGHT_SCALE_LINEAR :
-> +				   BACKLIGHT_SCALE_NON_LINEAR;
-> +
->  	return len;
->  }
+Changes in v4:
+  - Core: temperature channels use RAW + SCALE (IIO_VAL_FRACTIONAL,
+    1000/128) instead of PROCESSED; voltage channels use PROCESSED
+    only, drop RAW; drop scan_type from all channel macros (Jonathan)
+  - Core: move __free(fwnode_handle) declarations down to just
+    above use; devm_regmap_init() on one line; lock comment
+    describes RMW sequences and cached state (Jonathan)
+  - Events: merge event channels into static temp array -- two
+    arrays (with/without events) selected by has_irq; event-only
+    channels have no info_mask (Jonathan)
+  - Events: blank lines, fit under 80 chars, default returns error,
+    return early in each case, guard(spinlock) in IRQ handler
+    (Jonathan)
+  - Events: take irq_lock in write_event_config for temp_mask
+    updates (Sashiko)
+  - I2C: replace enum with defines, use unaligned accessors for
+    data and register offset packing, named initializer in
+    i2c_device_id (Jonathan)
+  - I2C: drop bitfield.h, add unaligned.h
+  - Oversampling: return directly, remove else after early returns,
+    rename mask defines, blank lines (Jonathan)
+  - Oversampling: move oversampling read inside guard(mutex) scope
+  - Fix v2 lore link in cover letter
 
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at the adjacent
-show_linear() and show_als_en() functions:
+Changes in v3:
+  - DT binding: single compatible, voltage-channels rename, single
+    quotes, drop label/bipolar/xlnx,aie-temp (Krzysztof)
+  - Core: IWYU throughout, __free(fwnode_handle), sign_extend32(),
+    size_add(), dev_err_probe(), s16 param, remove (int) casts,
+    drop SYSMON_MILLI in favor of (int)MILLI, rename _ext to _name
+    in SYSMON_CHAN_TEMP macro (Andy, Jonathan)
+  - Core: fwnode_irq_get() moved to core_probe, remove sysmon->dev/
+    indio_dev/irq from struct, describe protected data in lock
+    comment, add RAW+PROCESSED comment (Jonathan)
+  - I2C: IWYU, remove wrapper struct, explicit enum values, sizeof()
+    for buffers, = { } initializers, adapt to core_probe interface
+    change (Andy, Krzysztof)
+  - Events: IWYU, FIELD_GET/FIELD_PREP, regmap_set/clear_bits,
+    clamp_t, !!, IRQ_RETVAL(), devm_delayed_work_autocancel,
+    loop var scope, error checks, remove redundant else, logical
+    param splits, spinlock safety comment (Andy)
+  - Events: hysteresis rework -- store as millicelsius, hardcode
+    ALARM_CONFIG to hysteresis mode, compute lower threshold from
+    (upper - hysteresis), remove falling threshold for temperature,
+    single event spec per channel with IIO_EV_DIR_RISING, push
+    IIO_EV_DIR_RISING for temp and IIO_EV_DIR_EITHER for voltage
+    (Jonathan)
 
-drivers/video/backlight/lm3533_bl.c:show_linear() {
-    ...
-	ret =3D regmap_test_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-			       CTRLBANK_AB_BCONF_MODE(ctrlbank));
-	if (ret)
-		return ret;
-    ...
-}
+Tested on VCK190 (single SLR, MMIO path, 7 supplies, 10 temperature
+satellites) and VPK180 (System Controller, I2C path, 7 supplies).
 
-If the hardware bit is set, regmap_test_bits() returns 1. Since the check is
-if (ret), it immediately returns 1 to the sysfs core without calling
-scnprintf() to populate the buffer.
+A follow-up series will add thermal zone integration, secure firmware
+access, and I2C remote monitoring.
 
-Does this cause the sysfs core to interpret this as one byte successfully
-written and copy the first byte of the unwritten buffer to userspace, leaki=
-ng
-potentially uninitialized kernel memory?
+Salih Erim (5):
+  dt-bindings: iio: adc: add xlnx,versal-sysmon binding
+  iio: adc: add Versal SysMon driver
+  iio: adc: versal-sysmon: add I2C driver
+  iio: adc: versal-sysmon: add threshold event support
+  iio: adc: versal-sysmon: add oversampling support
 
-Should the check instead be `if (ret < 0)`?
+ .../bindings/iio/adc/xlnx,versal-sysmon.yaml  |  154 +++
+ MAINTAINERS                                   |    7 +
+ drivers/iio/adc/Kconfig                       |   33 +
+ drivers/iio/adc/Makefile                      |    3 +
+ drivers/iio/adc/versal-sysmon-core.c          | 1079 +++++++++++++++++
+ drivers/iio/adc/versal-sysmon-i2c.c           |  125 ++
+ drivers/iio/adc/versal-sysmon.c               |   91 ++
+ drivers/iio/adc/versal-sysmon.h               |  130 ++
+ 8 files changed, 1622 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,versal-sysmon.yaml
+ create mode 100644 drivers/iio/adc/versal-sysmon-core.c
+ create mode 100644 drivers/iio/adc/versal-sysmon-i2c.c
+ create mode 100644 drivers/iio/adc/versal-sysmon.c
+ create mode 100644 drivers/iio/adc/versal-sysmon.h
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606045738.2105=
-0-1-clamor95@gmail.com?part=3D13
+-- 
+2.48.1
+
