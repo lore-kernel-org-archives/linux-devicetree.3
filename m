@@ -1,610 +1,108 @@
-Received: from mail-m19731110.qiye.163.com (mail-m19731110.qiye.163.com [220.197.31.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DD82F3C19;
-	Sat,  6 Jun 2026 19:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B980A3A1B5;
+	Sat,  6 Jun 2026 19:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780774479; cv=none; b=fBpHNcPWlz9U2khBtk2xzHEtLmGzUGWJH7hjtjFwPXrg3kSk9IKpjMuGNypEN3ffl138O68BIUjV0UihhxuTKmzRK6nWxHCuHuvzqZ/ie5B72F+SMIOsw2BksHqjnN419nPcUCpdeJIG78uncUQhCq3tGR7aFPHOsl5rDDpS2Sw=
+	t=1780775250; cv=none; b=UOAfzZYLg+LSm0nIsQkPTZn0VauqqgIL8JH+f/9/FS8YTX8HWLpqHFxbiUBAbLtI2tpcHO0GOdW9HzpyIi4X+Wu1ELS2Y9yhCxtOpBj3TRMBT8Npl7K7k4vSOHhK+RK77fVOGYr1j7NtpIA3UpIb95eOQPo+KShfupsPhZ2Dylo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780774479; c=relaxed/simple;
-	bh=Gl51sjsifnBfgDdxUg9x0+j1Uce4+RbbPp32hAjw8m8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YzqD9Fkxg0rpiOY7pEglUxiLlZEwLeLDL38sXGQ7EzECl9nGfYW+3YW+BN6YDKk4eQLDNatbLyCQDmQuaET/wYUvyxQwiWSETH/kf1aQekNpXwlhYxN1NBJK/0HWJin2Txcu5EduJTFlYjoDOaa80fH+z1HWVqlv3anmToybOUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=VaNVSolt; arc=none smtp.client-ip=220.197.31.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1780775250; c=relaxed/simple;
+	bh=/KwxgH46IcnrRnKljN2L/MuNd/6Uzq1oeSoszjSmVP0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g2GzmzdFvmQt/cGS4h8Wggsbc0bQRYnzHYieQSirE81ZZya7NZtHT6nLm6qwuADCnCCINqRMylafQCGGW60lgTB1sFdK3gciOiYPtTSH9Okn9hSst5ABBSQq+ozUWRacO/2C9XowdXBPZTx9IiuhvU8U/iu4mYAABkHcK68mnoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAHfvUk7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="VaNVSolt"
-Received: from [127.0.1.1] (unknown [113.235.125.44])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 415a25045;
-	Sun, 7 Jun 2026 02:58:48 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Sun, 07 Jun 2026 02:58:20 +0800
-Subject: [PATCH 4/5] ASoC: qcom: sc8280xp: Add per-card data
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAHfvUk7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C181F00893;
+	Sat,  6 Jun 2026 19:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780775249;
+	bh=YSr6u812Mv5KjuzWl6+xPL5oIpVe8jm0f+zBcmYYkyU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BAHfvUk7efwNio3BnvTAuQO3IMRwpgy8MRpvYmcdkCXoheIhWeRTlD5pdEGXMaVVc
+	 aCsXOys2nr5ktKREsYTp4FZ7SsTlA2Og8JTnDvW7dbphuYhGqa681mxV5AOAUR+i+I
+	 mi6k/taP9FdBUMoP1dMyXTAnDQ96q8NxkFLkgAHr5pVPdH9htrrCSaQzo9yy7Tnxip
+	 MHnG1ewjzyDSIl4Z0UJv3DHsEZ38XN7c70zJysN0hvYZBAqMSjRmi91CSytNcBfZmq
+	 DoI0eBxmRMyHVsXuY93qOPMEwoV+iZfOTNZNQGSAyA1kB65Y+lZfDP/X88UfnDAkQX
+	 ubgsstSa4prCw==
+Message-ID: <c2f8a080-38ee-48d0-8fd2-6f2935c8ed4f@kernel.org>
+Date: Sat, 6 Jun 2026 21:47:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for CQ8725S
+To: webgeek1234@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+References: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+ <20260605-cq8725s-soc-id-v1-1-bb1ef93de649@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260605-cq8725s-soc-id-v1-1-bb1ef93de649@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260607-rubikpi-next-20260605-v1-4-7f334e16fea6@thundersoft.com>
-References: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
-In-Reply-To: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
- mohammad.rafi.shaik@oss.qualcomm.com, rosh@debian.org
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780772320; l=16979;
- i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
- bh=Gl51sjsifnBfgDdxUg9x0+j1Uce4+RbbPp32hAjw8m8=;
- b=jwe9iwOk5K7EQ/HQgHKcojZjdeix15hlc4GuXfwFRWNWVOyIw8GD8UPXUmHNBxslobWF0E6b6
- ngNPSN3NoL6Bwm2GGqin0QvHCpUEKr7mL4hg9GOZcovMlmzzzSHTQn5
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
-X-HM-Tid: 0a9e9e4d526209d5kunm343af971138afd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGU0dVk1LQkhDHUkaTx8fGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
-	tJT09PSFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=VaNVSolt942U2yVhuVysl2qdscNlALzw8VQAd8HaiybfF/BNdHKmphzwbiKCjgn7lr/Ui0u+OSbGwGXc33k/mKvCiTZtk3X6NsVq7Q2J9QUwj1t5Ht5OLHdIntAfVpXre/Zkpq+qOE2XTf5DVf4rqAzeQ5TKGm/C+UEftBHsqBI=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=/kiPLtZFPm41HqQl20CWTW8cpvYZ4sOBg+VZBWrNsBQ=;
-	h=date:mime-version:subject:message-id:from;
 
-The sc8280xp machine driver currently uses the OF match data only as a
-driver name, which makes it difficult to describe board-specific MI2S
-codec requirements.
+On 05/06/2026 23:49, Aaron Kling via B4 Relay wrote:
+> From: Teguh Sobirin <teguh@sobir.in>
+> 
+> Add the ID for the Qualcomm CQ8725S SoC which represents the Pakala
+> platform.
 
-Convert the match data to a per-card data structure and add data for
-the QCS6490 RubikPi3. The RubikPi3 data configures the ES8316 MI2S DAI
-format, MCLK rate, BE hardware parameters and headset jack pins.
+That's pretty confusing statement, considering first usage of name
+"Pakala" and not really accurate (complete). Maybe refer to the actual
+mobile SoC model number instead?
 
-Add a common headset jack helper which accepts board-specific DAPM pins
-for codecs that are not connected through the WCD TX codec DMA path.
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- sound/soc/qcom/common.c   |  75 ++++++++---
- sound/soc/qcom/common.h   |   6 +-
- sound/soc/qcom/sc8280xp.c | 319 ++++++++++++++++++++++++++++++++++++++++++----
- 3 files changed, 357 insertions(+), 43 deletions(-)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index cf1f3a767cee..5e7a01418ad8 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -201,26 +201,30 @@ static struct snd_soc_jack_pin qcom_headset_jack_pins[] = {
- 	},
- };
- 
--int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
--			    struct snd_soc_jack *jack, bool *jack_setup)
-+static int qcom_snd_headset_jack_init(struct snd_soc_card *card,
-+				      struct snd_soc_jack *jack,
-+				      bool *jack_setup,
-+				      struct snd_soc_jack_pin *pins,
-+				      unsigned int num_pins)
- {
--	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
--	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
--	struct snd_soc_card *card = rtd->card;
--	int rval, i;
-+	int rval;
-+
-+	if (!pins) {
-+		pins = qcom_headset_jack_pins;
-+		num_pins = ARRAY_SIZE(qcom_headset_jack_pins);
-+	}
- 
- 	if (!*jack_setup) {
- 		rval = snd_soc_card_jack_new_pins(card, "Headset Jack",
--					     SND_JACK_HEADSET | SND_JACK_LINEOUT |
--					     SND_JACK_MECHANICAL |
--					     SND_JACK_BTN_0 | SND_JACK_BTN_1 |
--					     SND_JACK_BTN_2 | SND_JACK_BTN_3 |
--					     SND_JACK_BTN_4 | SND_JACK_BTN_5,
--					     jack, qcom_headset_jack_pins,
--					     ARRAY_SIZE(qcom_headset_jack_pins));
-+						  SND_JACK_HEADSET | SND_JACK_LINEOUT |
-+						  SND_JACK_MECHANICAL |
-+						  SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+						  SND_JACK_BTN_2 | SND_JACK_BTN_3 |
-+						  SND_JACK_BTN_4 | SND_JACK_BTN_5,
-+						  jack, pins, num_pins);
- 
- 		if (rval < 0) {
--			dev_err(card->dev, "Unable to add Headphone Jack\n");
-+			dev_err(card->dev, "Unable to add Headset Jack\n");
- 			return rval;
- 		}
- 
-@@ -231,6 +235,48 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 		*jack_setup = true;
- 	}
- 
-+	return 0;
-+}
-+
-+int qcom_snd_headset_jack_setup(struct snd_soc_pcm_runtime *rtd,
-+				struct snd_soc_jack *jack,
-+				bool *jack_setup,
-+				struct snd_soc_jack_pin *pins,
-+				unsigned int num_pins)
-+{
-+	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_card *card = rtd->card;
-+	int rval, i;
-+
-+	rval = qcom_snd_headset_jack_init(card, jack, jack_setup,
-+					  pins, num_pins);
-+	if (rval)
-+		return rval;
-+
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		rval = snd_soc_component_set_jack(codec_dai->component, jack, NULL);
-+		if (rval != 0 && rval != -ENOTSUPP) {
-+			dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+			return rval;
-+		}
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(qcom_snd_headset_jack_setup);
-+
-+int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
-+			    struct snd_soc_jack *jack, bool *jack_setup)
-+{
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_card *card = rtd->card;
-+	int rval, i;
-+
-+	rval = qcom_snd_headset_jack_init(card, jack, jack_setup, NULL, 0);
-+	if (rval)
-+		return rval;
-+
- 	switch (cpu_dai->id) {
- 	case TX_CODEC_DMA_TX_0:
- 	case TX_CODEC_DMA_TX_1:
-@@ -250,7 +296,6 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 		break;
- 	}
- 
--
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(qcom_snd_wcd_jack_setup);
-diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
-index ee6662885593..6d023f76f27e 100644
---- a/sound/soc/qcom/common.h
-+++ b/sound/soc/qcom/common.h
-@@ -10,10 +10,14 @@
- #define LPASS_MAX_PORT			(SENARY_MI2S_TX + 1)
- 
- int qcom_snd_parse_of(struct snd_soc_card *card);
-+int qcom_snd_headset_jack_setup(struct snd_soc_pcm_runtime *rtd,
-+				struct snd_soc_jack *jack,
-+				bool *jack_setup,
-+				struct snd_soc_jack_pin *pins,
-+				unsigned int num_pins);
- int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 			    struct snd_soc_jack *jack, bool *jack_setup);
- int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 			   struct snd_soc_jack *dp_jack, int id);
- 
--
- #endif
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 7925aa3f63ba..1ccd7437cc52 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -15,26 +15,127 @@
- #include "common.h"
- #include "sdw.h"
- 
-+struct sc8280xp_mi2s_codec_config {
-+	unsigned int cpu_dai_id;
-+	unsigned int dai_fmt;
-+	unsigned int sysclk_rate;
-+};
-+
-+struct sc8280xp_be_hw_params {
-+	unsigned int rate;
-+	snd_pcm_format_t format;
-+	unsigned int channels_min;
-+	unsigned int channels_max;
-+};
-+
-+struct sc8280xp_be_hw_params_config {
-+	unsigned int cpu_dai_id;
-+	struct sc8280xp_be_hw_params hw_params;
-+};
-+
-+struct sc8280xp_sndcard_data {
-+	const char *driver_name;
-+	struct sc8280xp_be_hw_params default_be_hw_params;
-+	const struct sc8280xp_mi2s_codec_config *mi2s_codec_configs;
-+	int num_mi2s_codec_configs;
-+	const struct sc8280xp_be_hw_params_config *be_hw_params_configs;
-+	int num_be_hw_params_configs;
-+	const unsigned int *headset_jack_dais;
-+	int num_headset_jack_dais;
-+	struct snd_soc_jack_pin *headset_jack_pins;
-+	unsigned int num_headset_jack_pins;
-+};
-+
- struct sc8280xp_snd_data {
- 	bool stream_prepared[AFE_PORT_MAX];
- 	struct snd_soc_card *card;
- 	struct snd_soc_jack jack;
- 	struct snd_soc_jack dp_jack[8];
-+	const struct sc8280xp_sndcard_data *card_data;
- 	bool jack_setup;
- };
- 
-+static const struct sc8280xp_mi2s_codec_config *
-+sc8280xp_snd_get_mi2s_codec_config(const struct sc8280xp_sndcard_data *card_data,
-+				   unsigned int cpu_dai_id)
-+{
-+	int i;
-+
-+	for (i = 0; i < card_data->num_mi2s_codec_configs; i++) {
-+		if (card_data->mi2s_codec_configs[i].cpu_dai_id == cpu_dai_id)
-+			return &card_data->mi2s_codec_configs[i];
-+	}
-+
-+	return NULL;
-+}
-+
-+static const struct sc8280xp_be_hw_params *
-+sc8280xp_snd_get_be_hw_params(const struct sc8280xp_sndcard_data *card_data,
-+			      unsigned int cpu_dai_id)
-+{
-+	int i;
-+
-+	for (i = 0; i < card_data->num_be_hw_params_configs; i++) {
-+		if (card_data->be_hw_params_configs[i].cpu_dai_id == cpu_dai_id)
-+			return &card_data->be_hw_params_configs[i].hw_params;
-+	}
-+
-+	return NULL;
-+}
-+
-+static bool sc8280xp_snd_is_headset_jack_dai(const struct sc8280xp_sndcard_data *card_data,
-+					     unsigned int cpu_dai_id)
-+{
-+	int i;
-+
-+	for (i = 0; i < card_data->num_headset_jack_dais; i++) {
-+		if (card_data->headset_jack_dais[i] == cpu_dai_id)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	const struct sc8280xp_sndcard_data *card_data = data->card_data;
-+	const struct sc8280xp_mi2s_codec_config *mi2s_config;
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_card *card = rtd->card;
- 	struct snd_soc_jack *dp_jack  = NULL;
- 	int dp_pcm_id = 0;
-+	int i, ret;
- 
- 	switch (cpu_dai->id) {
- 	case PRIMARY_MI2S_RX...QUATERNARY_MI2S_TX:
- 	case QUINARY_MI2S_RX...QUINARY_MI2S_TX:
- 		snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
-+
-+		mi2s_config = sc8280xp_snd_get_mi2s_codec_config(card_data,
-+								 cpu_dai->id);
-+		if (mi2s_config) {
-+			for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+				if (mi2s_config->dai_fmt) {
-+					ret = snd_soc_dai_set_fmt(codec_dai,
-+								  mi2s_config->dai_fmt);
-+					if (ret && ret != -ENOTSUPP)
-+						return ret;
-+				}
-+
-+				if (mi2s_config->sysclk_rate) {
-+					ret = snd_soc_dai_set_sysclk(codec_dai, 0,
-+								     mi2s_config->sysclk_rate,
-+								     SND_SOC_CLOCK_IN);
-+					if (ret && ret != -ENOTSUPP)
-+						return dev_err_probe(card->dev, ret,
-+								     "%s: failed to set sysclk for %s\n",
-+								     rtd->dai_link->name,
-+								     codec_dai->name);
-+				}
-+			}
-+		}
- 		break;
- 	case WSA_CODEC_DMA_RX_0:
- 	case WSA_CODEC_DMA_RX_1:
-@@ -64,34 +165,56 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
- 	if (dp_jack)
- 		return qcom_snd_dp_jack_setup(rtd, dp_jack, dp_pcm_id);
- 
-+	if (sc8280xp_snd_is_headset_jack_dai(card_data, cpu_dai->id))
-+		return qcom_snd_headset_jack_setup(rtd, &data->jack,
-+						   &data->jack_setup,
-+						   card_data->headset_jack_pins,
-+						   card_data->num_headset_jack_pins);
-+
-+	if (card_data->headset_jack_dais)
-+		return 0;
-+
- 	return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
- }
- 
- static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
--				     struct snd_pcm_hw_params *params)
-+				       struct snd_pcm_hw_params *params)
- {
-+	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	const struct sc8280xp_sndcard_data *card_data = data->card_data;
-+	const struct sc8280xp_be_hw_params *be_hw_params;
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
- 	struct snd_interval *rate = hw_param_interval(params,
- 					SNDRV_PCM_HW_PARAM_RATE);
- 	struct snd_interval *channels = hw_param_interval(params,
- 					SNDRV_PCM_HW_PARAM_CHANNELS);
- 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
-+	bool use_default = false;
- 
--	rate->min = rate->max = 48000;
--	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
--	channels->min = 2;
--	channels->max = 2;
--	switch (cpu_dai->id) {
--	case TX_CODEC_DMA_TX_0:
--	case TX_CODEC_DMA_TX_1:
--	case TX_CODEC_DMA_TX_2:
--	case TX_CODEC_DMA_TX_3:
--		channels->min = 1;
--		break;
--	default:
--		break;
-+	be_hw_params = sc8280xp_snd_get_be_hw_params(card_data, cpu_dai->id);
-+	if (!be_hw_params) {
-+		be_hw_params = &card_data->default_be_hw_params;
-+		use_default = true;
- 	}
- 
-+	rate->min = be_hw_params->rate;
-+	rate->max = be_hw_params->rate;
-+	snd_mask_set_format(fmt, be_hw_params->format);
-+	channels->min = be_hw_params->channels_min;
-+	channels->max = be_hw_params->channels_max;
-+
-+	if (use_default) {
-+		switch (cpu_dai->id) {
-+		case TX_CODEC_DMA_TX_0:
-+		case TX_CODEC_DMA_TX_1:
-+		case TX_CODEC_DMA_TX_2:
-+		case TX_CODEC_DMA_TX_3:
-+			channels->min = 1;
-+			break;
-+		default:
-+			break;
-+		}
-+	}
- 
- 	return 0;
- }
-@@ -146,36 +269,178 @@ static int sc8280xp_platform_probe(struct platform_device *pdev)
- 	if (!card)
- 		return -ENOMEM;
- 	card->owner = THIS_MODULE;
-+
- 	/* Allocate the private data */
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
-+	data->card_data = of_device_get_match_data(dev);
-+	if (!data->card_data)
-+		return -EINVAL;
- 
- 	card->dev = dev;
-+	card->driver_name = data->card_data->driver_name;
-+
- 	dev_set_drvdata(dev, card);
- 	snd_soc_card_set_drvdata(card, data);
- 	ret = qcom_snd_parse_of(card);
- 	if (ret)
- 		return ret;
- 
--	card->driver_name = of_device_get_match_data(dev);
- 	sc8280xp_add_be_ops(card);
- 	return devm_snd_soc_register_card(dev, card);
- }
- 
-+#define SC8280XP_SND_DATA(_driver_name)				\
-+	.driver_name = _driver_name,				\
-+	.default_be_hw_params = {				\
-+		.rate = 48000,					\
-+		.format = SNDRV_PCM_FORMAT_S16_LE,		\
-+		.channels_min = 2,				\
-+		.channels_max = 2,				\
-+	}
-+
-+static const struct sc8280xp_sndcard_data kaanapali_data = {
-+	SC8280XP_SND_DATA("kaanapali"),
-+};
-+
-+static const struct sc8280xp_sndcard_data qcm6490_data = {
-+	SC8280XP_SND_DATA("qcm6490"),
-+};
-+
-+static const struct sc8280xp_sndcard_data qcs615_data = {
-+	SC8280XP_SND_DATA("qcs615"),
-+};
-+
-+static const struct sc8280xp_sndcard_data qcs6490_data = {
-+	SC8280XP_SND_DATA("qcs6490"),
-+};
-+
-+static const struct sc8280xp_sndcard_data qcs8300_data = {
-+	SC8280XP_SND_DATA("qcs8300"),
-+};
-+
-+static const struct sc8280xp_mi2s_codec_config qcs6490_rubikpi3_mi2s_codec_configs[] = {
-+	{
-+		.cpu_dai_id = PRIMARY_MI2S_RX,
-+		.dai_fmt = SND_SOC_DAIFMT_BC_FC |
-+			   SND_SOC_DAIFMT_NB_NF |
-+			   SND_SOC_DAIFMT_I2S,
-+		.sysclk_rate = 19200000,
-+	},
-+	{
-+		.cpu_dai_id = PRIMARY_MI2S_TX,
-+		.dai_fmt = SND_SOC_DAIFMT_BC_FC |
-+			   SND_SOC_DAIFMT_NB_NF |
-+			   SND_SOC_DAIFMT_I2S,
-+		.sysclk_rate = 19200000,
-+	},
-+};
-+
-+static const unsigned int qcs6490_rubikpi3_headset_jack_dais[] = {
-+	PRIMARY_MI2S_RX,
-+};
-+
-+static struct snd_soc_jack_pin qcs6490_rubikpi3_headset_jack_pins[] = {
-+	{
-+		.pin = "Mic Jack",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin = "Headphone Jack",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+};
-+
-+static const struct sc8280xp_be_hw_params_config qcs6490_rubikpi3_be_hw_params_configs[] = {
-+	{
-+		.cpu_dai_id = PRIMARY_MI2S_TX,
-+		.hw_params = {
-+			.rate = 48000,
-+			.format = SNDRV_PCM_FORMAT_S16_LE,
-+			.channels_min = 2,
-+			.channels_max = 2,
-+		},
-+	},
-+	{
-+		.cpu_dai_id = QUATERNARY_MI2S_RX,
-+		.hw_params = {
-+			.rate = 48000,
-+			.format = SNDRV_PCM_FORMAT_S16_LE,
-+			.channels_min = 2,
-+			.channels_max = 2,
-+		},
-+	},
-+	{
-+		.cpu_dai_id = TERTIARY_MI2S_RX,
-+		.hw_params = {
-+			.rate = 48000,
-+			.format = SNDRV_PCM_FORMAT_S32_LE,
-+			.channels_min = 2,
-+			.channels_max = 2,
-+		},
-+	},
-+	{
-+		.cpu_dai_id = TERTIARY_MI2S_TX,
-+		.hw_params = {
-+			.rate = 48000,
-+			.format = SNDRV_PCM_FORMAT_S32_LE,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+		},
-+	},
-+};
-+
-+static const struct sc8280xp_sndcard_data qcs6490_rubikpi3_data = {
-+	SC8280XP_SND_DATA("qcs6490"),
-+	.mi2s_codec_configs = qcs6490_rubikpi3_mi2s_codec_configs,
-+	.num_mi2s_codec_configs = ARRAY_SIZE(qcs6490_rubikpi3_mi2s_codec_configs),
-+	.be_hw_params_configs = qcs6490_rubikpi3_be_hw_params_configs,
-+	.num_be_hw_params_configs = ARRAY_SIZE(qcs6490_rubikpi3_be_hw_params_configs),
-+	.headset_jack_dais = qcs6490_rubikpi3_headset_jack_dais,
-+	.num_headset_jack_dais = ARRAY_SIZE(qcs6490_rubikpi3_headset_jack_dais),
-+	.headset_jack_pins = qcs6490_rubikpi3_headset_jack_pins,
-+	.num_headset_jack_pins = ARRAY_SIZE(qcs6490_rubikpi3_headset_jack_pins),
-+};
-+
-+static const struct sc8280xp_sndcard_data sa8775p_data = {
-+	SC8280XP_SND_DATA("sa8775p"),
-+};
-+
-+static const struct sc8280xp_sndcard_data sc8280xp_data = {
-+	SC8280XP_SND_DATA("sc8280xp"),
-+};
-+
-+static const struct sc8280xp_sndcard_data sm8450_data = {
-+	SC8280XP_SND_DATA("sm8450"),
-+};
-+
-+static const struct sc8280xp_sndcard_data sm8550_data = {
-+	SC8280XP_SND_DATA("sm8550"),
-+};
-+
-+static const struct sc8280xp_sndcard_data sm8650_data = {
-+	SC8280XP_SND_DATA("sm8650"),
-+};
-+
-+static const struct sc8280xp_sndcard_data sm8750_data = {
-+	SC8280XP_SND_DATA("sm8750"),
-+};
-+
- static const struct of_device_id snd_sc8280xp_dt_match[] = {
--	{.compatible = "qcom,kaanapali-sndcard", "kaanapali"},
--	{.compatible = "qcom,qcm6490-idp-sndcard", "qcm6490"},
--	{.compatible = "qcom,qcs615-sndcard", "qcs615"},
--	{.compatible = "qcom,qcs6490-rb3gen2-sndcard", "qcs6490"},
--	{.compatible = "qcom,qcs8275-sndcard", "qcs8300"},
--	{.compatible = "qcom,qcs9075-sndcard", "sa8775p"},
--	{.compatible = "qcom,qcs9100-sndcard", "sa8775p"},
--	{.compatible = "qcom,sc8280xp-sndcard", "sc8280xp"},
--	{.compatible = "qcom,sm8450-sndcard", "sm8450"},
--	{.compatible = "qcom,sm8550-sndcard", "sm8550"},
--	{.compatible = "qcom,sm8650-sndcard", "sm8650"},
--	{.compatible = "qcom,sm8750-sndcard", "sm8750"},
-+	{ .compatible = "thundercomm,qcs6490-rubikpi3-sndcard", .data = &qcs6490_rubikpi3_data },
-+	{ .compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_data },
-+	{ .compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_data },
-+	{ .compatible = "qcom,qcs615-sndcard", .data = &qcs615_data },
-+	{ .compatible = "qcom,qcs6490-rb3gen2-sndcard", .data = &qcs6490_data },
-+	{ .compatible = "qcom,qcs8275-sndcard", .data = &qcs8300_data },
-+	{ .compatible = "qcom,qcs9075-sndcard", .data = &sa8775p_data },
-+	{ .compatible = "qcom,qcs9100-sndcard", .data = &sa8775p_data },
-+	{ .compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_data },
-+	{ .compatible = "qcom,sm8450-sndcard", .data = &sm8450_data },
-+	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_data },
-+	{ .compatible = "qcom,sm8650-sndcard", .data = &sm8650_data },
-+	{ .compatible = "qcom,sm8750-sndcard", .data = &sm8750_data },
- 	{}
- };
- 
-
--- 
-2.43.0
-
+Best regards,
+Krzysztof
