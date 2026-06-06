@@ -1,184 +1,112 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE45A22DFA4
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 01:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FBC26A0DD;
+	Sat,  6 Jun 2026 02:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780709122; cv=none; b=KN7R6ytHldIC4oPE7mOJguNLuUk5JTrYy4YjP1GLdjyOv9mt7g3ccIQP/FdDdwJGHIfj0dn7zDXE9F4SokrNCLXeO57bE0AnUSuvq/U1Zi0AF1G/rI1iE+hdZ4FWc0q5NjtTtVYjtLRCtXv4OPesH9N7m57ocNTzJHdwNN8q5As=
+	t=1780711828; cv=none; b=HK3XAJLyVh7as68iWNP/ITEl7al7FTnoj8nY3hcUapGsftmxvhrsrq+qs8zHaSwaWcKbcXuHVrxDtGYnJUclgsJH2IkVrF9GqPhfY3pyYdcI6+w/7No0bpm+Ldx1T+2ZGETgmjbi/f7Nwme9XOwS7QwMgqrNwciAG8gi5wS3NbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780709122; c=relaxed/simple;
-	bh=Zghga2gWe/toL9pwA3mj+ss7L7ysOvkr8dnfmHYAMhY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cX6W4HSFbfIcRggVYFUf4TK3/nn3JQ79Mu/ETmPvR9lO5iTTpeBvTslcZoQGnI9oWl/dTVWxOMaZR/w7+CTj8J7TJVnD5dWuKcTokMshC3pkogAYsaEIP9d4f23i8kHDx9ZulWcNhtiiBBKnqn8yDd5Ujhlj80cs1Mbf2uJ5pt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ka3Lwfnr; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780711828; c=relaxed/simple;
+	bh=3oET53BtoKjeKejtdmFfbuVC8CFcPGGTFD5nOUfdbAI=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=oZ4te+a3foh0Dt2R533CqaN+C/0gdpLXZR3HOJ6RtINgsw33EkQMu+EmQl399SmYXPdZMopbeJlLWZWIfwg+pHV7jHaFUacl8m67HR2fMlZ48yPekFtw49p+h8aFlHmqbkdI9bHwp8tEovcaXq3T6Z2fL0E2tQ6+KPwyaMQju7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TfEVPsW2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ka3Lwfnr"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-36b95eb4bb4so1702657a91.3
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 18:25:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780709120; x=1781313920; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xlHM4SwEYzgUkF12NjO2fDCV2nlBM3gTJYEltfg6ZDI=;
-        b=ka3LwfnrG4cmspNhsZMOJ8mMuDUSWbj3DXK3oQY19UDnkvlRgu2dcfPFNwQyuunNj3
-         QjzjNo4nbb0RfM7glSdfeKy9WzdaSDyfoAGNOsmjVxoj0TgvO1USmr7MvQGY5SPuxWTe
-         gBEIC2qCHLVDlN7DIyikkD10kWgTGlnwbhq5LvwHHuXjq1MbCK2Lbz/4gczSDUHCxynu
-         OU3wAd3kusx8fAKqNuD2Qo+mMXGLfaFGfnZjDxwVW+1E1Zcm/BgAtDYad07NwJINbv7d
-         KSS3PiE9Ao3eF+3OE1g0EJqpqrk8BxZZ3/cJBhYntmZSrXSFp45wpNiQJFFE0h8YZi5c
-         RDmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780709120; x=1781313920;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xlHM4SwEYzgUkF12NjO2fDCV2nlBM3gTJYEltfg6ZDI=;
-        b=G6ZziCUBHkZ6xQAgDQK0nyNDXNf3tsJOE1MCenV1gpks2qoAaH9Y0sIp1jbxkp/WoF
-         QUxtNheFJHv25BlaKnA59IFQdZVfnp1ozuQFua0iR6iDR8mszR2059lkv4EfNro5F/JF
-         f3nqNVLEFiqDkj8gFzxZy/htiVHDXbb9k1vMs85KyVgXFJz3AmCCYaAyqOjetOXiFcY/
-         YDu1QFbUoIzpCywKMiDWBnKnuwBQyD24DhZQNhYNepmvQInTUgLzSJSMjv4XfzXos63Y
-         wtBuW23ZkdY2oaxl6Fkw0N63WpqseO/hGKZeQjUw10mU1/YVwo3gdV5m0MkxEtcwwdir
-         Pnew==
-X-Forwarded-Encrypted: i=1; AFNElJ+ApLQGnwvZqMdV+f5NC9gGSMjjgvaTbOcKTOJTe96QWCzFJwKOYwwCqGDc9sXBBQ8OJ2KteI7hl0/Z@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeJIPDxsknZ4H5bvzLJWwoYTP9FC7cjvJEa5jxULPGwYrPSzlZ
-	pucEPXKqQmhB6MZF0oLgF66uxlcTjnpE5obRisRn6ClMjuewV1xG6HK96v34hCagI+8=
-X-Gm-Gg: Acq92OHhT9aXSMHvNuLjEJ7zlYJD0OXrGIWwaDs+iRrTiCl9gdV82s2e4cu0qUDUPiD
-	RQ+JmvD7lQGWrQo+QgVrcTanJOhSAWWlsTRK3khF/z6bDIkgROo/2Aq1D9kJg1QYHq8ixcc+X2C
-	fU/MUhzZrR0svUHW83QrT8l9s1mTiZm2q0Y6pRHWbyOxSrSvtEWmIEXx5iOrUQKsgY1dL3abtRy
-	otum1YgV8YUIQ88ukTIAppcH9VKd0jO9RWE4gXYZ6R0HEkTamGWNpiMc/8qMlSrCVaF8Fu5s+B1
-	haYbPh6avMUBbeAmBooAN5NztfqOwWh7hjirGfGmkK0rnaJYvT/1lWerguM+E4srUs95hC09J7r
-	f5Uvw8/7S3QefWdhES7lJ7s6A//eRZVoB4LpmRMc25cw5ev1ZdMKckYrSXdXd8koL37EH+FoNlt
-	WYn40q9A==
-X-Received: by 2002:a17:90b:4b0b:b0:36b:a2cc:4857 with SMTP id 98e67ed59e1d1-370efdaca8fmr8095897a91.18.1780709119770;
-        Fri, 05 Jun 2026 18:25:19 -0700 (PDT)
-Received: from localhost ([2a12:a305:4::305d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1664ae328sm101642545ad.84.2026.06.05.18.25.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 18:25:19 -0700 (PDT)
-Date: Fri, 5 Jun 2026 21:25:12 -0400
-From: Guodong Xu <docular.xu@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, kvm@vger.kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v3 08/15] riscv: Add Zic64b to cpufeature and hwprobe
-Message-ID: <3kr2pj3za5skl2auqezmdh32ctyw5uhswvro4jr6fqtyznp6lx@2sslriot2zcv>
-References: <20260603-rva23u64-hwprobe-v2-v3-8-5529a7b28384@gmail.com>
- <20260602232800.768311F00893@smtp.kernel.org>
- <CA+Ck9FbKRM0wjJMg1fQpdwmow8cf_zTfir7V6+T=CRxU+vomdg@mail.gmail.com>
- <20260604-rice-protegee-3a0b8e4cb609@spud>
- <u52q565xhv5s7gz3wbh4heplhbm4pv732s5kqvf4deiw6ceb4t@n4bnpzu5kabs>
- <20260604-activate-antidote-ebb9197b286f@spud>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TfEVPsW2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B5F1F00893;
+	Sat,  6 Jun 2026 02:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780711825;
+	bh=kMLca7nfWY9RizQfqQEviPppjRfuz0UhEGaO/4cVevs=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=TfEVPsW2JDPmWdJxiQloAJKrWYcn3IRGJ6yfNo8yR35J7dWRDFDbOaS5l/Duu393s
+	 r61sP4XE9OxzRF3L2TvMvtCPVtG0h5Ra9cTPqTrSsZLOyLQ0ml2m9dpVfmL0CfEFm2
+	 ywl+PjirMHj7sUS/bAKuVauTatFDdExPcn7dEzpqCn8XPOTKQbnnPdnoy7pi5GDfOV
+	 v8PZ01Lu+CQBfaf+Kgl0lmFfCpfTjvsYzFAwvAAqwLgVyALQXaEEnPk+QGNkWTqEzd
+	 zk7o8yl41w5La+mgN8zQGebVZHqlF8dqKb2QvKyoPSPTablFn0J9XqamR5xjFK8duD
+	 OnilhwFDZ9uWg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198E43930A9C;
+	Sat,  6 Jun 2026 02:10:27 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260604-activate-antidote-ebb9197b286f@spud>
+Subject: Re: [PATCH net-next v9 0/6] net: airoha: Support multiple net_devices
+ connected to the same GDM port
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178071182563.3993660.16859528929943768907.git-patchwork-notify@kernel.org>
+Date: Sat, 06 Jun 2026 02:10:25 +0000
+References: <20260603-airoha-eth-multi-serdes-v9-0-5d476bc2f426@kernel.org>
+In-Reply-To: <20260603-airoha-eth-multi-serdes-v9-0-5d476bc2f426@kernel.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ansuelsmth@gmail.com, benjamin.larsson@genexis.eu,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, xuegang.lu@airoha.com,
+ madhur.agrawal@airoha.com
 
-On 2026-06-04 17:28, Conor Dooley wrote:
->On Thu, Jun 04, 2026 at 09:31:36PM -0400, Guodong Xu wrote:
->> On 2026-06-04 10:17, Conor Dooley wrote:
->> > On Thu, Jun 04, 2026 at 02:42:22PM +0800, Guodong Xu wrote:
->> > > On Wed, Jun 3, 2026 at 7:28 AM <sashiko-bot@kernel.org> wrote:
->> > > >
->> > > > > @@ -154,6 +154,23 @@ static int riscv_ext_zicbop_validate(const struct riscv_isa_ext_data *data,
->> > > > >       return 0;
->> > > > >  }
->> > > > >
->> > > > > +static int riscv_ext_zic64b_validate(const struct riscv_isa_ext_data *data,
->> > > > > +                                  const unsigned long *isa_bitmap)
->> > > > > +{
->> > > > > +     /*
->> > > > > +      * Zic64b mandates 64-byte naturally aligned cache blocks; cross-check the
->> > > > > +      * cbom/cbop/cboz block-size device-tree properties to avoid inconsistency.
->> > > > > +      */
->> > > > > +     if (riscv_cbom_block_size != 64 ||
->> > > > > +         riscv_cbop_block_size != 64 ||
->> > > > > +         riscv_cboz_block_size != 64) {
->> > > >
->> > > > [Severity: Medium]
->> > > > Will this check erroneously disable Zic64b if a platform does not implement
->> > > > all three CBO extensions?
->> > >
->> > > Zic64b is mandatory in RVA22/RVA23, which also mandate Zicbom,
->> > > Zicbop and Zicboz, so all three block sizes must be present on any Zic64b
->> > > platform.
->> >
->> > Where do you get that conclusion from? That's not how we treat any other
->> > extension defined in the profiles spec. My understanding was that even
->> > if things are defined in the profiles spec that they're fair game for
->> > independent use.
->>
->> Ok, I get your point. Agree, Zic64b/Zicbom/cbop/cboz can be implemented
->> on each hart independently (at least spec doesn't say no). With this in
->> mind, the validation of Zic64b should be like this:
->>
->>     if ((riscv_cbom_block_size && riscv_cbom_block_size != 64) ||
->>        (riscv_cbop_block_size && riscv_cbop_block_size != 64) ||
->>        (riscv_cboz_block_size && riscv_cboz_block_size != 64))
->
->Or you could check for the extension instead of the left-hand sides
->here, but I think that becomes more complex because you need to start
->returning EPROBE_DEFER sometimes etc.
+Hello:
 
-Agree with you. riscv_ext_zicbom_validate() is already building its logic
-on riscv_cbom_block_size. Adding EPROBE_DEFER will make the logic look
-like code duplication, with no real gain:
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-+       if ((riscv_cbom_block_size &&
-+            !__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICBOM)) ||
-+           (riscv_cbop_block_size &&
-+            !__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICBOP)) ||
-+           (riscv_cboz_block_size &&
-+            !__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICBOZ)))
-+               return -EPROBE_DEFER;
-+
-+       if ((__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICBOM) &&
-+            riscv_cbom_block_size != 64) ||
-+           (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICBOP) &&
-+            riscv_cbop_block_size != 64) ||
-+           (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICBOZ) &&
-+            riscv_cboz_block_size != 64)) {
-                 pr_err("Zic64b detected in ISA string, disabling as a CBO block size is not 64 bytes\n");
-                 return -EINVAL;
-  
-Just for record purpose. It's not my intention to do this. You won't see
-it in the next version. ^
+On Wed, 03 Jun 2026 08:00:14 +0200 you wrote:
+> EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
+> Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
+> manages the traffic in a TDM manner. As a result multiple net_devices can
+> connect to the same GDM{3,4} port and there is a theoretical "1:n"
+> relation between GDM ports and net_devices.
+> 
+>            ┌─────────────────────────────────┐
+>            │                                 │    ┌──────┐
+>            │                         P1 GDM1 ├────►MT7530│
+>            │                                 │    └──────┘
+>            │                                 │      ETH0 (DSA conduit)
+>            │                                 │
+>            │              PSE/FE             │
+>            │                                 │
+>            │                                 │
+>            │                                 │    ┌─────┐
+>            │                         P0 CDM1 ├────►QDMA0│
+>            │  P4                     P9 GDM4 │    └─────┘
+>            └──┬─────────────────────────┬────┘
+>               │                         │
+>            ┌──▼──┐                 ┌────▼────┐
+>            │ PPE │                 │   ARB   │
+>            └─────┘                 └─┬─────┬─┘
+>                                      │     │
+>                                   ┌──▼──┐┌─▼───┐
+>                                   │ ETH ││ USB │
+>                                   └─────┘└─────┘
+>                                    ETH1   ETH2
+> 
+> [...]
 
->
->>     return -EINVAL;
->>
->> This will allow :
->> 1. A Zic64b hart with 0, 1, 2, or 3 CBO extension and block_size 64
->>    passes the validation.
->
->I'm not too worried about the 0 case here, people shouldn't be using
->zic64b if they don't have a corresponding extension after all.
->
->> 2. A Zic64b hart with CBO extensions but block_size is not 64
->>    fails the validation
->>
->> Thanks for the catch.
->>
->> I will fix that in v4.
->
->btw, can you fix your system time? It's like 12 hours in the future and
->that impacts the timestamps on emails you send.
+Here is the summary with links:
+  - [net-next,v9,1/6] dt-bindings: net: airoha: Add GDM port ethernet child node
+    https://git.kernel.org/netdev/net-next/c/a4597204b681
+  - [net-next,v9,2/6] net: airoha: Remove private net_device pointer in airoha_gdm_dev struct
+    https://git.kernel.org/netdev/net-next/c/4408f5206809
+  - [net-next,v9,3/6] net: airoha: Support multiple net_devices for a single FE GDM port
+    https://git.kernel.org/netdev/net-next/c/a9c2ca61fec7
+  - [net-next,v9,4/6] net: airoha: Do not stop GDM port if it is shared
+    https://git.kernel.org/netdev/net-next/c/99b9d095d71e
+  - [net-next,v9,5/6] net: airoha: Introduce WAN device flag
+    https://git.kernel.org/netdev/net-next/c/7758cb462ff7
+  - [net-next,v9,6/6] net: airoha: Support multiple LAN/WAN interfaces for hw MAC address configuration
+    https://git.kernel.org/netdev/net-next/c/ef2aee987174
 
-Fixed. sorry for that. It should be correct this time (and future times).
-
-BR,
-Gudong
-
->
->Cheers,
->Conor.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
