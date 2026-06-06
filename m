@@ -1,109 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mail-m93152.xmail.ntesmail.com (mail-m93152.xmail.ntesmail.com [103.126.93.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD8E4071EC;
-	Sat,  6 Jun 2026 18:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5184134CF;
+	Sat,  6 Jun 2026 18:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.126.93.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780770882; cv=none; b=IZxJJxxktxrRUwoyzlJqz1CNg5DvYggsQ4vE1qt4bDWamjKf2y9Vk/eHhVLiFyL6UULLTbJionZeoutkELK4vF0DIxfFNrdkuyRkxvhYJt2Ch/aObe1qGBlL2dlDfQ938Mk0JJjoocOKC1RQKPNFqSM7Uv+XZ11NQwUbc5rOF10=
+	t=1780772336; cv=none; b=IxpWdkAl9BZJ1Ic6la3W6jbzVs9s/kBfMNvEZUBbvcv5wX7Z1dKw8P9RQxf8gSTc1TTrG77NDXVM8z2MiDQRq9gkZfgc4et0YA+0nHHllCBLPORhU7X2w2EzN6Jy+XRKdq9yXYZOMfNXyZy7Cgg8wyedaqBXg4czlF/hDNavrPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780770882; c=relaxed/simple;
-	bh=BVtbCDETjwRv6oqgwtAGd3E5f+lXvM1CFd2TNAA81S4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R9fw204fScauFipYmnbdGWvvbSdDTwbFEMEDi9Rmy4dw5FCuaMii745bYV8MdkxtgGHg7I3L6nRMjl4QQ/zXaGPb3nuklxs0KhKmcBDb1VcZI39zZP/86REa3JCEzBs8/frr9cP14PDTfrNFlubqCawW19i/OgDhBYFiZIBfEQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mh+N7sc4; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780772336; c=relaxed/simple;
+	bh=m88qVbdluM64RSwLFqRXoNDpYWbOzjnmYJ02QfOknSQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CY5swjNuMb0Wpm2EN335yL/27RzrNaHCHA2Dnjij9Bzmyf2699rFeUkxWuP5TemqSDJB2YzQHgWXmmKjAJObz3em6bfv4XszFJxh2bQa5x0AaXf94Te+pSOaILyS37dkzUYvaTQuyxbRGNdeZMDhdOeZEN3TJawl8KggoDFuAS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=Z+0IW+16; arc=none smtp.client-ip=103.126.93.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mh+N7sc4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780770881; x=1812306881;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BVtbCDETjwRv6oqgwtAGd3E5f+lXvM1CFd2TNAA81S4=;
-  b=mh+N7sc4wo+GfqeiQ5rB+5AeVOhRfVBDYjEakTBhtnOKOuIvV/iuTzD2
-   3/qdFh5DjTbKalvA8x2VaVi8HmXFw9njyhDs5yDNSXAT9qV1LvVbzRP3m
-   0XmsLqZlQFIIaXnyWsQImFLEmppodvoGod8ctHGJGKVi3R2hdh08sBteu
-   Dmn2VZHM2hNMyL1a1iWDNktbDQlfSlC+KwRCjJ9u5h1uaxhZR5hT374CE
-   slNhD49SdCw5OMM95S8c6+ObOLkSSXU3gHVrOgstlm12rbUui/mOaqN+8
-   ICMNejvadF9bNvvw24FmBQ8FtdRx7GJgCI+GYyDlYHkIjx+0sHg8QH0gO
-   A==;
-X-CSE-ConnectionGUID: dsW9EPsLTDqWE9ua2jeS0w==
-X-CSE-MsgGUID: DQUZckhfQBGIsQneRv2N3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11809"; a="85424553"
-X-IronPort-AV: E=Sophos;i="6.24,191,1774335600"; 
-   d="scan'208";a="85424553"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jun 2026 11:34:40 -0700
-X-CSE-ConnectionGUID: hJzLObftRJmAaHEIfhTBow==
-X-CSE-MsgGUID: 42/qX45aTAOda5prBP6Gag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,191,1774335600"; 
-   d="scan'208";a="238776278"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jun 2026 11:34:37 -0700
-Date: Sat, 6 Jun 2026 21:34:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salih Erim <salih.erim@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Salih Erim <erimsalih@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/5] iio: adc: versal-sysmon: add I2C driver
-Message-ID: <aiRoOnyMG2g6BU_a@ashevche-desk.local>
-References: <20260606051707.535281-1-salih.erim@amd.com>
- <20260606051707.535281-4-salih.erim@amd.com>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="Z+0IW+16"
+Received: from [127.0.1.1] (unknown [113.235.125.44])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 415a2503a;
+	Sun, 7 Jun 2026 02:58:42 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Date: Sun, 07 Jun 2026 02:58:17 +0800
+Subject: [PATCH 1/5] ASoC: dt-bindings: es8316: Document jack detect
+ inversion
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260606051707.535281-4-salih.erim@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260607-rubikpi-next-20260605-v1-1-7f334e16fea6@thundersoft.com>
+References: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
+In-Reply-To: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
+ mohammad.rafi.shaik@oss.qualcomm.com, rosh@debian.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780772320; l=1048;
+ i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
+ bh=m88qVbdluM64RSwLFqRXoNDpYWbOzjnmYJ02QfOknSQ=;
+ b=QLzThrNUxw4Lby2sFPYgjJwtc3uBY8sxASveB9EWgaDru2EI3v08egBiKLZd+meoDy56kOkSs
+ 1KNuMUSQw+cDWnkpiGHB9Wh4Dm5yxgHLUvdf3NcbQ0Q3VRv5cumLUaK
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
+X-HM-Tid: 0a9e9e4d3cdf09d5kunm343af971138add
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkNNVh1MS01IHhhOQ01JTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
+	tJT09PSFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=Z+0IW+160aYUKA3LNzoniNc//44PX3DvWK203KKzR3NkTJw4zVsWj/t8+ZWjjbn+GVyQex8ThxxvGojWcVVT9zakW9O/6XVk717BAodA04Uw73qw2HVBVAanNoNwKJLmYpb8qPs4Ta3g9sMzCb2j8r0hqAl7BnEZnhzUGKoC9rs=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=bw+txc/ADse1JJow5q9GzM7efFpmiteX5+u/h3bA03Y=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, Jun 06, 2026 at 06:17:05AM +0100, Salih Erim wrote:
-> Add an I2C transport driver for the Versal SysMon block. The SysMon
-> provides an I2C slave interface that allows an external master to
-> read voltage and temperature measurements through the same register
-> map used by the MMIO path.
-> 
-> The I2C command frame is an 8-byte structure containing a 4-byte data
-> payload, a 2-byte register offset, and a 1-byte instruction field.
-> Read operations send the frame with a read instruction, then receive
-> a 4-byte response containing the register value.
-> 
-> Events are not supported on the I2C path because there is no
-> interrupt line and the I2C regmap backend cannot be called from
-> atomic context.
+The ES8316 codec driver already supports the everest,jack-detect-inverted
+property to invert the jack detection logic, but the property is not
+documented in the devicetree binding.
 
-...
+Document the property.
 
-> +#include <linux/bits.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/unaligned.h>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+ Documentation/devicetree/bindings/sound/everest,es8316.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-There are headers absent, please, follow IWYU principle.
-
-IS_ERR() ? struct of_device_id ?
-
-> +#include "versal-sysmon.h"
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+index fe5d938ca310..a0a4c1c99cf3 100644
+--- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
++++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+@@ -60,6 +60,11 @@ properties:
+   "#sound-dai-cells":
+     const: 0
+ 
++  everest,jack-detect-inverted:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      Defined to invert the jack detection.
++
+ required:
+   - compatible
+   - reg
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
