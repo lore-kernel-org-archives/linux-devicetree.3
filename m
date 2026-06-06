@@ -1,29 +1,29 @@
 Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5809E19E819;
-	Sat,  6 Jun 2026 06:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A17DCA4E
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 06:06:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780725693; cv=none; b=G3pEu3MSM27uOqLjpwSTzpevEAzogBIccZwOrah2iUKQvnqWuYYBpbAENGSPpebjVmQIpVXBZar8QrhL+14gnCvnjlwJtyx8Z0wmLmmTYLex91vaebebyN4LpsZe1ad/0Naf6RxaHX8/iNefXhgDGyhSvw5l5pA+fDg0/HHpduA=
+	t=1780725990; cv=none; b=B+zWpToo8bMjmDBP66TfQMYbFKxld5cgT6g8VLK0nDineIwA1UEvOKuYG6odo88S83wmZDyBQT466oWnpgWGOZwZ0+f7xp13+9o86DEBW1yqVqAMOVDgCFtTbtpZ0JRiYG9vMNQ6MhriA1wMYNhGSXKvRux/Xsc5rayrF6a2ACY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780725693; c=relaxed/simple;
-	bh=vbjx3jIdoRLsj8r4VFsYQiQ/rIEFTTtZObfXBqGAz90=;
+	s=arc-20240116; t=1780725990; c=relaxed/simple;
+	bh=qqDXo+uYr/5IvPcf9pSOsL3u5vxQd4pvbVrNWz+1/oA=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=dGh36QJDrEiSZjYefuH302dlFM8MhzKI+jLAu22FhSmetSql4q+A6FQPM9Y8tXt2GqDt5JfpJ/N3uxaFeQStZjDicBXeclmG+BHXhLKJyR3RoYSO9S+bygjo7Q7yvOqV3iTms3T7ngNh9SsKaZwxcaSWOXcEoyr/vM0jFGIKTSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=dXQxxt1q; arc=none smtp.client-ip=218.76.62.146
+	 References:Date:Message-Id; b=MpewxAi87rN1v+xp1bG9VNeq1Ju5c6bvvmbmfWWWzdoIAkpS5kM3bhHgvNK3VMasqQPVIvpG7ao2Ni6DubX7q9VSELG4rwKPpvjSbDPhMbv0wQ4uzYHNjniBxzzDLVZd5rlStwZzfWEDKh5RZl098Mg2lEUkeYuU5HdPyny4GPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=cvasc9c3; arc=none smtp.client-ip=218.76.62.146
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="dXQxxt1q"
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="cvasc9c3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
 	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=Q0lEbHPoOb0nne3l5BxgXbYMvSEdlQD33
-	b/MpIvvu8c=; b=dXQxxt1qfjoAzhBV9jboOWl4t6fjIhjBVCDSm+I/CVZVOKv7Z
-	1fKSBx+gR6yT/caNN6voWRv/UVRRTXrmgq+RznKey5diqeO/D5DjTkS0spfVmOPK
-	u7Ck0PYkdE5bjw6c+YN7bHxadUirHLsfYD8k/UqC8EeVe0Wkl57Ylukfx4=
+	References:Date:Message-Id; bh=W8reLofs7i9/TLfJM49j3oPOhhw4TfU+0
+	726U5kHaUo=; b=cvasc9c3U3xs0rFN48bDmD3dtj2BlN8HWwM8JMGp28H8ehTgd
+	L8FhMJr33OkytlujZiDlx8mCs+BfxWgw0+2imhiSwJ5SzJbIcOFcIP9Y9WjOok2Y
+	bOxvm+jwEhwJBfroQ9kEDghGvHXlThXMXfMzUWCK0IxHQOQa4S8ezmtaBw=
 Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEELatyNqQfAIAA--.8785S2;
-	Sat, 06 Jun 2026 14:02:02 +0800 (CST)
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUIHuSNqfPAIAA--.8933S2;
+	Sat, 06 Jun 2026 14:07:03 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -32,234 +32,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: Add UltraRISC DP1000
- pinctrl controller
+Subject: Re: [PATCH v2 2/2] pinctrl: ultrarisc: Add UltraRISC DP1000
+ pinctrl driver
 From: Jia Wang <wangjia@ultrarisc.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: wangjia@ultrarisc.com, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260602-clause-mortify-a0e474334cfe@spud>
-References: <20260601-ultrarisc-pinctrl-v2-0-07ac5130a96d@ultrarisc.com>
- <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
- <20260602-clause-mortify-a0e474334cfe@spud>
-Date: Sat, 06 Jun 2026 14:01:24 +0800
-Message-Id: <178072568462.310568.17342136080952908475.b4-reply@b4>
+To: sashiko-reviews@lists.linux.dev
+Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
+ conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260601102233.F2E711F00898@smtp.kernel.org>
+References: <20260601-ultrarisc-pinctrl-v2-2-07ac5130a96d@ultrarisc.com>
+ <20260601102233.F2E711F00898@smtp.kernel.org>
+Date: Sat, 06 Jun 2026 14:06:25 +0800
+Message-Id: <178072598572.310568.4489785072318421270.b4-reply@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780725684; l=5780;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780725985; l=2153;
  i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=vbjx3jIdoRLsj8r4VFsYQiQ/rIEFTTtZObfXBqGAz90=;
- b=DX0mie9wW2L4V3jFss+Zk+8Wm5XshO3RpB2TKAY37ynoWJi8CExieJivIj6rvxXP+NUP1FMaZ
- lrm2NgmNxFLCXnU+KNN9p3tV5wmbbTRJ+Cw6SCL+SiXxPkFeyrh9GXm
+ bh=qqDXo+uYr/5IvPcf9pSOsL3u5vxQd4pvbVrNWz+1/oA=;
+ b=vEZM7cbLnl849Qqgm9NVybEJzT6P6rEtKlLOoIXsCpHose3C4DsWtc1S7I5hdDgVlpKZIeL5r
+ RsPCG7hzwFMAj9XsosujISUipWR4j5hkohFv1pr6D7jkh2AgxxcyB0/
 X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
  pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwDXEELatyNqQfAIAA--.8785S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw4UJFy8KF43ZFW7Xw4ruFg_yoWrKr1xpF
-	W3CFZxJFy2qr17J3yft3WFk3ZxJan7Cry7uw1jq34jya90vF1kXrsxKws8WFn5ur1xJrWI
-	ya1jva42van7AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUFg4SDUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgAosu
+X-CM-TRANSID:AQAAfwA3cUIHuSNqfPAIAA--.8933S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWfXF1kKrWDCr43Ary8Grg_yoW8uF1fpF
+	Zaka48CF17JFW5Kayxt3ykC3Z3Za1fAFW5Arn0g34jvFW5C34UCryDG34UtayDCr4jgw4j
+	ka4F9ry2ya10va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
+	c2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWU
+	twCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8
+	Q_-PUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgAqss
 
-On 2026-06-02 17:53 +0100, Conor Dooley wrote:
-> On Mon, Jun 01, 2026 at 05:56:34PM +0800, Jia Wang via B4 Relay wrote:
-> > From: Jia Wang <wangjia@ultrarisc.com>
-> > 
-> > Add doc for the pinctrl controllers on the UltraRISC DP1000 RISC-V SoC.
-> > 
-> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> > ---
-> >  .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 128 +++++++++++++++++++++
-> >  MAINTAINERS                                        |   6 +
-> >  2 files changed, 134 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > new file mode 100644
-> > index 000000000000..5100033c18c3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > @@ -0,0 +1,128 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/pinctrl/ultrarisc,dp1000-pinctrl.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: UltraRISC DP1000 Pin Controller
-> > +
-> > +maintainers:
-> > +  - Jia Wang <wangjia@ultrarisc.com>
-> > +
-> > +description: |
-> > +  UltraRISC RISC-V SoC DP1000 pin controller.
-> > +  The controller manages ports A, B, C, D and LPC. Ports A-D default to
-> > +  GPIO and provide additional SPI, UART, I2C, and PWM mux functions.
-> > +  LPC pins default to the LPC interface and can be muxed to eSPI.
-> > +  All pins also support pin configuration, including drive strength,
-> > +  pull-up, and pull-down settings.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: ultrarisc,dp1000-pinctrl
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: pin controller registers
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +patternProperties:
-> > +  '.*-pins$':
-> > +    type: object
-> > +    unevaluatedProperties: false
-> > +    allOf:
-> > +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
-> > +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> > +      - if:
-> > +          properties:
-> > +            pins:
-> > +              contains:
-> > +                pattern: '^LPC([0-9]|1[0-2])$'
-> > +        then:
-> > +          properties:
-> > +            function:
-> > +              enum:
-> > +                - lpc
-> > +                - espi
-> > +
-> > +    properties:
-> > +      pins:
-> > +        description: List of pins affected by this state node.
-> > +        minItems: 1
-> > +        uniqueItems: true
-> > +        items:
-> > +          type: string
-> > +          oneOf:
-> > +            - pattern: '^PA([0-9]|1[0-5])$'
-> > +            - pattern: '^PB[0-7]$'
-> > +            - pattern: '^PC[0-7]$'
-> > +            - pattern: '^PD[0-7]$'
-> > +            - pattern: '^LPC([0-9]|1[0-2])$'
-> > +
-> > +      function:
-> > +        description: |
-> > +          Mux function to select for the listed pins. Supported functions
-> > +          depend on the selected pins and match the DP1000 hardware mux
-> > +          table.
-> > +        enum:
-> > +          - gpio
-> > +          - i2c0
-> > +          - i2c1
-> > +          - i2c2
-> > +          - i2c3
+On 2026-06-01 10:22 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The Kconfig symbol ARCH_ULTRARISC is referenced in 'depends on' and 'default' but is not defined anywhere in the kernel tree.
+> --
 > 
-> Why do you need to know which i2c, pwm etc is being used here?
-> If don't need to differentiate, then drop the numeric.
-> Only spi and uart seem to have more than one "UR_FUNC" associated with
-> them.
+> commit ae98cd11bdead29c422db358de808560e3f3ab23
+> Author: Jia Wang <wangjia@ultrarisc.com>
+> 
+> pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl driver
+> 
+> This commit adds support for the pin controller on the UltraRISC DP1000 SoC.
+> It provides mux selection for pins in ports A, B, C, D, and LPC, as well as
+> basic pin configuration controls.
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/pinctrl/ultrarisc/Kconfig b/drivers/pinctrl/ultrarisc/Kconfig
+> > new file mode 100644
+> > index 0000000000000..a9257dda5d656
+> > --- /dev/null
+> > +++ b/drivers/pinctrl/ultrarisc/Kconfig
+> > @@ -0,0 +1,23 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only
+> > +
+> > +config PINCTRL_ULTRARISC
+> > +	tristate
+> > +	depends on OF
+> > +	depends on ARCH_ULTRARISC || COMPILE_TEST
+> 
+> [Severity: Medium]
+> Does ARCH_ULTRARISC exist in the kernel tree? I couldn't find a definition for
+> this Kconfig symbol. If it's missing, this driver will only be selectable
+> when COMPILE_TEST is enabled, leaving it disabled for its actual hardware
+> target.
+> 
+> > +	select PINMUX
+> > +	select GENERIC_PINCTRL_GROUPS
+> > +	select GENERIC_PINCONF
+> > +	select GENERIC_PINMUX_FUNCTIONS
+> > +	select GPIOLIB
+> > +
+> > +config PINCTRL_ULTRARISC_DP1000
+> > +	tristate "UltraRISC DP1000 SoC Pinctrl driver"
+> > +	select PINCTRL_ULTRARISC
+> > +	depends on OF && HAS_IOMEM
+> > +	depends on ARCH_ULTRARISC || COMPILE_TEST
+> > +	default ARCH_ULTRARISC
+> 
+> [Severity: Medium]
+> Similarly here, ARCH_ULTRARISC is used in the depends on and default directives
+> but appears to be undefined.
 >
 
-Thanks, that's a good point. The hardware only provides generic mux modes
-rather than per-instance I2C/PWM functions, so the numeric suffixes are
-not really meaningful here. I'll simplify the function names and drop the
-unnecessary numbering in v3.
-
-> Cheers,
-> Conor.
+Thanks. ARCH_ULTRARISC comes from a separate series referenced in the cover
+letter.
+ 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260601-ultrarisc-pinctrl-v2-0-07ac5130a96d@ultrarisc.com?part=2
 > 
 
 Best regards,
 Jia Wang
-
-> > +          - pwm0
-> > +          - pwm1
-> > +          - pwm2
-> > +          - pwm3
-> > +          - spi0
-> > +          - spi1
-> > +          - uart0
-> > +          - uart1
-> > +          - uart2
-> > +          - uart3
-> > +          - lpc
-> > +          - espi
-> > +
-> > +      bias-disable: true
-> > +      bias-high-impedance: true
-> > +      bias-pull-up: true
-> > +      bias-pull-down: true
-> > +
-> > +      drive-strength:
-> > +        description: Output drive strength in mA.
-> > +        enum: [20, 27, 33, 40]
-> > +
-> > +    required:
-> > +      - pins
-> > +      - function
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    soc {
-> > +      #address-cells = <2>;
-> > +      #size-cells = <2>;
-> > +
-> > +      pinctrl@11081000 {
-> > +        compatible = "ultrarisc,dp1000-pinctrl";
-> > +        reg = <0x0 0x11081000 0x0 0x1000>;
-> > +
-> > +        i2c0-pins {
-> > +          pins = "PA12", "PA13";
-> > +          function = "i2c0";
-> > +          bias-pull-up;
-> > +          drive-strength = <33>;
-> > +        };
-> > +
-> > +        uart0-pins {
-> > +          pins = "PA8", "PA9";
-> > +          function = "uart0";
-> > +          bias-pull-up;
-> > +          drive-strength = <33>;
-> > +        };
-> > +      };
-> > +    };
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 461a3eed6129..6fd7ce6365fb 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -27356,6 +27356,12 @@ S:	Maintained
-> >  F:	drivers/usb/common/ulpi.c
-> >  F:	include/linux/ulpi/
-> >  
-> > +ULTRARISC DP1000 PINCTRL DRIVER
-> > +M:	Jia Wang <wangjia@ultrarisc.com>
-> > +L:	linux-gpio@vger.kernel.org
-> > +S:	Maintained
-> > +F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > +
-> >  ULTRATRONIK BOARD SUPPORT
-> >  M:	Goran Rađenović <goran.radni@gmail.com>
-> >  M:	Börge Strümpfel <boerge.struempfel@gmail.com>
-> > 
-> > -- 
-> > 2.34.1
-> > 
-> > 
 
 
