@@ -1,111 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02FC282F00
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977A52F8EAB
+	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780721463; cv=none; b=lUJGS/KGx1rGXW8ebCBGbgoEbkINklM7JAP07b5lRkAVgCa5oF48V4/3toc2hQMMQ//KcUjk4e2PoTYLCcgBXky2KQiZ2bDutO8+C8HyWJ/Q5TqDps6ohq0DaILWvFgZGhgYTLb2iblT8T03mgMF4qLo+O9LGKKx8PxPs9fK2yg=
+	t=1780721887; cv=none; b=Nq8NsMrBN39by89jktD7zKvFtO/m+GLk5tIRCRJNeRKSG4mboBx1Mqj467ECJvDZTvcWttcS9Q9nHbYoU2mBjbyisg47jNusUhGmpV1167aQmWx7w10x05mTv5uUd7RxCUaTAdprO42Smyz1xJEdnPhJZRGJIYzv3ZQpDo0UTQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780721463; c=relaxed/simple;
-	bh=/u4C1kWYVbZiPw/N/UA7MQei+1M1gBnUoiL6TjXpJMs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r9UH73w9sWZX6mF2Q26TVHirInEpL+fedPt0FDZ/HHqXf9s1BhK+oWBUMBrs+MhSftHV9zelHWwbOFz/HdWTgxEs9eQaSocosjZG9RRHdPeWdxzq+zwauEurjpDkumf1g+288eSV4vMC98yQWqvNQjPpfbNTROGWl8S5GVszq2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmkq+X4D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780721887; c=relaxed/simple;
+	bh=sChSctaNk/iJ7rMo4OneEoqRj9NRpGu5gBeih5JX6Jg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lb+rzEFTjVBAAnWhTTeosiFfHGoERTHvJSebIKoZbKcLfiUojL+XaDq8WDn0GJlnxnuNsvJePU11Ewx7SLRYsbxkfOFXnCES//V4nVeQIME/KQqngQpcRnAGSWgtqkl7YA/4JiwTcUi5QRsb8k4myEYVltiDDHTvarY8k99TI08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSfs//8t; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmkq+X4D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4651F0089A
-	for <devicetree@vger.kernel.org>; Sat,  6 Jun 2026 04:51:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780721462;
-	bh=sKz22jwoXiX77X9+l1832laRA/oVlQe98Ct+8CuxsJ4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cmkq+X4D7gn5Wy/QtPOGGldw5QYXyKrpGRBzG/OaLIEXmGAiVmTD//4RCGWFZtImp
-	 Tc8PhbvtGDd2EFFczm3JJjxuZKUoec3t5WS0CzV/WH3hEkH22rA36BE7Ed7m+HfdYv
-	 /ivPseYVrpb2rEjTqE07SXwZEVNmYOJZP+reT7oOIVzuI2gkP699oMSngUfsSzoW4b
-	 8ha3jY+Gx02T+kWeR2Z1o3fSIhb+/bPKyU2lXfkP3wcNO0n+Bxu66zBtZ4bY9Uh6eV
-	 dW0Z/rFhgri0YR5rXMnSk+EDCNUFRKykPtecZa+2IlivwtpjI8VAv68W7N9EaUfVlO
-	 4XEKA97P0TFKg==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68d232e119dso4212956a12.0
-        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 21:51:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+NbH8DAOXZFAE3FQgxtIFIwRKsJo1AAPUfUT0WInNdNrBYqaAoHZCgn9q3GvZULAfrHwy18HQv1d51@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhFTxGrm/XaEu9PxHRJSRIyL+TiSyjlsY+aik/wV7F6xg5eeCz
-	/vPtlzRf0tbAhC4UIgI8hio2gLEXVPbmTo6geALKVSITwqEkYDsS4frHFDmDVMzurVAfvvFaom6
-	U0S2JiJZGdAhrtSuzdYlIeV/T7HiMJ2M=
-X-Received: by 2002:a05:6402:27ce:b0:687:5157:1d4f with SMTP id
- 4fb4d7f45d1cf-68fa524d249mr3187355a12.26.1780721461112; Fri, 05 Jun 2026
- 21:51:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSfs//8t"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-687ed9aabb3so5108952a12.1
+        for <devicetree@vger.kernel.org>; Fri, 05 Jun 2026 21:58:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780721884; x=1781326684; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ijiDIJoRq4DW5gmq2cKgL9VuesBVH2zWjg+vtHwI5sw=;
+        b=sSfs//8t7+hi4vevAcVnNjxy1AQom4JuITz2efSHK9eMjRSjnhpigeGBbwFOXFrODK
+         Z/GiP+EFP3SMYvbl4RrWp2DnpUEOX0iMA5Q/A2irlBbF9bhlwDPTzhgHtcuqUHU8s+82
+         mkv1VTrkmYfkGhYaxh9vnrs4JLVn/LsLDpnUd7r/6F4PIaRIyKXQfh2mkrPhtDJnAKAk
+         nTbRKpBufwY78nqOkIVVvt2hNHNMKNJBXqN0r7tKtMRW5LIRcH+8ojfBz7eKgb/OP7X8
+         ODt15qnp7y9J9fLIctqWHekiPiqRPH2rcCdxN7sd4EFopcLlVydJPXxJ42T5rVSnDS72
+         IrIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780721884; x=1781326684;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ijiDIJoRq4DW5gmq2cKgL9VuesBVH2zWjg+vtHwI5sw=;
+        b=Z3ASAyqYroLOrHDgJv7VNB05QTF6P6m3PAH+K2HxAkMUmswnyeb9A4k0orKXfv6+Ft
+         jx1HBl/HhdoiCX97ab1F6o0kUJhITNSeltgPxC5ai+vVBaVdVlP0rq8N6DvCqnkUDa3f
+         Ff+SZlgtDA0ehoxtbG98R2OyZqHI+CmQwR2BLfptAkibDZ3xhdzeJp/F29yv+LVexGvD
+         jzEH8hjGsz+Hiq1KLV069cImCxpNs6Tu4Ydl4HP4GuGxhClP1mw1N5/51Vpq632sLwei
+         ljn8pNe0sdB/2t773wUdTug0wF9LjkSm75rUm3TYOALmTq9lcqFhR4NvoW9/ow2KcSgn
+         H8Xg==
+X-Forwarded-Encrypted: i=1; AFNElJ9UZqGAt9vcP6Casg1q/y8N9fPNa0kibaE3jFuHRlkwYSvbrwsX+Vx5tL062B7fzGVTqqNSOW3XmC96@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaruIA6NJD3aYxNwTu1UZ8JVCf6WT2DAjlw3+6g+FWg2duxJAa
+	cqmZSVglP4EzSu4TPY0H2hXZtVABf5277skQ0K20OQr8lhXtzrrow7R7
+X-Gm-Gg: Acq92OGQ+LMWHUwSqv13WTWcBfja4tboVrJXCAHEEQJgE5I2wSP6KrzD7Lh2WSEBjyH
+	/PIO5gzKMYBtExRF8tZHElL8yG1ufapwgRtcgtX6MVmYgRnzgMCCZsiLNhUheNasgNvVny3yBRO
+	67NupHcRYaLalPCXz9XI53lIfQL9YhIi0xjx6fFoGKPc0dBWusBoUOS5AlRezS2VI9gb34g1LLR
+	P7VWFgIjSHSE7tQPJP/e+ewqm7uvKD/iRbu9iMHcoUYTDCYdk1X/qeo64wXtwHmFk9EQSU4d+Zl
+	Zm20RiE5y69q0ezHePOwjOj6FrT1FlRBshZYjIDLVxWRGz6miEWnOGUXezh/9DFvW8f5tSTyA2s
+	zhP4Gf2OWz0EftDGRqaNWE/AKvGC7kDmH3r9fYJebfpZr9fWkAwSimC9FWee4YjYkbQJG49UlEI
+	THxxf/qhShNaGjEXKbvQ8lZYO2syQPaqROXQ==
+X-Received: by 2002:a17:906:8a79:b0:bee:bcf6:6a23 with SMTP id a640c23a62f3a-bf3749d7f03mr231807166b.43.1780721883699;
+        Fri, 05 Jun 2026 21:58:03 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf054e086fesm570597166b.32.2026.06.05.21.57.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 21:58:01 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Helge Deller <deller@gmx.de>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: [PATCH v4 00/14] mfd: lm3533: convert to OF bindings, improve support
+Date: Sat,  6 Jun 2026 07:57:24 +0300
+Message-ID: <20260606045738.21050-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604015848.18643-1-wanghongliang@loongson.cn>
- <20260604015848.18643-2-wanghongliang@loongson.cn> <20260604183813.GA982803-robh@kernel.org>
-In-Reply-To: <20260604183813.GA982803-robh@kernel.org>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 6 Jun 2026 12:50:49 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H648_nNzR67ZCJ9myUG2PQy5q1EHWo1yRjKTUB+4Q+5+Q@mail.gmail.com>
-X-Gm-Features: AVVi8Cd1pBWQh2AK-e5GGLwTOpjGHeDAqe2xsmKUiF49BygdYoawTYdPqMMbYQk
-Message-ID: <CAAhV-H648_nNzR67ZCJ9myUG2PQy5q1EHWo1yRjKTUB+4Q+5+Q@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
- clock-frequency properties
-To: Rob Herring <robh@kernel.org>
-Cc: Hongliang Wang <wanghongliang@loongson.cn>, Binbin Zhou <zhoubinbin@loongson.cn>, 
-	Andi Shyti <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	loongarch@lists.linux.dev, stable@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi, Rob,
+Convert LM3533 to OF bindings, add missing VIN supply, add support for
+setting mapping mode and LED sources based on device tree. 
 
-On Fri, Jun 5, 2026 at 2:38=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
->
-> On Thu, Jun 04, 2026 at 09:58:47AM +0800, Hongliang Wang wrote:
-> > Add clocks and clock-frequency properties to examples.
-> >
-> > Cc: stable@vger.kernel.org
->
-> Not stable material unless there's a warning in the example (and there
-> is not).
-It is me who told Hongliang to CC stable because the 2nd patch is
-needed. If the 1st one is unnecessary, then please send a new version.
-And for the whole series:
+---
+Changes in v2:
 
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+schema
+- maximum led sources for leds set to 4
+- anyOf > oneOf in ALS
+- improved ALS descriptions
+- adjusted example
+drivers
+- dropped devm convertion of irq and mfd helpers
+- all als configuration moved into lm3533_als_setup
+- added regulator/consumer.h
+- lm3533_bl_setup set before sysfs_create_group in backlight
+- added check if LVLED is valid
+- LM3533_REG_OUTPUT_CONF1 > LM3533_REG_OUTPUT_CONF2 for LVLED4 and LVLED5
 
->
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
-> > ---
-> >  Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.ya=
-ml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-> > index ee09c6d9c5f0..0beb7f2515c8 100644
-> > --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-> > +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-> > @@ -37,11 +37,14 @@ unevaluatedProperties: false
-> >
-> >  examples:
-> >    - |
-> > +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
-> >      #include <dt-bindings/interrupt-controller/irq.h>
-> >
-> >      i2c0: i2c@1fe21000 {
-> >          compatible =3D "loongson,ls2k-i2c";
-> >          reg =3D <0x1fe21000 0x8>;
-> > +        clock-frequency =3D <100000>;
-> > +        clocks =3D <&clk LOONGSON2_APB_CLK>;
-> >          interrupt-parent =3D <&extioiic>;
-> >          interrupts =3D <22 IRQ_TYPE_LEVEL_LOW>;
-> >          #address-cells =3D <1>;
-> > --
-> > 2.47.2
-> >
->
+Changes in v3:
+
+- ohm -> ohms
+- added default PWM mask to schema
+- added commit removing driver regmap wrappers
+- added commits which flatten pdata helpers
+- adjusted check if als->irq > 0 since als->irq can be negative if error/missing
+- added count for children defined in device tree and mfd_cell is allocated
+  via devm_kcalloc to be able to contain all of them
+- fixed backlight boundary check
+- fixed count increased unconditionally
+- dev_err returns node name instead of reg value
+- LM3533_MAX_CURRENT_* defines moved to common header since they are used to clamp
+  current values read from the tree
+- mapping mode commit splitted into 2 (sysfs logic improvement > mode from DT)
+- backlight mode configuration set before sysfs group is created
+- fixed LVLED check on LEDs setup
+- added check if HVLED is valid
+- fixed wrong err_sysfs_remove goto in lm3533_bl
+- added commit implementing backlight_scale property
+
+Changes in v4:
+
+- fixed regmap_update_bits val and mask swap in lm3533_als_set_int_mode
+- fixed als->irq check in store_thresh_either_en
+- removed clamping of r_select in als driver
+- added use_of_reg and of_reg for backlight and leds registration
+- added intermediate step in asigning props.brightness
+- fixed HVLED/LVLED configuration overwriting
+- added bounds check for num_leds in leds and backlight driver
+- switched to regmap_clean/set/assign/test_bits helpers where appropriate
+- dropped extern from header function declartions
+- switched lm3533 pointer in cell structures to regmap
+- sysfs_create_group > device_add_group
+- changes in backlight sysfs were expanded to all properties
+---
+
+Svyatoslav Ryhel (14):
+  dt-bindings: leds: Document TI LM3533 LED controller
+  mfd: lm3533: Remove driver specific regmap wrappers
+  mfd: lm3533: Remove extern from shared functions in the header
+  mfd: lm3533: Pass only regmap and light sensor presence to child
+    devices
+  iio: light: lm3533-als: Remove redundant pdata helpers
+  mfd: lm3533-core: Remove redundant pdata helpers
+  mfd: lm3533: Switch sysfs_create_group() to device_add_group()
+  mfd: lm3533: Convert to use OF bindings
+  mfd: lm3533: Add support for VIN power supply
+  mfd: lm3533: Set DMA mask
+  video: backlight: lm3533_bl: Improve logic of sysfs functions
+  video: backlight: lm3533_bl: Set initial mapping mode from DT
+  video: backlight: lm3533_bl: Implement backlight_scale property
+  video: leds: backlight: lm3533: Support getting LED sources from DT
+
+ .../leds/backlight/ti,lm3533-backlight.yaml   |  69 ++++
+ .../bindings/leds/ti,lm3533-leds.yaml         |  67 ++++
+ .../devicetree/bindings/leds/ti,lm3533.yaml   | 169 ++++++++
+ drivers/iio/light/lm3533-als.c                | 179 ++++-----
+ drivers/leds/leds-lm3533.c                    | 181 ++++++---
+ drivers/mfd/lm3533-core.c                     | 365 +++++++-----------
+ drivers/mfd/lm3533-ctrlbank.c                 |  27 +-
+ drivers/video/backlight/lm3533_bl.c           | 223 ++++++-----
+ include/linux/mfd/lm3533.h                    |  75 +---
+ 9 files changed, 806 insertions(+), 549 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+
+-- 
+2.53.0
+
