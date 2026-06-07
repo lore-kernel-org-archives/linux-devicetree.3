@@ -1,106 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49076226CFE;
-	Sun,  7 Jun 2026 08:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CC63612F8;
+	Sun,  7 Jun 2026 08:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780819693; cv=none; b=qpOr2d+tZZADg2VUffjzvWpFVyJcTJx4BaIfBPawR4O2zDHojWYNR9HE5Ct8tN4En7+ycfayVS8sN0AHMDB34QtkZrBh5BMdv2z9qMH6fcfpVDZBtesoKDAy2a07ZNW4egQAjrKHtRMXpGknXkbbwMpGuAPDj+xT+YmyMV/JRy8=
+	t=1780820044; cv=none; b=S3RPBV2JHYanVECVWnZBs0Qe5msxR8WrUKQLDtCAuLQZJVyknvYhTHjqfyfS9RWpa/j1TezXurN0u48tyZnrMdP/p/gxHRFIKDWKEYG7/bOSEQKBR7KoIoPyfqk+M+1TcMpeAihwj0TlpVq1AB3K7aMoI8jsFFhN7J8PnG3VADs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780819693; c=relaxed/simple;
-	bh=v8oCVZ7Fhk20qYPs+YW8p6YF47K47iAvoArMo8RzC/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pIkPIQKBXXLc2JS4sT+ox0cYVytxmkOgllplf30Y3XqyiEd2mAZEjeqttL5L7CSEROjoQQ3DmlUtGk2Cv1LIQhufT/qq1Mxeq//g2HLKcC66052LGyvSLsCAgsg3CZ5wDSdh0kVYwlgHVYVSrsdP1r5X6VdkQRowzOm8wwpShS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VbpmVBIt; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780820044; c=relaxed/simple;
+	bh=hJxFYyRCmJ616l0kU5gHENL0ayvYl8WX8W/K8Qi49gc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AkrIzmXzm5DRaCOTAUxPx4o4vaaESgUuYYZc56mcaqn4o6WE/Tzeulg1NIZLYlu8Kzyl3PCj67lDFjGNJtmm9gSyr0ab8d4bTTMgZgXySCK5yeT/nwHiY3le9UBYRFrBX+kJaIxmbosdjVi0uerTJXENM44r30lXgiIPFXapUxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPnoMdQw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VbpmVBIt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780819692; x=1812355692;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=v8oCVZ7Fhk20qYPs+YW8p6YF47K47iAvoArMo8RzC/s=;
-  b=VbpmVBIt67rDYgGnpg2nWXXYREBNxqnYOQU8bSL2Vr6apSosnPtxzFXS
-   WvtWt5FxBqMoUXUIdRU5C79iQWhC/z36qvkBjvWyPrAzYV8LxZ5potPrZ
-   Jv4uffBXtLuBqLZEgIIKDKGb2XqXIa+GeakIzJabq6gQgR4jB/ga4KKNY
-   iVUsgOCwIMfIHdgoYhkx94yuVqrEwaLFuJgIC/9Ny9WrPhaevYPejpzes
-   FQZz4QYj5DxNYT2KQSbJv9t8SFgPksVwcJQjj5Axq4ex3lKqBEpkDOmND
-   SlsRMPN1Tcyz+Iy+1fmFuHQ7I95L6mJ/qMXv4ugx44zmJfVE296lqcuEP
-   A==;
-X-CSE-ConnectionGUID: 657+5xJqQ72MxGzY9Ak/Nw==
-X-CSE-MsgGUID: 2t3cZupFQNWru9e/foCoZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11809"; a="92152790"
-X-IronPort-AV: E=Sophos;i="6.24,192,1774335600"; 
-   d="scan'208";a="92152790"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 01:08:11 -0700
-X-CSE-ConnectionGUID: NDikdfbFThSYLY85Yf7hmg==
-X-CSE-MsgGUID: yK6ojSZhRVuPJMbIhwljrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,192,1774335600"; 
-   d="scan'208";a="238888155"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.86])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 01:08:08 -0700
-Date: Sun, 7 Jun 2026 11:08:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salih Erim <salih.erim@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Salih Erim <erimsalih@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] iio: adc: add Versal SysMon driver
-Message-ID: <aiUm5vmG7EHmp52x@ashevche-desk.local>
-References: <20260606051707.535281-1-salih.erim@amd.com>
- <20260606051707.535281-3-salih.erim@amd.com>
- <aiUmb0WMPHi0D6GH@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPnoMdQw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1139B1F00893;
+	Sun,  7 Jun 2026 08:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780820043;
+	bh=wwcfzcJw05kfZLm5nbWQ6qC7kEOUN/R1wOxCqZRm2gU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VPnoMdQwhbA8o2rO3Fskx/I7qLyxwIP0EN6R4nO+oJAtDJtCg09okKgeVWlcI4HOE
+	 /lFhSESq/atBYXw8BeQkpMpUMRLGPzed/kRimwvxiqb2LMApdrXF/S0XrZ0gIvjv46
+	 PoC43p2u6nff+heU0C658I2N9DsQLyRpN3iuYYNr5MlQ/qick4mVXzjGNXkb/CRrto
+	 Wlky8qJHlSidrCFjIrjY3bQKlAu/aXb0lqbNydmvSNWf9srtSW07die7iwvrzTxMqM
+	 za6MiJa5sdhwbyzVIljUYLIvfIQB25qAMJSh11dn44KJG9OWrFvsfZMVZhXnZIUCYC
+	 x6YzRHTeRUgaw==
+Message-ID: <f9a88104-9292-4cef-af48-58a722194b4a@kernel.org>
+Date: Sun, 7 Jun 2026 10:13:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiUmb0WMPHi0D6GH@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] dt-bindings: dma: qcom,bam-dma: Increase iommus
+ maxItems to seven
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Andy Gross <agross@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dmaengine@vger.kernel.org
+References: <20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com>
+ <20260521-shikra_crypto_changse-v1-4-0154cc9cc0de@oss.qualcomm.com>
+ <20260530-spiffy-glittering-quail-dff199@quoll>
+ <289a5bca-5491-4fc2-92d9-1102aa664021@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <289a5bca-5491-4fc2-92d9-1102aa664021@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Jun 07, 2026 at 11:06:13AM +0300, Andy Shevchenko wrote:
-> On Sat, Jun 06, 2026 at 06:17:04AM +0100, Salih Erim wrote:
+On 06/06/2026 22:59, Kuldeep Singh wrote:
+> On 30-05-2026 16:09, Krzysztof Kozlowski wrote:
+>> On Thu, May 21, 2026 at 06:47:11PM +0530, Kuldeep Singh wrote:
+>>> Shikra bam dma engine support 7 iommu entries and not 6.
+>>> Increase maxItems property for iommus to pass dtbs_check errors.
+>>
+>> What errors? There is no Shikra in upstream so how could we have errors?
+> dt-bindings updates are prerequisites for the DT changes of ice,rng, qce
+> and hence updated bindings in patch [1-4]/5.
+> Also, the commit message mention about shikra and DT change is also in
+> same series.
+> 
+> I hope this clarifies.
 
-Ah, and missed part below.
+No. Please explain what errors we see now.
 
-...
-
-> > +#ifndef _VERSAL_SYSMON_H_
-> > +#define _VERSAL_SYSMON_H_
-> > +
-> > +#include <linux/bits.h>
-> > +#include <linux/mutex.h>
-
-> > +#include <linux/types.h>
-
-types.h is not used here.
-
-> > +struct device;
-
-> > +struct iio_dev;
-
-Neither this forward declaration.
-
-> > +struct regmap;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Krzysztof
