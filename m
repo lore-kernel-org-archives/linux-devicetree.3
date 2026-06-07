@@ -1,164 +1,373 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D72AF00
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 01:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385444071DA;
+	Sun,  7 Jun 2026 03:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780794205; cv=none; b=nPs9ICRRa6vAGytNuiLCkyo+bdC7pirpCFpfSqSb7i38iHrJx7CDcBD/bcZqjHL/DB9B9aJJAzWndjE2VF6NfF3ptZGpBuSZ0PIeMNjKx5K4QDEfk/bAxJ8qzwLKc/i/loHI3gL8+XtBFLqFAW6Jc2jWHOZcnQ2gSCBKbDpTKKU=
+	t=1780803284; cv=none; b=RkC7LN3jrqYeunax1c3S2dgkNAB1wefVUR4Lk2w9IIoLiziDHk+u8gSBgrn0UmxdJ/aAhOVlsTvKCiSpinSEJrJcjBRgGJATtV7CC79hASoceZKyXgbe3NEwExzOjdOAokYbnqTUdnA8vcU+/DOfocT99NsaTkPItm+l/aZ8AK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780794205; c=relaxed/simple;
-	bh=V7tezCKTEwZpa11y/H0dMbg03qX0QXGP1XKis3C+aNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P3fF+xl+3s3Hltcj4yckYxLwI+bxuki8iBhtla+yCZQrugnuQpS2HAufzqAFckiHZ+7CP8D9aeNF3HKUXixt12Pfv38K80h4QkfMxFK1Cko6E+odN0favAwN4ZKZKhjavYPvEGrntgeasKhZS1xswJBkqUXW4uzpdpUzn1G+yFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=JfGqC/ws; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
+	s=arc-20240116; t=1780803284; c=relaxed/simple;
+	bh=m9+EXGQ2189+pWi7+qm/GPNsrwU0aGu5PWmyLqwSDHM=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=drsT3xd5Bw+fa0uXgtZmSQS9BwZRkbqA7wRmK5OU644jletlx2360JyflM8URm+VcIY2y4yRVpMs5mce6KheWTcFbcbACbC6uI1arVXf8Mj70JI2VdnW9y/led9TDo8o0N9ThrrvMQlP2N0l7Achd+7MhsVu5cDPqUO51UqzhDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dGDahu2H; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="JfGqC/ws"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6912f4acca4so2397843a12.1
-        for <devicetree@vger.kernel.org>; Sat, 06 Jun 2026 18:03:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pardini.net; s=google; t=1780794202; x=1781399002; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HqAMDji/Y/ZfDPdozsCR+NdaIZJxhg+V9OuE8Iuwqx0=;
-        b=JfGqC/wsx5Hqql7fs+BsCvQYlBZMhQ0dLHiNBps2c+/LrK92g8nsLvEO0IHFPMg3dl
-         59rqd5zwKfJynEIOqQFO87Whd81MdW4B1AqcNrw1zTcQxCX0ryjokLydJ2NkQGSN/D9w
-         +0bcYW8ZP87M6mwGVPDH33S/MLvXjWIlKDlUVluH00EihswRPr12/X/S2403LNPK8cXl
-         F59owFAS38NlUIWp88lfczEned9edLNMan3RYy6IrHWWLiCsN4lE5a9ytuqITbjgxMnE
-         6qPM+E9sZbcRJHc2qTFtZxF+LIfQMdGPORmp4lT6Szikhr50To75B56qH/Hsa4YYu7Sh
-         81SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780794202; x=1781399002;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HqAMDji/Y/ZfDPdozsCR+NdaIZJxhg+V9OuE8Iuwqx0=;
-        b=s+tiVGoKlUItdVPcj+FqSJ9Y1XccdYA7fpFwNZP179oKVBCS58FzqR9yHymUHtUGAx
-         5JchL9Te5rI/0a9MNtgx1p5bfUfRGqexrCoH8CR7qwlh7q7U6mGzpyDY5n0blwn9Qa7t
-         L09ZQzpjXoUcRmS1O6iEL3jyrVFeqHeIiq2asW8nuM8TMgAYXwT05oPvfgRxWotMGxvu
-         KZVRX0ZUpuyEWQra53OUyIzEfBhHyKZsDSJ/jlB1PqoCKpq8+D8dsnAlQfjnGTAAr2GT
-         6PWyThLMqFvPw+Xj+6qX6hwXgJ3krrAhrYrPtdrKuE/QTfqzJedVG641XbSgWv3yhPQX
-         IQgg==
-X-Forwarded-Encrypted: i=1; AFNElJ+Goom/nL07C2j09NyMyIzA85RTcOg6P6oUH3R9geKXGcv3hc9hiX8xs6aVgqF7hRYsjxy9CKoA+tKH@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgGh5EJw5/tTJeQYn6W6b0ReQuS19A+KGWbsUbWUmmTxhm5F7+
-	p9YPpxDPg6M5fjNvjydE6r4ycIgazpE2M8BotCuuynyI8f8uqToJhBi+rliWhkhvMw==
-X-Gm-Gg: Acq92OFKWuYw2am4Htv4yoXduuopIjnaT8Vtqtcl6Dg2yosZkrGKhT3pHkDjwuyKo3B
-	3GMI4n3H5KkcorZa4lMat9QzrfqlY0jnKJJfZXgyuLabqbo68NqDeho/cPASzVni5CwWH1AWk8j
-	bfc/D3x5k2EkOZyWJxkRJP2a4agF6ajGzZIGkqnu5TbBbD/ddbXpx/BHaF+3XwJt/aFH+/qirAt
-	xpV9RaoP2JQVuoI4Hk35XT/vLMuFUzofFOZKgdexycrXBL2afRgwpjAD/aZVGOSxLXVLgy9ltS0
-	T42mbkvTXdK+acc/x1pfHat8d+bjoqY0mmtVijrYmuleY6TmTY2y+O7tOyVIETaPosgDYG5ZWUn
-	ZtRnsVM6GoGcnKLiSBToBQs49dxdOAeY/wfC6i6K/bBxogv6vr3+m8DZ4EclEZknt0jIQXTM4eU
-	pQHGFlY5iRt/gz4HBO1Dqkka0D/CYXfV6MJ2ddjrKVBlehM4QvZlIRx7jg0JSGm/YBzLrd0x2fG
-	LvaLZvTg0SLllnTs+toGQdLuQ56kcmLwpGIzilTQC2IS3xkmf4lUPV11YkmdnlmqnfRbOn7Ks9s
-	HxTV
-X-Received: by 2002:a17:906:6a01:b0:bed:87c:b24e with SMTP id a640c23a62f3a-bf3721513damr453039466b.29.1780794201771;
-        Sat, 06 Jun 2026 18:03:21 -0700 (PDT)
-Received: from ?IPV6:2a02:a466:4d7a:0:9569:75b0:b281:a338? (2a02-a466-4d7a-0-9569-75b0-b281-a338.fixed6.kpn.net. [2a02:a466:4d7a:0:9569:75b0:b281:a338])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf054e0280asm654743666b.33.2026.06.06.18.03.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 06 Jun 2026 18:03:20 -0700 (PDT)
-Message-ID: <04ef65b1-e28f-42fd-b054-d1843205f67d@pardini.net>
-Date: Sun, 7 Jun 2026 03:03:19 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dGDahu2H"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:476d:c684:fe78:389f:7375])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1A163497;
+	Sun,  7 Jun 2026 05:34:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780803253;
+	bh=m9+EXGQ2189+pWi7+qm/GPNsrwU0aGu5PWmyLqwSDHM=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=dGDahu2HMw/0fAcImtYLNCHDT2Z6ppPFzo61XRXuRsCuvCcOR++//W/MK+s0ExztH
+	 GIp2a5GMBDsz4wdYgS8zIXUW/z3qmWmcZYyRV0CGn+gVe/MTa99Bzhqd/LLT+NA+sA
+	 syvHFdFr96xRQmWQfJLtqSjwGOU0ebaf7AC2GPM0=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: net: add Realtek r8169 family PCIe
- Ethernet
-To: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-0-8a8857b39daf@pardini.net>
- <20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-1-8a8857b39daf@pardini.net>
- <b7cc8eba-ff6e-417d-8e74-b3bb24e08a26@gmail.com>
- <26da1dfa-3408-4654-9046-36ed6d57059c@pardini.net>
- <667f64e0-2b3e-41bf-9c97-3562696d3af7@gmail.com>
-Content-Language: en-US
-From: Ricardo Pardini <ricardo@pardini.net>
-In-Reply-To: <667f64e0-2b3e-41bf-9c97-3562696d3af7@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <PN0P287MB1828B9AF2057CE964675318E8B1E2@PN0P287MB1828.INDP287.PROD.OUTLOOK.COM>
+References: <20260605-imx678-v4-0-58e57c67143d@ideasonboard.com> <20260605-imx678-v4-2-58e57c67143d@ideasonboard.com> <PN3P287MB1829593C2DF9AFF8F24A39AF8B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM> <178075217188.9570.14789474340505402551@freya> <PN3P287MB18292FBAEABB556C051434848B1E2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM> <178075974823.9570.15829300390679437100@freya> <PN0P287MB1828B9AF2057CE964675318E8B1E2@PN0P287MB1828.INDP287.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v4 2/2] media: i2c: imx678: Add driver for Sony IMX678
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Lachlan Michael <Lachlan.Michael@sony.com>, Ryuichi Tadano <Ryuichi.Tadano@sony.com>, Kengo Hayasaka <Kengo.Hayasaka@sony.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Tarang Raval <tarang.raval@siliconsignals.io>
+Date: Sun, 07 Jun 2026 09:04:34 +0530
+Message-ID: <178080327481.9570.13702566645856478041@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On 06/06/2026 22:50, Heiner Kallweit wrote:
-> On 06.06.2026 07:03, Ricardo Pardini wrote:
->> On 05/06/2026 17:48, Heiner Kallweit wrote:
->>> On 05.06.2026 13:49, Ricardo Pardini via B4 Relay wrote:
->>>> From: Ricardo Pardini <ricardo@pardini.net>
->>>>
->>>> Add a binding for fixed/soldered Realtek PCIe Ethernet controllers
->>>> driven by the r8169 driver (RTL8125/8126/8127/8168 and variants).
->>>>
->>>> The "pciVVVV,DDDD" compatibles are the Open Firmware PCI Bus Binding
->>>> spelling, auto-derived from PCI-SIG vendor/device IDs, but they still
->>>> need a binding when used in a board DT - analogous to "usbVVVV,PPPP"
->>>> compatibles documented in their own bindings (e.g. microchip,lan95xx)
->>>> so board DTs attaching properties (fixed MAC, nvmem cell, ...) to
->>>> these PCI function nodes can be validated.
->>>
->>> The of node seems to be created by of_pci_make_dev_node(). But this
->>> function is called for bridges only in pci_bus_add_device().
->>> So where is the node created in your case? Did you test node creation?
->>
->> Seems to me of_pci_make_dev_node() is not at play here - that's the DT-synthesis path. For nodes already present in DT, the of_node is bound earlier, during pci_setup_device() -> pci_set_of_node() -> of_pci_find_child_device() via the 5-cell reg.
->>
-> I see, thanks. If the matching is done based on the reg property, then I just wonder
-> if and where the compatible string is used. Or would the logic also work with a
-> random compatible string?
+Quoting Tarang Raval (2026-06-06 21:51:38)
+> > Quoting Tarang Raval (2026-06-06 20:15:48)
+> > > Hi Jai.
+> > >
+> > > > Quoting Tarang Raval (2026-06-06 13:47:36)
+> > > > > Hi Jai,
+> > > > >
+> > > > > Sorry, in my first review I missed a few minor issues listed belo=
+w.
+> > > > >
+> > > >
+> > > > No worries, thank you for the reviews.
+> > > >
+> > > > > I also noticed one major issue in the driver. Please check the co=
+mments below.
+> > > > >
+> > > > > Other than that, the driver looks perfect.
+> > > > >
+> > > > > > Add a V4L2 subdev driver for the Sony IMX678 image sensor.
+> > > > > >
+> > > > > > IMX678 is a diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type
+> > > > > > solid-state image sensor with a square pixel array and 8.40 M e=
+ffective
+> > > > > > pixels.
+> > > > > >
+> > > > > > The following features are supported by this driver:
+> > > > > > - MIPI RAW12 output
+> > > > > > - Monochrome and Color (Bayer filter) variants
+> > > > > > - Multiple input clock frequencies
+> > > > > > - Multiple link frequencies
+> > > > > > - VBLANK and HBLANK control for variable framerate
+> > > > > > - VFLIP and HFLIP control for flipping readout
+> > > > > > - Exposure and analogue gain control
+> > > > > > - Test pattern control
+> > > > > >
+> > > > > > Following features are not currently supported:
+> > > > > > - MIPI RAW10 output
+> > > > > > - Pixel-perfect crop reporting, accounting for the shift-by-1 w=
+hen
+> > > > > >   doing HFLIP/VFLIP where the sensor maintains RGGB bayer order=
+ing
+> > > > > >
+> > > > > > Along with the ones below which depend on the new raw sensor mo=
+del:
+> > > > > > - Embedded data stream
+> > > > > > - Freely configurable cropping
+> > > > > > - Increased framerate when cropping
+> > > > > > - 2x2 binning support
+> > > > > >
+> > > > > > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> > > > >
+> > > > > ...
+> > > > >
+> > > > > > +static const u32 codes_bayer[] =3D {
+> > > > > > +       MEDIA_BUS_FMT_SRGGB12_1X12,
+> > > > > > +};
+> > > > > > +
+> > > > > > +static const u32 codes_monochrome[] =3D {
+> > > > > > +       MEDIA_BUS_FMT_Y12_1X12,   /* 12-bit mono */
+> > > > >
+> > > > > Above comment adds no useful information and can be dropped.
+> > > > >
+> > > > > > +};
+> > > > > > +
+> > > > > > +static const struct imx678_model_info imx678_aaqr_info =3D {
+> > > > > > +       .type =3D IMX678_COLOR,
+> > > > > > +       .codes =3D codes_bayer,
+> > > > > > +       .num_codes =3D ARRAY_SIZE(codes_bayer),
+> > > > > > +};
+> > > > > > +
+> > > > > > +static const struct imx678_model_info imx678_aamr_info =3D {
+> > > > > > +       .type =3D IMX678_MONOCHROME,
+> > > > > > +       .codes =3D codes_monochrome,
+> > > > > > +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
+> > > > > > +};
+> > > > > > +
+> > > > > > +static const char * const imx678_supply_name[] =3D {
+> > > > > > +       "avdd",  /* Analog (3.3V) supply */
+> > > > > > +       "dvdd",  /* Digital Core (1.1V) supply */
+> > > > > > +       "ovdd",  /* IF (1.8V) supply */
+> > > > > > +};
+> > > > > > +
+> > > > > > +struct imx678 {
+> > > > > > +       struct v4l2_subdev sd;
+> > > > > > +       struct media_pad pad;
+> > > > > > +       struct regmap *cci;
+> > > > > > +
+> > > > > > +       const struct imx678_model_info *info;
+> > > > > > +
+> > > > > > +       struct clk *xclk;
+> > > > > > +       u32 xclk_freq;
+> > > > > > +
+> > > > > > +       /* chosen INCK_SEL register value */
+> > > > > > +       u8  inck_sel_val;
+> > > > > > +
+> > > > > > +       /* Link configurations */
+> > > > > > +       enum imx678_lanemode lane_mode;
+> > > > > > +       unsigned long link_freq_bitmap;
+> > > > > > +
+> > > > > > +       struct gpio_desc *reset_gpio;
+> > > > > > +       struct regulator_bulk_data supplies[ARRAY_SIZE(imx678_s=
+upply_name)];
+> > > > > > +
+> > > > > > +       struct v4l2_ctrl_handler ctrl_handler;
+> > > > > > +
+> > > > > > +       /* V4L2 Controls */
+> > > > > > +       struct v4l2_ctrl *exposure;
+> > > > > > +       struct v4l2_ctrl *vblank;
+> > > > > > +       struct v4l2_ctrl *hblank;
+> > > > > > +
+> > > > > > +       /* Tracking sensor VMAX/HMAX value */
+> > > > > > +       u32 vmax;
+> > > > > > +};
+> > > > > > +
+> > > > > > +static inline struct imx678 *to_imx678(struct v4l2_subdev *_sd)
+> > > > > > +{
+> > > > > > +       return container_of(_sd, struct imx678, sd);
+> > > > >
+> > > > > Use container_of_const.
+> > > > >
+> > > >
+> > > > Why is that necessary?
+> > >
+> > > container_of_const() preserves const and avoids accidentally casting =
+it away.
+> > > For non-const pointers it behaves the same as container_of(), while f=
+or const
+> > > pointers it preserves constness.
+> > >
+> > > >
+> > > > > > +}
+> > > > >
+> > > > > ...
+> > > > >
+> > > > > > +static int imx678_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > > > > +{
+> > > > > > +       struct imx678 *imx678 =3D container_of(ctrl->handler, s=
+truct imx678,
+> > > > > > +                                            ctrl_handler);
+> > > > >
+> > > > > Use container_of_const.
+> > > > >
+> > > > > > +       struct i2c_client *client =3D v4l2_get_subdevdata(&imx6=
+78->sd);
+> > > > > > +       const struct v4l2_mbus_framefmt *format;
+> > > > > > +       struct v4l2_subdev_state *state;
+> > > > > > +       int rpm_in_use;
+> > > > > > +       int ret =3D 0;
+> > > > > > +
+> > > > > > +       state =3D v4l2_subdev_get_locked_active_state(&imx678->=
+sd);
+> > > > > > +       format =3D v4l2_subdev_state_get_format(state, IMX678_S=
+OURCE_PAD);
+> > > > > > +
+> > > > > > +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> > > > > > +               u32 current_exposure =3D imx678->exposure->cur.=
+val;
+> > > > > > +
+> > > > > > +               imx678->vmax =3D format->height + ctrl->val;
+> > > > >
+> > > > > ........(1)
+> > > > >
+> > > > > > +
+> > > > > > +               current_exposure =3D clamp_t(u32, current_expos=
+ure,
+> > > > > > +                                          IMX678_EXPOSURE_MIN,
+> > > > > > +                                          imx678->vmax - IMX67=
+8_SHR_MIN);
+> > > > > > +               ret =3D __v4l2_ctrl_modify_range(imx678->exposu=
+re,
+> > > > > > +                                              IMX678_EXPOSURE_=
+MIN,
+> > > > > > +                                              imx678->vmax - I=
+MX678_SHR_MIN,
+> > > > > > +                                              1, current_expos=
+ure);
+> > > > > > +               if (ret)
+> > > > > > +                       return ret;
+> > > > > > +       }
+> > > > > > +
+> > > > > > +       /*
+> > > > > > +        * Applying V4L2 control value only happens when power =
+is up for
+> > > > > > +        * streaming
+> > > > > > +        */
+> > > > > > +       rpm_in_use =3D pm_runtime_get_if_in_use(&client->dev);
+> > > > > > +       if (!rpm_in_use)
+> > > > > > +               return 0;
+> > > > >
+> > > > > As in the last revision, as I suggested before, I will again sugg=
+est using
+> > > > > pm_runtime_get_if_active() here instead of pm_runtime_get_if_in_u=
+se().
+> > > > >
+> > > > > This does not seem to align with the comment above:
+> > > > > Applying V4L2 control value only happens when power is up for str=
+eaming
+> > > > >
+> > > > > "Power is up" implies that the device is in the runtime PM ACTIVE=
+ state,
+> > > > > rather than simply having a non-zero usage count.
+> > > > >
+> > > >
+> > > > I agree with the comment being slightly misleading, but same as the=
+ last
+> > > > revision, I still don't fully buy your argument here :-)
+> > > >
+> > > > In the case you talk about, where PM is ACTIVE but usage count =3D=
+=3D 0, we
+> > > > anyway know that the count will only increase when .enable_streams =
+is
+> > > > called, at which point the driver will anyway write *all* the regis=
+ters
+> > > > including calling set_ctrl for each control with the cached values.
+> > > >
+> > > > So why should we do (redundant) writes here?
+> > >
+> > > I think this is mostly a difference in expectations.
+> > >
+> > > My view is that if the device is runtime PM ACTIVE, the hardware is a=
+ccessible
+> > > and register writes can be performed. In that case, I would expect a =
+control
+> > > change to be applied to hardware immediately.
+> > >
+> > > With pm_runtime_get_if_in_use(), there is a state where the device is=
+ still
+> > > ACTIVE but control changes are only cached in software and not writte=
+n to
+> > > hardware until streaming starts again. While the value is not lost, I=
+ would
+> > > expect hardware and control state to remain synchronized whenever the=
+ device
+> > > is already active.
+> > >
+> > > So I understand the cached-control argument, but if the hardware is a=
+ccessible,
+> > > I would prefer applying the control immediately rather than deferring=
+ it.
+> > >
+> >
+> > Why does it matter if some sensor register doesn't match the value in t=
+he
+> > cached controls for a brief period after streaming stopped and sensor is
+> > powered off? We don't have autosuspend timer here like other drivers.
+> >
+> > I'll update the comment in v5 for future readers/developers in case that
+> > changes.
+>=20
+>=20
+> Fair enough for me.
+>=20
+>=20
+> > > > > I also don't understand why we need to be strict here and require=
+ the
+> > > > > runtime PM usage count to be greater than zero. What matters befo=
+re accessing
+> > > > > the hardware registers is that the device is powered and accessib=
+le, not
+> > > > > whether there is an active user holding a runtime PM reference.
+> > > > >
+> > > > > Anyway, rpm_in_use does not seem necessary here. The check could =
+be simplified to:
+> > > > > if (pm_runtime_get_if_active(&client->dev) <=3D 0)
+> > > >
+> > > > The rpm_in_use value is used below in this function to ensure we do=
+n't do
+> > > > pm_runtime_put() in case of a negative retval. This is not really h=
+andled
+> > > > by most drivers today, but I wanted to fix it here given recent dis=
+cussion
+> > > > [1] and annoying Sashiko reports.
+> > > >
+> > > > [1]: https://lore.kernel.org/all/ahyh0ZlwlZqr7VNa%40kekkonen.locald=
+omain
+> > >
+> > > Thats my understanding as well. With:
+> > > if (pm_runtime_get_if_active(&client->dev) <=3D 0)
+> > >         return 0;
+> > >
+> > > both the 0 and negative return paths exit immediately, so neither the=
+ switch
+> > > statement nor pm_runtime_put() can be reached.
+> >
+> > If we do that no controls will be written to the hardware if userspace =
+has
+> > disabled runtime.
+>=20
+> Do you mean the case where userspace disables runtime PM via sysfs while =
 
-Thanks, Heiner. It seems the compatible is not involved in the kernel 
-runtime matching at all (and u-boot simply patches DT via the ethernetN 
-alias).
+> streaming is still running?
+>=20
+> In that scenario, shouldn't the device usage count remain non-zero due to=
+ the
+> active stream?
 
-I guess DT-wise, specifying compatible (although not strictly required) 
-makes sense since DT describes the hardware; "there's an RTL8125 at 
-0x410000" sounds better than "there's a PCIe device that needs a MAC 
-address at 0x410000", and having the binding opens up usages of 
-non-generic properties, although that would be future-looking.
+Ah no, I meant if userspace disabled it through sysfs while streaming is
+not running. But I checked on my board and it always returns 1 in that
+case. There is no way to trigger a pm_runtime_disable() from userspace, all
+you can do is force the device to always be on.
 
-At this stage I've to ask the devicetree folks: should I simply drop the 
-compatible from the DT patches (and the whole binding)? dtbs_check 
-passes without it, and it also avoids the checkpatch.pl 
-vendor-prefix-undocumented warning. There's precedent: at least on some 
-Apple Silicon (2022, t600x-j375) and NVIDIA (2019, tegra210-p3450-0000). 
-On Rockchip there's quite a few (10?) boards using the same RTL chip we 
-might want to describe.
+So it only returns -EINVAL if CONFIG_PM=3Dn, in which case we should still
+write registers. Thus I don't agree with:
 
-> [...]
->>> This list reflects just some of the PCI id's handled by r8169.
->>> Any specific reason for this exact selection?
->> I went for "chips likely to be soldered down on an SBC", but that was indeed speculative.
->>
->> I guess I should trim to pci10ec,8125, which is all this series describes? (further IDs can be added by the patches that introduce boards using them)
->>
-> Yes, I'd prefer this approach. Considering that RTL8168 has been supported for
-> about 20yrs now, your use case seems to be exotic. Otherwise I would have
-> such a patch much earlier.
-The Tegra Jetson Nano has an RTL8111 described in DT for this exact use 
-case (without compatible) for about 7 years now -- I just couldn't find 
-it until now.
+    if (pm_runtime_get_if_active(&client->dev) <=3D 0)
+            return 0;
 
-I'll wait for people to chime in, and later send a v4 either dropping 
-the binding, or trimming it to only the 8125. Sashiko seems to have nice 
-suggestions [1] on the YAML too, in case we decide to keep the binding.
+On testing the CONFIG_PM=3Dn case though, I see that pm_runtime_put will
+always return -ENOSYS due to being stubbed out... so the original code flow
+was correct:
 
---
-Regards,
-Ricardo
+    if (!pm_runtime_get_if_active(&client->dev))
+            return 0;
 
-[1] 
-https://sashiko.dev/#/patchset/20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-0-8a8857b39daf%40pardini.net
+    /* write registers */
 
+    /* unconditional put */
+    pm_runtime_put(&client->dev)
+
+I'll switch back to it in next revision.
+
+>=20
+> Best Regards,
+> Tarang
+
+Thanks,
+Jai
