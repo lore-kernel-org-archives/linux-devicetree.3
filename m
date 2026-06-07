@@ -1,167 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB7E30C15B;
-	Sun,  7 Jun 2026 07:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F94E2874E6;
+	Sun,  7 Jun 2026 07:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780818667; cv=none; b=cTnkcVTUKFZ1cMtcOcuT8YSENpxnqC5cbTnI79L+9TGtDmhG0AXZHxkE21XV0a+vi/dI8tPpTLIswcPA0Wpxmg/dvATYiuVpXXN5ZaQAM/VSKT+jW++1FEbLSllv55Xe1aAGfixhH+3s41tku5SSLFlLp41gqgEBGe4u+mXzDlQ=
+	t=1780818954; cv=none; b=Rs3dzw8cAKiE0pmwVVzlcpH8qafUrTuDlhKaTk2ALWJZ8rg5paMvhAXoQ6pyBO5VJyxg7QkqH6R2tLgryP21XzvAGGHdKemyJ9Ox59fGnKHX0eqrtKhxe0ckF4nL17MuBNi6gOsAEEDF6EsC3iTmc15qyJ1+EsAsN2fpLvUX1y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780818667; c=relaxed/simple;
-	bh=3EoaFqFWLkw78nDWAjaX4Kvn0ZR7t+FdtaPh+P+Fm3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iU2OLFA21HQCsE5alUJnXmksYPI8oe7kcYYdnMaDVPGNwjF2jamQls4R4UuGBSQtBxhqk0QukU8Ckopk4pSM/PuzGfkhtdFQuOyM2Ye+7nVyHrGQtzB8lXapm4QpeSzNu4yJQodX60XVU9xD+d3kQewhldb7Rc0fQlj9hgLUWho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d0LfopZ8; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780818954; c=relaxed/simple;
+	bh=xTp7pcxi5qODLtaSM1Ae3hr+e0GnjPFJ9Z15wNPnCXs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j/wgzjahz91tPPuXk8jvmT/gOBF3kBSs1Z/Qwct3qrc76J76YkrRVb+8Dd+kx7lc5QDUiEzvCoEYHj23lMVGg1cSn0u22KwQw8vzet/rHmmJiYWthWtTwdGQUBbgpg9RSP7De0oEQPYc1AGh7eSfKzTWMDL79fPGFrD2xxBWtdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRZUjqa+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d0LfopZ8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780818665; x=1812354665;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3EoaFqFWLkw78nDWAjaX4Kvn0ZR7t+FdtaPh+P+Fm3k=;
-  b=d0LfopZ84DR6KFg0HkjaPfcaSoX9CQUTtHnp9BDnhv1gnohj+5hJ1Jxf
-   XyTC8tENT5VRbYJFpALPwyWs8aeRcL/Vrs8TMyGQY8lQCIyVFPXOhgKeJ
-   Aqt/BucScMV+8xDw4oS6YCuDQW45iv5UeJjGPUb9vL/YHGDOsK2BCSkpU
-   t4elOFnI98KrK48BgQFfpuk7PY72iJs7IuCxIH689pKyU70QITcRvEzRb
-   AY4HH4R68mZhVVKmtJ7/pRkmvT0nPYRbQVnAZQnEChQuANMbXdjlLkpXH
-   EHI+pCgJd5ATqrM06AaQ5+Plh0jYmWbF5zHRDNW7ZEJIaX4oQljI9qXlp
-   w==;
-X-CSE-ConnectionGUID: iV9pMWxqRGOCUBDt+DMQ1w==
-X-CSE-MsgGUID: oyvshZ9ZTGKMsWTd6GoFLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11809"; a="85471947"
-X-IronPort-AV: E=Sophos;i="6.24,192,1774335600"; 
-   d="scan'208";a="85471947"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 00:51:05 -0700
-X-CSE-ConnectionGUID: jcPKl7ctSRC4bKawQIij6Q==
-X-CSE-MsgGUID: ybz6hVnlRmeut1xA05yncA==
-X-ExtLoop1: 1
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.86])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 00:51:01 -0700
-Date: Sun, 7 Jun 2026 10:50:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salih Erim <salih.erim@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Salih Erim <erimsalih@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 5/5] iio: adc: versal-sysmon: add oversampling support
-Message-ID: <aiUi4jRd2C8kczkt@ashevche-desk.local>
-References: <20260606051707.535281-1-salih.erim@amd.com>
- <20260606051707.535281-6-salih.erim@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRZUjqa+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE45D1F00893;
+	Sun,  7 Jun 2026 07:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780818952;
+	bh=j0LtVxfTVWveZDlUyidpqgCzT8M4LgWarn5G6kwH2Rw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eRZUjqa+UHsoreNNlqaZD/x+el8UYYBRKJPy9jKmGaDjTEUVgcgdibAiVpzLXRSxD
+	 UR/qlYfshyo+MzRKZS9bGZuIF6rXFU+rJqQMC2KPrdAS8f7yIbCI/yQtzWmCZYQQXR
+	 UU67h05rLghihUcyB+py2GIrqxRx/Dj8fZVZWNM/WTGCE+qov1v1Ulz64XeRMgbcuG
+	 kSYlDuPheO9NaezxzaB8jO7UkA2fyp85Fv71xo3WeG6IKLVzZFziODZdTkWyTHrlMJ
+	 UcLhGTnx4Yrx8ivREtokCwx2It/rQNcNLJ79VhR6BcsXj/00Q6ZYjJkE3rutw0bB7l
+	 pE+yDnevwwYtA==
+Message-ID: <06351149-6fc6-4fdd-86ac-90bf8b4c3933@kernel.org>
+Date: Sun, 7 Jun 2026 09:55:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260606051707.535281-6-salih.erim@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] soc: qcom: socinfo: Add CQ8725S SoC ID
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Teguh Sobirin <teguh@sobir.in>
+References: <20260605-cq8725s-soc-id-v1-0-bb1ef93de649@gmail.com>
+ <0b3a7b64-252e-4d86-8561-c5f16808054c@kernel.org>
+ <CALHNRZ_2gC_WBQiz+4gTZOypvyCtwv6j4MnN6qJ1KoBZ=0LA5w@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CALHNRZ_2gC_WBQiz+4gTZOypvyCtwv6j4MnN6qJ1KoBZ=0LA5w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jun 06, 2026 at 06:17:07AM +0100, Salih Erim wrote:
-> Add support for reading and writing the oversampling ratio through
-> the IIO oversampling_ratio attribute. The hardware supports averaging
-> 2, 4, 8, or 16 samples, plus a ratio of 1 (no averaging).
+On 06/06/2026 22:19, Aaron Kling wrote:
+> On Sat, Jun 6, 2026 at 2:48 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 05/06/2026 23:49, Aaron Kling via B4 Relay wrote:
+>>> Add the ID for the CQ8725S which is a variant of SM8750.
+>>>
+>>> ---
+>>> Teguh Sobirin (2):
+>>>       dt-bindings: arm: qcom,ids: Add SoC ID for CQ8725S
+>>>       soc: qcom: socinfo: Add CQ8725S SoC ID
+>>
+>> Where is DTS using this? Or anything? We do not add SoC IDs alone, it's
+>> pointless for a DT platform.
 > 
-> Temperature and supply channels share oversampling configuration at
-> the type level (all temperature channels share one ratio, all supply
-> channels share another), exposed through info_mask_shared_by_type.
-> 
-> The hardware encoding uses sample_count / 2 in a 4-bit field within
-> the CONFIG register. Per-channel averaging enable registers must also
-
-...
-
-> +static int sysmon_set_avg_enable(struct sysmon *sysmon,
-> +				 u32 base, u32 count, u32 val)
-> +{
-> +	int ret;
-> +
-> +	for (unsigned int i = 0; i < count; i++) {
-> +		ret = regmap_write(sysmon->regmap,
-> +				   base + (i * SYSMON_REG_STRIDE), val);
-
-Unneeded parentheses.
-
-> +		if (ret)
-> +			return ret;
-> +	}
-
-Also you can use temporary for regmap
-
-	struct regmap *map = sysmon->regmap;
-	int ret;
-
-	for (unsigned int i = 0; i < count; i++) {
-		ret = regmap_write(map, base + i * SYSMON_REG_STRIDE, val);
-		if (ret)
-			return ret;
-	}
-
-> +	return 0;
-> +}
-
-And use this trick in other places where appropriate, it makes code easier
-to read.
-
-...
-
-> +static int sysmon_osr_write(struct sysmon *sysmon, int channel_type, int val)
-> +{
-> +	/*
-> +	 * HW register encoding is sample_count / 2:
-> +	 * 0=none, 1=2x, 2=4x, 4=8x, 8=16x (not log2-based).
-> +	 */
-> +	int hw_val = val >> 1;
-> +	int ret;
-> +
-> +	if (channel_type == IIO_TEMP) {
-> +		ret = regmap_update_bits(sysmon->regmap, SYSMON_CONFIG,
-> +					SYSMON_CONFIG_TEMP_SAT_OSR,
-> +					FIELD_PREP(SYSMON_CONFIG_TEMP_SAT_OSR,
-> +						   hw_val));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return sysmon_set_avg_enable(sysmon, SYSMON_TEMP_EN_AVG_BASE,
-> +					     SYSMON_TEMP_EN_AVG_COUNT,
-> +					     hw_val ? ~0U : 0);
-
-> +	}
-> +
-> +	if (channel_type == IIO_VOLTAGE) {
-
-Can channel_type be both TEMP and VOLTAGE here? No. Why do we check it twice?
-
-> +		ret = regmap_update_bits(sysmon->regmap, SYSMON_CONFIG,
-> +					SYSMON_CONFIG_SUPPLY_OSR,
-> +					FIELD_PREP(SYSMON_CONFIG_SUPPLY_OSR,
-> +						   hw_val));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return sysmon_set_avg_enable(sysmon, SYSMON_SUPPLY_EN_AVG_BASE,
-> +					     SYSMON_SUPPLY_EN_AVG_COUNT,
-> +					     hw_val ? ~0U : 0);
-> +	}
-> +	return -EINVAL;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
+> The cq8725s device I am working on is the AYN Odin 3. The kernel dt is
+> not ready for submission at this time. I am trying to get all the
+> prerequisites submitted early though, to make the later submissions
+> smoother. And other id's in exactly the same situation as this one,
+> such as sm7750 [0], were recently reviewed by you and merged. What
+> makes this any different?
 
 
+That one should not go in either in such case. This belongs to the
+patchset with DTS. This is integral part of that patchset, not a
+dependency, thus upstreaming it with such mindset (get dependencies
+earlier) is not applicable. It is not a dependency.
+
+Best regards,
+Krzysztof
