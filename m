@@ -1,165 +1,235 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A3D318140
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 19:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660022D0C7B
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 19:42:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780860329; cv=none; b=PhGJjJprYVQgp2Z59NLzSPTzU9i8eN4fbC1BrJpQkSN2mshud3zKpaNW0+Qeh++Rsmp3K/N96Xp+9uN/CpP6Z1FXHjQ1XwgEIto4KbsANw/d/tGEuNkaTXG8W2yv5Vu8toCpPJyJKYmw65mJ//yXWRBcfSdKDnUgZrGAZrk1NL0=
+	t=1780861352; cv=none; b=R42TO7GEBGh3Gg5Lmm5HATuXSExWe1OvrDL9zBuY0sNXzwREbkVQ0hxlQnjnPfksHHUWn7vgZEsrlZ3qx2X5TLQoV2OA7s+dQTHLFtvviDjj8boCjPaS8kzQZe6lqxrq59ClYKSnWcMKPAGijREGRa+SQhneKj0CTOyZEN1fyFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780860329; c=relaxed/simple;
-	bh=fk/2zasvFxHfI6QPVrYH25t/RG6QU83oAjl0mh2nSLI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=m52pJrfL2TfL1/fdfT3MPhKIC72fcRFvY93AT1aP+UG+vg0afwSy2mYy1lW/A0YaPSkJvMLKakZ0Xudaee2sRHP3sM49crseaQb+ZS7cU0frONd/xbNTX36WUpxUdZcf7ucHHn1gikLD1O2ruzVcfZm0jmo8W+6+NISKT13NXaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=IxGLliBJ; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1780861352; c=relaxed/simple;
+	bh=ES2DCtIMXp6EM4W7ecLww5anWKNLLTynQTTGt1Rfa9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mCFctMFitR3IvGTIjNAyyVDstZ6x27Z4z4QLT9ZJdLdYDcs36m07UFbN/8j+KAJRyTfYjZQAAmYcJHCBqHe9RP9FzPiQL2vHb3oD3D45XAm5naD/jufndo2+rwypmLCrs5jP/TGMVSWOXl/+0rDNG6RT6dmS0G5W1Vq6hv4jstI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mf3C3vIU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B2px/nMD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="IxGLliBJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1780860321;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fk/2zasvFxHfI6QPVrYH25t/RG6QU83oAjl0mh2nSLI=;
-	b=IxGLliBJYhbow9YRnK/Y4uwjjE+AHsXsogehqsOcp2MM3YjP5ZGICcUJWSs7tQ8V1CjFdU
-	Xbm66Gv9wqcs3nERfpCeHRPcdzvXHOAmzEP9FqDtsDL6BeGGY1gR+kSjvLuEPoLThDE2gI
-	QBSfCWn8QMfUVaDQnI7SyaNlkLbNfqvDnj7J8+dWtvZcZGoft3BjgT64l8PsDklbAj+mJM
-	4xUrT2PKHyBj7vcGWZ5xtVfPC+vHyUYsfzCguqaSn6XhR946Wdc1RgJi7SR9euCbDhmEF8
-	rKFT4aQLv7bfRk6W+ZLHTVD0MBDcDtaLFMPguMbZq+bkimZwQq9GjQhF1ymRmw==
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010070.outbound.protection.outlook.com [52.101.56.70])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-56-IKby01FGPjuM4z3wWvVDLg-1; Sun,
- 07 Jun 2026 12:25:15 -0700
-X-MC-Unique: IKby01FGPjuM4z3wWvVDLg-1
-X-Mimecast-MFC-AGG-ID: IKby01FGPjuM4z3wWvVDLg_1780860310
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
- by IA3PR02MB10698.namprd02.prod.outlook.com (2603:10b6:208:50c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.11; Sun, 7 Jun 2026
- 19:25:07 +0000
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0092.011; Sun, 7 Jun 2026
- 19:25:07 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Randy Dunlap <rdunlap@infradead.org>, Andrew Lunn <andrew@lunn.ch>,
-	Piergiorgio Beruto <Pier.Beruto@onsemi.com>, Heiner Kallweit
-	<hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>, Richard Cochran
-	<richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
- Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, Jerry Ray
-	<jerry.ray@microchip.com>
-Subject: RE: [PATCH net-next v4 13/16] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Thread-Topic: [PATCH net-next v4 13/16] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Thread-Index: AQHc9XdYGYcKsDzw8Ea3BGxNoVFNILYymcMAgADhaQA=
-Date: Sun, 7 Jun 2026 19:25:07 +0000
-Message-ID: <CY8PR02MB924965A7F4990D6684920CBA831F2@CY8PR02MB9249.namprd02.prod.outlook.com>
-References: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
- <20260605-s2500-mac-phy-support-v4-13-de0fbc13c6d8@onsemi.com>
- <7b100b6a-40c5-407d-8de0-7b1edb82a16c@infradead.org>
-In-Reply-To: <7b100b6a-40c5-407d-8de0-7b1edb82a16c@infradead.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|IA3PR02MB10698:EE_
-x-ms-office365-filtering-correlation-id: 6664fd3a-6e1f-4f8f-8ab9-08dec4ca7bc9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|7416014|1800799024|921020|38070700021|56012099006|11063799006|4143699003|22082099003|18002099003
-x-microsoft-antispam-message-info: beBSUQ+rTFRjRYGFQ4aYIlvPofApWcuZgX6B/CFcUUl0I3eOWJlZQMdNp+oNvPwdym9U/STtMwoUS6mMc8EkWC9ripTAzvpx17Tc+lrsLvbA77CIwq2DfGCravWF6zcPh9ShdZs0AwIGHq3hOcnMQNGa0SaGe5sjPzjxg6yFvycCQmuT+TIbJSbckUe0AsXmayNpjyYT1cgA+Zgf7dNwez+0rn/oK5KgjlD+nbmHaks0pMiMyntijscjb+O236NhRDF5toF8qkrqRsmfUKYjPGe+we41UT+Z5oeRZ7R5Az0DaPHDGYLCVIVrhVzpWB8ArSCKW/87JosiSZ/IPPvd+fnHIHs0VGlTqP6mQ3qTlcVHRuweMIcFU0bF8Mg8Cpux7BvgwuPf3gHYtw6eHI6pp0P5vIEpuvqcE/4+x1zATUl9u4ODEG1dAG92BVHOsYOnyK1PNhcTMM4/4pYWgtQHDPES/ja7TGTAaViJYhFh7OxlIPR25IV0LUsB6HWI+7H/N5N00pjb+uIhjG3MVkkuy0kzmDYpcrETkbQUy1dUc5o8GVKyCKMUXIblI5VAc5kdfNwtXTtafsDJIV/Y0O8HECGN1OX3XnAhQyq5OtrgiyA5RCL4ipPRbKU3DDfFsG8RPcJL8jVxisXD8pS+DBqhEr3E6QTm6AkCA/QH/pKSbOdu9hMqx9xSxBhuzSP339GfHsVfMR7h+pETPdo8j2iXM5Oxc0pZtXWB19bJd74y1Q0gsCYlIsJ2JjBOMtM4OUpiJQlKNMgMuvwoxVehH3uJTA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024)(921020)(38070700021)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZGlXN3VzWlBaZjcxelhLNERaWWRWVkhRTjF3SXltd1p0NC80V0FzY2swVWpF?=
- =?utf-8?B?Tzh0VzljTElkNlpvaENaM3RFQ0JTM2tjU3J0dHV6aS9GMVpyckVJVW4yVjUv?=
- =?utf-8?B?Z2RINUNlUUZyOG93a2F3QmtQekwrMUVBZUExLzJEMW9aUnNNZ1NNclQwL1NL?=
- =?utf-8?B?ZTFMaXh4dzA1c0I0MkF6WTY1TDlncEtNdDk3anRJV05Wak5YMEUyOXZ5VkNT?=
- =?utf-8?B?ZnNoS0EwOEM4T1pwK2oxY1BYcVRrMEpMQVBIcHFqTGFsRGt6dDY4dUtBbHhs?=
- =?utf-8?B?dUp3bXZuUmZNZXoxUVBYOCtGOEJjcXZXZHlHU05nS1hsS21jNDkyeEptdjh5?=
- =?utf-8?B?bThwZXRTd3lCcUZFYzZVbkZYZVVkQVdYcHFrWWxCczJFODV0K1F1ZFlDRURI?=
- =?utf-8?B?b0dDNlBuT0djTnlXOWRxc2VnQVp1Qnh1RnVUbEZ5WkNpaGlPWVhvWEpZNWFw?=
- =?utf-8?B?YlVCTTJNN3E0ZlJLZm5tZ2VEckRvSGhYSWxUcUY1SmJQK3lWL3NoMXZsUU56?=
- =?utf-8?B?K1R2TENkNEVoNVFRMkxoZjJKUmcxZk9RVHFKbXhwamlrV2JLekR4TG4zVSto?=
- =?utf-8?B?bW81cjQzcXpOVDBTeU1BaEFuOHNPMXZQU3dSSTdEcHBPdHZHeWtBOW9KUU5z?=
- =?utf-8?B?MnIrSStaelpORXdkTjNWTDdJYXhJWXBkZEc3SHdCWG9rWGR5Y2hnT1BsMVBO?=
- =?utf-8?B?SzlCUUhOeGh1cE1KRDhwWHgzKzlwTFRvdExLa3dLNUFleVN6eEwycXlGbmhu?=
- =?utf-8?B?RVoyOFU5NVN4eUlMZisxdFIxQ1pzV0R2YTZCcGpnblA1WW9EaTdESm10RmFZ?=
- =?utf-8?B?UHpzblN2Q1NGZEt3R3I2ajFRUUlKaW1DOU03RXdvZldWY3VaNEh2d0YrMlA0?=
- =?utf-8?B?Yy92ck0yeTZUVHBiYUpmdkxuUklkd0EvVUtiSytlWEZ6SnhHYzNhV1pNSkNn?=
- =?utf-8?B?aHpzTTd3cGJLSDdldnp4N2VVbkFYSDhNandhRmFlcW5uWW9CQUxsYm5oWmpy?=
- =?utf-8?B?cVBuemVWcjNwQTkxdEk4R0k2OUczN1d0UGk4SVlvUllWUCtCMW9hVFprdDBo?=
- =?utf-8?B?d2N2TzErZ1ptWVBObHNhcjlCcE84UCs0WkJKbEFBSkx0YlBSSUNIWFJUbGNQ?=
- =?utf-8?B?c2w1Qnp5MzdCdkJGRE1PbU1wdHBucTh4M1lPYldoaDgveEdzd2dEWCtHdDNM?=
- =?utf-8?B?S0NQR2tPTWVueFI2SzRiblF2WDZURnk5NkJyYTFuNGdKakN1dTNTRFJGREds?=
- =?utf-8?B?WllGajdXOW8yazA1VnVVVVNPMHVkeWNjZytXTCt5SHYzbWU5N3FjUDAzWWtY?=
- =?utf-8?B?L0NnZFB4WFdFMFpnWWhiTjlBY2xhTUZsNG0wRS9tekRkM1d1K2FXWC9MYnd6?=
- =?utf-8?B?MHZVUVVXRVBSTURsWE9YQ0U0dHJrMWFvREJDa3p1bWZoSlNvWGF4aEFacmRM?=
- =?utf-8?B?S3g5dWQyRngrc0Q1bnV6RnNBREUxaktHOFl3UXl2YVk5dzRlTEV3TE8yS1dq?=
- =?utf-8?B?SlZPZjlqVEI2OTRiZW9yTGJHNzkyTENTUDVtLy94M2pqQ2toTXRaNndIbll5?=
- =?utf-8?B?SFRaaXpZL09ZcmZwMWRUSk9Cb3JTUEtSRUh2MEFGSnRINjVzZWFQcFAvWGpv?=
- =?utf-8?B?Z29hblNqMzJyR1F5UjJnY1hjQWNHc3hOcFh2R1VYU013T0JLdUVCR0k4dHht?=
- =?utf-8?B?RTgxQzF1RElILzZWeXByU0ZIb3JXZDBuTUM2REREOUVJM2F0ZUlhSEpLWTJK?=
- =?utf-8?B?Z1I5bUIxSkVPUHZFVDgvcENLWlVXazBnZTF2WjBaVi9MQ2F5WFdiRGZHODdq?=
- =?utf-8?B?ZGNrTVVhN0FIS2RYSXM4bzJvNHE3MUk2WFg4elBDNGlmWWdvSjhEL0hPcE9G?=
- =?utf-8?B?cjBvVVVsNVpLYklpNlVBRVFpcm40NS9Ra05DRExJSVd6SjNGZ3ZzS3NubEJ2?=
- =?utf-8?B?dERhTm9OR3BxdmlLRUd5UDk0NWJLaTdlR0ZhaTZRajJ5SmRKazVBaXZaeDdI?=
- =?utf-8?B?WjFFVU1VTU11WU1FWDVuQjArMUFKRDUvczhhSmUzVTNHaERTL3NHMzhBOUNt?=
- =?utf-8?B?RnZQL09vQ2QrTWIwdVptSDUzalJoRzdHSnVxeU1IZEdQS0E2cWRDQlVmUTBv?=
- =?utf-8?B?VkhxMFBTVVd1OVlJR1d2NDY0N1pyWGxqb2ZZKzJoSzhQcU5HOFBabGVmbk9v?=
- =?utf-8?B?TWVWQXlmellpZ3BvUWRoN1p0akRPRmhVTWEyU0laZlNkU3ZibnpwR3R5YUdi?=
- =?utf-8?B?TWo0NTdZMWFGY1BuQTUwL2lxbTFLU0dncW5SU2V1SXNXdnZFa2g0SHhDY21l?=
- =?utf-8?B?T2VES1MxTGZGTkU2MG5KUitMMTl2V3p2bkNkQWNwcXg0YmJ0MmRpOXVTQmNW?=
- =?utf-8?Q?MqebfZ0FwUFTKdbo=3D?=
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mf3C3vIU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B2px/nMD"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657EjwXj373535
+	for <devicetree@vger.kernel.org>; Sun, 7 Jun 2026 19:42:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BF24qm58BnNqIGE4+EPnvFG4u/xZPUBNCeYGCTTa2J8=; b=mf3C3vIUguAmGMpP
+	4l6HpmuYW4DqlHbh5JLhaN4MPXoMcw9V+v7N4KHx6R3ebicANrEWT237+LiFX791
+	ORKjBZ0CZ+16G7PUsdPXp8n8LpBdgmKDgoFqQnPjlRLihQV/MQ3Tt+W3I0s4CnUm
+	LsSjq60VOCbVQ1MqdLZYaYcUL2Tsctwxude1vu+UFaug8br4fEaVQWb2XgmgqzJt
+	emI8eeigib+Lkqr0yOdk9ei8jAK+iR6P7Ue3D9i+6EC5Sa0lGfUW4Tw0N85oNdeE
+	iN/8SjgD7339mcrGj+Grze3YmG4TjVvtw4itAIfzyXVtvBWIrRRw//1n09FXpprE
+	he914A==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcadvbnr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:42:30 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-6cfe512e871so1724693137.2
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 12:42:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780861349; x=1781466149; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=BF24qm58BnNqIGE4+EPnvFG4u/xZPUBNCeYGCTTa2J8=;
+        b=B2px/nMDvg5wGu6tImQB3UEvN8mVHSOeWx6bm3uQc1duiPHnbGhxtDOw1v8o3nvpBB
+         4zzbG17IaF188xL+os1hpYygwMqKme+UCIm7vGpT55mTTcJl9Hfy/r3oOFqKSFvydrOB
+         rMirjqNEeEYCfz3c4sSV3M5p20XWMpHRmVVYl3S2v5ZMWYvv7lGdxV1D6iIoDfJ0aqDI
+         g9W2Y0t4Vpv3h7200nqt9yihpeKUwY4YP/x+mpcqwTfe1idCjxfF8p4BOGmbb+zUIIdK
+         85FwcxEBc0D0wkfpMsUvI6V2hgU4G2cqNjVdV65DtarB9iSV63z8XLOATf6Bek3uSV7t
+         lIMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780861349; x=1781466149;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BF24qm58BnNqIGE4+EPnvFG4u/xZPUBNCeYGCTTa2J8=;
+        b=mXZD0aSzliW1hG/4RD2ErpKt7jXgOUM6akExtKjip3k4qoHraH1n3Ye0ZOL709ELHz
+         AX3DgEqyT9cC2YujrW8mAl3eO2wXQtHdx+eovhaMlcUZa234TxBwXD8LqM+IBsyjH/GF
+         yP1KPUonb4pRjiPAATlqD2q2iMqL6SD6ozqZfSvciMqDqymQkqnZ9vhyPrV/2ifOcsxg
+         Wh/v86qaHDi1Uw2ANvUfiOlvJURvfWeKQzd4ueSzmB0/rqnJaxGezp5ekHBkLtgFi+4L
+         Q4drEetSQ0awZyK3/Hmpz8z8DJaPjJtcnO0De3CCFBf/EzaxdpM2fWWPjJBoRHB2FCED
+         4Jmg==
+X-Forwarded-Encrypted: i=1; AFNElJ+nBusfCt/KTor5jmuvWcSIfkXxMlcvZdNcDmMnA7DFo12gCsEdICpjxLhLyRTuiza41UiMAEBkw3fj@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMcZ++UuR5ZhB8H0WYDB3V8a8ulSPzR+sRYLMpoJxx6oBzEFyt
+	lDIA4hFRWfQmiYtEaYiizbomvy8oKLnrhhW+mm5s7mGGwXEq79aVdmFZa7oFnFknkP4Nw4hckwl
+	Cx7UzzN84R/HfTvgdf814qdEPDNHVIcfbA8y/LQx2qVqqGUug7ccYojvdGT8SboB/
+X-Gm-Gg: Acq92OGjstPTe7lDOlOGwMFe6FqlA/olvRxV/S3vmhT9IeNai03Togd1oAnORTxgGvE
+	5xo9KtITPoKQXz9yRKWcC44kUqMEBGDOSf20a0olqbahkw+KOHiSJahSzhXqPiesZ/ofq7nqms0
+	VPoONR4Mfag41Dchl+B+9IOLtWMW+XEIgxYJ4tpV1hVaRiChaU4PqYvjCazkjEaraHPxbOVF2z+
+	Bn7HnS//QYhwGL6d4m4XAW0UhjA2pi03nhZMMJwfP8MbEPYwYp6pVqyhzcTgHfSV7NXcoG5Swf/
+	cHmf382ApV6f8NRmYyiFfR7iFhD23D0SklVV65CiEXWGux3rDUbgrGuz7Ew4+sCW2wjU0rMhpXx
+	XUN4B9uXGQmDPRV3VWNkbibctnJP7UhifGQxb/GS41XG6pZnFkxaHhAWpFl6MaEG0R01/b8w0V5
+	Ys38qmrDw6id3vyaFwIVZXZwkW6qG1gBVy+BHxPpsCR7uziQ==
+X-Received: by 2002:a05:6102:554c:b0:6a2:b2a1:f16a with SMTP id ada2fe7eead31-6feef09ad62mr5487795137.2.1780861349602;
+        Sun, 07 Jun 2026 12:42:29 -0700 (PDT)
+X-Received: by 2002:a05:6102:554c:b0:6a2:b2a1:f16a with SMTP id ada2fe7eead31-6feef09ad62mr5487780137.2.1780861349154;
+        Sun, 07 Jun 2026 12:42:29 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac091ccbsm41172751fa.14.2026.06.07.12.42.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 12:42:26 -0700 (PDT)
+Date: Sun, 7 Jun 2026 22:42:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] regulator: qcom-refgen: add support for the IPQ9650
+ SoC
+Message-ID: <ll22r7amswo2mxz4edvo6s5lq6cotdsbepy3zy42pndjinz7yj@zpkh5hp33g47>
+References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
+ <20260602-ipq9650_refgen-v1-2-55e2afa5ff64@oss.qualcomm.com>
+ <ci2ur4vurrljhvkza7nqfq6hsjpj7aurb3r3lvjkebfwkcae35@kvnjmosamfzs>
+ <6d2f2756-0d83-4a84-a39e-d830bd0d9164@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Y5qV7o6MisGWh1ZPWCFNYNEP29uaCMCB6Ek4BXpWNG1xS9KkdfN6l0PICaLuYDrkmugZ5kUZsqMnvrSLA+ayI+xR5wYgKkK7UBwNxheYbfo2XKPxqEsuOP0zGAE3XYylr1pLGwAilCq7F7TG9uNoJr93eL76PCgoKORO1kCwbxyy7ty6LrDjSmzhSeDM+NYhDtEDoIiVxjykzCE1zEp43oQFVvxjH+V+FKRI5gjQhnmfHye5uEMgi36ZWVQ21J6Gw/A6lgREs8UAmDFije050+LRP/xCg3/rnfisirBq5xhshnBIFrYSRdhSIg3C5eG/lVMmvbSCr8rBNMwqOkpZWw==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6664fd3a-6e1f-4f8f-8ab9-08dec4ca7bc9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2026 19:25:07.2275
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aHmnVP/4qpLW/3d8JtSmpVmLTeVOlkuLoPzaZPk/K1fylwpKPYKQMlP+PJovSwhgBwu2p7iNR0dhBeT+FtKySttfRCgIkcFLDqtF7/ZJeqM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR02MB10698
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: gXSv_BxKJ7J5P7Km77uWPxk9u1kMvcJKi__iE6zGxN8_1780860310
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6d2f2756-0d83-4a84-a39e-d830bd0d9164@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=DIa/JSNb c=1 sm=1 tr=0 ts=6a25c9a6 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=1jXWVeKMHtOyghREYcwA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: irqJvn7rhr3reNB8WNjBH4bNlqarGqoU
+X-Proofpoint-ORIG-GUID: irqJvn7rhr3reNB8WNjBH4bNlqarGqoU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDE5NyBTYWx0ZWRfXzHlCHdoTVhby
+ X92lqjVwR7j8sF3jUu4ybRvAiOLoqU1B+QCF6Xedql7ilSxIszERq6PPMUeInkfuOoC1xUynwy1
+ sS0Du13Ga0IJ0hNhnkA7nUWdCHpxpgRmlt5MuKUJAlD3vEUJgF3zrKi2HTlq1E9HK8BycS7oBNJ
+ vnutyfUKnrr/hNksTBcePIOqIjxbZcLvQ0RG+17jCkON3TikWzixbW65nEXM29Bu040Fo9ZdDuQ
+ db1Q2DL4EqG9DE4eU6OY+kmOKzSOdDczxWtx29ezlrpZFO1kcBef21WjSV9F2G93cY8SRE2paVU
+ rcc3WpeLfapGEEbzLAldtuXjA1BLgfjiN0FsivxGb9qoyvSmaqXTqoCUk2lUmvhLSoPhl0ACkCJ
+ pVfYPdz05pFvPKoENUesTEOk4Fbh+XNpxySNZRX81mY4YGjvWrPj1xrzekhf0eTW2B6dRFZlYGS
+ K+TSvyEoTVYx1TneJog==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-07_04,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606070197
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIG5ldC1uZXh0IHY0IDEzLzE2XSBvbnNlbWk6IHMyNTAwOiBB
-ZGQgZHJpdmVyIHN1cHBvcnQgZm9yIFRTMjUwMA0KPiBNQUMtUEhZDQo+IA0KPiA+ICsgdGhlIHF1
-ZXN0aW9ucyBhYm91dCBvbnNlbWkgZXRoZXJuZXQgZGV2aWNlcy4gSWYgeW91IHNheSBZLCB5b3UN
-Cj4gPiArIHdpbGwgYmUgYXNrZWQgZm9yIHlvdXIgc3BlY2lmaWMgY2FyZCBpbiB0aGUgZm9sbG93
-aW5nIHF1ZXN0aW9ucy4NCj4gDQo+IEFib3ZlIGxpbmUgc2hvdWxkIGJlIGluZGVudGVkIHdpdGgg
-b25lIHRhYiArIHNwYWNlcy4NCg0KDQpTb3JyeSBhYm91dCB0aGF0LiBXaWxsIGZpeCB0aGUgZm9y
-bWF0dGluZyBpc3N1ZSBpbiBib3RoIEtjb25maWcgZmlsZXMsDQpvbmUgdW5kZXIgb25zZW1pIGFu
-ZCBvbmUgdW5kZXIgb25zZW1pL3MyNTAwLg0KDQoNCj4gPiArIC8qKg0KPiANCj4gVXNlIC8qDQo+
-IHNpbmNlIHRoaXMgaXMgbm90IGEga2VybmVsLWRvYyBjb21tZW50Lg0KPiANCg0KWWVzLiB3aWxs
-IGZpeCBpdC4NCg0KDQo+ID4gKyAqIENvbnZlcnQgdW5zaWduZWQgc2NhbGVkX3BwbSB0byBhdHRv
-LXNlY29uZHMgcGVyIGNsb2NrIGN5Y2xlcy4NCj4gPiArICogVGhlIHNjYWxlZF9wcG0gZm9ybWF0
-IGlzIFF4LjE2IC0tPiAxIGxzYiA9IDEvNjU1MzYgcHBtLg0KPiA+ICsgKiBUaGUgY2xvY2sgcGVy
-aW9kIG9mIHRoZSBTMjUwMCBpcyA4bnMgKDEyNSBNSHopLCBzbyAxIGxzYiBvZg0KDQo=
+On Thu, Jun 04, 2026 at 05:07:35PM +0530, Kathiravan Thirumoorthy wrote:
+> 
+> On 6/3/2026 6:47 PM, Dmitry Baryshkov wrote:
+> > On Tue, Jun 02, 2026 at 02:52:00PM +0530, Kathiravan Thirumoorthy wrote:
+> > > IPQ9650 SoC has 2 REFGEN blocks providing the reference current to the
+> > > PCIe and USB, UNIPHY PHYs. For the other SoCs, clocks for this block is
+> > > enabled on power up but that's not the case for IPQ9650 and we have to
+> > > enable those clocks explicitly to bring up the PHYs properly.
+> > > 
+> > > As per the design team, REFGEN block provides the reference current.
+> > > Hence marked the regulator type as REGULATOR_CURRENT.
+> > > 
+> > > Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> > > ---
+> > >   drivers/regulator/qcom-refgen-regulator.c | 94 +++++++++++++++++++++++++++++--
+> > >   1 file changed, 90 insertions(+), 4 deletions(-)
+> > > 
+> > > @@ -62,6 +75,49 @@ static int qcom_sdm845_refgen_is_enabled(struct regulator_dev *rdev)
+> > >   	return 1;
+> > >   }
+> > > +static int qcom_ipq9650_refgen_enable(struct regulator_dev *rdev)
+> > > +{
+> > > +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
+> > > +	int ret;
+> > > +
+> > > +	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	drvdata->enable_count++;
+> > I think, a regulator enable() is called only once. Is there a point in
+> > having enable_count as int?
+> 
+> Ack. Let me change it to boolean type.
+> 
+> > 
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static int qcom_ipq9650_refgen_disable(struct regulator_dev *rdev)
+> > > +{
+> > > +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
+> > > +
+> > > +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> > > +	drvdata->enable_count--;
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static int qcom_ipq9650_refgen_is_enabled(struct regulator_dev *rdev)
+> > > +{
+> > > +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
+> > > +
+> > > +	return drvdata->enable_count > 0;
+> > > +}
+> > Linux knows if it had enabled the regulator. I think the usual case for
+> > the is_enabled is to be able to read the hardware state. What is the
+> > point of having this callback?
+> 
+> Without the is_enabled(), regulator core assumes that regulator is enabled
+> and always-on and is_enabled() is not called. Hence, it is needed in this
+> case.
 
+Ack
+
+> 
+> 3458 static int _regulator_is_enabled(struct regulator_dev *rdev)
+> 3459 {
+> 3460         /* A GPIO control always takes precedence */
+> 3461         if (rdev->ena_pin)
+> 3462                 return rdev->ena_gpio_state;
+> 3463
+> 3464         /* If we don't know then assume that the regulator is always on
+> */
+> 3465         if (!rdev->desc->ops->is_enabled)
+> 3466                 return 1;
+> 3467
+> 3468         return rdev->desc->ops->is_enabled(rdev);
+> 3469 }
+> 
+> > 
+> > > +
+> > > +static const struct regulator_desc ipq9650_refgen_desc = {
+> > > +	.enable_time = 5,
+> > > +	.name = "refgen",
+> > > +	.owner = THIS_MODULE,
+> > > +	.type = REGULATOR_CURRENT,
+> > > +	.ops = &(const struct regulator_ops) {
+> > > +		.enable		= qcom_ipq9650_refgen_enable,
+> > > +		.disable	= qcom_ipq9650_refgen_disable,
+> > > +		.is_enabled	= qcom_ipq9650_refgen_is_enabled,
+> > > +	},
+> > > +};
+> > > +
+> > >   static const struct regulator_desc sdm845_refgen_desc = {
+> > >   	.enable_time = 5,
+> > >   	.name = "refgen",
+
+-- 
+With best wishes
+Dmitry
