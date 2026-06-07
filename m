@@ -1,182 +1,323 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012017.outbound.protection.outlook.com [40.107.200.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A53224D6;
-	Sun,  7 Jun 2026 20:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E6228727D
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 21:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780865752; cv=fail; b=XBKk+jVWGzsIaTgGljNUrOATVJ8ky0V9mKUQVGAluR9neIVbVIC0TsUhBlIAHGmsdWULjIdQRu78UYmA0p1mD8Na5m0Jd/8TVIAUFFxx2R6bWVqwB57DNcpb5vGGg/tBYp1xcJXPB5S8qGRl4M9aRrHFeuarLnlwptbqC5jT/9w=
+	t=1780866025; cv=pass; b=V/irYi159e3f4B4pqwJXca63QygrE0K2XNrRjeypEr6F+pDICMnZwTa4oZA7omizo7S/cTQ6dgNIy5ePeUqhcu/grQSSa8H6IUoMKkSk9iEf+iKjlCmhBYVy7w07FYZ4N21r8kYg3CdDErBeNu/1AWapmH0j0AqscBryBIZPjyg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780865752; c=relaxed/simple;
-	bh=FHH9zqUzeBxvHcaUglP1/htWTtFGK455X9KadJMQrDc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=MqXc/WmT8BbH7VWl0G8RviFG+DgzFNs+jyn3ee82nvXhqZ0fId+NeSG4Wyxm2oHDrzTOercnYhJoIasZdVv1sfx9B0UNKoOy6fn+0MjiorlZEKQp2fbwNQvFhdRnbiiUXyeLMp8zrRoU8YXKUPAgz8QbYegq8b5irFOufYk1+AI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cWOdSXBz; arc=fail smtp.client-ip=40.107.200.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1780866025; c=relaxed/simple;
+	bh=G+HvROUFtSgMmsk49gO9w19nLvoqyb3fxbxS9M8djJE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j+YPWrl1YBbkTySavhcwf0osrPW6WDlUUCh1oGPonLNqAd6qRpmHZv4Vzwe2atRZSOP8A1dvujqMo3jn1CcRaiAFNDT3DoADcmvkbjTOOCiJ+GI/WqQWempb7IhfgpWHCXHsx+u6PkxWODmyWVwqQ5EKVlvnymkwTm6TVqpDQFY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3BXuMjS; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cWOdSXBz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qbvX38nlztbk02t74WPVVOW2ep0j6+ydJlrwI0QU9I4U0zGNkGwp92Muhzwaeizv+kECxnGFok/RO3yXW3nghwpjelBWCejUuJYtm3U+Uuw4EFFifvY5FshdWiIRoNLHbhZxpLql3BWZrcLC9Cti7Qzq8cQXL6QFt69cnkv6rkRbpy43DuBoD2ZeGRpHK7jlwYvvAHKSoEOdKQ909O36MD2fXoxsBgwsH4ozpiHx5e5f9np8ltGdW4UDhiRtncaJKSY7BkQKufw/J+I8uYe8l7aR8+dN90qZMDKPTjA2Z5xSukQYodmZxxQSCn7ds3XGW8c5WXK3mo3njRcjTe7F7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wGE7T1SjVO8Nv/6KTmyox6qQ8T13tmCXANWYPzzFZnM=;
- b=j/uv5PyNIKfGZ0kDWR7QEre5v/tHfLJUGWndqcy1Jc7FCqLZUph/cG0hJ6JlYSqxTIgE8jjGtoOwWUjp6LhuVkWQucoHSVmxw06Y+y5J/2MLYuoyrgynD5YLItBv7Dw3EY9kCEtGTRAIjH59k/FOB9DXi6xQHczdz7dreQNajHmMH/a+ynYUFndCtKT/3nmNzpE54+iH7AZZaZ+COIgl1QawZ1iD7wqtc0+i8mSS/CJvR2ZBSRFGFs9FZZCl7jXD4pYkJTkFh83KngR5XWZ19fwN6oblRvcMP/mJzITiQpH/frka963loXdayN+cj9edNPPJR1Gi4AsrttDpQg9f6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wGE7T1SjVO8Nv/6KTmyox6qQ8T13tmCXANWYPzzFZnM=;
- b=cWOdSXBz10bIgdyrJHTKf87vfaILpSOgPRCwFsFrhiMBN9JIbtUlbPwiz97r/IRmCw9tD6+w0kzqD8PECYCj3qXfFIo03qtBFVWHVLyaMlYn9Zh3yiIOxSH0JVFHDAQU87w+5s5a90L9bIjBdbUWr6IT1j+sostZi+WzPmK2nCA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by DS7PR12MB5912.namprd12.prod.outlook.com (2603:10b6:8:7d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Sun, 7 Jun 2026
- 20:55:48 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0092.011; Sun, 7 Jun 2026
- 20:55:47 +0000
-Message-ID: <9dc9f575-b5de-4135-bdee-468b7448687d@amd.com>
-Date: Sun, 7 Jun 2026 21:55:44 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] iio: adc: add Versal SysMon driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Conall O'Griofa <conall.ogriofa@amd.com>,
- Michal Simek <michal.simek@amd.com>, Guenter Roeck <linux@roeck-us.net>,
- Salih Erim <erimsalih@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260606051707.535281-1-salih.erim@amd.com>
- <20260606051707.535281-3-salih.erim@amd.com>
- <aiUmb0WMPHi0D6GH@ashevche-desk.local> <aiUm5vmG7EHmp52x@ashevche-desk.local>
-Content-Language: en-US
-From: "Erim, Salih" <salih.erim@amd.com>
-In-Reply-To: <aiUm5vmG7EHmp52x@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0472.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a8::9) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3BXuMjS"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-bebc80100efso387492566b.1
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 14:00:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780866023; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OPV3O2cU32lyUeDg7lzfw5Y4PsreyfXpKzq3ujkfV9R1MDMDUsfY6DhN+jIJyPKzRC
+         8Zq02T9wDqzltBH/xW3/wyStRsT9PXv1EWpZ+WBVe8rIyNKl6ok3T+wrlFJNrLRyPGKp
+         NEigbhIUTUWTXHLuf89o+tBIIf+SIpjluUJCJmI1Qb6KbqxiI9uED7UApKHcq9Odd5s7
+         FReR8l7cgLvMTJyfOum8aAGULR8y/tMJ1fIc0bEIQXCPgVQ/GEXHyDuJjxedVmcRDQvo
+         ljzOVQNzwrrvdtzgmgvMce+Hs+xoKOeR2eGud9+9/mjQNEKp1JQHxoNA2QyZB8oi4unX
+         1cOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ab6NkRbgO8MmT1srYNgG1RYGxHSJUAoP80C+AxzOUBY=;
+        fh=kKpQPO/D4PtYkqkmv2VVJiGw9xR0NPia164XrtEB/SY=;
+        b=T0TrVe9mkZx+WAAf+uo4HBbep4x45MaxogwgQsxKllUDiK5nlA+ZzHTUk+wbGtVBdL
+         m0dht5VnWIGJ0rHcIcHk+8HDdCxZGZH3D2iIIT2IKjVSGxGxzUDVL/yq4JDreir276Tz
+         wu3Gr1FIkQKslw5a0KyUX+0SBUZx0Yfv2kpF9uskC+QjGPmUkcgyfZI+ZAnimB/wOC4L
+         RUt8UEBw6Y9fM6NYrYkm+D4B3Cym+ZnwCSXk+oStPxhEk1x7bU7S9+KsTaDelRSW26F3
+         SUuM1vJK2QSsmqTJGUORUSyjEmA5MBv7NP3xVquTA4Bb4/pDotz6PKkb1rQFWyZ/Ctlo
+         spmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780866023; x=1781470823; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ab6NkRbgO8MmT1srYNgG1RYGxHSJUAoP80C+AxzOUBY=;
+        b=R3BXuMjSlMT+xRaaYYGCWTT/Uu43vgjeF3pueSoihDL5xsn1o30vUgCcn17EAH/sta
+         pweHcVKR2hUfYPVr1LTRKKlyG9ZNMy4otYqf3D9E4ShzWxl/vDCyLS/9qOeEcxOzocIo
+         JMXXCdmmrJj9Q3TxgGB5aMZgs07N1OXN3TTx/g6sWPQj0xpGBoGYa3IE1h0Be5Hx/jaq
+         RCFjzudml096kPaj3S1jrT+oynrq8KWJXQPvyUKLF8NEiL9dsS+DzQd7d5Skz4lSYS2y
+         aYOW84wFxBmVOAfYGLATeaWyaKpsYrkt+M88OyvpRx+iRuJLAsEsZl2P6hOTcbmrnTgP
+         tpgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780866023; x=1781470823;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ab6NkRbgO8MmT1srYNgG1RYGxHSJUAoP80C+AxzOUBY=;
+        b=oeD1fGIw0tIff2/8uKkNTV6l8LTtgIGkDEWCXPivuFpbat1uyfQSDTiQX5zeCIK/bN
+         C8Z3XHt1wIfIJQD7STR0juTcBIEfXECYJ1hnn/PRD0EOwDZYXuv81Eonw5fNOo877IOM
+         O92dnxb83N6CRglW89TzFsaKi2Br59w5gCFyvf7G6qDrPnmYWxpAYVjicyKFCZV61+Sm
+         ae9uPw5T02UT43Ll+ek0xf0dgVq6xwrZ+68YcwRpaUMHJW6eXVIvtaadXEFER30wCmce
+         xznYTvpXRQL8XYjbRQJ+sjSuLhmP1wQiRYvtTEA+OwAogSCtp4z1enxgOuHQ4NCpnFQ6
+         IWEg==
+X-Forwarded-Encrypted: i=1; AFNElJ/zicIUG3zP86e+/Xi0MV9zcFzCOEJEIuAaYrNSIrMicSogaext99pVEnUVAl4LyBGMloabJZWOCK/J@vger.kernel.org
+X-Gm-Message-State: AOJu0YzunjYjn6YlNLtjXEnvL/kMMAVjfqHOkRsCvMiqprOPcTij8qvA
+	nBdjMM3ouL1dKMrj3Tmau8mF+Anhwdvxk8MgQIzIAGiMesZps9ZfUKUWWDjPOZ26LzIIwM8qeMg
+	AuMY3fGNkU0R4KtcLPVGubhJAm+RA7c8=
+X-Gm-Gg: Acq92OFQ3p9N7CZ39pFA2jp0c5HWpDYGkdkaAmOTsowV0TVTX3H5AEeEf3EGPRr+1b4
+	8lKecaut9iQt8gz/yMHXEQfY9CvPoqlMvuW/f+5ot5fuokjGk/I6yd2ibIftGhZwPP5+HCubrzl
+	z8NDo8WLJVhsTTyilN4R6yywOjMiUCAms8OUFi918ulJdlpObUq0hL7QXBunhFoXhB7i70X19U3
+	0NeDV7l/FkMMvFQ+Kg1dW1LdXOWYlrbfyc3/zxfIITFwqWFo94RxkjZW2a/iCyySKRAYjmuHPR4
+	BW4et+lDOGiFag65od9r2Jug4+lTKeks1fNzf6jDajDY69QPIYUJWauFNjAJVQ==
+X-Received: by 2002:a17:906:8a42:b0:bb8:fdf7:e132 with SMTP id
+ a640c23a62f3a-bf370a673a2mr449071866b.18.1780866022378; Sun, 07 Jun 2026
+ 14:00:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|DS7PR12MB5912:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0477162c-cee6-41de-9764-08dec4d72681
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	lkAdPsJQ6W1sV5UGZiZV2cVndU9pNryncegdqhmV3sbFvXWcKpKupnLkoRTeS47GYRdD7Myn8qQlUtKyz0kp+RBYDg21hkdfr7Pf2I/HCcc5Gi+1MVxGAgm1quGAV4fPvcgvBcw3H+BQsfFQ/KSbC0dCVMEq+pPHL9/X0TCPqSWgnDchpzTjVtZ6iKV0Ty2Z65S5tRU0Z2Va5dtGl2SJmH+JP4aqDpynyn6O0LKEGyGRrfGU4GQL1KemDQJNC32mjH4x6cG9sQTsByVKP7PJUN2p9cDSyf2NuM+G3n54ZtAAr1OPh5DZ9cuKgnHhDYQRIsr+v+Lt5kj/dAXacaUfqH4kajkKSd/c+L6Sfhz9HsffjpYHoxvrdWl5jf00HmUIZWw1fF9AwKbIogpZmuCCNCBSriEdtJJ1j4Pn80lp8Y3VAll9cQlLR4e1ZuW2AP7lOfiOUsoQ97pGAe6YKVRW0ZLoQRQY7RMdrOS80fwyme6wSo3ULC1J2ohmfaU5bhc93E0BoVj/JHFLAUBjnNKkgYhifsGka+EpRtAaOf0eblbwmGMyQpzwuU9DCp2Rogq/7KqxQZXTlUYPg8AWJPUF9lcv6c8adedmO2jpqy9ISl18N1J/Ahh3dwKxLX5KyeHpB2ZvX9153SuDS4T7VnhcxvkBixzxd+Tp8gyFP6NiWySFpWWW2h2V8RUkUaLbIOwU
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OVJGNkZQZWV1YURqK3dRTU5lNkRYRUVkTC9FbGp5Smc3cWI4VndqTXgrMWJC?=
- =?utf-8?B?ek9jU2RrZTdjaEVOVUdRRGZibFlzOWcyQjdGZW0yaUNmUmNGSzREL0ZRS0pB?=
- =?utf-8?B?NWczYWUrMXV6UXY5dDhPczNsRkhtWWtlcjI3d25jNmJEcTRvNHpPZW80QzEy?=
- =?utf-8?B?cDJLd1V3c0tZaUNuWTllY1hIVmtwZlJ0NEpYelh2bHUzUVBzbEZTKzNzcEw2?=
- =?utf-8?B?eEMvQnBnZHpGR3ZhWmVpZTFFWDVUbldmTzM0ZnRUVVpCMUZHY3hDZDZlYy82?=
- =?utf-8?B?QTZLZ0JnaDQybitIKzAwWXRBL0gyK014dGtvcjEwL2ZDaWd6VG1aYWpSR0xY?=
- =?utf-8?B?eXM4cWlza3huajJsQjIycGYySExkU2pxM1NkUk1JTXNaNXk1SVJwOS9Falho?=
- =?utf-8?B?akZXc2VrODVXZXJVUGZDWXE5a1Q4eEFJaWd0WUV5Z3lDcTRNNThCZmRwVzVq?=
- =?utf-8?B?STVROVoyV1dSRlh6MFZMSmxnVzY0K1JTQ1lra1lXSHBRSG9wYis3c0xUWm9I?=
- =?utf-8?B?U1d1OGpwYjZPWUQzYnhzWVdYM0g0MmlXR2FTajdJNUpvQlJKZnhxRHEzZW43?=
- =?utf-8?B?YUJKSm04TmlLcUpqbXkwdDQrUmI2dExhKzJqZFo3SFFOY0pKaDdNT0RJL2Ez?=
- =?utf-8?B?Zk0zWklHUkFSblpuQWhXZ0psV1VJUkdXdlJMWmpJOVE5RTBmb3hpODRxQTZY?=
- =?utf-8?B?VGUydU9CTUlldWx5VGprN0RnL3I0ZVh4eHVkV291RjNXRjlqSjBXYjdscmlK?=
- =?utf-8?B?eStDb0lkRzVwcjBaaDFkdVVkUURNc0xXMGhIQnJFUmxPYjNva1VtT2prak5n?=
- =?utf-8?B?MG9mcEppcEorQ1I4YWpid28wcFBNVDl3aWpxS1phTkFiemhLeWcrT3doc096?=
- =?utf-8?B?YWdYaFJuUXQvcXRycDA4MXNLNkRCQlBsQ2krZFFKY25jYXBhL0lNdDhHRExZ?=
- =?utf-8?B?VzhlZEsrb2x3a1lHUWNycndOQ1FNcHpsWlI1WHhrWEFpWDZvci9DNmJaTEdQ?=
- =?utf-8?B?MGFuNVMrejJRMEd1dStOK3R0Q2ZTMmovRHBLdmZkRnFwcnMxMngybnk3a3dr?=
- =?utf-8?B?eXluUDBkZnppUkpTZzIwazk2MFM2TEwxS0tNV1UwSWFxUVQ0U1lyRnY2dHBv?=
- =?utf-8?B?c0lGUVRIMkZZb1ZRL3FyMGVlQ3R6K2hlNE1zZTJ2djhFckNTQzRZc1U0UFUw?=
- =?utf-8?B?QXZyOGorQkRzNkkvVEw2N3NnTjByOGhoNndmWkI2dGRpUlZ4dnVacXhjdXNS?=
- =?utf-8?B?Q0pqZUNEbVJzYmVMZE5HVUloN1Bqbk5MZGVaTDVsdllCcXgyaUdTQTFDWWY5?=
- =?utf-8?B?K1F5WEpyYkVGYVhPS2tFakdNMXZkVXJJcHZlT2lsYWY5YjVDai95dGpTN0Uy?=
- =?utf-8?B?SFppSFlpSWpGaWJUQy8xd0N6UWRhSC82WC9iM2pRZy9xeXh0TkxEdFNiQ0o3?=
- =?utf-8?B?ekVjNG0rb2VTNVI0b2tUUlBQNENvQTVVS3ptSWhBaFhZWXhCZzV5bFpjQnp0?=
- =?utf-8?B?Kyt2OEdYa2JHZ0dSSWd3ajFVa3RwMHpLUGdBSVlOSVVEMndWbFVKWkI2RWQ0?=
- =?utf-8?B?cmxGSU9PS2Y5dFcvMiszM21LeGtSQWF4Mk91WjFiRGx1NklGSmE2N3dGU1Fr?=
- =?utf-8?B?QklLeXBlQ09PMmVOaCt5R2lBckNNYjQzdHVZSldMejMwVHk2YUhSVzVDdCtq?=
- =?utf-8?B?MjB2Z3JBdnMyMXpPeXFFQmpKaXVING5QSGwxZGNsbGR4NjVZRGRWb056dU4r?=
- =?utf-8?B?eWJuL0RoOE9YNFpaZkplOEUraFlLempydHE0amorNFBQL0IrRm8wUGZQZnlL?=
- =?utf-8?B?WmlBc2htNXdrT2dRd05KR0pFdXBwa1QzemV2cTJhbENpNlNrc2ZkcTlscTFM?=
- =?utf-8?B?bTg4amRHVjVVOVN0Z0RNQllVd0ZYRnZnSTJ1MjFFRzUzcUdDSVJidTFEdllh?=
- =?utf-8?B?NjNKVTM3U3FYQnhQbXZTRE9vKzlxL2dJTUMva3hkRzhFRXJrRzl0NUpSbE1Y?=
- =?utf-8?B?amRWUmIvTmkvZHRseXlxSC96Z01IbU1iU3NRVDgyR0dlTGtGY1pXSjArdlAy?=
- =?utf-8?B?QjZjVGlzK0hCTm9ENlpTTE9DUFl4K3UrTW9yMDdnQkgyWW0xcE0zQzNBN0lG?=
- =?utf-8?B?SkRBUDl1RE85aWMxazlhZDB5UU81Qm5lNlAyUUxQejJDcWV6VkxOSjBhOUIr?=
- =?utf-8?B?anlIV0Q1OGxhdlV5dUNyeVBpUEkyQXZsVWM0dHZ6TlN6bXcyMHh0UFlUQmZL?=
- =?utf-8?B?elROYS9UaVhkcFNyaERHbi92TUZOTjFqTTU5L1hYQWFNT1FjN1pRazBVL1Zv?=
- =?utf-8?Q?BN7KcH1tnz9qbH4Yxj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0477162c-cee6-41de-9764-08dec4d72681
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2026 20:55:47.8048
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6VdDaa9L37RNBzLtRwmhacBNrH+LryPYUqJfCideFWkj0+7yGr03U3scFH3aSk4+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5912
+References: <20260604135255.62682-1-midgy971@gmail.com> <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+In-Reply-To: <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+From: Midgy Balon <midgy971@gmail.com>
+Date: Sun, 7 Jun 2026 23:03:08 +0200
+X-Gm-Features: AVVi8CeDCIQ6l1Xo0XYKychXQqz8K96nj5PXcE7mUgH_L3ruXovyZGyMkFh5fkU
+Message-ID: <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, 
+	will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andy,
+Hi Chaoyi,
 
-On 07/06/2026 09:08, Andy Shevchenko wrote:
-> 
-> On Sun, Jun 07, 2026 at 11:06:13AM +0300, Andy Shevchenko wrote:
->> On Sat, Jun 06, 2026 at 06:17:04AM +0100, Salih Erim wrote:
-> 
-> Ah, and missed part below.
-> 
-> ...
-> 
->>> +#ifndef _VERSAL_SYSMON_H_
->>> +#define _VERSAL_SYSMON_H_
->>> +
->>> +#include <linux/bits.h>
->>> +#include <linux/mutex.h>
-> 
->>> +#include <linux/types.h>
-> 
-> types.h is not used here.
+Thanks a lot for looking at this -- input from Rockchip is exactly what thi=
+s
+series needs.
 
-Accepted. Will remove from P2 and add in P4 where struct
-members first need it.
+> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than v=
+1,
+> implying it should support 40-bit PAs. Nevertheless, please note that the
+> upper limit for DTE is 32 bits.
 
-> 
->>> +struct device;
-> 
->>> +struct iio_dev;
-> 
-> Neither this forward declaration.
+Understood, and that 32-bit-DTE note is the crux of the trouble I had, so l=
+et
+me lay out what I see and ask how you'd prefer to solve it.
 
-Accepted. struct iio_dev is never referenced in the header.
-Will remove.
+The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base.dtsi)=
+.
+The problem on this 8 GiB board: with the v2 ops the page-table allocations
+(gfp_flags =3D=3D 0) can land above 4 GiB, so the DTE ends up > 32 bits and=
+ the
+NPU's first translation faults with DMA_READ_ERROR. To work around that I h=
+ad
+switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops set
+GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but because =
+the
+driver keeps a single global rk_ops, a v1 NPU MMU then trips
+WARN_ON(rk_ops !=3D ops) against the SoC's v2 instances (VOP/VDEC), which i=
+s why
+I based the series on Simon's per-device-ops work.
 
-Thanks,
-Salih
-> 
->>> +struct regmap;
-> 
+So my question: with per-device ops in place, what's the intended way to ke=
+ep
+the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB of RAM=
+?
+A v2 ops variant carrying GFP_DMA32 for this device, or is there a register=
+/
+config bit that constrains the DTE address? I'd rather follow the Rockchip
+intent here than carry the v1 workaround. (Simon, cc'd -- this is right nex=
+t to
+your per-device-ops series.)
+
+> Can these operations not be completed via the pmdomain driver?
+> If some operations are controlled by TF-A, are you using open source TF-A=
+?
+
+Most of it is in pmdomain already. Power-on and NoC de-idle are done by the
+RK3568 NPU power domain (genpd) at power-on -- the driver no longer pokes t=
+he
+PMU directly. Two things remain outside it:
+
+ - vdd_npu: I mark it regulator-always-on in DT rather than wiring it as th=
+e
+   domain's domain-supply, because as a domain-supply it created a device-l=
+ink
+   to the I2C PMIC (rk809) and genpd's power-off QoS-save path then hung
+   reading the NPU QoS registers behind the (gated) NoC. If there's a clean=
+ way
+   to let genpd own vdd_npu without that I2C ordering deadlock I'd much pre=
+fer
+   that -- pointers welcome.
+
+ - the NPU compute clock (PVTPLL): set from the driver via SCMI, and only
+   needed for actual compute, not for bring-up.
+
+One more pmdomain observation from testing, possibly relevant to how the NP=
+U
+domain should be modelled: the domain's power-off/on cycle doesn't reliably
+re-de-idle the NoC. If the NPU is probed after genpd has already powered th=
+e
+(unused) domain off, the power-on de-idle fails ("failed to set idle on dom=
+ain
+'npu'") and the NPU IOMMU then takes an external abort on its first MMIO ac=
+cess.
+Probing the NPU before the unused-domain power-off, or marking the domain
+always-on, both avoid it. Is the NoC de-idle expected to work on a genpd
+re-power here, or should this domain effectively stay on?
+
+On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
+(github.com/ARM-software/arm-trusted-firmware, RK3568 platform), providing =
+PSCI
+and the SCMI clock service. The only closed blob in the boot chain is Rockc=
+hip's
+DDR init (rkbin), which is the standard situation for mainline RK356x.
+
+Kind regards,
+Midgy
+
+Le ven. 5 juin 2026 =C3=A0 03:36, Chaoyi Chen <chaoyi.chen@rock-chips.com> =
+a =C3=A9crit :
+>
+> Hello Midgy,
+>
+> On 6/4/2026 9:52 PM, Midgy BALON wrote:
+> > RFC, not for merge. End-to-end inference does not produce correct outpu=
+t
+> > yet (see Status), so per the v2 discussion this is a request for design
+> > feedback. It now probes, attaches, and submits cleanly on a stock
+> > v7.1-rc6 tree; what remains is one hardware-internal issue.
+> >
+> > The RK3568 has a single NVDLA-derived NPU core, the same IP family as t=
+he
+> > RK3588 NPU the driver already supports; the register layout matches. Th=
+e
+> > RK3568 differences are a 32-bit NPU AXI/IOMMU (vs 40-bit) and explicit
+> > PVTPLL/PMU bring-up to power and de-idle the NPU before it is reachable=
+.
+> >
+> > Patches:
+> >   1-2  rocket: per-SoC data struct, then derive DMA width and core coun=
+t
+> >        from match data (refactors, no functional change).
+> >   3    rocket: RK3568 SoC data + PVTPLL/PMU/NOC bring-up.
+> >   4    rocket: reset the NPU before detaching the IOMMU on a job timeou=
+t
+> >        (the detach otherwise stalls a wedged AXI master and WARNs).
+> >   5    rocket: keep the IOMMU domain attached across jobs instead of
+> >        re-attaching per job (the per-job rk_iommu handshake on the idle
+> >        NPU MMU is slow and noisy).
+> >   6    iommu/rockchip: clear AUTO_GATING bit 1 on the RK356x v1 IOMMU s=
+o
+> >        the page-walker keeps its clock (else a TLB-miss walk never
+> >        completes).
+> >   7    dt-bindings: add the RK3568 NPU compatible.
+> >   8-9  arm64 dts: add the NPU and its IOMMU, and enable them on ROCK 3B=
+.
+> >
+> > Dependency. The NPU MMU is rockchip-iommu v1 (32-bit) while the rest of
+> > the RK3568 uses v2 (40-bit). They cannot coexist until the driver carri=
+es
+> > per-device ops; this series is developed on top of Simon Xue's
+> > "iommu/rockchip: Drop global rk_ops in favor of per-device ops" [1].
+> > Without it the NPU IOMMU fails to probe on a full RK3568 boot.
+> >
+>
+> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than
+> v1, implying it should support 40-bit PAs. Nevertheless, please note that
+> the upper limit for DTE is 32 bits.
+>
+> > Power bring-up. The NPU is brought up through the power-domain layer (n=
+o
+> > driver hack): the NPU power-domain keeps its clocks but drops the pm_qo=
+s
+> > phandle (qos_npu sits behind the gated NPU NoC, so genpd's power-off Qo=
+S
+> > save faults reading it), and vdd_npu is marked always-on so the rail is
+> > up before genpd de-idles the NoC at power-on. The PMU de-idle then ACKs
+> > without PVTPLL running; PVTPLL is only needed for compute.
+> >
+>
+> Can these operations not be completed via the pmdomain driver?
+> If some operations are controlled by TF-A, are you using open
+> source TF-A? Thank you.
+>
+> > Status. On v7.1-rc6 the driver probes, creates /dev/accel/accel0,
+> > attaches an IOMMU domain, and submits jobs; the program controller
+> > fetches and broadcasts the command list. Inference output is still wron=
+g,
+> > and the cause is split across three layers:
+> >   - kernel (this series): the RK3568 differences appear handled;
+> >   - mesa/Teflon userspace: still emits RK3588-tuned config, wrong for
+> >     RK3568 (to be filed separately on mesa-dev);
+> >   - hardware: with corrected config the NPU's DMA reads the full input
+> >     and weight tensors (confirmed via its DMA bandwidth counters), but
+> >     the MAC/output stage never completes, the job times out, and the
+> >     output stays at the buffer's zero-point. I have not found the missi=
+ng
+> >     step; it is not in the command list (replaying the vendor's
+> >     byte-exact command list behaves the same). Pointers welcome,
+> >     especially from anyone with RK3568 NPU experience.
+> >
+> > Known residual. On the first IOMMU attach the NPU MMU is idle with pagi=
+ng
+> > already enabled; the rk_iommu stall/reset handshake does not complete i=
+n
+> > that state and logs one burst of timeouts before the (kept) domain
+> > settles. It is harmless here because the job times out regardless, but =
+it
+> > points at an idle-MMU reconfiguration corner the rk_iommu code does not
+> > handle on this block.
+> >
+> > [1] https://lore.kernel.org/linux-rockchip/20260310105303.128859-1-xxm@=
+rock-chips.com/
+> >
+> > Changes since v2:
+> >   - Tagged RFC; now tested on a stock v7.1-rc6 tree.
+> >   - Bring-up moved into the power-domain/DT layer (no initcall hack).
+> >   - Added the IOMMU detach-on-timeout and attach-once driver fixes.
+> >   - Split the driver patch (Heiko): soc_data / match-data / RK3568.
+> >   - Derive DMA width and core count from match data; drop the DT rescan=
+s.
+> >   - Binding describes the hardware; added the missing $ref on rockchip,=
+pmu.
+> >   - Disclosed the per-device-ops IOMMU dependency.
+> >
+> > Midgy BALON (9):
+> >   accel: rocket: Introduce per-SoC rocket_soc_data
+> >   accel: rocket: Derive DMA width and core count from match data
+> >   accel: rocket: Add RK3568 SoC support
+> >   accel: rocket: Reset the NPU before detaching the IOMMU on timeout
+> >   accel: rocket: Keep the IOMMU domain attached across jobs
+> >   iommu/rockchip: Clear AUTO_GATING bit 1 on the RK356x v1 IOMMU
+> >   dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568
+> >   arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
+> >   arm64: dts: rockchip: rk3568-rock-3b: Enable the NPU
+> >
+> >  .../npu/rockchip,rk3588-rknn-core.yaml        | 18 ++++-
+> >  .../boot/dts/rockchip/rk3568-rock-3b.dts      | 14 +++-
+> >  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 38 +++++++++++
+> >  drivers/accel/rocket/rocket_core.c            | 22 ++++++-
+> >  drivers/accel/rocket/rocket_core.h            | 19 ++++++
+> >  drivers/accel/rocket/rocket_device.c          | 15 ++---
+> >  drivers/accel/rocket/rocket_device.h          |  3 +-
+> >  drivers/accel/rocket/rocket_drv.c             | 66 ++++++++++++++++++-
+> >  drivers/accel/rocket/rocket_job.c             | 35 ++++++++--
+> >  drivers/iommu/rockchip-iommu.c                | 12 ++++
+> >  10 files changed, 219 insertions(+), 23 deletions(-)
+> >
+> >
+> > base-commit: 52c800fdcf11888ebeb50c3d707f782cc15b66eb
+>
 > --
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
-
+> Best,
+> Chaoyi
