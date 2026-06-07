@@ -1,244 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF2131716A
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 18:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDA32877DA
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 18:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780858221; cv=none; b=e72d2SKXYZa+sVACfjClTEUsnA3Mh33DFrq46ieCmCgcOM9htm6Y4UBaH5dzvzDxv0sGIYy6OH/iEl9hyPj278E9AEyoXrQuBp5kvpuzRqDIn3IWW9gy1uxQNys7i5RrYvoWksITSpZOAm3K1+gREEi3xz1njf8hrFUWCIOTdHk=
+	t=1780858598; cv=none; b=d9MlieUkBunUjVezFu/GaRZCs1iDMO2O1Tsq3MGEyikN77nj/TLkus/MYC6Eg9xoZyGQq++ohD3CsAPv+LqRG2OY2k4lTugUZoEfqFztSMGx27gYGUR9M6J3bT9HlmWN7JGhXDavuMpm7ZPaS/KVS41Iq+r1W8hf5/UHz47ExnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780858221; c=relaxed/simple;
-	bh=w56U2KRYU6/JajFvR7HpejqFQ856NhchuFl5H0N9wTo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kB1DEh0Ltn3tZ0AwXaCjjFIVZYQ5w/V7Y2k6k54Kh8Gb2UCvzuOvNUWyLpstNoCXsJIGH4VwmST5G4oZSujVHTwkMjwIguyZmsvh3nnzpc4pTtOkeUztABiYSbKz7a9/Q2xm05FEjeg3t08vwt+syZ6nbLsTA04ujl5X7S/lhRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwXe09UT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780858598; c=relaxed/simple;
+	bh=JmPAtyIrInQ/N5JA6jQcrA5nyIE6a/SsLXHzgWabEc4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PlKiJW3HubpEdPgB570i/8e+MZiSDLdawfLxZuUyp56La8R21hmibQeSP8tZWtyIRRYdwsnBlHZ0npi/V1Tt9ud+b7MNRWROK6XyXn1rdDen71umu3FmjqxD9URbpsr4Fs30BkkdUMstzDng/8Jtob1jRObKSuaq5EQ1hVEXZAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GOn1Vv18; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LsbmPFO8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwXe09UT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289181F00893;
-	Sun,  7 Jun 2026 18:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780858217;
-	bh=ljWPCHe+Nf52NkfMc8cMOUyo/tItFqwLrwd4V1epOzQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VwXe09UT4TVNGHR28D+HG1S3trPQRUX0hf23TwAaBk7+01JMNt0b/ZMnqVbZAjVnm
-	 n3i1OYUWTlYBCmVlfCVOIjH4nORzvwzgQauiWrPgIdqBMvh8tkioFmixTkuXdX9oVe
-	 ecEFdXr1Z3qrwNM4NMmPZ/UveDNBfzgFejfHbf81dYy5Hh2rjI8venFr5YhXYFq7Qp
-	 iJxIPFMeZsfztB0X4NpWHNtRYSzDAfQTEcorvxG2xLgN9AU+vL25zB8ab58PdIYiKw
-	 zYo7gTfAaLXxtWIWdx6E3Eo51Wemjjt641W0TOkpsAphHFg7diSiU1K4E3/o4InLcS
-	 uim8Lnjx/+zBg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260607183542.368184-4-jakubszczudlo40@gmail.com>
-References: <20260607183542.368184-4-jakubszczudlo40@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 18:50:16 +0000
-Message-Id: <20260607185017.289181F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GOn1Vv18";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LsbmPFO8"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657Elqwk867542
+	for <devicetree@vger.kernel.org>; Sun, 7 Jun 2026 18:56:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UOeD9y79FHj6oJovegb4Bztj
+	ZrmipHoSab8dsEQjFWo=; b=GOn1Vv1884cefyitBCivgov44/8qYEbLqvLn4ezq
+	uRn2AJfUqQnyf/xZL9TuytE3/rPeDhgq0vYZ/pHcWd0PSjB2YGxPhnjxq9JTw8l/
+	kxFcjoo7qGer3WPk+31CVEo5WSivAWZudSLQBEOmpAfhte6nIWgJV6sRT+e9rbEw
+	vEGYNxeQVHmYZjYIOWHCVpMfoBzfv2u597jv26uMP3i47SOndcO/t15ls57XTWMM
+	/nrF+giNB29EBH8Xcaos/3zpszjb+q+fFY1DsfnEmnBH7vDM3guVafsOZKiDTrqw
+	UfdyGlhoos0Vgy/7el3kRBCYdogFBzTWPHWglh4rbcYiRQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emb4w4m3d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 18:56:35 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-517a00fbac6so18392001cf.2
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 11:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780858595; x=1781463395; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UOeD9y79FHj6oJovegb4BztjZrmipHoSab8dsEQjFWo=;
+        b=LsbmPFO84Hwq8lUX4C42njseT8n5OAt9qEReG+Kd3VKuVBn1whoXDGF7F3D8DHhG/P
+         nf3Rla4Xg4tS1xxj/keG2UfeE+SdsA7y53Fb/irzYD5Rg7gmZGVKFnGz8z0S2JHiEnTY
+         QtPtChiBURcyGIzHwJvOVcoHmtsTbxr8wClw85o7IojgFkNJNQekJ+IjAgT4Ir8WMpLI
+         EZQPIuLMThm3/xJ2wdlQt4HeQV+K5JqYyBIzyg2tewEIS5jn9tOmBYYDQ9nBG1xo+NEZ
+         jnhXG9/Q6CqnZxTKahJsr3fp0/sLpnglUB6SdM9zCPma+9049Q2QFYYzbPPirG3i+Q6m
+         DppQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780858595; x=1781463395;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UOeD9y79FHj6oJovegb4BztjZrmipHoSab8dsEQjFWo=;
+        b=UMLcm+WYotqTgmbpUZaqAo+VA92YdZXZ/4aVRl2Ik6qrXYKEqs8iGUaUWac2Pq2fDK
+         8WDTO5JfcHDkrILIS0OzEgGeKOEgjqJh67XMqXiu9YSvvwbLJiezTsj8Apva2+zUywmD
+         cP3pmJ0O6hFzZYyGCUa4leAT5u1DaykKsbmN1ULhGY14JwNhizdndTru7wI6WAao/gxk
+         k+Ext4CQ8EGKFOFtKd5XckJtJ5sHIG6ZZeT8XH+pzvdfdnQy3RK/laYUFch0eZ3fI+/V
+         oxApDvp228EusGYR4+6hOU197syrrfZj+uPZaOszocG48fg3NC69x2OQf7eTg/XZye1b
+         5YSA==
+X-Forwarded-Encrypted: i=1; AFNElJ8aFKJBmvQ98Z7+1PpwBgzW+lf44XGp2iXrPYdWOrBdB5VJZ2jdXQUFfDAmDjp8dp7KsmlLyMph9Esp@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQwxzUFsRnOQUbnyPRHPCpHVFtBgIXruNMvRYn0Ofgp27z6Q2I
+	y7Qz5V+RetgI16aknG2oTSC+/AC+HKvozG2rOfd3eI2fD79QDUWRjJJlPdyZ22MIeTKV6rBqyvD
+	I8vBI/QnD0J/bnQjtLGbYVqVyHviK7q3kpnBUfFfGE1dXNxste6hemnZdYLoWeyPZIdSIIxAX
+X-Gm-Gg: Acq92OFK0ZnHt1YyY6Q0quzM3/d9VV5x5UTEcHSNBTR4xbeSgWg/1BDOjitlaSmonBE
+	sV/GOH77+a3r8r0Q/RXx3GMLAylgjA9+gXccInlQvgGEWeufpfSwxeU9VSfaamlrW0zPobl2nCx
+	InePBMIBIEV+rsh6Aib9N4BrHHVsqlhk0dQAaSt7Nsh43l2BQtvtDZQV2+KGx+pu7g3xxxN9CZR
+	qsyi7THQg09zfvhfAfoY8tnwDKHWiIYOAIozOVvF2iItBXcucrEJ/2BEoBXbD4cK3Qb/ZtTx19i
+	Myz5Dw8AynHxq5I/q7/sCeMOiiOv0v7oaSn7wPlTZeJPXfjjJqQ9BY7KBbqxO2WoI68Wa4SdbJP
+	/hR6BPE8O2XdA6uZTuVikJx2g3cdYZQOYc4vZTJtObo8tLEBDS8XiodWuD962m1L5yVXbwATmm3
+	tGOaUZqZZYWuys+RjuvFfKlq0BEEHJw9q4aIPCQhb15Xq/qQ==
+X-Received: by 2002:a05:622a:2608:b0:516:de76:1d5b with SMTP id d75a77b69052e-51795c52edcmr199894991cf.32.1780858594961;
+        Sun, 07 Jun 2026 11:56:34 -0700 (PDT)
+X-Received: by 2002:a05:622a:2608:b0:516:de76:1d5b with SMTP id d75a77b69052e-51795c52edcmr199894631cf.32.1780858594531;
+        Sun, 07 Jun 2026 11:56:34 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396abf66b1csm40343761fa.9.2026.06.07.11.56.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 11:56:31 -0700 (PDT)
+Date: Sun, 7 Jun 2026 21:56:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ajit Singh <blfizzyy@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: Add Vicharak Axon Mini
+Message-ID: <c3rqwxfbvph5i6ejpm5bzdozab3cfpjyktbybf2e4idacxqrau@rh3el4dgv774>
+References: <20260607113658.25117-1-blfizzyy@gmail.com>
+ <20260607113658.25117-4-blfizzyy@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260607113658.25117-4-blfizzyy@gmail.com>
+X-Proofpoint-ORIG-GUID: V1NnxAPctY-qJnObWdQq6MPfspVlLU2S
+X-Proofpoint-GUID: V1NnxAPctY-qJnObWdQq6MPfspVlLU2S
+X-Authority-Analysis: v=2.4 cv=YIWvDxGx c=1 sm=1 tr=0 ts=6a25bee3 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=K_x56oIxuJ97mMCJ5C4A:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDE4OSBTYWx0ZWRfX8V8lb84xKOOL
+ zYMj7gWDz2sM9wZTr1x4eZ+XmtR/OjNy90IV2ctG8aTQyuqMkf0Wa5fGRDu1g9v6iYzJY1WvwVi
+ yh6OOcnZRK4rECqdAxodj5X+5lP4mACVtndujEWWy/aDvbiHLeBkOceIhXD0SLnk77PduhyQyy/
+ KdnLGK0TOLjNbKjKwCQcjBTfrSDH3p7QktHkYhzu/pYZxQhJ1XtXNe0nGoEa/QGbU4sAB1d3HrB
+ 7hX1I3OUgns1qKN+vEE15ciKtkxevpD0I5NHXrVISmcyD2Ax0yl/mOf581oIBqxLXfQdft01xg4
+ 8B0DjqMwKvgbmtdHl3QZdkkWnQdp0+uJVrYBudh7uqyxbrJp6firavgtNhtr417lLRZjFvUq36p
+ NQ/QN+QOMC8r6oRQ9hkWYdH3ErBQTITK+nS0GaaZ+1t+67dVRAXfKTaNdMwo7wr7YZoPeOFwxQo
+ IQmtMKdmeuSKzGXxxWA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-07_04,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606070189
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] I2C read errors are silently ignored due to implicit type conversi=
-on (signed `int` compared to `size_t`), causing the driver to process unini=
-tialized stack data.
-- [High] Partial I2C reads cause a positive return value to bypass caller e=
-rror checks, leaking uninitialized kernel stack memory to userspace.
-- [High] The `vdd` regulator is leaked during device unbind due to reversed=
- devres execution order.
-- [High] The data polling logic instantly terminates in continuous mode, fa=
-iling to wait for readings and silently swallowing I2C communication failur=
-es.
-- [High] Probe returns success (0) instead of an error code when device mat=
-ch data is missing, leading to an uninitialized device state and a subseque=
-nt NULL pointer dereference.
-- [Medium] I2C write errors are ignored when changing the data rate or scal=
-e, silently leaving the software state out of sync with hardware.
---
+On Sun, Jun 07, 2026 at 05:06:58PM +0530, Ajit Singh wrote:
+> Add DTS for the Vicharak Axon Mini board based on the Qualcomm
+> QCS6490 SoC.
+> 
+> This adds debug UART, eMMC, UFS, SDIO WLAN, USB 2.0 host, PCIe
+> support along with regulators.
+> 
+> The UFS ICE block is kept disabled because enabling it currently causes
+> an SError during qcom_ice_create() on this board. UFS works without ICE.
+> 
+> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile             |    1 +
+>  .../dts/qcom/qcs6490-vicharak-axon-mini.dts   | 1027 +++++++++++++++++
+>  2 files changed, 1028 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/qcs6490-vicharak-axon-mini.dts
+> 
 
-commit 08fffdde41976a365855c8545a761a652c4906e0
-Author: jszczudlo <jakubszczudlo40@gmail.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-iio: adc: Add ti-ads1110 support to ti-ads1100 driver
-   =20
-add ADS1100 support
-make changing gain and datarate wait for new reading
-fix unbalanced regulator disable when removing in singleshot mode
 
-> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-> index aa8946063c7d6..11d6fe1e8abc2 100644
-> --- a/drivers/iio/adc/ti-ads1100.c
-> +++ b/drivers/iio/adc/ti-ads1100.c
-[ ... ]
-> @@ -85,6 +98,50 @@ static int ads1100_set_config_bits(struct ads1100_data=
- *data, u8 mask, u8 value)
-[ ... ]
-> +static bool ads11x0_new_data_ready(struct ads1100_data *data)
-> +{
-> +	int ret;
-> +	u8 buffer[3];
-> +
-> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-> +	if (ret < sizeof(buffer)) {
-
-[Severity: High]
-Does this implicit type conversion mask negative error codes?
-
-`sizeof(buffer)` evaluates to a `size_t`. When `ret` is compared to=20
-`sizeof(buffer)`, it gets promoted to an unsigned value.=20
-
-If `i2c_master_recv()` returns a negative error code like `-EIO`, it becomes
-a massive positive number, bypassing the error check and allowing the driver
-to process uninitialized stack data.
-
-This same signedness comparison issue appears in `ads1100_get_adc_result()`=
-=20
-and `ads1100_setup()`.
-
-> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-> +		return 0;
-> +	}
-> +
-> +	int return_val =3D FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-> +
-> +	return return_val;
-
-[Severity: High]
-Will this polling logic ever actually wait?
-
-According to the datasheet, the ST/BSY bit is always read as 0 in continuou=
-s=20
-conversion mode. If `ads11x0_new_data_ready()` always extracts a 0,=20
-`data_ready` will be 0.
-
-When `read_poll_timeout()` checks `!data_ready`, it evaluates to true
-immediately on the first iteration, causing the loop to exit without waitin=
-g.
-
-> +}
-[ ... ]
-> @@ -105,9 +162,10 @@ static int ads1100_get_adc_result(struct ads1100_dat=
-a *data, int chan, int *val)
-[ ... ]
->  	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-> =20
-> +	pm_runtime_mark_last_busy(&data->client->dev);
->  	pm_runtime_put_autosuspend(&data->client->dev);
-> =20
-> -	if (ret < 0) {
-> +	if (ret < sizeof(buffer)) {
->  		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
->  		return ret;
-
-[Severity: High]
-If a partial read occurs, could this leak uninitialized stack memory to
-userspace?
-
-If `i2c_master_recv()` returns a positive short read length (like 1), this
-error path correctly catches it and returns `ret` (which is 1).
-
-However, the caller `ads1100_read_raw()` expects negative error codes:
-
-drivers/iio/adc/ti-ads1100.c:ads1100_read_raw() {
-    ...
-    ret =3D ads1100_get_adc_result(data, chan->address, val);
-    iio_device_release_direct(indio_dev);
-    if (ret < 0)
-        return ret;
-       =20
-    return IIO_VAL_INT;
-}
-
-Because `ret` is positive, `ads1100_read_raw()` will bypass its error check
-and return `IIO_VAL_INT` (success) while `*val` remains uninitialized.
-
->  	}
-[ ... ]
-> @@ -127,7 +185,7 @@ static int ads1100_set_scale(struct ads1100_data *dat=
-a, int val, int val2)
-[ ... ]
->  	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
-> =20
-> -	return 0;
-> +	ret =3D ads11x0_poll_data_ready(data);
-
-[Severity: Medium]
-Is it intentional to discard the return value of `ads1100_set_config_bits()`
-here?
-
-If the I2C write fails, the hardware and software state will be out of sync,
-but the driver will proceed to poll and falsely report successful
-configuration changes. The same issue appears in `ads1100_set_data_rate()`.
-
-> +
-> +	pm_runtime_mark_last_busy(&data->client->dev);
-> +	pm_runtime_put_autosuspend(&data->client->dev);
-> +
-> +	return ret;
->  }
-[ ... ]
-> @@ -292,9 +364,13 @@ static int ads1100_setup(struct ads1100_data *data)
->  	return 0;
->  }
-> =20
-> -static void ads1100_reg_disable(void *reg)
-> +static void ads1100_reg_disable(void *data)
->  {
-> -	regulator_disable(reg);
-> +	struct ads1100_data *ads1100_data =3D data;
-> +
-> +	/* Disable when not already disabled by the driver */
-> +	if (!(ads1100_data->config & ADS1100_CFG_SC))
-> +		regulator_disable(ads1100_data->reg_vdd);
->  }
-
-[Severity: High]
-Could this leak the `vdd` regulator during device unbind due to the devres
-execution order?
-
-Devres executes registered actions in reverse order (LIFO). During unbind,
-`ads1100_disable_continuous()` executes first and unconditionally sets
-`ADS1100_CFG_SC`.
-
-When `ads1100_reg_disable()` runs immediately after, the `ADS1100_CFG_SC` b=
-it
-is already set, causing this condition to fail and permanently skipping the
-`regulator_disable()` call.
-
-> =20
->  static void ads1100_disable_continuous(void *data)
-[ ... ]
-> @@ -334,10 +411,18 @@ static int ads1100_probe(struct i2c_client *client)
-[ ... ]
-> +	model =3D device_get_match_data(dev);
-> +	if (!model)
-> +		return dev_err_probe(dev, ret,
-> +				"Can't set device data\n");
-
-[Severity: High]
-Does this return a success code when `device_get_match_data()` fails?
-
-The preceding call to `devm_add_action_or_reset()` succeeds, leaving `ret`
-as exactly 0.=20
-
-Passing a 0 `ret` to `dev_err_probe()` will cause the probe function to
-return 0 (success) instead of a valid error code (like `-ENODEV`). The
-device registers successfully with uninitialized device data, leading to a
-NULL pointer dereference when userspace tries to read from the device.
-
-> +
-> +	data->data_rate =3D model->data_rate;
-> +	data->has_reference_voltage =3D model->has_reference_voltage;
-> +
->  	ret =3D ads1100_setup(data);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607183542.3681=
-84-1-jakubszczudlo40@gmail.com?part=3D3
+-- 
+With best wishes
+Dmitry
