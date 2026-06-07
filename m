@@ -1,102 +1,140 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D492BE057;
-	Sun,  7 Jun 2026 13:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3383C3859F6
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 14:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780838272; cv=none; b=GG4NYx+2S2a6NDaVYjaJcb3ZL52DfcMPD/gSrX38n5dsmKCE4ApgNo5oXj4RBH9Cu0LU+TsA8K1t0PvaPSm8ujVfQigul3OxUBWriwLCPG4AJNSW01e11CznB0attrZRtjB/IoAjB5/Z7OwDhuDMQLQNyV8yQQhPPfRhHy/tFr4=
+	t=1780840935; cv=none; b=oK6pXRhMZ7Xiw2lo/Z7SbsdkBNZ59RRP75/KG8HVMu0GVJIBwFvYUsr2LJXarsqgx6+Hyx2UAoxDU4ZJTygKAUscPl0CyXsmq77nZ+/DHtXMOzWX8gtKdc1sN72YQQDrIXW2/RgEpOrwN4rKuGJ1FYSA1Gn+h4PEnVXySLTCoMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780838272; c=relaxed/simple;
-	bh=mymz8hMsPk/854Rxjm3BYemCDGO+hhJlropTRKwRRV4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=N/CDMvJR4Kx24zfkSayqcBpPrmZBhY8AzHCHDralZBtM+sF8p5geZtlpjnV6sBFAoTFb42+6Flt+Y1Qpzif1u2ZPzW7Ag0Azv4Ofv8R6AU+Ubotc0+S0Yrisip0fmmAOhxA3KfXn2yqjs4Sf+c/uOC1sQ0Po+M/lgfDKI8LPWew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=CCaS3Zmd; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1780840935; c=relaxed/simple;
+	bh=dztEsTWxmH2haAYHQs1wZXsZ1TJJ1TM6oh4YtQz6xLI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AD6hyextfJX1hqXrjBPuZFWQn/o2+3jjeCdJXA4tiESi+6qnCjMbSK8eNtFbVazR3uIe49xqogKjvsa0WsKpMDkIlMdOJkv/MNBzvG5BVvd8bLol0jgJOmyvLb5AU2R2d+gGt8HovmLJqckbrwN8jz28sBcxgJ0X2EXAf+dYzBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SRbmxDSP; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="CCaS3Zmd"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657B1DpJ3644857;
-	Sun, 7 Jun 2026 05:51:07 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:message-id:mime-version:subject:to; s=
-	pfpt0220; bh=rOdHEacwbEYqnbjI8muvDVSMA0W4NJxUkCaq5J6Qp5E=; b=CCa
-	S3Zmd2eyAK4+9NLoKlSkUAC/eIujUqsjK7pVlYUIOw5WxuodawUxxGnCLmFljNXk
-	QHUrkBHWUYGWO+TT+cNfeKsUg8nsVtajUJxOCLS9Q9dqbuDtx1OtWBfCVf13T9Qe
-	odUOu+KJh1nRQm0o2vyReOc0zyNl/Q8y/mO+CTCsDv5fZ+fLMgrZlsncUXz2ZkBR
-	x6hFzpWK9ym6NTIo0sIOb83OmVhUWCZTxKtyLFmeJUa+zvAr2owK4PIoOn6XE7Jx
-	feCnzC4iQFmlswKajJRSp0uPTYnG4KKkX86/PLHpC0fthhmYJgqqZkbWaoGJSLD1
-	ND88gCkYdP/XVn6o3QQ==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4en4a5gmc6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 07 Jun 2026 05:51:06 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Sun, 7 Jun 2026 05:51:06 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Sun, 7 Jun 2026 05:51:06 -0700
-Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
-	by maili.marvell.com (Postfix) with ESMTP id 38C893F70C5;
-	Sun,  7 Jun 2026 05:51:02 -0700 (PDT)
-From: Geetha sowjanya <gakula@marvell.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>,
-        <gakula@marvell.com>
-Subject: [PATCH 0/3] perf: marvell: LLC-TAD PMU MPAM filtering and CN20K support
-Date: Sun, 7 Jun 2026 18:20:58 +0530
-Message-ID: <20260607125101.17778-1-gakula@marvell.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SRbmxDSP"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so301245e9.1
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 07:02:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780840932; x=1781445732; darn=vger.kernel.org;
+        h=content-transfer-encoding:autocrypt:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=t6VglNTovUYCDn8ZP7dcNe/GS5KXZ47ukCjoUu64dW8=;
+        b=SRbmxDSPJIIPclqUc8DZdFSHJ4e93XqE+B/xyowt4JJf21b2H0WbTYo20G9gb9pUAL
+         wO2/Dln2FuRXCokDI/od2Py5JiP0NthCmLSsWGm7sVf+xYZ17FcXoU20EcVdZn1N0IAD
+         UP20D0ceLWKIOlwKr7WPz0e3n8Bi3wsOegtdx3qJmxfpllaZ/ElMrg44aRVXXN1zwsaF
+         w6Gh/+yvf1d27flEz7ABwWbDsqveCkb9mv55G882a4ZjHDfHIJ3zWo1x64PLyQf/+Cfk
+         HbWIqJGH2UHyq6UEVac8TOWF1eY5dVri+8ZZHj4ruyRbObFlrObn74Bw3yECyHa2YeBP
+         ocSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780840932; x=1781445732;
+        h=content-transfer-encoding:autocrypt:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=t6VglNTovUYCDn8ZP7dcNe/GS5KXZ47ukCjoUu64dW8=;
+        b=LdaFyHvJSk5Y6WKsE0JZcJsfQmWyEseqV2VYNlcXL9ZFRWs7VleOg957uP0gz7PILD
+         l4thJodg/Xr4aZ+O/IJuT4dJoNC/czUUDj8lvzj6hzekHz4XiHIcBlOeAoMiauyd/uyk
+         d1xsiGf+wmRYEMUbTDb698RH0+3o/jdCzsDUxaQu16Gs6rcwGSw6vyenK8jh+MlwaPzZ
+         +vdIcpWutVFHH2pKcbmSJecqC+3T1Ssg8/ni9ye4S5xXEp5MKtgdoWAdAv5qz9IY874X
+         hKwMl/nx2qixKj186m3Q4jq6DXHg5EySFIQPugnhjsZXOROe3PVYNN1T8zPSqW6Jd8xe
+         Xp1Q==
+X-Gm-Message-State: AOJu0YwtgExVN/h53J3XaS+kztYvvH8qs57EsXM0xz1+OUYIb7FfkvF6
+	c6sjB17kOSgwyTmstB2ZybSOvw7x3/npCPcZUD3eOXBq84NIKflSzspl
+X-Gm-Gg: Acq92OFZMivQyCbyv8sf3B9AMtqw92cWQfwz6ZzAQ9kLo4V1Lb8BKG+Hnq1jdiMGtbW
+	zEDJe9VevQ9mFZSIuTa4ZzU0knw4xARPvMNlHEpqFMhWIkiON2Jlc4jPmHxPjJG/XRLjrDpA+k0
+	nOhgu3BxWkTJTMFAzdJ66ZkUpjrii2loUzmI8BAFpG4EYopUme5D9AjBxP1L3VuOYtsOr6Xji5i
+	hRPa1HeKDIVdURuKM4N5DXzgyrz5W/dSE04cWpKwE+W8V9JGDkNqs7c+idXZoayhHP6v8xC1k9u
+	HS5TmPYumvN1EkH+L5xVUcyXQrq90o7K0e9FAy9njk8zn7tVDO6R8FDDR/3jxeusQTFS3ACYDVP
+	++YZGyNFmW0DcgI4L+gxEQz/jwAaTNc0ZDI372MelR9nV9brThzizO74u4I3LTnMcD1NDObwclO
+	iqcEyVKbUIrX2GVgrvlelihcNmA1FkCuUsF8ie8/IQpUiWhXne/AfqFcJBesWQ2C3X+LKN8Bna2
+	M+8bxwRUhTX3gBQ2e/mSoiWOn0xjdGnOoBGLciKY8F2bQ==
+X-Received: by 2002:a05:600c:190b:b0:490:9804:afdc with SMTP id 5b1f17b1804b1-490c25ff35dmr203817205e9.23.1780840931356;
+        Sun, 07 Jun 2026 07:02:11 -0700 (PDT)
+Received: from radijator.localnet (93-140-232-240.adsl.net.t-com.hr. [93.140.232.240])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f35eae5sm44141055f8f.33.2026.06.07.07.02.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 07:02:10 -0700 (PDT)
+From: Duje =?UTF-8?B?TWloYW5vdmnEhw==?= <dujemihanovic32@gmail.com>
+To: Karel Balej <balejk@matfyz.cz>
+Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 3/3] regulator: 88pm886: Add Vbus regulator
+Date: Sun, 07 Jun 2026 16:02:08 +0200
+Message-ID: <DRas3NvTRJi7jDZJc8QqTA@gmail.com>
+In-Reply-To: <DJ2R7MRPNO5X.2WPLSEDZFAJ3G@matfyz.cz>
+References:
+ <20260526-88pm886-vbus-v1-0-f2bd1fd3c19e@dujemihanovic.xyz>
+ <20260526-88pm886-vbus-v1-3-f2bd1fd3c19e@dujemihanovic.xyz>
+ <DJ2R7MRPNO5X.2WPLSEDZFAJ3G@matfyz.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=HpBG3UTS c=1 sm=1 tr=0 ts=6a25693a cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=t6Rdc7sheOvqEPeo2a0A:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: 4NAtQbjwxdP84H6pLHwtUxd9GIq4jlFF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDEyOCBTYWx0ZWRfX6DMcniO66Y2g
- JypRtDdqILsgCJITg73KlwjlQmjx8mkLa54gdoz8qTig3WOPL3DLjUJDFuwqwHbXJN9YZOJtEuq
- b4mxEvHiNZ56KXMt1wYC90vFvEvOgYZmRNM649Ar7OfVvWUR5OolYTcY6eIY9iaO/rlwH+p8fUO
- 9ujYaPzpoqq2Y+h09ysvSzGl8k5WoYniHM8kNl8ScOpVDgf8lhRvhuJnMgEkvb5SWFz0IBYrPjD
- Ho5vRN40NXNZQ1TJPf37mIBVUQG+N9LqVSIc+DzbTBmvZV7IdT1TkHK3cCwSxUO4zRnS8O5VWwx
- CO0mea81HC/GpB1SWNNAF9izLDmSMmNTom2FyWlKvq+Xsf1FIjMLV/CtmvBWN0NlaQ54IuuFPfO
- E2VuuK3co835zRCYwZ7pXi17+ML+Dn7rjjZvo3c2Amhz0iKhSUGlZGsQXtk8O9IPzqiXZ2kKOYE
- 19dBeQ5O1QtgnpQTWUg==
-X-Proofpoint-GUID: 4NAtQbjwxdP84H6pLHwtUxd9GIq4jlFF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-07_03,2026-06-05_02,2025-10-01_01
+Autocrypt: addr=dujemihanovic32@gmail.com;
+ keydata=
+ mDMEabRVUBYJKwYBBAHaRw8BAQdAG5VJBpoPRIGQml4+E2LcPdyVtnXRuuqoD1BsHxRjNQ60KER
+ 1amUgTWloYW5vdmnEhyA8ZHVqZUBkdWplbWloYW5vdmljLnh5ej6ImQQTFgoAQRYhBJvUYwF2kA
+ idqo3CZidfVEs7G0eSBQJptFVQAhsDBQkFo5qABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAA
+ AoJECdfVEs7G0eStq0A/1SDcm8Bkq1JV+GTGMC8qE1QzCFvnoJuZqtUuQRCkd31AP9Mbc3pmg1K
+ JDxgPl17/CQohZ98dbUVffmdQpJJLLMsArgzBGm0VXYWCSsGAQQB2kcPAQEHQH8nnS6QNfgpc1Y
+ tqU80DWMWMsDPEGJ7yZ9Nf90mPEEQiPUEGBYKACYWIQSb1GMBdpAInaqNwmYnX1RLOxtHkgUCab
+ RVdgIbAgUJBaOagACBCRAnX1RLOxtHknYgBBkWCgAdFiEEA6Ue0g5lV5FAcj1ivjIt18NZWcUFA
+ mm0VXYACgkQvjIt18NZWcUyDwEA5OK1WRFN4/psOq/bS6Wuh5ysy0CyXIydqIwDJDdAFukA+wfc
+ lr1qyAbEX0FHVunCl+sxv/ymvjsup85rAH+a2j8HA7gBAIolabvAIUTUfCQNCu5MUt482b2EC8K
+ 40xl/6HT43dunAQCqxwRLI2k0xmTdia2AZwqbbMvqWonOLWtdZwWvodgjBLg4BGm0VaASCisGAQ
+ QBl1UBBQEBB0CoqkQL2R15WHRvj3RlkxjW3pPpZVUOHyfhEX+Q9PhTcwMBCAeIfgQYFgoAJhYhB
+ JvUYwF2kAidqo3CZidfVEs7G0eSBQJptFWgAhsMBQkFo5qAAAoJECdfVEs7G0eSnB0A/3oyRxS5
+ cUJMNnM1+4UkRahmU5/42NfVOxIL5d5oaW13AQD617LpOfnCuZR3U0vHLOW5vrnFtdvi32N5zLD
+ 9wyShC7gzBGm0VbYWCSsGAQQB2kcPAQEHQPRL1mWe9nIhjicyAqqEN80IXEF0NeKSFFpN8n75b2
+ YIiH4EGBYKACYWIQSb1GMBdpAInaqNwmYnX1RLOxtHkgUCabRVtgIbIAUJBaOagAAKCRAnX1RLO
+ xtHktyGAQCJPD6JsQhQZEB8ciZrJz+hnonsJp+KZZQQGEK/KsLHEgD/ePz/x0pQdI/DcJd/5Qge
+ +IJGd+jyv4zyevPxipVbyAo=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-This series extends the Marvell LLC-TAD performance driver used on CN10K
-and CN20K systems.
+On Sunday, 7 June 2026 12:44:08 Central European Summer Time Karel Balej=20
+wrote:
+> Duje Mihanovi=C4=87, 2026-05-26T21:14:49+02:00:
+> > From: Duje Mihanovi=C4=87 <duje@dujemihanovic.xyz>
+> >=20
+> > Add support for the PMIC's Vbus regulator. This regulator is mandatory
+> > for USB OTG support on boards using the PMIC.
+> >=20
+> > Signed-off-by: Duje Mihanovi=C4=87 <duje@dujemihanovic.xyz>
+> > ---
+> >=20
+> >  drivers/regulator/88pm886-regulator.c | 27 +++++++++++++++++++++++++++
+> >  include/linux/mfd/88pm886.h           |  7 +++++++
+> >  2 files changed, 34 insertions(+)
+> >=20
+> > diff --git a/drivers/regulator/88pm886-regulator.c
+> > b/drivers/regulator/88pm886-regulator.c index a38bd4f312b7..039822e86ec8
+> > 100644
+> > --- a/drivers/regulator/88pm886-regulator.c
+> > +++ b/drivers/regulator/88pm886-regulator.c
+> > @@ -4,6 +4,7 @@
+> >=20
+> >  #include <linux/platform_device.h>
+> >  #include <linux/regmap.h>
+> >  #include <linux/regulator/driver.h>
+> >=20
+> > +#include <linux/units.h>
+>=20
+> What is this for?
 
-Patch 1 adds optional MPAM partition-id filtering for the subset of TAD
-events that support it, exposes a partid field in the PMU format string,
-and keeps the reduced Odyssey event surface without advertising partid
-where it does not apply.
+Leftover from a WIP version, I'll drop it in v2.
 
-Patch 2 introduces CN20K LLC-TAD support: non-standard PFC/PRF offsets,
-additional programmable events, CN20K-specific MPAM encoding for the V3
-profile, and device discovery via DeviceTree and ACPI.
+Regards,
+=2D-
+Duje
 
 
-Tanmay Jagdale (1):
-  perf: marvell: Add MPAM partid filtering to CN10K TAD PMU
-
-Geetha sowjanya (1):
-  perf: marvell: Add CN20K LLC-TAD PMU support
-  dt-bindings: perf: marvell: Extend CN10K TAD PMU binding for CN20K
-
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
-
--- 
-2.25.1
