@@ -1,126 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBD52459E5;
-	Sun,  7 Jun 2026 13:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F892EEE7D
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 13:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780837855; cv=none; b=DYbnVYQIRhKGD2wJrvt4B71LGsqHzTFyMQb52xFJrvCFxsWzR1/mzY3asZpkthv0U0M5jw77DK91m1lYtSg+J5vPxvsFmw9Rh9Ah56czdRjB4/0CARCRhYFE64qswE90xaIEovOFpLvoJkqBd9gaMsAFqoVuF7vaZDMtKJrAAoI=
+	t=1780837947; cv=none; b=CpuJmXtTiNBX7qbTTYEqd220NEM8+GoPbPS1j3mcEFHZdEbFjvJEOZBtnIxlKb5g4aKNyYr4HU1qs3o5Z/sYh1uIBiSyKCzuyq76r00Vi57gWEyJxKNVfU6g0YT+tVcksjK1nFdyL9+oWZOTsp7ZWrRpXJ6t9JriVKJXnVLgYF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780837855; c=relaxed/simple;
-	bh=GPV98c7LhjIz7qOdaq9DJebC/14sSOkYq6z2g09vcZg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Ia2JmJjg6VeujfafHT7BVjFBty9CvdLG+z31nVhiCWsi63fjOA9vNVxK30Z0CQ8oK+/toUBnxKoJsOCMERcYvg7wgQ/pGgROl+KmA4EdocDpoHLoJ8cHp8rkmrf4ITUSKORkzxhZHkxpLuH2plJE6EKZvB3lAOBYRsnac8e6IzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fEsRa7xV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780837947; c=relaxed/simple;
+	bh=7olzZHHpB71MrERaSvQjT5XeeR/NDdooMLayR7fPucY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LgPhj5kMoEaAsbD1RXKZOwdL3YuEioBkgV+RJw/bXBa79C163wg7gBQudX9H2sX+JEa72M6WoYcKHRUvikc0LpGlNLT7lUG71GaZ3xvzlT7Br8BlnpDQ8BykrhfxtSwcEs8qBiIyOe1C+M+9jKARDWlwTC0IqlK9p1nIGgc15Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qcOYCRbh; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fEsRa7xV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416931F00893;
-	Sun,  7 Jun 2026 13:10:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780837854;
-	bh=F2xqSkIR5zY+W2bnuAsWsR1SiOHZkfrjd5N+jCaFNXc=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=fEsRa7xV3t4R2RdnUn2vRvpM5bAyNHRKVgb2Zc7aD5Ijf3WN5lFgW5DvhpDXIExYO
-	 hxNbppayoTRu2vNeuES1JRf0mf7BpAcwOi+UsFm0AfvhWnurLmOPDjNIwb1sG7beXl
-	 IFCw7l2ugyXLqFLQYdWJ074r4XgKhPFwmFNhcpyphTWEw5BHpgoVC8zIIMUSYZfzL1
-	 HMOHYdaJYIOqCobQTHWHTd095G8rUi1kxKnRkISxbcTUVRCIvTMj0+K3R4ICyEOQgK
-	 E91tHhJNIw5Y/5zUA20n7MH9HX850C09NgC8o8zbz9LcLgW9p9tv/e2aOZvkwJk+xX
-	 gPNJvvPEhRg7w==
-Message-ID: <0bbe9ff3-5d42-496b-b777-8eb657b6e6a2@kernel.org>
-Date: Sun, 7 Jun 2026 15:10:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qcOYCRbh"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-befee9e5ef7so379736066b.0
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 06:12:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780837944; x=1781442744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=upYkD5TmeVM6Zj2sXRhLZMQLdRWjjRoIFrUgE/4H0kg=;
+        b=qcOYCRbhNIx6IB07wiTtdAt9GOwEVZ6/BAR6Gol8GimRnM+v/v0y6uYEl4OPfHtuPI
+         /VEyZz+WhxQrwE+v10uuKgokvrGIMzGp6umafTRYK13MI1FaVFm4w8TpvsWRakA7zcu+
+         eONPRunZzk60n+3KrL7qo2mKIiC10Zy/cwzwVlCIFcjMjxoVVMXjQOf/2g7g+uynIeHo
+         rANSTF9Mqumd0CfVU+pEquvxTnaT8xFAvNvdX9ehzeogUrgli71gvZS1YzvmgvHUxWWy
+         OvijL0gX3su5Ojv5lM72BnZD4zRukJnamYaRom9+yJD1QUFmmgK0DFeX6GPe7oJrHU4T
+         ExOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780837944; x=1781442744;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=upYkD5TmeVM6Zj2sXRhLZMQLdRWjjRoIFrUgE/4H0kg=;
+        b=VEzIFNcGa6IORQtKYvWQLFEBGjlbGw6kM3p4BE4QdfTnUMN39T/dyDwSTx4mOh5iRy
+         QqoXfGO/dKvrN4IAM1sefEiEwK2QbQNVeQGjvCYsl1haHdcoNg7OtRakVdWLmjacRrzJ
+         dHIPTF3KaZE/MTKi32iQq0pxXw0s2ViVHBLqDxc9KST+RGFYyTJnV8jdIDdMtZnLJneR
+         TtyDKXAELlqDna8j80HHjsGaMPSbfTNnFQ+EjKATkF0Ff0dO1I2ROU2aEqsF+3cPw3T7
+         e98wSeTYaCyF3AgD+CRiK0onBGaW5ZbD9+qyBbi6ZVuq4GzO/8YgH4a6d1uoTjoFtgEX
+         Lehg==
+X-Gm-Message-State: AOJu0YzNr8OjiIExeAyaQARmQCrZiyk53hw8xfTxndG+ZzP9X0P3P1Mf
+	yo95SjCQ+rYUY8owTSncHtAWKO9sc8fZDNSFbbPoHerRhpocO+QGuodBh+GquMFC
+X-Gm-Gg: Acq92OGtvjgt3RNbhmDuEGv7ivf7HByVOpgJFfE85Pekg1QvlZHmEXELC/9W6tQ9Xk0
+	7WgWE6T1pm77yb2SoU9fDu5Q7NH7rZaasK/AArOgxwIgyFTHnVIpToFVEEvF8G8axzlTZ4maIK1
+	KXuaLCbmc1bYdl6fpv/pB/T8vhlthx6uv8WKFhLP6FrzL7sVG+1UOI9cnZMmxypzpCRoW+HlboP
+	7Lvz2W50ZE6Gfr9Jrs3PeSJZDb/os/n0OYeswuxEE5xeVbZ4sanr5D1LhoXAtDrV28fAec8rN/U
+	SYcpQH8Wh/y7Fceks+jAR6g9tb7MWRcQeRiPKOF31qkq3ZPw9X57aD/kXL14/MOQfK/QNDdlbXt
+	mJy+VaGlwPaT6lXxbAvcZhG228nUTd9glDUSlSJMjmMkJ9kesRPEdQxPVr8uMC0t2Cn/UfnsRnq
+	UB7KKriH85EsrdvwWVxNUCfgsKr2+QAlwxj5Z9hF3adLhwtsw=
+X-Received: by 2002:a17:907:2718:b0:bea:f4e0:c7b9 with SMTP id a640c23a62f3a-bf370d638ccmr395176866b.19.1780837944394;
+        Sun, 07 Jun 2026 06:12:24 -0700 (PDT)
+Received: from gigabyte-b550m.local ([80.68.228.198])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf05176e1b5sm719839566b.8.2026.06.07.06.12.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 06:12:23 -0700 (PDT)
+From: Lech Perczak <lech.perczak@gmail.com>
+To: devicetree@vger.kernel.org,
+	imx@lists.linux.dev
+Cc: Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lech Perczak <lechu@hswro.org>,
+	Lech Perczak <lech.perczak@gmail.com>
+Subject: [PATCH] ARM: dts: imx7d-pico: describe Bluetooth controller
+Date: Sun,  7 Jun 2026 15:12:17 +0200
+Message-ID: <20260607131217.6497-1-lech.perczak@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/5] dt-bindings: net: realtek,rtl9301-mdio: Add
- RTL931x series
-To: Markus Stockhausen <markus.stockhausen@gmx.de>, andrew@lunn.ch,
- hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
- daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260607125406.2853607-1-markus.stockhausen@gmx.de>
- <20260607125406.2853607-2-markus.stockhausen@gmx.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260607125406.2853607-2-markus.stockhausen@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07/06/2026 14:54, Markus Stockhausen wrote:
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-> ---
->  .../devicetree/bindings/net/realtek,rtl9301-mdio.yaml       | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-> index 02e4e33e9969..494c92601e09 100644
-> --- a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-> +++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-> @@ -19,6 +19,12 @@ properties:
->                - realtek,rtl9303-mdio
->            - const: realtek,rtl9301-mdio
->        - const: realtek,rtl9301-mdio
-> +      - items:
-> +          - enum:
-> +              - realtek,rtl9312-mdio
-> +              - realtek,rtl9313-mdio
-> +          - const: realtek,rtl9311-mdio
-> +      - const: realtek,rtl9311-mdio
+Ampak AP6335i Wi-Fi module atop i.MX7D Pico SoM also supports Bluetooth 4.1
+via UART attached to "serial6" port. Describe it, so the controller can
+probe automatically on boot.
 
-That one is part of enum with other single entries - rtl9301.
+This is based on "Pico i.MMX Development Kit for Android Things Hardware
+Manual" rev. B1 [1], Table 6 on page 12.
 
->  
->    '#address-cells':
->      const: 1
+Link: https://www.nxp.com/docs/en/user-guide/PICO-IMX7UL-USG.pdf [1]
 
+Signed-off-by: Lech Perczak <lech.perczak@gmail.com>
+---
+ arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi
+index a1574ccec89c..6d4e8087192c 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi
+@@ -339,6 +339,20 @@ &uart7 { /* Bluetooth */
+ 	assigned-clock-parents = <&clks IMX7D_PLL_SYS_MAIN_240M_CLK>;
+ 	uart-has-rtscts;
+ 	status = "okay";
++
++	bluetooth {
++		compatible = "brcm,bcm4329-bt";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_bluetooth>;
++
++		max-speed = <3000000>;
++
++		reset-gpios = <&gpio4 18 GPIO_ACTIVE_LOW>;
++		device-wakeup-gpios = <&gpio4 17 GPIO_ACTIVE_HIGH>;
++		interrupt-parent = <&gpio5>;
++		interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
++		interrupt-names = "host-wakeup";
++	};
+ };
+ 
+ &usbotg1 {
+@@ -401,6 +415,15 @@ &wdog1 {
+ };
+ 
+ &iomuxc {
++	pinctrl_bluetooth: bluetoothgrp {
++		fsl,pins = <
++			MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17	0x14
++			MX7D_PAD_ECSPI1_MISO__GPIO4_IO18	0x14
++			MX7D_PAD_SD2_RESET_B__GPIO5_IO11	0x14
++		>;
++
++	};
++
+ 	pinctrl_ecspi3: ecspi3grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_I2C1_SCL__ECSPI3_MISO		0x2
+
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+-- 
+2.47.3
+
