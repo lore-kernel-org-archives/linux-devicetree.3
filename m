@@ -1,92 +1,360 @@
-Received: from mail-m19731112.qiye.163.com (mail-m19731112.qiye.163.com [220.197.31.112])
+Received: from mail-m15596.qiye.163.com (mail-m15596.qiye.163.com [101.71.155.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9977E1E5702;
-	Sun,  7 Jun 2026 04:30:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CFE226CFE;
+	Sun,  7 Jun 2026 05:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780806608; cv=none; b=iOGV3n0kBnIiAvcANtKg+VdVCSuhT1c8Hw7l2Fai9dpaVQYfZnaEHddo8HzU4v5noejZHaE+rUUTlUpM+j5yIPiToG0/Fbbfe2JavyfRMItL6tls/1TnuV33DBGs/kO7X+iFdVkiSPeRMRpRi3tXTBRJGVIM/L+a70IPZ9qumRc=
+	t=1780810414; cv=none; b=LVwdCkR6Y94MYf0M8ubLjOgQtbT3p6biyM6bfuSZmN+rCCg5Se95fLBzPQlpjJCWgInqkVx9pXFPISH0+GaUHW/0jk3ZePF/tP8/C4EbVjjhdVAyrmlC1drjLZiy4IVIScAxcBpeYulgC0w9YVqY+94r86UIabXaqdrPmK0gs8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780806608; c=relaxed/simple;
-	bh=OxwqnivcpbfLx/ebkZdAv7ZGB1plfGDM+2JE87iqTmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cg8toDSQCv+TRILt2hZPyAUGBVhmjnT9Z53fAc9UGxgrfZLL+6o1WyMimRr7JTbjIf/6ECvu4qWorgT3+gbHO4c+6sbX5PjrfS+Jixyzb+X5CaZnBYQ+3QDsRI4xutebntSPLDhD2zrCM1wkIZAQjPcoWKZ9xD2IeWu7gE71D1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=IavjGIfr; arc=none smtp.client-ip=220.197.31.112
+	s=arc-20240116; t=1780810414; c=relaxed/simple;
+	bh=jXf0D0/KSVfgmFqE7LNZBRH6GD+df6VVqHSvUy4cnSA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oVjidR1xpt6q7k64lPS0Zkrn917Um+t5G9afrmcG5toMcT86EWW2uY1Pqjf8lJAWZRUWiCKS0NHzecZ/kOb+OGNiS2KarVrcu/Q2TWhgCXUj899sj5OTq9jTJ4qLK3S8jDqMKxImpGk2rQn3lCnw+8b7C+pX0DVFO1MCscsFzI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=j1Fb3ika; arc=none smtp.client-ip=101.71.155.96
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="IavjGIfr"
-Received: from localhost.localdomain (unknown [113.235.125.44])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 415e9f1bd;
-	Sun, 7 Jun 2026 12:14:33 +0800 (GMT+08:00)
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="j1Fb3ika"
+Received: from [127.0.1.1] (unknown [113.235.125.44])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 415e9f25c;
+	Sun, 7 Jun 2026 12:17:36 +0800 (GMT+08:00)
 From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: dmitry.baryshkov@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	hongyang.zhao@thundersoft.com,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	rosh@debian.org
-Subject: Re: [PATCH] arm64: dts: qcom: qcs6490-rubikpi3: Move PCIe GPIOs to root ports
-Date: Sun,  7 Jun 2026 12:14:24 +0800
-Message-ID: <20260607041424.37142-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <3eot5467yvyvmw6rckfsklmw2mh3vs4v3apqexjthg5ygksdag@j274au5cv3mc>
-References: <3eot5467yvyvmw6rckfsklmw2mh3vs4v3apqexjthg5ygksdag@j274au5cv3mc>
+Date: Sun, 07 Jun 2026 12:17:26 +0800
+Subject: [PATCH v2] arm64: dts: qcom: kodiak: Move PCIe GPIOs and PHYs to
+ root ports
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ea04a20b609d5kunmb8c2e64816262c
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260607-rubikpi-bugfix-next-20260605-v2-1-7bf229978bcd@thundersoft.com>
+X-B4-Tracking: v=1; b=H4sIANXwJGoC/y3M0QqEIBCF4VeJud4BM7LoVWIv1KaaFiw0I4jeP
+ be6/DmH74BAnilAkx3gaePAs0shPxnYUbuBkLvUIIVUQokKfTT8WxhNHHre0dG+4juWWNhaWk1
+ KV30OiVg8pdPNt9+nQzQT2fVvwnleHmdldYAAAAA=
+X-Change-ID: 20260607-rubikpi-bugfix-next-20260605-3c82cae6a7f1
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rosh@debian.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780805856; l=8909;
+ i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
+ bh=jXf0D0/KSVfgmFqE7LNZBRH6GD+df6VVqHSvUy4cnSA=;
+ b=pKA5L4an75TENtSSjINQ6Pntmkv9J46stsvrUw6vovkaCcif79WbzkYzzARLfctN8w0lfu0TL
+ nHd201/Yu0fDuX3luGsVgi51vzsA3vXHp0tyjmTTGNzQPnmL3wmw4TV
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
+X-HM-Tid: 0a9ea04cee6a09d5kunmc3b598e31629d8
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSk1OVhpNHh5KSh4eT0tNTVYVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHhhDVh9DQxoaTB1DSB4aHVYVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
 	tJT09PSFVKS0tVSkJLS1kG
 DKIM-Signature: a=rsa-sha256;
-	b=IavjGIfrzAfqsL4pFUeSqZ0BpQBlqETfPDwIzhL/sjr6YM8Wja5NoCWWm0npN3tq7E7XdMzZpknFtCMLJswwLoUQ/GI7RGVRZOCrEBQUR9I2IX0vv89yXFBAT31QKHzxkC83uSbBgoDL580/YgCpMCOky/JcYeALvVQ84K9zCWg=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=qa8Pmy/ZNvNjX2eZuoO8c0WuJPc0n8ibS3W+WvdP1Pg=;
+	b=j1Fb3ikaOj/1/blK1ROsNHUYaxGlEwxym6XV3JF9xZXfEI1brnKbasqmjoqgwxnbS3uMyT2Etnr+2xQDyjNT+yE8S3a3+fYZgDi5zqMHUqNMMezIWtr0NB+NDOKgdkTZrbADSPCgoUTsg9MRZMtmO0HEjG2/G4Gs5Uxym/iLieA=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=0ui/LvDm8vyDthh7w2gqDwJl/W6fzjvsE+14cCIHNTs=;
 	h=date:mime-version:subject:message-id:from;
 
-> On Sun, Jun 07, 2026 at 03:13:49AM +0800, Hongyang Zhao wrote:
-> > The Qualcomm PCIe binding deprecates perst-gpios on the host
-> > bridge and expects endpoint reset GPIOs to be described on the root
-> > port as reset-gpios.
-> > 
-> > Move the PCIe0 and PCIe1 reset and wake GPIOs to their root port
-> > nodes. This keeps the GPIO ownership with the device below the root
-> > port and matches the PCIe binding.
-> > 
-> > Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-> > ---
-> > Fix the PCIe reset and wake GPIO description for the Thundercomm
-> > RubikPi3 board.
-> > 
-> > The board currently describes PERST# and wake GPIOs on the Qualcomm
-> > PCIe host bridge nodes. The Qualcomm PCIe binding deprecates this
-> > and expects endpoint reset GPIOs on the root port nodes as
-> > reset-gpios.
-> > 
-> > Move the PCIe0 and PCIe1 GPIOs to the corresponding root port
-> > nodes.
-> > ---
-> >  .../arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 16 ++++++++++------
-> >  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> Could you please refresh all kodiak DTs at once (and also move PHYs to
-> the the port node).
+The Qualcomm PCIe binding deprecates perst-gpios and wake-gpios
+on the host bridge and expects board reset and wake GPIOs to be
+described on the root port. PERST# is described there as
+reset-gpios.
 
-Thanks! The requested changes are clear to me now, so I will send a v2
-patch directly.
+Move the PCIe PHY references in kodiak.dtsi to the PCIe0 and PCIe1
+root port nodes, and move the board-specific PCIe reset and wake
+GPIOs in the Kodiak DTs to the corresponding root ports.
 
+Keep the PHY and GPIO resources on the same root port nodes so the
+Qualcomm PCIe driver can parse the root port binding instead of
+falling back to the legacy host bridge GPIO parsing.
 
---
-Thanks,
-Hongyang
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+Refresh Kodiak PCIe descriptions to match the current Qualcomm
+PCIe binding guidance.
+
+The series moves PCIe PHY references from the host bridge nodes to
+the root port nodes in kodiak.dtsi. It also moves all Kodiak board
+PERST# and WAKE# GPIO descriptions from host bridge nodes to the
+corresponding root ports, using reset-gpios for PERST#.
+
+Changes in v2:
+- Refresh all Kodiak DTs instead of only the Thundercomm RubikPi3.
+- Move PCIe PHY references to the root port nodes together with the
+  reset and wake GPIOs.
+---
+ arch/arm64/boot/dts/qcom/kodiak.dtsi                     | 10 ++++------
+ arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts    | 14 +++++++++-----
+ arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts    | 16 ++++++++++------
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts             |  4 ++--
+ .../boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts   | 14 ++++++++------
+ .../arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 16 ++++++++++------
+ arch/arm64/boot/dts/qcom/sc7280-idp.dtsi                 |  5 ++++-
+ 7 files changed, 47 insertions(+), 32 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+index fa540d8c2615..aae1774cb99e 100644
+--- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
++++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+@@ -2286,9 +2286,6 @@ pcie0: pcie@1c00000 {
+ 
+ 			power-domains = <&gcc GCC_PCIE_0_GDSC>;
+ 
+-			phys = <&pcie0_phy>;
+-			phy-names = "pciephy";
+-
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pcie0_clkreq_n>;
+ 			dma-coherent;
+@@ -2300,6 +2297,8 @@ pcie0_port: pcie@0 {
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
+ 
++				phys = <&pcie0_phy>;
++
+ 				#address-cells = <3>;
+ 				#size-cells = <2>;
+ 				ranges;
+@@ -2416,9 +2415,6 @@ pcie1: pcie@1c08000 {
+ 
+ 			power-domains = <&gcc GCC_PCIE_1_GDSC>;
+ 
+-			phys = <&pcie1_phy>;
+-			phy-names = "pciephy";
+-
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pcie1_clkreq_n>;
+ 
+@@ -2434,6 +2430,8 @@ pcie1_port0: pcie@0 {
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
+ 
++				phys = <&pcie1_phy>;
++
+ 				#address-cells = <3>;
+ 				#size-cells = <2>;
+ 				ranges;
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
+index bf18c4852081..694c87ba7c1f 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
+@@ -545,9 +545,6 @@ &mdss_dp_out {
+ };
+ 
+ &pcie0 {
+-	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
+-
+ 	pinctrl-0 = <&pcie0_reset_n>, <&pcie0_wake_n>, <&pcie0_clkreq_n>;
+ 	pinctrl-names = "default";
+ 
+@@ -561,9 +558,12 @@ &pcie0_phy {
+ 	status = "okay";
+ };
+ 
+-&pcie1 {
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++&pcie0_port {
++	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
++};
+ 
++&pcie1 {
+ 	pinctrl-0 = <&pcie1_reset_n>, <&pcie1_wake_n>, <&pcie1_clkreq_n>;
+ 	pinctrl-names = "default";
+ 
+@@ -579,6 +579,10 @@ &pcie1_phy {
+ 	status = "okay";
+ };
+ 
++&pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++};
++
+ &pmk8350_adc_tm {
+ 	status = "okay";
+ 
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+index bb5a42b038f1..27e1ca4889dd 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+@@ -522,9 +522,6 @@ &lpass_va_macro {
+ };
+ 
+ &pcie0 {
+-	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
+-
+ 	pinctrl-0 = <&pcie0_clkreq_n>, <&pcie0_reset_n>, <&pcie0_wake_n>;
+ 	pinctrl-names = "default";
+ 
+@@ -538,10 +535,12 @@ &pcie0_phy {
+ 	status = "okay";
+ };
+ 
+-&pcie1 {
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
++&pcie0_port {
++	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
++};
+ 
++&pcie1 {
+ 	pinctrl-0 = <&pcie1_clkreq_n>, <&pcie1_reset_n>, <&pcie1_wake_n>;
+ 	pinctrl-names = "default";
+ 
+@@ -566,6 +565,11 @@ &pcie1_phy {
+ 	status = "okay";
+ };
+ 
++&pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
++};
++
+ &pm7325_gpios {
+ 	pm7325_adc_default: adc-default-state {
+ 		pins = "gpio2";
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+index 37a3b51323ce..4274d01c612f 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+@@ -841,8 +841,6 @@ &mdss_edp_phy {
+ };
+ 
+ &pcie1 {
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+-
+ 	pinctrl-0 = <&pcie1_reset_n>, <&pcie1_wake_n>, <&pcie1_clkreq_n>;
+ 	pinctrl-names = "default";
+ 
+@@ -867,6 +865,8 @@ &pcie1_phy {
+ };
+ 
+ &pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++
+ 	pcie@0,0 {
+ 		compatible = "pci1179,0623";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
+index a5ad796cb65d..935b3f21ee86 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
+@@ -684,9 +684,6 @@ &mdss_dsi_phy {
+ };
+ 
+ &pcie0 {
+-	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
+-
+ 	pinctrl-0 = <&pcie0_clkreq_n>,
+ 		    <&pcie0_reset_n>,
+ 		    <&pcie0_wake_n>;
+@@ -702,10 +699,12 @@ &pcie0_phy {
+ 	status = "okay";
+ };
+ 
+-&pcie1 {
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
++&pcie0_port {
++	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
++};
+ 
++&pcie1 {
+ 	pinctrl-0 = <&pcie1_clkreq_n>,
+ 		    <&pcie1_reset_n>,
+ 		    <&pcie1_wake_n>;
+@@ -732,6 +731,9 @@ &pcie1_phy {
+ };
+ 
+ &pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
++
+ 	pcie@0,0 {
+ 		compatible = "pci1179,0623";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+index f47efca42d48..5c08ab53cdbd 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+@@ -812,9 +812,6 @@ &mdss_dsi_phy {
+ };
+ 
+ &pcie0 {
+-	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
+-
+ 	pinctrl-0 = <&pcie0_clkreq_n>,
+ 		    <&pcie0_reset_n>,
+ 		    <&pcie0_wake_n>;
+@@ -830,10 +827,12 @@ &pcie0_phy {
+ 	status = "okay";
+ };
+ 
+-&pcie1 {
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
++&pcie0_port {
++	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
++};
+ 
++&pcie1 {
+ 	pinctrl-0 = <&pcie1_clkreq_n>,
+ 		    <&pcie1_reset_n>,
+ 		    <&pcie1_wake_n>;
+@@ -849,6 +848,11 @@ &pcie1_phy {
+ 	status = "okay";
+ };
+ 
++&pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
++};
++
+ &pm7325_gpios {
+ 	kypd_vol_up_n: kypd-vol-up-n-state {
+ 		pins = "gpio6";
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi b/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi
+index 8cac4ce9c851..6bb806931b79 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi
+@@ -418,7 +418,6 @@ &lpass_va_macro {
+ 
+ &pcie1 {
+ 	status = "okay";
+-	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+ 
+ 	vddpe-3v3-supply = <&nvme_3v3_regulator>;
+ 
+@@ -433,6 +432,10 @@ &pcie1_phy {
+ 	vdda-pll-supply = <&vreg_l6b_1p2>;
+ };
+ 
++&pcie1_port0 {
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++};
++
+ &pmk8350_vadc {
+ 	channel@3 {
+ 		reg = <PMK8350_ADC7_DIE_TEMP>;
+
+---
+base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
+change-id: 20260607-rubikpi-bugfix-next-20260605-3c82cae6a7f1
+
+Best regards,
+--  
+Hongyang Zhao <hongyang.zhao@thundersoft.com>
+
