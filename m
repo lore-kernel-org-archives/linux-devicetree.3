@@ -1,68 +1,68 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F023033B6D9
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245DC322B72
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780873435; cv=none; b=I4V4/BEc36lf6RliBiI4KCwIdbrhICHZLRxLyXqKRSua15CVJfTmrYGjOXRWWbqsuet4W1l4s4xHZmigsC7eoLl1irgqrC0OHnjvw2yCXusnxKHvEYUuxnRj2nXXlpehdku+bs+SdsRCbhZfEINFTOThuUh157F40smPFQDCLAw=
+	t=1780873603; cv=none; b=RAc7/9+rAl8fM0ZouP6iEkfFPu46143JtlLegp0Dt3nl0F1rQdspWS7s/qG+W1j4ZmdL97bfJrVUSwq5usigOMB81X/SuPGbJXGRQWp+mcFSCWonj10MRCTsDXBMo1FLj3zM92Mg9JT8OAX8XVoLtRVvr8t3l0O1a/dDjzT64zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780873435; c=relaxed/simple;
-	bh=C1B4l2Xal6aTmfSeMRH4zSmYixqOCXWHPfKQNxkkoTU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EkS/rJWeWbKB+F4rZhV61O/pJZo4SrhCXeXpWnact4vuNr06UDkbwbpa9DjqAc+mm7fWZEiIXipVuJSaZX31aYZGq7RXSDKuRMDE8JLALUs9VRUBCHXcQAlq/nKeqIN227tCpNJ6Sd8L+A9KOoN5lywa1qYkpoWhH+PekjphxUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZCgVFnd9; arc=none smtp.client-ip=74.125.82.170
+	s=arc-20240116; t=1780873603; c=relaxed/simple;
+	bh=kPrqkZOImJEwVQ7s3GvhcobQ075gqn9SswfG7ujrmus=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=aR4VA0I8wXjDB2lrC07WNNl+yyB1WU5y7ugDQlmP0m6ZC1cyMI7NyoJjc7lrVIB51WheHXaXktHXHryMDm4m1TJxaCdHVt1o4457qQtSL4uBNc5WQZk3DJMwwPYGLyJw0zVCU9Qo8xsM5Vu43SlBON7dBZAALGEs4BTfjT4PIqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msfAvySx; arc=none smtp.client-ip=74.125.82.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZCgVFnd9"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-307631dbfedso8275191eec.0
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:03:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msfAvySx"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-135e7f4a295so2084215c88.0
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:06:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780873433; x=1781478233; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=IGoOnrVocML2WYduq9m+qccXAGqCDRVbLZl5L797H38=;
-        b=ZCgVFnd95+MEaKmJElbzKeYg3D7v/qjGxbn+t2R+whGG6OcHK4drbRL72NHCssIJeQ
-         OuDN4Tgs80py+tOSy2Fth88nSIPljuLUC6WNEb9MdPEbW+RoeZZ0Nwyh5FmJqvjviDNg
-         2atj5eNjHyF+bU6GdUIyNGww4GZ5KuWQ7MJwFZbTpfrXOjb0WfuJFL8dL87oHZztJzq+
-         B4a67Gkmr/SkH+ZDiEJOzXqAtyzdWtYNoac+ZI2i5vzII1tZ9SaSa6f53v/OmukEQr3p
-         /KzSyWRQjZaB5tjHVEyUhKI0lJL0NhARJ0xxz+Fxd1oubk1RJ/uPAH0icSnIsSpJ+sgB
-         ahww==
+        d=gmail.com; s=20251104; t=1780873601; x=1781478401; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=aa0pIIuhBk+rOGkwrS6QyL41EeSCfAnvIKaJSKLWeGM=;
+        b=msfAvySxInURsZjgif0V8vJMktFXnunRZ35RHmyoXI2X/DAhsN2gYKNiDQJv375vw1
+         JPvtIN/XrNT1WMnO1nlFhodkbS/1FcMPJDC5msrVtND6E/59wZGHvseVtMMpR8adipn6
+         zOhtUXHnHmNx0oxW/OB5kn9LCSc1n9U9wzCc8H/zD1QPjDJ2+2zGL0U4VvfJWAD2G9fZ
+         aThFqR5ZWhHbTNWQ1HE4QOhMERBDQ9Ptpj4K70R7S1qHG0rE6ALBeXhAtgmE6jG8tq/K
+         OU09lMPZomFVg/Y2EKToAOWtTlkNCP9ORJYQqWI8XTjaH5tVWNyQzK2/lIphOPug0tdC
+         Kiwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780873433; x=1781478233;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IGoOnrVocML2WYduq9m+qccXAGqCDRVbLZl5L797H38=;
-        b=p7lVQ1N7mSmnw1R/XCkVLcYQS1MbAQGF2pVV7Tk4IRusTZmx+hUSjjv9/Ba823RINy
-         ITlTMig00p4q331ijJpyKTfCEA8/RICiQyL48qHkhgOfsH5XP+Kli+n6yUIG7v6AC082
-         IHf5UXjv3oQLPBfAKTQR0NRG0d2XOF0kQEaz6/mZ6xdhqBJz29kux8nkEVgMMsY0mDbr
-         BIengYQvlaQSoSOpLLJPBv9rXHFMog6F0kCpLZAXwzE+EhYBEe8BV0ElvRAJiGPijREH
-         ffRlvBKUPUgStv2TjZCXZdBwEtvrih4O1oIHRNWjq5O+oWlfBJKLWtGiLbVYWwaVIJNM
-         FqLg==
-X-Forwarded-Encrypted: i=1; AFNElJ+DLMN9f4Etf5K/cKDSs/vUOebnFicf76lgBHCBjMU01/TTsdmgAErhf+Mgum1XsTijAvgWli2clbDx@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQc+QDI2xx90CBiQshAatIemfIDVxysqkCnWKi/HinExFRHj1n
-	ABZkf7d063UOrlqCotqnZG38bOP5vY2TfG12ILhzB6ihq2m9e7DZiX5Z
-X-Gm-Gg: Acq92OHRmpl7Yaq0wxHYkxxGNCifK6+eRFUCxq8nkQp9m+pUD9si6zVFqSUHePvL9iV
-	D39niVJ7E8cg3poa/oFnaUDERlfsLnHmvLYfmUlqx5nThTxraRC2soRlGuKaWc7UAL4QvEWa2ke
-	/67LGImH9qGokCBvMxsboR6IvqoxwAy9gb+8uRfobcAvXDeC2jVi92a8CnsvgjbuBG0KGAgT/4p
-	ZWSZux14f8GKJs92g7giwa8pY7URGRjm0P/A04OTUGUjxvi0N8BT6QWjf72IX7CdGyQ+Eip/AvO
-	W/j9zjCg4aPWWl9Qcm+Oh4tytKvNg1e+RFp/HPhExFYU80F2hW0FVCcoWbQQrsys2icsjkmW1T+
-	3hsBtFcV1ruSnM7qg7aNIEOQBRkpl1qLAeuVv40graJsETxnV/skta6pvqwEtbiLebIwuVU93+f
-	7SGXu6/QUGBGvLBIyWxu/ucdUlXd/4sW5QbFek/1YaBdr6CI43qf/cbk5JQ/agpveMZDTJXKeW0
-	4EUHGKfRthV87qFTNyvSg==
-X-Received: by 2002:a05:7301:1e94:b0:307:26a3:75d8 with SMTP id 5a478bee46e88-3077b270c7emr7756399eec.1.1780873433011;
-        Sun, 07 Jun 2026 16:03:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780873601; x=1781478401;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=aa0pIIuhBk+rOGkwrS6QyL41EeSCfAnvIKaJSKLWeGM=;
+        b=pgNqiDdCDASmuvtVkqQY73TM1o82Fc8MKv0XNeDunrzpGLydv4X9BlMa2msNYLS5nf
+         PQFJ4ikxt4YMRyqd6SCgYZa9MerMgjFo00ObIMU92YNmrpwloIV5pGAfIx+ZlOE5vdgF
+         BtXKxYm9YIEPggSGQNoR98ENbceHBSRlK8b1UrHXGUBCJfERZe+Np2MCvV0UHJNLHVXs
+         p7JCKrYmG5H3XH/m/vLbjyuw/1nWesWHz7/bShTCGYV76u8HdB04Q5QLt8h1HddWPFcr
+         jkHheOEV5cvs7S3sLeo77en+q/8BLfK733WSEJvq0rIIHeR81d1L+aZcX6CY88dt5KqC
+         4qnQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+e0agaLeu1z2vnNBHNxnEwn00Ga70ScCPxyo6sFr4NHwCmIJZhfCXp38ObgQ13aJ7rNKqmW2WOOlvm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy91rACP8QnguK+e85ohaL4B4T1YRwuRFnlNE2RU81oV2VT0ZIS
+	f8CajSDSSWtYybqE21Ovkjh8ymU4ZpNBsJq0kuMV2o/Exu2adG3QjFIf
+X-Gm-Gg: Acq92OFWvt2B06LmpO3QICVb/VBOLJlgfTeBIXPit3+hOM50dTKwSX83OGOWtuSo9k9
+	cv1Wqo3eO0w27XyptobBu73fplufITAdLCusPQmjCV99nmM2WNI7gBolSgNSforT+7hLW7gjNS0
+	o1AZzyV+HHuRMG7sXHodPVVj+mB28UiAu49jLzEWoLh3F4UvT6zzApSnt8/gOfCX8mO28QJ9zbW
+	gUxP1FIRaBnSvd/T3TV9B7uToUD9buut48K+pRruH9EcP1y83KyoPad2mJIg+uInOBbrPxAQHOt
+	IXWX3AolJnWdyBz829UyP1USw1ne2GOaxg1dJIdtdJvrZstddEod21kIMdMbMYEeUXAuNfNRR1Y
+	uBVJ8HAaxGMARGJW6mJeyoXK6VyKvmStUrk+umzLk7u34vcX5kH/K7P2zVGZMqg4glBzAvoNWJG
+	hgKIIqeEcudCjXv2m6O0ociH35RlusGR54E92vJ+8C3BFXRSiRQWriMh0YLhUlIegvzNPXIf8Ag
+	w9FCR/pPDdrr9NaY75N0Q==
+X-Received: by 2002:a05:7022:e11:b0:138:e4:c4b5 with SMTP id a92af1059eb24-13807d9512amr5678708c88.17.1780873601217;
+        Sun, 07 Jun 2026 16:06:41 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074df8076csm16036537eec.29.2026.06.07.16.03.52
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074df349d8sm14956583eec.22.2026.06.07.16.06.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 Jun 2026 16:03:52 -0700 (PDT)
+        Sun, 07 Jun 2026 16:06:40 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <a0c5c1e8-9a36-4835-a5d9-7bafda79c36f@roeck-us.net>
-Date: Sun, 7 Jun 2026 16:03:51 -0700
+Message-ID: <583ce1ee-5472-416c-b8e1-2437ffdc5c75@roeck-us.net>
+Date: Sun, 7 Jun 2026 16:06:39 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,17 +70,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dt-bindings: hwmon: lm90: Document SMSC
- EMC1402/1403/1404/1428
+Subject: Re: [PATCH v1 0/3] hwmon: emc1403: Convert to use OF bindings
+From: Guenter Roeck <linux@roeck-us.net>
 To: Svyatoslav Ryhel <clamor95@gmail.com>, Jean Delvare <jdelvare@suse.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260603141033.111300-1-clamor95@gmail.com>
- <20260603141033.111300-2-clamor95@gmail.com>
+ <ee0ea703-4c80-4212-9327-13e8342c10ac@roeck-us.net>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
  xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
  RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
@@ -124,23 +123,37 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260603141033.111300-2-clamor95@gmail.com>
+In-Reply-To: <ee0ea703-4c80-4212-9327-13e8342c10ac@roeck-us.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 6/3/26 07:10, Svyatoslav Ryhel wrote:
-> Document SMSC (now Microchip) EMC1402/1403/1404/1428 thermal sensors.
+On 6/7/26 15:52, Guenter Roeck wrote:
+> On 6/3/26 07:10, Svyatoslav Ryhel wrote:
+>> Document and add OF support to this LM90 compatible thermal sensor
+>> family.
+>>
+> 
+> The chips have similarities to LM90, but they are not "compatible".
+> Please do not make such claims.
 > 
 
-This set of chips will need a separate bindings file. The EMC chips
-support several configuration registers (beta configuration, ideality
-factor, consecutive alerts, filter control, just to name a few) which
-are not supported by LM90 and compatible chips. On top of that, the
-EMC series supports up to 8 channels. LM90 compatible chips typically
-support two channels and never more than three.
+On top of that, this summary is widely inaccurate. The series does not just
+"add OF support to this LM90 compatible thermal sensor family". It also adds
+regulator support.
 
-Claiming "compatibility" with lm90 for the EMC chips is simply not
-appropriate.
-
-Guenter
+> Guenter
+> 
+>> Jonas Schwöbel (1):
+>>    hwmon: (emc1403) Convert to use OF bindings
+>>
+>> Svyatoslav Ryhel (2):
+>>    dt-bindings: hwmon: lm90: Document SMSC EMC1402/1403/1404/1428
+>>    hwmon: (emc1403) Add regulator support
+>>
+>>   .../bindings/hwmon/national,lm90.yaml         | 109 +++++++++++++-----
+>>   drivers/hwmon/emc1403.c                       |  25 +++-
+>>   2 files changed, 100 insertions(+), 34 deletions(-)
+>>
+> 
+> 
 
