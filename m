@@ -1,64 +1,64 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AD433B6DF
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27DB33372A
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780875916; cv=none; b=Ka5APooMaT/FY7gCtDDOwkUjvACbaS5gOs9RQSE55aq3ACI14KP7KFPnffentx0C2zTQwjOcTG2p86w1ORgSFKI60xU2TyeVT3FW+uxE5Q1sool9Kj/vXaZ5Bw6eohaU9XOsOf61Q3VN9bhhsLbmMGmDWfaowVhjBLW0o4vPsFY=
+	t=1780875920; cv=none; b=qjJnBhx7aJad1Ntuw0W783boL0Gnu0mnPj1Ru9EQIDpNlJ7el1SjmITHrLQoFmDZmek5KpTPy88rwpQJ6R+yvWBJQMVlyYH+8mdZPIyngrsKZE6pfqwX5v7MbAPdUB97x1oxtcr9mgtGsAb6AoIUAJis1+hSmIVBokRKM2KwHuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780875916; c=relaxed/simple;
-	bh=Spsg1lhJOwmJ2qBBDyH8EyO73klzrypmW6Q3Hscl2pI=;
+	s=arc-20240116; t=1780875920; c=relaxed/simple;
+	bh=frVXIk/he5j7loUU8RveXgVsf8ozNDsmdNT6TSVEGGo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aKFSE5dwoqgq5J7nx8TOzX33cT7fzbgzD9Rjr+KOFiim6srK8HjERNYJke74BpaJsw66y1MaI8WKFzaWb9JVlcdBj5gUIlgh6JEBePmcMq5hcf0XndytsA/aL5zhlmzQDCj4bSg/hfA2kXPCTggfle14/neA0sAgrDoNsfxOX0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RELLlOtd; arc=none smtp.client-ip=209.85.210.179
+	 MIME-Version; b=pjUm9rbbbGEzVBP8fqlhnFvr/gum8wplbRMY4M4n8I5oBHl9c3MJrls4WqLmQG3aSvDioE4lVwC09mfP92aeTtfn0JEFYwD0V7F0Ibn0nBpahdCD1JdwSsZ95jVQq9sNdKJnonz5XFxJavPKQUjHIPRxCKEonQtYq9xLCtU7y3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anuuLU2N; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RELLlOtd"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-842cd900ee0so411978b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:45:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anuuLU2N"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-842273a2c4dso2510351b3a.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:45:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780875914; x=1781480714; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780875918; x=1781480718; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ahs7nLcf9FlQuNK4toxYY0XgtCKzjOPXWCt75LqsX8Q=;
-        b=RELLlOtdJeuklN0IPC0N4fELBQGbivMj+u3cRt89hqX1QvJQ8s0tO1w9peG8L7xNPp
-         uwIE89aEQazibfTOJ1PBvniK7fyNEqr+FY1S8saUMXOQC7tEfF42nra20UegijpDwiri
-         yskHvDY595YC/N5ELX7tDdK2oyByhDOS7tikErE7Q7GBt6zXb3gZy5nQfz3zYSdAmvBt
-         BADlyYd0IaIj5g7U/cT4geYK8klz45BFFoNM9zHb5n00BbpKfPMBFZjQGHNgFAlJT4Fu
-         +q0txLOGxHDI9gVHOeNH7XeShxY0ZyeEtZOJ0vFQupf7/MFAQFuUInpw8jJLIwAp+nWQ
-         eIbQ==
+        bh=kKK4DtRzZCaG1BhvbydcKcJ9uELhzs4pECkpn9X7PSg=;
+        b=anuuLU2Nb1sfuEmx1Z2ofb6Wz2GeMv5Nj9KRv5a2lw88N26XdiTCZq+WtXn3JGuEWU
+         2BT7/DGZ6qejsOrcvBLm+SLj1w3tXaKudNzM5qMCcbEN8i4FtjBQU4XbpJZzJZRk5MxM
+         mGY2LQhnSOcJ0W6G4z/lXATjj0mbGhzd551sMXNRJt321S/K0A12G9EMbLJH927DOPf5
+         W4D2aN7ynqB01YWAOPVmhe+fh5jRDy0OCLjVIsYY32i/Rrxn6qW75Ns8CKeqjCWKUfsC
+         oh6hS1vdfb6L9D6h2FFjHdkVDoT2DJuvuyTYb2xFDdnj6uSARe5ZCo44refuIPPZgtys
+         fpgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780875914; x=1781480714;
+        d=1e100.net; s=20251104; t=1780875918; x=1781480718;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Ahs7nLcf9FlQuNK4toxYY0XgtCKzjOPXWCt75LqsX8Q=;
-        b=pHjEWp68152IVbHYPVx5Suzr2k4LFtS9R+1zwo/hQJADtka1/ilXxVgb4BrFR7WpiN
-         fY9PYjIfpx2xNDJzHifMCbmf8qjqY8wouluwZPvr3iWvxKn4VorLuN8e3/MfK6xhuKE8
-         srG+SBhChB2t3hxuz8xRXazcUk651G3btpLUeOnwvxBlRWymcGpmtoWUgujORtrDDMjt
-         8Lq/POe6RJMeP7uSmzB3RRiSnP128mHzHIiznMzJ4FfAWcIrC/gEXkTnw7qAe2PzXaab
-         LEV/IZOX+SMpPIJknZUMCvT2h/M4q48gj+/vWjJIPcgW77kLPVrNYd+S36QFNak0WV2R
-         1BSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/TGHTjDgpFLJ8uo2ZkfhYXjYvc+fWeR6dF07IQ3SUXUvlim5/GYhGfvHq73TcHoaL6RiKgEKNlO/qr@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCj1V7Dy/9gWYogfMQa5b7dmOv/gbZbKc9ju7B08xSrfEkQ+6s
-	8MtnUfmZrekaB2reqmiiygxwN3R4t7C2xDDBQs88pjqSVVt8xxCCXXQm
-X-Gm-Gg: Acq92OEHcUPXM4ys+jL+kSQcUzAltsXnQ2f5uYJSmXIqusKkwPk5HO5QbQGiQKSdUoV
-	Izq+MmD/Ctdo8S+3xA3mMcIfunPrN6UwTK0VkbAoZIaR9pTD1u8XpXaYTtic8ECN6YdVSfLMPeJ
-	RiI3TMdO7LHwAERBhV5uTWFe2I47cfzDHfXhI4p2eLWP53E5BvlK13+GXJ1ZsqdFfOVSW43B2WM
-	XzFLcW/1ib2kE0lbqU8184otycNMPWKAFnfdc+DGl+xYZPyxnElLhvsvTek8OgdpDhJuD7E/F6g
-	OC2prM2xg9tbxsbK/K4Avv5LwTBwlE0WYaakF6obvozSYYMIjQXD2guol6YEY1royl7v+5dPDuN
-	j7X/iZl1yxfFxp6Q8gSFQWOkYtsO1YchDfsJet/ZlmRut++K+aXMFlIviEarI61fI6oiSIFl/la
-	R5YfLBsfah58IghFOxuvundWCB9VK9Blztpfm8KHvh/yYjnDlyv5TiL9S7doPIwFw+Eg9ARHT3m
-	p7zAVpHeBNbJK5tgcycjEGu+jc19Llq3Ax1MUwLKtQKlghB
-X-Received: by 2002:a05:6a00:4298:b0:83a:4846:90b0 with SMTP id d2e1a72fcca58-842b10980d8mr13046383b3a.46.1780875913704;
-        Sun, 07 Jun 2026 16:45:13 -0700 (PDT)
+        bh=kKK4DtRzZCaG1BhvbydcKcJ9uELhzs4pECkpn9X7PSg=;
+        b=qbGOcs9VtwSM4ZDZccgqj/bb4pjkHp0hTiy432OWW7SPI/WF4rgKq2rY3mJt0JHdzm
+         8JMTasZs8atBiQBvZQ4oTp3wQKmE4VmETDL9tf1GUa4wORhvPay63B3M5+LP6Iwu0rYG
+         b6BLLWnMm07vmxgkBedNALaCX7lDcSsOc8eLdLs+uIyBxM9T06ykRcAKg8w4KJ5VXoEJ
+         7XovEPjKuFMZDmO+cRywt7688C5UutosU1NbFusrSn1uulM5e9oC8fmpQYzFvnhdofbT
+         20HrjNv8bUE4DUNQaod0DCIxBdvLRh0jEBzicDPYt4S1Q8EX8wVdL8s3me0ZIlRzYp7e
+         ibAA==
+X-Forwarded-Encrypted: i=1; AFNElJ8F21NheZ2FDAkU+Ik1OXMTYOYl0x3Vs4L5jk3f28mGqbw+8dwy9F4TZn4F4j/fzeNB0hg/OXi9n51A@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAmwI5COZqmceOMdLYDulcxARVYvirbaQ5mxoKWhfyue8x3hAV
+	GJHo57MiNg/A9rxUuh/7jGZW5EJQdz+n7cSgg+jqxk39ujdQ8lBwXVks
+X-Gm-Gg: Acq92OGmH7enGuU45dsvvmbbMOUyGcUWPhENs1L6mgK2V3T1jz5uQZTcJQi8WEjJYdH
+	w8IhhQkdOTXNCCthtD7iEbHmU+dJotRtqlStJLaZDlmCURNkVxqw0Of4KMJUqsGDooyS+u+k6ye
+	Fc3otG+GPs2bT+FqK/pM8oY5nqIO615NaLrT48J0UY8dMjTv/Aj/z051u/zrLgmv2GOLcpwxWkp
+	7BZikRtBJae+d4bhSvWur05mDpkULU55RMdQ9QdSFYWEVnzLhV1kgxK1HZuzsY2rPNTXY1kF10R
+	253d3VFs4R8fbREsYwPPCGfa46Tx3G6nFcHPSztVY808FYZmpf1l1kvn5m1RaSB/FA10K667oqX
+	nLWhhSuS7g+LBnq7pNJar28/x3EMEHFRhBhtLB0pxn+9eYN0axwu5ab57yiJOvR7+giYhEmJAV/
+	vB0Q3CloG6K/V0BMmQNLqoEC9rGKwg02a+bDxmVkojePp/m6tu1Mz+yZfUhJlFSC9itZixprB6j
+	SyWrb0V0uQVYjMj/j3PZMTew1C1SVs3RdMePOp+2TKsfPEtGb4akjWIoIY=
+X-Received: by 2002:a05:6a00:21ce:b0:842:6fec:1297 with SMTP id d2e1a72fcca58-842b0d81b56mr13302391b3a.9.1780875917910;
+        Sun, 07 Jun 2026 16:45:17 -0700 (PDT)
 Received: from DESKTOP-G3E0OSP.localdomain ([112.172.255.242])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm19257732b3a.44.2026.06.07.16.45.11
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm19257732b3a.44.2026.06.07.16.45.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 16:45:13 -0700 (PDT)
+        Sun, 07 Jun 2026 16:45:17 -0700 (PDT)
 From: Jinseob Kim <kimjinseob88@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org
@@ -73,9 +73,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH RFC v4 1/6] dt-bindings: iio: add Open Sensor Fusion device
-Date: Mon,  8 Jun 2026 08:43:38 +0900
-Message-ID: <20260607234343.22109-2-kimjinseob88@gmail.com>
+Subject: [PATCH RFC v4 2/6] Documentation: iio: add Open Sensor Fusion driver overview
+Date: Mon,  8 Jun 2026 08:43:39 +0900
+Message-ID: <20260607234343.22109-3-kimjinseob88@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260607234343.22109-1-kimjinseob88@gmail.com>
 References: <20260607234343.22109-1-kimjinseob88@gmail.com>
@@ -87,159 +87,430 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the OSF sensor aggregation hub.
+Add a short driver-facing overview.
 
-Use the generic opensensorfusion,osf compatible.
+Leave full protocol details to project docs.
 
 Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 ---
- .../iio/imu/opensensorfusion,osf-green.yaml   | 43 -------------------
- .../bindings/iio/opensensorfusion,osf.yaml    | 43 +++++++++++++++++++
- MAINTAINERS                                   | 27 ++++++------
- 3 files changed, 57 insertions(+), 56 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-green.yaml
- create mode 100644 Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+ Documentation/iio/index.rst                   |   1 +
+ .../iio/open-sensor-fusion-protocol-v0.rst    | 308 ------------------
+ Documentation/iio/open-sensor-fusion.rst      |  62 ++++
+ MAINTAINERS                                   |   3 +-
+ 4 files changed, 64 insertions(+), 310 deletions(-)
+ delete mode 100644 Documentation/iio/open-sensor-fusion-protocol-v0.rst
+ create mode 100644 Documentation/iio/open-sensor-fusion.rst
 
-diff --git a/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-green.yaml b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-green.yaml
+diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
+index ba3e609c6..2713ec5e0 100644
+--- a/Documentation/iio/index.rst
++++ b/Documentation/iio/index.rst
+@@ -38,4 +38,5 @@ Industrial I/O Kernel Drivers
+    adxl345
+    bno055
+    ep93xx_adc
++   open-sensor-fusion
+    opt4060
+diff --git a/Documentation/iio/open-sensor-fusion-protocol-v0.rst b/Documentation/iio/open-sensor-fusion-protocol-v0.rst
 deleted file mode 100644
-index 626b41fb0..000000000
---- a/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-green.yaml
+index 80852f4cf..000000000
+--- a/Documentation/iio/open-sensor-fusion-protocol-v0.rst
 +++ /dev/null
-@@ -1,43 +0,0 @@
--# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--%YAML 1.2
-----
--$id: http://devicetree.org/schemas/iio/imu/opensensorfusion,osf-green.yaml#
--$schema: http://devicetree.org/meta-schemas/core.yaml#
+@@ -1,308 +0,0 @@
+-.. SPDX-License-Identifier: GPL-2.0-only
 -
--title: OSF GREEN sensor aggregation board
+-Open Sensor Fusion protocol v0
+-==============================
 -
--maintainers:
--  - Jinseob Kim <kimjinseob88@gmail.com>
+-This document describes the OSF0 UART wire format used by the Open Sensor
+-Fusion Linux IIO driver. It is a wire format reference for the host driver. It
+-is not a firmware programming interface.
 -
--description: |
--  OSF GREEN is an STM32F405-based sensor aggregation board from the Open
--  Sensor Fusion open hardware project. It sends OSF0 capability, status, and
--  sample frames to a host over a UART link.
+-Background
+-----------
 -
--  Open Sensor Fusion is not a generic industry standard. Public project and
--  hardware documentation is available at:
+-Open Sensor Fusion is an open hardware project for sensor aggregation devices
+-and Linux IIO host support. It is not a generic sensor protocol standard. The
+-first concrete hardware target is OSF GREEN, an STM32F405-based board that
+-streams OSF0 frames to a Linux host.
 -
--    https://github.com/opensensorfusion
--    https://github.com/opensensorfusion/opensensorfusion-hardware
+-Public project documentation is available at:
 -
--allOf:
--  - $ref: /schemas/serial/serial-peripheral-props.yaml#
+-- https://www.opensensorfusion.org/
+-- https://github.com/opensensorfusion
+-- https://github.com/opensensorfusion/opensensorfusion-hardware
+-- https://github.com/opensensorfusion/opensensorfusion-linux
 -
--properties:
--  compatible:
--    const: opensensorfusion,osf-green
+-Wire format and driver subset
+------------------------------
 -
--required:
--  - compatible
+-OSF0 defines a small device-to-host UART frame format. The current RFC driver
+-supports only the subset needed to expose OSF GREEN raw sensor data through
+-IIO:
 -
--unevaluatedProperties: false
+-- ``SENSOR_SAMPLE`` frames for accelerometer, gyroscope, magnetometer, and
+-  temperature samples.
+-- ``CAPABILITY_REPORT`` frames used to create the supported IIO devices.
+-- ``DEVICE_STATUS`` frames cached for diagnostics.
 -
--examples:
--  - |
--    serial {
--        sensor {
--            compatible = "opensensorfusion,osf-green";
--        };
--    };
+-The driver ignores vendor private message types and does not implement command
+-transport, calibration controls, USB transport, fusion output, or runtime
+-capability removal.
 -
--...
-diff --git a/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml b/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+-Device model
+-------------
+-
+-An OSF0 device is a sensor aggregation device. It sends binary frames from the
+-device to the host. The host driver decodes the frames and maps supported
+-sensors to IIO devices.
+-
+-The hardware used for smoke testing is an OSF GREEN prototype with an
+-STM32F405RGT6 MCU, an ICM42688P-class IMU, and an MMC5983MA magnetometer. That
+-hardware is the first supported target for the RFC driver.
+-
+-Transport
+----------
+-
+-The transport is UART at 115200 baud, 8 data bits, no parity, and 1 stop bit.
+-The Linux transport is serdev. The v0 upstream driver covers device-to-host
+-frames. Flow control is not used by the tested stream.
+-
+-Byte order
+-----------
+-
+-All multi-byte integer fields are little-endian. Samples use signed 32-bit
+-little-endian integers when ``sample_format`` is ``s32``.
+-
+-Frame format
+-------------
+-
+-Each frame has a fixed 38-byte header, a payload, and a 4-byte CRC.
+-
+-.. list-table::
+-   :header-rows: 1
+-
+-   * - Offset
+-     - Size
+-     - Field
+-     - Description
+-   * - 0
+-     - 4
+-     - magic
+-     - ASCII ``OSF0``
+-   * - 4
+-     - 1
+-     - protocol_major
+-     - Must be ``0``
+-   * - 5
+-     - 1
+-     - protocol_minor
+-     - Minor version
+-   * - 6
+-     - 2
+-     - header_len
+-     - Must be ``38``
+-   * - 8
+-     - 2
+-     - message_type
+-     - Message type
+-   * - 10
+-     - 4
+-     - payload_len
+-     - Payload length in bytes
+-   * - 14
+-     - 8
+-     - sequence
+-     - Monotonic device sequence
+-   * - 22
+-     - 8
+-     - timestamp_us
+-     - Device timestamp in microseconds
+-   * - 30
+-     - 4
+-     - flags
+-     - Message flags
+-   * - 34
+-     - 4
+-     - reserved
+-     - Must be zero for v0
+-   * - 38
+-     - payload_len
+-     - payload
+-     - Message payload
+-   * - 38 + payload_len
+-     - 4
+-     - crc32
+-     - CRC32 over header and payload
+-
+-The frame CRC is IEEE CRC32 as implemented by ``crc32_le()`` with initial
+-value ``0xffffffff`` and final XOR value ``0xffffffff``. The CRC field is not
+-included in the CRC input.
+-
+-Message types
+--------------
+-
+-.. list-table::
+-   :header-rows: 1
+-
+-   * - Value
+-     - Name
+-     - Direction
+-   * - ``0x0001``
+-     - ``SENSOR_SAMPLE``
+-     - device to host
+-   * - ``0x0002``
+-     - ``DEVICE_STATUS``
+-     - device to host
+-   * - ``0x0003``
+-     - ``CAPABILITY_REPORT``
+-     - device to host
+-
+-Message types ``0x7f00`` through ``0x7fff`` are reserved. Values at or above
+-``0x8000`` are vendor private and are ignored by the current RFC driver.
+-
+-``SENSOR_SAMPLE`` payload
+--------------------------
+-
+-The payload is a 16-byte payload header followed by ``4 * channel_count`` bytes
+-of sample data.
+-
+-.. list-table::
+-   :header-rows: 1
+-
+-   * - Offset
+-     - Size
+-     - Field
+-     - Description
+-   * - 0
+-     - 2
+-     - sensor_type
+-     - Sensor type ID
+-   * - 2
+-     - 2
+-     - sensor_index
+-     - Instance index
+-   * - 4
+-     - 2
+-     - channel_count
+-     - Number of ``s32`` channels
+-   * - 6
+-     - 2
+-     - sample_format
+-     - Must be ``1`` (``s32``)
+-   * - 8
+-     - 4
+-     - scale_nano
+-     - Scale factor in nano-units
+-   * - 12
+-     - 4
+-     - reserved
+-     - Must be zero for v0
+-   * - 16
+-     - 4 * channel_count
+-     - samples
+-     - Signed 32-bit channel samples
+-
+-The current RFC driver accepts only ``sample_format = s32`` and only the fixed
+-channel counts used by its supported IIO devices.
+-
+-``DEVICE_STATUS`` payload
+--------------------------
+-
+-The payload size is 20 bytes. Fields are ``uptime_s``, ``status_flags``,
+-``error_flags``, ``dropped_frames``, and a reserved field. Each field is
+-32 bits. The reserved field must be zero for v0.
+-
+-``CAPABILITY_REPORT`` payload
+------------------------------
+-
+-The base payload size is 4 bytes. It contains ``capability_count`` and a
+-reserved field. The reserved field must be zero for v0. Each capability entry
+-is 20 bytes:
+-
+-.. list-table::
+-   :header-rows: 1
+-
+-   * - Offset
+-     - Size
+-     - Field
+-     - Description
+-   * - 0
+-     - 2
+-     - sensor_type
+-     - Sensor type ID
+-   * - 2
+-     - 2
+-     - sensor_index
+-     - Instance index
+-   * - 4
+-     - 2
+-     - channel_count
+-     - Number of channels
+-   * - 6
+-     - 2
+-     - sample_format
+-     - Must be ``1`` (``s32``)
+-   * - 8
+-     - 4
+-     - scale_nano
+-     - Scale factor in nano-units
+-   * - 12
+-     - 4
+-     - flags
+-     - Capability flags
+-   * - 16
+-     - 4
+-     - reserved
+-     - Must be zero for v0
+-
+-Capability flag bit 0 means enabled by default. Bit 1 means calibrated data can
+-be provided by the device. Other bits are invalid for v0.
+-
+-Sensor type IDs
+----------------
+-
+-.. list-table::
+-   :header-rows: 1
+-
+-   * - Value
+-     - Sensor
+-     - Current RFC driver mapping
+-   * - ``0x0001``
+-     - accelerometer
+-     - ``IIO_ACCEL``, X/Y/Z
+-   * - ``0x0002``
+-     - gyroscope
+-     - ``IIO_ANGL_VEL``, X/Y/Z
+-   * - ``0x0003``
+-     - magnetometer
+-     - ``IIO_MAGN``, X/Y/Z
+-   * - ``0x0004``
+-     - barometer
+-     - not mapped
+-   * - ``0x0005``
+-     - temperature
+-     - ``IIO_TEMP``
+-   * - ``0x0006``
+-     - humidity
+-     - not mapped
+-   * - ``0x0007``
+-     - ambient light
+-     - not mapped
+-   * - ``0x0008``
+-     - proximity
+-     - not mapped
+-
+-Scaling
+--------
+-
+-``scale_nano`` is the per-channel scale value in nano-units. The Linux driver
+-maps it to ``IIO_CHAN_INFO_SCALE`` as integer plus nano. The exact physical
+-unit depends on the IIO channel type.
+-
+-Timestamps
+-----------
+-
+-The frame header carries ``timestamp_us``, a device-side timestamp in
+-microseconds. UART buffering and host scheduling can add delay before a frame
+-is processed by the host.
+-
+-The current RFC driver does not claim production-grade host/device timestamp
+-correlation. Buffered IIO timestamps are taken from IIO timestamp clock handling
+-when samples are pushed to IIO buffers.
+-
+-Non-goals for v0 upstream
+--------------------------
+-
+-The v0 upstream driver does not include USB transport, fusion output, Attitude
+-and Heading Reference System (AHRS) output, Kalman output, calibration command
+-ABI, custom sysfs control surface, production timestamp correlation, or runtime
+-capability removal.
+diff --git a/Documentation/iio/open-sensor-fusion.rst b/Documentation/iio/open-sensor-fusion.rst
 new file mode 100644
-index 000000000..a4049715a
+index 000000000..244a4fecb
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
-@@ -0,0 +1,43 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/opensensorfusion,osf.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/Documentation/iio/open-sensor-fusion.rst
+@@ -0,0 +1,62 @@
++.. SPDX-License-Identifier: GPL-2.0-only
 +
-+title: Open Sensor Fusion Sensor Aggregation Hub
++Open Sensor Fusion
++==================
 +
-+maintainers:
-+  - Jinseob Kim <kimjinseob88@gmail.com>
++Open Sensor Fusion is a sensor aggregation hub interface. The Linux IIO driver
++receives OSF protocol frames from an attached device, discovers supported sensor
++streams through capability reports, and registers matching IIO devices for the
++sensor classes supported by the driver.
 +
-+description: |
-+  Open Sensor Fusion is a sensor aggregation hub. The hub exposes an OSF
-+  protocol data stream over its host interface and may report capabilities and
-+  samples for multiple sensor classes. The Linux driver discovers the actual
-+  sensor channels from OSF capability reports instead of describing those
-+  sensors in Device Tree.
++This document is a driver-facing overview for the Linux IIO mapping. The full
++wire protocol, firmware behavior, and hardware model details belong in the Open
++Sensor Fusion project documentation.
 +
-+  Open Sensor Fusion is not a generic industry standard. Public project
-+  documentation is available at:
++Device Model
++------------
 +
-+    https://github.com/opensensorfusion
++An OSF device sends binary frames from the device to the host. The host driver
++uses ``CAPABILITY_REPORT`` messages to discover which sensor streams are
++available. Device Tree describes the attached OSF sensor aggregation hub; it does
++not enumerate the individual sensors discovered at runtime.
 +
-+allOf:
-+  - $ref: /schemas/serial/serial-peripheral-props.yaml#
++The currently supported Linux subset exposes:
 +
-+properties:
-+  compatible:
-+    const: opensensorfusion,osf
++* accelerometer samples as ``IIO_ACCEL`` X/Y/Z channels,
++* gyroscope samples as ``IIO_ANGL_VEL`` X/Y/Z channels,
++* magnetometer samples as ``IIO_MAGN`` X/Y/Z channels, and
++* temperature samples as ``IIO_TEMP``.
 +
-+required:
-+  - compatible
++Protocol Scope
++---------------
 +
-+unevaluatedProperties: false
++The driver supports OSF protocol major version 0 for the initial IIO receive
++path. The current wire magic is ``OSF0``; that string is a wire-format detail and
++is not the Linux driver identity. Protocol versioning is carried by the
++``protocol_major`` and ``protocol_minor`` fields in the frame header.
 +
-+examples:
-+  - |
-+    serial {
-+        sensor {
-+            compatible = "opensensorfusion,osf";
-+        };
-+    };
-+...
++The initial Linux driver handles device-to-host frames for:
++
++* ``SENSOR_SAMPLE`` buffered and direct-mode sample data,
++* ``CAPABILITY_REPORT`` based IIO device registration, and
++* ``DEVICE_STATUS`` cache updates.
++
++Vendor-private message types are ignored. Command transport, calibration
++control ABI, fusion output ABI, and runtime capability removal are outside the
++initial Linux IIO receive path.
++
++Timestamps
++----------
++
++OSF frames include a device-side ``timestamp_us`` field. Buffered IIO samples use
++an IIO timestamp captured on the host when samples are pushed to IIO buffers.
++The initial driver does not correlate the device timestamp with the host IIO
++clock.
++
++Compatibility Notes
++-------------------
++
++The project protocol documentation should define the compatibility rules for
++reserved fields, optional flags, and trailing extension data. Until those rules
++are finalized, the Linux decoder keeps conservative bounds checks around the
++currently supported message layouts.
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 56181470d..e227b9aff 100644
+index e227b9aff..2ddefc42d 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -19977,19 +19977,6 @@ F:	Documentation/networking/oa-tc6-framework.rst
- F:	drivers/net/ethernet/oa_tc6.c
- F:	include/linux/oa_tc6.h
- 
--OPEN SENSOR FUSION IIO DRIVER
--M:	Jinseob Kim <kimjinseob88@gmail.com>
--S:	Maintained
--F:	Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-green.yaml
+@@ -20015,7 +20015,7 @@ OPEN SENSOR FUSION IIO DRIVER
+ M:	Jinseob Kim <kimjinseob88@gmail.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
 -F:	Documentation/iio/open-sensor-fusion-protocol-v0.rst
--F:	drivers/iio/opensensorfusion/Kconfig
--F:	drivers/iio/opensensorfusion/Makefile
--F:	drivers/iio/opensensorfusion/osf_core.*
--F:	drivers/iio/opensensorfusion/osf_iio.*
--F:	drivers/iio/opensensorfusion/osf_protocol.*
--F:	drivers/iio/opensensorfusion/osf_serdev.c
--F:	drivers/iio/opensensorfusion/osf_stream.*
--
- OPEN FIRMWARE AND FLATTENED DEVICE TREE
- M:	Rob Herring <robh@kernel.org>
- M:	Saravana Kannan <saravanak@kernel.org>
-@@ -20024,6 +20011,20 @@ F:	Documentation/devicetree/
- F:	arch/*/boot/dts/
- F:	include/dt-bindings/
++F:	Documentation/iio/open-sensor-fusion.rst
+ F:	drivers/iio/opensensorfusion/Kconfig
+ F:	drivers/iio/opensensorfusion/Makefile
+ F:	drivers/iio/opensensorfusion/osf_core.*
+@@ -20024,7 +20024,6 @@ F:	drivers/iio/opensensorfusion/osf_protocol.*
+ F:	drivers/iio/opensensorfusion/osf_serdev.c
+ F:	drivers/iio/opensensorfusion/osf_stream.*
  
-+OPEN SENSOR FUSION IIO DRIVER
-+M:	Jinseob Kim <kimjinseob88@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
-+F:	Documentation/iio/open-sensor-fusion-protocol-v0.rst
-+F:	drivers/iio/opensensorfusion/Kconfig
-+F:	drivers/iio/opensensorfusion/Makefile
-+F:	drivers/iio/opensensorfusion/osf_core.*
-+F:	drivers/iio/opensensorfusion/osf_iio.*
-+F:	drivers/iio/opensensorfusion/osf_protocol.*
-+F:	drivers/iio/opensensorfusion/osf_serdev.c
-+F:	drivers/iio/opensensorfusion/osf_stream.*
-+
-+
+-
  OPENCOMPUTE PTP CLOCK DRIVER
  M:	Vadim Fedorenko <vadim.fedorenko@linux.dev>
  L:	netdev@vger.kernel.org
