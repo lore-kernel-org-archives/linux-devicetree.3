@@ -1,68 +1,67 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245DC322B72
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0733E31F993
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780873603; cv=none; b=RAc7/9+rAl8fM0ZouP6iEkfFPu46143JtlLegp0Dt3nl0F1rQdspWS7s/qG+W1j4ZmdL97bfJrVUSwq5usigOMB81X/SuPGbJXGRQWp+mcFSCWonj10MRCTsDXBMo1FLj3zM92Mg9JT8OAX8XVoLtRVvr8t3l0O1a/dDjzT64zo=
+	t=1780874833; cv=none; b=lbHqI8xLyt8af+mYR3L56eSilF5ZMlHbmoKfP9MLdfNWaejTNxR4nUFKaIFCuhrP5CblLhipYpiTJ/pVh6F5T+GxcjRk1BniiEzktK7oHj0htcoTccUOYaRlNZEPth007uHYS4D0GxQXoRDbIjdrLAJbPaqOHWhEmcVqq8Mxe0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780873603; c=relaxed/simple;
-	bh=kPrqkZOImJEwVQ7s3GvhcobQ075gqn9SswfG7ujrmus=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=aR4VA0I8wXjDB2lrC07WNNl+yyB1WU5y7ugDQlmP0m6ZC1cyMI7NyoJjc7lrVIB51WheHXaXktHXHryMDm4m1TJxaCdHVt1o4457qQtSL4uBNc5WQZk3DJMwwPYGLyJw0zVCU9Qo8xsM5Vu43SlBON7dBZAALGEs4BTfjT4PIqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msfAvySx; arc=none smtp.client-ip=74.125.82.47
+	s=arc-20240116; t=1780874833; c=relaxed/simple;
+	bh=JaIgZGp87mHQeaWQRPlb24gfMcw+k2bxvNISw/zeBi8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MJf+/wA5mvNOv3dIfafILjdru3ZazOYKIKPQPT+4SMsTSVcsEsvHA/oMsNzqBGOWi2/g92rFvjv+Hcbr7FuvFMHEPBQkrysLDMjYD0n5QNDCUAIrS6QxxoVpXGSU6Atg/vLekun2qYzOfkwZ6inzZN4hjlHeisEbM42Ckklc4eY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICR9mBMh; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msfAvySx"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-135e7f4a295so2084215c88.0
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:06:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICR9mBMh"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2bf20f6be6bso27591475ad.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:27:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780873601; x=1781478401; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=aa0pIIuhBk+rOGkwrS6QyL41EeSCfAnvIKaJSKLWeGM=;
-        b=msfAvySxInURsZjgif0V8vJMktFXnunRZ35RHmyoXI2X/DAhsN2gYKNiDQJv375vw1
-         JPvtIN/XrNT1WMnO1nlFhodkbS/1FcMPJDC5msrVtND6E/59wZGHvseVtMMpR8adipn6
-         zOhtUXHnHmNx0oxW/OB5kn9LCSc1n9U9wzCc8H/zD1QPjDJ2+2zGL0U4VvfJWAD2G9fZ
-         aThFqR5ZWhHbTNWQ1HE4QOhMERBDQ9Ptpj4K70R7S1qHG0rE6ALBeXhAtgmE6jG8tq/K
-         OU09lMPZomFVg/Y2EKToAOWtTlkNCP9ORJYQqWI8XTjaH5tVWNyQzK2/lIphOPug0tdC
-         Kiwg==
+        d=gmail.com; s=20251104; t=1780874831; x=1781479631; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=bUZyp94wCma5Mp7itw6GHKFNArJTxzXMRHFwaw1fChk=;
+        b=ICR9mBMhR9mTeoWl1/tdwjPG0jms4WURrYbqvmHpFUWEB4rorj7sdMCbZow47GapQe
+         wDiUxFIsDNDIyzyIm5jj1OXDt1XyK8p0Z8DuemifvtZKX2Kxi4CpY53bYsdxWuOOUptR
+         jE4Xj0JNG7cVE+7WyDpOSacvbyZ6U/9dJC4eLmvVD94rBhLD7oWEqehfX69CvEY6lc51
+         GM/lfkcYJvDH1ehQZLxXilEgFTbNh1Lpx7Kr/pSnuUsez3/h/UFu8SVIKUKYQajpxTzL
+         FpYjNjFzw4wNlRMPSfc/4KwKtbBgRXpUwl5KVNrwVr8z6+HEnKpdSBioSU0+ZQv44No1
+         1mBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780873601; x=1781478401;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=aa0pIIuhBk+rOGkwrS6QyL41EeSCfAnvIKaJSKLWeGM=;
-        b=pgNqiDdCDASmuvtVkqQY73TM1o82Fc8MKv0XNeDunrzpGLydv4X9BlMa2msNYLS5nf
-         PQFJ4ikxt4YMRyqd6SCgYZa9MerMgjFo00ObIMU92YNmrpwloIV5pGAfIx+ZlOE5vdgF
-         BtXKxYm9YIEPggSGQNoR98ENbceHBSRlK8b1UrHXGUBCJfERZe+Np2MCvV0UHJNLHVXs
-         p7JCKrYmG5H3XH/m/vLbjyuw/1nWesWHz7/bShTCGYV76u8HdB04Q5QLt8h1HddWPFcr
-         jkHheOEV5cvs7S3sLeo77en+q/8BLfK733WSEJvq0rIIHeR81d1L+aZcX6CY88dt5KqC
-         4qnQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+e0agaLeu1z2vnNBHNxnEwn00Ga70ScCPxyo6sFr4NHwCmIJZhfCXp38ObgQ13aJ7rNKqmW2WOOlvm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy91rACP8QnguK+e85ohaL4B4T1YRwuRFnlNE2RU81oV2VT0ZIS
-	f8CajSDSSWtYybqE21Ovkjh8ymU4ZpNBsJq0kuMV2o/Exu2adG3QjFIf
-X-Gm-Gg: Acq92OFWvt2B06LmpO3QICVb/VBOLJlgfTeBIXPit3+hOM50dTKwSX83OGOWtuSo9k9
-	cv1Wqo3eO0w27XyptobBu73fplufITAdLCusPQmjCV99nmM2WNI7gBolSgNSforT+7hLW7gjNS0
-	o1AZzyV+HHuRMG7sXHodPVVj+mB28UiAu49jLzEWoLh3F4UvT6zzApSnt8/gOfCX8mO28QJ9zbW
-	gUxP1FIRaBnSvd/T3TV9B7uToUD9buut48K+pRruH9EcP1y83KyoPad2mJIg+uInOBbrPxAQHOt
-	IXWX3AolJnWdyBz829UyP1USw1ne2GOaxg1dJIdtdJvrZstddEod21kIMdMbMYEeUXAuNfNRR1Y
-	uBVJ8HAaxGMARGJW6mJeyoXK6VyKvmStUrk+umzLk7u34vcX5kH/K7P2zVGZMqg4glBzAvoNWJG
-	hgKIIqeEcudCjXv2m6O0ociH35RlusGR54E92vJ+8C3BFXRSiRQWriMh0YLhUlIegvzNPXIf8Ag
-	w9FCR/pPDdrr9NaY75N0Q==
-X-Received: by 2002:a05:7022:e11:b0:138:e4:c4b5 with SMTP id a92af1059eb24-13807d9512amr5678708c88.17.1780873601217;
-        Sun, 07 Jun 2026 16:06:41 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780874831; x=1781479631;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bUZyp94wCma5Mp7itw6GHKFNArJTxzXMRHFwaw1fChk=;
+        b=nOYbiCWwNehjFx1amfhDU9lwg0uqzcUMPkgIUnsvS2+YDVIngvvWWSgK1Y0XKKmyXe
+         IfOjh6acgiy0UTPR6SuO6GyP+BaIl2ZjikAyEGCb9X6Bd7VIUD0AFpHu1pz6C2uhWta5
+         ZKvzUaL97brY0AVvotMbnclg5WV4ur/Q65faXqdS0heFbDEP+otwsuQMuGJBWDRYwNA/
+         BR/LIiYs1XookKr24f8ChgafTzIEu3e2xMJ/rxv2jgocN8wXQg02ZyeS6eYDsl97r+5k
+         BChW3VbiCsGyL16BRm5rJNYaT9FRTVBkAkoDbB9Omyb4+uSN/ZtwadVhYBcZtFfcrzWF
+         x71Q==
+X-Gm-Message-State: AOJu0Yyb6e8c4DJbH7+MZTlGKAv0vTcTm48fwhYBBcPFfrTZ5y5YnoaS
+	vvJDmt3f3zVdbrRnoPgdEpxEIzk680QmuclJFm2SCghHJAywrP5dSbQgyl8A0cnq
+X-Gm-Gg: Acq92OEDCaW+gtb/xU5pb/KIZLmkTbk3tj+JTd5TSR2CpCOd7tVygkxF6noHvfEiRe+
+	NpXFM99/qQQ2vVCuPBQIPh13R8yckFkMV0Fi5GIDjt7qrqsese1cIS22AhbKrDGBxSSjGe2Sn0s
+	cBav5Ra5PXrosznz1xYQ3PiOU3kguy3ScE0cwicLJTWi6GkIaUF3vCGnnHbZw+NKO8FCzmSUy5N
+	tbuSvOUV6POO7F5caBP4dZlf43WnIJb6TFdmBv3+gDUxwd+USQJfwtzbpNAgw94kHVo1Pj6EQNj
+	L4BNC4zilnb3C+PVn5nBYcwHSmDYblZE6KBvCob3tU3XOlY8GQHXzcSwOtVgZtlte93zzDVVcEP
+	MSs28S84Kgt/kgzW4xltCbZH4vxwdtar8tZpy7jRDafO1QgZi+jOwk7P8ehP98NEm8lIEyAwpVU
+	m5YgHYZ38c18ngC5EjjnuvLZZNLapBrB8mMpbX9m+RbcnLCKAHe47vNyZ0o0BP2lvmoe6TsReTS
+	U8DgtUrYaQ=
+X-Received: by 2002:a17:902:f64f:b0:2c1:6e2c:a5e2 with SMTP id d9443c01a7336-2c1e7e4f342mr146940555ad.17.1780874831262;
+        Sun, 07 Jun 2026 16:27:11 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074df349d8sm14956583eec.22.2026.06.07.16.06.40
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8792bsm162281735ad.23.2026.06.07.16.27.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 Jun 2026 16:06:40 -0700 (PDT)
+        Sun, 07 Jun 2026 16:27:10 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <583ce1ee-5472-416c-b8e1-2437ffdc5c75@roeck-us.net>
-Date: Sun, 7 Jun 2026 16:06:39 -0700
+Message-ID: <e47953be-dc37-4d97-803c-5d38b4f7e910@roeck-us.net>
+Date: Sun, 7 Jun 2026 16:27:09 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,16 +69,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/3] hwmon: emc1403: Convert to use OF bindings
-From: Guenter Roeck <linux@roeck-us.net>
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Jean Delvare <jdelvare@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260603141033.111300-1-clamor95@gmail.com>
- <ee0ea703-4c80-4212-9327-13e8342c10ac@roeck-us.net>
+Subject: Re: [PATCH v1 2/3] hwmon: (emc1403) Convert to use OF bindings
+To: sashiko-reviews@lists.linux.dev, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ linux-hwmon@vger.kernel.org
+References: <20260603141033.111300-3-clamor95@gmail.com>
+ <20260603143009.38F961F00893@smtp.kernel.org>
 Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
  xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
  RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
@@ -123,37 +120,57 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <ee0ea703-4c80-4212-9327-13e8342c10ac@roeck-us.net>
+In-Reply-To: <20260603143009.38F961F00893@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 6/7/26 15:52, Guenter Roeck wrote:
-> On 6/3/26 07:10, Svyatoslav Ryhel wrote:
->> Document and add OF support to this LM90 compatible thermal sensor
->> family.
->>
+On 6/3/26 07:30, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The driver probe unconditionally fails for `emc1402` devices because its chip enum value evaluates to 0, which triggers an erroneous error path.
+> - [Low] Directly casting `const void *` to `enum emc1403_chip` causes a `-Wpointer-to-int-cast` compiler warning on 64-bit architectures.
+> --
 > 
-> The chips have similarities to LM90, but they are not "compatible".
-> Please do not make such claims.
+> commit 8e14b2d237bb423a526fb43282f03dadf7dbb7dc
+> Author: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+> 
+> hwmon: (emc1403) Convert to use OF bindings
+> 
+> This commit adds an OF match compatible table. This allows the driver to be
+> used with Device Trees.
+> 
+>> diff --git a/drivers/hwmon/emc1403.c b/drivers/hwmon/emc1403.c
+>> --- a/drivers/hwmon/emc1403.c
+>> +++ b/drivers/hwmon/emc1403.c
+> [ ... ]
+>> @@ -659,14 +660,16 @@ static int emc1403_probe(struct i2c_client *client)
+> [ ... ]
+>> -	data->chip = id->driver_data;
+>> +	data->chip = (enum emc1403_chip)i2c_get_match_data(client);
+> 
+> [Severity: Low]
+> Does directly casting the pointer returned by i2c_get_match_data() to a
+> 32-bit enum cause a pointer-to-int-cast compiler warning on 64-bit
+> architectures? Would it be safer to cast it to an intermediate
+> pointer-sized integer first?
 > 
 
-On top of that, this summary is widely inaccurate. The series does not just
-"add OF support to this LM90 compatible thermal sensor family". It also adds
-regulator support.
+Most drivers either use a double cast or cast to uintptr_t to avoid
+that problem.
 
-> Guenter
+>> +	if (!data->chip)
 > 
->> Jonas Schwöbel (1):
->>    hwmon: (emc1403) Convert to use OF bindings
->>
->> Svyatoslav Ryhel (2):
->>    dt-bindings: hwmon: lm90: Document SMSC EMC1402/1403/1404/1428
->>    hwmon: (emc1403) Add regulator support
->>
->>   .../bindings/hwmon/national,lm90.yaml         | 109 +++++++++++++-----
->>   drivers/hwmon/emc1403.c                       |  25 +++-
->>   2 files changed, 100 insertions(+), 34 deletions(-)
->>
+> [Severity: High]
+> Since enum emc1403_chip defines emc1402 as 0, will this check evaluate
+> to true for devices compatible with emc1402? It appears this might cause
+> the probe function to erroneously return -ENODEV and break initialization
+> for chips mapping to emc1402.
 > 
+Other drivers do not add this check, and I don't see why it would be
+necessary here.
+
+>> +		return dev_err_probe(&client->dev, -ENODEV, "Unknown device!\n");
+>> +
+>>   	data->regmap = devm_regmap_init_i2c(client, &emc1403_regmap_config);
+> [ ... ]
 > 
 
