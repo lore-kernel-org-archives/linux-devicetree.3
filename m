@@ -1,139 +1,102 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F892EEE7D
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 13:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D492BE057;
+	Sun,  7 Jun 2026 13:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780837947; cv=none; b=CpuJmXtTiNBX7qbTTYEqd220NEM8+GoPbPS1j3mcEFHZdEbFjvJEOZBtnIxlKb5g4aKNyYr4HU1qs3o5Z/sYh1uIBiSyKCzuyq76r00Vi57gWEyJxKNVfU6g0YT+tVcksjK1nFdyL9+oWZOTsp7ZWrRpXJ6t9JriVKJXnVLgYF8=
+	t=1780838272; cv=none; b=GG4NYx+2S2a6NDaVYjaJcb3ZL52DfcMPD/gSrX38n5dsmKCE4ApgNo5oXj4RBH9Cu0LU+TsA8K1t0PvaPSm8ujVfQigul3OxUBWriwLCPG4AJNSW01e11CznB0attrZRtjB/IoAjB5/Z7OwDhuDMQLQNyV8yQQhPPfRhHy/tFr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780837947; c=relaxed/simple;
-	bh=7olzZHHpB71MrERaSvQjT5XeeR/NDdooMLayR7fPucY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LgPhj5kMoEaAsbD1RXKZOwdL3YuEioBkgV+RJw/bXBa79C163wg7gBQudX9H2sX+JEa72M6WoYcKHRUvikc0LpGlNLT7lUG71GaZ3xvzlT7Br8BlnpDQ8BykrhfxtSwcEs8qBiIyOe1C+M+9jKARDWlwTC0IqlK9p1nIGgc15Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qcOYCRbh; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780838272; c=relaxed/simple;
+	bh=mymz8hMsPk/854Rxjm3BYemCDGO+hhJlropTRKwRRV4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=N/CDMvJR4Kx24zfkSayqcBpPrmZBhY8AzHCHDralZBtM+sF8p5geZtlpjnV6sBFAoTFb42+6Flt+Y1Qpzif1u2ZPzW7Ag0Azv4Ofv8R6AU+Ubotc0+S0Yrisip0fmmAOhxA3KfXn2yqjs4Sf+c/uOC1sQ0Po+M/lgfDKI8LPWew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=CCaS3Zmd; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qcOYCRbh"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-befee9e5ef7so379736066b.0
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 06:12:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780837944; x=1781442744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=upYkD5TmeVM6Zj2sXRhLZMQLdRWjjRoIFrUgE/4H0kg=;
-        b=qcOYCRbhNIx6IB07wiTtdAt9GOwEVZ6/BAR6Gol8GimRnM+v/v0y6uYEl4OPfHtuPI
-         /VEyZz+WhxQrwE+v10uuKgokvrGIMzGp6umafTRYK13MI1FaVFm4w8TpvsWRakA7zcu+
-         eONPRunZzk60n+3KrL7qo2mKIiC10Zy/cwzwVlCIFcjMjxoVVMXjQOf/2g7g+uynIeHo
-         rANSTF9Mqumd0CfVU+pEquvxTnaT8xFAvNvdX9ehzeogUrgli71gvZS1YzvmgvHUxWWy
-         OvijL0gX3su5Ojv5lM72BnZD4zRukJnamYaRom9+yJD1QUFmmgK0DFeX6GPe7oJrHU4T
-         ExOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780837944; x=1781442744;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=upYkD5TmeVM6Zj2sXRhLZMQLdRWjjRoIFrUgE/4H0kg=;
-        b=VEzIFNcGa6IORQtKYvWQLFEBGjlbGw6kM3p4BE4QdfTnUMN39T/dyDwSTx4mOh5iRy
-         QqoXfGO/dKvrN4IAM1sefEiEwK2QbQNVeQGjvCYsl1haHdcoNg7OtRakVdWLmjacRrzJ
-         dHIPTF3KaZE/MTKi32iQq0pxXw0s2ViVHBLqDxc9KST+RGFYyTJnV8jdIDdMtZnLJneR
-         TtyDKXAELlqDna8j80HHjsGaMPSbfTNnFQ+EjKATkF0Ff0dO1I2ROU2aEqsF+3cPw3T7
-         e98wSeTYaCyF3AgD+CRiK0onBGaW5ZbD9+qyBbi6ZVuq4GzO/8YgH4a6d1uoTjoFtgEX
-         Lehg==
-X-Gm-Message-State: AOJu0YzNr8OjiIExeAyaQARmQCrZiyk53hw8xfTxndG+ZzP9X0P3P1Mf
-	yo95SjCQ+rYUY8owTSncHtAWKO9sc8fZDNSFbbPoHerRhpocO+QGuodBh+GquMFC
-X-Gm-Gg: Acq92OGtvjgt3RNbhmDuEGv7ivf7HByVOpgJFfE85Pekg1QvlZHmEXELC/9W6tQ9Xk0
-	7WgWE6T1pm77yb2SoU9fDu5Q7NH7rZaasK/AArOgxwIgyFTHnVIpToFVEEvF8G8axzlTZ4maIK1
-	KXuaLCbmc1bYdl6fpv/pB/T8vhlthx6uv8WKFhLP6FrzL7sVG+1UOI9cnZMmxypzpCRoW+HlboP
-	7Lvz2W50ZE6Gfr9Jrs3PeSJZDb/os/n0OYeswuxEE5xeVbZ4sanr5D1LhoXAtDrV28fAec8rN/U
-	SYcpQH8Wh/y7Fceks+jAR6g9tb7MWRcQeRiPKOF31qkq3ZPw9X57aD/kXL14/MOQfK/QNDdlbXt
-	mJy+VaGlwPaT6lXxbAvcZhG228nUTd9glDUSlSJMjmMkJ9kesRPEdQxPVr8uMC0t2Cn/UfnsRnq
-	UB7KKriH85EsrdvwWVxNUCfgsKr2+QAlwxj5Z9hF3adLhwtsw=
-X-Received: by 2002:a17:907:2718:b0:bea:f4e0:c7b9 with SMTP id a640c23a62f3a-bf370d638ccmr395176866b.19.1780837944394;
-        Sun, 07 Jun 2026 06:12:24 -0700 (PDT)
-Received: from gigabyte-b550m.local ([80.68.228.198])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf05176e1b5sm719839566b.8.2026.06.07.06.12.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 06:12:23 -0700 (PDT)
-From: Lech Perczak <lech.perczak@gmail.com>
-To: devicetree@vger.kernel.org,
-	imx@lists.linux.dev
-Cc: Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lech Perczak <lechu@hswro.org>,
-	Lech Perczak <lech.perczak@gmail.com>
-Subject: [PATCH] ARM: dts: imx7d-pico: describe Bluetooth controller
-Date: Sun,  7 Jun 2026 15:12:17 +0200
-Message-ID: <20260607131217.6497-1-lech.perczak@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="CCaS3Zmd"
+Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657B1DpJ3644857;
+	Sun, 7 Jun 2026 05:51:07 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:message-id:mime-version:subject:to; s=
+	pfpt0220; bh=rOdHEacwbEYqnbjI8muvDVSMA0W4NJxUkCaq5J6Qp5E=; b=CCa
+	S3Zmd2eyAK4+9NLoKlSkUAC/eIujUqsjK7pVlYUIOw5WxuodawUxxGnCLmFljNXk
+	QHUrkBHWUYGWO+TT+cNfeKsUg8nsVtajUJxOCLS9Q9dqbuDtx1OtWBfCVf13T9Qe
+	odUOu+KJh1nRQm0o2vyReOc0zyNl/Q8y/mO+CTCsDv5fZ+fLMgrZlsncUXz2ZkBR
+	x6hFzpWK9ym6NTIo0sIOb83OmVhUWCZTxKtyLFmeJUa+zvAr2owK4PIoOn6XE7Jx
+	feCnzC4iQFmlswKajJRSp0uPTYnG4KKkX86/PLHpC0fthhmYJgqqZkbWaoGJSLD1
+	ND88gCkYdP/XVn6o3QQ==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4en4a5gmc6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 07 Jun 2026 05:51:06 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 7 Jun 2026 05:51:06 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Sun, 7 Jun 2026 05:51:06 -0700
+Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
+	by maili.marvell.com (Postfix) with ESMTP id 38C893F70C5;
+	Sun,  7 Jun 2026 05:51:02 -0700 (PDT)
+From: Geetha sowjanya <gakula@marvell.com>
+To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
+CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>,
+        <gakula@marvell.com>
+Subject: [PATCH 0/3] perf: marvell: LLC-TAD PMU MPAM filtering and CN20K support
+Date: Sun, 7 Jun 2026 18:20:58 +0530
+Message-ID: <20260607125101.17778-1-gakula@marvell.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=HpBG3UTS c=1 sm=1 tr=0 ts=6a25693a cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=t6Rdc7sheOvqEPeo2a0A:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-ORIG-GUID: 4NAtQbjwxdP84H6pLHwtUxd9GIq4jlFF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDEyOCBTYWx0ZWRfX6DMcniO66Y2g
+ JypRtDdqILsgCJITg73KlwjlQmjx8mkLa54gdoz8qTig3WOPL3DLjUJDFuwqwHbXJN9YZOJtEuq
+ b4mxEvHiNZ56KXMt1wYC90vFvEvOgYZmRNM649Ar7OfVvWUR5OolYTcY6eIY9iaO/rlwH+p8fUO
+ 9ujYaPzpoqq2Y+h09ysvSzGl8k5WoYniHM8kNl8ScOpVDgf8lhRvhuJnMgEkvb5SWFz0IBYrPjD
+ Ho5vRN40NXNZQ1TJPf37mIBVUQG+N9LqVSIc+DzbTBmvZV7IdT1TkHK3cCwSxUO4zRnS8O5VWwx
+ CO0mea81HC/GpB1SWNNAF9izLDmSMmNTom2FyWlKvq+Xsf1FIjMLV/CtmvBWN0NlaQ54IuuFPfO
+ E2VuuK3co835zRCYwZ7pXi17+ML+Dn7rjjZvo3c2Amhz0iKhSUGlZGsQXtk8O9IPzqiXZ2kKOYE
+ 19dBeQ5O1QtgnpQTWUg==
+X-Proofpoint-GUID: 4NAtQbjwxdP84H6pLHwtUxd9GIq4jlFF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-07_03,2026-06-05_02,2025-10-01_01
 
-Ampak AP6335i Wi-Fi module atop i.MX7D Pico SoM also supports Bluetooth 4.1
-via UART attached to "serial6" port. Describe it, so the controller can
-probe automatically on boot.
+This series extends the Marvell LLC-TAD performance driver used on CN10K
+and CN20K systems.
 
-This is based on "Pico i.MMX Development Kit for Android Things Hardware
-Manual" rev. B1 [1], Table 6 on page 12.
+Patch 1 adds optional MPAM partition-id filtering for the subset of TAD
+events that support it, exposes a partid field in the PMU format string,
+and keeps the reduced Odyssey event surface without advertising partid
+where it does not apply.
 
-Link: https://www.nxp.com/docs/en/user-guide/PICO-IMX7UL-USG.pdf [1]
+Patch 2 introduces CN20K LLC-TAD support: non-standard PFC/PRF offsets,
+additional programmable events, CN20K-specific MPAM encoding for the V3
+profile, and device discovery via DeviceTree and ACPI.
 
-Signed-off-by: Lech Perczak <lech.perczak@gmail.com>
----
- arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi
-index a1574ccec89c..6d4e8087192c 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-pico.dtsi
-@@ -339,6 +339,20 @@ &uart7 { /* Bluetooth */
- 	assigned-clock-parents = <&clks IMX7D_PLL_SYS_MAIN_240M_CLK>;
- 	uart-has-rtscts;
- 	status = "okay";
-+
-+	bluetooth {
-+		compatible = "brcm,bcm4329-bt";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_bluetooth>;
-+
-+		max-speed = <3000000>;
-+
-+		reset-gpios = <&gpio4 18 GPIO_ACTIVE_LOW>;
-+		device-wakeup-gpios = <&gpio4 17 GPIO_ACTIVE_HIGH>;
-+		interrupt-parent = <&gpio5>;
-+		interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-names = "host-wakeup";
-+	};
- };
- 
- &usbotg1 {
-@@ -401,6 +415,15 @@ &wdog1 {
- };
- 
- &iomuxc {
-+	pinctrl_bluetooth: bluetoothgrp {
-+		fsl,pins = <
-+			MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17	0x14
-+			MX7D_PAD_ECSPI1_MISO__GPIO4_IO18	0x14
-+			MX7D_PAD_SD2_RESET_B__GPIO5_IO11	0x14
-+		>;
-+
-+	};
-+
- 	pinctrl_ecspi3: ecspi3grp {
- 		fsl,pins = <
- 			MX7D_PAD_I2C1_SCL__ECSPI3_MISO		0x2
+Tanmay Jagdale (1):
+  perf: marvell: Add MPAM partid filtering to CN10K TAD PMU
 
-base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+Geetha sowjanya (1):
+  perf: marvell: Add CN20K LLC-TAD PMU support
+  dt-bindings: perf: marvell: Extend CN10K TAD PMU binding for CN20K
+
+Signed-off-by: Geetha sowjanya <gakula@marvell.com>
+
 -- 
-2.47.3
-
+2.25.1
