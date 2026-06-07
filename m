@@ -1,150 +1,90 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BD62F746D
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 22:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E6931E85C
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 22:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780872735; cv=none; b=Q4c8+0BvULkcr4YGe/ABEEKNRJxTSavoFYuyBGMlQY1R81Ox5Px2xeBvP0hESxyvnZzGKcq1N998wAAx9cmUbD2XcUFMWXHFxCSqFwKOIIjOJMUT7yGIPS6fxh2iI9AotYpCK6/7MQR9S4xRn7QYC3FvET0NRuzCIsyO7Tkp2/c=
+	t=1780872892; cv=none; b=GKSRX3VVk2+KEYAx1em/JcfhzWbKScgX7sJz2T2GdlYwyDdL/CVkRWGujUGxMvdC8o4nQ5ryW9lSGvcC3ywn8t2fhlxoLSN9z2kpsfw3IFnno9n4DWxmdXyQmxPS1rQSNN+1BxL9SJhoWonDXhzJvCwahrydqGI4skhcGMnPJks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780872735; c=relaxed/simple;
-	bh=G0hwanQjIillzN7YvwfYTJyh/E8hBGkxrtuWPWWKAnc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VZkRJPXJiC2VxWqOo/HRJ+DDkR6pghpEesrvfEmAo8j1aj0uLnl/ttIezXy+Y4TkPZ34oMIKjic2BSP7XZjYn4Rr+hrf2Dscg5xF0pEv51BVMpV3ZzIM6tYipeXwyuZMO4t9zVMO7SzVcVjDtKhrbYRWQ5wXhbZCw3qBqf8Ap+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKk4hhWV; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780872892; c=relaxed/simple;
+	bh=Xb6YZr5P4SpdNG1BfAW9UCOTDTAg1bbB2MWp6fZ13tY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hDRCXIcgqnRNIT30Bg9tbq51qiixjX3zLnpli9hnnk8tIw+A1s6biqO1ULwP4bzEwqD37vMN7v8qGJccLjQ7EjmkI2B3qiL2zvgD2PQUSfr4rtHsWlkVLuu/6WqSxXsB2l1qvQrGGg3EMEHX3kHamrjxyMkyZaxHKpbvY2JI8kE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+Fr2a7B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKk4hhWV"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30749947917so8170816eec.1
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 15:52:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780872733; x=1781477533; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=VMyoQX7XgJcOZbk3isFK5ARGelYrfSmjOPTA2SAFw7I=;
-        b=TKk4hhWVS1zgecjgNvxHLP/5bqvQuKlOUbRjKppCGp4ybvHWu0dufNzRaaYBiiegR2
-         ATPLlxWlI73yn8svNpgOvOkdjJKqcoEP0l4/stN9Nahzn1tYj+I9LjGegksLI3skoa+f
-         hnAn9IXTOJTONuFnr2gnQjeUGVOr30j1qYkuE0dJamwOK02aoQV+mrAnLC/9/oensI3a
-         TSY3qqHqmOUTfzwMtdNvCc0LTCF48fy+JiEmy9GEp+m7z+z+GNdK0Li9cAXglv2MgogM
-         nBFuSloAn9m13Epb1N9oHPSnmGcxwaa3lZkxKr1wPycbXoWNqGPyKlsaTsxPcN55zLKi
-         Uw9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780872733; x=1781477533;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VMyoQX7XgJcOZbk3isFK5ARGelYrfSmjOPTA2SAFw7I=;
-        b=Q5bGzctSepHYjeXTLe82sC7PDV/5BxMcYTaroMkDeKy10SO/aIZ9E+ZOClHwxneTHa
-         ACO5Pca8pTvMK2a2vRDf1HtbV9ZyyLHTzHuxxfVUc7q97H7zrhUnBPBe84vETdJ1DYH3
-         /8rdtivTERtzo1AQeIRDoH+xhwzswccmV0WOC4fWsR/jzIXMdFCzorE2oSgZ8EJ9Kdb+
-         fSxKXR7UJOuQ7vxAorKF+zE4nbnbD62JYqZnzZ+W56YrcjdIegnWOvCe7Zc6VWN/mupx
-         21FANvrpsmUy3GPjI9So7XdXxb3H+BrOdqBqZVOxooGjr77bkMRKjdlZAuncaFUQQf4U
-         CowA==
-X-Forwarded-Encrypted: i=1; AFNElJ9/KYvcquQ4hJlKwNIYL+MGvgCCSNnF4TUUdgc2YUqYeQZKA51t91CzZsHfQxJWn+9n+GsjWMVwWjSP@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGAgbdPiiombE/1ktRE2TxSs+XikxnrQkbTqqsrqeMa4X/vms0
-	pox4FpzpSWuVT4VNTYlTewAGk5+frNz/FJ4kZ+HYHBMbgd8ljyiOsPNo
-X-Gm-Gg: Acq92OHLkqmtRXozhWGBDrOxHzJeseguaG97Z5weQTUwWWKMWDpToo5vrJWjLh/I25K
-	jBoNiPTCU6DYsD8i5pAWL631jpZWvGIumeMHpXAmdXi/tQKKBrQhb1hRVcTQ1Fz7RmDDBPKQnB7
-	S+awoOH552oXnhipiBdqfGexZz1mszXgvUy4F6yXBIY2vOcwFvLbS1ebOq+ceePqnxeJpzsU5Z8
-	Y2aUeAAg4vUmatKz5aWyE8MF5WoR1L/KWwUnCSlcsnYk75YjwxNb3bLIjRk0RpqRumiHHHe743/
-	xOdir7ua39Ygb1l5mRpwaXwlHWgsQ/NthSVinw2twAny+Iiks03kCZAZ95xUwYNtI974ZS0KKEI
-	dvnBhrGmKwy6wvIAyepyoJNZK9lH/pvV31BEpMIntwIh4E6rtsHMCpuFQ9lD+iuppJDCj7v+5k1
-	3jz0PZtCT1T9vg/DH7TGWTQlVGsJfrbHLQtABD+JtkYF/XLxaO3lBgd3mGd2HnHAjK/zkf65UwG
-	DAU8uoh54o=
-X-Received: by 2002:a05:7300:4347:b0:304:5bee:f59d with SMTP id 5a478bee46e88-3077b845773mr7295413eec.29.1780872732841;
-        Sun, 07 Jun 2026 15:52:12 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074dba9d43sm13803012eec.10.2026.06.07.15.52.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 Jun 2026 15:52:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <ee0ea703-4c80-4212-9327-13e8342c10ac@roeck-us.net>
-Date: Sun, 7 Jun 2026 15:52:11 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+Fr2a7B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE261F00899
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 22:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780872889;
+	bh=Xb6YZr5P4SpdNG1BfAW9UCOTDTAg1bbB2MWp6fZ13tY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=B+Fr2a7BnxVpZt7hKXSV7edObZO7V/fYEZV2Sa7J2mxv4R4CIyIBIYrDBJvNf6gwm
+	 Vy5oXR1qSdjTQcRUzYCU0Z71c13g/b83ksUsSJw/F/7StU2wiRU6Hn1YCV+Hu3GngT
+	 xQLgiG13ix+uI4DNPLbHuSxcTNQ8bADQaoCVMscJUz9Gw4jn3B1Q7uIJLgQPtAwWv5
+	 KWIMZDa3Eovs5Mc103+lUNl5TayAxRTCETJgQ/ZXmch+ZKxKvaNrsi+otYfhFPmCpd
+	 9oELmcumSp74R0t5YVxNJKfAinxtFjpPtof8PRbWFw3wG1vtm20cU5AfxLGY/0e88X
+	 zFGx7hrWjA9tA==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-396753f343aso36775781fa.2
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 15:54:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+BlOhw5mOVeWfAqMgGRIB03zvXdvdffCBrfQkjdt5WKrBf4LQYNYkOstUfCsOPHJc/j/oT9HS/7Qe9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTrHZWukeeF/HXTX9J+gjaKnlJ7GiJNfME6QCFj542NQflHaGW
+	ln6lQupxi80BmJCs6h4vBdBSMpoIhtUC4prriM4mggxA9baoXRXwwuwPyjk6wsQ4IILA76YMQF7
+	+ajrOyHngklOTaz5JuRmFF/HSNa/Wn6A=
+X-Received: by 2002:a2e:be12:0:b0:396:668f:b7f9 with SMTP id
+ 38308e7fff4ca-396d097b35cmr34288001fa.24.1780872888238; Sun, 07 Jun 2026
+ 15:54:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/3] hwmon: emc1403: Convert to use OF bindings
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Jean Delvare <jdelvare@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260603141033.111300-1-clamor95@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260603141033.111300-1-clamor95@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1780652883.git.github.com@herrie.org> <e49aba850b1f48ea00089e7142c00584541001eb.1780652883.git.github.com@herrie.org>
+In-Reply-To: <e49aba850b1f48ea00089e7142c00584541001eb.1780652883.git.github.com@herrie.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 8 Jun 2026 00:54:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm-GGocy0oX=ZJUCTzUnyQFUL-kEf45UE6v0A7h+6b+vA@mail.gmail.com>
+X-Gm-Features: AVVi8CfshfqyBj4K_uz2ane6IflcZIJ2ilG382ED3RLq3ijeVS3X5S2Bwjv2MfQ
+Message-ID: <CAD++jLm-GGocy0oX=ZJUCTzUnyQFUL-kEf45UE6v0A7h+6b+vA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] dt-bindings: iio: st,st-sensors: add st,fullscale-mg
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: jic23@kernel.org, denis.ciocca@st.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andy@kernel.org, sanjayembeddedse@gmail.com, maudspierings@gocontroll.com, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/3/26 07:10, Svyatoslav Ryhel wrote:
-> Document and add OF support to this LM90 compatible thermal sensor
-> family.
-> 
+On Fri, Jun 5, 2026 at 12:08=E2=80=AFPM Herman van Hazendonk
+<github.com@herrie.org> wrote:
 
-The chips have similarities to LM90, but they are not "compatible".
-Please do not make such claims.
+> Add an optional st,fullscale-mg property that selects the initial
+> full-scale range of an ST MEMS sensor at probe time, expressed in
+> milligauss for magnetometers (and analogous engineering units for
+> other ST sensor families that may grow this property in the future).
+>
+> The property is purely additive: if absent, drivers fall back to
+> their existing chip default, and if present but unsupported by the
+> specific sensor the driver warns and falls back. No existing in-tree
+> DTS is affected.
+>
+> The motivating case is the LSM303DLH magnetometer on the HP TouchPad
+> (apq8060 / tenderloin) where the kernel's chip-default +/-1.3 G range
+> saturates the X axis to the chip's 0xF000 overflow sentinel out of
+> probe, because the chip is mounted close to surrounding power planes
+> and picks up enough DC bias to exceed the smallest range. The driver
+> core hardcodes fs_avl[0] as the starting range, so userspace cannot
+> recover without racing the driver to write the in_magn_x_scale sysfs
+> attribute after probe. st,fullscale-mg lets the device tree declare
+> a wider initial range up-front and avoids the race entirely.
+>
+> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
 
-Guenter
+Makes sense to me.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> Jonas Schwöbel (1):
->    hwmon: (emc1403) Convert to use OF bindings
-> 
-> Svyatoslav Ryhel (2):
->    dt-bindings: hwmon: lm90: Document SMSC EMC1402/1403/1404/1428
->    hwmon: (emc1403) Add regulator support
-> 
->   .../bindings/hwmon/national,lm90.yaml         | 109 +++++++++++++-----
->   drivers/hwmon/emc1403.c                       |  25 +++-
->   2 files changed, 100 insertions(+), 34 deletions(-)
-> 
-
+Yours,
+Linus Walleij
