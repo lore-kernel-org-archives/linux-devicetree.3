@@ -1,64 +1,64 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B84315D3B
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BD8331A44
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780875933; cv=none; b=YpKz5eS2X77iM7onzoDTn3LkP6vM9v+nrv/wFqFHLhuLbpYAczdPhFOFKq5uvs3/PhcCpq27gfLZ1L0zOQZLc6pQM/9i9FrAiVM4piQExvmo/jpFyNGrLOXtEDkFbhlHqCq8z0baOekpbV8Atc3dbbUE6hhpUgj19EsM0sOjahs=
+	t=1780875942; cv=none; b=iRovagLRXDgUhEfWJ4Ye3CJrtQM0LapbBkG0hAnLlLyXvNq02sm5Hr8/GKoWzsrMR5YH+HaUyf+PVHJ/Pccwl8QSH+aIVcwT8SSGwQEcP8O6JVUKPYq3rMBwxGQqu+edDqYsrT9bAi1n2oE0BsYJ3gJN7HnrvxToRJ36yjDdiYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780875933; c=relaxed/simple;
-	bh=Io7D5KkHYqvenZqIL6Z7P+QZrmOBRoracJ76uWfi0JU=;
+	s=arc-20240116; t=1780875942; c=relaxed/simple;
+	bh=2sVlunj/mZoHcoxd2cD4P4fdrzm4ewYqwvFCAz1C1iw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gfpk8hJHdANnBgF0xap1rzDFrEiW1CHom7l6gO2WF/smSwS+n9bQC3T7tnRqEnooum7hwS0PdbujylWvMTrQ0GlHELstdENLiak+P6Bwp4oEjFalagLMf5CqiguCuuaczYX6afcK2cHfvriIjPKLpKyIQyftyZxT0y17EAFqeJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FvvgAz8n; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version; b=VrS0L1lL+ElgxkBte/u0euioCyv8TmT5QVvqOk+qo3FMUcDuMhBlzrGUpDl4lFb9x1ToKgOmNjJPF2BnvWGk3PzPJ1RGHQT4S7nVkKzD1NsoRloxNuII1iROmvSS75qzPXgXM+nj5MyiTqJxAXbPvS56zeAdkZZjHRLMOzjQ91Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cOEEziFM; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FvvgAz8n"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-36dd65b95f2so2505440a91.0
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:45:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cOEEziFM"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8422a92b6d6so1883852b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:45:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780875931; x=1781480731; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780875941; x=1781480741; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=q5OiZytJs8xCHWwIF7i0RCUYGoDtUsdsRhvMvvj/Vak=;
-        b=FvvgAz8naXUNVfwWOhxdTpGzgl5nfFCrU3tbfBrRCrRbNy4Uhq5r5hmo6BGxt/rGxN
-         HWkJY7otsUGfN6nFAW9f0eOV6kBVj3deIHXi11F3R2RF4RXLevcnG1aQlMzjieams9vJ
-         xVLW9f9hkRbQJSr6Ugxli5gKwWXuKQNlPn6quWyPfMbgu1xNBBNIkkqrJYBWQY8fcoFq
-         t85yA/0sRdIWx0TNaDU7o8VsRIXihAZiFdUqTxGxVk55Ujve/1wmD1hCoXiSw1zrhsWN
-         DcMcPWC8aEZaxUaAtenWQaxdAC/NZvRnCm+r2TVje1pHmp6wy4BR5S5iUGQek9CZS5I2
-         RfWg==
+        bh=r3bgmmYaDea+Gj+ghcKiuju7bxxh1PhtZqeiDo8GA5Y=;
+        b=cOEEziFMnPrWp1MARMwpw5TofC8CzKKDDPAhWuNp2MyCv1Aw4vPbofKX8WPKhQvTxk
+         bCH6V0u+D7UsUXNNCOj19fGE3RGNoPdYjOrkVZbY/OYOo6Q2G7qYEe39zYb+sbiq1rRp
+         UMOk+1G0JFUJyB3EqrMENM29RJJoQY/OlivF013dR194815DmJt3cWHNm6Z00WlqD98t
+         YW7y/N2NpE8dUuqgO+aKOtuDzjgIRdBQC5BCSlRHlRDiFkkdj9XPYLCymaF+jdJq5HtU
+         AOiSI23KpSi4FYlihzELLSs/Iv7ZdcO9t5qp/10TVKvfEEM7UujlWhQmdi8ecYvza2qS
+         UuDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780875931; x=1781480731;
+        d=1e100.net; s=20251104; t=1780875941; x=1781480741;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=q5OiZytJs8xCHWwIF7i0RCUYGoDtUsdsRhvMvvj/Vak=;
-        b=IPm5tAYZNxyzhpIM6wXQavnj+1wiXvXVa6jLYiGHix57mCwzjYg4Ko5PhZ2r7Gqbmm
-         b41FJ/7ik8lrSB9NhzcNLTHrAUe3jnH64BkqcRf8ew2wHNtztXz3SwtFFVgyqHNvpdo1
-         +nq8DXHU3RziR0EZFICXdoCor40RJGiLHWI6mcyEvGCAYPjSgNZmTEGnye+8EwYKCMqR
-         Ize3yoH76eOgH4VjW+LHlSOocKpvn3gP/jvPDO4uQhSBj4cuF3WknK/sAqqDld4M6Bra
-         cj2RrI7y9OREf/P5ZCAk9c2DQdUUPocAKlXFJ5nx2N3Pv5v1a0lQWZTHOr6pwLOpA1f2
-         7HBw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ObgfpADpwwR0gN4ANRHW5fVlJFJEwh9xOp6YFVUakSyyqHKJ9GuZUbDHv9VmuZxzPExcvXQqUHed+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2FA3q+lCdNup9vQwfrMzNb5gw/HhBmylA6idPS4u1Vzxinbiw
-	VrEKjkLAHKku2wiXQZGwGBHH/IcXKg6fnkblSKRiL5923A8kOqbfGk5y
-X-Gm-Gg: Acq92OGWOWacm05u41YoiOm2zZH+YK+xtUUPnTHMAwUSGCaFzDmrpM1LyDBt2wq85za
-	tKK6UkJqbHbU7UyccRLoHEzZTRl7WIdgyzmQeSF+8auUj5HELXY0dlea0OR4iQrGaN1LLMa/Au7
-	lcATd8TlNDc05uvlk5gcZLZ1dFK6CLKWBTBbh9pv+2sgqc3yiFX+x6AA/X03OZvjr8nEkgsLE1i
-	BczfcMfXRJJGXcXq5NGuioIGWoVSbqwayZYYRgkNCxBOKJZwDJpVdjsYlXD7qLBODig/0uhZAln
-	uUy913s9eMthqKJhjwt+Ba+Wq0dL881kYXsiz4WTASoqAVPpKSUGe7A4PsrrfqU0VNzYR30PMhT
-	m02vBk/nq1RakXX75ezQFrH0EvHeWLwzyZI+4/UV23DhwqbEaFIrfCXm6EpRr44SlmdW7R8FBx1
-	bv8AZcw72t4Yk/sB3nER80YsFH5pI2mZyhFI4JoIfRGr3/pmnX1lZ3pJ4dQnoj9g8uGX4eGixkl
-	v+tGOL2fUCODZhBbFvAfJCHd6dP4hcfcheelzRMj1cXiSxM
-X-Received: by 2002:a17:90a:d003:b0:368:65d1:893 with SMTP id 98e67ed59e1d1-371306869a2mr10501438a91.5.1780875931310;
-        Sun, 07 Jun 2026 16:45:31 -0700 (PDT)
+        bh=r3bgmmYaDea+Gj+ghcKiuju7bxxh1PhtZqeiDo8GA5Y=;
+        b=Z58/LL2tRyzNkTfIccF5mUe1+cJ0MSJy5PLMa7wEkeD2tyeH6U4/OlgIziLLiwqXRh
+         PIrqQdClsQh5yir03IguobougH9VO4SQ/M/1p+tS8ORuJ0kw/ZDkQmsIp3u2xKTZ5cRr
+         GcQS/h1V8l4aWYsbIfby7rovEDI0DHzORFYFT7i1yxB56hUru6JO4oGM4fogsVF7T8li
+         0BHCFZZa9tcwMEELTuv4JSnccCgjzyMBeIf4pqEkS8wLg2oWB4zGzKxB7OEXd+waq8jw
+         8TaVoGnne6h6IIRlEXJXZ1VAG9xXrwcfwonB36/CIxUsCqlCdEMC8yaJ6auLi5XP087v
+         TqCA==
+X-Forwarded-Encrypted: i=1; AFNElJ+rYUw+2PlIVQjjVgiOAejvWvRA/h1hgdU3nSltgbiY+2Fe1S329AVR50TPvPDqq9G/4WgqgHN+R3gW@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSPSsWpmSoU3e01E73zzDe+UgifZWvsc5N7/UwLhO6gm/hmLXw
+	3BOhqLUkSDDuA20ryfUAaS+akohUFeix/Yt2gzx2hhjN75bUIF1yKpgm
+X-Gm-Gg: Acq92OFMqZ3B/QBpQTHA7+F49pOWdrc4C4f1UVvwm3XR12Cpss5EjFDt3Gdw+LHS4dh
+	zvBG6ydxpq+GhLJ+6c29B4T0MaQcGyrvfKrANXyy7CGP2UVoeK3dSwDNyNvBfiY3+qAEe81J0VS
+	zOkgJc+oNzbSJxfYeStGxfFsX7SYJp7nPPTNvt4Til94s91ya+4LkaxIzDJatcPuA4vju16Enmt
+	n+kOeEZs1iieL0V6VtXhJiJevL2ZezAZ3DWKiyxFOx5fZxKTUL1s3b8C3Pi/xboF/CO9YSixpwf
+	4h8qUq03iF7sdFf4WoQaaOYYtDgxD+vbej/cY1GaenZbln3iIcW8IO0D/PPwJ0M9FYFF4JUabLI
+	Qu1h/FCE8to2m43Nbj1QbmtMPHLepri7orIVitEIfJp+vCIn7lv9c2E5mVaanxpWBivTDzuLet3
+	fjafAIZMybLORTkFqmAdg2nANJIRUZDn7O4KjTB21g+cxSsZC888E+bhNJu1cKvOh0OXflar9SV
+	sktpredM/eFmlEGqPZpTv5aBeR279hCw2m+Qnzbbi8m6mQR
+X-Received: by 2002:a05:6a00:808a:b0:842:4982:82f with SMTP id d2e1a72fcca58-842b666f8d7mr8968903b3a.2.1780875940733;
+        Sun, 07 Jun 2026 16:45:40 -0700 (PDT)
 Received: from DESKTOP-G3E0OSP.localdomain ([112.172.255.242])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm19257732b3a.44.2026.06.07.16.45.28
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm19257732b3a.44.2026.06.07.16.45.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 16:45:31 -0700 (PDT)
+        Sun, 07 Jun 2026 16:45:40 -0700 (PDT)
 From: Jinseob Kim <kimjinseob88@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org
@@ -73,9 +73,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH RFC v4 5/6] iio: osf: add UART transport
-Date: Mon,  8 Jun 2026 08:43:42 +0900
-Message-ID: <20260607234343.22109-6-kimjinseob88@gmail.com>
+Subject: [PATCH RFC v4 6/6] iio: osf: register IIO devices from capabilities
+Date: Mon,  8 Jun 2026 08:43:43 +0900
+Message-ID: <20260607234343.22109-7-kimjinseob88@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260607234343.22109-1-kimjinseob88@gmail.com>
 References: <20260607234343.22109-1-kimjinseob88@gmail.com>
@@ -87,41 +87,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the generic Open Sensor Fusion compatible.
+Clean up the IIO sample push path.
 
-Avoid board-specific DT compatibles.
+Drop the redundant temperature scan mask.
 
 Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 ---
- drivers/iio/opensensorfusion/Kconfig      | 4 ++--
- drivers/iio/opensensorfusion/osf_serdev.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/iio/opensensorfusion/osf_core.c |  9 +++++----
+ drivers/iio/opensensorfusion/osf_iio.c  | 15 +++------------
+ 2 files changed, 8 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/iio/opensensorfusion/Kconfig b/drivers/iio/opensensorfusion/Kconfig
-index 957caed2b..8b9376d28 100644
---- a/drivers/iio/opensensorfusion/Kconfig
-+++ b/drivers/iio/opensensorfusion/Kconfig
-@@ -10,5 +10,5 @@ config OPEN_SENSOR_FUSION
- 	help
- 	  Build the Open Sensor Fusion UART IIO driver.
+diff --git a/drivers/iio/opensensorfusion/osf_core.c b/drivers/iio/opensensorfusion/osf_core.c
+index e0a12de01..61ef55646 100644
+--- a/drivers/iio/opensensorfusion/osf_core.c
++++ b/drivers/iio/opensensorfusion/osf_core.c
+@@ -293,10 +293,11 @@ int osf_core_read_latest_sample(struct osf_device *osf, u16 sensor_type,
+ 		    latest->sensor_index != sensor_index)
+ 			continue;
  
--	  The driver receives OSF0 frames over a serdev UART and registers
--	  IIO devices for supported capability entries.
-+	  The driver receives OSF protocol frames over a serdev UART and
-+	  registers IIO devices for supported capability entries.
-diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/opensensorfusion/osf_serdev.c
-index 1ac93548d..fd36acd1b 100644
---- a/drivers/iio/opensensorfusion/osf_serdev.c
-+++ b/drivers/iio/opensensorfusion/osf_serdev.c
-@@ -91,7 +91,7 @@ static void osf_serdev_remove(struct serdev_device *serdev)
- }
+-		if (latest->valid && channel < latest->channel_count) {
+-			*value = latest->values[channel];
+-			ret = 0;
+-		}
++		if (!latest->valid || channel >= latest->channel_count)
++			break;
++
++		*value = latest->values[channel];
++		ret = 0;
+ 		break;
+ 	}
+ 	mutex_unlock(&osf->latest_lock);
+diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensensorfusion/osf_iio.c
+index 5e5099878..3da3f2bda 100644
+--- a/drivers/iio/opensensorfusion/osf_iio.c
++++ b/drivers/iio/opensensorfusion/osf_iio.c
+@@ -6,7 +6,6 @@
+ #include <linux/iio/buffer.h>
+ #include <linux/iio/iio.h>
+ #include <linux/iio/kfifo_buf.h>
+-#include <linux/string.h>
+ #include <linux/types.h>
+ #include <linux/units.h>
  
- static const struct of_device_id osf_serdev_of_match[] = {
--	{ .compatible = "opensensorfusion,osf-green" },
-+	{ .compatible = "opensensorfusion,osf" },
- 	{ }
+@@ -89,10 +88,6 @@ static const unsigned long osf_3axis_available_scan_masks[] = {
+ 	0
  };
- MODULE_DEVICE_TABLE(of, osf_serdev_of_match);
+ 
+-static const unsigned long osf_temp_available_scan_masks[] = {
+-	BIT(0),
+-	0
+-};
+ 
+ static const struct osf_iio_sensor_spec osf_iio_sensor_specs[] = {
+ 	{
+@@ -125,7 +120,6 @@ static const struct osf_iio_sensor_spec osf_iio_sensor_specs[] = {
+ 		.name = "osf-temp",
+ 		.channels = osf_temp_channels,
+ 		.num_channels = ARRAY_SIZE(osf_temp_channels),
+-		.available_scan_masks = osf_temp_available_scan_masks,
+ 	},
+ };
+ 
+@@ -265,21 +259,18 @@ int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
+ 			unsigned int channel_count)
+ {
+ 	struct osf_iio_state *state = iio_priv(indio_dev);
+-	s32 scan[OSF_MAX_SAMPLE_CHANNELS] = { };
+ 	s64 timestamp;
+ 
+ 	if (channel_count != state->spec->channel_count)
+ 		return -EPROTO;
+ 
+-	memcpy(scan, values, channel_count * sizeof(*values));
+-
+-	/* Buffer state can change here; IIO rechecks it during the push path. */
++	/* This is only a fast path; IIO rechecks buffer state while pushing. */
+ 	if (!iio_buffer_enabled(indio_dev))
+ 		return 0;
+ 
+ 	timestamp = iio_get_time_ns(indio_dev);
+ 
+-	return iio_push_to_buffers_with_ts_unaligned(indio_dev, scan,
+-						     channel_count * sizeof(*scan),
++	return iio_push_to_buffers_with_ts_unaligned(indio_dev, values,
++						     channel_count * sizeof(*values),
+ 						     timestamp);
+ }
 -- 
 2.43.0
 
