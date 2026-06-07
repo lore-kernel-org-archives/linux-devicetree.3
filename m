@@ -1,67 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237C6302753;
-	Sun,  7 Jun 2026 07:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25E92E88BD
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 07:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780817503; cv=none; b=M887BM7IZHNQRps6MW7a3iXAOgwEah0A1eo9Y+srhgv5uAkN1u/u0s6jE4sX/gMIY8UIJeSnTXgUM80NoRMDFoMOjvsThexK1W8W2+dY1q4i1TyyGRSbm04txxCkey5mLJCTMzN/d/rZ/OrYLINXsZ6ITI4ydpjDAhGthLc5U1A=
+	t=1780818591; cv=none; b=bTDeVO+LMKzqKZUv3PraQILmBdlbWXnoP4SuIoLjJ4zmiA9G5f4FzEocLX8eEY1Nmb1pmi4SMkN9pf9b57pI6HiMIYM5MF4fgynLMg2Ojrr3e821Msr6z7/KgvgTEBF2j58k9IgeMAYZRiwV75ERV1EJItwx1oTW9emIJTKgG5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780817503; c=relaxed/simple;
-	bh=k0KqjXBeVB++LaNoTghVtB8NPmeeHoE9udI6EguDkmM=;
+	s=arc-20240116; t=1780818591; c=relaxed/simple;
+	bh=oSl2ogZNQGmd87ETOSzNSkSCh4CwHrElkWlKILloB3w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rPcT++ZmTFZel58oErn15gcP00nKzz250TIwEO0ZIgWpSuHuiPv2Oa6x3YuJKyYP5i1klrXSIazPe88EHczx/pdC4mROURoypTu11lpeNGS5N7DvflAkFsGT5IFka7XL7oGRI1OxiH9GORWSMVxvu6JR0vH9eLwEyRDhhLUhB9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MXkyZ3V7; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tMnJcOJfuRuUzl0GIY9jSL38G/OC+yhDQZZ5g3xGiibPKOcvMe+TUc3BbsJEknHVloqUJmu89E3RPp4p3QnMeGfgo45u5p0s1VBMwTlv2PTI50Z+7wHPorHpG2WIAY033eLgGF6+YzYSqu8tstf0Xbe+kK6rZnJu6dZIkZyyKZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hsWmXFzv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ReLKv625; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MXkyZ3V7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780817500; x=1812353500;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=k0KqjXBeVB++LaNoTghVtB8NPmeeHoE9udI6EguDkmM=;
-  b=MXkyZ3V7LGU4mHoVS5ovgvIwEYlwjvkgx2JS9q3e5gZuaqT0oVQgLpsk
-   8DJCYPFcN4z+c6ZgvUxrXgTNPqMgaHRxsEQOjHS7LdapajR1w+dWaLlCa
-   Ada75YJMi3CGTJQPnxzWaRDn/fxWpAIhWuGb35ru/3jXZBew8P3bEjsvq
-   DpqrSwXuM0D49jfYhkY7vgK9lqyDA91GVJtNVBTPRvGz73Hb7rt3vf2MX
-   B0PkhaZrKAuXasQCHcfCYpI8IOa1YWe/TBP5rSVZSu2TxkzSS4GJqgTzZ
-   bQskW4JL2XvCG7xsflxtXmWoAkArFPJoNM0+GE01Fpw34Da7zCmParNZ3
-   Q==;
-X-CSE-ConnectionGUID: z9uPP+egRsOBOdILfTurbg==
-X-CSE-MsgGUID: wtkH51YyQMmdcbE9hrXgZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11809"; a="91910032"
-X-IronPort-AV: E=Sophos;i="6.24,192,1774335600"; 
-   d="scan'208";a="91910032"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 00:31:40 -0700
-X-CSE-ConnectionGUID: NZ22QekRRFCH1zjscYIqaA==
-X-CSE-MsgGUID: WcNSxX3gRxSxeua2V8Z0gQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,192,1774335600"; 
-   d="scan'208";a="242774643"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.86])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 00:31:36 -0700
-Date: Sun, 7 Jun 2026 10:31:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salih Erim <salih.erim@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Salih Erim <erimsalih@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] iio: adc: versal-sysmon: add threshold event
- support
-Message-ID: <aiUeVs_FoI9vV1Hd@ashevche-desk.local>
-References: <20260606051707.535281-1-salih.erim@amd.com>
- <20260606051707.535281-5-salih.erim@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hsWmXFzv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ReLKv625"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6577BXUl4167827
+	for <devicetree@vger.kernel.org>; Sun, 7 Jun 2026 07:49:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=teBGrABVhJlKOgLTq47ixTXW
+	2t5GHP5uTDgWHbMXLYY=; b=hsWmXFzvIlp0gBkcRH8W6efCALF31zsiNJF6+8uL
+	abO3VPCbK/ndI6+DlbNPt00iqcQQy1afr9/huMWvIUlRuSGEbV1spJsmY+tUq4Tj
+	+rxWtGuSSsoxWXKtqpjPZjUR+eqlIUEXul1qAPJvBNv6T3COCixE+p3xRh6jjbXP
+	28q3hcRBOxF2AL3Cmnu2R6HEe6j45Z7h21jxMQKPvCPgf0Zemuy07AgDxZYZRqZ3
+	EH7BecnwOCLwjesTrxU0FnSZCMGQyJhrLKtZ4/vcnHDmNdz7tNbeDkqBsBShB99a
+	TdP2avwVDOWCyZBXFTT4taqoTYx4sumz4o7eRlM1wlUytA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emaj4ujxy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 07:49:47 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6ee0bfb5681so3973761137.0
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 00:49:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780818587; x=1781423387; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=teBGrABVhJlKOgLTq47ixTXW2t5GHP5uTDgWHbMXLYY=;
+        b=ReLKv625itXwta9J3sb8DIvaV+9epxszzkczRB4vegDInMjKjX6DFYWn8FXObiYoan
+         NovG0oZdM9VW5tN2LakxjoAZ11c8tNLfBic+SU+Bfbw+rKMTLM5YhbFQhNtIN0mPSu0X
+         2dKOZoNeuJUlMCYrluMIx7shh8OSGV1GbiLKyaL5POE2N1UvbhVjnMK+FzMPrif3Koi5
+         W1AkBk4EfX15X8NCNV+DU/S0xaSXEjcngFJBUoGSPAoA4a/X8NTbGSdfqeHBAIGofdby
+         0oq5gRLMiQJyRNpinstwAnBAV39PFRT/5IGWO3DK47C1P4cBQh8PnILZmuzEe5WogmXL
+         eogQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780818587; x=1781423387;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=teBGrABVhJlKOgLTq47ixTXW2t5GHP5uTDgWHbMXLYY=;
+        b=Z6i84kwA6kd/QfQuezAvYHtk4Lx6egKdcwKqhWm+Mk3b9NTniLj5WlgPVr44lEqVAk
+         314gvXOHlnMrpa/uhhKQb1x16oEowKeIh+SarkqmGHepHVNGE+SL5W0aIic+6TaeOyDO
+         sv12cRIMmmVAT5Ut5z5qPKY12x9MUFAhlViSus1+3fRKFlgQgB4cLCxlh7iDATHBUuS+
+         dWB5JJxH+3fLXs4zGgh/MFwsW4hQXkddxgD8QNJbahNVW6Lb6IzEqqS49vDVbJXHPM6g
+         ln2QzLnihDRlP+p0AfrqxEj80pkLffk9+cuGO2SNEqAa2QWIZXQDNpEIDisorJNaPHTJ
+         S01w==
+X-Forwarded-Encrypted: i=1; AFNElJ9FA8bluh+r7+/Pi6qTmbhecztzirIwQP9cR5+VBMOMgjeofsPh8lj4IEOVLt4zew6f+zcYZ/hTlTDy@vger.kernel.org
+X-Gm-Message-State: AOJu0YzU2uW84jTyEHWoILnqBiUm6g4XrSV9s7VSxlxqONsmORuVCIye
+	Ur/KFRZRrx6K5QR5YB5KCcO90goZpjxFHMQlSQSk0tYAWlSaByo4E11J+Y5GOxkHLzVDzvPOdDC
+	6QxegsrFx+Qq+tuQZfHYv/gDBqaOQrkImAybJ+q5O+6B8wNIqxdGjR6jGKz/7AKpG
+X-Gm-Gg: Acq92OGzs6ZKFE+hm1j6swpvXJozn65K/p4q+M2GjDzjbeVQQdqGKPVNiFC5p2PT3Ki
+	5i3ysFRoBUBt1vUqWgG3m6qn9rv3EE6Y+E2lsbW5hP4EYSUZ0/AZn3OX9rQKgwalgnZSX8gsWAp
+	E+7+UG5LYDI0nRsJQ9LI/qorqUOn1CmnHSbrMI8t7rPIPpe4aHlH0S2WIiDTjjEm2L34fKBYqJ5
+	llu1D9+D7JYPk1iuuE7zZDcTsgtfZ77N1WuW9haHPKFnt6KznCYetMDKwj7YXjD7sgg/48+r5nD
+	GSJ5cjIZNwpEtgjB/3t6SWda6fdyKI+XJCwVsENVClpKVm9vUbDAZWo9uXF878ZCzY4aDitH3tT
+	1JN0xrurBx7HEr2z3Zq3ueT/2RBNgqcWtdJNw17Xjb9bQypuDHOxVhnEwKmJEdBbWujd+Kz31wO
+	I/6x+CDN/JpX/C6H6+uN+kTRuiM8GlkBCZRPU/O5UQclg8tA==
+X-Received: by 2002:a05:6102:3f49:b0:62f:5908:648a with SMTP id ada2fe7eead31-6fefe3bbc85mr5850560137.28.1780818587061;
+        Sun, 07 Jun 2026 00:49:47 -0700 (PDT)
+X-Received: by 2002:a05:6102:3f49:b0:62f:5908:648a with SMTP id ada2fe7eead31-6fefe3bbc85mr5850549137.28.1780818586588;
+        Sun, 07 Jun 2026 00:49:46 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b907269sm2915888e87.34.2026.06.07.00.49.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 00:49:45 -0700 (PDT)
+Date: Sun, 7 Jun 2026 10:49:43 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>,
+        Katsuhiro Suzuki <katsuhiro@katsuster.net>,
+        Matteo Martelli <matteomartelli3@gmail.com>,
+        Binbin Zhou <zhoubinbin@loongson.cn>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, mohammad.rafi.shaik@oss.qualcomm.com
+Subject: Re: [PATCH 4/5] ASoC: qcom: sc8280xp: Add per-card data
+Message-ID: <t2vwes2xzruqygdjasgi6akwuvephitqbyz3dntiqidbm23bki@uj22cgv72ht5>
+References: <20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com>
+ <20260607-rubikpi-next-20260605-v1-4-7f334e16fea6@thundersoft.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,303 +105,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260606051707.535281-5-salih.erim@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260607-rubikpi-next-20260605-v1-4-7f334e16fea6@thundersoft.com>
+X-Proofpoint-ORIG-GUID: CKtBYtnzbw5zKx4LMC_9YYbTzHIEcXp5
+X-Proofpoint-GUID: CKtBYtnzbw5zKx4LMC_9YYbTzHIEcXp5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDA3NCBTYWx0ZWRfX+aNgmDa6OvfC
+ UE0XCkxNSUP2gTy+u0nRBmruDjGytN1WdCZ1LNgGdJECNYCRoaQH5IF+YKVgzs6othrtqoclKqE
+ ivGwNwiAd78SgQqzfL+cRt5UzzAyHVkBmat7OISkNhPwqM0QFIQ/kls78aLHrQ4CVF0066fzUIv
+ oaEytIfbSWM7xLeIA2Dtzq4+K/wz/4rtiWkv9znEvkBO/k0JUPbPJoeAQZPdVf/XTEyps2E8IzC
+ rfPM34Fvrpwek3Lnwif5Aid4H6uTqjnc8ZeqKpPwygiyCJi/TBIRuvIJtNfOa77ukRmfo1HEhgK
+ LC5kfvjoIvDg35FrytLXyodYSb7s/9ga3S7yAoVwnVuo81cyNRYze80X5tWNyPtr3+x81OBVax3
+ 5EYys652cNiP7giNr52SBaXvd0Xk6iCLjZbQUL2tRhV2zbsc3i2K4FS7xCqWEkoywK+nRmVgi7D
+ vgMWr+GVrTGQaHKUlrw==
+X-Authority-Analysis: v=2.4 cv=TLh1jVla c=1 sm=1 tr=0 ts=6a25229b cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=Wdb1h0LgAAAA:8
+ a=ucrSXoFAGfgxklnESFQA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+ a=j5gyrzqu0rbr1vhfHjzO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-07_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
+ phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606070074
 
-On Sat, Jun 06, 2026 at 06:17:06AM +0100, Salih Erim wrote:
-> Add threshold event support for temperature and supply voltage
-> channels.
+On Sun, Jun 07, 2026 at 02:58:20AM +0800, Hongyang Zhao wrote:
+> The sc8280xp machine driver currently uses the OF match data only as a
+> driver name, which makes it difficult to describe board-specific MI2S
+> codec requirements.
 > 
-> Temperature events:
->   - Rising threshold with configurable value
->   - Over-temperature (OT) alarm with separate threshold
->   - Per-channel hysteresis as a millicelsius value
->   - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
+> Convert the match data to a per-card data structure and add data for
+> the QCS6490 RubikPi3. The RubikPi3 data configures the ES8316 MI2S DAI
+> format, MCLK rate, BE hardware parameters and headset jack pins.
+
+Please don't mix refactoring and actual changes in a single patch. Split
+this commit, performing one logical change per commit.
+
 > 
-> Supply voltage events:
->   - Rising/falling threshold per supply channel
->   - Per-channel alarm enable via alarm configuration registers
+> Add a common headset jack helper which accepts board-specific DAPM pins
+> for codecs that are not connected through the WCD TX codec DMA path.
 > 
-> The hardware supports both window and hysteresis alarm modes for
-> temperature. This driver uses hysteresis mode, where the upper
-> threshold triggers the alarm and the lower threshold clears it
-> (re-arm point). The hardware has a single ISR bit per temperature
-> channel with no indication of which threshold was crossed, so
-> hysteresis mode is the natural fit. The lower threshold register
-> is computed internally as (upper - hysteresis).
+> Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+> ---
+>  sound/soc/qcom/common.c   |  75 ++++++++---
+>  sound/soc/qcom/common.h   |   6 +-
+>  sound/soc/qcom/sc8280xp.c | 319 ++++++++++++++++++++++++++++++++++++++++++----
+>  3 files changed, 357 insertions(+), 43 deletions(-)
 > 
-> Hysteresis is stored in the driver as a millicelsius value,
-> initialized from the hardware registers at probe. Writing the
-> rising threshold or hysteresis recomputes the lower register.
-> ALARM_CONFIG is hard-coded to hysteresis mode during init.
-> 
-> The interrupt handler masks active threshold interrupts (which are
-> level-sensitive) and schedules a delayed worker to poll for condition
-> clear before unmasking. When no hardware IRQ is available, event
-> channels are not created and interrupt init is skipped, since the
-> I2C regmap backend cannot be called from atomic context.
-> 
-> When disabling a supply channel alarm, the group interrupt remains
-> active if any other channel in the same alarm group still has an
-> alarm enabled.
-
-...
-
-> +static void sysmon_supply_processedtoraw(int val, u32 reg_val, u32 *raw_data)
-> +{
-> +	int exponent = FIELD_GET(SYSMON_MODE_MASK, reg_val);
-> +	int format = FIELD_GET(SYSMON_FMT_MASK, reg_val);
-> +	int scale, tmp;
-> +
-> +	scale = BIT(SYSMON_SUPPLY_MANTISSA_BITS - exponent);
-> +	tmp = (val * scale) / (int)MILLI;
-> +
-> +	if (format)
-> +		tmp = clamp_t(int, tmp, S16_MIN, S16_MAX);
-> +	else
-> +		tmp = clamp_t(int, tmp, 0, U16_MAX);
-
-No, please, use clamp().
-
-> +	*raw_data = (u16)tmp;
-> +}
-
-...
-
-> +static int sysmon_write_alarm_config(struct sysmon *sysmon,
-> +				     unsigned long address, bool enable)
-> +{
-> +	u32 shift = address % SYSMON_ALARM_BITS_PER_REG;
-> +	u32 offset = SYSMON_ALARM_OFFSET(address);
-> +
-> +	if (enable)
-> +		return regmap_set_bits(sysmon->regmap, offset, BIT(shift));
-> +
-> +	return regmap_clear_bits(sysmon->regmap, offset, BIT(shift));
-
-regmap_assign_bits()
-
-> +}
-
-...
-
-> +	u32 alarm_reg_offset = SYSMON_ALARM_REG + (event * SYSMON_REG_STRIDE);
-
-Unneeded parentheses.
-
-...
-
-> +		for_each_set_bit(bit, &alarm_flag_reg,
-> +				 SYSMON_ALARM_BITS_PER_REG) {
-
-I would leave this on a single (83 characters) line.
-
-> +			address = bit + (SYSMON_ALARM_BITS_PER_REG * event);
-
-Unneeded parentheses.
-
-> +			sysmon_push_event(indio_dev, address);
-> +			ret = regmap_update_bits(sysmon->regmap, alarm_reg_offset, BIT(bit), 0);
-
-Why not _clear_bits()
-
-> +			if (ret)
-> +				return ret;
-> +		}
-
-...
-
-> +static void sysmon_unmask_temp(struct sysmon *sysmon, unsigned int isr)
-> +{
-> +	unsigned int unmask, status;
-> +
-> +	status = isr & SYSMON_TEMP_INTR_MASK;
-> +
-> +	unmask = (sysmon->masked_temp ^ status) & sysmon->masked_temp;
-
-Is this the same as
-
-	unmask =  ~status & sysmon->masked_temp;
-
-?
-
-> +	sysmon->masked_temp &= status;
-> +
-> +	unmask &= ~sysmon->temp_mask;
-
-The above needs a comment explaining the logic.
-
-> +}
-
-...
-
-> +static void sysmon_unmask_worker(struct work_struct *work)
-> +{
-> +	struct sysmon *sysmon = container_of(work, struct sysmon,
-> +					     sysmon_unmask_work.work);
-
-Better to split as
-
-	struct sysmon *sysmon =
-		container_of(work, struct sysmon, sysmon_unmask_work.work);
-
-> +	unsigned int isr;
-> +
-> +	spin_lock_irq(&sysmon->irq_lock);
-> +	regmap_read(sysmon->regmap, SYSMON_ISR, &isr);
-> +	regmap_write(sysmon->regmap, SYSMON_ISR, isr);
-> +	sysmon_unmask_temp(sysmon, isr);
-> +	spin_unlock_irq(&sysmon->irq_lock);
-> +
-> +	if (sysmon->masked_temp)
-> +		schedule_delayed_work(&sysmon->sysmon_unmask_work,
-> +				      msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
-> +	else
-> +		regmap_write(sysmon->regmap, SYSMON_STATUS_RESET, 1);
-> +}
-> +
-> +static irqreturn_t sysmon_iio_irq(int irq, void *data)
-> +{
-> +	struct iio_dev *indio_dev = data;
-> +	struct sysmon *sysmon = iio_priv(indio_dev);
-> +	unsigned int isr, imr;
-> +
-> +	guard(spinlock)(&sysmon->irq_lock);
-> +
-> +	regmap_read(sysmon->regmap, SYSMON_ISR, &isr);
-> +	regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
-> +
-> +	isr &= ~imr;
-
-> +	regmap_write(sysmon->regmap, SYSMON_ISR, isr);
-
-Is writing 0 necessary?
-
-> +	if (!isr)
-> +		return IRQ_NONE;
-> +
-> +	sysmon_handle_events(indio_dev, isr);
-> +	schedule_delayed_work(&sysmon->sysmon_unmask_work,
-> +			      msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int sysmon_init_interrupt(struct sysmon *sysmon,
-> +				 struct device *dev,
-> +				 struct iio_dev *indio_dev,
-> +				 int irq)
-> +{
-> +	unsigned int imr;
-> +	int ret;
-> +
-> +	/* Events not supported without IRQ (e.g. I2C path) */
-> +	if (!irq)
-> +		return 0;
-> +
-> +	ret = devm_delayed_work_autocancel(dev, &sysmon->sysmon_unmask_work,
-> +					   sysmon_unmask_worker);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
-> +	if (ret)
-> +		return ret;
-> +	sysmon->temp_mask = imr & SYSMON_TEMP_INTR_MASK;
-> +
-> +	return devm_request_irq(dev, irq, sysmon_iio_irq, 0,
-> +				"sysmon-irq", indio_dev);
-
-
-
-> +}
-
-...
-
-> +static int sysmon_init_hysteresis(struct sysmon *sysmon, int address,
-
-Can address be negative?
-
-> +				  int *hysteresis)
-
-...
-
-> +	ret = regmap_read(sysmon->regmap, upper_off, &upper_reg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(sysmon->regmap, lower_off, &lower_reg);
-> +	if (ret)
-> +		return ret;
-
-Half of the IO accessors have no error checks, these do.
-Why is this inconsistency?
-
-...
-
-> +	if (has_irq) {
-> +		temp_chans = temp_channels_with_events;
-> +		num_static = ARRAY_SIZE(temp_channels_with_events);
-> +	} else {
-> +		temp_chans = temp_channels_no_events;
-> +		num_static = ARRAY_SIZE(temp_channels_no_events);
-> +	}
-> +
->  	sysmon_channels = devm_kcalloc(dev,
-> -				       size_add(ARRAY_SIZE(temp_channels),
-> +				       size_add(num_static,
->  						num_supply + num_temp),
-
-It makes inconsistency. Even originally. It should be two calls to size_add().
-
->  				       sizeof(*sysmon_channels), GFP_KERNEL);
->  	if (!sysmon_channels)
->  		return -ENOMEM;
-
-
-...
-
-> +	irq = fwnode_irq_get(dev_fwnode(dev), 0);
-> +	has_irq = irq > 0;
-
-This misses deferred probe.
-
-...
-
-> -	ret = sysmon_parse_fw(indio_dev, dev);
-> +	ret = sysmon_parse_fw(indio_dev, dev, has_irq);
-
-Why do we need has_irq? You can supply irq there as well and check it against 0.
-
->  	if (ret)
->  		return ret;
->  
-> +	if (has_irq) {
-> +		/* Set hysteresis mode for both temperature channels */
-> +		ret = regmap_set_bits(sysmon->regmap, SYSMON_TEMP_EV_CFG,
-> +				      SYSMON_OT_HYST_MASK |
-> +				      SYSMON_TEMP_HYST_MASK);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Initialize cached hysteresis from hardware registers */
-> +		ret = sysmon_init_hysteresis(sysmon, SYSMON_ADDR_TEMP_EVENT,
-> +					     &sysmon->temp_hysteresis);
-> +		if (ret)
-> +			return ret;
-> +		ret = sysmon_init_hysteresis(sysmon, SYSMON_ADDR_OT_EVENT,
-> +					     &sysmon->ot_hysteresis);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = sysmon_init_interrupt(sysmon, dev, indio_dev, irq);
-> +		if (ret)
-> +			return ret;
-> +	}
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+With best wishes
+Dmitry
