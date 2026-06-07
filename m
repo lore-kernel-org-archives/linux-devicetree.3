@@ -1,64 +1,64 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB773382F3
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B84315D3B
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 23:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780875929; cv=none; b=fde8TNZpKrCWVpyddOVeVmCjspkekdQW2fQ87hXZc7vLE1S5bBQf5kMrpLrIoSiE7fDxYS6bfBV7lk7laUWqCiDyRODLundWgQO7SosJYsyrRHn8YI3yh+QPqRv7YyG5IU47UDxN6yHU80o9vF5Yn+NAdwhJ4vO7RyqVud+Q0J4=
+	t=1780875933; cv=none; b=YpKz5eS2X77iM7onzoDTn3LkP6vM9v+nrv/wFqFHLhuLbpYAczdPhFOFKq5uvs3/PhcCpq27gfLZ1L0zOQZLc6pQM/9i9FrAiVM4piQExvmo/jpFyNGrLOXtEDkFbhlHqCq8z0baOekpbV8Atc3dbbUE6hhpUgj19EsM0sOjahs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780875929; c=relaxed/simple;
-	bh=KJTRCy7wNY+N6IrE/mRVGcB/+axShhI0D7cUwSRv3Es=;
+	s=arc-20240116; t=1780875933; c=relaxed/simple;
+	bh=Io7D5KkHYqvenZqIL6Z7P+QZrmOBRoracJ76uWfi0JU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fuyme3PwUJOKsCpC2yvPSBCj14lDurB1iFdNc1NAAIGXmW7YYhz1jpxgRwLVCI1OHS3f63n0PEwNiVcze58WV3dPhW/5+AcFrA3WzCF7D9gMJ6t7eKfwOMTLqDU0fAy3vYxNiVPIdJZA2moh4mESU92mtrMUfv7ONSBq90l+Shk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NfXaCEIz; arc=none smtp.client-ip=209.85.210.172
+	 MIME-Version; b=gfpk8hJHdANnBgF0xap1rzDFrEiW1CHom7l6gO2WF/smSwS+n9bQC3T7tnRqEnooum7hwS0PdbujylWvMTrQ0GlHELstdENLiak+P6Bwp4oEjFalagLMf5CqiguCuuaczYX6afcK2cHfvriIjPKLpKyIQyftyZxT0y17EAFqeJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FvvgAz8n; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NfXaCEIz"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-842358aaf36so1280960b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:45:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FvvgAz8n"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-36dd65b95f2so2505440a91.0
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 16:45:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780875927; x=1781480727; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780875931; x=1781480731; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TaQl7dtgCPoeeJ0ksgq85IpZKAoo0yYD7cImexjDLms=;
-        b=NfXaCEIzgPw9KMgLquOrieq1tveEjSb1X+Osk33RZeynIwunbKnR+mjfEhLYS0smB0
-         2tnklm4n7mrS2qtsI2lMcDCPf5KFq46B4OsHHwO8+DHQWtpc4ccoXWi0rHxdwwQ7cmee
-         aCRmpSq1ZGkXqWgq3mFOtuDc+cX/08mbTAzQFkdrt48q8CEza4MgJJy2zu0Zu8BtJI1C
-         ngFpXkBSRrQhXD0pr8GbD/IzoDHVnTb+s2dXqrD5tsGkJZy6VhDNr1EMqy/P+OuE5iXS
-         raUCeAZh4BiMb8VZj7btGI2iKdSAQCcX4xF5Hky7MQEEi81jbdzNQctkookv5ougt3Ry
-         nkJQ==
+        bh=q5OiZytJs8xCHWwIF7i0RCUYGoDtUsdsRhvMvvj/Vak=;
+        b=FvvgAz8naXUNVfwWOhxdTpGzgl5nfFCrU3tbfBrRCrRbNy4Uhq5r5hmo6BGxt/rGxN
+         HWkJY7otsUGfN6nFAW9f0eOV6kBVj3deIHXi11F3R2RF4RXLevcnG1aQlMzjieams9vJ
+         xVLW9f9hkRbQJSr6Ugxli5gKwWXuKQNlPn6quWyPfMbgu1xNBBNIkkqrJYBWQY8fcoFq
+         t85yA/0sRdIWx0TNaDU7o8VsRIXihAZiFdUqTxGxVk55Ujve/1wmD1hCoXiSw1zrhsWN
+         DcMcPWC8aEZaxUaAtenWQaxdAC/NZvRnCm+r2TVje1pHmp6wy4BR5S5iUGQek9CZS5I2
+         RfWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780875927; x=1781480727;
+        d=1e100.net; s=20251104; t=1780875931; x=1781480731;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=TaQl7dtgCPoeeJ0ksgq85IpZKAoo0yYD7cImexjDLms=;
-        b=nPTRRKwc8NzA8e0JB6D0LnOCSrfnUrtlNu7KkCfp+fcJIT7p8311CSfSvg8oc50OFs
-         cjXG26Y1S+JIqcIsuQk4ONO9Gn9bjOwSNO3V7ZM6tyRyvS4SyOviwDWhpHEvVHvBBTfV
-         xxu9RYEghCQItS2W+hOE5ylJObtgJ4KKc6nl/lRTQm58CmUYEcLsOvftlH4/o9SMqO1k
-         cChYsEQc+1CDq7z6Y7DpiwxVXRYNgVKog+wAtkGDEQCfUfX4CuBYuGVLtIXNxTEl9MM5
-         MgEETZCjYPCyXlK6/TqA/ygvuSVN9wCGb2fOh+R+f65Dn2ON/6UCZUnoHYlcuA7FK4hf
-         rrVw==
-X-Forwarded-Encrypted: i=1; AFNElJ8lLbLpRC8QgFyVtxPHoaZeBM6GqjfKn/kEYUqknZl+htt3h0pQuSlhO2LSHb7S9wLb2i7A+66BtggP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgUdAiRbo7RGKFGG0icAHjNDDHCyxrB4iDOtJp7iK8heQae9Xl
-	/zA13otmSgCxPc1wF9tznz0Z6oiaQbxDR3WERYP2CpjKmp1JpCmZS3F+
-X-Gm-Gg: Acq92OHATMFaE9MZKvdpk7bh/fPlWPAfYX0rw7/SAl71t34YIUHKB2IDaE+gW0gIyeX
-	eLFYTtp7hEWpEAXewzGOwL5u5yYDzttaBYiocxMhtxYtnef1XG0Z+ZflFO6rRK//2SzTpNKnkYC
-	HpeARssmI2PNPw2ugmlXlbqhUYpimbQo+66/W7uK+/WoFzyuwme4jQ/+pPYegUYB7xi6CzMyRfv
-	1gl9sIOebPgstL7Z7K5OX/4G+SivnSULlUHuaaesbhGVO2EiXOBj+qOB+bnepnnBsmTth/BMrPv
-	b28EilHTLP46APlIaL2h/zeS6bssSmNea1BexdXBzyvrFqW2Esg29IoBLVTiuAHRj8QUcs5RBOG
-	DZzKNeD6mq9VrU+RvVoyPhdGihBhRb1uB4EAzdsPx8gJNAjJab1IyKN4PDD6V/SSbOOf7m66iSb
-	9+tTaMM1uVXRXWSBpjlPNAuI3Nt2KjylQCxX+0blDeIYvQQ/HHgz8n6s/4LUXNTg2yX28LyMMFf
-	RwSKG9y3P7Bo6Q+iXBi6Cpy6p8Hew0AVJ5pNPvANeyrpv/e
-X-Received: by 2002:a05:6a00:3d4a:b0:842:5712:c2c2 with SMTP id d2e1a72fcca58-842b0fb6d60mr11804229b3a.41.1780875927308;
-        Sun, 07 Jun 2026 16:45:27 -0700 (PDT)
+        bh=q5OiZytJs8xCHWwIF7i0RCUYGoDtUsdsRhvMvvj/Vak=;
+        b=IPm5tAYZNxyzhpIM6wXQavnj+1wiXvXVa6jLYiGHix57mCwzjYg4Ko5PhZ2r7Gqbmm
+         b41FJ/7ik8lrSB9NhzcNLTHrAUe3jnH64BkqcRf8ew2wHNtztXz3SwtFFVgyqHNvpdo1
+         +nq8DXHU3RziR0EZFICXdoCor40RJGiLHWI6mcyEvGCAYPjSgNZmTEGnye+8EwYKCMqR
+         Ize3yoH76eOgH4VjW+LHlSOocKpvn3gP/jvPDO4uQhSBj4cuF3WknK/sAqqDld4M6Bra
+         cj2RrI7y9OREf/P5ZCAk9c2DQdUUPocAKlXFJ5nx2N3Pv5v1a0lQWZTHOr6pwLOpA1f2
+         7HBw==
+X-Forwarded-Encrypted: i=1; AFNElJ8ObgfpADpwwR0gN4ANRHW5fVlJFJEwh9xOp6YFVUakSyyqHKJ9GuZUbDHv9VmuZxzPExcvXQqUHed+@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2FA3q+lCdNup9vQwfrMzNb5gw/HhBmylA6idPS4u1Vzxinbiw
+	VrEKjkLAHKku2wiXQZGwGBHH/IcXKg6fnkblSKRiL5923A8kOqbfGk5y
+X-Gm-Gg: Acq92OGWOWacm05u41YoiOm2zZH+YK+xtUUPnTHMAwUSGCaFzDmrpM1LyDBt2wq85za
+	tKK6UkJqbHbU7UyccRLoHEzZTRl7WIdgyzmQeSF+8auUj5HELXY0dlea0OR4iQrGaN1LLMa/Au7
+	lcATd8TlNDc05uvlk5gcZLZ1dFK6CLKWBTBbh9pv+2sgqc3yiFX+x6AA/X03OZvjr8nEkgsLE1i
+	BczfcMfXRJJGXcXq5NGuioIGWoVSbqwayZYYRgkNCxBOKJZwDJpVdjsYlXD7qLBODig/0uhZAln
+	uUy913s9eMthqKJhjwt+Ba+Wq0dL881kYXsiz4WTASoqAVPpKSUGe7A4PsrrfqU0VNzYR30PMhT
+	m02vBk/nq1RakXX75ezQFrH0EvHeWLwzyZI+4/UV23DhwqbEaFIrfCXm6EpRr44SlmdW7R8FBx1
+	bv8AZcw72t4Yk/sB3nER80YsFH5pI2mZyhFI4JoIfRGr3/pmnX1lZ3pJ4dQnoj9g8uGX4eGixkl
+	v+tGOL2fUCODZhBbFvAfJCHd6dP4hcfcheelzRMj1cXiSxM
+X-Received: by 2002:a17:90a:d003:b0:368:65d1:893 with SMTP id 98e67ed59e1d1-371306869a2mr10501438a91.5.1780875931310;
+        Sun, 07 Jun 2026 16:45:31 -0700 (PDT)
 Received: from DESKTOP-G3E0OSP.localdomain ([112.172.255.242])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm19257732b3a.44.2026.06.07.16.45.24
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm19257732b3a.44.2026.06.07.16.45.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 16:45:27 -0700 (PDT)
+        Sun, 07 Jun 2026 16:45:31 -0700 (PDT)
 From: Jinseob Kim <kimjinseob88@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org
@@ -73,9 +73,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH RFC v4 4/6] iio: osf: add stream parser
-Date: Mon,  8 Jun 2026 08:43:41 +0900
-Message-ID: <20260607234343.22109-5-kimjinseob88@gmail.com>
+Subject: [PATCH RFC v4 5/6] iio: osf: add UART transport
+Date: Mon,  8 Jun 2026 08:43:42 +0900
+Message-ID: <20260607234343.22109-6-kimjinseob88@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260607234343.22109-1-kimjinseob88@gmail.com>
 References: <20260607234343.22109-1-kimjinseob88@gmail.com>
@@ -87,83 +87,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Keep the parser focused on frame assembly.
+Use the generic Open Sensor Fusion compatible.
 
-Let the core decode complete frames once.
+Avoid board-specific DT compatibles.
 
 Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 ---
- drivers/iio/opensensorfusion/osf_stream.c | 38 ++++++-----------------
- 1 file changed, 9 insertions(+), 29 deletions(-)
+ drivers/iio/opensensorfusion/Kconfig      | 4 ++--
+ drivers/iio/opensensorfusion/osf_serdev.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/opensensorfusion/osf_stream.c
-index a2739c987..957f73716 100644
---- a/drivers/iio/opensensorfusion/osf_stream.c
-+++ b/drivers/iio/opensensorfusion/osf_stream.c
-@@ -62,8 +62,6 @@ static size_t osf_stream_discard_to_magic(struct osf_stream *stream)
+diff --git a/drivers/iio/opensensorfusion/Kconfig b/drivers/iio/opensensorfusion/Kconfig
+index 957caed2b..8b9376d28 100644
+--- a/drivers/iio/opensensorfusion/Kconfig
++++ b/drivers/iio/opensensorfusion/Kconfig
+@@ -10,5 +10,5 @@ config OPEN_SENSOR_FUSION
+ 	help
+ 	  Build the Open Sensor Fusion UART IIO driver.
  
- static int osf_stream_process(struct osf_stream *stream)
- {
--	struct osf_frame frame;
--	size_t decoded_len;
- 	size_t discarded;
- 	size_t frame_len;
- 	u32 payload_len;
-@@ -82,10 +80,8 @@ static int osf_stream_process(struct osf_stream *stream)
- 		if (!stream->len)
- 			break;
+-	  The driver receives OSF0 frames over a serdev UART and registers
+-	  IIO devices for supported capability entries.
++	  The driver receives OSF protocol frames over a serdev UART and
++	  registers IIO devices for supported capability entries.
+diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/opensensorfusion/osf_serdev.c
+index 1ac93548d..fd36acd1b 100644
+--- a/drivers/iio/opensensorfusion/osf_serdev.c
++++ b/drivers/iio/opensensorfusion/osf_serdev.c
+@@ -91,7 +91,7 @@ static void osf_serdev_remove(struct serdev_device *serdev)
+ }
  
--		if (stream->len < OSF_FRAME_HEADER_LEN) {
--			stream->stats.partial_frames++;
-+		if (stream->len < OSF_FRAME_HEADER_LEN)
- 			break;
--		}
- 
- 		if (get_unaligned_le16(stream->buf + 6) !=
- 		    OSF_FRAME_HEADER_LEN) {
-@@ -106,34 +102,18 @@ static int osf_stream_process(struct osf_stream *stream)
- 		}
- 
- 		frame_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
--		if (stream->len < frame_len) {
--			stream->stats.partial_frames++;
-+		if (stream->len < frame_len)
- 			break;
--		}
--
--		ret = osf_protocol_decode_frame(stream->buf, frame_len, &frame,
--						&decoded_len);
--		if (ret) {
--			if (ret == -EBADMSG)
--				stream->stats.bad_crc_frames++;
--			stream->stats.dropped_bytes++;
--			osf_stream_drop_invalid_head(stream);
--			if (!first_err)
--				first_err = ret;
--			continue;
--		}
--
--		if (decoded_len != frame_len) {
--			stream->stats.dropped_bytes++;
--			osf_stream_drop_invalid_head(stream);
--			if (!first_err)
--				first_err = -EMSGSIZE;
--			continue;
--		}
- 
- 		ret = osf_core_receive_frame(stream->osf, stream->buf, frame_len);
- 		if (ret) {
--			osf_stream_discard(stream, frame_len);
-+			if (ret == -EBADMSG) {
-+				stream->stats.bad_crc_frames++;
-+				stream->stats.dropped_bytes++;
-+				osf_stream_drop_invalid_head(stream);
-+			} else {
-+				osf_stream_discard(stream, frame_len);
-+			}
- 			if (!first_err)
- 				first_err = ret;
- 			continue;
+ static const struct of_device_id osf_serdev_of_match[] = {
+-	{ .compatible = "opensensorfusion,osf-green" },
++	{ .compatible = "opensensorfusion,osf" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, osf_serdev_of_match);
 -- 
 2.43.0
 
