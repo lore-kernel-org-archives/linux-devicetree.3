@@ -1,202 +1,212 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E6F318B96;
-	Sun,  7 Jun 2026 12:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4BC28CF4A;
+	Sun,  7 Jun 2026 12:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780836691; cv=none; b=AAG/mw44zrtBUHXw92SzsptYwT1pwWwPRw4f3qFvP6KiaQ3UnoTiM3cfp87YS2sfIgvLYYl/Iki2tm6SApTUAckiuVaAxsViErLDRpB6EklMVyD9EFS4RiQ69AKWT/P/8ewS8zdt3oxZLLCLC3BVifPRVlea4W1CqxU7/TQVFs4=
+	t=1780836871; cv=none; b=Axv3nanWPzdr9R8haM5NW103q/dFj0nyXQwqsPUdhzh9xlDCba3+zKaUYrpuEQ94Wj6bZ9GmmjTmlsSEpBIh/4vZtAjByEB7bR24rwTG3VJIPeNyOj2ymbpTJ+Orc/XXCRplrupovnT7z/ubdGtW7CqlcVbwki/J8Vwdd/UcRuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780836691; c=relaxed/simple;
-	bh=y1mCNYbv4xmoA/8hPymwySCxvqNrhzdGKAkPdI9eXQU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Tg8/bN70c1B+UBMqsVnfx4e+xCMF+kzr1e9mquYLeCO6QUUTnaDXDoRuQjqhocveSwTpjGcj4W6QnCUOt3bVEZMYJy6aU8+LBn9MueGfjTQGGbKngQajAgtZFFklVwRrmeRmsWFTzXhjSfbIh965Ova/jjJ5lHERL1ML8LT2cTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=PdEFP5tG; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1780836871; c=relaxed/simple;
+	bh=+lRvBOp/Dwzk5vV2sYqqF2hEGk5Pwk2bDAgMGR5T0qw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QUgfPgxI+UbycYETWePP49kV4gAVdtoAN/x9QSOXG9o9Q2G/3mS1zyu/llNyNfFaiohc7W6o8HROv/QycEameuOTcG86hXZUQ+U8Odnt9HTMsVsfoAmOH7WxM02H9xTrIQZ+9uSYS8Y5qZhgkpRi5+9XBXIghiN+V2bVVsvn9GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=GgkI0z7H; arc=none smtp.client-ip=212.227.17.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="PdEFP5tG"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657BT63E3749526;
-	Sun, 7 Jun 2026 05:51:13 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=gzX90Dtqcl+cOEpVY5HErjumr
-	gVIscJmmnCnneyC1iA=; b=PdEFP5tG52IQR35Xtzufx+P+vg3XbrYosIsUJDnoK
-	xRe7xXrfUmf7wfA6e7oW16UXsRYJ/z5YriDu7T7G4fzb5JMqaRSt9FMfjjvZp9C8
-	uknHI13bJKhXTRxAe0a/DJgHOs6LmsHW6mkquNQ95YkrfcgbRUKfoPv0fbmrZeOq
-	o7FmE5CavqAKbkBQmg21A9G+aw7Zw4sf38eSt9Lk7A3VGkmq5xLSPExuugxb3wsX
-	N50fVmyv3Cn44GvkRwtKOzoQebwHP1FDLN6zwfmlUrmqGgP7Rj0/Uv/u1axt7gd3
-	LjKfyPriakSAkNPBwCpUELzzrZWtlqB3p3G7nykWM6/CA==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4en7t8r53e-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 07 Jun 2026 05:51:12 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Sun, 7 Jun 2026 05:51:12 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Sun, 7 Jun 2026 05:51:12 -0700
-Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
-	by maili.marvell.com (Postfix) with ESMTP id 8AACA3F70BA;
-	Sun,  7 Jun 2026 05:51:09 -0700 (PDT)
-From: Geetha sowjanya <gakula@marvell.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>,
-        <gakula@marvell.com>
-Subject: [PATCH 2/3] perf: marvell: Add CN20K LLC-TAD PMU support
-Date: Sun, 7 Jun 2026 18:21:00 +0530
-Message-ID: <20260607125101.17778-3-gakula@marvell.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260607125101.17778-1-gakula@marvell.com>
-References: <20260607125101.17778-1-gakula@marvell.com>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="GgkI0z7H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1780836867; x=1781441667;
+	i=markus.stockhausen@gmx.de;
+	bh=Bp9/zefXrRd6X1kk3OzynOOUpcVeF/x2FfMlDe3iDyc=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=GgkI0z7HLXxLWJEtuJbXZ8FOkT92IAMsE7rcj7cmsrRzsaY1rSsRXbFld7Yk6CMW
+	 i34s2j0jBf4G6fXgFdeL8ed8xXjMRH+UA1jbeS/z6tFQnZZYfUk78Y2/v5zTQ4Otj
+	 UmUlZM924MhqOiBhU1n7BRAyW+xRdmBTnRmkCr7GIqVTguPOjTvAKmUumFGP1PJCd
+	 DzsbqtYqid2XulchTIglKL861p/ROtYb4MlVwtkRZBb6xkpOzoPnmXsk3JIn+idRH
+	 iaJ3pqSm6/ZSKktek2a0TiQTreOOV1HIJVLjFCXJ54eGOUObtuHik3o0HiyfnOG7E
+	 VqBYDMmNG/pl0o5ICw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MAwbp-1wPID53VNp-007OZx; Sun, 07
+ Jun 2026 14:54:27 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next 4/5] net: mdio: realtek-rtl9300: Add registers for high port count modes
+Date: Sun,  7 Jun 2026 14:54:05 +0200
+Message-ID: <20260607125406.2853607-5-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260607125406.2853607-1-markus.stockhausen@gmx.de>
+References: <20260607125406.2853607-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDEyOCBTYWx0ZWRfX9JdUTYcp82bL
- 04KFZ4at+fUzy9XdhIm6QpSporQPY3PtzMkZPHLN6awae6GiTFzoKMKgP+1r7Ad++Egke5qh761
- MN2ydUVlkY0DLqDRaVKzCVc+QfnHcXBsik8iGqqIUYJ7l/EiX9nBjy67VWgrSDZVohMfTwvaCfh
- XRQmHUj6tREwbfXqq5XS4/awV1jYukX/Q0w8mUDkVboTS48nsBgH+TIpaeUfOoiBkgju8Ll2gfI
- 421vsU6qLqR3UdeRHrEaUh0GMnOz91jpLeF7Ux3/xvuOmsV6ewu5918uZ9EgVj8Xo6VpjCT+4J0
- w3FdaNNpS8fGvcnsbr6ONCKb5ENsCYGz9LkIO42gtj/k+ulbt6ouU01PWldDu+7FE26t8T0dy3R
- oFGBvBR4hE11xAJBNJz/32w/AAns+DwGs3BxPAJlnz2lulfxPVbQBra3gE2MFfEd9uKLErJWJhr
- rIMkfSzHrqgJ7rVfSlQ==
-X-Authority-Analysis: v=2.4 cv=evLvCIpX c=1 sm=1 tr=0 ts=6a256940 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=Ye5975JmM4DBnxqCyIMA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: QybdIdM_cGL4jEs5nNVnnEq9doSuyz9m
-X-Proofpoint-GUID: QybdIdM_cGL4jEs5nNVnnEq9doSuyz9m
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-07_03,2026-06-05_02,2025-10-01_01
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:/YNwyctFQ9dj0VzaNCKvS9lVk5vvHWze6vClF9UwTeYAQXWyy41
+ Fm+oKlGzBm9miiNcIjO7etOv/2zZry1BGEq8rpbioCYAA8gAYINdMVZz6QvqzForJQYMWD5
+ +LhqcprCRLrPRgHkmrnS4uudurzLkLWdnp7EsdofHAJtfShCT+D6ln1ZaHzDbzOlm0YuWQU
+ MXRWNlPfayXlUb+B8YWOw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:10oNNGqhRto=;OzJSMSB6s1rTYcWhcMFwl3KeLI7
+ wncL/BubuZS6fXS0Kw6iAzZhzJjazW+qrKhKdUwZ9gk2O2jY+LYWv8/4Ff+l4OkNtrX5dLeoL
+ 7ZGo20Raxr2X7vP2Gu4GCbZT2nj/fWMlJ588fYDlkh9UVMSiFxwNQ4xYBjdfkdk8OQvNPUCRs
+ oxvxAhAv9f1FHrXY27Mc4q/17mYMeZHGDdXOGFeM0eZ4ZiRuQBzEIQmOV1IgcN2j/bDArb3Fm
+ Clik7OiELvdOKs0VbWLEl7BnfPsrv6vfbM3pqxJbANeI7tlyV9k/fi+6xquzgIhLUntnlmik9
+ ILAOoFBRRThvIhnaeMCs2ffR3o0AcUroAVlpqYR9HCY+qpNWOJ4On/bl8mo8icJR8sQSMFqKo
+ bn14U3oMHsvzooLZMbtLUFBo4D5FV2wah03VkuxKrtahI/Aec/7RUywYMM27ALOY38trJTN3B
+ 5stcsI9Q2EMKVedKMgMUme/ubTifq1aSbDhwX7Cb2ICK6jJZeIWoVBs1vLrxvFnQ43SQFH1HO
+ XIZJLUZTJdZogole2FxMHRLg/RV23OCXPIyBBD/U2l4DZklFAlje8YAzxwNNdgxXJQoq6SK/1
+ rj93m5RsVSJy8rxtODbz0MIspEjp4WPXgyhZksP4WRKlYF6SHpMwHdICF/jq31tUUfYJp/eqY
+ wnC4yAc0QMGHMg5/ZSjV4I0DZkCGrc/x1QuZmu1agzFxMDy77zS9yZfRpKLSmbRZAwulFFqcN
+ n4c2wHK3tW+776b/X68kMNvSMjn8Q5IAETXKw4p+xXfpa4O3eWiMmLEg8JHxNS0o1NWc7eQk9
+ LkKL6j5gJtsvDXq7ieeHNHBvtM/tp8kvb9RZ6p9NQHZzExZoSKJT0keSa7PPEKz2ifN3nBh+P
+ GHe7KVFZFp9orcx61eskrRMFJunLkS3lN+XB2ySF1+Q0aALHyksRdaWmxgRqfLf9TvZACs0P6
+ glCLiyltKr0Vk/75ZzdI5dGHOi4g/sghoO1iNmlyacYlpPt/ACU/aLBACNMKGOoaJZzUJkJjB
+ BBMcu3gSSnMZQU4hy+uQWrDDdrAPSr8pK/40O8DNHsD5VWZCj1HafCXKhHh9u1jkapH5G4LeL
+ wsMdlmdEV3AE6W+gcEOmz3aa0in4OBz2SguUhy9COHSd2+wyX0EDNDRwO8x78Etuff9nHxv/q
+ fhiUE0cHGNUhxXJkx/WPkklqKPErRyyW+bn9zrakq3svtcazKanX7ebxoOJnx1dm9lGDRPcIb
+ jc+vUBL3qmPqeHG4QoSp4q0linpaF4oDen6nbMd+o5EdJ/O+a6bNSn9B2xi7iasxJbWN1DMyI
+ 1IrfT6j1OMM6Wdy1Q6V0v+b9ZxzwajhQ2IRwa0u9JglbwpIc12gGiwLy1cQ+vvlH5ngXnSc+8
+ jisCbEk52XH9BD0K5IAzI72cSR3t3nkpLmy+GL2GuRvER8L1gPAlXb/ntY8E7xMv6Gbw8kn/k
+ mFhiXcGHeM/vodHS7F37pogEObsDo0dcg87HmtK6G2y725WWcK0vqU1JKm6uLH5oXPAgp9RuB
+ d/y7bz8YIWfnPxTyG/vDCsXpvdCFC9U1hEljuCvEYTxolXgRa5x/rmO1dhf6UzZz5hrk+7Hb7
+ LHZMJXgHdIKPd8DJfKTiPSvUsrBLZWXhml4XycbH0b6g7zQfxbR+jxr6R+nLzbBvL46jY02go
+ SYkYlEUPNqUYQhgGeEtQqXCS5MQk2Bdxh1TlVkiZQ0NZ0RZqqUstzqpfJLrOKVvwjpaUt5Ekh
+ k0B+gXtAjCAB/whik5yzkIf171v6i7lUoIvWr9Kss23kLEOpCw8nbaJzqF7z20/OmRjDMxDzZ
+ /G2HquQWbMa31O4dwd14IdzNOoUSW/4elJyM6W8ZQCKM2SCn7PbtNpCBKHA71MlcIedg7hSgt
+ Scd1r3vuwiB+LVUW90ffpEMquKZahL6Sr2GGcDWDJ5Em8aNVkysFo8vEsQpCOVqwEH2ROfrOs
+ kplnXpTQsbtqH5QxeNucdny5o9fC43lmsArlPpYu+x3kGPfGkk7Zoq273eWXwqeJKF54HPk1u
+ uGYkj/FXcB/kZO4E5yBzwpOKrMEJZctmIvXOgQXUeajtDO6v5/VpRyhqvw4glJCAeFKFmj7R+
+ Xp4FAOYFT2W8jDpLgkpjOanQpFbqMZuzLDoX4dIgttGhvmSXlepd8zDL1qR3MFXR7I4EcAqMY
+ sOuJhtXt3EMsdiQLzDCUm8tLdH1J+aRqzrnvkZ+eOihVBTJ7epFOE9JfVwR2a8kUXo+AHOUKQ
+ 5qv/dG6Hj1GT/xlxtSMAmUAzNrPF//n76S2kYZF7uP8pz7/d/qQB33dSvyRjuGolQlGcbZTzm
+ 57MZxJTZrChN1p+x/jGeamqVRFCSaIxKtAjD4W4NZmPyJEBXLGU0IHnQUz/TFY6VKT6VXorPH
+ H6COQaEOffXX5+lhYoY0GreHoi060tmPzDOPHJ969elTqkB0aEH2r8OK/0ibsrsL0lnQSL6ht
+ ylU3RTR1mr4HMnB4IIAVyFJ+RhqpJRDmAFxUPdWlZ5AGD9E6WMpiBwdYMXbGRN0qDTP4w5Su4
+ AqfjMoMT5aiR8YPDjLuAfUyHGXhuGH62KGRv1dX9rap5ZHtmiwO9oTSthNZUFXnG2H9TUHFK3
+ +8UMOgobfbK7niDhoo0rzzvOP49e8/bxCDZN9YDQaCvhCxv2Wn5n9jW/OAba7VKMnxuqnJMRc
+ geT6NUL8j6F7PqewMoKK8X1nln2CRnLB3tpoyH7Mu6PlgAcK6sjOiLmusJCtRpxSG7qIf5xox
+ lY/z5Ye0/dJl3v35GGG7aI7iD6USUr22lsHNt3c0hNYuSugd0WI34pyYfGUjSlmTRD1CN7OVT
+ ZJZN4I6iVMy476j4MqmCObxntS25zxkxDsyHtEXHFa14xehGaLGu0iS570vmjYgIRPAGXSTD6
+ hybq4qOhbwgxiIVwpyXnTE+44pDl80L08rK3DoAJoeWoo6BF96tCjm/vAbKgdBDEJaWO7qb2M
+ J8FuhZTdnukCMwHEU9gmQ4fOP1ObsJYWB85pj6xwrac2GQgNtq3+b4qcXVWKsCuiQqyF+OccC
+ 1y74Wx6+gdCz8o31UxeeNOM1TlSDJdtUZ004QVCGfqp2t6R/K7UB4X8uKbm2hfopS3d9rQ+qY
+ DbP7JsUlPfOAPE/mOXWz/JjhC3bQRJRKfdV1apWGOuyOYrzfRg0uog4YnATBDoFJjL82rWyhX
+ IFirIg7WH9BqWtZgDF+EQQPMff+RjVGvGKtvXx+9aV7pGM0wnUg0QO4D0rr0tnMu1ZMkFCjw0
+ d+nOwxer99vwEjRc2j9+Y0rn+IpOKZHVGKX4FbNdPxxhEO3SLsv10aOF/56kOFQQ6uBbQ1IUX
+ UfNVFwau3V/CzxOesKN6Bn4GgHQXBKXrXEwOtYwOBa1jztMp2Rj9d1OpkrgDX7NQLrmxjeyqk
+ 9JTjisbSChct7Dx49B7OezNabaSaXThrxTRq9iDZcUXlZwShZm0CEPiIT7+MpubkkZdPtrFPE
+ FmcW6vGhbv2MH5DyfoRDdKiibunhV/Ai995cXi+U7MTNV6Uezt+QXxRMigJ6VQtkinVzUDDkl
+ oZXMAN2TIVv/LIxmKB/W0+1FSjJV4JAIJ6IavSq+qoTbDauNVgI4kT2ui0jPFUigw+V1UyscR
+ w+MsmL7+S2Cj2sf+ZtIquxY1fsCM2DpkI9Kws5O9+6h3xx0mqP9sLkY5DeML1tPbceGcp0Yn5
+ i5JXfT3xaT65FWFXG2cFXUdPa71fb1WRM3uVUjFr1ZILxJERFS/f3bQzR0jyKIAfO7GYTKZew
+ KTlvGMh6B7O0KGE+JBADhqDcbJ9xNwIrs/ZicCqqdz1hCf92UK8tnHgFaarjyGK9wrQs+6Zlg
+ LH2VmaEtZmcAVEHfoyo8flDZNAhEsUmammkqgcMklp+tDjuRwnxAfPTYeeuUuKjXu20OjlclW
+ kGAakiv/4XH57Mllwhzsc4ydkpbANJjNNY5d5x98TgGvMDDDQdYTAe4hA9XeR0oj2gOrcZFNT
+ XIL88/KpQPVQhrODA80SmWs163X91M/Z4FO2PLWxNtbEkoc5YCoBxJmJnZAF5MdK9Zoy+AZrJ
+ 5LD1bcYZ26oWik2n9Yt2fJIpfIqFgsLLqDxFpZzTD71M05860yeorkaOE5EBjOK1IFGlj5sTi
+ 2SBuzSn5u7prMlRaEGzgPClS0SJ3m5PzBGZ8Qyt2gh/mrL3IKFEhT5WOr9q3CjROTfLULUPI9
+ OxUOB/Ewm3TxnGzTxbz0rx6YXESuRjbZMHzYvz6vSPCRNNDTR6nqgUbMOuvRMM05dKzbRkGRr
+ zPAGvqGGi+Ll/+I1p4gHUNduBuFfZyTjix98rJti+hNjju69+gXprsSXwCiHllLB54LvaH/eL
+ er2Zw60/Ofmbjzob72aTw6DuCuyz6dAODkHc6+RxcvrpMv88MUFX9xGqGJHhKLQ9pbE+DeFxR
+ MqrN7NxqpeKySMHC4mR2WWoMZMsCf/GM+6JfFacvoyarPsHSyTBGYt5sjtZ93GPH9oUWI8m5h
+ LQitq9V+XwswwT3p8eaVFs9BLG9FRHFYHHqD/UZXns/brTVBYdiOIq3Zpx0OtugRKg7BvtAvs
+ nrdllWXh3obV7fGGLYgsCPglx9Oh0nLGIYYWPfYz0nVJer7rDgrA2OnGnUZMa5ea73cl9EO7O
+ jHpWT5mAj3BAMX2gXgFfquoddwlIrlEP/p35C4kxa8DB+y4naNPi4kOI/yAZ6JIW159kLqWhc
+ RD8TIMBSq2Ycpc1UjsxX6K3i0vQ0N/QmrD0D22SejePr1lev2cJ6/5F18inRfjWx0oqr1TQGO
+ DssRFZ7tsjgQKgBw1nR+hTRVwC+3bqlXAh0HxiW1jWf4aH/3OWTGRw6i44PbCJcImA+cXr0JO
+ a1hyU57hwA9eAdjlqf6244J5W54Z3NuGN+nuvJJJP2kwU5TgjeWIfyhyS9lQuRQCNm/pHwU/d
+ ynQI8iDe2m7kQCZv9wAOZ5wxy05zaIdIYqNzK/nmd1krrDtJWsE/Xp/tmD69B8pHn/4Hfg0ob
+ mYn+UNWmJCYNmw7/WdBzWY8pGoYO8lzW2ZjvUi7eEO4HqPSFSx2HL2LSwmNCSsy/+LwbW0a7O
+ blSPk6c1tdeEezkcqmouiVCfyzQVi1WvJ4rxjPLpMMog/U94v7ZDi7gUWtM27tfPtX4StpudV
+ tfJnJcgvkJukYCym7cCzrTXVnFb2vXTNWfB2F5wvyrb6Not31pvTrGf40oXZreJz3D+7c1WDt
+ GwsEJUdNTof9M/z/8W3beE+Df9HkK5PfYEJATphlJGLIWM46Mvmw4JzIR9Je+HTIENkB5ZNtW
+ TxVZk3zLb62DjBIyrOtm50wKZC9gjmdS4/NuQHtrzIymoKBIb3ng4X/C3A93N2sFFFqAv4stH
+ T1tvLlFsSPF7X04fQjL65mEyeppFBfKDvWsLU/+Ix64/CK9QAn0FVv3Qw/bYLE3awnnNZ2ErI
+ INvc4Eseq3lSHBB21Yye2aR+uapzIt8C7IHMsYgfQpo2oal4ejceAMjz5BlcfnNPVrK9N2ewW
+ zRksndIQwqp2I4A5Pq9/gedK0bWOZje+PfvugIaASrpTSFoReiUqml+0dcM0alRGsmQEXuaIj
+ rE3+Ye0POsJNWygDp3ahI1uFy8RV7zMYtZrfiFcBOTbXMLYdLr27ln/KIfUCvGBZ1orpyw==
 
-CN20K LLC-TAD uses non-standard PFC/PRF page offsets relative to each
-TAD region base. Add a TAD_PMU_V3 profile with per-platform register bases,
-extend the CN10K event map for new counters, and match the block via OF and
-ACPI.
+The high port count models of the Realtek Otto switches have additional
+registers to instrument the MDIO controller. These are:
 
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
----
- drivers/perf/marvell_cn10k_tad_pmu.c | 33 +++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+- High port mask: A bitfield that extends the already existing low port
+  mask to select ports starting from 32.
+- Broadcast: This takes the port number during reads on the RTL931x.
+- Extended page: Some additional page info. The SDK does not give much
+  information about this. Basically some fixed value must be written
+  into it during access.
 
-diff --git a/drivers/perf/marvell_cn10k_tad_pmu.c b/drivers/perf/marvell_cn10k_tad_pmu.c
-index 7a3b659c999a..4daf109b89ee 100644
---- a/drivers/perf/marvell_cn10k_tad_pmu.c
-+++ b/drivers/perf/marvell_cn10k_tad_pmu.c
-@@ -17,6 +17,8 @@
- 
- #define TAD_PRF_OFFSET		0x900
- #define TAD_PFC_OFFSET		0x800
-+#define TAD_PRF_NS_OFFSET	0x30900
-+#define TAD_PFC_NS_OFFSET	0x30800
- #define TAD_PFC(base, counter)	((base) | ((u64)(counter) << 3))
- #define TAD_PRF(base, counter)	((base) | ((u64)(counter) << 3))
- #define TAD_PRF_CNTSEL_MASK	0xFF
-@@ -33,6 +35,7 @@ struct tad_region {
- enum mrvl_tad_pmu_version {
- 	TAD_PMU_V1 = 1,
- 	TAD_PMU_V2,
-+	TAD_PMU_V3,
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+=2D--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index 0068beff785b..33c00b6ba8f8 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -91,6 +91,10 @@ struct otto_emdio_cmd_regs {
+ 	u32 c45_data;
+ 	u32 io_data;
+ 	u32 port_mask_low;
++	/* additional registers for high port count models RTL839x/RTL931x */
++	u32 port_mask_high;
++	u32 broadcast;
++	u32 ext_page;
  };
- 
- struct tad_pmu_data {
-@@ -80,8 +83,14 @@ static void tad_pmu_start_counter(struct tad_pmu *pmu,
- 	if (partid && event_idx > 0x19 && event_idx < 0x21) {
- 		partid_filter = TAD_PRF_MATCH_PARTID | TAD_PRF_PARTID_NS |
- 				((u64)partid << 11);
+=20
+ struct otto_emdio_priv {
+@@ -164,6 +168,22 @@ static int otto_emdio_run_cmd(struct mii_bus *bus, u3=
+2 cmd,
+ 		return ret;
+=20
+ 	/* Fill all registers. Hardware will read only the needed bits depending=
+ on command */
++	if (info->cmd_regs.port_mask_high) {
++		/* Fill extra registers for high port count models */
++		ret =3D regmap_write(priv->regmap, info->cmd_regs.broadcast, cmd_data->=
+broadcast);
++		if (ret)
++			return ret;
 +
-+		if (pdata->id == TAD_PMU_V3)
-+			partid_filter = TAD_PRF_MATCH_PARTID | BIT_ULL(25) |
-+				((u64)partid << 10);
- 	}
- 
-+	if (pdata->id == TAD_PMU_V1 && event_idx > 0x24)
-+		return;
- 
- 	for (i = 0; i < pmu->region_cnt; i++) {
- 		reg_val = event_idx & 0xFF;
-@@ -261,6 +270,18 @@ static struct attribute *tad_pmu_event_attrs[] = {
- 	TAD_PMU_EVENT_ATTR(tad_dat_rd_byp, 0x22),
- 	TAD_PMU_EVENT_ATTR(tad_ifb_occ, 0x23),
- 	TAD_PMU_EVENT_ATTR(tad_req_occ, 0x24),
-+	TAD_PMU_EVENT_ATTR(tad_req_msh_out_dtg_evict, 0x25),
-+	TAD_PMU_EVENT_ATTR(tad_req_msh_out_ltg_evict, 0x26),
-+	TAD_PMU_EVENT_ATTR(tad_rsp_msh_out_mpam, 0x28),
-+	TAD_PMU_EVENT_ATTR(tad_replays, 0x29),
-+	TAD_PMU_EVENT_ATTR(tad_req_byp0, 0x2a),
-+	TAD_PMU_EVENT_ATTR(tad_req_byp1, 0x2b),
-+	TAD_PMU_EVENT_ATTR(tad_txreq_byp, 0x2c),
-+	TAD_PMU_EVENT_ATTR(tad_time_in_dslp, 0x2d),
-+	TAD_PMU_EVENT_ATTR(tad_time_elapsed, 0x2e),
-+	TAD_PMU_EVENT_ATTR(tad_req_msh_out_dss_rd_128mrg, 0x2f),
-+	TAD_PMU_EVENT_ATTR(tad_req_msh_out_dss_wr_128mrg, 0x30),
-+	TAD_PMU_EVENT_ATTR(tad_tot_cycle, 0xff),
- 	NULL
- };
- 
-@@ -426,7 +447,6 @@ static int tad_pmu_probe(struct platform_device *pdev)
- 	tad_pmu->region_cnt = tad_cnt;
- 
- 	tad_pmu->pmu = (struct pmu) {
--
- 		.module		= THIS_MODULE,
- 		.capabilities	= PERF_PMU_CAP_NO_EXCLUDE |
- 				  PERF_PMU_CAP_NO_INTERRUPT,
-@@ -440,7 +460,7 @@ static int tad_pmu_probe(struct platform_device *pdev)
- 		.read		= tad_pmu_event_counter_read,
- 	};
- 
--	if (version == TAD_PMU_V1) {
-+	if (version == TAD_PMU_V1 || version == TAD_PMU_V3) {
- 		tad_pmu->pmu.attr_groups = tad_pmu_attr_groups;
- 		tad_pmu->ops		 = &tad_pmu_ops;
- 	} else {
-@@ -482,6 +502,11 @@ static const struct tad_pmu_data tad_pmu_data = {
- 	.tad_pfc_offset = TAD_PFC_OFFSET,
- };
- 
-+static const struct tad_pmu_data tad_pmu_cn20k_data = {
-+	.id   = TAD_PMU_V3,
-+	.tad_prf_offset = TAD_PRF_NS_OFFSET,
-+	.tad_pfc_offset = TAD_PFC_NS_OFFSET,
-+};
- #endif
- 
- #ifdef CONFIG_ACPI
-@@ -495,6 +520,7 @@ static const struct tad_pmu_data tad_pmu_v2_data = {
- #ifdef CONFIG_OF
- static const struct of_device_id tad_pmu_of_match[] = {
- 	{ .compatible = "marvell,cn10k-tad-pmu", .data = &tad_pmu_data },
-+	{ .compatible = "marvell,cn20k-tad-pmu", .data = &tad_pmu_cn20k_data },
- 	{},
- };
- #endif
-@@ -503,6 +529,7 @@ static const struct of_device_id tad_pmu_of_match[] = {
- static const struct acpi_device_id tad_pmu_acpi_match[] = {
- 	{"MRVL000B", (kernel_ulong_t)&tad_pmu_data},
- 	{"MRVL000D", (kernel_ulong_t)&tad_pmu_v2_data},
-+	{"MRVL000F", (kernel_ulong_t)&tad_pmu_cn20k_data},
- 	{},
- };
- MODULE_DEVICE_TABLE(acpi, tad_pmu_acpi_match);
-@@ -564,6 +591,6 @@ static void __exit tad_pmu_exit(void)
- module_init(tad_pmu_init);
- module_exit(tad_pmu_exit);
- 
--MODULE_DESCRIPTION("Marvell CN10K LLC-TAD Perf driver");
-+MODULE_DESCRIPTION("Marvell CN10K/CN20K LLC-TAD Perf driver");
- MODULE_AUTHOR("Bhaskara Budiredla <bbudiredla@marvell.com>");
- MODULE_LICENSE("GPL v2");
--- 
-2.25.1
++		ret =3D regmap_write(priv->regmap, info->cmd_regs.ext_page, cmd_data->e=
+xt_page);
++		if (ret)
++			return ret;
++
++		ret =3D regmap_write(priv->regmap,
++				   info->cmd_regs.port_mask_high, cmd_data->port_mask_high);
++		if (ret)
++			return ret;
++	}
++
+ 	ret =3D regmap_write(priv->regmap, info->cmd_regs.port_mask_low, cmd_dat=
+a->port_mask_low);
+ 	if (ret)
+ 		return ret;
+=2D-=20
+2.54.0
 
