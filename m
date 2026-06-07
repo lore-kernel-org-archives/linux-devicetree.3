@@ -1,27 +1,37 @@
-Received: from mail-m15596.qiye.163.com (mail-m15596.qiye.163.com [101.71.155.96])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CFE226CFE;
-	Sun,  7 Jun 2026 05:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBF223C8A0;
+	Sun,  7 Jun 2026 05:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780810414; cv=none; b=LVwdCkR6Y94MYf0M8ubLjOgQtbT3p6biyM6bfuSZmN+rCCg5Se95fLBzPQlpjJCWgInqkVx9pXFPISH0+GaUHW/0jk3ZePF/tP8/C4EbVjjhdVAyrmlC1drjLZiy4IVIScAxcBpeYulgC0w9YVqY+94r86UIabXaqdrPmK0gs8o=
+	t=1780810446; cv=none; b=VWzt9yaYRk0P70xODgyFr3lYZ53/vZG2KzTT7Z0zh1Ov56mBH8WdRtwQVL2OpS0g6u+7IArnAJgitUxW8BEyEBYuMk3eQY11YonoXsSN+AnvIfR9CHVcIdhaSIAB3+RuSCL4AP45Jkj7bopdrujFwEVPwtRrWPex1XoErsl0trk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780810414; c=relaxed/simple;
-	bh=jXf0D0/KSVfgmFqE7LNZBRH6GD+df6VVqHSvUy4cnSA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oVjidR1xpt6q7k64lPS0Zkrn917Um+t5G9afrmcG5toMcT86EWW2uY1Pqjf8lJAWZRUWiCKS0NHzecZ/kOb+OGNiS2KarVrcu/Q2TWhgCXUj899sj5OTq9jTJ4qLK3S8jDqMKxImpGk2rQn3lCnw+8b7C+pX0DVFO1MCscsFzI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=j1Fb3ika; arc=none smtp.client-ip=101.71.155.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1780810446; c=relaxed/simple;
+	bh=42fLcEQlvHtrRvBsmqhpJqSK16kzaWmVZEfXb41Pevg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LSdwxdwam8Jcl9WwzV9MmK2G09dImuMsR+o/DTKZV3p4halNxxjkl0NJrtZW8wtmu4rqh8qymTeRpAIEKG6lCmqCJxqegPT26EtJHrLtPd53TycO9xvCDE52SeP7hF07X2umhHLgJLz2d/Y6yJb6Q79wb/rZgIcbw62lyv2vyVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLLAKZ7F; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="j1Fb3ika"
-Received: from [127.0.1.1] (unknown [113.235.125.44])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 415e9f25c;
-	Sun, 7 Jun 2026 12:17:36 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Sun, 07 Jun 2026 12:17:26 +0800
-Subject: [PATCH v2] arm64: dts: qcom: kodiak: Move PCIe GPIOs and PHYs to
- root ports
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLLAKZ7F"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D3BEFC2BCB4;
+	Sun,  7 Jun 2026 05:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780810445;
+	bh=42fLcEQlvHtrRvBsmqhpJqSK16kzaWmVZEfXb41Pevg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=oLLAKZ7F8LQnS737jFBKMmx7VVtku94cSksrYT++VGvKAOK7IIxxC2F5expP4Grcz
+	 DNnlZWqK6mWVxMpsaNMEx9q5bUu6Z24pngzcUTjbPKFcKRXJzD6DccY4mNSrqNGjVc
+	 1wmzMV6sM/9cpEuucjg4Mu55niWZ7rbviJPl8zZeK83Rgw7KgX1o5O6VxbQ6IlzdvO
+	 460fHC2SvSMKxfpFEfwOsL3gIXVWf9l6XToA1bGy9+B6dvJvAafeOnVk0x4ahJM/XR
+	 2kwbOugkps8F3QMLcuGPD5Ezoii/d2Qc+ObDuDuYr2jTQBG9L47QdnJDJ9fCkTIzw4
+	 QKTIKLOAeVpLw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBFA2CD8C90;
+	Sun,  7 Jun 2026 05:34:05 +0000 (UTC)
+From: Herman van Hazendonk via B4 Relay <devnull+github.com.herrie.org@kernel.org>
+Subject: [PATCH v7 0/2] media: i2c: add Aptina MT9M113 image sensor driver
+Date: Sun, 07 Jun 2026 07:34:03 +0200
+Message-Id: <20260607-submit-media-mt9m113-v7-0-5da397a3d2a5@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,331 +40,176 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260607-rubikpi-bugfix-next-20260605-v2-1-7bf229978bcd@thundersoft.com>
-X-B4-Tracking: v=1; b=H4sIANXwJGoC/y3M0QqEIBCF4VeJud4BM7LoVWIv1KaaFiw0I4jeP
- be6/DmH74BAnilAkx3gaePAs0shPxnYUbuBkLvUIIVUQokKfTT8WxhNHHre0dG+4juWWNhaWk1
- KV30OiVg8pdPNt9+nQzQT2fVvwnleHmdldYAAAAA=
-X-Change-ID: 20260607-rubikpi-bugfix-next-20260605-3c82cae6a7f1
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, rosh@debian.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780805856; l=8909;
- i=hongyang.zhao@thundersoft.com; s=20251115; h=from:subject:message-id;
- bh=jXf0D0/KSVfgmFqE7LNZBRH6GD+df6VVqHSvUy4cnSA=;
- b=pKA5L4an75TENtSSjINQ6Pntmkv9J46stsvrUw6vovkaCcif79WbzkYzzARLfctN8w0lfu0TL
- nHd201/Yu0fDuX3luGsVgi51vzsA3vXHp0tyjmTTGNzQPnmL3wmw4TV
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=0M0CJ1s9WiFZwli2JsxLB9ykikp5WkpKzCWgpdANKNI=
-X-HM-Tid: 0a9ea04cee6a09d5kunmc3b598e31629d8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHhhDVh9DQxoaTB1DSB4aHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVSUhOVUpJTlVPT1lXWRYaDxIVHRRZQVlPS0hVSk
-	tJT09PSFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=j1Fb3ikaOj/1/blK1ROsNHUYaxGlEwxym6XV3JF9xZXfEI1brnKbasqmjoqgwxnbS3uMyT2Etnr+2xQDyjNT+yE8S3a3+fYZgDi5zqMHUqNMMezIWtr0NB+NDOKgdkTZrbADSPCgoUTsg9MRZMtmO0HEjG2/G4Gs5Uxym/iLieA=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=0ui/LvDm8vyDthh7w2gqDwJl/W6fzjvsE+14cCIHNTs=;
-	h=date:mime-version:subject:message-id:from;
+X-B4-Tracking: v=1; b=H4sIAMwCJWoC/43OTQ6DIBAF4KsY1qVBRH666j2aLgQGZYE2YEkb4
+ 92L7pouamb1JnnfzIISRA8JXaoFRcg++WksQZwqZIZu7AF7WzKihHJSBqenDn7GAazvcJhVqOs
+ GU0aN1MAVKIJK9RHB+dfO3u4lDz7NU3zvVzLbtn/AzDDBhHHNjDbCKXYdIJZHz1Ps0Sbm9ojSF
+ oUSKY1oWgl1/aPwIwovinTcEieUY/ZbWdf1A4zgieZFAQAA
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Herman van Hazendonk <github.com@herrie.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780810444; l=7841;
+ i=github.com@herrie.org; s=20240417; h=from:subject:message-id;
+ bh=42fLcEQlvHtrRvBsmqhpJqSK16kzaWmVZEfXb41Pevg=;
+ b=6kUCcTMc4ZSg/X69KIqlqA9tNmSQwrgie/CGHicweBRiI3mDtPtUifTYwZl52F5uIBTcx2G3T
+ RHcIU1I83lMDdcef3ese6gEr5KFoJRO8snYgZK/bCm+yjM5o3Zcop1F
+X-Developer-Key: i=github.com@herrie.org; a=ed25519;
+ pk=YYxdq8fb5O9vhkW3n2dCH044FPZZO5718v/du7fRhFw=
+X-Endpoint-Received: by B4 Relay for github.com@herrie.org/20240417 with
+ auth_id=809
+X-Original-From: Herman van Hazendonk <github.com@herrie.org>
+Reply-To: github.com@herrie.org
 
-The Qualcomm PCIe binding deprecates perst-gpios and wake-gpios
-on the host bridge and expects board reset and wake GPIOs to be
-described on the root port. PERST# is described there as
-reset-gpios.
+Add a V4L2 subdev driver for the Aptina (now ON Semiconductor) MT9M113
+1.3 megapixel SoC image sensor with embedded ISP, as used on the HP
+TouchPad (apq8060) front camera. The sensor is programmed over I2C and
+streams YUV / RGB / monochrome over a 1-lane MIPI CSI-2 D-PHY link.
 
-Move the PCIe PHY references in kodiak.dtsi to the PCIe0 and PCIe1
-root port nodes, and move the board-specific PCIe reset and wake
-GPIOs in the Kodiak DTs to the corresponding root ports.
+v7 self-review surfaced three additional Sashiko findings on the v6
+patchset (Sashiko v6 preflight ran on claude-haiku-4-5 and missed them
+- gemini-3.1 review on v7 catches them). The first two are real bugs;
+the third is a refcount-init mismatch that would leak the sensor struct
+in a no-bridge-attached unload. Folded together with two minor clang
+static-analyzer findings.
 
-Keep the PHY and GPIO resources on the same root port nodes so the
-Qualcomm PCIe driver can parse the root port binding instead of
-falling back to the legacy host bridge GPIO parsing.
-
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
 ---
-Refresh Kodiak PCIe descriptions to match the current Qualcomm
-PCIe binding guidance.
+Changes in v7:
 
-The series moves PCIe PHY references from the host bridge nodes to
-the root port nodes in kodiak.dtsi. It also moves all Kodiak board
-PERST# and WAKE# GPIO descriptions from host bridge nodes to the
-corresponding root ports, using reset-gpios for PERST#.
+  - [High] mt9m113_s_ctrl()/mt9m113_remove() race against the
+    devm-managed @regmap. With a /dev/v4l-subdev* fd still open on
+    sysfs unbind, the V4L2 ctrl handler outlives mt9m113_remove()
+    (deferred-release model), but @regmap and @clk are devres-managed
+    and get freed when remove() returns. An in-flight VIDIOC_S_CTRL
+    that successfully called pm_runtime_get_if_in_use() before
+    remove() called pm_runtime_disable() then dereferences the
+    already-freed @regmap. The pm-gate change in v6 narrowed but did
+    not close this TOCTOU.
 
-Changes in v2:
-- Refresh all Kodiak DTs instead of only the Thundercomm RubikPi3.
-- Move PCIe PHY references to the root port nodes together with the
-  reset and wake GPIOs.
----
- arch/arm64/boot/dts/qcom/kodiak.dtsi                     | 10 ++++------
- arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts    | 14 +++++++++-----
- arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts    | 16 ++++++++++------
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts             |  4 ++--
- .../boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts   | 14 ++++++++------
- .../arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 16 ++++++++++------
- arch/arm64/boot/dts/qcom/sc7280-idp.dtsi                 |  5 ++++-
- 7 files changed, 47 insertions(+), 32 deletions(-)
+    Fix: introduce a per-sensor `struct mutex lock` plus a `bool
+    dying` flag. mt9m113_remove() takes the lock, sets ->dying, and
+    drops the lock before any teardown; s_ctrl() takes the same lock
+    after its pm-gate and bails on ->dying. Any in-flight s_ctrl()
+    holds the lock past remove()'s lock-acquire, so remove() waits
+    for it to finish before proceeding to pm_runtime_disable() +
+    devres unwind. The mutex is destroyed in the sensor finalizer.
 
-diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-index fa540d8c2615..aae1774cb99e 100644
---- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-@@ -2286,9 +2286,6 @@ pcie0: pcie@1c00000 {
- 
- 			power-domains = <&gcc GCC_PCIE_0_GDSC>;
- 
--			phys = <&pcie0_phy>;
--			phy-names = "pciephy";
--
- 			pinctrl-names = "default";
- 			pinctrl-0 = <&pcie0_clkreq_n>;
- 			dma-coherent;
-@@ -2300,6 +2297,8 @@ pcie0_port: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie0_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-@@ -2416,9 +2415,6 @@ pcie1: pcie@1c08000 {
- 
- 			power-domains = <&gcc GCC_PCIE_1_GDSC>;
- 
--			phys = <&pcie1_phy>;
--			phy-names = "pciephy";
--
- 			pinctrl-names = "default";
- 			pinctrl-0 = <&pcie1_clkreq_n>;
- 
-@@ -2434,6 +2430,8 @@ pcie1_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie1_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-index bf18c4852081..694c87ba7c1f 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-@@ -545,9 +545,6 @@ &mdss_dp_out {
- };
- 
- &pcie0 {
--	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
--
- 	pinctrl-0 = <&pcie0_reset_n>, <&pcie0_wake_n>, <&pcie0_clkreq_n>;
- 	pinctrl-names = "default";
- 
-@@ -561,9 +558,12 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
--&pcie1 {
--	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+&pcie0_port {
-+	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
-+};
- 
-+&pcie1 {
- 	pinctrl-0 = <&pcie1_reset_n>, <&pcie1_wake_n>, <&pcie1_clkreq_n>;
- 	pinctrl-names = "default";
- 
-@@ -579,6 +579,10 @@ &pcie1_phy {
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+};
-+
- &pmk8350_adc_tm {
- 	status = "okay";
- 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-index bb5a42b038f1..27e1ca4889dd 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-@@ -522,9 +522,6 @@ &lpass_va_macro {
- };
- 
- &pcie0 {
--	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
--
- 	pinctrl-0 = <&pcie0_clkreq_n>, <&pcie0_reset_n>, <&pcie0_wake_n>;
- 	pinctrl-names = "default";
- 
-@@ -538,10 +535,12 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
--&pcie1 {
--	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
-+&pcie0_port {
-+	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
-+};
- 
-+&pcie1 {
- 	pinctrl-0 = <&pcie1_clkreq_n>, <&pcie1_reset_n>, <&pcie1_wake_n>;
- 	pinctrl-names = "default";
- 
-@@ -566,6 +565,11 @@ &pcie1_phy {
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
-+};
-+
- &pm7325_gpios {
- 	pm7325_adc_default: adc-default-state {
- 		pins = "gpio2";
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 37a3b51323ce..4274d01c612f 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -841,8 +841,6 @@ &mdss_edp_phy {
- };
- 
- &pcie1 {
--	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie1_reset_n>, <&pcie1_wake_n>, <&pcie1_clkreq_n>;
- 	pinctrl-names = "default";
- 
-@@ -867,6 +865,8 @@ &pcie1_phy {
- };
- 
- &pcie1_port0 {
-+	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+
- 	pcie@0,0 {
- 		compatible = "pci1179,0623";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-index a5ad796cb65d..935b3f21ee86 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-@@ -684,9 +684,6 @@ &mdss_dsi_phy {
- };
- 
- &pcie0 {
--	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
--
- 	pinctrl-0 = <&pcie0_clkreq_n>,
- 		    <&pcie0_reset_n>,
- 		    <&pcie0_wake_n>;
-@@ -702,10 +699,12 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
--&pcie1 {
--	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
-+&pcie0_port {
-+	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
-+};
- 
-+&pcie1 {
- 	pinctrl-0 = <&pcie1_clkreq_n>,
- 		    <&pcie1_reset_n>,
- 		    <&pcie1_wake_n>;
-@@ -732,6 +731,9 @@ &pcie1_phy {
- };
- 
- &pcie1_port0 {
-+	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
-+
- 	pcie@0,0 {
- 		compatible = "pci1179,0623";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-index f47efca42d48..5c08ab53cdbd 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-@@ -812,9 +812,6 @@ &mdss_dsi_phy {
- };
- 
- &pcie0 {
--	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
--
- 	pinctrl-0 = <&pcie0_clkreq_n>,
- 		    <&pcie0_reset_n>,
- 		    <&pcie0_wake_n>;
-@@ -830,10 +827,12 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
--&pcie1 {
--	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
-+&pcie0_port {
-+	reset-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
-+};
- 
-+&pcie1 {
- 	pinctrl-0 = <&pcie1_clkreq_n>,
- 		    <&pcie1_reset_n>,
- 		    <&pcie1_wake_n>;
-@@ -849,6 +848,11 @@ &pcie1_phy {
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
-+};
-+
- &pm7325_gpios {
- 	kypd_vol_up_n: kypd-vol-up-n-state {
- 		pins = "gpio6";
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi b/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi
-index 8cac4ce9c851..6bb806931b79 100644
---- a/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280-idp.dtsi
-@@ -418,7 +418,6 @@ &lpass_va_macro {
- 
- &pcie1 {
- 	status = "okay";
--	perst-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
- 
- 	vddpe-3v3-supply = <&nvme_3v3_regulator>;
- 
-@@ -433,6 +432,10 @@ &pcie1_phy {
- 	vdda-pll-supply = <&vreg_l6b_1p2>;
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+};
-+
- &pmk8350_vadc {
- 	channel@3 {
- 		reg = <PMK8350_ADC7_DIE_TEMP>;
+  - [High] mt9m113_start_streaming() exhaust-all-retries path leaves
+    the PM state as RPM_ACTIVE while the chip is physically off
+    (chip_off==true). Subsequent VIDIOC_S_CTRL calls would pass the
+    pm_runtime_get_if_in_use() gate (PM still ACTIVE) and drive
+    cci_writes into a dead I2C bus, timing out for 500 ms per write.
+
+    Fix: in s_ctrl(), after acquiring the new sensor->lock, also
+    bail on sensor->chip_off. Comment in struct mt9m113 expanded
+    to document that chip_off is now both a runtime_suspend gate
+    and an ioctl gate.
+
+  - [Med] release_count was unconditionally initialised to 2,
+    assuming both ifp.sd (async-registered) and pa.sd (only bound
+    to a v4l2_device when a bridge driver attaches) would fire
+    .release callbacks. If the module is unloaded before any
+    bridge attaches, pa.sd's release never fires, release_count
+    stays at 1, mt9m113_release_sensor() never reaches zero, and
+    the sensor struct leaks.
+
+    Fix: initialise release_count to 1 (for ifp.sd, always
+    async-registered in probe), and atomic_inc() in
+    mt9m113_ifp_registered() after pa.sd is bound to the bridge's
+    v4l2_device. Comment on the field expanded to spell out the
+    register/release accounting for every bind/unbind combination.
+
+  - [Low] mt9m113_release_sensor(): call mutex_destroy(&sensor->lock)
+    before kfree(sensor), so lockdep can flag any future attempt to
+    take the lock through a stale pointer.
+
+  - [Med] mt9m113_power_off() now ends with msleep(50) so back-to-
+    back power_off -> power_on sequences (sysfs unbind/rebind loops
+    and the start_streaming retry loop) see a real ramp-down before
+    the next ramp-up. Without this delay the HP TouchPad's camera
+    rails -- which have tens of microfarads of bulk capacitance --
+    held VDD partly high across a fast cycle; the MT9M113 MCU then
+    booted into an undefined state and SEQ_CMD wedged at 0x0001 or
+    0x0006 forever (only a full off-time clears it -- soft reset
+    via RESET_AND_MISC_CONTROL.RESET_SOC cannot recover the analog
+    state). Discovered on-device during the v7 KFENCE race sweep:
+    34 unbind/rebind cycles in 60 s produced "MCU var 0xa103
+    timeout" / "REFRESH timeout" / -ETIMEDOUT on the subsequent
+    stream-on attempts. 50 ms is conservative for the rail
+    discharge time and invisible against PM autosuspend defaults
+    (hundreds of ms).
+
+Pre-send verification (v7, HP TouchPad APQ8060, kernel
+7.1.0-rc1-luneos-g035108a0151b):
+
+  - pre-send-check.sh 9/9 PASS, including:
+      * sparse strict (-D__CHECK_ENDIAN__ -Wcontext) -- clean.
+      * smatch (intra-function only; kernel-wide DB still building
+        from build_kernel_data.sh) -- clean.
+      * clang --analyze -- 2 dead-store warnings on `dev` locals
+        in mt9m113_configure_sensor_context() and
+        mt9m113_configure_ae_mode(); both false positives because
+        `dev` is used inside dev_dbg() which expands to a no-op
+        when CONFIG_DYNAMIC_DEBUG=n (the build config used by
+        scan-build). On DYNAMIC_DEBUG=y kernels (where the dev_dbg
+        machinery is wired up) `dev` is genuinely used. Source
+        unchanged; documented here so the warnings do not appear
+        novel on the next review pass.
+      * coccinelle: 3 custom v4l2-lifetime cocci scripts + 72
+        kernel cocci scripts -- no pattern matches.
+
+  - HP TouchPad on-HW sweep against v7 driver kernel (commit
+    fdb856651ae2, KFENCE-enabled tenderloin_debug_defconfig):
+      * KFENCE alive: kfence: initialized - using 4194304 bytes
+        for 511 objects at boot.
+      * The C-finding scenario reproduced verbatim: held an open
+        fd on /dev/v4l-subdev11 (mt9m113 ifp), spammed
+        VIDIOC_S_CTRL horizontal_flip 32 calls/sec for 60 s while
+        looping sysfs unbind -> bind on /sys/bus/i2c/drivers/
+        mt9m113/. Result: 34 unbind/rebind cycles, 1920 concurrent
+        S_CTRL calls, ZERO KFENCE reports, ZERO BUG / Oops / WARN /
+        use-after-free / NULL-deref. Final state BOUND.
+      * Same test on the pre-v7 driver (the v6 driver this series
+        ships against) crashes regulator_bulk_disable+NULL on the
+        first unbind cycle.
+      * Streaming sweep after the brown-out fix above: 10/10
+        pix640 + 10/10 pix1280 stream-start cycles succeed (vs
+        3/10 + 0/10 pre-fix, which had 17 hard failures). 8 of
+        the 20 cycles still hit a transient MCU SEQ_CMD wedge on
+        the first attempt and recover via the existing v5
+        retry-loop (power_off + power_on + sensor_init). These
+        residual wedges trace to a Context A <-> Context B
+        switching firmware quirk (logged as "Context B switch
+        failed (SEQ_STATE=0x3)"), not to the rail-discharge
+        issue this commit fixes; they are pre-existing sensor
+        behaviour the retry loop was designed to mask.
+      * dmesg post-sweep totals: 0 BUG, 0 Oops, 0 WARN, 0 UAF,
+        0 NULL deref, 0 KFENCE reports.
+
+- Link to v4: https://lore.kernel.org/r/20260606-submit-media-mt9m113-v4-0-046b4cbc7f94@herrie.org
+- Link to v5: https://lore.kernel.org/r/20260606-submit-media-mt9m113-v5-0-2088c7358e11@herrie.org
+- Link to v6: https://lore.kernel.org/r/20260606-submit-media-mt9m113-v6-0-8f6d0f79f4d1@herrie.org
 
 ---
-base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
-change-id: 20260607-rubikpi-bugfix-next-20260605-3c82cae6a7f1
+Herman van Hazendonk (2):
+      dt-bindings: media: i2c: add aptina,mt9m113
+      media: i2c: add Aptina MT9M113 1.3 Mpx SoC sensor driver
+
+ .../bindings/media/i2c/aptina,mt9m113.yaml         |  130 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   13 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mt9m113.c                        | 3394 ++++++++++++++++++++
+ 5 files changed, 3546 insertions(+)
+---
+base-commit: 944125b4c454b58d2fe6e35f1087a932b2050dff
+change-id: 20260606-submit-media-mt9m113-242c8be69e90
 
 Best regards,
---  
-Hongyang Zhao <hongyang.zhao@thundersoft.com>
+-- 
+Herman van Hazendonk <github.com@herrie.org>
+
 
