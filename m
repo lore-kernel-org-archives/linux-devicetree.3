@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F3A1448E0
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 15:31:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02AF1448E0
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 15:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780846318; cv=none; b=ZoTJwibEH1R1Qh9iWPBaHAfE3PYwx0HQQlk8Rrs9b+hG+C7JArjtBgQq7vmBC/U7dHfmE3Df6MXQEpEVrhOCXmsg5hK8i39Yqrs69i2To+hMfFeTxJxGmnkPHytmBz16hJFUAC5wiOtv1cFZLx1bkdEQfS8MmDGwURJVx+d/F6Y=
+	t=1780846333; cv=none; b=NWLr7rylHyC15x5zzcCfxgxlG7RRm9y9+W0QnIjJc7IgBbUZ07xz7XO79TamD/k1cfMD4w1QvS7QvyT26FrrIrox4xVDbfWGbmbJXr83XQe7C/2zrv0f5UMn5ogGXaSJgrwMbQfhhcADrFiUb4Dg152AnUYKjKxXkYLebZbQ44g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780846318; c=relaxed/simple;
-	bh=2gkjG/H6fVQ9DnAXsNO3fhA1J8hC1iwwDZmE8LcqpTc=;
+	s=arc-20240116; t=1780846333; c=relaxed/simple;
+	bh=GtRUtqalw2RIhHqoNy9+w16uROoxo5uDg9ozgsT0G9E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U79C7CMs4u9IKuAkDUZehKID+1LCZisLhTykk8CAy1z6qpkPBsiYtBRACKTM4sIrR2Uok5lR1KOjXy17M0Evn7rhdY62fxIRHcZF24t8NKp0ws/z49+Mp1N804nsk0m4MVXwOcZUhL0+b3tus6QuKGi+zlP6rk4Imcu+FiAdmqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8NJR7kN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=vFBCsV9B1fw3U271b43ROGc9e4MRjkksfI4OM4s5GbfKsWfuoNBAQTVD5LvsUEVYwVqDUKqErc1zVxmRFe+SI6yejMm5plK6iPfh6ppCwBvbnBAfxJAkVBd020LbE+rcl6e0r+1LeGQPFY9afvAa2e526iQ2Y9r+xCUHe2xtIxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGXs6T1p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8NJR7kN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439381F00893;
-	Sun,  7 Jun 2026 15:31:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGXs6T1p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020661F00893;
+	Sun,  7 Jun 2026 15:32:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780846316;
-	bh=H9DP5J3LkBa+dzXgCCA4VslPtKMe7IMdZ8LY7BRo2gg=;
+	s=k20260515; t=1780846332;
+	bh=wqZxQXOCPSIOPHzk709clzHAK4U3Bmh3wtBSSC8N/v4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h8NJR7kNck7H3EE4gGKi7bdyUkzLdwtJEjo8yTPT+JUE9FbH8k+Y3wnzWkIK0Nv4b
-	 /W7PaqTc4bPdbbncByuvS9sJ/FGvcBLg441ozNU37tNTC56exvsDocGNt+WQy/o9p7
-	 bhz/Sh/KSdF4hWjFaPgqAQzyMGlb0jraXQMrbQCTpRtb/cZUhRgY0FOOuWv1EhZR6k
-	 Zf6IPLWNhpn+2gsG/N1TbpILBlk3IIRfe/uYXs3GS1POg1uTdNi4rZdB+MEq22dbAU
-	 4sp1iVocpCGTclAMFeyBk0NxwaMv2mQHPuRYldHf+7EozAsQEBfq5/lfuh1R2rnIP2
-	 EaE0sNFvg1wSg==
+	b=AGXs6T1pI4lSjddbJ2bN6DXI+Qzr79stBkv9FDB8E4tzv3y07Dope1xfQvVk4XKvt
+	 CA0+h73wnzBk//tJUWs9rXmKyyF3U87euKP5wrkN14MgG/D6mLl9jZFrHy2z9Q3yD3
+	 Cr5rDU8+R/Lj7iuvBVCfAh+fZ9SKkqmeLwcHTE/ReWTnS6mSwHSIscKQ6a6GP4nEB8
+	 82wboS6kRyeydo4wht4UglIVkm/cNwONKGMkhKUjmzaFfEvejNsKs7q2zzTFOpOtoU
+	 Y9ivwg6oJc8JRSl5aJ0H8sMqYrKxmK861UyF62ZtjSKLAZAD9CRleaTSQGHKGpMss0
+	 9UrE8LukqGHHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/6] leds: is31fl32xx: Add powerdown pin for hardware
- shutdown mode
+Subject: Re: [PATCH v8 6/6] leds: is31fl32xx: Move pwm frequency setting to
+ init_regs()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jun Yan" <jerrysteve1101@gmail.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260607152002.446617-5-jerrysteve1101@gmail.com>
-References: <20260607152002.446617-5-jerrysteve1101@gmail.com>
+In-Reply-To: <20260607152002.446617-7-jerrysteve1101@gmail.com>
+References: <20260607152002.446617-7-jerrysteve1101@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 15:31:55 +0000
-Message-Id: <20260607153156.439381F00893@smtp.kernel.org>
+Date: Sun, 07 Jun 2026 15:32:11 +0000
+Message-Id: <20260607153212.020661F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,100 +46,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Hardware access after shutdown due to teardown inversion.
-- [Medium] Hardware left powered on upon probe failure.
+
+Pre-existing issues:
+- [High] Registering LED class devices before hardware initialization compl=
+etes exposes the LEDs prematurely, causing asynchronous initialization (lik=
+e default triggers) and userspace accesses to race with and be wiped out by=
+ the subsequent hardware reset.
+- [High] Incorrect use of `max()` instead of `min()` in `is31fl3293_reset` =
+leads to requested current limits being inverted and incorrectly truncated,=
+ potentially causing hardware damage to LEDs with lower maximum current rat=
+ings.
 --
 
-commit d16c62743bb35a616f80e7949e0e6af97fa6ca1c
+commit b76116518cb056910437127676df1546ae03f030
 Author: Jun Yan <jerrysteve1101@gmail.com>
 
-leds: is31fl32xx: Add powerdown pin for hardware shutdown mode
+leds: is31fl32xx: Move pwm frequency setting to init_regs()
 
-The IS31FL32XX series features an SDB shutdown pin. Driving it low
-(active low) places the chip into hardware shutdown mode for power
-saving, while all register contents are preserved and registers are
-not reset.
+This commit moves the PWM frequency setting logic from is31fl32xx_parse_dt()
+to is31fl32xx_init_regs() to prevent the frequency configuration from being
+overwritten by the register reset operation. It separates device tree parsi=
+ng
+from hardware initialization.
 
-Deassert/assert the pin accordingly during probe() and remove() to
-manage hardware shutdown mode.
+> commit a18983b95a61 ("leds: is31f132xx: Add support for is31fl3293")
+> swapped the order of is31fl32xx_parse_dt() and is31fl32xx_init_regs().
+
+[Severity: High]
+This isn't a bug introduced by this patch, but registering LED class devices
+before hardware initialization completes exposes the LEDs prematurely.
+
+In is31fl32xx_probe(), is31fl32xx_parse_dt() is called, which internally
+executes devm_led_classdev_register_ext() for each LED:
+
+drivers/leds/leds-is31fl32xx.c:is31fl32xx_probe() {
+	...
+	ret =3D is31fl32xx_parse_dt(dev, priv);
+	if (ret)
+		return ret;
+
+	ret =3D is31fl32xx_init_regs(priv);
+	...
+}
+
+This registers the LEDs to the subsystem, potentially immediately triggering
+led_set_brightness_nopm() via default state settings (e.g., "default-on").
+This schedules an asynchronous work item to configure the LED over I2C.
+
+However, is31fl32xx_probe() then immediately calls is31fl32xx_init_regs(),
+which performs a full hardware reset (is31fl32xx_reset_regs()).
+
+If the hardware reset races with or occurs after the default state triggers,
+will the initial LED states be wiped out?  Must the hardware be fully
+initialized and reset before registering the LED devices?
 
 > diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32x=
 x.c
-> index fe07acbb103a8..f9d3b9a707ca5 100644
+> index 0c811aebcbcfe..4039b6336bcd4 100644
 > --- a/drivers/leds/leds-is31fl32xx.c
 > +++ b/drivers/leds/leds-is31fl32xx.c
 
 [ ... ]
 
-> @@ -421,6 +423,15 @@ static int is31fl32xx_parse_dt(struct device *dev,
->  	const struct is31fl32xx_chipdef *cdef =3D priv->cdef;
->  	int ret =3D 0;
-> =20
-> +	/*
-> +	 * Driving this GPIO line low takes the chip out of shutdown,
-> +	 * as it is flagged as GPIO_ACTIVE_LOW in provider (such as the device =
-tree).
-> +	 */
-> +	priv->powerdown_gpio =3D devm_gpiod_get_optional(dev, "powerdown", GPIO=
-D_OUT_LOW);
-> +	if (IS_ERR(priv->powerdown_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(priv->powerdown_gpio),
-> +				"Failed to get 'powerdown' GPIO\n");
-> +
+[Severity: High]
+This is a pre-existing issue, but there is an incorrect use of max()
+instead of min() in is31fl3293_reset():
 
-[Severity: Medium]
-Does this leave the chip actively powered on if probe fails later?
+drivers/leds/leds-is31fl32xx.c:is31fl3293_reset() {
+	...
+	for (i =3D 0; i < priv->num_leds; i++) {
+		struct is31fl32xx_led_data *led_data =3D &priv->leds[i];
+		int current_level_reg =3D IS31FL3293_CL_REG + led_data->channel - 1;
+		int microamp =3D max(led_data->max_microamp, IS31FL3293_MAX_MICROAMP);
+		int current_level =3D (microamp * 0xff) / IS31FL3293_MAX_MICROAMP;
 
-The powerdown gpio is acquired and driven logically low with GPIOD_OUT_LOW,
-which wakes the chip from hardware shutdown.
-
-If a subsequent initialization step in probe() fails (for example, if
-is31fl32xx_init_regs() returns an error), probe() will return an error
-without explicitly reverting the GPIO to its shutdown state.
-
-The devres framework automatically frees the GPIO descriptor, but it does
-not revert its physical output level. Will this leave the device powered
-on indefinitely instead of returning it to its low-power standby state?
-
-[ ... ]
-
-> @@ -609,6 +620,9 @@ static void is31fl32xx_remove(struct i2c_client *clie=
-nt)
->  	if (ret)
->  		dev_err(&client->dev, "Failed to reset registers on removal (%pe)\n",
->  			ERR_PTR(ret));
-> +
-> +	if (priv->powerdown_gpio)
-> +		gpiod_set_value_cansleep(priv->powerdown_gpio, 1);
-
-[Severity: Medium]
-Could this cause an I2C error cascade during driver unbind due to the teard=
-own
-order?
-
-The driver registers LEDs using devm_led_classdev_register_ext(), which
-means the LED class devices are unregistered by devres after the driver's
-remove() callback completes.
-
-When this asserts the powerdown_gpio, it places the chip into hardware
-shutdown mode. Subsequently, devres invokes led_classdev_unregister() which
-attempts to gracefully turn off each LED:
-
-drivers/leds/led-class.c:led_classdev_unregister() {
-    ...
-    if (!(led_cdev->flags & LED_RETAIN_AT_SHUTDOWN))
-        led_set_brightness(led_cdev, LED_OFF);
-    ...
+		ret =3D is31fl32xx_write(priv, current_level_reg, current_level);
+	...
 }
 
-This triggers an I2C write to the chip via is31fl32xx_brightness_set().
-Because the hardware is already in hardware shutdown mode, will these
-I2C writes fail and result in errors?
+This bounds the user-specified current limit against the hardware maximum of
+20,000 =C2=B5A (IS31FL3293_MAX_MICROAMP) using max(), forcing the current to
+always be at least the max chip rating.
 
->  }
-> =20
->  /*
+If an LED is only rated for 5mA, does this force it to 20mA, which could
+physically damage it?
+
+Furthermore, if a user requests a value larger than 20mA (e.g., 30,000 =C2=
+=B5A),
+max() allows it.  The subsequent calculation exceeds 255. Because
+is31fl32xx_write() takes a u8 argument, this value is truncated, resulting =
+in
+unexpectedly lower current.
+
+Should the code use min() to properly enforce the hardware's maximum rating?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607152002.4466=
-17-1-jerrysteve1101@gmail.com?part=3D4
+17-1-jerrysteve1101@gmail.com?part=3D6
