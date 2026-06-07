@@ -1,144 +1,210 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA73E158DCF
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 20:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786C4158DCF
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 20:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780863736; cv=none; b=jw1dFnFjiM0b8iZx9yyjhcpzIV/FKSd0qL/54D1N7gliNdm8SK1EOt/LUfNVqBZU+fEJrQjpW0VJJbyCk9b6Fu/o6W2r4ybuAEc8FHzy8gYsFeRRrJNzzetSSXu4UA8znQ/7DZdyja1FEBfJhsxOPt0KO6Uan0PkYKnH8nCZHAY=
+	t=1780863921; cv=none; b=bjdh738sz8ogPuitIGl70CbdnI6d1dY+UiCovClC0PMbvpk3T+nqj54T4eCFPXrmPy4c1oTM7fVTICqmSfYyjMBAc/HktO0fP9WLZQLWrCeHSx7Xo1n2QxvOvvwV8pGQeYYamXoPxt2rLqAAfoaIqR93vFv6MHaGbL5Mfs6yuNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780863736; c=relaxed/simple;
-	bh=giT1I9zfdDcaXk6MM0HM0EHPao1z4tagevajV+cQ0OE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qrM5oTc7ZY6r6Qx+SC8ncm8gSOhXOrTyHHewObSQJqkJhTuMZRsHGaLudCH8nnYbgWatW/4NP78P9oXNgpXcXjY+WsJKmalwWPqHxuNv4ax+UZ/V/LmEF0OvTRPlkKhbChJPCyu3r9fHFnR/+jrN7xBmfviGpBMUMY3qzEQYvdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GLf/u0Tr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C7AMM0eF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780863921; c=relaxed/simple;
+	bh=LmfFsXmAlyfWixOjOsnqeyXAMkC9anjK0GifNHRiyQQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bqIzUn785mEWv0fx/eFGglCWqitGr9s8pv56LvLuMUNeqNX1hByPb+JN8UuwuVYNr4TZQyqsk10Igzj0UXxL6nPKhM3kSufK4CWxBAeNjXt1S3em5cAMmf4bT5V+lrzN+B3oFZZUdkIS9B0cOREc/Ksop6sRFA0L/OSyp6DheD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OjAohl+b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GLf/u0Tr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C7AMM0eF"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657ElXGk887150
-	for <devicetree@vger.kernel.org>; Sun, 7 Jun 2026 20:22:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=zj9yNlRTpmlfU+qA45qjBd0d
-	bow/2pUcDycgzZNi5nU=; b=GLf/u0Tr0C+f1xnyaX3FCezRA8NcjVLZqh7KAa70
-	TmJUah3LF0ePNoH7TI/Hpo7tlwyGadxSfSqKaK3gyMMIufnYFlpR0WrFgNYymufJ
-	fhY08BAfxs6c3F3iFeDt8wLyhb0BpHZPmWZLyOCdrjKz3/EnRYGTJ4dkYLfI10ue
-	cxYU5p6zQCVuqJiXkA8Gvg5dexrLj7R3PdG4R0xfQ1FhdGztjNLdbp84LNsSsv4e
-	xEer5oUBdUOPro2JEXY7xRaYBWRw+hZzYF+zxsUU/llrfkARxiGajYomEWrNyAP2
-	KoTl9909CXLo146VYZ6COr/Azx6D0TSJHwc+izyFkYQ4Rg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embmrcrb2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 20:22:13 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5175b7946d5so30547251cf.0
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 13:22:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780863733; x=1781468533; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=zj9yNlRTpmlfU+qA45qjBd0dbow/2pUcDycgzZNi5nU=;
-        b=C7AMM0eFE/3ApYwGOqpUbwC0zOldPtWaKFIvEptZkregitJhlCufT8R956NHxylG7i
-         U0JReCeNcBWYrU86MZT5Q0iGzSi9mZddHx25SX69HPlcucMj5kfOVJEfEx2nxrIaudqU
-         QI+UqjTQQozxyR4h57AOu99b1nWMzJWgCKqu6HbC3inJ1aB3oa7dw3hhweLOw2wwsyiQ
-         4UIusVU4Tj0OOQqUoNt2FQr6T1jChoQSL81HKpiznClvqKFZIAWJzxzQQb9nzGjGKrAn
-         3oyP5rpgRIWgGaXqgP4Zz2hCKlUNvR8SUmUu5oBoXXkiLhzPtdoLDf22kdcEGqGIYDNh
-         /Nww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780863733; x=1781468533;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zj9yNlRTpmlfU+qA45qjBd0dbow/2pUcDycgzZNi5nU=;
-        b=RLkSqv7bVfA7XYMe+kDA/9G2amX/pE6T0HpU7NvALgYx5ZDlsw1dA/ovqYqo6FX+Fb
-         UXdDyUO1vzQ66H1SPBu/4VBGSJL87vMUKNiMtYZCW+1FU1hBCmfHugQ/jyi/fFRQFaGN
-         WfTkkCqFz8oqR33p9NBx3vn80FtmcWnBQ3l4VESeZ7wwM1+VfML/nLvHZmZb502Q5h1b
-         MpjhLHB8Et29o7PYvaVKMSVt7pNcO71SYQyogEwLuPGA+dwXL13oy9GUBkmaVDNLKIUQ
-         VFsa6UpzOLcDhGFv5CnHXH5P/EgFpjjTdJIqQ/PcWpmNgxVpK8BiEHeTZLbpIlXY0VVn
-         yFmA==
-X-Forwarded-Encrypted: i=1; AFNElJ/t1m5s6mUhdavWnl9+niRBYixR9zplM+mH2Vfhykb/Nd0rgO5IVx8bXW1VnLbcNAzd85f7tZTWSV2i@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2IMhF5ue5rf+9MCCU9MFX+7IUjOPq5GJ/+M0/T6oaGsAJO1Mp
-	GSGN+2OrY1SZVeMR5Z0ilOlOLsFUnSka59dpR8wBQZLcmN99r3MhFh5hUn3fLpk9oOMTsxn4Sdb
-	MczX6W689gVzcIOeRZm/7sP5jEMoevVadPP/7VMfz+4eiTPPQVxkedaIVVTl4/5QG
-X-Gm-Gg: Acq92OHZKylbrQPwaOO+kG+v/MOYoEcXxwtcAWief3CduwbUiRyYus9W82qghnSXleo
-	DYKW36lDsTsf8GG588Jns3iUxHb8YlEU9Y7VrK7SKpGqmVOOYH3FMjlOCr1eCitV38+Er3BPDAD
-	n+MaMWjBV+7zW4PFC3UHsLP/ojd5ZduQzyLDRJ3GLbF1FVYeXnkL681DzeuoYH88bp4xn1/j0K+
-	RLXHoGkr7kjnNRmeaF869SKbHEDJUnN9SswhW8JLIb7WHAsfvWQJN8zkvCucL5oNz5tC9CUTx3A
-	+J6F9rQOmetn9pegzTzOJdeMY5OEaMVxWpqYP5Kw9AYVKkmV1vIYYS1+DrPzl48mNAOEzjxx4hB
-	Mc+hwH2+Lok0dnuDW8Cpvjhq5WEQeUH1QzFFKNPZuCEFOSXKzrMj1r+fhqVW40weyE32qK4lt5m
-	AHFXaLcmM4fIutoFzdoKvLKbSGhQy+CBc7AnfshMD1ClXgsw==
-X-Received: by 2002:a05:622a:5214:b0:516:e74e:cc51 with SMTP id d75a77b69052e-51795c29083mr115039961cf.51.1780863733408;
-        Sun, 07 Jun 2026 13:22:13 -0700 (PDT)
-X-Received: by 2002:a05:622a:5214:b0:516:e74e:cc51 with SMTP id d75a77b69052e-51795c29083mr115039651cf.51.1780863732626;
-        Sun, 07 Jun 2026 13:22:12 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396abf66b1csm40812001fa.9.2026.06.07.13.22.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 13:22:10 -0700 (PDT)
-Date: Sun, 7 Jun 2026 23:22:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: ipq5424: Move PHYs and PERST# to
- Root Port node
-Message-ID: <p3l4o2qa6yt44zwxxqhafnr2ty5fbdwxewuldelfkdjnr3vsrf@cnzrnfv2fq5r>
-References: <20260602-move_perst_to_rp-v1-0-8ee5b80316da@oss.qualcomm.com>
- <20260602-move_perst_to_rp-v1-2-8ee5b80316da@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OjAohl+b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7355A1F00893;
+	Sun,  7 Jun 2026 20:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780863920;
+	bh=pe1fpB+5lYrRoR2jTFmpyFcx6mcbHWxaEz+Nofft1EQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OjAohl+bOWjytAuxfHcLEJNEwp/c8OOdOJkM5TlicueCaWRuKSJuCJCT0pR6s54dc
+	 eUuTBxvD6pN1sEuTdjiDzRhVk2QxuG/tFE49Qn0w7fDaQ6id9LourNtqXxPdalUwhe
+	 j+/4/vB83fPtkqV97t6Aevx8efaUMCkMq9TklA0fuceh1H1MipZTB/N/yBjocjLCg0
+	 BwyR8+WUTnkJ7K1KYKpkyTnVW1P8zpS8RkUDg6IzxP7I1wyr9aEGaL51f4lbB2tdSK
+	 oNDs5FCrdZgNWmtQetgNT14D2kXVlZd86ZHD1N/dlbxpnx6pSPZYDrmrHsDnoWP5O3
+	 G2Fd4b+v35JjA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] drm/panel: Add panel driver for Chipone ICNA35XX
+ based panels
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260607-icna35xx-v4-2-64de514add34@gmail.com>
+References: <20260607-icna35xx-v4-2-64de514add34@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 07 Jun 2026 20:25:19 +0000
+Message-Id: <20260607202519.7355A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602-move_perst_to_rp-v1-2-8ee5b80316da@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDIwMyBTYWx0ZWRfX19X84BNnvWKB
- A/vJ4RgVTULgO4dR7vje/lmtORrkb00rrlM2sP3qTMH7zCW+qC4tHw0YIdbC08BU+vtv7uGsfAY
- yGOuapG7rrIR4+G8NeSrtH9F7vdQ5wmeosy9Hi5/nHvBRe3AKd1bA+Hkr+BBZbMGgYSf9Nw/0aC
- 6ZnotVuZ9CFmOcI/qXolF0JuHJnI7Mo0C/5qyhNKFegZ+nMBbfViuhxDWF61ikhZSWwmXHpu6kt
- 4qMajjyeSTjrQ0ZLlnQ564h+IAdpTdGvlG2Y7FeTZoh2Bs/H+SjlETVqtryhPIfYj9QNdC/S0os
- wePntHxCQw5KN8ALp19btMF+MqkdUvPMpMkMFupkqN76NvrcIslxXuVHG1k5EZbx6j/rBZpbrRn
- AlhoGk/ZUQjly9sZ+DXztVr0/CL+GXByYEZ2IsTNtz87+4/uRaPgMWnV6ocyu70+bl+9beIu22w
- WObScZErWu2pgZKwQww==
-X-Authority-Analysis: v=2.4 cv=B5eJFutM c=1 sm=1 tr=0 ts=6a25d2f5 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=b_Pr7HiucSRPs_5II3MA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: bZcZWm0mn9u9B3YpQPmM9_KTIYdRTToH
-X-Proofpoint-ORIG-GUID: bZcZWm0mn9u9B3YpQPmM9_KTIYdRTToH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-07_04,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0
- bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606070203
 
-On Tue, Jun 02, 2026 at 10:04:05PM +0530, Kathiravan Thirumoorthy wrote:
-> Follow the new binding style by defining PHYs and PERST# (now RESET#)
-> under the Root Port node. Avoid mixing styles and move these properties
-> to the RP node.
-> 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts | 12 ++++++++----
->  arch/arm64/boot/dts/qcom/ipq5424.dtsi       | 20 ++++++++------------
->  2 files changed, 16 insertions(+), 16 deletions(-)
-> 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Hardware back-powering due to incorrect reset GPIO initialization =
+and error handling.
+- [High] Backlight sysfs callbacks send MIPI DCS commands to an unpowered p=
+anel.
+- [High] Data race on `dsi->mode_flags` corrupts hardware state configurati=
+on.
+- [Medium] Shared static data mutation in DSI DSC configuration.
+- [Low] Missing Kconfig Dependency for DRM_DISPLAY_DSC_HELPER causes a buil=
+d failure.
+--
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit cb6f31a048e6cc4b007cabd737760b76820c7eb7
+Author: Teguh Sobirin <teguh@sobir.in>
 
+drm/panel: Add panel driver for Chipone ICNA35XX based panels
 
--- 
-With best wishes
-Dmitry
+This commit adds support for the ICNA3512 and ICNA3520 display controllers
+used in the AYN Odin 2 Portal, Ayaneo Pocket DS, AYN Odin 3, and Thor top
+panels. It introduces unique compatibles for each panel while sharing the
+common DDIC driver handling.
+
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 7450b27622a23..1368b5a0b6c91 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+>  	  Say Y here if you want to support for BOE TV101WUM-LL2
+>  	  WUXGA PANEL DSI Video Mode panel
+> =20
+> +config DRM_PANEL_CHIPONE_ICNA35XX
+> +	tristate "Chipone ICNA35XX panel driver"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_HELPER
+
+[Severity: Low]
+Will this cause a build failure if DRM_DISPLAY_DSC_HELPER isn't enabled
+elsewhere?
+
+The panel driver unconditionally calls drm_dsc_pps_payload_pack() in its
+initialization sequence, such as in icna3512_init_sequence().
+
+Without explicitly selecting the DSC helper here, building the kernel with
+this panel driver could result in an undefined reference linker error.
+Should we add a select for DRM_DISPLAY_DSC_HELPER?
+
+> diff --git a/drivers/gpu/drm/panel/panel-chipone-icna35xx.c b/drivers/gpu=
+/drm/panel/panel-chipone-icna35xx.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-chipone-icna35xx.c
+[ ... ]
+> +static int icna35xx_prepare(struct drm_panel *panel)
+> +{
+> +	struct panel_info *pinfo =3D to_panel_info(panel);
+> +	int ret;
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(panel_supplies), pinfo->suppli=
+es);
+> +	if (ret < 0) {
+> +		dev_err(panel->dev, "failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	icna35xx_reset(pinfo);
+> +
+> +	ret =3D pinfo->desc->init_sequence(pinfo);
+> +	if (ret < 0) {
+> +		regulator_bulk_disable(ARRAY_SIZE(panel_supplies), pinfo->supplies);
+
+[Severity: High]
+Does this error path need to assert the reset GPIO before disabling the
+regulators?
+
+If the initialization sequence fails, the regulators are turned off while t=
+he
+reset GPIO remains deasserted. Leaving the unpowered panel driven by the GP=
+IO
+signal could cause hardware back-powering issues.
+
+[ ... ]
+> +static int icna35xx_disable(struct drm_panel *panel)
+> +{
+> +	struct panel_info *pinfo =3D to_panel_info(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->dsi };
+> +
+> +	pinfo->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+
+[Severity: High]
+Can this non-atomic modification to dsi->mode_flags race with the backlight
+sysfs callbacks?
+
+Since icna35xx_bl_update_status() also dynamically toggles MIPI_DSI_MODE_LPM
+using non-atomic bitwise operations, a data race could occur if backlight
+sysfs callbacks execute concurrently with DRM atomic modeset operations.
+
+Could this silently corrupt the DSI host configuration by leaving the mode
+flags in the wrong state? Is locking needed to serialize access to these
+flags?
+
+[ ... ]
+> +static int icna35xx_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> +	u16 brightness =3D backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+
+[Severity: High]
+Could this dispatch MIPI DCS commands to an unpowered panel?
+
+Because the backlight device is registered manually, it remains accessible =
+to
+userspace even when the panel is unprepared and suspended. If userspace
+writes to the sysfs brightness attribute at that time, it might trigger bus
+timeouts or host controller crashes.
+
+Should this callback, along with icna35xx_bl_get_brightness(), verify the
+panel's power state before sending DCS transactions?
+
+[ ... ]
+> +static int icna35xx_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+> +	struct panel_info *pinfo;
+> +	int ret;
+[ ... ]
+> +	pinfo->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+
+[Severity: High]
+Could requesting this GPIO with GPIOD_OUT_LOW cause back-powering during
+probe?
+
+For a typical active-low reset pin, this logically deasserts it, potentially
+driving a high voltage into the panel IC immediately during probe while its
+regulators are still turned off.
+
+Should it be initialized to a safe asserted state like GPIOD_OUT_HIGH
+instead?
+
+[ ... ]
+> +	pinfo->dsi->lanes =3D pinfo->desc->lanes;
+> +	pinfo->dsi->format =3D pinfo->desc->format;
+> +	pinfo->dsi->mode_flags =3D pinfo->desc->mode_flags;
+> +	pinfo->dsi->dsc =3D &pinfo->desc->dsc;
+
+[Severity: Medium]
+Since DSI host drivers dynamically compute and write DSC parameters into
+dsi->dsc, will assigning this to the statically allocated pinfo->desc->dsc
+mutate global data?
+
+This could lead to state leakage across driver unbind and rebind cycles, or
+cause race conditions if multiple panels of the same type are instantiated.
+Should the driver allocate a per-instance struct drm_dsc_config instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607-icna35xx-v=
+4-0-64de514add34@gmail.com?part=3D2
