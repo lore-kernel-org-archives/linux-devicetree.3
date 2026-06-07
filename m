@@ -1,434 +1,244 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8ED1BD9C9
-	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 18:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF2131716A
+	for <devicetree@vger.kernel.org>; Sun,  7 Jun 2026 18:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780857460; cv=none; b=qZkHcpmO1z/iAch4CmNnRmyIMxjqdpAX3928qEsToEEF4WwMpoF+gT1J9z1ynSAh0WBiQCq665rMLfcw0vYMj0Y0InQBUCr+xtGOenPgovAX4AkKOAj92j8N0XTVhNmJWmVRji+U7FnRWjoIk+5/v+Cc9a5Oxc4Bwa1vWZNrjwo=
+	t=1780858221; cv=none; b=e72d2SKXYZa+sVACfjClTEUsnA3Mh33DFrq46ieCmCgcOM9htm6Y4UBaH5dzvzDxv0sGIYy6OH/iEl9hyPj278E9AEyoXrQuBp5kvpuzRqDIn3IWW9gy1uxQNys7i5RrYvoWksITSpZOAm3K1+gREEi3xz1njf8hrFUWCIOTdHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780857460; c=relaxed/simple;
-	bh=xQsh1Dv1Iu54/Cb3594y8odpVQjN0OB8h6ISUFWnpH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FuBxKU2/LDvvO0AKpT2m/97sVYEIsh064h+BrE5Xujkg8emCVIXsPM4EnCIKkj1EU8LzQeiI2/vWLgTzkb6JytLTV4pdf56xIfmr2dQ7T2yU6JzzFGc401LAdX0Hg6fO+pdgH5uduuaY4yxN/39JeuWGHXRbITynC5SgD/vuXes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mXinIQUB; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780858221; c=relaxed/simple;
+	bh=w56U2KRYU6/JajFvR7HpejqFQ856NhchuFl5H0N9wTo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kB1DEh0Ltn3tZ0AwXaCjjFIVZYQ5w/V7Y2k6k54Kh8Gb2UCvzuOvNUWyLpstNoCXsJIGH4VwmST5G4oZSujVHTwkMjwIguyZmsvh3nnzpc4pTtOkeUztABiYSbKz7a9/Q2xm05FEjeg3t08vwt+syZ6nbLsTA04ujl5X7S/lhRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwXe09UT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mXinIQUB"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa68dbd44fso3569975e87.2
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 11:37:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780857455; x=1781462255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gi9RhOvXuN1inW3/JT5BCjZHZCw1onAyhDikSR7H1fw=;
-        b=mXinIQUBjkR0UIFVCpjoVt05obybVHDyuN/7TgYv3voJa2EiDZXxXbRYyKx2hCFsDK
-         08jWKJEFwet0Z8+1HsrgWZ8qjbyr3t3HlSnAdER9wg/lyyQZKi6+LEWV2ZxUJbfQkRrY
-         IP5aHTxPY57pIMiyq/33oWYjwIJ0b4Yex2+Z1AB3KkbNAuxPxXkyHwh8XJgKkXVFD2Yi
-         jzxzdnCvOlN7K4Mm5JgUmV4xr075JxCfJuLF+kgpkfAWmiM8+RZC003qouHQ5+FBH0gB
-         IzzsBzOP4sWPxw1QWt9X+yd0/dSKx7WF2gq39u1EO9fyyPklWO6ACw7+87hlCeJYVA+p
-         gL7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780857455; x=1781462255;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gi9RhOvXuN1inW3/JT5BCjZHZCw1onAyhDikSR7H1fw=;
-        b=CvD5wBQwBroWzP6CG0/h2XTwCsDa8Zo5pK5mXWE78cqKdhX/o1KmhRuS2D1IazDVMB
-         6/9iG4XdXTpqcAIe4Pk5hlv9pSQKyULlBQBusuDapJpctshGm8jfYPT5iPpHi/k71sNj
-         vFYAcaPjlrygz9mcbuHw0/f5/vKFrNfONc/UgDNdOw1z4rbDDEU7K5sNlvtNZtZ2sP7H
-         BhmwywX4xcaYLcFDuwyyOplzx3nfh4m7FytBPxXqoBspbzm4RsRW67kDtl17ixIWendG
-         XTw2HAjGfQUjM6HEEydyBVE3ePj4rDIKDJB3X73zKlc4RKJ0rd/cDWGOPkE28JU14QD6
-         yoSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+HYmAeSNqq2E03J5RvGKLHbB6L5EMHEBkye3mttItlsIwTNwHBcki0a1pSrU/3QnR7U/nfci9m6xUw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2t1JbDdzDtw81xu+SJS8ln+loq2v1Oq0MZo2IjzCkTD5OeKaS
-	5TFGf5Kw4Zaq3WupdZossG5uExD2pUVAkUHG2lbMvPhPuOrk24mxqVzC
-X-Gm-Gg: Acq92OEeYKsflpvfALdWdu1yTHtvuUEIDcIncdmX7IU2Ylsnkj4Ni2AuDY9OVPxzEBN
-	SRRylXDedmAdWIthUUEeI0mqSbgFYmBJJlZBInNUoecSme/z7YcxsWU7tOffVQwM0M1G5laa2QT
-	5e2B+F5ms6XM4+qX5pzeN0Wl4HgOpt+JLuQhenIUmoGAIVA9PaUTEd9fRmBa/Bh/A3h5NKSgJqZ
-	7KjetPLnGwpj9/HFwwijeeFxYdtTK7LoWWO3ZjNA/zM5rNe6N/GdNlmLtzuJgZDvVRDiESVYZkt
-	SFY6TfBJaas4o7Vk3e1leEcBe9/jOX8ak1RvG0CXVT4KJwCYCvl3Cl5X/amoA6h4qnZ1kTH0hpv
-	XqmF0GrkmLM/6sjvvzukKA0u6uhRydG1xpd/Ye4K1EWpcyZ1SL2aG3IBDPQ3UytzkN6LMKj4I5u
-	doCRMo/cpYeC1aJXo/zYQLZrc2l/4bDTZaj28sfqtOaRmZ9fB2mmNHiS07WYjPtRp8pG9E1wUnv
-	t1ofA==
-X-Received: by 2002:a05:6512:6c8:b0:5aa:6b98:7a78 with SMTP id 2adb3069b0e04-5aa87b53eadmr3301875e87.13.1780857455386;
-        Sun, 07 Jun 2026 11:37:35 -0700 (PDT)
-Received: from MSI-LINUX.kielce.vectranet.pl ([2a02:2a40:27ec:2900:efe3:f920:63b7:5b7])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8fc426sm3240809e87.26.2026.06.07.11.37.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 11:37:33 -0700 (PDT)
-From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: jic23@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	marcelo.schmitt@analog.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mike.looijmans@topic.nl,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jorge.marques@analog.com,
-	antoniu.miclaus@analog.com,
-	mazziesaccount@gmail.com,
-	jishnu.prakash@oss.qualcomm.com,
-	duje@dujemihanovic.xyz,
-	wens@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linusw@kernel.org,
-	jszczudlo <jakubszczudlo40@gmail.com>
-Subject: [PATCH 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100 driver
-Date: Sun,  7 Jun 2026 20:35:42 +0200
-Message-ID: <20260607183542.368184-4-jakubszczudlo40@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260607183542.368184-1-jakubszczudlo40@gmail.com>
-References: <20260607183542.368184-1-jakubszczudlo40@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwXe09UT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289181F00893;
+	Sun,  7 Jun 2026 18:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780858217;
+	bh=ljWPCHe+Nf52NkfMc8cMOUyo/tItFqwLrwd4V1epOzQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VwXe09UT4TVNGHR28D+HG1S3trPQRUX0hf23TwAaBk7+01JMNt0b/ZMnqVbZAjVnm
+	 n3i1OYUWTlYBCmVlfCVOIjH4nORzvwzgQauiWrPgIdqBMvh8tkioFmixTkuXdX9oVe
+	 ecEFdXr1Z3qrwNM4NMmPZ/UveDNBfzgFejfHbf81dYy5Hh2rjI8venFr5YhXYFq7Qp
+	 iJxIPFMeZsfztB0X4NpWHNtRYSzDAfQTEcorvxG2xLgN9AU+vL25zB8ab58PdIYiKw
+	 zYo7gTfAaLXxtWIWdx6E3Eo51Wemjjt641W0TOkpsAphHFg7diSiU1K4E3/o4InLcS
+	 uim8Lnjx/+zBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260607183542.368184-4-jakubszczudlo40@gmail.com>
+References: <20260607183542.368184-4-jakubszczudlo40@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 07 Jun 2026 18:50:16 +0000
+Message-Id: <20260607185017.289181F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: jszczudlo <jakubszczudlo40@gmail.com>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] I2C read errors are silently ignored due to implicit type conversi=
+on (signed `int` compared to `size_t`), causing the driver to process unini=
+tialized stack data.
+- [High] Partial I2C reads cause a positive return value to bypass caller e=
+rror checks, leaking uninitialized kernel stack memory to userspace.
+- [High] The `vdd` regulator is leaked during device unbind due to reversed=
+ devres execution order.
+- [High] The data polling logic instantly terminates in continuous mode, fa=
+iling to wait for readings and silently swallowing I2C communication failur=
+es.
+- [High] Probe returns success (0) instead of an error code when device mat=
+ch data is missing, leading to an uninitialized device state and a subseque=
+nt NULL pointer dereference.
+- [Medium] I2C write errors are ignored when changing the data rate or scal=
+e, silently leaving the software state out of sync with hardware.
+--
 
+commit 08fffdde41976a365855c8545a761a652c4906e0
+Author: jszczudlo <jakubszczudlo40@gmail.com>
+
+iio: adc: Add ti-ads1110 support to ti-ads1100 driver
+   =20
 add ADS1100 support
 make changing gain and datarate wait for new reading
 fix unbalanced regulator disable when removing in singleshot mode
 
-Signed-off-by: jszczudlo <jakubszczudlo40@gmail.com>
----
- drivers/iio/adc/ti-ads1100.c | 165 ++++++++++++++++++++++++++---------
- 1 file changed, 126 insertions(+), 39 deletions(-)
+> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+> index aa8946063c7d6..11d6fe1e8abc2 100644
+> --- a/drivers/iio/adc/ti-ads1100.c
+> +++ b/drivers/iio/adc/ti-ads1100.c
+[ ... ]
+> @@ -85,6 +98,50 @@ static int ads1100_set_config_bits(struct ads1100_data=
+ *data, u8 mask, u8 value)
+[ ... ]
+> +static bool ads11x0_new_data_ready(struct ads1100_data *data)
+> +{
+> +	int ret;
+> +	u8 buffer[3];
+> +
+> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+> +	if (ret < sizeof(buffer)) {
 
-diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-index aa8946063c7d..11d6fe1e8abc 100644
---- a/drivers/iio/adc/ti-ads1100.c
-+++ b/drivers/iio/adc/ti-ads1100.c
-@@ -5,18 +5,15 @@
-  * Copyright (c) 2023, Topic Embedded Products
-  *
-  * Datasheet: https://www.ti.com/lit/gpn/ads1100
-- * IIO driver for ADS1100 and ADS1000 ADC 16-bit I2C
-+ * IIO driver for ADS1100, ADS1000 and ADS1110 ADC 16-bit I2C
-  */
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
--#include <linux/cleanup.h>
--#include <linux/delay.h>
--#include <linux/module.h>
--#include <linux/init.h>
- #include <linux/i2c.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
- #include <linux/mutex.h>
--#include <linux/property.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/units.h>
-@@ -39,17 +36,39 @@
- #define	ADS1100_SINGLESHOT	ADS1100_CFG_SC
- 
- #define ADS1100_SLEEP_DELAY_MS	2000
-+#define ADS1110_REFERENCE_VOLTAGE_MICROVOLT 2048000
-+
-+/* Timeout based on the minimum sample rate of 8 SPS (7500000us) */
-+#define ADS11x0_MAX_DRDY_TIMEOUT	7500000
- 
- static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
-+static const int ads1110_data_rate[] = { 240, 60, 30, 15 };
- static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
- 
-+struct ads11x0_config {
-+	const int *data_rate;
-+	bool has_reference_voltage;
-+};
-+
-+static const struct ads11x0_config ads1100_config = {
-+	.data_rate = ads1100_data_rate,
-+	.has_reference_voltage = false,
-+};
-+
-+static const struct ads11x0_config ads1110_config = {
-+	.data_rate = ads1110_data_rate,
-+	.has_reference_voltage = true,
-+};
-+
- struct ads1100_data {
- 	struct i2c_client *client;
- 	struct regulator *reg_vdd;
- 	struct mutex lock;
- 	int scale_avail[2 * 4]; /* 4 gain settings */
- 	u8 config;
--	bool supports_data_rate; /* Only the ADS1100 can select the rate */
-+	bool supports_data_rate; /* Only the ADS1100/ADS1110 can select the rate */
-+	bool has_reference_voltage; /* The ADS1110 has an internal reference, so fixed scale */
-+	const int *data_rate;
- };
- 
- static const struct iio_chan_spec ads1100_channel = {
-@@ -59,12 +78,6 @@ static const struct iio_chan_spec ads1100_channel = {
- 	    BIT(IIO_CHAN_INFO_SCALE) | BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 	.info_mask_shared_by_all_available =
- 	    BIT(IIO_CHAN_INFO_SCALE) | BIT(IIO_CHAN_INFO_SAMP_FREQ),
--	.scan_type = {
--		      .sign = 's',
--		      .realbits = 16,
--		      .storagebits = 16,
--		      .endianness = IIO_CPU,
--		       },
- 	.datasheet_name = "AIN",
- };
- 
-@@ -85,6 +98,50 @@ static int ads1100_set_config_bits(struct ads1100_data *data, u8 mask, u8 value)
- 	return 0;
- };
- 
-+static int ads11x0_get_voltage_microvolts(struct ads1100_data *data)
-+{
-+	if (data->has_reference_voltage)
-+		return ADS1110_REFERENCE_VOLTAGE_MICROVOLT;
-+	else
-+		return regulator_get_voltage(data->reg_vdd);
-+}
-+
-+static int ads11x0_get_voltage_milivolts(struct ads1100_data *data)
-+{
-+	return ads11x0_get_voltage_microvolts(data) / (MICRO / MILLI);
-+}
-+
-+static bool ads11x0_new_data_ready(struct ads1100_data *data)
-+{
-+	int ret;
-+	u8 buffer[3];
-+
-+	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-+	if (ret < sizeof(buffer)) {
-+		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-+		return 0;
-+	}
-+
-+	int return_val = FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-+
-+	return return_val;
-+}
-+
-+static int ads11x0_poll_data_ready(struct ads1100_data *data)
-+{
-+	bool data_ready;
-+	u8 buffer[3];
-+	int datarate = data->data_rate[FIELD_GET(ADS1100_DR_MASK, data->config)];
-+	unsigned long wait_time = DIV_ROUND_CLOSEST(MICRO, 5 * datarate);
-+
-+	/* To be sure that polled value will have value after config change */
-+	i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-+
-+	return read_poll_timeout(ads11x0_new_data_ready, data_ready,
-+				 !data_ready, wait_time,
-+				 ADS11x0_MAX_DRDY_TIMEOUT, false, data);
-+}
-+
- static int ads1100_data_bits(struct ads1100_data *data)
- {
- 	return ads1100_data_rate_bits[FIELD_GET(ADS1100_DR_MASK, data->config)];
-@@ -105,9 +162,10 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
- 
- 	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
- 
-+	pm_runtime_mark_last_busy(&data->client->dev);
- 	pm_runtime_put_autosuspend(&data->client->dev);
- 
--	if (ret < 0) {
-+	if (ret < sizeof(buffer)) {
- 		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
- 		return ret;
- 	}
-@@ -127,7 +185,7 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- {
- 	int microvolts;
- 	int gain;
--
-+	int ret;
- 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
- 	if (val)
- 		return -EINVAL;
-@@ -135,7 +193,7 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (!val2)
- 		return -EINVAL;
- 
--	microvolts = regulator_get_voltage(data->reg_vdd);
-+	microvolts = ads11x0_get_voltage_microvolts(data);
- 	/*
- 	 * val2 is in 'micro' units, n = val2 / 1000000
- 	 * result must be millivolts, d = microvolts / 1000
-@@ -147,34 +205,49 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (gain < BIT(0) || gain > BIT(3))
- 		return -EINVAL;
- 
-+	ret = pm_runtime_resume_and_get(&data->client->dev);
-+	if (ret < 0)
-+		return ret;
-+
- 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
- 
--	return 0;
-+	ret = ads11x0_poll_data_ready(data);
-+
-+	pm_runtime_mark_last_busy(&data->client->dev);
-+	pm_runtime_put_autosuspend(&data->client->dev);
-+
-+	return ret;
- }
- 
- static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- {
- 	unsigned int i;
- 	unsigned int size;
-+	int ret;
- 
- 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
- 	for (i = 0; i < size; i++) {
--		if (ads1100_data_rate[i] == rate)
--			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
--						       FIELD_PREP(ADS1100_DR_MASK, i));
-+		if (data->data_rate[i] == rate) {
-+			ret = pm_runtime_resume_and_get(&data->client->dev);
-+			if (ret < 0)
-+				return ret;
-+
-+			ads1100_set_config_bits(data, ADS1100_DR_MASK,
-+						FIELD_PREP(ADS1100_DR_MASK, i));
-+			ret = ads11x0_poll_data_ready(data);
-+
-+			pm_runtime_mark_last_busy(&data->client->dev);
-+			pm_runtime_put_autosuspend(&data->client->dev);
-+			return ret;
-+		}
- 	}
- 
- 	return -EINVAL;
- }
- 
--static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
--{
--	return regulator_get_voltage(data->reg_vdd) / (MICRO / MILLI);
--}
--
- static void ads1100_calc_scale_avail(struct ads1100_data *data)
- {
--	int millivolts = ads1100_get_vdd_millivolts(data);
-+	int millivolts = ads11x0_get_voltage_milivolts(data);
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(data->scale_avail) / 2; i++) {
-@@ -196,7 +269,7 @@ static int ads1100_read_avail(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SAMP_FREQ:
- 		*type = IIO_VAL_INT;
--		*vals = ads1100_data_rate;
-+		*vals = data->data_rate;
- 		if (data->supports_data_rate)
- 			*length = ARRAY_SIZE(ads1100_data_rate);
- 		else
-@@ -233,12 +306,11 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
- 		/* full-scale is the supply voltage in millivolts */
--		*val = ads1100_get_vdd_millivolts(data);
-+		*val = ads11x0_get_voltage_milivolts(data);
- 		*val2 = 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
- 		return IIO_VAL_FRACTIONAL_LOG2;
- 	case IIO_CHAN_INFO_SAMP_FREQ:
--		*val = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
--						   data->config)];
-+		*val = data->data_rate[FIELD_GET(ADS1100_DR_MASK, data->config)];
- 		return IIO_VAL_INT;
- 	default:
- 		return -EINVAL;
-@@ -280,8 +352,8 @@ static int ads1100_setup(struct ads1100_data *data)
- 		return ret;
- 
- 	ret = i2c_master_recv(data->client, buffer, sizeof(buffer));
--	if (ret < 0)
--		return ret;
-+	if (ret < sizeof(buffer))
-+		return -1;
- 
- 	/* Config register returned in third byte, strip away the busy status */
- 	data->config = buffer[2] & ~ADS1100_CFG_ST_BSY;
-@@ -292,9 +364,13 @@ static int ads1100_setup(struct ads1100_data *data)
- 	return 0;
- }
- 
--static void ads1100_reg_disable(void *reg)
-+static void ads1100_reg_disable(void *data)
- {
--	regulator_disable(reg);
-+	struct ads1100_data *ads1100_data = data;
-+
-+	/* Disable when not already disabled by the driver */
-+	if (!(ads1100_data->config & ADS1100_CFG_SC))
-+		regulator_disable(ads1100_data->reg_vdd);
- }
- 
- static void ads1100_disable_continuous(void *data)
-@@ -307,6 +383,7 @@ static int ads1100_probe(struct i2c_client *client)
- 	struct iio_dev *indio_dev;
- 	struct ads1100_data *data;
- 	struct device *dev = &client->dev;
-+	const struct ads11x0_config *model;
- 	int ret;
- 
- 	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-@@ -334,10 +411,18 @@ static int ads1100_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, ret,
- 				     "Failed to enable vdd regulator\n");
- 
--	ret = devm_add_action_or_reset(dev, ads1100_reg_disable, data->reg_vdd);
-+	ret = devm_add_action_or_reset(dev, ads1100_reg_disable, data);
- 	if (ret)
- 		return ret;
- 
-+	model = device_get_match_data(dev);
-+	if (!model)
-+		return dev_err_probe(dev, ret,
-+				"Can't set device data\n");
-+
-+	data->data_rate = model->data_rate;
-+	data->has_reference_voltage = model->has_reference_voltage;
-+
- 	ret = ads1100_setup(data);
- 	if (ret)
- 		return dev_err_probe(dev, ret,
-@@ -400,16 +485,18 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ads1100_pm_ops,
- 				 NULL);
- 
- static const struct i2c_device_id ads1100_id[] = {
--	{ "ads1100" },
--	{ "ads1000" },
-+	{ .name = "ads1100", .driver_data = (kernel_ulong_t)&ads1100_config },
-+	{ .name = "ads1000", .driver_data = (kernel_ulong_t)&ads1100_config },
-+	{ .name = "ads1110", .driver_data = (kernel_ulong_t)&ads1110_config },
- 	{ }
- };
- 
- MODULE_DEVICE_TABLE(i2c, ads1100_id);
- 
- static const struct of_device_id ads1100_of_match[] = {
--	{.compatible = "ti,ads1100" },
--	{.compatible = "ti,ads1000" },
-+	{ .compatible = "ti,ads1100", .data = &ads1100_config },
-+	{ .compatible = "ti,ads1000", .data = &ads1100_config },
-+	{ .compatible = "ti,ads1110", .data = &ads1110_config },
- 	{ }
- };
- 
--- 
-2.47.3
+[Severity: High]
+Does this implicit type conversion mask negative error codes?
 
+`sizeof(buffer)` evaluates to a `size_t`. When `ret` is compared to=20
+`sizeof(buffer)`, it gets promoted to an unsigned value.=20
+
+If `i2c_master_recv()` returns a negative error code like `-EIO`, it becomes
+a massive positive number, bypassing the error check and allowing the driver
+to process uninitialized stack data.
+
+This same signedness comparison issue appears in `ads1100_get_adc_result()`=
+=20
+and `ads1100_setup()`.
+
+> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+> +		return 0;
+> +	}
+> +
+> +	int return_val =3D FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
+> +
+> +	return return_val;
+
+[Severity: High]
+Will this polling logic ever actually wait?
+
+According to the datasheet, the ST/BSY bit is always read as 0 in continuou=
+s=20
+conversion mode. If `ads11x0_new_data_ready()` always extracts a 0,=20
+`data_ready` will be 0.
+
+When `read_poll_timeout()` checks `!data_ready`, it evaluates to true
+immediately on the first iteration, causing the loop to exit without waitin=
+g.
+
+> +}
+[ ... ]
+> @@ -105,9 +162,10 @@ static int ads1100_get_adc_result(struct ads1100_dat=
+a *data, int chan, int *val)
+[ ... ]
+>  	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+> =20
+> +	pm_runtime_mark_last_busy(&data->client->dev);
+>  	pm_runtime_put_autosuspend(&data->client->dev);
+> =20
+> -	if (ret < 0) {
+> +	if (ret < sizeof(buffer)) {
+>  		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+>  		return ret;
+
+[Severity: High]
+If a partial read occurs, could this leak uninitialized stack memory to
+userspace?
+
+If `i2c_master_recv()` returns a positive short read length (like 1), this
+error path correctly catches it and returns `ret` (which is 1).
+
+However, the caller `ads1100_read_raw()` expects negative error codes:
+
+drivers/iio/adc/ti-ads1100.c:ads1100_read_raw() {
+    ...
+    ret =3D ads1100_get_adc_result(data, chan->address, val);
+    iio_device_release_direct(indio_dev);
+    if (ret < 0)
+        return ret;
+       =20
+    return IIO_VAL_INT;
+}
+
+Because `ret` is positive, `ads1100_read_raw()` will bypass its error check
+and return `IIO_VAL_INT` (success) while `*val` remains uninitialized.
+
+>  	}
+[ ... ]
+> @@ -127,7 +185,7 @@ static int ads1100_set_scale(struct ads1100_data *dat=
+a, int val, int val2)
+[ ... ]
+>  	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
+> =20
+> -	return 0;
+> +	ret =3D ads11x0_poll_data_ready(data);
+
+[Severity: Medium]
+Is it intentional to discard the return value of `ads1100_set_config_bits()`
+here?
+
+If the I2C write fails, the hardware and software state will be out of sync,
+but the driver will proceed to poll and falsely report successful
+configuration changes. The same issue appears in `ads1100_set_data_rate()`.
+
+> +
+> +	pm_runtime_mark_last_busy(&data->client->dev);
+> +	pm_runtime_put_autosuspend(&data->client->dev);
+> +
+> +	return ret;
+>  }
+[ ... ]
+> @@ -292,9 +364,13 @@ static int ads1100_setup(struct ads1100_data *data)
+>  	return 0;
+>  }
+> =20
+> -static void ads1100_reg_disable(void *reg)
+> +static void ads1100_reg_disable(void *data)
+>  {
+> -	regulator_disable(reg);
+> +	struct ads1100_data *ads1100_data =3D data;
+> +
+> +	/* Disable when not already disabled by the driver */
+> +	if (!(ads1100_data->config & ADS1100_CFG_SC))
+> +		regulator_disable(ads1100_data->reg_vdd);
+>  }
+
+[Severity: High]
+Could this leak the `vdd` regulator during device unbind due to the devres
+execution order?
+
+Devres executes registered actions in reverse order (LIFO). During unbind,
+`ads1100_disable_continuous()` executes first and unconditionally sets
+`ADS1100_CFG_SC`.
+
+When `ads1100_reg_disable()` runs immediately after, the `ADS1100_CFG_SC` b=
+it
+is already set, causing this condition to fail and permanently skipping the
+`regulator_disable()` call.
+
+> =20
+>  static void ads1100_disable_continuous(void *data)
+[ ... ]
+> @@ -334,10 +411,18 @@ static int ads1100_probe(struct i2c_client *client)
+[ ... ]
+> +	model =3D device_get_match_data(dev);
+> +	if (!model)
+> +		return dev_err_probe(dev, ret,
+> +				"Can't set device data\n");
+
+[Severity: High]
+Does this return a success code when `device_get_match_data()` fails?
+
+The preceding call to `devm_add_action_or_reset()` succeeds, leaving `ret`
+as exactly 0.=20
+
+Passing a 0 `ret` to `dev_err_probe()` will cause the probe function to
+return 0 (success) instead of a valid error code (like `-ENODEV`). The
+device registers successfully with uninitialized device data, leading to a
+NULL pointer dereference when userspace tries to read from the device.
+
+> +
+> +	data->data_rate =3D model->data_rate;
+> +	data->has_reference_voltage =3D model->has_reference_voltage;
+> +
+>  	ret =3D ads1100_setup(data);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607183542.3681=
+84-1-jakubszczudlo40@gmail.com?part=3D3
