@@ -1,73 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC94F37267A
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 23:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780960399; cv=none; b=TkFSeb5jgEimUShYAxOCf4x1eQFBUCPJMGeKa9UCBKliYVE0CMLx/TLHXi+aULs8p1TaC31iywZBpviRtonrg3E024/mJRjZGshyP6Mkpo/TiI9jfv8yYLiisLJAD96EIWC2svh2O4irm4rIo9ZQWzmhD+f7fRcr409pIhHtc3U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780960399; c=relaxed/simple;
-	bh=TBoN2UJwU0BX4/ums+wfEePcn2SshmSjcitmDBT3oX4=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FEB337BA4
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 23:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780961277; cv=pass; b=W6YBbrqBZjragKjL0stALWFpmqbA4ODgtmfA68Akb5noyD5SkSUw5QeYTgn69RpgrzyFB3DPSVGQtUUBxMVPkNule7Ym3hv+Z8gBJHYYV5ljiRE8hdIlPrNL0njB5gamnT2ir182HE2zBOt6jMIp+gfeOhEBmOwSnYCx4xM6hEc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780961277; c=relaxed/simple;
+	bh=37N48hBsVSHlJ1BfuHRgKHdqsWk9adNv1YLls6cyK4s=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HInwKpeymL+ciTrxEUIviOVMW7RZFbp3pxv7IDmMDfG08ufmwiQWClzR5hnnEz9Xsx8QBG5ZU77wEowi8jaopPfeiRT+vK1zoeDal8aIVt9n+QI+4+2X6T44I5QOh/uaV+2qjPlASh+fwAc8CfY/vQE8UqkJbAH/d+6/l1mTVVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9BA+WSj; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=jtKnXVDXmvClmClgnFeYRMUi3E6DwoDRbCpf5jtYAo8gATpHS62klqKQB5SmUnu1U/3EiUkFbTIgtuC7qc+M0NsMZkJng1OokIUvQz35iqzYY+6ej53HZKXdiwg73xCg7eNOfl0uDdrEjX26c+mI9gjXq3ZAGBJKYAvZ8SOrZK0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mH3TM8Zk; arc=pass smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9BA+WSj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68ABC1F00898
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 23:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780960398;
-	bh=TBoN2UJwU0BX4/ums+wfEePcn2SshmSjcitmDBT3oX4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=m9BA+WSjPvw67wqWiL9vbtrN+kDt58rcPs0luMTEZk5IzOs59MguNCBWUY8ej6lHP
-	 vpyTbozR8Bu/kn6L8xlEEJh69g9aCfCu5etsKW47akTMAcyFvp03j3cJqvK9y82G2K
-	 4UZY2GAeh7wb7GiHfg0rdJpF4Hx839em5k0xnGwWF07ox5QZib2jb1jQXk7Dy/y0Wu
-	 LMP+ilhsH/BtxI9Xvs2rh4tmqcYEfpE8k6Evvdu1shQi7hOz4WwXWmj7afwFTD9XK2
-	 oCVfJM2XZBFNOtrqg2B0XUoOc0ya4AnM6MufnzZCdCEy6FnP0l5x46n8acidSht1tE
-	 FBNGgIs9D+grQ==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa88b4f792so3870329e87.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 16:13:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/WegRipEbI4GuRsSXBAak69ebudmeiad1+CY0Qjp2ONtFwxsv5LhfUHsBPeoj7AMNLMpY1XefImH7F@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7PlJAvnCRHubZ9Ic2pXk8pK/q6W+FcMfy3QK5mQa5XiGQVH2T
-	1+YZkVSt0WRYPYZBDdxHR9WaRsSQMcZup/SCFabTMkRdbzOzb9qs8FpIsW0SLzVcddr3KntIDnS
-	eImEmcC14cPaz1ExWhLfejPnEZjEN4ww=
-X-Received: by 2002:a05:6512:6093:b0:5aa:7005:125c with SMTP id
- 2adb3069b0e04-5aa8866c7c5mr4118153e87.8.1780960397216; Mon, 08 Jun 2026
- 16:13:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mH3TM8Zk"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-304c520fe9aso7946781eec.0
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 16:27:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780961276; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KO2UBfLCauGR5Y0fUsxf7Th7Got5bVqG+KsXR7tYIxBXluKa81bgZjxSFJdzHuvSGP
+         86Zrpl1jk/mYqjQdBp/3PYluwGd0Q+KIKU2YrjTA3IMqwTMA/OwIca21iIle9CYewwaI
+         SBJ1rU5XrkxqpS5/5FLbYbwAI74Xxgso+1hskB6+yhLs8DsGZ9L99MuNS6/iZiL01Dn7
+         7oL8NMyxlPvIdy3+AZVUROi0hEASnDrcExVE8mkvhTTVvlGnz+oJIjVwZyUIORdZMUvG
+         NCjub8s32ovhlNSG2bB3UElIbSxjiS9SyEPM8pU2mu+7M4ZptRf4PJaqKQcGCiOmH2Xw
+         SQ0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=37N48hBsVSHlJ1BfuHRgKHdqsWk9adNv1YLls6cyK4s=;
+        fh=7NfnnmYdTRy82OnnLHNobbs0APhRil14djCzWYXdOmk=;
+        b=QlI79fxZsv7GZ/XFbFEa+vvBYKnJRBBVh8agOtWPcgg9Z5eMgOaPTxs7pqijwnQeeR
+         xizlVNcY3kbgvs5VJ6plSKQ1gj/MEb53778K0wzFhwzqzmJMeYcrsjCDeUQq2FGtqP3n
+         /xewnnbVmun46Z7Q5IY4vl8B1SdYTDEP3hqaOhCO9JtGKYsiw2vGHXolY4nkNkMVepDB
+         pJWG3kauO7ajiYealVAaUu/L3MQMlhjdcMOzewLi44gow6bNsGtlYBOnPxdIsDQ4ZHTf
+         y6a1LV7fCf77VmPeJRfKZwRh6dzJXZ3kj6zzwN4C8YEwcNH/hRktUzOaBLAv/E+Ccary
+         z7cg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780961276; x=1781566076; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=37N48hBsVSHlJ1BfuHRgKHdqsWk9adNv1YLls6cyK4s=;
+        b=mH3TM8ZkMa/LQbgaaTu514J4l+waCs5Pf/HRs6/kDuXY8YnLVbj9e90lils/q4jQft
+         kkyfeVsYFm7irERhwYMZTaRTntl2ZuvXAPuzlKM2wzg97+L3cq+GbarrJEqN8ve+j3QQ
+         g4y7dOleOG5PMiwiLjYAysOX3Ayf7UXRzgZ5EKhkiuhNW+C29Q3mpwztY1upe/YZxXSG
+         TQocvT9Zi2Vzh+e/OR8GDYzmE9INcE2XJdoqxc3lull4hJRfLREAvosMhGkWxjg/oVkC
+         v7yacluTzddbUvoaE4njq/pnkBWncAySttoyPB4MKi+3njNhgOig8b37NI/u4tMJtTNh
+         82wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780961276; x=1781566076;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=37N48hBsVSHlJ1BfuHRgKHdqsWk9adNv1YLls6cyK4s=;
+        b=nR5L6cNhtQCGF5nYNkhXEx/oGcNplYqG8Y2HsO2yaa3JMBF7FwjRGARA//64zpNo0a
+         vi+VqOw8/frxML2hZGuGhLnxjdJqdid21ED6bHg/pSqqOTcfVlA2Vx0t0zTJU6AWhpo6
+         +hWTYc9yQsEDPvP2WMshfPsFP0V13JR4+scCE7xCJ0YvNgW8C84jN3lmq4K7tBZSO7jR
+         eJ/85EReWqW+IyCssMOfoboKlaaOse2ilrG7kYdljEAK2jqjE3DtwPtelwg+waIKpTmJ
+         D8RjJwty+7CBjrv1lAzuj/SLCZSqxgmplXJmjjMVXq+lvCimW7F8ClYuthSXiKl3HJEZ
+         rkPg==
+X-Forwarded-Encrypted: i=1; AFNElJ/DczFb8DsKVClgEJrdzIFkeHEUghKonT78z9mDFC++7PYUwDCTDh9qGbdX47KjOrVPpKA8rz2fSNcE@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywf6CWbhvrNYO3SbavD++ZsOLucb79LJ8QCEQ1qv0qsOoLv5NDU
+	5Hmf7Mqp6suMT5N/YYYkxWUtL2uJgVF/7K9U+gIIIQnU2sCa7e/rM2n7G6o8EqSdox6xJs1WzQV
+	ZUat2uVm332rhWJWzCSqm7gx14etaQCM=
+X-Gm-Gg: Acq92OE0SCJaBPWh/eqES+rkdoHYj56/LfTJkRL46CIxXSscB9cm5Te0NbL0ZBxa++D
+	GacbFPqYvRQwSRg/2EGXXT5RBLx0qiNv8VoNKg1UVIrwPMKrM9L15IwiXG3/EdOdWmhkwdoTbRQ
+	nBRd7otOIXWFy723OrDBtGeSw8q8EhIV0fSrHISZlZCSaFaS2Oq1ALHd93oMMtgOpa4YEFUKc8m
+	dhmUYAprT0L6pLfSqrvkpHy0JFHfOwiSMo7sd8+jIQJ1JBQgFplv3yrGjZoA964vrYVVJuMufp0
+	aCJFd363V4YPwFpmKGlXmAvtU8Qw7eM6qviaZWS9WQwY6NM63Bm166KnAqZFeFmMT2WkEbWqMNK
+	TTW1vow==
+X-Received: by 2002:a05:7300:fd14:b0:2f1:6252:f8fe with SMTP id
+ 5a478bee46e88-3077b357c3amr9913759eec.3.1780961275699; Mon, 08 Jun 2026
+ 16:27:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260608-ks8995-to-ksz8-v6-3-d91eb43edcc5@kernel.org> <20260608224213.C6C221F00893@smtp.kernel.org>
-In-Reply-To: <20260608224213.C6C221F00893@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 9 Jun 2026 01:13:05 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkWZ5o7-P6Ju7WsFpc==JsyG67bX3MFACw+MdPD73U5bw@mail.gmail.com>
-X-Gm-Features: AVVi8CfncQFjJPKP7-0RhQ36yDJsgC7yxNCRxag8FPChj9f2T-6Pk3ldIhzUrZo
-Message-ID: <CAD++jLkWZ5o7-P6Ju7WsFpc==JsyG67bX3MFACw+MdPD73U5bw@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 3/5] net: dsa: tag_ks8995: Add the KS8995 tag handling
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+References: <20260607234343.22109-1-kimjinseob88@gmail.com> <20260608-catnap-thinness-e25c9b8983c3@spud>
+In-Reply-To: <20260608-catnap-thinness-e25c9b8983c3@spud>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Tue, 9 Jun 2026 08:27:44 +0900
+X-Gm-Features: AVVi8Ce0REUbYLB0vBxw1K6HuQCVLf-o9NEPZkSMeMK0OsqgRRaqFSEyfQexrfE
+Message-ID: <CALMSewLUvaYuag-8j2v=YoJQ=y9SZySrScZv51F8Ot7bdtXhdQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v4 0/6] iio: add Open Sensor Fusion IIO driver
+To: Conor Dooley <conor@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 9, 2026 at 12:42=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+> Other than the fact that new revisions must not be sent as a diff on top
+> of a prior revision, please stop sending new versions without actually
+> replying to my v1 comments.
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Critical] Double free of the socket buffer on the error path in `ks899=
-5_rcv()` when `skb_vlan_untag()` fails.
-> - [High] Unhandled hardware-accelerated VLAN tags bypass clearing and bre=
-ak the required DSA tagging order on transmission.
+You are right, sorry for the noise.
 
-No.
+I made a process mistake here. I prepared v4 on top of the previously sent
+series instead of preparing it as a full standalone replacement series from
+the proper base. I will not ask you to review v4 in that form, and I will
+prepare the next revision as a full series from a clean base.
 
-This is how other taggers do it.
+I also should have answered your protocol versioning questions directly before
+sending another revision.
 
-If something is wrong it points to a bigger problem.
+> What does "v0" mean here? Is the data format not complete yet?
+> Are versions of the protocol likely to be backwards compatible?
+> Will the device identify what version of the protocol it implements?
 
-Yours,
-Linus Walleij
+The current OSF wire header starts with a fixed 4-byte magic, "OSF0", at a
+fixed offset. The same header also carries explicit protocol_major and
+protocol_minor fields at fixed offsets.
+
+For the currently supported firmware and driver, protocol_major is 0. The "0"
+in "OSF0" is intended to denote the current major wire-format revision, not
+the Linux driver identity.
+
+The binding is intended for devices implementing this discoverable OSF header
+layout. The driver currently supports protocol major version 0. Minor version
+changes are intended to be backward compatible. Incompatible wire-format
+changes require a new protocol_major value.
+
+If a future major revision cannot be discovered using the same fixed header
+layout, or is not compatible with this binding, it should use a new compatible
+string.
+
+I will spell this out in the binding commit message and documentation in the
+next revision.
+
+Jinseob
