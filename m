@@ -1,85 +1,85 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B489F30DEB5
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 05:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDE6365A14
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 05:38:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780897123; cv=none; b=G3Nlgi+jos7+pyjQbReCPvoATUIjAp1qqi9ficHQ4sGIo3aaoY4+BSnOURECkcKCDDDy/KfWF7OT5xA27nIHaFZlxMJE8m1rHelQIkEAfcMaNfbKV0Wtidx94sk6o8zaicTVMBc2jnEXS4erUit/RmNG6eRh0NB2NzIs9VYMeFM=
+	t=1780897130; cv=none; b=NZ75yakDu6KBerGTMTfZ9d8M7CWkDOcS8mmSwH+JEz1wk9ZC4MsmJJz00VLqslVDVzh48yns/sknpo0Pw99xJHPocUvev+PnYQkXdFmmcaLjgAisPZPmeJFxo07/jUORDtryxaMbmV5zCzd9BVqGsMpFHw/pAmIf2HMIi4LZBQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780897123; c=relaxed/simple;
-	bh=KPGNczJBcKa5n33vVRzqAOS+owv898/wiOzqL1lwvJo=;
+	s=arc-20240116; t=1780897130; c=relaxed/simple;
+	bh=rjBsa2MHVLkDXb2CoxVBdEaMLVAQILsXguHOSK1uoJM=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=EFpqvqgr1ad+pNwJ1g2sweZhvliUJ6cdWU4eHK/6wDHb7yCWPhYtGcQb3zHLxE7G+5RCgLOAagVLQu36aBLypXhKeDqmMmlI/ULyWVs9iGeTRrEyQ8YI/puF/z7Gl5mSD8mQZzWJJRIg+qWEEbFCJEg5CXC/AqCy027jmp+tq5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R/74z34k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aEkqJLPY; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=BWqY9TorgoRdyk47bKjbUuZuk8OLCAt/6IZHRrBAJygy+FQFSb0L5Q4u72TOVXesLrplpCtOJ9nppGDMrlpX0Wj4vPJQT4GI25wltUEXdkS2RXXqlcphmwEacaVnct0HiTfguGmkdX7GhPRkjCJWAGF8EdKKhWx+tGIROolaJ50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pku7S1tl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fFvtimJ7; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R/74z34k";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aEkqJLPY"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6580HceQ1993574
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 05:38:40 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pku7S1tl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fFvtimJ7"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6580GkN41933565
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 05:38:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	39xli6mKUWevjHUp1QKqTq7XuCw/7UBNPDjl33iPSHY=; b=R/74z34kdgk+lspY
-	cvCfWHOUmQ/FCfyIHkIrokwHJbXNwGxX9/kryqdNtUAsNpf2yOaj2WhYRgh9BeLK
-	G3MkHrq6Uf0uE8aZNaMj3SYR5+4aXDIFSyBKLe8aAtK6RVDv78BdV4HIXhSs+92K
-	LQRjiJjez9zU5F7AdkXPlMpkvAQJbeo1sO/MlYY3X40UzM+3+YUlpxkKW9r967ku
-	E3iQPVY18iz04JzLBps2E/iCIPG/ZHgolhz+7rCYlnU+IJqJeW/3SCRab/Vja5Ha
-	EoyjZvI/obskK/fRATpFTTfh1XNhw+Ov+UZgtA5cRlpvQYdoFnKSYWbB+GSseUWS
-	hQbhLQ==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4em9k3pd5j-1
+	rjBsa2MHVLkDXb2CoxVBdEaMLVAQILsXguHOSK1uoJM=; b=pku7S1tl0aKtOZLO
+	sTCvvATJkYW0dP4lXtEBoX6RmnnJ2pq8944hkv5qfUua6izek2zHLLlfFspqm5c3
+	GdaXiVGSkn4k/XoyX3hPj5ayrTxRxqd0tFWUsD/tWSvxhOz2PeyVttRHiC4pG3ab
+	08sjmInFkmd0B1DNpaZuKanaGf7xw+b+XowmBlEICYAe/ET00LEKzcfMc/tf5EHm
+	MNaT0N806pkw2Re/MrdAvlBiXRrVF1UA91k+hp14JBUCBO1IQBXDjOXEc8iaMHmG
+	rWSmUxAO0NAdK0TZv+wrN17DHwgpdsL0GN5m5YWq8gCevZizLGJNS3pnKBcO9sro
+	AIiJFQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emavf64s2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 05:38:40 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c85a2f1d1e5so2050838a12.3
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 22:38:40 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 05:38:48 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8422ca754d8so2613335b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 22:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780897120; x=1781501920; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780897127; x=1781501927; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:content-language:references
          :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=39xli6mKUWevjHUp1QKqTq7XuCw/7UBNPDjl33iPSHY=;
-        b=aEkqJLPYtFrpdpXp3YMc9DGjg25qR0yU8WYx0jbeOXyvOB5g0jwaK+vDweLWdD3DZ5
-         lwt0GuMmrsJBj5DMjro9XQ8+PNQu/40xcGNIXYU3uU5E8WWVJ1Ws3FH9EMRpxQHsCbue
-         CrwWRAxnCDO2+GeWZOQlM4Pp0q/P0jo1jAgR1XzQH8vmyeu0aHHkI9RooQLfMRtCuhQh
-         /QWuZRm1ofx74dAo6eOJ2nVyEC5YnQT1J7R5HaFui49iHAFxYq8dnvds+D4dWTu5qIJN
-         IPvUuLGmwtzQ030MTnrLICcC2ERPih7BuWgNSTGJlBBQCTA5BohDLhxrw8gNA9Ve3C5+
-         H6iA==
+        bh=rjBsa2MHVLkDXb2CoxVBdEaMLVAQILsXguHOSK1uoJM=;
+        b=fFvtimJ73w28oQ8o3+yO3pDEcfYXueXc2cKmjwmOVzO4jYTAXmO0vStjldLxVoM+91
+         Co2Q/EqvdvxCfEA4CNI3ZW0VAvE1kgoTitLg4xdcfYEi2MYTita/S+3Jjc42wnB21Sul
+         Zv0UriW7Re9yNy69t0ussoaVH3J44f/fdd0dGy4Wpa6nP4WFK/Pz4OJ0GhB/TpHIF14h
+         JTxoKVUJp5cRYtxY7wmA9/GuYzZ72UAZ61ehQfbbomomm22xJ1mr80j+UujK1iomV4yI
+         DgKO9Ybc+DDq/P2XYQcnuXA/VnyxAgsTacC5kgVBLzzNdleYTvAG17HGQ9rRfSGa7qHS
+         Oj7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780897120; x=1781501920;
+        d=1e100.net; s=20251104; t=1780897127; x=1781501927;
         h=content-transfer-encoding:in-reply-to:content-language:references
          :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=39xli6mKUWevjHUp1QKqTq7XuCw/7UBNPDjl33iPSHY=;
-        b=IJQDpYz6/TnzpyGjw5MSjhe2zltPnEmuRvq8Kq1k4hVdKbkgI3HjC1DxbFucoqGaPR
-         RsnomTRArGD9E1Kys/7uz28bpgWd4pffvyAoMZMIGtFWcRVI1+mcKKHafwtdTBpJKbJg
-         A5w51VeWtwQlm8j1MEYU63+ygfuv14PWlgDXHnt5tGx+Nt6zysMWOGhHT4cf5jxv1/a+
-         UdfQjdBm3I9c84uiaaenpWDnoTWWv4gLcmnhgFDH9dwSQJZ9d8j4R6eF+v6S70zYKG++
-         8X+8zqYIv8pMVMRLo6e+EPlLvHJe34EV3yxU0+tEEa0fuPz/9YgBvpUKuKXPeCF8473P
-         Si9g==
-X-Forwarded-Encrypted: i=1; AFNElJ9A1Epj/zIJvAAwIgF5TNFYzmpLpSedbB+azoBH1zGeFXnL4U0JGYNTJPnPwI73By83IsBTca7TVvn+@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXrGTXDnMwNtiGRcDGqsS0VycnD0CgyEyTMS33Ai+z4296XDS8
-	I/fOmJheXywCOt43BGI2yb7JekZyYpforPYO640+/x0la1Bl7XUcYcq9SzgA3Ix7EGUAMxf0d4h
-	gt12aXsVnUkQIz1LTcLw7T/zBhEVs+AIM5fPjxYDLrsMQLpjvby4qa1ecjwHqyTo/c2zSu8Yf
-X-Gm-Gg: Acq92OG8HDYV5bX6OHVJlcGZSHFmhVLtaIhSouwOuWmJg5xPaK68sw3Jy23kk9b/7jP
-	CTDIis5jzkNSaZ1UJjj9f0925CwDviecgCHfpZ/s++WW4HC8ZuDJsJ2q9c3cpf8/pugFFSxMaAz
-	B+bEE50AatRez68OR9/ZrNrvZOWTmhgURufg0uqR03OY6zn9czryFWxny53aiLvE9MPCurGWAbf
-	NYanDc7pbfs5TOXBHyGKTJmuIOWbN0t6J7jlpC0q01UN57JMr7J2JqskrcYL7WpQT0lA290EopQ
-	9rxaSHqL+2cxMLkcflbRvtIjFTmhuOqaJbZUFQXp8f67lf39R3+1DJOadGPIPwGd29HXGwDZLDK
-	UMhktm9H7de5hc76uEDMdSCxpekUYA6Zo1o/OLIGLuz+cw+7Cntp9Igk0Bb2DomOG
-X-Received: by 2002:a05:6a21:3998:b0:3b4:8549:4fe4 with SMTP id adf61e73a8af0-3b4ccd750a5mr15789213637.18.1780897119654;
-        Sun, 07 Jun 2026 22:38:39 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3998:b0:3b4:8549:4fe4 with SMTP id adf61e73a8af0-3b4ccd750a5mr15789167637.18.1780897119168;
-        Sun, 07 Jun 2026 22:38:39 -0700 (PDT)
+        bh=rjBsa2MHVLkDXb2CoxVBdEaMLVAQILsXguHOSK1uoJM=;
+        b=FQE0uGaizT2vCY4lMZ58WUAgsQM6QKTft6tuiQOFgm2RcqEiXDTChx5Z7b9a7X0Gio
+         npD7MihaDrmUYV8OHyV2Y2QVPi9Xy5Oa14TgUHpwexOVv020W3pdAWC6l5jmI3/ZtX1a
+         8mqyW8LzpctgIwNNq5zIK89IIsTiIaWDPVlXiNRwU0EJXEuK5Wz2XqVZFgaAQF8jILTS
+         XY0qfGUPkwbvLUbb9l60vVXthfOQAlqimu9T2s8ia8ekkbxSAL10+icKxS80ZtZnKu0Y
+         YXP+5WN6hyW2ipcU6jgIUlII6leVLsahKRXmxXEdQ0VpbJMr8bp4Yn9oSVhv9KMiC6tg
+         kvng==
+X-Forwarded-Encrypted: i=1; AFNElJ+aSiF292wyTEGdFKEM4IWFSNCJVfLnC64Ai9wuttNCJwuXcSGu0vuM9hGHPN0RC53lb/86D0BNkMqG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoPY2VTky7amtkcc4hIT1w+rbKSZ1KLPl2RXv8hGiTqZy6kf65
+	z1sDy0snzAQxjWzQ15aPk8kIJMdIPX9SpvfE/FrTyh4SoQM2NHAEEmMnWXTeMKOGP1DmAS6SLmD
+	Y1o4K8WI6Yx7RQQOIcO+ck7d2xNdfNfkKS/00umL1ofgb1mhuDPbqVrEc0DLhEJav
+X-Gm-Gg: Acq92OFL3+7t6iXcxRhzBMFArXxhIq+qYyNOQuetjWhJbJwUZ4nzmKrjygNBX2fAKxo
+	viZP83RqogEkFYwemV1QJTYR1oMrunaXtRfpdURHlgCC6DhnD6gtVVSaG2Fj7iiDgjyHEQMaiFw
+	wfnUfRLxxhgVXNkPwq+PhInuzX6DnxoXFYCEYYFddp7o8HZIKl0wNruNLOgO39odn1RhUCOvX7A
+	bBuV769j/ntDwTpU8ZTrpSh83Pc4doiR0uHB87sJgP+70EutB6/3Q+vyQVF/y3Ibx6lpfBHPG3B
+	Sx/jboAwAomPsyAiUhu1oLWhI/SoZM+Mwky/misclnPGfF/aEiZtfrAC0+BquqAAfpQl4gcKLz+
+	LQ1509p8tLAjYrAINyLf1t/2iuOqKQX+bqgL0nroU/L2I0YG/kJBVnvwIqZSo6tfK
+X-Received: by 2002:a05:6a00:1804:b0:842:7992:bdd3 with SMTP id d2e1a72fcca58-842b0ead88bmr14472658b3a.4.1780897127155;
+        Sun, 07 Jun 2026 22:38:47 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1804:b0:842:7992:bdd3 with SMTP id d2e1a72fcca58-842b0ead88bmr14472632b3a.4.1780897126766;
+        Sun, 07 Jun 2026 22:38:46 -0700 (PDT)
 Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df0a4afdsm16652381a12.19.2026.06.07.22.38.36
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428222263dsm18557943b3a.2.2026.06.07.22.38.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 Jun 2026 22:38:38 -0700 (PDT)
-Message-ID: <e0650526-a616-8155-26ae-642790a43084@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 11:08:35 +0530
+        Sun, 07 Jun 2026 22:38:46 -0700 (PDT)
+Message-ID: <d35a0160-c0a0-155c-8f0e-65b1b7eedf5b@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 11:08:42 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,221 +91,54 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
 From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Subject: Re: [PATCH v7 05/12] media: iris: Enable Secure PAS support with
  IOMMU managed by Linux
-To: sashiko-reviews@lists.linux.dev
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        sashiko-reviews@lists.linux.dev
 Cc: robh@kernel.org, conor+dt@kernel.org, linux-media@vger.kernel.org,
         devicetree@vger.kernel.org
 References: <20260603-glymur-v7-5-afaa55d11fe0@oss.qualcomm.com>
  <20260603143923.58E1E1F00893@smtp.kernel.org>
+ <4itwv5frj6gqfib4bzbie5o4zs3oea65vi4hosyaeitdagqdek@4be2jvik7csd>
 Content-Language: en-US
-In-Reply-To: <20260603143923.58E1E1F00893@smtp.kernel.org>
+In-Reply-To: <4itwv5frj6gqfib4bzbie5o4zs3oea65vi4hosyaeitdagqdek@4be2jvik7csd>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA0OSBTYWx0ZWRfX0gxKYllZ1BVx
- hEewGvAtUZhKg8EPG3KwK1xfvbdzvorknAR4VBvZkXSK6ucT1AHq2YHANr0RQfB7cJZLqhZa3yG
- /beQuUNMQOwMB8KfRLoAVR0qF2zFjl0b0cNzpEStk2egivX4yA3ZN+NlQGGOxKndOXBx2p9vULk
- Lqp+Nx5hFH6vbBLfS2atW4wI4Krv0boacFPAG6oBEUsVzXJDxaWbeEx7HpS29wgCnegcquT9qIM
- YF2/OWx1NmiN8/ipCu4OsWnHID8X9GdpQCkhk81OHI+C/l2ZifoAM87xLkIFXIfuBwmnHsQ5NWc
- WRhAISU8AnjrvEH8qGvyPrJnlIQ+i+vmNGtw66YZBPyVbGrrAmVJuZUaAlDmEQKXcwqCB5EVSGi
- /8TGqoz2+AHQqf1e4icQxyiNUk+8EU5g+rXroAz+q4AnqBTC17A/whFfyIuVC62xXHNLl1vt4qH
- ujhaNLgpVJRXSSfVbxw==
-X-Proofpoint-ORIG-GUID: UNOrWylIgWVRIqKBoKEVh8uGyEMlj-3P
-X-Proofpoint-GUID: UNOrWylIgWVRIqKBoKEVh8uGyEMlj-3P
-X-Authority-Analysis: v=2.4 cv=TIB1jVla c=1 sm=1 tr=0 ts=6a265560 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=I4JVgtgg c=1 sm=1 tr=0 ts=6a265568 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QttUXbZITexGozAVDd4A:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=s3xQa8otug5672-2qowA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-ORIG-GUID: QtTxqLuwxfp7SgI0OpVPRSbAw2Nc2aQi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA0OSBTYWx0ZWRfX5l/2e8ShbENn
+ TMV35IYcAfEQ9qQ0F8GbkItcuO6h6C07iPfI35Gqn5F2JLyvobNifxRnN3bYjJFjFQ4zRRp1vcG
+ VD4KZL4kZOR/13VFD9fld+Q7QqyGEHhtHJJB5LN3+gxevRmZVPdi+YnSsZ+zSIw9PXcNUFDKB4T
+ 7NthHvy8XKianvck6sxUw1ZlUKYBENvJQIjtMBY6QGGlCqLpdXQK4zXgZ4ZEl6gL7LYlhACzjtS
+ OTaqCRf4OtiUF6JCWbvfeV3MgAEkskhme/je3kQii9WSTC7ptt0SmxMic5eb7bTWcT76WbcUhzN
+ Eh2ny0+7AoLRIbXWhF3+qGN/CfmSepyz89naajJ0jQ1TR7X2iRBoghOqCNiHv7xPnGMR7QcDbA6
+ HyD71G6ySy7D3JdNwbLQg8EKuEcZgL17vNhaKJkwHw2G2fqqZLRJllrgjW2PjSCMuMxz4jZDXI6
+ piLdWRKvtC7bJ/oD1EA==
+X-Proofpoint-GUID: QtTxqLuwxfp7SgI0OpVPRSbAw2Nc2aQi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0 impostorscore=0
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080049
 
 
-On 6/3/2026 8:09 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+On 6/8/2026 3:09 AM, Dmitry Baryshkov wrote:
+> On Wed, Jun 03, 2026 at 02:39:22PM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+>>
+>> New issues:
+>> - [High] Unconditional devm_qcom_scm_pas_context_alloc of pas_ctx causes a memory leak during repeated iris_core_init failures.
+>> - [High] Double invocation of qcom_scm_pas_shutdown in the qcom_scm_mem_protect_video_var error path.
+>> - [High] PAS metadata memory is permanently leaked upon every firmware load.
+>> - [Medium] iris_fw_unload() skips iris_fw_iommu_unmap() if qcom_scm_pas_shutdown() fails, leaking the IOMMU mapping.
+> Hmm, please check Sashiko comments.
 >
-> New issues:
-> - [High] Unconditional devm_qcom_scm_pas_context_alloc of pas_ctx causes a memory leak during repeated iris_core_init failures.
-> - [High] Double invocation of qcom_scm_pas_shutdown in the qcom_scm_mem_protect_video_var error path.
-> - [High] PAS metadata memory is permanently leaked upon every firmware load.
-> - [Medium] iris_fw_unload() skips iris_fw_iommu_unmap() if qcom_scm_pas_shutdown() fails, leaking the IOMMU mapping.
->
-> Pre-existing issues:
-> - [High] The sys_error_handler delayed work is never canceled during driver removal, risking use-after-free and locking crashes.
-> --
->
-> commit 85711dbb43a8f02c3f39064784fe37381f80c2c5
-> Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
->
-> media: iris: Enable Secure PAS support with IOMMU managed by Linux
->
-> On platforms without a hypervisor, Linux drives the firmware loading and
-> authentication steps directly. This commit extends the Iris driver to support
-> Secure Peripheral Authentication Service (PAS) on such platforms by creating
-> the firmware context device and mapping the IOMMU when the firmware device
-> SID is present.
->
-> Link: https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815380@oss.qualcomm.com/
->
->> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
->> index 1a476146d7580..8bdc9273036ce 100644
->> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
->> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> [ ... ]
->
->> @@ -30,14 +34,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->>  	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
->>  		return -EINVAL;
->>  
->> -	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
->> +	ret = of_reserved_mem_region_to_resource(core->dev->of_node, 0, &res);
->>  	if (ret)
->>  		return ret;
->>  
->>  	mem_phys = res.start;
->>  	res_size = resource_size(&res);
->>  
->> -	ret = request_firmware(&firmware, fw_name, dev);
->> +	pas_ctx = devm_qcom_scm_pas_context_alloc(fw_dev, IRIS_PAS_ID, mem_phys, res_size);
-> [Severity: High]
-> Does this unconditional devm_qcom_scm_pas_context_alloc() cause a memory leak
-> during repeated iris_core_init() failures?
->
-> If a subsequent step in the firmware load fails (e.g., request_firmware()
-> returning an error), iris_core_init() returns an error, but the device remains
-> bound.
->
-> Because iris_core_init() is called upon opening the V4L2 device, userspace
-> could repeatedly open the device, failing each time and allocating a new
-> pas_ctx without freeing the previous one.
 
-If the dedicated firmware device is not there, will check and skip the repeated
-allocations.
-
->> +	if (IS_ERR(pas_ctx))
->> +		return PTR_ERR(pas_ctx);
->> +
->> +	ret = request_firmware(&firmware, fw_name, fw_dev);
->>  	if (ret)
->>  		return ret;
-> [ ... ]
->
->> @@ -77,13 +115,13 @@ int iris_fw_load(struct iris_core *core)
->>  	ret = iris_load_fw_to_memory(core, fwpath);
->>  	if (ret) {
->>  		dev_err(core->dev, "firmware download failed\n");
->> -		return -ENOMEM;
->> +		return ret;
->>  	}
->>  
->> -	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
->> +	ret = qcom_scm_pas_prepare_and_auth_reset(core->pas_ctx);
-> [Severity: High]
-> Does this permanently leak the PAS metadata memory upon every successful
-> firmware load?
->
-> qcom_mdt_pas_load() delegates to qcom_scm_pas_init_image(), which allocates
-> DMA or TZ memory for the firmware metadata (ELF header and hashes).
->
-> The SCM API requires the caller to free this memory using
-> qcom_scm_pas_metadata_release() once authentication is complete. 
->
-> It appears the iris driver never invokes this release function.
-
-This is discussed here [1] and finalized that no changes needed in this patch.
-[1]
-https://lore.kernel.org/all/20260415074140.46bg27tzbuyzjq3d@hu-mojha-hyd.qualcomm.com/
-
->>  	if (ret)  {
->>  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
->> -		return ret;
->> +		goto err_unmap;
->>  	}
->>  
->>  	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
-> [ ... ]
->
->> @@ -95,16 +133,31 @@ int iris_fw_load(struct iris_core *core)
->>  		if (ret) {
->>  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
->>  			qcom_scm_pas_shutdown(IRIS_PAS_ID);
->> -			return ret;
->> +			goto err_pas_shutdown;
->>  		}
->>  	}
->>  
->> +	return 0;
->> +
->> +err_pas_shutdown:
->> +	qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
-> [Severity: High]
-> Does this result in a double invocation of qcom_scm_pas_shutdown() on the
-> qcom_scm_mem_protect_video_var() error path?
->
-> The code calls qcom_scm_pas_shutdown(IRIS_PAS_ID) explicitly before jumping to
-> the err_pas_shutdown label, which calls qcom_scm_pas_shutdown() again.
->
-> Since core->pas_ctx->pas_id is initialized to IRIS_PAS_ID, this results in the
-> shutdown function being called twice consecutively for the same PAS ID, which
-> could trigger TrustZone errors or corrupt Secure Monitor state.
-
-It was missed during rebase and resolving merge conflicts in the previous
-series. Will fix in next revision.
-
->> +err_unmap:
->> +	iris_fw_iommu_unmap(core);
->> +
->>  	return ret;
->>  }
->>  
->>  int iris_fw_unload(struct iris_core *core)
->>  {
->> -	return qcom_scm_pas_shutdown(IRIS_PAS_ID);
->> +	int ret;
->> +
->> +	ret = qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
->> +	if (ret)
->> +		return ret;
-> [Severity: Medium]
-> Will this early return skip the required IOMMU unmap logic if
-> qcom_scm_pas_shutdown() fails?
->
-> Since the caller (iris_core_deinit()) ignores the return value of
-> iris_fw_unload(), the driver proceeds with teardown while permanently leaking
-> the firmware's IOMMU IOVA mapping.
->
-> Software resource cleanup should likely continue even if a hardware/SCM
-> command fails.
->
->> +
->> +	iris_fw_iommu_unmap(core);
->> +
->> +	return ret;
->>  }
-> [Severity: High]
-> This is a pre-existing issue, but I noticed that the sys_error_handler delayed
-> work is never canceled during driver removal.
->
-> Looking at iris_remove() in drivers/media/platform/qcom/iris/iris_probe.c:
->
-> static void iris_remove(struct platform_device *pdev)
-> {
->     ...
->
-> The driver initializes core->sys_error_handler on a delayed workqueue in
-> iris_probe(), but iris_remove() unregisters devices and destroys core->lock
-> without calling cancel_delayed_work_sync(&core->sys_error_handler).
->
-> If the delayed work executes concurrently with or after iris_remove(), will it
-> access freed driver state and attempt to acquire the destroyed mutex, leading
-> to a use-after-free?
-
-This is not introduced with this patch.
-Will check this pre-existing issue and will post another series for this fixes
-if required.
+Ack
 
