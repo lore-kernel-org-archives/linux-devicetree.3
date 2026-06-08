@@ -1,213 +1,322 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B653B47D6
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F9E39021A
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:11:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780909835; cv=pass; b=hPs2I2P6XZiPT5JeW3ZLpWs/yCAeX1AVknHmmLMtyk1bVMDrC0ilEKmuT3V5uWikmnaH/G8v7DPf4lN+WFOfibP8XdyRqWEJNsOlDzD6IJykUTQ/4pg8D/7NYCyBQ2tUm9ROVoLqo7gXaS4SavVPUum+Pdt38G/0HNPKvg63tQI=
+	t=1780909892; cv=pass; b=edygHU5rv87v4UFVZsul7HEz67r+yfgx0BHUyUITnlBl1UsfeRlusge/FgHLjJczayoZUolxMOohuMZbxWpGMHfYxra0WbFDcGLM5XspwBBPWT5RuQd3XmOSVKmIyP5rSdGraXd/V2doPvxqeCHcT7jzI9degTbJfSVzpX1GA4I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780909835; c=relaxed/simple;
-	bh=dZbilIS/Qna4fJ6oZVSTQqKNAm/MOGoPv0Ifm7jq+/4=;
+	s=arc-20240116; t=1780909892; c=relaxed/simple;
+	bh=z8TRp/eansM7NQFOUeoehuya+exenRZRyWpFPzqPkDI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eAWumCowJeJwkCyN/8zSr/l06DBKTrkc47bvo8ck4bDFPg7zH6u5HcMuaOqiiQwVP4E9FPB2SC3CV6yEdDd7FseLghi7e6bUForQkU348B+84rWGdoRJYTZ0RJNEAfXCtS///xHrhHX65Soa9U5Yoh7uJh2Ap9t1fnyjkA7N2QQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kk87X+Fb; arc=pass smtp.client-ip=209.85.167.52
+	 To:Cc:Content-Type; b=kmfYsyOpUevUrHSYsgIrppB+QZtShwBUo3ocKW8REnFPxXk516CnChju4Hc5tAyjNyAJKcrtOpjwZKW7IxzXsBxOpqbxX+McpJJK7hzmyk3u8yz72HwTZ7peaQ19JZYO+SLc++Pcr+hGzVBwag+oskBTF0HwRwC5FB2jkiLo5wk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fKFk5CGK; arc=pass smtp.client-ip=209.85.208.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kk87X+Fb"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5aa68d65d24so4406717e87.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:10:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780909830; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fKFk5CGK"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68c3421b009so7275141a12.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:11:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780909889; cv=none;
         d=google.com; s=arc-20240605;
-        b=bFmue48GiSf08lklr6v1NmWZQSUn07iDgJ/NNlimhd16seU7xBR/u2RazwsNDvBxj8
-         veQYZ2yJyo/uCV6Ji+NBKL0blsXu/QArYiWGEHpbsN/IbY8j/+kEg7XZy9SV6RPK2mQn
-         rsO1bq1lrREgjK+2OziQUcbKX+r/Li/uuvl3zT988uAB7e10q5KPgj1u9Qfy3MQo0ZV+
-         HJignIqPHnk1Xeg74c3upBmdsDnXWrVzoPpf7pjWc6ZNv3lWtXfhstU54KtkpPmEWSDa
-         +JuzgN5eO002cLZ+zr+wf94pINzrCNEdhmCm7yHQ93zKkI3Z3JPuKBcbWFWWo1JMa6J/
-         VsVA==
+        b=VKo/5QyXzqqKExKZJUqLfCLYKkqqBqM13PkeRf+OQmIoWyqrWW5zneEgkRQHHrDXXJ
+         r9BUU97s/zyQ5JCjXIDVAaZU5wVufmHXphKtc8PN4foMPS4V+IL8GMzmHLruRFbOGbmx
+         UbVmWM87ORqRyjPZuRdPO6sSnZlyuQSuIGMAjqaeQdSAsh/fYkKOIKNeSsVt5zORGgiT
+         lgyk2109SMnvJS7GbTEhWZbuFyRKwJoSOQF3EzTi0gh9++AqHykGYPIYTuPFGJxYYu9y
+         RDSu1zJs9kHe4rBbdwzWZYUJXgTFtGWMZLJPde84GODvItufKHkgH20HDSbLNxg5GH03
+         ySBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=FITnT5hSRTOhc0v/k1uvO22mPCQJj8qfY19n4Uco4GQ=;
-        fh=Cex3ZFOIGbeck5UX2H/AC89HulcFWX/y7SjuEDAVhb8=;
-        b=Y9SuEobMhSKYL9fiCeTWWf+T2vmcvg5lE+aPebocW2qXBxEtiIWruQxqCp8S+n4sKJ
-         ipkKHb2XOUQeItNV5r0Im+6l7gwxT6URGeT/MZjRAm+AvyzJzWylfLzXv6Jpyj3Sif2y
-         A1vrYKG8cH0qZPSuxcFgxoIG3gY00vMLlMTCdKx13ovK9yBt+dHLy5dEitugO/zbr+kP
-         kzGylv3l6UaywFnsAQMEG9uIgMFii9sr1XoIDYhp0nku0OZBaMGArbcqtexdbJx4DB/0
-         20pWLIQ50erxfex8q9EOgj6KV4WO2UP/jBGJYuzyKpADK92YBaubrCD5r40zfjVMdVmW
-         cUTQ==;
+        bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
+        fh=Iu3i739B/Ty+Ln4ALNaJVFTUjaGSxWq2zjlaJyqtXbY=;
+        b=e1MGjKfud09Qe5qzX1jin5tPoNR3TktFRbxI5WRXXzSazpztndcDZVSbT0v/QA22Xt
+         8OiXpLc9xP26RJjsXqZMMqg1JsQd5J7iF/7geIEyOdkuUSwwez0piYROX3oR8DaZHzac
+         OkUp7VTVdDfbIG24jaDw0vEzk1sHcmCnR8EeTyxkeFkbuyOFvTywutDPOXV8aEA3mWwl
+         LfawbFCiNwKrFWEe7MLUbsD4No8QB7H2EcbTTM+VuOqDw00FEbKDAzoj9BvlZvAqP38A
+         +YmHLjnDgqsrqV4hS+q/wm7ey0c1l3E7eSLx1HyHbjjgdYVN3aD0PGTL9vI2pXURyYmj
+         WpDA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780909830; x=1781514630; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780909889; x=1781514689; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FITnT5hSRTOhc0v/k1uvO22mPCQJj8qfY19n4Uco4GQ=;
-        b=Kk87X+FbK5KVTKLuUe7lsT5xnPMNY5DSF6dLfAeNQczoDOm8i2V569R4mbxBJbCSiK
-         JwMwb40hpEIFMRXcLs+7SpIIG9u8M/wfPG3LqdRZAgk34Q0Y6C+/xLQdJ/wsO8D9Ldi8
-         JReHMB7vKFGnJNkYa1OrHLrL+3XKElzCG93ahbk453cSmhqx0qXgFfanu/o/CyfWmt2U
-         yh+VqRpNFLC7/SFNIjDnajZ742Sk8KERAc9e7u9QKw25JHcvEE8cYzQmZFVCdg3xn9Sn
-         rUdj/oCATdRvSdjmcNnwH2XtAR3+HK5t/QbflfYj2t8hCPzKvb7Sts2waKegFCCtE60m
-         XZZA==
+        bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
+        b=fKFk5CGK+16WTVKCrEDMSAAv4uWxj+hoK1unEpLNU+Ql/qbz+ZBE/2LFqssrxc7ELa
+         25Ao27Evj1jXo5ry+u2Uig5D9E3sjBNF3GmPOrE/sf/Hxt7eejibebwd4J9GZY0Ckv3A
+         8RSEb9n1V/OoN1FzNeFuYgiilizmINj5A23RwV5wSTaoLcTTHxZHB5l5UAbxmF5XzQWH
+         j9BJDJG84DsBskFONiigdIFPc71sg6rHBJkvKhFhy7flQxHe5RkMWiqLaWIR8oD+T6P/
+         OCNaLFUZymGFMvp2aohuLC9QKskkjDyBVSxficPUZ1CGEid0yQMCF0LCeGAVc91nVidl
+         TBAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780909830; x=1781514630;
+        d=1e100.net; s=20251104; t=1780909889; x=1781514689;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FITnT5hSRTOhc0v/k1uvO22mPCQJj8qfY19n4Uco4GQ=;
-        b=hIUVIRs+AjJM0M40OTkrB+EnIbGuiUeLO+32WKAPZq0ndagR79w3azRB+2s5bDyKy+
-         /sc5xC5xKM9V+tU6LF+rGjj5lAx6bvmJwckoyum/3Fu5HXppf+RJKclrdrywYLlQw9TS
-         veTzDKjwyqF1RrQwk1nLyxGV3qpTWho6ghZstW00OO5VZxTZwhoWE2KyQCbHgwakuFzE
-         t0Onv2IKrCvoVVZnPlFMzN3wCKr/Ak/G63P8+MFLz7YECvihdHgp3YxlaRqTIl58weGj
-         SfF3gcPWk2KP3KQ0Gom+azwzS1hPVFr9UFB6MHy21ZFUYZQdJ5dibEvjdbDbDUIkx8zi
-         4BOQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/KlItYtyxZVmkwrD899a/pRrXCqTiTlIrmSfqwqLKPg8JmNOUX50ugkW3Zl19G2gFfAM1WNjq5YTtD@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJtc5m41aPiWoyVDM699+Qg+e5uTzPqRJjDJjw68ylmIgDnyth
-	7ZtM00kunAhFFkyA7us2/aIYgLhLpZgN7WOvVXhOsCBPi0P7M8zHSTjinOeSi+KqwsWp7fCPeOh
-	ozy7kV60YMoxYT3kNFvp+yQ6I4W+vn1Q=
-X-Gm-Gg: Acq92OEYGJpdQSoXbXRWvdnY5XfdtLOeJiOfYLP/2y2yI82RUBVvLH9DvYHBu/4qtYZ
-	nNIaV3/IaIGMXBFqoalfArHIgjWlbVkAdZenZY1Mdxw2KnrRZM0gqv9jAqPnQYWEgsW3wucF3YT
-	4NO0T8Q+T3deGP9rZVu+tn1MkK+u8an49zlG6dshHNmzVQnfYuFh+urZ4f/sHxI5x2OuI2NJqVX
-	ReTP+NeaZg/qQi1ed0W/1s7q85phXebhJS4j2bd53zsjpGydr83HmdAPtGM5eI7nkUyFlOPnazF
-	TJItgIjAZ6f+Y039WmLcM8UD2yimCCZY/9JeRjajWqv6FyiS6M03ZzfJdnGGmIWmWZ1Pz9Dcqz2
-	sDek78Yc=
-X-Received: by 2002:a05:6512:1116:b0:5aa:6c66:e343 with SMTP id
- 2adb3069b0e04-5aa87bc93bcmr3927231e87.38.1780909829307; Mon, 08 Jun 2026
- 02:10:29 -0700 (PDT)
+        bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
+        b=Rm+EDiz1uFx5+UOIxeEJvHzQYEuZn74m5Zd7cPEcGqgttzorj1acufA4F5Tsi1yyQa
+         TePP3Fj1ZDxt3S8TrJ5S4/HbuqVDJfqF1xG8jHNVomXd+U+r+6BkripibtgqbJfuNOkg
+         bnO8iyZ+sV567M0f0ZS4/+44esVYCXp7fJ8wyhbd9321fDX1gbszRThyi4a9yxkuhwCR
+         +hB3ymqNIc2xeZv79cWCYwaNoFxS2mrGp+5Uust7PGlT6PB0DhLGo/aXlNSPOaU7udZa
+         el8QhVW5gEkIN2RBeFuAAA7y7FaVBgweZ+LTG1h1HFTHerm2+fYDxNOT4aCTZcg8Uaqj
+         mxMg==
+X-Forwarded-Encrypted: i=1; AFNElJ+IPkmXdWPCIxSVtwXaO7rPKmQQggq6G6H03oPDrOqA0QwpYZFKyeh0dFlEbI3IvsP7OdXRAGCXOibX@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTOtX4M8qTTHEJECp0Yoq5KOvBuaQ4Jd5LqOffr4qC9VtzJKhk
+	mm3IaWn84duvenRGFMm+DdervKEkuyHYVcdiWi+kaim4XpjVRp/ws08uxWuJBA7n07i1DvLckdE
+	6s+JTyYLaM9Qn5YyGWYFTEckEMxexHP6HfPwstiYShyMe
+X-Gm-Gg: Acq92OEk6pglV1meFGYVPHqTQSHduZD/wPQ2+ZmcQtIBrAt8piHPj5OYTK4AtIvr06B
+	bDS8q3MduSHewRRbxBsY4HoDxmaUpQ8XayJ7cZqZ1XcXuK3EHS55mxynH1CPxVGSDtq/rTygN24
+	5Ut0Ivi4xyQvZ64euchaGBcQic3kU4juxr0AJh1/yg9t6yQHjr2/Zc91/Wn8Y09lnudgd6g7R4B
+	8xyC+Tn68RlEUB93pUWYu9og6aaGz3Y35nlTZxdMHQdWa5n9ZeAIoWapc3nXdbgQNBgEjQYleuU
+	NLwS5InOk3J25j3YlQ==
+X-Received: by 2002:a17:907:2d12:b0:beb:2980:e2d2 with SMTP id
+ a640c23a62f3a-bf3a6b13b16mr580109766b.8.1780909888634; Mon, 08 Jun 2026
+ 02:11:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20251011170213.128907-1-marek.vasut@mailbox.org>
- <20260605121112.27866-1-piyushpatle228@gmail.com> <aiZzxhljfyYQ68Gl@raspi>
-In-Reply-To: <aiZzxhljfyYQ68Gl@raspi>
-From: Piyush Patle <piyushpatle228@gmail.com>
-Date: Mon, 8 Jun 2026 14:39:52 +0530
-X-Gm-Features: AVVi8CcpFt73_s1W6tVAYjL6KIr_ANTO2-Kr_9uq4rs-k3XfwDZkGI2c1mIcJWo
-Message-ID: <CAMB+xkZm-FA_hmnAYRnXw6T4tZvVtamM=kmEyatFKZWV0+kJFA@mail.gmail.com>
-Subject: Re: [PATCH 00/39] Add i.MX95 DPU/DSI/LVDS support
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Marek Vasut <marek.vasut@mailbox.org>, dri-devel@lists.freedesktop.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lucas Stach <l.stach@pengutronix.de>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Abel Vesa <abelvesa@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>
+References: <20260604135255.62682-1-midgy971@gmail.com> <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+ <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+ <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com> <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
+In-Reply-To: <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
+From: Midgy Balon <midgy971@gmail.com>
+Date: Mon, 8 Jun 2026 11:14:17 +0200
+X-Gm-Features: AVVi8CefQKT7ky3Sqeq6MkiJ04hcvCvZiupw30w_yNvYYxCVtDBxVUNhbRaFSOk
+Message-ID: <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, 
+	will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>, 
+	Finley Xiao <finley.xiao@rock-chips.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 8, 2026 at 1:16=E2=80=AFPM Liu Ying <victor.liu@nxp.com> wrote:
->
-> On Fri, Jun 05, 2026 at 05:41:05PM +0530, Piyush Patle wrote:
-> > Hi Marek, Liu Ying,
->
-> Hi,
+Hello Chaoyi,
 
-Hi Ying,
-Thanks for the detailed update.
+Following up on the need_regulator suggestion -- I implemented and
+tested it on the
+board, and unfortunately it doesn't avoid the deadlock on RK3568; it
+moves it from
+boot to the NPU job submit.
 
->
-> >
-> > I brought this series up on the i.MX95 15x15 FRDM (IT6263 LVDS-to-HDMI =
-on
-> > LVDS ch1). It mostly works, but I ran into a few issues around DI routi=
-ng,
-> > LVDS format handling, and DC enable sequencing which needed rework befo=
-re
-> > HDMI would come up reliably on the board.
-> >
-> > I don't see a v2 of the series and things seem to have been quiet since
-> > November. Are you planning to post an updated version?
->
-> My plan was to enable prefetch engine support[1] for i.MX8QXP display
-> controller and add device tree for a whole i.MX8QXP LVDS display pipeline=
-,
-> before adding i.MX95 display controller support.
->
-> Unfortunately, it seems that Marek is not a big fan of [1] and I'm busy
-> with downstream development so the plan doesn't move forward well.  I sti=
-ll
-> think [1] makes sense(maybe I need to rebase it on latest drm-misc-next),
-> so I'd like to see review comments on [1] and hopefully people think that
-> the overall idea of [1] is ok.
->
-> >
-> > I've accumulated a fair amount of rework while getting this running on =
-the
-> > FRDM. If you're not planning a v2, I can clean things up and send one b=
-ased
-> > on the current series.
->
-> I still think that i.MX95 display controller driver should be in a separa=
-te
-> driver, rather than sharing the same driver with i.MX8QXP display control=
-ler
-> like this patch series does, because the two display controllers are quit=
-e
-> different as I mentioned in comments on this patch series and in discussi=
-on
-> in [1].  Also, the common part between the two display controllers should
-> be extracted to a common helper library as I mentioned there too.
->
-I agree with your direction. A separate i.MX95 DC driver with the common pi=
-eces
-factored into a shared helper library seems like a better long-term
-approach than
-extending the i.MX8QXP driver, given how different the two controllers are.
+What I did: gave the RK3568 NPU power domain a regulator (a DOMAIN_M_R
+variant with
+need_regulator =3D true), wired domain-supply =3D <&vdd_npu>, and dropped t=
+he
+regulator-always-on workaround.
 
-> >
-> > Thanks,
-> > Piyush
->
-> [1] lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.c=
-om/
->
-I've had the current series running on the i.MX95 15x15 FRDM (IT6263
-LVDS-to-HDMI
-on LVDS channel 1). HDMI now comes up reliably and remains stable. The mode
-and timing are correct (1280x720@60), the LVDS/LDB pixel clock is at
-74.25 MHz in
-single-link mode, and the DC plane is scanning out a linear XRGB8888
-buffer correctly
+Boot is now clean and the NPU probes, but there is a warning during boot:
 
-The one issue I'm still chasing is color. Timing and sync look
-correct, but the colors on
-screen are wrong. I've ruled out a few obvious causes and see the same
-result with a
-simple CPU-generated test pattern, so it doesn't appear to be GPU or
-Mesa related.
-I'm currently narrowing the root cause and will report back once I find it.
+  rockchip-pm-domain ...: Failed to create device link (0x180) with supplie=
+r
+  0-0020 for .../power-domain@6
 
-While bringing the series up on the FRDM, I ended up reworking three main a=
-reas:
-- DI routing (display interface selection and pixel-link to LVDS channel wi=
-ring)
-- LVDS bus-format handling
-- DC enable sequencing
+(0-0020 is the rk809 PMIC that supplies vdd_npu.) Then on the first NPU job
+submit the board hard-hangs with an RCU stall:
 
-I have time available to help move this forward. I'm happy to continue
-testing on the
-FRDM and provide feedback on the reworks I've made.
+  rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+  rcu:     3-...!: (1 GPs behind) ...
+  rcu: rcu_preempt kthread starved for 5115 jiffies! ... RCU_GP_WAIT_FQS(5)
+  rcu: Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expe=
+cted
 
-On the other hand, if additional help would be useful, I'd be
-interested in working on the
-separate i.MX95 driver under your guidance and posting the resulting
-series for review.
-If that sounds reasonable, I'd be glad to coordinate with you on how
-you'd like the work
-structured.
+My reading: vdd_npu is on the rk809 *I2C* PMIC, so when genpd
+enables/disables the
+regulator during the NPU's runtime-PM power transition, the I2C
+transfer runs in a
+context that starves RCU and the box freezes. (I suspect
+need_regulator is fine on
+the RK3588 NPU because its supply isn't behind an I2C PMIC.) The always-on
+workaround avoids this precisely because genpd never touches the I2C
+regulator in
+that path.
 
-I'll also take a look at the prefetch engine series! Thanks again.
+So: for an NPU domain whose supply is an I2C PMIC, is there a
+supported way to let
+genpd own the regulator without performing the I2C op in the
+power-transition path
+(a deferred/async regulator enable, or a flag), or should RK3568 keep vdd_n=
+pu as
+regulator-always-on? For v4 I'll keep always-on unless there's a cleaner pa=
+th.
 
-> --
-> Regards,
-> Liu Ying
 
 Thanks,
-Piyush
+Midgy
+
+Le lun. 8 juin 2026 =C3=A0 10:05, Midgy Balon <midgy971@gmail.com> a =C3=A9=
+crit :
+>
+> Hello Chaoyi,
+>
+> Thanks -- this is exactly what I needed.
+>
+> - v2/DTE: will do. I'll keep building on Simon's per-device-ops series --=
+ with
+>   that in place the NPU MMU can use the 32-bit-DTE ops (the per-ops GFP_D=
+MA32
+>   that's already in mainline) without the global rk_ops conflict. I'll
+> keep it as
+>   a stated dependency of the v4 cover letter.
+>
+> - vdd_npu:  I'll switch the RK3568 NPU
+>   power domain to need_regulator + domain-supply =3D <&vdd_npu> and drop =
+the
+>   regulator-always-on workaround. I suspect that's also the right fix for=
+ the
+>   power-off/on de-idle issue I described -- the always-on was really
+> just papering
+>   over the domain not being modelled with a regulator. I'll confirm on
+> the board.
+>
+> - AUTO_GATING: thanks for the commit references -- I'll keep the bit-31
+>   read-modify-write form with your Suggested-by and write the comment
+> from those.
+>   For the record: on v7.1-rc6 the NPU MMU also completes translations
+> on the reset
+>   value (I couldn't reproduce a page-walk stall without the write), so I'=
+ll note
+>   in the commit that it matches the vendor clock-gating handling rather t=
+han
+>   fixing a failure I can reproduce here -- happy to drop it if the iommu
+>   maintainers would prefer.
+>
+> - PVTPLL/NoC: I'll follow up with Finley. First I'll check whether the
+>   need_regulator change resolves the NoC re-power de-idle on its own;
+> if it still
+>   I'll bring him the details (the genpd power-on de-idle ack and the
+>   BUS_IDLE_ST state).
+>
+> I'll send a v4 with these. Thanks again for the quick, detailed answers.
+>
+> Kind regards,
+> Midgy
+>
+> Le lun. 8 juin 2026 =C3=A0 03:40, Chaoyi Chen <chaoyi.chen@rock-chips.com=
+> a =C3=A9crit :
+> >
+> > Hi Midgy,
+> >
+> > On 6/8/2026 5:03 AM, Midgy Balon wrote:
+> > > Hi Chaoyi,
+> > >
+> > > Thanks a lot for looking at this -- input from Rockchip is exactly wh=
+at this
+> > > series needs.
+> > >
+> > >> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather t=
+han v1,
+> > >> implying it should support 40-bit PAs. Nevertheless, please note tha=
+t the
+> > >> upper limit for DTE is 32 bits.
+> > >
+> > > Understood, and that 32-bit-DTE note is the crux of the trouble I had=
+, so let
+> > > me lay out what I see and ask how you'd prefer to solve it.
+> > >
+> > > The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base=
+.dtsi).
+> > > The problem on this 8 GiB board: with the v2 ops the page-table alloc=
+ations
+> > > (gfp_flags =3D=3D 0) can land above 4 GiB, so the DTE ends up > 32 bi=
+ts and the
+> > > NPU's first translation faults with DMA_READ_ERROR. To work around th=
+at I had
+> > > switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops=
+ set
+> > > GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but be=
+cause the
+> > > driver keeps a single global rk_ops, a v1 NPU MMU then trips
+> > > WARN_ON(rk_ops !=3D ops) against the SoC's v2 instances (VOP/VDEC), w=
+hich is why
+> > > I based the series on Simon's per-device-ops work.
+> > >
+> > > So my question: with per-device ops in place, what's the intended way=
+ to keep
+> > > the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB =
+of RAM?
+> > > A v2 ops variant carrying GFP_DMA32 for this device, or is there a re=
+gister/
+> > > config bit that constrains the DTE address? I'd rather follow the Roc=
+kchip
+> > > intent here than carry the v1 workaround. (Simon, cc'd -- this is rig=
+ht next to
+> > > your per-device-ops series.)
+> > >
+> >
+> > If Simon's method works, please use it :)
+> >
+> > >> Can these operations not be completed via the pmdomain driver?
+> > >> If some operations are controlled by TF-A, are you using open source=
+ TF-A?
+> > >
+> > > Most of it is in pmdomain already. Power-on and NoC de-idle are done =
+by the
+> > > RK3568 NPU power domain (genpd) at power-on -- the driver no longer p=
+okes the
+> > > PMU directly. Two things remain outside it:
+> > >
+> > >  - vdd_npu: I mark it regulator-always-on in DT rather than wiring it=
+ as the
+> > >    domain's domain-supply, because as a domain-supply it created a de=
+vice-link
+> > >    to the I2C PMIC (rk809) and genpd's power-off QoS-save path then h=
+ung
+> > >    reading the NPU QoS registers behind the (gated) NoC. If there's a=
+ clean way
+> > >    to let genpd own vdd_npu without that I2C ordering deadlock I'd mu=
+ch prefer
+> > >    that -- pointers welcome.
+> > >
+> >
+> > Please refer to the patch below regarding the RK3588 NPU pmdomain.
+> > In short, you need to set a "need_regulator" for the RK3568 NPU pmdomai=
+n.
+> >
+> > https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
+> >
+> > >  - the NPU compute clock (PVTPLL): set from the driver via SCMI, and =
+only
+> > >    needed for actual compute, not for bring-up.
+> > >
+> > > One more pmdomain observation from testing, possibly relevant to how =
+the NPU
+> > > domain should be modelled: the domain's power-off/on cycle doesn't re=
+liably
+> > > re-de-idle the NoC. If the NPU is probed after genpd has already powe=
+red the
+> > > (unused) domain off, the power-on de-idle fails ("failed to set idle =
+on domain
+> > > 'npu'") and the NPU IOMMU then takes an external abort on its first M=
+MIO access.
+> > > Probing the NPU before the unused-domain power-off, or marking the do=
+main
+> > > always-on, both avoid it. Is the NoC de-idle expected to work on a ge=
+npd
+> > > re-power here, or should this domain effectively stay on?
+> > >
+> >
+> > Not quite sure what's going on with PVTPLL and NOC.
+> > Maybe @Finley knows about this?
+> >
+> > > On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
+> > > (github.com/ARM-software/arm-trusted-firmware, RK3568 platform), prov=
+iding PSCI
+> > > and the SCMI clock service. The only closed blob in the boot chain is=
+ Rockchip's
+> > > DDR init (rkbin), which is the standard situation for mainline RK356x=
+.
+> >
+> > --
+> > Best,
+> > Chaoyi
