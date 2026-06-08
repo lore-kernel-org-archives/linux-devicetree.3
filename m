@@ -1,171 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E6936D506;
-	Mon,  8 Jun 2026 18:03:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0C837DEAD
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780941826; cv=none; b=GxdZz87AfHcanc0IYo87ThqfdhU9CfL4exCLJ/cKhFbDggI0+XC2V+8ZB44KsgGuxL9DNBj676hccKna/eRumXQ5aWjbilr1hhwzT2iqk4OS7CMJR4MKVA9VJBa+ViVt989AzbmipHAsD5VvonUXPc4QUGqinaVLiUeTosHc3HA=
+	t=1780942000; cv=none; b=ofVEfygIXaX8Q1P40Me6Zu4Lf/rV24shEeHbsXj+HvMdqUVLM8THA6peEV4FVveEZ8wA5Mc2LuzypSRBxk4BR1ydnNZrJyMJOxaFMkKOGw9oUXxuYYlWhwNGGKSCPVKsWzpvfx23gbP8IpbM5rfcPgTA2Q0Aq+hRb8vIuLr2KzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780941826; c=relaxed/simple;
-	bh=gnAsMFZZZxF2z+MD62lW/giOC+SNL7hsDRo0CSMhGkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eK2kh5BHGfExjwZs76iIN3AUvAHGDtf6/+3QdYM7KtMIMx23By1fy6318um9ntM5Lw22yAjIV6kgXeG7UNf1T1p5MVv6yVrkugn+ulx+WlIgHSfAW1YvwLIv8WCAD+7Rj54soHCtsHvHBHvq3hIEzkmbYAO+vglzhbX0EZvlA+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/nVKrr7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780942000; c=relaxed/simple;
+	bh=zAFcrGaQAso8Ywv5/x0tdeRCBLYHToLioe+qiKzfd1k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=b9Z442yOR1MVKUKBTzgtw4xM1MeykWNg5B8qhJ/Gq6P5kOTPKPveih3DhdKBINwVx1Hlpsdp/h3dMsK7sGK3auhq6a00me1vVnNIugDfvLwkP95lgNnLvzT+VmfNzOHYy6TfhSDVwZsPXrnRS/dwX6BDHa2UDwxjLBCfdCf6MPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkX5E8qk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/nVKrr7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3A11F00893;
-	Mon,  8 Jun 2026 18:03:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkX5E8qk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72171F00893;
+	Mon,  8 Jun 2026 18:06:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780941825;
-	bh=sPIJN+8ipb8PNQpmrY9EexFbGy6ifSCbKaRGooyW0Ew=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l/nVKrr7oajWR7+KDteJ8s8WjtUx7I3jwlAlQmX5mcGMGAJubqaJHuDb/C7CsFuXS
-	 V1FcwSSuPUDbmXqKkhQlbgEgSicnGttBxZzp4UzCvVNxiWaCI6Xor4Of505e3qjB2Y
-	 e1HA+H43mp7VczvydZ3SGOEtXqT7JF2ZQOewJdsNlSdpEkmINBszMNWcEmLaUEryfy
-	 JSDc4XfOEcG9Q31DcphjAqdlvw7WnxZT1Ic7l5QY5/c3l5+2yHSEqX7nmyGNUmpNCW
-	 wDfaTvU+BiFEsqm9M3KBD0Q6/YNfhHSbdhVudw7I/Ju7xf5wBWYh0+NrBC9jprLPDZ
-	 n9gc1C6D/RI5Q==
-Date: Mon, 8 Jun 2026 19:03:36 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- marcelo.schmitt@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mike.looijmans@topic.nl, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jorge.marques@analog.com,
- antoniu.miclaus@analog.com, mazziesaccount@gmail.com,
- jishnu.prakash@oss.qualcomm.com, duje@dujemihanovic.xyz, wens@kernel.org,
- sakari.ailus@linux.intel.com, linusw@kernel.org
-Subject: Re: [PATCH 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
- driver
-Message-ID: <20260608190336.2e90b297@jic23-huawei>
-In-Reply-To: <CALoEA-xWB226gf01OdB5LBMRqrds=b2UN+DmXJdH1j6rq1c5-A@mail.gmail.com>
-References: <20260607183542.368184-1-jakubszczudlo40@gmail.com>
-	<20260607183542.368184-4-jakubszczudlo40@gmail.com>
-	<CALoEA-xWB226gf01OdB5LBMRqrds=b2UN+DmXJdH1j6rq1c5-A@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780941998;
+	bh=wmOzaNPMLMTRlAiuUaUCwxooKMPfOzABb3y8AaIFtNE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CkX5E8qkmgdi9EIwF9C26Psb+iabErXzv+FQXPSLSpVzDpOI5DfDgjcRKAwbFhdX+
+	 ikLgMPg9nddhI6KR9mRy185Nbv9Kk1g9EQ1J2j6+PA9a/YApbYxsL6E1Q612UYntcB
+	 OE9w3XTRZu0qMlqTdSudWXALe7S1gTu7eg/eQGp/G2A94y5k8zboSVWWqQ4jh/od3e
+	 S5T9Q6dH+zkH8NQdEWpct71iwP5lIO3reZ3E5ks+QSr+wwzCLKytrIzzHPdFYdlmeZ
+	 5VayweFuItnav+0WQnIlaD6kg04cdIpqZ2vIAkHwsYkB+/suKCO/A5SBy8muaju1w9
+	 gRNt/Apdu4pjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V6 4/6] drm/panel: anbernic-td4310: Add RG Vita Pro
+ panel
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260608175521.67449-5-macroalpha82@gmail.com>
+References: <20260608175521.67449-5-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 18:06:38 +0000
+Message-Id: <20260608180638.A72171F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 8 Jun 2026 09:39:07 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Requesting `reset_gpio` as `GPIOD_OUT_LOW` in probe backpowers the=
+ panel, and missing reset assertion in the `prepare` error path leaves the =
+panel backpowered.
+- [Low] The driver calls a non-existent function `devm_drm_panel_add()`, ca=
+using a compilation failure.
+--
 
-> Hi Jakub,
-> 
-> various comments inline, some nitpicks and some more serious.
-> 
-> Josh
-> 
-> On Sun, 7 Jun 2026 at 20:38, Jakub Szczudlo <jakubszczudlo40@gmail.com> wrote:
-> >
-> > From: jszczudlo <jakubszczudlo40@gmail.com>
-> >
-> > add ADS1100 support  
-> 
-> Wrap the commit message to 72 characters per line, this is too
-> short.
-> 
-> > make changing gain and datarate wait for new reading
-> > fix unbalanced regulator disable when removing in singleshot mode  
-> 
-> Additionally, write the commit messages as regular sentences, not
-> a list of changes.
-> 
-> >
-> > Signed-off-by: jszczudlo <jakubszczudlo40@gmail.com>  
-> 
-> Ensure that your full name is in the Signed-off-by tag (this goes for all
-> patches in this series).
+commit 0a4500b372d995ebf665c9896430451a3e287a41
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-A few follow ups to the good review you already have from Joshua.
+drm/panel: anbernic-td4310: Add RG Vita Pro panel
 
-> > @@ -85,6 +98,50 @@ static int ads1100_set_config_bits(struct ads1100_data *data, u8 mask, u8 value)
-> >         return 0;
-> >  };
-> >
-> > +static int ads11x0_get_voltage_microvolts(struct ads1100_data *data)
-> > +{
-> > +       if (data->has_reference_voltage)
-> > +               return ADS1110_REFERENCE_VOLTAGE_MICROVOLT;
-> > +       else
-> > +               return regulator_get_voltage(data->reg_vdd);
-> > +}
-> > +
-> > +static int ads11x0_get_voltage_milivolts(struct ads1100_data *data)
-> > +{
-> > +       return ads11x0_get_voltage_microvolts(data) / (MICRO / MILLI);
-> > +}
-> > +
-> > +static bool ads11x0_new_data_ready(struct ads1100_data *data)
-> > +{
-> > +       int ret;
-> > +       u8 buffer[3];
-> > +
-> > +       ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-> > +       if (ret < sizeof(buffer)) {  
-> 
-> Sashiko raises an issue here. sizeof returns a size_t, therefore the compiler
-> will promote ret to a size_t, wrapping any potential negative error value to
-> a large positive value, throwing away the error.
-> 
-> > +               dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-> > +               return 0;
-It gets thrown away here anyway which is also very wrong!  If an error occurs
-it should be propagated. If it makes sense to ignore it, do that at the
-caller and add a comment on why.
-> > +       }
-> > +
-> > +       int return_val = FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
+The panel used by Anbernic in the RG Vita-Pro is a DSI panel based
+on the TD4310 controller IC.
 
-When there isn't a good reason to do otherwise we still flow oldstyle c
-where local variable declarations come at the top of scope.
-However
+> diff --git a/drivers/gpu/drm/panel/panel-anbernic-td4310.c b/drivers/gpu/=
+drm/panel/panel-anbernic-td4310.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-anbernic-td4310.c
+[ ... ]
+> +static int panel_anbernic_td4310_prepare(struct drm_panel *panel)
+> +{
+[ ... ]
+> +	if (dsi_ctx.accum_err) {
+> +		ret =3D dsi_ctx.accum_err;
+> +		goto err_reset;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_reset:
+> +	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
+> +err_enable:
+> +	regulator_disable(ctx->vdd);
 
-	return FIELD_GET();
-should be fine.
+[Severity: High]
+The err_reset path disables the VDD regulator without re-asserting the reset
+GPIO (setting it to logical 1 / physical LOW). Could this leave the unpower=
+ed
+panel backpowered through its IO lines if the prepare sequence fails?
 
-> > +
-> > +       return return_val;
-> > +}
+> +	return ret;
+> +}
+[ ... ]
+> +static int panel_anbernic_td4310_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	ret =3D of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to get panel orientation\n");
+> +
+> +	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
 
+[Severity: High]
+Assuming the reset GPIO is configured as active-low in the device tree,
+requesting it with GPIOD_OUT_LOW sets its logical value to 0, which drives
+the physical pin HIGH.
 
-> >  static void ads1100_disable_continuous(void *data)
-> > @@ -307,6 +383,7 @@ static int ads1100_probe(struct i2c_client *client)
-> >         struct iio_dev *indio_dev;
-> >         struct ads1100_data *data;
-> >         struct device *dev = &client->dev;
-> > +       const struct ads11x0_config *model;
-> >         int ret;
-> >
-> >         indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> > @@ -334,10 +411,18 @@ static int ads1100_probe(struct i2c_client *client)
-> >                 return dev_err_probe(dev, ret,
-> >                                      "Failed to enable vdd regulator\n");
-> >
-> > -       ret = devm_add_action_or_reset(dev, ads1100_reg_disable, data->reg_vdd);
-> > +       ret = devm_add_action_or_reset(dev, ads1100_reg_disable, data);
-> >         if (ret)
-> >                 return ret;
-> >
-> > +       model = device_get_match_data(dev);
-> > +       if (!model)
-> > +               return dev_err_probe(dev, ret,
-> > +                               "Can't set device data\n");  
-> 
-> Hmm, if device_get_match_data fails, ret will still be 0 per previous
-> devm_add_action_or_reset() call, therefore you're returning a "successful
-> error". Additionally, the error message isn't aligned with the parenthesis.
+Because the panel's VDD supply is off at probe time, will driving the
+reset pin HIGH backpower the panel via its IO protection diodes?
 
-Message also talks about 'setting' when it is 'getting' data from firmware.
-So needs a rewrite.
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Cannot get reset gpio\n");
+[ ... ]
+> +	dsi->mode_flags =3D ctx->panel_info->mode_flags;
+> +
+> +	ret =3D drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	devm_drm_panel_add(dev, &ctx->panel);
 
-Jonathan
+[Severity: Low]
+Is devm_drm_panel_add() defined in the DRM panel API? It appears only
+drm_panel_add() and devm_drm_panel_add_follower() are available, which
+might cause an implicit declaration build error here.
 
+> +
+> +	ret =3D devm_mipi_dsi_attach(dev, dsi);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+> +
+> +	return 0;
+> +}
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175521.6744=
+9-1-macroalpha82@gmail.com?part=3D4
