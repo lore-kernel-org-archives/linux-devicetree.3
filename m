@@ -1,65 +1,65 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FC630567C
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 03:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C74A336881
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 03:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780888124; cv=none; b=JT0E0pcAhB42Jx6SAWtjvEslpqMUWcL4JX6RZCteKksHiBV31zKqVQAhHUF+5plKyBAotQ/SHp7ul/9yNcn5xjocxIX6ZELNbzbE1QU735q7OFv1aGaFucc+b7B7xScjRIN1rBhC/Z4EpYVdlEUcVFljb1mHcbVd+yVAE9q46eA=
+	t=1780888161; cv=none; b=AUASAg/2A+tiim15rox/quVj+3UMlojmLmx1l0sh8xCq+iIlha8u5Yta1yy5nZfbTMjp/zV+Oid8KAMDQkEVXW32Wwbz6a7gTB7Uq0gYuCer5KvoyGCocpdl19gSA7Kkf7RDe+XqF0kOpgml4Cr0v98gpdUseKKh8R8yirhO3vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780888124; c=relaxed/simple;
-	bh=eO7yVSb+ongNWkKbPuJJgDwNs5WTX9mm5C62KLUvoRY=;
+	s=arc-20240116; t=1780888161; c=relaxed/simple;
+	bh=kGkWt6C5ycyjEXTsn2oV6cHKOg6pKviV0NC46vzMPWA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y1RvOOFhLaGwg3qA1sWVsKnVOX9Cy1/pVWbdLiiZU74VlxnUcvfiqh53VXbKV9/te70RHBIHKrQgpbSQqBL+f2uPghrc3LGewuHFd967MQOH0GnCF2+cfwogjwXwC1NxBttlMvAPTz0AbZ0Bf70IJixrBJiXcJrZ/s61FizhtE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n74Cnow2; arc=none smtp.client-ip=209.85.216.52
+	 Content-Type:Content-Disposition:In-Reply-To; b=cPwH72dvbSR7+anpZ4Yf7s/eQICucsaoK9h/HjqMXMcn28Hc+DvWFNuecFKhVqkCkleMsAmabzOUqHgv6gjwtnk1DSCzXPy9T/gNagKsLLYir5DSRpFQpEc9vDnyY0mJdiWvwe7/t0P/IZo8OARvNXT64U4gEQzecpl/oPgFkQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=er46dHqc; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n74Cnow2"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36d98b9aa9aso3311398a91.3
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 20:08:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="er46dHqc"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-36baeec21dcso2282091a91.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 20:09:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780888122; x=1781492922; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780888160; x=1781492960; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=jZmjdnA6Z/FpveiHy+bpkM+wI1acYPmFvyA9Nr3I4wg=;
-        b=n74Cnow2jipnsiaIWCh4pBIYOzgyXgaymlAUYlsV27kmSMo3v53jIgxgmIScVQGLux
-         MlVn2NxVrCtGjziqIIEr8DMuZYbigavfi2D1ewnZLbmzXZVPNe9M/G+70G9b7v/4xAZX
-         IgjN3zipjZuudD1YPvcowIru3TzgzBOHqJBpbketCB2lYNtkaKpDIIDJYRSH0gDmJWcC
-         0gWCFHyZUspVPmUKV4QwzuDvreFUTfUqHM1OwWGjXirAOJFCi4qr5IslAG6X/e5V/20T
-         mhwAQwUxoBDKShHweTygYYxutfh0krmI1MHKDQlF3FfNIRnauevZ+RmQLwuKbPTeqwwi
-         R/rw==
+        bh=bnSxX6NnlVP9TffY8s3zLGx9ESRaKOyzgVhLAZp1f+8=;
+        b=er46dHqcA0duUz4iMNw27XOsxjmWyA1B5pSMoaAIzmvFtDmVBXF9QpdoPvpeSCHAcB
+         7/9oj/EC6m0KKL6e0DULafXDERbrsxenFnBb7dApXgG/R11ceeVEZKzh54brJXicCFSC
+         5YWQEUKIWIBwq8Hn+lgcFx67Aac5Lzsqpn2kTpyDTafzl02OusDIQFr9A6slLFjba1u5
+         Akq6E1H0DliXhpU+GgrTKSOaIl3mx4YBti7DQatVYRh7DMeInjj31TAE8gqlOIj1v3b9
+         YmjlijND3HKw1ysYGvAaNFIkc4vgdV64X50RJRegdg7Z6Km/LKa8ZN9Tm736lreA+ugC
+         BjRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780888122; x=1781492922;
+        d=1e100.net; s=20251104; t=1780888160; x=1781492960;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=jZmjdnA6Z/FpveiHy+bpkM+wI1acYPmFvyA9Nr3I4wg=;
-        b=kZtI2pVYgIeMEHq0T0EBa6WEmDjgPH4sNN0y9sAQkuZ47LvFndztOk3aiq/AZWvQmJ
-         3ZW/zKY4FynlflIWVf1x3APJM0AKExALWrfl8EBiBkNEtd57o+6pHTsX5muZLKEuMVXP
-         Jte40SDEbCTVjVdTvMDR6bLYv5HbHCFmlZUqvT60HxqVc6mVUx0ypwACqd7BkLscq7Lq
-         nmCRgrG7MXER35KmQ/Iz3JeSfsL6R7Wc+Z1MMkX/gInebhubQFRCUbf0D5vLOGUZyOOy
-         8/TF4TD5JPaWi3+VfYLsEbeCn9rEv1iXIZ9tdfd/tx4wipVXGb9haeXTplBZnu0hw+IA
-         98PQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+X+CBj6Ai2H4U58CyluudN5toLDPO83A8Iuh6pwkYnQuRGFT5Pxu3KqGkHkqX7C+Xwpiq5GutBJcKc@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoQ+D5LPU4IR99OHYPJl3x5IIC81zRaJMUBCa0FJiXkcTfZy/z
-	qEcHruIbJrlY0xw2VDPSrij4Nt0MlX/tVz3WqKYEH6lM+Wgvf6fev6vm
-X-Gm-Gg: Acq92OFaf4BIUlvWsg1m6ui91tAJorTRf0FkVXSgsMKI/JnDRD4FuyosjZ1VynX4FRk
-	3Y4cfPJJbyo26FY9GozhYLCWM1Ns3SbRg2tJFlkbrYHRvlVLo5Av4vuQztuqaT/yZm24K+bM/NM
-	P/P9QHQCFDzpDIcBU128q9ziRJaq3BhZ0EWPm5R6uJB7mUNN+QQzZfrVLV9zhGlngzRvHtWKW43
-	e/kVScb69/D16QdlEezsbhbQyyYVFDntSkf8NwTcdLexl1FcIgwi407QdRv1TMXfZ+pauHev5nU
-	vB8u44Tumu8wdBwlSLfD5NeinmzjUUbILPzFlaGfzxKrho8K48KBKqsTTSLjXm/p+IOR7SKTMmY
-	txjLk5eRwng4oaIOZZQ4sn5AWtD97wOhDurTV+9r8+OGiIF6iMCNuxpP7EhEwGsVk6ndTN6WOQR
-	U/aYcT+fNRuz7j7UlIihW0bZyWafCQ8ZibZWIVJUfuMtlPMT2e2sLM6uHyOA==
-X-Received: by 2002:a17:90b:4a0a:b0:36a:fcf5:64bd with SMTP id 98e67ed59e1d1-370eec10e38mr15237248a91.2.1780888122204;
-        Sun, 07 Jun 2026 20:08:42 -0700 (PDT)
+        bh=bnSxX6NnlVP9TffY8s3zLGx9ESRaKOyzgVhLAZp1f+8=;
+        b=ajmxf6Kqa+tRIi7RqrnK06va0+4S6eDOwVmf4Wnv1GYlCnrLvXNqRK4dfCio4/AaMa
+         EpK+kVt6G1+9KWo3+CmJpGObZ13gwZ06l7/hokVYLi3HwUfkh3dPqkzWDjh8AaR3wMJS
+         7benajFh5iybpKuOLhay1nP09IR034bXCBQEk8U58WUIGb0pP2ethpnNNWG2h7J6pkga
+         Dt0h9ifSTKKY2VFrcdNzBPbQ00lkIjVUxp0StGAQUsFN9ljkVUWcQo34E8BdAX391Y49
+         tMvtr3s38ZpCTf281okLICFo3XcGncSdK4SFKYtEGlD9jpJxykX1ZUcPSBLeH+lvfo6s
+         pk6A==
+X-Forwarded-Encrypted: i=1; AFNElJ9Vu3VP2dBW2B1sDgfHFavOoEkaX0mLtZslkpRJ8Ta7wMTG+IQpJ6WMo06FtREBa+KgshbaPLs+Xxmc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGdQ+skEzql/kIR5gJUX5OISVHxX6p3pdoI7odFjtMoR0qmHgw
+	5TMacbK45lIMO6UwxlprVf/T468Tp4o1YpeGgQmdgNa+4TBOAeR5PiFpANrNQcJl
+X-Gm-Gg: Acq92OH+LN6XxW9sZFKbcS/L1z9weXeMk8J7CVsXXqfkGRSk2bo1Bm91EUJ/9IirUyl
+	wE0PbQNRvmyDxkNTIzObI1vOghlb+9NjOI7Hk3TX2kVd4EWweUZ7cOSvf8iptCkKuaGPmRkh4IM
+	pgVjsV0leAe4TsJ3V0VCc450aifI52rRFjUSA7lYLWtqDS0lWumouzKcFpbHlG30rHnOSY7pEMn
+	PyY9qk48VQo3geUc9K+h7NYjI1+qZooR3st7/HzzVOctb3oKev6tEMpPkxjYl05+VJA2bO5Fp5l
+	WKDUyMMSBuD4kERd1xkcO2vG15LcgMLKHEayhxSlIRXOGmaG94myBGuvUw1LplPUTFuk98sE/KZ
+	i/5Ui+x1aMtSMaILev7uHJothcaZ9CUngQGasR0pLy4BdM4wbeJ6QhIgnyMgGAkITeCKP2prbvQ
+	4BvQgblFwL+YKsR5411UnS32BHQUOVmArKcETP28K3eaqkUhQ=
+X-Received: by 2002:a17:90b:57c4:b0:35f:b647:d98a with SMTP id 98e67ed59e1d1-370ee64373dmr14132310a91.5.1780888159963;
+        Sun, 07 Jun 2026 20:09:19 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f710ee4f3sm14702020a91.13.2026.06.07.20.08.41
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f70a29cd6sm13867998a91.11.2026.06.07.20.09.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 20:08:41 -0700 (PDT)
+        Sun, 07 Jun 2026 20:09:19 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 7 Jun 2026 20:08:41 -0700
+Date: Sun, 7 Jun 2026 20:09:17 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
 Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
@@ -73,13 +73,12 @@ Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"noname.nuno@gmail.com" <noname.nuno@gmail.com>,
 	"Syed, Arif" <arif.syed@hpe.com>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
- MAX20860A
-Message-ID: <6cbc0058-5471-4199-902f-5dbd574df886@roeck-us.net>
+	Sanman Pradhan <psanman@juniper.net>
+Subject: Re: [PATCH v4 2/2] hwmon: (pmbus/max20860a) Add driver for Analog
+ Devices MAX20860A
+Message-ID: <8559cc71-ad0d-4b76-b562-67dd3d7a4ca8@roeck-us.net>
 References: <20260601184516.919488-1-sanman.pradhan@hpe.com>
- <20260601184516.919488-2-sanman.pradhan@hpe.com>
+ <20260601184516.919488-3-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,16 +87,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260601184516.919488-2-sanman.pradhan@hpe.com>
+In-Reply-To: <20260601184516.919488-3-sanman.pradhan@hpe.com>
 
-On Mon, Jun 01, 2026 at 06:45:30PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On Mon, Jun 01, 2026 at 06:45:36PM +0000, Pradhan, Sanman wrote:
+> From: Syed Arif <arif.syed@hpe.com>
 > 
-> Add devicetree binding documentation for the Analog Devices MAX20860A
-> step-down DC-DC switching regulator with PMBus interface.
+> Add a PMBus driver for the Analog Devices MAX20860A step-down DC-DC
+> switching regulator. The MAX20860A provides monitoring of input/output
+> voltage, output current, and temperature via the PMBus interface using
+> linear data format. Optional regulator support is available via
+> CONFIG_SENSORS_MAX20860A_REGULATOR.
 > 
+> Signed-off-by: Syed Arif <arif.syed@hpe.com>
 > Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
 Applied.
 
