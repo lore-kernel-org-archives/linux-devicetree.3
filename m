@@ -1,97 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m32112.qiye.163.com (mail-m32112.qiye.163.com [220.197.32.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B281624DF
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175D01624DF;
+	Mon,  8 Jun 2026 02:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780887274; cv=none; b=rtrw2BZck/W2lNkW9ecQnYCLxwvgvl0Mhi/+ND5sdcJwEdvAPmPMlej9x1X7p/4hrX1Kxm5RcxlwlVzlhreG8gm014vyk9HGU7Xq3LeNp4QBvz67b4/tkYt6KvC5LoPGAU9saAcrP1DhqutVNwAw9+Ag3oAVAdBTVw3oaJpTzPo=
+	t=1780887394; cv=none; b=sdxfdOnADXTJEfedrwTReYjpdJTPhyqDSCxjZQVOjea75BTp0GdaOPngzfXpsLER3tiXGnjS49fdlwY81X7NpIRN7FioRwM129HBNerFTXQIqYLwFUPxWJggTDBEm54DEZD1Ce3e/qg4siIJo/sh4dyMF1CgXttItTCOCBgQd4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780887274; c=relaxed/simple;
-	bh=+M6KeAmPLk8uOL6Blge9nQl62nixGGlE9fKTClYTns0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J/H3wo12GW2vvZ7xzVFSps/kzgF8Xdx37XQ41zl5aS6je2GqWtUaRQTtY9dXC/Rs6+sjOV8yFNvXkhIc8It5tLql+FTe0eZ0ej94iNvgFCzn2oCo27CI3vTTm9qkN4qrbYEPMcbglJiqC0j0+enOPkE9RCamERKv8A1HooyUTn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqkDTscR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780887394; c=relaxed/simple;
+	bh=lWrFFzVFH+uZI4fq9CcaXDY6AJ+jlr3YcKA5DCz9wfI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dVEzsGRxoVvnyQrzvMQOAbTg+59DqBebD+MmSCDKusDEePVGX8B1P3rI/eU2W9lzaLeQr7W6wBXES8fvFZEwjltnVUB9BN2wLJpmW6aCq11fqmcKUUsyZZE/dIN8cqBRD8XMcFhT3wu9fcs7b6uw+JxNVn0+brg3Ygios/NMTt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fd9Fgd70; arc=none smtp.client-ip=220.197.32.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqkDTscR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4207B1F00893;
-	Mon,  8 Jun 2026 02:54:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780887273;
-	bh=/22gxNLxS8P7x0QrPNOwK2Io0HzKVGjU17i9ZkUHApo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jqkDTscR24HdCPWCxcrdoqyr+pcnIdd/YT9B5EauGu4zHVjd9ygVGK5AfL1mRfw8q
-	 P8tc4dM0zWa1DOvExMyBk9SE75sSmMlYDZKLPKg8N6nX3/c3nSG+1udveddZ8oupDJ
-	 4Wot/fXMbRtq8yirKVihbPYenFqJoSTmb2I/TgtiFwqd0MKdcn3D3If3nrMr9sj0nk
-	 f5aqnk5pFuLvexgoVZngkzq89DOy/ZXS1Jb3P7KKRegZtLw7IHT/9xtlT55NGve/Xe
-	 Q98A1VANhMfucWCPQDntTnUYbWae8DDZxlu9sVou7k+iqjrM+pVbOdl1U1QJtKsfAQ
-	 KDQ9aIQI5FqtA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
- clock-frequency properties
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongliang Wang" <wanghongliang@loongson.cn>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260608024533.32419-2-wanghongliang@loongson.cn>
-References: <20260608024533.32419-2-wanghongliang@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:54:32 +0000
-Message-Id: <20260608025433.4207B1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fd9Fgd70"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 416b76aca;
+	Mon, 8 Jun 2026 09:40:38 +0800 (GMT+08:00)
+Message-ID: <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
+Date: Mon, 8 Jun 2026 09:40:36 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+To: Midgy Balon <midgy971@gmail.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>,
+ Finley Xiao <finley.xiao@rock-chips.com>
+References: <20260604135255.62682-1-midgy971@gmail.com>
+ <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+ <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9ea4e3928003a7kunm2dc5485516737a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRhMVk8eQxpNQxkaSkIYTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=fd9Fgd70jQYunloQSZc2Sw1ViLh44FaOLEhh8/tp6FuCuEqh+zQpvglmCBICWSNY4eMQ2EG3F6nYIRDMlWBfyr07TaYpQAnqsDsnK7+my9QhXHjn1qw65oOnV0stueIXxBjcZ5b29o9ukMPv35PD2ONVCXGOSRJMTHrJjXosvds=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=UrntyxENooj6wbeRVkJOCbYDj96squyuxfsHscwtUdc=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Adding the `clocks` property to the device tree example without def=
-ining it in the `properties` block causes schema validation (`make dt_bindi=
-ng_check`) to fail.
---
+Hi Midgy,
 
-commit e568ab3d299f8c59baf7b2a2ee43cbee837517fd
-Author: Hongliang Wang <wanghongliang@loongson.cn>
+On 6/8/2026 5:03 AM, Midgy Balon wrote:
+> Hi Chaoyi,
+> 
+> Thanks a lot for looking at this -- input from Rockchip is exactly what this
+> series needs.
+> 
+>> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than v1,
+>> implying it should support 40-bit PAs. Nevertheless, please note that the
+>> upper limit for DTE is 32 bits.
+> 
+> Understood, and that 32-bit-DTE note is the crux of the trouble I had, so let
+> me lay out what I see and ask how you'd prefer to solve it.
+> 
+> The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base.dtsi).
+> The problem on this 8 GiB board: with the v2 ops the page-table allocations
+> (gfp_flags == 0) can land above 4 GiB, so the DTE ends up > 32 bits and the
+> NPU's first translation faults with DMA_READ_ERROR. To work around that I had
+> switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops set
+> GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but because the
+> driver keeps a single global rk_ops, a v1 NPU MMU then trips
+> WARN_ON(rk_ops != ops) against the SoC's v2 instances (VOP/VDEC), which is why
+> I based the series on Simon's per-device-ops work.
+> 
+> So my question: with per-device ops in place, what's the intended way to keep
+> the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB of RAM?
+> A v2 ops variant carrying GFP_DMA32 for this device, or is there a register/
+> config bit that constrains the DTE address? I'd rather follow the Rockchip
+> intent here than carry the v1 workaround. (Simon, cc'd -- this is right next to
+> your per-device-ops series.)
+>
 
-dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+If Simon's method works, please use it :)
 
-This commit adds the clock-frequency and clocks properties to the device
-tree examples for the loongson,ls2x-i2c binding.
+>> Can these operations not be completed via the pmdomain driver?
+>> If some operations are controlled by TF-A, are you using open source TF-A?
+> 
+> Most of it is in pmdomain already. Power-on and NoC de-idle are done by the
+> RK3568 NPU power domain (genpd) at power-on -- the driver no longer pokes the
+> PMU directly. Two things remain outside it:
+> 
+>  - vdd_npu: I mark it regulator-always-on in DT rather than wiring it as the
+>    domain's domain-supply, because as a domain-supply it created a device-link
+>    to the I2C PMIC (rk809) and genpd's power-off QoS-save path then hung
+>    reading the NPU QoS registers behind the (gated) NoC. If there's a clean way
+>    to let genpd own vdd_npu without that I2C ordering deadlock I'd much prefer
+>    that -- pointers welcome.
+>
 
-> diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml=
- b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-> --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-[ ... ]
->  examples:
->    - |
-> +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
->      #include <dt-bindings/interrupt-controller/irq.h>
-> =20
->      i2c0: i2c@1fe21000 {
->          compatible =3D "loongson,ls2k-i2c";
->          reg =3D <0x1fe21000 0x8>;
-> +        clock-frequency =3D <100000>;
-> +        clocks =3D <&clk LOONGSON2_APB_CLK>;
+Please refer to the patch below regarding the RK3588 NPU pmdomain.
+In short, you need to set a "need_regulator" for the RK3568 NPU pmdomain.
 
-[Severity: Low]
-Will this addition to the examples block cause make dt_binding_check to fai=
-l?
+https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
 
-The loongson,ls2x-i2c.yaml schema sets unevaluatedProperties: false. This
-strictly limits allowed properties to those explicitly defined in the schema
-itself or inherited via references. While clock-frequency is inherited from
-the standard i2c-controller.yaml reference, the clocks property does not
-appear to be defined anywhere in the local properties block.
+>  - the NPU compute clock (PVTPLL): set from the driver via SCMI, and only
+>    needed for actual compute, not for bring-up.
+> 
+> One more pmdomain observation from testing, possibly relevant to how the NPU
+> domain should be modelled: the domain's power-off/on cycle doesn't reliably
+> re-de-idle the NoC. If the NPU is probed after genpd has already powered the
+> (unused) domain off, the power-on de-idle fails ("failed to set idle on domain
+> 'npu'") and the NPU IOMMU then takes an external abort on its first MMIO access.
+> Probing the NPU before the unused-domain power-off, or marking the domain
+> always-on, both avoid it. Is the NoC de-idle expected to work on a genpd
+> re-power here, or should this domain effectively stay on?
+>
 
-Because clocks is undeclared, adding it here will likely cause the schema
-validation tooling to reject the example and fail the build.
+Not quite sure what's going on with PVTPLL and NOC.
+Maybe @Finley knows about this?
 
->          interrupt-parent =3D <&extioiic>;
->          interrupts =3D <22 IRQ_TYPE_LEVEL_LOW>;
->          #address-cells =3D <1>;
+> On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
+> (github.com/ARM-software/arm-trusted-firmware, RK3568 platform), providing PSCI
+> and the SCMI clock service. The only closed blob in the boot chain is Rockchip's
+> DDR init (rkbin), which is the standard situation for mainline RK356x.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608024533.3241=
-9-1-wanghongliang@loongson.cn?part=3D1
+-- 
+Best, 
+Chaoyi
