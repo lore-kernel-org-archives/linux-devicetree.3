@@ -1,223 +1,127 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63051CDFCA
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 01:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBE329B8CF;
+	Mon,  8 Jun 2026 01:09:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780880425; cv=none; b=NKRHi3Bry48orx2HpAz59Mri0yT81TkbDAYJsPdnSPJZ2hNKWDmu5PQQyAbM5oQdUjmWkyA7kF2rRD6TwTYAYypiZscgGfEK/BkxJ5fwHh77Y+/r9YYpHt8PVTvwJfo3A4XQSNGvdXM4U2z2W12iV/qs/RiQA3NlUbJmWUgYtOk=
+	t=1780880980; cv=none; b=nJJu4fLR4XOVdmvm9ki7CLyhiwDwEbc3P7KOVQFgVxsjs2PguxhJvsqJzdnb3+TP4HlaHN6v19bcK6exOdB+c7MNR//c27Zu77K3W0KoRZBxKzpaT2zSkLxoJ3cnlfmchlsoqzZ64ciIIUbjDsWMxlw1aKF+Y2rsVSdTrOxVqQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780880425; c=relaxed/simple;
-	bh=MKjwcF5QA8boZl++n/seX1fhDS3eFeN/H/j/NPGTEmc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RV8As61C3q2YPtmxk3idwytbJVNqZTsGHZ9Aw7KkmgRGd0tKh/VNCq5EeOxDrzsIOV9VwdSTO5Ua10HTfp0hRmVJL3K5c3lgnwoh+CpprK8wt+IKNpifDqbNsfWekBoKU66FM8vgvIQEd/9CHNcbzyb0nQuowqV5AoWGvU4Ftpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFgXxxRY; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFgXxxRY"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c0c3546924so23507425ad.3
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 18:00:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780880424; x=1781485224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=iIPw2Ul3tsPc2bxto6n13tf9Lx1PY2MWkQj5XztoNyM=;
-        b=AFgXxxRYpq3P6dXhjTOi1NDamdHMzfKVDctIEb5h4EPefnu389rEmvTY5ljdLVxUdO
-         iYtywSqszMhhzpaJueJGZo35/BFq5l42MQaIqmJHrSmRoLzOlA89eIL3rDMHpi34PAT3
-         kh8j/2gge5/PZgQrqNuYvzeODq5SVWftJRFietw5Kc1Tt2ENk9HH9xi7muSZn2wxhkep
-         i9UcOJ9GA3OldoU61S6XUg8eEEJYTL6XLjnEAj7fex59cEUeQzSl+6oh2WGRi9eqcILA
-         LYhM8tXP6KM3qFXQP9me1rM+0ZQxKQj5rHniXs1GeUmN7CQEY0KveN4BEOVD2g8Q9Pqa
-         W/xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780880424; x=1781485224;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iIPw2Ul3tsPc2bxto6n13tf9Lx1PY2MWkQj5XztoNyM=;
-        b=tKugKSPWohYTjRfB8tDdeeFXZNh4gv4PX8lTbkCeQjOtrIC7WGOny7JE/dW/5GsVJ5
-         5ey0OTHZmDcG6uuDiPZ4czfO6E9mush2OEBGDS/3wTYs6eVM9P3ejuBOKz7eaI6LnTap
-         WFrV52UR5MyemPhH6oaBuSk3kmEGQ1TG6sis7AjQMnhBVYly352C8rYyZ91I2WN6yhav
-         k0bIQ91adw4Lkp6Q66C8E3R4qBlnOwF6LahfMvw1AvEH8TsBCr7oUWxy6fDnH4+gP0Qs
-         fB55hVAoZNzEEYVH0/LAswFjYSADeuaEulKVvmRVT2O5Y0+7lPZT9nqwXaJTql20eWO9
-         FSgA==
-X-Forwarded-Encrypted: i=1; AFNElJ/whoN/xQpytRLvyw0HDXyJct4GGbggzXPuM2nHtSmijMtZGpD07NYNvighw5wMVLGyWy/2U8xGkI1X@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyxne5dDXRI28WjZqw7iVA4U+UDxyN1bA5xFLUXMV216CxYO2cr
-	NCYpb42ud8xEEumiIOpmPSABtzvxs47vwVzPOMrxiY+JJtgp0wufBWCJM2+0vmUJ
-X-Gm-Gg: Acq92OF1EiRwR7Y/xYvFBgXWn/nAUsmHIAxXTUaV2M1MErLYAZyps3eVoBjqvjo4pG8
-	U2jjb7sm2bmvnpX3Bx09TTVr2S+vgjVNxnkDztSNxaDlAjjoAPOSQVjcSxOQ+zE9UwwRADnfajr
-	/t7OqqGNWHjvu35vC6q0b0xhLuodZAQBny7g2YaKufiVQRYzMIB8mQ1Xe2vh+Giowy9NO5evZTn
-	X774M8SyuFWGOjWEVkld5QFnAWKMkBepqitJweALJphXIWoRYXk0gE0w3P64OoVLy4y5Rm+DCbW
-	hErGvo2m15nwqcBXqG7pR8LToWB5fMSD1vvwnGlkHOuj4RELAPJzWxRKWHYE5wtxhhYQpt12vW6
-	AAEWPIMsZhl2n7mL7GI29qk8vsxfTCkSD7E9bBdUgStmTkD5F0Ob8BDhfwkRsTg8s+yEizbh0uH
-	xCNvxXiGWu0TINSs5Xxp8wghDXGF9Xa1bSs7ZSTXj3pKYFu96YVyqD2u6S71ZEqpJyeR+5bHY2M
-	BfWQpxfb1vsFkmPzrB8
-X-Received: by 2002:a17:902:f608:b0:2c0:baaa:db94 with SMTP id d9443c01a7336-2c1e881fd52mr142085415ad.22.1780880423815;
-        Sun, 07 Jun 2026 18:00:23 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16649c302sm156772795ad.73.2026.06.07.18.00.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 18:00:23 -0700 (PDT)
-From: Zi-Yu Chen <zychennvt@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH v2] arm64: dts: nuvoton: ma35d1: add CAN nodes
-Date: Mon,  8 Jun 2026 09:00:09 +0800
-Message-Id: <20260608010009.3389558-1-zychennvt@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1780880980; c=relaxed/simple;
+	bh=6mFesj4hgoULMnFuaTjtFmFx3IRjOGWujjUMOSGa2r4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GK/RlCP/ul40iqaXSKYTBHPMGR6043MY8cg1kLbraZWUMgDUntGDvn3Rj0eEHrdSeI0O+oqwfhhvMwdwCtoJgROjpWpeaHEf1nC3hFD7DnD4onHrrSPLNSgDdTdU/Z07T0MuZsgz7NoMpP6JhFdDi6Okl4vN8qoo3h6t2f3M050=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpgz3t1780880959t22d2278c
+X-QQ-Originating-IP: bXSnog20lGiDAATqGnwBlNDtCTN8ekmUmHTMsQS2HH0=
+Received: from [127.0.0.1] ( [116.234.26.110])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 08 Jun 2026 09:09:14 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6460039914688242846
+Message-ID: <3ADB82C061204E67+dec56a7d-f8d1-4be9-9b21-3481a710df87@radxa.com>
+Date: Mon, 8 Jun 2026 09:11:44 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Daniel Thompson <daniel@riscstar.com>
+Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
+ <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
+ <3A5C0389E7C0D241+21a4f16b-1af8-46ac-8831-0c1b49694df0@radxa.com>
+ <agH4qC74A540koDl@aspen.lan>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <agH4qC74A540koDl@aspen.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MDqtQ4jGWXAGlDFsZ6teNi+ri0nkei5XfBZpP5QcO66nK0kgvh4BCaQl
+	Xv3oHRWmoZLiQ1NbhcZ1qXlPzIzEJ8CqCdsiu47q1Qn6F76e06528BVQ1LttQpUElnXfWVs
+	kxFAJ5ytcLC+VfARgmM31sq/2b7QO4PBBqhPnRI7sEDHqvvdwWDlv25MBk4KRA5bS4ucica
+	5LXUd562FvcGSuV/5jz0F2qItoNRjuYDfdVQn9Ufko3tz9ITXa9kLpaJH1DOIfOljiaTiM1
+	cm52MZ00AVEtz1epYd6lC8nyXQS77iE/Nko7iMytc+1tKt0H9lpaJW2fU/Q+dreKRRXaU4J
+	C7KZ1dJgfuieH3e5gBQzDZDgdNF9MhwvyNGQnczkg5M1eMnXrNypBMqTuOgGwJtDM7zXH7T
+	aL14LMPGqcut5WI7xpDFRVP8byDTHWJAF0aHiyGCVMlnVA9PHSMEzmSQ1nR2Y9Q476BFRC4
+	gZ3uTWWAKoUYbVPo0C2RjESWKWJUvHeKksk+VVbEYED45ujiEyjt8JVYaLp6nF9FaLzQANb
+	3rmqbPC/KMz+HZqvZE1vA0v13aS8u91Icyj4o41fJLWWreLEHmjko1yNMcIHfWgdp3knZm0
+	zGGPju3+xADUZ0IAFNwX7Aj33LiSbUsJ14uyp9uCjpNAT+xhmIuRRR4ZwaTyMf9QdBjZYPQ
+	2V22HYyjxivhLUFwTshRzC2ePMWyy+Z0fLfk2NUsbSZvEqDVKz/EeiGt98AXC+5a9OlRwcq
+	uVRELH4XNH4e4pA1gRUXqDQD6v7yszNBTvvQHJU8GcJagoWLLtOj/iADYboC++zeJvNNxaA
+	E2TS0jDnuvz+w11mRTOXml0xp3gU/6kcR9TVoPfyWf/966uwZSurnynl9XARHO4uscGHhhx
+	+ccDGOym4uCEc+bnxqt6u51SoQ5798+mxa8gFXpB2rM0r9RS6OuvQaZ5YX6r5XcQ06LtkLC
+	E4pSiQZCCa4RLLhuYmOGEpWqECYxcrP/FnHHjJifpUyFaMsNg69x+ef6ilhHzf4s4J7M=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-Add controller nodes for the four Bosch M_CAN blocks found on the
-Nuvoton MA35D1 SoC.
+On 5/11/2026 11:41 PM, Daniel Thompson wrote:
+> Hi Xilin
+> 
+> On Thu, May 07, 2026 at 09:57:26PM +0800, Xilin Wu wrote:
+>> Do you think if a shutdown callback like this is required? It looks like the
+>> driver sometimes does a MDIO MMIO read when the PCIe link is down, causing
+>> the board to reset due to SoC side PCIe NoC timeout.
+>>
+>> After this change, the board can always shutdown gracefully.
+> 
+> I've preferred controlled reboots to power cycles throughout development
+> and I hadn't spotted any major problems with graceful shutdown (which
+> isn't to say there have never crashes but generally I expect `reboot`
+> to provoke a reboot successfully).
+> 
+> Just to be sure configured my board with irq=POLL (to match your setup)
+> and still can't reproduce.
+> 
+> We mostly run Debian/systemd so there might be something happening in
+> userspace to sequence things nicely. However I have ruled out
+> NetworkManager.service and networking.service (stopped this services
+> does *not* tear down the network link).
+> 
+> Can you share a bit more about how to reproduce the problem (including
+> reliability of reproduction)?
+> 
+> 
+> Daniel.
+> 
 
-Additionally, configure pinctrl and enable CAN1 and CAN3 on the
-MA35D1 SOM board. Also, update the APLL frequency to 200MHz to ensure
-the CAN controllers receive the required input clock for 50MHz operation.
+Hi Daniel,
 
-Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
----
-v2: 
-- Move assigned-clocks and assigned-clock-rates configurations of 
-  CAN_DIV from SoC-level ma35d1.dtsi to board-level ma35d1-som-256m.dts
-- Update APLL frequency to 200MHz to ensure the CAN controllers 
-  receive the required 50MHz input clock.
-  
- .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 32 +++++++++++-
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 52 +++++++++++++++++++
- 2 files changed, 83 insertions(+), 1 deletion(-)
+Sorry for the late reply. After some more investigation, I think the 
+problem is more likely related to the PCIe platform driver rather than 
+this driver. So I agree that a shutdown callback is probably not needed 
+here.
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index f6f20a17e501..fb23b0573bdc 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -37,6 +37,22 @@ clk_hxt: clock-hxt {
- 	};
- };
- 
-+&can1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_can1>;
-+	assigned-clocks = <&clk CAN1_DIV>;
-+	assigned-clock-rates = <50000000>;
-+	status = "okay";
-+};
-+
-+&can3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_can3>;
-+	assigned-clocks = <&clk CAN3_DIV>;
-+	assigned-clock-rates = <50000000>;
-+	status = "okay";
-+};
-+
- &clk {
- 	assigned-clocks = <&clk CAPLL>,
- 			  <&clk DDRPLL>,
-@@ -45,7 +61,7 @@ &clk {
- 			  <&clk VPLL>;
- 	assigned-clock-rates = <800000000>,
- 			       <266000000>,
--			       <180000000>,
-+			       <200000000>,
- 			       <500000000>,
- 			       <102000000>;
- 	nuvoton,pll-mode = "integer",
-@@ -56,6 +72,20 @@ &clk {
- };
- 
- &pinctrl {
-+	can-grp {
-+		pinctrl_can1: can1-pins {
-+			nuvoton,pins = <11 14 4>,
-+				       <11 15 4>;
-+			bias-disable;
-+		};
-+
-+		pinctrl_can3: can3-pins {
-+			nuvoton,pins = <11 10 3>,
-+				       <11 11 3>;
-+			bias-disable;
-+		};
-+	};
-+
- 	uart-grp {
- 		pinctrl_uart0: uart0-pins {
- 			nuvoton,pins = <4 14 1>,
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index e51b98f5bdce..494724a25f3b 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -244,6 +244,58 @@ gpion: gpio@340 {
- 			};
- 		};
- 
-+		can0: can@403c0000 {
-+			compatible = "bosch,m_can";
-+			reg = <0x0 0x403c0000 0x0 0x200>, <0x0 0x403c0200 0x0 0x2000>;
-+			reg-names = "m_can", "message_ram";
-+			interrupts = <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "int0", "int1";
-+			clocks = <&clk HCLK3>, <&clk CAN0_GATE>;
-+			clock-names = "hclk", "cclk";
-+			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
-+			status = "disabled";
-+		};
-+
-+		can1: can@403d0000 {
-+			compatible = "bosch,m_can";
-+			reg = <0x0 0x403d0000 0x0 0x200>, <0x0 0x403d0200 0x0 0x2000>;
-+			reg-names = "m_can", "message_ram";
-+			interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "int0", "int1";
-+			clocks = <&clk HCLK3>, <&clk CAN1_GATE>;
-+			clock-names = "hclk", "cclk";
-+			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
-+			status = "disabled";
-+		};
-+
-+		can2: can@403e0000 {
-+			compatible = "bosch,m_can";
-+			reg = <0x0 0x403e0000 0x0 0x200>, <0x0 0x403e0200 0x0 0x2000>;
-+			reg-names = "m_can", "message_ram";
-+			interrupts = <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "int0", "int1";
-+			clocks = <&clk HCLK3>, <&clk CAN2_GATE>;
-+			clock-names = "hclk", "cclk";
-+			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
-+			status = "disabled";
-+		};
-+
-+		can3: can@403f0000 {
-+			compatible = "bosch,m_can";
-+			reg = <0x0 0x403f0000 0x0 0x200>, <0x0 0x403f0200 0x0 0x2000>;
-+			reg-names = "m_can", "message_ram";
-+			interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "int0", "int1";
-+			clocks = <&clk HCLK3>, <&clk CAN3_GATE>;
-+			clock-names = "hclk", "cclk";
-+			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
-+			status = "disabled";
-+		};
-+
- 		uart0: serial@40700000 {
- 			compatible = "nuvoton,ma35d1-uart";
- 			reg = <0x0 0x40700000 0x0 0x100>;
 -- 
-2.34.1
+Best regards,
+Xilin Wu <sophon@radxa.com>
 
