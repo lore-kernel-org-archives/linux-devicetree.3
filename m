@@ -1,294 +1,200 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE6B394781
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 20:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF3338AC65
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 20:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780950717; cv=none; b=WECP25KsBZNoGjpm/1QLi7gDGBtsL04FlDm6TuXz5zNwIydaHEh9U6twW4V7Erqayfnxs/W03XBc69z7sDgGaF2opBIDME2TjrjP2qqnXd1k917PWL6O/8TvLIWekAoM4H0VuycZRGzFFmttcRLm0Kx2i9IrY04YHvpchNZSG/Q=
+	t=1780951479; cv=none; b=i76cGfijpq74PtLdRuRz6ueFve5rtasY96TbW23kwP0b2h0tx0zNWRfbxrsIDg9UzYaJf96MiIYk09MyJ2kBe5Yv8dCOdR4XfVUbKSCyiHj1pi3mp7JR/2gWxd5trJVi+kr4DTJaTdlF+VlyXNyA1voHA83K/VAL5mMYVN0leK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780950717; c=relaxed/simple;
-	bh=/R+qFNq2MRWIRpASjDvEa9edwehTODKYWPwF4Ig6JSA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NoJPH+zd+LjneZYHKApSs2d7+BBky9Fyo1khEp8EawkZeOn9fvBjJtPANbJlH34e/8M82TA/BLUjgGd2ndSsxAhHg0nLjyO040ibtUhffgIWB3zPk8n1Euu7CWp7LOYPB1Gj8OP5xwaF/TJ6tW9yTzYg0J/dg30IfwDmBnh69OE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IdXurBZu; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780951479; c=relaxed/simple;
+	bh=5Xa72kw9Ltgd7CByB7B5latAUb0JYhrgHD01OqlPHas=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ilm/XrMXyYkEYKRdSm2sOhqTHhfPcERIzf3GQp/fXt2kugnSGr10lAidYM3vk1mnoC6kD7I10N6Kpzu7AuXM/oSqsBEtOuWET6Iq8OeJxNWiG5aDWDIgSKFfnogqJNaGGllD1EbYrywEaLfCPBoAXQOvi0zm8Yt8217xEG66ArU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MGT7HmAO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FpS3M9uW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IdXurBZu"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso39430465e9.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:31:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MGT7HmAO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FpS3M9uW"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658Ix7Ha314982
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 20:44:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JZcc6TPeUx/2ww8Z8bbTx4
+	r6S+aoLRf/jpoC61OzVbc=; b=MGT7HmAOHcVdj0yATV7HMAwbU5uk4J313+T5nm
+	84kICFmcHfToU9Lqm9Zj1W8my/y4+rF2I1dGopuun62rFv8Fw2trVIkKDB3yKySW
+	qydpBOtZnfMRszANz62Pt50+mwOEp0Ujx4Zp18DgPJCVsRwORM4Er5MujfDwelpy
+	ptJDMUpbk/tCmC6s1na0lS+aQUhoepuuYyFJBT0tP7qg8AZABd46rd0j/jD4sGWe
+	Pih62qqCqyu29l++9QOUW7MKDU7kcjJF5AxMJXi8jD4J37DBGonSUMg6w0aopY6s
+	ItlzeTEe2ujWvVOt4J54RBTMEjcYrpwJuSquw8sPHnljJNCg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4entr0k59r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 20:44:37 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51772325a64so65798161cf.2
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:44:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780950713; x=1781555513; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=J7aA46O1Kidp9EIBCKXaMzxYNS525jaJND8WlxgPNm4=;
-        b=IdXurBZuK2RfTtY1M8I6fmwT6fbiUpxs1/8okyjjucPbI4CSf82ha4Nu0GyWGGCOEy
-         VGb1y+YVqoqCp5b4CnT10gtQ/3DcZTgvibP+URzjmpzvfL7x1ZNLSVZErzPQlGtaqZCb
-         pKPemInwLjxz/8Wf6ukhj198sAvdZjwnGeNrpsl0Rsj7R39hflukI5QPqqsy+nle5u+F
-         JF1Ksy1dAOFsoQPCHI9Y0YOnAHFniMYq+nb8x+NlPH5qIOfpdPwnLy6h0M/g0uzcXpz2
-         tJh50CG5kS8/xI5jPf9X5hW496v+GvFklo4XB9bN+7BrmoOlirmRoxUNse+knCuJB//n
-         ECbQ==
+        d=oss.qualcomm.com; s=google; t=1780951477; x=1781556277; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JZcc6TPeUx/2ww8Z8bbTx4r6S+aoLRf/jpoC61OzVbc=;
+        b=FpS3M9uWNviodCwpv2bLtoVECRrIQVkBxlMUstq/FCM6RxHg+e0vPAcN6CHwLPUegJ
+         Mm76Rkr+yHt4v6VOPb3Xb5IQgzFFJ1QYU43evugRLHNOzYa7R9QZyK2hqMRScVi9/++D
+         U+3DnDdnfzhWifpJeFW4EAVKll1DkfMZ6nWtPGsJh9v4h+ahc6hqKcUKT2byGpXBMpli
+         KqPD4ApjbE7WAmtEs6qL49I+Xxxc//DczzqtbF20h45N9wLAoHC7JgCgz6b9nyg4nqEw
+         DO4VpO12jDTk7mYgXfWPeZjdM5RrJXpibDGbVl7HTBb5lQZfy4tPosr9FIZgPZSgnAc8
+         uwQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780950713; x=1781555513;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=J7aA46O1Kidp9EIBCKXaMzxYNS525jaJND8WlxgPNm4=;
-        b=BNgOsZ+wakNpbRwYOPt2LS0ZVp5U6Z1YsBgQKPpB6dIOr9NWqivciyDTNZqV8Ng+bV
-         iUfgdQgM1TWvhIvTopMqseDx3xiAJTTcstZc5EfGmQFQcsqQmUcDUqhPev0iVP5aBqQ+
-         ZHSKlvn6JGaMq1SJaf6WnwbzIJHTcmtpDppRsiLpkXu3ZCxL7b9ClziJokUArV+FAz8y
-         7WFrBobYHuq9maKlq1O1vYojFZ3mI9W/kPeqRbsnVM4g4bhiyDQqUAbc4PYl07DlLl5L
-         aUuzRtzn8giW163i0vYRECsuNxZpObNbGpOGx2DUMM/SaUKkmgyTC+vCRd/HQhe4rwyd
-         XpRg==
-X-Forwarded-Encrypted: i=1; AFNElJ+K8yrNtwFXTE54bAhdTt0Ugden5/PfHheHxsQneZPWF3Dclslop3OYsFjIsYzot58wXtJjtHUZag9G@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyDBrlZ0JAvglE5B63TFmGbobk/cHYAIUhldtiACvOK44Cb6Fn
-	1tXODrdllDtBfORqy/07FCqLMk8PCDvTJXGFV5v4NtZ5oTh3Xsu53zsH
-X-Gm-Gg: Acq92OFLKItDq4TdMHtTiLA1jzLH9oWNyoZMIA6Scx1+DJhxHvMq6MbGM11et1msTJ0
-	5JGs1yUYtUebVJeC7hCW5k1bMenhZVpIO2CYcpC3QV1JFv7H9zXZuUH661ocnTREoB0XoBsT+cH
-	FORrk5HYVKKzF9vyf+LXe3/QLYplW5RlgUdT6DW4AoRBjFMGYEQRoMrQHOydmse7+iJDQ0pWl7E
-	gNlJLEvq2hs857l+MrRHytEe6EEEQtvdtC8leXIaFAkr/wRDHW0qS9UprD7dq0pZol7R+dLNVK4
-	+pQuw6MYpZ4MZVIyHKYinSB3fGLOmN3bW5nY7CQRHLQhMokQ6c4sEkmuyIl9NGkXdUSdwsWt89y
-	izmd5rjoFqUQaM1C9igEXJ28PBjMsL1yf3bhHj2RJW/s4ZNGwdboK2STW9cOtEBrhtaxq/EvgH1
-	RiLUZL87HBE1yJf5Wjtc9E541FQ/9XK0u6hgyxqmCatXSttwvEfrqS52iXctkHMtXQi9y2GmXjH
-	r5MrsLpnS5rynCGkfTZJPo=
-X-Received: by 2002:a05:600c:4e43:b0:490:b9c3:6c69 with SMTP id 5b1f17b1804b1-490c2622cf7mr276459415e9.30.1780950713229;
-        Mon, 08 Jun 2026 13:31:53 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc413541sm452900015e9.14.2026.06.08.13.31.51
+        d=1e100.net; s=20251104; t=1780951477; x=1781556277;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JZcc6TPeUx/2ww8Z8bbTx4r6S+aoLRf/jpoC61OzVbc=;
+        b=cOUWE6McTdNjYfFjCJNI1B0YJmYXLHoj+CvxkwtjAtAbWakLOxVw+NUL9wyGgzqObK
+         mJjG87iiF7b7T/x0nlYy2SXPFXs64BuLe7s3z5l0rzWFSNBlUfK7FWZZoG65yKJQThwQ
+         +2/lrhC7Y3sKEwsVSdky3Slx/KxaFEbVZVnoDcm5CjUz+5O+1ZUl6iJZ0KbJ9IdeyTmz
+         6mzdm4WiXT9kWVQswQzEU5MaVFv5ry8/lKBo9M3Cc3FaNO/+VKYZKr/Z830qEpFjvVzn
+         1eZ63+zj/F5uwbdi7MBkam6IEAkp/oISsogpdxD8EHNk8ys51kCbKGkmw7qba+FpuKZm
+         kImQ==
+X-Gm-Message-State: AOJu0Yxqo/k/0ktfFUul/1gip4r6c5Dy2J/VsywNa4Tib2RYlAoiHXw6
+	Nemmyls5auihwg9kqXxsFW7BUKncorYZbrwowRWhEkc60AzpIHkOvuMU/dvz6F4aJRS2W99rCWN
+	YrvGRQ3dpp7zLQ6SPMmsYKlHUwdt8Zhjd3fzulKRfw3qBWxuvhbjgn68A+xClLRU7
+X-Gm-Gg: Acq92OHz7+3TPldf5dOvSNFsWTw1t1tvrGgybRqkl4B0a3fPfSVjoISkXsXwJcTU4Gt
+	TUd4aupPlCs1C/gIM+UgPkzq80KA5TC8o3ByRBbAmU/phIzvEB1HHtLjVpc41hR0iseGnwiMH6J
+	GUMc+hANMYBsyDdgUljlHvHRfUyhXLkHHAdvUKTe0WWfQ4iATiiTyWjxNk1t83EduUDk1ukJhxN
+	0P1yvC8pT4R9yJ4XdijbT41E0VZnFiXAwd6RtYIBbTlG1kKV92VKDY28uUIRfEQ0kfvkIt6c7vr
+	t0zDBM7MbaS7Qce2tIFTZhtJU3RbP0SPAOrGa8TckmpmFpxqOLYeTRXjnZzbB1/MGrt1LvgQWe4
+	6dBVgOgiouOa20aAQWGI0J8EHZb70Y6I8OoTz3hd/+84gfEFMGiMBW4w=
+X-Received: by 2002:a05:622a:1f90:b0:517:75d8:b95d with SMTP id d75a77b69052e-51795c0cf7bmr247057421cf.40.1780951476671;
+        Mon, 08 Jun 2026 13:44:36 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f90:b0:517:75d8:b95d with SMTP id d75a77b69052e-51795c0cf7bmr247056621cf.40.1780951475888;
+        Mon, 08 Jun 2026 13:44:35 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.94])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4602cda3651sm44018439f8f.32.2026.06.08.13.44.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 13:31:52 -0700 (PDT)
-Message-ID: <93063cd749aa8bc5f650bfa4188abb8c4cb8aec9.camel@gmail.com>
-Subject: Re: [PATCH v16 08/14] iio: core: add decimal value formatting into
- 64-bit value
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, 	linux@analog.com
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>,  Andy Shevchenko	 <andy@kernel.org>, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich	
- <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>,  Andrew Morton
- <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
- <rostedt@goodmis.org>,  Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
- <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Shuah Khan <skhan@linuxfoundation.org>
-Date: Mon, 08 Jun 2026 21:32:58 +0100
-In-Reply-To: <20260604-adf41513-iio-driver-v16-8-1a7d09143bc2@analog.com>
-References: <20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com>
-	 <20260604-adf41513-iio-driver-v16-8-1a7d09143bc2@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+        Mon, 08 Jun 2026 13:44:35 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] dt-bindings: mfd: syscon: Tighten checks
+Date: Mon, 08 Jun 2026 22:44:23 +0200
+Message-Id: <20260608-n-dt-bindings-simple-bus-syscon-v3-0-4eba9ec1212a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OwQqDMBBEf0Vy7soSRbSn/kfxoMmqWzSxrkpF/
+ PdG+wO9DPNgmJldCU1Mou7RriZaWdi7AMktUqarXEvANrDSqDPMMAcHdoaanWXXCggPY09QL8F
+ uYrwDSgrbpJhXqK0KLeNEDX+uhWf5Y1nqF5n5rD0THcvsp+26sOoz9//aqgEBNSaUGZ0W1jy8S
+ Pxeqt74YYiDqPI4ji9iGIV15wAAAA==
+X-Change-ID: 20260608-n-dt-bindings-simple-bus-syscon-e39df408a02d
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Jacky Huang <ychuang3@nuvoton.com>,
+        Shan-Chun Hung <schung@nuvoton.com>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+        Aaro Koskinen <aaro.koskinen@iki.fi>,
+        Andreas Kemnade <andreas@kemnade.info>,
+        Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+        Tony Lindgren <tony@atomide.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+        linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1955;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=5Xa72kw9Ltgd7CByB7B5latAUb0JYhrgHD01OqlPHas=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqJymqXzctnjCZTlgfqtTkKkReZfSxm69dcth3s
+ +3KPVCaK/qJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaicpqgAKCRDBN2bmhouD
+ 12o+D/9dEqmiBDrunvPNTigrYZ65joY0Y404B5kMuUHwxnjcIcSDy0bYTIMZus92hnmDEYvpC9U
+ i2tw9EoYNrO1EeZYBOWcj+FJKTG5wLwU8EqAG5w3fIa2zQ5rVTe+zDoNtqRzLgckMUTIEZVoWSl
+ xx/h49ZbzgXV9CJzte6U0Fp3ycwf0J/HUsNBQqNpdja+HyIoWu5Qd4HWIFShKkueEUH8KcNSwnJ
+ 1TC2Rn4T9MbSDCBS/0klhPlGPyYvR1WG42P3wjHdLDH8pUHPHYBBPrRNq85x/OK1BKmigWgYkam
+ 7ZIy5F0wlV+4bECVkaIfnFpsg2p78TeS9WWPQgGmIdmfb0GPbMkK9PkDozcrjmLEJk/QRny2IS2
+ 79lvO18dQiOU738h5JoKCuWKzvLCoBtiw627Gbqo21BHDrLWo8oF3ZWR3kXm5RUPVnRTQ8EVr7x
+ F07R0Zx2p4W1tYV4zFk1IV+3EbHBSbfAJQle3zzH24lTJr8rOPXXbnu+2F2CbirwcO++zy7xoTb
+ dXOxD+QhaGr6V/LYklyLnTx9IdHl0LJsEnzLdfpfUal5h6SuMSxFInElOpARadLe8wgkHeegyap
+ mybKDxrB8IWZUlFjKaqVHhruAjaUBKUEjuTpgmBT44Z5ACshQzaraQj4ifeRN4qFcde73irdf/H
+ QC7QfMmQpvt0MRg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE4OCBTYWx0ZWRfX2ItWArclJ9hW
+ Sr6ZPqGNNJj/sf+MSJy/LdwOwB2DDP4GzyQVf4n93eepuErtuh37RmzVU7p/eBsWP7UQ9sVwVJW
+ vFBZqktQsaHbYwlXAC3t64oL27rrJpIKjOankCdaqiGpNjge5cBSSLt/BLW0qXZxWANwFmoBZRD
+ e/OgmRd/w5/NxJXIwEKw6jUJ1AZ4NjPKzTYJkJZrbGbNq2f/D7z2AdssqeG+6mCldsLxp82QbEO
+ pUQa0ypLagnpoSbp8v5kuY2Xtow/uKKCL2/XwdhHNvugq3j3ejcXfAi4ju37OQT3vLYCXOVInCo
+ It/wA9IboeL0v/2KNOpLQ8z4y/y6HwhHk1/3isnkfQRlluXEp97olWgo3DjUWZjR3nl1+fiPfZ5
+ CXXsHzji0v1Y8UsWkK9buua7re059bNXU+gV+3C19facnUCBgWztKDq1Lqb3pIXky47GqNUG/gf
+ 77Hjp18mLLzlsrhenXg==
+X-Proofpoint-ORIG-GUID: jslIrx3QBxpTmkJ-_lPCpm-XhzCu_C1u
+X-Proofpoint-GUID: jslIrx3QBxpTmkJ-_lPCpm-XhzCu_C1u
+X-Authority-Analysis: v=2.4 cv=VowTxe2n c=1 sm=1 tr=0 ts=6a2729b5 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=s4keiGDSzyMyFUzW_nEA:9
+ a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_05,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606080188
 
-On Thu, 2026-06-04 at 10:59 +0100, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
->=20
-> Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
-> defines the representation of fixed decimal point values into a single
-> 64-bit number. This new format increases the range of represented values,
-> allowing for integer parts greater than 2^32, as bits are not "wasted"
-> in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO and
-> IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 64-bi=
-t
-> decimals into integer values used in IIO formatting interfaces, which
-> creates consistency and avoid error-prone manual assignments when using
-> wordpart macros. When doing the parsing, kstrtodec64() is used with the
-> scale defined by the specific decimal format type.
->=20
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
+Changes in v3:
+- Drop patch #2:
+  dt-bindings: mfd: syscon: Drop unneeded case for syscon + simple-mfd
+- Bump dtschema requirement
+- Link to v2: https://patch.msgid.link/20260608-n-dt-bindings-simple-bus-syscon-v2-0-0203e6c249dc@oss.qualcomm.com
 
-Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+Changes in v2:
+1. New patches #2 and #3
+1. Add missing part of patch #1, thus not adding Rob's Ack.
+https://lore.kernel.org/all/20260531110404.12768-3-krzysztof.kozlowski@oss.qualcomm.com/
 
-> =C2=A0drivers/iio/industrialio-core.c | 49 ++++++++++++++++++++++++++++++=
-++---------
-> =C2=A0include/linux/iio/types.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 20 =
-+++++++++++++++++
-> =C2=A02 files changed, 59 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
-ore.c
-> index ffe0dc49c4b9..93c2540d4cd2 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -19,6 +19,7 @@
-> =C2=A0#include <linux/idr.h>
-> =C2=A0#include <linux/kdev_t.h>
-> =C2=A0#include <linux/kernel.h>
-> +#include <linux/math64.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/mutex.h>
-> =C2=A0#include <linux/poll.h>
-> @@ -26,7 +27,6 @@
-> =C2=A0#include <linux/sched.h>
-> =C2=A0#include <linux/slab.h>
-> =C2=A0#include <linux/wait.h>
-> -#include <linux/wordpart.h>
-> =C2=A0
-> =C2=A0#include <linux/iio/buffer.h>
-> =C2=A0#include <linux/iio/buffer_impl.h>
-> @@ -656,6 +656,7 @@ static ssize_t __iio_format_value(char *buf, size_t o=
-ffset,
-> unsigned int type,
-> =C2=A0				=C2=A0 int size, const int *vals)
-> =C2=A0{
-> =C2=A0	int tmp0, tmp1;
-> +	int l =3D 0;
-> =C2=A0	s64 tmp2;
-> =C2=A0	bool scale_db =3D false;
-> =C2=A0
-> @@ -699,7 +700,6 @@ static ssize_t __iio_format_value(char *buf, size_t o=
-ffset,
-> unsigned int type,
-> =C2=A0	case IIO_VAL_INT_MULTIPLE:
-> =C2=A0	{
-> =C2=A0		int i;
-> -		int l =3D 0;
-> =C2=A0
-> =C2=A0		for (i =3D 0; i < size; ++i)
-> =C2=A0			l +=3D sysfs_emit_at(buf, offset + l, "%d ", vals[i]);
-> @@ -708,8 +708,25 @@ static ssize_t __iio_format_value(char *buf, size_t =
-offset,
-> unsigned int type,
-> =C2=A0	case IIO_VAL_CHAR:
-> =C2=A0		return sysfs_emit_at(buf, offset, "%c", (char)vals[0]);
-> =C2=A0	case IIO_VAL_INT_64:
-> -		tmp2 =3D (s64)((((u64)vals[1]) << 32) | (u32)vals[0]);
-> -		return sysfs_emit_at(buf, offset, "%lld", tmp2);
-> +		return sysfs_emit_at(buf, offset, "%lld",
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 iio_val_s64_compose(vals[0], vals[1]));
-> +	case IIO_VAL_DECIMAL64_MILLI:
-> +	case IIO_VAL_DECIMAL64_MICRO:
-> +	case IIO_VAL_DECIMAL64_NANO:
-> +	case IIO_VAL_DECIMAL64_PICO:
-> +	{
-> +		int scale =3D type - IIO_VAL_DECIMAL64_BASE;
-> +		s64 frac;
-> +
-> +		tmp2 =3D div64_s64_rem(iio_val_s64_compose(vals[0], vals[1]),
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 int_pow(10, scale), &frac);
-> +		if (tmp2 =3D=3D 0 && frac < 0)
-> +			l +=3D sysfs_emit_at(buf, offset, "-");
-> +
-> +		l +=3D sysfs_emit_at(buf, offset + l, "%lld.%0*lld", tmp2, scale,
-> +				=C2=A0=C2=A0 abs(frac));
-> +		return l;
-> +	}
-> =C2=A0	default:
-> =C2=A0		return 0;
-> =C2=A0	}
-> @@ -979,6 +996,7 @@ static ssize_t iio_write_channel_info(struct device *=
-dev,
-> =C2=A0	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
-> =C2=A0	struct iio_dev_attr *this_attr =3D to_iio_dev_attr(attr);
-> =C2=A0	int ret, fract_mult =3D 100000;
-> +	int type, dec_scale =3D 0;
-> =C2=A0	int integer, fract =3D 0;
-> =C2=A0	long long integer64;
-> =C2=A0	bool is_char =3D false;
-> @@ -989,9 +1007,11 @@ static ssize_t iio_write_channel_info(struct device=
- *dev,
-> =C2=A0	if (!indio_dev->info->write_raw)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> -	if (indio_dev->info->write_raw_get_fmt)
-> -		switch (indio_dev->info->write_raw_get_fmt(indio_dev,
-> -			this_attr->c, this_attr->address)) {
-> +	if (indio_dev->info->write_raw_get_fmt) {
-> +		type =3D indio_dev->info->write_raw_get_fmt(indio_dev,
-> +							=C2=A0 this_attr->c,
-> +							=C2=A0 this_attr->address);
-> +		switch (type) {
-> =C2=A0		case IIO_VAL_INT:
-> =C2=A0			fract_mult =3D 0;
-> =C2=A0			break;
-> @@ -1007,12 +1027,19 @@ static ssize_t iio_write_channel_info(struct devi=
-ce *dev,
-> =C2=A0		case IIO_VAL_CHAR:
-> =C2=A0			is_char =3D true;
-> =C2=A0			break;
-> +		case IIO_VAL_DECIMAL64_MILLI:
-> +		case IIO_VAL_DECIMAL64_MICRO:
-> +		case IIO_VAL_DECIMAL64_NANO:
-> +		case IIO_VAL_DECIMAL64_PICO:
-> +			dec_scale =3D type - IIO_VAL_DECIMAL64_BASE;
-> +			fallthrough;
-> =C2=A0		case IIO_VAL_INT_64:
-> =C2=A0			is_64bit =3D true;
-> =C2=A0			break;
-> =C2=A0		default:
-> =C2=A0			return -EINVAL;
-> =C2=A0		}
-> +	}
-> =C2=A0
-> =C2=A0	if (is_char) {
-> =C2=A0		char ch;
-> @@ -1021,12 +1048,14 @@ static ssize_t iio_write_channel_info(struct devi=
-ce *dev,
-> =C2=A0			return -EINVAL;
-> =C2=A0		integer =3D ch;
-> =C2=A0	} else if (is_64bit) {
-> -		ret =3D kstrtoll(buf, 0, &integer64);
-> +		if (dec_scale)
-> +			ret =3D kstrtodec64(buf, dec_scale, &integer64);
-> +		else
-> +			ret =3D kstrtoll(buf, 0, &integer64);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0
-> -		fract =3D upper_32_bits(integer64);
-> -		integer =3D lower_32_bits(integer64);
-> +		iio_val_s64_decompose(integer64, &integer, &fract);
-> =C2=A0	} else {
-> =C2=A0		ret =3D __iio_str_to_fixpoint(buf, fract_mult, &integer, &fract,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 scale_db);
-> diff --git a/include/linux/iio/types.h b/include/linux/iio/types.h
-> index 4e3099defc1d..924ac9dc6893 100644
-> --- a/include/linux/iio/types.h
-> +++ b/include/linux/iio/types.h
-> @@ -7,6 +7,9 @@
-> =C2=A0#ifndef _IIO_TYPES_H_
-> =C2=A0#define _IIO_TYPES_H_
-> =C2=A0
-> +#include <linux/types.h>
-> +#include <linux/wordpart.h>
-> +
-> =C2=A0#include <uapi/linux/iio/types.h>
-> =C2=A0
-> =C2=A0enum iio_event_info {
-> @@ -34,6 +37,23 @@ enum iio_event_info {
-> =C2=A0#define IIO_VAL_FRACTIONAL_LOG2 11
-> =C2=A0#define IIO_VAL_CHAR 12
-> =C2=A0
-> +#define IIO_VAL_DECIMAL64_BASE		32
-> +#define IIO_VAL_DECIMAL64_MILLI		(IIO_VAL_DECIMAL64_BASE + 3)
-> +#define IIO_VAL_DECIMAL64_MICRO		(IIO_VAL_DECIMAL64_BASE + 6)
-> +#define IIO_VAL_DECIMAL64_NANO		(IIO_VAL_DECIMAL64_BASE + 9)
-> +#define IIO_VAL_DECIMAL64_PICO		(IIO_VAL_DECIMAL64_BASE + 12)
-> +
-> +static inline s64 iio_val_s64_compose(s32 val0, s32 val1)
-> +{
-> +	return (s64)(((u64)val1 << 32) | (u32)val0);
-> +}
-> +
-> +static inline void iio_val_s64_decompose(s64 dec64, s32 *val0, s32 *val1=
-)
-> +{
-> +	*val0 =3D lower_32_bits(dec64);
-> +	*val1 =3D upper_32_bits(dec64);
-> +}
-> +
-> =C2=A0enum iio_available_type {
-> =C2=A0	IIO_AVAIL_LIST,
-> =C2=A0	IIO_AVAIL_RANGE,
+I tested dt_binding_check and dtbs_check for arm, arm64 and riscv and I
+think I did not introduce new dtbs_check warnings. Old code anyway has
+multiple abuses of syscon, thus tricky to judge for arm at least.
+
+Best regards,
+Krzysztof
+
+---
+Krzysztof Kozlowski (3):
+      dt-bindings: mfd: syscon: Disallow simple-bus with syscon
+      dt-bindings: mfd: syscon: Drop custom select for older dtschema
+      ARM: dts: ti: Add specific compatibles for SCM conf nodes
+
+ Documentation/devicetree/bindings/Makefile         |   2 +-
+ .../devicetree/bindings/mfd/syscon-common.yaml     |  34 ++++++
+ Documentation/devicetree/bindings/mfd/syscon.yaml  | 116 ---------------------
+ arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi           |   2 +-
+ arch/arm/boot/dts/ti/omap/am437x-l4.dtsi           |   2 +-
+ arch/arm/boot/dts/ti/omap/dm814x.dtsi              |   2 +-
+ arch/arm/boot/dts/ti/omap/dm816x.dtsi              |   2 +-
+ arch/arm/boot/dts/ti/omap/dra7-l4.dtsi             |   2 +-
+ arch/arm/boot/dts/ti/omap/omap2430.dtsi            |   2 +-
+ arch/arm/boot/dts/ti/omap/omap3.dtsi               |   2 +-
+ arch/arm/boot/dts/ti/omap/omap4-l4.dtsi            |   2 +-
+ arch/arm/boot/dts/ti/omap/omap5-l4.dtsi            |   6 +-
+ 12 files changed, 46 insertions(+), 128 deletions(-)
+---
+base-commit: 78f5e68a8d0a1123dd1b007688ccf0e6876a5c15
+change-id: 20260608-n-dt-bindings-simple-bus-syscon-e39df408a02d
+
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
