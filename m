@@ -1,169 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBC136680F
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF653603D7;
+	Mon,  8 Jun 2026 11:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780918175; cv=none; b=VGiaOcPTSijg/7vlOiIcrG3bE4uCg20xxzO4zPVoUMqaX19lp5KtbvJm/U9mBcmxlvmeIrfZ2zY42oGrHovQROgCkOLwiAr9685H+o61YYGTXUvriOQrFM+Eajib+2oXAiszxAkxNzHXr5WjfNxStUSoz3Zi7SZZe+ahmUbPjVE=
+	t=1780918515; cv=none; b=ivkKOE+hXS04rJIsGbm7KYsDSf6iysNhD2SK3WQs6RjXclvZtc0DYdwJ+yMA3tlcQNI+yExepk+HDSYpa5PgZgKxEIprXoS59992NonprjiTYlQum+vEVf2dmcKbp6wc/Ru8z7R2iZBIPicYZ9yIWyrD5wflUPUo3DUuyAUUsFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780918175; c=relaxed/simple;
-	bh=J3+cUGQtV296Sp3DrkXESZjqtBQ7EsKWbxudP8Kp5wY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Di4WSY1azFx69kB9uJrK4yXVmcit/v6OIynUFzHv2hwGs1gZB5jjLCtGNACHjzZqfi7zH3fkXIbtXqEpp20nH6kaT/uYZyNxIWeEYInvsG+1f0iOKVEeFXKlOf07eRvbNVXe025DFQF3BJ4yOgoTuc4dQWEAVJcxpXlinvh9vN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iRwVfBpm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZJlELmD+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780918515; c=relaxed/simple;
+	bh=1uB+OqdvEqi2eXSNdwXOfBVJz1TxF1sdrUxynJnofBE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iVhK6DBlYQW3euCo+5vdlfAydldw6qCLQ7BoI1DrbZRh02ldQK4/86+73XEi30pJQy3aFGht8jNXmzQbBdWIiL5398IBDQfueQf86BNI5BR7GvfC2UNeb1bZjZ3ejA+1dmi7vPKRwlNL5mmdLnY+AU3McpL8MiaA9JHQdat8eh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJaOA5NY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iRwVfBpm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZJlELmD+"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658BC0L03487388
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 11:29:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kfS3gOfl7UBIyYndiCaeSVmlIF6ZDOAgaactyCrKDOw=; b=iRwVfBpmn9UWi8Gn
-	iMoh/T8wBP2us0Rs8mluNRVdeQKRZ11cqeP0rF/hm+cyM1jtljsbqKKzUEc0vM9H
-	ijnpWH2vG/fVsIJM+U4Guz2meoXIsgmh2HT+U+EOdEqfrRvyl4Pnr8fW7IVl22vD
-	NVGlqnfuFuNgPEQH2vpmczSCZmylyZJ2/mdlHDEXZtbIDSZKhxNn76PWWG4IvR21
-	uEynevaOERdAM7stoKdbQdKNJdclTBHnbN9axSkfvr2YxBCP7VtM7VvxLtGAVOra
-	GAi49/J5mJBvzrlsK1fkd7fvYzuFIXKi9uU/p32AeC+OP+ZyszftvVV2ybJ+Hvug
-	TyO2Cw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embmrfppm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 11:29:32 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-915a4ca0a4aso136539885a.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 04:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780918172; x=1781522972; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kfS3gOfl7UBIyYndiCaeSVmlIF6ZDOAgaactyCrKDOw=;
-        b=ZJlELmD+9hX+McTEqE8KPs5XREt85CUJ2PnLVDwatXqGxFJRlMpm5J61NbFUhQwC63
-         bzUV643Ab+w9y790kfXtldtYJZZCFdjWBMRWQikkICzlHn34lvZh+vuxlg1UWo08xTJd
-         1bChpldO/+v65ew3gR6pdIEuSfZpYJougrMrGUEEOVjqKlLl9ztsKH/gbWim8fEAo6kf
-         9V9JzNyP9DnCo8djPfl/7Fw3wrg3t6BM832DKE2nrD4s6zD7IfkO7Y7IX3gORopJgXt4
-         nYfQ3xwAptQLDVsCeNwDiNk/GF8xR7m5xPqGQ8QSS+q6Q9wckoT9msk1VIlaPWfi1GPg
-         KVqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780918172; x=1781522972;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kfS3gOfl7UBIyYndiCaeSVmlIF6ZDOAgaactyCrKDOw=;
-        b=QVXTVkyrR8qgL37PrTSC2ToTt4U8CUPX+DLO9T63WLefrScIrp6bajTri9rWxtdjaW
-         0pDRTtMraoH99RBMJH5JTbklxKVQRHeGl9QwAhUYjQhZIi0jDlWpXEINVPEhuiuQ372+
-         RrUHv5X3xtosX3FPP2EqbDojRtrHmqdkJ9Yaj/HNKuwhqU1h+GT5q0tpUItG5NcL/MXJ
-         SWCCATmOwrC2v8EIcvEPoq5zzF648dpBk7+bOcSbRYCDS1/PnXSlJhpUiCKiJjsv7w/D
-         EtI/WAbpRvOgwKtxCZNoa1BGk4uyugeOoHo5JwmX+GFpZbWG4xT0zvqUPjEag3vNMrnu
-         jgAA==
-X-Forwarded-Encrypted: i=1; AFNElJ+EoXM4MaK8XnEx6iajihUuybliD1HJiG6SCBrhOMv4cGVnTWTQyYlqzEiek6ElPBQM+GGam0XE3KZ8@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTwd64xwy5F8Fvv8XfwJ4K3mhK8XY1cjgS7QjsGrga0PXvoE7A
-	5B41parpZ/7VjR0aBeF1S3sxPE5lBgpn5Dehrr63nQ3d9gZB9cfPEkuRyw0LrPAAVnw2YbsBkRk
-	Wg6tMtKCkPFEqnPxa0oJ1Sx8rKaTkCeaUf34V8upP/Gw3ztJfsHRTSC9g+4BJuxKy
-X-Gm-Gg: Acq92OG9CTYX3pG7O7qIa/dKf9+nmW5J2uFuE4uK/jqJhRlK5GLVz2fIOqDIBXR2Qbi
-	7745ouTdYuve5bm5d4TNxG8PSPXdbg7u8aIDN4SwrqQnvA/QBQF+Ddan/AXSlvrpIFAjnbH8V7s
-	PyqnKzP9NPJ48F5XY9wHTpRHXcdGene3CwHe+NGbmb1255O14O43vdgyR/qAii223REjwxMmCTW
-	ZRUjML2XOCcxtmY1Ow2nSw3Si/B4YE2iXmyinjTw5EVskXkX8Hgb5K+zCSrEk26KTNZ3cJ8fuH8
-	kDwYNRRESJMzxZf+iTyUndcjjGrIfZzhO2BmpNdFKWkRyr0Z1ZCdKUf6GLFTa+D0N9C5p76zR1b
-	/9vPZucYfCzlFILzr41PBUJ3UVH+dPxq36+mLbjUGha5PD6o8b/4GGS8d
-X-Received: by 2002:a05:620a:2692:b0:914:c589:7945 with SMTP id af79cd13be357-915a9c76410mr1405356985a.2.1780918171979;
-        Mon, 08 Jun 2026 04:29:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:2692:b0:914:c589:7945 with SMTP id af79cd13be357-915a9c76410mr1405352585a.2.1780918171578;
-        Mon, 08 Jun 2026 04:29:31 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055309368sm844667266b.49.2026.06.08.04.29.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 04:29:29 -0700 (PDT)
-Message-ID: <f528672e-ab4f-4844-bc7c-1f8f1c4dbd3d@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 13:29:25 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJaOA5NY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423271F00893;
+	Mon,  8 Jun 2026 11:35:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780918514;
+	bh=f3hgjEA/HG6lpgpS/mo8C3IOkIBDQw6BSzBJ77loEeY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oJaOA5NYT9ZO+esaziK5lms6MR99inswrPoQb0lj7kH8MxcXQOiDR0xqQOgHL02rs
+	 KDXRg6mR39s5/rfGLRmiA4txhm5T044iJkyP6XxuIjOqQZSDxSt6qOw5eAOQPYf2gS
+	 wvNiCVWtU4mYbIS9sZAqhgh1/r2FHvd5oBg23A1OFXJWmI6F3YQYwMDmrQX4cKADtc
+	 Sbq2rPOTxDlCxh0HDzGBOEvFm8HgCqNYaZ6SI0uuVh7+0MZgOlaObCcZONPOXcq246
+	 Z++k4mj6Ds5C3yuHaE49SNnttk1RDyB18R5LKvsv7ygNOG5b1M1gtHgIHRf48rX8pF
+	 aO5aUCrj+foOQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 13/14] arm64: dts: imx8mp-var-som-symphony: add
+ second Ethernet port
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <302638ba16d4684c5b0bf8660a42615dad67f3eb.1780912893.git.stefano.r@variscite.com>
+References: <302638ba16d4684c5b0bf8660a42615dad67f3eb.1780912893.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 11:35:13 +0000
+Message-Id: <20260608113514.423271F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] Bluetooth: qca: Set NVMEM BD address quirks when
- address is invalid
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson
- <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com>
- <20260608-block-as-nvmem-v3-7-82681f50aa35@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260608-block-as-nvmem-v3-7-82681f50aa35@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEwOCBTYWx0ZWRfX2ROu9Hpy7LqC
- uuPXMot4HSKX2QcF99jEVa+lwNVtOLN5cPT3Yl3EuNBuuXoVx4062e9XACTOOOLjqijPycvHhPw
- zdjw/zvawRsE1VrBRFXT/o7w5FCsuZMFyLZuWXCli7ge9z20H2iAdbX3Xu1EC5uiSvm/izPsl4B
- fwJxf3aq+EtnzyMJV368p1AXineLX+7HcTprXSdg33ER+YXX5NgQCGb1ftIH2qWWucS8Knr4HSY
- bMWc9qE4h9nRgKuPXFEvx1vOFBZGvqm9N/xQFtiFyIXA69Y2fFjmRHwo9Jis3VJTkWuZwV4+kPU
- Q2fPchurx4iJkB6fglRsGx7DVgALiMpGl8ju07JtaDyZ/J76KvDpb6xGBBn8JWEiRCBX2F4FAc4
- EigNkfVZeZBzK3ibzrBDFCF0X3lqBiSS/MuOyYQvT6nlD85/JRod79eHmuIacf+ktiwcow9vs68
- h4TsLoKMNbgbWwtjVDw==
-X-Authority-Analysis: v=2.4 cv=B5eJFutM c=1 sm=1 tr=0 ts=6a26a79c cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=m9cM9ScjmTDVYK95jDAA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: yhw3_cflZT4f59LWZ8PL-54yHQhHQ_us
-X-Proofpoint-ORIG-GUID: yhw3_cflZT4f59LWZ8PL-54yHQhHQ_us
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_03,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0
- bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080108
 
-On 6/8/26 12:50 PM, Loic Poulain wrote:
-> When the controller BD address is invalid (zero or default),
-> set the NVMEM quirks to allow retrieving the address from a
-> 'local-bd-address' NVMEM cell. The BD address is often stored
-> alongside the WiFi MAC address in big-endian format, so also
-> set the big-endian quirk.
-> 
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 39 ++++++++++++++++++++++
->  drivers/bluetooth/btqca.c                          |  5 ++-
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The RGMII TX pads in `pinctrl_fec` are misconfigured with a value =
+of `0x00`, resulting in a slow slew rate and minimal drive strength.
+- [Low] The `reg_phy_vddio` node and label are redundantly redefined, which=
+ will cause a Device Tree Compiler duplicate label error.
+- [Low] Potential missing RGMII delay configuration and misleading comment =
+due to a blindly copy-pasted `phy-mode`.
+--
 
-Squash mistake?
+commit 6c050703eb451d931bc2a42a7966eecdf5e1949c
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-Konrad
+arm64: dts: imx8mp-var-som-symphony: add second Ethernet port
+
+This commit adds support for the second Ethernet interface on the Symphony
+carrier board. It enables the FEC controller, configures the MaxLinear PHY
+on the MDIO bus, and sets up the required RGMII pinctrl settings.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/=
+arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+> index 7ad57caa0f1c2..c5a38018d494b 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+> @@ -66,6 +66,24 @@ pcie0_refclk: pcie0-refclk {
+>  		clock-frequency =3D <100000000>;
+>  	};
+> =20
+> +	reg_fec_phy: regulator-fec-phy {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "fec-phy";
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <1800000>;
+> +		regulator-enable-ramp-delay =3D <20000>;
+> +		gpio =3D <&pca9534 7 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		regulator-always-on;
+> +	};
+> +
+> +	reg_phy_vddio: regulator-phy-vddio {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vddio-1v8";
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <1800000>;
+> +	};
+
+[Severity: Low]
+Will this cause a Device Tree Compiler duplicate label error?
+
+The reg_phy_vddio label and its node appear to already be defined at the ro=
+ot
+level in the included imx8mp-var-som.dtsi file. Redefining it directly here
+in the symphony dts usually causes dtc to fail compilation.
+
+[ ... ]
+> @@ -106,6 +124,33 @@ &ecspi2 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&eqos {
+> +	mdio {
+> +		ethphy1: ethernet-phy@5 {
+> +			compatible =3D "ethernet-phy-ieee802.3-c22";
+> +			reg =3D <5>;
+> +			reset-gpios =3D <&pca9534 5 GPIO_ACTIVE_LOW>;
+> +			reset-assert-us =3D <10000>;
+> +			reset-deassert-us =3D <20000>;
+> +			vddio-supply =3D <&reg_phy_vddio>;
+> +		};
+> +	};
+> +};
+> +
+> +&fec {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_fec>;
+> +	/*
+> +	 * The required RGMII TX and RX 2ns delays are implemented directly
+> +	 * in hardware via passive delay elements on the SOM PCB.
+> +	 * No delay configuration is needed in software via PHY driver.
+> +	 */
+> +	phy-mode =3D "rgmii";
+
+[Severity: Low]
+Is this comment accurate for this interface, or was it copy-pasted from the
+SOM eqos interface?
+
+The comment states the delays are implemented via passive delay elements
+on the SOM PCB, but this Ethernet PHY is located on the Symphony carrier
+board.
+
+If the carrier board lacks these passive delay elements, should phy-mode be
+set to "rgmii-id" instead?
+
+> +	phy-handle =3D <&ethphy1>;
+> +	phy-supply =3D <&reg_fec_phy>;
+> +	status =3D "okay";
+> +};
+
+[ ... ]
+> @@ -363,6 +408,23 @@ MX8MP_IOMUXC_ECSPI2_SS0__GPIO5_IO13				0x12
+>  		>;
+>  	};
+> =20
+> +	pinctrl_fec: fecgrp {
+> +		fsl,pins =3D <
+> +			MX8MP_IOMUXC_SAI1_RXD4__ENET1_RGMII_RD0				0x90
+> +			MX8MP_IOMUXC_SAI1_RXD5__ENET1_RGMII_RD1				0x90
+> +			MX8MP_IOMUXC_SAI1_RXD6__ENET1_RGMII_RD2				0x90
+> +			MX8MP_IOMUXC_SAI1_RXD7__ENET1_RGMII_RD3				0x90
+> +			MX8MP_IOMUXC_SAI1_TXC__ENET1_RGMII_RXC				0x90
+> +			MX8MP_IOMUXC_SAI1_TXFS__ENET1_RGMII_RX_CTL			0x90
+> +			MX8MP_IOMUXC_SAI1_TXD0__ENET1_RGMII_TD0				0x00
+> +			MX8MP_IOMUXC_SAI1_TXD1__ENET1_RGMII_TD1				0x00
+> +			MX8MP_IOMUXC_SAI1_TXD2__ENET1_RGMII_TD2				0x00
+> +			MX8MP_IOMUXC_SAI1_TXD3__ENET1_RGMII_TD3				0x00
+> +			MX8MP_IOMUXC_SAI1_TXD4__ENET1_RGMII_TX_CTL			0x00
+> +			MX8MP_IOMUXC_SAI1_TXD5__ENET1_RGMII_TXC				0x00
+
+[Severity: High]
+Will configuring these RGMII TX pads with 0x00 degrade signal integrity?
+
+In the i.MX8MP pad configuration, a value of 0x00 sets a Slow Slew Rate
+(SRE=3D0) and the weakest Drive Strength (DSE=3DX1). RGMII interfaces run at
+125 MHz DDR and typically require a fast slew rate and high drive strength
+(such as 0x16 or 0x1f).
+
+Does using 0x00 risk heavy distortion, TX packet loss, or a complete link
+failure?
+
+> +		>;
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780912893.gi=
+t.stefano.r@variscite.com?part=3D13
