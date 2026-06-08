@@ -1,110 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848763CBE80
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5A231715D;
+	Mon,  8 Jun 2026 14:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780929291; cv=none; b=IZb70Q2wMQ/B3tEZSQXFCFPPeVvsDVcCtaKM248uxrKwRCLTTo+5OSe6QNTCN1SYFKCp4CLPNgVb8ah7HLeyMN2pHTxBeSzViBHR3zfuV8E2TVHOh841HhanqFkWWzaGQUVTAF+iay7/2MTrN3IUCE1yOqd7ysmQVOxXa0ZY3iY=
+	t=1780929388; cv=none; b=ZqcTw2X5kJNcfQY1Wdtn4ZX5UJQEo0RVz5LN/HGWkS3Yw9W5WZ8w0/JOouEQubSG1Q4YoKGJO4Tc4tHp3ahGQxuVW/6K8hfuCURG0geVWI7GTWSjdNIeEQoRJk8qedS2zDUNQe5cZ2xTjWNgaCEkh5QnTnq6GRw6ecqn7UMoKAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780929291; c=relaxed/simple;
-	bh=OIalH9+6YMcuHzFN1EBtFcDVHixy1D++idho68g2OA4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=InzQuqcG8fuzSBVdoH2zpL++ExT613yqh6MyMaD54n4CXgu19jKaABcgZWogFmEWWzRkK2Y/IjyX4wxUWyaLB7BPcS9gysMbkq0qOHEOlsjuPIecRNuSwXPIu5S2u4ZkWH91cMSkizyAoGSE0pXkcqw/1aQglwfesPKvaLJMohk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SrsiZrhz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780929388; c=relaxed/simple;
+	bh=eeloH2CPAV0NGS1ONf8jlDPaQK3iunh9sKplrksWNVg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=glHUY50fmorjKO6IlFSakmUUUgAX+lg3Yln02vwBBuhxzzssqP2Pc+YfK7KGY1UuA6493GMxK8ilajehx0nvqqyqQMnJkm/WceE12VeMw+4QUzmrbwWZUStveD9KxkCnXafLJznBTJR5L+WMKu28lR3hlQEnwkRqr+z90RD7bZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETZD8WIa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SrsiZrhz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD101F00893
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:34:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETZD8WIa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077311F00898;
+	Mon,  8 Jun 2026 14:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780929290;
-	bh=3n333W9uuX999VQSw8XPT67sii0JB3oXgtv5iZ8Z2UY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=SrsiZrhzyVnrJ+VY9f7kpNryvx6H0NREol6ZRwN+n4GdNcKONyAZXFIY2ywhG98lO
-	 wAc7i6k3yGXIcDVhCKhbmySD9e+0UjGLC8ekivOH9Y9W44ZEuHrOL1c/X/l9lmsRkO
-	 e8MUvA0JHFpOp3eGO5xT/juzbKMP0so59ZaEKjvBw/Tza5f2RJxb/U1KBWvhnotv0l
-	 4vuzjliWg0NPuBAeKYja/OBRBkUifVSJLh9+3ybQLx91yqUx6eIswAki6PhohG/UQc
-	 aviuXLKL0HFy/mNNi9+bqFpmui2dRKQENEO2dB3xfANZP4cvnJ3JX/XnhhoQ0ws8nj
-	 RpWc9hjrki4Kw==
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66077f6c438so3828954d50.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 07:34:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/5aJL89o3KyOfknd8y0FTTLmEc1VlGsS2uYepO4f6ZJoLIYUyDmjud7TsywHvYC/BBLX5zVoVVJHpZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzN0WVJMy7TmjDdl+zHoWjLseYPmAkL1fDHW/0RZf10OYKDaFi
-	EnwYK7UMdzFPyVIZ9LkYaSw3C6jaE97l6Rh6mwTWfkwwzFB9xmCwZD2JOaLbgf1CC7Gs0873QeI
-	GBO38oCSxfGxbgGNOOPkaodTcS4NC8B4=
-X-Received: by 2002:a05:690e:2621:b0:65e:41dc:e8de with SMTP id
- 956f58d0204a3-66107010a7emr11442181d50.61.1780929289702; Mon, 08 Jun 2026
- 07:34:49 -0700 (PDT)
-Received: from 922524751902 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 07:34:48 -0700
-Received: from 922524751902 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 07:34:48 -0700
-From: Manivannan Sadhasivam <mani@kernel.org>
-In-Reply-To: <20260608091702.3797437-2-wei.deng@oss.qualcomm.com>
+	s=k20260515; t=1780929387;
+	bh=1TjF/SUcLOgcwYn9BAuzNJxc6B9SXYpl+8q8TVUxM2Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ETZD8WIaHmLTqeOG+dBPlNKZeKw0lk3/Z5K4jD4aFkoTXswHeYLVs0ul0J+PCnwiX
+	 LGeIRHDaCqo4O/1anFb12wt9+hhJCjNWqEha0VbRhYHexKiQMHCzZ/LOMSAoeYgvnM
+	 nhDnna0jYsvjrTrcvTlA0MTrJRFN7Ju+m4/ujniFExtGjtjKzrOjshn4WvfnRuFwDH
+	 5+u7zmBzJTD6vMre+0f7LOMsuFd1bIChUwEpJjKWfOETtNAZrsAGU/E2i7PDmzV3aD
+	 /r+Vm6npsL6gtkyzat74vzP40T+/WM35f+5sMA/FbD2A7oDpCHdysjCXHC/I7DPUae
+	 GUDIa8j8rx5jw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/4] arm64: dts: freescale: add LVDS overlays for
+ TQMa8MPxS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, wsa+renesas@sang-engineering.com, robh@kernel.org
+In-Reply-To: <20260608142144.564871-3-alexander.stein@ew.tq-group.com>
+References: <20260608142144.564871-3-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 14:36:26 +0000
+Message-Id: <20260608143627.077311F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260608091702.3797437-1-wei.deng@oss.qualcomm.com> <20260608091702.3797437-2-wei.deng@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 07:34:48 -0700
-X-Gmail-Original-Message-ID: <CAGyK6cqHM9HtEPLpJqGf8y7wg=en-uA7v=5biU-ZEDLV_6tugA@mail.gmail.com>
-X-Gm-Features: AVVi8CdVpeaaRdhY2oHmyy11kxC7QbyPzyAR-EsnZ7mu0yJ5qIqXjfdDURfEjqU
-Message-ID: <CAGyK6cqHM9HtEPLpJqGf8y7wg=en-uA7v=5biU-ZEDLV_6tugA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] power: sequencing: pcie-m2: Add PCI ID 0x1103 for
- WCN6855 Bluetooth
-To: Wei Deng <wei.deng@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, quic_chezhou@quicinc.com, 
-	cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com, 
-	jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com, 
-	mengshi.wu@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 8 Jun 2026 11:17:01 +0200, Wei Deng <wei.deng@oss.qualcomm.com> sai=
-d:
-> WCN6855 is a Qualcomm Wi-Fi/BT combo chip that uses PCI device ID
-> 0x1103. Add it to pwrseq_m2_pci_ids[] alongside the existing 0x1107
-> (WCN7850) entry, so that the pwrseq-pcie-m2 driver creates a Bluetooth
-> serdev device for WCN6855 cards inserted into PCIe M.2 Key E connectors.
->
-> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
-
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-
-- Mani
-
-> ---
->  drivers/power/sequencing/pwrseq-pcie-m2.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/se=
-quencing/pwrseq-pcie-m2.c
-> index efeb25ba9c79..b3af14464314 100644
-> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
-> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-> @@ -188,6 +188,8 @@ static int pwrseq_pcie_m2_match(struct pwrseq_device =
-*pwrseq,
->  static const struct pci_device_id pwrseq_m2_pci_ids[] =3D {
->  	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1107),
->  	  .driver_data =3D (kernel_ulong_t)"qcom,wcn7850-bt" },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1103),
-> +	  .driver_data =3D (kernel_ulong_t)"qcom,wcn6855-bt" },
->  	{ } /* Sentinel */
->  };
->
-> --
-> 2.34.1
->
->
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The standalone LVDS device tree overlays (.dtbo) are missing fro=
+m the `dtb-$(CONFIG_ARCH_MXC)` target list, preventing them from being inst=
+alled during `make dtbs_install`.
 --
-=E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=E0=
-=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=E0=
-=AF=8D
+
+commit 94b1840d6358cc9ef625151682b73d4e243336ca
+Author: Paul Gerber <paul.gerber@tq-group.com>
+
+arm64: dts: freescale: add LVDS overlays for TQMa8MPxS
+   =20
+This adds device tree overlays for the Tianma tm070jvhg33 LVDS display
+for TQMa8MPxS boards. It configures both LVDS channels with explicit
+display timings to achieve a 519.75 MHz LDB clock.
+
+> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts=
+/freescale/Makefile
+> index 7a1d8586ce7c8..f0779a5d3b737 100644
+> --- a/arch/arm64/boot/dts/freescale/Makefile
+> +++ b/arch/arm64/boot/dts/freescale/Makefile
+[ ... ]
+> @@ -379,6 +379,11 @@ dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpql-mba8mp-=
+ras314-imx219.dtbo
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070jvh=
+g33.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070jvh=
+g33-imx219.dtb
+> =20
+> +imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33-dtbs +=3D imx8mp-tqma8mpqs=
+-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtbo
+> +imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33-dtbs +=3D imx8mp-tqma8mpqs=
+-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtbo
+> +dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg3=
+3.dtb
+> +dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg3=
+3.dtb
+> +
+
+[Severity: Medium]
+Should the standalone .dtbo files also be explicitly added to
+dtb-$(CONFIG_ARCH_MXC)?
+
+If the standalone overlays are omitted from the target list, they will not
+be installed during make dtbs_install.
+
+While the combined .dtb is installed, missing the .dtbo files might prevent
+applying the overlays dynamically via the bootloader. Other overlays in this
+file appear to explicitly add the .dtbo to the build targets.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608142144.5648=
+71-1-alexander.stein@ew.tq-group.com?part=3D3
