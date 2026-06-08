@@ -1,322 +1,158 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F9E39021A
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780909892; cv=pass; b=edygHU5rv87v4UFVZsul7HEz67r+yfgx0BHUyUITnlBl1UsfeRlusge/FgHLjJczayoZUolxMOohuMZbxWpGMHfYxra0WbFDcGLM5XspwBBPWT5RuQd3XmOSVKmIyP5rSdGraXd/V2doPvxqeCHcT7jzI9degTbJfSVzpX1GA4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780909892; c=relaxed/simple;
-	bh=z8TRp/eansM7NQFOUeoehuya+exenRZRyWpFPzqPkDI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kmfYsyOpUevUrHSYsgIrppB+QZtShwBUo3ocKW8REnFPxXk516CnChju4Hc5tAyjNyAJKcrtOpjwZKW7IxzXsBxOpqbxX+McpJJK7hzmyk3u8yz72HwTZ7peaQ19JZYO+SLc++Pcr+hGzVBwag+oskBTF0HwRwC5FB2jkiLo5wk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fKFk5CGK; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1FA3AC0CD
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780910232; cv=none; b=Le82llPfMeh2Mp0WShAbAG3KEXCYlzf2VO9YWPyOyFC8Y4rN0wn0wukfPD6Qiy8D3vVffInUQayLaD3Lxz6MVcScMApCQ2Nr8t19GULmGN2T842wvoEWv0opG0BFkiQzReJHr9Q1+/OQspkmx2+aueEYUzZ/OYtrVngxBYA6lg0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780910232; c=relaxed/simple;
+	bh=5l2djtNbAKG4yz59Sy0TGxxB5M2aM0T1Ix6YMc2Rlxk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hqWvvW6vemJaSeSmtLK+5vnpFMZnDR8jRHL5MWmgO1KPoSMAsAZ50Nur17sqeAE5t1BlC4foOcXmzz9olB9Np4raK8exy9g2yya30fKjWx2/5ymU61uoG4GPvW5nuKc2dHEcE6bhTjJDFjPAJ3yhsYQSqUvB3cY95P1ozxOfNc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=clyMt8TZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a4R4WlAV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fKFk5CGK"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68c3421b009so7275141a12.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:11:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780909889; cv=none;
-        d=google.com; s=arc-20240605;
-        b=VKo/5QyXzqqKExKZJUqLfCLYKkqqBqM13PkeRf+OQmIoWyqrWW5zneEgkRQHHrDXXJ
-         r9BUU97s/zyQ5JCjXIDVAaZU5wVufmHXphKtc8PN4foMPS4V+IL8GMzmHLruRFbOGbmx
-         UbVmWM87ORqRyjPZuRdPO6sSnZlyuQSuIGMAjqaeQdSAsh/fYkKOIKNeSsVt5zORGgiT
-         lgyk2109SMnvJS7GbTEhWZbuFyRKwJoSOQF3EzTi0gh9++AqHykGYPIYTuPFGJxYYu9y
-         RDSu1zJs9kHe4rBbdwzWZYUJXgTFtGWMZLJPde84GODvItufKHkgH20HDSbLNxg5GH03
-         ySBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
-        fh=Iu3i739B/Ty+Ln4ALNaJVFTUjaGSxWq2zjlaJyqtXbY=;
-        b=e1MGjKfud09Qe5qzX1jin5tPoNR3TktFRbxI5WRXXzSazpztndcDZVSbT0v/QA22Xt
-         8OiXpLc9xP26RJjsXqZMMqg1JsQd5J7iF/7geIEyOdkuUSwwez0piYROX3oR8DaZHzac
-         OkUp7VTVdDfbIG24jaDw0vEzk1sHcmCnR8EeTyxkeFkbuyOFvTywutDPOXV8aEA3mWwl
-         LfawbFCiNwKrFWEe7MLUbsD4No8QB7H2EcbTTM+VuOqDw00FEbKDAzoj9BvlZvAqP38A
-         +YmHLjnDgqsrqV4hS+q/wm7ey0c1l3E7eSLx1HyHbjjgdYVN3aD0PGTL9vI2pXURyYmj
-         WpDA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="clyMt8TZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a4R4WlAV"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586PjFF2733082
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 09:17:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=9TQChVoZGJE1ujfnF3D1YTCmrzz01p+wDC5
+	U6eyAgsA=; b=clyMt8TZ9PBMiGr6oQ63qZiAEfMD750Be7MXNqRyIJ6k9WuvfD2
+	eAzU0SJ/10PkBWQFZvnPx6UUXmurumz+J/4WE/5TfgPW8D3kIEQY8gNFbhnQJT3W
+	KUPVJJZ0eF1WjixFVCtgKDX+msGmYCHp1XpROWIVoJFzp/caedoTiNTqDnmT1Mxu
+	Zc6UT/xfqCHqcmVltzYSALh1/2gZITk8EYOqw5aZCH/UoJIUkpaaJSqtMEWwI3sm
+	2e7I4Tu4+Cl6v1JNo1YrjV9+cqPHOOZfc0h/eh56Dzi4+ShBQQGByJ8Sg9vqQFWR
+	BmKSYvPAP0eWVb+PjkRt437lXHvJw6ov5qQ==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emavf75b3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 09:17:10 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-137f9301fd6so187591c88.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:17:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780909889; x=1781514689; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
-        b=fKFk5CGK+16WTVKCrEDMSAAv4uWxj+hoK1unEpLNU+Ql/qbz+ZBE/2LFqssrxc7ELa
-         25Ao27Evj1jXo5ry+u2Uig5D9E3sjBNF3GmPOrE/sf/Hxt7eejibebwd4J9GZY0Ckv3A
-         8RSEb9n1V/OoN1FzNeFuYgiilizmINj5A23RwV5wSTaoLcTTHxZHB5l5UAbxmF5XzQWH
-         j9BJDJG84DsBskFONiigdIFPc71sg6rHBJkvKhFhy7flQxHe5RkMWiqLaWIR8oD+T6P/
-         OCNaLFUZymGFMvp2aohuLC9QKskkjDyBVSxficPUZ1CGEid0yQMCF0LCeGAVc91nVidl
-         TBAw==
+        d=oss.qualcomm.com; s=google; t=1780910230; x=1781515030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9TQChVoZGJE1ujfnF3D1YTCmrzz01p+wDC5U6eyAgsA=;
+        b=a4R4WlAVHYjFgjivj5e7q1Z/gF5dR29Bhoqm7NM9dvG9BB9wL9zV6hU6V7zEpKms5m
+         LatT/Pjgn4DZR4yw64Bk/ULZwjZBojSIWiSL6DpJZQ409TgL8PJ6ogJ9ket1sSLaq/WV
+         TVV/HmgCcjt8h/nC6FP3gzabX5RZMRPsAkSxEbX5N8XiHl7LHhHCh1AqRkxIPsJmpefC
+         ShoojDcux75ss8rUurbasp/AO66+xU12n6BtXJ4TcdAseDBb8/InHr4g61F73hcLVu1I
+         W72oJisrnGRCE4an7ov1+Syufg7k80gC38NqAGHQDYqSwi4Mp/ZVD14U/gNtfhSNmIUE
+         xu7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780909889; x=1781514689;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
-        b=Rm+EDiz1uFx5+UOIxeEJvHzQYEuZn74m5Zd7cPEcGqgttzorj1acufA4F5Tsi1yyQa
-         TePP3Fj1ZDxt3S8TrJ5S4/HbuqVDJfqF1xG8jHNVomXd+U+r+6BkripibtgqbJfuNOkg
-         bnO8iyZ+sV567M0f0ZS4/+44esVYCXp7fJ8wyhbd9321fDX1gbszRThyi4a9yxkuhwCR
-         +hB3ymqNIc2xeZv79cWCYwaNoFxS2mrGp+5Uust7PGlT6PB0DhLGo/aXlNSPOaU7udZa
-         el8QhVW5gEkIN2RBeFuAAA7y7FaVBgweZ+LTG1h1HFTHerm2+fYDxNOT4aCTZcg8Uaqj
-         mxMg==
-X-Forwarded-Encrypted: i=1; AFNElJ+IPkmXdWPCIxSVtwXaO7rPKmQQggq6G6H03oPDrOqA0QwpYZFKyeh0dFlEbI3IvsP7OdXRAGCXOibX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTOtX4M8qTTHEJECp0Yoq5KOvBuaQ4Jd5LqOffr4qC9VtzJKhk
-	mm3IaWn84duvenRGFMm+DdervKEkuyHYVcdiWi+kaim4XpjVRp/ws08uxWuJBA7n07i1DvLckdE
-	6s+JTyYLaM9Qn5YyGWYFTEckEMxexHP6HfPwstiYShyMe
-X-Gm-Gg: Acq92OEk6pglV1meFGYVPHqTQSHduZD/wPQ2+ZmcQtIBrAt8piHPj5OYTK4AtIvr06B
-	bDS8q3MduSHewRRbxBsY4HoDxmaUpQ8XayJ7cZqZ1XcXuK3EHS55mxynH1CPxVGSDtq/rTygN24
-	5Ut0Ivi4xyQvZ64euchaGBcQic3kU4juxr0AJh1/yg9t6yQHjr2/Zc91/Wn8Y09lnudgd6g7R4B
-	8xyC+Tn68RlEUB93pUWYu9og6aaGz3Y35nlTZxdMHQdWa5n9ZeAIoWapc3nXdbgQNBgEjQYleuU
-	NLwS5InOk3J25j3YlQ==
-X-Received: by 2002:a17:907:2d12:b0:beb:2980:e2d2 with SMTP id
- a640c23a62f3a-bf3a6b13b16mr580109766b.8.1780909888634; Mon, 08 Jun 2026
- 02:11:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780910230; x=1781515030;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9TQChVoZGJE1ujfnF3D1YTCmrzz01p+wDC5U6eyAgsA=;
+        b=n6i1l6fJkwDVBLs5gatxtluAueWh+5Iq35AFzcHAntr5IGEk6JFmdST6P7mAc+s2hw
+         pzTagR1rX3UOEI6uHrkLsjJa45plreLwohYDuZMbNkltKNsPj8rQHJqr8oFLABSOA5Lr
+         xCWRwDnK51nbNbILDjFgJQqmi09gNhrVLFfeSdF8jupg5NPucSFenKP8h7TePw5f1xY9
+         Id+smQr2gu1/by3p7+jSyj262PgQ8+by3YdH4kjmOQR7hjLiuiQY5RSAvPVkqrPDMvig
+         vyj9ydWHJyaSGSz1z6XTR/e/m3Jq4imDoTMxxjaDaGKbAuN4x0VBKZVVIuvKnEkGQNpI
+         bPWQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9raBPO9+8xh9H6RNQ8/iT1DLWgNPgjT8SbzrwU5NIiTai7Sbd4xwYeBo6PqGpxlVmhmfw6Z18ArPoD@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2k6vxp0c+jHTJPTmlYfpo1iZbZZimO0n8DH11FE1AvBG4m2n5
+	gUjpeH/XVZ16kA0pT2ZzYysVIxLXnWZu4MTBt6zFt5XMhG8baHZtRt4UE0XZWz1mu/pKWbO9w9E
+	6yiuy4Ec3nxSKqGz6B/bxsbCqJwVHUm0IhX4xKSA0i+c/No54lDxVnEFJg4qBCt6P
+X-Gm-Gg: Acq92OFJ56dGUC9QjbzsJtt6AR3T2NVm/CjqtngnfsrC4z6zQkvqgpNEUFP38OiGE6u
+	oAwPtf8e4IPf1w8Nz9DXh+9VR5NBrrqhRYEFSNeEEpYqGZmomHBDAcGrsCNyx52UsKGVOWu64He
+	V23FG3xkBA2RxW84Sram5yhddhnZr31FH/fZKCPqjqoorrdZj/aTpjQoPN2CUTOMgM6T44QBdKL
+	dJF8S9lnfhIEowKxsAT2RoNJg2KtQ/JQNGmoV7q1eN/Dqhm4m+KxcnAR/2ZBH0UYavtx7kyuEYR
+	uMbGjVhoylDj6lUfHMIqn82AVCmqP5ocd9UECfgFwgmPyw1wI8KKCUym4EHroLdlgLY9wNEiSue
+	DR1Rjx6fi51RGFpKeQCV2JN+KjRaYLF1dUdXytUrAea4ZMei1T0GO8i9++VdJ+CzrFwU5RAePcu
+	TTPUxNN/8=
+X-Received: by 2002:a05:7022:423:b0:137:fdce:fec2 with SMTP id a92af1059eb24-138067f0b96mr2904758c88.4.1780910229720;
+        Mon, 08 Jun 2026 02:17:09 -0700 (PDT)
+X-Received: by 2002:a05:7022:423:b0:137:fdce:fec2 with SMTP id a92af1059eb24-138067f0b96mr2904747c88.4.1780910229057;
+        Mon, 08 Jun 2026 02:17:09 -0700 (PDT)
+Received: from hu-weiden-sha.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5550bcdsm12178656c88.14.2026.06.08.02.17.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 02:17:08 -0700 (PDT)
+From: Wei Deng <wei.deng@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-pm@vger.kernel.org, quic_chezhou@quicinc.com,
+        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
+        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
+        mengshi.wu@oss.qualcomm.com
+Subject: [PATCH 0/2] Enable WCN6855 Bluetooth on lemans-evk via PCIe M.2 Key E connector
+Date: Mon,  8 Jun 2026 14:47:00 +0530
+Message-Id: <20260608091702.3797437-1-wei.deng@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604135255.62682-1-midgy971@gmail.com> <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
- <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
- <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com> <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
-In-Reply-To: <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Mon, 8 Jun 2026 11:14:17 +0200
-X-Gm-Features: AVVi8CefQKT7ky3Sqeq6MkiJ04hcvCvZiupw30w_yNvYYxCVtDBxVUNhbRaFSOk
-Message-ID: <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, 
-	will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>, 
-	Finley Xiao <finley.xiao@rock-chips.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=I4JVgtgg c=1 sm=1 tr=0 ts=6a268896 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=g11dK_DTieeChMdKYl0A:9 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-ORIG-GUID: YPJzYs8MltC-SzEw7G6LfLFwMi2rB5T0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA4NSBTYWx0ZWRfX9bIho0xOZone
+ lz4s15sHkgurWlLmOKTleV2HviPtPGJaCN18iiosYDv6sEKDUFvXZdAuRcZ30LJl6yBi4Q0+Xte
+ 4uOn9q2hPTaxJXHmIkGO4/7N1NIIBi38DIyOZeMAxooref62f9Btnnznt72BnwIzDkjOZu2eAyD
+ D6c4c2o7TWPOJMT8VrFsiIoYztJEJel1TDXOQJccXd6Qg3WMtuTPQUlO0o1fpbZUdgi+adPc9od
+ fwnXhneUq7POOVKcvvrkASyaLuXOyJXU2jg8/Igk1yVCDPxEzKX/zUe3sT0eluiORvFFt/2qwVd
+ wHv9g2ptWTsLaa3/kiXMq15r93e8UGRikk90/duR/++r7PHL55TCpVgZ5s/WvmLZEy9Eead3iD6
+ 7Tuc1V929PjF9Y8Ne9MuYRPQnRVlS0MMiXhEo/17KHiQGD0UBhdJxpaBdU2vzGF4AwpjsYr1lUM
+ o+YjA2XQHT3PkDetieg==
+X-Proofpoint-GUID: YPJzYs8MltC-SzEw7G6LfLFwMi2rB5T0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1011 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080085
 
-Hello Chaoyi,
+This series enables WCN6855 Bluetooth on the lemans EVK through the
+PCIe M.2 Key E connector + pwrseq-pcie-m2 path.
 
-Following up on the need_regulator suggestion -- I implemented and
-tested it on the
-board, and unfortunately it doesn't avoid the deadlock on RK3568; it
-moves it from
-boot to the NPU job submit.
+It depends on the "Fixes/improvements for the PCI M.2 power sequencing
+driver" series (V3):
 
-What I did: gave the RK3568 NPU power domain a regulator (a DOMAIN_M_R
-variant with
-need_regulator =3D true), wired domain-supply =3D <&vdd_npu>, and dropped t=
-he
-regulator-always-on workaround.
+  https://lore.kernel.org/r/20260519-pwrseq-m2-bt-v3-0-b39dc2ae3966@oss.qualcomm.com
 
-Boot is now clean and the NPU probes, but there is a warning during boot:
+Patch 1 adds 0x1103 (WCN6855) to pwrseq_m2_pci_ids[] alongside the
+existing 0x1107 (WCN7850) entry, with compatible "qcom,wcn6855-bt".
 
-  rockchip-pm-domain ...: Failed to create device link (0x180) with supplie=
-r
-  0-0020 for .../power-domain@6
+Patch 2 describes the M.2 Key E connector on lemans-evk:
+  - pcie-m2-e-connector node, port@0 -> pcieport0,
+                              port@3 -> uart17 (BT serdev path)
+  - vreg_dcin_12v (12V) + vreg_wcn_3p3 (3.3V, vin-supply 12V),
+    both always-on/boot-on, as required by the binding
+  - compatible = "pciclass,0604" on pcieport0 in lemans.dtsi so the
+    PCI subsystem can match the DT node to the PCI-to-PCI bridge
+  - serial1 = &uart17 alias
 
-(0-0020 is the rk809 PMIC that supplies vdd_npu.) Then on the first NPU job
-submit the board hard-hangs with an RCU stall:
+Wei Deng (2):
+  power: sequencing: pcie-m2: Add PCI ID 0x1103 for WCN6855 Bluetooth
+  arm64: dts: qcom: lemans-evk: Describe the PCIe M.2 Key E connector
 
-  rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-  rcu:     3-...!: (1 GPs behind) ...
-  rcu: rcu_preempt kthread starved for 5115 jiffies! ... RCU_GP_WAIT_FQS(5)
-  rcu: Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expe=
-cted
+ arch/arm64/boot/dts/qcom/lemans-evk.dts   | 75 +++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/lemans.dtsi      |  1 +
+ drivers/power/sequencing/pwrseq-pcie-m2.c |  2 +
+ 3 files changed, 78 insertions(+)
 
-My reading: vdd_npu is on the rk809 *I2C* PMIC, so when genpd
-enables/disables the
-regulator during the NPU's runtime-PM power transition, the I2C
-transfer runs in a
-context that starves RCU and the box freezes. (I suspect
-need_regulator is fine on
-the RK3588 NPU because its supply isn't behind an I2C PMIC.) The always-on
-workaround avoids this precisely because genpd never touches the I2C
-regulator in
-that path.
+-- 
+2.34.1
 
-So: for an NPU domain whose supply is an I2C PMIC, is there a
-supported way to let
-genpd own the regulator without performing the I2C op in the
-power-transition path
-(a deferred/async regulator enable, or a flag), or should RK3568 keep vdd_n=
-pu as
-regulator-always-on? For v4 I'll keep always-on unless there's a cleaner pa=
-th.
-
-
-Thanks,
-Midgy
-
-Le lun. 8 juin 2026 =C3=A0 10:05, Midgy Balon <midgy971@gmail.com> a =C3=A9=
-crit :
->
-> Hello Chaoyi,
->
-> Thanks -- this is exactly what I needed.
->
-> - v2/DTE: will do. I'll keep building on Simon's per-device-ops series --=
- with
->   that in place the NPU MMU can use the 32-bit-DTE ops (the per-ops GFP_D=
-MA32
->   that's already in mainline) without the global rk_ops conflict. I'll
-> keep it as
->   a stated dependency of the v4 cover letter.
->
-> - vdd_npu:  I'll switch the RK3568 NPU
->   power domain to need_regulator + domain-supply =3D <&vdd_npu> and drop =
-the
->   regulator-always-on workaround. I suspect that's also the right fix for=
- the
->   power-off/on de-idle issue I described -- the always-on was really
-> just papering
->   over the domain not being modelled with a regulator. I'll confirm on
-> the board.
->
-> - AUTO_GATING: thanks for the commit references -- I'll keep the bit-31
->   read-modify-write form with your Suggested-by and write the comment
-> from those.
->   For the record: on v7.1-rc6 the NPU MMU also completes translations
-> on the reset
->   value (I couldn't reproduce a page-walk stall without the write), so I'=
-ll note
->   in the commit that it matches the vendor clock-gating handling rather t=
-han
->   fixing a failure I can reproduce here -- happy to drop it if the iommu
->   maintainers would prefer.
->
-> - PVTPLL/NoC: I'll follow up with Finley. First I'll check whether the
->   need_regulator change resolves the NoC re-power de-idle on its own;
-> if it still
->   I'll bring him the details (the genpd power-on de-idle ack and the
->   BUS_IDLE_ST state).
->
-> I'll send a v4 with these. Thanks again for the quick, detailed answers.
->
-> Kind regards,
-> Midgy
->
-> Le lun. 8 juin 2026 =C3=A0 03:40, Chaoyi Chen <chaoyi.chen@rock-chips.com=
-> a =C3=A9crit :
-> >
-> > Hi Midgy,
-> >
-> > On 6/8/2026 5:03 AM, Midgy Balon wrote:
-> > > Hi Chaoyi,
-> > >
-> > > Thanks a lot for looking at this -- input from Rockchip is exactly wh=
-at this
-> > > series needs.
-> > >
-> > >> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather t=
-han v1,
-> > >> implying it should support 40-bit PAs. Nevertheless, please note tha=
-t the
-> > >> upper limit for DTE is 32 bits.
-> > >
-> > > Understood, and that 32-bit-DTE note is the crux of the trouble I had=
-, so let
-> > > me lay out what I see and ask how you'd prefer to solve it.
-> > >
-> > > The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base=
-.dtsi).
-> > > The problem on this 8 GiB board: with the v2 ops the page-table alloc=
-ations
-> > > (gfp_flags =3D=3D 0) can land above 4 GiB, so the DTE ends up > 32 bi=
-ts and the
-> > > NPU's first translation faults with DMA_READ_ERROR. To work around th=
-at I had
-> > > switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops=
- set
-> > > GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but be=
-cause the
-> > > driver keeps a single global rk_ops, a v1 NPU MMU then trips
-> > > WARN_ON(rk_ops !=3D ops) against the SoC's v2 instances (VOP/VDEC), w=
-hich is why
-> > > I based the series on Simon's per-device-ops work.
-> > >
-> > > So my question: with per-device ops in place, what's the intended way=
- to keep
-> > > the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB =
-of RAM?
-> > > A v2 ops variant carrying GFP_DMA32 for this device, or is there a re=
-gister/
-> > > config bit that constrains the DTE address? I'd rather follow the Roc=
-kchip
-> > > intent here than carry the v1 workaround. (Simon, cc'd -- this is rig=
-ht next to
-> > > your per-device-ops series.)
-> > >
-> >
-> > If Simon's method works, please use it :)
-> >
-> > >> Can these operations not be completed via the pmdomain driver?
-> > >> If some operations are controlled by TF-A, are you using open source=
- TF-A?
-> > >
-> > > Most of it is in pmdomain already. Power-on and NoC de-idle are done =
-by the
-> > > RK3568 NPU power domain (genpd) at power-on -- the driver no longer p=
-okes the
-> > > PMU directly. Two things remain outside it:
-> > >
-> > >  - vdd_npu: I mark it regulator-always-on in DT rather than wiring it=
- as the
-> > >    domain's domain-supply, because as a domain-supply it created a de=
-vice-link
-> > >    to the I2C PMIC (rk809) and genpd's power-off QoS-save path then h=
-ung
-> > >    reading the NPU QoS registers behind the (gated) NoC. If there's a=
- clean way
-> > >    to let genpd own vdd_npu without that I2C ordering deadlock I'd mu=
-ch prefer
-> > >    that -- pointers welcome.
-> > >
-> >
-> > Please refer to the patch below regarding the RK3588 NPU pmdomain.
-> > In short, you need to set a "need_regulator" for the RK3568 NPU pmdomai=
-n.
-> >
-> > https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
-> >
-> > >  - the NPU compute clock (PVTPLL): set from the driver via SCMI, and =
-only
-> > >    needed for actual compute, not for bring-up.
-> > >
-> > > One more pmdomain observation from testing, possibly relevant to how =
-the NPU
-> > > domain should be modelled: the domain's power-off/on cycle doesn't re=
-liably
-> > > re-de-idle the NoC. If the NPU is probed after genpd has already powe=
-red the
-> > > (unused) domain off, the power-on de-idle fails ("failed to set idle =
-on domain
-> > > 'npu'") and the NPU IOMMU then takes an external abort on its first M=
-MIO access.
-> > > Probing the NPU before the unused-domain power-off, or marking the do=
-main
-> > > always-on, both avoid it. Is the NoC de-idle expected to work on a ge=
-npd
-> > > re-power here, or should this domain effectively stay on?
-> > >
-> >
-> > Not quite sure what's going on with PVTPLL and NOC.
-> > Maybe @Finley knows about this?
-> >
-> > > On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
-> > > (github.com/ARM-software/arm-trusted-firmware, RK3568 platform), prov=
-iding PSCI
-> > > and the SCMI clock service. The only closed blob in the boot chain is=
- Rockchip's
-> > > DDR init (rkbin), which is the standard situation for mainline RK356x=
-.
-> >
-> > --
-> > Best,
-> > Chaoyi
