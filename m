@@ -1,194 +1,145 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C583AFB12
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDFE3AF66D
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780907294; cv=none; b=OrUQULNiS1H/6oLkCHaA1ZALzKTje3TCMThwIoOthWtFzPSIk2xSQfwPDJZBIelzNMlJJ94kRfeuBR9FugiYhGsjVut8t0Xx2SgiQpB+z3UYGpk1HEY7ym3LiDoUDPFg2nGgd9UXrU+1AyfIC/vcicq/HaK0Qp3ZgMIfy/97Kc8=
+	t=1780907345; cv=none; b=bOEXDCOpjDwGTxXWFrEz1YfmJ4nudQLYOXSVWdiFM7elf+JaOP/Ds/dvNOhzmXw6dafCvCCT4R+mGq1HdP6/LRZCSBX71i7Zh7O1N3XcWPbja9g8Eh4csuGs08h1w3hXx41+SucI4WNDzDz+M5zOAnM6cFUxT0D1H3kluTFNerg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780907294; c=relaxed/simple;
-	bh=1wZNWjUwc+vC0bVgQ0ZlbNdOYECuxeaY+pojCpm9HA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UkoKpVyh6kjomPGURgYtfs8rPbHiukUkcp7/g1tmS8VMeYgUNxEZS+EV6zOPIVdCdzS5jTM5aI4S/yOKS4/5wwwwuPr8NjX0Vcl9bnh3IhXsPYbCm4lVtZWTT7YS1zAohWGI48704OVoza1xd2LBmB0kZ9afbA693iYJWu8SHPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRxHhS86; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780907345; c=relaxed/simple;
+	bh=nVHrZcHAyNhal2nEdl1wjK4UhN91S0YpmsgQ+Et2tzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QL183rxDQ3h1Vw9sDIegT/1JVfYfgf4ngxIQTQcW0lRWWXLtL04gJQsPyXfipj4c63MWxEBHCNVSG9WHlyM4U4MJ4+k1Rr9cuIn/pYtNsBwx3Grb3gmrp3/B3HFYOdY1WVZ09E/h1fFicE8fhwMIosQvIK7LQj7X6NMzTzFLlgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JbkQ/MMm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VSj6p1m1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRxHhS86"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45efa80e0afso3096557f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 01:28:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JbkQ/MMm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VSj6p1m1"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586Qrxb2771589
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 08:29:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nVHrZcHAyNhal2nEdl1wjK4UhN91S0YpmsgQ+Et2tzU=; b=JbkQ/MMmUTcM7MwF
+	NK4abuDYYabD058wOwhyB3ZZ8ZTM2+FBtWPZD/4hjlYWgO1FUdxqJZ3uVUuxaZZb
+	UbiVwAynVW9TxrKAVXqh6HleynTYmDAEw/Fy25gUn3OKtlTjLlhZEXbvjMeKrdlS
+	d63PQ0Swd9GmVBcmcFJ2OL1mO5J5GOzJinOhTmK8/sqrcggWIH7kx4tng1Kf3pAD
+	X31elUlmle1CSKDGaxLLv6/vdD4U0DiX3ARTegHvj5zABzzZlYGyUAfxt2xh7rvz
+	spNweB4pvZr503yWF0J6Drd28ft5o+SVIN/LjB+zYQoWnjKFaBHF89Pj2hzfunxV
+	4nhIKA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embx6eqgt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 08:29:03 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51768e1d798so10351481cf.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 01:29:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780907288; x=1781512088; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PPeReRpnLBnfoJVjUD6XA7EpJ91dRyU67u4RwbeYW+E=;
-        b=pRxHhS86/i5lFqEWxQzb0O+X8Zyp37Hv3tGh3OHmku2+J0DMTShEIoDFPF5+g16XoX
-         0/xzJY28v1rymS9yzI7KHMRk0IeziIOkWIPqVfkUye8wZJttEFW/FcI+aU86Rikvat9l
-         3jA+YliBw41w8GQE7xKZ9EQjOQQbL+YYnxuJjX4jf3aPIR1WfHhJPQdJZuBSe+xnUAl+
-         dtoBA37i1x1kYXtM5lfvLefrGVE01DMzYBPcoep0q9+uZ3Eny3uorpfzkgRxuco4ZTbC
-         bxYoIh5Qr9/yxZVLN5ZvPQHKjtMWM/Z9Lf1PsHtLLKLv1nCCj0WS1WBtDAK3sVV2iqwl
-         OY1g==
+        d=oss.qualcomm.com; s=google; t=1780907342; x=1781512142; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nVHrZcHAyNhal2nEdl1wjK4UhN91S0YpmsgQ+Et2tzU=;
+        b=VSj6p1m1+/J9ItHTkA5fEUjb4jHXy5DQrM9zlmK8D4DI2SDqvUQfGTKUkBzf0FnH5M
+         +RvTNmYdIpa3pQUD+uSMdB1nyxX5I4yIAu0RHVPEwiCrgejLs1G6mMXHkxzk00zElc4h
+         uLNT9z6YmB9+FEezB3+1M2ONUwodXOaS8v1NM2WO394z+/xY/fLO0nztWRLyV1OOWX83
+         cYO3n5vin7tNkj+c6F9WngJMUCOg+nmGU0QInFkuC0UbnpiklMG88IcLcWJd4Bd44p4v
+         GvygNHImz8KgrytflfVq080fQj86rBeAY8i367bkRlU/QWVeCI3P5ur9QDF5FKWJqYQy
+         fzAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780907288; x=1781512088;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PPeReRpnLBnfoJVjUD6XA7EpJ91dRyU67u4RwbeYW+E=;
-        b=fnfyrUZGfIysfnI8oivdajJXvhxS3WpbE2sfvYYWRb5mMhiea+CGPnJCpnH5CMWL3O
-         IajHWKRrocowWMFGfQlZG8IJHf1T1haEmhwfkU4MnrEuCrLsd1WPXHWlmqiOJ8WBO9MY
-         TKKFcg98ohaWjLapOBL1jo/R2+JUoJijpfLGZ6hJqmaA4v4hjMTrWDLbGJ1ON4765xfp
-         BSqaJZigEzZpvVqrv8iKJLAnmeijnd2z615uM4tTVX55DFOYK4wsCFEn09MSG7kn2H3q
-         KURUann3Jeb1pqMf3pH4pRLW+bGF+a00IoYYegFanNm5ZgJUpC7CPNy7a9/JLFaCUy8J
-         klfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/GvrxPGAomOp2PxasRWzbdnxBZot+q9AWn27CnR/iXO3nJlf2W0qJzwiZAOrMfv1K11/E16V62Uf0+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyxhfNFKiVj18K+mj2jHy6rwrEUclJnGbuWvJU3Rg2nyiO/b6+
-	aYnT6bRYNhjyuET27Kdd+C9xffQSeSLw55a0iq0WTn1vkql81OkNb9vW
-X-Gm-Gg: Acq92OEM/xSm+ouIVHTHSFvMuupvPzWiSZKrCxhWCj/pl90/hW6Uhe5eKRVQuCq4Wk2
-	VaCCkcNzSei2n1USd1vDBOAZx6b8RU9+E20FuAWzfByjPNHhQcP05SY3XCmOMsCGLINODRAGm7i
-	IVPYrrRNBep1TZQ0seZ1LE+9YKvuvxFtg4JXpQbPYYGy6hqXLURjbxugRCVYAIzjYncN+5USgYB
-	kXB9lc/rAzSshN7yvL9OWqtBUP+zpicLcmMxAKi9G/e6TbOzUc7Ip1UxMUsN+Rupodxr+QE07q5
-	4PF0+X3kSFVqpjKEJ+TzLW+vyva917TzfAud3itHrXOkAppwntT2SzxJrRtoHWft0aLxy/DcHOj
-	0OmiXeluLj6vr+CpneoJD9JsUbVTd0TxVvkC4iclbnnUFb+S26/AxtkfecnJGS5fD8Udxg/SQhz
-	f3uqAegYuJuK7WZBm2+oCM1CPXrQ==
-X-Received: by 2002:a05:6000:29d6:b0:460:3233:beeb with SMTP id ffacd0b85a97d-4603233c00bmr13957776f8f.43.1780907287945;
-        Mon, 08 Jun 2026 01:28:07 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2ec711sm49104616f8f.12.2026.06.08.01.28.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 01:28:07 -0700 (PDT)
-Date: Mon, 8 Jun 2026 09:29:07 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>, 
-	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 06/12] iio: dac: ad5686: consume optional reset signal
-Message-ID: <aiZ7mVMImugYwOVq@nsa>
-References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
- <20260602-ad5686-new-features-v1-6-691e01883d27@analog.com>
- <ah_k9A9535Vz6PCw@nsa>
- <20260603130833.007c1526@jic23-huawei>
+        d=1e100.net; s=20251104; t=1780907342; x=1781512142;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nVHrZcHAyNhal2nEdl1wjK4UhN91S0YpmsgQ+Et2tzU=;
+        b=q3RIFB60GCZOJOaHnUwo059lPRfbpAUYFr08ue05ZWq+bN39OVdlTU7yCQ/x0NKy7q
+         3ULQmZr9yPD6FKRoY90NipTYXa7QOs0nFH3vWwrThidihA9HYf2opmLQDZQDRk6XYnYd
+         RgVVnhSs/RwHlFy4o37BZYygK86QLhDEpEN4ufABnGtZ0C1YvIJHiUIvsJdiKtk/87UK
+         xzX7V/Rka2CYIyF6DZPvGRsV46ysYitesvRdmDzsBJQN7Ei9H/7k09UaLmuU0jzZIuOG
+         HssiPNF2XUa5NCMWIoSUcKq8omMOuDtz7nCWbnlxXVYDO3De7ypEBoFaDSMhcAfC0KWe
+         FQ3w==
+X-Forwarded-Encrypted: i=1; AFNElJ9/qQrzbTK417w+06ldTnL2qdJNWgmDTH4hnthUqDa+YGtXHyJ/G8NE4AJXQ7KReAeOQ4thtoKHWpx2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkCWR6tHCG+7E47dmRQV2X/68B1ibKksjebWTX6jZPk2eV3Aph
+	cr37AA1C5C7Sk643mMnKF9jD/TjJ1q/RpZV13FIHV0p7zEENnBcq9OPXW0hNZnYLu1EKMSFq44f
+	CiGi+zUSZl7Zu3UVlMGX/4daQhZsmHXBmpzfZ5S33V19NQsCgynRxp+bSTLnhuQS4
+X-Gm-Gg: Acq92OH8MO4sNHJcqk6UkCZyXZruiyvBZf7zhWoSVWrqrmbU+RXCMBNekzt9YZX8R9N
+	w7Wkt9QvSZojziYz3ecEXb2p3IMzQj9pBpd7VV48s8pfGVXyla+4/T5QEQjKHQxQ3tTc8baT5hD
+	2bQPykAzooaUzQ5h6fbw2jRZcBBRc7HbfaQeyuHGdUs2fs4GLiJ5ZSKeAefbu3CsgclIJKFJfvb
+	wilelmah8cO0Djcelj4IxphG2VxeQzi9SasPgMbVUunOZTN+6f311t81Cq4xzGWV+fLcIqn5zGH
+	bL23Uug24RqmvpQrU3zrEY3iLYdeBy4Y2tvhnyqfkACTv7danypmGOR0Cc8VEjV7pUof5tCB9Hw
+	YgOEU8ZJmpGLD8sqFpgheiAQj+xDd2x/5CNvBxjdelsd3h8hJ57Vp48o+
+X-Received: by 2002:a05:620a:1a18:b0:90d:11b2:80f3 with SMTP id af79cd13be357-915a9e00484mr1429224685a.7.1780907342576;
+        Mon, 08 Jun 2026 01:29:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a18:b0:90d:11b2:80f3 with SMTP id af79cd13be357-915a9e00484mr1429222885a.7.1780907342126;
+        Mon, 08 Jun 2026 01:29:02 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055307ce3sm822366766b.43.2026.06.08.01.28.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 01:29:01 -0700 (PDT)
+Message-ID: <4f0461e8-e277-4a6e-8c89-50bf04bf23dc@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 10:28:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260603130833.007c1526@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Old patch version was applied accidently
+To: Yedaya Katsman <yedaya.ka@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+References: <CAHuF_ZpTvYmARzx2_be1foM6XUVCdE0bNmb+YcHkH7tFhrYF8w@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAHuF_ZpTvYmARzx2_be1foM6XUVCdE0bNmb+YcHkH7tFhrYF8w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=cvmrVV4i c=1 sm=1 tr=0 ts=6a267d4f cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=WZn9R-PGD3BZfLL3dosA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA3OCBTYWx0ZWRfX66VoiWf/v783
+ 9AvPqxx0hPu0gbde53Q2gpVMEq07sEaCD3KO7FErmDbvJF6NRJpnsv90UY1iksrcdWqKa/snLxF
+ WR7maW+ehyfv46+JrfaD3WUFWi/qbnSLbpG2ebqHEYBpohFFYmX/eEl82Tv8fUmsH9TlzmJwbYd
+ jeaIJ3MhrI3Sr820lbccy8ZST6Rp7AOZ2Hgj9VUqX4ntd3m7NRXQ0ysk+IkClE2XT3zcv0J57SQ
+ qFhtgdW4r7+KSrJHwChvV+Dmn+fBfibP5DPZmcnyQHXyv4TkShH0maf+6ptXDRUpGwSbIpSW42k
+ hn09jaQqWM0SH/6lHfpo1E40N+EenvYMCSn+f4Q+KNt8mI/bTsVexUAYx7a1u5sLe5+FSXfaoXV
+ /UhK6xb6Bv7EQnZaDq+ZmfyiHhNA+cV2vQd/MRWirjWEchLBMKNBQDbEY7P/hFMA33kxly9nwBL
+ Gr/i75JktlX65lW7dOA==
+X-Proofpoint-GUID: IdJC5JuVjBNFeUy6IvYmHUDjG7nNzTP8
+X-Proofpoint-ORIG-GUID: IdJC5JuVjBNFeUy6IvYmHUDjG7nNzTP8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080078
 
-On Wed, Jun 03, 2026 at 01:08:33PM +0100, Jonathan Cameron wrote:
-> On Wed, 3 Jun 2026 09:28:26 +0100
-> Nuno Sá <noname.nuno@gmail.com> wrote:
-> 
-> > On Tue, Jun 02, 2026 at 05:33:53PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > 
-> > > Add RESET pin GPIO support through an optional reset control, which is
-> > > local to the probe function. Also, include delays for power-up time and
-> > > reset pulse width.
-> > > 
-> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > ---
-> > >  drivers/iio/dac/ad5686.c | 13 +++++++++++++
-> > >  1 file changed, 13 insertions(+)
-> > > 
-> > > diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> > > index 4a8c587ff116..345ca2436332 100644
-> > > --- a/drivers/iio/dac/ad5686.c
-> > > +++ b/drivers/iio/dac/ad5686.c
-> > > @@ -8,12 +8,14 @@
-> > >  #include <linux/array_size.h>
-> > >  #include <linux/bitfield.h>
-> > >  #include <linux/bitops.h>
-> > > +#include <linux/delay.h>
-> > >  #include <linux/dev_printk.h>
-> > >  #include <linux/errno.h>
-> > >  #include <linux/export.h>
-> > >  #include <linux/kstrtox.h>
-> > >  #include <linux/module.h>
-> > >  #include <linux/regulator/consumer.h>
-> > > +#include <linux/reset.h>
-> > >  #include <linux/sysfs.h>
-> > >  #include <linux/wordpart.h>
-> > >  
-> > > @@ -471,6 +473,7 @@ int ad5686_probe(struct device *dev,
-> > >  		 const struct ad5686_chip_info *chip_info,
-> > >  		 const char *name, const struct ad5686_bus_ops *ops)
-> > >  {
-> > > +	struct reset_control *rstc;
-> > >  	struct ad5686_state *st;
-> > >  	struct iio_dev *indio_dev;
-> > >  	int ret, i;
-> > > @@ -506,6 +509,16 @@ int ad5686_probe(struct device *dev,
-> > >  		return dev_err_probe(dev, -EINVAL,
-> > >  				     "invalid or not provided vref voltage\n");
-> > >  
-> > > +	rstc = devm_reset_control_get_optional_exclusive(dev, NULL);
-> > > +	if (IS_ERR(rstc))
-> > > +		return dev_err_probe(dev, PTR_ERR(rstc),
-> > > +				     "Failed to get reset control\n");  
-> > 
-> > On top of what Andy stated, I'm fairly sure
-> > devm_reset_control_get_optional_exclusive() returns with the GPIO
-> > asserted.
-> 
-> We've been getting reports on that not being the case from Sashiko
-> and when I last looked into one of those it definitely isn't documented
-> as doing so and I got the impression it is a reset controller specific
-> thing.  Do we are fine here because the gpio reset controller reset_gpio_probe()
-> includes:
-> 	priv->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> 	if (IS_ERR(priv->reset))
-> 		return dev_err_probe(dev, PTR_ERR(priv->reset),
-> 				     "Could not get reset gpios\n");
-> Which I guess puts it in to reset?
-> 
-> So do we assume gpio reset or not for this sort of driver that specifies
-> in the binding reset-gpios. Now if the following is implying we need
-> a deasserted to asserted transition (maybe?) then we'd need to force
-> a deassert first.
+On 6/4/26 6:04 PM, Yedaya Katsman wrote:
+> Hello, an old version of a patch I sent was applied, presumably since the patch
+> series title changed between versions (learned for next time).
+> Can the newest version be picked up?
+> The patch that was picked up:
+> https://lore.kernel.org/all/20260314-panel-patches-v4-3-1ecbb2c0c3c8@gmail.com/
+> The up to date patch:
+> https://lore.kernel.org/all/20260320-panel-patches-v7-3-3eaefc4b3878@gmail.com/
+> The difference is only in the name of the compatible (O to zero), and
+> the updated
+> compatible in the driver is already applied in next.
+> I don't want a release to come out with a wrong compatible.
 
-Yeah, fair enough. I think in practice it works but we are relying in
-internals of other piece of code for it to work which is not great.
+Please send a fix-up
 
-- Nuno Sá
-
-> 
-> Btw I used claude to explore this and it hallucinated the reverse polarity
-> providing otherwise correct code for what was in reset_gpio_probe() but
-> oddly editing that one line.  I was being lazy and using the web UI rather
-> than a version with access to my git tree so maybe it scraped some
-> buggy code from a downstream tree.  Anyhow watch out for subtle garbage!
-> It also took a few requests to get it to figure out the logical nature
-> of the GPIO signals rather than assuming they were controlling whether
-> the line was high or low directly.
-> 
-> Jonathan
-> 
-> 
-> > 
-> > > +
-> > > +	udelay(5); /* power-up time */
-> > > +	reset_control_assert(rstc);
-> > > +	udelay(1); /* reset pulse: comfortably bigger than the spec */
-> > > +	reset_control_deassert(rstc);
-> > > +
-> > >  	/* Initialize masks to all ones */
-> > >  	st->pwr_down_mask = ~0;
-> > >  	st->pwr_down_mode = ~0;
-> > > 
-> > > -- 
-> > > 2.43.0
-> > > 
-> > >   
-> 
+Konrad
