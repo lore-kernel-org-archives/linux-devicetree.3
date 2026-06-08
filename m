@@ -1,317 +1,98 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954303A7F61
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 20:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E40F224D6;
+	Mon,  8 Jun 2026 20:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780951488; cv=none; b=QQwqXUfsuuoK4qw+Dxvx21XHkiv/rWgVo4R4QBGqJnMWeyEtEbDVa+ooypL26rCaun2WhoX3risbu4bqKOfXb0LYXRoi2PD2AQQkZznumwiRG73uu8rYzlnxNNkmxQN0b1W4VDF/ujebWU16lrGMsLJI0enIZEoTeKmKD9nJnrQ=
+	t=1780951581; cv=none; b=BS+g97PyjufEq4QVLpeQXGTFupDRn2r2iMmcvs5WPu13dPJGUjNFB9Nf80fIJWQMHMkGrUQGBSYDk3s8JsCCrhmao9uSV8oMA+pHILc5rA7dmGHHTo/LAu75+IusnjsrwZQ2HUSviYxvCDOacp9Ats1Yz4fg9hi+e0UjcCqFCSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780951488; c=relaxed/simple;
-	bh=zNRMiBZ+kNoq+YW6OjKzvRqTqFQ1HwTaXPoZQ7puVbc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RPzZUiHwtQdw1HOFTJtAbKocZvii6V/d/8ZYdVT3/FKBzl6rdonJdNTaV1Zsbk0foTv0/YU4VB2F6vZr2NXsFvCLSzW4fLimSNgnJgBeJ7x47PwzPb5DBNtk8MZQvnTenTPUZW0gCEuzXjLoT7j+gFywHtzjqrhbJE3ZuY3zl4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HWBLau39; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R5YPIp4r; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780951581; c=relaxed/simple;
+	bh=0QPCDQzTCPZNBhl21/y+K5HBQJmbRX+dtKa9HQj9X9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pxw+0nVo9pEZ2jj+zmdOtk90pyc5SUWkifo9KaD3u8BvYpNkeEEmeWGLqt+EOWZKrFuyK7xFxGExUiPmJ2K+Ob+PAcVpxK4RT65fvThtajKOMsAGmd8VYvKTpoA5CA3F9vtNoftujRc8U+wExcFg0DTuuXSlq7t5ksZNZ6UwPfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxjZYV02; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HWBLau39";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R5YPIp4r"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658Ix9XG315010
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 20:44:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vnNdb5A9Du7XL3S7Wq+Il5jXREGeZ4aI2BZqdspJTvM=; b=HWBLau39VSb2zMQO
-	/Ml8jwYT0rEb8gb/VAweKx0UkoIcasbP0IGXoEJyTlP/f4S8uU/GTbJW/Ax6UjSL
-	3axjJbav2yCZj7CRjPdtOK6dGebJwG7EuGsdtx6xUT4zlhLVg/QfEApQpqJaYUfK
-	1UE1LKphVG0/OmOikuXU9gtBJLPjZTntGDvbe5lfPMuF1u+BbodM745l2WY79Adv
-	svDUUsI+8ofstrWAdMxc2qwiNX9nAtVQnaTzeWXTdJP3P6hYhtwqojI0lmr3owpB
-	QrQ5UJmoPod8P/7r0Eym5UrjUmr4rrA86K/WznIkCjh/UfXF7Gzb9iRnG4YFmuQC
-	w+37Gg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4entr0k5af-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 20:44:45 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51787404d3eso83649941cf.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780951485; x=1781556285; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vnNdb5A9Du7XL3S7Wq+Il5jXREGeZ4aI2BZqdspJTvM=;
-        b=R5YPIp4rBkaam040LclUjj498st+Rttdf/mbpu8iDsI8SwwCW6xFsRzc4NNxJmlAyW
-         mr84QZ07AlGkAdKpslUKpSkQAfqWz91BzE8a1//8pwkhelV5uDgPTiikgmPjikPCONnR
-         E3TDXHaA6ZbhKZafEuLVLlvbo5OE/Y2Tb1ZFCgM7s4YWCXLiPxrl8RL9iW2uWe4jgTZn
-         QvZH8EZezAdDUnRX7aEaC9p42J/3NKFmudHZB2IK1CGPOmPKri9uJlzGqRmGM15klKOt
-         pYfy0x7+oCMQqJ38rCMwKNlL4IVjyFEsZuS0Z6FBzL8F24iap7Xm9vBtbcpU6z5PsiSd
-         hSuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780951485; x=1781556285;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vnNdb5A9Du7XL3S7Wq+Il5jXREGeZ4aI2BZqdspJTvM=;
-        b=qr6za5w6V6FoDhjPlNHFTHlSCTKcTf2ZDhzTADr4r3tMHXtDR7c7E2PynbnGC7J8b5
-         69OPtLjCqEXPp43DnPf2FHZaHF+ORUzZNY8XyFpo1vHsU2OQOQ0gcp4bLCihNe470ldD
-         CbVaR98AxyXUQ07NQXZoy8C2i3+csqFHiaCIjA4/c4+eBPOSPKxJKBsUcWTMuTss3CRC
-         pbE2i+5oia4WXahtzHZ/iZZXuEOikoV/xfZ3r+QdgDspFB35Ght6w8AjU21bFcIXSChn
-         DQsviXXVtu+xWIN+ohfb8T+QKghuwXBLYnMPYfivIjyBaYXz7xTgBpfSLuzSESeHCSTj
-         jxzA==
-X-Gm-Message-State: AOJu0YyoRSiDwhva0IpWpFQ1c0agvXXxvajD/h/yG6MsruUd6T0mzDV7
-	3cfLF/LQ1aR8OY//C3QTCJLhjFLQemgh3bB74TbEJnzumkCfC1p5C5FMATv7viMdCgoklTbyRhO
-	RGATkUQMkxPPQRy7lBRC68i0ZZ+0iLjafvwB+49SlRMJewbcTUjUUDkGDe3qOaU8z
-X-Gm-Gg: Acq92OEhBf63wO+7oIbKtn7vyU68y05MaaBi86RMERpSd8U2IIj4RoZXeDoqopHPwrk
-	T3YA7FXaieioia8MQxH/GSoDT89IPAyI2WunaZ+x8khDLEJ1g4N1TsMF+hkSdSZBYBKlMq0BVVv
-	zyjL8Oc2Zs+UCth/s0pu1qkZGSzZlXpGNje8aMDNNZl4Pm1inE2nUyM+XTBJGX/9Im+c/tBIpAQ
-	O35CP1NeVlB1AAxzbRxRvEOgXS6V56uQzZgFmx7CVtZEQtWKMywmaNGWzp5xWk3TMSkYCnPXZw7
-	VnXIax1kxbr5ieMZFoU89dygYg6ErZXNQCit5rNuKcZJprW0uigbcYA8ICIZx3OnQSuETLyfj9q
-	lcDtzANqyce6g2/jefxcbJPMepWl8IO/EV/RHpUXJYmRm56JkfYeABY4=
-X-Received: by 2002:ac8:7d83:0:b0:517:9570:c1ba with SMTP id d75a77b69052e-51795afe738mr243823771cf.34.1780951484784;
-        Mon, 08 Jun 2026 13:44:44 -0700 (PDT)
-X-Received: by 2002:ac8:7d83:0:b0:517:9570:c1ba with SMTP id d75a77b69052e-51795afe738mr243823121cf.34.1780951484239;
-        Mon, 08 Jun 2026 13:44:44 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4602cda3651sm44018439f8f.32.2026.06.08.13.44.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 13:44:43 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 08 Jun 2026 22:44:26 +0200
-Subject: [PATCH v3 3/3] ARM: dts: ti: Add specific compatibles for SCM conf
- nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxjZYV02"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947151F00893;
+	Mon,  8 Jun 2026 20:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780951580;
+	bh=p2BLSVr+4kvNFJjBTGY4+qp78B1yuQ5e8zYjH+i9H6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TxjZYV02X/cedFJMm0LwdABiIWZfT70z2K8k8ZfEWYH9M+w8XlnGbSJoVN1XNH1wu
+	 CYE8p2Zv7777w3ZYhrrD4ux3Y38j7tDNX4WPXGMYbnrplTURSM+EqivbOZRXtTK0X2
+	 efwcYS2XFiHIHCaCJ4+8GUEbGtp2CaGyiW0xeNfkz/ppkzBlpCQnaDgdrai4q6VM4k
+	 9A7FrAGVM72Jj1aoUYwlSRXy/vnyRvlKbQx6flxPuuA+jLWNEDcgAxpJW0Z1xe9owU
+	 MLPccBWhxkBaFmW9rHQaigvlgrUFHTtTV7K5XbNp5XmlDhzUxWAmEeNohzjQmRNSsj
+	 VmqD7PYlMgPbQ==
+Date: Mon, 8 Jun 2026 22:46:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Suresh Vankadara <quic_svankada@quicinc.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/7] dt-bindings: media: qcom: Add Shikra CAMSS
+ compatible
+Message-ID: <20260608-reliable-vivid-stork-f4ea6c@quoll>
+References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com>
+ <20260608-shikra-camss-review-v2-1-ca1936bf1219@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-n-dt-bindings-simple-bus-syscon-v3-3-4eba9ec1212a@oss.qualcomm.com>
-References: <20260608-n-dt-bindings-simple-bus-syscon-v3-0-4eba9ec1212a@oss.qualcomm.com>
-In-Reply-To: <20260608-n-dt-bindings-simple-bus-syscon-v3-0-4eba9ec1212a@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Jacky Huang <ychuang3@nuvoton.com>,
-        Shan-Chun Hung <schung@nuvoton.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
-        Aaro Koskinen <aaro.koskinen@iki.fi>,
-        Andreas Kemnade <andreas@kemnade.info>,
-        Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
-        Tony Lindgren <tony@atomide.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
-        linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6238;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=zNRMiBZ+kNoq+YW6OjKzvRqTqFQ1HwTaXPoZQ7puVbc=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqJymwIBEPDBUQiQY+pkcr+TbTVfD9i5SdhfMAZ
- hSaGmpSeTGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaicpsAAKCRDBN2bmhouD
- 1xLWD/9pqNYoAEZ8rLlubC1gMxi4cjfVYg0mCjs+op/jGQOndFLxLesoYW5bg4Xwg3BoijToPXl
- dYa4isoqfRj3UjVoVpZLUs1e49a5zcILG3YcBDPTX7RIUV3cR9519ovpRKmI7qkvlIWAF3FGwqk
- p/O/ldAHxklVYoBoMZcS8Yb/wCcU+9zX20nseSgepbpebW2ZTTLBIU4J+TJbfTCgLOVrT1q+3KE
- U/JiOpsCXvgx6Ue9AHfTzotbO+dqN2+XQmdkQzM7tP47VtSvkqM4iEN190Pp8be6pNnPZA/Db+D
- oLdZwiLRrGyuVf32c6eCMwp8aBe0r4zOrp2SrCWJtuZ+Wy6d/HyHlXSz75AAlpYfkUih3fjIJEF
- jpxAuq9DVb58+vV+bxVWuNbziv9XkQS6ABXjf2ulavDex6Y/Ik4ZT7udsXl7T0yaBUxS433NkRS
- LWPjKOreHPon7HdxFYw9RSp/X6dXb9XSKHo4D+Snlj49czkcT6/ZOVWwzh0dO4ScvSK0QqOOQ9+
- XJE7kSKEln+PPS/UDEeNiOwQs99rmNiBHmNhntcg5fjDKuvgn1sMGkenaJ1KjuIucCGPM+zYBbp
- NltGEW8z/Ngjaj4HbATilGpSG2FPzKnCBUxp/TeODAOOUmTWlfy109mO9yckBybe4lzGA5l60qT
- ekeAycc2Y4+PKlw==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE4OCBTYWx0ZWRfXxjanklmq8DkZ
- uddAZjoFFg1xNAbyxuPpEb1R0ehNHdxp5JuH+OxcZNHGh9JhM1hp2+Beo06tipHA04gaFQNtEGf
- W3uxd3ObSiq8A9o83iOipwXdCzvzMDIm1bMRUWuvx01D1+jLuOZTXpBqIWHHYSB3I/tjFTWd8x+
- qv/RaJE+xP/C1WUGfpOK/fOpyMrkag90PP6JuHmq9Pu5hXC69MaGrUnr+4yZM5efD8QSzabXtyY
- +jU8Fon/5YrDLxteAyxcD53ba+gRgkYeavIMgSq/ouLvH89WtDSp3lcc3mByt8F2EKzW7ZEI+XO
- uwO7hwn0crkafG+Y5/QrsvE59hydsyE0zkIPsVc7lGt6Hstji7ov74rYAiWX20RweOiq+ohFfyB
- MhG+jux++VobxgPQgUZHmnXnkeVRYvitLqzAlfNyMFLR1AvmLc22DLLEsO96BCl4Pa557Zm0YAo
- iXaPw9FI8SpKt1tnvrQ==
-X-Proofpoint-ORIG-GUID: slW576xgFNQRqmAyeZUk846Oe-5BQACV
-X-Proofpoint-GUID: slW576xgFNQRqmAyeZUk846Oe-5BQACV
-X-Authority-Analysis: v=2.4 cv=VowTxe2n c=1 sm=1 tr=0 ts=6a2729bd cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=50gAi1W1AAAA:8 a=EUspDBNiAAAA:8 a=AwmKQTmtiYQHBMsDbE8A:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=bIAsa0K8HJLRn3BBPJ--:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_05,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080188
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260608-shikra-camss-review-v2-1-ca1936bf1219@oss.qualcomm.com>
 
-writing-bindings.rst rules dictate that "syscon" must come with a
-specific compatible identifying the register layout.  Add specific
-compatibles for these devices.
+On Mon, Jun 08, 2026 at 07:36:38PM +0530, Nihal Kumar Gupta wrote:
+> Shikra contains the same Camera Subsystem IP as QCM2290. Document the
+> platform-specific compatible string, using qcom,qcm2290-camss as
+> fallback.
+> 
+> Unlike QCM2290, Shikra omits the CDM and OPE blocks, requiring only a
+> single IOMMU context bank instead of four.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/qcom,qcm2290-camss.yaml    | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
+> index 391d0f6f67ef5fdfea31dd3683477561516b1556..4f39eefb4898ebc22117407f26cfb4f41deb111b 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
+> @@ -14,8 +14,11 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,qcm2290-camss
+> -
 
-This also allows to solve a different problem: "syscon" is contradictory
-to "simple-bus".  A system controller with registers having their own
-functions is not really a trivial MMIO simple bus.  These two cannot be
-used together, unless listed as an exception.
+Do not remove blank lines.
 
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> +    oneOf:
+> +      - items:
+> +          - const: qcom,shikra-camss
+> +          - const: qcom,qcm2290-camss
+> +      - const: qcom,qcm2290-camss
+>    reg:
 
----
+With this fixed:
 
-Changes in v3:
-1. s/ti,omap5-scm-conf/ti,omap5-sysc-padconf-global/ because it is more
-   appropriate (specific)
----
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 2 +-
- arch/arm/boot/dts/ti/omap/am437x-l4.dtsi | 2 +-
- arch/arm/boot/dts/ti/omap/dm814x.dtsi    | 2 +-
- arch/arm/boot/dts/ti/omap/dm816x.dtsi    | 2 +-
- arch/arm/boot/dts/ti/omap/dra7-l4.dtsi   | 2 +-
- arch/arm/boot/dts/ti/omap/omap2430.dtsi  | 2 +-
- arch/arm/boot/dts/ti/omap/omap3.dtsi     | 2 +-
- arch/arm/boot/dts/ti/omap/omap4-l4.dtsi  | 2 +-
- arch/arm/boot/dts/ti/omap/omap5-l4.dtsi  | 6 +++---
- 9 files changed, 11 insertions(+), 11 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-index 89d16fcc773e..1e09d2b48925 100644
---- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-@@ -308,7 +308,7 @@ am33xx_pinmux: pinmux@800 {
- 				};
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,am3352-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x800>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi b/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-index e08f356e71cb..30fcce33f4b7 100644
---- a/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-@@ -301,7 +301,7 @@ am43xx_pinmux: pinmux@800 {
- 				};
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,am4372-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x800>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/dm814x.dtsi b/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-index 27d1f35a31fd..9e02bfa5c3a2 100644
---- a/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-@@ -432,7 +432,7 @@ control: control@140000 {
- 				ranges = <0 0x140000 0x20000>;
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,dm814-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x800>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-index a1e0e904e0f0..ee0090f7aa64 100644
---- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-@@ -100,7 +100,7 @@ dm816x_pinmux: pinmux@800 {
- 
- 			/* Device Configuration Registers */
- 			scm_conf: syscon@600 {
--				compatible = "syscon", "simple-bus";
-+				compatible = "ti,dm8168-scm-conf", "syscon", "simple-bus";
- 				reg = <0x600 0x110>;
- 				#address-cells = <1>;
- 				#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-index c8d325b0f57b..9df7648c4b79 100644
---- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-@@ -64,7 +64,7 @@ scm: scm@0 {
- 				ranges = <0 0 0x2000>;
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,dra7-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x1400>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap2430.dtsi b/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-index 222613d2a4d1..01bd471f9223 100644
---- a/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-@@ -50,7 +50,7 @@ omap2430_pmx: pinmux@30 {
- 				};
- 
- 				scm_conf: scm_conf@270 {
--					compatible = "syscon",
-+					compatible = "ti,omap2-scm-conf", "syscon",
- 						     "simple-bus";
- 					reg = <0x270 0x240>;
- 					#address-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap3.dtsi b/arch/arm/boot/dts/ti/omap/omap3.dtsi
-index 959069e24730..447736d2e53c 100644
---- a/arch/arm/boot/dts/ti/omap/omap3.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap3.dtsi
-@@ -116,7 +116,7 @@ omap3_pmx_core: pinmux@30 {
- 				};
- 
- 				scm_conf: scm_conf@270 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,omap3-scm-conf", "syscon", "simple-bus";
- 					reg = <0x270 0x330>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-index 4c78a0b28fab..c1afc49f456c 100644
---- a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-@@ -681,7 +681,7 @@ omap4_pmx_core: pinmux@40 {
- 			};
- 
- 			omap4_padconf_global: omap4_padconf_global@5a0 {
--				compatible = "syscon",
-+				compatible = "ti,omap4-sysc-padconf-global", "syscon",
- 					     "simple-bus";
- 				reg = <0x5a0 0x170>;
- 				#address-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-index 915870eb5c99..72849e1c95b0 100644
---- a/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-@@ -96,8 +96,7 @@ omap5_pmx_core: pinmux@40 {
- 				};
- 
- 				omap5_padconf_global: omap5_padconf_global@5a0 {
--					compatible = "syscon",
--						     "simple-bus";
-+					compatible = "ti,omap5-sysc-padconf-global", "syscon", "simple-bus";
- 					reg = <0x5a0 0xec>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-@@ -2311,7 +2310,8 @@ omap5_scm_wkup_pad_conf: omap5_scm_wkup_pad_conf@da0 {
- 				ranges = <0 0 0x60>;
- 
- 				scm_wkup_pad_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,omap5-scm-wkup-conf",
-+						     "syscon", "simple-bus";
- 					reg = <0x0 0x60>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-
--- 
-2.53.0
+Best regards,
+Krzysztof
 
