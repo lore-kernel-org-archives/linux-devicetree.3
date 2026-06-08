@@ -1,177 +1,117 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0543B840F;
-	Mon,  8 Jun 2026 10:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E6B33688B;
+	Mon,  8 Jun 2026 10:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780913231; cv=none; b=tIUaEfaQ+LOs7fke4zgahFQJGEOcyd4lyXJM3FmnE5OO9hP9p0ZX+pP2/RLVDA3MfZG9S3Z+Vb2lI9yKPVsnulx+066QuiR9daMfkyP1uJRFvbxOigEf/yWjw9enKVz59/wiCd1XCQHGD9jA9K2CN3jNasMrXXaIeoN4zXBBl4c=
+	t=1780913284; cv=none; b=KwtBRYrWUXmCB1pK1/RZCUZnNyGxugQtIAEXzLkTVsA5YTeIxvMO59CBZuDqstE/fRGXDEwrBudEYqpzYzbmWAbX0suwVs8QOFdtt5wW8+AO5SnziiuG6gPiuyddnt8Uc1wxNOoWDtG++OlKb5VdtC/CyDu6vmIt5t/cHhOyeXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780913231; c=relaxed/simple;
-	bh=+HbJwOEW0QCy42W9svlezN/Kd5alAYEExDdvVmqS3hw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JOGikb3d95XiInq//n27t6+HFcHAdSalputValAGAXUSoKjEVpF4Rc004Vi5Gh50+vQWol3ftDy4Rl3aCnn9U+gk29fwnUBLzjPp/yadfWX/BBRH0qq18NkPLMMQtOTXNL9rUnwgyfPPmV6GCUi5HA4Jdj3PpU3MADPuD3pIfdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.15])
-	by APP-05 (Coremail) with SMTP id zQCowAC3F9szlCZqCWuyEg--.3647S2;
-	Mon, 08 Jun 2026 18:06:44 +0800 (CST)
-Message-ID: <340c213ca47dabb8bc3d260311e2fd4818bd8001.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
- ops table
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 08 Jun 2026 18:06:43 +0800
-In-Reply-To: <98eb7772-257f-4fa7-8e9b-51a635cb12dd@gmail.com>
-References: <20260608023237.305036-1-a0987203069@gmail.com>
-	 <20260608023237.305036-4-a0987203069@gmail.com>
-	 <399cd127b56b4a2fb3161865a681606e04e6b2c6.camel@iscas.ac.cn>
-	 <98eb7772-257f-4fa7-8e9b-51a635cb12dd@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1780913284; c=relaxed/simple;
+	bh=0WAZOkwh1M04H1c0YVum0mSxyq9dqMkuIAOwausNF/4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SNgAjq8ea2dkcZaLc8bQthPhDQaQuzgHLAIeAJ7e3NxIoRew8pv17lvd+0LzKWw0JqjHwXyn6F3nFNvTi74SpJRQsV063wTNT0gk1UlwQgzzyEhT+54X3s7StlZJqBx082G9zAtVypJgi7sL3cOWH+ZX6RnWJnT30va4G3RX/3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXnT4uaM; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXnT4uaM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460841F00893;
+	Mon,  8 Jun 2026 10:08:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780913283;
+	bh=rVBSLeID+xxuzIUnmbvTiFn8KX8C7lbOTIFzb+QeLGs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RXnT4uaMgFi6ipFBh3wPhIQCNm8yuExJotY0hKUy1F1DDlMPMHGnIKu3sikVOkftg
+	 hSxpDXEtTZ8OF4azNz8+ojGEWQVT65DLx+6xm0RrQ2BKOMd58VfKpvlKQhZgCLTnf0
+	 IiP530duViStlyQ/ci2R7GS7jqMdiZBh5CokrTw4ZIfn4LUnjqRKG5RXoxYZIKuBs/
+	 e7G0LzScAGWxqg1aqcc3gG+tid+/qKbbI5DSEdzuvCQDKnKGdC3X3Lv1yu42sehbwi
+	 ZnW88gPg9XvbBu1OLN3CXjk0WEs/7XjAuzP1mu57SK8IajnyIuM5uqLZ8AehFZWwFz
+	 O7EXf4UNIg6yQ==
+Date: Mon, 8 Jun 2026 12:07:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, 
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Amit Kucheria <amitk@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Satya Priya Kakitapalli <quic_skakitap@quicinc.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Imran Shaik <imran.shaik@oss.qualcomm.com>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: thermal: Add Qualcomm MBG thermal
+ monitor support
+Message-ID: <20260608-sweet-powerful-ibis-8b2adb@quoll>
+References: <20260601-spmi-mbg-driver-v1-0-b4892b55a17f@oss.qualcomm.com>
+ <20260601-spmi-mbg-driver-v1-1-b4892b55a17f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowAC3F9szlCZqCWuyEg--.3647S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFWUXrWDtF4xAF1DJr4xWFg_yoWrGFW8pr
-	1qkFy8Kr4rXrykJFy8tryvqFsxWw1xKw1Igr1UGa9Yqr1DtrnIgFW0qr93uF4kXrZ7G3Wf
-	Xw4SyanIvrWrAwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxU2wIDUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260601-spmi-mbg-driver-v1-1-b4892b55a17f@oss.qualcomm.com>
 
-=E5=9C=A8 2026-06-08=E4=B8=80=E7=9A=84 17:45 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > index 1f2be41ae496..75bc36a078f7 100644
-> > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > @@ -53,12 +53,6 @@ static int
-> > > vs_primary_plane_atomic_check(struct
-> > > drm_plane *plane,
-> > > =C2=A0=C2=A0	return 0;
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned
-> > > int
-> > > output)
-> > > -{
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_COMMIT);
-> > > -}
-> > > -
-> > > =C2=A0=C2=A0static void vs_primary_plane_atomic_enable(struct drm_pla=
-ne
-> > > *plane,
-> > > =C2=A0=C2=A0					=C2=A0=C2=A0 struct
-> > > drm_atomic_commit
-> > > *atomic_state)
-> > > =C2=A0=C2=A0{
-> > > @@ -69,13 +63,8 @@ static void
-> > > vs_primary_plane_atomic_enable(struct
-> > > drm_plane *plane,
-> > > =C2=A0=C2=A0	unsigned int output =3D vcrtc->id;
-> > > =C2=A0=C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> > > =C2=A0=20
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > -			=C2=A0=C2=A0
-> > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > -
-> > > -	vs_primary_plane_commit(dc, output);
-> > > +	if (dc->funcs->plane_enable_ex)
-> > > +		dc->funcs->plane_enable_ex(dc, output);
-> > Please note that all theae codes are for primary planes, maybe the
-> > helper should be named mentioning primary. Overlay planes will need
-> > a
-> > different codepath because they change different registers.
-> >=20
-> > Thanks,
-> > Icenowy
-> Understood. To avoid confusion, I will rename `plane_enable_ex`,=20
-> `plane_disable_ex`, and `plane_update_ex` to `primary_plane_enable`,=20
-> `primary_plane_disable`, and `primary_plane_update` in `vs_dc_funcs`,
-> `vs_dc8200.c`, and `vs_primary_plane.c`.
+On Mon, Jun 01, 2026 at 04:31:18PM +0530, Sachin Gupta wrote:
+> From: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
+> 
+> Add bindings for the Qualcomm MBG (Master Bandgap) temperature alarm peripheral
 
-Maybe keep the `_ex` here as some operations is still on the common
-codepath?
+Feels unwrapped.
 
-Thanks,
-Icenowy
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static void vs_primary_plane_atomic_disable(struct drm_pl=
-ane
-> > > *plane,
-> > > @@ -88,10 +77,8 @@ static void
-> > > vs_primary_plane_atomic_disable(struct
-> > > drm_plane *plane,
-> > > =C2=A0=C2=A0	unsigned int output =3D vcrtc->id;
-> > > =C2=A0=C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> > > =C2=A0=20
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > -
-> > > -	vs_primary_plane_commit(dc, output);
-> > > +	if (dc->funcs->plane_disable_ex)
-> > > +		dc->funcs->plane_disable_ex(dc, output);
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static void vs_primary_plane_atomic_update(struct drm_pla=
-ne
-> > > *plane,
-> > > @@ -133,18 +120,11 @@ static void
-> > > vs_primary_plane_atomic_update(struct drm_plane *plane,
-> > > =C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
-> > > =C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 fb->pitches[0]);
-> > > =C2=A0=20
-> > > -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-> > > -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x, state-
-> > > > crtc_y));
-> > > -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-> > > -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x + state=
--
-> > > > crtc_w,
-> > > -					 state->crtc_y + state-
-> > > > crtc_h));
-> > > =C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_SIZE(output),
-> > > =C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_SIZE(state->cr=
-tc_w, state-
-> > > > crtc_h));
-> > > =C2=A0=20
-> > > -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> > > -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> > > -
-> > > -	vs_primary_plane_commit(dc, output);
-> > > +	if (dc->funcs->plane_update_ex)
-> > > +		dc->funcs->plane_update_ex(dc, output, state);
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static const struct drm_plane_helper_funcs
-> > > vs_primary_plane_helper_funcs =3D {
+
+> found on the PM8775 PMIC. Unlike the existing SPMI temp alarm peripheral,
+> the MBG peripheral supports both hot and cold threshold monitoring across
+> two programmable levels (LVL1 and LVL2), with interrupt status reported via
+> a fault status register over SPMI.
+> 
+> Signed-off-by: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
+> Co-developed-by: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
+> Signed-off-by: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml    |  4 ++
+>  .../bindings/thermal/qcom-spmi-mbg-tm.yaml         | 72 ++++++++++++++++++++++
+>  2 files changed, 76 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> index 644c42b5e2e5..5f409fe700b2 100644
+> --- a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> @@ -193,6 +193,10 @@ patternProperties:
+>      type: object
+>      $ref: /schemas/thermal/qcom,spmi-temp-alarm.yaml#
+>  
+> +  "^temperature-sensor@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/thermal/qcom-spmi-mbg-tm.yaml#
+> +
+>    "^typec@[0-9a-f]+$":
+>      type: object
+>      $ref: /schemas/usb/qcom,pmic-typec.yaml#
+> diff --git a/Documentation/devicetree/bindings/thermal/qcom-spmi-mbg-tm.yaml b/Documentation/devicetree/bindings/thermal/qcom-spmi-mbg-tm.yaml
+> new file mode 100644
+> index 000000000000..a0ecc9f35cf6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/thermal/qcom-spmi-mbg-tm.yaml
+
+Filename must match compatible.
+
+> @@ -0,0 +1,72 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/thermal/qcom-spmi-mbg-tm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm's SPMI PMIC MBG Thermal Monitoring
+
+Best regards,
+Krzysztof
 
