@@ -1,177 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720233AFD00
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:51:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760D13AFD00
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:52:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780908706; cv=none; b=ajGNpQnE6ST9O5DB35vudfYNFrsoJTDjBsAgU6KQCHu0dv/G/sDCKILsy1JdcfTkc+tEPT5F4E+3UaPKaJZyvJahy4FGA9GQ78LEAYpmW8h6lkA+QwPq0yFZB99qLyHl8qH3esf0vz2aIEQ8uaaFbAYrabWbw8SVzfni3SGkZxU=
+	t=1780908762; cv=none; b=h374Hu/L5biLXUqp49LiOMKEYQz9yGsl/8P4MrTn7GpyOBsweUpdTj/GiRae/U/HKqcNpmUkD6zZbfAQznjPZlsmJL/AnYd9jpFCJpjXZrzvikL6eXubHBRmTHX3I8XPA5OXZOkmW/imT8r6/nVTjbsgABhaPLcSVvBYcTA0QK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780908706; c=relaxed/simple;
-	bh=ux56/4TJSEmltio+wU6OO1ZxDAesTYA3M4Gd85QD5Ko=;
+	s=arc-20240116; t=1780908762; c=relaxed/simple;
+	bh=7D56YVzupes1l2eMfafcEDXYnNUkfLa3tMJd9k7Dm6I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SkKaVMaKLheQI05ppi+dJeqs9hG6xltpES07WhwkLfwtaNllM+ksUCTKZA0E/Rzn8cFsupSt7ExPXRoXepitrcZ2Xe4I/XnivoCQ+O2F6TeAWn4Uyyy7KpG99Lm2pNnK7DZGUeQ1KErdF+cGwfiEKKk4ooTz4XLAUUKbJCUPKxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npqbHjuU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HPr87++/nyp7tFnxTn69elMmLtzd1cRqvA2Z663h14NPYXN2T9c8BeM3QORjTeExoqPJuhTRIxFZaX1SdyYN6snMWpXUokBylNLuG9X7P1hAvk+sdziH5WO5SPU0utmFlvA5pksvSoyER+2ZjsDVAywnrnMcU9QOPhu3rwN6WZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFyXPG53; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npqbHjuU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D359F1F00893;
-	Mon,  8 Jun 2026 08:51:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFyXPG53"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04621F00893;
+	Mon,  8 Jun 2026 08:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780908705;
-	bh=QnNY1sUhE21CKN9G3VKPijvhS/PQzPpUDrMnDtgZtjs=;
+	s=k20260515; t=1780908761;
+	bh=oxYzuTvd7PrmVR3TrdeVPnHquVAvACj3FjIdSoBEvjY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=npqbHjuUlk0FMxDb+vJsnBJzMFcMubmEGIIwGK6jpnXhy0Usz8kuPE3kBwhX2avCH
-	 Q8TNKQeRev2zD0VAE67JGjjnLPPTEQFrBGb2rENgvKincrXXMDTMxNp5A4G8uFZgqt
-	 5AUHjaNOgPWFFhPUwJ5XocJAh4g/Jic7oicglvxfzS73va/Maz88iG/rrR8XbjZLUN
-	 l1zaVjtYbYy5g5pioMRGzzqjRE+5APkzFuot12vISP4leFb5Kqbh+gboOLKoTjVzgw
-	 51bhoN4rJE9sxci0PCYu/BDzWzxZsqbVRxS4ovzDfQjfzbnjxoZOtl+5TcrgMA4hgO
-	 MApJU+tm/aikg==
+	b=WFyXPG53qRl2arIaB3fbAh9wX+hoRje1STbHfvrH3BgZ7XIIAFRLNdKV0KNpSc1iD
+	 Mq1AI2h8y3Fl9M+Q5MKFtpKMWW7BJBXoLgsgmRvccHAnCORRNZyQLbg9GfSLGeMGWc
+	 vZ+/10oP1tUoUc3pd0+2ck4AxmWclz8LA/SLudQYfxf0h5WALfXKnwk7fvP3FDBiDN
+	 5hxb4pP/SvgrJZBQWneoHglwRASN2Sfin32kfjBxPWMve/v3XZjKeZ7o3QwFgrO3LS
+	 hGW8txIKis9dl6foXYpnKirW6p1hG2mgUek9uEtqLLtyUQgk8Cz55EqLPhGashSwS+
+	 9iMX1KHsn4quw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v0 3/7] ASoC: codecs: ES8389: Modify the clock table
+Subject: Re: [PATCH v0 2/7] ASoC: codecs: ES8389: Fix the issue about
+ mclk_src
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Michael Zhang" <zhangyi@everest-semi.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260608083540.12581-4-zhangyi@everest-semi.com>
-References: <20260608083540.12581-4-zhangyi@everest-semi.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260608083540.12581-3-zhangyi@everest-semi.com>
+References: <20260608083540.12581-3-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 08:51:44 +0000
-Message-Id: <20260608085144.D359F1F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 08:52:40 +0000
+Message-Id: <20260608085240.F04621F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Bitwise logic in get_coeff() incorrectly treats dmic_sel=3D0 and d=
-vdd_vol=3D0 as wildcards, shadowing specific clock configurations and break=
-ing newly added entries.
-- [High] Regulator reference leak on component removal.
-- [High] Use of uninitialized memory if regmap_read fails in es8389_pcm_hw_=
-params.
-- [High] Use of uninitialized memory if regmap_read fails in es8389_resume.
-- [High] es8389_pcm_hw_params silently ignores missing clock coefficients.
+- [High] Devicetree ABI Breakage and Hardware Leak in mclk_src Evaluation
 --
 
-commit a0eb9b57ebbdde5147755b4d72d8594f88569a95
+commit 901f3e10a3b9643fed9b6bed617589331a04275d
 Author: Zhang Yi <zhangyi@everest-semi.com>
 
-ASoC: codecs: ES8389: Modify the clock table
+ASoC: codecs: ES8389: Fix the issue about mclk_src
 
-Updated the configuration for certain frequencies in the es8389 codec.
+This commit addresses an issue with incorrect modifications to the mclk_src
+configuration by updating the bitmask logic and hardware register definitio=
+ns.
 
 > diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 638eb1f0462ea..cd8284da8c62c 100644
+> index 9c816491648c7..638eb1f0462ea 100644
 > --- a/sound/soc/codecs/es8389.c
 > +++ b/sound/soc/codecs/es8389.c
-> @@ -434,52 +434,54 @@ static const struct _coeff_div  coeff_div[] =3D {
-[ ... ]
->  	{128, 24576000, 192000, 0x00, 0x50, 0x00, 0xC0, 0x18, 0xC1, 0x81, 0xC0,=
- 0x00, 0x8F, 0x7F, 0xBF, 0xC0, 0x3F, 0x7F, 0x80, 0x12, 0xC0, 0x3F, 0xF9, 0x=
-3F, 2, 2},
-> +	{64, 12288000, 192000, 0x00, 0x41, 0x00, 0xC0, 0x18, 0xC1, 0x80, 0x00, =
-0x00, 0x8F, 0x7F, 0xEF, 0xC0, 0x7F, 0x7F, 0x80, 0x12, 0xC0, 0x3F, 0xF9, 0x3=
-F, 1, 0},
->  };
+> @@ -609,7 +609,7 @@ static int es8389_pcm_hw_params(struct snd_pcm_substr=
+eam *substream,
 > =20
->  static inline int get_coeff(u8 vddd, u8 dmic, int mclk, int rate)
+>  	if (es8389->mclk_src =3D=3D ES8389_SCLK_PIN) {
 
 [Severity: High]
-This is a pre-existing issue, but modifying this table highlights a bug
-in get_coeff() that affects how these entries are matched.
+Does this change break the devicetree ABI?
 
-Does the bitwise logic in get_coeff() incorrectly treat dmic_sel=3D0 and
-dvdd_vol=3D0 as wildcards?
+In es8389_probe(), the driver reads the "everest,mclk-src" devicetree prope=
+rty
+directly into the es8389->mclk_src variable:
 
-sound/soc/codecs/es8389.c:get_coeff() {
+sound/soc/codecs/es8389.c:es8389_probe() {
     ...
-    vddd_det |=3D ~(coeff_div[i].dvdd_vol % 2) & 0x01;
-    dmic_det |=3D ~(coeff_div[i].dmic_sel % 2) & 0x01;
-
-    if (vddd_det && dmic_det)
-        return i;
+    ret =3D device_property_read_u8(component->dev, "everest,mclk-src",=20
+                                  &es8389->mclk_src);
     ...
 }
 
-This unconditionally evaluates to 1 when dmic_sel or dvdd_vol is 0,
-turning 0 into a wildcard instead of an exact match. This can shadow
-specific clock configurations and render subsequent array entries with the
-same rate/mclk unreachable.
+Since ES8389_SCLK_PIN is redefined below as (1 << 6), any existing device
+trees using logical values like <0> or <1> will fail this equality check.
+This will silently bypass the SCLK configuration and break audio functional=
+ity,
+unless device tree authors now populate the property with the raw hardware
+bitmask <64>.
 
-[Severity: High]
-This is a pre-existing issue, but could we fix a regulator reference leak
-on component removal?
+>  		regmap_update_bits(es8389->regmap, ES8389_MASTER_CLK,
+> -					ES8389_MCLK_SOURCE, es8389->mclk_src);
+> +					ES8389_MCLK_MASK, es8389->mclk_src);
+>  		es8389->sysclk =3D params_channels(params) * params_width(params) * pa=
+rams_rate(params);
+>  	}
 
-In es8389_probe(), regulators are retrieved and manually enabled, but the
-corresponding es8389_remove() component teardown function does not disable
-them:
+[ ... ]
 
-sound/soc/codecs/es8389.c:es8389_remove() {
-    struct es8389_private *es8389 =3D snd_soc_component_get_drvdata(compone=
-nt);
-    ...
-    regmap_write(es8389->regmap, ES8389_ISO_CTL, 0xC1);
-    regmap_write(es8389->regmap, ES8389_PULL_DOWN, 0x00);
-}
-
-Does this leak the regulator references when the I2C driver is unbound or
-the module is removed?
-
-[Severity: High]
-This is a pre-existing issue, but does this code use uninitialized memory
-if regmap_read() fails?
-
-sound/soc/codecs/es8389.c:es8389_pcm_hw_params() {
-    ...
-    regmap_read(es8389->regmap, ES8389_DMIC_EN, &regv);
-    dmic_enable =3D regv >> 7 & 0x01;
-    ...
-}
-
-The return value of regmap_read() is ignored. If the I2C read fails,
-regv contains uninitialized stack memory, causing dmic_enable to be randomly
-set and potentially leading to invalid clock configurations.
-
-[Severity: High]
-This is a pre-existing issue, but does this code use uninitialized memory
-if regmap_read() fails upon resuming?
-
-sound/soc/codecs/es8389.c:es8389_resume() {
-    ...
-    regmap_read(es8389->regmap, ES8389_RESET, &regv);
-    regcache_cache_bypass(es8389->regmap, false);
-
-    if (regv =3D=3D 0xff)
-    ...
-}
-
-Similar to hw_params, if the hardware is unresponsive and the read fails,
-regv contains uninitialized stack memory, potentially causing unpredictable
-branching.
-
-[Severity: High]
-This is a pre-existing issue, but does es8389_pcm_hw_params() silently igno=
-re
-missing clock coefficients?
-
-sound/soc/codecs/es8389.c:es8389_pcm_hw_params() {
-    ...
-    } else {
-        dev_warn(component->dev, "Clock coefficients do not match");
-    }
-
-    return 0;
-}
-
-If get_coeff() fails to find a valid clock configuration, this function log=
-s a
-warning but still returns 0 (success). Can this mislead the ALSA core into
-running audio with a misconfigured codec clock tree?
+> diff --git a/sound/soc/codecs/es8389.h b/sound/soc/codecs/es8389.h
+> index d21e72f876a60..13ce241774dc8 100644
+> --- a/sound/soc/codecs/es8389.h
+> +++ b/sound/soc/codecs/es8389.h
+> @@ -116,9 +116,10 @@
+>  #define ES8389_TDM_SLOT               (0x70 << 0)
+>  #define ES8389_TDM_SHIFT              4
+> =20
+> -#define ES8389_MCLK_SOURCE            (1 << 6)
+> -#define ES8389_MCLK_PIN               (1 << 6)
+> -#define ES8389_SCLK_PIN               (0 << 6)
+> +#define ES8389_MCLK_MASK              (3 << 6)
+> +#define ES8389_MCLK_SOURCE            (0 << 6)
+> +#define ES8389_MCLK_PIN               (0 << 6)
+> +#define ES8389_SCLK_PIN               (1 << 6)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608083540.1258=
-1-1-zhangyi@everest-semi.com?part=3D3
+1-1-zhangyi@everest-semi.com?part=3D2
