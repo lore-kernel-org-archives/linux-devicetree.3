@@ -1,111 +1,107 @@
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDF73546C5
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED9C3B4439
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780944727; cv=none; b=Q5Q1jLmuYr3eoVkOTH3fCwXLq2BAOfM8l4OzHCWN27+CQsX+q5yu5ykx/VISUZcNysb68KiJ9F6n9vI2lxysFB2wjgtunhlK/PIuZN2hwLigWTvhaQnEWUEzZarsc9vwoK8KSWh1HgqlIaV2lJR5AEp+GTHGNDTMD0qMv7No4Fw=
+	t=1780944734; cv=none; b=qR5DjMLxLnl+kgZiDJx0D0TqoD2ZlHIvk8jCuIfXyPq2TEJxLdmmUZO9m9XCfqtNfwL2PXVNgdtHSO37yKqEODIW+qLSoEfan2JCFAXwhenb8O54zkiWzdICyrH2snZw5YhxE6NZpUBAPr10MPkfdszcZo0bHGveRcXu5SdSt68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780944727; c=relaxed/simple;
-	bh=dCzZqsEFSsmTdQjtgd8ONukyg5eOVXelkFuLU6s69f0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NiqzKKbJJLx7kHh0Cv7ZppQW7YCIHSxcYIkZGhuTFw/hPJlreK39I5qfvR9IxOdWTunHe4Q7ekBVN/VVKa5sNtYDacnKfB9KqEoAlvZXvFv+xUg3fKoJA35EPhsYOJ/8IvaUfYTRTZaDVpUqAOe3/L3eUExie9CaLAeL0awxvH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=PnHF6KMb; arc=none smtp.client-ip=185.226.149.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
+	s=arc-20240116; t=1780944734; c=relaxed/simple;
+	bh=bIi5s7l1Ea4AiUiWlLMaC2AFbTKEVaCSda/bYKQSrYM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t4WlqnclYKPJt/i7VqlFf7LoSE1RmXsOUrPboSDmzNXHNkouqCPaS8/g3A/bZSEfwHyQXQB0YYicafakcfzyOk8jOYgqai/8kYLl4q1yPoLpx5G0DOz7IEFWohB6FxH0zR6n2mzsLMi8aiW6ZzOE9Br2HNPIQNOryhxd+PFKGJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exk/Q1Hn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="PnHF6KMb"
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1wWf4o-00CXwt-Vi; Mon, 08 Jun 2026 20:51:59 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
-	Subject:Cc:To:From; bh=dG/sfYRvq8kCCeYDOuH74EgMzRpBVnNC9TmW9KHmBDA=; b=PnHF6K
-	MbWeBipz0WdMy11fYHsxVRSqjqPpYyOfBaE7d5LkMgDAVsAGYgv7Gwh4+QS4hGFJ1nQDiHOSmev8z
-	Qp6s5ZxV54rglsdBLBI0LSmaDbQZN9QRmeN+0mLROGyZmSNT19WKgMZlhBgNcB2NBoeCmEZqi3I+P
-	u7RDZQRtPJKSPOu7PZqNg3GuX99n57bBn6ft4pxXYlCLhrRhGzJYfvAM7Xof8zwjzE0683zcuV7TS
-	848Nqgs9Mp8PL/781nhKyvenWkXAvbxdUhlIXVpV07wo07b/dE616M6yLuQjqmPOzuYsl6OvXteo8
-	Pojl+6XbpA0jdgeADSRsLWTSychA==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1wWf4o-00081k-IC; Mon, 08 Jun 2026 20:51:58 +0200
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1wWf4k-00Bd89-NO;
-	Mon, 08 Jun 2026 20:51:54 +0200
-From: David Laight <david.laight.linux@gmail.com>
-To: Kees Cook <kees@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Arnd Bergmann <arnd@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH next v2] drivers/of/overlay: Use memcpy() to copy known length strings
-Date: Mon,  8 Jun 2026 19:51:21 +0100
-Message-Id: <20260608185121.22331-1-david.laight.linux@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exk/Q1Hn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3D11F00893;
+	Mon,  8 Jun 2026 18:52:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780944733;
+	bh=gcz4jibTG256tk/lCwoK1eSIisT42A15aP7csXjGcfY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=exk/Q1HnUIlFFl8pyvgd6X+XPL6+h+BMgvVjYD/FXJLhuj+6knDB0LCAXe2um5UHS
+	 V6br3YUGUL9I1ldMyUdzdR405c/Izt88lQUxgb/o/Ls+qi18afEVnzBMrWTydPT5qe
+	 ga3xvsgnbUR3SjdM5G1Yc6xmtJsgAxGNdPA1XU3H+OcBMxZnF2Dx44L5zNVpOXjdL7
+	 /Fd2hE5AQhyUyTKsC0MAzk9WYx9UN7EzaOPNHQ/MgX3g4pFALEfqghLBhWgFEG7RIH
+	 TGliYZNkS6KuI2IcfZftz80tl60Q/gCEWGObicmrpEQi5x3eNcBUyqNGC3kp/iwFAP
+	 UypKr0PRZqa1A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/5] iio: adc: versal-sysmon: add I2C driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Salih Erim" <salih.erim@amd.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260608183801.1257051-4-salih.erim@amd.com>
+References: <20260608183801.1257051-4-salih.erim@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 18:52:12 +0000
+Message-Id: <20260608185213.2D3D11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Avoid calls to strcpy().
-The lengths of the strings have been used for the kzalloc(), replace
-the strcpy() calls with memcpy() using the known lengths.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unconditional probe failure for I2C devices due to incorrect handl=
+ing of optional IRQ.
+--
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
+commit f3303ed1c4a2a87b882fc5ca294a42e9cb520b70
+Author: Salih Erim <salih.erim@amd.com>
 
-v2: Improve commit message
+iio: adc: versal-sysmon: add I2C driver
 
-This is one of a group of patches that remove potentially unbounded
-strcpy() calls.
+This commit adds an I2C transport driver for the Versal SysMon block, allow=
+ing
+an external master to read voltage and temperature measurements. It explici=
+tly
+omits event support as the I2C path does not have an interrupt line.
 
-They are mostly replaced by strscpy() or, when strlen() has just been
-called, with memcpy() (usually including the '\0').
+> diff --git a/drivers/iio/adc/versal-sysmon-i2c.c b/drivers/iio/adc/versal=
+-sysmon-i2c.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/iio/adc/versal-sysmon-i2c.c
+[ ... ]
+> +static int sysmon_i2c_probe(struct i2c_client *client)
+> +{
+> +	struct regmap *regmap;
+> +
+> +	regmap =3D devm_regmap_init(&client->dev, NULL, client,
+> +				  &sysmon_i2c_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return PTR_ERR(regmap);
+> +
+> +	/* I2C has no IRQ connection; events are not supported */
+> +	return sysmon_core_probe(&client->dev, regmap);
 
-Calls with copy string literals into arrays are left unchanged.
-They are safe and easily detected as such.
+[Severity: High]
+Will this unconditionally fail to probe when called from the I2C driver?
 
-The changes were made by getting the compiler to detect the calls and
-then fixing the code by hand.
+Looking at sysmon_core_probe() in versal-sysmon-core.c, it attempts to
+get an IRQ and treats any negative return as a fatal error:
 
-Note that all the changes are only compile tested.
+int sysmon_core_probe(struct device *dev, struct regmap *regmap)
+{
+	...
+	irq =3D fwnode_irq_get(dev_fwnode(dev), 0);
+	if (irq < 0)
+		return dev_err_probe(dev, irq, "failed to get IRQ\n");
 
-Some Makefiles were changed to allow files to contain strcpy().
-As well as 'difficult to fix' files, this included 'show' functions
-as they really need to use sysfs_emit() or seq_printf().
+Since the I2C device tree node lacks an interrupts property, fwnode_irq_get=
+()
+will return a negative error code (such as -EINVAL), which causes the probe
+to fail entirely before it can successfully initialize the device.
 
-All the patches are being sent individually to avoid very long cc lists.
-Apologies for the terse commit messages and likely unexpected tags.
-(There are about 100 patches in total.)
+Should the core probe gracefully handle missing optional IRQs so that the
+I2C driver can succeed?
 
- drivers/of/overlay.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> +}
+[ ... ]
 
-diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-index c1c5686fc7b1..656867009514 100644
---- a/drivers/of/overlay.c
-+++ b/drivers/of/overlay.c
-@@ -258,8 +258,8 @@ static struct property *dup_and_fixup_symbol_prop(
- 	if (!new_prop->name || !new_prop->value)
- 		goto err_free_new_prop;
- 
--	strcpy(new_prop->value, target_path);
--	strcpy(new_prop->value + target_path_len, path_tail);
-+	memcpy(new_prop->value, target_path, target_path_len);
-+	memcpy(new_prop->value + target_path_len, path_tail, path_tail_len);
- 
- 	of_property_set_flag(new_prop, OF_DYNAMIC);
- 
--- 
-2.39.5
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608183801.1257=
+051-1-salih.erim@amd.com?part=3D3
