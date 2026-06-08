@@ -1,91 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA44A31ED80
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 16:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9713403E7;
+	Mon,  8 Jun 2026 16:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780934648; cv=none; b=DdFiujCeiv78B1G0HJEg+fqalxYQrvjgIYXlmGui1ghaF7ykQqH3Nn6mv0bJszOemRRrQwfAPOcuQS+I7PvRt6IfSNlP+Z15LGbfFx2lssqEgm8H8+CzvJaZcl1HUN4jF7Oe6ffHIwQhMUh4/6IPZUoMJjCymg4MKYdpRbtc1n8=
+	t=1780935005; cv=none; b=VbeZudakrgybBiXusF/VBejJSeySE0Bi2n3LdUZlynLkA1vIM2BqeRQu5MHOFYuTcMag9QkFsRhFLIAlW36tsTl8utEw5uT3ALwA6Fs621nho7s6YCcsfzb50nMlyciZbUrRSBFV4D1B5fFMLNE93mmjNqoYjn93732oGeA8Zik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780934648; c=relaxed/simple;
-	bh=qqR0t8YTQnJGk0KqlccpmoRAFJBMYIepUVpIvVzk6I4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Og2Z6nZywOZbuA3Udh2E7Ep6MMoF9TY+koRhg47kxQ2iAtfHJxNhm2Q5c6E6MHafBwDQFMLyVGQjrKpNKcvr5WJ3jQZh0tA1UKZ3CmugINF+saMta+CotawPrH0i/pYLjjEhlgSS5WSM0Q904SS3BC5rYrrbbtN2JMhSWyyo6j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvbRWvcR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780935005; c=relaxed/simple;
+	bh=/UvC0TaBuP9SSTVoHQLr2V9yCM7W+OV4uNuVBQqrkVU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=pCr+CypoZCyumEXt50ysgizf6yNMwrvjkLK1aJU75jCh+EJuAKxHCfhx/y5qsHTlEL1JSw7QDCm1C7FzW+s496ZAeUo1632gkvERiTP/GkVy+phguHe6QGh1AceNs0kJ7NGJisOwyOWtMIKyvnlpLVpbvtRwIQCOPGoWtDVZ2zU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NGHfBNMS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvbRWvcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465C01F00893;
-	Mon,  8 Jun 2026 16:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780934647;
-	bh=o3876LPd6bnPxXjhb+a85+J/pBX+R7ozQXHAU0j94zI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dvbRWvcRuMuDg37gUZK5xBEg5P40PHHvMqFrsNtqgsCNofA4oM8QhK/jyLeDOj/+B
-	 c57SlysYbOMMdI2qBDOuskNCZk9Ls7WQtFQwfcO8ajtlM+Xc5bzRte1jws6DzbYXL8
-	 2tg3v8LHsiHlUI2cCm/+uffy0WthFaV0WsxYofeBkqwfSRJXCDOjaDIfRR+iSb2XWb
-	 I0g3mcQDJh6VnquImNJEmYATkfx3FU6glQ6PLLOU0beHM6eaaE9LgzEUUHDIes0UCV
-	 YrmiAAw1U6pL/Cnif19FjWUnVqQDVM9vPFR8QKsj0P9uhGZb4DOU1Fmb0Derr9KIc1
-	 S+eqMNEAERE6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] iio: temperature: tmp117: add TI TMP119 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Romain Gantois" <romain.gantois@bootlin.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260608-tmp119-v2-2-30c3537d5097@bootlin.com>
-References: <20260608-tmp119-v2-2-30c3537d5097@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 16:04:06 +0000
-Message-Id: <20260608160407.465C01F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NGHfBNMS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F0E1F00893;
+	Mon,  8 Jun 2026 16:10:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1780935003;
+	bh=HeNvzEtTTeAyiynvrWR03BeK5a7m/jtKDrW58LkAIDk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NGHfBNMS1rlirWFtfC0pDdz7EzZeHjyxYg9Ca3Sjn1pulZaZLIDmOYvJmcZBYsc93
+	 VQpg5Ivsba3rTH79/1M55QufUmF/lQ9H/jskqKdHB8HrOkPOEhSgnQUMV9M34B2Iz8
+	 Fh7VryrdGwslXF2Cr1sq+hzZtoOSb/V4p5rwEeS0=
+Date: Mon, 8 Jun 2026 09:10:00 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <catalin.marinas@arm.com>, <will@kernel.org>, <chenhuacai@kernel.org>,
+ <kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
+ <npiggin@gmail.com>, <chleroy@kernel.org>, <pjw@kernel.org>,
+ <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+ <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+ <dave.hansen@linux.intel.com>, <hpa@zytor.com>, <robh@kernel.org>,
+ <saravanak@kernel.org>, <bhe@redhat.com>, <rppt@kernel.org>,
+ <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
+ <ruirui.yang@linux.dev>, <rdunlap@infradead.org>, <peterz@infradead.org>,
+ <feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
+ <kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
+ <lirongqing@baidu.com>, <ebiggers@kernel.org>, <paulmck@kernel.org>,
+ <leitao@debian.org>, <coxu@redhat.com>, <Liam.Howlett@oracle.com>,
+ <ryan.roberts@arm.com>, <osandov@fb.com>, <jbohac@suse.cz>,
+ <cfsworks@gmail.com>, <tangyouling@kylinos.cn>,
+ <sourabhjain@linux.ibm.com>, <ritesh.list@gmail.com>,
+ <adityag@linux.ibm.com>, <liaoyuanhong@vivo.com>, <seanjc@google.com>,
+ <fuqiang.wang@easystack.cn>, <ardb@kernel.org>, <chenjiahao16@huawei.com>,
+ <guoren@kernel.org>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <kexec@lists.infradead.org>
+Subject: Re: [PATCH v16 00/10] arm64/riscv: Add support for crashkernel CMA
+ reservation
+Message-Id: <20260608091000.d88d7f5cc1bc4fa17f5774fe@linux-foundation.org>
+In-Reply-To: <20260608073459.3119290-1-ruanjinjie@huawei.com>
+References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] TMP119 devices are incorrectly assigned `tmp117_channels_info` d=
-uring hardware probe, resulting in the wrong IIO device name.
---
+On Mon, 8 Jun 2026 15:34:49 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
 
-commit 39dc1c3727920cc7af5409c8327a8bd65880f8b8
-Author: Wil Stark <wil_stark@keysight.com>
+> The crash memory allocation, and the exclude of crashk_res, crashk_low_res
+> and crashk_cma memory are almost identical across different architectures,
+> This patch set handle them in crash core in a general way, which eliminate
+> a lot of duplication code.
+> 
+> And add support for crashkernel CMA reservation for arm64 and riscv.
 
-iio: temperature: tmp117: add TI TMP119 support
+fyi, AI review might have found a bunch of issues in arch-specific
+code, all of them pre-existing.
 
-This commit adds support for the TMP119 temperature sensor. It introduces
-the device ID, channel info, and matching data to allow the tmp117 driver
-to handle TMP119 devices.
-
-> diff --git a/drivers/iio/temperature/tmp117.c b/drivers/iio/temperature/t=
-mp117.c
-> index 8972083d903a2..18ad40f3e7361 100644
-> --- a/drivers/iio/temperature/tmp117.c
-> +++ b/drivers/iio/temperature/tmp117.c
-
-[ ... ]
-
-> @@ -170,6 +177,7 @@ static int tmp117_probe(struct i2c_client *client)
->  		match_data =3D &tmp116_channels_info;
->  		break;
->  	case TMP117_DEVICE_ID:
-> +	case TMP119_DEVICE_ID:
->  		match_data =3D &tmp117_channels_info;
->  		break;
-
-[Severity: Medium]
-Will this assignment cause TMP119 devices to be registered with the wrong n=
-ame?
-
-By falling through to the TMP117_DEVICE_ID case, match_data is assigned to
-&tmp117_channels_info rather than the newly added tmp119_channels_info.
-
-As a result, TMP119 devices are exposed to userspace in the IIO subsystem
-with the name 'tmp117' instead of 'tmp119'. The new tmp119_channels_info
-struct appears to be completely bypassed during the hardware probe unless
-identification fails and fallback match data is used.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-tmp119-v2-=
-0-30c3537d5097@bootlin.com?part=3D2
+	https://sashiko.dev/#/patchset/20260608073459.3119290-1-ruanjinjie@huawei.com
