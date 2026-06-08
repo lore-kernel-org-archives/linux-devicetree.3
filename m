@@ -1,128 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C3433FE26
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 20:56:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14193A8735
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 20:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780952219; cv=none; b=kGBlBGPu6kG3CVLcFqVPyKAhP7m6VQElH1VEg6+YC/WBLt2RuqAh/E42/2kUjCkyLyBWNLhMzip4N8F1cQKdUEii8ve30fANXeoSrJf3OWHzkXb7LymODx62kTc0gbf401nEHQ2mPgUBHatXecc4oNnTEVIvAos6NQpZB0VXWlE=
+	t=1780952287; cv=none; b=msEOJ1N8nC3iHuudhmj/yHW3KK+b/2rJcGtlGu0+kJTDC3umZGNeJvvkxPg4LlBG1AtyOKBuTB5NetePhksjsXGevqtTNodf7gRn1gNvDBHPdbZBDsYWf/Jo1oHJtHQ5++v3y4jv9yv9kByhxt+0aAajRIytEYkeTmtYwCRbNuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780952219; c=relaxed/simple;
-	bh=w3ha7YjNduI1AW8Dcfd7Z6Pr5K1W/HkLNo9EMz5Nk/g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eAQjQvjDGClyzbd/lORDzlj66g0CDEIBJtnOAn7jomGX39tggbJxBfj82JhKgsBZDfX3wFQh0SE9yi7YCgzERQHr1Z1A/Xd4uhqUZyiYyZ5TRNKNCdh6M6WGep5DlZxpQFmZU21zTccGwcO4lZgUipruhFl2cD9ka989lPI/KZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OkRq9JxG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780952287; c=relaxed/simple;
+	bh=xusiV+58yhYXd0TIdeOS6L6TQO1R1egJtOD0784EK3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XEQFAkfh2UjMeFN/E6h557kiy9J41nTZ2y6nrQJ6IAZJFQg11JEyqOMRIRjqNBqzSlnORdFpwx6uzJ89evvEXYEGZKMdJ8myeHnTaMadIOM7H7r8OO+4i8+YCn8f/Tc2zgB/UX4PdFZ0zYzSHj/3iVWK/KvUAI0w86GQs0YwGj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=elRxAke6; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkRq9JxG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CB031F00893;
-	Mon,  8 Jun 2026 20:56:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780952218;
-	bh=p+pAnaFYz4LN3/gr9gxLKS0x4nm8jM9VUUABQYDAC9E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OkRq9JxG2huXGaW6AbS2G6OR1s8/F1A7C1hD0uBoCeyQvnIwEBUPgNMULZ9K5qAcm
-	 2MQCfb3jiiyhReXua2PI1uDKzfmeOjHmDfqlYLeOlqX/irIJ0UUsc9lzroedqwNPy0
-	 a7kNMjxMg5Zt+TuTF79un9/5e3LYmJDPQhvDzCzgg78lq54AAqx3gx1Oub9CSzZHZo
-	 k7XQ8HBSV0DCAmEDzp4ewIE4VQK2nLy4PrMRhRqE8x13CPvIhXDun+hr2YwJJ3No3p
-	 Xgh6DgA8nGjhZ+EXKWhYhJHKinIQJCbeJOKacqcAQbF8+m0fuWF2Oubd5rBTb8UW/N
-	 K1jZn7eMmCYwQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] ARM: dts: ti: Add specific compatibles for SCM
- conf nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260608-n-dt-bindings-simple-bus-syscon-v3-3-4eba9ec1212a@oss.qualcomm.com>
-References: <20260608-n-dt-bindings-simple-bus-syscon-v3-3-4eba9ec1212a@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 20:56:57 +0000
-Message-Id: <20260608205658.1CB031F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="elRxAke6"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so13741765e9.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:58:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780952284; x=1781557084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=gTQ1KaXLSBsahBxfVlFwG1v0to183HWN/l7wPZfkMLE=;
+        b=elRxAke6h1gDxOQ4muoYilbVbnwCntbvWdYTJF4lNUV/fJI3eDSDu+pKvnfa6ltRh5
+         CPLRQYdFIfIDJurVEqcJytDZrU+uDycn1jxOtIpHhWD6MUQVtIBcn779duzJj4RJzHrr
+         eqTjbw+q2xF/VSiwmOKi+KeXaaA9YF7LaEdQ4JqgmT0/MglinE6n7GlRS/a68Cc3qUpG
+         lL8whf+voCHBAvptpBUYWaB8PShI4o/eDLiO/59V/qRe/2k9/VC0KnZk84QOB9RjG2Is
+         0LxY/CeZ9a17GNzOHAV4xnQMn15Dnp5hDrYMHOdMzvFiZs5dMVJ+aX2g5hsysc2wIVtO
+         Ecjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780952284; x=1781557084;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gTQ1KaXLSBsahBxfVlFwG1v0to183HWN/l7wPZfkMLE=;
+        b=g/1JoI2Zmkj7ZBDD3Vs58lJC9ALFFRGgnu8NpmNsSkytJdGXNmhZ1Edw4Yo/97yLSK
+         9gIlFukTDX+iEA5i2c9haFwmKNeCP+ZaJ9pj6OA68llPOwRIuNMPcYi03VrvTDo3PcXQ
+         SFdAacLOUmWTcTH78z6cYyidvhxcp6uKZzeinWQ4y7dPexdY8CYCeNNbc/sA5P/Cy3BC
+         Y3myQ4OzxvysaD3FPXOUTCr5r+y4iPX94FSxJ3lVMZMeDK3ebHz34uCayrOfPMbSRuId
+         oKKYVw39TL9F90YNP0QRoVEh4EpQr8+zZj1N4dajevVzlFraw9JisZD5leocFsv9hUwG
+         nxUw==
+X-Forwarded-Encrypted: i=1; AFNElJ/B2ljHAQIBqJdNF/O4OkPXCU4cfzPaRrqpKRGoAOV4vF/UE+gBwPUbeMPm0BMCvULbPvwU3HR/LSCm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5BpuyUvG9sCwYmVbHnGlmmYS5ArlXVN5VEg3hkGtxiBcxcVpg
+	otT3PWF8b99m4u0ArzmbVyhKRiSCXy6OeeqMwPjIzFsZw5DUkKLDR4QFfzdg2w==
+X-Gm-Gg: Acq92OEMjXh/sbRan7YhN7GiO5dCKpW54856HKMaysAQjZ7y1pScRGLQW5HGEhlIbqJ
+	drlmO1hdvgaaEI9kfogyfjvhYenjkJqpaCJH4z1ptqZJJcKPBBB01f/gonViiNHafPONyVuFJOJ
+	ydRkR94dQz/3zod3+3bESELO1ieeX4sL7IJZfb7tsrFTXqti+2AZZEl/a0eKJjlWtUyC6RanXBB
+	TwdjGKktTug7bjlxzSCM8Y1RJaoB5gj2+vC2I6gJBJ+7BKwiyfqD4fLKtrjZJ/F3ViFr8EvIVMq
+	L1WPMIyygp6CoUlGr33jl3eDjdfk7UN2kYbRXWFvyEhZRjnDv1/LmatrnluP482QA2WF2imT7bI
+	B1mcq49FKiiVlRG0zf0PKfRuXex4WWkCdx87xDtVz2QBEPzyQOa0bTPAB6AQDtKTrNsJ+JGe6nr
+	KwZ3qIEFI9AzbHLDZYQ7S09aXI2EizmhLuHIYN
+X-Received: by 2002:a05:600c:154d:b0:490:44eb:c1ec with SMTP id 5b1f17b1804b1-490c260f3cdmr278543935e9.27.1780952283959;
+        Mon, 08 Jun 2026 13:58:03 -0700 (PDT)
+Received: from builder ([2001:9e8:f105:6a16:be24:11ff:fe30:5d85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c2d4891csm231011875e9.1.2026.06.08.13.58.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 13:58:03 -0700 (PDT)
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>
+Subject: [PATCH net-next 0/2] net: pse-pd: add Realtek/Broadcom PSE MCU support
+Date: Mon,  8 Jun 2026 20:57:55 +0000
+Message-ID: <20260608205758.1830521-1-jelonek.jonas@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete refactoring: Several SCM conf nodes still retain a st=
-andalone 'syscon' compatible string.
---
+This series adds a PSE-PD driver for the microcontroller (MCU) that fronts
+the PSE silicon on a range of managed switches, together with its DT
+binding.
 
-commit f27db69296633e59ec29af047a99e08ea07397ae
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hardware model
+==============
 
-ARM: dts: ti: Add specific compatibles for SCM conf nodes
+These boards do not expose the PSE chips to the host directly. A small
+microcontroller sits on an I2C/SMBus or UART bus and manages one or more PSE
+chips behind it; the host CPU only ever talks to that MCU, using a fixed
+12-byte request/response protocol with a trailing checksum. The PSE silicon
+never appears on the bus.
 
-The commit adds specific compatible strings to "syscon" and "simple-bus"
-nodes in TI OMAP device trees. This addresses device tree binding
-requirements that "syscon" must come with a specific compatible, and also
-resolves contradictions when used with "simple-bus".
+The same protocol family is used by MCUs fronting Realtek PSE chips
+(RTL8238B, RTL8239, RTL8239C) and Broadcom PSE chips (BCM59111, BCM59121),
+diverging in opcode numbering and a few response layouts. The driver
+abstracts that behind a per-dialect opcode table and parser hooks, selected
+by the compatible. The specific PSE chip behind the MCU is detected at
+runtime and only influences per-chip constants (power scaling and the
+per-port cap).
 
-> diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/t=
-i/omap/dra7-l4.dtsi
-> index c8d325b0f57b2..9df7648c4b793 100644
-> --- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> @@ -64,7 +64,7 @@ scm: scm@0 {
->  				ranges =3D <0 0 0x2000>;
-> =20
->  				scm_conf: scm_conf@0 {
-> -					compatible =3D "syscon", "simple-bus";
-> +					compatible =3D "ti,dra7-scm-conf", "syscon", "simple-bus";
->  					reg =3D <0x0 0x1400>;
->  					#address-cells =3D <1>;
->  					#size-cells =3D <1>;
+Why the compatible names the protocol, not the chip
+===================================================
 
-[Severity: Medium]
-Does this patch miss other standalone "syscon" nodes in the updated files?
+The compatibles are "realtek,pse-mcu-rtk" and "realtek,pse-mcu-bcm". This is
+a deliberate choice and the part most likely to raise questions, so the
+reasoning up front.
 
-In arch/arm/boot/dts/ti/omap/dra7-l4.dtsi, there are other SCM conf nodes
-that still only have compatible =3D "syscon", such as scm_conf1@1c04:
+The node names the protocol dialect, not a part:
 
-				scm_conf1: scm_conf@1c04 {
-					compatible =3D "syscon";
-					reg =3D <0x1c04 0x0020>;
+  - The DT node describes the MCU, not a PSE chip: the PSE chips are behind
+    the MCU and never appear on the bus, so naming the node after one (e.g.
+    "realtek,rtl8239") would describe hardware that isn't at that address.
 
-and scm_wkup@0:
+  - The PSE chips are, in principle, usable without this MCU (host-driven
+    directly) - different hardware with a different programming model that
+    would warrant its own binding. Claiming the PSE-chip compatibles here
+    would collide with that.
 
-			scm_wkup: scm_conf@0 {
-				compatible =3D "syscon";
-				reg =3D <0 0x1000>;
+  - Naming the MCU silicon is equally wrong: these are ordinary
+    general-purpose microcontrollers (GigaDevice, Nuvoton, ...) that vary
+    across boards and are not dedicated to this application.
 
-[ ... ]
+  - What is fixed, and all the driver needs at DT-parse time, is the
+    protocol dialect, so the compatible encodes exactly that. The two
+    dialects share one protocol family and one binding, kept in a single
+    "realtek" vendor namespace because this MCU front-end is found almost
+    exclusively on Realtek-based switches; a "-rtk"/"-bcm" suffix selects
+    the dialect. This follows the "google,cros-ec-*" pattern: a compatible
+    for a firmware/protocol interface implemented by varying
+    microcontrollers.
 
-> diff --git a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi b/arch/arm/boot/dts/=
-ti/omap/omap4-l4.dtsi
-> index 4c78a0b28fab3..c1afc49f456cf 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-> @@ -681,7 +681,7 @@ omap4_pmx_core: pinmux@40 {
->  			};
-> =20
->  			omap4_padconf_global: omap4_padconf_global@5a0 {
-> -				compatible =3D "syscon",
-> +				compatible =3D "ti,omap4-sysc-padconf-global", "syscon",
->  					     "simple-bus";
->  				reg =3D <0x5a0 0x170>;
->  				#address-cells =3D <1>;
+One compatible per dialect spans both transports:
 
-[Severity: Medium]
-Similarly, arch/arm/boot/dts/ti/omap/omap4-l4.dtsi appears to retain
-a standalone "syscon" compatible in its scm_conf@0 node:
+  - The 12-byte wire protocol is identical over I2C/SMBus and UART; only the
+    plumbing differs (SMBus vs native framing on I2C, baud rate on UART),
+    and the transport is already expressed structurally by the node's parent
+    bus (i2c@... vs serial@...). A "-i2c"/"-uart" suffix would only
+    duplicate that, for a protocol that does not change across transports.
 
-				scm_conf: scm_conf@0 {
-					compatible =3D "syscon";
-					reg =3D <0x0 0x800>;
+  - This is the multi-transport model used by e.g. "bosch,bmi160" (one
+    compatible, separate i2c and spi drivers binding it), rather than the
+    cros-ec model of per-transport compatibles - cros-ec splits because its
+    on-wire framing genuinely differs per bus, which is not the case here.
 
-This same pattern of skipped nodes appears in
-arch/arm/boot/dts/ti/omap/omap5-l4.dtsi (scm_conf@0) and the sibling file
-arch/arm/boot/dts/ti/omap/omap2420.dtsi (scm_conf@270).
+The binding documents both points as well.
 
-Should these nodes also be updated to fully comply with the
-writing-bindings.rst requirements?
+Testing
+=======
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-n-dt-bindi=
-ngs-simple-bus-syscon-v3-0-4eba9ec1212a@oss.qualcomm.com?part=3D3
+ - Linksys LGS328MPCv2  (RTL8238B, I2C)
+ - Zyxel GS1900-10HP A1 (BCM59121, UART)
+ - Zyxel GS1900-10HP B1 (RTL8238B, UART)
+ - Zyxel XMG1915-10EP   (RTL8239C, UART)
+ - Zyxel XS1930-12HP    (RTL8239, SMBus)
+
+---
+Jonas Jelonek (2):
+  dt-bindings: net: pse-pd: add bindings for Realtek/Broadcom PSE MCU
+  net: pse-pd: add Realtek/Broadcom PSE MCU driver
+
+ .../bindings/net/pse-pd/realtek,pse-mcu.yaml  |  154 +++
+ MAINTAINERS                                   |    7 +
+ drivers/net/pse-pd/Kconfig                    |   28 +
+ drivers/net/pse-pd/Makefile                   |    3 +
+ drivers/net/pse-pd/realtek-pse-core.c         | 1002 +++++++++++++++++
+ drivers/net/pse-pd/realtek-pse-i2c.c          |  164 +++
+ drivers/net/pse-pd/realtek-pse-uart.c         |  147 +++
+ drivers/net/pse-pd/realtek-pse.h              |   70 ++
+ 8 files changed, 1575 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
+ create mode 100644 drivers/net/pse-pd/realtek-pse-core.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-i2c.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-uart.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse.h
+
+
+base-commit: 903db046d5579bef0ea699eae4b279dd6455fc9f
+-- 
+2.51.0
+
