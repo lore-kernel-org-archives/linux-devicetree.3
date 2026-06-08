@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415D63876C1
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 06:59:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E93C39023A
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 06:59:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780901972; cv=none; b=uD8cDa8lgIvKnJgZWVkSQ+Q4BQs9TsAADIHMpFRLNFvh3Ezl0ZSmpskQOLIHok4x72vI1Y/pkvmdUP+YCSGIO9bb7o1qZ0Px1qPSgskTw6NhOvYSHUGx6YBmuG33Mn1zfvi8Jjgm813DxKUb4UumyvmOZnduLRP78xXUZz27R1M=
+	t=1780901974; cv=none; b=R9TpSMTnXFW/C1ZYPkt/WPqMcwHAPV6H2S34Y8B7DvLvroM7jVQsPHkdmMUfANu4A6xvcovXVF8hqAzBxEgwP3e5Es/Hg0YosUT5ZSl6q2ACLaK9Jcgy90wGN96Yr/QEYg9ZIeOdDPndLvCCALMyKyO2qg2Bj/FPm7eo5wCa0rI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780901972; c=relaxed/simple;
-	bh=h4yLRvqGyQTl6OR0GngMd/YRroUj4EhJo0XPHba7d0Q=;
+	s=arc-20240116; t=1780901974; c=relaxed/simple;
+	bh=Itx6KvM9p25Ke8x91M9Gz0gLSN7XGE+rPcHJSWGUNo4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=syePOxyYOMgBCFwy2sUvs3RC/QmWX3n+TUG9Dv2lzjp1rEKmUAFH9ur+ZoZH2u1jxFvg/YefB9D7ye//7i3KYg7zDIOhOc+U0NSjw9R/I9/ARr3KwvWRTKCDfW0sk54jagdW7B4XtO9GkSEHIUIcm/0k5kDJb8XnaM+9XwpqqTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jmWamVzi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EyCNY+aK; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=mCqCWZbqc5PB46Z90RgeGfr4aqZKYX5xTHbvffMp+suvTUvCGYmo37+fOeT1El0KSQQ55J7CXydD9kqx8NkFClhr0sib+l7axSgYa4A8xw35SacTp9x6/ThHnc2w5mgiqxiSy1n2PWBYt43k5OIOlLbU0soIJJdFITt2D2rhFF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jRqNMoHA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jtZUWA+9; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jmWamVzi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EyCNY+aK"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586QqPX2771090
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 06:59:30 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jRqNMoHA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jtZUWA+9"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586PUdb2808239
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 06:59:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	M4dWomgyfsAxdHYGato4YCIl0rH04fg4NjCDPCL3Zf8=; b=jmWamVzifzUA7OyK
-	S4oIA1/vlZxiYhDV90onPQ0h2LcNIWYzMSNaUTfnLYHHGfFWxeK6agFN69na9bWR
-	kjELk4NUA10ReeOKwXNAvaf7pqBHZEM2QNJM/f9LzxRY9I5CF5GbIvLFXd42RKej
-	6gd39AaKkn3I5tIOT2eKqJfnHj/xb2tToLX0nN80Z3lNYSbMPJCLix+6b1d0LHSY
-	4/ubfgizZJ/3gNqlgauLFrCDsylkF5nhyNem3lY18RbNv2kAEFpMsUbRIuNuqUN/
-	sGK0DZWtA4lez1hsReBdarZ7cCmT8MQd8vRo0x1nu21BbyS7sPYaglofBwc0dy3M
-	9P8+Hw==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embx6ea84-1
+	IatakC3wGB9ng7DsDoD4sHfhEEYjsCIhCpSWGUq81CY=; b=jRqNMoHA6tID5OPq
+	XwcfKTt+eYYsdaLZ7tp4seY/d4bD1A/NUeOco5Ne80FtQV8IvXLJEbvFh99RO3vl
+	7BOUBol4OmlK85r3/z9DVG+ysPxJf7uDkKB6pl1yr0jPJaGJjTfTVuJcDR0GXFVd
+	/pPNDA8gGX07RpPfIm7Hmiw3ZIT72D3LbAUfczHlFWdpCWVZQYJo0K3mrYyjKL7P
+	XcorehwzMoEk8WE19jGnSNyr04anRg7EWSw6NDWp5fHGTxpYzNAm+6VfxUaOKykO
+	Maj1ctAYpBAg9/POSgHfQiMF7BAt04XRyfp4OU8XYS88OtWLwhFzUH1/fEYXOjMG
+	aq0diw==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emb4w6e5n-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:59:30 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-96388871d70so3902300241.2
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 23:59:30 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:59:32 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-964172af027so4049483241.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 23:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780901969; x=1781506769; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780901971; x=1781506771; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=M4dWomgyfsAxdHYGato4YCIl0rH04fg4NjCDPCL3Zf8=;
-        b=EyCNY+aKKbySRJonIvXlu8jtYjmXkJ9XThF/KenosMtHWNri5CIYtFW5uP2UAijh0Z
-         Hay1sLGcSrT9h+WkK9UT/w0DucGuFsdjrUYevC8U5aAJbp2hg9p0uHQaRJ6Sfese9k24
-         psWyZZ81iUpEhbY3e9u72JosMU9Rfwk2h0tFPQGZopLMCIvcHbqtIfxzcT/1RM7TXBqj
-         7aDBbZdl79rf7a3rNOZ8r6QELPklVcyV4F63W5FmJjwXwR2scFGlW9LiWMI5aAl/L7h0
-         hDWZRvV7gb9e99K1ZupacYaBm8mhE7KhaNI3hbxtu3IZlGprYfeW9QWnBuvKg6YslaLW
-         puuA==
+        bh=IatakC3wGB9ng7DsDoD4sHfhEEYjsCIhCpSWGUq81CY=;
+        b=jtZUWA+92vj4999SF0CY8GlyCFxFs2kzR+iIpJzHmBVe3NHFITOkaDvEsZqOBje3Ej
+         Eu54HNHpJM8yIQkbL726s5HqWIAUcBpaayTZnWq1tV8Ky38DrthxgRdz1LV9mAsLpWXO
+         VZyIFWW4y/fKqh02ZlpV3IrdR25wioYHJ4NTfTUK4nZcm0n3MMpDkcCEaHl9Ngql4eHe
+         jhrTDb6dp+126q/aalkyURYsso7/eJYNAGhQVjX3NKEZaeVDVXNpPZhxRrSPVe+hOLJO
+         rFZ5bhkmsMvVhoM8B6DGzkLkAZ6c4D1qHDFarXb8nQD5lNLbhVMWdsLgFFxPdLhSte8G
+         CSwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780901969; x=1781506769;
+        d=1e100.net; s=20251104; t=1780901971; x=1781506771;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=M4dWomgyfsAxdHYGato4YCIl0rH04fg4NjCDPCL3Zf8=;
-        b=E6ou4FFemx1cAnNmmbGjuN9hEJ+mFx0c+Zs3lYzTC5S7ic2WQ2K3Lxef2dYI491ywA
-         rZoThtTl5WE/7oeOMtvVMCDGBc3xBaPBgAiKDLVw3bOApZEJDYnS5Ja79cUFgz4DUi2G
-         9KShvS9Q0uZBgKBiNxTuPjuxBPBRIFSgpzjJuNX4M1GJa9r35tyWzR4+VXj7Rgl/80G8
-         rRsH3eUgIey4qnQfsfnP+DgZQfDJ1Y4SNS4nw35mxUrN825gofAQaSamn6nt/mkEOGRw
-         S2xoOYnv3N2vOMVdCA2S5B0jZZ4bFxrROGrF1s/0N6QFc0GBzFxf38q2yBQKsjHDqraD
-         NDCg==
-X-Forwarded-Encrypted: i=1; AFNElJ87eFeWuOJQNYO7cMx0N07IT0hnwB7MiNL1eTPoZrSMTU9J1v6+YbwFOI0HG5yE2VyNCatcvZhB6Vae@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBwQI8qLQBfOKNXmdhYMl3KxrMYN5Xmy+ZtILOL4Jkh6ydrqFg
-	8a7XMUYYM0vj1QHKhlJ08qaKgvV1By3llS90yzeTkWdAj+RufOBq87jDbYp4WHM/VCBe8r3UOzQ
-	Xrt7YyG/FAVxJp5RV3lc0wUNMjXYsHsg9jpvY9pNFDYEdSndNL4/pjDx+s3HihQja
-X-Gm-Gg: Acq92OHrX2lUgP6hnq9lD+ptJqNmGRWPqC0hFHz4LHA9WeNWlliEb9kM6GRJpMA5IdV
-	CHFyVSxh9wEmqCarIRP0+4zMhL8v0gXujk6a8gm7wpj0AKWbZAKKj2IopQCPE4c7Ly47JMMW2tn
-	mG1EKKTChqQikY3FX9zjVjeSn4a3bi/vYvIutJWwmYuUVqdGhtUu+2F/1WihLmz9Ijkn4qDUSh4
-	RIONgrBJeaRg8b5beShHKUkOcWHe9Bwy7i7Byykxwn1jWsVf/Fnq3ktjXUnq+aBGwdFiXduN63M
-	PwCuEJO56af6LMfyi4QLZCOI8koWR+rkOpvVNIa7vw09wR4frBxMXmkfQNRMz/f2d1OMMX2oxCx
-	zBZ4WA4F9seapikNR2e81bMTt/24fQM/8il2iNPGYnjsEy3s27ui8XxqFFqPgnYyoRelKD7ysHG
-	GclQmtSFj19dKAoPVAPGlZIcsfARDY70Ruee968aLMUvoAYQ==
-X-Received: by 2002:a05:6102:6b0a:b0:633:1fbe:79c8 with SMTP id ada2fe7eead31-6ff09f907c7mr7172131137.23.1780901969476;
-        Sun, 07 Jun 2026 23:59:29 -0700 (PDT)
-X-Received: by 2002:a05:6102:6b0a:b0:633:1fbe:79c8 with SMTP id ada2fe7eead31-6ff09f907c7mr7172103137.23.1780901969023;
-        Sun, 07 Jun 2026 23:59:29 -0700 (PDT)
+        bh=IatakC3wGB9ng7DsDoD4sHfhEEYjsCIhCpSWGUq81CY=;
+        b=OUH0B11pk3yOwIeO8c84B/Ac4aDaDflaIXYnoiOoqY53FTSQEb6+puqs8PVMRFX29j
+         ZSSlOQD801VpV1LTHQZZM7y6nw6q/jkoOOxkemxbaLYK5bLSwtlBR9GMbzji544QvRQW
+         xGa1odM2p9/gHIpIAMPEsgm1Wz6xSAksNg60t/zLOF0iYqknAmQVWRiuKinSZIjI4dVp
+         efDDsFNCg60oNa7I2D0VqjBc90Y+7JjoJ+wtpz2/J4qSHPUk/92p/0nOmOx+3PlRmKGn
+         KyeMw4GwB/jI49i2uXuli/RLM4jayBwzOvJeT7lCnSWavEQLnXpKwTZSemFtMU2qa9Qj
+         uf3A==
+X-Forwarded-Encrypted: i=1; AFNElJ9q70Z50BH2GHwcFvVonckby8VEud3IWF5uLIRnMHkAeAGAIkhob4KjMFVpxHesAzmMld/2VlfcnOIW@vger.kernel.org
+X-Gm-Message-State: AOJu0YywqzAnY89kfN0kZozB564sTN1b6ygvZRsKptifuXvUSKPx2fEN
+	4hZaVmTZQzoIXwiUzl0aRVXpT5US7vq1bNWQLN1tyxD7mvT2sXm1J+ZN7u0L+cKn4Uk7Tw40WBA
+	doe5dvAEm3IskwdAmybzVnQ8DPn7oUGSoh+uWyiW9VczM3QTMpK4AeBtznyD3kUew
+X-Gm-Gg: Acq92OFhdcmqM4VHOaW/1sa0ErZtvX4SwnbLIfr9NFDwM4UgGmvd7fluxU5NvKhkBVV
+	1jqvEd5lt7c+oRAUxAFeB/u5ahX5syttQ+7dbQT5l6rfxdbE8tG+zpFGcMvIlXGQ8pIN7negSi9
+	M4q2ildQOG4XOpXBVf1vDAVVqrjWQyoIDEno8l9h2gpMqOyXXFqZI8TQ3+/sYHtEmgLEKUrQm1b
+	538b4wFXUz93eb5V/yFRBSk1bGGjoWHLsHt1z+o+ORvFK7flU0swV9MtnIMpPR7eHzroFnZyGmw
+	e9f5w8t0fUlWGuB4TkobGX3adFAHnFjbWzPijNcPs3HDKMHeOQ7VFVPwTjrf3juIBkoK2Pg9z5v
+	Umi4DRxYhozxadRSsDZRGGfAd8Sh+9ZqNNFL/bgfJfX3gT0nlPhOa5u0vswgvMTwe7c22QiirN4
+	ozOYU9pPNwtPeirZ1L4/fBJpj6fOjQV5OLYtt2cUe04I+qbw==
+X-Received: by 2002:a05:6102:d8d:b0:613:e996:3014 with SMTP id ada2fe7eead31-6fefb0a7367mr7189682137.20.1780901971362;
+        Sun, 07 Jun 2026 23:59:31 -0700 (PDT)
+X-Received: by 2002:a05:6102:d8d:b0:613:e996:3014 with SMTP id ada2fe7eead31-6fefb0a7367mr7189651137.20.1780901970940;
+        Sun, 07 Jun 2026 23:59:30 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed789sm3638621e87.3.2026.06.07.23.59.26
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed789sm3638621e87.3.2026.06.07.23.59.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 23:59:26 -0700 (PDT)
+        Sun, 07 Jun 2026 23:59:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 08 Jun 2026 09:59:19 +0300
-Subject: [PATCH v2 1/7] PCI: qcom: fix parsing of PERST# in the legacy case
+Date: Mon, 08 Jun 2026 09:59:20 +0300
+Subject: [PATCH v2 2/7] wifi: ath11k: enable support for WCN6851
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-sm8350-wifi-v2-1-efb68f1ff04c@oss.qualcomm.com>
+Message-Id: <20260608-sm8350-wifi-v2-2-efb68f1ff04c@oss.qualcomm.com>
 References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
 In-Reply-To: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
 To: Manivannan Sadhasivam <mani@kernel.org>,
@@ -113,129 +113,228 @@ To: Manivannan Sadhasivam <mani@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
         ath11k@lists.infradead.org, devicetree@vger.kernel.org,
-        Bartosz Golaszewski <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org
+        Bartosz Golaszewski <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3338;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6271;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=h4yLRvqGyQTl6OR0GngMd/YRroUj4EhJo0XPHba7d0Q=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ5ZahpdkIc/m2AU14Tot6u730x8n+R6Ny+q0YatY9z5p0
- 4SPgmydjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZjIrDccDH1i8QtkmXQ2xZTW
- b1zltt7i/P81d0XO/4gTdw1jO/yv2Uo0IWb22yesSzpb/83cH7cxnOm6xv6KoCURiq+6AmQ36/S
- 77q+1fONfHV9zeMKG647/DxsEB4evcv/7+0Bm789ttzXbM5a4zAzxP1eQtEfWS/Pm+m9TX2j2fW
- eOrzE/5/Tg50/m3sk7MiSy/0jcvuAY/ODdnxhT8e4ZPUeZVsgmyb+9/OiI/UuJ0CphjZwNM9zEZ
- 0fVpL61rNm7/HSlRJJhZVvRffZ19dt/rN6ZMqnlg/Fjtb7jTzncP7ftlmlnnf7ZVdjd7PznrO/L
- fDzMej0lEl7+ycgTU/dn5OUIMZodpsfIOS9N1XB322FNAA==
+ bh=Itx6KvM9p25Ke8x91M9Gz0gLSN7XGE+rPcHJSWGUNo4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqJmhKzgeew76Nc19/nB5LY0YDRfAy6SNHZpGcn
+ zPMFbEFzdiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaiZoSgAKCRCLPIo+Aiko
+ 1ReNCACE49BFc02i9Pwu4kG4mEUyFc1wHnKlkDN80b4iJcM1VkF4SSPtHTHNpPIV2dArv3T+xTt
+ Itdq64CXgIwhpW+6PsDWlCWK666Sn6lyQQB/ziWjXlYuNS/oHSfkRAGQTKsb+hvnfdqaSN5SvAt
+ BVboN9QvIoOPSPka023EDB8Kx+itNOXE/h9TO8V5iADEqKMtnHD6N31Ie9b7kEV9FR87yyiEN/e
+ bKPOrrXlDiNRk5FzUb+EPGyFylF3jlL0rvpLHNqrDnbA7+x5tcYrELPByAXZsS9PtsRkZ4yiywM
+ fburWtNSrsqsSw/FoYCXHh0rfuRdsb4uRSRwAZMWnYEV3vOk
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=cvmrVV4i c=1 sm=1 tr=0 ts=6a266852 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: AASsSObJyhgSbc8e39On5Bwe0uhFs-u3
+X-Proofpoint-GUID: AASsSObJyhgSbc8e39On5Bwe0uhFs-u3
+X-Authority-Analysis: v=2.4 cv=YIWvDxGx c=1 sm=1 tr=0 ts=6a266854 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=A_p6hzaB3oH8elZwPmwA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA2MiBTYWx0ZWRfX7NXWgl5wNWqy
- BFukrYx8z+BVcRNSpumvUUJPguI3pUKSSZOUFFZSEwVVJsFbzr8thm5aK9yEkyEK0ZXemCxasJI
- lV707Ici0FL2XZW3xZBSTkiiE//Q1EaVRSn+ww8dDUUup+pVnI3qMfjNz3hvZDyOUTFbbY4ADi1
- d30HWQv9bIuFiuNYgiwsmA9wGz84byLU4OdzPxhiFsckKxBcPGyFLp5+9pslsOVXRfr7W+zT2pa
- lC0aJxzGVhlhGcEvMXPsfhhHi5ktNJxi1ir8biHSJES9t7LudgczPIENVIEQacVrLUcAmr6CT2d
- SHytw6f398xGBCN84W1nG0Mf200ISLEpe0hNc0iRC4Qz50KJa91UwuQmobTOf/iAZ6rpG/NY84f
- 5OuqK2FW8zkHOuAadl+2GezS8WVvk4dG2gRxe+7CMIXKJ/gX3xG0N6rhe6F0Ejmoii77tclbqVF
- 2bSnUgISvc+HoHEj3Xg==
-X-Proofpoint-GUID: znTBs5MtgqmzPCQfXeEGtbxcJNFe-ewJ
-X-Proofpoint-ORIG-GUID: znTBs5MtgqmzPCQfXeEGtbxcJNFe-ewJ
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=1Ms6DnRdHleovX8mdIYA:9 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA2MiBTYWx0ZWRfXxWQb5BHF8f9s
+ Z5dGwACv9/kPWwARq+6M3GjtAlQRbMOfRtlm8VivBBXQSTOlI0lknzl4NPZP5Wbobf5XM+EKZ3p
+ lQInMznz0p2KK8h9PeUaUlmpRRX5SRebkNwmBaSEgLKyJQkgH9L3wKYJldiYfbGJEfAcj7DkLIX
+ M1YZBzewDvV1Ws24ksU3WcuJIB7duNJpYUAtij9iJ2x0Evnv6EkoKdA0AJggvGPe6MbNRljUs/6
+ Kkbb7u3wfldGkShW0pJRJ6ygBCzASh7l/CzrxxQOYLl5ZhYKu38de/+PQExpjEGoHOpNAR0F0CD
+ FWgH1y5KigkAIsK7EsOKC6WgV7kmJMaAfxMe2d5JePzS+23arPNWcs0kOTnebbpQNW18EXxJdV2
+ /+KRoAgp4OUm4G8PJAYKUYKXINprPvn8NmZIAFsI1tyHIw71YQ+ho4tvdy7NcvXtqjgiNJEoQex
+ Xkv8s54shsBO9iMtG+g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080062
 
-Commit deed8aec62dc ("PCI: qcom: Handle mixed PERST#/PHY DT
-configuration") fixed support for the "mixed" platforms which declare
-PERST# pin the RC node and the PHY in the RP node, however it also broke
-support for a majority of existing platforms, which declare both PERST#
-and PHY in the RC node, because now PERST# is first acquired in
-qcom_pcie_parse_ports(), which then returns -ENODEV (as there are no
-PHYs in the RP nodes). Later qcom_pcie_parse_legacy_binding() tries to
-acquire the PERST# GPIO again and fails with -EBUSY (as the GPIO has
-already been requested).
+The WCN6851, found e.g. on SM8350 platforms, is an earlier version of
+WCN6855 platform. It identifies itself as hw1.1. Copy WCN6855 hw 2.0
+configuration to support hw1.1 version.
 
-Move parsing of RC's perst-gpios to qcom_pcie_probe(), making it obvious
-that it's shared for both cases and skip parsing it in both functions.
-
-Fixes: deed8aec62dc ("PCI: qcom: Handle mixed PERST#/PHY DT configuration")
-Closes: https://lore.kernel.org/r/gieaybsg2ckxpctvqj77nlwu7utama2yeyvebkonmexsxrra3v@v3fobqasxnmy/
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/pci/controller/dwc/pcie-qcom.c | 25 ++++++++++---------------
- 1 file changed, 10 insertions(+), 15 deletions(-)
+ drivers/net/wireless/ath/ath11k/core.c | 92 ++++++++++++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath11k/core.h |  1 +
+ drivers/net/wireless/ath/ath11k/mhi.c  |  1 +
+ drivers/net/wireless/ath/ath11k/pci.c  |  9 ++++
+ drivers/net/wireless/ath/ath11k/pcic.c | 11 ++++
+ 5 files changed, 114 insertions(+)
 
-diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-index 11fc60489892..7664c7c28c0e 100644
---- a/drivers/pci/controller/dwc/pcie-qcom.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom.c
-@@ -1907,15 +1907,6 @@ static int qcom_pcie_parse_ports(struct qcom_pcie *pcie)
- 	struct device *dev = pcie->pci->dev;
- 	int ret = -ENODEV;
- 
--	if (of_find_property(dev->of_node, "perst-gpios", NULL)) {
--		pcie->reset = devm_gpiod_get_optional(dev, "perst",
--						      GPIOD_OUT_HIGH);
--		if (IS_ERR(pcie->reset))
--			return PTR_ERR(pcie->reset);
--
--		dev_warn(dev, "Reusing PERST# from Root Complex node. DT needs to be fixed!\n");
--	}
--
- 	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
- 		if (!of_node_is_type(of_port, "pci"))
- 			continue;
-@@ -1942,7 +1933,6 @@ static int qcom_pcie_parse_legacy_binding(struct qcom_pcie *pcie)
- 	struct device *dev = pcie->pci->dev;
- 	struct qcom_pcie_perst *perst;
- 	struct qcom_pcie_port *port;
--	struct gpio_desc *reset;
- 	struct phy *phy;
- 	int ret;
- 
-@@ -1950,10 +1940,6 @@ static int qcom_pcie_parse_legacy_binding(struct qcom_pcie *pcie)
- 	if (IS_ERR(phy))
- 		return PTR_ERR(phy);
- 
--	reset = devm_gpiod_get_optional(dev, "perst", GPIOD_OUT_HIGH);
--	if (IS_ERR(reset))
--		return PTR_ERR(reset);
--
- 	ret = phy_init(phy);
- 	if (ret)
- 		return ret;
-@@ -1970,7 +1956,7 @@ static int qcom_pcie_parse_legacy_binding(struct qcom_pcie *pcie)
- 	INIT_LIST_HEAD(&port->list);
- 	list_add_tail(&port->list, &pcie->ports);
- 
--	perst->desc = reset;
-+	perst->desc = pcie->reset;
- 	INIT_LIST_HEAD(&port->perst);
- 	INIT_LIST_HEAD(&perst->list);
- 	list_add_tail(&perst->list, &port->perst);
-@@ -2107,6 +2093,15 @@ static int qcom_pcie_probe(struct platform_device *pdev)
- 
- 	pp->ops = &qcom_pcie_dw_ops;
- 
-+	if (of_find_property(dev->of_node, "perst-gpios", NULL)) {
-+		pcie->reset = devm_gpiod_get_optional(dev, "perst",
-+						      GPIOD_OUT_HIGH);
-+		if (IS_ERR(pcie->reset))
-+			return PTR_ERR(pcie->reset);
+diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
+index 8dacc878c006..78a226ca081c 100644
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -393,6 +393,98 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.cfr_num_stream_bufs = 0,
+ 		.cfr_stream_buf_size = 0,
+ 	},
++	{
++		.name = "wcn6855 hw1.1",
++		.hw_rev = ATH11K_HW_WCN6855_HW11,
++		.fw = {
++			.dir = "WCN6855/hw1.1",
++			.board_size = 256 * 1024,
++			.cal_offset = 128 * 1024,
++		},
++		.max_radios = 3,
++		.bdf_addr = 0x4B0C0000,
++		.hw_ops = &wcn6855_ops,
++		.ring_mask = &ath11k_hw_ring_mask_qca6390,
++		.internal_sleep_clock = true,
++		.regs = &wcn6855_regs,
++		.qmi_service_ins_id = ATH11K_QMI_WLFW_SERVICE_INS_ID_V01_QCA6390,
++		.host_ce_config = ath11k_host_ce_config_qca6390,
++		.ce_count = 9,
++		.target_ce_config = ath11k_target_ce_config_wlan_qca6390,
++		.target_ce_count = 9,
++		.svc_to_ce_map = ath11k_target_service_to_ce_map_wlan_qca6390,
++		.svc_to_ce_map_len = 14,
++		.ce_ie_addr = &ath11k_ce_ie_addr_ipq8074,
++		.single_pdev_only = true,
++		.rxdma1_enable = false,
++		.num_rxdma_per_pdev = 2,
++		.rx_mac_buf_ring = true,
++		.vdev_start_delay = true,
++		.htt_peer_map_v2 = false,
 +
-+		dev_warn(dev, "Reusing PERST# from Root Complex node. DT needs to be updated!\n");
-+	}
++		.spectral = {
++			.fft_sz = 0,
++			.fft_pad_sz = 0,
++			.summary_pad_sz = 0,
++			.fft_hdr_len = 0,
++			.max_fft_bins = 0,
++			.fragment_160mhz = false,
++		},
 +
- 	ret = qcom_pcie_parse_ports(pcie);
- 	if (ret) {
- 		if (ret != -ENODEV) {
++		.interface_modes = BIT(NL80211_IFTYPE_STATION) |
++					BIT(NL80211_IFTYPE_AP) |
++					BIT(NL80211_IFTYPE_P2P_DEVICE) |
++					BIT(NL80211_IFTYPE_P2P_CLIENT) |
++					BIT(NL80211_IFTYPE_P2P_GO),
++		.supports_monitor = false,
++		.full_monitor_mode = false,
++		.supports_shadow_regs = true,
++		.idle_ps = true,
++		.supports_sta_ps = true,
++		.coldboot_cal_mm = false,
++		.coldboot_cal_ftm = false,
++		.cbcal_restart_fw = false,
++		.fw_mem_mode = 0,
++		.num_vdevs = 4,
++		.num_peers = 512,
++		.supports_suspend = true,
++		.hal_desc_sz = sizeof(struct hal_rx_desc_wcn6855),
++		.supports_regdb = true,
++		.fix_l1ss = false,
++		.credit_flow = true,
++		.hal_params = &ath11k_hw_hal_params_qca6390,
++		.supports_dynamic_smps_6ghz = false,
++		.alloc_cacheable_memory = false,
++		.supports_rssi_stats = true,
++		.fw_wmi_diag_event = true,
++		.current_cc_support = true,
++		.dbr_debug_support = false,
++		.global_reset = true,
++		.bios_sar_capa = &ath11k_hw_sar_capa_wcn6855,
++		.m3_fw_support = true,
++		.fixed_bdf_addr = false,
++		.fixed_mem_region = false,
++		.static_window_map = false,
++		.hybrid_bus_type = false,
++		.fixed_fw_mem = false,
++		.support_off_channel_tx = true,
++		.supports_multi_bssid = true,
++
++		.sram_dump = {
++			.start = 0x01400000,
++			.end = 0x0177ffff,
++		},
++
++		.tcl_ring_retry = true,
++		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
++		.smp2p_wow_exit = false,
++		.support_fw_mac_sequence = true,
++		.support_dual_stations = true,
++		.pdev_suspend = false,
++		.cfr_support = false,
++		.cfr_num_stream_bufs = 0,
++		.cfr_stream_buf_size = 0,
++	},
+ 	{
+ 		.name = "wcn6855 hw2.0",
+ 		.hw_rev = ATH11K_HW_WCN6855_HW20,
+diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
+index a0d725923ef2..29727ee94bfc 100644
+--- a/drivers/net/wireless/ath/ath11k/core.h
++++ b/drivers/net/wireless/ath/ath11k/core.h
+@@ -147,6 +147,7 @@ enum ath11k_hw_rev {
+ 	ATH11K_HW_QCA6390_HW20,
+ 	ATH11K_HW_IPQ6018_HW10,
+ 	ATH11K_HW_QCN9074_HW10,
++	ATH11K_HW_WCN6855_HW11,
+ 	ATH11K_HW_WCN6855_HW20,
+ 	ATH11K_HW_WCN6855_HW21,
+ 	ATH11K_HW_WCN6750_HW10,
+diff --git a/drivers/net/wireless/ath/ath11k/mhi.c b/drivers/net/wireless/ath/ath11k/mhi.c
+index a6c9ff112c68..c94546c367a7 100644
+--- a/drivers/net/wireless/ath/ath11k/mhi.c
++++ b/drivers/net/wireless/ath/ath11k/mhi.c
+@@ -393,6 +393,7 @@ int ath11k_mhi_register(struct ath11k_pci *ab_pci)
+ 		ath11k_mhi_config = &ath11k_mhi_config_qcn9074;
+ 		break;
+ 	case ATH11K_HW_QCA6390_HW20:
++	case ATH11K_HW_WCN6855_HW11:
+ 	case ATH11K_HW_WCN6855_HW20:
+ 	case ATH11K_HW_WCN6855_HW21:
+ 	case ATH11K_HW_QCA2066_HW21:
+diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
+index 35bb9e7a63a2..dc1dfd219d88 100644
+--- a/drivers/net/wireless/ath/ath11k/pci.c
++++ b/drivers/net/wireless/ath/ath11k/pci.c
+@@ -1031,6 +1031,15 @@ static int ath11k_pci_probe(struct pci_dev *pdev,
+ 		ath11k_pci_read_hw_version(ab, &soc_hw_version_major,
+ 					   &soc_hw_version_minor);
+ 		switch (soc_hw_version_major) {
++		case 1:
++			switch (soc_hw_version_minor) {
++			case 0x10:
++				ab->hw_rev = ATH11K_HW_WCN6855_HW11;
++				break;
++			default:
++				goto unsupported_wcn6855_soc;
++			}
++			break;
+ 		case 2:
+ 			switch (soc_hw_version_minor) {
+ 			case 0x00:
+diff --git a/drivers/net/wireless/ath/ath11k/pcic.c b/drivers/net/wireless/ath/ath11k/pcic.c
+index fc6e7da05c60..0f4dc05cc5b5 100644
+--- a/drivers/net/wireless/ath/ath11k/pcic.c
++++ b/drivers/net/wireless/ath/ath11k/pcic.c
+@@ -86,6 +86,17 @@ static const struct ath11k_msi_config ath11k_msi_config[] = {
+ 		},
+ 		.hw_rev = ATH11K_HW_QCN9074_HW10,
+ 	},
++	{
++		.total_vectors = 32,
++		.total_users = 4,
++		.users = (struct ath11k_msi_user[]) {
++			{ .name = "MHI", .num_vectors = 3, .base_vector = 0 },
++			{ .name = "CE", .num_vectors = 10, .base_vector = 3 },
++			{ .name = "WAKE", .num_vectors = 1, .base_vector = 13 },
++			{ .name = "DP", .num_vectors = 18, .base_vector = 14 },
++		},
++		.hw_rev = ATH11K_HW_WCN6855_HW11,
++	},
+ 	{
+ 		.total_vectors = 32,
+ 		.total_users = 4,
 
 -- 
 2.47.3
