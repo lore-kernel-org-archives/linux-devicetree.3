@@ -1,91 +1,235 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6091364943
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CD634B697;
+	Mon,  8 Jun 2026 11:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780917583; cv=none; b=HnWcj6urYnai2/G7O3wq9qJBvm9+XzGOyffFW0MMNJtifnpIQfxJZoJVLq6/BTfQH/wmvmIxgwhdjNeMDps80S/EHpzRexzCUNDUBki5addtsho77tbI6GyVD0QphuroNdADhrsDeMh522jMCgdNWaUDeuZVvIuWCh1d4+Z1IZ8=
+	t=1780917745; cv=none; b=lRpKsjJwGeSa4PKkUgw2SlGGqlgySvWVU1+OOOxO5hAYKHmoW65ZSBCId95gFKpdmi9yYcG8UxahD4qhStzsTGCr5DTezhm81/D0oTyWITGipHI95pdsnCIHm4YlF6GfywmjaCHyH+tQSn2QUxyfoE/2oVtiiKka7+ip7oDkteE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780917583; c=relaxed/simple;
-	bh=f5NAJHcxzb5iVdVk5j6K75Yy6lO9LRzQdplxfReb0dE=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=freFvEx9d5Mpu+ZwrL0SKq7JvW2eoh/CynFpVc3rfW8+V0bJ3goaNGzeXo2gsxF49Hur+Dr0dn8euNnRZGVXOIVaOoSyLv3qhN4g56zfSaoiGbtrdPvkzjGNJrAkBz4toGW0UactR0Rb/2z4VO/1t8dUG/UJXQdTaX//ZZipZd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBsVzN3o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780917745; c=relaxed/simple;
+	bh=DgrOMY7tOjOQAsBnHupbRQF92Dgr7IP6xb3SYar9Q9w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q1yD12yk3sS/pfDqSHoIxEbiiX6oCiIP04yNrF/r1iSAirf1ewTlz59dHWK9cr0EVuUDa1X7UcSqVqp4qmeq93uemzWvT2hnM/b3ujGWd40Ia7cS3Rkh39qNHeO7WvElpB3sAHh9AyVYhvZ1I9nlsXYJ30jeldDUzR4Zu+OEtXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=aSaIYF+j; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBsVzN3o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A091F00A07
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780917581;
-	bh=f5NAJHcxzb5iVdVk5j6K75Yy6lO9LRzQdplxfReb0dE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=IBsVzN3ogan36/89OV9DntGbgRlO4EaXnUSl9l4MdOfxxYGiF7wtHMJ/Vre/u0SPh
-	 6LrQTxHcl/GimI+L88il4sYmFnvjJli3ro9qv4gcbWUAVdIu2VUru9+5iChQS6CNf0
-	 KOmZtnyvu8OnqHxbc9gn5ZS/iqm1RYFnLXvzbgiyt4LafFAHIzykDtrfrc1igLJ8Vw
-	 QlAMaOmQZnPR7o9OoVQKyTqFJ3ywv6pRPR18ji/sJftlYY7BHSWJ8CCqsT33hbU+tE
-	 RwAB7znD0I9tXF5KTsW+Hgfc3DWr44iQYOYqZ0/oivzKPLv6P5hZc1SKl8GJgG8R2t
-	 MhNqn2aBDsiSg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aa68dbb38aso3847512e87.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 04:19:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+VrXrGwBpy+AGR/lTGfk3M1ISF4tyj4KNY1H/a4PHOWqBIDODbelj2R+RWiiksdtR8SCf0RdwfkPBx@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbbDCkpQFypP0xs8CbzvftKF2eu2enRKeYZt5CPjj1qlmm2Dgp
-	dOzE2D0+tvKtZYY1RahQgouu1GsVXjVoP2vQohjwkNjChV/xgrU8hHboPmDv/KpUISReqbJak2U
-	+gfIXbqbOD6VqtVnjQP6UKwlQjC0EW0x7lkaKaS3SSA==
-X-Received: by 2002:a05:6512:33cc:b0:5aa:6aba:76f8 with SMTP id
- 2adb3069b0e04-5aa87bc8d69mr3784333e87.30.1780917580513; Mon, 08 Jun 2026
- 04:19:40 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 04:19:38 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 04:19:38 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260608-block-as-nvmem-v3-6-82681f50aa35@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="aSaIYF+j"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=Xe3m8aEMLZ/02vgwpqo5f7f9hIk8DfPm8JBqFu+ZRLY=; b=aSaIYF+jLzhpB2x34fAjS6W6zC
+	loVRKG/E/QhEiTlDPJMcEQvo5oD3KZHmM3qrRKPQX+s906GTCAgyDBmPoCKxSZ2qeCDinuRCnF7ta
+	4+EgcarogMFhI1xGe1gI9ewYCPWmyaMPvfUsDWW4LAm5JlddsX3QeRnEeLBNLgDnPLfj1LStca7Ap
+	6g1yvEkur6ogZdSTxcsP9CfxIp7cI8FQzjdhN4tLOxrDcRSyNxA6uCIiJSfrTUGD58D2XBycgNGAo
+	wnA5LMM5GzBuayQtbWmJubrV+Ao7MbEeRnpU1NirUVPPQgGN2L1MY5wmvP65Me+93YPSrts+0QxD8
+	G6cn+AyA==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wWY3h-000EpY-0l;
+	Mon, 08 Jun 2026 13:22:21 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wWY3h-000HhD-0P;
+	Mon, 08 Jun 2026 13:22:20 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.li@nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux@ew.tq-group.com, linux-renesas-soc@vger.kernel.org
+Subject:
+ Re: [PATCH v4 4/4] arm64: dts: freescale: Add dual-channel LVDS overlay for
+ TQMa8MPxS
+Date: Mon, 08 Jun 2026 13:22:19 +0200
+Message-ID: <6005215.DvuYhMxLoT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <aiL9i6IQzK3EHGpm@lizhi-Precision-Tower-5810>
+References:
+ <20260603093621.2504490-1-alexander.stein@ew.tq-group.com>
+ <20260603093621.2504490-4-alexander.stein@ew.tq-group.com>
+ <aiL9i6IQzK3EHGpm@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com> <20260608-block-as-nvmem-v3-6-82681f50aa35@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 04:19:38 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdRZ_7jzDErZOxeBYE+awL2fe1KcKqC=Yi1gDD28ra=zg@mail.gmail.com>
-X-Gm-Features: AVVi8Cew2n-YmjEp_T_Fkca1TPT0Dv6DfUiL88X7yEcZLGkS30SEi9F-0nG9RjI
-Message-ID: <CAMRc=MdRZ_7jzDErZOxeBYE+awL2fe1KcKqC=Yi1gDD28ra=zg@mail.gmail.com>
-Subject: Re: [PATCH v3 6/7] Bluetooth: hci_sync: Add NVMEM-backed BD address retrieval
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
-	netdev@vger.kernel.org, daniel@makrotopia.org, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Jens Axboe <axboe@kernel.dk>, Johannes Berg <johannes@sipsolutions.net>, 
-	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Saravana Kannan <saravanak@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28025/Mon Jun  8 08:33:34 2026)
 
-On Mon, 8 Jun 2026 12:50:43 +0200, Loic Poulain
-<loic.poulain@oss.qualcomm.com> said:
-> Some devices store the Bluetooth BD address in non-volatile
-> memory, which can be accessed through the NVMEM framework.
-> Similar to Ethernet or WiFi MAC addresses, add support for
-> reading the BD address from a 'local-bd-address' NVMEM cell.
->
-> As with the device-tree provided BD address, add a quirk to
-> indicate whether a device or platform should attempt to read
-> the address from NVMEM when no valid in-chip address is present.
-> Also add a quirk to indicate if the address is stored in
-> big-endian byte order.
->
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
+Hi Frank,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Am Freitag, 5. Juni 2026, 18:47:07 CEST schrieb Frank Li:
+> On Wed, Jun 03, 2026 at 11:36:09AM +0200, Alexander Stein wrote:
+> > This adds an overlay for the supported LVDS display AUO G133HAN01.
+> > Configure the video PLL frequency to exactly match typical pixel clock =
+of
+> > 141.200 MHz.
+> >
+> > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> > ---
+>=20
+> Can you fix W=3D1 dtb build warnings?
+
+That would require to duplicate the setting from imx8mp.dtsi. Is this really
+intended?
+
+imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso:51.10-55.5: Warning (unit_a=
+ddress_vs_reg): /fragment@3/__overlay__/ports/port@1: node has a unit name,=
+ but no reg or ranges property
+imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso:57.10-61.5: Warning (unit_a=
+ddress_vs_reg): /fragment@3/__overlay__/ports/port@2: node has a unit name,=
+ but no reg or ranges property
+
+IMHO this warning is not suitable for .dtbo, while it is for .dtb
+(with applied overlays). The .dtbo doesn't have all the information.
+
+Best reagrds
+Alexander
+
+> Frank
+>=20
+> > Changes in v4:
+> > * New to series v4
+> >
+> >  arch/arm64/boot/dts/freescale/Makefile        |  2 +
+> >  ...p-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso | 74 +++++++++++++++++++
+> >  2 files changed, 76 insertions(+)
+> >  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-s=
+marc-2-lvds-g133han01.dtso
+> >
+> > diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/d=
+ts/freescale/Makefile
+> > index dee2bea156740..3f466f102dc1d 100644
+> > --- a/arch/arm64/boot/dts/freescale/Makefile
+> > +++ b/arch/arm64/boot/dts/freescale/Makefile
+> > @@ -385,8 +385,10 @@ dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpql-mba8m=
+p-ras314-imx219.dtbo
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070j=
+vhg33.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070j=
+vhg33-imx219.dtb
+> >
+> > +imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01-dtbs +=3D imx8mp-tqma8mpqs-=
+mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtbo
+> >  imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33-dtbs +=3D imx8mp-tqma8mp=
+qs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtbo
+> >  imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33-dtbs +=3D imx8mp-tqma8mp=
+qs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtbo
+> > +dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01=
+=2Edtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvh=
+g33.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvh=
+g33.dtb
+> >
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-=
+lvds-g133han01.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-sma=
+rc-2-lvds-g133han01.dtso
+> > new file mode 100644
+> > index 0000000000000..9595cf4d43cd0
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds-g1=
+33han01.dtso
+> > @@ -0,0 +1,74 @@
+> > +// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
+> > +/*
+> > + * Copyright (c) 2025-2026 TQ-Systems GmbH <linux@ew.tq-group.com>,
+> > + * D-82229 Seefeld, Germany.
+> > + * Author: Martin Schmiedel
+> > + */
+> > +
+> > +/dts-v1/;
+> > +/plugin/;
+> > +
+> > +&backlight_lvds0 {
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&panel_lvds0 {
+> > +	compatible =3D "auo,g133han01";
+> > +	status =3D "okay";
+> > +
+> > +	ports {
+> > +		#address-cells =3D <1>;
+> > +		#size-cells =3D <0>;
+> > +
+> > +		port@0 {
+> > +			reg =3D <0>;
+> > +			dual-lvds-odd-pixels;
+> > +
+> > +			panel_in_lvds0: endpoint {
+> > +				remote-endpoint =3D <&ldb_lvds_ch0>;
+> > +			};
+> > +		};
+> > +
+> > +		port@1 {
+> > +			reg =3D <1>;
+> > +			dual-lvds-even-pixels;
+> > +
+> > +			panel_in_lvds1: endpoint {
+> > +				remote-endpoint =3D <&ldb_lvds_ch1>;
+> > +			};
+> > +		};
+> > +	};
+> > +};
+> > +
+> > +&lcdif2 {
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&lvds_bridge {
+> > +	status =3D "okay";
+> > +
+> > +	ports {
+> > +		port@1 {
+> > +			ldb_lvds_ch0: endpoint {
+> > +				remote-endpoint =3D <&panel_in_lvds0>;
+> > +			};
+> > +		};
+> > +
+> > +		port@2 {
+> > +			ldb_lvds_ch1: endpoint {
+> > +				remote-endpoint =3D <&panel_in_lvds1>;
+> > +			};
+> > +		};
+> > +	};
+> > +};
+> > +
+> > +// Update VIDEO_PLL1 frequency
+> > +&media_blk_ctrl {
+> > +	assigned-clock-rates =3D <500000000>, <200000000>,
+> > +			       <0>, <0>, <500000000>,
+> > +			       <988400000>;
+> > +};
+> > +
+> > +&pwm3 {
+> > +	status =3D "okay";
+> > +};
+> > --
+> > 2.54.0
+> >
+>=20
+
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
+
