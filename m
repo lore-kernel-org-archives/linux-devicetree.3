@@ -1,67 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBF6399CF5;
-	Mon,  8 Jun 2026 08:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7803988E1
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780906065; cv=none; b=YNndCmjFqElfhZqOaGfNw7XausBZktH2Gb4OiyerfES5Qed59LmmLhNCVPzpZYEfzNg24gUfCkfSZRHdZyrQtNtcgqbxgBMUpAIcXtXrf7VE0RfWFX8LPYyu8AqbQyC9EX0cwDZh9wzogBVGpgyQCIR+sh8Yp9yG+/m2X1oQq8c=
+	t=1780906091; cv=none; b=mTPMlcppUyr8KJ0lBLOO/LSS1DjSwS5bJmbYf7jh77XC07elsYLMDeK1xakNVtfLrj32HRbAa8HzWScxB5AsPpYZRCFjiiwUdIbHUY/t2g6yudpTVV9DZQyJMoKSumrIXraZORNkRCyA9c0+/msE6gJVALbUadcZcU9/UZ4vXT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780906065; c=relaxed/simple;
-	bh=eEf58wVHdRuUO/Hskq0T4UR/B7ICRR2BGeZ5Y5irEZ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mpdmTBb9Bl4opiq4KNRaH8+V/UpTcDHgOqvp2V2pOKhvvQ56ky3PPARssPqWPm6x3L27ZFKUnc7GvgZbunBj9bj7KiXQlqhJMCtwr8JDdQZ8+N3oGW5uW1bYSPVYLmSoxYm+ahlFO8z+4nkvIcRhzM+A2H6dX0iEp6CX0CFVWlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYiUszw6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780906091; c=relaxed/simple;
+	bh=pD9wTBkwc0OG4EoG/KBOlsQltrnEMHaxKnXurrzizuc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=pRp5cQV5EEgngVrxbKCXLK3VU5AW4F1+K238P7nQ0B+3mHTEFfAX3aaAHz5RkWdJluIeNGeecvuO3nLCGImegkxRK6cIej5GwzIOa7DkvinvlfUegGu8jXHnur26hBw7urpXzO4sIyBWtpdqrQwR3WAwJGSlpu5UmcWz0YhNV/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ngvO5U+O; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYiUszw6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A631F00893;
-	Mon,  8 Jun 2026 08:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780906064;
-	bh=nEyq2RLHjc1mBNuhUMfnxj06UNEfpzy+ame2str7MMo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IYiUszw6Bwhonk0Bqe4kZxEpzYYtOw4z2OAijXRCIbUdXT/nJg0ImRIJMDOZ7xO5D
-	 PtLikCyk61G61Aw6pTlSdCZuM0uZbQOMzSklICjtHRCrBLLA3HKHeOASyeVkPykSIm
-	 jdj2NCeT114IP0IRJwCcG3imyYa+KpNUaJDXbLkxJdyvvwrcHG/76BECs4Yps8RcsO
-	 8QTAdypqgXhcmq7hhEKTjNkCIk1i+1eRY6eLXeNtO+6xm8ZSLylWx0hUPEfoW7PROm
-	 t1IX20/JLqS+JDOfaGGBF3qz46IF5RQMAjTLVphrlug6uVBoNKhnaBnytdu605cZqb
-	 sstu3Kgyt+Y3Q==
-Date: Mon, 8 Jun 2026 10:07:40 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: broonie@kernel.org, tiwai@suse.de, andriy.shevchenko@linux.intel.com, 
-	13916275206@139.com, shenghao-ding@ti.com, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, k-yi@ti.com, henry.lo@ti.com, 
-	robinchen@ti.com, will-wang@ti.com, jim.shil@goertek.com, toastcheng@google.com, 
-	chinkaiting@google.com, riyo@ti.com, a0393308@india.ti.com
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: ti,tas2781: Add TAS2573 support
-Message-ID: <20260608-tough-light-mayfly-08c7d4@quoll>
-References: <20260602100532.6463-1-baojun.xu@ti.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ngvO5U+O"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=1O0W+PMFaImUEHS11h0qPr/2bHJpUyc1ctnF0elS/cQ=;
+	b=ngvO5U+Ohxn3umzASf6kJP2ao1O9uIHiDkFzKhI8AJYyg2zqXO9PDGtwpygvXHUrjwDUqKDRw
+	ZSjEBkAgKLP5QhHH+29zOBe7hN9fmcJDxbOQ9rsbVSqLB6TkIBwxUiIA+jis3a7Beccw0Eb6Bv1
+	IXRRaH15EfFKmS7gS/058Gg=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4gYkww4rLZznTWn;
+	Mon,  8 Jun 2026 16:00:16 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id E864C40565;
+	Mon,  8 Jun 2026 16:08:06 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 8 Jun 2026 16:08:03 +0800
+Message-ID: <f26bc61d-14ad-450d-bdfa-59b039ae660c@huawei.com>
+Date: Mon, 8 Jun 2026 16:08:03 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260602100532.6463-1-baojun.xu@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 06/10] riscv: kexec_file: Use crash_prepare_headers()
+ helper to simplify code
+To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
+	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
+	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<rdunlap@infradead.org>, <peterz@infradead.org>,
+	<feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
+	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
+	<lirongqing@baidu.com>, <ebiggers@kernel.org>, <paulmck@kernel.org>,
+	<leitao@debian.org>, <coxu@redhat.com>, <Liam.Howlett@oracle.com>,
+	<ryan.roberts@arm.com>, <osandov@fb.com>, <jbohac@suse.cz>,
+	<cfsworks@gmail.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
+	<ritesh.list@gmail.com>, <adityag@linux.ibm.com>, <liaoyuanhong@vivo.com>,
+	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
+	<chenjiahao16@huawei.com>, <guoren@kernel.org>, <x86@kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
+References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
+ <20260608073459.3119290-7-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260608073459.3119290-7-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Tue, Jun 02, 2026 at 06:05:31PM +0800, Baojun Xu wrote:
-> The TAS2573 belongs to the TAS257x device family, featuring an integrated
-> DSP and IV sensing capability.
+
+
+On 6/8/2026 3:34 PM, Jinjie Ruan wrote:
+> Use the newly introduced crash_prepare_headers() function to replace
+> the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
+> memory in the crash core, which reduce code duplication.
 > 
-> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
-> ---
-> v2:
->  - No update.
-> ---
->  Documentation/devicetree/bindings/sound/ti,tas2781.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+> Only the following two architecture functions need to be implemented:
+> - arch_get_system_nr_ranges(). Call get_nr_ram_ranges_callback()
+>   to pre-counts the max number of memory ranges.
+> 
+> - arch_crash_populate_cmem(). Use prepare_elf64_ram_headers_callback()
+>   to collects the memory ranges and fills them into cmem.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+The below AI reported TOCTOU bug is an existing artifact and completely
+unrelated to the core CMA implementation introduced here. Therefore, we
+will skip fixing it in this series to avoid unnecessary noise.
+
+Link:
+https://lore.kernel.org/all/20260608075420.8C5871F00893@smtp.kernel.org/
+
+> 
+> Cc: Paul Walmsley <pjw@kernel.org>
+> Cc: Palmer Dabbelt <palmer@dabbelt.com>
+> Cc: Albert Ou <aou@eecs.berkeley.edu>
+> Cc: Alexandre Ghiti <alex@ghiti.fr>
+> Cc: Guo Ren <guoren@kernel.org>
+> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Acked-by: Baoquan He <bhe@redhat.com>
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/riscv/kernel/machine_kexec_file.c | 47 +++++++-------------------
+>  1 file changed, 12 insertions(+), 35 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+> index 3f7766057cac..439cbc50dfa6 100644
+> --- a/arch/riscv/kernel/machine_kexec_file.c
+> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> @@ -44,6 +44,15 @@ static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
+>  	return 0;
+>  }
+>  
+> +unsigned int arch_get_system_nr_ranges(void)
+> +{
+> +	unsigned int nr_ranges = 2; /* For exclusion of crashkernel region */
+> +
+> +	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+> +
+> +	return nr_ranges;
+> +}
+> +
+>  static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+>  {
+>  	struct crash_mem *cmem = arg;
+> @@ -55,41 +64,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+>  	return 0;
+>  }
+>  
+> -static int prepare_elf_headers(void **addr, unsigned long *sz)
+> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+>  {
+> -	struct crash_mem *cmem;
+> -	unsigned int nr_ranges;
+> -	int ret;
+> -
+> -	nr_ranges = 2; /* For exclusion of crashkernel region */
+> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+> -
+> -	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
+> -	if (!cmem)
+> -		return -ENOMEM;
+> -
+> -	cmem->max_nr_ranges = nr_ranges;
+> -	cmem->nr_ranges = 0;
+> -	ret = walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+> -	if (ret)
+> -		goto out;
+> -
+> -	/* Exclude crashkernel region */
+> -	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
+> -	if (ret)
+> -		goto out;
+> -
+> -	if (crashk_low_res.end) {
+> -		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
+> -		if (ret)
+> -			goto out;
+> -	}
+> -
+> -	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
+> -
+> -out:
+> -	kfree(cmem);
+> -	return ret;
+> +	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+>  }
+>  
+>  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+> @@ -281,7 +258,7 @@ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
+>  	if (image->type == KEXEC_TYPE_CRASH) {
+>  		void *headers;
+>  		unsigned long headers_sz;
+> -		ret = prepare_elf_headers(&headers, &headers_sz);
+> +		ret = crash_prepare_headers(true, &headers, &headers_sz, NULL);
+>  		if (ret) {
+>  			pr_err("Preparing elf core header failed\n");
+>  			goto out;
 
