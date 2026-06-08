@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE2A3BE644;
-	Mon,  8 Jun 2026 10:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7038A3B52F1;
+	Mon,  8 Jun 2026 10:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780913894; cv=none; b=R58rsCpx55Hm/o/LoK0i1MsVBHjLJ2wBzEn4iDYQmOiJ9PeiCYGrE3IpU02ZsN2Sls1JpvD6c/b1274RlO4E2BmPXkL4pkQADRIoryfZCnS0MhJvMxqUONjR/eUoHZRw8n+S1hg3T45ftIayrg+wVgXF7LIMR32sc1/hzBf/9Hc=
+	t=1780914046; cv=none; b=r9rOIlyKhfI+dIdckqF56VWnntvyJlKE56YU7kgZSJUptgA138Jm3VAFuCYhKgM9gJ15MM0hEH8R+iDhx8aWxMgrCpUHav1Qiv/j6bIehPdD866kT1EtD1H6558BZl5je2qtL8w2izx+Gyo8rG3TDbFt1ZyrK27ut84NzX7Wb3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780913894; c=relaxed/simple;
-	bh=iPtL72hWbPnlcbHvYuTD5CE11dgBfuIg4+EE/trSF+Y=;
+	s=arc-20240116; t=1780914046; c=relaxed/simple;
+	bh=fL9oXuCp5N4xE42DmAiwdZMhI6Rt9BDs+gCZbnhRyUg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZS7e9WUAn/mHOnhDcF73wm/TrVhvsLGh4bv4hlknCeD0/ktnFMDpivT/adJPOWjK85CVv+4a1kupM+GnyYETKzdR5/B/LUm9WQZVEEp2ofyF+FmhEcumoe+y0S3QZtEnSYa81BX4X5ZdOMUmi1xGZzVC7Sgn7MhNm/FTpNT8eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jdM4slwJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXrgkR7e0AUIH12ZfDmuF4tk2odUSvnT2lV4OHsjy2BFwcgeXE1XKyMzWRwiPXIn0UxG1nwIK2eIGCGy/13Uq6c/+Xu6qm8I+3YjD9DtC4yrqpMYr9jzxRrGcvJhVzqMIRcV8rQ3k8vBW6O16ppTTdHwbHI/03Moahy3BixhtdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDy4Tnoh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jdM4slwJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9A81F00899;
-	Mon,  8 Jun 2026 10:18:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDy4Tnoh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9831F00893;
+	Mon,  8 Jun 2026 10:20:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780913893;
-	bh=aHS6jaQw/yvoxfE3p+vq1/TWxSezMC70ir4mnCrJGDc=;
+	s=k20260515; t=1780914045;
+	bh=6ekkNqY9qbrUR/M9eukGJ2msOzNE/+SipyIqMlv3w/s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jdM4slwJbdAnOhLUY9FcRrmPxdrDXTndIFpYeSfS4NYV0QXS3nDyAE9zhb1OIsDW3
-	 xR5u2tDfa8f9rUSNkaMp0Oloapm4Jl/vwGuSzugsqzrDJEt4++yLe2Qvgr/eGwYYYm
-	 V1a47eVw/s+Mw8dBhdN+vStaIH1ZkjQaNP+OZ2KfhzkUdZ9HgF5ijkRxgqJ/PxUsE4
-	 9m92aUUiOipSBAqfPmoPBnDlzoC5P59sc6/E4YBXx3x9j/bieAiu9LHx90V8S8AVNw
-	 9haq4/TO5ZIIYErxCM6rkPA8jdWengqQQOhEWvZe4oVFDCfiVdT8nvij6SvKb7Gu7R
-	 Dn+x24BV+d8tw==
-Date: Mon, 8 Jun 2026 12:18:10 +0200
+	b=IDy4TnohuBZFCdEydOYjvJUNZwFSH7RzPaptpyPPFW+tEDivxKMSazRBppYqmdBwK
+	 Q00rObCnBHt0mkUIPLPcWrD6ovxVMdchPMw36wIJuvp4TO6MlRFQv9l0f6NFE8049h
+	 Ga+7bcBl6tBWsenIjUduZT72bU1s2yVNUQVHRGhsTPxV/aXVApvoLBAVOfYYCIFNlf
+	 iG8Jv0K1icwMRoy0Uy6aYOiFlxwwX/KmgSrdQ8MUljCwwnu/9rhdtQb4K8GgonwFsL
+	 pjiFU6twGmZUzVOGul3rsXsQrhFnJE2/8h4nc1/GupN7Z4mekpaRsqybpRK0pv/NmW
+	 z7WaIRu4p14qg==
+Date: Mon, 8 Jun 2026 12:20:41 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Biju <biju.das.au@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: PCI: qcom,pcie-ipq9574: Add IPQ9650
- compatible
-Message-ID: <20260608-wonderful-controversial-toucan-daab4f@quoll>
-References: <20260602-ipq9650_pcie_binding-v1-1-486a535da8c5@oss.qualcomm.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required for
+ renesas,r9a08g046-lvds-cmn
+Message-ID: <20260608-alluring-remarkable-echidna-d107ea@quoll>
+References: <20260602131331.90756-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,19 +46,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260602-ipq9650_pcie_binding-v1-1-486a535da8c5@oss.qualcomm.com>
+In-Reply-To: <20260602131331.90756-1-biju.das.jz@bp.renesas.com>
 
-On Tue, Jun 02, 2026 at 03:06:18PM +0530, Kathiravan Thirumoorthy wrote:
-> Add the IPQ9650 PCIe compatible to the IPQ9574 binding, as the IPQ9650
-> controller is compatible with IPQ9574 and uses it as the fallback.
+On Tue, Jun 02, 2026 at 02:13:29PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 > 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> Add a conditional schema rule to the syscon bindings that requires the
+> ranges property when the compatible string contains
+> renesas,r9a08g046-lvds-cmn. This ensures the LVDS common control block
+> on the RZ/G3L SoC correctly declares its address translation, as the
+> device has child nodes that need a valid ranges mapping to be described
+> in the device tree.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
->  Documentation/devicetree/bindings/pci/qcom,pcie-ipq9574.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/mfd/syscon.yaml | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> index 9c81010d5a74..cbf83a06ae25 100644
+> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> @@ -269,6 +269,8 @@ properties:
+>    resets:
+>      maxItems: 1
+>  
+> +  ranges: true
 
-Any reason why global interrupt is optional? Older devices were
-incomplete, but new ones should come fully described.
+There are no children allowed, so ranges property is wrong.
+
+You are changing binding which DOES NOT allow simple-mfd or any other
+children. Ranges is not a problem here.
 
 Best regards,
 Krzysztof
