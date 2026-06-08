@@ -1,95 +1,197 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BEC12F585
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FE37E307;
+	Mon,  8 Jun 2026 13:37:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780925646; cv=none; b=LqAZfkEHtHxl9l8xIBPRDZJr70oeNctmLUbaWuGPl8aBYy0emv/3JrH0miWye9czB6ItASjT8XrUSRHSjajWg97eSsgG4jeEe+kuDTFLglKQWqOVpQHi6XEtGCKDfcA8iD19lAAsdapyQ1i0azjtV4YqiywCEnTJN1nOaJaPAxM=
+	t=1780925825; cv=none; b=N78Q6UQzz/e7AO6rCZQQ0yg5+mcBJElHXcuasyHPUpQ3tr5UuqIdywjGgz1wqOt/IfclI/G4Jpm+wPTLydjS4qqT2/nCTQ9J0mAPBswt+iwmGp2Dh5tFUBIMqRvxYN33AwnDcBZ4SjgtlNJNO0gsXE5cpddMkXs+bfV9U+b+o/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780925646; c=relaxed/simple;
-	bh=aq3rO4sD8kIIr1wKYmSG3uQT3t+p1ewEwFE5Vbcx5ug=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VWNdiVI/Q7vJLkINR526RnxrLk2HHGgenlL/utNw1w3E+ypuqwa0aXGVJdNgn9Z+2eNCO6+9hUw0aaQLlmjFVXRzBRZdVt0vPFakFQ3BzUhwdNKs1WF4azOWPCMABxwHVmGwZGjokgrDk39KAzo2KnncXm1mqVEol6qS4saPqBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W1AME6hA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780925825; c=relaxed/simple;
+	bh=OwWZldgchKpfQIrkoEJ1NJdZJ6yuQ1u78a4A13vOJao=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jy0CfhmCqnutICWIvlIeet7vTwKtmoygQUp2I0OfYPHCx/2oFf9SGFDq0u6y3XoIzAMzS0GWD5tZzmj5/xAW4crOYhrqQ5fsK61QNerg8QgKmcvSICjMGgLfurhNNrIgGZEeJOilEAXmdt92cr2EjM/CAtu0Kq5dKe8qz6r/mUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkERIq1h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W1AME6hA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC391F00898;
-	Mon,  8 Jun 2026 13:34:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkERIq1h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F7A1F00893;
+	Mon,  8 Jun 2026 13:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780925645;
-	bh=adLAhVsFaCCM+9+Z6IkwW2VDqZxlvubBJAtkLPDU06w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W1AME6hAkr+gZbxDYTRHwTlfs+TozoKzPXPT9Z/AuyDHNuZ1khDdGgQT1EuSIQIyB
-	 6yR/v1xfIYohx+iiyJt4WHmxlA28LJSiscLN48UQJi57kDzfTJh9KRQP00shC6BXsy
-	 TwwUuJMTYEnsAksGzk7OLYymzZiqQFYaNG3aUSkgeIq3fG7skRxszFFP8dvUYqKPVl
-	 a97PXV7x+EBaWu2psj4PIQjBJkgW3fL8psxL5K8bRZbvlnrg448U8iGXkN1Nbb5Xx/
-	 bUXrX4mePxhSgT/8CcxSRT3Et90dIuIpMZLVUpK84aDFdk9kn4l3tp6n4JdBFR1riX
-	 aAH1Je3QL972g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] mtd: rawnand: qcom: Make has_onfi_read_op separate
- from qpic_version2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stephan Gerhold" <stephan.gerhold@linaro.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608-qcom-nandc-mdm9607-v1-3-4639a0492274@linaro.org>
-References: <20260608-qcom-nandc-mdm9607-v1-3-4639a0492274@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 13:34:04 +0000
-Message-Id: <20260608133404.EDC391F00898@smtp.kernel.org>
+	s=k20260515; t=1780925824;
+	bh=1Mows+I872SEh0a9XzmTyu1MHCk971rRiVDktwmEk+o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jkERIq1hy6TzNRQA41iskiHcvCnAcgDkFIJg+qm+MTxm7HPsxqzT715+dgA9g8Kex
+	 S2OL8zb0WiH21v/AoAkXTkfCj4q8BZ3azETvubnVh52Rb0Hvt+OFCLgDndzXyWwI83
+	 fXtcjllgWXLTI5mUgVL0F2UQMrXFmFUEzfJ2FgxruIvnas+6UQIJusO6NyXMiu4Oab
+	 IdTGno2Am/OwN0PmNQK7Ikg7zdJEeQZ2WeLPQD0jtz+mxbNqZPbU0D6eicYiX9pvkv
+	 n8wHqgXeq64Llj8R+OZPmYPJvsxbBB2wYM23cbjeLDlVxCS+dHe2iSCWrf/Khd9bfq
+	 pX+Umsk2+2GSQ==
+Message-ID: <93ea251e-3908-4b8b-a2af-7c6f44210277@kernel.org>
+Date: Mon, 8 Jun 2026 14:36:59 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Val Packett <val@packett.cool>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Xilin Wu <sophon@radxa.com>
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+ <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+ <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+ <ydASAzExxz3rYv8fMvSS3T_ZmHeAz3JkBnY1zFwVOnd_tzEJGofbgr-6v1RnZWmvo-g1e4LfjPfLvZJ3fdYdtQ==@protonmail.internalid>
+ <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
+ jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
+ piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
+ YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
+ B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
+ lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
+ 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
+ MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
+ 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
+ JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
+ bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
+ OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
+ BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
+ VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
+ jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
+ mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
+ 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
+ 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
+ 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
+ kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
+ nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
+ g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
+ dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
+ NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
+ VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
+ Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
+ vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
+ 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
+ ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
+ MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
+ VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
+ NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
+ AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
+ JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
+ 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
+ OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
+ xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
+ t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
+ X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
+ LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
+ 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
+ Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
+In-Reply-To: <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Hardware initialization for `NAND_DEV_CMD_VLD` is incorrectly skip=
-ped for QPIC v1.5 controllers, potentially breaking all standard NAND opera=
-tions.
---
+On 08/06/2026 04:48, Val Packett wrote:
+> 
+> On 6/4/26 3:38 AM, Vikash Garodia wrote:
+>>
+>>
+>> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
+>>> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+>>>>
+>>>> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>>>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>>>>> triggers unhandled SMMU page faults
+>>>>
+>>>> How do we know that is a correct address - does it come from qcom
+>>>> documentation or trial and error ?
+>>>
+>>> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
+>>> source for the different stream-ID <600MB behaviour, and share
+>>> specifics, eg if silicon, firmware, or driver and constraint, defect
+>>> or otherwise, so I can include a definitive description.
+>>>
+>>> Also good to know if my workaround is good for long-term, or on the
+>>> other hand handling streams <600MB is important/useful.
+>>>
+>>
+>> Thanks Daniel for raising this patch. Did you also try the memory fix
+>> i mentioned in the bug [1] discussion ?
+>>
+>> Coming to 600MB, this have been the VPU hardware restriction all the
+>> while since venus days, and since address could not go deeper all the
+>> way lower than 600MB, the issue never popped up earlier.
+>>
+>> Consider the memory layout split as below (Iris device range is capped
+>> to 0xe0000000)
+>>
+>> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
+>>
+>> 0-600MB range, VPU hardware would reserve this to generate different
+>> stream-IDs primarily for internal (non-pixel) buffers.
+>>
+>> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
+>> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
+>> non-pixel buffers.
+>>
+>> When many concurrent sessions were tried, non-pixel buffers were
+>> mapped into 0-600MB range, and VPU generated secure ID for those.
+>> Since those were not associated with the iommus configured for iris
+>> node, it led to USF (un-identified stream fault) and device would crash.
+> 
+> Umm.. is anything *actually* preventing us from adding the "secure" SID
+> to the iommu node?
 
-commit 246019a946e357d7d6d6cced97c09e17d7879610
-Author: Stephan Gerhold <stephan.gerhold@linaro.org>
+Yes.
 
-mtd: rawnand: qcom: Make has_onfi_read_op separate from qpic_version2
+If the firmware has already provisioned SMMU entries for TZ SIDs then we 
+would be adding duplicates from Linux, if not then we are claiming TZ 
+SIDs which we can't actually access if we use them => those entries 
+would need to be given out to a TZ driver/application of some sort which 
+we don't have/support now/yet.
 
-This commit splits the OP_PAGE_READ_ONFI_READ support into a separate
-has_onfi_read_op flag. This allows QPIC v1.5 controllers to utilize the
-command without needing to enable all QPIC v2 hardware assumptions.
 
-> diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qco=
-m_nandc.c
-> index 0251dd591d40a..9217e8de55129 100644
-> --- a/drivers/mtd/nand/raw/qcom_nandc.c
-> +++ b/drivers/mtd/nand/raw/qcom_nandc.c
-[ ... ]
-> @@ -2041,7 +2041,7 @@ static int qcom_nandc_setup(struct qcom_nand_contro=
-ller *nandc)
->  	if (!nandc->props->nandc_part_of_qpic)
->  		nandc_write(nandc, SFLASHC_BURST_CFG, 0);
-> =20
-> -	if (!nandc->props->qpic_version2)
-> +	if (!nandc->props->has_onfi_read_op)
+> I just saw a patch for sc8280xp that did just add an "extra" SID for iris:
+> 
+> https://github.com/strongtz/linux-radxa-qcom/commit/e92850f792498c3a72d72d667503a29bf6bb0a31
+> 
+> and I'm wondering if that's about the same exact issue.. (Adding sophon@
+> to Cc: here)
+> 
+>> Keeping the region reserved, makes the non-pixel buffer always in the
+>> non secure range (601-..) and avoids the crash.
+>>
+>> Downside of this design - It would eventually reserve 0-600MB un-map
+>> 'able for all buffer types, like pixel as well which do not have any
+>> such restriction.
+>>
+>> Forward looking design - create devices dynamically and set reserve
+>> regions for those specific device using the api [1], instead of
+>> applying one reserve for all.
+>>
+>> [1]
+>> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/
+> 
+> 
+> 
+> ~val
+> 
+> 
 
-[Severity: High]
-Will this skip the initialization of NAND_DEV_CMD_VLD for QPIC v1.5
-controllers?
-
-Since a QPIC v1.5 controller has has_onfi_read_op set to true but
-qpic_version2 set to false, replacing the qpic_version2 check here means
-the initialization will be bypassed.
-
-Could this regression leave the hardware register in an undefined state and
-prevent the controller from recognizing standard read, write, and erase
-command start bits?
-
->  		nandc_write(nandc, dev_cmd_reg_addr(nandc, NAND_DEV_CMD_VLD),
->  			    NAND_DEV_CMD_VLD_VAL);
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-qcom-nandc=
--mdm9607-v1-0-4639a0492274@linaro.org?part=3D3
