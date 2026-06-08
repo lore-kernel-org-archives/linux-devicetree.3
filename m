@@ -1,182 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7E42405EB;
-	Mon,  8 Jun 2026 17:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780940017; cv=none; b=YciuPSZPZAo4LUeXSxF22sKqnToDea8FrT+FcU+BHf0E4nF+pVQ3hb+a3gsRVAk66u2TBHK+ZjI0hgQquvcPBC4WtF0tazHatSpiEWQG55lutR1mj4WCIIyO+LkeNfG2vFd1gDBmIL8u22IROftMeFDQz9SnAbVZ+syIu6AUgQw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780940017; c=relaxed/simple;
-	bh=RO6ggq1uRwsFrrB076tcfWBueXi0X/cyLecV3BHAk18=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FW7parxvE7fliooCaBhXUPFR/of7K1OAyNacUxOMwi3AnwP7M9ECtMBE4dx8pV/pCZ8TQpUe9JJHqJbkYEDmk7twbueWFLVgBNBarQiIdHToGGrlxy7UdgFElN9zMEzoNNwXC5Ki7BUYyB7ymwKKt5o9FMfbyHtoPRAOE7p6YRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndddILg1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C5731F995
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 17:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780940026; cv=pass; b=CoXhoIcqFldN8oK3dTZSUqSoIR88fb7BjIkn1nedA2ZT/CoZksMv+wh+4FjC6EKkwongA9mzMLNgahPeTXGePv2Hq+Dp7mYLX7HtdloUMcz4oO+yPdJgA3K5IZ7XFqe2xmKWw7VsedOKNJgUjSh+ZF5+MK+amHS68LXD7lEbmD4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780940026; c=relaxed/simple;
+	bh=FxmIEvYMFiKht1WQY00uEYuxrUvnYaCMiFzMz9XnZpI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xj1wxv9LOx/sUSR5dDxn1zhY6x9jaDaHB+9R8UhNW2A8UwKc5g6sE4Ze5liX57tQP5zR5R7PW5SWzSy2HSggoxFq54krxjL5xOK31IYTgr9KP8XVhLAUwJwfsQGfHlfeuHx2FqVff8uZb7SVjgqC1fs8dBLG0AdhFFcv2qbs7bQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bJNtrGri; arc=pass smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndddILg1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249D71F00893;
-	Mon,  8 Jun 2026 17:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780940016;
-	bh=rz/kHBX65bHwP7+NFX9CSyO/YRkZEFq5Dqp/UQNjVAg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ndddILg1yFOlz/auS4UTqqrDE9jWFKioka6dvQL8iY2jSS6dUNobB61dzx6qTLIm0
-	 B5rb2RJNxJA40SOe8AmVi8GDOqLYuNQKwtTzOGfrj48YXrlYfjEotZqp4/1ndrIJpS
-	 KlCiXY4WF/gkh03icXnLISOcNIiJ9PbpQjEvFirKw8ddaqwXhq5WsJvCqRKG+vXgR/
-	 6ZE5zkek5fbsHe3vynGB1pdZitO+QUdbfGBjJtsl4uHxR4nZIT1HxxpD/oJqBGTart
-	 fQRqn+oSHheZ38UK1O/iC9omWMDJLHJMjqX8+Zd8D0FFzyve/uO75SO5jcolAcuECo
-	 XGC+5xT/hUvnw==
-Date: Mon, 8 Jun 2026 18:33:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guodong Xu <docular.xu@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH 1/2] dt-bindings: dmaengine: Add SpacemiT K1 PDMA request
- numbers
-Message-ID: <20260608-dazzling-hacksaw-dbe84766ec76@spud>
-References: <20260607-b4-k1-pdma-req-macros-v1-0-5b2a3955007c@gmail.com>
- <20260607-b4-k1-pdma-req-macros-v1-1-5b2a3955007c@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bJNtrGri"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4602e2a0372so3253393f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 10:33:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780940024; cv=none;
+        d=google.com; s=arc-20240605;
+        b=czhOBH+8sDmFkM9tUw4I9/04DFgFeZZjKDFVoc2Ons6dy6/f5RxoMCGQTefp2VzwVi
+         qz4esiB68mZnq2OW5aBpOd/+vVV2h2k44wRTffa+VXE4IIgNmUdAHacUDy4Ypc/VDfdD
+         Evp48mU7s5nKXexUlxWXWJixHSX91OO/okWENaIAg/syPjQDPHJeWAWE5YzRdX2haytR
+         zadsrI7bW3yLctYSH5fOo3iX0lK/qK5BtPDxp5mcwnZD9+PaBOfrbCjvMH+zduKv3P5q
+         DF9PgK5Lx239RyIXkIfmsQSKvu/M9gF2cVpJriCQyzvzQ9BxP6wnvK2hy0hw38DtJ5p4
+         IbYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=FxmIEvYMFiKht1WQY00uEYuxrUvnYaCMiFzMz9XnZpI=;
+        fh=3+ECrvvH5CEpa/9/ocy1DEjGxTihqVeKjYfByxaIztM=;
+        b=hziXM3h166UelgLtNmT0vhxauelDg5NE+/NKDLWCXEc6aToggv/VAmGudjxgfiJJyx
+         qhZdjDYDKsHV5MZ8Q68TGOZ+66zMZh90JWl+LbnO28eLxEVZIYmsFRiNtZsjnyNxIzps
+         Ah/MF4wPJe6B3fsD7LspQp9Wup9h5zN8N1sWqV2H/5jpyvOKJgO38FZzj5Ja8bfdFWDm
+         fu9AgNncPCw2Yue1gP2BMzYMDxRCWL7m4edVwE43hbNOvZ2HjvxWrTqrZ42eUn3octLk
+         EAEvIflQRTGzvWNVh7L6SYo0cqH6Ee9jaCfA6KtHs3QJKDjleZH7Zxpw04EJtl8w1U7q
+         1xog==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780940024; x=1781544824; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=FxmIEvYMFiKht1WQY00uEYuxrUvnYaCMiFzMz9XnZpI=;
+        b=bJNtrGri4UPKGK83uJThs6H99DTEBAghTzew6/yeulD34I307+Fwg7s3rxtaQHyd/N
+         ZJwOe0aAxPjLDmR5HlThvsFJ7Cew0jZzTgiDVqYo/JfbCSHE15lfzVKk8nQzhJDnzSO7
+         A5hNODMaF0jlzG5NWdjcVQMiy7LYO6c49vbc3IVkGd5CW/1FXxgwpADaekjrbGn0m958
+         awz3l+cGLs/FKE72R0PHmhaSY3LGAjRzysPHgHNrM8rZ/r3MKrxVSAmIAZevRcrkAxZS
+         T3aaEerUycbOfBc1ApjFq2mbx4CFcKo7BBgNwDPxOHeiljySOfnpXbKemp35hY+yaFiR
+         /r9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780940024; x=1781544824;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FxmIEvYMFiKht1WQY00uEYuxrUvnYaCMiFzMz9XnZpI=;
+        b=cD+YlkOfDG8DjVqzgxPrXP8ZzHCLEMk1xcy+cjO341JKK4tlRElUk+p2OzFpQo2P6h
+         VOjoZczmQ2tD133yJEpHc02LHoAfgQfE/Hfjtbn9rot+3YOyh5cswlH2DGc2sMxRMe6d
+         +PYnkyj4yYGTshrtP+txjAkZVs7eQkvmOgoSEdrZp6nDSsp2fqhL+5veLYQtIe+dA1Wc
+         j2FzevSYWN3UHZYZdtYBBhPGNa2/tN2JvzAyj+6Vylh45k5japXt6F7EJc+Vh1viyT/F
+         TC9lm+AYWm/cdqH0fYo5CCPbQ+HA4I83Lv5aDFaGNMTgRfSyJ+W01VDOnBAX/SmeFZm+
+         PEgQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9JlOKIDr5At6ioxeOuetqcNx3rX0cpJjmUeIO9tsHUPb4r+wC0Pz6RNkEHFzoTuOA1hqHQrmPkilgs@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywo45ocyjoWypXT6JEwz/Lm5u9fMAOdZG1NddUNy/QlSqnztvVb
+	YVVMBEg82hA3orCrujxu8CMPfmNg7O58W7WmjWXkvP52/KOjRhwwNWpBbI/xYwFjNbW6KBZBZoJ
+	0ii4LQ9uOXf3mYQ8qtzmTiDYisQHKAdM72o9qgu5tyQ==
+X-Gm-Gg: Acq92OH28p2mjEaeuVI3yKxubinLulIS0FB9cAV7iMBEbuQo3D2vBRUT4mzEEKhLMov
+	HrPG+5PhjHT5tb3rEVVusEN/vKldsPkPMuARTRp15pVuMsrNGi7xMOPe+7iVjzsiDe2bV1ncr5n
+	c4eVN+h4WzunAh5jjasD9D+4rfuJt1LHG1abBQEIdQX4nijwfUtTCq5FmNWx4WUTI0d/FX8O034
+	dwHs4tYLJkM7xgb4s/1Y3WFgV/9xDRuCnAaCKxv//m2NM7m0xBDBCOS1KaAU7GvFUsVTJepIa+W
+	dG01v1MsOKR4B31b
+X-Received: by 2002:a05:6000:46d9:b0:45e:df08:b02 with SMTP id
+ ffacd0b85a97d-4603065d18dmr16264914f8f.28.1780940023601; Mon, 08 Jun 2026
+ 10:33:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xjVn6sgaP8h5qJrR"
-Content-Disposition: inline
-In-Reply-To: <20260607-b4-k1-pdma-req-macros-v1-1-5b2a3955007c@gmail.com>
+References: <20260508-wip-obbardc-msm8996-blsp2_spi4-v2-1-8b81a95b1ed7@linaro.org>
+ <1e855b70-cc2e-47f8-a820-877622620016@oss.qualcomm.com>
+In-Reply-To: <1e855b70-cc2e-47f8-a820-877622620016@oss.qualcomm.com>
+From: Christopher Obbard <christopher.obbard@linaro.org>
+Date: Mon, 8 Jun 2026 18:33:29 +0100
+X-Gm-Features: AVVi8Ces1BlsHomoRYetwp-12g5BTdj-x__0BBdgHY3i0bEes8xlKKD_-3BzVCY
+Message-ID: <CACr-zFDc8KCDEe1kj_iO12UDX+1QY=E--z777gjbQ8G_b6TNbA@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: msm8996: add blsp2_spi5 node
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Bjorn,
+
+On Fri, 8 May 2026 at 10:56, Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 5/8/26 4:30 AM, Christopher Obbard wrote:
+> > Add the blsp2_spi5 SPI controller node together with its default and sleep
+> > pinctrl states.
+> >
+> > Signed-off-by: Christopher Obbard <christopher.obbard@linaro.org>
+> > ---
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>
+> Konrad
+
+Gentle check on the status of this one, did it slip through the net?
 
 
---xjVn6sgaP8h5qJrR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Cheers!
 
-On Sun, Jun 07, 2026 at 01:41:30PM -0400, Guodong Xu wrote:
-> Add a dt-bindings header that gives symbolic names to the SpacemiT K1
-> PDMA request lines of the non-secure peripherals. Device trees can use
-> these K1_PDMA_* macros instead of magic numbers.
->=20
-> Point the spacemit,k1-pdma binding's #dma-cells description at the new
-> header.
->=20
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
-> ---
->  .../devicetree/bindings/dma/spacemit,k1-pdma.yaml  |  4 +-
->  include/dt-bindings/dma/spacemit,k1-pdma.h         | 56 ++++++++++++++++=
-++++++
->  2 files changed, 59 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml =
-b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
-> index ec06235baf5ca..0d4ac9849e27b 100644
-> --- a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
-> @@ -35,7 +35,9 @@ properties:
->    '#dma-cells':
->      const: 1
->      description:
-> -      The DMA request number for the peripheral device.
-> +      The single cell is the DMA request number for the peripheral devic=
-e.
-> +      See <dt-bindings/dma/spacemit,k1-pdma.h> for the list of valid req=
-uest
-> +      numbers.
-> =20
->  required:
->    - compatible
-> diff --git a/include/dt-bindings/dma/spacemit,k1-pdma.h b/include/dt-bind=
-ings/dma/spacemit,k1-pdma.h
-
-Why does this need to be in a binding when there is no use of this in
-the driver? May as well be a header, particularly if these are numbers
-with a set meaning that are lifted from the TRM, rather than made up
-numbers to make a driver work. The former seems likely, given you're
-indexing from 3 not 0.
-
-> new file mode 100644
-> index 0000000000000..491976516550a
-> --- /dev/null
-> +++ b/include/dt-bindings/dma/spacemit,k1-pdma.h
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * This header provides DMA request number for non-secure peripherals of
-> + * SpacemiT K1 PDMA.
-> + *
-> + * Copyright (c) 2026 Guodong Xu <docular.xu@gmail.com>
-> + */
-> +
-> +#ifndef _DT_BINDINGS_DMA_SPACEMIT_K1_PDMA_H_
-> +#define _DT_BINDINGS_DMA_SPACEMIT_K1_PDMA_H_
-> +
-> +#define K1_PDMA_UART0_TX	3
-> +#define K1_PDMA_UART0_RX	4
-> +#define K1_PDMA_UART2_TX	5
-> +#define K1_PDMA_UART2_RX	6
-> +#define K1_PDMA_UART3_TX	7
-> +#define K1_PDMA_UART3_RX	8
-> +#define K1_PDMA_UART4_TX	9
-> +#define K1_PDMA_UART4_RX	10
-> +#define K1_PDMA_I2C0_TX		11
-> +#define K1_PDMA_I2C0_RX		12
-> +#define K1_PDMA_I2C1_TX		13
-> +#define K1_PDMA_I2C1_RX		14
-> +#define K1_PDMA_I2C2_TX		15
-> +#define K1_PDMA_I2C2_RX		16
-> +#define K1_PDMA_I2C4_TX		17
-> +#define K1_PDMA_I2C4_RX		18
-> +#define K1_PDMA_SPI3_TX		19
-> +#define K1_PDMA_SPI3_RX		20
-> +#define K1_PDMA_I2S0_TX		21
-> +#define K1_PDMA_I2S0_RX		22
-> +#define K1_PDMA_I2S1_TX		23
-> +#define K1_PDMA_I2S1_RX		24
-> +#define K1_PDMA_UART5_TX	25
-> +#define K1_PDMA_UART5_RX	26
-> +#define K1_PDMA_UART6_TX	27
-> +#define K1_PDMA_UART6_RX	28
-> +#define K1_PDMA_UART7_TX	29
-> +#define K1_PDMA_UART7_RX	30
-> +#define K1_PDMA_UART8_TX	31
-> +#define K1_PDMA_UART8_RX	32
-> +#define K1_PDMA_UART9_TX	33
-> +#define K1_PDMA_UART9_RX	34
-> +#define K1_PDMA_I2C5_TX		35
-> +#define K1_PDMA_I2C5_RX		36
-> +#define K1_PDMA_I2C6_TX		37
-> +#define K1_PDMA_I2C6_RX		38
-> +#define K1_PDMA_I2C7_TX		39
-> +#define K1_PDMA_I2C7_RX		40
-> +#define K1_PDMA_I2C8_TX		41
-> +#define K1_PDMA_I2C8_RX		42
-> +#define K1_PDMA_CAN0_RX		43
-> +#define K1_PDMA_QSPI_RX		44
-> +#define K1_PDMA_QSPI_TX		45
-> +
-> +#endif /* _DT_BINDINGS_DMA_SPACEMIT_K1_PDMA_H_ */
->=20
-> --=20
-> 2.43.0
->=20
-
---xjVn6sgaP8h5qJrR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaib86wAKCRB4tDGHoIJi
-0pgsAQCNGTEM+fPWwgLkbr7pqHDECKqYqXVibCQqXRT0zsqgLQD/X2yJ0LhoUtgO
-mfCnn/fGZxot4TnZziQGgygeMKvKLgs=
-=XmHc
------END PGP SIGNATURE-----
-
---xjVn6sgaP8h5qJrR--
+Chris
