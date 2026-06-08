@@ -1,109 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A92D2DE6E6;
-	Mon,  8 Jun 2026 15:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAE13F9F3D
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 15:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780931918; cv=none; b=Oab7fH1qWCq8GrRDueksgly1/5OPpy0biGcm6dAdlA987xZWYthmmpplIx2jCgrX+Lk5CWc4mJt3u282+ae/ZhPRvDQA7Fp22sWSrDyURicTvdBYiyt9RCriqISW+VW2JWr7s7FPdpaAxyalm6ASRgG7jR15xgR92i0ZzvjGJvA=
+	t=1780932234; cv=none; b=q24aaNnc8e68AfM02mP7OcZxeEeq6LjXs7YZ9ERm/E+8xDTlay9ZeXFYjXBaTPn+MdcvLSBH01ML9VzXk1YGTIULF1kedtl74oleYbhTCmZgQXZGIPNqu63YwgVoum7+IsmD21ELpwNFIXqlqiblLATaExa8wFZQDc53wkSYO9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780931918; c=relaxed/simple;
-	bh=rueb+9AYc2E2/iUiDTkPBeaIesWk6ngSanqF7eTX95s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gzd3LKbM4+o19+TQ863v8mUi24JXLyDWLwLDceGFTH/sRlk4aPJxITbeFIo037xHM1zc52PNCHkf8XJma5fTo1kb/RqGWCgbqs/lAiYN2Ws4GsJns5K7ZHy28iSVnaHd0fsDlGVubYutVXKvYu1Orm5jYWtY8sEmixLLKVLEc6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fRs+R4j7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780932234; c=relaxed/simple;
+	bh=6iYnBDV4iVcwL8NFuxUb1kTuavbOZffQAAOs2IsNims=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lHkL3egXxw4VRJt2NoBHeFVcfMQ2VFyUseAeTemJJt6815VeOJ3+0ilEzHfamjOdHxFIyACptA2pBVFUaNWoXjKhKmryik3d5g8C0hsgizeYmcfarCE//b6jqUMqDJF4RBsn52HfSRA7mm8KJHezkac+xG/S6QTHq6mphlzM++s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=h/KNA8xc; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fRs+R4j7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702691F00898;
-	Mon,  8 Jun 2026 15:18:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780931916;
-	bh=sTLCZKrnRtrIRJXJzO4FzQsnVEhHnjPYOb7yuw7wgNo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fRs+R4j7/J1Yn4/cFT+KTS79N/Xda5tsPWkpeG2flEfh2ea4eOBOkoB7ARKhDyB4p
-	 xYo/mNKG5ERQfWzfjw5FMPAvTEPzBlLTOO+6O+NHI/goeAdhvnCCZs16Cq78YCUPSa
-	 8CwHyh50xzXgT+8mxPOvYIKiN9cUzt06Wp8JnYlnsGcZMqdOqFKx01/bpz3JrObu5V
-	 3OvPqn/HrnTbyd3vyY5ggAJXjYrhGluVABNtSZAwo0q/G01HaWB6C/4JsDDrA7IzhT
-	 VrDxF9G/9u7LhpGwET19n9BD9+BjGbMhQfZxSvQJfd2gHjdpQmVWeagA/qMkOPfDF9
-	 uKHR34IqaOPQA==
-Date: Mon, 8 Jun 2026 10:18:35 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-	Rocky Liao <quic_rjliao@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org, devicetree@vger.kernel.org,
-	Bartosz Golaszewski <brgl@bgdev.pl>,
-	linux-bluetooth@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/7] arm64: dts: qcom: enable WiFi/BT on SM8350 HDK
-Message-ID: <20260608151835.GA2707238-robh@kernel.org>
-References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="h/KNA8xc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 076721A37D6;
+	Mon,  8 Jun 2026 15:23:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C62AE5FFB7;
+	Mon,  8 Jun 2026 15:23:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 75E5C106A1C15;
+	Mon,  8 Jun 2026 17:23:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780932230; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=HYgzaOxcRR5g0TGzoKhR3EdQSwmVxtF3AnLJdNyukXk=;
+	b=h/KNA8xcV/hPO7d5vbq7Y8bY8Im4qvAwVsiGbd4CFY9CYhMXrj/+UdmfqE4YSRbPzyZck7
+	gn/Yv6QG9B2GOX8YCVSJ/IzvujRnEI5weZ47S0YiZJmACFqWcKGrbxxic9XFctTh/+y+0+
+	Mo6vpsJG2TgdMJkMWUAFoS/OyPM2jtCtab0tY7W0VFqk/JJPM2ak8vFiq+NWZec4mWQcZL
+	3BiEc9LUeNNHLpS5/hnzL/CpLwkPq4N0pbFHQYDyS+pUlVe8/nluPFVGSBOwpP9BIWr5q2
+	zkuHLs0TJXD9d7ZVPN8KZpfGdxBf8WftNay2HIttS7BRawu0nMZpQHvq9OYxng==
+From: Romain Gantois <romain.gantois@bootlin.com>
+Date: Mon, 08 Jun 2026 17:23:43 +0200
+Subject: [PATCH v2] hwmon: (adt7462) Add of_match_table to support
+ devicetree
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260608-adt7462-bindings-v2-1-272982c40325@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jmbc3QVpq48h6GBS1TGKOtaSvRE
+ O4u4N7lS95/f4ZMiSnDuZoh0cSZY1hBHipwYxcGEtyvDBJlgw0q0fXF6EYKy6HnMGRxIucVKoM
+ aPayzZyLP7z15bX+cX/ZGrmydzRg5l5g+++dUb96f/FQLFAprhdo6b4y+2BjLncPRxQe0y7J8A
+ XiP5sjEAAAA
+X-Change-ID: 20260603-adt7462-bindings-5ecf3037040f
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kory Maincent <kory.maincent@bootlin.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Jun 08, 2026 at 09:59:18AM +0300, Dmitry Baryshkov wrote:
-> The SM8350 HDK has an onboard WCN6851 WiFi/BT chip, which for a long
-> time was not supported. Bring up different pieces required to enable
-> this SoC.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Bumped num_vdevs to 4 to follow other similar devices (Jeff)
-> - Link to v1: https://patch.msgid.link/20260601-sm8350-wifi-v1-0-242917d88031@oss.qualcomm.com
-> 
-> ---
-> Dmitry Baryshkov (7):
->       PCI: qcom: fix parsing of PERST# in the legacy case
->       wifi: ath11k: enable support for WCN6851
->       regulator: dt-bindings: qcom,qca6390-pmu: document WCN6851
->       dt-bindings: bluetooth: qcom,wcn6855-bt: document WCN6851
->       arm64: dts: qcom: sm8350: expand UART18 to 4 pins config
->       arm64: dts: qcom: sm8350: modernize PCIe entries
->       arm64: dts: qcom: sm8350-hdk: describe WiFi/BT chip
+From: Kory Maincent <kory.maincent@bootlin.com>
 
-Before adding new devices, can you (Qcom) fix the all the existing DT 
-warnings related to QCom WiFi/BT:
+Add of_match_table to add support of devicetree probing.
 
-      6 (qcom,wcn6855-bt): 'vddrfa1p7-supply' is a required property
-      6 (qcom,wcn6855-bt): Unevaluated properties are not allowed ('vddrfa1p8-supply' was unexpected)
-      2 (qcom,wcn6855-bt): 'vddwlmx-supply' is a required property
-      2 (qcom,wcn6855-bt): 'vddwlcx-supply' is a required property
-      2 (qcom,wcn6855-bt): 'vddbtcmx-supply' is a required property
-      2 (qcom,wcn6855-bt): 'vddaon-supply' is a required property
-      2 (pci17cb,1103): 'vddwlmx-supply' is a required property
-      2 (pci17cb,1103): 'vddwlcx-supply' is a required property
-      2 (pci17cb,1103): 'vddrfacmn-supply' is a required property
-      2 (pci17cb,1103): 'vddrfa1p8-supply' is a required property
-      2 (pci17cb,1103): 'vddrfa1p2-supply' is a required property
-      2 (pci17cb,1103): 'vddrfa0p8-supply' is a required property
-      2 (pci17cb,1103): 'vddpcie1p8-supply' is a required property
-      2 (pci17cb,1103): 'vddpcie0p9-supply' is a required property
-      2 (pci17cb,1103): 'vddaon-supply' is a required property
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+[rgantois: Removed of_match_ptr().]
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+---
+Changes in v2:
+- Dropped usage of of_match_ptr().
+- Removed redundant device tree bindings.
+- Link to v1: https://patch.msgid.link/20260603-adt7462-bindings-v1-0-301304bcf774@bootlin.com
 
-Rob
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/hwmon/adt7462.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/hwmon/adt7462.c b/drivers/hwmon/adt7462.c
+index 174dfee47f7a7..f935c3477b364 100644
+--- a/drivers/hwmon/adt7462.c
++++ b/drivers/hwmon/adt7462.c
+@@ -12,6 +12,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+ #include <linux/err.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/mutex.h>
+ #include <linux/log2.h>
+ #include <linux/slab.h>
+@@ -1814,10 +1815,17 @@ static const struct i2c_device_id adt7462_id[] = {
+ };
+ MODULE_DEVICE_TABLE(i2c, adt7462_id);
+ 
++static const struct of_device_id adt7462_of_match[] = {
++	{ .compatible = "onnn,adt7462" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, adt7462_of_match);
++
+ static struct i2c_driver adt7462_driver = {
+ 	.class		= I2C_CLASS_HWMON,
+ 	.driver = {
+ 		.name	= "adt7462",
++		.of_match_table = adt7462_of_match,
+ 	},
+ 	.probe		= adt7462_probe,
+ 	.id_table	= adt7462_id,
+
+---
+base-commit: ddd664bbff63e09e7a7f9acae9c43605d4cf185f
+change-id: 20260603-adt7462-bindings-5ecf3037040f
+
+Best regards,
+--  
+Romain Gantois <romain.gantois@bootlin.com>
+
