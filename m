@@ -1,188 +1,85 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7803988E1
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48B3399890;
+	Mon,  8 Jun 2026 08:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780906091; cv=none; b=mTPMlcppUyr8KJ0lBLOO/LSS1DjSwS5bJmbYf7jh77XC07elsYLMDeK1xakNVtfLrj32HRbAa8HzWScxB5AsPpYZRCFjiiwUdIbHUY/t2g6yudpTVV9DZQyJMoKSumrIXraZORNkRCyA9c0+/msE6gJVALbUadcZcU9/UZ4vXT8=
+	t=1780906387; cv=none; b=QPkiOmqARVOxQ+up/YZP+ND5Yft2278/33/+zbZ7Nxo29Yg4UApq/uVT9uaZahrRi1f3BzWzyxnUu8nDbDpr7wxa9+TgTMIu13Xp5atAahNYQfxrh6yo4X4WAI0Dr59jFTWRHUp1hNXELsYg79b4AjWMiynbfYE/z2zugUCSCug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780906091; c=relaxed/simple;
-	bh=pD9wTBkwc0OG4EoG/KBOlsQltrnEMHaxKnXurrzizuc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=pRp5cQV5EEgngVrxbKCXLK3VU5AW4F1+K238P7nQ0B+3mHTEFfAX3aaAHz5RkWdJluIeNGeecvuO3nLCGImegkxRK6cIej5GwzIOa7DkvinvlfUegGu8jXHnur26hBw7urpXzO4sIyBWtpdqrQwR3WAwJGSlpu5UmcWz0YhNV/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ngvO5U+O; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1780906387; c=relaxed/simple;
+	bh=EpqygyKwWPRfEZl4jN+KZ+X0dTSOfzX66E6C7Tflutw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KoTLOPlSGjsMNS+DA5BTd94bEN5k2u7l/42Jilsmz9X4Rf+EwsXCFNkglXsye1oAZ5TAEG6AV2oaoRc053aiIrcVAlaFjI64DXy7Esb3NWle2Hptu0xLtThWTSzuuYTTJXn48HMLBy3RrHJeOuWdFDgR0sHv84ZKEDwEUhURt5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5we14pj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ngvO5U+O"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=1O0W+PMFaImUEHS11h0qPr/2bHJpUyc1ctnF0elS/cQ=;
-	b=ngvO5U+Ohxn3umzASf6kJP2ao1O9uIHiDkFzKhI8AJYyg2zqXO9PDGtwpygvXHUrjwDUqKDRw
-	ZSjEBkAgKLP5QhHH+29zOBe7hN9fmcJDxbOQ9rsbVSqLB6TkIBwxUiIA+jis3a7Beccw0Eb6Bv1
-	IXRRaH15EfFKmS7gS/058Gg=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4gYkww4rLZznTWn;
-	Mon,  8 Jun 2026 16:00:16 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id E864C40565;
-	Mon,  8 Jun 2026 16:08:06 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 8 Jun 2026 16:08:03 +0800
-Message-ID: <f26bc61d-14ad-450d-bdfa-59b039ae660c@huawei.com>
-Date: Mon, 8 Jun 2026 16:08:03 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5we14pj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26BC81F00893;
+	Mon,  8 Jun 2026 08:13:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780906386;
+	bh=lBiSpDFzyBw8SygSkG6XdPiQe6O+eZO6fnGKehZ4MpI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a5we14pjqyeMk8wsOAC7I12XYcSFzztcu6yOz3xlrTZMXwJIN4Gz7qfh3kP0ADJiN
+	 i1b/c1F8C4QQ6HyFgXXHZ35qDxIiSZJG/1/SAOTOOxtaoyFMBxez64AWh1n67VHsur
+	 +fG8UGHMpvTck0nAgtidlt9T8S60bB9lIYOukoCGciH6g+6phyLsv0TkqmwANK9EZI
+	 /usyfU1sLRcYpNJc7Zs9bG1xK+28i+m4cB1LPTpWbahRUtSzo1Icc0+lSC98gjdil/
+	 wzUnFLh/c/XkjfZ2wxz1BhR/JrK/UmWQPlibPp7Y6o0mNOQGuvKfwvnW8fiG2PsV6K
+	 sjsRU38QPQWng==
+Date: Mon, 8 Jun 2026 10:13:02 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com, 
+	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: light: isl29018: support cover-glass gain
+ compensation via DT
+Message-ID: <20260608-speedy-gaur-of-joviality-180ffc@quoll>
+References: <20260604054723.2983181-1-github.com@herrie.org>
+ <20260604064925.3097108-1-github.com@herrie.org>
+ <20260604064925.3097108-3-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 06/10] riscv: kexec_file: Use crash_prepare_headers()
- helper to simplify code
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <peterz@infradead.org>,
-	<feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
-	<lirongqing@baidu.com>, <ebiggers@kernel.org>, <paulmck@kernel.org>,
-	<leitao@debian.org>, <coxu@redhat.com>, <Liam.Howlett@oracle.com>,
-	<ryan.roberts@arm.com>, <osandov@fb.com>, <jbohac@suse.cz>,
-	<cfsworks@gmail.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <adityag@linux.ibm.com>, <liaoyuanhong@vivo.com>,
-	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
-	<chenjiahao16@huawei.com>, <guoren@kernel.org>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
-References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
- <20260608073459.3119290-7-ruanjinjie@huawei.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260608073459.3119290-7-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260604064925.3097108-3-github.com@herrie.org>
 
-
-
-On 6/8/2026 3:34 PM, Jinjie Ruan wrote:
-> Use the newly introduced crash_prepare_headers() function to replace
-> the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
-> memory in the crash core, which reduce code duplication.
+On Thu, Jun 04, 2026 at 08:49:25AM +0200, Herman van Hazendonk wrote:
+> Boards that mount the sensor under a tinted or coated cover glass need
+> to compensate for the optical loss before downstream consumers can map
+> the reading onto a useful lux range. The driver already exposes a
+> runtime knob through in_illuminance0_calibscale, but every user has to
+> re-apply it after every reboot (or rely on a board-specific udev rule),
+> and a power-of-two cover gain like 100x is a hardware constant of the
+> board rather than a policy choice that belongs in userspace.
 > 
-> Only the following two architecture functions need to be implemented:
-> - arch_get_system_nr_ranges(). Call get_nr_ram_ranges_callback()
->   to pre-counts the max number of memory ranges.
+> Add an "isil,cover-comp-gain" device-tree property that seeds calibscale
+> at probe, mirroring the pattern tsl2563.c already uses for the same
+> class of problem (amstaos,cover-comp-gain). The default stays 1 so
+> existing systems are unaffected, and userspace can still re-tune via
+> the sysfs attribute afterwards.
 > 
-> - arch_crash_populate_cmem(). Use prepare_elf64_ram_headers_callback()
->   to collects the memory ranges and fills them into cmem.
-
-
-The below AI reported TOCTOU bug is an existing artifact and completely
-unrelated to the core CMA implementation introduced here. Therefore, we
-will skip fixing it in this series to avoid unnecessary noise.
-
-Link:
-https://lore.kernel.org/all/20260608075420.8C5871F00893@smtp.kernel.org/
-
-> 
-> Cc: Paul Walmsley <pjw@kernel.org>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Cc: Alexandre Ghiti <alex@ghiti.fr>
-> Cc: Guo Ren <guoren@kernel.org>
-> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Acked-by: Baoquan He <bhe@redhat.com>
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
 > ---
->  arch/riscv/kernel/machine_kexec_file.c | 47 +++++++-------------------
->  1 file changed, 12 insertions(+), 35 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-> index 3f7766057cac..439cbc50dfa6 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> @@ -44,6 +44,15 @@ static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
->  	return 0;
->  }
->  
-> +unsigned int arch_get_system_nr_ranges(void)
-> +{
-> +	unsigned int nr_ranges = 2; /* For exclusion of crashkernel region */
-> +
-> +	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> +
-> +	return nr_ranges;
-> +}
-> +
->  static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
->  {
->  	struct crash_mem *cmem = arg;
-> @@ -55,41 +64,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
->  	return 0;
->  }
->  
-> -static int prepare_elf_headers(void **addr, unsigned long *sz)
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
->  {
-> -	struct crash_mem *cmem;
-> -	unsigned int nr_ranges;
-> -	int ret;
-> -
-> -	nr_ranges = 2; /* For exclusion of crashkernel region */
-> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> -
-> -	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
-> -	if (!cmem)
-> -		return -ENOMEM;
-> -
-> -	cmem->max_nr_ranges = nr_ranges;
-> -	cmem->nr_ranges = 0;
-> -	ret = walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
-> -	if (ret)
-> -		goto out;
-> -
-> -	/* Exclude crashkernel region */
-> -	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
-> -	if (ret)
-> -		goto out;
-> -
-> -	if (crashk_low_res.end) {
-> -		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
-> -		if (ret)
-> -			goto out;
-> -	}
-> -
-> -	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
-> -
-> -out:
-> -	kfree(cmem);
-> -	return ret;
-> +	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
->  }
->  
->  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
-> @@ -281,7 +258,7 @@ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
->  	if (image->type == KEXEC_TYPE_CRASH) {
->  		void *headers;
->  		unsigned long headers_sz;
-> -		ret = prepare_elf_headers(&headers, &headers_sz);
-> +		ret = crash_prepare_headers(true, &headers, &headers_sz, NULL);
->  		if (ret) {
->  			pr_err("Preparing elf core header failed\n");
->  			goto out;
+>  .../devicetree/bindings/iio/light/isl29018.yaml     | 13 +++++++++++++
+>  drivers/iio/light/isl29018.c                        |  9 +++++++++
+>  2 files changed, 22 insertions(+)
+
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
+
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
+Best regards,
+Krzysztof
 
