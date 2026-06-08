@@ -1,247 +1,93 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5749935203A
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B592E7368;
+	Mon,  8 Jun 2026 10:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780915862; cv=none; b=q13YAnfFMmdz/eQ0KO/Kh3rXsAENL3HV7UP7hFYN7AiTP44nzlGr1qKgurmXmqVHQQwrtTHTUcfIwvi0UWTpzr/U3njK7eNC1WPPixq9zjcntlk3oC0jh18LSOifGDG4jc3Exoddl2DYWF/dnN0iS+Frk4tCLUzytO8NQTRJUio=
+	t=1780915993; cv=none; b=bHxd1YIwoTqeWZw8R6wsMOpg7M/qX1op+2GfMp56aMLs+kI6oXuTC2NpWgEbE8bHbxElu373wHaHy0jIdddnHeEFmI1mI+2hb5aarVJ3CwymfxaDa7aauvXj6vQ5CMOfIBQPpUL2UzpKd98eT76+oLDpNXg7TP128a9VGWS4Za8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780915862; c=relaxed/simple;
-	bh=bf+fGbp3y5sGKr3yiqtRUsXOaqQPcivjwUqgTaaStbM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cI5+6M0wKY8rKBkqzba+DsGjkDk6d8HLw6satN6E/YEzfmRtRcz0uoeX/lT9OCVMCogWHCPOD/ZmOsOPZLdAO9r5ZWGVzOydgaiibpCmy1KtDU/xzL39ZWM+DxDxzwrp0Zj8FnUegcBziq8o9En+nJycEyZjIP5T50VKGpllm6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oSQbd58T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cd3eMqiS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780915993; c=relaxed/simple;
+	bh=n1AMChr6t5jfdanK6es/oTpN7NAI1DsuXSz0aZq2IIg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dzJfWJP8w2HqzmQthMoh+SudQOpgdw4WrzyuzFTuq0C/tyKyprJaTBLKHbLLvD9DndANdXQPr+eNLj3MrbeT5fr0bBT4+0kWTw/tM2J43rOFH77f+w0D3zN/dQ0pqXM6heml33HaBdxVZB2NT4hjv8s6QzCd8vCj2JwdSbVi8RY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rrn4QeB6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oSQbd58T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cd3eMqiS"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586Or142274527
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 10:51:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qrd8MOMRQbi5cop8RgeayKocEI5pMrJ+hTvcAwk0fUw=; b=oSQbd58TS3J4fPkh
-	D8NBgfSqRE4G0ju5YPyk+rMa9ZL50PhSoGPPrFDDTcZhYBJDZEHkCnYuwgTMaYL4
-	pjyrt9NcmgY7izp4qSZiL96gHSu/39EgZVUcTY/mQ7dtlF994wYMaBgULVGyyINL
-	cST6PqqkX56lHDjQ29ZOstQ64nLHTtjSDmkf0UUjxxcK00WQaVUKDXf3StdVFNM7
-	lqfpuRjiaPZ111Q1iRkcG8e0jN/7YtRnHTTmVU6M3l7EEEzzUzYBChpcrjshQPMX
-	xA/Lop3FruBRkStXGV4C35JvHQ8SjJFhR2ncI8PEpNUVvo1dhNXaToiaV+CDYVpT
-	UGb2kQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgy5ky-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 10:51:00 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5178aed25baso91484091cf.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:51:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780915860; x=1781520660; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qrd8MOMRQbi5cop8RgeayKocEI5pMrJ+hTvcAwk0fUw=;
-        b=Cd3eMqiSdB+j+xd0Nxj5EnZKXfL1RuP11PxjMymYdCo6qtcgPXV4P7x12Kq2lo8KY0
-         1IVA+IW7jlw1NwvzwwzFASm7HsUzcTAe1oDxxB6wBha9GV2uxyXebNZo3oAPwbzXMPhT
-         esKw3ayrDKf958vGUbNEyT+ZmvUHR5FpE20kH/bS5hnmcd+C23eQauHyc/+ZcCJ98e02
-         EYpcseaE8zeWVJhDFJDEG6S+Hv06GiiquAxEgh37z84SLLVr88yg/a0lyfQmImpK2YMP
-         qT5mOJAsuN3UULKbVnzMvXszTqHyn2j+CM+NqkSknT8Bt1AQvhbiPnpNLPGSEdSmQFLs
-         N++g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780915860; x=1781520660;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qrd8MOMRQbi5cop8RgeayKocEI5pMrJ+hTvcAwk0fUw=;
-        b=JRn9xdCHxb6QlPx4Y12Fh7kcCrsn3Wef727QpviiQpdpyDlNLHxDZA+8ApRgGJhFUC
-         NOq14slD80F97c1xNYoYKMRRCj7FAWkMIAshHx4Vcxqvm171nWrTYm/fu5/2dkpJ92OM
-         J9rXmU4hk0kEEOsgRb4eoqli8WPghdsZ0La1DTzFPpvmdAdgFK6DPTdbI06cP8T8gxKA
-         TkAzil1B9AyIpUtokny5BoyHzulA9dHwJFIbin9pdKRqDpM0KhPvgeu9KtdfE970Y6tQ
-         f2EZjj9XiWLbXADrJ7Wp3AKco7DTYHYeMuTUjP0umrZaDokBIWJQp35BFbvfvKQbYzWa
-         19hw==
-X-Forwarded-Encrypted: i=1; AFNElJ+7g25AmligWi/tXQGz0RUZakgFC7jESZgExz8jc9uu8uIZys5GxEM5NbcS2GAsfWFc2i1h6HXpem2Z@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxn5WVIKw5yw1SsAsgcXkDbNmmlvmLKJk+6YwfxpggX7/UBln5o
-	eRxyYq73pkTWXmK/LaSQhT0n33Afq6nsg5A/eS8lvtqpPSiX0m/JgYBao0r1qUeiMp4SDEU8/JH
-	77OL1siPTEKTvN1CeJxQ2dB4hPWdcxN40wp7a86ntNSdx/SV5Ig37yxrIurSIenem
-X-Gm-Gg: Acq92OGctyWhyQivwoGHlv68RdbesLzEQC9YG2IzUXRbmVpTulyZaaIIUq8FNQI3XYe
-	CGTMGcLEx5iGVytQueAFjtETo//XHyIrthIUBLSVqKAB13J0cV5ik45f/Q8A/Kn1T+peOHAApM4
-	m0K+UCWj1YCrh6lQnXr8FPDdLOJN0NLc4mQtytZNhBFzU6bqQkw6QH5wXnPLzDcMMxfFK3PXJt1
-	habhbIN9kJ7Vz83Bi+iTsBmb7QaMQBZzTmniMxp4lyt9YzYqCsutWQwKltX9ZKI/yskA858PXWb
-	R22uI9Gj/sMgGjpTypuFBx00RHKN0INsykynJ9P+7vj+XquZa/bbaBP+IWyJQFIbBmqDN69RQUs
-	nVDauKniiFRWsRvfcHQq6uE8Plsk1ug9/jnIQHi+2HA+t5h4h99a6mSfRyyah28ZU4DVotUFxYE
-	BzqafXXApTtJD3lkHuT7x4r3MPeU6rKJNZgiJWXY53iYd5+OWjAJE2Yp+Zcvejmaz0nRZA1T8BZ
-	FS2jWYIYY9H
-X-Received: by 2002:a05:622a:514:b0:50f:6415:1eb4 with SMTP id d75a77b69052e-51795bbf29bmr200722381cf.49.1780915859494;
-        Mon, 08 Jun 2026 03:50:59 -0700 (PDT)
-X-Received: by 2002:a05:622a:514:b0:50f:6415:1eb4 with SMTP id d75a77b69052e-51795bbf29bmr200721871cf.49.1780915859023;
-        Mon, 08 Jun 2026 03:50:59 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:cc96:22ae:323b:9eff])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051e9aa33sm850399866b.24.2026.06.08.03.50.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 03:50:58 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 08 Jun 2026 12:50:44 +0200
-Subject: [PATCH v3 7/7] Bluetooth: qca: Set NVMEM BD address quirks when
- address is invalid
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rrn4QeB6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497731F00893;
+	Mon,  8 Jun 2026 10:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780915992;
+	bh=pTGSQgErg/Arp5VRvofr5JzJET68SF76bEcAEEeqMyA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rrn4QeB6IQCz0lWezlbna7qQFATILo8R3qo3AohPUrZXEgwUCTbOZIoi8TB4J1B0K
+	 QXuLQVoyzSL69TccroGsPlnwmQePaGvnomxhqyA71LUmVDI3hVA89MxZEmSw3mzTbm
+	 yVu8yeCjwtsMd8pfNnE2hRb+PwzewiFKf1vU4bIdHlbr2kNqqVyKquhVRIkjehGqCL
+	 gq6XSYxAlFPOXkR0XGatAzTC0R+WB1YpYlxxX1Yj3/acun2mCEC8DmRHE67q6OR2Zx
+	 HeXZoo0JMG5V0UDg3mXh5kzSB6/2xYxjMuaNPZc0HgT831nXZFBtho437ACJFWWQ5m
+	 veEnPLRrlF1lA==
+Date: Mon, 8 Jun 2026 11:53:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com
+Subject: Re: [PATCH v2 2/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI
+ controller support
+Message-ID: <8e751df3-6237-4c8e-9c87-34bb67e435f7@sirena.org.uk>
+References: <20260608025009.1504971-1-cwweng@nuvoton.com>
+ <20260608025009.1504971-3-cwweng@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-block-as-nvmem-v3-7-82681f50aa35@oss.qualcomm.com>
-References: <20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com>
-In-Reply-To: <20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a269e94 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=lrwsl_vcuUQb-XtIoRIA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: 7vSaYa8LK-eMx89GvRIHIPrpP2AiGWji
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEwMSBTYWx0ZWRfX/rTwJkrk2smZ
- /XDdQBQppjKyXyxszZzsERbpJ33jvfzKvPuPUymXFQg99XybhfI2mhsGhb547kzMGfmwEM/zsbA
- SD8HUrbEhvX365WYh3PMF0QlEEjjrqVHddOL4YaRkPb7Z2SnIRYI4fiUCl7S4e5ieTWXqcJrkLU
- AU7BUuBPv2IMmP706i+ZY8e+USrUzm0aKvN49dMksskKb5E1H4fKvg0sXKaWh3LtwhoIWpJQrj1
- SvOAiJkxPPnAEosqBEO0JajMoDNTsstQFakoP5Zr27ICrMmY68XVIX1Evo/pgJEjprEE2ioUpRY
- 8ui/Ob/DL758Vf7UoJFAb5sk6J51YsJa/wjsJsA3nb+nKMhqJDjejHGhCAZpF/rJXpA2KdGA5Oi
- ZHLUaYPSsM+Vjx/CAQVxhvurfyAnd2fxhpFwAt43I4Agp86DeEZiCMSrxpXmzuPzr9uxCC+y8TL
- 0nQAApLRv4OWiabq3bw==
-X-Proofpoint-ORIG-GUID: 7vSaYa8LK-eMx89GvRIHIPrpP2AiGWji
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080101
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Xd1MFY+nK8dwfKSr"
+Content-Disposition: inline
+In-Reply-To: <20260608025009.1504971-3-cwweng@nuvoton.com>
+X-Cookie: We've upped our standards, so up yours!
 
-When the controller BD address is invalid (zero or default),
-set the NVMEM quirks to allow retrieving the address from a
-'local-bd-address' NVMEM cell. The BD address is often stored
-alongside the WiFi MAC address in big-endian format, so also
-set the big-endian quirk.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 39 ++++++++++++++++++++++
- drivers/bluetooth/btqca.c                          |  5 ++-
- 2 files changed, 43 insertions(+), 1 deletion(-)
+--Xd1MFY+nK8dwfKSr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index bf088fa9807f040f0c8f405f9111b01790b09377..128c7a7e76b5b089044745f5d6407d6391055fc2 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -409,7 +409,40 @@ &sdhc_1 {
- 	no-sdio;
- 	no-sd;
- 
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
- 	status = "okay";
-+
-+	card@0 {
-+		compatible = "mmc-card";
-+		reg = <0>;
-+
-+		partitions-boot1 {
-+			compatible = "fixed-partitions";
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			nvmem-layout {
-+				compatible = "fixed-layout";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				wifi_mac_addr: mac-addr@4400 {
-+					compatible = "mac-base";
-+					reg = <0x4400 0x6>;
-+					#nvmem-cell-cells = <1>;
-+				};
-+
-+				bd_addr: bd-addr@5400 {
-+					compatible = "mac-base";
-+					reg = <0x5400 0x6>;
-+					#nvmem-cell-cells = <1>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &spi5 {
-@@ -512,6 +545,9 @@ bluetooth {
- 		vddch0-supply = <&pm4125_l22>;
- 		enable-gpios = <&tlmm 87 GPIO_ACTIVE_HIGH>;
- 		max-speed = <3000000>;
-+
-+		nvmem-cells = <&bd_addr 0>;
-+		nvmem-cell-names = "local-bd-address";
- 	};
- };
- 
-@@ -557,6 +593,9 @@ &wifi {
- 	qcom,ath10k-calibration-variant = "ArduinoImola";
- 	firmware-name = "qcm2290";
- 
-+	nvmem-cells = <&wifi_mac_addr 0>;
-+	nvmem-cell-names = "mac-address";
-+
- 	status = "okay";
- };
- 
-diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
-index dda76365726f0bfe0e80e05fe04859fa4f0592e1..df33eacfd29fa680f393f90215150743e6001d5b 100644
---- a/drivers/bluetooth/btqca.c
-+++ b/drivers/bluetooth/btqca.c
-@@ -721,8 +721,11 @@ static int qca_check_bdaddr(struct hci_dev *hdev, const struct qca_fw_config *co
- 	}
- 
- 	bda = (struct hci_rp_read_bd_addr *)skb->data;
--	if (!bacmp(&bda->bdaddr, &config->bdaddr))
-+	if (!bacmp(&bda->bdaddr, &config->bdaddr)) {
- 		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
-+		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM);
-+		hci_set_quirk(hdev, HCI_QUIRK_BDADDR_NVMEM_BE);
-+	}
- 
- 	kfree_skb(skb);
- 
+On Mon, Jun 08, 2026 at 10:50:09AM +0800, Chi-Wen Weng wrote:
+> Add SPI controller driver support for the Nuvoton MA35D1 Quad SPI
+> controller.
 
--- 
-2.34.1
+> +static void nuvoton_qspi_mem_set_cs(struct spi_device *spi, bool enable)
+> +{
+> +	struct nuvoton_qspi *qspi = spi_controller_get_devdata(spi->controller);
+> +	bool assert = enable;
+> +
+> +	if (spi->mode & SPI_CS_HIGH)
+> +		assert = !assert;
 
+Hrm, we should have the core deal with this.  Separate issue though.
+
+> +	ctlr->num_chipselect = NUVOTON_QSPI_DEFAULT_NUM_CS;
+> +	ctlr->mem_ops = &nuvoton_qspi_mem_ops;
+
+We don't specify mem_caps, I'm vaugely surprised nothing trips over that
+when testing.
+
+--Xd1MFY+nK8dwfKSr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmomnxAACgkQJNaLcl1U
+h9CmEAf+MpO2k2NNGcoMDAdpYpmFVLXNz+7NM8gxd84SFap2YCj7QWwpERJVAemF
+kY6pBKnK0Sjzx+b5sk1GNhbhG7SXYfqRv5NV/GZ6XC0g7f/TmBNn999DTJIkqpV2
+Ke8NtxlpN47GU1n3B4OxYhsZ43FA2Q5cRtySFtoyRmK8quCSxS5EQpe2Q2hTfkdp
+drPirHEvVXl1zynEwPmxaNUkqSy30Ic3Ibih2sXGDqtfrCH1liNDxzR1mZTnNjJ7
+x/zhElVxcJhLxsqvRiEkAM92j3I4IkO7oKiEHWSpE5U5+oO0AyBtfVU/EAkbqX05
+eRnQzWH1wTSKTa6lFWL+6e3piFV60Q==
+=CCql
+-----END PGP SIGNATURE-----
+
+--Xd1MFY+nK8dwfKSr--
