@@ -1,299 +1,180 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673C83438B1
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 03:11:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E297C346AE1
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 03:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780888272; cv=none; b=SXWAv7aD7bby3dglFnwLnbAoSxLw6rydtXoXP0c05etaqckpFv5D+/szRNh8/y3x93M1cVa+Hy78Uu9YbLHzED6XcP2b0zrudi8cEA5kN9blaVqqOUeyZx6Du5IfMUluQPTKiVYDms5c8aWrp8qmWeMgJeOLm1uVhF6IcUXsM2k=
+	t=1780888295; cv=none; b=JSWYbB9EFcyJ/CeRLMwciv5lsbZ+fAFzKTBoHPwHtEQEbzEabroQSROOcd96nXEX9av105Mo++Rhyi7RKQDXZLZx7YvzScsvmEzbtJJgJ6TqgkIM/idUwuLlDQ7fkaa1ljJZ4GKJDLy/pBdtIvwj8ULw1r8hXTCwu/qcfS2uQY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780888272; c=relaxed/simple;
-	bh=Qg9r3duy3RzRwGyoJsHsGhEuW5HyFAodhxmT64u5k3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oso1g0yd9QB1jXWIJGEa4Azs2bUQJNXxSMAudaTuplz9iuFtrVR+ZgpvZQFvuEebrCV6tSOUboNCi7gLQWfbDnjmSxDe5U8W3A4ankUoQGHtbuWhloatAAKLTGyRLSoo6GmIEgqtLdWOfkIySBF0Nsc5oyq4MEjD/yiypX1ojyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IxkY/Umt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eum3MkyP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780888295; c=relaxed/simple;
+	bh=eMMFZ7PoTVFU+HtZAfAiBJKr6ct6C46CfD1rFsryOhY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gXddmjo1AH8cJ97nkT65Q9G6TNEbawdI6fnDtKSq9d2zebLxv/Y97XyfReMwMDt9b8A1zUNLJM/seRXSTxGeUTrcVgDGcHjC7UTv3byxm8LnozFLAmjkzFhenGqw2m+QBc35hkF0mhHqmHfKNR6j+wos4C8eKK+aveRBSHj+kO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QiRr2Q7p; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IxkY/Umt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eum3MkyP"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6580FpfW2023775
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 03:11:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GKPIRoTdsu8PRW1CecrhqS4AjNkhswIihoIHcQ2sb7I=; b=IxkY/Umt7J+WrfYm
-	hB5toGC0d0D5FAC3xiE69IhpbHNH/HPoL4s2qVdyb8mEcry7joI+ynAR6zYm+y8k
-	kdYeU0ZRYMGuwxMWZlIEzAdjh4KoROS1BusUZpgFAN/q4IuxNwg+O7ySFhXByGbf
-	ehXMzpnqGjAAAchxjYetSQhXW2dJ588mtLifpOHJxYWjBQuoNrCJUPuOBPC7oPnv
-	n8rCMrCLErCnpsE6aN62i0LiSUgJhxYQPpf3QXQE4RQ9OZCw1qTa+D2RrPcgpAHd
-	Rk595ualGa8OPPztLGNSXTAFxIaW1+o6rRMTg97pZdwXlDeyYoVN7ueVam82yC1u
-	A+NNjg==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embmrdm46-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:11:07 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ab036818efso2060653e0c.2
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 20:11:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QiRr2Q7p"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c0c3315c5dso40892385ad.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 20:11:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780888266; x=1781493066; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GKPIRoTdsu8PRW1CecrhqS4AjNkhswIihoIHcQ2sb7I=;
-        b=eum3MkyPnus+sIa00/QR3XHwiwQYy4nNYV0TEo3zZmGVC7YB3v3rYzuUWrpHND/+C5
-         5bfGWoB7hMegvcjPzAUZOyRK7PdDvfy3Yl3b37yMDQTuqLW1Fd0H2g4x8RmK2/UgTyoi
-         sjEgLAxmKqv+WE+etsxsMEuYzy1Fj5FJ6Iu1XgQS4p8hckCyIA6qRwtmTtB4nM2EXivu
-         YcGeu7D2mgeurS0LPjYdEY2P/cGXJelfrzCc+AgteDx8vqEt1W4SsGSsuRX08fc2rmP8
-         TuONufad4BnTMf0EHa5515mgKbhZCumZnffxaVvVZsDjXpKcVKUv7KGzljKh2s3Bc5go
-         3iaA==
+        d=gmail.com; s=20251104; t=1780888291; x=1781493091; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=o6AQpyw9cz+Q5RmbdlhznksmZIhCHg9E+Gub5iwssz8=;
+        b=QiRr2Q7p0y2f4g1k4E5KY4bzGMkFqOSApjsrwGPZWT5kR+Ye2F2Fp5zlEUj+DMGinC
+         o9DojXxLRJig6k1r7HwcMgozLQCnsw4zR3onKu+MR/ur+aydWXoTVVoEOJ9qBYMK4jWE
+         17QQrdS+n26QxtvYi6qhu5c6whgbqvFkROksQfL4bl9ilfzS5wnUOeDz4bHNFkqGkIEv
+         oriz3sl5MyJlo+Q3RS5h0YbOqfsG7LtTxTnkSaIm9t/Ba7obTAH9f9CFlU9JNljBHVog
+         Y9ZW/Q2/fxFUAlzMvzDoptERzLOZhBhLUcmHso2cYAtFLxmSR17X2QOTeFCZlSiFMYWP
+         ylqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780888266; x=1781493066;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GKPIRoTdsu8PRW1CecrhqS4AjNkhswIihoIHcQ2sb7I=;
-        b=r0yi+4ixDh/BdCr0O39w+RDQHjlBTQtrEYr9Edvb0/Wu7SeCRvounPVyhSi+rr/MnK
-         klu/RZkzHbrFx+pB/XKN/bHGn9FjkTkfPHwtB2Yai8gTh9gS9rv/KbqjgSU5ksbz4YKG
-         /6nkMJaYpgM2Yw3tK8rlLQ/PoUQRvhhrUMZYaIjtZv7ReQn/53ZvOrKLsgisc93NctJ0
-         rSH9oh5xuQsj85zuvsLQG1OkqWwzsVQeOKXgjJstOAhNIgBtfGEPqTKQX7gc4wzb01ez
-         HpXyz4QUMQiizoSUHd1jf52Z4vdY5ifMVl58m3670SFPY3ybPf6C2SxSiSX1Eq+PkWU5
-         sQfA==
-X-Forwarded-Encrypted: i=1; AFNElJ+pLOS5ZzKOAZ3rwPThau/A3lC54LPU42FqyV+3LJTOFrJmI2IZsgU+i8Lwf3mJxGBRXvdwvUtD7bZU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzLryXHAHwLI5km+F7fkp/O4sbF8CrqosrN6HzjeBBltXrhLlh
-	DLBfST17xDezZL9CZqK4scuDuzavKUrSIQYoUVCu8ZqWRJ6SzYen/eUmw450Kp31AGP3lz3xZJW
-	JrB3ddSez5W5X1uitIlSLO1YY7tm5vYXl8LVXlis3+mPXcpShtJIW4HSMSWQZo8p+
-X-Gm-Gg: Acq92OFc2jfiUCRIPlpa1LcGzi601LM4hLAG4TXvLiTFXU50yCUgXbe4n5N5YmuJeRC
-	WinO2MhFbCNrNjL/aR6/I3Sw9r369S89PZDGMNQIeWB7PEvPCD/3ybS0msYx+Z2GZuN13Sov2/K
-	dakjRpm38Y4IS3NyDxHDIP5WCsf4S8GVcaP3dJnwE5zYahsnUGUU0BL8KCOlE6bDEbuYtOrpiqZ
-	PrVBAUZBhem4A091QvIuWcGXUdZap8Pw+GpREHOTiEGKNu5mHGYqc9XQt0+niUXgrDEeQzwufZg
-	B4W46SkE10kRmwpgTiKauLcjd9v21vlKql9YbBT4B2O2zqmxCbGj8nj6DOQS2AwVcL6x0A04Y24
-	ciP8XWjKisH0YWb3tzfGxWnbwNeB2soFSS8Vy8H6YKfG5urG9VdUMxSYXNsFYgnn5pqXI+UItb5
-	LeFUZraHQU3GZX/cj4oZXYF5Bzpf+uyFG+Bx1fTLcKng4AyA==
-X-Received: by 2002:a05:6102:8097:b0:605:ead:8f38 with SMTP id ada2fe7eead31-6ff005a01f4mr6434755137.29.1780888266423;
-        Sun, 07 Jun 2026 20:11:06 -0700 (PDT)
-X-Received: by 2002:a05:6102:8097:b0:605:ead:8f38 with SMTP id ada2fe7eead31-6ff005a01f4mr6434739137.29.1780888265923;
-        Sun, 07 Jun 2026 20:11:05 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b990438sm3424243e87.67.2026.06.07.20.11.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 20:11:04 -0700 (PDT)
-Date: Mon, 8 Jun 2026 06:11:02 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        devicetree@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Rob Herring <robh@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: qcom: add
- msm8660-mpm
-Message-ID: <rnbfyflbigjdio3zfvbbrivdbojklnzwykzsg6du7kxx6fo4vp@zboxipgozsv7>
-References: <cover.1780148149.git.github.com@herrie.org>
- <d64594cea7a2ebdff8fc0b1d7b0ac1fd5124d2e2.1780148149.git.github.com@herrie.org>
+        d=1e100.net; s=20251104; t=1780888291; x=1781493091;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=o6AQpyw9cz+Q5RmbdlhznksmZIhCHg9E+Gub5iwssz8=;
+        b=Eu7wtiYimjxLRfY4MEgm0wt0ffsSxTYks8TaSv7B9rEmR96vOm/PCREJIAw4cjQutP
+         Z5VK4Kzca7F6aNeUx6p80EVM04lkTt8up2i18nRjLJO9WEmhtHveFGx5OTIHeSt1OUwN
+         Fx0sBF9PI8roLfcQ5JhYL640pACIVVw2Qkp+vYCHRzsuV9l6IiERGygWMhQ2krg/uZj8
+         ZeZB/+zlnPLO3lZxhbU4j69Au85/TFrLPSYv9V0s6CbZrjbL4mu4eJoaglKpp7KUF9es
+         axg8g7pQwFOPICe7nQwzMxaDiHKHu2yo9FtNUHreywXQdXni60+2rESoOAnP6Cp9IbjI
+         U9Uw==
+X-Forwarded-Encrypted: i=1; AFNElJ+6ONm3Xh0jorCg36Ac4wuLT+mlt3bwWb5g8wWr4yGZVWjYlvunmBLB/vIKaCfQyMhN8OtTlQd0YwOA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzz3kRxLI4fRADnmJ0I9jromBro2dC9cIm1d5qwjL+HEXD8+Wox
+	w2vqkDhj1XJWGxdPWQlgEiPlboQhpbwMhZuLkvdOxRJ1qe3Xj33IWCUZ
+X-Gm-Gg: Acq92OFOJEdD4fi8+g2Xv6y7ojW1VSl+DrlqetL/1nynIuwnDsw7tzYHl7uF73R4SnN
+	aEvWrUFNs09tqNrp4wcqiKGi+uLGuDo3AbMyQpei4x0xtDnWVyHSnhSfEnyzEADJ0UhXWNjzmsy
+	XRFgWF2Ps7n0usau/w3kYlwK3aH/PAlnM3DGKsFPHNfossH41VmKG7u8bnbYE3U94DNhm9mGQ4R
+	Hy/AqtnTYymLKsLdhpMSiQOMkzckSSkJLbUP6uhSYa8PHUy9SRrFWhFesxQf468BEWmnXs6Ng5I
+	w9pb8mC7GD03sipoe22FR0hLDUf51Ri5Quxjc4zpI6QrrzeNl4e90d02s2DvZgjmIVuFefS2l5a
+	Khc3Jwq2aXyAGbA9OzQoCCP6R2VXj9fMEny8YMdCWXUQw/AIGguj18n4WFMo1+QB/gxrC4Y5Q4M
+	pGCSqeMLngM5eprtgPyz6BX4g1fGDnOxvELxL1AbZ1LPYIhwfPLc1TQEk2Tp/dITOQTcN6bcvtq
+	Gs+RLS78pM=
+X-Received: by 2002:a17:902:f711:b0:2c0:ab82:6ba7 with SMTP id d9443c01a7336-2c1e85ad8d7mr154959505ad.33.1780888290954;
+        Sun, 07 Jun 2026 20:11:30 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d395sm218827905ad.17.2026.06.07.20.11.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 07 Jun 2026 20:11:30 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <3ed9e0ed-d6fe-4b9f-aca9-590290a78f4a@roeck-us.net>
+Date: Sun, 7 Jun 2026 20:11:29 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d64594cea7a2ebdff8fc0b1d7b0ac1fd5124d2e2.1780148149.git.github.com@herrie.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDAyNSBTYWx0ZWRfX4JMual8VMbqM
- MT23LYChZVLY7yc3eA1l2DZup6P8bW4KSqnAT+PbRa/6Ol2bAcK5XLg0C13xti+r2Ytxkhm3z9K
- 5y+mWt3llmSYMMuH2XoIFVtytMgnV23pMgJqbDNa9Pxttct7CWtivyDnQSrMhEHqMkwexXDQp/H
- Bw01L9GgKr7wkO8kw/lEamseYz/TvJULh+CJqUTEYARnuqlormPaLuPss3kzMQf5Je0mpwa23Ez
- T2IUFpF2dJEokRNry8/0hbS1W/nS12MHe0Ic5k2hcwmXWtwdh9+Wtm8ll+F6QLXxiTEhSsBNn79
- LINWG14yprjs1fORku7ed1cDFOsbhBpN4RXMXfpNHtEr0vqbFd0NldI+w9QdpcAdFGzzJYdUHdm
- PI7YoEWAA6brlaPgEu+ns2r/v+o68fPAGu+uGq6zZMzO7zrdf1b2gEKNsDNnv+iursgGw9qJfv4
- VT2qB1/ipkWAkO9aTSQ==
-X-Authority-Analysis: v=2.4 cv=B5eJFutM c=1 sm=1 tr=0 ts=6a2632cb cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=gEfo2CItAAAA:8
- a=cTwmTnRGAAAA:8 a=0dIclahs-Kuf6WvM9VoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22 a=sptkURWiP4Gy88Gu7hUp:22 a=GUWCSGlMWfG-xDt5EnV5:22
-X-Proofpoint-GUID: iQ_qIfmr1817wwSO9fMCC6hB6KWlU35U
-X-Proofpoint-ORIG-GUID: iQ_qIfmr1817wwSO9fMCC6hB6KWlU35U
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0
- bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080025
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: (adt7462) Add of_match_table to support
+ devicetree
+To: sashiko-reviews@lists.linux.dev,
+ Romain Gantois <romain.gantois@bootlin.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260603-adt7462-bindings-v1-2-301304bcf774@bootlin.com>
+ <20260603114026.709611F00893@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260603114026.709611F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, May 30, 2026 at 04:00:22PM +0200, Herman van Hazendonk wrote:
-> Add the binding for the Modem Power Manager (MPM) interrupt
-> controller on the MSM8x60 family (MSM8260/MSM8660/APQ8060). The MPM
-> is a small wake-capable interrupt aggregator that lets the SoC stay
-> in low-power states while a small set of GIC SPIs continues to be
-> monitored and can wake the system on an edge.
+On 6/3/26 04:40, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Using `of_match_ptr()` prevents the driver from being matched via ACPI PRP0001 when `CONFIG_OF` is disabled.
+> --
 > 
-> The binding describes its register region (in the RPM syscon), the
-> GIC SPI it raises on a wake event, the GIC mailbox it shares with
-> the RPM, and the per-pin wake-source mapping table.
+> commit c2691e00dcd763957c6a2291880ea9079be2bbda
+> Author: Kory Maincent <kory.maincent@bootlin.com>
 > 
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-> ---
->  .../qcom,msm8660-mpm.yaml                     | 122 ++++++++++++++++++
->  1 file changed, 122 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml
+> hwmon: (adt7462) Add of_match_table to support devicetree
 > 
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml
-> new file mode 100644
-> index 000000000000..72f9c2be03b2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml
-> @@ -0,0 +1,122 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/interrupt-controller/qcom,msm8660-mpm.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm MSM8x60 MPM wakeup interrupt controller
-> +
-> +maintainers:
-> +  - Herman van Hazendonk <github.com@herrie.org>
-> +
-> +description: |
-> +  The MSM Power Manager (MPM) on the MSM8x60 family (MSM8260/MSM8660/
-> +  APQ8060) is an always-on hardware block that keeps a set of wake
-> +  interrupts alive while the application processor is powered down.
-> +  On MSM8x60 the vMPM registers live INSIDE the RPM control block
-> +  (request regs at RPM_BASE + 0x9d8, status at RPM_BASE + 0xdf8), with
-> +  notification of new wake-source configuration delivered via the
-> +  qcom-apcs-ipc mailbox (writing GCC + 0x008 bit 1).
-> +
-> +  This binding is MSM8x60-specific. Newer Qualcomm SoCs (sm6375, etc.)
-> +  use the qcom,mpm binding which assumes a dedicated MPM SRAM region
-> +  and an IPCC mailbox — neither holds on MSM8x60. The driver lives at
-> +  drivers/irqchip/irq-msm8660-mpm.c.
-> +
-> +allOf:
-> +  - $ref: /schemas/interrupt-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,msm8660-mpm
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      IPC IRQ raised by MPM when one of the enabled wake sources fires.
-> +      On MSM8x60 this is wired to GIC SPI 2.
-> +
-> +  qcom,rpm-syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the RPM control block exposed as a syscon. The vMPM
-> +      registers are accessed at offsets within this block.
-> +
-> +  qcom,mpm-offset:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Offset of the vMPM register window within the RPM syscon. On
-> +      MSM8x60 this is 0x9d8. Status registers are at this offset + 0x420
-> +      (== 0xdf8 from RPM base).
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel used to notify MPM that the vMPM request
-> +      registers have been updated. On MSM8x60 this is the
-> +      qcom-apcs-ipc mailbox channel 1 (writes GCC + 0x008 bit 1).
-> +
-> +  interrupt-controller: true
-> +
-> +  '#interrupt-cells':
-> +    const: 2
-> +    description:
-> +      First cell is the MPM pin number / parent GIC SPI; second cell
-> +      is the trigger type.
-> +
-> +  qcom,mpm-pin-count:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Total number of MPM pins exposed.
-> +
-> +  qcom,mpm-pin-map:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +    items:
-> +      items:
-> +        - description: MPM pin number
-> +        - description: GIC SPI number this pin maps to
-> +    description: |
-> +      List of (MPM-pin, GIC-SPI) tuples for wake sources that have a
-> +      corresponding GIC IRQ. Consumers route their interrupts through
-> +      the MPM hierarchical irqdomain to take advantage of these
-> +      mappings.
-> +
-> +      Raw wake pins like SDC3/4 DATx (pins 21-24) are NOT listed
-> +      here — they have no GIC SPI mapping and are accessed through
-> +      the msm8660_mpm_set_pin_wake() / msm8660_mpm_enable_pin() C API
-> +      by consumer drivers.
-> +
-> +required:
-> +  - compatible
-> +  - interrupts
-> +  - qcom,rpm-syscon
-> +  - qcom,mpm-offset
-> +  - mboxes
-> +  - interrupt-controller
-> +  - '#interrupt-cells'
-> +  - qcom,mpm-pin-count
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    soc {
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-
-No need to, drop the soc and cells.
-
-> +
-> +        msm8660_mpm: interrupt-controller {
-
-Drop the label.
-
-> +            compatible = "qcom,msm8660-mpm";
-> +            qcom,rpm-syscon = <&rpm>;
-
-Can we define it under the RPM device node? Then you won't need to pass
-rpm like this.
-
-> +            qcom,mpm-offset = <0x9d8>;
-
-I assume it doesn't change on a chip. Use compatible to identify the
-offset.
-
-
-But then it becomes compatible with the qcom,mpm.yaml schema. Just add
-qcom,msm8660-mpm to that file.
-
-> +            interrupts = <GIC_SPI 2 IRQ_TYPE_EDGE_RISING>;
-> +            mboxes = <&gcc_ipc 1>;
-> +            interrupt-controller;
-> +            #interrupt-cells = <2>;
-> +            interrupt-parent = <&intc>;
-> +            qcom,mpm-pin-count = <64>;
-> +            qcom,mpm-pin-map = <25 100>,
-> +                               <26 50>,
-> +                               <27 79>;
-> +        };
-> +    };
-> -- 
-> 2.43.0
+> This commit adds an of_match_table to the adt7462 driver to enable
+> devicetree probing.
+> 
+>> diff --git a/drivers/hwmon/adt7462.c b/drivers/hwmon/adt7462.c
+>> index 174dfee47f7a7..ef6e5252dc0a4 100644
+>> --- a/drivers/hwmon/adt7462.c
+>> +++ b/drivers/hwmon/adt7462.c
+> [ ... ]
+>> @@ -1814,10 +1814,17 @@ static const struct i2c_device_id adt7462_id[] = {
+>>   };
+>>   MODULE_DEVICE_TABLE(i2c, adt7462_id);
+>>   
+>> +static const struct of_device_id __maybe_unused adt7462_of_match[] = {
+>> +	{ .compatible = "adi,adt7462" },
+>> +	{ },
+>> +};
+>> +MODULE_DEVICE_TABLE(of, adt7462_of_match);
+>> +
+>>   static struct i2c_driver adt7462_driver = {
+>>   	.class		= I2C_CLASS_HWMON,
+>>   	.driver = {
+>>   		.name	= "adt7462",
+>> +		.of_match_table = of_match_ptr(adt7462_of_match),
+> 
+> [Severity: Low]
+> Does using of_match_ptr() here prevent the driver from being matched via
+> ACPI PRP0001 when CONFIG_OF is disabled?
+> 
+> When CONFIG_OF is disabled, of_match_ptr() evaluates to NULL, hiding the
+> of_match_table from the driver core. This prevents the driver from being
+> matched using ACPI PRP0001, which relies on OF compatible strings even on
+> systems without Device Tree.
+> 
+> Would it be better to drop of_match_ptr() and assign the table directly,
+> along with removing the __maybe_unused attribute from adt7462_of_match?
 > 
 
--- 
-With best wishes
-Dmitry
+I agree.
+
+Guenter
+
