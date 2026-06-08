@@ -1,86 +1,67 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F933B14AC
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC2B3ACEEA
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780911940; cv=none; b=TLaYcFl9Fvuve+kW/CK5YhUqxGFznOyYrObUuS2u+gs1kZRMJZCkjyt5t+NBPrlpGOcRxFi430J2nqzSYpFlgNc+m2iyljdUPzcRoyOZSHK5vQhbRpzXGh76t/kATt/XxCF5POu4qIarbi9itMTzD/EOaVZ+pbrZG5rfPVsXc5Y=
+	t=1780911951; cv=none; b=fyz/ALok4FVZbT+tx1j2RtoegExrNTzgJcC3jHTsTLUdhzqaMsQV9tNskKEI82NteCeMxdBOogRE1B7n90b8YowJbzDiCl058vgiQ4RU1OiA76ms+Q08e/d0mzFLLy2ekfzBerKxP52tfm11mgjIK1bhm/rh2Sh04IGF0KuE7D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780911940; c=relaxed/simple;
-	bh=9RRZpASQS41qwqOO37RHHFfJF8TpxC/j+aBOgczgifQ=;
+	s=arc-20240116; t=1780911951; c=relaxed/simple;
+	bh=dx3300yw4SgRKk6iYEzj6hUY4LGz9uvSK4c47e6qhsk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lu2X3lUsDT7vMrz7jPpJK3juaAnwaJytf13cvHRqynGPNHPieDySI6IAHGwNsQoQzY7jOFu+GyP/MQQcHacwFims6g7Gy98pXDDd+BtJjFoyr8e6SsORpm6sYViUJXXLLrJC5yZF9nH3Q6h0i7ntw4pIqeuFGepxWlyrrT175+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JKftAluV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AprmnVGK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=FsvXs1WFX+LfrqXATOOErCL/U7TY+yigY4dOAa7Yv1YzbBfIVSX8Kb45n+hNYuV1/9Wwp5QfEKev5r1edUWwGD+7lZGpcumABsE0L8HbulSs2tFMVVxGVFSu37QW43PjpkNo1+ZMo76dgneW5g2MDc8x0Q3/Xszzdyn5/9wwoHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QspIccUN; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JKftAluV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AprmnVGK"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586RWBd2833493
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 09:45:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wPnIboRKsGmpiz5atmsmV6r9S0cjd+eGf5563PqK//E=; b=JKftAluVGr8ERP6D
-	Mm5q9pRK+wS6Gs5IGCvN9sELS8zKr5H79eMz456wQ9gjONeneQR9H7e/Nxdibkp9
-	PZRdKAbduWTrgQkkV49c4gaFkJA5sk2IM1182fsyGRlMzwPGxtOjhCyTlJRTYkVt
-	FtxKuxtvJDCV7+VH2QIn4Wn/6wB/n6dsdZuyAx4W5DOQsKt1vkaef4lZhFJuTS0Z
-	uHGMBedyBtW8Hw0l7weJV+vI5StrhRh16tct1rfwXUGPjPn4WaXWtdY62dsTM2FW
-	CpOfPQwcFSHzdQ8s7epGoHDMQ+r+978RNCiLq0XHbu54zWIgYiYYyQAoXVsp9l8o
-	3yB7jA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emaj4yf0n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 09:45:38 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36d6d07d2edso1105933a91.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:45:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QspIccUN"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8423f420455so1650268b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:45:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780911937; x=1781516737; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780911949; x=1781516749; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wPnIboRKsGmpiz5atmsmV6r9S0cjd+eGf5563PqK//E=;
-        b=AprmnVGKkRq2UCtWvF8OwCvx76iJbGbBjToLPTyN9pknbgCEuVz1rWqluQM3IT4m9n
-         du+o3m72O8lDcwvWQDdkypcRDXyRgcXp/aLixSwAfDwucvV2DSfLo61AMe9lUo/u1OeM
-         CRRUPtnLGrD6FHYxin6rkACBxG+RWkAYleCdSHCop19PX8hWqzN/PcGveM+1oepwmymt
-         IShvMHYIPtegGxGObNaRYRn7X2SqEQf7hJdH94FpiSAoU8EInunHsA7NxYqUHUI+Pf42
-         Wg00xkQwKwLqpZ4o/ccqf3cECcHiF6cexuNpS3vnyYFcF+57FcAwl/dfAN5B2xQM+j7f
-         J7PA==
+        bh=YdQztf5+BODzQ2BKQCG0woCEoi72g1h/Yx/ZUsCJKos=;
+        b=QspIccUN1SfS/Ex+UpjHS+eNJCXxChfkpN9cczV5HZ+Gl2wCKUUV7vsY1Q1VBo1icF
+         t3l9zrTwXGLo8t18Sd8BCU+UCy6sY5Puubyg5o39FIIcXIVHm435xWGBIh+W1TrHJosl
+         bBG8mM02KKSaOs8WMI55+vlKLAFCwMbaPK5h3CnnPB653mZ3V8kR/YUiQiIGYW/kUSR3
+         o49wzqtGPD+ZgB2scrAy4+InsQ5/7FO3pXglBPq4PHTWKLl4XPj2NDz/o6vx6BQyVe25
+         bsycRBAyZMAfBXZRv5626v+HxTCCpO3S2aG8eIPYF4/bArgxHnLVvwX/V9+GWlkeLYrA
+         CTFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780911937; x=1781516737;
+        d=1e100.net; s=20251104; t=1780911949; x=1781516749;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=wPnIboRKsGmpiz5atmsmV6r9S0cjd+eGf5563PqK//E=;
-        b=O1GiKUtNNmHI6CH3PTmQYAIoSy0Rr5sHWXzTuWLZsHtHDbtrzfLKsJbd9iRPgIP0ma
-         L1h4586TbR2OdSNoMD8D4dfDP0kgqrPo7eRHvDGP+INdjldq3vogabjP50OJGTlZmTlo
-         8UQb211RXsR/MIv6zhMQuEoAQsq4XBONe9aCwJjZAg9gEGxP7wx+rVmMXkO/3mpQe2rT
-         ZVOlC4u/Xjprb0x27BfLAwmPYdXuVfSFXedAGLaKtNkCbVud7ji33POv3DnZ4CqYC924
-         +HIqiXbM3PoYUgT//D5FRGGyU1Shk2UoTtbJRXHjQe5pmZBq25+ivhxH/EsbPwe6T0R5
-         MMWg==
-X-Forwarded-Encrypted: i=1; AFNElJ8E1j7THz/UaqqKsJnBD/Lo0lWbnore23z6xVV5N+h/IiFApAPoEsEeQXYivC5YdU6R6xi+zpnhymLR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIq3+Y+RpID+zQ0TTl4SIfeKghDiw1IbcDX2XC+smlf9IdEqNM
-	lsh9L9auVsT2R+rY5KzDPCL6EbGQ2v13y9KBcM69cHqLWxZz+VGeRqPUr2xhTTrSHGEYUTf58VG
-	HowkT+jnSfNtOoQM8sHF4V5uZ1ctX6+X6o7kkKplw4s7EohBHrQ+S6Xfy38+I0FEk
-X-Gm-Gg: Acq92OHSoxLSLAAhp/dq6BkglhFSd1yuoKqsoYj6xPn69ij8N1Hq758RvUYaRgvh8Th
-	QJmRGZ23kvkK6nNan0PDXjtIljH8ruuDVm8dhWfF57rdIO6wbzd7qWwXdUhuvK76xz0wROeYB2U
-	sOZ530+H9reLyuwOW1w4dekjbv1xzD7Gw8SI/onYLKciWjuSZMUSfmWf47QhkqR1SUPEQ6ec8gn
-	VEW4evV/3xJo+N+8otICQNUrJAWJm434+BfBt5cLGt1DXtvufbB5qfDriXCm7jt+uZVOX4kfILs
-	Aca2UG9jZB6MIpVl9dTq6hSqUVYNJ+rM4TbzIdpggZajKl8018Ov8uKeYT+UWDwgGltRRREPXUg
-	Sp0b4oiVrMMpLdHnw2IQrenwZKh1OJe1zXHp7sTzUxTteMUJzKE/frUQAYdIP/g==
-X-Received: by 2002:a17:90b:538b:b0:36d:f28a:c5e2 with SMTP id 98e67ed59e1d1-370f1eec20amr8065553a91.8.1780911937101;
-        Mon, 08 Jun 2026 02:45:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:538b:b0:36d:f28a:c5e2 with SMTP id 98e67ed59e1d1-370f1eec20amr8065539a91.8.1780911936605;
-        Mon, 08 Jun 2026 02:45:36 -0700 (PDT)
-Received: from [10.92.194.172] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282379db0sm16632418b3a.24.2026.06.08.02.45.30
+        bh=YdQztf5+BODzQ2BKQCG0woCEoi72g1h/Yx/ZUsCJKos=;
+        b=K6urK4+2xe1sxgEioFNCMqs9RZzuTvOlF01+11AQuQ/xLH/EudG8IKvFr9t9ptVVwF
+         Toe6iKDAwpKGsO8b3M8nZuuzNWNmy0Vw8nkGQC1HQjhDtE0HCWilvBlpWisXiDntapiA
+         xpbwi1nHniIwMbq6uAy+OqgB6m3p0Qav0Yf9Rze5jz8PBrz+1YPsgabymmWAQ6kBBAXX
+         A2K4XGE/+r8FopICuXZS6i4NTPbRDmgO8pCjAiQMLPautxM40QCy1csEv/uHA5VF9BGU
+         t6vgA6lCbFcb5OMfwEkd2vWxfKCCCp0ABA31+0sioiTdaOqLMkvTMRnntNm6GInlpHuF
+         txTg==
+X-Forwarded-Encrypted: i=1; AFNElJ+4M6H8leEEF+Q/dTwZZcWPzkdv58wPFmDLm4L6nOBo1WWUJJ/0pFSQE9+In66stPNztyrJQxS8+Knh@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlepKLDbIlxmePQJOy133vud5TiClG2okEb6BXCNXIzaAtY+oV
+	wXHYK/iPvcYPdozCrC9f44b2C4Kna22kdBsqEWE3hGfj2BqqKkacrKad
+X-Gm-Gg: Acq92OFAS1sctxxXjN/FNB4XNSEJiQPdsN3KuQ+f/Ivgd4INOvGG/xpHdjJgMmBXdUg
+	5SgwUOw20sj11hT3oJfYWH6FreMl9eFwD4B0XxzPNQ0AVXa5BeeP6zVhhX2R1dbGKNUQ7vcQeG4
+	EjqXoGf1XHZnLh5j0a/UOyOW5MVpizTthzhclcN6PS27Berfo6oQEfzW09NYHRTjdGB0aQH5BXy
+	Gn08SKXnVnxlPOMGXlSAp93L7YgfoPgE04gynH7Qs+365Q2td087UB2++L056NjI2DmG1iyUcsF
+	yNHbrhunr+50p2pa3BJz7CNgh+mhrg0IsiIRMbkCHxz/196wqKBsp9WNLZKenGAcIozHve5YiV7
+	YbPZeY1WKUZ2QebY8Iqgh0EuiH8+dbSL8i62rlb/2sTaMgThO/VooqlSHnq5UDAx6b5rFrBOoXU
+	s7ldznfBDu8ZtC7C+vsd1fCNgAyrnbSgxyE67+4Cp4pmXIgaxg/Z6mGBCIYp0Ci7Ba9vPMUAmNB
+	Dbeu/zzdjPtWo8=
+X-Received: by 2002:a05:6a00:bc81:b0:842:2ae0:968d with SMTP id d2e1a72fcca58-842b0f6f508mr14352160b3a.32.1780911948844;
+        Mon, 08 Jun 2026 02:45:48 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428235006dsm18133897b3a.13.2026.06.08.02.45.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 02:45:36 -0700 (PDT)
-Message-ID: <d275959d-4a79-4804-a160-94a9aa89eea5@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 15:15:28 +0530
+        Mon, 08 Jun 2026 02:45:48 -0700 (PDT)
+Message-ID: <98eb7772-257f-4fa7-8e9b-51a635cb12dd@gmail.com>
+Date: Mon, 8 Jun 2026 17:45:44 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,251 +69,360 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] ras: aest: extend AEST support to Device Tree
- frontend
-To: Ruidong Tian <tianruidong@linux.alibaba.com>,
-        Ruidong Tian <tianruidond@linux.alibaba.com>,
-        Tony Luck
- <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
-        will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
-        mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
- <4eeeef74-8a27-470c-b516-095f029b9e9e@linux.alibaba.com>
+Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
+ ops table
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260608023237.305036-1-a0987203069@gmail.com>
+ <20260608023237.305036-4-a0987203069@gmail.com>
+ <399cd127b56b4a2fb3161865a681606e04e6b2c6.camel@iscas.ac.cn>
 Content-Language: en-US
-From: Umang Chheda <umang.chheda@oss.qualcomm.com>
-In-Reply-To: <4eeeef74-8a27-470c-b516-095f029b9e9e@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <399cd127b56b4a2fb3161865a681606e04e6b2c6.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: SLytRTTBWy4QDnmLAwnaPGUhXTLAhF2O
-X-Proofpoint-GUID: SLytRTTBWy4QDnmLAwnaPGUhXTLAhF2O
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA5MCBTYWx0ZWRfX+g3OL5UAgH6z
- 0vi/dx49twUTWGCNWH5yMRbrlo52X4Y5ZB7veiSDKh6oebZeqxlR2YHAwu4JpMCqCHMWr03GpvB
- s6wwURfizihVNmf4C3rbKLVi8YH0tFaaHaBDxIns6d9tiqGwoCABObZDU8/MvPARsUc/e095iwv
- rO9GAJ9FOcBta2XV2bYAVpwcbLGC2SRIJoXowrM5n9XWsThUG5UNs4InU0Gm0VLU7ZEIePHuFmM
- AjxLfCNjtaQs+Djm4QQUJu8gC5YzlnwKKC2WOyc0p6kTO0A1me7SZ1MxOqVW2GgYJUIOBy2nb5W
- fKEkjErKUB7c+reMKlc9M7afWKQ+EmtDqOlo4VxgVu+GpcT9h+ovVmMvzG2MUj9qqr7d4YUZMb1
- s7b2oswAEpgkBd/eGFCRhvc4uHrrRXFGWsVfEDyQRnmZ9uuMspIfEw8TSvrbYFQDbAxTETukLYf
- VJPOm0KPVePc9wyHZ0A==
-X-Authority-Analysis: v=2.4 cv=TLh1jVla c=1 sm=1 tr=0 ts=6a268f42 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=SRrdq9N9AAAA:8
- a=EUspDBNiAAAA:8 a=bAntFOdrss-Er4w7wzgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080090
-
-Hi Ruidog,
-
-On 6/2/2026 12:59 PM, Ruidong Tian wrote:
-> Hi Umang,
-> 
-> I have sent out v7, and I wanted to highlight a few changes to make it
-> easier for you to adapt the devicetree support:
-> 
-> 1. I stopped passing device information to the driver through the
-> acpi_aest_node structure. Instead, I switched to using the device
-> property infrastructure and removed the aest_device abstraction layer
-> (which was originally introduced to support CMN). This should provide
-> good compatibility between ACPI and devicetree and avoid the need to
-> write extra adaptation code for devicetree (such as aest_of). In the
-> ideal case, adding just one of_match_id should be enough to make it
-> work, although this will require you to update the DTB file accordingly.
-> 
-> 2. I removed the use of genpool. The current AEST driver only needs
-> memory in interrupt context, so genpool is not needed.
-> 
-> 3.The driver has been renamed to arm64_ras.
-> 
-> I have already applied some of your previous fix patches and added your
-> Signed-off-by.
-> 
-> 
-> Best regards,
-> Ruidong
-
-Thanks for this summary and for re-factoring the code to make it easy to
-adapt for DT as well.
 
 
-> 
-> 
-> 在 2026/5/5 20:23, Umang Chheda 写道:
->> This series extends Tian Ruidong’s [1] ACPI-based AEST support series
->> to also cover Device Tree based platforms.
+On 6/8/2026 2:24 PM, Icenowy Zheng wrote:
+> 在 2026-06-08一的 10:32 +0800，Joey Lu写道：
+>> The DC8200 and DCUltraLite share a broadly similar register layout
+>> but
+>> differ in how the bridge, CRTC, primary plane and IRQ paths are
+>> driven.
+>> Introduce a vs_dc_funcs vtable so each variant can supply its own
+>> implementation without scattering conditionals across multiple files.
 >>
->> While the existing AEST driver relies on the AEST ACPI table [3], many
->> embedded Arm platforms use Device Tree exclusively and cannot use the
->> driver today. This series adds a DT frontend that mirrors the ACPI
->> implementation and feeds the same core driver, keeping ACPI and DT
->> paths functionally equivalent.
+>> Add enum vs_dc_generation (VSDC_GEN_DC8000 / VSDC_GEN_DC8200) to
+>> vs_hwdb.h and a generation field to struct vs_chip_identity.
+>> Annotate
+>> all four existing DC8200 HWDB entries with VSDC_GEN_DC8200.
 >>
->> Along the way, several correctness issues were identified in the core
->> driver and are fixed in the first part of this series.
+>> Extract the DC8200-specific hardware ops into a new vs_dc8200.c:
+>>    bridge_enable / bridge_disable - PANEL_CONFIG/START + CONFIG_EX
+>> commit
+>>    enable_vblank / disable_vblank - TOP_IRQ_EN VSYNC bit
+>>    plane_enable_ex / disable_ex / update_ex - FB_CONFIG_EX path
+>>    irq_handler - reads TOP_IRQ_ACK
 >>
->> The DT frontend is mutually exclusive with ACPI and does not introduce
->> any DT-specific logic into the core.
+>> Update vs_bridge.c, vs_crtc.c, vs_primary_plane.c and vs_dc.c to
+>> dispatch through dc->funcs instead of directly touching registers.
+>> vs_crtc.c gains atomic_begin and atomic_flush hooks to allow variants
+>> to gate per-frame commit cycles.
 >>
->> How to test with QEMU
->> --------------------------
->> Tian Ruidong's QEMU fork [2] emulates AEST MMIO error records on the
->> virt machine.  To test the DT frontend:
+>> No behaviour change for existing DC8200 platforms.
 >>
->> 1. Build QEMU:
->>
->>       git clone https://github.com/winterddd/qemu.git
->>       cd qemu
->>       git checkout c5e2d5dec9fd62ba622314c40bff0fbecb4dfb34
->>       ./configure --target-list=aarch64-softmmu
->>       make -j$(nproc)
->>
->> 2. Build the kernel with:
->>
->>       CONFIG_OF_AEST=y
->>       CONFIG_AEST=y
->>       CONFIG_ARM64_RAS_EXTN=y
->>       CONFIG_RAS=y
->>
->> 3. Add the following DT node to your virt machine DTB.  The QEMU
->>     fork maps DRAM error records at 0x090d0000 (SPI 44) and CMN
->>     vendor records at 0x090e0000 (SPI 45):
->>
->>       aest {
->>           compatible = "arm,aest";
->>           #address-cells = <2>;
->>           #size-cells = <2>;
->>           ranges;
->>           interrupt-parent = <&gic>;
->>
->>           /* DRAM memory node — MMIO at 0x090d0000, SPI 44 */
->>           aest-dram0@90d0000 {
->>               compatible               = "arm,aest-memory";
->>               arm,interface-type       = <1>;
->>               arm,group-format         = <0>;
->>               arm,interface-flags      = <0x22>;
->>               arm,num-records          = <4>;
->>               arm,record-impl          = /bits/ 64 <0x0>;
->>               arm,status-report        = /bits/ 64 <0x0>;
->>               arm,addr-mode            = /bits/ 64 <0x0>;
->>               arm,proximity-domain     = <0>;
->>               reg                      = <0x0 0x090d0000 0x0 0x1000>,
->>                                          <0x0 0x090d0800 0x0 0x200>,
->>                                          <0x0 0x090d0e00 0x0 0x100>;
->>               reg-names                = "errblock", "fault-inject",
->>                                          "err-group";
->>               interrupts               = <GIC_SPI 44
->> IRQ_TYPE_LEVEL_HIGH>;
->>               interrupt-names          = "fhi";
->>           };
->>     };
->>
->> 4. Boot QEMU with acpi=off:
->>
->>       ./qemu-system-aarch64 \
->>         -machine virt,accel=tcg,gic-version=3 \
->>         -cpu cortex-a57 -m 2G -smp 4 \
->>         -kernel Image -dtb virt-aest.dtb \
->>         -append "console=ttyAMA0 acpi=off earlycon" \
->>         -nographic
->>
->> 5. Verify probe:
->>
->>       dmesg | grep "DT AEST"
->>       # Expected: DT AEST: registered 1 AEST error source(s) from DT
->>       ls /sys/kernel/debug/aest/
->>
->> 6. Inject a CE error via the QEMU MMIO fault injection registers.
->>     The QEMU device accepts 64-bit accesses only (use devmem with
->>     the 64-bit width flag):
->>
->>       devmem 0x090d0808 64 0x80000040   # CDOFF | CE inject
->>
->>     This triggers QEMU's error_record_inj_write() which sets
->>     ERR<n>STATUS.V=1 and asserts the IRQ.  The kernel driver's
->>     aest_irq_func() fires, reads the status, and logs:
->>
->>       AEST: {1}[Hardware Error]: Hardware error from AEST memory.90d0000
->>       AEST: {1}[Hardware Error]: Error from memory at SRAT proximity
->> domain 0x0
->>
->> Testing
->> -------
->> - Validated on Qualcomm's lemans-evk and monaco-evk board with DT boot.
->> - Validated CE and UE injection via debugfs soft_inject.
->> - Tested ACPI path is unaffected: ACPI boot continues to use
->>    drivers/acpi/arm64/aest.c unchanged.
->>
->> [1] https://lore.kernel.org/lkml/20260122094656.73399-1-
->> tianruidong@linux.alibaba.com/
->> [2] https://github.com/winterddd/qemu/tree/error_record
->> [3] https://developer.arm.com/documentation/den0085/0200/
->>
->> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
 >> ---
->> Umang Chheda (8):
->>        ras: aest: Fix shared processor node handling and error log
->> messages
->>        ras: aest: Fix CE/UE error counts not incrementing in debugfs
->>        ras: aest: Skip unimplemented records in debugfs
->>        ras: aest: Add panic_on_ue module parameter
->>        dt-bindings: arm: ras: Introduce bindings for ARM AEST
->>        ras: aest: Add DT frontend for ARM AEST RAS error sources
->>        arm64: dts: qcom: lemans: add AEST error nodes
->>        arm64: dts: qcom: monaco: add AEST error nodes
->>
->>   .../devicetree/bindings/arm/arm,aest.yaml          | 406 +++++++++++++
->>   arch/arm64/boot/dts/qcom/lemans.dtsi               |  41 ++
->>   arch/arm64/boot/dts/qcom/monaco.dtsi               |  41 ++
->>   drivers/ras/aest/Kconfig                           |  15 +-
->>   drivers/ras/aest/Makefile                          |   2 +
->>   drivers/ras/aest/aest-core.c                       |  63 +-
->>   drivers/ras/aest/aest-of.c                         | 673 +++++++++++
->> ++++++++++
->>   drivers/ras/aest/aest-sysfs.c                      |  27 +-
->>   drivers/ras/aest/aest.h                            |  15 +-
->>   include/dt-bindings/arm/aest.h                     |  43 ++
->>   10 files changed, 1310 insertions(+), 16 deletions(-)
->> ---
->> base-commit: a67b7fd0dd1f6ccf3d128dc2099cdb07af1f6a09
->> change-id: 20260505-aest-devicetree-support-a3722d90e1f5
->> prerequisite-message-id: <20260122094656.73399-1-
->> tianruidong@linux.alibaba.com>
->> prerequisite-patch-id: c5a7c6431c6c1e6351241e694ee053800039d41d
->> prerequisite-patch-id: 1f6e2c20829eee41a210dd8a538f1e8efcc65872
->> prerequisite-patch-id: 5556287e3f46c2ed2c0431c53c7782e87bcbd866
->> prerequisite-patch-id: 2edae0a136d7779b8f686181720e71d044a73311
->> prerequisite-patch-id: b5190b2844dcb01e72f87a59f3a29548795fdb82
->> prerequisite-patch-id: 7ba848583708b2ae776a7ce847bb056e3de7f77b
->> prerequisite-patch-id: 397e5b22802b67942435f4f2968f0b1e210ba0e8
->> prerequisite-patch-id: 2169f4b65537eecbd0ccbd2ad6b28c64ec44655d
->> prerequisite-patch-id: b626f85d98747595b3240bc49e6ad9c9dd5c0fa9
->> prerequisite-patch-id: 1323dfd2eebad2ef6514dbbce58ba08e8859f894
->> prerequisite-patch-id: 95b826e5e329408437a3ef336c4f45d4d74f82bb
->> prerequisite-patch-id: b60ff489a5a33c5d5220fa8144af7b7511769cba
->> prerequisite-patch-id: 43f35a52b8a3d13c938ff08083403c1d3bd0df8b
->> prerequisite-patch-id: c55d4e9117ca36d3c2cba82d550a618cb82bb745
->> prerequisite-patch-id: 3885e10f318ae8101d6909b35d92a976cc359e3c
->> prerequisite-patch-id: 92958cde05577f069c5659018a274bb39cfb6b24
->>
->> Best regards,
->> -- 
->> Umang Chheda <umang.chheda@oss.qualcomm.com>
->>
-> 
-
+>>   drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+>>   drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +---
+>>   drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 ++++++-
+>>   drivers/gpu/drm/verisilicon/vs_dc.c           |   6 +-
+>>   drivers/gpu/drm/verisilicon/vs_dc.h           |  33 ++++++
+>>   drivers/gpu/drm/verisilicon/vs_dc8200.c       | 107
+>> ++++++++++++++++++
+>>   drivers/gpu/drm/verisilicon/vs_hwdb.c         |   4 +
+>>   drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
+>>   .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +-----
+>>   9 files changed, 197 insertions(+), 51 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
+> ============ 8< ==================
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> index 7a93049368db..6a9af10c64e6 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> @@ -162,15 +162,8 @@ static void vs_bridge_enable_common(struct
+>> vs_crtc *crtc,
+>>   			VSDC_DISP_PANEL_CONFIG_DE_EN |
+>>   			VSDC_DISP_PANEL_CONFIG_DAT_EN |
+>>   			VSDC_DISP_PANEL_CONFIG_CLK_EN);
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+>> -			VSDC_DISP_PANEL_CONFIG_RUNNING);
+>> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> -			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> -			VSDC_DISP_PANEL_START_RUNNING(output));
+>> -
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
+>>> id),
+>> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>> +
+>> +	dc->funcs->bridge_enable(dc, output);
+> The code here being called "bridge" is only internal to kernel. Naming
+> it in such a way is okay, but maybe naming it "panel" is better
+> (because they're configuring PANEL-named registers).
+>
+> And, as the common code setting common fields of DcregPanelConfig0 is
+> still here, maybe the helper name should be named "panel_enable_ex" (or
+> "bridge_enable_ex") ?
+Understood. I will rename `bridge_enable`/`bridge_disable` to 
+`panel_enable_ex`/`panel_disable_ex` throughout: in `vs_dc_funcs`, 
+`vs_dc8200.c`, `vs_dc8000.c`, and the call sites in `vs_bridge.c`.
+>>   }
+>>   
+>>   static const struct drm_bridge_funcs vs_dpi_bridge_funcs = {
+> ====== 8< ==============
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+>> b/drivers/gpu/drm/verisilicon/vs_dc.c
+>> index dad9967bc10b..c94957024189 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+>> @@ -8,9 +8,7 @@
+>>   #include <linux/of.h>
+>>   #include <linux/of_graph.h>
+>>   
+>> -#include "vs_crtc.h"
+>>   #include "vs_dc.h"
+>> -#include "vs_dc_top_regs.h"
+>>   #include "vs_drm.h"
+>>   #include "vs_hwdb.h"
+>>   
+>> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void
+>> *private)
+>>   	struct vs_dc *dc = private;
+>>   	u32 irqs;
+>>   
+>> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
+>> +	irqs = dc->funcs->irq_handler(dc);
+> The IRQ isn't handled in this helper.
+>
+> So maybe call it "irq_ack"?
+Understood. I will rename `irq_handler` to `irq_ack` in `vs_dc_funcs`, 
+`vs_dc8200.c`, `vs_dc8000.c`, and the call site in `vs_dc.c`.
+>>   
+>>   	vs_drm_handle_irq(dc, irqs);
+>>   
+>> @@ -136,6 +134,8 @@ static int vs_dc_probe(struct platform_device
+>> *pdev)
+>>   	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
+>>> identity.model,
+>>   		 dc->identity.revision, dc->identity.customer_id);
+>>   
+>> +	dc->funcs = &vs_dc8200_funcs;
+>> +
+>>   	if (port_count > dc->identity.display_count) {
+>>   		dev_err(dev, "too many downstream ports than HW
+>> capability\n");
+>>   		ret = -EINVAL;
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
+>> b/drivers/gpu/drm/verisilicon/vs_dc.h
+>> index ed1016f18758..d77d4a1babdf 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
+>> @@ -14,6 +14,7 @@
+>>   #include <linux/reset.h>
+>>   
+>>   #include <drm/drm_device.h>
+>> +#include <drm/drm_plane.h>
+>>   
+>>   #include "vs_hwdb.h"
+>>   
+>> @@ -22,6 +23,34 @@
+>>   
+>>   struct vs_drm_dev;
+>>   struct vs_crtc;
+>> +struct vs_dc;
+>> +
+>> +struct vs_dc_funcs {
+>> +	/* Bridge: atomic_enable, atomic_disable */
+>> +	void (*bridge_enable)(struct vs_dc *dc, unsigned int
+>> output);
+>> +	void (*bridge_disable)(struct vs_dc *dc, unsigned int
+>> output);
+>> +
+>> +	/* CRTC: atomic_begin, atomic_flush */
+>> +	void (*crtc_begin)(struct vs_dc *dc, unsigned int output);
+>> +	void (*crtc_flush)(struct vs_dc *dc, unsigned int output);
+>> +
+>> +	/* CRTC: atomic_enable, atomic_disable */
+>> +	void (*crtc_enable)(struct vs_dc *dc, unsigned int output);
+>> +	void (*crtc_disable)(struct vs_dc *dc, unsigned int output);
+>> +
+>> +	/* CRTC: enable_vblank, disable_vblank */
+>> +	void (*enable_vblank)(struct vs_dc *dc, unsigned int
+>> output);
+>> +	void (*disable_vblank)(struct vs_dc *dc, unsigned int
+>> output);
+>> +
+>> +	/* Primary plane: atomic_enable, atomic_disable,
+>> atomic_update */
+>> +	void (*plane_enable_ex)(struct vs_dc *dc, unsigned int
+>> output);
+>> +	void (*plane_disable_ex)(struct vs_dc *dc, unsigned int
+>> output);
+>> +	void (*plane_update_ex)(struct vs_dc *dc, unsigned int
+>> output,
+>> +				struct drm_plane_state *state);
+>> +
+>> +	/* IRQ handler */
+>> +	u32 (*irq_handler)(struct vs_dc *dc);
+> See my comments elsewhere for the helper naming.
+Understood. I will rename all vtable members per the comments above: 
+`panel_enable_ex`, `panel_disable_ex`, `primary_plane_enable`, 
+`primary_plane_disable`, `primary_plane_update`, `irq_ack`.
+>> +};
+>>   
+>>   struct vs_dc {
+>>   	struct regmap *regs;
+> ============= 8< =================
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> index 2a0f7c59afa3..91524d16f778 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> @@ -94,6 +94,7 @@ static struct vs_chip_identity vs_chip_identities[]
+>> = {
+>>   		.revision = 0x5720,
+>>   		.customer_id = ~0U,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>> @@ -103,6 +104,7 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.revision = 0x5721,
+>>   		.customer_id = 0x30B,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>> @@ -112,6 +114,7 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.revision = 0x5720,
+>>   		.customer_id = 0x310,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_with_yuv444,
+>> @@ -121,6 +124,7 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.revision = 0x5720,
+>>   		.customer_id = 0x311,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> index 2065ecb73043..a15c8b565604 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> @@ -9,6 +9,11 @@
+>>   #include <linux/regmap.h>
+>>   #include <linux/types.h>
+>>   
+>> +enum vs_dc_generation {
+>> +	VSDC_GEN_DC8000,
+>> +	VSDC_GEN_DC8200,
+>> +};
+>> +
+>>   struct vs_formats {
+>>   	const u32 *array;
+>>   	unsigned int num;
+>> @@ -19,6 +24,7 @@ struct vs_chip_identity {
+>>   	u32 revision;
+>>   	u32 customer_id;
+>>   
+>> +	enum vs_dc_generation generation;
+>>   	u32 display_count;
+>>   	/*
+>>   	 * The hardware only supports square cursor planes, so this
+>> field
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> index 1f2be41ae496..75bc36a078f7 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> @@ -53,12 +53,6 @@ static int vs_primary_plane_atomic_check(struct
+>> drm_plane *plane,
+>>   	return 0;
+>>   }
+>>   
+>> -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned int
+>> output)
+>> -{
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_COMMIT);
+>> -}
+>> -
+>>   static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
+>>   					   struct drm_atomic_commit
+>> *atomic_state)
+>>   {
+>> @@ -69,13 +63,8 @@ static void vs_primary_plane_atomic_enable(struct
+>> drm_plane *plane,
+>>   	unsigned int output = vcrtc->id;
+>>   	struct vs_dc *dc = vcrtc->dc;
+>>   
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_FB_EN);
+>> -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+>> -			   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+>> -
+>> -	vs_primary_plane_commit(dc, output);
+>> +	if (dc->funcs->plane_enable_ex)
+>> +		dc->funcs->plane_enable_ex(dc, output);
+> Please note that all theae codes are for primary planes, maybe the
+> helper should be named mentioning primary. Overlay planes will need a
+> different codepath because they change different registers.
+>
+> Thanks,
+> Icenowy
+Understood. To avoid confusion, I will rename `plane_enable_ex`, 
+`plane_disable_ex`, and `plane_update_ex` to `primary_plane_enable`, 
+`primary_plane_disable`, and `primary_plane_update` in `vs_dc_funcs`, 
+`vs_dc8200.c`, and `vs_primary_plane.c`.
+>>   }
+>>   
+>>   static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
+>> @@ -88,10 +77,8 @@ static void vs_primary_plane_atomic_disable(struct
+>> drm_plane *plane,
+>>   	unsigned int output = vcrtc->id;
+>>   	struct vs_dc *dc = vcrtc->dc;
+>>   
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_FB_EN);
+>> -
+>> -	vs_primary_plane_commit(dc, output);
+>> +	if (dc->funcs->plane_disable_ex)
+>> +		dc->funcs->plane_disable_ex(dc, output);
+>>   }
+>>   
+>>   static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+>> @@ -133,18 +120,11 @@ static void
+>> vs_primary_plane_atomic_update(struct drm_plane *plane,
+>>   	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
+>>   		     fb->pitches[0]);
+>>   
+>> -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
+>> -		     VSDC_MAKE_PLANE_POS(state->crtc_x, state-
+>>> crtc_y));
+>> -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
+>> -		     VSDC_MAKE_PLANE_POS(state->crtc_x + state-
+>>> crtc_w,
+>> -					 state->crtc_y + state-
+>>> crtc_h));
+>>   	regmap_write(dc->regs, VSDC_FB_SIZE(output),
+>>   		     VSDC_MAKE_PLANE_SIZE(state->crtc_w, state-
+>>> crtc_h));
+>>   
+>> -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
+>> -		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+>> -
+>> -	vs_primary_plane_commit(dc, output);
+>> +	if (dc->funcs->plane_update_ex)
+>> +		dc->funcs->plane_update_ex(dc, output, state);
+>>   }
+>>   
+>>   static const struct drm_plane_helper_funcs
+>> vs_primary_plane_helper_funcs = {
