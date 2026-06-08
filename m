@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B353DA7EC
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717DE382F26
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:01:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780941694; cv=none; b=UTsaBwSqfBuK26G9ZoMbA5BodiNGzs882ybaq2mlNuzFdqAwowEJbJO8YUefz+ZYZAZLo3LjO/UDOjsrdV/pXf7958ptvbySlmq/sN/J4rpeB+RpVDUv9ZBlwCrmoO9tK5fEG/IfjmdY8uvCVFCV2NkygeFRBIvL46byx04tsZo=
+	t=1780941711; cv=none; b=sQpd5frxO4pwzW8zPU5jgXB+flMyC1CT7K7y50R0OCfpLRdvt3t9eDP9WDGZJtXhJZgEvVucuOZSWvK9DEBzYU/yOb6RCO2P1DVtBon5Efnx5TQiyAVFXwC6NkbZ2wupXpX2a/lTHjwHMxRUTxTp7E4TKo/XVyeve6ubJAYWbYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780941694; c=relaxed/simple;
-	bh=X3RYiQcx6eVjXIVo+7Erh0pgIRmY+RDme6R9PuyVPmY=;
+	s=arc-20240116; t=1780941711; c=relaxed/simple;
+	bh=WqAeGDhbNPUO3fAO9A8wZzlTV70wUxa+W3WaPbqrQo0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TMRNibJopob7J09TAhB+Mrotms/O2Z/m5T98mOGYbJlLAAEwtw0CJDC8TRjfpAEn2oeK8BUoo5lgSuT0C/wO7hcnXJo+IuMjiByPqzglMDul7IixxX63LNiysL/0WuH4du1CKBbXpin5uMfQbGKYMJWaPwElsw1xXlNqlYPfT28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfD8ZLh9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=s9badrbJf/9z2hySxFY3trPx7mbKa7/hQkXic1+BjtQLKJKQd8YQboNL8Ht7N1lUZKi+AtC+8mnqcIIWoE3Z1m5OWUqMn4ottZsExuu//Fwf+V0YVf/h1IY2m6e9oEdKQUAP/t0wH7TMVt46Q015VZ5m4loqMJxP8EuOaRzkQ1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsDJkNhK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfD8ZLh9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863CF1F00893;
-	Mon,  8 Jun 2026 18:01:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsDJkNhK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F211F00898;
+	Mon,  8 Jun 2026 18:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780941693;
-	bh=PQkcxbn3eMUyjPwEaHRxAyeYWRA5L96rXkU8dvRqN3o=;
+	s=k20260515; t=1780941710;
+	bh=uYBSA22+LPbfxfLtWkAIkjmgm+FuAmxxrjESY8JVKw4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kfD8ZLh93L3MevoN3oCrFc8ockqusJM7NXeH1Oh0cmqQdixgdZ4KJb5TVMK0jDsUo
-	 W/NxUODfgB5nbe862nNnMZeBxkZkfl3vw+aGHhspJGuQi5N0Mj9PO5IWuEm9MpCqIl
-	 8CFjXMiZZDSrQGdlBmTswefyHUxZQGog30ZgRc5iTPxb3tDhxnQ0KEAh8mZasIu/Dv
-	 cqrdLKPyZp4SQ6U5lJPVS3AmWFUH2zwjQQ3RxJhP7Wxtk8Y0gfilgA0TiM29L3Z3Cn
-	 57Ej6NfG6nMJOq66N0ouv5jbRDecsxVBHwwReOnCLl/Uwnyspl2BXJz8v1cUI0UlCR
-	 lfDFb9wlVpZbg==
+	b=XsDJkNhK9GhoA8EsdoDcA+3tHff4v0x64v/fLCzOJ0zVp6kiRGQqJvEmC4W0Dl+51
+	 TndefWP7AwhCn8oxCPoLGvmAOf6PqmEsb7v8sqvNEyCtV3pkCWdhUZmpGlNAcI9EMr
+	 7N5Gb031inVgoLgNk3LpqW0qPNqj+m8Kx/vmz2WrBCayMSbj3pcjzDQT3V3ccK43q+
+	 VmPB4gfSWoyo6a0Jcg2PpHVjUKlCTM0PPv5fkeYCoJ369KFyjVGqCkumP82miSm9jN
+	 wxZ0YdSO8KgHl85Kj2ybKWP+zkqMoS79pvKvLLdySZ7+boSlrfeDZ0uUjKUeUtRkSV
+	 J8dMTzFCvxixw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] spi: dt-bindings: nuvoton,npcm-fiu: Convert to
- DT schema
+Subject: Re: [PATCH v1 1/2] dt-bindings: soundwire: qcom: add
+ qcom,swr-master-ee-val property
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomer Maimon" <tmaimon77@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260608175418.1936892-3-tmaimon77@gmail.com>
-References: <20260608175418.1936892-3-tmaimon77@gmail.com>
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260608175345.3118060-2-mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260608175345.3118060-2-mohammad.rafi.shaik@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 18:01:32 +0000
-Message-Id: <20260608180132.863CF1F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 18:01:48 +0000
+Message-Id: <20260608180149.54F211F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,58 +46,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The alias mapping convention for NPCM8XX was corrupted during the c=
-onversion to YAML.
+- [Medium] Type mismatch for `qcom,swr-master-ee-val` between DT schema and=
+ driver implementation.
 --
 
-commit 04ac00da42e73e1f171a2c2d3fdb84bc4768096a
-Author: Tomer Maimon <tmaimon77@gmail.com>
+commit 7965a5220d8aca5065e58f8f961b8e06d1246a70
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-spi: dt-bindings: nuvoton,npcm-fiu: Convert to DT schema
+dt-bindings: soundwire: qcom: add qcom,swr-master-ee-val property
 
-This commit converts the Nuvoton NPCM FIU binding to the DT schema format.
+This commit adds documentation for the qcom,swr-master-ee-val Device Tree
+property used by Qualcomm SoundWire masters to describe the execution
+environment value for interrupt routing.
 
-> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.yaml =
-b/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.yaml
-> new file mode 100644
-> index 0000000000000..0f95def019105
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.yaml
+> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.y=
+aml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+> index 9447a2f371b56..5b06cc1a5f781 100644
+> --- a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+> +++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+> @@ -215,6 +215,12 @@ properties:
+>            maximum: 4
+>          - const: 0xff
+> =20
+> +  qcom,swr-master-ee-val:
+> +    $ref: /schemas/types.yaml#/definitions/uint8-array
 
-[ ... ]
+[Severity: Medium]
+Should this property be defined as a uint32 type rather than a uint8-array?
 
-> +description: |
-> +  NPCM FIU supports single, dual and quad communication interface.
+In the qcom SoundWire driver, this property is read using
+of_property_read_u32():
+
+drivers/soundwire/qcom.c:qcom_swrm_probe() {
+    ...
+    ret =3D of_property_read_u32(dev->of_node, "qcom,swr-master-ee-val", &c=
+trl->ee);
+    ...
+}
+
+If a device tree strictly follows the schema and specifies a byte array
+such as /bits/ 8 <1>;, will the driver fail to parse it with
+of_property_read_u32() due to the length being less than 4 bytes?
+
+This might cause the driver to silently ignore the property and fall back to
+incorrect execution environment defaults, potentially breaking SoundWire
+functionality.=20
+
+Conversely, if a device tree specifies a 32-bit integer like <1> to work at
+runtime, won't it fail dtbs_check validation?
+
+> +    description:
+> +      Execution-environment value used to route SoundWire master
+> +      interrupts to CPU0 or CPU1.
 > +
-> +  The NPCM7XX supports three FIU modules:
-> +    FIU0 and FIUx support two chip selects
-> +    FIU3 supports four chip selects.
-> +
-> +  The NPCM8XX supports four FIU modules:
-> +    FIU0 and FIUx support two chip selects
-> +    FIU1 and FIU3 support four chip selects.
-> +
-> +  Alias convention:
-> +    The '/aliases' node should define:
-> +      For NPCM7xx:  fiu0=3D&fiu0; fiu1=3D&fiu3; fiu2=3D&fiux;
-> +      For NPCM8xx:  fiu0=3D&fiu0; fiu1=3D&fiu3; fiu2=3D&fiux; fiu3=3D&fi=
-u1;
-
-[Severity: Low]
-Does this new alias mapping for NPCM8xx correctly match the original text
-binding?
-
-The original text binding in nuvoton,npcm-fiu.txt mapped the aliases as:
-
-In the NPCM8XX BMC:
-        fiu0 represent fiu 0 controller
-        fiu1 represent fiu 1 controller
-        fiu2 represent fiu 3 controller
-        fiu3 represent fiu x controller
-
-The converted documentation maps fiu1 to fiu3, fiu2 to fiux, and fiu3 to
-fiu1. Could you confirm if this change in the documentation was intentional?
+>    label:
+>      maxItems: 1
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175418.1936=
-892-1-tmaimon77@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175345.3118=
+060-1-mohammad.rafi.shaik@oss.qualcomm.com?part=3D1
