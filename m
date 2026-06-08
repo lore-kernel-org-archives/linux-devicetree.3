@@ -1,101 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378F0386C39
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDF73546C5
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780944547; cv=none; b=RHN6eg7qWfJIfnk7Bqnq8cFK4vF3foE99JxkkKhsVhjSK0DnwV2K/1kFbtjBnwWimKJ56v6sow0cCfFCIJKP0z5QTjo1m6x3/4LjaLNd9JbvLG28XnCbrT9EeBOZtXgtwtFEIcZ3bZVdd6T9alg6x1fCprVB41jL3Y1V0lm8A5w=
+	t=1780944727; cv=none; b=Q5Q1jLmuYr3eoVkOTH3fCwXLq2BAOfM8l4OzHCWN27+CQsX+q5yu5ykx/VISUZcNysb68KiJ9F6n9vI2lxysFB2wjgtunhlK/PIuZN2hwLigWTvhaQnEWUEzZarsc9vwoK8KSWh1HgqlIaV2lJR5AEp+GTHGNDTMD0qMv7No4Fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780944547; c=relaxed/simple;
-	bh=5C4z95/rtuXSFk2JQ31cDh9rIZibU8Mydc8tSQz3fc4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QTxYR6CSWoGUwBvbWwL/Ll7qf6cO+Qnn3YARzef4SPNk8/nariSctpNMWb8Y8YznUHmMcND4Os4O3pdxVKvHpT9GtOeBtNFmuyogxE8JQ41ESomv+d4BwsGOdkIbNUCb5U1/ZkPJCGVdOOJ1e5um7ALIq9zn2qA4YwAFDomI2t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWmbUWM/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780944727; c=relaxed/simple;
+	bh=dCzZqsEFSsmTdQjtgd8ONukyg5eOVXelkFuLU6s69f0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NiqzKKbJJLx7kHh0Cv7ZppQW7YCIHSxcYIkZGhuTFw/hPJlreK39I5qfvR9IxOdWTunHe4Q7ekBVN/VVKa5sNtYDacnKfB9KqEoAlvZXvFv+xUg3fKoJA35EPhsYOJ/8IvaUfYTRTZaDVpUqAOe3/L3eUExie9CaLAeL0awxvH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=PnHF6KMb; arc=none smtp.client-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWmbUWM/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4C11F00893;
-	Mon,  8 Jun 2026 18:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780944545;
-	bh=YvK11Osbx3Qh4z4Ps3pyW4RMR8yQgV2gTIfp6NJ58IA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JWmbUWM/Z/nd4PlfHMj4hI+dGrXYkqBuFo5EP612S+uWgaqj7BuvOMUdlnVYsqvr6
-	 Shc8zCWFKQXv/tbKUyxqG0D7YaOytM5ST+IIWlBuYmGMZavOrnNqmCrwJiJJFEH3F8
-	 2hSManTdTIJiWDcBpReaPPIeeDVEKEDQsLe/RXiKnL2r1XAMiVTfGbpMdneBhyGL3n
-	 cZWLys3Yh9hj2/kp8zz7xCet5zYAPsJIl0YNbaNOCVPzNKxj1/Bbi+QV3IHNIVJHiZ
-	 uIdLrC4H1Zfv4rIfXNdxg4ydmycfkr3GBiH1p8AvZM1cdHmpYQmTX9A5e6LW7v+vEe
-	 etlHDsnwKPZfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/5] iio: adc: versal-sysmon: add oversampling
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Salih Erim" <salih.erim@amd.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608183801.1257051-6-salih.erim@amd.com>
-References: <20260608183801.1257051-6-salih.erim@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 18:49:05 +0000
-Message-Id: <20260608184905.AF4C11F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="PnHF6KMb"
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <david.laight.linux_spam@runbox.com>)
+	id 1wWf4o-00CXwt-Vi; Mon, 08 Jun 2026 20:51:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
+	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=dG/sfYRvq8kCCeYDOuH74EgMzRpBVnNC9TmW9KHmBDA=; b=PnHF6K
+	MbWeBipz0WdMy11fYHsxVRSqjqPpYyOfBaE7d5LkMgDAVsAGYgv7Gwh4+QS4hGFJ1nQDiHOSmev8z
+	Qp6s5ZxV54rglsdBLBI0LSmaDbQZN9QRmeN+0mLROGyZmSNT19WKgMZlhBgNcB2NBoeCmEZqi3I+P
+	u7RDZQRtPJKSPOu7PZqNg3GuX99n57bBn6ft4pxXYlCLhrRhGzJYfvAM7Xof8zwjzE0683zcuV7TS
+	848Nqgs9Mp8PL/781nhKyvenWkXAvbxdUhlIXVpV07wo07b/dE616M6yLuQjqmPOzuYsl6OvXteo8
+	Pojl+6XbpA0jdgeADSRsLWTSychA==;
+Received: from [10.9.9.73] (helo=submission02.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <david.laight.linux_spam@runbox.com>)
+	id 1wWf4o-00081k-IC; Mon, 08 Jun 2026 20:51:58 +0200
+Received: by submission02.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1wWf4k-00Bd89-NO;
+	Mon, 08 Jun 2026 20:51:54 +0200
+From: David Laight <david.laight.linux@gmail.com>
+To: Kees Cook <kees@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Arnd Bergmann <arnd@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH next v2] drivers/of/overlay: Use memcpy() to copy known length strings
+Date: Mon,  8 Jun 2026 19:51:21 +0100
+Message-Id: <20260608185121.22331-1-david.laight.linux@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The oversampling ratio software caches are initialized to 1 with=
-out synchronizing with the actual hardware state during probe.
---
+Avoid calls to strcpy().
+The lengths of the strings have been used for the kzalloc(), replace
+the strcpy() calls with memcpy() using the known lengths.
 
-commit 3a6a43bb24f0fd6d80e623d9f51baca549ff9147
-Author: Salih Erim <salih.erim@amd.com>
+Signed-off-by: David Laight <david.laight.linux@gmail.com>
+---
 
-iio: adc: versal-sysmon: add oversampling support
+v2: Improve commit message
 
-This commit adds support for reading and writing the oversampling ratio
-through the IIO oversampling_ratio attribute. The hardware supports averagi=
-ng
-2, 4, 8, or 16 samples, plus a ratio of 1 (no averaging).
+This is one of a group of patches that remove potentially unbounded
+strcpy() calls.
 
-> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versa=
-l-sysmon-core.c
-> index 5fbd509089bbd..389a88878115f 100644
-> --- a/drivers/iio/adc/versal-sysmon-core.c
-> +++ b/drivers/iio/adc/versal-sysmon-core.c
+They are mostly replaced by strscpy() or, when strlen() has just been
+called, with memcpy() (usually including the '\0').
 
-[ ... ]
+Calls with copy string literals into arrays are left unchanged.
+They are safe and easily detected as such.
 
-> @@ -890,6 +1033,8 @@ int sysmon_core_probe(struct device *dev, struct reg=
-map *regmap)
-> =20
->  	sysmon =3D iio_priv(indio_dev);
->  	sysmon->regmap =3D regmap;
-> +	sysmon->temp_oversampling =3D 1;
-> +	sysmon->supply_oversampling =3D 1;
+The changes were made by getting the compiler to detect the calls and
+then fixing the code by hand.
 
-[Severity: Medium]
-Is it possible that the hardware was already configured with a different
-oversampling ratio by the bootloader (FSBL) or retained state across a warm
-reboot?=20
+Note that all the changes are only compile tested.
 
-The software cache is initialized to 1 here, but no corresponding hardware
-synchronization or explicit register initialization occurs before the IIO
-device is registered.
+Some Makefiles were changed to allow files to contain strcpy().
+As well as 'difficult to fix' files, this included 'show' functions
+as they really need to use sysfs_emit() or seq_printf().
 
-If the hardware is actively using averaging (e.g., OSR=3D16), could the IIO
-sysfs interface incorrectly report 1, masking the true hardware configurati=
-on?
-Would it be safer to either enforce this default state on the hardware or r=
-ead
-the current register values during initialization?
+All the patches are being sent individually to avoid very long cc lists.
+Apologies for the terse commit messages and likely unexpected tags.
+(There are about 100 patches in total.)
 
-> =20
->  	ret =3D devm_mutex_init(dev, &sysmon->lock);
->  	if (ret)
+ drivers/of/overlay.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608183801.1257=
-051-1-salih.erim@amd.com?part=3D5
+diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+index c1c5686fc7b1..656867009514 100644
+--- a/drivers/of/overlay.c
++++ b/drivers/of/overlay.c
+@@ -258,8 +258,8 @@ static struct property *dup_and_fixup_symbol_prop(
+ 	if (!new_prop->name || !new_prop->value)
+ 		goto err_free_new_prop;
+ 
+-	strcpy(new_prop->value, target_path);
+-	strcpy(new_prop->value + target_path_len, path_tail);
++	memcpy(new_prop->value, target_path, target_path_len);
++	memcpy(new_prop->value + target_path_len, path_tail, path_tail_len);
+ 
+ 	of_property_set_flag(new_prop, OF_DYNAMIC);
+ 
+-- 
+2.39.5
+
