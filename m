@@ -1,105 +1,132 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0F43793D5
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 12:25:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649EC370D77;
+	Mon,  8 Jun 2026 12:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780921509; cv=none; b=iReOknd9kwYRIQn5F7lBKLxESY/hw2WvS7uY/+V0GcS73nekI5ntoRwrSRze8SXe1BoQMCOkopH8/Zw93lkQ1C9uxHDNgffE6znyegtuO0/UyixKiCn7OS2U9e0xIswOrdLxjnFzy8qJalARWkept2Gb7E6GcdJeSjM8LFUCe+0=
+	t=1780921557; cv=none; b=bXK9JsUyKzZ3D2e4TNPA3K+rPGc5+ZWLc0aweBvIdJ8xo6kZPv1d1f/wxOyFo68fyVKhyCn/4vMWgxeJXQhenfwX4LI27FM+FJQ+WYFueMjEMAdKNOLt4OMG6cH8GrKWBC2If8fM51H2D9Y+2DxwEyvcUK4CrKU+ibWpinacH38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780921509; c=relaxed/simple;
-	bh=r+iCWX9heE5Z9B8ae1bmRfyMHYbnyQwXWtPlRLXYvBk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s68xWI1QiQ1On8RQmZD09zYO2y8zhjXf4Y3gcq8nlJdigwyPEoyBtQcNf6gBHab4qyY1gV7GkdGL6caNB11h12LcP+IeLoSKTiTAqfJZnZcbXCz+34aGjMPwHBkB+DQZ/SzNkLMwb9A4ipu6RkakjOOEG/iHEXTZ2aSlp8L4c08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e5EoediD; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780921557; c=relaxed/simple;
+	bh=bVNkUabo3ud/anBTQclICpClAeW+v9Y1/MAmmG41WCk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hm5D3OT6R0AbhUa5ZoCWk1YsX9O0FVni7yS4/4XY2GQY15mOOzcabkc2sXNn9QPkZFTD3Q4q6UIomLE0XyJbuDkJqHoSackQjB4Xvk+TBb8aL6ynxGcbJIQapTDXP1g7RxN1+wzxuo0EVOFBsnIr83IccsCcFbUI0cGFx5Kc5rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3WRTkbD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e5EoediD"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-68f36e1663cso7512195a12.3
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 05:25:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780921506; x=1781526306; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r+iCWX9heE5Z9B8ae1bmRfyMHYbnyQwXWtPlRLXYvBk=;
-        b=e5EoediDWlEGUE59XVf22ZDBxJp29i+UlU4QZFjUvBayeKnPDmRnKp7UEXNQSPQj+F
-         x1NF3sPQwhAv/AmudkPj3T6mloOTurNH4HpAUOwdeuFklsrw+N1PoMLekayLtD2ZQrl9
-         4xqAcxlwT4axhnHsQ9Gi1LUye44AgqBNV9UMF6iWlCLaoKviZA5RLo0hVtIEFpRM8Q3j
-         jmuWzrHDQehGu+k5SV35+wd0CyG3kdVP6/N7VS1GvLoNENdChtoJRZ7lcv6wIQSBS+LJ
-         /LtGhfXQNWlV2zhOZoFUzEW+azfrIMwxJnOS1U4PTco2smTzOJTICO+PiwacJyOX2M8O
-         YkEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780921506; x=1781526306;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=r+iCWX9heE5Z9B8ae1bmRfyMHYbnyQwXWtPlRLXYvBk=;
-        b=Y2lcyJKOB+dooefTQ01xEWw9w9cIQrgpsruJ+Y3uSqTj3wFt5k/K9Z2nAbAuRhka9a
-         JuX2uYqF2L8dwzfhdjBI4yMRQlKf6XEt4aDgltpxkbNscMeloVWmKIeQYJvRjiQ3Esme
-         tOQrHuvGjKVijZURWL+k0aaq5QBL4McuOzOVyLcXY8N43BQnW4gTSjORIpkOtHgYAf+/
-         gNZR9+cCfwOc+FemwfW/S9QBKfW8Y+hO8axtrl31b8RkQIORLL+Z8WNtKqiXyAhbTz2x
-         OuCfId1ufuC06QScAEHDqEEzfQNf2OuiQGnP1NjQ/IygPcKdcgSN6Ger5cfUN/UPU2/y
-         eZWw==
-X-Forwarded-Encrypted: i=1; AFNElJ+ngvBHxnn/ftSK5wwfS4lZu1M4LMfu3cpVyaH8NvHdCu26S3h5P9jxDMSKjS2KL40WyA02n3msn3ol@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsBWDOChEwsraTNfe3VEtWusiyNceNQxK1Dp0AGwHXA4KOzJod
-	vLed7QlZ2kxHTo//8okJh8MdiHAyiCJSUQGDrjeqhQpZS7FGiwVfvhpK
-X-Gm-Gg: Acq92OHt+Q5oP6C8Rcs4JFThDO6lN3meANsy9T+xqHxVV3zO/S83m/kVDxEF4eiJCGU
-	esI+GcISM/YMijJINP0/2uRzcyB9NIwGEzWr06IpFsyeJBzYNsq2x7HzUnoFUuE8l7+Q78Q3uuB
-	1u4DxqmbgpXh9iGTmfUbKaKp0k+UeSKt2aVk0Kl7bo16zNquCX8sGtxKc/Hld+f44VennJ4uTbQ
-	e2HWNnJUdMGdGwC1D46MdkUI6yNEaeu9b4MQOPUb8ZfbauvMPW9WeyDQmd6LesAVhY0f7WWWLvC
-	rXWp9uRi35GS1f6lXoOVxngzJ5IGycMPXVfIBU9kQifKOZg1O4EsJUXCVTZjyaeNvaVWL2RFGdO
-	gDtllZS6LnNr1QdXsNzm2+Fzqe/126Wt0sycCHZbZ/cUvEyOKo5nvH0PSH2+D7jVbYfLjr37dVB
-	VkEK7809c1IfVcRJqTf652Ig08vdq6DfZWdOp2ssZEDlMK6NOi4LkKHgliIiP27nIAvobyfuKdn
-	P5n
-X-Received: by 2002:a05:6402:3484:b0:691:ad86:ac51 with SMTP id 4fb4d7f45d1cf-691ad86c033mr3034671a12.20.1780921506170;
-        Mon, 08 Jun 2026 05:25:06 -0700 (PDT)
-Received: from fedora.clients.cmblu.de (p5df027fc.dip0.t-ipconnect.de. [93.240.39.252])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65851fa2sm6954145a12.18.2026.06.08.05.25.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 05:25:05 -0700 (PDT)
-From: Wadim Mueller <wafgo01@gmail.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Wadim Mueller <wafgo01@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxwell Doose <m32285159@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] iio: types: add IIO_VOLUMEFLOW channel type
-Date: Mon,  8 Jun 2026 14:24:59 +0200
-Message-ID: <20260608-slf3s-v3-reply-unit-decision-wafgo01@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <6at5vkw3byvbdw3przfchwrqscghdfhuwkv5xf6v6dkvfpplt5@3k3gjxn2ua26>
-References: <20260530205435.37326-1-wafgo01@gmail.com> <20260530205435.37326-2-wafgo01@gmail.com> <ahx5cuM1xlOVP6DT@debian-BULLSEYE-live-builder-AMD64> <20260601104233.310ac930@jic23-huawei> <20260602-slf3s-v3-reply-03-wafgo01@gmail.com> <20260604094436.3c50f123@jic23-huawei> <20260607-slf3s-v3-reply-femto-wafgo01@gmail.com> <6at5vkw3byvbdw3przfchwrqscghdfhuwkv5xf6v6dkvfpplt5@3k3gjxn2ua26>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3WRTkbD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69541F00893;
+	Mon,  8 Jun 2026 12:25:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780921556;
+	bh=/Px+lEFLWyOaHo3lYbp1kWR77jypN2bFXFXDA78CNVk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=V3WRTkbD/fyG7qVnat2T+yLd7z43oQ68pKRYVWkz7cRlXkij3PZ87gYVQTbtD6aU8
+	 9388B9lwCkR7z9ole+pT4OQ1Y1nCg6E2udVqPdVvQjIlVs2j7sXgPn1L7BQoyJnDjU
+	 DYkDiO3D/CgAEEJdt3U8Z8G4xtK3KqIzDBeO7jkHrrDiN1+IVeMDJQwD/183y3gDsY
+	 QKtV/PHGVw42pkCZsZcuEtjCqROPwBw+cqvPbtBLMBAEpiAuN+QtRKAMJQHLBfKwer
+	 eIoA6OixdDWYIvQiOtUCBBIZ5ZDdzd3rKbDaHctnx8e9l43AgMBs7/ydxV7/G6ht0v
+	 gXdpFuJgapk2A==
+Message-ID: <ccc81b28-8949-48df-a345-ef392150fcd0@kernel.org>
+Date: Mon, 8 Jun 2026 14:25:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: mfd: syscon: Disallow simple-bus with
+ syscon
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Conor Dooley <conor+dt@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ Tony Lindgren <tony@atomide.com>, Andreas Kemnade <andreas@kemnade.info>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-omap@vger.kernel.org,
+ Roger Quadros <rogerq@kernel.org>, Lee Jones <lee@kernel.org>,
+ devicetree@vger.kernel.org
+References: <20260531110404.12768-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <178060921244.1298375.8605331769477177888.robh@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <178060921244.1298375.8605331769477177888.robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On Mon, 8 Jun 2026 09:53:28 +0100
-Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+On 04/06/2026 23:40, Rob Herring (Arm) wrote:
+> 
+> On Sun, 31 May 2026 13:04:05 +0200, Krzysztof Kozlowski wrote:
+>> "syscon" is a system controller with registers having their own
+>> functions, thus not really a trivial MMIO simple bus.  "simple-bus" on
+>> the other hand is just a bus on which multiple devices sit and the
+>> "simple" means no functions are allowed here.
+>>
+>> Combination of both "syscon" and "simple-bus" is abuse of DT for easier
+>> instantiating of Linux device drivers so add a schema to disallow that.
+>>
+>> Unfortunately there are a few old cases of that patterns, so add
+>> exceptions:
+>>
+>> 1. "cznic,turris1x-cpld" and "img,pistachio-cr-periph" are already used
+>>    in upstream DTS.
+>>
+>> 2. TI has several DTSI with a child of SCM device (e.g. "ti,am3-scm")
+>>    using "syscon" and "simple-bus" but without a dedicated compatible
+>>    documented anywhere.  Add new compatibles for such cases.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> ---
+>>  .../bindings/mfd/syscon-common.yaml           | 27 +++++++++++++++++--
+>>  1 file changed, 25 insertions(+), 2 deletions(-)
+>>
+> 
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-> v16 is essentially ready to be accepted! I suppose adding the FEMTO format
-> could be done here if needed.
+Thanks for ack, but this is partial patch on top of my earlier work
+which I forgot to squash here. I will send a v2 without the ack.
 
-Thanks Rodrigo,
-
-then let's go with m^3/s as Jonathan prefers. That does need FEMTO (the
-SLF3S-0600F scale is ~1.667e-12 m^3/s), so could you fold
-IIO_VAL_DECIMAL64_FEMTO into v16? I'll base v4 on top of it.
-
-Thanks,
-Wadim
+Best regards,
+Krzysztof
