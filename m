@@ -1,154 +1,193 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0333C98AE
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F953D093C;
+	Mon,  8 Jun 2026 14:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780928388; cv=none; b=RmZ8x+ImSpdY1Ovcp0OvbhlZuRNF8Vm3dl5R9vARfecCAue7aS4Ghc5ISnBtlCRc6dcGy1WEpRyAHW0tcIshS5xhjtYOFZqs8C7i4KW26nl+UChvwH7p1vUUD+zHpGze4Xn3YhnT3r2notbil4Ir+gfNNa9+wv1SMw1PhA70zRw=
+	t=1780928512; cv=none; b=GaBz6qwf4+t/FPWudh8NhDiauqnTRVCblxMPJVoC4WCHXOHpsKp38sq4gMuSzUMihxGG+3ArrDG1tlL20lAQZZAprGufEuUXs/FcVXzFYL9QCmf0Ozp1NL2qkmFJpqixuJNFBigRjd78yDMFPnYS0HYLcddbJRxU3LJlRzte6YE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780928388; c=relaxed/simple;
-	bh=RCYy0IHiJIJ71s+W/69dtSzgpRWYhBpmknflCMoSQ7s=;
+	s=arc-20240116; t=1780928512; c=relaxed/simple;
+	bh=iXkaSTI6frUOQGLwxUavbyFaiFgqu2M9t0u56j7oQto=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aQ9YjBYrAkmFATaOissH9E5Jq8+GpirGLZfd/zwWYJUik4GakhRpefJLUrSuib7eQzazFq3yS4Zf1fs7zs55ObPA6JEzqoKm1EfVChrj1OifbR5hycUP4piH4uP9m6ZAZjtpAgbTGGYhpdc0FSWveabBMegt0MZHHibrLYJKl+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k3N1gQtS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gnEc0q/E; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=CN3oiWp1CCJTi7I35kqU8jGC0uxvqzmSBWXwEpUz5WZkNZ+OB0YMjey1mtBDtd9Et7DExIYGWe5iSiTlINgA/spydskr/yNFwURbDqiOBT0YtjrHq7gnIu83MyRHbh8tHMkUoSGzzizZAFtbCbS1zMzpncdedN3ulY1hjfmwz1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=hXdUgb3n; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k3N1gQtS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gnEc0q/E"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658DROIT3346978
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 14:19:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	T48n2DUWsXNrk3FetI/dF/Eg9NT15exAWsHm/kM8tw8=; b=k3N1gQtSk6OnTdvm
-	E3Xfi5uS1MXoIMj1wX3SgYwWlu2h1JuCd+0V7Om7+xRUpC1p5VZWoc70uaaLLQ1S
-	dOSrfCWM/Ut+fDoDbd3fn6KLk7Covdz4ClO11shd6Dsq4rkzC31YIIs3qfo/zBWT
-	scbGj8S+apvyyujS5UuhcIsvHZgDKE5iMS74v4LwZfujaAxw36lOhG+iOWd28buv
-	utg13w5p2vIF4YRQ211eQuAo6639MX+DkrqiASUKtzQnXgUGdga2fJQi4q/exhCF
-	MoRn0NNBTon5GdL16F+/99WYZLbxs8eE7GEoKiy3CW07kBIwr4G4K3CqKcjZpj7Q
-	FIKssw==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4envaj8w0u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 14:19:47 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-59ec1fcd5aaso6830536e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 07:19:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780928386; x=1781533186; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T48n2DUWsXNrk3FetI/dF/Eg9NT15exAWsHm/kM8tw8=;
-        b=gnEc0q/EJ+1Vp/L2aJ2iXTHxsf0d97IYT5cqjLy2WUZScMkwpBSXj2YqBrBjSmYPPq
-         4SB2PBp0u1RIryn7GRROYMNB+FKpra+WJtpXu/iZQfs+fZhX3mYegR6qj2gk8551aI9c
-         a8AgYIryQZlmvxq98poTZktBmWhT/JJDWUCHlUpH85iwTxIwcTXmHAxVOp6FLZjQebad
-         MCVfktJW9W1thWqT04cGo7X1eQuNSD2Fx4HSRSE6ja6+W2YGn5ZXHADQaL5ZU4yVL7yT
-         xk0ignjxlGjWkxjpr7DWGBASksk3MQ5b2jgF8DLN05PPkndqhNYGIDyszmBMB2WK1YbS
-         5iiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780928386; x=1781533186;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=T48n2DUWsXNrk3FetI/dF/Eg9NT15exAWsHm/kM8tw8=;
-        b=S2xWpjfK0jVhKKESIJVsLgwLpKwMJ4LM8s9tF/ydlE9UgC7FpCgJlZhKPvG7ukre4a
-         NMEAQ47HPqSBqR6tnvvYYk7bVXjnz5LwuUrBr2FC86BdOjbx1XEu5zjkLe+fN4ldlFPd
-         /EvjrgVG9krX5jbeP4vvVtkJ44ghbVG/JgBrMFVJsjwVlfySeTkPBhwR7WwQSzaYDuAk
-         m/YmgWCKVYAH62n+O5UytOoOvzeOMWiXl9HJIOi2wMSmJxvjDFg1dgyCeGCZjnV7nxB1
-         unohzUVQkzzAJTWUv7Vxhnsl+9mmauSssU56hQGA4WmG5ou9OM5d73WD5s4oveSkroXY
-         Q8Qw==
-X-Forwarded-Encrypted: i=1; AFNElJ8TJ9g5vpGgydro/wcrAq2L4Vpb4CbgzDcc3UwADOqlOTTZUOKM2TFXvD+Jf7eMmxTLJ4OMO5nC/FlA@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHRI+P4hKULLHw3ShEXwsXHd/VWFGDWpQeketnfMSb2hFJm6ev
-	vlz3roCqraEgZ3hOJsNrc5PjSTMZAb8cy61Em8ZJh9oQX3CNAv4aILKQ8tfuHiZvUWPzBdqoYOq
-	iu3rnPGkH4xQ56Ih8hqPcg3lXAXJAELXdfS29SS4Y2vp3whlHLOCZpZ+VINPPITgv
-X-Gm-Gg: Acq92OG4n92UoBgFPkWDJYcGtVLm+vHqID9r+yeTyJBJkCQ0oLzj5xw8Axhd0wYCMMS
-	Xgd8eTQ5viBbX/1Ib+c2ZoV2A7+iLpo7RLrDOvHmSNz/xr7at5wnSN6lUUssdz+USp9P85SoUBH
-	YW9L9cnPWyov+6Cy2xHcHGwCRLQebkoq9Sy39x33f4LG1dOl76xu6lrRBXqfZ7Oqh0YLUws9BNB
-	au87L6T76/bugp2+CEjW+fx4FRDlBpWGRailIDgO9l6jX7sOLMXtXancy1JenRzhcePxwbjJ4v3
-	AyLRwrXLCRA6Zd/HSzcQYuu6xKwANVgKErmnlAN1OV2IoZEZ9klExKgSSdSOg4qkufvNRmUw+Qb
-	KvqE5M12F0d40zAS2uSt7C+NW2FnyU76yKv45qkmKZhb3fe5jKWmcwVQRczw=
-X-Received: by 2002:a05:6122:1796:b0:5a0:c38e:6199 with SMTP id 71dfb90a1353d-5ac4ca5ce4amr7610867e0c.1.1780928386002;
-        Mon, 08 Jun 2026 07:19:46 -0700 (PDT)
-X-Received: by 2002:a05:6122:1796:b0:5a0:c38e:6199 with SMTP id 71dfb90a1353d-5ac4ca5ce4amr7610799e0c.1.1780928385554;
-        Mon, 08 Jun 2026 07:19:45 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:4904:8660:26f:8b6a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3c15cesm397599425e9.5.2026.06.08.07.19.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 07:19:44 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Wei Deng <wei.deng@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-pm@vger.kernel.org, quic_chezhou@quicinc.com,
-        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com
-Subject: Re: (subset) [PATCH 0/2] Enable WCN6855 Bluetooth on lemans-evk via PCIe M.2 Key E connector
-Date: Mon,  8 Jun 2026 16:19:42 +0200
-Message-ID: <178092837981.163118.4463258851423326572.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260608091702.3797437-1-wei.deng@oss.qualcomm.com>
-References: <20260608091702.3797437-1-wei.deng@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="hXdUgb3n"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=Mey9nJbl/6Uat+RzZy4Iz6dhjdtya/34ZRmGSIIt2JA=; b=hXdUgb3n7qGwkTK3nixNQyzVoZ
+	uhkFVvblP7TbVRecei1+rtfG6gxlMGhxV5nnqv9EFk3wkseWpMKip4Bzm/nhI4blFQqR39Q4dzWgo
+	scKvh4T4e0ac2561h7wvxG5H7XlCHbXTJRgIjuke5rFIoczywhRZ4wdHK28FIcPFLIVU5v7DAp6hg
+	7Ykj+hQ1ehZSvaVQRyNdX+CsHr+RhO8ivhN5NCjvGLYYivhPcfdDQZKWGB3FthAgI3QriM5UXpGCs
+	aQ2GJoqtGv4AmRy4jqg9JlaoxH14jaGe0mmU6+jaL+IDY86RbqtARoP/yXfebEKB126IprTHC4JK3
+	+r0wFLSg==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wWarN-000ITk-1r;
+	Mon, 08 Jun 2026 16:21:49 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wWarM-0008uk-1E;
+	Mon, 08 Jun 2026 16:21:48 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v5 4/4] arm64: dts: freescale: Add dual-channel LVDS overlay for TQMa8MPxS
+Date: Mon,  8 Jun 2026 16:21:33 +0200
+Message-ID: <20260608142144.564871-4-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260608142144.564871-1-alexander.stein@ew.tq-group.com>
+References: <20260608142144.564871-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: lAIf8OPQ_Fko3x6kj0Cdb48SCgyBPo-I
-X-Authority-Analysis: v=2.4 cv=eo3vCIpX c=1 sm=1 tr=0 ts=6a26cf83 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=KxFyB6w1bcBEixo3GQYA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-ORIG-GUID: lAIf8OPQ_Fko3x6kj0Cdb48SCgyBPo-I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEzNiBTYWx0ZWRfX8WthmRdrGnRv
- Ju7t/ryLNdYNtOXMrtnprILXyE+3ec1Jr5K9VxySpGwCeFYIvQnT+DsSOef/IkOtv77Hs3OO16R
- teLV8DpOnE2QBYAvVM4wXzLbN4ccJLwYQ3Vs/lPQJurref8eqUkz2gr+MCp4pM4JR8mKJCdtBlW
- 7lVuzUYaS+HYDAglGvXNB1RxCQAh7H5yOFwoiA/9AoBiC8PLHoZo+rG4nqbuT4wT+D9AVWRjWho
- yb1IGkHM10ww/c8a2SlX1cUmpXpXmNiS6jc0usi+JVcSlbOYitnEPdmdkm8cLcII9uwwlbu5wlj
- vcl+npp9PRcTKFEoj3v1CC1Jt/zJOKYvqW78I6zxSZNNo05jZewQs9d+o+nYFQeU/nqSHJ/MWJu
- t0u+01XhPmwhA5hTZysmn+LJhlZf5PVY2O1Zej9icRs7Ya4kaDsCGFyq5bn2K7mfdrFm06g+T0Y
- BjBTkR5bJKLQGqVs/9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_03,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 phishscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080136
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28025/Mon Jun  8 08:33:34 2026)
 
+This adds an overlay for the supported LVDS display AUO G133HAN01.
+Configure the video PLL frequency to exactly match typical pixel clock of
+141.200 MHz.
 
-On Mon, 08 Jun 2026 14:47:00 +0530, Wei Deng wrote:
-> This series enables WCN6855 Bluetooth on the lemans EVK through the
-> PCIe M.2 Key E connector + pwrseq-pcie-m2 path.
-> 
-> It depends on the "Fixes/improvements for the PCI M.2 power sequencing
-> driver" series (V3):
-> 
->   https://lore.kernel.org/r/20260519-pwrseq-m2-bt-v3-0-b39dc2ae3966@oss.qualcomm.com
-> 
-> [...]
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+Changes in v5:
+* Fix dtbs_check warnings by adding reg property
 
-Applied, thanks!
+ arch/arm64/boot/dts/freescale/Makefile        |  2 +
+ ...p-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso | 81 +++++++++++++++++++
+ 2 files changed, 83 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso
 
-[1/2] power: sequencing: pcie-m2: Add PCI ID 0x1103 for WCN6855 Bluetooth
-      https://git.kernel.org/brgl/c/bde2202a2fffd3137df9a0b4b8ffd8a44ef316f6
-
-Best regards,
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 2f4568e7105f4..0c390ef6f7571 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -498,8 +498,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070jvhg33.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070jvhg33-imx219.dtb
+ 
++imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01-dtbs += imx8mp-tqma8mpqs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtbo
+ imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33-dtbs += imx8mp-tqma8mpqs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtbo
+ imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33-dtbs += imx8mp-tqma8mpqs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtb
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso
+new file mode 100644
+index 0000000000000..2d2dfda944faa
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds-g133han01.dtso
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
++/*
++ * Copyright (c) 2025-2026 TQ-Systems GmbH <linux@ew.tq-group.com>,
++ * D-82229 Seefeld, Germany.
++ * Author: Martin Schmiedel
++ */
++
++/dts-v1/;
++/plugin/;
++
++&backlight_lvds0 {
++	status = "okay";
++};
++
++&panel_lvds0 {
++	compatible = "auo,g133han01";
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			dual-lvds-odd-pixels;
++
++			panel_in_lvds0: endpoint {
++				remote-endpoint = <&ldb_lvds_ch0>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			dual-lvds-even-pixels;
++
++			panel_in_lvds1: endpoint {
++				remote-endpoint = <&ldb_lvds_ch1>;
++			};
++		};
++	};
++};
++
++&lcdif2 {
++	status = "okay";
++};
++
++&lvds_bridge {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			ldb_lvds_ch0: endpoint {
++				remote-endpoint = <&panel_in_lvds0>;
++			};
++		};
++
++		port@2 {
++			reg = <2>;
++
++			ldb_lvds_ch1: endpoint {
++				remote-endpoint = <&panel_in_lvds1>;
++			};
++		};
++	};
++};
++
++// Update VIDEO_PLL1 frequency
++&media_blk_ctrl {
++	assigned-clock-rates = <500000000>, <200000000>,
++			       <0>, <0>, <500000000>,
++			       <988400000>;
++};
++
++&pwm3 {
++	status = "okay";
++};
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.54.0
+
