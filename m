@@ -1,93 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B592E7368;
-	Mon,  8 Jun 2026 10:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780915993; cv=none; b=bHxd1YIwoTqeWZw8R6wsMOpg7M/qX1op+2GfMp56aMLs+kI6oXuTC2NpWgEbE8bHbxElu373wHaHy0jIdddnHeEFmI1mI+2hb5aarVJ3CwymfxaDa7aauvXj6vQ5CMOfIBQPpUL2UzpKd98eT76+oLDpNXg7TP128a9VGWS4Za8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780915993; c=relaxed/simple;
-	bh=n1AMChr6t5jfdanK6es/oTpN7NAI1DsuXSz0aZq2IIg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dzJfWJP8w2HqzmQthMoh+SudQOpgdw4WrzyuzFTuq0C/tyKyprJaTBLKHbLLvD9DndANdXQPr+eNLj3MrbeT5fr0bBT4+0kWTw/tM2J43rOFH77f+w0D3zN/dQ0pqXM6heml33HaBdxVZB2NT4hjv8s6QzCd8vCj2JwdSbVi8RY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rrn4QeB6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7662701DC
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:01:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780916517; cv=pass; b=UYkgFpnmKGct5MQGG6bpL0fQL4zboKYGxXsarS0gYUxiYuMG5xcOLE90vRr1b51fk2ZYwNhE1z3MVtHpSrRdcelKl+BrTGm2tKmHhJ50xNjaDLcyhW/7X7/17GivxdIUwIJQh2S2ym7XS2/DsktUXpE0UrV1vXK0WUA207oSqFU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780916517; c=relaxed/simple;
+	bh=ONm94510NvE+rTU8noOpilGgyC63W9CbOfLvEbHcUkA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b+7O8pGHIWKsfqK7HQ5dxAkLh4Ih4oB49nIW0SQiFV+TFhb2fNcvYRy7JPUikvvELphPn3AuqBDzlmmWvJhMRD3ySTy2K45hRB7SCIXlzpKdN1SnLcseRwmm66odKoeBbWl7rI0+wt9sG6GAWEd1dlAnp4iPxMz555PRRkWGTbM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJ7SR+kp; arc=pass smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rrn4QeB6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497731F00893;
-	Mon,  8 Jun 2026 10:53:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780915992;
-	bh=pTGSQgErg/Arp5VRvofr5JzJET68SF76bEcAEEeqMyA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rrn4QeB6IQCz0lWezlbna7qQFATILo8R3qo3AohPUrZXEgwUCTbOZIoi8TB4J1B0K
-	 QXuLQVoyzSL69TccroGsPlnwmQePaGvnomxhqyA71LUmVDI3hVA89MxZEmSw3mzTbm
-	 yVu8yeCjwtsMd8pfNnE2hRb+PwzewiFKf1vU4bIdHlbr2kNqqVyKquhVRIkjehGqCL
-	 gq6XSYxAlFPOXkR0XGatAzTC0R+WB1YpYlxxX1Yj3/acun2mCEC8DmRHE67q6OR2Zx
-	 HeXZoo0JMG5V0UDg3mXh5kzSB6/2xYxjMuaNPZc0HgT831nXZFBtho437ACJFWWQ5m
-	 veEnPLRrlF1lA==
-Date: Mon, 8 Jun 2026 11:53:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com
-Subject: Re: [PATCH v2 2/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI
- controller support
-Message-ID: <8e751df3-6237-4c8e-9c87-34bb67e435f7@sirena.org.uk>
-References: <20260608025009.1504971-1-cwweng@nuvoton.com>
- <20260608025009.1504971-3-cwweng@nuvoton.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJ7SR+kp"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84234c83142so1627266b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 04:01:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780916516; cv=none;
+        d=google.com; s=arc-20240605;
+        b=eQ2Ww3vrczK4BC5RVYM5RsDHPwiVrNUR6reTEuO8q+GmrZ8DYY6fG8cR6e8DHE+zbE
+         D6baXz35LK0SlqCvaynf7sBkBlSLnG95mLuEb3PFI/vQrCcvmDwhSvYGVjiGukFslWJp
+         ZS5iV/s5uIrWiAA/urIH+6UeJ8BAJ9hiWe8EEp6H64K0iQaHSMCOSu+a8A2qnlw6GtSg
+         dXi7UechIC2J/VXPZy6yUdqP6Kbmh0MF3GdLTrT+nU9iKrHYEV3VLKlx1fhfGagDfk0P
+         ktvlbY/7AWJKFyEBOcAfAvbzmMWTFwLiq/2Kxn+SGK7OAM+wpcq7wfw7EaBldGCuIunV
+         vW2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=M0epkiE6i5vofqrFH2ymbPEymHtg3jAbv1O27kdOmNY=;
+        fh=bBmZhpwv7iB1RfJsxboPu5OGw4yQFllsU0trHh2ItGM=;
+        b=ZXvfgZ533CeYsHW18sa6t9Vu1x4Nangu3zvXNoaxpBldxgSlqTbRGuvYY6mfWPlRxI
+         tCQ/n4NgluGdrb6CfqRoegoeYsOwQ7bkmO8AjxKwutN71+pwsnU6QX3Ev38shJt32uzq
+         9PvvOMo3LHuo2cV2CLzew0uiCAaOqJ7HAn2f/62yxGBb90ZB8bXYScazUB48ZB4hhrAh
+         q6Kick+nvHj9olSPzxQDBhqHaVDjWStrdUrXO4+s+7rQDFjVRFlOUtwyEljjSwsjc2u2
+         eDScwdVgre6++2BzgIHxiclMLw+lLezMwdRQRnfCs4Rzdfy0K6GPTiOHPTAQ4kEovF6u
+         dvGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780916516; x=1781521316; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=M0epkiE6i5vofqrFH2ymbPEymHtg3jAbv1O27kdOmNY=;
+        b=aJ7SR+kpKlnNp4avZNM+O6GCA4unLNAJio5XAehXMdoLsi+KxK+2tUMW+hAo8qi8UV
+         TJ6h7vYjoEkPyDzhE84JdK7yyrjV3GvKZD0U2AZLTdkOWyfD2S9k9TOU0vp4IHiZLLOC
+         +J8mTwU+jvB8I8w9jObrs2Tn7ti6HNlZT+lyKr53Sbjj09GF1G76PmXguWzezLjqRPb0
+         5w/BN3M9OAZCdkWkk7FrmaGiVh2xzByuleGlOMHejjKS9tjuTHru/W8t4/eCwZylzMd2
+         sBpAjwHotk1ht2A66Jd0YwdHSXshAYaG5mJT3NkUYWay5AKOZdga8QH2XnYHVQ6bjNBJ
+         HQyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780916516; x=1781521316;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=M0epkiE6i5vofqrFH2ymbPEymHtg3jAbv1O27kdOmNY=;
+        b=j27WJ0dVMISShlH8Cju26URD7aCV5vEUTHTbWZas5aoILVfXNbudxJRV+YMaJLqfXu
+         MB1X4BCodmcqJVuBmpjxUSXLzY6j/P7x4Nw/S8cGXNLkiZZ2hGnURoH89J5aQHNokNaL
+         S1SdmA0VzfeWhNG0WhOYOmsYl8Fqy3348TK5A6SLyj4oxohZ3Mid4s4TOluCmWSlH/7z
+         tJxmfUDHzo2rjGL1wp8K71Tu7qswfWTqfU/pAtFrF2DTScjLi1hHiAPtL624pHkWa9bt
+         dLnAIRvXr+4OZmENkOtaO5yWJ3OT6kt3a9nYOuAZBi0fHwFYeCTQLUVt1hgyC/FAMlR+
+         i/lA==
+X-Forwarded-Encrypted: i=1; AFNElJ8lOGHQo9mxIxU6Aqp+cwRAyAii7fAIoCi9Y8g2PfrVxAuokfS2CBS6DXWFPR2QdaNJAVIeZpENFsFT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOCCnttog8dGtkRaXxtokil5uz3dG5EfzmgZ3o8GhNNCVkwn6p
+	viuZKvsxpfR/2kpcBPsW7tH3OAmAEXwqdS4Y7jiL7KXypCKutiYLJSdcKBj3iOhswrekalM1l6D
+	QMEsHjoPqOtV8uJ7W3/NBChy0ouZAIIAwpRd8
+X-Gm-Gg: Acq92OEtsCEzY2kaZthWRlNbGiaRXmKiRpndY1bqvZZ/nPNhD7ys7d4CtOiYdX40EZz
+	MNxEGVyYmZZWAgAuN1xVO3+msbHEIVFMyl3hpwPdYxhL7fYxV1jtkJKWFtEnrXBAqgJzwazhfTG
+	zxWMQ2HDaTlfB4yHmwRiBXysUgMd16FXK2vORyE32eLCk/ox3enVpZyaxPOSLcI8iZElHoOcDH5
+	NqM0piQ2n2VX13e+KkNhwFtpMPCsR/yVXhLhBuoWV/gWcAg1uTTArdX4A+QUafEgX73KTWc4zrK
+	wXHgT6MvhJI2RedMEfZ2x7s6nnFjjFx4J80q/HkCcT7zgsvZ
+X-Received: by 2002:a05:6a00:4098:b0:842:38c7:9925 with SMTP id
+ d2e1a72fcca58-842b0e3367emr15279810b3a.2.1780916516054; Mon, 08 Jun 2026
+ 04:01:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Xd1MFY+nK8dwfKSr"
-Content-Disposition: inline
-In-Reply-To: <20260608025009.1504971-3-cwweng@nuvoton.com>
-X-Cookie: We've upped our standards, so up yours!
+References: <20260605121955.105661-1-phucduc.bui@gmail.com>
+ <20260605121955.105661-9-phucduc.bui@gmail.com> <8733yxgajv.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <8733yxgajv.wl-kuninori.morimoto.gx@renesas.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 8 Jun 2026 18:01:44 +0700
+X-Gm-Features: AVVi8CedRoipr9OOnup0ZkfX76Kd7vpaIrvqocnniiuTgV7U4RTC5IPNi4Uv0W4
+Message-ID: <CAABR9nExkENpP17sMxOeCLA288kU24ftvDBmXC6ox0wdo6+6Yg@mail.gmail.com>
+Subject: Re: [PATCH v4 08/10] ASoC: renesas: fsi: refactor clock initialization
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Morimoto-san,
 
---Xd1MFY+nK8dwfKSr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for the review.
 
-On Mon, Jun 08, 2026 at 10:50:09AM +0800, Chi-Wen Weng wrote:
-> Add SPI controller driver support for the Nuvoton MA35D1 Quad SPI
-> controller.
+> In my understanding,
+>
+>         [07/10] patch
+> (A)      - devm_clk_get() -> devm_clk_get_optional()
+> (B)      - use dev_err_probe()
+>
+>         [08/10] patch
+> (C)      - add clk_spu
+> (D)      - call fsi_clk_init() from probe()
+>
+> I think...
+>         (A) should be 1 patch
+>         (B) and (D) can be merged into 1 patch
+>         (C) should be 1 patch
 
-> +static void nuvoton_qspi_mem_set_cs(struct spi_device *spi, bool enable)
-> +{
-> +	struct nuvoton_qspi *qspi = spi_controller_get_devdata(spi->controller);
-> +	bool assert = enable;
-> +
-> +	if (spi->mode & SPI_CS_HIGH)
-> +		assert = !assert;
+I understand your suggestion regarding the patch split and will
+rework the series accordingly. I will send the next version soon.
 
-Hrm, we should have the core deal with this.  Separate issue though.
+Thank you for your help !
 
-> +	ctlr->num_chipselect = NUVOTON_QSPI_DEFAULT_NUM_CS;
-> +	ctlr->mem_ops = &nuvoton_qspi_mem_ops;
-
-We don't specify mem_caps, I'm vaugely surprised nothing trips over that
-when testing.
-
---Xd1MFY+nK8dwfKSr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmomnxAACgkQJNaLcl1U
-h9CmEAf+MpO2k2NNGcoMDAdpYpmFVLXNz+7NM8gxd84SFap2YCj7QWwpERJVAemF
-kY6pBKnK0Sjzx+b5sk1GNhbhG7SXYfqRv5NV/GZ6XC0g7f/TmBNn999DTJIkqpV2
-Ke8NtxlpN47GU1n3B4OxYhsZ43FA2Q5cRtySFtoyRmK8quCSxS5EQpe2Q2hTfkdp
-drPirHEvVXl1zynEwPmxaNUkqSy30Ic3Ibih2sXGDqtfrCH1liNDxzR1mZTnNjJ7
-x/zhElVxcJhLxsqvRiEkAM92j3I4IkO7oKiEHWSpE5U5+oO0AyBtfVU/EAkbqX05
-eRnQzWH1wTSKTa6lFWL+6e3piFV60Q==
-=CCql
------END PGP SIGNATURE-----
-
---Xd1MFY+nK8dwfKSr--
+Best regards,
+Phuc
