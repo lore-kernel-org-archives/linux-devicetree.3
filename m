@@ -1,62 +1,64 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28145336882
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0103358D6
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780887019; cv=none; b=k4l509f7FC5Z5wmgZklIlvPCjcJQE3Z9jQQXhv9Dp+nv8c8NEZCFoaCr8dhpnslul0rErfR28NLcFSYnhdNq2wtUphK4difYEt+5iBtfzgcAlPnOnYC9eqxSJr5wlzi/tiYvJ6i4QYwPfoSX4NBjcYbhLmTbUBu5rIvzwls+6AM=
+	t=1780887024; cv=none; b=oSAi/5lVeAwuQqe5irUa7FPRyBZ4swu1HUifh9hkc3wez/QqpvmG+vzFqd3j+x3L+ic03/0p7RxvAfwwevi7VVZQvH17aq3PvcZZMQfngqLJnU8XlyZ4B79m3uPSAZsfkGTNkylysgX7NfhIwjG7GYiEesJtZxXG67XNBGiIzlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780887019; c=relaxed/simple;
-	bh=jAOSPN2oexTHH3AS+nKz9qosEcTRLYOWrtO5vDxx1vM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dNZ3UQzN3lhKaCGzOZ/avQTU/nAKLYP+oe/Cr9QmiYurT16MNQVribNMAbr/CCx4lR+sQZIg9+2E6QxDYymliQXDK93+ep5g0sfcXRh7TexQ/pgP2W8hcehEs+D3m4ZgNfWnfxJCnmrCbwbGvVATdNn9TQbgUI+/eHdwkipZQxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dDRzZnYC; arc=none smtp.client-ip=209.85.214.182
+	s=arc-20240116; t=1780887024; c=relaxed/simple;
+	bh=PXAq5819wTGn0F3nNVbrQuezlvNB6Q+Ykg24neiJW98=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=IkF+JnNh8rdL7rujj75XwlWzibRA8VT9mAE0cxjmJk9Pdguo7mbVKd0uE49gTh9GG/dxMPmxfYpKgmBtrmEqREaKK8V3/HDPLco3HRRxgnlB3ngaE/gYTfRdku2HVQcYJhIwH2Wasgw3B4Jf9F+4yGN6nMKqkETj7hQde+3jh2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iju3rkxG; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dDRzZnYC"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2bf2247e38eso39533025ad.3
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:50:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iju3rkxG"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bf0ddaf50fso25089055ad.1
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:50:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780887017; x=1781491817; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fw5nXFVyb5GRYqiTkdD93jih+EMJUvklwZZGtUHOoyQ=;
-        b=dDRzZnYC4hd/p07DB2130bIkHSS2BgPoSlG+OoSCTZHloTua2oEvpkjfL4Ucx8B5Tf
-         9GCiDJ8MOM7rny8eoqC4jkndeHg3IfvYGwVfPBOwRLWePg8RcoFJz2aTnjSAuv5/VvnX
-         zfPA6ynTotJx5bF33bNosa/yF8KH794evRhRFLbU4qVEjLRq1NzHG9HGCVsC9pK6qZbR
-         5glqFtMYHtFRlXomwMWQLk6FotLspSAhgzZDxe/aK2M50GJt77YhvFmZhZUIzljomo6G
-         3RslPX/r9oWPub84Uug3hewJVaypDcgMzSTN9W+zq0lrkADlj/QXALoFbdtsYXNIVGqK
-         FGnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780887017; x=1781491817;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780887023; x=1781491823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fw5nXFVyb5GRYqiTkdD93jih+EMJUvklwZZGtUHOoyQ=;
-        b=R/EWq5QHKoHjITBVnJ/PkP4r2OJF/7RVPoZMvNg6LmmFhYL4/DhYUWzDJklZGKHeJN
-         mkTB1D/24+EomJg9s5vNHcH1kW/EumJ5EE/OHjgGVozSN5NM9MN842R7ROT6VPU0qzcu
-         csFP/TQ0ihLe4t7nT29Nvei9B8jHni1OEkntOzVf/plyHJLtGzdtMi0mYR/pVa9opG90
-         y9cnPyW2wG0hSxdKdqAUdissIsLOuIz1wQvOiXZmKzGud/d9WqLhwp+lcRHnZd8p6jR1
-         r3SWvQijfmnwJHooApdJGZsaBODJ2i9TWXXrRat+PG7Ua1sCncpr7qii6L2pJ1HqGf4s
-         nKIA==
-X-Forwarded-Encrypted: i=1; AFNElJ/QZsasGLkh9VakdjhjKAfQWhHyE/o1STkc69M0UNzW2RZSSb5Z8a4ZN6g30SR7iQbgmQ/jWXugySWH@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzhBz/tAgEPlbKn8VKuddGRLN5OReMN27BFGl+nX2UsDS+barh
-	PhpTAHijDGgZ07g1E6WJzxfW8AS2rfSN7a87P4xyTJbmk9w7swAXyb0k
-X-Gm-Gg: Acq92OF/MPQATWKW5xbdeAmXsDfgGw2SVafY9kHfvhD1b2gGtIJ8XozRwO296PkaiBh
-	1r2dB45D4/grKFcXCAV/uD/bU5aAK3MnDU13DHFnjBVUh95uGfA3myZkRP9hqFILjqA+iJNw2gN
-	taT7FCgFQnDmf062/onb3NaVOrJF4rWihQ9vYQMM7SmZq/5BTkY3kxT5Viqj5AJHGBQT14680iF
-	KQZCCSfvIAZ4KJ0cxVTXkuQ2W1fXWFhw/h7hAi/gHzMVTJzymZSrwxKXiKh3mztgEyANJIMGcTx
-	2gOyb7vBHe+TTYzs3VHa0iMtwY8N9RG/ntH2K47rPKw5MD+kou1SkOXD5Kc37bhNUKU2G8sSkIW
-	+EsMB65x/7ZncqMjL+rpXckyYe8zXQ13AJB6+OWElat4f9IHPJVNQ70ZO5JBo6x5Vrz4x/xr+M+
-	VDa43XsF9xm6ZA+fawAGJTOrIcpRtbl+nyCwUBrC9LNIenJ72T0xZ4HDkfpKhN3BjtMnNSQMxQ6
-	hhIi+/trY1ULowRnOo=
-X-Received: by 2002:a17:902:ccc3:b0:2c0:c38d:9d37 with SMTP id d9443c01a7336-2c1e849534amr141810325ad.25.1780887017485;
-        Sun, 07 Jun 2026 19:50:17 -0700 (PDT)
+        bh=NVfBDie60n2tkYsVA0eLmiW0R8D3OP3qoUkg6UxA748=;
+        b=iju3rkxGN39CQNVY9h2e592Wa18NSFC4oSmBa5FaitQrKhWx5k6zFqaz9emy5Xr/2a
+         T1vcmHIxQLloWGDXStsBqJCAHt0bWAhHrQjP1EJ14JhvFAr6L2qWkaxec956BgZwexWc
+         lGTdUjnnspT3H9xwJmSteRyWjptAnoo0gJTF1bzAmQ0V0id3Dudv/EgdHPJWc4Q1eCxX
+         oG1GsV1/bBP6KkaAh2xpYaZ7P7u+lF4u6/uNzD+1u0mP4CsjSO7jIsP6UQhfSQQZRHnq
+         dUK8M5xyS90IAK8NpMUtkDEaqfcArWPCR4y/Xon3FPEbgo3Gp0qBo9/QnCgsgQkClAPj
+         CCzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780887023; x=1781491823;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NVfBDie60n2tkYsVA0eLmiW0R8D3OP3qoUkg6UxA748=;
+        b=Obu4kMX7BdzvkQdSt9AvojU9UFPnGbZRxv3DyAalkQsQnrzAJWo/u6YtnHyLcK3xYZ
+         BDnPQxiWByez6+ckrs4WxxZcFr61GX/TJCdXB6tW6lR8+QqTyaNuu+ffG9diRVJS30Bp
+         occvifIj3sHCaBz5z8G8v1Bfd2jzrfGw/FHDcnWWwyzbeZ3fv06cK7y7HweIoAE2CHu4
+         bWEts98js+2pxnpWiuh4j1cXgKfVh/UU/pX86eu5aHlhkwH7AvvltUu1Mvw/EQQWY3Si
+         IW231Sp/ao8pyWf5ihi+pTmY+VhO2XuWdvieCXamVdesY830X7IS+nJTtOr6xDeBB6vE
+         7bMQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8MgyrOHcEyJ1qjwSZw9xei4J8SWwPSqG5ZZBAoasGvPPOvStzqnB+rKX6E2PBM78hNvS6PmFj9chsY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXxs6ytbnGNMAMrsJ9HmqQjF+1MFzuCLO+uRhoAQ83QbbnWag5
+	L3YVgNXQDs+54FiLlga9aax56b5CAT8hd9o3+bKNfrFRgLyI4clabSCf
+X-Gm-Gg: Acq92OHSy8FltZOynRTqu614Cwxs1UM7d9eBERsuacdsC44W7TAhzw5PJlWyt75nVUk
+	9FSBX1PLYTka9SzsgnxIaFtgUZbzh/ufRDX9mCvhsLklnezMe+RLqUMXlwWgqFcCPjA3axOPnlh
+	IAhQcNLsxHB0uawbP8LeaKAti5McfAhg+DbTf3bypR0cUzeHckuZtsMu+75mbYvzOB9WqLWhM52
+	9hUeGJinOSsy7pBlmGolEhnXLSN+200Kj7Gx0wJhGHDBAwm9CAsv6AEyBnPPYBPikbk1q9qqYVL
+	JNj3Trq3zCCMGDrKTErDTksioxYtpCJjRblJTYYA5XV8XOW0kB++lubcIYaZc2YppezbHzbAdAz
+	Nfsr1e+yG9wNvy1zr04P6TVPCYU8ishaCHEgVi2FzROO6iRuHOzJLBO8l+n5PmKDB9BHxcR0ghr
+	dEDeu2FG1IvVjKVWG3gQQI5ve1nOPnl1CNRZBuGK2P8ahz9wlixbXbXuNk4DEc+8liWsY57VHiy
+	hqHf3T8xCPIx0kqnO4=
+X-Received: by 2002:a17:903:1965:b0:2be:1c3c:72ba with SMTP id d9443c01a7336-2c1e80edc5bmr144390375ad.32.1780887023133;
+        Sun, 07 Jun 2026 19:50:23 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d211sm165745555ad.3.2026.06.07.19.50.14
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d211sm165745555ad.3.2026.06.07.19.50.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 19:50:15 -0700 (PDT)
+        Sun, 07 Jun 2026 19:50:21 -0700 (PDT)
 From: Chi-Wen Weng <cwweng.linux@gmail.com>
 X-Google-Original-From: Chi-Wen Weng <cwweng@nuvoton.com>
 To: broonie@kernel.org,
@@ -68,10 +70,12 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	cwweng@nuvoton.com
-Subject: [PATCH v2 0/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller
-Date: Mon,  8 Jun 2026 10:50:07 +0800
-Message-Id: <20260608025009.1504971-1-cwweng@nuvoton.com>
+Subject: [PATCH v2 1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton MA35D1 QSPI
+Date: Mon,  8 Jun 2026 10:50:08 +0800
+Message-Id: <20260608025009.1504971-2-cwweng@nuvoton.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260608025009.1504971-1-cwweng@nuvoton.com>
+References: <20260608025009.1504971-1-cwweng@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,49 +84,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add devicetree binding and SPI controller driver support for the
-Nuvoton MA35D1 Quad SPI controller.
+Add a devicetree binding for the Quad SPI controller found in
+Nuvoton MA35D1 SoCs.
 
-The MA35D1 QSPI controller supports SPI memory devices such as SPI NOR
-and SPI NAND flashes in single, dual and quad I/O modes. This initial
-driver implements a conservative PIO-based transfer path and spi-mem
-operation support.
+The controller supports SPI memory devices such as SPI NOR and SPI NAND
+flashes. It has one register range, one clock input and one reset line,
+and supports up to two chip selects.
 
-Changes in v2:
-- Updated patch subject lines to match SPI subsystem style.
-- Added commit message to the dt-bindings patch.
-- Added ARCH_MA35 || COMPILE_TEST dependency to Kconfig.
-- Expanded Kconfig help text.
-- Converted the driver file header to // comments.
-- Added reset control handling to the driver.
-- Added resets property to the binding.
-- Added num-cs constraint to the binding.
-- Dropped the flash child node from the binding example.
-- Used op->max_freq for spi-mem operations.
-- Split low-level CS register handling from the SPI core .set_cs()
-  callback.
-- Handled SPI_CS_HIGH explicitly for the spi-mem direct CS path.
-- Fixed spi-mem opcode transfer to use a u8 buffer.
-- Limited spi-mem command opcode length to one byte.
-- Forced spi-mem operations to 8-bit word size.
-- Avoided driving bidirectional data pins during dummy cycles.
-- Drained RX FIFO during TX-only transfers.
-- Rejected invalid chip-select numbers instead of mapping them to SS1.
-- Rejected unsupported dual/quad full-duplex generic SPI transfers.
-- Fixed checkpatch style issues.
-
-Chi-Wen Weng (2):
-  dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton MA35D1 QSPI
-  spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller support
-
- .../bindings/spi/nuvoton,ma35d1-qspi.yaml     |  62 ++
- drivers/spi/Kconfig                           |  10 +
- drivers/spi/Makefile                          |   1 +
- drivers/spi/spi-ma35d1-qspi.c                 | 622 ++++++++++++++++++
- 4 files changed, 695 insertions(+)
+Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+---
+ .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 62 +++++++++++++++++++
+ 1 file changed, 62 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
- create mode 100644 drivers/spi/spi-ma35d1-qspi.c
 
+diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+new file mode 100644
+index 000000000000..68e6d79e6b7d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/nuvoton,ma35d1-qspi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton MA35D1 Quad SPI Controller
++
++maintainers:
++  - Chi-Wen Weng <cwweng@nuvoton.com>
++
++allOf:
++  - $ref: spi-controller.yaml#
++
++properties:
++  compatible:
++    const: nuvoton,ma35d1-qspi
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  num-cs:
++    maximum: 2
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - resets
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        spi@40680000 {
++            compatible = "nuvoton,ma35d1-qspi";
++            reg = <0 0x40680000 0 0x100>;
++            interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
++            clocks = <&clk QSPI0_GATE>;
++            resets = <&sys MA35D1_RESET_QSPI0>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++        };
++    };
++
 -- 
 2.25.1
 
