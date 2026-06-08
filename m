@@ -1,777 +1,343 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFC7384CD8
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 19:30:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780947060; cv=none; b=tAdkkR71XVGT+37j1YZIOFtC7VE8e0NXFa22RvbqYC0ZcIy5hgo6TTrTns2Ki3tTTp5YopoFCiaPZw0lLaRvtAU1JmoqFltZ3X5p8rnyxRXfTcwW/MOh+Ou2hKguYsFO8VbffIFQsewToMY+NygBV/YB1WyjM0MlLHjUrLHXr5I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780947060; c=relaxed/simple;
-	bh=vlKLinT3YxiZYUqnCxEz0takOy7gfqJhWsDZrHaZHTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=naVHKzn3lm5QrKMAjwXHvO0biVIfOuJ+AEEq3Pzy9yB7ykW2tBIWEO8I1dYM+lIhD8/zYgG4VzNCp1vqYy7DGJ9BY7azj3rbpNnF4EgDAgVr9NadLkidphBab64mmHYa9OUafVp1GgmaA0V6HMzmS8Y7CUyTGSebB0qDw8t7c5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=TTQ2pa0W; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=jXdaMurt; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F5537DEAA
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 19:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780947104; cv=pass; b=H5pmUS32daUwKr08+vKzDsVnkDWkeUNBX/r04eC8Pr1/UyR9tFxaSRV5BlMsLM/o76XELjZqMo0VjvGpyLh0YWKN4gEKeLClbqkAAog/GKZjrphT93XEvZmgOdJZ4T6kiGnjnbCdim6KbBlxQPAqJ/ro8kKU9smHTDo/3GnaElU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780947104; c=relaxed/simple;
+	bh=QHbHk0ExXgTj9Qdazczm090dMKoR2Z8xMtI7oSBa7UM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hXoLFEjvomdyM3zSIfKwNggUDpJzNlDx05B9ffj3egruImFgJ15nZpqdCNJPyHBYO50hlLWMiaxKG+hT2c/WOv/BmCw5Elx7/F1mpMb7Tfr2tX8jx7KQgZ4WyEWFMdoJsIhmQp112eQrPIQYBLV4wCx+DNQvpZKXoiO6pXBnlC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TrscCery; arc=pass smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="TTQ2pa0W";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="jXdaMurt"
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256; b=TTQ2pa0WYIuOJ6l6sYTQVjjznJGRo9d8uiwBBiEcR5G8MrpI/eOBCwFBrXmIg2KsvhL73hqqsghV5WINkaw3mH+d7pnaBpXZSxmYEUSy8Wlhnd+T9RDJ30MBWW/W88WYJTaXG0632Y50ieE7AzMWZ//FqbOIzTynd/cTfVHPO3vhBv3pwlXdEbHZ4mjggYQqjsP7diUqy69Bcz0INNJxNMKvHIU3j4s0ANb+XAWfuVpWj6tPv6Gw9aZPsyIU31/xvhzutiWrxfRItHp11R2LOs/eNjoq4hT0XmyL8UTsPBiG7/PtUq+4WJkeBtK5x/fGpdS07Lj0pzciaOaH2Qr4sQ==; s=purelymail2; d=tinyisr.com; v=1; bh=vlKLinT3YxiZYUqnCxEz0takOy7gfqJhWsDZrHaZHTo=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=jXdaMurtzaUQk88tdtWGwyBIX3PNPpW9Z8jpdgfHdwXrr7Yp9290zLW+Trc8ADbAMYachBnx+WCkeBZV9XcvB5ABkMygbKV0+qalusBRzzrHVIvHW953opUe1mo0lSP6D6JuzpmBkUD/f8Q+ukbMelfFe/1suBHLEBwdj3E5RZhFZAU2/0NNbwCj+nkkxMOTzvEcBS/391IE6qczzd/w9RC23nF+i3I4Z85vdCOQYUN29dQncuV8t3M+YCgfffQlS11rs3zk9LyH6hYggy/9N5gdZvaeHBI+ACKrdHtQqdcgFdmz4jkCQXCk1cx4FIQ1ghPeTYsq55B5LD8KPmhS7w==; s=purelymail2; d=purelymail.com; v=1; bh=vlKLinT3YxiZYUqnCxEz0takOy7gfqJhWsDZrHaZHTo=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 99681:12517:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 305744462;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 08 Jun 2026 19:30:43 +0000 (UTC)
-From: Joris Vaisvila <joey@tinyisr.com>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	pabeni@redhat.com,
-	kuba@kernel.org,
-	edumazet@google.com,
-	davem@davemloft.net,
-	olteanv@gmail.com,
-	Andrew Lunn <andrew@lunn.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
-	Landen Chao <Landen.Chao@mediatek.com>,
-	DENG Qingfang <dqfext@gmail.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Joris Vaisvila <joey@tinyisr.com>
-Subject: [PATCH net-next v4 4/4] net: dsa: initial support for MT7628 embedded switch
-Date: Mon,  8 Jun 2026 22:29:48 +0300
-Message-ID: <20260608192948.289745-5-joey@tinyisr.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260608192948.289745-1-joey@tinyisr.com>
-References: <20260608192948.289745-1-joey@tinyisr.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TrscCery"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490be03d47bso40257695e9.0
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 12:31:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780947101; cv=none;
+        d=google.com; s=arc-20240605;
+        b=JroonzwNfcDhUacAP1rPl2/41Z6uu3hcZS7Rid5rZDkufMthQSz7g0BMMnaLxpSveH
+         7vbUlwrxuEhSxda1/kKt9+0SBU9BbLeLiWU/5SfqLg6YMZ/8IoDLLg/F1HDOR+ZE6iwR
+         r9DjUPUUiMWdwZi1kw/qZ/7zMsrLGvidpyLJa1k3xPa0ZK/gxrli5T7oJr3WKfx96wMs
+         tG+GxqjnKRqdfEQVsUKYIaUEaMqb3OTtce/dLfe+EA+QtrlwurPW8i7Q6A8HF5iU2I5o
+         QFDZ2MKjaYzSoMD0yHXJbqBciPqty7SbDlBINfjL9NBwHqLguirjdxHmAmqR3vN6Jdul
+         qwlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iVyDzm1G+RBPdq3mhCM83rV6JUo3raqutBJmohxBAns=;
+        fh=H0smeiJRRunITXC/7nhR6PQFF2sFADZ9SO4On72GlKA=;
+        b=hSUma5275r/Zd37qfbsyzYrYGxL4Zc8PeM7Fq/np1juuH7NEpwZhdmVmBSBJlSGb6j
+         MEd3md7E3MHDFbrF4tHUXhxUwGgtxhwxseWEdLXUlCBbXuky+kLb19C+TVsvX/Vv1Id3
+         Um4uRbLAreis9nV9hSy+mjuoccsU3Lr4Gr2Mgse06LSBxo3ViEnhbTjzyQir0467Xnky
+         Jcwe9CYZpHi/55B3Iw9Dfrz71lP3Y8cdCrZPddXMHUj8SBSSdR7YmWrRGJxornAnjzc5
+         H/0xKLjy86wHoEjf0JueNw43gGr3aTslIRixmphavefiFMUnOsDxRG3lgpNgnBetdb9A
+         sVdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780947101; x=1781551901; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iVyDzm1G+RBPdq3mhCM83rV6JUo3raqutBJmohxBAns=;
+        b=TrscCery0NjUdza7NsRWyHqS2EjsD98z1d5RykFY5DumcDSfLzVkm62ZSXCpoMmCMZ
+         tUYgUlc51fZMylt9o6Cau0x3UX7UsE8vHTzpFChxtkuwlcjpJRblhISfwkMKUHVjJuY4
+         a1TOxnIeX2nkW2B4+YY2GZDyaTK6sebtogAX3AcrG+EpCyVbcS5VfVpK7wS3GG/86pkJ
+         gYiZYr8h1s8jzrF4RHL13ONgjXat9Hr/IzDMMLR1SkUz5cYMa73PwIEmJqlz1r+E1zgI
+         CjuUer5f8gAM4RYBp7OVxG7jPzZcQh94JK6H88oXOTDd29TCL4q4II2L4zRhPcKGFJF7
+         eIJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780947101; x=1781551901;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iVyDzm1G+RBPdq3mhCM83rV6JUo3raqutBJmohxBAns=;
+        b=rtzxu/8jOzR9X+MHdm4UqgaaB8ehBMAihExwIO0rBKcQpWxr2i7CDCJy1FmRNCIGsS
+         +8oGHHArVr+JyFMKPX0VaIJbWCwLpTR2hjcvbST6iqi//PZIbj+whupcHDbRXhMc6CAu
+         Ov5HBknBgjhQLZFlBQFJolWvzR2QL0sCsQ0J2dE2tdmTyqYSRkjJlHNCMIQcC6FFxcxE
+         xPtYp8IEjdIqUhYEYruYYO3o3mVhqvsI0bcWO20HOPAQQG+TJAsnmKejdo2Ke42Do2x9
+         Cg8eW0VCnzSnCSIAsx4mDFU0hdFwCav2epLRRdJTKXZfkLfVbiDP1G7DGKSw5sNe4wYl
+         XrJg==
+X-Forwarded-Encrypted: i=1; AFNElJ9ma9zJwPzNO9P8yae0b3noDJhNUdWXdx1d0d3Mu9FWOgB6eZ3fl68eN3wjT6a4ASl81r2lIOq6thlO@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIxOJ3Tl98fjz9sCEcT6CKbRiXXN70CSW2fMvnSxULuy2yRfVD
+	stJPt9v6d6i/3P2hulwfICyvMRGNY/Ob4DAt8chUe4x6PpBq4Uo6pkNwU+KX3jGQLI+V3fgugNC
+	F1LDii7ELwjIJkGp1we/cpvJVLkYIvQs=
+X-Gm-Gg: Acq92OGmKrdgNLSuhwO8jHM5EuXobeAzOcoPd+u3OBQQwLq3BAL46uqyxngIkMDEnFr
+	sg2wCxO6mKQjn3CqNLiopTYHNALvXXBk1qEtCPznFI/YyR5A4NyAeOjrAmKyrXK8KDL/p6S4Wz9
+	kfuc5cY6pLcSeBIQwTONRObVvfZ34pL15fYCRWP0q45ZyahBY2euyrJS3rAZbke8diWIb/IKzlW
+	Whdfssh6FkvrXzJgZATKsItUo706Wkxpt6VJhAj3Y+XWZdAqllIMZvTUju05Z5BQSz3FN77wdxp
+	BwnDoarqQTjBJw7aLPYr+BBX+0xmKAM5Cr66f19iTooBqAWFeSNJhCTas7sOqPCmSm5Ko3acsKI
+	13aM=
+X-Received: by 2002:a05:600c:8b68:b0:490:bad7:3634 with SMTP id
+ 5b1f17b1804b1-490c25e1104mr294910145e9.19.1780947100632; Mon, 08 Jun 2026
+ 12:31:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260511191910.1945705-3-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdVBT7NFYCC-NrSxV7+Y1+76ZPc_ikGK5keRLCXEs-2_8A@mail.gmail.com>
+In-Reply-To: <CAMuHMdVBT7NFYCC-NrSxV7+Y1+76ZPc_ikGK5keRLCXEs-2_8A@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Mon, 8 Jun 2026 20:31:13 +0100
+X-Gm-Features: AVVi8CcT1M1fPmxvE4ryOUIEys8Vk0daHnh_JjKaDGls1nWor-Gf0r8rG_5vSY8
+Message-ID: <CA+V-a8vL_fKw4WE80_=ZcTxx8vzzx77Ov+8r_OCe+zz7S-2eug@mail.gmail.com>
+Subject: Re: [PATCH 2/4] clk: renesas: cpg-mssr: Add table-driven MSTP
+ dummy-read delay for LCDC on RZ/T2H
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
 
-Add support for the MT7628 embedded switch.
+Hi Geert,
 
-The switch has 5 built-in 100Mbps user ports (ports 0-4) and one 1Gbps
-port that is internally attached to the SoCs CPU MAC and serves as the
-CPU port.
+Thank you for the review.
 
-The switch hardware has a very limited 16 entry VLAN table. Configuring
-VLANs is the only way to control switch forwarding. Currently 6 entries
-are used by tag_8021q to isolate the ports. Double tag feature is
-enabled to force the switch to append the VLAN tag even if the incoming
-packet is already tagged, this simulates VLAN-unaware functionality and
-simplifies the tagger implementation.
+On Fri, Jun 5, 2026 at 2:38=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
+.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Mon, 11 May 2026 at 21:19, Prabhakar <prabhakar.csengg@gmail.com> wrot=
+e:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Per the RZ/T2H hardware manual, to secure processing after release from
+> > the module-stop state, dummy read the same MSTPCRm register at least
+> > seven times for most IP blocks, at least 100 times for LCDC and at
+> > least 300 times for RTC before proceeding with subsequent processing.
+> >
+> > The existing udelay(10) satisfies the seven dummy-read requirement for
+> > most IP blocks. Extend this to support per-IP dummy-read requirements
+> > by introducing a table-driven lookup, rzt2h_mstp_delay_table, where
+> > each entry records the MSTPCRm register index, bit position and the
+> > minimum dummy-read count from the hardware manual, converted to
+> > microseconds via RZT2H_MSTP_READS_TO_US().
+> >
+> > Introduce cpg_rzt2h_mstp_get_delay_us() to replace the open-coded
+> > udelay(10) calls. In cpg_mstp_clock_endisable() the exact register and
+> > bit are known so the lookup matches on both fields. In
+> > cpg_mssr_resume_noirq() the register is known but not the individual
+> > bit, so pass RZT2H_MSTP_ANY_BIT causing the lookup to match on the
+> > register alone and return the delay for the first matching entry.
+> >
+> > Add an entry for LCDC which requires at least 100 dummy reads. Adding
+> > support for further IP blocks with non-default requirements only needs
+> > a new entry in rzt2h_mstp_delay_table with no logic changes needed.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Thanks for your patch!
+>
+> > --- a/drivers/clk/renesas/renesas-cpg-mssr.c
+> > +++ b/drivers/clk/renesas/renesas-cpg-mssr.c
+> > @@ -96,6 +96,24 @@ static const u16 mstpcr_for_gen4[] =3D {
+> >  #define RZT2H_MSTPCR_BLOCK(x)          ((x) >> RZT2H_MSTPCR_BLOCK_SHIF=
+T)
+> >  #define RZT2H_MSTPCR_OFFSET(x)         ((x) & RZT2H_MSTPCR_OFFSET_MASK=
+)
+> >
+> > +/* Dummy read counts as specified by the RZ/T2H hardware manual */
+> > +#define RZT2H_MSTP_DEFAULT_DUMMY_READS 7
+> > +#define RZT2H_MSTP_LCDC_DUMMY_READS    100
+> > +
+> > +/*
+> > + * Time per dummy read in nanoseconds, derived from the original udela=
+y(10)
+> > + * which was used to satisfy the 7 dummy-read requirement:
+> > + * 10000 ns / 7 reads =3D 1429 ns per read.
+> > + */
+> > +#define RZT2H_MSTP_DUMMY_READ_NS       1429
+> > +#define RZT2H_MSTP_READS_TO_US(n)      (((n) * RZT2H_MSTP_DUMMY_READ_N=
+S) / 1000)
+>
+> IMHO this is overly complicated and hard to follow...
+>
+> > +#define RZT2H_MSTP_DEFAULT_DELAY_US    RZT2H_MSTP_READS_TO_US(RZT2H_MS=
+TP_DEFAULT_DUMMY_READS)
+>
+> i.e. this is just 10 again?
+>
+Yep.
 
-Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
----
- drivers/net/dsa/Kconfig  |   8 +
- drivers/net/dsa/Makefile |   1 +
- drivers/net/dsa/mt7628.c | 648 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 657 insertions(+)
- create mode 100644 drivers/net/dsa/mt7628.c
+> > +
+> > +#define RZT2H_MSTPCRM_INDEX            12
+> > +#define RZT2H_MSTPCRM04_LCDC           4
+>
+> Everywhere else (DEF_MOD(), DTS) we refer to module clocks using the
+> sparse base-10 combined number, i.e. "1204", so I think it would be
+> better to do the same here.
+>
+> > +
+> > +#define RZT2H_MSTP_ANY_BIT             U32_MAX
+> > +
+> >  static const u16 mstpcr_for_rzt2h[] =3D {
+> >         RZT2H_MSTPCR(0, 0x300), /* MSTPCRA */
+> >         RZT2H_MSTPCR(0, 0x304), /* MSTPCRB */
+> > @@ -113,6 +131,35 @@ static const u16 mstpcr_for_rzt2h[] =3D {
+> >         RZT2H_MSTPCR(1, 0x334), /* MSTPCRN */
+> >  };
+> >
+> > +/**
+> > + * struct rzt2h_mstp_delay_entry - MSTP dummy-read requirement for RZ/=
+T2H
+> > + *
+> > + * @reg: Index into control_regs[]. Exact match.
+> > + * @bit: MSTP bit position, or RZT2H_MSTP_ANY_BIT for register-level m=
+atch.
+> > + * @delay_us: Computed delay in microseconds to satisfy the dummy read=
+ requirement.
+> > + */
+> > +struct rzt2h_mstp_delay_entry {
+> > +       u32 reg;
+> > +       u32 bit;
+>
+> The sparse base-10 combined number or packed index would need just a
+> single u32...
+>
+> > +       u32 delay_us;
+> > +};
+> > +
+> > +/*
+> > + * Per RZ/T2H HW manual: to secure processing after release from the
+> > + * module-stop state, dummy read the same register at least seven time=
+s
+> > + * (except RTC and LCDC) after writing to initiate release from the
+> > + * module-stop state. For RTC, dummy read at least 300 times and for
+> > + * LCDC, at least 100 times.
+> > + *
+> > + * Instead of performing the actual dummy reads, an equivalent delay i=
+s
+> > + * added using udelay(), computed from the required read count via
+> > + * RZT2H_MSTP_READS_TO_US().
+> > + */
+> > +static const struct rzt2h_mstp_delay_entry rzt2h_mstp_delay_table[] =
+=3D {
+> > +       { RZT2H_MSTPCRM_INDEX, RZT2H_MSTPCRM04_LCDC,
+> > +         RZT2H_MSTP_READS_TO_US(RZT2H_MSTP_LCDC_DUMMY_READS) },
+>
+> "210" (us)?
+>
+142us
 
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index 4ab567c5bbaf..daa1d3d4ba60 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -63,6 +63,14 @@ config NET_DSA_MT7530_MMIO
- =09  are directly mapped into the SoCs register space rather than being
- =09  accessible via MDIO.
-=20
-+config NET_DSA_MT7628
-+=09tristate "MediaTek MT7628 Embedded Ethernet switch support"
-+=09select NET_DSA_TAG_MT7628
-+=09select MEDIATEK_FE_SOC_PHY
-+=09help
-+=09  This enables support for the built-in Ethernet switch found
-+=09  in the MT7628 SoC.
-+
- config NET_DSA_MV88E6060
- =09tristate "Marvell 88E6060 ethernet switch chip support"
- =09select NET_DSA_TAG_TRAILER
-diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
-index d2975badffc0..6ceb78a755d7 100644
---- a/drivers/net/dsa/Makefile
-+++ b/drivers/net/dsa/Makefile
-@@ -6,6 +6,7 @@ obj-$(CONFIG_NET_DSA_KS8995) =09+=3D ks8995.o
- obj-$(CONFIG_NET_DSA_MT7530)=09+=3D mt7530.o
- obj-$(CONFIG_NET_DSA_MT7530_MDIO) +=3D mt7530-mdio.o
- obj-$(CONFIG_NET_DSA_MT7530_MMIO) +=3D mt7530-mmio.o
-+obj-$(CONFIG_NET_DSA_MT7628) +=3D mt7628.o
- obj-$(CONFIG_NET_DSA_MV88E6060) +=3D mv88e6060.o
- obj-$(CONFIG_NET_DSA_RZN1_A5PSW) +=3D rzn1_a5psw.o
- obj-$(CONFIG_NET_DSA_SMSC_LAN9303) +=3D lan9303-core.o
-diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
-new file mode 100644
-index 000000000000..a2338f02f78a
---- /dev/null
-+++ b/drivers/net/dsa/mt7628.c
-@@ -0,0 +1,648 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Mediatek MT7628 Embedded Switch (ESW) DSA driver
-+ * Copyright (C) 2026 Joris Vaisvila <joey@tinyisr.com>
-+ *
-+ * Portions derived from OpenWRT esw_rt3050 driver:
-+ * Copyright (C) 2009-2015 John Crispin <blogic@openwrt.org>
-+ * Copyright (C) 2009-2015 Felix Fietkau <nbd@nbd.name>
-+ * Copyright (C) 2013-2015 Michael Lee <igvtee@gmail.com>
-+ * Copyright (C) 2016 Vittorio Gambaletta <openwrt@vittgam.net>
-+ */
-+
-+#include <linux/platform_device.h>
-+#include <linux/etherdevice.h>
-+#include <linux/netdevice.h>
-+#include <linux/dsa/8021q.h>
-+#include <linux/if_bridge.h>
-+#include <linux/module.h>
-+#include <linux/mdio.h>
-+#include <linux/of.h>
-+#include <linux/of_mdio.h>
-+#include <linux/of_net.h>
-+#include <linux/kernel.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <net/dsa.h>
-+
-+#define MT7628_ESW_REG_IMR 0x04
-+#define MT7628_ESW_REG_FCT0 0x08
-+#define MT7628_ESW_REG_PFC1 0x14
-+#define MT7628_ESW_REG_PVIDC(port) (0x40 + 4 * ((port) / 2))
-+#define MT7628_ESW_REG_VLANI(vlan) (0x50 + 4 * ((vlan) / 2))
-+#define MT7628_ESW_REG_VMSC(vlan) (0x70 + 4 * ((vlan) / 4))
-+#define MT7628_ESW_REG_VUB(vlan) (0x100 + 4 * ((vlan) / 4))
-+#define MT7628_ESW_REG_SOCPC 0x8c
-+#define MT7628_ESW_REG_POC0 0x90
-+#define MT7628_ESW_REG_POC2 0x98
-+#define MT7628_ESW_REG_SGC 0x9c
-+#define MT7628_ESW_REG_PCR0 0xc0
-+#define MT7628_ESW_REG_PCR1 0xc4
-+#define MT7628_ESW_REG_FPA2 0xc8
-+#define MT7628_ESW_REG_FCT2 0xcc
-+#define MT7628_ESW_REG_SGC2 0xe4
-+
-+#define MT7628_ESW_FCT0_DROP_SET_TH GENMASK(7, 0)
-+#define MT7628_ESW_FCT0_DROP_RLS_TH GENMASK(15, 8)
-+#define MT7628_ESW_FCT0_FC_SET_TH GENMASK(23, 16)
-+#define MT7628_ESW_FCT0_FC_RLS_TH GENMASK(31, 24)
-+
-+#define MT7628_ESW_PFC1_EN_VLAN GENMASK(22, 16)
-+
-+#define MT7628_ESW_PVID_S 12
-+#define MT7628_ESW_PVID_M GENMASK(11, 0)
-+#define MT7628_ESW_PVID_SHIFT(port) \
-+=09(MT7628_ESW_PVID_S * ((port) % 2))
-+#define MT7628_ESW_PVID_MASK(port) \
-+=09(MT7628_ESW_PVID_M << MT7628_ESW_PVID_SHIFT(port))
-+#define MT7628_ESW_PVID_PREP(port, pvid) \
-+=09(((pvid) & MT7628_ESW_PVID_M) << MT7628_ESW_PVID_SHIFT(port))
-+
-+#define MT7628_ESW_VID_S 12
-+#define MT7628_ESW_VID_M GENMASK(11, 0)
-+#define MT7628_ESW_VID_SHIFT(vlan) \
-+=09(MT7628_ESW_VID_S * ((vlan) % 2))
-+#define MT7628_ESW_VID_MASK(vlan) \
-+=09(MT7628_ESW_VID_M << MT7628_ESW_VID_SHIFT(vlan))
-+#define MT7628_ESW_VID_PREP(vlan, vid) \
-+=09(((vid) & MT7628_ESW_VID_M) << MT7628_ESW_VID_SHIFT(vlan))
-+
-+#define MT7628_ESW_VMSC_S 8
-+#define MT7628_ESW_VMSC_M GENMASK(7, 0)
-+#define MT7628_ESW_VMSC_SHIFT(vlan) \
-+=09(MT7628_ESW_VMSC_S * ((vlan) % 4))
-+#define MT7628_ESW_VMSC_MASK(vlan) \
-+=09(MT7628_ESW_VMSC_M << MT7628_ESW_VMSC_SHIFT(vlan))
-+#define MT7628_ESW_VMSC_PREP(vlan, vmsc) \
-+=09(((vmsc) & MT7628_ESW_VMSC_M) << MT7628_ESW_VMSC_SHIFT(vlan))
-+
-+#define MT7628_ESW_VUB_S 7
-+#define MT7628_ESW_VUB_M GENMASK(6, 0)
-+#define MT7628_ESW_VUB_SHIFT(vlan) \
-+=09(MT7628_ESW_VUB_S * ((vlan) % 4))
-+#define MT7628_ESW_VUB_MASK(vlan) \
-+=09(MT7628_ESW_VUB_M << MT7628_ESW_VUB_SHIFT(vlan))
-+#define MT7628_ESW_VUB_PREP(vlan, vub) \
-+=09(((vub) & MT7628_ESW_VUB_M) << MT7628_ESW_VUB_SHIFT(vlan))
-+
-+#define MT7628_ESW_SOCPC_CRC_PADDING BIT(25)
-+#define MT7628_ESW_SOCPC_DISBC2CPU GENMASK(22, 16)
-+#define MT7628_ESW_SOCPC_DISMC2CPU GENMASK(14, 8)
-+#define MT7628_ESW_SOCPC_DISUN2CPU GENMASK(6, 0)
-+
-+#define MT7628_ESW_POC0_PORT_DISABLE GENMASK(29, 23)
-+
-+#define MT7628_ESW_POC2_PER_VLAN_UNTAG_EN BIT(15)
-+
-+#define MT7628_ESW_SGC_AGING_INTERVAL GENMASK(3, 0)
-+#define MT7628_ESW_BC_STORM_PROT GENMASK(5, 4)
-+#define MT7628_ESW_PKT_MAX_LEN GENMASK(7, 6)
-+#define MT7628_ESW_DIS_PKT_ABORT BIT(8)
-+#define MT7628_ESW_ADDRESS_HASH_ALG GENMASK(10, 9)
-+#define MT7628_ESW_DISABLE_TX_BACKOFF BIT(11)
-+#define MT7628_ESW_BP_JAM_CNT GENMASK(15, 12)
-+#define MT7628_ESW_DISMIIPORT_WASTX GENMASK(17, 16)
-+#define MT7628_ESW_BP_MODE GENMASK(19, 18)
-+#define MT7628_ESW_BISH_DIS BIT(20)
-+#define MT7628_ESW_BISH_TH GENMASK(22, 21)
-+#define MT7628_ESW_LED_FLASH_TIME GENMASK(24, 23)
-+#define MT7628_ESW_RMC_RULE GENMASK(26, 25)
-+#define MT7628_ESW_IP_MULT_RULE GENMASK(28, 27)
-+#define MT7628_ESW_LEN_ERR_CHK BIT(29)
-+#define MT7628_ESW_BKOFF_ALG BIT(30)
-+
-+#define MT7628_ESW_PCR0_WT_NWAY_DATA GENMASK(31, 16)
-+#define MT7628_ESW_PCR0_RD_PHY_CMD BIT(14)
-+#define MT7628_ESW_PCR0_WT_PHY_CMD BIT(13)
-+#define MT7628_ESW_PCR0_CPU_PHY_REG GENMASK(12, 8)
-+#define MT7628_ESW_PCR0_CPU_PHY_ADDR GENMASK(4, 0)
-+
-+#define MT7628_ESW_PCR1_RD_DATA GENMASK(31, 16)
-+#define MT7628_ESW_PCR1_RD_DONE BIT(1)
-+#define MT7628_ESW_PCR1_WT_DONE BIT(0)
-+
-+#define MT7628_ESW_FPA2_AP_EN BIT(29)
-+#define MT7628_ESW_FPA2_EXT_PHY_ADDR_BASE GENMASK(28, 24)
-+#define MT7628_ESW_FPA2_FORCE_RGMII_LINK1 BIT(13)
-+#define MT7628_ESW_FPA2_FORCE_RGMII_EN1 BIT(11)
-+
-+#define MT7628_ESW_FCT2_MUST_DROP_RLS_TH GENMASK(17, 13)
-+#define MT7628_ESW_FCT2_MUST_DROP_SET_TH GENMASK(12, 8)
-+#define MT7628_ESW_FCT2_MC_PER_PORT_TH GENMASK(5, 0)
-+
-+#define MT7628_ESW_SGC2_SPECIAL_TAG_EN BIT(23)
-+#define MT7628_ESW_SGC2_TX_CPU_TPID_BIT_MAP GENMASK(22, 16)
-+#define MT7628_ESW_SGC2_DOUBLE_TAG_EN GENMASK(6, 0)
-+
-+#define MT7628_ESW_PORTS_NOCPU GENMASK(5, 0)
-+#define MT7628_ESW_PORTS_CPU BIT(6)
-+#define MT7628_ESW_PORTS_ALL GENMASK(6, 0)
-+
-+#define MT7628_ESW_NUM_PORTS 7
-+#define MT7628_NUM_VLANS 16
-+
-+static const struct regmap_config mt7628_esw_regmap_cfg =3D {
-+=09.name =3D "mt7628-esw",
-+=09.reg_bits =3D 32,
-+=09.val_bits =3D 32,
-+=09.reg_stride =3D 4,
-+=09.fast_io =3D true,
-+=09.reg_format_endian =3D REGMAP_ENDIAN_LITTLE,
-+=09.val_format_endian =3D REGMAP_ENDIAN_LITTLE,
-+};
-+
-+struct mt7628_vlan {
-+=09bool active;
-+=09u8 members;
-+=09u8 untag;
-+=09u16 vid;
-+};
-+
-+struct mt7628_esw {
-+=09void __iomem *base;
-+=09struct reset_control *rst_ephy;
-+=09struct reset_control *rst_esw;
-+=09struct regmap *regmap;
-+=09struct dsa_switch *ds;
-+=09u16 tag_8021q_pvid[MT7628_ESW_NUM_PORTS];
-+=09struct mt7628_vlan vlans[MT7628_NUM_VLANS];
-+=09struct device *dev;
-+};
-+
-+static int mt7628_mii_read(struct mii_bus *bus, int port, int regnum)
-+{
-+=09struct mt7628_esw *esw =3D bus->priv;
-+=09int ret;
-+=09u32 val;
-+
-+=09/*
-+=09 * RD_DONE bit is read to clear. Read PCR1 once to acknowledge any
-+=09 * stale completion indicator before starting a new transaction.
-+=09 */
-+=09ret =3D regmap_read(esw->regmap, MT7628_ESW_REG_PCR1, &val);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
-+=09=09=09=09      regnum) |
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
-+=09=09=09=09      port) | MT7628_ESW_PCR0_RD_PHY_CMD);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-+=09=09=09=09       (val & MT7628_ESW_PCR1_RD_DONE), 10,
-+=09=09=09=09       5000);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09return FIELD_GET(MT7628_ESW_PCR1_RD_DATA, val);
-+
-+out:
-+=09dev_err(&bus->dev, "read failed. MDIO timeout?\n");
-+=09return ret;
-+}
-+
-+static int mt7628_mii_write(struct mii_bus *bus, int port, int regnum, u16=
- dat)
-+{
-+=09struct mt7628_esw *esw =3D bus->priv;
-+=09u32 val;
-+=09int ret;
-+
-+=09/*
-+=09 * WT_DONE bit is read to clear. Read PCR1 once to acknowledge any
-+=09 * stale completion indicator before starting a new transaction.
-+=09 */
-+=09ret =3D regmap_read(esw->regmap, MT7628_ESW_REG_PCR1, &val);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_WT_NWAY_DATA, dat) |
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
-+=09=09=09=09      regnum) |
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
-+=09=09=09=09      port) | MT7628_ESW_PCR0_WT_PHY_CMD);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-+=09=09=09=09       (val & MT7628_ESW_PCR1_WT_DONE), 10,
-+=09=09=09=09       5000);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09return 0;
-+
-+out:
-+=09dev_err(&bus->dev, "write failed. MDIO timeout?\n");
-+=09return ret;
-+}
-+
-+static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09struct mii_bus *bus;
-+
-+=09bus =3D devm_mdiobus_alloc(esw->dev);
-+=09if (!bus)
-+=09=09return -ENOMEM;
-+
-+=09bus->name =3D "MT7628 internal MDIO bus";
-+=09snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(esw->dev));
-+=09bus->priv =3D esw;
-+=09bus->read =3D mt7628_mii_read;
-+=09bus->write =3D mt7628_mii_write;
-+=09bus->parent =3D esw->dev;
-+
-+=09ds->user_mii_bus =3D bus;
-+=09bus->phy_mask =3D ~ds->phys_mii_mask;
-+
-+=09return devm_mdiobus_register(esw->dev, bus);
-+}
-+
-+static void mt7628_switch_init(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_FCT0,
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_DROP_SET_TH, 0x50) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_DROP_RLS_TH, 0x78) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_FC_SET_TH, 0xa0) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_FC_RLS_TH, 0xc8));
-+
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_FCT2,
-+=09=09     FIELD_PREP(MT7628_ESW_FCT2_MC_PER_PORT_TH, 0xc) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT2_MUST_DROP_SET_TH, 0x10) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT2_MUST_DROP_RLS_TH, 0x12));
-+
-+=09/*
-+=09 * general switch configuration:
-+=09 * 300s aging interval
-+=09 * broadcast storm prevention disabled
-+=09 * max packet length 1536 bytes
-+=09 * disable collision 16 packet abort and late collision abort
-+=09 * use xor48 for address hashing
-+=09 * disable tx backoff
-+=09 * 10 packet back pressure jam
-+=09 * disable was_transmit
-+=09 * jam until BP condition released
-+=09 * 30ms LED flash
-+=09 * rmc tb fault to all ports
-+=09 * unmatched IGMP as broadcast
-+=09 */
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_SGC,
-+=09=09     FIELD_PREP(MT7628_ESW_SGC_AGING_INTERVAL, 1) |
-+=09=09     FIELD_PREP(MT7628_ESW_BC_STORM_PROT, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_PKT_MAX_LEN, 0) |
-+=09=09     MT7628_ESW_DIS_PKT_ABORT |
-+=09=09     FIELD_PREP(MT7628_ESW_ADDRESS_HASH_ALG, 1) |
-+=09=09     MT7628_ESW_DISABLE_TX_BACKOFF |
-+=09=09     FIELD_PREP(MT7628_ESW_BP_JAM_CNT, 10) |
-+=09=09     FIELD_PREP(MT7628_ESW_DISMIIPORT_WASTX, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_BP_MODE, 0b10) |
-+=09=09     FIELD_PREP(MT7628_ESW_LED_FLASH_TIME, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_RMC_RULE, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_IP_MULT_RULE, 0));
-+
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_SOCPC,
-+=09=09     MT7628_ESW_SOCPC_CRC_PADDING |
-+=09=09     FIELD_PREP(MT7628_ESW_SOCPC_DISUN2CPU,
-+=09=09=09=09MT7628_ESW_PORTS_CPU) |
-+=09=09     FIELD_PREP(MT7628_ESW_SOCPC_DISMC2CPU,
-+=09=09=09=09MT7628_ESW_PORTS_CPU) |
-+=09=09     FIELD_PREP(MT7628_ESW_SOCPC_DISBC2CPU,
-+=09=09=09=09MT7628_ESW_PORTS_CPU));
-+
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_FPA2,
-+=09=09=09MT7628_ESW_FPA2_FORCE_RGMII_EN1 |
-+=09=09=09MT7628_ESW_FPA2_FORCE_RGMII_LINK1 |
-+=09=09=09MT7628_ESW_FPA2_AP_EN);
-+
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_FPA2,
-+=09=09=09   MT7628_ESW_FPA2_EXT_PHY_ADDR_BASE,
-+=09=09=09   FIELD_PREP(MT7628_ESW_FPA2_EXT_PHY_ADDR_BASE, 31));
-+
-+=09/* disable all interrupts */
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_IMR, 0);
-+
-+=09/* enable MT7628 DSA tag on CPU port */
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_SGC2,
-+=09=09     MT7628_ESW_SGC2_SPECIAL_TAG_EN |
-+=09=09     FIELD_PREP(MT7628_ESW_SGC2_TX_CPU_TPID_BIT_MAP,
-+=09=09=09=09MT7628_ESW_PORTS_CPU));
-+
-+=09/*
-+=09 * Double tag feature allows switch to always append the port PVID VLAN=
- tag
-+=09 * regardless of if the incoming packet already has a VLAN tag.
-+=09 * This is enabled to simulate VLAN unawareness.
-+=09 */
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_SGC2,
-+=09=09=09FIELD_PREP(MT7628_ESW_SGC2_DOUBLE_TAG_EN,
-+=09=09=09=09   MT7628_ESW_PORTS_NOCPU));
-+
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_POC2,
-+=09=09=09MT7628_ESW_POC2_PER_VLAN_UNTAG_EN);
-+
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_PFC1,
-+=09=09=09   MT7628_ESW_PFC1_EN_VLAN,
-+=09=09=09   FIELD_PREP(MT7628_ESW_PFC1_EN_VLAN,
-+=09=09=09=09      MT7628_ESW_PORTS_ALL));
-+}
-+
-+static void mt7628_esw_set_pvid(struct mt7628_esw *esw, unsigned int port,
-+=09=09=09=09unsigned int pvid)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_PVIDC(port),
-+=09=09=09   MT7628_ESW_PVID_MASK(port),
-+=09=09=09   MT7628_ESW_PVID_PREP(port, pvid));
-+}
-+
-+static void mt7628_esw_set_vlan_id(struct mt7628_esw *esw, unsigned int vl=
-an,
-+=09=09=09=09   unsigned int vid)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_VLANI(vlan),
-+=09=09=09   MT7628_ESW_VID_MASK(vlan),
-+=09=09=09   MT7628_ESW_VID_PREP(vlan, vid));
-+}
-+
-+static void mt7628_esw_set_vmsc(struct mt7628_esw *esw, unsigned int vlan,
-+=09=09=09=09unsigned int msc)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_VMSC(vlan),
-+=09=09=09   MT7628_ESW_VMSC_MASK(vlan),
-+=09=09=09   MT7628_ESW_VMSC_PREP(vlan, msc));
-+}
-+
-+static void mt7628_esw_set_vub(struct mt7628_esw *esw, unsigned int vlan,
-+=09=09=09       unsigned int vub)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_VUB(vlan),
-+=09=09=09   MT7628_ESW_VUB_MASK(vlan),
-+=09=09=09   MT7628_ESW_VUB_PREP(vlan, vub));
-+}
-+
-+static void mt7628_vlan_sync(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09int i;
-+
-+=09for (i =3D 0; i < MT7628_NUM_VLANS; i++) {
-+=09=09struct mt7628_vlan *vlan =3D &esw->vlans[i];
-+
-+=09=09mt7628_esw_set_vmsc(esw, i, vlan->members);
-+=09=09mt7628_esw_set_vlan_id(esw, i, vlan->vid);
-+=09=09mt7628_esw_set_vub(esw, i, vlan->untag);
-+=09}
-+
-+=09for (i =3D 0; i < ds->num_ports; i++)
-+=09=09mt7628_esw_set_pvid(esw, i, esw->tag_8021q_pvid[i]);
-+}
-+
-+static int mt7628_setup(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09int ret;
-+
-+=09ret =3D reset_control_reset(esw->rst_esw);
-+=09if (ret)
-+=09=09return ret;
-+=09usleep_range(1000, 2000);
-+
-+=09ret =3D reset_control_reset(esw->rst_ephy);
-+=09if (ret)
-+=09=09return ret;
-+=09usleep_range(1000, 2000);
-+=09/*
-+=09 * all MMIO reads hang if esw is not out of reset
-+=09 * ephy needs extra time to get out of reset or it ends up misconfigure=
-d
-+=09 */
-+
-+=09mt7628_switch_init(ds);
-+
-+=09ret =3D mt7628_setup_internal_mdio(ds);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09rtnl_lock();
-+=09ret =3D dsa_tag_8021q_register(ds, htons(ETH_P_8021Q));
-+=09rtnl_unlock();
-+
-+=09return ret;
-+}
-+
-+static int mt7628_port_enable(struct dsa_switch *ds, int port,
-+=09=09=09      struct phy_device *phy)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+
-+=09regmap_clear_bits(esw->regmap, MT7628_ESW_REG_POC0,
-+=09=09=09  FIELD_PREP(MT7628_ESW_POC0_PORT_DISABLE, BIT(port)));
-+=09return 0;
-+}
-+
-+static void mt7628_port_disable(struct dsa_switch *ds, int port)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_POC0,
-+=09=09=09FIELD_PREP(MT7628_ESW_POC0_PORT_DISABLE, BIT(port)));
-+}
-+
-+static enum dsa_tag_protocol
-+mt7628_get_tag_proto(struct dsa_switch *ds, int port, enum dsa_tag_protoco=
-l mp)
-+{
-+=09return DSA_TAG_PROTO_MT7628;
-+}
-+
-+static void mt7628_phylink_get_caps(struct dsa_switch *ds, int port,
-+=09=09=09=09    struct phylink_config *config)
-+{
-+=09switch (port) {
-+=09case 6:
-+=09=09config->mac_capabilities |=3D MAC_1000;
-+=09=09fallthrough;
-+=09case 0 ... 4:
-+=09=09config->mac_capabilities |=3D MAC_100 | MAC_10;
-+=09=09__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+=09=09=09  config->supported_interfaces);
-+=09=09break;
-+=09default:
-+=09=09break;=09=09/* port 5 does not exist on MT7628 */
-+=09}
-+}
-+
-+static int mt7628_dsa_8021q_vlan_add(struct dsa_switch *ds, int port,
-+=09=09=09=09     u16 vid, u16 flags)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09struct mt7628_vlan *vlan =3D NULL;
-+=09int i;
-+
-+=09for (i =3D 0; i < MT7628_NUM_VLANS; i++) {
-+=09=09struct mt7628_vlan *check_vlan =3D &esw->vlans[i];
-+
-+=09=09if (!check_vlan->active && !vlan)
-+=09=09=09vlan =3D check_vlan;
-+
-+=09=09if (check_vlan->active && check_vlan->vid =3D=3D vid) {
-+=09=09=09vlan =3D check_vlan;
-+=09=09=09break;
-+=09=09}
-+=09}
-+
-+=09if (!vlan)
-+=09=09return -ENOSPC;
-+
-+=09vlan->vid =3D vid;
-+=09vlan->active =3D true;
-+=09vlan->members |=3D BIT(port);
-+
-+=09if (flags & BRIDGE_VLAN_INFO_PVID)
-+=09=09esw->tag_8021q_pvid[port] =3D vid;
-+
-+=09if (flags & BRIDGE_VLAN_INFO_UNTAGGED)
-+=09=09vlan->untag |=3D BIT(port);
-+
-+=09mt7628_vlan_sync(ds);
-+=09return 0;
-+}
-+
-+static int mt7628_dsa_8021q_vlan_del(struct dsa_switch *ds, int port, u16 =
-vid)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09struct mt7628_vlan *vlan =3D NULL;
-+=09int i;
-+
-+=09for (i =3D 0; i < MT7628_NUM_VLANS; i++) {
-+=09=09struct mt7628_vlan *check_vlan =3D &esw->vlans[i];
-+
-+=09=09if (!check_vlan->active || check_vlan->vid !=3D vid)
-+=09=09=09continue;
-+=09=09vlan =3D check_vlan;
-+=09=09break;
-+=09}
-+=09if (!vlan)
-+=09=09return -ENOENT;
-+
-+=09if (esw->tag_8021q_pvid[port] =3D=3D vid)
-+=09=09esw->tag_8021q_pvid[port] =3D 0;
-+
-+=09vlan->members &=3D ~BIT(port);
-+=09vlan->untag &=3D ~BIT(port);
-+
-+=09if (!vlan->members) {
-+=09=09vlan->active =3D false;
-+=09=09vlan->vid =3D 0;
-+=09}
-+
-+=09mt7628_vlan_sync(ds);
-+=09return 0;
-+}
-+
-+static void mt7628_teardown(struct dsa_switch *ds)
-+{
-+=09rtnl_lock();
-+=09dsa_tag_8021q_unregister(ds);
-+=09rtnl_unlock();
-+}
-+
-+static const struct dsa_switch_ops mt7628_switch_ops =3D {
-+=09.get_tag_protocol =3D mt7628_get_tag_proto,
-+=09.setup =3D mt7628_setup,
-+=09.teardown =3D mt7628_teardown,
-+=09.port_enable =3D mt7628_port_enable,
-+=09.port_disable =3D mt7628_port_disable,
-+=09.phylink_get_caps =3D mt7628_phylink_get_caps,
-+=09.tag_8021q_vlan_add =3D mt7628_dsa_8021q_vlan_add,
-+=09.tag_8021q_vlan_del =3D mt7628_dsa_8021q_vlan_del,
-+};
-+
-+static int mt7628_probe(struct platform_device *pdev)
-+{
-+=09struct device *dev =3D &pdev->dev;
-+=09struct mt7628_esw *esw;
-+=09struct dsa_switch *ds;
-+
-+=09ds =3D devm_kzalloc(&pdev->dev, sizeof(*ds), GFP_KERNEL);
-+=09if (!ds)
-+=09=09return -ENOMEM;
-+
-+=09esw =3D devm_kzalloc(&pdev->dev, sizeof(*esw), GFP_KERNEL);
-+=09if (!esw)
-+=09=09return -ENOMEM;
-+
-+=09esw->base =3D devm_platform_ioremap_resource(pdev, 0);
-+=09if (IS_ERR(esw->base))
-+=09=09return PTR_ERR(esw->base);
-+
-+=09esw->regmap =3D devm_regmap_init_mmio(&pdev->dev, esw->base,
-+=09=09=09=09=09    &mt7628_esw_regmap_cfg);
-+=09if (IS_ERR(esw->regmap))
-+=09=09return PTR_ERR(esw->regmap);
-+
-+=09esw->rst_ephy =3D devm_reset_control_get_exclusive(&pdev->dev, "ephy");
-+=09if (IS_ERR(esw->rst_ephy))
-+=09=09return dev_err_probe(dev, PTR_ERR(esw->rst_ephy),
-+=09=09=09=09     "failed to get EPHY reset\n");
-+
-+=09esw->rst_esw =3D devm_reset_control_get_exclusive(&pdev->dev, "esw");
-+=09if (IS_ERR(esw->rst_esw))
-+=09=09return dev_err_probe(dev, PTR_ERR(esw->rst_esw),
-+=09=09=09=09     "failed to get ESW reset\n");
-+
-+=09ds->dev =3D dev;
-+=09ds->num_ports =3D MT7628_ESW_NUM_PORTS;
-+=09ds->ops =3D &mt7628_switch_ops;
-+=09ds->priv =3D esw;
-+=09esw->ds =3D ds;
-+=09esw->dev =3D dev;
-+=09dev_set_drvdata(dev, esw);
-+
-+=09return dsa_register_switch(ds);
-+}
-+
-+static void mt7628_remove(struct platform_device *pdev)
-+{
-+=09struct mt7628_esw *esw =3D platform_get_drvdata(pdev);
-+
-+=09if (!esw)
-+=09=09return;
-+
-+=09dsa_unregister_switch(esw->ds);
-+}
-+
-+static void mt7628_shutdown(struct platform_device *pdev)
-+{
-+=09struct mt7628_esw *esw =3D platform_get_drvdata(pdev);
-+
-+=09if (!esw)
-+=09=09return;
-+
-+=09dsa_switch_shutdown(esw->ds);
-+=09dev_set_drvdata(&pdev->dev, NULL);
-+}
-+
-+static const struct of_device_id mt7628_of_match[] =3D {
-+=09{ .compatible =3D "mediatek,mt7628-esw" },
-+=09{}
-+};
-+
-+MODULE_DEVICE_TABLE(of, mt7628_of_match);
-+
-+static struct platform_driver mt7628_driver =3D {
-+=09.driver =3D {
-+=09=09   .name =3D "mt7628-esw",
-+=09=09   .of_match_table =3D mt7628_of_match,
-+=09=09    },
-+=09.probe =3D mt7628_probe,
-+=09.remove =3D mt7628_remove,
-+=09.shutdown =3D mt7628_shutdown,
-+};
-+
-+module_platform_driver(mt7628_driver);
-+
-+MODULE_AUTHOR("Joris Vaisvila <joey@tinyisr.com>");
-+MODULE_DESCRIPTION("Driver for Mediatek MT7628 embedded switch");
-+MODULE_LICENSE("GPL");
---=20
-2.54.0
+> > +};
+> > +
+> >  /*
+> >   * Standby Control Register offsets (RZ/A)
+> >   * Base address is FRQCR register
+> > @@ -253,6 +300,20 @@ static void cpg_rzt2h_mstp_write(struct cpg_mssr_p=
+riv *priv, u16 offset, u32 val
+> >         writel(value, base + RZT2H_MSTPCR_OFFSET(offset));
+> >  }
+> >
+> > +static unsigned int cpg_rzt2h_mstp_get_delay_us(u32 reg, u32 bit)
+> > +{
+> > +       unsigned int i;
+> > +
+> > +       for (i =3D 0; i < ARRAY_SIZE(rzt2h_mstp_delay_table); i++) {
+> > +               const struct rzt2h_mstp_delay_entry *e =3D &rzt2h_mstp_=
+delay_table[i];
+> > +
+> > +               if (e->reg =3D=3D reg && (e->bit =3D=3D bit || bit =3D=
+=3D RZT2H_MSTP_ANY_BIT))
+> > +                       return e->delay_us;
+> > +       }
+>
+> Given there are only two modules (LCDC and RTC) that need special
+> handling, a table sounds like overkill to me.
+> For exact matching, a switch() statement with two entries and a default
+> would do.
+> For wildcard bit matching, perhaps you can use a mask?
+>
+>     unsigned int mask =3D bit_valid ? GENMASK(31, 0) : GENMASK(31, 5));
+>
+>     if (idx =3D=3D (MOD_CLK_PACK(1204) & mask)) {
+>             /* LCDC needs 300 dummy reads, or 210 us */
+>             return 210;
+>     } else if (idx =3D=3D (MOD_CLK_PACK(605) & mask)) {
+>             /* RTC needs 100 dummy reads, or 70 us */
+>             return 70;
+>     } else {
+>             /* default 7 dummy reads, or 10 us */
+>             return 10;
+>     }
+>
+> What do you think?
+>
+agreed, this approach would much simpler.
 
+> > +
+> > +       return RZT2H_MSTP_DEFAULT_DELAY_US;
+>
+> You might as well just do the udelay() here, too.
+>
+Ok I will have the below,
+
+static void cpg_rzt2h_mstp_delay(u32 idx, bool bit_valid)
+{
+    unsigned int mask =3D bit_valid ? GENMASK(31, 0) : GENMASK(31, 5);
+
+    if (idx =3D=3D (MOD_CLK_PACK(1204) & mask)) {
+        /* LCDC needs 100 dummy reads, or 142us */
+        udelay(142);
+    } else if (idx =3D=3D (MOD_CLK_PACK(605) & mask)) {
+        /* RTC needs 300 dummy reads, or 428us */
+        udelay(428);
+    } else {
+        /* default 7 dummy reads, or 10us */
+        udelay(10);
+    }
+}
+
+> > +}
+> > +
+> >  static int cpg_mstp_clock_endisable(struct clk_hw *hw, bool enable)
+> >  {
+> >         struct mstp_clock *clock =3D to_mstp_clock(hw);
+> > @@ -312,7 +373,7 @@ static int cpg_mstp_clock_endisable(struct clk_hw *=
+hw, bool enable)
+> >                  * register, we simply add a delay after the read opera=
+tion.
+> >                  */
+> >                 cpg_rzt2h_mstp_read(priv, priv->control_regs[reg]);
+> > -               udelay(10);
+> > +               udelay(cpg_rzt2h_mstp_get_delay_us(reg, bit));
+>
+> In this function, you do have the packed clock index (clock->index).
+>
+Agreed, this can be replaced with cpg_rzt2h_mstp_delay(clock->index, true);
+
+> >                 return 0;
+> >         }
+> >
+> > @@ -1142,7 +1203,7 @@ static int cpg_mssr_resume_noirq(struct device *d=
+ev)
+> >                         cpg_rzt2h_mstp_write(priv, priv->control_regs[r=
+eg], newval);
+> >                         /* See cpg_mstp_clock_endisable() on why this i=
+s necessary. */
+> >                         cpg_rzt2h_mstp_read(priv, priv->control_regs[re=
+g]);
+> > -                       udelay(10);
+> > +                       udelay(cpg_rzt2h_mstp_get_delay_us(reg, RZT2H_M=
+STP_ANY_BIT));
+>
+> Here you don't have it, but idx =3D reg * 32, and bit_valid =3D false;
+>
+and this one with cpg_rzt2h_mstp_delay(reg * 32, false);
+
+Cheers,
+Prabhakar
