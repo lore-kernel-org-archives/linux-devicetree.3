@@ -1,264 +1,177 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010070.outbound.protection.outlook.com [52.101.228.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0322F1FDF
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780914271; cv=none; b=cXeGQg1WuyF725i0a80/5gPQ6O3d2i/gVGZeufiy0dm3K+Vft21UXvJ6DVB8/jGkt+gRFuVrjyWwj7uxUF7fPCvxmWqnlfG0T18SnromdQd4ANXzY9SylwhtlYpU52V8/QuShFJUIJqZwzqDQy+41/gyU6nPC1Zy7JUbTYtzO1M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780914271; c=relaxed/simple;
-	bh=ry0/wyfJvjHyRLLbRU3tqt5QD+4LC8uoNFaeEFr/D0U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tp4Z2GDs1AdIeh7KKhufAEpHCT9YKyhIKVm9V8EjULfvfWfapL/eGxXpkzVpbDg6jbeZKsOTrrYzgWIkno0MWKoEVseqv1A+Bd+JuYNkaPD+oikfxZDTyn8MbdPQ3cQ5bZIYOgbcyEJZWa1XAThdR/UsaOSVhQtoKUSPqCKX9PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MoWRIXR9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CJSzLX1J; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0B63845B0;
+	Mon,  8 Jun 2026 10:27:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780914428; cv=fail; b=AS2cVs0ek8UVsRgeQUZMAEI0gPw1hKcj+jhFVAzIZQ6whKU+ds34QSHip1nIqUGgSj/VnopkaVTzUjwL8OkDveH+lr49rhFSRWCwFc/lu/zw6X7GAxGVTzG0wUNrw9D+32qR/f3Mg/IgnMYkbRkd8e1qJsGTRE93s9RYCAwRDJI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780914428; c=relaxed/simple;
+	bh=mOzEYCvY91S9mY+Rk8QpDDW7/yyZUqMSxzR0b7exMTw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SQv4wtoLuluAWkH6oWtj80DavJUVL26HEjMIS041O6v9tapBGoMz0yoxVZlK9jU9SYFEtYra7igdHB4N5l82ankPSSs8IXAFGec+n3DCikpuIS7uHwmO2OfU2vrKD/Nqelpasti4mQTp2LlzYTSvzgVLo3p7Frv+6FSzp6wSLbg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=FzIXIg5e; arc=fail smtp.client-ip=52.101.228.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MoWRIXR9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CJSzLX1J"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658A3Xko2848201
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 10:24:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xl18tt9uabj/nguluA4JVVRo9uAXjAMzBlxUvfENfq0=; b=MoWRIXR9JaXxt15l
-	iYNkPZum6uBiwgomMuT3IxFz+D1u3ygV1S1vG4NhmYqD1Wafxwi07nIAA2MGGEVb
-	apuK262xH6yiKTW1nCfTWqsBKO3cUZF2HsEYCauEbxdyWDuVaT/M18aet7PzC3fm
-	DczfJ5qcXgdCfjFrHM+IrE4+DM+eYo89KwsLChZNNNGtie++brQfOkHxCuBwTjOn
-	OSyqz2oKJM3UPa/KCGpujWMdmq2aA7V6OF7HO1Ao8+tHQgsHqW8NxcOQq2PlBdPu
-	PGImVGsuL4XeKNjtCpehcaIRYFb6DnF9qbuoNMgwKrIbJNURlp/rs/rIN5Fd6YT3
-	sy6aNg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enuna83an-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 10:24:28 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c0c3315d31so46169195ad.3
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:24:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780914268; x=1781519068; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xl18tt9uabj/nguluA4JVVRo9uAXjAMzBlxUvfENfq0=;
-        b=CJSzLX1JXDoxYPQVuSj9oV0lbVkKCwLqdCf+99GpjnDxwEpl92BdZIidK6B3I1CTYJ
-         SJioQb/lUjZEqVcm6A0RuGfIO9njS2f0Y5NR9SyRbz6u2ENhL+5m21MzpXtklodTm9S1
-         +epzkTfz/0LR0tphCvSIv9NlYz2i9C6W6xaGxxBRCeYfbK+T4lenrURvbyCDsf6Z8bL1
-         jgXi8P80nEZ0NxHDWEnf5i2SupYSdrkUcPf0kvu0uVe9EU4lYCPNJ0DpIUJ4FsbtbbV3
-         O7YBaq13Pk+vQvvMuyHC1twMCllgXokegk35fQYasuHRGdLQYr0SYsOE+IiiLZyARWOL
-         jmqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780914268; x=1781519068;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xl18tt9uabj/nguluA4JVVRo9uAXjAMzBlxUvfENfq0=;
-        b=g89loBFDxLoDYU2KNtH1/g+PHYkEYyVzB8SPDTtu1+VZ3ix3X+6k7pNrjdJVIAPcxN
-         vswR65Eu4DIUvvsN/v1jqKXd5OgyJ/UQRIq4qlrNF8ikPVdZJcGON1RckMb0cNhzLc0c
-         6dDHTJ7ZrzzM86HnaV0S3auQNduLBNYrHLrrkVPpCJKT9K7kMooJ4JLSisCoPjAzl4n0
-         RE6Ahqqq0iRxd1PK5qhSG6RNFYW2DyMiPweoxowQ9X9hWdedppIcxsZGDKdSTIXqSSEb
-         b3N+KEM6ppeku8GzWr6fEoGWN3zCOZsUYPYms+6Y5lrFA9pPOEkFQf4VWaGWKtRpIuMS
-         m9yg==
-X-Forwarded-Encrypted: i=1; AFNElJ//zWBIJ3+KeKSLXIPVC//OckJWWiCZnexlcLm+X6PXkOv2IdhXTRUo8Z7EkHCGu6912h/vCndrS0j0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHrqiMiIbtwg9LlxCqNFqSY/dCWVFC+BRun+0ktbRRYdD+EdmV
-	lPRe8/EpU+uVbqEDEqo59pyFjhYroyTztCFsz13U1MCihSlnHxwfoL3mEq/eN3DzN7IK4+iA7qP
-	IkBE03wFvb1T4O7JWWV1ANy1Q1WUD+bRPBR0YAwZeo+QID06ax6fyFsea90HZZYq7
-X-Gm-Gg: Acq92OEUAoWC9dVEyS9PyY9BD/6lTZLNIpiSu8cA0VzUbVUovK4nTbd39OQVbYtjlz7
-	TxqSl4XAvBiV1UBpckBOVlaV9GT+vlzbaYgjoTzxwuaTnEC8iTuOVGSkibiPyqWTeD62Jl3pnwF
-	CJtAAZ0JUy5QB4LVQc9HlyGYRzUT58TPiSqILpFpMmxYc00VqtRcWsz4L8c1grItm1jGtIVfKlP
-	2aPUyvSSr7zNerDCLpVg6ORF4UDdxroh9kFEZ7N31KSWMHAn+HrQnchMcogUK+vN2NHVgDy1UmV
-	B/A/IModtgGLQwIIGF/D5x4abCjbaNGnDTvTXz6qZe54WfdoJnEVjNejPF2bhr+5yQGqMEyC2AT
-	d87no4BC5Gj9cozRQUJKIgcdQBMEG2fQEOAQAtalsLDlnFMU1neoTh2evvUgaug==
-X-Received: by 2002:a17:903:faf:b0:2c0:ca99:3d73 with SMTP id d9443c01a7336-2c1e7b2f203mr167666775ad.8.1780914268103;
-        Mon, 08 Jun 2026 03:24:28 -0700 (PDT)
-X-Received: by 2002:a17:903:faf:b0:2c0:ca99:3d73 with SMTP id d9443c01a7336-2c1e7b2f203mr167666315ad.8.1780914267621;
-        Mon, 08 Jun 2026 03:24:27 -0700 (PDT)
-Received: from [10.206.100.243] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm237322705ad.9.2026.06.08.03.24.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 03:24:26 -0700 (PDT)
-Message-ID: <81724048-0cb1-4305-b613-374c14df87d5@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 15:54:20 +0530
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="FzIXIg5e"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hzqa2ED+R0xrgcCvuX/0gltAGTL/ywMhEgCla1kUVI9k/EJSwoLIZfrW9dnFS/t3u6eBC1y9B7nhHb9OkApaii+zJj8HuqUfjxxg8R+p8UnYZy91SS7u2m6vg6h2IBvHZ6kSTvjOuFHMwmksrhCvgLQSCt6PKRoSX9fICSKQ0Cp+Dku1P5lvVb/4cZ9d0tt420Y3JVhJCtOLuyXZeYsCzkv9df9MXSRX9bcvYZSBqjBJaRJqQou3EXZSll1Zj9cuhZ+0RxKuEgBqqbDh0AOLAJ5PAUe85H4z/4Tv2TOlOdp2VqzOMC4UbKk9egOWhi7fwYSl6tpLj2MBNwrF95DuGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mOzEYCvY91S9mY+Rk8QpDDW7/yyZUqMSxzR0b7exMTw=;
+ b=b8G41/f3dtU7OsgcLzSGhgTllDFEgDpTjQnrv2UcgIYHUBQmL/FwgGRqZU3cB7O8SzWqN+b4NpqyaD3Ra8z7PGL52BAEFZLU9qrkJV8QuTikZRiY0f25Qa7givtEWgun/fKtAJGTKXsyNl3ZGXcPTl+RVI/KVu+5+Z14BoMsF6tTnHDitYN9Q5wHmsTiLlmM0+gxevrr6JQ6XIPOXI4dEovfpiwCT6N4ylfq0LswUOv0xOxhoxr7gO1q2MS2ZQyTtnNkkIo9mkDVSOJ3A4rwkvnfbY2oBQO8SuHC6kKt6g9WhoZ3cZxa9BTdjcGWUn5smfVjrmXHs8D8HER0AX/oVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mOzEYCvY91S9mY+Rk8QpDDW7/yyZUqMSxzR0b7exMTw=;
+ b=FzIXIg5eiWywZ8zcvd6YH/7jetsrZLh1/sXIEAnDCvSap+gxFGynOb+gvxljg/o4Lh0QOSyH8XP4xe7OWbbdEKPrYaTRoP9ff6OSBzFdmPDlVuxKHqubQ4dlRTppD/G9k6ZUggEB3fVC3+EcfUbZ/oB/vWTjnc84OxYLkBPc8+w=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY4PR01MB13905.jpnprd01.prod.outlook.com (2603:1096:405:1f8::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
+ 10:27:03 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
+ 10:26:54 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, biju.das.au <biju.das.au@gmail.com>
+CC: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH] dt-bindings: mfd: syscon: Make ranges required for
+ renesas,r9a08g046-lvds-cmn
+Thread-Topic: [PATCH] dt-bindings: mfd: syscon: Make ranges required for
+ renesas,r9a08g046-lvds-cmn
+Thread-Index: AQHc8pGh26og7GjtHkeCuhYLGQ8HXrY0e8eAgAAAPoCAAABXAA==
+Date: Mon, 8 Jun 2026 10:26:54 +0000
+Message-ID:
+ <TY3PR01MB1134665BE4CE8FB734BCFAAAF861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260602131331.90756-1-biju.das.jz@bp.renesas.com>
+ <20260608-alluring-remarkable-echidna-d107ea@quoll>
+ <d8cf5925-9c4e-4417-8fee-1d24c4cd303d@kernel.org>
+In-Reply-To: <d8cf5925-9c4e-4417-8fee-1d24c4cd303d@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB13905:EE_
+x-ms-office365-filtering-correlation-id: 0137600e-8f6b-4058-d7c4-08dec5487637
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|7416014|1800799024|38070700021|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ QfI4T4E8ICUnQM4AvZYDIsGSwfaobPQWn9vNRnVGTnemeXxjwJi8xVCoj+2Szwgqwij1Pezx0jORGITiSBRAzRPghZpgWUDTVQO87uIG0czCSpYOXL3As19wLqMm3XpfX7sX6jdyfNjYUjP+0qXglt4fiWhqKFmYE7/ZHqIgx5MquZZjTgePvQapn6EdZ43I6Lqm49MSLi+LuH63KsTw0KW+4Cfu2DgKNzVk472pkZzYJ8Dxu7r7J8ezwHd0F9KM6BCtpF2W7daDcg0aE9s5BSPQONy1TYj4v4aXBcNax6A5L28+LVSNpcdTiGM4hnR8n88zTmLK6dtunvRluoLhLQcMUhIATCmB3hvM5Z/C3UDluMK8yQrd8RpmEW8hRCjrKjzS8aN8OE9DtCRL29Vrz1cr2fsn90i/tOdJaqCGLTF53xXjSxPirl5nYyjP/saBeKncpdyCLqel8r0Oq/k/6oyN8/0LbsNphlZZL+RZoAClQTZSd+dkWsr3L5qjPPQafC59uoM2y4X2FEL5v0ec5+p87WSDJqScF8fBPdt2S4R27V4qNARUOlU1oMBF31Ep1eeiHVByEnb30OOU5xthFZ0ymtwKqml53Hsgb3T96FfORSDJTbMTU0nCu7gdTw0EWNce92WADaJ14gtKxRGVyr4r0kWdzJRUH4yUubSEwf8YLPQ0k8kGcRAHHBAVU0Pkpyse0IucrOB5D4n+Daf8jpj7Bj2EWj+vrxkQlGPRMy6jQC+ZnU2tAkC1me4ftS+O
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024)(38070700021)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?YlJad0FuY1A1WEVXdFh4NGJvZXNzeG9WcDYwL1hNc25tTnUxUEp2UTZCNEtN?=
+ =?utf-8?B?K296dFE3Tk4xc0JxRGFTSU9mV1ExeittcERPSUpYWU16VkpsSUhCbFByNThs?=
+ =?utf-8?B?c0Q2VkhDOEZXQ3A3WVVwSmZOM1MxU04xU2Q0QnN4L3VBaFd2NVpxUVBweDhv?=
+ =?utf-8?B?ckVzVzJ5dTVNZUE4aW5TMnpxc296eU9ROEp6TUFPOVdybzY5OENEYVdVMFhl?=
+ =?utf-8?B?a3U5Vllvd2FmRHQzYVpUV3VvS28rSEw4YjZTMnMwNEJOL2RlOXkyTndZTisy?=
+ =?utf-8?B?ZEFCOFEzZE1kaGtURHRGSjByRUMvZ3h6RGhPLytUN1p4NHRBYURENSsrMExR?=
+ =?utf-8?B?UHJINEdrL0ZUcFZiTk5jNFVYaHRHZ2R0WTRXQzg2Ulhia3hvSjRuNGpaZXRI?=
+ =?utf-8?B?NjUwbXNaRVh4V2ZKTWZoT1luNW1QS1ZoUld1WG9JWW5MbTRyb3BjTEJjT1FG?=
+ =?utf-8?B?VEJBZ1hLMUlwREFmUDY4WWJzVG5Na3FHVWFaamdTdU9KTjhKUHl4RGQvNCto?=
+ =?utf-8?B?K0h2NDU5YlFaWWJIa2pBNUU5RGRwaUdTblllMWR0cGF3SVdNTktnczRjN3dH?=
+ =?utf-8?B?Rk1rM3VlUFJNMFpSOWNHdDFidGVWaWJBMG9iQlNJTFJ0WWJTOVorYXlHUFpi?=
+ =?utf-8?B?UnR1bnlWRDZiaU5DTHlEN0NXQ2hqYzJ0MTgzemtXRlMxa2ZhdkhxMWhZSGxq?=
+ =?utf-8?B?RkI5YjNJS1M4YWNvVnFDbzBxS1RFb01uSVZBc2R3Zjg3M2N5aWJFKzlUbjQ0?=
+ =?utf-8?B?TnRKQXJQbjQ3T2lQZCs2NWQzM1gyeG5ZUG1xODBwbitUSmppbTFubERYVUtI?=
+ =?utf-8?B?OGpqNjJ6L1V0N3BxZ3N1R1drdDZmaCtsOEhKTVRHZ3haYzVjVysvUzYwYkpu?=
+ =?utf-8?B?eHhQZHlwWXlDVC9lcFk5MFAxT1pwWnJOS2JXd0F6T3oyZnFORlNZdm1Fb0lV?=
+ =?utf-8?B?MEhCS1FaaUk4cDNPeG96SU1jTmJXYWNxMHdGNkdJNC9VVjVIalh6VU1iUFo1?=
+ =?utf-8?B?MTNKV0JhMG9PWnBwVHh6R0pndmtKZDNyR0t2NmtzcG1GSHdIZE9QNGt4WG5S?=
+ =?utf-8?B?QzBjb2IzMFBzdU9HOWd1OEdkV0FmekdoUGQzcWs4eWlvOTc0RkVFVlhBYTV4?=
+ =?utf-8?B?QXIzREtTQlU3ZnFmRmFRcXVkc2JQbUlOUFJleG16VXpYcGNMOVF2TnhDenVX?=
+ =?utf-8?B?VFF6dTZ4WnhPRmVuYzJuT2lkY1JHK3dzOWZBT0ROL2FjcVpkM2dBcm1OZVNO?=
+ =?utf-8?B?TmcxVlRwREtPSGtSVFBsYVhPeXdja0t0N1Z3bkk0OFFaVTlIUGM1YjRXelh3?=
+ =?utf-8?B?VjhhMkVQVHgvQmE4QXR1Z1lmMWJoY01aalNhY1hRZmwxNTVaU2REUlpuUzdQ?=
+ =?utf-8?B?SlRmaVZIZ0Z5NTVnU2k1T3FSdXZZYWR3aGVONytpN2x5d24yMGVINlhxYi9E?=
+ =?utf-8?B?RU5XSlF1M3RXYjFKU1ZVcXlJc3BobG4zWVNZRjIycGxTQkovS29JaVdEV21E?=
+ =?utf-8?B?ckwyb0dzQzB0VFUyWlJSelRtRlpISERRTk9hQ2JCUVpobE5vVzZaK2xiZ05J?=
+ =?utf-8?B?S0tUQ2xtMG5QN3FKOXljL3JXUlFLNy9BcitlODVyZzBJVHhjQ3VuWUo3Wm94?=
+ =?utf-8?B?Q1d0eGF3ZG1EVW9GMzVMcUg0aVdiUW1wSmVxYmNTbXBoaWZEcjRXeU1FNlJS?=
+ =?utf-8?B?S1Q4eEVHbUZBMWZtOTRRcmhYbXlCUjk0QTVlZG50bHhEcS9Ub1NJa3JwM0VC?=
+ =?utf-8?B?TWM5TXZVdTJua0d3NnlzNUNXZS9TUEZ3Ym5nVUFQeGo1cXBzc0RVK2Q4bGxu?=
+ =?utf-8?B?SURVczk4NzRlRHFSQlVUUDZ0MDF6Wm0zSzhKOHBTUmhiSG9rVjVDN0RhdFR6?=
+ =?utf-8?B?akxjYjVjeDZUeVpLYy9VQ2p2WFQ3OVR6QVlrWnNlYytHTG56YXFLTEYrVnhT?=
+ =?utf-8?B?d3dpUmFJOWNqaDFCL0JDMW45NnRnWjVtZ01pblloc3RFQVBsL2NZR25JZ3Fq?=
+ =?utf-8?B?ZkZMV3IvRzRVNkdRUUJSM2V5VS9YR004MVd2Zk5GZGtiM295cTJoeUZ3VE1p?=
+ =?utf-8?B?cGFRQUVJd1VEamlwbDJPZEx0YlZEMUR3OG9vd2t6L0Y1c1BHOE5CRGQvMFJv?=
+ =?utf-8?B?amZTV0ZkWDI3bjhwdXF6SFFhWFp4UytNLzNPcmorYVUyL2gwQk1sRzJHQ3lV?=
+ =?utf-8?B?Zm81T0E4UjNzSmVyWUpSSjdYMXUrMGJXaEdjOXNpaDdEZ3RGamNhVU9iRG1B?=
+ =?utf-8?B?WERlZ1AvcGtQbmR2ZzdINk82d0pmVkVieitROThlK2xnL0J1ei9mUi9yL3RN?=
+ =?utf-8?B?RDVFTGhSVkNxNVd1bnhQRGdnUVBCOWdIaXRoUHhYZTBGN0hVSnZ1dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
- panel controller
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>,
-        rajeevny@qti.qualcomm.com
-References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
- <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
- <20260519-curly-courageous-sturgeon-2facfe@quoll>
- <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
- <yn7rwuguaqliovlyukcj2olxby7zerv57na3jf2pgbke5zgahk@aasd4ojwdy2u>
- <a5313752-17ef-4d00-9f61-7717e4f06982@oss.qualcomm.com>
- <aiQO6RdkqVnBuzp6@umbar.lan>
-Content-Language: en-US
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-In-Reply-To: <aiQO6RdkqVnBuzp6@umbar.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA5NyBTYWx0ZWRfXxnYyVABM2nkJ
- x3YNbvoqUJFMFmaUAFlsdkzGx8vC3TEQIYON5EbHARyyYbeZyMoPb/PBXvn+XI65kO//+aak1sh
- jD508Pq7DuK/C/BEaKj20/S07ae4ODpiPAxYj3HMUnZ6Q74+7xXEvHlb2otZGiLeQRXf8z55LEa
- Y4Ze4TmMeTD2mcyga+R4ZBLrkHYngqDYqBwThu2wz0bqCoN5N5Yd6mF0sQgK6ptwW+0dBNVmoJT
- YnXv4+nZo5FCbldoTsms3xhGFBnhc8nBMQKmlDV7EyGVNwn9j98m8xpC84/FwvV2zRQYmoYdeDF
- i7iQ9THlQ1SIqleCCK4BM3QX5FfVnxnPGTN5ELoBQJiz3YDRNY+fYG6HQEkv1ROoNX/OhZrXNbX
- XMt1i9RjHNnRbRiTAFD3IRuu3HJ5O/JlnIS0k77qJmBwRbli3k5ttARIFTCKiAuShPcWwnFCblE
- 2d1bxODObCGeDE22kcw==
-X-Authority-Analysis: v=2.4 cv=RfugzVtv c=1 sm=1 tr=0 ts=6a26985c cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=IV4c8OSHAAAA:8 a=OE-cVudxAAAA:8 a=8Tz7o-WSTiqKbu9PhaEA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22 a=Q6n48rkgcAvIKCAITAMI:22 a=xpPxSgvXB0Ioxg6u-DGP:22
-X-Proofpoint-ORIG-GUID: NJmGVoiYrtTKJDe2iouCQvRx4PsqyKTl
-X-Proofpoint-GUID: NJmGVoiYrtTKJDe2iouCQvRx4PsqyKTl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 adultscore=0 spamscore=0 suspectscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080097
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0137600e-8f6b-4058-d7c4-08dec5487637
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2026 10:26:54.4625
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8V9YHJC8CgSxJwcYz1aGMhFqEPp+spil8tLQiXVKHCzuJhro4a+oRdQftD28BkO7DLJGeKprxw3627WturYpSOLXXj6wvPHW0Ms0GwHCDW4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13905
 
-Hi Krzysztof , Dmitry
-
-On 6/6/2026 5:43 PM, Dmitry Baryshkov wrote:
-> On Tue, May 26, 2026 at 04:02:45PM +0530, Arpit Saini wrote:
->> Hi Krzysztof , Dmitry
->>
->> On 5/20/2026 6:56 PM, Dmitry Baryshkov wrote:
->>> On Wed, May 20, 2026 at 06:10:57PM +0530, Arpit Saini wrote:
->>>> Hi Krzysztof , Dmitry
->>>>
->>>> On 5/19/2026 4:02 PM, Krzysztof Kozlowski wrote:
->>>>> On Mon, May 18, 2026 at 04:34:12PM +0530, Arpit Saini wrote:
->>>>>> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
->>>>>> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
->>>
->>> I can't find this panel on the DLC website. Do you have a pointer to the
->>> product page?
->>>
->> https://v4.cecdn.yun300.cn/100001_2012175013/DLC0697AAL21MF-1.pdf
-> 
-> "Invalid referrer"
-> 
-I should have shared the full part No. DLC0697AAL21MF
-https://www.dlcdisplay.com/Resources/1760134404595535872-435-15.html
->>>>>>
->>>>>> The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
->>>>>
->>>>> If panel requires it, so should the binding.
->>>>>
->>>> Ack, I will update.
->>>>> ...
->>>>>
->>>>>> +  reg:
->>>>>> +    maxItems: 1
->>>>>> +    description: DSI virtual channel
->>>>>> +
->>>>>> +  reset-gpios: true
->>>>>> +
->>>>>> +  backlight-en-gpios:
->>>>>> +    description: Backlight enable GPIO (active high)
->>>>>
->>>>> What is the name of the pin in ili7807s device?
->>>>>
->>>> Display daughter card has WLED driver as well as LCD bias driver.
->>>
->>> What is the display daughter card here? Is it a Qualcomm board or is it
->>> a part of the panel?
->>>
->>> Also you wrote a lot of text, but you didn't really answer either of the
->>> quesitons. Is there a GPIO on the panel connector that enables the
->>> backlight? If not, this is some external supply on your (assumingly)
->>> daughter card. And it should be modelled accordingly.
-> 
-> Still unanswered.
-> 
-Display daughter card is Qualcomm board.
-
-I misunderstood it, I shouldn't added the backlight-en-gpios
-in my dt-bindings, I apologize for not answering clearly earlier.
-
-The backlight enable GPIO is on the Qualcomm daughter card, not on the 
-panel connector. I will remove backlight-en-gpios from the panel binding 
-and model the backlight enable gpio at the board level.
->>>
->>>>
->>>> The WLED driver's Enable is coming from WLED_P1_EN and PWM is coming from
->>>> LCD_CABC output of the panel.
->>>>
->>>> DISPLAY0_BACKLIGHT_ENABLE (GPIO 91) of ITP baseband card ==> WLED_P1_EN of
->>>> Display Daughter Card (DC)
->>>>
->>>> In the display daughter card of Shikra ITP platform, we are not using the
->>>> external PWM for WLED driver. But connected the CABC output of the panel to
->>>> the WLED driver. Backlight update is happening using MIPI DCS command which
->>>> is driving the CABC output (i.e., PWM for WLED).
->>>>
->>>> Because of above HW configuration, we need to enable the MIPI DCS brightness
->>>> update on this panel. The below command of dlc0697_init_sequence() is
->>>> enabling this.
->>>> mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
->>>
->>> So, this should be then dependent on the presence of the backlight in
->>> the DT. Either it is a panel-internal one, or an external one.
->>>
->>>>
->>>>
->>>> After checking this, I realized that this panel can be used without the DCS
->>>> backlight as well when it's using PWM based backlight control.
->>>>
->>>> I can add `has_dcs_backlight`  in panel_desc and set it true for dlc0697. I
->>>> will update bindings and add backlight as optional property.
->>>
->>> Why? Use backlight property instead. It's already there. Anyway, you
->>> really, really need to describe the panel in the bidings. Not your
->>> daughter card.
->>>
->> This `has_dcs_backlight` in panel_desc will serves both the purpose, as for
->> our current platform constraint , we need to create our own backlight.
->> But this panel can be used without the DCS
->> backlight as well when it's using PWM based backlight control.
->>
->> So in this case I need to implement the backlight as implemented in
->> panel-novatek-nt36523.c, panel-himax-hx83121a.c.
->>
->> with this implementation ,I will remove the backlight from the dt-bindings.
-> 
-> Much easier. Call drm_panel_of_backlight() and if there is no error and
-> panel->backlight is still NULL, then create your own backlight device.
-> 
-okay I understood, I will not use the has_dcs_backlight.
-will proceed as you told.
->>
->> Please let me know,if I am missing something.
->>
->> Thanks,
->> Arpit
->>
->>
-> 
-
+SGkgS3J6eXN6dG9mIEtvemxvd3NraSwNCg0KVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suDQoNCj4g
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS3J6eXN6dG9mIEtvemxvd3NraSA8
+a3J6a0BrZXJuZWwub3JnPg0KPiBTZW50OiAwOCBKdW5lIDIwMjYgMTE6MjINCj4gU3ViamVjdDog
+UmU6IFtQQVRDSF0gZHQtYmluZGluZ3M6IG1mZDogc3lzY29uOiBNYWtlIHJhbmdlcyByZXF1aXJl
+ZCBmb3IgcmVuZXNhcyxyOWEwOGcwNDYtbHZkcy1jbW4NCj4gDQo+IE9uIDA4LzA2LzIwMjYgMTI6
+MjAsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6DQo+ID4gT24gVHVlLCBKdW4gMDIsIDIwMjYg
+YXQgMDI6MTM6MjlQTSArMDEwMCwgQmlqdSB3cm90ZToNCj4gPj4gRnJvbTogQmlqdSBEYXMgPGJp
+anUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPg0KPiA+Pg0KPiA+PiBBZGQgYSBjb25kaXRpb25hbCBz
+Y2hlbWEgcnVsZSB0byB0aGUgc3lzY29uIGJpbmRpbmdzIHRoYXQgcmVxdWlyZXMNCj4gPj4gdGhl
+IHJhbmdlcyBwcm9wZXJ0eSB3aGVuIHRoZSBjb21wYXRpYmxlIHN0cmluZyBjb250YWlucw0KPiA+
+PiByZW5lc2FzLHI5YTA4ZzA0Ni1sdmRzLWNtbi4gVGhpcyBlbnN1cmVzIHRoZSBMVkRTIGNvbW1v
+biBjb250cm9sDQo+ID4+IGJsb2NrIG9uIHRoZSBSWi9HM0wgU29DIGNvcnJlY3RseSBkZWNsYXJl
+cyBpdHMgYWRkcmVzcyB0cmFuc2xhdGlvbiwNCj4gPj4gYXMgdGhlIGRldmljZSBoYXMgY2hpbGQg
+bm9kZXMgdGhhdCBuZWVkIGEgdmFsaWQgcmFuZ2VzIG1hcHBpbmcgdG8gYmUNCj4gPj4gZGVzY3Jp
+YmVkIGluIHRoZSBkZXZpY2UgdHJlZS4NCj4gPj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogQmlqdSBE
+YXMgPGJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPg0KPiA+PiAtLS0NCj4gPj4gIERvY3VtZW50
+YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvc3lzY29uLnlhbWwgfCAxNA0KPiA+PiArKysr
+KysrKysrKysrKw0KPiA+PiAgMSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKykNCj4gPj4N
+Cj4gPj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQv
+c3lzY29uLnlhbWwNCj4gPj4gYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZk
+L3N5c2Nvbi55YW1sDQo+ID4+IGluZGV4IDljODEwMTBkNWE3NC4uY2JmODNhMDZhZTI1IDEwMDY0
+NA0KPiA+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL3N5c2Nv
+bi55YW1sDQo+ID4+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQv
+c3lzY29uLnlhbWwNCj4gPj4gQEAgLTI2OSw2ICsyNjksOCBAQCBwcm9wZXJ0aWVzOg0KPiA+PiAg
+ICByZXNldHM6DQo+ID4+ICAgICAgbWF4SXRlbXM6IDENCj4gPj4NCj4gPj4gKyAgcmFuZ2VzOiB0
+cnVlDQo+ID4NCj4gPiBUaGVyZSBhcmUgbm8gY2hpbGRyZW4gYWxsb3dlZCwgc28gcmFuZ2VzIHBy
+b3BlcnR5IGlzIHdyb25nLg0KPiA+DQo+ID4gWW91IGFyZSBjaGFuZ2luZyBiaW5kaW5nIHdoaWNo
+IERPRVMgTk9UIGFsbG93IHNpbXBsZS1tZmQgb3IgYW55IG90aGVyDQo+ID4gY2hpbGRyZW4uIFJh
+bmdlcyBpcyBub3QgYSBwcm9ibGVtIGhlcmUuDQo+IA0KPiANCj4gQW5kIGlmIHlvdSB0ZXN0ZWQg
+aXQgb24geW91ciBEVFMsIHlvdSB3b3VsZCBzZWUgdGhpcyBkb2VzIG5vdCB3b3JrLi4uDQoNCkkg
+ZG9uJ3Qgc2VlIGFueSB3YXJuaW5ncyBvciBlcnJvci4gSSBoYXZlIGRvbmUgdGhpcyBjaGFuZ2Ug
+YmFzZWQgb24gUm9iJ3MgY29tbWVudA0KYmFzZWQgb24gc2FzaGlrbyByZXZpZXcgWzFdLg0KDQpJ
+ZiB5b3UgYWdyZWUsIEkgY2FuIGRyb3AgdGhpcyBwYXRjaC4NCg0KWzFdDQpodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9hbGwvMjAyNjA2MDEwMjI2MTkuR0EzOTYxMzI0LXJvYmhAa2VybmVsLm9yZy8N
+Cg0KQ2hlZXJzLA0KQmlqdQ0KDQoNCg0KDQo=
