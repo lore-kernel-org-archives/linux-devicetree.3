@@ -1,61 +1,63 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A832FC01B
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 06:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440962EEE60
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 06:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780899368; cv=none; b=T2ILubD4t/s8AfW+E6RbKw/TXPha5g2ojn2bGgtlBwl7Mb3UuTRNAEFT7udJR4qqBZ+lKkRBYfPaayNtOd+aFHdx+tiApFPd/hVl2e88UFy1X46XPQwuyfXOdRfhWsAEGMLo2WwpuoghMalDIdjPCR8UHAhQWhlCEI7WWa2J7R4=
+	t=1780899377; cv=none; b=IfwXgtbg1/54GB5KafSkw/H3S4gbgvOZExUHaO+IElAek3+or0v/2jQ2oMFgUJizQTojWbt9PL6ManCuyMzBVr3Td/1acczK38Zk6dmicOSm1P2ck3SMqtMU4dp8oApq3nTCst9SKSxWNjziDs8MGK0Og7X3xWd0qwNc2/Wd3sY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780899368; c=relaxed/simple;
-	bh=983if5RJxIBnKlxqF6madh7kbfmJiNMks+/dNvYgVKI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=KKFOZBZlVO2ceOkHsXgYOTus/zXFYMQb3ZqmMbDuVoWkl4OnZCiidWTqMV2e2E0zkmHLCGtB7eTyAvPAYqZtg6ldO0ZAkbRefR9WctfvTatAvlUfwOoWUKrjWVI6Wu+vhm4+7yt+sowGaIQwp7wPa0UP7HzMoF2J4dt9tJqttxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3549AK2; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1780899377; c=relaxed/simple;
+	bh=8jV3sPOUmzmiYZsew3DnulkuKI7cZR2rZqgemiByXB0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HRwI6smxEhU7oME0Dwr+IifPr7VZ/zTWBYpb90JhiLevAVF6yeGq5NXesOhj7WspEE/gqQEfcYLzmiiY1q1DKfyC66PqiwOTmJr9+qt/Q4jnAuJ3t2TASUMZTZfU5gVa6G6tibXznVgdDi/lLpX06N8Fes8JwI5MCI9frbSi3Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+OqIAvl; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3549AK2"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2bf1cda2b17so27902575ad.1
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 23:16:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+OqIAvl"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2bf0ddaf50fso26036575ad.1
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 23:16:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780899366; x=1781504166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=w+PD4CTA8PfLA5d/ZXAjsrghYdKuBD/zwG8HHgtzVTY=;
-        b=q3549AK20gRBmnB+9A/1n+AD/gBDEMFtNCmSnjKdp8UCKLxzIZmRCrkX8W1y/orud6
-         mVfC9xyxMXzHDlZxcqiWkdJ+iw54BL2gYqa41H6LYwRSSvLQzs4hLv4W11IJ99fzl3ZE
-         BBJAsJxzlSri74KZetypN5L36ozViTpa4m1VjxgZwn5S0ts/Saijnk0I4GadmsjQyu35
-         1PbgFUzfai9lUJKDWkhBic84ufO8TxSy2caE/XNoCAW5g+WBatnU1q4eSRbABZp6xt3m
-         n4V7WltY0kIFKoE10RzmMUWmdXA4ZlOiqqTq8QD8SnGjV2zbFhkHf53P7SvSDV1kTSPJ
-         QoFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780899366; x=1781504166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780899376; x=1781504176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w+PD4CTA8PfLA5d/ZXAjsrghYdKuBD/zwG8HHgtzVTY=;
-        b=Nof4+urILzCd2nUD8/NvgCjaiQNoId4b/GcS7Vxb6uJynQJh87YejkaP2O+3DQiG8/
-         gvPwDXyccIiCHc+ZpoT8acPvjqcKVnh2zS/8MXdj7uHrDrk+9iP43FHBUT4aPAbNKrcF
-         kvdlWSm+VZDEcIE41YA8sK04ZQpkuBRs3RiXCJ7/kimiL1fpJ3J8M8yKttRW9aq5ZbiW
-         ppvTf2jnQ0SUQouCpFQIkLPIDDTFSZgayO51oyCEA6jOHDUe3F9H6MgrYnrxBYXlGys1
-         pry0ySZR5ChTTdaHQ4ZwRMZmAUwqK8F8NjmpNbqWlJW691BkgnBLZim4lY1jFMTy3kFR
-         TMjA==
-X-Forwarded-Encrypted: i=1; AFNElJ+Bc3NWpXOEWRWYks+i6XSdE7nIvBtUEqes1/P5o/6jYdXdZEMlgwe1zQmC03+95Tck48/ysnNsqRyz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlGzO4hAGhoAzSlb3D59B6WD4VHpXyN6S/3VvRmURlviDhs0Yn
-	nK4UB88+fTJyLKfckkPyaH3r4ryf/DMDLj8YuDdvWrr1k5ZHPgfV4IVj3POVDM+g
-X-Gm-Gg: Acq92OFT3D0ZIJ1N4mKJ9seisom4vgL1spRgncExsn5Wgg2DXkYlrRsrArgO24xrK/C
-	0KGxR6SuCnPcslpzrJ1UuRu3Bv8E9BJ9rlST+cS3Vu3IOLY+fljoU8qY55UhHyppi8aqM0XYyDu
-	MAlfeAaBoGh/KCbUbmzQW+UpC/ERU5l6CSXpYK3OMWbG2pDlFOCYjTRBI89guWDhIBTbISqTl7v
-	uqWYUL/FJth7ph9JY2U5EMi/DSsj+rsgK60x3yTtf6HGE/MKgRqsMjZXy3rZqIlVohoP7m4Zzwx
-	SnaVCIcHENkOj4bEzbkUcqs1AjqDVPieF2IaMJGTbb7aMcgwh9CO/VIOoOfwimjecE6BnJvEBEW
-	sUPdxATbpLFPDNvMsrInRN8B7dHCYuRRZRgkZQV6+psPDuKbEJtfgtAKGYwqpA3QRnVsRBrH1SR
-	qvDl0v1ltBSazso/zPoaRqdtSuceXwXrIqChjblcKf+GeVesyFxRqFgdfS
-X-Received: by 2002:a17:903:1b43:b0:2c1:88a1:9839 with SMTP id d9443c01a7336-2c1ec527f50mr119171525ad.11.1780899366475;
-        Sun, 07 Jun 2026 23:16:06 -0700 (PDT)
+        bh=Lxx0jQCY+1f4Z1G9lBzodgHZuU86nYtRFXdJqnpJ7WU=;
+        b=S+OqIAvlkxqo3+wrUULiJUW/PvYSXqaR8rWW9bPm1bEZGbUUgEAYknyWPIx0SwjxuS
+         Plovmje5ux9xDR2z6fG9uk2YC3eZEmM0OeJpA0y0ztPUcZFI8A4L0biHBzhVWBtxHXMt
+         KiyForHLg2u9SPXyGbJEJe6gZVz7Z35eA6JC7SxByOF1P8sih4pTAFF38g+MyxXVVQPi
+         NSvu5z3rNCPk8CCpDHC0Gzmqebs6k4ivrSWKLe2Ncw1hn//sM2tuERbttU8F0BuQHq6k
+         ZSYqWwx1c9Kfu157aviehLwR9ew7TCdDOPyNMfCL7w1/DTiWOvsJhL3rKXsHXD2YlVP4
+         NFBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780899376; x=1781504176;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Lxx0jQCY+1f4Z1G9lBzodgHZuU86nYtRFXdJqnpJ7WU=;
+        b=f2R4y17t90IrVBs4FAqj5i1kTh5gt8k8lYyJ85Cl8cv94KXuxr+hg4k8dPiDsx2XIC
+         HUsCd+VwTynfM9+MA9tBEKmSEfx9jsHu7fya+LIsLyaUArkfHENvjvz21VlCDvGgmlZZ
+         sMV03N6MKSNSG0uF/6/76R3ItYDlAjXHrffihvJct6HOoAUnaNrspPDMPYN4KBqhHU9Q
+         +zeEMD4cumfc2+SlMLFFaHxhrXp8u8kH86djsRyhzTHcGAZXsaADf1QjQJ/98pWbWmUL
+         /PWP/okSnjBHNrXdg9DBMj1WQ6juO1EGJ/Efw6egy/oL1385hMURXHoRjoTwpSjX1Oop
+         BHfw==
+X-Forwarded-Encrypted: i=1; AFNElJ9XHk9RRMYJT203zHPg9mFcI1xnXiSd6v08tHMsHGvdVKI9QaPCC8xxPE1DBq8cET5dN969z2RdY/PZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhThMpV1gZgrRYVVcJOg+rfWdCnnRhhoaw/iTnvPv5ptVsFQns
+	pLUFlr5gybv19i3c4NMLMz50NUaZ+57JWeU9rpLpzMqcB/MSZt4o5jUi
+X-Gm-Gg: Acq92OEw+M6chfhUKXTHb27i6FikrP54NN0T5LQhZZjc0/6wxsLb9KKmO3BLLU1Y1D8
+	QkiuvyLhCAXNNEQwpYul8Vod/RfisXLDa+5AD2LV455b1b0H2hw9NSb1U+BouOLVrQe9g63KMyH
+	dMsPBwffC2/uDWa/5kaRiuq9EfWbNVNj+INQvezkFKEvWVmh0acokAMugX3KKriLIUJiXlmTG/G
+	sIDUNR3ey+NywfIOipjHZNTTCYgS26z6swpHPBqtQfytetDicEawiiQiNw/BQT8h9ApfBT4UwPr
+	PWvkmOUqll8PenarD0Dz4JRwDxeftdYVQRWIcVoMMmiFXFG4hKqaamUd+lJOOnTg38Kwh9Vkog3
+	d5OgJWQy/vFrfgbuWcFQjoKovRzyF7gc60s8SEBAEBk4NKFb0o1Lorqr/qxf2zCsdvAc1x149L6
+	nrQwGnDN1irHTHyLCeBiQx0yWm9GT8lH8GFh2z3UsPiSnWYswK1eH6OeMYNFo7Hz/DJyg=
+X-Received: by 2002:a17:902:e851:b0:2c0:e7bb:9081 with SMTP id d9443c01a7336-2c1e80edfeamr146689005ad.33.1780899375677;
+        Sun, 07 Jun 2026 23:16:15 -0700 (PDT)
 Received: from localhost.localdomain ([2401:4900:9004:8bfa:6dac:310c:dd97:e630])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1664ad138sm173856925ad.82.2026.06.07.23.16.01
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1664ad138sm173856925ad.82.2026.06.07.23.16.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 23:16:05 -0700 (PDT)
+        Sun, 07 Jun 2026 23:16:15 -0700 (PDT)
 From: ASHISH YADAV <ashishyadav78@gmail.com>
 X-Google-Original-From: ASHISH YADAV <Ashish.Yadav@infineon.com>
 To: Guenter Roeck <linux@roeck-us.net>,
@@ -66,80 +68,94 @@ Cc: linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: [PATCH v4 0/2] Add support for Infineon eFuse xdp730
-Date: Mon,  8 Jun 2026 11:45:42 +0530
-Message-Id: <20260608061544.5613-1-Ashish.Yadav@infineon.com>
+Subject: [PATCH v4 1/2] dt-bindings: hwmon/pmbus: Add Infineon xdp730
+Date: Mon,  8 Jun 2026 11:45:43 +0530
+Message-Id: <20260608061544.5613-2-Ashish.Yadav@infineon.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260608061544.5613-1-Ashish.Yadav@infineon.com>
+References: <20260608061544.5613-1-Ashish.Yadav@infineon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=y
 Content-Transfer-Encoding: 8bit
 
 From: Ashish Yadav <ashish.yadav@infineon.com>
 
-Hi,
+Add documentation for the device tree binding of the XDP730 eFuse.
+Rename node to efuse to accurately reflect its hardware function.
 
-These patches add support for the Infineon XDP730 Digital eFuse Controller
-by updating the existing XDP720 driver.
-
-The XDP720 and XDP730 are PMBus-compliant digital eFuse controllers
-with an integrated current sensor.They provide accurate system
-telemetry (V, I, P, T) and report analog current at the IMON pin for
-post-processing.
-
-Both parts share the same PMBus register map and direct-format
-coefficients; they differ in the GIMON gain step exposed via the
-TELEMETRY_AVG register (bit 10) and in the VDD_VIN pin number
-(XDP720: pin 9, XDP730: pin 20).
-
-The Current and Power measurement depends on the RIMON and GIMON values.
-The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Register.
-The value of RIMON (kohm) can be provided by the user through device tree using
-infineon,rimon-micro-ohms  property.
-
-Datasheets:
- - XDP720: https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
- - XDP730: https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp730-001-datasheet-en.pdf
-
-With Best Regards,
- Ashish Yadav
+Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 ---
-Changes in v4:
-- Link to v3:
-https://lore.kernel.org/all/20260601090925.3781-1-Ashish.Yadav@infineon.com/
-- Drop extra I2C Device node and add rename node info in commit.
-https://lore.kernel.org/all/20260601-first-attentive-puffin-d7ca66@quoll/
-- Revert back patch formatting.
-https://lore.kernel.org/all/bf947dcd-2028-4dfd-a007-c4f39d2b7649@roeck-us.net/
+ .../bindings/hwmon/pmbus/infineon,xdp720.yaml | 28 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-Changes in v3:
-- Link to v2:
-https://lore.kernel.org/all/20260529054218.5184-1-Ashish.Yadav@infineon.com/
-- Revert back the DT info file name to infineon,xdp720.yaml and added
-  xdp730 info
-https://lore.kernel.org/all/20260529-partake-myself-baa76ed4e279@spud/
-- Revert back the driver file name to xdp720.c and added xdp730 support
-https://lore.kernel.org/all/20260529062937.646091F00893@smtp.kernel.org/
-
-Changes in v2:
-- Link to v1:
-https://lore.kernel.org/all/20260519075558.91466-1-Ashish.Yadav@infineon.com/
-- Integrated XDP720/XDP730 drivers into one driver.
-https://lore.kernel.org/all/51133193-57fb-4a22-bf9e-9817f1f52ad5@roeck-us.net/
-
-Ashish Yadav (2):
-  dt-bindings: hwmon/pmbus: Add Infineon xdp730
-  hwmon:(pmbus/xdp720) Add support for efuse xdp730
-
- .../bindings/hwmon/pmbus/infineon,xdp720.yaml | 28 ++++--
- drivers/hwmon/pmbus/Kconfig                   |  2 +-
- drivers/hwmon/pmbus/xdp720.c                  | 97 ++++++++++++-------
- 3 files changed, 83 insertions(+), 44 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
+index 72bc3a5e7139..4a949c53f7ae 100644
+--- a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
+@@ -5,23 +5,31 @@
+ $id: http://devicetree.org/schemas/hwmon/pmbus/infineon,xdp720.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Infineon XDP720 Digital eFuse Controller
++title: Infineon XDP720 / XDP730 Digital eFuse Controllers
+ 
+ maintainers:
+   - Ashish Yadav <ashish.yadav@infineon.com>
+ 
+ description: |
+-  The XDP720 is an eFuse with integrated current sensor and digital
+-  controller. It provides accurate system telemetry (V, I, P, T) and
+-  reports analog current at the IMON pin for post-processing.
++  The XDP720 and XDP730 are PMBus-compliant digital eFuse controllers
++  with an integrated current sensor.  They provide accurate system
++  telemetry (V, I, P, T) and report analog current at the IMON pin for
++  post-processing.
+ 
+-  Datasheet:
+-     https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
++  Both parts share the same PMBus register map and direct-format
++  coefficients; they differ in the GIMON gain step exposed via the
++  TELEMETRY_AVG register (bit 10) and in the VDD_VIN pin number
++  (XDP720: pin 9, XDP730: pin 20).
++
++  Datasheets:
++    - XDP720: https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
++    - XDP730: https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp730-001-datasheet-en.pdf
+ 
+ properties:
+   compatible:
+     enum:
+       - infineon,xdp720
++      - infineon,xdp730
+ 
+   reg:
+     maxItems: 1
+@@ -33,9 +41,9 @@ properties:
+ 
+   vdd-vin-supply:
+     description:
+-      Supply for the VDD_VIN pin (pin 9), the IC controller power supply.
+-      Typically connected to the input bus (VIN) through a 100 ohm / 100 nF
+-      RC filter.
++      Supply for the VDD_VIN pin (XDP720 pin 9, XDP730 pin 20), the IC
++      controller power supply.  Typically connected to the input bus
++      (VIN) through a 100 ohm / 100 nF RC filter.
+ 
+ required:
+   - compatible
+@@ -50,7 +58,7 @@ examples:
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+-        hwmon@11 {
++        efuse@11 {
+             compatible = "infineon,xdp720";
+             reg = <0x11>;
+             vdd-vin-supply = <&vdd_vin>;
 -- 
 2.39.5
 
