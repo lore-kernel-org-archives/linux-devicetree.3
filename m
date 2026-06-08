@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010A832B11D;
-	Mon,  8 Jun 2026 06:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7408C2DAFB0;
+	Mon,  8 Jun 2026 06:39:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780900731; cv=none; b=V8weHI3PYx46lgevgP7olK1DrU7Sgl4K6HxWqjyIBQFPQly4wTtBGO95ndtLGNXOOi+4dijmOjr1OtQDLO3MtdRHTV4aL4VBR5djybSMoykcmXOOub+y7RVJsN0tv+KOnEYoFcJoIxBQMc3A9dYWfU0CYA8ySs5KwpWGq1efZj0=
+	t=1780900758; cv=none; b=DuoB1GLPD/8tmJEJxy/6QGaUO6YUSovvXhVQvBlwOC4a7OI+1Lk6t5qO2H9W/jDGCEpiW0W9LbprMHh1FGFV3eo8gUiwqUa2E8X9I29PC3jDwN3beBE4C/5FtpoeynH5tgUb1FadvrKiLdbddwPZ4YaaT8HfgvD9h/+61Ne0ZdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780900731; c=relaxed/simple;
-	bh=aQDn87KZzXgV8U19CgoeIyj69ChVavOIOUybug9dZAk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UIwTosXJmSiXIEIcXQMaNLyYjxWgy9U/jX3NWTd5+inPzrpC0ViuFMzqfABTglXg/Tn886KemV/VYlSPQmpJabd7rVyk8zYz0lO+fgJXGF6RzumwAHxqqzZq1tw9XsQuae6fhUlzYw9WtTr2mAh7P6cmjOWFRTAQZqzLw1FW6xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESw4tqQs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780900758; c=relaxed/simple;
+	bh=xoAiNR1aG5lFMZ5bqyQiyMh3kzbSJz1ebAo56HSG7pc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=hP+XskCSG3TKR4T0hpkZbf5t1YpqZWa0prGttzwkqq+394JkpEHXU4PrOih3PSbgJlyGoK9CAq3YxRCIyniN3HZbsanoXIfbHBA0VYa9/5wOWGi9gYdGjKW6aiHAAZf8iu/5OVOmyAFUUHMAV7kvX5EuCFNPpf/GWOBtLoWaoxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFRWZDvt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESw4tqQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B80C1F00893;
-	Mon,  8 Jun 2026 06:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFRWZDvt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF561F00893;
+	Mon,  8 Jun 2026 06:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780900728;
-	bh=P23cbBDokDRyIR/cbXUTwKB8KtJ2t4FrINtPtvBMWnE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ESw4tqQs1AlXMRnccqFwCQDevnkQml9nL6uZg1uUNlXjlpRgRKU7RhSy97cWCI9Ur
-	 lKpUxc3q/fq8gU5q0P6iaoXYvU+AFZQGIDOOsCsrSs7W/DF+MCjjtCdjXzcVe3fuT1
-	 C0bKnQ6pgwq1j6kKyu3ruLfq+PMKCUo6F/4XiP+G5eYMCo35oAU3SVvlJAAsUXybg8
-	 HPA0vDnhVaZrOtJgIIEtTIfloTrvPfocQHB1mtoFFzo3/921OcSzQhpklixoIUtvco
-	 A1enNmlusTr4QLTguRFTKbHIvPPqUN5QMwVw1Vp/8S9HCMtKVBc2TyDH4sucKXs2wb
-	 qYukWp9/6PXYQ==
-Message-ID: <52ac2b7a-8c7b-4f18-9a28-5b82a92f0a12@kernel.org>
-Date: Mon, 8 Jun 2026 08:38:40 +0200
+	s=k20260515; t=1780900757;
+	bh=yQgVPfWGr6vtAEG800XS3HFQuEhSY4Uec91IsWS5QCs=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=hFRWZDvtKysB9++yA6AQLNs/D0oS+fdQ5o/a8xrja7gQrVSfhGtHiFbu+JQXKjeHu
+	 AKTNu5E1YplBVcyZTDGZGOL+n/OLWllV9Q4g25LrpjJ5k50Et7g+qqZvCIHjZBXZsq
+	 +1hHrs/nZIuXwDItrotAu92Zu2IcNh9AH/e/lkdCbKe9LOmc2TURySrZzqFWt0Rod2
+	 KyOkB98AwRPYXnYiMEiFtAbSm/hzzRy4XO+g3ICzo/cPBCQ6l5vG3bp7HcYdkDuJfe
+	 SV2UQpSkTSmJe0OzhUa/eo7ziXPaLepqO4yLc0hWh5gwN7zIEK36La0sZTw6aii2/3
+	 zR/QSGUllTWfA==
+Message-ID: <51137561-6955-41fe-b330-cb8482433b7d@kernel.org>
+Date: Mon, 8 Jun 2026 08:39:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,23 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: PCI: qcom,pcie-sm8550: Add Eliza
- compatible
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260601-eliza-v2-0-6b44c9c23d5e@oss.qualcomm.com>
- <20260601-eliza-v2-2-6b44c9c23d5e@oss.qualcomm.com>
- <20260607-devious-active-bobcat-1078ab@quoll>
- <aab3d70a-4939-4f55-a343-4cdeea8915b8@oss.qualcomm.com>
+Subject: Re: AW: [PATCH net-next 1/5] dt-bindings: net: realtek,rtl9301-mdio:
+ Add RTL931x series
+To: Markus Stockhausen <markus.stockhausen@gmx.de>, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
+ daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260607125406.2853607-1-markus.stockhausen@gmx.de>
+ <20260607125406.2853607-2-markus.stockhausen@gmx.de>
+ <0bbe9ff3-5d42-496b-b777-8eb657b6e6a2@kernel.org>
+ <003b01dcf698$16788010$43698030$@gmx.de>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,34 +92,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <aab3d70a-4939-4f55-a343-4cdeea8915b8@oss.qualcomm.com>
+In-Reply-To: <003b01dcf698$16788010$43698030$@gmx.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08/06/2026 06:35, Krishna Chaitanya Chundru wrote:
+On 07/06/2026 18:09, Markus Stockhausen wrote:
+>>> +          - enum:
+>>> +              - realtek,rtl9312-mdio
+>>> +              - realtek,rtl9313-mdio
+>>> +          - const: realtek,rtl9311-mdio
+>>> +      - const: realtek,rtl9311-mdio
+>>
+>> That one is part of enum with other single entries - rtl9301.
 > 
+> This way?
 > 
-> On 6/7/2026 2:18 PM, Krzysztof Kozlowski wrote:
->> On Mon, Jun 01, 2026 at 10:59:45PM +0530, Krishna Chaitanya Chundru wrote:
->>> PCIe controller present in Eliza SoC is backwards compatible with the
->>> controller present in Eliza SoC. Hence, add the compatible with SM8550
->> Eliza SoC is compatible with itself?
->  Sorry, that's a copy-paste error in the commit message. It should read:
->   "PCIe controller present in Eliza SoC is backwards compatible with the
->   controller present in SM8550 SoC."
+>     oneOf:
+>       - items:
+>           - enum:
+>               - realtek,rtl9302b-mdio
+>               - realtek,rtl9302c-mdio
+>               - realtek,rtl9303-mdio
+>           - const: realtek,rtl9301-mdio
+>       - items:
+>           - enum:
+>               - realtek,rtl9312-mdio
+>               - realtek,rtl9313-mdio
+>           - const: realtek,rtl9311-mdio
+>       - enum:
+>           - realtek,rtl9301-mdio
+>           - realtek,rtl9311-mdio
 > 
->   Will fix in v3.
->>> fallback.
->> Why reg, clocks and interrupts are flexible? Are there different
->> variants within Eliza SoC, e.g. one without msi?
-> There are no variants within Eliza SoC. The flexibility is inherited
-> from the SM8550 family binding and follows the same pattern as the
-> other compatibles in this file (kaanapali, sar2130p, sm8650, sm8750)
-> which also have no per-compatible constraints. If you'd prefer explicit
-> constraints for Eliza, I can add them in v3.
+> Thanks in advance.
+> 
 
-You need explicit constraints. Old variants are flexible only because of
-backwards compatibility.
+Yes
 
 Best regards,
 Krzysztof
