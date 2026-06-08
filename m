@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EA12F39B5;
-	Mon,  8 Jun 2026 20:06:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7370F31F9B4;
+	Mon,  8 Jun 2026 20:08:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780949185; cv=none; b=eyxHrJqa8w/fhMmvfvhb0hkAZq0sOtt2LDX59OhJ87QW8BxLNttSokevlzuThT4u6tFtoLQvHKHDqoYn9J55+oNvNPKC1+z5d6XIbwJMz5yQWRi1Oj5nPCHxoedPZaJCpDZLEZN7VWkoSjqdJknLdB5OQ4kepm04n8xIv+6AF6E=
+	t=1780949317; cv=none; b=XzQA2OTT09WicYncxx4nfNnbUmXc9B1UxVlpIO2STOBaALJoTzgiMZ/V0rszQ7eiGQq9T3rs7n9CRSJGequ70gT7w7B1vBre7TmM2SH3NMj4+a/g0SqZejhWUsmTmyTA+R2q7pWjJchtrO67U7sxBoPyB7CvIHidgIoilYOhnEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780949185; c=relaxed/simple;
-	bh=JrXs+tGiY3xKwQKeOwR8BSSl7fQyYyCuApIf+iVWtDA=;
+	s=arc-20240116; t=1780949317; c=relaxed/simple;
+	bh=fMjM5wg8cX+907PUCBHky1U1a7zB/P3Dh4DUM/xUIb8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TYbS3Axq6ZctS2SolWlFNvL/++O+eW33FBhvnWzvvKW2Aj/36gOqpVmPGqwaaQZRENP5QGnXisbpaoDILzJTApr+num8atYfHh6qGX2OkQpX+beUD7JeVjRnC4OG7cE3aHyq+i2yaw7Byqty0aCegL1JRbtLevtPGZMp2xFIOn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Je8f5NCE; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GONj2lXmf6GoWPLqppSpp5bG2GSWUvO/xqr6qKspKA30GecaK0SuZTSTqnOHalpO7fO7p9ZusDY08Xv6J0gVgiu6lieBBPWzMU4+gxH0zTJB8VYlJzuHknvoSzded3GSfJ/Ppd+qKqecFU2yMQgJK3jA9DtWVpGhNSRPkBMx1zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ji6fq2wF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Je8f5NCE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B961F00893;
-	Mon,  8 Jun 2026 20:06:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ji6fq2wF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABDE61F00893;
+	Mon,  8 Jun 2026 20:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780949184;
-	bh=/16MXuPq2Ir5apRNIQjRucdXdMzC6TZraT+bxU+vx6k=;
+	s=k20260515; t=1780949316;
+	bh=fMjM5wg8cX+907PUCBHky1U1a7zB/P3Dh4DUM/xUIb8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Je8f5NCEP9ppoCNHr4EasJJjlfLrzVe9yU/TCNegJxJADLkd5aoJWHZ2BcGTrrxvS
-	 TzLIm3D+h4er3LTN9FioIxkecqY4T52+BRHeh/U3WfzaiwKd5+38eIW/JpV88Kms2G
-	 90r3Eefq4j1erEFdo8SwNSLhyZs1I4VFcuH0M/MPVdugB9PJwqZo6IgYMa6EZ4SJJb
-	 3IrB+LnEp770Za0cLVYd3v97C7pOnrgzDVkbUDuMyAvQWBoD2bzpGD21gCSMbU95Fp
-	 LRcF2mZ4PHoDrsanl3o4P1FkE6a1R6eNrTyn9GmyMhc93SZiEMUqBWTpcfGQI9mtTO
-	 YSXL/h/SzkwFg==
-Date: Mon, 8 Jun 2026 22:06:20 +0200
+	b=ji6fq2wFo1VzsLXlE0V1IxLasIXC/gnpX5fTXMb/0XXUim9S/xSO/jlG+JN4Ueh3S
+	 kS/iDB/RlLZv1jD7Kfau3gAmbpMySsN9codrKKnZay45XpzJ6Eu+H+wx+NP6VTu20t
+	 RIn39JBRGY9HafquR46/2kO/6idHVRHwfxIjitcL5A3PONgI44PkE3nYrT8BzlySD7
+	 /gDNbkcLRCpo9tG20xzk/R895Gy5hTkIiom+UWjhVs/cdobSwRu91cTPV0fGdxMCzn
+	 au0QEcND01I8UM8s9VRZxgtGV7IB9hOHYNfRKoevOGmZrh1lPQC1Ofa8/6nn644fHp
+	 KqV98sgsiS6uQ==
+Date: Mon, 8 Jun 2026 22:08:30 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, quic_wcheng@quicinc.com, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: phy: qcom,qmp-usb: Add ipq5210 USB3
- PHY
-Message-ID: <20260608-nippy-devout-potoo-0b0656@quoll>
-References: <20260608103344.2740174-1-varadarajan.narayanan@oss.qualcomm.com>
- <20260608103344.2740174-3-varadarajan.narayanan@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: mfd: syscon: Disallow simple-bus
+ with syscon
+Message-ID: <20260608-alluring-melodic-jaguarundi-f86bf5@quoll>
+References: <20260608-n-dt-bindings-simple-bus-syscon-v2-1-0203e6c249dc@oss.qualcomm.com>
+ <20260608140650.CF8DE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,19 +45,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260608103344.2740174-3-varadarajan.narayanan@oss.qualcomm.com>
+In-Reply-To: <20260608140650.CF8DE1F00893@smtp.kernel.org>
 
-On Mon, Jun 08, 2026 at 04:03:44PM +0530, Varadarajan Narayanan wrote:
-> Add dt-bindings for the USB3 QMP PHY found on the Qualcomm IPQ5210 SoC. The
-> IPQ5210 PHY is compatible with the IPQ9574 PHY, so add it as a fallback-
-> compatible entry using a oneOf construct rather than a plain enum entry.
-> 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
->  .../phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml   | 46 +++++++++++--------
->  1 file changed, 26 insertions(+), 20 deletions(-)
+On Mon, Jun 08, 2026 at 02:06:50PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] DT Binding Violation: Undocumented Compatibles and Validation Breakage
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+No breakage although compatibles could be documented if we cared. The
+DTS already had existing issue - missing specific compatibles, so this
+patch is not making things worse.
 
 Best regards,
 Krzysztof
