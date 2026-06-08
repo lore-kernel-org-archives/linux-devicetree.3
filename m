@@ -1,165 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CC82EAB6F;
-	Mon,  8 Jun 2026 11:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780917076; cv=none; b=VmDjhp6xzyoCLtA+A7g2Q0sBGkMgbs4ay+k68b4To3UacV80y7GMw1cfp3oygMwYhGu0C77pGTeZ/AEBd8aKL5bEaVcH4TSxMwcYQFkZUYBvBsF3IHUzgZrVkN11jy24npy2ARA7/ASlkgAVkhfMu0qF8q8Ilo6S1tGh2ZYOqN4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780917076; c=relaxed/simple;
-	bh=28DoExHgyvoDLtiSP67w3DikRgYo2tzOfpfdjNL0Nxw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vAzfNSwcsPpka3N0Vh60Q8DkaRrLyEXd7oGY4H6UpTB5HqaHC8oodkD+N2xv5MzMyhogggiiDEV8IcXu4hXlUkGEruuTWCXoMABJYQo/fFiaReY/Vsnzvql4GbazVFR4pzGbPnoemVCIeVBcwO/ZOoofTCgmvzzbv3Wlmsxg4CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQQq6Jd6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B1340405
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780917088; cv=pass; b=ksE38jUTB8QngFSjhhEe6+IbQTlQUZ1EAQ/PTaIOZxZKl/yglrPUzAxPUDkolkouV9NSvQiNfHO7sZBS1fr0g84/zG/tdJadCwe4JYoh953dvlOi9TzA7xXrXaU5BGwmVlBrsu0gnJRdDaxfbGp1py6ghkg6vmreKkDhuwOeKyQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780917088; c=relaxed/simple;
+	bh=OKAvcLw4cVnHLWqBGIC1hLC9PId30JwifAN6/6lExq4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A30kx2bCoBbGTmALHD51vKIlF4Scubc7BDSYOLX2FaIdR1lsRkDbD/5oLbPAYB/rPCaysuKF4SiMkw5zgrS6+CC/EgChp+GaDGYpyIozMunneN3AHS2947zbR+U07jFBBlUzB85vuxbj43n2NI7rfZtQ6/rz5U1WOtZlbWWH6aw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DlSXlW8k; arc=pass smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQQq6Jd6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0C11F00893;
-	Mon,  8 Jun 2026 11:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780917074;
-	bh=9mMhhqavkFh5g2BKJ5b1tL29Bv070w0ile8H3LVTu4s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aQQq6Jd6ZKmZaJJUqtAXqJ1VcvnZs8uolvLIDHP0peuQatL9aKk5iMScXMRZ713S0
-	 1yj4wpqkqZYETghyxHpSN1a7fA2WWRQHxt+PLvTP6nlYnitN02VyscM4KhPa23pHke
-	 PAbvhnob3URKA8XJnY8pwd1UPTihmgk+veca2Y59q2a2LwliY3l7dGZieOTxYhbSXq
-	 e9+8VSo1IMsTJ9S6vXMa1queDHicHxQrugC3zO5tUSR0zwCp1KMPeh3tTUwcJIENQD
-	 6frlCiFK2vkEfH0rMOwqTlvQGqE1UTy1hS3am+QsCIw+Oz1QInhmWqosLzLGUXheZG
-	 HLOoQ04Rr/aow==
-Message-ID: <f5e8719f-6d85-4edf-a645-5be9be7ec980@kernel.org>
-Date: Mon, 8 Jun 2026 13:11:08 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DlSXlW8k"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c85ba774551so1468199a12.0
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 04:11:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780917086; cv=none;
+        d=google.com; s=arc-20240605;
+        b=YYILTGY8EgQPq49Am/jMQJHwga4vJVwK4466oh6ydmLlUypL6e7TCp8vhagGtqAxVF
+         bYGODi4FXgQ2UflOsV27Wb1bdNVAywXKq/jGmhZ6WOFWQUhVVCGfMKd2v3QUcbMCXR/1
+         8y2D7QA7I4DzS1pBKoBHFIbA/HdF3JEjdQFCyCrVHzCDODOBdx6Bm5ZeodhkYvmYeh9m
+         GaIXHgKY9ko/OXR3qy5twbXhqSW2dqXy/u4oJV6xLded0kQApsRZe0YS6m9UgspfbHwF
+         /uvwlXL3XSUwNQT7/YaBaGo/zJ5NCTIoZG4CIah7npCQR0qFyh+fFx/MgPpsl1FS6xu7
+         Z8Cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wcRJm9Mj5HN9MDIGpueIj3AGF7buVGW3wX3A5PTznAs=;
+        fh=XBOPQ3X6Qb5smFHfwOBHVpR+PN6XHuOYgtFR56NFUho=;
+        b=d4hmfDBCJd7ZQX8PS6HX/HQ3qPsAAwGshXfjoQP/IHAYEJuhhdSN9GVilGODCyoITt
+         2jKaN3qpdiPEmPlgUV6v+E17ReA+YuqNLMIspuMqqE9E6f0P7H4PaGXKAshuyyNFwZSa
+         kl3LS5TAeEde6OMoRYfOek2AlRP6BKnA0FRlSMgqbHzLlBYPHZWWVBr0MFXD+U16wkUw
+         Quf98dvJO0mdYB20chGO57/QYAUxdt0FKljgRIqTrG+1G3vLPmOO/HryyTzKAysAfgf3
+         n54JLpFeg/msmk6xTq2SImvZ7B+mmnwdQdSoXEdEv8r+8LkIhC6jWdzInRTFV7errrHJ
+         RpOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780917086; x=1781521886; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=wcRJm9Mj5HN9MDIGpueIj3AGF7buVGW3wX3A5PTznAs=;
+        b=DlSXlW8kUp9avyik4rvgm+HGR4WonXwoew3/sBty1vEoqnX28/XvFhZADXFz0EULia
+         pzuCcb5ngx9DRaltMBPHA0geS16iPHa9BTw21HfJS0BUB97CY47UFxWAgkq/uyYZWqVS
+         U7X21f86CaQrGt69S67CXAF1Hb2muv9eoeriOPLuQKw7QjerSe5p6awowj3JGbOZmstx
+         atJu4ScVinEo+/Bt81IclIWKqcuqsm4g4SLCzDLwxQDoCPC1MhsoARynp2VZoKDdoG8H
+         ky89DZl3sb97s9GtWxF4J8kfDCnWEnB9PA5q3mdsb3iBUr8POQtAFs76+mnG3u+pnzcB
+         Mzhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780917086; x=1781521886;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wcRJm9Mj5HN9MDIGpueIj3AGF7buVGW3wX3A5PTznAs=;
+        b=OzCBxF7EWmBhguDaw3/RVS6i3eRVhmspGblapJF+Q/98nmzO+6tgmMZYyCIdTt9OlM
+         OuJ7miT7gLGy2x/ZTQYskuLSgqO4sD5yHlPB2bqEFm98x83w3DHOdkBSDJ6shC3L7KHE
+         CgbhQCRjk61FKFmAe4xfz9pmHMK77Z1lyv+UFzmcclcKooboQsix3/5p8aCi+Lr06r1G
+         jhgt341dmSIWVQySeWhJy1QcgLBi3ZGWY5+gnXNyavEZOU9Ql4XoTfhuZ6Exlr2ZocNz
+         FtIG3evDpCibSc/UX7c0rdSy9J6C6Y91qzq3V9Q4aqq9huv9PvDiXtWUpkRz67l9EJiD
+         EvBg==
+X-Gm-Message-State: AOJu0Yzi9yv9eQhgfpxG3m/sKNifzDJvCI5+nGtzHOBI+j858NED7djO
+	0kpwsCAmNB+9w0cNNJihfEVVnpcaRxgusS1XiADbxLPOj3juQXCAYeraAFSZBQJ7u7PHforfr75
+	Ef/vIdPmQq2GuM2XERln84VHO/cVqHlCKWm+3
+X-Gm-Gg: Acq92OFbGziItKT1Vdc7QuehznyzoGKamvQwp1cKTZdfcQN/8XVHH+K/sMtSiqpKxuj
+	KT647w4JZYbVOALkxCWWI6rf/yFLE1iytfJRwUqHrybsJ6jTbXOHQaHwalwpXate+ilQq7H3kZr
+	JjsahEGuaG4UkzQx26ibyEpERzlJjPR0tvg2CeTwTYc8/TqGVQYRsqnEqpCNUtP2jCLBO48IBC/
+	tJcm3ORNroY88WoWA2N+QkHke92cxAJQ+B40TTwFX32F6oYMfCh9ilAx0Wc6g+MVShMje3eviHU
+	NyAky4HK+zif1fft4wdRNrbrU7r7y77R0r3wBUagFT8zJrs5
+X-Received: by 2002:a05:6a21:390:b0:3b4:9027:712 with SMTP id
+ adf61e73a8af0-3b4ccdcedecmr18063543637.20.1780917086441; Mon, 08 Jun 2026
+ 04:11:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required for
- renesas,r9a08g046-lvds-cmn
-To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
- <biju.das.au@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- "magnus.damm" <magnus.damm@gmail.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260602131331.90756-1-biju.das.jz@bp.renesas.com>
- <20260608-alluring-remarkable-echidna-d107ea@quoll>
- <d8cf5925-9c4e-4417-8fee-1d24c4cd303d@kernel.org>
- <TY3PR01MB1134665BE4CE8FB734BCFAAAF861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <TY3PR01MB1134665BE4CE8FB734BCFAAAF861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260605121955.105661-9-phucduc.bui@gmail.com> <20260605140412.CB2A81F00898@smtp.kernel.org>
+In-Reply-To: <20260605140412.CB2A81F00898@smtp.kernel.org>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 8 Jun 2026 18:11:15 +0700
+X-Gm-Features: AVVi8Cfj24AI7Q02Va6L_5BIzBfLSjfFWoU6OIzNmPm5u6Uc3Eq4xA22OJ0Hpkg
+Message-ID: <CAABR9nEpbhK6L2xkSGUaFKw0NtefzjaX9sAUG8sNamokzjR+MA@mail.gmail.com>
+Subject: Re: [PATCH v4 08/10] ASoC: renesas: fsi: refactor clock initialization
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, 
+	robh@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 08/06/2026 12:26, Biju Das wrote:
-> Hi Krzysztof Kozlowski,
-> 
-> Thanks for the feedback.
-> 
->> -----Original Message-----
->> From: Krzysztof Kozlowski <krzk@kernel.org>
->> Sent: 08 June 2026 11:22
->> Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required for renesas,r9a08g046-lvds-cmn
->>
->> On 08/06/2026 12:20, Krzysztof Kozlowski wrote:
->>> On Tue, Jun 02, 2026 at 02:13:29PM +0100, Biju wrote:
->>>> From: Biju Das <biju.das.jz@bp.renesas.com>
->>>>
->>>> Add a conditional schema rule to the syscon bindings that requires
->>>> the ranges property when the compatible string contains
->>>> renesas,r9a08g046-lvds-cmn. This ensures the LVDS common control
->>>> block on the RZ/G3L SoC correctly declares its address translation,
->>>> as the device has child nodes that need a valid ranges mapping to be
->>>> described in the device tree.
->>>>
->>>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/mfd/syscon.yaml | 14
->>>> ++++++++++++++
->>>>  1 file changed, 14 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml
->>>> b/Documentation/devicetree/bindings/mfd/syscon.yaml
->>>> index 9c81010d5a74..cbf83a06ae25 100644
->>>> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
->>>> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
->>>> @@ -269,6 +269,8 @@ properties:
->>>>    resets:
->>>>      maxItems: 1
->>>>
->>>> +  ranges: true
->>>
->>> There are no children allowed, so ranges property is wrong.
->>>
->>> You are changing binding which DOES NOT allow simple-mfd or any other
->>> children. Ranges is not a problem here.
->>
->>
->> And if you tested it on your DTS, you would see this does not work...
-> 
-> I don't see any warnings or error. I have done this change based on Rob's comment
-> based on sashiko review [1].
-> 
-> If you agree, I can drop this patch.
-> 
-> [1]
-> https://lore.kernel.org/all/20260601022619.GA3961324-robh@kernel.org/
+Thank you for pointing this out.
 
-Look:
-https://lore.kernel.org/all/20260524194457.479681-2-biju.das.jz@bp.renesas.com/
-What compatibles are here?
+> > @@ -898,6 +904,11 @@ static int fsi_clk_set_rate_cpg(struct device *dev,
+> >       int ackmd, bpfmd;
+> >       int ret = -EINVAL;
+> >
+> > +     if (!ick || !div) {
+> > +             dev_err(dev, "ick clock or div clock is missing\n");
+> > +             return -EINVAL;
+> > +     }
+> > +
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does this clock initialization
+> path ultimately lead to sleeping while atomic?
+>
+> The ASoC framework invokes fsi_dai_trigger() in an atomic context with the
+> PCM stream spinlock held and IRQs disabled. For the start command, the call
+> chain executes:
+>
+> fsi_dai_trigger()
+>   fsi_hw_startup()
+>     fsi_clk_enable()
+>       fsi_clk_set_rate_cpg()
+>         clk_set_rate()
+>
+> clk_set_rate() attempts to acquire the global prepare_lock mutex in the common
+> clock framework, which will trigger a scheduling-while-atomic panic when
+> called from the atomic trigger path.
+>
 
-Now open the binding - what compatibles are allowed for
-renesas,r9a08g046-lvds-cmn ?
+I agree that moving `clk_set_rate()` to `.hw_params()` would be a
+cleaner design.
+However, this is a pre-existing behavior and outside the scope of this series.
+I would prefer to address it separately in a future cleanup.
 
-Best regards,
-Krzysztof
+> [ ... ]
+>
+> > @@ -1985,6 +2000,9 @@ static int fsi_probe(struct platform_device *pdev)
+> >       fsi->master     = master;
+> >       fsi_port_info_init(fsi, &info.port_b);
+> >       fsi_handler_init(fsi, &info.port_b);
+> > +     ret = fsi_clk_init(&pdev->dev, fsi);
+> > +     if (ret)
+> > +             return ret;
+> >       ret = fsi_stream_probe(fsi, &pdev->dev);
+> >       if (ret < 0) {
+> >               dev_err(&pdev->dev, "FSIB stream probe failed\n");
+>
+> [Severity: High]
+> If this fails, does the direct return bypass the cleanup for FSIA?
+>
+> Earlier in fsi_probe(), FSIA is probed and successfully allocates
+> non-devres managed DMA channels. If fsi_clk_init() subsequently fails for
+> FSIB (for example, returning -EPROBE_DEFER for an unavailable clock), the
+> error path directly returns instead of executing the cleanup routine.
+>
+> Would this lead to a permanent leak of the DMA channels and other stream
+> resources allocated for FSIA? Might a goto statement targeting the exit_fsia
+> label be needed here so that fsi_stream_remove() can safely clean up?
+>
+
+Good catch. I will update the error handling path to ensure proper
+cleanup and include the
+fix in the next version of the patch.
