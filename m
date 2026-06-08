@@ -1,62 +1,64 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BEB26E165
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1F231618C
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780885966; cv=none; b=h1caSIiMvfZpLUqK0CGr6fSM1o38OVJz4O8qWzoo8TdIITqbDFc3zzJnapF0hRlgYPRzXglGWTFG6EGxk4QV5E++Pw95C5GDSLr40R1c+aGDO4/3i6l2rux+DPwgk+tVh33eNdHeJW62VjXPrOyvVPM+SwCsJFFv4GuF7rYOxlI=
+	t=1780885969; cv=none; b=rKFySICxV7L4VzgGCJEUR0peKm2yn+S7Zf0z4/53i30K5AUx+SMMfNPG8F9lG1+NLy+zfTg/ohoX7NLQ3c30O8J2NLMoAUeMM8yHkDZ7Hb4yOmZbB02+HdnRS9mtlFJgaJtzryZ3wC6nfu27VGxaMASf264dGFUokZ16DBvkG8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780885966; c=relaxed/simple;
-	bh=dic55TwcktDXLUB4rYeQvy2MaNFTsEOyNZ2K1+9Zk6s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TPYSGaJK3scMXEwvoNq8eaKYAmqZZR5Vj0fHoJhFfgiJYvQFEE5fGjfTlcx7H3q4uuHpGSYzknvSlP6+/7p+7X6jQWl/jITDs9ju4S2mJH+t+hQnWJuI8INf9tUcd2+1u8GuNnkriXBGvGsgJg1JIg/QGTEwZJn4qUWTSi475PI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YNhcvSHc; arc=none smtp.client-ip=209.85.214.177
+	s=arc-20240116; t=1780885969; c=relaxed/simple;
+	bh=07WiGulSAq9c2hVE03sspjmSsLQqMIv4OYb6R1D4cy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AWBpRs6Z47WOn1VxkSG3gAceik9RzfAbRUe4y+FMifIhmeZeFYoeHvRv/bL245icUXxVrBbDwoqwRHFN4flSVFVLdl8uwvolGO1Ra71EBdc4zduTe6ZlwPYertZP/BNYjfGtuLISClj3LhQFPpl08nlqPg16VJ4SHJ5ZlpPqPmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rs3PGZxZ; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YNhcvSHc"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2bf2247e38eso39443895ad.3
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:32:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rs3PGZxZ"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2bf2e8ccca1so26099305ad.0
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:32:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780885964; x=1781490764; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QgcMG5nFEAs89H2OIuVhEyONVcKyhkh1xoo32LhXMAQ=;
-        b=YNhcvSHclyCKuKV8LUTC1ZPoQvJSddjIzY8F6cSwjM6sZ6LB3JgGiDdx2+BYo9nvh3
-         HgOIAc2IsPEZuzIrXq5cIdmfHKkYqc+YF5usb/XXgwHdoOZ+EAweid3zNk9zIBk5Zonu
-         /oOccY4pfENwbw78YTOTCP6Kp+rCtHJPlPsjRuc5bkErsV7fwhjiRhzrGKx/hFndeKuu
-         FJ2vwhJiqxAI2dhm2/F2aMEm92vQ2nnBPA/m0DRkvmLEczdf98w6FMuUHUmqA5JTJ7bN
-         Uu8Z7ZP7MEjegJc1pTq9n6w6+GoEQ5oBL23GirZ0Cz2z08yoM2VdOahjzSBAuSTRF4Hd
-         D5dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780885964; x=1781490764;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780885967; x=1781490767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QgcMG5nFEAs89H2OIuVhEyONVcKyhkh1xoo32LhXMAQ=;
-        b=FoPtuIU2oIdETw7EkkS7BLKB59ep96SsX32HsF80fLXlN12r+Imb7ZuXMydrKcYbro
-         QViZfYvKWgIn7bEB++qrPkUNB2zv83gbP7qF6lbCCoGFuyu8VDU+lUZqiZIJi1RpQZFq
-         5jKZ/42rL8T+PXk76ewZgQFtR0HCIYOZGrG1PPT17ebYBjohJIK56NE2iHGZ7AR/J/6w
-         wUXkyprMG/QRykczbRM9MykvSYp4mJ7KZgO8QYunykJW+T7p3F3tccZPa9xMYM2lqIQy
-         ABMRdE+YGNJn7z2TFjlpZto1gmIXqSFOICOvZd/VhI6gPhD73x9UZVGYr2N0FfpukW+m
-         Fy/w==
-X-Forwarded-Encrypted: i=1; AFNElJ/lPQVb2h2lpFLoGlcM3EkLQrf9SxGu5ScO0KgP7FzOe9oBa4YQpbzIQblx85LU76DWnhoVODcJmlEx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKH2IOcZLfdpmOGitSoczSUIlD+4Ec6gzAJMdYSMz+DXWXq75H
-	H+zXaIYVXIz4VHS91+qrsqHo7wsoc0oYHeMd3H4bs3pd2BjxG5TAaG2Q
-X-Gm-Gg: Acq92OH8RoI/ijwNV9W+oWbJUMZT+8VW+RtHQRYYoGdwc1alKFO89jDHvhfORxqdmmc
-	BWw0VN2HXFmlIxALASVosASgo+iND0snXZ9uEVDx6DmQsuQBxNCuGMV8760yS3ZbLOvHgWS1SmV
-	hAc8IaqhZAe5y+XPE6YOjfebsrCPRjpfZ5CP6tx4/huid5Vr1I9+W2ROvSKx3HHp3rtaXZzMNzM
-	QEv/tggGIF2MkQ1lEuQbYfy7Se0lxVhT6AOAfb0PlZl1aJQdUNlQB2NbeD4Ju5338GT/18PuedB
-	0rC9lWRbonJ4CZKK9WIwC0SEjI1eMGiROEuV62O8eX9WgIdX4bELGFsfeEJ2rlw8l5b/8N2sIFQ
-	zBA0oSoEINkIxOyP/unOeeTs6vPt+s/WppNprYhMUYd3H7bJhZK0PjLxPioRZaNdAHaNAUJFdf3
-	FCN/7G/+VIZRBy/gEyRq1gb97l6ck6S0IXra5kgvLVN4BH3bLgU3cT+uYliU8pb3L2EkXid80Oc
-	9PCARPKzBVqQnMIQpgIqk4=
-X-Received: by 2002:a17:902:ea0a:b0:2c1:564b:4f47 with SMTP id d9443c01a7336-2c1e8495453mr161310405ad.26.1780885963925;
-        Sun, 07 Jun 2026 19:32:43 -0700 (PDT)
+        bh=mE/QA9NRrIBzmpaNm7qJKCCCXhuuJ1hBihamFPKJO/0=;
+        b=rs3PGZxZV4ue7iZ5FS82No/YI6KmQB+JVBJRw82PWGHPRchvGNbWiXZj3f9wT2TFYa
+         dYwH5DhIMX9P+tvAI351PDX913sVxkYhWCUavMYMocQ0gNkfmjr2wqsljt0skGCDegxz
+         b7yd+XQEYweaJ5Pzv8KAFaT5RKUq2DoiyfV5oGe3gCPZPTQ+gkyRlxo2KynkO+jZaI42
+         pOT1A2xO9J294Cs5O2NGvme2dE6kckl0rrFYQh5dULjZrL0fgiSjzOj/F8hmPtpM9QXp
+         enZ/x/dFTAt4/wcZNzaqZ4k4E29/coWPgw9jPr/JrNNCxTBCra3+VCaSq/u9mDxFE1wn
+         0BtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780885967; x=1781490767;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=mE/QA9NRrIBzmpaNm7qJKCCCXhuuJ1hBihamFPKJO/0=;
+        b=bhHqT+NTUvZDdY3TSXlnIWVvuFIZMvFKJ7+JbeUrVFhe2Fub+p9a5ouZBA5Ll3eXdG
+         C7LQ0r8NuU0w2r1pPqBRabpzPd3MRI8uO1lIvZSSOO/cDhlcEq515C7UR0keGUhAlOV+
+         vqtUZ12Q9oMPXcgN1mi0J7uYen/gkl+4AeZrZYTjDkcdXZeruDWspyC2bqiUlZhkH1qD
+         IEMAw+qdvKnQEXUVMU8Mg1/HTNvQD3v9YeDiHVqoZ/1I4YqNqWm0NsI6JeKTTbNbcVcQ
+         k894E2+Yql95WB+hAgVhzfSmGZ7nO7AJ6bacDWsmru8p51hgaHmYBKuWT5JzZH/NrfhT
+         Bj5g==
+X-Forwarded-Encrypted: i=1; AFNElJ9O10ob7vMwcHqhKDZbsZEwy8nmbADM/WK07P+bD3+Ul0xsdMlYKpUFd/SX+d6r7e3dShrP8NJ6EpxO@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGWVnCwafQkpJTTW7AzB+nYvR+byYHWPVYuI8W814pVFLsXLYv
+	izuBB+f7ZIESyZZ8RKE1s0BCYnhaKX566YlSQUXs18owwCJUtCs8GfiI
+X-Gm-Gg: Acq92OFKtQdzYqltC33k52J2m6VMTUPqurG+0HXJT3K3Rm3Ytb5U3ZkxmCuEfD37Wy1
+	ugoo0rRLq1RjCrg0CDRc+quU7qf2qb+5h+e64FhYyaWF1zpMIIqlgvWHoQzpz2IHEZdF8NmFKvZ
+	/Lr/VlWbi4bl46d0iaC1FxyOO6jNBssY6UxgSAWI59uvEqigrnwHYe7NKIioGjw5RBYGSCbvpZ3
+	N+/zwFLVKLQKJUNC7gHmEh2eA5X6azkPZAJJhm7e9b8DRqFEGZNQpVasz+ceq1X3jPxQZLKCprO
+	W2mhvesIzXBDJ1ejcqQYfipNBQtyvrjKvKRKjrl9/+Ri4LQxsfpkn/jtDekLSW+K4UTrpMd603+
+	vsdQq27g+M61O8XifmTAOBQJdc3YNWopSjta4D9lJ7FF8bJ/xqkX70883phOFFoWQFIupwCcuLg
+	tnpsWd+NWXbSZiN8F+pShl5752DM24DZz4xefUXeS/Wv5kWAq/AuCfF9m5rhdpGwklYRxXG0O/G
+	uNZ6NiOh7dCbkrjZUpsnx8zZetJwDYqPA==
+X-Received: by 2002:a17:902:ced1:b0:2c0:fa4e:91f6 with SMTP id d9443c01a7336-2c1e7d41eabmr144113125ad.13.1780885967308;
+        Sun, 07 Jun 2026 19:32:47 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c245dd3b5dsm38143485ad.81.2026.06.07.19.32.40
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c245dd3b5dsm38143485ad.81.2026.06.07.19.32.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 19:32:43 -0700 (PDT)
+        Sun, 07 Jun 2026 19:32:46 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -75,10 +77,12 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v3 0/5] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
-Date: Mon,  8 Jun 2026 10:32:32 +0800
-Message-ID: <20260608023237.305036-1-a0987203069@gmail.com>
+Subject: [PATCH v3 1/5] dt-bindings: display: verisilicon,dc: generalize for single-output variants
+Date: Mon,  8 Jun 2026 10:32:33 +0800
+Message-ID: <20260608023237.305036-2-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260608023237.305036-1-a0987203069@gmail.com>
+References: <20260608023237.305036-1-a0987203069@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,117 +91,186 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support for the Verisilicon DCUltraLite display
-controller as integrated in the Nuvoton MA35D1 SoC.
+The existing schema hard-codes the five-clock/three-reset/dual-port
+topology of the DC8200 IP block, preventing reuse for single-output
+variants such as the Verisilicon DCUltraLite used in the Nuvoton MA35D1
+SoC.
 
-The Verisilicon DC driver and its DT binding were originally written by
-Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
-carries a DC8200 IP block.  The present series builds on that foundation
-with gratitude to Icenowy for the original work.
+Rework the schema so that variant-specific constraints are expressed via
+allOf/if blocks:
 
-The DCUltraLite is a different variant in the DC IP family.  While the two
-IPs share a broadly similar register layout, a number of differences
-prevent the existing driver from working on the MA35D1 without
-modification:
+- Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.  The
+  generic verisilicon,dc fallback remains the driver-binding string.
+- Relax the top-level clocks/resets definitions to minItems ranges so
+  the base schema accepts both variants.
+- Keep ports in the global required list and keep additionalProperties
+  tightened to unevaluatedProperties.
+- Add an allOf/if block for thead,th1520-dc8200: five-clock (core, axi,
+  ahb, pix0, pix1), three-reset (core, axi, ahb).
+- Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core, pix0),
+  one-reset (core).
+- Fix a stray space in the port@0 description.
+- Add a DT example for the Nuvoton MA35D1 DCU Lite using ports/port@0.
 
-  - No CONFIG_EX commit path: the DC8200 staging registers
-    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
-    PANEL_CONFIG_EX) are absent.  The DCUltraLite uses enable (bit 0) and
-    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
-    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
-    configuration changes.
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+---
+ .../bindings/display/verisilicon,dc.yaml      | 103 +++++++++++++++---
+ 1 file changed, 90 insertions(+), 13 deletions(-)
 
-  - No PANEL_START register: panel output begins when
-    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
-    register at 0x1CCC does not exist.
-
-  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
-    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
-    0x0014.
-
-  - Simpler clock topology: two clocks ("core" bus gate and "pix0" pixel
-    divider); no axi or ahb clocks required.
-
-  - Single display output: no per-output indexing beyond index 0 is
-    needed.
-
-  - Hardware-discoverable identity: the DCUltraLite exposes chip identity
-    registers whose model field reads 0x0 (revision 0x5560,
-    customer_id 0x305), allowing the existing vs_fill_chip_identity()
-    path to identify the variant purely through register reads.
-
-Patch 1 generalises the verisilicon,dc DT binding to accommodate the
-Nuvoton MA35D1 SoC-specific compatible and the variant's two-clock,
-one-reset, single-port topology.
-
-Patch 2 adds the register-level macros needed by the DCUltraLite ops.
-
-Patches 3-5 introduce the driver changes in three logical steps: the
-vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
-vs_dc8200.c; the DCUltraLite ops in vs_dcu_lite.c with the necessary
-Kconfig and clock-optionality changes; and finally the DCUltraLite HWDB
-entry that gates hardware recognition once all support is in place.
-
-All patches have been tested on Nuvoton MA35D1 hardware.
-
-Changes from v2:
-  - [dt-bindings] Replaced standalone verisilicon,dc compatible with the
-    SoC-specific nuvoton,ma35d1-dcu added to the existing enum list,
-    paired with verisilicon,dc as the generic fallback; this matches the
-    thead,th1520-dc8200 pattern and was explicitly requested by the
-    reviewer.
-  - [dt-bindings] Removed standalone 'port' property; kept 'ports' in the
-    global required list; MA35D1 example now uses ports/port@0 structure,
-    following reviewer feedback that a 'port' alias should not be added
-    since DC8000 (single-port) also supports DP output.
-  - [dt-bindings] Replaced additionalProperties with unevaluatedProperties
-    to allow per-variant if/then clauses to add constraints cleanly.
-  - [dt-bindings] Added separate allOf/if block for nuvoton,ma35d1-dcu
-    constraining clock-names to [core, pix0] and reset-names to [core];
-    the if/else structure from v2 is replaced by two independent if blocks.
-  - [dt-bindings] Removed all description strings from if/then branches per
-    reviewer request; descriptions remain only in the top-level properties.
-  - [hwdb] Removed VSDC_MODEL_DC8200 and VSDC_MODEL_DCU_LITE macros; HWDB
-    entries use literal values (0x8200, 0x0) with inline comments.
-  - [hwdb] Added enum vs_dc_generation (VSDC_GEN_DC8000 / VSDC_GEN_DC8200)
-    and a generation field to vs_chip_identity; funcs dispatch now uses
-    generation instead of the model register value, per reviewer suggestion
-    (DC8000 has model 0x8000 yet behaves like DCUltraLite with model 0x0).
-  - [hwdb] Moved the DCUltraLite HWDB entry to the final patch in the
-    series per reviewer request, making it a gate that is opened only
-    after all supporting code is in place.
-  - [ops] Split v2 patch 2 into two patches: register macros first, then
-    the per-variant ops table, per reviewer suggestion.
-  - [ops] Extracted DC8200-specific ops into vs_dc8200.c; DCUltraLite ops
-    are in vs_dcu_lite.c; dispatch in vs_dc_probe uses generation field.
-
-Joey Lu (5):
-  dt-bindings: display: verisilicon,dc: generalize for single-output
-    variants
-  drm/verisilicon: add register-level macros for DCU Lite
-  drm/verisilicon: introduce per-variant hardware ops table
-  drm/verisilicon: add Nuvoton MA35D1 DCU Lite display controller
-    support
-  drm/verisilicon: add DCUltraLite chip identity to HWDB
-
- .../bindings/display/verisilicon,dc.yaml      | 103 ++++++++++++++---
- drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
- drivers/gpu/drm/verisilicon/Makefile          |   2 +-
- drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +---
- drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 ++++++-
- drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
- drivers/gpu/drm/verisilicon/vs_dc.c           |  13 ++-
- drivers/gpu/drm/verisilicon/vs_dc.h           |  33 ++++++
- drivers/gpu/drm/verisilicon/vs_dc8200.c       | 107 ++++++++++++++++++
- drivers/gpu/drm/verisilicon/vs_dcu_lite.c     |  78 +++++++++++++
- drivers/gpu/drm/verisilicon/vs_hwdb.c         |  14 +++
- drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
- .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +-----
- .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
- 14 files changed, 385 insertions(+), 67 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 9dc35ab973f2..db0260d874c5 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -17,7 +17,8 @@ properties:
+     items:
+       - enum:
+           - thead,th1520-dc8200
+-      - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
++          - nuvoton,ma35d1-dcu
++      - const: verisilicon,dc  # DC IPs have discoverable ID/revision registers
+ 
+   reg:
+     maxItems: 1
+@@ -26,6 +27,7 @@ properties:
+     maxItems: 1
+ 
+   clocks:
++    minItems: 2
+     items:
+       - description: DC Core clock
+       - description: DMA AXI bus clock
+@@ -34,24 +36,19 @@ properties:
+       - description: Pixel clock of output 1
+ 
+   clock-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
+-      - const: pix0
+-      - const: pix1
++    minItems: 2
++    maxItems: 5
+ 
+   resets:
++    minItems: 1
+     items:
+       - description: DC Core reset
+       - description: DMA AXI bus reset
+       - description: Configuration AHB bus reset
+ 
+   reset-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
++    minItems: 1
++    maxItems: 3
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+@@ -59,7 +56,7 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description: The first output channel , endpoint 0 should be
++        description: The first output channel, endpoint 0 should be
+           used for DPI format output and endpoint 1 should be used
+           for DP format output.
+ 
+@@ -77,7 +74,60 @@ required:
+   - clock-names
+   - ports
+ 
+-additionalProperties: false
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: thead,th1520-dc8200
++    then:
++      properties:
++        clocks:
++          minItems: 5
++          maxItems: 5
++
++        clock-names:
++          items:
++            - const: core
++            - const: axi
++            - const: ahb
++            - const: pix0
++            - const: pix1
++
++        resets:
++          minItems: 3
++          maxItems: 3
++
++        reset-names:
++          items:
++            - const: core
++            - const: axi
++            - const: ahb
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,ma35d1-dcu
++    then:
++      properties:
++        clocks:
++          minItems: 2
++          maxItems: 2
++
++        clock-names:
++          items:
++            - const: core
++            - const: pix0
++
++        resets:
++          maxItems: 1
++
++        reset-names:
++          items:
++            - const: core
++
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+@@ -120,3 +170,30 @@ examples:
+         };
+       };
+     };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
++
++    display@40260000 {
++        compatible = "nuvoton,ma35d1-dcu", "verisilicon,dc";
++        reg = <0x40260000 0x20000>;
++        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
++        clock-names = "core", "pix0";
++        resets = <&sys MA35D1_RESET_DISP>;
++        reset-names = "core";
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                dpi_out: endpoint {
++                    remote-endpoint = <&panel_in>;
++                };
++            };
++        };
++    };
 -- 
 2.43.0
 
