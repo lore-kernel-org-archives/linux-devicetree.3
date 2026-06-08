@@ -1,274 +1,320 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013006.outbound.protection.outlook.com [40.107.201.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6183A6B8E;
-	Mon,  8 Jun 2026 09:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780911721; cv=fail; b=GrKGeTMc1BRTQ/zWU6PkBhgr9ICEPzDx/CUiEHjI6x2PjkrExaYft2JP0XEm579x+LI+gv80I3w8FRSwrlYu/UJ3psrc0cYwiTAwCoIJmLbxPWqMBYSLYcAP1Y0PsUWnAWCTMOhHemRVaCYqm4UuCDTKq2+W5rFzZg4PjyfeTPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780911721; c=relaxed/simple;
-	bh=Y1SyH3hfHUqZ9Y7Nll7V+jtx90lodGuBdjjbBN8EKVQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UTnUV2IrAwRG0WnWwNN06C99K+6oj3UlpXM6+8/Zf0BWTIRUiRVd0+0tANwiqZInMLL0F7rugS7p2PmkFwtAIK22T9UQmogANf4tvTX9DgNwcy0b9BtkC7HUOJBI/dFnpdxg4DbH0Dzoxbu/10vNitpbj7dcrKCAgzBgcu5S81o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WxuuzLt3; arc=fail smtp.client-ip=40.107.201.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5615E3A9612
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780911763; cv=none; b=jPfs5nYP39CYw4gCe8SowNCcAA5oiq9DXOrC3v/FNP3v1/3EBcwewqcjPJUHvMK0vGzn4oJAkukX6Waxwh/k5gc2r9ol1oPkeqLcyMPYmb97d4YoQHYbrKRyAW+0ldy8rVr1JZYiIjqUw+3t2ZXKWLNaiduYypuet3L3HuhG3VU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780911763; c=relaxed/simple;
+	bh=vltzLVxrse6gylrYCArZ9MrsY1oyQjqTO12LN6Gs5Dg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KjwZolhJHZuwlgpGVFdyApoMyn5v/lLHZ3rm9akkZqI0Ux+paGgiJEkLw8i1s+T9Uzk/ko00+lZIvfojGa7qf9LdzFAH/Mxh1dIHkf9SObGZyelwtTI1e4xmuT80T+e9r/FXQiQifSn1sj7d2xu3oRHLUc50NiGt/apk8KgZ0p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EucrTqp3; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WxuuzLt3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y+8vz2aRDSpdh02DA7kgUT1CjDsae6OTWY0iATNi5NGWkZrP3xjUkgqqCLDpG75HPRMzXHpSOp+DICQvzUEluDc1G9sBMfXCQulZFLw1MV1hq0XdJiiR6rSVql4JT5YkNDkEHFxrVVRhfdps6AeL0xXvbZZJEbuRsLc2wKoaZUsfcN16yMMTqXpYke2OH6ZMqRC/puUbKabIG0i9UzeUh2a/plfK6vMdZvM/j/CsFisT8xzHvKxPA0xiFbvDmQ2Vg5yB8FNL9ac2plZRAUtNALggR3+1jaNQjYx0Cyy84kV8FtwNh4MYPOIN85g0x+OXJKKIfE5cn+TBXVL/TICtiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gTw9h0g5xtOBgK7zuGYP6GO39pjwSBo7jHwNqIg1zos=;
- b=QcYjvdJ3Ftj44x5+kd5y2zQS7JZiXX85TViD0h8KhL/KwoHYTt6RDCTegYoEIQZ22etxKKPMKOCbhXSHFRcGnZl42YXTBFmJ+Yf9VI8rlnUcF/rOFbK6na5CEd03h5UkZ+b/SZnfQeI+wtQwxn76P9zmnH9tKCB/Swt8iDzdgdIr4DoI+9vEUKuHLVpglPOyWcvRIn7lNObfpqigqYOECDtS+CjIlMHAnUOy0N3ozGudUMAeLKPT4B463hfAN8SBSKSBtgbm+aYMrRIHi4bS+kfdiFPjbkIwqzbKlDlz5LD0EZjR+61jzYzSeieH8LJwiJzX1TmXdpSyMoQ0gUnhrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gTw9h0g5xtOBgK7zuGYP6GO39pjwSBo7jHwNqIg1zos=;
- b=WxuuzLt3wOoYzWqfP4yVaXANsFcRLF4a2T9THJsinz0yJkZq6uUUQIbkAJRfgVIgWXRiBzt847Yj5fcVkegimU0WPxtpnpSdWQqYxVskp31J3zhL6IyAy7gu66yMB79QU72fhvha8l0U3gTLL2RsnTS8gCwsYEgYWzmSSjpJlqNQX74Cwfx/isepWnv4Yq26c1f0VVNI5zqnpFvvNRN9p2E6JxHAY83rWZLqBlAVKeYzrflVmAeb+lX67vmwCzXrGp9KYwJKH8Vy9bf00Qmog0Ef0mn/plY7JG1tUtmjsxW8klEBVo/StBU7X+tBCwv/D3tyXrkyLVZoZ9M90dynsg==
-Received: from BN0PR08CA0025.namprd08.prod.outlook.com (2603:10b6:408:142::10)
- by DS7PR12MB8418.namprd12.prod.outlook.com (2603:10b6:8:e9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
- 09:41:49 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:408:142:cafe::9c) by BN0PR08CA0025.outlook.office365.com
- (2603:10b6:408:142::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.13 via Frontend Transport; Mon, 8
- Jun 2026 09:41:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.1 via Frontend Transport; Mon, 8 Jun 2026 09:41:49 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 8 Jun
- 2026 02:41:29 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 8 Jun
- 2026 02:41:28 -0700
-Received: from build-pshete-focal-20260601.internal (10.127.8.14) by
- mail.nvidia.com (10.129.68.9) with Microsoft SMTP Server id 15.2.2562.20 via
- Frontend Transport; Mon, 8 Jun 2026 02:41:28 -0700
-From: Prathamesh Shete <pshete@nvidia.com>
-To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
-	<jonathanh@nvidia.com>, Arnd Bergmann <arnd@arndb.de>
-CC: Prathamesh Shete <pshete@nvidia.com>, <linux-gpio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] pinctrl: tegra238: add missing AON pin groups
-Date: Mon, 8 Jun 2026 09:41:22 +0000
-Message-ID: <20260608094122.1245189-2-pshete@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260608094122.1245189-1-pshete@nvidia.com>
-References: <20260608094122.1245189-1-pshete@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EucrTqp3"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84232e83ca9so1702764b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:42:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780911762; x=1781516562; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=K89RrwpcqLo8zDg2OvFefmB2AQCgF8PACyQq7p8WH+I=;
+        b=EucrTqp3pLp81A1TqAorG7Hd7G6z6+UUt16s0pLYnZcNJbPgq1P9xHUbsmCW1Zn/KL
+         VGXJkebwHM8ObyV8D9g7KayExl3wn2dk6iW/V6tdDdv5IKRQlpvdBJm5I5koW8F6G57i
+         pu3pGLEoI4QbKWhOGL9QAMpa2ccorUQ3yPdqubqhPAeNytELCmefpl/v/DU60ER34YSM
+         5XM2BVnXXcUZmOH4FN5xjfU8GIZ4+LPZ+BTuYQTUib9b7nh1okd2I4hBp27cAKEvjcwK
+         i0CgO1o3wKW4eVNZDwD0ELDbzeEGt+ZfiSaLGJEt6Qd7j5t/1pgI8592CUp4LN3fI6LT
+         2S0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780911762; x=1781516562;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=K89RrwpcqLo8zDg2OvFefmB2AQCgF8PACyQq7p8WH+I=;
+        b=QLTJTTELYd2YdWMjb9Ajw3XsSOhbKtvC4FqnVoTrP0w1milrwHmwG5kOTLTebztJuq
+         suq2i1Rt79CQDnmca5OhJkqzpP1GFxW/1wb2N/D1S70llMX+q6lYuoLjwhzd/eBmO/Sp
+         CRbxtpeRclHLA3z6GkQGsbtosIYk3oFx1v4pwXt1OFv/jgTcUW+t0DTxCfayS4tXPsn9
+         AReyYHriGzCKut1wD1P75xg5YewyJXHHSLTpL/yqzRXQRUKfIRrecZxEQ2g5iDU/2UeB
+         P2XXTQ34C57nXAkTeyta2Y7Zfh2ViVghBrKv8wlXlxF9f123aTl3iuQLicJG4voXwQx6
+         AwCg==
+X-Forwarded-Encrypted: i=1; AFNElJ/jI1HM8jw+Z0VbhTVtfNZ0CkfZZp/BQwCRSgjLKl7PVxpBUfG/c8Yzz8nv75un44cEwPdGyox7Me2W@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvH15y/JRhIKW3I8jwLTj8qX5I9Dq5P5s9UwzcmPuhCR+4EjRI
+	TAQUIxbgrygzVkiNeei0g4l9LrS3jYG6WjoYfj2GoYrxtmh00pl28+lM
+X-Gm-Gg: Acq92OG8vhEQOFcyTY1pUYAb/Yk7UQpFqaUgnS9aven2wTAFfZ6bZGa56VnupJr8MxU
+	XtQChLLHViKCjDbxMhkPjR2Ob9xh9pGFrH16oVODxdTjYyQJzQ+1S5RQOdddFIKUQzViGLmBLtL
+	7rM/Tk/ytgbQXzThPflc1tq45dzYEfmwUJT2kaQ6Dny4OgkF10tOWHNmYUi6npNCX8gmlLG89C/
+	/5zVxrc04E98mvddiYUXtgAbASW4Cujo5VmWBMmDhyvZKa6dMmG92dtWgg91OrZhRkN7z3cgcZK
+	v1eRQOaREr1h/p9rM4wGHwpaamKW4txEC3LzlcRwZGDOP/ZOs6rYjkdYzKem+52sXbohoA8JG2B
+	EuovdFyDko66hQMGUBcOLTXvlqBzOVS/TYAdzg4xvdXuG058+CDbWdgyRRe1D+zB3teZLoYhhLm
+	cDkcJsbAlNRJe1yCUobubgOpAEe12j7aiuEIG/Yn/XQG10imUOyYfN/RJ01JdeEi/vLVbLPch7B
+	5VmV10sasSjHyQ=
+X-Received: by 2002:a05:6a00:a227:b0:842:5719:455c with SMTP id d2e1a72fcca58-842b106587dmr14714982b3a.25.1780911761597;
+        Mon, 08 Jun 2026 02:42:41 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282372868sm19883930b3a.17.2026.06.08.02.42.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 02:42:41 -0700 (PDT)
+Message-ID: <684fde52-569c-4b38-904c-dbb05054634f@gmail.com>
+Date: Mon, 8 Jun 2026 17:42:33 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260608023237.305036-1-a0987203069@gmail.com>
+ <20260608023237.305036-2-a0987203069@gmail.com>
+ <a3f6fa4529bff5390dd1beb164d600208dc650a5.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <a3f6fa4529bff5390dd1beb164d600208dc650a5.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|DS7PR12MB8418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83bdf0ff-965d-45a7-8272-08dec5422a17
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|82310400026|22082099003|18002099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5QaFz2kHhvQKWDBj8s6T/RN0nghSH4ZReaG+VQVbACW/0pq8fR7NsV78PRntOa/mTQqDd+rRe6MyyrVM1p0vLYcafzb9wBXZPW1oc4x8Ub8xkjfr85UGPn6sVPzDtloI9K5v+RUUkI8gmnUyTNaUsJ6jrqKcXVYaWxkjGEvJEYbr1nVvhXaOqGylgqlW7TKMhMG2kda7DGVUFBGM5nrYEmHPNzq8gAZBSiW4VjMVDci4CyHra+ahC2dtsIiJ4z9Cj0+Ie5mkdtV+5QDvpp1UyPF7CTQp2Gu/efLaAW49RCc6U5XCP6CuxQ5DnT05LpxrJsZbOPLWJ/taxV0BQTlRSOfPcgu6CXSZ2zzqBROiE2eQdRlO0st3Qd+Hj89ZBlxRKUdHl5PgHQjp2xqId4GL1DYQg3cZKE9v5xcH0r/Mv4FVThUz3hcemfuYMqhbzJPz7IxwYr1I47ZxJLoHsiOOLiuoJyL7O6KMjPVyTMrW7JEhVhTzXrVOrVhnzIc2IrqTcQHFuuiqo7m/ppw0JsNgz88hY0o4ACV/Z+uLXOy79g7GW0dVFwWojOqeMJWcavGMlE0TKehogXthy6QANQ6Mmxxt1NlxmIBwJBeEy5LM7MshgGq710wx/xpuYcPtMCnWp6gMC7kKAO9nG5U5FqhdMYJdZgTa1CpIbEwBhBSqQwITSVMXqod36Klx6eyrP8NzI2Ntfg5ZGN67DiVDhU6MYMHK/5g5h/SY6oWEQtN8VMo=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(82310400026)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Oz2JhlfND3ErCzitWQEoDhVHYzkIt5zta1pyDAX+p5V+fNFRWkb4GH2WSOt12P4pLT7Zs1QN5ZacSWLtP/8DhqtKlIWNrTMVWYwYGffYSPRyv07K36gDE1hW7xuDG1uHcvRVeV/Ea8cGDaLszI5VgH0uZ1iDZ3qmIm5ot00R5sAO3m6jPLSoYg6w3hQFfl/S5c3oZFw5Aofm9dOJUXs++oh2eaNoEdQWHM1BbubF4itzFwC+K9ogKpwgR0r/ESqmt5tvR2LcHsV3Sdhvg5Er2CV58R5QAF/EZ/nyzDoBRAw4uKFEsvI2IiEfJGbZFxp52dnOZMiRZ/7YTxBEIXGdGULLeQSWdWDt1J2ywVsJP3sqqsEF4cZYME8hZsuROwrPvNSw5bClyP96vnXhODCHB2Zs6y+vHUVsQqbx9nIgxaZNbU+mzOJEqHcseW6GnSTn
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 09:41:49.5694
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83bdf0ff-965d-45a7-8272-08dec5422a17
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DD.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8418
 
-Add 24 pin groups on ports EE, FF, GG and HH to the AON pin controller
-group table (tegra238_aon_groups[]). Their pin arrays, drive-group
-macros and pin descriptors were already defined, but the matching
-PINGROUP() entries were not present, so these pins could not be muxed
-or configured through the AON pin controller.
 
-The pin arrays were not referenced, so the build emitted
--Wunused-const-variable warnings, and commit 119de2c33d96 ("pinctrl:
-tegra238: remove unused entries") removed three of them. Restore those
-arrays and add the full set of PINGROUP() entries to make the pins
-usable.
+On 6/8/2026 2:32 PM, Icenowy Zheng wrote:
+> 在 2026-06-08一的 10:32 +0800，Joey Lu写道：
+>> The existing schema hard-codes the five-clock/three-reset/dual-port
+>> topology of the DC8200 IP block, preventing reuse for single-output
+>> variants such as the Verisilicon DCUltraLite used in the Nuvoton
+>> MA35D1
+>> SoC.
+>>
+>> Rework the schema so that variant-specific constraints are expressed
+>> via
+>> allOf/if blocks:
+>>
+>> - Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.  The
+>>    generic verisilicon,dc fallback remains the driver-binding string.
+>> - Relax the top-level clocks/resets definitions to minItems ranges so
+>>    the base schema accepts both variants.
+>> - Keep ports in the global required list and keep
+>> additionalProperties
+>>    tightened to unevaluatedProperties.
+>> - Add an allOf/if block for thead,th1520-dc8200: five-clock (core,
+>> axi,
+>>    ahb, pix0, pix1), three-reset (core, axi, ahb).
+>> - Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core,
+>> pix0),
+>>    one-reset (core).
+>> - Fix a stray space in the port@0 description.
+>> - Add a DT example for the Nuvoton MA35D1 DCU Lite using
+>> ports/port@0.
+>>
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>> ---
+>>   .../bindings/display/verisilicon,dc.yaml      | 103 +++++++++++++++-
+>> --
+>>   1 file changed, 90 insertions(+), 13 deletions(-)
+>>
+>> diff --git
+>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> index 9dc35ab973f2..db0260d874c5 100644
+>> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> @@ -17,7 +17,8 @@ properties:
+>>       items:
+>>         - enum:
+>>             - thead,th1520-dc8200
+>> -      - const: verisilicon,dc # DC IPs have discoverable ID/revision
+>> registers
+>> +          - nuvoton,ma35d1-dcu
+>> +      - const: verisilicon,dc  # DC IPs have discoverable
+>> ID/revision registers
+> Ah is an extra space added here, which leads to this hunk looking
+> strange?
+The extra space was added because `yamllint` reports "too few spaces 
+before comment" (warning: comments) when only one space precedes the 
+`#`. However, since this constitutes an unrelated whitespace change that 
+makes the diff harder to read, I will revert to the original 
+single-space form to keep the patch clean.
+>>   
+>>     reg:
+>>       maxItems: 1
+>> @@ -26,6 +27,7 @@ properties:
+>>       maxItems: 1
+>>   
+>>     clocks:
+>> +    minItems: 2
+> Maybe restrictions about the clock count shouldn't be inserted here,
+> and technically it's possible that only the pixel clock is controllable
+> by Linux (all other clocks are in a fixed configuration).
+Understood. I will remove the per-variant clock items descriptions from 
+the top-level `clocks:` section and move them into the respective 
+allOf/if blocks. The top-level will only carry `minItems`/`maxItems` for 
+schema validation range.
+>>       items:
+>>         - description: DC Core clock
+>>         - description: DMA AXI bus clock
+>> @@ -34,24 +36,19 @@ properties:
+>>         - description: Pixel clock of output 1
+>>   
+>>     clock-names:
+>> -    items:
+>> -      - const: core
+>> -      - const: axi
+>> -      - const: ahb
+>> -      - const: pix0
+>> -      - const: pix1
+> Ah I think the total list should still appear here, and they should be
+> corresponding to the descriptions above?
+Understood. I will restore the full items list for `clock-names` at the 
+top level (all five entries: core, axi, ahb, pix0, pix1) and add 
+`minItems` to make it flexible. Per-variant allOf blocks will only 
+constrain with `minItems`/`maxItems`.
+>> +    minItems: 2
+>> +    maxItems: 5
+>>   
+>>     resets:
+>> +    minItems: 1
+>>       items:
+>>         - description: DC Core reset
+>>         - description: DMA AXI bus reset
+>>         - description: Configuration AHB bus reset
+>>   
+>>     reset-names:
+>> -    items:
+>> -      - const: core
+>> -      - const: axi
+>> -      - const: ahb
+> Ditto here.
+Understood. I will restore the full items list for `reset-names` at the 
+top level (core, axi, ahb) with `minItems`. Same pattern as clock-names.
+>> +    minItems: 1
+>> +    maxItems: 3
+>>   
+>>     ports:
+>>       $ref: /schemas/graph.yaml#/properties/ports
+>> @@ -59,7 +56,7 @@ properties:
+>>       properties:
+>>         port@0:
+>>           $ref: /schemas/graph.yaml#/properties/port
+>> -        description: The first output channel , endpoint 0 should be
+>> +        description: The first output channel, endpoint 0 should be
+>>             used for DPI format output and endpoint 1 should be used
+>>             for DP format output.
+>>   
+>> @@ -77,7 +74,60 @@ required:
+>>     - clock-names
+>>     - ports
+>>   
+>> -additionalProperties: false
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: thead,th1520-dc8200
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 5
+>> +          maxItems: 5
+>> +
+>> +        clock-names:
+>> +          items:
+>> +            - const: core
+>> +            - const: axi
+>> +            - const: ahb
+>> +            - const: pix0
+>> +            - const: pix1
+>> +
+>> +        resets:
+>> +          minItems: 3
+>> +          maxItems: 3
+>> +
+>> +        reset-names:
+>> +          items:
+>> +            - const: core
+>> +            - const: axi
+>> +            - const: ahb
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: nuvoton,ma35d1-dcu
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 2
+>> +          maxItems: 2
+>> +
+>> +        clock-names:
+>> +          items:
+>> +            - const: core
+>> +            - const: pix0
+>> +
+>> +        resets:
+> Do we have minItems: 1 here? (The DT schema validator always has some
+> quirks that I fail to remember, so I am not sure.)
+Yes, I will add `minItems: 1` to `resets:` in the nuvoton block.
+>> +          maxItems: 1
+>> +
+>> +        reset-names:
+>> +          items:
+>> +            - const: core
+>> +
+> I think resets should be described as required in both device-specific
+> bindings.
+>
+> Thanks,
+> Icenowy
 
-Fixes: 25cac7292d49 ("pinctrl: tegra: Add Tegra238 pinmux driver")
-Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
----
- drivers/pinctrl/tegra/pinctrl-tegra238.c | 120 +++++++++++++++++++++++
- 1 file changed, 120 insertions(+)
+Understood. I will add `required: [resets, reset-names]` inside the 
+`then:` block for both thead,th1520-dc8200 and nuvoton,ma35d1-dcu.
 
-diff --git a/drivers/pinctrl/tegra/pinctrl-tegra238.c b/drivers/pinctrl/tegra/pinctrl-tegra238.c
-index c765b6b880e5..d3809594a5b5 100644
---- a/drivers/pinctrl/tegra/pinctrl-tegra238.c
-+++ b/drivers/pinctrl/tegra/pinctrl-tegra238.c
-@@ -1074,6 +1074,102 @@ static const unsigned int pwm7_pee1_pins[] = {
- 	TEGRA_PIN_PWM7_PEE1,
- };
- 
-+static const unsigned int soc_gpio49_pee2_pins[] = {
-+	TEGRA_PIN_SOC_GPIO49_PEE2,
-+};
-+
-+static const unsigned int soc_gpio82_pee3_pins[] = {
-+	TEGRA_PIN_SOC_GPIO82_PEE3,
-+};
-+
-+static const unsigned int soc_gpio50_pee4_pins[] = {
-+	TEGRA_PIN_SOC_GPIO50_PEE4,
-+};
-+
-+static const unsigned int soc_gpio83_pee5_pins[] = {
-+	TEGRA_PIN_SOC_GPIO83_PEE5,
-+};
-+
-+static const unsigned int soc_gpio69_pff0_pins[] = {
-+	TEGRA_PIN_SOC_GPIO69_PFF0,
-+};
-+
-+static const unsigned int soc_gpio70_pff1_pins[] = {
-+	TEGRA_PIN_SOC_GPIO70_PFF1,
-+};
-+
-+static const unsigned int soc_gpio71_pff2_pins[] = {
-+	TEGRA_PIN_SOC_GPIO71_PFF2,
-+};
-+
-+static const unsigned int soc_gpio72_pff3_pins[] = {
-+	TEGRA_PIN_SOC_GPIO72_PFF3,
-+};
-+
-+static const unsigned int soc_gpio73_pff4_pins[] = {
-+	TEGRA_PIN_SOC_GPIO73_PFF4,
-+};
-+
-+static const unsigned int soc_gpio74_pff5_pins[] = {
-+	TEGRA_PIN_SOC_GPIO74_PFF5,
-+};
-+
-+static const unsigned int soc_gpio80_pff6_pins[] = {
-+	TEGRA_PIN_SOC_GPIO80_PFF6,
-+};
-+
-+static const unsigned int soc_gpio76_pff7_pins[] = {
-+	TEGRA_PIN_SOC_GPIO76_PFF7,
-+};
-+
-+static const unsigned int soc_gpio77_pgg0_pins[] = {
-+	TEGRA_PIN_SOC_GPIO77_PGG0,
-+};
-+
-+static const unsigned int soc_gpio84_pgg1_pins[] = {
-+	TEGRA_PIN_SOC_GPIO84_PGG1,
-+};
-+
-+static const unsigned int uart2_tx_pgg2_pins[] = {
-+	TEGRA_PIN_UART2_TX_PGG2,
-+};
-+
-+static const unsigned int uart2_rx_pgg3_pins[] = {
-+	TEGRA_PIN_UART2_RX_PGG3,
-+};
-+
-+static const unsigned int uart2_rts_pgg4_pins[] = {
-+	TEGRA_PIN_UART2_RTS_PGG4,
-+};
-+
-+static const unsigned int uart2_cts_pgg5_pins[] = {
-+	TEGRA_PIN_UART2_CTS_PGG5,
-+};
-+
-+static const unsigned int soc_gpio85_pgg6_pins[] = {
-+	TEGRA_PIN_SOC_GPIO85_PGG6,
-+};
-+
-+static const unsigned int uart5_tx_pgg7_pins[] = {
-+	TEGRA_PIN_UART5_TX_PGG7,
-+};
-+
-+static const unsigned int uart5_rx_phh0_pins[] = {
-+	TEGRA_PIN_UART5_RX_PHH0,
-+};
-+
-+static const unsigned int uart5_rts_phh1_pins[] = {
-+	TEGRA_PIN_UART5_RTS_PHH1,
-+};
-+
-+static const unsigned int uart5_cts_phh2_pins[] = {
-+	TEGRA_PIN_UART5_CTS_PHH2,
-+};
-+
-+static const unsigned int soc_gpio86_phh3_pins[] = {
-+	TEGRA_PIN_SOC_GPIO86_PHH3,
-+};
-+
- static const unsigned int sdmmc1_comp_pins[] = {
- 	TEGRA_PIN_SDMMC1_COMP,
- };
-@@ -1890,6 +1986,30 @@ static const struct tegra_pingroup tegra238_aon_groups[] = {
- 	PINGROUP(dmic1_clk_pdd4,	DMIC1_CLK,	RSVD1,			DMIC5_CLK,	RSVD3,		0x11d0,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
- 	PINGROUP(dmic1_dat_pdd5,	DMIC1_DAT,	RSVD1,			DMIC5_DAT,	RSVD3,		0x11d8,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
- 	PINGROUP(soc_gpio19_pdd6,	RSVD0,		WDT_RESET_OUTB,		RSVD2,		RSVD3,		0x10f8,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio49_pee2,	RSVD0,		RSVD1,			RSVD2,		RSVD3,		0x10c0,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio50_pee4,	RSVD0,		RSVD1,			RSVD2,		RSVD3,		0x10c8,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio82_pee3,	RSVD0,		RSVD1,			RSVD2,		RSVD3,		0x10d0,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio71_pff2,	PPC_MODE_1,	RSVD1,			RSVD2,		RSVD3,		0x10d8,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio76_pff7,	RSVD0,		RSVD1,			TSC_EDGE_OUT0,	TSC_EDGE_OUT0A,	0x10e0,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio74_pff5,	PPC_READY,	PPC_I2C_DAT,		RSVD2,		RSVD3,		0x10e8,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio86_phh3,	RSVD0,		SPI5_CS1,		TSC_EDGE_OUT3,	TSC_EDGE_OUT0D,	0x1100,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio72_pff3,	PPC_MODE_2,	RSVD1,			RSVD2,		RSVD3,		0x1108,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio77_pgg0,	RSVD0,		RSVD1,			TSC_EDGE_OUT1,	TSC_EDGE_OUT0B,	0x1110,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio80_pff6,	RSVD0,		PPC_RST_N,		RSVD2,		RSVD3,		0x1118,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio84_pgg1,	RSVD0,		RSVD1,			TSC_EDGE_OUT2,	TSC_EDGE_OUT0C,	0x1120,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio83_pee5,	RSVD0,		RSVD1,			RSVD2,		RSVD3,		0x1128,		1,	Y,	-1,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio73_pff4,	PPC_CC,		PPC_I2C_CLK,		RSVD2,		RSVD3,		0x1130,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio70_pff1,	PPC_MODE_0,	RSVD1,			RSVD2,		RSVD3,		0x1138,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio85_pgg6,	RSVD0,		SPI4_CS1,		RSVD2,		RSVD3,		0x1148,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(soc_gpio69_pff0,	PPC_INT_N,	RSVD1,			RSVD2,		RSVD3,		0x1150,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart5_tx_pgg7,		UARTE_TXD,	SPI5_SCK,		RSVD2,		RSVD3,		0x1168,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart5_rx_phh0,		UARTE_RXD,	SPI5_MISO,		RSVD2,		RSVD3,		0x1170,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart2_tx_pgg2,		UARTB_TXD,	SPI4_SCK,		RSVD2,		RSVD3,		0x1178,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart2_rx_pgg3,		UARTB_RXD,	SPI4_MISO,		RSVD2,		RSVD3,		0x1180,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart2_cts_pgg5,	UARTB_CTS,	SPI4_CS0,		RSVD2,		RSVD3,		0x1188,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart2_rts_pgg4,	UARTB_RTS,	SPI4_MOSI,		RSVD2,		RSVD3,		0x1190,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart5_cts_phh2,	UARTE_CTS,	SPI5_CS0,		RSVD2,		RSVD3,		0x1198,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
-+	PINGROUP(uart5_rts_phh1,	UARTE_RTS,	SPI5_MOSI,		RSVD2,		RSVD3,		0x11a0,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
- 	PINGROUP(pwm2_pdd7,		GP_PWM2,	LED_BLINK,		RSVD2,		RSVD3,		0x11b0,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
- 	PINGROUP(pwm3_pee0,		GP_PWM3,	RSVD1,			RSVD2,		RSVD3,		0x11b8,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
- 	PINGROUP(pwm7_pee1,		GP_PWM7,	RSVD1,			RSVD2,		RSVD3,		0x11a8,		1,	Y,	5,	7,	6,	8,	-1,	10,	12),
--- 
-2.50.1
+Many thanks!
 
+>> +unevaluatedProperties: false
+>>   
+>>   examples:
+>>     - |
+>> @@ -120,3 +170,30 @@ examples:
+>>           };
+>>         };
+>>       };
+>> +
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+>> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+>> +
+>> +    display@40260000 {
+>> +        compatible = "nuvoton,ma35d1-dcu", "verisilicon,dc";
+>> +        reg = <0x40260000 0x20000>;
+>> +        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
+>> +        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
+>> +        clock-names = "core", "pix0";
+>> +        resets = <&sys MA35D1_RESET_DISP>;
+>> +        reset-names = "core";
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                dpi_out: endpoint {
+>> +                    remote-endpoint = <&panel_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +    };
