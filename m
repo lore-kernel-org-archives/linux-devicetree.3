@@ -1,183 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A1B3B3BF3;
-	Mon,  8 Jun 2026 09:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346C13AE190
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780911282; cv=none; b=adwluCUJLkTHZ/7uhRjVmNnTWaBkQoz6YQquDwWdrMWIUO9oWDkRNrdf2D53gDiMguOizbvFB5it1TQaYC/Xj5Ef2Q0X9jdmuLc8iA5HT+HFwDFQ0zqgWkWtkYqEwb30qrlrXBSZVl9qlZ4qsIAPOtLCjZjCEciCuWuOvNzZa2M=
+	t=1780911303; cv=none; b=X/b9qhPg6IsKZljqVrOJROQhWh6PH8mo48nNN928dLK5+3dSZZyBatO6Pjc4n/ovV0lPpgqKLw3v3hAYYlDTY2yY+o3leXYqfSXNmXnasAknmNdAd/hEt+usxqE02hb4HbZfxP+6XcLCcJq5inxJzYZ3fKBT2J0ztHBdjEJhXY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780911282; c=relaxed/simple;
-	bh=zmPmS7lj4xpV/Z8Rr/Psc/0Y6WJ03STP7rex4DVGHuo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kmlxcZUQxcDZMyBBfqgxtBWoCzA5VrNYp/R7Eo+J58WIf+JGSBd/5JE7Pqol+pQF+aLY8Edq/hHCy7sJQcKiqo89UE71tN4lY1g4vr+XbAC+S1DRIbrQvBuOdTUU6C/PC0GYH1o9reNeQlcBZ6bYXuWsRUKn3ORlAXLU7gaQfDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTOwR/XW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780911303; c=relaxed/simple;
+	bh=xcS8+PTdPjia2DBa+T7ce3/XFD4I1lgSgkQoFiLYDnQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oV12vz3Y+4+B7ITHBFDX+GWSkBjMUqDRgNl0Y1hWmIWWRMF3Dc54bmAeX8+Oa6JTVccDPvzZN5Th2260VtMzvCNpU6iIVNj3c11GB1SEQBiwZm6nthOrbXyY2IgsFepBlVCqDx3KkBYaKk389uF9B4OpO56b/dNCEcp+qbbllak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Jm+rzYcW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X9GPruAx; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTOwR/XW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF191F00893;
-	Mon,  8 Jun 2026 09:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780911280;
-	bh=84gvWU8V41jvTt7MFviVGMhAcjYtAVDiGiIPK1peWO4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fTOwR/XWLFTCPFj99ohqpnZaWzG4WNCt6DS+7Ha7BuzoJ4hGotzQ3CsVr+Kq0P51U
-	 nEU691c5ES0f7MqlwAxyWoT9yMF7+fhf63gNw6lXdS1RxuDkuXBmD/Vhjqob9X2ICR
-	 XA/wk9lIj0OUHr4pRN54Ao6mG51va5NfXEOwrYzdk/boXBdkaGFBjN/9BpG3kW2EDu
-	 UL6ZpMSljnlSwYn9nJmJ1L2PPlD3whIety+ocS3aySRyYjAd8F1bru63Wha8INtmjD
-	 uVxTZMWTZGcKPw2E6NVqkH2VrpEY3uRu7s6RcvE4CuWiSn+FpivEVYz6epid8nUyGE
-	 OC8rAe9EVcJEA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] arm64: dts: imx8mp-var-dart: Add support for
- Variscite Sonata board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <cf83cfcd94acc2e51289b09e92f946fdff0b5025.1780910435.git.stefano.r@variscite.com>
-References: <cf83cfcd94acc2e51289b09e92f946fdff0b5025.1780910435.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 09:34:39 +0000
-Message-Id: <20260608093439.9EF191F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jm+rzYcW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X9GPruAx"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65890uSJ3164246
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 09:35:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	noils2TMNs914sTPuUGf6yPxz2nxtQ6POyQJ6i0X/mU=; b=Jm+rzYcWw424UMaf
+	a6G4DrKNHyqLC4QeZ+4mXROqjrbFBVZtS4hqLHDHXjUaGZApYU65UUvBnUKOm/tn
+	Y+SS9tLch7/LWzt+BLS4+V2eSJs/u1vX5uJPanOb1LFxNiPERp3833DylOPUpWyV
+	SoGB/HgM5EjTK6KoK+3tssRvbNYvO7pVtfZmjPiqKv01DCtDgafQLdCtTOXXBvjT
+	fl/YHJBDE9mh/pFM2KxCagQnACXM3+N1x4q7PULVm9VI/aWQP0f7GjQ9Tr7zzoSr
+	WKBHpndHgqNF+HW5T9HRU2KQJ4PkI4QcGrzJKcCAhw0D2JbJr53YRQYujVW+QCEV
+	ZOIjcQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4entr0g50t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 09:35:01 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8ccd69b9a10so4572816d6.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:35:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780911300; x=1781516100; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=noils2TMNs914sTPuUGf6yPxz2nxtQ6POyQJ6i0X/mU=;
+        b=X9GPruAxihhoxXGGQEGaGG+lSkUWUMcJs79EMowaWL1uW8nsl3Sj4709WdHaaMozLi
+         EOAXFO8UaZrpmbw2g41H3JFDvOdD3CsvV5K/qG+WV4s53OIYTf8Z+Nk3kNaus9eud+k1
+         faiOCr+/povcAzVTK6a727wD0rX7H1IAdRy6yYlKQVhw541J1Z1Hse582eKgiKAukKtt
+         yG4xhcekpPEEf8QWmq5oMVqd67v73yXKbEZKAYmG0rPLbBXS4b6OG+y5l/UO7eGbB4pz
+         kbtDWe3vZPhDSKk08q9p/IXqsiI2riaQHy6h6AFsYt6r5paQOm87fe6xCtS1lGVJnAy4
+         F72A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780911300; x=1781516100;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=noils2TMNs914sTPuUGf6yPxz2nxtQ6POyQJ6i0X/mU=;
+        b=jFBsGiaCs+GH9OUgjrrhmVJksrx/OCto/WgQvUYehBDnh9DCtYfrtMleJ3/FFb7xCN
+         tt5W91l+wL3ri9a5I8u4MD1wW+aEaduHD6VBvPDHiQxAvmwSYbyoZcVA8vvGLaQMgckg
+         VsJh0A2hQu0CsuDLYZ4fLhSbxfxt67rIgScKKMMAKaD4d3Mge3mkaKrKEUk19HhqyVCX
+         17bAz3KoKNRJzEstKDlKKouTUSkm+ykBtAu8CdsxmUHHtOEpJWzN4XDYNpkrb9pgeUP1
+         sQ1PACkps/fFTYYKl4y1QOGed9gLaiKSSgw4x/sjwtpalIdiXb6CJNDJzlONJpOH/mnn
+         PUww==
+X-Forwarded-Encrypted: i=1; AFNElJ+eknR7oQ3WwdZAFmW6YWZm0JX3GJrfBHS2GL+Np3rUszQqEP7NF375HffaUH7lSbc/4erjaaBVO/yu@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeidFSjca7Vu+eOSn8mMBxElxMhNuMec0cvEjh7x588y1jDvX+
+	s9Ll3WwwfWupioHSwWO8dEviwcVC3Hw7IVGFDZgmhF7bx5sEJoH9VIuX/XsFeQWKUuQ+g8PfNQd
+	7sf1uGmd3lTWxPck2G+F4xL9Q2d5wc8pC1ONbVLuRPE8hLFxIzJA8uhLcxPnY4ov6hFKprNzj
+X-Gm-Gg: Acq92OHHDkQkEC09nadYunqgHZjKJSA+7sQmbkokOzcSxqmwmHHrIEy0Qwq1xgo/JiN
+	k+v86vx/cOfwLS/SUZttmfc19Cku7iyt/wEbK7f2bcnWQAhOHJNwtH/2yJAk+TBmXC/ToDKDZML
+	Tn7GV/YswwF6KQHiUzQQFD75aXTcatwiE+Op2TtG4PXUZTPBwizB7zXlzccmtewEm3jdSt1+LOv
+	tFMOehinrb/AxqqV+jRgfqFyRm1cjvuoNJH/+b+voxLAQNfGMqvnnEMPU8tB0w4y27v+HX34ZEf
+	hzvt7YL//FSruHq4pJhzUD5mD8C+r9nbgL/xzwgbMyAnSEpPYrmEj9CU6blMVD8uPf3GedjzMn5
+	pxBupM++iK6/fbOmV9v2W6p0CkpKOl7wIUU80oUZgwQ/pA3ok2A0fFJWp
+X-Received: by 2002:a05:620a:6486:b0:8f3:5988:f97c with SMTP id af79cd13be357-915a9d85addmr1243694885a.3.1780911300316;
+        Mon, 08 Jun 2026 02:35:00 -0700 (PDT)
+X-Received: by 2002:a05:620a:6486:b0:8f3:5988:f97c with SMTP id af79cd13be357-915a9d85addmr1243691085a.3.1780911299749;
+        Mon, 08 Jun 2026 02:34:59 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055307a35sm838592466b.52.2026.06.08.02.34.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 02:34:58 -0700 (PDT)
+Message-ID: <a5783c4b-abf6-421c-84cc-b7b565d37fdc@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 11:34:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] arm64: dts: qcom: sm8350: modernize PCIe entries
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath11k@lists.infradead.org, devicetree@vger.kernel.org,
+        Bartosz Golaszewski <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org
+References: <20260601-sm8350-wifi-v1-0-242917d88031@oss.qualcomm.com>
+ <20260601-sm8350-wifi-v1-6-242917d88031@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260601-sm8350-wifi-v1-6-242917d88031@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA4OSBTYWx0ZWRfX/QhYzWkGWgX1
+ CRnDNht1RzwHiOElFuCG0ueEQ/nBbxCUyUyg7Ai+S4QfUiuiypecphTj7t3Oc+HXNGWJo08DXHe
+ jrO/Oar8Xv2AIraIUE871DTr5jQaxaKxnzsoUDI5rA8fuOMLr96M09FlH5zK4b7PSVCbqiEZo9W
+ hGtB1IGRvwBukEgZn3SKITSoYk+PODrcASnyoxSY0fRjk+SeO5xKTQO3kkfJ2JGXk1ldzo1Dp2N
+ Dd/bk590AKYR+OFUBdZ8pyu44CCLuoKeGPH9jobuDMkiB33gGA6ntQkdvw6QGZG7tGUsfmkl8l/
+ uhEHxo289UQCcyzTF82GY0Uru7zMCbRi7vSNKiVQreEOeMWtig7EpeUS59uvvlsXK7rqCyrxlr4
+ 6HdaKBCBKEq+9Q1an59cVzwaX+rsq7fSwy3bjsVKcvuJlFAw7zgrB5wyYCz8GNaJCV3Heieedbj
+ xdQecv76CQD8pmvloJA==
+X-Proofpoint-ORIG-GUID: 8dnozk08DwP3gM8VDY2dCBoxe-rSD8WV
+X-Proofpoint-GUID: 8dnozk08DwP3gM8VDY2dCBoxe-rSD8WV
+X-Authority-Analysis: v=2.4 cv=VowTxe2n c=1 sm=1 tr=0 ts=6a268cc5 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=bMn7uSZEEfIJnIPTgxAA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606080089
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Shared open-drain interrupts for PCA6408 GPIO expanders are incorr=
-ectly configured as edge-triggered.
-- [Medium] The `model` property incorrectly identifies the board as 'DART-M=
-X93' instead of 'DART-MX8M-PLUS'.
-- [Low] Regulator pinmux configuration is incorrectly placed in the consume=
-r node.
-- [Low] PTN5150 Type-C controller interrupt trigger level is incorrectly sp=
-ecified as active-high.
---
+On 6/1/26 11:46 AM, Dmitry Baryshkov wrote:
+> The recent suggestion is to have PERST# / WAKE pins and PHYs in the PCIe
+> port rather than RC device. The kernel recently started warning about
+> the older style of DT. Modernize DT for SM8350 platform by moving the
+> entries under the root port device node.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-commit 95bc444bf3e6a9d1e620e1258513ee415d198b04
-Author: Stefano Radaelli <stefano.r@variscite.com>
-Subject: arm64: dts: imx8mp-var-dart: Add support for Variscite Sonata board
+[...]
 
-This commit adds device tree support for the Variscite Sonata carrier board
-equipped with the DART-MX8M-PLUS system on module. It includes configuratio=
-ns
-for peripherals such as Ethernet, USB, HDMI, and CAN.
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> index eb2a795d8edb..136daa444865 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> @@ -1583,12 +1583,9 @@ pcie0: pcie@1c00000 {
+>  
+>  			power-domains = <&gcc PCIE_0_GDSC>;
+>  
+> -			phys = <&pcie0_phy>;
+> -			phy-names = "pciephy";
+> -
+>  			status = "disabled";
+>  
+> -			pcie@0 {
+> +			pcie0_port0: pcie@0 {
+>  				device_type = "pci";
+>  				reg = <0x0 0x0 0x0 0x0 0x0>;
+>  				bus-range = <0x01 0xff>;
+> @@ -1596,6 +1593,7 @@ pcie@0 {
+>  				#address-cells = <3>;
+>  				#size-cells = <2>;
+>  				ranges;
+> +				phys = <&pcie0_phy>;
 
-Link: https://variscite.com/carrier-boards/sonata-board/
+Other socs put this between bus-range and cells
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts b/a=
-rch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts
-> new file mode 100644
-> index 0000000000000..4aa1545377191
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts
-> @@ -0,0 +1,716 @@
-[ ... ]
-> +/ {
-> +	model =3D "Variscite DART-MX93 on Sonata-Board";
+otherwise
 
-[Severity: Medium]
-Should this model string be "DART-MX8M-PLUS" instead of "DART-MX93"?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The compatible strings, file name, and commit message all indicate this is =
-an
-i.MX8M Plus based board. Exposing "DART-MX93" to userspace via
-/sys/firmware/devicetree/base/model could break provisioning scripts.
-
-> +	compatible =3D "variscite,var-dart-mx8mp-sonata",
-> +		     "variscite,var-dart-mx8mp",
-> +		     "fsl,imx8mp";
-[ ... ]
-> +	reg_usdhc2_vmmc: regulator-vmmc-usdhc2 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VSD_3V3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&gpio2 19 GPIO_ACTIVE_HIGH>;
-
-[Severity: Low]
-Should the pinmux for gpio2 19 be placed in this regulator node instead of =
-the
-usdhc2 consumer node?
-
-The reg_usdhc2_vmmc fixed regulator uses gpio2 19, but its pinmux
-configuration (MX8MP_IOMUXC_SD2_RESET_B__GPIO2_IO19) is placed in
-pinctrl_usdhc2_gpio under the &usdhc2 node.
-
-While the execution order might happen to mask this issue, the pin multiple=
-xing
-configuration for a GPIO should reside in the device node that requests it.
-
-> +		enable-active-high;
-> +		startup-delay-us =3D <100>;
-> +		off-on-delay-us =3D <12000>;
-> +	};
-[ ... ]
-> +	typec@3d {
-> +		compatible =3D "nxp,ptn5150";
-> +		reg =3D <0x3d>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_extcon>;
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <10 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: Low]
-Should this interrupt trigger level be active-low (IRQ_TYPE_LEVEL_LOW) rath=
-er
-than active-high?
-
-The PTN5150 uses an active-low, open-drain interrupt line (INTB). Configuri=
-ng
-it as active-high level-sensitive in the device tree contradicts the hardwa=
-re
-specification, even if the driver currently overrides it by requesting
-IRQF_TRIGGER_FALLING explicitly.
-
-> +
-> +		port {
-> +			typec_dr_sw: endpoint {
-> +				remote-endpoint =3D <&usb3_drd_sw>;
-> +			};
-> +		};
-> +	};
-[ ... ]
-> +	pca6408_1: gpio@20 {
-> +		compatible =3D "nxp,pcal6408";
-> +		reg =3D <0x20>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_pca6408>;
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <5 IRQ_TYPE_EDGE_FALLING>;
-> +	};
-> +
-> +	pca6408_2: gpio@21 {
-> +		compatible =3D "nxp,pcal6408";
-> +		reg =3D <0x21>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <5 IRQ_TYPE_EDGE_FALLING>;
-
-[Severity: High]
-Should these shared open-drain interrupts be configured as IRQ_TYPE_LEVEL_L=
-OW
-instead of IRQ_TYPE_EDGE_FALLING?
-
-Both pca6408_1 and pca6408_2 share the same interrupt line (gpio1 5). The
-PCA6408 has an active-low open-drain interrupt output.
-
-When multiple devices share an open-drain interrupt line, the controller mu=
-st
-be level-sensitive. If configured as edge-triggered, and the second chip
-asserts its interrupt while the first chip holds the line low, the second
-interrupt could be missed entirely.
-
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780910435.gi=
-t.stefano.r@variscite.com?part=3D3
+Konrad
