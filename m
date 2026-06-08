@@ -1,93 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2758331715D
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:30:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBE23CCFDB;
+	Mon,  8 Jun 2026 14:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780929044; cv=none; b=QEl17CseYz6S2XwLqT2lzFlQw3g8U3zp3O+48DY0l0rG+W8FtQpTWXKDz6OWc2lWXk3AFULotA58fcqK6a9kKyfk3hh3MW3CR2VQPGYs0dLDHLLvdEJT7ZsndwRvxGt4Hz3pEX27W+t2r/Er9q8I1eBsC0kiIJriVVnf0U93alg=
+	t=1780929182; cv=none; b=gOk85ewWutPO2GenUw0b9YWU7l6Q/RTwhj7G34Y8ia4eXk+mxMjRsEAim1+4ZV0IGNj3yK0rrlDeZ9YzUOSXy9l3+292V6n/uCpUN83hCONpfFzAZMbXb7fMkQ23XP9UFSLBdu3ET6hmHUoGW7TQsmWkpgwdDBif5r6B8GSFcOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780929044; c=relaxed/simple;
-	bh=DgevYk+trI9a01XYiR93DkcK4FlvyCsJcciplo5M4a4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gXtSz7JEaItDsIiNbiQf1pV988naR5FQRvnt/0OmASbhD53Rx+pR2LxjjirtlGIWfK9H1PwZFyp6OidCA9+wo/msfGbJB9kgMJ5Ym19bk4JOKF1uJR6B6CeQAmJEAcpprflA+0oKNEpfduD5IVwTfTHzGq0ZdslNtFAk93Y+I0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yq6+gp7o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780929182; c=relaxed/simple;
+	bh=Pr9eqaJY5GiRXhXqVcRp8krosz9a6kRtEH7xau+kdYo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xt4g+TMEfZkdBB5WSXaxlNDgCzkiI8pVyfXpUXXJEZsc2tF0ARPMZTfvYcoxp9phO6j+n5Gj723RJzCoY9tY+Z+Rh6s5w34gixlYjuTHO+I+ddgwDB7zr0UhKpuqorZkNDDkfzNiM8Da+LB6XfTQe64cwUfzDBdNAwwNhnbT2c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyWRvOt5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yq6+gp7o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0FF21F00A01
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:30:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyWRvOt5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98AA81F00893;
+	Mon,  8 Jun 2026 14:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780929042;
-	bh=DgevYk+trI9a01XYiR93DkcK4FlvyCsJcciplo5M4a4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Yq6+gp7o+t+YQI0mcfmczBWPQRT/vd6mpMnL5zm7lJV5zufTqvuUZFav2lmFFR1zr
-	 vU2EVs2llYOb0dtHlYEy9NzYr8JNJOb9R1lU5oyaRfZwTC3rjT9WFZNADXH/tZMrle
-	 rQWEi5ICOGsWewXIS0NwPziENp+foPhZM/T9FRSdghgNLaHkUvpi++XUTe79xgkI13
-	 mJw1ghKOSb9H72lLnbQC9gNsmjTHJqMFItaCAHvhmMAdMrViPbYjMDv0qYB1s2n2AK
-	 kjAgcHKa7c135LL3iv5tW2H8Cj5Lg7JHQ1PfB1H1fFtJmIM6y7uSF6hbjgUcRa/JXR
-	 UDwXwOdmoqi8w==
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-137eb0d76beso3100230c88.0
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 07:30:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/ezTyPo62gdWjiWgj038WkuqikqKvs66DMUeEj9UpSj29DYx6BKj6Gg83RexBbFpEmBsNbcFvFvxy6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAzRhcs8xD5xZ0xleijyPCuWvCZCJuIO9RobpNsJpaedDkcO2W
-	fCTtZXkjDg5eumEbHpQLe1FJtwY9A9etJHRCRu4hplrbUAdxOD9GvYvNkxSqvvFibPMVOH9YXFa
-	b4PtyobW+iMFrugkq1KEDoslFxDE1wlkx8uVgbxTUqg==
-X-Received: by 2002:a05:701a:c951:b0:12d:b8e5:5e2 with SMTP id
- a92af1059eb24-13807dbc1f2mr6212351c88.23.1780929042235; Mon, 08 Jun 2026
- 07:30:42 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 07:30:38 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 07:30:38 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260608-sm8350-wifi-v2-1-efb68f1ff04c@oss.qualcomm.com>
+	s=k20260515; t=1780929180;
+	bh=aDE4Pibswk5HFQAZoTvPpolcswnIs7t/D7Mgu2GT9FQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nyWRvOt5WmS6vhlBqHoEsC1V57CsT8zNavt5c1XkEHNxn12IXAGsqKVnwOegxSoPf
+	 CYTuDBr0xmv61PoNlL9Wlwm4zozkTtSp69PJV6F5P4JbEZsTNDW+44Imkgdko3IgKY
+	 GzGXhGfEGNgVi3behteNn0b8NMKFG74jxm2uh/oHowx7pG0oTawkwXOI4WfXT/7fXF
+	 wjC5IEzyE+cKpArncg1oxGm5ma/a2Uv7vAGsEP77ZM3JXs/whSUmvG8WMPOypLjNf9
+	 gf4Qv73mQ43/Tbgr+pRR/yOyj1s0P175X35gV/zwjadCBtmVhGV/TUAFTfXuanz62W
+	 KoNfbQcb/Fy3Q==
+Date: Mon, 8 Jun 2026 09:32:59 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ninad Naik <ninadnaik07@gmail.com>
+Cc: broonie@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, me@brighamcampbell.com,
+	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org
+Subject: Re: [PATCH] spi: dt-bindings: octeon: Convert to DT schema
+Message-ID: <20260608143259.GA2569066-robh@kernel.org>
+References: <20260607142356.2844008-1-ninadnaik07@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com> <20260608-sm8350-wifi-v2-1-efb68f1ff04c@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 07:30:38 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MctdRxo4WFf6F9A1pFOeTq8us6brdSEzTZsNPFwqrSnNQ@mail.gmail.com>
-X-Gm-Features: AVVi8CcaZhXYOpCv2x74C9QF-11-iy12puwZY5pM4Q7NOmmptdOTSpcIOV1fL7E
-Message-ID: <CAMRc=MctdRxo4WFf6F9A1pFOeTq8us6brdSEzTZsNPFwqrSnNQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] PCI: qcom: fix parsing of PERST# in the legacy case
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Qiang Yu <qiang.yu@oss.qualcomm.com>, 
-	Jeff Johnson <jjohnson@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath11k@lists.infradead.org, devicetree@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260607142356.2844008-1-ninadnaik07@gmail.com>
 
-On Mon, 8 Jun 2026 08:59:19 +0200, Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> said:
-> Commit deed8aec62dc ("PCI: qcom: Handle mixed PERST#/PHY DT
-> configuration") fixed support for the "mixed" platforms which declare
-> PERST# pin the RC node and the PHY in the RP node, however it also broke
-> support for a majority of existing platforms, which declare both PERST#
-> and PHY in the RC node, because now PERST# is first acquired in
-> qcom_pcie_parse_ports(), which then returns -ENODEV (as there are no
-> PHYs in the RP nodes). Later qcom_pcie_parse_legacy_binding() tries to
-> acquire the PERST# GPIO again and fails with -EBUSY (as the GPIO has
-> already been requested).
->
-> Move parsing of RC's perst-gpios to qcom_pcie_probe(), making it obvious
-> that it's shared for both cases and skip parsing it in both functions.
->
-> Fixes: deed8aec62dc ("PCI: qcom: Handle mixed PERST#/PHY DT configuration")
-> Closes: https://lore.kernel.org/r/gieaybsg2ckxpctvqj77nlwu7utama2yeyvebkonmexsxrra3v@v3fobqasxnmy/
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Sun, Jun 07, 2026 at 07:53:56PM +0530, Ninad Naik wrote:
+> Convert octeon-3010 to DT schema
+> 
+> Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
 > ---
+>  .../bindings/spi/cavium,octeon-3010-spi.yaml  | 67 +++++++++++++++++++
+>  .../devicetree/bindings/spi/spi-octeon.txt    | 33 ---------
+>  2 files changed, 67 insertions(+), 33 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/spi/spi-octeon.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi.yaml b/Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi.yaml
+> new file mode 100644
+> index 000000000000..3dbbb4f3c104
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi.yaml
+> @@ -0,0 +1,67 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/spi/cavium,octeon-3010-spi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Cavium, Inc. OCTEON SoC SPI master controller
+> +
+> +description:
+> +  The Cavium OCTEON SPI controller is an SPI master controller found in
+> +  OCTEON SoCs.
+> +
+> +maintainers:
+> +  - Mark Brown <broonie@kernel.org>
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+This should be someone with this h/w. But there doesn't appear to be any 
+OCTEON maintainer. There isn't any .dts using the compatible either. 
+Perhaps this driver and binding can just be removed?
+
+> +  compatible:
+> +    const: cavium,octeon-3010-spi
+
+
+> +examples:
+> +  - |
+> +    / {
+
+Drop. You don't need the root node.
+
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        intc: interrupt-controller {
+> +            interrupt-controller;
+> +            #interrupt-cells = <2>;
+> +        };
+
+Drop. Examples don't need providers.
+
+Rob
