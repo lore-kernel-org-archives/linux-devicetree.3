@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8D93909A6;
-	Mon,  8 Jun 2026 08:00:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8053F396D2C;
+	Mon,  8 Jun 2026 08:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780905656; cv=none; b=er2PGUv/j2mGN1H4VWMosbU6BG0kWqcDM7r9zWDDe+cNClg1GT0i7CE/uwyK8llembhF+DCRGMyooJuI0eGGVgj3GEbKG6oOGXfyG3nzyHCol9PYHUJ20SkvjTDoU1FvP4Ycg0ADgrHGA66QY3srmCdY1yx1B5xh8kxW9JBMcMk=
+	t=1780905741; cv=none; b=ukzkiud/n9M2O/czcX5gmy+05CSx65MGSryJ3Wbq8v7BGIPCXGEZqilTwF/Z8aFuNSvsgwvK+1X25r4PJePvHWy4c8GWth7zEuCWOGO45Zhrav0czb+5aRq5yHMQIQ0dukqGAcIu5ihhXuwIm+to9GOUedd2aplr2SwJh+qGNyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780905656; c=relaxed/simple;
-	bh=bzTXkUJKEXTOVEyIqlk8q5UW/AMNUwx8UJOuGCWhNFk=;
+	s=arc-20240116; t=1780905741; c=relaxed/simple;
+	bh=k3VXpgaRHVPu9RsU5JLpsJOecAJI1IZ2H2BxMbw85Ls=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RNl4hDGqBaUzVqskSApHB9xmTjy/GXIXXgeriDnvnJJ+Vje5gsIwegfD0a5nrrBiXEd3fzijSQOYTudLAOJCWHLw5YwuhLF19GtLvBpvMLJwOAixA3/ZKzEPWYnqcz6MpNufMJYr0svOagysoJ2l8bGVFXi2ga4/u1Ye/NH7Yg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQOMOgPz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=umXdxZKmjaoJnARCvB7YSgA/TJGnNmj7RBiuaQiPaytjw6yqwGY15txAYqOeOSdUY21xvItP5U82pFX7mxAxJZA6fXiyeTUrTuajL30RDXKf86BVFs8AYA/Z89hBMglyDqAUhJpQgXcKTj38JTOMepeDtcZWJnRsPtqTBsJbM1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QxafCn2z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQOMOgPz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E251F00893;
-	Mon,  8 Jun 2026 08:00:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QxafCn2z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E831F00893;
+	Mon,  8 Jun 2026 08:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780905655;
-	bh=shxmCQvSBBkNie3O/CcwrtLbRce6sySrtFuYPQ8CYKk=;
+	s=k20260515; t=1780905740;
+	bh=FQb6bDWfmdaPHwTtE1rATxeYREPUBuPE+e9MX/QLv7U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RQOMOgPzEjoT70pPB5OMCCJi0hMd9T/OIYgzJ4wRIaMkJslVqmxoeFc2FLbXXl1wd
-	 zLhK55oHz5jto8g56BT3Wv29Fce7c7CxLGc2z0yOitcB5yKjy52UIfTbYGpwQngChf
-	 DCaa+P8O2fIzraUcsg9bxTByaU3j5zFeVlQAIOHK2VBmIgV5iJf96mGX2r5g4Byrxj
-	 Fbcm/tO+8z0/4C0fm0f+/WyjurR7I92iIuzO6l7Ng0D6XvJCHwNvapf4EXB5LI6kTG
-	 CSSnLT+Mce9d/u5j87dXp62lnA8Uj8cNlC5fRmoHW+oTFL1B1zv987rqe/8bBTbPz6
-	 YAEVkyPepQUhA==
-Date: Mon, 8 Jun 2026 10:00:51 +0200
+	b=QxafCn2zVadEMA2cQMxBU+mcAITO4xYSagCccGUk0EAoDIXUdM21Y6TuGrl5HttOo
+	 LloRY2bu2pPdx3pdHc258nCMAQ6aXX3drcbO3WIKwXMNTOLTWTHdluO84LXO44LWDT
+	 6zi4dwWEYnSSqwtiaeuCfpGfj728d/DpJ7Z+0MOMrKjxeWd+colgIzSaXndDp/VhQu
+	 iY6S+i3h7vqjAHVx7cLUgxQc87H8nHIbvlccxkQCPzmciRl/BpI7ymz9PcltbSwQes
+	 ufaTyThR+rtUiGaQywq/sbHd/O7fHrL4lKSeXaKY2PnQ3MJLIylWmhvyUTVmzIa972
+	 LhNznRmEGJszQ==
+Date: Mon, 8 Jun 2026 10:02:16 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Joey Lu <a0987203069@gmail.com>
 Cc: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com, 
@@ -37,7 +37,7 @@ Cc: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
 	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3 1/5] dt-bindings: display: verisilicon,dc: generalize
  for single-output variants
-Message-ID: <20260608-emotional-rapid-woodlouse-61f7b9@quoll>
+Message-ID: <20260608-baboon-of-theoretical-stamina-6db63f@quoll>
 References: <20260608023237.305036-1-a0987203069@gmail.com>
  <20260608023237.305036-2-a0987203069@gmail.com>
 Precedence: bulk
@@ -71,154 +71,8 @@ On Mon, Jun 08, 2026 at 10:32:33AM +0800, Joey Lu wrote:
 >   one-reset (core).
 > - Fix a stray space in the port@0 description.
 > - Add a DT example for the Nuvoton MA35D1 DCU Lite using ports/port@0.
-> 
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->  .../bindings/display/verisilicon,dc.yaml      | 103 +++++++++++++++---
->  1 file changed, 90 insertions(+), 13 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 9dc35ab973f2..db0260d874c5 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> @@ -17,7 +17,8 @@ properties:
->      items:
->        - enum:
->            - thead,th1520-dc8200
-> -      - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
-> +          - nuvoton,ma35d1-dcu
-> +      - const: verisilicon,dc  # DC IPs have discoverable ID/revision registers
 
-Why do you need to change indentation? Why introducing irrelevant
-changes to the diff?
-
->  
->    reg:
->      maxItems: 1
-> @@ -26,6 +27,7 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> +    minItems: 2
->      items:
->        - description: DC Core clock
->        - description: DMA AXI bus clock
-
-That's not true anymore. In such case the list should also be defined
-per variant and here only min/maxItems.
-
-
-> @@ -34,24 +36,19 @@ properties:
->        - description: Pixel clock of output 1
->  
->    clock-names:
-> -    items:
-> -      - const: core
-> -      - const: axi
-> -      - const: ahb
-> -      - const: pix0
-> -      - const: pix1
-> +    minItems: 2
-> +    maxItems: 5
->  
->    resets:
-> +    minItems: 1
->      items:
->        - description: DC Core reset
->        - description: DMA AXI bus reset
->        - description: Configuration AHB bus reset
->  
->    reset-names:
-> -    items:
-> -      - const: core
-> -      - const: axi
-> -      - const: ahb
-
-This stays, with minItems. Variants only need min/maxItems
-
-
-
-> +    minItems: 1
-> +    maxItems: 3
->  
->    ports:
->      $ref: /schemas/graph.yaml#/properties/ports
-> @@ -59,7 +56,7 @@ properties:
->      properties:
->        port@0:
->          $ref: /schemas/graph.yaml#/properties/port
-> -        description: The first output channel , endpoint 0 should be
-> +        description: The first output channel, endpoint 0 should be
->            used for DPI format output and endpoint 1 should be used
->            for DP format output.
->  
-> @@ -77,7 +74,60 @@ required:
->    - clock-names
->    - ports
->  
-> -additionalProperties: false
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: thead,th1520-dc8200
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 5
-> +          maxItems: 5
-> +
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: axi
-> +            - const: ahb
-> +            - const: pix0
-> +            - const: pix1
-> +
-> +        resets:
-> +          minItems: 3
-> +          maxItems: 3
-> +
-> +        reset-names:
-
-minItems: 3
-
-> +          items:
-> +            - const: core
-> +            - const: axi
-> +            - const: ahb
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: nuvoton,ma35d1-dcu
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: pix0
-> +
-> +        resets:
-> +          maxItems: 1
-> +
-> +        reset-names:
-
-maxItems: 1
-
-> +          items:
-> +            - const: core
-> +
-> +unevaluatedProperties: false
-
-Stop making random changes to the binding.
+Difference in clocks and resets does not need a new new example.
 
 Best regards,
 Krzysztof
