@@ -1,172 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED67367295
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:12:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D083793DC
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780942345; cv=none; b=QOrEllYYCHFj8FYwyyrX5qIUkIEttn9DLz2PCuwIsns3zzw+NSQqNoggnPHoJRLvvVMsaepOBhoH6RJqctxPdeXofedqYVcUDnJ6Ae51pSqyi8lVY++sl+dvVqpd/jk0hyWkfxT12cnl1qNYm2+2RCjIsDTtqnfgh/HAJ6qKx30=
+	t=1780942365; cv=none; b=MAHnvXqj8nDh2ei1/cXaP1FtrXdOvjZ4ntZ2POPminEhWlm6S9Y7LbwIZvj/KWx3W1VwUoOxenZJRqpwR+tWWlan/MZXywbvCUasLbdXDDMgwRPyTRgeO/+YMykwvz+bcXqX5Wdd/1Q6POI3Dh0G3gfixunr9+SDZ+uf9T2J7dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780942345; c=relaxed/simple;
-	bh=PozAsDVYNX0qVEfnvUXBw31pqBuyPfSY2hnGbfTeSWo=;
+	s=arc-20240116; t=1780942365; c=relaxed/simple;
+	bh=I7394MEyoSxd+9fzhwAGhrKgTK9mndcubui0ARoQdLQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oGp0ALTHwD2xKtBoOxP6k9GGfOKjYJcmw22w1vtKxRrVONDdG1GKTwIiJByBCCziDvnZ5PPHvG1oifYPR6ZHyCi1yMA3CkGgSr0AyeWuc0+oyCGUpPXY552untsUHjsAjaAf49H/zwg42oDJ1OioIc5F9wNniRU1yB4iBjsxc3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGIz76Zo; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Qfxa6QWGQ568oPS5yjLuu4IfSNl/5ZLUrzT6//v3hxhE5j7rd7KgdTSWjs2fbbCnmk4FKVxomUb3u4FqUAhUP6m4YwcOES/3yRcgRcTkXBdTgYGkBiv3hIiRh+leIN4/UOhLt1qbm5IZKLV+5QHoOb9fCYu75DpcYOanOEhJlEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ld3DB6Nq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGIz76Zo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5B31F008A4;
-	Mon,  8 Jun 2026 18:12:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ld3DB6Nq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047CC1F00893;
+	Mon,  8 Jun 2026 18:12:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780942343;
-	bh=JbG/1njiIe85DoTIuEgzAfsylhxt+0EqyYqOUouPwcw=;
+	s=k20260515; t=1780942364;
+	bh=ityvO1O4HgjlIlC5l4rVZhmLGAUoK58LsHEr6xOeztk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JGIz76ZoxNGInm9rV+AzxJVje7HaCOLCjfMN5zwtQYA0tYcLTdXMKb6iKdw4tcbiB
-	 ghE3Z/TnLYYV1a0KCw52TZ/TkKCVH7a/tb5OhOqH6iCHNXZyqz2vWHMN6ajmkvuuF2
-	 RaHG5iDbEOSmR3DJsvaB2QrCkjAvEw96fO21VbQxhJZMznah2xsbp2ZrGlcdkkb8ZY
-	 vvthi9purvb0bcdGU9MfGyBLQhQYc/g2eV9tb9OwMcSD/GswS9V7PdVFyeFEgqiZEy
-	 mnalXmdQOyaDaToT8hkXBvzGNJPxd0hFaP+NbreTjQ2dWsoGDbXf3jp5wxIIEx7tCe
-	 PXRr3ipdLjzNw==
+	b=ld3DB6NqaCBZXdt6qFVBZxik3KEU58JedFDrgclIN3hw2X8bKB+xPHB1sawEnTuQM
+	 0gA5iTQaQI3Kt21LzLm9orx8SemkE+zrzawwlmTIYbsx3SwveM3G9k8EAvWw4Vg6SM
+	 +wrVcj0plW13oH9CujjmUjSkB+uODekZN+jnXjoSjq97ZH+O9pcUauYlPJkwgUGLWO
+	 l6vfB8KlYP1PKyG3Qkq0dG1LdwdjFI4gGzO/IZu1zEWT3fNsY8dEe+imCYsNVmmF2Z
+	 XfL+lGOXAlHNYo3LVqgrM1w7fNYotLeYoR3mz4DQmofIFF30u6lJ7yGEnI0j4rCd1V
+	 A71HBkS1B1jLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2] soundwire: qcom: add EE-aware register layout
- and cpu selection
+Subject: Re: [PATCH V6 6/6] arm64: dts: rockchip: Add Anbernic RG Vita-Pro
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
 Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260608175345.3118060-3-mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260608175345.3118060-3-mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <20260608175521.67449-7-macroalpha82@gmail.com>
+References: <20260608175521.67449-7-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 18:12:22 +0000
-Message-Id: <20260608181223.3F5B31F008A4@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 18:12:43 +0000
+Message-Id: <20260608181244.047CC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Data race on `ctrl->intr_mask` between threaded interrupt handler =
-and PM runtime callbacks.
-- [High] Missing NULL pointer validation for `data` from `of_device_get_mat=
-ch_data()`, leading to a NULL pointer dereference crash.
+- [High] The SPI joysticks are inaccessible from userspace due to a missing=
+ SPI child node.
 --
 
-commit 2b9927d4b6910f9c0442ddebd7fb189132946df1
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+commit 2097a3f0d4026d4220ee53d9f1d7508fedf974d2
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-soundwire: qcom: add EE-aware register layout and cpu selection
+arm64: dts: rockchip: Add Anbernic RG Vita-Pro
 
-This commit adds support for selecting the SoundWire execution environment
-from the device tree and adjusts register windows based on the EE value.
-For v2.0+ hardware, the IRQ, FIFO, and status register layout is offset by
-the EE window stride.
+This commit adds a device tree for the Anbernic RG Vita-Pro based on the
+Rockchip RK3576. It sets up definitions and configurations for various
+hardware components like display, buttons, battery, and networking.
 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 3d8f5a81eff19..f4b8ff77bc2f8 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-
-[ ... ]
-
-> @@ -1545,7 +1578,22 @@ static int qcom_swrm_probe(struct platform_device =
-*pdev)
->  		return -ENOMEM;
-> =20
->  	data =3D of_device_get_match_data(dev);
-> +	ctrl->ee =3D SWRM_EE_CPU;
-> +	ret =3D of_property_read_u32(dev->of_node, "qcom,swr-master-ee-val", &c=
-trl->ee);
-> +	if (ret)
-> +		ret =3D of_property_read_u32(dev->of_node, "qcom,ee", &ctrl->ee);
-> +	if (ret)
-> +		ctrl->ee =3D SWRM_EE_CPU;
-> +	if (ctrl->ee > SWRM_MAX_EE) {
-> +		dev_warn(dev, "invalid SoundWire EE %u, using EE%u\n",
-> +			 ctrl->ee, SWRM_EE_CPU);
-> +		ctrl->ee =3D SWRM_EE_CPU;
-> +	}
->  	ctrl->max_reg =3D data->max_reg;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this dereference of
-data->max_reg cause a NULL pointer crash?
-
-If the device is bound to the driver manually via sysfs (e.g., by writing to
-driver_override), the platform bus falls back to matching by name rather th=
-an
-the device tree.
-
-In this case, dev->of_node is missing, and of_device_get_match_data() retur=
-ns
-NULL.
-
-Does this data pointer need to be validated before being dereferenced?
-
-> +	/*
-> +	 * Defer EE register window selection until HW version is known.
-> +	 * For v2.0+ the IRQ/FIFO window is EE-banked.
-> +	 */
->  	ctrl->reg_layout =3D data->reg_layout;
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts=
+ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
+> new file mode 100644
+> index 0000000000000..344ba18705338
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
+> @@ -0,0 +1,1327 @@
 
 [ ... ]
 
-> @@ -1733,16 +1782,19 @@ static int __maybe_unused swrm_runtime_resume(str=
-uct device *dev)
->  		reset_control_reset(ctrl->audio_cgcr);
-> =20
->  		if (ctrl->version =3D=3D SWRM_VERSION_1_7_0) {
-> -			ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, SWRM_EE_CPU);
-> +			ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, ctrl->ee);
->  			ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL,
-> -					SWRM_MCP_BUS_CLK_START << SWRM_EE_CPU);
-> +					SWRM_MCP_BUS_CLK_START << ctrl->ee);
->  		} else if (ctrl->version >=3D SWRM_VERSION_2_0_0) {
-> -			ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, SWRM_EE_CPU);
-> -			ctrl->reg_write(ctrl, SWRM_V2_0_CLK_CTRL,
-> +			ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, ctrl->ee);
-> +			ctrl->reg_write(ctrl, SWRM_V2_0_CLK_CTRL +
-> +					((int)ctrl->ee - SWRM_EE_CPU) *
-> +					SWRM_V2_REG_EE_STRIDE,
->  					SWRM_V2_0_CLK_CTRL_CLK_START);
->  		} else {
->  			ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL, SWRM_MCP_BUS_CLK_START);
->  		}
+> +&spi1 {
+> +	num-cs =3D <1>;
+> +	pinctrl-0 =3D <&spi1m2_pins>, <&spi1m2_csn0>;
+> +	status =3D "okay";
 > +
->  		ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_CLEAR],
->  			SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET);
-> =20
+> +	/* SPI controlled MCU for joystick and joystick LEDs. */
+> +};
 
 [Severity: High]
-This is a pre-existing issue, but could there be a data race on ctrl->intr_=
-mask
-between the threaded interrupt handler and PM runtime callbacks?
+The commit message mentions "2 Analog joysticks controlled via userspace",
+and this comment notes an SPI controlled MCU for the joystick. However,
+there is no child node defined under this &spi1 controller.
 
-Just below this code in swrm_runtime_resume(), ctrl->intr_mask is modified
-locklessly:
-
-    ctrl->intr_mask |=3D SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
-
-At the same time, the threaded IRQ handler performs its own lockless
-read-modify-write on ctrl->intr_mask:
-
-drivers/soundwire/qcom.c:qcom_swrm_irq_handler() {
-    ...
-    ctrl->intr_mask &=3D ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
-    ...
-}
-
-Both execute in process context without synchronization, and the PM runtime
-worker can be scheduled via wake_irq independently.
-
-If these run concurrently on different CPUs, could this result in a
-read-modify-write race where an update is lost?
-
-If an update is lost, could an interrupt be unintentionally left unmasked,
-potentially causing a persistent IRQ storm?
+Without a child node binding to a driver, the SPI core will not instantiate
+a logical device, preventing userspace from communicating with the
+joysticks. Could a spidev or similar child node be added here to expose the
+interface?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175345.3118=
-060-1-mohammad.rafi.shaik@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175521.6744=
+9-1-macroalpha82@gmail.com?part=3D6
