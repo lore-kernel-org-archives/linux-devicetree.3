@@ -1,80 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9713403E7;
-	Mon,  8 Jun 2026 16:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CC1346E47;
+	Mon,  8 Jun 2026 16:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780935005; cv=none; b=VbeZudakrgybBiXusF/VBejJSeySE0Bi2n3LdUZlynLkA1vIM2BqeRQu5MHOFYuTcMag9QkFsRhFLIAlW36tsTl8utEw5uT3ALwA6Fs621nho7s6YCcsfzb50nMlyciZbUrRSBFV4D1B5fFMLNE93mmjNqoYjn93732oGeA8Zik=
+	t=1780935291; cv=none; b=ivTVHSkWM9FnsD62g5x/RuwO7d3JOqFjctnRts6kwd3TOMWDAzYLr0PYP9vIy9LOXDZhmwjgb/wJhL9fZ1gU3oP3OEqdX1IEX2iQKzibsC4s4JlTOinOT/OzkPO7qOf4/v6ZTqc1zP13p8MKNceKCR4gihiJiAqtJLpAgiS9NQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780935005; c=relaxed/simple;
-	bh=/UvC0TaBuP9SSTVoHQLr2V9yCM7W+OV4uNuVBQqrkVU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=pCr+CypoZCyumEXt50ysgizf6yNMwrvjkLK1aJU75jCh+EJuAKxHCfhx/y5qsHTlEL1JSw7QDCm1C7FzW+s496ZAeUo1632gkvERiTP/GkVy+phguHe6QGh1AceNs0kJ7NGJisOwyOWtMIKyvnlpLVpbvtRwIQCOPGoWtDVZ2zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NGHfBNMS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780935291; c=relaxed/simple;
+	bh=B8hgE4M7eXI7kSmC4eghMQkY6CackfUHmBQthp3sLAo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FKZeIISErhOqTrySn7JBbkqvgf3lk6W+wWkz+LU02xdArZqYGucsSIFmdy6Ij1lHcI6+TNd668rLOq8YhhvAXqM/Eki+6vSiVugIWy0/DnGh4jayNCK+pKHfTircdNPsg7ACHelvdUiWTbtuXxe3rp+Qjbrs4QKYrNopb10+YBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bdc7zB/i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NGHfBNMS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F0E1F00893;
-	Mon,  8 Jun 2026 16:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780935003;
-	bh=HeNvzEtTTeAyiynvrWR03BeK5a7m/jtKDrW58LkAIDk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NGHfBNMS1rlirWFtfC0pDdz7EzZeHjyxYg9Ca3Sjn1pulZaZLIDmOYvJmcZBYsc93
-	 VQpg5Ivsba3rTH79/1M55QufUmF/lQ9H/jskqKdHB8HrOkPOEhSgnQUMV9M34B2Iz8
-	 Fh7VryrdGwslXF2Cr1sq+hzZtoOSb/V4p5rwEeS0=
-Date: Mon, 8 Jun 2026 09:10:00 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <catalin.marinas@arm.com>, <will@kernel.org>, <chenhuacai@kernel.org>,
- <kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
- <npiggin@gmail.com>, <chleroy@kernel.org>, <pjw@kernel.org>,
- <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
- <dave.hansen@linux.intel.com>, <hpa@zytor.com>, <robh@kernel.org>,
- <saravanak@kernel.org>, <bhe@redhat.com>, <rppt@kernel.org>,
- <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
- <ruirui.yang@linux.dev>, <rdunlap@infradead.org>, <peterz@infradead.org>,
- <feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
- <kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
- <lirongqing@baidu.com>, <ebiggers@kernel.org>, <paulmck@kernel.org>,
- <leitao@debian.org>, <coxu@redhat.com>, <Liam.Howlett@oracle.com>,
- <ryan.roberts@arm.com>, <osandov@fb.com>, <jbohac@suse.cz>,
- <cfsworks@gmail.com>, <tangyouling@kylinos.cn>,
- <sourabhjain@linux.ibm.com>, <ritesh.list@gmail.com>,
- <adityag@linux.ibm.com>, <liaoyuanhong@vivo.com>, <seanjc@google.com>,
- <fuqiang.wang@easystack.cn>, <ardb@kernel.org>, <chenjiahao16@huawei.com>,
- <guoren@kernel.org>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
- <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <kexec@lists.infradead.org>
-Subject: Re: [PATCH v16 00/10] arm64/riscv: Add support for crashkernel CMA
- reservation
-Message-Id: <20260608091000.d88d7f5cc1bc4fa17f5774fe@linux-foundation.org>
-In-Reply-To: <20260608073459.3119290-1-ruanjinjie@huawei.com>
-References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bdc7zB/i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692741F00898;
+	Mon,  8 Jun 2026 16:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780935290;
+	bh=mklMJSdWkBcjZ9kQWelFLY3RhwE/PmXneAVMlDoJGOM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Bdc7zB/ixMQZL1yv7wGg9roiG0FPPLJzvP/rh8NIqMr55fATCURLYg//nWUrfflZC
+	 LYA6qaqMCc6ILAfxwZTX5JQWFC+ACEaVl5RrJfLS99XAiJkO26Uu6ojkuunaHE/Y3x
+	 K45/+8w994ziUNie/F6cuVl1vbdRdZ0zu60SvCCNfDlupR2JkEg84p9KN3dJSiT5IR
+	 Z2bQ3B33POGNdbHweroy+Z3Rh34/Av7f44RvzCxeleNAP7NBvyedN7NIYCD/+xVDKh
+	 X64oGMtDm6Bh3FVQ/G9iwOyXykgysmS0cD2tQYq34h2c9FPPk+2W8TYvG5BI+qGInd
+	 NNAearBd3Fcfg==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/3] counter: add GPIO-based counter driver
+Date: Tue,  9 Jun 2026 01:14:39 +0900
+Message-ID: <20260608161440.1172602-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260608-gpio-counter-v5-ping-wafgo01@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=649; i=wbg@kernel.org; h=from:subject; bh=B8hgE4M7eXI7kSmC4eghMQkY6CackfUHmBQthp3sLAo=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFlqrxyLdZ+vq66q/rPC60TAhs+H4vfdDPzjHP9k25J6j r67qZOTO0pZGMS4GGTFFFl6zc/efXBJVePHi/nbYOawMoEMYeDiFICJ2Fgx/C+dpRufGOUyO6Xt 8QaV/zs5vvTqXFi360/yn91dgmsEi/4y/GZzPXRKoVpQNcFRKyXuwa8Nxs0zTwYqTHh96yTHNW7 5JUwA
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
 
-On Mon, 8 Jun 2026 15:34:49 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
-
-> The crash memory allocation, and the exclude of crashk_res, crashk_low_res
-> and crashk_cma memory are almost identical across different architectures,
-> This patch set handle them in crash core in a general way, which eliminate
-> a lot of duplication code.
+On Mon, Jun 08, 2026 at 02:19:32PM +0200, Wadim Mueller wrote:
+> On Sun, 24 May 2026 21:38:43 +0200
+> Wadim Mueller <wafgo01@gmail.com> wrote:
 > 
-> And add support for crashkernel CMA reservation for arm64 and riscv.
+> > Add a binding for a generic GPIO-based counter.
+> 
+> Hi William,
+> 
+> gentle ping on v5 - it should address all your v4 feedback, and Conor has
+> acked the binding [1]. Anything still open?
+> 
+> Thanks,
+> Wadim
+> 
+> [1] https://lore.kernel.org/all/20260525-register-bogus-b198545b69a8@spud/
 
-fyi, AI review might have found a bunch of issues in arch-specific
-code, all of them pre-existing.
+Hi Wadim,
 
-	https://sashiko.dev/#/patchset/20260608073459.3119290-1-ruanjinjie@huawei.com
+Sorry to keep you waiting. I'm still working on the review for v5, but I
+should have it complete by the end of this weekend if not sooner.
+
+Thanks,
+
+William Breathitt Gray
