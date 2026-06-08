@@ -1,60 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7C43A1CEA;
-	Mon,  8 Jun 2026 08:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA143A963B;
+	Mon,  8 Jun 2026 08:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780906643; cv=none; b=gwcuc0U6xM4aaFBgWAzcb+YRPSGG/2SY/j5x+N5szdVr4gbJDHrROtbjyGqtgHpoWY092TOYhWMaFyi0iqwxl6VV2lqPh2MNvkb8JK0YoW9cY4yOf4EC8egLQFASqmWKFFkLlDWbXuhDCP8ws6In5gNUqlkssbO6uUgS9BQB3OI=
+	t=1780906818; cv=none; b=rkDXgtnomAXoEIEowzaYeOGD4rvLWMFOGn1IovOOrkk5h+OEQrTfK6C2McTN/DlGMZHZP//auJxEpgCn8+DAbGuhIiyEupvXiDnbdHM8jUWAnFMky2HkkmuRg0pqrZZfjmVP2xjvNWvhIewlUnFobIDkgTuB4YiS5VRjfH7N0v0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780906643; c=relaxed/simple;
-	bh=Smo7vaYdgJbjdwe4zMSCkS5vLybmJZBzk9AMg9PVf9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=umqCNNiU43zWrkIvOV6sOCw0Dv0q6kaD+DEgLl10yqiaLCysbQnNb6UX6/cAYQipNuibSnuieXZkFeysNDUF0pi0X0rh5eBTwVXvzFuuQ7LCFiox+IxF7lFSZDab+VNeKirFjcR2ZN8ckYSAN988RdBEJLSvhTN1WdqIeC8Mx8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UULiXXlw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780906818; c=relaxed/simple;
+	bh=2P0JCCFHe8qJo3+Agjk85/B2qu7PC9Alor8D2YtYYq0=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OxOmnT6QB193ox7j2sEWDdPhgUrBEa9ogNsNWxfr58GVZ2BvX3sIWlRBgQHVz0tjwpyF3CWq1XytBu4ql4zld/dmKrJrgYPnE3sBVU/E1z3LiD0YKQTjNEwzU6wjk4GR1RxHE3FLcJhP5m6fUuqNXDXp8vCRzdBS4hakNVHSEnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=RxsRLJnF; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UULiXXlw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52981F00893;
-	Mon,  8 Jun 2026 08:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780906641;
-	bh=OgeOpFSIPgKUbz4DT+ib8NeaE1Y/vYjn5jY7luka4/Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UULiXXlwitYFlgTTt7odM/K4+X39E7kWzP15CPn673Q39EgfYCB/BI7sy7oKcEYbF
-	 kcukAlc3lLvwTIX10SWBK+kX9fYgpWX4bC/3cu8w2EJqRpEO/6Hxbkkz/SsXu23gYj
-	 XWtHUKI2CsX6Y4oUQMfeLv4oAHTmH93F5MNMozkFP5zGXUifnMdTP16uiuWf0EmP/q
-	 YXch3/LXWG5DODAD0XsvTe3RKz+SBOCdf/8j3TXOQfWtYy/m9ME+RMvjzGgdzizSQW
-	 8DXvYeK084ARbhuexysb08fx6hHwobpjfjqm9JRKvp1VhtLzVp6JwREF84tgJKVGRE
-	 EaQi6nS1fGOgw==
-Date: Mon, 8 Jun 2026 10:17:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, quic_wcheng@quicinc.com, linux-arm-msm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Add ipq5210 to USB
- DWC3
-Message-ID: <20260608-vivacious-armadillo-of-wholeness-25897e@quoll>
-References: <20260604090528.735236-1-varadarajan.narayanan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="RxsRLJnF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1780906811; x=1812442811;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=2P0JCCFHe8qJo3+Agjk85/B2qu7PC9Alor8D2YtYYq0=;
+  b=RxsRLJnFU3pSAlPEMNH2JJpLZhBVc+9fJJmkYIsvvdp0U60zPcJDbk01
+   aSSnUcYwM8N6NuWfIc+rHz6YTQSdWoeLDoQ1bX3FkbjWGUBWxh3caDViY
+   gMM0pP92+BDzdSfAKjyBg1lATLTUmC/WEKKqj22PGOKIiLTxaiWT+xNKH
+   mnGVf3u0fFMP48UPElY8dTfuAhloFbeFXeoHNl7uRl1s6PPNuQ6i9zFTW
+   wyDJ2petL6XjwET+GLkb2N4qB4MwIW0QIrnXMwDogw3kOmfH/+RUceiV9
+   URXrVn/rnJvn939/ctD36LgIyCItr3jIJzFecabY06GLYgBbIRJiBIc5e
+   g==;
+X-CSE-ConnectionGUID: f/iUYFAzRKi7koY8Uf2ahg==
+X-CSE-MsgGUID: lKbGWTyKQjO2OQ9NHHjT2w==
+X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; 
+   d="scan'208";a="59143377"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 01:20:04 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Mon, 8 Jun 2026 01:20:03 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 8 Jun 2026 01:20:00 -0700
+Message-ID: <b785fa848435bba0d94a54066a05956aeeb81257.camel@microchip.com>
+Subject: Re: [PATCH net-next v7 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: <UNGLinuxDriver@microchip.com>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung
+ Huh <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
+ Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
+	<daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
+Date: Mon, 8 Jun 2026 10:20:00 +0200
+In-Reply-To: <d4fa4e93-9373-47a9-aaa9-e3d687c58d82@lunn.ch>
+References: <20260603-dsa_lan9645x_switch_driver_base-v7-0-b2f90e676707@microchip.com>
+	 <20260603-dsa_lan9645x_switch_driver_base-v7-4-b2f90e676707@microchip.com>
+	 <d4fa4e93-9373-47a9-aaa9-e3d687c58d82@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260604090528.735236-1-varadarajan.narayanan@oss.qualcomm.com>
 
-On Thu, Jun 04, 2026 at 02:35:28PM +0530, Varadarajan Narayanan wrote:
-> IPQ5210 includes a Qualcomm DWC3 USB controller supported by the existing
-> binding. Add its compatible string to the schema and include it in the
-> matching conditional constraints.
-> 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+On Wed, 2026-06-03 at 14:37 +0200, Andrew Lunn wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> On Wed, Jun 03, 2026 at 09:25:23AM +0200, Jens Emil Schulz =C3=98stergaar=
+d wrote:
+> > Add the LAN9645X basic DSA driver with initialization, parent regmap
+> > requests, port module initialization for NPI, CPU ports and front ports=
+,
+> > and phylink integration for MAC side configuration.
+>=20
+> A terminology question. How does a NPI port differ from the CPU port?
+> The datasheet defines NPI as "Node Processor Interface", which sounds
+> a lot like the CPU port.
+>=20
+>   4.18 CPU Port Module
+>=20
+>   The CPU port module (DEVCPU) contains eight CPU extraction queues
+>   and two CPU injection queues. These queues provide an interface for
+>   exchanging frames between an external CPU system and the switch. In
+>   addition, any Ethernet interface on the device can be used for
+>   extracting and injecting frames. The Ethernet interface used in this
+>   way is called a node processor interface (NPI).
+>=20
+>         Andrew
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+With the way this driver works they are basically the same. In the datashee=
+t
+they are seperate because it is possible to extract frames from the CPU por=
+t to the
+CPU using different methods, such as raw register IO, Ethernet interface or=
+ FDMA for
+chips which has an internal cpu subsystem.
 
-Best regards,
-Krzysztof
+If you use an Ethernet port that is called an NPI port in the datasheet. As=
+ the
+snippet says it is the physical port used for injection/extraction from a C=
+PU port.
 
+Since lan9645x does not have an internal cpu subsytem, this particular feat=
+ure fits
+nicely. There are actually two CPU ports at index 9 and 10. But we only use=
+ 9 now. It
+would be possible to configure 9 for NPI injection/extraction and 10 for re=
+gister
+based injection/extraction say.
+
+
+Emil
