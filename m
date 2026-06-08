@@ -1,109 +1,142 @@
-Received: from mail-m1973177.qiye.163.com (mail-m1973177.qiye.163.com [220.197.31.77])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181DC2E7635;
-	Mon,  8 Jun 2026 03:45:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9F8168BD
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 03:49:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780890321; cv=none; b=S80cYoIQMwg8brccTuTyYRq3DV3k2I89WfgQgm+O8JjURAoyltAOMMEFpkt77+mll+uehsBHijsxFfcSVCOIy+jtjsl9vydvnJoo2hhfLnPZYi395BQrnYVJ+tFKLvN0bTrEL8HqCJWEAHs2TY8X6vkApLlIPM7kQc2kXcHjhSc=
+	t=1780890549; cv=none; b=ZNNzCd0VPq6PMMgiBDsTbnKUwZ/yUbrSwUQbPoBq/1ZuOYXn2UD/BH4GzSCowK8oi/kBRZafVzADyBht7qG/vGbsON8bBCQIxNU+q+FIoZYiYKX1d9tZfmo1zu240lB6MWrGyCLZJrrVhsr9/bRRRbG2WPZHlpBLKfOJmhXTTH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780890321; c=relaxed/simple;
-	bh=R7koPCJR5KSkVYKZmDMeUJqY/SE/Q7pTA6LPG1+MQ5M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=uXQrsFoUlpOs9vXDrOd6gbikWLGEtCOoOOGIQz0yzmXI+xM+FnSii76ejG3V16zd1TvNI06kvQu/dGrj4BeQF2Cqdxt8Kr4s+w5dvBFB4x+Z6aG4nOCSHDo5sMlJ5ix0902MyY++vXPF5AyyTnqBJI3nPZwbjqx7rck3lQ2YPpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=MJ8kb8iu; arc=none smtp.client-ip=220.197.31.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1780890549; c=relaxed/simple;
+	bh=KFL5bv8OFk8aF4aDG6GfEVOlCyTfQOOh26CT0X317vw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JGvuuh3n4Brh5egnG59UU2clTA2YqZfUz6jBvZQbB2pIlUMAIFjkb7u83UIl5HDA5GMcWIyhYtZIf4xIezLdFIzQAS5QwrgT2DNL/KPUDMmnOBq7+PnC0R47520fYoxhGblNFfjK3Tn3MyDdCGcCGyycB5in5uB6YYM0tJnykmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=PJdWabiS; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="MJ8kb8iu"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4171d1d3a;
-	Mon, 8 Jun 2026 11:40:04 +0800 (GMT+08:00)
-Message-ID: <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
-Date: Mon, 8 Jun 2026 11:40:02 +0800
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="PJdWabiS"
+Message-ID: <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1780890534;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ixD0UqODeSKBYHAT0YqzVEOqtsHUd2w3XgZfWPYTogE=;
+	b=PJdWabiS8Pg4g6omz/iGtK8qchoMRPy1WwvNmpTo/oCgYXWRg8g7VIzIMLHTtHhlr9Gsj5
+	0AMrWsUGy4sXqo6+zlrOPMqBcc1upMA0G+1WXnDPbaEGCdo9+7dR9E7d8n1aHFABgPmIv8
+	k4rMJUiMp88c2h4kaqiMRN3z2TFD1udXPz5lRDEwKwb7NJIRk4kzar2U1/BoAf1D+M234m
+	++4C5KZqYaZC0iPQ6mkiTCiK0Bw0fUomc3OBgp9JByf02Oprq8fQqCu+YogO1NnFsyQpRc
+	QVK2GXQNvWP52UVggU1ji5GCb1Y9RpZkCVdqaRIRev5lulDaDMI4F3YAozifqg==
+Date: Mon, 8 Jun 2026 00:48:46 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
- RK356x v1 IOMMU
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-To: Midgy Balon <midgy971@gmail.com>
-Cc: Simon Xue <xxm@rock-chips.com>, tomeu@tomeuvizoso.net,
- ogabbay@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260604135255.62682-1-midgy971@gmail.com>
- <20260604135255.62682-7-midgy971@gmail.com>
- <e44b506e-e9d2-48e3-acea-ab28b7be9b37@rock-chips.com>
- <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
- <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com>
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Bryan O'Donoghue <bod@kernel.org>, Xilin Wu <sophon@radxa.com>
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+ <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+ <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com>
-Content-Type: text/plain; charset=UTF-8
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9ea550ec4803a7kunm2506f40117785a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSkgdVhlMShlNQx4fGUMeS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JNS0pVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=MJ8kb8iu3k9kUW5PdS39JNE44AdvDP+25KeKewqwvQ/RgHEyL5ihvn80S04I9v8iAvtmc4m/wGvYWr1o93LDIoaLW9JtrrfkctewvhkyIZG8jZ/HS/zECvUB/KflIKXaj175aJMBP6eJFRogrm+S1h77FT2JKEi6FVjAl0EYr2E=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Ybnh8S/ooqviaQ5QVM8foenQiJIP8ZWOyOXPrW9VaXY=;
-	h=date:mime-version:subject:message-id:from;
+X-Migadu-Flow: FLOW_OUT
 
-On 6/8/2026 9:45 AM, Chaoyi Chen wrote:
-> Hi Midgy,
-> 
-> On 6/8/2026 5:05 AM, Midgy Balon wrote:
->> Hi Chaoyi,
->>
->>> As I said, it is v2. Could you please try using the code below instead and
->>> see if it works?
->>> [ auto_gate = read(RK_MMU_AUTO_GATING); auto_gate |= BIT(31); write(...) ]
->>
->> Thanks -- that's clearly the right shape (read-modify-write, before paging is
->> enabled, keeping the reset value instead of my clobbering 0x2).
->>
->> I rebuilt v7.1-rc6 (with the rocket RK3568 series + your per-device-ops work)
->> using your bit-31 version and tested it on a ROCK 3B: the NPU IOMMU comes up and
->> services the NPU's DMA cleanly -- the NPU probes, attaches its domain, and runs
->> repeated conv submissions with no DMA_READ_ERROR and no page-walk stall. No
->> regression from the write.
->>
->> To be precise about what I can and can't show: I tested both ways on v7.1-rc6 --
->> with your bit-31 write, and on the reset value (0x3) -- and the NPU
->> IOMMU services
->> the NPU's reads with zero faults in both cases (no DMA_READ_ERROR, no page-walk
->> stall). So I don't have a failing baseline here that bit-31 visibly
->> fixes. Is the
->> AUTO_GATING write needed on current mainline, or only under conditions I'm not
->> reproducing (a particular traffic pattern / silicon rev)? I'll keep the patch in
->> your form unless you'd prefer to drop it.
->>
->> One question so I document it correctly: what does bit 31 of RK_MMU_AUTO_GATING
->> control on the v2 block -- is it a master "disable internal auto clock-gating"
->> for the page-table walker (i.e. so a TLB-miss walk's AXI master keeps its clock
->> to completion)? The RK3568 TRM I have doesn't cover the IOMMU registers, so a
->> one-line description would let me write an accurate comment.
->>
-> 
-> Glad to hear this works. Please refer to the commit below.
-> 
-> [0]: https://github.com/rockchip-linux/kernel/commit/7f8158fb41b5cc8e738aaeebc3637c50ebd74cae
-> [1]: https://github.com/rockchip-linux/kernel/commit/6a355e5f9a2069a2309e240791bc3aad63b7324e
-> 
 
-It looks like RGA needs this patch too, and it has already been merged :).
+On 6/4/26 3:38 AM, Vikash Garodia wrote:
+>
+>
+> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
+>> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+>>>
+>>> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>>>> triggers unhandled SMMU page faults
+>>>
+>>> How do we know that is a correct address - does it come from qcom
+>>> documentation or trial and error ?
+>>
+>> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
+>> source for the different stream-ID <600MB behaviour, and share
+>> specifics, eg if silicon, firmware, or driver and constraint, defect
+>> or otherwise, so I can include a definitive description.
+>>
+>> Also good to know if my workaround is good for long-term, or on the
+>> other hand handling streams <600MB is important/useful.
+>>
+>
+> Thanks Daniel for raising this patch. Did you also try the memory fix 
+> i mentioned in the bug [1] discussion ?
+>
+> Coming to 600MB, this have been the VPU hardware restriction all the 
+> while since venus days, and since address could not go deeper all the 
+> way lower than 600MB, the issue never popped up earlier.
+>
+> Consider the memory layout split as below (Iris device range is capped 
+> to 0xe0000000)
+>
+> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
+>
+> 0-600MB range, VPU hardware would reserve this to generate different 
+> stream-IDs primarily for internal (non-pixel) buffers.
+>
+> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
+> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for 
+> non-pixel buffers.
+>
+> When many concurrent sessions were tried, non-pixel buffers were 
+> mapped into 0-600MB range, and VPU generated secure ID for those. 
+> Since those were not associated with the iommus configured for iris 
+> node, it led to USF (un-identified stream fault) and device would crash.
 
-https://lore.kernel.org/all/20260428-spu-iommudtefix-v2-1-f592f579e508@pengutronix.de/
+Umm.. is anything *actually* preventing us from adding the "secure" SID 
+to the iommu node?
 
--- 
-Best, 
-Chaoyi
+I just saw a patch for sc8280xp that did just add an "extra" SID for iris:
+
+https://github.com/strongtz/linux-radxa-qcom/commit/e92850f792498c3a72d72d667503a29bf6bb0a31
+
+and I'm wondering if that's about the same exact issue.. (Adding sophon@ 
+to Cc: here)
+
+> Keeping the region reserved, makes the non-pixel buffer always in the 
+> non secure range (601-..) and avoids the crash.
+>
+> Downside of this design - It would eventually reserve 0-600MB un-map 
+> 'able for all buffer types, like pixel as well which do not have any 
+> such restriction.
+>
+> Forward looking design - create devices dynamically and set reserve 
+> regions for those specific device using the api [1], instead of 
+> applying one reserve for all.
+>
+> [1] 
+> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/ 
+
+
+
+~val
+
