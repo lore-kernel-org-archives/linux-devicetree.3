@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7342372066
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E631338CFE7
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780924295; cv=none; b=pxpeIK1CWahO23zh1LDVLztxslgtyP6x4D8qrWr0xPCVu+DtXTryK1DfXrtWI+NiPG4XWOAV5H2F1VySpWIqkBvzPdGKtaJtnQ91clbj6wXKW6QT3a0jgQTjE3K+9VpotNg7PCo/vZcxHm0gbR/lsuxqQ8th1jpEl3sj3znFZaE=
+	t=1780924299; cv=none; b=mFCp/xKiP8mu9MT9e9L94LPVSLHgUHIzJJYnz43+D9OffWc56/+N4uhzrNexSe898DYwYSzvPza+SigLIxGlOVg/jbevH9lKOlK0trkRvDcwMtm/RXwc+A4X08qw5nzNsClSlo1/bBXCB35FBbPQg2p5eaUKl8ieeBut7ktKx8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780924295; c=relaxed/simple;
-	bh=O0ITinEiBDoqyNtfUbyM/puvl4+BRtjPN1CGKUba4DA=;
+	s=arc-20240116; t=1780924299; c=relaxed/simple;
+	bh=NOKFq/SDiz/OoyYtcUc5wHPfD55NbS/2YLEB90Lp+p8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CoN/LK76a/GG36r/XbfQOyYDj7oQ/dnov3Sjqya3tQ7te0rR+czbYoDIQH5Q99Ydz7HyTQmCPn+8CsNdwqfnuISoUFCTSS7PRLN5P+vglhiyGjNtY64fgd6ZOG3NjBBNMbwory0lvB8ekysF4g4B9uSXaGsN6CgvXBMA5RxhDJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o5oGz40H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PTo0uW1T; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=fS6dSWBmAGPSo588WAnhUTR/W/TT7gg9Kt0QfHthosfmyF6hdC7/7y8VF4d7sgqDFDFgKpMH0lf3qRW3Q5zNaYn/Troq/2fwe+aROkmw4JfIkgFbZngrAg3hwhmJWcOow7vzcaGdtFKcMvJWPa4z8G7FSgjdsgYZwGG1phTQ6aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YIVapPQ8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UrMm0len; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o5oGz40H";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PTo0uW1T"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658CThfC3658215
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 13:11:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YIVapPQ8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UrMm0len"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658BCEk63480289
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 13:11:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gl6RrGCb/bv32859x3E1VYQ4SH2J4WZy2L+TCOfEc9g=; b=o5oGz40H352MsgMN
-	lAGVwq5cHkQYe/rufKWn3mKLn/McLh+Ttr3fg07QKGbWG82iIbu4t6kt9f+bx1WS
-	l4GCCPfsMMod3+s71eI+8hjvVcyQfo8MS//DdqAZ829L2yIE9JfkEhufcaTptKNB
-	9hULS23NTGSlvTFCNivNlSYckS0QGLjJPRAHwOGMv8Xf0j+R7eS7c6dkTTtQIaJB
-	ivz77YT/DtvS3qcpt0YD85ScItCac2D5jWIz7eC8MgLDJNZQmHLWQ42xwdhw9unH
-	hhkaGXEepEhBU7ZyTXjvuqsQgkWgdeLk0M3Z49Eth9KA5gcOOUxjkENxsJxe6Arv
-	WGNCeQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enwsv868d-1
+	PckU5u1SzqZ+RYh35ZmEhvngTkL5r4rG5OsTb5FLskk=; b=YIVapPQ8KdiDkkKx
+	WnT1+kLxX2N/GlXbQ7HhMTrdtohEHZAKCrtSo37C5p23+5zka0wud2lJZNXkGmG/
+	0HF3qLDcwoG+pz0itmfQc77uuui5xwZulgdTESA7IYzp3fpi7rTT4fO6NJEEhTRw
+	VlB+Ak68IBHhRTloVffhlNw3bilhhJurbVgIE10B3x5jSwYalWPNIcGujYfL/LvP
+	3mw0zFwV48AdBFO8AmP+efh2KPuBMK8+T0o13+CcLDLKNyKnursc8lqIsuYEYaGl
+	nM/SPzLvWOigybbgcBLmBaHnmXQKpA5JIdf5kd/AoDuc4CCIFiGWartRi0Ud3eiS
+	omyeNA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emaj50b4s-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:11:31 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c0c272e532so45647465ad.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:11:31 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:11:36 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2beff6b6e74so44754465ad.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780924291; x=1781529091; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780924296; x=1781529096; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gl6RrGCb/bv32859x3E1VYQ4SH2J4WZy2L+TCOfEc9g=;
-        b=PTo0uW1TsOTFZclWmo7FBoRu8jKUO8hUdXfqEV5qFDRp1eiPVmuMT/0qxkopCx7kWa
-         +s9fJaWRe7lVYHySMawS+W1yv+RvngqOg5q8bVRF381AzBG+5shLRmo9s4lZ1yPp5wCA
-         7lb0z4VH6Y0sYgt9I1QhFVZ8H8AE/WWokVxiMMRHT5qkKImjtnI3VqeJfhvK1Q1WiAYz
-         /G01jHSRZne7rkgjkMd6/dWwSChkxvrCDGPcLJZTeHja5NjnIg60UxdTdru/9Du+CESK
-         BNI1ew3VkSmM9rFtW7mQzGxmRJxK1YIsn9Jwl+f40IB5JM5MWiHEp8u47AozOEcRL/Zi
-         l8IQ==
+        bh=PckU5u1SzqZ+RYh35ZmEhvngTkL5r4rG5OsTb5FLskk=;
+        b=UrMm0lengpZgb9JCaAfX8/FCLdHnYRH+8z0ETbOSJb0dN2IP3GODV2SPu3ITCx2dnp
+         J1VQw7pMaAkjisDim2S0j9QsEIQPpstgyF1BnV5LwRmnV0TZOvNnKwuGuthQUO0YcSlE
+         sj5oYtRLWoU9hwzRwvo6xiAZzTBeQDA01yjXt/3Jh5BjEYFHYExJNCw/yZ6HS79cVRfV
+         Hzx0HoPy6S+wfkWJstMWiSs9HoHMGY7RCnOs/KmVfeElOmDUep1IIe4GYdZFP58BQT4b
+         ZGfBssRjw4gK69fN+KnHOCK1at6abiyIHpLbiC6pYFPg1e/35q4CetkOuhBCqxik3DR/
+         6n5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780924291; x=1781529091;
+        d=1e100.net; s=20251104; t=1780924296; x=1781529096;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=gl6RrGCb/bv32859x3E1VYQ4SH2J4WZy2L+TCOfEc9g=;
-        b=Q+4nCbAqASVGyjiSTteRBlSMlxVgfi5UEg27K1EA3gOY77nNseRKY92qKPh6JGSdEJ
-         pFAeX/YnwGTjKWacH3AIQ1oXwMNKhKG4GOHA66re5pn12fBZ+gUZuFQhb2Ny6Ygj+LV4
-         ZWFlfvZzbnzHmKEbIdBpsegQ85zwSo7xVW+iHLiiItpQ+6LzAguGAdpzMQGkzf+0f8zI
-         O1dZjhzuQcin6Av0O036GUPQvlR8n+HJAuxzZN47iKBVN0fGiZ84+y3tZ9AB2SiEBnBR
-         lB9yWJW1+p1XDyu7jLfLz7w2wm/tpBIbMEWbDBcxLuBOnkaTzfoi9NOX2D4eUG7DnMnk
-         S00g==
-X-Forwarded-Encrypted: i=1; AFNElJ/GSfejLLTHIs540mDtrxqNTxpGuoZRsgdg8C5KUDePB32Lzf3FYBHskd1ljdboR5BgnJ9LHMCWYINe@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKHPVj5rHGFKdGbAPiEj39krxdqw5aslJgyaNPkTHkPXtjhrm7
-	QvUJ3JT3NwubnXem/y79WsvVnH7RfJ9Cc+M/jXUXWZ9dOzrH2VcXAytNqkKdWXRBbmjymqAc9E/
-	lzNghGtL8Ge5suriFyOwEyRvuaPb0k6LxAZDY8wH1DcolWu3fDQc5bfWCvk5yheDm
-X-Gm-Gg: Acq92OHFih0wgx/m6hvdy9ITVNpKAANjMFSOhp2+BTBmZVm0rZSRuBla+Gu8enL/veN
-	qN7CglWQzdvdaw+c0Sy7JxviRFUR7jQ6so86DQplHvWj8rVXuZKaHGG2dFZpwPj8yOWGgxeCkBa
-	oelVQDOAvECbabDiBQTABdolT8rDgzaqbSd0Pytu/U6tEolESpXGvRaNH16G7qosbwHQwBcgzwq
-	da8AOnrKT5Kxs/igK/xjAy1FDsTcM/rVEexTs4HH6NG2lljCExhtGFOitmgy1UqOdrIrf6ev0Bk
-	UfkHYIzXDtuGA+TTqkP98agUaoxkjgtg8MD16fFbfYMkrANIGxYg4rthcJ59cSG//mUQN/SUQ0Q
-	Ke0rscUlCLbwmVbDtFdK6qZSIPMj52AM+Vrp0TkHjIt9bAsE=
-X-Received: by 2002:a17:903:1965:b0:2be:1c3c:72ba with SMTP id d9443c01a7336-2c1e80edc5bmr166945045ad.32.1780924290423;
-        Mon, 08 Jun 2026 06:11:30 -0700 (PDT)
-X-Received: by 2002:a17:903:1965:b0:2be:1c3c:72ba with SMTP id d9443c01a7336-2c1e80edc5bmr166943945ad.32.1780924289731;
-        Mon, 08 Jun 2026 06:11:29 -0700 (PDT)
+        bh=PckU5u1SzqZ+RYh35ZmEhvngTkL5r4rG5OsTb5FLskk=;
+        b=VCto1vSU3dKznJ1YyjwUPE8BVD06Jd9geXcB5tE+ue8I9XmwDEtn3AvX4oBtKX/qoQ
+         GeSN9TiJLjpZW5XnDaY0PmFT1fQmfQ8Yg5RJeCzGqQKpLdp9uHBe8k/Yafcfq1dx3MLb
+         rcSkSJrKSAZU/1VxETifzaLaoZrKuNdoRVeVLfYOEU1qecIGgIUwQDkutcyL+dtdKl8t
+         weDlJWALVP8KLSGVdbqqTi5XnFIEGFQNIN3X4mKnb6bJEfRGy/20iCaL69d5Ja5ib3Qw
+         A7dwtkc92+t7wUJ44ytYiNrC0Sfr4d5I47jz+iqK2nZL4YwkS9UIMUbvpqtX70C2nVB8
+         BmeQ==
+X-Forwarded-Encrypted: i=1; AFNElJ98pXvINWYyUy/BKU9eUNFpTw+ynqyuR734u1Nv5QXxRns8s3HcwM5amWaHxcdoIkCUYCA6nyBUCvnE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+FDAS7IBMmmc8HvzLBKZ42qFVyboC4tyUB41Xn+26IvqQVRHW
+	8z7RRQsC4x6XYgz/ZCG8PquvHOEUUOyH8SwIMWzmNVD5e+YVYT1cxWL1ZM0YLG/ME8RqiIHIy8F
+	z+zgtzay03j+3oDrOYwcWXEqZ+Uk9jp/umGygAPfGPjyDgcBYDpfdgJC6c4o6MhTK
+X-Gm-Gg: Acq92OFsFTwsAeFXQryQntddGo5rx3a5sKcVVQAng86ddLMVgo4ALOZwIPbwW77Acb6
+	qMDruJ5jJaZhZJGRVF/+Gt+P02sArqGWyPhn6q574Rm4XiPnh8c9Aa8cT0KHHhWJpu6vc3Ojp6f
+	f+NsoU7MvpF8iy8xWkOhxL68bB6Tc8FESitFXF2X0glWLtmqMEd3K4gmLMkjKhS057yQ+mfvWfw
+	B9vgDJD+JQplAq4KPU8r3oblCvm2kCy1mCam1NgwX9vSNrp3340VUmqt/iyt62sb4CfsTrlo9+Q
+	ApqsiA9lUMvrH5xObQVFFajeoObuaexOMNONwRxlbTO4WjQmS5e4HQ5wpyyR1NwqmmYfVjTjZX9
+	FAKPOTWT3SPFs5fb8vWBAMQkLceEBHr0OiHuLMn+QxU5tce8=
+X-Received: by 2002:a17:902:ced1:b0:2b2:4b4e:e4d2 with SMTP id d9443c01a7336-2c1e7e5267emr171619645ad.15.1780924295931;
+        Mon, 08 Jun 2026 06:11:35 -0700 (PDT)
+X-Received: by 2002:a17:902:ced1:b0:2b2:4b4e:e4d2 with SMTP id d9443c01a7336-2c1e7e5267emr171619185ad.15.1780924295431;
+        Mon, 08 Jun 2026 06:11:35 -0700 (PDT)
 Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1664ad172sm185235845ad.83.2026.06.08.06.11.23
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1664ad172sm185235845ad.83.2026.06.08.06.11.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 06:11:29 -0700 (PDT)
+        Mon, 08 Jun 2026 06:11:35 -0700 (PDT)
 From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Mon, 08 Jun 2026 18:40:28 +0530
-Subject: [PATCH v4 08/10] arm64: dts: qcom: shikra: Enable CDSP, LPAICP and
- MPSS on EVK boards
+Date: Mon, 08 Jun 2026 18:40:29 +0530
+Subject: [PATCH v4 09/10] arm64: dts: qcom: shikra: Enable TSENS and
+ thermal zones
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-shikra-dt-m1-v4-8-2114300594a6@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260608-shikra-dt-m1-v4-9-2114300594a6@oss.qualcomm.com>
 References: <20260608-shikra-dt-m1-v4-0-2114300594a6@oss.qualcomm.com>
 In-Reply-To: <20260608-shikra-dt-m1-v4-0-2114300594a6@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
@@ -104,144 +104,349 @@ To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-pm@vger.kernel.org, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780924231; l=2571;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780924231; l=6320;
  i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=jZ5sk6mDCOuUmvLcAvbMml5Kmz0BhTO2YLQnfm6VPW0=;
- b=iPU4VF9GBAJVNtLfvVcV5Bu20W5HoLd/rGWsPqI9feK38Il9JMxP7W8SZ7FTvIe7L7uvrec5f
- 60iHI31D58ACiVfpxLBpVd+GG3O2i2BJLj56xerILcRwXBku0YoUQhc
+ bh=5GO6GjX1SPCU3e6EbzxXVd34IDEP215KBVt1xhfHa7A=;
+ b=ywgyacqq7XdEiOr+DvEjTpvuJ61MGmgY0KmEPWsI5V1NiUbPlHT5wkeHCJjEIH89eCPbi7lZf
+ rfAo5TC4jluACJOcuERviM7A82E58lT4vUmCMqRTyzVAa7ahnkzBj4W
 X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
  pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Proofpoint-GUID: XNtXbeQKaKGou_102RSSfCaREeQPv6wa
-X-Proofpoint-ORIG-GUID: XNtXbeQKaKGou_102RSSfCaREeQPv6wa
-X-Authority-Analysis: v=2.4 cv=dIaWXuZb c=1 sm=1 tr=0 ts=6a26bf83 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: pDP5QarwtJ2lZuDQhhk0s_aAB-MC0Sf0
+X-Proofpoint-GUID: pDP5QarwtJ2lZuDQhhk0s_aAB-MC0Sf0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEyNCBTYWx0ZWRfX9E7Hgm1Jeg7M
+ 3s+GLhN2813eY8uN2OScaT9/KcTbsHFU2/+otfmFnxeUAtoQn9SCDTcXZepVKbUl9Tp1wP2wXHz
+ t/3ijTN6c48gXGzdnTF1v9e01utP8/bncVcSlqCp+jjqXKnd6kUzirUFqgDbPaqiIRuALdqEVeC
+ S2Wul2tgR0KKOgU9z7piuWadI24Zs5754iD2VcL7AvF/72erKusVXFMrd6JIKhYlW704gm/4zTo
+ 8NYdr/bkilCXGuzoAbLXjMzuXycX+wbO2AtYsozOnCfdMt1Zs8ikPNDxrV4izaaoRhw0Bq9HeLf
+ pz6+0+h0iz7eTxgP58Z+2V94PLOZ4ty3HiZ6T+JITz/nANazJL5otN52SzG6gfgqH3girHw9tRu
+ ZGshMEF+q/0x1c7epINcoRvFtTYJosjuTcZyZL1iclFZvtUVA3gKutBzhPbhelYh4q9kWGeKFXY
+ DDPh4NBO9cewZSlCX3g==
+X-Authority-Analysis: v=2.4 cv=TLh1jVla c=1 sm=1 tr=0 ts=6a26bf88 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=nu3v8zf0uA-Bo5sjUnsA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEyNCBTYWx0ZWRfX3nIEYt3lMYRp
- /YXXMM4UDV/6MYeRwM+ms2ZOygEFSIOrODHuNEZ0XbCUs7H5OT73UIriSeNzvf+mG8/yLfOn9IG
- ZBMKOcVzaEkwuW900lkoh9vgEI//MnvUJaqVgF7RTQNKYUKOXhKwudwhKKspterwi5pu4CgZIE8
- Vtt+UP120AHUM5jJCr1Eo6A1S+B5UOogPeO61AyKKEoSx+mcodgwR4zM7oVk9eBTZJ7gGO1pVxl
- JpxatHAeW/HIjSF4PWvKnuONk20ojW56q3q1nAggJ99GdoGh0KVbV7VLhik+9Q/FqgheqC8Ss/K
- JcA2tp130326bBlgNY01JnT2goD1yuAH+OgrgaWYFdWfbZQfjBi9T3xSiPVKKFpjx4wq3eb3SR9
- oPAZ/28XV7GwwU4e4vbMOCMBL6WqWuxQQ9eMVwKdpJG+Szp1wB/n+6/PaQB3nnrmwszmptS7zyL
- dcigQiKqgmlmZFHlEjg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=ciYlwfYJ63W0farxgtcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_03,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080124
+ priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
+ phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080124
 
-From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
-Enable CDSP, LPAICP and MPSS for Qualcomm's Shikra CQM, CQS and
-IQS EVK board.
+The shikra includes one TSENS instance, with a total of 14 thermal
+sensors distributed across various locations on the SoC.
 
-Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+The TSENS max/reset threshold is configured to 120°C in the hardware.
+Enable all TSENS instances, and define the thermal zones with a hot trip
+at 110°C and critical trip at 115°C.
+
+Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 19 +++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 19 +++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 19 +++++++++++++++++++
- 3 files changed, 57 insertions(+)
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 267 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 267 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-index 0a52ab9b7a4c..b112b21b1d79 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-@@ -23,6 +23,25 @@ chosen {
- 	};
- };
+diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+index 445dd8bb7269..c1f25ce89bb1 100644
+--- a/arch/arm64/boot/dts/qcom/shikra.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+@@ -12,6 +12,7 @@
+ #include <dt-bindings/interconnect/qcom,shikra.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
++#include <dt-bindings/thermal/thermal.h>
  
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/shikra/cdsp.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_lpaicp {
-+	firmware-name = "qcom/shikra/lpaicp.mbn",
-+			"qcom/shikra/lpaicp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/shikra/cqm/qdsp6sw.mbn";
-+
-+	status = "okay";
-+};
-+
- &sdhc_1 {
- 	vmmc-supply = <&pm4125_l20>;
- 	vqmmc-supply = <&pm4125_l14>;
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-index b3f19a64d7ae..e62ba5aef71f 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-@@ -23,6 +23,25 @@ chosen {
- 	};
- };
+ / {
+ 	interrupt-parent = <&intc>;
+@@ -983,6 +984,18 @@ spmi_bus: spmi@1c40000 {
+ 			qcom,ee = <0>;
+ 		};
  
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/shikra/cdsp.mbn";
++		tsens0: thermal-sensor@4411000 {
++			compatible = "qcom,shikra-tsens", "qcom,tsens-v2";
++			reg = <0x0 0x04411000 0x0 0x1000>,
++			      <0x0 0x04410000 0x0 0x1000>;
++			interrupts = <GIC_SPI 275 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH 0>;
++			interrupt-names = "uplow",
++					  "critical";
++			#qcom,sensors = <14>;
++			#thermal-sensor-cells = <1>;
++		};
 +
-+	status = "okay";
-+};
-+
-+&remoteproc_lpaicp {
-+	firmware-name = "qcom/shikra/lpaicp.mbn",
-+			"qcom/shikra/lpaicp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/shikra/cqs/qdsp6sw.mbn";
-+
-+	status = "okay";
-+};
-+
- &sdhc_1 {
- 	vmmc-supply = <&pm4125_l20>;
- 	vqmmc-supply = <&pm4125_l14>;
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-index 3003a47bd759..727809430fd1 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -23,6 +23,25 @@ chosen {
+ 		rpm_msg_ram: sram@45f0000 {
+ 			compatible = "qcom,rpm-msg-ram", "mmio-sram";
+ 			reg = <0x0 0x045f0000 0x0 0x7000>;
+@@ -2180,6 +2193,260 @@ cpufreq_hw: cpufreq@fd91000 {
+ 		};
  	};
- };
  
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/shikra/cdsp.mbn";
++	thermal_zones: thermal-zones {
++		aoss0-thermal {
++			thermal-sensors = <&tsens0 0>;
 +
-+	status = "okay";
-+};
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
 +
-+&remoteproc_lpaicp {
-+	firmware-name = "qcom/shikra/lpaicp.mbn",
-+			"qcom/shikra/lpaicp_dtb.mbn";
++				aoss0-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
 +
-+	status = "okay";
-+};
++		cpu-0-0-thermal {
++			thermal-sensors = <&tsens0 1>;
 +
-+&remoteproc_mpss {
-+	firmware-name = "qcom/shikra/cqs/qdsp6sw.mbn";
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
 +
-+	status = "okay";
-+};
++				cpu00-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
 +
- &sdhc_1 {
- 	vmmc-supply = <&pm8150_l17>;
- 	vqmmc-supply = <&pm8150_s4>;
++		cpu-0-1-thermal {
++			thermal-sensors = <&tsens0 2>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpu01-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu-1-0-thermal {
++			thermal-sensors = <&tsens0 3>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpu10-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu-1-1-thermal {
++			thermal-sensors = <&tsens0 4>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpu11-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss0-thermal {
++			thermal-sensors = <&tsens0 5>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpuss0-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		gpuss-thermal {
++			thermal-sensors = <&tsens0 6>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				gpuss-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		nsp-thermal {
++			thermal-sensors = <&tsens0 7>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				nsp-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		mdmss0-thermal {
++			thermal-sensors = <&tsens0 8>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				mdmss0-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		mdmss1-thermal {
++			thermal-sensors = <&tsens0 9>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				mdmss1-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		camera-thermal {
++			thermal-sensors = <&tsens0 10>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				camera-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		video-thermal {
++			thermal-sensors = <&tsens0 11>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				video-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu-0-2-thermal {
++			thermal-sensors = <&tsens0 12>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpu02-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss1-thermal {
++			thermal-sensors = <&tsens0 13>;
++
++			trips {
++				trip-point0 {
++					temperature = <110000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpuss1-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++	};
++
+ 	timer {
+ 		compatible = "arm,armv8-timer";
+ 
 
 -- 
 2.34.1
