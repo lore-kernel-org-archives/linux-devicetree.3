@@ -1,108 +1,203 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6C0378D9F;
-	Mon,  8 Jun 2026 07:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B0838F65B
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 07:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780903384; cv=none; b=f0Yhcr6LiyVPlrJQLVzmfahbNOUDAOulDgVZ70yPAisgU7p4BH+bLdVpZDYh7RQm1TM7KDW59h5nUedG3DHPFCRr8Qk+V8TcKSAF2vwblznymj288GyYdikHHyT3WLPCgsom5phm5gfv2e5+PbsJR9JqZJRtx2q72pmC3YrxL0o=
+	t=1780903980; cv=none; b=GMurM2peV9cFjFN2yKR1JxonWIbIkjghgkgrxnQ6NUnHox8Z1cBDA6/J07rCOucPpzl9QPlVvCFSI9qB/A8LcSCPx8Lgdgu/F0sA+FM+IPC2EGQmtWiv6EuPOTtur3l+uA8tw7yNK/3KzVMZTSA5Op4vgkjbwpxe1NPlwG9vSDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780903384; c=relaxed/simple;
-	bh=kKGitt0wwl5B4OQ7dh4T+3ojyopcbEz25bPRkuVE29s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UxNCMHVUiKfFUg+fr3EbcVN2GmnRAsL5GXFQIFWPJmO6YwV4dFrtcBjLfiU165VT3mbvPfaXwTtuJlSxPh4BRxaEdoV9kstpGhFPx/fi+Ne4cE4vWxn6Hzq0Kz/bBOIsN3Lb8NGHhJSvJYScdhluhfkDSrY7vjYpSr+qqeGMuPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=TWoLZun7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1780903980; c=relaxed/simple;
+	bh=XMHyOQHx6WIm/tuQ1tglv5lWCjfTXh95qCF2ldK+bKM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=duKI+WZSwqy+NAQWbJkY2MlvUdLDmJ3L+G5Pqw3cIclumnfIK9Ykm+2OvZNIsIf7AXo6geC4Duj3DYS6mKMw+RoJ7DtJBalxan8g9HBzdm55iy6oX08jkq0sfZzbFGhJCdyBgFeih5R3jkhJJOfe/E9CjO4P8ggis3FtRAnQYJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=wGFcigS3; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="TWoLZun7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ISh6jAJxakG5bT3u90PueAZOMiPTvwaHF+917dlM7t4=; b=TWoLZun7Tb/W8t7R+XAtl9kGoi
-	aQdT7YaKTZTBhn2noZ6VpegpeEchLhrhEQ9sYgodZZoEC5syRq+8E3ilnxothCISoLgiWvM6+zwKB
-	jPScMFaVIgmO+jz43MXKCq7qXBlaHbLUoJaCGap1tt8ENnFueIeloeVBINr0GkdgM9qE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wWUJo-006Zqb-Vn; Mon, 08 Jun 2026 09:22:44 +0200
-Date: Mon, 8 Jun 2026 09:22:44 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	Jerry Ray <jerry.ray@microchip.com>
-Subject: Re: [PATCH net-next v4 16/16] Documentation: networking: Add
- timestamp related APIs to OA TC6 framework
-Message-ID: <42edaaaf-af15-4855-93db-493a0fd2d498@lunn.ch>
-References: <20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com>
- <20260605-s2500-mac-phy-support-v4-16-de0fbc13c6d8@onsemi.com>
- <cf3d6937-1ffa-4d81-8e19-b3f607a7e1d1@infradead.org>
- <CY8PR02MB9249DA24FC3E3292FC2D7628831F2@CY8PR02MB9249.namprd02.prod.outlook.com>
- <DM4PR02MB9263A6240C8D09E368B6F980831C2@DM4PR02MB9263.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="wGFcigS3"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-68c19f1f3ceso5998570a12.2
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 00:32:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1780903975; x=1781508775; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5e4yVKORIbgcZMiPjlqQS5Msk7HSGQTKiassh3VqtIA=;
+        b=wGFcigS3B+FXukYWVi5TuZg0Iuo6fSbyAfy6NUHUuTyKi3aZ5s5eNx9ncKP3Jjj8qt
+         8i1LY9nXLim4RY+BzxCPdSXverYy2XgfIB4EfVKT6B4X/3vKM3K2FZS+gRBkP1euC3BZ
+         zGJ2tfn/wD1yVYyWbv/zeVMxld81oyJjV0K0MR8o/vGEekpoivOuxBgs4QjJlPkm1qlv
+         Rsqz9h21+KSR+WkU8nwsdA5YnNKdSGYjnzE2q5gS5mVJp7VNQxmYzdgBbofcDQuZwvbO
+         b99N69rEUw/T4Sb9GPoWywQgTWJ6HmTdtNeca54HsiJT4ZZx/FIvFqLlJAiczzl7xdFT
+         ab9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780903975; x=1781508775;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5e4yVKORIbgcZMiPjlqQS5Msk7HSGQTKiassh3VqtIA=;
+        b=jm5vKSIzXOizs8nj3xc64h3hAEziMOgVnNUmNWiysba4V++U1EwE/ceFAozv5i+gAj
+         ZJCSujf88E/E0mZSYMkzPs8g9fSEsCk990F+jNjhx0pNtL0yGrd/qtA+IKkvEMKwWgo9
+         9evCQwe1ybU2+UzNXDMwlXt/cckz7Ru0taZi+jQ8kzyBmjRxRf8CM+EhW3ffs8F/0REM
+         cwitVIErBhvEhJ6ZaWkjhkvnLM8ycsj2t6HAtHnjU350bnbODrEdrQLy4B6IGSvZvDOU
+         yRuwzVi3GO9+lK3yqMyxSLQHEHMfxj96nPy1vIB21+Zwyrzuxt6L4Fm3hcZybrqO0TCn
+         wzLA==
+X-Forwarded-Encrypted: i=1; AFNElJ8ZasjkadrKGhuaizxxlark7jS07BIf+Xv4yzcl75Yrh121rk3htBHQHCZCVBA5FvPd87v9BYmSaSbN@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywr0xwSdcKlBjYwk6aE9cfm701SSJlEWqiIbumesqqr1pnCgtg1
+	vr2fDrhvCjqm75QVLZ9to0oBkf+ocgfqbI2On1dO0Yq/BpsEC+2mrimsKC5S9WbXeNc=
+X-Gm-Gg: Acq92OHsEQaTEjzvnXfDkF3Wh4VLSUWkTFTZvUVTiFIaiCCztcwXgvC5nYWLuJnqBFN
+	Ox8Xm9r6ObD013f2xhwaIHDsXcgpNdteE0qxeZwCjkftGLO6dfxSErq4MN3P3ixNRthyBSZOEKb
+	jlGCClFabroGzxoWlgLQ+DUZFQQnOpB95oC3kcUXuiQL6/41TpJKQ/S41r2fxpGfQYQ6MGbvnhz
+	1JoxE2otWfVA7RGiFHdZy4dqBNqPg4XbOkpVyAAKtIg0MXPHx0mSSbsNmpkC2mgdJsOqObgLrkl
+	ofFvAVg9ole0nnE8bRlcw/IfqOS2R/X42aEyq41qJWKPmwvFegzWfHBdy/DhDSvLSJutiGq6GG4
+	i+yh0EJDa5Us1UNWPADqc4C1LMSvskUSBAJL4eo5j3KdCwDSFT7ClXEqfnWDUYtLDEdxFZzRkDj
+	Xsei4YtWeHO+hvkAcpy9qmtVUBnfD0FwP7GjH5CSjPVSK57Wz4jyt/htug1/zhY7e5IgwMxz4dU
+	D0fzNA=
+X-Received: by 2002:a17:907:3f20:b0:bdf:8e2a:1092 with SMTP id a640c23a62f3a-bf370e639e5mr722825866b.3.1780903975340;
+        Mon, 08 Jun 2026 00:32:55 -0700 (PDT)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051d82a31sm831571366b.19.2026.06.08.00.32.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 00:32:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM4PR02MB9263A6240C8D09E368B6F980831C2@DM4PR02MB9263.namprd02.prod.outlook.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 08 Jun 2026 09:32:54 +0200
+Message-Id: <DJ3HRRGJZN8F.3UNOV86ZOB47B@fairphone.com>
+Cc: "Ajit Pandey" <ajit.pandey@oss.qualcomm.com>, "Imran Shaik"
+ <imran.shaik@oss.qualcomm.com>, "Jagadeesh Kona"
+ <jagadeesh.kona@oss.qualcomm.com>, <linux-arm-msm@vger.kernel.org>,
+ <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+ <netdev@vger.kernel.org>
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: Add GP M/N clock controller node
+ for SA8775P and QCS8300
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Michael Turquette" <mturquette@baylibre.com>,
+ "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Linus Walleij"
+ <linusw@kernel.org>, "Richard Cochran" <richardcochran@gmail.com>, "Konrad
+ Dybcio" <konradybcio@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com>
+ <20260602-pdm_clk_gp_mnd_v1-v1-5-1522662b6c53@oss.qualcomm.com>
+In-Reply-To: <20260602-pdm_clk_gp_mnd_v1-v1-5-1522662b6c53@oss.qualcomm.com>
 
-On Mon, Jun 08, 2026 at 05:10:23AM +0000, Selvamani Rajagopal wrote:
-> 
-> > Subject: RE: [PATCH net-next v4 16/16] Documentation: networking: Add timestamp
-> > related APIs to OA TC6 framework
-> > 
-> > >
-> > > Hi,
-> > > These needs a few additional blank lines to avoid docs build warnings:
-> > 
-> > Will do. My bad that I didn't verify with make htmldocs after editing the file.
-> > 
-> > >
-> > > Documentation/networking/oa-tc6-framework.rst:554: WARNING: Explicit markup ends
-> > > without a blank line; unexpected unindent. [docutils]
-> > > Documentation/networking/oa-tc6-framework.rst:561: WARNING: Explicit markup ends
-> > > without a blank line; unexpected unindent. [docutils]
-> > > Documentation/networking/oa-tc6-framework.rst:566: WARNING: Explicit markup ends
-> > > without a blank line; unexpected unindent. [docutils]
-> > > Documentation/networking/oa-tc6-framework.rst:573: WARNING: Explicit markup ends
-> > > without a blank line; unexpected unindent. [docutils]
-> > >
-> 
-> Randy,
-> 
-> Though I fixed the issues you pointed out, I couldn't reproduce this issue with either "make htmldocs" 
-> or with "sphinx-build" commands. 
-> 
-> Am I missing something with respect to how document generation/verification is done?
+Hi Taniya,
 
-Try
+On Tue Jun 2, 2026 at 5:21 PM CEST, Taniya Das wrote:
+> Add the GP M/N divider clock controller node at 0x088d3000 to the
+> SA8775P (kodiak, lemans) and QCS8300 (monaco) SoC device trees.
+>
+> The node uses the qcom,clk-gp-mnd compatible, is clocked by the PDM
+> XO4 and AHB clocks from GCC, and exposes a single clock output
+> (gp_mn_clk) on the dedicated gp_mn pin mux function. The XO4 clock
+> is pre-assigned to 4.8 MHz (XO/4).
+>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/kodiak.dtsi | 14 ++++++++++++++
+>  arch/arm64/boot/dts/qcom/lemans.dtsi | 14 ++++++++++++++
+>  arch/arm64/boot/dts/qcom/monaco.dtsi | 14 ++++++++++++++
+>  3 files changed, 42 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
+com/kodiak.dtsi
+> index 1ff9e1598d00429c03b2bcae41fa370ab2c892bd..cbc13ac37f8aeb0b1071ad060=
+9ec11e829d2c798 100644
+> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> @@ -4412,6 +4412,20 @@ usb2_role_switch: endpoint {
+>  			};
+>  		};
+> =20
+> +		gp_mn: clock-controller@88d3000 {
+> +			compatible =3D "qcom,clk-gp-mnd";
+> +			reg =3D <0x0 0x088d3000 0x0 0xc>;
+> +			clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +				 <&gcc GCC_PDM_AHB_CLK>;
+> +			clock-names =3D "pdm_clk", "ahb_clk";
+> +			clock-output-names =3D "gp_mn_clk";
+> +			#clock-cells =3D <0>;
+> +			pinctrl-names =3D "active";
+> +			pinctrl-0 =3D <&gp_mn_active>;
+> +			assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +			assigned-clock-rates =3D <4800000>;
+> +		};
 
-files=$(git show --pretty="" --name-only HEAD)
-./scripts/kernel-doc -Wall -none $files
+Am I missing something, or would this just configure gpio60 for all
+boards for this clock controller output? On QCM6490 Fairphone 5 this pin
+is connected to FP_3P3_EN, so it's definitely not unused.
 
-This is what the CI system does.
+Maybe disable them by default and let the board enable it, if it wants
+to make use of this clock?
 
-     Andrew
+Regards
+Luca
+
+> +
+>  		qspi: spi@88dc000 {
+>  			compatible =3D "qcom,sc7280-qspi", "qcom,qspi-v1";
+>  			reg =3D <0 0x088dc000 0 0x1000>;
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 19f8cf4e15482947f6049188050c370340afaead..d192f92a896bb13017abdf820=
+62e8305aab3e5d5 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -4353,6 +4353,20 @@ opp-384000000 {
+>  			};
+>  		};
+> =20
+> +		gp_mn: clock-controller@88d3000 {
+> +			compatible =3D "qcom,clk-gp-mnd";
+> +			reg =3D <0x0 0x088d3000 0x0 0xc>;
+> +			clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +				 <&gcc GCC_PDM_AHB_CLK>;
+> +			clock-names =3D "pdm_clk", "ahb_clk";
+> +			clock-output-names =3D "gp_mn_clk";
+> +			#clock-cells =3D <0>;
+> +			pinctrl-names =3D "active";
+> +			pinctrl-0 =3D <&gp_mn_active>;
+> +			assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +			assigned-clock-rates =3D <4800000>;
+> +		};
+> +
+>  		usb_0_hsphy: phy@88e4000 {
+>  			compatible =3D "qcom,sa8775p-usb-hs-phy",
+>  				     "qcom,usb-snps-hs-5nm-phy";
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
+com/monaco.dtsi
+> index ebe5889daa5300efa7857314e9170d7d2fc33ef7..f6c5ec38c7491b7a16ebfb853=
+f8af88bdf1f0db3 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> @@ -4867,6 +4867,20 @@ opp-384000000 {
+>  			};
+>  		};
+> =20
+> +		gp_mn: clock-controller@88d3000 {
+> +			compatible =3D "qcom,clk-gp-mnd";
+> +			reg =3D <0x0 0x088d3000 0x0 0xc>;
+> +			clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +				 <&gcc GCC_PDM_AHB_CLK>;
+> +			clock-names =3D "pdm_clk", "ahb_clk";
+> +			clock-output-names =3D "gp_mn_clk";
+> +			#clock-cells =3D <0>;
+> +			pinctrl-names =3D "active";
+> +			pinctrl-0 =3D <&gp_mn_active>;
+> +			assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +			assigned-clock-rates =3D <4800000>;
+> +		};
+> +
+>  		usb_1_hsphy: phy@8904000 {
+>  			compatible =3D "qcom,qcs8300-usb-hs-phy",
+>  				     "qcom,usb-snps-hs-7nm-phy";
 
