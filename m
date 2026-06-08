@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A720937F721;
-	Mon,  8 Jun 2026 19:48:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBD83C3C0E;
+	Mon,  8 Jun 2026 19:49:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780948094; cv=none; b=XuhthF9WFCoc0dWFi3PYbTZWrH5T9oay73nGPvgQG9egv/gzhRj4dWO2b0wTZ/nOXdqpNvIWdjbmgZUvBNvQkpmcjRG9aJkw/VBqzzLcVWo/uwWl/9Go01BMAfPUr1KW0cDw6TrhwojLAA7wj9A3mUM2xfP1dVTgGaFg47NPP3Y=
+	t=1780948150; cv=none; b=pUAvRlbjEqXO9w4yFV9r+oBSsFYrbvS6Pjgbt7IbS4DO9Kkv70w8JabreFABcemGNdnXXo+DuG+PObtmr3DunJV5c3lufthuzUY0tbpWONjTprrn6K+Zx5x0pkCuEfmUA4K2SytKgiiTQjAn7wAk2O+EXu7d4k6rH7QSkB1E23E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780948094; c=relaxed/simple;
-	bh=+Ze7wlvQCSqYAK/5lCWzSqyjPXfsA34McEhLyWMGz+o=;
+	s=arc-20240116; t=1780948150; c=relaxed/simple;
+	bh=lFPuOA0+nYd5lmSCzxX9B5Sr7YnZ530uQSzMHCj2XgA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PJINSwr52kpyQt535EJJl1sS4yPuqE123YQEttokq3Ah43mlWyDRaJ1uF4qKgH2usOIsLcKjrIq44nOEm9Y72qQXrPvIPXmgW352H9eVLwnxoU6LXf4xqKGw3hnfRFBbgnsW1QOLDaFXxAU2KveVarHyCqanAPPWIT7alGL/PMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/Wzkui5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=OhJkKuEgFymUB+VHB0dx70h45C/ZeTuCDRduI3u9gy1jCbL7jGVc/VFFli54ucgOg0nWSK6i2h8oU1TLYryq9lx0Tqb++3lDDiK6KF33cEQmLdGjcKJD8YKrkQDtyTcbNpQVKUce+5X1MPaUi4KYQmNBDgwub4k7siywqEPxIOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOqwgBz1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/Wzkui5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CBB1F00893;
-	Mon,  8 Jun 2026 19:48:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOqwgBz1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1FE1F00893;
+	Mon,  8 Jun 2026 19:49:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780948093;
-	bh=VVNTZaAO0B0DQ+HTH+EESlWokJ8mf5amEZrArva7fb0=;
+	s=k20260515; t=1780948149;
+	bh=EfqxP/NBZsSvIK+t1PXFuVmwIz5Ypn/N27RGGMuwgWo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=E/Wzkui5soYyPiod/SkyuiDxg9W7N5rEpDkLT0a6VoKbfVcxWP/5a292RCCpZrGlF
-	 UzYsRTs4jfRARqO/jp3LSWva5ArcOdzKY+FkpyOsM4s3SQZL6iK1/xviVRa2bX0Q75
-	 0bUeEZiZSgvLyxyarxXgy+4fLoWOYUt/xk3pS8ftICME8m0rWk7fd/NHntpEA80FUZ
-	 CdveDCuqb/PIf4KTwO+WwF8xbD6n78cWIm7AaLo5GqZ9E5wFGH08RLi+/lvC85PQlA
-	 C7Mlk+ZgxPWN+coVt6yzXoUyJoYBoBXEbZhAahxl+48St3CyXEYrpyDxytooDNQQhq
-	 iE/2o2FUa0TrQ==
-Message-ID: <0030e12e-96b7-4a22-a3b4-1b42bd32f39e@kernel.org>
-Date: Mon, 8 Jun 2026 21:48:04 +0200
+	b=WOqwgBz1Mabg1F4H1WNZ1DDTeaD+9IJck8dVcbb8RPu/W6/kHaVIzWEksZ3Gq61CD
+	 OB1D5wCVdx7380LsY4wYooaatZL1lw2SbQsRz8oY2dscYgcukTLlaKJLU33sdORtoO
+	 ipDg+lySAy9KsvL7xW+BouPg/c6Skb2+kKfF8WSuuGJSZSALNEJMxdPfJ8Cdszp/ig
+	 bTWKBIB6jNX1nNz2AxAIK/Jsvg01qkl6sEJtSL9/FQAs4d+uhGv2qhtJxCCJIZHr1V
+	 vOZtt8YgslL9vC734R9ofOIe5fyal/ZSwgXXaDkJQinN56SdZ31sxuq7BfwSCkKpV+
+	 LT01bt3TSSIeA==
+Message-ID: <844eccf8-4ad3-46a2-bc8a-67895d629c4f@kernel.org>
+Date: Mon, 8 Jun 2026 21:49:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] soundwire: qcom: add EE-aware register layout and
- cpu selection
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Rao Mandadapu <quic_srivasam@quicinc.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
-References: <20260608175345.3118060-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260608175345.3118060-3-mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH 4/5] dt-bindings: dma: qcom,bam-dma: Increase iommus
+ maxItems to seven
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Andy Gross <agross@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dmaengine@vger.kernel.org
+References: <20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com>
+ <20260521-shikra_crypto_changse-v1-4-0154cc9cc0de@oss.qualcomm.com>
+ <20260530-spiffy-glittering-quail-dff199@quoll>
+ <289a5bca-5491-4fc2-92d9-1102aa664021@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,27 +97,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260608175345.3118060-3-mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <289a5bca-5491-4fc2-92d9-1102aa664021@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/06/2026 19:53, Mohammad Rafi Shaik wrote:
-> Some Qualcomm SoundWire masters expose interrupt, FIFO and status
-> registers in EE-specific register windows on v2.0 and newer hardware.
+On 06/06/2026 22:59, Kuldeep Singh wrote:
+> On 30-05-2026 16:09, Krzysztof Kozlowski wrote:
+>> On Thu, May 21, 2026 at 06:47:11PM +0530, Kuldeep Singh wrote:
+>>> Shikra bam dma engine support 7 iommu entries and not 6.
+>>> Increase maxItems property for iommus to pass dtbs_check errors.
+>>
+>> What errors? There is no Shikra in upstream so how could we have errors?
+> dt-bindings updates are prerequisites for the DT changes of ice,rng, qce
+> and hence updated bindings in patch [1-4]/5.
+> Also, the commit message mention about shikra and DT change is also in
+> same series.
 > 
-> Add support for selecting the SoundWire execution environment from DT
-> and use it to program the correct register window for the active EE.
-> The driver now reads the EE value from the new
+> I hope this clarifies.
 
-No, it does not. "now" means before the commit, you are making the
-changes - see submitting patches.
 
-> qcom,swr-master-ee-val property, with qcom,ee as a fallback for
-> backward compatibility.
+No, nothing is clarified. This commit msg is just misleading.
 
-And where did you document qcom,ee and why do you need fallback in the
-first place? For downstream DTS? We do not support anything from
-downstream here.
 
 Best regards,
 Krzysztof
