@@ -1,177 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7D0301708
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:57:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5004E192D97
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 03:02:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780887476; cv=none; b=fFDHV6eGm84a75nQHGNlwSz/sln6/aFmdy1sprZGof9S4nX3V6A5iF8FLHEAwe0W57FjC1Wuqucm05bemE8Z08PVDX/ws3QUZ71ww+mLYiIwTAXl+SQnmQ7YNWdhLMY/k5+UwPzv/6jZBM1UkBFeRw8s9WkK1NZwP7gNVn1yAKA=
+	t=1780887774; cv=none; b=NnyoDMft0SHTDdLtbG0CH765C7HdI87i0AA1oVhLytcmwgWTbHCgmlJ7NY+MDJAaiNVycg4SHl6HVeRmSbfV1AXhnA9iSE5nmZh1mPkwR8q6Zr9nJGY8+gOiI3zpVqt6i3S7740UaPUQX3qsNNsIHhYa6dqw6RiKZZGlYNYO6vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780887476; c=relaxed/simple;
-	bh=1oThuVHaHRFixJ/o9S43JK0oOQ0HuJgYxFMYpqNsCn0=;
+	s=arc-20240116; t=1780887774; c=relaxed/simple;
+	bh=oVQSnFANYVtICnG044r6lXcCF2/sy2mAzFlzljcUVFY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mS2z6dFvqECJi379AbKxpKy8rVMFqlFBPo+KNAv/1/fT7/SIu1Cl62C0DA3nQh+yU5ZhUjMVqQoLM3qw3vdYdTgoXz60JlXSpvaWOCIhs6WI2namdsMCHH4Nx++W4SV/pWb+VqOTInrSv33KTIE14r85/OKSV9hbXkjznRl8VJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juqCv0JP; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GWdstu9d2DJia6yIOrfFFm2SMH9rn3mAzulwDVHd2BdtZp2bTI3SX/WaOayaU7vjGI6W6ZaOdHovghYH9ZHcgKhZ3v/ld6Iq0kazG7MX77hxZvAG2bS1OkShcUR7huDfiTg4a1n96pAkXVk2CZeR95ZAmyTkp1DRiG7FzpKBWvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsRbfiJ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juqCv0JP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB08E1F00893;
-	Mon,  8 Jun 2026 02:57:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsRbfiJ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9BC51F00893;
+	Mon,  8 Jun 2026 03:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780887474;
-	bh=bseez00jSu9j6zJSZAIiVzIlVDkbBGiNZQOGS6Xc0d8=;
+	s=k20260515; t=1780887772;
+	bh=qfBPKX0coFA0YWNicPUkr1szsz4j7lIvv6De/Dqr+zo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=juqCv0JPdcmGg6wvNwaVVEGhPIdfUXJp8VXuBqZyOyQ7wLcoWEVJoB6/fUfPZo0W/
-	 eBp4sTuwa0fXuWuludb0O9QEXz5L7/L1NPJNmqfqqwlXhDleK3XjN05w+//Ln3SCjN
-	 vp8k0aRBplwN30xkPfPrOxsVAvMxoY9ZsPWJ19dcn4pFo4q6f+Aqi0pwCYbGurXlej
-	 3IxzlspaMFp1Xm6xjOt4j3ITW/ufbPN4iwNhQ8sR21O+eOyHinbXWsgNGiO0Acp9ib
-	 va9sdVY0hxU/w9l++Cy7StR6k5ddlSOf8lSJgvScqJJYVYxfuskoGGop5cipKzf093
-	 hQVDb89nC3+6Q==
+	b=YsRbfiJ1ZVJEpisPxG28NYz6mA07fKYWfo7SuS0yEkIx4RVH0p4AtEVCd72aDqhPK
+	 dVQ3M2ECTBPxxUeTJVDK4Ev8xdIBUhzyhc6y2p8WG8VI0boDGSi+DjRJvjc3kJ+MyR
+	 vjHtdD1WQYNLsdlXSTT8CwafHBrFSWmi23atMtRsuG5QaGHECBDKcusGqLVyvCFhHs
+	 OraQBARCxafJZAY7to/3Y0A60D2osjfQSDjJ3gu2SUO5GJTDD2FH6iSUfnbF3XrKXZ
+	 DinAFCQ/j5TJOSvzGDA+QQyD2SxQu0JLInZe0nhPwYT9iBEo9d6rWGKe5zFK2qvHzA
+	 kuY/eyJWHfL8w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] i2c: ls2x: Add clocks property parsing and
- adjust bus speed
+Subject: Re: [PATCH v2 2/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI
+ controller support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongliang Wang" <wanghongliang@loongson.cn>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260608024533.32419-3-wanghongliang@loongson.cn>
-References: <20260608024533.32419-3-wanghongliang@loongson.cn>
+To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260608025009.1504971-3-cwweng@nuvoton.com>
+References: <20260608025009.1504971-3-cwweng@nuvoton.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:57:54 +0000
-Message-Id: <20260608025754.AB08E1F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 03:02:52 +0000
+Message-Id: <20260608030252.B9BC51F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Calling `devm_clk_get_optional_enabled()` dynamically causes u=
-nbounded memory leaks and unbalanced clock enable counts.
-- [High] Calculation of the I2C prescale value lacks bounds checking, leadi=
-ng to a kernel panic if `div` evaluates to 0.
-- [Medium] The driver improperly repurposes the standard `clocks` property =
-to read a raw 32-bit integer frequency in ACPI setups.
-- [Medium] The strict check for `dev_of_node(dev)` breaks compatibility wit=
-h ACPI PRP0001 matching, causing valid match data to be discarded.
-- [Low] The numerator calculation `pclk * 10` can overflow a 32-bit integer=
-, resulting in a miscalculated I2C bus speed.
+- [High] The TX/RX loop unconditionally waits for the RX FIFO to fill, stal=
+ling and timing out during half-duplex transmit-only phases (Quad/Dual OUT).
+- [High] A fast-read race condition exists in nuvoton_qspi_reset_fifo where=
+ the status bit is polled before the hardware asserts it.
+- [Medium] SPI_CS_HIGH support is fundamentally broken due to omission from=
+ ctlr->mode_bits.
 --
 
-commit 3bc9e29253442765caa0c735b574051e32efaa27
-Author: Hongliang Wang <wanghongliang@loongson.cn>
+commit 822bfa8b5549aa56a2619eaa2c69adefdc89e29f
+Author: Chi-Wen Weng <cwweng.linux@gmail.com>
 
-i2c: ls2x: Add clocks property parsing and adjust bus speed
+spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller support
+   =20
+Add SPI controller driver support for the Nuvoton MA35D1 Quad SPI controlle=
+r.
 
-The i2c-ls2x driver supports dts and acpi parameter passing. It adds
-clock framework parsing for device tree configurations, and reads
-clock and clock-div properties directly for ACPI setups.
-
-> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-> index b475dd27b7af9..46dafa11b3013 100644
-> --- a/drivers/i2c/busses/i2c-ls2x.c
-> +++ b/drivers/i2c/busses/i2c-ls2x.c
+> diff --git a/drivers/spi/spi-ma35d1-qspi.c b/drivers/spi/spi-ma35d1-qspi.c
+> new file mode 100644
+> index 0000000000000..93b60b6142e53
+> --- /dev/null
+> +++ b/drivers/spi/spi-ma35d1-qspi.c
 
 [ ... ]
 
-> @@ -107,12 +117,30 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i=
-2c_priv *priv)
->  	else
->  		t->bus_freq_hz =3D LS2X_I2C_FREQ_STD;
-> =20
-> +	if (dev_of_node(dev)) {
-
-[Severity: Medium]
-Does this check break compatibility with ACPI PRP0001 configurations?
-
-During probe(), the driver correctly reads priv->div from the compatible
-string using device_get_match_data(), which supports both native Device Tree
-and ACPI PRP0001. However, since dev_of_node() evaluates to NULL for ACPI
-nodes, PRP0001 setups will be incorrectly routed to the native ACPI fallback
-block.
-
-This will discard the valid matched priv->div and attempt to read non-exist=
-ent
-native ACPI properties. Could this check for the presence of priv->div
-instead?
-
-> +		clk =3D devm_clk_get_optional_enabled(dev, NULL);
-
-[Severity: Critical]
-Does calling devm_clk_get_optional_enabled() here cause a devres memory leak
-and unbalanced clock enable counts?
-
-ls2x_i2c_adjust_bus_speed() is called by ls2x_i2c_init(), which is called n=
-ot
-only during probe, but also during normal operation and error recovery:
-
-ls2x_i2c_resume() -> ls2x_i2c_init()
-ls2x_i2c_xfer_one() -> ls2x_i2c_init()
-
-Since devm_clk_get_optional_enabled() dynamically allocates a managed resou=
-rce
-and increments the clock reference and enable counts, calling it repeatedly
-without releasing previous allocations will eventually exhaust system memory
-and overflow the clock reference tracking.
-
-Can the clock be acquired exactly once in probe() instead?
-
-> +		if (!IS_ERR_OR_NULL(clk))
-> +			pclk =3D clk_get_rate(clk);
-> +		else
-> +			pclk =3D LS2X_I2C_PCLK_FREQ;
+> +static int nuvoton_qspi_reset_fifo(struct nuvoton_qspi *qspi)
+> +{
+> +	u32 val;
 > +
-> +		div =3D priv->div;
+> +	val =3D nuvoton_qspi_read(qspi, NUVOTON_QSPI_FIFOCTL_OFFSET);
+> +	val |=3D NUVOTON_QSPI_FIFOCTL_TXRST_MASK |
+> +	       NUVOTON_QSPI_FIFOCTL_RXRST_MASK;
+> +	nuvoton_qspi_write(qspi, val, NUVOTON_QSPI_FIFOCTL_OFFSET);
 > +
-> +		val =3D (pclk * 10) / (div * t->bus_freq_hz) - 1;
-
-[Severity: Low]
-Can the numerator calculation pclk * 10 overflow a 32-bit integer?
-
-Since pclk is a 32-bit unsigned integer, if the reference clock exceeds
-approximately 429.49 MHz, the multiplication will wrap around and yield an
-artificially small numerator.
-
-While typical reference clocks might be lower, would it be safer to use 64-=
-bit
-precision like div_u64((u64)pclk * 10, ...) here?
-
+> +	/* FIFO reset is extremely fast, safe to keep atomic for this micro-wai=
+t */
+> +	return readl_poll_timeout_atomic(qspi->regs + NUVOTON_QSPI_STATUS_OFFSE=
+T,
+> +					 val,
+> +					 !(val & NUVOTON_QSPI_STATUS_TXRXRST_MASK),
+> +					 1, NUVOTON_QSPI_TIMEOUT_US);
+> +}
 
 [Severity: High]
-Does this division lack bounds checking for a zero divisor?
+Could this read a stale 0 before the hardware has time to assert the
+TXRXRST_MASK bit?
 
-If div evaluates to 0, this will result in a division by zero kernel panic.
+If the IP takes a few clock cycles to propagate the reset and assert the
+bit to 1, this polling might return success prematurely on the very first
+iteration. This could lead to data loss if we start writing to the FIFOs
+while they are still mid-reset.
 
-This regression can happen if the device is manually bound via sysfs
-driver_override without an ID match, causing device_get_match_data() to
-return NULL. It can also happen in the ACPI branch below if a misconfigured
-ACPI table sets clock-div to 0.
+[ ... ]
 
-Should div be explicitly validated as greater than 0 before performing the
-division?
+> +static void nuvoton_qspi_set_bus_width(struct nuvoton_qspi *qspi,
+> +				       unsigned int buswidth,
+> +				       enum spi_mem_data_dir dir)
+> +{
+> +	u32 ctl =3D 0;
+> +
+> +	if (buswidth =3D=3D 4)
+> +		ctl |=3D NUVOTON_QSPI_CTL_QUADIOEN_MASK;
+> +	else if (buswidth =3D=3D 2)
+> +		ctl |=3D NUVOTON_QSPI_CTL_DUALIOEN_MASK;
+> +
+> +	if (buswidth > 1 && dir =3D=3D SPI_MEM_DATA_OUT)
+> +		ctl |=3D NUVOTON_QSPI_CTL_DATDIR_MASK;
 
-> +	} else {
-> +		/* clocks and clock-div are only ACPI properties. */
-> +		if (!device_property_read_u32(dev, "clocks", &pclk) &&
+[ ... ]
+
+> +static int nuvoton_qspi_txrx(struct nuvoton_qspi *qspi, const void *txbu=
+f,
+> +			     void *rxbuf, unsigned int len)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * Use conservative word-by-word PIO access. This keeps the initial dri=
+ver
+> +	 * simple and avoids relying on FIFO threshold interrupts or DMA suppor=
+t.
+> +	 */
+> +	for (i =3D 0; i < words; i++) {
+> +		ret =3D nuvoton_qspi_wait_tx_not_full(qspi);
+> +		if (ret) {
+> +			dev_err(qspi->dev, "TX FIFO full timeout\n");
+> +			return ret;
+> +		}
+> +
+> +		nuvoton_qspi_write(qspi, nuvoton_qspi_tx_word(txbuf, i,
+> +							      qspi->bits_per_word),
+> +				   NUVOTON_QSPI_TX_OFFSET);
+> +
+> +		ret =3D nuvoton_qspi_wait_rx_not_empty(qspi);
+
+[Severity: High]
+Will this loop stall and time out during half-duplex transmit-only phases?
+
+When the bus width is > 1 and direction is OUT, NUVOTON_QSPI_CTL_DATDIR_MASK
+is set in nuvoton_qspi_set_bus_width(). This typically places the controller
+in an OUT-only state and disables the RX path so no data enters the RX FIFO.
+
+Because the loop here unconditionally calls nuvoton_qspi_wait_rx_not_empty()
+for every transmitted word, it seems this will stall until the 10,000 us
+timeout is reached, causing multi-IO transmit operations to fail.
+
+[ ... ]
+
+> +static void nuvoton_qspi_mem_set_cs(struct spi_device *spi, bool enable)
+> +{
+> +	struct nuvoton_qspi *qspi =3D spi_controller_get_devdata(spi->controlle=
+r);
+> +	bool assert =3D enable;
+> +
+> +	if (spi->mode & SPI_CS_HIGH)
+> +		assert =3D !assert;
+> +
+> +	nuvoton_qspi_set_cs_level(qspi, spi_get_chipselect(spi, 0), assert);
+> +}
+
+[ ... ]
+
+> +static int nuvoton_qspi_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	ctlr->bits_per_word_mask =3D SPI_BPW_MASK(8) | SPI_BPW_MASK(16) |
+> +				   SPI_BPW_MASK(32);
+> +	ctlr->mode_bits =3D SPI_CPOL | SPI_CPHA | SPI_LSB_FIRST |
+> +			  SPI_RX_DUAL | SPI_TX_DUAL |
+> +			  SPI_RX_QUAD | SPI_TX_QUAD;
 
 [Severity: Medium]
-Does this reuse the standard clocks property incorrectly for ACPI setups?
+Does the omission of SPI_CS_HIGH from mode_bits prevent active-high devices
+from probing?
 
-The clocks property is strictly defined in Device Tree and unified ACPI _DSD
-environments as an array of phandles to clock providers. Reusing this exact
-name to read a raw 32-bit integer frequency creates a binding conflict and
-could break generic property parsers.
+The driver implements logic to support active-high chip selects in
+nuvoton_qspi_mem_set_cs() by inspecting spi->mode & SPI_CS_HIGH.
 
-Could a standard, non-conflicting property name like clock-frequency or
-ref-clock-frequency be used instead?
-
-> +		    !device_property_read_u32(dev, "clock-div", &div))
-> +			val =3D (pclk * 10) / (div * t->bus_freq_hz) - 1;
-> +		else
-> +			val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
-> +	}
-> +
+However, since SPI_CS_HIGH is not included in ctlr->mode_bits, the SPI
+core subsystem's spi_setup() will immediately return -EINVAL if a device
+tree node requests spi-cs-high. This renders the active-high logic
+unreachable dead code.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608024533.3241=
-9-1-wanghongliang@loongson.cn?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608025009.1504=
+971-1-cwweng@nuvoton.com?part=3D2
