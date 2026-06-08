@@ -1,155 +1,119 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010061.outbound.protection.outlook.com [52.101.228.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F80646B5;
-	Mon,  8 Jun 2026 00:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780877313; cv=fail; b=tAky8AauL9EsVWwIOhZ+KbB7qDWAVD82hnmAWTX88j6Zm7pmArJrLWQxQgxKpNcyMHlHO80tYuR7pHmw14PWfYpt7wOwN8WkZzSIfd2XH5BIAHZhNDdYH0wRBPnoAwqnTKotQ3U9fxA/adF+VwIoukjWmx4Iej9bAUdhGDfJOJQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780877313; c=relaxed/simple;
-	bh=pNKASoyBO371fryUVWs83vcjHbtLbft8219uu6sCeb4=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=fxmGD5uyzlzNtkG9goxr6XJKDqAO1c6SinL87GZILmRnv5QykJeOHNOJ9S+AF0h4mD3S6+5BW3CUlZoWJ6iTNvbtzWRb+cvufP+5yxEPLcLuZKI6kd+a7N7HBLu4ZPaMlQlCdLVRTJ2QTJpdkr0TXu9tae1lbU3HLWqGhKRnLWA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=OkjKVF4k; arc=fail smtp.client-ip=52.101.228.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE1029B8CF
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 00:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780879182; cv=none; b=Ha1Yhzamkj03baAQlc82C104N8MGu5dnfJrKRsjNHkT/xooDWlHZYNIFHO5vsXW+LOc2ryrmJ/ND2a9uj8floB77zxUbowrKptTPe6v2weojJsXekDQa2V0e6aZMsWULDpN59bITqHjpYjmLBV6Ayvc9CVktkeO43iyN+OMWZEE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780879182; c=relaxed/simple;
+	bh=RJL0Dbep6IrG0PYgc93NRjCz7SfzICawS1LMvoLyf2U=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
+	 In-Reply-To:References; b=MNF8lBZdADRVxSdGYfma+BxAzMxJJ1Mjz1FcV0+h0tzejqgxTcgXoY6hzW4IY/6gxqD4y7y5yVg8PLQ5U+wxjMwPgkCwQwALVXXNLGhyuSwDHD2obpS0UCvrA0edmRqIYV1PKyPhK8gTY72AD/dV/GMfvi5VUqVzV2HCcDwuS8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=eBl7kdVV; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="OkjKVF4k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sCHk4k93qlWfbstJA3OQoNgyODlc8aJ92YEi0JPSo6DCuGZjsaK+ocjmItplSaff7eUTXQxcc/GYboNwxTlRzrhCvmcse8mVJFru7RmWyhF6pXCfv0rQOfc/P/A/wuQ2ytGIkVN6JWu1DyOAh1IxBmUuKb1B1vuel0bCZBou8hJ+ro6jSAKBePQq0Q72WBsvlNzhLtJ0UHDAEfSMaxE8zqIusT5ooh2bULlHkwTKFqK7iE48pnr7eVKt1Qo0vceaUCAS9H3IoV29lmhQIN/ut8WZGIsI26spKO/xH6T/Zml16iUDticIXsfPsFqfmjTYnCYoHzdpMRhCLAYZPKSrrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2uFHlsUZeiMgj8bNQppY5lnEBDQQvxFFGSuKqyRKU/E=;
- b=ynLkfbh+y7q+FoMXVo4JUGmLrrLBP8ePj2r1DKHBVJt6Mgfe1a6EHuKw7EAgk+M75AXV5++xKiQEgHYEEIvXNPXvbHEUnsQGUcbm8UGiiT6l5X65GKfs0q2bXa8vVMOukuW2dw1MP12ewlw3B03Xo82QA8eJhrhXsrRgimzkMf7nmcj74XGVxkUEa0fL/eYRXr88gS+VwuRTHtuj4UKxNgbmVYZgqhl6j/HpYs6HYEOb/i0KpjhaUzhQ4BlHkjMsR7CF3rhj3OrP+n1NLI1sZzuyPISeORl8k7LviGsB9C35ySdEI+ckmZJcaBanNg34nLSYFacHWrEO5vhtLRX0Iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2uFHlsUZeiMgj8bNQppY5lnEBDQQvxFFGSuKqyRKU/E=;
- b=OkjKVF4kBvSTWE2djw7iMDq/Q+Zeplwny3K/gQbENoGlGQ+OCv2/66jlnY19bANd6gG9O6RxvCTnzgMDyLAn+trykb20MrJjeh6u3Av3WhLa56IqqkLgd2ErxMrsJrdcSgxnkJA+mOTxVGsiDRC7D8bpbB2gJBqYHqfNiqjDdx0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
- by OS9PR01MB14009.jpnprd01.prod.outlook.com (2603:1096:604:364::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 00:08:29 +0000
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383%5]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 00:08:29 +0000
-Message-ID: <871pehgagz.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 10/10] ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
-In-Reply-To: <CAABR9nHGNVWuOLyuqvjrsYYJBXOFs8W0ZN5PUs3AX4+rM2RmMw@mail.gmail.com>
-References: <20260605121955.105661-1-phucduc.bui@gmail.com>
-	<20260605121955.105661-11-phucduc.bui@gmail.com>
-	<68a03a72-07f3-4738-bad4-6b92bafec318@sirena.org.uk>
-	<CAABR9nHGNVWuOLyuqvjrsYYJBXOFs8W0ZN5PUs3AX4+rM2RmMw@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 8 Jun 2026 00:08:29 +0000
-X-ClientProxiedBy: TYCP286CA0326.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3b7::10) To TY3PR01MB11797.jpnprd01.prod.outlook.com
- (2603:1096:400:373::8)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="eBl7kdVV"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-304f590dd91so3966830eec.0
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 17:39:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1780879180; x=1781483980; darn=vger.kernel.org;
+        h=references:in-reply-to:content-transfer-encoding:mime-version:to
+         :from:subject:cc:message-id:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LC0cBs3wjxXy5zOKfXpkaV2SGZVYDHStwYMg/Do3oGQ=;
+        b=eBl7kdVVis41wGqRBOQ2eDZQrKdCf1ya574z+Bgl0HEyH/YKwV0mjkGt5yCIKhgvm+
+         rLJEP6I6oG4ujUUvtliO+8XX2l+jCeCE1nqRC4E2MI4lu9XrGupDuDKAN+c+74ylmBKj
+         trp/BzW+6SVMAzkdCpwRnSeTqc3ZGGpwf99lLDL+/OLNa4CXkYpTceFOQKA9vjDeihKe
+         0ZH+OuwIQHd+hJ6CJP3t2HUpTRYK5/m2ql1qwcD+NCNZDTnrxZcZgWW7ofraCE1HP0lI
+         ee38Y/e4fqHmZeV5LY9WIpp/zdQIxXISEUrieAc5nH1A56F5ABGqPKuIYQ4E574ieixt
+         Oc/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780879180; x=1781483980;
+        h=references:in-reply-to:content-transfer-encoding:mime-version:to
+         :from:subject:cc:message-id:date:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=LC0cBs3wjxXy5zOKfXpkaV2SGZVYDHStwYMg/Do3oGQ=;
+        b=VGPaMAXtks+GpP5sZMb7SsLctA8sFQcTeM9Uwh+CmCscEJL10katVJiDWalsXJHNcD
+         lqKt+XtvTwbPA/6HBIe6JA+cbrUxa5shGgU72wTEA7LhLwnkbLsleivU4jemJQHWdlDQ
+         vK21A64OBwkuV+y1XygAqskHmgf6TPtBQs32NEgm2oljbiKgkQjWjJ+YeYXNOzJwz7Nh
+         TPvRgyuMgXk9MB76G4g7tMYiafjAsLbXXShXUA3nIOwh4662/PkW+FizXhetkxyT+Sud
+         Lw0ceBV7VcSXYYaqy732+WMylS5WJE4dXmwjLbdFyjTmhAGr+XzAtT3cw7pHNUrj3tk/
+         l3mg==
+X-Forwarded-Encrypted: i=1; AFNElJ9Aa1kZXDGnROoTitvHMwyq/oWr03zFZHrg2CuQiUmihXQlbxBqO3P6bfZ/0Mdcb2q/otyhU76njN4Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YweMU4S/VJYuZTXNmBjkT5e8f9dWB1pWnycTZsY7Kg7tx17iI8i
+	h4sdHk4pYTl7YOsXG3PDqZapBSZf2kCVXVe7Ci91qr1RBpUFPmu3kdaKPhjoJk11m+E=
+X-Gm-Gg: Acq92OFHnKqgqUp+UZp4FgV5qUgE1bv4JfYVNmIFN9r7zprqeJSh6GU5sM7MwrbC4HP
+	K1KD7T5m8f0jfifZxC7c1XurQgyCyuNTFLjkzo6MryBmyC6oCeYeRDqkATwr7kOv4enhZ2kAf0M
+	bjauFL4vJYEl8ivoLSRXyaD2/FTUl+41un1xfKP/VgDUeIN0CC9qyXPGKRSELRMY8tYxN9/mnkq
+	EyBDpPecLyLuAcPStI6pkSeyitA8v5dTP5VB2pd2/BZVRN4aqDunuhn8thlDeTDYqBHYHDo/RPt
+	eyB8P8QPwHqpMEffo+YvNdzz7JolksFduyHp20LYQwzqhhsbpaMGSIto7HvOKhikP9FyCiOqg7h
+	sc5rGIxodXq1PsyYtvRJrupd1dA5AhdiDBbhaIjji2D+pIYH0qKu43H8sIC8ewDQxlZqNOAT/Dy
+	UDAv48cHa8DI5vw+ppWixk5hzwbDPyYVDZTQ==
+X-Received: by 2002:a05:7300:2327:b0:304:5db8:da95 with SMTP id 5a478bee46e88-3077b7855c1mr6751775eec.23.1780879180170;
+        Sun, 07 Jun 2026 17:39:40 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074df64eb9sm13583356eec.25.2026.06.07.17.39.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 07 Jun 2026 17:39:39 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 07 Jun 2026 17:39:38 -0700
+Message-Id: <DJ38ZCHHJM9O.17UCPB969XXB8@nexthop.ai>
+Cc: "Peter Rosin" <peda@lysator.liu.se>, "Andi Shyti"
+ <andi.shyti@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: i2c: convert i2c-mux-reg to DT schema
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Conor Dooley" <conor@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|OS9PR01MB14009:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8ebc45b-4c1d-46e8-0650-08dec4f211c9
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|52116014|7416014|376014|366016|22082099003|18002099003|38350700014|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	XzJrE9swjz5DJ2aKv4PnHHbP51qgAuzlJQi/OCC66hMcxyBYlChSHVGqZ01b+2iCpexsq0sjAoN/LTsMYHRSyleG01gVeSnXEkZ3+ScQkXDJFBw92/vPdMkvbmeFUcP7FH4fq71fJ3M2QtgbD8FCm1Q3xO819AqdzKGE4mz18MbtV4qQHfHLb8tG3m6o6P9jsMfx5W20y1XsS8qgXmo3Hn4V60sTLlL0e+mRCzfO36Z3ZP5rTD4Psu5omQDI7OuTP10rdeED4M94nrzcBlqlGAstWVWXw4nst+r1uTWqF4yWL9rxPss1pfMP50PnCn3WM3BHmcF+25dN4RZMecOKczwLjmT1Tmoy1RvFgcwJ8G+zpxjXgpMdpMJUHcyovneI7c0MhnYVmuDRxpbOHGdN9+XFnP83ta8CgbYJQLL0s56/wiMgPfEamf+C5NirM3Q3Tj0xFZN/zNdJs3t6VqLmVyBPlAFzDsEy0ugTqzAG/GIH3Hr2IDWHmBUSFsRtRLjAJex+0dKR10OLQEGddCSn4AeqPm8zTSXtdeThOJhXrrs9+wWQ7zZcslwAftmNTEz9kn2qUJNNYQuth8MPuM64uXO6Z9ytmNQWKoK7TlxWni4izNP9CY3Q1nLjTrX7iTprlIyjuy1LqxBiYjrPwmfR0Lk/AREr+bjBCwHjcqUlg1qWcTdkwEPnw7gtZpX1rQb2YkihCSls+E8CzrUK7289Loytx5CZOT6DdTD6UGdaI+TZGBaPiPBBYW7+pDgZ8K6Q
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(7416014)(376014)(366016)(22082099003)(18002099003)(38350700014)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nKgcyRbI51BM/tBVlc1CMqj5F4Ub2iUtt63GbGVzWlFwE7yMpE4HldFBdiHP?=
- =?us-ascii?Q?zYRr/pbqhUlXAFWmKr15umhoUh9f1kDgxqIkk8GFdfLdHvUdpVB9vyQpvksP?=
- =?us-ascii?Q?dgc/zZ81hixW9ymcAqTW9hjrg6eKzSzKZwEgplLtKcUoxHEf98pamsnhxtN9?=
- =?us-ascii?Q?TLGlKfGsCa5LtyyGNpTfv4nQ2/FihpaZOSQU++Y+Wg8WeZ1KdL54Augz2+jd?=
- =?us-ascii?Q?UX7aQT2m5GHB15x0AOw+UhG4rzaj6BotS3MeaL2NQ3sEeFzDG/nE+E6iz8c0?=
- =?us-ascii?Q?BxYheTB25X25bPlEZQ9LPa4nSa+gMS4P4/lqhpO7xBciQtHoiFYQO49Fm+GZ?=
- =?us-ascii?Q?+DvpPf2uRXVLnWUgrN+ppN53w2N9QpwSuVM3MhbEHj+65fufuGx4WoVtQLt5?=
- =?us-ascii?Q?0NrGk6LNmAJs3gNQYQEpbPuZwm7pgYAFtQW4REYAjPvh2voKZkjwTFulpMVi?=
- =?us-ascii?Q?7Y8pn045xI1Q5Bsk7KaHRBQ0vWM0k9fzPTaBcaR6pDO4gJ7zHHKPjZq+aFmJ?=
- =?us-ascii?Q?AMh20uR7zxNhIJfSJtsnKXLicQFWGT1P2/TpMqjviEAHe7hCl+4RHCpRUBAA?=
- =?us-ascii?Q?AVWQG9JZE0qXs9CJeMvzhtLICzofsP6fw1i1gS3Be69UmJ7zO9rh6ZLwfW2D?=
- =?us-ascii?Q?n3vPsHoOSFLhKlh1lwAb+YO4qoU/k3mw5D2rROER4tA2tLbnZX41T5NdEcv+?=
- =?us-ascii?Q?u23RDPwDfHVCNK3X6X4DjzJWOF4k8g3FuterO7To5qrDc7kx+xEXWN21RsQl?=
- =?us-ascii?Q?7EC0cNvNcWcIPwxAuauPhp1lRo9jlGxjaxNvWJlJTaTiONmAvZ8I3QTs/KED?=
- =?us-ascii?Q?iXEFnZ+jOhBk8XsULhC1X39EMRyAGclXtt3M4RGv1CwXsNSImPDL0flZGO5q?=
- =?us-ascii?Q?81bKXHlRV8JaoHkxjH1UM/reZMnKIB+LqLx8oO3AcaEv61YjgZNeVhDUArRH?=
- =?us-ascii?Q?xPQNpHJrE8QHaQlfHXW04IIrArEdfPaRc65hfWiTpvDuCIIedLwb8tmWFM0Y?=
- =?us-ascii?Q?WRqUHFWYylyr1+kDyIvFKf84pVfUxWdh3EflCXOM1EHVqVcXwdQfkscD9GDN?=
- =?us-ascii?Q?1yvBFeLTiEnytvWKaHJ79GGXcTKIqXsqSkjNj7X+hyk/bDUyBiFGm6sG/WUH?=
- =?us-ascii?Q?js3GeeU2G28yHwoKpAousUm0m3Rt0hrGF/QgUObYkWa1wLSlo5YiOcgr+kEG?=
- =?us-ascii?Q?Uf7uVINA1QmHFZO2ZLuccquFC/BStvvewyvwlpsSD1o/3KnSR7iLOnRU7f4U?=
- =?us-ascii?Q?0Z+aIvx0/OYmA+yNdJotROR5GiYDaJsYc5lzdNHNUzpKGD4KRue0aZeSzoRe?=
- =?us-ascii?Q?2zq9s04sU86BpRuMfUVn8ITNJRUfeL1NJIrNXEaFDCBiuT0LVjAZ4TDUChmi?=
- =?us-ascii?Q?Ci78rCWiOzpMcpTe3kbdA9IT2ljnOr+n9X96NUaZQZiEaw3TQUMYC0r6yAKQ?=
- =?us-ascii?Q?tYYukiBG8gKHXMc6TF2hDyfP4eXvbOGJlKNmv+tiPGRrJGTve2upujTHams+?=
- =?us-ascii?Q?xemzlpv04DK+GlNGq5NUI3PWnlQlYWF0DKeGTOHGNSiAoUZOyHg7WI+Crn/m?=
- =?us-ascii?Q?8/++ns80QYir7VrmrYFQn0++YXraDutZnNVxP3akuWhEb9Psd63ym8bnPGa0?=
- =?us-ascii?Q?c8WaTK0bBMWI40KZQGfwWM4sqMeJ3OF1qQAT0R8vADJe7d3Vtssx2JK5OjMn?=
- =?us-ascii?Q?J27EOH3qvxrmG48UlraG5WtcN17fdbuZOuyCmUA0G5d8WAa+IN/IQbP/m2kt?=
- =?us-ascii?Q?bdk2zoKUPHdB0JLc2gG/jwGHz5z0qJY=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8ebc45b-4c1d-46e8-0650-08dec4f211c9
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 00:08:29.4550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 42GaK6B0NkAzG+vl4VjGTnjLd5A66T/24Luq6thy8vSXMf6PpwtlDp+TK2VsA5wYbWDMAwg+k4KGe+XAA535Z+Lkh4MJJUCkRcxxuoaWICOTJ/EtD6bGg9L+lHIeJlGs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB14009
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260607-cozily-majority-edb0ae263c0b@spud>
+References: <20260607-i2c-mux-reg-base-bus-num-v1-0-f193b5a8fedc@nexthop.ai>
+	<20260607-i2c-mux-reg-base-bus-num-v1-1-f193b5a8fedc@nexthop.ai>
+	<20260607-cozily-majority-edb0ae263c0b@spud>
 
+On Sun, 7 Jun 2026 15:06:43 +0100, Conor Dooley wrote:
+> I think it is fairly likely that this property won't be acceptable.
+> The conversion itself looks okay to me.
 
-Hi Bui
+Thanks for the hint -- I dug into the i2c core and realised the case
+I was trying to solve already works on OF without any new binding.
+i2c_mux_add_adapter() sets the child adapter's of_node to the
+matching i2c@N node (drivers/i2c/i2c-mux.c:330..367), and
+i2c_add_adapter() then honours of_alias_get_id(dev->of_node, "i2c")
+(drivers/i2c/i2c-core-base.c:1657).  So in DT, the existing aliases
+mechanism already pins mux child buses:
 
-> > The indentation here seems wrong.  We're also using spu_count to
-> > separately guard the clk_prepare() in fsi_clk_prepare() which seems
-> > problematic, I'm having to think too hard about how this might be
-> > robust.
-> 
-> Thank you for your reviews.
-> I think we can just drop spu_count and let the clk core handle it,
-> since the core already refcounts via enable_count/prepare_count.
-> 
-> What do you think, Morimoto-san?
+  aliases {
+      i2c16 =3D &my_mux_bus0;
+      i2c17 =3D &my_mux_bus1;
+  };
 
-Yeah, maybe
+  i2c-mux@... {
+      compatible =3D "i2c-mux-reg";
+      ...
+      my_mux_bus0: i2c@0 { reg =3D <0>; ... };
+      my_mux_bus1: i2c@1 { reg =3D <1>; ... };
+  };
 
-Thank you for your help !!
+That's clearly the right answer; sorry for not finding it before
+sending.  The only wrinkle is that of_alias_get_id() is OF-only, so
+this doesn't help the ACPI/swnode platform that originally motivated
+me -- but that's a Linux-side problem (udev rules, stable adapter
+names) and not something a new DT property should paper over.
 
-Best regards
----
-Kuninori Morimoto
+I'll respin v2 as just the .txt -> YAML conversion (faithful port,
+no new property), and fix the silabs,si5338 example that Rob's bot
+flagged.
+
+Thanks,
+Abdurrahman.
