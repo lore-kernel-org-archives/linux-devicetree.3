@@ -1,91 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE463B2FFB;
-	Mon,  8 Jun 2026 08:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83C13B27FC
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780908930; cv=none; b=RaZveklYPhEsc4mR3jDPzQ+cSSF0V6bntBq/G1vEzKPiyoX1c+SlTBqNaR26LtwfOOlXTZtgN6FN3HFUP/b1EiwWpj+A5JQgrnZgVmmvW8vo+qscfdGA+fxpdlBc1f9ixgryTbsd72QeYTOIfyrnAEzCyZceGXiZtiXt4o9CQBc=
+	t=1780908938; cv=none; b=XjWyFL5fTDGchcEx1SxujeUpx4+w53GlMU3NYlWfxIYkoopH7X3qqcyqoHimXdIJDjtOo8ASLNrDuFqyH1GDFa/8C+tkDjCWFMj5v/7CVluP6bMIFqRHYmoNfpFiUAsI+16eISkCBs+pRfpzOQCYAi+Kq1IAZb7M1xkAZQjdK/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780908930; c=relaxed/simple;
-	bh=y4BfutItMRvmH3RltnVp7QouoDix0M0zL2yCAFC8ILI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TWRIbffGwkUBRd4WQ5MdSZGhB8TD8NYzj2Tuq0Zud+XH75yjvSN3xsbk5LplUkUf+CO2gj6tS9+BXhaueF5myBbqhtHrjKlFtp0CSYtVpKYEx0XUTexbJbrMfxBQ9xJU6I3MQT+86nI3z0rL/qOtHjJeL/M25LBAWTY4412dyyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLrFKphX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780908938; c=relaxed/simple;
+	bh=fBerNiWf+MDgAZrSmTXySSQ3C8VQubBzWw+Rofp9O60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N94jDJfdsiOCFXndFzpE3Sw+jYqbDqDWoCONAbzTkidAQiPSqAvZQQrrPo/BvEjy6yID6aMWkQdJPN20HC0rRdWUISInFvYiRQGQ4SPgFAqEJPmVFQzEHxH86+ZnmX7nnE02D4tW1oIGa0bIOIjB7UsLC6CoyIe+XfGjZMgD+2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QYv+LLyj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I/FeeAAP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLrFKphX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E04F1F00893;
-	Mon,  8 Jun 2026 08:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780908929;
-	bh=ZaXpV5o4XSzFfGGwxH9qcSMPAHS5WLvkB+DI+9OzD4w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CLrFKphXgBtfinoh+ezkdMkTRn0Z4mYfjqpSNiZI6MLfbn6GrK/khli6O8/3tTXmO
-	 qmNOn7mK7zlCQ05hyjrprCaxmxYRxLQwOy5kbjvevqriqgkUMYjSiH7qxgjv7/DcxN
-	 3PXeHBetCadn2A5TwzZMyKgcBOd8LeeH0lkbajGegSKgYkO7kasze6AvOzQxmn/GJ/
-	 X2He2snTrjf+r86JLyfHkb8xmZeKNFjrsrcghslNhxittOHO1nUfIqaaxil9N86KXc
-	 uR1XQVejXZM1pREXeN1mo5otuetnnU2ujUoH4Y2MKE2KSxF5V01FszdcSZrRZGru+H
-	 drZb9UBzbT1sQ==
-Date: Mon, 8 Jun 2026 09:55:24 +0100
-From: Lee Jones <lee@kernel.org>
-To: Duje =?utf-8?Q?Mihanovi=C4=87?= <dujemihanovic32@gmail.com>
-Cc: Karel Balej <balejk@matfyz.cz>, devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 2/3] mfd: 88pm886: Initialize battery page
-Message-ID: <20260608085524.GG4151951@google.com>
-References: <20260526-88pm886-vbus-v1-0-f2bd1fd3c19e@dujemihanovic.xyz>
- <20260526-88pm886-vbus-v1-2-f2bd1fd3c19e@dujemihanovic.xyz>
- <DJ2QONQXFUDK.22S5350HOO2N6@matfyz.cz>
- <uME6Hy8mQeKxnZAg1Q4aPA@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QYv+LLyj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I/FeeAAP"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586OmLr2317620
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 08:55:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6ua1qIQefsn0KzCMxDrvAnd9Wib/2gaov9ZIiLNLNqA=; b=QYv+LLyjuU5ToV6J
+	TXdyJnl3g1VRUt43hsHCzXqjBXEeTJ4o2jTCmX68L5wsdDiOAYNmw0m8khGn6uma
+	zKk1NsBJA6hVxC9hmFNP6p3pck+cTYLjHHvq3QsSxnMfiuGtMc40hGgtWOwjz/B3
+	jDj6Df2PIT4Blfp+Fv4gXkmyethc7IboVu9w8qpnnmzcetPeuqp+FDsj4MYpCa9M
+	kYuqSTYTfWYxXt8+iDZJbtaVGc4eV2z+Ld11dmkVVcOhVNjLzbtQW2M+BGuj/Hj+
+	hNFdBmBaiXk2UPhk+/PWHbY536bxMKDVNBESky+8xVvs1LUlbY1bN10RwYwZQJ+8
+	lImZZw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcadxnyj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 08:55:36 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51768e1d798so10402921cf.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 01:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780908936; x=1781513736; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6ua1qIQefsn0KzCMxDrvAnd9Wib/2gaov9ZIiLNLNqA=;
+        b=I/FeeAAPffJTARlSl96lMRgZRMThnr/AjGeAHQwiYPYnl6N2XbvXFLo8JLaXSEj75c
+         9g+L658ewepekTXe/iNDsEts4zE+J/MhfvpfDxDercc5LrfvY/Z8a5F4yiZiRYBf5ggc
+         sP5eUbBr/oV5u4jkFRHH/51G0vUcymNYHTdnF1JXGNIrZgg5/5fUmFVu7D/0PvBiq4R4
+         Tv1laHyuoeo2oEAOUfoZJPzx5AaIv4m2SiWMbB3MDmUDgySbImNqrulXUjSEZiRkfsJg
+         5YO3ENfQn0w7NUJQETuAjPxa1sp/d9lSAtaxJ+Zgobs+8SRWQckfQ+BWSePajyWo/NR0
+         4Dww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780908936; x=1781513736;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=6ua1qIQefsn0KzCMxDrvAnd9Wib/2gaov9ZIiLNLNqA=;
+        b=rAV8WwKW4gOFLo/CVK15e4+6KPRntgobEWT0StfgR5qR4JFOQujllRIie8/eXIsJD3
+         z4oTCHSU5rn8JDjy2y+KOt8Q7bCYTvGuz6wOozMXAD6HzBPRE53H99zRzsrebPsZZrn6
+         l+1nmJu0NS9NA6AEqBcoRwLX7RYO9oj5Gw568DbDLz1fHl2rRtEBF0Mf4VWyqMxfioqU
+         5Q2WdhxOuIawXwIsgGUhYFVvWKouoATTu7XcMGutsOqXcBIs/vvNbxpzR/DdJ/7T/5x1
+         8zBuIwZrBHhiMBn8wZk/PJr/7Hgr1HtTEGKLhGV/T1PifC5lD641U8pONI98Kkr8Fzd/
+         7D7w==
+X-Forwarded-Encrypted: i=1; AFNElJ8dW+cDGuH7VvGjIS58IeKyn9AqAFma/rFrpv3w45EvzX2CPsfUWxzzXk3b50yLu1gWytc9o1Tw+ErS@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbtpzsxyYw+/zFv9VgeXL96/pIQSIGvRPC4NP29YR5FpkWi8Yk
+	DcWcKaelOEnSgpaXRFhnEBgEoU9J4FrJFuS5wiIFbjnkPiiHWkqIDdwuB+l/UdOilgPae2sulGY
+	d3jKNiXyr8wNrF0gVLj+qSEKEDqGfR/ppJ7/7axTJjA+Q3bfRVmbiSi+vJUE4Em/u
+X-Gm-Gg: Acq92OEujzj3YEVkfshimeb3KWegaioBv2RAnAxkoHXXZBEoVSI3OBvOaCkXTIlcDo6
+	gqUAIVGNikAInbN8G/rdHaQ0VMTSCIat7AjKGqmETyaxMHUZrzVlkP7D5MPsY18RFr4WkIFfgLI
+	qFBfwCa21VBo0z8dG0oe6r/9fCQIVHrq/JJpz9AGibWr88V5FhXncJRMUGNxL2v/z9t7bi49YAC
+	YZqMj6g35+FF/tBH62N0lyUdSJ26hSF12cw/rs9YE2cJQ77pfXTwjF9aBCekCYkBAj5VdYd7+bf
+	HTYHRcfpsw7xptVYY1qcShVPPxHJccCt8w6VpGcgoXcqI3uvJdGRlhFhI5aZNm6xB0uw5eWyx1g
+	Wx8qf8+x18ITD4+EFX+JMy626ltEkWEWsnirqSi5DOrOsm9ecibCOWiub
+X-Received: by 2002:a05:620a:198f:b0:913:b4b9:5ec8 with SMTP id af79cd13be357-915a9db3db3mr1315258585a.6.1780908935929;
+        Mon, 08 Jun 2026 01:55:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:198f:b0:913:b4b9:5ec8 with SMTP id af79cd13be357-915a9db3db3mr1315255885a.6.1780908935398;
+        Mon, 08 Jun 2026 01:55:35 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e650287d9sm6980528a12.12.2026.06.08.01.55.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 01:55:34 -0700 (PDT)
+Message-ID: <e0faf562-f882-454a-8719-1d5716ba6fac@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 10:55:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <uME6Hy8mQeKxnZAg1Q4aPA@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] interconnect: qcom: add MSM8x60 NoC driver
+To: Herman van Hazendonk <github.com@herrie.org>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260606-submit-interconnect-msm8660-v4-0-6e1e5c5efa26@herrie.org>
+ <20260606-submit-interconnect-msm8660-v4-2-6e1e5c5efa26@herrie.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260606-submit-interconnect-msm8660-v4-2-6e1e5c5efa26@herrie.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=DIa/JSNb c=1 sm=1 tr=0 ts=6a268388 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=ClTuqyqIc_xs18_e7JIA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: aBdf511M_BgS7t0Ue-T8w6nJ_SjqQV79
+X-Proofpoint-ORIG-GUID: aBdf511M_BgS7t0Ue-T8w6nJ_SjqQV79
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA4MiBTYWx0ZWRfX4eNloW8eXhHf
+ CDcz6aPJEfVAQ/HoQKtyapCyD4DX8JU25vb9KzG+qEjUKLJvl2b/R4WlT+AtQEZo6fqPXly3uFA
+ 3VHWQ2tnPc2wOLVaklQK8uxcfXkKECNrLazCaeW6cmkIJZn4Yzv4J1KY3Zz7SbDEnuZpkTNiKzc
+ eY+yG2tLaKblNeOcnXzq70UPLwwi+XqUC06WSddtt+00Tf2yIrKQnl+yUNN/GQ82c/6jDOkTBOi
+ lF0V84QmA5IMwCMexu4BG5O3sTqhogystt5mfehwKyDBhHnvL2F4bMaveY9BMhtLGO5ulgJVc4g
+ qJAoPcRebHXHEyr1YBjnRo262JGWb30efMpHH0CNXuzvreKZYAbTUfe1TinNHTt9Bt591Cb2bQQ
+ T8+x9voq6VSPndDFRjMdMUEJjVJJiGXWaD9OUCaoJCM1T7fDsB91hEupukQyc9Sm6KW6uNO9Uri
+ xbV1A+eoAZ1mG3V/pxg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606080082
 
-On Sun, 07 Jun 2026, Duje Mihanović wrote:
+On 6/6/26 3:00 PM, Herman van Hazendonk wrote:
+> Add a Qualcomm interconnect driver for the MSM8x60 family modelling the
+> four NoC fabrics (APPSS, System, MMSS, Daytona) that connect masters
+> and slaves on these Scorpion-class SoCs.  The driver implements the
+> interconnect-provider API to manage bandwidth between specific masters
+> and slaves via the RPM arbitration tables.
 
-> On Sunday, 7 June 2026 12:19:21 Central European Summer Time Karel Balej 
-> wrote:
-> > Duje Mihanović, 2026-05-26T21:14:48+02:00:
-> 
-> [...]
-> 
-> > > @@ -88,7 +94,8 @@ static int pm886_probe(struct i2c_client *client)
-> > > 
-> > >  	struct regmap_irq_chip_data *irq_data;
-> > >  	struct device *dev = &client->dev;
-> > >  	struct pm886_chip *chip;
-> > > 
-> > > -	struct regmap *regmap;
-> > > +	struct regmap *regmap, *regmap_battery;
-> > > +	struct i2c_client *battery_page;
-> > 
-> > Not sure if this should be reordered to preserve the "reverse Christmas
-> > tree", but maybe it's fine if checkpatch didn't complain.
-> 
-> I opted not to move the declarations around in this case as IMO it would 
-> present noise in the diff, but on second thought it may have been the better 
-> choice.
-> 
-> Lee, do you by chance know how to proceed here?
+[...]
 
-You can move them.
+I'll skip the bulk of this for now, as Dmitry asked you to drop the
+clock interface (and do rpm writes directly from this driver, see
+icc-rpm-clocks.c and smd-rpm.c)
 
-Please take into consideration data-size as well, rather than blindly
-following RCT.  Larger items (structs) at the top down to smaller (ints
-and bools) as the bottom.  Luckily the larger (data size) items also end
-up being longer (string).
+> +/*
+> + * Minimum fabric clock rate to prevent bus starvation.
+> + *
+> + * When no consumers request bandwidth, the rate calculation yields 0,
+> + * causing fabric clocks to drop to minimum. This creates bimodal
+> + * performance: fast when other subsystems (like display) happen to
+> + * request bandwidth, slow otherwise.
+> + *
+> + * 384 MHz keeps fabric fast during concurrent MDP display scanout
+> + * and USB gadget traffic. legacy vendor kernel docs: "AXI bus frequency needs to be
+> + * kept at maximum value while USB data transfers are happening."
+> + * 266 MHz was insufficient - USB crashed during display activity.
+> + */
+> +#define MSM8660_FABRIC_MIN_RATE		384000000UL	/* 384 MHz */
 
--- 
-Lee Jones
+So, are there any issues if the USB controller is offline, can we go to
+the aforementioned 266 MHz rate then?
+
+> +
+> +/*
+> + * Maximum RPM ARB buffer size across all fabrics.
+> + * MM fabric is largest at 23 u32 words.
+> + */
+> +#define MSM8660_MAX_RPM_BUF		23
+> +
+> +/*
+> + * RPM fabric arbitration data format (from legacy vendor kernel msm_bus_fabric.c):
+> + *
+> + * Each u16 arb entry: bit 15 = tier (1=TIER1 high priority), bits 14-0 = BW
+> + * Bandwidth is in 128KB units (bytes >> 17).
+> + * Two u16 values are packed into each u32 RPM register word.
+> + *
+> + * Buffer layout: [bwsum pairs] [arb pairs]
+> + * bwsum[slave_port] = total bandwidth to that slave
+> + * arb[(tier-1)*nmasters + master_port] = per-master arbitration entry
+> + */
+> +#define ARB_BWMASK		0x7FFF
+
+GENMASK(14, 0)
+
+> +#define ARB_TIERMASK		0x8000
+
+BIT(15)
+
+[...]
+
+> +/*
+> + * =========================================================================
+
+Let's drop the =s
+
+[...]
+
+> +/*
+> + * Pack bwsum[] and arb[] arrays into the u32 RPM buffer.
+> + *
+> + * Two u16 values are packed per u32 word: lower 16 bits first, upper 16 next.
+> + * Layout: [bwsum pairs] then [arb pairs], handling odd boundaries.
+> + *
+> + * This matches the legacy vendor kernel msm_bus_fabric_rpm_commit() packing algorithm.
+> + */
+> +static void msm8660_pack_rpm_data(const u16 *bwsum, int nslaves,
+> +				  const u16 *arb, int arb_size,
+> +				  u32 *buf)
+> +{
+> +	int i, index = 0;
+> +
+> +	/* Pack bwsum pairs */
+> +	for (i = 0; i + 1 < nslaves; i += 2) {
+> +		buf[index] = ((u32)bwsum[i + 1] << 16) | bwsum[i];
+> +		index++;
+> +	}
+
+FIELD_PREP(GENMASK(31, 16), bwmon[i + 1])) |
+FIELD_PREP(GENMASK(15, 0), bwsum[i]);
+
+
+> +
+> +	/*
+> +	 * Handle boundary between bwsum and arb for odd nslaves. When the
+> +	 * fabric has no master ports (arb_size == 0) the arb[0] access would
+> +	 * read out of bounds; pad the lone bwsum into the low half of the
+> +	 * word instead.
+> +	 */
+> +	if (nslaves & 1) {
+
+& BIT (0)
+
+> +		if (arb_size > 0) {
+> +			buf[index] = ((u32)arb[0] << 16) | bwsum[i];
+> +			i = 1;
+> +		} else {
+> +			buf[index] = bwsum[i];
+> +			i = 0;
+> +		}
+
+similarly as above
+
+[...]
+
+> +static int msm8660_get_bw(struct icc_node *node, u32 *avg, u32 *peak)
+> +{
+> +	*avg = 0;
+> +	*peak = 0;
+> +	return 0;
+> +}
+
+I think we can drop this
+
+Konrad
