@@ -1,130 +1,149 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E9E3769EB
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1651331327D
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780924854; cv=none; b=kNLefUUyI9kwYNMxS9wtOPLKOdAQjFdXd3m2sRa9ZW2skdi4Mr7jbOmT7X2+kOvHigidGFmdKTfDk2Ooabi5zePVUzM6v7FvIn+IXnoCIklpNRBsazDs2GrVI4BD5E8BxGcUc7gWM6CAv6Lgx7qnKKbdBERjCdpiJQAHmZtWAbg=
+	t=1780925265; cv=none; b=VRLaPwf9B6fJSfJgiyjadNVV9ld4vPxJ0aZtKCkiNSm3Vxborj23zBXSnVqXIstR5PNIRh7RgnzNeCoLMMlqeTABdFImUrh2jBqBFtLyIR2upvXzo/FCgT7WhK7oHOBDzSRnOfcQOWM9Y+oNFQicdUDDsK5oszzkZ2CvsMjgkWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780924854; c=relaxed/simple;
-	bh=uVTUGj4g6+0ok6CGfPnbzagq2Go25500NOlJFDZS3WA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FBQfsWxyE8ik2DjFKWnqcXb4UF90vUZzn0S2RAckm8zOxMb8d3OoPeWQST0xWjXz271rIAOijVHGEDmwDuFi+Z+kC9KIYfEHN+KkxkJ7sE6thNnykI9pCntG64ppKKU5CSRhKQq99QZOdHGbPh2FUPi7m2Wp014+Unsje4UywLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dFYl4LRm; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780925265; c=relaxed/simple;
+	bh=yT6xHVxLZk0upCiR71weeJ3YTpFaCRjAee8PNhOeWBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VNvB16VUBgYBVDyE+k+DJhnJq7pD7NMFAp0e1j1sjy5zLuYg19qsfWke48C9IJLkZVXI8fTHgTnYWjVP9vAoMi5nR/HSIE3Tb00LuCLN7Mz4GzW7QlRzmfyJKl3aQhuplgP9RhUU0sWHD7xe9KdXl7pkVmUVC9ApEFtlN4tbPXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUD99qLG; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dFYl4LRm"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45ef616daf6so3922717f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:20:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUD99qLG"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-304e83724bfso5079929eec.0
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780924851; x=1781529651; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PL7471kdmSWyPmgK4b9+x0sJCZApJQ6JQDBnuoCpSUU=;
-        b=dFYl4LRmB1xoMO130DTy2OgjLHhZgBfP6s7G6oSTP6Kou/RlTAGOiBXUfw86m12rOv
-         JiDyF0CbnVTFUl9ret51LLuR5YLv9g+nl23ohBXIqIQ230F7fFU9cRIn6h1VNsVavET/
-         jb47ggwTygCWYIm/TNHzbmvKx0QBT1apHvk7Dyf9SVINpgr95wPbTNFOa9Ybpc7m3Sxb
-         WAlGSyYpk4i1ImkTkPcNgBy89E/VAlK9j82SvDv0rQKBI+7zgphvPnKrmi0AFcooEqvx
-         qIvktETCB/cVrP3d8oAubzxBO5gh0dolTP9iglGk+6FkX8g4BkQP9Sow01I5mSvpLwn8
-         clOw==
+        d=gmail.com; s=20251104; t=1780925263; x=1781530063; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v8q9Y3dkb4+nYxO7LN8VFVjV8kgwP5XnZvXClRTD2SY=;
+        b=cUD99qLGG4ELI+fTJjEGRWmCCTdSLepoNH3rwd0G0yc5NDJSURy5UFcYfgoo0GkqjY
+         rsR3GOy/qTGCCEccRc8PHlQ9Llf9ntTUbrA/jy5gLEqj3p1w+ifo+z1c4k9qqwH3V2fU
+         NQ34N+ELJ3HZvZRfgO4LZx5/tCfsKtF1zu00JhvJ9eg59MQFaAIPCE9r6PqQ2+OnKH6B
+         i4aS7mwpqxbaZZaz/Hpueg2JS0AwOqbISCXJwYVQmv1/Jf/fzwWmUgTOFGLjMuv20VCL
+         4AAPKG99SlVmi5JgngfBgqOH6/LK7mXW3n4dPyy6cCsC4cnHGS4fwOTKGrHUauL8fC7t
+         DM4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780924851; x=1781529651;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PL7471kdmSWyPmgK4b9+x0sJCZApJQ6JQDBnuoCpSUU=;
-        b=hNTJFBsA6Zq/JawZH+Dp2Rn8jnQjPbFMWMoj/s8x81RCQOrti0IEHL4QgvRYUS3QVU
-         PvRNduEunoegiHvD9pdyc39v+MHwe/VUieOBnIau8o9eF6NAyoDzqyd45mmEnUxK+gA5
-         gZurUPaP4OJQUImVmz9B3x13GIwmx2qzv84tLYoz6ag//aHBhDNffib8vOrmFPrLSrZS
-         cTiSdpZbi1tCF+JyAEWJA9nm/xQGYtqrtDeT1tW7+HnbV2zYa+9xAyeLqC4suVgx3tXX
-         gLyiyAy/ULkHS8WgZWRmLXg5YtXqT7Cs1NAwrGmMs/YreYyg0OPQtQNY6xx5qpvPyyK6
-         2Huw==
-X-Forwarded-Encrypted: i=1; AFNElJ9WA5qhW3AxJ9aV1z7VSl/tdPHdMU+SZSQGKbkIL+/PrHb2gN9zsDlyJwP3nMop3qDZFZmmpRmIvIU/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yygf31QJ2lCgdh+Xg/CB5fj+1gYrOQA4sm4UTDMMoZXbJryEtf7
-	vwj5DxnfMB4lunyhr2sN6gc8AoF0hpnMF1CrARK+BXLp2bxb4lvDe5FXxu5HxLokvdl2iIlEk67
-	ccg58Ckw=
-X-Gm-Gg: Acq92OEtNSLgx6KPTRD/qbj1e7zEqOfWVaHTFC61p8hrSmYNZV44jbj8+sAIaz0IxiA
-	KrCoa/vp3z7pxHpQDXOFhzUDw47tJ/gjWmfudoFAvMA6Mxbrt7QwgTjgUNK6ZAn7j4Hv23ogr+U
-	8MTwkNCTJpXIlR2finshW2IBdvvNi7H31bM/IHn7h5ak3BKZEX19+rbV9vYvKgD08l38ywgmPlk
-	oK1peavSn1WpaCCvjOZzyACe7BxUr/UVzKvRO2sDQHvipjh0Ch9v9DO/3DvsCFEx9scxhw4A61D
-	ccoH8647osOCmyIUc/Bl0Qx0LvZLRi5vCR4HOj/U3w7JlAekgCnZlpUAKeQcqR3agJZcDSxHxeP
-	xjGuGIKL35KKUjuwQdeUwaCO0zf1bBstZ/gyVzNQg+6OalAEbp+0RVBni6exl4zBaDkXiDo/ztH
-	T1YRytpz17hzCIznC2RiPkk/CwLE8Aq4vHO9Cg3SGAt/IInEw=
-X-Received: by 2002:a05:6000:713:b0:460:1a52:8a13 with SMTP id ffacd0b85a97d-460301825femr23864909f8f.0.1780924851118;
-        Mon, 08 Jun 2026 06:20:51 -0700 (PDT)
-Received: from [127.0.0.2] ([2a02:2454:ff23:4410:963d:8b06:4a7b:c38f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f34413csm51684983f8f.21.2026.06.08.06.20.50
+        d=1e100.net; s=20251104; t=1780925263; x=1781530063;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=v8q9Y3dkb4+nYxO7LN8VFVjV8kgwP5XnZvXClRTD2SY=;
+        b=Yxq3Q72Eqd5pyPJaRHaX0D/9f0EeO9F0ueQJ9J0wG6g8/u9SFBu4hk5B9S/+8kZY9a
+         cJoj1TKCySlCfljLdvF6JmUT1boAh37qmU4u/u9BM1LTH0Ki4bqeeGuqKEtjorZHMSpw
+         6HeTzt1roJQ3s8E7I/cMGg1zcOdwQZRdyrA5/eStm8VdsONzX3TbMWYql/q+ju3ixsWZ
+         /lHfIzFj4phnzxws155XV3AORjk9Nxvyh2SucnKEcTUzXv+Qa502XszpvM7Jrtc+Hc8C
+         YUlWpyUYJ5sEyJjZtYuOPqQy6dXMGHR9xjwojaWrXb2u4cDAVxmXmNz1JmhIQsXN1jEX
+         y3vw==
+X-Forwarded-Encrypted: i=1; AFNElJ+rnugj+/C2V/us1w1c/Ej74EGEd71AnhDs9GueWjklWEAgOXNgUjI3gnThsXewpngR1XZJIiJJf0Wv@vger.kernel.org
+X-Gm-Message-State: AOJu0YxN7tqPprOTFYNC3fdDWhwNgVSrN2CEtRENcuJO00RDuorgX8Sa
+	rzRzCwLbxGZfM0gXeYJ98KoUGMy2h8j7YHF2qWhDdpJoeO56TmMhD39Q
+X-Gm-Gg: Acq92OE+h63O/JvGfOx1xAmxpvlmryozqHhbvBd9u+XG6ZyOcSXF9DJ+lpCvAk9eIWE
+	WXFm3lNE9jInuLBgsWFZM/LfSHIXvjntQ2fD0GLW2WvhfXnpRPhxgsMq+8BbHgISfYGhL5IMLq3
+	SAJvGuzBH7al8ClHo97yHpkgbw0AbfAbxn59eOyGqVo0eaRfldK+Gc5YVM9GlLlaJXD1mtEm2Z8
+	b25ocmEVJvX+SP+3ahQs8cT+fnr6k/H4ule/1o6yokLBaa4C3eapEu1Vr64c2hwAKedaP5k70cA
+	UA9tU9TROrCR0GGLMGnpRJ5DPtsCYS8U4CaDhDECzTusyLUir/mkVcveODmZJFRvR09KkqvN7xN
+	wrsLrB7SBG3OfXX4U6UI7XTgSCK5AQyjH2glsfvfKokYFFPWJc886BcHsJYedd5nNYr8t95lQhh
+	ZmwiWFnbYKkvSOLesZWOUCItu9pl1of/oaWglt8kVf1iZnIw7vR2Y9U1XthUKp
+X-Received: by 2002:a05:693c:20c5:20b0:307:287f:9bbc with SMTP id 5a478bee46e88-3077b7509d0mr3955694eec.25.1780925263157;
+        Mon, 08 Jun 2026 06:27:43 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074db85f60sm20883832eec.8.2026.06.08.06.27.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 06:20:50 -0700 (PDT)
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Mon, 08 Jun 2026 15:20:25 +0200
-Subject: [PATCH 4/4] mtd: rawnand: qcom: Add MDM9607 compatible
+        Mon, 08 Jun 2026 06:27:42 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: sashiko-bot@kernel.org
+Cc: conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dmitry.torokhov@gmail.com,
+	jerrysteve1101@gmail.com,
+	linux-input@vger.kernel.org,
+	robh@kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH 7/8] dt-bindings: input: microchip,cap11xx: Add CAP1114 support
+Date: Mon,  8 Jun 2026 21:27:35 +0800
+Message-ID: <20260608132735.553239-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260606151658.60E2C1F00893@smtp.kernel.org>
+References: <20260606151658.60E2C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-qcom-nandc-mdm9607-v1-4-4639a0492274@linaro.org>
-References: <20260608-qcom-nandc-mdm9607-v1-0-4639a0492274@linaro.org>
-In-Reply-To: <20260608-qcom-nandc-mdm9607-v1-0-4639a0492274@linaro.org>
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-MDM9607 has QPIC v1.5 that supports the OP_PAGE_READ_ONFI_READ command, but
-is missing the rest of the hardware changes in QPIC v2. Add the new
-qcom,mdm9607-nand compatible and set it to use has_onfi_read_op without
-also setting qpic_version2.
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+> s) to consider:
+> - [Medium] The new `microchip,cap1114` compatible string was omitted from t=
+> he `if-then` conditional block that restricts `microchip,signal-guard` and =
+> `microchip,calib-sensitivity` for prior CAP11xx generations.
+> --
+> 
+> commit 5c58a6baee363da7434a9782efa913c250015130
+> Author: Jun Yan <jerrysteve1101@gmail.com>
+> 
+> dt-bindings: input: microchip,cap11xx: Add CAP1114 support
+> 
+> This commit adds device tree binding support for the CAP1114 capacitive
+> touch sensor. It updates the compatible string list, maximum LED channel
+> counts, and keycode entries.
+> 
+> > diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.ya=
+> ml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > index e307628350c24..08233386a4336 100644
+> > --- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > +++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> [ ... ]
+> > @@ -26,6 +27,7 @@ properties:
+> >    compatible:
+> >      enum:
+> >        - microchip,cap1106
+> > +      - microchip,cap1114
+> >        - microchip,cap1126
+> >        - microchip,cap1188
+> >        - microchip,cap1203
+> 
+> [Severity: Medium]
+> Since microchip,cap1114 is being added here, could this validation
+> regression be avoided by also appending it to the if-then conditional
+> block further down the schema that restricts microchip,signal-guard and
+> microchip,calib-sensitivity?
+> 
+	
+Good catch. CAP1114 doesn't support these features, so I'll add it to the if-then block in v2.
 
-Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
----
- drivers/mtd/nand/raw/qcom_nandc.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
-index 9217e8de5512..d7642db2e2df 100644
---- a/drivers/mtd/nand/raw/qcom_nandc.c
-+++ b/drivers/mtd/nand/raw/qcom_nandc.c
-@@ -2381,6 +2381,15 @@ static const struct qcom_nandc_props ipq8074_nandc_props = {
- 	.bam_offset = 0x30000,
- };
- 
-+static const struct qcom_nandc_props mdm9607_nandc_props = {
-+	.ecc_modes = (ECC_BCH_4BIT | ECC_BCH_8BIT),
-+	.supports_bam = true,
-+	.nandc_part_of_qpic = true,
-+	.has_onfi_read_op = true,
-+	.dev_cmd_reg_start = 0x7000,
-+	.bam_offset = 0x30000,
-+};
-+
- static const struct qcom_nandc_props sdx55_nandc_props = {
- 	.ecc_modes = (ECC_BCH_4BIT | ECC_BCH_8BIT),
- 	.supports_bam = true,
-@@ -2412,6 +2421,10 @@ static const struct of_device_id qcom_nandc_of_match[] = {
- 		.compatible = "qcom,ipq8074-nand",
- 		.data = &ipq8074_nandc_props,
- 	},
-+	{
-+		.compatible = "qcom,mdm9607-nand",
-+		.data = &mdm9607_nandc_props,
-+	},
- 	{
- 		.compatible = "qcom,sdx55-nand",
- 		.data = &sdx55_nandc_props,
-
--- 
-2.54.0
+>
+> Documentation/devicetree/bindings/input/microchip,cap11xx.yaml:
+>   - if:
+>       properties:
+>         compatible:
+>           contains:
+>             enum:
+>               - microchip,cap1106
+>               - microchip,cap1126
+>               - microchip,cap1188
+>               - microchip,cap1203
+>               - microchip,cap1206
+>     then:
+>       properties:
+>         microchip,signal-guard: false
+>         microchip,calib-sensitivity: false
+> 
+> Since the maxItems for these properties remains at 8 (and CAP1114 has 14
+> channels), it appears CAP1114 does not support them either. Omitting the
+> new compatible string from this block allows device trees with these
+> unsupported properties to pass schema validation.
+> 
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606150458.2506=
+> 06-1-jerrysteve1101@gmail.com?part=3D7
 
