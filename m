@@ -1,166 +1,151 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012070.outbound.protection.outlook.com [40.93.195.70])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC002771B;
-	Mon,  8 Jun 2026 04:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780892033; cv=fail; b=LrTRy8pb6T+sQKJRtyxezKy43AVAfFgxjdemMUeQeBNeziEWeOgwzQIAyo4lpHbtXToZKxmenQ6EdnY1ro53TYTzr6eB117uLo8HyeJt/LWplx3nrbwIjtoqmOllo3ylUYFNrQSnjH/bUbMR09UiWhQSxpGeQ1ZnXeNBuU8YImY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780892033; c=relaxed/simple;
-	bh=ItsmR78vHFJqmXMnMzyOlY8ZF/hW5Q7n04VTsVcGFzo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Xig85aHgIoc02L8iSf/BQ5E7yGjtRY2MxE8+fWjflq44XherAtR1ahZ8t/7x1D7h2RDTtNCm2aZw7ks2jxrqHCPgUPvawt9cR12a1H83c1VHNxywjBoiKS2IWdy1rcpguSzcp6IK+g9/HuzhNwzyI+WTUEA7/amGdzCVDHF4WPI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=UeGUqueQ; arc=fail smtp.client-ip=40.93.195.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="UeGUqueQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VF5IocQmPmv1mL9aD+td5kxdI5qVRToIYgAK9MKXKSSKUcF918YnY9TBb/qyOffVY5uR6XVtDFFxYaC1DfRiTWfJkAvmQ0XUdOLjQuslWLq1VOf/2MAYnNeq1B6hO3wgIeLTiTnAsglLJgR0hgUu+OT5wKSiDtHAgBOGIvI81k1ovyM8MQ9Ufo83UnZcbhCkggPF+fYzZ+/MQv7kS6sCs5jCXmVuioYt5m1VjWVtgFYsy+5dLa+SYtlVQ0TNovL9R8qGqgbOoHt3YF1R0x6RoerFl/+iYxv23vE2vzJCGpJwC246khaAuvbYhq7zoQ/lONB7ShfVrUScVBjIzk34Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ItsmR78vHFJqmXMnMzyOlY8ZF/hW5Q7n04VTsVcGFzo=;
- b=BGnIf6UXp83EW6RkvVAdHyKHCJ0nKIq5ibjDnYkuQyp4N8S7PdmvrkDEjrD0qg1u+/Nw4JKKU3u0NaJmdWklDSTNxL77KoKjtKiDB8DOjNt0thSUtVUNiUgXEcrcU1LNFd6OY1NNgtUP7bMzaeXd0a9cLIe3Uez4exod7Xz3/iF38j8MR6ViIrIdkUjicbi0UmKwX7Uac1yQSBY+3IadI3Ye8rjnUBqAtl68TwfKesfaUcsrnZDpRFPnFyRjOz/px7e4eQ1Bbuug1HFCJ2EbrHst2KDSXghiRmgTjyzr31FVEgx5BttVL0R+VtNddD32Lv9Vk5mqxMfTd/ciispH7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ItsmR78vHFJqmXMnMzyOlY8ZF/hW5Q7n04VTsVcGFzo=;
- b=UeGUqueQSmhBIL+peHEj6FsJm4sdhHfmUxqI2NaO5vbwiWTK0gowfqHhxDVVo/jPc36M7oINJW8NvtVsUeMsbWj6F1ndHlPwjElmZQHWfV5UmmUVOBijJN2Ou/tndzZzpmOMdc5XHfbtwv3H4Qi6MfldzPCslHKtT9d26YQZ0YBOIEjxqysisYxsXNutYaQTbA2E3+k+HmH2pJrI/HbbuZV3MU7bGPIU132bYtmH88+0n7MSQ4ziSAonxKr5YjZo9JZ3ycNuPgrfRxiL4TVMXIHdWlbcfhiDKYEfLzAN6WwX5IPU2OHfmve6GTm2nJlSD0+/9mdoTDCb/WANmY4Vfw==
-Received: from SA1PR11MB8278.namprd11.prod.outlook.com (2603:10b6:806:25b::19)
- by DM4PR11MB7208.namprd11.prod.outlook.com (2603:10b6:8:110::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 04:13:48 +0000
-Received: from SA1PR11MB8278.namprd11.prod.outlook.com
- ([fe80::3a83:d243:3600:8ecf]) by SA1PR11MB8278.namprd11.prod.outlook.com
- ([fe80::3a83:d243:3600:8ecf%4]) with mapi id 15.21.0092.010; Mon, 8 Jun 2026
- 04:13:47 +0000
-From: <Parthiban.Veerasooran@microchip.com>
-To: <andrew@lunn.ch>, <conor@kernel.org>
-CC: <Selvamani.Rajagopal@onsemi.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <Pier.Beruto@onsemi.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <Conor.Dooley@microchip.com>,
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to be
- active low, level triggered
-Thread-Topic: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Thread-Index:
- AQHc8eDGO4Y2rMyEmEeRgmYw3vsZ4LYrecyAgAAPEwCAAmo7AIAAlNuAgAAUz4CAAAajgIAFcz6A
-Date: Mon, 8 Jun 2026 04:13:47 +0000
-Message-ID: <7c68173a-ebff-42cc-8519-95e8365805b5@microchip.com>
-References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
- <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
- <20260602-rebel-snide-5036c97e410d@spud>
- <CY8PR02MB92493D2E5491AAE5416C05A283122@CY8PR02MB9249.namprd02.prod.outlook.com>
- <a5abb9b8-6ebf-4f95-a684-fc889b98acea@microchip.com>
- <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
- <20260604-swimwear-garnet-3eb092e6fda7@spud>
- <4df9882b-3426-4c36-8048-0c76d0f11c74@lunn.ch>
-In-Reply-To: <4df9882b-3426-4c36-8048-0c76d0f11c74@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla Thunderbird
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR11MB8278:EE_|DM4PR11MB7208:EE_
-x-ms-office365-filtering-correlation-id: c856a8c0-8cfd-49ff-957c-08dec51456b7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|11063799006|56012099006|4143699003|38070700021|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- IwW0qnufaJq4DgOyGZq61LnFlKQHIQPMJQPo7wtligz3E5OzXzDoEiwwQeJzxtGaICQjJO+wegektBitXhomFXRELmMHm+YzaJM07rdJnGPfKwEMeWk0uErwWNgiGkxdF2PRHYdj0pOuWYTo0N/m20o1PgUoqA0vLqvShPyu5pr5nwmtHFMMAdeoF89IfpzuOJOcpfYZUAlL7M4GzFU8Nnoc+/2A6HPFYnVMRmmHiPo4qlYt+TiND6k6RUfSHq1T1BlnryXyn9L4xwG3nGZy6cv8+dyr/BkE1pLbBr7scHmFHKNnsjBhIjvVxKTjERdiss3L36CPDjnG6+9LkRiY6+B/awsycfFVwvYDjNjVQ8QxLv9H/KlsqUE9DurO1JeST4gfmeLwZXNd0wulrYyClH64HbmP0NnJfUjMxLNEQRrmKxjaogldLbzLr0oEZsqVKwpIo5Wy+GHgKtZDI8uZtpl7Wo5lbV+gokUzyNDmUNDVpag4mi3z7eqjPUipf3/8AGESoa/TeyCJ69DMGwmPB8itIC5i3NM3UKUEzW7GWyeBV8gOwHdmAYjK8onTmEtVyAe0XWPqnaUw2KJe4TRDSy/qnuLayvC+ytaPWdiolhOTEw+dUZ+a/9fAA8w1xCCl4vJRrOXPVLj3+xB5/vn4J0Fs8qxnU0ROdlp3KGc8ehBuY0PtRpwWxlSKMnb1ILKChLXCH7m1u7hE8lEHo1gs0Gh/ZoE6Ar1WwHrpQLOmMxZC543WtHoRPH3M2nXeD/0W
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB8278.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(11063799006)(56012099006)(4143699003)(38070700021)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?M1p3b0lnUGFYVEg4OWVVSEZ2emRsNC85aS9ibmhxbXh4T3pDUW5zMFpRWnBt?=
- =?utf-8?B?aGlhSXViUWxrTzdvak5zV3ZQV3BHOG1RdXEvMXRwbVpyaUJSd0JDUVZCczEv?=
- =?utf-8?B?TEt0ZTNZUys1dGZuL1pTRkg4RlVYSGlkWk9veGZzMDhSOWpRbk9TMFRxeTVt?=
- =?utf-8?B?SVp3R0RPa0d1TnhWbDNRUUQyT1QvNHhJVTJvZkN5aC9XRzhzZVgzRFJ2TUhK?=
- =?utf-8?B?ZERCTFlmY2ZxYjB0R0tIQWFhQ0xpTjZJUWtVT1NlNEZTS2EyUDZST2Rhci81?=
- =?utf-8?B?Z0pMMWdYY3haeXJnT3VnL2RpcXoxNmtMeU4vRXJZeHJnckVDQWsvWVNCQ0lV?=
- =?utf-8?B?OHE0YUsxNXd0TFYyVzJ1aVhJWGxuSU9DTGFacGVVTWpHUWIzYnVpOEJDbmhq?=
- =?utf-8?B?eE42NGFwVXlDM2xIdWZ1cDF5ZENLSkVSMktKRmpoMzZsbFZyeVhEZ0FRVUhX?=
- =?utf-8?B?RlRRNEczQXo3UGJpYVFJSnVrZHM1L3cva0RkZUhkSWZId3FUTG8xeFU3Z3NZ?=
- =?utf-8?B?RnZZL1BKSlFQbHlxOWZDY2xHTEJiaXgxWVVOZjZPeU95bkRvblZiZkQrc0dj?=
- =?utf-8?B?d1hCQVlpdzA5QTd4MElnTW9uWW5OVzVGUXRUcDkyWFUrc3R3ZVRabjQ5cjRG?=
- =?utf-8?B?U2w0c29LS1JVS3h6dzd1RVdpZnZsOWRjVWZiaW9CYmlhR1c3RytPcHdpTE5D?=
- =?utf-8?B?RWlmdEdsbVhKUzZ3Qng0V2tOMmFqaXMrZkhtOXdRRlloNEZHdVB0MmtnS2xJ?=
- =?utf-8?B?WXV5THZDZWFMRWtIWmg0ckkyY3lzYkxidkUxdDZvRnRQcGY2eDFvWG5UQ3FZ?=
- =?utf-8?B?cm5ETEh0K2w2cGlsTU1FQlVMWGlEZG5zempVY0tQd0hqekxFc2toYVBpa1h0?=
- =?utf-8?B?cnNsQVFJbXVTL0hEK0JNK3N3Zyt5VjZUL0xLVkdhVDhvSjA0d0RwZTkwbmZx?=
- =?utf-8?B?QjY5SnZTZXZQbXVXeDQzUlB0NUs5VXV2Si9Ua1FCZllhcDE4c3FpL0hrMm5T?=
- =?utf-8?B?RmdQRjcrQmZwZlo2TWxRcnN4VEJvYUtWMU5QVHhyY3YwZXpLbWVZenVObTNJ?=
- =?utf-8?B?bnAvWHptZXRsNXFsbnRqeDFGL2xyQUdPR2Vka1F6bTdPQWN3RkJXZG9VZEIy?=
- =?utf-8?B?bmZ2aWZ3VW44VHh5dEsxaTJMOUsyUGdnaDlOK2pGYURrcEx4c09qZDV1dXd0?=
- =?utf-8?B?cXd6a0hHbndjei9KV0syRmw3SGhTY1NCdWZLSitXUVNUdkt3V3FHRW5zb3Zy?=
- =?utf-8?B?VGJ5Ymt1RCtubWVzTmV2K3p2R0JZYlE4YUZTNWl2WVBPQnNiWmRCbXR1anFu?=
- =?utf-8?B?dTVzakxCSDMxcGRTVDg2Wjl3dVZjNTlUT2YyOWdtTkF5L25Db1lvb1krSjRm?=
- =?utf-8?B?dmVQM3gveURsQlZUZDFaTkJLdlpBbVVURUFUSmJHSEFxMXBPOGQzZDBTVmJU?=
- =?utf-8?B?anZsdGhaNXJMVG9xYlQyOEJNODdqRGMxRUV3ck1Vb2dOZ3RBT1BQQkxFYlpz?=
- =?utf-8?B?bFlnTlJJd2JwZzhsZVY5NGNnbDFicU52aW9GT0I5TXZiNkRvVzlMeExiTURQ?=
- =?utf-8?B?ZDg3VjArVG5rRENNR0ZML0NkM2xsdkJOL3lxVmdYWEI3MkxIc1g5YTdNZHl4?=
- =?utf-8?B?eExCc05SYk40bDFvZXpKeWFTSVFML0JHbEdEUTRPdGY4dmt4N2ZaZW5MeXJ4?=
- =?utf-8?B?WEVuYS9NZGR4YmorbFhxNi9VUkpIN0ZsY3poUEFMS2VIdGwxYkZXQ0xwcThG?=
- =?utf-8?B?WVBJSVdMdTVjY2FuSVRoNnpUUTVyZjVWbHFUbk9nZ1phSXBZbS9YVzNqQjUz?=
- =?utf-8?B?VXhaNlVKWm85SUY4d09CazdQclF5NUhLYnU4WWpTYTBUbEpkcUJzVWZGeFVS?=
- =?utf-8?B?M0xHaGlLdWxVZlN4NVd4elA5Y1cvRFBSdThyWGFpYU9DbzcwMUMyek5rdHhY?=
- =?utf-8?B?VVJwczBMU1Z1WWZxaStCbmx2UmZLSmYrc2hYeDZzcXluejBjdTBQRVcwNEpO?=
- =?utf-8?B?cUdrU2g4UVprRW9wV1NTRmN4Z2ZTd3BVUkJrVW1idmxDTStzWnFTbmJVYnlj?=
- =?utf-8?B?U3Y5Sm9iZmhSUk9GMkRRcTNGeVl4Z3V1T2E0RGhQWWhxTGpTVE1VeXJqM0lM?=
- =?utf-8?B?RlNod1AxTHMwYnE2RDFUVGV2WlRZK3pjQ3RJNHRWeXk0OW5MVS9nMlJUNVNt?=
- =?utf-8?B?d3BOcmxCMjJKTnQ2WDJQNGhWZmM2Szd1eHRueGtIUHZnV29oUUhTWFVMZ2xZ?=
- =?utf-8?B?Ri9lYi9JMlZna2cvRDZjakJ3bm1tc0lQQmxnS3F5K1N0S3g1ZllCQzZwOXBy?=
- =?utf-8?B?dEM1bytCSzdyT2t1bTNicFNFb3ZiL3EwYlE3ZVpTSGlzbWdIWmxxVnV1WW9I?=
- =?utf-8?Q?WoHkAQjsqtPNtreo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4DCF40A6CF735E49BA3B85263EC072AA@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6B675809;
+	Mon,  8 Jun 2026 04:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780892175; cv=none; b=n+TEJP6zkx5XSlDj/0VzIH+KdzPcK8n0NcD3yEEoff2NzPcGWe+v4Dwurl1Iu9p0rA/mNzbV+cPfRjWYI2kkrRSVhmVnVXp+cM1Ozoz/PHtCmpg6JBUFasTIEqpTPXAGqb1fEL9ts9gcdj6PpBU6JEEBDReZITQK4n+frvm2t1c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780892175; c=relaxed/simple;
+	bh=YmBFGh6OqqdfCwFRHu4pem9rD5jhpqP1ykVz6uTzM7M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dSexgIWC9coTRrnIJNosoV8JqjZaXZntFXRv8hB46i9ky01Wul+FJ2JJQipJDce8pS5qgQikINCX7QftTdZpfwHBBj1gD1s+UVeHnEhqr2wV1AuiAeDTI0phgOPdfVSsQYXtK/qwIND2rBd/XH/3csOVDiqVcDXAxbgjYXWR8Jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpgz1t1780892129t68dedcff
+X-QQ-Originating-IP: kLOHYzZH5ZNN56hgnufq3vuFP2j+0x+tfhxzFbkzXkk=
+Received: from [127.0.0.1] ( [116.234.26.110])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 08 Jun 2026 12:15:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10463631921484763401
+Message-ID: <519CAAC5BE344EB7+e6d7f90a-e481-468c-a987-dac3c69d7362@radxa.com>
+Date: Mon, 8 Jun 2026 12:17:57 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB8278.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c856a8c0-8cfd-49ff-957c-08dec51456b7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2026 04:13:47.7649
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GbTUn0lY27cX2SyQEPRhcfVdgTFVp2znZ0MBI9jUuWEwccSpdd9qEiRq+jvfZjyPhRVNrrBwEXdhVRGrGjgogbBIhbKSlPfQnOc8dCHeEQGim3EVYG1TAA+bKrcJGfKC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB7208
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Val Packett <val@packett.cool>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Bryan O'Donoghue <bod@kernel.org>
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+ <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+ <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+ <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: Nr7EfX/rtCyrTbSevDAI1CO8hHmQl9GEJOhwPbF8ZUIVxVzI/AEwS3KY
+	AOqm12IB7uCHq4deXkPA1XGidSo52ZXKC38uqkw6EKhGMTVaH53s2wd9ubuGf/n45NbhwoY
+	dYqljM2E+Br/+ANw1HS0D8HvEMdc8xl54eb7AN2wIEOT8nhhCOrgk8dSv3afOmU8hdBjKpb
+	wXT7vWRzYyjDyElWk5pHkVkcotW2rleZKiZpBAa2A1UodI5/GwtQE8nKf8Bp+wmG7QVuZOd
+	U2reKjYFas4BMn77nK5G1ZplpzhT1JP/i0VmDXvKDldnE8Osjuo+mP0a0+Di72ofNZVmTgc
+	NsLBh3HPFDeoGG+TE+y26cxzv7TkthlhH4u7xzwpinev45lpbnDw1omGA7twIx8QBcRg6WV
+	lHNqCcSUf70RZ5caG3YGKrIOC9cKepq6ryOq1kgl8Okyclxw4xt4SGiJOAQvSbjIWw+f7tq
+	JXCLxwvSRyNgR+gltXFS+W3+nXvTku7cVEI23mhbBmRGmOr9gKiGFphevfUBTtvSbA606R9
+	WnshaN5xylTXCdz6J1GiNm1koK91Bq+AYHqCThUe5sHoJqTN+QFm1e5TDaQSkFD3nxKEiWz
+	GYCENhBPlAan6h99oAX2h7JtMc2iycBZFeh9Q1zIsdZemIcZinya1IOMGfRBcBdxujd3GaL
+	2JiU18g6Pna/YXqZQyk7W6mqtQZxwOdSLVaWcq88H7OWf8tX+KTvaIikyABNsJG6OwaB2fi
+	MPtvaTt7ZZVnIlUpB9qw7Msu4rgBqkvWRxhMJsKW7muVsv7QeZAZj3aD1B9+l9IQ0Hus3xQ
+	nGfvudTK6Yx6SgkildU2ksTzc8sb5DDXeemzN6OVxA5BoGfn7qjc/S51vnk/+aylsIlKcZ2
+	USRCHb+wNuz8pXqBK95Oy/cs0AniMVV8vaOLszfHUR9qCZ9gZvEb7mAMxEO1Dzp6AlgA353
+	E/jc70VE/Z03xNSMyjDca5j9NtafMZOH9dTIA45LIQI1kknqYn3Rrfd8OGjyLJ4MY4178Eh
+	eZTLI3sWH5Bumoco42wU141RTWDzjI+JtxD42te1/eeO6PPpRzOABiCzR2tMco+9WuoU1HA
+	WFDyY0iTqI4oAd7POIKfhw=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-T24gMDQvMDYvMjYgMTA6MzAgcG0sIEFuZHJldyBMdW5uIHdyb3RlOg0KPiBFWFRFUk5BTCBFTUFJ
-TDogRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBrbm93
-IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+PiBJIGp1c3QgbWFkZSB0aGUgYXNzdW1wdGlvbiB0
-aGF0IHdoYXQgd2FzIGluIHRoZSBleGFtcGxlIHdvcmtlZCwgYW5kDQo+PiB3YW50ZWQgY2xhcmlm
-aWNhdGlvbiB0aGF0IHdoYXQgdGhlIGV4YW1wbGUgd2FzIGNoYW5nZWQgdG8gYWN0dWFsbHkNCj4+
-IHJlZmxlY3RlZCBzb21ldGhpbmcgZWxzZSB0aGF0IHdvcmtlZCBvbiB0aGUgaGFyZHdhcmUgaW4g
-cXVlc3Rpb24gYmVmb3JlDQo+PiBJIGdhdmUgYW4gYWNrLg0KPiANCj4gVGhhdCBpcyB0aGUgcHJv
-YmxlbSB3aXRoIGVkZ2UgaW50ZXJydXB0cyB3aGVuIGxldmVsIHNob3VsZCBiZQ0KPiB1c2VkLiBU
-aGV5IHdvcmsgJTk5Ljkgb2YgdGhlIHRpbWUsIHNvIG1hbnkgZGV2ZWxvcGVycyBkb24ndCBub3Rp
-Y2UNCj4gdGhleSBoYXZlIGl0IHdyb25nLiBBbmQgdGhlbiBvbmUgZGF5IGl0IGFsbCBzdG9wcyBi
-ZWNhdXNlIGFuIGludGVycnVwdA0KPiBnb3QgbG9zdC4NCkkgYWdyZWUgd2l0aCB0aGlzIHBvaW50
-LiBCdXQgc2ltcGx5IGNoYW5naW5nIHRoZSBpbnRlcnJ1cHQgdHlwZSBpbiB0aGUgDQpleGlzdGlu
-ZyBsb2dpYyBpcyBub3Qgc3VmZmljaWVudC4gTGV2ZWzigJF0cmlnZ2VyZWQgaW50ZXJydXB0cyBy
-ZXF1aXJlIA0KY2FyZWZ1bCBoYW5kbGluZyBpbiB0aGUgZHJpdmVyLCBhbmQgd2l0aCB0aGUgY3Vy
-cmVudCBpbXBsZW1lbnRhdGlvbiBJIGFtIA0Kb2JzZXJ2aW5nIGlzc3VlcyB1bmRlciBzeXN0ZW0g
-bG9hZCB3aGVuIHVzaW5nIGxldmVs4oCRdHJpZ2dlcmVkIElSUXMsIGFzIA0KYWxzbyBkaXNjdXNz
-ZWQgaW4gYW5vdGhlciB0aHJlYWQuDQoNCkJlc3QgcmVnYXJkcywNClBhcnRoaWJhbiBWDQo+IA0K
-PiAgICAgIEFuZHJldw0KDQo=
+On 6/8/2026 11:48 AM, Val Packett wrote:
+> 
+> On 6/4/26 3:38 AM, Vikash Garodia wrote:
+>>
+>>
+>> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
+>>> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+>>>>
+>>>> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>>>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>>>>> triggers unhandled SMMU page faults
+>>>>
+>>>> How do we know that is a correct address - does it come from qcom
+>>>> documentation or trial and error ?
+>>>
+>>> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
+>>> source for the different stream-ID <600MB behaviour, and share
+>>> specifics, eg if silicon, firmware, or driver and constraint, defect
+>>> or otherwise, so I can include a definitive description.
+>>>
+>>> Also good to know if my workaround is good for long-term, or on the
+>>> other hand handling streams <600MB is important/useful.
+>>>
+>>
+>> Thanks Daniel for raising this patch. Did you also try the memory fix 
+>> i mentioned in the bug [1] discussion ?
+>>
+>> Coming to 600MB, this have been the VPU hardware restriction all the 
+>> while since venus days, and since address could not go deeper all the 
+>> way lower than 600MB, the issue never popped up earlier.
+>>
+>> Consider the memory layout split as below (Iris device range is capped 
+>> to 0xe0000000)
+>>
+>> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
+>>
+>> 0-600MB range, VPU hardware would reserve this to generate different 
+>> stream-IDs primarily for internal (non-pixel) buffers.
+>>
+>> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
+>> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for non- 
+>> pixel buffers.
+>>
+>> When many concurrent sessions were tried, non-pixel buffers were 
+>> mapped into 0-600MB range, and VPU generated secure ID for those. 
+>> Since those were not associated with the iommus configured for iris 
+>> node, it led to USF (un-identified stream fault) and device would crash.
+> 
+> Umm.. is anything *actually* preventing us from adding the "secure" SID 
+> to the iommu node?
+> 
+> I just saw a patch for sc8280xp that did just add an "extra" SID for iris:
+> 
+> https://github.com/strongtz/linux-radxa-qcom/commit/ 
+> e92850f792498c3a72d72d667503a29bf6bb0a31
+> 
+> and I'm wondering if that's about the same exact issue.. (Adding sophon@ 
+> to Cc: here)
+> 
+
+I'm not sure if we're having the same issue. Without adding that SID on 
+sc8280xp (HFI Gen2 FW), it fails to decode anything and crashes 
+instantly. From the trustzone log inside the crashdump, I can see that 
+the buffer isn't actually in the 0-600MB range.
+
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
