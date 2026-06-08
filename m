@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6BB330D22
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 16:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13BC3D3499
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 16:49:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780936768; cv=none; b=O874PIi9U7OmU1GVB0ttr34X0iWcezZxjqPdRBvvxgqbZVQleQzFvXmqpRe7rN7Agt3q5MgqVYClK0hV5q1bS1alQ398yg/hXdFSw5ISfcj67Us4FaEF2SlHEg3hKMx/RPnGW5kPDL31sbUs38sVP8aSBgY1suNT0mdKve3UPvw=
+	t=1780937365; cv=none; b=HeCrmkcRldtBShHTd1DLwTp+vwugW9MXlI51wmHKuS5+hgeMi+1BMZYDloRllwroqQZVTmxass81ANeek90lHPdzaCZYYh8yTnH/2tZ3rf1E/xBlIjCGsoJbxIzoQ72jSlSNwDUS8SPD6KYblKsE3DAFjo2BM773l8VLsiRr6sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780936768; c=relaxed/simple;
-	bh=YEu9rgHXKgRYTzP5paavzCA/BE56X2cC57yroi7VAAs=;
+	s=arc-20240116; t=1780937365; c=relaxed/simple;
+	bh=lhkVoLG495cUVPmVRblOAVrZc/N5vx5RtBT1oDrNgmc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fq6vrnRLRT6eDnxJmDCyS46JwRh14w0xpqKOpwq0YDsr6EWw9au8x5w43TixWVNlXuKRriE6Fs2PMMtogSRmCr7+AmI+62GjjNAFGwW7l34yzjZiaUjmzdI9uUlyRF0VMzXHtV3ckb1yvCwdLOKycX/hAffOarOz2o+0U8GgZAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTjXo7Fg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZyFyJ5ikXqqGW9RwUgLkm/lfmt/SoXDKYdRwpGqWDAWACdztUHfjLQCBiDOTxCSXbAqraPZKXINCyuJWyI/fy3ejfLkq038if8dVqIjCcVhjDJHcQuOvnhK508j1ul3E5494NOj52w2O67sXxnl3zPnBB1qwu09hK3KBIC6xyuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hfFIO8Qe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTjXo7Fg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBAA1F00893;
-	Mon,  8 Jun 2026 16:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hfFIO8Qe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C83EB1F00893;
+	Mon,  8 Jun 2026 16:49:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780936767;
-	bh=ICG6hewedWOwG5e8SNGz6l8qRIMctSufBqI583I7OFo=;
+	s=k20260515; t=1780937363;
+	bh=s1PTTZvphbbwnAu1zwivaHaLice3xJM8yjaB+le9/as=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kTjXo7FgmR9YFGBIWzzL4n0lyvDCtVNSqLtKTKxtqZyppWyafLx4Xqx7VZ7B+Vzoq
-	 TBSbdCO02v66BnwVDOIF1aVQIy3IuEtvjI7DJxz/lBsVjmofPr+dVqRymMs/APz0Kl
-	 vDWfmNd573qHT1N2jC5bQTWryhFdoZrlBza1Y/4MvrNHux1Dy5XyX64mX/SBDRUSeD
-	 JEPuPzgRdQ6oPpatqCkQi7D4mmry7/MG8ueiKWRCW5iEP/k0eS3J1Q04yv8n6cZ/eE
-	 HMNMmeU1DHdit0bICVfSAWkja5WvAmK9ypGtNTNDG61S3mFlH/Qo25TXXPxsLDn53d
-	 5JDxRwamTFHpg==
+	b=hfFIO8QeCPyVO6Hg66PINzp21pSUEbTdK+KeKQ4/zJ7c1RpL7jOZa3qpBjw1yHHhg
+	 llcjGk7Qc1Vs30xA8EHtczdv1MV9MHlcw4Z5b/iFnZCc6s1OcB3UGYldPzxwUijUET
+	 BEKvTeW7MiEFUF6qyyWBl0H1fb8YKWSbwMiT2uHye0ymW1TX+9M47km+WUgTrhgIEM
+	 etUhcCeU/xsMQK8eWJKTEue47WbCA1Qoidn9iGaEFCcsHpPcogPDczLZWL42SqciDJ
+	 zPmuYb9URYMOOs4g7sFgtEvFPnq4vTH+Iifji9iPTRMbdrwNJSZLmOa8ZCjMLodTC3
+	 NN6YycWv9x1nA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/panel: himax-hx83121a: pass the panel pointer
- when creating BL
+Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
-References: <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
+References: <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 16:39:26 +0000
-Message-Id: <20260608163927.3EBAA1F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 16:49:22 +0000
+Message-Id: <20260608164922.C83EB1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,107 +46,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing device link to secondary DSI host can lead to Use-After-Fr=
-ee if the host driver is unbound.
-- [High] The backlight device is exposed to userspace before the DSI device=
- is attached to the host, allowing premature DCS transfers.
-- [High] Unprotected MIPI DSI hardware access due to missing backlight disa=
-ble allows DCS commands to a powered-off panel.
+- [High] Probe fails unconditionally if the optional backlight regulator is=
+ not present in the device tree, breaking backward compatibility.
+- [High] Skipping the DCS brightness command when brightness is 0 prevents =
+the backlight from turning off on devices without an external regulator.
+- [Medium] The backlight supply regulator's enable count is leaked if the d=
+river is unbound while the backlight is active.
 --
 
-commit 4b6dd00d8fec3ba9b10693589e0413bbbce2ec2f
+commit 700de7e190150a663957123f411692a25d437849
 Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-drm/panel: himax-hx83121a: pass the panel pointer when creating BL
+drm/panel: himax-hx83121a: add backlight regulator support
 
-This commit modifies the backlight creation function to accept the entire
-panel context instead of just the DSI device. This prepares the driver for
-future backlight powering on/off support.
+This patch adds support for an external backlight regulator to the
+himax-hx83121a panel driver. It turns off the regulator when brightness
+is 0 and enables it when the backlight is operating.
 
 > diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/d=
 rm/panel/panel-himax-hx83121a.c
-> index bed79aa06f46a..1a7e0125bced8 100644
+> index 1a7e0125bced8..e31e2fba0a787 100644
 > --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
 > +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> @@ -193,10 +193,11 @@ static const struct drm_panel_funcs himax_panel_fun=
-cs =3D {
-> =20
->  static int himax_bl_update_status(struct backlight_device *bl)
+[ ... ]
+> @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct backlight_d=
+evice *bl)
 >  {
-> -	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	struct himax *ctx =3D bl_get_data(bl);
+>  	struct himax *ctx =3D bl_get_data(bl);
 >  	u16 brightness =3D backlight_get_brightness(bl);
->  	/* TODO: brightness to raw map table */
-> -	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
-> +							 brightness);
+> +	int ret =3D 0;
+> +
+> +	if (!brightness) {
+> +		if (ctx->backlight_enabled)
+> +			ret =3D regulator_disable(ctx->bl_supply);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ctx->backlight_enabled =3D false;
+> +
+> +		return 0;
+> +	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this function leave the
-MIPI DSI hardware vulnerable to unprotected access?
+Does this early return prevent the display from turning off the backlight=20
+via DCS?
 
-Because ctx->backlight is not assigned to ctx->panel.backlight during
-probe, the DRM core does not automatically manage its state. In
-himax_unprepare(), the panel's regulators are disabled and the reset GPIO
-is asserted, but there is no corresponding backlight_disable() call.
+For panels that do not have an external bl-supply regulator and rely entire=
+ly
+on DCS commands, disabling the dummy/absent regulator is a no-op, but the
+early return bypasses the mipi_dsi_dcs_set_display_brightness_large() call.
+Will this leave the backlight powered on at its previous level when it shou=
+ld
+be turned off?
 
-If userspace writes to the backlight sysfs interface after the panel is
-powered off, this function will unconditionally send DCS commands via
-mipi_dsi_dcs_set_display_brightness_large() to the off panel. This
-typically causes the MIPI DSI host to experience transfer timeouts and
-potential hardware errors.
+> +
+>  	/* TODO: brightness to raw map table */
+> +	if (!ctx->backlight_enabled)
+> +		ret =3D regulator_enable(ctx->bl_supply);
 
+[Severity: Medium]
+Could this leak the regulator enable count if the driver is unbound while t=
+he
+backlight is active?
+
+If the panel driver is unbound or the module is removed while brightness is
+greater than 0, the devres infrastructure will unregister the backlight
+device without triggering an update_status to 0. Since there is no explicit
+disable in a remove callback or devm_add_action teardown hook, will the
+subsequent regulator_put() hit a warning for a non-zero enable count?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ctx->backlight_enabled =3D true;
+> +
+>  	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
+>  							 brightness);
+>  }
 [ ... ]
-
-> @@ -646,7 +647,7 @@ static int himax_probe(struct mipi_dsi_device *dsi)
+> @@ -647,6 +669,10 @@ static int himax_probe(struct mipi_dsi_device *dsi)
 >  	ctx->panel.prepare_prev_first =3D true;
 > =20
 >  	if (desc->has_dcs_backlight) {
-> -		ctx->backlight =3D himax_create_backlight(to_primary_dsi(ctx));
-> +		ctx->backlight =3D himax_create_backlight(ctx);
+> +		ctx->bl_supply =3D devm_regulator_get_optional(dev, "bl");
+> +		if (IS_ERR(ctx->bl_supply))
+> +			return dev_err_probe(dev, PTR_ERR(ctx->bl_supply),
+> +					     "Failed to get backlight supply\n");
 
 [Severity: High]
-This is a pre-existing issue, but does himax_create_backlight() expose the
-device to userspace too early?
+Will this break probe backward compatibility for existing device trees?
 
-In himax_probe(), this registers the backlight device and immediately expos=
-es
-its sysfs interface. However, this happens before devm_mipi_dsi_attach() is
-called later in the probe routine.
+The devm_regulator_get_optional() function returns ERR_PTR(-ENODEV) when the
+requested regulator is absent from the device tree. Because this bl-supply
+property was just introduced and is optional, existing devices do not have =
+it.
+Should this code explicitly check for and handle -ENODEV (for example, by
+setting the pointer to NULL) instead of failing the probe unconditionally?
 
-If userspace writes to the brightness attribute in this window,
-himax_bl_update_status() could send DCS commands over the MIPI DSI bus
-before the hardware is actually attached to the host, which could result in
-transfers on uninitialized hardware.
-
-[Severity: High]
-This is also a pre-existing issue, but does himax_probe() need to establish
-a device link to the secondary DSI host?
-
-Earlier in himax_probe(), the secondary DSI host is looked up and the
-device is created:
-
-    dsi1_host =3D of_find_mipi_dsi_host_by_node(dsi1);
-    ...
-    ctx->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, &dsi=
-_info);
-
-Without establishing a device link (e.g., using device_link_add()) to
-ensure proper driver unbind synchronization, if the secondary DSI host driv=
-er
-is unbound, its mipi_dsi_host and the associated DSI device are unregistered
-and freed.
-
-Since the panel driver remains bound and retains ctx->dsi[1], a subsequent
-DCS command or modeset could access this freed memory, leading to a
-use-after-free.
-
+>  		ctx->backlight =3D himax_create_backlight(ctx);
 >  		if (IS_ERR(ctx->backlight))
 >  			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
->  					     "Failed to create backlight\n");
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608162622.4037=
-13-1-zhengxingda@iscas.ac.cn?part=3D2
+13-1-zhengxingda@iscas.ac.cn?part=3D3
