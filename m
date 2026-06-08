@@ -1,143 +1,364 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774F031E827
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA073176EF
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780886355; cv=none; b=rE+W49uB7Vwf4lqRWku3Qou47wwQaCGJ7b1wrwUtnBiIOD2hQ9OybFbqQ/F2UQQBvI/GIQ1p6UgSPkNQDr9c9WCx59IgOKMVJdLbQBoCvgLEgeeFij1KSbUdl/cBW87yyHl/bs6fLglWPHlIrGhvCqRj0nr7KTOx3KYt7vWECUw=
+	t=1780886361; cv=none; b=eQLIkLbum3ymKmvDDodLPQQCD0W3oQ3KXnFC7D/5ed7x5zF6BCBCzMkSInPSZp9aCkU95veV9SfD+CCuPgkb0vk0GFLhBufnkPdljwPVlsi7tJ81++KsYJTpGSwItwAM2e0U8GnPvh8AVfXC3TZc4ovoS7xrikg0AQvTgSatloo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780886355; c=relaxed/simple;
-	bh=+XAn5KRRhyG9uPDOu5VAYtgn//0sd/e+s3Icgy1N5qE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LxbfXdNfHkkeLNgDZ5oMnQM8zm+na1Gy2lEhd0io70OVuJ9eqVAlLdxXo15GeTh8vLcY5y45sFGMnY9w3RTxPsxkDaB4k7AJmPpygflCejmAqBlNcw03aC7mdXtMBrIMMf2hSUX67rezZoVkrVmdIIfpCnwhRK3ZAAqb3Li2pFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZGyQmgy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780886361; c=relaxed/simple;
+	bh=lrg3BfU0Dfd2KrphFHdGyamOqLlZn8UGWEQr3pMFwwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=twWHpHGIHpcln9RLbtT0NipRDUAk6Ipm/bRX9XRRvnXmqTTPsEptSoYMvj5dfm2AZ+Qpz69A+zrwMW3BvGlraj0mVFXOk74aT+uDI7g8EJPUA8Sdegl9RTpOdoC9ggKbdaRHjc06UWQDpQhQr9OTkuZhk+kiPsF6Csdnx+BxKn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M4hmWh5f; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZGyQmgy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE8A1F00893;
-	Mon,  8 Jun 2026 02:39:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780886352;
-	bh=By41hwZ3oYMiT9VMiCD6WiaqRF0N5WwwItEnK2Y+1Wg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VZGyQmgyguknXG5iDTq6PQ4qQtOQrt4PKue0CPpZIQcULv2g/Co85tu2QPJYUyGYa
-	 hYGa27hE5uIpKCfoQ8aQgsWlWvGT3ZnOCewipBcbwtAX2Yfs7uL5K6NeYXD/LFV1fl
-	 jvdjmfeJLQR35KlW7763cHbyxfEA6w6jnnd9tyodelHb/BTetOK7JjB0yZMBFJSWRt
-	 p8wjzyVAWWRB9w3IWXqAfxwY5d8vlZiQzE1IKJJubL/GH6M9CE2YwM2DHYWlBbPcIN
-	 YFfDrp2Oeqf8G/ogyt/7DEj3cQXsroOSU6TqQBgmaYalmlRJ+4BvSR3s6hkNhI4fzK
-	 u4zlvrHIk1JAA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608023237.305036-2-a0987203069@gmail.com>
-References: <20260608023237.305036-2-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:39:11 +0000
-Message-Id: <20260608023911.CEE8A1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M4hmWh5f"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-36d98c9b596so2263918a91.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:39:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780886358; x=1781491158; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YfFgN+bmnzJQ2v84ituwVsdrEhxj4WXz21z/Ki18mKI=;
+        b=M4hmWh5fvMRXRXwJ8nNLaQFJmOiJdZlgPPldh2R+jAZB6jU9iaKdS0xVVehoxTpHZJ
+         /GrmdqEjJWH25DW2q2RDzwrfjxb2Ac0O5yCfCWenfCCRDtjiLgLGELCTiHuei+3WfrNk
+         bqmIg1QPplkL/m3o354XABlTxfI+GZ7sYAYmxeJRfjjrPlbxI1t9jLnCnfUiVsIiCIzr
+         sBa9b3W7Gl54ZXVooX1qTc7BLOyxGIvHlTv2tClVzxZDt8M8OFB5xBUb/osrwAAlEOCL
+         ukjtzaKe4haXfLVW0J0bqRgfhWNdRCanx916U1j0Qff/w7RBcB1MYhDAxD+yHbAZHnAU
+         kRFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780886358; x=1781491158;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=YfFgN+bmnzJQ2v84ituwVsdrEhxj4WXz21z/Ki18mKI=;
+        b=JbIS2wb8WvdpJP7woyhuEA4/XsyjEFqeP2smNdroJ5oGwDCsJSnJ4YFgU6YFQfWc7i
+         +IW2lJzGsKO1SEekeIj2BXtQ9guqhamwT/wy2TynK2YQBRKRpmYh4c9MIr4VshyfdEIW
+         SJBgdhyyzakwQK2z6ASmC/TfKCcmdNhQroOrH3QKmfVGt6tTHZjkEo+OLKm0xHGRYXWd
+         X9vMVPNu1h8sqKa2OC5HxB0tXdT0ynowYxfXqVu94qujoGM9I+dxzCHwU2vtvt6jEIj+
+         nKPcfF9NBm5MbxPfNPyDo/nZAKksXWxTxWPVcW2eB9B9d7ETFz4IqJ4GG8x8p6F926hU
+         83fg==
+X-Forwarded-Encrypted: i=1; AFNElJ+0JFMzi3CNCeNY3SOo0h89SumM56zsG4SOJaSpj7xxXACRpbpPbZLWhlyBhcxYyi5Z4CXjlCV8w8Ds@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3pbkYyQrO8owxzlscdJttfFJUt4tHSWRsn1JE5BjxVw8mSNXl
+	4czggKnhNaiN811qIy/U45eao8Am4vpN7U6WfGznxvOUlnxOLNWnOJpY
+X-Gm-Gg: Acq92OHTWcwxahvtSEaOU3SfqkBA9kYwm1U/KK9vQ2poVgU9y5ITRblLtN/H2jEXj4D
+	KdwES/YsD6U3mABLd5v8AjgweqFXOPsH69wBI0QLUm6BVq4elg0fcmDPm+Zbis28u0mZ+jqbX+K
+	lQt4Lz5Y94hnxj6F1TuMsS2RMk2qaO1EGOU6LZNON133P3jxWYZgft5sXF9QEzZkd3P612gJFVQ
+	7GkP4z+szSKqLfrPa0ySb3kScVwYc0G4Rqo5709v1pwnWJsgFumDjP5SbQeUv+1CEKBOw2T+hhR
+	LTLICcsyY+SCRiVSLbFP9+cIGpKhEXpvHx+GKRoRtzfM1gosDap9eZxy8y8VFruKcS2M421ZuCh
+	UoJVsqUBjsrMgsfldKkWcQFBmyGZtFLjyfawfvJXYMPwFaeR1ew5G8xgmCwAnfkega4GYKK7+cE
+	NJZPEGTlNdTXqi3yMhrKy4dWrBsCKWWo7kKZtzW7WhKivviKwbOsm3Ils3Mw==
+X-Received: by 2002:a17:90b:3a44:b0:369:971:4888 with SMTP id 98e67ed59e1d1-370f057ac30mr12499905a91.15.1780886357991;
+        Sun, 07 Jun 2026 19:39:17 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f711e52b0sm14248048a91.15.2026.06.07.19.39.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 19:39:17 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 7 Jun 2026 19:39:16 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: ASHISH YADAV <ashishyadav78@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ashish Yadav <ashish.yadav@infineon.com>
+Subject: Re: [PATCH v3 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp730
+Message-ID: <bf947dcd-2028-4dfd-a007-c4f39d2b7649@roeck-us.net>
+References: <20260601090925.3781-1-Ashish.Yadav@infineon.com>
+ <20260601090925.3781-3-Ashish.Yadav@infineon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260601090925.3781-3-Ashish.Yadav@infineon.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The top-level `clocks` definition retains a fixed `items` array wit=
-h descriptions that conflict with the Nuvoton single-output variant, errone=
-ously documenting its second clock as `DMA AXI bus clock`.
-- [Low] The schema does not strictly enforce the single-output variant cons=
-traint for `nuvoton,ma35d1-dcu`, allowing a device tree to incorrectly defi=
-ne an invalid `port@1`.
---
-
-commit 5f08249fbf664513d5ae1c658d2a7ebfc4f0b03e
-Author: Joey Lu <a0987203069@gmail.com>
-
-dt-bindings: display: verisilicon,dc: generalize for single-output variants
-
-The existing schema hard-codes the five-clock/three-reset/dual-port topology
-of the DC8200 IP block. This commit reworks the schema to express variant
-specific constraints via allOf/if blocks, allowing reuse for single-output
-variants like the Verisilicon DCUltraLite used in the Nuvoton MA35D1 SoC.
-
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
-l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 9dc35ab973f20..db0260d874c53 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-
-[ ... ]
-
-> @@ -26,6 +27,7 @@ properties:
->      maxItems: 1
-> =20
->    clocks:
-> +    minItems: 2
->      items:
->        - description: DC Core clock
->        - description: DMA AXI bus clock
-> @@ -34,24 +36,19 @@ properties:
-
-[Severity: Low]
-Since the top-level clocks property retains a fixed items array, does this
-cause the Nuvoton variant's second clock to incorrectly inherit the descrip=
-tion
-"DMA AXI bus clock" instead of its actual "pix0" clock?
-
-Should the items array for clocks be moved to the per-variant if/then blocks
-(similar to how clock-names is handled) so that the hardware interface is
-documented accurately for each variant?
-
-[ ... ]
-
-> -additionalProperties: false
-> +allOf:
-
-[ ... ]
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: nuvoton,ma35d1-dcu
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
+On Mon, Jun 01, 2026 at 02:39:25PM +0530, ASHISH YADAV wrote:
+> From: Ashish Yadav <ashish.yadav@infineon.com>
+> 
+> Adds support for the Infineon XDP730 Digital eFuse Controller by
+> updating the existing XDP720 driver.
+> 
+> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+> ---
+> XDP720/XDP730 Digital eFuse Controllers provides accurate system telemetry
+> (V, I, P, T) and reports analog current at the IMON pin for post-processing.
+> 
+> Both parts share the same PMBus register map and direct-format
+> coefficients; they differ in the GIMON gain step exposed via the
+> TELEMETRY_AVG register (bit 10) and in the VDD_VIN pin number
+> (XDP720: pin 9, XDP730: pin 20).
+> 
+> The Current and Power measurement depends on the RIMON and GIMON values.
+> The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Register.
+> The value of RIMON (kohm) can be provided by the user through device tree using
+> infineon,rimon-micro-ohms  property.
+> ---
+>  drivers/hwmon/pmbus/Kconfig  |   2 +-
+>  drivers/hwmon/pmbus/xdp720.c | 167 +++++++++++++++++++++--------------
+>  2 files changed, 100 insertions(+), 69 deletions(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index 8f4bff375ecb..a9e86d92b044 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -715,7 +715,7 @@ config SENSORS_XDP720
+>  	tristate "Infineon XDP720 family"
+>  	help
+>  	  If you say yes here you get hardware monitoring support for Infineon
+> -	  XDP720.
+> +	  XDP720 and XDP730 Digital eFuse Controllers.
+>  
+>  	  This driver can also be built as a module. If so, the module will
+>  	  be called xdp720.
+> diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
+> index 8729a771f216..1a5eab09f2fd 100644
+> --- a/drivers/hwmon/pmbus/xdp720.c
+> +++ b/drivers/hwmon/pmbus/xdp720.c
+> @@ -1,128 +1,159 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+>  /*
+> - * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controller
+> + * Hardware monitoring driver for Infineon XDP720 / XDP730 Digital
+> + * eFuse Controllers.
+> + *
+> + * Both parts share the same PMBus register map and direct-format
+> + * coefficients; they differ in the GIMON gain step exposed via
+> + * the TELEMETRY_AVG register and in the VDD_VIN pin number.
+>   *
+>   * Copyright (c) 2026 Infineon Technologies. All rights reserved.
+>   */
+>  
+> +#include <linux/bitops.h>
+>  #include <linux/i2c.h>
+> -#include <linux/module.h>
+>  #include <linux/init.h>
+>  #include <linux/kernel.h>
+> -#include <linux/of_device.h>
+> -#include <linux/bitops.h>
+>  #include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/of_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+>  #include "pmbus.h"
+>  
+>  /*
+> - * The IMON resistor required to generate the system overcurrent protection.
+> - * Arbitrary default Rimon value: 2k Ohm
+> + * The IMON resistor required to generate the system overcurrent
+> + * protection.  Arbitrary default Rimon value: 2 kOhm (in micro-ohms).
+>   */
+> -#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
+> -#define XDP720_TELEMETRY_AVG 0xE9
+> +#define XDP720_DEFAULT_RIMON		2000000000U	/* 2 kohm */
+> +#define XDP720_TELEMETRY_AVG		0xE9
+> +#define XDP720_TELEMETRY_AVG_GIMON	BIT(10)		/* high/low GIMON select */
 > +
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: pix0
+> +/* Chip identifiers carried in OF match-data and i2c_device_id->driver_data. */
+> +enum xdp720_chip_id {
+> +	CHIP_XDP720 = 0,
+> +	CHIP_XDP730,
+> +};
+>  
+> -static struct pmbus_driver_info xdp720_info = {
+> +struct xdp720_data {
+> +	enum xdp720_chip_id	 id;
+> +	struct pmbus_driver_info info;
+> +};
 > +
-> +        resets:
-> +          maxItems: 1
+> +static const struct pmbus_driver_info xdp720_info = {
+>  	.pages = 1,
+> -	.format[PSC_VOLTAGE_IN] = direct,
+> -	.format[PSC_VOLTAGE_OUT] = direct,
+> -	.format[PSC_CURRENT_OUT] = direct,
+> -	.format[PSC_POWER] = direct,
+> -	.format[PSC_TEMPERATURE] = direct,
+> -
+> -	.m[PSC_VOLTAGE_IN] = 4653,
+> -	.b[PSC_VOLTAGE_IN] = 0,
+> -	.R[PSC_VOLTAGE_IN] = -2,
+> -	.m[PSC_VOLTAGE_OUT] = 4653,
+> -	.b[PSC_VOLTAGE_OUT] = 0,
+> -	.R[PSC_VOLTAGE_OUT] = -2,
+> +	.format[PSC_VOLTAGE_IN]		= direct,
+> +	.format[PSC_VOLTAGE_OUT]	= direct,
+> +	.format[PSC_CURRENT_OUT]	= direct,
+> +	.format[PSC_POWER]		= direct,
+> +	.format[PSC_TEMPERATURE]	= direct,
 > +
-> +        reset-names:
-> +          items:
-> +            - const: core
+> +	.m[PSC_VOLTAGE_IN]	= 4653,
+> +	.b[PSC_VOLTAGE_IN]	= 0,
+> +	.R[PSC_VOLTAGE_IN]	= -2,
+> +	.m[PSC_VOLTAGE_OUT]	= 4653,
+> +	.b[PSC_VOLTAGE_OUT]	= 0,
+> +	.R[PSC_VOLTAGE_OUT]	= -2,
 
-[Severity: Low]
-Because unevaluatedProperties: false operates globally, any property define=
-d at
-the top level (such as port@1 in the global ports object) is permitted for =
-all
-variants unless explicitly disallowed.
+Do not change patch formatting just because you prefer your own
+format. This hides the actual changes for no purpose.
 
-Since nuvoton,ma35d1-dcu is a single-output variant, should this block
-explicitly forbid port@1 (e.g., by adding ports: properties: port@1: false)=
- so
-that device trees with invalid multiple ports cannot silently pass schema
-validation?
+>  	/*
+> -	 * Current and Power measurement depends on the RIMON (kOhm) and
+> -	 * GIMON(microA/A) values.
+> +	 * Current and Power measurement depend on the RIMON (micro-ohm)
+> +	 * and GIMON (microA/A) values; scaled per-instance in probe().
 
+Also, if you make changes like this, do it in a separate patch
+or patch series. Again, this hides functional changes.
+
+I am not going to review this patch any further.
+
+Guenter
+
+>  	 */
+> -	.m[PSC_CURRENT_OUT] = 24668,
+> -	.b[PSC_CURRENT_OUT] = 0,
+> -	.R[PSC_CURRENT_OUT] = -4,
+> -	.m[PSC_POWER] = 4486,
+> -	.b[PSC_POWER] = 0,
+> -	.R[PSC_POWER] = -1,
+> -	.m[PSC_TEMPERATURE] = 54,
+> -	.b[PSC_TEMPERATURE] = 22521,
+> -	.R[PSC_TEMPERATURE] = -1,
+> +	.m[PSC_CURRENT_OUT]	= 24668,
+> +	.b[PSC_CURRENT_OUT]	= 0,
+> +	.R[PSC_CURRENT_OUT]	= -4,
+> +	.m[PSC_POWER]		= 4486,
+> +	.b[PSC_POWER]		= 0,
+> +	.R[PSC_POWER]		= -1,
+> +	.m[PSC_TEMPERATURE]	= 54,
+> +	.b[PSC_TEMPERATURE]	= 22521,
+> +	.R[PSC_TEMPERATURE]	= -1,
+>  
+>  	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
+> -		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_INPUT |
+> -		   PMBUS_HAVE_STATUS_TEMP,
+> +		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT |
+> +		   PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP,
+>  };
+>  
+>  static int xdp720_probe(struct i2c_client *client)
+>  {
+> -	struct pmbus_driver_info *info;
+> +	struct xdp720_data *data;
+>  	int ret;
+> -	u32 rimon;
+>  	int gimon;
+> +	u32 rimon;
+>  
+> -	info = devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
+> -			    GFP_KERNEL);
+> -	if (!info)
+> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+>  		return -ENOMEM;
+>  
+> +	data->id = (enum xdp720_chip_id)(uintptr_t)i2c_get_match_data(client);
+> +	data->info = xdp720_info;
 > +
-> +unevaluatedProperties: false
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608023237.3050=
-36-1-a0987203069@gmail.com?part=3D1
+>  	ret = devm_regulator_get_enable(&client->dev, "vdd-vin");
+>  	if (ret)
+>  		return dev_err_probe(&client->dev, ret,
+> -			"failed to enable vdd-vin supply\n");
+> +				     "failed to enable vdd-vin supply\n");
+>  
+>  	ret = i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
+> -	if (ret < 0) {
+> -		dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
+> -		return ret;
+> +	if (ret < 0)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "failed to read TELEMETRY_AVG\n");
+> +
+> +	/* Bit 10 of TELEMETRY_AVG selects the GIMON gain step in microA/A */
+> +	switch (data->id) {
+> +	case CHIP_XDP720:
+> +		gimon = (ret & XDP720_TELEMETRY_AVG_GIMON) ? 18200 : 9100;
+> +		dev_info(&client->dev, "Initialised XDP720 instance\n");
+> +		break;
+> +	case CHIP_XDP730:
+> +		gimon = (ret & XDP720_TELEMETRY_AVG_GIMON) ? 20000 : 10000;
+> +		dev_info(&client->dev, "Initialised XDP730 instance\n");
+> +		break;
+> +	default:
+> +		return -EINVAL;
+>  	}
+>  
+> -	ret >>= 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
+> -	ret &= GENMASK(0, 0);
+> -	if (ret == 1)
+> -		gimon = 18200; /* output gain 18.2 microA/A */
+> -	else
+> -		gimon = 9100; /* output gain 9.1 microA/A */
+> -
+> -	if (of_property_read_u32(client->dev.of_node,
+> -				 "infineon,rimon-micro-ohms", &rimon))
+> -		rimon = XDP720_DEFAULT_RIMON; /* Default if not set via DT */
+> +	if (device_property_read_u32(&client->dev,
+> +				     "infineon,rimon-micro-ohms", &rimon))
+> +		rimon = XDP720_DEFAULT_RIMON;	/* Default if not in FW */
+>  	if (rimon == 0)
+>  		return -EINVAL;
+>  
+> -	/* Adapt the current and power scale for each instance */
+> -	info->m[PSC_CURRENT_OUT] = DIV64_U64_ROUND_CLOSEST((u64)
+> -		info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000ULL);
+> -	info->m[PSC_POWER] = DIV64_U64_ROUND_CLOSEST((u64)
+> -		info->m[PSC_POWER] * rimon * gimon, 1000000000000000ULL);
+> +	/* Adapt the current and power scale for each instance. */
+> +	data->info.m[PSC_CURRENT_OUT] = DIV64_U64_ROUND_CLOSEST((u64)
+> +		data->info.m[PSC_CURRENT_OUT] * rimon * gimon,
+> +		1000000000000ULL);
+> +	data->info.m[PSC_POWER] = DIV64_U64_ROUND_CLOSEST((u64)
+> +		data->info.m[PSC_POWER] * rimon * gimon,
+> +		1000000000000000ULL);
+>  
+> -	return pmbus_do_probe(client, info);
+> +	return pmbus_do_probe(client, &data->info);
+>  }
+>  
+>  static const struct of_device_id xdp720_of_match[] = {
+> -	{ .compatible = "infineon,xdp720" },
+> -	{}
+> +	{ .compatible = "infineon,xdp720", .data = (void *)CHIP_XDP720 },
+> +	{ .compatible = "infineon,xdp730", .data = (void *)CHIP_XDP730 },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, xdp720_of_match);
+>  
+>  static const struct i2c_device_id xdp720_id[] = {
+> -	{ "xdp720" },
+> -	{}
+> +	{ "xdp720", CHIP_XDP720 },
+> +	{ "xdp730", CHIP_XDP730 },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(i2c, xdp720_id);
+>  
+>  static struct i2c_driver xdp720_driver = {
+>  	.driver = {
+> -		   .name = "xdp720",
+> -		   .of_match_table = xdp720_of_match,
+> +		.name		= "xdp720",
+> +		.of_match_table	= xdp720_of_match,
+>  	},
+> -	.probe = xdp720_probe,
+> -	.id_table = xdp720_id,
+> +	.probe		= xdp720_probe,
+> +	.id_table	= xdp720_id,
+>  };
+>  
+>  module_i2c_driver(xdp720_driver);
+>  
+>  MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
+> -MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse Controller");
+> +MODULE_DESCRIPTION("PMBus driver for Infineon XDP720/XDP730 Digital eFuse Controllers");
+>  MODULE_LICENSE("GPL");
+>  MODULE_IMPORT_NS("PMBUS");
