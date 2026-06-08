@@ -1,211 +1,203 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058C63806B8
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE8C38F64C
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:44:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780925880; cv=none; b=msPCnqB/26BQDkq4bTO6d8sLTAjA7MP7TJCSf/b78Jp3oTUZuKwIF8Bd/NhkB2AArBapNbxqoY92U2kto3y24SDBON1NK3ZSDOIRZc2JyhxRlUIFQVM4UbWkmKuR410aLfed56o6EGnzYkjK92FdKgVPrKU+10LFD9BRX3uA808=
+	t=1780926293; cv=none; b=H8NWuBa8HmOyfwMa3FCgixqme/R8NvxvWL2VgLG2FcipfiLNRUewhJUAa9+jxBUgjfVXqHWmTVjNkF5h//YteCAb/0acE3JN/Mr6tM26eCpwkxz4Qu/Ppkk2v5gsXx6SMzMHOsZgnTGDqzAPmLDtxvbeuGaZYpcSg9g8tCVLg/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780925880; c=relaxed/simple;
-	bh=bGxBOEX5vtxnGJu0C1CO9jYwtrMiWuaWtlMe7HyJXGA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kjFO65Zw25FB9DLujSLV+zvyz6+1nR0vicH6cA48qzo+Q/rWiazLaq963wKaKIxMNOEaF49DoasSK2Sr/zi0KGDB+GZnaecTJHaGrsUdCxwuiQWrAnCoE3q9tQcndOjEN1bjL/ubqQMfDNlhvYgrg3cT1b50OnCsoQP9Ic552mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyKTTGh+; arc=none smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780926293; c=relaxed/simple;
+	bh=ADv8HQSn0bAWEjRLgvvHbC8lDudXzS5pm8sdS5zAgW0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lBfdexRZBkO5IXGUpjPeUEKi3tJ4QKUhVmNXadf5lLLkDCJTe4KOxzEl6HGB9ts64BoH2g2womVwpX2ISOhkGADdlCgS4eowoXZ0Y7Gs3ZFG4QASvVMil+PubrzbzU8Ltig3EAf/XUwCh2hYug/uLMzd9mk3TBtuLmG+U17a+0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rk4qYFZp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=deJIO2/i; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyKTTGh+"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1363e78746eso4593494c88.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:37:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rk4qYFZp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="deJIO2/i"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658DRaFi3230480
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 13:44:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UBeLLeGd6D9gfelgbASleoaGWcIHd60b02pysLN6WeQ=; b=Rk4qYFZpGnlkGGw0
+	R3e/WBEm9RaoOSBpuO65hpi+rZ3tPqtV1E9zMZ2HqK9xdim43SifwVfqbo07GHrM
+	Ju5dw0NOumxW0CEDPfaJ30J+lDNgKkUsoF6WCZEh4N2Wb+KMRfa+QRgFkprQWFTk
+	iunZ+6qnCMVFMxu6pAJ0J+3LTJoDbpyT+cZYY//NyyXHWArvYc8qEmuRSgBDCUux
+	NxDFHKhAJG0LCkk/eAKucK+LXxCAKcQabgOugfozTymldl8iDtm48NhNCrktjlqA
+	ATL+7rp16SUgQIXbWD78hULIbIGtCx85dFsMd2JLM+KhemVstOmLtODKZlRwSbrv
+	GPetDw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgywfs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 13:44:50 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c0c3315d31so48014135ad.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780925878; x=1781530678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZwULGS4h8PnN6MHIOVwi83xoDC88zB8a4vjNWuQ1Pus=;
-        b=eyKTTGh+N3J9QFmqiaXWFifUY9vAzMf5mh6lI/YpLaCYY5NDCmGWLkcL5mebOt1Syl
-         XfMUwh6qAYGAW13R7pOqddXUk4mVYZJfB1jHC/3H881rGNgiK6woLPDvZ471iswhAtD0
-         Picyy3FBYn6nKNsMX0pgjwM0PRiLe4mH53wda45FJFv0EmYjNLNQO6X8jHNM/vbvhx2l
-         JIrpLNyEbMURMJH27cCpPpqk1N8fc+WzQqGukA163WSvEHZ1a+iHD4+S4ImKr2LY4Frx
-         7G/2Ku7JDJrRhJkdtnCyxhesrViRSHHz/l7Ii1UBIcWb9W1IHupjKUhNW0+W+RwPNgjI
-         BCKw==
+        d=oss.qualcomm.com; s=google; t=1780926290; x=1781531090; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UBeLLeGd6D9gfelgbASleoaGWcIHd60b02pysLN6WeQ=;
+        b=deJIO2/itOhtBIAbxLDxAUzKkKlxWAVh5Cz678maO8NHAAdjYRHpxi0nGTDiFMXrNr
+         pWhku8OjzLtPGMcJ59ZDAC/QuzHBOQwI2WLYbHzDrnisvdtGMhp2ui2isp0Qte3L/cY0
+         tWJOAGZxzQA8n5ZcxFnzZMYrDdwxztBuZpE8LNCcYbzPLayA89dA/P0VZLMg3WyR/L3o
+         3oKilUn0woJepG/xmcOeO3hblCNf+lvlyLYIlHtU88tUIsxcE2UjQzqiVvXpO0qkyvM3
+         K/aJhe4+786hmwP2BDRhzP0S7Gt7J2zlbNziD4YkLoxymFa/MexeU/1C2QimF4nv9jvg
+         YA1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780925878; x=1781530678;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ZwULGS4h8PnN6MHIOVwi83xoDC88zB8a4vjNWuQ1Pus=;
-        b=QC0vg0FVxKZBnSM7zBq725rHf4C8SGZJCLyfiPhDxB80QTUBSVE8zMxX2aOz6qWpZA
-         yFHDe9WQc+K48QTMjzPtFG+NA+0XtxvK6UlZvghUR2QsSR5aD6nqrQCScdnU/uRaDSAd
-         mi81NucjtMFaxz+d0Uz5z0UF95GhasqxR+kx5x6bV9Ig/tiC2xg624tE4QUUkGicjatQ
-         WYIUPN/wX6mNkhgHHKX7EAfhb/pYqbVZhzL4c3wto9qg81cE/6bp+dA+baeClA7xbSK/
-         QVGZxxkz2xpe4/icsgngUlF0JRLDrH7Rd2fxYE7wgD7KWj3WNAO/QFYLZH9mYgIj2Dho
-         6R9w==
-X-Forwarded-Encrypted: i=1; AFNElJ/8t91PUdZnGrCW48S/foa+RUpi6LBfrQSBH5O8FriP9odm3bkNrrQyejwcyRNllIbtTAGJjmU24s7O@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxit5CFqpqQ9yRneqfch2NTASynj13iwbLgfYp/SPuAP19rM2Bw
-	ys+PgQbhpYOwiJgzCoK8c5HmAkOv7gST3ckBeIDaXv9xzuNHFXGNQUyT
-X-Gm-Gg: Acq92OGZN7FC8iDb7yhsYAd/6Oap/ugUPSHPDUB8amgG3kqckO1/OqspuEu5HiEEI0Z
-	Mtxmlnk7toHniVA40+kUmdwb0TuLmLihNP025ua7D9sOKEnu9mmPJJBicaSY1lWIOzepUaQM43G
-	e55QADvKLqUndTuqWPwuptH83ces83hsbmwznvsr7lR6nPhuyGYstipTw8Rnxzgu+pC4K0kDj5+
-	leA3L7LShOJAs6ZrjWWiksrPY9iovTL4aQhfAGICs8dhYQMRB4V2l4O0PKe3KHa/syUEqaxu0oM
-	LF8BlJYSEylrMIEQb/OkEhAUUD1CUwe98kfRUbEJXwbempSl1fzSRPEMmvrs2lubL9gVU1SaGy4
-	s2fxQsDgVN7m1HpLJH+SG25Dt0R3+ZlXxhxFgT9otNWxi3prAQMbZFvi0bt9Nru2X7uGB+Zk+od
-	hyx5fcG5S5Leo8yQXPTAmKGH/ItdY4/Q3gaHtgT8RgZ3wnhVMqVi7TRGiuvIpF
-X-Received: by 2002:a05:7022:fd0c:b0:138:3d7:e8b1 with SMTP id a92af1059eb24-13806699169mr6430796c88.10.1780925877674;
-        Mon, 08 Jun 2026 06:37:57 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5539432sm14333495c88.9.2026.06.08.06.37.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 06:37:57 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: sashiko-bot@kernel.org
-Cc: conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.torokhov@gmail.com,
-	jerrysteve1101@gmail.com,
-	linux-input@vger.kernel.org,
-	robh@kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH 8/8] Input: cap11xx - add support for CAP1114
-Date: Mon,  8 Jun 2026 21:37:49 +0800
-Message-ID: <20260608133749.555523-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260606152056.B77161F00893@smtp.kernel.org>
-References: <20260606152056.B77161F00893@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1780926290; x=1781531090;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UBeLLeGd6D9gfelgbASleoaGWcIHd60b02pysLN6WeQ=;
+        b=HoPNHw+Gm9PtjLCVnEY+eHgSr+sHPGKkgue4rBkunNJkxePyhPdKwAI64OD7j5NsVq
+         hpEquHwKUJ0A5P8xB+l/cpDkI+RjuIb8kz5BM+OORrcgPUD1PhdU035G98k7FD0EZEoa
+         Egchi5/0lAhKdUU6jYjKpr1cYf1wPP6RnMYd1irPnP4uHB5mz1B/doSpA2N5MPZpgrUV
+         OFoP5zN4vFW5WSx1NunL/BECPhPKOREGV+lk34l9LT6ihs8IXIbDu8Z4mmLvt3HLgMzl
+         qdaZu0Jtrwsxha3t+ewTVdTsev0D2q2Unzyj3haYk1V9kS20pgs+928zfSsrVNmRCEUb
+         iW9Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9G4VnHdeCqwDStFjoRv+Uq+gCTjFbqCDWrN1zIWStDpJoYJFUQMy2IBgXwaZzEkX2COt1b46BTJsnv@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLgPXPwnf5X9Q+xYOXCxSf+S8IQFcJZSVVLYAOswgoY2ymT4ag
+	3IS7rcmqStfjllsPS8SnKQlASJfH+GQiS0/27om3IC/k6VZKkB/1HmAG/nN3hcxY8GaUhZHv9Q0
+	21QkfNSiAdwJT81J0O2suPHDiRSa6Al8ymHWvF5BrXS0aU27wfsCj33PECxAMWuHj
+X-Gm-Gg: Acq92OExsSj5ZEb0FPdOQFIgh8hbHgdVfK9OYXzp8SCtDOFp1+WZlneS7MZKIyjJU+W
+	F7V32z8e+pcZC89HfRCne4qrPkxCuRO5KmL/B97K+pPGbM+EDLFVP44RksTPwDclKyJH8G0YXF/
+	wa9Fq5E2bEqnPDdq/brq1mWMujDClQQjPhu3cKymkevh2wLOWQocZc1jLrGL/yMU/SpFn2EHOxs
+	u/5UBpbdAO+DYkeShsOp3Q0izptMmVoXUjjZ3bwtFXi+6qzEt2DkAXhDODfb4HfZr3wzzoT+lqU
+	oFyZEGCVyIBW7bQkxN480KxOZZ7jHmbBQLZnKOVYvG/W8R3oTiN3GuTcNI7eMnzJRVQmfJxVcvK
+	45mrszjfy+dd8RYpq9iYSdKpM+YN3cTdjaxo4E6hyYW2Eap72FsxV2wEqO5lt
+X-Received: by 2002:a17:902:f543:b0:2c2:27be:39a3 with SMTP id d9443c01a7336-2c227be3b4fmr113831815ad.29.1780926290256;
+        Mon, 08 Jun 2026 06:44:50 -0700 (PDT)
+X-Received: by 2002:a17:902:f543:b0:2c2:27be:39a3 with SMTP id d9443c01a7336-2c227be3b4fmr113831305ad.29.1780926289645;
+        Mon, 08 Jun 2026 06:44:49 -0700 (PDT)
+Received: from [10.218.33.224] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f88473sm200506985ad.25.2026.06.08.06.44.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 06:44:49 -0700 (PDT)
+Message-ID: <0ded611e-1932-470c-8e80-9a5e94268583@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 19:14:43 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: iommu: arm,smmu: Document
+ interconnects property
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20260526-smmu_interconnect_addition-v2-0-2a6d8ca30d63@oss.qualcomm.com>
+ <20260526-smmu_interconnect_addition-v2-1-2a6d8ca30d63@oss.qualcomm.com>
+ <1b5ef5b8-c9f2-4eea-8040-22c1d704b529@oss.qualcomm.com>
+Content-Language: en-US
+From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+In-Reply-To: <1b5ef5b8-c9f2-4eea-8040-22c1d704b529@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a26c753 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=nHMyhPlvQ-XDY_K2CzoA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: cC-JcXULIr104tWCJKDJcNe2QqCVTaSR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEzMCBTYWx0ZWRfXwPhkHnErZ41l
+ DY6OYzhXGf1wjqxdLyg84R7Ozl/K85K/he9hNxz8jUwmNPhpn2VAN0+yHatmyzKnpbmwLNDSQC9
+ poyua4am6YLroe0BuO5OXcmQgNY8r2s7mBM7ihs72dy3pNRBGnxGezLM++oI8vVGjTqWr4qJFo/
+ GBt6vJPitR+iTNs/QQ1Wm4P9FltuOXxG0dM4zkRc6lhNDe4RwqR9WI5XXxWBKHEaAVrkNKu1zeP
+ I6kRzELoA9kwkNfB62Sd75e6isenp7rIRnRgVG4FlQok90ek8qlYYwF5LgSWoYOPgQKjZ+o4Hzv
+ oueEKUVFVuBe806PGFWg9Ek2KEKZzeJ9tLQTeXw3oawa2/SUwfdniQ85O0T4XJjYDfDIGxww8h8
+ PunIFJTyhwPfJfvQkLPU153500aHvzZ/9oacSwDfeuUo45nKU0hVhJu654OuWAwTOQPjK7gBRfX
+ sxToqX/PiPJq9fuccvQ==
+X-Proofpoint-ORIG-GUID: cC-JcXULIr104tWCJKDJcNe2QqCVTaSR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_03,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080130
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-> s) to consider:
-> - [High] Buffer overflow when reading the 'microchip,calib-sensitivity' dev=
-> ice tree property for devices with >8 channels.
-> - [High] Failure to mask `STATUS1` before ORing `STATUS2` can cause phantom=
->  key presses for channels 7 and 8.
-> - [Low] Bitmask calculation for 'microchip,signal-guard' truncates settings=
->  for channels 8 and above.
-> --
+
+
+On 6/8/2026 3:22 PM, Konrad Dybcio wrote:
+> On 5/26/26 4:42 PM, Bibek Kumar Patro wrote:
+>> Some SoC implementations require a bandwidth vote on an interconnect
+>> path before the SMMU register space is accessible. Add the optional
+>> 'interconnects' property to the binding to allow platform DT nodes
+>> to describe this path.
+>>
+>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/iommu/arm,smmu.yaml        | 27 ++++++++++++++++++++++
+>>   1 file changed, 27 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+>> index 06fb5c8e7547cb7a92823adc2772b94f747376a6..3a677ff1a18fcdf5c0ca9ec8a017d41f9eb5ff09 100644
+>> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+>> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+>> @@ -243,6 +243,13 @@ properties:
+>>       minItems: 1
+>>       maxItems: 3
+>>   
+>> +  interconnects:
+>> +    maxItems: 1
+>> +    description:
+>> +      Interconnect path to the SMMU register space. Required on SoCs
+>> +      where the SMMU registers are only accessible after a bandwidth
+>> +      vote has been placed on the interconnect fabric.
+>> +
+>>     nvidia,memory-controller:
+>>       description: |
+>>         A phandle to the memory controller on NVIDIA Tegra186 and later SoCs.
+>> @@ -602,6 +609,26 @@ allOf:
+>>           clock-names: false
+>>           clocks: false
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          items:
+>> +            - enum:
+>> +                - qcom,qcs615-smmu-500
+>> +                - qcom,qcs8300-smmu-500
+>> +                - qcom,sa8775p-smmu-500
+>> +                - qcom,sc7280-smmu-500
 > 
-> commit 8885b1d0f98cb8d5ca53ba5fd9a458743481d5be
-> Author: Jun Yan <jerrysteve1101@gmail.com>
+> This is a list of targets that happen to be supported by QLI.. but should
+> this list not contain _all_ Qualcomm SoCs, or at least a much broader range?
 > 
-> Input: cap11xx - add support for CAP1114
+> Perhaps
 > 
-> CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
-> and hardware reset support. The CAP1114 uses two separate control registers
-> for LED output management and requires two button status registers for touch
-> input state reporting.
+> if: properties: compatible: contains: qcom,adreno-smmu
 > 
-> > diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
-> p11xx.c
-> > index 408880cf65167..2aba3b508947d 100644
-> > --- a/drivers/input/keyboard/cap11xx.c
-> > +++ b/drivers/input/keyboard/cap11xx.c
-> 
-> [ ... ]
-> 
-> > @@ -311,6 +337,20 @@ static irqreturn_t cap11xx_thread_func(int irq_num, =
-> void *data)
-> >  	if (ret < 0)
-> >  		goto out;
-> > =20
-> > +	if (priv->model->num_channels > 8) {
-> > +		unsigned int status2;
-> > +
-> > +		ret =3D regmap_read(priv->regmap, priv->model->sensor_input_reg_base +=
->  1, &status2);
-> > +		if (ret < 0)
-> > +			goto out;
-> > +
-> > +		/*
-> > +		 * CAP1114 STATUS1 register only contains data for the first 6 channel=
-> s.
-> > +		 * the remaining channels is stored in STATUS2.
-> > +		 */
-> > +		status |=3D FIELD_PREP(GENMASK(13, 6), status2);
-> 
-> [Severity: High]
-> If the hardware sets reserved bits 6 or 7 in the first status register to 1,
-> will they be preserved and incorrectly reported as touch events for channels
-> 7 and 8?
-> 
-> Since the status variable (which holds STATUS1) is not masked before this OR
-> operation, any reserved bits set in STATUS1 could overlap with the shifted
-> status2 values.
-> 
-> Should the status variable be masked to clear bits 6 and 7 before ORing in
-> status2?
+> ?
 > 
 
-Thanks. Will mask bits 6/7 via status &= GENMASK(5, 0) after reading STATUS1 in v2.
+As of now platforms where the issues [1] getting reported are added, the
+list will grow.
+<We still have to evaluate and test on other non-QLI platforms hosted in
+upstream [2]>
 
-> > +	}
-> > +
-> >  	for (i =3D 0; i < priv->idev->keycodemax; i++)
-> 
-> [ ... ]
-> 
-> > @@ -572,6 +625,14 @@ static const struct cap11xx_hw_model cap1106_model =
-> =3D {
-> >  	.has_repeat_en =3D true,
-> >  };
-> > =20
-> > +static const struct cap11xx_hw_model cap1114_model =3D {
-> > +	.product_id =3D 0x3a,
-> > +	.led_output_control_reg_base =3D CAP1114_REG_LED_OUTPUT_CONTROL1,
-> > +	.sensor_input_reg_base =3D CAP1114_REG_BUTTON_STATUS1,
-> > +	.num_channels =3D 14, .num_leds =3D 11, .num_sensor_thresholds =3D 8,
-> 
-> [Severity: High]
-> Does configuring num_channels to 14 cause a buffer overflow when parsing the
-> device tree?
-> 
-> In struct cap11xx_priv, calib_sensitivities is defined as a fixed 8-element
-> array:
-> 
-> struct cap11xx_priv {
->         ...
->         u32 calib_sensitivities[8];
->         u32 keycodes[];
-> };
-> 
-> When cap11xx_init_keys() parses the microchip,calib-sensitivity property, it
-> requests num_channels elements:
-> 
-> of_property_read_u32_array(node, "microchip,calib-sensitivity",
->                            priv->calib_sensitivities,
->                            priv->model->num_channels)
-> 
-> If the device tree provides 14 elements, won't this write 56 bytes into the
-> 32-byte array, overflowing into the adjacent keycodes flexible array?
-> 
-> [Severity: Low]
-> Additionally, does setting num_channels to 14 cause truncation in the
-> microchip,signal-guard bitmask logic?
-> 
-> In cap11xx_init_keys(), priv->signal_guard_inputs_mask is typed as a u8, but
-> the initialization loop runs up to num_channels:
+[1]: https://github.com/qualcomm-linux/kernel/issues/297
+[2]: 
+https://lore.kernel.org/all/a437f9f9-3560-40f8-85ea-35433e33c428@oss.qualcomm.com/
 
-I will exclude CAP1114 from using microchip,calib-sensitivity and microchip,
-signal-guard in the dt-bindings to resolve these two issues in V2.
-
-> 
-> if (u32_val)
->         priv->signal_guard_inputs_mask |=3D 0x01 << i;
-> 
-> For i >=3D 8, does the shifted bit exceed the 8-bit width and get silently
-> truncated to 0 during the assignment?
-> 
-> > +	.has_grouped_sensors =3D true,
-> > +};
-> > +
-> 
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606150458.2506=
-> 06-1-jerrysteve1101@gmail.com?part=3D8
+> Konrad
 
