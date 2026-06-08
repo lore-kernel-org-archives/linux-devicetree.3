@@ -1,91 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D083793DC
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0903D967A
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 18:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780942365; cv=none; b=MAHnvXqj8nDh2ei1/cXaP1FtrXdOvjZ4ntZ2POPminEhWlm6S9Y7LbwIZvj/KWx3W1VwUoOxenZJRqpwR+tWWlan/MZXywbvCUasLbdXDDMgwRPyTRgeO/+YMykwvz+bcXqX5Wdd/1Q6POI3Dh0G3gfixunr9+SDZ+uf9T2J7dQ=
+	t=1780942811; cv=none; b=TQ//oxCuoSvdSgRJTIAKGjKBJaDa0jzHpNVF9UqD69k/42m6LKa8LrUpsXbwLZ5CDnZQp+szqfsOlFSJUf1H15JhW8tgatC8lT2FqDPrJtF+FbxP5K4NVErCXCNjubQ9kJj4FpjRCyUkxjjOzTeiutZeT4/hH51nrvuaRDbCOCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780942365; c=relaxed/simple;
-	bh=I7394MEyoSxd+9fzhwAGhrKgTK9mndcubui0ARoQdLQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qfxa6QWGQ568oPS5yjLuu4IfSNl/5ZLUrzT6//v3hxhE5j7rd7KgdTSWjs2fbbCnmk4FKVxomUb3u4FqUAhUP6m4YwcOES/3yRcgRcTkXBdTgYGkBiv3hIiRh+leIN4/UOhLt1qbm5IZKLV+5QHoOb9fCYu75DpcYOanOEhJlEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ld3DB6Nq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780942811; c=relaxed/simple;
+	bh=uwsZ3rg1UDET6SuAP7hOzDi5eSbDRr98eL5zTg6W9wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uwpeA9gRSjlGm8avTUNzVFnpo5lTk/B+3onl0y5UYFLCxYqBSGKH+fs3HEGskRUZiwRT169RPVrSRaT0/ffs6yQqn8MZRArsv3c1wWNI0ASxpb3PpUo2ofrh3ay2fS4O1ahay0OvC7eP5Jc4qSWyHQyfH7PPDZUZgbc119fyHeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NKk9lbdl; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ld3DB6Nq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047CC1F00893;
-	Mon,  8 Jun 2026 18:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780942364;
-	bh=ityvO1O4HgjlIlC5l4rVZhmLGAUoK58LsHEr6xOeztk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ld3DB6NqaCBZXdt6qFVBZxik3KEU58JedFDrgclIN3hw2X8bKB+xPHB1sawEnTuQM
-	 0gA5iTQaQI3Kt21LzLm9orx8SemkE+zrzawwlmTIYbsx3SwveM3G9k8EAvWw4Vg6SM
-	 +wrVcj0plW13oH9CujjmUjSkB+uODekZN+jnXjoSjq97ZH+O9pcUauYlPJkwgUGLWO
-	 l6vfB8KlYP1PKyG3Qkq0dG1LdwdjFI4gGzO/IZu1zEWT3fNsY8dEe+imCYsNVmmF2Z
-	 XfL+lGOXAlHNYo3LVqgrM1w7fNYotLeYoR3mz4DQmofIFF30u6lJ7yGEnI0j4rCd1V
-	 A71HBkS1B1jLA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V6 6/6] arm64: dts: rockchip: Add Anbernic RG Vita-Pro
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260608175521.67449-7-macroalpha82@gmail.com>
-References: <20260608175521.67449-7-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 18:12:43 +0000
-Message-Id: <20260608181244.047CC1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NKk9lbdl"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-46019edc13dso2169476f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 11:20:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780942807; x=1781547607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IM32Hg+/N9sZmZsEYWIoImVUskuRRqFje5vCWqdJGu8=;
+        b=NKk9lbdl4FYAZ1zxJ6uJy2UY8xtXN/xO0sk2iK8vyc72Ornh6t3J/hiLinD5Fq9ETx
+         NcccXyWqz2wkvAw9pzZFRftcEk3d3Hy7qQdHQsYC8X6kwEZZzCQJyJKD2pKjUY2WAySJ
+         Q7qRPZpLdzZGStWjSMX5NcFYNDqHnyGfLTbTcZADmh9I3J36PQbfIaHUdEUdzGlzCJaf
+         lH4OAPCS9SkCoI25c3w4HVUQDYZUwlKYGFo1tUnrUujYK7MJm9glmWoGwUHjPIX2Pmf8
+         Fpgjl8rG9dB+2xlFN6YVx7pZQ6PwVH+8sGtoKdMCPd84PcgU01WC66cNfURwwxdLHT9v
+         G8AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780942807; x=1781547607;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=IM32Hg+/N9sZmZsEYWIoImVUskuRRqFje5vCWqdJGu8=;
+        b=QAmoDZbIRopqeYVXCH41bS6u2QMnSNKFMbSGPU8CaVTf4iRfcpTy3td1EHeUoRolob
+         xz2QeP9GSjwdZVBlcHFKLf0PLAPqplNoUvI6Yu2uusRu0NsCJhLQjy5bWczaK12Rf0gf
+         NEx3UOyQB8Xsxkr/0l7Q9BfrYA5owBqK1NFjwWNiXqx/L73UcVJAyiHWrtjTCWzQ8XB7
+         B1HeRY4uhuctIunrUGXHZ9s9h9LRFWgPK1RL2Etz/y4bwbQHndxI9PD7JByrekfT+cZF
+         lX8pL0LMabBaVSVyLEsQAyagX974ptZhKI8aS8jdwvFOuHEPGoAwpn6+WdOx6Q6JpAqV
+         W6DQ==
+X-Forwarded-Encrypted: i=1; AFNElJ85YJwIVuJihVerNX+ySqv+qGxxfGj8ER5o4GAt37EddozYjL4JeIEVJkwsjf77OApmo5wuOnHMvw+B@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDFq4HEhpRuh1p16R6vV8XWmJNTQ0jSu+k9n4FY8aqcsQHQAlT
+	dNIalLbEPEZdHiSytpJNpHPkN7goE/LJvUpbwSLro+88aulU2ABBmCB1
+X-Gm-Gg: Acq92OFeDOUdEtfKXfxSKmKslSX/gCploVf71AzwzRTEu+PWiTGGWU/DaBQpI4x/D8y
+	dF9LIb28H7p7lqFHkloTkypKQnGhdIGHjQgTGZJ58+J/5TpH5R6lh5udUrtptqJj+8eQM8N/4QR
+	bceHvv53XkJFnzT6bPfPNldV2M7OBE+IdrbXHckw4s27iR4+jkdWKAkwcewXkyetjsqAEn3Fowe
+	TDYqrv5ul1BEBpjJZfQtv9ITHrOxqoS6ph2jSXv/5cCmKan+wX3WuTH/Oog+ssku7QSiRZDzcG6
+	+6Y6T1g2evbSiWlxbQiEifisp06FTIxPn1LbIOSvW24kitV4Ja1RsnPOJXpluyBQJJfQMfGxZl6
+	3VYKasfLTkqQk8MgO1FkjzN33fS6m+o51e1fyAIrpjYuhMHKqtyluGIYuSkoT7jg9K7z0rjOpJW
+	TEycFcyF9Idex5PUFmrDZcugD3ZK6oa1EoXRh0xaStBIBRTo3Zo7bojyb9YYbrNUgqFBoTnrc8k
+	j845veqgg==
+X-Received: by 2002:adf:fd04:0:b0:43b:3b80:6776 with SMTP id ffacd0b85a97d-46030751decmr20596399f8f.30.1780942807204;
+        Mon, 08 Jun 2026 11:20:07 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcde3sm56294211f8f.1.2026.06.08.11.20.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 11:20:06 -0700 (PDT)
+Date: Mon, 8 Jun 2026 19:20:04 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Arnd Bergmann
+ <arnd@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Subject: Re: [PATCH next] drivers/of/overlay: Use memcpy() to copy known
+ length strings
+Message-ID: <20260608192004.796f2c47@pumpkin>
+In-Reply-To: <CAL_Jsq+W9HBmHFwzAROj-1LHK45WRFh2ry5-++K2YZiZj2n=ig@mail.gmail.com>
+References: <20260608095523.2606-32-david.laight.linux@gmail.com>
+	<CAL_Jsq+W9HBmHFwzAROj-1LHK45WRFh2ry5-++K2YZiZj2n=ig@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The SPI joysticks are inaccessible from userspace due to a missing=
- SPI child node.
---
+On Mon, 8 Jun 2026 12:35:06 -0500
+Rob Herring <robh@kernel.org> wrote:
 
-commit 2097a3f0d4026d4220ee53d9f1d7508fedf974d2
-Author: Chris Morgan <macromorgan@hotmail.com>
+> On Mon, Jun 8, 2026 at 4:55=E2=80=AFAM <david.laight.linux@gmail.com> wro=
+te:
+> >
+> > From: David Laight <david.laight.linux@gmail.com>
+> >
+> > The lengths have been used for the kzalloc(), use the same ones for the=
+ copy. =20
+>=20
+> This doesn't answer why we are doing this. Only the below which gets
+> removed on commit provides the reasoning.
 
-arm64: dts: rockchip: Add Anbernic RG Vita-Pro
+I will resend with an extra line (or two) of description above the ---.
 
-This commit adds a device tree for the Anbernic RG Vita-Pro based on the
-Rockchip RK3576. It sets up definitions and configurations for various
-hardware components like display, buttons, battery, and networking.
+(I was using -m 'text' to add the commit message and using same text for
+equivalent changes to multiple files - seem to have got caught out!)
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts=
- b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-> new file mode 100644
-> index 0000000000000..344ba18705338
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-> @@ -0,0 +1,1327 @@
+-- David
 
-[ ... ]
+>=20
+> >
+> > Signed-off-by: David Laight <david.laight.linux@gmail.com>
+> > ---
+> > This is one of a group of patches that remove potentially unbounded
+> > strcpy() calls.
+> >
+> > They are mostly replaced by strscpy() or, when strlen() has just been
+> > called, with memcpy() (usually including the '\0').
+> >
+> > Calls with copy string literals into arrays are left unchanged.
+> > They are safe and easily detected as such.
+> >
+> > The changes were made by getting the compiler to detect the calls and
+> > then fixing the code by hand.
+> >
+> > Note that all the changes are only compile tested.
+> >
+> > Some Makefiles were changed to allow files to contain strcpy().
+> > As well as 'difficult to fix' files, this included 'show' functions
+> > as they really need to use sysfs_emit() or seq_printf().
+> >
+> > All the patches are being sent individually to avoid very long cc lists.
+> > Apologies for the terse commit messages and likely unexpected tags.
+> > (There are about 100 patches in total.)
+> >
+> >  drivers/of/overlay.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+> > index c1c5686fc7b1..656867009514 100644
+> > --- a/drivers/of/overlay.c
+> > +++ b/drivers/of/overlay.c
+> > @@ -258,8 +258,8 @@ static struct property *dup_and_fixup_symbol_prop(
+> >         if (!new_prop->name || !new_prop->value)
+> >                 goto err_free_new_prop;
+> >
+> > -       strcpy(new_prop->value, target_path);
+> > -       strcpy(new_prop->value + target_path_len, path_tail);
+> > +       memcpy(new_prop->value, target_path, target_path_len);
+> > +       memcpy(new_prop->value + target_path_len, path_tail, path_tail_=
+len);
+> >
+> >         of_property_set_flag(new_prop, OF_DYNAMIC);
+> >
+> > --
+> > 2.39.5
+> > =20
 
-> +&spi1 {
-> +	num-cs =3D <1>;
-> +	pinctrl-0 =3D <&spi1m2_pins>, <&spi1m2_csn0>;
-> +	status =3D "okay";
-> +
-> +	/* SPI controlled MCU for joystick and joystick LEDs. */
-> +};
-
-[Severity: High]
-The commit message mentions "2 Analog joysticks controlled via userspace",
-and this comment notes an SPI controlled MCU for the joystick. However,
-there is no child node defined under this &spi1 controller.
-
-Without a child node binding to a driver, the SPI core will not instantiate
-a logical device, preventing userspace from communicating with the
-joysticks. Could a spidev or similar child node be added here to expose the
-interface?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175521.6744=
-9-1-macroalpha82@gmail.com?part=3D6
