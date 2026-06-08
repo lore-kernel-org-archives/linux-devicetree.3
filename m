@@ -1,86 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E933B635F
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F933B14AC
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 09:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780911902; cv=none; b=aQugrlc87YqVWyZYyAiXA20Q93kIIj7l7WRj9PMMvWVkFuhu8bQa8HaKoenCWK/aedK5jw9HbYrIzpcKvQONIZJQ6DQw58tZ+UMdIkdXjM23JGxi18LqP4HKMuEAtuQI76yEgPlVx+O7lkBIrCT5sAD80GDYqIQNcBF3+QEKYPk=
+	t=1780911940; cv=none; b=TLaYcFl9Fvuve+kW/CK5YhUqxGFznOyYrObUuS2u+gs1kZRMJZCkjyt5t+NBPrlpGOcRxFi430J2nqzSYpFlgNc+m2iyljdUPzcRoyOZSHK5vQhbRpzXGh76t/kATt/XxCF5POu4qIarbi9itMTzD/EOaVZ+pbrZG5rfPVsXc5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780911902; c=relaxed/simple;
-	bh=Vmr+hFusuYAL3gRCxgWvVJ/q4PobECw1SQhrGuoxjwM=;
+	s=arc-20240116; t=1780911940; c=relaxed/simple;
+	bh=9RRZpASQS41qwqOO37RHHFfJF8TpxC/j+aBOgczgifQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iRfsbyMzxbRatSQZbTElIlUIh6cA0hRot/e/qJp+JaofE/T6Wh1TzBVZD/6cl+WbJh2lGx6liBQ6w2VDR/16SO6wvtZFSlA4Innt1pEo9nLsh9OhZhkWgntHvb9wDVw+w52pBDN/m9ae9OGCHJh375sr3XuNBmkxtDWsadT5jNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k++ZXwGu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X5/EYgzx; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=lu2X3lUsDT7vMrz7jPpJK3juaAnwaJytf13cvHRqynGPNHPieDySI6IAHGwNsQoQzY7jOFu+GyP/MQQcHacwFims6g7Gy98pXDDd+BtJjFoyr8e6SsORpm6sYViUJXXLLrJC5yZF9nH3Q6h0i7ntw4pIqeuFGepxWlyrrT175+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JKftAluV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AprmnVGK; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k++ZXwGu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X5/EYgzx"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586OrEM2274513
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 09:44:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JKftAluV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AprmnVGK"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586RWBd2833493
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 09:45:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3Tzt3nk2yUkhDZipgo0L0eDdUW2ER5Qt+0SMe1w2hT4=; b=k++ZXwGuExiMngbv
-	5eCp4gwEWx17XykpFT6ox05ja+dLT1GGNO2FdEdgO5HCk8dpTmyLAlGWd0KSYCby
-	q4+ErgVOsLdFvtFzgi8+aZefsVYdjHvLFvvebeyi3L6Qq6yU/bX0sNiR/ZrMdTjJ
-	f3QWiGmOmMAQcUnp/4JsvypxEJ2UA25Er9m0y69WCteH+KxPFlCsrd8auwDLLVEF
-	mXrEyzEj48AhsHIXa3QsmB2ZAc+QmYNP0l+dcBfOB3H5LA20juozrFrvYaChA3I3
-	IwFAddWNOzNGHQIxyOz8UcfTyGa/sa9gfXAfFA1k+4S395vWcyEU8itHNtkhvSpH
-	Ld08qw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgxvdq-1
+	wPnIboRKsGmpiz5atmsmV6r9S0cjd+eGf5563PqK//E=; b=JKftAluVGr8ERP6D
+	Mm5q9pRK+wS6Gs5IGCvN9sELS8zKr5H79eMz456wQ9gjONeneQR9H7e/Nxdibkp9
+	PZRdKAbduWTrgQkkV49c4gaFkJA5sk2IM1182fsyGRlMzwPGxtOjhCyTlJRTYkVt
+	FtxKuxtvJDCV7+VH2QIn4Wn/6wB/n6dsdZuyAx4W5DOQsKt1vkaef4lZhFJuTS0Z
+	uHGMBedyBtW8Hw0l7weJV+vI5StrhRh16tct1rfwXUGPjPn4WaXWtdY62dsTM2FW
+	CpOfPQwcFSHzdQ8s7epGoHDMQ+r+978RNCiLq0XHbu54zWIgYiYYyQAoXVsp9l8o
+	3yB7jA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emaj4yf0n-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 09:44:59 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51780e3ca44so7973281cf.3
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:44:59 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 09:45:38 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36d6d07d2edso1105933a91.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:45:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780911898; x=1781516698; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780911937; x=1781516737; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3Tzt3nk2yUkhDZipgo0L0eDdUW2ER5Qt+0SMe1w2hT4=;
-        b=X5/EYgzxnvyU4eMik4gUgcOprbxusNHy9Zc/fyqXEo5q4GqJc0mNwxIwTh+Iy9Tvzy
-         p94n9BvJ/s8fFtic4SR0i2Hq5ve8j92LbIauS/pATk33uKjDSo/IaR7kmXeG2aHHK1yc
-         tglHD7e8AWdjJ6V4iI98Sp1XdFNOrs/tCT0Z+96VyKwz3gSvzuluJ6Bm5BjVxjNytv2r
-         jeyoDetfPH29/pEnSlNZZWIZNSkRgholUCkl1y4oo+WPygv8roPzY8Ao6iV8UtY48rP6
-         ZqqJW5KUDfuJfzJXP0yzXDsoHLhpq6/LhQZV8dQ9giM12+X1bXHI0iHKn1kUdItDiqYO
-         XSyQ==
+        bh=wPnIboRKsGmpiz5atmsmV6r9S0cjd+eGf5563PqK//E=;
+        b=AprmnVGKkRq2UCtWvF8OwCvx76iJbGbBjToLPTyN9pknbgCEuVz1rWqluQM3IT4m9n
+         du+o3m72O8lDcwvWQDdkypcRDXyRgcXp/aLixSwAfDwucvV2DSfLo61AMe9lUo/u1OeM
+         CRRUPtnLGrD6FHYxin6rkACBxG+RWkAYleCdSHCop19PX8hWqzN/PcGveM+1oepwmymt
+         IShvMHYIPtegGxGObNaRYRn7X2SqEQf7hJdH94FpiSAoU8EInunHsA7NxYqUHUI+Pf42
+         Wg00xkQwKwLqpZ4o/ccqf3cECcHiF6cexuNpS3vnyYFcF+57FcAwl/dfAN5B2xQM+j7f
+         J7PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780911898; x=1781516698;
+        d=1e100.net; s=20251104; t=1780911937; x=1781516737;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=3Tzt3nk2yUkhDZipgo0L0eDdUW2ER5Qt+0SMe1w2hT4=;
-        b=KMUsQpVrd04GdnIakPvqOO0JNNSCO/d3mEpjdMTxQ7RayNN0D1MZFygq/D6oXfVpYN
-         B0vo9t+iqvZG8Bnpp1AOFBnwoU5bgv02Rp48G+j1EulCyKZ/ztXi1J4ApaGyX5fhSfex
-         l9PMqAZPvOBD1G2XlrrOsuP76C1M0k2mxNcEBg5ZezDRsFZT75nSWTMjIu8z8blhv/SH
-         vEyT4qgOC/UzSbj9Tk4UY3QMJCpw+KLg132BwVPrQ9cTJ0zj4qqlEghPTHHYPZjGP0U0
-         1E903KN05oWUUDwd/AgPZRopNiX9lyGQYxy4UlpyzFrcdOOu8oSYDiwb0Vpis97DcF1x
-         NMNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8n9AHw+Kz/Sm4Ud9iubUY6SXNzonnFAJ7Jk4nkYUpY93vsxQdQMhrqkifHg6uBXNDt2kIVWi1yKdUR@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfrJMsnlzPLnTAbZ1vVskCer/ZcNaXdoL/Sm8GU9TPoUBE7otf
-	zWaZmwkQAi//9mK2MNSBesQnl7GmYXOXvEMV9tv513IU+qY3Xd4mvesdsDx8SOiGS8m/UjVazM/
-	wOj71O/NunOQODpTAdZ1UcBPdi1Bor6oSuJYA3U3ObVnKVsLFXAJS1HEJ1q0zE51k
-X-Gm-Gg: Acq92OHkIY+68rd20r2uc7wpX8Ak7atjgcJ2eYn/98fVHGT4mb7TceIVZvu5tWkTHRn
-	jMS6+X4MKWFQ0fe8UzgmxYRd09bZ//lGXi1SCTK5iMZG3jiLph6RjG81cTO3PeH6R1j/hSBl/Gp
-	7RRc/afAS+PzozSduy5iyCBmkGKv0bTEo1NBOMeKc/M/zpcIw8HbGQm6qclsHLOfc04cb9D/7wG
-	2wtZ/er9WrU3l/lXFZOkHdsgnNKFViVAYm9Q9WNtFqSa8+aUDZI5V5PzOghYNzdmAuRa+EFh+Qq
-	8WA3JJjysPZjypDV11x210tr/lOCiy1hmcAPogcFO0T3u5ETPDyPH8gedx94JDS14U+Lsyd589B
-	2Xu5kZuQgkt2I6upW2Vf3BaLdJzyKmjhx/aRIBdE/sglzr6iM3bNvBSNw
-X-Received: by 2002:a05:622a:1b1a:b0:517:6b29:348b with SMTP id d75a77b69052e-51795c59f49mr123731801cf.8.1780911898619;
-        Mon, 08 Jun 2026 02:44:58 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b1a:b0:517:6b29:348b with SMTP id d75a77b69052e-51795c59f49mr123731671cf.8.1780911898263;
-        Mon, 08 Jun 2026 02:44:58 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-691afe82416sm1478693a12.13.2026.06.08.02.44.56
+        bh=wPnIboRKsGmpiz5atmsmV6r9S0cjd+eGf5563PqK//E=;
+        b=O1GiKUtNNmHI6CH3PTmQYAIoSy0Rr5sHWXzTuWLZsHtHDbtrzfLKsJbd9iRPgIP0ma
+         L1h4586TbR2OdSNoMD8D4dfDP0kgqrPo7eRHvDGP+INdjldq3vogabjP50OJGTlZmTlo
+         8UQb211RXsR/MIv6zhMQuEoAQsq4XBONe9aCwJjZAg9gEGxP7wx+rVmMXkO/3mpQe2rT
+         ZVOlC4u/Xjprb0x27BfLAwmPYdXuVfSFXedAGLaKtNkCbVud7ji33POv3DnZ4CqYC924
+         +HIqiXbM3PoYUgT//D5FRGGyU1Shk2UoTtbJRXHjQe5pmZBq25+ivhxH/EsbPwe6T0R5
+         MMWg==
+X-Forwarded-Encrypted: i=1; AFNElJ8E1j7THz/UaqqKsJnBD/Lo0lWbnore23z6xVV5N+h/IiFApAPoEsEeQXYivC5YdU6R6xi+zpnhymLR@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIq3+Y+RpID+zQ0TTl4SIfeKghDiw1IbcDX2XC+smlf9IdEqNM
+	lsh9L9auVsT2R+rY5KzDPCL6EbGQ2v13y9KBcM69cHqLWxZz+VGeRqPUr2xhTTrSHGEYUTf58VG
+	HowkT+jnSfNtOoQM8sHF4V5uZ1ctX6+X6o7kkKplw4s7EohBHrQ+S6Xfy38+I0FEk
+X-Gm-Gg: Acq92OHSoxLSLAAhp/dq6BkglhFSd1yuoKqsoYj6xPn69ij8N1Hq758RvUYaRgvh8Th
+	QJmRGZ23kvkK6nNan0PDXjtIljH8ruuDVm8dhWfF57rdIO6wbzd7qWwXdUhuvK76xz0wROeYB2U
+	sOZ530+H9reLyuwOW1w4dekjbv1xzD7Gw8SI/onYLKciWjuSZMUSfmWf47QhkqR1SUPEQ6ec8gn
+	VEW4evV/3xJo+N+8otICQNUrJAWJm434+BfBt5cLGt1DXtvufbB5qfDriXCm7jt+uZVOX4kfILs
+	Aca2UG9jZB6MIpVl9dTq6hSqUVYNJ+rM4TbzIdpggZajKl8018Ov8uKeYT+UWDwgGltRRREPXUg
+	Sp0b4oiVrMMpLdHnw2IQrenwZKh1OJe1zXHp7sTzUxTteMUJzKE/frUQAYdIP/g==
+X-Received: by 2002:a17:90b:538b:b0:36d:f28a:c5e2 with SMTP id 98e67ed59e1d1-370f1eec20amr8065553a91.8.1780911937101;
+        Mon, 08 Jun 2026 02:45:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:538b:b0:36d:f28a:c5e2 with SMTP id 98e67ed59e1d1-370f1eec20amr8065539a91.8.1780911936605;
+        Mon, 08 Jun 2026 02:45:36 -0700 (PDT)
+Received: from [10.92.194.172] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282379db0sm16632418b3a.24.2026.06.08.02.45.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 02:44:57 -0700 (PDT)
-Message-ID: <d291cd03-ffd1-43a0-b4bd-bbad6a4fcec0@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 11:44:56 +0200
+        Mon, 08 Jun 2026 02:45:36 -0700 (PDT)
+Message-ID: <d275959d-4a79-4804-a160-94a9aa89eea5@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 15:15:28 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,76 +88,251 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: ipq5210: Enable PCIe support
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 0/8] ras: aest: extend AEST support to Device Tree
+ frontend
+To: Ruidong Tian <tianruidong@linux.alibaba.com>,
+        Ruidong Tian <tianruidond@linux.alibaba.com>,
+        Tony Luck
+ <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+        Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
         Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260514-pci-ipq5210-v1-0-a09436200b35@oss.qualcomm.com>
- <20260514-pci-ipq5210-v1-2-a09436200b35@oss.qualcomm.com>
- <dc7cb371-e94e-4f42-87d6-70f0f94d0d49@oss.qualcomm.com>
- <aiFhZsaZJoXzuMSk@hu-varada-blr.qualcomm.com>
+        Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
+        will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
+        mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
+ <4eeeef74-8a27-470c-b516-095f029b9e9e@linux.alibaba.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <aiFhZsaZJoXzuMSk@hu-varada-blr.qualcomm.com>
+From: Umang Chheda <umang.chheda@oss.qualcomm.com>
+In-Reply-To: <4eeeef74-8a27-470c-b516-095f029b9e9e@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a268f1b cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: SLytRTTBWy4QDnmLAwnaPGUhXTLAhF2O
+X-Proofpoint-GUID: SLytRTTBWy4QDnmLAwnaPGUhXTLAhF2O
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA5MCBTYWx0ZWRfX+g3OL5UAgH6z
+ 0vi/dx49twUTWGCNWH5yMRbrlo52X4Y5ZB7veiSDKh6oebZeqxlR2YHAwu4JpMCqCHMWr03GpvB
+ s6wwURfizihVNmf4C3rbKLVi8YH0tFaaHaBDxIns6d9tiqGwoCABObZDU8/MvPARsUc/e095iwv
+ rO9GAJ9FOcBta2XV2bYAVpwcbLGC2SRIJoXowrM5n9XWsThUG5UNs4InU0Gm0VLU7ZEIePHuFmM
+ AjxLfCNjtaQs+Djm4QQUJu8gC5YzlnwKKC2WOyc0p6kTO0A1me7SZ1MxOqVW2GgYJUIOBy2nb5W
+ fKEkjErKUB7c+reMKlc9M7afWKQ+EmtDqOlo4VxgVu+GpcT9h+ovVmMvzG2MUj9qqr7d4YUZMb1
+ s7b2oswAEpgkBd/eGFCRhvc4uHrrRXFGWsVfEDyQRnmZ9uuMspIfEw8TSvrbYFQDbAxTETukLYf
+ VJPOm0KPVePc9wyHZ0A==
+X-Authority-Analysis: v=2.4 cv=TLh1jVla c=1 sm=1 tr=0 ts=6a268f42 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=4c8ik4K-SmYL0_MpgcAA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: kOjUYy6yljqG8ct7cp_SPfXo6MkOvQE8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA5MCBTYWx0ZWRfX+LMXpYLFLrlC
- WYzOnOSuFlol7dRF3NJJ5x2Z3pWOv2ryL1xM8URWiWe2SZO3qdo87EeeqWItXnbIsON2iU6iB2D
- bdKztBBigC/Nc84aafPtisdbUHf6H7oGLFnFuFmz4d+tts5yyN1VXBvn/83V/UGio1C+JS10A9a
- +z4DJlGAJFKFPCiArMAOdUDpmbfqrwVU0qjsQRmGlq7NmZ4P09E/R8sv1l+tjwF7TlAvKW/DyiK
- ON9kDAPn7aKyC0xXJD1d5YGTFxxoEBFECpqMASRvMY5cIshZei3f1mVyFpIks6dSe9H3JfpKmqU
- QzgWp76MqLv/RoJPcALXmbGSEgMwjqfyMZhTxLvMvf251aLrJ7l0Bz4h6Aq5NUaoNxNQoybAy4b
- auWmcfZuUieYl6Ax6q5oK1EeDl9iXceELrhFtrq3psUXozKju51iWGXAavgpWnNqjoY4c9e97Ar
- jWxh4dTNRlnPtcjnAeA==
-X-Proofpoint-ORIG-GUID: kOjUYy6yljqG8ct7cp_SPfXo6MkOvQE8
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=SRrdq9N9AAAA:8
+ a=EUspDBNiAAAA:8 a=bAntFOdrss-Er4w7wzgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
+ phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080090
 
-On 6/4/26 1:28 PM, Varadarajan Narayanan wrote:
-> On Fri, May 22, 2026 at 02:24:45PM +0200, Konrad Dybcio wrote:
->> On 5/14/26 6:13 AM, Varadarajan Narayanan wrote:
->>> Add DT entries to enable the PCIe controllers found in ipq5210.
->>>
->>> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
->>> ---
+Hi Ruidog,
 
-[...]
-
->>> +
->>> +			resets = <&gcc GCC_PCIE0_PHY_BCR>,
->>> +				 <&gcc GCC_PCIE0PHY_PHY_BCR>;
->>> +			reset-names = "phy", "common";
->>> +
->>> +			#clock-cells = <0>;
->>> +			clock-output-names = "gcc_pcie0_pipe_clk_src";
->>
->> Having a gcc_ prefix here smells fishy..
+On 6/2/2026 12:59 PM, Ruidong Tian wrote:
+> Hi Umang,
 > 
-> Followed what was used in ipq9574, ipq5424 etc. Will remove gcc_ & _src.
+> I have sent out v7, and I wanted to highlight a few changes to make it
+> easier for you to adapt the devicetree support:
+> 
+> 1. I stopped passing device information to the driver through the
+> acpi_aest_node structure. Instead, I switched to using the device
+> property infrastructure and removed the aest_device abstraction layer
+> (which was originally introduced to support CMN). This should provide
+> good compatibility between ACPI and devicetree and avoid the need to
+> write extra adaptation code for devicetree (such as aest_of). In the
+> ideal case, adding just one of_match_id should be enough to make it
+> work, although this will require you to update the DTB file accordingly.
+> 
+> 2. I removed the use of genpool. The current AEST driver only needs
+> memory in interrupt context, so genpool is not needed.
+> 
+> 3.The driver has been renamed to arm64_ras.
+> 
+> I have already applied some of your previous fix patches and added your
+> Signed-off-by.
+> 
+> 
+> Best regards,
+> Ruidong
 
-What is the name of the PHY's output in the clock plan? I would assume
-it doesn't have gcc_, but it may end in _src..
+Thanks for this summary and for re-factoring the code to make it easy to
+adapt for DT as well.
 
-Konrad
+
+> 
+> 
+> 在 2026/5/5 20:23, Umang Chheda 写道:
+>> This series extends Tian Ruidong’s [1] ACPI-based AEST support series
+>> to also cover Device Tree based platforms.
+>>
+>> While the existing AEST driver relies on the AEST ACPI table [3], many
+>> embedded Arm platforms use Device Tree exclusively and cannot use the
+>> driver today. This series adds a DT frontend that mirrors the ACPI
+>> implementation and feeds the same core driver, keeping ACPI and DT
+>> paths functionally equivalent.
+>>
+>> Along the way, several correctness issues were identified in the core
+>> driver and are fixed in the first part of this series.
+>>
+>> The DT frontend is mutually exclusive with ACPI and does not introduce
+>> any DT-specific logic into the core.
+>>
+>> How to test with QEMU
+>> --------------------------
+>> Tian Ruidong's QEMU fork [2] emulates AEST MMIO error records on the
+>> virt machine.  To test the DT frontend:
+>>
+>> 1. Build QEMU:
+>>
+>>       git clone https://github.com/winterddd/qemu.git
+>>       cd qemu
+>>       git checkout c5e2d5dec9fd62ba622314c40bff0fbecb4dfb34
+>>       ./configure --target-list=aarch64-softmmu
+>>       make -j$(nproc)
+>>
+>> 2. Build the kernel with:
+>>
+>>       CONFIG_OF_AEST=y
+>>       CONFIG_AEST=y
+>>       CONFIG_ARM64_RAS_EXTN=y
+>>       CONFIG_RAS=y
+>>
+>> 3. Add the following DT node to your virt machine DTB.  The QEMU
+>>     fork maps DRAM error records at 0x090d0000 (SPI 44) and CMN
+>>     vendor records at 0x090e0000 (SPI 45):
+>>
+>>       aest {
+>>           compatible = "arm,aest";
+>>           #address-cells = <2>;
+>>           #size-cells = <2>;
+>>           ranges;
+>>           interrupt-parent = <&gic>;
+>>
+>>           /* DRAM memory node — MMIO at 0x090d0000, SPI 44 */
+>>           aest-dram0@90d0000 {
+>>               compatible               = "arm,aest-memory";
+>>               arm,interface-type       = <1>;
+>>               arm,group-format         = <0>;
+>>               arm,interface-flags      = <0x22>;
+>>               arm,num-records          = <4>;
+>>               arm,record-impl          = /bits/ 64 <0x0>;
+>>               arm,status-report        = /bits/ 64 <0x0>;
+>>               arm,addr-mode            = /bits/ 64 <0x0>;
+>>               arm,proximity-domain     = <0>;
+>>               reg                      = <0x0 0x090d0000 0x0 0x1000>,
+>>                                          <0x0 0x090d0800 0x0 0x200>,
+>>                                          <0x0 0x090d0e00 0x0 0x100>;
+>>               reg-names                = "errblock", "fault-inject",
+>>                                          "err-group";
+>>               interrupts               = <GIC_SPI 44
+>> IRQ_TYPE_LEVEL_HIGH>;
+>>               interrupt-names          = "fhi";
+>>           };
+>>     };
+>>
+>> 4. Boot QEMU with acpi=off:
+>>
+>>       ./qemu-system-aarch64 \
+>>         -machine virt,accel=tcg,gic-version=3 \
+>>         -cpu cortex-a57 -m 2G -smp 4 \
+>>         -kernel Image -dtb virt-aest.dtb \
+>>         -append "console=ttyAMA0 acpi=off earlycon" \
+>>         -nographic
+>>
+>> 5. Verify probe:
+>>
+>>       dmesg | grep "DT AEST"
+>>       # Expected: DT AEST: registered 1 AEST error source(s) from DT
+>>       ls /sys/kernel/debug/aest/
+>>
+>> 6. Inject a CE error via the QEMU MMIO fault injection registers.
+>>     The QEMU device accepts 64-bit accesses only (use devmem with
+>>     the 64-bit width flag):
+>>
+>>       devmem 0x090d0808 64 0x80000040   # CDOFF | CE inject
+>>
+>>     This triggers QEMU's error_record_inj_write() which sets
+>>     ERR<n>STATUS.V=1 and asserts the IRQ.  The kernel driver's
+>>     aest_irq_func() fires, reads the status, and logs:
+>>
+>>       AEST: {1}[Hardware Error]: Hardware error from AEST memory.90d0000
+>>       AEST: {1}[Hardware Error]: Error from memory at SRAT proximity
+>> domain 0x0
+>>
+>> Testing
+>> -------
+>> - Validated on Qualcomm's lemans-evk and monaco-evk board with DT boot.
+>> - Validated CE and UE injection via debugfs soft_inject.
+>> - Tested ACPI path is unaffected: ACPI boot continues to use
+>>    drivers/acpi/arm64/aest.c unchanged.
+>>
+>> [1] https://lore.kernel.org/lkml/20260122094656.73399-1-
+>> tianruidong@linux.alibaba.com/
+>> [2] https://github.com/winterddd/qemu/tree/error_record
+>> [3] https://developer.arm.com/documentation/den0085/0200/
+>>
+>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+>> ---
+>> Umang Chheda (8):
+>>        ras: aest: Fix shared processor node handling and error log
+>> messages
+>>        ras: aest: Fix CE/UE error counts not incrementing in debugfs
+>>        ras: aest: Skip unimplemented records in debugfs
+>>        ras: aest: Add panic_on_ue module parameter
+>>        dt-bindings: arm: ras: Introduce bindings for ARM AEST
+>>        ras: aest: Add DT frontend for ARM AEST RAS error sources
+>>        arm64: dts: qcom: lemans: add AEST error nodes
+>>        arm64: dts: qcom: monaco: add AEST error nodes
+>>
+>>   .../devicetree/bindings/arm/arm,aest.yaml          | 406 +++++++++++++
+>>   arch/arm64/boot/dts/qcom/lemans.dtsi               |  41 ++
+>>   arch/arm64/boot/dts/qcom/monaco.dtsi               |  41 ++
+>>   drivers/ras/aest/Kconfig                           |  15 +-
+>>   drivers/ras/aest/Makefile                          |   2 +
+>>   drivers/ras/aest/aest-core.c                       |  63 +-
+>>   drivers/ras/aest/aest-of.c                         | 673 +++++++++++
+>> ++++++++++
+>>   drivers/ras/aest/aest-sysfs.c                      |  27 +-
+>>   drivers/ras/aest/aest.h                            |  15 +-
+>>   include/dt-bindings/arm/aest.h                     |  43 ++
+>>   10 files changed, 1310 insertions(+), 16 deletions(-)
+>> ---
+>> base-commit: a67b7fd0dd1f6ccf3d128dc2099cdb07af1f6a09
+>> change-id: 20260505-aest-devicetree-support-a3722d90e1f5
+>> prerequisite-message-id: <20260122094656.73399-1-
+>> tianruidong@linux.alibaba.com>
+>> prerequisite-patch-id: c5a7c6431c6c1e6351241e694ee053800039d41d
+>> prerequisite-patch-id: 1f6e2c20829eee41a210dd8a538f1e8efcc65872
+>> prerequisite-patch-id: 5556287e3f46c2ed2c0431c53c7782e87bcbd866
+>> prerequisite-patch-id: 2edae0a136d7779b8f686181720e71d044a73311
+>> prerequisite-patch-id: b5190b2844dcb01e72f87a59f3a29548795fdb82
+>> prerequisite-patch-id: 7ba848583708b2ae776a7ce847bb056e3de7f77b
+>> prerequisite-patch-id: 397e5b22802b67942435f4f2968f0b1e210ba0e8
+>> prerequisite-patch-id: 2169f4b65537eecbd0ccbd2ad6b28c64ec44655d
+>> prerequisite-patch-id: b626f85d98747595b3240bc49e6ad9c9dd5c0fa9
+>> prerequisite-patch-id: 1323dfd2eebad2ef6514dbbce58ba08e8859f894
+>> prerequisite-patch-id: 95b826e5e329408437a3ef336c4f45d4d74f82bb
+>> prerequisite-patch-id: b60ff489a5a33c5d5220fa8144af7b7511769cba
+>> prerequisite-patch-id: 43f35a52b8a3d13c938ff08083403c1d3bd0df8b
+>> prerequisite-patch-id: c55d4e9117ca36d3c2cba82d550a618cb82bb745
+>> prerequisite-patch-id: 3885e10f318ae8101d6909b35d92a976cc359e3c
+>> prerequisite-patch-id: 92958cde05577f069c5659018a274bb39cfb6b24
+>>
+>> Best regards,
+>> -- 
+>> Umang Chheda <umang.chheda@oss.qualcomm.com>
+>>
+> 
+
