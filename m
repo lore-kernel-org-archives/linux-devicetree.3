@@ -1,98 +1,84 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2243101A6
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BEB26E165
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780885850; cv=none; b=MJKtsH4+vCQZ4XlRavvJ9wQ0s005Itj02RjLCMe+75X2th2Z5BSyrTrHWF42U/orsOqYZwI1eZpSTSeSIA9TrFhLaHX00riONI6rAyBGdvMsTdMIbW1/KGSNORrajKbEdUQ93g/RJkZnS6DDViYeMMN854hZB+jvIPY6uLANOL0=
+	t=1780885966; cv=none; b=h1caSIiMvfZpLUqK0CGr6fSM1o38OVJz4O8qWzoo8TdIITqbDFc3zzJnapF0hRlgYPRzXglGWTFG6EGxk4QV5E++Pw95C5GDSLr40R1c+aGDO4/3i6l2rux+DPwgk+tVh33eNdHeJW62VjXPrOyvVPM+SwCsJFFv4GuF7rYOxlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780885850; c=relaxed/simple;
-	bh=3vjtgWyk+0FY/MA781oKU7RzNicZneABHruSOKal6t8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qAsZgY6knvxDHRgyKO5RHi/Wq7Kf24TrJGbhbdfdRy0jM0yeSmZTksMDur1MCRIUcKKsGKVy3UKBQosaT5fMlGcvyvevKfwp/qUbCYkQdTEM9qyzwJIX8DSjfJYOzOGvt0aSkvD8/BxSPLNjiH7EwWl6DFcNqSu25FiMjF4iKK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lbAHymGR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PYzacINL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780885966; c=relaxed/simple;
+	bh=dic55TwcktDXLUB4rYeQvy2MaNFTsEOyNZ2K1+9Zk6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TPYSGaJK3scMXEwvoNq8eaKYAmqZZR5Vj0fHoJhFfgiJYvQFEE5fGjfTlcx7H3q4uuHpGSYzknvSlP6+/7p+7X6jQWl/jITDs9ju4S2mJH+t+hQnWJuI8INf9tUcd2+1u8GuNnkriXBGvGsgJg1JIg/QGTEwZJn4qUWTSi475PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YNhcvSHc; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lbAHymGR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PYzacINL"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6580GCbR2027013
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 02:30:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=htKsrgkLF1e
-	nw+JTU9KstIh2F7UBTHII9P/kE0A+9Rw=; b=lbAHymGRtQDUmXdxcicg7I1+dcs
-	FXRD/Psgtb4/1h4u+QzWZcP8aRrdj1JBSHzdlplQQaOHW37lxCvHmqkHpnWaDZqT
-	MpfbXXkUgZ6rP2U/nQm0RQScZZ7uzp9s1vPnMVa1upinl+ToIzwK1jE4SdcWwJ3p
-	Katxam2K3d/8YTYhh7GXfupgDFKd0pnc/JPduOCDYlRU3bLCehZJWUlfc3HCgccw
-	mDOqBsLXbiGEL14MHwVTARRF5uXNE6dUl5LdXDkCsztx1PmYXI8Xpj7bJbTA5EB7
-	1t+f0ZWsKYeGibasO8XzBH3TH9ByXccoXeAvQqiyleBNowW83bVWf4t05Rg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emaj4wqnm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 02:30:47 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2bf004bf8beso46613675ad.3
-        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:30:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YNhcvSHc"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2bf2247e38eso39443895ad.3
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 19:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780885846; x=1781490646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=htKsrgkLF1enw+JTU9KstIh2F7UBTHII9P/kE0A+9Rw=;
-        b=PYzacINLJ/waDA9bZuvEdp2aBnzhbFlocAFpbmSAB9OpgmBk04IWDY+o4DMF5L7Wf1
-         rAlfcFGBhiMArFqNy2/S4QaItg6FSTWSkgkXYYmdnBIUwnrV82FwT7nsWdiW+jg7/hV7
-         JdUEIPOsHYsByig4d9TqujBqIb55OIpNd8Bm8Xtsvg+v5G1aPV1qoQ7J4wNlFLoKfD5t
-         jIHbF/sY7dBxRyhnm74eV3Erpsc4YcbbtZlO3thvDcXzc53hGWvqVm3iGyAuChzSYBqw
-         1PTQ7HzZTzeoVcWCFAZNXl5IiMe+BS9O3vZcqw0bClx9xoEfImsV+zlLa3QHMSKBdAhT
-         EwSQ==
+        d=gmail.com; s=20251104; t=1780885964; x=1781490764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QgcMG5nFEAs89H2OIuVhEyONVcKyhkh1xoo32LhXMAQ=;
+        b=YNhcvSHclyCKuKV8LUTC1ZPoQvJSddjIzY8F6cSwjM6sZ6LB3JgGiDdx2+BYo9nvh3
+         HgOIAc2IsPEZuzIrXq5cIdmfHKkYqc+YF5usb/XXgwHdoOZ+EAweid3zNk9zIBk5Zonu
+         /oOccY4pfENwbw78YTOTCP6Kp+rCtHJPlPsjRuc5bkErsV7fwhjiRhzrGKx/hFndeKuu
+         FJ2vwhJiqxAI2dhm2/F2aMEm92vQ2nnBPA/m0DRkvmLEczdf98w6FMuUHUmqA5JTJ7bN
+         Uu8Z7ZP7MEjegJc1pTq9n6w6+GoEQ5oBL23GirZ0Cz2z08yoM2VdOahjzSBAuSTRF4Hd
+         D5dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780885846; x=1781490646;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=htKsrgkLF1enw+JTU9KstIh2F7UBTHII9P/kE0A+9Rw=;
-        b=M6/vZtDZ/Hnv82UUutChexZYkGAXCNtaSFVDC8HL805YsPMgXt52085PgRbqD0+s47
-         3KXo/Fa9GonTMT4OAFL5RG5xVbzP96LkhG00IsglF7oaIJrRQyBNywyGjQU3y65nRKe+
-         Y0cpK7nvYO234YHULfMlq96sYGltIpefRFnYQowfui8xiIyeECIpYdZDxPihIUZSlBVJ
-         ll6Ba/R1yOB4uI3tgBwU9GFXVQJ49S+WdsdpEhKHF1pETHg7f55kXBadi7aI5pp5sQgF
-         E3NtPVQ1sO+zmvspjo8361BgyY/4OHU8bZPhGOaUQFyNFofN3SXCurYuIZN7++XjCDId
-         wowQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/ykgWDbfF4yxM5p2u0OdKWJ3qklaB65rmyjmA7Yp5NWz7X7zr4AbySGoyGv+8GM9xEgnbZvNmzO2iK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxs6iskgvQ4eqUGFLKJgYsGHRODuM4RZIObqO1Dx59PZe9BigmV
-	DYPnAyouhppA10ICyVuYmQ1+QuuVVwFs/kPzlOqMmuVFRFrIqMhAGmgGL4EliasgVbHLZXZ9mdl
-	EUqdk4cL6tY9MN9Z2URqn4rGDWwE4LzFbsm+Dc6E0ALUATymjhR+VH+mIxHpiYV/W
-X-Gm-Gg: Acq92OGaptnqitkb/gvUWLBe+pj2+d5bxmfuAvRqjmqxcFvU1vlt1lThg9cQGcD010o
-	RXy7PTXTHMxOxykbeHPnllUyhmDIW0BI7Fnkm+3kiEMiIOLedvjEpUcoT0tEkpLew4Ew8YxRpND
-	VV34as9cn3xAu550KRJVKyAxA9hD3pycC4D0HE59m0m3Z3T85qPnXkpSiSA8lKOifRVCq49YOBl
-	8mT9HDtiYtSvNRFyxyUQ0UmdwFSmSvZtWGGzKfL9lH3Ss/8IhwJ+l9xuXYAsX/XI9jDhtwVQ7QD
-	FOBvxs++HarSX3vOEA4xhR9ta5qJhVy9RKaI6KFL/qqiqks+7kSSX7RaBIMK1iQ8IoAooiWG4Ip
-	l4zARPTnwn9DYzN5OuYJImLBWIPD63vaN4AJZ5TWONSM8IeJTUhvwC5iub8Sk+Zihmjaa
-X-Received: by 2002:a17:903:1a06:b0:2bf:379b:53d2 with SMTP id d9443c01a7336-2c1e7e866dcmr156806345ad.15.1780885846373;
-        Sun, 07 Jun 2026 19:30:46 -0700 (PDT)
-X-Received: by 2002:a17:903:1a06:b0:2bf:379b:53d2 with SMTP id d9443c01a7336-2c1e7e866dcmr156805855ad.15.1780885845922;
-        Sun, 07 Jun 2026 19:30:45 -0700 (PDT)
-Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e0bbsm162343585ad.50.2026.06.07.19.30.42
+        d=1e100.net; s=20251104; t=1780885964; x=1781490764;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QgcMG5nFEAs89H2OIuVhEyONVcKyhkh1xoo32LhXMAQ=;
+        b=FoPtuIU2oIdETw7EkkS7BLKB59ep96SsX32HsF80fLXlN12r+Imb7ZuXMydrKcYbro
+         QViZfYvKWgIn7bEB++qrPkUNB2zv83gbP7qF6lbCCoGFuyu8VDU+lUZqiZIJi1RpQZFq
+         5jKZ/42rL8T+PXk76ewZgQFtR0HCIYOZGrG1PPT17ebYBjohJIK56NE2iHGZ7AR/J/6w
+         wUXkyprMG/QRykczbRM9MykvSYp4mJ7KZgO8QYunykJW+T7p3F3tccZPa9xMYM2lqIQy
+         ABMRdE+YGNJn7z2TFjlpZto1gmIXqSFOICOvZd/VhI6gPhD73x9UZVGYr2N0FfpukW+m
+         Fy/w==
+X-Forwarded-Encrypted: i=1; AFNElJ/lPQVb2h2lpFLoGlcM3EkLQrf9SxGu5ScO0KgP7FzOe9oBa4YQpbzIQblx85LU76DWnhoVODcJmlEx@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKH2IOcZLfdpmOGitSoczSUIlD+4Ec6gzAJMdYSMz+DXWXq75H
+	H+zXaIYVXIz4VHS91+qrsqHo7wsoc0oYHeMd3H4bs3pd2BjxG5TAaG2Q
+X-Gm-Gg: Acq92OH8RoI/ijwNV9W+oWbJUMZT+8VW+RtHQRYYoGdwc1alKFO89jDHvhfORxqdmmc
+	BWw0VN2HXFmlIxALASVosASgo+iND0snXZ9uEVDx6DmQsuQBxNCuGMV8760yS3ZbLOvHgWS1SmV
+	hAc8IaqhZAe5y+XPE6YOjfebsrCPRjpfZ5CP6tx4/huid5Vr1I9+W2ROvSKx3HHp3rtaXZzMNzM
+	QEv/tggGIF2MkQ1lEuQbYfy7Se0lxVhT6AOAfb0PlZl1aJQdUNlQB2NbeD4Ju5338GT/18PuedB
+	0rC9lWRbonJ4CZKK9WIwC0SEjI1eMGiROEuV62O8eX9WgIdX4bELGFsfeEJ2rlw8l5b/8N2sIFQ
+	zBA0oSoEINkIxOyP/unOeeTs6vPt+s/WppNprYhMUYd3H7bJhZK0PjLxPioRZaNdAHaNAUJFdf3
+	FCN/7G/+VIZRBy/gEyRq1gb97l6ck6S0IXra5kgvLVN4BH3bLgU3cT+uYliU8pb3L2EkXid80Oc
+	9PCARPKzBVqQnMIQpgIqk4=
+X-Received: by 2002:a17:902:ea0a:b0:2c1:564b:4f47 with SMTP id d9443c01a7336-2c1e8495453mr161310405ad.26.1780885963925;
+        Sun, 07 Jun 2026 19:32:43 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c245dd3b5dsm38143485ad.81.2026.06.07.19.32.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 19:30:45 -0700 (PDT)
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] ASoC: qcom: sc8280xp: ASoC: qcom: sc8280xp: enhance machine driver for board-specific config
-Date: Mon,  8 Jun 2026 08:00:11 +0530
-Message-Id: <20260608023011.942228-4-mohammad.rafi.shaik@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
+        Sun, 07 Jun 2026 19:32:43 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v3 0/5] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
+Date: Mon,  8 Jun 2026 10:32:32 +0800
+Message-ID: <20260608023237.305036-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,332 +86,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: t_1XSRgD6H4pQexxCV4NsoB0soEjTWwH
-X-Proofpoint-GUID: t_1XSRgD6H4pQexxCV4NsoB0soEjTWwH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDAyMCBTYWx0ZWRfX/bLyPUz84I5G
- vdxKsxTvcVLQrxlw3Ysb2ZhiaZP/e+SvFYan7SPUOIJJdeMPE0bTVAaJbqfF8mfyxm9rNvbID6u
- NJOWp9mZIH13ywIz+a807jGFfZg0Mkz3m/Dwdzh2m07W1zYaFvRaZIRw4saYaanQCNrScAtlW4a
- kBhQy+zhjiG4GQt0D6MeLSLCG0+saRK7plnrOLKfuhdVwohjwa1CSEmxLOAfsjRm8NRaP4ZAu9c
- XMIME2x83R6nFFnbWI3WguDq8ZCES9iPTwXLsFdUdSKRYS7EYn0FgCQ7i9SbDbaciKwJypi/4Go
- AeemVh7dayfhtuxZMSFPfhF0PskJmgmvbYJB2fmQcqNp1Xa7IsOMfDpEypseoeZmJpiiH3V1kgm
- ostAhwQ93O5omYSKrdwMybrHfxN0LeGlipJR8IbgavPBQCmdv1yd3a4KTT3vxS2D7o8IKyY/a6t
- wuTX/fl8yYCaM0bOJyQ==
-X-Authority-Analysis: v=2.4 cv=TLh1jVla c=1 sm=1 tr=0 ts=6a262957 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=9H_U430U70S0im2cdw4A:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1011
- phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080020
 
-The sc8280xp machine driver is currently written with a largely
-SoC-centric view and assumes a uniform audio topology across all boards.
-In practice, multiple products based on the same SoC use different board
-designs and external audio components, which require board-specific
-configuration to function correctly.
+This series adds support for the Verisilicon DCUltraLite display
+controller as integrated in the Nuvoton MA35D1 SoC.
 
-Several Qualcomm platforms like talos integrate third-party audio codecs
-or use different external audio paths. These designs often require
-additional configuration such as explicit MI2S MCLK settings for audio
-to work.
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
+carries a DC8200 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
 
-This change enhances the sc8280xp machine driver to support board-specific
-configuration such as allowing each board variant to provide its own DAPM
-widgets and routes, reflecting the actual audio components and connectors
-present and enabling MI2S MCLK programming for boards that use external
-codecs requiring a stable master clock.
+The DCUltraLite is a different variant in the DC IP family.  While the two
+IPs share a broadly similar register layout, a number of differences
+prevent the existing driver from working on the MA35D1 without
+modification:
 
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
----
- sound/soc/qcom/sc8280xp.c | 213 ++++++++++++++++++++++++++++++++++----
- 1 file changed, 195 insertions(+), 18 deletions(-)
+  - No CONFIG_EX commit path: the DC8200 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent.  The DCUltraLite uses enable (bit 0) and
+    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
+    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
+    configuration changes.
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 7925aa3f6..1f3afc6d0 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -12,17 +12,77 @@
- #include <sound/jack.h>
- #include <linux/input-event-codes.h>
- #include "qdsp6/q6afe.h"
-+#include "qdsp6/q6apm.h"
-+#include "qdsp6/q6prm.h"
- #include "common.h"
- #include "sdw.h"
- 
-+#define I2S_MCLKFS 256
-+
-+#define I2S_MCLK_RATE(rate) \
-+	((rate) * (I2S_MCLKFS))
-+#define I2S_BIT_RATE(rate, channels, format) \
-+	((rate) * (channels) * (format))
-+
-+static struct snd_soc_dapm_widget sc8280xp_dapm_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Mic Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP0 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP1 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP2 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP3 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP4 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP5 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP6 Jack", NULL),
-+	SND_SOC_DAPM_SPK("DP7 Jack", NULL),
-+};
-+
-+struct snd_soc_common {
-+	const char *driver_name;
-+	const struct snd_soc_dapm_widget *dapm_widgets;
-+	int num_dapm_widgets;
-+	const struct snd_soc_dapm_route *dapm_routes;
-+	int num_dapm_routes;
-+	const struct snd_kcontrol_new *controls;
-+	int num_controls;
-+	unsigned int codec_dai_fmt;
-+	bool codec_sysclk_set;
-+	bool mi2s_mclk_enable;
-+	bool mi2s_bclk_enable;
-+};
-+
- struct sc8280xp_snd_data {
- 	bool stream_prepared[AFE_PORT_MAX];
- 	struct snd_soc_card *card;
- 	struct snd_soc_jack jack;
- 	struct snd_soc_jack dp_jack[8];
-+	struct snd_soc_common *snd_soc_common_priv;
- 	bool jack_setup;
- };
- 
-+static inline int sc8280xp_get_mclk_freq(struct snd_pcm_hw_params *params)
-+{
-+	int rate = params_rate(params);
-+
-+	switch (rate) {
-+	case SNDRV_PCM_RATE_11025:
-+	case SNDRV_PCM_RATE_44100:
-+	case SNDRV_PCM_RATE_88200:
-+		return I2S_MCLK_RATE(44100);
-+	default:
-+		break;
-+	}
-+
-+	return I2S_MCLK_RATE(rate);
-+}
-+
-+static inline int sc8280xp_get_bclk_freq(struct snd_pcm_hw_params *params)
-+{
-+	return I2S_BIT_RATE(params_rate(params),
-+			    params_channels(params),
-+			    snd_pcm_format_width(params_format(params)));
-+}
-+
- static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-@@ -32,10 +92,6 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
- 	int dp_pcm_id = 0;
- 
- 	switch (cpu_dai->id) {
--	case PRIMARY_MI2S_RX...QUATERNARY_MI2S_TX:
--	case QUINARY_MI2S_RX...QUINARY_MI2S_TX:
--		snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
--		break;
- 	case WSA_CODEC_DMA_RX_0:
- 	case WSA_CODEC_DMA_RX_1:
- 		/*
-@@ -96,6 +152,47 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
- }
- 
-+static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
-+				  struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	int mclk_freq = sc8280xp_get_mclk_freq(params);
-+	int bclk_freq = sc8280xp_get_bclk_freq(params);
-+
-+	switch (cpu_dai->id) {
-+	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
-+	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
-+		snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
-+
-+		if (data->snd_soc_common_priv->codec_dai_fmt)
-+			snd_soc_dai_set_fmt(codec_dai,
-+					    data->snd_soc_common_priv->codec_dai_fmt);
-+
-+		if (data->snd_soc_common_priv->mi2s_mclk_enable)
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       LPAIF_MI2S_MCLK, mclk_freq,
-+					       SND_SOC_CLOCK_IN);
-+
-+		if (data->snd_soc_common_priv->mi2s_bclk_enable)
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       LPAIF_MI2S_BCLK, bclk_freq,
-+					       SND_SOC_CLOCK_IN);
-+
-+		if (data->snd_soc_common_priv->codec_sysclk_set)
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       0, mclk_freq,
-+					       SND_SOC_CLOCK_IN);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
- static int sc8280xp_snd_prepare(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-@@ -117,6 +214,7 @@ static int sc8280xp_snd_hw_free(struct snd_pcm_substream *substream)
- static const struct snd_soc_ops sc8280xp_be_ops = {
- 	.startup = qcom_snd_sdw_startup,
- 	.shutdown = qcom_snd_sdw_shutdown,
-+	.hw_params = sc8280xp_snd_hw_params,
- 	.hw_free = sc8280xp_snd_hw_free,
- 	.prepare = sc8280xp_snd_prepare,
- };
-@@ -145,37 +243,116 @@ static int sc8280xp_platform_probe(struct platform_device *pdev)
- 	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
- 	if (!card)
- 		return -ENOMEM;
--	card->owner = THIS_MODULE;
-+
- 	/* Allocate the private data */
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
- 
-+	data->snd_soc_common_priv = (struct snd_soc_common *)of_device_get_match_data(dev);
-+	if (!data->snd_soc_common_priv)
-+		return -ENOMEM;
-+
-+	card->owner = THIS_MODULE;
- 	card->dev = dev;
- 	dev_set_drvdata(dev, card);
- 	snd_soc_card_set_drvdata(card, data);
-+	card->dapm_widgets = data->snd_soc_common_priv->dapm_widgets;
-+	card->num_dapm_widgets = data->snd_soc_common_priv->num_dapm_widgets;
-+	card->dapm_routes = data->snd_soc_common_priv->dapm_routes;
-+	card->num_dapm_routes = data->snd_soc_common_priv->num_dapm_routes;
-+	card->controls = data->snd_soc_common_priv->controls;
-+	card->num_controls = data->snd_soc_common_priv->num_controls;
-+
- 	ret = qcom_snd_parse_of(card);
- 	if (ret)
- 		return ret;
- 
--	card->driver_name = of_device_get_match_data(dev);
-+	card->driver_name = data->snd_soc_common_priv->driver_name;
- 	sc8280xp_add_be_ops(card);
- 	return devm_snd_soc_register_card(dev, card);
- }
- 
-+static struct snd_soc_common kaanapali_priv_data = {
-+	.driver_name = "kaanapali",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common qcs9100_priv_data = {
-+	.driver_name = "sa8775p",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common qcs615_priv_data = {
-+	.driver_name = "qcs615",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+	.mi2s_mclk_enable = true,
-+};
-+
-+static struct snd_soc_common qcm6490_priv_data = {
-+	.driver_name = "qcm6490",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common qcs6490_priv_data = {
-+	.driver_name = "qcs6490",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common qcs8275_priv_data = {
-+	.driver_name = "qcs8300",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common sc8280xp_priv_data = {
-+	.driver_name = "sc8280xp",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common sm8450_priv_data = {
-+	.driver_name = "sm8450",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common sm8550_priv_data = {
-+	.driver_name = "sm8550",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common sm8650_priv_data = {
-+	.driver_name = "sm8650",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
-+static struct snd_soc_common sm8750_priv_data = {
-+	.driver_name = "sm8750",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+};
-+
- static const struct of_device_id snd_sc8280xp_dt_match[] = {
--	{.compatible = "qcom,kaanapali-sndcard", "kaanapali"},
--	{.compatible = "qcom,qcm6490-idp-sndcard", "qcm6490"},
--	{.compatible = "qcom,qcs615-sndcard", "qcs615"},
--	{.compatible = "qcom,qcs6490-rb3gen2-sndcard", "qcs6490"},
--	{.compatible = "qcom,qcs8275-sndcard", "qcs8300"},
--	{.compatible = "qcom,qcs9075-sndcard", "sa8775p"},
--	{.compatible = "qcom,qcs9100-sndcard", "sa8775p"},
--	{.compatible = "qcom,sc8280xp-sndcard", "sc8280xp"},
--	{.compatible = "qcom,sm8450-sndcard", "sm8450"},
--	{.compatible = "qcom,sm8550-sndcard", "sm8550"},
--	{.compatible = "qcom,sm8650-sndcard", "sm8650"},
--	{.compatible = "qcom,sm8750-sndcard", "sm8750"},
-+	{.compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_priv_data},
-+	{.compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data},
-+	{.compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data},
-+	{.compatible = "qcom,qcs6490-rb3gen2-sndcard", .data = &qcs6490_priv_data},
-+	{.compatible = "qcom,qcs8275-sndcard", .data = &qcs8275_priv_data},
-+	{.compatible = "qcom,qcs9075-sndcard", .data = &qcs9100_priv_data},
-+	{.compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data},
-+	{.compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_priv_data},
-+	{.compatible = "qcom,sm8450-sndcard", .data = &sm8450_priv_data},
-+	{.compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data},
-+	{.compatible = "qcom,sm8650-sndcard", .data = &sm8650_priv_data},
-+	{.compatible = "qcom,sm8750-sndcard", .data = &sm8750_priv_data},
- 	{}
- };
- 
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
+    register at 0x1CCC does not exist.
+
+  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
+    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
+    0x0014.
+
+  - Simpler clock topology: two clocks ("core" bus gate and "pix0" pixel
+    divider); no axi or ahb clocks required.
+
+  - Single display output: no per-output indexing beyond index 0 is
+    needed.
+
+  - Hardware-discoverable identity: the DCUltraLite exposes chip identity
+    registers whose model field reads 0x0 (revision 0x5560,
+    customer_id 0x305), allowing the existing vs_fill_chip_identity()
+    path to identify the variant purely through register reads.
+
+Patch 1 generalises the verisilicon,dc DT binding to accommodate the
+Nuvoton MA35D1 SoC-specific compatible and the variant's two-clock,
+one-reset, single-port topology.
+
+Patch 2 adds the register-level macros needed by the DCUltraLite ops.
+
+Patches 3-5 introduce the driver changes in three logical steps: the
+vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
+vs_dc8200.c; the DCUltraLite ops in vs_dcu_lite.c with the necessary
+Kconfig and clock-optionality changes; and finally the DCUltraLite HWDB
+entry that gates hardware recognition once all support is in place.
+
+All patches have been tested on Nuvoton MA35D1 hardware.
+
+Changes from v2:
+  - [dt-bindings] Replaced standalone verisilicon,dc compatible with the
+    SoC-specific nuvoton,ma35d1-dcu added to the existing enum list,
+    paired with verisilicon,dc as the generic fallback; this matches the
+    thead,th1520-dc8200 pattern and was explicitly requested by the
+    reviewer.
+  - [dt-bindings] Removed standalone 'port' property; kept 'ports' in the
+    global required list; MA35D1 example now uses ports/port@0 structure,
+    following reviewer feedback that a 'port' alias should not be added
+    since DC8000 (single-port) also supports DP output.
+  - [dt-bindings] Replaced additionalProperties with unevaluatedProperties
+    to allow per-variant if/then clauses to add constraints cleanly.
+  - [dt-bindings] Added separate allOf/if block for nuvoton,ma35d1-dcu
+    constraining clock-names to [core, pix0] and reset-names to [core];
+    the if/else structure from v2 is replaced by two independent if blocks.
+  - [dt-bindings] Removed all description strings from if/then branches per
+    reviewer request; descriptions remain only in the top-level properties.
+  - [hwdb] Removed VSDC_MODEL_DC8200 and VSDC_MODEL_DCU_LITE macros; HWDB
+    entries use literal values (0x8200, 0x0) with inline comments.
+  - [hwdb] Added enum vs_dc_generation (VSDC_GEN_DC8000 / VSDC_GEN_DC8200)
+    and a generation field to vs_chip_identity; funcs dispatch now uses
+    generation instead of the model register value, per reviewer suggestion
+    (DC8000 has model 0x8000 yet behaves like DCUltraLite with model 0x0).
+  - [hwdb] Moved the DCUltraLite HWDB entry to the final patch in the
+    series per reviewer request, making it a gate that is opened only
+    after all supporting code is in place.
+  - [ops] Split v2 patch 2 into two patches: register macros first, then
+    the per-variant ops table, per reviewer suggestion.
+  - [ops] Extracted DC8200-specific ops into vs_dc8200.c; DCUltraLite ops
+    are in vs_dcu_lite.c; dispatch in vs_dc_probe uses generation field.
+
+Joey Lu (5):
+  dt-bindings: display: verisilicon,dc: generalize for single-output
+    variants
+  drm/verisilicon: add register-level macros for DCU Lite
+  drm/verisilicon: introduce per-variant hardware ops table
+  drm/verisilicon: add Nuvoton MA35D1 DCU Lite display controller
+    support
+  drm/verisilicon: add DCUltraLite chip identity to HWDB
+
+ .../bindings/display/verisilicon,dc.yaml      | 103 ++++++++++++++---
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +---
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 ++++++-
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
+ drivers/gpu/drm/verisilicon/vs_dc.c           |  13 ++-
+ drivers/gpu/drm/verisilicon/vs_dc.h           |  33 ++++++
+ drivers/gpu/drm/verisilicon/vs_dc8200.c       | 107 ++++++++++++++++++
+ drivers/gpu/drm/verisilicon/vs_dcu_lite.c     |  78 +++++++++++++
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |  14 +++
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +-----
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
+ 14 files changed, 385 insertions(+), 67 deletions(-)
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
+
 -- 
-2.34.1
+2.43.0
 
