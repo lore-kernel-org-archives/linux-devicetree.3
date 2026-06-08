@@ -1,198 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB41128B4E2
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 02:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D649A3375CB;
+	Mon,  8 Jun 2026 02:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780886658; cv=none; b=HYzvAU/6/vf4qLcS5EwFmAfSQiggg7MxDPccBDweFV3TVm1/XcOtcgNlJ+g/9ymHe00ri5tdkehe2k+rZtd306YszcrX4spiGTiMSFkVfMKRfTf2ykwqkFjzGapWADvDrPY1jOHczMF5SHrK6WptrGDL/iD0YGg/qW6oQyV+LtU=
+	t=1780886801; cv=none; b=es3mKiLOA6LPC9KhhyA7S83jUo38Fs+e39COTeELKnzX/RxgIrFR5cP0kk7cbx+qrqll9mMTewU30bmdhuv+tjryITF9Ii+B3FKBInop5UQ+3vmePsFhRBSkXqg3Em/W9hBy4LYCfyFZ3QcjqJADaIwY4fWTWSar/diywI7LpP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780886658; c=relaxed/simple;
-	bh=C3kyRauilNMupJ6dtAh38hZn4FGCzIhMRXT8Kb6UoRU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rz3Ct3Cc+eP8jQ5GsE6zEt1kMd83CRHlqEMMsgcpFz4RNVJe2KaRd/c4BLiuTzPEbKY09fFltxI0sCRWp7cyPI//Gv5vvolbK9NSwcyvrvpaYMIayop6Sewwg+QcJBUSzx2oSuS5S+P5dMwtEA9YSCq1wUhgQNSqonh5Vam9RrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGN9Tbbz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGN9Tbbz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6B21F00893;
-	Mon,  8 Jun 2026 02:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780886657;
-	bh=7VvzNw4uxKFyd+LT1VhXzohYTCt/TTJI3Jzw0KzevNk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WGN9Tbbz8oIh1CALuO7SRpycmJZoJ0P8uJydXrdef6zgeD6OE0ZFI8HdTaMj8akbM
-	 v0zw3NPQJ7CL6L2mx38fxsCJy/SFn2mhtHX85wG51aNLtCN7ETnCDVSMaesPZPOcOO
-	 Use+BKuW7Nj9Lx/IKUK0O4jsYRRoPp6xWp3ANOv05RJqEAwhQmiP+apbcHnKbVEqEs
-	 dqZ1FOAEWnqGxMc0Ha2t7N2It+ktiao+VXwUNw44wgsI62pSHVeKrkLmEaSOTV/63k
-	 EGxwJv/fjfHullcqsc4e+VWC2ZBBBfzzho3laeBBEtS73abewHvInEtYGmlfdNDPCV
-	 KeVQrzRHKMcdg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
- ops table
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608023237.305036-4-a0987203069@gmail.com>
-References: <20260608023237.305036-4-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:44:16 +0000
-Message-Id: <20260608024416.AC6B21F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780886801; c=relaxed/simple;
+	bh=9QyzrGwtsAeFA6AEPpKbURPN5nrm65NIvoeoDNJNCmk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fq+lC5HQISx+zR9ILFI7xSzS6/tJNWygzTYEGS/bfQZx3dGkacyMKe3T4RkmmFbQXzW3GuZZ+b/Il5w7GqkW1Ms+tOs8YmdYE8KA4U0k2D647hK7F540bot9PRNJtivBJmdGHLkubOLnJ0aAl/RJqW/ZkiXPCh9M+1My3ri2HxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8DxRekOLSZq+p4RAA--.41162S3;
+	Mon, 08 Jun 2026 10:46:38 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJCxOMEKLSZq9ESfAA--.25894S3;
+	Mon, 08 Jun 2026 10:46:38 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v6 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+Date: Mon,  8 Jun 2026 10:45:32 +0800
+Message-Id: <20260608024533.32419-2-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260608024533.32419-1-wanghongliang@loongson.cn>
+References: <20260608024533.32419-1-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxOMEKLSZq9ESfAA--.25894S3
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7Gr17ur43Kw47trW8JFW7WrX_yoWkZFXEka
+	4xAw18GrsxAF1Fg3yqvF4xJr43Ja42y3WrC3WUCF4vya4Ut345GFykJ343Ar4fWrsxu3W3
+	uFs7GrZ3Za1fKosvyTuYvTs0mTUanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbSxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
+	6rW5McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcNeODUUUU
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Add clocks and clock-frequency properties to examples.
 
-New issues:
-- [High] The disable sequence in `vs_dc8200_bridge_disable` reverses the or=
-der of clearing `VSDC_DISP_PANEL_START` and `VSDC_DISP_PANEL_CONFIG`.
-- [High] Incorrect teardown sequence in CRTC disable path where pixel clock=
- is disabled before calling the CRTC hardware disable hook.
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+---
+ Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Pre-existing issues:
-- [High] The plane disable function incorrectly sets the enable bit instead=
- of clearing it.
-- [High] Calling `clk_prepare_enable()` and `clk_disable_unprepare()` in th=
-e CRTC atomic enable/disable callbacks violates atomic context rules.
-- [High] Potential NULL pointer dereference if IRQ fires before drm_dev is =
-initialized.
---
+diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+index ee09c6d9c5f0..0beb7f2515c8 100644
+--- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+@@ -37,11 +37,14 @@ unevaluatedProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/clock/loongson,ls2k-clk.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+ 
+     i2c0: i2c@1fe21000 {
+         compatible = "loongson,ls2k-i2c";
+         reg = <0x1fe21000 0x8>;
++        clock-frequency = <100000>;
++        clocks = <&clk LOONGSON2_APB_CLK>;
+         interrupt-parent = <&extioiic>;
+         interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
+         #address-cells = <1>;
+-- 
+2.47.2
 
-commit 7843af23baf865801f80d2910ca556ff5e144ece
-Author: Joey Lu <a0987203069@gmail.com>
-Subject: drm/verisilicon: introduce per-variant hardware ops table
-
-The DC8200 and DCUltraLite share a broadly similar register layout but
-differ in how the bridge, CRTC, primary plane and IRQ paths are driven.
-Introduce a vs_dc_funcs vtable so each variant can supply its own
-implementation without scattering conditionals across multiple files.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
-silicon/vs_crtc.c
-> index 0b8a35d09cd2e..679d6541ba1b9 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-[ ... ]
-> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc *crt=
-c,
->  	drm_crtc_vblank_off(crtc);
-> =20
->  	clk_disable_unprepare(dc->pix_clk[output]);
-
-[Severity: High]
-This is a pre-existing issue, but does calling clk_disable_unprepare() here
-violate atomic context rules?
-
-The DRM subsystem requires that CRTC atomic disable callbacks run in atomic
-context where sleeping is forbidden, but clk_disable_unprepare() can sleep.
-
-> +
-> +	if (dc->funcs->crtc_disable)
-> +		dc->funcs->crtc_disable(dc, output);
->  }
-
-[Severity: High]
-Could disabling the pixel clock before invoking the hardware-specific
-crtc_disable callback cause bus hangs?
-
-If the crtc_disable hook requires the pixel clock to be active to perform
-register writes, turning it off first might result in dropped writes or
-stalls. Should the clock be disabled after the hook is called, reversing
-the setup sequence?
-
-> =20
->  static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
-> @@ -42,6 +68,9 @@ static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
->  	drm_WARN_ON(&dc->drm_dev->base,
->  		    clk_prepare_enable(dc->pix_clk[output]));
-
-[Severity: High]
-This is a pre-existing issue, but does this clk_prepare_enable() call also
-violate atomic context rules?=20
-
-Since atomic_enable runs in atomic context, calling sleeping functions can
-cause kernel warnings or potential deadlocks during non-blocking commits.
-
-> =20
-> +	if (dc->funcs->crtc_enable)
-> +		dc->funcs->crtc_enable(dc, output);
-> +
->  	drm_crtc_vblank_on(crtc);
->  }
-> =20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
-licon/vs_dc.c
-> index dad9967bc10b8..c949570241890 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *pri=
-vate)
->  	struct vs_dc *dc =3D private;
->  	u32 irqs;
-> =20
-> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
-> +	irqs =3D dc->funcs->irq_handler(dc);
-> =20
->  	vs_drm_handle_irq(dc, irqs);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for the IRQ to
-fire before the DRM device is fully initialized?
-
-If the bootloader leaves the display hardware active and generating VSYNC
-interrupts, vs_dc_irq_handler() could execute and call vs_drm_handle_irq(),
-which accesses dc->drm_dev. Since devm_request_irq() is called in
-vs_dc_probe() before vs_drm_initialize() allocates dc->drm_dev, could
-this lead to a NULL pointer dereference during early boot?
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8200.c
-> new file mode 100644
-> index 0000000000000..db9e1b3cd9032
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-[ ... ]
-> +static void vs_dc8200_bridge_disable(struct vs_dc *dc, unsigned int outp=
-ut)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> +			  VSDC_DISP_PANEL_START_RUNNING(output));
-
-[Severity: High]
-Does this reversal of the clearing sequence cause bus stalls or visual tear=
-ing?
-
-In the original code, VSDC_DISP_PANEL_START was cleared before
-VSDC_DISP_PANEL_CONFIG. This refactored sequence disables the panel
-configuration while the pipeline is potentially still active. Should
-VSDC_DISP_PANEL_START be cleared first to safely stop the pipeline?
-
-[ ... ]
-> +static void vs_dc8200_plane_disable_ex(struct vs_dc *dc, unsigned int ou=
-tput)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-
-[Severity: High]
-This is a pre-existing issue carried over from the original code, but
-does this actually disable the plane?
-
-By using regmap_set_bits() with VSDC_FB_CONFIG_EX_FB_EN, the frame buffer
-enable bit is being set to 1 instead of being cleared. Should this use
-regmap_clear_bits() instead to properly disable the hardware plane?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608023237.3050=
-36-1-a0987203069@gmail.com?part=3D3
