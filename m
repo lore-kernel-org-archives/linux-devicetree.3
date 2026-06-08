@@ -1,90 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B913D34A4
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A6E21B9F6
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780928710; cv=none; b=Str7nD/sSxRGgYbGfKVOeYdyNOTVmB2Ce+7l9ULmHXbNpyTY30bzG9wVf4ZMbvohXaUQUBde1iZeN93RJZ00i/zimWpT83KzyBBidu0+8uVWZbH+usCX3BQ+tKzk5zE3vhYSpVMW8T6QxEhmO959HdqjCnK/meo2aPBZ/gPnXH8=
+	t=1780928939; cv=none; b=s7FeRRjkrus81WuJo06qPbNdByouls59jrufOsfYkkgHeSyBXeVGZSQqosTfFZKV2aJWZthqoQGBHkAOK757J0aN6thXqTDcKH5TPxiuFKhUcmCWNYYrr2+9hXDRMqLHCQX37F6iuSH3NrybYkW79lBu5nObT44gaFsSP/pxQDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780928710; c=relaxed/simple;
-	bh=r39JWjk3eEXkxQF9LVlH6CaX8c7vjwP9g4eg5PVmHzo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iLh7YaXJNf93B3RJICHNe6Owdjd5P57qtFIMYZeLrCBMrmIu3f4oSzJKbgBbMtGlBhlgiryagstB07zdKQfW0SL/dQy3bSG3gsy+KcZeIX736Vjv2TPppb8abA76i7iOtXN0BwjkHuI11AaCvHd0/gsCP8ef9kTmguS15sYkHmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7WJPTtF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780928939; c=relaxed/simple;
+	bh=luqgOD4RGbZf7aivTx5OKHrey1l1rG2sZFjtaq982Wo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=B+1dPlEe/5A1NTjzXzW5+8KoS7EP8txJcpExx+UDrBbtDmo72jo+y+8E8ibJ2EGcRxevyng2Qrc7dHXRv4G4Jtc8r2k7Ep9SLtMeFAdXUOVGVYw3GwbD+nM27I9eAXqPsij2CxLQXWkCPoTQbMEE6pSrzpX0fmTkTsSljA11N7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfnFSW7V; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7WJPTtF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994EB1F00898
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780928709;
-	bh=r39JWjk3eEXkxQF9LVlH6CaX8c7vjwP9g4eg5PVmHzo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=C7WJPTtF168w0LXhxWPp6pmkxAbRRbddws71GFa8KOBA6y4dP24N6TENZ6Dy30Jqy
-	 4Z1OK6zEd5Bw3yrGpNswhH+WusL6GAlPzDD1T88ODHfSLO1/jdVoc+YlGcpkkFw5II
-	 fYBZCPdvPeECvoB0U87xeX1++A2oJHUSsr883bTMPsDQp1yhqOWg+Yp88UWPfku9eC
-	 TXV7RICLa9cwAcu0xm2CKjfRHWTqKDNq31OYtetRUgzOHEURE0KzV7pCNKKy5lIWta
-	 Q7NhbszK6JLM13KrXn4uJb5lC8XIwM1vOS7A2WXsSu5hQRe3wmwcWxSQswI5SjxIkP
-	 VMOyrBMShmzoQ==
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1382c509485so621578c88.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 07:25:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/RUXCPp8O0XiSdMchAMYwtMKLBk/PiboJpFOg3rOQsGz/3OYbxbez9+C90zJcSogfzuTUE5dZAwEpP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHgsyqEkmscEdkKR2XZaDKbEp64iS+N+o9qVzo4FKtuBi4Iyfl
-	7t2jJlSatg1RtOOmBk0I5fOeWwg5NDeWWHOYm/NFHLpdozdS5TwhjyzCkvSzMA/5aOmj9mlj8ZM
-	ByFqOvA8kOmPQSaYc9SKE1BTQhexKCfJlnuZGr2K3tw==
-X-Received: by 2002:a05:7022:62a3:b0:135:d749:574f with SMTP id
- a92af1059eb24-138066d530cmr7679756c88.13.1780928709070; Mon, 08 Jun 2026
- 07:25:09 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 07:25:06 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 07:25:05 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260608091702.3797437-3-wei.deng@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfnFSW7V"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-45eedc94d37so2198133f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 07:28:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780928936; x=1781533736; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vOtt259AiIcPipuJsaJ8iKxiDpMZGY8IewGo7CSvhw8=;
+        b=OfnFSW7VxjnLvECEbgULkwll4qRgY+Xex43E+BbQiDh4vkc7E1kk9c3cbcW8N7LLeO
+         FGflqSlfeoit4nlPLKzX1xbC4DnussLjVPwJR5tsvRigk7K4XyKsOFSCiRjQpq/slKdG
+         S1TAELKKRFQtejYm+XTuNZ1nrKmGPI3PAq5uBpP7At81U/Ubc3N9i7DytaA2LJ4MsItQ
+         A9cSM+UeiUbqQVQNIjQYHYV0JYeMqEyIDweq/Dq/rAr06OGVvHHbv2zl+XaU8+Cl9FFO
+         Pn+ciWhXA6vII1odh9KT5i90MBhqsF+fuIpnITTY/pmzI/aV4gj3FJ4lKtRwBRAqgETx
+         XsDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780928936; x=1781533736;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vOtt259AiIcPipuJsaJ8iKxiDpMZGY8IewGo7CSvhw8=;
+        b=FaxSOZfnaH7sYGRaAHhvPZYiIyqK+ZWng8q5R/9RvRpHXT/B4s4T2AVfmwZgib4uWJ
+         TFTChRR+JAR00ydPW0BZHDOus+PAtkVKa2JnacDd8ChFebpVV1UKbvzaU05G1QEK6TM5
+         Y03jeCvSBHqURXxaz9yFGrcC4yvFIF/3buoGNRUmBk3auSZX3jbz78m2jQRhQTRAFQOd
+         pfnwTEiPBdGJHC99R3Ti0oopGg//vnilbNrcYP9TNP3WefeEMMHxSw1CbyyALvRfTwC+
+         EsiZVQTHvjXvOIY2mMhXiJ6+zwTCDxQzrAS8sgwHk3B1gYkWGk/RZBYOMvcR6PntEmjC
+         5k9Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+FtDUDg/dMHfPkxOjZ7I+enSrhfA4LOtzTYOCUKgiaKT4tfc/gsmFtXgEEIcw5HAcdfxzQEv0yfUUQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHrYKBMEcJbAGdR88kPy4oT0VO06KSoI+EK/DY/AtBpjELmk5C
+	QyRGkX8VPNdj6Hf5FDMUnuCCy0DAmK9/Szc8b3OSkdbAoetGNS8VAP4/sG75CVbm
+X-Gm-Gg: Acq92OHjX5w9Q2QfLB6y8PYhaa/5imJD5jnK8dYf8P3R0bfLmJMolzB8QB678B/domH
+	pziOQKYODSXtT4Xv80IZP8Zd5b95+X/idX8MKJ1VS70neswJMfWvygMj2Mrit4YIKDuDnCKkewD
+	B4T/4mfdS/fOWvwcs8CcbeJp5B8Aho5dGY/djeHms84swZftlfMPJgDk2rDEyRQKadkcY6ker7T
+	U81sALHIYDeJlPjGyON0907fVtNZ8EfU41rzXmTVb5+iRoZU8cnMBXqPHtKlfS1toNdrg9VUZN+
+	822J09qYyTOYr0LG4zwgtOgvqdExlF0lIBG32e5hQYlr5b35JZ69e9KNgAKK3Faezd0LkWLkJKG
+	QXwjBUlEQbCaKRz0nHNpiN2e0SQ3PyLFTsnAeVMdX6xZVlWgZ06BYXxvE7aAVucIUSr3u//c4ah
+	fSjwwpuBebOX8bHO/iW2p6adm2h1bmd2MFFlutIP+039McOWL+ZTlmNNjJI+j64QIoyIv6msE5y
+	Pib
+X-Received: by 2002:a05:6000:181a:b0:45d:817c:b8b2 with SMTP id ffacd0b85a97d-4603065b5f2mr17122343f8f.30.1780928936383;
+        Mon, 08 Jun 2026 07:28:56 -0700 (PDT)
+Received: from [10.100.102.82] (46-116-185-113.bb.netvision.net.il. [46.116.185.113])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f351d40sm52065463f8f.26.2026.06.08.07.28.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 07:28:55 -0700 (PDT)
+From: Yedaya Katsman <yedaya.ka@gmail.com>
+Date: Mon, 08 Jun 2026 17:28:37 +0300
+Subject: [PATCH] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Fixup panel
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260608091702.3797437-1-wei.deng@oss.qualcomm.com> <20260608091702.3797437-3-wei.deng@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 07:25:05 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mdiih9kFj9mWe_9cqd5T4B4Q0ekd-5YhJ6X+dgiqwLtLQ@mail.gmail.com>
-X-Gm-Features: AVVi8CeA1Wijm5yAWA_-v3VlKzCbZNsMunOIP4iwNyh2boGjmtB7gJWUNbsUdIY
-Message-ID: <CAMRc=Mdiih9kFj9mWe_9cqd5T4B4Q0ekd-5YhJ6X+dgiqwLtLQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: lemans-evk: Describe the PCIe M.2
- Key E connector
-To: Wei Deng <wei.deng@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260608-b4-compatible-s6e8fc0-fixup-v1-1-303606b53c1a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQBDvYXqV0kcRRp7QaMiqCe
+ HfTdvn48HdQzsIK92qHzKuoTGOBvVQQBz/2jNIWgzOODJkGQ41x+iQ/S3gzKnHTRYOdbEtCss5
+ T667+Zmsoh5S5hN/98fxbl/DiOH+XcBwnNzXXZH8AAAA=
+X-Change-ID: 20260608-b4-compatible-s6e8fc0-fixup-612a6d25a914
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, quic_chezhou@quicinc.com, 
-	cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com, 
-	jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com, 
-	mengshi.wu@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, Yedaya Katsman <yedaya.ka@gmail.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780928934; l=1089;
+ i=yedaya.ka@gmail.com; s=20260113; h=from:subject:message-id;
+ bh=luqgOD4RGbZf7aivTx5OKHrey1l1rG2sZFjtaq982Wo=;
+ b=qmgM/DS7uv19nRKNxCGl5Nx9UryyEW2/g1jYt2EP4xTHuC9SChsGmIyERekvMHFsfVJ7DSkpu
+ JxEtfuSiV7lDuy5Si0ME2cMWfC1ObKV/8m/aK5Cr+feUeO2rXJa/Ang
+X-Developer-Key: i=yedaya.ka@gmail.com; a=ed25519;
+ pk=CgNmxD3tYSws5dZfpmJfc6re/bV/f47veVijddHLytk=
 
-On Mon, 8 Jun 2026 11:17:02 +0200, Wei Deng <wei.deng@oss.qualcomm.com> said:
-> The lemans EVK has the PCIe M.2 Mechanical Key E connector to connect
-> wireless connectivity cards over PCIe and UART interfaces. Hence,
-> describe the connector node and link it with the PCIe 0 Root Port and
-> UART17 nodes through graph port/endpoint.
->
-> Also add 'compatible = "pciclass,0604"' to the pcieport0 node in
-> lemans.dtsi to allow the PCI subsystem to associate the DT node with
-> the PCI-to-PCI bridge device.
->
-> The M.2 Key E connector is powered by a 3.3V fixed regulator
-> (vreg_wcn_3p3) which is sourced from the board's 12V DC input rail
-> (vreg_dcin_12v). Both regulators are always-on and are required by the
-> pcie-m2-e-connector binding.
->
-> Also add the serial1 = &uart17 alias, which is required for the
-> Bluetooth serdev device to be enumerated on the UART17 interface.
->
-> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
-> ---
+The change to the panel compatible was missed, fix it. This compatible is
+already in the driver.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
+---
+Link: https://lore.kernel.org/all/CAHuF_ZpTvYmARzx2_be1foM6XUVCdE0bNmb+YcHkH7tFhrYF8w@mail.gmail.com/
+---
+ arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
+index b9d9439e230b..139f2b401af5 100644
+--- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
++++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
+@@ -198,7 +198,7 @@ &mdss_dsi0 {
+ 	status = "okay";
+ 
+ 	panel@0 {
+-		compatible = "samsung,s6e8fco-m1906f9";
++		compatible = "samsung,s6e8fc0-m1906f9";
+ 		reg = <0>;
+ 
+ 		reset-gpios = <&tlmm 90 GPIO_ACTIVE_LOW>;
+
+---
+base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
+change-id: 20260608-b4-compatible-s6e8fc0-fixup-612a6d25a914
+
+Best regards,
+--  
+Yedaya Katsman <yedaya.ka@gmail.com>
+
