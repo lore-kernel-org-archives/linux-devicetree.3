@@ -1,106 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618693148C5;
-	Mon,  8 Jun 2026 10:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3A03B14D3
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780914479; cv=none; b=OVg0RvQUJFScMFZkcvI8IcC/H5xkDUZf20FeKdDPTFf6ci4kQP3fBL3hMiwpB11f7cGzHdT6YbetAxW5uKyH6aiDjgIdiJ56Klil/H4w3OQytffgmt4Cp2m+3Am78sXIvRawowtekEnxJcZJ5x658EzyHfUYbRmmMjMuIly0p4o=
+	t=1780914834; cv=none; b=niXGGy1+Bkah9SyEyOC/DsnWeFZJkJZWvChPoXL/+H4Phw1+QGf+B0FD+NGssZle+I8bsLcoWlPhBXbWjzQIV90+NyTMpF+mVDID5BVD/4+c3/EIWdCNqH/YQJMTLr0goJ7/uoQ6L/hn4jsFY33bK3DapVD45MhTV7NJaTDy7c4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780914479; c=relaxed/simple;
-	bh=GKz3mt5ASiHP0LOj/cTVhMIUUhoOQRuHnlAYso30/2Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HE+B0/L/nCt6sKW8MJ+C/l43YZCzu+XTCQCy2TFL6u/1ncEhMDYW2EWBWYZlzmSeyysguFbHArThxpRGcm/P7mOJvw/CzLnM3hL9+9+Va5EitnRTJq0MGIMs9BmpH8KPvl1g408tBn7pn60vP82SphM2YMthQAUGIFFLBNmekSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CaOBTIqC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780914834; c=relaxed/simple;
+	bh=mfALNWkEEs2WNfix5EiGhh7bb5Eqm8ervGhQXKLAydc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uFFSPoEFKloEcCLW/LomZ0oj6sd60a7DtxrGDltRuOaXIEwzBcur73cE59hF9rU7nwAFpWyPXFnN1d3uHi/LVxtHhqczu0Y3LbiJHRVUKCCv43azc3b66l5+MG9HEu41BP56/cSkRoxzBtaSTzsGcR42bv47qCFwarDpOECoJPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I9nCPyJQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LVNmAs+G; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CaOBTIqC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EF01F00893;
-	Mon,  8 Jun 2026 10:27:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780914478;
-	bh=wfs3rcPBNb033TIU8tcuziHt29xgmyYpwBKEJ4uT5yM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CaOBTIqCDS3Q3IedCquU4mE941UX0zNuCUbFHK6due4658TjeBWUAFUysm9jWdqXY
-	 hlMlSDDcvdQ52KNhwmkP0xxC8UCL6S0jUy9S7ZsWph2HqDQ7H6aGqcFGTDMKmDZGGU
-	 W9zEo5B8B8qBJjojeND933Iac0mfca+xtnVLsJ7ikqdixSL1HtcESSNZJQ0wPmwpOV
-	 LJvdnbCaRt5UJTzfbVL/jqlyrY5zx0Bw7V2NzAFPwDNRdqJyU5/NA+VOiup0blczgw
-	 uJmbnIliKfbF7dwpX7ZpqBXybyOZp0VsKEF5f/rxugtMAMN4p06pgfiYhQMYvcJGCy
-	 B2e66/qecpfQg==
-Date: Mon, 8 Jun 2026 12:27:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] dt-bindings: mfd: add ti,lm8502 combo LED + haptic
- controller
-Message-ID: <20260608-crazy-ruby-impala-c7e9a4@quoll>
-References: <20260603080256.853037-1-github.com@herrie.org>
- <20260603080256.853037-2-github.com@herrie.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I9nCPyJQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LVNmAs+G"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586OtVw2384520
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 10:33:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=3GeAp5gromZM7NUB9+Gdl+Z3P+05LRfVRMU
+	kyPBfN4s=; b=I9nCPyJQMndq/fShdXiRMUwtWy0Hj+k9aSmnI7rTDEQWYwzcZ1y
+	9MdKoAr6Jf+8jDchswVlW9ZI9IeT6v3qYMQ02SaJe16bNWLSPKY7tHKdRs2xVnvB
+	J+q3shx5CRMKQpRvqZi7+wWgjS3IXyNYEef15s1cdTVWkzBXoyCQ3JpKqtZ+Eu25
+	b4BeGqLJLv5MIWNSZ6zu5aiU93GRzgK0+v7W4uTIArLCNe2bmfxluKtsvT77NIWc
+	apOl41VOoAjrw50itfNVa7I+cRlutKzKN3uOFC7M0NV7/qk95ZJbd/wdyQDF1DKM
+	idwaZG7u7tg9cH5qgxOZ4MUGbkVIYhQFtrg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embs1f93c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 10:33:52 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36d98b6f019so4330049a91.2
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:33:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780914832; x=1781519632; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3GeAp5gromZM7NUB9+Gdl+Z3P+05LRfVRMUkyPBfN4s=;
+        b=LVNmAs+G2hPGtq7kHz3H+RGr9ujpmAb05uzib8b3efIwel1hiXKsUQHkKzY44WQH48
+         DaTNgsUAYfabjd+fNEnM/0UiyM758e49Od4HDdNj/PoK7lIOc59obCa9N4o018TKpJw0
+         Roh07sTE4HNgcICa5kx5K1dhcN+V7JvWtEK+8f/VTyi5/W7CqG6Jd6IOClrxBnBqFKbC
+         pAI/Lp+UGvWvfWq0AccM1txNdIl+ABNyTjpXt7duywxwU/Ld3cS3FI3jvaarBlwuUVfp
+         S52/kXq6lEFIGYtxfgYWJGSvPKhTgNCqOFpKheN7Acs5a4yViD/HfHm98osMfb/Lvn9j
+         z4ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780914832; x=1781519632;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3GeAp5gromZM7NUB9+Gdl+Z3P+05LRfVRMUkyPBfN4s=;
+        b=pUqdLq3AQ8MhGbkO/u71mpMxyxCIvFb2XW5A9erim9rPwm4lSYNzilAMKWjELvQDNm
+         5HTtowpF+wtUCdKmbgWUh6lll4aV7Z+osHSC4pOSlwnSmR+9YvCO1NR0+c8WDf4NODLA
+         Mbf7TC2SKdijHR0Ste8nhVjYiHmKaFnODNwhMdMWXMnSPPN8b/6VlJhmCoplXQdc66aA
+         y8PRmrrOgXgLF8qOrSbEBlrrLTz8bhJyyg7+h72R0aQ/pClUzZnKobp3WufM5KHd2CZl
+         2Hsa62zJp31o6kUOw4oUOFxsUZQ48dJsOMhjObgI3F8IO5rfjkiygMG8ITg80kC9I9M9
+         JvZg==
+X-Forwarded-Encrypted: i=1; AFNElJ8M6wtAjpoyAFUzO0XdledBKuFf/89kPgry2PNdPMDJG7Nyb3rIWG2RT9bScAzk8kkYU29yhOtyl3Tw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqZz4YBejsHq/WySxEwyn8kBumxLBW66NwyoRmfSZT8mcke1a2
+	fe4EVP4kbt15V2okKUU5kVNmO155ShNAsKySjWV+1F4GNhRn9j70ck6GKf+H9YHqXdj8N0a/j4R
+	gnWjd0eG0aXdvGYTl443wLQHRRbYd0R3QLx6CtVrP4puIXBJI5564MEn7x/4mOxni
+X-Gm-Gg: Acq92OEXL8iTRXwIWrcbV0NJcmzSyMc72934cXa+9blkr546RB/paZzsWj3kV7dLZ54
+	6NQtYxE0aaZGvfm1EL5cQEHCfU+ko3O5dnVgcQd8JftZ25QPKsOeV+NnMJFIe2/D79DVFIlh4Ci
+	IYBzCaRPSqHqB1oUZOPJ+dQNSWHdNatN+hdzI5CmHtKW3mKHmwjwMl0B4sJQGMIjQTvChjNZ7uH
+	Vb6oSfIRfkAvW/3BW3r9+xiyQlqTZOB2L0Js8IIR34dNLdTBja/Y6Iyrr+uP+NnENf2u2+yybW/
+	lhYiqnsOLeWalDjqzaZcx9t7iwa+4KopZdXDx72LFQUfsB33EitdGZJ9JuOfnEdZdYEru+3y7mv
+	QXc7ReVX960nl+1BqqRXFvfhawzW2CT47H4p7OVUixLhs3Aa6ybHbcu3ncOBEl3z0Cc0YmUlDOd
+	89gyJuShT+u4uPXF/OImdQ+DpPKRMe65mkJHb9Vmfldzdo+uGPogfJFFORlRb2PA==
+X-Received: by 2002:a17:90b:1fc3:b0:36a:fcf5:64d2 with SMTP id 98e67ed59e1d1-370f0b554b4mr16414532a91.16.1780914832246;
+        Mon, 08 Jun 2026 03:33:52 -0700 (PDT)
+X-Received: by 2002:a17:90b:1fc3:b0:36a:fcf5:64d2 with SMTP id 98e67ed59e1d1-370f0b554b4mr16414515a91.16.1780914831731;
+        Mon, 08 Jun 2026 03:33:51 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842824a2600sm18571570b3a.27.2026.06.08.03.33.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 03:33:51 -0700 (PDT)
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+To: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, quic_wcheng@quicinc.com,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Add ipq5210 USB phy support
+Date: Mon,  8 Jun 2026 16:03:42 +0530
+Message-Id: <20260608103344.2740174-1-varadarajan.narayanan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260603080256.853037-2-github.com@herrie.org>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA5OSBTYWx0ZWRfX0yBSL+OaUGIz
+ NQuSFGNDsNM+QkQQ0iLtBSsM86bn8BvdEhW8yaEf8juZOdp4VpoI5cYGyXej2OYT5+v9XYi0v77
+ ec6K0aSIS1cShgcK5XVCklHhe33m4TF+HWc6ELGXvtO/R0/QQeeAiE5z7bzpjpjng4wOXt4qDxI
+ 7G4k7Rkzf+JY1JLdY6r0Mz57vTKFyw+/NPXMahj38lA7/dQRlkLnQDhsnndhSMpF7KIPZUNO+iG
+ sadkUcyiRmlE5zX8/I0d6NJhFBuRJUnBSb8obLEM/UtSKCMu26DShkl0AfQMhFZ1MYZz4KLhWhQ
+ 8pdGQX9XeE9HvPzbN4ErrPv03sEdjPjj3up1DCl8ndir0OEO4fipCcF4ALbCR+SJlrjsZrSdxJ8
+ WbvFt8hShCbVJXk/buJXVUxIJ7F3CtYv9ZODz0B8wc+PYjgV2zegnAainn1XyfaNiVDNQErwWog
+ LlrUbaw4grBXt7AcNTw==
+X-Authority-Analysis: v=2.4 cv=CeY4Irrl c=1 sm=1 tr=0 ts=6a269a90 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=rhUFs459tUsHgh-773kA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: X3pHslwy5BsT9jhtulsFtPinM2TFD_h-
+X-Proofpoint-GUID: X3pHslwy5BsT9jhtulsFtPinM2TFD_h-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606080099
 
-On Wed, Jun 03, 2026 at 10:02:56AM +0200, Herman van Hazendonk wrote:
-> Add a YAML binding for the TI LM8502, an I2C combo LED + haptic
-> controller used in the HP TouchPad tablet. The chip is exposed as an
-> MFD with two child sub-nodes:
-> 
->   ti,lm8502-leds   - LED-class outputs D1..D10 (with per-LED reg
->                      and led-max-microamp properties)
->   ti,lm8502-haptic - EV_FF / FF_RUMBLE input device for the internal
->                      H-bridge vibrator output, optional
->                      ti,invert-direction property
-> 
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-> ---
->  .../devicetree/bindings/mfd/ti,lm8502.yaml    | 160 ++++++++++++++++++
->  1 file changed, 160 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/mfd/ti,lm8502.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,lm8502.yaml b/Documentation/devicetree/bindings/mfd/ti,lm8502.yaml
-> new file mode 100644
-> index 000000000000..10f2e32a0738
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,lm8502.yaml
-> @@ -0,0 +1,160 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/ti,lm8502.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI LM8502 combo LED + haptic controller
-> +
-> +maintainers:
-> +  - Herman van Hazendonk <github.com@herrie.org>
-> +
-> +description: |
-> +  The TI LM8502 is an I2C combo device with ten constant-current LED
-> +  outputs (D1..D10) and an internal H-bridge that drives a vibrator
-> +  motor. Pin D10 is shared between the tenth LED channel and the
-> +  haptic output; the haptic driver writes D10_CURRENT_CTRL = 0 at each
-> +  start to mux the pin to the H-bridge path.
-> +
-> +  The chip is exposed in Linux as an MFD with two children:
-> +    - ti,lm8502-leds   - LED-class outputs D1..D10
-> +    - ti,lm8502-haptic - EV_FF / FF_RUMBLE input device
-> +
-> +  The parent node owns the I2C client, the chip-enable GPIO and the
-> +  vcc regulator; children share access to the parent's regmap.
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,lm8502
+The ipq5210 SoC has both USB2.0 and USB3.0 controllers. The USB3.0
+can connect to either of USB2.0 or USB3.0 phy and operate in the
+respective mode.
 
-And where is any user of that? We do not take unused bindings.
+v2: Use ipq6018 and ipq9574 as fallback compatibles for qusb2 and qmp
+    phys respectively instead of introducing ipq5210 as a new compatible.
 
+    Dropped driver changes as moved to fallback compatible.
 
-Best regards,
-Krzysztof
+    Separate the controller and phy patches
+
+v1: https://lore.kernel.org/linux-arm-msm/20260515-usb2phy-v1-0-5f8338d466bf@oss.qualcomm.com/
+
+Varadarajan Narayanan (2):
+  dt-bindings: phy: qcom,qusb2: Document IPQ5210 compatible
+  dt-bindings: phy: qcom,qmp-usb: Add ipq5210 USB3 PHY
+
+ .../bindings/phy/qcom,qusb2-phy.yaml          |  4 ++
+ .../phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml   | 46 +++++++++++--------
+ 2 files changed, 30 insertions(+), 20 deletions(-)
+
+-- 
+2.34.1
 
