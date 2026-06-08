@@ -1,40 +1,68 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05453947AE
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BD73A16BD
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 08:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780907001; cv=none; b=fY8ufwfhs2HsxWHGLANj8yg5Kk8VkT3b7MfyzYGrbattIzhQ8LUhEngNwQX20nPUews+F9qn8m5UZN8St6HNRM7P5g7MwRz8zI9hIDsGTrmMlK0T/ln1e7AjCJL5peYiN+7FbY5SZNwkDwz8JLt2STgNJeokiF2WSw7AkNbdRRQ=
+	t=1780907021; cv=none; b=ghzsjs9F1A1bbkxT7g2Quh9ev7XtEY9IJ2w8BmaoKTsDd75o+1kWedin7s03rSzRM24jqVptbJRBngDVV9fOb8b+bVLxybeIjheKDVgeg69woMJA0PiRPAqWlQ2bmtlQTnOAsPIxSBjjn3/OYcQJFoW4QHGy8az+64x7ahCZQTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780907001; c=relaxed/simple;
-	bh=zBJ0+6iki8mXgDpkiRZdp2up2Qck5jTHuoY18SoxxP4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=np4kFkDe3eA/tSDnFmNCoj08MAIItk9TEANX1WwPmz8XQbG0ujBH/MWWOndvTWhpjTfVcRYGj96wSIXQ5tiRSJmyTm3VwkLJ+I4rk0XnFSn9Dg8XYxMB9V95XQekqCmf44Qibo+m2MCGNG/B5bA2Ik3ihIRUIFHuSb9JCLhuZA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=edYZDT01; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1780907021; c=relaxed/simple;
+	bh=r0GWKbt0KfiG2UapGCknRA/prOE3vHCrcNgeNB8htCM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PGn7trJP9brzOvV4Nxp4rMGk4J2+uybQ1doaKDBSdUjZ1Zw0Hc++LxRQ1QcWWuAxWttAhYP2E6hbiQVjCAa94vGcDqydnd1iE2txPreQqKHjS28xZo6QtLRN9vzmYnN7wrh6jqjQWL5+CUY+a7HJ5dokXCi0kaoQDDGCvSo847E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xPZrtNq6; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="edYZDT01"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0w7UuJbrk8/79aFOsVk7Yx0ya08/zmKmr0eY8n6NxvI=;
-	b=edYZDT01btd+1flK3bhqZkCTyQ1fdstH4uPirfjz64VnuvQ6C0+kgEBnVmGkQl91G2HuUuQd3
-	YnoMXpdUg0VxM1R0RhaeorcUkYBKjeZAmgdSezV4PTEuybgqEahh1J3J0tMUrT3g/AcXrpX26wD
-	QFQmQtODscQdT0EOeHgm+c0=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4gYlGN3Rn6z12LCj;
-	Mon,  8 Jun 2026 16:15:24 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5B4DD4048F;
-	Mon,  8 Jun 2026 16:23:17 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 8 Jun 2026 16:23:13 +0800
-Message-ID: <4f3ae5f8-abf1-42ef-b613-7d69349f0cc8@huawei.com>
-Date: Mon, 8 Jun 2026 16:23:12 +0800
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xPZrtNq6"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4908b92904fso45828255e9.0
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 01:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780907018; x=1781511818; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wGQ/7zWk9AsykTIEFhta6IENd1hVluGDPOK1Lw9aOrg=;
+        b=xPZrtNq6igA76wAUFGVkzmp1lZJPKb62AmN4E9sGSawqKpWwEaRcBvaxfx5fLF2/BL
+         m2ibcIWhEUfoH14JsghB3f1bDgw8A7aarz336NQ+GkH1Uw0cY4fvnH47HpfkKOlbNVrj
+         J8T7oDkRrfXdWxoLM7HPFkJ6LkDKovgMUfUJXCwEWhhSgeKurlBkZVbRNnSnfrpgnTXZ
+         AhYZN5x0Lxtl4efHHZQioGKgPVT51oSmcMH39R48hNzg92xEMzwCN4oB+JbW9fOQeoXp
+         jgF4KRbUVLTlcwmJBg0KkMgnCvOqMsnbNRhUVMo5GtYXkicZ7Fd+2f6/7RDt0MvqMptW
+         PMcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780907018; x=1781511818;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wGQ/7zWk9AsykTIEFhta6IENd1hVluGDPOK1Lw9aOrg=;
+        b=geQpKcyryjuu7THIRwi0JYJwMD/RpCVcpdB0OnyXOk/nEstqiYAGirIqmj63xL72go
+         YqJFe4J5N1qUgFMOI7mdq/5AaFPAwXKMXJ3ffED0uYzoXAc/jATYgvR1MyrdMcJHR17X
+         wP/8l8+LwnvMjOwwZnaxTLn8S4Xs0XJGhBYt2I1RvlWTGc2u2Xzk7jbayukup/A/gvOE
+         aQ28ytjzaqpwHY7rogGVV4BsxrqTRhVK9reEC1dOEQ6TjBcpbJQpNL55wH1YNVcQEc/6
+         MdLKszVBtH+ks/Van/d6pd4foneXsZIjb1T2QdX3rESa5OMqNLaN1yv6FsjqaIwh7Fg3
+         kzzA==
+X-Forwarded-Encrypted: i=1; AFNElJ9XoyS7NNBdxGT9K6OKAGKxhnt2m0V8gBEGEc59i5Uilv4363GA1fDq0ECmfrEV6MZn3zgJmpmr9Op/@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgP5Y3w9fNtSRnZwmZjzzB+1GTA5Vey3xF9eKEa/NjFTYXJmMa
+	OnP0fA1cUwBmLedDzk2hRMelwJ6iMhFxGtuPxZir1n0Iqf/VDMZFkqQAsx+z4tgVSWA=
+X-Gm-Gg: Acq92OHlOVJOs0ossowF18xyzVF6nKK0Q7RKG1nCShtS79hGr+6Rp9COskSd5TRLsf4
+	R0HRkJvl18ecrL+JCPT0jKdnO/T6X8xzHQd4ONlHR1fqt9UZL1JCXLkCw/9b96e1ZRLK4CSNLMt
+	8PsPjEl0PA3EA6rHSfpyBt5kTL9WUMOCH6NCzwkTE7nVcVb2hRzcIVMmIxBnfUmZV8TuhzVXczj
+	67z8sTBHu2VDy/ZX4DDYfRiQqQ52sOp3w6UZE0rX5rfTImnVNkBqNnvQZuooAncWos0zPaikOO7
+	LTlBhK1f1spiJjP02Ym49FqctdGaEk7jAoCcR0GaWo3z+SJLSTTQutW/mWCqrQmXpKrYsZ4QN4H
+	tSSvTIsqAIbJW1+rFS6utOynJ//Qa87x9ihcWyu+XW1Ckk6s9vhyuy/Vl0T5d4E/a1usxGRmnfr
+	0W/kNQHwHAeQpqCzgFjfmcnq+HbXOQKVuT7b3hcf3qpuz25Wg0XrEp515pK/at/v1DdJfd44veR
+	3b5CplkscUZof8=
+X-Received: by 2002:a05:600c:8a0c:10b0:490:c682:e37d with SMTP id 5b1f17b1804b1-490c682e39dmr105477495e9.32.1780907018172;
+        Mon, 08 Jun 2026 01:23:38 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:aa0b:c7d:a032:4c3a? ([2a01:e0a:106d:1080:aa0b:c7d:a032:4c3a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3c183asm379335455e9.6.2026.06.08.01.23.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 01:23:37 -0700 (PDT)
+Message-ID: <dd20a233-4c42-4eee-b856-a6a988892ee2@linaro.org>
+Date: Mon, 8 Jun 2026 10:23:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,144 +70,208 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 07/10] LoongArch: kexec_file: Use
- crash_prepare_headers() helper to simplify code
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <peterz@infradead.org>,
-	<feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
-	<lirongqing@baidu.com>, <ebiggers@kernel.org>, <paulmck@kernel.org>,
-	<leitao@debian.org>, <coxu@redhat.com>, <Liam.Howlett@oracle.com>,
-	<ryan.roberts@arm.com>, <osandov@fb.com>, <jbohac@suse.cz>,
-	<cfsworks@gmail.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <adityag@linux.ibm.com>, <liaoyuanhong@vivo.com>,
-	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
-	<chenjiahao16@huawei.com>, <guoren@kernel.org>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
-References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
- <20260608073459.3119290-8-ruanjinjie@huawei.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260608073459.3119290-8-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 0/3] ASoC: qcom: qdsp6: Add MI2S clock control
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-
-
-On 6/8/2026 3:34 PM, Jinjie Ruan wrote:
-> Use the newly introduced crash_prepare_headers() function to replace
-> the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
-> memory in the crash core, which reduce code duplication.
+On 6/8/26 04:30, Mohammad Rafi Shaik wrote:
+> Add support for MI2S clock control within q6apm-lpass DAIs, including
+> handling of MCLK, BCLK, and ECLK via the DAI .set_sysclk callback.
+> Each MI2S port now retrieves its clock handles from the device tree,
+> allowing per-port clock configuration and proper enable/disable during
+> startup and shutdown.
 > 
-> Only the following two architecture functions need to be implemented:
-> - arch_get_system_nr_ranges(). Use for_each_mem_range to traverse
->   and pre-count the max number of memory ranges.
+> On platforms such as Monaco and Lemans, third-party codecs are
+> hardware-wired to the SoC and do not always have an in-tree codec
+> driver to manage their clocks. For these designs, clock line
+> enablement must be driven from the platform side, and this
+> series provides the necessary support for that.
 > 
-> - arch_crash_populate_cmem(). Use for_each_mem_range to traverse
->   and collect the memory ranges and fills them into cmem.
+> On QAIF-based platforms such as Shikra and Hawi, responsibility
+> for voting I2S MCLK and bit-clock has moved from the DSP to the
+> kernel. This series introduces the required device tree binding
+> support to represent and vote for these clocks from the kernel.
 > 
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Youling Tang <tangyouling@kylinos.cn>
-> Cc: Baoquan He <bhe@redhat.com>
-> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Acked-by: Baoquan He <bhe@redhat.com>
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Enhances the sc8280xp machine driver to set the boards spacific
+> configurations.
+> 
+> This series depends on:
+> - https://lore.kernel.org/all/20260607-rubikpi-next-20260605-v1-3-7f334e16fea6@thundersoft.com/
+> 
 > ---
->  arch/loongarch/kernel/machine_kexec_file.c | 40 +++++++---------------
->  1 file changed, 12 insertions(+), 28 deletions(-)
-
-
-The below AI reported TOCTOU bug is an existing artifact and completely
-unrelated to the rework here. Therefore, we will skip fixing it in this
-series to avoid unnecessary noise.
-
-Link:
-https://lore.kernel.org/all/20260608075258.0F6D91F00893@smtp.kernel.org/
-
+> Changes in v3:
+> - Added a detailed commit description to clearly explain the need for this change.
+> - Improved the machine driver based on Neil’s feedback.
+> - Link to v1: https://lore.kernel.org/all/20260309111300.2484262-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> ---
+> Mohammad Rafi Shaik (3):
+>    ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document DAI subnode
+>    ASoC: qcom: q6apm-lpass-dais: Add MI2S clock control
+>    ASoC: qcom: sc8280xp: ASoC: qcom: sc8280xp: enhance machine driver for
+>      board-specific config
 > 
-> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-> index 5584b798ba46..5412aa9f3568 100644
-> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-> @@ -56,46 +56,30 @@ static void cmdline_add_initrd(struct kimage *image, unsigned long *cmdline_tmpl
->  }
->  
->  #ifdef CONFIG_CRASH_DUMP
-> -
-> -static int prepare_elf_headers(void **addr, unsigned long *sz)
-> +unsigned int arch_get_system_nr_ranges(void)
->  {
-> -	int ret, nr_ranges;
-> -	uint64_t i;
-> +	int nr_ranges = 2; /* for exclusion of crashkernel region */
->  	phys_addr_t start, end;
-> -	struct crash_mem *cmem;
-> +	uint64_t i;
->  
-> -	nr_ranges = 2; /* for exclusion of crashkernel region */
->  	for_each_mem_range(i, &start, &end)
->  		nr_ranges++;
->  
-> -	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
-> -	if (!cmem)
-> -		return -ENOMEM;
-> +	return nr_ranges;
-> +}
-> +
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
-> +{
-> +	phys_addr_t start, end;
-> +	uint64_t i;
->  
-> -	cmem->max_nr_ranges = nr_ranges;
-> -	cmem->nr_ranges = 0;
->  	for_each_mem_range(i, &start, &end) {
->  		cmem->ranges[cmem->nr_ranges].start = start;
->  		cmem->ranges[cmem->nr_ranges].end = end - 1;
->  		cmem->nr_ranges++;
->  	}
->  
-> -	/* Exclude crashkernel region */
-> -	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
-> -	if (ret < 0)
-> -		goto out;
-> -
-> -	if (crashk_low_res.end) {
-> -		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
-> -		if (ret < 0)
-> -			goto out;
-> -	}
-> -
-> -	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
-> -
-> -out:
-> -	kfree(cmem);
-> -	return ret;
-> +	return 0;
->  }
->  
->  /*
-> @@ -163,7 +147,7 @@ int load_other_segments(struct kimage *image,
->  		void *headers;
->  		unsigned long headers_sz;
->  
-> -		ret = prepare_elf_headers(&headers, &headers_sz);
-> +		ret = crash_prepare_headers(true, &headers, &headers_sz, NULL);
->  		if (ret < 0) {
->  			pr_err("Preparing elf core header failed\n");
->  			goto out_err;
+>   .../bindings/sound/qcom,q6apm-lpass-dais.yaml |  57 +++++
+>   sound/soc/qcom/qdsp6/q6apm-lpass-dais.c       | 137 ++++++++++-
+>   sound/soc/qcom/qdsp6/q6prm.h                  |   4 +
+>   sound/soc/qcom/sc8280xp.c                     | 213 ++++++++++++++++--
+>   4 files changed, 391 insertions(+), 20 deletions(-)
+> 
+> 
+> base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
+> prerequisite-patch-id: 2f1bd3efac328030dd8efe28fb95f84603868043
 
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
+
+With:
+```
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+index eabc828c05b4..69327c4857e1 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+@@ -218,6 +218,22 @@ platform {
+  				sound-dai = <&q6apm>;
+  			};
+  		};
++
++		pri-mi2s-dai-link {
++			link-name = "HDMI Playback";
++
++			cpu {
++				sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
++			};
++
++			codec {
++				sound-dai = <&lt9611_codec 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
+  	};
+
+  	vph_pwr: regulator-vph-pwr {
+@@ -853,6 +869,7 @@ &i2c6 {
+  	lt9611_codec: hdmi-bridge@2b {
+  		compatible = "lontium,lt9611uxc";
+  		reg = <0x2b>;
++		#sound-dai-cells = <1>;
+
+  		interrupts-extended = <&tlmm 85 IRQ_TYPE_EDGE_FALLING>;
+
+@@ -861,7 +878,10 @@ lt9611_codec: hdmi-bridge@2b {
+  		vdd-supply = <&lt9611_1v2>;
+  		vcc-supply = <&lt9611_3v3>;
+
+-		pinctrl-0 = <&lt9611_irq_pin>, <&lt9611_rst_pin>;
++		pinctrl-0 = <&lt9611_irq_pin>,
++			    <&lt9611_rst_pin>,
++			    <&i2s0_default_state>,
++			    <&audio_mclk0_default_state>;
+  		pinctrl-names = "default";
+
+  		ports {
+@@ -1072,6 +1092,19 @@ &pon_resin {
+  	status = "okay";
+  };
+
++&q6apmbedai {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	dai@16 {
++		reg = <PRIMARY_MI2S_RX>;
++		clocks = <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++			 <&q6prmcc LPASS_CLK_ID_PRI_MI2S_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++		clock-names = "mclk",
++			      "bclk";
++	};
++};
++
+  &qup_i2c3_data_clk {
+  	/* Use internal I2C pull-up */
+  	bias-pull-up = <2200>;
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 1f3afc6d015c..7b34ff533e0d 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -320,18 +320,36 @@ static struct snd_soc_common sm8450_priv_data = {
+  	.driver_name = "sm8450",
+  	.dapm_widgets = sc8280xp_dapm_widgets,
+  	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
++	/* I2S Connected to HDMI */
++	.mi2s_mclk_enable = true,
++	.mi2s_bclk_enable = true,
++	.codec_dai_fmt = SND_SOC_DAIFMT_BC_FC |
++			 SND_SOC_DAIFMT_NB_NF |
++			 SND_SOC_DAIFMT_I2S,
+  };
+
+  static struct snd_soc_common sm8550_priv_data = {
+  	.driver_name = "sm8550",
+  	.dapm_widgets = sc8280xp_dapm_widgets,
+  	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
++	/* I2S Connected to HDMI */
++	.mi2s_mclk_enable = true,
++	.mi2s_bclk_enable = true,
++	.codec_dai_fmt = SND_SOC_DAIFMT_BC_FC |
++			 SND_SOC_DAIFMT_NB_NF |
++			 SND_SOC_DAIFMT_I2S,
+  };
+
+  static struct snd_soc_common sm8650_priv_data = {
+  	.driver_name = "sm8650",
+  	.dapm_widgets = sc8280xp_dapm_widgets,
+  	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
++	/* I2S Connected to HDMI */
++	.mi2s_mclk_enable = true,
++	.mi2s_bclk_enable = true,
++	.codec_dai_fmt = SND_SOC_DAIFMT_BC_FC |
++			 SND_SOC_DAIFMT_NB_NF |
++			 SND_SOC_DAIFMT_I2S,
+  };
+
+  static struct snd_soc_common sm8750_priv_data = {
+```
+
+Thanks,
+Neil
