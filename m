@@ -1,64 +1,64 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13633C4574
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7083C8182
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780913388; cv=none; b=RK2dC9PZEW9yEC6DJIoh/S1FMwKMvRpF5lUHLrAQu1cpkHpRztyl/gZcKj4C2+dL3qLwkXRUq/KqFuzCexM2ijWWYXMgXYv/FiP9flyjdzau6Ueg/mauCysdIVT4/DZFb6uJ4h76MlVXCDvB/J6+mmNrMlM0tQWv0m7eNI1Hkh0=
+	t=1780913389; cv=none; b=OMAyJz9AQuctNdMyvwEPY/qNyhp9k8Sczd7W/tFKMrn7QuCiOmhOPkxMwaRaVR3DiUbzjEQjIKEBdDZEeb4nRKa76/h2/NZxI5Rchi6g4ciAIbQ+240+Hw8+SEewGQgNnwQj1C0T0Te9PSXF/CuhGdRXG00mFMpABekzCZoRRaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780913388; c=relaxed/simple;
-	bh=cEy1pNl7O2tt2BrarZ2/uh+MSBB2N1Ka/KQ6+Aeqca4=;
+	s=arc-20240116; t=1780913389; c=relaxed/simple;
+	bh=YSnkVAoOrBbPmRqat+kAffrtxCW463tFUuzW9G14zhg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EafafOI/sVer2yynAfwK3lj6zDCaIndTn6H+kFR7D9W715zbPKTUxcyCSEJZU/2VcvlO4LtXQwTKprsfoXiec6zgNdxMp1ZVtPW/Ypj2yRBOnNUdcYiZsdBjL45YpSLyjJSAvlcJ8DX3wXgERwvzEWzdAx0XxgqbhZUekMDDjBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SCg9vEgu; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=oM5FLs2Y6Zhfbk5nJ/MbBSQMbUNoppFk9Gg2aYh2VwxkzKKxek949kVMdxVtZPk9QuD1KQi61Sc2PdacwJc9JiR585YSYluvNonN5Ns7ekG2ApsmovrGx6ggQkS5qY0m77ZtGHdmxhiIpZfsulqwVyIu5QaWhV8u22K73SEWX+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cOLVi5wS; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SCg9vEgu"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490be29c1c5so52801975e9.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:09:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cOLVi5wS"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4602e2a0372so2865360f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:09:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780913385; x=1781518185; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780913386; x=1781518186; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZgtnLKHSY2AVtPo+97MnJT2AA2h1V52oQfGIO76/OrU=;
-        b=SCg9vEguHG7EDPHaFYo0/zkhkLuy+4F9Qpj1KuMnNeR77K37DE3mguGcPtPe/elsHb
-         QdnvcC1w9NV7jK8JT61imwkhdMBdgy8vE2gdenEf5vFMp9YwrH+tO2XWPChtY12z6ONp
-         3O3jO4UxnpbWK3yzMCUWp/kUy2vqWI9ViCTInK89evEtphbTLikqpyTGTHHwsxnnol2r
-         +skdRyvdyC9JpJbb+xWt5cvM+los6B9uk/h5pJ9mCypHjsB9l/wIG4QOHVEt74uJEycH
-         oKOFttn14Jjdet2QctkODK67/iawtIRYU1u/+fnajV1EPHbnC951U+rF/od6YzqL+MC5
-         bvkw==
+        bh=yDq94AE2COVyqj0eDLL5JsdTWnDOBQADgtFT6pcEChc=;
+        b=cOLVi5wS8GkxBBzCzzgpoZ67aHWejI7Utxx2uqStBezfJvMML/yHN9cCfhJllay273
+         BuwaiASy0A/dkFtBdl7+tqa81w9mkByFg92TcV7zRLoLodEe2G/ZgYA6Mx6z8MDru7gc
+         bbeKK7CJUFxoDE2CcC2Io8ODRrbN7HDQCEKx7bAie28jUOk4IYG8rDoCAT5ZCvZbIUaq
+         HFch9MgwGXBIXpoaeyhSmzMRjmdnY5CzZ3qacBEAgCCHGCrfem0f2vl/nQD5rLomyT9G
+         NRxLaY9AJJ9pKSzF3vOM0L/h/Osgnp5pDQPMQtGuhPBmwJdQ5ECYjrMytKZybuKINOmn
+         7zMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780913385; x=1781518185;
+        d=1e100.net; s=20251104; t=1780913386; x=1781518186;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ZgtnLKHSY2AVtPo+97MnJT2AA2h1V52oQfGIO76/OrU=;
-        b=di8ouk+Lz17XojDDEQWYu3/wDe1Adx/ColsLnE9ELepdgLLcadO2dbeaakK1mTD9Yl
-         fMA9afSGd6NInJW4OnkjDa0cHMdE+EdZNnpzvwjUChTbdmnb11vxBJJbS6n2yeTRA0WG
-         A4T3tAfnRuquR2/SPYaE7uZHrCvz2xx4KNxNP4ehQSlflJtxybLAjkFN4g0OZLh0smaw
-         1rcs4NyBqfAhoctrmkLVTRGA0vJfjbN+e5Q/2JBxf5mm6DbmfwmyiUHi0yZM3ZoQnA9n
-         WbiDPIKsXCjTeIg353kUDBXul6DtKa5T901XnRQIYcT7YbjAe38GZJJLmtPqUBjm3fRR
-         EfbQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8R51/PBmdO8cKHbTwBHst7hjC5reCg5zB3pApKD9kVPD6WJhDhecxzb0q4SLwQalaeAlbLXlIErBg7@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZSDNviN5fmsngCMHEuvNkl/DQBKMO4o6PWfhIbnFvQwBxFs59
-	G5+CysQ778c0VU4YopKjkfVm5n9OYdBar6gRlir564u5MB3PRR1xZgqg
-X-Gm-Gg: Acq92OFK0sGrCiTVKP5BUvKEGAnyIHoIAEXON33MLuMNw2vJ0AWPMfVXAAzbGNN+XrG
-	9XxfwVGAdDUPdLMpJuwAG/pYnKGVrEek2f1LRyzs1OB1OP8z8yh2AS6+innU5GYQ+jzWXzhoRw9
-	mIMpHmBnETcKbrsEiZusP+vQ7xJ8QgnbT4voaORHz3pOo94TzsU0jLWiTgB/cEZHw7ve/X/y2N/
-	AwF3LjxEyHmO+afeUmfWB/giKtbwTj8eQgCSmYJTRYE+eX3oxFtRqtAPP+8ZS/CLl0BN66/SohY
-	kpwyF/HK1abe0+TYTEhaAXKTFtmcTWuNHwAtmir+rlu/A6rKvWPYMHQbWr0ti71eEIhJzXSOdpV
-	z13d4d+xqixy4r8Z2OR5M2Y9jmM1ZGVnGJTSnxY01eGBQQsWqOwTNXSGZdAwBhJfJ9ibyy+Ebjx
-	KVfD+oLv12/VHlaCCv+4W6jwHNx6/off2jZY0FYQjfCSvpfuzy5TXK8TBj7aSasQZER1WFsn/xj
-	+lPKSUEnZVrln8KfTFbznH+NfDtDnDfIWuG+zlyA6JvQTiJGmD2q/ma89M=
-X-Received: by 2002:a05:600c:3551:b0:490:6237:521b with SMTP id 5b1f17b1804b1-490c25cc5c2mr241349195e9.27.1780913384743;
-        Mon, 08 Jun 2026 03:09:44 -0700 (PDT)
+        bh=yDq94AE2COVyqj0eDLL5JsdTWnDOBQADgtFT6pcEChc=;
+        b=pL+3Rr076L7Rk+PF4Q4p0Vm6qhBguVjDCjhQ6OWn/gtavBzv/jOQyrJAghs/B8I+qg
+         Hohzg0QJZirfUGSyQ6D8z+GM3L0AOQHZ8hnxVY65PszpmHImjrCT133HGEd2iiE62R66
+         Wgk0R2oxK+vKwWVIzAVeXYTdVA7z5UcQV0FZeoydAY6Wh59qRTX1FShMM4WVz3XBDs46
+         qJL0CpVk3Lz/apq4PY62262rpzlOmzd4lPEEGzg60xq6Q6kLzIE+xXoOAPwSwgBNxcrw
+         JJ26kz2pnqh7lMqgC2Y8V/sbDhwJ0XgZxB8yPQpRUuEudRcpv8tPf9IcNT4OtcLyj586
+         MO/w==
+X-Forwarded-Encrypted: i=1; AFNElJ8fuJjyNMjCp0AofwDTgVNM5YM0oE/IWAgblVoIz5tC6n8wlNWC+cTe0E3C+lZj3hQFRwauuBEE8S/U@vger.kernel.org
+X-Gm-Message-State: AOJu0YyeZ10dE7rfMV32BOdqU8Zi+6qEgrQJeTZDHvlsirAd8RfxsIhi
+	H0J6lLcOIZKef4IdiFaHdbazAQkvooquISG35gEXToaT8UhJMaIdNcsI
+X-Gm-Gg: Acq92OGVjy5SvJ92pksF9d7p0WkPo+a+9VVZsfabqXWXI3jIps3qldwMNc6tyeAlvCo
+	A4Zv+ZeSFdMAR7w5RDuHqCJTb2jKWVZO5XVHUDZrbw92V3cY7DXi2HOcobmKA5N3G5x07vJPf4D
+	y5yMUA4vp7LoRrtAN+aZvlY0qLXncDCyZShQVDjtVEsST+1mmOCkV1i92i/JxwD3RrYwjTj3zgT
+	tpjQRrm2zf0RuydaaMl5ltfs3eHMvyY1vJSm4tiwCJCjeoKvsl6wmnpu3IcB1tUpFY4dA5hRlXT
+	Ut2OzP+/N6pHj2kuSl8U0q754tXA2YOqNGE+sLdsVIHWebRWpSKTDL2Zx35hMJAcJL/XzbA40KY
+	RIRYMeIwWOFa4h7KYeaDdynqE84v9bVE9ZcKfZ36tyIOMHysRu/tPMqlLx1fe9bQlxPUgD/9o/9
+	8sjpD9ux1HDRcfmR/5H0k4l9Hdyy3IuK5X3CJYLkNgAqaUR9xxgsgNdFD5kN+3iaUs5zL7xvJmT
+	9wvs3z3xEgwyNMmSjXr37Vl4xzP6NrB5z41s7lZk46wkca9
+X-Received: by 2002:a5d:58f8:0:b0:460:42c:1133 with SMTP id ffacd0b85a97d-46030510ae2mr17045022f8f.14.1780913385911;
+        Mon, 08 Jun 2026 03:09:45 -0700 (PDT)
 Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4602cda3651sm39503219f8f.32.2026.06.08.03.09.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4602cda3651sm39503219f8f.32.2026.06.08.03.09.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 03:09:44 -0700 (PDT)
+        Mon, 08 Jun 2026 03:09:45 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: linux-kernel@vger.kernel.org,
@@ -74,9 +74,9 @@ Cc: pierluigi.p@variscite.com,
 	Sascha Hauer <s.hauer@pengutronix.de>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v4 07/14] arm64: dts: imx8mp-var-som-symphony: add HDMI support
-Date: Mon,  8 Jun 2026 12:09:25 +0200
-Message-ID: <2ee49ad6bf9313d00e64d74128399e45ad4f519c.1780912893.git.stefano.r@variscite.com>
+Subject: [PATCH v4 08/14] arm64: dts: imx8mp-var-som-symphony: add capacitive touchscreen
+Date: Mon,  8 Jun 2026 12:09:26 +0200
+Message-ID: <4159f23a5a3e52edb49964b7b3dbdc7ff4b83f50.1780912893.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1780912893.git.stefano.r@variscite.com>
 References: <cover.1780912893.git.stefano.r@variscite.com>
@@ -90,118 +90,63 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Radaelli <stefano.r@variscite.com>
 
-Enable the HDMI display pipeline and HDMI audio support on the Symphony
-carrier board.
+Add the FT5206 capacitive touchscreen controller on the Symphony carrier
+board.
+Describe the interrupt pin and touchscreen geometry.
 
 Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
 v3->v4:
- - Add HDMI HPD support
+ - 
 
 v2->v3:
  - 
 
 v1->v2:
- - Add missing HDMI pinctrl configuration
- - Enable LCDIF3 for the HDMI display pipeline
+ - 
 
- .../dts/freescale/imx8mp-var-som-symphony.dts | 62 +++++++++++++++++++
- 1 file changed, 62 insertions(+)
+ .../dts/freescale/imx8mp-var-som-symphony.dts | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-index a2becf5409cf..f27ba602c743 100644
+index f27ba602c743..bac3de6e1530 100644
 --- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
 +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-@@ -48,6 +48,18 @@ led-0 {
- 		};
+@@ -195,6 +195,21 @@ st33ktpm2xi2c: tpm@2e {
+ 		reset-gpios = <&pcal6408 4 GPIO_ACTIVE_LOW>;
  	};
  
-+	native-hdmi-connector {
-+		compatible = "hdmi-connector";
-+		label = "HDMI OUT";
-+		type = "a";
-+
-+		port {
-+			hdmi_in: endpoint {
-+				remote-endpoint = <&hdmi_tx_out>;
-+			};
-+		};
++	/* Capacitive touch controller */
++	ft5x06_ts: touchscreen@38 {
++		compatible = "edt,edt-ft5206";
++		reg = <0x38>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_captouch>;
++		interrupt-parent = <&gpio5>;
++		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
++		touchscreen-size-x = <800>;
++		touchscreen-size-y = <480>;
++		touchscreen-inverted-x;
++		touchscreen-inverted-y;
++		wakeup-source;
 +	};
 +
- 	pcie0_refclk: pcie0-refclk {
- 		compatible = "fixed-clock";
- 		#clock-cells = <0>;
-@@ -74,6 +86,43 @@ reg_usdhc2_vqmmc: regulator-usdhc2-vqmmc {
- 		states = <3300000 0x0 1800000 0x1>;
- 		vin-supply = <&ldo5>;
- 	};
-+
-+	sound-hdmi {
-+		compatible = "fsl,imx-audio-hdmi";
-+		model = "audio-hdmi";
-+		audio-cpu = <&aud2htx>;
-+		hdmi-out;
-+	};
-+};
-+
-+&aud2htx {
-+	status = "okay";
-+};
-+
-+&hdmi_pai {
-+	status = "okay";
-+};
-+
-+&hdmi_pvi {
-+	status = "okay";
-+};
-+
-+&hdmi_tx {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_hdmi>;
-+	status = "okay";
-+
-+	ports {
-+		port@1 {
-+			hdmi_tx_out: endpoint {
-+				remote-endpoint = <&hdmi_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&hdmi_tx_phy {
-+	status = "okay";
- };
- 
- &i2c3 {
-@@ -152,6 +201,10 @@ rtc@68 {
- 	};
- };
- 
-+&lcdif3 {
-+	status = "okay";
-+};
-+
- &pcie {
- 	reset-gpios = <&pcal6408 1 GPIO_ACTIVE_LOW>;
- 	status = "okay";
-@@ -253,6 +306,15 @@ &usdhc2 {
+ 	rtc@68 {
+ 		compatible = "dallas,ds1337";
+ 		reg = <0x68>;
+@@ -306,6 +321,12 @@ &usdhc2 {
  };
  
  &iomuxc {
-+	pinctrl_hdmi: hdmigrp {
++	pinctrl_captouch: captouchgrp {
 +		fsl,pins = <
-+			MX8MP_IOMUXC_HDMI_DDC_SCL__HDMIMIX_HDMI_SCL			0x1c2
-+			MX8MP_IOMUXC_HDMI_DDC_SDA__HDMIMIX_HDMI_SDA			0x1c2
-+			MX8MP_IOMUXC_HDMI_CEC__HDMIMIX_HDMI_CEC				0x10
-+			MX8MP_IOMUXC_HDMI_HPD__HDMIMIX_HDMI_HPD				0x10
++			MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03				0x16
 +		>;
 +	};
 +
- 	pinctrl_i2c3: i2c3grp {
+ 	pinctrl_hdmi: hdmigrp {
  		fsl,pins = <
- 			MX8MP_IOMUXC_I2C3_SCL__I2C3_SCL                                 0x400001c2
+ 			MX8MP_IOMUXC_HDMI_DDC_SCL__HDMIMIX_HDMI_SCL			0x1c2
 -- 
 2.47.3
 
