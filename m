@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9613E36DA18;
-	Mon,  8 Jun 2026 07:13:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB9F34E745
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 07:13:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780902796; cv=none; b=ai7SGGbci5vhdFmuySOh5gyZ/uHLdV3tx9cxpehTB5kyyISoQBDuBgrlRfFt3zyr/PiE0dvsCQyd/LiDoGlij4V9nc7b4sqTgEUXsvYsGLBpraQ8r1aqTLaL7hhYuLrm7+onYM1OfIMz/HzsAMETS/SWC8yTyHzyzilr9RnIubs=
+	t=1780902808; cv=none; b=vBJBCvEsLrJS+yn9TRjYPoO57UXnv4uurBTEhfCxNEnmoC48DELIDLb1cCaX0mFT96yOYBO3OkQj0aq2c2T0e9nwRQWkqc2aNgvaumc1xTWYjTAC1V3gnuQp4pdRNOgg1rI7dP5xMM7WWc6+HUh1tfk5zigXZvcZ/5CFAV6o0G0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780902796; c=relaxed/simple;
-	bh=Z7Oa6agaH+e0aQ0FQqR04RGhsz3mACVFqe9OkAVJOd4=;
+	s=arc-20240116; t=1780902808; c=relaxed/simple;
+	bh=Ak1owQ5BX9MsCAeXdFVtSY0W68Ac8UBPiqbMXgXanr8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Kfvi06eERwyCZj3t1NRc80QdPc8lIMqVqQNQ2FIuKzi+/j+BUEmyLrcyaO+ydIZ96TC8Vw3A1QspEEhuyAgVps50DiNqKKxaXt5DozSXZnThsuiPpk9sfEUsPDfwYWBs8KjARei+jDt4bIjG8/dcC80EUaWF7K6qUnimm9V9WGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hd5PM5xM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BhIo3yBc/3wCR/6Rk+QJ+SxVj6cCnjri7FJOw5NnHuPuv/6qPV5dOOfi8egxigFeM85tbykes7XgcEtNkqomx1bXt1iqaCuoY2UjD03oRle59QkIHfkk1sBv4WZ9FhmzRN6/MVjq2+MSXGwvsXrHADCtMj0qzes/GNne+TrIcUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvtSB+ND; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hd5PM5xM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02CC51F00893;
-	Mon,  8 Jun 2026 07:13:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvtSB+ND"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A2E1F00893;
+	Mon,  8 Jun 2026 07:13:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780902795;
-	bh=z0lzKPKtx3yLg7coUx/9j5mKVJAlKY8Kg0znnpC+T7o=;
+	s=k20260515; t=1780902806;
+	bh=Vet+Yt7W8IpTw3HV2qBEOyNlQqmzaMdonxzrFHRYbdA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Hd5PM5xMV/izOTmuttaOSu3vRpUjrkUHcDHEbRti6Ip8GCOKdkIbtY+2oq2ds0SWo
-	 uLzKzg4Gj5QuPs/A8NikOkiQF/QYzvJu54ExBEEXe2QbnFqqKK2fnkNjT1e9HuBrws
-	 QjyQnaIxk4Z3nhUYBlDpfrW7qfobdhXKhFKXL3+Wl5keXC4Ew5jEs5gOgzmdPibvXi
-	 AnKpudwB6Own1knnF5dMpGTTeIK30qfA8BrzX/eTvueQnqSCspGxZH4A4eJIFHkgwc
-	 NoYq5r2Tk3frSt93Q1SDQ1NlPZHdmZH3SwdsM0uyTZbDuuqrTy8HBiB++nYZ+5XrvF
-	 iscAMZqfcksfw==
+	b=kvtSB+NDkTd2a5IsCyMZk0z9OdMYP4rzW5P7bXQUNeI0CxTQAtGVZKuWoJA6m/8v/
+	 hzyHMWyTEuxHckBPAdTWR02u2ruG35A+sIEYkPiRV4IVe4Bo0oNuAbNyke9Mk9Q5Sb
+	 HPhLeT2mBJF6VV/ehE5Z/XwmMERzOSbKODtFf6NBgMr6X5hn0zdbEIXGPW+Eh1DEym
+	 FpDC6srFtqMN2CFnwDFXhpVoqGHl0vqzajvdPZnd2SaL6cYNq20cF+NO77IzJN55rh
+	 ZpNDBVTPJKClQTaibNHYk/SA6BDXzPigNnAk+gjMACcCAKfiYLmQssnark9J/h+HcC
+	 q7MWIZBsN/ZwQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/7] PCI: qcom: fix parsing of PERST# in the legacy
- case
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: msm: qcm2290: Add Shikra
+ MDSS
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608-sm8350-wifi-v2-1-efb68f1ff04c@oss.qualcomm.com>
-References: <20260608-sm8350-wifi-v2-1-efb68f1ff04c@oss.qualcomm.com>
+To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260608-shikra-display-v4-1-88a846afdd5d@oss.qualcomm.com>
+References: <20260608-shikra-display-v4-1-88a846afdd5d@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 07:13:14 +0000
-Message-Id: <20260608071315.02CC51F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 07:13:26 +0000
+Message-Id: <20260608071326.70A2E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,60 +46,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Direct return on `devm_gpiod_get_optional` failure in `qcom_pcie_p=
-robe` bypasses `pm_runtime` cleanup.
+- [Medium] The compatible string `qcom,qcm2290-dsi-ctrl` (and the newly add=
+ed `qcom,shikra-dsi-ctrl` fallback) is missing from the conditional `if-the=
+n` constraint blocks in `dsi-controller-main.yaml`, preventing strict valid=
+ation.
 --
 
-commit a1eb87e2fab2443f5d8889e3755038df391d4632
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-PCI: qcom: fix parsing of PERST# in the legacy case
+commit 605ca9e1f594a8d64bb53c70c6ef6319fc95eeed
+Author: Nabige Aala <nabige.aala@oss.qualcomm.com>
 
-This commit moves the parsing of the RC's perst-gpios into qcom_pcie_probe()
-to share it between mixed and legacy platforms. This prevents -EBUSY errors
-when acquiring the PERST# GPIO in legacy cases.
+dt-bindings: display: msm: qcm2290: Add Shikra MDSS
 
-Link: https://lore.kernel.org/r/gieaybsg2ckxpctvqj77nlwu7utama2yeyvebkonmex=
-sxrra3v@v3fobqasxnmy/
+Shikra reuses the same MDSS/DPU 6.5 hardware as QCM2290. Extend
+the existing qcm2290 bindings to cover Shikra by adding fallback
+compatible chains for MDSS, DPU and DSI controller nodes rather
+than introducing a separate binding file.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/control=
-ler/dwc/pcie-qcom.c
-> index 11fc604898926..7664c7c28c0e3 100644
-> --- a/drivers/pci/controller/dwc/pcie-qcom.c
-> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller=
+-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-m=
+ain.yaml
+> index a24fcb9144181..08a6668d3ca78 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.y=
+aml
+> @@ -46,6 +46,10 @@ properties:
+>                - qcom,sm8650-dsi-ctrl
+>                - qcom,sm8750-dsi-ctrl
+>            - const: qcom,mdss-dsi-ctrl
+> +      - items:
+> +          - const: qcom,shikra-dsi-ctrl
+> +          - const: qcom,qcm2290-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
 
-[ ... ]
+[Severity: Medium]
+Should qcom,shikra-dsi-ctrl and qcom,qcm2290-dsi-ctrl be added to the
+conditional constraint blocks lower down in this file?
 
-> @@ -2107,6 +2093,15 @@ static int qcom_pcie_probe(struct platform_device =
-*pdev)
-> =20
->  	pp->ops =3D &qcom_pcie_dw_ops;
-> =20
-> +	if (of_find_property(dev->of_node, "perst-gpios", NULL)) {
-> +		pcie->reset =3D devm_gpiod_get_optional(dev, "perst",
-> +						      GPIOD_OUT_HIGH);
-> +		if (IS_ERR(pcie->reset))
-> +			return PTR_ERR(pcie->reset);
+Because they are omitted from the conditional blocks governing 6-clock setu=
+ps,
+the schema falls back to permissive defaults (3 to 12 clocks). This allows
+incomplete or invalid device tree nodes for Shikra to silently pass validat=
+ion.
 
-[Severity: High]
-Does this direct return leak the runtime PM usage count?
+While the missing qcom,qcm2290-dsi-ctrl constraint was a pre-existing issue,
+adding the new qcom,shikra-dsi-ctrl compatible without ensuring it has stri=
+ct
+validation introduces this permissive validation bug for the new platform.
 
-Earlier in qcom_pcie_probe(), pm_runtime_get_sync() is called to increment
-the PM usage count. If devm_gpiod_get_optional() fails here, returning
-directly bypasses the err_pm_runtime_put cleanup path, which leaves runtime
-PM enabled and causes an unbalanced count.
+The block enforcing these strict limits starts like this:
 
-Should this be setting ret =3D PTR_ERR(pcie->reset) and jumping to
-err_pm_runtime_put instead?
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - qcom,msm8998-dsi-ctrl
+              - qcom,sa8775p-dsi-ctrl
+              - qcom,sar2130p-dsi-ctrl
 
-> +
-> +		dev_warn(dev, "Reusing PERST# from Root Complex node. DT needs to be u=
-pdated!\n");
-> +	}
-> +
->  	ret =3D qcom_pcie_parse_ports(pcie);
->  	if (ret) {
->  		if (ret !=3D -ENODEV) {
+>        - items:
+>            - enum:
+>                - qcom,qcs8300-dsi-ctrl
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-sm8350-wif=
-i-v2-0-efb68f1ff04c@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-shikra-dis=
+play-v4-0-88a846afdd5d@oss.qualcomm.com?part=3D1
