@@ -1,182 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AB93A7F59
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AE93B14A0
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780957418; cv=none; b=RiWXgy26WKAiBfVSSDSDJZSZnW01RQf3LueUudWyUSKwzhovzrSid7AaDJXMHv+xydE/xolbe3z5dzLzXjCsi7/O5Z1FgElZT/bAvpIkooK3b0YBDuv/RTP+usdwhVhdaduVV+CBKWoCikkuB0gqP+LIhWvppYaJT/sfB0Y4o6Q=
+	t=1780957667; cv=none; b=XgEnHO5M0f/5t4C7PeUNOlt66SVtOn0Xj4Oq1z+OvxzyVX49l4xbbQNwbDkKzpiBxjkvBopeRdcS83irFA11Kg02ItHqgM6B+6osj1/Dcq3SsfcGARAS6gospSqN2n5HR98oSMLZyKQyO22m1hQrwaB/eESnMEWcOEYsMYRaET4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780957418; c=relaxed/simple;
-	bh=hy+HlBNSZiEKnuNuXPa4BiVC956qTqH4cLlDTQJcemQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ITzoBq3Z2ncFLtGaUAplag82Sb/2PaE0mEKqb1vZR/1izux2cGMxK6LgPQc4OJs/Ev9ORDbb/SBzuyuX9lDc2UsI1PvIkgK29//RCgr7FPeZ7tacWJqvkLMz/UxFfNX7sZWnMTe2x7HvjEmQiie0TFu22Id/nohXY0wzTTu/4D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VTqO4AHh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780957667; c=relaxed/simple;
+	bh=kmfjOZekY3PVrvRsOjWzxkxrqxMBMvMbocT0IJKkvB0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oXV9S8NA40D+xLinxyi6tou2afqPNMO3dct3zo3p6efaTb0yOsA24RP0cZuXv+u3qrq8jzkJt2Cv4IADhmAUK5yqQXLcGldLpkb5aWjGPfcJ9Cbs2Y3ezgBAaTzLSZs5yXrRAW4KVlKoYaNsa3YIEgUkFT+kibnKA9UJE1ucguQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fLp8vXzJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VTqO4AHh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0B61F0089B
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:23:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fLp8vXzJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C65531F00893;
+	Mon,  8 Jun 2026 22:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780957416;
-	bh=lwtoOolM3FDi8mNdzENQgx8uPlzNN+S37OgdHxXFN+k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VTqO4AHhtruP8yo/k8LulM7k4xt1jGI7tU7tiwwMoOvxjLcd2DtBJ6zXwVU4OGk14
-	 +NJ4Z4PpkfW6X4w/5TkB+3g9ax9ogmUMEeIQGKMr9uxgTi1qXaatRewxz/KFooxmuP
-	 PdhWgRCjpfw5JXrrFdVvqK2PnwMggAQVQxfQH66bARwOgD61zL0nMyc6iEVlwPMdyj
-	 qS9HZM5fynwlRzuv8ZMaDp58qKrDmdOXMH9II1mk4zQWh2v78QzrYSCU1xKQjCZjqa
-	 mjXC+JVdCVNifs2Bu4AYhvX8u00oTHkaTstYe7YYj/Oua1my5Ajsb5zdCmo/65NsLe
-	 V0EcmKsp5/0Cw==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3967717c951so50462421fa.1
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 15:23:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/5YWAAjviw0xHUIVgAh3M4nRaeSmJbTq6l5228esmVrTXjubsGUzPhlAw6K7Yq4xT1hAgtPEf1aymN@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQleeg8VChQTG/0QGaOqN8Nxg/uQOC3oxlbNHHM8biOt+IP7E4
-	sA9tXOjPeObHvtgbBzkbjsSm+NDmWPhQ6VgO0sV2nYEa1+QURM961uh+QvjTf6aFM6K+s0SGxPX
-	va/TJ/AKXewO40I42dY8jlWncaY2N5N0=
-X-Received: by 2002:a05:6512:39cd:b0:5aa:6dff:cf1f with SMTP id
- 2adb3069b0e04-5aa87c2c276mr5013222e87.45.1780957414930; Mon, 08 Jun 2026
- 15:23:34 -0700 (PDT)
+	s=k20260515; t=1780957663;
+	bh=6VzMoaa2wCAqyH2sfjeP25TaHQWfy4ICNCOMXBsAN7s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fLp8vXzJ9Te7gOqUKKX27lNWV2yv925JLpOc1TbrJT7ru6mDqW+c9jyhuPbldTMxy
+	 0P7AA1SWXMnvptFU3RyRWDx7lgjWFC2JFh6TrpPA/hmz9DBPzH54oWeMW3s96oSsZ+
+	 Dk0l9jeZDN++9AKCHIMtJOj12btr9nnr3rjbjd/4W4ZjOM4XcsURtY3gKFO5yoZK9H
+	 fqr7lT9PHvWg87RevMYiW9/nv4Bb+mtA2FKgIG33LgqOsv9XYvb4u0VMER/y/4nlPc
+	 b9vVyrREryDFlNnmiLSTTPQua4f1WgElAwx7G5LVwu0tIFMLIyo03HrP+cdw/S2EP7
+	 jcxmzRFy9GR+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 phy-next 14/16] dt-bindings: phy: lynx-10g: initial
+ document
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260608221710.1572971-15-vladimir.oltean@nxp.com>
+References: <20260608221710.1572971-15-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 22:27:42 +0000
+Message-Id: <20260608222742.C65531F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260608-ultrarisc-pinctrl-v3-0-30a09ed74275@ultrarisc.com> <20260608-ultrarisc-pinctrl-v3-2-30a09ed74275@ultrarisc.com>
-In-Reply-To: <20260608-ultrarisc-pinctrl-v3-2-30a09ed74275@ultrarisc.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 9 Jun 2026 00:23:22 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=LFZYUFyAt9eUMPw02yCXC3cD6h4wvHQ529OS-o-WtSQ@mail.gmail.com>
-X-Gm-Features: AVVi8CfQIbfvq-lTPCFBuhiZvgR_pTnUnbNcKUXJkelGVuuyYmtFLHMt29N80v8
-Message-ID: <CAD++jL=LFZYUFyAt9eUMPw02yCXC3cD6h4wvHQ529OS-o-WtSQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl driver
-To: wangjia@ultrarisc.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Jia,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Schema validation error due to conditionally required `big-endian` =
+property not declared at the top-level
+--
 
-thanks for your patch!
+commit 2c5c4d6b6c1efda8718b0e291015499912a81e6e
+Author: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-On Mon, Jun 8, 2026 at 9:50=E2=80=AFAM Jia Wang via B4 Relay
-<devnull+wangjia.ultrarisc.com@kernel.org> wrote:
+dt-bindings: phy: lynx-10g: initial document
 
-> From: Jia Wang <wangjia@ultrarisc.com>
->
-> Add support for the pin controller on the UltraRISC DP1000 SoC.
->
-> The controller provides mux selection for pins in ports A, B, C, D, and
-> LPC. Ports A-D default to GPIO and support peripheral muxing. LPC pins
-> can be switched to eSPI, but are not available as GPIOs. Basic pin
-> configuration controls such as drive strength, pull-up, and pull-down
-> are also supported.
->
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+This commit adds the YAML device tree binding schema for the 10G Lynx
+SerDes, supporting various QorIQ and Layerscape SoCs. It defines a common
+register map with SoC-specific configurations handled via conditional block=
+s.
 
-Overall this looks very good, some things to fix up below but nothing
-major!
+> diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml b/Do=
+cumentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> new file mode 100644
+> index 0000000000000..eaef585338258
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
 
-(...)
-> +config PINCTRL_ULTRARISC
-> +       tristate
-> +       depends on OF
-> +       depends on ARCH_ULTRARISC || COMPILE_TEST
-> +       select GENERIC_PINCTRL
-> +       select PINMUX
-> +       select GPIOLIB
+[ ... ]
 
-Why GPIOLIB? You don't implement any GPIO chips...
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - fsl,ls1046a-serdes1
+> +              - fsl,ls1046a-serdes2
+> +    then:
+> +      properties:
+> +        big-endian: true
+> +      required:
+> +        - big-endian
 
-> +       raw_spin_lock_irqsave(&pctrl->lock, flags);
-> +       val =3D readl_relaxed(reg);
-> +       val =3D (val & ~mask) | field_prep(mask, conf);
-> +       writel_relaxed(val, reg);
-> +       raw_spin_unlock_irqrestore(&pctrl->lock, flags);
+[Severity: Low]
+Will this cause a schema validation error when dtbs_check is run?
 
-Have you thought about using a scoped guard for this lock?
-It will make the code easier to read.
-(Applies everywhere.)
+Because big-endian is omitted from the top-level properties block, it
+appears the additionalProperties constraint below will reject it even
+when the compatible string matches.
 
-> +static int ur_find_group_route(struct ur_pinctrl *pctrl,
-> +                              const char *function,
-> +                              u64 group_mask,
-> +                              const struct ur_func_route **route_out)
-> +{
-> +       const struct ur_func_route *match =3D NULL;
+Could big-endian: type: boolean be added to the top-level properties
+dictionary, or should additionalProperties: false be changed to
+unevaluatedProperties: false?
+
 > +
-> +       for (u32 i =3D 0; i < pctrl->data->num_routes; i++) {
-> +               const struct ur_func_route *route =3D &pctrl->data->route=
-s[i];
+> +additionalProperties: false
 > +
-> +               if (strcmp(route->function, function))
-> +                       continue;
-> +
-> +               if ((route->valid_pins & group_mask) !=3D group_mask)
-> +                       continue;
-> +
-> +               if (match) {
-> +                       dev_err(pctrl->dev,
-> +                               "ambiguous route for function %s group_ma=
-sk=3D%#llx\n",
-> +                               function, (unsigned long long)group_mask)=
-;
-> +                       return -EINVAL;
-> +               }
-> +
-> +               match =3D route;
-> +       }
-> +
-> +       if (match) {
-> +               *route_out =3D match;
-> +               return 0;
-> +       }
-> +
-> +       return -EINVAL;
-> +}
+> +examples:
 
-This routing function needs some kind of comment before it explaining
-what is going on and what constraints you are trying to resolve with this.
+[ ... ]
 
-> +static bool ur_function_is_gpio(struct pinctrl_dev *pctldev,
-> +                               unsigned int selector)
-
-Neat that you implement this!
-
-> +static const struct pinctrl_ops ur_pinctrl_ops =3D {
-> +       .get_groups_count =3D pinctrl_generic_get_group_count,
-> +       .get_group_name =3D pinctrl_generic_get_group_name,
-> +       .get_group_pins =3D pinctrl_generic_get_group_pins,
-> +       .dt_node_to_map =3D pinctrl_generic_pins_function_dt_node_to_map,
-> +       .dt_free_map =3D pinconf_generic_dt_free_map,
-> +};
-
-Good use of generic helpers!
-
-> +static const struct pinmux_ops ur_pinmux_ops =3D {
-> +       .get_functions_count =3D pinmux_generic_get_function_count,
-> +       .get_function_name =3D pinmux_generic_get_function_name,
-> +       .get_function_groups =3D pinmux_generic_get_function_groups,
-> +       .function_is_gpio =3D ur_function_is_gpio,
-> +       .set_mux =3D ur_set_mux,
-> +       .gpio_request_enable =3D ur_gpio_request_enable,
-> +       .strict =3D true,
-> +};
-
-Here too.
-
-> +static const struct pinconf_ops ur_pinconf_ops =3D {
-> +       .pin_config_get =3D ur_pin_config_get,
-> +       .pin_config_set =3D ur_pin_config_set,
-> +       .pin_config_group_get =3D ur_pin_config_group_get,
-> +       .pin_config_group_set =3D ur_pin_config_group_set,
-> +#ifdef CONFIG_GENERIC_PINCONF
-> +       .is_generic =3D true,
-> +       .pin_config_config_dbg_show =3D pinconf_generic_dump_config,
-> +#endif
-
-Why ifdef:ed? Just select it in your Kconfig and rely on it?
-
-Yours,
-Linus Walleij
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608221710.1572=
+971-1-vladimir.oltean@nxp.com?part=3D14
