@@ -1,117 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1367135836A;
-	Mon,  8 Jun 2026 05:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E087A3839A3
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 06:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780898162; cv=none; b=EcGtI8QfSaPvNdKzP/LqhKPbL74dNHgyr6ZOLZc2qCpSJzNTtvFoY7HE7KEFpK+Qda7qvdLmgSyQbtIgZVGt/Mi0mNIFqaEpK14jhPMkEiiRUpdfJo3VVgJBa2leeSo3tKMB+oYjlJ64sQ1arfYx8B5exaQ0bOV3ZUoP0Nci6/U=
+	t=1780898660; cv=none; b=bO/b3CyMhsbNPa0Oej5fVCuwWejfx89fvuRvBfYGvqM/4w7vzAgXVxeEtcAuqcIaTEenSWLiksIvZ9Agyzmgo4swa6ou3tVpJvQWhuNmvPpqldSHaZvMnikBkADaNDdvRybFqi2d50SPEiU9sAhKvV5r+3S6FHA7Imvbbrkte88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780898162; c=relaxed/simple;
-	bh=1tedobO0Y+zCiMJOKxoZsfxqE8GEtPoz++Zcs6G5RDo=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=OYPnbQieemlzn+RG6OUOM1Zuf3IC5d0reHcI+Lq6Seo5uaAT64F7LwosLjS4UQpXacZFLYmeTL112tZx/ktdg0S6XPtgSA+wSrW4+XTjMZr9DUSLy0fUjForQbSRs6p6wEqEmWZmVpLFXVYYBv2HfG3o+Z5giNFHy0BCs+QvnR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQqLYcOh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780898660; c=relaxed/simple;
+	bh=tQ/zYygJXIMhmnmWlkNagbooYmXGxdVLFQV+VQ4wmnM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ISoBPUzH80klZlUT4v7/i+Be9xOOlO/WVXPy9xH7IcUzORY9Qpmo1q8/rtrBHOo+OXZLGfHDfF7pXhRlYb6zAeRXouQPGDs1yo+BLhyJApigiIIhjrnXJuA2voEip6yuBem7iZLh6g3oOf4gwTIHGJvSNhsQTknF0LCPcECBcag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IWNQyrMk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SE//Xm4i; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQqLYcOh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6CD1F00898;
-	Mon,  8 Jun 2026 05:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780898160;
-	bh=BHCcwuBurL/77nGhILnx41LfdVHpOdtqW6tXK8NbuQk=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=RQqLYcOhBwJSuYSlrGvUPh6oC21eVBEKMikZuwGjjOo4OuDmGZvMau88T/IBEDCxU
-	 yDV0n5gGyX3SV58Q+Gh1zKA/VxBmapQFf/4plfucaJmJ5bnaaozhoqgGZ/pvr9w2Af
-	 sRERvkwFjF+/X0iXadjlS1GEt+Lub4+RSOSwYyT2/9sadkYzZCWy5eGFriYeXXYKt9
-	 u/TjAE2Fk6+Yjwcy5l7ooFMuspcdJ1U/X3w8K/2me19cCRkB0qSH06QyJCDJLlvVlq
-	 uPWqIGx2lr/1XsZ9kUqLjc8u8/dhSQM6BVGOvU2zeGgABqfW3v4xD4jEssZeo+p76F
-	 sTkzWolPKfp5g==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Akhil R <akhilrajeev@nvidia.com>
-In-Reply-To: <20260331102303.33181-1-akhilrajeev@nvidia.com>
-References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
-Subject: Re: (subset) [PATCH v6 00/10] Add GPCDMA support in Tegra264
-Message-Id: <178089815693.15844.9585336609711943843.b4-ty@kernel.org>
-Date: Mon, 08 Jun 2026 11:25:56 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IWNQyrMk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SE//Xm4i"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6580GhqO1517322
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 06:04:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bL7RrCSQB6iOyve28SUhhCIRdGFRm2bK3QU0AFb5LnI=; b=IWNQyrMkOngUtDtW
+	YfWDc7pO7gwTyhqdYJJtIqH983UEJSIMBKLXNp0XeZtlNNK3DLWKSFWZqxm/CTWj
+	MUjCsQNxunru12y1kLnUJrb/AE0ODIOV2JegkDVQ9myiDXQi2xvad6+fMy4HW8Vz
+	5KI7IVuWxEUyVxAPLimBsDsg1hDxw7S2nKLHsSK2Ga1BQefrSd0Rnm5/jxvC+HTN
+	RG+BwUEK3LnrvJ11KWwCSKl+xDr1Sur4/3s4c1//XmKtpHVsWfEmzNjBCtgJlkRY
+	ygSHX5UMEu7seDTN62wbWlA59KEOB4L6FLMhe/lJ6lazwbuNpWppQHeb2w6ds6b4
+	nc0T1A==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcadwx2v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:04:19 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5a7cbf971fcso2176305e0c.2
+        for <devicetree@vger.kernel.org>; Sun, 07 Jun 2026 23:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780898658; x=1781503458; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bL7RrCSQB6iOyve28SUhhCIRdGFRm2bK3QU0AFb5LnI=;
+        b=SE//Xm4iLgdj8b6TETsBiqBwulka23ng0CoWs7hT9q3cCJ6Yc0p/KAUMBWMLZdPyVe
+         UV3d1KywlGNITHjUMSRtdFgqpb4y+nUKOtp5Ebt4q6eM4OElqRtjQWpQpuSDszJuuNjI
+         e0NcJbHsgiUHH1U4YtaukWBZLOX0OGueCjTfCYK0hprz89fraa0Ru2Y7IfaUngST6+l+
+         IYHTGKW9P0eGaEz6Pe9lpMD4TH+JvJ95BUmn/RHtaD85cucVcXRgA4ijqeWtygOz+dUM
+         JlcPQyHrBzudGt5UfEjvIRQ+XWiGY/036lFCX+2vRtucpfFzDmpuxPPubuojsIgLj47c
+         oC/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780898658; x=1781503458;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bL7RrCSQB6iOyve28SUhhCIRdGFRm2bK3QU0AFb5LnI=;
+        b=rTqTDdVfO0kMfDDiIHDPlfyOQs+25TZlFDAquv9mENzMmmj0p6hrCCRPwtm3x09XPR
+         alFUD8CyXykddxR9lITRG8CC/sI5qIP8HlIhgx4v5swWsuTTJy6jP39sEUQLRy24cqGl
+         klq1OX5mh9M4njFc2tMetSK2dA9evk2NI3mRNbLphEw3Clxpz/E/PGpRCAvl+3k2HDQt
+         /X4hmkklCksHGFAk7s3TNRwN1LI2gAOz4zfbQHMG0/dr02fo9H9SqFmNlVl3IwZRVL7i
+         tM8HRFWnGJZkMrizwu9l8q0fAeMEMZtiODbg3C4Vb8xLXbW7FhqWbfaOw/kPbIQ//0+S
+         3VQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9sxCCcLYopmiijYRMWEAs3yPmoiibBib+Fn/eYudKbGLAVWTrN3yPELs79VZXD1PTqvOnxSogaWcs9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6/3YDuLUhcvDgVLytPDCpo7c2yjIVBFT7YMhmoONsT3BpqzpR
+	WEwaj1S2jQ0NiqnTVo6a3P3VR3gvH2ImkZbs5v16KfkNYgAEW3s6UQcnFWVYT/MjfYwHT3zTom0
+	hXF2xt1iJEhp/0mdmrsGWJq16yOp7EAFC8DlcCrBX7wX5PWAKleqkU6WTBDuV52B0
+X-Gm-Gg: Acq92OGODpyBCS2sUCOxFYhGV8faqCafC0Qfdemssl9RTK8JWMHgx6wBDdtwxRutgNs
+	nI8BNq0/A0xYWwIRYRza7KNgtync+8qlRHcwMCUEAO9GOXKuZg2rsR6vKcCeC4jZhvXrJ6RlPo8
+	vPNw5RdRwre1wafLcEuYFHGHg9A9de6s6WNqoohAWHJ5ZKsTbfqSO/KJP9y31R8ngMdeD7weiRO
+	/5EvCKKl3mrB8ctKsIOdM5gsx34rKB9Pz9tt6WNBU3EsPRKvslqxxtidA0P6kfL+N9xonRuzwwX
+	Qd2Fc2axb2o9yIlmSB6FQqiZL8GBDkaU3KNZVbRy4b6xKHhwh4Y0B5lE1K3DtQojwVF1oks6M5n
+	dL4mnWIBn+aXYCWN9+gMqs6kDgoIKD8Z5qaEjrXdbnDiR3GLeSNE1yMO9AzImVfvsVnKjXXFjLF
+	QAOwkc4u5nlqgnGxM0U5WMWm+4bTsVBSxCy3gUVluvHOORoQ==
+X-Received: by 2002:a05:6102:809b:b0:631:28c1:154c with SMTP id ada2fe7eead31-6fef92b85dcmr5513736137.9.1780898658083;
+        Sun, 07 Jun 2026 23:04:18 -0700 (PDT)
+X-Received: by 2002:a05:6102:809b:b0:631:28c1:154c with SMTP id ada2fe7eead31-6fef92b85dcmr5513719137.9.1780898657668;
+        Sun, 07 Jun 2026 23:04:17 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed2d3sm3551255e87.5.2026.06.07.23.04.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 23:04:16 -0700 (PDT)
+Date: Mon, 8 Jun 2026 09:04:14 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] phy: qcom: qmp-pcie: Add QMP PCIe PHY support for
+ Eliza
+Message-ID: <ywabwqbgjkvurybqsc5faq5vhli262nqe5gplki5gio2w2zsve@g6h5d7tigmvc>
+References: <20260601-eliza-v2-0-6b44c9c23d5e@oss.qualcomm.com>
+ <20260601-eliza-v2-3-6b44c9c23d5e@oss.qualcomm.com>
+ <k37nby6lnczb5qajku2shpff4rsisyynlfmzu46lhojl5eiwqo@wkpy2tbeoa3b>
+ <29763928-2301-437e-8787-916930b64a88@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <29763928-2301-437e-8787-916930b64a88@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=DIa/JSNb c=1 sm=1 tr=0 ts=6a265b63 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=5G9BQlURLoUVyWWmJtQA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-GUID: HNZZst5sYJcjDE8aa1Hlxi0UimQw5cnP
+X-Proofpoint-ORIG-GUID: HNZZst5sYJcjDE8aa1Hlxi0UimQw5cnP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA1MyBTYWx0ZWRfX4uzJ9MVEBV/J
+ FL1waSnKS4aGtYpCa/f5rcIdQ1v4MlSCtoKuoXB+4jy0h/bxRXUB6ryxnfXXOgtS+MauN7xgC7Q
+ iVBBAxAnr8K23gJn0eGrQNebFFgm414YOsnLTIQv6CtRpzAzAXMsBlj3ngmUgszf9yZYXrPX/kh
+ IU8vWXMYzJ+3Wl+5gnvsNaT8/EUKGb9ji3gtzBf4AywETdkYi0XJ0mKxjKYszxG4LktGF0Iogk4
+ nVdFnzWqt/X3ojE8E9ja739k/7FPd1KxtGJiqAYNknIvwUMClMdfTczvvmUbsSKjsljms4Bp1jC
+ SpspGeUyWbz76AhGWIYH2D/pdxbKQ08hlCAl2Qj+zm5uH0wznxTxjXWEa2x8qQASsWXIVoJ4vdj
+ 7GYRAfzcgrAXrkiwDalSGWS5kQrTYJH2lmi8dsHpzzeh+aePYPXREY54Iww69jPcbcaxGZS+gH1
+ AiChNjFydzzoqN7g49A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606080053
 
-
-On Tue, 31 Mar 2026 15:52:53 +0530, Akhil R wrote:
-> This series adds support for GPCDMA in Tegra264 with additional
-> support for separate stream ID for each channel. Tegra264 GPCDMA
-> controller has changes in the register offsets and uses 41-bit
-> addressing for memory. Add changes in the tegra186-gpc-dma driver
-> to support these.
+On Mon, Jun 08, 2026 at 11:12:13AM +0530, Krishna Chaitanya Chundru wrote:
 > 
-> v5->v6:
-> - Replace dev_err() with dev_err_probe() in the probe function for fixed
->   return values also.
-> v4->v5:
-> - Use dev_err_probe() when returning error from the probe function.
-> - Remove tegra194 and tegra234 compatible from the reset 'if' condition
->   in the bindings as suggested in v2 (which I missed).
-> v3->v4:
-> - Split device tree changes to two patches.
-> - Reordered patches to have fixes first.
-> - Added fixes tag to dt-bindings and device tree changes.
-> v2->v3:
-> - Add description for iommu-map property and update commit descriptions.
-> - Use enum for compatible string instead of const.
-> - Remove unused registers from struct tegra_dma_channel_regs.
-> - Use devm_of_dma_controller_register() to register the DMA controller.
-> - Remove return value check for mask setting in the driver as the bitmask
->   value is always greater than 32.
-> v1->v2:
-> - Fix dt_bindings_check warnings
-> - Drop fallback compatible "nvidia,tegra186-gpcdma" from Tegra264 DT
-> - Use dma_addr_t for sg_req src/dst fields and drop separate high_add
->   variable and check for the addr_bits only when programming the
->   registers.
-> - Update address width to 39 bits for Tegra234 and before since the SMMU
->   supports only up to 39 bits till Tegra234.
-> - Add a patch to do managed DMA controller registration.
-> - Describe the second iteration in the probe.
-> - Update commit descriptions.
 > 
-> [...]
+> On 6/7/2026 3:59 PM, Dmitry Baryshkov wrote:
+> > On Mon, Jun 01, 2026 at 10:59:46PM +0530, Krishna Chaitanya Chundru wrote:
+> >> Add QMP PCIe PHY support for the Eliza SoC. Introduce a new Gen3x1 PHY
+> >> configuration with Eliza-specific initialization tables, and reuse the
+> >> existing sm8550 Gen3x2 configuration for the Gen3x2 PHY instance.
+> >>
+> >> Also add the missing QPHY_PCIE_V6_PCS_PCIE_INT_AUX_CLK_CONFIG1 register
+> >> definition to the PCIe V6 PCS header.
+> >>
+> >> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> >> ---
+> >>  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c        | 139 ++++++++++++++++++++++++
+> >>  drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v6.h |   1 +
+> >>  2 files changed, 140 insertions(+)
+> >>
+> >> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+> >> index fed2fc9bb311..257b4df965c3 100644
+> >> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+> >> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+> >> @@ -198,6 +198,112 @@ static const struct qmp_phy_init_tbl msm8998_pcie_pcs_tbl[] = {
+> >>  	QMP_PHY_INIT_CFG(QPHY_V3_PCS_SIGDET_CNTRL, 0x03),
+> >>  };
+> >>  
+> >> +static const struct qmp_phy_init_tbl eliza_qmp_gen3x1_pcie_serdes_tbl[] = {
+> > Thisis exactly the same as SM8550 table, except for three extra writes:
+> > QSERDES_V6_COM_VCO_TUNE1_MODE0, QSERDES_V6_COM_VCO_TUNE1_MODE1 and
+> > QSERDES_V6_COM_VCO_TUNE2_MODE1. What are the default values for SM8550?
+> For sm8550, the default values are different than what eliza is expecting
+> 
+> *PCIE0_QSERDES_PLL_VCO_TUNE1_MODE1*-  0xA *PCIE0_QSERDES_PLL_VCO_TUNE1_MODE0*-
+> 0x53 *PCIE0_QSERDES_PLL_VCO_TUNE2_MODE1*- 0x1
 
-Applied, thanks!
 
-[01/10] dt-bindings: dma: nvidia,tegra186-gpc-dma: Make reset optional
-        commit: cc6049bd3fa8501ee27042df469a19ed69cf406d
-[03/10] dt-bindings: dma: nvidia,tegra186-gpc-dma: Add iommu-map property
-        commit: d6d7ffb994c676e6414a725d7eb8f208d901b63a
-[04/10] dmaengine: tegra: Make reset control optional
-        commit: 680e1b928a6adc1b2d95038ffe9c9887ceafd478
-[05/10] dmaengine: tegra: Use struct for register offsets
-        commit: 5000beabae65310ec81db40dcda181b0a6192ff3
-[06/10] dmaengine: tegra: Support address width > 39 bits
-        commit: 286632b9bf1cf239482d54b592cc1d5bbd5ec783
-[07/10] dmaengine: tegra: Use managed DMA controller registration
-        commit: 45921a3282d642038d92737fab24107522324bd4
-[08/10] dmaengine: tegra: Use iommu-map for stream ID
-        commit: 321c0a15f027b83b20ed37717191a2187c9e2eb7
-[09/10] dmaengine: tegra: Add Tegra264 support
-        commit: b236b7973808195fd9c471492bee0041148b823e
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Best regards,
+
+
 -- 
-~Vinod
-
-
+With best wishes
+Dmitry
