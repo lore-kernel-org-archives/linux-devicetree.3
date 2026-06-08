@@ -1,122 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4294394498
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 07:48:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A823A1DE8BF;
+	Mon,  8 Jun 2026 07:49:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780904892; cv=none; b=EiqiWWruCZs/WIt0Ph5SJ0hQvsdblEksnV4083L49D6XFD30C99asz56zb4AaZchvRTiOCnagBFEUW9Eg2oqG+hcI5oJlv2APvles46oCF90dKKqVAI6HEYtGxk2RRTv/H2/hl54fQbTX75P+tT8ALhD/aKuX2FrTcih2k1raVg=
+	t=1780904958; cv=none; b=u+C1BjaVITCamkyz6nJVDD41EWbhNstHDxsn7ekw03RL3geTlSSQZC4TwM/NK6T4r/Ci4/nJKmI670oZCfHI5YfF+YbqoxqQneti5Rtg+/GtdYnMQRgyyDZOR/8VHErYhdNNTy4kjBQK5USQFHIol3wdT5XJRoX/YTuKOAfWmhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780904892; c=relaxed/simple;
-	bh=WCvtDmOoiGwf1VBMJ88tMUrd9bV2I8M3srg1/9+hG5Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SvHToUyJ+BdCPfp2isFYbPgCUYJIisbonbvw9DKRxDxUpoVPb1E2gkb2c2sIkG+b8jeNg3LWlao7L0yVcGghLGMU4jS/wj5LwSHkSoD9k1MzVC9aEBVgJwDvN5au4pPTDL8LTYgWG25fCgjczUvv/Zn0Z/yi7icnTT41oLXsg84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfgnBiPC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780904958; c=relaxed/simple;
+	bh=DDYs9Hc7KYGqeC+T3KFmi4YWfs7isV3FO0fydCX98Qo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A0sKEMruYACKIetL8F4SQ5Ylrbxnkyz2Q8OARzHynpSEtVvm3vOQ1i+eeFLoV+xIlNjnohlJUyoEvFKviBfzu3joJFbWY14kP4uuMjlalmqbi3rno79hCy15iw+WblshIJdSeVtTKvYqEjz8n8I9ox6i9cQf6zj3ITfVcllMdLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+merpwy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfgnBiPC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4201F00893;
-	Mon,  8 Jun 2026 07:48:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+merpwy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400EF1F00893;
+	Mon,  8 Jun 2026 07:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780904890;
-	bh=R/W/LYWFRiCN2RriJCp/9sA6sLnXpSZKRmbDWDk1Kv0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CfgnBiPC6kmNxoZF6tu5l9RURz7Ig0k1XEV0OgV3acDmu39nvFQdnnAaCDbRo8ssv
-	 cWlqFTjIDd84HRvawdF+Xdyke24L5X2jLR4G6u7evX5DEQ5SUzLscuYkHo18LoHbv1
-	 Yo/Gj0cbuES8gTkAzJOFt1ixEjwfGVkukDPr1LjmWzsNj9czt/YmtE0U6iyIrlcn9x
-	 xaU14/TCCjwFcR4z8ZTtWMd80f6q70F4rOoD8uOP+RKRwI6ONyPvl1uevC/Tz4rak7
-	 Cqgc2OsPqdBL/bYf8YJYRK1jgl1bDpgYi0HlBFQiivefj7tBiUACDcLpxpxOo2v4GE
-	 OFVHl9PIN56ew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 01/10] riscv: kexec_file: Fix crashk_low_res not
- exclude bug
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinjie Ruan" <ruanjinjie@huawei.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608073459.3119290-2-ruanjinjie@huawei.com>
-References: <20260608073459.3119290-2-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 07:48:09 +0000
-Message-Id: <20260608074809.EE4201F00893@smtp.kernel.org>
+	s=k20260515; t=1780904957;
+	bh=kxTaNcAY9RKQ6zenFAqGz5cN6oBxyIOCDQqq8HMgsQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D+merpwyG1yN/U9rXyWBu/DYhV+l6wOrMyo2gvHuC9PCLEzWXN+dl44+iDmje1qzu
+	 OUwYA26UCxiRfpEbbCPNwJlP2cY9dIqCbjrlTtT6GZYjIkT9w+DR0QPxni1pHiwuFd
+	 hbvnxkb3i63JDi8Hfws0bx4BrH3JUPfS7UIE0so9KIsp/xbqNm/EJKpULO2xlBIjUN
+	 I/cpbwVFiAaiRbnR2lBn5YIqoBzkiRzJ6RQP7D1hayIQiAU3aTFrG9mIVRG4QAY644
+	 xxhIyMKcmPrYi7QInIAXdDfI0yO7qj17uj3ZlGP6sCZQ8WhPgykWJxWH4+yv+rRYgf
+	 JMhw7HKc+U87g==
+Date: Mon, 8 Jun 2026 09:49:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: clock: airoha: Document support for
+ AN7583 clock
+Message-ID: <20260608-feathered-sincere-petrel-1e88fa@quoll>
+References: <20260528190000.9164-1-ansuelsmth@gmail.com>
+ <20260528190000.9164-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260528190000.9164-2-ansuelsmth@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, May 28, 2026 at 08:59:54PM +0200, Christian Marangi wrote:
+> Document support for Airoha AN7583 clock. This is based on the EN7523
+> clock schema with the new requirement of the "airoha,chip-scu".
+> 
+> Add additional binding for additional clock and reset lines.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/clock/airoha,en7523-scu.yaml     | 18 ++++++
+>  include/dt-bindings/clock/en7523-clk.h        |  3 +
+>  .../dt-bindings/reset/airoha,an7583-reset.h   | 62 +++++++++++++++++++
+>  3 files changed, 83 insertions(+)
+>  create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> index eb24a5687639..6c3c88798515 100644
+> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> @@ -30,6 +30,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - airoha,an7583-scu
+>            - airoha,en7523-scu
+>            - airoha,en7581-scu
+>            - econet,en751221-scu
+> @@ -50,12 +51,29 @@ properties:
+>      description: ID of the controller reset line
+>      const: 1
+>  
+> +  airoha,chip-scu:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: phandle to Chip SCU
 
-Pre-existing issues:
-- [High] A Time-of-Check to Time-of-Use (TOCTOU) race condition in `crash_p=
-repare_headers()` and `arch_crash_populate_cmem()` can lead to an out-of-bo=
-unds array write (Heap Buffer Overflow) if system RAM resources are hotplug=
-ged concurrently.
---
+Here you explain for what purpose this device needs to reference SCU.
+This is SCU, so I don't understand why SCU needs phandle to Chip SCU...
 
-commit d18db7747e63171595f6e6caa523eb4a8bcc5bc5
-Author: Jinjie Ruan <ruanjinjie@huawei.com>
-Subject: riscv: kexec_file: Fix crashk_low_res not exclude bug
+Best regards,
+Krzysztof
 
-This commit ensures the "crashk_low_res" reserved ranges are excluded
-from the crash kernel memory in RISC-V kexec_file to prevent them from
-being exported through /proc/vmcore. It adds the necessary exclusion
-logic and an extra crash_mem range.
-
-Link: https://github.com/chenjh005/kexec-tools/tree/build-test-riscv-v2
-Link: https://lore.kernel.org/all/20230726175000.2536220-1-chenjiahao16@hua=
-wei.com/
-
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/m=
-achine_kexec_file.c
-> index 54e2d9552e930..3f7766057cac3 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> @@ -61,7 +61,7 @@ static int prepare_elf_headers(void **addr, unsigned lo=
-ng *sz)
->  	unsigned int nr_ranges;
->  	int ret;
-> =20
-> -	nr_ranges =3D 1; /* For exclusion of crashkernel region */
-> +	nr_ranges =3D 2; /* For exclusion of crashkernel region */
->  	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> =20
->  	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
-
-[Severity: High]
-This is a pre-existing issue, but could this multi-pass allocation pattern
-lead to an out-of-bounds array write if system RAM resources are hotplugged
-concurrently?
-
-Looking at the refactored logic in kernel/crash_core.c and the callbacks in
-arch/riscv/kernel/machine_kexec_file.c, there appears to be a Time-of-Check
-to Time-of-Use (TOCTOU) gap:
-
-crash_prepare_headers()
-   arch_get_system_nr_ranges()
-       /* First walk: calculates max_nr_ranges */
-   cmem =3D alloc_cmem(max_nr_ranges)
-   arch_crash_populate_cmem(cmem)
-       /* Second walk: populates cmem */
-
-Since neither the global resource_lock nor device_hotplug_lock is held acro=
-ss
-both passes, a concurrent memory hotplug event (e.g., add_memory()) could
-insert new RAM ranges into iomem_resource between the two passes.
-
-If the second pass encounters more ranges than originally allocated,
-prepare_elf64_ram_headers_callback() writes directly to the array and
-increments the counter:
-
-    cmem->ranges[cmem->nr_ranges].start =3D res->start;
-    cmem->ranges[cmem->nr_ranges].end =3D res->end;
-    cmem->nr_ranges++;
-
-Does this code need a bounds check against cmem->max_nr_ranges in the
-callback to prevent a heap buffer overflow in the cmem->ranges array?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608073459.3119=
-290-1-ruanjinjie@huawei.com?part=3D1
