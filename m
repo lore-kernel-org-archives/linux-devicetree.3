@@ -1,305 +1,209 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C861370AC9
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:52:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C148370D65;
+	Mon,  8 Jun 2026 11:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780919570; cv=none; b=encUBN7Mvem1r3BU6gPix7CWGHzsvzu7mHavTXjuMDBInSUisRsfMD1z9a8YBjGI9TmF5B9NJROojxLB4FAC2t1AsrsvFcXz1bBSE4iI+SNE6JuHOVqla5WJF8+BqiU/28UDyLrL1GwurX5n9Wc8dB2iQ8KIE1i2QexTns3pxh8=
+	t=1780919714; cv=none; b=ckrNotTQr8IHYJm0OW36aVe9ku8kIdtLy4M9uitYVSo0Ezr9xtyHN1cHLQtDYfD2JHhJVIe29XXoDufgtU3eNRBsoTf9t0gA8uDri9RfTPHwxEaaJRC8PNmSfkrH0lJiSnAqRiiIOu4pIwVjUcQhtSt/BiZkWarJ5OrtVMYrlyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780919570; c=relaxed/simple;
-	bh=YjVhYKpo/2mZup7aKBa47I6+VWPzGcLOPJTKPuLxZg8=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kM0s3qWDrv1disGvCwe9Q48TibXa0pQ4rdpoX6mGtChDobsVBkwvi2ctXDlfS94HcdzkSJ2IuH+8KT2nLWUlNVse8ac704NoZusLZVGTc90NPfrQL+Q3oxpUFI/KK2l6Dy4ilgRklkWBkn286mQss7gG/CIqJFsIlwsG2r8UtpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVHjfbqA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780919714; c=relaxed/simple;
+	bh=n/pQcNquc3IBtGz5ksifanqtdilJJJGYDH94sO7mx8U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mOt49asHYblCZCY3f8O05YcnpGb3Iy3C7hPgirrCEkbV0fYGhB5t9aTxRuhJ9W4p5hN5yDWYOWrdv1yLFrE1MHKgEOeV9rSenrCQcWqTVjBtvVmxpCdYybhtkNwJ+fbJMtp9PuoWHJTIY9sblIbFZ32KdOfgAcL6mPLB9T41SSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YpNZld1d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVHjfbqA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68C01F008A3
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 11:52:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YpNZld1d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C301F00893;
+	Mon,  8 Jun 2026 11:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780919568;
-	bh=z6rLz19GV55l5tqoQrBtMaqb4H3JquZfolkQprG3C7E=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=cVHjfbqABbW4ULixT+MvTLTXt8UtJR4uEvhwnoBPaRA21Gk/pn0r9f0htuh4GiTfJ
-	 gDqXzH+GHHbtPG/N07Ovq/ngLOAqXTG5uIuqym19YXEiGJXT5pa503nm0KnaXbP6K3
-	 77x32Am0YnB6qOkES6K2EUKxsgWx7bYl5UZowipFzFijeuVrctRAz/Vg130bG1f/UD
-	 GvKQ1Zktr9UwgWc2KVx4GENfksCnHOJCMJDnqdw6WqP7OdYKQfxJAb3mH2qh++Z3OH
-	 N0pO7QKu4xbzrETKdCATFcaXbg9DjXLmheroUsehMjfSoPeVniPEZlAg9xt+5Cu/DU
-	 aqm0cXxJxyTqQ==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa7bf3d512so3722384e87.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 04:52:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8twyfln+yx9etKcK2d/YgqQmNG5AMVpgX+RsYAJWzAPG9VBqjNuTCKKc9HxSsG4vpnsw5PQr2WVT3p@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFKuKXC4d/f9npvNgL7nw5qZR9QYIpbv3sTZ+T3My2GDKe+vYC
-	mGNTZmeFrcMRF2RlFnvVicTdvvTwNy6A6sr8Ht8duX7lJ8k1vMcfrT0X4Kk5t3pvrxVSRVXVRcN
-	tzHV/xpeChZqbacobx+1wyuWIXeS3b+tcFHgJdoeZSw==
-X-Received: by 2002:a05:6512:65d7:b0:5aa:6eb4:fead with SMTP id
- 2adb3069b0e04-5aa87c393b2mr2637859e87.34.1780919567433; Mon, 08 Jun 2026
- 04:52:47 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 04:52:45 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 8 Jun 2026 04:52:45 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260605010022.968612-13-elder@riscstar.com>
+	s=k20260515; t=1780919711;
+	bh=b/+jcWfRlqxoRwbs8TNKltS6NdjnRdq14z0GLneRQtE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YpNZld1ddNMZFLDZ1ySu3eZpfM00Ig7kzPrhr1B12Yr6AR4HEvEs5dnLisnh5JIQJ
+	 vTwiIusrUsTnzrUiR7HB9H9jUpcSxjxKW2It7PyOfwFHHo2+cnSEfCAeLd4W1kXD+x
+	 TURotKaCHjpJwY2ba2G3iC+hqZdR8F9hhrvc25GIDgjbqrYsBDt+vG/654CLhGWHd/
+	 MSdazDa8ARJWqFF+k2vxD7O0O5yln35d0fTtnM2FcIBpnvEgriowP1H0e1iGfjumtu
+	 ITUZ8knSsgR79dhdOOm91jmweax0z5tpJN3qZjA4AcnwrxXbsv775WAbH7Obg34nzV
+	 yB7PFnEY8yGBg==
+Message-ID: <71bf9e6a-40c2-4ad3-9156-caa74a3dbaf7@kernel.org>
+Date: Mon, 8 Jun 2026 13:55:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605010022.968612-1-elder@riscstar.com> <20260605010022.968612-13-elder@riscstar.com>
-Date: Mon, 8 Jun 2026 04:52:45 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mf4MgnSoKbrtVxDJOzYntPZPenYYde1STN-GajCU_NLBg@mail.gmail.com>
-X-Gm-Features: AVVi8Cfce9S2I3CO2iQ2lxXhAb9TU9oc8tjgmzM5jX_8w_OZsxuiuwaNEuhyNWM
-Message-ID: <CAMRc=Mf4MgnSoKbrtVxDJOzYntPZPenYYde1STN-GajCU_NLBg@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 12/14] gpio: tc956x: add TC956x/QPS615 support
-To: Alex Elder <elder@riscstar.com>
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com, 
-	alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com, 
-	chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net, 
-	hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com, 
-	john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com, 
-	mcoquelin.stm32@gmail.com, me@ziyao.cc, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com, 
-	rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn, 
-	weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, 
-	brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required for
+ renesas,r9a08g046-lvds-cmn
+To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
+ <biju.das.au@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260602131331.90756-1-biju.das.jz@bp.renesas.com>
+ <20260608-alluring-remarkable-echidna-d107ea@quoll>
+ <d8cf5925-9c4e-4417-8fee-1d24c4cd303d@kernel.org>
+ <TY3PR01MB1134665BE4CE8FB734BCFAAAF861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <f5e8719f-6d85-4edf-a645-5be9be7ec980@kernel.org>
+ <TY3PR01MB113469E3AB101C3552E721E11861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <6960d660-2851-44e3-af89-b334ab6cecc0@kernel.org>
+ <TY3PR01MB11346C66B7BD36CB89D19009F861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <TY3PR01MB11346C66B7BD36CB89D19009F861C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 5 Jun 2026 03:00:19 +0200, Alex Elder <elder@riscstar.com> said:
-> Toshiba TC956x is an Ethernet-AVB/TSN bridge and is essentially
-> a small and highly-specialized SoC.  TC956x includes a GPIO block that
-> can be accessed, alongside several other peripherals, via two PCIe
-> endpoint functions.  The PCIe function driver creates an auxiliary
-> device for the GPIO block, and that device gets bound to this auxiliary
-> device driver.
->
-> This driver is implemented using the generic regmap-based GPIO driver.
->
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  MAINTAINERS                |   1 +
->  drivers/gpio/Kconfig       |  12 ++++
->  drivers/gpio/Makefile      |   1 +
->  drivers/gpio/gpio-tc956x.c | 130 +++++++++++++++++++++++++++++++++++++
->  4 files changed, 144 insertions(+)
->  create mode 100644 drivers/gpio/gpio-tc956x.c
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0924f7ec43cb0..0439607d1155f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27057,6 +27057,7 @@ M:	Alex Elder <elder@kernel.org>
->  M:	Daniel Thompson <danielt@kernel.org>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> +F:	drivers/gpio/gpio-tc956x.c
->  F:	drivers/misc/tc956x_pci.c
->
->  TOSHIBA WMI HOTKEYS DRIVER
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 020e51e30317a..36631ca722fa3 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -743,6 +743,18 @@ config GPIO_TB10X
->  	select GPIO_GENERIC
->  	select GENERIC_IRQ_CHIP
->
-> +config GPIO_TC956X
-> +	tristate "Toshiba TC956X GPIO support"
-> +	depends on TOSHIBA_TC956X_PCI
-> +	select GPIO_REGMAP
-> +	default m
-> +	help
-> +	  This enables support for the GPIO controller embedded in the Toshiba
-> +	  TC956X (and Qualcomm QPS615).  This device connects to the host
-> +	  via PCIe port, which is the upstream port on an internal PCIe
-> +	  switch.  On some platforms, a few of the GPIO lines are used to
-> +	  manage external resets.
-> +
->  config GPIO_TEGRA
->  	tristate "NVIDIA Tegra GPIO support"
->  	default ARCH_TEGRA
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index b267598b517de..c3584e7cba9b4 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -178,6 +178,7 @@ obj-$(CONFIG_GPIO_SYSCON)		+= gpio-syscon.o
->  obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
->  obj-$(CONFIG_GPIO_TB10X)		+= gpio-tb10x.o
->  obj-$(CONFIG_GPIO_TC3589X)		+= gpio-tc3589x.o
-> +obj-$(CONFIG_GPIO_TC956X)		+= gpio-tc956x.o
->  obj-$(CONFIG_GPIO_TEGRA186)		+= gpio-tegra186.o
->  obj-$(CONFIG_GPIO_TEGRA)		+= gpio-tegra.o
->  obj-$(CONFIG_GPIO_THUNDERX)		+= gpio-thunderx.o
-> diff --git a/drivers/gpio/gpio-tc956x.c b/drivers/gpio/gpio-tc956x.c
-> new file mode 100644
-> index 0000000000000..0dc6b1028d970
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-tc956x.c
-> @@ -0,0 +1,130 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
-> + */
-> +
-> +/*
-> + * The Toshiba TC956X implements a PCIe Gen 3 switch that connects an
-> + * upstream x4 port to two downstream PCIe x2 ports.  It incorporates
-> + * an internal endpoint on a internal PCIe port that implements two
-> + * Synopsys XGMAC Ethernet interfaces.
-> + *
-> + * 35 GPIOs are also implemented by an embedded GPIO controller.  Three
-> + * registers control the first 32 GPIOs (other than 20 and 21, which are
-> + * reserved).  Three other registers control GPIOs 32 through 36. GPIOs
-> + * 22-24, 27-28, 31, and 34 are treated as "input only".
-> + *
-> + * There is a TC956X PCI power controller driver that accesses the
-> + * direction and output value registers for GPIOs 2 and 3.  These
-> + * GPIOs control the reset signal for the two downstream PCIe ports.
-> + * Their values will never change during operation of this driver, and
-> + * this driver reserves these two GPIOS.
-> + */
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/gpio/regmap.h>
-> +
-> +#define DRIVER_NAME		"tc956x-gpio"
-> +
-> +#define TC956X_GPIO_COUNT	37	/* Number of GPIOs (20-21 reserved) */
-> +
-> +/* The GPIO offsets are relative to 0x1200 in TC956X SFR space. */
-> +#define GPIO_IN0_OFFSET		0x00		/* Input value (0-31) */
-> +#define GPIO_EN0_OFFSET		0x08		/* 0: out; 1: in (0-31) */
-> +#define GPIO_OUT0_OFFSET	0x10		/* Output value (0-31) */
-> +
-> +/*
-> + * There are two sets of registers, each representing (up to) 32 GPIOs with a
-> + * stride of 4 bytes (IN1 is 4 bytes past IN0, EN1 is 4 bytes past EN0, etc.).
-> + */
-> +#define GPIO_PER_REG		32
-> +#define GPIO_REG_STRIDE		4
-> +
-> +static int tc956x_gpio_init_valid_mask(struct gpio_chip *gc,
-> +				       unsigned long *valid_mask,
-> +				       unsigned int ngpios)
-> +{
-> +	/*
-> +	 * GPIOs 2 and 3 are used by the PCI power control driver, and
-> +	 * we don't allow them to be used.  GPIOs 20 and 21 are reserved
-> +	 * (and not usable).
-> +	 */
-> +	bitmap_fill(valid_mask, ngpios);
-> +	bitmap_clear(valid_mask, 2, 2);
-> +	bitmap_clear(valid_mask, 20, 2);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tc956x_gpio_probe(struct auxiliary_device *adev,
-> +			     const struct auxiliary_device_id *id)
-> +{
-> +	DECLARE_BITMAP(zeroes, TC956X_GPIO_COUNT);
-> +	DECLARE_BITMAP(fixed, TC956X_GPIO_COUNT);
-> +	struct gpio_regmap_config config = { };
-> +	struct gpio_regmap *gpio_regmap;
-> +	struct device *dev = &adev->dev;
-> +
-> +	/* We need the regmap pointer, stored in our platform data */
-> +	if (!dev->platform_data)
-> +		return -EINVAL;
+On 08/06/2026 13:51, Biju Das wrote:
+> Hi Krzysztof Kozlowski,
+> 
+>> -----Original Message-----
+>> From: Krzysztof Kozlowski <krzk@kernel.org>
+>> Sent: 08 June 2026 12:47
+>> Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required for renesas,r9a08g046-lvds-cmn
+>>
+>> On 08/06/2026 13:22, Biju Das wrote:
+>>> Hi Krzysztof Kozlowski,
+>>>
+>>>> -----Original Message-----
+>>>> From: Krzysztof Kozlowski <krzk@kernel.org>
+>>>> Sent: 08 June 2026 12:11
+>>>> Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required
+>>>> for renesas,r9a08g046-lvds-cmn
+>>>>
+>>>> On 08/06/2026 12:26, Biju Das wrote:
+>>>>> Hi Krzysztof Kozlowski,
+>>>>>
+>>>>> Thanks for the feedback.
+>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Krzysztof Kozlowski <krzk@kernel.org>
+>>>>>> Sent: 08 June 2026 11:22
+>>>>>> Subject: Re: [PATCH] dt-bindings: mfd: syscon: Make ranges required
+>>>>>> for renesas,r9a08g046-lvds-cmn
+>>>>>>
+>>>>>> On 08/06/2026 12:20, Krzysztof Kozlowski wrote:
+>>>>>>> On Tue, Jun 02, 2026 at 02:13:29PM +0100, Biju wrote:
+>>>>>>>> From: Biju Das <biju.das.jz@bp.renesas.com>
+>>>>>>>>
+>>>>>>>> Add a conditional schema rule to the syscon bindings that
+>>>>>>>> requires the ranges property when the compatible string contains
+>>>>>>>> renesas,r9a08g046-lvds-cmn. This ensures the LVDS common control
+>>>>>>>> block on the RZ/G3L SoC correctly declares its address
+>>>>>>>> translation, as the device has child nodes that need a valid
+>>>>>>>> ranges mapping to be described in the device tree.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+>>>>>>>> ---
+>>>>>>>>  Documentation/devicetree/bindings/mfd/syscon.yaml | 14
+>>>>>>>> ++++++++++++++
+>>>>>>>>  1 file changed, 14 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml
+>>>>>>>> b/Documentation/devicetree/bindings/mfd/syscon.yaml
+>>>>>>>> index 9c81010d5a74..cbf83a06ae25 100644
+>>>>>>>> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
+>>>>>>>> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+>>>>>>>> @@ -269,6 +269,8 @@ properties:
+>>>>>>>>    resets:
+>>>>>>>>      maxItems: 1
+>>>>>>>>
+>>>>>>>> +  ranges: true
+>>>>>>>
+>>>>>>> There are no children allowed, so ranges property is wrong.
+>>>>>>>
+>>>>>>> You are changing binding which DOES NOT allow simple-mfd or any
+>>>>>>> other children. Ranges is not a problem here.
+>>>>>>
+>>>>>>
+>>>>>> And if you tested it on your DTS, you would see this does not work...
+>>>>>
+>>>>> I don't see any warnings or error. I have done this change based on
+>>>>> Rob's comment based on sashiko review [1].
+>>>>>
+>>>>> If you agree, I can drop this patch.
+>>>>>
+>>>>> [1]
+>>>>> https://lore.kernel.org/all/20260601022619.GA3961324-robh@kernel.org
+>>>>> /
+>>>>
+>>>> Look:
+>>>> https://lore.kernel.org/all/20260524194457.479681-2-biju.das.jz@bp.re
+>>>> nesas.com/
+>>>> What compatibles are here?
+>>>>
+>>>> Now open the binding - what compatibles are allowed for renesas,r9a08g046-lvds-cmn ?
+>>>
+>>> OK, I am missing the fallbacks "simple-mfd", "syscon"; in the
+>>> compatibles allowed for renesas,r9a08g046-lvds-cmn.
+>>>
+>>> OK, I will add those.
+>>
+>> No, maybe, dunno... How anything here could have been tested? dtbs_check clearly points errors on your
+>> DTS.
+> 
+> I ran the below commands and none of then triggered the error/warning you are suspecting.
+> Am I missing anything here?
+> 
+> make ARCH=arm64 DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=${1} CROSS_COMPILE=~/${TOOL_CHAIN}/bin/aarch64-none-linux-gnu- dt_binding_check -j32
+> make ARCH=arm64 -s dtbs_check -j32
+> make ARCH=arm64 DT_SCHEMA_FILES=${1} CROSS_COMPILE=~/${TOOL_CHAIN}/bin/aarch64-none-linux-gnu- -s dtbs_check -j32
+> make ARCH=arm64 CROSS_COMPILE=~/${TOOL_CHAIN}/bin/aarch64-none-linux-gnu- W=1 dtbs -j32 2>&1 | tee -a arm64-dtbs.log
 
-Please use the standardized accessor: dev_get_platdata().
+No, you must validate all schemas, not one file. And without DTS
+obviously this will not point any error on dtbs_check.
 
-> +
-> +	/*
-> +	 * Only some of our GPIOs are fixed direction:
-> +	 *	22, 23, 24, 27, 28, 31, and 34	(all input-only)
-> +	 * Set up the fixed bitmap to indicate which are fixed.
-> +	 */
-> +	bitmap_zero(fixed, TC956X_GPIO_COUNT);
-> +	bitmap_set(fixed, 22, 3);
-> +	bitmap_set(fixed, 27, 2);
-> +	set_bit(31, fixed);
-> +	set_bit(34, fixed);
-> +
-> +	/* All fixed GPIOs are input; the zeroes bitmap indicates that. */
-> +	bitmap_zero(zeroes, TC956X_GPIO_COUNT);
-> +
-> +	config.parent = dev;
-> +	config.regmap = dev->platform_data;
-> +	config.label = DRIVER_NAME;
-> +	config.ngpio = TC956X_GPIO_COUNT;
-> +	config.reg_dat_base = GPIO_REGMAP_ADDR(GPIO_IN0_OFFSET);
-> +	config.reg_set_base = GPIO_REGMAP_ADDR(GPIO_OUT0_OFFSET);
-> +	config.reg_dir_in_base = GPIO_REGMAP_ADDR(GPIO_EN0_OFFSET);
-> +	config.reg_stride = GPIO_REG_STRIDE;
-> +	config.ngpio_per_reg = GPIO_PER_REG;
-> +	config.init_valid_mask = tc956x_gpio_init_valid_mask;
-> +	config.fixed_direction_mask = fixed;
-> +	config.fixed_direction_output = zeroes;
+I am reverting your commit.
 
-May I suggest using a compound literal here like:
-
-	config = (struct gpio_regmap_config){
-		...
-	};
-
-?
-
-> +
-> +	gpio_regmap = devm_gpio_regmap_register(dev, &config);
-> +	if (IS_ERR(gpio_regmap))
-> +		return PTR_ERR(gpio_regmap);
-> +
-> +	return 0;
-
-You can do:
-
-	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(dev, &config));
-
-and save a few lines.
-
-> +}
-> +
-> +static const struct auxiliary_device_id tc956x_gpio_ids[] = {
-> +	{ .name = "tc956x_pci.tc9564-gpio", },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(auxiliary, tc956x_gpio_ids);
-> +
-> +static struct auxiliary_driver tc956x_gpio_driver = {
-> +	.name		= DRIVER_NAME,
-> +	.probe          = tc956x_gpio_probe,
-> +	.id_table       = tc956x_gpio_ids,
-> +	.driver = {
-> +		.name		= DRIVER_NAME,
-> +		.owner		= THIS_MODULE,
-> +		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +};
-> +module_auxiliary_driver(tc956x_gpio_driver);
-> +
-> +MODULE_DESCRIPTION("Toshiba TC956X PCIe GPIO Driver");
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("auxiliary:" DRIVER_NAME);
-> --
-> 2.51.0
->
->
-
-Bart
+Best regards,
+Krzysztof
