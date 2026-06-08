@@ -1,157 +1,224 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43273B3BF0;
-	Mon,  8 Jun 2026 14:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C8B3CCFB2;
+	Mon,  8 Jun 2026 14:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780929611; cv=none; b=Grua3sGWo+4ogBucJMgJ3thtCF7I7BGHuWISo4JpAvGW3ufgkhcFEE6GOrVmkxJzE7+ojxRo29sdtc7SsvF1uB6xfEcypbx855cjbta45Is3y4tPaAbNW5ImWiMLD2IC9bYKdDvpuTCP5yb+5JIQt25EtH33VjcKVT8pWlTxPq0=
+	t=1780929673; cv=none; b=SDYr/nKBe5Ke6jE2SI71spq/KI/PcPFEmtNHLGqd5PlG+dBsjWoJ6T3wtvmaSO4eD0R26XD0a3GA1s00qTFCECdGvMaDCwDZEMid9Ed98l/UqqBUBstzFWFvZSILvaSdgQNqkTVXfpe4z9gM++d+ayh16OucswjhjhiRQQh7Mgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780929611; c=relaxed/simple;
-	bh=pc5KgDDfBUpeSS+ethb+diBYBB7fvh0257nUv2wQ7Uk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hX1+bz8lmWGEFZk30TJlAiEkLP2rVUaFM3bEzZJK8UnrB4WTRxJIQ1WVU+p8XQsfEmQ39RXgHFs32h4qpnrAKbINreo3Q0kZCOT86aJX3javjgd1l6L54sYsUelLhu4vXxEILrgtmDaBPiJ4z7VUxum1mlcSnuhHeyvuRudG4xE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eSnltNVf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780929673; c=relaxed/simple;
+	bh=fE1b9m6X8tZfpvHfiMJ+gOS3cPimN0u2PkMXjJQx/Xk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=Fx0WJY9leRl4YeHz5mmYMXbFpsUJ5DD0CYqpN1IScSbcW/R5IAy+iZ0dIJwHQgk8xftqlWWGYaThg93RbW1fUbZxNCLeEtCGnnFpWJmLq7w6HNfHeXIYQ5TUH/tPd1vua46rjUGn2TAKYV9WSaHyy6wCwFdhzn2n6/Iyq1tGyrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYgNgmKS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eSnltNVf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 406801F00893;
-	Mon,  8 Jun 2026 14:40:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYgNgmKS"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BCD421F00893;
+	Mon,  8 Jun 2026 14:41:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780929610;
-	bh=xxJFOLNTcjcr4KYGxInqQFoOAc8L/4p2jjmZkVRdyw0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eSnltNVfb+eUappQKZYkcyV88hNhVJbVHUdch6lhRz0KJacyDvNYJCJHWpo7/M7cd
-	 u1KCin/M+MZdn1QT+5hX7f4s/CEWcUGn7w4UB5zC4oM1m99g6uivUTCPo7HL5gMrqY
-	 LdK2cd2mdOLdcBMTmdNDWMt0ez+Jh6veoeCHh9Lpppd3eTrpNdpJVnc0qON3SsbHgS
-	 2OgtAORa/2oQ1ojbVeEpDQd5jpcgMBb+m88GGi7QCqI79eTFUMRheIeHMyahE4j78L
-	 YyrzSfCAP0XaE9cMN9dNap+xX0ZrZFnKlp4+Q4JpVHoPFIemp6ancDqftFiQs2CNng
-	 RIPBSvSy8QhmA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/4] arm64: dts: freescale: add initial device tree
- for TQMa8MPQS with i.MX8MP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, wsa+renesas@sang-engineering.com, Frank.Li@kernel.org
-In-Reply-To: <20260608142144.564871-2-alexander.stein@ew.tq-group.com>
-References: <20260608142144.564871-2-alexander.stein@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 14:40:09 +0000
-Message-Id: <20260608144010.406801F00893@smtp.kernel.org>
+	s=k20260515; t=1780929672;
+	bh=L9ZUAyPA++9VU0oc6CUX2aYB7mPcCRmX32/6vz2s6h8=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To;
+	b=eYgNgmKSz8+8vUuSqQLqjGrIl5qnT7M50Z/l7zNFcZI6k+OTPILcDfXGjawgWrhHB
+	 DPTjMxWmNUGswh8HlOQkYtyl7NQobtkFASCTBzwVdl6BdxHJERevU6fsS12SS17T50
+	 /I9GXjvrHcJRc3rKD95RM34f36WJq5cj50yDXzt4HJhOx2NQl5DO0YiA4ccBhNzE3M
+	 5ZcTuULoOuKVYVNYdaaXKo+IAZYqBUZLRA2MF3U76/VUMl7ue22RAEFaMTUk+grOKo
+	 XuMS4MZA9OkL3AVLDuKPZFSTPTtu0r15VKgPdI73Yx2n8CiaTbOoKssberufKbUKSV
+	 U+yhd0NpMJdGw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 08 Jun 2026 16:41:08 +0200
+Message-Id: <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
+Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
+ accessor
+Cc: "linusw@kernel.org" <linusw@kernel.org>, "robh@kernel.org"
+ <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>, "afaerber@suse.com"
+ <afaerber@suse.com>, "wbg@kernel.org" <wbg@kernel.org>,
+ "mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
+ "lars@metafoo.de" <lars@metafoo.de>, "Michael.Hennerich@analog.com"
+ <Michael.Hennerich@analog.com>, "jic23@kernel.org" <jic23@kernel.org>,
+ "nuno.sa@analog.com" <nuno.sa@analog.com>, "andy@kernel.org"
+ <andy@kernel.org>, "dlechner@baylibre.com" <dlechner@baylibre.com>,
+ =?utf-8?b?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-realtek-soc@lists.infradead.org"
+ <linux-realtek-soc@lists.infradead.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, =?utf-8?b?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?=
+ <cy.huang@realtek.com>, =?utf-8?b?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?=
+ <stanley_chang@realtek.com>, =?utf-8?b?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?=
+ <james.tai@realtek.com>, =?utf-8?b?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?=
+ <eleanor.lin@realtek.com>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Bartosz Golaszewski" <brgl@kernel.org>, "Andy Shevchenko"
+ <andriy.shevchenko@intel.com>
+X-Mailer: aerc 0.20.0
+References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
+ <20260512033317.1602537-3-eleanor.lin@realtek.com>
+ <agMM9soiqpG-TRSb@ashevche-desk.local>
+ <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
+ <ah92oEavMu4QRn8y@ashevche-desk.local>
+ <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
+In-Reply-To: <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Incorrect GPIO polarity for the DisplayPort bridge `reset-gpios`.
-- [Medium] Missing `interrupts` property for the DisplayPort bridge, preven=
-ting hardware Hot-Plug Detect (HPD) interrupts.
-- [Medium] Missing high-speed capability flags on SD/eMMC nodes, causing fa=
-llback to legacy speeds.
---
+--ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-commit fb67de7a11b79a2d50aaec8dc9df977e8f195879
-Author: Paul Gerber <paul.gerber@tq-group.com>
+Hi,
 
-arm64: dts: freescale: add initial device tree for TQMa8MPQS with i.MX8MP
+On Mon Jun 8, 2026 at 4:10 PM CEST, Bartosz Golaszewski wrote:
+> On Wed, 3 Jun 2026 02:34:40 +0200, Andy Shevchenko
+> <andriy.shevchenko@intel.com> said:
+>> On Mon, May 25, 2026 at 12:04:09PM +0000, Yu-Chun Lin [=E6=9E=97=E7=A5=
+=90=E5=90=9B] wrote:
+>>> > On Tue, May 12, 2026 at 11:33:12AM +0800, Yu-Chun Lin wrote:
+>>> > > Expose an accessor function to retrieve the gpio_chip pointer from =
+a
+>>> > > gpio_regmap instance.
+>>> > >
+>>> > > This is needed by drivers that use gpio_regmap but also manage thei=
+r
+>>> > > own irq_chip, where gpiochip_enable_irq()/gpiochip_disable_irq() mu=
+st
+>>> > > be called with the gpio_chip pointer.
+>>> > >
+>>> > > Add gpio_regmap_get_gpiochip() to allow drivers with complex custom
+>>> > > IRQ implementations.
+>>> >
+>>> > Hmm... Can't we rather add
+>>> > gpio_regmap_enable_irq()/gpio_regmap_disable_irq()
+>>> > that take regmap or GPIO regmap (whatever suits better for the purpos=
+e) and
+>>> > do the magic inside GPIO regmap library code?
+>>
+>>> Thanks for the review! I apologize for the misleading commit message.
+>>> The real reason I need the struct gpio_chip pointer is to properly set =
+up a custom
+>>> IRQ domain. Our SoC GPIO controller is quite complex. It routes differe=
+nt trigger
+>>> types to multiple parent IRQs, which doesn't fit the generic regmap_irq=
+ framework.
+>>> Therefore, we have to create our own irq_domain and pass it to
+>>> gpio_regmap_config.irq_domain.
+>>>
+>>> The core problem occurs inside our custom irq_domain_ops.map() callback=
+:
+>>>
+>>> static int rtd1625_gpio_irq_map(struct irq_domain *domain, unsigned int=
+ irq,
+>>>                                 irq_hw_number_t hwirq)
+>>> {
+>>> 	struct rtd1625_gpio *data =3D domain->host_data;
+>>> 	struct gpio_chip *gc =3D data->gpio_chip;
+>>>
+>>> 	/*
+>>> 	 * The second argument MUST be struct gpio_chip *.
+>>> 	 * If we pass our custom data structure here, the kernel will panic la=
+ter
+>>> 	 * in gpiochip_irq_reqres() when it calls irq_data_get_irq_chip_data()
+>>> 	 * and strictly expects it to be a gpio_chip.
+>>> 	 */
+>>> 	irq_set_chip_data(irq, gc);
+>>>
+>>> 	irq_set_lockdep_class(irq, &rtd1625_gpio_irq_lock_class,
+>>> 				&rtd1625_gpio_irq_request_class);
+>>>
+>>> 	irq_set_chip_and_handler(irq, &rtd1625_iso_gpio_irq_chip, handle_bad_i=
+rq);
+>>> 	irq_set_noprobe(irq);
+>>>
+>>> 	return 0;
+>>> }
+>>>
+>>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrieve=
+ the
+>>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requiremen=
+ts in our
+>>> map() function.
 
-This adds support for the TQMa8MPQS module on the MB-SMARC-2 board.
+Why is gpiochip_irq_reqres() called in the first place? Isn't that
+only called if the irq handling is set up via gc->irq.chip and not
+via gpiochip_irqchip_add_domain() like in gpio-regmap?
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs.dtsi b/arch/a=
-rm64/boot/dts/freescale/imx8mp-tqma8mpqs.dtsi
-> new file mode 100644
-> index 0000000000000..9cff5bf9162a4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs.dtsi
-[ ... ]
-> +&i2c3 {
-> +	clock-frequency =3D <384000>;
-> +	pinctrl-names =3D "default", "gpio";
-> +	pinctrl-0 =3D <&pinctrl_i2c3>;
-> +	pinctrl-1 =3D <&pinctrl_i2c3_gpio>;
-> +	scl-gpios =3D <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> +	sda-gpios =3D <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> +	status =3D "okay";
-> +
-> +	dp_bridge: dp-bridge@f {
-> +		compatible =3D "toshiba,tc9595", "toshiba,tc358767";
+>> This is all good and needs to be depicted in the cover-letter and/or com=
+mit message.
+>>
+>>> Before I send a v4, I see 3 possible paths:
+>>>
+>>> Option 1: Keep the accessor (Current v3 approach)
+>>> We keep gpio_regmap_get_gpiochip() but I will completely rewrite the co=
+mmit message
+>>> to explain the custom irq_domain_ops.map and lockdep requirements.
+>>>
+>>> Option 2: Let gpiolib create the irq_domain via gpio_regmap_config
+>>> Instead of creating the irq_domain in our driver, we add all necessary =
+IRQ fields
+>>> (irq_chip, irq_handler, irq_parents, etc.) into struct gpio_regmap_conf=
+ig. Then
+>>> gpio-regmap.c populates the gpio_irq_chip structure before calling
+>>> gpiochip_add_data(). This prevents an early return and allows the core =
+gpiolib
+>>> (gpiochip_add_irqchip()) to automatically create the irq_domain for us.
+>>> Drawback: This adds a lot of fields to gpio_regmap_config and might vio=
+late the
+>>> original design philosophy of gpio-regmap.c (commit ebe363197e52), whic=
+h explicitly
+>>> states that it does not implement its own IRQ chip and delegates it to =
+the parent
+>>> driver.
+>>>
+>>> Option 3: Drop gpio-regmap entirely (Revert to v2 approach)
+>>> Currently, all drivers using gpio-regmap (mostly simple CPLDs and exter=
+nal I/O cards)
+>>> use regmap-irq to get their domain. Since our SoC has a complex IRQ rou=
+ting scheme
+>>> with multiple parents, maybe gpio-regmap is simply not the right tool f=
+or this
+>>> hardware, and we should just implement a standard GPIO driver directly =
+using gpiolib.
+>>>
+>>> Which approach would you prefer upstream?
+>>
+>> This question to Bart, Linus, and poissibly gpio-regmap stakeholders. I'=
+m not sure
+>> that my personal opinion will be the best fit here.
+>>
+>
+> My preference would be for #2 but I understand that this could risk getti=
+ng
+> stuck in endless bikeshedding so I'm fine with going #3 with potential fo=
+r
+> future refactoring if we have more similar users.
 
-[Severity: Medium]
-Since the DP_HPD_INT signal is routed to GPIO5_IO21 (as defined in the
-dp-hpd-int-hog node), should this node include the interrupts and
-interrupt-parent properties?
+Yeah, I'd like to keep that stuff out of gpio-regmap. But I'm on the
+same boat regarding the refactoring if we have more data and
+potential users.
 
-Without them, the driver will not register an IRQ handler for Hot-Plug
-Detect events and will fall back to 10-second DRM polling.
+-michael
 
-> +		reg =3D <0xf>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_tc9595>;
-> +		clock-names =3D "ref";
-> +		clocks =3D <&clk_dp>;
-> +		reset-gpios =3D <&expander0 4 GPIO_ACTIVE_HIGH>;
+--ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: High]
-Does this leave the DP bridge permanently disabled?
+-----BEGIN PGP SIGNATURE-----
 
-The tc358767 driver initializes the reset GPIO with GPIOD_OUT_LOW
-(logical 0), and returns it to logical 0 during normal operation after
-pulsing it. Since the target hardware pin is an active-high enable
-(DP_BRIDGE_EN), it must be physically HIGH during operation.
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaibUhBIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/hoHwF+L2/C0SzzRn4Jx1XywdW3IuoaQvOH/CyM
+tM+DiaJqPgiaiQHKQPw34Zd2pdQ6KAWfAX4i8MWoU3pRuIBrOY9/uz1/yXmfdz0h
+BO8TtdBsdvvFAiFlxOBrtRXZDI/pOWJBA7U=
+=N+gM
+-----END PGP SIGNATURE-----
 
-With GPIO_ACTIVE_HIGH, the driver's logical 0 translates to a physical LOW.
-Should this use GPIO_ACTIVE_LOW instead to map the deasserted reset state
-to a physical HIGH?
-
-> +		toshiba,hpd-pin =3D <0>;
-> +		status =3D "disabled";
-
-[ ... ]
-
-> +&usdhc2 {
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
-> +	pinctrl-0 =3D <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-> +	bus-width =3D <4>;
-> +	vqmmc-supply =3D <&reg_usdhc2_vqmmc>;
-
-[Severity: Medium]
-Will this node fall back to legacy 50MHz speeds despite having 200MHz
-pinctrl states?
-
-The MMC subsystem requires explicit capability properties (like
-sd-uhs-sdr104) to negotiate higher speeds. Without them, the state_100mhz
-and state_200mhz definitions will not be used.
-
-> +	/* NOTE: CD / WP and VMMC support depends on mainboard */
-> +};
-> +
-> +&usdhc3 {
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
-> +	pinctrl-0 =3D <&pinctrl_usdhc3>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>;
-> +	bus-width =3D <8>;
-> +	non-removable;
-> +	no-sdio;
-> +	no-sd;
-> +	vmmc-supply =3D <&buck4>;
-> +	vqmmc-supply =3D <&buck5>;
-
-[Severity: Medium]
-Similar to usdhc2, is this missing eMMC high-speed capability flags like
-mmc-hs200-1_8v, mmc-hs400-1_8v, or mmc-hs400-enhanced-strobe?
-
-Without these flags, the interface will operate at legacy speeds instead
-of utilizing the 100MHz or 200MHz hardware capabilities.
-
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608142144.5648=
-71-1-alexander.stein@ew.tq-group.com?part=3D2
+--ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188--
