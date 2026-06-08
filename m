@@ -1,89 +1,89 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E1C344DB4
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5749935203A
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 10:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780915860; cv=none; b=RTliiJbcnzmoS/9rgUxf19m208Dngj6h0c8YurLN5G1jcSKJUGgRAkCXEFUrfOd75ZxPHbtQ6iFL++a4ciF8zravPbTpDBrBOZXsQmRsWO9CnTQ9sCQRdHPKjzhV56YHt3imt9dlgLLCgfKT0chD6Ge+q+VzCaYXy6lVGD+GK3w=
+	t=1780915862; cv=none; b=q13YAnfFMmdz/eQ0KO/Kh3rXsAENL3HV7UP7hFYN7AiTP44nzlGr1qKgurmXmqVHQQwrtTHTUcfIwvi0UWTpzr/U3njK7eNC1WPPixq9zjcntlk3oC0jh18LSOifGDG4jc3Exoddl2DYWF/dnN0iS+Frk4tCLUzytO8NQTRJUio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780915860; c=relaxed/simple;
-	bh=/5JSpbZRWY5COHZDhN4gNF7Jnw0iPmpuvearF0ixaPA=;
+	s=arc-20240116; t=1780915862; c=relaxed/simple;
+	bh=bf+fGbp3y5sGKr3yiqtRUsXOaqQPcivjwUqgTaaStbM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zanar2D4sOXWSKZZcELPFhGthSeeA8gRtpC1T2dVh+dmtugf4WJ6mA9Uj68UmAB/qJ8wtjixj/F6f1aHyLVQz/b0llLaPJNasmcIgVZk8QqcXQg4YUOsgFq2W8C1+cbX46DbBHrGLkPRzCPWjGdnNHfsXa6XUQkSEIHOiyMoJBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=obiN0suf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BXFb4bsi; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=cI5+6M0wKY8rKBkqzba+DsGjkDk6d8HLw6satN6E/YEzfmRtRcz0uoeX/lT9OCVMCogWHCPOD/ZmOsOPZLdAO9r5ZWGVzOydgaiibpCmy1KtDU/xzL39ZWM+DxDxzwrp0Zj8FnUegcBziq8o9En+nJycEyZjIP5T50VKGpllm6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oSQbd58T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cd3eMqiS; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="obiN0suf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BXFb4bsi"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586Ou7V2384705
-	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 10:50:58 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oSQbd58T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cd3eMqiS"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6586Or142274527
+	for <devicetree@vger.kernel.org>; Mon, 8 Jun 2026 10:51:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kVKEAS8GhVMCCsKzWvqDs3cunTV/p/7YyYFmPXPEJtI=; b=obiN0sufjkJIpbxQ
-	8vAJpCWlvQ6AfuEVCWzooX/FKI2cWVAgVgajihPvBG19b2Db7MnD6XFd6oaYulzd
-	HhttUgGezEYy3nDqlek/pgr3mhESpR6r89Qrx6Y2GHYo1JpdXrksjyu0bzQcH082
-	2tDF3hRcdu3mcZlDs0BCN/a68yp2od1bgw+XXV5+VLXiI12SSyfdVNrzy9ogRs7o
-	LE+kmLmZrn0LDN+AkwK0bwz8U+CEa/3uR6JQIFDE69I32B1wF8pheSIeUyejN19b
-	5Fn0uxOby9T+pET7rrfrwTM3MkLqsPfCowSflBJl3Js4mOz1E/z2v9g/sVVemFfD
-	OBDSZg==
+	qrd8MOMRQbi5cop8RgeayKocEI5pMrJ+hTvcAwk0fUw=; b=oSQbd58TS3J4fPkh
+	D8NBgfSqRE4G0ju5YPyk+rMa9ZL50PhSoGPPrFDDTcZhYBJDZEHkCnYuwgTMaYL4
+	pjyrt9NcmgY7izp4qSZiL96gHSu/39EgZVUcTY/mQ7dtlF994wYMaBgULVGyyINL
+	cST6PqqkX56lHDjQ29ZOstQ64nLHTtjSDmkf0UUjxxcK00WQaVUKDXf3StdVFNM7
+	lqfpuRjiaPZ111Q1iRkcG8e0jN/7YtRnHTTmVU6M3l7EEEzzUzYBChpcrjshQPMX
+	xA/Lop3FruBRkStXGV4C35JvHQ8SjJFhR2ncI8PEpNUVvo1dhNXaToiaV+CDYVpT
+	UGb2kQ==
 Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embs1fb8e-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgy5ky-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 10:50:57 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51771d41426so75785361cf.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:50:57 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 10:51:00 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5178aed25baso91484091cf.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 03:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780915857; x=1781520657; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780915860; x=1781520660; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kVKEAS8GhVMCCsKzWvqDs3cunTV/p/7YyYFmPXPEJtI=;
-        b=BXFb4bsioTn9DQ5WdCMj70RNo3T5rjnxTNB1NhcekVfgEoP+fFa2mvVfiWOKJWiUrn
-         W1CMfuv+Y3SZ/snnsNERzAFvXo8SppSUDku2HFqXUdH5EWOcmhDby/ycYs0mUuP4pZnh
-         aiWVDayD8dq9mtrpnuP8jDOoUizdVyXvDgA20qX59KmXsc4yoO4IxQe5txi+lIISpPrH
-         MsyB1nOaQ3cO6EISfm8wqwlZ6ZW6H34rvcv6NOYa3pJ+brd3S+X+3CTK6qAPjee/Gxoy
-         bt3PRMxScZ+P42BBq2l1GYa3J4m4DECNHwHqmJMXIzqGfk4iCtTMK7wZXfDjgx+BuBd0
-         rgQQ==
+        bh=qrd8MOMRQbi5cop8RgeayKocEI5pMrJ+hTvcAwk0fUw=;
+        b=Cd3eMqiSdB+j+xd0Nxj5EnZKXfL1RuP11PxjMymYdCo6qtcgPXV4P7x12Kq2lo8KY0
+         1IVA+IW7jlw1NwvzwwzFASm7HsUzcTAe1oDxxB6wBha9GV2uxyXebNZo3oAPwbzXMPhT
+         esKw3ayrDKf958vGUbNEyT+ZmvUHR5FpE20kH/bS5hnmcd+C23eQauHyc/+ZcCJ98e02
+         EYpcseaE8zeWVJhDFJDEG6S+Hv06GiiquAxEgh37z84SLLVr88yg/a0lyfQmImpK2YMP
+         qT5mOJAsuN3UULKbVnzMvXszTqHyn2j+CM+NqkSknT8Bt1AQvhbiPnpNLPGSEdSmQFLs
+         N++g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780915857; x=1781520657;
+        d=1e100.net; s=20251104; t=1780915860; x=1781520660;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kVKEAS8GhVMCCsKzWvqDs3cunTV/p/7YyYFmPXPEJtI=;
-        b=LifUv9KlJyMHI0zVLuYjNgOUzq2isIfh4paNoTJNL+zlthMlJzuGhmfBM7CN7jAGmC
-         b8w+Dv+54y98zXCxhgyQkF5KsrKY56eUW0lJ9DzEFDG2smV9NM+PJkrblngoaoFymnCU
-         /JKXxscrYBNEOHdtMCW3FVUATtXk3JY0FUWGj+nNGS4VMP29mNtRHzlkKxWr4O+jMMPK
-         TwrSJZTI0/WxArNW0y7p231ogsbvaQryx652WgdkaeZErHxz7fz7AS5Hll294G1s0XEt
-         5RpQrPMXLuCV1qWl85ZA9CMOfNG2kiz0l9vcWR0ZJSg7Ro5tkevXsLIhgNh2SwQFdEvG
-         hNFA==
-X-Forwarded-Encrypted: i=1; AFNElJ94EO133lj2JywWXZDAyRDCUYsSM+muPX/MW2kWoOCLsre3QZA0ebQYSmk65xzISh2qpL4Aoa7fi4x6@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDE+rxf4a6llHUoKjWnMwNpShzDWWsnsJizbbrs9Pskx1DgpDh
-	VYsBuW+PnpNgEUGHssnDcnDKCDlM+FuC8sweFFHgswSuv6En2253L9RBcNwhHzDk52bRzYBMaHY
-	tLGuhNiAhY/61Z6RmMFaKWjDc7Y2ZLdvTk7KkenV8ZKKpUITurdZomnShg32FEEDu
-X-Gm-Gg: Acq92OHtH9p0HAbaNHkicGPq5ZV5KWSeMP8G78fA1EAxGvblJ2A9feqg/R3LDWETE5v
-	2g0fQhlaROHo1fqLd26aUNswzipdlCPujCfnCl1AqGP8rWugeHwPCQBsI/nZNViDcn3xmxSHvoX
-	ZxKqWnxmP5YtXH/Zo9ALtLmE8Uavy+q37taCsBDu+Kf4d8VuUGmJXC7lu+R1NWJb0gA3P/hRb0/
-	+JslWiWG8PvAIlu8/tw27ti6YFgZ5drAaYeFFIY1m5HMsO979zy2a2K14wFYMt4uEB0PCAhRliE
-	aSUPGHvzWQsk14nFn0mCSMpCd4tiunu+puNJ1042Kp9Paje00zpin+lB0PjyVfxkEyW/j0PFGRb
-	P7+p+e8cdAD2rSHeVvah7OscwxsPIdK5JdO7PS5ERZh7aXjlISU5QKUPeo/APKIPQs9XHfK6Xrr
-	uOwsiS2uzxyii/xfmvgxEm+x96xU2VGMSC+/ssAtsruxRu8n+OsEAltZ9tLu9Xpkt8sDvvcnpmy
-	fYGPIprWWcV
-X-Received: by 2002:a05:622a:47c3:b0:516:d4b1:48cc with SMTP id d75a77b69052e-51795a4838emr190287351cf.8.1780915856853;
-        Mon, 08 Jun 2026 03:50:56 -0700 (PDT)
-X-Received: by 2002:a05:622a:47c3:b0:516:d4b1:48cc with SMTP id d75a77b69052e-51795a4838emr190286901cf.8.1780915856424;
-        Mon, 08 Jun 2026 03:50:56 -0700 (PDT)
+        bh=qrd8MOMRQbi5cop8RgeayKocEI5pMrJ+hTvcAwk0fUw=;
+        b=JRn9xdCHxb6QlPx4Y12Fh7kcCrsn3Wef727QpviiQpdpyDlNLHxDZA+8ApRgGJhFUC
+         NOq14slD80F97c1xNYoYKMRRCj7FAWkMIAshHx4Vcxqvm171nWrTYm/fu5/2dkpJ92OM
+         J9rXmU4hk0kEEOsgRb4eoqli8WPghdsZ0La1DTzFPpvmdAdgFK6DPTdbI06cP8T8gxKA
+         TkAzil1B9AyIpUtokny5BoyHzulA9dHwJFIbin9pdKRqDpM0KhPvgeu9KtdfE970Y6tQ
+         f2EZjj9XiWLbXADrJ7Wp3AKco7DTYHYeMuTUjP0umrZaDokBIWJQp35BFbvfvKQbYzWa
+         19hw==
+X-Forwarded-Encrypted: i=1; AFNElJ+7g25AmligWi/tXQGz0RUZakgFC7jESZgExz8jc9uu8uIZys5GxEM5NbcS2GAsfWFc2i1h6HXpem2Z@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxn5WVIKw5yw1SsAsgcXkDbNmmlvmLKJk+6YwfxpggX7/UBln5o
+	eRxyYq73pkTWXmK/LaSQhT0n33Afq6nsg5A/eS8lvtqpPSiX0m/JgYBao0r1qUeiMp4SDEU8/JH
+	77OL1siPTEKTvN1CeJxQ2dB4hPWdcxN40wp7a86ntNSdx/SV5Ig37yxrIurSIenem
+X-Gm-Gg: Acq92OGctyWhyQivwoGHlv68RdbesLzEQC9YG2IzUXRbmVpTulyZaaIIUq8FNQI3XYe
+	CGTMGcLEx5iGVytQueAFjtETo//XHyIrthIUBLSVqKAB13J0cV5ik45f/Q8A/Kn1T+peOHAApM4
+	m0K+UCWj1YCrh6lQnXr8FPDdLOJN0NLc4mQtytZNhBFzU6bqQkw6QH5wXnPLzDcMMxfFK3PXJt1
+	habhbIN9kJ7Vz83Bi+iTsBmb7QaMQBZzTmniMxp4lyt9YzYqCsutWQwKltX9ZKI/yskA858PXWb
+	R22uI9Gj/sMgGjpTypuFBx00RHKN0INsykynJ9P+7vj+XquZa/bbaBP+IWyJQFIbBmqDN69RQUs
+	nVDauKniiFRWsRvfcHQq6uE8Plsk1ug9/jnIQHi+2HA+t5h4h99a6mSfRyyah28ZU4DVotUFxYE
+	BzqafXXApTtJD3lkHuT7x4r3MPeU6rKJNZgiJWXY53iYd5+OWjAJE2Yp+Zcvejmaz0nRZA1T8BZ
+	FS2jWYIYY9H
+X-Received: by 2002:a05:622a:514:b0:50f:6415:1eb4 with SMTP id d75a77b69052e-51795bbf29bmr200722381cf.49.1780915859494;
+        Mon, 08 Jun 2026 03:50:59 -0700 (PDT)
+X-Received: by 2002:a05:622a:514:b0:50f:6415:1eb4 with SMTP id d75a77b69052e-51795bbf29bmr200721871cf.49.1780915859023;
+        Mon, 08 Jun 2026 03:50:59 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:cc96:22ae:323b:9eff])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051e9aa33sm850399866b.24.2026.06.08.03.50.54
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051e9aa33sm850399866b.24.2026.06.08.03.50.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 03:50:55 -0700 (PDT)
+        Mon, 08 Jun 2026 03:50:58 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 08 Jun 2026 12:50:43 +0200
-Subject: [PATCH v3 6/7] Bluetooth: hci_sync: Add NVMEM-backed BD address
- retrieval
+Date: Mon, 08 Jun 2026 12:50:44 +0200
+Subject: [PATCH v3 7/7] Bluetooth: qca: Set NVMEM BD address quirks when
+ address is invalid
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-block-as-nvmem-v3-6-82681f50aa35@oss.qualcomm.com>
+Message-Id: <20260608-block-as-nvmem-v3-7-82681f50aa35@oss.qualcomm.com>
 References: <20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com>
 In-Reply-To: <20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com>
 To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -119,148 +119,128 @@ Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
         linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
         ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
         netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEwMSBTYWx0ZWRfX9oHkvgAtLeV7
- GhZCdmK8xVz5CVT8dReiMQHiPbhQXX998O0jgr+7kSyFUgTYZBCEIKKAZhjsbg53WZ0SBKY520l
- aJht72SJNBINupVJ6T4axK37aA3ThWF/TzNI0Y41krEJnJdE6JjA9cu2/sjwM5KMvu11h+rDP30
- 1h3vxnIcyqaymGzxhrTR9wNQ3J1TqeX9VqiCkvfLtz5XS8PJTrtbw/mSpFHlnj0UrXjVOaRnE5q
- vd+aBaxNUVCS6n7K7XDxZMdbe8TTqMxYs7t3SXe+6GeMwiflJT+EgfuHDTosaprfGgCToEqPJMI
- EPldaM7kctzMXH7L/lIvYr28j1tA5DIaLdYScM9EeN3vp8N30n5Y99tcEGvrH/UUeouBAXWy2Wg
- e1EIenLsNKqgTL3SDFa/yWQ7gmKNA9aUh6lMmxUTrloIbDOz1j37/bk8P+eyQjxUCtDZHSPSKYc
- w8XiyNT5W5AGLQQIFNA==
-X-Authority-Analysis: v=2.4 cv=CeY4Irrl c=1 sm=1 tr=0 ts=6a269e91 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a269e94 cx=c_pps
  a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=tQ7bI2BnKgK5Av-YYOwA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: gOEPzThL47-ByXPgR3msZAw5hMm5Vjtz
-X-Proofpoint-GUID: gOEPzThL47-ByXPgR3msZAw5hMm5Vjtz
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=lrwsl_vcuUQb-XtIoRIA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: 7vSaYa8LK-eMx89GvRIHIPrpP2AiGWji
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDEwMSBTYWx0ZWRfX/rTwJkrk2smZ
+ /XDdQBQppjKyXyxszZzsERbpJ33jvfzKvPuPUymXFQg99XybhfI2mhsGhb547kzMGfmwEM/zsbA
+ SD8HUrbEhvX365WYh3PMF0QlEEjjrqVHddOL4YaRkPb7Z2SnIRYI4fiUCl7S4e5ieTWXqcJrkLU
+ AU7BUuBPv2IMmP706i+ZY8e+USrUzm0aKvN49dMksskKb5E1H4fKvg0sXKaWh3LtwhoIWpJQrj1
+ SvOAiJkxPPnAEosqBEO0JajMoDNTsstQFakoP5Zr27ICrMmY68XVIX1Evo/pgJEjprEE2ioUpRY
+ 8ui/Ob/DL758Vf7UoJFAb5sk6J51YsJa/wjsJsA3nb+nKMhqJDjejHGhCAZpF/rJXpA2KdGA5Oi
+ ZHLUaYPSsM+Vjx/CAQVxhvurfyAnd2fxhpFwAt43I4Agp86DeEZiCMSrxpXmzuPzr9uxCC+y8TL
+ 0nQAApLRv4OWiabq3bw==
+X-Proofpoint-ORIG-GUID: 7vSaYa8LK-eMx89GvRIHIPrpP2AiGWji
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 suspectscore=0 adultscore=0
- priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080101
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080101
 
-Some devices store the Bluetooth BD address in non-volatile
-memory, which can be accessed through the NVMEM framework.
-Similar to Ethernet or WiFi MAC addresses, add support for
-reading the BD address from a 'local-bd-address' NVMEM cell.
+When the controller BD address is invalid (zero or default),
+set the NVMEM quirks to allow retrieving the address from a
+'local-bd-address' NVMEM cell. The BD address is often stored
+alongside the WiFi MAC address in big-endian format, so also
+set the big-endian quirk.
 
-As with the device-tree provided BD address, add a quirk to
-indicate whether a device or platform should attempt to read
-the address from NVMEM when no valid in-chip address is present.
-Also add a quirk to indicate if the address is stored in
-big-endian byte order.
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- include/net/bluetooth/hci.h | 18 ++++++++++++++++++
- net/bluetooth/hci_sync.c    | 39 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 56 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 39 ++++++++++++++++++++++
+ drivers/bluetooth/btqca.c                          |  5 ++-
+ 2 files changed, 43 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 572b1c620c5d653a1fe10b26c1b0ba33e8f4968f..7686466d1109253b0d75edeb5f6a99fb98ce4cc6 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -164,6 +164,24 @@ enum {
- 	 */
- 	HCI_QUIRK_BDADDR_PROPERTY_BROKEN,
+diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+index bf088fa9807f040f0c8f405f9111b01790b09377..128c7a7e76b5b089044745f5d6407d6391055fc2 100644
+--- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
++++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+@@ -409,7 +409,40 @@ &sdhc_1 {
+ 	no-sdio;
+ 	no-sd;
  
-+	/* When this quirk is set, the public Bluetooth address
-+	 * initially reported by HCI Read BD Address command
-+	 * is considered invalid. The public BD Address can be
-+	 * retrieved via a 'local-bd-address' NVMEM cell.
-+	 *
-+	 * This quirk can be set before hci_register_dev is called or
-+	 * during the hdev->setup vendor callback.
-+	 */
-+	HCI_QUIRK_USE_BDADDR_NVMEM,
++	#address-cells = <1>;
++	#size-cells = <0>;
 +
-+	/* When this quirk is set, the Bluetooth Device Address provided by
-+	 * the 'local-bd-address' NVMEM is stored in big-endian order.
-+	 *
-+	 * This quirk can be set before hci_register_dev is called or
-+	 * during the hdev->setup vendor callback.
-+	 */
-+	HCI_QUIRK_BDADDR_NVMEM_BE,
+ 	status = "okay";
 +
- 	/* When this quirk is set, the duplicate filtering during
- 	 * scanning is based on Bluetooth devices addresses. To allow
- 	 * RSSI based updates, restart scanning if needed.
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index fd3aacdea512a37c22b9a2be90c89ddca4b4d99f..589ccdfa26c1281d6eb979370523fff0d7920302 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -7,6 +7,7 @@
-  */
++	card@0 {
++		compatible = "mmc-card";
++		reg = <0>;
++
++		partitions-boot1 {
++			compatible = "fixed-partitions";
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			nvmem-layout {
++				compatible = "fixed-layout";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				wifi_mac_addr: mac-addr@4400 {
++					compatible = "mac-base";
++					reg = <0x4400 0x6>;
++					#nvmem-cell-cells = <1>;
++				};
++
++				bd_addr: bd-addr@5400 {
++					compatible = "mac-base";
++					reg = <0x5400 0x6>;
++					#nvmem-cell-cells = <1>;
++				};
++			};
++		};
++	};
+ };
  
- #include <linux/property.h>
-+#include <linux/of_net.h>
+ &spi5 {
+@@ -512,6 +545,9 @@ bluetooth {
+ 		vddch0-supply = <&pm4125_l22>;
+ 		enable-gpios = <&tlmm 87 GPIO_ACTIVE_HIGH>;
+ 		max-speed = <3000000>;
++
++		nvmem-cells = <&bd_addr 0>;
++		nvmem-cell-names = "local-bd-address";
+ 	};
+ };
  
- #include <net/bluetooth/bluetooth.h>
- #include <net/bluetooth/hci_core.h>
-@@ -3588,6 +3589,37 @@ int hci_powered_update_sync(struct hci_dev *hdev)
- 	return 0;
- }
+@@ -557,6 +593,9 @@ &wifi {
+ 	qcom,ath10k-calibration-variant = "ArduinoImola";
+ 	firmware-name = "qcm2290";
  
-+/**
-+ * hci_dev_get_bd_addr_from_nvmem - Get the Bluetooth Device Address
-+ *				    (BD_ADDR) for a HCI device from
-+ *				    an NVMEM cell.
-+ * @hdev:	The HCI device
-+ *
-+ * Search for 'local-bd-address' NVMEM cell in the device firmware node.
-+ *
-+ * All-zero BD addresses are rejected (unprovisioned).
-+ */
-+static int hci_dev_get_bd_addr_from_nvmem(struct hci_dev *hdev)
-+{
-+	struct device_node *np = dev_of_node(hdev->dev.parent);
-+	u8 ba[sizeof(bdaddr_t)];
-+	int err;
++	nvmem-cells = <&wifi_mac_addr 0>;
++	nvmem-cell-names = "mac-address";
 +
-+	if (!np)
-+		return -ENODEV;
-+
-+	err = of_get_nvmem_eui48(np, "local-bd-address", ba);
-+	if (err)
-+		return err;
-+
-+	if (hci_test_quirk(hdev, HCI_QUIRK_BDADDR_NVMEM_BE))
-+		baswap(&hdev->public_addr, (bdaddr_t *)ba);
-+	else
-+		bacpy(&hdev->public_addr, (bdaddr_t *)ba);
-+
-+	return 0;
-+}
-+
- /**
-  * hci_dev_get_bd_addr_from_property - Get the Bluetooth Device Address
-  *				       (BD_ADDR) for a HCI device from
-@@ -5042,12 +5074,17 @@ static int hci_dev_setup_sync(struct hci_dev *hdev)
- 	 * its setup callback.
- 	 */
- 	invalid_bdaddr = hci_test_quirk(hdev, HCI_QUIRK_INVALID_BDADDR) ||
--			 hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
-+			 hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY) ||
-+			 hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM);
- 	if (!ret) {
- 		if (hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY) &&
- 		    !bacmp(&hdev->public_addr, BDADDR_ANY))
- 			hci_dev_get_bd_addr_from_property(hdev);
+ 	status = "okay";
+ };
  
-+		if (hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM) &&
-+		    !bacmp(&hdev->public_addr, BDADDR_ANY))
-+			hci_dev_get_bd_addr_from_nvmem(hdev);
-+
- 		if (invalid_bdaddr && bacmp(&hdev->public_addr, BDADDR_ANY) &&
- 		    hdev->set_bdaddr) {
- 			ret = hdev->set_bdaddr(hdev, &hdev->public_addr);
+diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
+index dda76365726f0bfe0e80e05fe04859fa4f0592e1..df33eacfd29fa680f393f90215150743e6001d5b 100644
+--- a/drivers/bluetooth/btqca.c
++++ b/drivers/bluetooth/btqca.c
+@@ -721,8 +721,11 @@ static int qca_check_bdaddr(struct hci_dev *hdev, const struct qca_fw_config *co
+ 	}
+ 
+ 	bda = (struct hci_rp_read_bd_addr *)skb->data;
+-	if (!bacmp(&bda->bdaddr, &config->bdaddr))
++	if (!bacmp(&bda->bdaddr, &config->bdaddr)) {
+ 		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
++		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM);
++		hci_set_quirk(hdev, HCI_QUIRK_BDADDR_NVMEM_BE);
++	}
+ 
+ 	kfree_skb(skb);
+ 
 
 -- 
 2.34.1
