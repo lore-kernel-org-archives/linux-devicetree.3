@@ -1,29 +1,26 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from mail-m3274.qiye.163.com (mail-m3274.qiye.163.com [220.197.32.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBE329B8CF;
-	Mon,  8 Jun 2026 01:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7F52EA481;
+	Mon,  8 Jun 2026 01:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780880980; cv=none; b=nJJu4fLR4XOVdmvm9ki7CLyhiwDwEbc3P7KOVQFgVxsjs2PguxhJvsqJzdnb3+TP4HlaHN6v19bcK6exOdB+c7MNR//c27Zu77K3W0KoRZBxKzpaT2zSkLxoJ3cnlfmchlsoqzZ64ciIIUbjDsWMxlw1aKF+Y2rsVSdTrOxVqQU=
+	t=1780883478; cv=none; b=VAEF1qYbxcmd9gGYk8/E3t5geTg/hKDWAvlzDBFHNHNaXg76LoUnNOminDsMv1kwhVBlzxBp3wSn8WgFkBb97cI9uabefNjkRfI2xqdDRIfDtdrngjC2/SNgJ4AG+ufDvEtowVuO3D/3gaMbGTIVo+m78rrQ208qOf5NfzFobRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780880980; c=relaxed/simple;
-	bh=6mFesj4hgoULMnFuaTjtFmFx3IRjOGWujjUMOSGa2r4=;
+	s=arc-20240116; t=1780883478; c=relaxed/simple;
+	bh=ivtol/J+iFUXgjxze69yMpBtbl+ljp6Q1P7Qq6Rk76A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GK/RlCP/ul40iqaXSKYTBHPMGR6043MY8cg1kLbraZWUMgDUntGDvn3Rj0eEHrdSeI0O+oqwfhhvMwdwCtoJgROjpWpeaHEf1nC3hFD7DnD4onHrrSPLNSgDdTdU/Z07T0MuZsgz7NoMpP6JhFdDi6Okl4vN8qoo3h6t2f3M050=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpgz3t1780880959t22d2278c
-X-QQ-Originating-IP: bXSnog20lGiDAATqGnwBlNDtCTN8ekmUmHTMsQS2HH0=
-Received: from [127.0.0.1] ( [116.234.26.110])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 08 Jun 2026 09:09:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6460039914688242846
-Message-ID: <3ADB82C061204E67+dec56a7d-f8d1-4be9-9b21-3481a710df87@radxa.com>
-Date: Mon, 8 Jun 2026 09:11:44 +0800
+	 In-Reply-To:Content-Type; b=MzmTbjm7FM+HPMx2bmz/vqwXu86aavkBUkWHjO47aL+224wN+T1i3hqdCPVOzmOMh/RARyfFTMaxn/VOfT5VF+pygh8uQyacpThVLDXQ/2aM2wn2Wh+Xr07Eapp21lgkT+ojLjuD7sLe40n8aj2AGLjq4kRixr9m7XMSbdGecbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=jIgtsz0T; arc=none smtp.client-ip=220.197.32.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="jIgtsz0T"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 416bb7c88;
+	Mon, 8 Jun 2026 09:45:55 +0800 (GMT+08:00)
+Message-ID: <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com>
+Date: Mon, 8 Jun 2026 09:45:53 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -31,97 +28,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-To: Daniel Thompson <daniel@riscstar.com>
-Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
- chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
- john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
- matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
- <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
- <3A5C0389E7C0D241+21a4f16b-1af8-46ac-8831-0c1b49694df0@radxa.com>
- <agH4qC74A540koDl@aspen.lan>
+Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
+ RK356x v1 IOMMU
+To: Midgy Balon <midgy971@gmail.com>
+Cc: Simon Xue <xxm@rock-chips.com>, tomeu@tomeuvizoso.net,
+ ogabbay@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260604135255.62682-1-midgy971@gmail.com>
+ <20260604135255.62682-7-midgy971@gmail.com>
+ <e44b506e-e9d2-48e3-acea-ab28b7be9b37@rock-chips.com>
+ <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
 Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <agH4qC74A540koDl@aspen.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MDqtQ4jGWXAGlDFsZ6teNi+ri0nkei5XfBZpP5QcO66nK0kgvh4BCaQl
-	Xv3oHRWmoZLiQ1NbhcZ1qXlPzIzEJ8CqCdsiu47q1Qn6F76e06528BVQ1LttQpUElnXfWVs
-	kxFAJ5ytcLC+VfARgmM31sq/2b7QO4PBBqhPnRI7sEDHqvvdwWDlv25MBk4KRA5bS4ucica
-	5LXUd562FvcGSuV/5jz0F2qItoNRjuYDfdVQn9Ufko3tz9ITXa9kLpaJH1DOIfOljiaTiM1
-	cm52MZ00AVEtz1epYd6lC8nyXQS77iE/Nko7iMytc+1tKt0H9lpaJW2fU/Q+dreKRRXaU4J
-	C7KZ1dJgfuieH3e5gBQzDZDgdNF9MhwvyNGQnczkg5M1eMnXrNypBMqTuOgGwJtDM7zXH7T
-	aL14LMPGqcut5WI7xpDFRVP8byDTHWJAF0aHiyGCVMlnVA9PHSMEzmSQ1nR2Y9Q476BFRC4
-	gZ3uTWWAKoUYbVPo0C2RjESWKWJUvHeKksk+VVbEYED45ujiEyjt8JVYaLp6nF9FaLzQANb
-	3rmqbPC/KMz+HZqvZE1vA0v13aS8u91Icyj4o41fJLWWreLEHmjko1yNMcIHfWgdp3knZm0
-	zGGPju3+xADUZ0IAFNwX7Aj33LiSbUsJ14uyp9uCjpNAT+xhmIuRRR4ZwaTyMf9QdBjZYPQ
-	2V22HYyjxivhLUFwTshRzC2ePMWyy+Z0fLfk2NUsbSZvEqDVKz/EeiGt98AXC+5a9OlRwcq
-	uVRELH4XNH4e4pA1gRUXqDQD6v7yszNBTvvQHJU8GcJagoWLLtOj/iADYboC++zeJvNNxaA
-	E2TS0jDnuvz+w11mRTOXml0xp3gU/6kcR9TVoPfyWf/966uwZSurnynl9XARHO4uscGHhhx
-	+ccDGOym4uCEc+bnxqt6u51SoQ5798+mxa8gFXpB2rM0r9RS6OuvQaZ5YX6r5XcQ06LtkLC
-	E4pSiQZCCa4RLLhuYmOGEpWqECYxcrP/FnHHjJifpUyFaMsNg69x+ef6ilhHzf4s4J7M=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+X-HM-Tid: 0a9ea4e8693b03a7kunm5581ce41167e8e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0lLVhlNHkJLHRlDGU9CSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=jIgtsz0TyrcFAl+irGQT/FzW/PHecgbmGKsmkt1lnYbbFGDHi1B7akwRMLwY6y/4vFy4+FD+auD6oR1rDOMqmmDFeT8wfSpcb6uQYaIlHVgWzsfkXqJCGQLq4+vHplwYP9NJaOVglVtq7rO5PPu+Hx5XWacT4HRifZn4QvoaS0g=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=gtF5hamNMT8w7gwfV8u7Brm72XuPs2uaU6pQ7P0r8NA=;
+	h=date:mime-version:subject:message-id:from;
 
-On 5/11/2026 11:41 PM, Daniel Thompson wrote:
-> Hi Xilin
+Hi Midgy,
+
+On 6/8/2026 5:05 AM, Midgy Balon wrote:
+> Hi Chaoyi,
 > 
-> On Thu, May 07, 2026 at 09:57:26PM +0800, Xilin Wu wrote:
->> Do you think if a shutdown callback like this is required? It looks like the
->> driver sometimes does a MDIO MMIO read when the PCIe link is down, causing
->> the board to reset due to SoC side PCIe NoC timeout.
->>
->> After this change, the board can always shutdown gracefully.
+>> As I said, it is v2. Could you please try using the code below instead and
+>> see if it works?
+>> [ auto_gate = read(RK_MMU_AUTO_GATING); auto_gate |= BIT(31); write(...) ]
 > 
-> I've preferred controlled reboots to power cycles throughout development
-> and I hadn't spotted any major problems with graceful shutdown (which
-> isn't to say there have never crashes but generally I expect `reboot`
-> to provoke a reboot successfully).
+> Thanks -- that's clearly the right shape (read-modify-write, before paging is
+> enabled, keeping the reset value instead of my clobbering 0x2).
 > 
-> Just to be sure configured my board with irq=POLL (to match your setup)
-> and still can't reproduce.
+> I rebuilt v7.1-rc6 (with the rocket RK3568 series + your per-device-ops work)
+> using your bit-31 version and tested it on a ROCK 3B: the NPU IOMMU comes up and
+> services the NPU's DMA cleanly -- the NPU probes, attaches its domain, and runs
+> repeated conv submissions with no DMA_READ_ERROR and no page-walk stall. No
+> regression from the write.
 > 
-> We mostly run Debian/systemd so there might be something happening in
-> userspace to sequence things nicely. However I have ruled out
-> NetworkManager.service and networking.service (stopped this services
-> does *not* tear down the network link).
+> To be precise about what I can and can't show: I tested both ways on v7.1-rc6 --
+> with your bit-31 write, and on the reset value (0x3) -- and the NPU
+> IOMMU services
+> the NPU's reads with zero faults in both cases (no DMA_READ_ERROR, no page-walk
+> stall). So I don't have a failing baseline here that bit-31 visibly
+> fixes. Is the
+> AUTO_GATING write needed on current mainline, or only under conditions I'm not
+> reproducing (a particular traffic pattern / silicon rev)? I'll keep the patch in
+> your form unless you'd prefer to drop it.
 > 
-> Can you share a bit more about how to reproduce the problem (including
-> reliability of reproduction)?
-> 
-> 
-> Daniel.
+> One question so I document it correctly: what does bit 31 of RK_MMU_AUTO_GATING
+> control on the v2 block -- is it a master "disable internal auto clock-gating"
+> for the page-table walker (i.e. so a TLB-miss walk's AXI master keeps its clock
+> to completion)? The RK3568 TRM I have doesn't cover the IOMMU registers, so a
+> one-line description would let me write an accurate comment.
 > 
 
-Hi Daniel,
+Glad to hear this works. Please refer to the commit below.
 
-Sorry for the late reply. After some more investigation, I think the 
-problem is more likely related to the PCIe platform driver rather than 
-this driver. So I agree that a shutdown callback is probably not needed 
-here.
+[0]: https://github.com/rockchip-linux/kernel/commit/7f8158fb41b5cc8e738aaeebc3637c50ebd74cae
+[1]: https://github.com/rockchip-linux/kernel/commit/6a355e5f9a2069a2309e240791bc3aad63b7324e
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
-
+Best, 
+Chaoyi
