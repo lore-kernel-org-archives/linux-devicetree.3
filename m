@@ -1,85 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDA33B38AF
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:43:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A91F3B42F5
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780958637; cv=none; b=Qx5076memgOmiqq7iGiej5vr7kOqgiyR1VjdMnmU/aCotBR5ZeHTRohhth5TZpujpxi6gocBJS9H30pPDCjK2uo8ap3ONhDAXe0NGtNMCd7xluWfc5CvJVvoS85kPS38uYpoOjdv8FYFKtCReM0r/ySF2J0V110jTpLm1Tm7tSY=
+	t=1780958790; cv=none; b=VBxT8uDPD6uPAOn+d12oJA5D4XtpEVmDl8JOXtTuNMPJg1ZZ25ZgsnZ/T2o2Wy+1x20arxACApX0eROWH+L8fmTf5tUfttVrNCDRrXEMjY/zqBvXV5uEJowK9suqsZJO/QVXkmLF3jUGFwd2Tb0GePhJ4ctbxhbelGYp0JvhCh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780958637; c=relaxed/simple;
-	bh=A0aMEuooSpehlxvLLcCYGZi3/rId/udlnvg3u80kiOo=;
+	s=arc-20240116; t=1780958790; c=relaxed/simple;
+	bh=B3T4j7OBsymsUW8sk7AIgEhfmNfH3xykTHDf4YdxftU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q8HBQGL7ewvAFwDhpOZjVPcEcSIBlGgjRtWcWxVhky2xuDrnh5hl8mXSMRor8F6E4ojfHjyoonQUZiflyD9GtaGFoF2Z6qvWngy4XfsM7RC5/YVqFwgEaQGoW9a/okxmWrS5RKkD2wNdaieezb0ubxkJdCKNVbLzZ+2ambPgiKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GV5Su1Br; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=hN0tr7CvetIpL6qfoyvqiBh4ci/ILgoJwr1LiaJ8x9VW2I9aNvr1yKgvfcFPaUfyPnDnn0ocwJVGP8c8wD+7ipzQQhQNGk9/lcLmk//wgq36eio2TUO5bF5EN/0ryjtCULWiEYMvakaK2KgRKviFDhSfvBKdwRxMiKOLLQvKDd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPcmg9gS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GV5Su1Br"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2159F1F008A0
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:43:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPcmg9gS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497701F00893
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 22:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780958636;
-	bh=yO33fZb1LjugzRw+G0ggE1zSXDOM86JcqH727KoL53Q=;
+	s=k20260515; t=1780958788;
+	bh=B3T4j7OBsymsUW8sk7AIgEhfmNfH3xykTHDf4YdxftU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GV5Su1Br5SvCs/rJNXXZeLpyhUFI3jQikNovCcx5qQfodSUdXRHSVw7DWxNCJL3KT
-	 Ou1iT5jrVoWXlUuZ2Gvf+gJ9/3gVWTc42TyvGOdXuAir8y1XTOQGaUMi6Cwxw5zqkj
-	 MWv2oDZUFskzYtIx4Qk/BmlliyCwfAld4Us+jiDYSGykz5OxNPICZnBG6Mlqf+Ymzt
-	 omLwRHUBR72YpNwsMTp6K0HaG5OxXpCoK7fb36r1AMVz4EqT4uHJMwXb5m10bBmQsW
-	 wefup+Aa0hpns1Hue0lbWvYs8BdM1RjR6gbkmq6De1rCAuFKglyfGY74YQOGd1yaDG
-	 +dYmx5GlgXleg==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3965f215817so43661011fa.3
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 15:43:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9Hd9GusEODNAFCQIaXgIxhD6UaXa4L7X2Ph95hZqAudjgaSpOc9NFhs56di9OMeXzzPMZhrJv8kjkb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFgGMedrPiY1n4+iLQGHl9QrqwMFvRNa3Wlv/Q2Jm1qgxGmNIU
-	Qmg2hZhdE+GpbLNBL5AAcjf4U6PoETev9DPEgPs11k/FJTn3kTFE6DCAjlfjuyQb9/M7mDpZ4mw
-	zOGsBzKCWF3VyOsoFtV8iH5xQ7XEnCeQ=
-X-Received: by 2002:a2e:a715:0:b0:396:b398:5990 with SMTP id
- 38308e7fff4ca-396d0802544mr31409431fa.10.1780958634795; Mon, 08 Jun 2026
- 15:43:54 -0700 (PDT)
+	b=SPcmg9gSpqzLhPQ4DUxzeLr6C6gvQ+2sHHktTS9Sq3n8C9ba1o423+s2T+OkBEwee
+	 NSQhMGqUYw0rMBAxx6zzm+3AvPSldX5QtCcGfRRWGN4JyDAEvCCSLm9fXFa8YO3I1j
+	 IEUGelLtoIcqdmVt5XMkMY+qWrxP+xt+QR8Ez5I3Unk3FYBCWZNiEaP2Ul6eI7EtVX
+	 boGc/VxU6fOvh4VTJ3kMyrBFktC1OmwKyMhVu5iXK5JqpCo/nNIXbqYkO4uEW/Cacr
+	 3kDyx/ZB0e4gD6WlcKK3mmzmWoMB3VedIKGX7OCznQL8kMlssvJFRnRH8l43cEBW8r
+	 J8Pp2U7c1fD6w==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-396771119c4so49247801fa.0
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 15:46:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8S0mPMZY/Pp6msm6nRW820mB+TWpGz0FlAVGvW9fn0cI2zDxIJzBsW+tiL21RROr5QPopcwdybflT9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWp1kLHuwkoR4m9tomGVMUKHUrXZhmqPM2aEsxC0but0s0KD76
+	lHcy9OT7J36dRxfLDrwd8JDkTRdeNSOhc+pgpEqyWjWeB1/VzAl6Eg1kyY9joYYJymBnmCcr2pY
+	KPtESmeCICpl7rEnbHSgGu9HY6SqHb/c=
+X-Received: by 2002:a05:6512:15a4:b0:5aa:6eca:f382 with SMTP id
+ 2adb3069b0e04-5aa87b76dc4mr5708333e87.11.1780958787136; Mon, 08 Jun 2026
+ 15:46:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com> <20260602-pdm_clk_gp_mnd_v1-v1-3-1522662b6c53@oss.qualcomm.com>
-In-Reply-To: <20260602-pdm_clk_gp_mnd_v1-v1-3-1522662b6c53@oss.qualcomm.com>
+References: <20260601152707.29039-1-l.scorcia@gmail.com>
+In-Reply-To: <20260601152707.29039-1-l.scorcia@gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 9 Jun 2026 00:43:42 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnqCipTxkOhiwQhKFymOxu1HOTbHzLbNrGTOkCO33y8Vg@mail.gmail.com>
-X-Gm-Features: AVVi8CdznhrC7lojiEVCZUJLtYjgr49qwHSYBFLmYEj8dqSmxJu9YBHItYZ4E9Y
-Message-ID: <CAD++jLnqCipTxkOhiwQhKFymOxu1HOTbHzLbNrGTOkCO33y8Vg@mail.gmail.com>
-Subject: Re: [PATCH 3/5] pinctrl: qcom: Add gp_mn mux function for QCS8300,
- SA8775P and SC7280
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+Date: Tue, 9 Jun 2026 00:46:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkFGZ4YYwDrtWsirRF238+K5TiDBeczz-FOZtq-MBA3Kw@mail.gmail.com>
+X-Gm-Features: AVVi8Cdb81KyiQYHN3WaKg4cCLnATFx4zGUZo2-MGBsT-bnCL_TrgRbJJGbJYZo
+Message-ID: <CAD++jLkFGZ4YYwDrtWsirRF238+K5TiDBeczz-FOZtq-MBA3Kw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: pinctrl: mediatek: mt6795: document the
+ slew-rate property
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	netdev@vger.kernel.org
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@kernel.org>, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 2, 2026 at 5:22=E2=80=AFPM Taniya Das <taniya.das@oss.qualcomm.=
-com> wrote:
+On Mon, Jun 1, 2026 at 5:27=E2=80=AFPM Luca Leonardo Scorcia
+<l.scorcia@gmail.com> wrote:
 
-> Add the gp_mn pin mux function to the TLMM pin controllers for the
-> QCS8300, SA8775P and SC7280 SoCs. This function exposes the GP M/N
-> divider clock output on a dedicated GPIO pin, allowing the clock signal
-> to be routed externally.
+> The driver for MT6795 pinctrl already supports the slew-rate property.
+> Add its description to the documentation.
 >
-> - QCS8300: gpio32
-> - SA8775P: gpio35
-> - SC7280:  gpio60
->
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-This looks all right and no-one is saying anything about it, should
-I just apply this one patch to the pin control tree? It doesn't seem
-to have any dependencies.
+Patch applied!
 
 Yours,
 Linus Walleij
