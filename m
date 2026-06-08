@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1C73101D4
-	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 07:54:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAFF38F65B
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 07:56:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780905262; cv=none; b=uAAUR+cT7gEt9+y0jqjAzR9yGsZiVxaNbe/xFpzVAEzWbtsYb0GvkG/lNYlYh4ao2gJ4mfdub0gYASvJ6YvVG4v4E7yvlSw5BEwhviJTXdczGm8GaQOQe86TwwSbSX6RmhssWaIyXvK9IiZRDGozySmAMTkgnvbw4idfqqtFi+A=
+	t=1780905389; cv=none; b=u4ssxq47H2hLYWR8Yl45n0sTQNYAkhYoYjW3khfE1yw3Wo88WArGhk8yX/sB9HPI//gLlGJjXlis6DLjp5i0/8K/7B4GYbDTB7iCIzwxHzPVyWqPfODpmR5oY06G5KZ5Fac9NuSI14gxcRcOmsg4fxG3bMIqVVH7YA29ZqC7l+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780905262; c=relaxed/simple;
-	bh=1TBbE154d7n6vJz2xt2Zd43U+H5MBxTvz8QxmTXZeNo=;
+	s=arc-20240116; t=1780905389; c=relaxed/simple;
+	bh=8/rPOc4azRljcpyYpXd+eWHCx1/gqf3YNQDhu4ei+aA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KHtNcSekx2yB7jaSZtmC7IF/hFWFyWwmbTip8mQIv2H3yAhXlXHK6b6eo5guDFuHhJt3dNlHgzxWWInXP5viu8XuT6AI+9hD7PFBDZG9iScL5c2evFtLE9J2HAC/l7fV/A1NXO7I4UZEj95sOoKMTrL7ZDuJi2C1sUXfuoeEZ8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3w0AFvZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OSeDyqUvDbjl6KZe6tlTqGDcL4YStYo5CivkXidNc9ZThALAVp2keDytgsZh9iHFSm5eJtMrSWaQtKQcJJa8NP6pCv1wFNa/pEP4VVvdIx0P/Sm2lcke7O/GRds+tEThDWmcr8udKdY9tRLHHFLi/0zVC24Prgx3fA0ELvVzsSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivsxJxqp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3w0AFvZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5871F00893;
-	Mon,  8 Jun 2026 07:54:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivsxJxqp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039FC1F00893;
+	Mon,  8 Jun 2026 07:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780905261;
-	bh=SLoG+vZ6qQr+aKJX0NhBBf6Rn8OeKTA6fft+3Qish6o=;
+	s=k20260515; t=1780905388;
+	bh=qNIsPQn5ftvKbnZQx1h9uyWGIndDcbIvdN8MLSEUQU4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f3w0AFvZhqhUEOXsxl/7tZzGasNN3N0ScX//pWnlrjE2KH1TNwzkuzSdSm9+J1iW7
-	 vd+n4pf/rPZdle5PfrB5MXPlC+FEp8NGkgOFNvn8gAbmlKRf/gNedMtUg2L1b9DMpK
-	 Wjx9RMiFc6hZBiEUg/VEpnwTQYj1lu5cR7acU8KHo377dnJdLya6Ra3YzwQWa0l2G3
-	 g0yjBleLOtgpOHDtN4akeqfUTryKNOJIRzdqPwSYH+IkIChJ3MM9sbzSuSc1cWLzjC
-	 KWhThJkLcZSoGqoedXodw7AeW0v56MxaBpfGn7Q5rKvMcMPllN8Tfl1ZFkeNlKcECn
-	 WLKDekqdfgbkA==
+	b=ivsxJxqpLq29tV85k4jq2BQW741I4X/yfzkMsAHy1+7k+BhlOGFdlBXubpRQqtRPO
+	 SRtpvI8uxESNu8gw22QGDJSJuFqQcA+0wMAHMYeNrzbLG47XMia6Cf44RyEZZ0AWiW
+	 Qn5msFs7LhLNi2qkR4TSHD/G8fDWrDQcEV8q2Gi219rq2MmHFe+EnO2lF9lDnJaXH1
+	 aQmENVwIFflyHt6YTEcWq2wHd1ofST0r0Bac8gFDUe2TRdRwSF4I968jbiCENTw4hG
+	 M/J+X5lTrXhPVgqK9Erc4Qoan0KOTz2l5M54p4JcavGpen3tfYtD2sBykPrU8NodTD
+	 KWzJ0lWIuw7SA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 06/10] riscv: kexec_file: Use
+Subject: Re: [PATCH v16 04/10] arm64: kexec_file: Use
  crash_prepare_headers() helper to simplify code
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jinjie Ruan" <ruanjinjie@huawei.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260608073459.3119290-7-ruanjinjie@huawei.com>
-References: <20260608073459.3119290-7-ruanjinjie@huawei.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260608073459.3119290-5-ruanjinjie@huawei.com>
+References: <20260608073459.3119290-5-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 07:54:20 +0000
-Message-Id: <20260608075420.8C5871F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 07:56:27 +0000
+Message-Id: <20260608075628.039FC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,89 +48,80 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] A Time-of-Check to Time-of-Use (TOCTOU) race condition in kexec se=
-gment preparation can cause a heap buffer overflow if memory hotplug occurs.
+- [High] Lockless memblock iteration in `arch_get_system_nr_ranges()` and `=
+arch_crash_populate_cmem()` can lead to TOCTOU buffer overflow and Use-Afte=
+r-Free due to concurrent memory hotplug.
 --
 
-commit b23452d9853c692b4f51771e551dbfc49512243d
+commit 3445143d0dcc2150e57d4b72a58250e2bbaf7ea7
 Author: Jinjie Ruan <ruanjinjie@huawei.com>
 
-riscv: kexec_file: Use crash_prepare_headers() helper to simplify code
+arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
 
-This patch simplifies the kexec_file code for RISC-V by using the newly
-introduced crash_prepare_headers() helper. It replaces the architecture
-specific prepare_elf_headers() with arch_get_system_nr_ranges() and
-arch_crash_populate_cmem() to reduce code duplication.
+This commit replaces the existing prepare_elf_headers() with the newly
+introduced crash_prepare_headers() function. It implements the two required
+architecture functions, arch_get_system_nr_ranges() and
+arch_crash_populate_cmem(), to traverse and populate memory ranges.
 
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/m=
+> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/m=
 achine_kexec_file.c
-> index 3f7766057cac3..439cbc50dfa69 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> index e31fabed378a5..b019b31df48cb 100644
+> --- a/arch/arm64/kernel/machine_kexec_file.c
+> +++ b/arch/arm64/kernel/machine_kexec_file.c
 [ ... ]
-> @@ -55,41 +64,9 @@ static int prepare_elf64_ram_headers_callback(struct r=
-esource *res, void *arg)
->  	return 0;
->  }
-> =20
 > -static int prepare_elf_headers(void **addr, unsigned long *sz)
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+> +unsigned int arch_get_system_nr_ranges(void)
 >  {
 > -	struct crash_mem *cmem;
 > -	unsigned int nr_ranges;
 > -	int ret;
-> -
-> -	nr_ranges =3D 2; /* For exclusion of crashkernel region */
-> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> -
+> -	u64 i;
+> +	unsigned int nr_ranges =3D 2; /* for exclusion of crashkernel region */
+>  	phys_addr_t start, end;
+> +	u64 i;
+> =20
+> -	nr_ranges =3D 2; /* for exclusion of crashkernel region */
+>  	for_each_mem_range(i, &start, &end)
+>  		nr_ranges++;
+> =20
 > -	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
 > -	if (!cmem)
 > -		return -ENOMEM;
-> -
+> +	return nr_ranges;
+> +}
+> +
+> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+> +{
+> +	phys_addr_t start, end;
+> +	u64 i;
+> =20
 > -	cmem->max_nr_ranges =3D nr_ranges;
 > -	cmem->nr_ranges =3D 0;
-> -	ret =3D walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_call=
-back);
-> -	if (ret)
-> -		goto out;
-> -
-[ ... ]
-> +	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callb=
-ack);
->  }
+>  	for_each_mem_range(i, &start, &end) {
+>  		cmem->ranges[cmem->nr_ranges].start =3D start;
+>  		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
+>  		cmem->nr_ranges++;
+>  	}
 
 [Severity: High]
-This is a pre-existing issue, but can this code suffer from a Time-of-Check
-to Time-of-Use race condition during memory hotplug?
+This isn't a bug introduced by this patch, but could this lockless memblock
+iteration lead to a TOCTOU buffer overflow or use-after-free during
+concurrent memory hotplug?
 
-The crash_prepare_headers() helper in kernel/crash_core.c uses a lockless
-two-pass sequence:
+arch_get_system_nr_ranges() locklessly calculates the max_nr_ranges used to
+allocate cmem. If memory is hot-plugged between this calculation and the
+array population here in arch_crash_populate_cmem(), could the second loop
+encounter more regions than initially allocated?=20
 
-kernel/crash_core.c:crash_prepare_headers() {
-    ...
-    max_nr_ranges =3D arch_get_system_nr_ranges();
-    ...
-    cmem =3D alloc_cmem(max_nr_ranges);
-    ...
-    ret =3D arch_crash_populate_cmem(cmem);
-    ...
-}
+Because there is no bounds check against cmem->max_nr_ranges, could this
+result in an out-of-bounds write past the flexible cmem->ranges array?
 
-Since the kexec syscall does not hold mem_hotplug_lock or use
-get_online_mems(), could a concurrent memory hotplug event call add_memory()
-and insert a new resource into the system RAM resource tree between the two
-passes?
-
-If that happens, the second walk_system_ram_res() pass in
-arch_crash_populate_cmem() would encounter the newly inserted memory range.
-This would cause it to execute prepare_elf64_ram_headers_callback() more
-times than initially counted.
-
-Because prepare_elf64_ram_headers_callback() unconditionally writes to
-cmem->ranges[cmem->nr_ranges] without verifying that
-cmem->nr_ranges < cmem->max_nr_ranges, would this result in an out-of-bounds
-write that corrupts adjacent heap memory?
+Additionally, memory hotplug calls memblock_add_node(), which can invoke
+memblock_double_array(). This function reallocates memblock.memory.regions
+and frees the old array. If this reallocation occurs while
+for_each_mem_range() is iterating in either function, could the lockless
+iteration dereference a freed regions array?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608073459.3119=
-290-1-ruanjinjie@huawei.com?part=3D6
+290-1-ruanjinjie@huawei.com?part=3D4
