@@ -1,224 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C8B3CCFB2;
-	Mon,  8 Jun 2026 14:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEE43C81B8
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 14:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780929673; cv=none; b=SDYr/nKBe5Ke6jE2SI71spq/KI/PcPFEmtNHLGqd5PlG+dBsjWoJ6T3wtvmaSO4eD0R26XD0a3GA1s00qTFCECdGvMaDCwDZEMid9Ed98l/UqqBUBstzFWFvZSILvaSdgQNqkTVXfpe4z9gM++d+ayh16OucswjhjhiRQQh7Mgw=
+	t=1780929686; cv=none; b=dCF1Bv0Mp6xbMU/Zc61bFmPfKgrh8xnxe/GRRY6emHv/z/9S/qUPSxfpCXmzSgK5MtJ3WWASjtKokqjbOUwQSGuuOIHlZ9VMbE1eMDU1cMVkpbJC7OzTy/3qTYwDQ2vPOULmFzOYuWxN1X2h1WR+STxReyjRnBJJ5AVVzMqsg8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780929673; c=relaxed/simple;
-	bh=fE1b9m6X8tZfpvHfiMJ+gOS3cPimN0u2PkMXjJQx/Xk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=Fx0WJY9leRl4YeHz5mmYMXbFpsUJ5DD0CYqpN1IScSbcW/R5IAy+iZ0dIJwHQgk8xftqlWWGYaThg93RbW1fUbZxNCLeEtCGnnFpWJmLq7w6HNfHeXIYQ5TUH/tPd1vua46rjUGn2TAKYV9WSaHyy6wCwFdhzn2n6/Iyq1tGyrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYgNgmKS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780929686; c=relaxed/simple;
+	bh=+wicVs5ToWL4a54zQqI268Tg5wVEbVHmDLNWn0zdgz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cKSSgzgWkwJMxaWzD9YymrJaayCUZ9jSZTP7NEqpflyE03ZNNoOqSLLQCpFtYkZpvpVoRqNbuwQcGOs27u7//6ndX0JwARpRT3pTqh6cM2XL2GmMgv2wEoNT47ognVDsEca433WrFQzeTEm2tVc7VdroQSHBi7RON61TQ/Z9zx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rOH9jsRz; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYgNgmKS"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BCD421F00893;
-	Mon,  8 Jun 2026 14:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780929672;
-	bh=L9ZUAyPA++9VU0oc6CUX2aYB7mPcCRmX32/6vz2s6h8=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=eYgNgmKSz8+8vUuSqQLqjGrIl5qnT7M50Z/l7zNFcZI6k+OTPILcDfXGjawgWrhHB
-	 DPTjMxWmNUGswh8HlOQkYtyl7NQobtkFASCTBzwVdl6BdxHJERevU6fsS12SS17T50
-	 /I9GXjvrHcJRc3rKD95RM34f36WJq5cj50yDXzt4HJhOx2NQl5DO0YiA4ccBhNzE3M
-	 5ZcTuULoOuKVYVNYdaaXKo+IAZYqBUZLRA2MF3U76/VUMl7ue22RAEFaMTUk+grOKo
-	 XuMS4MZA9OkL3AVLDuKPZFSTPTtu0r15VKgPdI73Yx2n8CiaTbOoKssberufKbUKSV
-	 U+yhd0NpMJdGw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rOH9jsRz"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-45e9f4a3510so2033957f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 07:41:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780929684; x=1781534484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=S9bZC8rw7YmoIyog8z2SdVy+ERoBgDn2wG881TA87OA=;
+        b=rOH9jsRzxyke3hngZoB0T4JkXKiSVwvYKXu8tNUE9zl3KBj/d5DrJnrhldbJYNpGb4
+         fMYU5srkgyjMUHLsqRPrXvOctPZrS+7ZufLGG99HsOQMRnk5n7YUQlfZ1lRQKgiolYvh
+         gqTTyEd9DqKxBtaM8miQMqBUbPYz+7LKnKhSI6EeO/9bmwAuWLOTSCyV9D0+G8Rmd0x/
+         GYPtKA0iHM4zefXrNiUvor5ZGugVHPnW3XHcEYlyJKg7ZRT0VIdN7r2k0G/dvjN4megS
+         2ODN8WBuNQyb1SdY3mBbD6HQ7CBPAwrADSrpoL6p8quEaDsIWQDG1ZT5QjZ+4hUHFY61
+         IkEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780929684; x=1781534484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S9bZC8rw7YmoIyog8z2SdVy+ERoBgDn2wG881TA87OA=;
+        b=fwRRDZEkaXH+thvm+QANKa14FqpQ9ATCLZQhC21x9EePFW3MtbKLyTBfOz9x2k2kDc
+         Jvlcw4x8q0zyxpjMDX32a86JtJSP/v9wF6Ek4JETp5lUMMcXNjrLhmmkkNbT2w4HiwpY
+         qbVIhqcAgiEUvQqOFCS5IASY7wH2NMjVVHRtfU70mSBjkvxmtpIZkkb//JgAMx9Ih6SK
+         FwwqxJcm3CD8HKrrlFqRYMiqGjJYXu4KaS96OF9/Fm91CHpbQQkDJVoJrg6CCL8MJU5+
+         KH3nYmpARDxreSjJeE/lvtu944XRTYHEW1pse8jaKgYdLHUtJvaaRFBOnDkxXDomjh19
+         ZZyw==
+X-Forwarded-Encrypted: i=1; AFNElJ9P5cwhfCIl/h0ExA2SXOUxivIYFvDj5pg1XLPQ/Oaq+ogls0cdbI3zTZca57X6H+V8P9l1riULSAVK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxnzq1duiTsUyzTrs7q9UB3wkvWtIki595hpF/hxYgie0jad0oF
+	PiZy/QLyE7u/NPIFYkJCeZls88R1Aves3tC0VUQTvWDQkW7fwzkCLamG
+X-Gm-Gg: Acq92OGu7t/sg4LRQP3Zf6CLIKJpQdK35nPvoMJ0SaA5Eq8ResWYgnn2dZVbAoVgAbe
+	wbVROFlv0YGv4GIh8JpBlqKc83M6/XoIOG/dOYcQarEDLoZfYRHh6CPWi22vwNC477rUW0mXs+d
+	dlXOru1i4mzIkbRQSY5UdedserFqhJWlQ4VNm20gSF24o7nHcW+K1GCm2tkxU+J49HFHNhfp/mD
+	AxW7ast8eI22GfGr5G3zfNZvTD26Ugd/jd3DeQp46YVRuWamwwVC7XqjxzXcoIW9jZ7xgNcicwk
+	rIFhBCh0oOuS72ANPchTR48HHRpicNIa8Tb+LoO+Swj5jvNbwPVj9l2GkHun5huFFDqRoyqpdgc
+	Jn44Wpweg85oR+nqHEWV1vLgU6H4BAmAnNYVWKPOus2kGmvYsjKV8xmWcEkY+nuQN5mnh2LEOkI
+	kTcCB1nr3qdzEoQYUeZYlo5ZAPuG2dBIvz1AG7GNjXrF7MJH3iy6yh6Q/kYfzv8rCKaxrail1pP
+	SPAVusoyHnrp+16iWX96xDz/2LALJ+YeOORzNw3oY5zUrCwhbHoyVbH6oM=
+X-Received: by 2002:a5d:480a:0:b0:45e:f5b6:7bf9 with SMTP id ffacd0b85a97d-46030627a04mr16756707f8f.31.1780929683675;
+        Mon, 08 Jun 2026 07:41:23 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcad5sm58222519f8f.5.2026.06.08.07.41.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 07:41:23 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v5 00/14] arm64: dts: imx8mp-var-som-symphony: align DTS with hardware revision
+Date: Mon,  8 Jun 2026 16:41:01 +0200
+Message-ID: <cover.1780929317.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 08 Jun 2026 16:41:08 +0200
-Message-Id: <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
-Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
- accessor
-Cc: "linusw@kernel.org" <linusw@kernel.org>, "robh@kernel.org"
- <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, "afaerber@suse.com"
- <afaerber@suse.com>, "wbg@kernel.org" <wbg@kernel.org>,
- "mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
- "lars@metafoo.de" <lars@metafoo.de>, "Michael.Hennerich@analog.com"
- <Michael.Hennerich@analog.com>, "jic23@kernel.org" <jic23@kernel.org>,
- "nuno.sa@analog.com" <nuno.sa@analog.com>, "andy@kernel.org"
- <andy@kernel.org>, "dlechner@baylibre.com" <dlechner@baylibre.com>,
- =?utf-8?b?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-realtek-soc@lists.infradead.org"
- <linux-realtek-soc@lists.infradead.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, =?utf-8?b?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?=
- <cy.huang@realtek.com>, =?utf-8?b?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?=
- <stanley_chang@realtek.com>, =?utf-8?b?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?=
- <james.tai@realtek.com>, =?utf-8?b?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?=
- <eleanor.lin@realtek.com>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Bartosz Golaszewski" <brgl@kernel.org>, "Andy Shevchenko"
- <andriy.shevchenko@intel.com>
-X-Mailer: aerc 0.20.0
-References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
- <20260512033317.1602537-3-eleanor.lin@realtek.com>
- <agMM9soiqpG-TRSb@ashevche-desk.local>
- <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
- <ah92oEavMu4QRn8y@ashevche-desk.local>
- <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
-In-Reply-To: <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+This series updates the i.MX8MP VAR-SOM and Symphony device trees to
+better align them with the current hardware configuration.
 
-Hi,
+It adds the missing board peripherals and completes the related pinctrl,
+GPIO and bus configuration.
 
-On Mon Jun 8, 2026 at 4:10 PM CEST, Bartosz Golaszewski wrote:
-> On Wed, 3 Jun 2026 02:34:40 +0200, Andy Shevchenko
-> <andriy.shevchenko@intel.com> said:
->> On Mon, May 25, 2026 at 12:04:09PM +0000, Yu-Chun Lin [=E6=9E=97=E7=A5=
-=90=E5=90=9B] wrote:
->>> > On Tue, May 12, 2026 at 11:33:12AM +0800, Yu-Chun Lin wrote:
->>> > > Expose an accessor function to retrieve the gpio_chip pointer from =
-a
->>> > > gpio_regmap instance.
->>> > >
->>> > > This is needed by drivers that use gpio_regmap but also manage thei=
-r
->>> > > own irq_chip, where gpiochip_enable_irq()/gpiochip_disable_irq() mu=
-st
->>> > > be called with the gpio_chip pointer.
->>> > >
->>> > > Add gpio_regmap_get_gpiochip() to allow drivers with complex custom
->>> > > IRQ implementations.
->>> >
->>> > Hmm... Can't we rather add
->>> > gpio_regmap_enable_irq()/gpio_regmap_disable_irq()
->>> > that take regmap or GPIO regmap (whatever suits better for the purpos=
-e) and
->>> > do the magic inside GPIO regmap library code?
->>
->>> Thanks for the review! I apologize for the misleading commit message.
->>> The real reason I need the struct gpio_chip pointer is to properly set =
-up a custom
->>> IRQ domain. Our SoC GPIO controller is quite complex. It routes differe=
-nt trigger
->>> types to multiple parent IRQs, which doesn't fit the generic regmap_irq=
- framework.
->>> Therefore, we have to create our own irq_domain and pass it to
->>> gpio_regmap_config.irq_domain.
->>>
->>> The core problem occurs inside our custom irq_domain_ops.map() callback=
-:
->>>
->>> static int rtd1625_gpio_irq_map(struct irq_domain *domain, unsigned int=
- irq,
->>>                                 irq_hw_number_t hwirq)
->>> {
->>> 	struct rtd1625_gpio *data =3D domain->host_data;
->>> 	struct gpio_chip *gc =3D data->gpio_chip;
->>>
->>> 	/*
->>> 	 * The second argument MUST be struct gpio_chip *.
->>> 	 * If we pass our custom data structure here, the kernel will panic la=
-ter
->>> 	 * in gpiochip_irq_reqres() when it calls irq_data_get_irq_chip_data()
->>> 	 * and strictly expects it to be a gpio_chip.
->>> 	 */
->>> 	irq_set_chip_data(irq, gc);
->>>
->>> 	irq_set_lockdep_class(irq, &rtd1625_gpio_irq_lock_class,
->>> 				&rtd1625_gpio_irq_request_class);
->>>
->>> 	irq_set_chip_and_handler(irq, &rtd1625_iso_gpio_irq_chip, handle_bad_i=
-rq);
->>> 	irq_set_noprobe(irq);
->>>
->>> 	return 0;
->>> }
->>>
->>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrieve=
- the
->>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requiremen=
-ts in our
->>> map() function.
+v4->v5:
+ - Add the SION (Software Input On) bit for the I2C recovery pins
+ - Remove regulator-always-on and duplicated vddio node
 
-Why is gpiochip_irq_reqres() called in the first place? Isn't that
-only called if the irq handling is set up via gc->irq.chip and not
-via gpiochip_irqchip_add_domain() like in gpio-regmap?
+v3->v4:
+ - Fixed USB irq edge type
+ - Add HDMI HPD support
+ - Add pcie reset-gpios instead of deprecated one
+ - Fixed eth regulator
 
->> This is all good and needs to be depicted in the cover-letter and/or com=
-mit message.
->>
->>> Before I send a v4, I see 3 possible paths:
->>>
->>> Option 1: Keep the accessor (Current v3 approach)
->>> We keep gpio_regmap_get_gpiochip() but I will completely rewrite the co=
-mmit message
->>> to explain the custom irq_domain_ops.map and lockdep requirements.
->>>
->>> Option 2: Let gpiolib create the irq_domain via gpio_regmap_config
->>> Instead of creating the irq_domain in our driver, we add all necessary =
-IRQ fields
->>> (irq_chip, irq_handler, irq_parents, etc.) into struct gpio_regmap_conf=
-ig. Then
->>> gpio-regmap.c populates the gpio_irq_chip structure before calling
->>> gpiochip_add_data(). This prevents an early return and allows the core =
-gpiolib
->>> (gpiochip_add_irqchip()) to automatically create the irq_domain for us.
->>> Drawback: This adds a lot of fields to gpio_regmap_config and might vio=
-late the
->>> original design philosophy of gpio-regmap.c (commit ebe363197e52), whic=
-h explicitly
->>> states that it does not implement its own IRQ chip and delegates it to =
-the parent
->>> driver.
->>>
->>> Option 3: Drop gpio-regmap entirely (Revert to v2 approach)
->>> Currently, all drivers using gpio-regmap (mostly simple CPLDs and exter=
-nal I/O cards)
->>> use regmap-irq to get their domain. Since our SoC has a complex IRQ rou=
-ting scheme
->>> with multiple parents, maybe gpio-regmap is simply not the right tool f=
-or this
->>> hardware, and we should just implement a standard GPIO driver directly =
-using gpiolib.
->>>
->>> Which approach would you prefer upstream?
->>
->> This question to Bart, Linus, and poissibly gpio-regmap stakeholders. I'=
-m not sure
->> that my personal opinion will be the best fit here.
->>
->
-> My preference would be for #2 but I understand that this could risk getti=
-ng
-> stuck in endless bikeshedding so I'm fine with going #3 with potential fo=
-r
-> future refactoring if we have more similar users.
+v2->v3:
+ - Add FlexCAN2 controller support
+ - Add FEC controller and MaxLinear MXL86110 PHY support
+ - Describe PCIe PERST# reset GPIO
 
-Yeah, I'd like to keep that stuff out of gpio-regmap. But I'm on the
-same boat regarding the refactoring if we have more data and
-potential users.
+v1->v2:
+ - Add missing HDMI pinctrl configuration
+ - Enable LCDIF3 for the HDMI display pipeline
+ - Adjust PCIe controller configuration
+ - Update PTN5150 interrupt trigger type
 
--michael
+Stefano Radaelli (14):
+  arm64: dts: imx8mp-var-som-symphony: add input keys
+  arm64: dts: imx8mp-var-som-symphony: enable USB support
+  arm64: dts: imx8mp-var-som-symphony: add TPM support
+  arm64: dts: imx8mp-var-som-symphony: add external RTC
+  arm64: dts: imx8mp-var-som-symphony: enable header UARTs
+  arm64: dts: imx8mp-var-som-symphony: enable PCIe
+  arm64: dts: imx8mp-var-som-symphony: add HDMI support
+  arm64: dts: imx8mp-var-som-symphony: add capacitive touchscreen
+  arm64: dts: imx8mp-var-som-symphony: enable ECSPI2
+  arm64: dts: imx8mp-var-som-symphony: keep RGB_SEL low
+  arm64: dts: imx8mp-var-som-symphony: enable PWM1
+  arm64: dts: imx8mp-var-som-symphony: enable CAN
+  arm64: dts: imx8mp-var-som-symphony: add second Ethernet port
+  arm64: dts: freescale: imx8mp-var-som: add I2C1 bus recovery GPIOs
 
---ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188
-Content-Type: application/pgp-signature; name="signature.asc"
+ .../dts/freescale/imx8mp-var-som-symphony.dts | 389 +++++++++++++++++-
+ .../boot/dts/freescale/imx8mp-var-som.dtsi    |  12 +-
+ 2 files changed, 399 insertions(+), 2 deletions(-)
 
------BEGIN PGP SIGNATURE-----
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaibUhBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/hoHwF+L2/C0SzzRn4Jx1XywdW3IuoaQvOH/CyM
-tM+DiaJqPgiaiQHKQPw34Zd2pdQ6KAWfAX4i8MWoU3pRuIBrOY9/uz1/yXmfdz0h
-BO8TtdBsdvvFAiFlxOBrtRXZDI/pOWJBA7U=
-=N+gM
------END PGP SIGNATURE-----
+base-commit: b3c1d1631f097619f8091f0293e027c4301285d6
+-- 
+2.47.3
 
---ab88639452d187061230192ab1490bf4846f6d9975e50bf2597a3d568188--
