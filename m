@@ -1,197 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FE37E307;
-	Mon,  8 Jun 2026 13:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058C63806B8
+	for <devicetree@vger.kernel.org>; Mon,  8 Jun 2026 13:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780925825; cv=none; b=N78Q6UQzz/e7AO6rCZQQ0yg5+mcBJElHXcuasyHPUpQ3tr5UuqIdywjGgz1wqOt/IfclI/G4Jpm+wPTLydjS4qqT2/nCTQ9J0mAPBswt+iwmGp2Dh5tFUBIMqRvxYN33AwnDcBZ4SjgtlNJNO0gsXE5cpddMkXs+bfV9U+b+o/g=
+	t=1780925880; cv=none; b=msPCnqB/26BQDkq4bTO6d8sLTAjA7MP7TJCSf/b78Jp3oTUZuKwIF8Bd/NhkB2AArBapNbxqoY92U2kto3y24SDBON1NK3ZSDOIRZc2JyhxRlUIFQVM4UbWkmKuR410aLfed56o6EGnzYkjK92FdKgVPrKU+10LFD9BRX3uA808=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780925825; c=relaxed/simple;
-	bh=OwWZldgchKpfQIrkoEJ1NJdZJ6yuQ1u78a4A13vOJao=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jy0CfhmCqnutICWIvlIeet7vTwKtmoygQUp2I0OfYPHCx/2oFf9SGFDq0u6y3XoIzAMzS0GWD5tZzmj5/xAW4crOYhrqQ5fsK61QNerg8QgKmcvSICjMGgLfurhNNrIgGZEeJOilEAXmdt92cr2EjM/CAtu0Kq5dKe8qz6r/mUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkERIq1h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780925880; c=relaxed/simple;
+	bh=bGxBOEX5vtxnGJu0C1CO9jYwtrMiWuaWtlMe7HyJXGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kjFO65Zw25FB9DLujSLV+zvyz6+1nR0vicH6cA48qzo+Q/rWiazLaq963wKaKIxMNOEaF49DoasSK2Sr/zi0KGDB+GZnaecTJHaGrsUdCxwuiQWrAnCoE3q9tQcndOjEN1bjL/ubqQMfDNlhvYgrg3cT1b50OnCsoQP9Ic552mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyKTTGh+; arc=none smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkERIq1h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F7A1F00893;
-	Mon,  8 Jun 2026 13:37:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780925824;
-	bh=1Mows+I872SEh0a9XzmTyu1MHCk971rRiVDktwmEk+o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jkERIq1hy6TzNRQA41iskiHcvCnAcgDkFIJg+qm+MTxm7HPsxqzT715+dgA9g8Kex
-	 S2OL8zb0WiH21v/AoAkXTkfCj4q8BZ3azETvubnVh52Rb0Hvt+OFCLgDndzXyWwI83
-	 fXtcjllgWXLTI5mUgVL0F2UQMrXFmFUEzfJ2FgxruIvnas+6UQIJusO6NyXMiu4Oab
-	 IdTGno2Am/OwN0PmNQK7Ikg7zdJEeQZ2WeLPQD0jtz+mxbNqZPbU0D6eicYiX9pvkv
-	 n8wHqgXeq64Llj8R+OZPmYPJvsxbBB2wYM23cbjeLDlVxCS+dHe2iSCWrf/Khd9bfq
-	 pX+Umsk2+2GSQ==
-Message-ID: <93ea251e-3908-4b8b-a2af-7c6f44210277@kernel.org>
-Date: Mon, 8 Jun 2026 14:36:59 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyKTTGh+"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1363e78746eso4593494c88.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 06:37:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780925878; x=1781530678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZwULGS4h8PnN6MHIOVwi83xoDC88zB8a4vjNWuQ1Pus=;
+        b=eyKTTGh+N3J9QFmqiaXWFifUY9vAzMf5mh6lI/YpLaCYY5NDCmGWLkcL5mebOt1Syl
+         XfMUwh6qAYGAW13R7pOqddXUk4mVYZJfB1jHC/3H881rGNgiK6woLPDvZ471iswhAtD0
+         Picyy3FBYn6nKNsMX0pgjwM0PRiLe4mH53wda45FJFv0EmYjNLNQO6X8jHNM/vbvhx2l
+         JIrpLNyEbMURMJH27cCpPpqk1N8fc+WzQqGukA163WSvEHZ1a+iHD4+S4ImKr2LY4Frx
+         7G/2Ku7JDJrRhJkdtnCyxhesrViRSHHz/l7Ii1UBIcWb9W1IHupjKUhNW0+W+RwPNgjI
+         BCKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780925878; x=1781530678;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZwULGS4h8PnN6MHIOVwi83xoDC88zB8a4vjNWuQ1Pus=;
+        b=QC0vg0FVxKZBnSM7zBq725rHf4C8SGZJCLyfiPhDxB80QTUBSVE8zMxX2aOz6qWpZA
+         yFHDe9WQc+K48QTMjzPtFG+NA+0XtxvK6UlZvghUR2QsSR5aD6nqrQCScdnU/uRaDSAd
+         mi81NucjtMFaxz+d0Uz5z0UF95GhasqxR+kx5x6bV9Ig/tiC2xg624tE4QUUkGicjatQ
+         WYIUPN/wX6mNkhgHHKX7EAfhb/pYqbVZhzL4c3wto9qg81cE/6bp+dA+baeClA7xbSK/
+         QVGZxxkz2xpe4/icsgngUlF0JRLDrH7Rd2fxYE7wgD7KWj3WNAO/QFYLZH9mYgIj2Dho
+         6R9w==
+X-Forwarded-Encrypted: i=1; AFNElJ/8t91PUdZnGrCW48S/foa+RUpi6LBfrQSBH5O8FriP9odm3bkNrrQyejwcyRNllIbtTAGJjmU24s7O@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxit5CFqpqQ9yRneqfch2NTASynj13iwbLgfYp/SPuAP19rM2Bw
+	ys+PgQbhpYOwiJgzCoK8c5HmAkOv7gST3ckBeIDaXv9xzuNHFXGNQUyT
+X-Gm-Gg: Acq92OGZN7FC8iDb7yhsYAd/6Oap/ugUPSHPDUB8amgG3kqckO1/OqspuEu5HiEEI0Z
+	Mtxmlnk7toHniVA40+kUmdwb0TuLmLihNP025ua7D9sOKEnu9mmPJJBicaSY1lWIOzepUaQM43G
+	e55QADvKLqUndTuqWPwuptH83ces83hsbmwznvsr7lR6nPhuyGYstipTw8Rnxzgu+pC4K0kDj5+
+	leA3L7LShOJAs6ZrjWWiksrPY9iovTL4aQhfAGICs8dhYQMRB4V2l4O0PKe3KHa/syUEqaxu0oM
+	LF8BlJYSEylrMIEQb/OkEhAUUD1CUwe98kfRUbEJXwbempSl1fzSRPEMmvrs2lubL9gVU1SaGy4
+	s2fxQsDgVN7m1HpLJH+SG25Dt0R3+ZlXxhxFgT9otNWxi3prAQMbZFvi0bt9Nru2X7uGB+Zk+od
+	hyx5fcG5S5Leo8yQXPTAmKGH/ItdY4/Q3gaHtgT8RgZ3wnhVMqVi7TRGiuvIpF
+X-Received: by 2002:a05:7022:fd0c:b0:138:3d7:e8b1 with SMTP id a92af1059eb24-13806699169mr6430796c88.10.1780925877674;
+        Mon, 08 Jun 2026 06:37:57 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5539432sm14333495c88.9.2026.06.08.06.37.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 06:37:57 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: sashiko-bot@kernel.org
+Cc: conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dmitry.torokhov@gmail.com,
+	jerrysteve1101@gmail.com,
+	linux-input@vger.kernel.org,
+	robh@kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH 8/8] Input: cap11xx - add support for CAP1114
+Date: Mon,  8 Jun 2026 21:37:49 +0800
+Message-ID: <20260608133749.555523-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260606152056.B77161F00893@smtp.kernel.org>
+References: <20260606152056.B77161F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Val Packett <val@packett.cool>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>,
- Vikash Garodia <quic_vgarodia@quicinc.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Xilin Wu <sophon@radxa.com>
-References: <20260601041336.9497-1-daniel@quora.org>
- <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org>
- <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
- <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
- <ydASAzExxz3rYv8fMvSS3T_ZmHeAz3JkBnY1zFwVOnd_tzEJGofbgr-6v1RnZWmvo-g1e4LfjPfLvZJ3fdYdtQ==@protonmail.internalid>
- <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
- jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
- piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
- YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
- B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
- lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
- 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
- MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
- 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
- JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
- bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
- OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
- BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
- VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
- jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
- mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
- 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
- 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
- 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
- kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
- nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
- g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
- dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
- NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
- VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
- Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
- vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
- 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
- ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
- MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
- VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
- NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
- AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
- JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
- 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
- OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
- xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
- t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
- X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
- LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
- 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
- Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08/06/2026 04:48, Val Packett wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+> s) to consider:
+> - [High] Buffer overflow when reading the 'microchip,calib-sensitivity' dev=
+> ice tree property for devices with >8 channels.
+> - [High] Failure to mask `STATUS1` before ORing `STATUS2` can cause phantom=
+>  key presses for channels 7 and 8.
+> - [Low] Bitmask calculation for 'microchip,signal-guard' truncates settings=
+>  for channels 8 and above.
+> --
 > 
-> On 6/4/26 3:38 AM, Vikash Garodia wrote:
->>
->>
->> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
->>> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
->>>>
->>>> On 01/06/2026 05:13, Daniel J Blueman wrote:
->>>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
->>>>> triggers unhandled SMMU page faults
->>>>
->>>> How do we know that is a correct address - does it come from qcom
->>>> documentation or trial and error ?
->>>
->>> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
->>> source for the different stream-ID <600MB behaviour, and share
->>> specifics, eg if silicon, firmware, or driver and constraint, defect
->>> or otherwise, so I can include a definitive description.
->>>
->>> Also good to know if my workaround is good for long-term, or on the
->>> other hand handling streams <600MB is important/useful.
->>>
->>
->> Thanks Daniel for raising this patch. Did you also try the memory fix
->> i mentioned in the bug [1] discussion ?
->>
->> Coming to 600MB, this have been the VPU hardware restriction all the
->> while since venus days, and since address could not go deeper all the
->> way lower than 600MB, the issue never popped up earlier.
->>
->> Consider the memory layout split as below (Iris device range is capped
->> to 0xe0000000)
->>
->> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
->>
->> 0-600MB range, VPU hardware would reserve this to generate different
->> stream-IDs primarily for internal (non-pixel) buffers.
->>
->> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
->> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
->> non-pixel buffers.
->>
->> When many concurrent sessions were tried, non-pixel buffers were
->> mapped into 0-600MB range, and VPU generated secure ID for those.
->> Since those were not associated with the iommus configured for iris
->> node, it led to USF (un-identified stream fault) and device would crash.
+> commit 8885b1d0f98cb8d5ca53ba5fd9a458743481d5be
+> Author: Jun Yan <jerrysteve1101@gmail.com>
 > 
-> Umm.. is anything *actually* preventing us from adding the "secure" SID
-> to the iommu node?
+> Input: cap11xx - add support for CAP1114
+> 
+> CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
+> and hardware reset support. The CAP1114 uses two separate control registers
+> for LED output management and requires two button status registers for touch
+> input state reporting.
+> 
+> > diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
+> p11xx.c
+> > index 408880cf65167..2aba3b508947d 100644
+> > --- a/drivers/input/keyboard/cap11xx.c
+> > +++ b/drivers/input/keyboard/cap11xx.c
+> 
+> [ ... ]
+> 
+> > @@ -311,6 +337,20 @@ static irqreturn_t cap11xx_thread_func(int irq_num, =
+> void *data)
+> >  	if (ret < 0)
+> >  		goto out;
+> > =20
+> > +	if (priv->model->num_channels > 8) {
+> > +		unsigned int status2;
+> > +
+> > +		ret =3D regmap_read(priv->regmap, priv->model->sensor_input_reg_base +=
+>  1, &status2);
+> > +		if (ret < 0)
+> > +			goto out;
+> > +
+> > +		/*
+> > +		 * CAP1114 STATUS1 register only contains data for the first 6 channel=
+> s.
+> > +		 * the remaining channels is stored in STATUS2.
+> > +		 */
+> > +		status |=3D FIELD_PREP(GENMASK(13, 6), status2);
+> 
+> [Severity: High]
+> If the hardware sets reserved bits 6 or 7 in the first status register to 1,
+> will they be preserved and incorrectly reported as touch events for channels
+> 7 and 8?
+> 
+> Since the status variable (which holds STATUS1) is not masked before this OR
+> operation, any reserved bits set in STATUS1 could overlap with the shifted
+> status2 values.
+> 
+> Should the status variable be masked to clear bits 6 and 7 before ORing in
+> status2?
+> 
 
-Yes.
+Thanks. Will mask bits 6/7 via status &= GENMASK(5, 0) after reading STATUS1 in v2.
 
-If the firmware has already provisioned SMMU entries for TZ SIDs then we 
-would be adding duplicates from Linux, if not then we are claiming TZ 
-SIDs which we can't actually access if we use them => those entries 
-would need to be given out to a TZ driver/application of some sort which 
-we don't have/support now/yet.
+> > +	}
+> > +
+> >  	for (i =3D 0; i < priv->idev->keycodemax; i++)
+> 
+> [ ... ]
+> 
+> > @@ -572,6 +625,14 @@ static const struct cap11xx_hw_model cap1106_model =
+> =3D {
+> >  	.has_repeat_en =3D true,
+> >  };
+> > =20
+> > +static const struct cap11xx_hw_model cap1114_model =3D {
+> > +	.product_id =3D 0x3a,
+> > +	.led_output_control_reg_base =3D CAP1114_REG_LED_OUTPUT_CONTROL1,
+> > +	.sensor_input_reg_base =3D CAP1114_REG_BUTTON_STATUS1,
+> > +	.num_channels =3D 14, .num_leds =3D 11, .num_sensor_thresholds =3D 8,
+> 
+> [Severity: High]
+> Does configuring num_channels to 14 cause a buffer overflow when parsing the
+> device tree?
+> 
+> In struct cap11xx_priv, calib_sensitivities is defined as a fixed 8-element
+> array:
+> 
+> struct cap11xx_priv {
+>         ...
+>         u32 calib_sensitivities[8];
+>         u32 keycodes[];
+> };
+> 
+> When cap11xx_init_keys() parses the microchip,calib-sensitivity property, it
+> requests num_channels elements:
+> 
+> of_property_read_u32_array(node, "microchip,calib-sensitivity",
+>                            priv->calib_sensitivities,
+>                            priv->model->num_channels)
+> 
+> If the device tree provides 14 elements, won't this write 56 bytes into the
+> 32-byte array, overflowing into the adjacent keycodes flexible array?
+> 
+> [Severity: Low]
+> Additionally, does setting num_channels to 14 cause truncation in the
+> microchip,signal-guard bitmask logic?
+> 
+> In cap11xx_init_keys(), priv->signal_guard_inputs_mask is typed as a u8, but
+> the initialization loop runs up to num_channels:
 
+I will exclude CAP1114 from using microchip,calib-sensitivity and microchip,
+signal-guard in the dt-bindings to resolve these two issues in V2.
 
-> I just saw a patch for sc8280xp that did just add an "extra" SID for iris:
 > 
-> https://github.com/strongtz/linux-radxa-qcom/commit/e92850f792498c3a72d72d667503a29bf6bb0a31
+> if (u32_val)
+>         priv->signal_guard_inputs_mask |=3D 0x01 << i;
 > 
-> and I'm wondering if that's about the same exact issue.. (Adding sophon@
-> to Cc: here)
+> For i >=3D 8, does the shifted bit exceed the 8-bit width and get silently
+> truncated to 0 during the assignment?
 > 
->> Keeping the region reserved, makes the non-pixel buffer always in the
->> non secure range (601-..) and avoids the crash.
->>
->> Downside of this design - It would eventually reserve 0-600MB un-map
->> 'able for all buffer types, like pixel as well which do not have any
->> such restriction.
->>
->> Forward looking design - create devices dynamically and set reserve
->> regions for those specific device using the api [1], instead of
->> applying one reserve for all.
->>
->> [1]
->> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/
+> > +	.has_grouped_sensors =3D true,
+> > +};
+> > +
 > 
-> 
-> 
-> ~val
-> 
-> 
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606150458.2506=
+> 06-1-jerrysteve1101@gmail.com?part=3D8
 
