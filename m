@@ -1,117 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B7B383C64
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:27:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F268D3B0AF1
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781000840; cv=none; b=Z+bqlq4wecCnHCXIbe+Epf0Q2PDOUMEZeCgiIgbwGmY0MsWJ+zvXTKm0+mjmpq+UXjlR23iQwbd1OFrdTuxnhOhDrew/XnCbHkeHWpex/gnIshZ1wJkD1KT2nJIXXZf7hKtNxHOiVsmcxmIv8XKNu/8iGRZXCgZ4e472cC5Wo5s=
+	t=1781000916; cv=none; b=d56qGCOtYUOk9OOZX+NgdOAVlhKCDY6b46ItqTMUZ01hLd+VuuBWRLa3MniHp0OGU6/7CIBF/wyXHreHytOZ9DIW2xP18oqZ8SZQeuveexb0Q86VgHo+f5IjcwexeVfMKXtjlqyx9UbmaibL9IIiRmVChaMWQqLTdvmW1jVY9zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781000840; c=relaxed/simple;
-	bh=kiEwFaOWJMlAZ7IuhsPuouAYsUGjGSBIKThuhRuQeQw=;
+	s=arc-20240116; t=1781000916; c=relaxed/simple;
+	bh=UrB8xKpd3JjwZZhKN0CFo35yeE/S0fJNZKwlaSDr/cs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V1hZBtlDqjk/yy+7qfTsNW4Tmwj81sx2fGCzwKE43d7OPfuLlDcdS9lQzxQmYLF6rDOwNgHMEPoOhN33qSp/4cNsOL7/VWP3sKkE3Tl/cu28txN/FeBfA+nZmZgWEvLj8sw6GdfMgUbxY43ej+3W5hSLMZ3YFun4NkvK3VvpXkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBUoXr/I; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YKraIN/nTL/Eq07/zjR8pmO5T7gEKBzUiv960oP0g/fRYgzSD53oV67SgJnd7AIgPFFj1NuVpRz50uHlX8oiTDAl0AfjKPrFOh9GbfhJ9L9tz0LmpOCT44cmp5inhMKIO522AoiQxEfoJ9YVUf0TuYQppE40ynXfoCO2NRjUhus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLz+mVDe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBUoXr/I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCAC21F00893;
-	Tue,  9 Jun 2026 10:27:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLz+mVDe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B2A1F00898;
+	Tue,  9 Jun 2026 10:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781000839;
-	bh=EHkotwFoAf6WdEvM7Qp1TmFtvbyFKU6OC2WHYAlkatc=;
+	s=k20260515; t=1781000915;
+	bh=0tNCgyZ5pw/vMy96H+SV+GF2mgF2QwLHhMD1BNeaKoY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BBUoXr/IdwusxDPpTALCLRhEx0OogrdU0la/Jmcv3yTCUzZ7JEWQA8esjI8RB/Szq
-	 647v/kUK73GlctK9gXOhMjOER7Gb8zH7gISVtSO3PVIEAdKZkNdiId1q3U5gXCJBxe
-	 CZA3wLH0AX7DwGLEEhPcQOc4IO+to/CEZCZ4+cHVz2Dprl4AaH9KRR+xQyyY5+fom0
-	 cbMwKQNoStEe/n++ynM6Y2dhIgxdz7VKCEBUqTfWKveUxg3AH3b7E+7dFpRrDxbIKZ
-	 DhhHuR4btYTDdggBa6yqb1dBKjj+hGvwsWdg0SCeJVhTTU9R3G8PGRYbT8NmyyjdoZ
-	 OVS8uAC/XLCmQ==
+	b=TLz+mVDeTJdPWF2HGUkEehUSwGgT0H85ufVb1QWGzwBt3oOHTKgcUwDAw15mW+cdK
+	 +ZLzZ4zlCOe212PR/Ws/sY0qf5QFfqU/vN84rA3DOho9pwXqSAILmmpz2Uu897Nb0w
+	 hGc8dpSkfJ/Xo3LvKdIjr5bt8ymCZXu/6A/928DkMpiL/hVwd1DYdM5O/rc8jpXYtX
+	 mIQNliXkIzv3wLIvzFGXCCZjwuKp7wI1Tfa2qi/rijemi1uuGyGhAL1zcWfeqSZjgB
+	 nv9038k1UG/sgldl3SbRJ/bjTUgEVMJJY5NOyYGMeLJu51kyXa43lk0IDF4DtRUUKO
+	 nGy1Ax2qcnfKQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/6] pinctrl: qcom: Register functions before
- enabling pinctrl
+Subject: Re: [PATCH v2 02/12] dt-bindings: iio: dac: ad5696: rework on power
+ supplies
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260609-mainline-send-v1-sending-v4-2-83768fbf404d@alex-min.fr>
-References: <20260609-mainline-send-v1-sending-v4-2-83768fbf404d@alex-min.fr>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260609-ad5686-new-features-v2-2-70b423f5c76d@analog.com>
+References: <20260609-ad5686-new-features-v2-2-70b423f5c76d@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:27:18 +0000
-Message-Id: <20260609102718.CCAC21F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 10:28:34 +0000
+Message-Id: <20260609102835.38B2A1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Global function pointer `pm_power_off` and `poweroff_pctrl` state =
-are left pointing to freed memory if probe fails.
+- [High] Adding `vdd-supply`, `vlogic-supply`, and unconditionally requirin=
+g `vref-supply` breaks backward compatibility for existing device trees.
+- [Medium] Making `vlogic-supply` unconditionally required forces device tr=
+ees to document a non-existent hardware connection for single-channel devic=
+es.
 --
 
-commit 4cee21ced39b9add5c750146fde36a08b79745d3
-Author: Alexandre MINETTE <contact@alex-min.fr>
+commit 8357cd3efa5f819678f24f0cbf0a39208f4078bc
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Subject: dt-bindings: iio: dac: ad5696: rework on power supplies
 
-pinctrl: qcom: Register functions before enabling pinctrl
-   =20
-This patch changes the initialization sequence in the Qualcomm pinctrl
-driver by registering the pinctrl device with devm_pinctrl_register_and_ini=
-t,
-adding the SoC pin functions, and only then enabling the device to prevent
-invalid function map table lookups.
+This commit reworks the power supply bindings for the ad5696 DAC series. It
+adds vdd-supply, vlogic-supply, and vref-supply, deprecates vcc-supply, and
+updates the required properties.
 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pi=
-nctrl-msm.c
-> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/=
+Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> index 2dcc049f30e91..e5fbaec4adf71 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+
 [ ... ]
-> @@ -1593,11 +1593,11 @@ int msm_pinctrl_probe(struct platform_device *pde=
-v,
->  	pctrl->desc.pins =3D pctrl->soc->pins;
->  	pctrl->desc.npins =3D pctrl->soc->npins;
-> =20
-> -	pctrl->pctrl =3D devm_pinctrl_register(&pdev->dev, &pctrl->desc, pctrl);
-[ ... ]
-> +	ret =3D devm_pinctrl_register_and_init(&pdev->dev, &pctrl->desc,
-> +					     pctrl, &pctrl->pctrl);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Couldn't register pinctrl driver\n");
+
+> @@ -55,8 +65,21 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> +  - vdd-supply
+> +  - vlogic-supply
 
 [Severity: High]
-This is a pre-existing issue, but since the failure paths are being
-restructured here, what happens to the pm_power_off global pointer if this
-registration (or the subsequent pinctrl_enable call) fails?
+Does adding vdd-supply and vlogic-supply to the global required list break
+backward compatibility for existing device trees? Older device trees that
+omitted these will now fail dtbs_check.
 
-Earlier in msm_pinctrl_probe(), a call to msm_pinctrl_setup_pm_reset()
-assigns the dynamically allocated pctrl to the global poweroff_pctrl pointer
-and sets the global pm_power_off to msm_ps_hold_poweroff.
-
-If probe fails here or later:
-
-msm_pinctrl_probe()
-    msm_pinctrl_setup_pm_reset(pctrl);=20
-    ...
-    ret =3D devm_pinctrl_register_and_init(...)
-    if (ret)
-        return dev_err_probe(...);
-
-The pctrl structure is managed by devres and will be freed upon probe
-failure, leaving the global poweroff_pctrl pointing to freed memory. If the
-system subsequently initiates a shutdown, msm_ps_hold_poweroff() will
-dereference the freed memory, leading to a use-after-free.
-
-Would it make sense to update msm_pinctrl_setup_pm_reset() to use
-devm_register_sys_off_handler() with SYS_OFF_MODE_POWER_OFF instead of
-directly assigning the pm_power_off global pointer?
+[Severity: Medium]
+Does making vlogic-supply unconditionally required force device trees to
+document a non-existent hardware connection? Single-channel devices in this
+family (such as adi,ad5693, adi,ad5693r, and adi,ad5311r) physically do not
+have a dedicated VLOGIC pin.
 
 > =20
->  	for (i =3D 0; i < soc_data->nfunctions; i++) {
->  		func =3D &soc_data->functions[i];
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            anyOf:
+> +              - const: adi,ad5693
+> +              - const: adi,ad5694
+> +              - const: adi,ad5696
+> +    then:
+> +      required:
+> +        - vref-supply
+
+[Severity: High]
+Does unconditionally requiring vref-supply break older device trees that
+correctly utilized the formerly valid vcc-supply?
+
+To preserve DT ABI compatibility, should the schema allow either vcc-supply=
+ or
+vref-supply to satisfy the reference voltage requirement?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-mainline-s=
-end-v1-sending-v4-0-83768fbf404d@alex-min.fr?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-ad5686-new=
+-features-v2-0-70b423f5c76d@analog.com?part=3D2
