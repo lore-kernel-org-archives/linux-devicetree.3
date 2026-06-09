@@ -1,86 +1,97 @@
-Received: from mail-106102.protonmail.ch (mail-106102.protonmail.ch [79.135.106.102])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E540403AE6
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 19:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8B34D90A1;
+	Tue,  9 Jun 2026 19:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781032558; cv=none; b=sXvr/R9DODrFDrgCeGt3v0ESuz/nk68AhB4jmoyS1GzxAg4AfMOxROybRH4ZAyF/l3IUKsMziZgO+Ri2Iacs4CurOO8GmZi6NitZI5d+f9//iML4Kp2XhMsZPt2Qmf5iiHhIVNBN7YbMSIjQlj7Fulc7u8Y+PY7SnwEAbxAJdTU=
+	t=1781032681; cv=none; b=SM3InJdcLULfQPnD7t4HdZQyZYg82KfW/Qx1bjVQ22ywtWwprFaWrsQphdFM77fn0bYtIOGUGr43hb8MQzSIFXdAc8WfOjn2JBBeoCqZFefnEr+c8W48A0FFM+RvkZOwh5iOTs0eFoO4VvyL0hsWcFy3Ip9yx3tX8KOzh/6C24c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781032558; c=relaxed/simple;
-	bh=GgKZnTuVOJ6xRAmOu/hDneQopQHt5m3ut48mdldgavo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D+AMZOk31L8QbqM1lU71hAbAVJYGP1GJxEf9AvFgAbxcmKKt5L/AFxJM0f3oD1MYE+n7qq87sp4IkfbNeEJUocsFhCtmxHg466mHQ0HM+nKrrQwrgaB75v9Rp0Pk2LfI4FmKXtxd4JiuflthiL333FzgXYSpDpD4Zlf1P1ZTdUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=jxZ8lbzX; arc=none smtp.client-ip=79.135.106.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1781032681; c=relaxed/simple;
+	bh=MTwsqfpI91yD0Y/+0nOvP+mQrtShptVr2NvwI5cxpnA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hIjWkZZh2OSQhCP7U6a5s5e6rz8LCsWzk5vxdPTuViRjOda6Y48XC+qJPw4IAwC2LSgy/poegFIr+wPkHzgAG1dWGttRfeaJvfRHh+ABdaiVeW8PenkcQENnopPYfWp0cDnIZSvreSPXxaGJErkPwdx03kS3isHxVKR7QRceFR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OCn7kXGn; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="jxZ8lbzX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1781032548; x=1781291748;
-	bh=dLyB8XawH2sgIIZ5MIGWnJ1sq7S1TgdTUSfQDubvnvY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jxZ8lbzXdWYig6RBNon62GlCSUWxQT8YgWPOGrQicRm1+BP4F6N1vmbOsYU2Mf6Jg
-	 aJHhD77bzauCDH34ogxqUaD8PHf+9PtL2fo6qgpBpwtuMhHfWA7kZMj4ozOSkoh/X/
-	 L3jmVZQ1JnSp3vUJFiP6sqSSmpvPjUsR04kvLBfPTGNp/e4oT0FQwcIObd5vouo9hN
-	 ZrWdB0hgOK+fwTNA3vRUqr9CsiUmc5zbP9ZwKxyK8Vt1m7tXr2sQnrfELoGXIVHWJe
-	 Ic68gU5gkwaRChhxc3HO2DwlcXXA/qE/mRDopRlf/ZjpwVvciYM983aQZAxDJI0uiH
-	 uLYUKLEuxvytg==
-Date: Tue, 09 Jun 2026 19:15:42 +0000
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH v2 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC driver
-Message-ID: <hacDZbv1Whk_g8AMSfJqKHrgXfyVKt2o3_UGK-1k9jNRJyMxEFPztGhytHvHbc1x9j-F84I_ZuprmXWf2Azbtdqj2vnVal4PO1gG_DijYyA=@protonmail.com>
-In-Reply-To: <aihbxowyAIlSeDjH@ashevche-desk.local>
-References: <20260609-mt6323-adc-v2-0-aa93a22309f9@protonmail.com> <20260609-mt6323-adc-v2-2-aa93a22309f9@protonmail.com> <aihbxowyAIlSeDjH@ashevche-desk.local>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 254bdc277eca4fcbf59a132a374d5de774ac7810
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OCn7kXGn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781032679; x=1812568679;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MTwsqfpI91yD0Y/+0nOvP+mQrtShptVr2NvwI5cxpnA=;
+  b=OCn7kXGnxujXwcPmUrC2R5vyMVOlqh7IiDCko1yC/fiS325+SL1mnE7H
+   sIDul9AqFTRnWZMb4bIE3Q5rsSAT5QJDB8L4OkDd/EH0mtC5pyC/trx9u
+   QnnDMrd+MiYbgtZ6GczD0zfzo784Jid5Cfw4aNwmOveA15z2QDHHXjj9G
+   HhsdziRc+iz4jg7lgTitzDypnHvkDs9AoqVJoXbYDfBvYzeN5/otpwVu0
+   F4BcnNEYvuWmh2QFfjJAFvKdUPwNAcTckRbwhGcbCFtJ83DcmUgSqUq76
+   OlmOZurFRv1/hDeLrFXyo7QXEnwKfw4lM/k7aFWUThFf9EhgsPKV4BmXD
+   w==;
+X-CSE-ConnectionGUID: KFGlZF46THeYcpnM5b64Ww==
+X-CSE-MsgGUID: HmFWX+HeTwK0jjqjv0Njrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="99227005"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="99227005"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 12:17:58 -0700
+X-CSE-ConnectionGUID: HucDC72aTtue2Pp5rbNfxg==
+X-CSE-MsgGUID: xJ6+Pb4NQQmRtoZsYTuqNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="276140448"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.162])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 12:17:54 -0700
+Date: Tue, 9 Jun 2026 22:17:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v4 10/14] mfd: lm3533: Set DMA mask
+Message-ID: <aihm315UtdqJclhh@ashevche-desk.local>
+References: <20260606045738.21050-1-clamor95@gmail.com>
+ <20260606045738.21050-11-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260606045738.21050-11-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Andy,
+On Sat, Jun 06, 2026 at 07:57:34AM +0300, Svyatoslav Ryhel wrote:
+> Missing coherent_dma_mask assigning triggers the following warning in
+> dmesg:
+> 
+> [    3.287872] platform lm3533-backlight.0: DMA mask not set
+> 
+> Since this warning might be elevated to an error in the future, set
+> coherent_dma_mask to zero because both the core and cells do not utilize
+> DMA.
 
-On Tuesday, June 9th, 2026 at 9:30 PM, Andy Shevchenko <andriy.shevchenko@i=
-ntel.com> wrote:
-> On Tue, Jun 09, 2026 at 04:31:59PM +0300, Roman Vivchar via B4 Relay wrot=
-e:
->
+Hmm... I am not sure about this. The entire kernel has only two drivers that
+do that, and thanks to their commit messages one of them pointed out to the
+commit from 2018. So, if no other devices suffer from this, I think it has to
+be a better way of achieving the same.
 
-...
+-- 
+With Best Regards,
+Andy Shevchenko
 
->
-> > +=09ret =3D regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19, val,
-> > +=09=09=09=09       !(val & AUXADC_ADC19_BUSY_MASK),
-> > +=09=09=09=09       10, 500);
->
-> It's better to split on logical boundaries:
->
-> =09ret =3D regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19,
-> =09=09=09=09       val, !(val & AUXADC_ADC19_BUSY_MASK),
-> =09=09=09=09       10, 500);
->
 
-Agreed.
-
-...
-
->
-> > +=09case IIO_CHAN_INFO_RAW:
-> > +=09=09scoped_guard(mutex, &auxadc->lock) {
->
-> I'm wondering why we haven't moved to guard()() here
-
-The compiler would complain about 'cannot jump from switch statement'
-due to default case.
-
-Best regards,
-Roman
