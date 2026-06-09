@@ -1,109 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC72C379C32
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621493F0749
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780995560; cv=none; b=Qt0doB8qW64PpVgZRae4vMY1OqdHEPl8qXj7XoUo07VWuBnHMs0hQ6kKKCExR/eF3tzrarPY6hb1iSMZGE7larYHrmUMOulZb7LyjHnbrxz+n3e1OVXyZmxKYkfMlTOSbYY+cV6QcC7jb6cwXHy32sRTMqCA39gfATHiojEVapA=
+	t=1780995583; cv=none; b=Gc3hXbM8d5XqKZIxeh7Dzb1ByUDGVzzM84l5y4Y/Cz2Ncqfp1Y+Xivo0RIiFlnjy5ooJ5rAJRPmjU+zEVEr1HdLhFpX5feh0h1znEnhTMQpz30dZtZ2hWlC+E+y1QnK3sf41k2+cWsclrMB1EXgGAgC9RwYby9f4CfGxgF7IsoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780995560; c=relaxed/simple;
-	bh=SXqOtp0Hke+1ltFED2/7PP4Aq9msWVeNKkXwHRYi7jk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=i8Vn0qTMVCFBmuPnD3bLpKikHENuEkT+81gMSq21OOVbut1xyLUUxpMfFOU3qxp9ddnxVKJfyoQFhOKDO8rcNycAa8zBVDdhR3Z8gbzeXelZl8mt9os+5ZQ7Q4LGaLnDVBoe0Z5nXuMkksh/4Ovny6wvv9Jz9BfXaZCse3FBVYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pm2GpMn8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780995583; c=relaxed/simple;
+	bh=f5S+i3RVl0cUqmWNDjtmc/b/yyrLqBrgrSpRPlEOqsM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uociqh44KNU6SNwEK6qYie73YjMmivtvyFatwm4jo0x9VcwN3R0B63kSz1GWv9ZS1LwTuM/BWLkWM75sp//L1eJJPYv19g6RiDXyENXi7PaZuwd++yplX3HwYJcFOTxZIoMVPaihfg5MenFAGfuaGShfMAFoHad3+T12RdheDH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FoU2a38l; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cq0BaCuP; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pm2GpMn8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181FC1F00893;
-	Tue,  9 Jun 2026 08:59:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780995559;
-	bh=XBo5uOK6bn1RDRE6I9gT5veCYc5jhJMzJC2fWp1NMLI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pm2GpMn8rPA1VpZW1Cq3p6MqnX6PQTCL7CgkgLVX+S+0hDyOteelhcr2Hz9qBiQFT
-	 2nOVrQVoOGNKANivjXEm8Vqhl6xeOwU+nRWLr3/dCVT0HEOHDrABeMjVSOS248Af0W
-	 g5wx4mAWR2yWWRtixnouHKV8TeTx9oLPazU6YuUwd+VX06JWke6VSZ1bKKEwfFKULh
-	 Ygkq0jEumPo4+v6ToAqRtDFuaxISiALnwTA8Z4acaf93AEhr1v9WUl5TVXY+tYRgQ0
-	 moJkhEdQ9D6eto75sGgv0NhV8sUINhn+N4Cqzy2vz93yLcuUPsod7J3RXxupu/YUEl
-	 51KnyCGTc4/xA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] ASoC: qcom: qdsp6: generalize GPR service domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ajay Kumar Nandam" <ajay.nandam@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609064038.492641-4-ajay.nandam@oss.qualcomm.com>
-References: <20260609064038.492641-4-ajay.nandam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 08:59:18 +0000
-Message-Id: <20260609085919.181FC1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FoU2a38l";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cq0BaCuP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780995581;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CPgszwVt4cFE4ELVefG0ZpctOAG18a7ufhv6a2Zqquk=;
+	b=FoU2a38lJcL+uRzIBCzKpXpDGFmXs3dYTyND3fT/HHsakKyRDulzVKDseFNOAZmw7fQ/sM
+	25tjuQkN6/ZJagigM/3ZqIWsPSVX9gq468b7evnSkv+RK8ywAgYNELjH0HtHWzsvgSd/QF
+	QmIdbyNMQ1wPHr5FgHb+CR1IJG8SHcI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-408-a4I4oVkGPkiwbE31WoBWBQ-1; Tue, 09 Jun 2026 04:59:36 -0400
+X-MC-Unique: a4I4oVkGPkiwbE31WoBWBQ-1
+X-Mimecast-MFC-AGG-ID: a4I4oVkGPkiwbE31WoBWBQ_1780995576
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-490b37e1ebfso25178355e9.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 01:59:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1780995575; x=1781600375; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CPgszwVt4cFE4ELVefG0ZpctOAG18a7ufhv6a2Zqquk=;
+        b=Cq0BaCuPiTvsTF+xmUMsCxNR55fBWyi+rCep3/zJp3Gv30I+Lpr9d8rPdPJ94gMmU0
+         AgBekT0UE0aHxZCQ8IR5hruzvwQ8KwRHgO05XM7dsYn/rnuPGydDgWr5wTqMYUb3Sbzw
+         kmyR4E6WZ3fYkpWwWoGV5wjLkfI01oTmWQLuIg5BMkIMQLsTEcgitMtVK+3rq18gthxG
+         XrRsrQ2AV1fp4AqTKM7MsuVsTJELRcSTYoR1WwLyoVH+bhD3c00vsi2SYuwasg+6WmM3
+         vpVzdPxUqLd+H0Zf0Yqp/gqJ/dqsdTeH2CQoGdTOoEss2rnQcf5ooaOiXfaA/Oo3eM4G
+         wrcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780995575; x=1781600375;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CPgszwVt4cFE4ELVefG0ZpctOAG18a7ufhv6a2Zqquk=;
+        b=cQvOQqdPWwfu4Ki9P3fp291ifChI7NqwWhlsR8o8PEVdyWJAX19ZAtn2MJtXHC/B2h
+         r2QMSpFwLnzDT+IU2LMQ7LArBk87RqxbqUQaKCgrQt2BkcCZjuqJDewxX1xlxzd/RapB
+         OK3zj7d6AQevHSHkcuyVupaoYbv+FhNwzLvTHR3sqArPdRyxKs9XcJEAJE6NySL5YtoN
+         Ab9hsP8WZPsO+koUKsPzqUswrA9eihILFQYSNRYQHpRMSeRjNtvpIZMi+jleqemG2R3r
+         LqASm7NODM/Aw18MPGpwKlQHD4hOGLm2IYdyYRzCSA9JPBoahMw64Vr7Z0AIhk9wMY0C
+         vNcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8JxoTwaT7vFLpagRJBTNCo6bpsSZjA1JrPVz/M7w80C0o31ynEdHkf9304HBvVM30JerIBqhlLhanU@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdqmhON63XHS5Zqc1fKMLH0mdN9B9a39o4f5o7SB5lGQVKStEF
+	/dp1Ip09k/aY15atgrvvahbcDdZzFai8MUaeBAZbRamk1ANsZKt0s0cueY6WmFjbV94NTlT00Mt
+	1LVx880CJl6BwOao158ynpQRn6YL3IgUHbcgXfGTLAsycYXj/04zbX/f2W+LZ2yY=
+X-Gm-Gg: Acq92OHvM3adqrNH3HaJ8zpW5YMBr2V8SazPm+oL4cYMfV6SM35wWnRkTEg3xu+0ybg
+	zGGH1y7F+1mUU0RM7b+je516aA/3gbg8mWCEExi3sR13h3dl0pC6AIDIMG0cw9gQOAH+nlPE6cw
+	QpDmcHWwztckov76zkyFSmRhr5PWTaiPAD0FG7747VB2QSMJINXkA9eE/i4R1hOC2DTmUwcUFgh
+	k7KK8FaEtbuhxF+tiGCaovkJSeZjoLmUYk/SskDpKz+oBJJm4uM6Xj8k6697+Xn6EuTMXYQdN3x
+	HaMIQ2ZzDUtjkxb4+hZcBBK/GwEx/W/F0BF3haSxuAEAhRlsJw8P7PNvp2uIIHb5i0St6Ct7Stq
+	rumRKz5Qrb4VGl6GK3C2SxyYx3u7M1Um8qFyNMDO9uD+/6XlS6eCrSjDXY/Ix7EvcfQ==
+X-Received: by 2002:a05:600c:4ec7:b0:490:b8ee:d6a5 with SMTP id 5b1f17b1804b1-490c2589927mr315117445e9.6.1780995575654;
+        Tue, 09 Jun 2026 01:59:35 -0700 (PDT)
+X-Received: by 2002:a05:600c:4ec7:b0:490:b8ee:d6a5 with SMTP id 5b1f17b1804b1-490c2589927mr315116965e9.6.1780995575267;
+        Tue, 09 Jun 2026 01:59:35 -0700 (PDT)
+Received: from [192.168.88.32] ([150.228.93.44])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3d6c65sm455288105e9.12.2026.06.09.01.59.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 01:59:34 -0700 (PDT)
+Message-ID: <4e2fb478-1d37-47b7-9bb9-3553d5ca2fee@redhat.com>
+Date: Tue, 9 Jun 2026 10:59:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] dt-bindings: net: dsa: Convert lan9303.txt to yaml
+ format
+To: Frank.Li@oss.nxp.com, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Frank Li <Frank.Li@nxp.com>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>
+Cc: imx@lists.linux.dev
+References: <20260603210929.3099363-1-Frank.Li@oss.nxp.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260603210929.3099363-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch adds a new `dest_domain` parameter to allocation helpers =
-but fails to update all caller sites, causing 'too few arguments to functio=
-n' compilation errors.
---
+On 6/3/26 11:09 PM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Convert lan9303.txt to yaml format to fix below CHECK_DTBS warnings:
+> arch/arm/boot/dts/nxp/imx/imx53-kp-hsc.dtb: /soc/bus@50000000/i2c@53fec000/switch@a: failed to match any schema with compatible: ['smsc,lan9303-i2c']
+> 
+> Additional changes:
+>   - rename switch-phy to switch in example.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-commit 7837af8c42df151e433f6c30da08674cc4716b78
-Author: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Does not apply to net-next cleanly anymore. Please rebase and resend.
+While at it, please additionally add the target tree in the subj prefix.
 
-ASoC: qcom: qdsp6: generalize GPR service domain
+Thanks,
 
-This commit updates the AudioReach allocation helpers to accept an
-explicit dest_domain parameter. It also updates various callers to pass
-the appropriate destination domain ID.
+Paolo
 
-> diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/aud=
-ioreach.h
-> index 62a2fd79bbcb9..d07fcd3a8fa73 100644
-> --- a/sound/soc/qcom/qdsp6/audioreach.h
-> +++ b/sound/soc/qcom/qdsp6/audioreach.h
-[ ... ]
-> -void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32=
-_t
-> -				    token);
-> +void *audioreach_alloc_apm_cmd_pkt(int pkt_size, u32 opcode, u32 token,
-> +				   u16 dest_domain);
->  void audioreach_set_default_channel_mapping(u8 *ch_map, int num_channels=
-);
-> -void *audioreach_alloc_cmd_pkt(int payload_size, uint32_t opcode,
-> -			       uint32_t token, uint32_t src_port,
-> -			       uint32_t dest_port);
-> -void *audioreach_alloc_apm_pkt(int pkt_size, uint32_t opcode, uint32_t t=
-oken,
-> -				uint32_t src_port);
-> -void *audioreach_alloc_pkt(int payload_size, uint32_t opcode,
-> -			   uint32_t token, uint32_t src_port,
-> -			   uint32_t dest_port);
-> +void *audioreach_alloc_cmd_pkt(int payload_size, u32 opcode, u32 token,
-> +			       u32 src_port, u32 dest_port, u16 dest_domain);
-
-[Severity: Low]
-Were some callers missed when updating these function signatures?
-
-The new dest_domain parameter is required, but it appears some existing
-callers in sound/soc/qcom/qdsp6/audioreach.c were not updated and are
-still using the old signatures.
-
-For example, in audioreach_shmem_register_event():
-
-    pkt =3D audioreach_alloc_cmd_pkt(payload_size,
-                                   APM_CMD_REGISTER_MODULE_EVENTS, 0,
-                                   graph->port->id, graph->shm_iid);
-
-And in audioreach_setup_push_pull():
-
-    pkt =3D audioreach_alloc_apm_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0);
-
-Does this cause compilation errors due to too few arguments being passed
-to these helpers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609064038.4926=
-41-1-ajay.nandam@oss.qualcomm.com?part=3D3
