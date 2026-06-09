@@ -1,355 +1,143 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E7F3F1ABF
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780996985; cv=pass; b=Agk6qmrhgDMQhbVvFCaX+hQ3xrow2jAW/coGaXtZr7QoAhV5EJ1sOwhx5vhmu/C0upaZhg0w78y/k09PraFc1UDm860INN80AXFLH9DIG0CRlzMKF5/eFv//9/qGB5BC7e8uqPhIinPkQzjH4TjAAZKr95G0EjBL/KCcDz60TnE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780996985; c=relaxed/simple;
-	bh=dsTfQXdWXveui6Dm6dnofvs2mvgUGCQBF9A4gl7pVtI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KvyK/ZcTmvX4ppt8csp43foc7ukUA2ij5VvApX9DOgPldKJY/gzDfiGq7j1TKp9ngew3/RqqSjL7N3MbhaqlpccfQxXQBLxIjsRcMESK2Uy0OwPNOY2+HlCiPFd8HV0PMJe6ihz/0LedxgXLpjnfr/hAGMf3b2UQGXiDCxjf93U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lqR9IIvD; arc=pass smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8F43F5BEF
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780997009; cv=none; b=c3jW31Y4Ztp5+3XqlrrzLdx/hUIwAYNqXoHLHPvxr7+zcwzHQfqfBYkDWswTqcyey+5EPfF4loVV+U3FE+AFbwRdzA3PDnta9+awmjpF3otyvXlQXK4hff4QX3BA3oEk2sqhzl1W6MF3u6MemhDPGzokRdcSV93c0I0Q5WifD50=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780997009; c=relaxed/simple;
+	bh=lseGHBh0I7O9gxHRu5mCUIVz3TgX9PhEUb+FikegtHc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OpohXOD+IG1/Xx83uKysFbIamDIf3Bqf5nqKdApkejaQ15/qU9UonwDhaZhXU7pmBQPf+qriqfLuNoba/vHEV03Fdx/YNLPODGZjsC+67oMkMPHHw6qDSejDGb+Bkg+UQ+2JjqiM2fGlJqbxmakUi9ceSAARGTKjVp/jQLBMv2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iUOmx3Mf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gfePEUc2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lqR9IIvD"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45ef189aa1cso3752064f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:23:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780996982; cv=none;
-        d=google.com; s=arc-20240605;
-        b=I6ky9SJRUGVIqZ7/uJk/JPyZ4QLoxahQs/kOSPWr0+sZ/UBaof8gAR46EuKjXzaiXM
-         F96HVQl7/AS+e/Z1S5ObKF2ZXzmbHiLkrrtYBc8XD3DYsNDtA5K0xRT0oIbG2R1Mb3k1
-         9MNp30ioSIh/r3OA2Ubvhc6dU1Q35VcbMMci5/m5OcxI6IAVHO7HYAE/lSXexN3WekUG
-         oAKp6HBu+nLql07w1C7y52ynEuY39MhMOVBVMyp8+oYQBgZ5H35uWNMomM1Zh6mtxda1
-         xKCep/qLsQuSnNRBgceuOxCr4UX1ks376TaQhWbQcCQfPrXBEj325+FhqNDGmqrN6elx
-         xCxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OIEEiASgL7Q2k4J2FB54QvTgD+CBIsfvndbp4S4JS6Y=;
-        fh=5uCxwMaMsYWIXsoF5pNBpW55uDMcS1VAAfeui9yVpKo=;
-        b=Y9vSLO34n8QvYayEcbYzGnp9UeNA5ltcCScJDx84sG/KZD4+DclxvegWPzGmgcGP3l
-         Ea1z2OeIb9eJboAAkg0JQ9f1LQRNGwrxW1yXVPp8ujCjS0gzAwqhh881rfLsf/Tc6SZo
-         bGnO+KflCT+1doHbIXbU/hIpsbbHrNGeQF71n9kujwqof5VtLgxTR9QELbsyGLsXYkxc
-         pHSpJCWkk5C+1i8M1wjTc3MN2UKoleJmikHHWYnI+32pCoH1Yq05m30uwjXLq34Re8by
-         VSSbfdZESG5Fqr0dN3Kvj1l080baIVWEXhoa9819/uunc+K8w/BPJA1HNsinFY409a3e
-         aItA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iUOmx3Mf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gfePEUc2"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599JqSs1784170
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 09:23:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UH8OziGrmCPRRzdpQprXp7LS0fI22I+yAftUFQCLcjA=; b=iUOmx3MfLy4v9y2B
+	PvG5FnMs6HfoAyu/J514AcOOSV7m9aM/9ooo5aLru6ZNYbufPyR0bKSCbcdPgsw1
+	DJ7Ek0SSy+E3WnWL0ucaQjf517FftxqY/TWcTGbbS1AduFZ62fHL01b1H17ZSKGi
+	pS5BZwIf6C0esQ5zPZOd9HKCSgDnKvtiaoRsnEIepYI3nYWnD2Zi3vwd7aS4lETb
+	V2XP65HDuTshRvoACeTM8vO/qMhEZDWQ8Pn8looGzx7WEJ+NyZZF+U2/lToFW5xP
+	LCAhUshkHXpF6tlSEDVym0PvyOPDzruFEjJAN47c7n4vciXYt9wOqowzG+5QcSF0
+	AUx6uQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epg3wg0e5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:23:27 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51757324dcdso10898921cf.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:23:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780996982; x=1781601782; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OIEEiASgL7Q2k4J2FB54QvTgD+CBIsfvndbp4S4JS6Y=;
-        b=lqR9IIvDLVq4SQqkwFkyfVhZXEFJrofjb3QPfGz7CQLSvAyUIOfh0YmrCFzwVG+mya
-         YtRRhcbV1Z+hGTd6OMuCjW4Ri+ow8x2DEchuIVGAy+y9SrJpc4tFLI6Coq/zEhgdx9s3
-         zrYm7+c1rh8MM9kgHuAZUDzPLqkNhHF+51gbZvDGxMD08Go+K3LmdFXsl1a5GrPZwgE8
-         bW9todlOEDBLzwHvWWKM4fVwVtGG5Y2CUTMSC+gvJWKgvZqVUhARYB1kDffZ1HSxL2Pz
-         QNUQuE9bbpVqawKR4DFyujDa/aLzf/ttQmCiskJp+RN1iqXdndjIJYV/vzOD5YYUwdMr
-         3M/g==
+        d=oss.qualcomm.com; s=google; t=1780997006; x=1781601806; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UH8OziGrmCPRRzdpQprXp7LS0fI22I+yAftUFQCLcjA=;
+        b=gfePEUc2vquc4xVHSpoh0gHOMsYq3Gn6oKmnZqtXVSPkV3pKh0w+y8plOfz0NAuyS4
+         g9oKclp35VIwDFduQJh3eYO1R1vybCjR8oxKXsU64vv12VMWeCArTGsAjCPz0Glh571D
+         vLlAIM5Nii1CYG2RTfQdNOd0GzRCVhgikBP/jh/K1p5Fh6oWs0mJeriRWAa9Kzep/doJ
+         sXZQ2ip/T9vmNkzU5zD+AWzFpJOroTL3AJD1Nod98SqtfFLjwrHpjW53PfSuwUxyZQ5R
+         UzvL9TzqVhTj4kbelirz6oStyp+yWbqN4UIfI2jIv4KlYquuH1lM/rbKUuzfENC2WOCw
+         VruQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780996982; x=1781601782;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=OIEEiASgL7Q2k4J2FB54QvTgD+CBIsfvndbp4S4JS6Y=;
-        b=KPG6xnv3XoW+BZBZjzswC28RQSXuHuc0QZ0P2N9+um9Qe6H2Wl+iCJM7qiZaiCBefx
-         XsgUJwW8mb/13UXCD3oFF2GrsXTfD/IE/GbJmRpJ6WiLF64l0vLFjhBtXhsZf+E9OhaT
-         Crf1GmweSzGeI0gFW2rVcgYa27C19v6azv6o84ikmc1o0F/0EoO78L9DRaHzYwbQRKPw
-         HuGMcMtR7/WjKljBhFPtS2Gfra0iYhhg5v0e8sL1QojoMicv2Pzf4I29L0XxT53ikBJa
-         aD1t0awSSTcf7hJd5EvX4BSln1mWc+Bt0HFSl4jncNTaXXCCnXVTTtuQaS3nMc5IaMQE
-         Rs8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/RvH7/vqAdttVrfoHZtEMcqKC60Gm/uO0X/DhH05vCqGonGyO5rq+aSQ1lfqCzYXtooLBdcllWibVz@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywsc1xW5eZXdAflWZ6l1wHH+RtZwIo/Zyb160SdHWl0zUlLFRW4
-	ZuICMqNSQo9WGCYLLRSbLSTeciJ27++jn1zKkO7FY57FAA09hqyKx/JZsa3+MXHK6D+bkBkF134
-	gU7TmXJMpgama5c3EzT4mNNvW+59LN1w=
-X-Gm-Gg: Acq92OHUmw3NRjS5LGBppOD+KOk2gJ4FWKDgdANIM+1UMKuNBtD6HVe+dQaPb3fRTbi
-	4A8rtrZl6EiUfswy8Uy6RM/Rwn0d0IP5RtOL5WA8ks6I8KEN4QIqAuoxvurPU+wmtmUWToLJyTz
-	EVHMPZJbdk3wub7gCf9DuVK12LSKixu2u8t1juhdJmlZSlMHXzmRHevsq+pFTMv3Xo6qV8MAA9Y
-	Z893xQC58k7VBjberGUjfx5yTtHTvrej8p1rgCtNzlvjjM8DSmLkNlUgI8EA4zxT5k9VZuKhaxj
-	fErHqnO6ElfWduHysVL8Xqi6/SEeYznw2HfddffznX2Tv/GTs9W0l6gC6JUZDk02TUyxBtnRnVO
-	Yf1o=
-X-Received: by 2002:a5d:504e:0:b0:45e:f302:95b with SMTP id
- ffacd0b85a97d-46030767c03mr21925116f8f.37.1780996981886; Tue, 09 Jun 2026
- 02:23:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780997006; x=1781601806;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UH8OziGrmCPRRzdpQprXp7LS0fI22I+yAftUFQCLcjA=;
+        b=Vnhnrzl4ll6xyZIYVvMNMPgeca/LWuUew6adNVZ9OsHNgDdtYUeEWTmHeyq30lt217
+         5TeTTU0x8JiM8f9dx9z+ie2/GXq3YfhO1oqfnBfzPz0gpsqaRRRwZ1X1BVuzLpIZfzKq
+         JYNAJuD/MscYd48/5VvpzPi7YyVDxGIbT65tnTDgUlEE1ru6CAw5Yk0zt27RXc3x2xrI
+         wUSFGIS1rXEO86z9Kgjarg3xJTB+P5cXH8RgHHkrb6KbXAsTN8p1Se7wHWyieXtn815j
+         PdHGKWk/l88xYKQrOYM53YRes17kfr0Xvapz/gYO7ZLwg+Y9onwVM822leRZ33CGOYxp
+         TL8A==
+X-Forwarded-Encrypted: i=1; AFNElJ9kUJNDrBelgWrFGrfB3/KjLLpibapmViE09JLL14V9cwEekgm6wAuzKp4i88pJIsRHdqZWpIDiQLSU@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNeONpwF6V7ZqkqeO/oJrkEyIjxUUhEiZt3bP/WOYJOYbqHrQ8
+	E18nT6YjTKmJ7ikWaNSYYBkoKrCtps1XzlcBGZJ+vOh0byvnc413Mzjx6mWfBTAWj/VbiSXvfxV
+	HS4J+nUlnHmPMtLrWutavHYESGsy1vJ5/XlLcl9kFKC9Pry03aZaxWhwM8pVT3TgH
+X-Gm-Gg: Acq92OFuAd3i0SrH3vqqgbGYvXVVpXL3/034SHN9WHnw0e16/v6LmoLQm61pP6YTciy
+	0406PiFysOIM4WdOdiUXieF5llgIN0Rf3MPjlPX2nouT+rb9GgUF+FHnkqoxtkw9QhX35NTcVNO
+	FrV62O8pT/XFCkUhzCFHijO7lAdseCyYAYRd28R63FTTOnWMRslnyzp8b+KL0sGJP8mVGQygWnz
+	vR1N4TKYyZ+Ihq6a1jn4PN76yPU9FVk8o/pXyhkOuAfywZetZlpugpMYVfAzmg+qHkWoFw/qT7f
+	imF4JzjCZ1nojs7xhEWFBeiYrRSKoe3SCFwAsIx/ORLgm61ynFK2Vz8HPQJJMaNamMX6G3BAnEs
+	uZvkLkqmrYCchTML9Z/gh7xaCxz4OICNqql5s7b7WCfxYgh8jJhhXd1Zl
+X-Received: by 2002:a05:622a:904:b0:50e:6311:7380 with SMTP id d75a77b69052e-51795c0d8bemr146701791cf.6.1780997006020;
+        Tue, 09 Jun 2026 02:23:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:904:b0:50e:6311:7380 with SMTP id d75a77b69052e-51795c0d8bemr146701521cf.6.1780997005512;
+        Tue, 09 Jun 2026 02:23:25 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf0517714c5sm1017739966b.2.2026.06.09.02.23.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 02:23:24 -0700 (PDT)
+Message-ID: <887d4258-3202-448b-afba-7ea864bb48ad@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 11:23:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260511191910.1945705-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdXh6YhDp7nEra3GbrR9hkhqqj15UXnv0DHeei=mj56XJQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdXh6YhDp7nEra3GbrR9hkhqqj15UXnv0DHeei=mj56XJQ@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 9 Jun 2026 10:22:35 +0100
-X-Gm-Features: AVVi8CeeObicykNnGA2iNO64dGKHVIYZcZfOf-WaYEjsA4Aa85keX4ByqxRaSc0
-Message-ID: <CA+V-a8ujd4CJmPkRoHfwrmC-gEA98xm3N9ANacKdHZM-6CX_tw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] clk: renesas: r9a09g077: Add LCDC and PLL3 clock
- support for RZ/T2H display pipeline
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/10] arm64: dts: qcom: sc8280xp-arcata: Enable
+ backlight
+To: jerome.debretagne@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Johan Hovold <johan@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260604-surface-sp9-5g-for-next-v3-0-6aa6f6612c10@gmail.com>
+ <20260604-surface-sp9-5g-for-next-v3-1-6aa6f6612c10@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260604-surface-sp9-5g-for-next-v3-1-6aa6f6612c10@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA4NyBTYWx0ZWRfXxzluo4ENFP6Q
+ f54Nq9lenaXgJvehOariCD1qUT9jlHHhLXRsB6YLbjDVBkPEscvP+5dqVJMp/Bt0PQV3rzO70ju
+ XlJIX1iSnFkW09KDJpCHKeY+RBVAGD7OWE+laPb+7fmbVYts7i3dkz3lRI+S5WhG3weZPSMpcJr
+ 11hgrbjEAbNKUGjJMF3zwQ1cSo7tJBURVOTBght+dG+znrcfSGflrbnfBgaXSNynCMYmdaGDYVE
+ iSjdJbkFGodbVmdUF7zrMyLDorTFxSO9fDYfC/0/45syaqmDi5jIPteRY46b2MV/Z1WbEJan/7d
+ bZ3NcK5oraeB2TckDA7VXtm/+8z73+TmcKVucu90zejdqujK88HbRWXjEgmhE9DL/PieGAANMPZ
+ P2gemGVW2ZtooBpUBPT/FFkE/K46HJnQbcFYp62uobXgbnvUtWZ0NYRlILDT93VdaXzgIRGHmJP
+ HThKE6sLVN3o5Tz47Iw==
+X-Authority-Analysis: v=2.4 cv=csWrVV4i c=1 sm=1 tr=0 ts=6a27db8f cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=0_OxBV2uU7IM-TJZnuwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: -1_jttnYKG3J5RbVmMQ1AirvnVll-fna
+X-Proofpoint-ORIG-GUID: -1_jttnYKG3J5RbVmMQ1AirvnVll-fna
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090087
 
-Hi Geert,
+On 6/4/26 6:18 PM, Jérôme de Bretagne via B4 Relay wrote:
+> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> 
+> Add backlight nodes and enable backlight so that it can be controlled
+> with the corresponding buttons found on Surface Pro Type Cover keyboards.
+> 
+> Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> ---
 
-Thank you for the review.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-On Fri, Jun 5, 2026 at 2:39=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Prabhakar,
->
-> On Mon, 11 May 2026 at 21:19, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Add the clock definitions and PLL logic required to supply the LCDC
-> > (VSPD/FCPVD/DU) blocks on the RZ/T2H (R9A09G077) SoC. The RZ/T2H displa=
-y
-> > subsystem depends on a dedicated PLL (PLL3) and a set of new derived
-> > clocks.
-> >
-> > Introduce a new PLL clock type and implement rate recalculation,
-> > programming and locking sequences for PLL3 using the RZ/T2H specific
-> > divider and VCO limits. Add the corresponding muxes and divider entries=
-,
-> > expose the LCDC core clock, and register the LCDC module clock using th=
-e
-> > correct PCLK parent.
-> >
-> > This enables the RZ/T2H clock driver to generate the display pipeline
-> > clocking tree needed by the DU and VSP-based composition engines, allow=
-ing
-> > upcoming display support to be integrated without duplicating CPG logic=
-.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Thanks for your patch!
->
-> > --- a/drivers/clk/renesas/Kconfig
-> > +++ b/drivers/clk/renesas/Kconfig
-> > @@ -218,10 +218,12 @@ config CLK_R9A09G057
-> >  config CLK_R9A09G077
-> >         bool "RZ/T2H clock support" if COMPILE_TEST
-> >         select CLK_RENESAS_CPG_MSSR
-> > +       select CLK_RZV2H
->
-> That includes a lot. Perhaps spin off the required functionality in a
-> separate file, like CLK_RCAR_CPG_LIB?
-> That would impact the MODULE_IMPORT_NS("RZV2H_CPG") in
-> drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c, too, though.
->
-Ok I will create a rzv2h-cpg-lib.c and incremently switch the DSI
-driver to use this new lib.
-
-> >
-> >  config CLK_R9A09G087
-> >         bool "RZ/N2H clock support" if COMPILE_TEST
-> >         select CLK_RENESAS_CPG_MSSR
-> > +       select CLK_RZV2H
-> >
-> >  config CLK_SH73A0
-> >         bool "SH-Mobile AG5 clock support" if COMPILE_TEST
-> > diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/=
-r9a09g077-cpg.c
-> > index f777601a23b9..48052e7b93fd 100644
-> > --- a/drivers/clk/renesas/r9a09g077-cpg.c
-> > +++ b/drivers/clk/renesas/r9a09g077-cpg.c
->
-> > @@ -66,11 +73,26 @@
-> >  #define DIVSCI2ASYNC   CONF_PACK(SCKCR3, 10, 2)
-> >  #define DIVSCI3ASYNC   CONF_PACK(SCKCR3, 12, 2)
-> >  #define DIVSCI4ASYNC   CONF_PACK(SCKCR3, 14, 2)
-> > +#define LCDCDIVSEL     CONF_PACK(SCKCR3, 20, 4)
-> > +
-> > +#define PLL3EN         FIELD_PREP_CONST(OFFSET_MASK, (0xc0))
-> > +
-> > +#define CPG_PLLEN              BIT(0)
->
-> CPG_PLL_EN_EN, for consistency with CPG_PLL_MON_LOCK below?
->
-Ok.
-
-> > +#define CPG_PLL3_VCO_CTR0(x)   ((x) + 0x4)
-> > +#define CPG_PLL3_VCO_CTR0_PDIV GENMASK(21, 16)
-> > +#define CPG_PLL3_VCO_CTR0_MDIV GENMASK(9, 0)
-> > +#define CPG_PLL3_VCO_CTR1(x)   ((x) + 0x8)
-> > +#define CPG_PLL3_VCO_CTR1_KDIV GENMASK(31, 16)
-> > +#define CPG_PLL3_VCO_CTR1_SDIV GENMASK(2, 0)
-> > +#define CPG_PLL_MON(x)         ((x) - 0x10)
-> > +#define CPG_PLL_MON_LOCK       BIT(0)
->
-> So all registers are calculated based on the CPG_PLL3EN register
-> address...
->
-Yes.
-
-> >
-> >  enum rzt2h_clk_types {
-> >         CLK_TYPE_RZT2H_DIV =3D CLK_TYPE_CUSTOM,   /* Clock with divider=
- */
-> >         CLK_TYPE_RZT2H_MUX,                     /* Clock with clock sou=
-rce selector */
-> >         CLK_TYPE_RZT2H_FSELXSPI,                /* Clock with FSELXSPIn=
- source selector */
-> > +       CLK_TYPE_RZT2H_PLL3,                    /* PLL3 Clock */
-> > +       CLK_TYPE_RZT2H_LCDCDIV,                 /* LCDC divider clock *=
-/
-> >  };
-> >
-> >  #define DEF_DIV(_name, _id, _parent, _conf, _dtable) \
-> > @@ -83,10 +105,51 @@ enum rzt2h_clk_types {
-> >  #define DEF_DIV_FSELXSPI(_name, _id, _parent, _conf, _dtable) \
-> >         DEF_TYPE(_name, _id, CLK_TYPE_RZT2H_FSELXSPI, .conf =3D _conf, =
-\
-> >                  .parent =3D _parent, .dtable =3D _dtable, .flag =3D 0)
-> > +#define DEF_PLL3(_name, _id, _parent, _conf) \
-> > +       DEF_TYPE(_name, _id, CLK_TYPE_RZT2H_PLL3, .conf =3D _conf, \
-> > +                .parent =3D _parent)
-> > +#define DEF_DIV_LCDC(_name, _id, _parent, _conf, _dtable) \
-> > +       DEF_TYPE(_name, _id, CLK_TYPE_RZT2H_LCDCDIV, .conf =3D _conf, \
-> > +                .parent =3D _parent, .dtable =3D _dtable, .flag =3D CL=
-K_SET_RATE_PARENT)
->
-> I assume you can't reuse DEF_DIV() because you need the extra accuracy
-> from interfacing with rzv2h_get_pll_divs_pars()?
->
-Yep, thats correct.
-
-> > +
-> > +struct pll_clk {
-> > +       void __iomem *reg;
->
-> This is the PLLxEN register address, from which all other register
-> addresses are calculated: pllen?
->
-Yes.
-
-> > +       const struct rzv2h_pll_limits *limits;
-> > +       struct device *dev;
-> > +       struct rzv2h_pll_pars pll_parameters;
-> > +       struct clk_hw hw;
-> > +       unsigned long cur_rate;
-> > +};
-> > +
-> > +#define to_pll(_hw)    container_of(_hw, struct pll_clk, hw)
-> > +
-> > +struct r9a09g077_lcdc_div_clk {
-> > +       const struct clk_div_table *dtable;
-> > +       void __iomem *reg;
-> > +       struct device *dev;
-> > +       struct clk_hw hw;
-> > +       u32 conf;
-> > +       u8 divider;
-> > +};
-> > +
-> > +#define to_lcdc_div_clk(_hw) \
-> > +       container_of(_hw, struct r9a09g077_lcdc_div_clk, hw)
-> > +
-> > +#define RZT2H_MAX_LCDC_DIV_TABLES      16
-> > +
-> > +static const struct rzv2h_pll_limits r9a09g077_cpg_pll3_limits =3D {
-> > +       .input_fref =3D 48 * MEGA,
-> > +       .fout =3D { .min =3D 25 * MEGA, .max =3D 430 * MEGA },
-> > +       .fvco =3D { .min =3D 1600 * MEGA, .max =3D 3200 * MEGA },
-> > +       .m =3D { .min =3D 0x40, .max =3D 0x3ff },
-> > +       .p =3D { .min =3D 0x2, .max =3D 0x8 },
-> > +       .s =3D { .min =3D 0x0, .max =3D 0x6 },
-> > +       .k =3D { .min =3D -32768, .max =3D 32767 },
-> > +};
-> >
-> >  enum clk_ids {
-> >         /* Core Clock Outputs exported to DT */
-> > -       LAST_DT_CORE_CLK =3D R9A09G077_PCLKCAN,
-> > +       LAST_DT_CORE_CLK =3D R9A09G077_LCDC_CLKD,
-> >
-> >         /* External Input Clocks */
-> >         CLK_EXTAL,
->
-> > @@ -242,6 +335,8 @@ static const struct cpg_core_clk r9a09g077_core_clk=
-s[] __initconst =3D {
-> >                          FSELXSPI1, dtable_6_8_16_32_64),
-> >         DEF_MUX("PCLKCAN", R9A09G077_PCLKCAN, FSELCANFD,
-> >                 sel_clk_pll4d3_div10_div20, ARRAY_SIZE(sel_clk_pll4d3_d=
-iv10_div20), 0),
-> > +       DEF_DIV_LCDC("LCDCDIV", R9A09G077_LCDC_CLKD, CLK_SEL_CLK_PLL3, =
-LCDCDIVSEL,
->
-> "LCDC_CLKD"
->
-Ok.
-
->
-> > +                    dtable_2_32),
-> >  };
-> >
-> >  static const struct mssr_mod_clk r9a09g077_mod_clks[] __initconst =3D =
-{
->
-> > @@ -481,6 +577,272 @@ r9a09g077_cpg_fselxspi_div_clk_register(struct de=
-vice *dev,
-> >         return hw->clk;
-> >  }
-> >
-> > +static unsigned long r9a09g077_cpg_pll3_clk_recalc_rate(struct clk_hw =
-*hw,
-> > +                                                       unsigned long p=
-arent_rate)
-> > +{
-> > +       struct pll_clk *pll_clk =3D to_pll(hw);
-> > +       unsigned int ctr0, ctr1;
->
-> u32
->
-Ok.
-
-Cheers,
-Prabhakar
-
-> > +       u8 pdiv, sdiv;
-> > +       u64 rate;
-> > +       u16 mdiv;
-> > +       s16 kdiv;
-> > +
-> > +       ctr0 =3D readl(CPG_PLL3_VCO_CTR0(pll_clk->reg));
-> > +       ctr1 =3D readl(CPG_PLL3_VCO_CTR1(pll_clk->reg));
-> > +
-> > +       pdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR0_PDIV, ctr0);
-> > +       mdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR0_MDIV, ctr0);
-> > +       kdiv =3D (s16)FIELD_GET(CPG_PLL3_VCO_CTR1_KDIV, ctr1);
-> > +       sdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR1_SDIV, ctr1);
-> > +
-> > +       rate =3D mul_u64_u32_shr(parent_rate, (mdiv << 16) + kdiv, 16 +=
- sdiv);
-> > +
-> > +       return DIV_ROUND_CLOSEST_ULL(rate, pdiv);
-> > +}
->
-> The rest LGTM.
->
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
->
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
+Konrad
