@@ -1,108 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E198D36728E
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 15:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF29C39AD55
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 15:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781019013; cv=none; b=V1zWmIziaG8rI0Au1NMbHxzrnGQy/bVZsICaxnK0JlMQxibMxpo+XAc2bZo6Vc9c2dyue6U1jtih9Kljs8L0osnlgzo1rOA7BWuy/TrlWXg85kzcNudX+l4Bc6j0blIGuS7azVoln6NaUg+q9R5imNTkFeirVAZ3XSCHk9HUmDE=
+	t=1781019052; cv=none; b=JKgvmzZAx7BoCVZGpXrYTPtyU9ac6VLt5ZJc26xbiJBl1M2JZJt6sWEyJ7P3pdAMYc5ieFTi1KvTURcFpr+YbxNNNTF4nja2i+X57t5USuzVUZxklAUk8rCn8e4v6AuzSZMTGyXRG7izRdTdlPGGTOf+sqFmyYaPY03c0cmLVOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781019013; c=relaxed/simple;
-	bh=JRR3Ag7MXMuKLzSD4NEQ+sJq4yPMLW+aB5LOLBG++To=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=epJzuJsH/Nfs96S0j+1OhAJ9jmhPkRl3DLESy71NlPG15+mIbNam1B98oKqCCkLAl2/emQNN+OBCjo/E/1oCPivBRtKdbR4XCcPd/xzIEWhGzRlzsjStZY0Rn3S9XuRkIYjWAaAx4C2yuVuwWtcQImy15LLDOlXCHHLoJyqQazU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBWY5qJ0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781019052; c=relaxed/simple;
+	bh=11WhgqEt9zgT+ZWXS7ElY2GogLk4HG1AB68dGIPIaxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uO3akO8kL4+98SKgwEIGPWPbGwhB1LEkLxV1hXg68ImEhOAx5vbjI2CAf3LSlmWuISzunlz1dZkZRtARdx4gHRfduHPcRskm1faQgbczMRTe7G1LNg8Y7yaISEbj5AgiAueLZe4WwVKGkv1G8I+Da6NPML8ve6tKSIJBU5EgBXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wg0j8zQz; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBWY5qJ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591551F00893;
-	Tue,  9 Jun 2026 15:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781019012;
-	bh=e8BWW73xkJpYVs/rwicVvIN6GXHhXfQXoCVlmqsFCoA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fBWY5qJ0KUkwQIEhv3DjZR7jpvh1R20jtQS5SHuMqOF4wYJlzPvBSYuyAN/1UaXNb
-	 z0hDBOXTJm5T1HwxN5f+HOnnojUv+GAvMLLhDgQENvGb5+P6Sz+w/8/3mgKFBEZ2AC
-	 iZL/FC9JBUsSsQh9rmqYEGRrDSCYbrTdZP0K8d8A0ng8oCCmLte870mTulFU16fOGo
-	 AmBm2Gll6PgJUVHWJOo0ODbuicjXOMAVGVr0E1RsSLtrVEpCcf2iLQ15yHci7nbOUn
-	 rVabIMIcPqWqWCw6IgIbtKVVGFq3Ra3MMJ8j+T3w4ZX8oLaIuuxlHTvSB1Zlbgao2M
-	 LBHtGLNai3s6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/7] arm64: dts: qcom: eliza: Add support for MM
- clock controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609-b4-eliza_mm_cc_v6-v6-7-17df09e5940c@oss.qualcomm.com>
-References: <20260609-b4-eliza_mm_cc_v6-v6-7-17df09e5940c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 15:30:11 +0000
-Message-Id: <20260609153012.591551F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wg0j8zQz"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c85c9e8b7e4so2362064a12.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 08:30:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781019050; x=1781623850; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tfoL8NhaievxojnidDqV0SnsthszxSn+iRp8X4DAOXY=;
+        b=Wg0j8zQzHW+KSie6yZ/U++pU00g4DfbwbKgfhdhwDo+L8alXDCAoKCDwdR35iNGHd3
+         NR9fXMEv+dCP+Ye8xUVd0lPBk0DvAgflS9t4X4JbxNBlitoSjqihqYgL6It5FfZOFVaT
+         OzuVWZvpt+IJzRLTUitlgechxgoDbhqVGrpQk+L6fCH/R3/9WI8ojLk7a1aqW1XpLur7
+         LvJerYtEkxvA6LhVp6mEp8ZnDdsq6LN4vYbcUnbbSl41KCpiDgPVDbQn7RQ14sO3ke2S
+         TdVx1J+/3Vj2xx+YTWx4flEGhJgQEuipu6YUfq9FmOTQY3wB95M/wirg6gH7DgjXTgnC
+         rCvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781019050; x=1781623850;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tfoL8NhaievxojnidDqV0SnsthszxSn+iRp8X4DAOXY=;
+        b=XKgFbD+lvoCcai+k6nMq7QwO/Gy5cCBEnbgplvzTBmIantMDxr2p2LC7LRt4CaIbMb
+         NOQdNiIrfi08xhoOZuDpsqdwaCLaANO5q/g7WL0KqOJulBLtTfoeyjkbkKN0tsTCH7eZ
+         7LPzjDiPz5mg/tC/3YN4/Pi8ScpoI6+2NpZuDjCzvZWV/pCgTg/G5MPLBL6vVDxBjuWt
+         OV0HO+9WZogeUU+ZjcHplOAelTvvCInExCv4r9gaDrSWBp/W4teqBeMgIIrkS2eFGlHV
+         u69a9KrtVUrwLh3Igm7JBCBGoOd47ZQMdg958dyVBjGJj7uoXSIT6U8IiGzeHphl8wWI
+         hN+A==
+X-Forwarded-Encrypted: i=1; AFNElJ/n/L4pnUbVmOcO3+ccaipY/czmWUc6ovD1Vu0Uy0nIwuPPPAusF5/7tjC8pC7xrkZjoIi9cvEy2npm@vger.kernel.org
+X-Gm-Message-State: AOJu0YylofpRWS4sBW+R6J5tCKkOFuri1LD1l++pvGN/mkYw2UztxV/5
+	r+4VhZwc5p3kWl6psIhV/YuO+KXi43hYVnJwsyNjzNmDkwe02kYecksk
+X-Gm-Gg: Acq92OEsYblnE4h48ji7JKthhWSBRUEZUa2W1EsiraomX/KNmtt1xHuBDq7WWHFqBxv
+	VBxWVoikqPj1dcAJQ8+/Cmj9yu/72Mjuc06Dd9kL7ycuPY82tql+LvIQvPJJ5wvkpFoE8MbRuWD
+	jkcZruFK3yzoxCRkFi0NNPKI82HkSYtkXzeeyrwvdqQEMRNkvP90808TWFsenPFszIXuGkjMLKn
+	Put06de52YBfeV3Rtnade88mp4nU+SVtAiJYBgh+euoI9E+4MzTLX9QJC0qtHRo56A7ieIloTrQ
+	8a3BYznl47smx6N/adDIC6kjqWgngQ/AxE4E2J3O1mlpaR1LY3/xiuNEsLs+8of7HZuv2UAOJ8d
+	kowWIXYpzgekIRNn25CmZGG3aDQDIvVUP10Wb6FGh+I6b3xCa5rGc3RoSx2kYhK37mlxQYL7LQ+
+	z9WNV2b5QfuQZmpUmoI1A4vgKWZD8oaP1xzfHwcJg66IAX67k=
+X-Received: by 2002:a05:6a00:928a:b0:842:5a8d:3036 with SMTP id d2e1a72fcca58-842b0fb6e13mr21005108b3a.35.1781019050176;
+        Tue, 09 Jun 2026 08:30:50 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428221c3e4sm22494788b3a.5.2026.06.09.08.30.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 08:30:49 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 9 Jun 2026 08:30:48 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Subject: Re: [PATCH v13 3/3] gpio: gpio-ltc4283: Add support for the LTC4283
+ Swap Controller
+Message-ID: <6a33cc01-e6a4-4e3b-a629-66fda71d8ef7@roeck-us.net>
+References: <20260502-ltc4283-support-v13-0-1c206542e652@analog.com>
+ <20260502-ltc4283-support-v13-3-1c206542e652@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260502-ltc4283-support-v13-3-1c206542e652@analog.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Device tree nodes `gpucc`, `videocc`, and `camcc` are inserted out =
-of unit-address order.
---
+On Sat, May 02, 2026 at 10:56:54AM +0100, Nuno Sá wrote:
+> From: Nuno Sá <nuno.sa@analog.com>
+> 
+> The LTC4283 device has up to 8 pins that can be configured as GPIOs.
+> 
+> Note that PGIO pins are not set as GPIOs by default so if they are
+> configured to be used as GPIOs we need to make sure to initialize them
+> to a sane default. They are set as inputs by default.
+> 
+> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 
-commit 9bb17a71a8a57aa4e3d701d95bd65991638afc45
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+Applied.
 
-arm64: dts: qcom: eliza: Add support for MM clock controllers
-
-Add the device nodes for the multimedia clock controllers (cambistmclkcc,
-camcc, videocc, gpucc) for Qualcomm Eliza SoC.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
-om/eliza.dtsi
-> index 977de44b816e4..c5635f22e2a7a 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-[ ... ]
-> @@ -2657,6 +2674,50 @@ mdss_dp0_out: endpoint {
->  			};
->  		};
-> =20
-> +		gpucc: clock-controller@3d90000 {
-
-[Severity: Low]
-Are these new nodes inserted out of unit-address order?
-
-It looks like gpucc@3d90000, videocc@aaf0000, and camcc@ade0000 are being
-placed after the mdss@ae00000 node (which concludes just above), rather
-than in strictly sequential order.
-
-Standard device tree coding style requires child nodes within a bus to be
-sorted sequentially by their unit-address. For example, gpucc@3d90000 should
-likely be placed significantly earlier in the file.
-
-> +			compatible =3D "qcom,eliza-gpucc";
-> +			reg =3D <0x0 0x03d90000 0x0 0xa000>;
-[ ... ]
-> +		videocc: clock-controller@aaf0000 {
-
-[Severity: Low]
-Similar to gpucc, is this node also placed out of unit-address order?
-
-The @aaf0000 address precedes @ae00000 and should be sorted accordingly.
-
-> +			compatible =3D "qcom,eliza-videocc";
-> +			reg =3D <0x0 0xaaf0000 0x0 0x10000>;
-[ ... ]
-> +		camcc: clock-controller@ade0000 {
-
-[Severity: Low]
-And for camcc, is this node also out of unit-address order? The @ade0000
-address should precede the @ae00000 block.
-
-> +			compatible =3D "qcom,eliza-camcc";
-> +			reg =3D <0x0 0x0ade0000 0x0 0x20000>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-b4-eliza_m=
-m_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com?part=3D7
+Thanks,
+Guenter
