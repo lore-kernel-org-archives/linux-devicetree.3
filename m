@@ -1,63 +1,64 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713E032ED4E
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEAE344030
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780968718; cv=none; b=K9U1SXLsAGLa84TbVfpzgOPscNCdpb3jUPB6bQoWyh/BdPEkVkiLwwXWEtxY3jEDC1+mr85oqYl7P7JwDvr8XAltxCuiPMwTBQ13/3CdsQi43upTIJfBOuVy9YVuMkub7SikjrZ1cCcy1r0Fg3otUCLA4HmbtLwEHMtURWchKEI=
+	t=1780968724; cv=none; b=cGq2J1GYoOiT/hOqf4lPIeLeyEYUY2bMLXplvWYjNwi/Ladj4OaSprsNZ07u6VpP6VxbZLEW+VQEUh7vhipJD4pDtLXEY7rUi0lw+KHIRe9mWN/Me8DcseYTS4PbRkElEOYfRpz/w3W3Pp0TE4IFYS0K41XlZH7PT7AVeLfIbwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780968718; c=relaxed/simple;
-	bh=MuXPX50lKPAzNlwpboundlyXapF7ai/VmXPDdxRmtqs=;
+	s=arc-20240116; t=1780968724; c=relaxed/simple;
+	bh=YpcDZMX363iIvbH5/NBtR85ZcvXyI4n+RHVGoibhH0M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hEylK+JCqGGo8bwUMpu5XWgqNOMDjp/lV49sS369y5bCHj7VmCrr9ajr/TqC0vXIQAKAlzXoYcx/Vav5jYeIK5dg+A28ib0agEPNu7HYHVhJfYYvilT4oq2UMObbUEeY4KrDBHA0gsd5KIGDrlhedRvXBeu4/KxXGTA7OU1TkU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWhCArQX; arc=none smtp.client-ip=209.85.216.45
+	 MIME-Version; b=RuJ+W5TzkL3MnTV/Z8Tt3bLfSPdFq6E0bUuRwCohVcOUkOZPeQUa4jaeRLncKZl2MK+RLiIoitND7CIFRnnuTvONP7+2ldK50NFSP/pyVUEucp0m7mD9g+Oe076uoWCp0LKpbM27v9tlTH5eLrlXI9X4wXA5N/Q8UPgKLfaORsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VdI45W77; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWhCArQX"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-36d9794d82aso3527137a91.0
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 18:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VdI45W77"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c132ac5ec2so48591345ad.1
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 18:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780968715; x=1781573515; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780968719; x=1781573519; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cTbxMBmmKBq0qJ9h4eige5HKc/AYPyWT46wIah6eu3I=;
-        b=eWhCArQXp0QuRtxyFCX4CW8s/0DUWrpla07mPa3mvpDa+oVpNjh6XWsHPEKdhz5t5V
-         B6pk+HB8cFTquj1SSYJ17l6DX+sT4pwJTboGz5XSxVTiLoFuESe44veVB8zqwGQeBTZ5
-         dJuqTEM9zVwGkrLdxvc6XvInkEEGu0FKy6vXl/uE1yJP0NsNEYRDdtdZ9mez+WJLD6nD
-         6+IDnVgMn4H8ez3Y9C4Hinjyl6SiWwfaNbB5ZGKK+RnajH8GLj0MoakTUSGnzJFmc3u2
-         0H9m1fZ4WkAecym63WMJziGChPQILrE6InoyhBPDKCFz7VTtEl8wjJdmfjuo4+2WG8G5
-         mPrA==
+        bh=S+bbQbftJjjFu55E1JFO4f7u5X8QUCbi+q5hkfYSnqE=;
+        b=VdI45W77g1mNYc2sa/WMOZFI/Ut7kw1XmCDaITyuhyIYmTzlDJr1VDxpwYO414cpaY
+         3cHXrY1ktqBrkoa+tBj/u1yjCrc++cCkpYqxUQ+/HMnZu7V57Ebfs2tCFTfo/9twN9ar
+         e4p7H4Z5LkJJtS54YV9Cg/axxbXbgHlfdhUmAi/eXknBC4iNUXEImSddeApUR6SpMKum
+         O/KpxZKWrygZhMUgXed4cVsrtH0QhB3W1slwYSk0mAVT2s3qwFLtNJR28UdaMr9f8X7H
+         Nj4c4r+mY7V93/ZozKl9o/1m01xE1vNrylu8SJ68VRgUAFNJ7ZIMamCCTQYDhgPCIglr
+         CA0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780968715; x=1781573515;
+        d=1e100.net; s=20251104; t=1780968719; x=1781573519;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=cTbxMBmmKBq0qJ9h4eige5HKc/AYPyWT46wIah6eu3I=;
-        b=Gop9Ac1AVBZOyxLlsatBbMj0LJ26oAupyaVp0wvsVQvT8Fa9i5XbPedExsZx6zF96L
-         XshfNCME9/KAubjQFsGTEenRQ0VA6EF2IybdpYt2apChp2jj87q+A7EB8LKepNHPX6Ca
-         LJHiAv/Foa5zWE2GXrGrIgIqYpo2Tt5gBNjh/xOJ55KdMKtFjXL7bdOoEplR+KXrp9PR
-         Lte4HJQ60XFklSNjFelYzFa6e2d/pgHP413hCoV5fMAUMKYoW044mKjNNsN1y30HI1XG
-         kzhRcnmeM4e45W2/COyG6eSxz6HXuHcBg4d804kC+QiD2hgAeI8GyMdpa2ZxxRF+pTyD
-         jYew==
-X-Forwarded-Encrypted: i=1; AFNElJ/81MTokNFrKHvnvqUP0UETBdLA0+hbk5sk+z3Xnsofsv0jf5Rx1iBUe+Cmk5vzd+/SstO1DEu0MCgn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEGbxXj8mQxmUAEHPPHhns3iZJDnPRHiJo+4kybmFl6ty1CPD4
-	m3nFTwrY1vfzflJgbfEiuW8hA6uSwtzQYmSXmmGI7DnXaohQSeHYad7o
-X-Gm-Gg: Acq92OF4cYsGqydy41WfbS5mRxyytNG32lCq9wDJb8WKT+EulFwGBewQBOswMdlCOiy
-	mdihucCW7PoxA29hXiDgJVE/SCL8/sjP4HPNAi+TLaXboOOVGwpvaBiXdCqRbMyWCoQhfIcgtxC
-	xRHFDWzYR8fco0Xbm0q0iM7SgS08xpOt9IHSTyDQ+kmfUYnNbFihT2kuSurP6m00sYXF/9ZGppu
-	3da1adNqeHP1PzwOvA2z2pO+Ji/iSqOCPV4b5hDaSWrMpUPAmTY3YGV71RQzDzfcoHIVfuLwE9z
-	XVi0+aggM/R1FGHZKsDcW4utQcUIZmWe/cPoW34+OH6FyLqxVfwOgl+M4lSO/6rFy8VakDj5Ks9
-	zuRF+7Ryb6nyLIgZEwEcv7kTPHSocXMI4BCE/qnZBOjSOC5sf0Uqh+VR9UMxYoD2u9oCizFnUK8
-	dhnleumvCW9kgGW89BpwCt4oq9i+up+1VO5FqZOYflzzORtZlYxbjx9mkyb1kVdpQx8VhE
-X-Received: by 2002:a17:90b:5583:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-370ef0eae62mr20642239a91.8.1780968714539;
-        Mon, 08 Jun 2026 18:31:54 -0700 (PDT)
+        bh=S+bbQbftJjjFu55E1JFO4f7u5X8QUCbi+q5hkfYSnqE=;
+        b=dKqyvxG1ixmn6QmMIWsuT/W7wUk8jMHW41ZDVQdnmwRK6GWOhePL90axGRjH1sjd8Q
+         4nQvj4GpNn7sh4S4YbmgDny2FYCSHcIkhnJfl/8Qp6PTipPem6knRDX0FY69EL+4CyzF
+         D7SuxHJb81wdfjNo8p+4SKIC0epleL5pxD/91uaSjDv9auX2qEaboW/uOhuSrVjz7+j2
+         ZrXBKZpql0AySZC3sIBvUdlDdML0zms8st+ZgGtGhXSjQXqT3rNoaSPRXJ67+DZp8Qpe
+         odCO3gPzr7ctAQBCYGIUamA7rMqYJJ7ddTl0Qig+KtkREM1+cLmRawsOMC3p6OFf2Me0
+         RKIg==
+X-Forwarded-Encrypted: i=1; AFNElJ8SlRb5zR8gz2uq3xJxcWL2abxz3CxmhPRc/Zvx5ZHNA+uLXx0iigg2urWquQHRu0YUHlTmpU7i79KK@vger.kernel.org
+X-Gm-Message-State: AOJu0YztxyB7cuPKIOjfonh/5A7SnmwMiq8D7SNneo+AlrQulYbx7dDg
+	TCPsh5ZDTfu9qL/7owgu9vKpbWnyj031Rr0F7ljwaMdpgNGMzRtKXCGN
+X-Gm-Gg: Acq92OGlFSDqPttpVEj4dY2nLqniSZCuz1LVd84ZDYSLTkffBNixoNgaBd3O9k78mpb
+	1cNBem63Tag0044TRanpl0FmRvKTvjZGKXnUxfPLJN+Wj8Tuj9opuDsEI4Ac2duOdypmuEjR9YY
+	u6m5abRIQq4Jfa5TZLD0dBlJQDe48BPRx0VsdX8b42NMqm1tWIwEihlgD2igKrcwdEyQWhjsCjn
+	v8UO0GOg952B2t0bEu2vAiURhoB9k0QESJlir5gyZY0Le7JTbvoaeNWWgqxRXLkIF0be3W3sVOv
+	VJmmOSizR2DweCubOb9eF2+GAuHNSgpLrOpS5bGgrmN01hF+v/J+1n7DeQCpBrH4AnDtpy9a7aG
+	cfstfSGhwaLpynwVnCFo8zlAsc5qDuHISTft/s4rekYxSyyBhDvqtRMVhsBDhoVzYcwNpnJ3u0H
+	J66d2bDKEkUBLl2s3UBKKAJAFBrhIzn4NPVkYsE+51SQiW2YNE+b0XRPgQuWP+MimvYDhpWqlvh
+	LnOVh8=
+X-Received: by 2002:a17:902:e5ce:b0:2bd:5ab:af95 with SMTP id d9443c01a7336-2c1e77d145fmr200993215ad.0.1780968719494;
+        Mon, 08 Jun 2026 18:31:59 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e627sm198765335ad.52.2026.06.08.18.31.50
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e627sm198765335ad.52.2026.06.08.18.31.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 18:31:54 -0700 (PDT)
+        Mon, 08 Jun 2026 18:31:59 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -74,9 +75,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v5 06/11] ASoC: renesas: fsi: Move fsi_clk_init()
-Date: Tue,  9 Jun 2026 08:31:02 +0700
-Message-ID: <20260609013107.5995-7-phucduc.bui@gmail.com>
+Subject: [PATCH v5 07/11] ASoC: renesas: fsi: Use devm_clk_get_optional() for optional clocks
+Date: Tue,  9 Jun 2026 08:31:03 +0700
+Message-ID: <20260609013107.5995-8-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260609013107.5995-1-phucduc.bui@gmail.com>
 References: <20260609013107.5995-1-phucduc.bui@gmail.com>
@@ -90,161 +91,47 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Move fsi_clk_init() after set_rate() functions to prepare for subsequent
-refactoring.
+The xck, ick, and div clocks are optional. Switch from devm_clk_get()
+to devm_clk_get_optional() to correctly handle cases where these clocks
+are missing.
 
 Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/renesas/fsi.c | 128 ++++++++++++++++++++--------------------
- 1 file changed, 64 insertions(+), 64 deletions(-)
+ sound/soc/renesas/fsi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-index 3e3c6fd7c56b..1df7dc014363 100644
+index 1df7dc014363..e29be2bcf952 100644
 --- a/sound/soc/renesas/fsi.c
 +++ b/sound/soc/renesas/fsi.c
-@@ -717,70 +717,6 @@ static void fsi_spdif_clk_ctrl(struct fsi_priv *fsi, int enable)
- /*
-  *		clock function
-  */
--static int fsi_clk_init(struct device *dev,
--			struct fsi_priv *fsi,
--			int xck,
--			int ick,
--			int div,
--			int (*set_rate)(struct device *dev,
--					struct fsi_priv *fsi))
--{
--	struct fsi_clk *clock = &fsi->clock;
--	int is_porta = fsi_is_port_a(fsi);
--
--	clock->xck	= NULL;
--	clock->ick	= NULL;
--	clock->div	= NULL;
--	clock->rate	= 0;
--	clock->count	= 0;
--	clock->set_rate	= set_rate;
--
--	clock->own = devm_clk_get(dev, NULL);
--	if (IS_ERR(clock->own))
--		return -EINVAL;
--
--	/* external clock */
--	if (xck) {
--		clock->xck = devm_clk_get(dev, is_porta ? "xcka" : "xckb");
--		if (IS_ERR(clock->xck)) {
--			dev_err(dev, "can't get xck clock\n");
--			return -EINVAL;
--		}
--		if (clock->xck == clock->own) {
--			dev_err(dev, "cpu doesn't support xck clock\n");
--			return -EINVAL;
--		}
--	}
--
--	/* FSIACLK/FSIBCLK */
--	if (ick) {
--		clock->ick = devm_clk_get(dev,  is_porta ? "icka" : "ickb");
--		if (IS_ERR(clock->ick)) {
--			dev_err(dev, "can't get ick clock\n");
--			return -EINVAL;
--		}
--		if (clock->ick == clock->own) {
--			dev_err(dev, "cpu doesn't support ick clock\n");
--			return -EINVAL;
--		}
--	}
--
--	/* FSI-DIV */
--	if (div) {
--		clock->div = devm_clk_get(dev,  is_porta ? "diva" : "divb");
--		if (IS_ERR(clock->div)) {
--			dev_err(dev, "can't get div clock\n");
--			return -EINVAL;
--		}
--		if (clock->div == clock->own) {
--			dev_err(dev, "cpu doesn't support div clock\n");
--			return -EINVAL;
--		}
--	}
--
--	return 0;
--}
--
- #define fsi_clk_invalid(fsi) fsi_clk_valid(fsi, 0)
- static void fsi_clk_valid(struct fsi_priv *fsi, unsigned long rate)
- {
-@@ -1034,6 +970,70 @@ static int fsi_clk_set_rate_cpg(struct device *dev,
- 	return ret;
- }
+@@ -994,7 +994,7 @@ static int fsi_clk_init(struct device *dev,
  
-+static int fsi_clk_init(struct device *dev,
-+			struct fsi_priv *fsi,
-+			int xck,
-+			int ick,
-+			int div,
-+			int (*set_rate)(struct device *dev,
-+					struct fsi_priv *fsi))
-+{
-+	struct fsi_clk *clock = &fsi->clock;
-+	int is_porta = fsi_is_port_a(fsi);
-+
-+	clock->xck	= NULL;
-+	clock->ick	= NULL;
-+	clock->div	= NULL;
-+	clock->rate	= 0;
-+	clock->count	= 0;
-+	clock->set_rate	= set_rate;
-+
-+	clock->own = devm_clk_get(dev, NULL);
-+	if (IS_ERR(clock->own))
-+		return -EINVAL;
-+
-+	/* external clock */
-+	if (xck) {
-+		clock->xck = devm_clk_get(dev, is_porta ? "xcka" : "xckb");
-+		if (IS_ERR(clock->xck)) {
-+			dev_err(dev, "can't get xck clock\n");
-+			return -EINVAL;
-+		}
-+		if (clock->xck == clock->own) {
-+			dev_err(dev, "cpu doesn't support xck clock\n");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	/* FSIACLK/FSIBCLK */
-+	if (ick) {
-+		clock->ick = devm_clk_get(dev,  is_porta ? "icka" : "ickb");
-+		if (IS_ERR(clock->ick)) {
-+			dev_err(dev, "can't get ick clock\n");
-+			return -EINVAL;
-+		}
-+		if (clock->ick == clock->own) {
-+			dev_err(dev, "cpu doesn't support ick clock\n");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	/* FSI-DIV */
-+	if (div) {
-+		clock->div = devm_clk_get(dev,  is_porta ? "diva" : "divb");
-+		if (IS_ERR(clock->div)) {
-+			dev_err(dev, "can't get div clock\n");
-+			return -EINVAL;
-+		}
-+		if (clock->div == clock->own) {
-+			dev_err(dev, "cpu doesn't support div clock\n");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static void fsi_pointer_update(struct fsi_stream *io, int size)
- {
- 	io->buff_sample_pos += size;
+ 	/* external clock */
+ 	if (xck) {
+-		clock->xck = devm_clk_get(dev, is_porta ? "xcka" : "xckb");
++		clock->xck = devm_clk_get_optional(dev, is_porta ? "xcka" : "xckb");
+ 		if (IS_ERR(clock->xck)) {
+ 			dev_err(dev, "can't get xck clock\n");
+ 			return -EINVAL;
+@@ -1007,7 +1007,7 @@ static int fsi_clk_init(struct device *dev,
+ 
+ 	/* FSIACLK/FSIBCLK */
+ 	if (ick) {
+-		clock->ick = devm_clk_get(dev,  is_porta ? "icka" : "ickb");
++		clock->ick = devm_clk_get_optional(dev,  is_porta ? "icka" : "ickb");
+ 		if (IS_ERR(clock->ick)) {
+ 			dev_err(dev, "can't get ick clock\n");
+ 			return -EINVAL;
+@@ -1020,7 +1020,7 @@ static int fsi_clk_init(struct device *dev,
+ 
+ 	/* FSI-DIV */
+ 	if (div) {
+-		clock->div = devm_clk_get(dev,  is_porta ? "diva" : "divb");
++		clock->div = devm_clk_get_optional(dev,  is_porta ? "diva" : "divb");
+ 		if (IS_ERR(clock->div)) {
+ 			dev_err(dev, "can't get div clock\n");
+ 			return -EINVAL;
 -- 
 2.43.0
 
