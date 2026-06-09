@@ -1,66 +1,33 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93B13DB996
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED4F346E68;
+	Tue,  9 Jun 2026 08:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780995280; cv=none; b=Vj/rnbxhKBK9adA4d//7BIUsbZDkermjplQtOH1n3MB488BWR2NeBN/7kvuBq5DBE4Uumpzx7X6fM3lCabOeoTd2UEWS4kTxgaRqgqR8vgeI54qpXq8fGkgneoGmHOG5bZHtQt5a1tFyH87yd1DV+h58e9iEAajxE0cy7UQAQeQ=
+	t=1780995295; cv=none; b=uX7F0IsCFxUv3tivTHx4Z+Wj1jplP0Yw2uqxZ/7VKp2IY58ekSwJtiS0K7DxbjwCGUigAqnO0Qqs+flaC1PHmo+86JxMrCvCzGSKs0pKo+hLkrK+2GeWFBMdKfKdb34PrJbBO9Wqh6lWnOzQUILPvO2qTWmgDJHWg9DOo7d2jPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780995280; c=relaxed/simple;
-	bh=LNwAWBgfr0y0i0Ii6YzYMr71BB6yMda/us4w6auoyJs=;
+	s=arc-20240116; t=1780995295; c=relaxed/simple;
+	bh=7gevuIt1d7vK6egQdm7BiIeH/pvXuzvX6WCmGzIrgYo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z1PnEi6/1EIBBvKuXZi2CAWMuoM9RNx5hiHN9bCDCFdV9JAoGj8MTD+cwNKAd4i4+enXaeLz58saof3CCS+Ln/lUT3wbeX/WTZNrJJpotXgNGbM/PTikVTv27nLQRyPXPQMqKL49TjRGZDt39Kib/oLhmx3GALZRfnMhEho7U2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F1wGoD7O; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=jcf/N3VPl0q1pV66Jc2DiOGu/CPpWHhPCQoSDZ5Zk0X9+AFlIwOF21ZP7kGvt7U/AwvsvNbZbuyV7y8TFUPlSmNXaiDhZjyEg61PLvujJwko+IIbbIV+gqaMWN5X2SOS+m9q0PsYSWx4oaYQpFZkvzbbc3Mlc+DvUIyMZrGawYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WML4QAId; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F1wGoD7O"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-bec449cf976so725504966b.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 01:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780995276; x=1781600076; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZHqp/FC+SQglvNjASGPOgYZdND2iT6RhKVqihV+i3z4=;
-        b=F1wGoD7OS4oaS4v87g+wycEOtuXWr4eKOlSGtGrxIBmtKMTUlcv/1LW6oAFa2BZvcL
-         4Uw/3Ue0wJRR9MfFGq/1Sl5jzKFs7ic6LVB7sTjFYhbYivftoNru34xGK1WRjvxx1aUC
-         VJpUJsF4BNa1uUShswZXNTZwpqCliBYXHIJiibtxehmkWxd8JeDX3d8D8ig3o49l5arU
-         vtsCLuQYXFwZPtB8leiac4uzcKWYRNQOOVeZ+h3PyJVPpYibZ1/8Elu9dAvDFOsIka4A
-         FU6kOmOyvTJ8GQHlIViN2v63CjRs5DDTkZC+lfnNjKUNMh9yl8/VEz+N00a8lSW2m2SQ
-         sjXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780995276; x=1781600076;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZHqp/FC+SQglvNjASGPOgYZdND2iT6RhKVqihV+i3z4=;
-        b=kZ+g47LV/iuGZmr0VCJjUnyfczJK9aj8Q3U3ZobaSCq6MX0KWSTwkbCQ0FgJjBJjKD
-         f5VCj+i57c4Q2g+RKZRpURGdVkerIW+Giq+B2OwQJSgAAd0mxtz8Zb+AN2x2xUXnCGcu
-         wsXdXxYzOxUNZ3sPIpx6WU5/j3+OiNXhjOSOh3AqDDYu/Uii1UP0FQ+SVfJm9GXci+hX
-         3D1kRJo0+zp3wpgpjs8549xshzApMHyZx0FRyq4VBhPrXYrgGSEVP8vapii5RCrNliJ9
-         49/vZZ48Gar0L7ZBK0G5G3auN1n7qsaBBFXxbo46eFepxDYC88aUUtR4bdoUV8r2MAhD
-         oILg==
-X-Forwarded-Encrypted: i=1; AFNElJ/c/30UiEg77M4CYS/kE7Vxl4d0vnjnmvrfJD/bMJ+UDOXlHDWz8nVVQKHpX1rschS6dANcMr3W9OSR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTGnNIrPhMBJsJOpoNZm9bzYiWKqr6dsU//3iWGF2Pcv8nORfL
-	OVchvawwkhwZH3JrV5hFUS5d6GJ1Q7V1D4XFsrfHRDIS3mLMa2GP4KeiYL/aGr21J20=
-X-Gm-Gg: Acq92OFlCNsDhPFC9L2JRTGigcTWLRmMYXqUHViWwUhSsQhiH/XkeXBkSChofmz8vj2
-	a2usZ9/ojK9nkvrnFP77k89e94OpV4OljVNHniv0RQdi2UYt6ktj0oaUYGvEDeW9cU5WZUFgtJQ
-	CVLUZhcY1l1OZ2EbglqonXVcqZZlfdp4yPtFDMQPsbjY28tYLen0Xf0UXCLl6kWuV00NUr3bNtc
-	JOrr5zJAWhYV5u22KmTQCTzqtV078z4bMUhUKypGlkSmzVMcBkkggXVvusl7mSOiKcTBfaLGhCx
-	A0vx0ahRKqFJkrmcOsaJ6Bi5+feeTlK0ZQRyO1X6j+wUMdz6DFHsx/rT3id/Rmq/xnmsS71E4m8
-	WG3bjHmfWnKvaEw7ksPgLTcEtTCQrTHAhGt6z2edyeG0pTI3k/Qv03Wdhf/tU87fLEwoWVdSRAH
-	ogRBaXHc7FzKbR5jYlPDaFwIjI+5glYCZj8Nz21JtB+bcp
-X-Received: by 2002:a17:907:c486:b0:bea:2fbc:4ef5 with SMTP id a640c23a62f3a-bf3737ed373mr949595466b.44.1780995276043;
-        Tue, 09 Jun 2026 01:54:36 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.72.26])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf054e03709sm998477166b.30.2026.06.09.01.54.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 01:54:35 -0700 (PDT)
-Message-ID: <dd1f8bdf-6a73-4b40-9694-9c6a6d952c63@linaro.org>
-Date: Tue, 9 Jun 2026 09:54:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WML4QAId"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4453D1F0089B;
+	Tue,  9 Jun 2026 08:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780995293;
+	bh=fHpV7RTa1i4tiic1ClAFWZtGoE18depjcPpRV8v5tFM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WML4QAIdWHUrlLxy9H/93R7Z/XzC6u4xzrWM3LiLW2hkkvIKvphZKVEcj23VbNXKL
+	 R0Iok1jLLNBbfvcy2rIEvn2e9hbgx5tGV3XN1GdqCyW0R8o/1u+xdYt/gN6wTF9KWk
+	 hfTMQ83JTgG3JmedZcsX4tp/uuXTmfpcp2NYYATlLFXi0pKiagua2489JKVix/J8Yk
+	 syqeu0dhAg/oMyjSHMyoGOn3hlu/Bx9FUqilh4ONAH2huDsGYzP593MG1KHgRRmOzL
+	 Lu1LvAUjE7Ykh8deoEf3wI0UJnBn4bhKaRnudkXwpccDaUlk3vNcXEXdqKBEIZaN1U
+	 xlm8blz24TPWg==
+Message-ID: <d610ea66-23b0-4691-a0d7-6a32e42dd902@kernel.org>
+Date: Tue, 9 Jun 2026 10:54:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,181 +35,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] arm64: dts: qcom:
- shikra-cqm-cqs-evk-imx577-camera: Add DT overlay
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Suresh Vankadara <quic_svankada@quicinc.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com>
- <20260608-shikra-camss-review-v2-6-ca1936bf1219@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [PATCH v5 01/11] ASoC: dt-bindings: renesas,fsi: add support
+ multiple clocks
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260609013107.5995-1-phucduc.bui@gmail.com>
+ <20260609013107.5995-2-phucduc.bui@gmail.com>
+ <20260609-nimble-guillemot-of-karma-bef5f1@quoll>
+ <CAABR9nF6uhEyCo-6cekhKwfm3zkqjXCpj2O8C8Xk=2Frw0arRg@mail.gmail.com>
+ <6103e3fc-4b27-47b5-aee9-8b481759eb65@kernel.org>
+ <CAABR9nHBA=sZsw54RWMCg_xdDCeo+stnSYg6yACfzuJoMNMyPg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260608-shikra-camss-review-v2-6-ca1936bf1219@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAABR9nHBA=sZsw54RWMCg_xdDCeo+stnSYg6yACfzuJoMNMyPg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/06/2026 15:06, Nihal Kumar Gupta wrote:
-> Shikra CQM and CQS are retail variants sharing the same PM4125 PMIC
-> and identical camera supply rails. The only difference between them
-> is the integrated modem on CQM, which does not affect camera hardware.
+On 09/06/2026 10:42, Bui Duc Phuc wrote:
+> Hi Krzysztof,
 > 
-> Add a shared overlay for optional IMX577 integration via CSIPHY1,
-> used by both CQM and CQS EVK boards.
+> Thank you for clarifying.
 > 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/Makefile                  |  6 ++
->   .../dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso | 70 ++++++++++++++++++++++
->   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts        |  9 +++
->   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts        |  9 +++
->   4 files changed, 94 insertions(+)
+>>>>> +          uniqueItems: true
+>>>>
+>>>> You don't need this, it's by default.
+>>>>
+>>>
+>>> Could you clarify which part you are referring to?
+>>> Are you referring to the "uniqueItems: true" property or another
+>>> constraint in this block?
+>>
+>> The uniqueItems should not be needed.
+>>
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index a9e9d829fb962386b3975f345ec006504607130a..76b8f144983827f4905a72935e8d5291a227dc97 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -337,6 +337,12 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
-> +
-> +shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
-> +shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
-> +
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..e3dad7c81e5e8aeb1061c784b5b893965f914a6f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso
-> @@ -0,0 +1,70 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/clock/qcom,shikra-gcc.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&camss {
-> +	vdd-csiphy-1p2-supply = <&pm4125_l5>;
-> +	vdd-csiphy-1p8-supply = <&pm4125_l13>;
-> +
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +
-> +			csiphy1_ep: endpoint {
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&imx577_ep1>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&cci {
-> +	status = "okay";
-> +};
-> +
-> +&cci_i2c1 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	camera@1a {
-> +		compatible = "sony,imx577";
-> +		reg = <0x1a>;
-> +
-> +		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-> +		pinctrl-0 = <&cam_mclk1_default &cam1_reset_default>;
-> +		pinctrl-names = "default";
-> +
-> +		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		assigned-clock-rates = <24000000>;
-> +
-> +		/*
-> +		 * avdd and dvdd are supplied by on-board regulators on the
-> +		 * IMX577 module from the connector's 3.3 V rail; they are
-> +		 * not SoC-controlled. dovdd (1.8 V) powers the carrier board
-> +		 * level-shifter that translates CCI I2C and reset lines
-> +		 * between the SoC and the connector.
-> +		 */
-> +		dovdd-supply = <&pm4125_l15>;
-> +
-> +		port {
-> +			imx577_ep1: endpoint {
-> +				link-frequencies = /bits/ 64 <600000000>;
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&csiphy1_ep>;
-> +			};
-> +		};
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> index 0a52ab9b7a4c34d371f5ac23efe59d1c9d2723f4..0d5c3e31b1f613157d4d2ec6947c630f1031b73b 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> @@ -38,3 +38,12 @@ &sdhc_1 {
->   
->   	status = "okay";
->   };
-> +
-> +&tlmm {
-> +	cam1_reset_default: cam1-reset-default-state {
-> +		pins = "gpio33";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> index b3f19a64d7aed3121ef092df684b19a4de39b497..515af370ca014a668dc035ff944fb82b6e09ceeb 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> @@ -38,3 +38,12 @@ &sdhc_1 {
->   
->   	status = "okay";
->   };
-> +
-> +&tlmm {
-> +	cam1_reset_default: cam1-reset-default-state {
-> +		pins = "gpio33";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +};
-> 
+> From my testing, if "uniqueItems: true" is removed, the schema still
+> accepts duplicated clock names, for example:
+> clock-names = "fck", "spu", "icka", "icka", "xcka", "xckb";
+> Since duplicate clock names are not valid, I believe
+> "uniqueItems: true" is still needed here to reject such cases.
 
+Odd. clock-names are string-array which has uniqueItems by default.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+That's the first need of usage it, so I think you should skip it even if
+it does not work correctly - the true fix should be in dtschema.
 
----
-bod
+Best regards,
+Krzysztof
