@@ -1,61 +1,63 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD6540BCD0
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BDA41B361
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781010065; cv=none; b=qWmmzHJYclaM+t5R6hst9FTd3aFLoXlKb8OXNOK26NuyJYLTYjjywyMuvtieYHmcvnsCCVrjCvtvHYqaavtcYjBMR5SjFRTBwa6Crq3tBU03i/WFtA0EGdGMa95D2TVSiAYtMVCTRmeIiIEQ043q++Jb5BZVMfPO1l/IfvVvIgo=
+	t=1781010075; cv=none; b=aLfqKggKZRmVwUwNImWBocNms56dNlB0Ij7l20cIoZIKsGUx5YcWJmmWJQDbOw1hGcNq2twvRco784duu3IyYmLEGzHWRN000btczN6wdR8HUaFJ7Aw1swjy5ArbXi+5iGbI1JTcOb77GDRM1C3FTgPM5Oy0Nu2NWK+I1okTfwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781010065; c=relaxed/simple;
-	bh=4R5lSyELzS1MZVKrE6fIwHxPO7osaByze53UAsHBca8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version; b=RnFjqZfXmly9so8cV6qJGa4192Dp0qYR1ejv68e/IkLmWyyieyDzm16Nis5LXX5VZIfBc+GO9qxcMhM001NinLYkKqOMift8bBUogzlcdLt6eNupQjBH1sIxZYuIE5Fp0gpUwrJAK2yztFE/oAf/utDGioiiZLW1zv6VQpxDeEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=akK8XGmX; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1781010075; c=relaxed/simple;
+	bh=6v3uUeRMpD/OAllmC6RugAPlqWhvN9wSG0ylDSha60A=;
+	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Qx/X0qy3zktLRZB8MTIuJ34dip916Qm9yMWi8t80iJHhfm8PY4ogePG4ocFKaI8kpXRaFVVKnQxOZ6KPU3X31gV02BNBu5Fpi5DkgCLURJ541VkXzsepyyC4/EGxDPBVSza51rAizeznPYZHS2grA7FbJk3QmnBBG34YAM4JctI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=IfLmneN0; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="akK8XGmX"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-36d630c0e35so5841691a91.3
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:01:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="IfLmneN0"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-36b9033d230so2863982a91.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:01:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1781010063; x=1781614863; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mA+1iToTuolWzR4VNZJJfQmxeczHbXjnH8cwuBOXmUA=;
-        b=akK8XGmXubqalUlDvUr6jvJBO/n2QrgekZ9uf2BFVVcSAlonP2wcTfPOG1k32QmwXA
-         8mJASFVxCimODmter7HmDxpMtK6RoGVxhISWej6xvJThX5067ekM4S+JcDi4xNytTXBM
-         OhPZ3o9iYgcowMwfrZU15h6lGK+3/rfBVdpNRHkxS0gBoWW7hwM/O3Fg6CQhfFenf/b+
-         MsBT3b1IWZ5gLOY7D2SGfuOMZDJU28nPi10kDFCTY4fv+iW674m6hRTwbHFnv9XF37Vv
-         TGnjYBWcwjhe9c3RnMeWAtH6qeslN/90WH21ec+7i6mObUCkjSYHxkJGeeQM/DiMF59L
-         3qjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781010063; x=1781614863;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=bytedance.com; s=google; t=1781010073; x=1781614873; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mA+1iToTuolWzR4VNZJJfQmxeczHbXjnH8cwuBOXmUA=;
-        b=IaKaPxQHYEScCDlWD5uKAZVa+iiywCw1pk6qfyI8Lsi4yPaft27D3GVMu5ZaePHUki
-         jQ21zJVmqqJb7sgf5rWg/AAfZ5yE7nLKsU3geXOjvKT0ZHP4ncnnJ6aZVpAzjv0O+zNz
-         MDMBtq9Kjs9Z07O9BLmpQBlxlz88jAd61EY4QMvVjtcgjWo8039dPvQu/LT/a6WXFWty
-         Ni9icMFe9Metu2qiNmKKyEwWsnJVUcG31XFVPdAdD3nLsgYeHd1Oe5+NhNB+XmuXEOl/
-         +WwlPr/1W8cixJWQ4zpLVS1qiHQ+ULswBmJK26YYq2V4edejb95NwwU02TjSUjyknZZT
-         axgA==
-X-Forwarded-Encrypted: i=1; AFNElJ8/ECiuKAH7CZSSI9WQW538WrM2Tlj5Riltq7j1/ATyjLqvmt8F/GZHTBTyCJ7GWSFtK4gIulFUCsLh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yys1j8vUrwkDHSYR0/WvHGoYieVzs0SJbLTuHj65riwz2Y2mmiF
-	fSa+dkcs2vU40nCgpBckUL5/21Pz+TQRe+KFSkvBCfy6/2ezuhDtS6s86RFbmDNp5eQ=
-X-Gm-Gg: Acq92OHNGxmBuxYkCsaWNWsNfnGyeGkA8BlCJ3pNA7MowSAmh5FM3XhrmauHjPXOD2I
-	wdJGOLDXudLBLCSP4keZ0qujSoU3SfG9m1yUrYcOo9GKBPb3Fh7SUjzkwzR8rBc7s223xjdFizM
-	rt6CLxnxy21OijwS6Oa+tiQQ7tl93u8/nWJ8at0QCgHEFZr43CrjATKyBjAgQ/k3ao+ZUQA5VEd
-	Tk2M+Jbr/fP7Sz21/sbWt2/2ddMhuNt7G0pzhj7F6UdBV0gU4GMKb+9zbqEsuFxD9joSLW0QKyu
-	0VTnwGSfJZ/TZxInNJbp5slLYNlAd5XqPex84vvy+rHer60KrkSbDtOOEiHMaEZ7KlQOp9aYiKN
-	SG4AQwZGZBheHkiktLdUr9oSSVUzu0q7x3Po9dNONW1A8ll9/WDtUbVdACnTxnNf75IoJ6cH27o
-	UVx+UvF6qBx0eoER9K0QjogDecpe4epvJ9MBCpGmc9Fe36aEPFxCdfcJFrtUwhDJm3rvc=
-X-Received: by 2002:a17:90b:5906:b0:36a:5d1f:7ac with SMTP id 98e67ed59e1d1-370ee344dc4mr21272633a91.3.1781010061860;
-        Tue, 09 Jun 2026 06:01:01 -0700 (PDT)
+        bh=bBjioe1/b2Df8x5Ip9K6/oumGB4ZieiSVwwEXmL7mog=;
+        b=IfLmneN0B8IUQI5ihL15OIV+QBsjJ0xGox9ivRwHVsHgVQySFckXevwyZ84El1GhEe
+         X5pWaCoGJb1veh2jU2NcW0wrIaJedV6LOIfX4K0i8WFX0YGOgEAVAMXXtxTDXxdKQWpe
+         NplydLph/uo7pYO1jzwZb+YS0rIkS3ZFvfcaEI0Cd4oPUK0NcctpNWLOYLemF4BW+swm
+         Qgilfy2GViLemWeigkFjJ9aBA513i6cyu4qAqv36JDoeI3GSc/1J4P1JaDNiAgZy7ciY
+         T/BoZBtOZcJn/Zsh+hP6i5zsOaYjvTxWJAnsG6dbQODLVHKcl6mhm+yaiEj/07Oy/oma
+         YWFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781010073; x=1781614873;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bBjioe1/b2Df8x5Ip9K6/oumGB4ZieiSVwwEXmL7mog=;
+        b=CjkkmdTD4/cUZbG+x3soUSuZmtXSthubkpn0uJImNAKDybiaIuJ/MF8PAoQDGLVohM
+         OcAJlFv1UDW69k6ahiU+IUKwL5bbSwqCp0aDqvTtSSdt2Rg5Z0LQwcH4EgBfvNqwvuvI
+         s+794hk5pi0bQ8GSnq/mQH0qXljZ4VGXUYmpVWQzOoM6wweVMqfs5XTT8nXXWHim+J6b
+         mpph4ZcGcr/fv2ZmFxJxc/jt235qW9dW9wL2DweKrokbMN945iP8S/p37RKuqZoGaQ55
+         /d7spqScICoIP18qzPZPXQSbiD67BNk+CcjnNjffkwf/ed/nmKINZxrrfjuh4Bt0iJjO
+         cWxQ==
+X-Forwarded-Encrypted: i=1; AFNElJ95vi/mryJynHDryfSzS72/XBcsJHJH53tQx7tzTFDt5VB7WtNwjIdyvqiNQ87B6ZsHzpMTR1Yl3L/B@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8fxBMQsx20ttKgpw7oFOKA+WfPuqCFUNPmn9yl4inm5g7ZsFy
+	XvuYrP6KHaXznr19xorYfgLde50y2+zI26m2NUPyrat0mcHtaOmnTg5Yd9jyY4U1FOI=
+X-Gm-Gg: Acq92OEyC5F06JGN7eSqcMDK7PIotiZeg0VO5Q9miQDcyLZJ4qCY7ixJ0SyER2BOTFz
+	V93uwBRPXE6g+wjPYD9Bmi7gx976DZCDExOkYvHIkCpajbP1Nrc1cSyh/oBT1HkJKpNtQe7aYdG
+	OAj1i8Gh+t8kVOhZln4N/90WOqM0q/ZWVTQL0PPHi81OBCNFdONmWKZqv76R5xJqBKx7KSX/7mL
+	ES4/BV9Biij/KiHc7fU2iTAH/mvoGeNFz4NOeBtfvgArFSpmgzO2gFcDc19nMqsSNDuDM7MuHfB
+	otuc/uSXI3/PhCNmDTp8VFF2VZn4Vfoy2xaNWZdIiB1UsvbzNE0KXR2n7tjdd9lBpjZk6maw5q3
+	W3nIsCJ2e0/q7/gge/40hbC2+5GDYcAIZaGcjCX+bLzIJbBGuBPLSf2rMcHO/CGxsb4qRDRVQwT
+	6OPI/nv7MeQXPTk2WC3XoBg7LMjBpj/KS6Ne/y+yBujwY3IykaMvRkkFOgpxB5bHd5H28=
+X-Received: by 2002:a17:90b:570f:b0:36b:877c:42e5 with SMTP id 98e67ed59e1d1-37133372f4emr14653761a91.17.1781010072907;
+        Tue, 09 Jun 2026 06:01:12 -0700 (PDT)
 Received: from L6YN4KR4K9.bytedance.net ([139.177.225.240])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6bf8284dsm23267889a91.4.2026.06.09.06.00.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6bf8284dsm23267889a91.4.2026.06.09.06.01.02
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 09 Jun 2026 06:01:01 -0700 (PDT)
+        Tue, 09 Jun 2026 06:01:12 -0700 (PDT)
 From: Yunhui Cui <cuiyunhui@bytedance.com>
 To: akpm@linux-foundation.org,
 	alex@ghiti.fr,
@@ -88,10 +90,12 @@ To: akpm@linux-foundation.org,
 	wangruikang@iscas.ac.cn,
 	zhangchunyan@iscas.ac.cn,
 	zong.li@sifive.com
-Subject: [PATCH v3 0/3] riscv: support effective hardware PTE A/D updates
-Date: Tue,  9 Jun 2026 21:00:17 +0800
-Message-Id: <20260609130021.99899-1-cuiyunhui@bytedance.com>
+Subject: [PATCH v3 1/3] dt-bindings: riscv: clarify Svadu boot-time behavior
+Date: Tue,  9 Jun 2026 21:00:18 +0800
+Message-Id: <20260609130021.99899-2-cuiyunhui@bytedance.com>
 X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+In-Reply-To: <20260609130021.99899-1-cuiyunhui@bytedance.com>
+References: <20260609130021.99899-1-cuiyunhui@bytedance.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,41 +104,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series makes RISC-V track hardware PTE A/D updating by the
-effective runtime state instead of treating Svadu discovery alone as
-enough.
+Clarify that systems which advertise only Svadu have hardware PTE A/D
+updating enabled at boot, while systems advertising both Svade and Svadu
+must enable Svadu explicitly with SBI FWFT.
 
-When both Svade and Svadu are present, Svadu is disabled at boot and
-must be enabled through SBI FWFT.  The series enables FWFT PTE A/D
-hardware updating on all currently online CPUs before enabling the
-global static key, and enables it for later hotplug CPUs early in
-smp_callin(), before they are marked online.  If FWFT setup fails, the
-kernel falls back to software-managed A/D updates.
+Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+Reviewed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+---
+ Documentation/devicetree/bindings/riscv/extensions.yaml | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-It also makes live PTE access/permission updates use cmpxchg-based
-merges so that software updates do not lose concurrently
-hardware-updated accessed, dirty, or soft-dirty state.
-
-Changes since v2:
-- Split the devicetree binding clarification into a separate patch.
-- Avoid CPUHP_AP_ONLINE_DYN for FWFT setup; enable FWFT for current
-  online CPUs during init and for hotplug CPUs early in smp_callin().
-- Export riscv_hw_pte_ad_updating for modular KVM.
-- Preserve _PAGE_SOFT_DIRTY together with A/D bits and rename the helper
-  variable to avoid implying only hardware bits are preserved.
-
-Yunhui Cui (3):
-  dt-bindings: riscv: clarify Svadu boot-time behavior
-  riscv: track effective hardware PTE A/D updating
-  riscv: preserve A/D and soft-dirty state across PTE updates
-
- .../devicetree/bindings/riscv/extensions.yaml |  6 +-
- arch/riscv/include/asm/cpufeature.h           |  8 ++
- arch/riscv/include/asm/pgtable.h              | 27 ++++--
- arch/riscv/kernel/cpufeature.c                | 89 +++++++++++++++++--
- arch/riscv/kernel/smpboot.c                   |  4 +
- arch/riscv/mm/pgtable.c                       | 68 +++++++++++---
- 6 files changed, 175 insertions(+), 27 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
+index 2b0a8a93bb214..b09888e9988de 100644
+--- a/Documentation/devicetree/bindings/riscv/extensions.yaml
++++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
+@@ -294,10 +294,10 @@ properties:
+                of the PTE A/D bits or page faults when they need updated.
+             2) Only Svade present in DT => Supervisor must assume Svade to be
+                always enabled.
+-            3) Only Svadu present in DT => Supervisor must assume Svadu to be
+-               always enabled.
++            3) Only Svadu present in DT => Supervisor must assume Svadu is
++               enabled at boot.
+             4) Both Svade and Svadu present in DT => Supervisor must assume
+-               Svadu turned-off at boot time. To use Svadu, supervisor must
++               Svadu is disabled at boot time. To use Svadu, supervisor must
+                explicitly enable it using the SBI FWFT extension.
+ 
+         - const: svadu
 -- 
 2.39.5
+
