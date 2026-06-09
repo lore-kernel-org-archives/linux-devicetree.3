@@ -1,139 +1,128 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA61B4D90B4
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 18:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C7D4D2ED3;
+	Tue,  9 Jun 2026 18:58:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781031485; cv=none; b=U1S8SpoPsvMRvRLPhAr+KkPBUAzhXybpgB90vCvAfMiFy1SEHri7O2jfqqTmDC66E8dzE4rz6UtPU5+7SxY6+pSzMgapsKEBPNUHLq4N3lRRsfk0fgZf9Mo0L/o6L8eCMtVB3OCEpVBGjJm0rh6nJW5xiFiMwJZukusOddxZMQ8=
+	t=1781031485; cv=none; b=KWHm5MONDJ+b/d+L53rOCD79WeT+bdyMH6nklJSi1CdJ9JXwUbBdk8i+VHi7SMJWhis/6j+78bL0uGeZjX+EpoPAsN2NBsLOin+rPqA4mq0YB0/GD5A7EkQv4yLGaEhe1jML4KGw9VRq5jBdmUWpVld/mWRLJcsZXLFFi765RjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781031485; c=relaxed/simple;
-	bh=vgTU6IpqehS35f26r2q57NqAGrF/RDXF3lubDqCB+Bg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qSBO127p0x8pQ2x2Wg9ouB9sK+KPyHUOcG0B2k6zEScLREEOoQHfm4qqpq6S7fBOBrXcmaG5xJc91T4cCT1xOs9YAVSMs4d2nIIhD0k7G5usgbgY+6oeFjcWDgiIO9eCVlV6kPsV52QG7xiskIpdZXnFGvpmUcXtYNW+u1ZiWTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=j3FTE+D9; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	bh=qBaTipJIBdrNj5yARfGrmu93QPHd7TPizSBTvXriavg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=niXnr8iy7sIOyULWKWy5lru0puADk6qsdGBSuzaYRrbMG+NWQPirrKGlh5+lNZHRmMe7rSOboqLjV3rVxfXRORLWMo8090WBngMzSw+xWXAvrWBrYHZCdLM5kjGvw9w/p3pJr62p+zM86mB3i5AYMna1KL7HRazDEb9d1emiqSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ByG5abzW; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="j3FTE+D9"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45ef29c5561so3192743f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 11:58:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781031480; x=1781636280; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=r7ceLvJFGDWzpb591woUgz7GBOYPJ1IlL6PiiR38W78=;
-        b=j3FTE+D9dSnQBz057NvFONe7sZUpzHhWrY5RGvVmf2BtqjUmPnqcA2TAF3YMqKneaz
-         vceIx6k8UPnaOVMaqyGQvpZO1Yw6U22Icwche1pX8LFx3lyT7Re55TX3po5roj7zMBYC
-         QaReoSupEN8Jzcl5IhVFwoPEv9OPCsL8abAjs44Ohzyid05imnA3jztCBJQ3nRxnhDp1
-         Vs9pzHG1v6vbTuLBJP0EVsjrG8NYxRIdSdt9DVQZLXNUjSNu910psw2aeky87ADBPw13
-         88Xm7oWDyw5F+yR17OZCLI72MZyXx9gCdIdFjZuoULJUtQ+4TIqNgxr36z/J/Cp/oOvT
-         Udxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781031480; x=1781636280;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=r7ceLvJFGDWzpb591woUgz7GBOYPJ1IlL6PiiR38W78=;
-        b=g8nWB4M87vbPYKH4Nc9lYjIGFbXLvdXBbMin1C8NGxYhr1+C4Pv1F4BFkPCp2K8EPh
-         ip5R/6mGtcNWWhEY+Q0FjO66BRRxyclnlcBsf6UUcujaL//UXDwQ5FpuPKLj6tVJRZTf
-         BOOpNc7tr7Eu7GqpjCXhUBPukoEk/WhxnzOJXfPvZnI8ZxAjdQWOdax3spBV0Fle8qlB
-         WrXbpym7PsDaf+KYZ0wyvinfmp3bNOJY+i8n6v+LXdVDqJTmhg635XF9f2LJ37j/vo2z
-         Be9JtWbWQBc0O5GQkNSAx7s4yNPSn3S83xMgny46kF1/6RAzlCZ+NHlI2LJIC8OBEQ5M
-         a0tQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8PE7R/BkgYkkY/smR8A5btDh4TLrRrrpEydajuXpGoTjmYPIsBRFUsspy84U/bEAUgq9nY87grVf0v@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx39OvdfdbF2mhwn4PktTprpfyxDRnIrnyDsg0kuBz4Xt01aulV
-	Mc9ioPy82v7vWMiLBXeu0pkdjBxTK8VLCLKkjL7Vr5zHodwoOX4ACClxD5MosccgC3w=
-X-Gm-Gg: Acq92OEQ2nzpUI2jhNTIQV73c+hdMLYdHW25GoZxzqJi/3iHGC1y1l3PUMyqhHNwbHH
-	NGP0QyqpHDxye2HXdO/CWd+Zy08rOwHNJ42bHWKOCfFhNuWRkeTiyR7B+QbHLc9aNG+vHpZdPZe
-	AdZlJ5Tg9zAfc61vaQu3vUqrZ9CwbzTBNvvst/lSZsxIUeOpMMMgvWuIZ81XXiQoYptkrM/2C5n
-	AW/shpgMn+R+qOf+mz6jizaibxaGQC34KiJqGzO6T4pvJvo983/ocuNSUdZTuKCdXZaMG5K5C0g
-	PN6FqTisW75vcUze9oy08m4HepG2U5yTO57YZzCkm85ErhsbNEZKFWPfAKB/6oxml/PuLYTKJTn
-	9D89HJjoAgsQFUHSDSXMtnrgqrr+vhT4DJRLKba/gxQ0r6Lc+lx3AixjEQ/kmijDSmkBocsp3kp
-	HnR/tKqj1+mA03u0smhBhN41HasGqjyrDM6SWGb+D9Og==
-X-Received: by 2002:a5d:550f:0:b0:460:3233:f994 with SMTP id ffacd0b85a97d-4603233fa1fmr26772439f8f.43.1781031480394;
-        Tue, 09 Jun 2026 11:58:00 -0700 (PDT)
-Received: from localhost ([2001:4091:a245:857c:bd97:47c2:83e4:8d45])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2f2710sm50663559f8f.14.2026.06.09.11.57.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 11:58:00 -0700 (PDT)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Tue, 09 Jun 2026 20:56:23 +0200
-Subject: [PATCH v6 11/11] arm64: dts: ti: k3-am62p-ti-ipc-firmware: Add r5f
- nodes to pre-ram bootphase
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ByG5abzW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781031485; x=1812567485;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qBaTipJIBdrNj5yARfGrmu93QPHd7TPizSBTvXriavg=;
+  b=ByG5abzWfmWTRhc3dbMP93gqS7JY13aoNTcnvLkwE+IC7fnrjUMTcWeW
+   aKD+zUtquuuW5XQsuJCIEkidUAmcve59/o8mK3t/8LaYoT/VGI5YYWSqd
+   xGoQkPUTbMKEfrrHiIYKQ7UEdMJg72tUJj1XhxfC7xE4OHo0r3E5mKwwu
+   X1g7/xrWX2dbCGIoUrzLx7DV1MLtl3ZO9C27GH48Od10f6oSp3qi3xFx0
+   PK7cJ5UUJshcg7WtRKG3aOzVlWUBxrw2tXfNGT+j+Ztm+E4wA4NQ/GfdB
+   75UtyehFCwy0Oq8h37iv1EVJVIskhXXFV/bk9E9+5PQIh4nbuTKNgC3iY
+   w==;
+X-CSE-ConnectionGUID: 6Hj95BXdQaSG3kdP/x9PMw==
+X-CSE-MsgGUID: molkidvMRSiULTcKwoZtcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81553312"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="81553312"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:58:02 -0700
+X-CSE-ConnectionGUID: Rx+734n5QG2Xmo6vFLT3SQ==
+X-CSE-MsgGUID: EvwIZx1rR36cJPrntihkMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="241520510"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.162])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:57:58 -0700
+Date: Tue, 9 Jun 2026 21:57:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+	jic23@kernel.org, jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH V10 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Message-ID: <aihiM5Ao-vuAsUyh@ashevche-desk.local>
+References: <20260604201832.60656-1-macroalpha82@gmail.com>
+ <20260604201832.60656-4-macroalpha82@gmail.com>
+ <aiL0g8d0Y_JeAC5c@ashevche-desk.local>
+ <PH0PR19MB99733851DADB0671AE5F76B788A51C2@PH0PR19MB997338.namprd19.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-topic-am62a-ioddr-dt-v6-19-v6-11-16afba97fbe0@baylibre.com>
-References: <20260609-topic-am62a-ioddr-dt-v6-19-v6-0-16afba97fbe0@baylibre.com>
-In-Reply-To: <20260609-topic-am62a-ioddr-dt-v6-19-v6-0-16afba97fbe0@baylibre.com>
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Judith Mendez <jm@ti.com>, Daniel Schultz <d.schultz@phytec.de>, 
- Andrew Davis <afd@ti.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
- Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, Devarsh Thakkar <devarsht@ti.com>, 
- Beleswar Padhi <b-padhi@ti.com>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>, 
- Sebin Francis <sebin.francis@ti.com>, Kendall Willis <k-willis@ti.com>, 
- Akashdeep Kaur <a-kaur@ti.com>, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1228; i=msp@baylibre.com;
- h=from:subject:message-id; bh=vgTU6IpqehS35f26r2q57NqAGrF/RDXF3lubDqCB+Bg=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhiyNJIWtC9Wd2BVK7G1VZ8l/k5HMmsA25/PcSXd6/2gZ+
- f1sXHq/o5SFQYyLQVZMkaUzMTTtv/zOY8mLlm2GmcPKBDKEgYtTACYy/wDD/7wDn10ljz4x7v5f
- x+0qqP7Fp+UFx/bzO2//fyb2UPHTo/sMf0V3LxBvKiy/5ByoVr9u0vdfkZOXN0z6r+Hv6Wy2VuL
- 0DyYA
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PH0PR19MB99733851DADB0671AE5F76B788A51C2@PH0PR19MB997338.namprd19.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-For IO+DDR the wkup_r5fss0_core0 and the
-wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
-setup is done. These are used to read the lpm metadata region in which
-data is stored to resume. This needs to be done before RAM is in use to
-avoid overwriting data.
+On Mon, Jun 08, 2026 at 03:52:38PM -0500, Chris Morgan wrote:
+> On Fri, Jun 05, 2026 at 07:08:35PM +0300, Andy Shevchenko wrote:
+> > On Thu, Jun 04, 2026 at 03:18:25PM -0500, Chris Morgan wrote:
 
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
----
- arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+...
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
-index 8f7409da83392d2d1f160a9645ef4d68f7aaa1bf..04fcd5115b9d95e6e23c4e43782c06501a0fa601 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
-@@ -40,6 +40,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
- 		compatible = "shared-dma-pool";
- 		reg = <0x00 0x9ca08000 0x00 0x1000>;
- 		no-map;
-+		bootph-pre-ram;
- 	};
- 
- 	wkup_r5fss0_core0_lpm_rest_region: memory@9ca09000 {
-@@ -89,6 +90,7 @@ &wkup_r5fss0_core0 {
- 			      "lpm-metadata", "lpm-context",
- 			      "dm-firmware";
- 	status = "okay";
-+	bootph-pre-ram;
- };
- 
- &mcu_r5fss0 {
+> > > +struct inv_icm42607_sensor_conf {
+> > > +	int mode;
+> > > +	int fs;
+> > > +	int odr;
+> > > +	int filter;
+> > 
+> > All of them are supposed to be signed? Why?
+
+> > > +};
+> 
+> A later commit will use -1 for invalid values.
+
+Okay, perhaps add a comment on top that negative values will mean invalid case?
+
+...
+
+> > > +#include <linux/delay.h>
+> > > +#include <linux/dev_printk.h>
+> > > +#include <linux/interrupt.h>
+> > > +#include <linux/iio/iio.h>
+> > > +#include <linux/module.h>
+> > > +#include <linux/mutex.h>
+> > > +#include <linux/property.h>
+> > > +#include <linux/regmap.h>
+> > > +#include <linux/regulator/consumer.h>
+> > 
+> > IWYU, please.
+> 
+> This may sound like a dumb question, but what's the best way to invoke
+> iwyu for a kernel? None of the readmes or man pages seem to be getting
+> me anywhere...
+
+In this list we (I mean community related to IIO) discussed iwyu tool and
+its best configuration. Yep, it's barely good and far from ideal, but that's
+what we have currently. Otherwise `git grep ...` and cscope are your friends
+to answer this. Also doing review on regular basis makes this knowledge
+developed better.
+
+...
+
+> It will get extended, so I'll keep this for now if that's okay.
+
+It's okay.
 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
