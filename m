@@ -1,103 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF6C344DAE;
-	Tue,  9 Jun 2026 19:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B2B3749FC;
+	Tue,  9 Jun 2026 19:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781033598; cv=none; b=F14uEPAxL/csdPNLkaqT5/YXxku8xB6TmsyxaZqbsIorY9/2jOXyZRwcFNAZYK4io0jiWjVQdfP7mgsSubYgijGjq8qW0hUAyx7iKbUDY4JAw5Do22AqZlT+ltNlUxyTvf/QnIzU2gSXMsHuqolEiJnO8AHAaCvbxPMfUCYwzek=
+	t=1781033724; cv=none; b=Z6h7/m2RLiS7VtCQBiBkkQ86CEDhnIOiZCScmHjxR71g5JO9q2PPVjoHvDKcZfs5Lkszi/l2WwBWYtqa7R9VQmnrLpJ6YC9j5PVkEs7qyR6E/reDa5NwmbucGg5z1QNxZKyicasxN5wxmjfS7BArM2l24UeZTErywuprh/15HEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781033598; c=relaxed/simple;
-	bh=4sQeWTpTHfO3TwVdreiqV4yVzlLjiyYiPOU+cAH5/cQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eTg/4SiJHi6jyCc2rm+I+FXYnkLQq68oSNwDTjeTEgrNA4cII/ullzXxoD03wYmNKnuccDARhcWu7dJC8pdjIh36aeNvJZpHsyZgGhLEreTsZurFITxruEMCrYYbothPz1sW4yHzwFivcoDKjucqJ3R4gYvQqIh3MVpAr6PB3rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lOBzEaF+; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781033724; c=relaxed/simple;
+	bh=nRFmzcUaiHWslIfHZ8lZBNxlTfe/5tE9TQXUEp8ZrBU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l/jMwaDhDifH2pvFZmDNqAKK7cq87EnGz8M0/TV9BRcclWRiBfkjpDvgvfxTN3mbPT82jG3ErGW/vLT+mYo3gnxPBLLOoMBgYwJ89iWxf2lOCM6c4KkwRTdW72Qk27VDPK0JgS7NdVbAyHnPckoDF/3UIxYcGm8sdVH4vdhrzP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gd9LpgA1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lOBzEaF+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781033597; x=1812569597;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4sQeWTpTHfO3TwVdreiqV4yVzlLjiyYiPOU+cAH5/cQ=;
-  b=lOBzEaF+H80mVUh5CfS0lZGc2y2VcV6XDGfaiynKziDBXBHrsdP3o+UE
-   QFfATsccrHI7YmPAKNCQe+NLjSQVou+51wJGOE9JxB8MbtjtuM8w155yj
-   Eds7WkyC1dgz3Rkzmn2RaeGaAANH69Pf/+E/42bkygeQ03+62K6yk1kzs
-   WF8EfovCu77965cqWoAmzuNM15X/Yc/eKFQZ6NcVaoaqBv8Biy6S7H1E1
-   W2vC8cCIxKPtjOryDcijXz1TdEcLwBBNl3xofGLRogNGlLt9wk5GvkKUQ
-   DKh6d8vfY1mZoTZsgpBcLwTkWeRRx8adq1P1Z16XUjKKMPIGCBRuOGyJi
-   A==;
-X-CSE-ConnectionGUID: y8DJ9cu8S1i5xZGjTKfs5g==
-X-CSE-MsgGUID: t6LY9rQOSbmJHSOwRqykkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="92130910"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="92130910"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 12:33:16 -0700
-X-CSE-ConnectionGUID: SOLNmU1EQEStSFclzpEaCQ==
-X-CSE-MsgGUID: hgRnIwRJQVqbOU668KynsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="242986939"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa007.fm.intel.com with ESMTP; 09 Jun 2026 12:33:13 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 0F98E95; Tue, 09 Jun 2026 21:33:12 +0200 (CEST)
-Date: Tue, 9 Jun 2026 21:33:12 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH v2 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
- driver
-Message-ID: <aihqeLKHC3PP436t@black.igk.intel.com>
-References: <20260609-mt6323-adc-v2-0-aa93a22309f9@protonmail.com>
- <20260609-mt6323-adc-v2-2-aa93a22309f9@protonmail.com>
- <aihbxowyAIlSeDjH@ashevche-desk.local>
- <hacDZbv1Whk_g8AMSfJqKHrgXfyVKt2o3_UGK-1k9jNRJyMxEFPztGhytHvHbc1x9j-F84I_ZuprmXWf2Azbtdqj2vnVal4PO1gG_DijYyA=@protonmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gd9LpgA1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43171F00893;
+	Tue,  9 Jun 2026 19:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781033722;
+	bh=zlJ1izUT3b9sB+0io6mLoy0ZthPU0QciI8/lQC0mX9k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Gd9LpgA160cfB/pEN+PDzhkZ7LFCleunnU1M3IKf0IBlUIXaY9QDopSebbZwf7Qag
+	 zmI6cLLBqG85XVBYEbj7bjBLOMVvrqsLXzqWMj61mrO1T1VsR8piS+6wF0FnWWPVhF
+	 TDx/+A6liba/InHQbSj4owgez1kYEOio+3iYbeOnFQfQz4uyp30QI0I2IJf7txJ1OD
+	 oDe61jjzYrLbpC7JlmU+jsvoS0KqTN32C7spSsDS7CDiYjnnHO8FpYuvheF3CHDeG4
+	 CE5LRVhcsNTfVnjbCmIaGxlomAlGWu/7bN1PtYx30agk21czw/andOX84PRjlDvvUI
+	 Mtd64NkMtPrfA==
+Message-ID: <e2dc8425-fdcd-4a3d-9d00-1416395aea82@kernel.org>
+Date: Tue, 9 Jun 2026 21:35:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <hacDZbv1Whk_g8AMSfJqKHrgXfyVKt2o3_UGK-1k9jNRJyMxEFPztGhytHvHbc1x9j-F84I_ZuprmXWf2Azbtdqj2vnVal4PO1gG_DijYyA=@protonmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/8] can: flexcan: use dedicated IRQ handlers for
+ multi-IRQ platforms
+To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
+ Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>,
+ Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>,
+ Haibo Chen <haibo.chen@nxp.com>
+References: <20260609142954.1807421-1-ciprianmarian.costea@oss.nxp.com>
+ <20260609142954.1807421-2-ciprianmarian.costea@oss.nxp.com>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <20260609142954.1807421-2-ciprianmarian.costea@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 09, 2026 at 07:15:42PM +0000, Roman Vivchar wrote:
-> On Tuesday, June 9th, 2026 at 9:30 PM, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Tue, Jun 09, 2026 at 04:31:59PM +0300, Roman Vivchar via B4 Relay wrote:
-
-...
-
-> > > +	case IIO_CHAN_INFO_RAW:
-> > > +		scoped_guard(mutex, &auxadc->lock) {
-> >
-> > I'm wondering why we haven't moved to guard()() here
+On 09/06/2026 at 16:29, Ciprian Costea wrote:
+> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
 > 
-> The compiler would complain about 'cannot jump from switch statement'
-> due to default case.
+> On platforms with multiple IRQ lines (S32G2, MCF5441X), all lines are
+> registered to the same flexcan_irq() handler. Since these are distinct IRQ
+> numbers, they can be dispatched concurrently on different CPUs. Both
+> instances then read the same iflag and ESR registers unconditionally,
+> leading to duplicate frame processing.
+> 
+> Fix this by splitting the monolithic handler into focused parts:
+> - flexcan_do_mb(): processes mailbox events
+> - flexcan_do_state(): processes device state change events
+> - flexcan_do_berr(): processes bus error events
+> 
+> Introduce dedicated IRQ handlers for multi-IRQ platforms:
+> - flexcan_irq_mb(): mailbox-only, used for mb-0, mb-1 IRQ lines
+> - flexcan_irq_boff(): state-change-only, used for boff/state IRQ line
+> - flexcan_irq_berr(): bus-error-only, used for berr IRQ line
+> 
+> The combined flexcan_irq() handler is preserved for single-IRQ
+> platforms with no functional change.
+> 
+> Fixes: d9cead75b1c6 ("can: flexcan: add mcf5441x support")
+> Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+> Reviewed-and-tested-by: Haibo Chen <haibo.chen@nxp.com>
+> Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
 
-I am not sure I follow. See the examples in the existing drivers. They are
-warning clean in that sense.
+Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
 
--- 
-With Best Regards,
-Andy Shevchenko
 
+Yours sincerely,
+Vincent Mailhol
 
