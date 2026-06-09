@@ -1,208 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5543B3BF3
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD509403E9D;
+	Tue,  9 Jun 2026 12:14:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781007027; cv=none; b=iocZFmU3XcLCLdmeEHyy+8FGYYVw2h6ab6uhZ1VloBBEa9oVko5LNfh5GI8cOZsoC1ZFLhdQs3WHlHdBjUIEmRP5fceU043rZLYchJ8A46S7+d3o7EaUOX1KnPqjraX7iwygIt4PVe4TgzYQY7dWaMHNnr7SAPnB3PjrA0nbZYQ=
+	t=1781007242; cv=none; b=BrIElPFHhF1ScyCVteHVyMX1FNqIa+BH/N3zCfhWEHD5xFHjw8tOIQLS5RLMp7Vk8WjMIeBb8IC59FDYCiOtcGVi0WY8pey3tC0H/NAUkOZPLorktxxrC+4JBMmSK61VwVUl4qQ6KKVFu55TNjMwIfDG3bC3cDJO3O5MWKUxtMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781007027; c=relaxed/simple;
-	bh=SgsenhZ6gDZfw12KKv3wVM8YD+L7aOXqcxVlhgBGhro=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XNwPjuEcJ9bpjHCFWnJzsORd/4DRAEOX/kCr438nbs7FipgbHpAex8VI+Hwk4XPGO74Cav5JXfoVQDKEBi9vzw4DEgI6CiCPjHpX52LPdfRvIAR/GX8LDMbBzGQNCeG7iW7Kru/FWVL3afUyNyKx7J9xram5JQUVu9nCcesqyDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdlOjIuV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781007242; c=relaxed/simple;
+	bh=32Zecr6AuK0y1EVb0X3uac50CzMYlS0gw/408kDalgE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IaPsob3bCc1I+9S+F+M7CO+fq5TGHe57/4PX+7dUntj0aNrCF9oewZM2Ly5kVyMC5Tbjjs/3ZLJTeY6Hwd5QuMU7avFy1l4wSrRUWEPbF/+qRVrn/G+3wF1yTq8VlWg3WStxGjzRdfJ51HFMRfp759ZVRtVPZcl71hW8IWbGMqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=BudPli9x; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdlOjIuV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87B71F00893;
-	Tue,  9 Jun 2026 12:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781007026;
-	bh=EM1wjryx/fAhI/VTJ9JZqVA9OIXmpmf+Jc72EPkQfaI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UdlOjIuVlKL4h1tqU+q1vavpJ8Qh3dbuFxzWMJf1H9CcHPPUPugl4AjEWXiw2o7pV
-	 P6tv++KCs3KFFSxvTggSgO5bAnOVL3qW/ro6zNloXYEWVRblaxyeiyp0oyun9T/nAO
-	 vKnaQYZPC4Sz4edE4fJb8gQBIegGvUKx80BhpOqe/lix6CGnT80AfLXWZWcwm00lSG
-	 Rp9y7KVWVV99mpec2v66e+W64fXvjTiXjNNZWOvibsCpo7m+FYwDHWZ7mFw+5k8EHe
-	 QXRBv3LSjN71PFa1PpjgoQpg+tGljd26VLFjuEqcKV/fX2f9LcZ0bvufSewgxd3lHu
-	 Ikm2uQj6B8Lqw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/11] ASoC: renesas: fsi: Add SPU clock control in
- hw_startup/shutdown
-Reply-To: sashiko-reviews@lists.linux.dev
-To: phucduc.bui@gmail.com
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260609113836.45079-12-phucduc.bui@gmail.com>
-References: <20260609113836.45079-12-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="BudPli9x"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599xPZ4684336;
+	Tue, 9 Jun 2026 08:13:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=81SzT
+	l+2+kxyi49EMTD9mRYQR2tF88TJGFtn6KVldy0=; b=BudPli9xk8hq/XJ6aJZ46
+	yJKrNmfo1rtfLvkv9kcgS7vNnNQTP0A5c7Ge/tCzUPQz6xTdhhLgFAmtCm/avCE6
+	baQFWPMHfExiOiW+MjAH578f8+SFJvVKaIGjzepwPxRxzj/ZBJpXOiH1eCyRlA7V
+	OKYUyLOa/z3XqPsLZxV4oPPoo+G5PPpAaJ0H94ubkeuLy2yybjDzrzN6OQpcpTL7
+	r76KNs6Saa/yZ3HHBFCQSccIT23VTEW9/hHt8yrIggsR3bV6Ubyv9hEQakx2COKM
+	7UXAGMEuAUTyq+u0OWr+k74GDxYPHE8u4LEkNlTqwZrWnUafxo45CokQFD6Fkb3J
+	A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4en1vcrysf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 09 Jun 2026 08:13:37 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 659CDZrF049065
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 9 Jun 2026 08:13:36 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 9 Jun
+ 2026 08:13:35 -0400
+Received: from ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912]) by
+ ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912%20]) with mapi id
+ 15.02.1748.037; Tue, 9 Jun 2026 08:13:35 -0400
+From: "Regus, Ciprian" <Ciprian.Regus@analog.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+        Andrew Lunn
+	<andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        "Eric
+ Dumazet" <edumazet@google.com>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Heiner Kallweit
+	<hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH net-next v3 07/13] net: ethernet: oa_tc6: Add
+ read_mms/write_mms register access functions
+Thread-Topic: [PATCH net-next v3 07/13] net: ethernet: oa_tc6: Add
+ read_mms/write_mms register access functions
+Thread-Index: AQHc9D/TDKzWBNEMhUCJrHhCZ7VZZrYvOwQAgAblhCA=
+Date: Tue, 9 Jun 2026 12:13:35 +0000
+Message-ID: <8fd58bbcd30f490ea747ca0f9479e3cc@analog.com>
+References: <20260604-adin1140-driver-v3-0-5debdb3173c4@analog.com>
+ <20260604-adin1140-driver-v3-7-5debdb3173c4@analog.com>
+ <905f32c3-9638-46e4-8f52-1bc874f4e8b9@lunn.ch>
+In-Reply-To: <905f32c3-9638-46e4-8f52-1bc874f4e8b9@lunn.ch>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-adiruleop-newscl: Rule Triggered
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 12:10:25 +0000
-Message-Id: <20260609121025.C87B71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDExNSBTYWx0ZWRfX4h4q1FdX33i6
+ hmmNs4Nc6KbdBzx+wYpzCzHRLJWGqwdcHtjsfG5E1SAGa8qhYpIMQ8HqBiLzPk7C2mGY6xriDh3
+ Y5bWfmhx9M5xh4+Nvey92iRR8UeZ7uqrx0lL9n6mzPjy1+jQyTcEikTxZixsKBLTONKV8P89aAu
+ 4Y5N/uZ1WUoTv0rWB4KwxLbfqTI4q41xewvZiU4LZ4s2NHV1PlXcjxssml0PRJWFROoo6xi7LwH
+ NCQlu9h4F0zV0ELq2Qd/Tkbc0uctDyuQnCW/65UlYvIQ991bMAo1FI0+w82oXhNlhY+fNxrohGV
+ EDD449/tiY97rayOBMlylJjhhhgqttDTYU2VonEz206PfKBml0DT25LZ3wikUxA+81wdsYNu7Da
+ a3xZzlw7Ij1XvFQwxdW+bHcLK9vnAgRfQozAq47N+dvuaKsSwxvx/8PmGw+ZfC4jqs43KbT2IBS
+ /RH301mUoDLaiplPxsg==
+X-Proofpoint-GUID: 3VnXBCFEFmN9HIVfrA7mObX6FpwBhmSm
+X-Authority-Analysis: v=2.4 cv=L+ItheT8 c=1 sm=1 tr=0 ts=6a280371 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=xqWC_Br6kY4A:10 a=0buomsULfWgA:10 a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
+ a=W-ArhqCL-FZDaypOkxMA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: 3VnXBCFEFmN9HIVfrA7mObX6FpwBhmSm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090115
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+> > +/**
+> > + * oa_tc6_read_register_mms - function for reading a MAC-PHY register
+> in a
+> > + * memory map other than 0.
+>=20
+> Is MMS 0 somehow special? Does it not work if passed to this function?
 
-New issues:
-- [High] Double disable of the SPU clock on the error path.
+For addressing registers in MMS 0, we can just use the already existing oa_=
+tc6_read_register
+and oa_tc6_write_register functions. So, I meant to say that for transfers =
+to memory maps
+other than 0, this function can be used instead. Passing 0 in the mms param=
+eter would
+result in the same behavior as if the user called oa_tc6_read_register() wi=
+th the upper 16 bits
+of the addr masked (so there is nothing special about this case).
 
-Pre-existing issues:
-- [High] `fsi_clk_enable()` unconditionally fails subsequent streams (break=
-s full-duplex).
-- [High] Sleeping in atomic context during trigger.
-- [High] Concurrent triggers race on shared hardware registers.
---
+I agree the documentation is poorly worded and I'll change it to something =
+like this in v4:
 
-commit f5cfbced3eb2033737642bc08abc86f7381ec9a6
-Author: bui duc phuc <phucduc.bui@gmail.com>
+/**
+ * oa_tc6_read_register_mms - function for reading a MAC-PHY register in a =
+specified
+ * memory map.
 
-ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+>=20
+> I'm not suggesting all the current calls are replaced with this, just
+> that the documentation might be inaccurate?
+>=20
+> > + * @tc6: oa_tc6 struct.
+> > + * @mms: Memory map selector for the register.
+> > + * @address: register address of the MAC-PHY to be read.
+> > + * @value: value read from the @address register address of the MAC-
+> PHY.
+> > + *
+> > + * Return: 0 on success otherwise failed.
+>=20
+> Isn't the "otherwise" actually an error code?
 
-This commit enables and disables the SPU clock in fsi_hw_startup() and
-fsi_hw_shutdown(). This ensures the clock is active while the driver
-accesses hardware registers.
+This function can return the same set of error codes as oa_tc6_read_registe=
+r/ oa_tc6_write_register.
+Those can be -EPROTO, -EINVAL or any error code returned by the spi_sync().=
+ Since the other register
+access functions have the same documentation for the return values, I kept =
+it the same here.
+I'll change it to "0 on success or a negative error code on failure".
 
-> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> index e26f39dfe0598..b72396b5de7dc 100644
-> --- a/sound/soc/renesas/fsi.c
-> +++ b/sound/soc/renesas/fsi.c
-> @@ -1560,6 +1560,11 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
->  			  struct device *dev)
->  {
->  	u32 data =3D 0;
-> +	int ret;
-> +	/* enable spu bus bridge clock */
-> +	ret =3D clk_enable(fsi->master->clk_spu);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-This is a pre-existing issue, but does this code have a race condition when
-triggered concurrently?
-
-Playback and capture streams use the same fsi_priv instance and share
-hardware registers like CKG1. Since they are separate substreams with
-separate ALSA locks, starting or stopping them concurrently on different
-CPUs could cause fsi_hw_startup() and fsi_hw_shutdown() to run in parallel.
-
-This could lead to unprotected read-modify-write operations on shared
-registers:
-
-    fsi_reg_mask_set(fsi, CKG1, (DIMD | DOMD), data);
-
-and on the shared clock count:
-
-    fsi_clk_enable() {
-        ...
-        clock->count++;
-    }
-
-Could this corrupt the clock reference count and hardware register states?
-
-> [ ... ]
-> @@ -1605,8 +1610,13 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
->  	fsi_fifo_init(fsi, io, dev);
-> =20
->  	/* start master clock */
-> -	if (fsi_is_clk_master(fsi))
-> -		return fsi_clk_enable(dev, fsi);
-> +	if (fsi_is_clk_master(fsi)) {
-> +		ret =3D fsi_clk_enable(dev, fsi);
-
-[Severity: High]
-This is a pre-existing issue, but does fsi_clk_enable() break full-duplex
-operation?
-
-If a stream is already running, clock->count is 1. When a second stream
-starts, the condition if (0 =3D=3D clock->count) is false, but the function
-does not set ret =3D 0.
-
-    fsi_clk_enable() {
-        int ret =3D -EINVAL;
-        if (!fsi_clk_is_valid(fsi))
-            return ret;
-           =20
-        if (0 =3D=3D clock->count) {
-            ...
-        }
-        return ret;
-    }
-
-Won't this unconditionally return -EINVAL for the second stream, causing
-fsi_hw_startup() to fail and preventing simultaneous playback and capture?
-
-[Severity: High]
-This is also a pre-existing issue, but could calling fsi_clk_enable() here
-cause a sleep in atomic context?
-
-The ALSA trigger callback runs in atomic context with the PCM substream
-spinlock held. fsi_clk_enable() calls clock->set_rate(), which routes to
-fsi_clk_set_rate_cpg():
-
-    fsi_clk_set_rate_cpg() {
-        ...
-        ret =3D clk_set_rate(ick, best_cout);
-    }
-
-Since the Common Clock Framework's clk_set_rate() acquires a mutex and
-sleeps, won't this cause a scheduling while atomic panic?
-
-> +		if (ret) {
-> +			clk_disable(fsi->master->clk_spu);
-> +			return ret;
-> +		}
-> +	}
-> =20
->  	return 0;
->  }
-> @@ -1614,9 +1624,15 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
->  static int fsi_hw_shutdown(struct fsi_priv *fsi,
->  			    struct device *dev)
->  {
-> +	int ret;
->  	/* stop master clock */
-> -	if (fsi_is_clk_master(fsi))
-> -		return fsi_clk_disable(dev, fsi);
-> +	if (fsi_is_clk_master(fsi)) {
-> +		ret =3D fsi_clk_disable(dev, fsi);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	/* stop spu bus bridge clock */
-> +	clk_disable(fsi->master->clk_spu);
-> =20
->  	return 0;
->  }
-
-[Severity: High]
-Is there a risk of double-disabling the SPU clock if fsi_clk_enable() fails?
-
-If fsi_clk_enable() fails during startup, it disables the SPU clock before
-returning the error:
-
-    fsi_hw_startup() {
-        ...
-        if (ret) {
-            clk_disable(fsi->master->clk_spu);
-            return ret;
-        }
-    }
-
-ALSA intercepts this error in snd_pcm_action_single() and invokes
-snd_pcm_undo_start(), which calls the driver's trigger callback with
-SNDRV_PCM_TRIGGER_STOP.
-
-This triggers fsi_hw_shutdown(), which unconditionally calls clk_disable()
-on the SPU clock again, since fsi_clk_disable() returns 0 for a zero clock
-count.
-
-Could this result in an unbalanced clock disable, potentially triggering
-warnings and preventing the clock from being re-enabled later?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609113836.4507=
-9-1-phucduc.bui@gmail.com?part=3D11
+>=20
+> 	Andrew
