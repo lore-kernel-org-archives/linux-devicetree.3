@@ -1,278 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011040.outbound.protection.outlook.com [40.107.130.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A916E1990A7;
-	Tue,  9 Jun 2026 06:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780986221; cv=none; b=SIViz/Bs3FQhsYcTR0EOkAVNGq7w+ZdPejVubxX2LGQgr8rYJmNOto6OGOcI2R+3YrYubWCko9iQUfAmD9mUcmobZQGc71JyvNt7sbfk/qpWv98XeqY/RYH8zGTtOeQhz/9xJ+RA7cjNxaZaO2Qy17sjN5weU5GvRjd2pNA8lIU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780986221; c=relaxed/simple;
-	bh=/z31ilgIy0k/2elY1si/zcMAqLUldPq851NYvGjUUg4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QhlhIivHrsn1EmhK/o9shFyqL6yxJwn1951ViASM9xxA2W/5sRBT7qH4JMZUUMp0d9xd1/9mP2lJ6ZDPY761MKAwGsE5U+8gIICUKmEbEpTWvIdHn818JCKxM2MPNALVbOCtJyh0mtCT8edEPLnVUR8+mRiXYvnfUg59uaxi5os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqecfnnq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4FD3C1F4B;
+	Tue,  9 Jun 2026 06:24:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780986245; cv=fail; b=d04UcTg3hZqC4qs0UfAlgBKt7ehIwl6s8Joq1qwHOOARNeAt8bEnk8Oyb/bVq0V3G08QbuNkFKjhz+O9IGJPcdaDBsLTxEUka2x2u1lTpAHNq8Howbmkv7J1nMsCRYxwnxdEr76bBO1x24y74AK/dJouwrnG1MZSHIrO7Wpdo50=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780986245; c=relaxed/simple;
+	bh=ChM6Xmi+OrpaDaZRR4LuTgJsBnkzKDxUww4gGYslkUU=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=Zd0SgUdsAPjejLkTPm+jcsSh9lkN9UnWryUlVvj9cl8WQ1XAQpd614S+SEL52LS4aj0I944cgNqlPx+SrK8jByrXGrx8c+O4yFVgI+mPPByXwlSl7/AsbJaI1MYTJva0xJa1dO7297IzOkkjTmFht4U7QFb6prH2tyd9/K1me3E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Sl9UNKTJ; arc=fail smtp.client-ip=40.107.130.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqecfnnq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F223A1F00893;
-	Tue,  9 Jun 2026 06:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780986220;
-	bh=/3z/m3l7/Uko4BznX+C3Y9X9nPlsdVhwUqPkRFZUrVo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kqecfnnqjm6CMNcD+bN3PbjSOpoQ2kEBV8QtQY3M+8+llnFK673l+sEy7iZr12Wse
-	 d48LVYivyeqKjSVnxCjhs6QzcRY9nYpfTJgsmUkEolHLcfJwXa4O1ZAORc6WNKSTvX
-	 zvP1sdd6xV5xOfXnwu9HG0tr+nsYqYjHUefKqnKBDHveitY4443U6OF84DvqYPfW6i
-	 ob79HLomKO8195qE1FmTBgMq2m0tTFc2S3lt1WA/fkg8UVJE2vZmdHi9htNl2Bket7
-	 FNmPydeleoPZIiDvi3nu/dPxvhSGrl+11Mt3DBZ8GUlzzhHh2tqZ1REMPjTfwK/eoc
-	 rdOHzAn6f87Sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 13/21] RISC-V: perf: Implement supervisor counter
- delegation support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-perf-users@vger.kernel.org
-In-Reply-To: <20260608-counter_delegation-v6-13-285b72ed65a9@meta.com>
-References: <20260608-counter_delegation-v6-13-285b72ed65a9@meta.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 06:23:39 +0000
-Message-Id: <20260609062339.F223A1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Sl9UNKTJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xjn2XSLkjLLBBO3r/tP3IyEpAlS+M6jqgigysfOOlbE9ILJ8ykSvHGdbqEonjjJjQ6qMHQYRPxXQ0lNNSFtEgnlLXu55ORTJ3jq6UnVXIlQ9IR3IB6QNPPZ9SBbkjI9PCat7sX/ayZm8+KgEr5dZkuYL2x3sD/elIR3f7tuoQPAKbdJfCixERJXySCrhPlG+j/4jITLgBW9h+70H2DaOGazXe/SPS3rDRpRJGGsch+kETps2U3Ol1/weinQN4BQQtjQaPekqPRBG5yiP6el1gKRFVZU4/Gx7o61asTKDgtj6HEReRpTWbtsFUeYTsWJp0vpB+cTFsphatl1vxrul+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zkwn2/QscLRTm4kq0gOmeosHPcn/UH9WZ/Z4eIQBSUU=;
+ b=xuX7dvzLsFExT1/oMGWrhluPd0ne6qfT61wbytkolWf9SIUebdV1M9iMRZSAIMB9YxF6Nw6QxNaJqj0dqCdEfwy61N+qNwTAgQrLxNoz+4ohF4eXEBBundi5cuy4IiPkOuUFLRkd4T9mNu6QEL5fcwkHWUqW7OD+623Dj17rZRBD1jSkUxkOYjx6+QIKGn+vRUlZ5cPDIn1wnxPRMw1wXa6lhLiMTJ696pxJFpOvJvLLlyChTxoSforLfGo7a/wflzqvI48VNzXV6AyvJ+AmMwKCVCHHjSRqPgZZ89G5TH8vADys8c1hgx848V1uL+79UFeOgEJeVK7zkP0uCZ/lKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zkwn2/QscLRTm4kq0gOmeosHPcn/UH9WZ/Z4eIQBSUU=;
+ b=Sl9UNKTJPcbBAOK2p/s84cCEXcgaO76+CPo5epEMCPyqZT34rn858nE4JC5URJyIpHmFsaR4iZluVGzs2E5JermuAVx7jU3gKwwG9qaaOVDDU5eDPGZgz+t8kltnZUVXMBbjLOlkDU71KGW6N8HA5NfMdKNdRmx79MQdieQpu/fL/vXf3eICze8J7KKmNJipeayT5BGmCRBXLr2IQ9PbLhb4TnAqepUVM5B9y9POPvvw7+0eAmaEZA14UEqG68xFm4q5r7Saw/uMKsyj7VBq8FXMWKkEVpm7OVf46NRi8YPIJVrVf9iJiHpvLzZsMaN1MovyoTu2HUUeTw7Rl+Vn4w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AS8PR04MB9080.eurprd04.prod.outlook.com (2603:10a6:20b:447::16)
+ by VI0PR04MB11670.eurprd04.prod.outlook.com (2603:10a6:800:2fc::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
+ 06:24:01 +0000
+Received: from AS8PR04MB9080.eurprd04.prod.outlook.com
+ ([fe80::92c2:2e03:bf99:68eb]) by AS8PR04MB9080.eurprd04.prod.outlook.com
+ ([fe80::92c2:2e03:bf99:68eb%6]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 06:24:00 +0000
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Subject: [PATCH 0/2] pmdomain: imx93: Fix shared MIPI PHY resource
+ management
+Date: Tue, 09 Jun 2026 14:26:39 +0800
+Message-Id: <20260609-pm_imx93-v1-0-d06c004b0f51@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB+yJ2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMwML3YLc+MzcCktjXbPk5GTDxERDQ0tjIyWg8oKi1LTMCrBR0bG1tQD
+ tA+hoWgAAAA==
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+ Peng Fan <peng.fan@nxp.com>, Shawn Guo <shawnguo@kernel.org>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780986431; l=1185;
+ i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
+ bh=ChM6Xmi+OrpaDaZRR4LuTgJsBnkzKDxUww4gGYslkUU=;
+ b=mu8XZ2WlvAI2WQZOsiAaeE/xnj6UjeY9bAsm4maGdfAn4csLZEFlMcyauLiOhizdDQcQd2deV
+ YsNSO/HgxbLBZM1ink9DYyScFvNkUhowBM4LXXHqLCp6lKHL2yWODVC
+X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
+ pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
+X-ClientProxiedBy: SI2PR04CA0003.apcprd04.prod.outlook.com
+ (2603:1096:4:197::23) To AS8PR04MB9080.eurprd04.prod.outlook.com
+ (2603:10a6:20b:447::16)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB9080:EE_|VI0PR04MB11670:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27a408dc-38ec-41ca-ed63-08dec5efb1e1
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|52116014|7416014|376014|38350700014|921020|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	eWKLmflaf1wQhHL9xo5aWV3xoIHgxV51kMnTzUF8a9Kg71rguTA0Vrr8kP9ZlUHziI1TJnglADROt2Od0AkKD9KbBKKz4S1/7NZ7B0lq3PWaLaMtHshycQ9PaI37YosFh2OF/mI15Zvl3TgX5PIU6bKRnFiuyyfbh8d4x79Z+E49icGJeK8INIdNGGpDftZizWjeTeJv/YGhBUiHWOgS+TvNSsC64FJjuriDCPVIinSV5MtBO0QvJbYrWQkxPSubEnEhxTVplpxnMtP+7HQtgOkijO+/7A2yywtjVhWPUyIH0FkQX9mjagx6+zu8xpP7uBdvEhLr/2EHRdh/1NHSi8c6NOFYUJu2b1Iokw6Ix0WPKf3dAD53ufwqJ4y/cMchOLUm6VQQiGM/4sXMsXi0e2CjDfvZ0h5DAIVGQGloW2LyiBbZPXTSeZp1YhSwSUp61WaVzbdmwuDQtmA/emWdRVYRED2M2q9yncAz5tyFF79wa8+V1DnUBxGWKS4MyzqB35cfmk7/KgCmGy1/hUR48/WO1GzbqT0A7DL2mUIUKhLE0rrYrKzooia2MZef0JWKVcNwD3xXtfcJvR5joisksK3ZAbxbJyiMVcB1O9eqTZZq3TKmMUJ/cDCDfwz7CQYNNpjUMtS0pMlUY66WPzmw2/adXEV7tBoUaDp8uT/t3QbDHGNfQH7e6dEncfsL84n/dEE1IbY0TxZf6UOx8ZJtyuT+iFgl6nkUBOr5ID+MOUinQmf4GyvywDziYCPnIJRO0xyOHWHZ5udTV0covzeKkA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9080.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(52116014)(7416014)(376014)(38350700014)(921020)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WmVnUmJqQzgvV0hQQi9BN3VwUzlIdTcySEx2WUJFWTd0a3dxcmdSSFNDNEVm?=
+ =?utf-8?B?MTROZ2JJN3M1K0V0dE9rZzZaVjFRMHRmbHZFaTlkL2lCcDIwYmJnNjRMMndK?=
+ =?utf-8?B?ODRncjVMTzFqa200VVlWeFRmUkh1UmRYVDkwS3duNHF6WmtXbGVRejdwSFlN?=
+ =?utf-8?B?NURVcEszZFJidThPQ3F2K2pMS1Z2R2c1N1k2V0JabU8rbDFpU2NRbnJrd25z?=
+ =?utf-8?B?S3dkYTVML2E1eUVzS0NveHZJMXhjb1NkcE1GdG5yV2tlKytPQXpEdEVvRzJU?=
+ =?utf-8?B?T2NnalBlMW9PNWxQNFNYWjlzRkk3Ry9qakc3bEtrTmNrQkYzWW1jMkNRMm0w?=
+ =?utf-8?B?Q2NQTkFMdlQxYzg4QWllTElVVlMxTFZtcW93bkg5elo1L1hPYmtoL0RHaU4r?=
+ =?utf-8?B?N2M3RVZsMVFEY2MzRWJmNEdRd3A0K2E1cXdmOFRPekFXMm4zOUhXb2tOYnNt?=
+ =?utf-8?B?VGxpclJvd3VwTzdQellUTE55TWRYT2x0N0FqdVB6ejQ5cVJ0R0NwVlozbkh4?=
+ =?utf-8?B?bmF1RUQ1U1NYQSt6RkhzZjdCN3REWlIzbW1ZU3drd0FBSFFoRkFvMTROYzg2?=
+ =?utf-8?B?Q2YwaUtVem9rc05hUGFVSmxzejA0NHNkeXJ6MTJzUmNtVGI4YmZ6Q3dqMmxY?=
+ =?utf-8?B?NFIyU2VuTjVaOG50MWowTnFTYVNwRm00QTEyTG93YzBFYzc3U3lCRHE3eUFP?=
+ =?utf-8?B?dDhoZ01ybkdNNkNubG9xZWpQck5nU1Z0WElkbVdaMHNaVlJidFk2R1Vhc1Nl?=
+ =?utf-8?B?V3R0eVpZZm1KQWx1cVp6b1NLSFVQMDZ2OFd3aTNvR1RaeS9DVFpnTmpQREdY?=
+ =?utf-8?B?REd4R0NEaVc1ZHBCajk5bjZ6ZVZPUjlDT1dFWnRhTENQdG94UVdLN0JHTFln?=
+ =?utf-8?B?cGVqSDNnK0tzK1AwbURUNzZPV1lITVVtVG1yRFhlbjQ0eDZob1NWaXl4VGdv?=
+ =?utf-8?B?YWxWUGoyRFlZQmxpcFFIektvN2w0K28yMU1xMzcxZEM0VDFwc29jazQyMGRj?=
+ =?utf-8?B?QVR4L2ZSTmw5RW0zWDFxK0ljd0tlMjZYK25aSVk5a04rTHZqWVdBNmcyZnJG?=
+ =?utf-8?B?Vk9NNXByckM5ZlRkMmNZQWhVeUZwKzlwVERNYmZ5c3JCdGxzTlk4WG01SVlw?=
+ =?utf-8?B?aTZOVEJaRi9DdDI3ekgyVU5ueDhWTThpYzgzUlgvTUlzbXB0dWFENStzcmxt?=
+ =?utf-8?B?N1NmT0RSZU44N3YvSGFhaElvRTRMSEdIL3IyaklWOGxvVk91R1BMeXNHRDRK?=
+ =?utf-8?B?bGpjcUYrOUFCdDU4RUg5bzdVa1dna1BCeitVOVllRmlVS3pUaHV6Qi9tKzNB?=
+ =?utf-8?B?NlZ3N0I5TTA3Q1B3eEQ4aWVldjM0bGVZVUJOYXFvSTdaa3ZuTjQwZGVxSVpk?=
+ =?utf-8?B?MUNkSkcrSGNFR0JXSWpZZVk4Zm9GZExpVDU5MjRuYVVkd3RpUE8vakFmNzJk?=
+ =?utf-8?B?aEdqSGxjZEJKTGJtc0d5YnJHZXRKWlVtMVYyeU5XT1pVUmM1RSt2OXFRY1R4?=
+ =?utf-8?B?cDBqZlY3VGlkQTRWQ2lMR0w3QUNZY1BzVXJoV2ZtU0l0YzlFcUUzNlVIUHdZ?=
+ =?utf-8?B?RGVuODdTaVVCODM3LzZCN09DOE9paWxZbDI1bDB0YUgyeVlROUhHTTFDWDFn?=
+ =?utf-8?B?OUkxVzRtd3VmMFNmbkhrRnBGemk0Y3FCcGREN1BKYUo0Vm1jdjFONVVlNWJy?=
+ =?utf-8?B?OEJBMjlIUXlNbHlISDNSL25kS05FYjRJNytqK0YyZlZtZmFOWllOb0J0enlZ?=
+ =?utf-8?B?MThpWkhCQ2FERU5yTFBoampSV2c1VWc2NDJUWVFidnFCWE80OFhodDRpZlFN?=
+ =?utf-8?B?QW0wWXUzaVMwUTdxSVlQR2hRNEFqTEZZRXJaOXJzRG5Ub3lxRUkzSHJnSzNa?=
+ =?utf-8?B?ZllNdkE1SGxuVnUramJ6aFdjZGwwY2RSRFU4NUNaN0ZSMHMzL0dsQXl5Y0hv?=
+ =?utf-8?B?aHQ4VHdLU3lkTk9nMzdwUkNDREN2eVZqU0NtWEp4enVBTnJZMWtaUUtObEFi?=
+ =?utf-8?B?Rk8xWDNPV0RLMnV4MUIvbXVZQnVFaklVak1MalJpeVBTdlpMTytqZGkxbmJY?=
+ =?utf-8?B?U2VFQjJiM3ZrQXFBUVN3a1VNSW14bytvN0lKOGcxbUhEb3VqS2ZVZ1F3aTFW?=
+ =?utf-8?B?cExFUGIxcW1hT2RzSkhsR1NvZFFNemk4bDZLdzNJTkpLUmpXeThBZFB5OGN6?=
+ =?utf-8?B?aEVXQk9ERENDNkp6Y1V2enBSdUVRd2txQWlIeldwenJ0ZStqd2Z0dTJHL2th?=
+ =?utf-8?B?MVRlNjFrU2U3cU9xQXBzWitYWUJ1T3VtRmpqMEZac0lQNTJrcGc3dStaZzF5?=
+ =?utf-8?B?RUpUYUp3QlUrQXdDZnhSM09ONkdqVUFQU3VtUy9mdnZOd1l5dndWQT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27a408dc-38ec-41ca-ed63-08dec5efb1e1
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9080.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 06:24:00.7401
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ln82O4WjcBkntIyb8OMA4EwIfss6z/DsKrQxCeDeEnqcEXhae025PQVhSmvOfixXkoLqcWn/5pSEW5dtkJjeLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11670
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Bitwise shift of signed 32-bit integer causes overflow and corrupt=
-s SCOUNTINHIBIT on 64-bit systems.
-- [High] Non-sampling events are permanently inhibited from counting becaus=
-e HPMEVENT_OF is unconditionally set but never cleared.
-- [High] On 32-bit architectures, `rvpmu_deleg_ctr_enable_irq` writes modif=
-ied event configuration to the wrong CSR (`CSR_SIREG4` instead of `CSR_SIRE=
-G5`).
-- [High] SBI PMU snapshot logic breaks supervisor counter delegation by unc=
-onditionally bypassing S-mode CSR writes and reading stale shared memory.
---
+The i.MX93 MIPI DSI and CSI domains share control bits for clock and
+reset in the media block controller. This creates a resource conflict
+where one domain can inadvertently disable shared resources while the
+other domain is still active, leading to system instability.
 
-commit ff1e171673cfe94a12c443765bd5b68dacf3b687
-Author: Atish Patra <atishp@rivosinc.com>
+This series fixes the issue by introducing a dedicated MIPI PHY power
+domain that owns the shared clock and reset control bits. The DSI and
+CSI domains are then made subdomains of this PHY domain, ensuring proper
+reference counting and preventing premature resource shutdown.
 
-RISC-V: perf: Implement supervisor counter delegation support
+Tested on i.MX93 EVK with concurrent DSI and CSI operations.
 
-This patch adds support for RISC-V ISA extensions (ssccfg, sscsrind,
-smcntrpmf) that allow programming hpmcounters directly from S-mode.
-It falls back to the SBI PMU extension if the hardware extensions are
-unavailable or for firmware counters.
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+---
+Guoniu Zhou (2):
+      dt-bindings: power: imx93: Add MIPI PHY power domain
+      pmdomain: imx93-blk-ctrl: Extract PHY as shared domain for DSI/CSI
 
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 46a25979e95e9..1f16df9d0dd00 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
+ drivers/pmdomain/imx/imx93-blk-ctrl.c       | 60 ++++++++++++++++++++++++++++-
+ include/dt-bindings/power/fsl,imx93-power.h |  1 +
+ 2 files changed, 59 insertions(+), 2 deletions(-)
+---
+base-commit: 3b7a18a34e8d3b14c7c926f033488a0350de9759
+change-id: 20260608-pm_imx93-6ccc1aa11932
 
-[ ... ]
+Best regards,
+-- 
+Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-> -static u64 rvpmu_sbi_ctr_read(struct perf_event *event)
-> +static u64 rvpmu_ctr_read(struct perf_event *event)
->  {
->  	struct hw_perf_event *hwc =3D &event->hw;
->  	int idx =3D hwc->idx;
-
-[Severity: High]
-Does this function still read stale data from the SBI shared memory when
-using supervisor counter delegation?
-
-If a platform supports both SBI PMU snapshots and S-mode counter delegation,
-the code unconditionally reads from the SBI shared memory for stopped
-hardware counters. Since S-mode counters are stopped via direct CSR writes,
-the SBI firmware is bypassed and the shared memory is never updated.
-
-[ ... ]
-
-> +static void rvpmu_deleg_ctr_enable_irq(struct perf_event *event)
-> +{
-> +	unsigned long hpmevent_curr;
-> +	unsigned long of_mask;
-> +	struct hw_perf_event *hwc =3D &event->hw;
-> +	int counter_idx =3D hwc->idx;
-> +	unsigned long sip_val =3D csr_read(CSR_SIP);
-> +
-> +	if (!is_sampling_event(event) || (sip_val & SIP_LCOFIP))
-> +		return;
-
-[Severity: High]
-Will this early return cause non-sampling events to never be counted?
-
-In update_deleg_hpmevent(), the HPMEVENT_OF bit is unconditionally set for
-all events. The Sscofpmf specification states a counter does not increment
-while its OF bit is 1. If we return early here for non-sampling events
-(like perf stat), the OF bit is never cleared, which would leave these
-counters permanently inhibited.
-
-> =20
-> -	/* Reinitialize and start all the counter that overflowed */
-> -	while (ctr_ovf_mask) {
-> -		if (ctr_ovf_mask & 0x01) {
-> -			event =3D cpu_hw_evt->events[idx];
-> -			hwc =3D &event->hw;
-> -			max_period =3D riscv_pmu_ctr_get_width_mask(event);
-> -			init_val =3D local64_read(&hwc->prev_count) & max_period;
->  #if defined(CONFIG_32BIT)
-> -			sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_START, idx, 1,
-> -				  flag, init_val, init_val >> 32, 0);
-> +	hpmevent_curr =3D csr_ind_read(CSR_SIREG5, SISELECT_SSCCFG_BASE, counte=
-r_idx);
-> +	of_mask =3D (u32)~HPMEVENTH_OF;
->  #else
-> -			sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_START, idx, 1,
-> -				  flag, init_val, 0, 0);
-> +	hpmevent_curr =3D csr_ind_read(CSR_SIREG2, SISELECT_SSCCFG_BASE, counte=
-r_idx);
-> +	of_mask =3D ~HPMEVENT_OF;
->  #endif
-> -			perf_event_update_userpage(event);
-> -		}
-> -		ctr_ovf_mask =3D ctr_ovf_mask >> 1;
-> -		idx++;
-> -	}
-> +
-> +	hpmevent_curr &=3D of_mask;
-> +#if defined(CONFIG_32BIT)
-> +	csr_ind_write(CSR_SIREG4, SISELECT_SSCCFG_BASE, counter_idx, hpmevent_c=
-urr);
-
-[Severity: High]
-Is this writing the event configuration to the wrong CSR?
-
-The code reads the high 32 bits of the event configuration from CSR_SIREG5
-and clears the HPMEVENTH_OF bit, but it writes the modified value back to
-CSR_SIREG4. Since CSR_SIREG4 maps to hpmcounterh, this might overwrite the
-running counter's upper 32 bits with the event configuration value instead
-of clearing the OF bit in the hpmevent register.
-
-> +#else
-> +	csr_ind_write(CSR_SIREG2, SISELECT_SSCCFG_BASE, counter_idx, hpmevent_c=
-urr);
-> +#endif
-> +}
-> +
-> +static void rvpmu_deleg_ctr_start(struct perf_event *event, u64 ival)
-> +{
-> +	unsigned long scountinhibit_val =3D 0;
-> +	struct hw_perf_event *hwc =3D &event->hw;
-> +
-> +#if defined(CONFIG_32BIT)
-> +	csr_ind_write(CSR_SIREG, SISELECT_SSCCFG_BASE, hwc->idx, ival & 0xFFFFF=
-FFF);
-> +	csr_ind_write(CSR_SIREG4, SISELECT_SSCCFG_BASE, hwc->idx, ival >> BITS_=
-PER_LONG);
-> +#else
-> +	csr_ind_write(CSR_SIREG, SISELECT_SSCCFG_BASE, hwc->idx, ival);
-> +#endif
-> +
-> +	rvpmu_deleg_ctr_enable_irq(event);
-> +
-> +	scountinhibit_val =3D csr_read(CSR_SCOUNTINHIBIT);
-> +	scountinhibit_val &=3D ~(1 << hwc->idx);
-
-[Severity: High]
-Could this bitwise shift result in sign-extension and corrupt SCOUNTINHIBIT
-on 64-bit systems?
-
-Because 1 is a signed 32-bit integer, (1 << 31) results in -2147483648.
-When this is negated by a bitwise NOT or cast to an unsigned long on a
-64-bit architecture, it gets sign-extended (e.g., 0x000000007FFFFFFF).
-This could erroneously clear bits 32-63 of the SCOUNTINHIBIT CSR.
-
-Should this use 1UL << hwc->idx or the BIT() macro instead?
-
-[ ... ]
-
-> -static void rvpmu_sbi_start_overflow_mask(struct riscv_pmu *pmu,
-> -					  u64 ctr_ovf_mask)
-> +/*
-> + * This function starts all the used counters in two step approach.
-> + * Any counter that did not overflow can be start in a single step
-> + * while the overflowed counters need to be started with updated initial=
-ization
-> + * value.
-> + */
-> +static void rvpmu_start_overflow_mask(struct riscv_pmu *pmu, u64 ctr_ovf=
-_mask)
->  {
-> +	int idx =3D 0, i;
-> +	struct perf_event *event;
-> +	unsigned long ctr_start_mask =3D 0;
-> +	u64 max_period, init_val =3D 0;
-> +	struct hw_perf_event *hwc;
->  	struct cpu_hw_events *cpu_hw_evt =3D this_cpu_ptr(pmu->hw_events);
-> =20
->  	if (sbi_pmu_snapshot_available())
-> -		rvpmu_sbi_start_ovf_ctrs_snapshot(cpu_hw_evt, ctr_ovf_mask);
-> -	else
-> -		rvpmu_sbi_start_ovf_ctrs_sbi(cpu_hw_evt, ctr_ovf_mask);
-> +		return rvpmu_sbi_start_ovf_ctrs_snapshot(cpu_hw_evt, ctr_ovf_mask);
-
-[Severity: High]
-Does this check bypass S-mode delegation when both snapshot and delegation
-are available?
-
-If a platform supports both, this unconditionally calls
-rvpmu_sbi_start_ovf_ctrs_snapshot(), which starts S-mode delegated hardware
-counters using SBI ECALLs rather than direct S-mode CSR writes.
-
-[ ... ]
-
-> +static void update_deleg_hpmevent(int counter_idx, uint64_t event_value,=
- uint64_t filter_bits)
-> +{
-> +	u64 hpmevent_value =3D 0;
-> +
-> +	/* OF bit should be enable during the start if sampling is requested */
-> +	hpmevent_value =3D (event_value & ~HPMEVENT_MASK) | filter_bits | HPMEV=
-ENT_OF;
-
-[Severity: High]
-Are we unconditionally setting the HPMEVENT_OF bit here?
-
-Although the comment states it should be enabled if sampling is requested,
-the bit is added for all events. Combined with the early return in
-rvpmu_deleg_ctr_enable_irq(), this causes non-sampling events to remain
-inhibited permanently.
-
-[ ... ]
-
->  static void rvpmu_ctr_stop(struct perf_event *event, unsigned long flag)
->  {
-> -	rvpmu_sbi_ctr_stop(event, flag);
-> -	/* TODO: Counter delegation implementation */
-> +	struct hw_perf_event *hwc =3D &event->hw;
-> +
-> +	if ((hwc->flags & PERF_EVENT_FLAG_USER_ACCESS) &&
-> +	    (hwc->flags & PERF_EVENT_FLAG_USER_READ_CNT))
-> +		rvpmu_reset_scounteren((void *)event);
-> +
-> +	if (riscv_pmu_cdeleg_available() && !pmu_sbi_is_fw_event(event)) {
-> +		/*
-> +		 * The counter is already stopped. No need to stop again. Counter
-> +		 * mapping will be reset in clear_idx function.
-> +		 */
-> +		if (flag !=3D RISCV_PMU_STOP_FLAG_RESET)
-> +			rvpmu_deleg_ctr_stop_mask((1 << hwc->idx));
-
-[Severity: High]
-Can this 32-bit shift overflow and corrupt the upper 32 bits of SCOUNTINHIB=
-IT?
-
-Passing (1 << 31) will sign-extend to 0xFFFFFFFF80000000 on 64-bit systems.
-When passed to rvpmu_deleg_ctr_stop_mask, it ORs this mask into SCOUNTINHIB=
-IT,
-which erroneously sets bits 32-63 to 1.
-
-Consider using 1UL << hwc->idx or the BIT() macro to prevent overflow.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-counter_de=
-legation-v6-0-285b72ed65a9@meta.com?part=3D13
