@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509552FDC3C
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:43:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C243451B0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780969425; cv=none; b=trvhr6vQKurtsHLljPphYlUjYmKaKm0sgYyaTjSuj/MjUOVJ2XWZDntVyBpXtCGeByPFgfOWwQvqzD3u8Lv++4BkG+hU7q22WyatsAvnk52de3IUg+RNTNPUAyAlKAH4wQb6Yx9Ayo4wNOSpiL9qcwGFw2jA053pEnAuG6Qu/Pk=
+	t=1780969446; cv=none; b=A7nY3TrhcmFG++UMOjCSckBnjYQ71UdLyKK5/u7OW6MMLvfsgApP8lC2QE50aYE7VW/my2E9upvVVL/lD3IPcD7s6fQteQbldGZtvOzm8fdx5xqd7/ssWX4ylK/MYngwktRMxixtoUiKfqDOgIh4rQUgEwbPE9YoM9F7CgF1mBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780969425; c=relaxed/simple;
-	bh=9GvD05Y8jJXdT0UFqIWuUqmUR18bxMK7hsTO3ekU3bQ=;
+	s=arc-20240116; t=1780969446; c=relaxed/simple;
+	bh=CBMzw92xvpVRycu/da27dfSor6IxM2Il4GgeBRVlGOI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=msrD1UUOY7by4j2DTSd2Pjsv4fnpjESNl5xIV/0F37zYH8LG03wWeM2dNQy6rTT94OsLILRFyODBHwdNTlR0vqULBc6YDn6sjzDv+KX/kpVE95m2ftP07rtpvUyaEo9IFePgn7douR9KZ36rl+DmY2vKmD94PWUl1ndkcvg38wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UW+Blp94; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CK5Eb9KhV69Y3tycRnoLSMuu4zNtEt3oIjgQsVEQBxlqnE1yXWZRIcJxJqMMHAxhPGcgvwz6Sn4+ccJ3XO14japM5R9rfQVQOmEx7bnU6u2IEXrlVLxXPJH6rPNuMJbO6Qeql6lSRRps86P99LFKUb2NuxwmIt4dLRiiZgzAkIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=maLp/36p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UW+Blp94"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7021F00893;
-	Tue,  9 Jun 2026 01:43:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="maLp/36p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD5DA1F00893;
+	Tue,  9 Jun 2026 01:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780969423;
-	bh=iR6/TjS3znHJVtC0fvpFqehWgMuTziPk7vZS6xTOPcs=;
+	s=k20260515; t=1780969445;
+	bh=jhcXYyWBxaXh/Nh7FWzTPB2MUqsmDvaNtQHvddzfwS8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UW+Blp94ljJgKXBjZvvH+StWXF99dTnMk5b/d2++fPQ+mlDjbR3FL8r9Eh7+8qGIl
-	 FSTouWZZtZ0JGMfMjZpIzvPkx93EcOKtvEKZgBQ9RwTECz6gJm3YYc3f5Q71Dm3u5d
-	 I5xPW9IyJyLWOjf6LkcCpyG6twOKWSijESjm7dGUO3NAgxla+ebEdtrCsrldyu4lnk
-	 XXLVhmeqQQN4vs2FA3+CYyxZQ4i8WudKKSqY9krgfMsGxhQcST2H0Df47VbE1XN+v/
-	 Z0MKaNao5/0uFdPP9UIyhAXcum3XeW6tpIlD+uAd3GSzBjO5FFmjqQd+HaR7EO0rqa
-	 WoHOlI2GCjcRg==
+	b=maLp/36p+notLZ6/EsUYuPZ9p2BySP0Ni1Q/bQ4OpZAJ4jo5H/Hnn+fv/qFrG2/aL
+	 wb8ru69BEykVOc+U8YoWB+hSA+gOjJoY4+3CbrY5uWy8l41bqZYdNZ7CsJoV2bf+qd
+	 7ofRsYGqhh6q6bRwL6RDoDzClAwjX6vj+MnwczPCLGyRNA5Uxd87o/Btnq3F7A4dAX
+	 3aZl21YLieHvpl7pdaxxSPEKxV1Ofmg2CRwMeQTyOZ1n76Sm3DVhspMe3u9Zjy4ak2
+	 HU8bu1qa0VzwK5Dz0P5XjHIW46cQB08fFsFtKY5+KNfIEL9OPtHMDZ5TWlcQTB9hDz
+	 1wFrq5atuYVNg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/11] ASoC: renesas: fsi: refactor clock
- initialization
+Subject: Re: [PATCH v5 04/11] ASoC: renesas: fsi: Move
+ fsi_stream_is_working()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: phucduc.bui@gmail.com
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609013107.5995-9-phucduc.bui@gmail.com>
-References: <20260609013107.5995-9-phucduc.bui@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260609013107.5995-5-phucduc.bui@gmail.com>
+References: <20260609013107.5995-5-phucduc.bui@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 01:43:43 +0000
-Message-Id: <20260609014343.AB7021F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 01:44:04 +0000
+Message-Id: <20260609014404.AD5DA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,89 +47,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Unbalanced pm_runtime_disable() on the fsi_clk_init() error path b=
-efore pm_runtime_enable() is called permanently breaks device PM on deferre=
-d probe.
-
 Pre-existing issues:
-- [High] Concurrent execution of playback and capture triggers causes lockl=
-ess read-modify-write races on port registers and corrupts clock refcountin=
-g.
+- [High] `fsi_stream_is_working()` acquires a lock to validate a pointer bu=
+t returns a boolean and drops the lock before the caller uses the pointer, =
+creating a Time-Of-Check to Time-Of-Use (TOCTOU) race condition that can le=
+ad to a NULL pointer dereference.
+- [High] Sleepable Common Clock Framework (CCF) APIs are called from within=
+ the ALSA PCM atomic trigger path, causing a sleep-in-atomic bug.
 --
 
-commit 3878a75703ac4c551d532bdff9ddca5b624ed448
+commit da681410389113931660183bb91da994c3ed66c1
 Author: bui duc phuc <phucduc.bui@gmail.com>
 
-ASoC: renesas: fsi: refactor clock initialization
+    ASoC: renesas: fsi: Move fsi_stream_is_working()
 
-Move fsi_clk_init() from set_fmt() to the probe path. This ensures that
-clock resources are acquired only once during device initialization.
+Move fsi_stream_is_working() before fsi_count_fifo_err() to prepare for a
+subsequent patch. No functional changes are intended.
+
+>     when handling in-flight IRQ handlers. No functional changwqes intende=
+d.
+
+This isn't a bug, but there's a typo (changwqes) in the commit message.
 
 > diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> index e29be2bcf952c..13988c7dc926e 100644
+> index 800ac40f9680d..0bd0e0c8c5a30 100644
 > --- a/sound/soc/renesas/fsi.c
 > +++ b/sound/soc/renesas/fsi.c
 
 [ ... ]
 
-> @@ -1996,6 +1996,9 @@ static int fsi_probe(struct platform_device *pdev)
->  		dev_err(&pdev->dev, "FSIB stream probe failed\n");
->  		goto exit_fsia;
->  	}
-> +	ret =3D fsi_clk_init(&pdev->dev, fsi);
-> +	if (ret)
-> +		goto exit_fsib;
-
-[Severity: High]
-If fsi_clk_init() fails here, we jump to exit_fsib before
-pm_runtime_enable() is called.
-
-At the exit_fsib label, pm_runtime_disable() is called unconditionally. Will
-this cause an unbalanced pm_runtime_disable() call, incrementing the
-device's disable_depth to 2?
-
-If this happens during a probe deferral (e.g. -EPROBE_DEFER because a clock
-is not yet available), the subsequent probe attempt's pm_runtime_enable()
-will only decrement the depth to 1. Does this leave PM runtime permanently
-disabled and break all future hardware initialization?
-
+> @@ -442,6 +442,16 @@ static int fsi_sample2frame(struct fsi_priv *fsi, in=
+t samples)
+>  	return samples / fsi->chan_num;
+>  }
 > =20
->  	pm_runtime_enable(&pdev->dev);
->  	dev_set_drvdata(&pdev->dev, master);
+> +static int fsi_stream_is_working(struct fsi_priv *fsi,
+> +				 struct fsi_stream *io)
+> +{
+> +	struct fsi_master *master =3D fsi_get_master(fsi);
+> +
+> +	guard(spinlock_irqsave)(&master->lock);
+> +
+> +	return !!(io->substream && io->substream->runtime);
+> +}
+> +
 
 [Severity: High]
-This is a pre-existing issue, but I noticed a potential race condition with
-concurrent execution of playback and capture triggers.
+This isn't a bug introduced by this patch, but does returning a boolean here
+create a Time-Of-Check to Time-Of-Use (TOCTOU) race condition?
 
-ALSA core holds individual substream locks, meaning ALSA trigger callbacks
-can be invoked concurrently for playback and capture substreams on the same
-DAI.
+When fsi_pio_transfer() calls this, it uses the boolean result to locklessly
+call fsi_pio_get_area():
 
-In fsi_dai_trigger(), both start operations call fsi_hw_startup(), which
-performs lockless read-modify-write operations on shared port registers:
+sound/soc/renesas/fsi.c:fsi_pio_transfer() {
+	...
+	if (!fsi_stream_is_working(fsi, io))
+		return -EINVAL;
+	buf =3D fsi_pio_get_area(fsi, io);
+	...
+}
 
-fsi_hw_startup()
-    fsi_reg_mask_set(fsi, CKG1, (DIMD | DOMD), data);
+fsi_pio_get_area() then directly accesses io->substream->runtime:
 
-Could Thread A set ACKMD bits while Thread B concurrently sets DIMD bits on
-the same register, causing one of the updates to be lost?
+sound/soc/renesas/fsi.c:fsi_pio_get_area() {
+	...
+	struct snd_pcm_runtime *runtime =3D io->substream->runtime;
+	...
+}
 
-Additionally, fsi_clk_enable() uses a shared clock->count without atomic
-operations or locking:
+Concurrently, if ALSA invokes fsi_dai_trigger(SNDRV_PCM_TRIGGER_STOP), it
+calls fsi_stream_quit() which acquires master->lock and clears the pointer:
 
-fsi_clk_enable()
-    if (0 =3D=3D clock->count) {
-        ret =3D clock->set_rate(dev, fsi);
-        ...
-        clock->count++;
-    }
+sound/soc/renesas/fsi.c:fsi_stream_quit() {
+	...
+	guard(spinlock_irqsave)(&master->lock);
+	...
+	io->substream	=3D NULL;
+	...
+}
 
-Could a concurrent increment of clock->count lead to both streams calling
-clk_enable() but clock->count only reaching 1? On shutdown, clk_disable()
-would only be called once, potentially leaving unbalanced clock refcounts in
-the common clock framework and permanently leaking the clock reference.
+If fsi_stream_quit() executes after fsi_stream_is_working() drops the lock
+but before fsi_pio_get_area() dereferences io->substream->runtime, could
+this result in a NULL pointer dereference?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the ALSA trigger path
+call sleepable clock APIs while in atomic context?
+
+When ALSA invokes the snd_pcm_trigger callback fsi_dai_trigger() on the
+SNDRV_PCM_TRIGGER_START path, it executes in atomic context (with the
+substream spinlock held and local interrupts disabled).
+
+This calls fsi_hw_startup(), which subsequently triggers fsi_clk_enable():
+
+sound/soc/renesas/fsi.c:fsi_dai_trigger() {
+	...
+	case SNDRV_PCM_TRIGGER_START:
+	...
+		if (!ret)
+			ret =3D fsi_hw_startup(fsi, io, dai->dev);
+	...
+}
+
+fsi_hw_startup() then executes:
+
+sound/soc/renesas/fsi.c:fsi_hw_startup() {
+	...
+	if (fsi_is_clk_master(fsi))
+		return fsi_clk_enable(dev, fsi);
+	...
+}
+
+fsi_clk_enable() calls the driver's dynamic .set_rate callback:
+
+sound/soc/renesas/fsi.c:fsi_clk_enable() {
+	...
+	ret =3D clock->set_rate(dev, fsi);
+	...
+}
+
+For example, fsi_clk_set_rate_cpg() invokes clk_set_rate():
+
+sound/soc/renesas/fsi.c:fsi_clk_set_rate_cpg() {
+	...
+	ret =3D clk_set_rate(ick, best_cout);
+	...
+}
+
+Since clk_set_rate() acquires the prepare_lock mutex, won't this trigger
+a sleep-in-atomic bug or deadlock?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609013107.5995=
--1-phucduc.bui@gmail.com?part=3D8
+-1-phucduc.bui@gmail.com?part=3D4
