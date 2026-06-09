@@ -1,128 +1,175 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C7D4D2ED3;
-	Tue,  9 Jun 2026 18:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A0C4D8D9C
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 18:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781031485; cv=none; b=KWHm5MONDJ+b/d+L53rOCD79WeT+bdyMH6nklJSi1CdJ9JXwUbBdk8i+VHi7SMJWhis/6j+78bL0uGeZjX+EpoPAsN2NBsLOin+rPqA4mq0YB0/GD5A7EkQv4yLGaEhe1jML4KGw9VRq5jBdmUWpVld/mWRLJcsZXLFFi765RjA=
+	t=1781031485; cv=none; b=VlAcKi2o/IGBor8pCrLyIzhnsQvVqk80ejZ/4cArSxdg5snHv2McDI+bHdWBsfjskbY9U0Hi8n3PUlWWQ16MBMnPjwrmS68/N1r+7579HQ7+sZk2jrhmWJKTblCLFFU7sXv0WDCshLfZc5pR/eV2pWxgco2Zc+lOhfNOLuwaA9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781031485; c=relaxed/simple;
-	bh=qBaTipJIBdrNj5yARfGrmu93QPHd7TPizSBTvXriavg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=niXnr8iy7sIOyULWKWy5lru0puADk6qsdGBSuzaYRrbMG+NWQPirrKGlh5+lNZHRmMe7rSOboqLjV3rVxfXRORLWMo8090WBngMzSw+xWXAvrWBrYHZCdLM5kjGvw9w/p3pJr62p+zM86mB3i5AYMna1KL7HRazDEb9d1emiqSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ByG5abzW; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=1HjXZU3N3yWNNw6i7VHEK3NtZRbPjnphoL+Zf42nRpo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uWW6kodwUDrnV4vwxGd54fPMhlDKD/4vYXObZhd9WNHE5lyeaBl1WJIgmjLcFuuWeoIs+nn77+JCSYKMeaf4cki7DiY0+yyjZD1kQRfQhBf5sxCAV7vScCfT0Lcc5U7FrdsOV6uKQbTrFT/LrKQT6dDvJRCLFGqr+OtpfGxzwTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ee9XAd7B; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ByG5abzW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781031485; x=1812567485;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qBaTipJIBdrNj5yARfGrmu93QPHd7TPizSBTvXriavg=;
-  b=ByG5abzWfmWTRhc3dbMP93gqS7JY13aoNTcnvLkwE+IC7fnrjUMTcWeW
-   aKD+zUtquuuW5XQsuJCIEkidUAmcve59/o8mK3t/8LaYoT/VGI5YYWSqd
-   xGoQkPUTbMKEfrrHiIYKQ7UEdMJg72tUJj1XhxfC7xE4OHo0r3E5mKwwu
-   X1g7/xrWX2dbCGIoUrzLx7DV1MLtl3ZO9C27GH48Od10f6oSp3qi3xFx0
-   PK7cJ5UUJshcg7WtRKG3aOzVlWUBxrw2tXfNGT+j+Ztm+E4wA4NQ/GfdB
-   75UtyehFCwy0Oq8h37iv1EVJVIskhXXFV/bk9E9+5PQIh4nbuTKNgC3iY
-   w==;
-X-CSE-ConnectionGUID: 6Hj95BXdQaSG3kdP/x9PMw==
-X-CSE-MsgGUID: molkidvMRSiULTcKwoZtcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81553312"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="81553312"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:58:02 -0700
-X-CSE-ConnectionGUID: Rx+734n5QG2Xmo6vFLT3SQ==
-X-CSE-MsgGUID: EvwIZx1rR36cJPrntihkMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="241520510"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.162])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:57:58 -0700
-Date: Tue, 9 Jun 2026 21:57:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
-	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
-	jic23@kernel.org, jean-baptiste.maneyrol@tdk.com,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH V10 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
-Message-ID: <aihiM5Ao-vuAsUyh@ashevche-desk.local>
-References: <20260604201832.60656-1-macroalpha82@gmail.com>
- <20260604201832.60656-4-macroalpha82@gmail.com>
- <aiL0g8d0Y_JeAC5c@ashevche-desk.local>
- <PH0PR19MB99733851DADB0671AE5F76B788A51C2@PH0PR19MB997338.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ee9XAd7B"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490af320e2aso64543275e9.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 11:58:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781031479; x=1781636279; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nE40RXPXCC4Y6jx2aaoYHGd5GnbuzIEXCGKvuCuNxlc=;
+        b=ee9XAd7BBJH9KqKuXahW3qm20HUBK80V/R80chVfOKVbuAErNlbhVuJQbbnhXA8OnU
+         3m9onR7tVjv3eTIF7SwhUydHW3sJnb9j63JwELsrOMIPSG0LkEkBeclSFpvt6SnZxvKm
+         OR1h2zkcK98knwtvls5bKC4O4rr41MbRqamkFbSSbvx9zkwbatw9ls7NYfoy/IqdBTW8
+         akA34ndfsCmmD68m+ClbhKMpw0DWpyBN2/fdr0bRQ1MWr0NtUt4oErcEWSZPd4BkH/eA
+         aTRtLzyUbZtvkSRdztK3mLsuk5AvtXsy5zTETL3rrd/denT4nvYIFcKg5BL1kKeS5XEg
+         LaYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781031479; x=1781636279;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nE40RXPXCC4Y6jx2aaoYHGd5GnbuzIEXCGKvuCuNxlc=;
+        b=ay7dZRH/8obyS7rNqboekBvGArrxFIpSJjh9yZzi6RH88XxVO4qj9nGbyqZ2AbhA3u
+         A4VG3n2CChsdiWIU24csunRlLgIRenMruc0jHZ6I+auTcR190BcocGONMHohHwp/CPmu
+         V5FWIGnjnyw1jLsyMAdYAMelg0nH/TtOa47EdS5BiSlchjJwq1Y3269Rr2tmMeLL7267
+         JGH1kb+WuuRJW5eJUUjlMRt/oQOdcTuu7qEA0eayFHGfNQm39Qs5iEHnzuW9gX9pve4b
+         UBseiYSxem2wEl2edYAp6CWSPUz5dW+V+wTuh91II4AzN0SQIhbRy01FxDS5PWm00MDF
+         /HGg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Y6tersfWWuAM7WohfnDzgaGnZp7jPi1GrpLIoOu7704Q7UrtCfFzAkbWXRdrvsuKhXIfQg9qEIFfD@vger.kernel.org
+X-Gm-Message-State: AOJu0YydPM6k7SeVOVgQQXT4dWRjf6elhSxxSMHtwg4wV+a25TRaNbLW
+	UVQWjVmRo6ZBKUvmP2Q41/0O9BGQA2Mgz5Vfxb8zghJybOxFU5EAIghiJY4doeMf1kI=
+X-Gm-Gg: Acq92OEbi65F64W36LJzqxonMRozmcAkMCw0w0B6APpeavob8Um8jp2hcTwNqFZ3NWO
+	WJqxe7kyt0/qOEmrXOM9K6yYpspzeeSphwX3iyurzFX+HbJ7Vzx10HNlotQeDaDxI4C8ksCAMyl
+	5HPE6whzNe5hQu63deqgCjF3kuABmWD1gwcgTb9QTsNx0xu65fs52Fyv8plXweUzuA+E0lXCOSU
+	GPiha0Axc1Q3AflLOTaYaKQRggJ6WSxaRPub1CkVoaVbV7EVnd4VHvw8KxXYjmCi1X4NCAubsIe
+	d/w6AZtvtBqeuwn/bYI3xDa6MXq+vpCRSJMBtaduDrgsJPE5xylwLyt9XXrRw3RV9dYGQ3lK86m
+	thocSGwBtl00QZl3zr74vLhIkR4b5SA+HyyIJowPPjW4JnUYyz3cx5g2gMjVPf8VRS6iJFqho45
+	BJIeC1jhPdFyxPbpjRBiBm5Y0OQoo2QgJKtnNsbAFBrQ==
+X-Received: by 2002:a05:600c:34cf:b0:490:b8e2:6380 with SMTP id 5b1f17b1804b1-490c25b1243mr373855055e9.12.1781031479156;
+        Tue, 09 Jun 2026 11:57:59 -0700 (PDT)
+Received: from localhost ([2001:4091:a245:857c:bd97:47c2:83e4:8d45])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc39e024sm669863455e9.4.2026.06.09.11.57.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 11:57:58 -0700 (PDT)
+From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Date: Tue, 09 Jun 2026 20:56:22 +0200
+Subject: [PATCH v6 10/11] arm64: dts: ti: k3-am62p-ti-ipc-firmware: Split
+ r5f memory region
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PH0PR19MB99733851DADB0671AE5F76B788A51C2@PH0PR19MB997338.namprd19.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260609-topic-am62a-ioddr-dt-v6-19-v6-10-16afba97fbe0@baylibre.com>
+References: <20260609-topic-am62a-ioddr-dt-v6-19-v6-0-16afba97fbe0@baylibre.com>
+In-Reply-To: <20260609-topic-am62a-ioddr-dt-v6-19-v6-0-16afba97fbe0@baylibre.com>
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Judith Mendez <jm@ti.com>, Daniel Schultz <d.schultz@phytec.de>, 
+ Andrew Davis <afd@ti.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+ Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, Devarsh Thakkar <devarsht@ti.com>, 
+ Beleswar Padhi <b-padhi@ti.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Sebin Francis <sebin.francis@ti.com>, Kendall Willis <k-willis@ti.com>, 
+ Akashdeep Kaur <a-kaur@ti.com>, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2400; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=1HjXZU3N3yWNNw6i7VHEK3NtZRbPjnphoL+Zf42nRpo=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhiyNJAnPkzlmVYsqN07JvzNbrfPpv2PhmhF5y5eu6Y2vl
+ tKZ/K+xo5SFQYyLQVZMkaUzMTTtv/zOY8mLlm2GmcPKBDKEgYtTACYS3MzwT2nPj5Mbis2maiv9
+ +Joq7ndj+pynL49abZCNi+vj9P3Y4sbI8H/fe+1nU255qK0Xe6T3cXn0tsUdH498uye+eve7l1q
+ 3dnEAAA==
+X-Developer-Key: i=msp@baylibre.com; a=openpgp;
+ fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-On Mon, Jun 08, 2026 at 03:52:38PM -0500, Chris Morgan wrote:
-> On Fri, Jun 05, 2026 at 07:08:35PM +0300, Andy Shevchenko wrote:
-> > On Thu, Jun 04, 2026 at 03:18:25PM -0500, Chris Morgan wrote:
+Split the firmware memory region in more specific parts so it is better
+described where to find which information. Specifically the LPM metadata
+region is important as bootloader software like U-Boot has to know where
+that data is to be able to read that data.
 
-...
+Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+---
+ .../boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi      | 38 +++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 4 deletions(-)
 
-> > > +struct inv_icm42607_sensor_conf {
-> > > +	int mode;
-> > > +	int fs;
-> > > +	int odr;
-> > > +	int filter;
-> > 
-> > All of them are supposed to be signed? Why?
-
-> > > +};
-> 
-> A later commit will use -1 for invalid values.
-
-Okay, perhaps add a comment on top that negative values will mean invalid case?
-
-...
-
-> > > +#include <linux/delay.h>
-> > > +#include <linux/dev_printk.h>
-> > > +#include <linux/interrupt.h>
-> > > +#include <linux/iio/iio.h>
-> > > +#include <linux/module.h>
-> > > +#include <linux/mutex.h>
-> > > +#include <linux/property.h>
-> > > +#include <linux/regmap.h>
-> > > +#include <linux/regulator/consumer.h>
-> > 
-> > IWYU, please.
-> 
-> This may sound like a dumb question, but what's the best way to invoke
-> iwyu for a kernel? None of the readmes or man pages seem to be getting
-> me anywhere...
-
-In this list we (I mean community related to IIO) discussed iwyu tool and
-its best configuration. Yep, it's barely good and far from ideal, but that's
-what we have currently. Otherwise `git grep ...` and cscope are your friends
-to answer this. Also doing review on regular basis makes this knowledge
-developed better.
-
-...
-
-> It will get extended, so I'll keep this for now if that's okay.
-
-It's okay.
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
+index f77651109564224408723b72baba93e39a82be07..8f7409da83392d2d1f160a9645ef4d68f7aaa1bf 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
+@@ -24,9 +24,33 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 {
+ 		no-map;
+ 	};
+ 
+-	wkup_r5fss0_core0_memory_region: memory@9c900000 {
++	wkup_r5fss0_core0_ipc_region: memory@9c900000 {
+ 		compatible = "shared-dma-pool";
+-		reg = <0x00 0x9c900000 0x00 0x01d08000>;
++		reg = <0x00 0x9c900000 0x00 0x100000>;
++		no-map;
++	};
++
++	wkup_r5fss0_core0_lpm_fs_stub_region: memory@9ca00000 {
++		compatible = "shared-dma-pool";
++		reg = <0x00 0x9ca00000 0x00 0x8000>;
++		no-map;
++	};
++
++	wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
++		compatible = "shared-dma-pool";
++		reg = <0x00 0x9ca08000 0x00 0x1000>;
++		no-map;
++	};
++
++	wkup_r5fss0_core0_lpm_rest_region: memory@9ca09000 {
++		compatible = "shared-dma-pool";
++		reg = <0x00 0x9ca09000 0x00 0x97000>;
++		no-map;
++	};
++
++	wkup_r5fss0_core0_dm_region: memory@9caa0000 {
++		compatible = "shared-dma-pool";
++		reg = <0x00 0x9caa0000 0x00 0x1b68000>;
+ 		no-map;
+ 	};
+ };
+@@ -56,8 +80,14 @@ &wkup_r5fss0 {
+ &wkup_r5fss0_core0 {
+ 	mboxes = <&mailbox0_cluster0 &mbox_r5_0>;
+ 	memory-region = <&wkup_r5fss0_core0_dma_memory_region>,
+-			<&wkup_r5fss0_core0_memory_region>;
+-	memory-region-names = "dma", "firmware";
++			<&wkup_r5fss0_core0_ipc_region>,
++			<&wkup_r5fss0_core0_lpm_fs_stub_region>,
++			<&wkup_r5fss0_core0_lpm_metadata_region>,
++			<&wkup_r5fss0_core0_lpm_rest_region>,
++			<&wkup_r5fss0_core0_dm_region>;
++	memory-region-names = "dma", "ipc", "lpm-stub",
++			      "lpm-metadata", "lpm-context",
++			      "dm-firmware";
+ 	status = "okay";
+ };
+ 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
