@@ -1,65 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from r3-73.sinamail.sina.com.cn (r3-73.sinamail.sina.com.cn [202.108.3.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FF133F5AE;
-	Tue,  9 Jun 2026 07:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6858D351C3C
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780989490; cv=none; b=Aso5ATNsjJ0J2/K+nZb4k8Qy/3EfuvCUECjOI9LgbdYYkBt1EJlDntbgBspu8u+gNzWAv74XtLzhO5LZDxDTNFcbewH3mUIOdD5Y7P/4XJ5Le/+odXfXRRgSZ1NFccjSwJQW5o28pb5HhM7knA1DWBeFgL5EzCNVj3joH6SLJ44=
+	t=1780989506; cv=none; b=L6DOVob6bgq9dtGrvkfQySjw0X//NyaPI65lJAGjuIeMnWWz7S81b8qgDmR8zDmDsP9bYUqWir7v0e8KA6zZr5CCObtKayN/vLSnMAXk39CTeAFAav1hJ/VWSkB8KhB7mYXuUMs9UC8A5airlJi0qmN9A9QEpEk8yX69VPdrZ60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780989490; c=relaxed/simple;
-	bh=lu+Rb/49Rz7y2O9U2JPduslb4hbvFoCzHRjeVCvgAaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W5wJ4b8oyvp/M3knfL/Va1MULOiD8x81LedIHkAKoarT0TSsUqyCXG/okPSHBYimGIZFE6Jc/Zp6frmA9qINvPwR3tcns1pIMGiJSCQjlXkVSNI9az+umMkeZ30iBiVa6Tyb3ZGKpeaxhk+3jT0ajkcllTFdjYAKWQQfyhDEyzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzhT2bcc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzhT2bcc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46E71F00893;
-	Tue,  9 Jun 2026 07:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780989488;
-	bh=mz8ojFXLgCZAzcSHeznkvPuCX2+1KU6fdTaN2fyFoUE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fzhT2bccfiXtbo8YlB8l5FmgXgR/6ljjFGN+dE0OkiLiiH7jaMcCEz+CD8yfYVK3f
-	 g7QUADv+7yz2hkHLOoC51z7ireNpprWyYjlw3b4LFIBvGhDN7ckm95s7OXoPdlujVb
-	 XceznKNt5tXjUBPdQw7N4QrG4XfpW9DCeFUlKWt7+HZhv6dfxG3ZSrSzlNHMYtW4Cy
-	 651M6k4Q9Q8rOSHSGqFO3gkESmDdJrC8l+e2AYDmD1LSwrakHFqvGuJMevkxmdq08p
-	 GEfzX5xdiSCFo9BrJ2rQtFakdPOHyDfybJUbWGytEFzOoTBbAYc9bNALDnR0fnC+qg
-	 X9rc1mquDll1w==
-Date: Tue, 9 Jun 2026 09:18:03 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] regulator: dt-bindings: qcom,smd-rpm-regulator: Add
- PM8019
-Message-ID: <20260609-amusing-cryptic-stallion-bb209a@quoll>
-References: <20260608-rpm-smd-regulator-pm8019-v1-0-c671388b9ea5@linaro.org>
- <20260608-rpm-smd-regulator-pm8019-v1-1-c671388b9ea5@linaro.org>
+	s=arc-20240116; t=1780989506; c=relaxed/simple;
+	bh=qzMA72d1894zjGI6ssuhjjUnkSGElryWwrFM8JvYHbE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=kGPuOSVDOGwBUydgAWTxHnxcGhOiCjijn/F6OwlUzZQPNgTDvK8tup4LYkiDzimwP9qf8BM0reuOu9jQtBZwNfANXowRoYUpy+lZvyx1KAY8jTJGmxkc3+VmAChEnW6dxmwgxy4PBid5/PUypplEJfQ01bhL8z7tustYRYynr90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
+Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
+	by sina.net (10.54.253.39) with ESMTP
+	id 6A27BE0F00000EF4; Tue, 9 Jun 2026 15:17:42 +0800 (CST)
+X-Sender: zhangyi@everest-semi.com
+X-Auth-ID: zhangyi@everest-semi.com
+Authentication-Results: sina.net;
+	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=zhangyi@everest-semi.com
+X-SMAIL-MID: 11F1042D53984D55AB2C5DF18F762B67
+X-SMAIL-UIID: 11F1042D53984D55AB2C5DF18F762B67-20260609-151742
+From: Zhang Yi <zhangyi@everest-semi.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	devicetree@vger.kernel.org
+Cc: tiwai@suse.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Zhang Yi <zhangyi@everest-semi.com>
+Subject: [PATCH 6/7] ASoC: codecs: ES8389: Add INPUTL MUX and INPUTR MUX
+Date: Tue,  9 Jun 2026 15:17:31 +0800
+Message-Id: <20260609071732.20939-7-zhangyi@everest-semi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260609071732.20939-1-zhangyi@everest-semi.com>
+References: <20260609071732.20939-1-zhangyi@everest-semi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260608-rpm-smd-regulator-pm8019-v1-1-c671388b9ea5@linaro.org>
 
-On Mon, Jun 08, 2026 at 02:05:43PM +0200, Stephan Gerhold wrote:
-> Add the qcom,rpm-pm8019-regulators compatible to allow describing
-> regulators controlled by the RPM firmware on platforms that use PM8019.
-> 
-> Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
-> ---
->  .../devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml         | 4 ++++
->  1 file changed, 4 insertions(+)
+Add INPUTL MUX and INPUTR MUX in route
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
+---
+ sound/soc/codecs/es8389.c | 35 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+index 2460cf977..23e85ddfe 100644
+--- a/sound/soc/codecs/es8389.c
++++ b/sound/soc/codecs/es8389.c
+@@ -164,6 +164,16 @@ static const struct soc_enum alc_ramprate =
+ static const struct soc_enum alc_winsize =
+ 	SOC_ENUM_SINGLE(ES8389_ALC_CTL, 0, 16, winsize);
+ 
++static const char *const es8389_adcl_mux_txt[] = {
++	"Normal",
++	"ADC2 channel to ADC1 channel",
++};
++
++static const char *const es8389_adcr_mux_txt[] = {
++	"Normal",
++	"ADC1 channel to ADC2 channel",
++};
++
+ static const char *const es8389_outl_mux_txt[] = {
+ 	"Normal",
+ 	"DAC2 channel to DAC1 channel",
+@@ -191,6 +201,20 @@ static const unsigned int es8389_pga_values[] = {
+ 	1, 5, 6
+ };
+ 
++static const struct soc_enum es8389_adcl_mux_enum =
++	SOC_ENUM_SINGLE(ES8389_ADC_MODE, 5,
++			ARRAY_SIZE(es8389_adcl_mux_txt), es8389_adcl_mux_txt);
++
++static const struct snd_kcontrol_new es8389_adcl_mux_controls =
++	SOC_DAPM_ENUM("INPUTL MUX", es8389_adcl_mux_enum);
++
++static const struct soc_enum es8389_adcr_mux_enum =
++	SOC_ENUM_SINGLE(ES8389_ADC_MODE, 4,
++			ARRAY_SIZE(es8389_adcr_mux_txt), es8389_adcr_mux_txt);
++
++static const struct snd_kcontrol_new es8389_adcr_mux_controls =
++	SOC_DAPM_ENUM("INPUTR MUX", es8389_adcr_mux_enum);
++
+ static const struct soc_enum es8389_outl_mux_enum =
+ 	SOC_ENUM_SINGLE(ES8389_DAC_MIX, 5,
+ 			ARRAY_SIZE(es8389_outl_mux_txt), es8389_outl_mux_txt);
+@@ -319,6 +343,8 @@ static const struct snd_soc_dapm_widget es8389_dapm_widgets[] = {
+ 			   &es8389_adc_mixer_controls[0],
+ 			   ARRAY_SIZE(es8389_adc_mixer_controls)),
+ 	SND_SOC_DAPM_MUX("ADC MUX", SND_SOC_NOPM, 0, 0, &es8389_dmic_mux_controls),
++	SND_SOC_DAPM_MUX("INPUTL MUX", SND_SOC_NOPM, 0, 0, &es8389_adcl_mux_controls),
++	SND_SOC_DAPM_MUX("INPUTR MUX", SND_SOC_NOPM, 0, 0, &es8389_adcr_mux_controls),
+ 
+ 	SND_SOC_DAPM_MUX("OUTL MUX", SND_SOC_NOPM, 0, 0, &es8389_outl_mux_controls),
+ 	SND_SOC_DAPM_MUX("OUTR MUX", SND_SOC_NOPM, 0, 0, &es8389_outr_mux_controls),
+@@ -332,10 +358,15 @@ static const struct snd_soc_dapm_route es8389_dapm_routes[] = {
+ 	{"ADCL", NULL, "PGAL"},
+ 	{"ADCR", NULL, "PGAR"},
+ 
++	{"INPUTL MUX", "Normal", "ADCL"},
++	{"INPUTL MUX", "ADC2 channel to ADC1 channel", "ADCR"},
++	{"INPUTR MUX", "Normal", "ADCR"},
++	{"INPUTR MUX", "ADC1 channel to ADC2 channel", "ADCL"},
++
+ 	{"ADC Mixer", "DACL ADCL Mixer", "DACL"},
+ 	{"ADC Mixer", "DACR ADCR Mixer", "DACR"},
+-	{"ADC Mixer", NULL, "ADCL"},
+-	{"ADC Mixer", NULL, "ADCR"},
++	{"ADC Mixer", NULL, "INPUTL MUX"},
++	{"ADC Mixer", NULL, "INPUTR MUX"},
+ 
+ 	{"ADC MUX", "AMIC", "ADC Mixer"},
+ 	{"ADC MUX", "DMIC", "DMIC"},
+-- 
+2.17.1
 
