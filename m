@@ -1,136 +1,166 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5810B32E6BD
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:32:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974D83242BE
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780968742; cv=none; b=IoDKwiETRO9sVBQzTzm91gjDbsYAgNlT9XHri25D+u4EugHwYCTdqStfp384zzRPegdb66goJlRM2XkL/VAQE80lYTUvq0IaKR6j0Ge2nDrcU1X7wjk0iunV8XG85LidX/zGk6hYdD+O3cVH4yNSwkcl7n2VbvxweNYilKHj5ek=
+	t=1780969312; cv=none; b=Ml6qRYxn/XkTldk2AEVhJxVPDva8JEVeQ+Rv/WH6Tk3CSug+JcDsP5ch1h1j5wWL3TFYj/zbZTy0yBZNiTk+vePxBwZz7Y03JHHlXDe9N6s53p12NkG8ZaNtc5172TulNk8dWO49YSi/bQ92uWc/lHdZNchBlowgBVaBJ0DG8ZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780968742; c=relaxed/simple;
-	bh=smVRpaCZIxDLyRWoZHXLUYpzGx3iLGVagavXEXO2aXM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DKFHOqm3pkuWwVqI6rRd2Wq7EzDRkPHq4+CbULqiKrruNLKl8eiZyAVp7ukJL0XoeIXouJ7JczXC4ALakWne6ZbISia6oqsV1Y01Iu6ZBlXoLuERMcRIJVEwUALhBh8SnqcJarrMl7LOvcheI+2DhYIryZkfx8Pe9CR7x2IO33U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h14k+c1M; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780969312; c=relaxed/simple;
+	bh=hk6bsbBA9vSDl8MI8y+724KOd9U/E0lbrnbd847abfQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=J9hDGK53iD3RFqMpT/k8AoLe6C55R6i4ER8qmDVIrNlMm/A65QEnq26URpo6fiSFbZYJ4t8qVG2kkqqXwB3UrKXXnMErK2st8ln6sk/yWghoHMxhSl+P1UGpHlqD8aHNJSjLB+aNwOTwMMJ668lQevdET7WYe7Tbx/IjTqSxj8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDqYHu1f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h14k+c1M"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2bf2e8ccca1so35085375ad.0
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 18:32:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780968739; x=1781573539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wLvmQCFNohOOsJ3JAW+RyfCTOssyDUr0gIAh//bmteA=;
-        b=h14k+c1MXvAZ2WZRWrtBlPOCRWwIr7PO1nVu94qUAd2CTEwzRESG0Frh2RUnZNFxvL
-         mCCv92hUsWypy1l9prDfunSdE4e7L59Rg6nIhMSaGbzgSwykOlQnYvrYh9u8m4dy06HE
-         9Ovk0eTfhBXGwgO0ROtejUMfcJEwqdog8JDG60ZvvtyTyt0b/Qk8R6KJioMOmACLfSXu
-         NdEAoFej5RREXiOzJpwepGouAoi3ibCpqFSYRGeXGymmuQJQ95XDcn+1u3CDkOoFlnQb
-         Rgad/DQ6bndY/6rpA9xELsGAunkjd0zcCkflzdjgJJNGD64ualDh0+n7OO3DkbTSJ7xj
-         V0OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780968739; x=1781573539;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wLvmQCFNohOOsJ3JAW+RyfCTOssyDUr0gIAh//bmteA=;
-        b=H1G628z5yBDjpTeP3or6nzdk1r8mml0ATQB+0pJL4haDxziL41TOOJVFKeE8Hwc6IO
-         RkovamQokuIsGXqf5+PUzbGiTeIgO2+xgF5W76kOCgeYmkxqg7CHL5CcKTrycwE4nsgZ
-         AO+JDhtGuIjPwmRaAXD+fkWHkkqdr1cYo5+a4nyRZE1c6tTo4X8Q6CjCgLUhnzmi+dUX
-         e/aPYwsFydaZ6F1xLq7fZWBAFM056z2Prq8PxWDzYxk+PDS0Cp4b6FUAKaIhcs7cJA/s
-         p1yPzI5NFMjjekB4WqyJIKW9ot4vymJng4XsgJ3reVqZKF+sCi0ZoeCLS/ToBk6sPE2r
-         kbcQ==
-X-Forwarded-Encrypted: i=1; AFNElJ88RV7gZYo8zgjHY4xSg0ZscxUvffOyVjfQhmY9WLWiuZGrsAoY8g0RuPmdHLTQ157rDT9Ya7DuNRsJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyC8eCc0u50mI0XdNse3Ga/J0VFFxNbqSjTTLtGhdYZXBY015JJ
-	UDrquGXb86eEOe8tFTPX5NNC2+RuNiwJEbUseYybaM1waz2zmmXDNAcb
-X-Gm-Gg: Acq92OH4UPirXApEX7a/TpBy40jLEnOulx8UesuEEIusxOhFAsu8b8r/DyYDhuzzQ4u
-	3rCMHI0ardRRWnolU+G21kEqFGVleNq/PKS3TZDVWBCen13EfWXWSDM7VJmfzLX7D9zYGJCoqdB
-	E74LAWqBlrmvC3R+XAMcEE5EmsNGLEAbsHh4nydDj69GWUYGZVbAbgQN30KZPCVxEAaYtxSaml8
-	TVN4q3nNeBY+ipE5eJvDsJJraPAKEt/IMw/8gu+Urg8sBQ8FMMJgeKg5v12H6VmPP6rfTTK3Uyc
-	mbMt++driVQn7Fg2StR7Cbp3rOqvmdw2m27Yya6pEYmNhMTp8Er3vbXL1aKw5hHAygLCVs0/RzB
-	3YJLDSsI4BOpe0QJ2ifmpl+Slax+NrpjFEt9g+dwIHUn+sMNqWdEoVZ8e8hI7VuuTL3Ka+yC9z2
-	DCzC54vbTpS4/JoaKTXI7f43ExyRiGbBl9xIT2Y6K4vwt/L7IkfbYYHdlHpOUSoxvCC+a+1tzim
-	9phGhk=
-X-Received: by 2002:a17:902:ced1:b0:2c0:fa4e:91f6 with SMTP id d9443c01a7336-2c1e7d41eabmr194574365ad.13.1780968738667;
-        Mon, 08 Jun 2026 18:32:18 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e627sm198765335ad.52.2026.06.08.18.32.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 18:32:18 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Mark Brown <broonie@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v5 11/11] ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
-Date: Tue,  9 Jun 2026 08:31:07 +0700
-Message-ID: <20260609013107.5995-12-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260609013107.5995-1-phucduc.bui@gmail.com>
-References: <20260609013107.5995-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDqYHu1f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0EA1F00893;
+	Tue,  9 Jun 2026 01:41:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780969311;
+	bh=CFdhcEZBXgtMhO+IcSq3MlxQ10tqMgCQ2p6EsQ4+sYg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HDqYHu1fAGtBL/e9GDdAQINRUIb/3SB61JiWe74gsTSH0FS5wHvon4UfKoWYAaKwp
+	 iZfvlZttCk4IoLJhrmfctAHbL85zUK4GoqTXmLb6fBK9mav2m1e8X2OlzJVKqsZ+V2
+	 kP2PfQH64gJVW9jYDtl6FuyeB912MFgh8sADHLGMBkVhQSqsB0vuNAdORmmI/ToMKl
+	 2G/xeyjsIZYbWL+uofQf0ZK7Q3UXMcVQH+TeuVxN/w9ZfhLPSL6eBZfmuirFr8xsDB
+	 fBJFVPr1t/GrSTdALDtQSQlbDahMux9wqTeyjcIwi9IuytZC+Aq2e9DbQOPb/IwJ8x
+	 zqc/a39Yj6LaQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/11] ASoC: dt-bindings: renesas,fsi: add support
+ multiple clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260609013107.5995-2-phucduc.bui@gmail.com>
+References: <20260609013107.5995-2-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 01:41:50 +0000
+Message-Id: <20260609014151.2F0EA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The `clocks` property specifies an `items` array with a rigid posit=
+ional sequence that contradicts the flexible order allowed by `clock-names`=
+ and demonstrated in the example.
+--
 
-Enable and disable the SPU clock in fsi_hw_startup() and
-fsi_hw_shutdown() to ensure the clock is active while the
-driver accesses hardware registers.
+commit e7db6aae2c19d98ecd80fa5d59fbb27124874059
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
+ASoC: dt-bindings: renesas,fsi: add support multiple clocks
 
-Changes in v5:
- - Drop spu_count and rely on the clk core for clock reference
-   counting.
+The FSI on r8a7740 requires the SPU bus/bridge clock to be enabled before
+accessing its registers. This update adds multiple clocks to properly
+describe the hardware clock tree.
 
- sound/soc/renesas/fsi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/D=
+ocumentation/devicetree/bindings/sound/renesas,fsi.yaml
+> index df91991699a72..b966b55ff7728 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+[ ... ]
+> @@ -38,7 +35,32 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Main FSI module clock
+> +      - description: |
+> +          SPU bus/bridge clock. On R8A7740, this clock must be enabled t=
+o allow
+> +          register access as the FSI block is connected behind the SPU b=
+us.
+> +      - description: CPG DIV6 functional clocks for FSI port A
+> +      - description: CPG DIV6 functional clocks for FSI port B
+> +      - description: FSI dividers for port A used for audio clock genera=
+tion
+> +      - description: FSI dividers for port B used for audio clock genera=
+tion
+> +      - description: External clock inputs for FSI port A provided by th=
+e board
+> +      - description: External clock inputs for FSI port B provided by th=
+e board
+> +
 
-diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-index 80e87b815c1b..a1c463d73756 100644
---- a/sound/soc/renesas/fsi.c
-+++ b/sound/soc/renesas/fsi.c
-@@ -1560,6 +1560,11 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
- 			  struct device *dev)
- {
- 	u32 data = 0;
-+	int ret;
-+	/* enable spu bus bridge clock */
-+	ret = clk_enable(fsi->master->clk_spu);
-+	if (ret < 0)
-+		return ret;
- 
- 	/* clock setting */
- 	if (fsi_is_clk_master(fsi))
-@@ -1617,6 +1622,8 @@ static int fsi_hw_shutdown(struct fsi_priv *fsi,
- 	/* stop master clock */
- 	if (fsi_is_clk_master(fsi))
- 		return fsi_clk_disable(dev, fsi);
-+	/* stop spu bus bridge clock */
-+	clk_disable(fsi->master->clk_spu);
- 
- 	return 0;
- }
--- 
-2.43.0
+[Severity: Low]
+Does this rigid items array cause a regression with dt-schema validation?=20
 
+Defining the items as a list of descriptions enforces strict positional
+indexing, meaning the schema expects index 3 to specifically be 'CPG DIV6
+functional clocks for FSI port B'. This contradicts the flexible enum defin=
+ed
+below in clock-names.
+
+[ ... ]
+> @@ -69,6 +91,31 @@ required:
+> =20
+>  unevaluatedProperties: false
+> =20
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,fsi2-r8a7740
+> +    then:
+> +      required:
+> +        - clock-names
+> +
+> +      properties:
+> +        clock-names:
+> +          minItems: 2
+> +          uniqueItems: true
+> +          items:
+> +            - const: fck
+> +            - const: spu
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +
+
+[Severity: Low]
+Is this enum-based list in conflict with the strict positional sequence
+in the clocks array?
+
+The clock-names property permits these optional clocks to appear
+in any arbitrary order, whereas the clocks descriptions require a fixed
+sequence.
+
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/r8a7740-clock.h>
+> @@ -77,7 +124,11 @@ examples:
+>              compatible =3D "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
+>              reg =3D <0xfe1f0000 0x400>;
+>              interrupts =3D <GIC_SPI 9 0x4>;
+> -            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>;
+> +            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>, <&spu_clk>,
+> +                    <&fsia_clk>, <&fsiack_clk>, <&fsidiva_clk>,
+> +                    <&fsib_clk>, <&fsibck_clk>, <&fsidivb_clk>;
+> +            clock-names =3D "fck", "spu", "icka", "xcka", "diva",
+> +                         "ickb", "xckb", "divb";
+
+[Severity: Low]
+Does this example directly violate the strict positional sequence defined
+above in the clocks array?=20
+
+The example provides the clocks in an order (fck, spu, icka, xcka, diva...)
+that doesn't match the fixed list, which expects ickb in the 4th position.
+This leads to semantically incorrect documentation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609013107.5995=
+-1-phucduc.bui@gmail.com?part=3D1
