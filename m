@@ -1,124 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907CA341068
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 14:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3C5344DB0;
+	Tue,  9 Jun 2026 14:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781015450; cv=none; b=Si1r7pn0epHWT2JYQusPq5cectKb8auvQq7rCyBEaUfDkulYUQV/+pRVbO25em5astXA00WUjscDIn6qvicAq1Iz913dzCrRuVssOA25Jb5OcbMEc8QpduchY1OB8188v+fgNDfSuEMKQw9CJ/AWPi1rsoPle8deg3ZRNTdftDQ=
+	t=1781015511; cv=none; b=kVK/yUV7UWG2QYIK+zXJYOnOjgq1O33/DQKi35Yzxcc1dCy8UvUPJq/4URIYs5suAbclfpGBZtk7xGU2sNMm633NlzLUNuDX3DEUBCeUQRDj70Hfxxdk1OMMycldVqlWjTYOdVpOMyR0sWPgisqY0cPHaXOTaf7owOzzqKEeyg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781015450; c=relaxed/simple;
-	bh=gL67jctD87qPnkivLKW+j83vB/v2fsOqEpBg4+XUIsk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TwfLB9+V99PtsYC8IXwt09m155Q2nyz1CRX1oz/ZJiAJu3nScXNSolNtR90gGlyrR5rUQ96pUtMGU7ntwRNHEsJqdQviY1OmlbbMQAmDwS2EvQESq8kNmiuW/CFCy5ZWpO5UTUEl5Xasw1RCptbCrx5vSflgI0BzrCCoggqEn2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gG2WxdWh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781015511; c=relaxed/simple;
+	bh=pdqcsNBtepv+2jcW+mA5WaQvPbX5QAb9X+FohsEz8fc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eYvvyCF0R+nhi8XLKfHp73f5OAvjqBoAHmFEXUThT1t6snH4us8TGeNrXdHsebRIb/IgmgqJ1mZmF2SFPKU1KxcizWwNWKJSiZaed8lWCIuZMQ0wsxnQPHirijJ0NvzE6Nuqi7Q24tZCKT7OTcOx0nPolzdBa2vR9Odx5gGFsZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJp8F4JY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gG2WxdWh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0DE1F00898;
-	Tue,  9 Jun 2026 14:30:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJp8F4JY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D0E1F00893;
+	Tue,  9 Jun 2026 14:31:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781015449;
-	bh=i0Pkpf+ifE7+G5rESU7aRyzC104qVLdlPxsNpRQssaA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gG2WxdWhzXQA9nufPIGN13O2Zh3s5GD8Pbm6tDZPdqhxGoKowXNKGA0B8KMvfQDPx
-	 IRrofpFR5vdxkjCb1Tu1D0MCP+MXqI9UQL1dKtQ/TUK0XEtKhqLNry2oJWtvjvsvzQ
-	 rMM3T0S4BylbdxHVlXtBdpX5ZuCBXml8iEM9FLA/rs+Kf603e6CavODPY+HWSrsU7q
-	 KeGZnTzajQixjkqNWhgUgT6D7q92dWV23cewuglL3q/X1PIiXsVeo2IiVnSATRJRGV
-	 qK3HQCp66a5H0Vg8IJtZMVwWXiM9oep5HFJbOoN0pOri90tMuZlMLHhUReEDL1mYR0
-	 oGKnJSWN7KZPw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] arm64: dts: renesas: Add LCDC overlays for RZ/T2H
- and RZ/N2H EVKs with ADV7513
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609125353.401124-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260609125353.401124-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 14:30:47 +0000
-Message-Id: <20260609143048.8B0DE1F00898@smtp.kernel.org>
+	s=k20260515; t=1781015510;
+	bh=YYr2fDcT/qLUNiiWKZH/9Di3yNy9ktWhaFeytqhbFu0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bJp8F4JY2vcS6oz+xEfQI7kfR+Bt7Ng+KjsMawRuL6JaVThfxkVcv5eUDLlvhLIia
+	 og+5WpeqYX54rWKcmNE6A0W/G74Bv8jdGiPs+GNItgRR6uxEXK3/NG/HMBFMN2/8fR
+	 54S8KNny6XXnO7u1jf8/miENK3hnsELnKnvJQ303H4KzB+T9X73vPDnkb7PK+fe3HA
+	 qfnGWWlYlZfLUmkm5L58Vh/v7y8mgX2YOmqpSPruVRq3thM+Sc1EZBhFI7mu6kgYqJ
+	 tsewXTgDc94Kga/FhmkkbBZO+BsLHP4RxHcVjNNWprBNcnc2GABGdKWb8c3JxjcmPo
+	 6rxJ1j4rPr+zw==
+Date: Tue, 9 Jun 2026 15:31:46 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+	dmitry.torokhov@gmail.com, krzk+dt@kernel.org,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH 7/8] dt-bindings: input: microchip,cap11xx: Add CAP1114
+ support
+Message-ID: <20260609-ebook-tantrum-4846384c02d5@spud>
+References: <20260608-broadly-reunion-09fc8eca5e87@spud>
+ <20260609140827.850117-1-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Y+5vcRnMIXFuL3t4"
+Content-Disposition: inline
+In-Reply-To: <20260609140827.850117-1-jerrysteve1101@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The RZ/N2H overlay fails to disable conflicting devices (`led-7`=
-, `key-1`, and `sdhi1`), causing pinctrl and physical hardware collisions.
-- [Low] Typo in the Makefile causes the composite DTB for the RZ/N2H EVK to=
- be incorrectly named with 'rzt2h' instead of 'rzn2h'.
+
+--Y+5vcRnMIXFuL3t4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jun 09, 2026 at 10:08:27PM +0800, Jun Yan wrote:
+> > On Sat, Jun 06, 2026 at 11:04:00PM +0800, Jun Yan wrote:
+> > > CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
+> > > and hardware reset support.
+> > >=3D20
+> > > Add the compatible string for CAP1114, include its datasheet URL,
+> > > and update the maximum count of LED channels and linux,keycodes entri=
+es.
+> > >=3D20
+> > > Add description for microchip,input-threshold: CAP1114 only provides =
+eight
+> > > threshold entries, which does not match its total channel count.
+> > >=3D20
+> > > Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> > > ---
+> > >  .../bindings/input/microchip,cap11xx.yaml     | 21 +++++++++++++++++=
 --
+> > >  1 file changed, 19 insertions(+), 2 deletions(-)
+> > >=3D20
+> > > diff --git a/Documentation/devicetree/bindings/input/microchip,cap11x=
+x.ya=3D
+> > ml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > > index e307628350c2..08233386a433 100644
+> > > --- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > > +++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > > @@ -12,6 +12,7 @@ description: |
+> > > =3D20
+> > >    For more product information please see the links below:
+> > >      CAP1106: https://ww1.microchip.com/downloads/en/DeviceDoc/000016=
+24B.=3D
+> > pdf
+> > > +    CAP1114: https://ww1.microchip.com/downloads/en/DeviceDoc/000024=
+44A.=3D
+> > pdf
+> > >      CAP1126: https://ww1.microchip.com/downloads/en/DeviceDoc/000016=
+23B.=3D
+> > pdf
+> > >      CAP1188: https://ww1.microchip.com/downloads/en/DeviceDoc/000016=
+20C.=3D
+> > pdf
+> > >      CAP1203: https://ww1.microchip.com/downloads/en/DeviceDoc/000015=
+72B.=3D
+> > pdf
+> > > @@ -26,6 +27,7 @@ properties:
+> > >    compatible:
+> > >      enum:
+> > >        - microchip,cap1106
+> > > +      - microchip,cap1114
+> > >        - microchip,cap1126
+> > >        - microchip,cap1188
+> > >        - microchip,cap1203
+> > > @@ -62,7 +64,7 @@ properties:
+> > > =3D20
+> > >    linux,keycodes:
+> > >      minItems: 3
+> > > -    maxItems: 8
+> > > +    maxItems: 14
+> > >      description: |
+> > >        Specifies an array of numeric keycode values to
+> > >        be used for the channels. If this property is
+> > > @@ -122,6 +124,8 @@ properties:
+> > >        is required for a touch to be registered, making the touch sen=
+sor =3D
+> > less
+> > >        sensitive.
+> > >        The number of entries must correspond to the number of channel=
+s.
+> > > +      CAP1114 is an exception where channels 8~14 reuse the eighth e=
+ntry=3D
+> > 's
+> > > +      threshold, so counts differ.
+> > > =3D20
+> > >    microchip,calib-sensitivity:
+> > >      $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > @@ -149,7 +153,7 @@ patternProperties:
+> > >        reg:
+> > >          description: LED channel number
+> > >          minimum: 0
+> > > -        maximum: 7
+> > > +        maximum: 10
+> > > =3D20
+> > >      required:
+> > >        - reg
+> > > @@ -199,6 +203,19 @@ allOf:
+> > >              reg:
+> > >                maximum: 1
+> > > =3D20
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          contains:
+> > > +            enum:
+> > > +              - microchip,cap1188
+> >=20
+> > I don't understand this restriction, shouldn't this be
+> > if: properties: compatible: not: contains: microchip,cap1114
+> > so that the constraints before your change are retained?
+> >=20
+>=20
+> Previously, the LED reg property had a default maximum of 7 for CAP1188.=
+=20
+> With the addition of CAP1114, the default maximum is now 11.=20
+> An if-then constraint is added to limit the LED count for CAP1188.
 
-commit efe0a5ca8f3fdb36ded9b05e9b5a45260bb5135a
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Ah, is this because cap1188 is the only existing device in the binding
+that actually has LEDs?
 
-arm64: dts: renesas: Add LCDC overlays for RZ/T2H and RZ/N2H EVKs with ADV7=
-513
+--Y+5vcRnMIXFuL3t4
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This commit adds device tree overlay support to enable the DU/LCDC pipeline
-on the RZ/T2H and RZ/N2H evaluation kits. It configures the overlays for use
-with a CN15/CN20 ADV7513 HDMI transmitter.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
-enesas/Makefile
-> index ca45d2857ea7f..0f64a8820e374 100644
-> --- a/arch/arm64/boot/dts/renesas/Makefile
-> +++ b/arch/arm64/boot/dts/renesas/Makefile
-[ ... ]
-> @@ -215,8 +215,14 @@ r9a09g057h48-kakip-pixpaper-dtbs :=3D r9a09g057h48-k=
-akip.dtb r9a09g057h48-kakip-pi
->  dtb-$(CONFIG_ARCH_R9A09G057) +=3D r9a09g057h48-kakip-pixpaper.dtb
-> =20
->  dtb-$(CONFIG_ARCH_R9A09G077) +=3D r9a09g077m44-rzt2h-evk.dtb
-> +dtb-$(CONFIG_ARCH_R9A09G077) +=3D r9a09g077m44-evk-cn15-lcdc.dtbo
-> +r9a09g077m44-rzt2h-evk-cn15-lcdc-dtbs :=3D r9a09g077m44-rzt2h-evk.dtb r9=
-a09g077m44-evk-cn15-lcdc.dtbo
-> +dtb-$(CONFIG_ARCH_R9A09G077) +=3D r9a09g077m44-rzt2h-evk-cn15-lcdc.dtb
-> =20
->  dtb-$(CONFIG_ARCH_R9A09G087) +=3D r9a09g087m44-rzn2h-evk.dtb
-> +dtb-$(CONFIG_ARCH_R9A09G087) +=3D r9a09g087m44-evk-cn20-lcdc.dtbo
-> +r9a09g087m44-rzt2h-evk-cn20-lcdc-dtbs :=3D r9a09g087m44-rzn2h-evk.dtb r9=
-a09g087m44-evk-cn20-lcdc.dtbo
-> +dtb-$(CONFIG_ARCH_R9A09G087) +=3D r9a09g087m44-rzt2h-evk-cn20-lcdc.dtb
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaigjzgAKCRB4tDGHoIJi
+0jSNAQDvJ1goshSggJqk7VT7ODGZ1pGMI3GyC+meq8voSIcnLgD/Rha/49m/DH3F
+WYWhivwg1lUOqhCjYbvY1B4InQg/pQY=
+=zcuJ
+-----END PGP SIGNATURE-----
 
-[Severity: Low]
-Does this code contain a copy-paste typo? The target is the RZ/N2H EVK, but
-the variables use rzt2h instead of rzn2h for the composite DTB names.
-
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso =
-b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
-> new file mode 100644
-> index 0000000000000..bc8a91278920e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
-[ ... ]
-> +&{/leds/led-4} {
-> +	/* P18_1 is used for DU function LCDC_DATB2. */
-> +	status =3D "disabled";
-> +};
-> +
-> +&i2c0 {
-> +	status =3D "disabled";
-> +};
-
-[Severity: Medium]
-Does this overlay omit disabling conflicting devices like led-7, key-1, and
-sdhi1?
-
-The shared DU overlay configures du-pins to use P18_2 for LCDC_DATB3 and
-P14_3 for LCDC_DATG3. In the base RZ/N2H device tree, P18_2 is statically
-assigned to key-1 and P14_3 is assigned to led-7. Leaving them enabled could
-lead to a pinctrl collision during boot.
-
-Also, the overlay specifies that LCDC_DATG3 requires hardware switch DSW5[3]
-to be OFF, but sdhi1 in the base device tree requires DSW5[3] to be ON for
-card detect and IO voltage supply. Could sdhi1 be explicitly disabled here =
-as
-well to prevent physical hardware conflicts?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609125353.4011=
-24-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D5
+--Y+5vcRnMIXFuL3t4--
