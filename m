@@ -1,116 +1,117 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159A23EFFC1
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B7B383C64
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781000771; cv=none; b=BMF8bO3cu0kczLaxjuxQblzN/Ydl9Cr6Td0N06a3Ofb7/mzrGfHc/ob1SCRctdt6fuxIj8upsGfpkKOYE9cIv3Mweyeo52qh5wPrFY5nz2sM6I4dKa/KhmCvYe/nnEGqZXuH5jIiCOCbSFSjncEhrG4N4bY2r4rtKOHjxaCrPQE=
+	t=1781000840; cv=none; b=Z+bqlq4wecCnHCXIbe+Epf0Q2PDOUMEZeCgiIgbwGmY0MsWJ+zvXTKm0+mjmpq+UXjlR23iQwbd1OFrdTuxnhOhDrew/XnCbHkeHWpex/gnIshZ1wJkD1KT2nJIXXZf7hKtNxHOiVsmcxmIv8XKNu/8iGRZXCgZ4e472cC5Wo5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781000771; c=relaxed/simple;
-	bh=CvjWP4qfaUy4Vu+fDzXdcGiVNmiLKemDkKshBGQW93w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oePzH6cccskuiKD7xBeMlkY8xCFA+zo3f7T8NWl203PwN1Jto0QyMP+eVfKWQVT0n11EYzWCNhMCBlpftCwuFV6S5ieahJgR8V6en+Ei9sM0dXZeiHAXqBi5SgGjljYscO3mfzVT+9t9kjz+c1JzmtrZAsv8YioeZsUlP4uPRAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lG5GqU2M; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781000840; c=relaxed/simple;
+	bh=kiEwFaOWJMlAZ7IuhsPuouAYsUGjGSBIKThuhRuQeQw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V1hZBtlDqjk/yy+7qfTsNW4Tmwj81sx2fGCzwKE43d7OPfuLlDcdS9lQzxQmYLF6rDOwNgHMEPoOhN33qSp/4cNsOL7/VWP3sKkE3Tl/cu28txN/FeBfA+nZmZgWEvLj8sw6GdfMgUbxY43ej+3W5hSLMZ3YFun4NkvK3VvpXkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBUoXr/I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lG5GqU2M"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-46015dc517aso4304736f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:26:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781000767; x=1781605567; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F7DTan2GpF6A2ycsVVtBoKDWhROO13NhyoThWfu3oNA=;
-        b=lG5GqU2M9gegkg9vFEFFMnkpnVwp1jbANzRWvLajAMLdRMO/9Hhc3V1U1cEKsLCK0U
-         S1xaig0sweqAdOVpXG7wjQp+/9NVR5wEsevopKt1+x4E+LfXkR+WolseLKDfCbDvPFIi
-         UozLQpUXgmlxdSw1+Bu5IMpEC2gg1G37UMom+vaTY4OMhfBwIRVUH/diMxMfC6yOXLl1
-         qbQ9pcpDCwuJp7l1UnjW2mc8otAej/rzHDGBpCYyfBGRjl26ZOPqN3WvY5glzVuHzYp3
-         MQCFhQtZ7KMx0DW1WBqxAKVOsrws6F2/Ld4rgzUK1nxo56/H6sFhivbfbuNPdEJ22eWQ
-         ZKjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781000767; x=1781605567;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=F7DTan2GpF6A2ycsVVtBoKDWhROO13NhyoThWfu3oNA=;
-        b=oycV16GNC+eMIKGbIsbyWwKxR5nyrX+hzDvaOFPxETtQn823sqgsnPqQtuXjBAtJyi
-         w6GivgGdT6fW/f7PpNq9ePH2Bc7xW7dCIudgmjU+wmLuvJwN2XuYt3IjdsIYQZPVyBT1
-         L8A+Wfnn2AIdbZbX5lpbauSQwX2kAmTDwjVuRDTmSnU1jDUhuPXxZwt3gbVmiZNNdIXG
-         XFozX3N7WPx9yaw4uNUmsoGtZBTCiSeF2ZVbyRlIpP9F0wwZtiSN2cO14tBBNdHK3Ci+
-         upfP2YMpOQgHng7DngMMGozuKUqn5G0hjcWUGGR4xQUuqj8/SqcV+VThzoaAUzOMQbya
-         fUwA==
-X-Forwarded-Encrypted: i=1; AFNElJ8W5hT2U58xhG0encj0kXKdK9RkT+E8BJGREbEUSSjMBSvKrFBu2PLmeXKCJBzpP8tCHO/KYRAHC5UH@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmPICJwfUnE20bcv5g0LsMo5Mck4Pr27WqHrH2/MhP7tT3OpYc
-	YqKQ4M6Gn+gos//qXSPQzTM5+0eSurzbZTSZHnDEyu11m/jAewLQ3pqa
-X-Gm-Gg: Acq92OGwzZBT+I6SqWPfGb5LDdPbMNyMNxEyDBY8vbEFSMG2GBWw8XmpOP3IUleRifr
-	Du/4/mY2cAQ684g3o2QJ6h/qA3Xc7E4TXrXjjn7ffRGuzDSwT7nmoewk3yZMPC5SSywvaffQszQ
-	LsPe+1Cvna7o7/7vbun2ftmjHVjkVa9XqvXjqn2Jza1jUVONp1iM7fRqVOvyQxqMzTsPDmso8Ew
-	i/dYHuZ5c4CL6iXi8kxKkOcUeNZPP2Nd4Am2/iYUknJJAlSGth1Hij8XjNm1khDBgmCA9Nv6KeM
-	ELqS4AAIVNK1pOHYfyx6bXGukRH5OZVKNu4tJIad0hGXudGb0YCdkBbOgX6BKj08NZ0dXIc0Rro
-	LjrkqUuslVf3+ZJ97QM7Mxl+HAhEJMqMitdE1uux/UvchPpH3kJ8vIcjTTHu/vJCJBM/gWj1zeN
-	3gQYaSIehq/JrQRu9HLdStWMZIW7fuA/i/3uVkHGC2fXpFPpS9yB+qXDUkVyeX4gznvnQKGn3yX
-	LbOg1YTUIiHqbOQFUerR4d0nyQBvh2yHHnKa7CVDXarYmsUQigbtrqeoM++hUvCOM4hG4VxG5hY
-	Nma8piJegk0z75ZYzmdIbXOYZyGTowSByj3UnocV3a1R/Fa1T85DUnkKgOwmso/tfwTZ4e+8W67
-	M
-X-Received: by 2002:a05:600c:4e43:b0:490:3d62:f5df with SMTP id 5b1f17b1804b1-490c25d24f4mr315035765e9.30.1781000767236;
-        Tue, 09 Jun 2026 03:26:07 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc391aaasm543448335e9.1.2026.06.09.03.26.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 03:26:07 -0700 (PDT)
-Date: Tue, 9 Jun 2026 12:26:05 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
- Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
- Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v2 11/12] iio: dac: ad5686: write_raw: use
- guard(mutex)()
-Message-ID: <20260609122605.000010b9@gmail.com>
-In-Reply-To: <20260609-ad5686-new-features-v2-11-70b423f5c76d@analog.com>
-References: <20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com>
-	<20260609-ad5686-new-features-v2-11-70b423f5c76d@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBUoXr/I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCAC21F00893;
+	Tue,  9 Jun 2026 10:27:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781000839;
+	bh=EHkotwFoAf6WdEvM7Qp1TmFtvbyFKU6OC2WHYAlkatc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BBUoXr/IdwusxDPpTALCLRhEx0OogrdU0la/Jmcv3yTCUzZ7JEWQA8esjI8RB/Szq
+	 647v/kUK73GlctK9gXOhMjOER7Gb8zH7gISVtSO3PVIEAdKZkNdiId1q3U5gXCJBxe
+	 CZA3wLH0AX7DwGLEEhPcQOc4IO+to/CEZCZ4+cHVz2Dprl4AaH9KRR+xQyyY5+fom0
+	 cbMwKQNoStEe/n++ynM6Y2dhIgxdz7VKCEBUqTfWKveUxg3AH3b7E+7dFpRrDxbIKZ
+	 DhhHuR4btYTDdggBa6yqb1dBKjj+hGvwsWdg0SCeJVhTTU9R3G8PGRYbT8NmyyjdoZ
+	 OVS8uAC/XLCmQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/6] pinctrl: qcom: Register functions before
+ enabling pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260609-mainline-send-v1-sending-v4-2-83768fbf404d@alex-min.fr>
+References: <20260609-mainline-send-v1-sending-v4-2-83768fbf404d@alex-min.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 10:27:18 +0000
+Message-Id: <20260609102718.CCAC21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 09 Jun 2026 11:13:06 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Use guarded mutex lock to facilitate code review when adding new
-> attributes. This will allow for early returns, avoiding error-prone
-> locking and unlocking in error paths. Gain-control support will add
-> the scale attribute.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Pre-existing issues:
+- [High] Global function pointer `pm_power_off` and `poweroff_pctrl` state =
+are left pointing to freed memory if probe fails.
+--
 
-Althoug <linux/cleanup.h> is included in <linux/device.h>, it's better
-to explicitly add the include for it as IIO drivers are currently being
-moved away from these catch-all headers.
+commit 4cee21ced39b9add5c750146fde36a08b79745d3
+Author: Alexandre MINETTE <contact@alex-min.fr>
 
-With that fixed,
+pinctrl: qcom: Register functions before enabling pinctrl
+   =20
+This patch changes the initialization sequence in the Qualcomm pinctrl
+driver by registering the pinctrl device with devm_pinctrl_register_and_ini=
+t,
+adding the SoC pin functions, and only then enabling the device to prevent
+invalid function map table lookups.
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pi=
+nctrl-msm.c
+> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+[ ... ]
+> @@ -1593,11 +1593,11 @@ int msm_pinctrl_probe(struct platform_device *pde=
+v,
+>  	pctrl->desc.pins =3D pctrl->soc->pins;
+>  	pctrl->desc.npins =3D pctrl->soc->npins;
+> =20
+> -	pctrl->pctrl =3D devm_pinctrl_register(&pdev->dev, &pctrl->desc, pctrl);
+[ ... ]
+> +	ret =3D devm_pinctrl_register_and_init(&pdev->dev, &pctrl->desc,
+> +					     pctrl, &pctrl->pctrl);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "Couldn't register pinctrl driver\n");
 
--- 
-Kind regards
+[Severity: High]
+This is a pre-existing issue, but since the failure paths are being
+restructured here, what happens to the pm_power_off global pointer if this
+registration (or the subsequent pinctrl_enable call) fails?
 
-CJD
+Earlier in msm_pinctrl_probe(), a call to msm_pinctrl_setup_pm_reset()
+assigns the dynamically allocated pctrl to the global poweroff_pctrl pointer
+and sets the global pm_power_off to msm_ps_hold_poweroff.
+
+If probe fails here or later:
+
+msm_pinctrl_probe()
+    msm_pinctrl_setup_pm_reset(pctrl);=20
+    ...
+    ret =3D devm_pinctrl_register_and_init(...)
+    if (ret)
+        return dev_err_probe(...);
+
+The pctrl structure is managed by devres and will be freed upon probe
+failure, leaving the global poweroff_pctrl pointing to freed memory. If the
+system subsequently initiates a shutdown, msm_ps_hold_poweroff() will
+dereference the freed memory, leading to a use-after-free.
+
+Would it make sense to update msm_pinctrl_setup_pm_reset() to use
+devm_register_sys_off_handler() with SYS_OFF_MODE_POWER_OFF instead of
+directly assigning the pm_power_off global pointer?
+
+> =20
+>  	for (i =3D 0; i < soc_data->nfunctions; i++) {
+>  		func =3D &soc_data->functions[i];
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-mainline-s=
+end-v1-sending-v4-0-83768fbf404d@alex-min.fr?part=3D2
