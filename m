@@ -1,95 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D090634250E
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 05:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2415D34250E;
+	Tue,  9 Jun 2026 05:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780981778; cv=none; b=JG0bhXWBh6KPkG4DgFIamVQC1zlKO3Z3xqHNFjzJvlSJJBzp1Xh4d6Gq0P6UDAwP1pTj8bg0zuDoQ9jrsxAq4YdZky8Ab3RW8ok1vAa0ggjOD3XKB4o2Dj2390QDym9N1UJQjrkK3jy4fZISDzwfxsq+7CJkI6YYn2pl0spHLkw=
+	t=1780981834; cv=none; b=IyQfpcMOy/7n2ZVOnnjIFkDCjFF9E59koghA9gu/MFiLtIHHIA4PQuLt76fJeCex/lK4cNgn7zlV38/Ou5am1FwLKpgJ4EzlXvijShSXS7v9ZmPctD1tnvK72eaz183uihAY9VrNxDLV+CHPjf7Prjk1++ytGQnl9bWPbqYQORQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780981778; c=relaxed/simple;
-	bh=oh5TrlLe3aGdgAAlWZqoUVCMh0IfK8z96KitHTkkTyU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GZfqz/Sjk3CxeyjtJu9dX4qHSsHcE92mARYi1kOn2QrllbjFqm3LVlT0k7jQileghBILgpKoWC2Ia9BG6enhgr66to+SAz+hJyxV+my7HKOaH1rDIvxRJhwHFFFY0ht6GIB8DCALPWJngbCaqWtGI0FNcqTxrC6m0kct5E3SMgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKopF/3w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780981834; c=relaxed/simple;
+	bh=WpOfWYsOGv9kVZso1tAODn5iwjjYi0wWOL2kPQ7WQVo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K5G9Vfr9EYpGz1JEiaE0gDchEUazI2q44JXAgLxw4Aa5l+SimAr75LX0d139MgCjRPPhIPZiimsN0iTBgSaB2Tb7DJlQJhp3wsSwEVtgRyJLUtHieFxQcgvcFwg+kl5nSPyrJff1Q36pTARIOmnsLB7eNYlo5dbf2G4dY962GTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rs5+kEtO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKopF/3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 525CB1F00898;
-	Tue,  9 Jun 2026 05:09:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rs5+kEtO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D91C1F00898;
+	Tue,  9 Jun 2026 05:10:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780981777;
-	bh=4BsX8Ab+erojyCCvdQ17Lm0XVKtVVeFMqjvpeoK/XHE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fKopF/3w6+gQm47i1JMGyPMC+VntOyYUz/0ASdevXgE7OSiXb5VgTEg/fpqHbOvMj
-	 EF18/mHKI4Ri9LeQJubsvboJNR18EguNgsopCCa2jZ74Zr89kINwo0tSSiOblUoqjc
-	 l/CLQrqqQlepyVPk5ef6vD9P7PWD5WrU6cuyiZ8yy6X0i2HKJZvnTTguCnwAXd0rdC
-	 zLN1/fQ1/8YuPneZIA22KfC6RcWLuuDSXLCfUU66IevpzrzHjTKpS6HsoAmAswqBsF
-	 SmSsLdhuOoMW9q2gKl5qeyNCOOAKBl9l4Vh+3nKfC1dG+bQfkvQX3UK4aIaWNmNtdE
-	 bqB80IA26e/YA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/4] net: phy: at803x: add RX and TX clock management
- for IPQ5018 PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem via B4 Relay" <devnull+george.moussalem.outlook.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608-ipq5018-gephy-clocks-v4-4-fb2ccd56894b@outlook.com>
-References: <20260608-ipq5018-gephy-clocks-v4-4-fb2ccd56894b@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 05:09:36 +0000
-Message-Id: <20260609050937.525CB1F00898@smtp.kernel.org>
+	s=k20260515; t=1780981833;
+	bh=QXwYSFO/CAa982xKorgRfVuCI6xgoA1aQPNLHYhjS0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rs5+kEtO80ELluAbo6JCkL/DVq2OfyETURTtSy5woIqIfT7CcAnZ0JtMDubF30NwW
+	 pKCgNqrB/bza7tXEDb+O/TAYSGHIwnAFWBlxvchAlDYUu4W5v6ECT2tCUfEv2vk50E
+	 gxJ/a8SrqfSAeuxsAe7Cg+HBPTvkWFQ3Dq5YrTbE49dS2t+vkNwCIEgUjxDgtYQANk
+	 QdvaZfKhpFE/fNNI+fijur9CL2lA4f9b+ltN2AKWzfU4QOYaO59ioncrcAc7LK3WSY
+	 d6aoJnQCyFXa7MOzhA/WLb4w0krTBE8vtdkHiO11liP98jK2v/HYw5ErxJzdEmUZJK
+	 Kz19zbj1g0VIQ==
+Date: Tue, 9 Jun 2026 10:40:26 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Add support for IPQ9650 CDSP remoteproc
+Message-ID: <aiegQubVKWXs3MXw@sumit-xelite>
+References: <20260520-ipq9650-remoteproc-v1-0-542feb6efb2a@oss.qualcomm.com>
+ <aieAnN35K_WarmUD@baldur>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aieAnN35K_WarmUD@baldur>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The use of `devm_clk_get_enabled()` makes 'rx' and 'tx' clocks man=
-datory, breaking backward compatibility with older Device Trees where these=
- properties are absent.
---
+Hi Bjorn,
 
-commit f4405a562aab15670004ca1eb487237c7985a67a
-Author: George Moussalem <george.moussalem@outlook.com>
+On Mon, Jun 08, 2026 at 09:59:35PM -0500, Bjorn Andersson wrote:
+> On Wed, May 20, 2026 at 12:56:16AM +0530, Vignesh Viswanathan wrote:
+> > Add changes to enable IPQ9650 CDSP. This series adds new Devicetree
+> > bindings for IPQ9650 PAS and also adds required changes in qcom_q6v5_pas
+> > driver to support IPQ9650 CDSP remoteproc.
+> > 
+> > This series depends on [1], [2] and [3] to functionally bring up the CDSP
+> > remoteproc on IPQ9650, but does not contain any compilation dependencies.
+> > 
+> > [1] https://lore.kernel.org/linux-arm-msm/20260518072856.22790-1-sumit.garg@kernel.org/
+> 
+> I'm not able to determine why this is a dependency from cover letter,
+> commit messages, or the patches. If you have a dependency on this series
+> this isn't your typical PAS-based subsystem, so describing what it is in
+> the cover letter would be wonderful.
 
-net: phy: at803x: add RX and TX clock management for IPQ5018 PHY
+Probably the cover letter didn't mention that this IPQ chipset runs
+OP-TEE/TF-A as the TZ, that's why it's unclear. Without the OP-TEE PAS
+series, the CDSP can't be brought up on this chipset. Similar would be
+the case for all other Qcom chipsets supporting OP-TEE.
 
-Acquire and enable the RX and TX clocks for the IPQ5018 PHY.
-These clocks are required for the PHY's datapath to function correctly.
+Not sure if there is anything missing for the OP-TEE PAS series to be
+picked up. Surely we missed the current merge window but hopeful you
+will be able to give some attention to that series for the next merge
+window.
 
-> diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
-> index 63726cf98cd42..ba4dc07752b60 100644
-> --- a/drivers/net/phy/qcom/at803x.c
-> +++ b/drivers/net/phy/qcom/at803x.c
-[ ... ]
-> @@ -1084,6 +1086,16 @@ static int ipq5018_probe(struct phy_device *phydev)
->  	priv->set_short_cable_dac =3D of_property_read_bool(dev->of_node,
->  							  "qcom,dac-preset-short-cable");
-> =20
-> +	rx_clk =3D devm_clk_get_enabled(dev, "rx");
-> +	if (IS_ERR(rx_clk))
-> +		return dev_err_probe(dev, PTR_ERR(rx_clk),
-> +				     "failed to get and enable RX clock\n");
-> +
-> +	tx_clk =3D devm_clk_get_enabled(dev, "tx");
-> +	if (IS_ERR(tx_clk))
-> +		return dev_err_probe(dev, PTR_ERR(tx_clk),
-> +				     "failed to get and enable TX clock\n");
+-Sumit
 
-[Severity: High]
-Does this break backward compatibility with older Device Trees that do not
-specify these clock properties?
-
-Using devm_clk_get_enabled() makes these clocks mandatory, which will cause
-ipq5018_probe() to fail unconditionally with -ENOENT if they are missing.
-
-Could this be changed to use devm_clk_get_optional_enabled() so the interfa=
-ce
-continues to work with older Device Trees while still enabling the clocks
-when they are present?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-ipq5018-ge=
-phy-clocks-v4-0-fb2ccd56894b@outlook.com?part=3D4
+> 
+> > [2] https://lore.kernel.org/linux-arm-msm/20260519-mp8899-regulator-driver-v1-0-30d14421b7f1@oss.qualcomm.com/T/#t
+> > [3] https://lore.kernel.org/linux-arm-msm/20260520-cdsp-power-v1-0-85eb9501a1cd@oss.qualcomm.com/T/#t
+> 
+> #3 is a fundamental part of the addition of this remoteproc driver and
+> the solution would be better reviewed as a whole - so you should send
+> the two parts in the same series.
+> 
+> PS. If you run "git log --oneline" you will see that there shouldn't be
+> a "drivers:" prefix in your subject.
+> 
+> Regards,
+> Bjorn
+> 
+> > 
+> > ---
+> > Vignesh Viswanathan (2):
+> >       dt-bindings: remoteproc: Document IPQ9650 Compute DSP
+> >       drivers: remoteproc: qcom_q6v5_pas: Add support for IPQ9650 CDSP
+> > 
+> >  .../bindings/remoteproc/qcom,ipq9650-pas.yaml      | 136 +++++++++++++++++++++
+> >  drivers/remoteproc/qcom_q6v5_pas.c                 |  38 +++++-
+> >  2 files changed, 172 insertions(+), 2 deletions(-)
+> > ---
+> > base-commit: 6a50ba100ace43f43c87384367eb2d2605fcc16c
+> > change-id: 20260520-ipq9650-remoteproc-9aa8c6d05de3
+> > 
+> > Best regards,
+> > -- 
+> > Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+> > 
