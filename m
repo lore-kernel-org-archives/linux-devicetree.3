@@ -1,99 +1,123 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F373EE1FA;
-	Wed, 10 Jun 2026 10:22:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4283EFFB5;
+	Wed, 10 Jun 2026 10:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781086971; cv=none; b=CzACyevAKcT3emZXDaQniYK9ja0yapqn6pBdRZrDM90auaiusYzQ0v8UVlNujgUe55GqyHGlF1QYfYWvBRoaGfjRwfVX/zrfm76xGw4Mxoey75EX1D4w15b6L88kVAkrOfp/rF+WQ/qKoG7OYlt9EW6bxqcH+RjmrFSpVzZ+VGA=
+	t=1781086998; cv=none; b=VrLBx43G4UFBT4hnLQR/ofToKpix0A1euRftw3XwZGlEqRPod+mp3UUTFfd1VPz8dDw1zZyXTyO+y+4wwKogbzZIQ8NQqInjOIw3ZfL0FwvWZimeKWNFnkGY0ItWF2hMXgKVOO8AWtzSWBqA4rbo9GzanLDssxQiKa/oxZ2Fc3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781086971; c=relaxed/simple;
-	bh=V3GPjC4xDWSVt2U5uFb+5QSWnJTT5bcQBuFIafHxkCc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sa5ag8Qsgj1oduZsfEoG6H0wV7mM7AXwyrnG4dogDD5QgvYLgJxwJAFyA9yIoWT8+YtuZWjgAmAMpICWVTPHJYA3QZdTkcuBR9vXEx+1b3FjqfCSi9p/MsWJStgJkjvky/T4EK0mYFPj7gb6vBuJfE7T7YkhEyEbYu7XlievjSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=pC8mYV7X; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1781086998; c=relaxed/simple;
+	bh=GjQoMSl+S+ijDAnNQXjwhwnaSIySn/7/CBufcCjNSyA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Mx2qZxLuOVVxR1mvvLm0CZevZswHcf6vXR2BPtFLq3GbrUraOZ/MLHlCVWvHAAF96EKNZl//EcKA225c4OtksBy8KRK+YyAsVY/vKVIgDPvfXVtSuRXyL4XINEmZUOiR28rcTLjo1fjXq0tYNxoJtVQGaRnGrEHieNNFoPhdNn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvvMwC5h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="pC8mYV7X"
-Received: from gaggiata.pivistrello.it (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 9D78522715;
-	Wed, 10 Jun 2026 12:22:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1781086964;
-	bh=L6bxtzQsXU5V2ZLqW/tYugnU81O7/hqnwZwvA1uMdL8=;
-	h=Received:From:To:Subject;
-	b=pC8mYV7Xz1TRYqsof6BGWIwTZf7J6GAzFKMNJBiXoNGclnIzszxJMfPsQ4lVyEWlp
-	 id8MqVeYdb09FIworIJ+W+/Aqa8ttaP4qtih5Tu15BX3wTxoLrlh3qhQYMpID2lfaW
-	 3bU8F0kg2Wetv3NlsovGSYAVGOfxlksDwSvweQ8K1EORX5undFEnvo5HA43fcZA2WD
-	 g1zIwMfeW57yfstKt99jOXwQ5/j9SItqXODr80EFXHiSLekrerHOwYY2W51DPQHpPF
-	 /touJX3xeB6F20k2DaDBufw4DkU8LQHwXj2BsdBXZ0KFXanZRKBy703fDUwSrFrFym
-	 aLbhV50d4xpqA==
-Received: by gaggiata.pivistrello.it (Postfix, from userid 1000)
-	id 540DA7FD97; Wed, 10 Jun 2026 12:22:44 +0200 (CEST)
-Date: Wed, 10 Jun 2026 12:22:44 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Daniel Baluta <daniel.baluta@oss.nxp.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: remoteproc: imx_rproc: document
- optional "memory-region-names"
-Message-ID: <aik69L0xCW13TCZE@gaggiata.pivistrello.it>
-References: <20260605113621.1479-1-laurentiumihalcea111@gmail.com>
- <20260605113621.1479-2-laurentiumihalcea111@gmail.com>
- <20260610-adventurous-granite-marmoset-e0eaa8@quoll>
- <2fc48536-5af9-419e-b4df-746b678cb6ab@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvvMwC5h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416461F0089B;
+	Wed, 10 Jun 2026 10:23:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781086994;
+	bh=Hu3axCTPjfMs3cUhhhjRYZSUzNrC+vMNBMn69voBuMs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=kvvMwC5hvuAadTTNgtBkxkJ/4i/OhV97HPFAOGw04yvN/C0tHKMtwfFN+CFBYYy+O
+	 fQX8hRrnql+Sn/jhjXmSLaJ6ZYoV4Kn7IGZtTzTUjf20k0n3+f6mRQaUT6j4qFM/n2
+	 QESfwtwsftiUZ+msK/fJA2Iuyq2V0x1ftbZm7XqyRI38XhT362kwIqqxlruKMtJYDN
+	 cbg/JESdE/r7/W9IYFSza4/OJmD8C/Q8W0BPieEnVmrjtvhGOGeTfLeQ1qL4eTN5Sn
+	 EgmYWWqsqiMB0lQ54TuyT9VutGFMxAYxrtNZLon3F2+qYdh00qdL5U7CeuWGShS2sJ
+	 iYNTHzYNOmVMA==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, phucduc.bui@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260609113836.45079-1-phucduc.bui@gmail.com>
+References: <20260609113836.45079-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH v6 00/11] ASoC: renesas: fsi: Fix system hang by adding
+ SPU clock
+Message-Id: <178104804456.232889.7203992010119048881.b4-ty@b4>
+Date: Wed, 10 Jun 2026 00:34:04 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2fc48536-5af9-419e-b4df-746b678cb6ab@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2546; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=GjQoMSl+S+ijDAnNQXjwhwnaSIySn/7/CBufcCjNSyA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqKTsORBTxRP91rPH4QXSV+YoHKfvpSBoH9EWz4
+ WPuauw5ch6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaik7DgAKCRAk1otyXVSH
+ 0F9iB/0bvlHYY5F8KFfNZKW4GcfAdhhY74UpfzFD5YO+aoOgnhk0ebhuMJoGoYYaMbERCbsEmxi
+ RgKTPEe6o0s+Wgo2k2TnfZFDn3EjBlnTuZK+5B0QzMM4Fv799zLhm62nCPnxeRrIggfivmAMKIS
+ L9poiI/RUR3qZ5mSQKrxvTHVj83Dnnoc43XQ9vEwIhFG7FiY5UNZKVx7wPEwMpYyhxxFgGoDcvx
+ YKBO6ZsH++QESoEuUsS6W/F/6cNlmDgsrjaL2bxED9SChoaPJm9JGN9xwqTy9iHbl6bEPCw4pC3
+ 83N3BDd6DbcNGUb4yfvDUifktXojtCv4W7U3bxEyWqNPtR94
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Jun 10, 2026 at 02:10:37AM -0700, Laurentiu Mihalcea wrote:
+On Tue, 09 Jun 2026 18:38:25 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: renesas: fsi: Fix system hang by adding SPU clock
 > 
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> On 6/10/2026 12:37 AM, Krzysztof Kozlowski wrote:
-> > On Fri, Jun 05, 2026 at 04:36:18AM -0700, Laurentiu Mihalcea wrote:
-> >> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> >>
-> >> The names of the carveout regions are derived using the names of the
-> >> reserved memory devicetree nodes, which are referenced using the
-> >> "memory-region" property. This adds a restriction on the names of said
-> >> devicetree nodes, often bearing specific names such as: "vdevbuffer",
-> >> "vdev0vring0", "rsc-table", etc... This goes against the devicetree
-> >> specification's recommendation, which states that the devicetree node
-> >> names should be generic.
-> > 
-> > No, it does not. Names like rsc-table feels exactly like DT spec is
-> > asking - for a name matching purpose. Are you sure you read the spec?
+> Hi all,
 > 
-> Quoting from the spec:
+> The FSI on r8a7740 requires the SPU clock to be enabled before accessing
+> its internal registers. Without it, register accesses may hang the system
+> even when the FSI functional clock is enabled.
 > 
-> "The name of a node should be somewhat generic, reflecting the function of the
-> device and not its precise programming model"
-> 
-> and looking at the examples provided in "2.2.2 Generic Names Recommendation",
-> wouldn't "memory" be a more appropriate choice for the DT node name instead of
-> "rsc-table" since it's more generic, while still matching the purpose
-> of the device? Or perhaps I'm interpreting this the wrong way?
+> [...]
 
-Please see
-https://lore.kernel.org/all/CAL_JsqKRW-=er+DCTob0HmQv9OyVt7yiej-Yht6UR-mcW=LHUg@mail.gmail.com/
+Applied to
 
-Francesco
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+
+Thanks!
+
+[01/11] ASoC: dt-bindings: renesas,fsi: add support multiple clocks
+        https://git.kernel.org/broonie/sound/c/955fecff55c3
+[03/11] ASoC: renesas: fsi: Fix trigger stop ordering
+        https://git.kernel.org/broonie/sound/c/859efe92b0bc
+[04/11] ASoC: renesas: fsi: Move fsi_stream_is_working()
+        https://git.kernel.org/broonie/sound/c/c9e05e2fa089
+[05/11] ASoC: renesas: fsi: Fix register access from in-flight IRQ after shutdown
+        https://git.kernel.org/broonie/sound/c/e813df3ef529
+[06/11] ASoC: renesas: fsi: Move fsi_clk_init()
+        https://git.kernel.org/broonie/sound/c/cfa1466e6dfd
+[07/11] ASoC: renesas: fsi: Use devm_clk_get_optional() for optional clocks
+        https://git.kernel.org/broonie/sound/c/5fb4660ce59b
+[08/11] ASoC: renesas: fsi: refactor clock initialization
+        https://git.kernel.org/broonie/sound/c/2330e0b49f14
+[09/11] ASoC: renesas: fsi: Add SPU clock support
+        https://git.kernel.org/broonie/sound/c/39033b278f9c
+[10/11] ASoC: renesas: fsi: add fsi_clk_prepare/unprepare()
+        https://git.kernel.org/broonie/sound/c/05e1ebfeb726
+[11/11] ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+        https://git.kernel.org/broonie/sound/c/26deeee42f4f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
