@@ -1,101 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from r3-55.sinamail.sina.com.cn (r3-55.sinamail.sina.com.cn [202.108.3.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14C933FE36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ED4344D9D
 	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 03:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780974396; cv=none; b=kYXcl6HBNwGvwNTO+IYT7yKmRorH4wKC5tfOmOXYhXyJVd4u8oLcbGC1ajtc/SqVojro6mWAD1Vl8ci6+AODEqxZHT5EjFllaNw5ysLI1pmOGWZgscR2au3Mgos+Hg+a/sWlkJ+Y1rSoojBk2/VuvQYJNUpNdrTnkqUewOvGmAw=
+	t=1780974399; cv=none; b=QL/nrvQkpb6CdlHCbOLowJ6N1r20HmsnWSg1f/k+Y0BtaErV258uCpiZmQYChxa99cizItfWU0fiGdwFtmKCa4k5YBvAWWB1dcXZYZJduej0Q7c0/QVNoO4aisiTjCQRsqvY38gdN1cKHwDbkcPqwnt6yAH/gI6CAPotBg0r8Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780974396; c=relaxed/simple;
-	bh=szh1CoizDTSxCp9v3664a6ydl/yN5klyMP/P7vW3mHc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=itjEIOUiPeMt14Iubts14mo1PJLK4ka7AbhHyyo1hMPkd+dN5ei8zB8EvjzLeU1Xsh+gENnzNKlzvmf6VK5VIyggW+Jl4+ab7SVEVqdFGg/zsqSCGOjiJqFXaQhKMedtozG0Co3Jhh5714YOZEZFnRKQwOFNWwZIEykDXKo85gA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvNaNQaE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvNaNQaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113F61F00893;
-	Tue,  9 Jun 2026 03:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780974395;
-	bh=nwnyvky9KaGWlyB5DU9iNNiKHsHjesrrAObPYC+0t2I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FvNaNQaE2eXf04CrtFqkhstC24kx1ZbYHuyXNATStkOc+S8SKSOgioETmmnFAtvAH
-	 gLkycC40aN9n2bi5HQK8rHreZpUIz9V3eMNiq2l5Gaxa0JJozm5QK8gbgoDxEQ3yEw
-	 Ahks30AK2Tzy6iV9gycNHAToMk4cTKpGE/ccIxvmW+/85HfgdefuZ5MAvpKusl6o7K
-	 xIyCmwQL06CV2Nr4gjJFqhp4Yvmtj8+rmODobi9AumaXMC3+FJIwrAd9RR/I4sj5c5
-	 IBRBk7Fgb9FxpEsyR34mqurUzjwARTGpcU+7EVlfblOWENDOhLGpoc5KAQHMkEq1Kd
-	 Nc7CQrZ9y8jyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/7] ASoC: codecs: ES8389: Add INPUTL MUX and INPUTR MUX
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609025605.16945-7-zhangyi@everest-semi.com>
-References: <20260609025605.16945-7-zhangyi@everest-semi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 03:06:34 +0000
-Message-Id: <20260609030635.113F61F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780974399; c=relaxed/simple;
+	bh=V6nhHrlX3yTMFsSDYUDqxBfDxCFxonnZudsMzTO1fSc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=Hh+EQ57s7GE1askBR8IcZY+MpB04eQqD9FQhQyyXr7AMRFVjVsj8Ti14f5+fmzs+UvRowlxG9M8LkyY+Znrwpnacgt0vsJdx9C324ZHCkUPVeC/NaNYcwYsKGZQqpFMzjXK0AYPt4QXKOwigd1bYvTjuTfq+i8ml0s0WPcPGLyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
+Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
+	by sina.net (10.54.253.38) with ESMTP
+	id 6A278331000011AE; Tue, 9 Jun 2026 11:06:28 +0800 (CST)
+X-Sender: zhangyi@everest-semi.com
+X-Auth-ID: zhangyi@everest-semi.com
+Authentication-Results: sina.net;
+	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=zhangyi@everest-semi.com
+X-SMAIL-MID: 0D08E2781FDD484E8829C2A2A164ABD2
+X-SMAIL-UIID: 0D08E2781FDD484E8829C2A2A164ABD2-20260609-110628
+From: Zhang Yi <zhangyi@everest-semi.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	devicetree@vger.kernel.org
+Cc: tiwai@suse.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Zhang Yi <zhangyi@everest-semi.com>
+Subject: [PATCH 4/7] ASoC: codecs: ES8389: Modify the initial configuration
+Date: Tue,  9 Jun 2026 11:06:20 +0800
+Message-Id: <20260609030623.17404-5-zhangyi@everest-semi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260609030623.17404-1-zhangyi@everest-semi.com>
+References: <20260609030623.17404-1-zhangyi@everest-semi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The newly added INPUTL MUX and INPUTR MUX controls will lose their=
- user-configured state upon system resume, defaulting back to 'Normal' and =
-causing the ALSA DAPM graph to desync from the physical hardware state.
---
+Modify the initial configuration
 
-commit c098d0e96724f95fd767bddd48bd70af52c8b3e9
-Author: Zhang Yi <zhangyi@everest-semi.com>
+Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
+---
+ sound/soc/codecs/es8389.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-ASoC: codecs: ES8389: Add INPUTL MUX and INPUTR MUX
+diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+index 6ad0b5800..8e47b4e32 100644
+--- a/sound/soc/codecs/es8389.c
++++ b/sound/soc/codecs/es8389.c
+@@ -792,7 +792,7 @@ static void es8389_init(struct snd_soc_component *component)
+ 
+ 	regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
+ 	es8389->version = reg;
+-	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x00);
++	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x56);
+ 	regmap_write(es8389->regmap, ES8389_RESET, 0x7E);
+ 	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x38);
+ 	regmap_write(es8389->regmap, ES8389_ADC_HPF1, 0x64);
+@@ -844,7 +844,7 @@ static void es8389_init(struct snd_soc_component *component)
+ 	regmap_write(es8389->regmap, ES8389_SCLK_DIV, 0x04);
+ 	regmap_write(es8389->regmap, ES8389_LRCK_DIV1, 0x01);
+ 	regmap_write(es8389->regmap, ES8389_LRCK_DIV2, 0x00);
+-	regmap_write(es8389->regmap, ES8389_OSC_CLK, 0x00);
++	regmap_write(es8389->regmap, ES8389_OSC_CLK, 0x10);
+ 	regmap_write(es8389->regmap, ES8389_ADC_OSR, 0x1F);
+ 	regmap_write(es8389->regmap, ES8389_ADC_DSP, 0x7F);
+ 	regmap_write(es8389->regmap, ES8389_ADC_MUTE, 0xC0);
+-- 
+2.17.1
 
-This commit adds INPUTL MUX and INPUTR MUX controls to the audio routing
-graph for the ES8389 codec.
-
-> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index d1bcbbfcd4754..5e4afafd9be63 100644
-> --- a/sound/soc/codecs/es8389.c
-> +++ b/sound/soc/codecs/es8389.c
-
-[ ... ]
-
-> @@ -191,6 +201,20 @@ static const unsigned int es8389_pga_values[] =3D {
->  	1, 5, 6
->  };
-> =20
-> +static const struct soc_enum es8389_adcl_mux_enum =3D
-> +	SOC_ENUM_SINGLE(ES8389_ADC_MODE, 5,
-> +			ARRAY_SIZE(es8389_adcl_mux_txt), es8389_adcl_mux_txt);
-> +
-> +static const struct snd_kcontrol_new es8389_adcl_mux_controls =3D
-> +	SOC_DAPM_ENUM("INPUTL MUX", es8389_adcl_mux_enum);
-> +
-> +static const struct soc_enum es8389_adcr_mux_enum =3D
-> +	SOC_ENUM_SINGLE(ES8389_ADC_MODE, 4,
-> +			ARRAY_SIZE(es8389_adcr_mux_txt), es8389_adcr_mux_txt);
-
-[Severity: High]
-Will the user's MUX selection be lost during system suspend and resume?
-
-These MUX controls are backed by the ES8389_ADC_MODE register. If this
-register is treated as volatile by the regmap subsystem, its value will not
-be saved in the cache.
-
-During system resume, if power was lost, es8389_init() unconditionally
-clears bits 4 and 5 of ES8389_ADC_MODE, forcing the MUX back to 'Normal'.
-Because the register is volatile, regcache_sync() will skip it and fail to
-restore the user's selected configuration.
-
-Does this cause the ALSA DAPM graph to desynchronize from the physical
-hardware state, potentially resulting in incorrect audio routing until the
-control is manually toggled again?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609025605.1694=
-5-1-zhangyi@everest-semi.com?part=3D6
