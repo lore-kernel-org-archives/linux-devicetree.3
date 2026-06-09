@@ -1,120 +1,99 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0534E2EA48F;
-	Tue,  9 Jun 2026 09:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8241EB9F2
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780997518; cv=none; b=ZZQHajDf4JaJFGm4dl7KMnFcihB/B6jNAhIfYVmqiiIVsLI0Xq7t8gS57S9SDn6CuES8LhAvzSKlJf/yixpXWqQVcrWsfMxqU04qb1JTmZevRUEQMBAb3TZj/meiNAg9JK1TpCmtdc/hjgTc38Aec3KuB2yX0td70IGbYi2n7II=
+	t=1780997669; cv=none; b=WV+ec+Bj8N4df1a4CgLwj5MtylfA110u4SoufvltybW4M3fEQXsWCpOWwKEOLiTGivbIgedLwo4tdYE0QlVxNFgf8eyROS78tkw0YwBpLbGP5ZluX6/Rd+090ngaV+zzSQ8ygOYO5TKV5XG51s1HFuzjfjkTX5V05sGuIE85PSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780997518; c=relaxed/simple;
-	bh=mTv1FIbYgG6vlkv8D3t7CfREq47u9+v5RbbqmW627C4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=QLuANaiyM6YRRHzJCNN4/HrBSD/MWlTqC4wT6AZGonQvzS2iHiQGT4eBpI+23dGKW1fnQa5Dhy5bqXrJ9X63hhXuEYJRe5+SUXOEZV1O2oNka98m46bH9CT80TMYphO45HWCY4qrinefi/g9IV4zLMs20MZAIwTnmdgz3tQwyPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Tue, 9 Jun 2026 17:31:28 +0800 (GMT+08:00)
-Date: Tue, 9 Jun 2026 17:31:28 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v7 1/2] dt-bindings: pwm: dwc: Add eswin compatible
- and resets property
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260605-scrupulous-tasteful-nuthatch-5d8ce3@quoll>
-References: <20260605082242.1541-1-dongxuyang@eswincomputing.com>
- <20260605082318.1599-1-dongxuyang@eswincomputing.com>
- <20260605-scrupulous-tasteful-nuthatch-5d8ce3@quoll>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1780997669; c=relaxed/simple;
+	bh=kOKYSP759XUq8IDvpz2lUnnCm5OktbkU1lS7AHsnbfk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PpO2fge9LxG4M4Ac5Wl0AxlSmIpHJWI7AeP1kbGcAuKgutQDjdnIaLaMqEoxIcJlt1F+cZK88X6lFOlZtjlYjDXFr5/npLRfOQClDLJz+2kNxMgEkI8Nuc8fsGu9gRpkXiy87tEvwilTZYEtBMQmt63w7W74YKNZWldunuIUNTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BYXJjpX+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BYXJjpX+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1631F00893;
+	Tue,  9 Jun 2026 09:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780997667;
+	bh=3Ux/oTgrEFu1qjTXUi9kJ7p+kzifhu0Q/0KVpHhR22I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BYXJjpX+zF9+ULk0UeIe4tckVou+uOd1iv/rZQRTBweD6GUs40rAaOtyzMR4ln9eo
+	 0J97vl0kfrnsxY8wxNq5xet1O8tq2BP78KTo8DTBtz7GlxgofGc+2W1o1/RTtuckvk
+	 Ga+Lijy3cISR15ulJulpHV4faM6fvgZJpEU9EYFYWfYPkVuI8UTDozHR/PwyuZt+IV
+	 OX5N7KT9ohBp+Y/GYPQhrTBK5av5+kDE1+gnoP/nfWxsCRDkJRgP5foIIH8Kwz09ds
+	 naK30fdmEzMWK2aLF635sY4zl89ieB3HR5RYIqfdoaGUdbaAh0Vrc4WrfP/bjq3wyV
+	 m22rYMy3OyiVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] phy: qcom-qmp-pcie: Add support for ipq5210 PCIe
+ phys
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: vkoul@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org
+In-Reply-To: <20260609-pcie-phy-v2-2-83bc80e79fa6@oss.qualcomm.com>
+References: <20260609-pcie-phy-v2-2-83bc80e79fa6@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 09:34:25 +0000
+Message-Id: <20260609093426.CB1631F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <643f9b98.722f.19eabb8fe3e.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAHHaBw3SdqhhclAA--.6758W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQENAmom7qEx9
-	gACsJ
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-PiA+IAo+ID4gRUlDNzcwMCB1c2UgRGVzaWduV2FyZSBJUCBmb3IgUFdNIGNvbnRyb2xsZXJzLiBB
-ZGQgRVNXSU4gRUlDNzcwMCBzdXBwb3J0Cj4gPiBpbiBzbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55
-YW1sLgo+ID4gCj4gPiBUaGUgRGVzaWduV2FyZSBQV00gaW5jbHVkZXMgc2VwYXJhdGUgcmVzZXQg
-c2lnbmFscyBkZWRpY2F0ZWQgdG8gZWFjaCBjbG9jawo+ID4gZG9tYWluOgo+ID4gVGhlIHByZXNl
-dG4gc2lnbmFsIHJlc2V0cyBsb2dpYyBpbiBwY2xrIGRvbWFpbi4KPiA+IFRoZSB0aW1lcl9OX3Jl
-c2V0biBzaWduYWwgcmVzZXRzIGxvZ2ljIGluIHRoZSB0aW1lcl9OX2NsayBkb21haW4uCj4gPiBU
-aGUgcmVzZXRzIGFyZSBhY3RpdmUtbG93Lgo+ID4gCj4gPiBUaGUgZ2VuZXJpYyBzbnBzLGR3LWFw
-Yi10aW1lcnMtcHdtMiBiaW5kaW5nIGFsbG93cyBvbmUgb3IgdHdvIG9wdGlvbmFsCj4gCj4gSSBk
-b24ndCBrbm93IHdoYXQgaXMgdGhlIGdlbmVyaWMgYmluZGluZywgYnV0IGl0IGRvZXMgbm90IGFs
-bG93LiBPcGVuCj4gdGhlIGZpbGU6IHRoZXJlIGFyZSBubyByZXNldHMgYXQgYWxsLCBzbyBpdCBk
-b2VzIG5vdCBhbGxvdyB0aGVtLiBPciB5b3UKPiBtaXhlZCB0ZW5zZXMgaGVyZSBhbmQgeW91IHdh
-bnRlZCB0byBkZXNjcmliZSB0aGUgY2hhbmdlPwo+IAoKSGkgS3J6eXN6dG9mLAoKVGhhbmtzIGZv
-ciB5b3VyIGNvbW1lbnRzIGFuZCB0aW1lLgoKUmVnYXJkaW5nIHNucHMsZHctYXBiLXRpbWVycy1w
-d20yLCB3ZSBwcmV2aW91c2x5IGludGVuZGVkIHRvIGFkZCB0aGXCoApyZXNldHMgcHJvcGVydHkg
-aW4gdGhlIHNhbWUgcGF0Y2guwqAKSG93ZXZlciwgYXMgeW91IHN1Z2dlc3RlZCwgd2Ugd2lsbCBz
-cGxpdCBpdCBpbnRvIGEgc2VwYXJhdGUgcGF0Y2guCgo+IFRoZSBwcmVzZW50IHRlbnNlIGRlc2Ny
-aWJlcyBjdXJyZW50IHN0YXRlIG9mIHNvdXJjZSBjb2RlIGJlZm9yZSBhcHBseWluZwo+IHRoZSBw
-YXRjaC4gVGhlIHBhdGNoIHRyYW5zZm9ybSB0aGF0IGN1cnJlbnQgc3RhdGUsIHNvIHlvdSBkb24n
-dCB1c2UKPiBwcmVzZW50IHRlbnNlIHRvIHNob3cgd2hhdCB3aWxsIGJlIGZ1dHVyZS4KPiAKPiBV
-bmxlc3MgeW91IG1lYW50IGhlcmUgYSBkZXZpY2UsIG5vdCBiaW5kaW5nLiBJIHdvdWxkIGJlIHBp
-Y2t5IGhlcmUKPiBleGNlcHQgdGhhdCB5b3VyIGJpbmRpbmcgaXMgaW5jb3JyZWN0IHdoaWNoIG1h
-ZGUgbWUgbG9va2luZyBmb3IgYW5zd2Vycy4KPiBJIGNhbm5vdCBmaW5kIHRoZXNlIGFuc3dlcnMu
-Cj4gCj4gPiByZXNldCBsaW5lcyBkZXBlbmRpbmcgb24gU29DIGludGVncmF0aW9uLgo+ID4gCj4g
-PiBPbiBFSUM3NzAwLCB0aGUgcHJlc2V0biBhbmQgdGltZXJfTl9yZXNldG4gaW5wdXRzIGFyZSBw
-aHlzaWNhbGx5IHRpZWQKPiA+IHRvIGEgc2luZ2xlIHJlc2V0IGxpbmUsIHRoZXJlZm9yZSBleGFj
-dGx5IG9uZSByZXNldCBpcyByZXF1aXJlZC4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogWHV5YW5n
-IERvbmcgPGRvbmd4dXlhbmdAZXN3aW5jb21wdXRpbmcuY29tPgo+ID4gLS0tCj4gPiAgLi4uL2Jp
-bmRpbmdzL3B3bS9zbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55YW1sIHwgMzggKysrKysrKysrKysr
-KysrKystLQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9u
-cygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL3B3bS9zbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZp
-Y2V0cmVlL2JpbmRpbmdzL3B3bS9zbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55YW1sCj4gPiBpbmRl
-eCA3NTIzYTg5YTE3NzMuLmE0Yjc5MjlmMmUwNSAxMDA2NDQKPiA+IC0tLSBhL0RvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9wd20vc25wcyxkdy1hcGItdGltZXJzLXB3bTIueWFtbAo+
-ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3B3bS9zbnBzLGR3LWFw
-Yi10aW1lcnMtcHdtMi55YW1sCj4gPiBAQCAtMjAsMTIgKzIwLDExIEBAIGRlc2NyaXB0aW9uOgo+
-ID4gICAgaW5zdGVhZCBvZiBoYXZpbmcgdG8gZW5jb2RlIHRoZSBJUCB2ZXJzaW9uIG51bWJlciBp
-biB0aGUgZGV2aWNlIHRyZWUKPiA+ICAgIGNvbXBhdGlibGUuCj4gPiAgCj4gPiAtYWxsT2Y6Cj4g
-PiAtICAtICRyZWY6IHB3bS55YW1sIwo+ID4gLQo+ID4gIHByb3BlcnRpZXM6Cj4gPiAgICBjb21w
-YXRpYmxlOgo+ID4gLSAgICBjb25zdDogc25wcyxkdy1hcGItdGltZXJzLXB3bTIKPiA+ICsgICAg
-ZW51bToKPiA+ICsgICAgICAtIHNucHMsZHctYXBiLXRpbWVycy1wd20yCj4gPiArICAgICAgLSBl
-c3dpbixlaWM3NzAwLXB3bQo+ID4gIAo+ID4gICAgcmVnOgo+ID4gICAgICBtYXhJdGVtczogMQo+
-ID4gQEAgLTQzLDYgKzQyLDEyIEBAIHByb3BlcnRpZXM6Cj4gPiAgICAgICAgLSBjb25zdDogYnVz
-Cj4gPiAgICAgICAgLSBjb25zdDogdGltZXIKPiA+ICAKPiA+ICsgIHJlc2V0czoKPiA+ICsgICAg
-bWluSXRlbXM6IDEKPiA+ICsgICAgaXRlbXM6Cj4gPiArICAgICAgLSBkZXNjcmlwdGlvbjogSW50
-ZXJmYWNlIGJ1cyByZXNldAo+ID4gKyAgICAgIC0gZGVzY3JpcHRpb246IFBXTSB0aW1lciBsb2dp
-YyByZXNldAo+ID4gKwo+ID4gICAgc25wcyxwd20tbnVtYmVyOgo+ID4gICAgICAkcmVmOiAvc2No
-ZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzIKPiA+ICAgICAgZGVzY3JpcHRpb246
-IFRoZSBudW1iZXIgb2YgUFdNIGNoYW5uZWxzIGNvbmZpZ3VyZWQgZm9yIHRoaXMgaW5zdGFuY2UK
-PiA+IEBAIC01NCw2ICs1OSwyMiBAQCByZXF1aXJlZDoKPiA+ICAgIC0gY2xvY2tzCj4gPiAgICAt
-IGNsb2NrLW5hbWVzCj4gPiAgCj4gPiArYWxsT2Y6Cj4gPiArICAtICRyZWY6IHB3bS55YW1sIwo+
-ID4gKwo+ID4gKyAgLSBpZjoKPiA+ICsgICAgICBwcm9wZXJ0aWVzOgo+ID4gKyAgICAgICAgY29t
-cGF0aWJsZToKPiA+ICsgICAgICAgICAgY29udGFpbnM6Cj4gPiArICAgICAgICAgICAgY29uc3Q6
-IGVzd2luLGVpYzc3MDAtcHdtCj4gPiArICAgIHRoZW46Cj4gPiArICAgICAgcHJvcGVydGllczoK
-PiA+ICsgICAgICAgIHJlc2V0czoKPiA+ICsgICAgICAgICAgbWluSXRlbXM6IDEKPiAKPiBEcm9w
-Cj4gCgpXaWxsIGZpeCBpbiB0aGUgbmV4dCB2ZXJzaW9uLgoKPiA+ICsgICAgICAgICAgbWF4SXRl
-bXM6IDEKPiAKPiBTbyB5b3Ugd2FudCB0byBhZGQgcmVzZXRzIGZvciB0aGUgZXhpc3RpbmcgdmFy
-aWFudCBjbGFpbWluZyB0aGF0IHRoZXkKPiB3ZXJlIG1pc3Npbmc/IFByb2JhYmx5IHdlIHNob3Vs
-ZCB0ZWxsIHlvdSB0aGF0IGVhcmxpZXIsIGFsdGhvdWdoIHRoZQo+IHBhdGNoIHdhcyBnb2luZyBv
-ZGQgZGlyZWN0aW9ucywgYnV0IHlvdSBuZWVkIHRvIHNwbGl0IGl0LiBGaXJzdCB5b3UgZml4Cj4g
-ZXhpc3RpbmcgZGV2aWNlcyB3aXRoIGV4cGxhbmF0aW9uIHdoeS4gVGhlbiB5b3UgYWRkIG5ldyBj
-b21wYXRpYmxlIHdpdGgKPiBjb25zdHJhaW50IGZvciBvbmUgcmVzZXQuCj4gCgpCYXNlZCBvbiB5
-b3VyIGNvbW1lbnRzLCB3ZSB3aWxsIHNwbGl0IHRoaXMgcGF0Y2ggaW50byB0d28uIE9uZSBwYXRj
-aMKgCmV4cGxhaW5zIHdoeSB3ZSBhZGQgdGhlIHJlc2V0cyBwcm9wZXJ0eSwgYW5kIHRoZSBvdGhl
-ciBhZGRzIHRoZSBlc3dpbsKgCmNvbXBhdGlibGUgc3RyaW5nIGFuZCB0aGUgbGltaXQgZm9yIHJl
-c2V0cy4KCkJlc3QgcmVnYXJkcywKWHV5YW5nIERvbmcK
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The newly defined PHY initialization tables `ipq5210_gen3x1_pcie_e=
+p_tx_tbl` and `ipq5210_gen3x1_pcie_ep_pcs_tbl` are never used, as the endpo=
+int configuration mistakenly references tables from the ipq6018 SoC.
+--
+
+commit bf5e268631f81219e100892c439cbf010f5cd5f1
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+
+phy: qcom-qmp-pcie: Add support for ipq5210 PCIe phys
+
+This patch adds support for a PCIe phys found on the Qualcomm ipq5210
+platform.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualc=
+omm/phy-qcom-qmp-pcie.c
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+[ ... ]
+> @@ -3613,6 +3712,49 @@ static const struct qmp_phy_cfg ipq6018_pciephy_cf=
+g =3D {
+[ ... ]
+> +static const struct qmp_phy_cfg ipq5210_gen3x1_pciephy_cfg =3D {
+[ ... ]
+> +	.tbls_ep =3D &(const struct qmp_phy_cfg_tbls) {
+> +		.serdes		=3D ipq5210_gen3x1_pcie_ep_serdes_tbl,
+> +		.serdes_num	=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_serdes_tbl),
+> +		.tx		=3D ipq6018_pcie_tx_tbl,
+> +		.tx_num		=3D ARRAY_SIZE(ipq6018_pcie_tx_tbl),
+> +		.rx		=3D ipq5210_gen3x1_pcie_ep_rx_tbl,
+> +		.rx_num		=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_rx_tbl),
+> +		.pcs		=3D ipq6018_pcie_pcs_tbl,
+> +		.pcs_num	=3D ARRAY_SIZE(ipq6018_pcie_pcs_tbl),
+
+[Severity: High]
+Are the newly added ipq5210_gen3x1_pcie_ep_tx_tbl and=20
+ipq5210_gen3x1_pcie_ep_pcs_tbl arrays intended to be used here?
+
+This configuration assigns the tx and pcs fields to the ipq6018 arrays, whi=
+ch
+appears to leave the new ipq5210 tx and pcs tables entirely unused. Could t=
+his
+result in incorrect PHY hardware programming for the endpoint?
+
+> +		.pcs_misc	=3D ipq5210_gen3x1_pcie_ep_pcs_misc_tbl,
+> +		.pcs_misc_num	=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_pcs_misc_tbl),
+> +	},
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-pcie-phy-v=
+2-0-83bc80e79fa6@oss.qualcomm.com?part=3D2
