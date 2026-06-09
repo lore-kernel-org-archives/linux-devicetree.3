@@ -1,99 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D01648B389;
-	Tue,  9 Jun 2026 17:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFD7376A03
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 17:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781024887; cv=none; b=CpvdGFFGUOj0nTI7R3oYHRjyh/MvHJRLh/eddl3CA7Ki69kPIs42xt8UhTqXTvp2izJdPaUY1qfcS4G9GqGRbPbIZLoQQSgzMEDYqsNS0tm1xCBozuoTdise7hrcKI2Z4oRcuGmwZJHKFlX+w/SnADJPWkiOkQvP326LAGvQ6EM=
+	t=1781025864; cv=none; b=nVeGTwocN4wFB27x6gaUWioL/Qjb2eaMi2eA7t5S2wJ5zEzkhohcOiwQ+RamS5tHmE4WAqD7kIWDF7nhs1stt7SeAQ47vsCWibJ5SD3yf1EuCpgKRhOJac757EWJRW8FQaJTayjFa+UHGlZtS4h7tG1rm7uRklilh7pItmFuYOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781024887; c=relaxed/simple;
-	bh=TWticakF4lsCd+LJNURSo9PTN1fmU7xSrDoT1KoM52Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nXmPcLdZzUJNyuwwFOJcAiaoxofCfuHt2MpGc+YI8wJ5ScDc1mNm+CuPAHtLl3yZ11XsXPADl1psrQXlg4y7h9fy6dy3vaZPoJ08jhDYJLv/lHPVeBcRAzEUqrGUIt86ufM6LnxkPMebd4PuA1earVWPPknlQ47+8Txoftr9R4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3OIWRCa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781025864; c=relaxed/simple;
+	bh=kRGHtIIbXaW6G5FcEhsfnfAHMwheKr2lKX3/O6neinE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=VoKBCkPbgPvMt2i4pZcKZZxUTqTeZfkfkepjW9rICAZ9WUbhCse3fjWsXHupDKF/i1HlDbvUk91XOshRE26hi0jc2ZlJkOr+fjSycyS/NMYzlmnmZ6ozBNi5ZsATwAmMNjKxRECWrN/RnUl5mE4UGfp+QX1YVHE+GeLTNYA3ANo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=NbWB6qhK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CK7Duo0Y; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3OIWRCa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E363A1F00893;
-	Tue,  9 Jun 2026 17:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781024886;
-	bh=G07BoObhKste5pzhCvWzVieE17MhkuJWd46kgmO594g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P3OIWRCamIglcHyNYS7Hq+y8/uvM/ciIRhGSoC1tsT6yVDI2BOot/UzSenGbGR2xP
-	 NYJjSqA0/pj9c0PiRwYOBvkYiLz1VX3SYQwoqXB3OwsAZWydsfw6kNAt4rpauDZeX4
-	 ANazaxqo2Q7b/0bqymc4QVEMdAMFX+hV6qt5We/jO3QeItXR1RaOWXFpJkKrlgRO0v
-	 udfab0Hk6eBoGvXy5YB53RS0CzF+gOJSR2gyVUlBuu9ex3ioa5MObsYxI5qrkr1rgt
-	 td1WNhypQnecUW+GsU0SkiyvLuDpxuScFtCQhujN+5wGVDLlRTdDchZDc7OcrJrHif
-	 bdP7faOZQCsBw==
-Date: Tue, 9 Jun 2026 19:08:02 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Ping-Ke Shih <pkshih@realtek.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Sterba <dsterba@suse.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Hariharan Basuthkar <quic_hbasuthk@quicinc.com>, 
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Filipe Manana <fdmanana@suse.com>, 
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>, Wei Yang <richard.weiyang@gmail.com>, 
-	Takashi Iwai <tiwai@suse.de>, Aurabindo Pillai <aurabindo.pillai@amd.com>, 
-	Chih-Kang Chang <gary.chang@realtek.com>, David Lechner <dlechner@baylibre.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Tamir Duberstein <tamird@kernel.org>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Aleksander Jan Bajkowski <olek2@wp.pl>, 
-	Boris Burkov <boris@bur.io>, Blake Jones <blakejones@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] scripts/jobserver-exec: propagate child exit
- status
-Message-ID: <20260609-cunning-aboriginal-moose-2da14d@quoll>
-References: <cover.1779908995.git.daniel@makrotopia.org>
- <660368ca16e2d3845577a9fd157d2f37f0e09e85.1779908995.git.daniel@makrotopia.org>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="NbWB6qhK";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CK7Duo0Y"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 716397A013A;
+	Tue,  9 Jun 2026 13:24:22 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-04.internal (MEProxy); Tue, 09 Jun 2026 13:24:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781025862;
+	 x=1781112262; bh=RO7+Oyis/nP8Powp7AVcbTGDY2whvYZik0jR7od+ohI=; b=
+	NbWB6qhK/h7hjuUcdHtei7VOakiS4XhRGmMy1QVW61IeBbFfUY7qpFcseo5zZxzW
+	OUQpiV+X8p5Ru1OCUpf0IbOBw+cz4FHuy98doKoBDENKFoonjsmEyZWuM8SG6AZG
+	aaeVZgCunPI5ZsTRtRuzrJ4vG8VV3WbmfesmMA4Z6jhmYJlHGmbBYyMJZq2jGp5x
+	1sSjVhkUVbh4WP23PRQ17eHbB2CBLdqABue2v3ZmDtjOuN8q/icBV9MGQaKUv/rn
+	Umk2RVobDQ2YB7rHUzvy1vnjYS/WjnICGQ7M6m9aTV8jmo+Uqly4mE1AVWvc+08n
+	JsbBSqAyMmtZYtCk+YZ0TQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781025862; x=
+	1781112262; bh=RO7+Oyis/nP8Powp7AVcbTGDY2whvYZik0jR7od+ohI=; b=C
+	K7Duo0YlGpnX4P6XQ0I0M+EpYJuVtwnxWfJUnOlDGiQzoE+Yk9P9AGFAKtpw8nQj
+	kz/NC6kjU38ZY6H7saN2/0InUyCw0lDpMfkn80Yl7pRmsj4BxLloQ0KWRiXLuGvp
+	sPF1yaN+foStkYVY1hd7Rxu6JycgHvV98kusZ4ecFjOreSaqEEG1oWX6Jf+H+dg6
+	0FsoYvHz4Jd+roAzU1ehj+9FIP6bvJJDFaHI5eOOpUtcuI10vO34b6YYNXrzyTb8
+	NqOMIUJFeyofYjhOTxRgpgx4zE/9sJ4aNcsvjxTsfsqgzWSstarfklxSbYt1xO5k
+	7MS3gBwIhwvXNlCmboe0Q==
+X-ME-Sender: <xms:RUwoasaPxt-pZeLlsgEx1sivjVc6N5eGavawkSwLVonu88J4YlxouQ>
+    <xme:RUwoaiPvzcaEojNe7FDEicoSTqzO1HB60DHJ9fYc-ftjOHGESI8W719BtO8G3TPtc
+    Eazs4sRlj1fviZOxbRTp2Lg9vE_teeHSe3HTUuvbi-ljicAlXNt9vK0>
+X-ME-Proxy-Cause: dmFkZTE791gYLoRdg1ZFtnJY3TTQ0X27Kk6WYEWXtb3FVj/dE33pBDxRAOhn6SDw7mEVwS
+    ejbi091g+lx2fLmx6LlX4GQdYjUfhVCAG+i0q5gCrB5UwjlNu+8OlKkfn+B+tZiKTKK8x8
+    RQTt08hhFIg+cEdOBWAkOi9k55469QXIa+fa/hzt0ww8doGPq80bnZ5GOk9ahEmqpyfcI2
+    0KA9Wx4a4t3vTkPGfhbl1mB77hwmjKkbh3m3nQ2IhT9Tj0cy6DZYs0jjY+u/zSSpAaoFQI
+    A47kMoL/LRrEPqU9KNGvCW1/f9D6qf3G2bbcFyNeyFqYxg7nD+Hvo6lXIXTxXS6mx9FzIO
+    X2XALBE6WOnPRqlZ20PqheW35Pmh9QwcFeV0ML1pDslJP86DJfIxrtsPZ369hwY7ilhh4b
+    BJORiLooCWtxffOhy0NwBEHEruP1cLK7BRfISyvA+YMmnAHu0bPZxKbWOQYOimOgHH3Jpu
+    XAya5zwXA86EGxUPLKlU9fIjOuyHl9GehBlhFmqRX3cFIN7YBCYDelgUe9KBA6NqgV7KMI
+    uSL/W8MbHXJNzgC92O0kuJQ/j9IEKX/Op0qNqjkFWCEg2qIj4vio5RstQwcyVLMd2wf41v
+    X4JXiUMEG9WZJ6L4gMfgIQJGQS91IsjXazRgstNCyC5TPbzGrUzvcTD9grmA
+X-ME-Proxy: <xmx:RUwoatc1jG3rIXZ16YOhEQ3unI5JrJ9pCnfRRXpvC9kXD07Xxt6VBA>
+    <xmx:RUwoaqQRrz_DNJ07yeStrWPjrs12bYbsumzhi2xyycVr5cvBhEmjIQ>
+    <xmx:RUwoasuYIHZL3CtDnJMlHcobEkVVybxpfOJFPjscqdReuHmX4O0RyQ>
+    <xmx:RUwoajeONO929q5L1dVU6_vsQa_4wDe8oWLkN3z9WtJXNBOQgJr4qQ>
+    <xmx:RkwoamTG9W4YtXsE7aAB-XCgO9OSnU0NgxGLefuBpPcEHzCv5Jgwchfg>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id D383F1820082; Tue,  9 Jun 2026 13:24:21 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <660368ca16e2d3845577a9fd157d2f37f0e09e85.1779908995.git.daniel@makrotopia.org>
+X-ThreadId: AdNNzaliM6k3
+Date: Tue, 09 Jun 2026 19:24:01 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Josua Mayer" <josua@solid-run.com>,
+ "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Frank Li" <Frank.Li@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>
+Message-Id: <9e6326f6-dad1-4169-a63c-e62ee5b341f2@app.fastmail.com>
+In-Reply-To: <3528dc91-1ffc-42f9-94ea-a27c6c1d6a50@solid-run.com>
+References: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
+ <20260524151347.BD92A1F000E9@smtp.kernel.org>
+ <3528dc91-1ffc-42f9-94ea-a27c6c1d6a50@solid-run.com>
+Subject: Re: [PATCH v7 1/9] arm64: dts: lx2160a-rev2: extend 32-bit, and add 64-bit pci
+ regions
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Wed, May 27, 2026 at 08:32:18PM +0100, Daniel Golle wrote:
-> main() called JobserverExec().run() and discarded its return value,
-> then the script exited with the implicit status 0. As a result, any
-> Makefile that wired a build step through jobserver-exec saw the step
-> silently succeed even when the wrapped command had failed.
-> 
-> Two in-tree callers were affected:
-> 
->   Documentation/devicetree/bindings/Makefile
->     cmd_chk_style runs a python checker via jobserver-exec and uses
->     "&& touch $@ || true" so failures leave the stamp file untouched
->     and the next make rerun reports them again. The swallowed exit
->     code made the stamp file get created even on failure, caching the
->     failed run and hiding the reported issues until the inputs change.
-> 
->   scripts/Makefile.vmlinux_o
->     cmd_gen_initcalls_lds runs scripts/generate_initcall_order.pl via
->     jobserver-exec; a perl failure was masked by the wrapper.
-> 
-> Return the subprocess exit code from main() and pass it to sys.exit()
-> so the wrapped command's status reaches make.
-> 
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> ---
-> v5: new patch; prereq for chk_style in 3/4 so style failures
->     leave the stamp file untouched instead of being cached
-> 
->  scripts/jobserver-exec | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On Sun, May 24, 2026, at 19:12, Josua Mayer wrote:
+> Am 24.05.26 um 17:13 schrieb sashiko-bot@kernel.org:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>> -	ranges = <0x81000000 0x0 0x00000000 0x80 0x00010000 0x0 0x00010000
+>>> -		  0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>;
+>>> +	ranges = <0x81000000 0x00 0x00000000 0x80 0x00010000 0x00 0x00010000>, /* 16-Bit IO Window */
+>>> +		 <0x82000000 0x00 0x40000000 0x80 0x40000000 0x00 0xc0000000>, /* 32-Bit - non-prefetchable */
+>>> +		 <0xC3000000 0x84 0x00000000 0x84 0x00000000 0x04 0x00000000>; /* 64-Bit - prefetchable - 16GB */
+>> [Severity: High]
+>> Does expanding the 32-bit PCI outbound window to 3GB (0xc0000000) cause it to
+>> overlap with inbound system memory?
+>>
+>> System memory starts at physical address 0x80000000. Since there isn't a
+>> dma-ranges property mapping inbound DMA to a different bus address, system
+>> memory uses a 1:1 mapping, meaning inbound DMA targets 0x80000000 and above.
+>>
+>> If a PCIe device requests a large 32-bit BAR, the kernel might allocate it
+>> within this 0x40000000-0xffffffff range. This causes the Root Port's
+>> downstream bridge Memory Limit register to be programmed to a value >=
+>> 0x80000000.
+>>
+>> A Root Port won't forward upstream memory transactions if the address falls
+>> within its programmed downstream window, as it assumes it is peer-to-peer
+>> traffic.
+>>
+>> Could this intercept endpoint DMA targeting system memory in the overlapped
+>> range and cause system hangs?
+> This configuration was tested with NVMe and GPUs,
+> the SMMU should ensure isolation pci bus addresses do not overlap with
+> physical ram base address.
 
-Best regards,
-Krzysztof
+I noticed the same thing while reading through the pull request
+for 7.2, and I think the bot message is correct here. The SMMU
+does not help here because addresses on the same bus are routed
+inside of the PCIe host bridge rather than directed to the host
+side. If the non-prefetchable ranges ever get assigned to an
+address 0x80000000, this definitely breaks.
 
+You will not hit this in most tests, because large MMIO windows
+are likely to be 64-bit capable and will end up in the
+prefetchable range and addresses are usually assigned from
+the lowest address. You can try to force the bug by starting the
+non-prefetchable window just below the start of RAM for testing,
+which will assign some of the devices to the RAM area.
+
+        Arnd
