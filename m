@@ -1,204 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3FF28980F
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E4D01C862D;
+	Tue,  9 Jun 2026 02:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780970368; cv=none; b=MyQ95hR+grvo9fiEMQNkZhr3I0SKoNazHtBVPWZsxFpEVT33gubxQSRON86edg1P5tIKLanjrUebu4iRt+gBZZTnOVx7ODB9XGfJr4/S9w2optpSbI1ZZ6kCC4R2VvWa5+sL2KScuvnjNIxleAvBuROAlrlP8N7a0AmmT6pJ42U=
+	t=1780970857; cv=none; b=MKWb5XS8ZfLW/4nnWfyK/jXFBCj0Mu6bCajGS+0PL/ibv+ydd/N5SYmaQEf5pz9zS9D4ODpgnn1yojEM6JH3vcyKHCItEgr5Jq6MEFHk4ST916xC7CCP6YVUVgjvkfOgQXrvu2cPsmFVGmgmjVwxe69iJiycBgvdC4BOy4Zh4Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780970368; c=relaxed/simple;
-	bh=FNVRvzqPlfgjxqZKLN2A6QXqqO939ten+CcilOcYIis=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QNlghHFHrbsz4sv6QEBB4ZPBXAiQyrv0wU+pbidlScRkfLYa2hPJkWrikvRK3n+h2eCpjVIa7oRMS/kZXPMqnQJGbm2hmujQM3fOidDmt0ASYnLG/+LWN0TZakI7rUAKmgFRchcimzPXWSBG6AEn2TeO2M7uQ3fvNo9/M5N0cZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEbKh4IE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780970857; c=relaxed/simple;
+	bh=pXLjhYA/HKccNSiWZJ1vD2CM10FqSwMsW43GeFxnlMc=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=IapEb70+NXnvYmFiDgiWzE/1gz0/KigeZZRH5F4GC58gIZBrYA5vS9sCZK8VdMV99nJ3jNRqKy+y370ZuknYukhjRcLEBNQO+c9hd0+fap9gfxS0T1JtlJUXaHV+RSJB5PCqLbotFn4S99KZwcFGR1JGwhJX+9Pi+8iM9h+zB+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=GYVSD7/B; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEbKh4IE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5112C1F00893;
-	Tue,  9 Jun 2026 01:59:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780970366;
-	bh=1GSv1OXwWy+Q9Ol5IQ9xDIylF460DrCqmrU4dV+Hr+A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bEbKh4IE4NDHrK2v0csA+kxGknjGv/B+E+m/LCM7ng6NzRpYeSQSq/AIoONghS0EQ
-	 Wl0dBU4daV1X/gSQeiNW+t02Ngc/sm/7yuMUf5bvK9wNX+6YTt4tTmmrg9P9UqFYep
-	 CkLm2AeOdET/JAFNMnNCcv3RSbjiROhvMoyD/3nymgYRMenGJ0NfUaZgCJQTWorDPT
-	 zslu7Fv3s2pDSe0U5fs1M4JWlsPx+54mcW8zu62LGK0MOKZ657O+kSQhJRbK1VSgeW
-	 k7euZdl5VeZietVDs8rz1UDPJdpqrJuDElIZC6TozeJ0kjHWMMG97bFTT+guKATdLM
-	 2sk+AG3cTM4Fw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/11] ASoC: renesas: fsi: Fix register access from
- in-flight IRQ after shutdown
-Reply-To: sashiko-reviews@lists.linux.dev
-To: phucduc.bui@gmail.com
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260609013107.5995-6-phucduc.bui@gmail.com>
-References: <20260609013107.5995-6-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 01:59:25 +0000
-Message-Id: <20260609015926.5112C1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="GYVSD7/B"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=XbcfAkbt1ZemCkeMzHuWx9v5CdZZxTUV3
+	6RmpJC+uBY=; b=GYVSD7/BHc7fjkCMe2fKJ8ImNQ9fsYC6shhhnfhjHjwlQU8lX
+	PER20SC7Nfr7XElTxcEbesiFuPgPINAo93m1j1IMZOJJQPYW4eiKvGQ5k6mOz/5r
+	nhFXtR7jMUSqfO9iZQkD1deE5xO5efsFyOkkF9ZUgftoa0JhxdT04udVfs=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEEJ7dSdqC6AJAA--.8834S2;
+	Tue, 09 Jun 2026 10:07:55 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 1/2] dt-bindings: pinctrl: Add UltraRISC DP1000
+ pinctrl controller
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: wangjia@ultrarisc.com, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260608-cheer-diabetes-02de68030e0a@spud>
+References: <20260608-ultrarisc-pinctrl-v3-0-30a09ed74275@ultrarisc.com>
+ <20260608-ultrarisc-pinctrl-v3-1-30a09ed74275@ultrarisc.com>
+ <20260608-cheer-diabetes-02de68030e0a@spud>
+Date: Tue, 09 Jun 2026 10:07:18 +0800
+Message-Id: <178097083811.1947369.16656545397888680932.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780970838; l=1116;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=pXLjhYA/HKccNSiWZJ1vD2CM10FqSwMsW43GeFxnlMc=;
+ b=iB/8vN/XfQBrk39/Bm7UzI9hYu5F9fJd5P6MFOs5a1pZuf3VzleVmV5eiFUOlg//xH1VoJCgY
+ KGStpw0coOvAdxkHP9alFdMqEdREYKCSaL6PtvjefTVxTCTtRbj1685
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDXEEJ7dSdqC6AJAA--.8834S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF4kKr4rZF48AF4ruFWfKrg_yoWDurbEkF
+	W8Zr97Xw47GFy8JayDtr17J34YkFsF9Fya9FnrXr4DGry5GryUZa4kK345Aw1fJr48Jrsr
+	Jr1SvFW0yr1akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
+	1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr
+	0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VU13ku3UUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgA5s-
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 2026-06-08 18:17 +0100, Conor Dooley wrote:
+> On Mon, Jun 08, 2026 at 03:50:48PM +0800, Jia Wang via B4 Relay wrote:
+> > From: Jia Wang <wangjia@ultrarisc.com>
+> > 
+> > Add doc for the pinctrl controllers on the UltraRISC DP1000 RISC-V SoC.
+> > 
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > ---
+> >  .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 131 +++++++++++++++++++++
+> >  MAINTAINERS                                        |   6 +
+> >  .../dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h |  63 ++++++++++
+> 
+> The driver never uses this file, so just stick it as a header in
+> arch/riscv/boot/dts/ultrarisc instead of making it a binding.
+> 
+> Otherwise, I think this is okay. With the file moved,
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> 
 
-New issues:
-- [High] The newly added `fsi_stream_is_working()` checks introduce a Time-=
-of-Check to Time-of-Use (TOCTOU) race condition with clock shutdown.
+Agreed. I'll move the header to arch/riscv/boot/dts/ultrarisc/, submit
+it as part of the DTS series, and remove all references to it from the
+dt-bindings documentation. I'll carry your Reviewed-by in the next
+version. Thanks.
 
-Pre-existing issues:
-- [Critical] A pre-existing TOCTOU race condition in PIO transfers causes a=
- NULL pointer dereference because `fsi_stream_is_working()` releases the lo=
-ck before `io->substream` is accessed.
-- [Critical] The DMA transfer handler lacks a stream active check, leading =
-to a fatal NULL pointer dereference if triggered by a shared port interrupt=
- when the stream is stopped.
-- [High] The fix fails to add stream activity checks to the PIO data transf=
-er paths called earlier in the same IRQ handler, leaving an active path tha=
-t still unconditionally triggers system hangs.
---
+> pw-bot: changes-requested
+> 
+> Cheers,
+> Conor.
 
-commit 1b9901efffc6b2d06494ae90af04665e436adbb6
-Author: bui duc phuc <phucduc.bui@gmail.com>
+Best regards,
+Jia Wang
 
-ASoC: renesas: fsi: Fix register access from in-flight IRQ after shutdown
 
-This commit attempts to fix system hangs caused by in-flight IRQs accessing
-hardware registers after the SPU clock is disabled. It introduces checks
-using fsi_stream_is_working() to return early from IRQ handlers if no
-streams are active.
-
-> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> --- a/sound/soc/renesas/fsi.c
-> +++ b/sound/soc/renesas/fsi.c
-> @@ -470,6 +470,10 @@ static int fsi_get_current_fifo_samples(struct fsi_p=
-riv *fsi,
-> =20
->  static void fsi_count_fifo_err(struct fsi_priv *fsi)
->  {
-> +	if (!fsi_stream_is_working(fsi, &fsi->playback) &&
-> +	    !fsi_stream_is_working(fsi, &fsi->capture))
-> +		return;
-> +
-
-[Severity: High]
-Does this introduce a Time-of-Check to Time-of-Use race condition?
-
-fsi_stream_is_working() acquires and immediately releases master->lock.
-If snd_pcm_stop executes concurrently on another CPU right after this check
-returns true, it will call fsi_stream_quit() and fsi_hw_shutdown(), setting
-substream =3D NULL and disabling the hardware clocks.
-
-Would the interrupted CPU then proceed to access hardware registers
-(like fsi_reg_read(fsi, DOFF_ST) below) with the clocks disabled, resulting
-in the exact system hang this patch was intended to fix?
-
-[Severity: High]
-This is a pre-existing issue, but the patch missed it while attempting
-to fix the exact same issue. In fsi_interrupt(), before
-fsi_count_fifo_err() is reached, the driver calls fsi_stream_transfer()
-which routes to fsi_pio_push() or fsi_pio_pop().
-
-Both functions immediately calculate sample space by calling
-fsi_get_current_fifo_samples(), which unconditionally performs bare
-register reads before any stream activity check is performed:
-
-fsi_get_current_fifo_samples() {
-        ...
-        status =3D is_play ?
-                fsi_reg_read(fsi, DOFF_ST) :
-                fsi_reg_read(fsi, DIFF_ST);
-        ...
-}
-
-Will an in-flight IRQ therefore access disabled hardware registers during
-the PIO transfer phase, bypassing the intended mitigations?
-
-[Severity: Critical]
-This is a pre-existing issue, but does a race condition in PIO transfers
-cause a NULL pointer dereference because fsi_stream_is_working() releases
-the lock before io->substream is accessed?
-
-fsi_pio_transfer() calls fsi_stream_is_working() to ensure the stream is
-active. fsi_stream_is_working() safely verifies io->substream under
-master->lock but releases the lock immediately.
-
-fsi_pio_transfer() then proceeds to call fsi_pio_get_area() locklessly,
-which unconditionally dereferences io->substream->runtime:
-
-fsi_pio_transfer() {
-        if (!fsi_stream_is_working(fsi, io))
-                return -EINVAL;
-
-        buf =3D fsi_pio_get_area(fsi, io);
-        ...
-}
-
-fsi_pio_get_area() {
-        struct snd_pcm_runtime *runtime =3D io->substream->runtime;
-        ...
-}
-
-If an ALSA SNDRV_PCM_TRIGGER_STOP command executes fsi_stream_quit()
-concurrently on another CPU, setting io->substream =3D NULL, will this
-sequence interleave precisely to cause a NULL pointer dereference?
-
-[Severity: Critical]
-This is a pre-existing issue, but does the DMA transfer handler lack a
-stream active check, leading to a NULL pointer dereference?
-
-When an FSI port is configured with DMA for playback and PIO for capture,
-they share the same hardware interrupt line and fsi_interrupt handler.
-If the playback stream is stopped, its hardware FIFO remains empty,
-continuously asserting the playback data request bit in the shared
-int_st register.
-
-The fsi_interrupt handler reads the raw int_st register without applying
-software masks and unconditionally routes to fsi_stream_transfer():
-
-fsi_interrupt() {
-        ...
-        if (int_st & AB_IO(1, AO_SHIFT))
-                fsi_stream_transfer(&master->fsia.playback);
-        ...
-}
-
-The DMA handler fsi_dma_transfer() is invoked without verifying if the
-stream is actively working. It immediately calls fsi_get_dai(io->substream).
-Since the playback stream is stopped, io->substream is NULL.
-
-Does this result in an immediate NULL pointer dereference in
-asoc_substream_to_rtd()?
-
->  	u32 ostatus =3D fsi_reg_read(fsi, DOFF_ST);
->  	u32 istatus =3D fsi_reg_read(fsi, DIFF_ST);
-> =20
-> @@ -681,6 +685,10 @@ static void fsi_irq_clear_status(struct fsi_priv *fs=
-i)
->  	u32 data =3D 0;
->  	struct fsi_master *master =3D fsi_get_master(fsi);
-> =20
-> +	if (!fsi_stream_is_working(fsi, &fsi->playback) &&
-> +	    !fsi_stream_is_working(fsi, &fsi->capture))
-> +		return;
-> +
-
-[Severity: High]
-Does this also introduce a Time-of-Check to Time-of-Use race condition?
-
-The stream status is checked and the lock is dropped before clearing the
-interrupt status locklessly via fsi_core_mask_set(). Could a concurrent
-stream stop and clock shutdown occur between the check and the hardware
-access, causing a regression?
-
->  	data |=3D AB_IO(1, fsi_get_port_shift(fsi, &fsi->playback));
->  	data |=3D AB_IO(1, fsi_get_port_shift(fsi, &fsi->capture));
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609013107.5995=
--1-phucduc.bui@gmail.com?part=3D5
