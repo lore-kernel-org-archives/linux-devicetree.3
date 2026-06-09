@@ -1,214 +1,103 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93555481FA3
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412A63FBB4E
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781023335; cv=none; b=K/76c5vxH/u9sg6Et9dD+As15HUj4ZKvoYlO2N1K3wcv5yWVtL8vkIC3z+q/gW/JwQdy5dnmvX0Q+e7CDH5OewORKEcsdNCHIRhDKZPBkQYkom7LnivMheIQrSW+XFF9OQ0g1NT3wubj+tjeUyc0umPiTzDMVBBW1Z/hqwZb/to=
+	t=1781023402; cv=none; b=qnJvsSYfhlwHgEaoQ3vFQRQHfKNXgU4zeugZ0R0TddkZmGxL8o9p3dqBeOE4elNpdnHDrhSWAo7q3nBpEV1OkaERNEvLOngrwdd9YpCiaWy5Ala7IPoYJn9rogonS7bWH6n3Gy0e1D9J1OPnXDdBax5dXWFYa2t2dPupYf6L7JE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781023335; c=relaxed/simple;
-	bh=99KrLILEF2FMsqh1wD5ix4ZSC/c0+z6tUPRPcB/xSnE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mFee62uBs3Mgxd8Oyje82ACqXQHAOLlK7DNI4jFUgsk3pdrUOcB3K6nTjU8Mq/L4d84qr2r6KsvthLv2qJ72y/f8wzKWPyKz7ssQXdUIZJm4B4bpdLuxoXEmjFTlZi0UAi0mx3AJifoek3QEZePDZBrdxmgbmh5mCBW2178QLrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R74uSwk/; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781023402; c=relaxed/simple;
+	bh=s4b6LKTDbBvwZ8cPN/Mr22GRS1I7mat/njKu7GutF0Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kqeNhaK9gKPMbZOWYNZC+3XG/+qZ7JDH5UVKpv28Y6tDqxOxoqoBIX1NWGpmVmzsuVAMoipxGxmrOt7U2bo/eI4cOWLPAAHgTrlKMSqJ/P6dlpC2lN4KEvaG6xphpsMK7F5ilN13CkgAu6vB3pvGD2VQ0xB4Em3x6+b8rj9iOHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDhDi4K3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R74uSwk/"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490af320e2aso63081755e9.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:42:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781023333; x=1781628133; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ltcN6lrCBn1i7VizWEDzmvqmfmSuDzvei1Fc92HuNdU=;
-        b=R74uSwk/1mn+Y95ALM1apeml3hcYrjv4EjrOvM+kdRXYl19ZSmMZfIDXNcAludAxQI
-         YHq5AOGCc2ON5Rvg9d4y54yMFxxM2tNXA2HC2MlLNbchf2NAhdP4ZE56gwL4mYWk9c1Z
-         pxsypRpK0sjfsCojfH2qWgUekXnqBWxd4038E0W15P3x9NNRPfFpfPXr1AbH/YUG1Rd6
-         wbApfCGuXzs2kYueC/kfmVHan9xGLBUbVopemtbhP/EVI1E6t0IsyTrkioAL9Kp3TUsk
-         fuj1xKtTnSMWq+LFtYUaSAJRgn9b5Wp7TUQ9Z5sil/eiPta4x7FvTBG/pVo8ES8bk7gw
-         u0ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781023333; x=1781628133;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ltcN6lrCBn1i7VizWEDzmvqmfmSuDzvei1Fc92HuNdU=;
-        b=qTeIUpCwMyQKyPLFn70cUXJpqeNe2FoBn80xuFM9otgkvJcTjAm02tdtQASD/ZIujo
-         7AyDy3vTJVUlXewUd1aDjTxL9wBVHeKdKh1CEEFavlOxQVD0vtIk/iyvISf/Rp4OVjHq
-         FRG9BhWGlfJXM10wQv4A8OmfkG5NPQou9mmMK3WCS3G2nfY7M+WRbDhHZV9Lk2V9zUBV
-         ec7RhGlFTBND/YUPPxLx7/DJ+hAg5rizX0+CQnbBbXntRQBoU+I6JOisBwOomWI6aN1w
-         nw0oq4Gq8YQp+sLGz2S4qeMB2yUv1E+9HJxXYxVKYk7+xH0UVwVuX1qYCt1wCb0LFljM
-         vOnw==
-X-Forwarded-Encrypted: i=1; AFNElJ9arUl4NsVb1UsST7TOaLcSEsrmZ1auKGlKR5ylFq89vSQ16G6sS7bllQEGt28Wn9A/OuRVWJ8Az9IZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFaMnAgcQxoVs+wHQu/jUdmN0XU1LbYiFL2GfdS+SYjtujJdak
-	CRzp7TC1q/2GHdAH1hyuvjOMobdY9VgqKxGVgy3aHGsZ14H9/DP/IN27
-X-Gm-Gg: Acq92OFkVnp08blbTkUUoUMdkGtEEuOPCcV6yzt1T/ZiZCKOVfQ8V9akHbwuzZCdFNE
-	TAEkNsFhVGLwA+6oSDyh2BRt6kxKUH0iP3mprjXAaILbw5TNlBtVwNvLdnYs3s8+FoU+DG5SBj5
-	iy6wV9f5P5GR67cSAo7gbz5gKP6dZFitfHImMIIPCbFA2ADDT8+9pk2zWdpTNeY/ui2EAKEy26G
-	bbnQfTa5DknbVvrecP+dbA7KEqfqwJLqHVpz01dJ+POAq6/h9pYX2SqBv73F0qYU2kgekcZ3yFx
-	yr7AybLONNPB68JZqLki2VLpEQnc/J0fN5bG3++SccrXszkQI7EmteUROIYForNOznmgknxuveT
-	WhCW6ekqOq8W9u1/33CPrPBXTw1LeacVtsOEuKEE97OVaKyu7Lc0EPn09c/rhinRuefWflk/9dR
-	EJ2YRdcjVG7HYRixAggohLNxOXClX+6acCkFRP3QWtl/5k+7DamQ==
-X-Received: by 2002:a05:600c:529b:b0:490:5380:f2cb with SMTP id 5b1f17b1804b1-490c2528b6amr352314605e9.0.1781023332863;
-        Tue, 09 Jun 2026 09:42:12 -0700 (PDT)
-Received: from silicon.doe.home ([197.250.227.145])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46059346676sm2398593f8f.26.2026.06.09.09.42.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 09:42:12 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v3 0/5] ZTE zx297520v3 clock bindings and driver
-Date: Tue, 09 Jun 2026 19:42:02 +0300
-Message-ID: <QsCV4VffTSWWBp014o7Pkg@gmail.com>
-In-Reply-To: <f92114a3658185b57bffe546c0f4079a9d39afce.camel@pengutronix.de>
-References:
- <20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com> <2062167.PYKUYFuaPT@strix>
- <f92114a3658185b57bffe546c0f4079a9d39afce.camel@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDhDi4K3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0BAD1F00893;
+	Tue,  9 Jun 2026 16:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781023400;
+	bh=FVh4/SMEcltsFEymo5lmzo6gXUb6OmXfL6j1CKXyR/Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JDhDi4K3MvHorPOe6uR79qJb+K2nPFReJTbmxnFbDxE7tjRKxNHpxV650LyI9QpnF
+	 QW0Hs85eFLknnpOk6COJTu+vkb2unu2nKnWvAWeGrb6pc1IAe95WnO5u2Wo56hpEuX
+	 259HG0saYjoaJO5icXSpaH5TLjfSnePmZ8kNJ4OlKgYcHD3yT6e2jvwhM8vv7nzAuX
+	 7STAND3iqvASz7NIoDR1Jq7lGGIDdA5tLsT/0t0FPQ1VJRFl18W0GR3GbdwjLfgBZE
+	 HOA2M/+0VLAt9ff7SCuQgKwyjkCX85wQmqurFWYpASTp8HfwHMcbLYbnfQiEH534BC
+	 zxtXKvbdzooiA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 11/15] ASoC: qcom: sm8250: add support for
+ LPI_MI2S_RX_0 and LPI_MI2S_TX_3
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Richard Acayan" <mailingradian@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260609162255.31074-12-mailingradian@gmail.com>
+References: <20260609162255.31074-12-mailingradian@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 16:43:20 +0000
+Message-Id: <20260609164320.B0BAD1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartFLf7VarUTpi_4IXxXYdobw";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
 
---nextPartFLf7VarUTpi_4IXxXYdobw
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Subject: Re: [PATCH RFC v3 0/5] ZTE zx297520v3 clock bindings and driver
-Date: Tue, 09 Jun 2026 19:42:02 +0300
-Message-ID: <QsCV4VffTSWWBp014o7Pkg@gmail.com>
-In-Reply-To: <f92114a3658185b57bffe546c0f4079a9d39afce.camel@pengutronix.de>
-MIME-Version: 1.0
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Hi Philipp,
+Pre-existing issues:
+- [High] Hardware clock leak: MI2S sysclks are enabled on startup but never=
+ disabled on shutdown
+--
 
-I did some more reading and checked past clock driver submissions. This email 
-is to check if I understood it right.
+commit d56ecb81f1a498d069991569b37a6e2d484e4d23
+Author: Richard Acayan <mailingradian@gmail.com>
 
-Am Donnerstag, 4. Juni 2026, 18:23:01 Ostafrikanische Zeit schrieb Philipp 
-Zabel:
-> > The register lock because all LSP and at least one TOP register contains
-> > both clocks and resets.
-> 
-> That could be solved with regmap.
+ASoC: qcom: sm8250: add support for LPI_MI2S_RX_0 and LPI_MI2S_TX_3
 
-This will require me to change the clk component to use regmaps too. There's 
-no regmap equivalent to clk-{div,gate,mux}.c, so I'll need my own. qcom and 
-meson have similar drivers already, so I'd likely copy one of them. Is there a 
-particular reason why there isn't a regmap equivalent of clk-{div,gate,mux}.c?
+This commit adds support for the LPI_MI2S_RX_0 and LPI_MI2S_TX_3 ports to
+the sm8250 machine driver. It configures the DAI formats and sets the
+sysclk for these new ports in the startup callback.
 
-Another hypothetical solution is a custom regmap implementation that locks my 
-clk driver's lock. I see that only in imx/clk-imx8ulp-sim-lpav.c.
+> diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+> index f193d0ba63d00..1952c599e004f 100644
+> --- a/sound/soc/qcom/sm8250.c
+> +++ b/sound/soc/qcom/sm8250.c
+> @@ -112,6 +112,22 @@ static int sm8250_snd_startup(struct snd_pcm_substre=
+am *substream)
+>  		snd_soc_dai_set_fmt(cpu_dai, fmt);
+>  		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
+>  		break;
+> +	case LPI_MI2S_RX_0:
+> +		codec_dai_fmt |=3D SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
+> +		snd_soc_dai_set_sysclk(cpu_dai,
+> +			Q6AFE_LPASS_CLK_ID_INT0_MI2S_IBIT,
+> +			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
 
-However, the topclk region also has a stray register that controls if a 
-watchdog timeout resets the board. So there's no good way past a syscon 
-compatible and syscon generated regmap anyway.
+[Severity: High]
+This is a pre-existing issue, but does this code leak the hardware clock?
 
-Afaics syscon regmaps only support a single IO region, so I'd likely revert 
-back to the topclk/matrixclk split with different bindings, bite the other 
-bullet and list all 50 or so PLL outputs as clocks passed from top to matrix.
+The machine driver enables the DSP MI2S IBIT clocks via
+snd_soc_dai_set_sysclk() during stream startup, which sends an
+AFE_PARAM_ID_CLOCK_SET command to the DSP.
 
-Which gives a device tree setup like this:
+However, looking at the rest of the driver, the associated .shutdown
+callback (qcom_snd_sdw_shutdown) is specific to SoundWire and ignores
+MI2S DAIs.
 
-topcrm: something@13b000 {
-	compatible = "zte,zx297520v3-topcrm", "syscon", "simple-mfd";
-	reg = <0x0013b000 0x400>;
-	#address-cells = <1>;
-	#size-cells = <1>;
-	ranges;
+Because there is no matching logic to call snd_soc_dai_set_sysclk() with
+a 0 frequency on stream close, will the DSP clock remain permanently
+enabled after the first playback and prevent the DSP and SoC from
+entering deep sleep states?
 
-	topclk: clock-controller@0 {
-		compatible = "zte,zx297520v3-topclk";
-		reg = <0x0 0x400>;
-		#clock-cells = <1>;
-		#reset-cells = <1>;
-		clocks = <&osc26m>, <&osc32k>;
-		clock-names = "osc26m", "osc32k";
-	};
+> +		snd_soc_dai_set_fmt(cpu_dai, fmt);
+> +		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
+> +		break;
 
-	reboot {
-		compatible = "syscon-reboot";
-		offset = <0x0>;
-		mask = <0x1>;
-	};
-};
+[ ... ]
 
-watchdog_t18: watchdog@148000 {
-	compatible = "zte,zx297520-wdt";
-	reg = <0x00148000 0x20>;
-	clocks = <&topclk ZX297520V3_WDT_T18_WCLK>, <&topclk 
-ZX297520V3_WDT_T18_PCLK>;
-	clock-names = "wclk", "pclk";
-	resets = <&topclk ZX297520V3_WDT_T18_RESET>;
-	zte,wdt-reset-sysctrl = <&topcrm 0x2c 0x3 0x3>;
-};
-
-(I did not attempt to build this, might have typos)
-
-And the reset controller will be an aux-bus child of the clock controller. I 
-could make the reset controller its own device with its own bindings, but that 
-would misrepresent the hardware.
-
-Did I understand this correctly?
-
-For some reason in my dev tree the reset sysctrl works even though my clock 
-driver does not use the syscon compatible nor manually create a regmap.
-
-> > Shared register definition: in the case of the LSP clocks breaking up the
-> > composite definition would sacrifice readability.
-> 
-> That is a matter of perspective.
-> 
-> I had a harder time validating that the resets[] array is properly
-> initialized from the two different composite arrays because of the
-> unordered reset_ids, and some remaining resets[] being filled via code.
-
-I do have a sanity check loop for that.
-
-> It would be much simpler if you split the reset definitions out into a
-> single, separate, const array, indexed by reset id. In fact,
-> I would suggest this even if you don't intend to move the reset code.
-
-I had to collect the clocks and resets from all over ZTE's kernel and U-Boot 
-sources plus manual testing, so maybe I am a bit too attached to seeing all 
-controls for a given device in one place. If the reset controls move to a 
-different file, the composite structure becomes less useful, so I'll probably 
-split it up and just list single div, gates and regs.
-
---nextPartFLf7VarUTpi_4IXxXYdobw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmooQlobFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiKesQAJRepE5jSEE8unaib32O
-EpI63wWhBCKBNi9UCv8iIeAt61Av/y7m/U19SEHHCCyv2IdoH8hhqoPLjcJjt+/v
-UsWNcEujOPf+JbRRRtSP2UyoirW5rsoYHEMOTuMfJSBvk2/SIrTApo7AwDhV59rb
-nJ/MZI9DtTBOGF3CV+vuc9qPWtO8hntdu+jlLeg7TmUSkqtJJZEjknUKZdBZGpDQ
-NSd2dY7wHnf7RhLEP73OBXwm9ebely5izLtAyNiDltkDAOAjJXZibKzRbZ/bPgdz
-XkiQ854wIcynNBQPEaDwsHu4tAzpQSBd6qrZzAzrGn/Nw7XCBvTT3rD2xGhJUEU6
-KUJmfCYzS+5dpY1tfSvsstPruM936JzgH6EBCpY0pQjvrs+QdW1lEMrT1NE890rC
-shggbu9bGsS714qLLk54JffkJlpwTAPlObtNqOdyQH22cAvZvKfZ5cZY+rJzdoAs
-2+d6glovGoZ1aJDGU8WhE9nnlKVgTYObenacdL+fedcfBKo0AwRc8Bu5EYnvn4DP
-v+IKyecGKLWSiudu0Jh8oH3uguoKGpFHlZtXcd0jpLn6h7VvS3wqU3LeBpKRu6Em
-Q04ptHCtkq5eJZBqHFBuBWbfT0XfkAF3sVmZqMxq7/SrzT1e3xJ3apVLcdo9u9Fe
-b8l88Dq5BUMzyvr1kCAAFtGj
-=8F5V
------END PGP SIGNATURE-----
-
---nextPartFLf7VarUTpi_4IXxXYdobw--
-
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609162255.3107=
+4-1-mailingradian@gmail.com?part=3D11
