@@ -1,160 +1,222 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9621B1BD9D0
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4969535F16B
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780969853; cv=none; b=G6wn0RQpko+n6eOurd/qt2lbBXVDJ3pE9s07TYvQIl6hM7H9kMJMQXmDaMO2r+KcpxctbfqAZ/Fd4nBts1EJ9GMfb4usC2X3bGycrLkbcdVk26X+uIFELd1K6EeJx4Myyb2OFPu4oTdielnvq5q2rS2fe0EuuzH+xqeWseo5HzY=
+	t=1780969864; cv=none; b=aUd1tMXB0bGnjF+RN80/8GaqDPXG30HKE9+At+JT142elIsohAaikYgJUgprxWZmuPu+j3+teFWMcgjkYpL7vrP2QGGolTCEL5GJJRRDRxan9eUlwLJ+dPttxGOIIpvFiZU5q9z68tLjmuAjdIsqh3A5HLlJfq7d2rflSAB+780=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780969853; c=relaxed/simple;
-	bh=iFpDxXJLm7U1CLx0KAJxfuEl4nQjZ5TkyMRCcy2LVvQ=;
+	s=arc-20240116; t=1780969864; c=relaxed/simple;
+	bh=HMNikjxdqPN2TXlEfpQhxwHVF5qcO9m6fUOUVZ9vYa4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=W6i5X+vFM9siVyitdrLE5oi47tX+zvhsd8XC4uwUp035y81hGL/81QODQElVMU0zvsM6JH3XDvtj2aFl2/waphWY3XyxWQZq/MNL6HQz2wW0r92e6gIk6eCH7yX/uRfP78da7/7XtLxZU+h6CqhG2seoPSg5F00HDBDFhbyO+Tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1L+ZgZ/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hioQY/XZA5YWYQG91gzOh3xeC309vkM6CSkYMjocfOsDn6/cBcPMyfz/SbuMNu/9G9CNOlnds4cUSTJY4shePiGap8AMqHafU9xwXLCjsp/l1OwkeFCI4zl2Knt8gZBcqTAALyai+Q0Cp5PdXTk2x3r7/sW4fvsVkrWyAOzZn2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VXigwQRE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1L+ZgZ/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077751F00898;
-	Tue,  9 Jun 2026 01:50:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VXigwQRE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7E61F00893;
+	Tue,  9 Jun 2026 01:51:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780969852;
-	bh=pfMdvACiI/vFvX1jx/tL/D1VPwThUC+/ZM+sCpNBtmk=;
+	s=k20260515; t=1780969862;
+	bh=6OqjibCz2LNp0leFUcM95iBaVXSDIbNHj26TQSBEekg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l1L+ZgZ/+z3UKrpYjyU8VAz68l74NmxIj2CmV988ONd+7D6JY+qcDFurKHl+83hEp
-	 A1gYIkS6sWjmoA+EvVReRes8w9gQwWp5r5rp7WPfZPVAZrp7Lt3/po13qg/kXZnU2C
-	 uJ/4BnhtHdsRzVvLrbC3jexUWw4wTMWUlA3UvNPIZYYKWh6/gS9Y2KxSKEGoQ5emEY
-	 H+LHklv9+j9JeIlSRhEjKsJtAQYG/NANpil4RJY3p3/6PNAUIBZtVH8YVFQXNWLQqt
-	 3xpTuviEC1HqXBBGmowg2XXDC1CRpP6tQ1flVPYfR3qsV9uUgkJBLHAP+qEwi/PHvu
-	 ywjVr1KSiXfBA==
+	b=VXigwQREavvZ9UepWqQqn95i0wIo8+e+BkxqB6qRKBgM4DXqc8VtIJYRCMl+g8u9r
+	 /P4lObnoCfVSalnt9eM8J6zuPhlXisukliCV1D555cwiVZ0NEYZy3wU4fU3B53eBLS
+	 iWU0fyMwAj57Zo7ChI0zwn18+1qhOALRyR1k8W6Ls4JnUn5tS31a4yvnc0romp641W
+	 QgKZNqAAB03sfUnyrT+ivkNuKz/EqfT2usCDvNt1TPN+Gmu6OsNx2+rjvdn7NFpxcW
+	 yZvuMecGTpmGc80oyPilopoydrG3m6tc5omDDCQmKj4f6IMk6IKaWoDsbZpLjTBe38
+	 eIZtkr0LqPoAQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 11/11] ASoC: renesas: fsi: Add SPU clock control in
- hw_startup/shutdown
+Subject: Re: [PATCH v5 10/11] ASoC: renesas: fsi: add
+ fsi_clk_prepare/unprepare()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: phucduc.bui@gmail.com
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260609013107.5995-12-phucduc.bui@gmail.com>
-References: <20260609013107.5995-12-phucduc.bui@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260609013107.5995-11-phucduc.bui@gmail.com>
+References: <20260609013107.5995-11-phucduc.bui@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 01:50:51 +0000
-Message-Id: <20260609015052.077751F00898@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 01:51:02 +0000
+Message-Id: <20260609015102.9E7E61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The `clk_spu` clock reference is permanently leaked due to an earl=
-y return in the shutdown path and a missing error cleanup in the startup pa=
-th.
+- [High] The interrupt handler `fsi_interrupt` reads and writes hardware re=
+gisters before verifying if any streams are active, risking system hangs.
 
 Pre-existing issues:
-- [High] Data race on the shared clock reference counter `clock->count` bet=
-ween concurrent playback and capture triggers.
-- [High] Sleeping in atomic context caused by calling `clk_set_rate()` with=
-in the ALSA DAI trigger callback.
+- [High] `fsi_clk_enable()` incorrectly returns `-EINVAL` and improperly ma=
+nages `clock->count` when a second concurrent stream is started, breaking f=
+ull-duplex operation.
+- [High] The driver calls `clk_set_rate` and `clk_set_parent` from the atom=
+ic PCM trigger callback, causing a 'scheduling while atomic' bug.
+- [High] Opening or closing a stream resets the shared clock rate via `fsi_=
+clk_invalid()`, corrupting the state of an already running concurrent strea=
+m and causing permanent clock reference leaks.
+- [High] Lockless access to the shared `clock->count` variable leads to rac=
+e conditions and unbalanced clock reference counts when playback and captur=
+e are triggered concurrently.
 --
 
-commit 0619c0d2b5fae18d99bc804f41b27cefd1176f67
+commit f7c3ccc68e9715cc648ab7fe51a1667d7610390b
 Author: bui duc phuc <phucduc.bui@gmail.com>
 
-ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+ASoC: renesas: fsi: add fsi_clk_prepare/unprepare()
 
-This patch enables and disables the SPU clock in fsi_hw_startup() and
-fsi_hw_shutdown() to ensure the clock is active while the driver accesses
-hardware registers.
+Add fsi_clk_prepare() and fsi_clk_unprepare() helpers and call them
+from fsi_dai_startup() and fsi_dai_shutdown(). This ensures clk_prepare()
+and clk_unprepare() are executed from sleepable contexts and keeps clocks
+prepared only while audio streams are active.
 
 > diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> index 6c432c7235a41..80e87b815c1b6 100644
 > --- a/sound/soc/renesas/fsi.c
 > +++ b/sound/soc/renesas/fsi.c
-> @@ -1560,6 +1560,11 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
->  			  struct device *dev)
->  {
->  	u32 data =3D 0;
-> +	int ret;
-> +	/* enable spu bus bridge clock */
-> +	ret =3D clk_enable(fsi->master->clk_spu);
-> +	if (ret < 0)
-> +		return ret;
-> =20
->  	/* clock setting */
-
-[Severity: High]
-This is a pre-existing issue, but calling clk_enable() and interacting with
-the clock API from the startup path seems to lead to sleeping in an atomic
-context.
-
-The ALSA core invokes the fsi_dai_trigger() callback with the substream
-stream_lock spinlock held and hardware interrupts disabled. Inside this
-atomic context, the call chain leads to sleepable clock setup functions:
-
-fsi_dai_trigger()
-   fsi_hw_startup()
-      fsi_clk_enable()
-         ret =3D clock->set_rate(dev, fsi);
-
-For example, fsi_clk_set_rate_cpg() executes clk_set_rate(), which
-acquires a mutex. Will taking a mutex while holding a spinlock with
-interrupts disabled trigger a sleeping in atomic context warning or a
-potential deadlock?
-
-Furthermore, later in fsi_hw_startup(), the function ends with:
-
-    if (fsi_is_clk_master(fsi))
-        return fsi_clk_enable(dev, fsi);
-
-If fsi_clk_enable() returns an error, the function exits without disabling
-the successfully enabled clk_spu. Does this need an error handling path to
-avoid leaking the clock reference?
-
-[ ... ]
-
-> @@ -1617,6 +1622,8 @@ static int fsi_hw_shutdown(struct fsi_priv *fsi,
->  	/* stop master clock */
->  	if (fsi_is_clk_master(fsi))
->  		return fsi_clk_disable(dev, fsi);
-> +	/* stop spu bus bridge clock */
-> +	clk_disable(fsi->master->clk_spu);
-> =20
->  	return 0;
+> @@ -730,6 +730,54 @@ static int fsi_clk_is_valid(struct fsi_priv *fsi)
+>  		fsi->clock.rate;
 >  }
+> =20
+> +static int fsi_clk_prepare(struct fsi_priv *fsi)
+[ ... ]
+> +static void fsi_clk_unprepare(struct fsi_priv *fsi)
+[ ... ]
+> +}
+> +
+>  static int fsi_clk_enable(struct device *dev,
+>  			  struct fsi_priv *fsi)
+>  {
 
 [Severity: High]
-If fsi_is_clk_master(fsi) is true, the function returns early and completely
-bypasses the newly added clk_disable(fsi->master->clk_spu) call. Will this
-cause the SPU clock reference to leak when stopping the audio stream?
+This is a pre-existing issue, but does fsi_clk_enable() break when a second
+concurrent stream is started?
+
+In fsi_clk_enable():
+
+	int ret =3D -EINVAL;
+
+	if (!fsi_clk_is_valid(fsi))
+		return ret;
+
+	if (0 =3D=3D clock->count) {
+		...
+	}
+
+	return ret;
+
+If clock->count > 0, such as when starting a capture stream while playback =
+is
+already active, the zero check is skipped entirely. The function then retur=
+ns
+the unassigned ret (-EINVAL), causing the ALSA trigger callback to fail.
 
 [Severity: High]
-This is a pre-existing issue, but I noticed a potential data race on the
-shared clock reference counter clock->count when starting and stopping
-the streams.
+This isn't a bug introduced by this patch, but does fsi_clk_enable() cause a
+"scheduling while atomic" bug?
 
-Because the ALSA core allows independent and concurrent triggering of
-playback and capture substreams on the same DAI, fsi_hw_startup() and
-fsi_hw_shutdown() can be executed in parallel by different CPUs.
+The ALSA fsi_dai_trigger() callback executes in an atomic context with the =
+PCM
+substream spinlock held and interrupts disabled. On a START trigger, it cal=
+ls
+fsi_hw_startup(), which invokes fsi_clk_enable():
 
-In fsi_clk_enable(), clock->count is read and incremented locklessly:
+	if (0 =3D=3D clock->count) {
+		ret =3D clock->set_rate(dev, fsi);
 
-    if (0 =3D=3D clock->count) {
-        ret =3D clock->set_rate(dev, fsi);
-        ...
-        clock->count++;
-    }
+The clock->set_rate() functions invoke clk_set_rate() and clk_set_parent(),
+which acquire the clk_prepare_lock mutex and can sleep.
 
-Similarly, fsi_clk_disable() decrements it without synchronization:
+Calling them from an atomic context causes a BUG. While this patch moves
+clk_prepare() to the sleepable startup callback, rate setting remains in the
+atomic trigger path.
 
-    if (1 =3D=3D clock->count--) {
-        clk_disable(clock->xck);
-        ...
-    }
+[Severity: High]
+This is a pre-existing issue, but could lockless access to the shared
+clock->count variable lead to race conditions?
 
-Could this race condition lead to unbalanced clock reference counts and fail
-to properly enable or disable the hardware clocks?
+The fsi_priv struct and its clock->count member are shared between playback
+and capture substreams on the same DAI. ALSA PCM trigger callbacks are
+serialized per-substream, not per-DAI, allowing playback and capture trigge=
+rs
+to execute concurrently.
+
+fsi_clk_enable() checks if count is zero and increments it without any
+locking. If both streams start concurrently, both CPUs can observe count =
+=3D=3D 0,
+execute the clk_enable logic simultaneously, and increment count to 2, but
+clk_enable() was called twice for each clock.
+
+When stopping, fsi_clk_disable() uses `if (1 =3D=3D clock->count--)`. The f=
+irst
+stop drops count from 2 to 1 and does not call clk_disable(). The second st=
+op
+drops count from 1 to 0 and calls clk_disable() once. This leaves the clock
+enable counts permanently unbalanced by +1.
+
+> @@ -1580,7 +1628,7 @@ static int fsi_dai_startup(struct snd_pcm_substream=
+ *substream,
+> =20
+>  	fsi_clk_invalid(fsi);
+
+[Severity: High]
+This is a pre-existing issue, but does calling fsi_clk_invalid() here corru=
+pt
+the state of concurrent active streams?
+
+Because fsi_priv is shared between playback and capture, opening a new stre=
+am
+while another is actively running overwrites the operating stream's clock r=
+ate
+to 0.
+
+When the active stream is eventually stopped, fsi_hw_shutdown() calls
+fsi_clk_disable(). Because fsi_clk_is_valid() relies on the now zeroed
+clock->rate, it evaluates to false.
+
+This causes fsi_clk_disable() to return -EINVAL immediately without
+decrementing clock->count or disabling the hardware clocks, resulting in a
+permanent clock enable leak.
+
+> =20
+> -	return 0;
+> +	return fsi_clk_prepare(fsi);
+>  }
+> =20
+>  static void fsi_dai_shutdown(struct snd_pcm_substream *substream,
+> @@ -1588,6 +1636,7 @@ static void fsi_dai_shutdown(struct snd_pcm_substre=
+am *substream,
+>  {
+>  	struct fsi_priv *fsi =3D fsi_get_priv(substream);
+> =20
+> +	fsi_clk_unprepare(fsi);
+
+[Severity: High]
+Could unpreparing the clock here risk a system hang in the interrupt handle=
+r?
+
+If an in-flight or spurious IRQ fires after streams are shut down, the
+fsi_interrupt() handler executes. If the SPU clock is disabled, the handler
+immediately accesses hardware registers before verifying if any streams are
+active:
+
+    u32 int_st =3D fsi_irq_get_status(master);
+
+    /* clear irq status */
+    fsi_master_mask_set(master, SOFT_RST, IR, 0);
+    fsi_master_mask_set(master, SOFT_RST, IR, IR);
+
+Accessing INT_ST and SOFT_RST registers with the SPU clock gated will cause
+the system to hang.
+
+>  	fsi_clk_invalid(fsi);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609013107.5995=
--1-phucduc.bui@gmail.com?part=3D11
+-1-phucduc.bui@gmail.com?part=3D10
