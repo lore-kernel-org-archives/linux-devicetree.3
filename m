@@ -1,172 +1,161 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B81C22E9729
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044293EFFDF;
+	Tue,  9 Jun 2026 10:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781000226; cv=none; b=S+0aYuib+Gr4kNtD3+d/t2vAh5HvowGcRqcfouEePbxxBhTx4caIOL/+AfK5/gHkka969I2Uyqwr/iZw2FAyXL/aCB4IFr8Aza/8op1/CSjG0aSpfcL9EXcNFjCa9bTNrwyhYTm53jS9K7Tf/OV6Zry0zYkxbDuInH1kZB/ppMY=
+	t=1781000519; cv=none; b=KfWwGP7I/dZZmSyFgHHYO6xcUaz/QvTIRtdEsOLUFev1STBPm8k8y4Gb+VbxKXi9RY8uIqmzg78/LQtGkZzJu11HZnHne8eU0Y5KF7EGhmD/vhNmLnlcmv0JGQXcaLdtBkrMuHzWt5D7XSz7SiyJpQ9kYUBC8swizUJqAWR+TwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781000226; c=relaxed/simple;
-	bh=60lbSBPHLuPejyGJzFkNlNTtgRn0AxS2NaXpKwq4/9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G/lJBMh5iiXLlo0UPPnpD7u7Wj89+cNg03FYdHECsGgzN2kPIvm56PndV2r1CNgtnghaVL3HAk2io6lflgjOGiR0A/mTHJ9My4VI3DmVdJmE0dIjed7akO+hyN1JoltYnBpQyWRk0LO1QqSEhOM7goGOqAXu2x8xESQZ+zHHk08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nlgDO/26; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V5+VleG3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781000519; c=relaxed/simple;
+	bh=pg4X6oqCcH3wJtE7385Sru86DvTX5D1LwCtbkL58Zcw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QvmIgxznVBNHteRtNlrnpuo6No/9euQRN4F4xdWOGv7u3n9bD89CAdy0HDyY/qK8MlKOLmTkqhqmRGBe8W5NWbNNV4/T1ZsD2WpdPLgRwL9cOpSfn3jJPA4zHkBJdjKtp/9EmaE5+P3Er/8pbAuiac9Tk46mf/2hOLy3ijbL9S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QV3MKUV2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nlgDO/26";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V5+VleG3"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599vQHT1867931
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 10:17:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JudsusfDtbrr44rlxP7/oBk73rfyE1SdPB/IQf+KXPc=; b=nlgDO/26oEBjtB33
-	e3LXmHI/I+uVAz0axQLW9DaSUmE5W2QolchARMtMAxaOv5oCsHMA9BanvXAn2rgj
-	Rzq5mUiXmTCa4pNfaKyjrBpcgC3ZoMpdJXTtJre1w8HVbEU3n7lQQn2jEG7xbHEv
-	NtjSa71NrurmuRmGEnKlHmteCs0fRGu6YYOy/BtMQx4mmJJaeduh8RSvYmcUU3R/
-	L7hLmQ0bL2KGK9Od26tveYRWJxYm4N64xOciOSvHhfXkrW+FXFktHpi5TlLYrYAG
-	opVIE8rTihmgBAAboS14MA8z98EGrJ4UFyS7mWuyMX7NVPm0Gnomn33MTNELmDnm
-	/PNbBQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epdeeryn9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 10:17:03 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c85798977dcso3344306a12.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:17:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781000222; x=1781605022; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JudsusfDtbrr44rlxP7/oBk73rfyE1SdPB/IQf+KXPc=;
-        b=V5+VleG32ERvBmUt0YSAraRb5W3R5M+snEPbUaVDV/8Sm+8/2FDbw1ECKCqC3TUCPm
-         dItXu3aLGTJZ6nULo/IdKg9rdCnF3FKTX7/M1DAjVU5DeKyNUNujI/95O0KQA5bUFNEJ
-         +ypE0bb+YTiHaH4pqH8Ibz/yzgho45pzVfHeZhXAXZRuIy4A16imFcBBFVqfAwZG4HQw
-         0R4cxBCfVzgwW5NszIlgNxwDdahl0ADGzV5nJw6LmzrWQv/kSA4B8dSPaN+KK2TqBvTS
-         eUI9qN5hnejS1IEXN10tLdGpZkeQKPFE2j1j2iVmFvyEc8/czNjiMBa/W5ujm44/iv3t
-         9+gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781000222; x=1781605022;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JudsusfDtbrr44rlxP7/oBk73rfyE1SdPB/IQf+KXPc=;
-        b=fmRco2Nqohp2TwE9FlYoAWzqjqq5fCOpiJgCSK4hIWd9xorRIF+2+qM9NSwIgqgWtq
-         3GDV02lc7QsFUv2rSljTNGqutKDr7Bi5lu/fiKBUrRClsi+Ftp1MKTRvv2ZMOjRyH4o+
-         DnayzhE1mlHvET0t4S7Oili0DsCZXEeUA7rYlG7C7nxiC7eDVISChvhXeu61cgbzAwy+
-         RNJYxCROPFCm+W6565ebWsqcCv3GCSZ0JmsN7w1i/Y8dImyoaowqUhepE3htSAg6gVPw
-         rpbliOVQem5Upw461TlwDRExBxAHhgl86vEBRoIIr5nrRcOzX0tQvJJRnaRg5SZfFo7V
-         2KpQ==
-X-Forwarded-Encrypted: i=1; AFNElJ942Kju+k8tDPkxAyLLTdYajSO/SzZObs+xT84KoU6Y5F9YSTWj9uRM4+R4gzzvDi7CUrBE8w3dGOba@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvSHwak7PD/Mcuk1MSEKOFFYVNB1xyCr8lVBF6WltRUlAe5CzQ
-	0YuEwyj6eaZM8M8pPZAAxF3ry6ISDhnGLv0PG/h0YZvc+dI6+Un5MMyGnyayJr1C5wG8WMiuU1g
-	mXttS+bR3bw18UN4tWPfWkKz7p0jAKidUDJaxncFt+zvjBXKkE0CuePL5BLjJK1I0
-X-Gm-Gg: Acq92OFi5Hpkw2Pawb7oAOFgwq4J990BvInZoZBSqyQ9nCnDLOuYVZAjOJu/uV+42bl
-	0qk/YnB7JIg5UtjA/RL70oFUlRkES0Ok7sgqApESTNJeoeqZRkgWft47a7PNWhAG8P2kBRjzn+j
-	of34jwtqOiB9jh57y+M4ysh3OqFvwq+yhBY5nbWplAnDbKxK5DcrftBWtLnToFcmJSTEXWzSN7t
-	zipmSA0Agal4WWTNxwBtxcwi+HtsX0qrPQIglnGgw0DkcGl9nd82tOhueXVmarrAW52xyIRkw14
-	dfIC5sP6yfdbdmlcjTvlg2Z38JEp0S0Iz41SDEYiKCKc/phedNAweQRIJKz/oipm4McWZhBaJ7I
-	sYx/1PJBP23tAHdMvm6hqwVyNK7QDBQVgM8kIjzNPjGwNCY/kYl1q9oqCKP8IBJspmiwHy9xcRp
-	Wu
-X-Received: by 2002:a05:6a20:9398:b0:3b4:640e:f6c0 with SMTP id adf61e73a8af0-3b4ccd77534mr18165471637.13.1781000222569;
-        Tue, 09 Jun 2026 03:17:02 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9398:b0:3b4:640e:f6c0 with SMTP id adf61e73a8af0-3b4ccd77534mr18165419637.13.1781000222095;
-        Tue, 09 Jun 2026 03:17:02 -0700 (PDT)
-Received: from [10.151.37.217] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df0b374fsm17704239a12.25.2026.06.09.03.16.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 03:17:01 -0700 (PDT)
-Message-ID: <7def2ccd-0319-4f85-8275-73fd254d887d@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 15:46:56 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QV3MKUV2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94CE51F00893;
+	Tue,  9 Jun 2026 10:21:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781000517;
+	bh=Y8bHjzB+Y1nVZc9YR0CyX9HxvU4vZsf002qWHNt27b8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QV3MKUV2JVXXWwjRYG7XiKjAFUAKl2Jpb6V9UjF4IHLAoawWiZHZSf0z5A/xttQkb
+	 wX2nq++d+ExUb/BZlUl0TC2mnX+LxUjyLOMODE63G2L9L+TIPeCXttpwIN+zq4S//F
+	 1HqqydXqqQykamnHja1q18lTSdtmKd0m1jC/JT5gDdO6HxdxWVG/5oyGOzR9bHoQJM
+	 2BfD/55SWYsvZa+KfpvNOUfu2zaoz74wqjUecX4HWVprTTJf+8ImA3uMmN4o/RoIOA
+	 VDEAlYXGMkELksKePQQfUI8i02AzVIFfjx+nVaJMdtkItilfhX15ql/tIDzCuEQkSN
+	 YYHpW8nX5dPxQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wWtak-0000000Arao-3oCd;
+	Tue, 09 Jun 2026 10:21:55 +0000
+Date: Tue, 09 Jun 2026 11:21:54 +0100
+Message-ID: <86ik7st3nh.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: linux-arm-kernel@lists.infradead.org,	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	devicetree@vger.kernel.org,	Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,	Hanjun Guo <guohanjun@huawei.com>,	Sudeep Holla
+ <sudeep.holla@kernel.org>,	Catalin	Marinas <catalin.marinas@arm.com>,	Will
+ Deacon <will@kernel.org>,	"Rafael J.\ Wysocki" <rafael@kernel.org>,	Mark
+ Rutland <mark.rutland@arm.com>,	Daniel	Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,	Rob	Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor	Dooley
+ <conor+dt@kernel.org>,	Chen-Yu Tsai <wens@kernel.org>,	Jernej Skrabec
+ <jernej.skrabec@gmail.com>,	Samuel Holland <samuel@sholland.org>,	Neil
+	Armstrong <neil.armstrong@linaro.org>,	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,	Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,	Ge Gordon <gordon.ge@bst.ai>,	BST
+	Linux Kernel Upstream Group <bst-upstream@bstai.top>,	Jesper Nilsson
+ <jesper.nilsson@axis.com>,	Lars Persson <lars.persson@axis.com>,	Alim
+ Akhtar <alim.akhtar@samsung.com>,	Ivaylo Ivanov
+ <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,	Sascha Hauer
+ <s.hauer@pengutronix.de>,	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen <dinguyen@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Thierry Reding
+ <thierry.reding@kernel.org>,	Jonathan Hunter <jonathanh@nvidia.com>,	Bjorn
+	Andersson <andersson@kernel.org>,	Konrad Dybcio <konradybcio@kernel.org>,
+	Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNo?=
+ =?UTF-8?B?dW4gTGluIFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko
+ Stuebner <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson
+ Zhai <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Michal Simek <michal.simek@amd.com>
+Subject: Re: [PATCH v3 03/17] clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running VHE
+In-Reply-To: <ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com>
+References: <20260523140242.586031-1-maz@kernel.org>
+	<20260523140242.586031-4-maz@kernel.org>
+	<CGME20260609100324eucas1p146c5ffe86a104677143baaeca1d3feba@eucas1p1.samsung.com>
+	<ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] phy: qcom: qmp-pcie: Add IPQ9650 PCIe PHY support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260602-ipq9650_pcie_phy-v1-0-d8c32a36dbd9@oss.qualcomm.com>
- <20260602-ipq9650_pcie_phy-v1-2-d8c32a36dbd9@oss.qualcomm.com>
- <56zkq7bwrt5smmmum6jckzrekkkqrych2gntx3obnrmamwumtv@espahwe6pc3v>
-Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <56zkq7bwrt5smmmum6jckzrekkkqrych2gntx3obnrmamwumtv@espahwe6pc3v>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=H+DrBeYi c=1 sm=1 tr=0 ts=6a27e81f cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=qlr8FlQxwEk1uUl_DVUA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5NSBTYWx0ZWRfX0mild4LhWIT/
- sEupKzqYCWwDTob6C9ROj+ab5U3MPGnJ/Xc4+/9s4FU50Z3a3LbueaYmBTMR33mmWF3OtmuTcm+
- pQBikLU380CcYcVe9u9vBei5yzq0/OHCfymAVZNHoCi+3TfSzOjUytOouVqRpLgVJDkEgUz+OQL
- DpruN4XeNhh0R3Ge/3cpYoqcN1VWHZ98a955hTg6SIIBLhlFzpI0FRswvAsaY5oZsT/SXJ1mKnn
- LaOg6T2nMU0FDn1uGg/E0AuFjPERXoGkw/DfvOybTLeNZq7wpmlB134+Tk+nJwuNfDCuQ7m8SC/
- OWDLWeklxeztS2hPodLDoa1AzvLE62hca4b4NGTJXYE0bbhKWbU26n0zDwb1eowN/kugTDn6ntp
- Ds3tbIgI+RWz8hP9tmCIIKt26960sjcM2IqKjD74awm1Q8b2BH3z1/YPistU7IpuUWXyE3Mml/W
- QxswKVxF563xARIQB4g==
-X-Proofpoint-ORIG-GUID: IXL8OpbOsfBk9fuV7kLRjtRn_3u0mE8a
-X-Proofpoint-GUID: IXL8OpbOsfBk9fuV7kLRjtRn_3u0mE8a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606090095
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: m.szyprowski@samsung.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kern
+ el.org, afaerber@suse.de, eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
+On Tue, 09 Jun 2026 11:03:21 +0100,
+Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> 
+> Dear All,
+> 
+> On 23.05.2026 16:02, Marc Zyngier wrote:
+> > When running with at EL2 with VHE enabled, the architecture provides
+> > two EL2 timer/counters, dubbed physical and virtual. Apart from their
+> > names, they are strictly identical.
+> >
+> > However, they don't get virtualised the same way, specially when
+> > it comes to adding arbitrary offsets to the timers. When running as
+> > a guest, the host CNTVOFF_EL2 does apply to the guest's view of
+> > CNTHV*_El2. This is not true for CNTPOFF_EL2 and CNTHP*_EL2, as
+> > the architecture is broken past the first level of virtualisation
+> > (it lacks some essential mechanisms to be usable, despite what
+> > the ARM ARM pretends).
+> >
+> > This means that when running as a L2 guest hypervisor, using the
+> > physical timer results in traps to L0, which are then forwarded to
+> > L1 in order to emulate the offset, leading to even worse performance
+> > due to massive trap amplification (the combination of register and
+> > ERET trapping is absolutely lethal).
+> >
+> > Switch the arch timer code to using the virtual timer when running
+> > in VHE by default, only using the physical timer if the interrupt
+> > is not correctly described in the firmware tables (which seems
+> > to be an unfortunately common case). This comes as no impact on
+> > bare-metal, and slightly improves the situation in the virtualised
+> > case.
+> >
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> This patch landed recently in linux-next as commit d87773de9efe
+> ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when
+> running VHE"). In my tests I found that it breaks booting of RaspberryPi5
+> board. Reverting it on top of linux-next fixes the issue. Here is a boot
+> log:
 
-On 6/8/2026 12:26 PM, Dmitry Baryshkov wrote:
-> On Tue, Jun 02, 2026 at 02:40:18PM +0530, Kathiravan Thirumoorthy wrote:
->> The IPQ9650 platform has three Gen3 2-lane PCIe controllers and two Gen3
->> 1-lane PCIe controllers. The PHY instances also require the on-chip refgen
->> supply.
->>
->> Add the IPQ9650 Gen3 x1 and x2 QMP PCIe PHY configurations, including the
->> refgen regulator supply.
->>
->> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
->> ---
->>   drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 220 +++++++++++++++++++++++++++++++
->>   1 file changed, 220 insertions(+)
->>
->> @@ -3378,6 +3524,10 @@ static const char * const qmp_phy_vreg_l[] = {
->>   	"vdda-phy", "vdda-pll",
->>   };
->>   
->> +static const char * const ipq9650_qmp_phy_vreg_l[] = {
->> +	"refgen",
->> +};
-> Now vdda-phy / vdda-pll supplies?
+Huh.
 
-Cross checked with HW team again. Along with refgen, there is a on-chip 
-LDO which supplies fixed voltage to the PHYs. It is enabled upon system 
-power on and no SW intervention is required.
+[...]
 
-regulator-fixed doesn't take the resource 'reg'. May be should I create 
-another regulator driver which accepts 'reg', something similar to the 
-qcom-refgen-regulator? Please advise.
+> arch_timer: cp15 timer running at 54.00MHz (hyp-virt).
+> clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+> sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
 
->
->> +
->>   static const char * const sm8550_qmp_phy_vreg_l[] = {
->>   	"vdda-phy", "vdda-pll", "vdda-qref",
->>   };
+The interrupt appears to be advertised in the DT, but doesn't seem to
+fire. That's obviously not going to end well. My suspicion is that
+either the interrupt isn't wired (that'd be hilariously abd), or is
+left as Group-0 by the firmware (copy-paste from RPi4).
+
+Can you try the following hack and let me know if the kernel shouts at
+you?
+
+Thanks,
+
+	M.
+
+diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+index ec70c84e9f91d..d05791e6cc0db 100644
+--- a/drivers/irqchip/irq-gic.c
++++ b/drivers/irqchip/irq-gic.c
+@@ -213,6 +213,7 @@ static void gic_eoimode1_mask_irq(struct irq_data *d)
+ static void gic_unmask_irq(struct irq_data *d)
+ {
+ 	gic_poke_irq(d, GIC_DIST_ENABLE_SET);
++	WARN_ON(!gic_peek_irq(d, GIC_DIST_ENABLE_SET));
+ }
+ 
+ static void gic_eoi_irq(struct irq_data *d)
+
+-- 
+Without deviation from the norm, progress is not possible.
