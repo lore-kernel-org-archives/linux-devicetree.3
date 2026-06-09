@@ -1,142 +1,84 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69E6282F1C;
-	Tue,  9 Jun 2026 08:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793473E5A32
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780994938; cv=none; b=Bm/Osyjyhi4sb4aGGae6sBg63YkFsUVUY+FsG6+hgKFkLn/itp+Ck7ydPaU0OXxYxSz2/dprWoSW819iO9fWcT3tAot1aLNAou3rj3VbBjoVd3elta1hsmSwcwIZBBi06flo5e0o9/tHeDrrKLTwAtvYkWcBliFSB6VZVI3QoWE=
+	t=1780995018; cv=none; b=D/oQ4d9Jn6cpqxL9h1gPeiBRvnJe1zgNj3zoKFO1ROObaJTH1FPJXN8uzNWvPaRTN4Ud4SPTQGAMY3jLsA9ktObcaCeHuA6fSf03VX7CZtocVS+SBv0yOf8J/9Jvx4goBqW2v1JBtkJpOT54CfMlLId34hh3BPVTXT9Y3SXCL38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780994938; c=relaxed/simple;
-	bh=jhi+GYkP22BAlzCfEIzQhy6k2kA6Euzht3gB2Wmg81I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qRfdjYPjUTtE1IO6Q4847V6fqcy2FOtp9VSNlrn+QxNQPDGLQdUD7o1ZoiEUQL4K1D0oBEIVTkaWh/kF9LfKW0sighm/b7vRajZdKCR5pVTU8Cf1/BqLlu5sC1Ljy2HGLRhfwA3pw2411RimZfk1ymYTTW4zCyOAQgFu/co3rJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=wI+ks+qB; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="wI+ks+qB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=TA5bQGYH0khJJakxZgCr1WkzP74B5Wv+ze7eYIMpH5E=; b=wI+ks+qBsSD1nbpUUSq9vE6xYS
-	+SNb+PoQUkLv++srtcyqnACxBgeSJKjM1r8yW/6Jve0OIL7qERQuxzKWyk3TyWH1PrpVvpFzMbSIB
-	So9e7k5fVij3Q7LX7Pjh8zUTR0vN4JMh9kHpAcQoIWAqp6IX0o9Q+vxtA/9V+d9B7v10=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wWs8Q-006lZL-IF; Tue, 09 Jun 2026 10:48:34 +0200
-Date: Tue, 9 Jun 2026 10:48:34 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-Cc: UNGLinuxDriver@microchip.com, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Woojung Huh <woojung.huh@microchip.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v7 4/9] net: dsa: lan9645x: add basic dsa driver
- for LAN9645X
-Message-ID: <44c635f8-e17e-44bf-b34b-60abcde29577@lunn.ch>
-References: <20260603-dsa_lan9645x_switch_driver_base-v7-0-b2f90e676707@microchip.com>
- <20260603-dsa_lan9645x_switch_driver_base-v7-4-b2f90e676707@microchip.com>
- <9ee993d0-9a71-48ff-b368-fcebe1ee9e48@lunn.ch>
- <a9ab4d129f2e3158c1a7b01d0a975fac00a05893.camel@microchip.com>
+	s=arc-20240116; t=1780995018; c=relaxed/simple;
+	bh=qLFJdsZ/KRlc/HGYJzXoyW16kOjzeKL5gCHOv1Q/0kE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kEAK7v9zYlPCLd8ylt3zbOaXkTdFzxfJpDw1Sv9bdwyDgoNpd3ol5U+FpCpAszCqt/iCuf9d1aeLrPuVYYuYT1qXHStOwyTqz+xqtguRFAsRgMolwWJaIqxaq8yiyxfpEbIfQK6cG+i93DAiUCbpCW1HMaENnRJX797BBx4Zdgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kzalloc.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kzalloc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-68b3a28da7eso878459a12.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 01:50:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780995016; x=1781599816;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/OesEzAfal6z36LgdXCq9SyfPK1un/F0y/2bpb/9BmA=;
+        b=jpriJ9pl2xQ8P/nNC3c7Hcjjvanu35oYx1AwruXlQm1Dzj3Ijj5vVjaDzJtB908ERR
+         B3FSZRXKIoVhLmbDv2ZYRZd3EotGIa44ZycvHckyc6ggL1Le40szpGwp88E6dY/suw9E
+         5V564cxx+8s0uMOOrgoI7eT8N12b80qaCE/gQLKSW578Ue2zFaZwrt5mkeO21S3nFasU
+         lFsGExdbv8AFBdXLN2pwTxgolzUioYHIt0iV+aNHQWmsYmUunOT1nmN/bGTrsVUPo1s/
+         /F4Up0R0X3WS+MH8uM/S+7eYePtT662kzixrJstC5wPAUnHKdMFD40DdloyIagdUCg29
+         sZCA==
+X-Forwarded-Encrypted: i=1; AFNElJ/ErcWmETMbIoofNKX7hwr0rVhlHwakbuQumKQDkCN8I0fZ1gNSMY3aMW4uPwxTmcpbfh2uLApYYhgQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQ65Q36ACyRiK+6RLXPdnbTi32NIk4/qSMqQi6jFTla+yVfQJZ
+	69vEWcRrmIvJHX/c+c/b4EE+0ZU0bSreUMuzVmt5cYg38iVy9P5VBHi6
+X-Gm-Gg: Acq92OGowVvuspGZwcBoRFCS7UoLTX+2ohETmLtLpx7+SFrvw/I1agS5ZZnUV4rE5/I
+	ya5mA/tsgsRVjZ0j8pQ/QU0VuHvFl3udBtxgZV7thfz1jmmdTp3pGWiqWfkcX8L33t4KQqKP34q
+	6IsouKF6URF7aWBqbPRPis+jeWr9CiJg27nLbWFU650cNVkOY7owrLcbtM7b94Lw7hC7TaxHVJY
+	zbKJVRfSxIBuVn5MtoNfFm86Icq2KDdaqmLkIUc/PbxDvc9YzWhZTbcI/ZLNoMPTUvW5AHefM06
+	URF5LkSu+jWZgFwhn6BurlC9+regWGosxle2+PtZch9RJ1jvS2pH0BNdmZHGIwbX0d/0ILqy+jV
+	TFd6J6ia+fopISzO9NgwRZoVwO5B7GosSLTVOcK8ObkiSWP9cv5oHJOnY2yVVA3FjMLTZZG/6Rd
+	XP20o44N0a+s7WODtEdqDLEAsdUvJSXoYOVGYxeQK5DlNGwL++yOQk2PLAQrHF3Lvz7oLKG6oUm
+	Of5Obu9zJELeoqotOZrhCTyfddRmITls8rgi7g7KBy+yrlkhAaEoXDjWH3G3KiD
+X-Received: by 2002:a05:6402:3809:b0:68c:76fb:7e8f with SMTP id 4fb4d7f45d1cf-68fa46b5608mr3785815a12.0.1780995015438;
+        Tue, 09 Jun 2026 01:50:15 -0700 (PDT)
+Received: from [10.147.180.168] ([192.176.1.78])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65851d7bsm8185098a12.14.2026.06.09.01.50.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 01:50:15 -0700 (PDT)
+Message-ID: <b5eecbd3-40fa-4348-8ec6-9f960dd969b9@kzalloc.com>
+Date: Tue, 9 Jun 2026 10:50:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a9ab4d129f2e3158c1a7b01d0a975fac00a05893.camel@microchip.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Question] Enabling CoreSight TRBE in firmware on CIX Orion O6
+To: Yunseong Kim <yunseong.kim@est.tech>, Peter Chen
+ <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>,
+ Guomin Chen <Guomin.Chen@cixtech.com>, Hans Zhang <hans.zhang@cixtech.com>,
+ Gary Yang <gary.yang@cixtech.com>, Joakim Zhang <joakim.zhang@cixtech.com>,
+ Jerry Zhu <jerry.zhu@cixtech.com>
+Cc: CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yunseong Kim <yunseong.kim@ericsson.com>
+References: <5d1bdf6d-ed77-4de9-b788-cf04a98d054d@est.tech>
+From: Yunseong Kim <ysk@kzalloc.com>
+Content-Language: en-US
+In-Reply-To: <5d1bdf6d-ed77-4de9-b788-cf04a98d054d@est.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 09, 2026 at 09:08:13AM +0200, Jens Emil Schulz Ostergaard wrote:
-> On Mon, 2026-06-08 at 20:00 +0200, Andrew Lunn wrote:
-> > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
-> > 
-> > > +     dsa_switch_for_each_user_port(dp, ds) {
-> > > +             if (dp->cpu_dp->ds != ds) {
-> > > +                     dev_err(ds->dev,
-> > > +                             "NPI port on a remote switch is not supported\n");
-> > > +                     return -EINVAL;
-> > > +             }
-> > > +
-> > > +             if (first_cpu_dp && dp->cpu_dp != first_cpu_dp) {
-> > > +                     dev_err(ds->dev, "Multiple NPI ports not supported\n");
-> > > +                     return -EINVAL;
-> > > +             }
-> > > +
-> > > +             first_cpu_dp = dp->cpu_dp;
-> > 
-> > The reason i asked about NPI ports is because this is looping over
-> > user ports. Yet you say one of these user ports is a CPU port. That
-> > cannot be correct.
-> > 
-> > The first port returned by dsa_tree_for_each_cpu_port() would be
-> > first_cpu_dp.
-> > 
-> >         Andrew
-> 
-> 
-> I tried to mimic the approach in drivers/net/dsa/ocelot/felix.c:
-> 
-> static int felix_tag_npi_setup(struct dsa_switch *ds)
-> {
-> 	struct dsa_port *dp, *first_cpu_dp = NULL;
-> 	struct ocelot *ocelot = ds->priv;
-> 
-> 	dsa_switch_for_each_user_port(dp, ds) {
-> 		if (first_cpu_dp && dp->cpu_dp != first_cpu_dp) {
-> 			dev_err(ds->dev, "Multiple NPI ports not supported\n");
-> 			return -EINVAL;
-> 		}
-> 
-> 		first_cpu_dp = dp->cpu_dp;
-> 	}
-> 
-> 	if (!first_cpu_dp)
-> 		return -EINVAL;
-> 
-> 	felix_npi_port_init(ocelot, first_cpu_dp->index);
-> 
-> 	return 0;
-> }
-> 
-> Perhaps I misunderstand you, but there could be confusion about
-> terminology. The chip designers have a concept of CPU port, which is
-> used liberally in the datasheet, and in this driver code.
+I wrote the wrong output:
 
-> However, the concept is different from the DSA concept of a CPU port.
+>      $ perf record -e cs_etm// -- ls
+>      intel_pt: aux mmap: Cannot allocate memory
 
-And that is a problem because somebody reviewing this code is likely
-to know DSA concepts much more than the individual devices concepts.
-To aid overall Maintenance of all the DSA drivers, the driver should
-try to keep with DSA meanings.
+Current output:
 
-> Let us call the first switch CPU port, and the second DSA CPU port.
-> 
-> The port we want to use as a DSA CPU port, i.e. the port with the
-> 'ethernet = <&host_port>;' property in the device tree, will be
-> configured to be an NPI port for injection/extraction for the switch CPU
-> port (which is not a physical port on the device).
+     $ perf record -e cs_etm// -- ls
+     cs_etm: Not found on CPU 0. Check hardware and firmware support and that all Coresight drivers are loaded 
 
-> Therefore, this NPI port is not iterated by
-> dsa_switch_for_each_user_port. The switch CPU port (index 9) is also not
-> iterated by it. It is a chip internal construct with no representation
-> in the device tree, and no struct dsa_port.
-
-So first_cpu_dp is not a DSA CPU port. It is also not a NAPI port,
-since that is a DSA CPU port. Then what is it? Why do you need the
-concept of a switch CPU port?
-
-	Andrew
