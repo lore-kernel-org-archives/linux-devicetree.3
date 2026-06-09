@@ -1,29 +1,29 @@
-Received: from r3-55.sinamail.sina.com.cn (r3-55.sinamail.sina.com.cn [202.108.3.55])
+Received: from smtp153-176.sina.com.cn (smtp153-176.sina.com.cn [61.135.153.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC4434750E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D9228686
 	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 02:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780973780; cv=none; b=SdKN/jAV3zFlRE2ppjTQmdPteslOoeSq6rET/hghy/jy6y0IjMtSRbfDq1gN2ciDo8L9O9GiV1MjG5fa+1eQa9/NFfm++pQXkU3wA/P+JEK7vgLcpFcIGtvfpCwnJbFXV7jlxOeuT+I29hr3qK0i0IaPU0FZyvsvh+iIKhmTw8c=
+	t=1780973781; cv=none; b=paglDlOEgGvxW0ZZkT68hVJh/Hppuuc4hkoZ+RgUhN5Lbcvci0P4MuIrIHPohdtyHgMLkrcJzH2L/r2AZbBhZ3uT/cMelizeOdkarc0R1yCg1nvYRRkMmWqWF9au3sJTt6w1XbemJynRarTPxFhVTzFXm1toaFLSZJ0HOAK3W7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780973780; c=relaxed/simple;
-	bh=CwYXaEZ5mYWjKiannuU7aFdrCvGXV/STtrSkWrNxwBA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=AoZt+mIVA1w1B4f1OfcdhYVzh4/XZsWrcy23KUeX65Q/bpjJDkaaDCIIu9tzlkhWdN1/YXWcw4ruipt5h9FNQYh9arqkWKwAuyC/uFy6RRTFnqxqivuwLU3StYLiQfPkcr7iTpZ7pavs8e6c41V2JVgubaPVbCWpMW32WNJFKZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.55
+	s=arc-20240116; t=1780973781; c=relaxed/simple;
+	bh=HePgEuoo3ziU5SWC6GbQ92/7PTjIDWDACcIxTAdc8Fo=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=rVtqQX5Vv0sCVZizoDKpI9jnIjEnSygQ37fDngOQoIN+avs5DDfoI/r/TAnYwfZZWXklPRD6n+OqFTRG3yGXKChGgGLeW7d7I7mNKJMWMBfrXfiJFq2zMllc30eBet/sztbgK7/gXcUzJeq034zpYj/JmwvZ2WLvkMts1KwxOu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=61.135.153.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
 Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
 	by sina.net (10.54.253.38) with ESMTP
-	id 6A2780C700004488; Tue, 9 Jun 2026 10:56:10 +0800 (CST)
+	id 6A2780C700004488; Tue, 9 Jun 2026 10:56:08 +0800 (CST)
 X-Sender: zhangyi@everest-semi.com
 X-Auth-ID: zhangyi@everest-semi.com
 Authentication-Results: sina.net;
 	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
 	 dkim=none header.i=none;
 	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: 226F8D72820945058485ABC1BA0B8ED6
-X-SMAIL-UIID: 226F8D72820945058485ABC1BA0B8ED6-20260609-105610
+X-SMAIL-MID: 3884F6CF9B7A4E66AA28A205CEDBF88A
+X-SMAIL-UIID: 3884F6CF9B7A4E66AA28A205CEDBF88A-20260609-105608
 From: Zhang Yi <zhangyi@everest-semi.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org,
@@ -33,62 +33,37 @@ Cc: tiwai@suse.com,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	Zhang Yi <zhangyi@everest-semi.com>
-Subject: [PATCH 1/7] ASoC: codecs: ES8389: Modify volatile_register
-Date: Tue,  9 Jun 2026 10:55:59 +0800
-Message-Id: <20260609025605.16945-2-zhangyi@everest-semi.com>
+Subject: [PATCH 0/7] ASoC: codecs: ES8389: Modify the ES8389 driver
+Date: Tue,  9 Jun 2026 10:55:58 +0800
+Message-Id: <20260609025605.16945-1-zhangyi@everest-semi.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260609025605.16945-1-zhangyi@everest-semi.com>
-References: <20260609025605.16945-1-zhangyi@everest-semi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Mark some registers that are not volatile as false
+v0:
+  - Modify volatile_register
+  - Add MCLK_MASK to resolve the issue related to mclk_src
+  - Modify configuration about clock
+  - Add private members about HPF at driver and devicetree
+  - Add INPUT MUX at route
 
-Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
----
- sound/soc/codecs/es8389.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+Zhang Yi (7):
+  ASoC: codecs: ES8389: Modify volatile_register
+  ASoC: codecs: ES8389: Fix the issue about mclk_src
+  ASoC: codecs: ES8389: Modify the clock table
+  ASoC: codecs: ES8389: Modify the initial configuration
+  ASoC: codecs: ES8389: Add private members related to HPF
+  ASoC: codecs: ES8389: Add INPUTL MUX and INPUTR MUX
+  ASoC: dt-bindings: ES8389: Add members about HPF
 
-diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-index 449d9574b..9c8164916 100644
---- a/sound/soc/codecs/es8389.c
-+++ b/sound/soc/codecs/es8389.c
-@@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] = {
- static bool es8389_volatile_register(struct device *dev,
- 			unsigned int reg)
- {
--	if ((reg  <= 0xff))
--		return true;
--	else
-+	switch (reg) {
-+	case ES8389_ADC_HPF1:
-+	case ES8389_ADC_HPF2:
-+	case ES8389_ADCL_VOL:
-+	case ES8389_ADCR_VOL:
-+	case ES8389_MIC1_GAIN:
-+	case ES8389_MIC2_GAIN:
-+	case ES8389_DACL_VOL:
-+	case ES8389_DACR_VOL:
-+	case ES8389_ALC_ON:
-+	case ES8389_ALC_CTL:
-+	case ES8389_ALC_TARGET:
-+	case ES8389_ALC_GAIN:
-+	case ES8389_ADC_MUTE:
-+	case ES8389_OSR_VOL:
-+	case ES8389_DAC_INV:
-+	case ES8389_MIX_VOL:
-+	case ES8389_DAC_MIX:
-+	case ES8389_ADC_RESET:
- 		return false;
-+	default:
-+		return true;
-+	}
- }
- 
- static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
+ .../bindings/sound/everest,es8389.yaml        |  23 +++
+ sound/soc/codecs/es8389.c                     | 136 +++++++++++++-----
+ sound/soc/codecs/es8389.h                     |   6 +-
+ 3 files changed, 125 insertions(+), 40 deletions(-)
+
 -- 
 2.17.1
 
