@@ -1,80 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6793B3C1A;
-	Tue,  9 Jun 2026 07:28:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6CC3D0BFB;
+	Tue,  9 Jun 2026 07:29:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780990137; cv=none; b=OJiiEtIm3cp5aTFf9AM5OKSDybIEI4cl5aCs6QzzmDNUg72tNOr6sxbyZMFksMOwh1jwo351AvoxLLWk/ERMMvZtGij00vROGTyKqf0DYxaVzgVSghQ4IlWpOSSIBJuQVlWcrUwQvVhkNgEzK+8+8wDH7bTDf4c8Z/3UgaP6EBE=
+	t=1780990142; cv=none; b=RMpcfsxkzlSKf0byOZUcRiPHKmjsKGa/UfCV9w6fRcfANQodZlaKTMbwSWe84c15TU8p876fGiJzK0OKQysnD7izPHSh20sl86EKs45jkqUPxwELLTQM+axFgjSW6Wx9xJGqnLXlbsYM1FajIgH2WXbx8q+1NFSjCmfCKT+8LlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780990137; c=relaxed/simple;
-	bh=Qzq8JFlFuObFvmKuFmssnbGMWgD29AFPCAnznkuDpA0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q5+/0Nka7y3BdSiN7Xc6N16dLr63lzLgH9xCwCW6RnFoDp3NiobukkreuC6KDwqavYCtUPSno75Yy3MnXwHKNcSix3kVfwlXYHO1u8aA87XNUkd5SW0hPKJp6rRAch1x70Rk+5q6Ie7omECFS6f9i9ZPrHgBvYdMHi+50WmbK5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQG/1zsH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780990142; c=relaxed/simple;
+	bh=K6MV2uLS5lm+4Me4t24fR79hY+O5WdtNRqvbGy0JzzE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=C6+6sQt9jtseQjCi2ZLL4NrVYeza++YwugMPXqugZy3UHRe2FePxMRx21ridI34BmVv9ddvj8q3135vn/JMIS7fPIdLCPelkHEHdNCgkbp9v+LGYqE6pLuAMv6ohdCX2Rsr3jBWBgyEWe8Yyj6FkKvq0yecaAcw7IMTEDGt9BhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hC+a0w0L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQG/1zsH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2DE1F00893;
-	Tue,  9 Jun 2026 07:28:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hC+a0w0L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62071F00893;
+	Tue,  9 Jun 2026 07:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780990136;
-	bh=sWNAmXeiWmwxeKCoQ11+GrDkd2t2GOIhhcnyC5yfQl4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UQG/1zsHX+JRRF7DbIBZJZG8OKX0NWnFOxKLv7cTXIfpCkTf6DXL4opYKkNc7U01b
-	 2WvQ+LWMwew+eKuWNgjs9oCUICK/ksO2NzLYkU1Ny8SX37YvJJESxj2tVYVECxlEx6
-	 bYYKziFRJ5F3iHHhfG9rLLXMxXqB0M+ahp6fe3TnNRGywPPFSI+4hlvGpTTwZCxoSO
-	 U/9RFlpaHXlmngR/a36ebbL3ZdcGaoF4LGDfO0xEhZ+DIqIrc7WjfJtVipW8IPP9Q6
-	 4e0QYEvNGB9kHfWUuj+h7zuGtNkhKiMsj3l/y8ViXs8w+Ge0jXRQ5biLDqndLus1IO
-	 ZFr45H+Gjk3jg==
-Date: Tue, 9 Jun 2026 09:28:52 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/3] ASoC: qcom: lpass-rx-macro: Add shikra compatible
-Message-ID: <20260609-pretty-coral-weasel-e951ef@quoll>
-References: <20260608172023.2965292-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260608172023.2965292-3-mohammad.rafi.shaik@oss.qualcomm.com>
+	s=k20260515; t=1780990141;
+	bh=K6MV2uLS5lm+4Me4t24fR79hY+O5WdtNRqvbGy0JzzE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hC+a0w0LARUFxJIhe3bMU6EX4vRWNNCSlNyvCoToF5pq8QevkMuc3tbtXlgRTROks
+	 SsnT5F0UyEU3mcaMtPowIGoraLQldOpKs6vviwsIgJpvGPtYXrd58a8tbvvl3X3URX
+	 eYTCASGsGGWNrV/TE+1O98b/LWCK+gz90HVp2o6g9kl6xXl8AoDIbR6+lKbFPNpv/K
+	 8sorbFgWJNgqGz5OVxgvq5/dBKzvoOt7Ty82bwrV/lQiDzKDfMySGPOrXTzImpvMVW
+	 IuwXZRrV273Tw7Ny5pjF4fgKt02eshs3OIdrYhXB461w0UIkqOy8P3pk612VafhB3e
+	 98agtSjg9DXNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] hwmon:(pmbus/xdp720) Add support for efuse
+ xdp730
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "ASHISH YADAV" <ashishyadav78@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260609072231.15486-3-Ashish.Yadav@infineon.com>
+References: <20260609072231.15486-3-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 07:29:00 +0000
+Message-Id: <20260609072900.A62071F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260608172023.2965292-3-mohammad.rafi.shaik@oss.qualcomm.com>
 
-On Mon, Jun 08, 2026 at 10:50:22PM +0530, Mohammad Rafi Shaik wrote:
-> @@ -3648,6 +3655,7 @@ static int rx_macro_component_probe(struct snd_soc_component *component)
->  	case LPASS_CODEC_VERSION_2_6:
->  	case LPASS_CODEC_VERSION_2_7:
->  	case LPASS_CODEC_VERSION_2_8:
-> +	case LPASS_CODEC_VERSION_4_0:
->  		controls = rx_macro_2_5_snd_controls;
->  		num_controls = ARRAY_SIZE(rx_macro_2_5_snd_controls);
->  		widgets = rx_macro_2_5_dapm_widgets;
-> @@ -3809,6 +3817,7 @@ static int rx_macro_probe(struct platform_device *pdev)
->  		return PTR_ERR(base);
->  
->  	rx->codec_version = lpass_macro_get_codec_version();
-> +	rx->bypass_fs_control = !!(flags & LPASS_MACRO_FLAG_BYPASS_FS_CONTROL);
+> From: Ashish Yadav <ashish.yadav@infineon.com>
+>=20
+> Adds support for the Infineon XDP730 Digital eFuse Controller by
+> updating the existing XDP720 driver.
+>=20
+> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 
-Is this specific to Shikra or LPASS v4 codec version? Commit msg
-suggests latter, so detectable from version, no?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
->  	struct reg_default *reg_defaults __free(kfree) = NULL;
->  
->  	switch (rx->codec_version) {
-> @@ -3831,6 +3840,7 @@ static int rx_macro_probe(struct platform_device *pdev)
->  	case LPASS_CODEC_VERSION_2_6:
->  	case LPASS_CODEC_VERSION_2_7:
->  	case LPASS_CODEC_VERSION_2_8:
-> +	case LPASS_CODEC_VERSION_4_0:
-
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609072231.1548=
+6-1-Ashish.Yadav@infineon.com?part=3D2
 
