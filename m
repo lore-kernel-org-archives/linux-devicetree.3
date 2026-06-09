@@ -1,167 +1,183 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD509403E9D;
-	Tue,  9 Jun 2026 12:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0007413620;
+	Tue,  9 Jun 2026 12:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781007242; cv=none; b=BrIElPFHhF1ScyCVteHVyMX1FNqIa+BH/N3zCfhWEHD5xFHjw8tOIQLS5RLMp7Vk8WjMIeBb8IC59FDYCiOtcGVi0WY8pey3tC0H/NAUkOZPLorktxxrC+4JBMmSK61VwVUl4qQ6KKVFu55TNjMwIfDG3bC3cDJO3O5MWKUxtMk=
+	t=1781007352; cv=none; b=EW1kTPX8/8q2T6JAuCyQf6xwLc2KUgiVfKF/sLqq1nHBms942V7leOd2vOW0DavwyRhMOMjJIkJZp3ScthPcP3FUr/QS0cM26hRXK0K9G7D3IvfST1nXj0sg5EBBs0HLs53Lsk7SJ7RqnqXwzXpKVWL/pvfVF9oEeu6TgBeRj20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781007242; c=relaxed/simple;
-	bh=32Zecr6AuK0y1EVb0X3uac50CzMYlS0gw/408kDalgE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IaPsob3bCc1I+9S+F+M7CO+fq5TGHe57/4PX+7dUntj0aNrCF9oewZM2Ly5kVyMC5Tbjjs/3ZLJTeY6Hwd5QuMU7avFy1l4wSrRUWEPbF/+qRVrn/G+3wF1yTq8VlWg3WStxGjzRdfJ51HFMRfp759ZVRtVPZcl71hW8IWbGMqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=BudPli9x; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1781007352; c=relaxed/simple;
+	bh=k7+4ZqZBPFaOAX9D4tiT4BTkzq2pD3Z7B9cTrBetr00=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=o10VVWdR5MDRsgjZMmbpji2vdIv4Zrts9pjZB89L+TO5/VxLl/GpUgVWUsbGbczeE0+Wu3UuM5NsHEr/WyD13VkXXn+3kJKIAJwBZZOYO7DkPQwE091wXDupTLYmnGnbGJFZmSwF1A47ot8Ve01r777yfY4osm9b0IKCX2qV2jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U5Iy8ByX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="BudPli9x"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599xPZ4684336;
-	Tue, 9 Jun 2026 08:13:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=81SzT
-	l+2+kxyi49EMTD9mRYQR2tF88TJGFtn6KVldy0=; b=BudPli9xk8hq/XJ6aJZ46
-	yJKrNmfo1rtfLvkv9kcgS7vNnNQTP0A5c7Ge/tCzUPQz6xTdhhLgFAmtCm/avCE6
-	baQFWPMHfExiOiW+MjAH578f8+SFJvVKaIGjzepwPxRxzj/ZBJpXOiH1eCyRlA7V
-	OKYUyLOa/z3XqPsLZxV4oPPoo+G5PPpAaJ0H94ubkeuLy2yybjDzrzN6OQpcpTL7
-	r76KNs6Saa/yZ3HHBFCQSccIT23VTEW9/hHt8yrIggsR3bV6Ubyv9hEQakx2COKM
-	7UXAGMEuAUTyq+u0OWr+k74GDxYPHE8u4LEkNlTqwZrWnUafxo45CokQFD6Fkb3J
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4en1vcrysf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 09 Jun 2026 08:13:37 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 659CDZrF049065
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 9 Jun 2026 08:13:36 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 9 Jun
- 2026 08:13:35 -0400
-Received: from ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912]) by
- ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912%20]) with mapi id
- 15.02.1748.037; Tue, 9 Jun 2026 08:13:35 -0400
-From: "Regus, Ciprian" <Ciprian.Regus@analog.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-        Andrew Lunn
-	<andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        "Eric
- Dumazet" <edumazet@google.com>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Heiner Kallweit
-	<hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH net-next v3 07/13] net: ethernet: oa_tc6: Add
- read_mms/write_mms register access functions
-Thread-Topic: [PATCH net-next v3 07/13] net: ethernet: oa_tc6: Add
- read_mms/write_mms register access functions
-Thread-Index: AQHc9D/TDKzWBNEMhUCJrHhCZ7VZZrYvOwQAgAblhCA=
-Date: Tue, 9 Jun 2026 12:13:35 +0000
-Message-ID: <8fd58bbcd30f490ea747ca0f9479e3cc@analog.com>
-References: <20260604-adin1140-driver-v3-0-5debdb3173c4@analog.com>
- <20260604-adin1140-driver-v3-7-5debdb3173c4@analog.com>
- <905f32c3-9638-46e4-8f52-1bc874f4e8b9@lunn.ch>
-In-Reply-To: <905f32c3-9638-46e4-8f52-1bc874f4e8b9@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-adiruleop-newscl: Rule Triggered
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U5Iy8ByX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ECB21F00893;
+	Tue,  9 Jun 2026 12:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781007350;
+	bh=O02wNSMoFIM0rygGZbIsJGDCRWP98Rp09cGml3zivWA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=U5Iy8ByXoOEv4Es+WJDoGvQezhugFYHIhxmHfowiy+fGi1olC7g8B1P5lmLYKyLWR
+	 l6JqBulAaFuwOu1R7My3lyCXO2svWxxnn/foPSVaw+MHWryDVv3EJJyRCti+vxbM4/
+	 nb+aKfa8TlP1eUI9wLq4IleCmyDyvNcw+DMWGd8JAvhiYr8OyDR2CDzx6qST5qNYYQ
+	 SezlBJT7GI/PR2a9/coHGVHLlzP933O5IYBhtANKSu3ciPiFLOkRPGEJG8N/ScOUrk
+	 5gyTi7RI/Dq29WNn6GqsS1FJldRmHBRjwHyR6Z+0ue6g8NRULZymopbT9TR45z5kOF
+	 eARDeHSgzv56Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wWvMx-0000000Au0g-2IwC;
+	Tue, 09 Jun 2026 12:15:47 +0000
+Date: Tue, 09 Jun 2026 13:15:46 +0100
+Message-ID: <86cxxzucy5.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: linux-arm-kernel@lists.infradead.org,	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	devicetree@vger.kernel.org,	Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,	Hanjun Guo <guohanjun@huawei.com>,	Sudeep Holla
+ <sudeep.holla@kernel.org>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
+	Deacon <will@kernel.org>,	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark
+	Rutland <mark.rutland@arm.com>,	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,	Rob Herring <robh@kernel.org>,
+	Krzysztof	Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Chen-Yu	Tsai <wens@kernel.org>,	Jernej Skrabec
+ <jernej.skrabec@gmail.com>,	Samuel	Holland <samuel@sholland.org>,	Neil
+ Armstrong <neil.armstrong@linaro.org>,	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,	Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,	Ge Gordon <gordon.ge@bst.ai>,	BST
+ Linux Kernel Upstream Group <bst-upstream@bstai.top>,	Jesper Nilsson
+ <jesper.nilsson@axis.com>,	Lars	Persson <lars.persson@axis.com>,	Alim
+ Akhtar <alim.akhtar@samsung.com>,	Ivaylo Ivanov
+ <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,	Sascha Hauer
+ <s.hauer@pengutronix.de>,	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen <dinguyen@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Thierry Reding
+ <thierry.reding@kernel.org>,	Jonathan Hunter <jonathanh@nvidia.com>,	Bjorn
+ Andersson <andersson@kernel.org>,	Konrad	Dybcio <konradybcio@kernel.org>,
+	Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNo?=
+ =?UTF-8?B?dW4gTGluIFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko
+ Stuebner <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson
+ Zhai <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Michal Simek <michal.simek@amd.com>,	Florian Fainelli
+ <florian.fainelli@broadcom.com>
+Subject: Re: [PATCH v3 03/17] clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running VHE
+In-Reply-To: <658bffa9-bd70-4b62-ac03-505822ba0be9@samsung.com>
+References: <20260523140242.586031-1-maz@kernel.org>
+	<20260523140242.586031-4-maz@kernel.org>
+	<CGME20260609100324eucas1p146c5ffe86a104677143baaeca1d3feba@eucas1p1.samsung.com>
+	<ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com>
+	<86ik7st3nh.wl-maz@kernel.org>
+	<193cc406-0834-4dee-9b4a-02cdfd85e05c@samsung.com>
+	<86ecigt2hq.wl-maz@kernel.org>
+	<658bffa9-bd70-4b62-ac03-505822ba0be9@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDExNSBTYWx0ZWRfX4h4q1FdX33i6
- hmmNs4Nc6KbdBzx+wYpzCzHRLJWGqwdcHtjsfG5E1SAGa8qhYpIMQ8HqBiLzPk7C2mGY6xriDh3
- Y5bWfmhx9M5xh4+Nvey92iRR8UeZ7uqrx0lL9n6mzPjy1+jQyTcEikTxZixsKBLTONKV8P89aAu
- 4Y5N/uZ1WUoTv0rWB4KwxLbfqTI4q41xewvZiU4LZ4s2NHV1PlXcjxssml0PRJWFROoo6xi7LwH
- NCQlu9h4F0zV0ELq2Qd/Tkbc0uctDyuQnCW/65UlYvIQ991bMAo1FI0+w82oXhNlhY+fNxrohGV
- EDD449/tiY97rayOBMlylJjhhhgqttDTYU2VonEz206PfKBml0DT25LZ3wikUxA+81wdsYNu7Da
- a3xZzlw7Ij1XvFQwxdW+bHcLK9vnAgRfQozAq47N+dvuaKsSwxvx/8PmGw+ZfC4jqs43KbT2IBS
- /RH301mUoDLaiplPxsg==
-X-Proofpoint-GUID: 3VnXBCFEFmN9HIVfrA7mObX6FpwBhmSm
-X-Authority-Analysis: v=2.4 cv=L+ItheT8 c=1 sm=1 tr=0 ts=6a280371 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=xqWC_Br6kY4A:10 a=0buomsULfWgA:10 a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
- a=W-ArhqCL-FZDaypOkxMA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: 3VnXBCFEFmN9HIVfrA7mObX6FpwBhmSm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 suspectscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090115
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: m.szyprowski@samsung.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kern
+ el.org, afaerber@suse.de, eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com, florian.fainelli@broadcom.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-> > +/**
-> > + * oa_tc6_read_register_mms - function for reading a MAC-PHY register
-> in a
-> > + * memory map other than 0.
->=20
-> Is MMS 0 somehow special? Does it not work if passed to this function?
+On Tue, 09 Jun 2026 12:32:24 +0100,
+Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> 
+> On 09.06.2026 12:46, Marc Zyngier wrote:
+> > On Tue, 09 Jun 2026 11:35:24 +0100,
+> > Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> >> On 09.06.2026 12:21, Marc Zyngier wrote:
+> >>> On Tue, 09 Jun 2026 11:03:21 +0100,
+> >>> Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> >>>> On 23.05.2026 16:02, Marc Zyngier wrote:
+> >>>>> When running with at EL2 with VHE enabled, the architecture provides
+> >>>>> two EL2 timer/counters, dubbed physical and virtual. Apart from their
+> >>>>> names, they are strictly identical.
+> >>>>>
+> >>>>> However, they don't get virtualised the same way, specially when
+> >>>>> it comes to adding arbitrary offsets to the timers. When running as
+> >>>>> a guest, the host CNTVOFF_EL2 does apply to the guest's view of
+> >>>>> CNTHV*_El2. This is not true for CNTPOFF_EL2 and CNTHP*_EL2, as
+> >>>>> the architecture is broken past the first level of virtualisation
+> >>>>> (it lacks some essential mechanisms to be usable, despite what
+> >>>>> the ARM ARM pretends).
+> >>>>>
+> >>>>> This means that when running as a L2 guest hypervisor, using the
+> >>>>> physical timer results in traps to L0, which are then forwarded to
+> >>>>> L1 in order to emulate the offset, leading to even worse performance
+> >>>>> due to massive trap amplification (the combination of register and
+> >>>>> ERET trapping is absolutely lethal).
+> >>>>>
+> >>>>> Switch the arch timer code to using the virtual timer when running
+> >>>>> in VHE by default, only using the physical timer if the interrupt
+> >>>>> is not correctly described in the firmware tables (which seems
+> >>>>> to be an unfortunately common case). This comes as no impact on
+> >>>>> bare-metal, and slightly improves the situation in the virtualised
+> >>>>> case.
+> >>>>>
+> >>>>> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> >>>> This patch landed recently in linux-next as commit d87773de9efe
+> >>>> ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when
+> >>>> running VHE"). In my tests I found that it breaks booting of RaspberryPi5
+> >>>> board. Reverting it on top of linux-next fixes the issue. Here is a boot
+> >>>> log:
+> >>> Huh.
+> >>>
+> >>> [...]
+> >>>
+> >>>> arch_timer: cp15 timer running at 54.00MHz (hyp-virt).
+> >>>> clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+> >>>> sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+> >>> The interrupt appears to be advertised in the DT, but doesn't seem to
+> >>> fire. That's obviously not going to end well. My suspicion is that
+> >>> either the interrupt isn't wired (that'd be hilariously abd), or is
+> >>> left as Group-0 by the firmware (copy-paste from RPi4).
+> >>>
+> >>> Can you try the following hack and let me know if the kernel shouts at
+> >>> you?
+> >>>
+> >>> Thanks,
+> >>>
+> >>> 	M.
+> >>>
+> >>> diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+> >>> index ec70c84e9f91d..d05791e6cc0db 100644
+> >>> --- a/drivers/irqchip/irq-gic.c
+> >>> +++ b/drivers/irqchip/irq-gic.c
+> >>> @@ -213,6 +213,7 @@ static void gic_eoimode1_mask_irq(struct irq_data *d)
+> >>>  static void gic_unmask_irq(struct irq_data *d)
+> >>>  {
+> >>>  	gic_poke_irq(d, GIC_DIST_ENABLE_SET);
+> >>> +	WARN_ON(!gic_peek_irq(d, GIC_DIST_ENABLE_SET));
+> >>>  }
+> >>>  
+> >>>  static void gic_eoi_irq(struct irq_data *d)
+> >> I've applied this change, but it doesn't trigger any warning in the boot log.
+> > [+ Florian]
+> >
+> > Huh. So that really points at the timer not being wired into the GIC,
+> > Samsung style... Can you confirm that removing the EL2 virtual timer
+> > from the DT results in a booting machine?
+> 
+> With the following diff the board boots again:
 
-For addressing registers in MMS 0, we can just use the already existing oa_=
-tc6_read_register
-and oa_tc6_write_register functions. So, I meant to say that for transfers =
-to memory maps
-other than 0, this function can be used instead. Passing 0 in the mms param=
-eter would
-result in the same behavior as if the user called oa_tc6_read_register() wi=
-th the upper 16 bits
-of the addr masked (so there is nothing special about this case).
+OK, so it really is the EL2 virtual timer PPI that is misbehaving.
+Let's see what Florian comes up with on the status of this interrupt.
 
-I agree the documentation is poorly worded and I'll change it to something =
-like this in v4:
+Thanks,
 
-/**
- * oa_tc6_read_register_mms - function for reading a MAC-PHY register in a =
-specified
- * memory map.
+	M.
 
->=20
-> I'm not suggesting all the current calls are replaced with this, just
-> that the documentation might be inaccurate?
->=20
-> > + * @tc6: oa_tc6 struct.
-> > + * @mms: Memory map selector for the register.
-> > + * @address: register address of the MAC-PHY to be read.
-> > + * @value: value read from the @address register address of the MAC-
-> PHY.
-> > + *
-> > + * Return: 0 on success otherwise failed.
->=20
-> Isn't the "otherwise" actually an error code?
-
-This function can return the same set of error codes as oa_tc6_read_registe=
-r/ oa_tc6_write_register.
-Those can be -EPROTO, -EINVAL or any error code returned by the spi_sync().=
- Since the other register
-access functions have the same documentation for the return values, I kept =
-it the same here.
-I'll change it to "0 on success or a negative error code on failure".
-
->=20
-> 	Andrew
+-- 
+Without deviation from the norm, progress is not possible.
