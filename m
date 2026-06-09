@@ -1,132 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3DF3FD941
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:10:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED8B3AC0C0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781003413; cv=none; b=P5ZyzSHgq4jVo4D4RjukdBXcTK08ZCqzjCUTRGkN41ASlqVVHRGMctabQHl+KkK4pR0L1LvRLK5+ifpMYqq58bjfxvG2ZU+Wp4Z5Bz1RLAoHIpd1xeslibivewLFXhF7oTgKq9CgTGeZAf9KVl7agvIeH7dCRBg1l1t/VkXX4QI=
+	t=1781003485; cv=none; b=MfAPk0+/VB4wXDvg0Cu3FWUjntMhjKnyQ2XmR8/Q6oa8WH25tt/IiD93d4OwA8ZGg4sS17sziEVcRFfkJUvsmfLSaTQINLZz4JG/M2wFaPczHjNVKwNqLvyOALSzYp/tqt2g8bXqd/nSD2SkgWXXnTdaw5GRupAt9cpwdxYUqHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781003413; c=relaxed/simple;
-	bh=EiCrW0Iaiysq0ChVgMV2HJY6LsFdM+i/VgZDgomuY3A=;
+	s=arc-20240116; t=1781003485; c=relaxed/simple;
+	bh=ysKyVWJJAMNDWOIEIl/FwXKmJC/2+T41Elx7N1xztSk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GJjmNJilGgbDQyWhwl9BeHAQSKp9O4EG8vrep8+r5Y9nM1j2P2GqGOJZf5chbw225/eARQyegl94bRhTPoXCaE9coS00GhGj7GHC4Tl6vyYuRjAlZ/vqP28wDx3xGhFJeuXkn9jPCUvAgro+4go2lgin3tk6TeAQNY4o+X3hU1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBLmfHyc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=J5D/jx5B+2eSlSY8skez4mYIxReg6d1Rd/jS78KApyUSyGIzuzbq//6DzRunoo9WbeOFWzGGIakI1A43cbdU+anOVi2FKmh0Fa7buC71o5aqWgjtIucJl2+clSxzxyPutdCh8jheTEDVJFzvhf8ZFO3ZPUFq/w7McAPbrgw7FTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0L3R19u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBLmfHyc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E6D1F00898;
-	Tue,  9 Jun 2026 11:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0L3R19u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA031F00893;
+	Tue,  9 Jun 2026 11:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781003411;
-	bh=MUbffeF7oMxEf6VZpJOLGtU5rIB+AmFhwlDvj6Q+Bx8=;
+	s=k20260515; t=1781003484;
+	bh=1cWE87AtgOYzh2Z1yoRTyLk1k3r3hpqK8LzDE+kWKag=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CBLmfHycHCwhHlZEzV8mjUSq7mGiOlyiC2OtbZIvG/H+1Od8IpfxYYtXGa6cmVYhv
-	 q21ADEsUICEqX+/GNn8WUipsfW2qGuwtrvVqV27VLFxLLKKFZh0USkMP8vmr46xqXR
-	 iM8Sll0XHN1JoSsIHl4I1GQjrwkrn3K5a2GN2f74X4rEQtSzg5sV95kq6loJCn/SW3
-	 CRRixi7NW/flu/3BRO2R5bNEJAsqKApMzk/tV4kns8yYT5RT23t3WHZf0lcbcthBj+
-	 OOnGO8Vr8AQr7t6aSaJzFS1eEF6i3X3aqFXwV0UJD6YfbVWvyjDsR4q9HwfTNQJWRc
-	 wEBQC6A8lecmQ==
+	b=E0L3R19uES5lz2LJgkDgO6bcPjfQU0uMVEGrUi4F8+tuyqf0hzNhJDgIGT0dZAk/J
+	 iCw88jMq97L7+cwLEp3jVgSERQ2X1APQWX1w5lvHOmxZ4EaCZHauXtHMzWYU7wVS7X
+	 XkokoZ/pU9Yfc8GQNFH5K7CQApkE02CkapFn/2OdOrHzcKTq627xqpm2d+bfahQyE2
+	 b9bJJEBmYtdBiyHqAsDfMXa24sLmuQIG5ko86ojBGupm5vYYEdW0v/hPFHMQm7T2HH
+	 BAfFC7ozUNY/KeakBjCv/WYWo5zo/rFNhp491ySfCbROJY3pvhXKscJvKolHgPTy/y
+	 BzBEW8p6Udpbw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] clk: renesas: rzv2h-cpg: Extract PLL calculation
- math into a library
+Subject: Re: [PATCH v2 5/5] clk: renesas: r9a09g077: Add LCDC and PLL3 clock
+ support for RZ/T2H display pipeline
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260609105924.962573-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260609105924.962573-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260609105924.962573-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260609105924.962573-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 11:10:11 +0000
-Message-Id: <20260609111011.89E6D1F00898@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 11:11:23 +0000
+Message-Id: <20260609111124.2AA031F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] The new file rzv2h-cpg-lib.c uses EXPORT_SYMBOL_NS_GPL but fails to=
- include <linux/export.h> or <linux/module.h>, which will cause compilation=
- errors.
-
-Pre-existing issues:
-- [High] Multiplication of a signed 16-bit integer by an unsigned long resu=
-lts in incorrect calculations on 32-bit architectures, breaking the PLL fra=
-ctional calculation for negative values.
+- [Critical] Unsafe cast of a dynamically-parented grandparent clock leads =
+to type confusion and potential kernel panic.
+- [Critical] Uninitialized stack variable `init` passed to clock registrati=
+on framework causes undefined behavior and kernel panic.
+- [High] The `determine_rate` callbacks illegally mutate internal hardware =
+caching state, breaking the clock framework's stateless query design.
+- [High] Unchecked hardware reads can cause a division by zero panic during=
+ clock tree initialization.
 --
 
-commit 160d4676b08e19a075d3da03680cc8c66148bc74
+commit d7d90136d8420c2d9ce47a37c13ff3a993298ca0
 Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-clk: renesas: rzv2h-cpg: Extract PLL calculation math into a library
+clk: renesas: r9a09g077: Add LCDC and PLL3 clock support for RZ/T2H display=
+ pipeline
 
-Move the common PLL and divider parameter calculation logic from the core
-rzv2h-cpg driver into a standalone library file. Introduce the
-CLK_RZV2H_CPG_LIB Kconfig configuration symbol. The original driver retains
-wrappers that call into the new library helpers.
+Add the clock definitions and PLL logic required to supply the LCDC
+(VSPD/FCPVD/DU) blocks on the RZ/T2H (R9A09G077) SoC. Introduce a new PLL
+clock type and implement rate recalculation, programming and locking sequen=
+ces
+for PLL3.
 
-> diff --git a/drivers/clk/renesas/rzv2h-cpg-lib.c b/drivers/clk/renesas/rz=
-v2h-cpg-lib.c
-> new file mode 100644
-> index 0000000000000..98e789df5d7f1
-> --- /dev/null
-> +++ b/drivers/clk/renesas/rzv2h-cpg-lib.c
+> diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9=
+a09g077-cpg.c
+> index 93b15e06a19bc..44c8b5aaa2afb 100644
+> --- a/drivers/clk/renesas/r9a09g077-cpg.c
+> +++ b/drivers/clk/renesas/r9a09g077-cpg.c
 
 [ ... ]
 
-> +				/* Compute (Ffvco * 65536) */
-> +				fvco =3D mul_u32_u32(p.m * 65536 + p.k, fref);
-> +				if (fvco < mul_u32_u32(limits->fvco.min, 65536) ||
-> +				    fvco > mul_u32_u32(limits->fvco.max, 65536))
-> +					continue;
+> @@ -480,6 +576,272 @@ r9a09g077_cpg_fselxspi_div_clk_register(struct devi=
+ce *dev,
+>  	return hw->clk;
+>  }
+> =20
+> +static unsigned long r9a09g077_cpg_pll3_clk_recalc_rate(struct clk_hw *h=
+w,
+> +							unsigned long parent_rate)
+> +{
+> +	struct pll_clk *pll_clk =3D to_pll(hw);
+> +	u32 ctr0, ctr1;
+> +	u8 pdiv, sdiv;
+> +	u64 rate;
+> +	u16 mdiv;
+> +	s16 kdiv;
 > +
-> +				/* PLL_M component of (output * 65536 * PLL_P) */
-> +				output =3D mul_u32_u32(p.m * 65536, input_fref);
-> +				/* PLL_K component of (output * 65536 * PLL_P) */
-> +				output +=3D p.k * input_fref;
+> +	ctr0 =3D readl(CPG_PLL3_VCO_CTR0(pll_clk->reg));
+> +	ctr1 =3D readl(CPG_PLL3_VCO_CTR1(pll_clk->reg));
+> +
+> +	pdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR0_PDIV, ctr0);
+> +	mdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR0_MDIV, ctr0);
+> +	kdiv =3D (s16)FIELD_GET(CPG_PLL3_VCO_CTR1_KDIV, ctr1);
+> +	sdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR1_SDIV, ctr1);
+> +
+> +	rate =3D mul_u64_u32_shr(parent_rate, (mdiv << 16) + kdiv, 16 + sdiv);
+> +
+> +	return DIV_ROUND_CLOSEST_ULL(rate, pdiv);
 
 [Severity: High]
-This is a pre-existing issue, but since the commit message mentions this
-library will be shared with the upcoming RZ/T2H platforms (which are 32-bit=
-),
-could this calculation corrupt the output frequency when p.k is negative?
+Can pdiv be 0 here if the hardware defaults to a 0 state or the bootloader
+has not initialized the PLL?
 
-On 32-bit architectures, input_fref (unsigned long) is 32-bit. When p.k
-(s16) is negative, standard C promotion rules convert it to a 32-bit
-unsigned integer. The multiplication evaluates as a 32-bit unsigned product,
-which is then zero-extended to 64 bits before being added to output (u64).
+If pdiv is 0, will this DIV_ROUND_CLOSEST_ULL() macro trigger a division by
+zero panic during clock tree initialization?
 
-Instead of subtracting from output, won't this add a large positive number?
+> +}
+> +
+> +static int r9a09g077_cpg_pll3_determine_rate(struct clk_hw *hw,
+> +					     struct clk_rate_request *req)
+> +{
+> +	struct pll_clk *pll_clk =3D to_pll(hw);
+> +	u64 rate_millihz;
+> +
+> +	if (req->rate =3D=3D pll_clk->cur_rate)
+> +		return 0;
+> +
+> +	rate_millihz =3D mul_u32_u32(req->rate, MILLI);
+> +	if (!rzv2h_cpg_get_pll_pars(pll_clk->limits, &pll_clk->pll_parameters,
+> +				    rate_millihz)) {
+> +		dev_dbg(pll_clk->dev,
+> +			"failed to determine rate for req->rate: %lu\n",
+> +			req->rate);
+> +		return -EINVAL;
+> +	}
+> +	req->rate =3D DIV_ROUND_CLOSEST_ULL(pll_clk->pll_parameters.freq_millih=
+z, MILLI);
+> +	pll_clk->cur_rate =3D req->rate;
 
-> +				/* Make it in mHz */
-> +				output *=3D MILLI;
-> +				output =3D DIV_U64_ROUND_CLOSEST(output, 65536 * p.p * divider);
+[Severity: High]
+Is it safe to mutate the driver's cached state (pll_clk->cur_rate and
+pll_clk->pll_parameters) inside a .determine_rate callback?
+
+Since the Common Clock Framework expects .determine_rate to be a stateless
+query, could speculative queries like clk_round_rate() corrupt the cached
+parameters, causing a subsequent clk_set_rate() for a different rate to
+program the hardware with the wrong values?
+
+> +
+> +	return 0;
+> +}
 
 [ ... ]
 
-> +			}
-> +		}
+> +static int r9a09g077_cpg_lcdc_div_determine_rate(struct clk_hw *hw,
+> +						 struct clk_rate_request *req)
+> +{
+> +	struct r9a09g077_lcdc_div_clk *dsi_div =3D to_lcdc_div_clk(hw);
+> +	struct pll_clk *pll_clk =3D to_pll(clk_hw_get_parent(clk_hw_get_parent(=
+hw)));
+
+[Severity: Critical]
+Does this safely cast the grandparent hardware structure to struct pll_clk?
+
+The immediate parent of this clock is CLK_SEL_CLK_PLL3, which is a mux that
+can be parented to either .loco or .pll3. If the bootloader leaves the mux
+parented to the fixed .loco clock, will clk_hw_get_parent() return the
+fixed clock's hw structure instead?
+
+If so, would casting it to struct pll_clk via to_pll() and dereferencing
+its fields (like pll_clk->limits below) cause out-of-bounds memory accesses
+and a panic?
+
+> +	u8 table[RZT2H_MAX_LCDC_DIV_TABLES] =3D { 0 };
+> +	struct rzv2h_pll_div_pars dsi_params;
+> +	const struct clk_div_table *div;
+> +	unsigned int i =3D 0;
+> +	u64 freq_millihz;
+> +
+> +	for (div =3D dsi_div->dtable; div->div; div++) {
+> +		if (i >=3D RZT2H_MAX_LCDC_DIV_TABLES)
+> +			return -EINVAL;
+> +		table[i++] =3D div->div;
 > +	}
 > +
-> +	/* If no valid parameters were found, return false */
-> +	if (best.error_millihz =3D=3D S64_MAX)
-> +		return false;
+> +	freq_millihz =3D mul_u32_u32(req->rate, MILLI);
 > +
-> +	*pars =3D best;
-> +	return true;
+> +	if (!rzv2h_cpg_get_pll_divs_pars(pll_clk->limits, &dsi_params, table,
+> +					 i, freq_millihz)) {
+> +		dev_err(dsi_div->dev,
+> +			"LCDC divider failed to determine rate for req->rate: %lu\n",
+> +			req->rate);
+> +		return -EINVAL;
+> +	}
+> +
+> +	req->rate =3D DIV_ROUND_CLOSEST_ULL(dsi_params.div.freq_millihz, MILLI);
+> +	req->best_parent_rate =3D req->rate * dsi_params.div.divider_value;
+> +	dsi_div->divider =3D dsi_params.div.divider_value;
+> +	pll_clk->cur_rate =3D req->best_parent_rate;
+> +	pll_clk->pll_parameters =3D dsi_params.pll;
+
+[Severity: High]
+Does modifying dsi_div->divider, pll_clk->cur_rate, and
+pll_clk->pll_parameters here violate the stateless design of CCF rate queri=
+es?
+
+Similar to r9a09g077_cpg_pll3_determine_rate(), could speculative queries
+corrupt the internal state of both this driver and its grandparent's PLL?
+
+> +
+> +	return 0;
 > +}
-> +EXPORT_SYMBOL_NS_GPL(rzv2h_cpg_get_pll_pars, "RZV2H_CPG");
 
-[Severity: Low]
-Does this file need to include <linux/export.h> or <linux/module.h>?
+[ ... ]
 
-The EXPORT_SYMBOL_NS_GPL macro is used here, but the necessary headers
-are missing from the includes at the top of the file. Could this cause
-compilation errors on some architectures due to implicit declarations?
+> +static struct clk * __init
+> +r9a09g077_cpg_lcdc_div_clk_register(struct device *dev,
+> +				    const struct cpg_core_clk *core,
+> +				    void __iomem *addr,
+> +				    struct cpg_mssr_pub *pub)
+> +{
+> +	struct r9a09g077_lcdc_div_clk *clk_hw_data;
+> +	struct clk **clks =3D pub->clks;
+> +	struct clk_init_data init;
+
+[Severity: Critical]
+Is it intentional that the struct clk_init_data init variable is allocated
+on the stack without being zero-initialized (e.g., struct clk_init_data
+init =3D {};)?
+
+Will unassigned fields like parent_data and parent_hws contain random stack
+garbage, causing the framework to attempt to dereference them in
+devm_clk_hw_register() and resulting in a panic?
+
+> +	const struct clk *parent;
+> +	const char *parent_name;
+> +	struct clk_hw *hw;
+> +	int ret;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609105924.9625=
-73-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+73-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D5
