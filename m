@@ -1,129 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D127D370AF8;
-	Tue,  9 Jun 2026 16:08:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA7337268F
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781021338; cv=none; b=uDHFYQO6aJUaXD6uk11SMJEaLCOwqp3kI7tQOMEMa+/x59xEkN5TNfQcoZq5ky2Pw7M1G6K8xVL9H8KzlQH3XNj1LIU5yQDb8DgHmSs6XU/RJxOchUCcuE6lhF2C6SNCEseu5UoPNGJCT+WPQvT6xWY45rPRXVLwEyma2tohn7U=
+	t=1781021407; cv=none; b=QULNNMob7lnIGSCzNwiBnKXJPIKZV0Eu/Q49MDNctVKvE0mDeKimS9siB/fXBw5cjP12hhpNAyYSbB0l8Ysvmb5LAEfRpCONpv4kVR/S3n+oX7ICsYwJgoMK9i8GAgxTY2zh9lDlS0KxfddvFbE3rFJfTd5Ys40WKmZJi6NYoAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781021338; c=relaxed/simple;
-	bh=vyCp2p5X5iqBR090E+xlLAPU8K1FYQKLJCFtd6nS6VQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qp/L32jhrMGmJG8LLiy4+1UHDZN5hfJQ/+JMP/Sz9WJ9/y7hZNqDfia1g9AtOW0rWLu0Glc5zyzPAPWxwvIg71QZkcchBVpUeqO+axa+i9qnYAE01N4TfOlGguSz/vVrefpEYvfJ4n3WINUX70UAbi6SJE6QZJAO6JdBm37WNG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLbL7nRM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781021407; c=relaxed/simple;
+	bh=RLoEiDvQI23Ox8jg30VQGX4Iwfm7ISwxXbu9I23mu5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G7MpaxhSi7ZeyJrX4uaiDgwZbnFSBqppNMdfec5K2LTpUiyuJy2bRXRDtTUKBb4nDhNl6Cxjc3tgHixh96BMg7ox5MyVnA3diRmJd98Ze4MwSeqY4sjI7tH8BOIURmflyurzSVt5nE1xoRQBu63Q0/Sy1QSmP3JSZCY7U18Ll98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=kp679Dua; arc=none smtp.client-ip=209.85.160.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLbL7nRM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E931F00893;
-	Tue,  9 Jun 2026 16:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781021337;
-	bh=Jx0m1CTbUVR7hcsktvXo2yEe+jD7bQ3IVimdzKeqnnY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hLbL7nRMN5Lln+OBoytoF8Fb4JIUzl2MvtqQlK+PsH/G2qO3P3fkIT5cBfi3u9ZbI
-	 ACdbEsusPxCoygmPffviS2zuOcAnJ5fav55YdsIq1RxXwFn513YqBPmJyPCDIRixx3
-	 ig8u6zCIs07WGvFsFJY88hIciHv7mgeaVnK51uAcIrHIRxyB0mxzjumUQVSRoMnNX2
-	 +/4UYH13kVOCW2T1PRhUh9g5QGloQO5ilZ+1ksfRdv+YAzwQHL//LNVWT40Pd4hdV2
-	 JQo/nsfSCQJv+LybS1uArM1ZsiDprBl2VeNx6pcIveQKzWJVwp/kBAI9noahsxXnL0
-	 d/j3jCHGVZrBQ==
-Date: Tue, 9 Jun 2026 17:08:49 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Yunhui Cui <cuiyunhui@bytedance.com>
-Cc: akpm@linux-foundation.org, alex@ghiti.fr, andrew+kernel@donnellan.id.au,
-	aou@eecs.berkeley.edu, apatel@ventanamicro.com, apopple@nvidia.com,
-	atishp@rivosinc.com, baolin.wang@linux.alibaba.com,
-	cleger@rivosinc.com, conor+dt@kernel.org, debug@rivosinc.com,
-	devicetree@vger.kernel.org, guodong@riscstar.com,
-	hui.wang@canonical.com, krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	liu.xuemei1@zte.com.cn, namcao@linutronix.de, nick.hu@sifive.com,
-	palmer@dabbelt.com, pincheng.plct@isrc.iscas.ac.cn, pjw@kernel.org,
-	qingwei.hu@bytedance.com, ritesh.list@gmail.com,
-	rmclure@linux.ibm.com, robh@kernel.org, wangruikang@iscas.ac.cn,
-	zhangchunyan@iscas.ac.cn, zong.li@sifive.com
-Subject: Re: [PATCH v3 1/3] dt-bindings: riscv: clarify Svadu boot-time
- behavior
-Message-ID: <20260609-washboard-fantasize-ddf0a9752df8@spud>
-References: <20260609130021.99899-1-cuiyunhui@bytedance.com>
- <20260609130021.99899-2-cuiyunhui@bytedance.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="kp679Dua"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-440d9bfa309so4294596fac.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:10:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781021404; x=1781626204; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/RNb4id2txtpLRqVF8IkFMdlDYN5r4X9vT3DkpgA6KE=;
+        b=kp679DuaqNkmFHhbB8cN9yxOjupAJ+LBTHfPGyJzmFq1zeQ5NXcbY/cUivYMwfxmxf
+         jWYGuBwGddCUENJ1KsCoq6EXNRA0o5JLb8a3Pn1RrKOnFFEpRnRxcjlNUvmsf+CHOpbi
+         IAPje4uoPbtIY0SJirLhSl0cdsBWeS6dBMlpcxn2NsWS38NYyYL12AND0zNZHAqnWcSE
+         nAox8u8g83YNLO3yXErnLEipvBki4xCeW297UBRvQHjFto5FEaMXrRW6DZ5a7mCMaSpk
+         9YGfsqgPaLC5cnVBcLOC1Un8paOEu7TjYRTE3XuJRZRXddzyeJYVjwdApycnJv6c6pT2
+         5RwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781021404; x=1781626204;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/RNb4id2txtpLRqVF8IkFMdlDYN5r4X9vT3DkpgA6KE=;
+        b=Tmral6+7/g/hJzrcprVN9tyd4B3PjJutKhJeHyVHGXyuzNlShvm/6JoI+0k7Paj9ZO
+         31Eu/zaTwxFtRMQELle1p6Nj65sOa7QLtp74W1Z/saUrcxpkM2U1DeJaARMxFNdpWPQt
+         DR+uetW8BMJ7TBYaRN/Z5dzh6fqZ4ht7yEQ0eDakFAYXEF8hETJUPThlS/8TzEomvTPT
+         9FamzKC4QQvJ2Un+B5XBLY70xQ4eWR0tbqo/sJov1B9kTUdHVrK6QQ9n9KNlGpEh34k9
+         nN8O1L0qD+TvLwnX/3QFmai5BknHAKowsoiNxQRgDcD399rkKSshojMEGNBxObxm5mJc
+         MIXQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+/lGcnfBReIDCEBO5J9HNHbfQ1td4TWRFTyDWOCZcrJI9qGDRc84mCyJ91gasJy7WarIUVKmEJW73M@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuQEBkSDfSXpF5wQTSDWCHbRu0AqO39BvJ7gzEN/YCRsPsGVS0
+	8y2ng4RbG+25PjD6VigQRoBU1je6DZqqa7vEWUetedj0RhiQbGPT0FymGtfZGxwvuX4=
+X-Gm-Gg: Acq92OHMfM0EzxL/TO2v6QJ3ukXgbINl67DH+pVq1n5fsuIt7Cxs6OJsivwpruN1oNa
+	TWxAqyasjWfWoUMLoTHv/Drjb9Iv4Ku5eHt+2XKZ/IobfShExrw61DwUhBab5Pl3/jrMkqXShLD
+	Ohw8LGfHR7OtnDXvKW6/jKxaI2VYfnRnqz5R+XlpCRyhiydKTY2BECMb1aF4twVUJwF42vsgZqg
+	l9gCPrXqZKP5SngtND8J2xem+anwhQ5IbWbNA7VCAUnUVIcNvKJt5bybN1K43KhkHwcfdH/WQHS
+	SwpSMgM0+6nj7uAZmoXtg4Ckdh2Y6BRH/LudWWsdpKVh8K8+qZUt2ZBFNl822Zj2CCEeupZCFP+
+	JoSLkLUo5EbNzKeNSPvcxpQztqbptTGvQymuqnbA2PSFt9p+CFn6TYUMUumE4MAhkoxXPYmCi+l
+	X63w7rlE1jzoF+4Jb/a8ETA3sojU39aTSIiJx+K9rrwXzSHWWfxEH1u+/qm8nHCAAWK2ruJgmGf
+	OEAViZw/WaaZl1sFXnuEnI=
+X-Received: by 2002:a05:6871:28a8:b0:439:b99e:441e with SMTP id 586e51a60fabf-4413d68f54emr12001176fac.1.1781021403980;
+        Tue, 09 Jun 2026 09:10:03 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:2516:8f73:2dbb:a61e? ([2600:8803:e7e4:500:2516:8f73:2dbb:a61e])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-440d84def23sm18401345fac.17.2026.06.09.09.10.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 09:10:03 -0700 (PDT)
+Message-ID: <6305149b-d334-491f-85c2-085fe42cae98@baylibre.com>
+Date: Tue, 9 Jun 2026 11:10:02 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XXuB5ejAtQyRxm8b"
-Content-Disposition: inline
-In-Reply-To: <20260609130021.99899-2-cuiyunhui@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] iio: adc: Extend ti-ads1100 driver
+To: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, andy@kernel.org,
+ marcelo.schmitt@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mike.looijmans@topic.nl, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jorge.marques@analog.com,
+ antoniu.miclaus@analog.com, mazziesaccount@gmail.com,
+ jishnu.prakash@oss.qualcomm.com, duje@dujemihanovic.xyz, wens@kernel.org,
+ sakari.ailus@linux.intel.com, linusw@kernel.org
+References: <20260607183542.368184-1-jakubszczudlo40@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260607183542.368184-1-jakubszczudlo40@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
---XXuB5ejAtQyRxm8b
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jun 09, 2026 at 09:00:18PM +0800, Yunhui Cui wrote:
-> Clarify that systems which advertise only Svadu have hardware PTE A/D
-> updating enabled at boot, while systems advertising both Svade and Svadu
-> must enable Svadu explicitly with SBI FWFT.
->=20
-> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-> Reviewed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+On 6/7/26 1:35 PM, Jakub Szczudlo wrote:
+> Extend ADS 1100 driver to support ADS1110, which is a pin-to-pin 
+> compatible device with higher resolution. This patch also updates the 
+> device tree bindings and Kconfig description to reflect the new 
+> supported device.
+> 
+> Signed-off-by: jszczudlo <jakubszczudlo40@gmail.com>
 > ---
->  Documentation/devicetree/bindings/riscv/extensions.yaml | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Do=
-cumentation/devicetree/bindings/riscv/extensions.yaml
-> index 2b0a8a93bb214..b09888e9988de 100644
-> --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> @@ -294,10 +294,10 @@ properties:
->                 of the PTE A/D bits or page faults when they need updated.
->              2) Only Svade present in DT =3D> Supervisor must assume Svad=
-e to be
->                 always enabled.
-> -            3) Only Svadu present in DT =3D> Supervisor must assume Svad=
-u to be
-> -               always enabled.
-> +            3) Only Svadu present in DT =3D> Supervisor must assume Svad=
-u is
-> +               enabled at boot.
+> jszczudlo (3):
+>   dt-bindings: iio: adc: Update title and enum
+>   iio: adc: Update Kconfig description for TI_ADS1100
+>   iio: adc: Add ti-ads1110 support to ti-ads1100 driver
+> 
+>  .../bindings/iio/adc/ti,ads1100.yaml          |   3 +-
+>  drivers/iio/adc/Kconfig                       |   6 +-
+>  drivers/iio/adc/ti-ads1100.c                  | 165 +++++++++++++-----
+>  3 files changed, 131 insertions(+), 43 deletions(-)
+> 
 
-Commit message is missing an explanation of why this behaviour change is
-not problematic. Although, to be honest, I am not sure what the changed text
-actually means. If only Svadu is present, then the hardware doesn't support
-Svade, and therefore Svadu would never be anything other than enabled so
-changing the wording to specify "at boot" seems less clear?
+I assume this is v2 of [1]? the subject should include [PATCH v2] and the
+cover letter should include a changelog. See [2].
 
->              4) Both Svade and Svadu present in DT =3D> Supervisor must a=
-ssume
-> -               Svadu turned-off at boot time. To use Svadu, supervisor m=
-ust
-> +               Svadu is disabled at boot time. To use Svadu, supervisor =
-must
-
-This change doesn't actually do anything, "turned-off" and "disabled"
-are the same thing - although the latter is more desirable wording I
-think. I have no problems with this portion of the patch.
-
->                 explicitly enable it using the SBI FWFT extension.
-> =20
->          - const: svadu
-> --=20
-> 2.39.5
->=20
-
---XXuB5ejAtQyRxm8b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaig6kQAKCRB4tDGHoIJi
-0qsZAPwId/1zTcbLJx60ON63GfqhF2b8UvLVSnZudmSdT6UhsQD/XAQQJuzW96SR
-XFKW40bbtydXx+nfrNFUAL10XllnQgI=
-=8vKN
------END PGP SIGNATURE-----
-
---XXuB5ejAtQyRxm8b--
+[1]: https://lore.kernel.org/linux-iio/20260527164312.355729-1-jakubszczudlo40@gmail.com/
+[2]: https://www.kernel.org/doc/html/latest/process/submitting-patches.html
