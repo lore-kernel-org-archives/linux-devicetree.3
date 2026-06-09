@@ -1,146 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1030F3546C3
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:01:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7AB1F30BB
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781006488; cv=none; b=TrV3Adl88NPFCGJxGjSl4f1xrLP20+Sva90JrGhPdQFsSsiJS7233bW/uGqA0A2WySe3ZWaRnhoc+qqC8+OZtBLum3zxb+LnBbQ3zDqNscnLo3L2u6jdY/PkZ9se3I8bmxRfO3GisAjJwHwfdNpZoR8ayqWYD/wmgS92I5owdM4=
+	t=1781006624; cv=none; b=t6epMK89PuFCW8OoVgoBMJSPq7ykh+i0N5SwRq8QkSf2s8pneEb8Syzec+MV4XO4LSwfPa9upMOBWWhfZcPk4H/u5GCiZedMoev6A6gVeilsGfC4bMp20T3AhlRuvwqMABkFFqEOzPciAs+1zX/UYPKcPI5fi3zRi1ga/lxcliM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781006488; c=relaxed/simple;
-	bh=20E4jlDgRHmL8VjI6o84T0Vsa704YAzLsh2SAUlBpGM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T1lYMhmnUNluPh1hBkg1TyvIRcEKEMYQ0hXL8I8jifvelqHSUlsBrj5vvV7k+zZzjhof5utmJd21NORz+XXMF+asWabrCUGhyWlLTErZD9Jrw142bHkYxF4z1PQsrmhbTUHqrfIoU909Y7jDspO0DnkjScWXCVPmHuaREV9CPVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oh8YU1Q5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781006624; c=relaxed/simple;
+	bh=HfvR5gvfgsOcrHJ3L3OGl/zGy5KibbcsIuOZax3I7w4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S43YzvrX5VTNbdavPq4/9kc++vJH7DLzHg05szw0BHFVuAX7ciiKldiLww2wdS6mPP78L48dFJB0eS6ZRGeP2gHtSaJgjdIiZmJoTMxFgE04a8ekJLtQF378u0aG39xvv0G0KauFtTbGjbT7uu+WRkuOvhalz1RqjFOeW191uSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BxoC9Ezl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g5t44r2Y; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oh8YU1Q5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451E41F00898;
-	Tue,  9 Jun 2026 12:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781006486;
-	bh=pB99YzbAehabNUC1Kop/AANyI7ouF40y05SIuLsoefI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oh8YU1Q55YHH7uUD7m6y2pe2dbK2MsmN6qZ8AL20+z4XYenP+ftY+IfpubKblabU6
-	 zvZinV5Q5WOmpzx3p+XP5Zd13lL4Xvd7Mvzk0gvHMPPk0sByFrSeoJ8A0UuPu5QyCs
-	 YnSpXHxhBkHpXPOJbY1t6bOrXjiQciLlBRkHhD91YQNuIYIxJMWYruhrnmQH8N7acr
-	 lcuyQM6221z3JtZGOgc/nJyKjenjgWHfLJ5d3KFoEnEkWKTVpaLe+BbEK1MbJOtD63
-	 LZm8HG1zr19nuASaxiQrow7ojgJS/h7HV7H/7DnZzP/5gr+gjtoBYiHRFveBqWVllU
-	 hwM3hznSNmrDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/11] ASoC: renesas: fsi: Fix trigger stop ordering
-Reply-To: sashiko-reviews@lists.linux.dev
-To: phucduc.bui@gmail.com
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609113836.45079-4-phucduc.bui@gmail.com>
-References: <20260609113836.45079-4-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 12:01:25 +0000
-Message-Id: <20260609120126.451E41F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BxoC9Ezl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g5t44r2Y"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659BnAUt2565988
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 12:03:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	t2yOM2NAjtAyFgfFhbJW5TqogRr+sQYkIoqann+cFi4=; b=BxoC9Ezl00y3ZCc9
+	V6RNTeDCYrLxnHn5u7ZXXjKT4JnD0EgVuhlR4G00zRngdGw33S2w9srfMOuBkcaG
+	WRpFzJWsFNLyTNKiyxW0Dha0ail5foTmmkZ0CC8U6BiWF/nYWr2F0hIKANz8T7kM
+	jJgtD+3gVE1y2W/4LEVIs188XujqZt+98a+NohmZMUfmBe33rJIOdv803v3qisB+
+	UaICFliMjPL/7Wo8iU9rf/jK4EynXDGN3mggxMvd3Yn3tDKMM76/wQ9ibsJRno7y
+	TAmCiGjXOMho3NgIuuEcmCqNPu+UqYBWoVfsiVY+63RxMxRJF9yuPYgCglJ59+al
+	vOs2QQ==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeeas3dt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 12:03:40 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-59eb55f6c0eso325093e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 05:03:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781006620; x=1781611420; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=t2yOM2NAjtAyFgfFhbJW5TqogRr+sQYkIoqann+cFi4=;
+        b=g5t44r2Yxp3ABwCqoK4hyF91HHK26M+5ziG9iRld25cqucLaEWOZlbRILWSqM9SBNC
+         jCDBS55rgycn7ZzCUAcQ6MaT/inK9SefCkuVTleosEZe6bjxvOcjJBFiOiUgKsjhEruM
+         z7AEoOn6oVOvE6+sxVJXazmGUrAR5PQk1CYF/h1s/NfvcjwK9sTZWs8VFP2PXBW6HyxO
+         DyzJFBJkXphPGMxXQfu37lVA4xOWL8I/2xm0mwVd+Vw5zzMPq9pMBSYhHBCptvbcywCI
+         NstuT282qr2zdxPdTOMFyzqDKLL9lfJ2WfieS5P2IL3iCiPMhr57Rd2u7Addm45ZdlVw
+         55+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781006620; x=1781611420;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=t2yOM2NAjtAyFgfFhbJW5TqogRr+sQYkIoqann+cFi4=;
+        b=XUeoNhohZxQGthUqnONuDRG4T/I9x+gbl+99SV7OloJOX7CJ4pByDs1A1trKRLVGLy
+         rBFBxhv5IqDPmNpNoG7iZInDb5YPZxo62fL7DyA2czbnmQ7CSX6xM2+GNmZ+I6HOpHyI
+         mMAyIJXgzbY39PlArUsp/u83Jqv1jYC/XVOiIbwrV440LnJrVV0E41fZvTXERDX4EW6Z
+         hSwd9uYd4sOaiuRfWGQDXIF5cErQSBXCS1ZDX/k3/WsiDrYJJjHIZ6p+WrK0K/DTq7u/
+         pxOeP3C40EZJjjmmo5PcztevuzkGrsBHsoSH8yFH/u0JloffvMkzeX+V/bLw9/e96Sf6
+         7S5g==
+X-Forwarded-Encrypted: i=1; AFNElJ8hSG33ojnXOnNWyc4bbv2tmHp2kz6FHbhlL7YCAHuZVR0PVHcmUMMMtcprEavpJz7sW0fsKZrm82DJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuL2wvUnphK1zTB3zeHJhc76rEO2ds/8L3++Pln4l4MJuFXfn4
+	PBTAOzNJl7pe8yq9iJsLKbJYkoA3gQ8tkQbQaaTqUk4b6EfQi2aHcL7d4A1xs49/JxbugSSPeY8
+	SSUr9b3rJWctTRcEYkH0vkHJKin+71Igk9vC7yiaVlaRKg0sT4PLJxyFB/CRU3RDp
+X-Gm-Gg: Acq92OG4kKLlJN/eiyzO8laiNU5tJR123FpIpejLcA+f4f5NPk5ahjvimQwIRKh0Fz7
+	qllixRStYWxTxoB8cbsc1ABhHTRyorNT5L6eeBXXc8BDDndcRWhe/54YD55WIh7si9jXSVV8VC4
+	MOXKy3kRnoo/JFu4cPWfCDWNIglJOIv1DT/HTROaoM597VEGsdjRxUU90n5NlXCnTpVGDfyZLVY
+	fnAivHlFWMoG/wFC3eFWCz8ds9CTm0ovclk71WU+N7ly+dv/MnU06z5XfPVXv+Jj2H7A2T9ZTvN
+	hNIEnwJGZE8gbRp6+qIbUK0adminzNQkiWQGXrm/FtEuKA8A3LCPOpWCMvQ+Cvt8sUJmDPB7Uyh
+	X9M/sGY1XLhCcXgHtgpf/C2dBay9kpbYC/mtE1MJbfadMatxa0rKTmaLD
+X-Received: by 2002:a05:6102:5a92:b0:631:b312:a2a6 with SMTP id ada2fe7eead31-71913522647mr343116137.0.1781006619623;
+        Tue, 09 Jun 2026 05:03:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:5a92:b0:631:b312:a2a6 with SMTP id ada2fe7eead31-71913522647mr343091137.0.1781006619215;
+        Tue, 09 Jun 2026 05:03:39 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e64e29c0esm8716512a12.7.2026.06.09.05.03.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 05:03:38 -0700 (PDT)
+Message-ID: <e9573827-81b5-4c75-9d1a-d59a4809300c@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 14:03:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/8] remoteproc: qcom: pas: register TMD thermal
+ cooling devices
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-3-291a2ff4c634@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260609-qmi-tmd-v3-3-291a2ff4c634@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: UVnNSLtDkDg33xTdYjr_FSaycx4rNFlQ
+X-Authority-Analysis: v=2.4 cv=Iey3n2qa c=1 sm=1 tr=0 ts=6a28011c cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=x89XBY5VHgNHtdzuPNgA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDExNCBTYWx0ZWRfX/jz7k/GkLWIX
+ qpKMDLS0IMhqSQ3ePC32oG5mAk50+46ARxm8mWInjK+/13FMyVeifwzkEcB8iKdgDL0uhy47uk9
+ 800oQpniYaVQstVcOr2eAK+RzKQMGrEzml8LkdFExWBspKpsJj//9sWePDJFTFf/l3MBWDLGqYL
+ Bd0X3BOuWcZZYiUR4o3Kmbg/dfRtuMXDjlVy1E5r9rIYmKm7HsWPSGPKIomWpnkl935USUlbmvu
+ NHnAgUdPx43okw1yBdpSAji6xN/7dM4I6nRfVP91WV+sGOwiiMHCtGn9XWr+4kF6E4MK/W5VKfX
+ zNMxDBR1wjCmkz1FWzevJu9aWpIf7j9bEMQCXL9zPXeQhNEQ5tlkWxZF1+/iRuusInKtwJuPv/3
+ z789gahdqi7W54BmVuDcEjMW5LtLKMoSA5AxShS8FsiO5xe2obVoMWApkCPaqXA8FHuqo+Q1Qcn
+ atS3zcxUq973CW96w5g==
+X-Proofpoint-GUID: UVnNSLtDkDg33xTdYjr_FSaycx4rNFlQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090114
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 6/9/26 12:22 PM, Gaurav Kohli wrote:
+> Add support for Thermal Mitigation Devices (TMDs) to enable
+> thermal throttling of remote processors through QMI.
+> 
+> This enables the thermal framework to request mitigation when remote
+> subsystems (modem, CDSP) contribute to thermal issues.
+> 
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 
-Pre-existing issues:
-- [High] Pre-existing data race in fsi_clk_enable() leads to premature cloc=
-k disabling (bus hang) and breaks full-duplex operation.
-- [High] Missing IRQ and DMA synchronization during stream shutdown leads t=
-o TOCTOU NULL pointer dereferences and hardware bus hangs.
---
+There's no other signs of Daniel in this patch, please fix the
+tags chain
 
-commit b345d93585828cc07f1537860417394b58877fa1
-Author: bui duc phuc <phucduc.bui@gmail.com>
+[...]
 
-ASoC: renesas: fsi: Fix trigger stop ordering
+> +static int qcom_pas_setup_tmd(struct qcom_pas *pas)
+> +{
+> +	struct device *dev = pas->dev;
+> +	struct device_node *np = dev->of_node;
+> +	const char **tmd_names;
+> +	int num_tmds, ret, i;
+> +
+> +	if (!of_find_property(np, "tmd-names", NULL))
 
-This patch changes the trigger stop ordering by calling fsi_stream_stop()
-before fsi_hw_shutdown(). This ensures that the sequence matches the
-existing order in the suspend path.
+Let's use device_property_present() instead
 
-> This change ensures all register accesses during stream shutdown are fully
-> completed before disabling the clocks.
+> +		return 0;
+> +
+> +	/* Get the TMD names array */
+> +	num_tmds = of_property_count_strings(np, "tmd-names");
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is this statement accurate
-without synchronization?
+Is this something we can stuff into platform_data for a given rproc on a
+given SoC (for which we already store *some* data in the PAS driver)?
 
-Without synchronize_irq() and dmaengine_terminate_sync() in the shutdown
-sequence, an in-flight fsi_interrupt() or fsi_dma_complete() could run
-concurrently.
-
-If an in-flight interrupt handler accesses FSI registers after
-fsi_hw_shutdown() disables the hardware clocks, could this trigger an
-asynchronous bus hang?
-
-> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> index 8cbd7acc26f49..800ac40f9680d 100644
-> --- a/sound/soc/renesas/fsi.c
-> +++ b/sound/soc/renesas/fsi.c
-> @@ -1586,10 +1586,10 @@ static int fsi_dai_trigger(struct snd_pcm_substre=
-am *substream, int cmd,
->  			ret =3D fsi_stream_transfer(io);
->  		break;
->  	case SNDRV_PCM_TRIGGER_STOP:
-> -		if (!ret)
-> -			ret =3D fsi_hw_shutdown(fsi, dai->dev);
->  		fsi_stream_stop(fsi, io);
->  		fsi_stream_quit(fsi, io);
-
-[Severity: High]
-This is a pre-existing issue, but does fsi_stream_quit() introduce a race
-with in-flight interrupts?
-
-Because fsi_stream_quit() sets io->substream =3D NULL, could concurrent
-execution cause NULL pointer dereferences in fsi_pio_get_area() or
-fsi_pointer_update(), which dereference io->substream without validation?
-
-> +		if (!ret)
-> +			ret =3D fsi_hw_shutdown(fsi, dai->dev);
-
-[Severity: High]
-This is also a pre-existing issue, but does fsi_hw_shutdown() have a race
-condition when managing the clocks?
-
-fsi_hw_shutdown() could run concurrently with fsi_hw_startup() since ALSA
-permits concurrent SNDRV_PCM_TRIGGER_START calls for playback and capture
-on the same DAI.
-
-Looking at fsi_clk_enable() and fsi_clk_disable() which are called from
-these paths:
-
-sound/soc/renesas/fsi.c:fsi_clk_enable() {
-    ...
-    int ret =3D -EINVAL;
-    ...
-    if (0 =3D=3D clock->count) {
-        // ...
-        clock->count++;
-    }
-    return ret;
-}
-
-sound/soc/renesas/fsi.c:fsi_clk_disable() {
-    ...
-    if (1 =3D=3D clock->count--) {
-    ...
-}
-
-Could a lost update on the lockless clock->count variable lead to
-prematurely disabling the clock when the first stream stops, turning off
-FSI clocks while the second stream is still actively accessing registers?
-
-Additionally, fsi_clk_enable() initializes ret to -EINVAL. If a second
-stream tries to start (clock->count !=3D 0), doesn't it unconditionally
-return -EINVAL, breaking full-duplex operation?
-
->  		break;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609113836.4507=
-9-1-phucduc.bui@gmail.com?part=3D3
+Konrad
