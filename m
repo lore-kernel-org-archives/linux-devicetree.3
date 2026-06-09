@@ -1,161 +1,140 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC724963BF;
-	Tue,  9 Jun 2026 15:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00F0395266;
+	Tue,  9 Jun 2026 15:56:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781020503; cv=none; b=dtwZ2lNGieNZ/2jIWYR7VcgqYROI/IRMvtAjV/jBGKrsoFLlLc3LMQpHx6/LJ4Ntm+//M9Wc/pskeumcnJ7So4xew0kEb6IfwB6sMQ9HPLIQ4WZgVY768+XGCkSj3FtF4ZQiFC5+LxzY9UTT46v0O2A2zE59WHs7A2mX72EjxtE=
+	t=1781020598; cv=none; b=phs3XMZXFUEQTzvtVuRkFhyq7CLAWplBw6un00jF0Rj4p9TufUGJjdunXaNCjGt9tRTB+1qEjr94a09N+StFvEu/WmBzkRS1ZRMzxD8Fk/ridUX/cQgAdWRkWdS/QqAfH7irimxz7eZ+8yQkxnIeoiJa9gtkBUBZyrAzneH+Y9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781020503; c=relaxed/simple;
-	bh=tQOiNWiHxn59a96n98eOjRoNal+l/6qT7jvIuInbsWg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BAvQLbUKmFBTDGs4yTHYXkxjtxM9FE1IR9hbHh240RZFYyFfc2PZgGH/MgHC7x9y6hTziSFiE3iTJ8IxjFvq0gwwr+Mmr1gIujadKMXlMLiQluPcCoB+RYkORjnkNTHUGpbBe8dXqzpqWJVuUddwTfNbxj2KN+7eFvabhdTwOak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
-	by APP-03 (Coremail) with SMTP id rQCowAAXOuFONyhqlrwqFA--.5106S2;
-	Tue, 09 Jun 2026 23:54:55 +0800 (CST)
-Message-ID: <926a0fe9224d73e0f5e3f58f3769c6247b1cabd4.camel@iscas.ac.cn>
-Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels
- according to DSDT
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Pengyu Luo
-	 <mitltlatltl@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio	
- <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 09 Jun 2026 23:54:54 +0800
-In-Reply-To: <12a8cc4f-3c45-471b-8a0c-f7473cefa190@oss.qualcomm.com>
-References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
-	 <178040480680.1778078.1165164069560552075.b4-review@b4>
-	 <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
-	 <178073773007.397244.9871455646149843167.b4-reply@b4>
-	 <7ecda3d0f91b0d96bcec44ddf485ed5146788220.camel@iscas.ac.cn>
-	 <178073918523.417326.15121723011916371966.b4-reply@b4>
-	 <1c33b1dd7d187b17b21b17339a4f1990e59d2f77.camel@iscas.ac.cn>
-	 <CAH2e8h7y9PivdMh-h78VSqMf8i2vSR2fvVaO0P1eYBT8qgEdUA@mail.gmail.com>
-	 <bd5ad1b53eb009377d0ee492b0e007e45d36f6a1.camel@iscas.ac.cn>
-	 <12a8cc4f-3c45-471b-8a0c-f7473cefa190@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1781020598; c=relaxed/simple;
+	bh=/PePh7Pan5LBwgQE77Wqzdwbp15fnhzYTDWU9YIWZyA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pL46IpX56iCrerBL7tFyrPfxs6nb+E/3HifG41Qzxr1vTFdCkP/ViNlXws+5n+V1eQPBmoExB9N8LC94iMEZfrDeylYP/EDgPZurZfI8u6k56aC3+awcKnsmvGkPsX8q7xlMbNMZCRm/UL8stuDwGgTLvze2hw5pwlhqkmYi92I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qq+iXDRc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qq+iXDRc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F021F00893;
+	Tue,  9 Jun 2026 15:56:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781020597;
+	bh=Nte8CMBRvk3qKbwbQpcv8ZvcIgW6/hvLkznP1r+xXWY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Qq+iXDRcnqbWiZP3DcgO7qQSJ61GSXefIEl3vSccpxMGDv9nIdlIjjN1QR4WBXEdM
+	 IJJns8uVMXJL3J3AL1OK80umBUXYoRJoFTUfvVCTQSfB71/XotX0p6BDSmazy2kzhu
+	 +trRkw8/6F+vLI9eDEYX4dZ5bpAoAidg9vp2qt0Fh7EfSlE9fE12NUMamGeFfKvVPk
+	 0OjpZFKrhp2MiW/MmoVzgZLiTJm6KkJEMyVuB1cTjMCtqNofjBTshu+d2Fy/T2Haiy
+	 i/YljKxHwiWt5AG2by61zOQVgw2qHcrq+LcRtQGH9wGaOMsOlhgVrlyfLiDXCqWKEI
+	 kqv4lzy6yfo4w==
+Message-ID: <663970bd-6eb8-499e-b043-e0f9ac234303@kernel.org>
+Date: Tue, 9 Jun 2026 17:56:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAAXOuFONyhqlrwqFA--.5106S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGF1DAFyrAr1xXr1DZFyrJFb_yoW5GF4fpF
-	yUGay5KF4ktF1rGw4xtw15XrWftr1ayryUZrn8Gr18Jw1qvr15tr47Jrs093WDZrn7uw4a
-	yF45Aas7Xry8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07j8KsUUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] Nuvoton NPCM FIU DTS fixes and binding conversion
+To: Tomer Maimon <tmaimon77@gmail.com>, andrew@codeconstruct.com.au,
+ broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com,
+ yuenn@google.com, benjaminfair@google.com
+References: <20260609155437.3285042-1-tmaimon77@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260609155437.3285042-1-tmaimon77@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026-06-09=E4=BA=8C=E7=9A=84 14:23 +0200=EF=BC=8CKonrad Dybcio=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On 6/7/26 10:49 AM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 21:51 +0800=EF=BC=8CPengyu Luo=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Sat, Jun 6, 2026 at 9:21=E2=80=AFPM Icenowy Zheng
-> > > <zhengxingda@iscas.ac.cn> wrote:
-> > > >=20
-> > > > =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 17:46 +0800=EF=BC=8CPengyu L=
-uo=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > On 2026-06-06 17:28:35+08:00, Icenowy Zheng wrote:
-> > > > > > =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 17:22 +0800=EF=BC=8CPeng=
-yu Luo=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > >=20
-> > > > > > > On 2026-06-02 21:21:27+08:00, Icenowy Zheng wrote:
-> > > > > > >=20
-> > > > > > > The magnetic keyboard (USB HID) can't be connected
-> > > > > > > somehow,
-> > > > > > > others
-> > > > > > > are
-> > > > > > > fine, such as the spi touchscreen (not upstream yet),
-> > > > > > > which
-> > > > > > > utilizes
-> > > > > > > DMA definitely. My config is here
-> > > > > > > https://pastebin.com/SdjuyJYk
-> > > > > >=20
-> > > > > > Is this a defconfig?
-> > > > > >=20
-> > > > >=20
-> > > > > Yes.
-> > > > >=20
-> > > > > > BTW it seems that CONFIG_ASYNC_TX_DMA needs to be selected
-> > > > > > too
-> > > > > > for
-> > > > > > exhibiting the problem (because there should be "public"
-> > > > > > GPI
-> > > > > > DMA
-> > > > > > consumers to trigger the stuck/reset).
-> > > > > >=20
-> > > > >=20
-> > > > > Is this still necessary? I checked the fedora discussion and
-> > > > > your
-> > > > > GPI
-> > > > > DMA fix. And GPI DMA is only for the QUP-supported
-> > > > > peripherals as
-> > > > > the
-> > > > > binding mentioned, devicetree/bindings/dma/qcom,gpi.yaml
-> > > >=20
-> > > > The devicetree without this fix seems to be still incorrect,
-> > > > because
-> > > > with the device tree fix even if the GPI DMA driver misbehaves
-> > > > the
-> > > > system won't be stuck (although it will iterate all GPI
-> > > > channels
-> > > > and
-> > > > then fail to function at all).
-> > > >=20
-> > >=20
-> > > Back to the start. You said some GPI interfaces aren't available
-> > > to
-> > > HLOS, your mask is 0xb(0b1011), so I use 0x4(0b100) did a quick
-> > > test,
-> > > and spi6 consumed it, no stuck or reset. Could you give me a
-> > > unavailable channel?
-> >=20
-> > I think channel 0b10000 of gpi_dma2 could be an example?
-> >=20
-> > It seems that 4 channels are tried on gpi_dma2 before hang on my
-> > gaokun3, but as gaokun3 has no known serial access, it's possible
-> > that
-> > 0b100000 or 0b1000 is problematic.
-> >=20
-> > (The reason gpi_dma2 is checked first is because it's the GPI DMA
-> > controller with the smallest address)
-> >=20
-> > BTW I just took the values from Windows DSDT, which is quite
-> > conservative.
->=20
-> So, with DMA_PRIVATE set, is this series made redundant?
+On 09/06/2026 17:54, Tomer Maimon wrote:
+> This series fixes the in-tree NPCM7xx FIU controller nodes so their
+> resources match what the DTS actually describes, and converts the legacy
+> Nuvoton NPCM FIU binding to YAML DT schema.
+> 
+> Patch 1 drops the bogus "memory" entry from reg-names on the NPCM7xx FIU
+> nodes and removes redundant clock-names from those single-clock
+> controllers.
+> 
+> Patch 2 renames the schema to nuvoton,npcm750-fiu.yaml, explains why the
+> direct-mapped flash window is optional, keeps the requested example
+> ordering, and simplifies reg/reg-names to the ordered minItems form.
+> 
+> Changes since version 2:
+>  - Drop redundant FIU clock-names from the NPCM7xx DTSI together with the
+>    bogus reg-names cleanup.
+>  - Rename the schema to nuvoton,npcm750-fiu.yaml and keep reg/reg-names
+>    immediately after compatible in the example.
+>  - Explain why the direct-mapped flash window is optional and model
+>    reg/reg-names as ordered minItems arrays.
+>  - Drop clock-names from the schema to match the driver and updated DTS.
 
-I assume technically the trustzone is still protecting some channels,
-although the system stuck issue is fixed.
 
-This series should still be relevant, although not so emergent.
+<form letter>
+This is a friendly reminder during the review process.
 
-Thanks,
-Icenowy
+It looks like you received a tag and forgot to add it.
 
->=20
-> Konrad
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
+of patchset, under or above your Signed-off-by tag, unless patch changed
+significantly (e.g. new properties added to the DT bindings). Tag is
+"received", when provided in a message replied to you on the mailing
+list. Tools like b4 can help here. However, there's no need to repost
+patches *only* to add the tags. The upstream maintainer will do that for
+tags received on the version they apply.
 
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
+
+Best regards,
+Krzysztof
