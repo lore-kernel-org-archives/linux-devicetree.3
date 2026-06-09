@@ -1,98 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FC03DD850
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA6B3DC4D0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780990462; cv=none; b=U8qh5JjRvWhWDhHOMObWBaI8osLtQ6xK6FoUorseUm2GY4W9jiWfF8JppVEV3lefwkN99oLF+wPlDvFyo8qSL231gAmKuboWwhx3iuxCpXd/NR2J+rsC57cDtCqXxK9U5ZsX+4H/2Hq/y90DiACoSUuaETWDAjDEBFyZxBh5GZg=
+	t=1780990518; cv=none; b=aKcvBdqjHao4o/WIL1Ai8ieRZ6VNS1EMREmHwKgpWVSya2QsOr5O5pzvqSCWSItEoz3mvuMDXOgZ8p7tZo3ilkGIKn3zn2gzS4FgO1zLnp/+KkKbaadv73H5FW7jhnNPYaVmCmG22y+6fPeCH7xvxmJflrXU9ngsp5YzyBJOp+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780990462; c=relaxed/simple;
-	bh=ZmI9AW2O3V8qrVXiliMS9DUM/RILyY1t/K1HqWqUqAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aywW2bnJFy49aqSvlK+n4ZofHH8vDKsnCX2AOwgl84YmgjWbrsntHRtxffJNxVZiRwGwxuEl1oD0I+pzXRWc+YRB0W5L4ctK9CqPGohryRgqrSkQJlAkdherAtVZ5h05V4uoOGdY7WnE67pzalpKbLQLuKzFdiQORHk9UANslBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BD30PwzL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780990518; c=relaxed/simple;
+	bh=wWzRFvVVGH2YX4hnEDoIFpmU2i1p5wbNU0mAYgwDTRU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mn42dTEXwnHY5dGYJWaKq+FNNRiRPpQ+ypoaJ1o3qUNCc0x13Q/uL58CwPXWrq9fgwuZLwyhN7KYWsxqz9QJmftdpss0DSb7FdiF/c75Ocd0SKXDzAvCeG99J6WSiPFAwNhkIx3pfAcvB93YMG47sqV0xT9+GNDIVc+bOo1EHI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TZhxkBsl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LbkYg95E; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BD30PwzL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F041F00893;
-	Tue,  9 Jun 2026 07:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780990460;
-	bh=GKMXiBpjL54krW7Ij3+vSOaYgR+z4B8wc3h+zOk8PiQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BD30PwzLcfG31rqzM+qLb6RcLshde+UxruSa0nnzQTmVMjzqK496TP+MDgv2mc4oa
-	 pmH4fqB8YojZATjJHasr7CycBq40b9xFwx4KQ3AfqDURUVY9O7VKjufaf389uwHIoc
-	 FGEcHGo2IKeOBpL5/QNDh1t0Kwdlg7zsWh2udv9PQeeTYN/PnpDcnIUvWwNAcN8NWb
-	 t4QXcew63MwP+wYiO5z98ZhWmZuBWFJkuf3EMZ0vNdJ6iZ7Ac4gcZ1HaXIHi1h7lvv
-	 S/VHKWzY+YQiKSV1ynXV+WwEzUsnWfHl+Kf91a0p5JWAbuL1jEsQuIBKfWeyfiU1eh
-	 Nl6Lap3wo5RCA==
-Date: Tue, 9 Jun 2026 09:34:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zhang Yi <zhangyi@everest-semi.com>
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, 
-	devicetree@vger.kernel.org, tiwai@suse.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org
-Subject: Re: [PATCH 2/7] ASoC: codecs: ES8389: Fix the issue about mclk_src
-Message-ID: <20260609-visionary-truthful-viper-ceff75@quoll>
-References: <20260609030623.17404-1-zhangyi@everest-semi.com>
- <20260609030623.17404-3-zhangyi@everest-semi.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TZhxkBsl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LbkYg95E"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6593wdFI1515111
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 07:35:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+MUlD26qjSFFsWjNX5Rl/mqpEy4GVQMqKYLWQMQpVuk=; b=TZhxkBslo4cZAcM6
+	BVjKRTXVuRQClIKX62G6lhONmrJ0R6f+2e4K/EK8FJALlHtNhN7FLT+QXLymro/d
+	pLFrMVe5iA30sq2I8E5DN6hum5LgyV0YyxWHc7yV1nEl4XZr3hleSnN/+efBbnEw
+	7rEgbYJXTX9LL59SjddK5hA8Lx3u/fLnhAmi0f+1OKSInr6sfXp6SD5vwu2SJiBq
+	so+v6+vPNVGGAFC4VuivWgKe/m66QzclDk2uzcRYEhArV+IGZn8vCJG9Mf2mZWYR
+	sQv04mdXM2H5riO2CIKB5+hNx9+47Lk+IUFH83CfSTl/yJ2Zrb/nMJ40q6mBCviq
+	IQX32w==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enwsvck6f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 07:35:15 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c85a2cde332so2650678a12.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 00:35:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780990514; x=1781595314; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+MUlD26qjSFFsWjNX5Rl/mqpEy4GVQMqKYLWQMQpVuk=;
+        b=LbkYg95EcV2chb33sO804lxtU9koEZc7qpbBBpUTJHY9F90xsF4UFfFtuXAcH1OxFo
+         Isp6gldE3jjvVq63XiP1+qdsypEVYCD/RqX8PCRSEbHfYCGDzKe2kRy/F3V1+5XFr/KW
+         e515Yn9wtnZxoZ4LJLObnrztVLWsONozdx4+3wh+kSVs+o4Jvwykea4SweBsaGYlHC7R
+         jtfSXWPg4vfcPEg19rJujaDyKHtJAR518zUn0AgbKl+PV6vz9os4d0RFbQY1F2y12GLp
+         ae5kFLvGLlolqd5zmRBfbycptFFYdnIW7XhzodscDnG2gFLUbAdhDJnX5VMWEElTr3Zy
+         U0iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780990514; x=1781595314;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+MUlD26qjSFFsWjNX5Rl/mqpEy4GVQMqKYLWQMQpVuk=;
+        b=e45buLwkPz786+bWZ2YRiJiolsECN5Q+ZIOwurlNhCDXi8k+JIDis+0FQI7TAXDLqN
+         e/FmlG+1uY1uuA9o52BYgjoQ45rQto0GDnBjgfZz1GC395xVWmnSdjCYfI2oB0/IUK7K
+         G+jSnawNySjsYqPUfmSjjy5DDFrNzUT7HY9F+U/JuKt2EjlgkqR6h4bIKEYsoPBLktvW
+         te3TfSd9LE6dBM7fRSBhtddp5XQw695wT86vB2atXKVVs0k0Ogxcv8BrJU4+3NbX3HMS
+         DFHvwT26DmQIv8sNHNylkGuvLRYseqWcQ25fan03eSXY5LaQvPceLskAlQJJMACfyB/Z
+         lclA==
+X-Forwarded-Encrypted: i=1; AFNElJ82oP5ssQh4KBWBoRXLVw5Qsx+pnxrx4/uPw5Vc2lUQCfdtSiHvemLyuK1mxybFE2mjmfbz9/fLfafo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5hE1mQjV79vIOiaQl5EoQo7OA6z6vCRSfGB0NifyrtlHM4b4j
+	iL1bMBSayfCpZV1QVqziwDdhfII6Fuyew39GiPb08HdGnwE65rHM6na1DtLAQ2COip4K9LWvmVL
+	2m/VI7cEZNFup9NHD1fGzTnpBsagUvxn8qq7pjiNf1NcLorKGr1WchhkUGkbbLtmP
+X-Gm-Gg: Acq92OHMFTSiu7rIQq69vjcbEh5RGKzlWlRyTd4YsqiwvNe+ZlX+bfuUgdbxCV16KLA
+	gEjtDPv/zTIRStrjb3722YHHKLX9jeMdXTwYDgw4pXfqkzbcBDRCbGOw13a02LqoPKf9mwaDE4O
+	qlUWuZyDcJa9ZE7/bOrEeWWOzn+iW9ncKxifqh2lkG/AvyPYdaMzMsMhaTxunDNu9K8+SlNPWDF
+	G90idRXxfFP1gQ21vyrmgX5fm01uVj6EOt1Ydo4aUD3kOA54X5cQaTmMkPyf1nOQtR6ZamPz4Gw
+	owpSObKMHzzduiFg+VLFHXkQjG4TTeM+nfK3hsrtsZ65+rW3O2B8LvvvwF3cdR32BVHVTEKF1wt
+	JsESsEcCcNZ77T1wOgRIy6CJsYKb02EIrxsrNJuR7cmVVx32vQoLnj7ZfigRwtQSGrAE=
+X-Received: by 2002:a05:6a00:a21e:b0:824:a22c:c6d7 with SMTP id d2e1a72fcca58-842b0f97f5dmr19916198b3a.18.1780990513910;
+        Tue, 09 Jun 2026 00:35:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a21e:b0:824:a22c:c6d7 with SMTP id d2e1a72fcca58-842b0f97f5dmr19916141b3a.18.1780990513245;
+        Tue, 09 Jun 2026 00:35:13 -0700 (PDT)
+Received: from [10.92.193.107] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828836efsm20221481b3a.38.2026.06.09.00.35.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 00:35:12 -0700 (PDT)
+Message-ID: <5ab6d5b8-41d7-421d-bf3d-370371caab4d@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 13:05:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260609030623.17404-3-zhangyi@everest-semi.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: power: limits: Describe Qualcomm SPEL
+ hardware
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20260519-qcom_spel_driver_upstream-v1-0-75356d1b7f94@oss.qualcomm.com>
+ <20260519-qcom_spel_driver_upstream-v1-1-75356d1b7f94@oss.qualcomm.com>
+ <3c441940-e4e6-4626-8ff8-36db41409644@kernel.org>
+Content-Language: en-US
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+In-Reply-To: <3c441940-e4e6-4626-8ff8-36db41409644@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: jPRzilqprB8jchKxgySTiaR9r0B4ujRU
+X-Proofpoint-ORIG-GUID: jPRzilqprB8jchKxgySTiaR9r0B4ujRU
+X-Authority-Analysis: v=2.4 cv=dIaWXuZb c=1 sm=1 tr=0 ts=6a27c233 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=vAWKRZcgqgyjYCNlygsA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA3MCBTYWx0ZWRfX2gaUMrgumHBl
+ 6UFQ3k8Lw8Qsqt5OTG8ifGMNnQBufjHhAIL08ilsrdc6coQvwpKoBbVhn6D5A1OeVW7oKvZM+5J
+ 4RMO70QtfccpvVfVdb6cMWzb8DGZrdAtsnJSGTgY/lx5PThC+PF/eIljolgz3rWXgu9m56A/SdW
+ x1DO4wVVY1bqt380Z7cSxanz37H2cbu6qRirwRRK3BGacC1bpFZsH/G2ZYTGwvk5A1SS8Vdwj9C
+ mWE5SXyBg7M8RG8wiufMees9NGMqqDVyyMx5BYuJppT/sylNz76k9iGZACYstPi6FdQjkTg9IHw
+ b37w1TPhVLXI1aEOLPAC3BBBcdkR1y3IeKbVC1BJcZQCn/11pyCpF3AU0rpfL4BKfXzyMVcG3Og
+ lRzEfkibUgbZJoI+BCDCObXJB4+wI4vjatRb7aX36BKkl6PEuZohwVejLUzEgFcgR/yJlcUrzdW
+ +gRM3niaU4cNvPBhK8A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_01,2026-06-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606090070
 
-On Tue, Jun 09, 2026 at 11:06:18AM +0800, Zhang Yi wrote:
-> Fix the issue with incorrect modifications to mclk_src
+Hi Krzysztof,
 
-What issue? Your commit msgs are really poor - explain nothing. You just
-duplicated subject... and anything can be a fix.
 
+On 5/30/2026 5:59 PM, Krzysztof Kozlowski wrote:
+> On 19/05/2026 12:49, Manaf Meethalavalappu Pallikunhi wrote:
+>> The Qualcomm SoC Power and Electrical Limits (SPEL) provides hardware
+>> based power monitoring and limiting capabilities for various domains.
+>>
+>> Add a DeviceTree binding to describe the SPEL block on Qualcomm's SoC.
+>>
+>> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+>> ---
+>>   .../bindings/power/limits/qcom,spel.yaml           | 47 ++++++++++++++++++++++
+>>   MAINTAINERS                                        |  6 +++
+>>   2 files changed, 53 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/power/limits/qcom,spel.yaml b/Documentation/devicetree/bindings/power/limits/qcom,spel.yaml
+>> new file mode 100644
+>> index 000000000000..e9bb70c3a3aa
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/power/limits/qcom,spel.yaml
+>> @@ -0,0 +1,47 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/power/limits/qcom,spel.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm SoC Power and Electrical Limits (SPEL)
+>> +
+>> +maintainers:
+>> +  - Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+>> +
+>> +description:
+>> +  The Qualcomm SPEL (SoC Power and Electrical Limits) provides hardware-based
+>> +  power monitoring and limiting capabilities for various power domains in
+>> +  Qualcomm SoCs.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,spel
 > 
-> Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
-> ---
->  sound/soc/codecs/es8389.c | 12 ++++--------
->  sound/soc/codecs/es8389.h |  5 ++---
->  2 files changed, 6 insertions(+), 11 deletions(-)
+> You don't get generic compatibles. I think I commented about this enough
+> of times.
+
+ACK, I will move to platform specific compatibles in V2.
+
+Thanks,
+Manaf>
+> NAK
 > 
-> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 9c8164916..7a9d5d42a 100644
-> --- a/sound/soc/codecs/es8389.c
-> +++ b/sound/soc/codecs/es8389.c
-> @@ -36,8 +36,8 @@ struct	es8389_private {
->  	unsigned int sysclk;
->  	int mastermode;
->  
-> -	u8 mclk_src;
->  	u8 vddd;
-> +	bool mclk_src;
->  	int version;
->  	enum snd_soc_bias_level bias_level;
->  };
-> @@ -607,9 +607,9 @@ static int es8389_pcm_hw_params(struct snd_pcm_substream *substream,
->  	regmap_update_bits(es8389->regmap, ES8389_ADC_FORMAT_MUTE, ES8389_DATA_LEN_MASK, state);
->  	regmap_update_bits(es8389->regmap, ES8389_DAC_FORMAT_MUTE, ES8389_DATA_LEN_MASK, state);
->  
-> -	if (es8389->mclk_src == ES8389_SCLK_PIN) {
-> +	if (es8389->mclk_src) {
->  		regmap_update_bits(es8389->regmap, ES8389_MASTER_CLK,
-> -					ES8389_MCLK_SOURCE, es8389->mclk_src);
-> +					ES8389_MCLK_MASK, ES8389_MCLK_FROM_SCLK);
->  		es8389->sysclk = params_channels(params) * params_width(params) * params_rate(params);
->  	}
->  
-> @@ -897,11 +897,7 @@ static int es8389_probe(struct snd_soc_component *component)
->  	int ret, i;
->  	struct es8389_private *es8389 = snd_soc_component_get_drvdata(component);
->  
-> -	ret = device_property_read_u8(component->dev, "everest,mclk-src", &es8389->mclk_src);
-
-Why are you changing implemented ABI?
-
-Best regards,
-Krzysztof
+> Best regards,
+> Krzysztof
 
