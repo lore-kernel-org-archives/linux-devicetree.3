@@ -1,33 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A75841B366;
-	Tue,  9 Jun 2026 13:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC2340BCD0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781010108; cv=none; b=HDyeDUy6Pv7lIxuy1zRh2mquAPJT+OPKhn0gYgmU3VgIF9u4AjkHoyYLurhuRT6JB97b4NvyfZ5QjxYrNGY0F6Ff7PuzXuj4xbWP1nuoUY2GtrIojk1xbOXvgEtXPtGrY7UT0HZa3PXn4SJ8y+GhSoTzdYJhNTAIaS+nNVOSOUQ=
+	t=1781010160; cv=none; b=eG+bX1SQkv0PEBV2lAyQ7SmNStQsBeNtcFdLSDYcH2uF6LPZz29gtXL/njASFJIfv8I6uza2yLrnLPxegktlTNxlSySEgObn0akQ88MOSuecHv5MfAw8Bvb9ccio/OlY/5n2APmqERMLxmcdLUAsgiRECmuNCOYj2+ott2Utkt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781010108; c=relaxed/simple;
-	bh=LiJUWpGWKAx0Tf/jqg9vvArnhY1/Nu+aqUFRkL4Y/Yk=;
+	s=arc-20240116; t=1781010160; c=relaxed/simple;
+	bh=XN8hc40Aqohm1Oux1FTd9z3AKS0NcB448jgv5NkarhE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LQlm/RSh79/iDYFcN5dGYBnveqCTVQRnntMfuuH7kNQ2DP5pq1O66XJ4vcufnCKhjQTrnPk074PG9aHIQyffjAV8tj+B+XpFIV0JEGgMnx0CfD0zC5hFwVKANN83zwFLT2xkb7nm84rtRbkXNUKMDFEepHi9xgbnR0l78NxOuzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQkxHNLK; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=iXJxcrao2JXYpFUCljGFcroDKvYcX1bDLJZ+Dp665lynavzW+6x6WeYD7GTp5RAglspaMvfrhKLTvG5ObmJQqDzp8SjneBFUHDVlxl9GYf/l2VEaiVcAUNA2yTo+j1ParLkA0+LeYVZfBY8UTPJdJHVxtqQVO9yH0Iv0FIbByd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=juR/rMp9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZMAe5AIJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQkxHNLK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1A01F00893;
-	Tue,  9 Jun 2026 13:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781010106;
-	bh=m271X0iaJIiEixjjz+qpzyZhVPKE0vFCbZ7VXevgXfs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aQkxHNLK21FNFWG2DNY1fxzKyPmUvknmZJhlGhpxrZlexee3JRKdqF9MEkgIoEbtV
-	 umCm1QOvx5nz4RTegCNVMejtvWaawL6Dl5lOqBkOgiFIFg33GrAlpF04TQFS1nWW1Z
-	 yCOaK4du7+DT/ofZ8t7SI6yg2TxbWdosC5L9fmoC6d+M0N+IqInar+1og3QyzlXLUQ
-	 ppIOUJ0kJnliwytE0IYF9zLgoBrxfZkSOIBwBaxuBonrIKzeQbd9JdDJnTYvAcmRi2
-	 vF42lec06+cDIlcunM29+1gMV95cndNj6uImxV3b9ad13gwOV9GD3bvT4tIAjFP2QM
-	 FuxMoItdevyrQ==
-Message-ID: <ccf4d126-c523-4ae4-8b17-a4cafab79b33@kernel.org>
-Date: Tue, 9 Jun 2026 14:01:42 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="juR/rMp9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZMAe5AIJ"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659ClK3V652197
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 13:02:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xbHtB5FkcaadoqFbH3R3CLsT+3mMjSYwuCc/ZzU+pvY=; b=juR/rMp9c8O5SUDq
+	lR2VC+Cf03ny9QkPsi1RhTiFv5TqEdSvTLNOanb5ziwG50E8axHc6ZOqw0seTMgq
+	zMF45s5nLRpIet9gRi5rlUgnRWe/nUpP91hzOwevI4z8iNyNwN+fnkPEa+C5NpTA
+	3uhgNOBNeCdYCDl/9DW38g55oG9Sb/5lXA2SgSDLCWmkp9dt/6BapdL+mIzU3t9v
+	Dq/i1MrsoYLRBBTLnNw8LzxAJ3bbKP74hZjlMWoc7EUsavmRndvnRgK073aneVg8
+	rLKKI3+Vmubmn59MUGN40EIApeXQ/m01rqSnVDwkEqCZrNsjx4m/+ju2e+CF10vy
+	EJAMPw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epf0ss8bk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 13:02:38 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6cfd1227161so182157137.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:02:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781010158; x=1781614958; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xbHtB5FkcaadoqFbH3R3CLsT+3mMjSYwuCc/ZzU+pvY=;
+        b=ZMAe5AIJdfPqOJyjFU2+ew2sPjLfoe7MvSArp6dYeTqG6/XCqWIi8Mr2jAiAC53iMz
+         T4hLTkSq0taUlmpUXptg7dXamCOsEns+5XC1JV7Jn4s77WSC+LckqiwMldPuUVR4RRHC
+         S1Cfk/zXDEYZN7AlhZkzgTGOwsG7bzaXa5gtKkqx6tZSG3//z43c2FNZLaP+6ysOZL2u
+         nIkLmyJwkZqxkryKqB2IIh+FsEUVzL3BZMgoE1hIS+7Pw8RJkdhASHwkBC7Q1BmJLrpQ
+         VzAB5uPdkWvFPoBsW/tICT985HHHsedXqV4vL0AkpbspiLP2AZon0i0AJNHj3Y94G+hp
+         rUKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781010158; x=1781614958;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xbHtB5FkcaadoqFbH3R3CLsT+3mMjSYwuCc/ZzU+pvY=;
+        b=gbZDL5IHaqvSUppPAgMbLY9b/szfR6cVrJ41A7Kh+BPJKCZXe36TBYjK1DLSK2o0g9
+         p7nSAa5KYgYg3otrTPL8yuSwzZa8T3NmHNmZs97o5IZ8t6vRsMYsMEZjLCgHOIy19AiZ
+         75nHxLZIXieDFUr7usW/q9Ul5/pc7mtbhZwwhx9o+9t59XIfl0BfYzektovy+4TaV9S9
+         LvB+DdSiFuWUrrPWF2OTE9vBSlxvZ8koCo7zt08JxI3c4lmeG2Vony9tgHvACnCFm+v0
+         WDeQ0umfdLgMWO8tWnVffLiHC4svXFwTkAtbxsltjFaAGZkbzezfb5XxcmwVSKMrYx3f
+         lZUA==
+X-Forwarded-Encrypted: i=1; AFNElJ/OI02LMFXhkkpxRj3dMNdD0TtaVlJtTqujQvJCzC1fHRQT7u0uP6dWmTWHlnvWsQyrsBKDifXIniJV@vger.kernel.org
+X-Gm-Message-State: AOJu0YwU7RYwUsd2p3npS80vJzMSyl8cogiBZmf2HpMAw8cf0GVuGdqp
+	rGCNB5ZOk4SR/mzJUBVHpJ3PW1ZWi+9WWMIa00tmqqJspxSedcNATXLDZCLb3JHeByu47zKzj6D
+	2KdjFaCsmiiXTTzjFcRI6mfDWA7D0u59boArxe+0tyCTZ6sX3ilg5kygE5APaoRxC
+X-Gm-Gg: Acq92OHVMYn5ErGEEhkAs27evIv3V/OmM1dsT1iY9pUZDy/1OPp2lkbbW1UKTGlFzkU
+	sZAZHO+Fee8Ef8d/a53/nPQUQxdhCvdpz1Gnj/OHR+NnhZVJj2yikBMnaLbgzCSi6NcatAPPxLr
+	dnizQX/NFFYIFjWk6bvZ2Ycb8NcZtaP2IhHNSyy62X7HcIT3KAe1fo2QF2+TMwU/Lecv2QmqHAY
+	Ob8xYmH9lk0JafwpKWybE+Ro/BRv6W/05sA3RPjVm80gJORjC45QxwpFVOwBOL+MzVxcilolX2W
+	nrh+Tza7Gokh3HF8bNjIzmcRLjp4Y4bob0wAdQo7oxP++DKjMr9oEfIgckWIPg/i3IBSAZWdqHS
+	Qkn8l3l3N8iqM65vrWiawktBGqtt74KmACnUPdnIc+5eJ8MamHeO04I/o
+X-Received: by 2002:a05:6102:26d1:b0:631:3ccc:42df with SMTP id ada2fe7eead31-719255a6e8emr465890137.3.1781010153677;
+        Tue, 09 Jun 2026 06:02:33 -0700 (PDT)
+X-Received: by 2002:a05:6102:26d1:b0:631:3ccc:42df with SMTP id ada2fe7eead31-719255a6e8emr465752137.3.1781010152819;
+        Tue, 09 Jun 2026 06:02:32 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2be29fsm51941651fa.21.2026.06.09.06.02.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 06:02:31 -0700 (PDT)
+Message-ID: <747f0319-68e1-4cd7-9dd1-4a675d882f99@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 15:02:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,175 +88,175 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>,
- Vikash Garodia <quic_vgarodia@quicinc.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260601041336.9497-1-daniel@quora.org>
- <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org>
- <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
- <h8UvMzNq5TseF22NyjmyrC5yZkO_5JsVGMVaIdLfdpMyfxxemlp0xulRAiylGHWdrq5D4NM1oUk9Jzyhj_UAsw==@protonmail.internalid>
- <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
+Subject: Re: [PATCH v4 3/7] clk: qcom: tcsrcc-glymur: Migrate
+ tcsr_pcie_N_clkref_en to clk_ref common helper
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das
+ <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        krishna.chundru@oss.qualcomm.com
+References: <20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com>
+ <20260527-tcsr_qref_0527-v4-3-ded83866c9d9@oss.qualcomm.com>
 Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260527-tcsr_qref_0527-v4-3-ded83866c9d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDEyMyBTYWx0ZWRfX1C2tg4E9/Ys1
+ +jnQ7s5eymzi3lC0oCuZ0Bljh9M+ZWdTDKay5Xoa/vy/b8nuqVm+xUKn0YmzyZX47EefD7KouBs
+ 44tILq0MzuT7bB9Hbu00u+GQ5nNG1vuIqWJM23IW4qtpZyflmc0ChLFeWMhVbH1+aPYpFRNgwkc
+ /IMJ7lOrg6Cyf1CaCS+5bsLROuhx080L1KMAncL/27NSYSBsNkKZroVXXljphHqZI78mGraDmNG
+ 7oycnFHCwlbf0idFLfJ7uSIwi1brROAdp9kaa40sf4H1312XemQiJwogQoGpUm4VyC+VBv5ybop
+ US9mqCvYCGUpUyLRPVIqxfMhNrhetpZFo+/psOocMH95PKQYqWVjNKzeJMu//OcJItJqmzzekrp
+ Vnp+PMBIhSP04El6Ffyc+IEVKnIBFcvTvw5Z9R//OzdbZJCxInwGr2BtG1bbtP04+SLBC4Z/xnm
+ 4lN3mUtZlhFDWrh9h6g==
+X-Proofpoint-ORIG-GUID: nUsWWqOy2D6d-GKxlsenKxR1HJdqC2ib
+X-Proofpoint-GUID: nUsWWqOy2D6d-GKxlsenKxR1HJdqC2ib
+X-Authority-Analysis: v=2.4 cv=GeonWwXL c=1 sm=1 tr=0 ts=6a280eee cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=hcCWvLewiaSd8YhtB04A:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_03,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606090123
 
-On 04/06/2026 07:38, Vikash Garodia wrote:
+On 5/28/26 4:29 AM, Qiang Yu wrote:
+> Replace local clk_branch-based clkref definitions with descriptor-based
+> registration via qcom_clk_ref_probe().
 > 
+> This keeps the glymur driver focused on clock metadata and reuses common
+> runtime logic for regulator handling, enable/disable sequencing, and OF
+> provider wiring.
 > 
-> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
->> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
->>>
->>> On 01/06/2026 05:13, Daniel J Blueman wrote:
->>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
->>>> triggers unhandled SMMU page faults
->>>
->>> How do we know that is a correct address - does it come from qcom
->>> documentation or trial and error ?
->>
->> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
->> source for the different stream-ID <600MB behaviour, and share
->> specifics, eg if silicon, firmware, or driver and constraint, defect
->> or otherwise, so I can include a definitive description.
->>
->> Also good to know if my workaround is good for long-term, or on the
->> other hand handling streams <600MB is important/useful.
->>
-> 
-> Thanks Daniel for raising this patch. Did you also try the memory fix i
-> mentioned in the bug [1] discussion ?
-> 
-> Coming to 600MB, this have been the VPU hardware restriction all the
-> while since venus days, and since address could not go deeper all the
-> way lower than 600MB, the issue never popped up earlier.
-> 
-> Consider the memory layout split as below (Iris device range is capped
-> to 0xe0000000)
-> 
-> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
-> 
-> 0-600MB range, VPU hardware would reserve this to generate different
-> stream-IDs primarily for internal (non-pixel) buffers.
-> 
-> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
-> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
-> non-pixel buffers.
-> 
-> When many concurrent sessions were tried, non-pixel buffers were mapped
-> into 0-600MB range, and VPU generated secure ID for those. Since those
-> were not associated with the iommus configured for iris node, it led to
-> USF (un-identified stream fault) and device would crash.
-> 
-> Keeping the region reserved, makes the non-pixel buffer always in the
-> non secure range (601-..) and avoids the crash.
-> 
-> Downside of this design - It would eventually reserve 0-600MB un-map
-> 'able for all buffer types, like pixel as well which do not have any
-> such restriction.
-> 
-> Forward looking design - create devices dynamically and set reserve
-> regions for those specific device using the api [1], instead of applying
-> one reserve for all.
-> 
-> [1]
-> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/
-The problem here is in the reponse to the email you linked:
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> ---
 
-https://lore.kernel.org/all/cfd23f75-8952-4463-abd5-815b995031b0@arm.com/
+You can remove the of.h include. Apart from that:
 
-- Inheriting the parent's properties is wrong
-- We should just have a bus
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-But that leads us to churning DT and we'd have to figure out how/why to 
-do it purely for the purpose of differentiating SIDs within Iris. There 
-is no separate hardware - its one VPU which needs to figure out its IOVA 
-for different SIDs.
+Also, attaching a diff to complete the regulator map. I'm fairly sure
+these are correct, but it never hurts to triple-check.
 
-Krzysztof would rightly say no - again - to putting collateral into DT 
-to differentiate pixel streams based on SID, because that's not a 
-hardware property.
+You can add:
 
-- You have pixel and non-pixel SIDs that have to hit Linux
-- You have to keep non-pixel allocations >= 600 MB
-- You can allow pixel < 600mb =>
-   Daniel's patch is too restrictive
+Co-developed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-But what we can do is add information to the iris platform descriptors 
-to enumerate what are the valid IOVA ranges for pixel and non-pixel data 
-and then change the allocation code to operate from those platform-code 
-described IOVAs.
+if you squash them together. FYI e.g. the tertiary USB QMPPHY would
+only start every 20 boots or so without this, running on pure luck..
 
-No new iommu properties, not arguing about plonking SID/pixel-path data 
-into DT.
+Konrad
 
-Just teach the driver what the valid ranges are and allocate IOVAs based 
-on those ranges.
+diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-glymur.c
+index e317003398d1..eb4ee8ec9ad7 100644
+--- a/drivers/clk/qcom/tcsrcc-glymur.c
++++ b/drivers/clk/qcom/tcsrcc-glymur.c
+@@ -21,6 +21,14 @@ static const char * const glymur_tcsr_tx0_rx5_regulators[] = {
+        "vdda-qreftx0-1p2",
+ };
+ 
++static const char * const glymur_tcsr_tx1_rpt0_rx0_regulators[] = {
++       "vdda-refgen4-0p9",
++       "vdda-refgen4-1p2",
++       "vdda-qreftx1-0p9",
++       "vdda-qrefrpt0-0p9",
++       "vdda-qrefrx0-0p9",
++};
++
+ static const char * const glymur_tcsr_tx1_rpt01_rx1_regulators[] = {
+        "vdda-refgen4-0p9",
+        "vdda-refgen4-1p2",
+@@ -40,6 +48,15 @@ static const char * const glymur_tcsr_tx1_rpt012_rx2_regulators[] = {
+        "vdda-qrefrx2-0p9",
+ };
+ 
++static const char * const glymur_tcsr_tx1_rpt34_rx4_regulators[] = {
++       "vdda-refgen2-0p9",
++       "vdda-refgen2-1p2",
++       "vdda-qreftx1-0p9",
++       "vdda-qrefrpt3-0p9",
++       "vdda-qrefrpt4-0p9",
++       "vdda-qrefrx4-0p9",
++};
++
+ static const struct regmap_config tcsr_cc_glymur_regmap_config = {
+        .reg_bits = 32,
+        .reg_stride = 4,
+@@ -52,6 +69,8 @@ static const struct qcom_clk_ref_desc tcsr_cc_glymur_clk_descs[] = {
+        [TCSR_EDP_CLKREF_EN] = {
+                .name = "tcsr_edp_clkref_en",
+                .offset = 0x60,
++               .regulator_names = glymur_tcsr_tx1_rpt0_rx0_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt0_rx0_regulators),
+        },
+        [TCSR_PCIE_1_CLKREF_EN] = {
+                .name = "tcsr_pcie_1_clkref_en",
+@@ -80,34 +99,50 @@ static const struct qcom_clk_ref_desc tcsr_cc_glymur_clk_descs[] = {
+        [TCSR_USB2_1_CLKREF_EN] = {
+                .name = "tcsr_usb2_1_clkref_en",
+                .offset = 0x6c,
++               .regulator_names = glymur_tcsr_tx1_rpt34_rx4_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt34_rx4_regulators),
+        },
+        [TCSR_USB2_2_CLKREF_EN] = {
+                .name = "tcsr_usb2_2_clkref_en",
+                .offset = 0x70,
++               .regulator_names = glymur_tcsr_tx1_rpt01_rx1_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt01_rx1_regulators),
+        },
+        [TCSR_USB2_3_CLKREF_EN] = {
+                .name = "tcsr_usb2_3_clkref_en",
+                .offset = 0x74,
++               .regulator_names = glymur_tcsr_tx1_rpt34_rx4_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt34_rx4_regulators),
+        },
+        [TCSR_USB2_4_CLKREF_EN] = {
+                .name = "tcsr_usb2_4_clkref_en",
+                .offset = 0x88,
++               .regulator_names = glymur_tcsr_tx1_rpt34_rx4_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt34_rx4_regulators),
+        },
+        [TCSR_USB3_0_CLKREF_EN] = {
+                .name = "tcsr_usb3_0_clkref_en",
+                .offset = 0x64,
++               .regulator_names = glymur_tcsr_tx1_rpt34_rx4_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt34_rx4_regulators),
+        },
+        [TCSR_USB3_1_CLKREF_EN] = {
+                .name = "tcsr_usb3_1_clkref_en",
+                .offset = 0x68,
++               .regulator_names = glymur_tcsr_tx1_rpt34_rx4_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt34_rx4_regulators),
+        },
+        [TCSR_USB4_1_CLKREF_EN] = {
+                .name = "tcsr_usb4_1_clkref_en",
+                .offset = 0x44,
++               .regulator_names = glymur_tcsr_tx0_rx5_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx0_rx5_regulators),
+        },
+        [TCSR_USB4_2_CLKREF_EN] = {
+                .name = "tcsr_usb4_2_clkref_en",
+                .offset = 0x5c,
++               .regulator_names = glymur_tcsr_tx1_rpt01_rx1_regulators,
++               .num_regulators = ARRAY_SIZE(glymur_tcsr_tx1_rpt01_rx1_regulators),
+        },
+ };
 
-I think Daniel's patch should be taken as it fixes a real bug for users 
-right now but, I equally think its a NAK for any new SoC.
-
-This IOVA allocation needs to be tackled correctly and IMO that needs to 
-be and should be done via platform descriptors for valid ranges of IOVA.
-
-No mad stuff about SIDs in DT, no lengthy arguments about adding strange 
-iommu properties.
-
----
-bod
