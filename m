@@ -1,64 +1,64 @@
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5473F4192FE
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397C84192EE
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781009687; cv=none; b=WH5ZwOWHTWdVQR3bU1vsaQNQQQm8EnhkKVFk79VJ8glyKwyvRhkxXKb8Tx4s4WUV+bzv7lzQwyMKyrDDJpsJchnSuECsRuf8B1AnMcxy0R6scgNV2p/65Az3meycdzE4zi5axDPWZFYS36rBdL8zwg7ywk5DM+kFDSLMlQoNUVU=
+	t=1781009689; cv=none; b=YFzcsCtA710Rb0cvXe0ck6JPxVf/Rw7PpN5E8mPg733iUU+hLdF7U1+Up6P1pHVgSzBMg+ZzJBbafKKi6MBq8csniINv+pLuOHyplkJnSAiNE6RD7mm4y0gdJ+At+0AXZdOZvb82xcdcssoc/u7xTK9t+vmsOaVdmioMjN8CSCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781009687; c=relaxed/simple;
-	bh=YzLlWccKoGz0BLkTVp9BdMtuyDEut60EmnH+dwboSVY=;
+	s=arc-20240116; t=1781009689; c=relaxed/simple;
+	bh=QWHKMECdkDgTHMEhYoueuEWaT+qT7FqBN2oGC03gpKw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gp0/ZkvrerffxFI6Yla/ab+d4wL6+ThvitUEeJX/Yqeyk7kn0BSlF7bimEMp/vOVgZt70CA/Fhig6CgSk/UCNp7anGVapvgabSOOhzoJNFCVX7wl6W4ecHvWtR108P+o+EczxCn5t1iMzRWLuCR9qr9EnM9HHAAZ9fmf5j5AaA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=enTtHF35; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=PynAaZLMKnCRqWqaQmV06CT0lspuXDt8UpjujATCi1Bqo4FXCmdSdt3SEKS61je3yHEaPJl6OtcMf/d2oaGUn5WvUXhTl+nKejDqcKWXXVusc1sDpaHwfhxZkWqdOi66Ij3GWKlqgrX5YPd5WjUEU6+7dckhugUl+muy8KHjGDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NVulrFFe; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="enTtHF35"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so26813845e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NVulrFFe"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso38885005e9.2
         for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 05:54:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1781009685; x=1781614485; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A+nr/GpFJY1+f9PCkXIdaUi82s6MrGlmsZt39vjJLy0=;
-        b=enTtHF35m4/+tO5GH7CRWMxHoy6Q8u8nCT0PhVOOR4spB/KNIbW49cRybbHlLf5YnH
-         0jEw+CQZio/SQ8G3kGBzZ6XC0tRo1EgdUv4a61q3nt54XAFc8hFvdyNtSE/3Wfgnu2GP
-         hhdN8J0cFLKNgdK3pgAYVmElSc26V1vPNmhc/cjq27uw3uU86uDrcrsxbQH2l08cEHkw
-         f1eAQwm9L37RdByI2M2jzWW288gi3vlamnHPnAPuZJhp2o58S0timdfZaPmef0Hk0e0f
-         LpTXodrVz/PHJQrBK2Thb15bi1e3DxDP6+BhdO9/FMzwy1GCAw+RElxAd3ES0sLtB9at
-         SW+g==
+        bh=Qu7loVp/RhhbK5pFGzQisJHK7vzMUicuCCUYX824N9E=;
+        b=NVulrFFeZuaYN0nM9hekFSYfJTPreCaWPvuMFH8X+Hv4l0LNUbrnIlu6/7ybM49Neh
+         IRTvPhm/s6l/9EKuGn6TBarmeeSwtQTHM3OdezqCnHI3o30QoMzWC/iHWeKf1hbdqpxE
+         HMIzkEaOnWSr9Xo1wqgpmK309vnT4HE+fL3ybPVy8l6hYLIW0wBrLTCXInZTuIwgPUt2
+         dkl8OuBlD+SW8IRmjUJWKVjmRQwxw1omuyxLoTcN8NsmLUZVf8glzQfUewjlI5XxxuaQ
+         l5GxayXhT93/U+coACh5eROyzp2aUGSMleK+S/X3T0/MyhXz9HYhZSpnotVegKa6+fOe
+         AKQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1781009685; x=1781614485;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=A+nr/GpFJY1+f9PCkXIdaUi82s6MrGlmsZt39vjJLy0=;
-        b=GkDB0Q1EIvVeyg9OPF+zukgpjBh6jqTFPUYa7vTzN0xAPEJ645jho6UzWBhAszlg2b
-         FC+oHkwDHS/gMxlkJgNDSUVojae/9pF0qYBfNR4YtmsKzPM0Nb4PDc5F1PmYT4Lxg270
-         a1uXudz/qU5DAQf7wN9oZftxwwZI4cGlsShA4JCU1DW+O8wUdrGjaVwW6rOeuynUbQ86
-         5W63qcP6GZc0kdYOb0ztiypB4vJDp42fONvCFQx25DEtVxdDLrw/HDeevQdTUZWiwy3p
-         QfJiGB9ZIFvrVzyFU0Ap7aDjXX/O7lPCZFG8dzydSaQWa2N4Gkh3MmKYwVXJEfwnE6Vt
-         a/7Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8ZeQocf/Npunrt5QePy6Ojn+jic28BVOddF9Nfju9X0ZMWk3rMhAqQTg4rQzLGUz114sjBsmeS70Ca@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfRTwyL3hllvndoqnqNRC9i2qjFWr+AeyhODAZYmR0Ix+zdq7W
-	mI/CXICYiC2XsDA6lZYXJPpz1u2odnVwjQyXXYcGhNvtoQilV26uN2xJ
-X-Gm-Gg: Acq92OGMnhjhkv8rjMShw6CT7+RSbKIMFjBrKz3tc/ckCsRSnsuiKevls/MGvCpjxr/
-	yLzEDXgixvh7iFP8sh1uKGxW0tU5LTO+S+1Fi1b8gIKPboyiX3TDRTfSbshgdNoZFWcZ8COnPoi
-	XM38FDImaSQmb/Yye+srGHUTy4paV9NryUSX2BQLJ2I9sltJNiMcm969BFAiDabY8TJYYMoH+v+
-	Tq6pCzrREgHVq5sSQmmmiQ6xyeku8NvohpisIjBCizPFQqYI/FN+8y6ZghrRYiblJAzKL2Wy5N3
-	LnSddNPAQCi1QsdGPrUmavN7aldrJHMpbpEAp7cMUxb+jzH7XbTgB85ELiK4ptQSgSwdM08/dN2
-	4kW/FWWLJs5o8uqzje5IDe68YNRW2gYQOGTWYS7kp6EfQhM+R/w3Ff7W8d7KUtHONBh21otiWf8
-	RlEK8d7D3ykyqbTI6RwUIpjuB7U1RXZ2CglG7HbJq0MvNpQ7A2CdOVNGIX+lwcQkM5BY1o0seWi
-	W8gXA/X/gkdtLQQY7TU0xaXuw8dW+Wu+46BRZ77o2KvRuwJvrCq0eL/Cw==
-X-Received: by 2002:a05:600d:8486:10b0:490:c2a2:e91c with SMTP id 5b1f17b1804b1-490c2a2ea20mr226124435e9.34.1781009684384;
-        Tue, 09 Jun 2026 05:54:44 -0700 (PDT)
+        bh=Qu7loVp/RhhbK5pFGzQisJHK7vzMUicuCCUYX824N9E=;
+        b=WsceebJUIPBwTlsitOQgxGWDtR1xTWlt0KoB94bV0GmEUC0V1dh8EaOKBdFCGdxvgS
+         XXxn+kTMLMzhMWPj+lGZwsa664lmuunLVq3MkeAN2ljKFAwptTBqwIfnki2/rhJrb5LW
+         fplpCfb5ZhcGRc4EBx8ihV3aj+PLOFkRhRwy5Vhc6L/Mnd4MyhZxkpmZAgGb57XJS4hd
+         1MWnsjmMoNfVdkkFyJG0Izcycm34hlWg6d6HgjRwz4K7ICfQR8eUGKfxVMIfWRt3Bvr3
+         VzqGBLy0ydaKqV2bk19UDe0p+lP19QnW+/co53T18uFgCArRLZzX6bFXVYqdsOvBODOO
+         hF/Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/bmSXi7Snx1cNXkOdF4Kpe5f8zmDpwMCXWOpn6BY+KKGJFDrgEr8CMfQcNLhpqlYXExauC1Xmo+ViX@vger.kernel.org
+X-Gm-Message-State: AOJu0YztxyQqXLtSxwOdrcFFFrO7PWgPLodhHC9/vCG2tOl+oB7aCVUX
+	39HWuCuTfijREYVY/3Tmu0e/Nv8JRH2AX5oPi3OgbsbkaoZoXiSh12AfVjAm+Zon
+X-Gm-Gg: Acq92OGjHJYL80xD/Jw5kHgwDnZrnL+T0tSzcXHxAheHJNYVfQURsV807d+AIdFFia7
+	x7bkoM8SGib2M2nLWXCwiMrjYckgoHysLlijqRS0ZjMp5WhGvdwCp8t/7S8YNR/mmC9LIkrKKBD
+	GBMZEKGHLPPijm7RWCwvRSZ1wQYJcqIMes4CCWzi8qsZjGWXw86etQ9zfT30/2t40qFjMbJqH7v
+	AFjs+6v6mGD6/AGqHptoeZHy+xeDAOlSpbqoKuYv2HPaLGlV4hYGC897leSugquSB2u9dmfWEeq
+	p5GWDVWP1W/YWY+A0uRQ4sdvBlOBh+cLGPMmzfe47yrF27H1v+wKYVzUZ9z1sLeak4BcMuyfiFR
+	0VwfjqVwgVRVrUrnWWs7vsnp2rawHvO6OUWp0Vgu4CzBU5UuAFxbRiRrVbgHy1V7k6DuW2e6/kb
+	In6YNgvt9099OZmgj4LQQZ1o/UOXixVagFtfXxwVEc0ZJ2QseSR26MW+xnWHIRkcAwJJLcuqTmf
+	eh4anASQaX2zXXZx2cGBUrbrd+vSf7kyNO4ZlwHNVtszQdQL5ktuoGLVA==
+X-Received: by 2002:a05:600c:1c20:b0:490:6237:5200 with SMTP id 5b1f17b1804b1-490c259eaccmr310171145e9.10.1781009685453;
+        Tue, 09 Jun 2026 05:54:45 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:2b2d:6009:3bbe:fb84])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b06sm435968425e9.3.2026.06.09.05.54.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b06sm435968425e9.3.2026.06.09.05.54.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 05:54:43 -0700 (PDT)
+        Tue, 09 Jun 2026 05:54:44 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -73,9 +73,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 2/5] arm64: dts: renesas: r9a09g077: Add DU node
-Date: Tue,  9 Jun 2026 13:53:50 +0100
-Message-ID: <20260609125353.401124-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 3/5] arm64: dts: renesas: r9a09g087: Add VSPD and FCPVD nodes
+Date: Tue,  9 Jun 2026 13:53:51 +0100
+Message-ID: <20260609125353.401124-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260609125353.401124-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260609125353.401124-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -89,48 +89,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Add Display Unit (DU) node to SoC DTSI.
+Add VSPD and FCPVD nodes to RZ/N2H SoC DTSI.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
 ---
- arch/arm64/boot/dts/renesas/r9a09g077.dtsi | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ arch/arm64/boot/dts/renesas/r9a09g087.dtsi | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-index dda7008acdd9..93e792d0c4a0 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-@@ -1377,6 +1377,30 @@ sdhi1_vqmmc: vqmmc-regulator {
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
+index e8d4f76949cc..174f683fa68d 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
+@@ -1379,6 +1379,28 @@ sdhi1_vqmmc: vqmmc-regulator {
+ 				status = "disabled";
  			};
  		};
- 
-+		du: display@920c0000 {
-+			compatible = "renesas,r9a09g077-du";
-+			reg = <0 0x920c0000 0 0x10000>;
-+			interrupts = <GIC_SPI 781 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKAH>,
++
++		fcpvd: fcp@920d0000 {
++			compatible = "renesas,r9a09g087-fcpvd", "renesas,fcpv";
++			reg = <0 0x920d0000 0 0x10000>;
++			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKAH>,
 +				 <&cpg CPG_MOD 1204>,
-+				 <&cpg CPG_CORE R9A09G077_LCDC_CLKD>;
++				 <&cpg CPG_CORE R9A09G087_LCDC_CLKD>;
 +			clock-names = "aclk", "pclk", "vclk";
 +			power-domains = <&cpg>;
-+			renesas,vsps = <&vspd 0>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					du_out_rgb: endpoint {
-+					};
-+				};
-+			};
 +		};
 +
- 		fcpvd: fcp@920d0000 {
- 			compatible = "renesas,r9a09g077-fcpvd", "renesas,fcpv";
- 			reg = <0 0x920d0000 0 0x10000>;
++		vspd: vsp@920e0000 {
++			compatible = "renesas,r9a09g087-vsp2", "renesas,r9a07g044-vsp2";
++			reg = <0 0x920e0000 0 0x8000>;
++			interrupts = <GIC_SPI 780 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKAH>,
++				 <&cpg CPG_MOD 1204>,
++				 <&cpg CPG_CORE R9A09G087_LCDC_CLKD>;
++			clock-names = "aclk", "pclk", "vclk";
++			power-domains = <&cpg>;
++			renesas,fcp = <&fcpvd>;
++		};
+ 	};
+ 
+ 	stmmac_axi_setup: stmmac-axi-config {
 -- 
 2.54.0
 
