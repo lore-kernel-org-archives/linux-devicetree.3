@@ -1,75 +1,75 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC94421F10
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:14:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F5F419303
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781010871; cv=none; b=izLj6msB7WWu9sNzMpvQ6apIU0/thZ2/ZlL+X7OBYW3KmdFFKPaYstpj+QVMx6amZ43genLhqgDQdlCZy/7Ag1moDB6xh0qe9Jx2M3Hq4F5ChVWNFNjUoHbD3ri0sWEs7o8/28+egtqa8NRlKpTSARwBSB9tPc/YrIhMIdwsqZw=
+	t=1781010905; cv=none; b=EOdSEgBUVkzladrttW8Jr8J1hw9lelyTLyDoemaLdFBbwh89p+D5dov60c6weTEn7xMTOWTWCuX7RvWiyyKMyuunmoR7l0N+kmYbyFA5BU8ADohMytq6EN65AKtASvPRohkt1wzZJak19I5lM2nK3QpijiDYAn1yQ2BMqmtqaWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781010871; c=relaxed/simple;
-	bh=2Hn+kM/vBl5Y+oGy2tUn6XoBN0Urk2DCaa4LHKLj2vI=;
+	s=arc-20240116; t=1781010905; c=relaxed/simple;
+	bh=C8Z23G5fMKOxO2zCb/NuJRS28VYirRrmBHN0fhhaHfw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PAxoVt1n4JPd75kJJADQP7RDh6c29ywQv92sS6HvKVnmR4LhwV/HN1r3hes8a0LmD1FzUrEzhby3K0rfKgHWRf4qdu+M7WJggBnu1Riso7ljqzbo83lzABQ7hf1y/jxyhUzCqXtMNDEVPRPzRavp29Ag46T3P4vshq9SCLwms/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ReuqD2bm; arc=none smtp.client-ip=209.85.214.179
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZPAVA8K4z60A7iHYCILuRxZxNUAR9/vzWneJyRriOqoVR8RfZ/N9BNOUvMEB/s/EjUTzMUzgy1n5OITh2rCh+7i4dkay1IDs8MbQAhtKv4uhp/0jIwjcfu4cmhUDQ+OO7UK81S6J+iFOi4PRVBvCQ7dVCncUes5qiARX6ojNj+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+1q2anC; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ReuqD2bm"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c27fc587ebso9160185ad.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:14:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+1q2anC"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2bf114b0cf9so48852735ad.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:15:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781010869; x=1781615669; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781010904; x=1781615704; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=4XpF88ssB7OGQIU0/2BYnkpklMaNApzKBPoVuDN5kZk=;
-        b=ReuqD2bmIKxAdxVmEgoI+aeuj0T01y2FQxNI6lsjd0HJu8mrikuPb84IR2/lKdcI+v
-         nMqeGm44+v/Q+5T0YykUCzZkTTOVQH/EQLNGZnBaqNJbwWxn94yWu7yN52gC6mB+ww8k
-         jIv9QsH5yjQVZDB0pp6HSE+32hLi+C7f2mRghaPCi+NgBBL3dpWuTDFiivwlkrA+Azka
-         xlShR6cr6+xBFvWO2d5F1ID4EG+1rZ63zperdIDq21QwOpHJDf3sACr0yQHUp0+orY40
-         KagUR72420XRxAYQSDIQT/GB6z3DywT+/IHPQW4UGNp2Ibnj2+7R63fYTkdshpZIW4oe
-         86gg==
+        bh=OEDbW2E0jYhxmhbQRn8cH1fVwccIh6hf9EUZ/KlZ/NE=;
+        b=G+1q2anCkxtIlfRoZ13Mr+J6nWfZ55dOIZBEeObvSApqL0Zdqc5dspaCNJcQoeHWLg
+         1K1bPl2kRJ/6Fiy8D9Fa2BnkcoXMVao+RL5/b9EHU3hg/HK745UcDk6B/StIziZTkm7O
+         ye9NRAyl34ZowYZmwyz2WWTq2HzE6LbCXsV5Ggf6SfkUyaEd3S1NOZGfwkUKfQ9uInju
+         VzVP1j4wByJAabZ4NWl3/JHbMSEFyYx/xB2Ht0kKZY6rIQqyr3YJQ1fU3H0DiBkRyrxt
+         ME8t8d/jrArCW1dWnDwalMVQS07ug0dBY+bemQlqBJtom65AWRDhNdmkoeUo/BG19llY
+         W8EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781010869; x=1781615669;
+        d=1e100.net; s=20251104; t=1781010904; x=1781615704;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=4XpF88ssB7OGQIU0/2BYnkpklMaNApzKBPoVuDN5kZk=;
-        b=fdC4Wz24WmFsgFOyLPdzYzLhOx+2bjfbPCvZHxW79tf/2NiAlchjbr43YHeP2T2BQW
-         TOTHlB/5CrgSw1nEh/HBzwRrqy69ZLg0phPvBH0XRgaez+vA1h6d2nT3MAM0dIAs2vR7
-         r3MlEaTOuUIYY0h9C2ZQU1O0McECl45wZ9uSmUlpA82RFx4PqachKB0YO24+fgC2Caf1
-         Cy/hCsFJLt/UVEM0bxVK7F4aosTT+dm9MZEunpOJ3I+ssKT+lVJly3mHCRHSUL8Eb+fe
-         xmqXtUgIiGeySKvy8eC2zWzfjNKaD3dlXZR0DWLtllrblkTcC9+z2SNNVHXeus8bbTd1
-         Nhbg==
-X-Forwarded-Encrypted: i=1; AFNElJ/O9HgMnryvL5Lt+xLLy7RgeDrIvPNbekdhIvGPTmQMAjhAjQHRsNExBJIAUuAarrKeJAxvO3mLmhLm@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIQP9sS7IggWro6U/xd8jg5R6R/Yv40uV95xgvTTxY+D0PBfRm
-	zZZd4FL+CTqe6vUZhEQ5moa1tAFRn9lo4ORjlrh3LsWtKR0egFvpuGsC
-X-Gm-Gg: Acq92OE2NQ/KvxWTODm/lCd5rUqYfPVQekkecjQ7rBoYbRc2GkRedrVx+JX5HRaVMrP
-	gEF1S5wL/cCdG7Fcw57MiF/dPkcBrQF23ijxJYbRo/q1VaMnA8bU6RBOv4Zh9FhwcdZcQ+1WiIh
-	8dffCNUvW4XAodyXFYqyGhaebSeofC+LHpyGJJ5js5x+cTAyBrrS3EIOxkrQfapBN3ACyjHsrhh
-	9eG4SIbCZDbtXU6x41kWhnj503HtOH7o2G2qjcsKktX3+17V9moP7SnP5MBC4hrdM7s8ZTqZF6U
-	QtHI2drwC5t/DTZxHLTWk9dCZyzUSBIPFn/g3R3ycgvKzVmqK1MUP9MKgK6kauuK3Bv9VsFhB1Z
-	Hx9ILplo9SQN5tI45iQbdnPYz4kUlf6553JFyz4Np4pC7Bt/wy1wqyIh/7kc0EwzudoKz7nf9cI
-	YYsYA2/5bYS5VaJdAwqdHJLE178kEzGhCtzL/aalS1+WkVLII=
-X-Received: by 2002:a17:902:cf11:b0:2c1:ea95:8297 with SMTP id d9443c01a7336-2c1ea958447mr240566365ad.7.1781010869431;
-        Tue, 09 Jun 2026 06:14:29 -0700 (PDT)
+        bh=OEDbW2E0jYhxmhbQRn8cH1fVwccIh6hf9EUZ/KlZ/NE=;
+        b=sYDZWm0nBhq313XYBxXIv8OVtxhYVKrBogb2E/IUNepOmV8uaLGknxLIlAX7M/PRlH
+         WwE8cyn1HCB5W7SW3t0aA8KGYoUhUIz32VqwdP2MG1hNwQDLRfn6/U0u1rZEymVwvhgn
+         AfAxq6Ghfn7M4ldsAUkyqZPBYShhwANsG7GBGtmbNwbeYQhzF96SVSlgyJkFNZQDzJ1J
+         uO7axJQnilkeJKrc+lCzhxQOC3RQPeFIXvwdaFdDq+QBctTclyNyvryYeoXkicIU5inE
+         275zAMqIbFSUJuZ3DkuBPeu5SZkTsut2/GByXD1a4wnALboDy7tZBjN4+kghLnfHKwPq
+         4Yqg==
+X-Forwarded-Encrypted: i=1; AFNElJ/QUq9m1Bae+XLjJvSFvO0Z6MkraJVjlYA6OcPJZSFobD2/c2v31XKNRW7C1fEPmrhFCZ3tQEg30CbK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcQDUud2hevBb4++A75ycFzzgtbkDEdFjh5ZSoAN31O2f9geaK
+	zwSp75XA6UVwgLo3LvvhhNapfnGnk00uL7Ut6yA5ZuJcUg30wLXK+dEy532PJDT3
+X-Gm-Gg: Acq92OF0kdTY75Ug+wjH4QHfx265EfDJ2uIdNMwjzSJOIexS11wxL6qgHPyo5UbCZob
+	fX43YisKp/Rhnpni28POMaDTlBnLlDXOkYbyHFb8xGB9N45pttSvnmP6Is7+DBX8rNXkX86cU8K
+	iEXR+UARVmBAKVPEkxi+UW7H9WshaB4AOKEOW9dzn028PEOCAvtNUWzKzDwzCtqPQ6wHx6nn2uA
+	DCcNcmV9a+UkYCsdLuHrOr3Gzko9BBLT7Nl5QT5WrOXtutE/4ZDoil7gQEbRB+Hgsed7QYXMw0i
+	dTPcIwbTE1c/AZMR49gor8jPhJbURSvWM82U1rXdWxZryM+h/CEeKjlDERfLH8+E4th9B8wJ9pI
+	Ljv8FAJ4k1QSqZA9P8f6XrZ8nzBjW64ttrPGhtEp7nfgONDBI/6h2+MySTmOv7oXs1RSuCOsksf
+	hsVpGp8flKOEBi/UMF1ZFDORXt/Z8mgbkwwCM678KNqgf2LaZlb7hsMMqY8A==
+X-Received: by 2002:a17:903:27cd:b0:2bf:2243:d4e9 with SMTP id d9443c01a7336-2c1e8233854mr149248775ad.13.1781010904032;
+        Tue, 09 Jun 2026 06:15:04 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d1e5sm201467585ad.12.2026.06.09.06.14.28
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8429fsm264175375ad.18.2026.06.09.06.15.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 06:14:29 -0700 (PDT)
+        Tue, 09 Jun 2026 06:15:03 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 9 Jun 2026 06:14:28 -0700
+Date: Tue, 9 Jun 2026 06:15:03 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: ASHISH YADAV <ashishyadav78@gmail.com>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: Re: [PATCH v5 2/3] hwmon:(pmbus/xdp720) Add support for efuse xdp730
-Message-ID: <a3622473-dd54-4b06-9b02-bd3fc590b1b7@roeck-us.net>
+Subject: Re: [PATCH v5 3/3] hwmon:(pmbus/xdp720) Fix driver issues xdp720/730
+Message-ID: <e8dee0c9-7cc6-4687-ac0b-a81ac759ca41@roeck-us.net>
 References: <20260609072231.15486-1-Ashish.Yadav@infineon.com>
- <20260609072231.15486-3-Ashish.Yadav@infineon.com>
+ <20260609072231.15486-4-Ashish.Yadav@infineon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,13 +78,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260609072231.15486-3-Ashish.Yadav@infineon.com>
+In-Reply-To: <20260609072231.15486-4-Ashish.Yadav@infineon.com>
 
-On Tue, Jun 09, 2026 at 12:52:30PM +0530, ASHISH YADAV wrote:
+On Tue, Jun 09, 2026 at 12:52:31PM +0530, ASHISH YADAV wrote:
 > From: Ashish Yadav <ashish.yadav@infineon.com>
 > 
-> Adds support for the Infineon XDP730 Digital eFuse Controller by
-> updating the existing XDP720 driver.
+> Fix driver issues:
+> - Adds the missing regulator and property files in include
+> - Declares XDP720_DEFAULT_RIMON as unsigned constant
+> - Declares struct pmbus_driver_info xdp720_info as constant
 > 
 > Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 
@@ -92,3 +94,38 @@ Applied.
 
 Thanks,
 Guenter
+
+> ---
+>  drivers/hwmon/pmbus/xdp720.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
+> index 0f106c13e7ca..b273e53a01f3 100644
+> --- a/drivers/hwmon/pmbus/xdp720.c
+> +++ b/drivers/hwmon/pmbus/xdp720.c
+> @@ -17,13 +17,15 @@
+>  #include <linux/of_device.h>
+>  #include <linux/bitops.h>
+>  #include <linux/math64.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+>  #include "pmbus.h"
+>  
+>  /*
+>   * The IMON resistor required to generate the system overcurrent protection.
+>   * Arbitrary default Rimon value: 2k Ohm
+>   */
+> -#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
+> +#define XDP720_DEFAULT_RIMON 2000000000U /* 2k ohm */
+>  #define XDP720_TELEMETRY_AVG 0xE9
+>  #define XDP720_TELEMETRY_AVG_GIMON BIT(10) /* high/low GIMON select */
+>  
+> @@ -38,7 +40,7 @@ struct xdp720_data {
+>  	struct pmbus_driver_info info;
+>  };
+>  
+> -static struct pmbus_driver_info xdp720_info = {
+> +static const struct pmbus_driver_info xdp720_info = {
+>  	.pages = 1,
+>  	.format[PSC_VOLTAGE_IN] = direct,
+>  	.format[PSC_VOLTAGE_OUT] = direct,
