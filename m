@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3B930B502;
-	Tue,  9 Jun 2026 20:37:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2FB372ED0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 20:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781037427; cv=none; b=JQtTMGKSYaUR7Vhcsh1mKh7zFdVQrbrIV3rPkuYrsmatcVW7kIC1NBKGNF8+9RYgQ2wohm860rA0NLgGMmoW1rZNtuMoOu8a95ADjiq4SNnn1zeC7MQOHT8NFjLx3a79OKzUgAqvAjV9CcXJVGpQ3XRK00MSiKYKWmlSeLdY6gw=
+	t=1781037542; cv=none; b=nads0Qa6Gz1vqkHmARKsz4xxjQR5bSJzAdmYEUDJIjnyjacS+sww6Tdo8b0BNKAgQ5CkCbtnm/fNyd8iZGX/rB5OMb1Wh0hPbBzIHAYB60DtDq87LdR7cSo109KR5ecKEICtz+zM5eMcTomhA/FvWvgJL+odQuO8eFXqZr84phI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781037427; c=relaxed/simple;
-	bh=CgLXwzkVLHau615G2iIpQOXEhTb7FVPobAf+TFJvR+Y=;
+	s=arc-20240116; t=1781037542; c=relaxed/simple;
+	bh=wjrsyFAFBOqBoBS2Vr6+ezTs640vJuST6uXExrhL44o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fikfkOPgLYdS4HYpI2uXwuBFQo42vRxY3Xxe3oLGqEW8wqOemYGlf7OzGtVt5cLW2yi3G++fNyTBPJmUcm9Ykmjoigc+99TPhzuKC+6JJCD/qseWj/RmuP3s11riRkGHeUILVPVRA9aJmRhNL07d4lry3eSTX0kAUZ4ccacvHWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afujyT7Y; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=MfW9DzF/rf1f+WeoWz6FT94zeEM9qFqD+YQ7X+zPq50882CfmSH74e3+HrF0gNO8mGK0ywr6dewR008ia7BqtSH4WZw41mD3PhtYplZM90sD2N1SXCD+B2kT/kzARlBpBGhZmHRAWrhSaLAZjmGHIg5rclQt0UNnNOuMgyIkByM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=uD15CbDx; arc=none smtp.client-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afujyT7Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A130D1F00893;
-	Tue,  9 Jun 2026 20:37:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781037426;
-	bh=Y17eOu4vAxGLVyJ8KYCEYVKRupe8sOIVZrf4Uq9Q5jI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=afujyT7YaGaQItypmjOIY4fycIhvtQ3+T3nskuKfoK78/6crMxNcQCwDEG7M6N4s0
-	 bKH32V5gwVS2Xv2r3/LPMcJEkbmRhA/PAVC0D4h1hxClZWIwdmupjQhux6c+i3B8xS
-	 n9gBtDCMlGzhDuiIwWmTxNjwnFImLtNDnLTidr4wtvfcMT5KhyOKkMCPmr1RXRKltC
-	 SibyU1nfZIdL97gOgxYv/P7oJLit9Iez5Y8SK9+Anm3SFGbyLsCgaQUIPmvxMgEX4y
-	 tJTUjsH+8H6LSMWriW1LTNQr7v1exI++TDlGmguH9uqQLCGMEb7nL+nGJMRChWTKQ+
-	 WqqOtoMbDlKmw==
-Message-ID: <f793c665-ac99-4afe-a64b-bbd6d40044e5@kernel.org>
-Date: Tue, 9 Jun 2026 21:37:02 +0100
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="uD15CbDx"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-486852c7b68so3774656b6e.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 13:39:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1781037540; x=1781642340; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uC/gW0bqBQrvyjGENIA0EklxnQV7jgJOX02+wy/otqQ=;
+        b=uD15CbDxaDgpCz7FCWPx9LUw+F3dcanm+5CWJjR61AdNmkixfLjAga9HSe4/o21zNH
+         0F+MdHfu5B40V9zrWv32fXZ7g1I6b2Dsjqcj7gjCMI2lwU+bRMCQD0DxLrKd/gwMZOMZ
+         SK/4Q9Dqt+qt0uAvGamfAnV2bxS9x0cebWUnffrf5JXJKsGePfgye7Vm3qhxwdeBM+Gj
+         M3rRiBRe5P2TubKg78Qxwjhec3HVg+0lWjAWc+LZnGFGNQEAPkHfB2wPJKgd2n+Nl6eC
+         jXADHL3kQNAIrL9IReX17IDMSDj/RUJgOEiKS54xsbVqublmzCTX5l/FBPMyOSSbjQME
+         s+wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781037540; x=1781642340;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uC/gW0bqBQrvyjGENIA0EklxnQV7jgJOX02+wy/otqQ=;
+        b=HE6zLuhm/Ndz89Z3JYvRv6TmtnL4oE73VcQ0yHE/YvP5oJDPyx07y1Yz6LeFL/b9MO
+         NP9qL1fVlF+co7b8wnkWZnbwErZRqz0chLomarmno/zcG+XKN+AUQ/SuoezRZMVuK9eZ
+         Y6ZJJye0nAODoWev4vW/UnI4TRsS4sB5Sf36dNwFm2mVvqsKQbr7mRP1nJQ6kDgWMPKU
+         htGUp1nOg2JEfeShPuYlaA0Aju56B0j6HpWWntYcergLxgBq0F/y1wOqZveUp2STZcF+
+         ACjT2k7cJW6sYyKMtHXlLbB03jofeg/soQRDPXn4QUJdfWGC1DZeSf1KvmeCyn3gV0eW
+         UOcg==
+X-Forwarded-Encrypted: i=1; AFNElJ9mq1xTl2Sp4kcCV1lBKXrqvmOFWJM0qNJqY8dk26XjINcaq3Qm/VmrCtcyU5N0YJdvydXDzuDn3k6A@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDlSrr31r+s3IJ1JaYI6yTt3t3hFROe0SDHV1XkMvOjVEmI1m3
+	267I6myg2+aXj9snjmq6aPx47v0EX8Ltk1HrfrJ1DfkCom7K0x5FD6YsrJU3XBp8dJI=
+X-Gm-Gg: Acq92OEinbOeQqL/qUF8Won40DA/aAQ5MkUD+qtMkEKN2ZCqDX9nK6DYOEjcKfPuqLE
+	MuTAWjhwkagX8EFY+MJ9jPRA9jmXsB6kcEdZ4EUf2US43kGYd4j0O4Oa4+ZhRou9/o4S7Z5DVpA
+	HVPb12dchDpVuo8fR6kqG4Iwh/SKjOc7UnGIGShHNRcvxGJYXMZ3Eb0gnO+bQed4m02nKoB2yyk
+	ob7WPE5hFtLjLzchlxExz0amI1L9xMs0oDuFFQVwlPsDl/gLNZVLhqKoR8IfNfGmiGxlkOLkww8
+	X7ANpAwUHEybxE0rjb4pNKx4OWJ5lI79At8ftPbPAucFKbLQLLzP8copDSxAeLzdVVJpM1opAAF
+	JhsWX+NCsakRxS2q8d7COZxTTxBlGZvsV6Ss23M/3/yogFJcm0WpUex98FBcwSNaLC15C7h3P6U
+	gIw8ugfaq7qwgL2atpqK+ywKqHvRIanrMb1PQZIk35VZsV
+X-Received: by 2002:a05:6808:d49:b0:479:e869:5424 with SMTP id 5614622812f47-4868dc7df9bmr12485645b6e.19.1781037540345;
+        Tue, 09 Jun 2026 13:39:00 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e6e78e7f9csm15313928a34.17.2026.06.09.13.38.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 13:38:59 -0700 (PDT)
+Message-ID: <8bc8bd9c-2982-4186-809b-13f7b75f7fd4@riscstar.com>
+Date: Tue, 9 Jun 2026 15:38:58 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,140 +68,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,qcm2290-venus: document
- shikra Iris compatible
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260609-shikra_vpu-v1-0-3a32bb38b080@oss.qualcomm.com>
- <5YTsRTMAUGw0it3GAWHhKIh77_Hk823-xRJ4WxzQ-ENpdnC9-ttUvWhJI_CqFEetmFXcRel50GK_o2UMGzwZmg==@protonmail.internalid>
- <20260609-shikra_vpu-v1-1-3a32bb38b080@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
+Subject: Re: [PATCH net-next v2 01/14] dt-bindings: net: qca,qca808x: Add
+ regulator properties
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, bpf@vger.kernel.org,
+ conor+dt@kernel.org
+References: <20260605010022.968612-2-elder@riscstar.com>
+ <20260606010120.590881F00893@smtp.kernel.org>
 Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260609-shikra_vpu-v1-1-3a32bb38b080@oss.qualcomm.com>
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260606010120.590881F00893@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09/06/2026 17:15, Vikash Garodia wrote:
-> Document the iris video accelerator used on shikra platforms by adding
-> the qcom,shikra-iris compatible.
-> 
-> Although QCM2290 and shikra share the same video hardware and overall
-> integration, their SMMU programming differs. QCM2290 exposes separate
-> stream IDs for the video hardware and the Xtensa path, requiring two
-> explicit IOMMU entries, whereas shikra uses a masked SMR to collapse
-> equivalent stream IDs into a single mapping. Due to QCM2290’s SID layout
-> and Xtensa isolation requirements, such SMR masking is not applicable on
-> QCM2290 platforms.
-> Since shikra uses the same video hardware as QCM2290 and shares the same
-> programming model and capabilities, it is added as a fallback compatible
-> to qcom,qcm2290-venus, with conditional handling to allow either one or
-> two IOMMU entries.
-> 
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->   .../bindings/media/qcom,qcm2290-venus.yaml           | 20 ++++++++++++++++----
->   1 file changed, 16 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> index 5977e7d0a71b4fb5681f1c2094439c251366f01f..895533b9756690d075fd7729e3f805c8e72ff0df 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> @@ -15,12 +15,27 @@ description:
-> 
->   allOf:
->     - $ref: qcom,venus-common.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,shikra-iris
-
-Should this be "iris" in a venus yaml ?
-
-> +    then:
-> +      properties:
-> +        iommus:
-> +          maxItems: 1
-> +    else:
-> +      properties:
-> +        iommus:
-> +          maxItems: 2
-> 
->   properties:
->     compatible:
->       oneOf:
->         - items:
-> -          - const: qcom,sm6115-venus
-> +          - enum:
-> +              - qcom,sm6115-venus
-> +              - qcom,shikra-iris
->             - const: qcom,qcm2290-venus
->         - const: qcom,qcm2290-venus
-> 
-> @@ -45,9 +60,6 @@ properties:
->         - const: vcodec0_core
->         - const: vcodec0_bus
-> 
-> -  iommus:
-> -    maxItems: 2
-> -
->     interconnects:
->       maxItems: 2
-> 
-> 
+On 6/5/26 8:01 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The device tree example incorrectly assigns a 1.8V regulator phandle to a 1.05V supply property.
 > --
-> 2.34.1
+
+Impressive catch.  This will be fixed in the next version.
+
+					-Alex
+
+> commit 9408235f22241ddbd72a22ee2611a98eece3d7f2
+> Author: Daniel Thompson <daniel@riscstar.com>
+> 
+> dt-bindings: net: qca,qca808x: Add regulator properties
+> 
+> This commit adds four power rail supply properties (avdd18, vdd, vdd18, and
+> vdd125) to the QCA808x ethernet PHY device tree binding. It also updates the
+> example section to demonstrate how to configure the power supplies.
+> 
+>> diff --git a/Documentation/devicetree/bindings/net/qca,qca808x.yaml b/Documentation/devicetree/bindings/net/qca,qca808x.yaml
+>> index e2552655902a3..3c1b7eca33caf 100644
+>> --- a/Documentation/devicetree/bindings/net/qca,qca808x.yaml
+>> +++ b/Documentation/devicetree/bindings/net/qca,qca808x.yaml
+> [ ... ]
+>> @@ -25,6 +25,18 @@ properties:
+>>       enum:
+>>         - ethernet-phy-id004d.d101
+>>   
+>> +  avdd18-supply:
+>> +    description: 1.8v analog power supply.
+>> +
+>> +  vdd-supply:
+>> +    description: 1.05v power supply.
+>> +
+> [ ... ]
+>> @@ -39,6 +51,8 @@ examples:
+>>               compatible = "ethernet-phy-id004d.d101";
+>>               reg = <0>;
+>>   
+>> +            vdd-supply = <&phy_vreg_1v8>;
+>> +
+> 
+> [Severity: Low]
+> Is this the intended phandle for the vdd-supply property in this example?
+> 
+> The property description defines vdd-supply as a 1.05v power supply, but the
+> example assigns what appears to be a 1.8v regulator (&phy_vreg_1v8) to it.
+> Could this discrepancy lead developers to copy-paste an overvoltage
+> configuration into their actual board device trees?
+> 
+>>               leds {
+>>                   #address-cells = <1>;
+>>                   #size-cells = <0>;
 > 
 
----
-bod
