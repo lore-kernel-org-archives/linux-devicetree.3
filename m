@@ -1,106 +1,161 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A2F3F9F41
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010513FC5B1
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781003113; cv=none; b=AJPPHNrvB9duSO/IA1YR6P//audrttaGYsr1UAvzC/8aLKjNrTsjbZOnPHAmq/UQqVxCM52asDgGgy12aucy+tULNdawzQ/YkQkKeto0Kd1abjhratGLrrc9/jY2FOOTRCZz10tqYnqH2oQtKOqzU5+AcAQe3srABGmdZiUFG8g=
+	t=1781003116; cv=none; b=t3jyn4aN3mPdwNL7jVh2U6CL7aU3xUhNVI8JW7ZoxXn7VudFp03zIzOT+8YbZv+qWQJa3moMapNrBsnXo8Y1EuIkHWEXPd45P/5y+WMR2TWLVxxRNWUVWbCA6pgqDoqtwoCGMDVwoCBTmuVviHlUc/bmaBGZv2Cikq3RRYJcFNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781003113; c=relaxed/simple;
-	bh=kjw1avFU8520DRpYQDxuY9SvIAlSgQxLqUBUN9Yb05w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K4lB+TvGRnY9O6Xp/jv1vy/vo25xlAXQLh/vSTgYA8r7n6Oc61k4oldjj1lc6V+JHepXn+V/4BdxqjjmADQ7KLJC748GPYCgL1POOp2k7dKkn26QdPcedjkLoJ4qrK7+jFAVoIzo6ezwsdl634QmiSyd08LB26o+Nh7Vp1QfoqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQ5AHDgV; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781003116; c=relaxed/simple;
+	bh=FzHeD0sMZk02bfUIOVbZ7vcbl5dWXL2/Txt+74srelk=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W0/GP3v9lpagW2+5nVwdU4iYVplh9QpYP6PmZWP/qUyGDFGVRlDRJLuqUu/NgndumiAtxu8fg+bijirRg8qvxuPTG3U7wKaYzVe5hwPMJJKHjx18DwlNXiis1Xnp0aFgj9nzrCCyv17BuG1gy8OmDzfZ1MxJ9sA6tIwgzmZqY/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=US53vIoF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQ5AHDgV"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2bf36a6905cso37655875ad.3
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 04:05:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781003111; x=1781607911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kjw1avFU8520DRpYQDxuY9SvIAlSgQxLqUBUN9Yb05w=;
-        b=LQ5AHDgVFf8+XKXrafeTgWm9/5qitbhWyjjGliRtULNeO5ecUkYAnuGsG9F2zKCd0V
-         j4w75Tm7HeGs8e3IolTN+2HuSn9C3YALQ8fexMWxBfj8tu+Bf7IWVmiz/KsYs/ysN8Uy
-         a3SHzXkazI5ymUOfafG8MBbcoCwjqpmYQtHCNB7eatZslq6viaGrfZR8xFmBWrOAHMuh
-         oWRnahcdC+PILHKbyM4lXYK355AWNKfxEBTzMWoo9radY+hi2ue+15ubgEWjtM16pivy
-         dXmIf3dE9AuSWa94/eWMPvrtbR0+XnhGHHDZR1jMlKnFSH9eB8pBfVCnBrBS+Ey2AYXm
-         utww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781003111; x=1781607911;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kjw1avFU8520DRpYQDxuY9SvIAlSgQxLqUBUN9Yb05w=;
-        b=CcuEa9uCSAjzVv7wbUi3Qf+ly0lhx63Y5cbow+PaLZ+cBQJLZie/2iyANRYVRQZqQU
-         gKm3DTc1UvvfpN0x+/tnay96KnbaMrDTXnCuVDiQXNBZZSrwRhY9u8ZyS1avAlcTER+T
-         rOwc24RmJmUyN8xbbrz0Ryh16Hv9dhvXh2QkjtvAuTVsMyJGVonzjawj3j8m81EWbAUl
-         eCzraKYGBgiEWO4zozJIWuMumYvRaPKDUfXXzldk4jD8hDBOzvcn1wVACxuEYBrDmJcM
-         5v/b4lUundXZwKIIsYvIiejTEL4ZzXfEXPO86O4iGGnRS9QMlwKEgIJeWjemsRY+duH4
-         IRdw==
-X-Forwarded-Encrypted: i=1; AFNElJ/6oggN9QxCLefPFvhTD5apRKN5xKG5UKg4EeDBO6yFmPX8Jh4FQApW7tC9pTkLibJ1Rppd+rcb5OfX@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDxfRcoav6Xtom4Z1nN0TJAjUuIX0J44gJGIwvJiLAJWYp34cN
-	X3qWKeb2Rq/EyywV9yhjTlTInDpkKw8W8eZzS7JPfHr2WHGngKZDG3y1
-X-Gm-Gg: Acq92OGo7CU3R9CmeNaBVXg660+LYSaNY/FjRQfX6ZFHycyeXjx1n4WI5zBbkqCPfJ6
-	GuQUmc/JzEUSXR87K1jNQMH3RmYQuxCoUA9zaV0i/GORtgn/SerkNh4O2pU2s4x2X6dqqDCEaq/
-	JHXwNtsNNYXEh4s70oUJryWUFJdxgEXpsvQNEa/Iszc+4X+CLknsbVYSN/2S7HxDnTtC8wKMiU4
-	Kk3CocvXnF6VgI16YSCJ+G0pWhHKaDVm4v9ZiwRTbVKIqgSBRXRUVOAogmBO6dV6vFCbuoyY79f
-	6bSYx/vuSfOcxpmV8PYgU8ZJgxoC6cRnkvErLUYBQFTUJCwUJ/OjfV9RGbNGdnyeS8krYNQSgxz
-	HID8muMPy4zICxMuCzSJ/dAflQXkTv3ryJGI0Ol4qZd0PVaasy+A1fLMmgq0wZh6wXh/8njf7Ij
-	OsZ9E45kfXy3Zx14fyoKBCplZ+wlf+nIxGFJsw04fMq3biyStcSpoZPcuvA4rR1PqZVCMq0d6fC
-	HIe1OurPwaXI3gnVNN881t8
-X-Received: by 2002:a17:902:f645:b0:2c1:6259:cda8 with SMTP id d9443c01a7336-2c2a1c873a1mr29134585ad.25.1781003111332;
-        Tue, 09 Jun 2026 04:05:11 -0700 (PDT)
-Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.lan ([58.164.4.185])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f875casm211687815ad.22.2026.06.09.04.05.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 04:05:10 -0700 (PDT)
-From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	bentiss@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	harrison.vanderbyl@gmail.com,
-	jikos@kernel.org,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: Add Microsoft Surface Pro 12in
-Date: Tue,  9 Jun 2026 21:04:29 +1000
-Message-ID: <20260609110429.11427-1-harrison.vanderbyl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <4ced3207-a132-4ec5-a0eb-79f75f5cb4bb@oss.qualcomm.com>
-References: <4ced3207-a132-4ec5-a0eb-79f75f5cb4bb@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="US53vIoF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1648E1F0089C
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:05:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781003114;
+	bh=+sX9ATTxluLYTPpyn9xT27ptWmmBF8CPbs0HcxCOGLE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=US53vIoF9/j7NNTqz1hLaFlMxgw9C2DnaPO8azROeejPOHxu1vvf3eC2MYMY7chhS
+	 Ag6OOTLSkRe05yLHlScMesFBLv+dNhmURTKiRgyRrzITipMQniJQa0kx85GpyJdiVY
+	 mVMRCN6srZ55EtXeNRyhQhU4xx7dWlyVn41OE0E1iRJHILBfY7EUAklvB8ZFfCePjY
+	 gqdWk002YDN79HTar1bZrsiczPKajB0GVHtUKn51qE94O2jVAyKKU+RsTXZP5PSK7p
+	 xptF5G3131wTltyOoPkgh8Szqii2zI+kx8tZ+Jvvl2+DhrIQzmIpSFYorLZCil6BpP
+	 CfH2/a5TTQWlg==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aa68cfc182so4662418e87.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 04:05:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+Usjv/Kk91giEIMUBM3gaKz8vnNwB9TAf7VesKi8AvhjYjXjwchSFnj5a2AThbw++/Ea7WySg0Tjk/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOZ72i+icbtNCwAG9XYshAIbILu8gK+JurdlFoX75CFXuEly97
+	yD/KePCl016gK+fHSb74oO4mLYV8IQoS+Qc9pqif/NR8dAy6y5gURg0ZHWmeCRmmy6HTXByhUeD
+	KBkX0Vp3W/ORKL8CYH9o56iPZt9NDeSaLXyerjhGOOw==
+X-Received: by 2002:a05:6512:2253:b0:5aa:5c8c:9cf4 with SMTP id
+ 2adb3069b0e04-5aa87b5f803mr5428916e87.17.1781003111998; Tue, 09 Jun 2026
+ 04:05:11 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 9 Jun 2026 07:05:10 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 9 Jun 2026 07:05:10 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAFEp6-1syMQsvuQ+dLU39bnDeL5Ok7vK1mA7CS0v1m7cjhyMQw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260609-block-as-nvmem-v4-0-45712e6b22c6@oss.qualcomm.com>
+ <20260609-block-as-nvmem-v4-4-45712e6b22c6@oss.qualcomm.com>
+ <CAMRc=MfuiPMkSm=-G6VEJpqKhos0TD_pf0ScBGqfwLHT0uk8yQ@mail.gmail.com> <CAFEp6-1syMQsvuQ+dLU39bnDeL5Ok7vK1mA7CS0v1m7cjhyMQw@mail.gmail.com>
+Date: Tue, 9 Jun 2026 07:05:10 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mc=-G0+ESPJUUgxd+jJWwuEzBcVXSJyAbAhx6BFkHeimA@mail.gmail.com>
+X-Gm-Features: AVVi8CdBM8fdpM7hiE50yrSmJrPYo7K9sdF-J87b4PfgsolvJ2MbyT4LVehGYdI
+Message-ID: <CAMRc=Mc=-G0+ESPJUUgxd+jJWwuEzBcVXSJyAbAhx6BFkHeimA@mail.gmail.com>
+Subject: Re: [PATCH v4 4/8] block: implement NVMEM provider
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
+	netdev@vger.kernel.org, daniel@makrotopia.org, Ulf Hansson <ulfh@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Johannes Berg <johannes@sipsolutions.net>, 
+	Jeff Johnson <jjohnson@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
+	Rocky Liao <quic_rjliao@quicinc.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Saravana Kannan <saravanak@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/9/26 11:30 AM, Konrad Dybcio wrote:
-> Because we'd put the subnodes for devices under the 'status' line (DTC
-> enforces that), please move the comment below as well
+On Tue, 9 Jun 2026 12:13:08 +0200, Loic Poulain
+<loic.poulain@oss.qualcomm.com> said:
+> Hi bartosz,
+>
 
-Will do,
+...
 
-> Or since it's @28, perhaps it's just nxp,nxp-nci-i2c and it could work
-> for you ootb?
+>>
+>> On the other hand, we don't want to not provide the block device just be=
+cause
+>> someone added a DT property on one that's too big. I'd say: warn, but re=
+turn 0.
+>> Does it make sense?
+>
+> It=E2=80=99s still technically an error in the sense that we cannot provi=
+de
+> the required nvmem feature. However, it only becomes a real issue if a
+> consumer actually attempts to use it.
+> Also, the block device should still be added, since the return code
+> from add_dev is not checked. In any case, I=E2=80=99m fine with either
+> approach, as long as we emit a warning message.
+>
 
-Unfortunately for me, the device/antenna is not present on the consumer version,
-I was able to confirm this during a speaker replacement.
+We don't check the return value now (why?) but if we ever do, the safer opt=
+ion
+is to return 0 IMO.
 
-> Please align the <s (or is it my mail client playing tricks on me?)
+>>
+>> > +     }
+>> > +
+>> > +     config.id =3D NVMEM_DEVID_NONE;
+>> > +     config.dev =3D dev;
+>> > +     config.name =3D dev_name(dev);
+>> > +     config.owner =3D THIS_MODULE;
+>> > +     config.priv =3D (void *)(uintptr_t)dev->devt;
+>> > +     config.reg_read =3D blk_nvmem_reg_read;
+>> > +     config.size =3D bdev_nr_bytes(bdev);
+>> > +     config.word_size =3D 1;
+>> > +     config.stride =3D 1;
+>> > +     config.read_only =3D true;
+>> > +     config.root_only =3D true;
+>> > +     config.ignore_wp =3D true;
+>> > +     config.of_node =3D to_of_node(dev->fwnode);
+>> > +
+>> > +     return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &config));
+>>
+>> And that was a wrong suggestion on my part too because I was under the
+>> impression that we're in the probe() path, not device_add(). You can't u=
+se
+>> devres here as the device at this point is not yet bound and may never b=
+e.
+>
+> So I understand The bd_device is purely a class device with no bus, no dr=
+iver.
+> For driverless devices, devres_release_all() is called explicitly
+> within device_del() .
+>
 
-The alignment changes depending on what text editor I copy paste this section into.
-I have them aligned the same as the other device trees are aligned though.
+Right.
+
+>>
+>> Which leads me to the second point: this is not the moment to add the nv=
+mem
+>> provider. This should happen at or after probe(). Once nvmem_register()
+>> returns, you have a visible nvmem resource but nothing backing it in the=
+ block
+>> layer.
+>
+> There is a short window during which a read attempt will 'properly'
+> fail, but this does seem somewhat fragile indeed.
+>
+>> Either do this in block core when registering a new device or schedule
+>> a notifier here for the BUS_NOTIFY_BOUND_DRIVER event and do it in the n=
+otifier
+>> callback.
+>
+> So in the end, it seems that the simpler and more robust approach is
+> probably to move away from the class_interface driver and instead
+> register/unregister the nvmem directly in add_disk/del_gendisk.
+> If that's ok I will move to this approach in the next version.
+>
+
+Yes, I think it's the right approach.
+
+Bart
