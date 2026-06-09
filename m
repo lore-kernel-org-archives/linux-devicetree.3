@@ -1,173 +1,213 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F7E3F4835
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:37:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C48B3AE6F3
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:37:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781001433; cv=none; b=nKYQkvw9O2Dkr+QFp0rWKYMB7YA+10972QYZkzMCpWJuSPLSZtIeAN8k0vDkf3qbzt+d+G9QTfieuFmYK6aAssV0cx8N/mFKTEua9S1brJ3DsgzpMbLGa7Ad1vFKIwU9NW4G9g+uuiV474CbpJDmDyU0PkzmCokN91jmWmIuFfE=
+	t=1781001459; cv=none; b=o07AJDFCs6J+STGvwJWl7RmN/YHJCPjHEA+WEdAbahjqFd4EOVhQO7GjUfuMnomE5sHuPy2dZ/6VjMCg03jGqAyf0xJAqNj5ftOFNeN3cTKrMVXMNvdlNlpKG3XDIZbPzZT4q7mNmfk2BFNGve3glDtGZno0xJUv5OBF2rIUicY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781001433; c=relaxed/simple;
-	bh=B2BLgWZjVBRlfduYM1FRQ/mif+V7M+B3Z8snrAfXEIs=;
+	s=arc-20240116; t=1781001459; c=relaxed/simple;
+	bh=FdoibTqamt5Z5fDFB55A3RIvCUtNuqj2hE0WBSR8T3k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K27F0zvpoFLDIUbPxFqqE81s/2AtfgFewL0O9YdvqyxoJKRCJDeDZcRYPS1hjLQPssGWXnQR+L/Upbw0zWWjLUrvH2I7TWlqzktMWFDfuBUXZLhSxRWgOX9SHCOvd7hZ9QJs/M81jlWJO8sEdSpLzml1qMJdVB5GdJV8noN//i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIWxWnzV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=a9KZH8/CBB3tc1IyOyvf8rY4jKN8a2ofOMXXBSg9shXy5HnCge2fknODeK4BLJsYsJWYGFqQ3lguImbhRd/QqePcMb48jyAWBBO7KgHCP+LtTbv61E90aV+PXy4xQAT7p32PjCga0MJ1inT3dqkeviQSL8B9tT/mi0XPjdde9RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1nV5dI7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIWxWnzV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB2831F00893;
-	Tue,  9 Jun 2026 10:37:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1nV5dI7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ECB21F00893;
+	Tue,  9 Jun 2026 10:37:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781001432;
-	bh=BsE/kxptdV5ttOPWKkabuRvAvZtnRHV/XfVn2blDghA=;
+	s=k20260515; t=1781001457;
+	bh=j9jyYMbF8eO+m9MdVWQa9C27rlS9vJ96FjbB4vE72Dc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RIWxWnzVFHTJJvXRL9KM3FajxuIwHKrVkgABuL+Jdvctre5gPR97jNCOsK9ujpSoT
-	 CJiJIOqGHyGlEkW9L1Wn1DUoZHcCDetIjmeq2hPsCjwDsvHViFKExxM+aRVzsMuDuA
-	 yQmcsBVZm53npO9qBWMicHCPSCq2NkAuACbcTaOd/0Iad3j86XTAZ2JyK3HGUUQPBl
-	 1G0WO6YAe4rnW0YTtlKh/DQy8PTfT5TAB5vysMHmgJPPpOuPNg4m5FRweVjX4PJSSx
-	 mJeIaH0Qy8uNCHYkx4Kd3YHK7JX8L6ciQ9vXVC3k58pYdX6ZHctWjMCOVVcwaKeRhl
-	 tm4ck3lAmqwVA==
+	b=h1nV5dI7T3WtVOwR+VxsJlLCOf0Kcg/8mv4tGZmJU6SVuXs9R6/yHs1Y+XxY7meop
+	 72NlKrjzkGvP8JxJPbyfPTCg+93pU6KSz6lALQgL0/8fCewIB4XkQ3x3cSlNlvLWNE
+	 sNohMYHlcZwWOX2BMV/H5WYDLf2+le0s5x1zfYHcSkuLHyLyubof7SO42+zr+eSThd
+	 ml6A3BNG5OOg0D3jFdZssRykNC3/QxTFcAMGB1d2zzxWNd4LszvwPmZ+D78xP35tJ+
+	 HcjI4kns0oY+xeoY0+t5Do3Xb6g4xkCdcXEAMm1ZAawk176zFLF1BGYjRfyhoDtnY3
+	 DAqQwRD8U5deg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 12/12] iio: dac: ad5686: add gain control support
+Subject: Re: [PATCH v3 2/8] soc: qcom: Add support for QMI TMD cooling
+ devices
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
-References: <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
+In-Reply-To: <20260609-qmi-tmd-v3-2-291a2ff4c634@oss.qualcomm.com>
+References: <20260609-qmi-tmd-v3-2-291a2ff4c634@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:37:10 +0000
-Message-Id: <20260609103711.AB2831F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 10:37:37 +0000
+Message-Id: <20260609103737.8ECB21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] ABI Violation: Exposing a writable sysfs attribute to fix a stat=
-ic hardware configuration.
-- [Medium] State Inconsistency: `st->double_scale` is not rolled back if ha=
-rdware synchronization fails.
-- [Low] Data Race: Lockless read of `st->double_scale` can race with concur=
-rent writes.
+- [High] Registration failure leaves an ERR_PTR in tmd->cdev, leading to an=
+ invalid pointer dereference during unregistration.
+- [High] Incorrect teardown sequence in qmi_tmd_exit() allows Use-After-Fre=
+e via concurrent sysfs accesses and re-queued QMI work.
+- [Medium] QCOM_QMI_TMD selects QCOM_QMI_HELPERS without inheriting its NET=
+ dependency, leading to Kconfig unmet dependency warnings.
+- [Medium] Mixing goto-based error handling with scope-based cleanup (__fre=
+e).
+- [Medium] Unprotected access to `tmd->cur_state` creates a TOCTOU race, ca=
+using the device mitigation state to permanently desynchronize from the ker=
+nel's state.
 --
 
-commit 7fefd2fd08838a6ee5a81a3a819607e02af9d85d
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+commit af63888f1125808b48046c97b93e006d9c65c730
+Author: Casey Connolly <casey.connolly@linaro.org>
 
-iio: dac: ad5686: add gain control support
+soc: qcom: Add support for QMI TMD cooling devices
 
-This commit adds support for a 2x gain multiplier applied to the output
-voltage. This provides a gain control through a bit field in the control
-register or a dedicated GAIN pin, exposing the scale property as configurab=
-le.
+Add a Qualcomm QMI Thermal Mitigation Device (TMD) to support thermal
+cooling devices backed by remote subsystems.
 
-> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> index d9022c6a32016..d49390af71f90 100644
-> --- a/drivers/iio/dac/ad5686.c
-> +++ b/drivers/iio/dac/ad5686.c
-
-[ ... ]
-
-> @@ -192,9 +196,14 @@ static int ad5686_read_raw(struct iio_dev *indio_dev,
->  			GENMASK(chan->scan_type.realbits - 1, 0);
->  		return IIO_VAL_INT;
->  	case IIO_CHAN_INFO_SCALE:
-> -		*val =3D st->vref_mv;
-> -		*val2 =3D chan->scan_type.realbits;
-> -		return IIO_VAL_FRACTIONAL_LOG2;
-> +		if (st->double_scale) {
-> +			*val =3D st->scale_avail[2];
-> +			*val2 =3D st->scale_avail[3];
-> +		} else {
-> +			*val =3D st->scale_avail[0];
-> +			*val2 =3D st->scale_avail[1];
-> +		}
-> +		return IIO_VAL_INT_PLUS_NANO;
-
-[Severity: Low]
-Is it possible for a data race to occur here?
-
-In ad5686_read_raw(), the mutable software state st->double_scale is read
-to determine the returned scale values without holding the st->lock mutex.
-
-Because st->double_scale can be concurrently modified by ad5686_write_raw()
-(which properly acquires st->lock), this can lead to reading a prematurely
-updated state before the hardware configuration has actually completed.
-
->  	}
->  	return -EINVAL;
->  }
-
-[ ... ]
-
-> @@ -216,6 +225,63 @@ static int ad5686_write_raw(struct iio_dev *indio_de=
-v,
+> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+> index 2caadbbcf8307..a292ce57fd4a4 100644
+> --- a/drivers/soc/qcom/Kconfig
+> +++ b/drivers/soc/qcom/Kconfig
+> @@ -128,6 +128,16 @@ config QCOM_QMI_HELPERS
+>  	tristate
+>  	depends on NET
 > =20
->  		return ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
->  				    chan->address, val << chan->scan_type.shift);
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (val =3D=3D st->scale_avail[0] && val2 =3D=3D st->scale_avail[1])
-> +			st->double_scale =3D false;
-> +		else if (val =3D=3D st->scale_avail[2] && val2 =3D=3D st->scale_avail[=
-3])
-> +			st->double_scale =3D true;
-> +		else
-> +			return -EINVAL;
+> +config QCOM_QMI_TMD
+> +	bool "Qualcomm QMI TMD library" if COMPILE_TEST
+> +	depends on ARCH_QCOM
+> +	select QCOM_QMI_HELPERS
+
+[Severity: Medium]
+Since QCOM_QMI_HELPERS specifies a dependency on NET, does selecting it here
+without also inheriting the NET dependency risk unmet direct dependency war=
+nings
+at build time if CONFIG_NET=3Dn?
+
+> diff --git a/drivers/soc/qcom/qmi_tmd.c b/drivers/soc/qcom/qmi_tmd.c
+> new file mode 100644
+> index 0000000000000..9d88ae48c8647
+> --- /dev/null
+> +++ b/drivers/soc/qcom/qmi_tmd.c
+[ ... ]
+> +static int qmi_tmd_set_cur_state(struct thermal_cooling_device *cdev,
+> +				 unsigned long state)
+> +{
+> +	struct qmi_tmd *tmd =3D cdev->devdata;
+> +	int ret;
 > +
-> +		switch (st->chip_info->regmap_type) {
-> +		case AD5310_REGMAP:
-> +			return ad5310_control_sync(st);
-> +		case AD5683_REGMAP:
-> +			return ad5683_control_sync(st);
+> +	if (state > tmd->max_state)
+> +		return -EINVAL;
+> +
+> +	if (tmd->cur_state =3D=3D state)
+> +		return 0;
+> +
+> +	ret =3D qmi_tmd_send_state_request(tmd, state);
+> +	if (!ret)
+> +		tmd->cur_state =3D state;
 
 [Severity: Medium]
-Should st->double_scale be restored to its previous value if the hardware
-synchronization fails?
+Is there a potential TOCTOU race here when updating tmd->cur_state without
+holding qmi_tmd_cli->mutex?=20
+   =20
+If the QMI server restarts concurrently, qmi_tmd_register() might read the =
+old
+state locklessly to send to the new server before this assignment completes,
+permanently desynchronizing the kernel's recorded state from the actual
+hardware state.
 
-In ad5686_write_raw(), st->double_scale is updated before the driver attemp=
-ts
-to push the change to the DAC via ad5310_control_sync(st) or
-ad5683_control_sync(st).=20
+[ ... ]
+> +static int qmi_tmd_register(struct qmi_tmd_client *qmi_tmd_cli,
+> +			    const char *label, u8 max_state)
+> +{
+[ ... ]
+> +found:
+> +	tmd->max_state =3D max_state;
+> +
+> +	/*
+> +	 * If the cooling device already exists then the QMI service went away =
+and
+> +	 * came back. So just make sure the current cooling device state is
+> +	 * reflected on the remote side and then return.
+> +	 */
+> +	if (tmd->cdev)
+> +		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
+> +
+> +	tmd->cdev =3D thermal_of_cooling_device_register(dev->of_node, index,
+> +						       label, tmd, &qmi_tmd_cooling_ops);
+> +	if (IS_ERR(tmd->cdev))
+> +		return PTR_ERR(tmd->cdev);
+> +
+> +	return 0;
+> +}
 
-If the underlying SPI/I2C write fails, the function immediately returns the
-error code without rolling back st->double_scale.
+[Severity: High]
+If thermal_of_cooling_device_register() fails, could this leave an ERR_PTR
+in tmd->cdev?=20
+   =20
+Later in qmi_tmd_unregister(), the check if (!tmd->cdev) will be bypassed
+since an ERR_PTR evaluates to true, potentially causing a crash when
+thermal_cooling_device_unregister() attempts to dereference it. Should
+tmd->cdev be set back to NULL on failure?
 
-This could cause the driver's cached state to diverge from the actual
-hardware configuration, causing future reads of the scale to return the
-incorrect updated value.
-
-> +		case AD5686_REGMAP:
-> +			/*
-> +			 * Even if the gain pin is hardwired on the board, the
-> +			 * user is able to control the scale such that it
-> +			 * matches the actual gain setting.
-> +			 */
-> +			gpiod_set_value_cansleep(st->gain_gpio,
-> +						 st->double_scale ? 1 : 0);
-> +			return 0;
+[ ... ]
+> +static void qmi_tmd_svc_arrive(struct work_struct *work)
+> +{
+> +	struct qmi_tmd_client *qmi_tmd_cli =3D
+> +		container_of(work, struct qmi_tmd_client, svc_arrive_work);
+> +
+> +	struct tmd_get_dev_list_req req =3D { 0 };
+> +	struct tmd_get_dev_list_resp *resp __free(kfree) =3D NULL;
+> +	int ret, i;
+> +	struct qmi_txn txn;
+> +
+> +	resp =3D kzalloc_obj(*resp, GFP_KERNEL);
+> +	if (!resp) {
+> +		ret =3D -ENOMEM;
+> +		goto out;
+> +	}
+[ ... ]
+> +out:
+> +	if (ret)
+> +		dev_err(qmi_tmd_cli->dev, "Failed to initialize TMD service: %d\n", re=
+t);
+> +}
 
 [Severity: Medium]
-Does this expose a writable sysfs attribute to fix a static hardware
-configuration?
+Does mixing the scope-based cleanup macro __free(kfree) with traditional
+goto-based error handling (goto out;) in the same function violate the
+cleanup subsystem guidelines? This mixture can lead to confusing ownership
+semantics.
 
-The commit introduces a writable scale sysfs attribute to allow users to ma=
-nually
-match the software scale to a hardwired gain pin. Static hardware properties
-should typically be described via firmware properties (e.g., Device Tree) so
-the driver can expose the correct, immutable scale at initialization.
+[ ... ]
+> +void qmi_tmd_exit(struct qmi_tmd_client *qmi_tmd_cli)
+> +{
+> +	if (!qmi_tmd_cli)
+> +		return;
+> +
+> +	cancel_work_sync(&qmi_tmd_cli->svc_arrive_work);
+> +	qmi_handle_release(&qmi_tmd_cli->handle);
+> +	qmi_tmd_unregister(qmi_tmd_cli);
+> +
+> +	scoped_guard(mutex, &qmi_tmd_cli->mutex)
+> +		qmi_tmd_cli->connection_active =3D false;
+> +}
 
-If the GAIN GPIO is absent, writing to the scale attribute returns success =
-but
-does not change the physical hardware state, leading to a silent desynchron=
-ization
-between the reported scale and the actual physical DAC output.
+[Severity: High]
+Can this teardown sequence cause a use-after-free or kernel crash?=20
 
-Could this mislead generic IIO clients by presenting multiple available sca=
-les
-that they believe they can dynamically toggle?
+Because qmi_handle_release() is called before qmi_tmd_unregister(), the
+cooling device remains exposed to sysfs while the QMI handle is being
+destroyed. A concurrent sysfs write could trigger qmi_tmd_set_cur_state(),
+which would attempt to allocate a transaction ID in the destroyed qmi->txns
+IDR because connection_active is still true.
+           =20
+Additionally, because cancel_work_sync() runs before qmi_handle_release(),
+there is a window where incoming QMI events can re-queue svc_arrive_work,
+potentially executing after the driver unbinds.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-ad5686-new=
--features-v2-0-70b423f5c76d@analog.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-qmi-tmd-v3=
+-0-291a2ff4c634@oss.qualcomm.com?part=3D2
