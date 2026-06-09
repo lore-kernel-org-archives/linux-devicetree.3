@@ -1,86 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADF5388379
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:42:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EDF3E7BC7
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780998160; cv=none; b=uiu1VhQev37vk9Wm28+rwfAp7U37k56BHMPZfmEzey0ikBS/5rngAyTXcZSiYxPV7ZODBzDpRg/4yk2aysw3Ua8zCgfl81UzuU63tW0a50E0jtSzGM5JKLNrH+Gx8xHUn1Og6JN35P5oHg9GiDXzwwTAQ2+Zy0NCXDMcgiM2kd0=
+	t=1780998207; cv=none; b=cUn1Kmef0hcDqr+lr5KYioszc7ksIVS9aquqGOlOZimY6R7DUxECjuN9QeRa/lLI18cp3eTs+URx4jTIgmUepDuN5mWfNvgXUVaefs3Mb1mFG7WFZHMm52KaEmd1+dbRhvhniiksn3zIfOWLgvcR60khbHTuA6aHdKJfc+M7w5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780998160; c=relaxed/simple;
-	bh=pRLtaagejePOW2Fg2YPKRLjIDCmXJrayZ7Q5GXWYh/Q=;
+	s=arc-20240116; t=1780998207; c=relaxed/simple;
+	bh=TvfIy379vvosIbtFVABd6KZoCjWl1ycLVvMkhEHVkXY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pfNCpm4zBwGJQ5a8UR8nnm1qIQHvs3EA+pthdpuL6Zhgq25b/B1M+wCe2So3bdEsTwcOcs7I8BQD2u5dn8bYew9AmdOpSNcJS7C6cTah48xBoH/SUutVP5BX3bdJ6vLfw/ORb5mGgZx3gp6hXFU1dSoB2kLzp75Edoyn5e1uh/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K/WrcX8E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yong9F7i; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=cFq0Oz4UCVcI6g54T/MyC42tTBOlNUeF8oBnicbYnvbo5VF4N93Ht4joKt0g6tngSpCzq39a7clzp4OeEhAms36QCNcD/TfV60sr73ld54upmsp+ClvQrg9Aj/0ErKtH6Zp59ooGRc7YqAEVuHAR/K+c87dEgWJpIEAWsoumCCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WagcQjIx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W/7QGWBE; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K/WrcX8E";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yong9F7i"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6597rcoW2034759
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 09:42:38 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WagcQjIx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W/7QGWBE"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6598Whxo2129869
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 09:43:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	n3JNmHHdS4gAWMcgDN6ouymySktpffftWHFLxG6U5y0=; b=K/WrcX8E0ZBjISFp
-	zvEvM2wWb6aedQVrpP1VJP7o/C2QZcd1L+J1uvQHY5Skc/GuVZUHIN+ohIPkyLnu
-	UBBj8a/TkMuSDa0lnqUSXLsLbeNMxOSOllhLSgaNTIEQ5RaqIhJNSjnQwhjatAzy
-	G/0tMUurbiV2rUQx7Mu2fay8naZ0d0GcaWY5He5Wc+UvP19Fhc3L6lxUNkJnA9Bi
-	2B+Rv5bog9rDlUuyBzJ3/bXCBrir7s1eK0FonUZG0bSEYv3b0wVzjtReGPRhnBjD
-	yyFpLMSKVTfY8WOja+ouWLEvt3PdJRXbrhpp/URUa97LmiCc72kCYOdK5g/RCh9d
-	+dveCw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeearj2n-1
+	rUl8Sy5GMTXVRM2Bgsp87utS1pWmPxlAyMGccJDOZ5w=; b=WagcQjIx0QvVxsyu
+	f0Y3jnVqGW0Qa0D8NdNr0HTk77L1e0cjAlNx9i4to7lq6VSddeA4P2lACS8SzVc+
+	Y0W9oEFwoLjk965Gquwj3y2zcMIiSK2GIn/RR0Gx0rCdrXtt4S+pZkUDOPa19lin
+	KpOGuBQ+yFoXZq34SLBz9gMb8QvntiuuIEOQxJuRsHWgD2PoKnzpRMgFHMUkL+10
+	iJKjc5oNRyx1UDEHT0Ii6hp4ESmbZa7mUymk24wB2+0Gu6xKd6NcgnbcOq89iVrR
+	A4mrH4uL62npxOG9onJRoDPGAFLcR9qVq4/8B5Kcp2Fsl/9g07SnO+wYGpdqbas4
+	qxH+eg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epfdt09ks-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:42:38 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-915732517cdso80134985a.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:42:38 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:43:23 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c85a2c305d0so3132175a12.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:43:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780998157; x=1781602957; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780998203; x=1781603003; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=n3JNmHHdS4gAWMcgDN6ouymySktpffftWHFLxG6U5y0=;
-        b=Yong9F7iRosT89uHwTFi9F0BxkFLr5GSPfEwGhTQr0HMJLcqwr7JNkibrrEPEDip6P
-         gwXF2g+B9Or6UKSBomPBFOcD57qBKzDnSoscMtt53fbNMX9XFi/BAqyANvk4vCanRtg5
-         iGCKpgV5aG9z0xqgJ0OT76yriXoZSIeHK5LLixCvgrX1+2JhfB0PLzGOBk0RVZbVHSGN
-         0smtTIwMDATPjbC/MwE+s2eg/bs7KTcI3U88RhRLleXq5JQQL133RJUJL/Q8jTcf7e/p
-         3lQFmOtGSW5Kz7xqBPRJapyj7obHFoJN7YSdtP/wjxtw8dGj0A/LOZgbuKier+tjbgN4
-         iuPA==
+        bh=rUl8Sy5GMTXVRM2Bgsp87utS1pWmPxlAyMGccJDOZ5w=;
+        b=W/7QGWBEfD/JBEPhIrcFl0bPMlumwZqi3QKTwt1K4dGjYTtBvNrUXnILqv/WeuTO5X
+         w+8INYeBjhryYYm81jVsgxAFTo7L+4aIBgooMpbCgHGGKbUvgEztQrYeqwLKTPpXUs/9
+         Fok/2kk5N3INCyTWlHyLye4oOf8qOgzy6+ZvTsfbN7GZmPBFFxbY/lWdP8lye2ek78y6
+         gEkpIMhMgdrsYji9Bx5uADxCM4mw3kMEtQc+y0Cc1TtLWtvxFxkm+vPSdm4nIYgqGAdQ
+         ubX6dnIOqn90CVbIb8+1Oq5l2PYzhAooIw7YnQVUY5T2Qk6WM6WAG1moWaNdWLmKtsb7
+         BSXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780998157; x=1781602957;
+        d=1e100.net; s=20251104; t=1780998203; x=1781603003;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=n3JNmHHdS4gAWMcgDN6ouymySktpffftWHFLxG6U5y0=;
-        b=jc4HkyYqNtJ82UeaEFMrMmU3mgngwL8pIj406KyyIByetEUd9LhEKH8s4rxZcEt7NR
-         P57XfvuPVSmWMY5Sc2VZ5ycowJ3Uvk4kjrIcjZEKQJB/ydq3hsNXmg5slT1/HC013Lpt
-         7hAWTnSfGhtf5SYBsT5rI/dCYLOmCjoEpd8kltmRher45Zq0JmBabLbIXwaFoJUkBJb0
-         q9G9iGsWxWaGGhk0jVkMOvOcqwMXzbDvpWYhSoVc1s00UG4iaSSnOBmQGSjrELfFhZ/v
-         qe7nJmjEURSxfnamCdj1f/jRM2Wm5KXHVSycxRql9t4pXv37Vh8EH6o9UEaKI3sRtqyj
-         zWoQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/7OE/F0hBE5Iyqh7TYAoBKLm0Qs/tu0Txlf43XQqrYT0wnrPXbWz7H1Udaom25Av36mvqbrjwkRU7Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YzP/KhOxdLLvgLARoFd4/S4VMbXspsILtwWSOqjlM4tms1TIfsG
-	W2JAnTjccAb/R65vQZtgATeN0ihJUWP4Lp93Ti5bIqu4QpliyyjGvpNrXp2FiDCUx6Y2fVZp15B
-	hnU2XSpge1jZU7CXjz/YsrSdSTXl3E+7cHtDXOxi20EtE7jalZmrxoKWX61siJCcX
-X-Gm-Gg: Acq92OENNRUMuLigcmheY9XUCG4pd4+HOck7EzX/HNMW5gqpKfUtk/ofuHklhisT+NW
-	NAL+sWaMkYHudvwCk/CNNUxBjRBz9iz1CVJIFicVmLOpgyRn+JkKpJ+xWSpkF1apC8mHQdUkkBW
-	QOk4x566NLE1z8lyEUrgT0pcNQgDr8jhwePyUcT4aN5HYbT4IaTogpBM2ohuJqk0GmS5gS/dw2S
-	wWMG6r7wRj1+8fmNzsvXK+txToVAnKSBtPeruGSQTu7aEBkOB9ojcMI0A6wvpB1CEdbbEfBs6Gi
-	iHyFF3a95a+Ix4rQDKzYbCF3l5lCC8dTz5m9trlJ8CWxWFJoN1XuuKgOeZUVdj/LbUZPJSOCBrn
-	b0cYpQ7H+bWIbH/FpviJnvjSQ0tBumxnIKJz04FWNDDtGjPkCQFw+0a/B
-X-Received: by 2002:ac8:7dcd:0:b0:517:8999:6c50 with SMTP id d75a77b69052e-517ca4855a0mr16784571cf.8.1780998157566;
-        Tue, 09 Jun 2026 02:42:37 -0700 (PDT)
-X-Received: by 2002:ac8:7dcd:0:b0:517:8999:6c50 with SMTP id d75a77b69052e-517ca4855a0mr16784311cf.8.1780998157110;
-        Tue, 09 Jun 2026 02:42:37 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf0559f1464sm1022558266b.55.2026.06.09.02.42.33
+        bh=rUl8Sy5GMTXVRM2Bgsp87utS1pWmPxlAyMGccJDOZ5w=;
+        b=a0y/CIbRzSkcj1NBT6vNdBP/TUuhw5csA6qysFwQSk4xPRLUlw1LvKn57KuBaTiJNq
+         yskDdiEkPyG9oLqiNMQTweu4inJVKViA7udTz8IeDwOLkRYZyo/55Ol8693AH0jWvqqI
+         KFLXx+1INC7oSVjYhoBx6QoZWbplkB03zDIYYpnwQcpl7J3fcW8uvdhkneUfgotb9nVy
+         inRbb9BeFvmG38Fz77wq3la4oKPEzqGD7e/nsqM9ZU7ZhyYEpj1Zdnb4Anrvt3PnGVVs
+         kotmNj0hrMyh97yyU6PbEKLexyI4KvhahCerM11Hk5t2Dk6mnDFYPcXG4KPxHd5W1112
+         TJ/g==
+X-Forwarded-Encrypted: i=1; AFNElJ+z8ZGtNRxPUZNGet1qTokpqTO6JrIL7sVinN1rI6VAHc9YJ2avKJYRFgJLS+XIeTHxx4uV7fA4Oh87@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxxoqwJTJKDU+/pG/Ys1J1SV3xCMHLrVfZQHxu2TAGdi7pYuj0
+	CVoO+8gD5rwl5PSl5jhEV1KOBCLJ1NGLRDUB5nwCMXk70mqaMBZ2qAf5rmOrC6lH2RYcOwGSiVb
+	reHVppfIu8ufWc+YNDuvS5RyFy8GFbZEvF8vHZfW4Xo7o+y5DEdYaurPcb8DtaXcD
+X-Gm-Gg: Acq92OF4tSvWS9ex8V/NvKxZqDd8NJarzXsv1Vt8+C07jo4KlxoTOP04Y7ye+Ti0XGC
+	9D0j+J5xR7RBiTpDkao9YNBMYiha7/PJ3SHqauZX+LOgt9dq3XYI9M02DvXWwToW3d0bfmsW8o9
+	JUqdflaagDTtk7+EuxLLc87L29ftpiIlg08s3zpZDhXagRdifxaEu768VE71YW1FbvYQjX8/e0m
+	TlUptlzZvZ1jBPePJZt/uxjXyg8YCFvw8aEdtQxMm/YThJ8Fjll5PG83TAZTnJlr1H8Fp1Ixs4b
+	XD4/GmSysp2gTcelLDSG6DOGK53EAVN2UUz+w6ewL4Ac/hMxMKEExRlA6MWuYLI3pWPWp0OjCkn
+	Ftg29V+n5OwAqQCP4eVWk0jBljX8FPQnHAOy28kSb0LTw7A0wLdQ5iMzAY+pGlixwJwgqIJuAqW
+	ij
+X-Received: by 2002:a05:6a00:2d07:b0:842:4bf8:cfdb with SMTP id d2e1a72fcca58-842b0f83825mr20435907b3a.32.1780998202853;
+        Tue, 09 Jun 2026 02:43:22 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d07:b0:842:4bf8:cfdb with SMTP id d2e1a72fcca58-842b0f83825mr20435867b3a.32.1780998202391;
+        Tue, 09 Jun 2026 02:43:22 -0700 (PDT)
+Received: from [10.151.37.217] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282374300sm24783245b3a.20.2026.06.09.02.43.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 02:42:35 -0700 (PDT)
-Message-ID: <d99447c8-f140-4ac1-85e1-a235c37eecde@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 11:42:32 +0200
+        Tue, 09 Jun 2026 02:43:21 -0700 (PDT)
+Message-ID: <585db96d-0c65-46ac-93b3-67107a6159e1@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 15:13:16 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,146 +89,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] power: supply: qcom_battmgr: Add thermal mitigation
- support
-To: DhruvinRajpura <dhruvin.rajpura@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH] dt-bindings: PCI: qcom,pcie-ipq9574: Add IPQ9650
+ compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley
  <conor+dt@kernel.org>,
-        Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        kamal.wadhwa@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
-        Umang Chheda <quic_uchheda@quicinc.com>
-References: <20260609-cooling_device_reg-v1-0-e15bddcb0086@qti.qualcomm.com>
- <20260609-cooling_device_reg-v1-2-e15bddcb0086@qti.qualcomm.com>
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260602-ipq9650_pcie_binding-v1-1-486a535da8c5@oss.qualcomm.com>
+ <20260608-wonderful-controversial-toucan-daab4f@quoll>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260609-cooling_device_reg-v1-2-e15bddcb0086@qti.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <20260608-wonderful-controversial-toucan-daab4f@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: RqZvfCkliyZCY9ITYNaoLl72rGi6gwHZ
-X-Authority-Analysis: v=2.4 cv=Iey3n2qa c=1 sm=1 tr=0 ts=6a27e00e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-ORIG-GUID: hFdtO2HRcp5F3eKNyH4YZAipf7HbznTe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5MCBTYWx0ZWRfXzf3j5sb8YRTR
+ gvGcC+twXEvpWzjac5lbKH1tzams/wFGrvnku/aWdTqhLc+S0VTb5fnDXqDaPQyrusUhuk0cD25
+ HWkON6ZEh9WJU9QUEDq90c+lqmBcCtfCtb8umzzvrgeNj03EVQjEuPur7cau4LBCfziO90TVkx0
+ 8jF3jGXWFsJOdYSkv1KVbK2OGyt4Tnv5qa7zqwkpGPVXcbbpB0/AfIk9FzZ6G5ppS0b8/TDADg9
+ FRpI4KyTOt/3KgAgfajPtBKxFU74VRS8jwqeHorfhvyo7Ix6wRk7TMrUVpSsfXk+SndocBE3f+h
+ hoy/+s5W1ymwqMiiRdNBkF0tSQ/HvW+YObdMwkXfVXVD9fLVq9PyCmPQPeUhCSVLG7hNWP1y2YS
+ L77bMNcmDVpMJ1agS6TefqJW1hbsLfa8p3v+sIr4R4pLUJEeQKx8OCWO7BbkJ93yD+fYT0Qg/cG
+ azDMc8AtSkDcZlCjejA==
+X-Proofpoint-GUID: hFdtO2HRcp5F3eKNyH4YZAipf7HbznTe
+X-Authority-Analysis: v=2.4 cv=doTrzVg4 c=1 sm=1 tr=0 ts=6a27e03b cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=VwQbUJbxAAAA:8 a=yrFiz102X7FNP_QAQpQA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA4OSBTYWx0ZWRfX9+8bpHE+W00W
- sE/WPUPAIfIzQrGqRI0dAJBT++MOAFKPXVB3b+M1a4onGuKQpqN846k9nUo23qeuu3xAMqWLEdJ
- 6mWTzgTtF/Sle++LXUKx/I7Ll0dVCtTNkbOGB49KJ+YsZ/H3+DJvLnvebkYE2RIZPyqZWBvjrO8
- x/C0xcjaJ7DwEN9d3JBcRKfWhbTTsz3PefmkG4P8qhPYORF1AnXH3VMIyIRyane6LrAVT8D5nKc
- /gTuz3FvRKHXYiCxzWIxaaQp2VIoVRZ9xyHhh5sLIOhhMRiguwlGS/KKsQ7aP684dIDZ1shF8+h
- CJZTLHSVbwY4u4zn1+k21XLNbQt5gWIxUKWvcufLp7cOetN1pQZFBL49jeXuYQ8tTQWXnwWOuBu
- rPBliwSHnAeav1jjS/Sc7aJxKXnFz5ttH7ryU1jBTD2HTfwA7oGF7dIiqjgarc6Obfa0tyYyA33
- cHDeQzc2Y9afxZSpzbg==
-X-Proofpoint-GUID: RqZvfCkliyZCY9ITYNaoLl72rGi6gwHZ
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=4EjJ1Zh6womSNn8TGqsA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ suspectscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090089
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090090
 
-On 6/9/26 11:16 AM, DhruvinRajpura wrote:
-> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> 
-> Earlier commit c85c191694cb ("power: supply: remove faulty cooling
-> logic") removed the automatic cooling device registration from
-> the power supply framework due to inverted cooling logic and
-> missing CHARGE_CONTROL_LIMIT_MAX validation across drivers. As
-> a result, drivers that need thermal mitigation support must now
-> explicitly register their own cooling devices with correct
-> semantics.
-> 
-> The battery charger firmware exposes a fast charge current (FCC)
-> limit property that can be used to throttle charging current in
-> response to thermal events. Without explicit cooling device
-> registration, the thermal framework has no way to reduce charging
-> current when the device is under thermal stress, which can lead
-> to excessive heat buildup during charging. Register a thermal
-> cooling device that maps discrete current levels defined in the
-> qcom,thermal-mitigation DT property to cooling states, where
-> level 0 represents the hardware maximum current queried from
-> firmware and each subsequent level reduces current to the next
-> DT-defined value. Track the last applied FCC value so thermal
-> limits are preserved across firmware protection domain restart
-> (PDR) events. Expose CHARGE_CONTROL_LIMIT and
-> CHARGE_CONTROL_LIMIT_MAX as power supply properties to allow
-> userspace to observe and control the current throttle level.
-> 
-> Co-developed-by: Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>
-> Signed-off-by: Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>
-> Co-developed-by: Umang Chheda <quic_uchheda@quicinc.com>
-> Signed-off-by: Umang Chheda <quic_uchheda@quicinc.com>
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> ---
 
-[...]
+On 6/8/2026 3:48 PM, Krzysztof Kozlowski wrote:
+> On Tue, Jun 02, 2026 at 03:06:18PM +0530, Kathiravan Thirumoorthy wrote:
+>> Add the IPQ9650 PCIe compatible to the IPQ9574 binding, as the IPQ9650
+>> controller is compatible with IPQ9574 and uses it as the fallback.
+>>
+>> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/pci/qcom,pcie-ipq9574.yaml | 1 +
+>>   1 file changed, 1 insertion(+)
+> Any reason why global interrupt is optional? Older devices were
+> incomplete, but new ones should come fully described.
 
-> +static int __battery_psy_set_charge_current(struct qcom_battmgr *battmgr,
-> +					    u32 fcc_ua)
-> +{
-> +	int ret;
-> +
-> +	mutex_lock(&battmgr->lock);
-> +	ret = qcom_battmgr_request_property(battmgr, BATTMGR_BAT_PROPERTY_SET,
-> +					    BATT_CHG_CTRL_LIM, fcc_ua);
-> +	mutex_unlock(&battmgr->lock);
+Sure. Let me add constraints for the same.
 
-I think the entirety of this function, particularly the assignment,
-could use this lock
-
-[...]
-
-> +	if (ret < 0) {
-> +		dev_err(battmgr->dev, "Unable to read CHG_CTRL_LIMIT_MAX ret :%d\n", ret);
-
-style: "ret: %d"
-
-[...]
-
-> +static int qcom_battmgr_parse_dt(struct qcom_battmgr *battmgr)
-> +{
-> +	struct device_node *node = battmgr->dev->of_node;
-> +	int len, ret;
-> +
-> +	ret = of_property_count_elems_of_size(node, "qcom,thermal-mitigation", sizeof(u32));
-> +	if (ret == -EINVAL)
-> +		return 0;               /* property not defined, thermal mitigation disabled */
-> +	if (ret <= 0)
-> +		return ret;              /* real error, propagate */
-
-Does battmgr really expect the OS to house this information? Can we not
-retrieve it from the running firmware?
-
-[...]
-
-> +	/*
-> +	 * Element 0 is for normal charging current. Elements from index 1
-> +	 * onwards is for thermal mitigation charging currents.
-> +	 */
-
-Documentation/ABI/testing/sysfs-class-power:
-
-What:           /sys/class/power_supply/<supply_name>/charge_control_limit
-Date:           Oct 2012
-Contact:        linux-pm@vger.kernel.org
-Description:
-                Maximum allowable charging current. Used for charge rate
-                throttling for thermal cooling or improving battery health.
-
-                Access: Read, Write
-
-                Valid values: Represented in microamps
-
-My reading of your patch is that you expect a level to be passed, not a
-uA value
-
-Konrad
+>
+> Best regards,
+> Krzysztof
+>
