@@ -1,276 +1,216 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1333DFC8F
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E003DFC8F
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781009699; cv=none; b=UwiX9WkBrjtNx9M/7oleiF8MEwh46se4ruCHgm7K62yFxK+XeCYQv7rlan64XaSkwfVTxh9kSIlFMG4bdzK40wJ94H8sD8t9tWiG0hDtKWB3BphlF0Fap5iU/0Yy8sFzbeWrBKUdh+vKSgt8ZvNPOuLm+QMQL4UnK3QZrNTSNro=
+	t=1781009879; cv=none; b=Bbihn328VHDiHZg9QoUX8lH4tgO10TCJKEx6PjIFxuBsZEwPejguL0R1ACjb/ESPZONcdFjnBVjTDqSvQynJXqqVZO+rmer25Tbg45/WPvgruRMizwFtl7zzySGljkeGo23qc+DGi6Z9c2Lo+C0/+1HFduLkQ5cGCP401xpcdbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781009699; c=relaxed/simple;
-	bh=iz03Z1NaE44FQhbRLk2qmAuM3AGwtExdDUN1CNs5vEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pP5SS5o20EeyjmosaRlPqMcMR6mgl5K7plEHMGFCgHPmU6OrTPMLrTk7BfiPLRZjnyuAneY5DrfGQTVo7YTD+SS3u4OujdSNBGpudNskroGETpHGps4YMVcfE6KUdNLmG6vfByUDXcQjGdgxsAypNuDMPi41fQsJNd9xl12cUP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPRqVMpi; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781009879; c=relaxed/simple;
+	bh=VeKcdjbjG9neMz/DzvyzOu0eKpXEomcIjl9R1GRbPbE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PFxN4daI9VaI5JDl6dI2QAurtNiw/4YeJdM2+aRbTLDeGgQ8Us9AJbh0Vg302BLWVxklrPPJ0bLJlgAdmfF9b3mDUpJ6WpCKhOXEw9itO/dUjMzaiLdAOKGurL/IG9DMkDFJQ7KQFlhZcyrPr0/bgHbD3b11u97JATqu8ZD0A6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zim+083o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ygl5G+6i; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPRqVMpi"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490abf12f0fso28879125e9.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 05:54:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zim+083o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ygl5G+6i"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659ClKS5652203
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 12:57:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jGOsl3o1y58ZtNWsmGTcSIVSD26o9VXU5DHOJ3gam3A=; b=Zim+083orGh6vg/E
+	dJbkU/d7rmClKcr8pxP2VksKpwGbPXv32HFrfdW3FOwNSGwMx2zV5sb8dmc8pX1D
+	JBX2fcv3vSO9MdLGkjlFtOAfMKj6hbDS7RpOhyQAYJbq9Gt6PN9NMfOwOuCjtmQQ
+	P0UbGWKbpAzvcK3gW8ipBJPp2+1bToDIJbJow64tJv5AUhgBultRxqg/x2NRDBXQ
+	qKPeoqyjhC2s6aovT3oplxe7RpXnvxJR8Zl903egBlaaEH+lFfs+ChDaGhytZEmc
+	x5pdWZneAUHpIgYMgg0I8Z7jDoO30ove3G1du3Bl565URYL9WGvvysiQv7cgTVvs
+	7Cr8zA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epf0ss7j2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 12:57:57 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6cfe512ea6bso222646137.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 05:57:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781009688; x=1781614488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jAjB1VHYXFjETydFoOxS7JGYlIYDv3A4wa5H74v2Xx8=;
-        b=BPRqVMpiKANUeAZnHNS+bTuwX2GJ6FlRTEEpnUqZxLsQd368J/krTUY6dwc5aiUFOi
-         UfivklJ3MdEDORYpmjecFMrrSq9ypoeOEypSnxakPRlZllx+2+SqSuVvsMOZatzNMij5
-         pNuss9wGlfenmx/0UvCJx8MaznKVGsdYxz8HZzZiPH43qqzSvWy4ueAkuTeaamfMolbE
-         d0QAV6b30DrzPJq22pAYNE4YZRUadBybi07wktq48zdinB04KcKibkyOG1LP4lCjGr8A
-         T6aJ3G3VAY/dfkW1ltutnovcHRZce1Jonlba65QFjam0U4ni6Kir11DVLoK0H7WCbqp7
-         RdnQ==
+        d=oss.qualcomm.com; s=google; t=1781009877; x=1781614677; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jGOsl3o1y58ZtNWsmGTcSIVSD26o9VXU5DHOJ3gam3A=;
+        b=Ygl5G+6iTfUw8BLZzlIwXNOK/Fah9iHbPXplHYkfYxPG/AJDqib3TymO5L3mYqylcE
+         lbawX4E9F9OqiyJUx1Ol/Q9PDLzRgJNIe4ZpMAO6vLEhnZUWDOf+EA4JtGQ7BuS/KKpo
+         IS31avH/eHrlEV82hUE/Sw/VtS93xhiLAeUXCjzqgWzFV06u3v76kmX1m2oMH9bkv5ZO
+         ZsO7TIOgZk0iSjgODWXEHMplv4G67tljyvUs+nHxczfKZrWfL02LLW4D/CHLl+Mz/cQ3
+         nzk4ZzojkINt+ZcinsZR3U1BxBZVbY6ArBy/GQ3wm+H2Bq+CUOIHIYDJHCfYpjNuUiQc
+         EvaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781009688; x=1781614488;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=jAjB1VHYXFjETydFoOxS7JGYlIYDv3A4wa5H74v2Xx8=;
-        b=ELWksX1m5I3XS6mQUiyQSRngT6BmPYHraSRqkvZcZICOqPUZLL9rAG0iZ/KAIEb2cJ
-         XucDsAzkkMqZH93kp4DuIvn3OVyeOeuTrxHmQmAdlj24WnwHbm6/mokhuwdqRXPTg5Nq
-         Z1vv9+cnSEMp4yalStUCFNQqrZAscDJgQcOqv/VGokLD4xqxDkB9EjhMD98WA5uE+iwR
-         WtKpGZGpx4ctJ3catXBS6yPsSPUdrIQzdo8jZfd9RJWfKxmjXvqABtNWojv2SpTo1x45
-         i79uzdGX/yLDoSh/v+pyy7pXqISB7njEshzuDCmIx5vcICeguyAixzSnHbiB37T+u/r+
-         ev4A==
-X-Forwarded-Encrypted: i=1; AFNElJ8xN949K4ZXpVKjoTtdZXeu8Ucerlw0Z/6NEk95/4xH6KXCXW8gb9ZqQOWSpFY7qBGf2c8Euwmg8MOV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJWi2AHRW/I/IfMsgf2HdVidDTZlyScygUuoX2cNs5Ma5OZVcI
-	Mr+2l1J4ev6oU/MdmmdN8/t+uOnjHvOe3CJERjtAiMvTzcVNr5KgKHqN
-X-Gm-Gg: Acq92OFDc9c3hZiAGU7KVR8A+vQPz1/xUq85yoVz4Q8nza1K4ODLP2VM2/GvsiobMVt
-	uKWzDhTZmzJj7EpiS+7dh8vi0e7fDmJwX6URGfobcY9635EuSKj4D0u/mtmONlfK8ijLvZXPjUH
-	PAp1dZkgfom/fY1eCPsoRWcWjz/wZMCFvhlK836P3JUbUdwsnq5afGXuX9qBbRqMtK1xdoGdJYF
-	qJjRQFh29iPYqaYAgqOeai7GYz/o0JzNbGDP4Q0e1LNtN6OLuRNOscQyZ2KI2mHeTJ2bPtXhCe3
-	H28t+HAq6+UoI+XGS6eKfmMxvcvitKREAWd2DpqcJyzNDUnzCwR50UtCbFh0mYahv/lKR/9q91v
-	cqVLOiw4H3eUN7xhashLWbDBxRYZ4trxSzMYYcI/BWPZfp4aegLbSEwy3kofVQ54fTQeNhH4VSy
-	IheR0+FqPJYDNle/lo+Vyk7lwE+4vLR/1HGWM/Jz18F5aqF3Ijpz939zSKv0FdktPaxCio9Qs7I
-	ypEX/av6+2QZm9hni2vUCuEcKoKUonil0QGpZOOdpecUj8njFA4iMgHiA==
-X-Received: by 2002:a05:600c:8010:b0:490:b4a8:e031 with SMTP id 5b1f17b1804b1-490c2cba8e7mr261351355e9.4.1781009688151;
-        Tue, 09 Jun 2026 05:54:48 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:2b2d:6009:3bbe:fb84])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b06sm435968425e9.3.2026.06.09.05.54.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 05:54:47 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 5/5] arm64: dts: renesas: Add LCDC overlays for RZ/T2H and RZ/N2H EVKs with ADV7513
-Date: Tue,  9 Jun 2026 13:53:53 +0100
-Message-ID: <20260609125353.401124-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260609125353.401124-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260609125353.401124-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        d=1e100.net; s=20251104; t=1781009877; x=1781614677;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jGOsl3o1y58ZtNWsmGTcSIVSD26o9VXU5DHOJ3gam3A=;
+        b=sBroBgh5eDJG3pAHdbMtTAeRLYXK9SM5tnpSZ9xq0OspD5nwVoJHx01YRrhAhERrgw
+         APPNoQghN/+mWcQW9EX/8NU8hLgebKoOBaOSuYI/zcdrTgsOhKk5LOXLdcRj5rA7jXZ3
+         6dHEkrFj77eQTdNG2YLepipV9ySlc5AV6DnbgRlDf8sUjgoCw5UEXC2omqfDJxHNmelG
+         DmPCljKp9auQTKVoaCq+X08042Ef+sNITtaPDChWgXnk8RVEqTK87z4VxbPcefN/fq7N
+         YaVGRo73bfq1/gXDtARLlztoEGTRbakf6uANIXVwIV35f0Wge7wA5BasUuS5AlmZAyy8
+         Rqdg==
+X-Forwarded-Encrypted: i=1; AFNElJ/OaxK2T1IwOM0XkZvZizdIEBsCMIlKFyEx7lrlrXi1S1f3Wcz5W2Md30Yplbv+Mqh+tTkFVANqXQ8V@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHsRCMPjOPLTQLuXMSVsbiUKvWz5jBcNK/tu6gKxvsOkpg+jEZ
+	IB5VnTssrtz5rI9BrraLSZbPX1YsqLWEg6kb1Ykd7w6yp+RCtyTmp+/rY+UMmnbrN22Q+57DnyD
+	5p1IvUxxmPnuATAoRl1Ww8r7roM9Sk5yrZ+VcwlOubUWTd+6jSV4ae9A12fqg8JePn7JTcpk1
+X-Gm-Gg: Acq92OGWTV61ZbsvaJgkqTQSR0otdENGFtI14NsEATrf+ZGxKOozeyD3+BxV0DWVphZ
+	1uEAIYhY5d11AwjG2eZAimped+mtBXvxWSbb+M1cxzUd8JvalvSWymieL1qA04iHz4wwVk2+r9O
+	tSuO1E9kKaCnflx5gtDQ5frCQKxOWi2oAyozeR5+aT2AabkM+gIyGykH4DaxmICku8GkzgXVV1y
+	/Yr34l9RO1clKBmnRFCO55ckFQHNOfD9ZpryGY8lDuXQYQpBrlSfzaZeS/eXntr3KOn55SExAv4
+	fgWvOamnpS6IYhtnw1H2q6dnpuOH4ulym2hnYV65nHx/83GTHJ9oNNuXuHa2y/cY8l7bh/RVb0D
+	o3B2bdAxR8ZU29edVrKJtiOcvK+/DLComPCCL4JEOGXK1DXXYcmZRfOvH
+X-Received: by 2002:a05:6102:4494:b0:65a:fe89:c8e7 with SMTP id ada2fe7eead31-719254ae70fmr316657137.4.1781009876845;
+        Tue, 09 Jun 2026 05:57:56 -0700 (PDT)
+X-Received: by 2002:a05:6102:4494:b0:65a:fe89:c8e7 with SMTP id ada2fe7eead31-719254ae70fmr316651137.4.1781009876459;
+        Tue, 09 Jun 2026 05:57:56 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b99ca90sm4648052e87.84.2026.06.09.05.57.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 05:57:55 -0700 (PDT)
+Message-ID: <b0479824-0c6d-498d-bdc8-63f678a6f2ee@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 14:57:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/7] clk: qcom: Add generic clkref_en support
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das
+ <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        krishna.chundru@oss.qualcomm.com
+References: <20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com>
+ <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDEyMSBTYWx0ZWRfX9IG1mzPFqxe6
+ SCgNnQvatvlxwuPEg6EGm1ObddDBcw3HEA8kFobopYV9caTTtFuo8g1Tw6KaA8qqRqZ0nXmzb0Q
+ LVT0ZenSlKonSvkLw/OIVjoSB5Orf0wsON9GZefbRfqLA/VC4hJgiUdgkMCShzjyDaqaEANQb1q
+ /MsGStg/EJ6aOcd+pjPuE28OSCAp3vydZvg398HruO28W0aDO03iOyu0vQEqqRkUHfxhRMX0FlO
+ hHAw5VCMy6CvOvO5NKnfesATwiBdZoguzQrFlIvkDsz66EZ3V7GgMfTTiLzcHQAbsOrD35bj2xT
+ 2USHwyIjGrYmJltowG6Gn4K10bRb9QpizxKNfutn/9sEi1q3AFQ62Gj6fppWQUKrHlhx/+uFdA8
+ xOSO5U5LyDm5raUlNqRu7a4B66shPSi5oWhhGOxBuKVdOi/ntY1v9RDM7znuj6MumxbzB2sGuPs
+ n33MKF4hTSiyl1lXskQ==
+X-Proofpoint-ORIG-GUID: szT_IG5mY3H3AcnRnt6gLmuRONxLeWlT
+X-Proofpoint-GUID: szT_IG5mY3H3AcnRnt6gLmuRONxLeWlT
+X-Authority-Analysis: v=2.4 cv=GeonWwXL c=1 sm=1 tr=0 ts=6a280dd5 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=ZOZ9JJu0O6LkbGEWVdAA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_03,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606090121
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On 5/28/26 4:29 AM, Qiang Yu wrote:
+> Before XO refclk is distributed to PCIe/USB/eDP PHYs, it passes through
+> a QREF block. QREF is powered by dedicated LDO rails, and the clkref_en
+> register controls whether refclk is gated through to the PHY side.
+> 
+> These clkref controls are different from typical GCC branch clocks:
+> - only a single enable bit is present, without branch-style config bits
+> - regulators must be voted before enable and unvoted after disable
+> 
+> Model this as a dedicated clk_ref clock type with custom clk_ops instead
+> of reusing struct clk_branch semantics.
+> 
+> Also provide a common registration/probe API so the same clkref model
+> can be reused regardless of where clkref_en registers are placed, e.g.
+> TCSR on glymur and TLMM on SM8750.
+> 
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> ---
 
-Add DT overlay support enabling the DU/LCDC pipeline on the RZ/T2H
-(r9a09g077) and RZ/N2H (r9a09g087) evaluation kits when fitted with a
-CN15/CN20 ADV7513 HDMI transmitter.
+[...]
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-Note, as per the HW manual the slew rate setting for the LCDC pins should
-be 1 (fast), but while testing on the EVKs with ADV7513, the display output
-was unstable (flickers were seen) with slew rate 1. Setting the slew rate
-to 0 (slow) resolved the issue.
----
- arch/arm64/boot/dts/renesas/Makefile          |  6 +++
- .../renesas/r9a09g077m44-evk-cn15-lcdc.dtso   | 40 +++++++++++++++
- .../renesas/r9a09g087m44-evk-cn20-lcdc.dtso   | 35 +++++++++++++
- .../dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi | 50 +++++++++++++++++++
- 4 files changed, 131 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi
+> +static int qcom_clk_ref_enable(struct clk_hw *hw)
+> +{
+> +	struct qcom_clk_ref *rclk = to_qcom_clk_ref(hw);
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(rclk->regmap, rclk->desc.offset, QCOM_CLK_REF_EN_MASK,
+> +				 QCOM_CLK_REF_EN_MASK);
 
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 8bf155badd11..34a4ef0d715a 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -216,8 +216,14 @@ r9a09g057h48-kakip-pixpaper-dtbs := r9a09g057h48-kakip.dtb r9a09g057h48-kakip-pi
- dtb-$(CONFIG_ARCH_R9A09G057) += r9a09g057h48-kakip-pixpaper.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G077) += r9a09g077m44-rzt2h-evk.dtb
-+dtb-$(CONFIG_ARCH_R9A09G077) += r9a09g077m44-evk-cn15-lcdc.dtbo
-+r9a09g077m44-rzt2h-evk-cn15-lcdc-dtbs := r9a09g077m44-rzt2h-evk.dtb r9a09g077m44-evk-cn15-lcdc.dtbo
-+dtb-$(CONFIG_ARCH_R9A09G077) += r9a09g077m44-rzt2h-evk-cn15-lcdc.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G087) += r9a09g087m44-rzn2h-evk.dtb
-+dtb-$(CONFIG_ARCH_R9A09G087) += r9a09g087m44-evk-cn20-lcdc.dtbo
-+r9a09g087m44-rzt2h-evk-cn20-lcdc-dtbs := r9a09g087m44-rzn2h-evk.dtb r9a09g087m44-evk-cn20-lcdc.dtbo
-+dtb-$(CONFIG_ARCH_R9A09G087) += r9a09g087m44-rzt2h-evk-cn20-lcdc.dtb
- 
- dtb-$(CONFIG_ARCH_RCAR_GEN3) += draak-ebisu-panel-aa104xd12.dtbo
- dtb-$(CONFIG_ARCH_RCAR_GEN3) += salvator-panel-aa104xd12.dtbo
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso b/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
-new file mode 100644
-index 000000000000..41c695325729
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DT overlay for the RZ/T2H EVK with ADV7513 transmitter
-+ * connected to DU enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+/*
-+ * RZ/T2H LCDC configuration:
-+ * ----------------------------------------------------------
-+ * Function        Pin     SW Setting
-+ * ----------------------------------------------------------
-+ * LCDC_DATG0     P11_0, SW6[3]: OFF, SW6[4]: ON, SW6[5]: OFF
-+ * LCDC_DATB1     P18_0, SW8[3]: OFF, SW8[4]: ON
-+ * LCDC_DATB2     P18_1, SW8[1]: OFF, SW8[2]: ON
-+ * HEADER_IRQ8    P22_6, SW2[1]: ON, SW2[2]: OFF
-+ */
-+#include "rzt2h-n2h-evk-du-adv7513.dtsi"
-+
-+&{/leds/led-4} {
-+	/* P18_0 is used for DU function LCDC_DATB1. */
-+	status = "disabled";
-+};
-+
-+&{/leds/led-5} {
-+	/* P18_1 is used for DU function LCDC_DATB2. */
-+	status = "disabled";
-+};
-+
-+/*
-+ * Disable SDHI0 as SW2 settings for eMMC/SD card conflict with DU pin
-+ * settings.
-+ */
-+&sdhi0 {
-+	status = "disabled";
-+};
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
-new file mode 100644
-index 000000000000..bc8a91278920
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DT overlay for the RZ/N2H EVK with ADV7513 transmitter
-+ * connected to DU enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+/*
-+ * RZ/N2H LCDC configuration:
-+ * ----------------------------------------------------------
-+ * Function        Pin     SW Setting
-+ * ----------------------------------------------------------
-+ * LCDC_DATG0     P11_0, DSW12[3]: ON, DSW12[4]: OFF
-+ * LCDC_DATG3     P14_3, DSW5[3]: OFF, DSW18[5]: OFF, DSW18[6]: ON
-+ * LCDC_DATG6     P14_6, DSW15[8]: ON, DSW15[9]: OFF, DSW15[10]: OFF
-+ * LCDC_DATB2     P18_1, DSW18[9]: OFF, DSW18[10]: ON
-+ * I2C_SDA1       P03_3, DSW7[1]: ON, DSW7[2]: OFF
-+ * I2C_SCL1       P03_4, DSW7[3]: ON, DSW7[4]: OFF
-+ * ------------------------------------------------
-+ */
-+
-+#include "rzt2h-n2h-evk-du-adv7513.dtsi"
-+
-+&{/leds/led-4} {
-+	/* P18_1 is used for DU function LCDC_DATB2. */
-+	status = "disabled";
-+};
-+
-+&i2c0 {
-+	status = "disabled";
-+};
-diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi
-new file mode 100644
-index 000000000000..c537b2221fdc
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi
-@@ -0,0 +1,50 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DT overlay common parts for the RZ/{T2H/N2H} EVKs with ADV7513
-+ * transmitter connected to DU enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/pinctrl/renesas,r9a09g077-pinctrl.h>
-+
-+#define ADV7513_PARENT_I2C i2c1
-+#include "rz-smarc-du-adv7513.dtsi"
-+
-+&pinctrl {
-+	du_pins: du-pins {
-+		pinmux = <RZT2H_PORT_PINMUX(9, 4, 0x28)>, /* LCDC_CLK */
-+			 <RZT2H_PORT_PINMUX(9, 5, 0x28)>, /* LCDC_HSYNC */
-+			 <RZT2H_PORT_PINMUX(9, 6, 0x28)>, /* LCDC_VSYNC */
-+			 <RZT2H_PORT_PINMUX(9, 7, 0x28)>, /* LCDC_DE */
-+			 <RZT2H_PORT_PINMUX(10, 0, 0x28)>, /* LCDC_DATR0 */
-+			 <RZT2H_PORT_PINMUX(10, 1, 0x28)>, /* LCDC_DATR1 */
-+			 <RZT2H_PORT_PINMUX(10, 2, 0x28)>, /* LCDC_DATR2 */
-+			 <RZT2H_PORT_PINMUX(10, 3, 0x28)>, /* LCDC_DATR3 */
-+			 <RZT2H_PORT_PINMUX(10, 4, 0x28)>, /* LCDC_DATR4 */
-+			 <RZT2H_PORT_PINMUX(10, 5, 0x28)>, /* LCDC_DATR5 */
-+			 <RZT2H_PORT_PINMUX(10, 6, 0x28)>, /* LCDC_DATR6 */
-+			 <RZT2H_PORT_PINMUX(10, 7, 0x28)>, /* LCDC_DATR7 */
-+			 <RZT2H_PORT_PINMUX(11, 0, 0x28)>, /* LCDC_DATG0 */
-+			 <RZT2H_PORT_PINMUX(14, 1, 0x28)>, /* LCDC_DATG1 */
-+			 <RZT2H_PORT_PINMUX(14, 2, 0x28)>, /* LCDC_DATG2 */
-+			 <RZT2H_PORT_PINMUX(14, 3, 0x28)>, /* LCDC_DATG3 */
-+			 <RZT2H_PORT_PINMUX(14, 4, 0x28)>, /* LCDC_DATG4 */
-+			 <RZT2H_PORT_PINMUX(14, 5, 0x28)>, /* LCDC_DATG5 */
-+			 <RZT2H_PORT_PINMUX(14, 6, 0x28)>, /* LCDC_DATG6 */
-+			 <RZT2H_PORT_PINMUX(17, 6, 0x28)>, /* LCDC_DATG7 */
-+			 <RZT2H_PORT_PINMUX(17, 7, 0x28)>, /* LCDC_DATB0 */
-+			 <RZT2H_PORT_PINMUX(18, 0, 0x28)>, /* LCDC_DATB1 */
-+			 <RZT2H_PORT_PINMUX(18, 1, 0x28)>, /* LCDC_DATB2 */
-+			 <RZT2H_PORT_PINMUX(18, 2, 0x28)>, /* LCDC_DATB3 */
-+			 <RZT2H_PORT_PINMUX(18, 3, 0x28)>, /* LCDC_DATB4 */
-+			 <RZT2H_PORT_PINMUX(18, 4, 0x28)>, /* LCDC_DATB5 */
-+			 <RZT2H_PORT_PINMUX(18, 5, 0x28)>, /* LCDC_DATB6 */
-+			 <RZT2H_PORT_PINMUX(18, 6, 0x28)>; /* LCDC_DATB7 */
-+		drive-strength-microamp = <11800>;
-+		slew-rate = <0>;
-+	};
-+};
--- 
-2.54.0
+regmap_set_bits()
 
+> +	if (ret)
+> +		return ret;
+> +
+> +	udelay(10);
+> +
+> +	return 0;
+> +}
+> +
+> +static void qcom_clk_ref_disable(struct clk_hw *hw)
+> +{
+> +	struct qcom_clk_ref *rclk = to_qcom_clk_ref(hw);
+> +
+> +	regmap_update_bits(rclk->regmap, rclk->desc.offset, QCOM_CLK_REF_EN_MASK, 0);
+
+regmap_clear_bits()
+
+[...]
+
+> +static int qcom_clk_ref_register(struct device *dev, struct regmap *regmap,
+> +				 struct qcom_clk_ref *clk_refs,
+> +				 const struct qcom_clk_ref_desc *descs,
+> +				 size_t num_clk_refs)
+> +{
+> +	const struct qcom_clk_ref_desc *desc;
+> +	struct qcom_clk_ref *clk_ref;
+> +	size_t clk_idx;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (clk_idx = 0; clk_idx < num_clk_refs; clk_idx++) {
+> +		clk_ref = &clk_refs[clk_idx];
+> +		desc = &descs[clk_idx];
+> +
+> +		if (!desc->name)
+> +			continue;
+
+// this allows "holes" in dt-bindings for $reasons
+if (!desc)
+	continue;
+
+// this makes sure the programmer did not omit something important
+// while not taking the entire system down
+if (WARN_ON(!desc->name)
+	continue;
+
+
+Konrad
