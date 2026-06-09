@@ -1,102 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71A5368287;
-	Tue,  9 Jun 2026 23:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD95301708;
+	Tue,  9 Jun 2026 23:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781046335; cv=none; b=talNcIc90brWVr5CXWQ9igi4iUVht9XwMRizSONXRQbPtWHF+nxlG5uoYqvWB+34FgKFWq9AX2Xw4gWqXrNn10qJCn8bFntlxWpkz0fOu349H+rrk2cbVMrG+vck+t46mI3zKbry4jugh927Wzckt5uUZgJnNgSwnQXpCT+kvUs=
+	t=1781046686; cv=none; b=osW2KXCi9X1t9Yoyo2MsjLyoHuF8j8tjGsByZQSzZz0xm2rZAXn4MDTYmHQyJoPgY7Uqxalw+HtTfRlgxLftFfe8XqcJ4fQf7nqmKqxUqoGQ/DC8rlP+NidDg/CDhC90BEpm2CeK3E2lvq8Ke2pOF+kY57sjNFovDyLYx5yFxoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781046335; c=relaxed/simple;
-	bh=qtcaH8L1yvluTYbrwvjWN4eUHVFuFYQeSf7xQZO5ssI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=mSw0PhMmR2bP7QrUil3hUAuA+ipNPV2UaYquOY777zP5pxNLQIQG7HetMY82BRiBMIb5Jta0yq67dEmEHuFtk4yoDcxWTDtMJRLxivrx2KS9Z9/T2bCj81lsiJSLgtQAOwBVcW176dLTrGVZ2+Aa8Bdt9KHUv6VUPKnCK+WY2wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eo8oPCId; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781046686; c=relaxed/simple;
+	bh=cIUrQfjWhexxtEG3nThdTBHEdFiN5tzrGQ/NU86nAuc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dzWalfGQutj+tWeYWLrP8XLiiEXUGsecijxyaiIOsa2miYf3DPPXfEYHigcHgMvz1IU9Vovec83ojw45RVwS5EOD2tk/ABszpd2SCLL9jK3g4nZ8hpkyuvStWeo3qiAUxZTZuEs6GDOxzYImgosrXJDTAQGlZ7p43YvjpGCGiUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQLqyvEX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eo8oPCId"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99F61F00898;
-	Tue,  9 Jun 2026 23:05:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQLqyvEX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D908C1F00893;
+	Tue,  9 Jun 2026 23:11:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781046334;
-	bh=yT+5W4H2TlPWKtpdh47hOBHtSwupgqsf+iMTzAB9YC0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eo8oPCIdnrtV24DIf9pJ0NkTUK1QbfnktXv9OBpd/nvsvVcgAfoeoZagdu3H2Kvo/
-	 YojjiL1toX6uuedw5yRYjaJnwMNloCHU/s1PrU4DbIRywalaAxRlmJe0s2o535FJ9i
-	 gmP0gY+Y2REXFVA/pFz6NZ4vD3yTiJ+EEpySv6itHvPbjAqi+b17T7O2Mw00seYglf
-	 YSm/NNJkMbawhmgxpdC1K56EkH+OtlVcUsQYvJL8Odb6/KgvPNV+9w1IVaPqxmWiSx
-	 fuZbhVq/k8sLkHkkbaRXw6zzkkoiAUXh63gGXbqnZYeg8PXmgEmxXxqnE/pDgVevXm
-	 iH1CAjkvdGJYQ==
-From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260608-rpm-smd-regulator-pm8019-v1-0-c671388b9ea5@linaro.org>
-References: <20260608-rpm-smd-regulator-pm8019-v1-0-c671388b9ea5@linaro.org>
-Subject: Re: [PATCH 0/2] regulator: qcom_smd-regulator: Add PM8019
-Message-Id: <178104157125.34323.11061766000197294354.b4-ty@b4>
-Date: Tue, 09 Jun 2026 22:46:11 +0100
+	s=k20260515; t=1781046684;
+	bh=RTQ7Dfa+YIedQNlrk2pBh0acv1cJxf0hqLHt+u/Ia8k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OQLqyvEXsQZCwc5mO4VNP1T5EDWq5EHl3fArZI4AsaiVQjoGwHMLSdaYH3feXYArf
+	 fA6x7Iqa5b1Vdz7luA+0gDRuJ1XmAEUkt/r7ywxYQMlscO7jIp85Mn7Bt/a3Vkib/K
+	 XHkJTs3ngEVXcvWR3YkCRbm7FYaE6fnBJbU/D1fQUNY1YbBiR8reElwFHflN+o5FMC
+	 2kGiJh2HfnxFpucnbb1auSIIVjs9G8jtku5/p/NM7tHSgcKrFaYMvunEtSYvxtPMY4
+	 VlIIKbCjTFTIquDLJGrYzR9sMbZaVxpIwo4E11M6Qj9dFtBTdmz5wZnGVN4e4fMzNB
+	 U3k49y4B9I9PA==
+Date: Wed, 10 Jun 2026 00:11:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] dt-bindings: dmaengine: Add SpacemiT K1 PDMA
+ request numbers
+Message-ID: <20260610-atrophy-gullible-938789978f76@spud>
+References: <20260609-b4-k1-pdma-req-macros-v2-0-5d5d7b997b54@gmail.com>
+ <20260609-b4-k1-pdma-req-macros-v2-1-5d5d7b997b54@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1443; i=broonie@kernel.org;
- h=from:subject:message-id; bh=qtcaH8L1yvluTYbrwvjWN4eUHVFuFYQeSf7xQZO5ssI=;
- b=kA0DAAoBJNaLcl1Uh9AByyZiAGoonDqgzCd3S5Ere1H3bu5vA8rWNWwRPxGB3h2ycM8Q41T4K
- okBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqKJw6AAoJECTWi3JdVIfQHc0H/0eJ
- 6UpqB5LCb49w4KSAriBQ5pOnkgxGwR3CgRDSZJW80MwXwoAIbVKTsAXLlzf3s+Llnmf6GmLJKJG
- Bw3ms26/rSu37QzJ3ddmJ0RqYayQWDALEftk6rPahlckhuzjs9Wp0NB1+O3v7Qe9KleCISQRkUz
- HvEHhFgNLzQaGPor58TFB7yoVGZMzL0mnhoUtYisnDxPYS2Xjr6CBYeD00tg72Fu1aSe09sLDvr
- ZZ9slck+1hS2fARdZ3M3uZ7duAixctfHZijd3Bj3nPuZzb0etZSwcO1HQPBGUfPSwfCQCB4213Q
- HUz20HIvKmJL6xai10wxmEKRk2KslZkDJRnpuJw=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mDjp111cseA+tWiA"
+Content-Disposition: inline
+In-Reply-To: <20260609-b4-k1-pdma-req-macros-v2-1-5d5d7b997b54@gmail.com>
 
-On Mon, 08 Jun 2026 14:05:42 +0200, Stephan Gerhold wrote:
-> regulator: qcom_smd-regulator: Add PM8019
-> 
-> Add the definitions and dt-bindings for the regulators in PM8019 to allow
-> controlling them through the RPM firmware. PM8019 is typically used
-> together with the MDM9607 SoC.
-> 
-> 
-> [...]
 
-Applied to
+--mDjp111cseA+tWiA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.2
+On Tue, Jun 09, 2026 at 03:46:38PM -0400, Guodong Xu wrote:
+> Add a dt-bindings header that gives symbolic names to the SpacemiT K1
+> PDMA request lines of the non-secure peripherals. Device trees can use
+> these K1_PDMA_* macros instead of magic numbers.
+>=20
+> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+> ---
+> V2: Drop the #dma-cells description change in spacemit,k1-pdma.yaml; the
+>     request numbers are hardware-fixed and unused by the driver.
 
-Thanks!
+Worth noting that while this wasn't the change I wanted, I didn't
+express myself clearly and Guodong is going to send a v3 after I
+clarified:
+https://lore.kernel.org/all/6ycdvhpgygnelzp3ot63xtzcnlvac7emngvj7tviiclst4a=
+7km@kjq7oqvecnxx/
 
-[1/2] regulator: dt-bindings: qcom,smd-rpm-regulator: Add PM8019
-      https://git.kernel.org/broonie/regulator/c/b13a590e3aa3
-[2/2] regulator: qcom_smd-regulator: Add PM8019
-      https://git.kernel.org/broonie/regulator/c/5116c7f0e7ba
+ta,
+Conor.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> ---
+>  include/dt-bindings/dma/spacemit,k1-pdma.h | 56 ++++++++++++++++++++++++=
+++++++
+>  1 file changed, 56 insertions(+)
+>=20
+> diff --git a/include/dt-bindings/dma/spacemit,k1-pdma.h b/include/dt-bind=
+ings/dma/spacemit,k1-pdma.h
+> new file mode 100644
+> index 0000000000000..491976516550a
+> --- /dev/null
+> +++ b/include/dt-bindings/dma/spacemit,k1-pdma.h
+> @@ -0,0 +1,56 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * This header provides DMA request number for non-secure peripherals of
+> + * SpacemiT K1 PDMA.
+> + *
+> + * Copyright (c) 2026 Guodong Xu <docular.xu@gmail.com>
+> + */
+> +
+> +#ifndef _DT_BINDINGS_DMA_SPACEMIT_K1_PDMA_H_
+> +#define _DT_BINDINGS_DMA_SPACEMIT_K1_PDMA_H_
+> +
+> +#define K1_PDMA_UART0_TX	3
+> +#define K1_PDMA_UART0_RX	4
+> +#define K1_PDMA_UART2_TX	5
+> +#define K1_PDMA_UART2_RX	6
+> +#define K1_PDMA_UART3_TX	7
+> +#define K1_PDMA_UART3_RX	8
+> +#define K1_PDMA_UART4_TX	9
+> +#define K1_PDMA_UART4_RX	10
+> +#define K1_PDMA_I2C0_TX		11
+> +#define K1_PDMA_I2C0_RX		12
+> +#define K1_PDMA_I2C1_TX		13
+> +#define K1_PDMA_I2C1_RX		14
+> +#define K1_PDMA_I2C2_TX		15
+> +#define K1_PDMA_I2C2_RX		16
+> +#define K1_PDMA_I2C4_TX		17
+> +#define K1_PDMA_I2C4_RX		18
+> +#define K1_PDMA_SPI3_TX		19
+> +#define K1_PDMA_SPI3_RX		20
+> +#define K1_PDMA_I2S0_TX		21
+> +#define K1_PDMA_I2S0_RX		22
+> +#define K1_PDMA_I2S1_TX		23
+> +#define K1_PDMA_I2S1_RX		24
+> +#define K1_PDMA_UART5_TX	25
+> +#define K1_PDMA_UART5_RX	26
+> +#define K1_PDMA_UART6_TX	27
+> +#define K1_PDMA_UART6_RX	28
+> +#define K1_PDMA_UART7_TX	29
+> +#define K1_PDMA_UART7_RX	30
+> +#define K1_PDMA_UART8_TX	31
+> +#define K1_PDMA_UART8_RX	32
+> +#define K1_PDMA_UART9_TX	33
+> +#define K1_PDMA_UART9_RX	34
+> +#define K1_PDMA_I2C5_TX		35
+> +#define K1_PDMA_I2C5_RX		36
+> +#define K1_PDMA_I2C6_TX		37
+> +#define K1_PDMA_I2C6_RX		38
+> +#define K1_PDMA_I2C7_TX		39
+> +#define K1_PDMA_I2C7_RX		40
+> +#define K1_PDMA_I2C8_TX		41
+> +#define K1_PDMA_I2C8_RX		42
+> +#define K1_PDMA_CAN0_RX		43
+> +#define K1_PDMA_QSPI_RX		44
+> +#define K1_PDMA_QSPI_TX		45
+> +
+> +#endif /* _DT_BINDINGS_DMA_SPACEMIT_K1_PDMA_H_ */
+>=20
+> --=20
+> 2.43.0
+>=20
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--mDjp111cseA+tWiA
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiidlwAKCRB4tDGHoIJi
+0gqdAQDHkJNkld9XKOrvHNTBvPSzUlW9HGCxoEAZz+aOul9PggD/ZoDUW2fCKmZW
+bBkaF7fEvO7Fd+9eaehZv6GsOP6twgU=
+=vNgE
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
-
+--mDjp111cseA+tWiA--
