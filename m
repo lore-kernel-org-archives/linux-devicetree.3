@@ -1,178 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258F1257452;
-	Tue,  9 Jun 2026 10:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374E93F9267
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781002023; cv=none; b=CWxSrfy6MJFcTIH8H2soGam1kGCWWXgRaOxqjojs1eqTExpu+mWGr4HYX4huXb7poip8JuxqpZWR4ETkyx9PZEL5gPoI2STWc6oQQP6XxY6GCx2za2EdrL96On1Rb/t3vVeJWZrb7lX7EhCZICsr3E7EC+i3COrVfnWXAsIKj3g=
+	t=1781002084; cv=none; b=Nbz3jmLHo+Py3ZYuUZzB3kv+dznh7Zw9LA/s2z5fxh0Iote1WIADtKytrrLvTLQ+MKGC49+g/teq1SS7tMWIPriGOyyeaF7zdxop2X+nnKigA31UkfvJ3NTqkXoGLumyo0kUCRSI703oOakIqt8J5cX8gwVpf5Bgb7ad18Bnr2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781002023; c=relaxed/simple;
-	bh=Fl9R5xqUNUdwxdEUqX7SyHGvUOJJuteH6mBRt/IIsDI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c8HyRiQrmyRxIQZmpbqBcpCUZU5F74crKWM6AhHrqvEF0UOTytgYz74gExWxrXO684ifYALmHvormqrLbOM7k0FABi1KfBxHcsXQkrwd1sAUP5zSQZ7BrE8BhpMo5qupSNg50x4DZ2rZgzy8Y8uZ95zGUMJkh5R23KAU/c0tk0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUholNef; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781002084; c=relaxed/simple;
+	bh=/fmIzCVQFlRc9hqGthcJ8jz++uNYfhPm1KVVgsySGU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pOjxHzOInIu/wDKbTN++l9R0SgJJT9LbyXfWy0EZCFRfuUxyVWmXdRylHtaZvhNJBtFCtZfNABtlZpGkpWFkZsGtn5J8i8OK/NZMAzNE8So06BBl+/NtFV5Mzs9jB5fli78qVCHbq0c9el39Xona9DzuF01osIB/LWoiGO8Hoe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eKbtvGn6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F2jdDNEF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUholNef"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5166A1F00893;
-	Tue,  9 Jun 2026 10:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781002021;
-	bh=Gdvr4XfLIetW/3i7USSlvVySj8J0w0NxH6C9I1FUuLA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eUholNefkZlsvnMq/CdNGdJk8d1LA8K48BLvm+ftw6hc6tJ2kN2hCXVzyvMAdyHxO
-	 mR6BrP5WdmWkkbEwXFKZszYemKvXTtGay/FOmtesWbohe1k8GyQCTxi+SihXswwA6v
-	 lHgvijcWZ54IsqTClTHROd0Pfn5VGrpXu2zyfVd9mwYH2+GgzO6+WxTE9+/Jgx6iWi
-	 cVACxUP+f/M0GzDiAo2I8eHxelsvgYbxQr+s+HaRVLGYQyOjBhgXZMRi3MIYw8pQKh
-	 oMCHTHi/+4II8PDdwrZxOm2ANuBX1EtCrZXaMG7pj7hIbcHx4Byu3+nvlPuDovVPuB
-	 55pK216RqoU9w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wWtz0-0000000As9e-3A2g;
-	Tue, 09 Jun 2026 10:46:59 +0000
-Date: Tue, 09 Jun 2026 11:46:57 +0100
-Message-ID: <86ecigt2hq.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: linux-arm-kernel@lists.infradead.org,	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,	devicetree@vger.kernel.org,	Lorenzo Pieralisi
- <lpieralisi@kernel.org>,	Hanjun Guo <guohanjun@huawei.com>,	Sudeep Holla
- <sudeep.holla@kernel.org>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
-	Deacon <will@kernel.org>,	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark
-	Rutland <mark.rutland@arm.com>,	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,	Rob Herring <robh@kernel.org>,
-	Krzysztof	Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
- <conor+dt@kernel.org>,	Chen-Yu	Tsai <wens@kernel.org>,	Jernej Skrabec
- <jernej.skrabec@gmail.com>,	Samuel	Holland <samuel@sholland.org>,	Neil
- Armstrong <neil.armstrong@linaro.org>,	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,	Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>,	Ge Gordon <gordon.ge@bst.ai>,	BST
- Linux Kernel Upstream Group <bst-upstream@bstai.top>,	Jesper Nilsson
- <jesper.nilsson@axis.com>,	Lars	Persson <lars.persson@axis.com>,	Alim
- Akhtar <alim.akhtar@samsung.com>,	Ivaylo Ivanov
- <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,	Sascha Hauer
- <s.hauer@pengutronix.de>,	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>,	Thierry Reding
- <thierry.reding@kernel.org>,	Jonathan Hunter <jonathanh@nvidia.com>,	Bjorn
- Andersson <andersson@kernel.org>,	Konrad	Dybcio <konradybcio@kernel.org>,
-	Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNo?=
- =?UTF-8?B?dW4gTGluIFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko
- Stuebner <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson
- Zhai <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Michal Simek <michal.simek@amd.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>
-Subject: Re: [PATCH v3 03/17] clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running VHE
-In-Reply-To: <193cc406-0834-4dee-9b4a-02cdfd85e05c@samsung.com>
-References: <20260523140242.586031-1-maz@kernel.org>
-	<20260523140242.586031-4-maz@kernel.org>
-	<CGME20260609100324eucas1p146c5ffe86a104677143baaeca1d3feba@eucas1p1.samsung.com>
-	<ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com>
-	<86ik7st3nh.wl-maz@kernel.org>
-	<193cc406-0834-4dee-9b4a-02cdfd85e05c@samsung.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eKbtvGn6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F2jdDNEF"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599vDD41869251
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 10:48:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UuGTO67RmC+ivHQmIuRBVduc
+	tswyL1nN6TdGwGzdo4M=; b=eKbtvGn6qNyrvxqiCmTZMXlJ+rFa7CuUFK0NL4os
+	78YNrHKvvop++uK7mOW3XHHZpMa/QMvAgHccTGcbXACwFieFvq9bVgxEYcoVe9tb
+	V9TCroc3Z30CN+o255C5/iGmPvFK96F7GbMydqxRTqwISA2+XMCPHM2GZ+8auQjc
+	KqM8ngDELKAm453BtdgGmpQFfb38EMJkuXf+QfkQ2Ae9FefmkwghFwIJzmUesyM2
+	yiTWI7GVfFE2QUHwCLvlcw/PcWT1/b618aeSlmTwPH/PlvsZ2n1CYILKLKyQJy0a
+	69hHna6jnxsMDJ+iFbs8hOpxSq++Pdqid1EfOxjyqFoNQg==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeqggr2m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 10:48:02 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-59bf1a43cd9so12148505e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:48:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781002081; x=1781606881; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UuGTO67RmC+ivHQmIuRBVductswyL1nN6TdGwGzdo4M=;
+        b=F2jdDNEFOwz+c0lelpAlFXXoaL/yMReJ+gnKYw0IgO9sIH0MJY3kY4yQi1/qsLvfQK
+         bkJljo4xKAJP4eBjU/5FQyxyvPtQ9DS/lWZsZdCvUcWVff3Wo3hTt4/uw+rTmsTEgsLE
+         8+uI768vXUDj0IID64IeMq/vCp6BSWVisAiG51N347oN0iEzIXgtg+B7BqgDKi1WD3D9
+         P1CgOxHyXQVrMAYaSJyDnfpHVP4xzHjMQU/On065vHj4kmgL2mEcsBnGH3lCm9sApSs4
+         UJWs5ezkCo1Mj/i/uuexA/8tC25PEqF6T9U76iYP9oaGq0aCt3NmkoH+n4OIVLH0gcku
+         397Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781002081; x=1781606881;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UuGTO67RmC+ivHQmIuRBVductswyL1nN6TdGwGzdo4M=;
+        b=EDVEWb5enW4fyKprNxsrVWhcKpR9izrbJJjClZ+5HaV2uhyBHqOyM8x5t386Nrz2ne
+         nqHKmF/Qiyus0Y9uI8JWIUdbSnLvCH23s5LwQFAQJwKZCKi2phLV7mBlxQCPSzbB4NEm
+         ocFzkfxsvAqHpuHfruMflPMpPumFqSVd3mQtQDcbcMcDL+ybyr9rGVDjVWAfFAU2cXa/
+         rqcKd0TWH7b1s5oXX2sK8VTcNHmnkC/WUlHawWUfB1wThNPaJClT86Gs0868U1gJBz/K
+         zbp1oBsCtTDR8mXAYJLfcWY649+Ifg2KFNoRSPea8UFML9GEqY9ejEv/zsRC8vqOSumO
+         GhZw==
+X-Forwarded-Encrypted: i=1; AFNElJ+7lRfPfO+WV/2L+DqNOl18UMEz1ucuz3BcnXa+9GJWVOv7jwdWW/qVYGJr1Z2zH/mIf6DijYS0A/Cs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7pKGHwwYZYLFVDaV2vQI2T6b3Q00v99AIU28AhQ9ZJuXpeBF6
+	xMv8Oz7Nxip/Rmtq8NHxEsfk1T8fXOU9oDFS33D1vJhD/U+nrPa9DeyB+fRc8mh3U2gzVCbM+o7
+	/D3xT0r+/+Sgd5Fo26UunWbELkpx5rIBIEpOoHWRy2E0MUE18oADlb5/CgSXVgBEA
+X-Gm-Gg: Acq92OHw1oYsam7xeD6YwFLsZONuwZOwj78GLh+NYOlkaMk7XmOPTGuqPV/GbrfjaRl
+	NoGcDzCLTYTDPOHMABadfeifLCR317iq8C89tydHVf2/CXlpdlxOHrWp+2LSy+qZk5vH7qCKMZ2
+	BqO/fWzfIH6rCEMdAZV0mSDsBtW6M2hzIB/5bzgb6sbf7f3BRhwPPERmAkZKhx3ryNSyfaeZ7No
+	vjv2dYXzSiHD5fg5/T6kCavUyngfLkec2C/TSVczdeSQJqXXLUkWh8WhvzJon0u3Kcx3+1q6YIY
+	QHNNonm/kyLl0oDpBaqP9E9JKrPYJOMXjby6KuS6cw7Fcr+N3xkz+HwHgEv8zsHHiG2uAzdLe08
+	B5V/L4SZuHta84bdYH8CVNvx+89Ur1DnLFUqmyDn+NsO7Qu5kQAB/apFDeeCl8SEHgKzeSOTCB7
+	8e8aS9/OEx1AbASmSP8GhrW/FRST0DHOF6cT0K12t1PGcAXw==
+X-Received: by 2002:a67:eb47:0:b0:6cc:8a90:9f88 with SMTP id ada2fe7eead31-70037cb32b6mr5316817137.16.1781002081425;
+        Tue, 09 Jun 2026 03:48:01 -0700 (PDT)
+X-Received: by 2002:a67:eb47:0:b0:6cc:8a90:9f88 with SMTP id ada2fe7eead31-70037cb32b6mr5316797137.16.1781002080993;
+        Tue, 09 Jun 2026 03:48:00 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b99c11csm4466142e87.78.2026.06.09.03.47.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 03:47:59 -0700 (PDT)
+Date: Tue, 9 Jun 2026 13:47:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
+ mitigation properties
+Message-ID: <ujf53zya6hes3hkddhsmgu4wyabodnyg3zdwarxmcsoy6p5h3c@ild34ppiyvre>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: m.szyprowski@samsung.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kern
- el.org, afaerber@suse.de, eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com, florian.fainelli@broadcom.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDEwMSBTYWx0ZWRfX42YKn7xEM1UG
+ V3mNokssiP1VHSbrP1XgR6U699npGpPfbAvBxBD5z28Lh1J4h55uVaTsBbYb+bA6Xfix7lSM4vD
+ w+sfEyeeTv6QxHVIhhMziBfDS9bOSilxfKY6Mc9i5BY2jI6AIEZLucHZoN9vKzbN7FEkOKOhldK
+ mJgkdcnLj5CnDYCs3/sZOO4TjVkRPy0FkTn2Wsk//BDyXBAafWaG+/bS0dyqIdTI9aJH+BqmnLu
+ f86nrb94WAg+5iCY1EDFLlZZgo71hhWcxWOg4SL/aOkx8M5udrej+I0aEFhz+gBBOJWwoiR0f9l
+ VQyPonXxwzpNb1M35yKwOtiY+csKuQOgXrAccIuJO2DoS7ee0k92iHrrZcjarBWSCz4u77/N5jK
+ zb1O0Tmr6nce7iA9KtTg2R3/mRUghdpfAcgF6Dz3nMGo3oaWU7+tTUgjLSkwFtkl0lnWh3YkKtg
+ vDe2FaSoPUPXqHc3WMw==
+X-Proofpoint-ORIG-GUID: zS7GJMgq8VqLSJISs-X26EyqHDtjnk-1
+X-Authority-Analysis: v=2.4 cv=KdHidwYD c=1 sm=1 tr=0 ts=6a27ef62 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=3uhaW4yOT-U-B5mjbOMA:9 a=CjuIK1q_8ugA:10 a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-GUID: zS7GJMgq8VqLSJISs-X26EyqHDtjnk-1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090101
 
-On Tue, 09 Jun 2026 11:35:24 +0100,
-Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+On Tue, Jun 09, 2026 at 03:52:56PM +0530, Gaurav Kohli wrote:
+> Document Qualcomm PAS remoteproc thermal mitigation properties used for
+> QMI-based throttling.
 > 
-> On 09.06.2026 12:21, Marc Zyngier wrote:
-> > On Tue, 09 Jun 2026 11:03:21 +0100,
-> > Marek Szyprowski <m.szyprowski@samsung.com> wrote:
-> >> On 23.05.2026 16:02, Marc Zyngier wrote:
-> >>> When running with at EL2 with VHE enabled, the architecture provides
-> >>> two EL2 timer/counters, dubbed physical and virtual. Apart from their
-> >>> names, they are strictly identical.
-> >>>
-> >>> However, they don't get virtualised the same way, specially when
-> >>> it comes to adding arbitrary offsets to the timers. When running as
-> >>> a guest, the host CNTVOFF_EL2 does apply to the guest's view of
-> >>> CNTHV*_El2. This is not true for CNTPOFF_EL2 and CNTHP*_EL2, as
-> >>> the architecture is broken past the first level of virtualisation
-> >>> (it lacks some essential mechanisms to be usable, despite what
-> >>> the ARM ARM pretends).
-> >>>
-> >>> This means that when running as a L2 guest hypervisor, using the
-> >>> physical timer results in traps to L0, which are then forwarded to
-> >>> L1 in order to emulate the offset, leading to even worse performance
-> >>> due to massive trap amplification (the combination of register and
-> >>> ERET trapping is absolutely lethal).
-> >>>
-> >>> Switch the arch timer code to using the virtual timer when running
-> >>> in VHE by default, only using the physical timer if the interrupt
-> >>> is not correctly described in the firmware tables (which seems
-> >>> to be an unfortunately common case). This comes as no impact on
-> >>> bare-metal, and slightly improves the situation in the virtualised
-> >>> case.
-> >>>
-> >>> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> >> This patch landed recently in linux-next as commit d87773de9efe
-> >> ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when
-> >> running VHE"). In my tests I found that it breaks booting of RaspberryPi5
-> >> board. Reverting it on top of linux-next fixes the issue. Here is a boot
-> >> log:
-> > Huh.
-> >
-> > [...]
-> >
-> >> arch_timer: cp15 timer running at 54.00MHz (hyp-virt).
-> >> clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
-> >> sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
-> > The interrupt appears to be advertised in the DT, but doesn't seem to
-> > fire. That's obviously not going to end well. My suspicion is that
-> > either the interrupt isn't wired (that'd be hilariously abd), or is
-> > left as Group-0 by the firmware (copy-paste from RPi4).
-> >
-> > Can you try the following hack and let me know if the kernel shouts at
-> > you?
-> >
-> > Thanks,
-> >
-> > 	M.
-> >
-> > diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
-> > index ec70c84e9f91d..d05791e6cc0db 100644
-> > --- a/drivers/irqchip/irq-gic.c
-> > +++ b/drivers/irqchip/irq-gic.c
-> > @@ -213,6 +213,7 @@ static void gic_eoimode1_mask_irq(struct irq_data *d)
-> >  static void gic_unmask_irq(struct irq_data *d)
-> >  {
-> >  	gic_poke_irq(d, GIC_DIST_ENABLE_SET);
-> > +	WARN_ON(!gic_peek_irq(d, GIC_DIST_ENABLE_SET));
-> >  }
-> >  
-> >  static void gic_eoi_irq(struct irq_data *d)
+> Add:
+> - #cooling-cells (2 or 3)
+> - tmd-names (thermal mitigation device names)
+
+Describe _why_ you are performing these changes. For example. why do we
+need to handle two different cases for the #cooling-cells?
+
 > 
-> I've applied this change, but it doesn't trigger any warning in the boot log.
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml    | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> index 4607b459131b..0d07a0750762 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> @@ -79,6 +79,20 @@ properties:
+>        channels and devices related to the ADSP.
+>      unevaluatedProperties: false
+>  
+> +  '#cooling-cells':
+> +    description:
+> +      Number of cooling cells; 2 for min/max cooling state and 3 when
+> +      selecting a thermal mitigation device index.
+> +    enum: [2, 3]
+> +
+> +  tmd-names:
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +    description:
+> +      Names of the thermal mitigation devices available in remote processor
+> +      subsystem.
+> +    minItems: 1
+> +    maxItems: 5
 
-[+ Florian]
+Missing example with these properties.
 
-Huh. So that really points at the timer not being wired into the GIC,
-Samsung style... Can you confirm that removing the EL2 virtual timer
-from the DT results in a booting machine?
-
-Florian, can you please check whether PPI12 is actually the EL2
-virtual timer on the RPI5 SoC?
-
-Thanks,
-
-	M.
+> +
+>    glink-edge:
+>      $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+>      description:
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
-Without deviation from the norm, progress is not possible.
+With best wishes
+Dmitry
