@@ -1,270 +1,187 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2584492529
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E588E3B9D84
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781023178; cv=none; b=KIH+x9p+QkoSaWdBA6V9FGgA1iSq6etYbWTzsVi2rIA6+rTIBWCzSqJx3VydYV4QWPLCD2kYpmXx/9NO4VwNO41a/qQHOB0t8LW3H0V58ZNnN/rm5X/RTl3RnrlPBaTsV3sPUJD5iSVqDbEjm+DBnDlyAOiO64XXTU4mpC/BPc4=
+	t=1781023211; cv=none; b=ZHZgTX90OQn6m44UCuwokYCqA7PZ7bLI7Rc7wnWoHOo517j09Gi3wP8EIaKAP1ynYZi1OUdS1WcUvR83JJVMyHeVRMKk9HvzRG9qpaCt4/Nz44MQz8uWww1qGxu7rKgh5Ckc1B/YYoaSOdKD2PKrGwzXmKrW6LjEXyw6jaNY3K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781023178; c=relaxed/simple;
-	bh=XQ+Osd1eVbWSATKTXF5HURL8oAvXOjxSQQHOr3GpyMM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=O17dlgi9YA05cefY7HYSOzPaq3OZvnO2VEB+46ClhWarObHtuQqvkVNH6iyvMXTw6DpbYeOYROMruh0R/ruvjX1JU1NgV6Q81f7lR/GcCwigxE85BtWqxGdKxkbZdtP6FymOFjI9V1rssiLu4EArNwpNKqjThWDzhUwgytPumMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MQbBzC9R; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781023211; c=relaxed/simple;
+	bh=sDfq1vtXhioPO2b84JnrIzAPkCJuQ21qJTl42WP9G4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SfaodzNnQBqRjL2P/INvt0QBxsAVaY/awifoVOHiNv3x5JbvukcBjBlI5cgi3CgPKWp3KwrgaMkLAsKbrcPkOYBriChgL8Fq3jDA+AsOjhgfNMVuu7WPSDGEHG01nJT+W9TbEGGRp4CXoIcAKHZgG8hbCgiMWNjGWpdWjHp9gPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NqMSYHZK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dWPvG3w7; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MQbBzC9R"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b9318997so42381875e9.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:39:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NqMSYHZK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dWPvG3w7"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659GOOeY3196576
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 16:40:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	k42BRt5mCgVnIguCIwmnNjUZsFgQZyAZWCU/X68MpMw=; b=NqMSYHZK0Y6P489t
+	lVLLbw4h/ZZkyMAc53NQiCld4ClHDQ90FsdyZBLOzZCXqCy4BL1aTwN2IThAr+Os
+	mgijNB3cjs2f07BAsIa5+RWcA3Dgh7Ss9jBwNLCzeIKABY4ckumxY5et1bR3dK0X
+	dtK3+nDVIqkJJiKtQXaXj1IW7mXGfPgAtfTDPE2FZcZpYRHXoelKhrrlNNp5lxZZ
+	uleB1N6fqSLuyt8YAFPOv7RRv8bgaMKT3LvDzVGApUiEnZyCzr+GB1rHC/zJk256
+	e8h3nUcM3viKw5wIAUeKfyb4rRFAQbPohZKPhboI+W4oohZcw+0bXg96o3MHm+/s
+	gDZomA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epg3v2517-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 16:40:08 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36d6389bbf4so5470745a91.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:40:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781023175; x=1781627975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GareA3ERBAa/OnomNTiqG902TF5L3PgbbtUZ1LHV6tA=;
-        b=MQbBzC9RjkJs99o5ViC2pdQ2UW+hbTkPEtna1lVv5wcV4xz4jdLJ4hnnltwGAgdYl/
-         fLrCKPQddUE7T/JiUP/nd80XmNb0F9zJQJo6JViSPv6KQP+Wur3c6XKesYNTB6T5cpg2
-         um9jAkkzuQ/iAh9fQ5tXGsJmi2dqn8ZV7al2wr2bPAYDePy+63IQ2qH9LV9OIj611og9
-         17m/oJS2ADxu5nNXsgQN+b4G6nEjppDvB6xmU8grrzU6SrMduS8b3nlsfO/HOmHS086f
-         2DcdQSRKIYtObakwhjCNLkN8ye8qvE9yoZRL+YdwLPRK6KlZ1H6kS5iC08G3IlM4kxYi
-         3e4w==
+        d=oss.qualcomm.com; s=google; t=1781023208; x=1781628008; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=k42BRt5mCgVnIguCIwmnNjUZsFgQZyAZWCU/X68MpMw=;
+        b=dWPvG3w7bPBHH9ioB+rXNG33Fv37YrLA9cTATcc+233upW3yg3/Hk1Ej3VW62ajmS3
+         0WWa9GM8cf5qx7xTdFX7rj9Eh9wl+HplcIMyLMkFx3QH18kFcWAeEbJqdsK20ntiqZKR
+         H2Zys8uc6nZ0/gWyg5+2Tfax5KYzC4EbxL9vzv45ZzBMCWC6Eh2MtOA7V/xF0zj5igiJ
+         5Q5B1FybZEU190DNeQd9ik0MPBbCMTVBbF2y78l91QNh+7wvIJxAtIX0bx7UOIb++jPF
+         99tr71KHQCCbH10Bzqd2ISuy+MlJhURI0+YH83UrqohIu+T3xeipriUeuwbIUKYkqL1j
+         7wpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781023175; x=1781627975;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GareA3ERBAa/OnomNTiqG902TF5L3PgbbtUZ1LHV6tA=;
-        b=KAp5pyh4TK+9bE+iimf4zGXb5GmeW0blbY2OCTtG2nvyxn7B7m/8ht8/9H2BTjE5fX
-         9bZHbBsU3607UPNw2pC9xgyfc9hKk5lzHg245Ghu0vEx6bAZxM/hG3p2hhLLlcEXOdTT
-         d1r6IqaZaVeVdbgQPLDdZCY8YpR9bTSVftnrnvKeECujijqohC2lCo+0ErdCl+Ib1v/R
-         aEW5KEW8QHxlpNsh8wZBgBiPe7zxuCoCCJynLcY7ZXXdx5S/lQ7wTwoEnNvLjkmLVydA
-         5d94IurRM7mxED9AN+Eg4jVae1dWLWB4VWOdZGXJlQv2J0uGA2bR2j8fbXZxuaZkGq7K
-         +UoQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+3FL0d7JaBWCeNM5GtvDq1nWPnMQl2poVRsRue+Yo0R1qNm1VZ4wi21VeAZAd5dnWlHOOdLvFLQ+7K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz33XAuzdxOCWfc89dvu/kh2XwO4ckrRROiYViyoYDNxlSIuec5
-	8GPqjx/BL1VtkQf+uDY4ZEoRZ64GAQPLY+uYVfM0Lfcbs3yp2LlzQsXW
-X-Gm-Gg: Acq92OEvYhrW/QP/WCgEdAnlXbci9gfEnYm0cgI1ioH5JmKDWTaTDU/2piDNPk2TiF6
-	W/GSzERMIlhZOLYmSr1iWP7YA/hB6/Gs3qnuRxJEqlVKYjDr6Oys+wriOTk/akTzfcY9LfenloF
-	PrlX5XrT1vSF6mLpj54yPFf0I4onvd9PvQb/vF424H0Dkozu+MAuaE/xxouUBNWDekrX0IraiZd
-	4lxQuaY6GfgPRdWq3L9+6EL+pCQhk7iiNAEX/m88Qi5MxSe6c4H3jDj5NMqNtwzylzcOngWIA5L
-	ejSjLmrybW+FnDHArkXUWXPcRAUUCjeO1mM76sUdYwDjqWlGaZjZo+LQSjmtffm5pzWkmQ8GZoC
-	1aQrAvqIAbWZp7JQjg4AYwbPJ0ObAap/7mjZyC25rEpyZMIK8eUDzBNBd+1xfQ724SfLZw6iA4+
-	pmVO8i8qu0XONdfl2X7bOs0//Pk8YU/BJPCbMAaAdsb0Gj
-X-Received: by 2002:a05:600c:3f0e:b0:490:bb45:79ef with SMTP id 5b1f17b1804b1-490c2508a5emr376584805e9.0.1781023175374;
-        Tue, 09 Jun 2026 09:39:35 -0700 (PDT)
-Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c2d2d11asm440860805e9.1.2026.06.09.09.39.32
+        d=1e100.net; s=20251104; t=1781023208; x=1781628008;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=k42BRt5mCgVnIguCIwmnNjUZsFgQZyAZWCU/X68MpMw=;
+        b=HWrEjbgmd2OpM+W/Eq3K0nRZb/BGGhSL9GwqiSB1kFl9DVai8CTCL9Dx5FUCW4em+K
+         huoGTx7tWPfSckSzwCAzVQKT/Ck8O4aTLv2Ky9Ej4kzKGlAQk5BRJbWotj3vVlCCUIio
+         IaMonpTT0V5HJg4eVfBszcqgJgGIYYLDyNr9P4q7JzvwKLJKU+bBrQt+dLiQRR8Q0gIc
+         VY+vxUIHorjFr7ccSDn4Q3cEC2iFV1MDo18/9lEBhM1flOWnGuM1Nus3UDQaxJz8klBx
+         rF7G5qBWs9wbvJVSl6GSypeJIc6FV2aITre/cLKOBjrm9MQAAml1XoVFNlm13ewXJvkf
+         M/hw==
+X-Forwarded-Encrypted: i=1; AFNElJ/TchZld8Lkb2Q02gnEbrAftrrl4ih5WgPJHsTPW92NHwUvYUy/a0ITxGbpEDY7OAviYPd6D8m8Ev78@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWjgITX8WkgzpkQV4/9/A6142/eqNTQ1aoYE9/tjl9ejl65nVk
+	AXxyqVLIaZSxfpGLDXVq1yXjXiAlsY9aYwhMrRPRglcS3k2smZGulgcrK+HSXBrQ0f02Bspo3kC
+	zqzqfuzqdU8re+FW+eQRfyA6dw22hpoL6XXXfBK871kxL/tlTT68GZ00acanz/RHnF7dKcjTH
+X-Gm-Gg: Acq92OF495Ionyu9fT7F1HtxIgW4h9BO077KOsO3I0Ze5OGJToV0AUMc6VnH2IkR4Zd
+	q77PbJr0nMgh+9Z/LlL0sMOP7TopLihkAPGFTLTbPGy5pzYQNer1YokFvLPqj5XRji9mwVQz2xv
+	t96iS2uQ/uDjzd6NaEZlj16gDCOUK8n0KHbqC19xpO+JlMSPSaVE0mgCzbZWLicuCf7HF46Oz+q
+	HbyJhzxiEy+6QBpyuz1UtD8MPBdRdrExcRq6Ce8y3XRD1Cx/p/QD6+qpv+cpfW9UswweIGUmqx4
+	aqxeRo+dUz+ckjbgmiO+PJr2dQVU827GiUpKfPlnHvypp4p0CcitqhkbyZm7D8M+354tY+0kMRm
+	9eouaIhNYH8VhHNihj0iDvjFoC3eHKG2OTC3neztFlESPWfotzYhxZWKsoWo=
+X-Received: by 2002:a17:90b:4b87:b0:368:ed26:15b2 with SMTP id 98e67ed59e1d1-370eec1272dmr22366389a91.8.1781023207614;
+        Tue, 09 Jun 2026 09:40:07 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b87:b0:368:ed26:15b2 with SMTP id 98e67ed59e1d1-370eec1272dmr22366358a91.8.1781023207024;
+        Tue, 09 Jun 2026 09:40:07 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6d1fec67sm24654347a91.11.2026.06.09.09.40.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 09:39:34 -0700 (PDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: andrew@codeconstruct.com.au,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: openbmc@lists.ozlabs.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com
-Subject: [PATCH v4 3/3] spi: dt-bindings: nuvoton,npcm750-fiu: Convert to DT schema
-Date: Tue,  9 Jun 2026 19:39:19 +0300
-Message-Id: <20260609163919.3321228-4-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260609163919.3321228-1-tmaimon77@gmail.com>
-References: <20260609163919.3321228-1-tmaimon77@gmail.com>
+        Tue, 09 Jun 2026 09:40:06 -0700 (PDT)
+Date: Tue, 9 Jun 2026 22:10:02 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v2 22/24] arm64: dts: qcom: milos: Reduce OS PDC DRV span
+ to 0x10000
+Message-ID: <20260609164002.vdnhieyfghsajldf@hu-mojha-hyd.qualcomm.com>
+References: <20260527094333.2311731-23-mukesh.ojha@oss.qualcomm.com>
+ <20260527102515.EC6BE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260527102515.EC6BE1F000E9@smtp.kernel.org>
+X-Authority-Analysis: v=2.4 cv=St6gLvO0 c=1 sm=1 tr=0 ts=6a2841e8 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=8nJEP1OIZ-IA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=c92rfblmAAAA:8 a=LxbbYitYJVqUhMHIb1IA:9
+ a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: 0tOgUqgOWraHALs_H_qT9lMRSbMFkLzu
+X-Proofpoint-GUID: 0tOgUqgOWraHALs_H_qT9lMRSbMFkLzu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDE1OCBTYWx0ZWRfX0bF3T/7EkFX5
+ RjDs04jWjrOP3vzDnjewGEfMguV5JX2D/HfIWd6nawC465Ofs85+VEiv+ssQEk8QX8ukSBXJlUj
+ d++2jzC8AS/uoaNI5IKfFa4YF7YwWh9XyIliUKqN1yTRc7GQyig/ty/yOf5EpeRQ7r4R0pEwhH4
+ YmiLliuflbu9/as8AKSmkwEFpLH7vaos41QABOsHg8PcAa8gF+9x88KlvK41E1PLEhvYB29MNw8
+ HahOXgh+67FIDqs/rB/xlsGRKkSMTP31vj2cZEK5gGwHkyYksV+0GYv6+HMPmTnRgTT0vziBCsf
+ LWoHRFqd4sZhpbOB6X/xm69wlIdu2bHZNwdr4FOoP+V228piuQ95v33IQNmwtfhkz0H6CIT9FmE
+ qLmBFGFxTY3Mc4dMLq+TkMLhyCIb1wioGBf04hQhyXTchu86RBdwKjfgrpCSEcSO1vhJSyW8Z1p
+ cIe3rFJwMynDmJnIVkA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_04,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1015 spamscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090158
 
-Convert the Nuvoton NPCM FIU binding to DT schema format.
+On Wed, May 27, 2026 at 10:25:15AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Reducing the PDC `reg` size to 0x10000 triggers a boot warning from the `qcom-pdc` driver and fails to reduce the actual mapped memory size.
+> --
+> 
+> commit bd9d32425fcdb7b1f806e074d8d4e1621656dc67
+> Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: milos: Reduce OS PDC DRV span to 0x10000
+> 
+> This commit reduces the first reg entry size of the OS PDC DRV register
+> window on milos from 0x30000 to 0x10000 bytes.
+> 
+> > diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
+> > index 4a64a98a434b6..c2b25f0dec0cf 100644
+> > --- a/arch/arm64/boot/dts/qcom/milos.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+> > @@ -1948,7 +1948,7 @@ dispcc: clock-controller@af00000 {
+> >  
+> >  		pdc: interrupt-controller@b220000 {
+> >  			compatible = "qcom,milos-pdc", "qcom,pdc";
+> > -			reg = <0x0 0x0b220000 0x0 0x30000>,
+> > +			reg = <0x0 0x0b220000 0x0 0x10000>,
+> 
+> [Severity: Medium]
+> Does this change trigger a warning in the pdc driver during boot?
+> 
+> Looking at drivers/irqchip/qcom-pdc.c, the driver hardcodes a minimum
+> mapping size:
+> 
+> #define QCOM_PDC_SIZE 0x30000
+> 
+> And in qcom_pdc_probe(), it forces the mapping to be at least that size:
+> 
+>     res_size = max_t(resource_size_t, resource_size(&res), QCOM_PDC_SIZE);
+>     if (res_size > resource_size(&res))
+>             pr_warn("%pOF: invalid reg size, please fix DT\n", node);
+> 
+> Since the driver expands the mapping back to 0x30000 and prints this
+> warning when the devicetree size is smaller, it seems this patch will
+> pollute the kernel log without actually reducing the mapped memory region.
+> 
+> Should the qcom-pdc driver be updated to support the smaller size before
+> or alongside this devicetree change?
 
-Document the required control registers and the optional direct-
-mapped flash window separately, matching the driver behavior
-when the direct mapping is not described.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../bindings/spi/nuvoton,npcm-fiu.txt         | 58 ------------
- .../bindings/spi/nuvoton,npcm750-fiu.yaml     | 93 +++++++++++++++++++
- 2 files changed, 93 insertions(+), 58 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
- create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,npcm750-fiu.yaml
+Yes, driver change is  merged
+https://lore.kernel.org/all/20260527095426.2324504-2-mukesh.ojha@oss.qualcomm.com/
 
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt b/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
-deleted file mode 100644
-index fb38e96d395f..000000000000
---- a/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
-+++ /dev/null
-@@ -1,58 +0,0 @@
--* Nuvoton FLASH Interface Unit (FIU) SPI Controller
--
--NPCM FIU supports single, dual and quad communication interface.
--
--The NPCM7XX supports three FIU modules,
--FIU0 and FIUx supports two chip selects,
--FIU3 support four chip select.
--
--The NPCM8XX supports four FIU modules,
--FIU0 and FIUx supports two chip selects,
--FIU1 and FIU3 supports four chip selects.
--
--Required properties:
--  - compatible : "nuvoton,npcm750-fiu" for Poleg NPCM7XX BMC
--			     "nuvoton,npcm845-fiu" for Arbel NPCM8XX BMC
--  - #address-cells : should be 1.
--  - #size-cells : should be 0.
--  - reg : the first contains the register location and length,
--          the second contains the memory mapping address and length
--  - reg-names: Should contain the reg names "control" and "memory"
--  - clocks : phandle of FIU reference clock.
--
--Required properties in case the pins can be muxed:
--  - pinctrl-names : a pinctrl state named "default" must be defined.
--  - pinctrl-0 : phandle referencing pin configuration of the device.
--
--Optional property:
--  - nuvoton,spix-mode: enable spix-mode for an expansion bus to an ASIC or CPLD.
--
--Aliases:
--- All the FIU controller nodes should be represented in the aliases node using
--  the following format 'fiu{n}' where n is a unique number for the alias.
--  In the NPCM7XX BMC:
--  		fiu0 represent fiu 0 controller
--  		fiu1 represent fiu 3 controller
--  		fiu2 represent fiu x controller
--
--  In the NPCM8XX BMC:
--  		fiu0 represent fiu 0 controller
--  		fiu1 represent fiu 1 controller
--  		fiu2 represent fiu 3 controller
--  		fiu3 represent fiu x controller
--
--Example:
--fiu3: spi@c00000000 {
--	compatible = "nuvoton,npcm750-fiu";
--	#address-cells = <1>;
--	#size-cells = <0>;
--	reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
--	reg-names = "control", "memory";
--	clocks = <&clk NPCM7XX_CLK_AHB>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&spi3_pins>;
--	flash@0 {
--			...
--	};
--};
--
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm750-fiu.yaml b/Documentation/devicetree/bindings/spi/nuvoton,npcm750-fiu.yaml
-new file mode 100644
-index 000000000000..965904a98785
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm750-fiu.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/spi/nuvoton,npcm750-fiu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton NPCM Flash Interface Unit (FIU) SPI Controller
-+
-+maintainers:
-+  - Tomer Maimon <tmaimon77@gmail.com>
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-controller.yaml#
-+
-+description: |
-+  NPCM FIU supports single, dual and quad communication interface.
-+
-+  The NPCM7XX supports three FIU modules:
-+    FIU0 and FIUx support two chip selects
-+    FIU3 supports four chip selects.
-+
-+  The NPCM8XX supports four FIU modules:
-+    FIU0 and FIUx support two chip selects
-+    FIU1 and FIU3 support four chip selects.
-+
-+  The FIU control register block is always required. The direct-mapped
-+  flash window is optional because the controller can still access flash
-+  through the UMA path when that mapping is not described.
-+
-+  Alias convention:
-+    The '/aliases' node should define:
-+      For NPCM7xx:  fiu0=&fiu0; fiu1=&fiu3; fiu2=&fiux;
-+      For NPCM8xx:  fiu0=&fiu0; fiu1=&fiu3; fiu2=&fiux; fiu3=&fiu1;
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nuvoton,npcm750-fiu # Poleg NPCM7XX
-+      - nuvoton,npcm845-fiu # Arbel NPCM8XX
-+
-+  reg:
-+    description:
-+      The first resource is the FIU control register block. An optional second
-+      resource describes the direct-mapped flash window used for direct
-+      read/write accesses.
-+    minItems: 1
-+    items:
-+      - description: FIU control registers
-+      - description: Memory-mapped flash contents
-+
-+  reg-names:
-+    description:
-+      Resource names for the control registers and optional direct-mapped
-+      flash window.
-+    minItems: 1
-+    items:
-+      - const: control
-+      - const: memory
-+
-+  clocks:
-+    maxItems: 1
-+    description: FIU reference clock.
-+
-+  nuvoton,spix-mode:
-+    type: boolean
-+    description: Enable SPIX mode for an expansion bus to an ASIC or CPLD.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-+    spi@fb000000 {
-+        compatible = "nuvoton,npcm750-fiu";
-+        reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
-+        reg-names = "control", "memory";
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        clocks = <&clk NPCM7XX_CLK_SPI0>;
-+
-+        flash@0 {
-+            compatible = "jedec,spi-nor";
-+            reg = <0>;
-+            #address-cells = <1>;
-+            #size-cells = <1>;
-+        };
-+    };
+-Mukesh
+
+
+> 
+> >  			      <0x0 0x174000f0 0x0 0x64>;
+> >  			interrupt-parent = <&intc>;
+> >
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260527094333.2311731-1-mukesh.ojha@oss.qualcomm.com?part=22
+
 -- 
-2.34.1
-
+-Mukesh Ojha
