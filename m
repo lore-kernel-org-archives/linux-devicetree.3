@@ -1,67 +1,67 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFAF33EAEC
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 14:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5FB356A12
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 14:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781014529; cv=none; b=M0FqntPrjDl5gIKrpdG+I6WOrBV9WuEEgkeUCuvcL3SlpPuk95mk9lrn3XvKVJYcdoTltk6a36TKi03M0XDEZNdFsf5LW0fxcw25VRl7fLWvq3ZyRSM5urdO1FhM+dcUOEQMFCdfCCxpyvSsKLE8edJiZu4drCxIt1GLcQfqwQ8=
+	t=1781014531; cv=none; b=C/8q0xIMfAMw0GgoRw6TDpKMHcYfALXo2Gj+NHMblscYg+tyon/RHg449l8IQUXDd2n6koC/30mLPrH4t4bG8xKd9qSKY9MR2nTYdX1zOZ2ApAvRHSoHMFlBcnzreFuBddvwrL2DXYJk6uUoOV578uZ54nUYQEiQUudAUT0V8LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781014529; c=relaxed/simple;
-	bh=jGtdpE9UwjNX62OhSgQUXvi8hpltM7Py5hhv+eS3ZaU=;
+	s=arc-20240116; t=1781014531; c=relaxed/simple;
+	bh=AYE8/yTvZRcI5dAmg8Q5FrVlVGaGXYkprn2mgV5S9wE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CHhOqycCoclcqQA3gGENTdwK4bjLv8wi6Z3PhzF2qiN9p4F4gRtIPzaoOz899EiY2MtRa+vEp0w8WznH4hq7b4hP3GmndKAgGjoEQBLKHfcHx+IGIO999w7bxSzYmoO8WZLBUUqIAZFghv2DgPAcCcO/ZRNM/LLywIz6cSj9ME4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oexFxqjs; arc=none smtp.client-ip=209.85.128.52
+	 In-Reply-To:To:Cc; b=ShHqPK4FkJ7KmvdmWjpwH9HBrJj3nSblwkhpUcOvVbu7jh08rzPjOf7/sYsw07zWemMhPKXUCM1zSqkQfxVof2jz2Vf+qJmgrKKFbaxEpr94K5o+VLt695cets0fgsyDJeH4BvTBMN//ZTXGxAWj8YL7jxBKu1hPKiyU8v29mso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OHT5513B; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oexFxqjs"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso63520005e9.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 07:15:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OHT5513B"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso44279785e9.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 07:15:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781014527; x=1781619327; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1781014528; x=1781619328; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Svkh8TTwOpP5Nz7RAVeXNEyn2CeMCjSVCIOtvFwRCYs=;
-        b=oexFxqjsDP1oZULIvwZodHEJfP75K9rHjFar6ls5k4kxtdW/gIY2viNH6pjavFCefD
-         JE+qaLyzfdVXePHEBOBXmAVZ4euMDwwMSvjQ4CqQNf6eD9ozvgoEC/9nccs7FGrTpLRb
-         FErk8D/yCOJi0WXOYldFyoE32zNQ/SZHiiFGhuj18mUkV07dsqYpYkY/j8Do3MZcUmi3
-         qNH8d10WITKPxiBD13qDZJ17lI47CFs/ZGxKFLkGD6TFpVRm+1cQUCQzxsglUaNeW+tD
-         WHDxrE/0Kn01KbDoLhdJ2V4kIfVVRxyDUEufhPdFyj+AB7R6xFUn2ohaoP9vhTKpBLEz
-         +nQA==
+        bh=sgvmtFO9MyKbYJX4a5Py/me/oMsrPj1RpQs8PD55NQU=;
+        b=OHT5513Ba1Kl8WmDDallQaLp9HH6tMSOjBbBFweVJ78T94QJLuLpJ/REXBRspTkcVZ
+         NbUy6s4oPsUeCneYrM0R0ZkbYcl8nZV6MTP+6/a879eWobRhdwovmVpBHoV31BUelMJt
+         wQhNjWCIsmUKsK8gAMAhu3aOVxX7uPQYiDFBGwzSX2w0G3wlQht8bZUCGPCiCmP7krXl
+         8RLMJeyorQuF0a3r3DQ7p8WFr5MOxKmVEK0mgWQ+TCe32fwE86eVcca2gjCi/L3aSPr/
+         0QeEp2Y7gs6cgWFhVkUGIPLvgEzJCD7I5UuTfsa4VJ5Wwn/tWfvA8OBThoRRKoZJun7V
+         G/OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781014527; x=1781619327;
+        d=1e100.net; s=20251104; t=1781014528; x=1781619328;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Svkh8TTwOpP5Nz7RAVeXNEyn2CeMCjSVCIOtvFwRCYs=;
-        b=h3r8GPreUsAq4CNnJkIiDX3WOpXYIjd3fHjSX6vVpoKO8iTP4o2Gtq9IHjxAQXh9Sl
-         ReBHalZs7VBFuZgtY/DNsNLamU6T3nHKWSrf3EaJy4rq84EwuWvjPIuVjPEkDrv56yfo
-         wRDHVxEhDrWomGXg7HRizOo8IDyeafPMVEynryN/y4VCA4OjRU1utl3u/UBYb+1v9iOP
-         1wuXxSrpbdpvUpIUz06j748JDKFhOMESiSyQ7+1fBBEhyUy0Re5Qp3pMj8gGhKY2/eIv
-         6qU6DHByM6ksPD1bZfym0OB/mr80hBUGtYkyQ8PHyu943fNuS5FWhGyB+wjrn52xVHCB
-         9Gug==
-X-Forwarded-Encrypted: i=1; AFNElJ+oJt2C/iI589d851DJUb+jNtjWJ6z42lOEHhDHM8kMCKf89+F8UkQ9nPx+iEIVOYUen0ng5BpT9cbf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5Zc7pQaim5oKV3DifnhxGpB9Pp/OdI5x1eAYOGcWoy3KIWIn1
-	EtVeoexEneD62XD8twdLYfXS3VegnwAVhpRChAKtHKGFVl1rVEmwl+Ss/gFxC4yNH/4=
-X-Gm-Gg: Acq92OFti64pCiZTVRvUL+2D0RUWTX0vWV17veF7msxe+KlwuB+RA4jvl2YchQnRC0u
-	EXVXEKjCHCgcfgD8NyYG2/mRoE6FR4p/6geU/FEDlo+1u/B4Z80W5oTjqrO2IAQw+ErVOTvwJGQ
-	VdvvpZEzkIdg2iSj0exHry2xCjDtZ/5hdp0iIlCFaM6ZI8BBYzu1g1bwPb0hXi3kD0+tqsC/XDX
-	qdDSZeI7Xk2eI/cWt7aB7ab61eMzuhV4uY4F1V+o0SfFBkkuHRuznTlboXP3WyVGWzFfEh8kNSI
-	QX8Jz9A8uPrENLikOIzptra/eP97YbNMoBV1PVR6G8//vrJf7t7wzD4rtqo50t0qjeh9ogOuSck
-	0ZsPY+ABRTdik8Prlu5T61zFtsoKkiVNbOUd+uU773ghWJEfywbHoQarRd9GeWoYXEMhRekM2EV
-	4DFtIips/LLIx/C0RDnc7k9l3dyFDF+WUWolcCtWmzl71P60M=
-X-Received: by 2002:a05:600c:1d27:b0:490:add9:7f88 with SMTP id 5b1f17b1804b1-490c25dd709mr356932685e9.21.1781014526601;
-        Tue, 09 Jun 2026 07:15:26 -0700 (PDT)
+        bh=sgvmtFO9MyKbYJX4a5Py/me/oMsrPj1RpQs8PD55NQU=;
+        b=jMy3vkZ7k5O7frzwDr1fWe8w6Hc0FcIVVvhTk0aO6bvswde2jJ1CSup2L2dxcMKXOK
+         oj1lMPmGamfgZ3Fs72dxYBPzL6Cx3pYUu0rjXm54zvNgxwxbI6X+Na894kjbNhtWqpWf
+         orYMXDW4kETEsSvC6+vg5JX72gJInZ+xTMfLZ+5AfEh2GbineE1qCSUduc63WfOK5RIk
+         daRSe6Bwk/tCkjJM9aCokJ8nRat+45WWcCxr2RSugE2nubNuhKiutHM1Bin16aOlQs5O
+         BMLrZagqkDIba/QpcbuYOPhXtag4VU7X80Sp61mtHd4247gJVJs79YgYxNX50n46rJHa
+         fZmw==
+X-Forwarded-Encrypted: i=1; AFNElJ9WvU/0+VUpCrA8TsCJ1EL2k1Dpl8Ct4lrRc4ShAl11+NdhClP53deLySnRrAHvoCHyTshqsLEZ/B/H@vger.kernel.org
+X-Gm-Message-State: AOJu0YyshYbVlL+SLYfNRuWBn6Q7GcVdv++d6X59wKVrmq8tEz5EHIng
+	3ARxNF39OzfYiG6SiquhkGorU0d/gyvtbNskmIeGf+vdRmE5Fkte/atWGX5PuOgdZoY=
+X-Gm-Gg: Acq92OH5F1tG01bLY0YkH8WE//vEYacvhLk7wC8pRUxdmJx8aDG/aRXiAhGJYL5yNHT
+	ZNzawgv9HzSy7CUQt/iqnEpqB34qj+5rLWiVQ6DtTp5VthWpTABN+QvIj3CsWuH6Wgyeh7Az9uh
+	Nfj3ginSGGrlUSeifTcYKHoDxnUZMYb48Hi9qbYQWm+MRm+f1gli+hGdBpEPOpynShcDoGAhi8E
+	Yq05Fola8fxNnzpfPBzGrtc3qs8fEIUqT6ls85KMi0LfVxaoB7s8bF7IBBqk3W+jqdQ/8gqWKyQ
+	4Xzq4Ty1VYNEaeeBZ3TKdFGenRRc0tA2+zk93NA6fGyGHPh85TePcYnfvjWYh6ceokdVMLvaG05
+	KeIkIz/EbIH5VpIhtEXinOVjk2UZXx2LrdKXoGw420qycjCfQ7By0Q+O6zRG7L+F0sGHbu6G4FB
+	d795YLZoB84fHYT2Xiv3rjMfaglZUIQXzlgXrF86fdfREDHEVdzblCq2O0tg==
+X-Received: by 2002:a05:600c:6388:b0:48a:53cb:8604 with SMTP id 5b1f17b1804b1-490c2d1412emr262186125e9.14.1781014527983;
+        Tue, 09 Jun 2026 07:15:27 -0700 (PDT)
 Received: from [127.0.0.2] ([2a02:2454:ff23:4410:59bf:7aa6:43c0:c58b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c2d5d2b4sm321450495e9.2.2026.06.09.07.15.25
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c2d5d2b4sm321450495e9.2.2026.06.09.07.15.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 07:15:26 -0700 (PDT)
+        Tue, 09 Jun 2026 07:15:27 -0700 (PDT)
 From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Tue, 09 Jun 2026 16:14:46 +0200
-Subject: [PATCH 10/12] dt-bindings: clock: qcom,gcc-mdm9607: Add missing
- "clocks" property
+Date: Tue, 09 Jun 2026 16:14:47 +0200
+Subject: [PATCH 11/12] dt-bindings: clock: qcom,gcc-mdm9607: Use proper
+ address in example
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-qcom-clk-mdm9607-fixes-v1-10-5e9717faf842@linaro.org>
+Message-Id: <20260609-qcom-clk-mdm9607-fixes-v1-11-5e9717faf842@linaro.org>
 References: <20260609-qcom-clk-mdm9607-fixes-v1-0-5e9717faf842@linaro.org>
 In-Reply-To: <20260609-qcom-clk-mdm9607-fixes-v1-0-5e9717faf842@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>
@@ -86,51 +86,31 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
  devicetree@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-gcc-mdm9607.c uses "fw_name", so it requires specifying the "xo" and
-"sleep_clk" clock source in the device tree. For some reason, this was
-never documented in the dt-bindings. Nowadays, qcom,gcc-mdm9607 has a
-dedicated schema, so we can just add it to the properties without any
-additional conditionals.
+Given that this is a dedicated schema for qcom,gcc-mdm9607, we might as
+well use the correct memory addresses in the example. This does not
+affect the validation itself, but will reduce confusion for readers.
 
-Fixes: 6faa7e4ddce6 ("dt-bindings: clock: Add MDM9607 GCC clock bindings")
 Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
 ---
- .../devicetree/bindings/clock/qcom,gcc-mdm9607.yaml        | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml
-index d7da30b0e7ee..ef4b274b5c09 100644
+index ef4b274b5c09..1b0efb1526a6 100644
 --- a/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml
 +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml
-@@ -25,8 +25,20 @@ properties:
-     enum:
-       - qcom,gcc-mdm9607
+@@ -45,9 +45,9 @@ unevaluatedProperties: false
  
-+  clocks:
-+    items:
-+      - description: XO source
-+      - description: Sleep clock source
-+
-+  clock-names:
-+    items:
-+      - const: xo
-+      - const: sleep_clk
-+
- required:
-   - compatible
-+  - clocks
-+  - clock-names
-   - '#power-domain-cells'
- 
- unevaluatedProperties: false
-@@ -39,5 +51,7 @@ examples:
+ examples:
+   - |
+-    clock-controller@900000 {
++    clock-controller@1800000 {
+       compatible = "qcom,gcc-mdm9607";
+-      reg = <0x900000 0x4000>;
++      reg = <0x01800000 0x80000>;
        #clock-cells = <1>;
        #reset-cells = <1>;
        #power-domain-cells = <1>;
-+      clocks = <&xo_board>, <&sleep_clk>;
-+      clock-names = "xo", "sleep_clk";
-     };
- ...
 
 -- 
 2.54.0
