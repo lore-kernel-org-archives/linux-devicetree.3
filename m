@@ -1,105 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A792D8DD6
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 03:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDA53624D7
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 03:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780974823; cv=none; b=NrysezRG0g6+KEk4hQpDIdC4gdRdKYV90m8r7E0Ul3aige/yDoCekVKk03F5Nb6WIceu1lwRmxNu1aGPkQmITUofDcjAvUDCp0S9i9FHNtY8pQ4PTk2BOJA5+xq5rfy23wwJI+lMfT2K1O1H89dETkVthfPGSCStwvulhVRE+Fs=
+	t=1780975022; cv=none; b=EFHcmKJx9XaVSa/0Iwb7T6MwX8RoU++KPPchvcOh+jU8R/PQhfoVCLGLVfVxxxX24LaDSPCiobSxcu7UpgGhTdqtkpnynmmimP9xQuMZxPBU9XMWjr7Ebfd+3Vyh/0s6oVr8Ya7Hq95EH89sDkgS4JhAzyO+ZDsoSJCaBd9bloQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780974823; c=relaxed/simple;
-	bh=lUHVQIplGShi1G9ACa5gppo7HgP1NR5Ti3VDGRt7Ups=;
+	s=arc-20240116; t=1780975022; c=relaxed/simple;
+	bh=bxKcKtPeEqYFN22wn/kaoFNlM0itlmvPBtQ91aOvqVQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lni1jLOzTdeQOTDzJqWS56qOZGWyZBgaMnwERAc2djyr3qHrioufj/4F4G3K6uXg40vxZ2c6/rJ6Q0adlijBs9FkMOsIVJb5UKQ7e5mjG29SgqQxOk41jxXc0iF4Al6fltsdFXvFY3JsR+vgmbDAYN2/Q6FKmqXOamByYNOic5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxwYyJCf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Qxd1wi7t3t4I+BBNgx6Xb/Lm3jpU5eXRvE+CoxkK4ukR2VARQD0igxaaxayEI6vw1uuuQx+72f7EYrbI0sY5pfzWFGC2IapDLwTM0MYgn6jOQph08Hy9d56PoYpp9LhqdUQi4NxCxx2ymsdyghI7xsw9qfBeLkDk9xtenFi/xuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGx5DwsM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxwYyJCf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64FB1F00893;
-	Tue,  9 Jun 2026 03:13:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGx5DwsM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C425B1F00893;
+	Tue,  9 Jun 2026 03:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780974821;
-	bh=V4iHl2k/1UsDSIS6GFhVTU2dlKl3KiilapqGFlxUIQc=;
+	s=k20260515; t=1780975021;
+	bh=Xs4b0WpREqQ2ROFpj8/AiJz+SffdgCHL0TTyqBzyKxQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gxwYyJCflltj5fIqPK0FNv7OMagTaI8jLtd4gP98T9YSgN01lZLaZwWBzQLklAXok
-	 KsPm03HbuBbnWwmQGN+2XkSPrz5m97h5QVQ19+YDUVnfl2Ulr6kjoSbwQsrUAmVR4j
-	 MPZb1CMIVLl4V6t8WXH45FxFYYgwMD0wvQCqdqcGiOJ1Xk6EU8ufzODpxLMd1rq0ou
-	 JUp8UED/q9z//YB9oi3MtwW0pLs6Z3mzLqeFo8EjwiBt7VoP5GgW7VfuUX0MJ7aPT5
-	 XPRd/a0gNnXsY+XlsqAc5N9cJOTcKiMsJaIuG7gncM+BSLf9SJ9GCmTVzYs/tr6+PZ
-	 BRNqatWlmXpQw==
+	b=JGx5DwsMODUOGkbq3YyiK7pGI4HF2ueVVCSrc5GSllP1HiopjcPzPTdcnwwdes6v+
+	 tA2i5rUhtlrjMN7rRe5Huu4Fz67WF/vm+KISS2wxZoo3d6ZXB4/fPT2bmV9LPYF0yf
+	 qLlLi2k9++t1W2h3PStSn6qmJI7k3brYEH44Hutw9aZi+023xfyIwDEw3SJ/UWxHD0
+	 slRq2dq+yr+4XdPpIU6DDN9SF2CrRV+Pzih4NHYHvZd3uCftWg9mUPYcvxsXU5ZXHo
+	 t2hV7LZpcDAzqcQGCI5MH6GqNDziqzM9HNtOtVda/k+kq78bxRLrAhNHHrKVuIC2RS
+	 LI0Sl7g2+eJHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] ASoC: codecs: ES8389: Modify the initial
- configuration
+Subject: Re: [PATCH 1/7] ASoC: codecs: ES8389: Modify volatile_register
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609030623.17404-5-zhangyi@everest-semi.com>
-References: <20260609030623.17404-5-zhangyi@everest-semi.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260609030623.17404-2-zhangyi@everest-semi.com>
+References: <20260609030623.17404-2-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 03:13:41 +0000
-Message-Id: <20260609031341.A64FB1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 03:17:00 +0000
+Message-Id: <20260609031700.C425B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] The regmap cache for non-volatile registers is overwritten with ha=
+rdcoded default values during resume if the device lost power, neutralizing=
+ the patch's fix.
+
 Pre-existing issues:
-- [High] Missing return value checks on regmap_read() in multiple functions=
- leads to use of uninitialized memory.
+- [High] Critical configuration registers modified during stream setup are =
+marked as volatile, causing them to be lost upon suspend/resume.
+- [High] The variable `regv` is evaluated uninitialized if `regmap_read` fa=
+ils during resume.
 --
 
-commit 13fc2779b6e0163ece67df605c65dd1048a313c5
+commit 146c46405cf59e3e0362628efb42fd4f52cff71a
 Author: Zhang Yi <zhangyi@everest-semi.com>
 
-ASoC: codecs: ES8389: Modify the initial configuration
+ASoC: codecs: ES8389: Modify volatile_register
 
-This commit updates the initial configuration values for the ES8389 codec.
-It modifies the register writes for ISO_CTL and OSC_CLK during device
-initialization.
+This patch modifies es8389_volatile_register() to mark a specific set of=20
+registers as non-volatile, enabling regcache for them. All other registers=
+=20
+now default to being volatile.
 
 > diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 6ad0b580068cf..8e47b4e3214e0 100644
+> index 449d9574b03a8..9c816491648c7 100644
 > --- a/sound/soc/codecs/es8389.c
 > +++ b/sound/soc/codecs/es8389.c
-> @@ -792,7 +792,7 @@ static void es8389_init(struct snd_soc_component *com=
-ponent)
-> =20
->  	regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
->  	es8389->version =3D reg;
+> @@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] =3D {
+>  static bool es8389_volatile_register(struct device *dev,
+>  			unsigned int reg)
+>  {
+> -	if ((reg  <=3D 0xff))
+> -		return true;
+> -	else
+> +	switch (reg) {
+> +	case ES8389_ADC_HPF1:
+> +	case ES8389_ADC_HPF2:
+
+[ ... ]
+
+> +	case ES8389_ADC_RESET:
+>  		return false;
+> +	default:
+> +		return true;
 
 [Severity: High]
-This is a pre-existing issue, but is it safe to consume the value of reg
-without checking the return value of regmap_read()?
+This is a pre-existing issue, but does this fall-through prevent critical
+configuration registers from being restored by regcache_sync()?
 
-If the underlying bus read fails, regmap_read() returns an error code and
-leaves reg unmodified. This means uninitialized stack memory would be
-assigned to es8389->version here.
+Critical configuration registers modified during stream setup like
+ES8389_DMIC_EN, ES8389_ADC_MODE, ES8389_ADC_FORMAT_MUTE, and ES8389_ADC_OSR
+remain uncached.
 
-This same pattern appears to exist in several other functions in this
-driver where the regmap_read() return value is not checked before
-evaluating the output variable. For example, in es8389_resume():
+Since the ALSA framework does not re-invoke hw_params on resume, these
+registers must be cached and restored by regcache_sync(). Because they are
+volatile, active audio streams will fail or lose routing after a
+suspend/resume cycle.
+
+> +	}
+>  }
+
+[Severity: High]
+By newly marking these registers as non-volatile, does this cause the
+regcache to be overwritten with defaults during a power-loss resume?
+
+In sound/soc/codecs/es8389.c:es8389_resume(), if the device lost power
+(regv =3D=3D 0xff), es8389_init() is called without regcache_cache_bypass b=
+eing
+enabled:
 
     regmap_read(es8389->regmap, ES8389_RESET, &regv);
-    ...
+    regcache_cache_bypass(es8389->regmap, false);
+
+    if (regv =3D=3D 0xff)
+        es8389_init(component);
+
+Inside es8389_init(), direct regmap_write() calls are made:
+
+    regmap_write(es8389->regmap, ES8389_ADC_HPF1, 0x64);
+
+Because bypass is disabled, these writes clobber the newly added regmap cac=
+he
+with hardcoded default values. The subsequent regcache_sync() then syncs th=
+ese
+defaults instead of the user's prior settings, breaking state restoration.
+
+[Severity: High]
+This is a pre-existing issue, but can regv be evaluated uninitialized if the
+regmap_read fails during resume?
+
+In sound/soc/codecs/es8389.c:es8389_resume():
+
+    regmap_read(es8389->regmap, ES8389_RESET, &regv);
+    regcache_cache_bypass(es8389->regmap, false);
+
     if (regv =3D=3D 0xff)
 
-And similarly in es8389_mute():
-
-    regmap_read(es8389->regmap, ES8389_CSM_STATE1, &regv);
-    if (regv !=3D ES8389_STATE_ON) {
-
-Could these unchecked reads lead to unpredictable hardware configuration
-and incorrect control flow if a bus timeout or error occurs?
-
-> -	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x00);
-> +	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x56);
->  	regmap_write(es8389->regmap, ES8389_RESET, 0x7E);
->  	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x38);
+If regmap_read() fails (which can occur during resume due to bus readiness
+issues), regv contains uninitialized stack memory. The subsequent evaluation
+against 0xff produces undefined behavior, potentially skipping necessary
+device initialization and leading to silent failure.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609030623.1740=
-4-1-zhangyi@everest-semi.com?part=3D4
+4-1-zhangyi@everest-semi.com?part=3D1
