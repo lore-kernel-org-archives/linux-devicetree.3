@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FDF3FD956;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1119948A2DE;
 	Tue,  9 Jun 2026 19:50:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781034640; cv=none; b=jtHTbYybF/XdduvpNlMG+XnMfhAxBAvjY16ZRVM3j94z/0/2/afrFhJHKXx+Se74jsgrdCml5FzpUtNTw3cB0oJkTG6JUupEuRnS1xhWTiGM+EXSg9ri2v/zdzpt/flXS0WbxGUUTJiuD+lHFVvRN5yaQyXuNOZO3E1UxdwDn+s=
+	t=1781034640; cv=none; b=Pa4VpYMQFj5w2sj2x6Prl4IdAa1m8xJiWAloOJ1KHjuGwgpKgL1UVZz222/6XhUgmxEsAie6Q1E0tKsa0O74Jj6nNy0SM1yRpV+1wGt2w9VGeq3BSNdt3pZphcybDjkt3/74x4uGS7BEC2R/Orydf2ChS33XXk7Tyfso2xAGDvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781034640; c=relaxed/simple;
-	bh=CwjVDy1c0PArAWwJSXHKyClS4Xeu5WPHX1xEaCP7+Bc=;
+	bh=cr/MvAsXEhWjeYtC3UgDZ9svVa04M+bda+dTvROi4DU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tYYklmC77AdQIxGd6gShmSW3WdGrE8MpSmJE/J/UugcSXC45QclHoGPtssc8LvyyhT8Rev+BtUhl/eTgueEN8LkrRn0dYYh+Q3N12PSxTrgU6L7WU2hCJsgIqZMAVWpsxdg1GDL4NyhYuRklfDk507f9AqhZ+rx+s711K6q5b7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWDTp8Nw; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=CKG1Lakvd227J9mwuGxop/JAQPQGlaMATa2VCTwTIdAopxktSLogXg4cEPhvshL+lIJF+UhAgueEpFjg0Z72V+lKeqRcmRZ5j6DwIItpOE+E8HQsgAbSgImXGnf10OJZPZddfTE2jzw+N5QPP41l1oQtMHasfxErTd5rUEJbkRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/AwDtbx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWDTp8Nw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6ACB5C2BCB4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/AwDtbx"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A7F8C4AF10;
 	Tue,  9 Jun 2026 19:50:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1781034639;
-	bh=CwjVDy1c0PArAWwJSXHKyClS4Xeu5WPHX1xEaCP7+Bc=;
+	bh=cr/MvAsXEhWjeYtC3UgDZ9svVa04M+bda+dTvROi4DU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=UWDTp8NwEdPKIU4AIjsR/yHJi7IxXMzhvfRbeSbtx8TwNiINgq3ACJP+ibYcMUv/A
-	 mHr/e3h7U8G0jPOh8RGe9TYsqu19iT6Df6JxtjmC0rTLtpZkdiGBD5LZPg3UucJEWA
-	 zHHVNuSMd8BAh/KM5hQtzKstomo9PzYEJuxj4Xdze75Y8+ml40N3C9PhyhKHPJJVJy
-	 HXoigbgcQUHqQ4UQj3WVmVRutPMpSfZywaZemTsz4jmqqU3OMcWqeAvUK6GqY72V4J
-	 BueXMEZ86ggjGcsW9Sa0VIXDbYotjaV8B2SX8CN3N9BhxTDFHSDvEjHlekLqIy0Kat
-	 GrDUkS3If+u1w==
+	b=U/AwDtbxGfb9CQ//t6TLqr6Qx3DW0XCi+5WmAM5TDKDbrndPf/o7Z6nFuHdSVx8P0
+	 qI1TpKduYgGURbw//NZzS41ayVi0n1oHpdeSTjfeQw8Zi0keCF8Uq35qUj6wJS4ZfN
+	 Kvh1eJcG4qeVSSRDz1V7rmE0YB44Fhte7QKG7rNdIHZk1sOhzBwbG8gUPx3cXv1bny
+	 h3kvbwMREYLdwF5Q7tPG9za4BzjE/kVE0FsDNYkAjSjJ5Q1xIti2TYBgxtjs1kLp4J
+	 yARMg5ltv2V6eEdauDoO1+aWtzGrEgUirN29B7/xmBJeyUflo6BMk8iVSAz3b9A/Da
+	 G0vINkPcwBWUw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5405DCD8CAD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8078FCD98C6;
 	Tue,  9 Jun 2026 19:50:39 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Tue, 09 Jun 2026 12:50:24 -0700
-Subject: [PATCH net v4 1/4] net: ethernet: oa_tc6: Interrupt is active low,
- level triggered.
+Date: Tue, 09 Jun 2026 12:50:27 -0700
+Subject: [PATCH net v4 4/4] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-level-trigger-v4-1-6f389abdd192@onsemi.com>
+Message-Id: <20260609-level-trigger-v4-4-6f389abdd192@onsemi.com>
 References: <20260609-level-trigger-v4-0-6f389abdd192@onsemi.com>
 In-Reply-To: <20260609-level-trigger-v4-0-6f389abdd192@onsemi.com>
 To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
@@ -56,11 +56,11 @@ Cc: Parthiban Veerasooran <Parthiban.Veerasooran@microchip.com>,
  devicetree@vger.kernel.org, Piergiorgio Beruto <pier.beruto@onsemi.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781034634; l=4799;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781034634; l=1207;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=bZcfH7V1Z8MHdt+nWQSb/fIOda9dy2Hl2VbkMljBA1w=;
- b=9gr4xSZH37mafmQ4UaQs9vfCR2Zv/GZ80VUDKHkXRAaQX/4l/8KMF9lXkRThjc1O1Vf/OOBdl
- 6eFW5En1j5mBsuYEK9K4b2ldo5qmqXNuvD5DOAu6u7LN71LTZm97g4G
+ bh=bMsW8U5V7GkXjBltoUBoX9kv1yVBsDFF/rrSFoglK5M=;
+ b=N8mr1STIqO4eTYBJILLVX/hqFhKUZCTVDRyE5t0HXhobVyJaj/26YlIwDePI8G3Tf8HHLYeuS
+ aGh6Zn3e2KUDXQOYz1t3ypYZD/o5FrWTcS1NYrg1YYvWhd1YUfSqcUH
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -70,157 +70,33 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-According OPEN Alliance 10BASET1x MAC-PHY Serial Interface
-specification, interrupt is active low, level triggered.
+According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
+specification, interrupt type is active low, level triggered interrupt.
 
-Fixes: 2c6ce5354453 ("net: ethernet: oa_tc6: implement mac-phy interrupt")
+Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S MACPHY")
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Changes in v4:
-  Interrupt handling mechanism changed to threaded irq because it is
-  best suited to handle level triggered interrupt. Threaded irq
-  automatically blocks further interrupts until interrupting
-  conditions are cleared by its handler.
-
-Changes in v3:
- interrupt registered as level triggerred
+changes in v4:
+  no change
+changes in v3
+  interrupts entry changed to level triggered from edge triggered
 ---
- drivers/net/ethernet/oa_tc6.c | 61 ++++++++++++-------------------------------
- 1 file changed, 17 insertions(+), 44 deletions(-)
+ Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-index 91a906a7918a..e2c0843207f2 100644
---- a/drivers/net/ethernet/oa_tc6.c
-+++ b/drivers/net/ethernet/oa_tc6.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/iopoll.h>
-+#include <linux/interrupt.h>
- #include <linux/mdio.h>
- #include <linux/phy.h>
- #include <linux/oa_tc6.h>
-@@ -121,8 +122,6 @@ struct oa_tc6 {
- 	struct sk_buff *ongoing_tx_skb;
- 	struct sk_buff *waiting_tx_skb;
- 	struct sk_buff *rx_skb;
--	struct task_struct *spi_thread;
--	wait_queue_head_t spi_wq;
- 	u16 tx_skb_offset;
- 	u16 spi_data_tx_buf_offset;
- 	u16 tx_credits;
-@@ -1105,29 +1104,18 @@ static int oa_tc6_try_spi_transfer(struct oa_tc6 *tc6)
- 	return 0;
- }
- 
--static int oa_tc6_spi_thread_handler(void *data)
-+static irqreturn_t oa_tc6_macphy_threaded_irq(int irq, void *data)
- {
- 	struct oa_tc6 *tc6 = data;
--	int ret;
--
--	while (likely(!kthread_should_stop())) {
--		/* This kthread will be waken up if there is a tx skb or mac-phy
--		 * interrupt to perform spi transfer with tx chunks.
--		 */
--		wait_event_interruptible(tc6->spi_wq, tc6->int_flag ||
--					 (tc6->waiting_tx_skb &&
--					 tc6->tx_credits) ||
--					 kthread_should_stop());
--
--		if (kthread_should_stop())
--			break;
-+	int ret = 0;
- 
-+	while (tc6->int_flag || (tc6->waiting_tx_skb && tc6->tx_credits)) {
- 		ret = oa_tc6_try_spi_transfer(tc6);
- 		if (ret)
--			return ret;
-+			break;
- 	}
- 
--	return 0;
-+	return IRQ_HANDLED;
- }
- 
- static int oa_tc6_update_buffer_status_from_register(struct oa_tc6 *tc6)
-@@ -1162,10 +1150,8 @@ static irqreturn_t oa_tc6_macphy_isr(int irq, void *data)
- 	 * - extended status event not reported in the previous rx footer.
- 	 */
- 	tc6->int_flag = true;
--	/* Wake spi kthread to perform spi transfer */
--	wake_up_interruptible(&tc6->spi_wq);
--
--	return IRQ_HANDLED;
-+	/* Wake IRQ thread to perform spi transfer */
-+	return IRQ_WAKE_THREAD;
- }
- 
- /**
-@@ -1217,8 +1203,8 @@ netdev_tx_t oa_tc6_start_xmit(struct oa_tc6 *tc6, struct sk_buff *skb)
- 	tc6->waiting_tx_skb = skb;
- 	spin_unlock_bh(&tc6->tx_skb_lock);
- 
--	/* Wake spi kthread to perform spi transfer */
--	wake_up_interruptible(&tc6->spi_wq);
-+	/* Wake the threaded IRQ to perform spi transfer. */
-+	irq_wake_thread(tc6->spi->irq, tc6);
- 
- 	return NETDEV_TX_OK;
- }
-@@ -1311,24 +1297,15 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev)
- 		goto phy_exit;
- 	}
- 
--	init_waitqueue_head(&tc6->spi_wq);
--
--	tc6->spi_thread = kthread_run(oa_tc6_spi_thread_handler, tc6,
--				      "oa-tc6-spi-thread");
--	if (IS_ERR(tc6->spi_thread)) {
--		dev_err(&tc6->spi->dev, "Failed to create SPI thread\n");
--		goto phy_exit;
--	}
--
--	sched_set_fifo(tc6->spi_thread);
--
--	ret = devm_request_irq(&tc6->spi->dev, tc6->spi->irq, oa_tc6_macphy_isr,
--			       IRQF_TRIGGER_FALLING, dev_name(&tc6->spi->dev),
--			       tc6);
-+	ret = devm_request_threaded_irq(&tc6->spi->dev, tc6->spi->irq,
-+					oa_tc6_macphy_isr,
-+					oa_tc6_macphy_threaded_irq,
-+					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-+					dev_name(&tc6->spi->dev), tc6);
- 	if (ret) {
- 		dev_err(&tc6->spi->dev, "Failed to request macphy isr %d\n",
- 			ret);
--		goto kthread_stop;
-+		goto phy_exit;
- 	}
- 
- 	/* oa_tc6_sw_reset_macphy() function resets and clears the MAC-PHY reset
-@@ -1338,12 +1315,9 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev)
- 	 * 7.7 and 9.2.8.8 in the OPEN Alliance specification for more details.
- 	 */
- 	tc6->int_flag = true;
--	wake_up_interruptible(&tc6->spi_wq);
-+	irq_wake_thread(tc6->spi->irq, tc6);
- 
- 	return tc6;
--
--kthread_stop:
--	kthread_stop(tc6->spi_thread);
- phy_exit:
- 	oa_tc6_phy_exit(tc6);
- 	return NULL;
-@@ -1357,7 +1331,6 @@ EXPORT_SYMBOL_GPL(oa_tc6_init);
- void oa_tc6_exit(struct oa_tc6 *tc6)
- {
- 	oa_tc6_phy_exit(tc6);
--	kthread_stop(tc6->spi_thread);
- 	dev_kfree_skb_any(tc6->ongoing_tx_skb);
- 	dev_kfree_skb_any(tc6->waiting_tx_skb);
- 	dev_kfree_skb_any(tc6->rx_skb);
+diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+index 61e11d4a07c4..766ff58147ae 100644
+--- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
++++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+@@ -67,7 +67,7 @@ examples:
+         pinctrl-names = "default";
+         pinctrl-0 = <&eth0_pins>;
+         interrupt-parent = <&gpio>;
+-        interrupts = <6 IRQ_TYPE_EDGE_FALLING>;
++        interrupts = <6 IRQ_TYPE_LEVEL_LOW>;
+         local-mac-address = [04 05 06 01 02 03];
+         spi-max-frequency = <15000000>;
+       };
 
 -- 
 2.43.0
