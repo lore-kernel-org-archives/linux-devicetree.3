@@ -1,188 +1,116 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374E93F9267
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C273DD505
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:51:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781002084; cv=none; b=Nbz3jmLHo+Py3ZYuUZzB3kv+dznh7Zw9LA/s2z5fxh0Iote1WIADtKytrrLvTLQ+MKGC49+g/teq1SS7tMWIPriGOyyeaF7zdxop2X+nnKigA31UkfvJ3NTqkXoGLumyo0kUCRSI703oOakIqt8J5cX8gwVpf5Bgb7ad18Bnr2I=
+	t=1781002277; cv=none; b=eIPiKQGYLPT0l9H6BP7qTICfcH2JdJ9dB4iWzrOF6MYMdA/6HDd5ZHnCS0jq1trt0V3Nx8f8QAh6ulHhzTXle6/RdO2IE+GJ44mL2FxqQm4waERZ4uEHGOE/IOI4pRFXBWP9KQyLSG1Juv3hbHqFsfRPkDMrCtPOReV6W0SX+24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781002084; c=relaxed/simple;
-	bh=/fmIzCVQFlRc9hqGthcJ8jz++uNYfhPm1KVVgsySGU8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pOjxHzOInIu/wDKbTN++l9R0SgJJT9LbyXfWy0EZCFRfuUxyVWmXdRylHtaZvhNJBtFCtZfNABtlZpGkpWFkZsGtn5J8i8OK/NZMAzNE8So06BBl+/NtFV5Mzs9jB5fli78qVCHbq0c9el39Xona9DzuF01osIB/LWoiGO8Hoe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eKbtvGn6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F2jdDNEF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781002277; c=relaxed/simple;
+	bh=3hDYfKMn3bvgPt3+r6IeMHWG6L4qjxWEW0MmZqSZ1fI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=i09YovShNTB59ypSg2JF8gvgHAArFX35B9oh/5ywy8yAa2qTuDs019Y29anl3i4O0j5PYVvWnsKKmFIxa4IbJcoJ//bw/qyh/CqbYZU49Ua7ONkm8nj+p8uUObhIRQBKoHBwgP5MS7kT7ygyPMXbBh7Oj56cG4c9IbmYsev85x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pk3+TuNL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eKbtvGn6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F2jdDNEF"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599vDD41869251
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 10:48:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=UuGTO67RmC+ivHQmIuRBVduc
-	tswyL1nN6TdGwGzdo4M=; b=eKbtvGn6qNyrvxqiCmTZMXlJ+rFa7CuUFK0NL4os
-	78YNrHKvvop++uK7mOW3XHHZpMa/QMvAgHccTGcbXACwFieFvq9bVgxEYcoVe9tb
-	V9TCroc3Z30CN+o255C5/iGmPvFK96F7GbMydqxRTqwISA2+XMCPHM2GZ+8auQjc
-	KqM8ngDELKAm453BtdgGmpQFfb38EMJkuXf+QfkQ2Ae9FefmkwghFwIJzmUesyM2
-	yiTWI7GVfFE2QUHwCLvlcw/PcWT1/b618aeSlmTwPH/PlvsZ2n1CYILKLKyQJy0a
-	69hHna6jnxsMDJ+iFbs8hOpxSq++Pdqid1EfOxjyqFoNQg==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeqggr2m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 10:48:02 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-59bf1a43cd9so12148505e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:48:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781002081; x=1781606881; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=UuGTO67RmC+ivHQmIuRBVductswyL1nN6TdGwGzdo4M=;
-        b=F2jdDNEFOwz+c0lelpAlFXXoaL/yMReJ+gnKYw0IgO9sIH0MJY3kY4yQi1/qsLvfQK
-         bkJljo4xKAJP4eBjU/5FQyxyvPtQ9DS/lWZsZdCvUcWVff3Wo3hTt4/uw+rTmsTEgsLE
-         8+uI768vXUDj0IID64IeMq/vCp6BSWVisAiG51N347oN0iEzIXgtg+B7BqgDKi1WD3D9
-         P1CgOxHyXQVrMAYaSJyDnfpHVP4xzHjMQU/On065vHj4kmgL2mEcsBnGH3lCm9sApSs4
-         UJWs5ezkCo1Mj/i/uuexA/8tC25PEqF6T9U76iYP9oaGq0aCt3NmkoH+n4OIVLH0gcku
-         397Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781002081; x=1781606881;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UuGTO67RmC+ivHQmIuRBVductswyL1nN6TdGwGzdo4M=;
-        b=EDVEWb5enW4fyKprNxsrVWhcKpR9izrbJJjClZ+5HaV2uhyBHqOyM8x5t386Nrz2ne
-         nqHKmF/Qiyus0Y9uI8JWIUdbSnLvCH23s5LwQFAQJwKZCKi2phLV7mBlxQCPSzbB4NEm
-         ocFzkfxsvAqHpuHfruMflPMpPumFqSVd3mQtQDcbcMcDL+ybyr9rGVDjVWAfFAU2cXa/
-         rqcKd0TWH7b1s5oXX2sK8VTcNHmnkC/WUlHawWUfB1wThNPaJClT86Gs0868U1gJBz/K
-         zbp1oBsCtTDR8mXAYJLfcWY649+Ifg2KFNoRSPea8UFML9GEqY9ejEv/zsRC8vqOSumO
-         GhZw==
-X-Forwarded-Encrypted: i=1; AFNElJ+7lRfPfO+WV/2L+DqNOl18UMEz1ucuz3BcnXa+9GJWVOv7jwdWW/qVYGJr1Z2zH/mIf6DijYS0A/Cs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7pKGHwwYZYLFVDaV2vQI2T6b3Q00v99AIU28AhQ9ZJuXpeBF6
-	xMv8Oz7Nxip/Rmtq8NHxEsfk1T8fXOU9oDFS33D1vJhD/U+nrPa9DeyB+fRc8mh3U2gzVCbM+o7
-	/D3xT0r+/+Sgd5Fo26UunWbELkpx5rIBIEpOoHWRy2E0MUE18oADlb5/CgSXVgBEA
-X-Gm-Gg: Acq92OHw1oYsam7xeD6YwFLsZONuwZOwj78GLh+NYOlkaMk7XmOPTGuqPV/GbrfjaRl
-	NoGcDzCLTYTDPOHMABadfeifLCR317iq8C89tydHVf2/CXlpdlxOHrWp+2LSy+qZk5vH7qCKMZ2
-	BqO/fWzfIH6rCEMdAZV0mSDsBtW6M2hzIB/5bzgb6sbf7f3BRhwPPERmAkZKhx3ryNSyfaeZ7No
-	vjv2dYXzSiHD5fg5/T6kCavUyngfLkec2C/TSVczdeSQJqXXLUkWh8WhvzJon0u3Kcx3+1q6YIY
-	QHNNonm/kyLl0oDpBaqP9E9JKrPYJOMXjby6KuS6cw7Fcr+N3xkz+HwHgEv8zsHHiG2uAzdLe08
-	B5V/L4SZuHta84bdYH8CVNvx+89Ur1DnLFUqmyDn+NsO7Qu5kQAB/apFDeeCl8SEHgKzeSOTCB7
-	8e8aS9/OEx1AbASmSP8GhrW/FRST0DHOF6cT0K12t1PGcAXw==
-X-Received: by 2002:a67:eb47:0:b0:6cc:8a90:9f88 with SMTP id ada2fe7eead31-70037cb32b6mr5316817137.16.1781002081425;
-        Tue, 09 Jun 2026 03:48:01 -0700 (PDT)
-X-Received: by 2002:a67:eb47:0:b0:6cc:8a90:9f88 with SMTP id ada2fe7eead31-70037cb32b6mr5316797137.16.1781002080993;
-        Tue, 09 Jun 2026 03:48:00 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b99c11csm4466142e87.78.2026.06.09.03.47.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 03:47:59 -0700 (PDT)
-Date: Tue, 9 Jun 2026 13:47:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
- mitigation properties
-Message-ID: <ujf53zya6hes3hkddhsmgu4wyabodnyg3zdwarxmcsoy6p5h3c@ild34ppiyvre>
-References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
- <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pk3+TuNL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED0E1F00893;
+	Tue,  9 Jun 2026 10:51:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781002276;
+	bh=UpJMN65eYyUdu60adnEDzdcNcnW8N51kss42tY5wffg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Pk3+TuNL2Ajr0T1tzgW4W1VuOQJbprEQLtp8IN7GTCL7ubSC8rUqIXALJN4d+8Szc
+	 gVqwRGKHxLrzrKpko0pvpW6QTeZ849xj6XT6lm20M6UsgHxn6a9y2Pc0uaSIFeod7F
+	 twfpISkp2LdYmcoCBVI8F+YVwgtWUjtRcQuVfqHcx8W7upKs9bYxNbutf2wyVNU1/O
+	 7/GlEqCA/jEFcpIHXfmc7TeezPaxtABLHspqyZ1ptMSmx9FAsciMpz2+GTnk2odhCu
+	 rJzzNnpi2oDxtC/yIH9EmeYi1ZG8580j09BT3Ft32dgrSpmQl632JzcwbJ2CZpI70F
+	 WK3qIx+MDZGsw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/7] dt-bindings: mmc: Document support for
+ nvmem-layout
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260608-block-as-nvmem-v3-1-82681f50aa35@oss.qualcomm.com>
+References: <20260608-block-as-nvmem-v3-1-82681f50aa35@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 10:51:15 +0000
+Message-Id: <20260609105115.DED0E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDEwMSBTYWx0ZWRfX42YKn7xEM1UG
- V3mNokssiP1VHSbrP1XgR6U699npGpPfbAvBxBD5z28Lh1J4h55uVaTsBbYb+bA6Xfix7lSM4vD
- w+sfEyeeTv6QxHVIhhMziBfDS9bOSilxfKY6Mc9i5BY2jI6AIEZLucHZoN9vKzbN7FEkOKOhldK
- mJgkdcnLj5CnDYCs3/sZOO4TjVkRPy0FkTn2Wsk//BDyXBAafWaG+/bS0dyqIdTI9aJH+BqmnLu
- f86nrb94WAg+5iCY1EDFLlZZgo71hhWcxWOg4SL/aOkx8M5udrej+I0aEFhz+gBBOJWwoiR0f9l
- VQyPonXxwzpNb1M35yKwOtiY+csKuQOgXrAccIuJO2DoS7ee0k92iHrrZcjarBWSCz4u77/N5jK
- zb1O0Tmr6nce7iA9KtTg2R3/mRUghdpfAcgF6Dz3nMGo3oaWU7+tTUgjLSkwFtkl0lnWh3YkKtg
- vDe2FaSoPUPXqHc3WMw==
-X-Proofpoint-ORIG-GUID: zS7GJMgq8VqLSJISs-X26EyqHDtjnk-1
-X-Authority-Analysis: v=2.4 cv=KdHidwYD c=1 sm=1 tr=0 ts=6a27ef62 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=3uhaW4yOT-U-B5mjbOMA:9 a=CjuIK1q_8ugA:10 a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-GUID: zS7GJMgq8VqLSJISs-X26EyqHDtjnk-1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090101
 
-On Tue, Jun 09, 2026 at 03:52:56PM +0530, Gaurav Kohli wrote:
-> Document Qualcomm PAS remoteproc thermal mitigation properties used for
-> QMI-based throttling.
-> 
-> Add:
-> - #cooling-cells (2 or 3)
-> - tmd-names (thermal mitigation device names)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Describe _why_ you are performing these changes. For example. why do we
-need to handle two different cases for the #cooling-cells?
+Pre-existing issues:
+- [High] Adding `nvmem-layout` as a child of a `fixed-partitions` node trig=
+gers a preexisting uninitialized memory bug and potential kernel panic in t=
+he block partition parser.
+--
 
-> 
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml    | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> index 4607b459131b..0d07a0750762 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> @@ -79,6 +79,20 @@ properties:
->        channels and devices related to the ADSP.
->      unevaluatedProperties: false
->  
-> +  '#cooling-cells':
-> +    description:
-> +      Number of cooling cells; 2 for min/max cooling state and 3 when
-> +      selecting a thermal mitigation device index.
-> +    enum: [2, 3]
+commit c354fbea36b7189e3294f56d353e1ba1075bff4d
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
+dt-bindings: mmc: Document support for nvmem-layout
+
+Add support for an nvmem-layout subnode under an eMMC hardware partition.
+This allows the partition to be exposed as an NVMEM provider and its
+internal layout to be described.
+
+> diff --git a/Documentation/devicetree/bindings/mmc/mmc-card.yaml b/Docume=
+ntation/devicetree/bindings/mmc/mmc-card.yaml
+> index a61d6c96df759..ca907ad730959 100644
+> --- a/Documentation/devicetree/bindings/mmc/mmc-card.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/mmc-card.yaml
+> @@ -40,6 +40,9 @@ patternProperties:
+>          contains:
+>            const: fixed-partitions
+> =20
+> +      nvmem-layout:
+> +        $ref: /schemas/nvmem/layouts/nvmem-layout.yaml
 > +
-> +  tmd-names:
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    description:
-> +      Names of the thermal mitigation devices available in remote processor
-> +      subsystem.
-> +    minItems: 1
-> +    maxItems: 5
 
-Missing example with these properties.
+[Severity: High]
+This isn't a bug introduced by this patch, but does adding this node trigger
+an uninitialized memory bug during block partition parsing?
 
-> +
->    glink-edge:
->      $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
->      description:
-> 
-> -- 
-> 2.34.1
-> 
+When the block layer parses subpartitions, it iterates over all child nodes
+of the fixed-partitions node. Since the nvmem-layout child node lacks a reg
+property, the block partition parser encounters an issue here in
+block/partitions/of.c:validate_of_partition():
 
--- 
-With best wishes
-Dmitry
+	int len;
+
+	const __be32 *reg =3D of_get_property(np, "reg", &len);
+	int a_cells =3D of_n_addr_cells(np);
+	int s_cells =3D of_n_size_cells(np);
+
+	/* Make sure reg len match the expected addr and size cells */
+	if (len / sizeof(*reg) !=3D a_cells + s_cells)
+		return -EINVAL;
+
+	/* Validate offset conversion from bytes to sectors */
+	offset =3D of_read_number(reg, a_cells);
+
+Because of_get_property() returns NULL for nodes without a reg property,
+len remains uninitialized stack garbage.
+
+If the garbage value happens to satisfy the length check, it will call
+of_read_number() with a NULL reg pointer, leading to a kernel panic.
+
+Otherwise, it returns -EINVAL, causing of_partition() to abort and fail to
+register any of the device tree partitions for the disk.
+
+Should this block parser bug be addressed before or alongside encouraging
+this topology in the device tree bindings?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-block-as-n=
+vmem-v3-0-82681f50aa35@oss.qualcomm.com?part=3D1
