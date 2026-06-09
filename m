@@ -1,81 +1,80 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CA538C42B
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 22:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA2D4921B1
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 22:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781043957; cv=none; b=XjVZtMx070Tg1COfhvfG7FCdRaD0DjnfbEqFxFV+SxgVFYoo1ITzM26Yyj+hsXHgBtenRkVJuz6T8j8/pjtm4ib7nwt2K/9uAC6GF/DBso+LKbaJMYf02uHnE/4dmdAaveuKvlbp5Fz6z2yaOOEv+oiLO47VAV9cZ91KeYkSZ8s=
+	t=1781043961; cv=none; b=aw2MS9S2U0IvEWRsUyI6LDdmQpCK9BUqL4FKX02jSYlTk7uXeU2WZfnoZYSY7M3DJ4FG37eGT9+tlWfkNfRMtbaFbBPnQRVVktxe5B33dvq8j49u9WdwKFYTvGfozIq53WErtvpQR/dEV9vNjoxwiOm+97I/tJezr4UR/ayyH3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781043957; c=relaxed/simple;
-	bh=Vm5ommHcBR+JcZfrNPxCPFfXMyyLHxyddJFMIu2u1dA=;
+	s=arc-20240116; t=1781043961; c=relaxed/simple;
+	bh=B4kz5SsRggjEFJjV3J/sE+7/gP1ESaf/r5J4kQ1a0Po=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=WjwF7YjDuVIg4VzqEW6gu2+ecpJm7ebnwscPnCJCkLRTpts0eyl6gO+bLn3UAJQy1dEK3q4loTceeEMufolOeK1redN0uZPtxsHa10r8bI9TOqK9ls/HIyvShI4i/RzEi0lG5VDVCJ4ssKPHB5EUeU7JyGzMDgv3P6tNYg9cJSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JbycdpTf; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version:Content-Type; b=N8sULs5IbEObobBHW9npriRVcVmDAcr4k+W41l5We0EKJPoiA3v+iVoTBG8Cadv4enAV66JIrGj0mpujGFuXudYebd+A/65zgZ0TSzru9vdoz+zgYRE4+5jE3U7OHzXHFN1HARvNTd91ft1uPvh1TZjiG1EqcBVLUAtKtPBsKVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QCQJjyR5; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JbycdpTf"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36baeec21dcso3920410a91.3
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 15:25:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QCQJjyR5"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c858b392697so2924635a12.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 15:26:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781043955; x=1781648755; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1781043960; x=1781648760; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IHAmlbVNxH0vBl7x6Q6Ymp+PlLkrCKBYT3xlbJzhsMM=;
-        b=JbycdpTfgG+rAh2FkedERTMIQH8DSFvGlGOG4+gf1BcBkyvWofxyqlcIkGhXB717e1
-         LkQjmkTZQvqLEOc87CZyKwmbHE++mtNnrQ4v4CaYVjLiM7u9NN50blBKW5koCOvicwhs
-         wANnCBd4Ouh1rYU3iNegV5xVtnDx2kkIppvyBQ4XBAPPvAZCxb+/wFGT3jAgiKr40Jqm
-         yBMlJ21UZbOgDMUt2L6/1HvN8iio5KyU4vv7dcth+Q4jnuUGizNUUBhW8Q/s46ENciel
-         RwcwQS6l9/RVPZCyi+8TJYIaNPuRNEIP0lgcWewoA+EWYC0tiV+lNDixLxkArO76N06k
-         ytsg==
+        bh=46q2U4nrUSnKYOo0Qk6SmRB++eNAzeKGUuI3ymafY8U=;
+        b=QCQJjyR57x2jUdD3ntf6Gyww23PmARz4+wAcMdlzZE7wY0U7MqkScjLb+CT50OyZh6
+         J/daVsPnZPc4yBpihDiUbgT4VGV0h9dxPXWbvpUu/q4qYgmBdvJ1euYLyvNvSbOGRONc
+         NPjGHwYjXnDtuu5yVjS/sY21m3uBsnTPnRJuOsQneVVFuatI+lmoqwBhPbOjxxEK26i+
+         W4YVcitKlZ3LHPjK6MRkSuj93knXfvNFg4+cImH/6dZ3x/Lgwx6UYIH+KHt1tYJGrJ+6
+         +QB+g0IXjgcInp0c8o8Sfa8HSlJCsKibi7ZbFiVKKp+yCmGtIOHT2erGIHX2sRanrN3V
+         ftYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781043955; x=1781648755;
+        d=1e100.net; s=20251104; t=1781043960; x=1781648760;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=IHAmlbVNxH0vBl7x6Q6Ymp+PlLkrCKBYT3xlbJzhsMM=;
-        b=nCgxsgVjnZ2v1OVmEAJpttMtkJAiglPbgwnT/WlgvSrxoL8Nc+LCYNpuZ29xjPoQeH
-         NzMnSghQkP6sHn8IAKO75ZT3Znn1EFqca8yLy4tvCGaHkPZu9vEcZ8igWaWGt9pVDfe3
-         jYoUrT5thRRFgje2vSjuE4IiiP7hfAI8VRCGQCCNNMWsEpP/JUDvlIKGm9X0ZW2VAMKD
-         H3L/VUQGyVSIOpc3gfuGZozkns6XCdDXZwbdl70OoYEZBm43xnkFXMAoUyPAlN807xWU
-         ShR9InQiuA/+CfkXYycPcbgbkI0UdVxVEBtBxp2x8eC4tmNmzHGwC45nbQ7iDPf7BCOa
-         POpA==
-X-Forwarded-Encrypted: i=1; AFNElJ9OlHdrzH8iXmUoMHq06R1KKoBj4Hsc4nt7FChMDI6RpJo8h3LFyApfMTexvY1AJEh4o25hY7WwKVfP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAYpH60OXG8YN510sKLTQ8cmRs6bbIObclmCtXf+EcAh5yR+0J
-	lfBwqsvs5m06debjvSn2WrbTnanOqQqcmDBZKd6B7/YA0LdUxXzGuNOB/jiU6OWZyOE=
-X-Gm-Gg: Acq92OGIjsSr4gEZ4heplokuiJyCXgOXXc90BYloLsnQxeTAYsBsMhatY505vlyyJ4a
-	W0iJXlOqr2/b0XB7WIFJu2eyk7puZjOrWMXtQwVpkJEe2c8J0QvmHgFh6o22AZpEYpKCXNYMuF6
-	QgBMPrWY2FQvIg4tuNI0ry2+I/36W7ccbtOns0BuF/hqXtWTja/VqTuOqaOz9i+T2YCF/6oW2Vy
-	NmDTuStd4kYfoTrEYX5mHyAeULq5TvFWCAXvccn1Qe4aOjoL+JDhzXd4EEqMfmn5p4ujJwB7B0x
-	siUJ8eqmIOK6CPoDCZVNJBQ65Rr21qZuaqkRyIkh6aMM6wBu4uvtkaFu0/sH/krDE47Mbiz4MLz
-	nGrHrUMY6QH5+gdnD75a6WkTcVYA1/VzGJkU+h3RvriFFlJNnJB5PB6I9+Klnn165vKOIuhSJz6
-	/WrtBEljX07P06HqPXUii4om6zTY3JmZwIVPK8DglWVw==
-X-Received: by 2002:a17:90b:3c92:b0:368:9da3:c496 with SMTP id 98e67ed59e1d1-370f0e4ab94mr23555998a91.24.1781043955504;
-        Tue, 09 Jun 2026 15:25:55 -0700 (PDT)
+        bh=46q2U4nrUSnKYOo0Qk6SmRB++eNAzeKGUuI3ymafY8U=;
+        b=IMOyLiPTZegalwCee4P4TS8FL03bPO/GeUXQqyItNh3Ijb9Cu3/GY8QDYrgTSnAhzv
+         qXcOORS3Z//05/agSct2y7S2DJX6bSyuIGdBeAyFxRTa9UO7XMvcjzpPRzfW2L2B0RbD
+         rEp0gZ7rYh5hCsiP/0EZiBa9Pl7qyK4YeG7IDyuX2Za7DGyHCl8bDBzWQv7MiC9Hhkbe
+         cv5pnX0fLkAv018KG7b4+pvV9iY6EkoH86X08DVzVPYm+o2zuBdHwZdTWLnq+OSt1IVf
+         hz0nMHYALsuLAVZMxUzO8NTzaXkhwJ8xYtW0o0/Dkxpa9j+kSICxjkra/26CSXhN/+xE
+         UMjQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8sqYzmIpWODnXrI5Jx4M30WHrc/ESD0VvPynFTcdK0LxAOJEfc1se9rA0NOb1Z735a+t7bz4FLhz3H@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxd4PNr+4azw36j9y5wXeE6uwsmf+2+kMI/M6wa8rdtlhCWPduX
+	OGm5jFYUaTXCTPfeovjwBJzLR/n2u/zdH4cMCrjTZXGkN2m47opIf167nZ2/VlpKIHC5itHVuKZ
+	xzmagYRUCKzJy
+X-Gm-Gg: Acq92OF1u3e9a4pv57DypqnOOnJI4/j8EodMsw2YITWWkpvFOoZwp+xOCIO0c5MXJm9
+	pfa880sQ8sPuWP3NOjm5eJ1OG7XuvLdQaO1Li+BlEkF62kTa2tCvxL9rOvLS9sqyprcOHfWp1Zk
+	L+mxIXzLUFBPXmroKnb5SEa51m9IDKhUqYWGJZhKinPt35GkzUPSvgsKLSDuyWh7ha4LxoGnLue
+	kRgru0dECx3wBs5cw0KEAaaPmP7Nb9Le1vjpL2cqSP1a27yAS3WPljQrMjCKMZCDuJ3/BLq0DCz
+	wwM8iJsLSj5GfJI8GO2vNb8BbB+ZGDK3XmJ+MskE9EzPqCyX2qXxvb97wo81wjzxtL4mpgg53iO
+	lAQLv+hU0TyGRyq8svXCrwQ4CRf8IiQwhtvwWAJ7fEKuS+JIC+J+6wOG9hge+syn9ZPlloXYC2/
+	0N/NrUCgR5EvxI7vpVseAUbnplUgxBTmU=
+X-Received: by 2002:a05:6a21:390:b0:39f:a42:9247 with SMTP id adf61e73a8af0-3b4cd0670f4mr27316925637.37.1781043959893;
+        Tue, 09 Jun 2026 15:25:59 -0700 (PDT)
 Received: from localhost ([71.212.202.210])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-376246afe56sm457276a91.12.2026.06.09.15.25.54
+        by smtp.gmail.com with UTF8SMTPSA id 41be03b00d2f7-c85df0bd337sm19404461a12.29.2026.06.09.15.25.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 15:25:54 -0700 (PDT)
+        Tue, 09 Jun 2026 15:25:59 -0700 (PDT)
 From: Kevin Hilman <khilman@baylibre.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
- Thomas Richard <thomas.richard@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-omap@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-In-Reply-To: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
-References: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
-Subject: Re: (subset) [PATCH v2 0/2] Add USB Ethernet controller (LAN7500)
- node in VAR-SOM-OM44 devicetree
-Message-Id: <178104395448.234140.7031645283043967229.b4-ty@b4>
-Date: Tue, 09 Jun 2026 15:25:54 -0700
+To: nm@ti.com, vigneshr@ti.com, afd@ti.com, rogerq@kernel.org, 
+ tony@atomide.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ richardcochran@gmail.com, aaro.koskinen@iki.fi, andreas@kemnade.info, 
+ Parvathi Pudi <parvathi@couthit.com>
+Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, andrew@lunn.ch, 
+ danishanwar@ti.com, pratheesh@ti.com, j-rameshbabu@ti.com, praneeth@ti.com, 
+ srk@ti.com, rogerq@ti.com, krishna@couthit.com, mohan@couthit.com, 
+ pmohan@couthit.com, basharath@couthit.com
+In-Reply-To: <20260428072046.3022679-1-parvathi@couthit.com>
+References: <20260428072046.3022679-1-parvathi@couthit.com>
+Subject: Re: [PATCH v7 0/3] Add support for ICSSM Ethernet on AM57x,
+ AM437x, and AM335x
+Message-Id: <178104395875.234140.5899663583168202275.b4-ty@b4>
+Date: Tue, 09 Jun 2026 15:25:58 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,15 +86,26 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Wed, 06 May 2026 14:13:02 +0200, Thomas Richard wrote:
-> In this second version I added LAN7500 and LAN7505 definitions in
-> microchip,lan95xx.yaml as requested by Krzysztof. I also added Nicolai's RB
-> tag in devicetree patch.
+On Tue, 28 Apr 2026 12:47:26 +0530, Parvathi Pudi wrote:
+> This series adds support for ICSSM Ethernet on Texas Instruments AM57x,
+> AM437x and AM335x platforms.
+> 
+> The AM57x and AM437x IDKs support two PRU-ICSS instances, each consisting
+> of two PRU cores, with each PRU-ICSS instance capable of handling two
+> Ethernet ports. For the AM57x platforms, the PRU-ICSS2 node has been added
+> to the am57xx-idk-common.dtsi, while for the AM437x platform, the PRU-ICSS1
+> node has been added to the am437x-idk-evm.dts.
+> 
+> [...]
 
 Applied, thanks!
 
-[2/2] ARM: dts: ti: var-som-om44: Add USB Ethernet controller node
-      commit: db05498e59019488b1cf908fb3dad7174cac3e4b
+[1/3] arm: dts: ti: Add device tree support for PRU-ICSS on AM57xx
+      commit: 9c4fc66a770a018062e371d1c8a77184d4c15dad
+[2/3] arm: dts: ti: Add device tree support for PRU-ICSS on AM437x
+      commit: cd080146369be3a1750774eabbb839c45cc9a750
+[3/3] arm: dts: ti: Add device tree support for PRU-ICSS on AM335x
+      commit: 19ab47bb6b96820c28024ebfe674050fa2c54ad5
 
 Best regards,
 -- 
