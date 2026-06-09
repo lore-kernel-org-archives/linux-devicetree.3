@@ -1,64 +1,63 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF59333D6D5
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9585F33F5BA
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 01:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780968708; cv=none; b=brOLCOI0qr0JZuyJvU3UE4yp3qcEZdnuetdZqBIEiO/Ybl9aJe1+7SgAuo93h3NOWCh5ViQLrGRojqOowI9U1GEPrcHOFJbW1rfuO4wrkiR720k8mhV5zR53j7h8AMrfknv2y/XW6GBrvZks6nOBLySkOpAeMZnXdXmJPZVNma0=
+	t=1780968712; cv=none; b=f189BRmfobullJJbQQ9p7bZasnOodIuwZ67jaCdCAGeSaxWlwJ4EcVeHFoUepAJUzF4EFcKWN2El4TtLy5wdxtaTniEy2ZuKAproayOZH+/i16btc3XTjyFEiQsty7md5oMrA8q3iv+vXS2FZEJqrxOWE8j9CtlSD2+MVKWAVUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780968708; c=relaxed/simple;
-	bh=oC1QnOKW0S6EDRIYnPdhZj48Z/Xdn4sI0vTlEt02IuI=;
+	s=arc-20240116; t=1780968712; c=relaxed/simple;
+	bh=hoCOcrMSjaAWKeNIF/wdCoUBsEe6mU/OTO9zKbkRgdM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KF4yStnktiKWBuqIbY2BB3IgZjTqLZqeKtleVL+SxX4OngP2S5X8sjcFsFNxegNSpdLNlisLe9iNKOEvr5VK/7QgrvAOwqExKXSNARdKnGprENBwzSQSn1ijSkJHnbdOdZO1dF42N/vpEnTbLOwHuGsm9FQikXjN7TaDr3KAUiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UtzDV/aL; arc=none smtp.client-ip=209.85.214.180
+	 MIME-Version; b=U1uUNkucy9vpsvcPnscrCTmpC0ZRZfL7ObYnBvJgKE9sg7y2eU+tA2HTbLE1VjHbtM+jAwXJCc8933S46MfRN/vgPKlnzlWZDsGeB2sqsZlXmWyvl6HV21o1nDa0h27Mut3At35sxRJvZNMViQNiwOFQMPmBqxrDo1L44G52ylI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Esy6C02X; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtzDV/aL"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2bf18c30bb2so34626895ad.0
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 18:31:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Esy6C02X"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c0aa420401so38201175ad.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 18:31:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780968705; x=1781573505; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780968710; x=1781573510; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+UciuXuF9SkzGOJuh2s5ETTsCy+oZl/O5D36E7r4WTE=;
-        b=UtzDV/aL38plP6UGt/h5evMelh4zlTBLdErl9NxT+E/4BqmRP8IjGldQ2fiwWnsc+X
-         FRIa4OXEdUhTB8VmYCpW4WIw4VzoHoCLX3SwXQ0O7lbgymFCnKeNVxQdbvrQeAl+0vpM
-         0p+EhYctSNBkNprY5vjWJPMWZhujKpnEanI6Vi8H5Sn4HZ1xU3sa2u85corWrVFau7xL
-         +lwUChiE3r30At/mAFK37NOxL/slXWX3wor4fKkJqhsJFOMDzY5kQ5ztLX7z+zDcIuEQ
-         1SN+toqaqB+9QUzF4S8KAWekcF7IfumZAKP6O5lcystgdQFVl/XqJ+3awWTsyC9qF9Il
-         6RiA==
+        bh=++sjJT39ps4CzpziCYW8Pzk1hFHYus8aC6jLUnr2CbM=;
+        b=Esy6C02XDUQLLJRx8HU8tSLCGxfpuBZJywUQZsiNuoVVO1bbUU3+TjVJ4TqALXaMGz
+         gCcSkzYoTLrir4aB17p9VwwwY3FgBn/7FRNeY9celMTKFVyxXyoXRfrkq97jx6cTcog7
+         BzVbf1ukq5XlJMfZ+h+IcINY75Sjg3E4Mk4Kby/ChRaViySIIrKR+8E9fIKvTYsRa02X
+         SQW/tQH+FGAbvqMmVBJKNNeqjC9CTBk/28jkDvTp1aQ79POIgsOFMCeSARmHzHVUn3iK
+         WL7SrfJRMEXiaa/j98D+3PRK/p/DyKaDRgiRg0BpxMIml6TB1DwkDVQuuatj+iBxOE3t
+         ECnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780968705; x=1781573505;
+        d=1e100.net; s=20251104; t=1780968710; x=1781573510;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=+UciuXuF9SkzGOJuh2s5ETTsCy+oZl/O5D36E7r4WTE=;
-        b=qzX1owJIKNfoydebfmqqdt1AFSoSgUWW79y4BzbEvR0tIDreJV0DBZtDoupr0/IGUJ
-         JTRCwKAfFiSLmt7mF2/bOrlMqkV/AJ9Ww+qOcCl7soiq1YosyZ86S/YIuWe6MHBxY1AV
-         d/aYWSDRZbCKfAPWFpczhxnBASAPID2WsZDh83A4qeH7gJWf0wAMJbULCw4fyiH+hwV9
-         +qLIhuRBxRaHM6w2lgl6mYvJShwo1ZG4V+iVDlm54T0w4SemGYtyZN32uLFsCMIEXDKA
-         Cx78RY2pwH4JVq7raENv/AGmrVhIOa4//M/SrQ5BFbGgCIdp5IHSNGrNcsp2JjgxYPFh
-         pXdA==
-X-Forwarded-Encrypted: i=1; AFNElJ+tK/2QG/gwKX0uh6/yecOAON594R9qI1+veBBdybFl9DWdhXLpukeyPUk9SOUA2UW9lWPDWJy3LAU+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2L07Ubk87MqiHMxKTR/9JJX9yDCZugIl+0iJW/DL+EUQ2JJeW
-	kvwx+2CdvB8s7fR5dKKSDTLDkv7UYmqywgjiCpgc9PdKfkisF+B4t21C
-X-Gm-Gg: Acq92OFOpIBgUhnQjrvKWaMBxv0j9ICmWGM4qtmgzakYGFgwaueGGsBFjZTL8cDOXon
-	7VLBT7Neyuv0vzK2jLfJEk5YMMvfdb0M38XuprXv+id3JBa2WPR3+IyoRqObzg9Et41IiA4HMGJ
-	u9XCO/nB3umKDzMIV3lruVneQsM3lL+oMdtNlSpkbxdYa7AjY0pe3jQSRH6TSPbp+n6H3LcjKqz
-	qNIbxBVUc+Lq/nIOMlXMLj0aGAYp3TU6YPN5gIVLooVJd7K0H1h2Mbsy+P7TJuNHW7JvQxMlaV8
-	P757MnpDLFGY+1AiS1g24CiSUAugunrO6SWNwjwIKgo1emH2B5SmGTmUVnk29AX4VFJvXN20TxA
-	EbKIf4c12F1PupaRFAbUgDgunN8a5jGxIrfyQj+/9orHiBfPgt4Nk3/7hIeiBhdY0DACqNI4z0a
-	Ao5KDQB1Z14rMcKsldpzYXDJ55FjAad8EHFwlaVz7cfn5vkxmSxf3BnMojp31bffTJc6g6cFvpf
-	rDZUnk=
-X-Received: by 2002:a17:903:2ac3:b0:2c0:b932:866e with SMTP id d9443c01a7336-2c1e8934f70mr199651325ad.27.1780968704926;
-        Mon, 08 Jun 2026 18:31:44 -0700 (PDT)
+        bh=++sjJT39ps4CzpziCYW8Pzk1hFHYus8aC6jLUnr2CbM=;
+        b=soqZA65Gwbq0JjBPqBVReVknTSyxMQin10vIJExPZ+3SiIS8/xAEm58+OTTCXzbaEe
+         SEDZC8uAtO3kyBvBhL1D0K/ZGDtTYhJj4PKzvcZJwZ4uaK0WTABRwufMWWC4O54JK95X
+         mJ/1ZUiWtxeWjlNcl7f9m+jxrAMYRrqBVsB7NngyKVbXTeNmPUqoFMN3ow6CD0TfhZJD
+         /REB59Hsu66DHXQtBXIRccmy1eUrhHbEw1oPDOUmLjrR19SfimF5LfkU6v6c2RXq6iY5
+         vylVfsBE8apl/3jiPNbJsa0Tn1W5gUKhPg6GHr3T7FRb4x5lLyOIeHpu20wGFVVdL97s
+         2RKA==
+X-Forwarded-Encrypted: i=1; AFNElJ/op1DiPN7gjC/Kqk3+RXfiMSQK1NXxids+D7Bl38YRueEGDNz3CPrMTUNP7kCH880uwPNUVI7aHoRQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy4kl8T1OdSIwe/y0m+PgeFS0YksJZk5piGBYHLqXAenarweM2D
+	n93guAcYmITcShg9+RKT1AjjD/md36Wbw+0GGFCHcCpGSSnxx/0rydcQ
+X-Gm-Gg: Acq92OGnNqWsDu4CvaHmpWiJEUw4GLX4VOu9GXSX0GhI9bYYDUMpOzNeqcWtfUyNcgK
+	Esv2Awj5aCvzu41awkRBaRQgk8hqpoV4BlG27f7smGMCOQkpAPXbzgVPnIr5poWIdpfaJJoVPWw
+	TtlTK1AcPgDFUXhlpBuSQBaMXZoSCrqnVBZxYrcI1fYOgu8KFBGWcm/YZXIQlGzfbS3+ZJ7jEww
+	PPMbqyha45mv1cp7whOL+V18Xk0xpiSjsnwfAZUDwSiRA2r3UmiHHjjJaZck6FwUJxB7aPvTj/r
+	ASuLYu8+qN7U+iNwLn5nvUCH26SMEiLcf6B9a8MJL3rP1Exzs8f3I3pmznhVqoXCvObqQvSE+Ls
+	f9PccMCVIN4FIqp1y2/DpCl/2MqdGaHMDZ3W8zCSDEWkwSuHnT7qzL7y6V9Zy29uQHMDMGW2/QH
+	4S+xmN+CcUK571Fze8uWNUfV+dYcTQyEI7ozSJb6pjq9A38ScGtdwP3SQj+Rp28OkfuPON
+X-Received: by 2002:a17:903:1aed:b0:2c1:69cb:4423 with SMTP id d9443c01a7336-2c1e7e527bdmr204388505ad.14.1780968709665;
+        Mon, 08 Jun 2026 18:31:49 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e627sm198765335ad.52.2026.06.08.18.31.41
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e627sm198765335ad.52.2026.06.08.18.31.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 18:31:44 -0700 (PDT)
+        Mon, 08 Jun 2026 18:31:49 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -75,9 +74,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v5 04/11] ASoC: renesas: fsi: Move fsi_stream_is_working()
-Date: Tue,  9 Jun 2026 08:31:00 +0700
-Message-ID: <20260609013107.5995-5-phucduc.bui@gmail.com>
+Subject: [PATCH v5 05/11] ASoC: renesas: fsi: Fix register access from in-flight IRQ after shutdown
+Date: Tue,  9 Jun 2026 08:31:01 +0700
+Message-ID: <20260609013107.5995-6-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260609013107.5995-1-phucduc.bui@gmail.com>
 References: <20260609013107.5995-1-phucduc.bui@gmail.com>
@@ -91,54 +90,49 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Move fsi_stream_is_working() before fsi_count_fifo_err().
-This prepares for a subsequent patch that needs to check stream status
-when handling in-flight IRQ handlers. No functional changwqes intended.
+In-flight IRQs may still be running when the SPU clock is disabled,
+leading to register access after shutdown and causing system hangs.
+
+Fix this to use fsi_stream_is_working() when handling in-flight IRQ
+handlers. If no streams are active, the handler now returns immediately
+to prevent hardware access.
 
 Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/renesas/fsi.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+
+Changes in v4:
+ - use fsi_stream_is_working instead of running_streams.
+
+ sound/soc/renesas/fsi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-index 800ac40f9680..0bd0e0c8c5a3 100644
+index 0bd0e0c8c5a3..3e3c6fd7c56b 100644
 --- a/sound/soc/renesas/fsi.c
 +++ b/sound/soc/renesas/fsi.c
-@@ -442,6 +442,16 @@ static int fsi_sample2frame(struct fsi_priv *fsi, int samples)
- 	return samples / fsi->chan_num;
- }
+@@ -470,6 +470,10 @@ static int fsi_get_current_fifo_samples(struct fsi_priv *fsi,
  
-+static int fsi_stream_is_working(struct fsi_priv *fsi,
-+				 struct fsi_stream *io)
-+{
-+	struct fsi_master *master = fsi_get_master(fsi);
-+
-+	guard(spinlock_irqsave)(&master->lock);
-+
-+	return !!(io->substream && io->substream->runtime);
-+}
-+
- static int fsi_get_current_fifo_samples(struct fsi_priv *fsi,
- 					struct fsi_stream *io)
+ static void fsi_count_fifo_err(struct fsi_priv *fsi)
  {
-@@ -488,16 +498,6 @@ static inline struct fsi_stream *fsi_stream_get(struct fsi_priv *fsi,
- 	return fsi_is_play(substream) ? &fsi->playback : &fsi->capture;
- }
++	if (!fsi_stream_is_working(fsi, &fsi->playback) &&
++	    !fsi_stream_is_working(fsi, &fsi->capture))
++		return;
++
+ 	u32 ostatus = fsi_reg_read(fsi, DOFF_ST);
+ 	u32 istatus = fsi_reg_read(fsi, DIFF_ST);
  
--static int fsi_stream_is_working(struct fsi_priv *fsi,
--				 struct fsi_stream *io)
--{
--	struct fsi_master *master = fsi_get_master(fsi);
--
--	guard(spinlock_irqsave)(&master->lock);
--
--	return !!(io->substream && io->substream->runtime);
--}
--
- static struct fsi_priv *fsi_stream_to_priv(struct fsi_stream *io)
- {
- 	return io->priv;
+@@ -681,6 +685,10 @@ static void fsi_irq_clear_status(struct fsi_priv *fsi)
+ 	u32 data = 0;
+ 	struct fsi_master *master = fsi_get_master(fsi);
+ 
++	if (!fsi_stream_is_working(fsi, &fsi->playback) &&
++	    !fsi_stream_is_working(fsi, &fsi->capture))
++		return;
++
+ 	data |= AB_IO(1, fsi_get_port_shift(fsi, &fsi->playback));
+ 	data |= AB_IO(1, fsi_get_port_shift(fsi, &fsi->capture));
+ 
 -- 
 2.43.0
 
