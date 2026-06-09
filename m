@@ -1,82 +1,82 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ECA3BA22E
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B1D3D75DC
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780987261; cv=none; b=myVtvdtNgZ0iruEzK7rM6nubiHq7+ZjCBM34Y6aDh2ZHWIolDXKXcrHM5WRY4IwUUjGqkjIElrWoGcltEry5l1l9xd6wCHDulfklrzPBNvhArM1oQ6YN3dPKiyX4seEnthzZYneThPlD97R/KdLv3B567MYQUw2ZEZQRqlTviKg=
+	t=1780987272; cv=none; b=m0XKIjTaFCHv/tvWhDA9gnlR3I6a5gpVQAa8xPApV67x2CrnaVMKyNdfLa+yMxISEoP+sqCWLJi4E5ZLrKfpApxjgGbrdZ7HF/sfajETjVWCFq21OH7z1i6bdm/eqh1DGGtr29Lbkp56Ad+7Jaz92uEs2yRo9pm1uDes3SIxX2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780987261; c=relaxed/simple;
-	bh=SUp45uL0Cj9+ZynVF4O6v6DjZsBdSrnlPjW29909kZc=;
+	s=arc-20240116; t=1780987272; c=relaxed/simple;
+	bh=G5Fd3C2/IIYhIJNTsrByruYUUtNsAZFI8dkJ/69ojR0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=S+i4zwbIBUHJse2NxPwsihu6gscpBD9Rw/u8NgIv+y2FRdPPqCsmLYO8/7Bp4UwGT7qC3J/eCdsU95MSfoFXAyb9CLgkp8ay2AntjLxwcFCl6JKBUaKdB/fFTCRD+7gj39FprS4W9mf8lTLmEEDMKQzk2KKSnccXPrZqfTWrIOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZYKDhWF6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NmeiTuU3; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=htXQk/92C2ZM70wHonjBgQ0pmYoOQKspCSgYqYkEeuTh9kMaE6VtA7RCemJ5LLUfFbhrcn4phD3DKmHKstjkBlqizIhkmTYoICPGWD4DzlpfDshKu6C4o6Dyko/p2JC6hjogGYL691JkuInYQnC3Z4goCoYwT6/fW1QXZIg8Efg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HyibZdut; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ot5+93kM; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZYKDhWF6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NmeiTuU3"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6593wi7R1509589
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 06:40:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HyibZdut";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ot5+93kM"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6593wv3v995059
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 06:41:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=c75jWvAaoCA
-	pv/IIOdNGer60GpfGqCeVoO2cPGCyclc=; b=ZYKDhWF6gYt+8FKsxPmYrCH2k39
-	4ElPvVKrdOmoXYurPRIzQWcMLKq6JMAOhVlRvZPNwd8r+BhI1itxVoB1tQXVFkj7
-	PcNvNaiU6olFBgsL1WUO2OAg5ZEwyi4MlGWQTeVDxYpEjB0ZKf9wmjBelqluF2Mh
-	WTS79BOzZilCLtqgcaE+/LZalPHtknkGG88jwDpvw/I2MBZo0Q58iXKUul3IylHP
-	cmbkU6acjNSaXDOPINQWOMTV+bihURpPb08B4mO67eDtf60qarMAsOTSy9Lp0AVy
-	VKcBxfRsgczVgs06P7BRIi2VVcaB/jITtJtA0IMrftHo0GRcZQb7roj767w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enxee41na-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=lxzSeBH+ykp
+	PP0MVObrals7OD4WQHIlu99LVG0RRhPY=; b=HyibZdutvuz3DXrbcJrQhkY5u2F
+	OkaNkjODr7R2Y98+XogWKOZ0CdN9nZB9HEkJrSUFhXmVET6Aa1OALHQAqKYhGYeN
+	SQtCX8QsKL5FLVQ5UqxuCIpOsKq1TKWNpn42zxjc1pVrLQgBhOsoof4Ehk91nJfT
+	bxqb4VR8NQyrZwBDt7fjYpRjFJ9STiNPrSgdYtvOLBck/Id+0g6jyDwKi/xgqbmM
+	e15Xaqloz0BhRcGV+o2kmNSNKa9ZtstnSgJX3bf+VFF1g+NczCSeffMR+e41QoCs
+	EZQfZP7g89lmnbonOpynfznQvzgP/Obxr9Rg5t1XywlNk15sg2aL4nCibQw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4entrkw3nu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:40:59 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36d98b74447so4043186a91.2
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 23:40:59 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:41:08 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36d99333358so5038895a91.3
+        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 23:41:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780987258; x=1781592058; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780987267; x=1781592067; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c75jWvAaoCApv/IIOdNGer60GpfGqCeVoO2cPGCyclc=;
-        b=NmeiTuU35xt4YtKrqvuWjDlQit3SRfAhAHfVnFUa+5Ux0PhmJkbJ5cyGclIe6oDbHL
-         ryNqaNcDcedv7GGOVJELjX2ya7fdPLQlAVXU7PDkgXtCbnVWWtK6TTMPRSYoY2EK8ypH
-         mhUfRuY6MyUpzY7Aip0GDAchuJiMi1sa4lWngPpC5rRo8VtBVTxPwsTgIH/qxz6RWlOy
-         t8P5imWfflHqwv5vC27f+hrMqfEdDK2TeevEDu5lpTrRc/2p97gYGqHWPHROY6NDZOJX
-         T4tV5YMboY1rnnkx70mHezCZAHbRp58zWFKJ0ANhBnSQRZxa5D1iHWIiFc2l2BovEG17
-         JFEw==
+        bh=lxzSeBH+ykpPP0MVObrals7OD4WQHIlu99LVG0RRhPY=;
+        b=Ot5+93kMqjSJ6ZtXk58qLfloEgvrvLsJ8UD2D2RXoWyM19bDZXUTwG9MQiJnbYEead
+         HISr4grIYkoOrZUhqrqTs8eQDpM2H2XtJwhDnJuqVe4Q2lr0CpvavCXnsZhPyVhb9Pt/
+         isQ0X+tHGEWbrkxmVsL1M7yyWR7zJHICwAHLNYuG141YzVkjkvxjAddv5o6pMgJT99oW
+         r7qDwqRYqK1U7QyZKJ+2bWa7P4XdfoItncTGcKGcIOHaFCw4qrfSzYnei9N4tgNcd1G2
+         JxJ8pMtvtJOcxQaDU01Hw82HrQkJ3kUcRRrnVJ0dppyV9ruolBT1AkSc1y+llj0kk2nW
+         GuHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780987258; x=1781592058;
+        d=1e100.net; s=20251104; t=1780987267; x=1781592067;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=c75jWvAaoCApv/IIOdNGer60GpfGqCeVoO2cPGCyclc=;
-        b=aiPJgKW3MHmzSb2XGv81INFsOss81fW9/NKwORzN+J+El3CocJQ9WQiLGI9Ha/JiOb
-         djfA/8LiPmNbnX68+j+mAmFck8XGWeyjlUy+hhcBwvljYqnzzlw3EhRmuGWV7lb0NuDB
-         KRSAcbYzXPgiafZ7XPwR/ch2d1unjs6zM9eVlf6AfOiYomJEFYYHyPhKsoqGvYHOC92U
-         G7ZxCRLwF5I9eQQysgnZEEBl/Ub1uY/i27plb+Lrbdrn0eunRfK+08TBMwUktPD+GhpT
-         A0Km4az3VEd31tV3/mRTMWBUugI8+vi4um9K1LvzHr6ZxJyUeDDGFEh/ybku1PuyPhuW
-         Urnw==
-X-Forwarded-Encrypted: i=1; AFNElJ/Dce6j6kxmiONvxLfmcf6lwxPNL94FAmAAOYs/b4I4YQ+IIXpHCFaymeifiDjud2YB9omq4iPbgZgu@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyv2Xp6TpV5aULQugVbYJw47Omu41IAO+GV6y0mmk15RJ61w+8i
-	TncJIxKY1zzvw4QO3ZunkSmGOSPGWAXMqyOo+OE6EpFV+BnTaikEQHpnLS5QZWeqWbIdriqLFXP
-	Foqcdz8cxxQGdCjOdOtVUpWplWD5tucW9nGxB2HHye83DRHmB+83gKwQ0Eqc0BiD4
-X-Gm-Gg: Acq92OHvtdWQAM68xso5xtmWZMcZsjJL6SLidthrdzbmxnqriJ6fOOhKLkz0ke8pg/c
-	Mj8ps94Iy8qxpsLkSOFT74Vj+moZg9vxwn2XHNHX/XTO5OPWicccSYzjWMSfU7ObLwldes/jkIu
-	H+Izc6Dy3HZ0WezJ830xTRsDsLUcwEpFf7wjeEqmfx6UakoLSnP9OpnsWabDYT9r8gSa1a6pyvk
-	oPAJJTpaQ8qMksjp65bsZ7kUf+jzuHX6Lz2b6AR+btxg5PBbT9jweQc1zMfOQ2gOsl/I9Of0hgX
-	gf7+kYGzKtNKoRbHT+HKBOFH619ll34uoCDS9dOSPp6yNClNQjNt2Fms0EiHUwKoaattccP+RwU
-	kaUUrOaK92r32yBHmu9hMLa5j4A2zYAEy7YQFjY4eWKnSavEYBFqbIxtUfELc
-X-Received: by 2002:a17:90b:3ec6:b0:368:5367:d679 with SMTP id 98e67ed59e1d1-370eeff5ea4mr21160265a91.9.1780987258480;
-        Mon, 08 Jun 2026 23:40:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:3ec6:b0:368:5367:d679 with SMTP id 98e67ed59e1d1-370eeff5ea4mr21160226a91.9.1780987258054;
-        Mon, 08 Jun 2026 23:40:58 -0700 (PDT)
+        bh=lxzSeBH+ykpPP0MVObrals7OD4WQHIlu99LVG0RRhPY=;
+        b=k++S6z549BNp+vFB1B/LtjPFeO4tyM6qnBmynrrpyFEACr0OqvW/NbAgRBWg98g8x5
+         UlXr15LBOP03SWq43+z3DBRe1cIntzal7sfuLC1cU0yegsk2aMpbOw8IGNYDi9XLg5oe
+         7cEUG/WHqcpHQeGXSYhsNWSaaT+Rp9jbR0+QUubA8PEK46dAmcEtc+PV9hs2ZDv/WJEn
+         mju3HG4EBaUvjhCYU9WEYLTy941bW5ZW/R6FAKAb3MQPIJvo/XWUJ7gxBZtPpuKmKBxi
+         Ky79gyx9jFx4AEn9HdnaNjYOXjpHE5Z1m4UfVVSdA1y/yEgDLfcewxUAWtgX9JWDcvq0
+         CaJQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/FL6xybXv4WopBq178I1kW4qemznvswbtefBIe5LccBS2i2zyqoErWCDqdjjnNJOrBLtRywjn7EOTh@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVE/JMbRQIFc0HYTNSJQ35aUTETDxcNcLdapZdh0sHmygPDDZV
+	vjJRWkLlFXDs9HyXXNA8jQKxWl8336fD3hOqPpKT/rajpD+qtIglaZYyaIImN8I+1b9aXtR3h7f
+	vt/VxyObO5A8zygiFefBO1M+Us6F7y1xby+8syqi7FeG1wJr3jIYfCXnekWCQnZu3
+X-Gm-Gg: Acq92OGR+Y5bUnvXzG0pxZw1425d6Si4y5kjlhpmxIYSgwnqjC1PW3RB7DoJhcAvOYJ
+	+EDfAa6Di2XPIspCM7akWYP5hgjtLcdaQnW6PsOeGbeuCyvcNp83lF8J3+qKFwnIghUMxNPKZjK
+	lcnsjYAelL7KLZ7nT7iEkepCpflwgwKuu6ro3n6g1WlRYF5ozlFMQCJIXjegPXUqGsMpCM2lsv9
+	PZtU1QCRI96w7HM4VZ93XGYKFLOu/Khxq0M6qJqazYqNlCHLhC3AOPkUdZ6O+lb7qrbFNlhSoCQ
+	h1x7g2PdPJ9acUHMzk5VZ9nAPsQn2D+Ownjvof09Jn4LFwCd0ukrJZLbwS3AQy/GVlbRra8jOGE
+	Z4oh2fOUgZ5DWh7ixad2mdQBrk30YqvJl6ancx3fO1BkgfSXfaVc5bU8zkTnf
+X-Received: by 2002:a17:90b:2f85:b0:36d:b680:3029 with SMTP id 98e67ed59e1d1-3751f35bda5mr1780792a91.1.1780987263158;
+        Mon, 08 Jun 2026 23:41:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:2f85:b0:36d:b680:3029 with SMTP id 98e67ed59e1d1-3751f35bda5mr1780755a91.1.1780987262731;
+        Mon, 08 Jun 2026 23:41:02 -0700 (PDT)
 Received: from hu-nandam-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6c668f9bsm17898953a91.7.2026.06.08.23.40.53
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6c668f9bsm17898953a91.7.2026.06.08.23.40.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 23:40:57 -0700 (PDT)
+        Mon, 08 Jun 2026 23:41:02 -0700 (PDT)
 From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
         Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -87,9 +87,9 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         mohammad.rafi.shaik@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com
-Subject: [PATCH v1 1/3] dt-bindings: sound: qcom,q6apm-dai: add optional qcom,vmid
-Date: Tue,  9 Jun 2026 12:10:36 +0530
-Message-Id: <20260609064038.492641-2-ajay.nandam@oss.qualcomm.com>
+Subject: [PATCH v1 2/3] ASoC: qcom: q6apm-dai: add VMID-based SCM assignment
+Date: Tue,  9 Jun 2026 12:10:37 +0530
+Message-Id: <20260609064038.492641-3-ajay.nandam@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260609064038.492641-1-ajay.nandam@oss.qualcomm.com>
 References: <20260609064038.492641-1-ajay.nandam@oss.qualcomm.com>
@@ -100,63 +100,346 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA2MCBTYWx0ZWRfXwA+Qwj6PeOYt
- FvTSDjJJhoNiWF2VvcmejbhyFOpA0kMlihe00ILvMRuPHQKjHFzLrfJlGqqr84MfRJR5pg19VuL
- aWacsIR+8eRCfyAfXkhN39w30clA+CbKGX4TORoPJDmS8jhk1c0SpKmWvUuL94GQVaXJohwNmzf
- fh+u280E82fPrOhIbfkfkfLrlD1t9HXV2Zl5faIRHo6JTKaUTjA+qduYxI6Hl5J61p+haYfFKfd
- u0Z1N3M9s7HZg5w+G4vst/zXpErmtPPXRXFc9ZHhE/7rlGZkEfKzFB9p3IHc9iWGYiSvuhxEWR/
- gOeYSCkg2e9dyla2ltZikisMwGT6HAY9Gj74Y3pBAQ1F/z5Hg6bex7hcH4EcWVq4vgj+0sxSxiY
- Q+CL8nw9gM9W0HOOQlUX1ZWEH3fKPZKvS18lRLX32iAp3c+LQPhwduCA2hSIu48N5fmXDlKl7Qu
- jTdohwOpRfWjcu4TEJg==
-X-Authority-Analysis: v=2.4 cv=V6BNF+ni c=1 sm=1 tr=0 ts=6a27b57b cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: pE1ZS7dah289AsoTbl8w1AxG7b31XBHX
+X-Authority-Analysis: v=2.4 cv=Z+3c2nRA c=1 sm=1 tr=0 ts=6a27b584 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=CLXHBV2uJxG-_-RflmEA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: DuuFZW5fYzNlIxegqtfY5D19Gdq1PnPL
-X-Proofpoint-ORIG-GUID: DuuFZW5fYzNlIxegqtfY5D19Gdq1PnPL
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=J2t13yfLkB8ZkNUaoHQA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: pE1ZS7dah289AsoTbl8w1AxG7b31XBHX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA2MCBTYWx0ZWRfX4LCaRQ1ent5r
+ U/t8C4RgAJUEWBwjRmf8krZgh1tvra9KhBOxtgZ0Po5ie+CDTOc5dvKtgWjAVdYeypQcAGmpnxz
+ tehvsOAZJ121xwz6LMMxxBZz0Doj4Ykz3LWTzM8fkQGfr0E+z12Ka7gzzRkS8VX5obvzoyfeVPf
+ XY+53MfamR5qxrjJquJPmzlwxGZIsD+QL7RUQ5Wq5nZ+1Eo+zofrqtejj5Lw24LCo2n7+rNAbQ6
+ 9l9T+LbYtXwijjzBwzNoHbhBMULj+fVKmv3Ee/V5QhyUvNUigEu+7hULRt/OEK7f9QOKAhR3xLm
+ vmNb5MTNamxSL7uo5P9zzAr2l+XEZFyyk/6fJOmx6dKpnmoQKp7BIjJ4FBajjQiaR4riB5kerGx
+ rwoVGnkKPpxihv2XmHFRWbMl7lxQSAO0pB+N9+6PxTsoz+YHCxotdXsaDPfb4NIRFjkKbclflAL
+ RurDLIAs0rFCzbECrHQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-09_01,2026-06-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 spamscore=0 malwarescore=0 clxscore=1011
- lowpriorityscore=0 suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090060
+ phishscore=0 bulkscore=0 malwarescore=0 suspectscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 spamscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606090060
 
-Add an optional qcom,vmid property for q6apm-dais nodes to describe
-additional VMIDs that should be granted access to PCM DMA buffers.
+Add optional VMID-based SCM memory assignment for q6apm fixed PCM DMA
+buffers when qcom,vmid is provided in DT.
 
-The property is optional and bounded, and driver-side validation will
-reject invalid values such as including HLOS in the list or VMIDs that
-exceed 31, matching current SCM source-permission mask handling.
+On platforms where audio processing runs outside HLOS, LPASS PCM DMA
+buffers must be shared with secure/non-HLOS VMIDs so both endpoints can
+access the same payload memory.
+
+On platforms where audio runs on mDSP and buffers are backed by
+secure/stage-2 managed memory, HLOS-only ownership is not sufficient for
+DSP access. Optional VMID-based SCM assignment provides the required
+shared ownership model for those systems.
+
+Keep HLOS as an RW owner and grant configured destination VMIDs RW
+access so both playback and capture data paths remain functional.
+
+Assign and unassign SCM permissions at fixed-buffer lifetime boundaries:
+assign in pcm_new() after fixed buffer allocation/map, and restore HLOS
+ownership in pcm_free() before unmap.
+
+This avoids reassigning the same fixed buffer in stream-lifecycle paths
+and aligns ownership transitions with the fixed DMA pool lifetime.
 
 Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 ---
- .../devicetree/bindings/sound/qcom,q6apm-dai.yaml      | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/soc/qcom/Kconfig           |   1 +
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 178 +++++++++++++++++++++++++++++--
+ 2 files changed, 170 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-index 9e5b30d9c6e6..b767625985a7 100644
---- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-@@ -20,6 +20,16 @@ properties:
-     minItems: 1
-     maxItems: 2
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index e6e24f3b9922..82f496e53acb 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -101,6 +101,7 @@ config SND_SOC_QDSP6_ASM_DAI
  
-+  qcom,vmid:
-+    description: Optional list of destination VMIDs to share PCM DMA buffers with.
-+      HLOS retains RW access as source owner and must not be listed.
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    items:
-+      minimum: 1
-+      maximum: 31
-+    minItems: 1
-+    maxItems: 8
+ config SND_SOC_QDSP6_APM_DAI
+ 	tristate
++	select QCOM_SCM
+ 	select SND_SOC_COMPRESS
+ 
+ config SND_SOC_QDSP6_APM_LPASS_DAI
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index bf1f872a09f4..ae7bcf980236 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -14,6 +14,7 @@
+ #include <asm/div64.h>
+ #include <asm/dma.h>
+ #include <linux/dma-mapping.h>
++#include <linux/firmware/qcom/qcom_scm.h>
+ #include <sound/pcm_params.h>
+ #include "q6apm.h"
+ 
+@@ -34,6 +35,8 @@
+ #define COMPR_PLAYBACK_MAX_NUM_FRAGMENTS (16 * 4)
+ #define COMPR_PLAYBACK_MIN_FRAGMENT_SIZE (8 * 1024)
+ #define COMPR_PLAYBACK_MIN_NUM_FRAGMENTS (4)
++#define Q6APM_MAX_VMIDS 8
++#define Q6APM_SCM_MAX_VMID 31
+ #define SID_MASK_DEFAULT	0xF
+ 
+ static const struct snd_compr_codec_caps q6apm_compr_caps = {
+@@ -83,10 +86,106 @@ struct q6apm_dai_rtd {
+ 	bool notify_on_drain;
+ };
+ 
++struct q6apm_scm_region {
++	phys_addr_t dma_addr;
++	unsigned int size;
++	u64 src_perms;
++	bool assigned;
++};
 +
- required:
-   - compatible
-   - iommus
+ struct q6apm_dai_data {
+ 	long long sid;
++	int num_vmids;
++	u32 vmids[Q6APM_MAX_VMIDS];
++	bool use_scm_assign;
++	struct q6apm_scm_region scm_regions[SNDRV_PCM_STREAM_LAST + 1];
+ };
+ 
++static int q6apm_dai_assign_memory(struct snd_pcm_substream *substream,
++				   struct q6apm_dai_data *pdata)
++{
++	struct q6apm_scm_region *scm_region = &pdata->scm_regions[substream->stream];
++	struct qcom_scm_vmperm *dst_vmids;
++	int dst_count = 0;
++	int ret;
++	int i;
++
++	if (!pdata->use_scm_assign || pdata->num_vmids <= 0 || scm_region->assigned)
++		return 0;
++
++	if (!substream->dma_buffer.addr)
++		return -ENOMEM;
++
++	dst_vmids = kcalloc(pdata->num_vmids + 1, sizeof(*dst_vmids), GFP_KERNEL);
++	if (!dst_vmids)
++		return -ENOMEM;
++
++	/* Always keep HLOS RW so CPU can continue buffer access. */
++	dst_vmids[dst_count].vmid = QCOM_SCM_VMID_HLOS;
++	dst_vmids[dst_count].perm = QCOM_SCM_PERM_RW;
++	dst_count++;
++
++	for (i = 0; i < pdata->num_vmids; i++) {
++		/*
++		 * Probe-time validation rejects HLOS in qcom,vmid, so this is
++		 * only a defensive check for future non-DT vmids[] population.
++		 */
++		if (WARN_ON_ONCE(pdata->vmids[i] == QCOM_SCM_VMID_HLOS))
++			continue;
++
++		dst_vmids[dst_count].vmid = pdata->vmids[i];
++		dst_vmids[dst_count].perm = QCOM_SCM_PERM_RW;
++		dst_count++;
++	}
++
++	/* Nothing to assign beyond HLOS access. */
++	if (dst_count == 1) {
++		kfree(dst_vmids);
++		return 0;
++	}
++
++	scm_region->dma_addr = substream->dma_buffer.addr;
++	scm_region->size = ALIGN(BUFFER_BYTES_MAX, PAGE_SIZE);
++	scm_region->src_perms = BIT_ULL(QCOM_SCM_VMID_HLOS);
++
++	ret = qcom_scm_assign_mem(scm_region->dma_addr, scm_region->size,
++				  &scm_region->src_perms, dst_vmids, dst_count);
++	kfree(dst_vmids);
++	if (ret)
++		return ret;
++
++	scm_region->assigned = true;
++	return 0;
++}
++
++static int q6apm_dai_unassign_memory(struct snd_soc_component *component,
++				     struct snd_pcm_substream *substream,
++				     struct q6apm_dai_data *pdata)
++{
++	struct q6apm_scm_region *scm_region = &pdata->scm_regions[substream->stream];
++	struct qcom_scm_vmperm hlos = {
++		.vmid = QCOM_SCM_VMID_HLOS,
++		.perm = QCOM_SCM_PERM_RW,
++	};
++	struct device *dev = component->dev;
++	int ret;
++
++	if (!pdata->use_scm_assign || !scm_region->assigned)
++		return 0;
++
++	ret = qcom_scm_assign_mem(scm_region->dma_addr, scm_region->size,
++				  &scm_region->src_perms, &hlos, 1);
++	if (!ret) {
++		scm_region->assigned = false;
++		scm_region->src_perms = BIT_ULL(QCOM_SCM_VMID_HLOS);
++	} else {
++		dev_err(dev, "Failed to unassign DMA buffer %pa from VMIDs: %d\n",
++			&scm_region->dma_addr, ret);
++	}
++
++	return ret;
++}
++
+ static const struct snd_pcm_hardware q6apm_dai_hardware_capture = {
+ 	.info =                 (SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_BLOCK_TRANSFER |
+ 				 SNDRV_PCM_INFO_MMAP_VALID | SNDRV_PCM_INFO_INTERLEAVED |
+@@ -218,13 +317,8 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
+ 	struct q6apm_dai_rtd *prtd = runtime->private_data;
+ 	struct audioreach_module_config cfg;
+ 	struct device *dev = component->dev;
+-	struct q6apm_dai_data *pdata;
+ 	int ret;
+ 
+-	pdata = snd_soc_component_get_drvdata(component);
+-	if (!pdata)
+-		return -EINVAL;
+-
+ 	if (!prtd || !prtd->graph) {
+ 		dev_err(dev, "%s: private data null or audio client freed\n", __func__);
+ 		return -EINVAL;
+@@ -569,9 +663,13 @@ static int q6apm_dai_memory_map(struct snd_soc_component *component,
+ 	return ret;
+ }
+ 
++static void q6apm_dai_memory_unmap(struct snd_soc_component *component,
++				   struct snd_pcm_substream *substream);
++
+ static int q6apm_dai_pcm_new(struct snd_soc_component *component, struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct q6apm_dai_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct snd_pcm *pcm = rtd->pcm;
+ 	/*
+ 	 * Allocate one extra page as a workaround for a DSP bug where 32-bit
+@@ -583,15 +681,17 @@ static int q6apm_dai_pcm_new(struct snd_soc_component *component, struct snd_soc
+ 	bool is_push_pull;
+ 	struct snd_pcm_substream *substream = NULL;
+ 
++	if (!pdata)
++		return -EINVAL;
++
+ 	graph_id = cpu_dai->driver->id;
+ 
+ 	/* Note: DSP backend dais are uni-directional ONLY(either playback or capture) */
+ 	if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream)
+ 		substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+-	else  if (pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream)
++	else if (pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream)
+ 		substream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
+ 
+-
+ 	if (substream) {
+ 		is_push_pull = q6apm_is_graph_in_push_pull_mode_from_id(component->dev,
+ 									graph_id,
+@@ -606,6 +706,14 @@ static int q6apm_dai_pcm_new(struct snd_soc_component *component, struct snd_soc
+ 		ret = q6apm_dai_memory_map(component, substream, graph_id, is_push_pull);
+ 		if (ret)
+ 			return ret;
++
++		if (pdata->use_scm_assign) {
++			ret = q6apm_dai_assign_memory(substream, pdata);
++			if (ret) {
++				q6apm_dai_memory_unmap(component, substream);
++				return ret;
++			}
++		}
+ 	}
+ 
+ 	return 0;
+@@ -635,15 +743,25 @@ static void q6apm_dai_memory_unmap(struct snd_soc_component *component,
+ 
+ static void q6apm_dai_pcm_free(struct snd_soc_component *component, struct snd_pcm *pcm)
+ {
++	struct q6apm_dai_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct snd_pcm_substream *substream;
+ 
++	if (!pdata)
++		return;
++
+ 	substream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
+-	if (substream)
++	if (substream) {
++		if (pdata->use_scm_assign)
++			q6apm_dai_unassign_memory(component, substream, pdata);
+ 		q6apm_dai_memory_unmap(component, substream);
++	}
+ 
+ 	substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+-	if (substream)
++	if (substream) {
++		if (pdata->use_scm_assign)
++			q6apm_dai_unassign_memory(component, substream, pdata);
+ 		q6apm_dai_memory_unmap(component, substream);
++	}
+ }
+ 
+ static int q6apm_dai_compr_open(struct snd_soc_component *component,
+@@ -1023,6 +1141,7 @@ static int q6apm_dai_probe(struct platform_device *pdev)
+ 	struct device_node *node = dev->of_node;
+ 	struct q6apm_dai_data *pdata;
+ 	struct of_phandle_args args;
++	int vmids;
+ 	int rc;
+ 
+ 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
+@@ -1035,6 +1154,47 @@ static int q6apm_dai_probe(struct platform_device *pdev)
+ 	else
+ 		pdata->sid = args.args[0] & SID_MASK_DEFAULT;
+ 
++	vmids = of_property_count_u32_elems(node, "qcom,vmid");
++	if (vmids == -EINVAL) {
++		pdata->num_vmids = 0;
++		pdata->use_scm_assign = false;
++	} else if (vmids < 0) {
++		return vmids;
++	} else if (vmids == 0) {
++		dev_err(dev, "qcom,vmid must contain at least one VMID\n");
++		return -EINVAL;
++	} else if (vmids > Q6APM_MAX_VMIDS) {
++		dev_err(dev, "qcom,vmid: %d VMIDs exceeds maximum of %d\n",
++			vmids, Q6APM_MAX_VMIDS);
++		return -EINVAL;
++	}
++
++	if (vmids > 0) {
++		int i;
++
++		rc = of_property_read_u32_array(node, "qcom,vmid",
++						pdata->vmids, vmids);
++		if (rc)
++			return rc;
++		for (i = 0; i < vmids; i++) {
++			if (pdata->vmids[i] == QCOM_SCM_VMID_HLOS) {
++				dev_err(dev, "qcom,vmid must not include HLOS VMID (%u)\n",
++					QCOM_SCM_VMID_HLOS);
++				return -EINVAL;
++			}
++			if (pdata->vmids[i] > Q6APM_SCM_MAX_VMID) {
++				dev_err(dev, "qcom,vmid[%d]=%u exceeds SCM max VMID %u\n",
++					i, pdata->vmids[i], Q6APM_SCM_MAX_VMID);
++				return -EINVAL;
++			}
++		}
++		pdata->num_vmids = vmids;
++		pdata->use_scm_assign = true;
++	}
++
++	if (pdata->use_scm_assign && !qcom_scm_is_available())
++		return -EPROBE_DEFER;
++
+ 	dev_set_drvdata(dev, pdata);
+ 
+ 	return devm_snd_soc_register_component(dev, &q6apm_fe_dai_component, NULL, 0);
 -- 
 2.34.1
 
