@@ -1,78 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9059A402BB8;
-	Tue,  9 Jun 2026 12:00:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1030F3546C3
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 12:01:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781006425; cv=none; b=TUqiV+vrgDwd+PsIyKqUoRSrwa9A1RrpcRCoF3CP18VFYWBvbofXJTd2eUq4/UCUPpiRKBekxuTEaoLiNsomf2ha8S2IBh5/pr6xZOl8gkFWX1GcgnrEYNZXNxU6tttXC1zlIVroQGx25G/jRhjqpeL0wRYERi6eKcW86qNR+Sc=
+	t=1781006488; cv=none; b=TrV3Adl88NPFCGJxGjSl4f1xrLP20+Sva90JrGhPdQFsSsiJS7233bW/uGqA0A2WySe3ZWaRnhoc+qqC8+OZtBLum3zxb+LnBbQ3zDqNscnLo3L2u6jdY/PkZ9se3I8bmxRfO3GisAjJwHwfdNpZoR8ayqWYD/wmgS92I5owdM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781006425; c=relaxed/simple;
-	bh=IGpGE5ahmXWsAZ86oddfO+WhOssxkQfsvaFstbpbUH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qKzduKhvwy8n59hohWQ4F4OBpU28oSPDNXOSCYY6mdLJVH+tRP9sm6kBANIvfD54cyNTnE6UUS0ZCXua2KTQF+cJvt4v3ToYsJxdyZyfSYNRwNvwIlqvWHqlznzW2ccJIqYbt4U3EejHMNTuC6YB2IlT0KBHwQKRHkDo7fev+tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0/wYDh7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781006488; c=relaxed/simple;
+	bh=20E4jlDgRHmL8VjI6o84T0Vsa704YAzLsh2SAUlBpGM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=T1lYMhmnUNluPh1hBkg1TyvIRcEKEMYQ0hXL8I8jifvelqHSUlsBrj5vvV7k+zZzjhof5utmJd21NORz+XXMF+asWabrCUGhyWlLTErZD9Jrw142bHkYxF4z1PQsrmhbTUHqrfIoU909Y7jDspO0DnkjScWXCVPmHuaREV9CPVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oh8YU1Q5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0/wYDh7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121F51F00893;
-	Tue,  9 Jun 2026 12:00:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oh8YU1Q5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451E41F00898;
+	Tue,  9 Jun 2026 12:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781006423;
-	bh=YqAY2yjF1JOeRihI2p1gxnrbLAfEXGmBDITPkBFPHmA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m0/wYDh737gkZwT3FN3edFJLbv3a+bjleGY4f+o86IiNjItI4KQvNxC2tr7kOjGBu
-	 uBb09XVxLPonpuIzJ1lnq385pQlNjtZ8xcmRh1i96QCR3Ztojm9TMB581a1kscxSrJ
-	 nq8babeMmfgcvX0f6ail4xqZMujdIAlFEEK+a7+8WEsTNumg8ZzAlVrVwABK2BWX4U
-	 hSQGO/aoCJPF4V8xJ6Z+vRtWgIR3e4hUHJSsY2QRjK+JrnAbPmOTV/FojO77dKBmQR
-	 frCSgy5419vTSJhU0wrYvrI2eeV53fT2nvNC8gSIRwu/4AL6qr+X9EzKctBjB8Ptvy
-	 i443ymSJEy8rg==
-Date: Tue, 9 Jun 2026 14:00:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yixun Lan <dlan@kernel.org>
-Cc: soc@kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	spacemit@lists.linux.dev, linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] RISC-V SpacemiT Devicetrees for v7.2
-Message-ID: <20260609-pompous-imposing-dragon-fc18cb@quoll>
-References: <20260602070257-KYC5031219@kernel.org>
+	s=k20260515; t=1781006486;
+	bh=pB99YzbAehabNUC1Kop/AANyI7ouF40y05SIuLsoefI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oh8YU1Q55YHH7uUD7m6y2pe2dbK2MsmN6qZ8AL20+z4XYenP+ftY+IfpubKblabU6
+	 zvZinV5Q5WOmpzx3p+XP5Zd13lL4Xvd7Mvzk0gvHMPPk0sByFrSeoJ8A0UuPu5QyCs
+	 YnSpXHxhBkHpXPOJbY1t6bOrXjiQciLlBRkHhD91YQNuIYIxJMWYruhrnmQH8N7acr
+	 lcuyQM6221z3JtZGOgc/nJyKjenjgWHfLJ5d3KFoEnEkWKTVpaLe+BbEK1MbJOtD63
+	 LZm8HG1zr19nuASaxiQrow7ojgJS/h7HV7H/7DnZzP/5gr+gjtoBYiHRFveBqWVllU
+	 hwM3hznSNmrDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 03/11] ASoC: renesas: fsi: Fix trigger stop ordering
+Reply-To: sashiko-reviews@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260609113836.45079-4-phucduc.bui@gmail.com>
+References: <20260609113836.45079-4-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 12:01:25 +0000
+Message-Id: <20260609120126.451E41F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260602070257-KYC5031219@kernel.org>
 
-On Tue, Jun 02, 2026 at 07:10:07AM +0000, Yixun Lan wrote:
-> Hi SoC Maintainers,
-> 
->    Please pull SpacemiT's DeviceTree changes for v7.2
-> 
-> Yixun Lan
-> 
-> The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
-> 
->   Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://github.com/spacemit-com/linux spacemit-dt-for-7.2-1
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Please switch to kernel.org repo. Github is not really a trusted place
-and you have kernel.org account, so not sure why Github is still there.
+Pre-existing issues:
+- [High] Pre-existing data race in fsi_clk_enable() leads to premature cloc=
+k disabling (bus hang) and breaks full-duplex operation.
+- [High] Missing IRQ and DMA synchronization during stream shutdown leads t=
+o TOCTOU NULL pointer dereferences and hardware bus hangs.
+--
 
-> 
-> for you to fetch changes up to 793cc54475b49b5b558902b5c13e4bfe66530a50:
-> 
->   riscv: dts: spacemit: enable PMIC on OrangePi R2S (2026-06-01 06:32:42 +0000)
-> 
-> ----------------------------------------------------------------
-> RISC-V SpacemiT DT changes for 7.2
+commit b345d93585828cc07f1537860417394b58877fa1
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-Thanks, applied
+ASoC: renesas: fsi: Fix trigger stop ordering
 
-Best regards,
-Krzysztof
+This patch changes the trigger stop ordering by calling fsi_stream_stop()
+before fsi_hw_shutdown(). This ensures that the sequence matches the
+existing order in the suspend path.
 
+> This change ensures all register accesses during stream shutdown are fully
+> completed before disabling the clocks.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is this statement accurate
+without synchronization?
+
+Without synchronize_irq() and dmaengine_terminate_sync() in the shutdown
+sequence, an in-flight fsi_interrupt() or fsi_dma_complete() could run
+concurrently.
+
+If an in-flight interrupt handler accesses FSI registers after
+fsi_hw_shutdown() disables the hardware clocks, could this trigger an
+asynchronous bus hang?
+
+> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> index 8cbd7acc26f49..800ac40f9680d 100644
+> --- a/sound/soc/renesas/fsi.c
+> +++ b/sound/soc/renesas/fsi.c
+> @@ -1586,10 +1586,10 @@ static int fsi_dai_trigger(struct snd_pcm_substre=
+am *substream, int cmd,
+>  			ret =3D fsi_stream_transfer(io);
+>  		break;
+>  	case SNDRV_PCM_TRIGGER_STOP:
+> -		if (!ret)
+> -			ret =3D fsi_hw_shutdown(fsi, dai->dev);
+>  		fsi_stream_stop(fsi, io);
+>  		fsi_stream_quit(fsi, io);
+
+[Severity: High]
+This is a pre-existing issue, but does fsi_stream_quit() introduce a race
+with in-flight interrupts?
+
+Because fsi_stream_quit() sets io->substream =3D NULL, could concurrent
+execution cause NULL pointer dereferences in fsi_pio_get_area() or
+fsi_pointer_update(), which dereference io->substream without validation?
+
+> +		if (!ret)
+> +			ret =3D fsi_hw_shutdown(fsi, dai->dev);
+
+[Severity: High]
+This is also a pre-existing issue, but does fsi_hw_shutdown() have a race
+condition when managing the clocks?
+
+fsi_hw_shutdown() could run concurrently with fsi_hw_startup() since ALSA
+permits concurrent SNDRV_PCM_TRIGGER_START calls for playback and capture
+on the same DAI.
+
+Looking at fsi_clk_enable() and fsi_clk_disable() which are called from
+these paths:
+
+sound/soc/renesas/fsi.c:fsi_clk_enable() {
+    ...
+    int ret =3D -EINVAL;
+    ...
+    if (0 =3D=3D clock->count) {
+        // ...
+        clock->count++;
+    }
+    return ret;
+}
+
+sound/soc/renesas/fsi.c:fsi_clk_disable() {
+    ...
+    if (1 =3D=3D clock->count--) {
+    ...
+}
+
+Could a lost update on the lockless clock->count variable lead to
+prematurely disabling the clock when the first stream stops, turning off
+FSI clocks while the second stream is still actively accessing registers?
+
+Additionally, fsi_clk_enable() initializes ret to -EINVAL. If a second
+stream tries to start (clock->count !=3D 0), doesn't it unconditionally
+return -EINVAL, breaking full-duplex operation?
+
+>  		break;
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609113836.4507=
+9-1-phucduc.bui@gmail.com?part=3D3
