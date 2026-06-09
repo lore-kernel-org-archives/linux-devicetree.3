@@ -1,219 +1,132 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6073FD12D
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3DF3FD941
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781003411; cv=none; b=t2c58bFIJWluEAS8FI7fkhoheqRZ6luc0/IR1ecvcYwfaYWQc9cv4/lt2YgQyj9+fb4lJqk7FaBki5e7aKCxeTJWj1wAgIiAi9VNZQsuJwVIIcsKy6AY+5tOtC8eq6BOrZeu/JUwMSypmf5kvpLUdI5h2nH8/K5VaxeVFmtF7Qc=
+	t=1781003413; cv=none; b=P5ZyzSHgq4jVo4D4RjukdBXcTK08ZCqzjCUTRGkN41ASlqVVHRGMctabQHl+KkK4pR0L1LvRLK5+ifpMYqq58bjfxvG2ZU+Wp4Z5Bz1RLAoHIpd1xeslibivewLFXhF7oTgKq9CgTGeZAf9KVl7agvIeH7dCRBg1l1t/VkXX4QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781003411; c=relaxed/simple;
-	bh=O96mv8mCUvT/nFQ/0Yz/BMdNzocH7igS6slnSuH/62I=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JC8wwKWf1nG7Y4ReBJBVpb1avFwk/f3Luds8ubtwTNwPUDaOdZTvE6doeYAoDqBbPFwmlYOT7lMFSA8zG6YI9GW+2ATmN+77WBe2uxvq2e5SmLBS4byYj9Xkatjf376L7hV18wdHyMTinS62MTuZnjb/KCljg+u4Ouw0EjkDq6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=azXwWHL4; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781003413; c=relaxed/simple;
+	bh=EiCrW0Iaiysq0ChVgMV2HJY6LsFdM+i/VgZDgomuY3A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GJjmNJilGgbDQyWhwl9BeHAQSKp9O4EG8vrep8+r5Y9nM1j2P2GqGOJZf5chbw225/eARQyegl94bRhTPoXCaE9coS00GhGj7GHC4Tl6vyYuRjAlZ/vqP28wDx3xGhFJeuXkn9jPCUvAgro+4go2lgin3tk6TeAQNY4o+X3hU1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBLmfHyc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="azXwWHL4"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-bf0170c80f7so890673266b.3
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 04:10:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781003408; x=1781608208; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0yh8TvfY56yWAGeoqd/6TqfqKFvUUqJuJp99zBnrgzQ=;
-        b=azXwWHL4pit0vmy+wMuCdUzscxnvavh1Z3A1HVepUc21BC/5BemKKolzz4jd81Mh40
-         JsZvTkcEb1WePPAfDRVpPL+uou3TWBvv+rxYW8LPJf3brCa81u5rQ3JlINXEyxYsikJX
-         h7AzlKuSoy3+XZvcXTLJVpNjK0AkB2xY1rrbBu/OHLkNLDabGm7J4VoF9qiT10Pv5LNt
-         IEQDaCkDq04zkElPYuEXSBmqflHeE5g4q70bjnGTcGL2vkpD+6KcpwYh9BsfLQVoFPH8
-         5ND+A7HZOhuuFvO57glRcvPbCU9/9wVZpJPE8pDTIgx39nzGd5PBp1QfxTeCA4dqcIcK
-         WraQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781003408; x=1781608208;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0yh8TvfY56yWAGeoqd/6TqfqKFvUUqJuJp99zBnrgzQ=;
-        b=jBin/BT7z0RKKnJBRfRvQ8sRtEBD737rD7OC+NemqZU0gfYouB5SqAEqkrfMG5CjGu
-         /IuapCVAEVCkWkIUMIh4rEx2mlKf8LH5AOmylLQN3zIm/5slP7jSa89Aw+ln9i8JWMrD
-         LypMlzgQbabEdagXWGGd3RD2RDLNqtwb/jAOzUp5rTzssrmHcB4h35bU4IT0ZmhLLXOj
-         FwPVAYzr9Gl5zLCQCqLMdxOUPQ3QdNuI131lwXRSOhc/PgaKoE/k5Y34uTEJVPjnY5pP
-         6dl7LgKbU5y/cFBDXyJAUke8UxACcEEGjr5mTnKxNaGah07f+ZtJUQyoHcKXNkIOfBHb
-         s5dg==
-X-Forwarded-Encrypted: i=1; AFNElJ8A/fb6Y4viVUYYeFajgQJPQVB31dunxtyPXL1e8gkz4rsHLrScdevoydNNfvouG/kJUW+VxrXfH3G0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPw9KcOSEfCtMJpHUhGRmvPyusGp/pdOsRo8zMMOK51UsxeKMR
-	hqhkWmPHGBNT5oYxSVw91wpSoJ20mJ6I67XZGhm/rISOjTbXWDolADRn
-X-Gm-Gg: Acq92OFnR2WU3zMCGzHSi3ShN8ahAff9/XQVmR38ylN2YLbgfAg/drn5rb53NCRrUsQ
-	oirLH/zlBOdq1pOw3sJRSdmRoEgAk9Y+0yeqjUPdzf5ufAKgrj5kBuQEhqANaUQoLgE7Da0F8NE
-	tgvwfyce2prNNr3AdANtXPZZqXVu2ADhoIyzbjhkqW4PC7QM2el+GOIOVSkEnuSidA52PJbzt+j
-	CEFPFs5lOf32mxvEM2hKeKcWvfFqfrag5Hl8SV4OprHk/cUFA6zTeL9UQIm6nH+qf/54KYxnZUZ
-	4JIHnKMfosDlaptGWGufnX+SHHUnneZa2HVeO3N34h1GLcwhs11TrwwlKq+lXxRp+dEog5l9xOQ
-	LTGZcFrSJWNhbs5l1mRSgTAAn+KXb/4+U2r7GHhA93BFfOW9DzXFWvhTaZ+uKipa8O5YiiHuKyD
-	zdF8Y5iBeR2yzLQPNp+aufQ1nEYcvLG/3fyNKpgyYQwyrXjBlmjlYjVqYP/JgZHK368gtFOr6J+
-	6p+nPrVDk4NtbnZXX3fqNrVCBvkDhHUSEkzvOHY9IjgqD23sA==
-X-Received: by 2002:a17:906:f5aa:b0:bec:6c5c:cced with SMTP id a640c23a62f3a-bf372159bf0mr1067104666b.28.1781003408041;
-        Tue, 09 Jun 2026 04:10:08 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051c83c93sm1046788266b.16.2026.06.09.04.10.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 04:10:07 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Tue, 9 Jun 2026 12:10:02 +0100
-To: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>, 
-	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v2 12/12] iio: dac: ad5686: add gain control support
-Message-ID: <luo2bvidr3h5gz5qb3ettl2rzzgjsdi6invgzgmm6dx7rki7gn@6faoaxv44vxr>
-References: <20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com>
- <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBLmfHyc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E6D1F00898;
+	Tue,  9 Jun 2026 11:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781003411;
+	bh=MUbffeF7oMxEf6VZpJOLGtU5rIB+AmFhwlDvj6Q+Bx8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CBLmfHycHCwhHlZEzV8mjUSq7mGiOlyiC2OtbZIvG/H+1Od8IpfxYYtXGa6cmVYhv
+	 q21ADEsUICEqX+/GNn8WUipsfW2qGuwtrvVqV27VLFxLLKKFZh0USkMP8vmr46xqXR
+	 iM8Sll0XHN1JoSsIHl4I1GQjrwkrn3K5a2GN2f74X4rEQtSzg5sV95kq6loJCn/SW3
+	 CRRixi7NW/flu/3BRO2R5bNEJAsqKApMzk/tV4kns8yYT5RT23t3WHZf0lcbcthBj+
+	 OOnGO8Vr8AQr7t6aSaJzFS1eEF6i3X3aqFXwV0UJD6YfbVWvyjDsR4q9HwfTNQJWRc
+	 wEBQC6A8lecmQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/5] clk: renesas: rzv2h-cpg: Extract PLL calculation
+ math into a library
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260609105924.962573-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260609105924.962573-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 11:10:11 +0000
+Message-Id: <20260609111011.89E6D1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
 
-On 09/06/26 10:37, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [Medium] ABI Violation: Exposing a writable sysfs attribute to fix a static hardware configuration.
-> - [Medium] State Inconsistency: `st->double_scale` is not rolled back if hardware synchronization fails.
-> - [Low] Data Race: Lockless read of `st->double_scale` can race with concurrent writes.
-> --
-> 
-> commit 7fefd2fd08838a6ee5a81a3a819607e02af9d85d
-> Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> iio: dac: ad5686: add gain control support
-> 
-> This commit adds support for a 2x gain multiplier applied to the output
-> voltage. This provides a gain control through a bit field in the control
-> register or a dedicated GAIN pin, exposing the scale property as configurable.
-> 
-> > diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> > index d9022c6a32016..d49390af71f90 100644
-> > --- a/drivers/iio/dac/ad5686.c
-> > +++ b/drivers/iio/dac/ad5686.c
-> 
-> [ ... ]
-> 
-> > @@ -192,9 +196,14 @@ static int ad5686_read_raw(struct iio_dev *indio_dev,
-> >  			GENMASK(chan->scan_type.realbits - 1, 0);
-> >  		return IIO_VAL_INT;
-> >  	case IIO_CHAN_INFO_SCALE:
-> > -		*val = st->vref_mv;
-> > -		*val2 = chan->scan_type.realbits;
-> > -		return IIO_VAL_FRACTIONAL_LOG2;
-> > +		if (st->double_scale) {
-> > +			*val = st->scale_avail[2];
-> > +			*val2 = st->scale_avail[3];
-> > +		} else {
-> > +			*val = st->scale_avail[0];
-> > +			*val2 = st->scale_avail[1];
-> > +		}
-> > +		return IIO_VAL_INT_PLUS_NANO;
-> 
-> [Severity: Low]
-> Is it possible for a data race to occur here?
-> 
-> In ad5686_read_raw(), the mutable software state st->double_scale is read
-> to determine the returned scale values without holding the st->lock mutex.
-> 
-> Because st->double_scale can be concurrently modified by ad5686_write_raw()
-> (which properly acquires st->lock), this can lead to reading a prematurely
-> updated state before the hardware configuration has actually completed.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Valid concern, will add guarded mutex lock in read_raw to the previous patch.
- 
-> >  	}
-> >  	return -EINVAL;
-> >  }
-> 
-> [ ... ]
-> 
-> > @@ -216,6 +225,63 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
-> >  
-> >  		return ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
-> >  				    chan->address, val << chan->scan_type.shift);
-> > +	case IIO_CHAN_INFO_SCALE:
-> > +		if (val == st->scale_avail[0] && val2 == st->scale_avail[1])
-> > +			st->double_scale = false;
-> > +		else if (val == st->scale_avail[2] && val2 == st->scale_avail[3])
-> > +			st->double_scale = true;
-> > +		else
-> > +			return -EINVAL;
-> > +
-> > +		switch (st->chip_info->regmap_type) {
-> > +		case AD5310_REGMAP:
-> > +			return ad5310_control_sync(st);
-> > +		case AD5683_REGMAP:
-> > +			return ad5683_control_sync(st);
-> 
-> [Severity: Medium]
-> Should st->double_scale be restored to its previous value if the hardware
-> synchronization fails?
-> 
-> In ad5686_write_raw(), st->double_scale is updated before the driver attempts
-> to push the change to the DAC via ad5310_control_sync(st) or
-> ad5683_control_sync(st). 
-> 
-> If the underlying SPI/I2C write fails, the function immediately returns the
-> error code without rolling back st->double_scale.
-> 
-> This could cause the driver's cached state to diverge from the actual
-> hardware configuration, causing future reads of the scale to return the
-> incorrect updated value.
+New issues:
+- [Low] The new file rzv2h-cpg-lib.c uses EXPORT_SYMBOL_NS_GPL but fails to=
+ include <linux/export.h> or <linux/module.h>, which will cause compilation=
+ errors.
 
-Will ignore that and assume that SPI write error is a platform problem.
-At another attempt the cached value can take effect.
+Pre-existing issues:
+- [High] Multiplication of a signed 16-bit integer by an unsigned long resu=
+lts in incorrect calculations on 32-bit architectures, breaking the PLL fra=
+ctional calculation for negative values.
+--
 
-> 
-> > +		case AD5686_REGMAP:
-> > +			/*
-> > +			 * Even if the gain pin is hardwired on the board, the
-> > +			 * user is able to control the scale such that it
-> > +			 * matches the actual gain setting.
-> > +			 */
-> > +			gpiod_set_value_cansleep(st->gain_gpio,
-> > +						 st->double_scale ? 1 : 0);
-> > +			return 0;
-> 
-> [Severity: Medium]
-> Does this expose a writable sysfs attribute to fix a static hardware
-> configuration?
-> 
-> The commit introduces a writable scale sysfs attribute to allow users to manually
-> match the software scale to a hardwired gain pin. Static hardware properties
-> should typically be described via firmware properties (e.g., Device Tree) so
-> the driver can expose the correct, immutable scale at initialization.
-> 
-> If the GAIN GPIO is absent, writing to the scale attribute returns success but
-> does not change the physical hardware state, leading to a silent desynchronization
-> between the reported scale and the actual physical DAC output.
-> 
-> Could this mislead generic IIO clients by presenting multiple available scales
-> that they believe they can dynamically toggle?
+commit 160d4676b08e19a075d3da03680cc8c66148bc74
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-No sure if this is a big concern (assuming that the user has knowledge of the hardware).
-An option is to add another dt property to indicate that the gain is doubled in hardware.
-Such property cannot be defined alongside the ldac-gpios property. 
- 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com?part=12
+clk: renesas: rzv2h-cpg: Extract PLL calculation math into a library
 
--- 
-Kind regards,
+Move the common PLL and divider parameter calculation logic from the core
+rzv2h-cpg driver into a standalone library file. Introduce the
+CLK_RZV2H_CPG_LIB Kconfig configuration symbol. The original driver retains
+wrappers that call into the new library helpers.
 
-Rodrigo Alencar
+> diff --git a/drivers/clk/renesas/rzv2h-cpg-lib.c b/drivers/clk/renesas/rz=
+v2h-cpg-lib.c
+> new file mode 100644
+> index 0000000000000..98e789df5d7f1
+> --- /dev/null
+> +++ b/drivers/clk/renesas/rzv2h-cpg-lib.c
+
+[ ... ]
+
+> +				/* Compute (Ffvco * 65536) */
+> +				fvco =3D mul_u32_u32(p.m * 65536 + p.k, fref);
+> +				if (fvco < mul_u32_u32(limits->fvco.min, 65536) ||
+> +				    fvco > mul_u32_u32(limits->fvco.max, 65536))
+> +					continue;
+> +
+> +				/* PLL_M component of (output * 65536 * PLL_P) */
+> +				output =3D mul_u32_u32(p.m * 65536, input_fref);
+> +				/* PLL_K component of (output * 65536 * PLL_P) */
+> +				output +=3D p.k * input_fref;
+
+[Severity: High]
+This is a pre-existing issue, but since the commit message mentions this
+library will be shared with the upcoming RZ/T2H platforms (which are 32-bit=
+),
+could this calculation corrupt the output frequency when p.k is negative?
+
+On 32-bit architectures, input_fref (unsigned long) is 32-bit. When p.k
+(s16) is negative, standard C promotion rules convert it to a 32-bit
+unsigned integer. The multiplication evaluates as a 32-bit unsigned product,
+which is then zero-extended to 64 bits before being added to output (u64).
+
+Instead of subtracting from output, won't this add a large positive number?
+
+> +				/* Make it in mHz */
+> +				output *=3D MILLI;
+> +				output =3D DIV_U64_ROUND_CLOSEST(output, 65536 * p.p * divider);
+
+[ ... ]
+
+> +			}
+> +		}
+> +	}
+> +
+> +	/* If no valid parameters were found, return false */
+> +	if (best.error_millihz =3D=3D S64_MAX)
+> +		return false;
+> +
+> +	*pars =3D best;
+> +	return true;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(rzv2h_cpg_get_pll_pars, "RZV2H_CPG");
+
+[Severity: Low]
+Does this file need to include <linux/export.h> or <linux/module.h>?
+
+The EXPORT_SYMBOL_NS_GPL macro is used here, but the necessary headers
+are missing from the includes at the top of the file. Could this cause
+compilation errors on some architectures due to implicit declarations?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609105924.9625=
+73-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
