@@ -1,72 +1,33 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012041.outbound.protection.outlook.com [40.107.200.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9E636C9CA
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 15:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781019917; cv=fail; b=DoCtjFdZ9lcpvM/XvKHYMAn2zclRZ0l1AJjS+cI5tsE96vBLmkvcQChgxT/KQgK/ujwx5OUGlr+5ZWpGx9NQpPO0Ae1LGXcuLemBkrJz5hcxVDyD8l86mrP72tPyCzt+gJ0+BFM5KdFtghD8ixTuj06MEgOi7heKSjDniZABSAQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781019917; c=relaxed/simple;
-	bh=yabOStuHXz76LX5Oj2XU8ipC5O1CIJYQcqs1CnhcPpo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=KoS/y2U7jHebdNIRNvvjAJLr3iE0osJgvoWpXHcISc1BZ6SVT0WLPEshI87ctmIG20CuLCfDXso2VTClYVeAVVvNWlu8Zs72eKRUhco4PYMf0uSp9AAt5fwOut6v9J+aC4EspzWollBJFNzCeRbaLhtp30XwlQKWCM80k1ELBDw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=bJGDmjtv; arc=fail smtp.client-ip=40.107.200.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C7849219A;
+	Tue,  9 Jun 2026 15:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781020086; cv=none; b=sFFMml588WC0o71dIVR+acDwpmb7ww/xVja7B3GutKWyWS/dAuucTkhFB18euyJZRkM63+ihEu9P+83gEoAiQVjoOshNwiqv3Zu3YMxB3OBcG/f/CU9tDW932WfsRZhWSVLNcjlU8B79Y70bD9ThYhz5DLEUgH92MPFjEWIaixc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781020086; c=relaxed/simple;
+	bh=KnuDCTrjJCSNxAR9X5KXrOsL0oVdBsYBJKqSGXN1scc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hQ0mBA7rCwJk2zBuM9Xw2/0un+64+Y85dVXKASDnYi/5J1jE0Yp+1kaAj63/TN6ZXhvpfSkVgatKa/a2GYSCKkBxahGn4Z6KAjnQoMFgGOkiomu1f+Q/IxSFVp4WmBDaz3Dk4SoJM6UDVddo6WAL8LW2UhvtceGCkUr0dr/WMkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAJC57PB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="bJGDmjtv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KofKit7TD+zxF6cfYtFVr1HSQ9RPZgtbBUUtAe/55ahjcKtmA2z8Nc0HyfZwMZTXpGyjLeYubIPa32dZZIuJ+VN5gxSppXTPlJo9oGGyy4ZpzGiYHe0YqQy9NP9PnAApI1ceahshyY2d7S59DgGMahHzkVzw0LOp0RO9FEXYBKJrgrsqFGfRu2AtXd9DjyPNj4P91PFFstX1LQeqd31VLodVvUONcN0sIdiOU/nX2UQ96NwTpmSqPYCVhwJRpbhLrpQJf/5L+FEGq6LvjYf97Zpmdaa/tSCNUu6LFIzh7CAEHr5J8+bxNRd+vknlY6VVLY4QUhkcIS2L/DEiquFCjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eQZXMDisj7MDWNHf5ZoH/aLK/2JHtxezMWaaxtUVJ7g=;
- b=OZV9pTUFI1fn8emrCjbKt/1cDAyQ8V/6g2c548dIkQHS3adtAHiVY0TcGXWaZeyjicjYiLmpZt1HqBhihgqqQf/rkwO1hZzTIRr6Tiix3JxRm0Oi/5d+qe1ju+7wJZgmS3NC+EchfHskc0ZsfWEq62ZLNpIEI5zVT4hmLkh9RziQO1iBO1iBW0Uchtx/YO++lUKaGkybZsH66mUj69aEvl3YHqViQYlUYBZKqex5V9LIzUV/VJXomUXkLkzGcb5qmeLHIYv8yQZVTfJeJNaLxE/n0xlLsNZ9IzhTJR7ChhGGXQIV9BCuJ1/nhEFVNcQ0yDPUK7c0p5jD/N2p/Euivg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eQZXMDisj7MDWNHf5ZoH/aLK/2JHtxezMWaaxtUVJ7g=;
- b=bJGDmjtv7Swhm0YDhRPa5dcnzqC98v67PV2NYHVftAyQazdwN3kHZl6650SZzTpmWyPq8MfA7R5PhBRZDl+eG14fg81qyz/bL8i8TKgdvqS4kWMPRLl6n9i67mxRNaK0hvFpzHEKkqNTR3Ms+a/mMfn2xm8v+0z8ZDCXQLfmGOk=
-Received: from MN2PR01CA0049.prod.exchangelabs.com (2603:10b6:208:23f::18) by
- SA1PR10MB6470.namprd10.prod.outlook.com (2603:10b6:806:29f::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.13; Tue, 9 Jun 2026 15:45:13 +0000
-Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:208:23f:cafe::38) by MN2PR01CA0049.outlook.office365.com
- (2603:10b6:208:23f::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.13 via Frontend Transport; Tue, 9
- Jun 2026 15:45:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Tue, 9 Jun 2026 15:45:12 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 9 Jun
- 2026 10:45:07 -0500
-Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 9 Jun
- 2026 10:45:07 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 9 Jun 2026 10:45:07 -0500
-Received: from [128.247.81.105] (judy-hp.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 659Fj7CK1945630;
-	Tue, 9 Jun 2026 10:45:07 -0500
-Message-ID: <2bea6821-04e2-47f0-aeaa-825c2025e092@ti.com>
-Date: Tue, 9 Jun 2026 10:45:07 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAJC57PB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144051F00893;
+	Tue,  9 Jun 2026 15:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781020085;
+	bh=rkx9K7z3nIw+KIORWZ09gzuvh49gYigzxoD6QTwuEQE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jAJC57PBQUAbpV62kKuUzAKQgavc6JWNH+sqh1M5CB5mEO6bs2G7BRU/JJcmOMJHE
+	 MnNf/24f8TTu3p1s2ZoyX8PFYPEY1SjvotEndQCyBvcoQs8j72Oh1uorgwx0dJ5ouN
+	 E7YHUqP8bvWNo2A+Rww8q1Pzl1y55nLNka6mJzApgvD+bK1+3M6J6ojOHmkULr2NhY
+	 T5bOLdbwyNug4lONYhfyomKe0PJfrbpKh8pC1wRtEjdqeI/AtRpKcW7eq3IouOBD+I
+	 XuxCoPjkdxFosGDqVgld0yhiWlrAP79R2xwEatTn6T4k0JTr6OAZkcD+p0bq894PZn
+	 lcEgaePXvimng==
+Message-ID: <e2d0bb5d-26ea-4b31-9569-a7a8542e1106@kernel.org>
+Date: Tue, 9 Jun 2026 17:47:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,97 +35,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] arm64: dts: ti: Add k3-am62l3-beaglebadge
-To: <sashiko-reviews@lists.linux.dev>
-CC: <robh@kernel.org>, <devicetree@vger.kernel.org>, <conor+dt@kernel.org>
-References: <20260603192305.1347908-3-jm@ti.com>
- <20260603193953.DD9771F00893@smtp.kernel.org>
+Subject: Re: [PATCH v2 01/24] dt-bindings: qcom,pdc: Fix OS DRV reg size in
+ example
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260527094333.2311731-1-mukesh.ojha@oss.qualcomm.com>
+ <20260527094333.2311731-2-mukesh.ojha@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Judith Mendez <jm@ti.com>
-In-Reply-To: <20260603193953.DD9771F00893@smtp.kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260527094333.2311731-2-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|SA1PR10MB6470:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb0568f7-8fba-4539-11ee-08dec63e181e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|22082099003|6133799003|18002099003|4143699003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	99tIiie5MHax2TsM9VKHq3kEtsKDoVXc7mxmN597qbWD3jUBj6snvpfOiTkyGVZCTevh1YeHjyf96yVaJc8Y9/bPSxhiHAm0vSzoVNrHQqpHdq1LSMGNUCUwGAHUVW3ySD42h3H47jGsHPXcmZEAEDmTzqWys4ehpxq8V1U8GcNE2Cg1El8IgTQ/5Sw6xFFgg4vlxEeXdKxjAA1kmr+A2gwxU8S897vaQhW8OtiMkLZXgcUiCcSifPROFR+X1sqIdAjan40U77D8laBw/hUkedV3RABey/+9nWg2lwXQr7c1vFX6agQ1vC/C0A+zCIq8IIdbMw7eheY1b/RWJjLquXmONQCUFJOPI7LW/4r8ocE2r8dKHusKMAdXGxSjEmEW8SBf39Q5e5NCa+++eR/KrzKjhzkJfUdCZiDRKf7EsifGXSScaZcuOfL4YsXmUjpW6WO9gfF/K9Wwm6SyE4w5Nj/KogyW1KOj+Cx2xkrFRx++Yu9FPmHQFE0GgiUU0SCm8K9Z5IkZx17BW6x0aeIYHfRgOvw3c/dBJLZJpitKFFYAy8OijG/nEux8wGlRIOVA357MqVlsrvXYEKgeafYdJEpE2EAod66TBL7gYM0ppH5TpNUc4TpRKBRQW7Fei1zMXfWwefidQ21qI7AX85C/DzKrPiJj1hfFGir15dtIPnU3u+OR3xlKHr7Rg1PyVyT+RiBm/U/QjFNiGj4IBGUcbxfjNX0xKXyVqOS28VZIvg0=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(22082099003)(6133799003)(18002099003)(4143699003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	X3CVW2PTfqwn0wxk4YFX4T9mPxkYC/95zY90wPeamwTNGf9UyzeawwHueukGqgTDW7O6hMSwcVy85AlNqlOUuluAuxW3OCpcC6Szo2ipP3v6XnHtkAPbvcIfKbpYovwoNGVI5O3fromFq+BhbKL+1Cr3kC2RF0sHKNvl+sXipANHrztplpuRodMjKafey9HP5PJoqgtMG+r7Yaw5/ErjSxKmNL+c760s7bN5pjjCzJaTDhjH1cIU9isbx3zx2jQjP8ujHWjJ45ajXOk2rpEIE1uWhMLrDhQRVt+WqajL4uOVs63z0egdxFVVWYgBB4HgzM34uzf3P7n7cJtmGwL8wIlK9rzDF1ofa83t0j4mH1a9yENgeBMzC1ppLjEIWJDvod/QXPciVwGIDY3kKcVLSEXW9wSNesPksovpzdMkNGM0sw5CaOKgxYGI+c6xIK6S
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 15:45:12.6832
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb0568f7-8fba-4539-11ee-08dec63e181e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A104.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6470
 
-Hi all,
+On 27/05/2026 11:43, Mukesh Ojha wrote:
+> PDC instances have multiple 0x10000-byte DRV regions, with each region
+> serving a specific client like HLOS (High level operating system),
+> TrustZone, Hypervisor etc.,. The OS-visible PDC instance should uses its
+> own DRV region, while other DRV regions belong to other clients.
+> 
+> Update the binding example to describe a single OS DRV region by
+> changing the reg size from 0x30000 to 0x10000. This matches the example
+> with the OS-facing PDC nodes used on Qualcomm platforms and avoids
+> suggesting that the example should span multiple client regions.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml      | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-On 6/3/26 2:39 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Driver-Binding Mismatch: The `mcp23s18` GPIO expander probe will fail due to property size mismatch.
-> --
-> 
-> commit dda0de04ef0f2160008191753ea45cc6c9880fa6
-> Author: Judith Mendez <jm@ti.com>
-> 
-> arm64: dts: ti: Add k3-am62l3-beaglebadge
-> 
-> This commit adds the device tree for the BeagleBoard.org BeagleBadge, based on
-> the Texas Instruments AM62L3 SoC. It includes configurations for memory, GPIO
-> keys, LEDs, regulators, MMC, USB, PWM, I2C, SPI, and other peripherals.
-> 
->> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
->> new file mode 100644
->> index 0000000000000..ee2d562baf51a
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
-> 
-> [ ... ]
-> 
->> +&spi1 {
->> +	pinctrl-names = "default";
->> +	pinctrl-0 = <&spi1_pins_default>;
->> +	status = "okay";
->> +
->> +	mcp23s18: gpio@0 {
->> +		compatible = "microchip,mcp23s18";
->> +		reg = <0>;
->> +		spi-max-frequency = <10000000>;
->> +		gpio-controller;
->> +		#gpio-cells = <2>;
->> +		reset-gpios = <&gpio0 25 GPIO_ACTIVE_LOW>;
->> +		pinctrl-names = "default";
->> +		pinctrl-0 = <&mcp23s18_reset_pins_default>;
->> +		microchip,spi-present-mask = /bits/ 8 <0x01>;
-> 
-> [Severity: High]
-> Does this 8-bit property cause the driver probe to fail?
-> 
-> Looking at drivers/pinctrl/pinctrl-mcp23s08_spi.c, the driver attempts to read
-> this property using device_property_read_u32(). Because it expects at least
-> 4 bytes of data, of_find_property_value_of_size() will evaluate the length
-> as insufficient and return -EOVERFLOW.
-> 
-> This would cause the driver probe to fail, leaving the MCP23S18 GPIO expander
-> and connected devices non-functional. Should this property be defined as a
-> standard 32-bit value to match the driver's expectations?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This issue is already addressed, fix has already been merged. Link is
-here:https://lore.kernel.org/all/20260513231154.2703292-3-jm@ti.com/
-
-~ Judith
+Best regards,
+Krzysztof
