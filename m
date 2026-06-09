@@ -1,367 +1,190 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D6F481668
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 18:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37BD331EB6;
+	Tue,  9 Jun 2026 18:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781029397; cv=none; b=YavNXbdaJjaPcSIJhJbWI/AM3tgSnGjmzk+jEA5aIvup4OHFEA+4LiRdTQWeVoWMaIMYJacUEZ4cfQfJ+vHdgECibXd0VclIYnwFxo+keWIwUbbJ/wd1v2cKPur9YzbAy/a0wFXcPT7hLEoFJhfFo1D7fJ+cMrQ2zSmMQJbINEw=
+	t=1781029838; cv=none; b=iTRRt3JyuHnsb7sYlGTteqbtrnOT7cT2Rzuue1BKCMiahDeo7kinA/3EuxBaDtGlVrywijFkm5GBrrDkoHghyN2vME+lXleMBXll5zDOT0+XOUFlCt64EQe5wM9/vlYGnjMpz1iMirawdVMZp3mtQz81U5+IvoDP99ixQgzmCuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781029397; c=relaxed/simple;
-	bh=jS73l8ZPEadDtpuBKIkNYTrDKaEL2P2VVxQ/333SYxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cvBZcVDpcbphOMXLM+AS2ua9b8OrhWyWpEwWiMNCDjVzTFw9zPIUY6Dr4WquWnWiNGJ+QoITjx0wx+80VMCEHQStAyrZ9fW7Ql5egKouhS7rq+MAfPFD6+OCTL3dEnolfIHgaWDcnwIXCXi3e6fGLdWzXtzRb1cXBDGqs3p9974=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0fWavgy; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781029838; c=relaxed/simple;
+	bh=W0vFigz4egcwCqqfYcLa0B3UG4B5j/8tAmG05me37jA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PdKvaIfU90817vzd+VbKl9v7C7EBIfSDhcjnP12fMizMzwFnpQ47S48FvKMZBChpvzCjSNYX+wsQ0gdWKHeKUQBBb2yDqP2r4ihHbrViboTdxGMJbgUFiZpomaOyHeyq0JCw4hBTI6CZ0i5+JnGHrmmjVLOgLacc0LuO33I3yaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FFuI4KDI; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0fWavgy"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-36d98b68d68so3879011a91.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 11:23:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781029395; x=1781634195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5yOK2OmpxELpIU8FfMiRQLGMlc8197Q+PjU02X23WEs=;
-        b=c0fWavgyuyoStlbWSOZhGG6sbZ+XTuqYLD1UoIoMsX7unC7udaPmZmQZedy7iDL1MM
-         QVKqwRE2AG2Gq0Nvj7r5dpwHc1IT07c/qNdehWlrb2jZ5AjSCoBkIwhinC2v8EPQ9S4Q
-         pYn55vyx1l75a974AUnnazsG1InYQoQmfbC9Ele6v5bji9E50wLs00fQwZuGLjgfF8sR
-         8GObpM2NZlvrr5qc3/9aZV3+PjIg5Bs8QM9ca6LCjxbnash0ayysp8L+eUVoO1LdQ4wX
-         rxxqXorytF15C15ZaZb9yY0alFBnGzFeU1D9SJQ6fZdJne9xFyNLhwlupc4hbW41xM61
-         JGJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781029395; x=1781634195;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5yOK2OmpxELpIU8FfMiRQLGMlc8197Q+PjU02X23WEs=;
-        b=iar8R1/042M6aU+/CXmGY/kH+GOqeKSvMFYGec8EvIiR/G5CEqfufdDAuXwc3kGYgp
-         BDXwXVQDRyRb3RKjcY4SudCcs5FqRWvoemvm34oLzqEM+e8MB+/9Gw1HptspQChyHHQm
-         6pKU4eSMSruUGxCJBG/3Kj60m074hniE1L9T5Tyt6udKe4DswQdehcqQrtTfCCFa6vaf
-         pcffuv/1YsceoDVcWLEipFIcwLSYfjO9qQv/pbgdIgX5tSk9r/hD0lcNCmdTqgE6kDl+
-         OwIF+BhMTZxWJttpAKZOlLsm6F4YeiVScUC2UXzWQ/63uePhDn/chUDzxSrpMzdsGnsM
-         6wpg==
-X-Forwarded-Encrypted: i=1; AFNElJ+kWN5mlpUunYfjzwq1ez8qMPecLIK3IYp8kEmLbRLDlTYDi7xGYxSSkMASHlHRjrqKp6aX3igRplXL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2kjNYrwr2T54Ki/1yHcd74wQ0F0xCI8It2616VjEVZDNYy+0h
-	iI2roXreW36XFB9e5+jdkoEB86OFtsHV1BjelAZUNDuYJJYobGiUsTEb
-X-Gm-Gg: Acq92OFghMpyAWWU2x0SPdOLMW5GjzwC3ji87Dy2Db00xiGkzP2+igLpQA8jlkrQcnt
-	iAThJgQV5cRPo43lXvcIViftgKOj/1wMVFPlap4K7F98FxOLm4LwIda57GRvX3r0av1YRoo/Iwx
-	dmnFuotLksB1aGGpVIeZz6awqKkd/Hc+/QlZHkWr3wTDh4h0K3AWPGarPaiyf5RLoEDH6ZI8bAw
-	jQDcG4v+zu9BY8r/xms1LxvinaVLnCwK4fIgr65ioNd6DF+r6u7Adpj++eRK6SUH9UcCFCizU6F
-	Om7e1RkLiee31pf/YtC0JPP/cf1i0DcniGHInodNcqlVJGvg54NQOogPxpLPACndxJ618wIbaf+
-	NU0W20GgcEkPePLr4C0zyLg+aPiJ+IKNGx1kewN+HBbz2wwCgd5o29MIEM8PTAMyFX1c16i3t/g
-	sh+S9tasnhfDvDGs4UzkQGGlamWU0MLqi0VJf+YlEuD7j9QJt/yHQy7nZwvpkIX8ETFUOwUKAz1
-	FQY/Fug3tXI7PHt3lE=
-X-Received: by 2002:a17:90b:1a86:b0:36b:91a3:6af3 with SMTP id 98e67ed59e1d1-370eeb174e9mr21556483a91.7.1781029395432;
-        Tue, 09 Jun 2026 11:23:15 -0700 (PDT)
-Received: from fedora ([103.181.54.100])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d69csm218805815ad.2.2026.06.09.11.23.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 11:23:15 -0700 (PDT)
-From: Ninad Naik <ninadnaik07@gmail.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	jonas.gorski@gmail.com,
-	noltari@gmail.com
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	me@brighamcampbell.com,
-	linux-kernel-mentees@lists.linux.dev,
-	skhan@linuxfoundation.org,
-	Ninad Naik <ninadnaik07@gmail.com>
-Subject: [PATCH v2] dt-bindings: leds: bcm6358: Convert to DT schema
-Date: Tue,  9 Jun 2026 23:47:01 +0530
-Message-ID: <20260609181731.1379846-1-ninadnaik07@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FFuI4KDI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781029837; x=1812565837;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=W0vFigz4egcwCqqfYcLa0B3UG4B5j/8tAmG05me37jA=;
+  b=FFuI4KDIA1uU6b9bfFaCxFhTM/3yVEKXjbe+PXjE/eHg/r0ZBPdyN0yp
+   T9AeLmk2HkNd7j/lwvyNvdsgY0DPurCCHbmsPZHXb9vUJBNoFOLC24uF7
+   j+Q6dqGoNHpTWkMZCXnUy8GBFK9IXF9yNPYrTl5ktReuxb/OQgFlobRsS
+   WS6WJoTVNFdDsMJDIRpR5z42tZKLgRPpd8th+epHM4M/hZIzS2Nmb3KVU
+   AT0owFu0H/4Nu10Ha6lpi85CpifLqGeAVEnHjjjLsA9w5to/t00s1opXH
+   LiSVo2wZWZu8S7oXfVQhOUe0a+WaBjufTuZJbrtpidiCeFGGbToy75wA5
+   g==;
+X-CSE-ConnectionGUID: mX7RinPiTkyjbvhSE83vZw==
+X-CSE-MsgGUID: nfCpBU5JT+mOCvgzuiSU/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81781634"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="81781634"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:30:36 -0700
+X-CSE-ConnectionGUID: 1+SmyyssQRKPAPX76A14TQ==
+X-CSE-MsgGUID: XHLlIjFDTwKlwWHCZBRSQA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="241798924"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.162])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:30:33 -0700
+Date: Tue, 9 Jun 2026 21:30:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rva333@protonmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH v2 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
+ driver
+Message-ID: <aihbxowyAIlSeDjH@ashevche-desk.local>
+References: <20260609-mt6323-adc-v2-0-aa93a22309f9@protonmail.com>
+ <20260609-mt6323-adc-v2-2-aa93a22309f9@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260609-mt6323-adc-v2-2-aa93a22309f9@protonmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Convert the brcm,bcm6358 to DT schema.
+On Tue, Jun 09, 2026 at 04:31:59PM +0300, Roman Vivchar via B4 Relay wrote:
 
-Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
----
-Changes in v2:
-- Modify the maintainers list.
-- Add maxItems: 1 and removed minimum and maximum in reg property.
-- Explicitly list the properties: label, default-state, linux,default-trigger
-  and active-low
-- Change unevaluatedProperties: false to additionalProperties: false
+> The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
+> provides support for reading various channels including battery and
+> charger voltages, battery and chip temperature, current sensing and
+> accessory detection.
+> 
+> Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
 
- .../bindings/leds/brcm,bcm6358-leds.yaml      | 105 +++++++++++++
- .../devicetree/bindings/leds/leds-bcm6358.txt | 143 ------------------
- 2 files changed, 105 insertions(+), 143 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/leds-bcm6358.txt
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-diff --git a/Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml b/Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml
-new file mode 100644
-index 000000000000..1b586a0c27b7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/brcm,bcm6358-leds.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: LEDs connected to Broadcom BCM6358 controller
-+
-+description: |
-+  This controller is present on BCM6358 and BCM6368.
-+  In these SoCs there are Serial LEDs (LEDs connected to a 74x164 controller),
-+  which can either be controlled by software (exporting the 74x164 as spi-gpio.
-+  See Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml), or
-+  by hardware using this driver.
-+
-+maintainers:
-+  - Álvaro Fernández Rojas <noltari@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: brcm,bcm6358-leds
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  brcm,clk-div:
-+    description: SCK signal divider.
-+    default: 1
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [1, 2, 4, 8]
-+
-+  brcm,clk-dat-low:
-+    description: Makes clock and data signals active low.
-+    type: boolean
-+
-+patternProperties:
-+  "^led@(0|1?[0-9a-f])$":
-+    type: object
-+    $ref: common.yaml#
-+    description: Each LED is represented as a sub-node of
-+      this device.
-+
-+    properties:
-+      reg:
-+        description: LED pin number (0 to 31).
-+        maxItems: 1
-+
-+      label: true
-+
-+      default-state: true
-+
-+      linux,default-trigger: true
-+
-+      active-low: true
-+
-+    required:
-+      - reg
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+    led-controller@fffe00d0 {
-+        compatible = "brcm,bcm6358-leds";
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        reg = <0xfffe00d0 0x8>;
-+
-+        led@0 {
-+            reg = <0>;
-+            active-low;
-+            label = "white:alarm";
-+        };
-+        led@2 {
-+            reg = <2>;
-+            active-low;
-+            label = "white:tv";
-+        };
-+        led@3 {
-+            reg = <3>;
-+            active-low;
-+            label = "white:tel";
-+        };
-+        led@4 {
-+            reg = <4>;
-+            active-low;
-+            label = "white:adsl";
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/leds/leds-bcm6358.txt b/Documentation/devicetree/bindings/leds/leds-bcm6358.txt
-deleted file mode 100644
-index 211ffc3c4a20..000000000000
---- a/Documentation/devicetree/bindings/leds/leds-bcm6358.txt
-+++ /dev/null
-@@ -1,143 +0,0 @@
--LEDs connected to Broadcom BCM6358 controller
--
--This controller is present on BCM6358 and BCM6368.
--In these SoCs there are Serial LEDs (LEDs connected to a 74x164 controller),
--which can either be controlled by software (exporting the 74x164 as spi-gpio.
--See Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml), or
--by hardware using this driver.
--
--Required properties:
--  - compatible : should be "brcm,bcm6358-leds".
--  - #address-cells : must be 1.
--  - #size-cells : must be 0.
--  - reg : BCM6358 LED controller address and size.
--
--Optional properties:
--  - brcm,clk-div : SCK signal divider. Possible values are 1, 2, 4 and 8.
--    Default : 1
--  - brcm,clk-dat-low : Boolean, makes clock and data signals active low.
--    Default : false
--
--Each LED is represented as a sub-node of the brcm,bcm6358-leds device.
--
--LED sub-node required properties:
--  - reg : LED pin number (only LEDs 0 to 31 are valid).
--
--LED sub-node optional properties:
--  - label : see Documentation/devicetree/bindings/leds/common.txt
--  - default-state : see
--    Documentation/devicetree/bindings/leds/common.txt
--  - linux,default-trigger : see
--    Documentation/devicetree/bindings/leds/common.txt
--
--Examples:
--Scenario 1 : BCM6358
--	leds0: led-controller@fffe00d0 {
--		compatible = "brcm,bcm6358-leds";
--		#address-cells = <1>;
--		#size-cells = <0>;
--		reg = <0xfffe00d0 0x8>;
--
--		alarm_white {
--			reg = <0>;
--			active-low;
--			label = "white:alarm";
--		};
--		tv_white {
--			reg = <2>;
--			active-low;
--			label = "white:tv";
--		};
--		tel_white {
--			reg = <3>;
--			active-low;
--			label = "white:tel";
--		};
--		adsl_white {
--			reg = <4>;
--			active-low;
--			label = "white:adsl";
--		};
--	};
--
--Scenario 2 : BCM6368
--	leds0: led-controller@100000d0 {
--		compatible = "brcm,bcm6358-leds";
--		#address-cells = <1>;
--		#size-cells = <0>;
--		reg = <0x100000d0 0x8>;
--		brcm,pol-low;
--		brcm,clk-div = <4>;
--
--		power_red {
--			reg = <0>;
--			active-low;
--			label = "red:power";
--		};
--		power_green {
--			reg = <1>;
--			active-low;
--			label = "green:power";
--			default-state = "on";
--		};
--		power_blue {
--			reg = <2>;
--			label = "blue:power";
--		};
--		broadband_red {
--			reg = <3>;
--			active-low;
--			label = "red:broadband";
--		};
--		broadband_green {
--			reg = <4>;
--			label = "green:broadband";
--		};
--		broadband_blue {
--			reg = <5>;
--			active-low;
--			label = "blue:broadband";
--		};
--		wireless_red {
--			reg = <6>;
--			active-low;
--			label = "red:wireless";
--		};
--		wireless_green {
--			reg = <7>;
--			active-low;
--			label = "green:wireless";
--		};
--		wireless_blue {
--			reg = <8>;
--			label = "blue:wireless";
--		};
--		phone_red {
--			reg = <9>;
--			active-low;
--			label = "red:phone";
--		};
--		phone_green {
--			reg = <10>;
--			active-low;
--			label = "green:phone";
--		};
--		phone_blue {
--			reg = <11>;
--			label = "blue:phone";
--		};
--		upgrading_red {
--			reg = <12>;
--			active-low;
--			label = "red:upgrading";
--		};
--		upgrading_green {
--			reg = <13>;
--			active-low;
--			label = "green:upgrading";
--		};
--		upgrading_blue {
--			reg = <14>;
--			label = "blue:upgrading";
--		};
--	};
+A few nit-picks, most important from which is the scoped_guard() versus
+guard()() use.
+
+...
+
+> +static int mt6323_auxadc_prepare_channel(struct mt6323_auxadc *auxadc)
+> +{
+> +	struct regmap *map = auxadc->regmap;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = regmap_read(map, MT6323_AUXADC_CON19, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* The ADC is idle. */
+> +	if (!(val & AUXADC_CON19_DECI_GDLY_MASK))
+> +		return 0;
+
+> +	ret = regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19, val,
+> +				       !(val & AUXADC_ADC19_BUSY_MASK),
+> +				       10, 500);
+
+It's better to split on logical boundaries:
+
+	ret = regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19,
+				       val, !(val & AUXADC_ADC19_BUSY_MASK),
+				       10, 500);
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_clear_bits(map, MT6323_AUXADC_CON19,
+> +				 AUXADC_CON19_DECI_GDLY_MASK);
+> +}
+
+...
+
+> +static int mt6323_auxadc_read(struct mt6323_auxadc *auxadc,
+> +			      const struct iio_chan_spec *chan, int *out)
+> +{
+> +	struct regmap *map = auxadc->regmap;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = regmap_read_poll_timeout(map, chan->address, val, (val & AUXADC_READY_MASK),
+> +				       1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC);
+
+Perhaps
+
+	ret = regmap_read_poll_timeout(map, chan->address,
+				       val, (val & AUXADC_READY_MASK),
+				       1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC);
+
+(see above why).
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	*out = FIELD_GET(AUXADC_DATA_MASK, val);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +	case IIO_CHAN_INFO_RAW:
+> +		scoped_guard(mutex, &auxadc->lock) {
+
+I'm wondering why we haven't moved to guard()() here
+
+	case IIO_CHAN_INFO_RAW: {
+		guard(mutex)(&auxadc->lock);
+
+> +			ret = mt6323_auxadc_prepare_channel(auxadc);
+> +			if (ret)
+> +				return ret;
+> +
+> +			ret = mt6323_auxadc_request(auxadc, chan->channel);
+> +			if (ret)
+> +				return ret;
+> +
+> +			/* Hardware limitation: the AUXADC needs a delay to become ready. */
+> +			fsleep(300);
+> +
+> +			ret = mt6323_auxadc_read(auxadc, chan, val);
+> +
+> +			if (mt6323_auxadc_release(auxadc, chan->channel))
+> +				dev_err(&indio_dev->dev,
+> +					"failed to release channel %d\n", chan->channel);
+> +
+> +			if (ret)
+> +				return ret;
+> +		}
+> +		return IIO_VAL_INT;
+
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
+
 
