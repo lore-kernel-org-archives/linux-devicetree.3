@@ -1,140 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9696D3F9F4D
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:52:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD103400DF7
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781002335; cv=none; b=FeYy75zX83NvRTpByR8SAHBErAJNc6hrtwMcTp97E9+eYuNMstwMEElOzC8bsvdr/OKiZ9CazT4MRqZRutsRZBWs0BoptduJOaQHFXDSUDoJv8MLAsF+96V0aCtCMnFqbTf1pLULPuEvUnV8vJsedUbJ6+hZBk5KFCIa3hlKC7E=
+	t=1781002680; cv=none; b=YKGz0Y/MfryonpSvlV4q8+U+PkuXkdFvVts24qxqfbhQTcKX4NFGc/ELqP8Hpi7D5/tFKBwYvkicveWq9SxE40VKTBz6nzP/6SRBfspcXisM00uz4y1IwfekYIyQxrIj3MdGHKnQA4AeIhjxNAdA2t9gaNh7wAe7oyh63rLYUC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781002335; c=relaxed/simple;
-	bh=uMPoCMqCT+TVj4ShMmkXgxWAZjC6jZw+xaxb6FmCr04=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LBLx/1cilh1H0hwlApFA54IsXHvNy+BLLQIoo9zVIS7VyR7ikjvndLBrMsSueoacGj5YpxNiOeN2cKDs6zpoS9okznFPdgUTm1GiQrKw9Cb3fjN9DH/jJZafVt6TXhNj1mIhJqdKzLzXtIfeU/oC2M2t/Xgtb2yt5EVGMCr/qRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFnVMlhF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781002680; c=relaxed/simple;
+	bh=Snhn7dRLdqS8fBHHgHnMySufiY9dAPo2wQhFcMJ8E7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z965oQEnstlHUaPLCTMQxzO6ljS6LzwFhmhiodAcrE1rHjs/neLJzWBJqRh3uW0IsN3LYzh+8V2xHDJ7Y6OPOKqP6jqDBSbaPmH0n3rcvyKLcMrXobGGJ+9H+IU36NDFWiOMp8KwI0gAJF5STEzbuIeaml1jcefFubiY5a0Lx70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Koi4N7dV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N0VTh1oq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFnVMlhF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE521F0089B;
-	Tue,  9 Jun 2026 10:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781002334;
-	bh=nydhIJ1Jgtcl+ndnm7dENx7Xe5XTNPyC+9zG2xnTYQk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lFnVMlhFp+Nii8V3M08oz+bXQVJ+QQgUtZ6wDiURPCnZaGgJv6yUiNWACxauMcoFJ
-	 efS+XenANaIJQ5813dmnKD8AKF7X5SAJ4NRjN/JCcF7YTF7vi7fdq9XRcX+8SgHL96
-	 af2ecF8iie/Hbd7RZ1IYc7l3wM6smdzn28rWkf816xK20pr26/rj2jRlE2wAo9Swud
-	 D1EoONm0sBJpqdBWNbKH0wd9wLnFL7LAT/muREqOtYYqtem4FLUwoTyjbUZTGBl6jy
-	 8VNupgh8o3DqinSkvdkCrktB7XSOQJ0HUuLJ0OrzeuVnin3wT7zBbWyClJeGLWWfxg
-	 CIYpTSxckfqFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] mfd: qcom-pm8xxx: register PM8921 USB ID extcon
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609-mainline-send-v1-sending-v4-4-83768fbf404d@alex-min.fr>
-References: <20260609-mainline-send-v1-sending-v4-4-83768fbf404d@alex-min.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:52:12 +0000
-Message-Id: <20260609105213.CCE521F0089B@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Koi4N7dV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N0VTh1oq"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599vAUY1907190
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 10:57:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	f6ILln5Oc0CWwbe2t2UAsyz9mJqiBbsefhKMfnN8zy8=; b=Koi4N7dVFxWniD0C
+	y+nFDFeFKdRgtI8TYcWSeSOxgWyBvJJybKtueHZjAeFaqdXxkIB1Ra5OK7dycHVX
+	crUdNWPOItJB9i2v9O041mNl38BmagGRoO09Xn8QxLONy74mSe+vqUEo5kZQl6NB
+	OSKycl+O04ZgtoR4fKh0waf5jj59OUqTrjAh3+JuMpg/lpJde/+yu9ZQN0YvMgYQ
+	HnQ49ozTGWi4T5KcpdhpRAb6HcWCuqkc3QIvExbLZ2IeVURqwfuR6L5Sz4AjxkLb
+	50zXKFltP1usSJUx0LxsSBGyGcBNjud6ZBGcSMBbh2a/DnyY5U8UaZw8jNtXTD6r
+	21VTPw==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epg3jrcg0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 10:57:57 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-6cfd441619aso2127988137.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:57:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781002677; x=1781607477; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=f6ILln5Oc0CWwbe2t2UAsyz9mJqiBbsefhKMfnN8zy8=;
+        b=N0VTh1oqT0fi3tT42PIiUv060nj0+k57o2BGnFfWAabDy5oOluMzdmuvKTQz6k8zrs
+         Ko8Pa3zy8uM1I0naA91Hy3bppBWGjwPCnjJ2gZRq81YiWG50aRDAFZiGJl1HA7jaU2ul
+         eSvIiuil8Oa1C3OjEwVF2hdx1cUmQqwBgB7bMXG2J+3/1pFnitb3c1aOon/QpyVIq1BJ
+         n9E7VzLQYGnadvsPxFrRQ4GNDOQ5psxWm3avauBXPB4QxR4wz99Jbn+dO34hd8B3SW0W
+         UOCmRc8M27IXDX8EfZbLXUq6HYncmYiKmYkpSm8+jb7infAZystrJLeV5jKq/0JeTD7j
+         ZRlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781002677; x=1781607477;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=f6ILln5Oc0CWwbe2t2UAsyz9mJqiBbsefhKMfnN8zy8=;
+        b=Ff78XDuonh5+yiy5DQMtD2yZgoDq0M4LNLCKGJA5EOF/u18uT1G9EWo9/uFX7U6i8L
+         QBfU5OPds38E8x+x8SP4wh2EbQwsg82KAn847gec9j1zjoEIRamkhHJMMJb8bhq/FBuS
+         aocvmDsl3AaNMYhZR4hAJUPTEMt5VfgSXik+r5byqZ+n2nz6k34W6/7mxEK0D9AhCgKc
+         K5MAYbMOL250nKMEhaoPMQGJreOUWD03234cxOuR7idaMyQQHdo//r1J8P2NY2GVzKii
+         Us8pOJBZEl4so2nIsHCaVBLo7jpc5+ef+ZtttshrNukZ913bcHsVWiFt86uGrzandrNi
+         PkvA==
+X-Forwarded-Encrypted: i=1; AFNElJ+B/EICCUH2d/TWxC6+V6OKalMIlhiVdmVrDTiW4Ss7EOB6K2k6bOIajXEl33gj8pN7mbcP3hdxQapv@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXc1Qs31LvZ1RWSbyfe9UVoWjRIAa7jihT9hY4mlQmv8pgEz0+
+	0Dbqlbk4Pl0Lyihp9Iqn+d3D3D4McPDfVvCW7gkNcQ2eux+a/pgDRz1KHNFZPwUThTI22slKY6z
+	k1LVxa7QdNZ/LzJyneuw79dLkVOxQdneL0x8k55WTqMqVVuM+QsvwpUnoO893Tzma
+X-Gm-Gg: Acq92OFKosLXVzeXq27LSMNhTJ84PNIiGAnMPAznZXel/qJGnXJY074+EIlulOTqRVz
+	ajrEJ/EHkiGMMyuSqaVIxa6OtmvKdc5qQeAFE/5C8v9IQ2QYmEuRWKg0mXCxIOCnjYOgrOQs2N+
+	QB2qJI0+PLnzBAXqEOkBw4QK9bZizEx4ffUUnqMcY56+tNtta4fnj0M8/zqkda7X7E43U7rb3iL
+	iCsQgWE12zRW/eabHZ1r+KPDCkVNqOV2zYuG1VKIxNf4q+A58M/jMrimazdC+72bEVGNwIZ/5f9
+	6EMFpJ067l6UaV1bR2SIYN1eVw2iG4mdm23qFVnmRtdIWefOUjsjPU+oRZ607Hl17+azm9ZNuJz
+	A7gUQCCkJpxeLDjaJQmTndmE2AWW4B1j5y+1kt/4f2GVSKsdSVhSPUQQE4wldwby6gmZnR6OG3c
+	CXAkImidEIMCM3753S89kwCo2LaicwMX2KgIFhvTz7eiNrug==
+X-Received: by 2002:a05:6102:fa0:b0:611:e0c2:1604 with SMTP id ada2fe7eead31-719367de123mr712104137.19.1781002677000;
+        Tue, 09 Jun 2026 03:57:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:fa0:b0:611:e0c2:1604 with SMTP id ada2fe7eead31-719367de123mr712082137.19.1781002676561;
+        Tue, 09 Jun 2026 03:57:56 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b97a74asm4447482e87.53.2026.06.09.03.57.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 03:57:55 -0700 (PDT)
+Date: Tue, 9 Jun 2026 13:57:53 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v3 4/8] arm64: dts: qcom: kodiak: Enable CDSP & Modem
+ cooling
+Message-ID: <pf6rymdtbfcqqzt6vnn6gc3uuod4vlfpw42dxxag33aom7lltu@6ymibirvwfnc>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-4-291a2ff4c634@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260609-qmi-tmd-v3-4-291a2ff4c634@oss.qualcomm.com>
+X-Proofpoint-GUID: 78J3HmHiQPFATUxXM0pA75it0VhGxCcw
+X-Authority-Analysis: v=2.4 cv=aa9RWxot c=1 sm=1 tr=0 ts=6a27f1b6 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=LIoh_saxUwtCYziVtm8A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDEwMiBTYWx0ZWRfXyWN1X5FpTYfC
+ raQsRV31lmVBz8tBunHiUleVH8kZN4xU1TYrQbKzxndkCdmMagbVfHu6oqBSvFXNgrwRe0/OmrC
+ EtJZtxvlNnikFvJy+cQj57RrvXTCDNQ+AFKC0MjHnjPqcsdOdZixmsW2I4uT//2dhLcjs8YW0MN
+ tRxZ71J1J6qcffOnTAnpLE7v/75R3ffK5Ogwj65iM8Dku4T2mbe1mJgkLEX6jLxWXBMtJ3eSLYn
+ yteIhZ3aCStowU8hSWP/dD4Tu57gA+wupyQ4rLxbVCl9eduGW3YCb16MZvLnqvMDMKWtIQpi2df
+ CNxtJ7ZnUZGDp4CbvZpOk19cxiWaQD44fBZTF5Z034+0RTfNdePRiKt89a+ZdufkXSjbyc4nSyw
+ QEWc/U6Q0GfE0/vrsyCH4Oq7kpzYrgvxNfeKpfuiHDsXHhRsvGNLc1iy0lQ9/kO7c6+mKIlRo60
+ 00PjQ35GsjkTpsmdXcg==
+X-Proofpoint-ORIG-GUID: 78J3HmHiQPFATUxXM0pA75it0VhGxCcw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090102
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, Jun 09, 2026 at 03:52:59PM +0530, Gaurav Kohli wrote:
+> Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
+> when it reaches high temperatures in kodiak.
+> 
+> Set up CDSP cooling by throttling the cdsp when it reaches 100°C and
+> for modem when it reaches to 95°C.
+> 
+> Remove inherited mdmss cooling-map nodes for Non Modem kodiak variant.
 
-New issues:
-- [High] The dynamically registered child platform device 'usb_extcon' is u=
-nregistered twice during driver removal, resulting in a use-after-free and =
-double free.
+Why? If it is a GNSS-only MPSS, does it not provide any thermal
+mitigation mechanisms? Does ADSP provide those? WPSS?
 
-Pre-existing issues:
-- [High] The IRQ domain is freed explicitly while the devm-managed parent I=
-RQ handler is still active, leading to a potential use-after-free if the in=
-terrupt fires before devres cleanup finishes.
---
+> 
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/kodiak.dtsi               | 127 ++++++++++++++++++++-
+>  .../boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts     |  17 +++
 
-commit c974699adaea81fa53001bda7b03087f8ea67b97
-Author: Alexandre MINETTE <contact@alex-min.fr>
-Date:   Tue Jun 9 08:13:47 2026 +0000
+So, you removed those for Radxa Q6A, but not forRB3 Gen2. Why?
 
-mfd: qcom-pm8xxx: register PM8921 USB ID extcon
-
-This commit registers a child platform device for the USB ID interrupt on
-PM8921 to act as an extcon provider. It shares the PMIC's devicetree node
-and cleans up the child device upon driver removal or probe failure.
-
-> diff --git a/drivers/mfd/qcom-pm8xxx.c b/drivers/mfd/qcom-pm8xxx.c
-> index 0cf374c015ce7..884fc99a1488f 100644
-> --- a/drivers/mfd/qcom-pm8xxx.c
-> +++ b/drivers/mfd/qcom-pm8xxx.c
-[ ... ]
-> @@ -570,9 +630,22 @@ static int pm8xxx_probe(struct platform_device *pdev)
-> =20
->  	irq_set_irq_wake(irq, 1);
-> =20
-> +	if (data->usb_id_irq) {
-> +		rc =3D pm8xxx_add_usb_extcon(pdev, chip, data->usb_id_irq);
-> +		if (rc)
-> +			goto err_domain;
-> +	}
+>  .../dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts  |  17 +++
+>  .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts |  17 +++
+>  .../boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi    |  18 +++
+>  .../boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi   |  16 +++
+>  6 files changed, 208 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> index fa540d8c2615..d345add2d8c8 100644
+> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> @@ -3427,6 +3427,9 @@ remoteproc_mpss: remoteproc@4080000 {
+>  			qcom,smem-states = <&modem_smp2p_out 0>;
+>  			qcom,smem-state-names = "stop";
+>  
+> +			#cooling-cells = <3>;
+> +			tmd-names = "pa", "modem";
 > +
->  	rc =3D of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
->  	if (rc)
-> -		irq_domain_remove(chip->irqdomain);
-> +		goto err_extcon;
+>  			status = "disabled";
+>  
+>  			glink-edge {
+> @@ -4787,6 +4790,9 @@ remoteproc_cdsp: remoteproc@a300000 {
+>  			qcom,smem-states = <&cdsp_smp2p_out 0>;
+>  			qcom,smem-state-names = "stop";
+>  
+> +			#cooling-cells = <2>;
+> +			tmd-names = "cdsp_sw";
+
+I'm going to review only this DT, the comments apply to the rest of
+them.
+
+So, we have two cases, CDSP and MPSS. Why does CDSP have only 2 cells?
+Just because tmd-names has only one name? What if we add another
+mitigation (which can be added in the firmware), do we suddenly have to
+change number of cells and all the cooling devices to reflect it?
+
+Finally. If I understand correctly, these mitigtion mechanisms are
+provided by the firmware. Firmware differs between the boards. Vendors
+(in theory) can change them. Why do we list these names here, in the SoC
+DT?
+
 > +
-> +	return 0;
+>  			status = "disabled";
+>  
+>  			glink-edge {
+> +			cooling-maps {
+> +				map0 {
+> +					trip = <&mdmss0_alert1>;
+> +					cooling-device = <&remoteproc_mpss 0 0 2>;
+
+What does this mean? I assume that the first cell is one of the
+mechanisms. What is the difference between them? Do we really need to
+list them one by one here?
+
+What do other cells mean? Why are they 0 and 2 rather than
+THERMAL_NO_LIMIT? How does one come with those values? This should all
+be documented and explained somewhere.
+
+> +				};
 > +
-> +err_extcon:
-> +	pm8xxx_remove_usb_extcon(chip);
-> +err_domain:
-> +	irq_domain_remove(chip->irqdomain);
-> =20
->  	return rc;
->  }
-> @@ -582,6 +655,7 @@ static void pm8xxx_remove(struct platform_device *pde=
-v)
->  	struct pm_irq_chip *chip =3D platform_get_drvdata(pdev);
-> =20
->  	of_platform_depopulate(&pdev->dev);
-> +	pm8xxx_remove_usb_extcon(chip);
+> +				map1 {
+> +					trip = <&mdmss0_alert1>;
+> +					cooling-device = <&remoteproc_mpss 1 0 2>;
+> +				};
+> +			};
+>  		};
+>  
 
-[Severity: High]
-Does this cause a double-free of the usb_extcon platform device?
-
-When of_platform_depopulate() runs, it iterates over all children and invok=
-es
-of_platform_device_destroy(). Because usb_extcon is registered with
-pdevinfo.of_node_reused =3D true and shares the parent's of_node (which has=
- the
-OF_POPULATED flag set), of_platform_device_destroy() will assume it created
-the device and unregister usb_extcon.
-
-Calling pm8xxx_remove_usb_extcon() immediately afterward will call
-platform_device_unregister() on the already freed usb_extcon pointer,
-resulting in a use-after-free.
-
->  	irq_domain_remove(chip->irqdomain);
-
-[Severity: High]
-This is a pre-existing issue, but does this explicitly free the IRQ domain
-while the parent interrupt handler is still active?
-
-In pm8xxx_probe(), the parent interrupt is requested via devm_request_irq().
-This means the devres cleanup mechanism won't free the IRQ until
-devres_release_all() runs, which happens after pm8xxx_remove() completes.
-
-If a hardware interrupt triggers during the window between this
-irq_domain_remove() call and devres cleanup, will pm8xxx_irq_handler() call
-generic_handle_domain_irq() and dereference the freed chip->irqdomain?
-
->  }
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-mainline-s=
-end-v1-sending-v4-0-83768fbf404d@alex-min.fr?part=3D4
+-- 
+With best wishes
+Dmitry
