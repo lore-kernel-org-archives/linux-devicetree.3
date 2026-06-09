@@ -1,58 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A0B3D8133;
-	Tue,  9 Jun 2026 07:29:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E6B30DED0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780990170; cv=none; b=p+qgCftUKnrmhdBxe5/TFr5S7ONM2vk+TWeb8PTP6N123lxWSH2r27IGqe3X3zIQdBred5A1FJBM/vEFekbGcpL5ghIIg0/PkGGiYsUDPcMoBD8lHpnEVt+il+b2M+UaOXyl8PSrYXCemf9xR4q43+BrmqDPfKeL6uC7xGmlNig=
+	t=1780990211; cv=none; b=tAEvNB6yaaT+YvDbscLRUfzhTAE6Z4sCM0ERzTl7PjzNRBBUFOG8CZbhYOiZANdTnWV79h+mOOqMQVMBtyAMr94wUw5fHQcLPnAQY3gEHpaXqdhzNIMurKmZdBf653xfNMlGoqhk8z7wzAMKT3nOLxXWl8hbVx3y++GXIsiA4nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780990170; c=relaxed/simple;
-	bh=OfgtpsB02oaBrxeSv9R85Jh/So79y77Koq9Sgp7WRhY=;
+	s=arc-20240116; t=1780990211; c=relaxed/simple;
+	bh=msFsUp+wGLy8MCYMqnfPssKE5rXP5RMr+9mXVb6zffo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=us+9F7j+ZKRWn7silEFyUD1LAiqKdUs2Vx1ebA4FPpRIEGeRHUoeR1X2zBPIxwG3YknGvnFWCTp1AUIcaawhkrhAVJHGwQQDi+38rS3oz65tGVn3aGIIcqZGHnc5kTGFNfA6ypwosjQn+LsRyobWIPv89ZRnuYINP9KDxRIGYt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCSeMwc8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kaPodqwYpDVgYCrH8M6YDBWEUJVFUvYKg5PgI5RVvThG3co+fz07aPEaD9FXs1lrm/i5bKAVAAwC53BOjjpwdXRENS+YMT7r1HFa8MGOAoKANzmZiSxGrwwKiOZzJqAMrX1N3w0jBck/DtLnNhI+2DRD60TTQqU1JscOHY84QTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwMSjpOp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCSeMwc8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636751F00893;
-	Tue,  9 Jun 2026 07:29:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwMSjpOp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFEB81F00893;
+	Tue,  9 Jun 2026 07:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780990168;
-	bh=OfgtpsB02oaBrxeSv9R85Jh/So79y77Koq9Sgp7WRhY=;
+	s=k20260515; t=1780990210;
+	bh=1i0UhTGxIX9TQqFVbPzU146vzxkD81cDw1A0Y/vnih8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BCSeMwc8dMWoZyahAGAsF+YB6fw/OSwLHok7ydOYVnCm3DUd0RhNlYB7U273FNihf
-	 sIadXVgwdkE0qcZSAWPj4ZZDrJuTYpKSH4wBIBKlGVseOQJr0C6/fMEtGMtYSsnhkN
-	 6zvmU97HqFCjHcV+tltefUSMRQKP4CwoKo7Xga3w2fSPm1/D9QCxQo3SVsPAKMZcHk
-	 gyjCOtJaGBWwCb0B3h0pH9FMkqteIYlWC4IG79EsMltZazK6iQQ/aVM+c/MNg6Nkxy
-	 R8WDA9WYA3Kt47kW9U+GqxZqDnTO9V12xAVYTNqFdm34r8/w1g0SyLm8StMOdhGWuV
-	 u8Qc0a5m93h4g==
+	b=VwMSjpOppCcjaJ0tLOI7Cq/FSYLh8FDml2ii3G+rFLnZ3bglbzvVQ6UPeWZ9EvxlU
+	 Ql+iBIYGdYUOg2l817iQ3A0BABWXfSxd3xo3mjCCcz5yyJrYZQQmliu48tjLK5+Cr4
+	 vo3lUrPdYpq+CqRt5HATdvFtz0oKdG8/tRgxeZV2Rc4+Wx5NcZStVhitvHsodfMQpS
+	 CTs1qhb02sfLkwpmT3t0ufbp1J4qs50rmE76FVCj8BFFQHw8hb6NWQprxdo47/Yiw8
+	 fBYvpJwGfHEan9eXtSpRmi4dAgNiqugKgReULR9M06ts+ILppbPUS643gxptHeqKm3
+	 oZ3u4JyiJ5wZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: hwmon/pmbus: Add Infineon xdp730
+Subject: Re: [PATCH 5/7] ASoC: codecs: ES8389: Add private members related
+ to HPF
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "ASHISH YADAV" <ashishyadav78@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260609072231.15486-2-Ashish.Yadav@infineon.com>
-References: <20260609072231.15486-2-Ashish.Yadav@infineon.com>
+To: "Zhang Yi" <zhangyi@everest-semi.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260609071732.20939-6-zhangyi@everest-semi.com>
+References: <20260609071732.20939-6-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 07:29:27 +0000
-Message-Id: <20260609072928.636751F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 07:30:09 +0000
+Message-Id: <20260609073009.CFEB81F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> From: Ashish Yadav <ashish.yadav@infineon.com>
->=20
-> Add documentation for the device tree binding of the XDP730 eFuse.
-> Rename node to efuse to accurately reflect its hardware function.
->=20
-> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] ADC High Pass Filter (HPF) configurations are exposed as devicet=
+ree properties rather than ALSA kcontrols, violating ASoC subsystem convent=
+ions.
+- [Medium] Using `device_property_read_u8()` for a scalar devicetree proper=
+ty creates a silent fallback trap if standard 32-bit devicetree cells are u=
+sed.
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 709f7c3cb7dfda3e2bb5a1b6319ef2eb235e0bae
+Author: Zhang Yi <zhangyi@everest-semi.com>
+
+ASoC: codecs: ES8389: Add private members related to HPF
+
+This commit adds private members to manage the left and right High Pass
+Filter (HPF) values on the ES8389 codec. It reads these configurations from
+devicetree properties during probe and applies them in the un-mute sequence.
+
+> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+> index 284eb707f9f7f..2460cf9775c75 100644
+> --- a/sound/soc/codecs/es8389.c
+> +++ b/sound/soc/codecs/es8389.c
+
+[ ... ]
+
+> @@ -902,6 +904,18 @@ static int es8389_probe(struct snd_soc_component *co=
+mponent)
+> =20
+>  	es8389->mclk_src =3D device_property_read_bool(component->dev, "everest=
+,mclk-from-sclk");
+> =20
+> +	ret =3D device_property_read_u8(component->dev, "everest,hpfl", &es8389=
+->hpfl);
+
+[Severity: Medium]
+Devicetree is typically reserved for describing hardware topology, while
+software-configurable tuning parameters like an ADC High Pass Filter are
+usually exposed as ALSA kcontrols. Should these HPF values be registered as
+mixer controls instead of devicetree properties so userspace can dynamically
+adjust them at runtime?
+
+[Severity: Medium]
+Could using device_property_read_u8() here lead to a silent misconfiguration
+if standard 32-bit devicetree cells are used?
+
+If a devicetree specifies the property as a standard cell, for example:
+    everest,hpfl =3D <10>;
+
+The read_u8 function will read the first zero-padded byte (0x00) and return
+success instead of an error. This means the fallback to ES8389_HPF_DEFAULT
+will be bypassed, and the hardware will be configured with 0 instead. Would
+it be safer to read this as a u32 using device_property_read_u32() and then
+cast or bounds-check the result?
+
+> +	if (ret !=3D 0) {
+> +		dev_dbg(component->dev, "hpfl return %d\n", ret);
+> +		es8389->hpfl =3D ES8389_HPF_DEFAULT;
+> +	}
+> +
+> +	ret =3D device_property_read_u8(component->dev, "everest,hpfr", &es8389=
+->hpfr);
+> +	if (ret !=3D 0) {
+> +		dev_dbg(component->dev, "hpfr return %d\n", ret);
+> +		es8389->hpfr =3D ES8389_HPF_DEFAULT;
+> +	}
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609072231.1548=
-6-1-Ashish.Yadav@infineon.com?part=3D1
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609071732.2093=
+9-1-zhangyi@everest-semi.com?part=3D5
