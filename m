@@ -1,127 +1,122 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8925E343894
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781023291; cv=pass; b=sBXeu9mhfEkLnhN7Z0DP6n7r4t9pqAFWvZvDb5O7OQMbWFLuTwo4IuPttPg1vDEnbf7zie6ZfgUQKHNP/73f9CXceOJhvKNxRBVQNv0TVdWA8GTL2ADjMiTZqNsJsn69S5FrUiTQNOE0j+pwwrnKdfIJ79gLuUsX60ClW5/zM+A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781023291; c=relaxed/simple;
-	bh=E2GCKIOLtfV53ggPo+NGPJvjLDxOwlQa/g0l6GIWSuU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dpHSFRxvTL7tQdiFojiQEWbOlFa/CjZhLxMdeUx4Fke8fwLVfafUa2KyTICIzlX+PzvT3+l/B0XyA5ECLmCh2XZ+Cs/G9qfPk3XNKkUwqzWZI3LvGlYuyLg7UNrxNScHsffcgAU00EAbzyPkBe+766INFXabIS/uqdI/wqp6Kjs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PIRywoC7; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B75929B77E;
+	Tue,  9 Jun 2026 16:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781023331; cv=none; b=Wpsrj+s2nxV2p4ZPrMZF9eDRV6DXbBq3/jxdWWm99uGHVE7v4VilwHBDp+iVWfN8GplzTSQE2hcfFGsew5tMuAAOqG3SlnNgtwx9yBti7N0E2PSIzektRADJmKKt783f6uukbHt0qWn2o9OUxacZUKmXwi+30TXDzNh9avjUI6E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781023331; c=relaxed/simple;
+	bh=f8U3CviyCU51P8ImP3kfg24gVdTyuZcrjVFCMhrHMW0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rwVItwCT2vEnsyZC7ymPhY4j9DQZoANv5829QThSHx50ZcFuKc4l0LtrDF6iB5oE/eVXMY3uNEOji8amv7YQMTIcHYfgUVCBPZ1sV0i82RQRwDro6dCcGu/h5M60obVoelp5VQGTo4FnnBeckCayncxWSGDQqFjol1aJNAqclXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=MAmVvSGJ; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PIRywoC7"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa66893e9fso6865859e87.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:41:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781023289; cv=none;
-        d=google.com; s=arc-20240605;
-        b=B9W1jqHHrSUGuvZJV8I9i4QIX09D5i+fsrmgItS+kZP+1jGBw97bWTWooUnnlCYBeu
-         Db33bzsRl+5/Cb5Wri16zNcsMQJLGp7YQYnmplMiQ/k4n5s3dDJKY0D+qP83ep4vH4T6
-         CfJr6yKDGPjmjWhdTT4tDvxE9VPqDrryck7n7LexfNRlw7pWDVqFOZ9TjjV3B4QYpkGa
-         wx+9gXmS0O/QH9STe+Vr4OENLu0l3h6CpcZdMJF2sFbYaixleHcDqStzDAPeoDLi+vCB
-         YjJp9R38NOr9B6spnxHkENRlgtzQxSGSOj3NWtMV9p+9bfTACL89ZtYL1FjaqyGOsFIB
-         H/8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JbVtrbPRmQGLBtb4NcidkH30D+QB4F0TUQOAbXH9LEU=;
-        fh=jamsBUgzJwsIIjvD8X5yRxMEz3P5UM52Q9NeOjmZ1s4=;
-        b=aNVuVSQ+iYT8/gk3gGTJNuI/QTh/ag6rT/FSoaOlyj+NiQkfKrgl9VaGb24IqZ0mov
-         a46QUBvl7weJKsxcXnfLAkxTmIkUL0QK6G7CJ/oSRJZ1FKCTWjsRgGfief/1RfrbTSH7
-         6dY5w2ge5ItjvmDxpXcsBZVJupvkrmjcYBVpaThOjUBc76MFzpLAv933jpA8l5DjH000
-         nW0Skxo8kfbuFtPRiCyPy3sMK7ZwJ9ciIptUT9wXsmO9ZC8pXaKGUycvSbtdAhH+I/dN
-         WsdhO56cZtB5GtA3Tj18XuGzSntURU1zKgJNwV7TeoUQs8iAYPcZmwf/+VlQYtcPqA8s
-         ss9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781023289; x=1781628089; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JbVtrbPRmQGLBtb4NcidkH30D+QB4F0TUQOAbXH9LEU=;
-        b=PIRywoC7jRPDfIsDQePtTZP+TehrcS7vVKAWJbIWMk8GOVt3ztqKGg5u6KRBDA/JA/
-         +hGJABbZbTqcDvfPD1WgsC5KsgnXyL5TTgj+hcQk2CIGi2MP5DlmOO8NxXWs/xAgc+wj
-         4kXxsUjRGFm1pUI++J+k3BjMNVvaEFsR9LmhgDITm4DSlHLBkfqL/CBpuKT9iIUPNxbm
-         +hRFRgxpv+wMXQ1PQx/aRP4Yd0bsyZZmV2ABin6QDqPSU8D/SCmWU5gUkeQk/Qhbzbdk
-         A5r+bTRkk4bDC5M59GzgPh/p+t93yNQhreS6C9Rz6t9pLovdHbCXefITnDLVKSqbfQrM
-         VRhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781023289; x=1781628089;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JbVtrbPRmQGLBtb4NcidkH30D+QB4F0TUQOAbXH9LEU=;
-        b=kpcMG8KSV/GaN6j7VT7ZlYulDQcBQmaGPaxsL83kG3qzbnLSJZk/OTasXEyE2gNY6p
-         HlLWmXjZzUssczezMaqmrbSkn8pn9eletAq6MJyGNqeE04uRb1YNoR2bnzTlmD5wl1nr
-         kLlPfnBs9v9WvD2brvmz0tZKqC76rRXsrGWBXpKweGuHd3i96Hm5GlgvQ2f27OI4SRkX
-         eAmMwP1qeFHh3NoD0f9Q6dG7TsEViOF19rJ0ysw1pnw/eUXmc1YKxM+LLRvqvjvm7uS1
-         1DpwHrF/netJZi3gWG27E4pGl0cvG3DunfpHkPxG5bFIVQViJZ5Zs5hHlUelm0X7C0cp
-         +Zjg==
-X-Forwarded-Encrypted: i=1; AFNElJ/nJ19sszUEYz5CWSLMqJkGLtKHDfSZAlO54AZmjABa8g9EgWj6nlis2muEBXEl0/qQlFEh3tWVH9yc@vger.kernel.org
-X-Gm-Message-State: AOJu0YycqOnACQxNesDMSX77eo8mH35JXKvb7Ug1Ri0VZM3MVFf4e8M6
-	Fe1OwaQwY8xyjueCNAaviT+d7A0feHSq+gQuQCiI3OEmj5QIa9uNHxjCrEfku70tAk6NmSh7Fhf
-	LVqy8Q8dcvT9nVurbX4FfmoKiC+nY6qY=
-X-Gm-Gg: Acq92OGqRgf78wY3TcYJOIKlKzANwRPeLxRzheaYWnAUkphNP0IAXSoZVx73ji6QLix
-	tCiFMcU80Yu/XttLNh7RBXnnBW7QXu9PE0nIlNkJ0YqeC8qGXIHoKM35+czoJcfBOd5/0bG2QGX
-	FPYOJM1M+iU/+y0ziwhWPBPUlregZSRzOXuuLRnVlXZV4pTouC5JQPHCsEsOAnpqvsPrOiX9SPg
-	hYuSj+sU5R1Cz7BNLVNARXZPfi9Bfckle5DcQJCSKFpE9ycH/WSxo07+Gx/nk+RnZn5mYIcbHgt
-	jNMNYYX1iaKWB9dKqw==
-X-Received: by 2002:a05:6512:a93:b0:5a4:496:5bac with SMTP id
- 2adb3069b0e04-5aa87bd5171mr6091292e87.36.1781023288477; Tue, 09 Jun 2026
- 09:41:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="MAmVvSGJ"
+Received: from [10.0.0.200] (unknown [10.88.125.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 5E5C25340866;
+	Tue, 09 Jun 2026 18:42:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1781023326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Gk27He8vqPFqmcGELX5t0abQFIfgMvQwTGmgnMcTnN4=;
+	b=MAmVvSGJpt4h2+bGMhMIOaFdqJB3d1bledbSp9D3itUDsRubmJoSiBUvAKX61XvFgUlQjj
+	7OGgi9qKu72RAazFrO/8k+jOsPHP0JCfgd8/6n17lDWLvX7V+QaaBGSESxCpmU1YowCJQy
+	hhf6jjfaoOUaPSGXhlDWJkf+7+brynw=
+Message-ID: <c5a382a0-e844-4d36-b8fa-aea28b7835e0@ixit.cz>
+Date: Tue, 9 Jun 2026 18:42:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260609161701.52513-2-m32285159@gmail.com> <c9418ca9-5563-45a8-b995-d2bf7514d819@baylibre.com>
-In-Reply-To: <c9418ca9-5563-45a8-b995-d2bf7514d819@baylibre.com>
-From: Maxwell Doose <m32285159@gmail.com>
-Date: Tue, 9 Jun 2026 11:41:58 -0500
-X-Gm-Features: AVVi8CeB5Cz3-YRRLOs9srWuk1EOE3Tb2CijlwWS3Fx5DtPSuXMKb63HwLEYvMo
-Message-ID: <CAKqfh0GF32Vwcoyr_rLdq9Q_-DESGAiNYWk=SEAODStzOs=MkA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Replace Tomasz Duszynski as maintainer for SPS30
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/6] ARM: dts: qcom: Add Samsung Galaxy S4
+To: contact@alex-min.fr, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Guru Das Srinagesh
+ <linux@gurudas.dev>, Linus Walleij <linusw@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260609-mainline-send-v1-sending-v4-0-83768fbf404d@alex-min.fr>
+ <20260609-mainline-send-v1-sending-v4-6-83768fbf404d@alex-min.fr>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260609-mainline-send-v1-sending-v4-6-83768fbf404d@alex-min.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 9, 2026 at 11:22=E2=80=AFAM David Lechner <dlechner@baylibre.co=
-m> wrote:
->
-> On 6/9/26 11:16 AM, Maxwell Doose wrote:
-> > Hi all.
-> >
-> > This is basically the 2nd half of replacing Tomasz's entries, once
-> > again, in the SPS30 dt-bindings and his entry in MAINTAINERS. All of hi=
-s
-> > entries across IIO appear to be dead, which is why this is being sent.
-> > Jonathan Cameron's approved of this [1] so his entries in iio are being
-> > replaced and an RFC regarding this topic with Tomasz Cced has been
-> > sitting on lore.kernel.org for about a month now.
-> >
-> > Maxwell Doose (2):
-> >   dt-bindings: iio: sensirion,sps30: Add myself as maintainer
-> >   MAINTAINERS: Add myself as maintainer for SPS30
-> >
-> >  .../devicetree/bindings/iio/chemical/sensirion,sps30.yaml       | 2 +-
-> >  MAINTAINERS                                                     | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> >
-> > [1] https://lore.kernel.org/linux-iio/20260609140712.2e5d1640@jic23-hua=
-wei/
->
-> Do you have this hardware?
+On 09/06/2026 10:13, Alexandre MINETTE via B4 Relay wrote:
+> From: Alexandre MINETTE <contact@alex-min.fr>
+> 
+> Add a device tree for the Samsung Galaxy S4, codenamed jflte.
+> 
+> This has been tested on a Samsung Galaxy S4 GT-I9505. The initial support
+> covers UART, USB peripheral mode with USB networking, the front LED and
+> the physical buttons.
+> 
+> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+> ---
+>   arch/arm/boot/dts/qcom/Makefile                    |   1 +
+>   .../boot/dts/qcom/qcom-apq8064-samsung-jflte.dts   | 481 +++++++++++++++++++++
+>   2 files changed, 482 insertions(+)
 
-No, however I should be able to get it fairly easily.
+Acked-by: David Heidelberg <david@ixit.cz>
