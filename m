@@ -1,301 +1,386 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF1F3F99ED;
-	Tue,  9 Jun 2026 10:13:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780999993; cv=none; b=C8fygLQPVh1PanacvBXaKtk2OkSUkgg7GGj+46l5XAC4NHAck849R/0V4F3fHEUuncFNjEdMDnKcE8Pw/rLCpWeO6uqMKawfHdX0TCIypihffU7Oiy2mr00BFGpbSXicWkE43lHJv+rqCF8/lTLM6kTXtr+hxd2stfV/kBzSybM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780999993; c=relaxed/simple;
-	bh=NGp3R/nl7+7+w9K/3IW9Slc5vbtQEIIHlEB7ZV4KBzs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W3tDjcKGcZKqFYsLLTdWwvyowNRe/Qw9oIDIBTYVCUvs4lAkhIEk+ODO3gzVwwlAAqBHzcxXB+PB3mYH6CkEMgHaU5JxzBGRiluNvqR7U8xHnGSO73RIcnsga9yh1FiEFjQQxAyWcFnyozUgi9IgKYDCwCn140SaH/THDV2I+xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlx6VP8J; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BD23EFD36
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781000005; cv=pass; b=OBypOmVyumR4ZIxJk62LP5as5zxW/+VIhkZzHbrZHzMnTRFCe3BU23RyoGQU8zdPqZyR55VecUbIdGfMfEVf4T3yHdmEpZ7jWd4ytiVjHaVVooNFPQogVGy7z/yfjDM6/JrFkb7KGlGfYBKj4lJqqMhIPpy2f1ZnhwpyLS2+Vl8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781000005; c=relaxed/simple;
+	bh=7fiix6VpPjrNUF1iRnoDxKJD/gPxlaVYBSZo5W2eAfQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mrw8icYYfQOcJujqidtEHADmlJ0aLN+SiMd1qSd8T/4GrZT7/sjthFXbDXAqBA29jh/NFMdS3+f5M6crnDrQ+APF59BAl1Y9NjI0aPC9pTveIHdhlof+GrPP2gqylZ4djFrbG+dO/qlCFuh5nOwVkclAMjuhhBEGv5l+7rCRmmM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NvAGqPmo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iWK+kStr; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlx6VP8J"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 897BCC4AF48;
-	Tue,  9 Jun 2026 10:13:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780999993;
-	bh=NGp3R/nl7+7+w9K/3IW9Slc5vbtQEIIHlEB7ZV4KBzs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dlx6VP8JtF5b45DOJQPPndOq9YyVE3+BofE6KoyY9jWid3SInvLI5ULwGz0wEPyeo
-	 QDFZGISBenSQbCcgKXWhInLgvK4jnXfLLRauYiGFqL3IveHrfU0bM/w6N/NAANxuEy
-	 QRIUREaMJmTcT+FCgaVnR7sr/Ov2VqWRqKrA5Kdo0ZcgBwe0zo+g0pk2b2ClkEO28A
-	 S5ChpzTG5H3FOnrLuRGUndIGhW1zAITAqirmDQ+ZTHqq7M2kcbrQ0FPmaOKOFPRtlI
-	 RjLpJNNUYbEVdr7SYiznDAyFQQ6zDTzNNtdxfsFHY1dVdudUUs3lA1QEZbAGmE5GPj
-	 2gECFMiZFz7Lg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73851CD8CA8;
-	Tue,  9 Jun 2026 10:13:13 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Tue, 09 Jun 2026 11:13:07 +0100
-Subject: [PATCH v2 12/12] iio: dac: ad5686: add gain control support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NvAGqPmo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iWK+kStr"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599vD7N1869251
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 10:13:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rK5tl4HTNEDD0xETjFdof30J5AtGjM0BvzmgQZhcMUo=; b=NvAGqPmoWex3EasH
+	EHg/9kr+o6cOMRvupu32I4sJwrVclhFU9WJdr4EtMFVruOHd3xOZe8OBdowA78VL
+	iYhUUUl212l1hgQumD6iwgsEC5QwEoKYMUtDbht2jilg9DCHGEH4QWwNkpsnToWo
+	i6AvzzlFu1h2H/+LxA+Mh1amFb8NZkfia71dSsETUrjIjKzf+8g7QuYNqynOaDrn
+	BcbNOs+ZbUBsy2k5ggc73JOmeGSARvC+5wPX5hWC0qveY65EnFUNJ6/4UE4gNv/c
+	7ESdXfUIKQqoWIDhhZjJzCq9Z/LGIBqvzXmpN5z6rzqR2whl4Z367Q8Ri3tW4uYa
+	V29G8A==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeqggkyd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 10:13:23 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-915c364ae3bso572184285a.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:13:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781000002; cv=none;
+        d=google.com; s=arc-20240605;
+        b=WnJNrwpMSriZNPSkRsOHGEJM/oZD1pvly4KsENR402KMia8xv8byj7/U8nFmgNQNCV
+         vjdEl9EE44TbKp4WE05e8mwtElF0ntkul0qJisP5KQB8I23KWwjwcIyhZpilmRGjtp86
+         MBU+MWXpqulq0EgvYCf2T2qNVV3NmYvcpJiApxnFUQmdBeHkPLu5IJXMUJo9RTpho3mN
+         CJ15V0lX5xVY67tEGMwYaOmj/NO0RcG60C83AlYHfmLjYZJiIa3oanq6oDU/nUdnaOKh
+         tlNJ6/zikdf5+q+AxX0P/fLJOqHYM4jNRkeBrFvGTU7IrHrZCWxLLLMxhUyrAQZQ8zx5
+         j64w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rK5tl4HTNEDD0xETjFdof30J5AtGjM0BvzmgQZhcMUo=;
+        fh=2Qa2USyosdylMZUhED71+KAckNxdAkdiRAY3hbjYhzY=;
+        b=enxUEE7THUuXi+vrfc1C5O60FVJ8ttoxNtYWCXt1nkTSrx0L2lboWbxjObsO0nXVHE
+         R+B7JPlYpDtEc66bqV+QtVH5kIY/Ee3tI8mI5Jo4kAfBwAZxi3Y0U0l2oH6NScSlp0QG
+         juQ/xhfM7nHrgSskzEkjK3QCSIJ69a54sDLzVOmpNiMLuqEH2N28dsxcZ7haVQiUUjxo
+         refzZavjypetsQ5JbXgy8YF90GfbVI+YWDSuC4UeR1FBGWmEDlPeXnMN+I5gIpyXIqCU
+         xMqKD+o2wx1/SiHurbUUDEFi2HmvdDFIHdDqG60i8umgpr51uMIpci0n8OhCLX7ywtKT
+         gIYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781000002; x=1781604802; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rK5tl4HTNEDD0xETjFdof30J5AtGjM0BvzmgQZhcMUo=;
+        b=iWK+kStr7xI15uKM6ROQDl8PIPwGP2XSjpxNgeLsw74VTGFJiIN38sZYwCNaf5Tftq
+         h1UEx2g+JM5TXs0G/l7ZxYVZXIUH158II4eU2ZR5q7KYTRA9qAVu05b7zZqs+fZQgUUs
+         ovi6kLmI4Dits4fb/7tKXfiuozMujE/qUcBiPIu+al90ekpiaqH/a1iFY5jYnO2OSSFC
+         yCLRQKu3kz4IQt8q+6k5/FGHclWg7XYlwQsJv9odL/rICmCue+5xdaDfm4l9DcgPCvhQ
+         ZCWbBiyhNlxZH/mm02nsZfkA41e2JDnvb2Iv0xHv3lelht+UGTQO6y9LPZU7G8R67VKC
+         x9bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781000002; x=1781604802;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rK5tl4HTNEDD0xETjFdof30J5AtGjM0BvzmgQZhcMUo=;
+        b=WZQLsParb9UlT7rRuUNvRPLeK9yogD2YO/LHN8uB9L3J68FVPAK1/tCA5zGOGBy8cX
+         At6tkaMFzxK2C+gDgNmbnnFkUzmaqD/BJXv+pWKi4CXyqAscH8YABNvhXZLOGGEI5lgs
+         Mf29K0viv6s9kl6sGJr0UpFS+l0j2N1Cm9gFsBw0eeK2pefcKlQDgLpwMlguwxF5gWub
+         JTb+Oul3giWH8b0TNCK2AJa7I8XQyXW83X9NwkGdyROBkXYq0zOMyI9H6CrZIjYx3XmJ
+         U6yl6HqAOamtjsu6iYSbmlZftJ9z7N2/p9IorhAggrNMOjA/8r2+izq64ixAoyhox3ba
+         dNQA==
+X-Forwarded-Encrypted: i=1; AFNElJ9uV7Rf8lSlcAvg3PvAF+X2GlCSJ3jfg8CcCzjjhQ2targhi/VOae4Egyq8eV8BIGqIBm2aXkD8H/8v@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDa5oiqpbBhh17KQsiW6W5j4zRwX866GaQ3fjul/ONHE78WfEm
+	w2dotWLwfyRZVsj+1DdmuMFdJnLX8J0UGpMcclJDWic2YdnqQ/Fo+N6boi5wVxiXozeXN522Ult
+	s8e3D4ZyRzz9ljitOzNosHMMRoVXJMv4ba4yq1w+j21rXX9a8pUpPDQb2AJfdQ5sJxb/fXi+R5P
+	yrcskAXXXEJmfIsN7f/zzxmgLd0fuMxHb545IaWQuyy+droRSKkA==
+X-Gm-Gg: Acq92OGEcQpQYOQkHiCFspQDMb2g8fzQhkCEhvnvPv+GFX9cvWLHGenCeU0cjbP3Q4p
+	qCdN8ylKeIlRh/EKZ0o/oy3g2LaTAOMIZwqBc9JM2oojyKVf3O4frdXrif2JLa7+72saL+16DME
+	4xlq8VjJBYOkBogIPFfcpx/SsVLq8Ecw9UKUz3Hwdr+RXjoWBQKNwYJdy4l9XxuVOPW6hvT09rb
+	S+PQOqYnwI6YsBs96U5G7aYO5N3XjM1NLHOANQ3aDck9BDx0ERwOad6IGrdSqnDEdwCx9LQiR6J
+	t3SnUaLOG4oidK7EBX20He3Q2tJpnXdX
+X-Received: by 2002:a05:620a:28d1:b0:915:89d4:df16 with SMTP id af79cd13be357-915a9c2921emr3077669185a.7.1781000001861;
+        Tue, 09 Jun 2026 03:13:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:28d1:b0:915:89d4:df16 with SMTP id
+ af79cd13be357-915a9c2921emr3077666685a.7.1781000001380; Tue, 09 Jun 2026
+ 03:13:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
-References: <20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com>
-In-Reply-To: <20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com>
-To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780999989; l=8097;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=KY9ad0xkEl7EuPbLqWCJM/t51fvMmXrflOq4Re3IqJw=;
- b=T/Rdsg7Wjw1tlF6D9F/yXYvnzwz1KacMGpAA0wBVGMGqT817vQ7NH6xPPD7WRTEbn9D32qnPv
- EDYNHMo1If1CmHOwR4TAWLmOWVF4uy5j8SiXYU4Mxekms+jMGU5zM9M
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
+References: <20260609-block-as-nvmem-v4-0-45712e6b22c6@oss.qualcomm.com>
+ <20260609-block-as-nvmem-v4-4-45712e6b22c6@oss.qualcomm.com> <CAMRc=MfuiPMkSm=-G6VEJpqKhos0TD_pf0ScBGqfwLHT0uk8yQ@mail.gmail.com>
+In-Reply-To: <CAMRc=MfuiPMkSm=-G6VEJpqKhos0TD_pf0ScBGqfwLHT0uk8yQ@mail.gmail.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 12:13:08 +0200
+X-Gm-Features: AVVi8CdO5YI5NAWSbFzNXGbYum69_nA2LQfVjrd4CKqvNbC45JuBlK0C2ABm878
+Message-ID: <CAFEp6-1syMQsvuQ+dLU39bnDeL5Ok7vK1mA7CS0v1m7cjhyMQw@mail.gmail.com>
+Subject: Re: [PATCH v4 4/8] block: implement NVMEM provider
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+        netdev@vger.kernel.org, daniel@makrotopia.org,
+        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5NSBTYWx0ZWRfXw/1RiS0eAms+
+ bpjq228Cx/LePazBOsE3vd6T+/swfHKyZwUPwpGGqqL71XG2y7IlQzB1H1JJBL4LhoGebdwI1Az
+ 0q4xITQKtwsjUvuMjFd4FI9rP4Zv1hBByOvTMUXVuyF8iRFM+IUX5WYr27JUaMdVkuFRFEsCdc5
+ X/M6IdscAte5RKMbFi2JC+beM/bngYdXkjuxLmD5ZLchr+yzML9bxeS3CPLi37bQna4KpuFtINb
+ GUKekHE+3nylszj4cwTaVGRdWmO24BMyOyb1WBzixZsO61nlD9LyWEFJHk1Ko8196SIgC4tntMy
+ 5vljKi3VhonZf40N2PhrRjRxO2oCxMsjif9R/BfDiDvAK18ZdKANjxXJoMdANgdrWNU0UDgAatI
+ 2Ia3huLm9ZqbKxWUU9Y4MuzlITMtZfyw/PcYYK0rECwXCiQvlFNfiHWHU9nWjamZnp5CMEin2N7
+ NRHhdzdNSQ0jKLnioHg==
+X-Proofpoint-ORIG-GUID: Uc3QAGodBsuiWm3y2Em_OHP2s6xcgO-v
+X-Authority-Analysis: v=2.4 cv=KdHidwYD c=1 sm=1 tr=0 ts=6a27e743 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=VT4XjZGOAAAA:8
+ a=nTbZda4seY50gyMA9OkA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=6CpsfURP9XNmmWg3j1mJ:22
+X-Proofpoint-GUID: Uc3QAGodBsuiWm3y2Em_OHP2s6xcgO-v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090095
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Hi bartosz,
 
-Most of the supported devices rely on a GAIN pin to control a 2x
-multiplier applied to the output voltage. Other devices, e.g. the
-single-channel ones, provides a gain control through a bit field in the
-control register. Some designs might have the GAIN pin hardwired to
-VDD/VLOGIC or GND, which would still be fine for this patch, that allows
-the scale property to be configurable with two available options.
-vref_mv field is moved down in the ad5686_state struct, so that
-overall size increase is reduced.
+On Tue, Jun 9, 2026 at 10:52=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.or=
+g> wrote:
+>
+> On Tue, 9 Jun 2026 09:52:29 +0200, Loic Poulain
+> <loic.poulain@oss.qualcomm.com> said:
+> > From: Daniel Golle <daniel@makrotopia.org>
+> >
+> > On embedded devices using an eMMC it is common that one or more partiti=
+ons
+> > on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPRO=
+M
+> > data. Allow referencing the partition in device tree for the kernel and
+> > Wi-Fi drivers accessing it via the NVMEM layer.
+> >
+> > Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> > Co-developed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+> >  block/Kconfig     |   9 +++++
+> >  block/Makefile    |   1 +
+> >  block/blk-nvmem.c | 114 ++++++++++++++++++++++++++++++++++++++++++++++=
+++++++++
+> >  3 files changed, 124 insertions(+)
+> >
+> > diff --git a/block/Kconfig b/block/Kconfig
+> > index 15027963472d7b40e27b9097a5993c457b5b3054..0b33747e16dc33473683706=
+f75c92bdf8b648f7c 100644
+> > --- a/block/Kconfig
+> > +++ b/block/Kconfig
+> > @@ -209,6 +209,15 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
+> >         by falling back to the kernel crypto API when inline
+> >         encryption hardware is not present.
+> >
+> > +config BLK_NVMEM
+> > +     bool "Block device NVMEM provider"
+> > +     depends on OF
+> > +     depends on NVMEM
+> > +     help
+> > +       Allow block devices (or partitions) to act as NVMEM providers,
+> > +       typically used with eMMC to store MAC addresses or Wi-Fi
+> > +       calibration data on embedded devices.
+> > +
+> >  source "block/partitions/Kconfig"
+> >
+> >  config BLK_PM
+> > diff --git a/block/Makefile b/block/Makefile
+> > index 7dce2e44276c4274c11a0a61121c83d9c43d6e0c..d7ac389e71902bc091a8800=
+ea266190a43b3e63d 100644
+> > --- a/block/Makefile
+> > +++ b/block/Makefile
+> > @@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION) +=3D blk-crypto.o=
+ blk-crypto-profile.o \
+> >                                          blk-crypto-sysfs.o
+> >  obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK) +=3D blk-crypto-fallback.=
+o
+> >  obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)        +=3D holder.o
+> > +obj-$(CONFIG_BLK_NVMEM)                +=3D blk-nvmem.o
+> > diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..a6e62fa98675ee9bcb9c703=
+5a611b5a573ab9091
+> > --- /dev/null
+> > +++ b/block/blk-nvmem.c
+> > @@ -0,0 +1,114 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * block device NVMEM provider
+> > + *
+> > + * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + *
+> > + * Useful on devices using a partition on an eMMC for MAC addresses or
+> > + * Wi-Fi calibration EEPROM data.
+> > + */
+> > +
+> > +#include <linux/file.h>
+> > +#include <linux/nvmem-provider.h>
+> > +#include <linux/nvmem-consumer.h>
+> > +#include <linux/of.h>
+> > +#include <linux/pagemap.h>
+> > +#include <linux/property.h>
+> > +
+> > +#include "blk.h"
+> > +
+> > +static int blk_nvmem_reg_read(void *priv, unsigned int from,
+> > +                           void *val, size_t bytes)
+> > +{
+> > +     blk_mode_t mode =3D BLK_OPEN_READ | BLK_OPEN_RESTRICT_WRITES;
+> > +     dev_t devt =3D (dev_t)(uintptr_t)priv;
+> > +     size_t bytes_left =3D bytes;
+> > +     loff_t pos =3D from;
+> > +     int ret =3D 0;
+> > +
+> > +     struct file *bdev_file __free(fput) =3D bdev_file_open_by_dev(dev=
+t, mode, priv, NULL);
+> > +     if (IS_ERR(bdev_file))
+> > +             return PTR_ERR(bdev_file);
+> > +
+> > +     while (bytes_left) {
+> > +             pgoff_t f_index =3D pos >> PAGE_SHIFT;
+> > +             struct folio *folio;
+> > +             size_t folio_off;
+> > +             size_t to_read;
+> > +
+> > +             folio =3D read_mapping_folio(bdev_file->f_mapping, f_inde=
+x, NULL);
+> > +             if (IS_ERR(folio)) {
+> > +                     ret =3D PTR_ERR(folio);
+> > +                     break;
+> > +             }
+> > +
+> > +             folio_off =3D offset_in_folio(folio, pos);
+> > +             to_read =3D min(bytes_left, folio_size(folio) - folio_off=
+);
+> > +             memcpy_from_folio(val, folio, folio_off, to_read);
+> > +             pos +=3D to_read;
+> > +             bytes_left -=3D to_read;
+> > +             val +=3D to_read;
+> > +             folio_put(folio);
+> > +     }
+> > +
+> > +     return ret;
+> > +}
+> > +
+> > +static int blk_nvmem_register(struct device *dev)
+> > +{
+> > +     struct block_device *bdev =3D dev_to_bdev(dev);
+> > +     struct nvmem_config config =3D {};
+> > +
+> > +     /* skip devices which do not have a device tree node */
+> > +     if (!dev_of_node(dev))
+> > +             return 0;
+> > +
+> > +     /* skip devices without an nvmem layout defined */
+> > +     struct device_node *child __free(device_node) =3D
+> > +             of_get_child_by_name(dev_of_node(dev), "nvmem-layout");
+> > +     if (!child)
+> > +             return 0;
+> > +
+> > +     /*
+> > +      * skip block device too large to be represented as NVMEM devices=
+,
+> > +      * the NVMEM reg_read callback uses an unsigned int offset
+> > +      */
+> > +     if (bdev_nr_bytes(bdev) > UINT_MAX) {
+> > +             dev_warn(dev, "block device too large to be an NVMEM prov=
+ider\n");
+> > +             return -ENODEV;
+>
+> Wait, I must have suggested -ENODEV here on too little coffee. This callb=
+ack
+> is called from device_add(), not when the device is bound so it's not the=
+ same
+> thing as returning -ENODEV from probe().
+>
+> On the other hand, we don't want to not provide the block device just bec=
+ause
+> someone added a DT property on one that's too big. I'd say: warn, but ret=
+urn 0.
+> Does it make sense?
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/dac/ad5686.c | 96 +++++++++++++++++++++++++++++++++++++++++++++---
- drivers/iio/dac/ad5686.h | 12 +++++-
- 2 files changed, 101 insertions(+), 7 deletions(-)
+It=E2=80=99s still technically an error in the sense that we cannot provide
+the required nvmem feature. However, it only becomes a real issue if a
+consumer actually attempts to use it.
+Also, the block device should still be added, since the return code
+from add_dev is not checked. In any case, I=E2=80=99m fine with either
+approach, as long as we emit a warning message.
 
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index d9022c6a3201..d49390af71f9 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -14,10 +14,12 @@
- #include <linux/export.h>
- #include <linux/gpio/consumer.h>
- #include <linux/kstrtox.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/sysfs.h>
-+#include <linux/units.h>
- #include <linux/wordpart.h>
- 
- #include <linux/iio/buffer.h>
-@@ -40,7 +42,8 @@ static int ad5310_control_sync(struct ad5686_state *st)
- 
- 	return ad5686_write(st, AD5686_CMD_CONTROL_REG, 0,
- 			    FIELD_PREP(AD5310_PD_MSK, pd_val & AD5686_PD_MSK) |
--			    FIELD_PREP(AD5310_REF_BIT_MSK, st->use_internal_vref ? 0 : 1));
-+			    FIELD_PREP(AD5310_REF_BIT_MSK, st->use_internal_vref ? 0 : 1) |
-+			    FIELD_PREP(AD5310_GAIN_BIT_MSK, st->double_scale ? 1 : 0));
- }
- 
- static int ad5683_control_sync(struct ad5686_state *st)
-@@ -49,7 +52,8 @@ static int ad5683_control_sync(struct ad5686_state *st)
- 
- 	return ad5686_write(st, AD5686_CMD_CONTROL_REG, 0,
- 			    FIELD_PREP(AD5683_PD_MSK, pd_val & AD5686_PD_MSK) |
--			    FIELD_PREP(AD5683_REF_BIT_MSK, st->use_internal_vref ? 0 : 1));
-+			    FIELD_PREP(AD5683_REF_BIT_MSK, st->use_internal_vref ? 0 : 1) |
-+			    FIELD_PREP(AD5683_GAIN_BIT_MSK, st->double_scale ? 1 : 0));
- }
- 
- static inline unsigned int ad5686_pd_mask_shift(const struct iio_chan_spec *chan)
-@@ -192,9 +196,14 @@ static int ad5686_read_raw(struct iio_dev *indio_dev,
- 			GENMASK(chan->scan_type.realbits - 1, 0);
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
--		*val = st->vref_mv;
--		*val2 = chan->scan_type.realbits;
--		return IIO_VAL_FRACTIONAL_LOG2;
-+		if (st->double_scale) {
-+			*val = st->scale_avail[2];
-+			*val2 = st->scale_avail[3];
-+		} else {
-+			*val = st->scale_avail[0];
-+			*val2 = st->scale_avail[1];
-+		}
-+		return IIO_VAL_INT_PLUS_NANO;
- 	}
- 	return -EINVAL;
- }
-@@ -216,6 +225,63 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
- 
- 		return ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
- 				    chan->address, val << chan->scan_type.shift);
-+	case IIO_CHAN_INFO_SCALE:
-+		if (val == st->scale_avail[0] && val2 == st->scale_avail[1])
-+			st->double_scale = false;
-+		else if (val == st->scale_avail[2] && val2 == st->scale_avail[3])
-+			st->double_scale = true;
-+		else
-+			return -EINVAL;
-+
-+		switch (st->chip_info->regmap_type) {
-+		case AD5310_REGMAP:
-+			return ad5310_control_sync(st);
-+		case AD5683_REGMAP:
-+			return ad5683_control_sync(st);
-+		case AD5686_REGMAP:
-+			/*
-+			 * Even if the gain pin is hardwired on the board, the
-+			 * user is able to control the scale such that it
-+			 * matches the actual gain setting.
-+			 */
-+			gpiod_set_value_cansleep(st->gain_gpio,
-+						 st->double_scale ? 1 : 0);
-+			return 0;
-+		default:
-+			return -EINVAL;
-+		}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad5686_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				    struct iio_chan_spec const *chan,
-+				    long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad5686_read_avail(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     const int **vals, int *type, int *length,
-+			     long mask)
-+{
-+	struct ad5686_state *st = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		*vals = st->scale_avail;
-+		*length = ARRAY_SIZE(st->scale_avail);
-+		return IIO_AVAIL_LIST;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -224,6 +290,8 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
- static const struct iio_info ad5686_info = {
- 	.read_raw = ad5686_read_raw,
- 	.write_raw = ad5686_write_raw,
-+	.write_raw_get_fmt = ad5686_write_raw_get_fmt,
-+	.read_avail = ad5686_read_avail,
- };
- 
- static const struct iio_chan_spec_ext_info ad5686_ext_info[] = {
-@@ -245,6 +313,7 @@ static const struct iio_chan_spec_ext_info ad5686_ext_info[] = {
- 		.channel = chan,				\
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
- 		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),\
-+		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),\
- 		.address = addr,				\
- 		.scan_index = chan,				\
- 		.scan_type = {					\
-@@ -471,6 +540,16 @@ const struct ad5686_chip_info ad5679r_chip_info = {
- };
- EXPORT_SYMBOL_NS_GPL(ad5679r_chip_info, "IIO_AD5686");
- 
-+static void ad5686_init_scale_avail(struct ad5686_state *st)
-+{
-+	int realbits = st->chip_info->channels[0].scan_type.realbits;
-+	s64 tmp;
-+
-+	tmp = 2ULL * st->vref_mv * NANO >> realbits;
-+	st->scale_avail[2] = div_s64_rem(tmp, NANO, &st->scale_avail[3]);
-+	st->scale_avail[0] = div_s64_rem(tmp >> 1, NANO, &st->scale_avail[1]);
-+}
-+
- static irqreturn_t ad5686_trigger_handler(int irq, void *p)
- {
- 	struct iio_poll_func *pf = p;
-@@ -576,6 +655,13 @@ int ad5686_probe(struct device *dev,
- 		return dev_err_probe(dev, PTR_ERR(st->ldac_gpio),
- 				     "Failed to get LDAC GPIO\n");
- 
-+	st->gain_gpio = devm_gpiod_get_optional(dev, "gain", GPIOD_OUT_LOW);
-+	if (IS_ERR(st->gain_gpio))
-+		return dev_err_probe(dev, PTR_ERR(st->gain_gpio),
-+				     "Failed to get GAIN GPIO\n");
-+
-+	ad5686_init_scale_avail(st);
-+
- 	fsleep(5); /* power-up time */
- 	reset_control_assert(rstc);
- 	fsleep(1); /* reset pulse: comfortably bigger than the spec */
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index 6f47493906d4..b74a641d8fa4 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -39,9 +39,11 @@
- #define AD5686_CMD_CONTROL_REG			0x4
- #define AD5686_CMD_READBACK_ENABLE_V2		0x5
- 
-+#define AD5310_GAIN_BIT_MSK			BIT(7)
- #define AD5310_REF_BIT_MSK			BIT(8)
- #define AD5310_PD_MSK				GENMASK(10, 9)
- 
-+#define AD5683_GAIN_BIT_MSK			BIT(11)
- #define AD5683_REF_BIT_MSK			BIT(12)
- #define AD5683_PD_MSK				GENMASK(14, 13)
- 
-@@ -124,9 +126,12 @@ extern const struct ad5686_chip_info ad5679r_chip_info;
-  * @chip_info:		chip model specific constants, available modes etc
-  * @ops:		bus specific operations
-  * @ldac_gpio:		LDAC pin GPIO descriptor
-- * @vref_mv:		actual reference voltage used
-+ * @gain_gpio:		GAIN pin GPIO descriptor
-  * @pwr_down_mask:	power down mask
-  * @pwr_down_mode:	current power down mode
-+ * @scale_avail:	pre-calculated available scale values
-+ * @vref_mv:		actual reference voltage used
-+ * @double_scale:	flag to indicate the gain multiplier is applied
-  * @use_internal_vref:	set to true if the internal reference voltage is used
-  * @lock:		lock to protect access to state fields, which includes
-  *			the data buffer during regmap ops
-@@ -138,9 +143,12 @@ struct ad5686_state {
- 	const struct ad5686_chip_info	*chip_info;
- 	const struct ad5686_bus_ops	*ops;
- 	struct gpio_desc		*ldac_gpio;
--	unsigned short			vref_mv;
-+	struct gpio_desc		*gain_gpio;
- 	unsigned int			pwr_down_mask;
- 	unsigned int			pwr_down_mode;
-+	int				scale_avail[4];
-+	unsigned short			vref_mv;
-+	bool				double_scale;
- 	bool				use_internal_vref;
- 	struct mutex			lock;
- 	void				*bus_data;
+>
+> > +     }
+> > +
+> > +     config.id =3D NVMEM_DEVID_NONE;
+> > +     config.dev =3D dev;
+> > +     config.name =3D dev_name(dev);
+> > +     config.owner =3D THIS_MODULE;
+> > +     config.priv =3D (void *)(uintptr_t)dev->devt;
+> > +     config.reg_read =3D blk_nvmem_reg_read;
+> > +     config.size =3D bdev_nr_bytes(bdev);
+> > +     config.word_size =3D 1;
+> > +     config.stride =3D 1;
+> > +     config.read_only =3D true;
+> > +     config.root_only =3D true;
+> > +     config.ignore_wp =3D true;
+> > +     config.of_node =3D to_of_node(dev->fwnode);
+> > +
+> > +     return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &config));
+>
+> And that was a wrong suggestion on my part too because I was under the
+> impression that we're in the probe() path, not device_add(). You can't us=
+e
+> devres here as the device at this point is not yet bound and may never be=
+.
 
--- 
-2.43.0
+So I understand The bd_device is purely a class device with no bus, no driv=
+er.
+For driverless devices, devres_release_all() is called explicitly
+within device_del() .
 
+>
+> Which leads me to the second point: this is not the moment to add the nvm=
+em
+> provider. This should happen at or after probe(). Once nvmem_register()
+> returns, you have a visible nvmem resource but nothing backing it in the =
+block
+> layer.
 
+There is a short window during which a read attempt will 'properly'
+fail, but this does seem somewhat fragile indeed.
+
+> Either do this in block core when registering a new device or schedule
+> a notifier here for the BUS_NOTIFY_BOUND_DRIVER event and do it in the no=
+tifier
+> callback.
+
+So in the end, it seems that the simpler and more robust approach is
+probably to move away from the class_interface driver and instead
+register/unregister the nvmem directly in add_disk/del_gendisk.
+If that's ok I will move to this approach in the next version.
+
+Regards,
+Loic
