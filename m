@@ -1,106 +1,116 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8168374A0F
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 22:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA8C35203D
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 22:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781042862; cv=none; b=Y7LfxrkaRwfxeS6xh37bZK/sZOH3UoZsd95rLBQCyhFHFL6Z7tLi8fi1Hv213vVnJqaRSBAjlmxrH7hfgNAphVkn+7B78fqFTpQxtO1/9eGnaSbDl3F0NS752Zbqrv8x67LOvXBjMBnCVN9sA9dX10W1ZooG8HCrIdIZRDb3kk4=
+	t=1781043188; cv=none; b=j7eP/fw5oANlULI8jvCVOAzIaH3+ciKqD56lMXAuRZpZb4PZ+dZfGb9fS2d+11/5gF1cyeSxAAVgK2E2Rqu0ZO+AlzW9DtVgswf+VfFRk/6UiPuBXf9MJymtw/v15a4xujJIMGuLlEcuchIgwhOoMEAW7jmZgLfy78A4qvbvtPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781042862; c=relaxed/simple;
-	bh=pfst8Pl1eMIbnL+CLz2qwcP1CNCJ01jwiT7Pi+Po1Q0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kQ52aoKL8XNtx0T/JCQXxsJJufTuKsxTsH/yX+vUg7mpOrNS+YHCCvvMGQ9pEPmjV881HO4/H6Q89Xo8gfy+EDcxtFP2M+Rf7WmUyxLFJ51VkTdy+8l+nEPzQWZfTEvltPrczo9A0JOx68AtJ8+PBCknhqH+qgECzz12zOGBmVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JSqBpBgO; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781043188; c=relaxed/simple;
+	bh=qagFDp3J5fIfiyzBNIi1t4DhzgkTYU0l51sSsmyjYQE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=suzgM9llddjPTeLQwGrFrn4LCURWwoAKp1xMCLgaP26EUjR3VItsIQE4+EMRsSwm54Cn5JC63tk8qR+Mb3DYYkrLm92Tj4SgYFUSmA+Xzb5erpUg3uWFT421Gtfp9lc3vdywTHL3ICQskTu4WHKrM+0zCTAeUNoA1yp8UljeOr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hvTmT4+g; arc=none smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JSqBpBgO"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8423f52af13so4256125b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 15:07:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hvTmT4+g"
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4854166e1efso6042683b6e.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 15:13:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781042859; x=1781647659; darn=vger.kernel.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OuxYNglbzg4w1eq48zhKqAxq6WHek0Yx27zZwn93ut8=;
-        b=JSqBpBgOpUPU4YnujU7ZlBFkeoQAFz5S2qGBkqf9kyY99omh+7WQ81++jex9DzmoFf
-         156HOgHlK3g42NnoqAxLcIQ675bAOoOGfk4AgBZCqaw/CmvopbvHnUI8wYSOIHd3fNEF
-         91IP7masUWzLKhb/qslGjsgxpDW1WQg/D3TGvayx5APOHAfJ4bP21kie+4H/u3cb8kPD
-         J2C+kpHCKqoMbd+O/uPf7S+DJ7r3Y0FUBNoGxrjYIX05JscBcvTR0Iwlo18igSn1hAM0
-         PAWgp50XcBY/z+hCAGkHoQ9YoON24rr8BiakSIVp9Zkaz2OYKP6eKoPdZd9xz7DxeQvc
-         rCBA==
+        d=gmail.com; s=20251104; t=1781043186; x=1781647986; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t2SuYOT/HPXvKrCZtDe/qeMWaHPEqePbJHi5tDeXlEA=;
+        b=hvTmT4+gEnDiH5ui0as01NC1roZS3n0EaARgy72wRnkbR5eMbnpE/jyfX5v8shlPip
+         jYJQlr3fK2ixyqC1IJwS20BZ0Hij3NyWsR29OzksMCxhlTfEltc0gUUrMRCd2vctcb0h
+         MHJ3BlA/8XgeAdTsL8VzS+7v12JfNUD5DegI5dGyM/D04CLFJGkXev1d/yVOcfjLMCF8
+         hCbcQaKYkfAa6Lu2AixKt+zgJNfZSBT72Atpl6dx2i4CcE8qYHQ90vxK9sFnjgblKfcF
+         kKghq3tZbcQg8+MFo2QzOGZa9eHmgwE6hUYU2RiV+XJym2ikPPW80Jx+0omexY8zMiOh
+         2z8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781042859; x=1781647659;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OuxYNglbzg4w1eq48zhKqAxq6WHek0Yx27zZwn93ut8=;
-        b=RkEo/o5zZoaH2hT/7tpUTWX/AtajDPDt6Dh6Cc9c0idorEqAQpQM08EpUWlagY+JU7
-         K5pxF4qXTN5B4epzS5s3Vwwf52/oMh7MAq3P9XprM8lZP8Sq4fIJxzNTM/Hr73QKYIjV
-         AmY/B59iGFqaDK3tpkVuT10SHkPbfnbJXHyZ83LxWfxwXbgy9IKEPOSdWkz1hK8cx/7i
-         zccWsDGtJBC77gEXkp9lKD86NIDipX3ctpFbWC5/959F00Q7qbVJ1+b5/unzDnJvO8Bw
-         ZBjt/6FILfZiPsMASQFVH/9pfS4BCRZKYauh4i8LOC7m2MaI7PNksNTImCa8CHZtaabv
-         uFwg==
-X-Forwarded-Encrypted: i=1; AFNElJ+9ZRv65DrF4MEFNBl8pCXU155j+CzlLP68254X+/GuXKWuVcEyQtc1Mxxnd885g4Zkqxf7n/KNdr+3@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVU2NWK5pyjZf3CGgv8tTfQC7gtamJ9TMSx4Mgfm8mffohdytr
-	53d209O5EYLkGv2i0Q55UdhPoBE4A0MQ/Sm2gdd+jc043NpdHU5vuP57EJy+dBLA4vU=
-X-Gm-Gg: Acq92OGhcyNykyokfdJTmQwUflcdCeWP2RofA6JMYjtL5m7RLbq7vkp/ToGg2XvmT/Z
-	OLzvkirKtZ+MGAIiGemOy2a3hDkRhW8/D3PUNAF4xYmh1f+QV3yLIBHJ0YkffR4gfHFEdC5httB
-	Y8eK6p/RQEX/UXVzkJ3Y8yCm8Y2IfXzpUygcxCi6FgPGC5l4bjuq4n9kSKXkbSYgWnsZi9F/QUX
-	pClxeWlQqgL25BE47H+LfeB3OeipEDwN7ahQD0p/kxWjyn6cV8fyg8QVpV2ZBu8B8qx/jKbSVAC
-	ZWfccuL3nC2RzTc473YLRSerzH/dwxO0WZNt02rl5lWaX6wSGz9jYaQ99sLHUgxZsXMtH3jdvWG
-	2GXDUsxX+wWToRXYDFux4UNqn+Oa/f2DUky8cYcsrZeUYRQ6/9/U90desE/PHU7+2kZEdhnfw9G
-	VJsjAfPN3GNPowAJUW0QXOHsPtkDZWGIY=
-X-Received: by 2002:a05:6a00:84e:b0:842:708f:39a0 with SMTP id d2e1a72fcca58-842b0e1e4c6mr24016847b3a.8.1781042859082;
-        Tue, 09 Jun 2026 15:07:39 -0700 (PDT)
-Received: from localhost ([71.212.202.210])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-8428221cc48sm23176324b3a.8.2026.06.09.15.07.37
+        d=1e100.net; s=20251104; t=1781043186; x=1781647986;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=t2SuYOT/HPXvKrCZtDe/qeMWaHPEqePbJHi5tDeXlEA=;
+        b=FE0O+Xzz7sUnEFJdLN0wh83/rsJAuWEIWIImh57q6Gve/Qp2PhP/ZLmUwgG8G512dj
+         BidYo5y1vAjd+a9QaArj/NazY8PGqi0Ih3dABedkf7EUipMpNdUaTi4+dG5C4eYe5UnQ
+         ZoKzfyKrL+VP+6O0pNtbV6Kiip6SUqblA/8pdwQHBLGjjb/stigJ9m/0neRyokJnrqjo
+         eismaYSVfzZkpSi8unSTyiBPjpD4KNL993SxEQoLd5m3Qc4vy44PIypoj2XNw/v0Pcyl
+         QhakkBJcQmNJgxwGjhZCndbOzkaN76o14nKET6F8xtAGM0YDzT9lKgHDq7XGic+DsjXY
+         acdA==
+X-Forwarded-Encrypted: i=1; AFNElJ8aQDAKvjNZGbefUtofydE9/vHLjAvWt7dibOuLLfxmObLR4dqSXYhTRuu/L9957rsyLGCNnn8lJT0L@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQT9EEhss1L7jBf9SErtXZpCfL5pK3oOG2jfoniU467Qrbjwva
+	dRBGwzGLLcQPOB4mtU06JK9jII+2JekE2IPGRMP5T3MMQvjNe/62iZur
+X-Gm-Gg: Acq92OFgODTRt4Ejx0rsGdmEJ89Nw4csvpCboWow64sYg5CaVIDfXNWgRbMhjaRSIbO
+	ChGmz04nERHv2OXdHhdl/yS3ZKjferaFq3/kfNqDh/QsNAtSP6e62ldMLPJ+D9lfGONpa4WM8/2
+	LzoheWlIbFnHgGVyOXej2ihg5+R0E+vLeBt9pa+b2SlJEvyMOEJvXhBe02YXYSrTtptETMu1qOd
+	Kgt34ZZ75sgxO10vvhxN9Y5003XMfRJ0FB1Lt33/EoVn+jaS5aj/2SCvGpBuKSVbGPrAz2+zN4h
+	xrkZbB3ivHlaLd0Bc30+6/WHr16BLWXKUwjtD+Nhjc89d/ydt0YtLADlj175gub7OtJ9ghcE7xy
+	Mr/Liq2hke4+dMZPi4oGTd4VL7L3uZGUgYtfUFzwu4JQR9raRNDtjrNzdAaprsug8wCeSp6ZVkP
+	E8rvacJ78vdbMtzJfvcGNvAvhQOxI+3iZ0IGAdg94Sy1x4u7U284ygeAHgkae/pIM=
+X-Received: by 2002:a05:6808:1190:b0:482:4df4:ef5 with SMTP id 5614622812f47-4868dc826ccmr13806953b6e.3.1781043185864;
+        Tue, 09 Jun 2026 15:13:05 -0700 (PDT)
+Received: from linuxescape (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b5a5a64sm17105048b6e.4.2026.06.09.15.13.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 15:07:38 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: Thomas Richard <thomas.richard@bootlin.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Aaro
- Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-omap@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-Subject: Re: [PATCH v2 2/2] ARM: dts: ti: var-som-om44: Add USB Ethernet
- controller node
-In-Reply-To: <f3280b6f-7cf1-410b-9711-6dfaae2596f2@bootlin.com>
-References: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
- <20260506-b4-var-som-om44-lan7500-v2-2-b8af59ab877c@bootlin.com>
- <f3280b6f-7cf1-410b-9711-6dfaae2596f2@bootlin.com>
-Date: Tue, 09 Jun 2026 15:07:37 -0700
-Message-ID: <7hcxxzmkpi.fsf@baylibre.com>
+        Tue, 09 Jun 2026 15:13:05 -0700 (PDT)
+Date: Tue, 9 Jun 2026 17:13:02 -0500
+From: Maxwell Doose <m32285159@gmail.com>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
+ Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v2 11/12] iio: dac: ad5686: write_raw: use
+ guard(mutex)()
+Message-ID: <20260609171302.5764edb2@linuxescape>
+In-Reply-To: <20260609-ad5686-new-features-v2-11-70b423f5c76d@analog.com>
+References: <20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com>
+	<20260609-ad5686-new-features-v2-11-70b423f5c76d@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thomas Richard <thomas.richard@bootlin.com> writes:
+On Tue, 09 Jun 2026 11:13:06 +0100
+Rodrigo Alencar via B4 Relay
+<devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-> Hello Kevin,
->
-> On 5/6/26 2:13 PM, Thomas Richard wrote:
->> Add USB tree description, including the Gigabit Ethernet controller
->> (LAN7500). Adding the LAN7500 node will allow the bootloader to patch the
->> devicetree and set the MAC address.
->> 
->> Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
->> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
->> ---
-> Could you merge this patch? Or maybe you have some comments to do.
-> Jakub already picked the binding part.
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Use guarded mutex lock to facilitate code review when adding new
+> attributes. This will allow for early returns, avoiding error-prone
+> locking and unlocking in error paths. Gain-control support will add
+> the scale attribute.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
+>  drivers/iio/dac/ad5686.c | 14 +++++---------
+>  1 file changed, 5 insertions(+), 9 deletions(-)
+> 
 
-Sorry, due to travel I missed this for v7.2, but I've queued it up now
-for the next merge window.
+I agree with Joshua on this, linux/cleanup.h should definitely be
+included. However I don't think sending a v3 is worth the trouble
+(Jonathan may tweak while applying but I wouldn't count on it), so with
+or without:
 
-Kevin
+Reviewed-by: Maxwell Doose <m32285159@gmail.com>
+
+-- 
+best regards,
+max
