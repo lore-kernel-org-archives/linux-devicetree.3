@@ -1,169 +1,156 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEDC2E3AF1
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9223DF008
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780990522; cv=none; b=WxU6ywBlkGMd4wqn8moqzLGDHq4e4IwxZ3Ma4fWcAYzYcQdHVcUpYS9oQFGD5ABSkT1QyVrLp27cH954bZTYgcvF82koAV6QRWSRDw2MJU6L5fQDV29WZRian3Up3ZVbSgmAs4OCO9J6k1UIHEudyZYJvI9Gu+p5JNH9rQrudSc=
+	t=1780990578; cv=none; b=lMJxuKa2dsRsGI7oSfj4VvjLIwR2FRmRS2GewEkZFapWKgg5Z2s8m5tU9m+kI7o0x1jgeXNHAG2Au1S320nLnXP/JT5EGu1/Ht1sDaBFvnfQaRnEijsv+ri8xQd5b6ewrp0SaSaKdmE/w5D9m+zWgCU/87+TGBzcpoFRrNvomKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780990522; c=relaxed/simple;
-	bh=3yDThcOnbF2KCDvNFLK8o0ylkBvCKCemb57a0haJedI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OtGWLvg5sIfUik1RDPy8vQLWxqzPX9c4i5pEdnloz7OUCNSP/+IzCb9Yunb0sR5TMjpazHDUBMtk7wMV5GPeXcPKYJ+T7pmSTv0tOykvznTC7wGuArlhPe4O3GBJbn9ds9h41dIk90CVKiwyHxUMA9W6N5QdBDzQXADSiVJH8ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LcEIewhb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=adObyBkA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780990578; c=relaxed/simple;
+	bh=Iahd8cXBP3DKQWxC1UHQCosX+2G7ZoNuQJt3UBj7dG0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Q3Xqnuo1gm8TyqYyUU7roPYjstHmyw8VIKcG/Zj3kp9P5ML4FFtrYwj4y4sdxk/3y6J3faVmLpHZREybxvUEF5OG4+H4Gn/er38y2A+lZHYNbRu/778kd3fh3B8f3KzRQQoHtoCXZUQI6p4ajKcqA3O8hD2vueAcGw0BhcUVqr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuLxfhEc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LcEIewhb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="adObyBkA"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6593wdYB1515143
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 07:35:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=WLiPN4GyiZlceYQ34rrw22J23P5MVS/Mlwv
-	ELKMSq8k=; b=LcEIewhbNiT2QQNjFWsDvZbkGkp5Q/pVbpZyBIjiRJOt2KuqfSN
-	p0h2lkg4M0MsTd/AOy3MC0tGxUSsZ0P0nFTEB2eGeU8Ki+MxJoaZQKz8BPyvuc7Q
-	XjEzmBTElNgY2iUlYJUpt2CiJ54c6e8Nvous/R7terrIP/ldsSBNk/jrKfQ9S7nB
-	Rq+IvfGrmYE/WN79sSRk3PlhOaMoLQ3eZZNOixVVeAJTC2JKdMsrkRALoiv6E4Ub
-	fi/L1xtrqvX7SJPnhRRwRg5BB2ZQgX4CZWCTpv6s6X6WdGhgMAjjIYVlqBY5mwDh
-	viwPvx+cyMen6dnqpjFr92NJLaLmU7h83tA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enwsvck6w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 07:35:20 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c0b35fa876so64718045ad.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 00:35:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780990519; x=1781595319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WLiPN4GyiZlceYQ34rrw22J23P5MVS/MlwvELKMSq8k=;
-        b=adObyBkAxjG54fVB1xpxpJ9/B2LuSzJQKD/1LWyrRQvP+VRqQN1Im/yItZ7Q1j5oQF
-         EHseJQJxP9IVw+t+a+zYPB0VYGrzdMAtfCVKUgWcAJZpMLgEcl5JB+1nv9bCdEHWz1pR
-         6SCMFjKv2x8SvG66oM+HIVTmgv74Nq6SfKSUCAvU1zaK8cujcZAHILQQePbExTIJv53m
-         Y+VoFyS3MPCgjn13KHE/anVlE53rI17fe0suDtd3fhWh2uoP/i/4c0AX/qKfUEMae5O+
-         pO2L1xkG9I1L90AolDDH8L/2lUfhEdqT2Y6NMDff7aimz2J+91ADljwHE7s/nU9/tRbw
-         Paaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780990519; x=1781595319;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WLiPN4GyiZlceYQ34rrw22J23P5MVS/MlwvELKMSq8k=;
-        b=NLpZ5FBgMoxgoMkMZL7Diw68xtTGGYOdAp2/5qbRkNLVz+aShCtFmuWrtr/zFMVkPp
-         q7sFnJGjHn/CPSI2XEk8ixYlSpCKDhHOsKLrEJTlFvDSjI8hQcy8Zsg3+l2Du1GRk1IV
-         7JrOk+gy0ZUO/8V+vFtThyt+K0k3XHDVRar2oo7oWb7dv4O0chNpHUjlZOuev9KqFIHH
-         yt8l+6tv8uVg8SgjlxV7Za7f7+Q9Okyl45s2Pc+ImBB9KrCRDGe6OzfpTUD73hqqqAwz
-         DnLljv7gvua/5OVV8C7/1UhVjEBXM8QEcGj/xqDDPZY8wPG/IXeBUx+t0W5wfk7GRYIu
-         2jOw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Ri06yvKimvSX+nkOWjx81MDrDulH/l/ZNYMYXJSAg9plCghxJBPprhtVs0c6pGZ8aIRsI0SEBdZlH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxg89M59ZXBfjosu6VmiekFU2MBJv4D16z/wik6GiBU1nUcrpV/
-	fHuQrwworDAYCDj4wJMec+4fYZ0mCiDLWjRqwiadEGOx7nDdjVeTFoaklGqxUk0Z2/f7t9NeEQG
-	yuNoMpfOWeNxfl4Nh/uixCOHy7GtEwfIqjtzZxtmLKu7JAdSlF0/D3sKHGV7cdru+
-X-Gm-Gg: Acq92OESbnfxCFudAqN07+FSGmDKrc02mueI3ZODOz6mZezdyf8OHN1uTsCM+cIAscL
-	hxV6IZyn+jBI86LtDhzurEKBrzKM+akdGbMo70fhsFxgrkCIl9s1dO1jGyKCU9pHcQbHvrdF8iV
-	AmiothkqZwaHJjOzISl+1uJi+8SouGZ9IVyGZLyD7k/myyAYz6+VWbkKC1XFGFl41GmFFcfPeqs
-	tnjByTJfmb4expxSDJ4B7URyXlvPP/5UBxOXuua/RBCdDi9jCqNbg7ZMby9asXlyCliMq5FE65c
-	5fzo+9tdE2Xz9wLMUXUdB6Lzj7hh3oDrcCTl5nGkd5ZHrT3e+OVBp9+pFbKbfpjU+xDKGv0PzgC
-	ISwVlQ1xQtVyp/ot1WH7u5LijkvQSK/uIEgqxx99VmlG5iqFVRXQd9qYMq3I=
-X-Received: by 2002:a17:902:ecca:b0:2bf:26d:3f42 with SMTP id d9443c01a7336-2c1e7e61c68mr242236095ad.18.1780990519031;
-        Tue, 09 Jun 2026 00:35:19 -0700 (PDT)
-X-Received: by 2002:a17:902:ecca:b0:2bf:26d:3f42 with SMTP id d9443c01a7336-2c1e7e61c68mr242235535ad.18.1780990518553;
-        Tue, 09 Jun 2026 00:35:18 -0700 (PDT)
-Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f875casm205521505ad.22.2026.06.09.00.35.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 00:35:18 -0700 (PDT)
-From: monish.chunara@oss.qualcomm.com
-X-Google-Original-From: mchunara@oss.qualcomm.com
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
-        ulf.hansson@linaro.org, nitin.rawat@oss.qualcomm.com,
-        pradeep.pragallapati@oss.qualcomm.com, komal.bajaj@oss.qualcomm.com,
-        monish.chunara@oss.qualcomm.com, jsodhapa@qti.qualcomm.com
-Subject: [PATCH] arm64: dts: qcom: talos-evk: fix sdhc_2 vqmmc-supply for UHS-I mode
-Date: Tue,  9 Jun 2026 13:05:09 +0530
-Message-Id: <20260609073509.2453273-1-mchunara@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuLxfhEc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1549D1F00893;
+	Tue,  9 Jun 2026 07:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780990573;
+	bh=u/03CKdxnRfWoYLmlVK0Quz+Sws6aAxvOSzLonBrFq4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EuLxfhEcJS1HoXaw4xz9wjFi37GxYPyXtScZAn82WKaP0fUrDM2ybAKxOX2yETFr4
+	 Re18lt7JR0zxK7Wl5V7Ii81G9VIfApR+qneecQho81NGF4LPD1LuumdeY0MUCe3dc/
+	 WL34R+Uk5rk/yCr8IjgE/xNl4Mqfkdscqcf4e+K2aHLJJ3DJjcGmX6kI/O3fu6Z16h
+	 N4p3DRbs4VMykAjkWPYQPjm0DAJ/gDDQuqtDN0lS2cfpWfZC8wfKjvcit82xyFt1bw
+	 txX0CAkp0JhJj3x6QS1OoqooNnBae1it4o5DGSQ8q+XyudCR7X6xlG5n6RbLXzNUmx
+	 bPlO4YVaic7Zg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/7] ASoC: codecs: ES8389: Fix the issue about mclk_src
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhang Yi" <zhangyi@everest-semi.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260609071732.20939-3-zhangyi@everest-semi.com>
+References: <20260609071732.20939-3-zhangyi@everest-semi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 07:36:12 +0000
+Message-Id: <20260609073613.1549D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: iyU4bA-anERib6uVikMggXyI6Gxb2IJc
-X-Proofpoint-ORIG-GUID: iyU4bA-anERib6uVikMggXyI6Gxb2IJc
-X-Authority-Analysis: v=2.4 cv=dIaWXuZb c=1 sm=1 tr=0 ts=6a27c238 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=5JD22pyS9HkwBMopzcwA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA3MCBTYWx0ZWRfXyj11McraFMAm
- KLZdHKDHoR61iS9tmAnbutN7ro63VZPpkWUHX/c4p3rmkKv6QX+hUDoE+NMJJYeUWD6j6jA4hrh
- TdELnepYb3o/uJcnorkHHuY/cxOWbFjMSX/tv3+lVqhm9oxGZsZXvLQuyBV8CjxA8vRXafwGj5j
- B+9rNj/9nkNlRfsZ2KnHuYy9kltMqHpKs776YUn2dcyBPNCa+zGhWIqSaDK6eGzpSQdFG80I9g9
- zkX7ei6az2XTuAXgLM6tdg2HfnilXKNtvVltvjC/hRZ+qRO8ZxQuDGaV1DUs6pWIY+w+oZFcRtz
- hVZmNCx2V8dJewgihCLY7pcOqsRtNFq4+2hfFFZ1zkpaoPCQEoQBRjXBxUNDUsCNqLZ9HoUwA5c
- 4FRAa+XrSDBwLcUQi149wO2rN6K6kH483AZur6ogvBb4DXgyKTWTEXqcQc8ENas6dKcZDaVjJev
- 8dpKalji8FdxutaFcFw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_01,2026-06-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606090070
 
-From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-SD card is detected as SDHS instead of UHS-I because sdhc_2 was
-configured with vreg_s4a as vqmmc-supply, which cannot switch
-between 1.8V and 3.3V.
+Pre-existing issues:
+- [High] Incorrect BCLK calculation for MCLK derivation
+- [High] Missing check on the return value of regmap_read() during resume
+- [High] Resource Leak: Regulators enabled during component probe are leake=
+d on removal
+--
 
-Switch vqmmc-supply to vreg_l2a and update its voltage range to
-1800000-2960000 uV to enable proper UHS-I signaling.
+commit 81fe94b62642e618ad9d244bb25b737cbe5017dd
+Author: Zhang Yi <zhangyi@everest-semi.com>
 
-Signed-off-by: Jaypal Sodhaparmar <jsodhapa@qti.qualcomm.com>
-Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/talos-evk-som.dtsi | 4 ++--
- arch/arm64/boot/dts/qcom/talos-evk.dts      | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ASoC: codecs: ES8389: Fix the issue about mclk_src
 
-diff --git a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-index 294354c034c3..f70823b31391 100644
---- a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-@@ -195,8 +195,8 @@ vreg_l1a: ldo1 {
- 
- 		vreg_l2a: ldo2 {
- 			regulator-name = "vreg_l2a";
--			regulator-min-microvolt = <1650000>;
--			regulator-max-microvolt = <3100000>;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2960000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
- 			regulator-allow-set-load;
- 			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-diff --git a/arch/arm64/boot/dts/qcom/talos-evk.dts b/arch/arm64/boot/dts/qcom/talos-evk.dts
-index b7f514fbc7b2..9ed48765ae6e 100644
---- a/arch/arm64/boot/dts/qcom/talos-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/talos-evk.dts
-@@ -189,7 +189,7 @@ &sdhc_2 {
- 	cd-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
- 
- 	vmmc-supply = <&vreg_l10a>;
--	vqmmc-supply = <&vreg_s4a>;
-+	vqmmc-supply = <&vreg_l2a>;
- 
- 	status = "okay";
- };
--- 
-2.34.1
+Fix the issue with incorrect modifications to mclk_src.
 
+> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+> index be7a36f17083f..886069be1535f 100644
+> --- a/sound/soc/codecs/es8389.c
+> +++ b/sound/soc/codecs/es8389.c
+[ ... ]
+> @@ -607,9 +607,9 @@ static int es8389_pcm_hw_params(struct snd_pcm_substr=
+eam *substream,
+>  	regmap_update_bits(es8389->regmap, ES8389_ADC_FORMAT_MUTE, ES8389_DATA_=
+LEN_MASK, state);
+>  	regmap_update_bits(es8389->regmap, ES8389_DAC_FORMAT_MUTE, ES8389_DATA_=
+LEN_MASK, state);
+> =20
+> -	if (es8389->mclk_src =3D=3D ES8389_SCLK_PIN) {
+> +	if (es8389->mclk_src) {
+>  		regmap_update_bits(es8389->regmap, ES8389_MASTER_CLK,
+> -					ES8389_MCLK_SOURCE, es8389->mclk_src);
+> +					ES8389_MCLK_MASK, ES8389_MCLK_FROM_SCLK);
+>  		es8389->sysclk =3D params_channels(params) * params_width(params) * pa=
+rams_rate(params);
+                                                           ^^^^^^^^^^^^^^^^=
+^^^^
+
+[Severity: High]
+This is a pre-existing issue, but does this incorrectly calculate the
+physical BCLK frequency?
+
+Using params_width() returns the sample data width instead of the physical
+slot width on the wire. When mclk_src is set, es8389->sysclk acts as the MC=
+LK
+derived from SCLK.
+
+By under-calculating the physical SCLK, the get_coeff() function is provided
+with an incorrect MCLK frequency assumption, which can lead to the selection
+of wrong internal clock dividers and distorted or missing audio.
+
+Could the physical BCLK be calculated using snd_soc_params_to_bclk(params)
+instead?
+
+>  	}
+
+Additionally, I noticed a few other pre-existing issues in this driver:
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a missing check on =
+the
+return value of regmap_read() during resume?
+
+In es8389_resume():
+
+static int es8389_resume(struct snd_soc_component *component)
+{
+	...
+	unsigned int regv;
+
+	regcache_cache_only(es8389->regmap, false);
+	regcache_cache_bypass(es8389->regmap, true);
+	regmap_read(es8389->regmap, ES8389_RESET, &regv);
+
+	if (regv =3D=3D 0xff)
+	...
+}
+
+If the I2C read fails during resume, the stack variable regv is left
+uninitialized and evaluated against 0xff. Could this introduce undefined
+behavior and lead to incorrect skipping or triggering of the hardware
+re-initialization?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but are the regulators enabled
+during probe leaked on removal?
+
+es8389_probe() successfully enables core regulators:
+
+static int es8389_probe(struct snd_soc_component *component)
+{
+	...
+	ret =3D regulator_bulk_enable(ARRAY_SIZE(es8389_core_supplies),
+				    es8389->core_supply);
+	...
+}
+
+However, es8389_remove() does not call the corresponding
+regulator_bulk_disable().
+
+Since devm_regulator_bulk_get() only automatically frees the handles but do=
+es
+not implicitly disable the regulators, this leaks the regulator enable
+reference count. Could this cause the power domains to remain permanently on
+even when the module is unbound or removed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609071732.2093=
+9-1-zhangyi@everest-semi.com?part=3D2
