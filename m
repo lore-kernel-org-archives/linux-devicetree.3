@@ -1,216 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A7B3043B2;
-	Tue,  9 Jun 2026 19:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B433E3175
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 19:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781034173; cv=none; b=dK0L77EhuGt8qkav77z5BP+meMBxj/i4KN6iFOV1UltVvSv4yhcLjSxrSxi3RGy0a2DjBDcIrmyjoZLam5ENWEBmv20N4L6pIE0DYlsT9N7PyhuKMURzAxcqNKETcMAa8QKMqOAcOUF3cONlm2Cee2t2slOCQ2hP6r2AyNd7ffw=
+	t=1781034449; cv=none; b=g0SkhRChrBp4pJgSgHruCgRYVGOpagCPG2NWpEMSVXYEEzKZVdbacnsB+YCWftlWH6GRzph0b4ZREZiu9KgWs1SQ1AjLLpl/DhxP6NAs+gCS0DtIaWCQHk1piZjm+WxdLXkMpxavXqdIvdXBeWU9nhedh35VWykB9DHMsyZLyuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781034173; c=relaxed/simple;
-	bh=q1HQQMuSnv6EV8DHgmyALfGmCh5RPFiGXWibkcFpO/s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O3bksU5vbEYcpJwPheHUytrVTOcSpUPU8bf6M7CX1UGsLQnTu9ednpAo1w8o0RX7ODNuU35EKYeQ8/HqoUtrxJvgEuu1WI/NXzGYd4mAMH24x2rn9H/qrDu1+jlJkszT/hRUBdSgwwsWaxwON92sLDoLgaunKXRFLTvH0PZvelc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DEB8hNSv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781034449; c=relaxed/simple;
+	bh=+Pdfi70LkinVFTovJkzCSbIOzEBbKyNKWMr5FgCeZf0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=B5PCYpRj4eCBzede8QH23CXyyYMMKioAiJJezxqvQwS2zR0k1plNRN7vMKWy22ZVDxxc6rF7FCzSapekBx8iB/xl+3xr9nIfaTsj2YV7XsgHwiR4NqgE15GbNwPEtbH2ha9kGTzrQqg/fRrwaxVJXxBN/9I0jEazwhzXeUNhYB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=beXv5qU4; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DEB8hNSv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F35BE1F00893;
-	Tue,  9 Jun 2026 19:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781034171;
-	bh=VF3viPuMEWMRZJosuNQWMzSXeAmE8fJkp4pt8onW/hA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DEB8hNSvqowoBsK7oJGEHssg8xawpxZ4XjOvZWYwOTV2tGTY8r4FZ0xm/DtI4yFen
-	 20Cg4KP5QSUVKt3zu4X+uh24hFtE1M+fEybkvLSmlv5RJXXTZ4XpSjDItk3Kkhb7kc
-	 3cdixxxdaQaNLZ9rhfnF8J7e7kHc2RXn6JZAlp/ilF+rndMLG1X1MkNZo9INrU9Z1s
-	 uEReFLCk3DWijehGRsg1Xb1lCVZzotP7tkk5baiXWXWd8iZ3CA1qzdi07fqpGSrfmM
-	 tUK4KhTleT85i7KjJSsMxn6QhmZGfCOxP7p1pcIt8iOfWX+5GvlOypiejBV0T9c0pc
-	 vK+1MA1rTte4Q==
-Message-ID: <3bf39b4d-123f-42d3-bc05-fdb86a256e7e@kernel.org>
-Date: Tue, 9 Jun 2026 21:42:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="beXv5qU4"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c857fba35cfso2926179a12.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 12:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781034443; x=1781639243; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=epRH3P+p1WTs0Qf73mC3lJ/lEpqA5BdU7cFqo7ivRaM=;
+        b=beXv5qU4LCe6B6rTdzOSgY1VfjzFSawZ7cGiLDnnxqI90T9Ctq1dxLA7BE7bhG9lBO
+         arviP8iLneTa6aGeaZ6rWZpP81kpiVLTE5vKUnNfA4CeppSn3/0zZYVGooS9hyNGwpnt
+         UZtClFZKPo1vQexn2W3rLB4TGLfkatlup79hnEyug7ZGQa+nOWPNYhpTKEoK0O7FORor
+         sNpPD3FMb9Zw9uLUXJl59c0315T58Ezh9gX0O2JIAuTqq/CUYkI/gLgonu6uqwjFtzFD
+         7cF7H8NJm1tvQGYXF4gpEou2REpnQddmWzmaCqem/k0t5YZ3wS+1ysOaWyb4IHzgnVH+
+         53VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781034443; x=1781639243;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=epRH3P+p1WTs0Qf73mC3lJ/lEpqA5BdU7cFqo7ivRaM=;
+        b=k4/Ome3mzeazO8jEYlk3YikPKft0AbyCaz+y6rUc4LZrI4UP8sim8p1Hhy6YD7bQrD
+         S4NsBNuV4bQbAaekI3lx4I1iYYOf/p6Vz09J9UXc/Ceg6jXQNTuPXUJTXucAjpm4TGxd
+         8o0V/DxsZYXMNGjVNbYOdvyb0gb8BGiZInrlD5pGN6rqRjFIxMTHhIcOC6Bm5GY8NSO6
+         FAYabC8lMMjjBaqCFZMKE6QPo0AoH8yFxVr/qzut+zLhgIYbirPO5uoSejOFXCQN8BvK
+         OGQJ/Qdkt8Z+pTz8dVtwj+FFfOXy0NwyQWz2CUgGK5J2b6z57wCLqiCXhDW6L284wUG9
+         jeEg==
+X-Forwarded-Encrypted: i=1; AFNElJ+33Y3HAzsasoT46G77QZnEXWNZapQak9PkUrNjiFohwWabSTCpgXvKCbOXSoVLYCBM0KoYmFC42y6y@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNv8qXk8YHRCpdPTjgnvIWKUO9VA/yb3ZIqcpAGfgI2QKfLpGm
+	pY8NXQAI49cv2jycG5OQPlovX6snXjoOAjLRnSNJgfyUEDDQyRF1WiJ3
+X-Gm-Gg: Acq92OFDU3hTwa7cZTpR4XjoDWsrMfhImP6FAziPsAVFVtWhwfBnluuIZf80EdGwDtI
+	CE5SaW0x4GcIV7Vx1hp7vUpcb0RZY7vXTJdFp8FlNwB4iKPCtFDy+YyLprPiDqYsfIVDOHP1mlI
+	OLtPAEvCkynKmQjtEK1lqQ/CA5wza9BwGNK1J+66wcRuSI6N9TBgvWPB2opw2uJyELI+4xZz9Hc
+	ZDvceRxhd+CWcIxbVDyPlqv0FX/1Ph6El9W73wQ/h++C75E9uBbBmSwXSr9KqGJ7ShkfaplY7p4
+	TFcKM4MkomfHpQoJP6gCmjubaqC5crjw0N9nfGyVGyqH+tbzL/KacRr6ugI2Rr/CvzVtr2Pc2fb
+	UnKrCzgFFzPDi/zr6OEIkduBHukjjmbyGO1eeQl4z04glYE6CFY576IaKKGHheDVosGh/T0d5cr
+	sfh2Gdmshi
+X-Received: by 2002:a05:6a21:3949:b0:3b4:6026:6c5d with SMTP id adf61e73a8af0-3b4cccfde39mr26226941637.5.1781034442949;
+        Tue, 09 Jun 2026 12:47:22 -0700 (PDT)
+Received: from [127.0.1.1] ([2a12:a305:4::3060])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df04ff24sm19517121a12.14.2026.06.09.12.47.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 12:47:22 -0700 (PDT)
+From: Guodong Xu <docular.xu@gmail.com>
+Subject: [PATCH v2 0/2] dt-bindings: Add SpacemiT K1 PDMA request-number
+ header and use it in DT
+Date: Tue, 09 Jun 2026 15:46:37 -0400
+Message-Id: <20260609-b4-k1-pdma-req-macros-v2-0-5d5d7b997b54@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/8] can: flexcan: split rx/tx masks per mailbox IRQ
- line
-To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
- Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>,
- Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>,
- Haibo Chen <haibo.chen@nxp.com>
-References: <20260609142954.1807421-1-ciprianmarian.costea@oss.nxp.com>
- <20260609142954.1807421-4-ciprianmarian.costea@oss.nxp.com>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260609142954.1807421-4-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ1tKGoC/4WNQQ6CMBBFr2K6dsy0SlFX3sOwKO0Ao5Zii0RDu
+ LuAB3D5kvffH0WiyJTEeTOKSAMnDu0MarsRtjFtTcBuZqFQadSYQ3mAu4TOeQORnuCNjSHB0al
+ cO5RKu0rM2y5Sxe+1ey1+nF7ljWy/xBaj4dSH+FmPB7l4/z4GCQhZqcz+lGWIub3U3vBjZ4MXx
+ TRNX5UPZW/MAAAA
+X-Change-ID: 20260607-b4-k1-pdma-req-macros-8d276d0126df
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Guodong Xu <docular.xu@gmail.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1594; i=docular.xu@gmail.com;
+ h=from:subject:message-id; bh=+Pdfi70LkinVFTovJkzCSbIOzEBbKyNKWMr5FgCeZf0=;
+ b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhiyN3J0ap2uYnpxhcd+dxnzdfc6yC21LvXott9jc57uh8
+ GCWkHhiRykLgxgXg6yYIsvhoy3ZW1/5RPs+5/wBM4eVCWQIAxenAEzk30VGhrkzE6YfOzR7l5tW
+ xJPnr3+V1+iWFc9dtzx9/et51/skT4oy/GT8+HZOVUWLybYvGa+5Tme+6Et9eufM0tpDvUn7xM1
+ dG7kB
+X-Developer-Key: i=docular.xu@gmail.com; a=openpgp;
+ fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
 
-On 09/06/2026 at 16:29, Ciprian Costea wrote:
-> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> 
-> On S32G2, which has two mailbox IRQ lines (mb-0 for MBs 0-7, mb-1
-> for MBs 8-63), both handlers currently process the full rx_mask/tx_mask
-> range.
-> 
-> Introduce FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK and
-> FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK to describe the split, and pass
-> the selected mask to flexcan_do_mb() via a new mb_mask parameter.
-> 
-> In flexcan_irq_mb(), the irq argument selects the correct mask: the
-> primary MB IRQ uses MB0_MASK and the secondary uses MB1_MASK.
-> 
-> For single-IRQ platforms, mb_mask is ~0ULL with no functional change.
-> 
-> Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> Reviewed-and-tested-by: Haibo Chen <haibo.chen@nxp.com>
-> Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
+Currently, K1 device trees specify PDMA peripheral requests as raw numbers.
+Add a dt-bindings header naming those request lines and convert the current
+user (the K1 SPI3 node) to the new K1_PDMA_* macros.
 
-Looks better than v5!
+Patch 1 adds include/dt-bindings/dma/spacemit,k1-pdma.h with the
+  K1_PDMA_* request-number macros.
+Patch 2 updates the current pdma user (currently spi3) in k1.dtsi to
+  use these request number macros.
 
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+This patchset is based on dt-for-next of spacemit linux tree. The
+request number defined in Patch 1 comes from SpacemiT K1 User Manual
+[1], Chapter 9.4.3 DMA Connectivity & Assignments.
 
-> ---
->  drivers/net/can/flexcan/flexcan-core.c | 39 ++++++++++++++++++--------
->  1 file changed, 28 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-> index 7dde2e623def..0ed838f0719a 100644
-> --- a/drivers/net/can/flexcan/flexcan-core.c
-> +++ b/drivers/net/can/flexcan/flexcan-core.c
-> @@ -182,6 +182,12 @@
->  #define FLEXCAN_IFLAG_RX_FIFO_WARN	BIT(6)
->  #define FLEXCAN_IFLAG_RX_FIFO_AVAILABLE	BIT(5)
->  
-> +/* On platforms with FLEXCAN_QUIRK_SECONDARY_MB_IRQ, the MB IRQ lines are
-> + * split.
-> + */
-> +#define FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK	GENMASK_ULL(7, 0)
-> +#define FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK	GENMASK_ULL(63, 8)
+[1]: https://www.spacemit.com/community/document/info?lang=en&nodepath=hardware/key_stone/k1/k1_docs/k1_usermanual/9.Top_System.md
 
-Nitpick: priv->rx_mask, priv->tx_mask and your mb_mask variable all have
-type u64 so you could have used GENMASK_U64() to stay coherent with the
-type. But you don't have to send a v6 just for this.
+Changes in v2:
+- Drop the #dma-cells description change in spacemit,k1-pdma.yaml; the request
+  numbers are hardware-fixed and unused by the driver (Conor)
+- Link to v1: https://patch.msgid.link/20260607-b4-k1-pdma-req-macros-v1-0-5b2a3955007c@gmail.com
 
->  /* FLEXCAN message buffers */
->  #define FLEXCAN_MB_CODE_MASK		(0xf << 24)
->  #define FLEXCAN_MB_CODE_RX_BUSY_BIT	(0x1 << 24)
-> @@ -957,14 +963,16 @@ static inline void flexcan_write64(struct flexcan_priv *priv, u64 val, void __io
->  		priv->write(lower_32_bits(val), addr);
->  }
->  
-> -static inline u64 flexcan_read_reg_iflag_rx(struct flexcan_priv *priv)
-> +static inline u64 flexcan_read_reg_iflag_rx(struct flexcan_priv *priv,
-> +					    u64 rx_mask)
->  {
-> -	return flexcan_read64_mask(priv, &priv->regs->iflag1, priv->rx_mask);
-> +	return flexcan_read64_mask(priv, &priv->regs->iflag1, rx_mask);
->  }
->  
-> -static inline u64 flexcan_read_reg_iflag_tx(struct flexcan_priv *priv)
-> +static inline u64 flexcan_read_reg_iflag_tx(struct flexcan_priv *priv,
-> +					    u64 tx_mask)
->  {
-> -	return flexcan_read64_mask(priv, &priv->regs->iflag1, priv->tx_mask);
-> +	return flexcan_read64_mask(priv, &priv->regs->iflag1, tx_mask);
->  }
->  
->  static inline struct flexcan_priv *rx_offload_to_priv(struct can_rx_offload *offload)
-> @@ -1071,12 +1079,14 @@ static struct sk_buff *flexcan_mailbox_read(struct can_rx_offload *offload,
->  }
->  
->  /* Process mailbox (RX + TX) events */
-> -static irqreturn_t flexcan_do_mb(struct net_device *dev)
-> +static irqreturn_t flexcan_do_mb(struct net_device *dev, u64 mb_mask)
->  {
->  	struct net_device_stats *stats = &dev->stats;
->  	struct flexcan_priv *priv = netdev_priv(dev);
->  	struct flexcan_regs __iomem *regs = priv->regs;
->  	irqreturn_t handled = IRQ_NONE;
-> +	u64 rx_mask = priv->rx_mask & mb_mask;
-> +	u64 tx_mask = priv->tx_mask & mb_mask;
->  	u64 reg_iflag_tx;
->  
->  	/* reception interrupt */
-> @@ -1084,7 +1094,8 @@ static irqreturn_t flexcan_do_mb(struct net_device *dev)
->  		u64 reg_iflag_rx;
->  		int ret;
->  
-> -		while ((reg_iflag_rx = flexcan_read_reg_iflag_rx(priv))) {
-> +		while ((reg_iflag_rx = flexcan_read_reg_iflag_rx(priv,
-> +								 rx_mask))) {
->  			handled = IRQ_HANDLED;
->  			ret = can_rx_offload_irq_offload_timestamp(&priv->offload,
->  								   reg_iflag_rx);
-> @@ -1110,10 +1121,10 @@ static irqreturn_t flexcan_do_mb(struct net_device *dev)
->  		}
->  	}
->  
-> -	reg_iflag_tx = flexcan_read_reg_iflag_tx(priv);
-> +	reg_iflag_tx = flexcan_read_reg_iflag_tx(priv, tx_mask);
->  
->  	/* transmission complete interrupt */
-> -	if (reg_iflag_tx & priv->tx_mask) {
-> +	if (reg_iflag_tx & tx_mask) {
->  		u32 reg_ctrl = priv->read(&priv->tx_mb->can_ctrl);
->  
->  		handled = IRQ_HANDLED;
-> @@ -1125,7 +1136,7 @@ static irqreturn_t flexcan_do_mb(struct net_device *dev)
->  		/* after sending a RTR frame MB is in RX mode */
->  		priv->write(FLEXCAN_MB_CODE_TX_INACTIVE,
->  			    &priv->tx_mb->can_ctrl);
-> -		flexcan_write64(priv, priv->tx_mask, &regs->iflag1);
-> +		flexcan_write64(priv, tx_mask, &regs->iflag1);
->  		netif_wake_queue(dev);
->  	}
->  
-> @@ -1228,7 +1239,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
->  	struct flexcan_priv *priv = netdev_priv(dev);
->  	irqreturn_t handled;
->  
-> -	handled = flexcan_do_mb(dev);
-> +	handled = flexcan_do_mb(dev, ~0ULL);
->  	handled |= flexcan_do_state(dev);
->  	handled |= flexcan_do_berr(dev);
->  
-> @@ -1244,8 +1255,14 @@ static irqreturn_t flexcan_irq_mb(int irq, void *dev_id)
->  	struct net_device *dev = dev_id;
->  	struct flexcan_priv *priv = netdev_priv(dev);
->  	irqreturn_t handled;
-> +	u64 mb_mask = ~0ULL;
-> +
-> +	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
-> +		mb_mask = (irq == priv->irq_secondary_mb) ?
-> +			  FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK :
-> +			  FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK;
->  
-> -	handled = flexcan_do_mb(dev);
-> +	handled = flexcan_do_mb(dev, mb_mask);
->  
->  	if (handled)
->  		can_rx_offload_irq_finish(&priv->offload);
+BR,
+Guodong Xu
 
+Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+---
+Guodong Xu (2):
+      dt-bindings: dmaengine: Add SpacemiT K1 PDMA request numbers
+      riscv: dts: spacemit: Use symbolic PDMA request numbers on K1
 
-Yours sincerely,
-Vincent Mailhol
+ arch/riscv/boot/dts/spacemit/k1.dtsi       |  3 +-
+ include/dt-bindings/dma/spacemit,k1-pdma.h | 56 ++++++++++++++++++++++++++++++
+ 2 files changed, 58 insertions(+), 1 deletion(-)
+---
+base-commit: 793cc54475b49b5b558902b5c13e4bfe66530a50
+change-id: 20260607-b4-k1-pdma-req-macros-8d276d0126df
+
+Best regards,
+--  
+Guodong Xu <docular.xu@gmail.com>
 
