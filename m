@@ -1,29 +1,29 @@
-Received: from r3-47.sinamail.sina.com.cn (r3-47.sinamail.sina.com.cn [202.108.3.47])
+Received: from r3-71.sinamail.sina.com.cn (r3-71.sinamail.sina.com.cn [202.108.3.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A283382F0D
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35A238E133
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780989606; cv=none; b=VXpYw92K5vD6CVpPqh9fBJe18z9HhK67CFlez4Kk3PgKPVrl1p4XfKcDXA8WS1drxA5yXKuTygEI3YcdbEluLfaJv7FBDC2uZLUvgQMqNTKAXmUHEsqIWpXQguVemQDqLO83rdoIJ7LnQmr0HYxTlr8FOuKjfuvHTulsToY+u0Y=
+	t=1780989610; cv=none; b=mILoY6DXvoab8YGPOaykthlt/7WqTj0trf9ElIiaag0SKFd9+83LrikmTxkY06jynPbwt4VnyhOP504m4UTiN3VeEG2sF2fquAMtA2O/3PiP2SdcVt8KxfTbhiMBdAHmuseWvV9liCx8/eaJzQrBqe6/m0lrw1dxBl4Irot1rWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780989606; c=relaxed/simple;
-	bh=c+leJfx73jzkzij1Pal7RPbMNSiHXCdBuzTzmbcfVEc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=hSyNpECdOgDqDLU/BJYeiA6vFmuWUfsLIU4MHGNFUiSVuIsZU1xjZpjqlkgk+AMkgm8CUINJA4vidy9WO79QEbusg40D5WaKPTAIEgdITwnEdSj77yeE2ZkfaO1qR+jM74Xd96Xt2xDeoULjLkfcLPBdO1B2ivrTTiY+mUX9Apw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.47
+	s=arc-20240116; t=1780989610; c=relaxed/simple;
+	bh=sdl+PHQsGQzr8k/0B7mgp8Ik3SGi8fGKNsMsjweHNck=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=UF+2dIKu7Ff4aU1itLwrUzp6L924xUnTfuBS0TmBp6PcAJ59+PxWlx0Mp+sG+fAMSOjgvZ449aV6E61Oobtdw/tsggdxTuLhu2/49X8u7nTWj52I8slVcfzdKc69zG+zENgbobSEiQpZUbjBtfpkTvi9Gsv2YIZryYFz3hL9ZxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
 Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
 	by sina.net (10.54.253.39) with ESMTP
-	id 6A27BE0F00000EF4; Tue, 9 Jun 2026 15:17:38 +0800 (CST)
+	id 6A27BE0F00000EF4; Tue, 9 Jun 2026 15:17:41 +0800 (CST)
 X-Sender: zhangyi@everest-semi.com
 X-Auth-ID: zhangyi@everest-semi.com
 Authentication-Results: sina.net;
 	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
 	 dkim=none header.i=none;
 	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: F216DE1B4C7C4777BFF67BEE2C49DD63
-X-SMAIL-UIID: F216DE1B4C7C4777BFF67BEE2C49DD63-20260609-151738
+X-SMAIL-MID: D50BD8C583F944339A830003B681B1A9
+X-SMAIL-UIID: D50BD8C583F944339A830003B681B1A9-20260609-151741
 From: Zhang Yi <zhangyi@everest-semi.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org,
@@ -33,9 +33,9 @@ Cc: tiwai@suse.com,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	Zhang Yi <zhangyi@everest-semi.com>
-Subject: [PATCH 1/7] ASoC: codecs: ES8389: Modify volatile_register
-Date: Tue,  9 Jun 2026 15:17:26 +0800
-Message-Id: <20260609071732.20939-2-zhangyi@everest-semi.com>
+Subject: [PATCH 4/7] ASoC: codecs: ES8389: Modify the initial configuration
+Date: Tue,  9 Jun 2026 15:17:29 +0800
+Message-Id: <20260609071732.20939-5-zhangyi@everest-semi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260609071732.20939-1-zhangyi@everest-semi.com>
 References: <20260609071732.20939-1-zhangyi@everest-semi.com>
@@ -45,66 +45,35 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Mark some registers that are not volatile as false
-And modified the logic for `cache_bypass` during `8389_resume`.
+Modify the initial configuration
 
 Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
 ---
- sound/soc/codecs/es8389.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ sound/soc/codecs/es8389.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-index 449d9574b..be7a36f17 100644
+index 647d9d628..284eb707f 100644
 --- a/sound/soc/codecs/es8389.c
 +++ b/sound/soc/codecs/es8389.c
-@@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] = {
- static bool es8389_volatile_register(struct device *dev,
- 			unsigned int reg)
- {
--	if ((reg  <= 0xff))
--		return true;
--	else
-+	switch (reg) {
-+	case ES8389_ADCL_VOL:
-+	case ES8389_ADCR_VOL:
-+	case ES8389_MIC1_GAIN:
-+	case ES8389_MIC2_GAIN:
-+	case ES8389_DACL_VOL:
-+	case ES8389_DACR_VOL:
-+	case ES8389_ALC_ON:
-+	case ES8389_ALC_CTL:
-+	case ES8389_ALC_TARGET:
-+	case ES8389_ALC_GAIN:
-+	case ES8389_ADC_MUTE:
-+	case ES8389_OSR_VOL:
-+	case ES8389_DAC_INV:
-+	case ES8389_MIX_VOL:
-+	case ES8389_DAC_MIX:
-+	case ES8389_ADC_RESET:
-+	case ES8389_ADC_MODE:
-+	case ES8389_DMIC_EN:
- 		return false;
-+	default:
-+		return true;
-+	}
- }
+@@ -793,7 +793,7 @@ static void es8389_init(struct snd_soc_component *component)
  
- static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
-@@ -861,13 +880,13 @@ static int es8389_resume(struct snd_soc_component *component)
- 	regcache_cache_only(es8389->regmap, false);
- 	regcache_cache_bypass(es8389->regmap, true);
- 	regmap_read(es8389->regmap, ES8389_RESET, &regv);
--	regcache_cache_bypass(es8389->regmap, false);
- 
- 	if (regv == 0xff)
- 		es8389_init(component);
- 	else
- 		es8389_set_bias_level(component, SND_SOC_BIAS_ON);
- 
-+	regcache_cache_bypass(es8389->regmap, false);
- 	regcache_sync(es8389->regmap);
- 
- 	return 0;
+ 	regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
+ 	es8389->version = reg;
+-	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x00);
++	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x56);
+ 	regmap_write(es8389->regmap, ES8389_RESET, 0x7E);
+ 	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x38);
+ 	regmap_write(es8389->regmap, ES8389_ADC_HPF1, 0x64);
+@@ -845,7 +845,7 @@ static void es8389_init(struct snd_soc_component *component)
+ 	regmap_write(es8389->regmap, ES8389_SCLK_DIV, 0x04);
+ 	regmap_write(es8389->regmap, ES8389_LRCK_DIV1, 0x01);
+ 	regmap_write(es8389->regmap, ES8389_LRCK_DIV2, 0x00);
+-	regmap_write(es8389->regmap, ES8389_OSC_CLK, 0x00);
++	regmap_write(es8389->regmap, ES8389_OSC_CLK, 0x10);
+ 	regmap_write(es8389->regmap, ES8389_ADC_OSR, 0x1F);
+ 	regmap_write(es8389->regmap, ES8389_ADC_DSP, 0x7F);
+ 	regmap_write(es8389->regmap, ES8389_ADC_MUTE, 0xC0);
 -- 
 2.17.1
 
