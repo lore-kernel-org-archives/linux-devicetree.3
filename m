@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84783285CB4;
-	Tue,  9 Jun 2026 07:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9B53D811B;
+	Tue,  9 Jun 2026 07:04:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780988522; cv=none; b=Oy+NHBcFZ7nSXHTuguArbwDWGqWLiH/mjgSJSi01KMs7njQQhsyuWoMO5ZWu/O3zZVpx2Ji4WztuI5hHkDkXL/6N947nmDcBvA21spE74ptQGErSYOKs4XJFoF2JLYvVlLREutkkt0MUdH/tDQVnHb3Q+cpiqmxcN+AkNe2B9Wo=
+	t=1780988697; cv=none; b=SvtJrF15/1GKq4vpr4SByOfu30laJr7OdrNCz+l2zy9KhqunDxjRWvi6HzWGcRWA1dPKvxRnyEy9Z6lmcRWPbQUkncE35+WuSrIcuO26Gb5qCRO3xd0HqpxlJojHjjbqj7ymIIkob7AD1TdCwhPIH1rZX29GZkSOrALPI6LpYNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780988522; c=relaxed/simple;
-	bh=sGrD8apF8zbd+Xe6zc/cVyvP4Je1tvaycGIDTxOQiZo=;
+	s=arc-20240116; t=1780988697; c=relaxed/simple;
+	bh=iypVwKQAl1d161PJuCJiQZ8cL2LK++n+cytP17W2zIo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D3U84gFlSCqKDsiXvGu/4dw9T2GYQ2CcxuRvPW23oOMiQ6wXntAoUG+prXE238/BBo8jDiJhTVsn/VITuqlB7HBK7SknVraf1H3G7tBU30bmltlB77RN8x+y6t0Qjvgfa6ubP0J92AnTCzsLq3QESrNxWbQXI/kujadbADvc9So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ok8H2Uhg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=X3AH03uZ+Kg5wQDSxnP12xaYK8MeJ/jMnoLMLDtpcQKNvfddulyLkJO3rCdTkej5lvJVEPakbN9I/Q2dsoLdOX3Hx/ZWIIVELpb6F16qKlpnatMf7oConjqEN1DE5T2vujolQPGUfrZziA30dsPLcxQYTMEJUYn/89JV8HJXmNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRRqhosw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ok8H2Uhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9FD1F00893;
-	Tue,  9 Jun 2026 07:02:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRRqhosw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EFA91F00893;
+	Tue,  9 Jun 2026 07:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780988521;
-	bh=w8bDKcwVaX/FMt0OtVmkeX4l8pXwbVj2zdV9SyYC/8Q=;
+	s=k20260515; t=1780988695;
+	bh=DJUmtmPwmSVMMnBBfyUFcLIcI7msLFbvO5LL8BmNMbk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ok8H2Uhg8CJbOr4dGUd3LFIcRuZt5C+EPLU7vn0At86xhJpkopRyppET+vkr5G6up
-	 chdc2y+xZoXc+2RTiDJ3R8HccQtrHN7qxn5ssV2BDu/UjmHBHDo2dlo3Zz4K+LAqRr
-	 bXi0j5vgwx6fSGAEemS9XqDe8xQVP8H19HDkFZ2hVH4kVLs2K+c4O8tBlRX9H75sPR
-	 CoXujuGxv/Z7FnYjfD58cKwYC07LwO+bMJXJybAh/j6kvvZFeufcOxSTuwecKZulap
-	 /jVyKkhZwoRrdTuKCiQnVJ3CgDuCmk269IN4ZZ3E1Mm58NYeyGjcYhvteCWmu0rwma
-	 FkNYjgpOHmqfw==
-Date: Tue, 9 Jun 2026 09:01:57 +0200
+	b=GRRqhoswSTG0xi9C9hO+ZQDQEUXOX0KkrQjj3zbJ0PJx8gynRHUTiyLPkJECOqRAA
+	 +NUQnxNOAq2C7oah1yPdbxBkOt6u7adUrc7J7Se3Ikt5GvxeKGKAieIFFIXs1fgCE+
+	 Q79od3Dh+sgXJzhlbjx1HagOR7c3c7vpsReBYcuZk6NM4hbyO/0XtiYKL3PrHFeKOo
+	 yZCRCO6scD57PAVc2SvsZ168j4YOvAXHH63pwtLnmlz0T/E6djeZK1uSFpXVx91GdW
+	 T2ugzuukhNzO9FGFSpQbUW8t0t3QcH8VTwSIdju6e9dC0Ks8WfqJrsZ0StnVGu4TeW
+	 VEcz1p/lRhNSA==
+Date: Tue, 9 Jun 2026 09:04:52 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joris Vaisvila <joey@tinyisr.com>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
-	kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, 
-	Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?utf-8?B?QXLEsW7DpyDDnE5BTA==?= <arinc.unal@arinc9.com>, Landen Chao <Landen.Chao@mediatek.com>, 
-	DENG Qingfang <dqfext@gmail.com>, Sean Wang <sean.wang@mediatek.com>, 
-	Daniel Golle <daniel@makrotopia.org>
-Subject: Re: [PATCH net-next v4 1/4] dt-bindings: net: dsa: add MT7628 ESW
-Message-ID: <20260609-scrupulous-cinnamon-grebe-d1c0a4@quoll>
-References: <20260608192948.289745-1-joey@tinyisr.com>
- <20260608192948.289745-2-joey@tinyisr.com>
+To: Neo Chang <YLCHANG2@nuvoton.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, 
+	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, alsa-devel@alsa-project.org, neo.chang70@gmail.com, 
+	kchsu0@nuvoton.com, sjlin0@nuvoton.com
+Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: nuvoton,nau8360: Add NAU83G60
+Message-ID: <20260609-hysterical-rhino-of-resistance-d7e1da@quoll>
+References: <20260609024128.585938-1-YLCHANG2@nuvoton.com>
+ <20260609024128.585938-2-YLCHANG2@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,58 +45,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260608192948.289745-2-joey@tinyisr.com>
+In-Reply-To: <20260609024128.585938-2-YLCHANG2@nuvoton.com>
 
-On Mon, Jun 08, 2026 at 10:29:45PM +0300, Joris Vaisvila wrote:
+On Tue, Jun 09, 2026 at 10:41:27AM +0800, Neo Chang wrote:
+> Add device tree bindings documentation for the Nuvoton NAU83G60
+> audio amplifier.
+> 
+> Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
+> ---
+> Changes in v4:
+> - Refine the `firmware-name` description to clarify the loading order
+>  (Left then Right) and the PBTL mode behavior.
+> - Remove the "dsp bypass" option description.
+> - Update the example node to follow devicetree coding styles.
+> 
+> Changes in v3:
+> - Remove colon to resolve YAML build warnings.
+> - Fix 'firmware-name' property definition to comply with binding schemas
+> 
+> Changes in v2:
+> - Dropped the word "driver" from the description.
+> - Removed runtime/software configuration properties:
+>   nuvoton,low-latency, nuvoton,anc-enable, nuvoton,aec-enable,
+>   nuvoton,vbat-microvolt, and nuvoton,tdm-channel-length.
+> - Added missing "nuvoton,dac-cur-enable" property for static speaker impedance matching.
+> - Removed unnecessary '|' formatting from single-line descriptions.
+> - Fixed typo in firmware-name property.
+> ---
+>  .../bindings/sound/nuvoton,nau8360.yaml       | 83 +++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+> new file mode 100644
+> index 000000000000..2d19aedf1419
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/nuvoton,nau8360.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nuvoton NAU83G60 Stereo Class-D Amplifier with DSP
+> +
 > +description:
-> +  The MT7628 SoC's built-in Ethernet Switch has five user ports and one
-> +  internally connected CPU port. The user ports are all connected to the SoC's
-> +  integrated Fast Ethernet PHYs. The switch registers are directly mapped in
-> +  the SoC's memory.
+> +  Stereo Class-D Amplifier with DSP and I/V-sense.
+> +  This device supports I2C.
 > +
-> +unevaluatedProperties: false
-
-This goes after "required:" block.
-
-> +
-> +allOf:
-> +  - $ref: dsa.yaml#/$defs/ethernet-ports
+> +maintainers:
+> +  - Neo Chang <YLCHANG2@nuvoton.com>
 > +
 > +properties:
 > +  compatible:
-> +    const: mediatek,mt7628-esw
+> +    enum:
+> +      - nuvoton,nau8360
 > +
 > +  reg:
 > +    maxItems: 1
-> +
-> +  resets:
-> +    items:
-> +      - description: internal switch block reset
-> +      - description: internal phy package reset
-> +
-> +  reset-names:
-> +    items:
-> +      - const: esw
-> +      - const: ephy
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - resets
-> +  - reset-names
-> +  - ethernet-ports
-> +
-> +examples:
-> +  - |
-> +    switch@10110000 {
-> +        compatible = "mediatek,mt7628-esw";
-> +
+> +    description:
 
-Drop blank line
+You want |
 
-With these two fixed:
+Or this could be just enum of addresses, no need to copy paste address
+decoding from datasheet.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> +      The I2C address of the device. The address is determined by the external
+> +      hardware configuration of GPIO1 and GPIO2 pins.
+> +       - 0x1a (GPIO2=Low, GPIO1=Low)
+> +       - 0x1b (GPIO2=Low, GPIO1=High)
+> +       - 0x4a (GPIO2=High, GPIO1=Low)
+> +       - 0x4b (GPIO2=High, GPIO1=High)
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    const: mclk
+> +
+> +  firmware-name:
+> +    minItems: 2
+> +    maxItems: 2
+> +    description:
+> +      Assign firmware filenames for Left and Right DSP cores.
+> +      The first firmware is for the Left channel,
+> +      and the second is for the Right channel.
+
+Drop all above and just list the items with description
+
+> +      In PBTL mode, the Left firmware is ignored and only the Right is applied.
+
+Combining also this.
+
+items:
+ - description: ...
+ - description: ...
+
 
 Best regards,
 Krzysztof
