@@ -1,588 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED133EDE64;
-	Tue,  9 Jun 2026 08:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265EE3E7BC7
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780992837; cv=none; b=OxB+2YnfINSk0qH18unDXBNSi5vpAVZBC4pVcq17eX+8k9Pl8VTqI29LCzB0qIdzLj5ylbmPlHwdVVvGI6m5w3WISoZkb4HW4XDIWN2SJTiR6IKd/KUSi4/XgHJNcdGUQnZtuncQlmAKGa/zps2yvlo5Kn4ZraTRRxzHj/sj4yk=
+	t=1780993038; cv=none; b=CI3SqRmRtY9rmDeUzLtzquHVpLrqNqCK7cWYHmGAKQ/VS1qr8GA1HICqku5XCR1bCDe9qJ1HJN1zJ6S7kcd6pTCx9BCjTi/dpU+wzdvtnc9+wDZSVvGlFZFdvqqCLzpOhb6iPVqNyh8fqa+FyG4A42ZbhH2kpB8y8whdHgHrG/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780992837; c=relaxed/simple;
-	bh=ndg4zfj6eHURyeX3YFUhtfw53BUBtjqFldZvPpjbIFM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Buf/r+APcl3HYTflmSXlrQGCQfJPKpcp8tb1ghSKIEKGpQZYBaKJncSviY6tXKC+YmPjUn5jkLchuNXpsAXqNBRUIljFWeIg7jwjl6iUalYIKOvqde/b4wCdtGR3bpnuRI/6oEzWf7yfh00l6eOn9aaMDJ+akGhDe9tDikyGSM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DB5rB350; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780993038; c=relaxed/simple;
+	bh=TV40QddrINlpCUTTEiKswMyWUvfxvxSh3PSqLXs8umc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YMi/Xz6rWlwO2dEc4wqWkU+YJuQ7TG8wMRElNUrDCBbmRXYQMwp13JG+Lncb+WZ+UHUp11SAirYUDEWWHN6pOpytHn+ksFaZqMKHPoytVKfYf8MEwOUoEhYeSRAeqGnFwIOoDkO/cCTY/Iq8tnTzr23lVTFZqxI9ILbGkO63D1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fJmc94Iy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Eeh5VbQt; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DB5rB350"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C7A4CC4AF48;
-	Tue,  9 Jun 2026 08:13:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780992836;
-	bh=ndg4zfj6eHURyeX3YFUhtfw53BUBtjqFldZvPpjbIFM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DB5rB3503xShGiyarKKvrHYvXw+zaWZLLlSXLj/+vv2bbJL0NXBxXO/pSivFLTI9O
-	 rPZ8L27Rlc9zpgEpTgxArEDjuPA2HICSXZOr2bdUTeQjjNxkule+7Zre8kgikklrIP
-	 1Lov9oA67S3VGTvHyMFG/uWDcupQjaIIbwsA6NiMcLysBEiFTNJx4CX7z8dctcZkjN
-	 QEv+qFWVctGPffmwrmiATYeo0od/vrjB6/LB5XtWF9RO/oh0HQixO4iWeFL9NX/4bi
-	 Y2vk97zkqmKWCFH7hvmPEz78SUpBD6kzt6ZHct5fFtd92tToNqHMm4xBz8u5gW+96L
-	 KgHgCQWn7B2HA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC6E0CD8CA4;
-	Tue,  9 Jun 2026 08:13:56 +0000 (UTC)
-From: Alexandre MINETTE via B4 Relay <devnull+contact.alex-min.fr@kernel.org>
-Date: Tue, 09 Jun 2026 10:13:49 +0200
-Subject: [PATCH v4 6/6] ARM: dts: qcom: Add Samsung Galaxy S4
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fJmc94Iy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Eeh5VbQt"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65985Sf4006861
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 08:17:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sxB2n01woV4QsbmdmcZOd7bbnfMgTW49Ubqboyavgc8=; b=fJmc94Iy3At4AoV/
+	Z47ZM/mtQUlkKGRXsoFB6dhYp6T1Z1vPiPJwKq8+grs6Opk9Z6jNPuCmWEx8F5wY
+	Gfip3d/qRnJMiUoPYtZT9RNzI6wMLxGSc3Pn1+/jH1g54+FOaZiyUKslW+HGvD0Z
+	zF+4aruZzs5114jrAb22smC58B9/XW7Zy6jGsW+3IMv3+BXpCadbf3EMXcWoU4Gs
+	69DWwXC+CjYjmLFu36Qn4ztGVoh7Qshfm3gvYbSXDRH1vwVq6ns8ezIFqT6ockT5
+	ZJR1VdEQFwt8bI/D5lhpSqS0mhq4g9u6nkw+Qxno+ZNizgu6N3L4t/+UvfzUrMT6
+	lJ59gQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epf0sr1n7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 08:17:16 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5176891d0a9so13530061cf.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 01:17:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780993035; x=1781597835; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sxB2n01woV4QsbmdmcZOd7bbnfMgTW49Ubqboyavgc8=;
+        b=Eeh5VbQtCOTwSDO8YDMcCqitzVAu3uscZHY+CitwyNsGkR+TeSYwHiAJfvh2Y7IojI
+         y7xdFgrU3Y/Si4L+O5/zMArS8Tq/XqAtV7ydrFPHIl5xIFVD/SlFp1R/8FKAW3ifvXqg
+         +NVcwrS+iaVnHJLzQ+BU2XAV7wljbNg9cJVwia+Wu6ihgu7vHx35QWaR9sVkUXFYoZb4
+         bInqgo0tT8a5bZpuObrJ2vaqBpeJdKGEBvvEUnDlz1ckxseWjflDDuKBZ9Qm9OQE9fAP
+         sNYoKGvIZmHu6ER/1AH7wSeLo7vugWpUnavXsR0/zrwU0JFh07LPG4n1QzwhZlrBFUmu
+         lUvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780993035; x=1781597835;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sxB2n01woV4QsbmdmcZOd7bbnfMgTW49Ubqboyavgc8=;
+        b=ouOmQ1o1F8dmpsNUfAWAFKTFMmL3D3YRH0Jqk3u4aS1g4Nn+x1jQgeq/PF2kzkEehc
+         6B9Bfkyp1wP1K+IgC/BvJ8deBn+dla5GsACds6PBdTZCsrLFMSEPBRxnNr9JJq/vatEN
+         9c4M7hNkYq7w5Uc6hZdvTUDYIb3lRXuWN7S3qKFpZnP7O5W7qyDWM+5GS+V1MNndoXud
+         ZFwcp3LNPizrXczu8mEPcx5HnMPTSjnNJ9xMha0RhKW0Np+J6KxQ6bXbd3WMEpnv2Txp
+         vV54RVXaRMS63/qjnsBETPBZND2D+8CZv6+598W/rNSExeGJKpLWAcGCtp6NRmjBIuWe
+         EaQA==
+X-Forwarded-Encrypted: i=1; AFNElJ/PPAy4t+e+8s4R6TRG4KBTRs3uDzqcI2UStvo+IkWI61MsgQeO7+sifhEyYKqa/aiEIEEJUENHSzxo@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnYLqRfS3mUam2e+pwf3+3PX9uBAx6JIzSHP3LMdRcZ+mXAY3/
+	qM7eaqxfcjxx1uSdB8OkK9652+O2om/epME0LhgqaKkHx+7bpBiqXyZw5o1STANbOKNgGkSHhP9
+	MO/pMR2URSPGLOir0paPOHr8+7udMc8kWjs5woofT/tkbWBmohWDwlCWWIAUGRKK4
+X-Gm-Gg: Acq92OEYmi7v1VeE6P/OHHT5stGgOjWmt+p9GYYlEjZUYKDw9+H+ww1+nhw/WLhJovR
+	EFPn83fJvdYJS8iUe9PMELY9R/lAx/4+6enQ4TFsOm4WMG4nuXHoN/ec+CQdNU7sI5lwxrAAK+9
+	b4WVKlo1fBuA9zWSSrw9SkD1wC0No3AZnt8BcXeY0OPxAo1szTqjGe9qCfbqwOEXrkvAjfDq5mH
+	oTTvaYmmHd3+PCsZL31/OCdR+eYxgd0AggaeUz6UbmQxXNOsm/LUtLMsVSZiGbMndzm44wzlBRB
+	2yJLG8kvdQLIYnb3Z2l/RGLaaXqlmXtP5BIx94UhUlwgsHqcGAIk+XvNk+32DG3836diUOUeZA2
+	/1Dmdels+HYAGcohx7H37eiIbhakvR3RSG4DsNjg4MCpgeSknfu34GxUn
+X-Received: by 2002:a05:620a:2985:b0:915:776d:52e4 with SMTP id af79cd13be357-915a9e04fdbmr1851615885a.8.1780993035553;
+        Tue, 09 Jun 2026 01:17:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:2985:b0:915:776d:52e4 with SMTP id af79cd13be357-915a9e04fdbmr1851614185a.8.1780993035106;
+        Tue, 09 Jun 2026 01:17:15 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65b55d81sm8262784a12.27.2026.06.09.01.17.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 01:17:13 -0700 (PDT)
+Message-ID: <adc18723-a194-4e0b-81ff-6c90ec9bda9c@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 10:17:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/2] soundwire: qcom: add support for EE-aware register
+ layout
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Rao Mandadapu <quic_srivasam@quicinc.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20260608175345.3118060-1-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260608175345.3118060-1-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-mainline-send-v1-sending-v4-6-83768fbf404d@alex-min.fr>
-References: <20260609-mainline-send-v1-sending-v4-0-83768fbf404d@alex-min.fr>
-In-Reply-To: <20260609-mainline-send-v1-sending-v4-0-83768fbf404d@alex-min.fr>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, 
- Guru Das Srinagesh <linux@gurudas.dev>, Linus Walleij <linusw@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- phone-devel@vger.kernel.org, Alexandre MINETTE <contact@alex-min.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780992834; l=11902;
- i=contact@alex-min.fr; s=20260421; h=from:subject:message-id;
- bh=nctRB+KA+oUj8EPwfdjz/B+lJlxwLzH4CwLXPFywPY8=;
- b=U80ELQyGqWqDbDuzC0HkfjeNdREk1eC0vr1yyVDU2DXLCXT7fWUSaaTfLjUdPtV/qMdkbLyhP
- fmPrdzhXv7ZB3KaMGH4DV7jqFrv/IofA1jJWp5rLH6nC13WB4T6MW0/
-X-Developer-Key: i=contact@alex-min.fr; a=ed25519;
- pk=KOCaxY4v16ptaT0uk1FRkuaDF2n1JhmnYwLiqWD76M4=
-X-Endpoint-Received: by B4 Relay for contact@alex-min.fr/20260421 with
- auth_id=743
-X-Original-From: Alexandre MINETTE <contact@alex-min.fr>
-Reply-To: contact@alex-min.fr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA3NyBTYWx0ZWRfX9tWcHjuHAMQP
+ 7Mil8uLPu068o38sGPy4TjF1NuT8HGR+VO4L5FUgMMA4YySi//d7HyyFsUIq3Bihxr+juB+i20V
+ FDufhpegcTn+HaK6odhdOkTy5zckR+c6h/HKiRnhhMahPw0k4fuVP2mqlRHE4IMZEArxbmQtZcl
+ hAnQdlsND8AMEp0ZqNgcl+fO3VwqabwUhqfu8McSJA5P/ftxJui5AQ4zyYR92mIcTd5xUXg806x
+ Xx/S80WS0dSn4EmALIV2mUZI7TGz7mOKAzwBnqJGYTK/CTPjcoxApZbvS9LpZ1sD/S/UE1PuKLg
+ yvKibe8UBNAzwViRxO511JAGu5F98DN7cLH1LiWXMc04X8lDRXM8s+7ON7xTRWZNFhPKB0/M5Iy
+ UORlxDQOzr4jzBbsJr3wMAsX3wI+0GPKtJLEyoitVqFQIVuJPhDaJFESkUubhvNYWRATgO/NnR1
+ rL7RppjBgp9pKjgSu0Q==
+X-Proofpoint-ORIG-GUID: tmM4TwwlTCufDAchrVic2ZQ7NcME85Jx
+X-Proofpoint-GUID: tmM4TwwlTCufDAchrVic2ZQ7NcME85Jx
+X-Authority-Analysis: v=2.4 cv=GeonWwXL c=1 sm=1 tr=0 ts=6a27cc0c cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=tO9HO6G7pjVgjP-kga8A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606090077
 
-From: Alexandre MINETTE <contact@alex-min.fr>
+On 6/8/26 7:53 PM, Mohammad Rafi Shaik wrote:
+> This series adds support for execution environment (EE) aware register
+> layouts in the Qualcomm SoundWire master controller driver.
+> 
+> On SoundWire v2.0+ hardware, some controllers bank the interrupt, FIFO, and
+> status registers in EE-specific windows separated by a stride of 0x1000.
+> Typically, the driver assumes EE1, but platforms like Shikra have the
+> controller routed on EE0.
 
-Add a device tree for the Samsung Galaxy S4, codenamed jflte.
+Do these EEs have any names associated with them, that would help
+explain why the change is needed?
 
-This has been tested on a Samsung Galaxy S4 GT-I9505. The initial support
-covers UART, USB peripheral mode with USB networking, the front LED and
-the physical buttons.
-
-Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
----
- arch/arm/boot/dts/qcom/Makefile                    |   1 +
- .../boot/dts/qcom/qcom-apq8064-samsung-jflte.dts   | 481 +++++++++++++++++++++
- 2 files changed, 482 insertions(+)
-
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index 32a44b02d2fa..6f89ba426f98 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -13,6 +13,7 @@ dtb-$(CONFIG_ARCH_QCOM) += \
- 	qcom-apq8064-sony-xperia-lagan-yuga.dtb \
- 	qcom-apq8064-asus-nexus7-flo.dtb \
- 	qcom-apq8064-lg-nexus4-mako.dtb \
-+	qcom-apq8064-samsung-jflte.dtb \
- 	qcom-apq8074-dragonboard.dtb \
- 	qcom-ipq4018-ap120c-ac.dtb \
- 	qcom-ipq4018-ap120c-ac-bit.dtb \
-diff --git a/arch/arm/boot/dts/qcom/qcom-apq8064-samsung-jflte.dts b/arch/arm/boot/dts/qcom/qcom-apq8064-samsung-jflte.dts
-new file mode 100644
-index 000000000000..75ae19af96e5
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/qcom-apq8064-samsung-jflte.dts
-@@ -0,0 +1,481 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/mfd/qcom-rpm.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+
-+#include "qcom-apq8064-v2.0.dtsi"
-+#include "pm8821.dtsi"
-+#include "pm8921.dtsi"
-+
-+/ {
-+	model = "Samsung Galaxy S4 (jflte)";
-+	compatible = "samsung,jflte", "qcom,apq8064";
-+	chassis-type = "handset";
-+
-+	aliases {
-+		serial0 = &gsbi7_serial;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		ramoops@88d00000 {
-+			compatible = "ramoops";
-+			reg = <0x88d00000 0x100000>;
-+			record-size = <0x20000>;
-+			console-size = <0x20000>;
-+			ftrace-size = <0x20000>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-0 = <&gpio_keys_default>;
-+		pinctrl-names = "default";
-+
-+		key-home {
-+			label = "Home";
-+			gpios = <&pm8921_gpio 30 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <5>;
-+			linux,code = <KEY_HOME>;
-+			wakeup-source;
-+		};
-+
-+		key-volume-up {
-+			label = "Volume Up";
-+			gpios = <&pm8921_gpio 35 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <5>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			wakeup-source;
-+		};
-+
-+		key-volume-down {
-+			label = "Volume Down";
-+			gpios = <&pm8921_gpio 37 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <5>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			wakeup-source;
-+		};
-+	};
-+
-+	i2c-led {
-+		compatible = "i2c-gpio";
-+		sda-gpios = <&tlmm_pinmux 6 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		scl-gpios = <&tlmm_pinmux 7 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		i2c-gpio,delay-us = <2>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led-controller@30 {
-+			compatible = "panasonic,an30259a";
-+			reg = <0x30>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@1 {
-+				reg = <1>;
-+				function = LED_FUNCTION_STATUS;
-+				color = <LED_COLOR_ID_RED>;
-+			};
-+
-+			led@2 {
-+				reg = <2>;
-+				function = LED_FUNCTION_STATUS;
-+				color = <LED_COLOR_ID_GREEN>;
-+			};
-+
-+			led@3 {
-+				reg = <3>;
-+				function = LED_FUNCTION_STATUS;
-+				color = <LED_COLOR_ID_BLUE>;
-+			};
-+		};
-+	};
-+
-+	i2c-muic {
-+		compatible = "i2c-gpio";
-+		sda-gpios = <&tlmm_pinmux 22 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		scl-gpios = <&tlmm_pinmux 23 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		i2c-gpio,delay-us = <2>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		max77693: pmic@66 {
-+			compatible = "maxim,max77693";
-+			reg = <0x66>;
-+			interrupt-parent = <&tlmm_pinmux>;
-+			interrupts = <55 IRQ_TYPE_EDGE_FALLING>;
-+			pinctrl-0 = <&muic_int_default_state>;
-+			pinctrl-names = "default";
-+
-+			muic: muic {
-+				compatible = "maxim,max77693-muic";
-+				safeout1-supply = <&esafeout1_reg>;
-+				safeout2-supply = <&esafeout2_reg>;
-+			};
-+
-+			regulators {
-+				esafeout1_reg: ESAFEOUT1 {
-+					regulator-name = "ESAFEOUT1";
-+				};
-+
-+				esafeout2_reg: ESAFEOUT2 {
-+					regulator-name = "ESAFEOUT2";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&gsbi7 {
-+	qcom,mode = <GSBI_PROT_I2C_UART>;
-+
-+	status = "okay";
-+};
-+
-+&gsbi7_serial {
-+	pinctrl-0 = <&gsbi7_uart_pin_a>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pm8821 {
-+	interrupts-extended = <&tlmm_pinmux 76 IRQ_TYPE_LEVEL_LOW>;
-+};
-+
-+&pm8921 {
-+	interrupts-extended = <&tlmm_pinmux 74 IRQ_TYPE_LEVEL_LOW>;
-+};
-+
-+&riva {
-+	pinctrl-0 = <&riva_wlan_pin_a>, <&riva_bt_pin_a>, <&riva_fm_pin_a>;
-+	pinctrl-names = "default";
-+
-+	vddcx-supply = <&pm8921_s3>;
-+	vddmx-supply = <&pm8921_l24>;
-+	vddpx-supply = <&pm8921_s4>;
-+
-+	status = "okay";
-+
-+	iris {
-+		vddxo-supply = <&pm8921_l4>;
-+		vddrfa-supply = <&pm8921_s2>;
-+		vddpa-supply = <&pm8921_l10>;
-+		vdddig-supply = <&pm8921_lvs2>;
-+	};
-+};
-+
-+&rpm {
-+	regulators {
-+		compatible = "qcom,rpm-pm8921-regulators";
-+
-+		vdd_l1_l2_l12_l18-supply = <&pm8921_s4>;
-+		vdd_l24-supply = <&pm8921_s1>;
-+		vdd_l25-supply = <&pm8921_s1>;
-+		vdd_l26-supply = <&pm8921_s7>;
-+		vdd_l27-supply = <&pm8921_s7>;
-+		vdd_l28-supply = <&pm8921_s7>;
-+		vin_lvs1_3_6-supply = <&pm8921_s4>;
-+		vin_lvs2-supply = <&pm8921_s1>;
-+		vin_lvs4_5_7-supply = <&pm8921_s4>;
-+
-+		pm8921_l1: l1 {
-+			regulator-min-microvolt = <1100000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-always-on;
-+			bias-pull-down;
-+		};
-+
-+		/* mipi_dsi.1-dsi1_pll_vdda */
-+		pm8921_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			bias-pull-down;
-+		};
-+
-+		/* msm_otg-HSUSB_3p3 */
-+		pm8921_l3: l3 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3500000>;
-+			bias-pull-down;
-+		};
-+
-+		/* msm_otg-HSUSB_1p8 */
-+		pm8921_l4: l4 {
-+			regulator-always-on;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		/* msm_sdcc.1-sdc_vdd */
-+		pm8921_l5: l5 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+			bias-pull-down;
-+		};
-+
-+		/* earjack_debug */
-+		pm8921_l6: l6 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			bias-pull-down;
-+		};
-+
-+		/* mipi_dsi.1-dsi_vci */
-+		pm8921_l8: l8 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3000000>;
-+			bias-pull-down;
-+		};
-+
-+		/* wcnss_wlan.0-iris_vddpa */
-+		pm8921_l10: l10 {
-+			regulator-min-microvolt = <2900000>;
-+			regulator-max-microvolt = <2900000>;
-+			bias-pull-down;
-+		};
-+
-+		/* mipi_dsi.1-dsi1_avdd */
-+		pm8921_l11: l11 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+			bias-pull-down;
-+		};
-+
-+		/* touch_vdd */
-+		pm8921_l15: l15 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+			bias-pull-down;
-+		};
-+
-+		/* slimport_dvdd */
-+		pm8921_l18: l18 {
-+			regulator-min-microvolt = <1100000>;
-+			regulator-max-microvolt = <1100000>;
-+			bias-pull-down;
-+		};
-+
-+		/* touch_io */
-+		pm8921_l22: l22 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			bias-pull-down;
-+		};
-+
-+		/*
-+		 * mipi_dsi.1-dsi_vddio
-+		 * pil_qdsp6v4.1-pll_vdd
-+		 * pil_qdsp6v4.2-pll_vdd
-+		 * msm_ehci_host.0-HSUSB_1p8
-+		 * msm_ehci_host.1-HSUSB_1p8
-+		 */
-+		pm8921_l23: l23 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			bias-pull-down;
-+		};
-+
-+		/*
-+		 * tabla2x-slim-CDC_VDDA_A_1P2V
-+		 * tabla2x-slim-VDDD_CDC_D
-+		 */
-+		pm8921_l24: l24 {
-+			regulator-min-microvolt = <750000>;
-+			regulator-max-microvolt = <1150000>;
-+			bias-pull-down;
-+		};
-+
-+		pm8921_l25: l25 {
-+			regulator-min-microvolt = <1250000>;
-+			regulator-max-microvolt = <1250000>;
-+			regulator-always-on;
-+			bias-pull-down;
-+		};
-+
-+		pm8921_l26: l26 {
-+			regulator-min-microvolt = <375000>;
-+			regulator-max-microvolt = <1050000>;
-+			regulator-always-on;
-+			bias-pull-down;
-+		};
-+
-+		pm8921_l27: l27 {
-+			regulator-min-microvolt = <1100000>;
-+			regulator-max-microvolt = <1100000>;
-+		};
-+
-+		pm8921_l28: l28 {
-+			regulator-min-microvolt = <1050000>;
-+			regulator-max-microvolt = <1050000>;
-+			bias-pull-down;
-+		};
-+
-+		/* wcnss_wlan.0-iris_vddio */
-+		pm8921_lvs1: lvs1 {
-+			bias-pull-down;
-+		};
-+
-+		/* wcnss_wlan.0-iris_vdddig */
-+		pm8921_lvs2: lvs2 {
-+			bias-pull-down;
-+		};
-+
-+		pm8921_lvs3: lvs3 {
-+			bias-pull-down;
-+		};
-+
-+		pm8921_lvs4: lvs4 {
-+			bias-pull-down;
-+		};
-+
-+		pm8921_lvs5: lvs5 {
-+			bias-pull-down;
-+		};
-+
-+		/* mipi_dsi.1-dsi_iovcc */
-+		pm8921_lvs6: lvs6 {
-+			bias-pull-down;
-+		};
-+
-+		/*
-+		 * pil_riva-pll_vdd
-+		 * lvds.0-lvds_vdda
-+		 * mipi_dsi.1-dsi1_vddio
-+		 * hdmi_msm.0-hdmi_vdda
-+		 */
-+		pm8921_lvs7: lvs7 {
-+			bias-pull-down;
-+		};
-+
-+		pm8921_ncp: ncp {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			qcom,switch-mode-frequency = <1600000>;
-+		};
-+
-+		/* Buck SMPS */
-+		pm8921_s1: s1 {
-+			regulator-always-on;
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+			qcom,switch-mode-frequency = <3200000>;
-+			bias-pull-down;
-+		};
-+
-+		pm8921_s2: s2 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1300000>;
-+			qcom,switch-mode-frequency = <1600000>;
-+			bias-pull-down;
-+		};
-+
-+		/* msm otg HSUSB_VDDCX */
-+		pm8921_s3: s3 {
-+			regulator-min-microvolt = <500000>;
-+			regulator-max-microvolt = <1150000>;
-+			qcom,switch-mode-frequency = <4800000>;
-+			bias-pull-down;
-+		};
-+
-+		/*
-+		 * msm_sdcc.1-sdc-vdd_io
-+		 * tabla2x-slim-CDC_VDDA_RX
-+		 * tabla2x-slim-CDC_VDDA_TX
-+		 * tabla2x-slim-CDC_VDD_CP
-+		 * tabla2x-slim-VDDIO_CDC
-+		 */
-+		pm8921_s4: s4 {
-+			regulator-always-on;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			qcom,switch-mode-frequency = <1600000>;
-+			bias-pull-down;
-+			qcom,force-mode = <QCOM_RPM_FORCE_MODE_AUTO>;
-+		};
-+
-+		/*
-+		 * supply vdd_l26, vdd_l27, vdd_l28
-+		 */
-+		pm8921_s7: s7 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1300000>;
-+			qcom,switch-mode-frequency = <3200000>;
-+		};
-+
-+		pm8921_s8: s8 {
-+			regulator-min-microvolt = <2200000>;
-+			regulator-max-microvolt = <2200000>;
-+			qcom,switch-mode-frequency = <1600000>;
-+		};
-+	};
-+};
-+
-+/* eMMC */
-+&sdcc1 {
-+	vmmc-supply = <&pm8921_l5>;
-+	vqmmc-supply = <&pm8921_s4>;
-+
-+	status = "okay";
-+};
-+
-+&pm8921_gpio {
-+	gpio_keys_default: gpio-keys-default-state {
-+		pins = "gpio30", "gpio35", "gpio37";
-+		function = PMIC_GPIO_FUNC_NORMAL;
-+		input-enable;
-+		bias-pull-up;
-+		power-source = <PM8921_GPIO_S4>;
-+	};
-+};
-+
-+&tlmm_pinmux {
-+	gsbi7_uart_pin_a: gsbi7-uart-pin-active-state {
-+		rx-pins {
-+			pins = "gpio83";
-+			function = "gsbi7";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		tx-pins {
-+			pins = "gpio82";
-+			function = "gsbi7";
-+			drive-strength = <4>;
-+			bias-disable;
-+		};
-+	};
-+
-+	muic_int_default_state: muic-int-default-state {
-+		pins = "gpio55";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		input-enable;
-+		bias-disable;
-+	};
-+};
-+
-+&usb_hs1_phy {
-+	v3p3-supply = <&pm8921_l3>;
-+	v1p8-supply = <&pm8921_l4>;
-+	extcon = <&muic>;
-+};
-+
-+&usb1 {
-+	dr_mode = "otg";
-+	extcon = <&muic>, <&pm8921>;
-+
-+	status = "okay";
-+};
-
--- 
-2.43.0
-
-
+Konrad
