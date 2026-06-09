@@ -1,174 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B44F33B6DF
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 02:57:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9924235F8AB;
+	Tue,  9 Jun 2026 02:59:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780973830; cv=none; b=ak1Zu0tfo6oRlJLN8y0n6Hq043GF1v9XmeRZGRB/Z6jMTQ4Rxr3nUbhJbN84SQBoAEsD2blubRwDpNupnjQixrvKIccOSX2aD79VG4roBYpSc1qiCydRn4onrKzlI2RNpNy2804vlhHjirjHNbBUryqlRFfl7owoRVhDp+ZBmWI=
+	t=1780973980; cv=none; b=EgJ7nrG3cvldGTJBT8t8zrqk+z3IBmS/cgoX+H0dtd5rRCwNqfZKI32G7XezC8QOBl0Rj+rjcl6Gs83JCj95bwNKi2x30GJgK8Sv/SQ6L0frEGQbk+Hs3Fcw3V24UXQI55Zcocc6mRP7HC1jnAtoIU4F2BP8RC0B9OllO3WpmBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780973830; c=relaxed/simple;
-	bh=e7zMf1WwJVC1VXppd5xMgumTwolSMYxVbWNtC1xpQWc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QdqTXUB4N78pssUTFyUt2eDLMvQEnz9+uKscg7KEnfTdbZut5qM7/6SqZnGmPkLd2MiKJoSyPlaTsbCJPu4/KY43QpnfHXZ/RfoC10KjkKOgp0aRZOVobSlRBRSeZnKjMwwR3eKf2Yk67bb9gDgWnm4nSTqCCjHVbE3yPh2xHXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJBGC8Yb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780973980; c=relaxed/simple;
+	bh=CY7GnMNMxFLSCdOX9ba6ArdZuJL64a8mLbfFOJHf26A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SDq+fy37Up6xumQYKO3lnT8A1BtMV9Usx44C8lDGUGr1oMWnTs/qcEDSRNQF0YGT01BRttO3H/RZRYqUdvLZycEqGao7dd1iji/Hn3C5/X/NWXVV3Q1LNl/N2gqzBzijK+0Nns9I//FYMyiTUBFwhg66dA1kvY86v3dvdOTv41I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMHm1KWS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJBGC8Yb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADBFE1F00893;
-	Tue,  9 Jun 2026 02:57:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMHm1KWS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BBE1F00893;
+	Tue,  9 Jun 2026 02:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780973828;
-	bh=2mfBoopnz75GU6+HletF8uD6Wcgrs9mNwFWWxHVZVeY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LJBGC8YbntrsOK8qnMvwBGz1t6HdRuGaPGwqWH5h8IZlpAmyX3cxOGXccydky0j/a
-	 +zQKfOrHNxC/2bK14V3hYjn06hIYFTzg61UQibV3OyeBNgkg13mnUamk9QSI9Lkybh
-	 BIAYrlrjc0F4kYcU2rh/FsgrMDb85pGHbfbnnO30SQSaJZWVkKfUpzUWc3Ej+86HQS
-	 MCIkVMVnU32R/jU7ZoxQ/4CjVKnqEJZagaodwrwamSrXz1LAPrELOWwAoQTVH6Sm2P
-	 S81KhpXVvYDOlpfEB16B4Ov/pu5Ge9Pa1IWh32rW7pGIOVI+20ZFLcOQUoncm4mqEO
-	 ckPjhsSs7IQTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/4] arm64: dts: aspeed: Add initial AST27xx SoC
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609-upstream_ast2700-v9-3-f631752f0cb1@aspeedtech.com>
-References: <20260609-upstream_ast2700-v9-3-f631752f0cb1@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 02:57:08 +0000
-Message-Id: <20260609025708.ADBFE1F00893@smtp.kernel.org>
+	s=k20260515; t=1780973979;
+	bh=H5W6g+S3Ap/ynjfGlE97P7oY3ui6rxwMYGeYaKfbBII=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IMHm1KWS/orVR1gKwnzb+T1foGy6vE0DQgSIsjv+mUz1PPPe8N26o7+mPk8PI/C/3
+	 EuI2gc0DJaNJzhpU7mMKtBN09/3e8IwvfAknPEYqU10tiaoaEBL2kazUVZq2wp6DK8
+	 a6nOWI3Z+n5HafgR8X88oCaHzq/XuD4ETMtYHEacU0N0DGmnJcuCLxDSwMMNQjbzOG
+	 TebEiGrYuaBzMJHODe1OZVEhZMq8DhgGyVlOYAtd74sWgBW4d93hIp9VTr9fe0VcI3
+	 fPaz8RVwo53MpUjz1QwWF6zQdZ08B8R76Lc9TnUKJYC36ZTeKc6/Yezwn5Too1Y93V
+	 MXztN6HXmsNVA==
+Date: Mon, 8 Jun 2026 21:59:35 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, sumit.garg@kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Add support for IPQ9650 CDSP remoteproc
+Message-ID: <aieAnN35K_WarmUD@baldur>
+References: <20260520-ipq9650-remoteproc-v1-0-542feb6efb2a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520-ipq9650-remoteproc-v1-0-542feb6efb2a@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] INTC1 maps its summary interrupts to INTC0's TSP routing range, pr=
-eventing SOC1 interrupts from reaching the Cortex-A35 GIC.
-- [Low] The device tree defines ad-hoc top-level nodes ('secondary', 'terti=
-ary', 'bootmcu') that violate standard naming schemas, and embeds direct Li=
-nux kernel source URLs to justify '#size-cells' behavior.
-- [Low] Duplicate label definitions in the pinctrl device tree include for =
-multiple pinctrl groups in SOC1 will cause a hard DTC build failure.
---
+On Wed, May 20, 2026 at 12:56:16AM +0530, Vignesh Viswanathan wrote:
+> Add changes to enable IPQ9650 CDSP. This series adds new Devicetree
+> bindings for IPQ9650 PAS and also adds required changes in qcom_q6v5_pas
+> driver to support IPQ9650 CDSP remoteproc.
+> 
+> This series depends on [1], [2] and [3] to functionally bring up the CDSP
+> remoteproc on IPQ9650, but does not contain any compilation dependencies.
+> 
+> [1] https://lore.kernel.org/linux-arm-msm/20260518072856.22790-1-sumit.garg@kernel.org/
 
-commit 92031db9a3c255cefbfcc33df4ca0cb9780dd226
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+I'm not able to determine why this is a dependency from cover letter,
+commit messages, or the patches. If you have a dependency on this series
+this isn't your typical PAS-based subsystem, so describing what it is in
+the cover letter would be wonderful.
 
-arm64: dts: aspeed: Add initial AST27xx SoC device tree
+> [2] https://lore.kernel.org/linux-arm-msm/20260519-mp8899-regulator-driver-v1-0-30d14421b7f1@oss.qualcomm.com/T/#t
+> [3] https://lore.kernel.org/linux-arm-msm/20260520-cdsp-power-v1-0-85eb9501a1cd@oss.qualcomm.com/T/#t
 
-Add initial device tree support for the ASPEED AST27xx family, the
-8th-generation Baseboard Management Controller (BMC) SoCs.
+#3 is a fundamental part of the addition of this remoteproc driver and
+the solution would be better reviewed as a whole - so you should send
+the two parts in the same series.
 
-> diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi b/arch/arm64/b=
-oot/dts/aspeed/aspeed-g7-a35.dtsi
-> new file mode 100644
-> index 0000000000000..ef283d95649a3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
-[ ... ]
-> @@ -82,10 +82,10 @@ l2: l2-cache0 {
->  	};
-> =20
->  	secondary {
->  		#address-cells =3D <2>;
->  		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/drivers/of/address.c?h=3Dv6.16#n491 */
->  		#size-cells =3D <0>;
->  		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/drivers/of/address.c?h=3Dv6.16#n430 */
-> =20
+PS. If you run "git log --oneline" you will see that there shouldn't be
+a "drivers:" prefix in your subject.
 
-[Severity: Low]
-Are these OS-specific comments and ad-hoc root nodes ('secondary', 'tertiar=
-y',
-'bootmcu') appropriate here?
+Regards,
+Bjorn
 
-Device trees typically provide an OS-agnostic hardware description using ge=
-neric
-nodes (like 'bus', 'soc', or 'remoteproc'). Embedding Linux kernel source U=
-RLs
-suggests the hardware is being modeled around a specific Linux parser
-implementation rather than providing an independent hardware description.
-
->  		ssp_nvic: interrupt-controller@1,e000e100 {
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi b/arc=
-h/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
-> new file mode 100644
-> index 0000000000000..72d93323593d5
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
-[ ... ]
-> @@ -475,10 +475,10 @@ pinctrl_hvi3c15_default: hvi3c15-default-state {
->  		function =3D "I3C15";
->  		groups =3D "HVI3C15";
->  	};
-> =20
->  	pinctrl_tach0_default: tach0-default-state {
->  		function =3D "TACH0";
->  		groups =3D "TACH0";
->  	};
-> =20
-
-[Severity: Low]
-Is this label duplicated? There is another pinctrl_tach0_default definition
-earlier in this file.
-
-Defining the same pinctrl label multiple times (such as pinctrl_tach0_defau=
-lt
-through pinctrl_tach15_default, and pinctrl_ncts5_default) in the same
-device tree will cause a fatal syntax error in the Device Tree Compiler.
-
->  	pinctrl_tach1_default: tach1-default-state {
->  		function =3D "TACH1";
->  		groups =3D "TACH1";
->  	};
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi b/arch/arm64/=
-boot/dts/aspeed/aspeed-g7-soc1.dtsi
-> new file mode 100644
-> index 0000000000000..bc990f79e693f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-[ ... ]
-> @@ -396,10 +396,10 @@ sgpiom1: sgpiom@14c0d000 {
->  		bus-frequency =3D <12000000>;
->  		status =3D "disabled";
->  	};
-> =20
->  	intc1: interrupt-controller@14c18000 {
->  		compatible =3D "aspeed,ast2700-intc1";
->  		reg =3D <0 0x14c18000 0 0x400>;
->  		interrupt-controller;
->  		interrupt-parent =3D <&intc0>;
->  		#interrupt-cells =3D <1>;
->  		aspeed,interrupt-ranges =3D
->  			<0 6 &intc0 480>,   /* M0  ~ M5  */
->  			<10 6 &intc0 490>,   /* M10 ~ M15  */
->  			<20 6 &intc0 500>,   /* M20 ~ M25  */
-
-[Severity: High]
-Does this incorrectly route SOC1 interrupts to the TSP instead of the
-Cortex-A35 GIC?
-
-Looking at intc0 in aspeed-g7-soc0.dtsi, interrupts 426 through 553 are
-linearly mapped to the Tertiary Service Processor (tsp_nvic):
-
-    <426 128 &tsp_nvic 0 0 >, /* linear to TSP */
-
-Since intc1 maps its cascaded interrupts to intc0 in the 480-520 range,
-won't this break interrupt delivery for all SOC1 peripherals (like uart12,
-SDHCI, FMC, and SPI) on the main CPU by routing them to the TSP instead?
-
->  			<30 6 &intc0 510>,   /* M30 ~ M35  */
->  			<40 6 &intc0 520>,   /* M40 ~ M45  */
->  			<50 1 &bootmcu_hlic 11>; /* only 1 pin to BootMCU */
->  	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-upstream_a=
-st2700-v9-0-f631752f0cb1@aspeedtech.com?part=3D3
+> 
+> ---
+> Vignesh Viswanathan (2):
+>       dt-bindings: remoteproc: Document IPQ9650 Compute DSP
+>       drivers: remoteproc: qcom_q6v5_pas: Add support for IPQ9650 CDSP
+> 
+>  .../bindings/remoteproc/qcom,ipq9650-pas.yaml      | 136 +++++++++++++++++++++
+>  drivers/remoteproc/qcom_q6v5_pas.c                 |  38 +++++-
+>  2 files changed, 172 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 6a50ba100ace43f43c87384367eb2d2605fcc16c
+> change-id: 20260520-ipq9650-remoteproc-9aa8c6d05de3
+> 
+> Best regards,
+> -- 
+> Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+> 
