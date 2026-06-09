@@ -1,111 +1,125 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAB8370AF1;
-	Tue,  9 Jun 2026 16:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64283B19CA
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 16:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781023159; cv=none; b=WLBNd2DLCviYzYVH6oD25msajkgO4kwUqfbUjCs4FFyuz5/ksf4S4q+66cQdztaAXbEyKfwKo5sp/4sY6llI8VMhj3qLp2AfHHmDDHaRex86paHoNryioVD6VkKlAmB0xS8zbrg1EYulNr6Yb7NLSpree70EJn4MdHbe4Zy8suI=
+	t=1781023168; cv=none; b=OTSFNOu3533ICU6xiqWJHCl6ym99khvGNGYeA2G5YFsoWwg2hOZOKS+Miw6wnUUiCpD7mHO0LIncun2sFbbtr5qGB86TwTm1rd52au+RzHEqf+ejneZxhKfr54Ifcx50RHIBbmYWWE1rQO5Z4OTxxpg5EhlsQhp3d/MGMrCLvGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781023159; c=relaxed/simple;
-	bh=ADeYXAeVVl38gW9tcY3UKnPzwglezpytKLRpwmXS5yc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O/y9/iHy21m7I9lB0krmnPpJN6OWnUt9I1SL0dp7eobMCOS2FxCvAWr10lLexugpHgbX64jNSCIMEsQC1KnlGAiQwysxewhFH5kXJ6GlbLiVMUrUU1J82oDeXTL44xG479tqQTacDTsCfpSyXwxYixVni8+DpdfQ9NpprJHMwRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HfW+XNZg; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1781023168; c=relaxed/simple;
+	bh=snDuUV8OH8pBbLO4QJ3FxHi4k+soHp+N7K3PSeQb2P0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LDPxmw2HTkOmQ3zKnitGmwmT0No/GFvG0/3YI/5/fTD2yg+UaNtqfEfQK/BlpacT/1Gms+31RwVgyZFrxamdt0x4DLLw3QVlvlCi6LhcsBDGyMOemwgrukiEezX1Lkl0XR7LVXxgSKVRInVio0VH7z9EF3ahEHD2+oXVmyzKpE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RkxI36Gs; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HfW+XNZg"
-Received: from [10.0.0.200] (unknown [10.88.125.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D747253403BB;
-	Tue, 09 Jun 2026 18:39:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1781023149;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/7Lg1yfmwI+tVXniqjxLqm6pUWwVdBWqaU3M9Z1jHTw=;
-	b=HfW+XNZgfGx0abe89YQsoEcJK3dl7CoQzEa3+ot/YTCPUnOvjJoOzjQjDKZ9LlB+D2l50k
-	C8ACdEoObOOECVMQEh+WKK8fKCUpDl8IfG65TIU6vwwNsISd5DobV36Tcli9dOyKh2riS5
-	0aZL7mkT4EqWFSXQ0+shsV2X4ppkKZQ=
-Message-ID: <d908b754-154c-487d-8b64-36bfbd8f1c0b@ixit.cz>
-Date: Tue, 9 Jun 2026 18:39:08 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RkxI36Gs"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490d1e54b3bso20756885e9.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781023165; x=1781627965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rEZz4XYqJIq2oFsihOIDTN5BDVC6/Vtpv4g/jjgK7qE=;
+        b=RkxI36GsduiXmo/jftvO3IkyJL+UmLGe+WMjHV+SCCKZwDScQIBAKrgCkJcj4EGK9s
+         jta3tWAduXG0vhsoQcuPEsOPnqFJCP/3VXtDjL0KPspAHdMLE4YaZiB3MX7BscCXMhf9
+         q9Ki80z3k2RkasCOTxai3PvPBFnwdnUcNvg67vZ6plpaN6/8r3Q24OOC64CfohMOG/px
+         Z2thc9vfsGEou5FrqXDzeIngmv9qi8RS569+w4eRXzpubO1+U4pu0SHLQH0QfZssgyBQ
+         ToX43lP5NiCe2dgcvgtYPqE3D8C15r3WOsE8xzJoC+RGeqDznHQMLLB8oMuPcLT6z5eW
+         kt1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781023165; x=1781627965;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rEZz4XYqJIq2oFsihOIDTN5BDVC6/Vtpv4g/jjgK7qE=;
+        b=Y/Ew0WBQdH5Dy6J/NLYiTrY1e8Slwdyw2ZPFMW55LvHOoOtWQn0SGPgBnizv3vHA7s
+         3hqkany7GhaLizID7yXr1J1GafYTaR41vKLwdpshun9qHxZtmPUO/6j40F0mp1fdsncW
+         SbJCcQwjcTjRAJgUCwLDPLNpmiq2kALrLEWxM9NltNuPD4MRo4xVduViDb9InvtKDinQ
+         7FbBxAn0tsdi1jKjJ+MhP8W9UfZLHdpJyA8nUentf5fVP6IOx3tLlX1MfsuSBKEzLB7B
+         6CXt62GFI2/VyanK/zsDzbLhigY5fgtkcvAUsAWxQNb6UCHs9JvHHA2JNli/aYPMjrq+
+         TZKA==
+X-Forwarded-Encrypted: i=1; AFNElJ8bjpS8yNgc9cHG1ZeINe2qDM97y0MUByqFrv5QF06UeKsAwX0wKCydjKKjsNnsROl+faNeAk2uhl71@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywd68X/7Eqd8MwyWsDjCwdLk5YNXXCgC2IFFVVFQVlZKPlyLC05
+	euAFGHOHPy7T3yxAQE11+0t8uBzlNtS8cNIuOZlfdNK3RhDFwOQdcBoB
+X-Gm-Gg: Acq92OEE2Grqbs3yDrikGm1HsAnDeQB7lv80RZSgJlbAliugNuUtyl8H72FmZJnM3K+
+	ms5+kVSQhShJK5TybazN5Lbs0hb4rTRDsshVz2OY8wohG12II9gN5bOrbW7BEsyydGn1Xq0/XCN
+	VdcACMo1L3njT7SrQGeqc9hK/jmMiYP427ypb1Ks4iSha7G1J1EXlp6tkusKL0qWaCL6nZDDrda
+	NvQGqmDUyNxrbvuv2FuVUlJZdiT6TiGsEvIVivjvxnhY15otwXzqWgizQogLTmR4bR2WnMG4caU
+	QjT4c6T1BV57n3IlfTKiiqr3GOYylOTS5llHjGrNsazyqGjohdJPLKQm+kw+Scegc//RDsjaaXz
+	sJWGyV9BT24jQGFHu24EuQD3QdiCCKdFQfMpwaEB1UbkG+YX22IBuuVubvTLhYveHUfmHYtbilG
+	XZyOColeYaiOBcrgPntGp2e3k8DHu42xQGuh9LUFGVCEjO
+X-Received: by 2002:a05:600c:8285:b0:490:abef:dae6 with SMTP id 5b1f17b1804b1-490c25b09bcmr362197115e9.19.1781023165112;
+        Tue, 09 Jun 2026 09:39:25 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c2d2d11asm440860805e9.1.2026.06.09.09.39.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 09:39:24 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH v4 0/3] Nuvoton NPCM FIU DTS fixes and binding conversion
+Date: Tue,  9 Jun 2026 19:39:16 +0300
+Message-Id: <20260609163919.3321228-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Fixup
- panel compatible
-To: Yedaya Katsman <yedaya.ka@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260608-b4-compatible-s6e8fc0-fixup-v2-1-d23f373603a3@gmail.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260608-b4-compatible-s6e8fc0-fixup-v2-1-d23f373603a3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 08/06/2026 22:10, Yedaya Katsman wrote:
-> The change to the panel compatible was missed, fix it. This compatible is
-> already in the driver.
-> 
-> Fixes: 493cb869874c ("arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Enable MDSS and add panel")
-> Signed-off-by: Yedaya Katsman <yedaya.ka@gmail.com>
+This series fixes the in-tree NPCM7xx FIU controller nodes so their
+resources match what the DTS actually describes, and converts the legacy
+Nuvoton NPCM FIU binding to YAML DT schema.
 
-Thanks,
+Patch 1 drops the bogus "memory" entry from reg-names on the NPCM7xx FIU
+nodes.
 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+Patch 2 drops redundant clock-names from those single-clock FIU
+controllers.
+
+Patch 3 renames the schema to nuvoton,npcm750-fiu.yaml, explains why the
+direct-mapped flash window is optional, keeps the requested example
+ordering, and simplifies reg/reg-names to the ordered minItems form.
+=0D
+Changes since version 3:
+ - Split the DTS cleanup so the reg-names fix stands alone as patch 1.
+ - Added review tag to Drop bogus FIU memory reg-names commit.
+
+Changes since version 2:=0D
+ - Drop redundant FIU clock-names from the NPCM7xx DTSI together with the=0D
+   bogus reg-names cleanup.=0D
+ - Rename the schema to nuvoton,npcm750-fiu.yaml and keep reg/reg-names=0D
+   immediately after compatible in the example.=0D
+ - Explain why the direct-mapped flash window is optional and model=0D
+   reg/reg-names as ordered minItems arrays.=0D
+ - Drop clock-names from the schema to match the driver and updated DTS.=0D
+=0D
+Changes since version 1:=0D
+ - Drop interrupts property.=0D
+ - Drop unused label.=0D
+ - Keep reg as the second property, followed by reg-names.=0D
+
+Tomer Maimon (3):
+  arm: dts: nuvoton: npcm7xx: Drop bogus FIU memory reg-names
+  arm: dts: nuvoton: npcm7xx: Drop redundant FIU clock-names
+  spi: dt-bindings: nuvoton,npcm750-fiu: Convert to DT schema
+
+--=20
+2.34.1
