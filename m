@@ -1,243 +1,161 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013026.outbound.protection.outlook.com [40.107.159.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BE137AA97
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 03:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7F7348C5D;
+	Tue,  9 Jun 2026 03:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780976023; cv=pass; b=YRyTjeqqASiW5xnMh65H+q/TiKJneqATVJPMBvCvnnj56R4WKTovP4U8k/Jz+q7LbeTx1iGizY0d2IBZIEwFfaVryIFNrNHdWY52Qekz1Wh7zEpkiAMVl5+n5A1xamaddzipKw5npoQj7XE8qt4znLSan/nxY08xi5K9SzwXlcY=
+	t=1780976192; cv=fail; b=lU3c2eyD4KTpkv0fIC9hjI9KB018jNNv/RCVZdiACHaao4YYv7ABPncaGvW3g/EYKKsoTatGzv6nkhHSewAsZDFu1wa1dB9Wl8C/qwvSaf/aAbuM2yESVfw5ISuoc4NU/Z1+9BDJrltLY2gTPu1vc1btrjimOm18L0Znk5q7mSg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780976023; c=relaxed/simple;
-	bh=6/fP80sttTz7ttlvprLcNNbhgm18y4V+UknELgO6vMQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M8chs/lOQnrqY+INZT7nV4VEfhqWI4W5JVTQt6ueL8FVzkEgL322Dg+MOCIh4GgREKp9RD4Qvf/U2aM0H1gPEqk18CdADhPH/vDyeeFLA9NZkoqUVP8XMEY0qA2mlAXITAtQHPdy/FlF/OFeoBhovHewhDc/TL0i/SdtrnHvGrQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=N+VHCwY6; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1780976192; c=relaxed/simple;
+	bh=WBHe2/FD+iKsNqb5w2nnMZ3dOExKHnWQ5LEhO3mSXFU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=kEg0QbiM9zhlp47PkMY7eXWwnm9zDW/IquWM516tPw9miicenlNeSo10fFf+EYYK1t0nk7AW1qh9M8f83Fy6cYb9wKVdUiPC4rhs7R8x27SwWjHQKJsYRzlZgP1cnIl+3uxR12wgFnpRJ/VNfu6JnzHWDagjS4UgXUCvvnzvIP8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pMXw3OjB; arc=fail smtp.client-ip=40.107.159.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="N+VHCwY6"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7dfceeaf168so47438377b3.0
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 20:33:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780976015; cv=none;
-        d=google.com; s=arc-20240605;
-        b=VwINIcCYN2Wi9WhTd/7XDuy7Sq7B558kovD7nWVB0+AMOJW6IhH23WSXYJ8z1Z6V7V
-         uMNC+9/SdvsMweTeVUPDdfx+AJPbhf1tICzHR0F8PKaJvAgf9Ic0+12Qbw7Oz+dAid+v
-         QnUYp0/Mwh7aCRMBCDp+pPJqstpi5vSohYuuDCd66upG1Im82SoWM3rlZCX04yN/JaTi
-         o8bGKiR7yJuLLIh5nklbHoGME31q0anLecwes2w3vzw91t3QeTX29dN5NWDq3DkYCWAk
-         bFtKAH81ylWZ3usi0vOejtjJNw6AODeaQkKmVJWvg24UqzwkAbmFY0R0Wp6QIV3rwUZG
-         Mqjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hixbBeN+LnFZDqMAJQTmddcBbOURIwdsQKHtq7EqZas=;
-        fh=u/FozNI6gv0/PAFboHzx6j8t5i97Jgl2R1ET1KGGmig=;
-        b=F7kS23rVM5wmQNUZyKZQxFpagn+VF1NCJglkbxL2Up3bRlSE0x7bZ0dXty1duIfeWe
-         Zq2RUDVNgUgfBGXnCEctKJ+NuxdSfwEOj3algMcljuPD+I0g8PVxARMCLxjtbLwkFaMW
-         gRkPVUvtgQDbf5dcOmDf80WzWfVJJO/AyidL8iKxvIAns5lIcnBxS6OmeAvruV3a+nyr
-         alTnvTtkFdb9a0ZSer/Xj/4JZWlRnziAv9bcFiYmDhfIez/Jl2sbZLfAAerVo8vXnCNG
-         +aNJ/xS3g7HGWN739x4tovV2HlKVhI/zhVnC0Ex/f24+i7QtiZ8cJYSUOzGmyciULJs/
-         U+Zw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1780976015; x=1781580815; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hixbBeN+LnFZDqMAJQTmddcBbOURIwdsQKHtq7EqZas=;
-        b=N+VHCwY6g/CVhwVl+6N/Oh/mthb3cZeiHG0+4ygb77J61glyMdsHBjVnG1PNaHcToK
-         fYZXoWvGuFsFZ4uyBI4FLfpfmSJyNX6qMKkdcEqwGZEvqfH63uXz3wvGz0lz43I3Jnc8
-         7ry22fbCQcGV8Oh+j28r/ZpkX551CQTrXmutc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780976015; x=1781580815;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hixbBeN+LnFZDqMAJQTmddcBbOURIwdsQKHtq7EqZas=;
-        b=rerprTkWsA69huzioj8ysCsOkjN3S7yWkxT4kitpEc23tSqJU4w5cpaZji6W8foqk+
-         I4aBvK/mKzQLq1XF/Ktyfdw2shaVwQJ8AOrNb6jQjbeHffCsIr68amwOAnJ2vJdMZHN0
-         3DKsIspYHa9TbzAY6m1BtQH/2QZq54+7DdvFa9xM8W0ShTbDradgHRXSFgpuBH745Ovt
-         9LutEhRDzAGib+0FcAeZfFmTdCSf5LFTgeGV27lPtfR9vG1TA2vdzmwhr0jvCZD33rGl
-         tpvlrl+nNNcY7IzGC83C03cVkClSdT7Jow9l+je+Ew1aoMA/ghP5xIQFfUyoiyCdMnn8
-         unLQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8UObwoJkyksZzzZh+XUCXnlAwep+aDsY0EE/n44kcWK24Bk6H3fUVt33VblDGvY+A92K3SvrUBM1qa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyj6rEm7G8Kv6FR/SYyXFET2+05O4yeNkGmaf4n9i9qTBQJ9xW2
-	MC3VuI8s994kNI14rFLyoBFMnNZ/S/84/kYneREd0psI7klb4DHQoA53KvGMCb9ZO1RU1Q0jJnX
-	6t6/Sv9LRk+OHBUK7WclydxLjXp1YPBNFXALlAPZn
-X-Gm-Gg: Acq92OFb90tQmSZ4xuXYs5/bI1uxH/9I3mmHt+fbr7/co0nb5dBWUjQfeb2Q/e6Lnin
-	zs7Vg+eVtAPLlwzj9y4AUZoP61H8x9qgUM9e/zAd+oh4nPyD05VKOlTAGMbQNBba/3ChRwdpTro
-	MG5LWDFXijEIykxHpG2/ZDjKLhifxNI3tqhYHZHNwErbIObWufY6y+dt2xr95o0vxWSjYTdrMcd
-	LWHvS7pkl4veNRzMJLBCoheq2aXQ4PM+U5H2PZt3eD6PgVu7LyQDG2c5vdC6/STgw/ltDlHnx4w
-	wQbNUtv/mW09JreWD4o=
-X-Received: by 2002:a05:690c:4991:b0:7dc:61c7:5919 with SMTP id
- 00721157ae682-7ed11384e09mr179186077b3.37.1780976015575; Mon, 08 Jun 2026
- 20:33:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pMXw3OjB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vjAqf3AU4AMyd3S4tPMCrTemWWsmR+Gfap1geP7M3C+T/XJUGYikNomxlXTapwENhKXleyHhJcvPkAuHJbODjDb08Kr14TXvExpFwwQwYJ5aczlgtUkjFhYC24GW0mgI8US8jJxIPcswjy0YoUw5JfamxVQpfqTSVQ9O1rqUqeCp4kkzBTOznpo4trJS11DwqFfJJ9avWXPFBwHJqNmmaS13q39Zin+FV1cb1h+6haS7yYIVLOhIuIJ8BQYCvBLRXUi4NAA9hEsKanjDIDc7EJPTIHZZn/ZPab9A4xxlYsFeyu4MteM4IyNMFfA+EF/cvVtfqroZ66YivYHe1WCyBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sIFqq7XmjYhG70Z4AGLyKCakI/qet9fqxCInuG1D3ko=;
+ b=xx+BNEk2XXGMsKdRoaQ9cHJuUzl74idJlb2UNpk3+QI7KkNIDqk7uJMmSYs5YAr9bXmTQMuMcGtequDPTFEcKSZiJIvS0t4Lj9tWqjdANEVSUvDXTt+naPRJ4Xzol+n6aT/R2nm+XTGzWOy73U9jshic6ymv8lP7DZqJhLVCZfYmT4YIBOrKro2eLIlfoq4YkdulbmZSQ2TyTH+TSwm5qyNMuQOzBzkF90ERi4f1AzwhFL1BEGKcCgjfaO4ZH4vySBJTfADv791b5qwZuov3I4/Vfvw/MGwSzTfj/Ap917DTj4LXW6YrfaQ/oryGeQtGLKOgMCoUyI2aIumOLQ3fVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sIFqq7XmjYhG70Z4AGLyKCakI/qet9fqxCInuG1D3ko=;
+ b=pMXw3OjBt9U8NzuU2iOBIYvFtRZicM8ISq0rpEkJdEL8ytexQEMv1NpdtN924jxaaHOo7VWUDUKrjKF1a2jz3mI5cdfUz1gf8xGw5ix2nm+wK10QplR6rYQp3HwHCvL5oIsTKq39otcaOUn1dpEAd9+3p73HjRRhJA4mkuY/8zZoHLgVLtOXTyIQQycE72JmcUncQQqGB7zchw+DDtS+/5Rs0/IPT1xgBh3sHnp/ajGyZ9QhlYul0htygf6rCImqFH+L4wibJOb+tdwJcxhOE02fqOxWFGLDQ6A7N/x4knC/7RFQ9L29WJ65Ux+S1Tfz8np9ruBslO6d5J93QHRI7Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
+ by VI0PR04MB10543.eurprd04.prod.outlook.com (2603:10a6:800:25a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
+ 03:36:23 +0000
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be%5]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 03:36:23 +0000
+From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+To: mani@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	brgl@kernel.org,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	Frank.Li@nxp.com,
+	hongxing.zhu@nxp.com
+Cc: imx@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	sherry.sun@nxp.com
+Subject: [PATCH 0/2] power: sequencing: pcie-m2: Add 3.3Vaux supply support
+Date: Tue,  9 Jun 2026 11:38:37 +0800
+Message-ID: <20260609033840.2006078-1-sherry.sun@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0057.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b8::11) To VI2PR04MB11276.eurprd04.prod.outlook.com
+ (2603:10a6:800:296::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260508063633.3894348-1-wenst@chromium.org> <locoul5wdzuvvmm7mqpuntjqu4o75gmyd5npgfqrw3zuwsrse6@dhrjggs4cihh>
- <CAGXv+5GAaMQbaoUVr5zcwtHaofyXwHz03TxBe-QyWj_sNoQZsg@mail.gmail.com>
- <qnikqcqoiw7z2yh5wruqcli3rk56yomyymghzivlcmekp2blwc@dfhsfl3sqcla>
- <CAGXv+5GBraoTrQatQdrM5b+dOteL_Y5K7_UQBUt-2L1x=c94KA@mail.gmail.com>
- <2tq4zy3zhcrz25rl2qhdsxvoedcry4z3v2lmmropesxqgzhtlp@fn6htdl74ogu>
- <CAGXv+5GRBv8+pLbb-AyFW0cAx=c45JhWd-odzJGDdWABKQLaqg@mail.gmail.com>
- <rphuqwucr2r6gsgrkzkpzy7fn4qa7q4afzbwtzae53dtudmush@kxtzdoq426uz>
- <20260601214836.GA37779-robh@kernel.org> <CAGXv+5GK6+X3-eY8PbrLTsSwK2Uk2URiQti_Gd_9C=RwRaJ44Q@mail.gmail.com>
-In-Reply-To: <CAGXv+5GK6+X3-eY8PbrLTsSwK2Uk2URiQti_Gd_9C=RwRaJ44Q@mail.gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 9 Jun 2026 12:33:24 +0900
-X-Gm-Features: AVVi8CcLvfu3nmY0FgYyZD975IyBRElgoOX6HGLOEh9gnunhRFWsfhBJHTEFs2Q
-Message-ID: <CAGXv+5F94K7JJz9pMg5=7-YoXjT_ux8SvBKP17BA36mXYTYo6w@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: PCI: mediatek-gen3: Allow memory-region for
- restricted DMA buffer
-To: Rob Herring <robh@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Ryder Lee <ryder.lee@mediatek.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|VI0PR04MB10543:EE_
+X-MS-Office365-Filtering-Correlation-Id: 998b5561-94b6-4077-3e6a-08dec5d8471d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|19092799006|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	3sfQtQCDlDkDqRPnw1YJPyhxd3z3a9zi/0gvVJJbDL8+Cm+sbaSl3zTyhNpYJzE275rExV3nrjHFxy9fDhaXaZatIMW6c3AwpxqlUIV8cgyu3g6Ew0Oz6xKmSaTr5d5FInojpPEvWXpCVsWWpkUZ0zaAJBE0WPMOA0+QRU/NE3Os1Qxy3OrhToogaIC2xSScC5QMhoPMJvvhi9rf+pkKEMEO8lDaVjRNHjcX9tmrjhjMx9Pf7xzprtSt+ifY6XDdF+1eXiRzdc69j9zsXeA0nk1J7yFTt8YAoZ9GPu7uhjLFcreq7VkV3BxRjBPW+cARJ9X54e6FoIn3kmxHWe4VXy+OLYO6gNJOsfd9Hdj52O0DBPnsd6SOosBrG5JKiT5+C+2wEO0AJRYxD7gvG+vIwQaRtgrnm3hV8nmr8jx1gZFThWxVzkhlXOaKUAC2Y7K+DC2cXL84S3d5faWXe07LJN0NLDrRwKsMMfHzxXJtCzAqTOYnuCUdyLewsmdYrIKUlyOqX+oLi4N4PLaA8a/2IBrsoQfFHLDkiMnXLVEaI4roOPi8yBTL3MiIRKVzpxl/JI9lbifc9q02q6Jnzm+DzwZ7h6aCHuXIpYWuvHieYeaFsBOYb5t8yYJsdLRZMEO/oWktRbL+Vb/Mhx46zqCwwQG4zdcX5+DO26nmNRVf+Fm2hrv2IuicBH5cn4NTPgL0
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(19092799006)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?d225JsLGQvewn34WZocnVd23bYyB2YBQn3WwriZJttHWwylOBzLbTCFJwYV8?=
+ =?us-ascii?Q?+30wPt5tDFmhoxFtMsFI6PrEozpNnwOwjXWZipVtVywLfgz4YHWOPnlfN9pP?=
+ =?us-ascii?Q?oE61rsyn4bKc2ZCR4W6fammL3p/BQMD97K9TFB9DjfG/KVpQ0/P9993ZijX+?=
+ =?us-ascii?Q?OLXA8+nTviODHRG8HQY+IMsBNI65VRtbkwDxes2/4cq77fLQd4AVQPzi5KSl?=
+ =?us-ascii?Q?caOw29zSrWgusQRiSoYrFSz9XzGfSze3oqd8BIXszO5qw4wvZeXRk9XvEdNk?=
+ =?us-ascii?Q?fm46sCiYoEwD9eYi1hgaALcrhnPNvb1tsR73R/PG4txnc2Oj7XzmyRpHKBll?=
+ =?us-ascii?Q?Uehf6kaNEbZyeO2MXTdVHAncNlLfuj+P4xeEIZyfQ2o3vBZqRBwUdpuwfo0t?=
+ =?us-ascii?Q?QlCzmFySzz9y1panDIf/8EfhlxPDOMQ/3ts+QzToIah92hvvEI+/hZoeHbNV?=
+ =?us-ascii?Q?qN/D8I5HYw/t5F5sX2VeTAPVb7n03CzqVgpVMX8+HDbdSwD0CxEWea8NJI7v?=
+ =?us-ascii?Q?DE8WGzIjJlPYYP4FU+z+I7wuGpLfdzPiyW5mUwt+i1fGQNFAdrrpfs3oeeHX?=
+ =?us-ascii?Q?z9IAA4VeFqlH6Y30EobgRJvidwFykqkYTrqGvp0ru9+SBsh7Ce99qy0rWtTr?=
+ =?us-ascii?Q?/f2t9gimH5NQ/ngnrflIF3ZrAsRQUCZDFwz8pXkzrWmeeAx6FB0HEZcXdahr?=
+ =?us-ascii?Q?bEbSbB9sAxYXrJB09Z4K2KgLDxa/vMLGAbB5MFUXw864qJ3fEFYsfL71alDU?=
+ =?us-ascii?Q?0rSTq8W7rI6NT6hJKHDPsQlLlZHMKjGHy7T9v2UGCV31zJDN2IWNe+vMDzdD?=
+ =?us-ascii?Q?12xqFQKMivs5TT6SJkB2csVWHLi8KLv7XPmxaCFye1HIzji93q8P79lDdiia?=
+ =?us-ascii?Q?asqLRYbjoQ1TMR5pemKMDNbDtJJ+ZBQx7hQdp2i+8ukveDPEBevviUxNX2+4?=
+ =?us-ascii?Q?RlIA543+bGzwDXTqrygfOGTi1sinEraNvQe8wwUdjeWPsxP3vA7TsRgPa1V5?=
+ =?us-ascii?Q?Gmbwi5AFdY53cnmYR5gkeO8K9exHDCLJ1ziPeHRBS9TnZKPCWbdx6WzmiX2v?=
+ =?us-ascii?Q?hzZsTOQbs+cJ/CslFLeGQe5SNlwd1xoBIPnUwktIUxJcMxel5bwx+PD9ICHp?=
+ =?us-ascii?Q?OzFw7BfwyqNsmGB9MXXuuUcFo0yqUVkLgmtVDT4aTZ1j6S3qH0u84J14CW7f?=
+ =?us-ascii?Q?YJnjGR5n8sktY3GLRUQ8r/T3HYUjZK0WMnK5gTB2Xq0hXjfhuPRrXl5B83D9?=
+ =?us-ascii?Q?uSwu/RXUbKKYYzxByVk1Nzpa7UnqmNpbTvlrESxcXQqRTsxcyyHfnBcUI6az?=
+ =?us-ascii?Q?DnWEcqMVf1o9BTyc84x2m17d/dv3DnJFcOUBaLQHcceT6osWyz543QVj1rsD?=
+ =?us-ascii?Q?scHUcvL/22EACszLF8FRf+oG107q2dCJzD76waWXLAc/gQ94MANFPkVgJNWi?=
+ =?us-ascii?Q?DejfBXeRQ3O4iz2eyKgJ/MjERINcu07N7pUfWuWhXXDJB37oAGqZzVpJ23XS?=
+ =?us-ascii?Q?kvoOJBGGIakbJW17f7Tsk9a1aB7Ozj2BRaCwXRwdDWXDlA31YjdYOzSwbeqE?=
+ =?us-ascii?Q?1bc4F+s8MVGRzuxfpKKN1dXhJ6huzMEbKH/+0R0k7O9iC/Y7i/aZwXzrXeFq?=
+ =?us-ascii?Q?OOMRbT+ERsRXyPT3qMvEVZv7a8GG7yp08vLaH0YSmB88HrWP9gYoewGiYGfS?=
+ =?us-ascii?Q?B8aQcIpjg6s7zu4yI7cHPsPf+GeTMeGAyJkvjUKVPbH11wPNZLdUvthaZuVL?=
+ =?us-ascii?Q?oudh3Is9so0mNi9FzxQ7OPljqwnBOeVNRMzHTgnVekOXHL8BqsL0?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 998b5561-94b6-4077-3e6a-08dec5d8471d
+X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 03:36:23.3813
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X8PMijtk4hryBHFGli1qAx9NpSoLUufPxjY3UdfILfGL5l/gZqEMHPT+A2oiW+w0hmgEQgPm7Waw0nRVPFigweHTygOxuVIfRpw34PS24brEUemJhq/0rhCQOEZo34ja
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10543
 
-On Tue, Jun 2, 2026 at 4:02=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> wr=
-ote:
->
-> On Tue, Jun 2, 2026 at 5:48=E2=80=AFAM Rob Herring <robh@kernel.org> wrot=
-e:
-> >
-> > On Tue, May 19, 2026 at 12:51:49PM +0530, Manivannan Sadhasivam wrote:
-> > > On Mon, May 18, 2026 at 05:02:11PM +0800, Chen-Yu Tsai wrote:
-> > > > On Fri, May 15, 2026 at 8:34=E2=80=AFPM Manivannan Sadhasivam <mani=
-@kernel.org> wrote:
-> > > > >
-> > > > > On Fri, May 15, 2026 at 05:16:19PM +0800, Chen-Yu Tsai wrote:
-> > > > > > On Thu, May 14, 2026 at 7:48=E2=80=AFPM Manivannan Sadhasivam <=
-mani@kernel.org> wrote:
-> > > > > > >
-> > > > > > > On Thu, May 14, 2026 at 03:54:29PM +0800, Chen-Yu Tsai wrote:
-> > > > > > > > On Thu, May 14, 2026 at 1:23=E2=80=AFPM Manivannan Sadhasiv=
-am <mani@kernel.org> wrote:
-> > > > > > > > >
-> > > > > > > > > On Fri, May 08, 2026 at 02:36:32PM +0800, Chen-Yu Tsai wr=
-ote:
-> > > > > > > > > > On some SoCs without an IOMMU behind the PCIe controlle=
-r, the PCIe
-> > > > > > > > > > controller memory access could be limited to a small re=
-gion by the
-> > > > > > > > > > firmware configuring a memory protection unit. This mem=
-ory region
-> > > > > > > > > > must be assigned to the PCIe controller so that the OS =
-knows to
-> > > > > > > > > > use that region. Otherwise PCIe devices would not work =
-properly.
-> > > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > So this means, the PCIe devices can only access a specifi=
-c carveout memory
-> > > > > > > > > configured by MPU for DMA? If so, you should use 'dma-ran=
-ges' as suggested by
-> > > > > > > > > Rob.
-> > > > > > > > >
-> > > > > > > > > 'memory-region' also serves the purpose, but for PCI, we =
-have the dedicated
-> > > > > > > > > 'dma-ranges' property.
-> > > > > > > >
-> > > > > > > > I think I need some sort of guide on writing the 'dma-range=
-s' property,
-> > > > > > > > because it is not working for me.
-> > > > > > > >
-> > > > > > > > I'm adding
-> > > > > > > >
-> > > > > > > >     dma-ranges =3D <0x42000000 0 0x00000000 0 0xc0000000 0 =
-0x4000000>;
-> > > > > > > >
-> > > > > > >
-> > > > > > > So the device DMA address start from 0x0? Isn't it a 1:1 mapp=
-ing?
-> > > > > >
-> > > > > > I actually don't know. But
-> > > > > >
-> > > > > > >         dma-ranges =3D <0x42000000 0 0xc0000000 0 0xc0000000 =
-0 0x4000000>;
-> > > > > >
-> > > > > > this didn't work either.
-> > > > >
-> > > > >
-> > > > > Hmm. Can you print the DMA address programmed to the device? i.e.=
-, the address
-> > > > > returned by dma_map_single() in the driver.
-> > > >
-> > > > On a working system still using the restricted-dma-pool memory regi=
-on,
-> > > > it gives something like 0x00000000c0009000, so indeed it is 1:1 map=
-ping?
-> > >
-> > > It has to be 1:1 mapping.
-> > >
-> > > > These are for the RX/TX descriptors [1][2].
-> > > >
-> > > > When using dma-ranges, the failure is from dma_alloc_coherent() [3]=
-[4],
-> > > > which is the descriptor ring. On a working system, this is somethin=
-g
-> > > > like 0x00000000c0c9d000, so again 1:1.
-> > > >
-> > > > [1] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wire=
-less/realtek/rtw88/pci.c#L221
-> > > > [2] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wire=
-less/realtek/rtw88/pci.c#L829
-> > > > [3] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wire=
-less/realtek/rtw88/pci.c#L192
-> > > > [4] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wire=
-less/realtek/rtw88/pci.c#L265
-> > > >
-> > > > > Also, using prefetchable flag is not correct for DMA memory. You =
-should use:
-> > > > >
-> > > > >         dma-ranges =3D <0x02000000 0 0xc0000000 0 0xc0000000 0 0x=
-4000000>;
-> > > >
-> > > > This didn't work either. What exactly is supposed to handle dma-ran=
-ges?
-> > > > I see some code parsing it in the PCI core, but it just saves it to=
- a list.
-> > > >
-> > >
-> > > I think the failure is due to marking the memory as 'reserved' in DT.=
- With
-> > > 'dma-ranges', the allocator will only ensure that the allocated memor=
-y stays
-> > > within this limit. But the allocator itself will not use this propert=
-y to
-> > > allocate from the reserved region.
-> >
-> > So the region should not be reserved. Reserved generally means the OS
-> > shouldn't use the region (though maybe a specific driver/device can). I=
-t
-> > should just be a CMA area I think.
->
-> No. The whole reason for this is that we want an isolated piece of memory
-> for PCIe so that PCIe transfers cannot corrupt memory used by other parts
-> of the system. Normally the IOMMU provides the isolation. On this platfor=
-m
-> there is no IOMMU for the PCIe controller.
->
-> System memory isolation as setup by the firmware already restricts the
-> PCIe controller to only be able to use this region. And we absolutely do
-> not want any other part of the system, be it kernel, DMA buffers, or
-> userspace, to use it.
->
-> And also, if it is not reserved, the kernel is free to put "other" reserv=
-ed
-> regions, such as the default CMA region or the software IO TLB region in
-> this piece of memory.
->
-> So I believe using memory-region is the way to go. The memory needs to be
-> reserved, and assigned to just the PCIe controller.
+From: Sherry Sun <sherry.sun@nxp.com>
 
-Ping? We need this merged for the coming cycle.
+3.3Vaux supply has different power lifecycle requirements compared to other
+supplies like vpcie3v3. It must remain enabled during system suspend to
+support PCIe L2 link state and wake-up mechanisms. This is a requirement
+for devices that need to maintain PCIe link presence and support remote
+wakeup while the system is suspended.
+
+This patchset adds support for the 3.3Vaux supply by:
+
+  1. Extending the PCIe M.2 E-key connector DT binding to include the
+     optional vpcie3v3aux-supply property.
+
+  2. Updating the PCIe M.2 power sequencing driver to handle vpcie3v3aux
+     separately from other supplies, keeping it enabled across system
+     suspend/resume cycles when present.
+
+This has been tested on i.MX95 & i.MX943 EVK board with a NXP Wi-Fi/BT M.2
+AW693 module that requires 3.3Vaux to remain active during suspend for
+wake-up support.
+
+Sherry Sun (2):
+  dt-bindings: connector: pcie-m2-e: Add 3.3Vaux supply support
+  power: sequencing: pcie-m2: Add 3.3Vaux supply support
+
+ .../connector/pcie-m2-e-connector.yaml        |  3 ++
+ drivers/power/sequencing/pwrseq-pcie-m2.c     | 42 ++++++++++++++++++-
+ 2 files changed, 44 insertions(+), 1 deletion(-)
+
+-- 
+2.50.1
+
