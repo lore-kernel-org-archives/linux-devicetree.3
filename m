@@ -1,127 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CE2429822;
-	Tue,  9 Jun 2026 13:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4FC438FE8
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781013364; cv=none; b=aPCwT2sBPQfs90+i92RNzR6XEvhkqjOQFIs7dlD9KX9K0vl7PVpnAgnRg+hINDCFQq3vCWewoPl0DmYvckLLEosVgiNRahUztXWz4X/lp2J/0R366CQTDaIbVKrGWPlDwzXJFnLk4L7aB37JVFRLbjw25d4JaZtQNnG7eo3RRF8=
+	t=1781013375; cv=none; b=e5Wr4PNWTtPxh+fgtzf/InUYqdxUqBXlV4mjS++H7HglaK7qLuspRZ13m6Wv5nGtVSwbLIFlIbhTCyeCncNAi3XQJ9S5tmgiOzHbzp4LENeoRlpjWVuVVOlI2RIrlNzYu/dUwICQvyOMPIn1a0mKWfBZnqfx6ohafZ2MP5/cx2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781013364; c=relaxed/simple;
-	bh=LdhH3eh4ry30WN4nXFG3wtkQTL+lh0BZ84LJ7nvZais=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p1DfygIhPMvTCPkDMGwRIv0Z29tG+G5Up3/z1cXNxAj4L7S5ogqgS80af0xDCLVaVYCjBQ40swb2K3VD2WwpC44eejnTYrsCGBmTqU2bPGrUr/O/yYbnt7nbziqavBxX+9012mPiVQit1sD/oWG/AGsfqSk+D9yRoFwvXHTYh1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTAmPxTo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781013375; c=relaxed/simple;
+	bh=kOVb5UZJ7PirPcKIiVVj7Yi1gTqduCAlASlb/nfrhMk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TGfnCLossjHVrMJKvQATzXuD/r8EyowwCAaaHqFMCwtTB2tf94jHgM+kmdduOdBgca3vdMEGfX3XpXNIp35iT3j+QbZUE+3c73LSqqYk/ivnvOnZ5xpISIVZHpGPf8aUQySXUxpYfb94/9ErS/2fUQQ+7C7vaVdFznn1ENDged4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jNk8nZPY; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTAmPxTo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF6C1F00893;
-	Tue,  9 Jun 2026 13:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781013362;
-	bh=msW6kBHgK4dN/HktYSQeqMwkNiDWLxyDuHOad2yn7do=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lTAmPxToKSXFH3heLxC9/qwuE6TzAVdcGOmd8hatZ3W0o6cPSlHdeJuDhJsakl/ut
-	 KlSfP1hLzzZ5Kym0ODt2cg8eFfZxZJ7V0cMBbeBQX7v1RaymY27SYycYelljr4sw3c
-	 1YRirAKe2xHCLKqh5VnfhjLmh2NDJI8aXT2CakoM9+yX1x5wbkRBW+wBknzSDW440y
-	 JHTht7MmKdDQhKMOjLTbsHYNBdjKI1b2UmmC6U+AC/CBDZR/7QzslZcl7fOItK91dR
-	 go3Fn43uNZqwL1BBfvoFh/PRwWF46FHdnzYz+zH54T34L1SxRiV1y+hWtuCk5De9aX
-	 YHzVCZ0ygnHow==
-Message-ID: <245e1e8c-45e4-426d-9c0c-4c2c0952223b@kernel.org>
-Date: Tue, 9 Jun 2026 15:55:54 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jNk8nZPY"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4908b92904fso63912285e9.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:56:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781013373; x=1781618173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/jGyG5daN6w9H2aO200031+C6M/edAKFVis8h8TY864=;
+        b=jNk8nZPYX6gCI/oi6DAtN4Ikci3kGzkIwPCapgA5VrBHCnP0nPxpkLyHGTLliXYuDC
+         JNuIw3yNbh1BtF1Pa2ei+Eaf+hDRxGVQgoMih50JR34b72AlOKOHdc4zuzHgQxUjcg2H
+         Shj2P47jrjAXvPuUMIyZf4lLX2jHbaYSby9RbJALSx2phg2ofvju66ShfJWPBcVYWwMO
+         vhVjSVkkmAqu58/ZrRgJP9zFE4TT2TEUgFD9QmSDQor3gh8a++mxwev689yMsFcus/Te
+         aP9TBjLGZ9BnPjmodDmTY9SIzzf+EVmETIjZcpDA9ZP+SQ+ch2l47Hl205Gm8ziQXGjV
+         nnhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781013373; x=1781618173;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/jGyG5daN6w9H2aO200031+C6M/edAKFVis8h8TY864=;
+        b=F/G1usSlE7sab38VzAlU+WQ3yo+CGdxcRMFOP4XqqC0r2UOe1RH7MgyMDpt18LJBDU
+         aHq9W0h88drJKaRbybNsUH7KfhC08L7P4K7ExZlW8FWnSQF+bS5DT7Llebv9AMcwSfa8
+         ut/JPb5Jaqmy4Fbq+J875FXL7VzCKv8FSuCUEBJPHByUO6OdQPE7vrJ6gRKzV/5Echtc
+         mFTRVFArCl2m1ZTmUqv1gI2xjm/KZsci7wRqVRHzGV6UGa62yDGb58SPnUYOM6WMwykk
+         T5a4+S4Qoha93JeYA+xYu1x2MBTUy1NnO8E+PToz1V2fmpHPpIafpaO0n4NF4jHmNVzW
+         RRiQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/WfLUWDX1FnE7t83z+d78elgrHUpkDZp1W17uk0Yv+5ijSMMPORRJZN4r3t+WYahk8TNPL7NEAMlMN@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEn5RXf9a4H3677f2QczpzyzwVQEeDXl+RAgejO7SkZzFbir4P
+	Fk2F109APV4tNN8+hgzH3awSbJgZnOVSuycpV77AVSQG1FW30ujiMkyk
+X-Gm-Gg: Acq92OHzAuniQKtqB6J1EJuEYTsudPTuJpZUgkeTnv8WdWjNTojkhdHi8Ebp5no4kbp
+	OzVkXxNJ9jESYHg6UwIs4IohSDnCF+swLv++dL5vM/c1fMEOubVAhY+NKJF26+8+kOs1nwLf8/7
+	3AeUGWYr9Wye3McVkljollGLBp35I1vQJhYel3tLIpjOaY2JkHmJ+7BbW9B1++/WBmccoLvT7ps
+	/jtYmczypMrX3DX6rHi9dgwNvIR4YK428xIcXVzKoVm/KmUp1NTA0H7W0uM/D4w/XmZS6YNCRhy
+	GOyn0fwyRzkBcV1PXhQhvDoJu9bjYu6FYC6oU8244oZL4C89VYZKX8aJkiDLUpo5UTDhZvF0vQW
+	hIurAvOhOLyGCXmrdbBO6yOmQS/Lju8aF+0DhqFBgQED0RE6EsqybW9e/4Tm2r7Bq25jUiZXRhO
+	C1PPBsz9ctPYpkPaKegNdaMtZ/jqG59p4i0uiPV0fhJA92mze3ow==
+X-Received: by 2002:a05:600c:6389:b0:490:33b3:4be0 with SMTP id 5b1f17b1804b1-490c26233abmr347947135e9.20.1781013372639;
+        Tue, 09 Jun 2026 06:56:12 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3fcf5bsm575882985e9.9.2026.06.09.06.56.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 06:56:12 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: conor@kernel.org
+Cc: conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dmitry.torokhov@gmail.com,
+	jerrysteve1101@gmail.com,
+	krzk+dt@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH 3/8] dt-bindings: input: microchip,cap11xx: Cleanup and refine LED constraints
+Date: Tue,  9 Jun 2026 21:56:03 +0800
+Message-ID: <20260609135603.848573-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260608-mooned-ambiguous-02493b8d383e@spud>
+References: <20260608-mooned-ambiguous-02493b8d383e@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/7] arm64: dts: qcom: mahua: Switch pcie5_phy ref
- clock to RPMH_CXO_CLK
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Qiang Yu <qiang.yu@oss.qualcomm.com>, Bjorn Andersson
- <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Taniya Das
- <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- krishna.chundru@oss.qualcomm.com
-References: <20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com>
- <20260527-tcsr_qref_0527-v4-7-ded83866c9d9@oss.qualcomm.com>
- <db074223-ac01-4ffe-ae82-187ef0cb2cbb@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <db074223-ac01-4ffe-ae82-187ef0cb2cbb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09/06/2026 15:06, Konrad Dybcio wrote:
-> On 5/28/26 4:29 AM, Qiang Yu wrote:
->> PCIe5 PHY on Mahua gets refclk from CXO0 pad directly, so no QREF
->> clkref_en voting is required. Override the clock list to use RPMH_CXO_CLK
->> directly instead.
+> On Sat, Jun 06, 2026 at 11:03:56PM +0800, Jun Yan wrote:
+> > Add detailed datasheet links for all supported CAP11xx devices.
+> >=20
+> > Unify LED node pattern to support all chip variants in preparation
+> > for CAP1114 support.
+> >=20
+> > Remove redundant LED properties inherited from common.yaml
+> >=20
+> > Apply per-chip LED channel limits:
+> > - CAP1126: max 2 channels (0-1)
+> > - CAP1188: max 8 channels (0-7)
+> > - CAP1106, CAP12xx: no LED support
+> >=20
+> > Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> > ---
+> >  .../bindings/input/microchip,cap11xx.yaml     | 51 ++++++++++++++-----
+> >  1 file changed, 37 insertions(+), 14 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.ya=
+> ml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > index 7ade03f1b32b..99d00f572a2d 100644
+> > --- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > +++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> > @@ -10,6 +10,15 @@ description: |
+> >    The Microchip CAP1xxx Family of RightTouchTM multiple-channel capaciti=
+> ve
+> >    touch controllers and LED drivers. The device communication via I2C on=
+> ly.
+> > =20
+> > +  For more product information please see the links below:
+> > +    CAP1106: https://ww1.microchip.com/downloads/en/DeviceDoc/00001624B.=
+> pdf
+> > +    CAP1126: https://ww1.microchip.com/downloads/en/DeviceDoc/00001623B.=
+> pdf
+> > +    CAP1188: https://ww1.microchip.com/downloads/en/DeviceDoc/00001620C.=
+> pdf
+> > +    CAP1203: https://ww1.microchip.com/downloads/en/DeviceDoc/00001572B.=
+> pdf
+> > +    CAP1206: https://ww1.microchip.com/downloads/en/DeviceDoc/00001567B.=
+> pdf
+> > +    CAP1293: https://ww1.microchip.com/downloads/en/DeviceDoc/00001566B.=
+> pdf
+> > +    CAP1298: https://ww1.microchip.com/downloads/en/DeviceDoc/00001571B.=
+> pdf
+> > +
+> >  maintainers:
+> >    - Rob Herring <robh@kernel.org>
+> > =20
+> > @@ -124,25 +133,21 @@ properties:
+> >        The number of entries must correspond to the number of channels.
+> > =20
+> >  patternProperties:
+> > -  "^led@[0-7]$":
+> > +  "^led@[0-9a-f]$":
+> >      type: object
+> >      description: CAP11xx LEDs
+> >      $ref: /schemas/leds/common.yaml#
+> > =20
+> >      properties:
+> >        reg:
+> > -        enum: [0, 1, 2, 3, 4, 5, 6, 7]
+> > -
+> > -      label: true
+> > -
+> > -      linux,default-trigger: true
+> > -
+> > -      default-state: true
+> > +        description: LED channel number
+> > +        minimum: 0
+> > +        maximum: 7
+> > =20
+> >      required:
+> >        - reg
+> > =20
+> > -    additionalProperties: false
+> > +    unevaluatedProperties: false
 > 
-> This is the last piece of the puzzle that this series is missing.
-> There's no QREF clkref_en, but there is a refgen that needs to be
-> powered. For PCIe5 on Mahua this would be L2F_E0 (0p9) and L4H_E0
-> (1p2).
+> > Remove redundant LED properties inherited from common.yaml
 > 
-> I think the easiest (laziest?) solution would be to add dummy clocks
-> in the clkref driver and only toggle the required regulators. Another
-> option is to defer back to individual drivers (such as PCIe QMPPHY).
+> But the pattern here suggests they aren't redundant, this is how you say
+> "these properties are the only common ones allowed". You need to explain
+> why other ones are valid to change this.
 > 
-> I kinda like the "one central node to drive power" approach, but I'm
-> not sure others agree, since it stretches truth just a tiny bit
-> (although not as much as one would think since there are *some*
-> controls for the transparent-to-the-OS hw pieces in these paths still
-> in TCSR).. Dmitry, Krzysztof, would you object to that?
 
-Not sure what you ask here... the tcsr will get the refgen supplies and
-that's all what is needed from DT.
+I checked other LED dt-bindings and related driver code. 
+This change is not suitable and will be dropped in V2.
 
-Best regards,
-Krzysztof
+> pw-bot: changes-requested
+> (a commit message change is required at least)
+> 
+> > =20
+> >  allOf:
+> >    - $ref: input.yaml
+> > @@ -158,7 +163,20 @@ allOf:
+> >                - microchip,cap1298
+> >      then:
+> >        patternProperties:
+> > -        "^led@[0-7]$": false
+> > +        "^led@": false
+> > +
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - microchip,cap1126
+> > +    then:
+> > +      patternProperties:
+> > +        "^led@":
+> > +          properties:
+> > +            reg:
+> > +              maximum: 1
+> 
+> I think these changes to permitted properties should be a standalone
+> patch.
+
+Agreed. I will split these changes into a standalone patch for V2.
+
+> Thanks,
+> Conor.
+> 
+> > =20
+> >    - if:
+> >        properties:
+> > @@ -183,6 +201,9 @@ additionalProperties: false
+> > =20
+> >  examples:
+> >    - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +    #include <dt-bindings/leds/common.h>
+> > +
+> >      i2c {
+> >        #address-cells =3D <1>;
+> >        #size-cells =3D <0>;
+> > @@ -208,19 +229,21 @@ examples:
+> >          #size-cells =3D <0>;
+> > =20
+> >          led@0 {
+> > -                label =3D "cap11xx:green:usr0";
+> >                  reg =3D <0>;
+> > +                function =3D LED_FUNCTION_INDICATOR;
+> > +                color =3D <LED_COLOR_ID_GREEN>;
+> >          };
+> > =20
+> >          led@1 {
+> > -                label =3D "cap11xx:green:usr1";
+> >                  reg =3D <1>;
+> > +                function =3D LED_FUNCTION_INDICATOR;
+> > +                color =3D <LED_COLOR_ID_GREEN>;
+> >          };
+> > =20
+> >          led@2 {
+> > -                label =3D "cap11xx:green:alive";
+> >                  reg =3D <2>;
+> > -                linux,default-trigger =3D "heartbeat";
+> > +                function =3D LED_FUNCTION_INDICATOR;
+> > +                color =3D <LED_COLOR_ID_GREEN>;
+> >          };
+> >        };
+> >      };
+> > --=20
+> > 2.54.0
+> >=20
