@@ -1,211 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010000.outbound.protection.outlook.com [52.101.229.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9BD35F16C
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780988205; cv=none; b=Bnx1p66rbT0ja+0MgjnL/RV9z4nPBJsJXh+S6pf0sf7h6yXmDH6NDNHskBLDzfJ+a6crAA7c+g1HojXDCgTDpRoVnsHxI/6NWO1De8l3pGXMEdyeWmOYPRWtPwAOD8QYoGEObXfb107g7HzuNfLuNwSrwWGm2xtrXmdqV4Dovzk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780988205; c=relaxed/simple;
-	bh=E5arg94jXabXu3wu2KEPwKg5c6ARsGdKIyTctwKj47Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IV4o+C4hJwi4q3F3CbcXoUR8fEoxNfDBJBUqaByXl7tMwE1JGCOYkzVGg7G5kDm0EqSKztQF0ZK2fVRwUAyMK/7GiUcEhjohKKw/5K9lsoOtveIl3Yi0KvFL8tpRccBCHOl+sQT7DngHF+vqfvv4Lesg5IoMFq/Y/jMPTUYcqas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=drcRkqmb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCF8CA4E;
+	Tue,  9 Jun 2026 06:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780988278; cv=fail; b=A9x+1jVaLSeR8WHgBQMAFlZ6cz9Mi0oBTswTvN49PaEh6Cj2wLzAhwxUmAKOVapsrotA2w6E2Ta24CVQf7hclx1M7jRaqAPMZtKYSHDXRjcA+eE+oz2kcktGdRzOrXLerAGjsS2OBjFBvCH49xr/qVJ2E2kfAP0djy18qP3ZiW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780988278; c=relaxed/simple;
+	bh=sNnUOq9B8E+J/GyEOeRDCUKypKc5ZWBS6Wx4l0KIxtk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YBfdRDl3oqawwPF7c/vfyDpMawaquEBJ+4rCLahb/1fvvCxqDJ2kWdiaQ+h19ZUbTEdWdUcqG62jRSCjtKl7SnpCHprv1Sf9xEJjEEZFo0ENADClxwy9jCzpQ3oZkAnUlF+Ccyl8kbqihoIqA7oDNJ+UlssWTSubFsICGxrLM94=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=f91ZYE7z; arc=fail smtp.client-ip=52.101.229.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="drcRkqmb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DDA61F00893;
-	Tue,  9 Jun 2026 06:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780988204;
-	bh=PlahEwihaumc99Wlg58HWG+8+lLpXjiWzBqfxRT8LJI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=drcRkqmbjecXq6RO3g5L86spz++K45uA8Er8qUzfRDZ0nnBSpdHIjnYdiyKV3aPVW
-	 wH7sK5eLdStiNKNGUEoX8p1+fZcUkDVCqKrYwlicrCV3qOf2CG3dUTTUAuUpwYRR78
-	 PaJ1/g0AZe6QRsS2/pR5wl+XDjPzKrEGF7db7Qhfo4zdXkYpuRVC7PSLSKUqKKza3E
-	 C45QZn8oslHgetcFxRGWo1mIWG6po7i4jROq4ghDYpmqhCRu/Z9BS9iW9zfxls7VIL
-	 yEScfuISCh96XaLn9t5AVQBRO4E6w3/r6h62a5nlDehw5uf+W65CncXJU0dpisLtzo
-	 2J5PN9EY3MZvQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] ASoC: qcom: q6apm-dai: add VMID-based SCM
- assignment
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ajay Kumar Nandam" <ajay.nandam@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609064038.492641-3-ajay.nandam@oss.qualcomm.com>
-References: <20260609064038.492641-3-ajay.nandam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 06:56:43 +0000
-Message-Id: <20260609065644.2DDA61F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="f91ZYE7z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iOeXtMe6HFFmUegR+EO1OZNsD0k9CRbvnUp7gSbBVnNLJJ414vXFLcLhu+7bVeVeu4ZkoZb1woccm4UsRor9jWsI1FhHyVKLlj/UiU+JeP6WG86onw3P6WhbGwD3UZwUcVC/bLGzGvVOIJi/08SclXe2XWDDAV7Ul/pazTtKlFYEA9ExXeqh7vPHXRtwrBq4vL2/MbxRh1ChxP6clZiavbpZGj+lOrZNCdIOlwS+/hWDhrZ2occZAyAtWRfMXoifzafxioJ4Tw1ghEo4Yo8tNu7wI5TL//LpkpUAAAI+8R5q2rJkYzifZCGMnXYB4Vax+STiAyxD14rMsD4DuqljHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EXQiuIVbOPbgVOJgKTdLbLexHNifA6jxGqjgoYK1DyI=;
+ b=MfwkiwXBYGlqfeu8/ejj/MrJLPqB+4iFo4P8ov0C4v52RDfEtuwaRNaUbkyXU0KrSrX8FV/yb1P3MlHtdMYVrPD0m5JMmp4TTB5PTXhNvEEnUqsEdFvWE6PJNJuRtfVKo32NnI588c+Sk+aMAJBS81Pfe5aFFS1gHk93mtGXDnGP0UR+68t6i9BNtf0ijGG6Xawx7VhCyywdWP9sW9YZP97tUqZWE1Zbg3ioUtZox17Wr0PLgAh2c2jfQvGvlduBcdzrAk+nz+KiVwVgVb+i2noPXMlQuv6gzyVlO0GEeMII07ibvFC7SSIoSma5/aJAkc4omeS7YSQb6UsBl4+hYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EXQiuIVbOPbgVOJgKTdLbLexHNifA6jxGqjgoYK1DyI=;
+ b=f91ZYE7zg0PdjEhkDykX9AJIOAZS/4Mx8Zq+1zzE5RKn9NIuVCoANKVItfFTO3p4Tte86ZlLDT+6kQJPc2VZ4oFg34EEEkhpoUCFkznAmXoSJtauyykz80Wf3C7vziWyYzMwu8DzS4X9pjRYvPnrflynAOii72IMlF0oPO00s3E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OSRPR01MB11811.jpnprd01.prod.outlook.com (2603:1096:604:235::9)
+ by OSCPR01MB15652.jpnprd01.prod.outlook.com (2603:1096:604:3c9::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
+ 06:57:54 +0000
+Received: from OSRPR01MB11811.jpnprd01.prod.outlook.com
+ ([fe80::a2c7:5e53:c133:d834]) by OSRPR01MB11811.jpnprd01.prod.outlook.com
+ ([fe80::a2c7:5e53:c133:d834%3]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 06:57:54 +0000
+Date: Tue, 09 Jun 2026 15:57:52 +0900
+Message-ID: <878q8o2ob3.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: phucduc.bui@gmail.com
+Cc: Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 00/11] ASoC: renesas: fsi: Fix system hang by adding SPU clock
+In-Reply-To: <20260609013107.5995-1-phucduc.bui@gmail.com>
+References: <20260609013107.5995-1-phucduc.bui@gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+X-ClientProxiedBy: TY6P301CA0003.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::9) To OSRPR01MB11811.jpnprd01.prod.outlook.com
+ (2603:1096:604:235::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSRPR01MB11811:EE_|OSCPR01MB15652:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82c8dcac-a7bf-4a03-3a7d-08dec5f46dfe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|52116014|7416014|376014|38350700014|56012099006|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	vmlt7yDvbE6k1Zinagho2bsBXLNaKNdwUiAbsQta6UNLQjEL3eWWv6QusF41XG5/A7DATYxMKbb1usGCc5OR1+rFkTtYA8B0URqByN+GgM7JKze9uwNZV/8GTmcyXsp8T46refH0ntCrp88MSCk1iUYocAwLX47hdtk9+q+dtPqSaBB7/Fcaw9Ote/Miph01cjkqIgfypVACV9/ZPH7Lh0Mq3n9p6+xSTMzyeCbw6hR/c2ML8A3sWF4S2Xm8hanjX8kmHDovNeXH8aNayuf/5DvicHx766RYmB+va3GPz9Jg3XjHJF3Vef09VFNPJ0DNR5DgesmB7MIRyvztTDnwrmffXpDd/AciR7TtjvvtoG6MUHyL/DKehTZVd2oGIB3oBjg+jQvnMLTRZ5RpW3uB02eQQZmkZhSZ0U99MFc5Gg+U1jzj02UtTGeyLZdBbsvuf76haxpRytt1/L+28384+3zClM04CzMxwC5Z66gmTS3ppbm8txq3Nv3dJ3zcl0pTuc8amzS9MWtFX+gnmrNLt1DCIIZ+WZhJIzizztrTG1SCbOyJKDyx8bUQ6Tm6Ia3suQKin3b3gppf33z58iXmNh5JiEE4fVHoIRNqaTTKYCBLffmBkJVWCcynqXKYDwEUk1tOi6G5JrRSnwxkCscATg7fajZvIdNtQLTMW1tCqe1iH/uZJyd/98QGsJaEB8/L5U8b2qEUgOfwQHhCYtcILgKOWei9hpFbh3KvGK5hQ8AEDAJqRydWM8uXEooel8H/
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSRPR01MB11811.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(38350700014)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sH+BlBWzlYJN58UFC4p+kL/CBVz+ZVSW8U2vWhYC3EVYwV/PZE69FUv7/gSJ?=
+ =?us-ascii?Q?vCz0HVKtu5AdECMcEADxT9GaAnT+/EyiR1vRjt1nKkI+OCWf6TqT8ZnFwSVc?=
+ =?us-ascii?Q?TIfqwa97ByxE0aWw6dqDQL+Smpmow1wq56XZOon1eFyp9XcX/lN5/hO47s8J?=
+ =?us-ascii?Q?Ea3HBrwFM1CF2Q31h9p7xW8xWoIw5wFyG33gVno6ntuaSlrbDsPjwZfurmc3?=
+ =?us-ascii?Q?ZNogEb4EeAnzZxfIOeSBCrAPIYa8gPX22ePZsqRo0GdK2gM7Vf5Ry2EvYTba?=
+ =?us-ascii?Q?D9rOuMN9L+ycwVlhWAdnPuTrkTMj0HHsYNnyE11BUoOeZUNRUw97NOoOA2OD?=
+ =?us-ascii?Q?MFDre5W0QgPIZDrpNzjMpMeH4vU0ZZzkGDt3ypOd5163gLJs1x0GYke+AP6J?=
+ =?us-ascii?Q?eZW50kneWRQu3VLXyh9tq1T/DAVVsi3GWjRmMwE/8wswqnDAC/bwBd2+cY9z?=
+ =?us-ascii?Q?u4/MbPOPNJznmz9oHHKfMfwhvyCbgpIFQ14wWClOjhrvS3IUfW8W4ZUtT989?=
+ =?us-ascii?Q?0SSZ9MncRh5utxvtMKiwyzKfewjUD0itaLyf3T1TeqB9CwdHDF2zUlFTAvAl?=
+ =?us-ascii?Q?d9vWkF597Gd8sWpAC+kgoIssvflLJK6KGVkRNd+dMy7N7G5auJ4v7uZqUCbC?=
+ =?us-ascii?Q?bNry2o/rYAQFhBVBQ7mUoI5pc1yG9XddqwMpOGVcviYjIBHXvsHA6aDIvgen?=
+ =?us-ascii?Q?Ua/NjrTIRyCjcLbXT3KeoerN7T7Cf73PYVv9hoViiNXhRuOc1SF2lrRCSGbM?=
+ =?us-ascii?Q?cDwxSP9Z1PwU1hzZyRZlE36ZQGedOSsCGh/EzhLA2773WFF+qLI5603+VmJB?=
+ =?us-ascii?Q?xqUZObTUvkkCXGjPYyinwOc7uQEkH7b/8nSG5kPqMq1owDGOIuKzTckJVFSM?=
+ =?us-ascii?Q?tzVG0nXsPJbIBOtxaQH4YsKfuOfJvpRul2mudZyVSxGqTmYxIsb3hAqOVNGi?=
+ =?us-ascii?Q?MZhK/uAxYIAXeU/Gzli6rP73yakQ/fdTvuaCKlQuR3ZXCCmTA25vQ1GxLkpX?=
+ =?us-ascii?Q?Xu4pCSvulnvDvzr1UjBgSCvVVDadS9gqFMgs4fugTzJ015ZhjjmRWoscTcBg?=
+ =?us-ascii?Q?dri7sMu2toYkrHhsW3xTYj+4yFHIRD2rZ38RLOnd7ZHzOwxv3S7hIf5HkTPz?=
+ =?us-ascii?Q?HHJ9YwWGoc3bzaVpLfbsuuDBO4p0tkTWRrh6PC2TzhNOSKRX97GaHk67IPKv?=
+ =?us-ascii?Q?9n6+80MnXfP/jABjwxMWPENfH6CuUoaZZ/CR8xrEI6+jUCTFGO6OfZttWqFZ?=
+ =?us-ascii?Q?+4i4GVykZXBpahkMgMrniW8Iv/aVQJm5ScUWgKlVzV0i+ToBGroOZOIP9hcK?=
+ =?us-ascii?Q?9b8zdp/XP1sehtn7gQjpFkcCBYZ3MUbNOkQtIj9+YtuBNjNm2y5U3oW9j5IZ?=
+ =?us-ascii?Q?4RUCHvUih6YN3Nphq6DOqXGelZVCwjp6vW4D0X3OnrZGtbxDtdYA96sqG8cV?=
+ =?us-ascii?Q?qHhbTL0iPZFikDAd0Sd3pDNE7OaoIvBjQzr3AIjRUfpQnZxyrQ5FmVNSq77F?=
+ =?us-ascii?Q?7CU6pv6nwDthHI6LnGhat3hz4rBRWy4NhESK0kjsYSvpnd7gOcAvq2/naNIA?=
+ =?us-ascii?Q?c8lpG+V1zt3tqRPDxQDkQd8bO6XbcZa7hmxO8eWZP+/TzV9TJmkV4wo+vtoJ?=
+ =?us-ascii?Q?L8R1aHxkGkw/EPxMZsgSKF3PgfbM++8ZorRMpeqjgFKzC6dbLR6bmUy/GexB?=
+ =?us-ascii?Q?JnOTyZRQw7ihNrvvME+hS4loOIF1NMjU164lAMiGDW8mdP7Iywcos8+k0MYI?=
+ =?us-ascii?Q?deUpRzkB6oOyjJYpR2kCtZZZVnfr4/2B2f71kqVfrA6sND1VzPBt?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82c8dcac-a7bf-4a03-3a7d-08dec5f46dfe
+X-MS-Exchange-CrossTenant-AuthSource: OSRPR01MB11811.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 06:57:54.2601
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AxX/5Wzi96Pg79jEbowho6G88Nr07Dxd0+JDaa4cCDK5Luf6xh5D5mB4BiBcU+41+YhhAJH79Jg6RLRPOASGAwWeJ5B0qwCfD/48dPN/mUKV751npWmZlhiS9R2sr3wI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB15652
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] Passing a DMA address (IOVA) to TrustZone instead of a physica=
-l address causes arbitrary memory permission corruption.
-- [Critical] If SCM unassign fails, the physical memory is freed back to th=
-e kernel while the DSP retains RW permissions, creating a severe memory cor=
-ruption vulnerability.
-- [High] The SCM memory assignment size truncates the actually allocated bu=
-ffer size, omitting the required DSP bug workaround page and the push-pull =
-position buffer.
-- [High] Compress audio streams are completely excluded from VMID SCM assig=
-nment, causing playback/capture faults.
-- [High] Component-wide SCM assignment state breaks support for multiple DA=
-Is, leading to SMMU faults and active memory unassignment.
-- [High] Double unmap of DSP memory on pcm_new failure due to manual cleanu=
-p overriding the ALSA core pcm_free sequence.
---
 
-commit c8f968a876b0a04c1d6a29dfdfb22332fde3da72
-Author: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Hi
 
-ASoC: qcom: q6apm-dai: add VMID-based SCM assignment
+Thank you for the patches
 
-This commit adds optional VMID-based SCM memory assignment for q6apm
-fixed PCM DMA buffers. It introduces a use_scm_assign flag and
-assign/unassign handlers to grant the DSP shared ownership of the DMA
-buffers when the qcom,vmid DT property is present.
+> The FSI on r8a7740 requires the SPU clock to be enabled before accessing
+> its internal registers. Without it, register accesses may hang the system
+> even when the FSI functional clock is enabled.
+> 
+> Previously, the SPU clock remained enabled because it was left running by
+> the bootloader. After adding the SPU clock to the device tree, it is
+> automatically disabled once system initialization completes.
+> 
+> This series adds the missing clocks and aligns their names with those used
+> by the driver.
+> 
+> Following feedback from Morimoto-san, the driver is also refactored to
+> improve stability. Clock initialization is moved from the runtime path to
+> the probe function to simplify the flow and avoid redundant setup.
+> Additionally, the shutdown sequence is reordered to ensure the stream is
+> stopped before the hardware is shut down.
+> 
+> The driver currently uses clk_enable()/clk_disable() without matching
+> clk_prepare()/clk_unprepare() handling. This series adds the missing
+> prepare/unprepare operations and moves them into startup/shutdown paths,
+> since clk_prepare() may sleep and therefore must not be called from 
+> atomic contexts.
+> 
+> The series also fixes a race where in-flight IRQ handlers may continue
+> accessing registers after the SPU clock has been disabled during shutdown.
 
-> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6ap=
-m-dai.c
-> index bf1f872a09f45..ae7bcf9802367 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-[ ... ]
-> @@ -83,10 +86,106 @@ struct q6apm_dai_rtd {
->  	bool notify_on_drain;
->  };
-> =20
-> +struct q6apm_scm_region {
-> +	phys_addr_t dma_addr;
-> +	unsigned int size;
-> +	u64 src_perms;
-> +	bool assigned;
-> +};
-> +
->  struct q6apm_dai_data {
->  	long long sid;
-> +	int num_vmids;
-> +	u32 vmids[Q6APM_MAX_VMIDS];
-> +	bool use_scm_assign;
-> +	struct q6apm_scm_region scm_regions[SNDRV_PCM_STREAM_LAST + 1];
->  };
+For all patches (except DT)
 
-[Severity: High]
-Is it safe to store the SCM assignment state globally per component?
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-If multiple playback DAIs are opened, q6apm_dai_assign_memory() might
-see scm_region->assigned as true from the first DAI and silently skip
-assigning the second DAI's buffer. If the first DAI is subsequently closed,
-the memory could be unassigned while the second DAI is still actively
-using its buffer. Should this state be tracked per-substream or per-DAI
-instead?
+Thank you for your help !!
 
-[Severity: High]
-Are compress audio streams intentionally excluded from VMID SCM assignment?
-
-The VMID assignment appears to be integrated exclusively into the standard
-PCM path. Compress audio streams allocate their own DMA buffers in
-q6apm_dai_compr_open() using snd_dma_alloc_pages(), but they never seem
-to get assigned to the configured VMIDs. Could this trigger a secure Stage-2
-memory protection fault on platforms requiring VMID assignment?
-
-[ ... ]
-> +static int q6apm_dai_assign_memory(struct snd_pcm_substream *substream,
-> +				   struct q6apm_dai_data *pdata)
-> +{
-[ ... ]
-> +	scm_region->dma_addr =3D substream->dma_buffer.addr;
-> +	scm_region->size =3D ALIGN(BUFFER_BYTES_MAX, PAGE_SIZE);
-> +	scm_region->src_perms =3D BIT_ULL(QCOM_SCM_VMID_HLOS);
-> +
-> +	ret =3D qcom_scm_assign_mem(scm_region->dma_addr, scm_region->size,
-> +				  &scm_region->src_perms, dst_vmids, dst_count);
-
-[Severity: Critical]
-Does substream->dma_buffer.addr contain an IOVA rather than a physical addr=
-ess?
-
-If an IOMMU is present, passing an IOVA to qcom_scm_assign_mem() can cause
-issues since TrustZone modifies Stage-2 translation tables, which strictly
-operate on physical addresses. Passing an IOVA could instruct the hypervisor
-to restrict physical memory that numerically matches the IOVA, leading to
-memory permission corruption of arbitrary pages.
-
-[Severity: High]
-Does this hardcoded assignment size omit the extra workaround page and the
-push-pull position buffer?
-
-In q6apm_dai_pcm_new(), the allocated buffer size is calculated as
-BUFFER_BYTES_MAX plus an extra PAGE_SIZE, and an additional POS_BUFFER_BYTES
-if push-pull mode is active. Since the SCM assigned size is hardcoded to
-ALIGN(BUFFER_BYTES_MAX, PAGE_SIZE), it seems the extra padding page and
-position buffer might remain without correct SCM permissions.
-
-[ ... ]
-> +static int q6apm_dai_unassign_memory(struct snd_soc_component *component,
-> +				     struct snd_pcm_substream *substream,
-> +				     struct q6apm_dai_data *pdata)
-> +{
-[ ... ]
-> +	ret =3D qcom_scm_assign_mem(scm_region->dma_addr, scm_region->size,
-> +				  &scm_region->src_perms, &hlos, 1);
-> +	if (!ret) {
-> +		scm_region->assigned =3D false;
-> +		scm_region->src_perms =3D BIT_ULL(QCOM_SCM_VMID_HLOS);
-> +	} else {
-> +		dev_err(dev, "Failed to unassign DMA buffer %pa from VMIDs: %d\n",
-> +			&scm_region->dma_addr, ret);
-> +	}
-> +
-> +	return ret;
-> +}
-
-[Severity: Critical]
-If qcom_scm_assign_mem() fails, does returning the error code allow the ALSA
-core to subsequently free the physical DMA buffer back to the kernel?
-
-If the unassign fails, the code merely logs an error and returns. Since
-q6apm_dai_pcm_free() ignores this return value, the ALSA core could free
-the buffer while the DSP retains architectural RW permissions to the freed
-memory. Could this allow the DSP to arbitrarily corrupt kernel or userspace
-memory that later reuses these pages? Should the memory be intentionally
-leaked instead if it cannot be successfully unassigned?
-
-[ ... ]
-> @@ -606,6 +706,14 @@ static int q6apm_dai_pcm_new(struct snd_soc_componen=
-t *component, struct snd_soc
->  		ret =3D q6apm_dai_memory_map(component, substream, graph_id, is_push_p=
-ull);
->  		if (ret)
->  			return ret;
-> +
-> +		if (pdata->use_scm_assign) {
-> +			ret =3D q6apm_dai_assign_memory(substream, pdata);
-> +			if (ret) {
-> +				q6apm_dai_memory_unmap(component, substream);
-> +				return ret;
-> +			}
-> +		}
->  	}
-
-[Severity: High]
-Does this manual call to q6apm_dai_memory_unmap() cause a double-free on the
-DSP?
-
-If q6apm_dai_assign_memory() fails, the driver manually calls
-q6apm_dai_memory_unmap(). However, the ALSA framework inherently handles
-pcm_new failures by tearing down the sound card components, which invokes
-q6apm_dai_pcm_free(). This callback unconditionally calls
-q6apm_dai_memory_unmap() again, which might result in a duplicate unmap
-command sent to the DSP firmware.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609064038.4926=
-41-1-ajay.nandam@oss.qualcomm.com?part=3D2
+Best regards
+---
+Kuninori Morimoto
