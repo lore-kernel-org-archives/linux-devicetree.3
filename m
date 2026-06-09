@@ -1,161 +1,103 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3433590A9
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 19:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF6C344DAE;
+	Tue,  9 Jun 2026 19:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781033525; cv=none; b=KnfZg9bZBvEEZspTMmRtzsI4xGM443wa411gDmpPL3IeG1FyvkRWduKkhvDXzAS0EpELcZrRdvC35xltxZ96VC93lbWb0TfK0WBPZJIOmW2cvj2pGlwWH6Jrgzj/H2yrkp5/qiFUijcVfD9/bVGJRbQ306wGDqlP2WFOwyLthKE=
+	t=1781033598; cv=none; b=F14uEPAxL/csdPNLkaqT5/YXxku8xB6TmsyxaZqbsIorY9/2jOXyZRwcFNAZYK4io0jiWjVQdfP7mgsSubYgijGjq8qW0hUAyx7iKbUDY4JAw5Do22AqZlT+ltNlUxyTvf/QnIzU2gSXMsHuqolEiJnO8AHAaCvbxPMfUCYwzek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781033525; c=relaxed/simple;
-	bh=G0qFOxrdTOLqSxSrQOHRTa8hwYrKFa+ZVBkvz3eXTaA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G2s0lRtMPW6OAfru+3JOAb11dJa8xXZssLY3toCENJKKqvJD7s6oH8EMHrj3nUFnHLVDco1Jz6zctg04wLJr9UHv7ZgMoyogArKGfwyr1iBaIaSHptdveg3BKdmdynJ2iIJj8swzxtOC5nTziXR1KUZrv8gqji1r8HtNTPOo27s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=xOVlCehr; arc=none smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1781033598; c=relaxed/simple;
+	bh=4sQeWTpTHfO3TwVdreiqV4yVzlLjiyYiPOU+cAH5/cQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eTg/4SiJHi6jyCc2rm+I+FXYnkLQq68oSNwDTjeTEgrNA4cII/ullzXxoD03wYmNKnuccDARhcWu7dJC8pdjIh36aeNvJZpHsyZgGhLEreTsZurFITxruEMCrYYbothPz1sW4yHzwFivcoDKjucqJ3R4gYvQqIh3MVpAr6PB3rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lOBzEaF+; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="xOVlCehr"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4864ebb6268so3674277b6e.3
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 12:32:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1781033523; x=1781638323; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WqDaomdcEkmPt/kMkSkh61O8nncSS4SHKIlJjYIogSM=;
-        b=xOVlCehrQ+pI7QtZEL3EM+d6t3Qr7oDYkEu7o1M8zsz5SIkoMiE03rXPC7Y1K5ewN9
-         GABJ7rvi4r6AvJa98alXDxLIly0PBVmetQxOKR8U0f0TENHV45kZVe7AgvVtwd3qP/ov
-         bzDTIc/+6rpJjDg4ZPGOqqlACGfCLgrzs+l+tiKKVEDrc0proJNZklSV/jqvW4wPWpin
-         GdVVgmreJ2uo1DSiYwF+Ga3pwFtPJ0fD8WEXZ4NYbOpDI2pU/6AAH3nd3vYYaL47euif
-         kUck4/oYj/uTejTgxjLK/FAFCcFo6sonMpsEGtjb3Qb3Igj9JOlodr/4J9EMcnIfYuwt
-         O/Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781033523; x=1781638323;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WqDaomdcEkmPt/kMkSkh61O8nncSS4SHKIlJjYIogSM=;
-        b=sWOnbbqC351lIAnDZbw+9dfBPJ8JHjQt97fcM4VI0uwJONT+4oxfkkCb97SScH1JLz
-         xvHOdb9QE8NzV0tmQHsGazSPX0wxqfoN/AQ39PlFaHu5eE+aqZ2QG0pORM454Q5Qo1Ot
-         KcDq2rqlheGVhZeO+0SvqGGo6ZDcYn/bmJmvf5UjYWFimC1HvTOwf8Nj5SzdyQyhVBCr
-         V2jbkyrFX6qpI6uwFi6bd9OH8CtBaj5Y0XoJUjeibUHRY/6Y8clGv/zI/QsnIlhiXqIB
-         DcWroJkiNxM+tXkvTM5dD//wkeQp1wbVLTdcXbYe3asglO9M2FCOjJpIFM3i6gC8f2Bu
-         rosg==
-X-Forwarded-Encrypted: i=1; AFNElJ8fUTG0CpzNDMRS7wimjbhrGzYcM3ysoXCPxg5DBWt4lOAHJcvfHKjLdOXd+irxLq7FFD0n3Gxb80en@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1io5Nnf0xT+2cIromZpQ+GljzFxJ4SZarpjXaXKHianjzXhKY
-	dD/aEIhipboJJ/3w46SlTPZpVluqU2JIVeHPM8aOIRAYTv8eK8Vqq7ijzANOm+FKW90=
-X-Gm-Gg: Acq92OGiMYnLmlM1J7/Wa7Yco0dIMeGe3Rh7o7lQPzlkrBOvkeKBNGkbOgCqxYaOoIt
-	1/RpKigYxDxu6PC0mZXAxFtgQVi2ApJ3VI6FNWSaasWcGXj3LEkQTzfSa3j/aAa1qdWiAdpRd+I
-	/S1gHXHMEn6BX9SHp/gnm7tT51nXvNxyjGZbF+bhpOrZc3LjSj2CqURk687widqSJhc+65w23Ir
-	zmjP5TvoIut2pQxz/O1X7NOadgvVQ3Sy3GEk/ury7U5MZh3dctO6NQf/r2AxK+jc4TXT2S8/Kh0
-	q9MqtTHFY7UIur3luV1N8ltmc4GS09U0kvcVqVBlnKC6xCIkvfX6MSVgfdpKKcBzpTlC3kPi9/p
-	XrzsCGHAJ2wWBF23rWxGUlAEU5xfZxuFYI6HwBnegGyR0d04t+XRzeLYEUVCkX1NVBNen+q23cG
-	APsUOeLIoMcRgCofmEbIkKPdFbiEfEiGZmUg==
-X-Received: by 2002:a05:6808:4fe2:b0:485:7c72:786e with SMTP id 5614622812f47-4868df054eemr14537468b6e.21.1781033523165;
-        Tue, 09 Jun 2026 12:32:03 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b32f372sm16507092b6e.0.2026.06.09.12.32.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 12:32:02 -0700 (PDT)
-Message-ID: <47a9909a-da5b-4b12-806a-1b9542cf8bc2@riscstar.com>
-Date: Tue, 9 Jun 2026 14:32:00 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lOBzEaF+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781033597; x=1812569597;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4sQeWTpTHfO3TwVdreiqV4yVzlLjiyYiPOU+cAH5/cQ=;
+  b=lOBzEaF+H80mVUh5CfS0lZGc2y2VcV6XDGfaiynKziDBXBHrsdP3o+UE
+   QFfATsccrHI7YmPAKNCQe+NLjSQVou+51wJGOE9JxB8MbtjtuM8w155yj
+   Eds7WkyC1dgz3Rkzmn2RaeGaAANH69Pf/+E/42bkygeQ03+62K6yk1kzs
+   WF8EfovCu77965cqWoAmzuNM15X/Yc/eKFQZ6NcVaoaqBv8Biy6S7H1E1
+   W2vC8cCIxKPtjOryDcijXz1TdEcLwBBNl3xofGLRogNGlLt9wk5GvkKUQ
+   DKh6d8vfY1mZoTZsgpBcLwTkWeRRx8adq1P1Z16XUjKKMPIGCBRuOGyJi
+   A==;
+X-CSE-ConnectionGUID: y8DJ9cu8S1i5xZGjTKfs5g==
+X-CSE-MsgGUID: t6LY9rQOSbmJHSOwRqykkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="92130910"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="92130910"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 12:33:16 -0700
+X-CSE-ConnectionGUID: SOLNmU1EQEStSFclzpEaCQ==
+X-CSE-MsgGUID: hgRnIwRJQVqbOU668KynsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="242986939"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 09 Jun 2026 12:33:13 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 0F98E95; Tue, 09 Jun 2026 21:33:12 +0200 (CEST)
+Date: Tue, 9 Jun 2026 21:33:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH v2 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
+ driver
+Message-ID: <aihqeLKHC3PP436t@black.igk.intel.com>
+References: <20260609-mt6323-adc-v2-0-aa93a22309f9@protonmail.com>
+ <20260609-mt6323-adc-v2-2-aa93a22309f9@protonmail.com>
+ <aihbxowyAIlSeDjH@ashevche-desk.local>
+ <hacDZbv1Whk_g8AMSfJqKHrgXfyVKt2o3_UGK-1k9jNRJyMxEFPztGhytHvHbc1x9j-F84I_ZuprmXWf2Azbtdqj2vnVal4PO1gG_DijYyA=@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 13/14] net: stmmac: tc956x: add TC956x/QPS615
- support
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, rmk+kernel@armlinux.org.uk, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
- gregkh@linuxfoundation.org
-Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-14-elder@riscstar.com>
- <c60d1819-18d7-4d4c-a997-586599323d7e@bootlin.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <c60d1819-18d7-4d4c-a997-586599323d7e@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <hacDZbv1Whk_g8AMSfJqKHrgXfyVKt2o3_UGK-1k9jNRJyMxEFPztGhytHvHbc1x9j-F84I_ZuprmXWf2Azbtdqj2vnVal4PO1gG_DijYyA=@protonmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On 6/5/26 11:05 AM, Maxime Chevallier wrote:
-> Hi Alex,
+On Tue, Jun 09, 2026 at 07:15:42PM +0000, Roman Vivchar wrote:
+> On Tuesday, June 9th, 2026 at 9:30 PM, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Tue, Jun 09, 2026 at 04:31:59PM +0300, Roman Vivchar via B4 Relay wrote:
+
+...
+
+> > > +	case IIO_CHAN_INFO_RAW:
+> > > +		scoped_guard(mutex, &auxadc->lock) {
+> >
+> > I'm wondering why we haven't moved to guard()() here
 > 
-> On 6/5/26 03:00, Alex Elder wrote:
->> From: Daniel Thompson <daniel@riscstar.com>
->>
->> Toshiba TC956x is an Ethernet AVB/TSN bridge and is essentially a
->> small and highly-specialized SoC. TC956x includes an "eMAC" subsystem
->> that can be accessed, along with several other peripherals, via two
->> PCIe endpoint functions. There is a main driver for the endpoint that
->> decomposes things and creates auxiliary bus devices to model the SoC.
->>
->> The eMAC consists of a Designware XGMAC, XPCS and PMA. Each eMAC is
->> supported by an MSIGEN that bridges TC956x level interrupts to PCIe
->> MSIs.
->>
->> Add a driver for the eMAC/MSIGEN combination.
->>
->> Co-developed-by: Alex Elder <elder@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> ---
-> [...]
-> 
->> +static int tc956x_lookup_max_speed(phy_interface_t phy_interface)
->> +{
->> +	switch (phy_interface) {
->> +	case PHY_INTERFACE_MODE_SGMII:
-> 
-> The SGMII definition we use in the kernel is the Cisco SGMII de-facto
-> standard that only supports 10/100/1000M. Some vendors use flavours with
-> names such as HS-SGMII and such, that's basically SGMII clocked at 2.5G
-> with aneg disabled. It kinda becomes 2500BaseX then.
+> The compiler would complain about 'cannot jump from switch statement'
+> due to default case.
 
-So for SGMII then, the max speed returned/used should be
-SPEED_1000, correct?  And for 2500BASEX it's SPEED_2500.
-(I'll fix this.)
+I am not sure I follow. See the examples in the existing drivers. They are
+warning clean in that sense.
 
-For USXGMII I presume we'd use SPEED_10000 as the max_speed.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Can someone explain when the plat_stmmacenet_data->max_speed value
-must be set?  It seems like plat_stmmacenet_data->phy_interface
-should normally imply the right maximum speed.  It looks like
-phylink_interface_max_speed() has a big switch statement related
-to this.
-
-Thanks.
-
-					-Alex
-
-> So all in all, we don't support 2500M on SGMII.
-> 
->> +	case PHY_INTERFACE_MODE_2500BASEX:
->> +		return SPEED_2500;
->> +
->> +	default:
->> +		return -EOPNOTSUPP;
->> +	}
-> 
-> Maxime
 
