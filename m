@@ -1,305 +1,227 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2F13F8EC7
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011D73F39C6
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781000647; cv=none; b=ByQ5Y3XLzPw/vp0SfaQ5XXHg37s0d+PrhKajMwzZ92346wYSwzh4lR3o7w4GQ53UsbzRkxnik7SSXHFWyfsCTAxKX/IM62JNwuDlvn6ly5OCqeQNvMnrEhAYyBuCCOa77LTiOJ1Uh6oPCSZi0C27YV6nXujWmjjQv/n648tK3Uw=
+	t=1781000766; cv=none; b=H+SROh8qEOKKwTpNVXBJ+w7SZiiMQBsQ3/kheQSA/og1kgRS8Mj7nkvZ63hCB/uNZEjzX7tIwkpItp/1f08eTypw/NinHLeRI3X33BcHrf/ajxvpn/ODgxC+dPqeBY2CDGhmncAg3/TyQxkeQLlNXdnzaBatjNHAQvpT6D+okCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781000647; c=relaxed/simple;
-	bh=wfQ1JVa2OEIPjp2oLJEIyFWQZK2eWFd9pxIhDg2ya5Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i57r/F5yBd/5pJFC/LUv/iMlsqYz4KW2lalq4lf5hIV9eqnGlPp+Em6D+eu14SbepVxDHLeoFhUVCrldwVsLIdsVUB+q6IZldYrekSQePv16nQrLyHsC8UvN+VuiHNBzKPPYjU8QVD3POKSM6OyiHTG1ouSe3bwIA4tCLPIN+vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JHnBmgF4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WXctiO8R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781000766; c=relaxed/simple;
+	bh=CdXHyxQvFPIUJNXU2cuqXO6083LufiGLuN6c7FtCCO0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c2Az2Oho6tniQ0wcNDM57N7l4SV0rK+Es036/bmnzBYGekZ4aNmTQPE6z89OSgzU6nT2H+CI8w1PmWuOac+nN1eV3yr4jPsGwyG/K9bFafElSKCGbqXp//4yW3BUHf9Y3D9xK7IYStzgiGQzO5Rf/ofLZw5kBG2+v/vfxpvfBW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxltIbHT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JHnBmgF4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WXctiO8R"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6599vgWA1868192
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 10:24:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5lOf6/MoXl3oRGWQ+ijQXP6yP1mY0/3/cDLi1MCkBDg=; b=JHnBmgF445AFD8nf
-	2A4chtlAG4Rp5NNybbcQLHLyviagAFDTj8DF7JkTO5NnIfB2Fla7BZg4GBhmIIaU
-	PdRzgnJ2kr39ZAB9xurKs65xI+Hj233u4gYr3bvIDqF90eUEMkyLc4SVbbPAnu8v
-	CmoTL07g3N9rO2x61jxDarDe7JWbHrOLkrfIhJIO3t2ozJXuesCS8ckgX0QEOc0o
-	8vUCPGykbPnMBC58DPsa1Xll+B9AgI8RpPUlWE1QpM39pFMDBKGNBunRO6zE6dv8
-	iOYYQMculLZX22l1oKo4gxgtxg7068GxlNmJnJodi73emOG/c/w3SXRapwsOec3T
-	PJwvIg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epdees0f7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 10:24:05 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c0b1bb53a8so41026135ad.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:24:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781000645; x=1781605445; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5lOf6/MoXl3oRGWQ+ijQXP6yP1mY0/3/cDLi1MCkBDg=;
-        b=WXctiO8RuZJ5Wemw4pQjB+/nQLXpIQ4oG6cZC1LA0PxZ83iIcdVZ7qWOJoFsG/yEN0
-         OK6287hh9oe7MC4OI/ugzj7Ug+nBUJJad1CZ8+6teoJKmUpUd/kRQDRnUCbXquAOdRKF
-         f3Rvgr2Hf8vLZUC90Hz6QtUxXEFczr+wxZ05LQ2HKsiHthJk7hnn08KniLT9MqzLhKaJ
-         zlLq2Gov+Q1mca9JR7nptBHMMUR/TB73AID/xeav9kA7QQuR6aNlz90yGLcJC9jNgNYW
-         +k9AYRgd5m6dTuB5S1sXqvvWg+K1+jz85PB272uLPVtFArJAFkBZFL42BJHUI4UADH+L
-         +y+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781000645; x=1781605445;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5lOf6/MoXl3oRGWQ+ijQXP6yP1mY0/3/cDLi1MCkBDg=;
-        b=oIWsY4t+BPQmEt1vU9VCKWf1+am5fkXkHEjDBFOj3WlWuYrQdHRUeKZrUjaKoM7Bc2
-         t66BwTIYT9skAz80QYy0zDuV+lY0dah9db9cYfQxOJJmxXpHSOFw3THRhkQUKb/OUO0K
-         EDlP9QQmnisElNT8t4LzlqLV7GICOZEkFv0uY2mjQ7i/BH3PeblvmCYQy/Ecun/uMi6p
-         spbO1mEGCDzwQNER5ChrO5WntpWfvkVuAEeuEWDOFkYn4aetAcgxsPWbbfUIJxyf9Kh9
-         qFYntTe6gJHFyMj8ZylnkTY/zGjqWPNT5Z2lf9qrep60PiGSNo54GrEQrH+rSaZsGP5X
-         7rBw==
-X-Forwarded-Encrypted: i=1; AFNElJ8YUZaStQeCQJpY8hYU4En4G0fp6omIBQRZP22zrdRbb3EqBsL1d/bVNWlW2GJK+RZC34QCOWj5Qhji@vger.kernel.org
-X-Gm-Message-State: AOJu0Yygw9g8tv3dCdwEJjg4kKuH459StLpStFpI7absbIOTzddkdmqo
-	VXBs9ytU84mm0qLzDTiCI8rC2Gw0Ly2kxE8tKNwOI54abj5aVuQEv2DmFu0dFx2kzXk6z5ymMJX
-	Q5+HC3OI8FtfBgftbRGpuAC5tnUAmzX1BQb7u4v6E6xXglk7y5vliY35kTEGQaDqP
-X-Gm-Gg: Acq92OHBcK5jicwXgCsQ1KWXQNlbU5ZsJsdmJ5cnL5UJYVyo/22aL5/zlNu9WAAtlb2
-	2QDMr4TrpPjIeHpZC0I19Y3jQFU4uzV8dqMlxW8kfeOwQNop5ZHGCPYdZw64v5SfRXw6HYTqZ5Z
-	JxPuhblxKfHoGllYcOBrxkxSnuk7uwJIACaWgsZzMfOSUlncIj8M6FW03Q32krErwExyuJTHyo2
-	uoLsmgoR7fj3Ardr0BvI8vmOlDdGLWxMyMo9CfaXYHrkGP/xj73QhdyKT+U9E87msoQVhL1KF8y
-	6rz0794SVvl0Wr16ei8CjN7c4UuxgCMEMkMiYHKTheAMVs9/CRKZpYaH4QnIieDy6+djPInDNPC
-	bTBGPm1Gcvgeg+HzvXwnG9RMHgw7xQo3P7rhRi443h3+l4Bc6VZTcica/lyuCMw==
-X-Received: by 2002:a17:902:d2cd:b0:2c0:b74f:a58c with SMTP id d9443c01a7336-2c1ec7972e4mr162852245ad.16.1781000644707;
-        Tue, 09 Jun 2026 03:24:04 -0700 (PDT)
-X-Received: by 2002:a17:902:d2cd:b0:2c0:b74f:a58c with SMTP id d9443c01a7336-2c1ec7972e4mr162851915ad.16.1781000644212;
-        Tue, 09 Jun 2026 03:24:04 -0700 (PDT)
-Received: from hu-gkohli-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c2a4a64e22sm14738915ad.61.2026.06.09.03.23.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 03:24:03 -0700 (PDT)
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Date: Tue, 09 Jun 2026 15:53:03 +0530
-Subject: [PATCH v3 8/8] arm64: dts: qcom: hamoa: Enable CDSP cooling
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxltIbHT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C56C1F00893;
+	Tue,  9 Jun 2026 10:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781000764;
+	bh=3EPhalWQWvD5pUwAVudqfBTL3lq1b/m0ZuLczKZCINc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TxltIbHTfjs4dqEHXu+swtPaX7+1NgcFsostss9jQz7L8pDze+uCMW3FNUh9wNHN/
+	 AB+SHMl4eUzBoxsrnRKrLOq3KzQY4XoQGFuxoyWsaLUelAmKNQq8hjVNIbeALUAUsD
+	 mmL6eQoKrVLyWON7fHBUtwDCmr1My2PBHc/pHpsY877Z85UdVz9iMD2ilad+EyPjhv
+	 sa7UG6cW9jrmYryB4q8DXLkXU6yY+qH5gdN1fMy+mQB4bBzFG4PmG1AVRvVrexX2a+
+	 Cah0FfFe5JZaX+TbSqIx37frhZHXDyXnceKCqJFVRGWRYMu+y9uZqYIGrp6SwBmE7o
+	 69k8bASDHvLyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] hwrng: starfive: rework clk/reset teardown order
+ for JHB100
+Reply-To: sashiko-reviews@lists.linux.dev
+To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260609095726.160559-3-lianfeng.ouyang@starfivetech.com>
+References: <20260609095726.160559-3-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 10:26:03 +0000
+Message-Id: <20260609102604.2C56C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260609-qmi-tmd-v3-8-291a2ff4c634@oss.qualcomm.com>
-References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
-In-Reply-To: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781000588; l=3485;
- i=gaurav.kohli@oss.qualcomm.com; s=20260302; h=from:subject:message-id;
- bh=1/EBgOpAhJyMtBEb/QMXo2jKvBNr1eZw42mUkkravA0=;
- b=iBqU+QWhGahbBIaNjO09rqJvQRFgRBcByvlyNfbQAEP+QpP1HG4jrGCr2q6a3/m6X/IV9HVxf
- FJWa7KNPGOZCkmc7HQx/4W+J08E1hpNOvFIOkmZorftZLVyueq/oVkm
-X-Developer-Key: i=gaurav.kohli@oss.qualcomm.com; a=ed25519;
- pk=IdNsqe8rWsF6dbpGHfwPEH9zM0nbOdRH72HxUT9qPak=
-X-Authority-Analysis: v=2.4 cv=H+DrBeYi c=1 sm=1 tr=0 ts=6a27e9c5 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=6B19zR5QVkII6VYPc-cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5NyBTYWx0ZWRfX1XFMv7u07h6j
- SPG6zhZhrPf+k9VQw8KtZS/IjK0navFEiQ5hy6ku4hdWqtncPjEzhmbcsauaJGNGgbrxC/X4wZW
- gbEn4uL7Q5CeWctwI7Na9ls2QeMkgS3Oy/ZQvNMYpdRXLot9Kzue3zjXvTTtMBDciIkGXtOR7NA
- CWIT0pSIl/4PN6NdlIkx4A1WtNQnM/p7HbJVbsyPV6+IgTrlA3RCYghb9WbyV8S6uQBSAr2gAlk
- Rl7YOwf2sVTKR4Z7Hr5k47UWLGtPn/itxOR76TgCKUWWtkoAK2M7xsIPMjO89xb3xyz6/eal9Gd
- +jAMFF+bV49x07y12k7UZwuWRMjYBE5Tl7Yb9HcDXUz9my1nqTWitpRfMfMx8k+PZSO1RoZA/lP
- RZ3sry7olYNZ7EKCyzusKvst8Fo4V7JrmF954T/VdezicDbF7rUncA4JGREpttWl4TI06XsOtzM
- QEYB8fTP5hemfztRxBQ==
-X-Proofpoint-ORIG-GUID: DJkSYc0NPR-7R7fVCB-SGdu8XBH1PPuM
-X-Proofpoint-GUID: DJkSYc0NPR-7R7fVCB-SGdu8XBH1PPuM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606090097
 
-From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Unlike the CPU, the CDSP does not throttle its speed automatically
-when it reaches high temperatures in hamoa.
+New issues:
+- [High] The devm release action skips hardware reset assertion due to a sy=
+nchronous suspend in the cleanup path.
+- [High] Failing to mask interrupts during runtime suspend leads to an unha=
+ndled interrupt storm during device resume.
 
-Set up CDSP cooling for both instances by throttling the cdsp, when
-it reaches 95°C.
+Pre-existing issues:
+- [High] The device IRQ is requested before hardware and PM are initialized=
+, risking an immediate IRQ storm during boot.
+- [High] Non-blocking reads invariably fail with -ETIMEDOUT due to a 0-jiff=
+y timeout calculation.
+--
 
-Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 63 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+commit d88dd84c5abe42f5a9e074b3a3e4819cbff1fcc8
+Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 4ba751a65142..92daaf4890aa 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -8815,6 +8815,9 @@ remoteproc_cdsp: remoteproc@32300000 {
- 
- 			status = "disabled";
- 
-+			#cooling-cells = <2>;
-+			tmd-names = "cdsp_sw";
-+
- 			glink-edge {
- 				interrupts-extended = <&ipcc IPCC_CLIENT_CDSP
- 							     IPCC_MPROC_SIGNAL_GLINK_QMP
-@@ -9402,6 +9405,7 @@ aoss0-critical {
- 		};
- 
- 		thermal_nsp0: nsp0-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 1>;
- 
- 			trips {
-@@ -9411,15 +9415,30 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp0_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
- 				nsp0-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp0_alert0>;
-+					cooling-device = <&remoteproc_cdsp
-+							  THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_nsp1: nsp1-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 2>;
- 
- 			trips {
-@@ -9429,15 +9448,30 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp1_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
- 				nsp1-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp1_alert0>;
-+					cooling-device = <&remoteproc_cdsp
-+							  THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_nsp2: nsp2-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 3>;
- 
- 			trips {
-@@ -9447,15 +9481,30 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp2_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
- 				nsp2-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp2_alert0>;
-+					cooling-device = <&remoteproc_cdsp
-+							  THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_nsp3: nsp3-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 4>;
- 
- 			trips {
-@@ -9465,12 +9514,26 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp3_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
- 				nsp3-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp3_alert0>;
-+					cooling-device = <&remoteproc_cdsp
-+							  THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_gpuss_0: gpuss-0-thermal {
+hwrng: starfive: rework clk/reset teardown order for JHB100
 
--- 
-2.34.1
+Reworks the StarFive TRNG driver to handle JHB100 hardware-specific
+requirements for clk/reset teardown. Adds Runtime PM integration to manage
+device power state and includes a devm action for cleanup.
 
+> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_rando=
+m/jh7110-trng.c
+> index 9776f4daa0445..cafc873b9ebf8 100644
+> --- a/drivers/char/hw_random/jh7110-trng.c
+> +++ b/drivers/char/hw_random/jh7110-trng.c
+> @@ -138,6 +154,31 @@ static inline void starfive_trng_irq_mask_clear(stru=
+ct starfive_trng *trng)
+>  	writel(data, trng->base + STARFIVE_ISTAT);
+>  }
+> =20
+> +static void starfive_trng_release(void *data)
+> +{
+> +	struct starfive_trng *trng =3D data;
+> +
+> +	if (!pm_runtime_status_suspended(trng->dev)) {
+
+[Severity: High]
+Does this PM state check accidentally skip hardware reset assertion during
+driver unbind?
+
+The HWRNG unregisters first during teardown, which calls
+starfive_trng_cleanup() where pm_runtime_put_sync() synchronously suspends
+the device. When this devm action executes immediately after, the device is
+already suspended, making this condition false and completely bypassing the
+reset_control_assert(trng->rst) logic.
+
+Could checking pm_runtime_status_suspended() outside a lock also leave a
+race window where autosuspend might trigger and cause double clock disables?
+
+> +		writel(0, trng->base + STARFIVE_IE);
+> +		starfive_trng_irq_clear(trng);
+> +
+> +		if (trng->irq >=3D 0)
+> +			synchronize_irq(trng->irq);
+> +
+> +		if (trng->data->seq_rst_clk =3D=3D SEQ_RST_FIRST)
+> +			reset_control_assert(trng->rst);
+> +
+> +		clk_disable_unprepare(trng->ahb);
+> +		clk_disable_unprepare(trng->hclk);
+> +
+> +		if (trng->data->seq_rst_clk =3D=3D SEQ_CLK_FIRST)
+> +			reset_control_assert(trng->rst);
+> +	}
+> +
+> +	pm_runtime_dont_use_autosuspend(trng->dev);
+> +	pm_runtime_disable(trng->dev);
+> +}
+> +
+
+[ ... ]
+
+> @@ -201,24 +251,33 @@ static int starfive_trng_init(struct hwrng *rng)
+> =20
+>  static irqreturn_t starfive_trng_irq(int irq, void *priv)
+>  {
+> +	int ret;
+>  	u32 status;
+>  	struct starfive_trng *trng =3D (struct starfive_trng *)priv;
+> =20
+> +	ret =3D pm_runtime_get_if_active(trng->dev);
+> +	if (ret <=3D 0) {
+> +		dev_err_ratelimited(trng->dev, "pm is inactive in irq\n");
+> +		return IRQ_NONE;
+> +	}
+
+[Severity: High]
+Will this return cause an infinite interrupt storm if an interrupt fires
+during device resume?
+
+If starfive_trng_suspend() doesn't mask device interrupts via STARFIVE_IE,
+an interrupt could trigger while suspended or when clocks are re-enabled in
+starfive_trng_resume().
+
+Because the PM core transitions the device through RPM_RESUMING,
+pm_runtime_get_if_active() returns 0. Returning IRQ_NONE without clearing
+the interrupt leaves the level-triggered IRQ asserted, locking up the CPU.
+
+> =20
+>  	status =3D readl(trng->base + STARFIVE_ISTAT);
+> -	if (status & STARFIVE_ISTAT_RAND_RDY) {
+
+[ ... ]
+
+> @@ -247,7 +325,13 @@ static int starfive_trng_read(struct hwrng *rng, voi=
+d *buf, size_t max, bool wai
+>  	if (wait) {
+>  		ret =3D starfive_trng_wait_idle(trng);
+>  		if (ret)
+> -			return -ETIMEDOUT;
+> +			goto end;
+>  	}
+> =20
+>  	ret =3D starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
+>  	if (ret)
+> -		return ret;
+> +		goto end;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but will non-blocking reads
+invariably fail with -ETIMEDOUT due to a 0-jiffy timeout calculation?
+
+In starfive_trng_cmd(), when wait is false, wait_time is 40. This evaluates
+as usecs_to_jiffies(40). On systems with standard HZ=3D1000 or lower, this
+results in 0 jiffies.=20
+
+Calling wait_for_completion_timeout() with 0 causes an immediate failure if
+the completion is not already signaled, guaranteeing that non-blocking reads
+always time out.
+
+> =20
+>  	memcpy_fromio(buf, trng->base + STARFIVE_RAND0, max);
+> =20
+> -	pm_runtime_put_sync_autosuspend(trng->dev);
+> +	ret =3D max;
+> +
+> +end:
+> +	mutex_unlock(&trng->lock);
+
+[ ... ]
+
+> @@ -282,22 +370,32 @@ static int starfive_trng_probe(struct platform_devi=
+ce *pdev)
+>  	trng->irq =3D platform_get_irq(pdev, 0);
+>  	if (trng->irq < 0)
+>  		return trng->irq;
+> =20
+>  	init_completion(&trng->random_done);
+>  	init_completion(&trng->reseed_done);
+> +	mutex_init(&trng->lock);
+>  	spin_lock_init(&trng->write_lock);
+> =20
+> -	ret =3D devm_request_irq(&pdev->dev, irq, starfive_trng_irq, 0, pdev->n=
+ame,
+> +	ret =3D devm_request_irq(&pdev->dev, trng->irq, starfive_trng_irq, 0, p=
+dev->name,
+>  			       (void *)trng);
+
+[Severity: High]
+This is a pre-existing issue, but does requesting the IRQ here before
+hardware and Runtime PM are initialized risk an immediate IRQ storm?
+
+If the bootloader leaves the TRNG with a pending interrupt, the IRQ can fire
+immediately. The newly added PM checks change this from a potential crash
+into an interrupt storm, since starfive_trng_irq() will see
+pm_runtime_get_if_active() return 0 and bail with IRQ_NONE before
+acknowledging the hardware interrupt.
+
+>  	if (ret)
+>  		return dev_err_probe(&pdev->dev, ret,
+>  				     "Failed to register interrupt handler\n");
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609095726.1605=
+59-1-lianfeng.ouyang@starfivetech.com?part=3D2
