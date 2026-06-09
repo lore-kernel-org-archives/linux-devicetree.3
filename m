@@ -1,91 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BE035E1D4;
-	Tue,  9 Jun 2026 19:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34F3362154
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 19:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781034752; cv=none; b=rQXScxc4wQjpFGSajTDukBR+qhdUBZhmwbp8OmoT3fp/e1E4sIt+dg5lgZ4AxVuJhRd2oY3w9gp9xz1ySc+cmCbZsU8rct1j1Ikx7mfKzWbcv75shYTRffXyzZ4MCOl/qppcbyZY4C4mihfEe6cRB0R/yqwZzC3+5KGmev6E5NU=
+	t=1781034752; cv=none; b=btLut41SS8WDG9AqDhDH03f8jZZQb5eC9a9NxukNoObPM2QaJ5AlGyaaY5Q19QJDSoKdPwWxr2LPpcpffdTQC7NYaD+fjwoz3u5HppYU1eyPtMJhHtjd5aol4OQCFQFErDlxcWE0OEHsbh5QX6z6DE1mPhuY7kx9c5oUECRWIAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781034752; c=relaxed/simple;
-	bh=uREdzpOWzDpXQUxPec4h617amZsKL0obmF7Iz3VZ6kU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m78/x3oVBVv1tCcm//IjQGj2x+FIwauFu2qUy9qVzR2McvJwXqKe1vDNGjwvki9lg+q5H5HJI4FjMYfH77keuz5E6sEMpplqk/vi82e2hF5XfcTF5qnUDsENg9Q57waZVPbsUDocAivLALIaVf6m9NekGvvoDPDveuTN3YX2t3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jfc1Cw15; arc=none smtp.client-ip=100.103.45.18
+	bh=K1T6VA2P8uQBC9Qz6EIOyWqlugokZJCAHS6tuHawKh8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=p8GkbvHO/HKLpmxQ5Rs/x6C0OtXaOiqlBXEhTWAF4DHeCdq5xP4axOtO5LgJEs5qP3IKJ3+TumvOzB98cd4zWpKS7UGgYWzCBm6miD7Fa/sr2KBYDbDLFd6WAwSOnPasH+X2i4iy7nFIQAevIGP2ltKJ3WxVn7ag5u0Fa98exNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=AOeaBGzl; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jfc1Cw15"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26F91F00893;
-	Tue,  9 Jun 2026 19:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781034750;
-	bh=tinAgCKBJ6C9VdHB3KI0GOJJKJagJfvxcuSFCa59zjU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Jfc1Cw15UXaPGXMHbyqnLDGEdorsJvHXsyJznXPC7w3DNBh+AQITCTLLUQy+Fw2me
-	 eL76llUHL5l9/unbPYvQvNguAbB89fSkmm3ps59bHzVkmPeUxQZ4i+hsoFX8zhPYFz
-	 mqt+E+cwkB9QmdcwJLtEFDRSu1GCmuPf9KyUviGYE7vrUOZjTAMuSACXstLuflR45m
-	 oKMlC86Z9/Dg0ilHf+sM0vhdplhzMarvvcLPqLK0661QjNXc2DPf4DL9aWZv1gkkqX
-	 jivlWW+wp75ygEpTVDlmUjkgCcY4iiLNZArt7+s9PtPwOR0ykAKnSrNUvnudSdvyve
-	 yzuxKtPofmq6w==
-Message-ID: <280b67e5-4b01-449a-928d-06c3843ad01f@kernel.org>
-Date: Tue, 9 Jun 2026 21:52:24 +0200
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="AOeaBGzl"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/8] can: flexcan: add NXP S32N79 SoC support
-To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
- Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>,
- Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>,
- Andra-Teodora Ilie <andra.ilie@nxp.com>,
- Larisa Grigore <larisa.grigore@nxp.com>, Haibo Chen <haibo.chen@nxp.com>
-References: <20260609142954.1807421-1-ciprianmarian.costea@oss.nxp.com>
- <20260609142954.1807421-7-ciprianmarian.costea@oss.nxp.com>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260609142954.1807421-7-ciprianmarian.costea@oss.nxp.com>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1781034734;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FmI8PUvl0y9cOUVYzfjTqYiM/XJNLR0tm65qzan3Ppo=;
+	b=AOeaBGzl7oMpuwX23rf7rzw3qcQOe4ogFQhAi5TCmbEhKy3OJ3PlVbsf3fkxMKcPI59mwR
+	IN4//tCOpt2V8cRmt5BBAi90+ch/VAQ66+lTqMTJOo9bUJ0uGtatt4sPivCzQyNDNV3Db2
+	3z3QYkUdr4UliUsE9o6zoJfhFAFnzAxhO3L8BinjviZNYhJ66T+37dM7iPVWHOQH81gWe+
+	/KgeVxgk3g7Or73PDL87I8Q6IZVMpzUPENF7OkqgW7A/PzF1kThV5qvFG03roQQrjdgn8I
+	qCjl5MaVs+zzOkXkO3WH4KqZrOI9EbX0EdR4ape2N8QTMKEp/i6VXf1k0Hk/Qw==
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 09 Jun 2026 21:51:58 +0200
+Message-Id: <DJ4S46HX0BMK.25LUHCHQY4V7K@cknow-tech.com>
+Cc: "Heiko Stuebner" <heiko@sntech.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: usb: Add Rockchip RK3568 compatible
+ for EHCI and OHCI
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Jonas Karlman" <jonas@kwiboo.se>, "Diederik de Haas"
+ <diederik@cknow-tech.com>
+References: <20260609154124.445182-1-jonas@kwiboo.se>
+ <20260609154124.445182-2-jonas@kwiboo.se>
+ <DJ4NVA328NUV.LSPMVBFE0PD8@cknow-tech.com>
+ <9e8f806d-72ec-4eb4-8967-3f82eb0e7dd4@kwiboo.se>
+In-Reply-To: <9e8f806d-72ec-4eb4-8967-3f82eb0e7dd4@kwiboo.se>
+X-Migadu-Flow: FLOW_OUT
 
-On 09/06/2026 at 16:29, Ciprian Costea wrote:
-> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> 
-> Add device data and compatible string for NXP S32N79 SoC.
-> 
-> FlexCAN IP integration on S32N79 SoC uses two interrupts:
-> - one for mailboxes 0-127
-> - one for signaling bus errors and device state changes
-> 
-> Co-developed-by: Andra-Teodora Ilie <andra.ilie@nxp.com>
-> Signed-off-by: Andra-Teodora Ilie <andra.ilie@nxp.com>
-> Co-developed-by: Larisa Grigore <larisa.grigore@nxp.com>
-> Signed-off-by: Larisa Grigore <larisa.grigore@nxp.com>
-> Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> Reviewed-and-tested-by: Haibo Chen <haibo.chen@nxp.com>
-> Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
+Hi Jonas,
 
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+On Tue Jun 9, 2026 at 8:06 PM CEST, Jonas Karlman wrote:
+> Hi Diederik,
+>
+> On 6/9/2026 6:32 PM, Diederik de Haas wrote:
+>> Hi Jonas,
+>>=20
+>> On Tue Jun 9, 2026 at 5:41 PM CEST, Jonas Karlman wrote:
+>>> The Rockchip RK3568 EHCI/OHCI controller depends on clk_usbphy1_480m
+>>> being enabled, or the system may freeze when registers are accessed.
+>>>
+>>> Add Rockchip RK3568 EHCI and OHCI compatibles with a similar four-clock
+>>> constraint as RK3588.
+>>>
+>>> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+>>> ---
+>>> Existing DTs for RK3568 use the plain generic-ehci/ohci compatible,
+>>> next patch make use of these new compatibles and adds the missing
+>>> clk_usbphy1_480m clock references.
+>>> ---
+>>>  .../devicetree/bindings/usb/generic-ehci.yaml          | 10 ++++++++++
+>>>  .../devicetree/bindings/usb/generic-ohci.yaml          |  5 ++++-
+>>>  2 files changed, 14 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/=
+Documentation/devicetree/bindings/usb/generic-ehci.yaml
+>>> index 55a5aa7d7a54..c49a1bbc8cfd 100644
+>>> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+>>> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+>>> @@ -52,6 +52,7 @@ properties:
+>>>                - ibm,476gtr-ehci
+>>>                - nxp,lpc1850-ehci
+>>>                - qca,ar7100-ehci
+>>> +              - rockchip,rk3568-ehci
+>>>                - rockchip,rk3588-ehci
+>>>                - snps,hsdk-v1.0-ehci
+>>>                - socionext,uniphier-ehci
+>>> @@ -186,6 +187,15 @@ allOf:
+>>>        required:
+>>>          - clocks
+>>>          - clock-names
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            const: rockchip,rk3568-ehci
+>>> +    then:
+>>> +      properties:
+>>> +        clocks:
+>>> +          minItems: 4
+>>=20
+>> I think that the constraint for rk3588 is this:
+>> - minItems: 1
+>> - maxItems: 4
+>>=20
+>> Like ~ every other compatible; there's no 'branch' for rk3588-ehci.
+>>=20
+>> That's different from what you add for rk3568. Is that deliberate?
+>> Because from the commit message I assumed they should be the same.
+>
+> It was deliberate, the intention is to use min/maxItems: 4 for rk3568
 
+Thanks :-)
 
-Yours sincerely,
-Vincent Mailhol
+> for both EHCI and OHCI. I left out anything related to k3588 to keep
+> existing behavior and avoid any possible breakage, and why I used
+> 'similar' and not 'same' in the commit message ;-)
+>
+> Did a check and the rk3588 variant also uses 4 clocks so I will add same
+> constraint for the rk3588 variant and address Sashiko's concern in v2.
+
+FWIW: I would be absolutely fine if you restrict this patch set to just RK3=
+568.
+For the same reason you mentioned. All I wanted to know if it was deliberat=
+e
+and you confirmed that :-)
+
+Cheers,
+  Diederik
+
+> Regards,
+> Jonas
+>
+>>=20
+>>>  unevaluatedProperties: false
+>>> =20
+>>> diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/=
+Documentation/devicetree/bindings/usb/generic-ohci.yaml
+>>> index d42f448fa204..5f1b4d2bff89 100644
+>>> --- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
+>>> +++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
+>>> @@ -47,6 +47,7 @@ properties:
+>>>                - hpe,gxp-ohci
+>>>                - ibm,476gtr-ohci
+>>>                - ingenic,jz4740-ohci
+>>> +              - rockchip,rk3568-ohci
+>>>                - rockchip,rk3588-ohci
+>>>                - snps,hsdk-v1.0-ohci
+>>>            - const: generic-ohci
+>>> @@ -198,7 +199,9 @@ allOf:
+>>>        properties:
+>>>          compatible:
+>>>            contains:
+>>> -            const: rockchip,rk3588-ohci
+>>> +            enum:
+>>> +              - rockchip,rk3568-ohci
+>>> +              - rockchip,rk3588-ohci
+>>=20
+>> Here they clearly do have the same constraint.
+>>=20
+>> Cheers,
+>>   Diederik
+>>=20
+>>>      then:
+>>>        properties:
+>>>          clocks:
+>>=20
 
