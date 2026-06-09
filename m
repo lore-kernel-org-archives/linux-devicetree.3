@@ -1,174 +1,131 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792E03839B2
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466803DEAD1;
+	Tue,  9 Jun 2026 10:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780999360; cv=none; b=LdoCwgTxPShbfdcjjRbZs3TFcaoJIGLfOVtGU6fYlNoE6TplrHL9xYREj5jTwZXkDnHJA3vaSiQ3chtp3N4DBAD+CDYabtuOfoiaJ5EpBVcFhkWm4TrdB8CoHbaQS6LbvZSO2/ZqxyrRnR+WhFMHcVGB25NU5VEpQHPgSbhS4NA=
+	t=1780999362; cv=none; b=V7hSvg6Izc84jTFtUb7iOpx17wfXF1ADql3zuWPOsJ+Qmnckb6CKKeMjhvKrI4fYY7JkhL7NLKM6oMJv7zSmslkbNcg7OOQcwes03/8utzWjL8epafsCaRXYZPDaZyxQA+NRSYwGessXUlvUJGgHW6OCcaqC0cHUfTlauyO39eM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780999360; c=relaxed/simple;
-	bh=gdAUuZofKnrle2BTgBTbnsod5CATJdUinz3qgrlBraY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nUSygga9ZGrha9dHjnEB0RWTbL9k/m3B7AtN75aId2r2LDIBHCFQ0CeVsW7vzm2UEjdfeQRBl8frKKPnG97gByTRoPStr3vuVQ+uu9+62CH7W2XYjQ+Om0H29+bxU10KGbFZg38Vl9WPMsJgeWrTr7E82JiMsj25m9+KUnoW/6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cwoSlbi6; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780999362; c=relaxed/simple;
+	bh=/ueYrrhKFqDUrrLdxNHdo/GPMQH4ych/yjY+QWL47TM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q8cMw0t/xaalkaBU56AonaA0HNo6YPMFbsG+smG4LsArfWgb4rCcK76LshsQ7cwdFFake4qujlyd3LA0WB9l8UZ+POxuI9/xxM07ad0tMsB+9wr4Nl8rKYyIgP1LBCJJv5lg0hxLCQDBqvjUxcouX5GcEoJadwjR4c+oEuZrZq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oj+XUqDd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cwoSlbi6"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68d233bf083so7499116a12.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 03:02:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780999357; x=1781604157; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6z/t2eDlRmRAKpgcgdbz/fpbtWYE2knoiu/ZUm5WZLo=;
-        b=cwoSlbi6O1TAQue0nVfqqpsulcyQFaoA2Z9nHkkiDFG222n9xTangDpOsGtOEOKdQk
-         0TrZT8uB++lWdeFw3AVxpimAVcXxtbSgjGdAo3eLcrIVr7cSkV0ArFFmUD4CC9YVRuhQ
-         ocMtpDgHg1GsVpK9V3nCuhOo8J7pSrbRgtLfHJ3ai4a9fMpX2a/CESNz2CQ578jYFoen
-         l1GToe3gvNycu/aD1ykqYgP118xiiqCzN7zK95Nj8lL8m963b863mRrlqcplY++2+Rek
-         Amjyiij3PT1/QoKJXKzEIuQupWDORuNAdbeULZ0K0rpbcM4I5zxe4bWWjlEf4yk1IQi6
-         gNTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780999357; x=1781604157;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6z/t2eDlRmRAKpgcgdbz/fpbtWYE2knoiu/ZUm5WZLo=;
-        b=qrFXGJ44cDS4qi5gv9TpBhN7k9zRp2HbxPCHeqJ+k++roAMQ2VX0VzecB4Q+Qhn02f
-         /6A4rlPXRZ6nPIleAyDLFYKBJbPteu2lr+8hDJMvJtHAYujGU6Kj73if2q/YdJaFmD7u
-         aBGorMkmkJ3Xoq4NdZ4fueMznSIYnfTa1iJSOs5owUGHInetI1p12mdUYewOxpR9Ifkv
-         FrIkMqh9m56E/rsi1IqtO/mPdPkrJwUkhpisinWWc4oEt/VzEnS5RXI35fBSqkNUoMvX
-         C7jXdn0OMeaIwF9SEFOgCfQnjct/BLiVndcv0q+yyci6umlJ+ak+9XAAnbXdi0B+ULbm
-         wlSw==
-X-Forwarded-Encrypted: i=1; AFNElJ9L0kIJ1rMv7sq8ouvLrzS4I9IBus68BKNJ2H3PUgDW4Advp25ZZThml6jipc8vb4rXapQoj8MWSBkI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yypy92n8wwgjcNKWrSjqLyahIvxg3vtPLsv6B06KG3L0ArY7kM2
-	MD8GU5pqoSIth/2yP+H5lQF0ro9DgfytbGjSnvtzWda39ec0m+DFRaxPs4vLfD0o6M4=
-X-Gm-Gg: Acq92OElmtzbYHLiiELCPz//omtpUq92/jqU0SYi7XCvIeVkW7+4h9/dyyIIq0Wdmpj
-	rqtsliE3nx23ZAap/aCqz4qYQUtX3zfBQCfH9FU2WXabBo1/HyaXyDmYGJ7xyG9OaqW9janVAWE
-	szL1D3jx323nzhxoZtvCDMU4wU8kLaddVWBfbZmkjWMzxBFZARUgyABTPBPAZRXqzwebLhcEfKz
-	wkzvwfcEnKPZzwp9neCZxkmTsUvlDaLQZlu9pwrJs/S3wuAzKQrzAxXX1SZT9+o0ZBSHHWjIqME
-	fupPCPRyN/ynmiBYVeQBd+9lT9imznJuUNcFDPcefkVU/Tv4Rvmpfcg7yymg1reNGl1xwQcTpEb
-	0jI7HKWBPQdigijcVOZqt8SbKKXy/+iCWmvPkciWfKdFnbozfenOBghCA3Cmp9Lg/hWB8urtF5C
-	tTCUXz0qoXDMca7WaDEVfXOLiFdqKjY8OGypNY8jQsv//Vjw==
-X-Received: by 2002:a05:6402:1914:b0:68f:c62d:b36e with SMTP id 4fb4d7f45d1cf-68fc62db44emr8021823a12.28.1780999356589;
-        Tue, 09 Jun 2026 03:02:36 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff23:4410:919a:5e38:ea48:32e9])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65b55d81sm8461678a12.27.2026.06.09.03.02.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 03:02:36 -0700 (PDT)
-Date: Tue, 9 Jun 2026 12:02:30 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: mtd: qcom,nandc: Add MDM9607 QPIC NAND
- controller
-Message-ID: <aifktn_s2qmg7MzI@linaro.org>
-References: <20260608-qcom-nandc-mdm9607-v1-0-4639a0492274@linaro.org>
- <20260608-qcom-nandc-mdm9607-v1-1-4639a0492274@linaro.org>
- <20260609-quirky-rat-of-criticism-aea1fe@quoll>
- <87mrx4b164.fsf@bootlin.com>
- <aifKejyF7n6QsI9h@linaro.org>
- <a6b17b9a-f639-4a7f-adb6-d0c9dbd31e68@oss.qualcomm.com>
- <35c7513b-6aea-48cf-aea8-da8604616601@oss.qualcomm.com>
- <aifX80IHM8TLQiV7@linaro.org>
- <87o6hk9i29.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oj+XUqDd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2661F00893;
+	Tue,  9 Jun 2026 10:02:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780999360;
+	bh=9+41EvuzcPCEx1tAoFP/DnjyJ6VDpRPyqYwS8hVfghw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oj+XUqDdG95lV+L75Y5YzT27yIRYfkpThlPydNFdN+oWCMPYFXOmKeQMTrvrXCsSV
+	 C4DqkXVAebUldV75GFKXSlbMecCsnlODGbrvfYUF9C1U+AJSN6fRHKJ9L+6bF4YBXq
+	 auDnHWfbF53CsiinbATPgwJOMLCsKUvZfpHTfRpOqeyFHZtzlKwbJTWwRl7sEpqiLH
+	 4Y+Ritxe/+wOhuZe2FJ3jZ8dBjPg7y8kfYOZ1fU3qv89CzHS+9z9fpxjgw3lAWLzYA
+	 A0M24/a8HzUlJVYOFHQs9M6/lAknijQ2LyuV9+908Q1vd5JxjVLNU2bgbz/1Hux5Mv
+	 DUsj7NqHXinhw==
+Message-ID: <c4fa85f1-365e-49ab-9549-d6d46529a68b@kernel.org>
+Date: Tue, 9 Jun 2026 12:02:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87o6hk9i29.fsf@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] dt-bindings: pwm: dwc: Add eswin compatible and
+ resets property
+To: Xuyang Dong <dongxuyang@eswincomputing.com>
+Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+ p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+ pinkesh.vaghela@einfochips.com
+References: <20260605082242.1541-1-dongxuyang@eswincomputing.com>
+ <20260605082318.1599-1-dongxuyang@eswincomputing.com>
+ <20260605-scrupulous-tasteful-nuthatch-5d8ce3@quoll>
+ <643f9b98.722f.19eabb8fe3e.Coremail.dongxuyang@eswincomputing.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <643f9b98.722f.19eabb8fe3e.Coremail.dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 09, 2026 at 11:30:54AM +0200, Miquel Raynal wrote:
-> On 09/06/2026 at 11:08:03 +02, Stephan Gerhold <stephan.gerhold@linaro.org> wrote:
+On 09/06/2026 11:31, Xuyang Dong wrote:
+>>>
+>>> EIC7700 use DesignWare IP for PWM controllers. Add ESWIN EIC7700 support
+>>> in snps,dw-apb-timers-pwm2.yaml.
+>>>
+>>> The DesignWare PWM includes separate reset signals dedicated to each clock
+>>> domain:
+>>> The presetn signal resets logic in pclk domain.
+>>> The timer_N_resetn signal resets logic in the timer_N_clk domain.
+>>> The resets are active-low.
+>>>
+>>> The generic snps,dw-apb-timers-pwm2 binding allows one or two optional
+>>
+>> I don't know what is the generic binding, but it does not allow. Open
+>> the file: there are no resets at all, so it does not allow them. Or you
+>> mixed tenses here and you wanted to describe the change?
+>>
 > 
-> > On Tue, Jun 09, 2026 at 11:01:18AM +0200, Konrad Dybcio wrote:
-> >> On 6/9/26 10:55 AM, Konrad Dybcio wrote:
-> >> > On 6/9/26 10:10 AM, Stephan Gerhold wrote:
-> >> >> On Tue, Jun 09, 2026 at 09:52:51AM +0200, Miquel Raynal wrote:
-> >> >>>>> On MDM9607, there is only a single controllable clock for the NAND
-> >> >>>>> controller (RPM_SMD_QPIC_CLK). The same situation also applies e.g. for
-> >> >>>>> qcom,sdx55-nand, but the corresponding device tree (qcom-sdx55.dtsi) works
-> >> >>>>> around that by assigning a dummy clock (&nand_clk_dummy) to the second
-> >> >>>>> clock ("aon") that is required by the dt-bindings. This is not really
-> >> >>>>> useful, so avoid doing that for new platforms by excluding the second "aon"
-> >> >>>>> clock entry in the dt-bindings.
-> >> >>>>
-> >> >>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> >> >>>
-> >> >>> What is the problem in giving twice the same clock? If this is what is
-> >> >>> done in the hardware routing, I do not see the reason for more
-> >> >>> complexity in the binding?
-> >> >>>
-> >> >>
-> >> >> I had that in my first draft for this series, but this would be wrong
-> >> >> IMO. I suspect there is no QPIC/NAND related "aon" (always-on) clock on
-> >> >> this platform at all. I'm not sure about MDM9607 in particular (maybe
-> >> >> someone from Qualcomm can confirm), but a similar platform I was looking
-> >> >> into at some point actually had *3* separate clocks for QPIC in the
-> >> >> hardware and none of them were called "aon" ...
-> >> > 
-> >> > gcc_qpic_ahb_clk (50/100/133.(3) MHz sourced from PCNoC_bfdcd_clk_src)
-> >> > gcc_qpic_clk (likewise, sourced from qpic_clk_src which is sourced
-> >> > from GPLLs)
-> >> > gcc_qpic_system_clk (32 KHz)
-> >> > 
-> >> > No clock containing the substring 'aon' in its name on this platform
-> >> 
-> >> Looking at SDX65, perhaps the 32 Khz clock is the "aon" one after all..
-> >> The NAND documentation says
-> >> 
-> >> CC_QPIC_SYSTEM_CLK - Always-on timeout clock (32 KHz)
-> >> 
-> >
-> > Thanks for looking this up.
-> >
-> > IMO, if we want to describe the actual hardware routing, we should
-> > describe all 3 clocks and assign all of them to RPM_SMD_QPIC_CLK for
-> > MDM9607).
+> Hi Krzysztof,
 > 
-> Sounds more accurate to me.
+> Thanks for your comments and time.
 > 
-> > The resulting diff would be basically the same as this patch just
-> > inversed (3 clocks for MDM9607+SDX(?) and 2 clocks for the IPQ* SoCs.
-> 
-> Diff would not be simpler but more accurate. So if we go for a
-> modification of the bindings, I would prefer that path.
-> 
+> Regarding snps,dw-apb-timers-pwm2, we previously intended to add the 
+> resets property in the same patch. 
+> However, as you suggested, we will split it into a separate patch.
 
-IMO the result wouldn't be much more accurate from the perspective of
-the kernel. If we assign RPM_SMD_QPIC_CLK to all 3 clocks we would be
-effectively saying "there is a single clock with a single rate that is
-sourcing 'core', 'ahb' and 'system'(/'aon')". But in reality, these are
-3 separate clock domains with separate rates, as shown by Konrad above.
+I find commit msg still confusing. Please always clearly explain WHY you
+are doing changes.
 
-We could try defining dummy clocks like the &nand_clk_dummy in
-qcom-sdx55.dtsi, but this isn't very accurate either. Presumably, all of
-these clocks are toggled by RPM_SMD_QPIC_CLK. So if we define a dummy
-clock for 'ahb', then enabling that clock without also enabling the
-non-dummy 'core' (RPM_SMD_QPIC_CLK) will do nothing.
-
-At the end, the truth for the OS/kernel running on this hardware is that
-it can only see the 'core' clock (with the option to change its rate).
-All others are invisible, with no way to influence or check the status,
-so pretending that we have separate resources for them doesn't really
-make things more accurate in my opinion.
-
-But yeah, let's leave the decision up to Krzysztof. I'm happy to change
-this patch as needed as long it works at the end. :-)
-
-Thanks,
-Stephan
+Best regards,
+Krzysztof
