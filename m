@@ -1,23 +1,23 @@
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 916D43101BC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1BAEB3DA7DF;
 	Tue,  9 Jun 2026 09:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780996010; cv=none; b=KqoKeHHWmr3/leBwUZ9lHlP9H0rt3dXKkVkkjMe12cqW7XnUjvclo9dhnFQbvBovA2eddZGdwK9w1ewYO2DtgfpJj7J1rFyM8bAr8glu3VaKMjV+7KdRhbq0E3DCVNIextUvgsSKd229uWV7SeOb+42M1obK/mfMJPj1ZVDJYH4=
+	t=1780996010; cv=none; b=PVQHniuK31aNbNeIYkfIoyDY9lX7OOItqyEkmF8w6aYcY9IFahYwObHi1kP/SNqo7kk1Y1KaaB45fIvNW1TNhaEtosQElSWHgk2kwrzboAdvonbkQVOZ/r1y50zSFx5JqDXAuQ/sikHBuXIZ48YlIYwrL1YRELCoufUBvKHy7y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780996010; c=relaxed/simple;
-	bh=5gZC6T2JXbuAgHcQsotTCrBQZO69LrNxUv122F/zekQ=;
+	bh=Hj1S5z20HOrHY4kGGrbU+sk4JvQTCTMsrr3XqOGMH+Q=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bgVuJDwe19RacmL3s8Nsc/EQmyYu3jN3DErlyXgStLoWQvGdW183NoMlVuQFyKWkQTrCM57rfWZZbEx01LYcRw0qgWmeer0N5Usl3NdwLm4EWsTGRW1qvankOM/L4AiusLJFX2Ru8+zA+pVW52D+vjISd09lkcPR48htXnGMxrw=
+	 MIME-Version; b=d+fSyLRDi/dNT5Zi5Jib+X+Dlk6u2qdeLZ/YD6XAy1EXN45LVDiU4PB3JD4ek6TlLUbpoLHGrNDWHLh6xdmx5DsmgRL3asCDy349IWcoN5bAiPmWfnBOJvOYvAZBLnGg+jQpo7vqZcpLe+XxS+UwzwKhuOBAEgTSIonOlDvCVGA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
 Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Cx3sCn1ydqeDESAA--.24718S3;
+	by gateway (Coremail) with SMTP id _____8CxHuqn1ydqezESAA--.47628S3;
 	Tue, 09 Jun 2026 17:06:47 +0800 (CST)
 Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJCxOMGk1ydqKKOgAA--.28652S3;
-	Tue, 09 Jun 2026 17:06:46 +0800 (CST)
+	by front1 (Coremail) with SMTP id qMiowJCxOMGk1ydqKKOgAA--.28652S4;
+	Tue, 09 Jun 2026 17:06:47 +0800 (CST)
 From: Hongliang Wang <wanghongliang@loongson.cn>
 To: Hongliang Wang <wanghongliang@loongson.cn>,
 	Binbin Zhou <zhoubinbin@loongson.cn>,
@@ -28,9 +28,9 @@ To: Hongliang Wang <wanghongliang@loongson.cn>,
 Cc: devicetree@vger.kernel.org,
 	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/3] LoongArch: dts: i2c: Add clocks and clock-frequency properties to 2K0500
-Date: Tue,  9 Jun 2026 17:05:41 +0800
-Message-Id: <20260609090543.1462-2-wanghongliang@loongson.cn>
+Subject: [PATCH v1 2/3] LoongArch: dts: i2c: Add clocks and clock-frequency properties to 2K1000
+Date: Tue,  9 Jun 2026 17:05:42 +0800
+Message-Id: <20260609090543.1462-3-wanghongliang@loongson.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20260609090543.1462-1-wanghongliang@loongson.cn>
 References: <20260609090543.1462-1-wanghongliang@loongson.cn>
@@ -41,89 +41,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxOMGk1ydqKKOgAA--.28652S3
+X-CM-TRANSID:qMiowJCxOMGk1ydqKKOgAA--.28652S4
 X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Zw4fCw1UtrWfAr1rXF4kKrX_yoW8uw43pF
-	9F93yDGr40qF43X3W5tFWUGrn3CF9ayF97WF17AFWUGwnxtr1DXr4rKFy7JFy5Ww4Yv39F
-	qFn3Cas0vFsxZabCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
-	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2
-	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
-	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0x
-	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE
-	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
-	kF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jjOJ5UUUUU=
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZry3GF48CF45Zr4UXw45XFc_yoWkWFX_t3
+	ZxKw1UGrs5CFs5tryqvr4UJw43ZayUA3ZYkF97ury8ta4Dtr43GrWUZa98Ar1FkrW2grsY
+	y3y8Xr95CryakosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb28YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j83kZUUUUU=
 
 Add clocks and clock-frequency properties to i2c nodes.
 
 Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
 ---
- arch/loongarch/boot/dts/loongson-2k0500.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ arch/loongarch/boot/dts/loongson-2k1000.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/loongarch/boot/dts/loongson-2k0500.dtsi b/arch/loongarch/boot/dts/loongson-2k0500.dtsi
-index 1b502064df11..992b1d0de9ec 100644
---- a/arch/loongarch/boot/dts/loongson-2k0500.dtsi
-+++ b/arch/loongarch/boot/dts/loongson-2k0500.dtsi
-@@ -405,6 +405,8 @@ uart0: serial@1ff40800 {
- 		i2c0: i2c@1ff48000 {
+diff --git a/arch/loongarch/boot/dts/loongson-2k1000.dtsi b/arch/loongarch/boot/dts/loongson-2k1000.dtsi
+index ab6a55937e9e..e6f0fe093ab3 100644
+--- a/arch/loongarch/boot/dts/loongson-2k1000.dtsi
++++ b/arch/loongarch/boot/dts/loongson-2k1000.dtsi
+@@ -311,6 +311,8 @@ uart0: serial@1fe20000 {
+ 		i2c2: i2c@1fe21000 {
  			compatible = "loongson,ls2k-i2c";
- 			reg = <0x0 0x1ff48000 0x0 0x0800>;
+ 			reg = <0x0 0x1fe21000 0x0 0x8>;
 +			clock-frequency = <100000>;
 +			clocks = <&clk LOONGSON2_APB_CLK>;
- 			interrupt-parent = <&eiointc>;
- 			interrupts = <14>;
+ 			interrupt-parent = <&liointc0>;
+ 			interrupts = <22 IRQ_TYPE_LEVEL_HIGH>;
  			status = "disabled";
-@@ -413,6 +415,8 @@ i2c0: i2c@1ff48000 {
- 		i2c@1ff48800 {
+@@ -319,6 +321,8 @@ i2c2: i2c@1fe21000 {
+ 		i2c3: i2c@1fe21800 {
  			compatible = "loongson,ls2k-i2c";
- 			reg = <0x0 0x1ff48800 0x0 0x0800>;
+ 			reg = <0x0 0x1fe21800 0x0 0x8>;
 +			clock-frequency = <100000>;
 +			clocks = <&clk LOONGSON2_APB_CLK>;
- 			interrupt-parent = <&eiointc>;
- 			interrupts = <15>;
- 			status = "disabled";
-@@ -421,6 +425,8 @@ i2c@1ff48800 {
- 		i2c@1ff49000 {
- 			compatible = "loongson,ls2k-i2c";
- 			reg = <0x0 0x1ff49000 0x0 0x0800>;
-+			clock-frequency = <100000>;
-+			clocks = <&clk LOONGSON2_APB_CLK>;
- 			interrupt-parent = <&eiointc>;
- 			interrupts = <16>;
- 			status = "disabled";
-@@ -429,6 +435,8 @@ i2c@1ff49000 {
- 		i2c@1ff49800 {
- 			compatible = "loongson,ls2k-i2c";
- 			reg = <0x0 0x1ff49800 0x0 0x0800>;
-+			clock-frequency = <100000>;
-+			clocks = <&clk LOONGSON2_APB_CLK>;
- 			interrupt-parent = <&eiointc>;
- 			interrupts = <17>;
- 			status = "disabled";
-@@ -437,6 +445,8 @@ i2c@1ff49800 {
- 		i2c@1ff4a000 {
- 			compatible = "loongson,ls2k-i2c";
- 			reg = <0x0 0x1ff4a000 0x0 0x0800>;
-+			clock-frequency = <100000>;
-+			clocks = <&clk LOONGSON2_APB_CLK>;
- 			interrupt-parent = <&eiointc>;
- 			interrupts = <18>;
- 			status = "disabled";
-@@ -445,6 +455,8 @@ i2c@1ff4a000 {
- 		i2c@1ff4a800 {
- 			compatible = "loongson,ls2k-i2c";
- 			reg = <0x0 0x1ff4a800 0x0 0x0800>;
-+			clock-frequency = <100000>;
-+			clocks = <&clk LOONGSON2_APB_CLK>;
- 			interrupt-parent = <&eiointc>;
- 			interrupts = <19>;
+ 			interrupt-parent = <&liointc0>;
+ 			interrupts = <23 IRQ_TYPE_LEVEL_HIGH>;
  			status = "disabled";
 -- 
 2.47.2
