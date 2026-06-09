@@ -1,132 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B9133C1BE
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:16:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780996587; cv=none; b=GyOXNymlcl2T4qIAS+i3+1LDgkZwtyo0Cg07ipbSwyUmJnyjCxl+EB656TUcaC1PBl4XQ93quJaEB5UxAzSr5jpZBgGhWWniAfjmluFlJWYIr0dc1kuz9ktfKP5uhALTcem8GKxtiLDDD+RxEwZw4uFLm+U5SyX0rC+d48NPGSk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780996587; c=relaxed/simple;
-	bh=mrI7zAKFiC56vcl1sF4dw+YzS9Lt4H8vPuOcPKeIy/8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o1OtIUs7u7WHS4tcAN4njvY830JLiylbdUU8CgmYHTqpkkjOsMs1TJ1OO3o/4n0Vih/3HR03SHTP4Ty6XGQ0a53VpeFTzhcJxdn6TAC751cKjw/hYu+mR5FZ0mYNH38iIbQ8fvLz9RkS2PP01KDnBmLK8B+fATgN3B6x2dxKHpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbG73QpC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1B3D669C
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780996622; cv=pass; b=GX6W011usADmGbuzq6Ztq8HHgOHC1h2i4LqmcHKhFa2KeFAVjTfHzUlLHq0x/m0aTB1kmRXlK0Nk8ek0e7/t6j4aRDJfU1WVdB4H+PlIEbu6AtgqMCUMnq5QXRyjXeh59MUVG2FZ4ab8cr8Al0erWWEXSNtN8YYxEfrNVaOyrJA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780996622; c=relaxed/simple;
+	bh=TaJIKM3O2Do2Nt4kIaUSWB8jEWE1Qwyap2u8PR62hB4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cJX0X5pmE0qsaH7WJ8TAEJZ/NN+wBWfj9fD2j7WdoW62Vr3csatAcOtzcbKTIvHZbRafYLu6KlMeiB/JGjEal2XKQH8aFzjdNBGvPKslb0dZ1kU527tH9WPYwHUjIIw6iG/1XXQMVwwp8IesoTZdtnvCyQYT3lGV0WaVT+JRHhs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UiZHzBLy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W+hm+IDZ; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbG73QpC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892CE1F00893;
-	Tue,  9 Jun 2026 09:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780996584;
-	bh=Mys4joLw+ab5a3C5T0ob4KbWOjuH/kiPdNLT9//fK54=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nbG73QpC9QrThpt4d/JryS6h1bX0WW8Rg6wZR2m2mc2qYvWLL/7PdVGSeyDKFh+HK
-	 ZLmhL7sk5ei0yM6ESdoWrkUb5IM5Tbz84TfKpexanUCKQKpSzp4UUrFimXnN00yfoK
-	 QkrXRdmf2wshMSvlXEz3doFUk4eXnukFNeHDXPQSLZ63EK7l2/YnJBqO5ngdNjhBkF
-	 iiUzqfaUwYPlkCjsmdz+w+sxfId2WQtVzs5Yo8CO8aMFolHelPqaA1/HzWbpjSDVp7
-	 Sr42PfUcH4UMugszRpsGpjvzk9Q7vmTUoi/1Pgh8UInU3UE1CHxCbyvOqQZJbXsisr
-	 sRl8KO/OQSTqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] LoongArch: dts: i2c: Add clocks and
- clock-frequency properties to 2K1000
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongliang Wang" <wanghongliang@loongson.cn>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609090543.1462-3-wanghongliang@loongson.cn>
-References: <20260609090543.1462-3-wanghongliang@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 09:16:23 +0000
-Message-Id: <20260609091624.892CE1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UiZHzBLy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W+hm+IDZ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6597ruGp2001674
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 09:16:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/EqyMxiE/m94G4SRX6R7mDsxcjVfUYvMbEvBF14uWFo=; b=UiZHzBLy4QyYM2Ks
+	N5cm8P4GmceWbdMF1milaB0NUBQ8s4AgwRDCssevYujEjrAkBVTA4jO923lz9Wl2
+	mHZLwHJZ9r9GTahp9dh4aqaIUTEyNiNYXD/1BiR1nRpKEwItt8gi/hY2+yWnGwp3
+	kyDaQuGvCbrGquG6a87/sKd7qD3wBldP0Xf+ZCbT2dZOzOl26cLaMs2Glnpoa4KU
+	CO8NGAjzC7sA+NRQxoXibKITV7Gj1Lunrh4O3pzo71nKvSo42DeUxG3zmdSyIc4A
+	zWGSKMrq3mauzlsp5t4fkd9M8ITdZMiMRsQiJz8sP+KKviNRtBfXyj7JamLklmbc
+	CSh/XA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epe25rj02-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:16:57 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-91572601753so1042919185a.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:16:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780996617; cv=none;
+        d=google.com; s=arc-20240605;
+        b=bQYuWEq3/9nxPH4wx55tCzI4zMr65Mp76WGWcVDpci8rw4WF3FPrG03aPQImUQGvOH
+         Y78QDBf72qFlk63Oa8WYj9vqM1jS2nTJbZkiOnXhen+PbcP+ra22oD2dFWk5R53LcNPx
+         wCNEm0rn4NGut8zUAP1jkssT+3BSWiZEdnvvfYjL2cYjaDKHJsbKfIKzN3TkvPUcZU+X
+         ka2yvcE7fI7qPNRemKUwrfrdXTy6q5SDpR7v8mKuQMECp3ITA9PK/XRgHYKIi0wLdsJn
+         YLSBy2yKZzIFwF2Z3euert01uz8T9Y/upge1z0JuCaU8YNdV6RbGeA00vNlWVBoFCLQY
+         3cxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/EqyMxiE/m94G4SRX6R7mDsxcjVfUYvMbEvBF14uWFo=;
+        fh=73Zr4BH5cOcFFyCcmY2yAFpCFI95bCs6HTyXZCJ2P34=;
+        b=G2VGTiqmAc81lqKQI/2Zt5+OmAI52iIcdLpg/D4wNlHDhGy0aIFtlC5hFUGh0w3uqD
+         rTYi41AuijPGyNFIJ5XrXWOiEm2ohz9VpnADPZk8UAs5zTZMYKFhgJ1pVPOMp/7+Z66I
+         isQ6Hd9n6lg6vurY7ikyp+JdSRUTKINgZuShqSiGlImNw8/X/zJCFDY44f1zlr6N4fdr
+         CmPAL7CORT73MH1KU20VJVXz7iqK15jemFD0+5wUG9uMazkRNuBWzTVYTijB/ixY2bzt
+         uXQleQSimqPMz2deqGCqX9UKbSRP3a7jgIwaMxTPI1jaf5DfcZ2aGgI4AQAfoKxb3c1J
+         qdxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780996617; x=1781601417; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/EqyMxiE/m94G4SRX6R7mDsxcjVfUYvMbEvBF14uWFo=;
+        b=W+hm+IDZ+Te5QTlrcziMBKSHf0e+rSuwESM2TsPwcG2Z/KWKoFe84O02WEfYNwE2QM
+         lxSgrnyOvn6+ZntqK5prUNlgMqBUHW5HamuVM2BMRB5+mXdzCLJCdY0aDXWm/Zbt3yjQ
+         WG2IkRDXpHQuwVxwVYaVMI49M+cjRKGN7iQjqDzR5pTe4tdzAWJcfkD7SsHGRDL43VsE
+         ErNsvW9ASPvqok0dDq5hvZKlNR63uvxyTs4yMCGajpOkfK9T9IqkiveErn0LSLgbmmZS
+         8Xx1eYm2dyvJVNOGw3JCsSTIUwOSAudGTiH+xoiQ2FqXIpEXfDYbc5OIPMmQtZatDue3
+         HBTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780996617; x=1781601417;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/EqyMxiE/m94G4SRX6R7mDsxcjVfUYvMbEvBF14uWFo=;
+        b=X4sjAa9x9TOdauatUO+24UmZVqEkZN1OvvnvIEoJaxsWoonGCR72p2DzyKY0X5LjYg
+         doBpfiOrkjqExdSU173awVDa0LERP9WgVzvMfIlMIZxYQ/B/VkEw9ODlsHzexkRhe8DV
+         uKPR+ek3NJfpbc/RhHPhLrjfLsTE84pTeTAe557SvmLmkSgVCbOl0YKQrfVamiT4XkKm
+         TsfuFQle0T02FSCvB/f0tQm9lBW2fH3Uv2Y4E8YHvR+rdk7PufUvk/xFNr3U/2043FL5
+         4wmEa5YRpYZ8CRSBtkz2F+k1W0iabBNV/1hQx5r6V+5on6dkRafaj5OsKm1HIKOpAjmo
+         XIPw==
+X-Forwarded-Encrypted: i=1; AFNElJ9OR2o8pH2seN1/NYZKZEibMZ8kh4yhejPTAawVmUNYF+i1/54IVSdlV4BD6JLgurss7MPVY3385Jcw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzInu59PZPwz/u5HcanFTG8fPth7x223ASDqnaBJaPdStwwXXl3
+	5RkIUF03k9HixyJ42Ot6m5OAHO1xGVQIJ6tkeNqX/02KLfKTGr3ptd5qQ+k1OQ3kRetmyFXo6vy
+	IFZPAEHJwiJltMq6vdneCjcOv02CcnFDwdcF7j/BQuU9Wx4BbGzVoBjsuUe/ZXpxQTFzZNAV++M
+	7VMUAEcAMpVmlbTCVyjeFqWCUYtut8lzHcISL9sQ8=
+X-Gm-Gg: Acq92OE9aZbn9dRJsSiTXnXln0K/QYzLpWCPbNqiWjRoM+yG5FMUehUSgJYCYJwCcMu
+	unkfqQA0VrjBSr26a4Hr0nHvZrjNQ/WXZ2aQCUaux16tU28Ue4ds/qRZAneJJWxHMI5XP3AMCy1
+	yYmIXKpZigIl+1iQR+x3p3Ie9oRzlvVyrBn/xKBXgP20tTjGC/0OtcBGdQwBTfUE36cyOZmFCML
+	fUdyFKaD7vdl4x4FPMaRsWkAfDsSAPCARP24DIxrZA1t1BnY7MyxbbDu/xDC+uVxzfPwg1vimv+
+	5AdM8kbEGsGk2oKihyAPVCol1tNDCUzRSpOSnh0KAKohFfG/+Vahz+yO8JO4
+X-Received: by 2002:a05:620a:1a0a:b0:915:40ff:4e10 with SMTP id af79cd13be357-915e822bf5amr252715985a.4.1780996617382;
+        Tue, 09 Jun 2026 02:16:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a0a:b0:915:40ff:4e10 with SMTP id
+ af79cd13be357-915e822bf5amr252712085a.4.1780996616898; Tue, 09 Jun 2026
+ 02:16:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com> <20260608-shikra-camss-review-v2-2-ca1936bf1219@oss.qualcomm.com>
+In-Reply-To: <20260608-shikra-camss-review-v2-2-ca1936bf1219@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 11:16:44 +0200
+X-Gm-Features: AVVi8CcruF8G3bHCMvT-UUyCre6c8b-WOyhsQAf9gtMqJA6eGNVQ_TK2SNIM-_k
+Message-ID: <CAFEp6-2V_srCT=wWFb5Pjrhq2-pzTG5QCd90Pf+0s92qC6G8LQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/7] dt-bindings: i2c: qcom-cci: Document Shikra compatible
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+        imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        Suresh Vankadara <quic_svankada@quicinc.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: oD3K3QrTCD7bPc2_iEyM02mbohQ3WQuW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA4NSBTYWx0ZWRfX6T3/KS5mMceq
+ NU1Qf/52GFWGUS61BQkfC6KBTSllt3az+l+5ThwcRSkWOopnHsrvxsmiFjlR3ewBe7J0lMCKGIq
+ zgnUqhTHdmFc+ml0cNRyTbT7wtfvanCOaa7JreOCAjlOXDgqtMh9LjDjxZAgqKIqJDntplaCkCM
+ opy7xorEx+wS7/lyG5U2rziOBrMSRyegNPp1VWkFUGwn5OcHSUGW6AflCTjRXeMcy4Le32jXlLo
+ 8fNGJ/eR2SXaf+MyFwe9EiQy3OBPTLDSEiHoyAxTjbcuMF7LrLyEXHerVly0gSBtEn/oNtknQMT
+ mI8wnmmwiLFn1nMbA8nor5Gt5s8kHYT+twHPDn9FEED6yQM3ZyUCyGr81jq8gOVL9TyT0IWZYC6
+ UK1GTFbgvCDSoZhIm5xkE0MukdDD8R0WFh+sVqk/i52Xqc4fILy+HLwgSssfZp2nEsLEIHqKTNi
+ +7V0Tf3r9JpoZtgLGwA==
+X-Proofpoint-GUID: oD3K3QrTCD7bPc2_iEyM02mbohQ3WQuW
+X-Authority-Analysis: v=2.4 cv=LoqiDHdc c=1 sm=1 tr=0 ts=6a27da09 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=LDBv8-xUAAAA:8 a=KKAkSRfTAAAA:8
+ a=b40KZWPJp5KrgtGOUacA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=DZeXCJrVpAJBw65Qk4Ds:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090085
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, Jun 8, 2026 at 4:07=E2=80=AFPM Nihal Kumar Gupta
+<nihal.gupta@oss.qualcomm.com> wrote:
+>
+> Add Shikra compatible consistent with CAMSS CCI interfaces.
+> It requires only two clocks.
+>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Pre-existing issues:
-- [High] The `ls2x-i2c` driver ignores the `clocks` property from the devic=
-e tree, uses a hardcoded 50 MHz input frequency, and fails to enable the AP=
-B clock.
-- [High] The driver enables hardware interrupts during probe but fails to d=
-isable them if probe fails or when the module is unloaded, risking a shared=
- interrupt storm.
---
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-commit cddbd9c87b8c7d30fee92d277ef3f18390c5b560
-Author: Hongliang Wang <wanghongliang@loongson.cn>
 
-LoongArch: dts: i2c: Add clocks and clock-frequency properties to 2K1000
-
-This commit adds the clock-frequency and clocks properties to the i2c
-nodes for the Loongson 2K1000 device tree.
-
-> diff --git a/arch/loongarch/boot/dts/loongson-2k1000.dtsi b/arch/loongarc=
-h/boot/dts/loongson-2k1000.dtsi
-> index ab6a55937e9eb..e6f0fe093ab3c 100644
-> --- a/arch/loongarch/boot/dts/loongson-2k1000.dtsi
-> +++ b/arch/loongarch/boot/dts/loongson-2k1000.dtsi
-> @@ -311,6 +311,8 @@ uart0: serial@1fe20000 {
->  		i2c2: i2c@1fe21000 {
->  			compatible =3D "loongson,ls2k-i2c";
->  			reg =3D <0x0 0x1fe21000 0x0 0x8>;
-> +			clock-frequency =3D <100000>;
-> +			clocks =3D <&clk LOONGSON2_APB_CLK>;
-
-[Severity: High]
-This is a pre-existing issue, but does the ls2x-i2c driver actually use
-these clock properties?
-
-Looking at drivers/i2c/busses/i2c-ls2x.c, the driver appears to hardcode
-the input clock frequency to 50 MHz:
-
-drivers/i2c/busses/i2c-ls2x.c:
-#define LS2X_I2C_PCLK_FREQ  (50 * HZ_PER_MHZ)
-
-It uses this hardcoded value in ls2x_i2c_adjust_bus_speed() to calculate
-the prescaler. Because the APB clock can scale, wouldn't ignoring the
-clock frequency from the DT lead to out-of-spec I2C bus speeds?
-
-Additionally, the driver never seems to call clk_prepare_enable().
-If no other drivers request the shared APB clock, could the clock
-framework disable it via clk_disable_unused, hanging the system on
-register access?
-
->  			interrupt-parent =3D <&liointc0>;
->  			interrupts =3D <22 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: High]
-This is a pre-existing issue, but does the ls2x-i2c driver correctly
-manage these interrupts during probe failures or module removal?
-
-In drivers/i2c/busses/i2c-ls2x.c:ls2x_i2c_probe(), hardware interrupts
-are enabled via ls2x_i2c_init() before the fallible devm_request_irq()
-and devm_i2c_add_adapter() operations:
-
-drivers/i2c/busses/i2c-ls2x.c:ls2x_i2c_probe() {
-    ...
-    ls2x_i2c_init(priv);
-
-    ret =3D devm_request_irq(dev, irq, ls2x_i2c_isr, IRQF_SHARED, ...);
-    ...
-}
-
-If probe fails later, or if the driver is unbound (there is no .remove
-callback in ls2x_i2c_driver), the devm framework will free the IRQ handler
-but leave the hardware interrupts enabled at the controller level.
-
-Because the interrupt is requested with IRQF_SHARED, won't any subsequent
-interrupt asserted by the I2C controller go unhandled and cause an
-interrupt storm?
-
->  			status =3D "disabled";
->  		};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609090543.1462=
--1-wanghongliang@loongson.cn?part=3D2
+> ---
+>  Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml b/Do=
+cumentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+> index 7c497a358e1dc8cec8b31c17bfedf315e4e00606..c94069afd8d06dbb08ddd6b49=
+e2de7dc7acdc29a 100644
+> --- a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+> @@ -35,6 +35,7 @@ properties:
+>                - qcom,sc8280xp-cci
+>                - qcom,sdm670-cci
+>                - qcom,sdm845-cci
+> +              - qcom,shikra-cci
+>                - qcom,sm6150-cci
+>                - qcom,sm6350-cci
+>                - qcom,sm8250-cci
+> @@ -137,6 +138,7 @@ allOf:
+>                - qcom,kaanapali-cci
+>                - qcom,qcm2290-cci
+>                - qcom,qcs8300-cci
+> +              - qcom,shikra-cci
+>                - qcom,sm8750-cci
+>      then:
+>        properties:
+>
+> --
+> 2.34.1
+>
