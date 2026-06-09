@@ -1,161 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0853DBD7C
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:32:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27933DC84C
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 07:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780990369; cv=none; b=GZYqKmbYer5keEH0dXdcnJBqeT3Bz/wk9BcwXX/qkns9ddW+KWXO7Y4hwS9MbLeOifWDhUplKnjwNPMfhJMuswXP2XhhcY15qMxUIV9AIr26NNokKpOv9xKkBYmDNh6XTdzWNgdoMr+ZjE9eShoG9DZ7tYRjNscwoNuPg1JyP3Q=
+	t=1780990389; cv=none; b=HaJn5mXEQjwPC7tL9NrKqi+hhzRzkURu+AGCFL1wUe7NjvqoVsNDJwhGmZrQPFljQGDHPUlZoPa5QYBIUfQlqMn5ezosSSmRRhkUvyq7YZtarIwIsU9bDdUELHUlIJbAJYSQKrDIpwgJdwUAbV+eKsUKqIGX+QL+zrF0+2fnLp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780990369; c=relaxed/simple;
-	bh=QYCQraenKeKZAmS/OlxirfIbYAFnYofRaln7q07UgBs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BIxzqexRq3RZfiHSGQJvXTWd3pYYq+4Msj6HTjpC4jbPj+hFdsu4o7Ue1vnG7IPpLCUUTzBgwxxAbyFkYCv9g/6cmKabHRo/iqZMueX24IKtipfmbmPMcosAxuJMrI1QIjLS317bQJwkR7j596xeBHPU/UDBsuZB3sGG/6AhgXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLMed/q/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780990389; c=relaxed/simple;
+	bh=lnRXYauZivJZYZKKpwfjuvGMGi/Kptw0SsII1kh49V0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hLSg1TEniVzJ9d0qmVkVaJsuQjvsQ+1omjJiYirYsrViCLRj29fbRM5H+c0yYzlw6IKzcTHUVN+E2tGoYh4iHmRD2qFSnYTKdVYWd9NTUNUrMPxvDMtMa7stJQHomK2Lba6ZtAloGjc4xJKSNkc5eittbbjthcoCoiehoe1UbgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ji+SRwM/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLMed/q/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C460C1F00899;
-	Tue,  9 Jun 2026 07:32:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ji+SRwM/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46DC71F00893;
+	Tue,  9 Jun 2026 07:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780990368;
-	bh=ActeARb4WLUJ+AsOjhBGGCVWK/T77bjTAcjrJNTPI9E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eLMed/q/Nu5CRUd4wIlVDM273mMht4d5+2J1YnMPfi/Ypp+naRiNhQoitN4/R0U9z
-	 s2dYU1taGiv86MpGdyIJCHHQE7Df6vnICc+UB11LvR6T1MwOfYHpRHA0NZDWElbTjM
-	 vnFl54IeW/5hE5uGEiYxyqA198eI1nLh/t/rlLJ/cl4pr+987gbxAI04hltc1Rog9w
-	 aQgYpQ6bkQtQAAOPdgmkunlGxZZVfFbC17nsF26qb70aO+VCNY6IVtyvs6Adkxo2q1
-	 Srms6NtBtnuBrjUDPtTBCbeX/n3VttSYmUe3jtWjh+fVkolKxWFNohas/aCflKOcC1
-	 eV/DHPOyYAVjw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/7] ASoC: codecs: ES8389: Modify volatile_register
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609071732.20939-2-zhangyi@everest-semi.com>
-References: <20260609071732.20939-2-zhangyi@everest-semi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 07:32:47 +0000
-Message-Id: <20260609073247.C460C1F00899@smtp.kernel.org>
+	s=k20260515; t=1780990388;
+	bh=JUkrHSIawlDovwdqb3YkhtzZRBnNrrGbpK99tAgrPQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ji+SRwM/0W6UFN993aF/K3YBxh9rvTZzYPqcLYo+BFw05SL7Cqnz7UXbU54wQCRBc
+	 JyQABtGt5j/QmoXRmrkFbvNkGG9Eede9p3ed1pLnotpdBhoQcGKK91iDAgWptfiQZm
+	 Ir1ZZEsWrXjHTZ3E0pnBXaX6oJJOSmBG3vikl4S+zv9gdX6OjaIs6QjBKgLVxxnyqD
+	 waKW0ar14+Aop9VVpAosMn3YkiO39bGg2tbjtTAVl2LYxcWnL2C2UmPbpHlALFJ8dY
+	 vXV62glI12p4GxKu1QNxlEFTyl2o4lViEnyyuPW7dUXVGoFH3913Ssn4zqJ+oTrYh0
+	 ASwlrE33Ucr3Q==
+Date: Tue, 9 Jun 2026 09:33:04 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Zhang Yi <zhangyi@everest-semi.com>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, 
+	devicetree@vger.kernel.org, tiwai@suse.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org
+Subject: Re: [PATCH 7/7] ASoC: dt-bindings: ES8389: Add members about HPF and
+ clock
+Message-ID: <20260609-vociferous-thick-lyrebird-d53eda@quoll>
+References: <20260609030623.17404-1-zhangyi@everest-semi.com>
+ <20260609030623.17404-8-zhangyi@everest-semi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260609030623.17404-8-zhangyi@everest-semi.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, Jun 09, 2026 at 11:06:23AM +0800, Zhang Yi wrote:
+> Add members related to HPF and mclk_source
 
-Pre-existing issues:
-- [High] Critical configuration registers are incorrectly marked as volatil=
-e, causing permanent state loss on suspend/resume.
-- [High] Failure to check the return value of `regmap_read` leads to branch=
-ing on and evaluating uninitialized stack variables.
---
+Please organize the patch documenting the ABI (DT bindings)
+before the patch using that ABI.
+See also: https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
 
-commit 963a77368701e6888ce20ffbda8712f190e260d3
-Author: Zhang Yi <zhangyi@everest-semi.com>
+> 
+> Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
+> ---
+>  .../bindings/sound/everest,es8389.yaml        | 23 +++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/everest,es8389.yaml b/Documentation/devicetree/bindings/sound/everest,es8389.yaml
+> index 75ce0bc48..be92014c0 100644
+> --- a/Documentation/devicetree/bindings/sound/everest,es8389.yaml
+> +++ b/Documentation/devicetree/bindings/sound/everest,es8389.yaml
+> @@ -38,6 +38,27 @@ properties:
+>      description:
+>        Interface power supply.
+>  
+> +  everest,mclk-from-sclk:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      Indicates that SCLK is used as the internal clock.
 
-ASoC: codecs: ES8389: Modify volatile_register
+And what happens with mclk in such case? Is it still wired?
 
-This patch updates the es8389_volatile_register function to explicitly mark
-certain registers as non-volatile, falling back to treating others as
-volatile. It also adjusts the timing of when regcache_cache_bypass is
-disabled in the es8389_resume function.
+> +
+> +  everest,hpfl:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    description:
+> +      the HPF value of ADCL.
 
-> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 449d9574b03a8..be7a36f17083f 100644
-> --- a/sound/soc/codecs/es8389.c
-> +++ b/sound/soc/codecs/es8389.c
-> @@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] =3D {
->  static bool es8389_volatile_register(struct device *dev,
->  			unsigned int reg)
->  {
-> -	if ((reg  <=3D 0xff))
-> -		return true;
-> -	else
-> +	switch (reg) {
-> +	case ES8389_ADCL_VOL:
-> +	case ES8389_ADCR_VOL:
-> +	case ES8389_MIC1_GAIN:
-> +	case ES8389_MIC2_GAIN:
-> +	case ES8389_DACL_VOL:
-> +	case ES8389_DACR_VOL:
-> +	case ES8389_ALC_ON:
-> +	case ES8389_ALC_CTL:
-> +	case ES8389_ALC_TARGET:
-> +	case ES8389_ALC_GAIN:
-> +	case ES8389_ADC_MUTE:
-> +	case ES8389_OSR_VOL:
-> +	case ES8389_DAC_INV:
-> +	case ES8389_MIX_VOL:
-> +	case ES8389_DAC_MIX:
-> +	case ES8389_ADC_RESET:
-> +	case ES8389_ADC_MODE:
-> +	case ES8389_DMIC_EN:
->  		return false;
-> +	default:
-> +		return true;
-> +	}
->  }
+Is HPF value in dB? If so, use proper unit suffix and proper units.
 
-[Severity: High]
-This is a pre-existing issue, but does defaulting to true for all other
-registers omit key configuration registers from the cache?
+> +    minimum: 0x00
+> +    maximum: 0x0f
+> +    default: 0x0a
+> +
+> +  everest,hpfr:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    description:
+> +      the HPF value of ADCR.
+> +    minimum: 0x00
+> +    maximum: 0x0f
+> +    default: 0x0a
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -58,5 +79,7 @@ examples:
+>          #sound-dai-cells = <0>;
+>          vddd-supply = <&vdd3v3>;
+>          vdda-supply = <&vdd3v3>;
+> +        everest,hpfl = [0a];
 
-Because volatile registers are skipped by regcache_sync() during resume,
-registers such as ES8389_MASTER_MODE, TDM settings, and clock dividers will
-not be restored if they are treated as volatile. Could this break the audio
-formatting and cause playback or capture to fail after a suspend and resume
-cycle?
+<0xa>? What did you want to say here?
 
-[ ... ]
+Best regards,
+Krzysztof
 
-> @@ -861,13 +880,13 @@ static int es8389_resume(struct snd_soc_component *=
-component)
->  	regcache_cache_only(es8389->regmap, false);
->  	regcache_cache_bypass(es8389->regmap, true);
->  	regmap_read(es8389->regmap, ES8389_RESET, &regv);
-> -	regcache_cache_bypass(es8389->regmap, false);
-> =20
->  	if (regv =3D=3D 0xff)
-
-[Severity: High]
-This is a pre-existing issue, but does the lack of a return value check on
-regmap_read() leave regv uninitialized if the I2C read fails?
-
-If the read fails, evaluating the uninitialized stack variable regv will
-unpredictably dictate whether a full hardware initialization is performed.
-
-This same pattern appears to exist in other places as well:
-
-sound/soc/codecs/es8389.c:es8389_init() {
-    ...
-    regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
-    es8389->version =3D reg;
-    ...
-}
-
-and
-
-sound/soc/codecs/es8389.c:es8389_mute() {
-    ...
-    regmap_read(es8389->regmap, ES8389_CSM_STATE1, &regv);
-    if (regv !=3D ES8389_STATE_ON) {
-    ...
-}
-
-Could these lead to inconsistent hardware states or silent audio failures?
-
->  		es8389_init(component);
->  	else
->  		es8389_set_bias_level(component, SND_SOC_BIAS_ON);
-> =20
-> +	regcache_cache_bypass(es8389->regmap, false);
->  	regcache_sync(es8389->regmap);
-> =20
->  	return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609071732.2093=
-9-1-zhangyi@everest-semi.com?part=3D1
