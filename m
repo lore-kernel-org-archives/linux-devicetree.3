@@ -1,277 +1,209 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E7F81724
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 13:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A75841B366;
+	Tue,  9 Jun 2026 13:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781010099; cv=none; b=IeXdikgMsmMnQ+Xk58BT92KJ8vjELslafmJXQDt1N5Ozx+Y2aTG4tYnrDREawAcctqtM74SxNoDo7d+Roe1W6anD3y4oqVO7OFn+UIAzT4RFbgyargfYBy/mI9/FHKsBx9JnwJp2xJJaw0I5rWJmYOeYwO9wPljXp19c3cTOECk=
+	t=1781010108; cv=none; b=HDyeDUy6Pv7lIxuy1zRh2mquAPJT+OPKhn0gYgmU3VgIF9u4AjkHoyYLurhuRT6JB97b4NvyfZ5QjxYrNGY0F6Ff7PuzXuj4xbWP1nuoUY2GtrIojk1xbOXvgEtXPtGrY7UT0HZa3PXn4SJ8y+GhSoTzdYJhNTAIaS+nNVOSOUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781010099; c=relaxed/simple;
-	bh=Nlerjuv8zYT6mH29QAsKXwKO76Dvq+OY7opxSWH52kI=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=k+8O54mt4CVPaCDYnfPDjFqG29iNdcDYkzwL8cacr0t+zMCYm7nZCMgSVQy9Xj9TD3oVydw4zuwDYOV8wOISYC2MpDdT04G7THjAY71TPi4zBZdIxpildk823cmWnjDSAcnNeGUIFvBEgAgo+BjilT6GLctg5o5IgsMQoflnRr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=WMJUs+q7; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1781010108; c=relaxed/simple;
+	bh=LiJUWpGWKAx0Tf/jqg9vvArnhY1/Nu+aqUFRkL4Y/Yk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LQlm/RSh79/iDYFcN5dGYBnveqCTVQRnntMfuuH7kNQ2DP5pq1O66XJ4vcufnCKhjQTrnPk074PG9aHIQyffjAV8tj+B+XpFIV0JEGgMnx0CfD0zC5hFwVKANN83zwFLT2xkb7nm84rtRbkXNUKMDFEepHi9xgbnR0l78NxOuzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQkxHNLK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="WMJUs+q7"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36bb3551f6eso4838585a91.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:01:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1781010097; x=1781614897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3mY4IoCKia/XuJ/oNtOCFVHCKeBb5u4W4dO0pcbEY+A=;
-        b=WMJUs+q7eYra+/kQCmf9rWbLuj6sqdCMhvXGPkrGCp8EkgBJn30M6a56hPt8APfspY
-         XsZvQ0z3bb2jDQuFb4NeAAGi1xxoP4z1slew9bNA6cWEvq8GjSwkmq0rT8Lx86kE974w
-         Me1KnEVoAlPmCEUtnnF9qQwVrlQE6qO6EzcPUwgymLUfCUCqIMVP4USM58T69T++BRYY
-         TK3Juws8TanWV47b5cqAfMkdUHRULApOZN7syumv2OxfJpTEdwUk3bI9R2eib0A55FxD
-         2vd32EbOIqM68CZRz0697IGmBI7+MZ8QKabA89lJrwY+nh3sim648ipgC1JTfBk0Oyqx
-         JH/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781010097; x=1781614897;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3mY4IoCKia/XuJ/oNtOCFVHCKeBb5u4W4dO0pcbEY+A=;
-        b=mv6zvJFs39aYEiASu5IaBVfPjGfhSm1/jyu+hbfQgQPfh8jCyahLxmIcDHvpOuq6IW
-         5bvzgvDWDc0xBT7fmnt8tR6H6gHz5J6FkOAxQX1wryGtRD0agrh1cqErWbEPgHDCq8qx
-         Wm4IU92/gRLmwK3nWQnfiAUkAur5rdqmTULkg3mYf5b+dpaTZnbjf+Zlf+HiJLSDe/N6
-         DbCeYJetDuQd7GhJDwO0DDuYHFsB3I9zhlXZWNv2Y3xxQdy3vAVZ3rMzu1HJipCzdVM+
-         jbgu87fqz/FBU1EDBLEAlCijJZYioVaIuMYE1XlUQDLOCnrKtIrEQS6MyMHrtPVm26t3
-         l4Jg==
-X-Forwarded-Encrypted: i=1; AFNElJ9ph3iOFOMJd+anI86C6vhMtXAh8ASPzdJLaF0KgsXsDN1KWK9WwFu+X5TYDfrgDBYZlwiQxZYFq+AN@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn/off/GyusEbbqlOakJoS+HuI6AEWSbkQ29EGDlzxp4+OqlLH
-	6xoXXzrdVq0XOK06DjdLMZYDkKfEcw1bovG1uVyXZC/VYAg7BXW4GTLAFzZzJ5Gox9w=
-X-Gm-Gg: Acq92OHifRYCSuk11loiDeppxhlV6cC4V9tUKPcboQHomLg5Iqy8t9SEejquon/KGae
-	3CvNQXQI+HcheEb2sWOr9iwDXCs0a6Ot5EPogyPIWyuxohl1+lUJ6TKtFuFeJnYaADcZO0r9qpG
-	+FmEqiRocc1/qD+DBz1m9YBmLZQLCllfvKLx1Vj8N4h6EhnoC0MGgsWRjEEcTW0asNFqmvvA0cd
-	G9mt9bRbYkJo4IKAx361VNFC8QZ69I0GIa6scVQNSdQ4xf/E6X/NxrLG2425ymnI4kHx4v27KPW
-	Vuk/Y6mbghbfKp1F6wdApEEk0Uu3hDT41pk+z18UcPsQSahNICSdSVcT1v9YrR+F91AX4rMDhf5
-	iSsvR0GIkcQ0P5W4rnw/v4GBRrL7TdHU0TluI4b+N+v7wyrAmLGWxhw8KWYAK67amT+7makexcD
-	aV3eZe1ht8D6HR5d2xam1EgZRiwe+Xy14+cGH3p9Fww4BU/v/ow4Qny8v3+c0Re0bYRFA=
-X-Received: by 2002:a17:90b:6c3:b0:36d:b9c5:e8f6 with SMTP id 98e67ed59e1d1-370f0481909mr22489848a91.19.1781010094844;
-        Tue, 09 Jun 2026 06:01:34 -0700 (PDT)
-Received: from L6YN4KR4K9.bytedance.net ([139.177.225.240])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6bf8284dsm23267889a91.4.2026.06.09.06.01.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 09 Jun 2026 06:01:34 -0700 (PDT)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: akpm@linux-foundation.org,
-	alex@ghiti.fr,
-	andrew+kernel@donnellan.id.au,
-	aou@eecs.berkeley.edu,
-	apatel@ventanamicro.com,
-	apopple@nvidia.com,
-	atishp@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	cleger@rivosinc.com,
-	conor+dt@kernel.org,
-	cuiyunhui@bytedance.com,
-	debug@rivosinc.com,
-	devicetree@vger.kernel.org,
-	guodong@riscstar.com,
-	hui.wang@canonical.com,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	liu.xuemei1@zte.com.cn,
-	namcao@linutronix.de,
-	nick.hu@sifive.com,
-	palmer@dabbelt.com,
-	pincheng.plct@isrc.iscas.ac.cn,
-	pjw@kernel.org,
-	qingwei.hu@bytedance.com,
-	ritesh.list@gmail.com,
-	rmclure@linux.ibm.com,
-	robh@kernel.org,
-	wangruikang@iscas.ac.cn,
-	zhangchunyan@iscas.ac.cn,
-	zong.li@sifive.com
-Subject: [PATCH v3 3/3] riscv: preserve A/D and soft-dirty state across PTE updates
-Date: Tue,  9 Jun 2026 21:00:20 +0800
-Message-Id: <20260609130021.99899-4-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
-In-Reply-To: <20260609130021.99899-1-cuiyunhui@bytedance.com>
-References: <20260609130021.99899-1-cuiyunhui@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQkxHNLK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1A01F00893;
+	Tue,  9 Jun 2026 13:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781010106;
+	bh=m271X0iaJIiEixjjz+qpzyZhVPKE0vFCbZ7VXevgXfs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aQkxHNLK21FNFWG2DNY1fxzKyPmUvknmZJhlGhpxrZlexee3JRKdqF9MEkgIoEbtV
+	 umCm1QOvx5nz4RTegCNVMejtvWaawL6Dl5lOqBkOgiFIFg33GrAlpF04TQFS1nWW1Z
+	 yCOaK4du7+DT/ofZ8t7SI6yg2TxbWdosC5L9fmoC6d+M0N+IqInar+1og3QyzlXLUQ
+	 ppIOUJ0kJnliwytE0IYF9zLgoBrxfZkSOIBwBaxuBonrIKzeQbd9JdDJnTYvAcmRi2
+	 vF42lec06+cDIlcunM29+1gMV95cndNj6uImxV3b9ad13gwOV9GD3bvT4tIAjFP2QM
+	 FuxMoItdevyrQ==
+Message-ID: <ccf4d126-c523-4ae4-8b17-a4cafab79b33@kernel.org>
+Date: Tue, 9 Jun 2026 14:01:42 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+ <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+ <h8UvMzNq5TseF22NyjmyrC5yZkO_5JsVGMVaIdLfdpMyfxxemlp0xulRAiylGHWdrq5D4NM1oUk9Jzyhj_UAsw==@protonmail.internalid>
+ <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Use cmpxchg-based PTE updates so software permission changes do not lose
-concurrent A/D updates from hardware. Preserve soft-dirty state as well,
-since RISC-V marks PTEs dirty and soft-dirty together.
+On 04/06/2026 07:38, Vikash Garodia wrote:
+> 
+> 
+> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
+>> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+>>>
+>>> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>>>> triggers unhandled SMMU page faults
+>>>
+>>> How do we know that is a correct address - does it come from qcom
+>>> documentation or trial and error ?
+>>
+>> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
+>> source for the different stream-ID <600MB behaviour, and share
+>> specifics, eg if silicon, firmware, or driver and constraint, defect
+>> or otherwise, so I can include a definitive description.
+>>
+>> Also good to know if my workaround is good for long-term, or on the
+>> other hand handling streams <600MB is important/useful.
+>>
+> 
+> Thanks Daniel for raising this patch. Did you also try the memory fix i
+> mentioned in the bug [1] discussion ?
+> 
+> Coming to 600MB, this have been the VPU hardware restriction all the
+> while since venus days, and since address could not go deeper all the
+> way lower than 600MB, the issue never popped up earlier.
+> 
+> Consider the memory layout split as below (Iris device range is capped
+> to 0xe0000000)
+> 
+> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
+> 
+> 0-600MB range, VPU hardware would reserve this to generate different
+> stream-IDs primarily for internal (non-pixel) buffers.
+> 
+> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
+> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
+> non-pixel buffers.
+> 
+> When many concurrent sessions were tried, non-pixel buffers were mapped
+> into 0-600MB range, and VPU generated secure ID for those. Since those
+> were not associated with the iommus configured for iris node, it led to
+> USF (un-identified stream fault) and device would crash.
+> 
+> Keeping the region reserved, makes the non-pixel buffer always in the
+> non secure range (601-..) and avoids the crash.
+> 
+> Downside of this design - It would eventually reserve 0-600MB un-map
+> 'able for all buffer types, like pixel as well which do not have any
+> such restriction.
+> 
+> Forward looking design - create devices dynamically and set reserve
+> regions for those specific device using the api [1], instead of applying
+> one reserve for all.
+> 
+> [1]
+> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/
+The problem here is in the reponse to the email you linked:
 
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-Reviewed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+https://lore.kernel.org/all/cfd23f75-8952-4463-abd5-815b995031b0@arm.com/
+
+- Inheriting the parent's properties is wrong
+- We should just have a bus
+
+But that leads us to churning DT and we'd have to figure out how/why to 
+do it purely for the purpose of differentiating SIDs within Iris. There 
+is no separate hardware - its one VPU which needs to figure out its IOVA 
+for different SIDs.
+
+Krzysztof would rightly say no - again - to putting collateral into DT 
+to differentiate pixel streams based on SID, because that's not a 
+hardware property.
+
+- You have pixel and non-pixel SIDs that have to hit Linux
+- You have to keep non-pixel allocations >= 600 MB
+- You can allow pixel < 600mb =>
+   Daniel's patch is too restrictive
+
+But what we can do is add information to the iris platform descriptors 
+to enumerate what are the valid IOVA ranges for pixel and non-pixel data 
+and then change the allocation code to operate from those platform-code 
+described IOVAs.
+
+No new iommu properties, not arguing about plonking SID/pixel-path data 
+into DT.
+
+Just teach the driver what the valid ranges are and allocate IOVAs based 
+on those ranges.
+
+I think Daniel's patch should be taken as it fixes a real bug for users 
+right now but, I equally think its a NAK for any new SoC.
+
+This IOVA allocation needs to be tackled correctly and IMO that needs to 
+be and should be done via platform descriptors for valid ranges of IOVA.
+
+No mad stuff about SIDs in DT, no lengthy arguments about adding strange 
+iommu properties.
+
 ---
- arch/riscv/include/asm/pgtable.h | 27 +++++++++----
- arch/riscv/mm/pgtable.c          | 68 ++++++++++++++++++++++++++------
- 2 files changed, 77 insertions(+), 18 deletions(-)
-
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index 5d5756bda82e3..02286b48dc471 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -678,15 +678,21 @@ static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
- static inline void ptep_set_wrprotect(struct mm_struct *mm,
- 				      unsigned long address, pte_t *ptep)
- {
--	pte_t read_pte = READ_ONCE(*ptep);
-+	pte_t old_pte;
-+	pte_t pte;
- 	/*
- 	 * ptep_set_wrprotect can be called for shadow stack ranges too.
- 	 * shadow stack memory is XWR = 010 and thus clearing _PAGE_WRITE will lead to
- 	 * encoding 000b which is wrong encoding with V = 1. This should lead to page fault
- 	 * but we dont want this wrong configuration to be set in page tables.
- 	 */
--	atomic_long_set((atomic_long_t *)ptep,
--			((pte_val(read_pte) & ~(unsigned long)_PAGE_WRITE) | _PAGE_READ));
-+	pte = READ_ONCE(*ptep);
-+	do {
-+		old_pte = pte;
-+		pte = pte_wrprotect(pte);
-+		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep), pte_val(old_pte),
-+					       pte_val(pte));
-+	} while (pte_val(pte) != pte_val(old_pte));
- }
- 
- #define __HAVE_ARCH_PTEP_CLEAR_YOUNG_FLUSH
-@@ -742,14 +748,14 @@ static inline pgprot_t pgprot_writecombine(pgprot_t _prot)
- #define pgprot_dmacoherent pgprot_writecombine
- 
- /*
-- * Both Svade and Svadu control the hardware behavior when the PTE A/D bits need to be set. By
-- * default the M-mode firmware enables the hardware updating scheme when only Svadu is present in
-- * DT.
-+ * Both Svade and Svadu control the hardware behavior when the PTE A/D bits
-+ * need to be set. The core MM code only cares whether hardware updating of
-+ * the accessed/dirty state is currently active.
-  */
- #define arch_has_hw_pte_young arch_has_hw_pte_young
- static inline bool arch_has_hw_pte_young(void)
- {
--	return riscv_has_extension_unlikely(RISCV_ISA_EXT_SVADU);
-+	return riscv_has_hw_pte_ad_updating();
- }
- 
- /*
-@@ -1040,6 +1046,13 @@ static inline void pmdp_set_wrprotect(struct mm_struct *mm,
- 	ptep_set_wrprotect(mm, address, (pte_t *)pmdp);
- }
- 
-+#define __HAVE_ARCH_PUDP_SET_WRPROTECT
-+static inline void pudp_set_wrprotect(struct mm_struct *mm,
-+				      unsigned long address, pud_t *pudp)
-+{
-+	ptep_set_wrprotect(mm, address, (pte_t *)pudp);
-+}
-+
- #define pmdp_establish pmdp_establish
- static inline pmd_t pmdp_establish(struct vm_area_struct *vma,
- 				unsigned long address, pmd_t *pmdp, pmd_t pmd)
-diff --git a/arch/riscv/mm/pgtable.c b/arch/riscv/mm/pgtable.c
-index 9c4427d0b1874..98eed19ea70de 100644
---- a/arch/riscv/mm/pgtable.c
-+++ b/arch/riscv/mm/pgtable.c
-@@ -5,23 +5,55 @@
- #include <linux/kernel.h>
- #include <linux/pgtable.h>
- 
-+#define RISCV_PTE_ACCESS_FLAG_MASK	(_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC | \
-+					 _PAGE_ACCESSED | _PAGE_DIRTY | \
-+					 _PAGE_SOFT_DIRTY)
-+
-+static inline unsigned long riscv_pte_access_flags(unsigned long cur,
-+						   unsigned long entry)
-+{
-+	unsigned long pteval;
-+	unsigned long preserved_flags;
-+
-+	preserved_flags = _PAGE_ACCESSED | _PAGE_DIRTY | _PAGE_SOFT_DIRTY;
-+	pteval = cur & ~RISCV_PTE_ACCESS_FLAG_MASK;
-+	pteval |= entry & (RISCV_PTE_ACCESS_FLAG_MASK & ~preserved_flags);
-+	pteval |= (cur | entry) & preserved_flags;
-+
-+	return pteval;
-+}
-+
- int ptep_set_access_flags(struct vm_area_struct *vma,
- 			  unsigned long address, pte_t *ptep,
- 			  pte_t entry, int dirty)
- {
-+	unsigned long old_pteval;
-+	unsigned long new_pteval;
-+	unsigned long prev_pteval;
-+	bool changed;
-+
-+	old_pteval = pte_val(ptep_get(ptep));
-+	do {
-+		new_pteval = riscv_pte_access_flags(old_pteval, pte_val(entry));
-+		if (new_pteval == old_pteval)
-+			break;
-+
-+		prev_pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval,
-+					      new_pteval);
-+		if (prev_pteval == old_pteval)
-+			break;
-+
-+		old_pteval = prev_pteval;
-+	} while (1);
-+
-+	changed = old_pteval != new_pteval;
- 	if (riscv_has_extension_unlikely(RISCV_ISA_EXT_SVVPTC)) {
--		if (!pte_same(ptep_get(ptep), entry)) {
--			__set_pte_at(vma->vm_mm, ptep, entry);
--			/* Here only not svadu is impacted */
-+		if (changed)
- 			flush_tlb_page(vma, address);
--			return true;
--		}
- 
--		return false;
-+		return changed;
- 	}
- 
--	if (!pte_same(ptep_get(ptep), entry))
--		__set_pte_at(vma->vm_mm, ptep, entry);
- 	/*
- 	 * update_mmu_cache will unconditionally execute, handling both
- 	 * the case that the PTE changed and the spurious fault case.
-@@ -32,9 +64,23 @@ int ptep_set_access_flags(struct vm_area_struct *vma,
- bool ptep_test_and_clear_young(struct vm_area_struct *vma,
- 		unsigned long address, pte_t *ptep)
- {
--	if (!pte_young(ptep_get(ptep)))
--		return false;
--	return test_and_clear_bit(_PAGE_ACCESSED_OFFSET, &pte_val(*ptep));
-+	unsigned long old_pteval;
-+	unsigned long new_pteval;
-+	unsigned long prev_pteval;
-+
-+	old_pteval = pte_val(ptep_get(ptep));
-+	do {
-+		if (!(old_pteval & _PAGE_ACCESSED))
-+			return false;
-+
-+		new_pteval = pte_val(pte_mkold(__pte(old_pteval)));
-+		prev_pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval,
-+					      new_pteval);
-+		if (prev_pteval == old_pteval)
-+			return true;
-+
-+		old_pteval = prev_pteval;
-+	} while (1);
- }
- EXPORT_SYMBOL_GPL(ptep_test_and_clear_young);
- 
--- 
-2.39.5
-
+bod
