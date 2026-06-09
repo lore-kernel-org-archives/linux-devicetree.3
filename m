@@ -1,67 +1,86 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D441305667
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DE639D3D0
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 09:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780996513; cv=none; b=ETi5gMxaPUighjC2BveruA1Kix3AH2BBf7XeCouTY8S1LshuwnkOGPah7NJNQZjJIaQft3ovX0uZSPphkEDj6fSNh7+yuwY0A/PlC/0TvGMjXRTl1e894H916v9Un1+Ve9dGBNupn4gx67+Jzvf85Xeo+pXcWT85VBrYG7rBsbM=
+	t=1780996518; cv=none; b=b63AfdvSl/V2G02waMoYPzwarhaOQ8K7HLSxwOSr4mqmEvXPoBZrrtwMn2vIDFYhI8xRnQ2W4M/a4rYEgVdM8urDCSG6+OpXghLD+/dc1z7MwSE+CVfGFgw5kcBtax9yFNAEX+kQEeizMKHr/r8jIvrpenT7j/sybZssQlL78zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780996513; c=relaxed/simple;
-	bh=m4XCWnn5tsuC+sYHI9m26Es3DnnwsD12gNQVZwjZIp4=;
+	s=arc-20240116; t=1780996518; c=relaxed/simple;
+	bh=2cVI7mOZk5wgdxeQHKFvOR4E4aQvBl/bXi6sFFQMiJY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AWojiVPahr6YKDInXMbpkvMMiNB3gq7eVb7+T5Ljbm1xd+YWdjuGwQHFYxrQ47cTTmy6KhNbHKpaWU7WlTtj2Zb5BBYGNAyhSlXaHVrnmEqmxmybboX4y4y8bzOTzlzaDeYIoC246jj7bPKrnFmbrKHba45USl5UKCs4sCKoM1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dylWxxfz; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=q3EHmAr7u1nYpauERpkvjsgtkCSDCipnlNaJf12e9tX5tMy1gRFAcJwxGlbH+G2p7bcEXzDBbwlAUg3eDpUh+KIVFLYTNeZ+fenNf4WGqPvtocjZdUoWcxY4oHE75btNbQjp74w5V2TYYMh4rnpl01o8aeqmMerahIDhqCwYmJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n6s7jDz5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dSau7YC6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dylWxxfz"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-36bcf3d2565so3768905a91.3
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:15:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n6s7jDz5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dSau7YC6"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6597rafW1923149
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 09:15:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RXkV4swW0PJks3vA3tB1AehUp80hU3W42XTBNT06mrM=; b=n6s7jDz5R69ldOfr
+	4kC6tQXJcFjA1c2x6V8dBQ25PU0K7R6FRyFxxFdI7GJYl7HKa9xpw0mx4whuStP+
+	JFEf+5lTai4WG1n75fHdqBKpUssomCBm5LZH4x2doWBvaxx1BxnNkIk5kfZLNqoP
+	HV2KLjbsXf+jH8HSE8r+RGMZc15Hz3Qtd9DBtih+GbYcrEldT46MLj07H3654cdN
+	agBX01gKK5v7yxh8eTTf4mRu34D8lXof5yOydcEJYnxPKEAMjLMMilcse3d8HkzX
+	kT54CEZaSKcQvDi9GSuNXTswMDtIXhaEz/9Cqw6RHb5B9pwS0qy3kZhYHeVmoiO+
+	eCe1lg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epee4gekg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 09:15:15 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51768e1d798so13517751cf.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 02:15:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780996511; x=1781601311; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780996515; x=1781601315; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0o0LqIeARHGVNWJRSz7OmbFxoiBCC04C/bpvJasunoc=;
-        b=dylWxxfz4xm+X0XnjEhRaf9zr1Of0kni5waoKiVR4mEc5NXQrGnvryHJCbJWYk+m8U
-         Xe4EB8B2RF7Q5Qamhvchwn6RafdGZvaTIAPqUE/CRwhZNS3/HPXBqMKg9IxWc317uXFz
-         fMwDPGPwc0XbHmdk8XId++JU846i7x6JFqCCqSLWEkSFQTtyb4oM6x55yM7uUauIXbUI
-         fj4TIoLd1pRxdoJJF7Y6DlRfJJ6Zdq7pJ0cFXeeHbTy/4797Ua5DxpGe9P1TVLReQnSQ
-         Xm0R4TNwMSlXPvLaSg4R/8dMk3kCn1yNtwb4tmWAOm+cehNwhSbfuPU2gN/tsr0PnHIM
-         k+Hg==
+        bh=RXkV4swW0PJks3vA3tB1AehUp80hU3W42XTBNT06mrM=;
+        b=dSau7YC6lb8d2B3IXFpRs48Gv94hr2kRRrfrSlf1FuEbTORju5TbqS0JG3IgI0cQkm
+         1uqFb3KJuJvL4k2bl4dYaa10cHdFNpK1zol5HvBnSyCaNjdT3qGAZOouGQn5iGzCiBeH
+         r2ByvxufZ/nFYp2HHrE/lotaLAihVsa4RjBjfizmnVEd4haBmHmzmnPLQzLWSqQ3drlL
+         d7Q8UxTYn/1wRk2zaZDCitWngm9k9lScaYJRaTv8zRacYu2l5ty1riyMFGLFhpQtRFXz
+         w5L9wbqvJpu+lLg3OEUtYbHgo3RvCYcDEsSBS+oCJTPKiOO+yEKhWYZ0FCtOrO97g8gj
+         f7JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780996511; x=1781601311;
+        d=1e100.net; s=20251104; t=1780996515; x=1781601315;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0o0LqIeARHGVNWJRSz7OmbFxoiBCC04C/bpvJasunoc=;
-        b=XDqW0NVnoWl7q8umySCbiBjrKhxRNI1CJSRhUBoCXpoYmAlL0Eve2yNcilfsvyYLJQ
-         DjtCeOa4/5S5zjy4zQ5tGTf3f+9vJ0tMSHNJ2ZhjJd4E9L+Xqduh5fZp3bsKzc4T5B58
-         eaGFjCd6UMMkG3hqMUVGSHoWv3Iiz59waG4UDDoapVsoS9nGbrGlQJuPcJmJswHNUlcu
-         sDD6irekvgQd7mk3tkZ9t0BxYCRErV8O5/yO/6lBDC1PKyL3Yji1ntUD9+wfEtE8sJkn
-         FfwQDHFkMQRDnTUck/bIK+olvjIuwVzymrxAE81kTmq8xcQEI2ZUgbO08x5IUoRAT/tA
-         9ulA==
-X-Forwarded-Encrypted: i=1; AFNElJ8b8prXfVxIupc7ZRrPbIa26IiFsCG6fQNs4y29jpAKOaXBF+y548K2/bWyv3zq08gkV2aJivl5eCY/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+Db0kOKe7rhdnVJFzrSg+S99W4g4ka75jIx5qgQRaVN1u2UYf
-	REdw/aK5TyL+bxpiJDuvDAg47N2Y4Mj87ROtKbWIPUXhrdQ3gewyrhfI
-X-Gm-Gg: Acq92OEwmcTWWrT0LixJZYb4dojgCMKmPEK6RC5tt9r3R0Y8IRGSDnkXrlyWpW7vvmG
-	DuDIUseLaXgRKqYvGsKALIz2VJD6nEHEYmxTTOjnlCjq/GAXMS4mQGrq1eqslZEdeLYXziAbEW7
-	scXs4O9dfX1CQs3rIGi2iyWpW1NJ14O64/N3IK1/k8GttiUD2y5A/gFK8+wyBW0K8G9+4k/PhhD
-	jX35EzCFrFZMMvZbq+7nm0h+Npm83M+43+QpVTMAxRYf9XPMXYtOx7ua6BuNzC4D2CiLi1uvSf9
-	2CgUfd+j77ak8FZ7l5aZ/WxW3T+J7jK74XFR2tosXXFyqMJFZiG0G0RkmvV+C9dvtm5EQsl1G/k
-	ZAraZ9dtr/+2tGBuxP+s0+l01Js+wN9EXXYyP625c5sI72VmHWmbC2IZcueNGgLdumd8SuSsCgG
-	tRHodIVcOJYdImIrrjn5N7Hxfy2r7D90sczn5a+G9/+/K9aDyV6O8wuVONU5RR8CAcbUCDXGTiw
-	5OBEGCLc/DfefQ=
-X-Received: by 2002:a17:90b:6c3:b0:36d:6308:12fa with SMTP id 98e67ed59e1d1-370f0386f18mr21294469a91.18.1780996511281;
-        Tue, 09 Jun 2026 02:15:11 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6c76f55asm18560817a91.7.2026.06.09.02.15.06
+        bh=RXkV4swW0PJks3vA3tB1AehUp80hU3W42XTBNT06mrM=;
+        b=NJLC2JFXXn+9lgXmrvg1EtkWdxjZp2E2AHZJPn2F042CVnwt8fzVIXozo/DZs/T1RM
+         UZFqOGu43BFX/2JdDYMgHTi2vv9kqB/5TZ82bcROIi47Eo+pvNfjkHx4pKE+setwmdQQ
+         Mag+RwW9oilSQBSkwSS/L0OETumGSVRn2ZsLP/guq/sryOeX483TKCJ9vIjn7prX+jE5
+         7XRgPXMRtVrgUDFzvlvJlk4sfEHLA+DXEtdeBNkWMJA26mSAUL5I93hZedh0y6k1egPi
+         4XbLZaYHslCpRGN1JUpK52B2OtynW7bcS9GlZFq4zoeEXTzqVweRdMqvTbEwxZR0UPpH
+         SqWQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9SAtFziXCV0dFsNPWkwY5oLnA9XrfLE1we5UnTnKQG2ocv4409ve5kh+n56n34RB7nCPcvH7FYsJg1@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYc119azoJ8ywfSk5x/9gIPXhXwiEC9WF7OK0BU2tQKEkqYCqT
+	eIp3MJKNCYbJI89iLspPVs7/wy1lA0EgUVCll651pIbt8LDqdO/O1WbOQQmajNQTsMHZXqT2s2V
+	k0S+QkwtuQ1IRHotGQyVB1qO4xirQxeeDud70JD0okIsiQZL72/jHlQF2KLrEGVdc
+X-Gm-Gg: Acq92OEscL9LruVEvtmclVUwvy9DRV1eoW4TdctcTZqlrVUd9SW1Eu+g+ryqpRLrQoy
+	P1Z8cRzu2XoxedLCDrCbHWxLA1g2Jzy2h6biBuS8YGjn5QsAPdyNXvhBaoV72YjYaDdhrpGu8US
+	qPlbvjymtt6IwB7tIZCs46dE1vMc+Qnd0CBiklfJyfbYEPogHJGscI5nox9OrRzKoYHAUSWSOka
+	7g9Qs69Xa1zTDEFaUrD6oqd0v91X6N2e+/dlz3s5PwE8qt+nTxn0m4joIWdvgKkB2iLmmk3st+W
+	Fj4DvlezURgTckvYg0X1VZHC1j52Sthp7ryxcUxPPSmf24FZNk5/D+zdqb/Vfc+hX3ghrSh2c39
+	Nt0fChz5xRLeQ/FXtu18TTrnP/IDS7yQLjmGnQkSzLTKzQGN2at5tQ3rx
+X-Received: by 2002:a05:622a:228e:b0:517:8999:6c4b with SMTP id d75a77b69052e-51795bbf777mr160228121cf.7.1780996515238;
+        Tue, 09 Jun 2026 02:15:15 -0700 (PDT)
+X-Received: by 2002:a05:622a:228e:b0:517:8999:6c4b with SMTP id d75a77b69052e-51795bbf777mr160227661cf.7.1780996514622;
+        Tue, 09 Jun 2026 02:15:14 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055307a35sm999893966b.52.2026.06.09.02.15.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 02:15:09 -0700 (PDT)
-Message-ID: <c480d9a9-9489-4801-ad7d-33ec4ffc3242@gmail.com>
-Date: Tue, 9 Jun 2026 17:15:03 +0800
+        Tue, 09 Jun 2026 02:15:13 -0700 (PDT)
+Message-ID: <3a0890b2-f9c3-439b-a392-fd13e3da850d@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 11:15:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,113 +88,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: phy: nuvoton: Add MA35D1 USB2 OTG PHY
- binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jacky Huang <ychuang3@nuvoton.com>,
- Shan-Chun Hung <schung@nuvoton.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260604101220.1092822-1-a0987203069@gmail.com>
- <20260604101220.1092822-2-a0987203069@gmail.com>
- <20260608-demonic-horned-honeybee-4f6bb7@quoll>
+Subject: Re: [PATCH v1 3/3] ASoC: qcom: lpass-va-macro: Add shikra compatible
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260608172023.2965292-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260608172023.2965292-4-mohammad.rafi.shaik@oss.qualcomm.com>
 Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260608-demonic-horned-honeybee-4f6bb7@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260608172023.2965292-4-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=PIs/P/qC c=1 sm=1 tr=0 ts=6a27d9a3 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=k1sLU3CPmF0_vJ11zi8A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: YQhgpFGVnMymoj0qEbdfrreTdFIUH_N_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA4NSBTYWx0ZWRfXy9hKHqd+CSg4
+ cj+A6/8jsMv0teegnanibIA5bxmRxGDjtjxvmENShNWfw4t2vRR0gdOm0kw4svRXFbRAK48jnal
+ FUyqTX7PySsfa7upWs6aqLeZoU9scjneCFG5fHo2NEWV3YliHFlJHKpPOokjTwE0DvJRGHRLMcd
+ 2KoE/wdD0puRP4brctB4j6+V0tLYrJi+d046qEhPT4qw8Jxgn/c2RpXTDqwGFKH6MJh5xnUOWN4
+ ArPaIH1cdKqQAGVj/YVYj7O32xWLQNCW3mWLC4donA6l+RYU+0m1WCVEQPfgE4HW6M0BHsbP9Kj
+ 8QJi6m2ORuPsCtxQF9cswF2ZGVuWiiZIhGm7IXbVwwyXFQ6BvQuZ8nWTWRiHWtJVLpJpnBAtRoz
+ ycvcKLWgOKm97MQy4QI4ynopGCeqokV7zNc1Kn8uYBu8XoiPSnEWWQm7iZaUgvI9ocwMUZ76VOD
+ Qn4cG+tlePpx2w0R/XQ==
+X-Proofpoint-ORIG-GUID: YQhgpFGVnMymoj0qEbdfrreTdFIUH_N_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606090085
 
+On 6/8/26 7:20 PM, Mohammad Rafi Shaik wrote:
+> Add shikra specific VA macro data and register programming needed by
+> the LPASS codec v4.0 implementation.
+> 
+> This adds a shikra regmap/default table covering the ADPT register
+> range, wires new match data flags (bypass FS control and ADPT block
+> presence), and enables the ADPT control programming path during TX
+> decimator bring-up.
+> 
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
 
-On 6/8/2026 6:45 PM, Krzysztof Kozlowski wrote:
-> On Thu, Jun 04, 2026 at 06:12:19PM +0800, Joey Lu wrote:
->
-> A nit, subject: drop second/last, redundant "binding". The
-> "dt-bindings" prefix is already stating that these are bindings.
-> See also:
-> https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
-Understood. The trailing "binding" will be dropped from the patch 
-subject line in the next submission.
->> +properties:
->> +  compatible:
->> +    const: nuvoton,ma35d1-usb2-phy-otg
->> +
-> Where is reg? MMIO is expressed with reg, not via custom phandle.
-Understood. The PHY node will be restructured as a child of the syscon 
-node, with a `reg = <0x60 0x14>` property covering the writable PHY 
-control registers (USBPMISCR, MISCFCR0) within the parent's address 
-space. The `nuvoton,sys` custom phandle will be removed; the driver will 
-obtain the parent's regmap via 
-`syscon_node_to_regmap(dev->parent->of_node)`, which looks up the global 
-syscon list by `of_node`. PHY instance selection will be expressed via 
-`#phy-cells = <1>`, with 0 for the OTG port (USB0) and 1 for the 
-host-only port (USB1).
->
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  nuvoton,sys:
->> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->> +    items:
->> +      - items:
->> +          - description: phandle to the system management syscon.
->> +          - description: PHY instance index.
->> +            enum:
->> +              - 0   # USB0, OTG port (shared with DWC2 gadget controller)
->> +              - 1   # USB1, host-only port
->> +    description:
->> +      A phandle to the syscon node covering the SYS register block, with
->> +      one argument selecting the PHY instance. Index 0 selects the OTG
->> +      port PHY (USB0) and index 1 selects the host-only PHY (USB1).
->> +
->> +  "#phy-cells":
->> +    const: 0
->> +
->> +  nuvoton,rcalcode:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    minimum: 0
->> +    maximum: 15
->> +    description:
->> +      Resistor calibration trim code written to the RCALCODE field in
->> +      USBPMISCR. The 4-bit value adjusts the PHY's internal termination
->> +      resistance. When absent the hardware reset default is used.
->> +
->> +  nuvoton,oc-active-high:
->> +    type: boolean
->> +    description:
->> +      When present, the over-current detect input from the VBUS power
->> +      switch is treated as active-high. The default (property absent) is
->> +      active-low. This setting is shared by both USB host ports.
->> +
->> +required:
->> +  - compatible
->> +  - clocks
->> +  - nuvoton,sys
->> +  - "#phy-cells"
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
->> +
->> +    usb_hphy0: usb-host-phy {
-> usb-phy
->
-> And drop unused label.
+[...]
 
-Understood. The node name will be changed to `usb-phy` and the unused 
-label `usb_hphy0:` will be removed.
+> +/* ADPT control registers - Shikra adaptive filter blocks */
+> +#define CDC_VA_CDC_ADPT0_ADPT_CTRL		(0x0800)
+> +#define CDC_VA_CDC_ADPT0_ADPT_GAIN_0		(0x0804)
+> +#define CDC_VA_CDC_ADPT0_ADPT_GAIN_1		(0x0808)
+> +#define CDC_VA_CDC_ADPT0_DH_FSM_CTRL		(0x080C)
+> +#define CDC_VA_CDC_ADPT0_CUTOFF_FSM_CTRL_0	(0x0810)
+> +#define CDC_VA_CDC_ADPT0_CUTOFF_FSM_CTRL_1	(0x0814)
+> +#define CDC_VA_CDC_ADPT0_CUTOFF_FSM_CTRL_2	(0x0818)
+> +#define CDC_VA_CDC_ADPT0_CUTOFF_FSM_CTRL_3	(0x081C)
+> +#define CDC_VA_CDC_ADPT0_CUTOFF_FSM_CTRL_4	(0x0820)
+> +#define CDC_VA_CDC_ADPT0_CUTOFF_FSM_CTRL_5	(0x0824)
 
-Thanks for the review!
+Please use lowercase hex and drop the parentheses
 
->> +        compatible = "nuvoton,ma35d1-usb2-phy-otg";
->> +        clocks = <&clk HUSBH0_GATE>;
->> +        nuvoton,sys = <&sys 0>;
->> +        #phy-cells = <0>;
->> +    };
->> -- 
->> 2.43.0
->>
+[...]
+
+> +static const struct reg_default va_shikra_defaults[] = {
+> +	/* VA macro */
+> +	{ CDC_VA_CLK_RST_CTRL_MCLK_CONTROL, 0x00},
+> +	{ CDC_VA_CLK_RST_CTRL_FS_CNT_CONTROL, 0x00},
+> +	{ CDC_VA_CLK_RST_CTRL_SWR_CONTROL, 0x00},
+
+lowercase hex likewise, please keep a consistent space before the closing
+curly bracket
+
+[...]
+
+> +		if (va->bypass_fs_control)
+> +			regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_FS_CNT_CONTROL,
+> +					   0x80, 0x80);
+
+regmap_set_bits()
+
+[...]
+
+>  	case SND_SOC_DAPM_POST_PMU:
+> +		if (va->has_adpt_block)
+> +			snd_soc_component_update_bits(comp, adapt_ctrl, 0xFF, 0x00);
+
+Can you define these magic numbers?
+
+[...]
+
+> +	va->regmap = devm_regmap_init_mmio(dev, base,
+> +					   data->regmap_config ? data->regmap_config
+> +						: &va_regmap_config);
+
+data->regmap_config ?: &va_regmap_config
+
+Konrad
