@@ -1,109 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5E634D3B5
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 15:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA693955C6
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 15:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781018649; cv=none; b=kpxHjE5QCQIKV7jV4itZtmmmwIa18a/NkoBYIKYC/WEClEy+tkWBf1P5wq2w84wDmHLP3fqfbVivIO0cNv3pLGcvssLm6TgHuCXb6olS3wrhaA2VlaERdBpvI3v3EYO2egFOLYZ1N7+1KoEvJOWE6BPiTEFOppQBHBTuVYNz3F8=
+	t=1781018678; cv=none; b=WJ6j91QAFbKzw3Rn6WKHB2N4fe8QTWaoqsGC3+UKNLhhiNi+nGtFGHhqQ3fLjIdiHzaGOmXsODNnGnwPGg8i0Udb8S7297R+lOQRdSN1SqeuTAsOC//oi0W3uHsEKzAjJvo4v1gzNMo/KXY7S2gLKdT+0PqWUxKz//g/CiPfvkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781018649; c=relaxed/simple;
-	bh=4IfsnaPHh13o1z0ejQou7xq+LRWaOK/P7ySfL7X6d/E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WvG/b9FxyaN6T7bCtUPGm+godygpicarbkFyl2JnSmYUPvEk2iQEEOZ+NLGTcEmZzpvZcHxj9SUc5aG8Ak4ZB/zMn1UyQTPm67UIHcPm6xkbgomkeqi7tBTq0u0KnV5OkF53uhT5OzeX2FsSsx+aL85B24CKz8m+YwzncXXKrhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oE0LLzaJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781018678; c=relaxed/simple;
+	bh=c2Vbonmpp6rj3qr2dbpWFFSKJcegr05XEkNbAiBencM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oWkesy1YZaOrW1PX3M9ij9w4f0qkOwD479UiMHnl+Lqe3GjWiZGuflNaYGI02IQxDkcrjawLbnfxDmPbmwlG0O8SlBdyDIMxZ6PSj7ZWzh9ClXyNKb4WtwiubP8JooOoLn0Dvro4cOCfirEKlPJTwql/3pJ9ljTvhvL52NMr+2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N/B8GZwo; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oE0LLzaJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902DC1F00893;
-	Tue,  9 Jun 2026 15:24:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781018648;
-	bh=0CtmRAf9Xj0sfp+/QugBob/T2TXuuWiHXK5ibQGl1o0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oE0LLzaJ7UVDW2CAS3m6YKhR9WjRJ4tBifLNHoonwMPYTlcaPsr2aBgJTl/gIBbdm
-	 V+cYCTSkElwocvW17ux/HAFcTVEx7K0oRrEMN/rFsiAwPbWi0nD45yfNWLgjjW5/Nq
-	 ctkORUDMybNM9D6T2kaMNoLVq5YxQEk2eyB/y402aOh6pafmgJuw8TBphiY2vgmM6r
-	 nsxP9ULflSvRW584FFwoh4XzuLBhhRauU7wskKMhdejZmA6DA39X9+uYODfIULKPzl
-	 D24uQ5PDTKQOUzsvTWHNQqPd6af6GCZM0b0oaP7mzH4yuejhfjYnIu2JfXO7iAU+FY
-	 NPyWe/BPGXWpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/7] clk: qcom: videocc: Add video clock controller
- driver for Eliza
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609-b4-eliza_mm_cc_v6-v6-4-17df09e5940c@oss.qualcomm.com>
-References: <20260609-b4-eliza_mm_cc_v6-v6-4-17df09e5940c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 15:24:07 +0000
-Message-Id: <20260609152408.902DC1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N/B8GZwo"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-36d8b644473so5494684a91.3
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 08:24:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781018675; x=1781623475; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0vW+Nyui5MKXVym3LRo+LsqfSdC82w8mTHoHWGRMoys=;
+        b=N/B8GZwoiBj1SpZa2J5/qobIi1bgbAXBG9y9VkzlN6n5GKZWggq3pMyEKxokotlPCr
+         Tu3ixANhxKZqDRd6e6fQjwBAS+KfpeIV0oGKi8dnjS7GcDHwvClNj2VtV1XqRKzNIa90
+         Xs0CUjrW8GRAmczJwyJQ25tMJ7OwpN9slFtjtWOB0WJfqffnXxI9EF8Eo8CepPL4Jmad
+         WOey9PgIUJzF2PYEOSuV0fKpFe0RJeqW/2unNprjwza/N9rkTYKfFe1KBXppfalbsaG7
+         b5zqFDp/qyoPvBKLO0/TL2orzqxG0HkzH8MDE3pr3RGHn0sXLvd6SXeNrbjP1eF2mwLz
+         dwpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781018675; x=1781623475;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0vW+Nyui5MKXVym3LRo+LsqfSdC82w8mTHoHWGRMoys=;
+        b=qVcE9lpK24yYT2G+lqDjz4ERbFAxMkvBO0dq64atIuQSw+Ie0PDy/YSCw3r41Z6bdw
+         22GFZbPfemf/hgKPKozX1YRHkX6SJOpLZdOV0Z7BEpJOueo9BjNKXbzH2+R7cNXAQIGQ
+         sIOKkllwRxKGL30nUPCV6Pt0AXKmYPIuleOeU7+3npLRPylw4HrgowAxospXFnc/ci2y
+         2gSSvHgxXkMqSnPaNeOIkcFGUD4AkkAozFfV/CjwRrxyEE1vdAWPAWd1jtEBeouWeQbW
+         ar13dEIhOawKQqj/5MboW0zBgUbVVOaGsR/Z5/Gm/nknsC4Nwb6TwS3UM3f4cne3V42X
+         ysYQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+whOFlDmEeZW6cWd+r9FOOVd3fKVqAU2HJKLLMFKdzwO1q053d4DwN8Z5XKHxJg+WZxBuxsLYy+HC/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxIed0MV02IAhy8DIoZ6kA4RR+PUL6efliHQTuU8MaRNbay4QwA
+	RoOlX3tHksAuEKsRx9GLGkQn11XE7Myv62E3LYYNV3W9OwPNH+jAIU2pbr2imM0O
+X-Gm-Gg: Acq92OEjT+X754NSw/xKoS1iBW0uJqFlyvy7Ltngls8wUN29hAjQpxGddw6IAkblioM
+	UgmFgXeEFr5y9J7hijUcYeRABX92Ek03yBHYrrClUC7exiyoq/VXWGpzKQE10PjKlhLqPesy4Dh
+	8n873rGZxlHmjnYpaEgeDzN+xommMPclYIaBCYDNdue3TnwkO86xLbYquS9vJesSwNAXY6ZkVbE
+	6Yg120TF9+Qp2YrzbA/m6/k+GTa8KPVYf8bDf7UiybIpllYHCCqQrDcbP97RvvXm0ofiBdcT+kN
+	K3S0NdebTAsxbu79Md6dUsD4cYdT7ZfK2j4XZ5i7dasNymVK08g81dZcLYdL0D0V81MA8koLvM2
+	lQfDysUOghh+oN6Bt0qNrxOj16gcOAlKYVOxihRHsa1QC+oqAIai+VOCXbmlrH0caMrkgyoTmdE
+	4JKQNe1jO+mTlwolugx+Z5Bql5SE+kG32uALiS9EQRNbwEv0U=
+X-Received: by 2002:a17:90b:3512:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-370ee82fa3cmr20984064a91.1.1781018675521;
+        Tue, 09 Jun 2026 08:24:35 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f70a28c0esm20097402a91.12.2026.06.09.08.24.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 08:24:34 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 9 Jun 2026 08:24:34 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Subject: Re: [PATCH v13 1/3] dt-bindings: hwmon: Document the LTC4283 Swap
+ Controller
+Message-ID: <6a9c2204-fab7-49fd-9918-2b0f7237b4ce@roeck-us.net>
+References: <20260502-ltc4283-support-v13-0-1c206542e652@analog.com>
+ <20260502-ltc4283-support-v13-1-1c206542e652@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260502-ltc4283-support-v13-1-1c206542e652@analog.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] video_cc_ahb_clk_src incorrectly sets .hw_clk_ctrl =3D true.
---
+On Sat, May 02, 2026 at 10:56:52AM +0100, Nuno Sá wrote:
+> From: Nuno Sá <nuno.sa@analog.com>
+> 
+> The LTC4283 is a negative voltage hot swap controller that drives an
+> external N-channel MOSFET to allow a board to be safely inserted and
+> removed from a live backplane.
+> 
+> Special note for the "adi,vpower-drns-enable" property. It allows to choose
+> between the attenuated MOSFET drain voltage or the attenuated input
+> voltage at the RTNS pin (effectively choosing between input or output
+> power). This is a system level decision not really intended to change at
+> runtime and hence is being added as a Firmware property.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 
-commit 17dde18cb6830ef09380f666b54112994b478845
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+Applied.
 
-clk: qcom: videocc: Add video clock controller driver for Eliza
-
-This commit adds support for the video clock controller on the Eliza platfo=
-rm.
-It allows video clients to request videocc clocks for video encoding and
-decoding functionality.
-
-> diff --git a/drivers/clk/qcom/videocc-eliza.c b/drivers/clk/qcom/videocc-=
-eliza.c
-> new file mode 100644
-> index 0000000000000..36af35e070299
-> --- /dev/null
-> +++ b/drivers/clk/qcom/videocc-eliza.c
-
-[ ... ]
-
-> +static const struct freq_tbl ftbl_video_cc_ahb_clk_src[] =3D {
-> +	F(19200000, P_BI_TCXO, 1, 0, 0),
-> +	{ }
-> +};
-> +
-> +static struct clk_rcg2 video_cc_ahb_clk_src =3D {
-> +	.cmd_rcgr =3D 0x8018,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D video_cc_parent_map_0,
-> +	.freq_tbl =3D ftbl_video_cc_ahb_clk_src,
-> +	.hw_clk_ctrl =3D true,
-
-[Severity: High]
-Does this incorrectly set the hardware clock control flag on the
-software-controlled AHB RCG?
-
-Because video_cc_ahb_clk_src is an AHB bus clock, it is purely software
-controlled. If the hardware clock control flag is set, when
-clk_rcg2_shared_ops attempts to park the clock at initialization by writing
-to CFG_REG and triggering the CMD_UPDATE bit, the hardware will wait
-indefinitely for a hardware trigger that never arrives.
-
-This causes update_config() to timeout, emit a warning, and fail to apply t=
-he
-configuration, effectively leaving the clock stuck in its bootloader state.
-
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "video_cc_ahb_clk_src",
-> +		.parent_data =3D video_cc_parent_data_0,
-> +		.num_parents =3D ARRAY_SIZE(video_cc_parent_data_0),
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_rcg2_shared_ops,
-> +	},
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-b4-eliza_m=
-m_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com?part=3D4
+Thanks,
+Guenter
