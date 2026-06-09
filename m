@@ -1,92 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D27033FE36
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 03:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3392331F996
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 03:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780974443; cv=none; b=UzP1TBbhQcTySMs9Q9KJ1D15R5JA17hUTl1OVcVzP2fK7Nw+URtTYax+hgf1nwwCvvVCvg7N5hI98yoxXQG/lgj25fe32cfDvJsJC81XecKc48c6FpS+mJ9FX5CT/tRBNWHQ9gEGeH0epXaUFssyqrmZRw2GR1CjPu31lBlJl38=
+	t=1780974544; cv=none; b=BeLworIX2dxehD1+3HX6+1/JQaLprvuqDB1OuoaT2ksoez/BK6xZpDRw2hEKzeryu9L9JFpp2aolMG3401W2Jrpr7jn66JUvFiksbRvI8MxM6xUbejm5YDKpNbdNdRmIyMFlET7xEsxMyjgbdiz+2GGpDyjgwdt6SfrsrXdqeyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780974443; c=relaxed/simple;
-	bh=St3S8TwVPIaayTrwYmH3XvCW1HYeIfzPLoE6eyejG2E=;
+	s=arc-20240116; t=1780974544; c=relaxed/simple;
+	bh=HY/IPPzbiax8P/WmaF1+Ixctbj3iwCYNnZJ9A2xAR5I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jj1CrqPTCONakfZRiDhiS+SBc7YbfkU2aMhtbrOSx9R8l0hry/CbZ1rFCamFNfQX7qbZTHqOxaxk1eDjxjk0Cp9RArEG2d8rIX+PSYZODPXfOoB40kMR+Py63zjyIeaTVZk228q3gL3rV4rtRVLj3xnC6PgU5R/HGTI+k19kLio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahqHt8zh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Wo8npPm9+xjNUe0YNq2wAnkjJoDlplw0bZVeSCjYxc81fZD4cnY1b/E5Lmx4kuPlsDegrzKXsJKlZ1lVhstn8Wtl5LDa0LAWstWtlM1d//sIIj8MLr/Rzj5i8FdE0joEtdzI8QJdHk7FPYOVCSdWebmRThTQOCU+CdDClF2TmJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itSV/Nsh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahqHt8zh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228B71F00893;
-	Tue,  9 Jun 2026 03:07:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itSV/Nsh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F1D1F00893;
+	Tue,  9 Jun 2026 03:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780974441;
-	bh=9ch4hD6OpyUOiBoOp2o2Xhyyk5Hvr9mitjEmhS+oz2o=;
+	s=k20260515; t=1780974542;
+	bh=VO6+1wMgXB9CX04KUzqfpbh04WGM4ix/lLClMja7+SQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ahqHt8zhv4a4LlnVAmBD1aJe2mnf38ItnwCwiT5YEorHWVOEpQI5prBhXrC1sne4m
-	 wf1/o3VFkoZM6EG/h1iR8U9j5PF25AY+KHoe7Ti8NOCgVFgJ5qQFRaLU352ZslPzsV
-	 aI0IJgz9m6FS/rs1FExbkGdyI9CBQHraW+RetCpsd5M75i/5MKjuAmLR5SvKDc7sbv
-	 iwS5L9xTMxxUkcAscS8L/hs15QHNDQgf6bWNVADDavrrY6lqDJAUOU1RfE+6oP/VPD
-	 8DUz8swPIZ/mf65TM8+G7F8tk+dvUs8DvU+Ry+RuOXwKpQcXj/eIipGAD2kL7DtYrr
-	 xcpMemHWSsctg==
+	b=itSV/Nshz7by9Hq+cWjUU5b6AF85c07lkFTRlzrqE3hDXBu2cP0aL2mRf9X64Kxjm
+	 ndwKgFNIYVYyRDFCt3Im7BnEQGSaRoybxvY+docE46WQhAf5KesAEg7/9aWqZU+QdP
+	 rJ31pV/CWb2wWSn2vrJN2TXEtZPdYIdeHSDkX6ucSRpWOgfZRzatal/Xep5JRzRrm8
+	 uI4WchKOqdFOvlou3Z+lcImp2yr4wNzwU/nIiysX3AAX3RSodIYgl3Gmjybkz0e+YW
+	 efoZWWPVRCFJajkKJK2U98E6ckCM6ZxqAwbFi4/IvfKYKwAlrZSgbGmu9G8wWMX8ik
+	 d3g6b7h2/XU/A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] ASoC: codecs: ES8389: Add private members related
- to HPF
+Subject: Re: [PATCH 1/7] ASoC: codecs: ES8389: Modify volatile_register
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260609025605.16945-6-zhangyi@everest-semi.com>
-References: <20260609025605.16945-6-zhangyi@everest-semi.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260609025605.16945-2-zhangyi@everest-semi.com>
+References: <20260609025605.16945-2-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 03:07:20 +0000
-Message-Id: <20260609030721.228B71F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 03:09:02 +0000
+Message-Id: <20260609030902.A5F1D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] User-configured ALSA controls are silently clobbered with hardcode=
-d defaults during resume from suspend, leading to state desynchronization.
+
+Pre-existing issues:
+- [High] Incomplete volatile register list leaves critical configuration un=
+-cached, causing state loss on resume.
+- [High] regmap cache is clobbered with hardware defaults during resume, nu=
+llifying the preservation of user settings.
 --
 
-commit d29ddfc11e992ae97d64b61eda8c618e717e58ba
+commit 18a4d58b5b0816359115dead13dc5872d2f0a08a
 Author: Zhang Yi <zhangyi@everest-semi.com>
 
-ASoC: codecs: ES8389: Add private members related to HPF
-   =20
-Add private members related to HPF.
-And defines ES8389_HPF_DEFAULT
+ASoC: codecs: ES8389: Modify volatile_register
+
+Mark some registers that are not volatile as false.
 
 > diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 8e47b4e3214e0..d1bcbbfcd4754 100644
+> index 449d9574b03a8..9c816491648c7 100644
 > --- a/sound/soc/codecs/es8389.c
 > +++ b/sound/soc/codecs/es8389.c
-
-[ ... ]
-
-> @@ -742,8 +744,8 @@ static int es8389_mute(struct snd_soc_dai *dai, int m=
-ute, int direction)
->  			regmap_update_bits(es8389->regmap, ES8389_DAC_FORMAT_MUTE,
->  						0x03, 0x00);
->  		} else {
-> -			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF1, 0x0f, 0x0a);
-> -			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF2, 0x0f, 0x0a);
-> +			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF1, 0x0f, es8389->hpf=
-l);
-> +			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF2, 0x0f, es8389->hpf=
-r);
+> @@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] =3D {
+>  static bool es8389_volatile_register(struct device *dev,
+>  			unsigned int reg)
+>  {
+> -	if ((reg  <=3D 0xff))
+> -		return true;
+> -	else
+> +	switch (reg) {
+> +	case ES8389_ADC_HPF1:
+> +	case ES8389_ADC_HPF2:
+> +	case ES8389_ADCL_VOL:
+> +	case ES8389_ADCR_VOL:
+> +	case ES8389_MIC1_GAIN:
+> +	case ES8389_MIC2_GAIN:
 
 [Severity: High]
-Does this interact safely with the resume path?
+This is a pre-existing issue, but does making these registers non-volatile
+cause their cached user settings to be clobbered during resume?
 
-If the "ASoC: codecs: ES8389: Modify volatile_register" patch in this series
-marks control registers (like ES8389_ADC_HPF2, ES8389_DAC_INV, and
-ES8389_ADC_MUTE) as non-volatile, they are placed into the regmap cache for
-restoration across suspend/resume.
-
-However, in es8389_resume(), regcache_cache_bypass() is disabled before
-calling es8389_init():
+In es8389_resume(), regcache_cache_bypass(es8389->regmap, false) is called
+before invoking es8389_init():
 
 sound/soc/codecs/es8389.c:es8389_resume() {
     ...
@@ -97,30 +95,58 @@ sound/soc/codecs/es8389.c:es8389_resume() {
     ...
 }
 
-es8389_init() then uses regmap_write() to forcefully initialize these
-registers with hardcoded defaults. Because the cache is active, these writes
-will overwrite the user's previously set values in the regcache:
+Because caching is enabled during es8389_init(), its explicit writes to the=
+se
+registers overwrite the user's settings in the regmap cache with hardware
+defaults:
 
 sound/soc/codecs/es8389.c:es8389_init() {
-    ...
-	regmap_write(es8389->regmap, ES8389_ADC_HPF2, 0x04);
-	regmap_write(es8389->regmap, ES8389_DAC_INV, 0x03);
     ...
 	regmap_write(es8389->regmap, ES8389_ADC_MUTE, 0xC0);
     ...
 }
 
-When regcache_sync() executes immediately afterward in es8389_resume(), it
-syncs this clobbered cache to the hardware.
+When regcache_sync() subsequently runs, it syncs these defaults instead of =
+the
+user's configuration, which silently mutes the microphone and resets its ga=
+in
+upon every resume.
 
-Could this cause user-configured ALSA controls (such as silent unmute of the
-ADC OSR Volume Switch, clearing output inversions) to be permanently lost on
-resume without any ALSA events being generated?
+> +	case ES8389_DACL_VOL:
+> +	case ES8389_DACR_VOL:
+> +	case ES8389_ALC_ON:
+> +	case ES8389_ALC_CTL:
+> +	case ES8389_ALC_TARGET:
+> +	case ES8389_ALC_GAIN:
+> +	case ES8389_ADC_MUTE:
+> +	case ES8389_OSR_VOL:
+> +	case ES8389_DAC_INV:
+> +	case ES8389_MIX_VOL:
+> +	case ES8389_DAC_MIX:
+> +	case ES8389_ADC_RESET:
+>  		return false;
+> +	default:
+> +		return true;
 
->  			regmap_update_bits(es8389->regmap, ES8389_ADC_FORMAT_MUTE,
->  						0x03, 0x00);
->  		}
+[Severity: High]
+This is a pre-existing issue, but does this default case incorrectly omit
+essential configuration registers?
+
+It leaves important configuration registers like ES8389_MASTER_MODE,
+ES8389_ADC_MODE, ES8389_DMIC_EN, ES8389_ADC_FORMAT_MUTE, and
+ES8389_DAC_FORMAT_MUTE as volatile.
+
+Because volatile registers bypass the regmap cache, any user changes, such =
+as
+DAI formats and DAPM MUX selections, are not cached.
+
+When es8389_init() writes default values to these registers, regcache_sync()
+skips them, so the user's MUX and format configurations are never restored,
+breaking audio routing.
+
+> +	}
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609025605.1694=
-5-1-zhangyi@everest-semi.com?part=3D5
+5-1-zhangyi@everest-semi.com?part=3D1
