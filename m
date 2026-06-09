@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3786139C00B
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F7E3F4835
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781001405; cv=none; b=vDM46FTlTgR0vdEsxWFWE157jz5PtayAOTYo3CQnsvRNImDpG5f3x88qi22PszvAZQ2YLeTAyhtXa7YXST3KSVZThAl0lbCDOkSQjr2sMqYi1e3zSeY1p7Eno4OeWa9oxRL/Lgv563uwzkJLsrIay11JvRnIEqZoYSCDgleiSio=
+	t=1781001433; cv=none; b=nKYQkvw9O2Dkr+QFp0rWKYMB7YA+10972QYZkzMCpWJuSPLSZtIeAN8k0vDkf3qbzt+d+G9QTfieuFmYK6aAssV0cx8N/mFKTEua9S1brJ3DsgzpMbLGa7Ad1vFKIwU9NW4G9g+uuiV474CbpJDmDyU0PkzmCokN91jmWmIuFfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781001405; c=relaxed/simple;
-	bh=JnI1bY8Gb1Soa7mjmy4GgKwWVBj1KINKgnqdYLwpSdE=;
+	s=arc-20240116; t=1781001433; c=relaxed/simple;
+	bh=B2BLgWZjVBRlfduYM1FRQ/mif+V7M+B3Z8snrAfXEIs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uk5wH/2gDtpMcKNfJXpOa97kOr7iSKrBZ2Jm/28wuMvFRPppHN9KxrWlFNi84wsLvn1gHI4Be9NKnQUSlEvnUA6GHZwZFumn9dwPi/ycRtSzxOr/GrYzSqeYs9cs74nMtFK+wwrX3k2AdLFfP8sfMR6GXqATFd7f5UW2hMKk1uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0mLw/F/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=K27F0zvpoFLDIUbPxFqqE81s/2AtfgFewL0O9YdvqyxoJKRCJDeDZcRYPS1hjLQPssGWXnQR+L/Upbw0zWWjLUrvH2I7TWlqzktMWFDfuBUXZLhSxRWgOX9SHCOvd7hZ9QJs/M81jlWJO8sEdSpLzml1qMJdVB5GdJV8noN//i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIWxWnzV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0mLw/F/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B631F00893;
-	Tue,  9 Jun 2026 10:36:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIWxWnzV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB2831F00893;
+	Tue,  9 Jun 2026 10:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781001403;
-	bh=lHDdbiKdPZj7YuQzL4RuAunVPjB7tZt8h8gC/zZbYDc=;
+	s=k20260515; t=1781001432;
+	bh=BsE/kxptdV5ttOPWKkabuRvAvZtnRHV/XfVn2blDghA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l0mLw/F/67xYz8wDVGejwGtXa1Qx9oA84sNzXfS/eLfWt3CpsnGspVXVIcUJnF1Gp
-	 cQ/toVv/QG7r9U3nMhuSYDbTiyZDVks102fb4t7bTZq+gdDyxMzOI1UbahCHMV++Ac
-	 OmuZPWC2zqeWHo68uJC5TVwm+/J+kc8lYrRPFZsmUyHrMqxDV16DYeWLYziYwca9CA
-	 zwlVa9WUhuE9H+MVketiZSNUBwetKq6cfCKZOmHUhvPp1zf2HSoRonytyHd8xrWjNm
-	 jMKg3JP4lfr4zSqMeakb2BoW3KQ2pbhuDxqZI0Q0Xk5iW276+0nk4tlEZolteLs24+
-	 gLnpGZI092bMA==
+	b=RIWxWnzVFHTJJvXRL9KM3FajxuIwHKrVkgABuL+Jdvctre5gPR97jNCOsK9ujpSoT
+	 CJiJIOqGHyGlEkW9L1Wn1DUoZHcCDetIjmeq2hPsCjwDsvHViFKExxM+aRVzsMuDuA
+	 yQmcsBVZm53npO9qBWMicHCPSCq2NkAuACbcTaOd/0Iad3j86XTAZ2JyK3HGUUQPBl
+	 1G0WO6YAe4rnW0YTtlKh/DQy8PTfT5TAB5vysMHmgJPPpOuPNg4m5FRweVjX4PJSSx
+	 mJeIaH0Qy8uNCHYkx4Kd3YHK7JX8L6ciQ9vXVC3k58pYdX6ZHctWjMCOVVcwaKeRhl
+	 tm4ck3lAmqwVA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
- mitigation properties
+Subject: Re: [PATCH v2 12/12] iio: dac: ad5686: add gain control support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
-References: <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
+References: <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:36:42 +0000
-Message-Id: <20260609103643.45B631F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 10:37:10 +0000
+Message-Id: <20260609103711.AB2831F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,73 +45,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The `#cooling-cells` property uses an `enum` constraint instead =
-of a hardware-matching `const` constraint.
-- [Medium] Schema fails to enforce the mutual dependency between `#cooling-=
-cells: 3` and `tmd-names`.
-- [Low] The newly introduced 'tmd-names' property is missing the 'qcom,' ve=
-ndor prefix.
+- [Medium] ABI Violation: Exposing a writable sysfs attribute to fix a stat=
+ic hardware configuration.
+- [Medium] State Inconsistency: `st->double_scale` is not rolled back if ha=
+rdware synchronization fails.
+- [Low] Data Race: Lockless read of `st->double_scale` can race with concur=
+rent writes.
 --
 
-commit ff18b7a7814a6d6f6545f74edd22e93602470084
-Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Date:   Tue Jun 9 10:22:56 2026 +0000
+commit 7fefd2fd08838a6ee5a81a3a819607e02af9d85d
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-dt-bindings: remoteproc: qcom,pas: add thermal mitigation properties
+iio: dac: ad5686: add gain control support
 
-Document Qualcomm PAS remoteproc thermal mitigation properties used for
-QMI-based throttling.
+This commit adds support for a 2x gain multiplier applied to the output
+voltage. This provides a gain control through a bit field in the control
+register or a dedicated GAIN pin, exposing the scale property as configurab=
+le.
 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> index 4607b459131b4..0d07a07507620 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> @@ -79,6 +79,20 @@ properties:
->        channels and devices related to the ADSP.
->      unevaluatedProperties: false
-> =20
-> +  '#cooling-cells':
-> +    description:
-> +      Number of cooling cells; 2 for min/max cooling state and 3 when
-> +      selecting a thermal mitigation device index.
-> +    enum: [2, 3]
+> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+> index d9022c6a32016..d49390af71f90 100644
+> --- a/drivers/iio/dac/ad5686.c
+> +++ b/drivers/iio/dac/ad5686.c
 
-[Severity: Medium]
-The device tree bindings guidelines state that each cell-count property must
-have a const constraint matching the hardware. Is it possible to enforce a
-strict const constraint in the specific hardware variant schemas rather than
-allowing an enum here, so we prevent misconfigured device tree nodes from
-passing validation?
+[ ... ]
 
-> +
-> +  tmd-names:
+> @@ -192,9 +196,14 @@ static int ad5686_read_raw(struct iio_dev *indio_dev,
+>  			GENMASK(chan->scan_type.realbits - 1, 0);
+>  		return IIO_VAL_INT;
+>  	case IIO_CHAN_INFO_SCALE:
+> -		*val =3D st->vref_mv;
+> -		*val2 =3D chan->scan_type.realbits;
+> -		return IIO_VAL_FRACTIONAL_LOG2;
+> +		if (st->double_scale) {
+> +			*val =3D st->scale_avail[2];
+> +			*val2 =3D st->scale_avail[3];
+> +		} else {
+> +			*val =3D st->scale_avail[0];
+> +			*val2 =3D st->scale_avail[1];
+> +		}
+> +		return IIO_VAL_INT_PLUS_NANO;
 
 [Severity: Low]
-Since this property is specific to Qualcomm's QMI-based thermal mitigation
-device (TMD) throttling mechanism and not a standard core thermal binding,
-should this have the "qcom," vendor prefix added to avoid namespace
-collisions?
+Is it possible for a data race to occur here?
 
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    description:
-> +      Names of the thermal mitigation devices available in remote proces=
-sor
-> +      subsystem.
-> +    minItems: 1
-> +    maxItems: 5
+In ad5686_read_raw(), the mutable software state st->double_scale is read
+to determine the returned scale values without holding the st->lock mutex.
+
+Because st->double_scale can be concurrently modified by ad5686_write_raw()
+(which properly acquires st->lock), this can lead to reading a prematurely
+updated state before the hardware configuration has actually completed.
+
+>  	}
+>  	return -EINVAL;
+>  }
+
+[ ... ]
+
+> @@ -216,6 +225,63 @@ static int ad5686_write_raw(struct iio_dev *indio_de=
+v,
+> =20
+>  		return ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
+>  				    chan->address, val << chan->scan_type.shift);
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (val =3D=3D st->scale_avail[0] && val2 =3D=3D st->scale_avail[1])
+> +			st->double_scale =3D false;
+> +		else if (val =3D=3D st->scale_avail[2] && val2 =3D=3D st->scale_avail[=
+3])
+> +			st->double_scale =3D true;
+> +		else
+> +			return -EINVAL;
+> +
+> +		switch (st->chip_info->regmap_type) {
+> +		case AD5310_REGMAP:
+> +			return ad5310_control_sync(st);
+> +		case AD5683_REGMAP:
+> +			return ad5683_control_sync(st);
 
 [Severity: Medium]
-The #cooling-cells description mentions that a cell count of 3 is used to
-select a thermal mitigation device index. Does this mean tmd-names should be
-strictly required when #cooling-cells is 3?=20
+Should st->double_scale be restored to its previous value if the hardware
+synchronization fails?
 
-If so, should we add an allOf or if-then conditional block tying these two
-properties together to prevent validation of incomplete nodes?
+In ad5686_write_raw(), st->double_scale is updated before the driver attemp=
+ts
+to push the change to the DAC via ad5310_control_sync(st) or
+ad5683_control_sync(st).=20
 
-> +
->    glink-edge:
+If the underlying SPI/I2C write fails, the function immediately returns the
+error code without rolling back st->double_scale.
+
+This could cause the driver's cached state to diverge from the actual
+hardware configuration, causing future reads of the scale to return the
+incorrect updated value.
+
+> +		case AD5686_REGMAP:
+> +			/*
+> +			 * Even if the gain pin is hardwired on the board, the
+> +			 * user is able to control the scale such that it
+> +			 * matches the actual gain setting.
+> +			 */
+> +			gpiod_set_value_cansleep(st->gain_gpio,
+> +						 st->double_scale ? 1 : 0);
+> +			return 0;
+
+[Severity: Medium]
+Does this expose a writable sysfs attribute to fix a static hardware
+configuration?
+
+The commit introduces a writable scale sysfs attribute to allow users to ma=
+nually
+match the software scale to a hardwired gain pin. Static hardware properties
+should typically be described via firmware properties (e.g., Device Tree) so
+the driver can expose the correct, immutable scale at initialization.
+
+If the GAIN GPIO is absent, writing to the scale attribute returns success =
+but
+does not change the physical hardware state, leading to a silent desynchron=
+ization
+between the reported scale and the actual physical DAC output.
+
+Could this mislead generic IIO clients by presenting multiple available sca=
+les
+that they believe they can dynamically toggle?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-qmi-tmd-v3=
--0-291a2ff4c634@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-ad5686-new=
+-features-v2-0-70b423f5c76d@analog.com?part=3D12
