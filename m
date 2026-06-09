@@ -1,234 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978D323D2A4
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 20:58:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DE93E274E
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 21:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781038703; cv=none; b=tXepUZ6GARSRTaXFaVrzEi9VsU5rgb/r9RG8eu+gUD7uvWH4TpN2b6un29Xk6VlHiM1kn8uMAAclV1FEThKInfeFcY23o5N/74sa4Ci6O21rXwzk0x74Csxjv6EV0nXW+gYw2ncjUI2vAild5iJl8v+WNrXHBh4nxQ8ZjiFWwIo=
+	t=1781039196; cv=none; b=Ll4TeSuzODR0RL4PIPAWrtNC97X2au4KVhiOOXCqfcZkGCCn9a14ZNaAlWvNhr4ko5lxw7j/jOEGmMWcAteNusnZ322ES7rwSRXUBxGFB6gZu1i2xaPOFz3JjqUQqet8zOqGiumkI1JokYounLr41hCEoEsJZD8l7tTdyEfjy6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781038703; c=relaxed/simple;
-	bh=J31TDGm6HQhribw4GpA/1gSM6x5lUJvmBI3uaO43Lt8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UTs7VEYrCI83F2zDclkdxIIDkvS4yDUXfaEr8+W32BHFjArdCGOegSSQxPr4zhMEO6PaI1M6bbzo0NWCFSE/iTk6nru83xKogtdrRLq7vx4+/8A3MTvDeNxIcMrPjKmstPtltMqPFIeIWpk0EvlJJZu7SMOmfiEouU90KErwlSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TbAFWqmq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781039196; c=relaxed/simple;
+	bh=JnRgX0E23Ha/jYZIEprqGGXXF9FSZBw76QfDOqcYCMs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fNhK2LBX10VtW1yvnmMEWn/vU98i1IuCYwknrpnplqfAjXbveJoOtRYfpuYE4OsHpSY510w3nmENoUs9d6KDDg54b4rNH57lOo+dVRj5E8wYqjxTbcradvns2JeirInVQ3/Ov5reoMkBIUz+1a4G3uWHeojV8mwbTlfVSl6dgs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jqSyEBOF; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TbAFWqmq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E361F00898;
-	Tue,  9 Jun 2026 20:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781038702;
-	bh=8/IzX23uuIpLYDZQMSAvFZbZaDHfZvZfUl+t1PMzAPU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TbAFWqmq5jb3iSWQoo5J8WAs70A4XzjUXeXAPWaplcgQ21rgYuILJa6Kpf/sn4/Zv
-	 W5BtcVt+gwYDXZUO+pnU9tG+ORaz+k6rxBPrZsMjGyHKq2v/S98Hyne1m+EXC1Uz6Z
-	 /HHLeZX1r6P10FdIc4AAoDC0EGjEsqaN5tTeWWwiv9DUsjwm0NXLEukHFtFgIZ2LvZ
-	 HRINs0KeTxKqpO/dRxCmMz8oztjSOq1NtDawscJPLbENruddY1VoORVDrHl1L4poQV
-	 Kuxnj/ibLqCKKwOd/Paqn4IUYXWjB6rTNw2Fstt7BP+YM1U1LxHJ/+ytgblfHUEMg/
-	 ghkSfaPYyAy3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonas Jelonek" <jelonek.jonas@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608205758.1830521-3-jelonek.jonas@gmail.com>
-References: <20260608205758.1830521-3-jelonek.jonas@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 20:58:21 +0000
-Message-Id: <20260609205822.19E361F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jqSyEBOF"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36b900f350fso5323195a91.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 14:06:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781039193; x=1781643993; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1dX9Gf5auhZd7M2vITh4vuMczhC2UZxTRI4fFpUYnQg=;
+        b=jqSyEBOFgvUds8fO6J2Gtp24254NgkmdmECVxkytQh+GQB+HUvSbhV8BtWOzEXqB2u
+         bokxh333Q8YBWfdoUAYlgx8b1r16dLtVFihexId3K1jLQKBB+nx6JVQBj/ETaY3cbHAi
+         f72Yh0RsjvFnaFndeMhifd92C/BhW2OZ9/FGqYEaZLdWDuYqIb+xUQ8ewsHabPrAjZI0
+         b9VofjRhwg6lg47LcvR0Qi7vH3814Jb1UxIEh21iC4aUAI+noE6uQNwfjuNblhBkILxG
+         NB8UU0JI9kf57HIllgSQdbV2DtAEoVt8EJTdSOcjtrqqUvQTzgayd8DARzmNHBJW8bdP
+         QE+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781039193; x=1781643993;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1dX9Gf5auhZd7M2vITh4vuMczhC2UZxTRI4fFpUYnQg=;
+        b=nXc9Mcb+P2hxbWl3f5/+lDrb2fejMDLUZ3U8I5CDYRnJCtyaDsQOxSr8MB2+uCedCc
+         ElFg3lbWhzOgj+k2A9AkOUeFwfQvPuYURUw4Mlxfq6piXeBlcMAr0T6i3gsDXtPXgDjC
+         cayIR/mXKnK2uaZ2MnenoxK7XuxPfb551CmO/+PMwFc3onx24lozHrXy0b5ySjtj3Rtj
+         6orlLet3T8MRUPevD4TMVJlNodZYfzWFxKvKBLguWg0TwFhOuLEVMU7ctr6DAeu8E+8P
+         C2D5zAazhIJitMYdkDKV05f4hfZx+fI/S8pvpK24rLuxNS2FzUQy3azh3Pi8SjrVhVJn
+         u2dg==
+X-Forwarded-Encrypted: i=1; AFNElJ9Bes66UGynz4RvGuHmUGxyTBNugz4I/GjMhOA+qLwmpXjSa4NabzOI1tENWgpMOVEx5gx6/jvaGxEc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3bK+MzrXne+HaVH7c3bjbEAKlANHcu7KEA5S7C04mh7lhjZMY
+	u3xUl93mAPqwUBSPIn4qO4FECaHSuNoOjXScgts31xbwjZYoLWGWVdqm
+X-Gm-Gg: Acq92OGQ9jTiDd8V/dIafT09OJK0kVEIok6m/LRNVtShBcpUhMYUf1J9gbrvvo5/ksY
+	Ki+mCoTxOMVdV5QxEr2yXEVwZdLj636dEiw9PlNruboROVqH4zeRjOGKTcF6DH/S8+IegdOm6Nj
+	nmd1BIk5Z6XmumfDUulRqc3gJHef6vtvNwkFs+KcdI7j9zWJ/82MukMHcunOXrzEv4FbdnmBwDN
+	CUfp5i/TL2ZO23MWUbS6T/3hm8bJ7coMCNosjrMLkQHQLejqWPN2yw1gSydnPgVDLhC1b+JtQBM
+	RyBOLWcx04VQ07qXJQaqrIWG6A0hdWQnB6kFgw5y/BRDoLV1x16AqnsW+kxFY8gM1bcBV7O5B6W
+	+dXlwXCnGeH90e5sfGruk7TOXfSaqPOPwi/bf2SmXnY/kXX4tknAuBDDZNIjViE6zShR/eNNZ/E
+	HYr41jyA==
+X-Received: by 2002:a17:90b:5345:b0:35c:30a8:330 with SMTP id 98e67ed59e1d1-370ebff342fmr22737341a91.0.1781039192824;
+        Tue, 09 Jun 2026 14:06:32 -0700 (PDT)
+Received: from localhost ([2a12:a305:4::3060])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6bf903fasm20158546a91.2.2026.06.09.14.06.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 14:06:32 -0700 (PDT)
+Date: Tue, 9 Jun 2026 17:06:24 -0400
+From: Guodong Xu <docular.xu@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/2] dt-bindings: dmaengine: Add SpacemiT K1 PDMA request
+ numbers
+Message-ID: <6ycdvhpgygnelzp3ot63xtzcnlvac7emngvj7tviiclst4a7km@kjq7oqvecnxx>
+References: <20260607-b4-k1-pdma-req-macros-v1-0-5b2a3955007c@gmail.com>
+ <20260607-b4-k1-pdma-req-macros-v1-1-5b2a3955007c@gmail.com>
+ <20260608-dazzling-hacksaw-dbe84766ec76@spud>
+ <qxcpvj3eseclgonwuwx2szn2tj4uxci27mvpqwotj6uaiyj65p@7sx5tyzbfs2g>
+ <20260609-freeload-luckiness-7a143eae62f4@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260609-freeload-luckiness-7a143eae62f4@spud>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Unprotected data race on UART receive buffer state between asynchr=
-onous RX callback and process-context TX function.
-- [High] I2C transport handlers swallow explicit MCU error opcodes, causing=
- 1-second stalls and masking failures.
-- [High] UART receive handler returns partially consumed bytes, leaving ove=
-rflow bytes in the serdev tty buffer which corrupts subsequent frames.
-- [High] The advertised 60W maximum power limit for the BCM59121 chip is ph=
-ysically unreachable and silently clamped to 51W.
-- [Low] Use of non-existent macro `kzalloc_obj()` causes a build failure.
---
+On 2026-06-09 20:54, Conor Dooley wrote:
+>On Tue, Jun 09, 2026 at 02:55:59PM -0400, Guodong Xu wrote:
+>> Hi, Conor
+>>
+>> On 2026-06-08 18:33, Conor Dooley wrote:
+>> > On Sun, Jun 07, 2026 at 01:41:30PM -0400, Guodong Xu wrote:
+>> > > Add a dt-bindings header that gives symbolic names to the SpacemiT K1
+>> > > PDMA request lines of the non-secure peripherals. Device trees can use
+>> > > these K1_PDMA_* macros instead of magic numbers.
+>> > >
+>> > > Point the spacemit,k1-pdma binding's #dma-cells description at the new
+>> > > header.
+>> > >
+>> > > Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+>> > > ---
+>> > >  .../devicetree/bindings/dma/spacemit,k1-pdma.yaml  |  4 +-
+>> > >  include/dt-bindings/dma/spacemit,k1-pdma.h         | 56 ++++++++++++++++++++++
+>> > >  2 files changed, 59 insertions(+), 1 deletion(-)
+>> > >
+>> > > diff --git a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
+>> > > index ec06235baf5ca..0d4ac9849e27b 100644
+>> > > --- a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
+>> > > +++ b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
+>> > > @@ -35,7 +35,9 @@ properties:
+>> > >    '#dma-cells':
+>> > >      const: 1
+>> > >      description:
+>> > > -      The DMA request number for the peripheral device.
+>> > > +      The single cell is the DMA request number for the peripheral device.
+>> > > +      See <dt-bindings/dma/spacemit,k1-pdma.h> for the list of valid request
+>> > > +      numbers.
+>> > >
+>> > >  required:
+>> > >    - compatible
+>> > > diff --git a/include/dt-bindings/dma/spacemit,k1-pdma.h b/include/dt-bindings/dma/spacemit,k1-pdma.h
+>> >
+>> > Why does this need to be in a binding when there is no use of this in
+>> > the driver? May as well be a header, particularly if these are numbers
+>>
+>> Thanks for the review. You are correct that these are not referenced in the
+>> driver. My change to k1-pdma.yaml should be dropped.
+>>
+>> > with a set meaning that are lifted from the TRM, rather than made up
+>> > numbers to make a driver work. The former seems likely, given you're
+>> > indexing from 3 not 0.
+>>
+>> Yes, it is defined in the K1 manual [1], see 9.4.3 DMA Connectivity &
+>> Assignments
+>>
+>> Link: https://www.spacemit.com/community/document/info?lang=en&nodepath=hardware/key_stone/k1/k1_docs/k1_usermanual/9.Top_System.md [1]
+>>
+>> I will fix that in v2.
+>
+>Just in case I wasn't clear (and I think I wasn't), when I said "may as
+>well be a header" I meant a header in arch/riscv/boot/dts/spacemit.
 
-commit 99e0f1290d70d0585553ebd399054bea3d8ef281
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Oh, got it. Makes sense. I will move it to
+arch/riscv/boot/dts/spacemit/k1-pdma.h
 
-net: pse-pd: add Realtek/Broadcom PSE MCU driver
-   =20
-This commit introduces a new driver for the microcontroller fronting Realtek
-and Broadcom PSE chips on PoE switches. It includes both I2C and UART
-transport modules alongside a shared core to handle protocol dialects.
+Note that I already sent v2 before reading this, please disregard v2.
 
-> diff --git a/drivers/net/pse-pd/realtek-pse-core.c b/drivers/net/pse-pd/r=
-ealtek-pse-core.c
-> index 0000000000000..711f85aebf5e8
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-core.c
-[ ... ]
-> +static const struct rtpse_chip_info bcm59121_info =3D {
-> +	.device_id =3D RTPSE_DEVICE_ID_BCM59121,
-> +	.max_mW_per_port =3D 60000,	/* 802.3bt Type 3 */
-> +	.name =3D "BCM59121",
-> +	.pw_read_lsb_mW =3D 200,
-> +	.pw_set_cmd =3D RTPSE_CMD_PORT_SET_POWER_LIMIT,
-> +	.pw_set_lsb_mW =3D 200,
-> +};
-[ ... ]
-> +static int rtpse_port_set_pw_limit(struct pse_controller_dev *pcdev, int=
- id, int max_mW)
-> +{
-> +	const struct rtpse_opcode *type_opc, *val_opc;
-> +	struct rtpse_ctrl *pse =3D to_rtpse_ctrl(pcdev);
-> +	const struct rtpse_chip_info *chip =3D pse->chip;
-> +	unsigned int prg_val;
-> +	int ret;
-> +
-> +	if (max_mW < 0 || max_mW > chip->max_mW_per_port)
-> +		return -ERANGE;
-[ ... ]
-> +	prg_val =3D min_t(unsigned int, max_mW / chip->pw_set_lsb_mW, 0xff);
-> +
-> +	return rtpse_port_cmd(pse, id, val_opc->op, prg_val);
-> +}
+I will send v3.
 
-[Severity: High]
-Is the 60W maximum power limit for the BCM59121 chip physically unreachable
-here?=20
-
-With max_mW_per_port set to 60000 and pw_set_lsb_mW set to 200, programming
-60W results in a target of 300. Since this is packed into an 8-bit command
-payload, the min_t calculation clamps the value to 0xff (255).=20
-
-This seems to silently restrict the maximum output to 51W, which could break
-functionality for devices expecting the advertised power budget.
-
-[ ... ]
-> +static int rtpse_port_get_pw_limit_ranges(struct pse_controller_dev *pcd=
-ev, int id,
-> +					  struct pse_pw_limit_ranges *out)
-> +{
-> +	struct ethtool_c33_pse_pw_limit_range *range;
-> +	struct rtpse_ctrl *pse =3D to_rtpse_ctrl(pcdev);
-> +
-> +	range =3D kzalloc_obj(*range, GFP_KERNEL);
-> +	if (!range)
-> +		return -ENOMEM;
-
-[Severity: Low]
-Will this code compile successfully? There does not appear to be a
-kzalloc_obj() macro in the standard kernel API, which might lead to an
-immediate build failure. Should this just be kzalloc() instead?
-
-> diff --git a/drivers/net/pse-pd/realtek-pse-i2c.c b/drivers/net/pse-pd/re=
-altek-pse-i2c.c
-> index 0000000000000..8b9c31cbdfe99
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-i2c.c
-[ ... ]
-> +static int rtpse_i2c_smbus_recv(struct rtpse_ctrl *pse,
-> +				const struct rtpse_mcu_msg *req,
-> +				struct rtpse_mcu_msg *resp)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(pse->dev);
-> +	int tries, ret;
-> +
-> +	for (tries =3D 0; tries < RTPSE_I2C_MAX_TRIES; tries++) {
-> +		if (tries > 0)
-> +			msleep(RTPSE_I2C_RETRY_MS);
-> +
-> +		/* MCU needs 0x00 as command byte for read */
-> +		ret =3D i2c_smbus_read_i2c_block_data(client, 0x00,
-> +						    RTPSE_MCU_MSG_SIZE,
-> +						    (u8 *)resp);
-> +		if (ret < 0)
-> +			return ret;
-> +		if (ret =3D=3D RTPSE_MCU_MSG_SIZE && resp->opcode =3D=3D req->opcode)
-> +			return 0;
-> +	}
-> +
-> +	return -ETIMEDOUT;
-> +}
-
-[Severity: High]
-Do these transport loops inadvertently swallow explicit MCU error opcodes?
-
-If the MCU returns a valid error opcode like 0xfd (request incomplete) or
-0xfe (checksum error), resp->opcode won't match req->opcode.=20
-
-Instead of returning the error so the core can translate and handle it,
-the loop appears to ignore the response and continues to poll until hitting
-the timeout.
-
-Could this needlessly stall the bus for a full second on every invalid
-command in both the SMBus and native I2C receive paths?
-
-> diff --git a/drivers/net/pse-pd/realtek-pse-uart.c b/drivers/net/pse-pd/r=
-ealtek-pse-uart.c
-> index 0000000000000..27fa7e0c3f95e
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-uart.c
-[ ... ]
-> +static size_t rtpse_uart_receive(struct serdev_device *serdev,
-> +				 const u8 *buf, size_t count)
-> +{
-> +	struct rtpse_uart *ctx =3D serdev_device_get_drvdata(serdev);
-> +	size_t take;
-> +
-> +	take =3D min(count, sizeof(ctx->rx_buf) - ctx->rx_len);
-> +	if (take =3D=3D 0)
-> +		return count;  /* drop overflow bytes */
-> +
-> +	memcpy(ctx->rx_buf + ctx->rx_len, buf, take);
-> +	ctx->rx_len +=3D take;
-> +
-> +	if (ctx->rx_len =3D=3D sizeof(ctx->rx_buf))
-> +		complete(&ctx->rx_done);
-> +
-> +	return take;
-> +}
-
-[Severity: High]
-Can returning take instead of count here cause framing desynchronization?
-
-If the handler returns a value less than count, the serdev core keeps the
-unconsumed bytes buffered.
-
-When the next transaction begins, these leftover overflow bytes might
-immediately push into the new buffer, permanently misaligning future
-responses. Does it make sense to unconditionally return count here to drop
-any overflow bytes and allow resynchronization?
-
-[ ... ]
-> +static int rtpse_uart_send(struct rtpse_ctrl *pse, const struct rtpse_mc=
-u_msg *req)
-> +{
-> +	struct rtpse_uart *ctx =3D to_rtpse_uart(pse);
-> +	int written;
-> +
-> +	/* clear any leftover rx state before transmitting */
-> +	reinit_completion(&ctx->rx_done);
-> +	ctx->rx_len =3D 0;
-
-[Severity: High]
-Is there a data race on ctx->rx_len between the receive callback and this
-send function?
-
-The serdev callback rtpse_uart_receive() modifies ctx->rx_len asynchronously
-from a softirq or workqueue context. If a delayed byte arrives just as
-rtpse_uart_send() locklessly resets ctx->rx_len to 0, it could corrupt the
-buffer state.
-
-The pse->mutex appears to only serialize host-initiated requests, but not
-the asynchronous UART receive callback. Could this lead to dropped frames or
-out-of-bounds writes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608205758.1830=
-521-1-jelonek.jonas@gmail.com?part=3D2
+BR,
+Guodong
