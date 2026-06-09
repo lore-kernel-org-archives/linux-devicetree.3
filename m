@@ -1,146 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFE3CA4E;
-	Tue,  9 Jun 2026 06:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 016445B21A;
+	Tue,  9 Jun 2026 06:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780986811; cv=none; b=jOQ9enk/go2l8ahW1Yey7QGQGmLrM1PDCB8UCGZO6+SOi2YBOyyvDk/JX5EWKxQNrKmYG4iBd/rBrQ9DTC2AuPgO6HrFCgO8EurpWCjsSAcNJlowDji+6O0nPsJn7L+fWkI32q45l/+FP8KHMjosDkSmyqaTf0Tbnz306jAzvtE=
+	t=1780986875; cv=none; b=nLWEIO8WInQh1ZYV2EqL90OoAp2eYr9rbDxyTBJbOXrtfCeyjn07zaEcgR8/kf9pim8OcadPLon9sr3jeuSL0SNsgwR+5qJa+oaxzdgWPfU/MGCPqcgut0qzqN1BFRUaTcAubLfj30GKlSnxddiFlMpGhbopALhiYUE0/Z5dQDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780986811; c=relaxed/simple;
-	bh=UA9drqngoE5zlMZbpvc86sDOGhLcAAwtPIGOQT10MBM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QTTGSEG20LGi7wnj7JlCwi5S+pU27PCvY6GD6Rb0uSY2oqJNCZxxAjMad7NhYUK5m1o7NHtuhui3FbsiPmJuFIveZ05F3nm26HqN0l1hMtQZlvCwWJFNWG0U+gTvmeS5wTDefmGJKSGfa8fLON+TZdE5rufZSh4GgqY6BJHQC4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2imHSZM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780986875; c=relaxed/simple;
+	bh=mN32kZcZe3s/2A/C2HeckScrSCdsoJ7ip9mv7bM0UFg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=FhfDUFbdHFjjMMZ0oZITgk2A8rEs4kIqm6gQSippDudUhnqfwHFCKo9zin4n/OMfp4Hp787PFGkh8+yz2rtuNEUkGeNJwBAwW5dJSgb+oGLHPNp1kmO5php/qP8EbPOvyXoI228XvTmpBD0GhpT+OBG21ZNtjaB7wn7Io4tB1ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=NWNe5Wko; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2imHSZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D801F00893;
-	Tue,  9 Jun 2026 06:33:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780986809;
-	bh=zhfXWCTQUZJATLR2jF2Bw6AjpiYZwt1mtklk/4JJLPM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G2imHSZM/539inWdTMF3LL3jQF4ooRC6cjK0jMW/jKRXk2S4DEsa7WhNQ00/lHDRq
-	 R8LCpjQhyAcx/IpPEKm5DeBKkHP7RQQn2+K46FH4EMQxpGrYcKfHs0xjeHcMG/SSFR
-	 VlQTdJ04lrkZY48DPGA/CwswgWopjlDNa4rYSXw7L84a0JT722nq6JAe+sDmSqmuxx
-	 G68jvszTG17q7oPLsWltRzKRoqHIM2Ml0DqbQKgCqOi0X49iqV7WucWXv+rtrGDJdV
-	 Xhiz32lrbA1ck+mLG8TaYx0QTII+HcPiSjwymomoXAjjl8OBGJTSQx7oAH296thFCM
-	 xFdhOAXTyE2Tw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/21] RISC-V: perf: Skip PMU SBI extension when not
- implemented
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608-counter_delegation-v6-14-285b72ed65a9@meta.com>
-References: <20260608-counter_delegation-v6-14-285b72ed65a9@meta.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 06:33:28 +0000
-Message-Id: <20260609063329.66D801F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="NWNe5Wko"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=AdqnFv/tsFMI2ekiHo9Xhi/ZYvF9ZsyYq
+	x0a7TYngz8=; b=NWNe5WkojTXOU69xTUqzkLfK4fcO9+iw571Qp9ePbKv7n+q+F
+	/3bYrNhRArx0cIfl1wxYfwu0LB7L/SLeB0eCU1PD+r8ikLL+zZdgMFlxA0oH9jAf
+	lXS/uGN3Xe1TiFbImviQd7Z/KPl6k/JZDCxyVOl6cXV5CXZ7kltE1jDRW8=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEEIVtCdqi6sJAA--.8839S2;
+	Tue, 09 Jun 2026 14:35:02 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 2/2] pinctrl: ultrarisc: Add UltraRISC DP1000
+ pinctrl driver
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <CAD++jL=LFZYUFyAt9eUMPw02yCXC3cD6h4wvHQ529OS-o-WtSQ@mail.gmail.com>
+References: <20260608-ultrarisc-pinctrl-v3-0-30a09ed74275@ultrarisc.com>
+ <20260608-ultrarisc-pinctrl-v3-2-30a09ed74275@ultrarisc.com>
+ <CAD++jL=LFZYUFyAt9eUMPw02yCXC3cD6h4wvHQ529OS-o-WtSQ@mail.gmail.com>
+Date: Tue, 09 Jun 2026 14:34:24 +0800
+Message-Id: <178098686461.187087.11502108328443255683.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780986864; l=5128;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=mN32kZcZe3s/2A/C2HeckScrSCdsoJ7ip9mv7bM0UFg=;
+ b=uWGowsAoO+tMaswPPgMSw3xoEFhNkl13lzfnxKILbv9igchVJOtfc3BnijLpc6g7S6mHrhFM/
+ 13l3L2kIYpYAsJbugWIXAZvssPliwfcTrYJ6+RQPf4DxN9M2m2TP/lA
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDXEEIVtCdqi6sJAA--.8839S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr1kXF13XF4xAr43trW7CFg_yoWrZr1fpa
+	yrKw15CryUJrWrKa1vq3y8uFyfArs7JrW3Jr1rGFy7XFZxA3sayrWvgr1ruFyDCr95Jr4S
+	va15uFyayrn0yFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUva14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	tVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
+	uYvjfUonmRUUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgA8s6
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 2026-06-09 00:23 +0200, Linus Walleij wrote:
+> Hi Jia,
+> 
+> thanks for your patch!
+> 
+> On Mon, Jun 8, 2026 at 9:50 AM Jia Wang via B4 Relay
+> <devnull+wangjia.ultrarisc.com@kernel.org> wrote:
+> 
+> > From: Jia Wang <wangjia@ultrarisc.com>
+> >
+> > Add support for the pin controller on the UltraRISC DP1000 SoC.
+> >
+> > The controller provides mux selection for pins in ports A, B, C, D, and
+> > LPC. Ports A-D default to GPIO and support peripheral muxing. LPC pins
+> > can be switched to eSPI, but are not available as GPIOs. Basic pin
+> > configuration controls such as drive strength, pull-up, and pull-down
+> > are also supported.
+> >
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> 
+> Overall this looks very good, some things to fix up below but nothing
+> major!
+>
 
-Pre-existing issues:
-- [Critical] Missing perf_pmu_unregister() on error paths leads to Use-Afte=
-r-Free of the pmu struct.
-- [High] Unconditional cpuhp_state_remove_instance() on an uninitialized hl=
-ist_node causes a kernel panic.
---
+Thanks for the review.
+ 
+> (...)
+> > +config PINCTRL_ULTRARISC
+> > +       tristate
+> > +       depends on OF
+> > +       depends on ARCH_ULTRARISC || COMPILE_TEST
+> > +       select GENERIC_PINCTRL
+> > +       select PINMUX
+> > +       select GPIOLIB
+> 
+> Why GPIOLIB? You don't implement any GPIO chips...
+>
 
-commit bd51c5655be0902a2fc1fd90b8d692c299e7265b
-Author: Charlie Jenkins <charlie@rivosinc.com>
+Good catch. GPIOLIB is not actually needed here since the driver does not
+provide any GPIO functionality. I'll drop the select in the next version.
+ 
+> > +       raw_spin_lock_irqsave(&pctrl->lock, flags);
+> > +       val = readl_relaxed(reg);
+> > +       val = (val & ~mask) | field_prep(mask, conf);
+> > +       writel_relaxed(val, reg);
+> > +       raw_spin_unlock_irqrestore(&pctrl->lock, flags);
+> 
+> Have you thought about using a scoped guard for this lock?
+> It will make the code easier to read.
+> (Applies everywhere.)
+>
 
-RISC-V: perf: Skip PMU SBI extension when not implemented
+Yes, that makes sense. I'll convert the lock sections to use scoped_guard()
+throughout the driver in the next version.
+ 
+> > +static int ur_find_group_route(struct ur_pinctrl *pctrl,
+> > +                              const char *function,
+> > +                              u64 group_mask,
+> > +                              const struct ur_func_route **route_out)
+> > +{
+> > +       const struct ur_func_route *match = NULL;
+> > +
+> > +       for (u32 i = 0; i < pctrl->data->num_routes; i++) {
+> > +               const struct ur_func_route *route = &pctrl->data->routes[i];
+> > +
+> > +               if (strcmp(route->function, function))
+> > +                       continue;
+> > +
+> > +               if ((route->valid_pins & group_mask) != group_mask)
+> > +                       continue;
+> > +
+> > +               if (match) {
+> > +                       dev_err(pctrl->dev,
+> > +                               "ambiguous route for function %s group_mask=%#llx\n",
+> > +                               function, (unsigned long long)group_mask);
+> > +                       return -EINVAL;
+> > +               }
+> > +
+> > +               match = route;
+> > +       }
+> > +
+> > +       if (match) {
+> > +               *route_out = match;
+> > +               return 0;
+> > +       }
+> > +
+> > +       return -EINVAL;
+> > +}
+> 
+> This routing function needs some kind of comment before it explaining
+> what is going on and what constraints you are trying to resolve with this.
+> 
 
-When the PMU SBI extension is not implemented, sbi_v2_available should
-not be set to true. The SBI implementation for counter config matching
-and firmware counter read  should also be skipped when the SBI extension
-is not implemented.
+Agreed. I'll add a comment describing the routing model and the constraints
+being resolved here.
 
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 1f16df9d0dd00..5bfcd3821f572 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-[ ... ]
-> @@ -2045,12 +2052,13 @@ static int __init rvpmu_devinit(void)
->  	int ret;
->  	struct platform_device *pdev;
-> =20
-> -	if (sbi_spec_version >=3D sbi_mk_version(0, 3) &&
-> -	    sbi_probe_extension(SBI_EXT_PMU))
-> -		static_branch_enable(&riscv_pmu_sbi_available);
-> +	if (sbi_probe_extension(SBI_EXT_PMU)) {
-> +		if (sbi_spec_version >=3D sbi_mk_version(0, 3))
-> +			static_branch_enable(&riscv_pmu_sbi_available);
-> +		if (sbi_spec_version >=3D sbi_mk_version(2, 0))
-> +			sbi_v2_available =3D true;
-> +	}
-> =20
-> -	if (sbi_spec_version >=3D sbi_mk_version(2, 0))
-> -		sbi_v2_available =3D true;
->  	/*
->  	 * We need all three extensions to be present to access the counters
->  	 * in S-mode via Supervisor Counter delegation.
+> > +static bool ur_function_is_gpio(struct pinctrl_dev *pctldev,
+> > +                               unsigned int selector)
+> 
+> Neat that you implement this!
+>
 
-[Severity: Critical]
-This is a pre-existing issue, but I noticed a potential use-after-free in t=
-he
-error handling path of rvpmu_device_probe() when allocating or registering
-fails after perf_pmu_register() succeeds.
+Thanks.
+ 
+> > +static const struct pinctrl_ops ur_pinctrl_ops = {
+> > +       .get_groups_count = pinctrl_generic_get_group_count,
+> > +       .get_group_name = pinctrl_generic_get_group_name,
+> > +       .get_group_pins = pinctrl_generic_get_group_pins,
+> > +       .dt_node_to_map = pinctrl_generic_pins_function_dt_node_to_map,
+> > +       .dt_free_map = pinconf_generic_dt_free_map,
+> > +};
+> 
+> Good use of generic helpers!
+> 
+> > +static const struct pinmux_ops ur_pinmux_ops = {
+> > +       .get_functions_count = pinmux_generic_get_function_count,
+> > +       .get_function_name = pinmux_generic_get_function_name,
+> > +       .get_function_groups = pinmux_generic_get_function_groups,
+> > +       .function_is_gpio = ur_function_is_gpio,
+> > +       .set_mux = ur_set_mux,
+> > +       .gpio_request_enable = ur_gpio_request_enable,
+> > +       .strict = true,
+> > +};
+> 
+> Here too.
+> 
+> > +static const struct pinconf_ops ur_pinconf_ops = {
+> > +       .pin_config_get = ur_pin_config_get,
+> > +       .pin_config_set = ur_pin_config_set,
+> > +       .pin_config_group_get = ur_pin_config_group_get,
+> > +       .pin_config_group_set = ur_pin_config_group_set,
+> > +#ifdef CONFIG_GENERIC_PINCONF
+> > +       .is_generic = true,
+> > +       .pin_config_config_dbg_show = pinconf_generic_dump_config,
+> > +#endif
+> 
+> Why ifdef:ed? Just select it in your Kconfig and rely on it?
+> 
 
-If an error occurs, such as pmu_sbi_snapshot_alloc() failing, the code jumps
-to out_unregister:
+GENERIC_PINCONF is already selected via GENERIC_PINCTRL, so the dependency
+is guaranteed. The ifdef is therefore unnecessary; I'll remove it in the
+next version.
 
-out_unregister:
-	riscv_pmu_destroy(pmu);
+> Yours,
+> Linus Walleij
+> 
 
-out_free:
-	kfree(pmu);
-	return ret;
+Best regards,
+Jia Wang
 
-However, neither the error path nor riscv_pmu_destroy() calls
-perf_pmu_unregister(&pmu->pmu).
 
-This leaves the PMU registered in the perf core subsystem while its backing
-memory is freed via kfree(). Any subsequent access to the PMU could result
-in a use-after-free.
-
-Should perf_pmu_unregister() be called during teardown to avoid memory
-corruption?
-
-[Severity: High]
-This is a pre-existing issue, but the error teardown path in
-rvpmu_device_probe() seems to have a bug that could trigger a kernel panic.
-
-If rvpmu_device_probe() fails before successfully calling
-cpuhp_state_add_instance(), it jumps to out_unregister and calls
-riscv_pmu_destroy(pmu).
-
-Inside riscv_pmu_destroy(), it unconditionally removes the hotplug instance:
-
-static void riscv_pmu_destroy(struct riscv_pmu *pmu)
-{
-	...
-	cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
-}
-
-Because the pmu struct is allocated with kzalloc() and the node hasn't been
-added to the hotplug list yet, its hlist_node is zero-initialized.
-
-When hlist_del() is called internally by cpuhp_state_remove_instance(), it
-attempts to dereference node->pprev (which is NULL), causing a NULL pointer
-dereference.
-
-Would it be better to check if the node is actually hashed before attempting
-to remove the hotplug instance?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-counter_de=
-legation-v6-0-285b72ed65a9@meta.com?part=3D14
