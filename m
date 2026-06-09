@@ -1,227 +1,143 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FADE3C9456
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77043C3BF4
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780984842; cv=none; b=HZs26zYSH6HVgVFx6Wt1khM642744G22OKr9c9vFk6/fXIxyuytw2Dg1XNKIJqL82urDBucjFJsEhZNuAUWBoA/Pn4o60DluUJiCufch3k4NVBUMvx2ATjAQqGIWrFyt7aFkzZQkAzq3IN4BVMJXiDyyTTK27wKpi5uRfUlUz0Y=
+	t=1780984894; cv=none; b=gTUbKxWTfAxGXCzFqswVzggzE4kOj7Ear3t/9yAUnugh5eCQuXN0TKjPCuEDTaBk0sdztUfcPpEq0eSguYC1wi5GhMu86ML1F6e50JjfSnd8IisV6CMY4Zw4MlUntVt2riKMUtbXV57XerM2aipPAPJeUN82roUP60liF38Zs3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780984842; c=relaxed/simple;
-	bh=XCFNabTCGm6+aNwyq3Zcm8Kst3gcwPvZSnxtnxvQNXo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cJ/OI8L54dNE1NzGB/HzUOpCH7B6NGfVflYnVBVXiyMHr6BET4TEjhYi/xc14akjC8yr9AzI9OIQQ50lpA+rsUNtZLZnDT/5vfiSIjRB6p0VaPUL4rCsqW0ZgrOBtGjSINOcoV+DJ5M2c8aY7KJ+M/zceMwVUMH9d9F39LPmn6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FFgkSY37; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FrVJrGi0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780984894; c=relaxed/simple;
+	bh=49sToyKTSjS66TuV/1Gvj6ise9Amt4gQHPByMHgSiiE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KgIRqR9530oioCCVareB3DvaPwzlLjrAZUkDcFCK3RtXEryEhmd/kwNbNf32ObXhD4ufftx20mP87dUIPjval+oE1Zi7regVEDGU1isKBsrk1nhDXDxZB88FxIt/DYE4gj8/lxLt7jsVRXTs240rQMis9d92W5wBJxFiva/fGWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NsosH7lb; arc=none smtp.client-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FFgkSY37";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FrVJrGi0"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6593wffs1399919
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 06:00:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KBhl3HDQ4JqBELbVnf8aJYjqulp5nH2X2j4Fgm26b8U=; b=FFgkSY375OwDfE1J
-	239NMY4mRzvvsDK3bk9JhCC5S9vJyLJDJY24NWDN9VRUXRMfYoY1mknbA4gu7e6u
-	s/P2LIdkrL6ofyKGIOfcJ6h4Hrn8rECC85kjAklSca8Pur+H7G//XLk0zc0K8WmO
-	SXXrR53MtOXnakOZC24ptUtjGhiFJ7yC6fnFZsQykOIQJlFaioqvWZyvDlCVJh1O
-	HydCipFy8lkJ7GNSifxf25ktnZdS2dIDkkgWzJsdKuhdrUcNZIf1hozyJ0mMjRJ3
-	MvqBku46CCK7Qc8AGkHzrjXeTWHMzIGZotiSf1k4f9iBaRr7ZOol6nyPNsr8/Dq5
-	SE9fsA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enx2rv06u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 06:00:39 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36d99181eaaso7056223a91.3
-        for <devicetree@vger.kernel.org>; Mon, 08 Jun 2026 23:00:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780984839; x=1781589639; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KBhl3HDQ4JqBELbVnf8aJYjqulp5nH2X2j4Fgm26b8U=;
-        b=FrVJrGi0Y3yekaHSoBwQSnLULgU5uFGzKNZsLBn/vF3M2l9V78/gQ8ZnKT4xvkfDnx
-         ymaTPjmJv2GV3N8ZlJ+5XqEw5z0LUDUqNxO8vAvCifowSG9tg6rnjbMqnY2hlQZ7gd1J
-         hh/yRjwCSm0zLBqHUoTkq60XNAFwo6z0LiFrbFv2lE2lNEYr13pN5EKYlIXR4jUlInms
-         mlM7M+GiE030HrBbA71nTiwxTaIcohngYiKlkR60VlOeG2FJtRNYu0ykkT69Tb0QzxI0
-         mRWC4xWQW3EiZhe2UrE7g+7FBIEfp+TlmZGowcXv05Pur+i+ne6LznrP6fsWoUWGI1mE
-         Eczw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780984839; x=1781589639;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KBhl3HDQ4JqBELbVnf8aJYjqulp5nH2X2j4Fgm26b8U=;
-        b=WFCTnw8uGnWVCXlOq9AOXgEpWyaq1rQDGkVjkuP1MBWBSFwGfjcORdDxovfdbwig1R
-         mquIOwi5W76reFtHGbgSQAAHfEJGBCdOAJDItdhkMYWPtLdhb1lpynA7V58X4i8aYKzY
-         NueoxqQWUYhUcKKW2FbouZ0G0y6hRFhwITjZDvmJSzVorP36nCqNOgDbl2zO3AmHo3zz
-         oJHWW0lPkjzDrBZLu1iQ7Sqk2AKx4sDXk/GTt2vzSf0j4/yP+IE0s++LwXjcvH5whTcW
-         p+lG9cK1NWslaTXtFyn2BQO+rPgYE1rOICN6nT0leJMIDYmRNKXChYFG82cPDImlPoB6
-         K53A==
-X-Forwarded-Encrypted: i=1; AFNElJ8wD3OHBuJhidJJce+K5j7e+5oaIhGaRp8PCgPU8Px2i3KogCYSAHkLyc1J6F7et1EOdek6sidqZJ9i@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtsjjLJ6BnlAPqQFlU9P+iq3kVxui1oBLUE7/SvU3h5JSqJrNa
-	Qzhvlm7FSRtPefWyaBt9CnjNIrQferVoSMMF8I39aPZn83e1OkDUOCuz2O/0hQyTlN4sxYj4JON
-	t2eU7pxxX+QoTUx9PjiT250py6V908CgmY2V34XXsHsbN/KFfZ1zWn6h7TtmRw1w+
-X-Gm-Gg: Acq92OF+7KwKChp1Zl2oHMBvavP2LsdzEtTJfZoxVI6J/0FmbpYBbrG+mrPYKz0Bgn8
-	uAkdoR/0PbT0ggGywx6alf95oukqy09DZ805S56+srR5kRrF+WEj64sf8IO/1h7i0eeQf2GopuK
-	PzRrSGZZahXnARmXibHEv/XF8CN7TDso8eTXDZ9wDUk10Ej5Gposcg0E6B+9q4jMAkmB/qAo2eL
-	7MmXH+lvfqIRqR9ueaa1wCFEfKK3jw9YpfuWCPn7uhDTYV4SpoXHFBMwWqlJ50yCqPk0wKaxH67
-	WUzKQmeIp/8mtvoRSOoHBywWmwIriZ+lxD7VkMnjlpbrCkxCgad0ekoE0Ac1NSh4VbzDt+sWRTA
-	NdO0CPP9ziIQES8X+JozMag4mY5kzdzf+S6a9kQUK7iUTp48eSzjJrSCkybkkq8qH
-X-Received: by 2002:a17:90b:6c3:b0:36d:b9c5:e8f6 with SMTP id 98e67ed59e1d1-370f0481909mr21011709a91.19.1780984838795;
-        Mon, 08 Jun 2026 23:00:38 -0700 (PDT)
-X-Received: by 2002:a17:90b:6c3:b0:36d:b9c5:e8f6 with SMTP id 98e67ed59e1d1-370f0481909mr21011660a91.19.1780984838305;
-        Mon, 08 Jun 2026 23:00:38 -0700 (PDT)
-Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f710ee4f3sm18653141a91.13.2026.06.08.23.00.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 23:00:37 -0700 (PDT)
-Message-ID: <400ff1d9-1d58-880c-8004-271bd7023831@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 11:30:27 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NsosH7lb"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780984890;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gg1b4NvG9irnTlONKFumTIckFqfflTt6uFIpf+8fltI=;
+	b=NsosH7lbdAl7llskJQxfh1OWH6ncadC5/IE7tZbtlVGfpjv934jV9d3zmZMBdc6S5g2Fk8
+	0N5/gFzI9ACuZ3tKwejhs4QeDUNnDi42zgShxf5Gt4C7AN+EswLRMspCWU1C5UTHVdbEmM
+	VjERLNCyvxoLOCfb3RPeFRIUsStL4RA=
+From: Atish Patra <atish.patra@linux.dev>
+Date: Mon, 08 Jun 2026 23:01:15 -0700
+Subject: [PATCH v6 01/21] RISC-V: Add Sxcsrind ISA extension CSR
+ definitions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sm8250: sort out Iris power
- domains
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Taniya Das <quic_tdas@quicinc.com>, Jonathan Marek <jonathan@marek.ca>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-media@vger.kernel.org,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260604-iris-venus-fix-sm8250-v7-0-7bd2f0e5bae8@oss.qualcomm.com>
- <20260604-iris-venus-fix-sm8250-v7-1-7bd2f0e5bae8@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260604-iris-venus-fix-sm8250-v7-1-7bd2f0e5bae8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: qLY7Ne0v_Rn-Pk8mBao3fvq2R6NuZysx
-X-Proofpoint-ORIG-GUID: qLY7Ne0v_Rn-Pk8mBao3fvq2R6NuZysx
-X-Authority-Analysis: v=2.4 cv=JdqMa0KV c=1 sm=1 tr=0 ts=6a27ac07 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tk4UjENVHhTGfG5vr0AA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA1MyBTYWx0ZWRfXypE/p46Ks9Mm
- KfrqlrCsee9J6voDqNtmQySC/rr+t1otFHW89fmqSm6DP4y+dDPWiA/7txzJOJb8bZ2uiN3t5ul
- wivTLKV7/uxvu0KKe5HjIrg/vYCd6oMckqz54e15rXsPImCBtkGCvnechN6SWWID+XjUyTbrrLd
- V3HdTwijjmfjvZKygb42cSGIddAN5BficYGqGW/PNj30Xh2D4UekXQY3JS8KJpAF/xxN2YYLl05
- LN0YnXdxWvJDpNzBSvM4BBuonPHVawrCdR9JCqo7U3eSWHyN+s0n6O8w4zooSjdztMagwtLrFwt
- uofwp2wRJIJjdF1kDf7OirE1AteJ5pyVCifGDcnfNvAiuoeGQ00f23RrlP9hs4WLukaELZwHj45
- 3EkJH6X6Ry35jOWLUsYgZA22UUnOXbE2EZNa5UKW6+oiHKjJZ3GVuPcjPHQOIy09XerFQiaZHK2
- 2mtHBIHnSmOgo8yqldg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_01,2026-06-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090053
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260608-counter_delegation-v6-1-285b72ed65a9@meta.com>
+References: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
+In-Reply-To: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
+To: James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Atish Patra <atish.patra@linux.dev>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Ian Rogers <irogers@google.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+X-Migadu-Flow: FLOW_OUT
 
+From: Kaiwen Xue <kaiwenx@rivosinc.com>
 
-On 6/4/2026 9:52 PM, Dmitry Baryshkov wrote:
-> On SM8250 Iris core requires two power rails to function, MX (for PLLs)
-> and MMCX (for everything else). The commit fa245b3f06cd ("arm64: dts:
-> qcom: sm8250: Add venus DT node") added only MX power rail, but omitted
-> MMCX voltage levels.
->
-> Add MMCX domain to the Iris device node.
->
-> Fixes: fa245b3f06cd ("arm64: dts: qcom: sm8250: Add venus DT node")
-> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/sm8250.dtsi | 20 ++++++++++++++------
->  1 file changed, 14 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> index 7076720413ab..6150380795b8 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> @@ -4326,8 +4326,12 @@ venus: video-codec@aa00000 {
->  			interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
->  			power-domains = <&videocc MVS0C_GDSC>,
->  					<&videocc MVS0_GDSC>,
-> -					<&rpmhpd RPMHPD_MX>;
-> -			power-domain-names = "venus", "vcodec0", "mx";
-> +					<&rpmhpd RPMHPD_MX>,
-> +					<&rpmhpd RPMHPD_MMCX>;
-> +			power-domain-names = "venus",
-> +					     "vcodec0",
-> +					     "mx",
-> +					     "mmcx";
+This adds definitions of new CSRs and bits defined in Sxcsrind ISA
+extension. These CSR enables indirect accesses mechanism to access
+any CSRs in M-, S-, and VS-mode. The range of the select values
+and ireg will be define by the ISA extension using Sxcsrind extension.
 
-With this change in place, the backwards compatibility for the incomplete
-SM8250 ABI which was merged from v5 in this series, which handles the return
-value of devm_pm_domain_attach_list(), will never be hit right? If so, we can
-remove that piece of code from the driver.
+Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
+Reviewed-by: Clément Léger <cleger@rivosinc.com>
+Signed-off-by: Atish Patra <atishp@rivosinc.com>
+---
+ arch/riscv/include/asm/csr.h | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-https://lore.kernel.org/all/20260209-iris-venus-fix-sm8250-v5-2-0a22365d3585@oss.qualcomm.com/
+diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.h
+index 31b8988f4488..b4551a6cf7cb 100644
+--- a/arch/riscv/include/asm/csr.h
++++ b/arch/riscv/include/asm/csr.h
+@@ -347,6 +347,12 @@
+ /* Supervisor-Level Window to Indirectly Accessed Registers (AIA) */
+ #define CSR_SISELECT		0x150
+ #define CSR_SIREG		0x151
++/* Supervisor-Level Window to Indirectly Accessed Registers (Sxcsrind) */
++#define CSR_SIREG2		0x152
++#define CSR_SIREG3		0x153
++#define CSR_SIREG4		0x155
++#define CSR_SIREG5		0x156
++#define CSR_SIREG6		0x157
+ 
+ /* Supervisor-Level Interrupts (AIA) */
+ #define CSR_STOPEI		0x15c
+@@ -394,6 +400,14 @@
+ /* VS-Level Window to Indirectly Accessed Registers (H-extension with AIA) */
+ #define CSR_VSISELECT		0x250
+ #define CSR_VSIREG		0x251
++/*
++ * VS-Level Window to Indirectly Accessed Registers (H-extension with Sxcsrind)
++ */
++#define CSR_VSIREG2		0x252
++#define CSR_VSIREG3		0x253
++#define CSR_VSIREG4		0x255
++#define CSR_VSIREG5		0x256
++#define CSR_VSIREG6		0x257
+ 
+ /* VS-Level Interrupts (H-extension with AIA) */
+ #define CSR_VSTOPEI		0x25c
+@@ -436,6 +450,12 @@
+ /* Machine-Level Window to Indirectly Accessed Registers (AIA) */
+ #define CSR_MISELECT		0x350
+ #define CSR_MIREG		0x351
++/* Machine-Level Window to Indirectly Accessed Registers (Sxcsrind) */
++#define CSR_MIREG2		0x352
++#define CSR_MIREG3		0x353
++#define CSR_MIREG4		0x355
++#define CSR_MIREG5		0x356
++#define CSR_MIREG6		0x357
+ 
+ /* Machine-Level Interrupts (AIA) */
+ #define CSR_MTOPEI		0x35c
+@@ -498,6 +518,11 @@
+ # define CSR_IEH		CSR_MIEH
+ # define CSR_ISELECT	CSR_MISELECT
+ # define CSR_IREG	CSR_MIREG
++# define CSR_IREG2	CSR_MIREG2
++# define CSR_IREG3	CSR_MIREG3
++# define CSR_IREG4	CSR_MIREG4
++# define CSR_IREG5	CSR_MIREG5
++# define CSR_IREG6	CSR_MIREG6
+ # define CSR_IPH		CSR_MIPH
+ # define CSR_TOPEI	CSR_MTOPEI
+ # define CSR_TOPI	CSR_MTOPI
+@@ -523,6 +548,11 @@
+ # define CSR_IEH		CSR_SIEH
+ # define CSR_ISELECT	CSR_SISELECT
+ # define CSR_IREG	CSR_SIREG
++# define CSR_IREG2	CSR_SIREG2
++# define CSR_IREG3	CSR_SIREG3
++# define CSR_IREG4	CSR_SIREG4
++# define CSR_IREG5	CSR_SIREG5
++# define CSR_IREG6	CSR_SIREG6
+ # define CSR_IPH		CSR_SIPH
+ # define CSR_TOPEI	CSR_STOPEI
+ # define CSR_TOPI	CSR_STOPI
 
->  			operating-points-v2 = <&venus_opp_table>;
->  
->  			clocks = <&gcc GCC_VIDEO_AXI0_CLK>,
-> @@ -4353,22 +4357,26 @@ venus_opp_table: opp-table {
->  
->  				opp-720000000 {
->  					opp-hz = /bits/ 64 <720000000>;
-> -					required-opps = <&rpmhpd_opp_low_svs>;
-> +					required-opps = <&rpmhpd_opp_svs>,
-> +							<&rpmhpd_opp_low_svs>;
->  				};
->  
->  				opp-1014000000 {
->  					opp-hz = /bits/ 64 <1014000000>;
-> -					required-opps = <&rpmhpd_opp_svs>;
-> +					required-opps = <&rpmhpd_opp_svs>,
-> +							<&rpmhpd_opp_svs>;
->  				};
->  
->  				opp-1098000000 {
->  					opp-hz = /bits/ 64 <1098000000>;
-> -					required-opps = <&rpmhpd_opp_svs_l1>;
-> +					required-opps = <&rpmhpd_opp_svs_l1>,
-> +							<&rpmhpd_opp_svs_l1>;
->  				};
->  
->  				opp-1332000000 {
->  					opp-hz = /bits/ 64 <1332000000>;
-> -					required-opps = <&rpmhpd_opp_nom>;
-> +					required-opps = <&rpmhpd_opp_svs_l1>,
-> +							<&rpmhpd_opp_nom>;
->  				};
->  			};
->  		};
->
+-- 
+2.53.0-Meta
+
