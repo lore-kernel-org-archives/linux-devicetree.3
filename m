@@ -1,124 +1,140 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC87B3CF1E9;
-	Tue,  9 Jun 2026 06:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780984948; cv=pass; b=Y9WrIYqQCi5HLxMl2ENhKrArN4IwrwYu3wlJrpG55i7J4fb83cGrqqje8me58hhFEgiUsmQWnzqU+n0lpUtl1RuoOVAf7JqIWdsOGlbcIPBHGxPOmVcjEIJecZtxl2RoCmp7nWCKB3kqPcQRAlcHiLimoqmp+6UQQyp6ZyIFkdc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BDB3CF1F8
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780984948; cv=none; b=GoZGPVasvCoSKgeTwQlEbc/UQ/HYUbSEftuHFJ6sRW8mHslSmlf97kS7+T9HbwvfQNVdqB9KOeKGiajV9U9ntZ1STy7moRqDGIZgpCP6x6qB0YW/KFNSj2A8xRjYOr8o+VRR+kW4uKPUhVxqAizVABrC+KeY7kynSbjUSe2RMfA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780984948; c=relaxed/simple;
-	bh=eLkDF1Xt++OsYNLKAMEoqTd5wXql6NUCJQTLmDSgolE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=f2lmZ9dkfrzPsU0vNrNHFMnPS2nJImI9Yz0A9tp/zRV4yO+6oWxLciFbUieBXDHi94lK/b4+eYxNxjcA7ynIvZCZ0+lG4mafyoplZ5ArKSw8qow4XEcxfRUljIUAnyojB2qW7cB80nGa9K95mcsmHeOIaIZswGCXVhiTCg4u3wg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=o8LjYXGp; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	bh=7ow3HXtkGYv3O+Gcpz4xW1Y7vVhlGubdttlkFIF3aEo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ua6WGm8pwyXZJy6c3oMyliOqTayVFDGyzqEQEMgtmrBmErmmVASyFpKtL6gBmaC401e0TAyeMaMbnirREa/UfZFmluqePkrZmjtFd0ZOOIrgYT1HRqVYuFH9PlRLk+TUklDAjWDrzqzkl4FCQP92GRHlteHZBYuYrC2p2bsW/vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lYn1jx2/; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="o8LjYXGp"
-ARC-Seal: i=1; a=rsa-sha256; t=1780984918; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kQ86I763szj5XrihC4RMO3UE7e3pCv/7CyXlBorZ0jHp3QvBRgLnFSH24G967x/5+T3kClFVe8pDngKIlRkyr7qVuHjPBRh7WjWDCLy30Gh5huBE+K1U8LYEmroy6T6oi0RwMzNFyBTM1QFUsZE8C5HM1wiMhEIaC5+NVPeL9/Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1780984918; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Fcjd/zlFVY0nunhgxmUeD2hlkM4IOvznVuILW3ZgAOw=; 
-	b=Bke2SxBJiCOvWxu2RG3hDa4nW57QZzGjHqbfkAST3rsrhc5tN9MyumSLPybp0K2Kp03JJLExtngQH+T/WkuudMozeDUVFqrwrrFUZz+Low63tkWPtyQON6kvMt1kBvZ74DS6dK9ymbvleIvYkWQkeQbPXw0+egp5X5I7nuEoKMc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780984918;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=Fcjd/zlFVY0nunhgxmUeD2hlkM4IOvznVuILW3ZgAOw=;
-	b=o8LjYXGpCPngeralFGsnJ0EzL2xpelUI5SHz++VBOxpCkvHmWBmgrpwPuwP1pQcs
-	WLSqG/kvtXU/jL8Rj4VGaR2cVX7M6Ayx2Dnp8nMhr2aovEpMFnuQwDa+IEMBwJGWja/
-	YYWRRZlBwjK9yGT0hMXHcJKcAt9mjH+qwF033ZMAH0xhEM3QNM3GCfNYmGke5tuvEtP
-	hpsaIiu4f4YGRer1sn0uRVmZ1+Rfncnbk+AaogeJ7+1b86cOwUSwyt0fAnxCSX1C8JA
-	KEyiSh2PW+VPTBRqi0EchwOPGEWL95bVdRLaYzjiCEqR3uJ571JNXVELiec/4Ky01P2
-	uTD4g4WAmA==
-Received: by mx.zohomail.com with SMTPS id 1780984917247708.4348995858405;
-	Mon, 8 Jun 2026 23:01:57 -0700 (PDT)
-Message-ID: <93b867c1b7f5526cc25cb04f838432cd752f5981.camel@icenowy.me>
-Subject: Re: [PATCH 02/12] clk: thead: th1520-ap: add support for MISC
- subsys clocks
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Michael Turquette
-	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring	
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  Paul Walmsley	 <pjw@kernel.org>, Palmer
- Dabbelt <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre
- Ghiti <alex@ghiti.fr>, Jisheng Zhang	 <jszhang@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, 	linux-riscv@lists.infradead.org,
- linux-clk@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-gpio@vger.kernel.org,
- linux-phy@lists.infradead.org, 	linux-usb@vger.kernel.org, Han Gao
- <rabenda.cn@gmail.com>, Yao Zi	 <ziyao@disroot.org>
-Date: Tue, 09 Jun 2026 14:01:43 +0800
-In-Reply-To: <aier9XppLeCkJydw@thelio>
-References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
-	 <20260507081710.4090814-3-zhengxingda@iscas.ac.cn>
-	 <aier9XppLeCkJydw@thelio>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lYn1jx2/"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780984945;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o5qCNbZWxJ2eaZKPD0fiX8UMgOwRHPlmfMwkbht8Nv4=;
+	b=lYn1jx2/wE5iAiy4iduZmTtvXwAlsQ5axkxbKlGh9vtQc3d+NGuM2JrTF37/MfIAPIoAHA
+	XgJ+STR11Z/02ZmtSFGrt280FC4AKwyver4Q5S1i3ULozv8TMpvyd5p2pt58dfCfXd3cVH
+	1L55260FjkG0HYQZ1YtD0o6e/6lJ418=
+From: Atish Patra <atish.patra@linux.dev>
+Date: Mon, 08 Jun 2026 23:01:23 -0700
+Subject: [PATCH v6 09/21] dt-bindings: riscv: add Counter delegation ISA
+ extensions description
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260608-counter_delegation-v6-9-285b72ed65a9@meta.com>
+References: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
+In-Reply-To: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
+To: James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Atish Patra <atish.patra@linux.dev>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Ian Rogers <irogers@google.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+X-Migadu-Flow: FLOW_OUT
 
-=E5=9C=A8 2026-06-08=E4=B8=80=E7=9A=84 23:00 -0700=EF=BC=8CDrew Fustini=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Thu, May 07, 2026 at 04:17:00PM +0800, Icenowy Zheng wrote:
-> > The TH1520 SoC contains a MISC_SUBSYS clock controller, which
-> > allows
-> > controlling of USB related clocks and MMC/SD controller AHB bus
-> > clocks.
-> >=20
-> > Add support for this clock controller, in order to enable USB
-> > support.
-> >=20
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > ---
-> > =C2=A0drivers/clk/thead/clk-th1520-ap.c | 64
-> > +++++++++++++++++++++++++++++++
-> > =C2=A01 file changed, 64 insertions(+)
-> >=20
-> > diff --git a/drivers/clk/thead/clk-th1520-ap.c
-> > b/drivers/clk/thead/clk-th1520-ap.c
-> > index 3a6847f1c950f..24f785f0b329a 100644
-> > --- a/drivers/clk/thead/clk-th1520-ap.c
-> > +++ b/drivers/clk/thead/clk-th1520-ap.c
-> [...]
-> > @@ -1609,6 +1663,12 @@ static int th1520_clk_probe(struct
-> > platform_device *pdev)
-> > =C2=A0			return ret;
-> > =C2=A0	}
-> > =C2=A0
-> > +	if (plat_data =3D=3D &th1520_ap_platdata) {
-> > +		ret =3D devm_clk_hw_register(dev,
-> > &usb_suspend_div_clk.hw);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
->=20
-> Should usb_suspend_div_clk.hw instead be registered under
-> 'if (plat_data =3D=3D &th1520_ap_platdata)'?
+From: Atish Patra <atishp@rivosinc.com>
 
-Do you mean misc_platdata?
+Add description for the Smcdeleg/Ssccfg extension.
 
-Yes, this is an copy-n-paste error that deserves a fix.
+Signed-off-by: Atish Patra <atishp@rivosinc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/riscv/extensions.yaml      | 45 ++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-Thanks,
-Icenowy
+diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
+index ece3edccee42..2845e8e2999a 100644
+--- a/Documentation/devicetree/bindings/riscv/extensions.yaml
++++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
+@@ -181,6 +181,13 @@ properties:
+             changes to interrupts as frozen at commit ccbddab ("Merge pull
+             request #42 from riscv/jhauser-2023-RC4") of riscv-aia.
+ 
++        - const: smcdeleg
++          description: |
++            The standard Smcdeleg supervisor-level extension for the machine mode
++            to delegate the hpmcounters to supervisor mode so that they are
++            directly accessible in the supervisor mode as ratified in the
++            20240213 version of the privileged ISA specification.
++
+         - const: smcsrind
+           description: |
+             The standard Smcsrind supervisor-level extension extends the
+@@ -228,6 +235,14 @@ properties:
+             behavioural changes to interrupts as frozen at commit ccbddab
+             ("Merge pull request #42 from riscv/jhauser-2023-RC4") of riscv-aia.
+ 
++        - const: ssccfg
++          description: |
++            The standard Ssccfg supervisor-level extension for configuring
++            the delegated hpmcounters to be accessible directly in supervisor
++            mode as ratified in the 20240213 version of the privileged ISA
++            specification. This extension depends on Sscsrind, Smcdeleg, Sscofpmf,
++            Smcntrpmf, Zihpm, Zicntr extensions.
++
+         - const: ssccptr
+           description: |
+             The standard Ssccptr extension for main memory (cacheability and
+@@ -1135,6 +1150,36 @@ properties:
+             allOf:
+               - const: zilsd
+               - const: zca
++      # Smcdeleg depends on Sscsrind, Zihpm, Zicntr
++      - if:
++          contains:
++            const: smcdeleg
++        then:
++          allOf:
++            - contains:
++                const: sscsrind
++            - contains:
++                const: zihpm
++            - contains:
++                const: zicntr
++      # Ssccfg depends on Smcdeleg, Sscsrind, Zihpm, Zicntr, Sscofpmf, Smcntrpmf
++      - if:
++          contains:
++            const: ssccfg
++        then:
++          allOf:
++            - contains:
++                const: smcdeleg
++            - contains:
++                const: sscsrind
++            - contains:
++                const: sscofpmf
++            - contains:
++                const: smcntrpmf
++            - contains:
++                const: zihpm
++            - contains:
++                const: zicntr
+ 
+ allOf:
+   # Zcf extension does not exist on rv64
 
->=20
-> Thanks,
-> Drew
+-- 
+2.53.0-Meta
+
