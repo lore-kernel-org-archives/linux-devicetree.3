@@ -1,55 +1,85 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA133431F8;
-	Tue,  9 Jun 2026 15:01:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D024418E4
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 15:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781017291; cv=none; b=eTz/4/Z4Y7kbTo6IVtncszf1B659II1Cm+ocQX8DQ7L1seg44yWXWrPdBUuhLcdp7H4hZqbgBM6f++LUwcd+wlnX/zPuS6F0aopSDJLvM5u9d+khNoii/7aTnb5ZCfivztrmwQSDe273p5x2XfGCZx/2+J0BiumbbSB2/bo0oYw=
+	t=1781017394; cv=none; b=mkhKx0JNtU/rr+9uC3wM9vvafy84KzqL5B+Lg+S2Pbr9eMYYEb2Fdf776CDLwd1zdR5ZWGpgCn5eoM2FuBvsFVIQwUO6tIXmYbkpBFcwGtsAtoPWMhknq/YSN6Vk57JcPO1WrsMG3OMJxpGM9nVfpvczCvm7NlUEbBzBQAPFGBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781017291; c=relaxed/simple;
-	bh=62K/6cKULbZb4J6hsXDEvw+CP07CrMSong2q3E1Dpdo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=poQQU+6267KNfpe5+6S6E5sUXUgxCEcq1aw482rwKDVFKGh1in54Ks0kNjJZENYyoJBStP6PEUpduiJ1IBtWMcNzIk+MbsTdeMbOLaFh0MKtVbHc7QUkdsldOA5MuFb7AAC5chXkrRmhJ9tXUQL7fcYy0YFcGPs5YCRzXwdD+Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=R1H9UI9D; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1781017394; c=relaxed/simple;
+	bh=MIqe8qokVa8YYJZkAkG1yXNBwKSVJLC1luMdgyTvEI0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dpP6ZClBHu1IWJwzKOG/A5ZhqJTmPHxEZJsICgRJkrhdkbeU1B3bvTbOciQjuBUv0Ck3Lb36VMKQFhh2oKwvFg+5U/umNltzC0npDMRwG9OuHmecZFEXgc8sP9JlquEQ4Wfvq+q1qFdsNi0hTNz9es5edS9PuLmENbOh08/iI/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aglvGCQC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EXGhiI1S; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="R1H9UI9D"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659CndYa1026651;
-	Tue, 9 Jun 2026 11:00:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=cjsph
-	s/3NvURu8liNvau2shy37ykBA+CVveVUOMIrzM=; b=R1H9UI9Di1h/pYwSdbfY4
-	L8rNxtoawG/hSMu3kim2BIIPTed4u7NyZPtisDuGIfHT8P0cEPpGFBWmY813X/fh
-	HdbYIrY/Eg51UvlLvLFRgjcTnywgqWqpjhXM8Pxl//8KGO+IVTQiZOHkoiqW3BdS
-	msmn2YL5N7y0XHLz2eDNhgo4SgPo3gQSrb6BG0ZFaNQJXmcbqj37cJ1KwRZV0bqC
-	NLd8NzaY7cSC72FZBeLg0ht0sLV3Gk1EMeB0Pd6hE7aRA/bFOejbsHbNNLNyCAgg
-	C7ZetfnJhaJWz2h2uB9lt0N977Ds6hMyzUTy1WrKdO2XI8zWvksUh2JdpIuaf1cV
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4enstm63c6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 09 Jun 2026 11:00:57 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 659F0uF9007415
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 9 Jun 2026 11:00:56 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 9 Jun
- 2026 11:00:52 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 9 Jun 2026 11:00:52 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com (HYB-e1y2fvUQ3cx.ad.analog.com [10.44.3.60] (may be forged))
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 659F0au2031316;
-	Tue, 9 Jun 2026 11:00:49 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Tue, 9 Jun 2026 17:00:20 +0200
-Subject: [PATCH v4 1/2] dt-bindings: iio: dac: Add AD5529R
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aglvGCQC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EXGhiI1S"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659ClQMJ2286783
+	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 15:03:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=88cwJVjL2lnzu2cVHtBfD3
+	jOAXqQUPFnSKVzm/xtaEI=; b=aglvGCQCGidI5XCIJbp+GZNa1nQ1FJjU+LP7vo
+	wQ7+ec43PuohSglEXOsgxFAGBOPD++z69+aTRHyvHVI4rHMq2ev6ZkOtzqjZnoFe
+	p2uG4BPfUjDe+JA280ag11U5PJa30CIYH0Pu6cUZyK+vrqlcLur/lT3i6mZSkqyN
+	3VuQN1thZ1eRFN2EAN6NQ4s5MXhXRK0WcaCebhHRknwZh9jvupER5vrVoRcb8/Rr
+	jsmjA16PMwZHUZ+/3Yd24fA72VMFVPpRkKF0HOgWpo/uZIyH7Kxx6DGIjEDkifDg
+	k14dXD2Lsu+jw2UIW6tyimzvbuC8LHsNNFgawH5faXuZhgeg==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epg3jsnr3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 15:03:12 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84247fed609so2763347b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 08:03:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781017391; x=1781622191; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=88cwJVjL2lnzu2cVHtBfD3jOAXqQUPFnSKVzm/xtaEI=;
+        b=EXGhiI1S0olozg5UwqNp4uHplGPophwcxpwBCT1xGuqBPqkb4Jk48lZYFACIcg5Vg4
+         EjdKXbisEFrDchfKKgFl30R2KkBsbFHqIttkGl9Yf3IDov/q+6SQoo1KaCdsDcLWRuag
+         kHN1qrTFrO8n9674qkNixfpb+oadY3wLB58MDv3FV+nVivD3Xxlc6uE/b3HwReHBvBP1
+         yAKMpoVYAmNvZn3qZLtx1eAgtoHS3KRpPLa1j1b6/U5qAAo7MvelL9QQXJdukwLvLZNT
+         qh+3mGiL44ZM1gObrwhrptBeVzFdB2DDE9fQnFRxOhkZGDAjmsiB6W6ch/va+c/em0hU
+         juKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781017391; x=1781622191;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=88cwJVjL2lnzu2cVHtBfD3jOAXqQUPFnSKVzm/xtaEI=;
+        b=Q89XKWrwkNSAPo+0Y9yLeE+dOvN+OYG4CY8M4PhFsDELQgeVeRZYeGVJ59dqlP07kK
+         mwrMF/ozY/wfQAAgHAY8CMyaU+90ZQ59+FMzLEWUBHYTMxHDjR4TVZ7fHRvFKNugVxyg
+         F6ojTaBA7sGnENK+RZdl2ROmPHUjA/qYNyr64hSH4sxcLIgrG2wjqDVwh2yNWanDoRag
+         1TOsbZC76u3ERfOINR2+GGMT2xEt4VbwU7bhI50wCimW8VovGiqk9yAcPrvIy42qIsM5
+         Bd6Kk0Wku0nLOsV7ylMDVLv3dHP876dY0gF4+eQA9bIImFq0zRNXejkpvSMzzxK/yEBD
+         MugA==
+X-Forwarded-Encrypted: i=1; AFNElJ/efzc8g+jxRwvgP894TsLk4e0ePb5cC4fmZr1/GuWedMYhoJWQIoC1bvCBHWQOkrF9mOWNUpGHMj3W@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1C36hkQwm9O9UC/DPMoT0ZsclNaETJR2Gphc5UEGjCymOfopI
+	uYEC9491bxApC0kKsbR/4FIlSd1fWZamHHOg4gTdwUCK2YgHQzrlHAsaQHoLuPyRgyzdBX0DTY+
+	74fiincMzabOOyymnp8jxZ7tRi8cAMzfHiLOqdW+FqOlLgaN8IlZ+sWd4CNCx4TAP
+X-Gm-Gg: Acq92OED6W16ZGnPvZJC9HBG4HAN2O1EZn2GOMdQxYfJhkhlt+JJynBUyGBQdmGpOFV
+	vKwlNez+NFn0ttEFsuZMF2gBqP+jzZGt3fEkLqEdCg5URpluQ7Nzw10++KmGIv18nqfODCUz9iu
+	Btrpve2j8LKKKF3u/1tksnDjDg50uBv5hkNONfSVvbLsoz9EBkx+hG+fypmEAPDx4C82rhXPaBZ
+	QpIaKodV11bmdHEhGtbVf61y7lJPzlWQfx9QVxPA6AXJGkIBd8IG1jlMj3YSM5VV5sszMjS65Yw
+	ZCJoDv2fMXFJW3GWRbz8lNSfqBOYgE5jbHqvl6Er8p3d6qnwQuRf39NFo2Qpc713gLaO+kH7qob
+	1rH+DTQGybQnYp4Jp2I/onDBnYU/IbmdvLDXXiaKy6bAcY42EWU15USDX
+X-Received: by 2002:a05:6a00:1946:b0:842:75d0:7e88 with SMTP id d2e1a72fcca58-842b1064cc1mr22480515b3a.27.1781017390668;
+        Tue, 09 Jun 2026 08:03:10 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1946:b0:842:75d0:7e88 with SMTP id d2e1a72fcca58-842b1064cc1mr22480295b3a.27.1781017389562;
+        Tue, 09 Jun 2026 08:03:09 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828d6bd1sm26987659b3a.44.2026.06.09.08.03.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 08:03:09 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH v6 0/7] Add support for Video, Camera, Graphics clock
+ controllers on Eliza
+Date: Tue, 09 Jun 2026 20:32:51 +0530
+Message-Id: <20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,309 +87,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20260609-ad5529r-driver-v4-1-2e4c02234a1a@analog.com>
-References: <20260609-ad5529r-driver-v4-0-2e4c02234a1a@analog.com>
-In-Reply-To: <20260609-ad5529r-driver-v4-0-2e4c02234a1a@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David
- Lechner <dlechner@baylibre.com>,
-        =?utf-8?q?Nuno_S=C3=A1?=
-	<nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob Herring
-	<robh@kernel.org>,
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABsrKGoC/x3MSwqAMAwA0atI1haK1qBeRaTUGDXgjxaKKN7d4
+ vItZh4I7IUDtNkDnqMEOfYEzDOgxe0zKxmTodAFatSNGoziVW5nt80S2YgKDVFZjcZhU0PqTs+
+ TXP+z69/3Ax0TjeRjAAAA
+X-Change-ID: 20260609-b4-eliza_mm_cc_v6-64cc35d4a698
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Jonathan
- Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        Janani Sunil
-	<jan.sun97@gmail.com>,
-        Janani Sunil <janani.sunil@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781017235; l=7559;
- i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
- bh=62K/6cKULbZb4J6hsXDEvw+CP07CrMSong2q3E1Dpdo=;
- b=wF2lkxbhj/sWtlWXRLmDCBakx0s0QRK1kuiyYoMKuo08Xc+CppXLai5lHNPp0i40neyyx3q45
- 1x1R7PwwMXeDQjFr1xbJVX6nslnJ3qVJi3MfjZLzd6mMn/Z+/gSkRB8
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDE0MiBTYWx0ZWRfX9MPPM3SzEOrn
- PtGddXSOInZyw9BfbkD0B39ENI1q7Jkiw/ucx57Ikm5ITgIbJMjuMQV3Ejdos80hQWYSsaQgbT/
- OUFaliEYYDYAtamGE3N9QPxbkXLqW+DoRlAi/JYnPAZU1G/sOomNoC/A/82lkoDvGhSEh+CjpwG
- Oy+x4yHNW9Rl50gsOhJrM+xDr7jhJSbsX6Ars36RHr7p2Tg7jV5WdkuICit07Yug8uvsQApWou/
- gC9ZSXe7iV9xTadFbOEHSisS9h3U1l0EOPXE4VwS71TZXxI8v2qIhsCq/nRTIRH7ihEChwpZcwG
- KE01hvWsOfKm6TdhI8a6+I7QnVjFDu38jkh8hkifRIQkhVJ39IvABEqw86f7UgTN419up7JeVMK
- 5/Tz41f0RLbhiEsp4XJyYfb1sVCuCFSMlESQRtLMNV5olzGOeuFKBzgvy+/hzbCYZVTw5TO/9no
- +OmZt6Bdk5jH9+t3kvA==
-X-Proofpoint-GUID: flhoFuoAQVbls4m7fLRhdeUYr0RNfERy
-X-Proofpoint-ORIG-GUID: flhoFuoAQVbls4m7fLRhdeUYr0RNfERy
-X-Authority-Analysis: v=2.4 cv=T/C8ifKQ c=1 sm=1 tr=0 ts=6a282aa9 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gEfo2CItAAAA:8
- a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=fZh2jaQoGc6LPhG7F3gA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22
+        Conor Dooley <conor+dt@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-GUID: GLh0mhXKkKe3flu2OfWVPrM2EqeTOe_b
+X-Authority-Analysis: v=2.4 cv=aa9RWxot c=1 sm=1 tr=0 ts=6a282b30 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=8HYrQF7E7KXWYYjJzRwA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDE0MyBTYWx0ZWRfXzgmzp6M5RjS/
+ fkqh5HvcJ2tUpM+fyZ5iTbBqJ1fPkcuBHFJxRsaU+x8ukZcO1aNjY+/P+1EdqFdcIs7dXorlTlk
+ HZHP3MIaT+QGl4j5cK58uELtsO82eljaG6SWACsSssoLxcjSbMRt/1CSNbBRY53zsBcwHAgwSRV
+ sJMy1NIE8cbD80MWcD9NMQxK8gfHg6MvGa/DeFH8grbxD7zz03FKEMyAu1+G5fNnzfiK7xqgSbq
+ BVybJ28AFcNDeig0wVFEkFtkWLtu4Ql3a3N+pdJhNs6f2QNtZbjV4OMyfzN+Hs9AIhinOlQa6PF
+ YfxCIq/6SW4A6/6pK31y0zSTdeZJ19k71doIqceHKcexkEAUZ4caYRUJtmwJeu9i9fVIVS0pExc
+ DRZqzGfd6PyujEorI0cgo3N70b8tbOiknsr9UEF/yjA1kzLN1BVhALlwLPBU1ttYUSthFt6pbmI
+ beG831zGZm87zhmvNew==
+X-Proofpoint-ORIG-GUID: GLh0mhXKkKe3flu2OfWVPrM2EqeTOe_b
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-09_03,2026-06-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0 phishscore=0
+ phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090142
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090143
 
-Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-buffered voltage output digital-to-analog converter (DAC) with an
-integrated precision reference.
+Add driver for Eliza SoC camera, graphics and Video clock controllers.
+The camera clock controller supports the cambist clock controller and
+the regular camera clock controller.
 
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Eliza camcc and videocc are on CX and MX rails and doesn't have MMCX
+and MXC rails dependency. Since CX and MX rails are already ON when APPS
+is active, explicit power-domain voting is not required similar to Milos.
+Hence extended the Milos camcc & videocc documentation bindings for Eliza.
+
+The patches have been tested on Qualcomm Eliza MTP board.
+
+Changes in v6:
+  - Update device tree to latest linux-next.
+  - Update commit text for no ABI breakage for VideoCC and CAMCC
+    binding [Krzysztof]
+  - Added the RB-by from patchset v5.
+  - Link to v5: https://lore.kernel.org/r/20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com
+
+Changes in v5:
+- Taken care of comments from v3, v4.
+- Update milos-videocc and milos-camcc bindings to add '#power-domain-cells'
+  as required property in bindings.
+- Remove duplicate clock 'gpu_cc_gpu_smmu_vote_clk' from driver and
+  bindings.
+- Add '#power-domain-cells' for 'camcc' and 'cambistmclkcc' device node.
+- Link to v4: https://lore.kernel.org/r/20260513-eliza_mm_cc_v2-v4-0-e61b5434e8d9@oss.qualcomm.com
+
+Changes in v4:
+- Update the clock ordering for camcc and cambistmclkcc in milos.dtsi.
+- Link to v3: https://lore.kernel.org/r/20260513-eliza_mm_cc_v2-v3-0-b59c370dc281@oss.qualcomm.com
+
+Changes in v3:
+- Dropped new documentation bindings & extended Milos documentation bindings for Eliza videocc & camcc.
+- Dropped the defconfig patch and included the drivers as m from Kconfig itself.
+- Update the header inclusion in the milos.dtsi.
+- Link to v2: https://lore.kernel.org/r/20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com
+
+Changes in v2:
+ - rebased the patches on the latest linux-next.
+ - Add new bindings for Video and Camcc.
+ - Remove commented code in GPUCC (limiter code).
+ - Add device nodes for the corresponding clock controllers.
+ - Add RB-by tags for VideoCC and CamCC/Cambistmclk from v1.
+ - Link to v1: https://lore.kernel.org/r/20260317-eliza_mm_clock_controllers_v1-v1-0-4696eeda8cfb@oss.qualcomm.com
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
- .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 208 +++++++++++++++++++++
- MAINTAINERS                                        |   7 +
- 2 files changed, 215 insertions(+)
+Taniya Das (7):
+      dt-bindings: clock: qcom: Add video clock controller on Qualcomm Eliza SoC
+      dt-bindings: clock: qcom: document the Eliza GPU Clock Controller
+      dt-bindings: clock: qcom: Add support for CAMCC for Eliza
+      clk: qcom: videocc: Add video clock controller driver for Eliza
+      clk: qcom: gpucc: Add GPU Clock Controller driver for Eliza
+      clk: qcom: camcc: Add support for camera clock controller for Eliza
+      arm64: dts: qcom: eliza: Add support for MM clock controllers
 
-diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-new file mode 100644
-index 000000000000..cc994f439be5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-@@ -0,0 +1,208 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
-+
-+maintainers:
-+  - Janani Sunil <janani.sunil@analog.com>
-+
-+description: |
-+  The AD5529R is a 16-channel, 12-bit or 16-bit, high voltage, buffered voltage
-+  output digital-to-analog converter (DAC) with an integrated precision reference.
-+  The device operates from unipolar and bipolar supplies. It is guaranteed
-+  monotonic and has built-in rail-to-rail output buffers that can source or
-+  sink up to 25mA.
-+
-+  Specifications:
-+  * 16 independent 12-bit or 16-bit DAC channels
-+  * Independently programmable output ranges: 0V to 5V, 0V to 10V, 0V to 20V,
-+    0V to 40V, ±5V, ±10V, ±15V, and ±20V
-+  * The device supports SPI communication with Mode 0 and Mode 3.
-+  * 4.096V precision reference, 12ppm/°C maximum
-+  * Built-in function generation: Toggle, Sinusoidal Dither, and Ramp waveforms
-+  * Multiplexer for output voltage, load current sense and die temperature
-+
-+  Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/ad5529r.pdf
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad5529r-16   # 16-bit variant
-+      - adi,ad5529r-12   # 12-bit variant
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 25000000
-+    description:
-+      Maximum SPI frequency. The device supports SPI Mode 0 and Mode 3.
-+      Read operations are limited to 25MHz maximum.
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the RESET pin. Active low. When asserted low,
-+      performs a power-on reset and initializes the device to its default state.
-+
-+  clear-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the CLEAR pin. Active low. When asserted low,
-+      clears all DAC data registers without affecting configuration settings.
-+
-+  interrupts:
-+    maxItems: 1
-+    description:
-+      Interrupt connected to the ALARM pin. Active low interrupt output
-+      for overtemperature conditions, SPI CRC errors, and function completion.
-+
-+  pwms:
-+    minItems: 1
-+    maxItems: 4
-+    description:
-+      PWM signals connected to the TG0-TG3 toggle pins. Pulsing these pins
-+      based on trigger edge settings allows selected DACs to be updated
-+      synchronously for digital function generation.
-+
-+  pwm-names:
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      enum: [ tg0, tg1, tg2, tg3 ]
-+
-+  io-channels:
-+    maxItems: 1
-+    description:
-+      ADC channel connected to the MUXOUT pin for monitoring output voltage,
-+      load current sense, and die temperature.
-+
-+  io-channel-names:
-+    const: muxout
-+
-+  vdd-supply:
-+    description: Digital power supply (1.08V to 1.98V)
-+
-+  avdd-supply:
-+    description: Analog power supply (4.75V to 5.25V)
-+
-+  hvdd-supply:
-+    description:
-+      High voltage positive supply (7V to 45V). Supply voltage should be chosen
-+      based on configured output ranges (see datasheet Table 9).
-+
-+  hvss-supply:
-+    description:
-+      High voltage negative supply (-22.5V to 0V). Required only when using
-+      bipolar output ranges (±5V, ±10V, ±15V, ±20V). Supply voltage should be
-+      chosen based on configured output ranges (see datasheet Table 9).
-+
-+  vref-supply:
-+    description:
-+      External voltage reference supply (4.056V to 4.136V, typically 4.096V).
-+      When specified, the device uses external reference mode and the VREF pin
-+      becomes an input. The device uses the internal 4.096V precision reference
-+      otherwise.
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^channel@([0-9a-f])$":
-+    type: object
-+    description: Child nodes for individual channel configuration
-+
-+    properties:
-+      reg:
-+        description: Channel number.
-+        minimum: 0
-+        maximum: 15
-+
-+      adi,output-range-microvolt:
-+        description: |
-+          Output voltage range for this channel as [min, max] in microvolts.
-+          If not specified, defaults to 0V to 5V range.
-+        oneOf:
-+          - items:
-+              - const: 0
-+              - enum: [5000000, 10000000, 20000000, 40000000]
-+          - items:
-+              - const: -5000000
-+              - const: 5000000
-+          - items:
-+              - const: -10000000
-+              - const: 10000000
-+          - items:
-+              - const: -15000000
-+              - const: 15000000
-+          - items:
-+              - const: -20000000
-+              - const: 20000000
-+
-+    required:
-+      - reg
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - avdd-supply
-+  - hvdd-supply
-+
-+dependencies:
-+  spi-cpha: [ spi-cpol ]
-+  spi-cpol: [ spi-cpha ]
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        dac@0 {
-+            compatible = "adi,ad5529r-16";
-+            reg = <0>;
-+            spi-max-frequency = <25000000>;
-+
-+            vdd-supply = <&vdd_regulator>;
-+            avdd-supply = <&avdd_regulator>;
-+            hvdd-supply = <&hvdd_regulator>;
-+            hvss-supply = <&hvss_regulator>;
-+
-+            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            channel@0 {
-+                reg = <0>;
-+                adi,output-range-microvolt = <0 5000000>;
-+            };
-+
-+            channel@1 {
-+                reg = <1>;
-+                adi,output-range-microvolt = <(-10000000) 10000000>;
-+            };
-+
-+            channel@2 {
-+                reg = <2>;
-+                adi,output-range-microvolt = <0 40000000>;
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d6c3c7d22403..320e84765ce6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1507,6 +1507,13 @@ W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,ad4851.yaml
- F:	drivers/iio/adc/ad4851.c
- 
-+ANALOG DEVICES INC AD5529R DRIVER
-+M:	Janani Sunil <janani.sunil@analog.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-+
- ANALOG DEVICES INC AD5706R DRIVER
- M:	Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
- L:	linux-iio@vger.kernel.org
+ .../bindings/clock/qcom,milos-camcc.yaml           |   12 +-
+ .../bindings/clock/qcom,milos-videocc.yaml         |   10 +-
+ .../bindings/clock/qcom,sm8450-gpucc.yaml          |    3 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi                |   61 +
+ drivers/clk/qcom/Kconfig                           |   31 +
+ drivers/clk/qcom/Makefile                          |    3 +
+ drivers/clk/qcom/cambistmclkcc-eliza.c             |  465 ++++
+ drivers/clk/qcom/camcc-eliza.c                     | 2803 ++++++++++++++++++++
+ drivers/clk/qcom/gpucc-eliza.c                     |  607 +++++
+ drivers/clk/qcom/videocc-eliza.c                   |  404 +++
+ .../dt-bindings/clock/qcom,eliza-cambistmclkcc.h   |   32 +
+ include/dt-bindings/clock/qcom,eliza-camcc.h       |  151 ++
+ include/dt-bindings/clock/qcom,eliza-gpucc.h       |   51 +
+ include/dt-bindings/clock/qcom,eliza-videocc.h     |   37 +
+ 14 files changed, 4666 insertions(+), 4 deletions(-)
+---
+base-commit: a87737435cfa134f9cdcc696ba3080759d04cf72
+change-id: 20260609-b4-eliza_mm_cc_v6-64cc35d4a698
 
+Best regards,
 -- 
-2.43.0
+Taniya Das <taniya.das@oss.qualcomm.com>
 
