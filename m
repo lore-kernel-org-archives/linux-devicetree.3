@@ -1,115 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2415D34250E;
-	Tue,  9 Jun 2026 05:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780981834; cv=none; b=IyQfpcMOy/7n2ZVOnnjIFkDCjFF9E59koghA9gu/MFiLtIHHIA4PQuLt76fJeCex/lK4cNgn7zlV38/Ou5am1FwLKpgJ4EzlXvijShSXS7v9ZmPctD1tnvK72eaz183uihAY9VrNxDLV+CHPjf7Prjk1++ytGQnl9bWPbqYQORQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780981834; c=relaxed/simple;
-	bh=WpOfWYsOGv9kVZso1tAODn5iwjjYi0wWOL2kPQ7WQVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K5G9Vfr9EYpGz1JEiaE0gDchEUazI2q44JXAgLxw4Aa5l+SimAr75LX0d139MgCjRPPhIPZiimsN0iTBgSaB2Tb7DJlQJhp3wsSwEVtgRyJLUtHieFxQcgvcFwg+kl5nSPyrJff1Q36pTARIOmnsLB7eNYlo5dbf2G4dY962GTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rs5+kEtO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365C634250E;
+	Tue,  9 Jun 2026 05:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780981886; cv=pass; b=fUMbk491n64U95KzAKsggkq4T6X3xzr7k7GzGyRwPIJGKycu2UT76O46q3gs1BS3NyIH/70F85dE/3QuNFAiZTv9q17fgUi1vRqS5yYygTm2iVCUQZ6hdxAYN50nsWjWurCW/rAMTgAgIOKhCXHsDFLf4dsEMxZPhy5D83NW4yA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780981886; c=relaxed/simple;
+	bh=LnM4xxDaTA6sPdy7VmjbiznxS/a0dU1GXd9YzU2Jenc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QgwJy+7bsuyhwN2ojtAzuheL0s+HVhjPpeXNWfV3G7hEvU3LuZL2xjdF81FXowhq9lh20ldGMcgrYmvCI+xCwD8e19NbMaIXDAZbUqqB/9WMqF3I9GjyRsbPQgZ2pV0+EACwlM6YwV12HwR1NFkhmqUZ41bxwAM6qEnuQ+K1kjc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=N2MDDFGD; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rs5+kEtO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D91C1F00898;
-	Tue,  9 Jun 2026 05:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780981833;
-	bh=QXwYSFO/CAa982xKorgRfVuCI6xgoA1aQPNLHYhjS0o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rs5+kEtO80ELluAbo6JCkL/DVq2OfyETURTtSy5woIqIfT7CcAnZ0JtMDubF30NwW
-	 pKCgNqrB/bza7tXEDb+O/TAYSGHIwnAFWBlxvchAlDYUu4W5v6ECT2tCUfEv2vk50E
-	 gxJ/a8SrqfSAeuxsAe7Cg+HBPTvkWFQ3Dq5YrTbE49dS2t+vkNwCIEgUjxDgtYQANk
-	 QdvaZfKhpFE/fNNI+fijur9CL2lA4f9b+ltN2AKWzfU4QOYaO59ioncrcAc7LK3WSY
-	 d6aoJnQCyFXa7MOzhA/WLb4w0krTBE8vtdkHiO11liP98jK2v/HYw5ErxJzdEmUZJK
-	 Kz19zbj1g0VIQ==
-Date: Tue, 9 Jun 2026 10:40:26 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add support for IPQ9650 CDSP remoteproc
-Message-ID: <aiegQubVKWXs3MXw@sumit-xelite>
-References: <20260520-ipq9650-remoteproc-v1-0-542feb6efb2a@oss.qualcomm.com>
- <aieAnN35K_WarmUD@baldur>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="N2MDDFGD"
+ARC-Seal: i=1; a=rsa-sha256; t=1780981855; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=A/UWqSIgnGtvXOLP4BBnY3FE7VuGSiuGjdfDqWQlKItkmHTwtGQfbXVGAyLMk68i41HF8m0Pr1ihkLXvybsReWYCHb8lEnoRdKUUt5CUbMSTU3dJ9D+gdUeYinI7u/3mOdv0YCa8eTt8fyK25q5piyzX62GL8/hd3mW7ECYjXBw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1780981855; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=LnM4xxDaTA6sPdy7VmjbiznxS/a0dU1GXd9YzU2Jenc=; 
+	b=JozwoV0QlRRH7schWe8oMPFwJ2QO6cp/v+vLOf/qBmbWSkWpgUPwQubYJi4vl0Dw110PHkUVGFZzjC9GytUDu50I81rLS8fTy+J18Xl5qMYpdfOXBP5zVuGvbIottNLD5pYN5C2RWe5EoecwtZkFB28LroC6G/1lJKCFf4KRa5w=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780981855;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=LnM4xxDaTA6sPdy7VmjbiznxS/a0dU1GXd9YzU2Jenc=;
+	b=N2MDDFGDLjgRjA2UtlUSuiJlLzCqU98xulMPqUnXDDuOh6Bjs4qDXaWeAKtZOj7l
+	YmKyi0JlpfkvcCSoLCIoj7HjY/1wKpgemkaLFx6Oaaqw2KOCpMOnLPD3ax45yG26ar4
+	Yw4jaH0dbl967ohZx3ldZH12hAwLZsDU5Gv5BOLqFRyv/Vf6/VihDpc8uff4oWlkGhg
+	S7y0guMF2zhRPxk5Rdnyj4zJBmXfCiqoSuROEpnCoyb10X3sOY2agzGMVctouzkSGGX
+	J2vUmf0kXp1gkjbc5vtk4gcZ/GP+48XOW1vAMvKMaUicETtT2MleSZOyf5xLYuesrCW
+	oCSfeQN0mw==
+Received: by mx.zohomail.com with SMTPS id 1780981852365784.4413352514897;
+	Mon, 8 Jun 2026 22:10:52 -0700 (PDT)
+Message-ID: <a8dc863b1692b4d327b4b9700dd56a4754120561.camel@icenowy.me>
+Subject: Re: [PATCH 00/12] Add TH1520 USB support
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Drew Fustini <fustini@kernel.org>
+Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Michael Turquette
+	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring	
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  Paul Walmsley	 <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Jisheng Zhang	 <jszhang@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, 	linux-riscv@lists.infradead.org,
+ linux-clk@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-gpio@vger.kernel.org,
+ linux-phy@lists.infradead.org, 	linux-usb@vger.kernel.org, Han Gao
+ <rabenda.cn@gmail.com>, Yao Zi	 <ziyao@disroot.org>
+Date: Tue, 09 Jun 2026 13:10:41 +0800
+In-Reply-To: <aieT4WmWK9416M9E@thelio>
+References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+	 <aieT4WmWK9416M9E@thelio>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aieAnN35K_WarmUD@baldur>
+X-ZohoMailClient: External
 
-Hi Bjorn,
+=E5=9C=A8 2026-06-08=E4=B8=80=E7=9A=84 21:17 -0700=EF=BC=8CDrew Fustini=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Thu, May 07, 2026 at 04:16:58PM +0800, Icenowy Zheng wrote:
+> > This patchset adds support for T-Head TH1520's USB functionality,
+> > and
+> > enabled it on the Lichee Pi 4A board.
+> >=20
+> > The first 3 patches add support for the MISC subsystem clock
+> > contrtoller, which contains some USB clocks.
+> >=20
+> > The next 2 patches add support for the USB PHY of T-Head TH1520,
+> > which
+> > is a wrapped Synopsys USB3.0 FemtoPHY with a little integration
+> > quirk;
+> > the controller itself is a properly configured DWC3 controller with
+> > sane
+> > default register values set.
+> >=20
+> > Then one patch adds the USB PHY and controller nodes to the TH1520
+> > DTSI
+> > file.
+> >=20
+> > The remaining half of this patchset dedicates to enablement of USB
+> > on
+> > TH1520, because of the onboard hub of that board -- its USB2
+> > signals are
+> > behind a switch that needs to be toggled on, and Vbus supplies for
+> > both
+> > the hub itself and downstream ports are managed via I2C-expanded
+> > GPIOs
+> > (because the SoC does not have enough GPIO pins).
+>=20
+> Hi, thanks for working on USB. I tried to apply it to next-20260601
+> and
+> several of the dts patches no longer apply cleanly. Could you rebase?
 
-On Mon, Jun 08, 2026 at 09:59:35PM -0500, Bjorn Andersson wrote:
-> On Wed, May 20, 2026 at 12:56:16AM +0530, Vignesh Viswanathan wrote:
-> > Add changes to enable IPQ9650 CDSP. This series adds new Devicetree
-> > bindings for IPQ9650 PAS and also adds required changes in qcom_q6v5_pas
-> > driver to support IPQ9650 CDSP remoteproc.
-> > 
-> > This series depends on [1], [2] and [3] to functionally bring up the CDSP
-> > remoteproc on IPQ9650, but does not contain any compilation dependencies.
-> > 
-> > [1] https://lore.kernel.org/linux-arm-msm/20260518072856.22790-1-sumit.garg@kernel.org/
-> 
-> I'm not able to determine why this is a dependency from cover letter,
-> commit messages, or the patches. If you have a dependency on this series
-> this isn't your typical PAS-based subsystem, so describing what it is in
-> the cover letter would be wonderful.
+I think the reason is that one of the GPIO expansion chip is added to
+the DT for enabling Wi-Fi.
 
-Probably the cover letter didn't mention that this IPQ chipset runs
-OP-TEE/TF-A as the TZ, that's why it's unclear. Without the OP-TEE PAS
-series, the CDSP can't be brought up on this chipset. Similar would be
-the case for all other Qcom chipsets supporting OP-TEE.
+I am not sure whether the next revision of this patchset will contain
+all things, maybe I will split out at least the USB PHY part.
 
-Not sure if there is anything missing for the OP-TEE PAS series to be
-picked up. Surely we missed the current merge window but hopeful you
-will be able to give some attention to that series for the next merge
-window.
+Thanks,
+Icenowy
 
--Sumit
-
-> 
-> > [2] https://lore.kernel.org/linux-arm-msm/20260519-mp8899-regulator-driver-v1-0-30d14421b7f1@oss.qualcomm.com/T/#t
-> > [3] https://lore.kernel.org/linux-arm-msm/20260520-cdsp-power-v1-0-85eb9501a1cd@oss.qualcomm.com/T/#t
-> 
-> #3 is a fundamental part of the addition of this remoteproc driver and
-> the solution would be better reviewed as a whole - so you should send
-> the two parts in the same series.
-> 
-> PS. If you run "git log --oneline" you will see that there shouldn't be
-> a "drivers:" prefix in your subject.
-> 
-> Regards,
-> Bjorn
-> 
-> > 
-> > ---
-> > Vignesh Viswanathan (2):
-> >       dt-bindings: remoteproc: Document IPQ9650 Compute DSP
-> >       drivers: remoteproc: qcom_q6v5_pas: Add support for IPQ9650 CDSP
-> > 
-> >  .../bindings/remoteproc/qcom,ipq9650-pas.yaml      | 136 +++++++++++++++++++++
-> >  drivers/remoteproc/qcom_q6v5_pas.c                 |  38 +++++-
-> >  2 files changed, 172 insertions(+), 2 deletions(-)
-> > ---
-> > base-commit: 6a50ba100ace43f43c87384367eb2d2605fcc16c
-> > change-id: 20260520-ipq9650-remoteproc-9aa8c6d05de3
-> > 
-> > Best regards,
-> > -- 
-> > Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
-> > 
+>=20
+> In the meantime, I'll apply to 7.1-rc7 for testing.
+>=20
+> Thanks,
+> Drew
