@@ -1,138 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3092135675A;
-	Tue,  9 Jun 2026 19:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA1133FE1F
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 20:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781034906; cv=none; b=YB78HwElfkbiaWJiCutmsAcPw25PropiujJQaTea83GkCwNdgKMsAbS+/LsfCCXac2I9HPEK/wvgV5DZL88R85MX96vkgRiTT1L6Vu/nxCgTvKntMPUhIXfbw73HThBxG+1SB69I2nL7MS1Jw9ow4+hM5SIY+yPFH8BAvfw/h1I=
+	t=1781035348; cv=none; b=evgzFzT3chifCATCiab6TsvJgliUQI5X0V2eAwGADmvFXVH8c1FTyL/43LCMXL2lJ+i8CEp/o10sRIQME2TbKBTB7LW9iUCgCPCKWZc55G/nOqC7T2tTjzqJ+H4fcK4Lr70rru05R48V4OoMsZwuu55mqzw6tbAce7/Ifxm6fZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781034906; c=relaxed/simple;
-	bh=kEGtjVh7hYSVEwqOuOScXrJJdKHAF2HV0rYjMXUk3Nk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DxPLZ7/jNaHDBzdQE7m3JNQtROmplT6SSYEjr/s4oxIcc9mcd65/BpUoRnh8YiYbKPzCDWeIQPhdVsizohH9hdZiIDh9Pue5UHbEwcMhZ145H4DZRxa13fRoGzYPcWIPS0iRltyAOyddYX6gSyt5NIMCT3fD7MJh6kh7qbfBHbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mrqlhrls; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781035348; c=relaxed/simple;
+	bh=YEiws//EPZ7F8AMCSdjYviYSQe7Tj7xND1OX/SYdE5M=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=iJlJlh/QN9ggV6vvcn/MJoaVR2wVIJdvyh5Itv/JZcWwgSHVxDg1wu06agiO01267pD27R+r0yFhABbInxbezE8btBZAMZcrnIOzVISRneVPp55sCsXnofkhZzikDwAblo6LjsvVIbKUAHxvMbNKdPvRSrrVlHqIBGkQsEvhdIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=IxQ/nBVA; arc=none smtp.client-ip=170.10.153.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mrqlhrls"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1541F00893;
-	Tue,  9 Jun 2026 19:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781034904;
-	bh=euZno7GZr+Jmg5WizSgIMbhpNKl9ApCStT4sFxS+cFU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mrqlhrls3LdqaIVU1g64Wu2SiYFz2mLopQXvHtAsrgcg3Pc89rmXeHrO3vqEWV3YI
-	 03K6M+reJZaQZ/WPOOu4i9P2dZYGPrl3L9vpQMZioWuUe3tzh86bBDnBDpUmYwsBWK
-	 XjfmM0s6F7eKxLySUq8CJ+33N5wSu0d8sCEVb5RUaTHZbxeItD7Lz3IugeVwHSf6po
-	 kyBprH79O6I/lEjWZs2t1G/AzfBW5qWnruqgHHqFPkqqaYq7UlMH4GiKVppqiyzM6n
-	 pcB+TPZUZBkGM63FTH56XNFiIAcjeZXwyVeMW53Jt4M0sMoxRNO0Pz1CUEXiIMTNSW
-	 Czw9Sse+q86ow==
-Date: Tue, 9 Jun 2026 20:54:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guodong Xu <docular.xu@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH 1/2] dt-bindings: dmaengine: Add SpacemiT K1 PDMA request
- numbers
-Message-ID: <20260609-freeload-luckiness-7a143eae62f4@spud>
-References: <20260607-b4-k1-pdma-req-macros-v1-0-5b2a3955007c@gmail.com>
- <20260607-b4-k1-pdma-req-macros-v1-1-5b2a3955007c@gmail.com>
- <20260608-dazzling-hacksaw-dbe84766ec76@spud>
- <qxcpvj3eseclgonwuwx2szn2tj4uxci27mvpqwotj6uaiyj65p@7sx5tyzbfs2g>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="IxQ/nBVA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1781035346;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YEiws//EPZ7F8AMCSdjYviYSQe7Tj7xND1OX/SYdE5M=;
+	b=IxQ/nBVADOmxaFWFxkc03i2aQN9Yzefkv4DJhISX9Xsn5rsyWq8cLRAWxsP3x9nfPvTNdS
+	55e04P/NOoSHT03Q+8UQ05nn6TfcMR+AQz5J+Xm1uzh2Hlwd6ggsHc1C/PDZ/KuzBUnFtN
+	DQVaKA23x5YGHiLBvpVb1/YJSvH6NWYyam+ahYKYAIYm4JIiq/O3I/0dX/Kaddf2Ybgf7c
+	qn707DWfpBInwv3SuQ8KNEgWXk9zYiKtFXSI70uHYy9/UuNF4meP6C16VwuPeqw8bf902E
+	CgWIlOMEw/WKALC6okm6Gkz/8h1LSBqcuJP8OFbwNWzcxUektl835mDXAYybGQ==
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-42-H_1Q1DRqM8-bqQHwliyE9A-1; Tue,
+ 09 Jun 2026 13:02:21 -0700
+X-MC-Unique: H_1Q1DRqM8-bqQHwliyE9A-1
+X-Mimecast-MFC-AGG-ID: H_1Q1DRqM8-bqQHwliyE9A_1781035334
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
+ by CH3PR02MB9479.namprd02.prod.outlook.com (2603:10b6:610:127::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Tue, 9 Jun 2026
+ 20:02:08 +0000
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 20:02:07 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "Parthiban.Veerasooran@microchip.com"
+	<Parthiban.Veerasooran@microchip.com>, "andrew@lunn.ch" <andrew@lunn.ch>,
+	"conor@kernel.org" <conor@kernel.org>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	Piergiorgio Beruto <Pier.Beruto@onsemi.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Conor.Dooley@microchip.com"
+	<Conor.Dooley@microchip.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: RE: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
+Thread-Topic: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
+ be active low, level triggered
+Thread-Index: AQHc8eDLvWzkHnbXI0KmrY/VvMfuDrYrecyAgAALlpCAAm25gIAAkU0wgAAYXICAAAajgIAFcz6AgAAGt5CAAd//gIAAaviwgABI9uA=
+Date: Tue, 9 Jun 2026 20:02:07 +0000
+Message-ID: <CY8PR02MB9249B913E28E285EB46EC59C831D2@CY8PR02MB9249.namprd02.prod.outlook.com>
+References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
+ <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
+ <20260602-rebel-snide-5036c97e410d@spud>
+ <CY8PR02MB92493D2E5491AAE5416C05A283122@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <a5abb9b8-6ebf-4f95-a684-fc889b98acea@microchip.com>
+ <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <20260604-swimwear-garnet-3eb092e6fda7@spud>
+ <4df9882b-3426-4c36-8048-0c76d0f11c74@lunn.ch>
+ <7c68173a-ebff-42cc-8519-95e8365805b5@microchip.com>
+ <DM4PR02MB926317F64B5A3827009B66A9831C2@DM4PR02MB9263.namprd02.prod.outlook.com>
+ <a02cd86e-a5b8-481c-a07e-7243ee537b24@microchip.com>
+ <CY8PR02MB9249EC4F3896121911D0FF3C831D2@CY8PR02MB9249.namprd02.prod.outlook.com>
+In-Reply-To: <CY8PR02MB9249EC4F3896121911D0FF3C831D2@CY8PR02MB9249.namprd02.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|CH3PR02MB9479:EE_
+x-ms-office365-filtering-correlation-id: 55bda3f2-7652-4b6e-fcf9-08dec661fc37
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|38070700021|56012099006|5023799004|11063799006|4143699003|6133799003|18002099003|22082099003
+x-microsoft-antispam-message-info: wIiXhhJ2hbXuHdvC8r0IUoRobDMa++Wx6cbj9vjVX/XxoIYqgHyIs9ITVeoggggf13e7jOFRJ1m1f7cWiecOTz91SdgPOakTS29jNiXo6RWs0E254tIe4is4AUl4RwGsSwsbwR+ze6WN+Zr6v87KgmtLewB4/eq7hDRpPoCuGcJz5+FqWpjfgu4poq+cAW62by17bSmPhXv8qV2LDDPVOVd6PLopzcLVTqx7GksB47MT2Zpe5XIUQI5Ipe14HARLwjybCW1MnMZ2dwyJI54cFxYpc2lUBCl6W5J9z87qOTektNtVHuh2X+GOePjW2lS5jWOpFP4rz6+GdDLG4RgjlHwWi4LP8j3H7L7y8EnzVzH7aRRihv4g5iDWRXXVgHcqc6w7CoXI12TMGvDi0kykyooCnttXXa5BaVljrJt6axBVhZvWYBkASgzxCUQOClUJnvne/kcvw/2wU1oRZYh9U0O9Z+YA5LpfkAHX8JhvhBSs8Y++exZRsx7Graze2FXDQg4jFG0jKK5nzHyXF6+S8jHZdRa56I6JnoEaXD40GPoEkmqsByv8K0Gz8EF0Zn8MA0nx3gRV+AQGbsrReFO2dyyz3PtFwBuBysd3KavrldjALQfiVgs47SilL0SYCWZZ1TR/JDJzSC9oDkCd8S78+mjsVhP/PWZVoFZHDLHo0pGo/UrcaU31z9aWDts0yGmvW7sEQCnOAd/FaLvqrrbMj3VjA030aGFEh8RKGF9CahunrQP0D8zmeSNj4eO1QdAF
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(38070700021)(56012099006)(5023799004)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aEppRU1EMk4vR3l3a010eGphZmRuU0JzT1JsK1NXOFhJYzBPN3Jkb0tsT0Z5?=
+ =?utf-8?B?VW01RGs1WWtKTHB5Mk9pTHdWbzJFN21ORGUzVm1WUzkwYStnQWpMMTdWQkJ3?=
+ =?utf-8?B?YlJPMDNvNkVkZ1o3SERIK3lTQ2hLVVUyQW85ajhNZjFpYzFNMHRlMnZVNWRU?=
+ =?utf-8?B?cVdpNmlLZGNHZDV0VEc2bDQybE9qSjNjUHg3QWZSU0VZQlRIaUpaTE41U3Ba?=
+ =?utf-8?B?a1IyODdDNU5LbHg2b3NQaU5KTGtmSmZLUGY4VFRDdkdIWVdNR3AxNHpPOVBE?=
+ =?utf-8?B?TXh3bzlMWkc1VTllcEpPQUVpKzFyQTNiRnptS3IxRjQ5SHQ0WEpBQlZkVDlX?=
+ =?utf-8?B?NEs5b1A5OUI5b3pVZ0RVV2lhQmphNWhsa1VHUHk0MldwUXE3RU16M1R3a0xY?=
+ =?utf-8?B?OHdFcUNGVHBiaDZMalZDYjRnSVdzOXpUS1k5VTJpUDBFVlJzak9ncGFGa2FE?=
+ =?utf-8?B?elJmYjMwR0dBOVMwdFlDNm5FbVA1VkFKUFU3Vmg0dFpsUWdlaHBuZUpJNVZm?=
+ =?utf-8?B?amdpS3Uxc3VUT1pFblE3anZmd3BrUXhEc0luMkV4aURsNEliV0QyWElGSW9J?=
+ =?utf-8?B?dzF3dUlSZXgrUXg3NHdYMEk2OTVXdVRWUktoZGt4VU1lU1JPM2RpVmp1YVV1?=
+ =?utf-8?B?bFFJZDlNZEsrZHhoc2ZtcEZCOVkzemkvL0QzMll0bHI3WllneFQrV1F1Vkk2?=
+ =?utf-8?B?Q2ZQdEFxUFhoaExiZCtMN2EzaGgrV3doTE5KZFIzQ093WUFKTFlKZnE3aUJZ?=
+ =?utf-8?B?cFljSE81VHNTS0xpdFI2ZW1LL0xqQUxBWkFWd2d3SmI0bzNCMjBlNXVTUytp?=
+ =?utf-8?B?WDlzdG1Nc3VLYXpkalBBeVZHQUNsN1NxNnp2a0t1eFYrTGNkNVNscm1DOS9n?=
+ =?utf-8?B?dWRCZWpHRytVRGhBRkJLbS9tNGFPTVVYMk9TbFNDZ3ZvQ3ROaXE4OFdUWFli?=
+ =?utf-8?B?cjFMNzZ3MytDT2VHRk9QckxxazRQekhKQUxoRCsySkdNbjd1b2Fqd3JsdnE0?=
+ =?utf-8?B?K1BwdVF1QVdpaXZMbkRhckRyalN3bkFEbk5EbXQrRi81TjBWd0RSOFo3WXlC?=
+ =?utf-8?B?b3FrelJUSTdGdkR2UU5DRDFubDAwbms4VFljZGFLamVLU1BuRVBaQm12UzFn?=
+ =?utf-8?B?TitDb0FmNkZ1TTM4ampUbXYxNTg5Sk9jNG9QME1TMFlQNnZ2dmk4bVl1clNz?=
+ =?utf-8?B?ZEM3b2RHenM3eDB1K0YxZTRtQUl2Kzc3QXZrTzAvV0t2Y3R4RmlzNFRLVUd0?=
+ =?utf-8?B?Y0Z0OUowa0xabWNHNDVMYU1oaHNWTjVKcmhTL0tIM0tJbjEzVnVmOUhQNFk5?=
+ =?utf-8?B?MVFUQmxnb2dBYjNXbnBuUjB4dVhVcnpsWkpiamlNNWNQUVRMcjB3bzhETVAx?=
+ =?utf-8?B?clBtQUFYcEoyZ2puZ0p1ZTdGdzViTGlGZmFyd2VpUWFJYUdtVERheWhoMWtt?=
+ =?utf-8?B?dXVNdzh3bXRBckdKN29aZ21mMTJONFRuS3Q5TU5VQitxbnFHY1lKeU5mQkJm?=
+ =?utf-8?B?WmgyMnZmbFdCNEkzZ1RIWDNLVk54ME9iQWZMWk1vVUlHTVk3YWZYSkhBSnlQ?=
+ =?utf-8?B?cVNmZytDZTdQZlZXTklUdVd2ZVJKTGpBcm0zNnNyRDVreXJrV3czbDFoY2I1?=
+ =?utf-8?B?Q2FLNG9ySFBOaDBSRnBCR3NacHRLMkxkTndyVnpLOGxrbHFMWWhCbnQ3N3Uw?=
+ =?utf-8?B?UXBiMThCOTJaQnk2eEl3anFHb0dTNHpuaXF0UkVOQWcwOTBUVXNBdGJiU2VL?=
+ =?utf-8?B?WHVtS1ZTQlZkbmUwQlVYbGthUnQ5U1lndnpXWkhnZWxsVjU5dXNyRVBMY0xj?=
+ =?utf-8?B?MHR2NFhxS0NrRW9wZ1IrOXNZZ2twRjFlZVo5dVlYb3Mwc3pzZWdNbHNKSEZK?=
+ =?utf-8?B?UzNEZGZMVTZnVDNjTzBTQ0lLeGxWZmxtN1NrOXhIcDZVaDVyRTlUVlNyMXp1?=
+ =?utf-8?B?cWJUT3Z1d28wMERBc0RFN0pqNVVhUUI3ZkVYanBhLzZnNDdvTFNIYkVwUEpU?=
+ =?utf-8?B?cmpzSUlML0Z5TjhwTzEzS3pWdDNkckJMQThhaHVOT2NVRU02TVp5RFhFaUxO?=
+ =?utf-8?B?S09VRElWc29MMTVDQklLbXNxUHUrcHIxekV5WUppeFN5RHM0VmREb3hpbjBD?=
+ =?utf-8?B?MU4yWWVvckVHS0hibU5jd1U3UUZRa0RPcUZ6WGtMTm5mSmdFaE04UUVoYjNn?=
+ =?utf-8?B?bklBeDVSbW91OSszRldSL0lYeVJGZHNKNHpDWVU4a3UxTlNJR3lla2NqUyty?=
+ =?utf-8?B?SmVIQ0M5YWpCdTdWbmVmVlB5cFdLRCt1c1hpLzNLMHRvKzdjcHRMY1VRV1ZL?=
+ =?utf-8?B?ZHZHczlCVjVuV1FHZE1paE1TYUtoeDVZRHpPTEtIVUtYRHlBMndrQT09?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Ss8ao6rj68qSdhm9"
-Content-Disposition: inline
-In-Reply-To: <qxcpvj3eseclgonwuwx2szn2tj4uxci27mvpqwotj6uaiyj65p@7sx5tyzbfs2g>
+X-Exchange-RoutingPolicyChecked: D6SENN4KubCCCOsDeOWS3bG1R8nd84fpTlZsnean0M+gpcQg3s98vjzYuH/WfGy7bGuQtTGOO303B2+wBq3dzSp7O93vRR0/bG/luGqDC6hkTYkCxXInLPmfSeN6WJgEe7kmEyLi7/+XnnrJSr2gsQPqBWlnpT7Nao/gF8Pyed3EPZwnHfUmut+CyvMB5PMT6o1y8snrHh+YfY0O/LXGbOOEr+yrOaPzD0IBgaoVtfCxhRRYgRNF3OjPbolaMPLxEKsM+55Il3ITwCE4g7h4Hq/CjlEjtRqFXcT58QK9zYorsbJuNlqsaGbvzdepPJtflhmbBAPnmXSC3o9dXCU5hA==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55bda3f2-7652-4b6e-fcf9-08dec661fc37
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2026 20:02:07.8690
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FYbak3owSfJmCTHFor42ykaO6yRPsgnFgn/+z5lMy036XQAKFGqpPonqds8qI6NgvYz5QZcQ30s+P3qxTVdpZ7mV057ifVBbpp+X3JE9H60=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR02MB9479
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: sJ9jqilgCE3JuGpZFObRa7fQiwqLtJqVM46RpJSXOUU_1781035334
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
+PiBTdWJqZWN0OiBSRTogW1BBVENIIG5ldCB2MyAyLzJdIGR0LWJpbmRpbmdzOiBuZXQ6IHVwZGF0
+ZWQgaW50ZXJydXB0IHR5cGUgdG8gYmUgYWN0aXZlIGxvdywNCj4gbGV2ZWwgdHJpZ2dlcmVkDQo+
+IA0KPiANCj4gVGhhbmtzIFBhcnRoaWJhbi4NCj4gVGhvdWdoIGNvZGUgd2FzIHJlYWR5LCBJIGdv
+dCBpbnRvIG90aGVyIHRoaW5ncyBmb3IgdGhlIHBhc3QgdHdvIGRheXMuIFBsZWFzZSBzaGFyZSB5
+b3VyDQo+IGNoYW5nZXMuIEkgd2lsbCBjb21wYXJlIHdpdGggbWluZSBiZWZvcmUgc3VibWl0dGlu
+Zy4NCg0KDQpQYXJ0aGliYW4sDQoNCkp1c3Qgc3VibWl0dGVkIHRoZSBwYXRjaGVzLiBXaGVuIHlv
+dSBoYXZlIHRpbWUsIHBsZWFzZSByZXZpZXcgYW5kIHRlc3QuDQpBcyB5b3UgY291bGQgc2VlLCBv
+bmUgY2hhbmdlIGxlZCB0byBtb3JlIGludmVzdGlnYXRpb24uIEkgc2F3IGEgdHJhZmZpYyBzdGFs
+bA0Kd2hlbiBJIG92ZXJzdWJzY3JpYmVkIHRoZSB0cmFmZmljLiBUaGF0IGludmVzdGlnYXRpb24g
+bGVkIHRvIGV4dHJhIHBhdGNoZXMuDQoNCmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJv
+amVjdC9uZXRkZXZicGYvbGlzdC8/c2VyaWVzPTExMDg4MDQNCg0KDQo+IA0KPiA+DQo+ID4gQmVz
+dCByZWdhcmRzLA0KPiA+IFBhcnRoaWJhbiBWDQo+ID4gPg0KDQo=
 
---Ss8ao6rj68qSdhm9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jun 09, 2026 at 02:55:59PM -0400, Guodong Xu wrote:
-> Hi, Conor
->=20
-> On 2026-06-08 18:33, Conor Dooley wrote:
-> > On Sun, Jun 07, 2026 at 01:41:30PM -0400, Guodong Xu wrote:
-> > > Add a dt-bindings header that gives symbolic names to the SpacemiT K1
-> > > PDMA request lines of the non-secure peripherals. Device trees can use
-> > > these K1_PDMA_* macros instead of magic numbers.
-> > >=20
-> > > Point the spacemit,k1-pdma binding's #dma-cells description at the new
-> > > header.
-> > >=20
-> > > Signed-off-by: Guodong Xu <docular.xu@gmail.com>
-> > > ---
-> > >  .../devicetree/bindings/dma/spacemit,k1-pdma.yaml  |  4 +-
-> > >  include/dt-bindings/dma/spacemit,k1-pdma.h         | 56 ++++++++++++=
-++++++++++
-> > >  2 files changed, 59 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.y=
-aml b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
-> > > index ec06235baf5ca..0d4ac9849e27b 100644
-> > > --- a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
-> > > +++ b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
-> > > @@ -35,7 +35,9 @@ properties:
-> > >    '#dma-cells':
-> > >      const: 1
-> > >      description:
-> > > -      The DMA request number for the peripheral device.
-> > > +      The single cell is the DMA request number for the peripheral d=
-evice.
-> > > +      See <dt-bindings/dma/spacemit,k1-pdma.h> for the list of valid=
- request
-> > > +      numbers.
-> > >=20
-> > >  required:
-> > >    - compatible
-> > > diff --git a/include/dt-bindings/dma/spacemit,k1-pdma.h b/include/dt-=
-bindings/dma/spacemit,k1-pdma.h
-> >=20
-> > Why does this need to be in a binding when there is no use of this in
-> > the driver? May as well be a header, particularly if these are numbers
->=20
-> Thanks for the review. You are correct that these are not referenced in t=
-he
-> driver. My change to k1-pdma.yaml should be dropped.
->=20
-> > with a set meaning that are lifted from the TRM, rather than made up
-> > numbers to make a driver work. The former seems likely, given you're
-> > indexing from 3 not 0.
->=20
-> Yes, it is defined in the K1 manual [1], see 9.4.3 DMA Connectivity &
-> Assignments
->=20
-> Link: https://www.spacemit.com/community/document/info?lang=3Den&nodepath=
-=3Dhardware/key_stone/k1/k1_docs/k1_usermanual/9.Top_System.md [1]
->=20
-> I will fix that in v2.
-
-Just in case I wasn't clear (and I think I wasn't), when I said "may as
-well be a header" I meant a header in arch/riscv/boot/dts/spacemit.
-
---Ss8ao6rj68qSdhm9
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaihvkwAKCRB4tDGHoIJi
-0quDAP9NVs88iuV9CNHJrkUTyg0JS0+g4jZfML658Gh5VCV4AQD9HAvgmQaWFy28
-V+fx0E0a2bXDRTY3o0eZOk3dv/55WQg=
-=3h5W
------END PGP SIGNATURE-----
-
---Ss8ao6rj68qSdhm9--
