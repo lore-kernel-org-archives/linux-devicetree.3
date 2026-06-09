@@ -1,136 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FCD199D8
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 10:40:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258F1257452;
+	Tue,  9 Jun 2026 10:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781001623; cv=none; b=ldNDus6HxTANJVmHDDAD9FnYkOzrlaetRu1zYeMRaWQmiwKfcSYqlL2YtP0dJaTVzSwwsYCq0fj+wN9nQv3qAqyDKb2Ig/aybT89r8EzFXp968dTmmcZydHUhjIJkN46B7+cUeblEwQ5/5FtR+667wDhuaOr8R6xT/3xM/UYbQ8=
+	t=1781002023; cv=none; b=CWxSrfy6MJFcTIH8H2soGam1kGCWWXgRaOxqjojs1eqTExpu+mWGr4HYX4huXb7poip8JuxqpZWR4ETkyx9PZEL5gPoI2STWc6oQQP6XxY6GCx2za2EdrL96On1Rb/t3vVeJWZrb7lX7EhCZICsr3E7EC+i3COrVfnWXAsIKj3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781001623; c=relaxed/simple;
-	bh=J0P+r0W/rT0B0Li+qHEKy0+ZG/QFYTLDFVmcxch6cX0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SeQOmQ4TKS62JGaScmOlrpsLNXFofVU4ZbJetqMyQnTEqmDIjjf9toAQaSKRwrDecbxU8THh5RfL2JTSG4/rUSeIvlC2F4bxObxsnx57sliYMyjit/89HEIHk+wuHGUNj/E0jupGyL1SGTgC3TZ7EyUee9MioJ6xZtG79M2kdQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C3AeEayu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781002023; c=relaxed/simple;
+	bh=Fl9R5xqUNUdwxdEUqX7SyHGvUOJJuteH6mBRt/IIsDI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c8HyRiQrmyRxIQZmpbqBcpCUZU5F74crKWM6AhHrqvEF0UOTytgYz74gExWxrXO684ifYALmHvormqrLbOM7k0FABi1KfBxHcsXQkrwd1sAUP5zSQZ7BrE8BhpMo5qupSNg50x4DZ2rZgzy8Y8uZ95zGUMJkh5R23KAU/c0tk0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUholNef; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C3AeEayu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44E61F00899;
-	Tue,  9 Jun 2026 10:40:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUholNef"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5166A1F00893;
+	Tue,  9 Jun 2026 10:47:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781001622;
-	bh=x9BV4wZwz7f1OFq7Dhwp0jVpIUzdQArxarbzz6vLzRg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C3AeEayuTuBsUGuNIAO83JEW1bJV1whvE1ogaPT2/QLh3NGWtc++0UwhA9YPb3kIR
-	 PQZwm4OIj/ZkrQDRQg9ZP/Y0b6g46zJzB2gPzSmC9kiF6/UQ2XJ+KZ38dyvGWNVsw6
-	 i+mJs+rRqFoyuiLo7T1xJ05BFhkwYH4qDSNnrpcDt07ssTOxRhlwogJh0zgcN+1SuO
-	 hMc2E6pQsq3oe+VWbwUSgvKRgoxkhSV4biBkIucDFQo4vcXQgczRrfkNbpDsg9nDQO
-	 2nB4K4H1mRW/EhDIWkKgKujJYVr+e1iUjqfWWFXDv8k0lnszdo0HOUnaqVUqfcEq57
-	 qTnV8gaEPye6A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/8] remoteproc: qcom: pas: register TMD thermal
- cooling devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260609-qmi-tmd-v3-3-291a2ff4c634@oss.qualcomm.com>
-References: <20260609-qmi-tmd-v3-3-291a2ff4c634@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:40:21 +0000
-Message-Id: <20260609104021.D44E61F00899@smtp.kernel.org>
+	s=k20260515; t=1781002021;
+	bh=Gdvr4XfLIetW/3i7USSlvVySj8J0w0NxH6C9I1FUuLA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eUholNefkZlsvnMq/CdNGdJk8d1LA8K48BLvm+ftw6hc6tJ2kN2hCXVzyvMAdyHxO
+	 mR6BrP5WdmWkkbEwXFKZszYemKvXTtGay/FOmtesWbohe1k8GyQCTxi+SihXswwA6v
+	 lHgvijcWZ54IsqTClTHROd0Pfn5VGrpXu2zyfVd9mwYH2+GgzO6+WxTE9+/Jgx6iWi
+	 cVACxUP+f/M0GzDiAo2I8eHxelsvgYbxQr+s+HaRVLGYQyOjBhgXZMRi3MIYw8pQKh
+	 oMCHTHi/+4II8PDdwrZxOm2ANuBX1EtCrZXaMG7pj7hIbcHx4Byu3+nvlPuDovVPuB
+	 55pK216RqoU9w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wWtz0-0000000As9e-3A2g;
+	Tue, 09 Jun 2026 10:46:59 +0000
+Date: Tue, 09 Jun 2026 11:46:57 +0100
+Message-ID: <86ecigt2hq.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: linux-arm-kernel@lists.infradead.org,	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	devicetree@vger.kernel.org,	Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,	Hanjun Guo <guohanjun@huawei.com>,	Sudeep Holla
+ <sudeep.holla@kernel.org>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
+	Deacon <will@kernel.org>,	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark
+	Rutland <mark.rutland@arm.com>,	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,	Rob Herring <robh@kernel.org>,
+	Krzysztof	Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Chen-Yu	Tsai <wens@kernel.org>,	Jernej Skrabec
+ <jernej.skrabec@gmail.com>,	Samuel	Holland <samuel@sholland.org>,	Neil
+ Armstrong <neil.armstrong@linaro.org>,	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,	Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,	Ge Gordon <gordon.ge@bst.ai>,	BST
+ Linux Kernel Upstream Group <bst-upstream@bstai.top>,	Jesper Nilsson
+ <jesper.nilsson@axis.com>,	Lars	Persson <lars.persson@axis.com>,	Alim
+ Akhtar <alim.akhtar@samsung.com>,	Ivaylo Ivanov
+ <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,	Sascha Hauer
+ <s.hauer@pengutronix.de>,	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen <dinguyen@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Thierry Reding
+ <thierry.reding@kernel.org>,	Jonathan Hunter <jonathanh@nvidia.com>,	Bjorn
+ Andersson <andersson@kernel.org>,	Konrad	Dybcio <konradybcio@kernel.org>,
+	Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNo?=
+ =?UTF-8?B?dW4gTGluIFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko
+ Stuebner <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson
+ Zhai <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Michal Simek <michal.simek@amd.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>
+Subject: Re: [PATCH v3 03/17] clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running VHE
+In-Reply-To: <193cc406-0834-4dee-9b4a-02cdfd85e05c@samsung.com>
+References: <20260523140242.586031-1-maz@kernel.org>
+	<20260523140242.586031-4-maz@kernel.org>
+	<CGME20260609100324eucas1p146c5ffe86a104677143baaeca1d3feba@eucas1p1.samsung.com>
+	<ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com>
+	<86ik7st3nh.wl-maz@kernel.org>
+	<193cc406-0834-4dee-9b4a-02cdfd85e05c@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: m.szyprowski@samsung.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kern
+ el.org, afaerber@suse.de, eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com, florian.fainelli@broadcom.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Config QCOM_Q6V5_PAS and QCOM_QMI_TMD select QCOM_QMI_HELPERS with=
-out inheriting its dependency on NET, leading to Kconfig unmet dependency w=
-arnings and build failures.
-- [High] In qmi_tmd_exit(), the QMI handle is released before unregistering=
- the thermal cooling devices, exposing a race condition that leads to a Use=
--After-Free.
-- [High] If thermal_of_cooling_device_register() fails, tmd->cdev holds an =
-ERR_PTR which causes a kernel panic when passed to thermal_cooling_device_u=
-nregister().
---
+On Tue, 09 Jun 2026 11:35:24 +0100,
+Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> 
+> On 09.06.2026 12:21, Marc Zyngier wrote:
+> > On Tue, 09 Jun 2026 11:03:21 +0100,
+> > Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> >> On 23.05.2026 16:02, Marc Zyngier wrote:
+> >>> When running with at EL2 with VHE enabled, the architecture provides
+> >>> two EL2 timer/counters, dubbed physical and virtual. Apart from their
+> >>> names, they are strictly identical.
+> >>>
+> >>> However, they don't get virtualised the same way, specially when
+> >>> it comes to adding arbitrary offsets to the timers. When running as
+> >>> a guest, the host CNTVOFF_EL2 does apply to the guest's view of
+> >>> CNTHV*_El2. This is not true for CNTPOFF_EL2 and CNTHP*_EL2, as
+> >>> the architecture is broken past the first level of virtualisation
+> >>> (it lacks some essential mechanisms to be usable, despite what
+> >>> the ARM ARM pretends).
+> >>>
+> >>> This means that when running as a L2 guest hypervisor, using the
+> >>> physical timer results in traps to L0, which are then forwarded to
+> >>> L1 in order to emulate the offset, leading to even worse performance
+> >>> due to massive trap amplification (the combination of register and
+> >>> ERET trapping is absolutely lethal).
+> >>>
+> >>> Switch the arch timer code to using the virtual timer when running
+> >>> in VHE by default, only using the physical timer if the interrupt
+> >>> is not correctly described in the firmware tables (which seems
+> >>> to be an unfortunately common case). This comes as no impact on
+> >>> bare-metal, and slightly improves the situation in the virtualised
+> >>> case.
+> >>>
+> >>> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> >> This patch landed recently in linux-next as commit d87773de9efe
+> >> ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when
+> >> running VHE"). In my tests I found that it breaks booting of RaspberryPi5
+> >> board. Reverting it on top of linux-next fixes the issue. Here is a boot
+> >> log:
+> > Huh.
+> >
+> > [...]
+> >
+> >> arch_timer: cp15 timer running at 54.00MHz (hyp-virt).
+> >> clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+> >> sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+> > The interrupt appears to be advertised in the DT, but doesn't seem to
+> > fire. That's obviously not going to end well. My suspicion is that
+> > either the interrupt isn't wired (that'd be hilariously abd), or is
+> > left as Group-0 by the firmware (copy-paste from RPi4).
+> >
+> > Can you try the following hack and let me know if the kernel shouts at
+> > you?
+> >
+> > Thanks,
+> >
+> > 	M.
+> >
+> > diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+> > index ec70c84e9f91d..d05791e6cc0db 100644
+> > --- a/drivers/irqchip/irq-gic.c
+> > +++ b/drivers/irqchip/irq-gic.c
+> > @@ -213,6 +213,7 @@ static void gic_eoimode1_mask_irq(struct irq_data *d)
+> >  static void gic_unmask_irq(struct irq_data *d)
+> >  {
+> >  	gic_poke_irq(d, GIC_DIST_ENABLE_SET);
+> > +	WARN_ON(!gic_peek_irq(d, GIC_DIST_ENABLE_SET));
+> >  }
+> >  
+> >  static void gic_eoi_irq(struct irq_data *d)
+> 
+> I've applied this change, but it doesn't trigger any warning in the boot log.
 
-commit 054962d4a1d3642bf94b2a883fba802967d5e58a
-Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+[+ Florian]
 
-remoteproc: qcom: pas: register TMD thermal cooling devices
+Huh. So that really points at the timer not being wired into the GIC,
+Samsung style... Can you confirm that removing the EL2 virtual timer
+from the DT results in a booting machine?
 
-Add support for Thermal Mitigation Devices (TMDs) to enable thermal
-throttling of remote processors through QMI. This enables the thermal
-framework to request mitigation when remote subsystems contribute to thermal
-issues.
+Florian, can you please check whether PPI12 is actually the EL2
+virtual timer on the RPI5 SoC?
 
-> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-> index 2caadbbcf8307..a292ce57fd4a4 100644
-> --- a/drivers/soc/qcom/Kconfig
-> +++ b/drivers/soc/qcom/Kconfig
-> @@ -128,6 +128,16 @@ config QCOM_QMI_HELPERS
->  	tristate
->  	depends on NET
-> =20
-> +config QCOM_QMI_TMD
-> +	bool "Qualcomm QMI TMD library" if COMPILE_TEST
-> +	depends on ARCH_QCOM
-> +	select QCOM_QMI_HELPERS
+Thanks,
 
-[Severity: High]
-Does this code need to inherit the dependency on NET?
+	M.
 
-Looking at QCOM_QMI_HELPERS, it strictly depends on NET. If QCOM_QMI_TMD is
-enabled while NET is disabled, Kconfig will forcefully enable
-QCOM_QMI_HELPERS with unsatisfied dependencies. This could trigger unmet
-direct dependencies warnings and link-time errors due to missing socket
-APIs.
-
-> diff --git a/drivers/soc/qcom/qmi_tmd.c b/drivers/soc/qcom/qmi_tmd.c
-> new file mode 100644
-> index 0000000000000..9d88ae48c8647
-> --- /dev/null
-> +++ b/drivers/soc/qcom/qmi_tmd.c
-[ ... ]
-> +static int qmi_tmd_register(struct qmi_tmd_client *qmi_tmd_cli,
-> +			    const char *label, u8 max_state)
-> +{
-[ ... ]
-> +	tmd->cdev =3D thermal_of_cooling_device_register(dev->of_node, index,
-> +						       label, tmd, &qmi_tmd_cooling_ops);
-> +	if (IS_ERR(tmd->cdev))
-> +		return PTR_ERR(tmd->cdev);
-
-[Severity: High]
-Could this leave tmd->cdev containing an ERR_PTR if registration fails?
-
-If thermal_of_cooling_device_register() returns an error, tmd->cdev will
-hold that ERR_PTR. Later, when qmi_tmd_unregister() runs, the
-if (!tmd->cdev) check won't catch the error pointer, causing
-thermal_cooling_device_unregister() to dereference it and panic the kernel.
-
-[ ... ]
-> +void qmi_tmd_exit(struct qmi_tmd_client *qmi_tmd_cli)
-> +{
-> +	if (!qmi_tmd_cli)
-> +		return;
-> +
-> +	cancel_work_sync(&qmi_tmd_cli->svc_arrive_work);
-> +	qmi_handle_release(&qmi_tmd_cli->handle);
-> +	qmi_tmd_unregister(qmi_tmd_cli);
-
-[Severity: High]
-Does releasing the QMI handle before unregistering the thermal devices
-create a race condition?
-
-If the thermal core invokes qmi_tmd_set_cur_state() asynchronously between
-qmi_handle_release() and qmi_tmd_unregister(), qmi_tmd_send_state_request()
-will try to use the already destroyed QMI handle, which could result in a
-use-after-free.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-qmi-tmd-v3=
--0-291a2ff4c634@oss.qualcomm.com?part=3D3
+-- 
+Without deviation from the norm, progress is not possible.
