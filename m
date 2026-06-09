@@ -1,67 +1,38 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B39E411660
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 19:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011CE41166A;
+	Tue,  9 Jun 2026 19:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781034459; cv=none; b=quoTBXuSwXwOGEG9A9QIlMQoDywnDYqwBmi2bCvdePjn/tDIVma9TrgA6fCKv77bsDkbyoplFdua248rhUv/IeB+Jzht7ZKYB0x2mnCIHVOx6seOGDjBYfOsQxcva80y2gJpDMBXWpb9U0u8V1VQdgFXJYsMddTrfy50DwREKLg=
+	t=1781034640; cv=none; b=Pyp98Cis3712PfSJrSAl9ck46K9ceWu4DS0b0vbPBI/RwQ3sj81jAj8bSatNRmAwPrE7TMHpoqO+65cc+cYE+BZvJptojjhg+jGqw2aH0w0H1fcKP1RbcpPfH0ls+VXYYULK+GzJt1GkBx82mGRqCELRLfJirBdhVsHKFBS6qHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781034459; c=relaxed/simple;
-	bh=H/kR+2HYwlqkml7voLWdHY49vUjyuP/Tsib1MnxQLD4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oufA2/gJiZ3y/eF6ubR+0sGBiZq+N2hKD1CS9FjAHfbyfOt4XyLokQxkdQNvilVzW+fxKVVvjvEm1B5XKx+aeJmVjNCZNahHQeLFcryBrNEJpJLDwE4uONQM4SHN/DZZNb0KCkiWppE2Dfhh6q5TCmlTnYSh2K5X4zUXbcDwaJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxcxRmUY; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781034640; c=relaxed/simple;
+	bh=fEc6RgFqgArsWG6l+smx1XCQosDlspRNYDFL91PwLD0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ISusHZduAHSU/WSLhls9qR0hj+lcqFs8RnxiWb/HnjPJlmKUsRdxTF9QIRvTQPC6w/KLW8+xl9hbRXKFWKLVsFAdXfGKFOrKvvJ9Zs9TFOrzGZjjGB0Q5Wmq9KEnQLuHj7dZcL2X4SfvNZjEzQj27L0BN9L7NKR7V5kL8sc+PYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6llugOy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxcxRmUY"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36ba3ea5c46so3574460a91.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 12:47:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781034452; x=1781639252; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MpR6igjuZL+55NUetVLOlJ7WyoEDc1JskAO0eU1M5r0=;
-        b=VxcxRmUYcFUQ0tfMrxn479ooKQ2xqqs6/jfKkhP4eRIL2kNN/BrzarcsUJHXI9Vpdm
-         I8Q6UnZu/RVa2vUHlHOhktKp3ueTInwbUWI6VHUBKe9ceOrkBqTjE8dggz9wZjvfxByG
-         rrKCwWg5VTeOW9LbMs2N7Q49bdIhfUoKUBbk1fdyCth57IogSzObn4Nn1tMtkZmVgO1O
-         QcazRUQo8DETHtWA/NGGo6KcPcfVqImZJT1p8Tbgi49oKnWNbCLlw5V8ut8EfaYxvYEI
-         Q2Qj2DUTGJs5zvU6Z1It0XKmTYeCkziVgPAgT5YF8dmk1DYF3yNQvcD09Kr2WgugdcvA
-         aikA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781034452; x=1781639252;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=MpR6igjuZL+55NUetVLOlJ7WyoEDc1JskAO0eU1M5r0=;
-        b=Mv/SkD+fkVVTWAz9UTpeRPto73gTpJZqvBhKn20cnRV1RyQ5IuwWJGSTj15/MdlJRG
-         /NAGxDOVegIIpGSLRECgmuXJCvA4xEdBMT8zv2diJ0UI3xS7JCXOwDmECeIiVqH/YqiJ
-         fiEsORJurct91sG79xq9JB6e9U4iB3Ix68tn3DYmwabHzzjfn/NCgNZkNO4sZXH4hy6c
-         K5UXcka9NJToUYpcqBeNDc8MlmhCdI0DywKQUade2rUgm6i0A/u6r3eFYx8HG5dEVh8w
-         8wi+TAM6cAiuXNTIU+OQN3WacSQtgVKrDwZOJ3u0Q4BLQlfF4BX+n6p3+4HNz77Hgl0t
-         UCkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9jzHQ2zGyJehtktE3Hd7vOYvzy3EaohU0NuL6NcbbDs1GiE6ElKIsoaL/FbChtk2jbtLNUV1H6BdGr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy99S4Qr618L+pbmMR7aXbJ5CdjpZOKVu8jhhOFWXWyRZmaB1sQ
-	M+UNlIsEOG3Jcq7YGl61v/jieaHJXD/ay0+2hL39cDnPLhtIvuLzDcMe
-X-Gm-Gg: Acq92OGtVby2/zJQWrRe4l0WiK8VZRhK0UjD/J3wMtQsOe4Qs2D2Wzh7tIUUJSz5DoG
-	SoOc+Xxqq/MkVnju5bY1LdTjmg2a5NRcGzWuflbFY2yjqzKr/8ERZdeDB9RtbY/KP/zGBqeivPX
-	IRF7EYCOQtQyOCh98cr1sj0KBLFXncXyz/vtN3WMiWNPLJi4xhAWOSSf4xvamIeb+Rxy9i6zZhW
-	4jEeqv3/EMu+peZJ/qnOm97RA3mA9kkXRMclnDfXR3bPvMK26S+TjX6S/5ExSgQeJiGZcR6FhAb
-	mWHkY3LgMLIMvbmosfosGBjMWyb775wEWFHzonWAjRnOFFkcKJ4UFEt+pn7BS0AZXFEZOOFjICR
-	+MBH5LAXEm39ocTmm9pMcyluv+5yBjtiJKX32VZSWcKykA4qtsR8CRtTQzo9DDDx2TkNfAOdjGg
-	yJOvDU5l2K
-X-Received: by 2002:a05:6300:2213:b0:3b4:6026:6c78 with SMTP id adf61e73a8af0-3b4ccd45617mr26253003637.11.1781034452412;
-        Tue, 09 Jun 2026 12:47:32 -0700 (PDT)
-Received: from [127.0.1.1] ([2a12:a305:4::3060])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df04ff24sm19517121a12.14.2026.06.09.12.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 12:47:32 -0700 (PDT)
-From: Guodong Xu <docular.xu@gmail.com>
-Date: Tue, 09 Jun 2026 15:46:39 -0400
-Subject: [PATCH v2 2/2] riscv: dts: spacemit: Use symbolic PDMA request
- numbers on K1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6llugOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 61D44C2BCB9;
+	Tue,  9 Jun 2026 19:50:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781034639;
+	bh=fEc6RgFqgArsWG6l+smx1XCQosDlspRNYDFL91PwLD0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=h6llugOybMri4FBoedAzCaF3QxhQ38AXq9WowDReZrQoJWR9FGB6672SE3kRFnm08
+	 vh209GK4jMhn7jk//JGlka+MiqoeIWS2r067MY6LDASLqgdmiCj7xqA3l3f69VV+st
+	 EejXA7C3BeJ5i+E1HpwcgNAVAeafUdgx5X2E3BOXobtVaDdz1VX2QIxiHuyIzZALgy
+	 Y0ljZPclZuNdp7a8I/ZU9nzN8HqypQVBtXu/0Fa/4ft107jrzGFvinUAx5S0MR5MNB
+	 KzAbmS9IV1cJWZiv/WYMypQnKNArik0tkWvSjsOcRS4Kge3B9YoQwBmK/bIu3Lg5yQ
+	 r/3q4AfmB2q6Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42522CD8CB2;
+	Tue,  9 Jun 2026 19:50:39 +0000 (UTC)
+From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Subject: [PATCH net v4 0/4] MAC-PHY interrupt changed to level triggered
+ interrupt
+Date: Tue, 09 Jun 2026 12:50:23 -0700
+Message-Id: <20260609-level-trigger-v4-0-6f389abdd192@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,63 +41,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-b4-k1-pdma-req-macros-v2-2-5d5d7b997b54@gmail.com>
-References: <20260609-b4-k1-pdma-req-macros-v2-0-5d5d7b997b54@gmail.com>
-In-Reply-To: <20260609-b4-k1-pdma-req-macros-v2-0-5d5d7b997b54@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAH9uKGoC/12NywrDIBREfyXcdS0+0iR01f8oWVhzYy4kWlSkJ
+ fjvFZddzgxzzgkRA2GEe3dCwEyRvKuhv3RgNu0sMlpqBsnlwG9KsB0z7iwFshYDm8xL6Enplas
+ e6ucdcKVP4z3BYYK5lhvF5MO3ObJqU8MN/B+XFeNs0aPCkYuqkw/vIh50Nf6AuZTyA7OOn7+wA
+ AAA
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Guodong Xu <docular.xu@gmail.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1153; i=docular.xu@gmail.com;
- h=from:subject:message-id; bh=H/kR+2HYwlqkml7voLWdHY49vUjyuP/Tsib1MnxQLD4=;
- b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhiyN3GM9QkaZAY4pz7LmFC1dU6c9iz/tlMZKQ7fXVvMvK
- 4nY+yd0lLIwiHExyIopshw+2pK99ZVPtO9zzh8wc1iZQIYwcHEKwER+HmdkOHPhNCfP+fsPPTcn
- 1nqfuZncluzK03QtbIry7o75tWsLqxgZztYqCf0tjHyftnB9yeSb33LSxM8wrTAwv3V5m/txgWc
- 5/AA=
-X-Developer-Key: i=docular.xu@gmail.com; a=openpgp;
- fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Parthiban Veerasooran <Parthiban.Veerasooran@microchip.com>, 
+ Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ devicetree@vger.kernel.org, Piergiorgio Beruto <pier.beruto@onsemi.com>, 
+ Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781034634; l=2779;
+ i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
+ bh=fEc6RgFqgArsWG6l+smx1XCQosDlspRNYDFL91PwLD0=;
+ b=wrNsvzyOigtKx2OTV9speqae9RVqFkm2T1m5PXBBjQ6ub6iumIQb78jQrnNSTDwsxFOrDyWW9
+ EV6Xl8JpGg2Atk8rK6xRLfCR0bzXl0RCB5WN9x+A0iJfaJAtDZpBTqD
+X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
+ pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
+X-Endpoint-Received: by B4 Relay for
+ Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
+X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Reply-To: Selvamani.Rajagopal@onsemi.com
 
-The K1 SPI3 node's "dmas" property hard-codes its PDMA request numbers.
-Include <dt-bindings/dma/spacemit,k1-pdma.h> and use the K1_PDMA_SPI3_RX/TX
-macros instead, for better code readability and easy for future
-maintenance.
+According to OPEN Alliance 10BASE-T1x MAC-PHY Serial Interface
+specification, MAC-PHY interrupt is "active low, level triggered".
+The specification mentions about the conditions in which the IRQ
+is asserted and deasserted.
 
-No functional change.
+Bug is inadvertently introduced by treating the IRQ in the OA TC6
+framework driver and in dt-binding YAML file as edge triggered.
 
-Signed-off-by: Guodong Xu <docular.xu@gmail.com>
----
-V2: No change.
----
- arch/riscv/boot/dts/spacemit/k1.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes are done in two files
+ - OA TC6 framework Ethernet driver
+ - YAML file for the vendor that already uses OA TC6 framework.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index 08a0f28d011fe..c413a64d5560c 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -4,6 +4,7 @@
-  */
+Maintainer for this driver is already informed and aware of these
+changes. Testing for these changes was done in onsemi's setup and
+found to be working.
+
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: David S. Miller <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: Piergiorgio Beruto <pier.beruto@onsemi.com>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Conor Dooley <conor.dooley@microchip.com>
+Cc: devicetree@vger.kernel.org
+Cc: Parthiban Veerasooran <Parthiban.Veerasooran@microchip.com>
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+Changes in v4:
+
+- IRQ handler is changed to interrupt handler + wake up thread
+  to interrupt handler + threaded irq. Threaded irq mechanism
+  is better suited for level triggered interrupt. Because it can
+  keep the interrupt disabled until interrupting conditions are 
+  handled by a handler thread.
+- SPI data handling function is called again on EAGAIN error code
+  as it indicates RX buffer overflow error, which requires draining
+  the bad data chunks.
  
- #include <dt-bindings/clock/spacemit,k1-syscon.h>
-+#include <dt-bindings/dma/spacemit,k1-pdma.h>
- #include <dt-bindings/phy/phy.h>
- 
- /dts-v1/;
-@@ -1094,7 +1095,7 @@ spi3: spi@d401c000 {
- 				clock-names = "core", "bus";
- 				resets = <&syscon_apbc RESET_SSP3>;
- 				interrupts = <55>;
--				dmas = <&pdma 20>, <&pdma 19>;
-+				dmas = <&pdma K1_PDMA_SPI3_RX>, <&pdma K1_PDMA_SPI3_TX>;
- 				dma-names = "rx", "tx";
- 				status = "disabled";
- 			};
+  - Changed wakeup thread to threaded IRQ 
+  - RX buffer overflow is handled before threaded irq returns
 
+- Link to v3: https://lore.kernel.org/r/20260601-level-trigger-v3-0-da73e7010532@onsemi.com
+
+---
+Selvamani Rajagopal (4):
+      net: ethernet: oa_tc6: Interrupt is active low, level triggered.
+      net: ethernet: oa_tc6: No return on rx buffer overflow error
+      net: ethernet: oa_tc6: mdiobus->parent initialized with NULL
+      dt-bindings: net: updated interrupt type to be active low, level triggered
+
+ .../devicetree/bindings/net/microchip,lan8650.yaml |  2 +-
+ drivers/net/ethernet/oa_tc6.c                      | 66 +++++++---------------
+ 2 files changed, 21 insertions(+), 47 deletions(-)
+---
+base-commit: 0aa05daef7848a5ac11158949dc73cd741995dc1
+change-id: 20260531-level-trigger-8cb1a83af034
+
+Best regards,
 -- 
-2.43.0
+Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
 
