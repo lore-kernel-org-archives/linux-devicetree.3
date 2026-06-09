@@ -1,198 +1,143 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843AF3E3C73
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322983E3C73
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 08:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780994518; cv=pass; b=DxrM9dnVGEQHlqzhlXZ+Nj9IMWDohzwjk6mhi1nbBMxJrvHw8mcpU0Ec84KY/mvC8aKCyD+Jk1EeUzESqo9CRYC45ZU2B6e1Dq8oUJoAxOWKYUQ8XxxTDKQzrt1lg3vmL+QDLQn/VadIfa3C2PtRsIJaz+KCQsfEzmudDPQP9Pg=
+	t=1780994550; cv=pass; b=QIvrac9KtfoqIsRJBxlJinl1Y3FzSgRhO9fq9aMxh+0iV0NY+eSkmoY0bd/TTBzm08o0GIDhGaZ42/teNgc9FXJRsxkCfn3lWJmV1GaxWeKPeLQKVzDt7+1o+XM/xmBiTTmzIjj1XpO2hq9aUchqOYPLVcrWvM9xs4TnxIIE5h8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780994518; c=relaxed/simple;
-	bh=T5Mux1tGqzCER/xDNIb7vnkK5ie0uhA9uXtCNl6hduo=;
+	s=arc-20240116; t=1780994550; c=relaxed/simple;
+	bh=TjqNXTdYC+1KhYAgIl8HmOtUZ5YqrP5H9MzSQdXyhXA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pWCDPj4TOPv0HysCFtymDFhozwjzJBV8t5+p17pRyurdnwSfEqCMCsADZuSoXtjUFGtBJ7QXOMX+S/xXKILp+ITUy+h2gRi814tR4/EdSEa1CEtJ+pIxpLHVM6s9nldqMt5088OAtSbvJp2dEgRnCR14H4o0qsrqNy6yH5TUMiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=lpCNua+L; arc=pass smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=aUluWiUb8Mc1mTm12i+obug0v9/4evPEirv1/7NZ5GcAiyzugrCW4RJL3GB02WHbP43LeyEA7zDyDP4UUHJTlV8ttdpLrxCcsK/nFErRR/Bj3l6TaK9jQ+CmOnUgYWnI/Fqos5eKLVtRlUnspSOcTbXg3kJuuldGM/dcJcctEPw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TfVi4uv5; arc=pass smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lpCNua+L"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-7de68222e96so51507497b3.2
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 01:41:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780994513; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TfVi4uv5"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c0bb4a94b8so43604105ad.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 01:42:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780994547; cv=none;
         d=google.com; s=arc-20240605;
-        b=Wp1kgtwmpEG2gnKYNGU/Ij6V2HkI2R1sitqP4MAslBfEhV0vkB+VXLnXvRoF4+p6ja
-         LiAYWMTvSfZTOdtC2nfRpEQz6Vr2TWxKpHm2k5eRlswXJjmwqHkFA1mObFverqI7IdIX
-         omn0cio1+JVSC/4+w5y9FEyqSPJXaxk0SQ7OT/Cyylg6crWlBbqzChzoywKjE/JOoNbS
-         9o7+IpGjhjYGQdjlCAVs9RAwGZ62JPaa4VWljrU1A/5f+fn3R2cXLpkg+TBnZOqSI//h
-         UNHHSWAmWjIlGG0YE73MG8AbASQslaan7PN1NWioFZltgHyN+7bA9WkuwEpXM66HIzdi
-         fmxQ==
+        b=bQarfEmzsfvOsmOsVQO3n6cZ4T2Q2MXDtHPc1reEE0xiaDqV13ZgYhQ8Nrue2EXc31
+         zKEy8bcrEOoFfwCUcwb/FpsjLcDp/NblGCM/dbYCVAX9q++3esQYgx4qUMstoceHS0dz
+         oMfcIdxI8BVO0IUfG48F6gw9E/romqrPb5GqPluQaP8pUEVCW2kS99BJd+gTPjJ1TYpM
+         JNIOmrH35ILzNcRBIK0tke9Y25tkIPNINKiAPkkdjLW09y8O/hkSrEvFZavKnPumGylL
+         bp0gSlS259RCpEKfpKEdItf2b+YM+D3MPUAjwSTnBQERNn50fUidrZR3CzB+xhb8fddO
+         mUcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tF9exGGL9nZqc+nch3e4YqTjInqOy/64x7XCEMTr3DQ=;
-        fh=j+8wfW4zBCFGPqH99cmw0L3uHlyw1oN7YL48xlEb5K4=;
-        b=N2BGBphQuqFFJ6jidWafva4oLIZBcv3Yv796hj9pSfj66QkVbRPEsllhxtNQBM+Uyl
-         NBfk4E0WxmKfTBMeeAPjlTEVKjnoiItCjxfT+0THf3crJf3fPaIzjUSMnbiTA8bMJDWs
-         6Ige8xNc+aoA1tjTwWlPpXBqTEmEbyVaC8COzD/kNblzYB0FWj0eEepSMRew+6kTtvnB
-         c6ZCxPV53mH0O4RwnP3PsDHMhiUpDJmRvJ7bC7G8pxLgksPZSLgt1GYcxyF29OLyaTaT
-         TftHLAUQ4NCFxVcDbioPO1DopsXQCZkKv2DPF2HQkhugXbUffddPW7OkTb6u7DmdVa+Q
-         McBA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9qPqHTYj5+3o9CDqA1Aws4t/fATKUlA4bCQo4IUQbSA=;
+        fh=VThiNWpr8uNrfdQLqBJg5d4ZsqLW05RsMJuQYL4GFQw=;
+        b=SOqA1tVfCGNjX0Hf4lEEY5hWMwa3abhm7zdGCiSXLX75FXOBj28IyuRT55e7sWYuDp
+         1hDZdiZxOJR/1KAaGiUbEG20roQDeoXNCHKxIxDaskIG3pxPYxeeLY42EPb3TYI+9dvl
+         s0gfTR0c1cOKLbyvd+v++nJXi8pHIoZgq8Kb/3WPqcMQ5e4vXuM/kwUo2TvlrCg7Y6ch
+         shqaRqpB29EI3iJPxJlGNCmWQMIubciwkexHBRaTpNJFZoOgcxoyQrGLxLymv+LbHmqQ
+         VzHdH52nz1n5h+XLL4G4EOkUJZvaPApHTl07mtr/8iJvmXpIJozZeuH9h4K9aUVP36E9
+         yO0w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1780994513; x=1781599313; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tF9exGGL9nZqc+nch3e4YqTjInqOy/64x7XCEMTr3DQ=;
-        b=lpCNua+LY22VooyP8Hnv0JyaYNnxD5MOta/IEB3C3+RpimfZOpsAm3Fg+4hU+rqk9W
-         /49Iibr2S+RPQtcNqx92r+VKPkMhePlKAKzNgdGLQ0vLrCytCoSACAXR4Tj3xOA0KI+G
-         wzFhNV153pmRwJpcV0AxJPzL7BGJ+Rjy3ExEw=
+        d=gmail.com; s=20251104; t=1780994547; x=1781599347; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=9qPqHTYj5+3o9CDqA1Aws4t/fATKUlA4bCQo4IUQbSA=;
+        b=TfVi4uv53H8yG2R98vcKA7AbOiAdZAaJhhL24N8bX+x82en6ezaakEsuUwPUjI3BNx
+         VSAWliDQ3+1GeC3FYAJLesknwOZjU+Kw/gl9B7fU+ZRY+Kx3SQDMGq5nJMk6O2zx70K1
+         JP5nHk9QbP+GOqQMnq00pk67dz+c9P7yBE7tsN2zfq9dKZr2B1s0Jhbn7ux5autJKQ2R
+         JX9yxUVoLeIPotjeHwdwTwe94VqAu9WBGf5KaOH/Tcg/LuoIygCpWACCvm0oLzMhF9cw
+         o09t7yNFVk7HY7WLNkmoKsIUvfqpuyEbnJRSH1qjuIa30HhSFyAGJH6Hk+i/Lf1ZSkFk
+         dhWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780994513; x=1781599313;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tF9exGGL9nZqc+nch3e4YqTjInqOy/64x7XCEMTr3DQ=;
-        b=Iz5/ik2G23iIcAGn6u3+6IwmwfiQ+Bx0F/DpaHo/aIAyx+lmaG550AOuR59jvqwn+w
-         3KWojcRG+vFpFSeqeyb1Rps7E9vmkxR6zICy99rJlGrzL9uJxoJjv9MD40JgKGZccH1P
-         V33gFgINmNlAz1gM83lZjNQEMoq+H4Xqiq4ks2aN5CqRBmXU6x5PuI0FttXgPsYRf4Oi
-         LZdKyW6+zs366vKh/gCBVsACuPMd5jHLDPwV/oAwu+bcdgNH0b0lKpWQcdjv2SXNAVb9
-         Ad20p7QlU5jR3Dhlq+O5mydJY4gO6W8JeQPVgoNZR+FoBgceKMdXo7yww8q1o6qcyeeo
-         4VpA==
-X-Forwarded-Encrypted: i=1; AFNElJ8B9N0fVfjfzfIxJruDwDY8og7vzdcsWf7pD80NKe3j1mJMmGqC1QrgE4ilH1rdp1cgBK7DgYY0QgDs@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjSpMxUDUr01CakS7vV16AeXTiukUZ69/kVeNQt1IF9pgXCS7m
-	7LgDnvi8BkDvKjVDNvIzNXz3MtNilz8oKloA/KhdzoM2bIpDrjwI7FzsTVThVdQoby38DvC1ozw
-	N9UmGcJCuVf5xxmpprb+/pviHcwVS43Szkn8vJ5XY
-X-Gm-Gg: Acq92OERUF9ozfkfIzLPhWLfeL5kqQEf1ycfGqHoT4+yaMZmqZeiBfnekcX+YRj29mC
-	sx/s7IoM2AsOw3R6uEbGN2N2P/LZurjRuecqk1UU+c2AZJWFhqc730Ea5Lwrv3+AfEjnDV3cwJW
-	etYAS7CVcDRtpo8fZmvnMhCkiTcYy6A0zYsg4BNHJO7CB7PhHAJ3JW/Nc0/PY759UN1MYQINtEt
-	ySlCWw0hAw3JoilvvzuumVI6pwrout3W1fVOFGLhj7hj6H8Pg9hOXJMu4kIFC7RfaOaODAql/tO
-	gDIWRjJtYYovUIOeOgY=
-X-Received: by 2002:a05:690c:c4f8:b0:7bd:8ce4:92c with SMTP id
- 00721157ae682-7ed0ed4ee64mr185176347b3.31.1780994513341; Tue, 09 Jun 2026
- 01:41:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780994547; x=1781599347;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9qPqHTYj5+3o9CDqA1Aws4t/fATKUlA4bCQo4IUQbSA=;
+        b=Hk4v8vdoiOP7Q/fIwvYaPBx5FP6GS6v5dmpPDhOB3Epfa4nhhaecVYm2XUGlyne+0o
+         +4s0U7VTJ81QveTuH3mGAw/tRrX3Akwk1Jx0ik3/Xs7ikQvrboTV6oC4ESlUjA88ptbq
+         THZ322mS3ng0D33i2+kj3kLTn6xm3aMmfZ80ZA3J5WQg54LtKOTxiWbHb0pavM2esqag
+         l9ncO0Klzl2yE4RmwZ+NQiVjhdR/nO2bdsZLOCXsWTwW2lwHB8z8tsLB8bLGvFk7F4dT
+         5pcOhHh2gTSzJligECoDslgbEAqKanBLtR8yBGND2rNL508DJyo1C17OqvzOlDPbxF44
+         B8og==
+X-Forwarded-Encrypted: i=1; AFNElJ9olwiGJy1Z25z5ECRTbe1h3IgtCtIDzhvqoKrT8cFqh3LmO2+ByhvBwIOQDEgZqV+bKz+LjgSUbsx/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy22vDKg54xDNdN8pe5pEBgVAEvFirao99LbQNevvpWmljyjRaK
+	kPmh3r+hv1XsFDLVZ8GiafS3sTogzERk2ZGHKrHA6weeq6nWDyVIFkP70X4XSVbw3+bRlfIDduK
+	tAd65A6MiidYJ1Bq6EOew2T0wQzL5x/U=
+X-Gm-Gg: Acq92OG/0TDFKjIMm6m0RIdHrs4gO67tpIO7CK+0La08M3c02PEFoiYSah4socGbDOR
+	3wrZxt6dqK1CLrfBS0pBlbyYOghvIwCLEeyipjuUYstgSm4XHNeQ7dRSyIdfg4GpVm2/icNV+WS
+	8Zld4/mgOw0kJErw1VO+03kk2mtJFU7ur4eWNTSpNY9SKyVNSFsWjQ+YM1v8IkIuZ+nJ6aJtbm+
+	CbwEBxy//Yme4ZU+zggxI16i7woXLnkbvlvgize3OhQxUIx9KvgThH44D3sBWkuhair0Aebgy5v
+	13QiGiF+prArLcKP8YHMoXOmaMeOWIk5tqExDjHvr5U6xDND2c0Vv9Y3KME=
+X-Received: by 2002:a17:903:1aed:b0:2c1:69cb:4423 with SMTP id
+ d9443c01a7336-2c1e7e527bdmr221175875ad.14.1780994547276; Tue, 09 Jun 2026
+ 01:42:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260520084428.257066-1-wenst@chromium.org> <ag41KWtNpU1ZZs6m@google.com>
-In-Reply-To: <ag41KWtNpU1ZZs6m@google.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 9 Jun 2026 17:41:41 +0900
-X-Gm-Features: AVVi8Ce8Nz35NPVrXN7zfo4FdcTvFwh1LH4tunNmQ4RFKjjZ0Lkrv3scHyEzfwY
-Message-ID: <CAGXv+5GENJJ8sSstFJ8pQDqT-w_2bnan61jbJKiu+W3VM1UerA@mail.gmail.com>
-Subject: Re: [PATCH v2] checkpatch: Don't emit warnings for ID-base USB & PCI
- DT compatibles
-To: Joe Perches <joe@perches.com>, Andy Whitcroft <apw@canonical.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Dwaipayan Ray <dwaipayanray1@gmail.com>, 
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Yingying Tang <yingying.tang@oss.qualcomm.com>, 
-	Brian Norris <briannorris@chromium.org>
+References: <20260609013107.5995-1-phucduc.bui@gmail.com> <20260609013107.5995-2-phucduc.bui@gmail.com>
+ <20260609-nimble-guillemot-of-karma-bef5f1@quoll> <CAABR9nF6uhEyCo-6cekhKwfm3zkqjXCpj2O8C8Xk=2Frw0arRg@mail.gmail.com>
+ <6103e3fc-4b27-47b5-aee9-8b481759eb65@kernel.org>
+In-Reply-To: <6103e3fc-4b27-47b5-aee9-8b481759eb65@kernel.org>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 9 Jun 2026 15:42:15 +0700
+X-Gm-Features: AVVi8CcPsj0hRF2MDcCHJjJml-KAPCz7cDMeJub82nt26AoPo4Fq3Pllieca8tM
+Message-ID: <CAABR9nHBA=sZsw54RWMCg_xdDCeo+stnSYg6yACfzuJoMNMyPg@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] ASoC: dt-bindings: renesas,fsi: add support
+ multiple clocks
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Andy, Joe,
+Hi Krzysztof,
 
-On Thu, May 21, 2026 at 7:26=E2=80=AFAM Brian Norris <briannorris@chromium.=
-org> wrote:
->
-> Hi Chen-Yu,
->
-> On Wed, May 20, 2026 at 04:44:27PM +0800, Chen-Yu Tsai wrote:
-> > The USB and PCI device bindings define some compatible patterns based
-> > on device IDs that use the comma to separate vendor and product IDs.
-> >
-> > These prefix patterns include:
-> >
-> >   - ^usb(if)?[0-9a-f]{1,4},
-> >   - ^pci[0-9a-f]{2,4},
-> >   - ^pciclass,
-> >
-> > These are not real vendor prefixes. Don't emit warnings for them.
-> > Instead just skip over the DT compatible check altogether, and leave
-> > the real check to the DT validator. This avoids false positive warnings
-> > about undocumented DT vendor prefixes and compatibles.
-> >
-> > Note that the script mostly only checks the first compatible string of
-> > each node, as it processes the source file line-by-line, and the check
-> > only matches on the line with 'compatible =3D "..."'. Otherwise there
-> > would be more warnings from arch/mips/boot/dts/loongson/ls7a-pch.dtsi
-> > since that file also includes compatibles like "pciclass0c0310" and
-> > "pciclass0c03" which are not accepted either.
->
-> Looking at IEEE Std 1275-1994 (PCI Bus Binding), you're right, that's
-> incorrect.
->
-> > "pci0014,7a24.0" is not
-> > valid either,
->
-> It's possible that's trying to follow the "pciVVVV,DDDD.RR" format
-> mentioned in the spec, although it's not clear if it should require 2
-> digits after the dot/period. Notably, the dt-schema does *not* include
-> the "dot" option at all, so maybe there's room for improvement.
->
-> Anyway, that just adds to why this is a good choice:
->
-> > but this patch leaves the real check to the DT validator.
->
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
-> > Changes since v1:
-> > - Moved check earlier and match against full compatible string to avoid
-> >   false positives for undocumented compatibles as well
-> > - Added comma to patterns as they are now matched against the full
-> >   compatible string
-> > - Fixed patterns in commit message to just cover the prefix portion
-> >
-> > This is a simplified version of what Brian Norris previously posted [1]=
-,
-> > but more comprehensive and more perl-y than what Yingying Tang posted
-> > [2], which only covered the second pattern.
-> >
-> > This is based on next-20260519.
-> >
-> > Also, odd observation: the other regex patterns in this script escape
-> > the comma ',', but AFAIK this is not needed.
-> >
-> > [1] https://lore.kernel.org/all/20190223022440.146915-1-briannorris@chr=
-omium.org/
-> > [2] https://lore.kernel.org/all/20251210073812.1380803-1-yingying.tang@=
-oss.qualcomm.com/
-> > ---
-> >  scripts/checkpatch.pl | 6 ++++++
-> >  1 file changed, 6 insertions(+)
->
-> Reviewed-by: Brian Norris <briannorris@chromium.org>
-> Tested-by: Brian Norris <briannorris@chromium.org>
+Thank you for clarifying.
 
-Ping on this patch.
+> >>> +          uniqueItems: true
+> >>
+> >> You don't need this, it's by default.
+> >>
+> >
+> > Could you clarify which part you are referring to?
+> > Are you referring to the "uniqueItems: true" property or another
+> > constraint in this block?
+>
+> The uniqueItems should not be needed.
+>
 
-> > diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-> > index 0d18771f1b01..d4ee9d88ad07 100755
-> > --- a/scripts/checkpatch.pl
-> > +++ b/scripts/checkpatch.pl
-> > @@ -3783,6 +3783,12 @@ sub process {
-> >                       my $vp_file =3D $dt_path . "vendor-prefixes.yaml"=
-;
+From my testing, if "uniqueItems: true" is removed, the schema still
+accepts duplicated clock names, for example:
+clock-names = "fck", "spu", "icka", "icka", "xcka", "xckb";
+Since duplicate clock names are not valid, I believe
+"uniqueItems: true" is still needed here to reject such cases.
+
+
+> > The hardware supports several valid configurations, for example:
+> >  - FSIA/FSIB slave: only fck and spu are needed.
+> >  - FSI master using an internal clock: ickx and divx are used.
+> >  - FSI master using an external clock: ickx and xckx are used.
 > >
-> >                       foreach my $compat (@compats) {
-> > +                             # Skip ID-based PCI and USB compatible pa=
-tterns.
-> > +                             # DT validation will check them properly.
-> > +                             next if $compat =3D~ /^pciclass,/;
-> > +                             next if $compat =3D~ /^pci[a-f0-9]{2,4},/=
-;
-> > +                             next if $compat =3D~ /^usb(if)?[a-f0-9]{1=
-,4},/;
-> > +
-> >                               my $compat2 =3D $compat;
-> >                               $compat2 =3D~ s/\,[a-zA-Z0-9]*\-/\,<\.\*>=
-\-/;
-> >                               my $compat3 =3D $compat;
-> > --
-> > 2.54.0.631.ge1b05301d1-goog
-> >
+> > Therefore, while fck and spu are mandatory on r8a7740, the other clocks
+> > depend on the selected master/slave configuration and clock source, so
+> > not all of them are expected to be present in every DT.
+>
+> Explain that in the commit msg and be explicit that all these further
+> clocks are optional.
+>
+
+Understood. I will update the commit message to clarify that
+icka/b, diva/b and xcka/b are optional and depend on the selected
+clock topology.
+
+Best regards,
+Phuc
