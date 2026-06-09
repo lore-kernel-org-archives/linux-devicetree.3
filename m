@@ -1,97 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1F9220F49
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 14:19:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA9F3438AD
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 14:27:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781014784; cv=none; b=g8CgaUQmoCmFSHRCnTSiW16sN3f3p1BIp5uWQhazFiv9bhFODapif2GLifL0cgWmV4/KumJvGl1+Bffod+Es0my+j/2X+e71kQvoDs1UaSgEPrbzsOc7YWjoQFYsM8Iq+N1TC2nhsz1wVAmE7AxEcoLMIyJl/sJupxWVfN/oKzk=
+	t=1781015232; cv=none; b=bka2I8T74DvWJ4OFGfWlBOleEA/2mn26M8wRFZCFA2VIscJqUOTuXpqb9v8EO3HL0W6w2tP4m5Jgt9YdxsBf2yZKAbsMTi3x+TXHGyZdI1yBMbF42hU3AE77YpTG7LTtseW6uWdk94ni1LoJYhvqqHeGM6vOkjbgHD76vAKT6+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781014784; c=relaxed/simple;
-	bh=Fatm7Vsr9pQ9UpjQwHiznc5nvuo73saU+G91gDX1PE4=;
+	s=arc-20240116; t=1781015232; c=relaxed/simple;
+	bh=ryfSeqLL/ix1ixCXMccxVuKBqF/xvY0/wZl8CJK3Rko=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PdOAOHiEiou6NWCx8qzig0WLZkVLHaI4byaDPHFvgsqoGPRn1qzDjC27OZn0D8LbYsUxiLhL62ke7pr4pNXv9VUTPP3Bml3TGsWwFBOd48TzyDDvkhlFjACQPCTB7z/UxVfD7U+D/yj1TCViU3yHPO799eh12WzXR4WepdIdrNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TsC/RVvM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=t3C8oInZcsl+OKsfIyPcA4VBHFT4EULG3CETrjlwVqxDAZx0Ckl7Txu+89uKfUuPPNLaGEOmwwFxjp70QgvtdY9CUsRIY5mHeRv1KVya11SmXE3n74HBFVsWiP0GRgbHhiDvepntjLWYSntUg0nO//XC3QeQ0SoK4rsVhgDeo/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsbWb56P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TsC/RVvM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2581F00893;
-	Tue,  9 Jun 2026 14:19:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsbWb56P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98DDF1F0089A;
+	Tue,  9 Jun 2026 14:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781014782;
-	bh=hjlw5NkQEXbBvEfs7gSt7gYzk4UC6qw4PXm5fj4wQcQ=;
+	s=k20260515; t=1781015230;
+	bh=1WNRgl5sytWdndCzviRGahm/cO5siU4xGJJd734NGVE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TsC/RVvM95BNYJVJ6al/6r15sGhSMXJoUNk01Qrj1hHtY0xWivTjd6ZVVc0c2GShS
-	 VTT3yqDnuWT8J8AbL5GJXjJ+i6jmmtcvF4wPdUkwEZc7n3kALRfA2j/1k5iBMtqD+R
-	 ZhVWKSUKEKkSO6LMF/+2RFJ+5f66HBTeX+OCjYMSZt69Us5qTrc4htdoZcFfGtsTOa
-	 yaeugWshAG1nhNDpbRcx5DNH1zORvF5yLD78Q9IOoRumNMLnHbaxD8sZpRjYB98pmQ
-	 FRneJpbQUsYVHc40koZNRCOC1p88RrQGiywjvvvvqvRpU+5L22+GEGRdioJGL/nJSw
-	 LLGlhEVWDXX7Q==
+	b=GsbWb56PEQ4373CM9D10ToQfIAt5l2BWZjQGmBGAfRf7lH6nW8B9Sl3cpHWv7ez0K
+	 72IqzrmALSDJfQiPW8KFv10s+/kIgW6LOQPA6/xhY652tlGGShKVKMDyeWkfLudtiE
+	 JW3SPustfvuHgXtqrJtEYxJvksWUxN4KULaTTd/sOVuHPGAGqS+PgfMD9eSNEzYPP3
+	 8TT1EITn8G/qnk8u3Dm4yIKE5RGQmmR864ugSP4qAbD8C0cVN36YjikuY2Avj2Ul8w
+	 Orl5OQFKLYWgJYEyTDBcS5YfbM3iiiMvrW3t+3tDuDH6TewypELY0vRQPMtEuJ3uc+
+	 PI6R1bgICiaRw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] arm64: dts: renesas: r9a09g087: Add DU node
+Subject: Re: [PATCH 07/12] clk: qcom: gcc-mdm9607: Drop incorrect
+ apss_tcu_clk_src
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260609125353.401124-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260609125353.401124-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: "Stephan Gerhold" <stephan.gerhold@linaro.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260609-qcom-clk-mdm9607-fixes-v1-7-5e9717faf842@linaro.org>
+References: <20260609-qcom-clk-mdm9607-fixes-v1-7-5e9717faf842@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 14:19:42 +0000
-Message-Id: <20260609141942.6C2581F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 14:27:10 +0000
+Message-Id: <20260609142710.98DDF1F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The macro `R9A09G087_LCDC_CLKD` is referenced in the `clocks` prope=
-rty but is undeclared, causing a Device Tree build failure.
-- [Low] The compatible strings `renesas,r9a09g087-du` and `renesas,r9a09g07=
-7-du` are added without corresponding Device Tree binding schemas.
+- [Low] Removing `apss_tcu_clk_src` leaves the static constant arrays `gcc_=
+xo_gpll0_gpll1_gpll2` and `gcc_xo_gpll0_gpll1_gpll2_map` completely unused.
 --
 
-commit 3aa7f5ef71efe2b2f0c8c868ca73eebb03c02010
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+commit 358707fc8fbfb6b33cbd35ecd5569222e1050407
+Author: Stephan Gerhold <stephan@gerhold.net>
 
-arm64: dts: renesas: r9a09g087: Add DU node
+clk: qcom: gcc-mdm9607: Drop incorrect apss_tcu_clk_src
 
-This commit adds the Display Unit (DU) node to the RZ/N2H (r9a09g087) SoC
-Device Tree.
+This commit removes the apss_tcu_clk_src clock from the MDM9607 GCC driver
+as it does not seem to exist on this hardware. Reading or writing its
+registers results in 0 or crashes, and its frequency table math was
+broken.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g087.dtsi
-> index cb2eabe3242e0..21250caf31493 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> @@ -1272,6 +1272,30 @@ sdhi1_vqmmc: vqmmc-regulator {
->  			};
->  		};
+> diff --git a/drivers/clk/qcom/gcc-mdm9607.c b/drivers/clk/qcom/gcc-mdm960=
+7.c
+> --- a/drivers/clk/qcom/gcc-mdm9607.c
+> +++ b/drivers/clk/qcom/gcc-mdm9607.c
+[ ... ]
+> @@ -677,26 +677,6 @@ static struct clk_rcg2 sdcc2_apps_clk_src =3D {
+>  	},
+>  };
 > =20
-> +		du: display@920c0000 {
-> +			compatible =3D "renesas,r9a09g087-du", "renesas,r9a09g077-du";
+> -static const struct freq_tbl ftbl_gcc_apss_tcu_clk[] =3D {
+> -	F(155000000, P_GPLL2, 6, 0, 0),
+> -	F(310000000, P_GPLL2, 3, 0, 0),
+> -	F(400000000, P_GPLL0, 2, 0, 0),
+> -	{ }
+> -};
+> -
+> -static struct clk_rcg2 apss_tcu_clk_src =3D {
+> -	.cmd_rcgr =3D 0x1207c,
+> -	.hid_width =3D 5,
+> -	.parent_map =3D gcc_xo_gpll0_gpll1_gpll2_map,
 
 [Severity: Low]
-Are these compatible strings documented in the device tree bindings?
+Does the removal of apss_tcu_clk_src leave gcc_xo_gpll0_gpll1_gpll2_map
+unused?
 
-It appears they are introduced here without a corresponding update to the Y=
-AML
-schemas in Documentation/devicetree/bindings/, which might cause
-make dtbs_check validation errors.
+It looks like this clock was the sole user of this static array. Leaving it
+unreferenced might cause -Wunused-const-variable compiler warnings.
 
-> +			reg =3D <0 0x920c0000 0 0x10000>;
-> +			interrupts =3D <GIC_SPI 781 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cpg CPG_CORE R9A09G087_CLK_PCLKAH>,
-> +				 <&cpg CPG_MOD 1204>,
-> +				 <&cpg CPG_CORE R9A09G087_LCDC_CLKD>;
+> -	.freq_tbl =3D ftbl_gcc_apss_tcu_clk,
+> -	.clkr.hw.init =3D &(struct clk_init_data){
+> -		.name =3D "apss_tcu_clk_src",
+> -		.parent_data =3D gcc_xo_gpll0_gpll1_gpll2,
 
 [Severity: Low]
-Is the R9A09G087_LCDC_CLKD macro defined anywhere?
+Similarly, does this also leave the gcc_xo_gpll0_gpll1_gpll2 static array
+unused?
 
-It seems its definition is missing from the clock bindings header, which wi=
-ll
-cause a Device Tree Compiler (dtc) syntax error and break the build.
+If there are no other references in drivers/clk/qcom/gcc-mdm9607.c, it
+should likely be removed as well to prevent dead code and warnings.
+
+> -		.num_parents =3D 4,
+> -		.ops =3D &clk_rcg2_ops,
+> -	},
+> -};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609125353.4011=
-24-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-qcom-clk-m=
+dm9607-fixes-v1-0-5e9717faf842@linaro.org?part=3D7
