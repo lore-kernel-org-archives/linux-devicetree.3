@@ -1,165 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731E73FFFB5
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2530F3FC5B9
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 11:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781005762; cv=none; b=Ymi0aKLMfELivtofzw6VA9VKFXLOeelHyIBvpjocdtSmTKDwO8BaWRipC/Yd+UEhJzJPaaQQoADmSqzAa30c648+wtt8voGbUPdKG0PYR5sX9lYTuEK1HFGMIFpWf8xpiF931jTGFkliG8rNz71CtcA0u5tO4pIhKgPiyd+SnKw=
+	t=1781005834; cv=none; b=ZDBLU5rcYR7gsZYw62u70ppG0368gcgkNhSnN3F0uYZZKjYE17FySyE9sSX/nyxnV2Hc3xNGnG/HFaY2UjHHvjXHH6w2lUhyoZ72sptEO5O10AYJcfMtf9at9lRI2xO3r6skbv6DFYdqw0YkIttz8S95NRk2VtjvxN11pIUQLrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781005762; c=relaxed/simple;
-	bh=UBZbAhx3whZDjCNyOyyrh2L0Ai8hRIBpb5mv2kUuO7c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VKVvKOoBkUoGSpTYGFVvwz6iGFKNpWfyFnObegK+1dDjBlaf7bNmz4ErQv8fNhmsZo/WQIBVOsjnx2rHVzTHCzgbZxJykpMxOFlor91fYDDVD0AmB2oOMNxkWjwPt8qQ+zYS27G4P5dkHA26ANt+3aaTtdhmMYXY3gOnhihtH+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j5uoxZcr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fIosF4l9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781005834; c=relaxed/simple;
+	bh=e3i8EXH0z6awCSE/2faX2xu2Op+OzamloI/0L+wejQE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ryWVZagqZTQJ/UZ219OH1TGWFnRzfQD081NXjq+ilzjWC88PJE1WdnjptlOX3MdNE4A9mf4Je1hx50Q9TLv60xmXWYCi8VZPZaTsPZYqjoYQgrdpHNAzVMGwaEJmrZ/RKyT2qv8JCkBB5+2PMKxqTgQKjkWh8XOmi7+fDUK7uI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZN0jjj1b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j5uoxZcr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fIosF4l9"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659BnGOw2491012
-	for <devicetree@vger.kernel.org>; Tue, 9 Jun 2026 11:49:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	V9NAMaDG1Y1ozc4IDVL9zgdHOjlqUw2haBkusjjTfy0=; b=j5uoxZcr1MW6IVWa
-	gp5++5Qpl7fl8o4TwG7uDb34ZOYoe+w70Fm+2n8zZ1Ec6Ka+wytnhKx5bf5vNr6N
-	gkZ5lSorkav9a7bnyxnvvo1THa66oK7mTE6Y82vCT7jrbClqjdE0fO47Q4586g8y
-	CDU+SUZKW2ovisdo2v/T19yVX5LPpBcHheeDOIzXp8Ugzo48qLh4OOo5klvqBajD
-	xl+4RGymB+3o9xWPgdDqXVVf+OYbiYzGGYZc5LJkF2o+HOH+IGgd0oMFNZW9D/y8
-	F/HOxm8Q1/fuZOP/1LYJn7qtI5dzfACFkeAmMpVQGDa9ERSe+vQGzxS7iinOl5+C
-	HE0iJA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epdds9buu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 11:49:20 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-517ac42d958so55584461cf.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 04:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781005760; x=1781610560; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=V9NAMaDG1Y1ozc4IDVL9zgdHOjlqUw2haBkusjjTfy0=;
-        b=fIosF4l9yi2VPQav4+4pKoMCE20wM2cXqbsDGv85lFTXlN72Iqhm4YkghTL3mfllf6
-         K/iT/HsTZ9u9i+5Ak7ZQHHyUfG2pMyypWbCwv/c0ZHLEFZ386J8VZPoOrJ7IxKyy8vG9
-         5PZx8+IRKt4clDegUi7OB8I69mILdqAoD5posaLU7tkfrDND6/IZDabqqM88WNYf8XnZ
-         SMI4wmpzOHS+IpTXR77aULommrNS1CnBUDvqDo7P9Y6vvqqDGgsA0WJ+WIQ/+9SNEnis
-         eSzKNL1zQLyiQQgg5ysL83KYofXhh7P+Cyfim8vjc1ZeGl3s3sWYJp+/Ln2iuA5XeTyV
-         Oycg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781005760; x=1781610560;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=V9NAMaDG1Y1ozc4IDVL9zgdHOjlqUw2haBkusjjTfy0=;
-        b=l9llWql9LneA0rYuhfsN8LMiDBJ9gbVQ+NvgnTTkRjpD3FcCqHOEe2zv2mC8ckk8YS
-         ls/y0gstqcZtGM7oYCeohSF17vUNR40t8uQTY3ATtJH0o5zGTiFRDNQwGL7eD2+MKzSf
-         XtBSV2xoeg6OnEmfICoDd1SEjITOaxpfLrhQFdYT7biqXRnReOxuQwzuQoUJhTLeU30r
-         tlh5GhUKBte4+XFD+Wc4nKGrvf9Hikbvg11BQslB2NyC4z25B2uX8cCfQDmYbE17+C/Z
-         oQRyUjRFRwW4JH66XJY2sQEbww7qrZE1eoQpWmHmeMhJS7sFUh9zxcQhOsvKkqw85r8L
-         koDA==
-X-Forwarded-Encrypted: i=1; AFNElJ9rqP+He8Yvk1KZNzIjIhnq1k33tupPOs9xGi0DxY/pvvcUG6sQQp5Al2soIeQQyJa1vD2QKs3SO+Cs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5zaZOJyWk+s8pL/+r5YqrI5BeDWzUu4FEmTB6IOnLI/BAUwnN
-	y5ekK4lg/phcoE0g5CsRGq/t1B861LaQ9Px3lAk2dFULMwwipa5dEghWyYkgorOkDGz2uKv6aJW
-	3/Pf1G11+4VHe8FqfodFImtnuY8MEBzVoB7+Tgo3KB7TGm2TKQEJZYUhoIzbjDj1u
-X-Gm-Gg: Acq92OFECOBRZ0t/hs+EKW6EP00QOU4dazlSujD2KiI5mYYkKbD1rPUbl/PVy6/V07V
-	5YnisAsqm2NfVjCwKabjAVunCk0it7dwH7VoPzZxTaiViu23+CZyN9JD1qBRXXeBtkUmYsjOf6D
-	VPHR6twjMFw6bnFphxEDY98dkbG6iXIaPQMdENoE3nWXXe2GIz86nn4rARJYo6890lhSp0n/tox
-	uvtf9wgwwvuqr6Z8o27wAeVYa4vA6UkdVCvKcOn8kWh5mK6tbbTi5Fl21sQrNyGXVw87DrZ/S0r
-	lOCImACs87bwuJnqsE+4ZrkYx1ramv89CboKjBN6a4kTZZOkAJ5wSZB4pM9SElliei+Gr+byWnl
-	PNMgPRv9W4IXEv4t2WlREQUMSc1LcB5rYZZvpySc7fnyq4LCDzaGQ9AH49ZkVww==
-X-Received: by 2002:a05:622a:164e:b0:517:21c9:a22a with SMTP id d75a77b69052e-51795be96bemr287107151cf.54.1781005759659;
-        Tue, 09 Jun 2026 04:49:19 -0700 (PDT)
-X-Received: by 2002:a05:622a:164e:b0:517:21c9:a22a with SMTP id d75a77b69052e-51795be96bemr287106671cf.54.1781005759119;
-        Tue, 09 Jun 2026 04:49:19 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.222.150])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4602cda3651sm50579818f8f.32.2026.06.09.04.49.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 04:49:18 -0700 (PDT)
-Message-ID: <1a66f1a6-840b-4de4-8e65-a3456b654044@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 13:49:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZN0jjj1b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EEFC1F00893;
+	Tue,  9 Jun 2026 11:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781005832;
+	bh=fY4pugE/2TECDaf96tCmITZPoAv7RbnPMN5y03nxFFA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZN0jjj1bIqglXl0na/GWdrAyabf1qGzzf1ACYgBg20x604P50WVsMaopBd18dxcm0
+	 YLixj0Nf+dsK2n9XGXsRfApuiDoeQTqnfhE/8KZGNmUjf4iZBPaIPQSH9BFk3/XnlA
+	 iIgLpMxwqQ+6GTghB+93hFeD6sreImX9HRzo0aA/0pKkI+geaelTisgX1/3HUBE7h7
+	 GBfYny1zIqiz962MpkvRzS0MjggtJbidfklo53qS2RANIjTbAbDcxsU40/DhxLbm7y
+	 8fziegaGUtQb2bWoUjH0uKxKhsz9oMB/3jgOuOJDWxsaWiOFRHcGD4jvKRqVMzm3sr
+	 uZM4BOPihHjkg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 01/11] ASoC: dt-bindings: renesas,fsi: add support
+ multiple clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260609113836.45079-2-phucduc.bui@gmail.com>
+References: <20260609113836.45079-2-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 11:50:31 +0000
+Message-Id: <20260609115032.3EEFC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/3] dt-bindings: mmc: sdhci-msm: Add ICE phandle
-To: Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, ulf.hansson@linaro.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>,
-        Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-References: <20260608041650.541502-1-neeraj.soni@oss.qualcomm.com>
- <20260608041650.541502-2-neeraj.soni@oss.qualcomm.com>
- <dc833e56-e127-47b7-9ea5-58d6d2cc193a@oss.qualcomm.com>
- <c8da8a89-e372-ca87-cdca-396c754ef5d7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <c8da8a89-e372-ca87-cdca-396c754ef5d7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: -TMNNhz2EcNvtOfvmAk-_l1fK05lpPOC
-X-Authority-Analysis: v=2.4 cv=EI42FVZC c=1 sm=1 tr=0 ts=6a27fdc0 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=jO6dYz2E5lbJ9Xj+xBc9tQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=lOk5vIY1-vP44UW2zVIA:9
- a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: -TMNNhz2EcNvtOfvmAk-_l1fK05lpPOC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDExMiBTYWx0ZWRfX+08zmrpLNQJd
- N/IRpYIV5Z0G0kmYpU7LDxv8b36Zw89CMbu5p6yAQHjmXiJP9uNycBpGhQWdkZgNU1wxwsoZfGu
- LYylSVHVXXThmASMv9Zw3eajQa1jahKD+qYL3gA7x5xEDDekVyIWKGsp+AHkvsf3nD4ykq44PHU
- c32lZ3jQvoH9/+5Drnllh6pBdr6byaeVDBGyFqn/RM4ebRdP9lZUrKREZgcNgjueZEZNvMCrdz5
- SmgKsWMN5e1FRc7+H+QXRCHN5eDPC4h9ks2e93PryvxMlSZ4MKyYU0aWrkdmJg1m3EXRMqHgT3x
- lbFINZkeZHfmnuh3693pJTas/XLRXmaNtlOT8wSf49yMnx/E3hU2P82Zna+U6HJAaE0pR3pKTDR
- 3qnYSnjmG3XXefdZ4SmjAJEM9GgZ780CzscuK4Jle1R2S2bASjHdKoX9A224io03jKr32eST3pe
- 4WD4wOU/bs0SSxv9BAg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 bulkscore=0 phishscore=0
- suspectscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606090112
 
-On 09/06/2026 10:18, Neeraj Soni wrote:
-> 
-> 
-> On 6/8/2026 11:40 AM, Kuldeep Singh wrote:
->> On 08-06-2026 09:46, Neeraj Soni wrote:
->>> Starting with sc7280(kodiak), the ICE will have its own device-tree node.
->>> So add the qcom,ice property to reference it.
->>>
->>> To avoid double-modeling, when qcom,ice is present, disallow an embedded
->>> ICE register region in the SDHCI node. Older SoCs without ICE remain
->>> valid as no additional requirement is imposed.
->>>
->>> Co-developed-by: Abel Vesa <abel.vesa@linaro.org>
->>> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
->>> Co-developed-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
->>> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
->>> Reviewed-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
->>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>> Link: https://lore.kernel.org/r/20260310113557.348502-2-neeraj.soni@oss.qualcomm.com
->>> Signed-off-by: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
->>
->> Link should go below "---" to specify previous discussions.
->>
->> Usually maintainers add link of patchset being merged here while merging
->> changes in their tree but authors don't add it here.
->>
-> Do not see any such restrictions here https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Missing schema constraints for `renesas,fsi2-sh73a0`.
+- [Medium] Device tree schema mismatch between positional `clocks` descript=
+ions and flexible `clock-names`.
+--
 
-What do you provide that Link for? What does it bring?
+commit f87e156c63c67f6faedd026ab0b5578543349e89
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-Best regards,
-Krzysztof
+ASoC: dt-bindings: renesas,fsi: add support multiple clocks
+
+This commit updates the FSI binding to support multiple clocks to properly
+describe the hardware clock tree, including the SPU bus/bridge clock and
+various CPG DIV6 functional clocks. It documents the clocks supported by
+the FSI driver for the sh73a0 and r8a7740 variants.
+
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/D=
+ocumentation/devicetree/bindings/sound/renesas,fsi.yaml
+> index df91991699a72..803945b7f82f0 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+> @@ -9,9 +9,6 @@ title: Renesas FIFO-buffered Serial Interface (FSI)
+>  maintainers:
+>    - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> =20
+> -allOf:
+> -  - $ref: dai-common.yaml#
+> -
+>  properties:
+>    $nodename:
+>      pattern: "^sound@.*"
+
+[ ... ]
+
+> @@ -38,7 +35,32 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Main FSI module clock
+> +      - description: |
+> +          SPU bus/bridge clock. On R8A7740, this clock must be enabled t=
+o allow
+> +          register access as the FSI block is connected behind the SPU b=
+us.
+> +      - description: CPG DIV6 functional clocks for FSI port A
+> +      - description: CPG DIV6 functional clocks for FSI port B
+> +      - description: FSI dividers for port A used for audio clock genera=
+tion
+> +      - description: FSI dividers for port B used for audio clock genera=
+tion
+> +      - description: External clock inputs for FSI port A provided by th=
+e board
+> +      - description: External clock inputs for FSI port B provided by th=
+e board
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 8
+> +    items:
+> +      enum:
+> +        - fck  # Main FSI module clock
+> +        - spu  # optional SPU bus/bridge clock
+> +        - icka # optional CPG DIV6 functional clocks for FSI port A
+> +        - ickb # optional CPG DIV6 functional clocks for FSI port B
+> +        - diva # optional FSI dividers for port A used for audio clock g=
+eneration
+> +        - divb # optional FSI dividers for port B used for audio clock g=
+eneration
+> +        - xcka # optional External clock inputs for FSI port A provided =
+by the board
+> +        - xckb # optional External clock inputs for FSI port B provided =
+by the board
+
+[ ... ]
+
+> @@ -69,6 +91,30 @@ required:
+> =20
+>  unevaluatedProperties: false
+> =20
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,fsi2-r8a7740
+
+[Severity: Medium]
+The commit message states that both the sh73a0 and r8a7740 variants define
+the SPU DIV6 clock control register, but is the renesas,fsi2-sh73a0
+compatible string missing from this conditional block?
+
+If the condition restricts the clock validation rules entirely to
+renesas,fsi2-r8a7740, the sh73a0 variant would be left without any
+enforcement of the required fck and spu clocks, allowing improperly
+configured device trees to silently pass schema validation but fail
+at runtime.
+
+> +    then:
+> +      required:
+> +        - clock-names
+> +
+> +      properties:
+> +        clock-names:
+> +          minItems: 2
+> +          items:
+> +            - const: fck
+> +            - const: spu
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+> +            - enum: [icka, ickb, diva, divb, xcka, xckb]
+
+[Severity: Medium]
+Does the use of an unordered enum list for clock-names create a structural
+mismatch with the strictly positional descriptions defined in the clocks
+array above?
+
+Because dt-schema correlates array properties by index, a valid unordered
+list of optional clocks might be mismatched with incorrect descriptions.
+Additionally, defining sequential items with identical enum lists permits
+invalid configurations with duplicate clock entries to pass validation.
+
+> +
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/r8a7740-clock.h>
+> @@ -77,7 +123,11 @@ examples:
+>              compatible =3D "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
+>              reg =3D <0xfe1f0000 0x400>;
+>              interrupts =3D <GIC_SPI 9 0x4>;
+> -            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>;
+> +            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>, <&spu_clk>,
+> +                    <&fsia_clk>, <&fsiack_clk>, <&fsidiva_clk>,
+> +                    <&fsib_clk>, <&fsibck_clk>, <&fsidivb_clk>;
+> +            clock-names =3D "fck", "spu", "icka", "xcka", "diva",
+> +                         "ickb", "xckb", "divb";
+
+For instance, this example places xcka at index 3. Would this violate the
+strict positional schema since index 3 in the clocks array is explicitly
+described as "CPG DIV6 functional clocks for FSI port B"?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609113836.4507=
+9-1-phucduc.bui@gmail.com?part=3D1
