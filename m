@@ -1,36 +1,35 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72333CE495
-	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7553CF1E6
+	for <devicetree@vger.kernel.org>; Tue,  9 Jun 2026 06:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780984908; cv=none; b=V91ckrblOJn0sX+dEbgGQaHpE+rflQ/WWvk7XIi08GA2fJO8TxYc96gfHJ7y09G3hKUb7tTK7m7kwtuZMDbg/3Qp8I0uf8JjKlFKrc8Gk9ba1i1KMOURR44X8NvJTV5pwril24Hkev0wXxenbTIhDCDLpT20jUEQ2Xn49Fcsxnw=
+	t=1780984911; cv=none; b=Xcia4Q3iyFfAJ7HtfO80Ugejxx+whbMbtImI+vDzHnGnvMNz/Abh3fcaVnnWJfu2sfDy0lZMy5KBe+4o5XyKhD6+03ywQdA0V2xgsXmAlpDbS8akty7nVtKJ53gC/PiiEjj4ZNoBscSX8K5AK5qktAGNI9C9UxyijUHSi6gWqBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780984908; c=relaxed/simple;
-	bh=GGx0NZaHhk7E2NAtvsdpcvF5HPVyVNDE83nBISLAwX0=;
+	s=arc-20240116; t=1780984911; c=relaxed/simple;
+	bh=FwlMtQ49kbp1glYfmPcDRRhVmKYRsjTnj8YKFWSrXlo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tZUNU32cFxVEpC/3EyDzdQTLsYRQti7OQDzGdpTo8Qz75FrXPknK4tOHg+5gixbNszV3d0D295qNDi/6VlEqDnMFkTCF437IBU1N7GCC5MF+MDy4KzppJN7/qAAJgKVmgQ4/V3AixnBJZ5KcF3shONVfQNQyHQNFCUhzYTYjwQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tBdD5u7R; arc=none smtp.client-ip=91.218.175.173
+	 In-Reply-To:To:Cc; b=FGN9jW9SGt8PdHbOkNCEyW/jtWSMhDuT/CoB8/+Rsq2i9m/MT1Xd+X82RtjVWTLF8aBWlv5HZ5FHOUdgfOFxecAYb9/yhdVksO/scwuvHBB+w7fAXUgZun8MVLyyP4xxwHRg5NZc0eRcteDOmlXmEcArNIOZ6bAngBDpFvbd5Bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mK5dqfHy; arc=none smtp.client-ip=91.218.175.189
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tBdD5u7R"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mK5dqfHy"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780984894;
+	t=1780984907;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zryXcVid5vc6uq/c5lbU5QHgsNUYuSSps54Hsm8mVUc=;
-	b=tBdD5u7RSv6pJnLvLh9+DfeLkFJY1MT2YNmCgUZ5fH3XrgUDZEb0VNN8MVGWNVPT0zjE28
-	1Gsv/OWsCjlQwG/S58P0ojmSG6Bsrm592iVYmRwYJwdwXqcDYIeAjWyWqfyXhALbu2Pxlh
-	r7j/1X64Tx/jRATUrgMOfYqCsNn0HCk=
+	bh=g0CMNWEqrDOucVLL8KJozQojI6+LfSI56XzYeVMxjRY=;
+	b=mK5dqfHyJvdr6BZk1BEPRAOOBoUrzsqiJToe6+57nd3OgfEwMMrTqUyrc3C6R13eoQV5bK
+	GUd32G9qEHzpJgzCqyn0F5yG34JjsrJYcKg9DLtbQluj8ZeTgYYOfoj9ghxvNFsaJ8AipB
+	BIL+VGKswhlCmSmJs/bHwvc2vYkoVLk=
 From: Atish Patra <atish.patra@linux.dev>
-Date: Mon, 08 Jun 2026 23:01:16 -0700
-Subject: [PATCH v6 02/21] RISC-V: Add Sxcsrind ISA extension definition and
- parsing
+Date: Mon, 08 Jun 2026 23:01:19 -0700
+Subject: [PATCH v6 05/21] RISC-V: Add Smcntrpmf extension parsing
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,8 +37,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-counter_delegation-v6-2-285b72ed65a9@meta.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260608-counter_delegation-v6-5-285b72ed65a9@meta.com>
 References: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
 In-Reply-To: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
 To: James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>, 
@@ -56,60 +55,44 @@ X-Migadu-Flow: FLOW_OUT
 
 From: Atish Patra <atishp@rivosinc.com>
 
-The S[m|s]csrind extension extends the indirect CSR access mechanism
-defined in Smaia/Ssaia extensions.
+Smcntrpmf extension allows M-mode to enable privilege mode filtering
+for cycle/instret counters. However, the cyclecfg/instretcfg CSRs are
+only available only in Ssccfg only Smcntrpmf is present.
 
-This patch just enables the definition and parsing.
+That's why, kernel needs to detect presence of Smcntrpmf extension and
+enable privilege mode filtering for cycle/instret counters.
 
+Reviewed-by: Clément Léger <cleger@rivosinc.com>
 Signed-off-by: Atish Patra <atishp@rivosinc.com>
 ---
- arch/riscv/include/asm/hwcap.h | 4 ++++
- arch/riscv/kernel/cpufeature.c | 2 ++
- 2 files changed, 6 insertions(+)
+ arch/riscv/include/asm/hwcap.h | 1 +
+ arch/riscv/kernel/cpufeature.c | 1 +
+ 2 files changed, 2 insertions(+)
 
 diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
-index 7ef8e5f55c8d..d4a7b90e2d78 100644
+index d4a7b90e2d78..51ad55b9677a 100644
 --- a/arch/riscv/include/asm/hwcap.h
 +++ b/arch/riscv/include/asm/hwcap.h
-@@ -112,6 +112,8 @@
- #define RISCV_ISA_EXT_ZCLSD		103
- #define RISCV_ISA_EXT_ZICFILP		104
+@@ -114,6 +114,7 @@
  #define RISCV_ISA_EXT_ZICFISS		105
-+#define RISCV_ISA_EXT_SSCSRIND		106
-+#define RISCV_ISA_EXT_SMCSRIND		107
+ #define RISCV_ISA_EXT_SSCSRIND		106
+ #define RISCV_ISA_EXT_SMCSRIND		107
++#define RISCV_ISA_EXT_SMCNTRPMF		108
  
  #define RISCV_ISA_EXT_XLINUXENVCFG	127
  
-@@ -121,9 +123,11 @@
- #ifdef CONFIG_RISCV_M_MODE
- #define RISCV_ISA_EXT_SxAIA		RISCV_ISA_EXT_SMAIA
- #define RISCV_ISA_EXT_SUPM		RISCV_ISA_EXT_SMNPM
-+#define RISCV_ISA_EXT_SxCSRIND		RISCV_ISA_EXT_SMCSRIND
- #else
- #define RISCV_ISA_EXT_SxAIA		RISCV_ISA_EXT_SSAIA
- #define RISCV_ISA_EXT_SUPM		RISCV_ISA_EXT_SSNPM
-+#define RISCV_ISA_EXT_SxCSRIND		RISCV_ISA_EXT_SSCSRIND
- #endif
- 
- #endif /* _ASM_RISCV_HWCAP_H */
 diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
-index f46aa5602d74..3fa0a563fb21 100644
+index 3fa0a563fb21..1452521d740a 100644
 --- a/arch/riscv/kernel/cpufeature.c
 +++ b/arch/riscv/kernel/cpufeature.c
-@@ -576,11 +576,13 @@ const struct riscv_isa_ext_data riscv_isa_ext[] = {
+@@ -576,6 +576,7 @@ const struct riscv_isa_ext_data riscv_isa_ext[] = {
  	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvksg, riscv_zvksg_bundled_exts, riscv_ext_vector_crypto_validate),
  	__RISCV_ISA_EXT_DATA_VALIDATE(zvkt, RISCV_ISA_EXT_ZVKT, riscv_ext_vector_crypto_validate),
  	__RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
-+	__RISCV_ISA_EXT_DATA(smcsrind, RISCV_ISA_EXT_SMCSRIND),
++	__RISCV_ISA_EXT_DATA(smcntrpmf, RISCV_ISA_EXT_SMCNTRPMF),
+ 	__RISCV_ISA_EXT_DATA(smcsrind, RISCV_ISA_EXT_SMCSRIND),
  	__RISCV_ISA_EXT_DATA(smmpm, RISCV_ISA_EXT_SMMPM),
  	__RISCV_ISA_EXT_SUPERSET(smnpm, RISCV_ISA_EXT_SMNPM, riscv_xlinuxenvcfg_exts),
- 	__RISCV_ISA_EXT_DATA(smstateen, RISCV_ISA_EXT_SMSTATEEN),
- 	__RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
- 	__RISCV_ISA_EXT_DATA(sscofpmf, RISCV_ISA_EXT_SSCOFPMF),
-+	__RISCV_ISA_EXT_DATA(sscsrind, RISCV_ISA_EXT_SSCSRIND),
- 	__RISCV_ISA_EXT_SUPERSET(ssnpm, RISCV_ISA_EXT_SSNPM, riscv_xlinuxenvcfg_exts),
- 	__RISCV_ISA_EXT_DATA(sstc, RISCV_ISA_EXT_SSTC),
- 	__RISCV_ISA_EXT_DATA(svade, RISCV_ISA_EXT_SVADE),
 
 -- 
 2.53.0-Meta
