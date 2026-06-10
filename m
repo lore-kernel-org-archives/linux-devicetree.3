@@ -1,93 +1,47 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACA43C0624;
-	Wed, 10 Jun 2026 10:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2056D372B5E;
+	Wed, 10 Jun 2026 10:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781087897; cv=none; b=NBEtnc1ujTUddjL6oDYKzuKOT1o7Om51Tydw8r0oilgl1OtUx7hZaGp2qXXyjv3r5ii6L4NUslk9HYYeX5ON9+mOP6V+Ppp9SKWQdoO2qED+ytgeBHYa98oeaEu2dh/SeOKPOxvEUiQkr/xNnDBlAdZtKZQ4CaI6HzKN2LBi6fM=
+	t=1781088035; cv=none; b=ZRl+EXwgx6kWzePNg/jFXZuVMowyeHvtjnA1MYv5o2hemOcPE/PoGSVJwHEcm+IcQVAv0dEUUUejGjqm1vF11hCkXSVFpOQnWwEFrZY+egcRrBqLyU2PsbdEmBhSh+6RDBNRkNabhNcCDkBKUmIyo0zmORoOt8BM6poidbo9bYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781087897; c=relaxed/simple;
-	bh=o4YtGMTfnxaq6zA3t5OayZWeNPx/RSslucKg07HktBQ=;
+	s=arc-20240116; t=1781088035; c=relaxed/simple;
+	bh=Q+ghOmwb6ca6yzsNslfSKHa+AkbW/ej9Rfb3xdIxs34=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=swWDgtvZ0krS0mTafq6ry152G3lcbOeyQeiS4I91RWcJjxZIMEHDS2ZrUuGnQu7gVVTS1K31dpGxRR7e44xfSRGobkkgvFbojYo7aQkSU1vXf0MC7RGLYB+t0nRrC0Tke9MVanELnH5yzvsBiR4ixy0ZVnccmsBOiImuouynHQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=uHew9rKW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RMjitKjg; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	 Content-Type:Content-Disposition:In-Reply-To; b=ht2xS6yYBx6TcdvTB1OE35k9yKcyLb2k1dFVY9MXG55eUnwaHgw3PJbXtC9OihM+XM8eBjo4ugppRDdRctbdSsbVdqeHLKNdK9HQ9ILkRBnsmt3BxOS957HjCCBcdtKyRWOJU6yNl+vOG5IasVnEwXo6rz41GOhOiEBMqDklqk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l48MXXUe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="uHew9rKW";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RMjitKjg"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id AAFB51D00109;
-	Wed, 10 Jun 2026 06:38:14 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 10 Jun 2026 06:38:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781087894;
-	 x=1781174294; bh=UxByxHojcW0/JpsnKuo8fRJ0BcEM0zLPVToHM/MysCo=; b=
-	uHew9rKWzoszihGiTWg3/lWpwKHuox+Vdd3U9NI06jlwnsJjdXp30yN+IqTfg9Ob
-	nY1SRJJnNVN2auHvFHyMzNIE0RfsMtkvU9Bp+fZz30oxSfZL8tz5jcqPWZ4Eq57S
-	JFYwNilOik3PmEjuonLT0bbmJh/FyoiyCer3QmqwY3dl1h1hcO7IEAv/sT2DfKJL
-	nNP0+p9UU41TkbXKw6ZtnL6BuHxcfYNd9eGgU8Y12aFOXhcIms7bbj4IDsPVlsyk
-	wRxw2fw5gVw3KP5lfNwGFhXptuPznsZHvWnLqlKzDEMWrHMLvp31zNO0rrkMI1hh
-	1pI9+V56vTSS9IxuxpP5BA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781087894; x=
-	1781174294; bh=UxByxHojcW0/JpsnKuo8fRJ0BcEM0zLPVToHM/MysCo=; b=R
-	MjitKjgirUdQQ+M3jM2jwOutDCe+xpKKOzYc/YlInxDh4/m/EwteYdTfYbNv0jw2
-	/dHy/eJ3P2JeQ7vDyL4DATH5QnLKk4lmy4HV+5NkV7r6ssLY02NTFHgmffY/uVan
-	2JRV6k4H6MNe9xEfF7i0WfNMb872xVEgTQMkOaAt2fXf7XJzQnxDKuZzbfNB0Tw/
-	caU9sdJvFtsIF7ar66QA5LlKjQ5O1XNBC6E6XiA2L+aLg5SKk1Xf2AZLvGH0DHDD
-	zJm6vy1sXCYuHnRYgnIKPGMsbyrUrd5mo5hY0Ap38FobV4oNspyc7R4BQ0Ay4zfd
-	gT/JAD1Pl5QICZqr96NVA==
-X-ME-Sender: <xms:lj4panS_-gZTbrvkuwjW2sumMnP2QTW7oeoohx31TJFHnzFKH3nAYA>
-    <xme:lj4pahhY3vTbyjoT8cgYWzP6HkZHF6Dwe7ocRgHLZN_zqxslHaLERV30qwJkTHG_Z
-    HgTs140EOE_06v17PoMYBGcH65XS7N0lbpRzVApyr1AmIv8-xh8plc>
-X-ME-Received: <xmr:lj4pargxkFYDrDBuQJKQMHpFVA9VPUFj-hZ-77Z_hqaFIDtFMxMJqfBcGPzBDD7348xH-LWsrrIRv8dkPCWrGg2IntyHezNLVGSG>
-X-ME-Proxy-Cause: dmFkZTGzmK9+1npgBE4CNVzIG4Tn/S4vHqOE7oZQiD+7505Ck2MZDti7w3iSKVAti0VrEC
-    /bxbffDkYP4BLzXd/j8IIbJnxpzP/Zw9CSUQ1IPvdyZPMQ8oSM1h888VyoFOiSB9O84G9R
-    zZXZH1NixE29/8MA4hXbQnoWSrMZr+hq6n1O7zFVi6nmgBCAIc+z3dhBWH9CQpFAHqPxVB
-    HvecRZ4wCKW4q2rzJlHzZQyl5rxAOBCisl1OcH6DNH3r85vZh8jJgsmJSfFt3vjQPgNcWN
-    W3K7knDB1HDvhsgw100s2QwIEEO6LGqZ/l6nHTOkhKmIck/ypDGIP+eBaHy9OxqvMRFCRj
-    FKw1TaPm45X7e5RYx+G+sV5dtMnXNkGx86t0+3zdd7GGQ77asejzaLvUqpacJoCNZWWL3N
-    BXqSv1RPdooQCnc7DGqwWdzV2l/fQh4SKQFc0AItLfpDLHlhCvXV3tNdHI63Ky0NjzresO
-    OprDDZyMH97IGnW9+6HKNcssvL/unL22++1e2dh1HFhFlGww6s2pEf3lYvLbLpbcU7wUO3
-    vq5KwlcuzweOLNvBAzYlMFV50fdBGrPUQByLzIhl78FHYhKsfhDolBKeH4ki/xpmHn9A1A
-    I0BhrUjSecd39Rh1xLrjgVS+lwjpsD3ZPJBQ/5kzAUk0ZKKxUEtcOkdeFTdw
-X-ME-Proxy: <xmx:lj4papYSyy944gJPIBpN5PzVNedy_7K3cjzGqQ2HJMxtNNZfkZXQWw>
-    <xmx:lj4pakVtKJ5UHOOvqWDcqRjxV5ZoOLEKrtCp_EmHdl5hxOZxXCaEAA>
-    <xmx:lj4pagg79T7-0T06dvmUhu_TIqVnpJhWo3AlQ9jIWtHoHycgvlQWyQ>
-    <xmx:lj4pavlbeZJLVRL8OjYPDv_egCFWheT7QAUVmhVztrKgEg55p4fPHQ>
-    <xmx:lj4pajUj6TKEel0m-XsZN_TOVOkKXIZWTt_f9NkLcAq_OEEaWCg2M2mH>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 10 Jun 2026 06:38:13 -0400 (EDT)
-Date: Wed, 10 Jun 2026 12:38:12 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Paul Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Sergei Shtylyov <sergei.shtylyov@gmail.com>, netdev@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [net-next 0/9] ravb: Add gPTP support for Gen4
-Message-ID: <20260610103812.GE2465390@ragnatech.se>
-References: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
- <d525a1f4-9e87-40cc-9878-2044e5d6dea6@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l48MXXUe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B821F00893;
+	Wed, 10 Jun 2026 10:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781088033;
+	bh=y3zogafe8Nfrcsf+kJY2CSo0RioNu8OlWnXsDWbzwH8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l48MXXUe0y24pBLizMG9gqp66VI1e/D2JJv5j/aIRzXyludmgTo87u324IoAENt6q
+	 Gfvw07hIK7TV8Apt9wCMJsvUMxZEFeD+WZh2C830e4uxEmX41LNL/GDyJ+TCbExwwe
+	 FIxkN74Z6mJxMnVOPg6+Hdg6NyYua9PD5kVDrZU1rUPsCjtAtTJH7c/QrRDC9Gdveb
+	 woUCW5EVKYd6GQxZfz6WdXd87ngblNcXF8V6PAro/fBwWxmcfnFrocnKeQMvIHIWVK
+	 A5WTUmwi2LF/6Xy54jJZbJFDvZGx8PloA3L77zrqePoM2aVHoS9Ttq43YGOWesFuVU
+	 mmFN0yFX1AQIQ==
+Date: Wed, 10 Jun 2026 12:40:23 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neeraj Soni <neeraj.soni@oss.qualcomm.com>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v11 1/6] soc: qcom: ice: Add OPP-based clock scaling
+ support for ICE
+Message-ID: <mcqrm4pwziflqomw22gepqusc7jdlb2foslcfvtjufuyyoslb7@37olf54qxtfv>
+References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
+ <20260609-enable-ice-clock-scaling-v11-1-1cebc8b3275b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -97,39 +51,204 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d525a1f4-9e87-40cc-9878-2044e5d6dea6@kernel.org>
+In-Reply-To: <20260609-enable-ice-clock-scaling-v11-1-1cebc8b3275b@oss.qualcomm.com>
 
-Hi Krzysztof,
-
-On 2026-06-10 12:27:55 +0200, Krzysztof Kozlowski wrote:
-> On 10/06/2026 12:24, Niklas Söderlund wrote:
-> > Hello,
-> > 
-> > This series is the second part cleaning up how PTP timer support is
-> > implemented on R-Car Gen4. Currently there is partial support for it in 
-> > some of the Ethernet devices that can use it, but not all.
-> > 
+On Tue, Jun 09, 2026 at 03:17:23AM +0530, Abhinaba Rakshit wrote:
+> Register optional operation-points-v2 table for ICE device
+> during device probe. Attach the OPP-table with only the ICE
+> core clock. Since, dtbinding is on a transition phase to include
+> iface clock and clock-names, attaching the opp-table to core clock
+> remains optional such that it does not cause probe failures.
 > 
-> Second series doing the same...
+> Introduce clock scaling API qcom_ice_scale_clk which scale ICE
+> core clock based on the target frequency provided and if a valid
+> OPP-table is registered. Use round_ceil passed to decide on the
+> rounding of the clock freq against OPP-table. Clock scaling is
+> disabled when a valid OPP-table is not registered.
 > 
-> Please use standard email subjects, so with the PATCH keyword in the
-> title. `git format-patch -vX` helps here to create proper versioned
-> patches. Another useful tool is b4. Skipping the PATCH keyword makes
-> filtering of emails more difficult thus making the review process less
-> convenient.
-
-I'm sorry about that, but as this (and the previous) series targets 
-netdev where as I understand it the convection is to use net-next, or 
-net, to indicate which tree it targets. When not posting to netdev I 
-indeed use -vX.
-
-I'm not sure how to resolve these two. Would [PATCH,net-next,vX 0/9] 
-make life easier for you?
-
+> This ensures when an ICE-device specific OPP table is available,
+> use the PM OPP framework to manage frequency scaling and maintain
+> proper power-domain constraints.
 > 
-> Best regards,
-> Krzysztof
+> Also, ensure to drop the votes in suspend to prevent power/thermal
+> retention. Subsequently restore the frequency in resume from
+> core_clk_freq which stores the last ICE core clock operating frequency.
+> 
+> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+> ---
+>  drivers/soc/qcom/ice.c | 93 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>  include/soc/qcom/ice.h |  2 ++
+>  2 files changed, 95 insertions(+)
+> 
+> diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
+> index 5f20108aa03ebe9a47a10fba9afde420add0f34a..519d08c4727a6cb2dc5991216a2c042ed6218857 100644
+> --- a/drivers/soc/qcom/ice.c
+> +++ b/drivers/soc/qcom/ice.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/xarray.h>
+> +#include <linux/pm_opp.h>
+>  
+>  #include <linux/firmware/qcom/qcom_scm.h>
+>  
+> @@ -113,6 +114,8 @@ struct qcom_ice {
+>  	bool use_hwkm;
+>  	bool hwkm_init_complete;
+>  	u8 hwkm_version;
+> +	unsigned long core_clk_freq;
+> +	bool has_opp;
+>  };
+>  
+>  static DEFINE_XARRAY(ice_handles);
+> @@ -315,6 +318,10 @@ int qcom_ice_resume(struct qcom_ice *ice)
+>  	struct device *dev = ice->dev;
+>  	int err;
+>  
+> +	/* Restore the ICE core clk freq */
+
+Redundant comment.
+
+> +	if (ice->has_opp && ice->core_clk_freq)
+
+Can core clk be 0 if OPP is used?
+
+> +		dev_pm_opp_set_rate(ice->dev, ice->core_clk_freq);
+> +
+>  	err = clk_prepare_enable(ice->core_clk);
+>  	if (err) {
+>  		dev_err(dev, "Failed to enable core clock: %d\n", err);
+> @@ -335,6 +342,11 @@ int qcom_ice_suspend(struct qcom_ice *ice)
+>  {
+>  	clk_disable_unprepare(ice->iface_clk);
+>  	clk_disable_unprepare(ice->core_clk);
+> +
+> +	/* Drop the clock votes while suspend */
+
+Redundant comment.
+
+> +	if (ice->has_opp)
+> +		dev_pm_opp_set_rate(ice->dev, 0);
+> +
+>  	ice->hwkm_init_complete = false;
+>  
+>  	return 0;
+> @@ -560,6 +572,51 @@ int qcom_ice_import_key(struct qcom_ice *ice,
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_ice_import_key);
+>  
+> +/**
+> + * qcom_ice_scale_clk() - Scale ICE clock for DVFS-aware operations
+> + * @ice: ICE driver data
+> + * @target_freq: requested frequency in Hz
+> + * @round_ceil: when true, selects nearest freq >= @target_freq;
+> + *              otherwise, selects nearest freq <= @target_freq
+> + *
+> + * Selects an OPP frequency based on @target_freq and the rounding direction
+> + * specified by @round_ceil, then programs it using dev_pm_opp_set_rate(),
+> + * including any voltage or power-domain transitions handled by the OPP
+> + * framework. Updates ice->core_clk_freq on success.
+> + *
+> + * Return: 0 on success; -EOPNOTSUPP if no OPP table; or error from
+
+s/error/errno
+
+> + *         dev_pm_opp_set_rate()/OPP lookup.
+> + */
+> +int qcom_ice_scale_clk(struct qcom_ice *ice, unsigned long target_freq,
+> +		       bool round_ceil)
+> +{
+> +	unsigned long ice_freq = target_freq;
+> +	struct dev_pm_opp *opp;
+> +	int ret;
+> +
+> +	if (!ice->has_opp)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (round_ceil)
+> +		opp = dev_pm_opp_find_freq_ceil(ice->dev, &ice_freq);
+> +	else
+> +		opp = dev_pm_opp_find_freq_floor(ice->dev, &ice_freq);
+> +
+> +	if (IS_ERR(opp))
+> +		return PTR_ERR(opp);
+> +	dev_pm_opp_put(opp);
+> +
+> +	ret = dev_pm_opp_set_rate(ice->dev, ice_freq);
+> +	if (ret) {
+> +		dev_err(ice->dev, "Unable to scale ICE clock rate\n");
+> +		return ret;
+> +	}
+> +	ice->core_clk_freq = ice_freq;
+> +
+> +	return ret;
+
+return 0;
+
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_ice_scale_clk);
+> +
+>  static struct qcom_ice *qcom_ice_create(struct device *dev,
+>  					void __iomem *base)
+>  {
+> @@ -738,6 +795,7 @@ static int qcom_ice_probe(struct platform_device *pdev)
+>  	unsigned long phandle = pdev->dev.of_node->phandle;
+>  	struct qcom_ice *engine;
+>  	void __iomem *base;
+> +	int err;
+>  
+>  	guard(mutex)(&ice_mutex);
+>  
+> @@ -756,6 +814,41 @@ static int qcom_ice_probe(struct platform_device *pdev)
+>  		return PTR_ERR(engine);
+>  	}
+>  
+> +	err = devm_pm_opp_set_clkname(&pdev->dev, "core");
+> +	if (err && err != -ENOENT) {
+> +		dev_err(&pdev->dev, "Unable to set core clkname to OPP-table\n");
+> +		/* Store the error pointer for devm_of_qcom_ice_get() */
+> +		xa_store(&ice_handles, phandle, ERR_PTR(err), GFP_KERNEL);
+> +		return err;
+> +	}
+> +
+> +	/* OPP table is optional */
+> +	err = devm_pm_opp_of_add_table(&pdev->dev);
+> +	if (err && err != -ENODEV) {
+> +		dev_err(&pdev->dev, "Invalid OPP table in Device tree\n");
+> +		/* Store the error pointer for devm_of_qcom_ice_get() */
+> +		xa_store(&ice_handles, phandle, ERR_PTR(err), GFP_KERNEL);
+> +		return err;
+> +	}
+> +
+> +	/*
+> +	 * The OPP table is optional. devm_pm_opp_of_add_table() returns
+> +	 * -ENODEV when no OPP table is present in DT, which is not treated
+> +	 * as an error. Therefore, track successful OPP registration only
+> +	 * when err is not -ENODEV.
+> +	 */
+> +	if (err == -ENODEV)
+> +		dev_info(&pdev->dev, "ICE OPP table is not registered, please update your DT\n");
+
+dev_dbg() please. No need to spam old DTs.
+
+> +	else
+> +		engine->has_opp = true;
+> +
+> +	/*
+> +	 * Store the core clock rate for suspend resume cycles,
+> +	 * against OPP aware DVFS operations. core_clk_freq will
+> +	 * have a valid value only for non-legacy bindings.
+
+use full 80 column width for comments.
+
+> +	 */
+> +	engine->core_clk_freq = clk_get_rate(engine->core_clk);
+
+Why can't you conditionally cache the freq by moving it to the above else
+condition?
+
+- Mani
 
 -- 
-Kind Regards,
-Niklas Söderlund
+மணிவண்ணன் சதாசிவம்
