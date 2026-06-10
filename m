@@ -1,93 +1,55 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EC2382368;
-	Wed, 10 Jun 2026 07:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774A329BDBF;
+	Wed, 10 Jun 2026 07:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781075647; cv=none; b=VSgJzZtUoBdQ2Kp03EZ2rOosMyvxXmrXDyOzXTM/gGHdNUtV8HMmPIfQ9hcyBiN2TUIIVI488JXsbUzUrPfY5e+3uT9y/+hioxB9e0KpDSzohOBCPFfMyE+Izj1/jj2j8eUOG3W3Ol3/LfPofXWiRjBre/nbzhfUJXJPKqsSLc8=
+	t=1781075794; cv=none; b=Z5uR95V4zeM7uxKifoeHL2ZwxcyLAbGnq5JW4mmZfVgGoNUVJog6elSxZdhjxI5rnaIhPRut5QgIzTuuOCYVKPdKTQH6y9uglasWAeAnSYiLuTD7NxF2DehxCzs7EMNJBl0phJmODMGIPm+X7d/SCczfvmKS8HCRHnZX/jMuzo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781075647; c=relaxed/simple;
-	bh=RTyG60JbaU5UmNQcJmiEj0udjRpliPB0Xq0hUoUBO4E=;
+	s=arc-20240116; t=1781075794; c=relaxed/simple;
+	bh=IKSvTWxUBmjeVnmCYv6+YZYdwIrH5X0fWcQqB93TaLY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sCFCGlXRHWnemd4wGdDN8zT9dmJIBfbKxHZ3Cgtnwr/py3gGSfNxp5LS/ACdCNZcWugf65mgTmkxeyAD6snSZoZnPiLvceYsLgz03MQmU6cTAyzW3mTDMiQ8u9auoYhqFtlrV39T61UbCUPqcDPYS7C678T6zwow5oUxkPGQC5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=QjxNaaLP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=HRMHN/rk; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	 Content-Type:Content-Disposition:In-Reply-To; b=l74r0pDxocGYUH4yEG0+qFsHemgDu/qje9L5oVc6rWCVO6gu2KocX+YpENy62wXA3B0iFTRG3y4chl5IiGFgVVTIQUnVeDcPCTRcHzWz+hhIRI3Wm8sc3c3pMNvgGt0ZR3LkYPaeS6uQzlwBpgJi8jecVwg5rtAsHZ+ZMGx5mvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEh5J4MY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="QjxNaaLP";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="HRMHN/rk"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 618A11D00094;
-	Wed, 10 Jun 2026 03:14:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Wed, 10 Jun 2026 03:14:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781075644;
-	 x=1781162044; bh=nTOIhlKnxzfxMWQeHDvlhNhJX1XcVKSydLuOfxYsR6Q=; b=
-	QjxNaaLPhmGGeLJObnFNWBay+C6Zm/TSDamiP8xy5c4EqY1JvUjTroDmaqyhJozZ
-	yC+W/KnGHMc6NU1u13A6HFBGbr5oC8T0VpTkTBemeFb9PsVd5hCVkiDRvm06WiOt
-	28pgQ2wbz6iHlQSjwC1esQhiz8UBAOWgam9YyScWSdwDGVBVJU0YgsIAmSOPLZx7
-	FXQOu3wSqilazWaca2NMnfZiJwyBpWVR2KoRJMu1XcWmBKnoXRLePU40LMsHI1wU
-	3O4KT3aktJOxQ6wbFoP0cWLygVe7mKqsSa3GMBorpKmIRWDrUbQ84qAriiUlSJlc
-	4fd+D6VZYHVM78tWsTBGTg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781075644; x=
-	1781162044; bh=nTOIhlKnxzfxMWQeHDvlhNhJX1XcVKSydLuOfxYsR6Q=; b=H
-	RMHN/rkvd7yUG4au99N4dfaXpqLjofLP68WdBc/sFGaWJKSlvZaFUx5UeK80DSCc
-	dmBseyIdlIfGevRNIY2hgcIWbZAw76t3f626DF8bRSRVpUkTOtS26JGGh12qHx1c
-	MFwS5O0s1LgDYwThgLbOzLuhPELYJhuM2wdanQ7c+8c7tl7Bp7WOxukBuET+DX3Q
-	VtoPdKohZFPM67iswld9x2wNaX9QtyhdY99wfEvqg84K3DcgUriqo0//7FIvPv4D
-	OvZO6b3f9e4975unriYufkOu/Hz/hrtHRz4nHbc16whJnMpuVkWzeS8kwNEgzsdC
-	g2Z1HZvgDg5VyedgocfQQ==
-X-ME-Sender: <xms:uw4pajnFi_xsBJ4hp4x_4wTQYPrvRQft8fU54-Cdwa8Atf5tZS0baQ>
-    <xme:uw4palVtxjgUDcM2O2Dy440B_Rd3wACvmX0KwdIvp-CH4pa_VCfMDv_GQh9hy6c56
-    5fSc-sude6D_qJ9Iy83RspbqhAKjKfxHjkNCa_JeZ3wy6l_jMR5_RU>
-X-ME-Received: <xmr:uw4pagcHD2ky0arZ6XVhpcnAxx0JUDel9dL80gWPeiBwAAvD78AOrrjOoBqxQ3eQijMq9V48IbfW8h4x4zBk3bVMHwsQqJZ6mTXU>
-X-ME-Proxy-Cause: dmFkZTGxsj+rQBUtc7Ts5q0W8zlmKj3cdUvDeJdPFzsAC6RnoJ2PsmakMC2k6ey5Fa+k7x
-    V4H5WbogIbKymiBVN9XCJzIZs/xg6jveYnVQ0TOhGNpJG30cQSKhY3HIke5zL/qV5yJ69H
-    vW8gDh3BR3m3m2+71UaNSmxwryYrrbKscN+PxyFXrYS7hRdz3eYgrwsiVWeaTcgXOg4JXg
-    Vgtw3BIN+Kd1ok+kMiU9iUe+Y5Rau+OE/LZYkdiJvzfeuGsIC8o6B+wnNlLQ/S3/EuT52U
-    FffbYGCiL0cpY+8OPDQfELef3qoiDgxYsRfBy+/JbLr8KJrOn4Sa98xbuJZ6Il7tY5Fcql
-    vonnDdc24Bt9ecrq+Rkr74fksdWF1TC9WJEj03vPrPtUmCFMpFiOFeRRbts8afbQ5J8liS
-    MtEKO2UpVGJtoAuAM4CECSzhEcUdzkYJ7hhKyrSOdNs7FXNWkZEapd+eRmIPS8yTGh5fmn
-    1uT1rauGzEUGUtJD9U3M9F8/E3Th+ym2bZNrrVASvz6sj1Lp2RwnsCFMzfu9XKGnBT0dxG
-    /DW4befG9RYv797OXtSGBedBF8hhdqpcgj1YfymEQYrjLK5Xilvig2ksPUYTJJK46Id5v/
-    pZHNY5okWcAki+qNdHk6Kby1YT/YFVZGKVjsaSBrZDC0DBlcRjmz7/nHXeEg
-X-ME-Proxy: <xmx:uw4parmTkJn5Bz_fSHxYu7xr5QHgJPjHxRUEgHruv3hOaXwBWSLmuw>
-    <xmx:uw4paqBZ0rP751xBSRgfPmPOIyTY3DSrU9fUnr7PghGptghRLWAiSQ>
-    <xmx:uw4paldnzih120w7oFMBAbqxBcbmcqOOuwguUlsiM-jxVRY3Y3Mabg>
-    <xmx:uw4pat4vm2WfElk5NVukoI6M8rCB1VajHAf-sp3IwbIkhYuNewhXfw>
-    <xmx:vA4pavw9tmfvhexjkKX8tlc4wUxtLuZWaot83l-ela_QFgo1PXW-26YJ>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 10 Jun 2026 03:14:03 -0400 (EDT)
-Date: Wed, 10 Jun 2026 09:14:00 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Michael Dege <michael.dege@renesas.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [net-next 0/3] ptp: Add driver for R-Car Gen4 gPTP timer
-Message-ID: <20260610071400.GB2465390@ragnatech.se>
-References: <20260609215711.2960150-1-niklas.soderlund+renesas@ragnatech.se>
- <TY4PR01MB1428267DC1F642A7935EC302D821A2@TY4PR01MB14282.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEh5J4MY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4511F00893;
+	Wed, 10 Jun 2026 07:16:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781075793;
+	bh=f3pyLsJp/Pig7PJGNaXCWFzykMjoyznELiFBpvDKD50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kEh5J4MYt6AOcTW92yTfwHs7vsfXTGiCqD9ezn/PNbI3JWrXg4/8tr03WT6qdTNpS
+	 PAtYXXZDgPka9aZwUbI+DBa6wtCiTAIsQGRmXXaBPgcpzA28huYukZQXWGyz0yvVIW
+	 MJU9oHaPP9viU8aSsW6rlLH6xGNGZACpXj7MiV0FtCcymsGKjvyVqZD18HVrh5Eb9c
+	 H0by8hO8bDMIkvcQuscIdnJgzExUBtpjrNV0ge9SvQmhZMxLrkH1RoKe2C0aYinjXB
+	 BQpQmxWyxvNkGUNbqj0qSQ3R2MiTBOBLx5T2FPGE5kaSM8Ii3Iz+GHR5Vp3Kh5qxah
+	 rslGwKgr5JbDw==
+Date: Wed, 10 Jun 2026 09:16:29 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Johannes Berg <johannes@sipsolutions.net>, 
+	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Saravana Kannan <saravanak@kernel.org>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
+	netdev@vger.kernel.org, daniel@makrotopia.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/8] dt-bindings: net: wireless: qcom,ath10k: Document
+ NVMEM cells
+Message-ID: <20260610-funny-paper-warthog-25fa0a@quoll>
+References: <20260609-block-as-nvmem-v4-0-45712e6b22c6@oss.qualcomm.com>
+ <20260609-block-as-nvmem-v4-2-45712e6b22c6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -96,146 +58,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <TY4PR01MB1428267DC1F642A7935EC302D821A2@TY4PR01MB14282.jpnprd01.prod.outlook.com>
+In-Reply-To: <20260609-block-as-nvmem-v4-2-45712e6b22c6@oss.qualcomm.com>
 
-Hi Michael,
-
-Thanks for your feedback.
-
-On 2026-06-10 05:02:48 +0000, Michael Dege wrote:
-> Hello Niklas,
+On Tue, Jun 09, 2026 at 09:52:27AM +0200, Loic Poulain wrote:
+> Document the NVMEM cells supported by the ath10k driver, the
+> mac-address, pre-calibration data, and calibration data.
 > 
-> Thank you for your effort to clean this driver up.
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/net/wireless/qcom,ath10k.yaml    | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
-> > -----Original Message-----
-> > From: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > Sent: Tuesday, June 9, 2026 11:57 PM
-> > To: Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley
-> > <conor+dt@kernel.org>; Geert Uytterhoeven <geert+renesas@glider.be>; magnus.damm
-> > <magnus.damm@gmail.com>; Richard Cochran <richardcochran@gmail.com>; Andrew Lunn
-> > <andrew+netdev@lunn.ch>; DavidS. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>;
-> > Jakub Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; linux-renesas-soc@vger.kernel.org;
-> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; netdev@vger.kernel.org
-> > Cc: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > Subject: [net-next 0/3] ptp: Add driver for R-Car Gen4 gPTP timer
-> > 
-> > Hello,
-> > 
-> > This series is the first part cleaning up how PTP timer support is implemented on R-Car Gen4.
-> > Currently there is partial support for it in some of the Ethernet devices that can use it, but not
-> > all.
-> > 
-> > The partial support have been implemented by hacking the gPTP module directly into the first Ethernet
-> > device driver that used it, RTSN for V4H and RSWITCH for S4. This is understandable as earlier R-Car
-> > generations had a dedicated gPTP timer for each Ethernet device, but on
-> > Gen4 there is a single system-wide PTP timer shared by all.
-> > 
-> > The current implementation makes it impossible for other Ethernet devices on the platform to use the
-> > PTP timer without messing around with other Ethernet device drivers.
-> > 
-> > The effort to clean this up starts with this series which adds the system-wide gPTP timer as its own
-> > driver and device tree node.
-> > 
-> > This series will then be followed by work to add proper PTP support to the R-Car RAVB Gen4 driver,
-> > which currently advertises to user-space it supports PTP but which implementation is broken and does
-> > not work.
-> > 
-> > This will in turn be followed by work to the RTSN and RSWITCH drivers will be be switched from its
-> > current partial support by mapping the gPTP address space directly to instead use this driver.
-> > 
-> > While having both this driver and the "direct accessing of registers by the user driver" in operation
-> > at the same time works, but it is not recommended. It works by chance due to how both the RTSN and
-> > RSWITCH drivers internal workings.
-> > 
-> > For this reason this new solution will only be enabled on platforms after all user's of the gPTP clock
-> > have moved to only use the new centralized timer.
-> > 
-> > For some platforms this is straight forward, such as V4H Sparrow Hawk, which only have the RAVB
-> > Ethernet interface. This platform currently have no users of the PTP timer, but still advertise it
-> > supports it. This and the soon to be posted RAVB patches solves that.
-> > 
-> > As the RAVB patches depends on this series the device tree node for the gPTP clock is added in this
-> > series but will be enabled and linked to consumers in the RAVB gPTP series for platforms where it will
-> > not conflict with RTSN and RSWITCH. And further enabled as more of this is cleaned up.
-> > 
-> > The gPTP driver itself is heavily influence by the existing partial support for gPTP in the RTSN and
-> > RSWITCH drivers and the Renesas BSP.
-> > 
-> > Niklas Söderlund (3):
-> >   dt-bindings: ptp: renesas,rcar-gen4-gptp: Add binding for R-Car Gen4
-> >   ptp: Add driver for R-Car Gen4
-> >   arm64: dts: renesas: r8a779g0: Add gPTP node
-> > 
-> >  .../bindings/ptp/renesas,rcar-gen4-gptp.yaml  |  64 +++++
-> >  MAINTAINERS                                   |   7 +
-> >  arch/arm64/boot/dts/renesas/r8a779g0.dtsi     |   9 +
-> >  drivers/ptp/Kconfig                           |  12 +
-> >  drivers/ptp/Makefile                          |   1 +
-> >  drivers/ptp/ptp_rcar_gen4.c                   | 219 ++++++++++++++++++
-> >  6 files changed, 312 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
-> >  create mode 100644 drivers/ptp/ptp_rcar_gen4.c
-> > 
-> > --
-> > 2.54.0
-> > 
-> Are you aware, that Gen5 is on the horizon? The first patches for X5H have been up-streamed. X5H will
-> be using the same gPTP driver. I think it would be a good idea to make this driver generic, meaning
-> leave out the references to Gen4. What do you think?
+> diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
+> index c21d66c7cd558ab792524be9afec8b79272d1c87..7391df5e7071e626af4c64b9919d48c41ac09f1e 100644
+> --- a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
+> +++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
+> @@ -92,6 +92,22 @@ properties:
+>  
+>    ieee80211-freq-limit: true
+>  
+> +  nvmem-cells:
+> +    minItems: 1
+> +    maxItems: 3
+> +    description: |
 
-Ideally we should have a module name or such from the gPTP module itself 
-we could use as the kernel module name, unfortunately we don't. All we 
-know is this is the gPTP module first used on Gen4.
+If there is going to be resend:
+Do not need '|' unless you need to preserve formatting.
 
-I don't want to name the module ptp_rcar as that is too generic IMHO and 
-risk confusion when Gen N will be released which will have a completely 
-new PTP hardware module.
+> +      References to nvmem cells for MAC address and/or calibration data.
+> +      Supported cell names are mac-address, calibration, and pre-calibration.
+> +
+> +  nvmem-cell-names:
+> +    minItems: 1
+> +    maxItems: 3
+> +    items:
+> +      enum:
+> +        - mac-address
+> +        - calibration
+> +        - pre-calibration
 
-Having a name with gen4 do in no way make it impossible to also use on 
-Gen5 devices. We just add more compatible values. There is some 
-precedence to this behavior, see the R-Car thermal drivers for example.
+This means you expect random order with variable number of items. Is
+that intentional? If yes, please provide short explanation in the commit
+msg.
 
-  $ find drivers/thermal/renesas -name \*rcar\* -exec grep \.compatible {} +
-  .../rcar_thermal.c:		.compatible = "renesas,rcar-thermal",
-  .../rcar_thermal.c:		.compatible = "renesas,rcar-gen2-thermal",
-  .../rcar_thermal.c:		.compatible = "renesas,thermal-r8a774c0",
-  .../rcar_thermal.c:		.compatible = "renesas,thermal-r8a77970",
-  .../rcar_thermal.c:		.compatible = "renesas,thermal-r8a77990",
-  .../rcar_thermal.c:		.compatible = "renesas,thermal-r8a77995",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a774a1-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a774b1-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a774e1-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a7795-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a7796-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a77961-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a77965-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a77980-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a779a0-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a779f0-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a779g0-thermal",
-  .../rcar_gen3_thermal.c:		.compatible = "renesas,r8a779h0-thermal",
+Best regards,
+Krzysztof
 
-Here rcar_thermal started as the first thermal driver covering Gen1 
-(ish) and later Gen2 devices. When Gen3 was released with a completely 
-new thermal hardware module a new rcar_gen3_thermal driver was created 
-to support it.
-
-The thermal module supported by the rcar_gen3_thermal driver was later 
-extended to also support Gen4, as the thermal hardware was used on all 
-Gen4 devices too.
-
-tl;dr, I like to give the driver a "version" designation so in future if 
-more R-Car PTP hardware emerges we can distinguish them. We don't have a 
-version/name of the gPTP module itself so all we know and can use is
-that it was first used on Gen4 devices. So I use that like we have done 
-for other R-Car hardware modules.
-
-> 
-> Best regards,
-> 
-> Michael
-
--- 
-Kind Regards,
-Niklas Söderlund
