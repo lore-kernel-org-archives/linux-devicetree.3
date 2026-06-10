@@ -1,76 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5145F2D063E;
-	Wed, 10 Jun 2026 07:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A3138E8D5
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 07:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781077292; cv=none; b=pjAiy97C7xLxI5hP0S7/El/I00y0xo29cEQ+RoJ0cFkmKYDiB1Q4UkIwFpateyrGR+5VhNmAqdu5laMxG48Oj5986tRalOINoJRlBvwWGCFzyppjGFHZeSLBCAm2/tWym4ZrKW465OO7EDPY5bW8Udn48S8NUeSH55ryGb/sZEQ=
+	t=1781077313; cv=none; b=VRwSz6PMzAT1Zq4BnVxe6ZNpEXh81cEi88G7pWFin6vn4oitXeW3FtNyiek3RqV9Y837YnuQMS78OkCFhYJ1d1OGlBUh1rkp9bQ2xtRftCDjooGej+Y4uQeMK2o/pkPhqXZDzEpL9DhqKVtYlP2c+j0u/reMQBhgSM5nUoOvVSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781077292; c=relaxed/simple;
-	bh=NtOTToasxCE2jc40iWisPgV2xK93NZ0NraMiA5sg/Rk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SzIHchE3mvZvr8Z6Uj7X8y49/Unma8/VStQ8irooWY75vOfewj+S+pPz2hRGpCG07+CHUZ4cUKBp3AyOZOJ7PBBSd62Ux7rCaO8HC3YP5cXGYUtib3MKDRjNIwwxCrwswAWVNkn5osxYDu+StYHlhTeWlSWOI/JFXtbeSqbI1kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N3yauVZS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781077313; c=relaxed/simple;
+	bh=5UzTyAoS6g0iFfj7YYMHPworEGWFMRG5Wo1KqnbC9BU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kBOqqne8PmwdGHcxhEzM1tCa2yxubGVTxhckcqM++z4iBr1jFc8DhqnJb8lVJEajo+6bzQAmGbOCLlnQ/g/ZWMV5nctHW/6Npqkabbo7JgtmM3xQ73f7Fetwb/0IJYJeE/o/6F4I9Ij/mnlf0tYHC+I3kkVfhSJqRmGIrIweMt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XaOT+TjI; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N3yauVZS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DBC11F00893;
-	Wed, 10 Jun 2026 07:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781077291;
-	bh=EgV/NjGFw2TBnGNu1grd25blD1KwYsPIRIqEutCfpzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N3yauVZSBrf47qf05zumLqq/Yg56bWYcjmWs3qicj1JFe4cQx7KkFLZPodz/lycsr
-	 aaihNpg+Vq43zVq9abn/EkBkSOeY3BhN+4R/JyLPYnTCAXRRSrzc7GlCb/bmOA7IfK
-	 qyzerJOFwCiszfXk4wEbGDQSN6abHyem5iag0vy1PPECpR8Ca5aZeoiP456d50WmXn
-	 2tTdFGkVLD/lFEZKqu5b28jYpNGpKdzy35aB1qQxAn8OsOtI0jOBUK938yHgyoFvvT
-	 VacH128cjlgDJz6a765Ae/xyrfrmsCtj2rJ11InHyeZCjsQ3XJbdv50WWFjoGujyv6
-	 mxUHxrjjhwdvw==
-Date: Wed, 10 Jun 2026 09:41:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Qiang Yu <qiang.yu@oss.qualcomm.com>, 
-	Jeff Johnson <jjohnson@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, devicetree@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 4/7] dt-bindings: bluetooth: qcom,wcn6855-bt: document
- WCN6851
-Message-ID: <20260610-lush-mellow-dragon-3ed9fd@quoll>
-References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
- <20260608-sm8350-wifi-v2-4-efb68f1ff04c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XaOT+TjI"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso3253994f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 00:41:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781077310; x=1781682110; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=39bpH3WKD2L+6MVDhpbgj5YT1fELljkxU0ENL0/yWsE=;
+        b=XaOT+TjIItdJ4k+dEc2jwudHKKddhMx0mZ10thweNkFfpV8rmPF0P2/V9856TGee3N
+         TFt/KTTyR5U27ktazxsiPNadubBsQQg2UOM9W8Ea5rH26fZmF9TuAGKe1BKrbmWaUzZQ
+         2/XBRx8dppyR9ZsTepus2/GdVGBdXvM+F2EV50srnmtubTJcV+wpbToi7IDzlkvIxJFS
+         oITMgj8zKqmvQGmJC2qUjljByxb81jCsLCUk1PX9972Jsg3ZJn5KMuS5Tug//eBxDs9A
+         jyby4lsxhKyqWWwDLgTpHiXfK7B6OJBV9t53bA/833o7bGpH2vpVWNcHIOBs0Ign7PDp
+         T2Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781077310; x=1781682110;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=39bpH3WKD2L+6MVDhpbgj5YT1fELljkxU0ENL0/yWsE=;
+        b=YgMMiTraRfO3Tg2ZWtQFW9Vq6KfvhZiiWxjFEayMkgBaWDirMHuWk5UixhI9VeNI22
+         4sz38clsplA0aMHhASFnBE8NFJynef/Ytx5VMBfXXO+IKaXrHjAxs0nBw9teC4yop9IL
+         u7q7C7ahE/2EZmpdqBJM/PAvR3kSGNqudOVGK+yVC+T0G0PwxXwQBNLrEfl/ck2sABwm
+         zhHKuHFkwzpKAHCumybNVHGi/sHJI6WBCXUJV9gSuLl7TC7Eo6q1Zsfd9D6GJ3uruQRy
+         cqKZFFfejs0eG1eSoh1E+rjbAnrf07wTdG4ToZrMHf4BSlqApwXTS/nMGUTbWTst2ViJ
+         aqeQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+BGF5QCYVVje5z9mheQm0JtBJyqPEMUYdOSicmNX7XqTqPhStztaGGzbUIEjHzuoFYijSkl7Bas62W@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkRXPCqsgnO87igK9k+w+mnpf3PAK9aBg0+bo39GsCxc5QMV03
+	EiwzCwMFCARo/SqhwJN/hV8TDX7sYjjmczPowmWB62laceJCVGDGcnX7UGzDCttDn38=
+X-Gm-Gg: Acq92OGwdjgGhllHEyJe5SlqS1JsxjKsgrkc6GCa8h6NgxENYiVz3fhKzKSsXjUZQJA
+	Ae1+9XJyx/5ewQGQZtgzXOE4qjHniooioTBnPUN4CBqHWNCzlTJM3kF2LYEW+D2DeoVodEPNDVq
+	EZBQnTj2Din8oPez619DdzLNCszYsv9CzcTDHKZZFagsBRcFCQAIupYsdnqEwcVi30KpZGxlb7+
+	2YwrpaB7UmE1Esruovamt8zAAJZt0QMRY3NgQwKK2kVXFnbwvbvCXOCdb2xrGTexwyB2+H1n3W9
+	Ik8/KQL0+NKjqjrd7+9cWsVUJ/ur0xIR3q1p2/dhsDZVThX6HQUAYd8rh0MBvW5kdEH3WvRDLIt
+	9CmL6rbu95dzOsZ7d4zuiHJDhIYPDpF4RmFjmnwfutdqs8xBlkeJkHZQSEnLQd85mXpJFde4zMl
+	HdM+y8WatZXy+Z41FY2MDrNkAwh0H5Ro8K66Vc6tGjuwqF+qvYYwNsgZU=
+X-Received: by 2002:a05:6000:2993:20b0:45d:3cb0:5ab1 with SMTP id ffacd0b85a97d-4603065272cmr28711653f8f.38.1781077309957;
+        Wed, 10 Jun 2026 00:41:49 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f3444fesm69161344f8f.20.2026.06.10.00.41.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 00:41:49 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 0/4] sound: qcom: audioreach: support WSA speakers only on
+ WSA2
+Date: Wed, 10 Jun 2026 09:41:44 +0200
+Message-Id: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260608-sm8350-wifi-v2-4-efb68f1ff04c@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADgVKWoC/yXNSw7CMAxF0a1UHmMpREqgbAUxcFMXDCKJ4vCpq
+ u6dAMPzBvctoFyEFQ7dAoWfopJiw3bTQbhQPDPK2AzWWG+86bGmLAH1vvfOIM0UOWFO4cYV1eJ
+ LyeIkb+ShN87vJh/IQYvlwm3+HR1Pf+tjuHKo3zqs6wefo0psigAAAA==
+X-Change-ID: 20260609-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-eb90567f6ca5
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3739;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=5UzTyAoS6g0iFfj7YYMHPworEGWFMRG5Wo1KqnbC9BU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqKRU6kldpjKA/sRGpREgWdGvgYZAr0Su/Su0bKbX6
+ bwYHl5KJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaikVOgAKCRB33NvayMhJ0QMmD/
+ 4hDpCFbnKM6/Fu6IgSuHf7DgNb8yAfZEmK8N3qVQP8+a6aftatnO8J/7uH+A3cEsefKZ5xtNOjNKbo
+ yRWCnrsH/grtUmd+01klKNxFNFp8T4DbKGA35eeSPcXsAssgCB7Rk9PZ0uoLafzyjkfcGDDroloEwN
+ y5Vrnu8gEpLk4bMQCgeacs9o7maP43P1uJqPAtwbtLia3rt+eJZHucCkxB3/isFBi6cAeMta9Lheb6
+ njT5SZz4izk2M+cXXtgsGIsiGWrUXEyf+Gd0D3ysC09cJ49grS/9tSsQlrGTk1Y5gHfGEUJQNzhGS7
+ AuvuqsWHDUJ4OewLK3to/lJMxPhB3lN/cLxdppN1cavlNNTWVVFRAjOvgzO3Drex4eaUJiPnqJUT0j
+ tYxs6yz+16Z7yqSzQQ5eq1oBAMs61qz93lmqeoJ4bH0SRCih6k1Lno7zzTd67jKNbj7JXg/yGrNSkZ
+ umPge+QsaXPN4GfrnCaqhD7niapgMREkkx7e/SF1G1PmSG9fxzIRGF6i1nz9woWYzvHYjBItA6j64g
+ yyGLqBqhjDi7+Kr26zzskDbES3YZ2NwhSzmM+gSk2F3FIK46rLZAhfCpGogFsjw30ocwmPQT8cShBq
+ Ps0SngmgLOLGJe0zybzSZthhPo9W7YBiY0vK2oZIlPMHIFuSATgvdQ9pPkHA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Mon, Jun 08, 2026 at 09:59:22AM +0300, Dmitry Baryshkov wrote:
-> WCN6851 is an earlier version of WCN6855 WiFi/BT chip, compatible with
-> it. Add a device-specific compat string with the fallback to WCN6855
-> one.
-> 
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/net/bluetooth/qcom,wcn6855-bt.yaml        | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
+of 2 WSA speakers connected on the WSA2 lines.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+But the Audioreach DSP only handles WSA2 in pair with the WSA
+interface by using the upper bits of the active_channels_mask
+for WSA2 and the lower bits for WSA:
+
+ __________________________________________________
+| Bits  |     3    |     2    |   1     |     0   |
+---------------------------------------------------
+| Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
+---------------------------------------------------
+
+Setting only the WSA2 upper bits is perfectly valid and
+functional but the current Audioreach code builds the bitmask
+from the channels count with:
+	active_channels_mask = (1 << num_channels) - 1;
+
+In order to enable the WSA2 bits the channel count should be 4,
+but the lower WSA bits are then also enabled and the DSP errors
+out when trying to play on the disabled WSA interface.
+
+A solution would've been to add a fake WSA2 topology element which
+would be translated into the top bits only, but it's not clean and
+add some special exceptions in the generic Audioreach code.
+
+The solution suggested by Srinivas is to use the channel mapping to
+set this bitmask.
+
+This works but makes all the other calls using the channel mapping fail
+because the DSP requires the channel_mapping table to start from index 0
+and using num_channel length in order to apply the mapping on the
+active_channels_mask bits in order.
+
+So if you have an active_channels_mask like:
+ _______________________
+| Bits  | 3 | 2 | 1 | 0 |
+-------------------------
+| Mask  | 1 | 1 | 0 | 0 |
+------------------------
+
+And the channel mapping:
+ _________________________________
+| Channel |  3 |  2 |   1  |   0  |
+-----------------------------------
+| Mapping | FR | FL | NULL | NULL |
+-----------------------------------
+
+Will need to be converted to:
+ ____________________
+| Channel |  1 |  0 |
+---------------------
+| Mapping | FR | FL |
+---------------------
+
+And the DSP will map FR on WSA2 Ch2 and FL on WSA2 Ch1 as:
+ _________________________________
+| Line    |  WSA2 Ch2 | WSA2 Ch1 |
+----------------------------------
+| Mapping |     FR    |     FL   |
+----------------------------------
+
+So we need to skip the empty channel mapping entries in all other
+users of the channel_map to build valid channel_mapping tables.
+
+This should not break any other usecases since the default channel
+mapping always start from index 0, and will add flexibilty to allow
+some special non linear mapping for other interfaces as well.
+
+Finally we add a special prepare callback for the Ayaneo PS2 sound card
+which sets the custom channel mapping for the WSA interface to make audio
+work properly on the gaming device.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (4):
+      ASoC: qcom: audioreach: compute active channel maps from channel_map
+      ASoC: qcom: sc8280xp: add Ayaneo Pocket S2 card with special WSA channel mapping
+      arm64: dts: qcom: sm8650-ayaneo-pocket-s2: switch sound card to ayaneo,pocket-s2-sndcard
+      ASoC: dt-bindings: qcom,sm8250: Add Ayaneo Pocket S2 sound card
+
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |  1 +
+ .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      |  2 +-
+ sound/soc/qcom/qdsp6/audioreach.c                  | 47 ++++++++++++++----
+ sound/soc/qcom/sc8280xp.c                          | 56 ++++++++++++++++++++++
+ 4 files changed, 95 insertions(+), 11 deletions(-)
+---
+base-commit: 1ed783a6906ab62a54d631ff3e8c5cba0f4f4b54
+change-id: 20260609-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-eb90567f6ca5
 
 Best regards,
-Krzysztof
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
