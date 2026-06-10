@@ -1,335 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9193383326
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270CA3A48F4
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079084; cv=none; b=Eu/EfPLCNnA8VqQ3OPhxXYq5/pnx1yPSO+XD27Tc2v/PrToyVAvhBSxND+DwLdVtucaR0Ma+4SiyEP98DHgxp4IspxBjMGBricsLwQk+qLp3ng/IANwI47HFKXFjXXCGOfFdiJh4b+gqCwxtci+pMITxQJj2vG4CP/mtWKcQXJY=
+	t=1781079173; cv=none; b=KsOfY2B0JvT02bb0ei11vHzYGqaypydzPucb86NbJfsHLXHl/9JcFkvKyrcR7cb/sJsDTeKUpqqbj9wtt/ZuCdlhYZImCkCzTk4VVKqGQwLqsw4uJ3CsANfxbDx+jtoizVCXAsszXDuC4XEX3n77iBNrHRmTR8iKqmnRjsZBUa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781079084; c=relaxed/simple;
-	bh=KNs+en9nhr+80/C+0dBqAOTxIiY1w3fGZ814/KD14WQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eCwUWCQtRbdaZOcpE9/UejvYR1tkL0UTOyEglpOP6Sg/BHr359EPJ+YXJUjdCsOQJr1oSuZAlH6HmIoX6ItOq1medzktDhlnGsASv3MzvQdbc3cJdmOv3N5tEgp2ZItjbQ/hUZbp4Cm2kKsrDBfwind0CCaqPU91rY/upCQRNEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKBe6bgv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781079173; c=relaxed/simple;
+	bh=7VWPbjsAj3atobvSe+7KvejJgMR926itbAPlgg6gfgo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p9Vm+YPv99+hBs0YJDGWMpYgcGoFlizfrhmyid+Z0R2umlJDXce/UbSJaxUTqD1Hf/lB2vSxc3gYZ2qAoMcyWTrb4I9oyI0GaWsm5Q1nPFqlhW/tmjf1GTPfw2istsBi1s1GcFWCnRInQAmXtsXNYFyv8i1mcufkZJtlhJljag8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bIqMvWW7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eBysDmoW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKBe6bgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03D71F00893;
-	Wed, 10 Jun 2026 08:11:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781079082;
-	bh=RW9Sp5PvUIAlL7F8lNSAcwudZKsVKWfs2acPGTZqbjc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DKBe6bgvBDJYwt22ie9DblCXjZ013jFn7eNldNFmjZfHsBkf65Scnz7tANS1hYHKv
-	 iX5zfTQu418IAw/S5EerMPRAA0Xwhaj1fXZ71PQJjt7iB0uhZ6sQ+mjQVZhr99SxMK
-	 Yo0lCwYZ5XQotjNowA1GgG2IOC2LtDq7BJX5CO1jMvdmpwxBVO7oUd6+nbraWJifgD
-	 WCzkALdeVv3Dq9WTUSpi6VrE8Zn8gGbqHEtvDqd8XsqY4tbyAm5xZ9aI8n4U12bcUE
-	 gFdMS6N1pAaXNb6aSmnTxjoZqjEZCwwZjSrhkl0COogwxAOQeO6wttWd0ZrlghIcds
-	 /yE1/87kEP2hg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] clk: cix: add sky1 audss clock controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260610075645.3581145-5-joakim.zhang@cixtech.com>
-References: <20260610075645.3581145-5-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 08:11:21 +0000
-Message-Id: <20260610081121.C03D71F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bIqMvWW7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eBysDmoW"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65A7iRL3867243
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:12:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=vFU0GJhNHWfPisIlgqzJ49P1CSL4kfjgJ9e
+	1GCqIn3Q=; b=bIqMvWW7ZbelCa0elJDk09VqPtQNLo37EK6VW6JJeqhmi9PWfpK
+	aDQmwp4E4hB351fvgZZEhizxTjX/eZmH43MyEQ2YeOrHJ6F2jMJY1UWNIW8Vz/ZC
+	mrAwaDGTDurDjVMW1qXNdlWBTo2ULmr7ZXhGXKJ+NTemSsIrIYxWohnF1xOmnrCV
+	ZA8/oFBmU9tKQklxBoS/dE497qYnd6KfuMz1xXPU3t7zxkr05BQZZKsvMB8Dm3NK
+	83s97F6HfZtDQPn60D9museUOSSgkTbRhBpo3T42v/MTXRkNZAP4EPEBqDZJU6WM
+	kA/FmjYWZdskzwxHz02d4MlV4HHK7wgm84g==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eq0kd8u67-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:12:51 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c2b64850easo17422095ad.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:12:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781079170; x=1781683970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vFU0GJhNHWfPisIlgqzJ49P1CSL4kfjgJ9e1GCqIn3Q=;
+        b=eBysDmoWT7gK18+bx8cQoQRzKVKFbyvt+SxRYfF0RM1LpZry84fEhQisPEdMvHgbjH
+         Ly9Q36SKZ8BXE+oWVaJRI48Mbsq1beh1eLUw5wuUSWWsd3Fqo21PrSRj9xAA4hYkWWic
+         w8Pj41bYGs1I/D91Yd+VVaXi0eUt8Jlk2XbWXBIxygKXKPCSTJOuU2hQy/WNnVNjR9Jd
+         NiXX9XW8PDFjHCD3ZPlbmbklKhJMz5nrpuQKOTVGjAT2gf3IRbut/wQJXyz23MEmE539
+         14i0wg7ZhWk4QBy2WfXMsN3ybbo95Nxoiwr4GejfpWQiW8PuO6x8hdHOtcc2j3rONVET
+         czaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781079170; x=1781683970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vFU0GJhNHWfPisIlgqzJ49P1CSL4kfjgJ9e1GCqIn3Q=;
+        b=ocT6HUGAxsnrXO1T8djvvucliRe8il2i6f00k6vN6DtjDWYAUHk/5y+Kg9HfqYuSR+
+         r/Fq3+008wIUVM4aO02NeRBBpx0QHmHBW4J393PXLbb0HsPz7rUgDH5il/cIoNPHDRMY
+         P4V9X+HcAYCjQUM0ZxCekOOX4tjsvr5sF0ONhETm7kAqoOmlGAsWya9SsDCWeFZmCYY/
+         PeEqcpj6x0DK3CbxNsX69w/hkpe66XaY6wx4L5Lqxl+gRWlMIUSUSfx4IxJvIGUuqNZn
+         Fyp0Dhm5PsgrEc2A78/4HOkJux0sIaJLYexX4Tj1915M00/VhS0wAZ2m7Qu6eHpAe24W
+         urNw==
+X-Forwarded-Encrypted: i=1; AFNElJ8aQlieg5oSTEhT8J/AGy3ByXxcNZ+HV/5NPxikoBnyNx732Mw66s0fJMMgdRbG+5l1brVNE+bpYkFS@vger.kernel.org
+X-Gm-Message-State: AOJu0YytlMAnxH8CNbrDLPvsQMafdfNsrxBS+9wK1E2ucylHpoTyugxt
+	7J8gbHRjLGnYvRo2CLp+zWnsuvJMHsVRYEB9iMcmrAFDc70GEN74pyUThNW0rQx9emqru1QFVy0
+	WMGIxmSTjtqrPcib0y3+zi81lAzUtXsOdxM868XlA0ygsr3E1nVjKVjJWs5plXBbJ
+X-Gm-Gg: Acq92OHEFGfMWNmLOX4MCSIcX1CyPYKtp60MuCdkiBTbY2fbmsq3izOf+Dwus1i1+4j
+	mr41XsigxvfsljlLq9QIxv9vLAulnkmGrANhakj3ZA6cbpYrHKKIZm5yS/UdMTu/J7a2wVJrQ0l
+	uGVRALR+ytXpASkLkAIQHgXcYFa17JdIIEZX863fRiweYA2zoR3txXKNgisb8sVc/DXH3kQKkBB
+	lhH7vH/zqnMl7PLM46CJMPBL6D3m/SnJt8lZ5G+uYWFAJg8qeBJlhXdZvb4PAhc9V2Mytp6KiNn
+	JgFXWC58RKxfB6FWVO2p8V9DCNcbkaR/+oVf20+ubwal7iNU2pVp1b6eF5wdwKKzZcmXm5Q6f4z
+	VYd86dzMIa3i2CwYveHhQrlVaFI9EbhU+0EZMAuHtp2vGf1PiOLYu7jLIktpHCIgA8ackPmksnO
+	Z92zNOZLJklHZA6yYYXv/qSDh8t5eO/tvJBUydjyO2DTlm0+/CHq7lD+SoItagjg==
+X-Received: by 2002:a17:902:e5ce:b0:2bd:5ab:af95 with SMTP id d9443c01a7336-2c1e77d145fmr268647955ad.0.1781079169937;
+        Wed, 10 Jun 2026 01:12:49 -0700 (PDT)
+X-Received: by 2002:a17:902:e5ce:b0:2bd:5ab:af95 with SMTP id d9443c01a7336-2c1e77d145fmr268647335ad.0.1781079169451;
+        Wed, 10 Jun 2026 01:12:49 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8679esm228858575ad.21.2026.06.10.01.12.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 01:12:49 -0700 (PDT)
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+To: amitk@kernel.org, thara.gopinath@gmail.com, rafael@kernel.org,
+        daniel.lezcano@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Add support tsens in ipq5210 & ipq9650
+Date: Wed, 10 Jun 2026 13:42:39 +0530
+Message-Id: <20260610081241.1468507-1-varadarajan.narayanan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=TeamcxQh c=1 sm=1 tr=0 ts=6a291c83 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=O98__aPPj8GWcYWuEFUA:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: F7LN-ltx3CjggR5pVbtk0Mfz42YfAoxT
+X-Proofpoint-ORIG-GUID: F7LN-ltx3CjggR5pVbtk0Mfz42YfAoxT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDA3NiBTYWx0ZWRfX3ZAofLncZOhW
+ vXKiDnkoQnFijIZ+rNMM31QDpCny1uJoYmQXGeGgygdOIxwz9ZIiz1jnRrqiMv70DfPddUvIPYj
+ tkGM7qXwTpxyYJn/hQ2Uqa4ET5bZzY4UEnaCDjKtcaNaGF0E9KnMWwDdLDk7T7mjORV6tiquPXl
+ XpICVyDTgU4XhnIgkZdLFqTqU45UlAnRZ/0JQD2IpiLqZBZHqaSYAS5xA/vBumtk1FcSBes/hOC
+ C3WfNP/bR0Cl4HQjDEQGAIC7yOCdyxfesMB8dJOtE81O0DNegtUUmZOEHDgli1qZDZbyzoy9beW
+ UEdCnEmG3wniolUZRpdn9cagBU9ot5hjUhzd+r65nZ7iuD5AwlBMUmZTWU+OyCJxWn9e6tugJSC
+ s7KUHFiDRLWmSmEdr+TAk/mBKIDODhqYMfPpGC/UDQsTKmVtbig9uGZ10i1wE+xe6xuHxrmtRDX
+ fVk2kGQjW5ZyEvhotmw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606100076
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Reading registers while the device is still in reset during the pr=
-obe error path causes a system bus hang.
-- [High] Mismatch between manual unregistration of clocks and devm-managed =
-OF provider registration creates a use-after-free window during device remo=
-val.
-- [High] Seventeen distinct clocks share the exact same physical divider co=
-nfiguration bits, breaking clock topology.
-- [Medium] Parent clocks enabled during probe are permanently leaked on err=
-or paths and during device removal when `CONFIG_PM` is disabled.
-- [Medium] The driver modifies a global static array to save instance-speci=
-fic register states during runtime suspend.
-- [Medium] Manual Read-Modify-Write (RMW) operations on a shared syscon reg=
-map bypass atomicity guarantees.
-- [Medium] Unchecked `regmap_read` calls in clock operations lead to uninit=
-ialized stack memory being written to hardware registers.
-- [Low] Unconditional assignment of `dev_pm_ops` to the platform driver cre=
-ates dead code when PM is disabled.
---
+ipq5210 and ipq9560 have the Qualcomm tsens-v2 IP. The tsens framework
+in these two SoCs are similar to the one found in ipq5332. This series
+adds the sensor data to the tsens-v2 driver.
 
-commit 0916ea34519831a84e69fe5dc0d82f878c51aef8
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
+v2: Combine bindings and driver patches
+    Use fallback for ipq5210 and dropped the driver changes
 
-clk: cix: add sky1 audss clock controller
+v1: bindings - https://lore.kernel.org/linux-arm-msm/20260515-tsens-yaml-v1-1-8039c62cc249@oss.qualcomm.com/
+    driver - https://lore.kernel.org/linux-arm-msm/20260515-tsens-driver-v1-0-015ca76f1418@oss.qualcomm.com/
 
-Add a platform driver for the Cix Sky1 Audio Subsystem (AUDSS) internal
-clock controller. The driver binds to a cix,sky1-audss-clock device tree
-node under the AUDSS syscon, obtains the parent regmap via
-syscon_node_to_regmap(), and registers mux/divider/gate composite clocks
-for DSP, SRAM, HDA, DMAC, watchdog, timer, mailbox and I2S outputs. Four
-SoC-level audio reference clocks are brought up as inputs to the tree.
+Varadarajan Narayanan (2):
+  dt-bindings: thermal: tsens: add ipq5210 & ipq9650 compatible
+  thermal/drivers/qcom/tsens: Add support for ipq9650 tsens
 
-> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-=
-audss.c
-> new file mode 100644
-> index 0000000000000..3ec6bea93b73c
-> --- /dev/null
-> +++ b/drivers/clk/cix/clk-sky1-audss.c
-> @@ -0,0 +1,1175 @@
-[ ... ]
-> +static u32 sky1_reg_save[][2] =3D {
-> +	{ INFO_HIFI0,  0 },
-> +	{ INFO_CLK_GATE,  0 },
-> +	{ INFO_CLK_DIV, 0 },
-> +	{ INFO_CLK_MUX, 0 },
-> +	{ INFO_MCLK, 0 },
-> +};
+ .../devicetree/bindings/thermal/qcom-tsens.yaml          | 9 +++++++++
+ drivers/thermal/qcom/tsens-v2.c                          | 8 ++++++++
+ drivers/thermal/qcom/tsens.c                             | 3 +++
+ drivers/thermal/qcom/tsens.h                             | 2 +-
+ 4 files changed, 21 insertions(+), 1 deletion(-)
 
-[Severity: Medium]
-Since devtype_data->reg_save points to this statically defined sky1_reg_save
-array, won't multiple instances of this device concurrently overwrite each
-other's saved register states during runtime suspend?
+-- 
+2.34.1
 
-Should the register save array be allocated per-instance in
-sky1_audss_clks_priv instead?
-
-[ ... ]
-> +static const struct composite_clk_cfg sky1_audss_clks[] =3D {
-> +	/* dsp */
-> +	CFG(CLK_DSP_CLK,
-> +	    "audss_dsp_clk",
-> +	    dsp_clk_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_DIV, 0, 2, 0,
-> +	    INFO_HIFI0, 0, 0,
-> +	    0),
-
-[Severity: High]
-Seventeen distinct clocks (from CLK_DSP_CLK through CLK_I2S9_APB) are defin=
-ed
-with the exact same divider offset (INFO_CLK_DIV), shift (0), and width (2).
-
-Won't changing the rate of one clock silently overwrite the physical divider
-for the other 16 clocks without updating their cached rates in the clock co=
-re?
-
-[ ... ]
-> +static int sky1_audss_clk_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct clk_mux *mux =3D to_clk_mux(hw);
-> +	u32 val =3D clk_mux_index_to_val(mux->table, mux->flags, index);
-> +	struct sky1_clk_mux *sky1_mux =3D to_sky1_clk_mux(mux);
-> +	unsigned long flags =3D 0;
-> +	u32 reg;
-> +
-> +	if (mux->lock)
-> +		spin_lock_irqsave(mux->lock, flags);
-> +	else
-> +		__acquire(mux->lock);
-> +
-> +	if (mux->flags & CLK_MUX_HIWORD_MASK) {
-> +		reg =3D mux->mask << (mux->shift + 16);
-> +	} else {
-> +		regmap_read(sky1_mux->regmap, sky1_mux->offset, &reg);
-> +		reg &=3D ~(mux->mask << mux->shift);
-> +	}
-> +	val =3D val << mux->shift;
-> +	reg |=3D val;
-> +	regmap_write(sky1_mux->regmap, sky1_mux->offset, reg);
-
-[Severity: Medium]
-Since the regmap is obtained via syscon_node_to_regmap(), it may be shared
-with other drivers.
-
-Does relying on the local priv->lock to protect discrete regmap_read() and
-regmap_write() calls leave a race condition against other syscon users?
-
-Should regmap_update_bits() be used instead to ensure atomicity?
-
-Also, if the regmap_read() call fails, reg remains uninitialized. Does this
-result in writing raw stack memory back to the hardware register via the
-subsequent regmap_write()?
-
-[ ... ]
-> +static void sky1_audss_clk_gate_endisable(struct clk_hw *hw, int enable)
-> +{
-> +	struct clk_gate *gate =3D to_clk_gate(hw);
-> +	struct sky1_clk_gate *sky1_gate =3D to_sky1_clk_gate(gate);
-> +	int set =3D gate->flags & CLK_GATE_SET_TO_DISABLE ? 1 : 0;
-> +	unsigned long flags =3D 0;
-> +	u32 reg;
-> +
-> +	set ^=3D enable;
-> +
-> +	if (gate->lock)
-> +		spin_lock_irqsave(gate->lock, flags);
-> +	else
-> +		__acquire(gate->lock);
-> +
-> +	if (gate->flags & CLK_GATE_HIWORD_MASK) {
-> +		reg =3D BIT(gate->bit_idx + 16);
-> +		if (set)
-> +			reg |=3D BIT(gate->bit_idx);
-> +	} else {
-> +		regmap_read(sky1_gate->regmap, sky1_gate->offset, &reg);
-> +
-> +		if (set)
-> +			reg |=3D BIT(gate->bit_idx);
-> +		else
-> +			reg &=3D ~BIT(gate->bit_idx);
-> +	}
-> +
-> +	regmap_write(sky1_gate->regmap, sky1_gate->offset, reg);
-
-[Severity: Medium]
-If the regmap_read() call fails here, reg remains uninitialized.
-
-Could this write uninitialized stack memory back to the hardware register?
-
-[ ... ]
-> +static int sky1_audss_clk_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D sky1_audss_clks_set_rate(priv);
-> +	if (ret) {
-> +		dev_err(dev, "failed to set clocks rate\n");
-> +		goto fail_clks_set;
-> +	}
-> +
-> +	/* assert reset */
-> +	reset_control_assert(rst_noc);
-
-[Severity: High]
-If sky1_audss_clks_set_rate() fails, the code jumps to fail_clks_set and
-calls pm_runtime_put_sync(), which invokes sky1_audss_clk_runtime_suspend().
-
-Since reset_control_deassert(rst_noc) has not yet been executed, doesn't th=
-is
-attempt to read registers from a subsystem still held in reset, potentially
-causing a system bus hang?
-
-[ ... ]
-> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, priv->c=
-lk_data);
-
-[Severity: High]
-The OF clock provider is registered using devm_of_clk_add_hw_provider(),
-meaning its cleanup happens during the devres phase, after
-sky1_audss_clk_remove() returns.
-
-By manually freeing the composite clocks in sky1_audss_clk_remove() with
-clk_hw_unregister_composite(), is there a window where the OF provider is
-still globally active but the internal clk_hw pointers have already been
-freed, leading to a use-after-free if a consumer probes during this time?
-
-> +	if (ret) {
-> +		dev_err(dev, "failed to add clock provider: %d\n", ret);
-> +		goto fail_register;
-> +	}
-> +
-> +	pm_runtime_put_sync(dev);
-> +
-> +	return 0;
-> +
-> +fail_register:
-> +fail_array_clk:
-> +	while (i--)
-> +		clk_hw_unregister_composite(clk_table[devtype_data->clk_cfg[i].id]);
-> +fail_fixed_clk:
-> +fail_clks_set:
-> +	pm_runtime_put_sync(dev);
-> +	pm_runtime_disable(dev);
-
-[Severity: Medium]
-If the kernel is built with CONFIG_PM=3Dn, these runtime PM calls become
-no-ops, which means the runtime suspend callback is never invoked.
-
-Does this permanently leak the parent clocks explicitly enabled earlier in
-probe?
-
-Should the clocks be manually disabled in the error path and remove functio=
-n?
-
-> +	return ret;
-> +}
-> +
-> +static void sky1_audss_clk_remove(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	int i =3D 0;
-> +
-> +	for (i =3D 0; i < devtype_data->clk_cfg_size; i++)
-> +		clk_hw_unregister_composite(priv->clk_data->hws[devtype_data->clk_cfg[=
-i].id]);
-> +
-> +	if (!pm_runtime_status_suspended(dev))
-> +		pm_runtime_force_suspend(dev);
-
-[Severity: Medium]
-If CONFIG_PM is disabled, pm_runtime_force_suspend() is a no-op.
-
-Could this leave parent clocks enabled during device removal?
-
-> +
-> +	pm_runtime_disable(dev);
-> +}
-> +
-> +static int __maybe_unused sky1_audss_clk_runtime_suspend(struct device *=
-dev)
-> +{
-> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	unsigned long flags;
-> +	int i;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	for (i =3D 0; i < devtype_data->reg_save_size; i++)
-> +		regmap_read(priv->regmap_cru,
-> +			    devtype_data->reg_save[i][0], &devtype_data->reg_save[i][1]);
-
-[Severity: High]
-This register read can happen when the device is still in reset if the
-probe function fails at sky1_audss_clks_set_rate().
-
-Can this trigger a system bus hang?
-
-[Severity: Medium]
-This also writes to devtype_data->reg_save[i][1] which points to the global
-sky1_reg_save array.
-
-Does this corrupt the saved state if multiple instances of this driver are
-active?
-
-[ ... ]
-> +static struct platform_driver sky1_audss_clk_driver =3D {
-> +	.probe =3D sky1_audss_clk_probe,
-> +	.remove =3D sky1_audss_clk_remove,
-> +	.driver =3D {
-> +		.name =3D "sky1-audss-clk",
-> +		.suppress_bind_attrs =3D true,
-> +		.of_match_table =3D sky1_audss_clk_of_match,
-> +		.pm =3D &sky1_audss_clk_pm_ops,
-
-[Severity: Low]
-Should this be wrapped with pm_ptr() to avoid leaving dead code when CONFIG=
-_PM
-is disabled?
-
-> +	},
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610075645.3581=
-145-1-joakim.zhang@cixtech.com?part=3D4
