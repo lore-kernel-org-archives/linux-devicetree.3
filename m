@@ -1,123 +1,107 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE33218ADD
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781130826; cv=pass; b=CNbtjGhdHOig8EHaOgWdpWjKvjcS/F+P9C9MaBcZxCHCqBkE9YEh/lB1KS86oDO4AL7BPlHph1tD6lsKQCDf2iC+8q6kIV1B2VFAFYORBAbiaKAe2VUsI4+S9hk07YsPVIhorRnOSKwh3yRV4wTV574hodnhbPnnOAhbEAemm9Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781130826; c=relaxed/simple;
-	bh=gRc5rg0uNhUBmKY5S3W7b9JJvEACGSzpTb7P6P2pWKg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE17375ACF
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781131406; cv=none; b=jQprPQZHXQFJ79FqlICGBXzw1NBZ9HGLBqRjQHhiLeOjUVUtVcdbgS6fUzxPApx8M+/zzd4h8roXV/xnV1VSXoNohGVWEhceW4izaZI0yFrRyo6jlKXLwiFEPGWXy2NOB2G7CXoGHolec1wRBRG2b1TTFTebZbPEaTQJfOlmCLw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781131406; c=relaxed/simple;
+	bh=0mIimJZwSrMOwOod1z2uAYi8SE+ZraOi6XHfdAjx1Tg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h7jHjNxuopbEkyFeBT8hNook4sydma+tpjSnE98Osd/1hpESQ95wF1Qr7vNH9ochYwW7GDLQec3TfqmjNPOQ8m4RQvBolwwkYUKbEZPUO1DGABsk4AIdK0t4W/3ktJlMMWkY/BomlAsYm0EjNh/0CNDZ2GKiwzq/hMXXdqZskxI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OsGNIWZf; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=c81O4qpMUrqQN0oHaKGnBlAfJlf+LcGR7Hz8pq7KZDIFWdJGcIWDTZeKmgpnw11IUuOyTJpAN/RQ0gXDcl1V6WHvNhSDdzc+bhJuM/eyLhS54H9sE2BEdsEY5ucaS/Cx/RG+pAYSfpvEpfT0sdLs/pUWGQMPl8+algo4Yp7lYvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCDhfGUX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OsGNIWZf"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7de68222e96so68003337b3.2
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:33:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781130825; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XYyKpcHdi6kdx1CDLHvxPcFuDWPiK6EU0VLy9woT1pBKOcJQ/hR3E8S3xUbMssK7QR
-         iyOYvYSQC65coRTaEEvVTEie25HTjp2XWRJ33DF+UAyMBQjQs8Qh3kyL3Sok34/ktKSH
-         2QyjZVBAuEV54ztdD0IALXjs6rZZQYrAMu+rlXZngIpJ4vlwR1WynYyYT+hA3vW5Y1uh
-         x10v2Q3B4ubiOR7etjl3e6bCJ7a06UQq8pFl5Cz4Ot7A4gPH+k0Pu0bex18mE6QY1wkb
-         v/5/hsa7eWsT0wKQKEyN0WWra3Ti8p6igph+7QOTDPg2YFxL6ZMnF5SwIkHV4GdUmLx9
-         Hxjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gRc5rg0uNhUBmKY5S3W7b9JJvEACGSzpTb7P6P2pWKg=;
-        fh=dVAtMk6+93Fr5yka1dwmdff7B9OmLy6uU4Nhxunmpz8=;
-        b=UOLscHTtx9nIodgD/Egzvpc+UeqHGmBTdmnUGyY5lorjI4AsCLOTvR1uj7NO4Ojv1z
-         FfLIbz7vV4c4ip1zOBaM8bvBwxRt2of5gPsTZYGm+bz/4MDomK5f/jDpOzmIvigNz8/7
-         855H8JjirOpnhJGg8fQgjUxExkeuEQj42rqnKI+lCY4m6stO8uSVewMm3IiN/xBwb38J
-         nCBpcrj1QzFShi8xziuh8dUuz6YDAZg0n0ckV0oRH/6KfjYPVXdzlhH/doUVR1HEfIIB
-         QScQlsyg2S/YES0we5DLSPtFreV1BtJSwpEknkGm5xyFWDriJotsYpIU48ZUlnLqxc5u
-         JMpw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781130825; x=1781735625; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gRc5rg0uNhUBmKY5S3W7b9JJvEACGSzpTb7P6P2pWKg=;
-        b=OsGNIWZfPPw9c29TnTjKd4rDpZUrpHV3QFEkJhxCX76keU7UkrSCQJdJe6GS1U6S5X
-         6dx6KIxm0W0BHE0tEhlGmemRWWMuio2oJnEBUHXyXj81lxTqTp5+KhYMTGAgpU9bbPvr
-         IkyfRmqqM+Byaj0wcXWjseBByZU715H7Bj6SdBM4+k+eTHPVBZ9JLt2PS82aeP/Mbr6k
-         AzHdAIuxFUksXhF6AjSADpfPM+c5P2c4layAZyFX9oqWFP4FWGluZ0grB5zyC45W8F+J
-         KkJudumd6GdcSh+b6+WRZNQzJsNr7deW9YS+HkX7J520j0JOgGeR3WdhVEctqIv4htlM
-         EEGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781130825; x=1781735625;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gRc5rg0uNhUBmKY5S3W7b9JJvEACGSzpTb7P6P2pWKg=;
-        b=s5nugHgFCQxrF36yOB6xwX14q4dvJytRtQ7cs7i2rpqgQwmBPOz1xNnHCPz85S388W
-         4YCrYqHee7nlaMgzP6FPR0+d/Sa+/7pu/CzGETI2At4LNVI93rOgGb5H2wUNbYHrgGNJ
-         7lBeX8Q1stVcjEtTZ4XWAvE2TwESADrkUxi4z+gNc2VoRmVsoYedyDJVaxD7c5MkzPzU
-         gPSF2VfXTxIefDFRikJJk9iNtZTJFPgnEhKbLdkqWZ8CsKhqJdwlXSmwy5mMisxVMjjX
-         Gtix/4sxOaqpMNZ+h9GM0mktzJIYBK64zzlPtpbp6q1yNTrodUJtFPAROc2Y9SHGuI1f
-         naaw==
-X-Forwarded-Encrypted: i=1; AFNElJ+FCVdVJdkwJXT3cRZO1fXDEU6M+HKRAO+628Dtu9csYFHv+Up2WhDFxp6mMTYPtuCvDFEZ6BfIMSbR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfN0sHEMZoVnHttiA6jsqT8JJ3Wlw/tkLZX8Cppuhr4ph829jU
-	xPwM3Ycj+H7v8WD6S109Q4RDkVAlaUMIeKJ80JGKCyLuWY0NJldNqL8xN7W25DVGw+kHUJpfU20
-	4C7YjbJmBTh0rijlCix2RscKLLB0g12Y=
-X-Gm-Gg: Acq92OHyFXjIzFvaJuZa3cNaIT8Sio3N52ih/JRpErGZENok2LGg1uR6GruMyflm95B
-	mTVtzSqoFF4f4cCZ5i8NkexYpn9mNuJY/HKdUX8qyjzc3Ec2AYsOqc8O6Clq1aLFDHhaTxSpY8G
-	KaXJfsXL67lB0SjS0/u9g9QdCqOHXalCUQQrB07RuZ1ZeVygBx12EQiaYAhS5mrKpRgoXcBJL7T
-	ilixd+iJ26bSlCPpJNuNaTWrKpknSThS3pZp2f2R8UydZ2g/b3QeqbcYUbmXEJiFDzISYQEbpSE
-	zic3FliqZfXht3V4iWI31p5D7w==
-X-Received: by 2002:a05:690c:c24d:b0:7bd:498d:7c96 with SMTP id
- 00721157ae682-7f657866efbmr2517827b3.34.1781130824472; Wed, 10 Jun 2026
- 15:33:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCDhfGUX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FED1F00A00
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781131404;
+	bh=62bFE+9EiC4Wl6sR/gNVDtGRVBnRqEmz0YnELUX+5Xs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GCDhfGUXvvVNHLXhr3frkjO1Rp4OtsKp0qM3R31fePjb//IULavexvDmNUUwA04Ub
+	 Dzlzh2pzRTGy59f+l+FcFl6Yb7JHo1erepIH9ag8J/kku0Cip94/n/lnMR10AXod+E
+	 Eo9yh0/1Iz8nn2Z2avr7KPAgjzoa5BEPnlspQTzlg3rKjx1wz7yacqY5QAT1hJvXmc
+	 p+h4mmaqYQXlAywwxh+PM6aAWHmctdeOpMdFSOJmYCYFWVtcq+mLZQz8SbOiIU5i+B
+	 W6h3yZfiZGrVAGQ4KxdyXBJ5+NYJjpIS11ozMi8kHTJQg+Iz/vEkAJtdxm8C+VNjjZ
+	 1YzD783Gy0FgA==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6924a68e3f3so4266549a12.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:43:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8B2XYd++RMaCHg61agivV8Co9ae7ZpmK9YIooHuc34wBDCakS7murLPB5ucL4XuXBTPmLIHsQsa4j9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWvVEHBYghx20gmkNLyTyrvHF2BChItV99LgJIKKaYVdf6alNu
+	q0Uj0TZPjgi9sny5e/TUT2MNq1++Z0+H/IFkXz9WT7Zot+CwRGbx6CZLI1GnRu/nPYH+aOUP3sY
+	FWbOVFGUjCRUhgZ9Isl0u7P3JqgnzjA==
+X-Received: by 2002:a17:907:c28c:b0:bd0:df77:98bb with SMTP id
+ a640c23a62f3a-bf3702817fbmr1479114866b.9.1781131402612; Wed, 10 Jun 2026
+ 15:43:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260609160326.45123-1-m32285159@gmail.com> <20260609160326.45123-2-m32285159@gmail.com>
- <20260610-imperial-glittering-pudu-ddfdab@quoll>
-In-Reply-To: <20260610-imperial-glittering-pudu-ddfdab@quoll>
-From: Maxwell Doose <m32285159@gmail.com>
-Date: Wed, 10 Jun 2026 17:33:33 -0500
-X-Gm-Features: AVVi8CdlX_7XU5G3ZT3lf5TeUn5DNNt57yPU43XNb4deDpxPvIA7JLseq-81LG8
-Message-ID: <CAKqfh0GTVZcRyGCaZDJZwE=W2=FKSMYGkgjmg_5eXs6ZG1z+_A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: iio: plantower,pms7003: Add myself as maintainer
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+References: <20260609151212.29469-1-ansuelsmth@gmail.com> <20260609151212.29469-9-ansuelsmth@gmail.com>
+In-Reply-To: <20260609151212.29469-9-ansuelsmth@gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 10 Jun 2026 17:43:11 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJdBxsbUK+n9h17K9SC7ojcPxemeijJhUGQt9HuB82OYg@mail.gmail.com>
+X-Gm-Features: AVVi8CfnalHGFSDJtFBoMIJ88H-i-Yw1YCOHz7GBxBm4GdczRrsSV4xJzXraBNE
+Message-ID: <CAL_JsqJdBxsbUK+n9h17K9SC7ojcPxemeijJhUGQt9HuB82OYg@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 08/12] of: property: fw_devlink: Add support
+ for "pcs-handle"
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	Tomasz Duzsynski <tduszyns@gmail.com>
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Saravana Kannan <saravanak@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 10, 2026 at 4:08=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+On Tue, Jun 9, 2026 at 10:13=E2=80=AFAM Christian Marangi <ansuelsmth@gmail=
+.com> wrote:
 >
-> On Tue, Jun 09, 2026 at 11:03:25AM -0500, Maxwell Doose wrote:
-> > Tomasz's entry is no longer valid, as he is not active anymore. Add
-> > myself as maintainer to replace his entry.
+> Add support for parsing PCS binding so that fw_devlink can
+> enforce the dependency with Ethernet port.
 >
-> Last replies are from Feb 2026, so not that far away. I fail to see the
-> context behind that change.
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/of/property.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> Anyway, it's like fourth patch from you doing the same. It's even more
-> confusing seeing this done file by file.
->
-> Maybe you just want to add yourself as co-maintainer?
->
+> diff --git a/drivers/of/property.c b/drivers/of/property.c
+> index 136946f8b746..e6584a2f705d 100644
+> --- a/drivers/of/property.c
+> +++ b/drivers/of/property.c
+> @@ -1392,6 +1392,7 @@ DEFINE_SIMPLE_PROP(access_controllers, "access-cont=
+rollers", "#access-controller
+>  DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
+>  DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
+>  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
+> +DEFINE_SIMPLE_PROP(pcs_handle, "pcs-handle", "#pcs-cells")
 
-In the context of this one, co-maintainer may make more sense, I'm not
-as familiar with this driver as I am with, say, the sps30. However I
-think we still don't want patches to land in Tomasz's (seemingly
-abandoned) email. I would probably wait for Jonathan to chime
-regarding that however.
+There is no such common property "#pcs-cells".
+
+>  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
+>  DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
+>
+> @@ -1548,6 +1549,7 @@ static const struct supplier_bindings of_supplier_b=
+indings[] =3D {
+>         { .parse_prop =3D parse_interrupts, },
+>         { .parse_prop =3D parse_interrupt_map, },
+>         { .parse_prop =3D parse_access_controllers, },
+> +       { .parse_prop =3D parse_pcs_handle, },
+>         { .parse_prop =3D parse_regulators, },
+>         { .parse_prop =3D parse_gpio, },
+>         { .parse_prop =3D parse_gpios, },
+> --
+> 2.53.0
+>
