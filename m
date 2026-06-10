@@ -1,115 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B1A1AA7A6
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:56:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A9229BD95
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781081803; cv=none; b=iL+KPN+rItvoLUekWsmN/QAYJwdctO704kTbIa9T2OxxsdbDD7EVK4+v+k9cDpnLhqHpIN6modZ9z7AR3yi3T9oEm2AapxhTfCuJJI7Ztnp8Sht6eQ8kDk2I4ut1prHTFuPdRoMQUiT+aMO6WlkYTYG3Owl+3xigHurCODI34zQ=
+	t=1781081849; cv=none; b=RNwRjIonr076EnhUxzrkBKzu5NDgYyVqtIZdbFlEczyG+vMlniyvQcP8eoE6YESWuRfDx2Ltbw1KEfu8L/OlmaUbeguf7ziThP4XCh/tmpcF+TVZRtyI+dnKAXocMVlikknSFuOcDNicd/7dSf7ClV8sFOsmhwftwj+bOJPsnoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781081803; c=relaxed/simple;
-	bh=BUCh6N4uUmwtu5deOO/7W6gUjsdbRzp9up8D/qjaZMw=;
+	s=arc-20240116; t=1781081849; c=relaxed/simple;
+	bh=QL0+NEF30IjiJsPNEjonS9U/+JwL2JG/gDWkxfYeTCg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YJoA6St736mx5z/a0BO8wBxgjPD7MiuJNrrZuWKV4qE9stzWUDnyxnOyx3hBqbXhtFJa1Csw83xhFhEuvxyZXGI5vKVGIZ3ADCFHh/uYlCLaoTXKaI2zzovEDYNRHYZqX28sYJfxaitwZTXS9T99xVSuB5czVWP5j9+DorJzC0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z2dn1SDt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=S07aVrmv1ofyISoTOLbwVQ60K9XMtVdNeRApWPDeOlKfcRBxjPD+XkOE930DHVfDxD/O1OW8qlNajLeKjO8umnC76dBO7MFwMrJ8cWkkQfQKh3qvE7R+Ivfp9w4wXqO+3VFDLkqClYZLCsuGOky+tn8dcxbkwgHx85WzVOOBJsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BRLV7uyF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z2dn1SDt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE431F00893;
-	Wed, 10 Jun 2026 08:56:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BRLV7uyF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A20B1F00893;
+	Wed, 10 Jun 2026 08:57:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781081801;
-	bh=dubolUisTBciyXCzUln5NSLxq/3dcLGoZgB4fBfhLdo=;
+	s=k20260515; t=1781081848;
+	bh=ZFZP2xdyS3Ep3M6mfHhsTx85aDDCty4Nq1gkI+na5lw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z2dn1SDtqmndJcztf6nSy6+tp7gy2QG6Rhntn4yfxom3/MAvL2QXtubFUmLGyJqdm
-	 KdAjKreFBoIuYKJL4KqieH+7iddQKs2bYQVwTZ0Xq/6MQOhQt11ffizgao3aHo39VW
-	 6GGH2DsjXaBj+p37DuAzKxegKj9YlQ4hCZeYUVOk+yCdBseqe1Sbg1qIuUjlYPnJHW
-	 VbkHDAgA56iGrm8z5P05JYBzdEIrVw90keFOQNHcuzLsKi8qoxKa3RNq2tozFc2QZx
-	 n2z1g3Zk8M8TxCDPBTMsEk0g+naUUE24iJlL6v1CV6PCB54NecWgXy0WKRtx7rfku0
-	 laAsW5RfC6e3A==
+	b=BRLV7uyFS5z8gpac8kebI2ZlLa9HjAmNMIEtqGMXXpTmTZ35k6BFEJ+t7yLEiEqdY
+	 HhFQnN0DkVCz0iBOSDVHrz/ISosK7pbiNBUV3vu9ojlQNDNbRlLKjQxwPreTligs/L
+	 Zpd8K6uBCz2XOpl9+q9udKBG3FSxaVTyPR/YPAi4PUwuT2ZWAvHTn43RLp9YibXa0Y
+	 l5Te1RH5z4QdKm80uKuJljpPb5wB0G4zEFWWXde1TGvhrL3EeevBTAYVlac5UEBGS4
+	 //e8G18LH/438B+mjWhycStaFkUgkH/VA9zy9A1UhlcbnDEEV2MPkqpo2LrKJNQdX6
+	 k/irppf54IL6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/16] usb: hub: Associate port@ fwnode with USB port
- device
+Subject: Re: [PATCH v2 02/16] device property: Add
+ fwnode_graph_get_next_port_endpoint()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260610084053.2059858-6-wenst@chromium.org>
-References: <20260610084053.2059858-6-wenst@chromium.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260610084053.2059858-3-wenst@chromium.org>
+References: <20260610084053.2059858-3-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 08:56:41 +0000
-Message-Id: <20260610085641.8FE431F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 08:57:27 +0000
+Message-Id: <20260610085727.7A20B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Leaked firmware node reference obtained from fwnode_graph_get_po=
-rt_by_id().
+
+New issues:
+- [Low] The local variable `ep` is declared but never used in `fwnode_graph=
+_get_next_port_endpoint()`.
+
+Pre-existing issues:
+- [High] Preexisting Use-After-Free, Double-Free, Memory Leak, and Infinite=
+ Loop in `fwnode_get_next_child_node()` when crossing from primary to secon=
+dary fwnodes.
 --
 
-commit d665d488ed337df469077f70e021bbabc2b8ac61
+commit ef024cc56635ec6ba836569acc9c332f8f2249dc
 Author: Chen-Yu Tsai <wenst@chromium.org>
 
-usb: hub: Associate port@ fwnode with USB port device
+device property: Add fwnode_graph_get_next_port_endpoint()
 
-When a USB hub port is connected to a connector in a firmware node
-graph, the port itself has a node in the graph. This commit associates
-the port's firmware node with the USB port's device. This is used in
-later changes for the M.2 slot power sequencing provider to match
-against the requesting port.
+This commit introduces fwnode_graph_get_next_port_endpoint(), a new helper
+function that allows consumers to find endpoint nodes under a given port
+firmware node. It iterates over the child nodes of the port, checking if
+their name matches "endpoint", and returns the matching node.
 
-> diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
-> index b1364f0c384ce..1846eb1206a4d 100644
-> --- a/drivers/usb/core/port.c
-> +++ b/drivers/usb/core/port.c
-> @@ -780,6 +780,8 @@ int usb_hub_create_port_device(struct usb_hub *hub, i=
-nt port1)
->  	port_dev->dev.driver =3D &usb_port_driver;
->  	dev_set_name(&port_dev->dev, "%s-port%d", dev_name(&hub->hdev->dev),
->  			port1);
-> +	device_set_node(&port_dev->dev,
-> +			fwnode_graph_get_port_by_id(dev_fwnode(&hdev->dev), port1));
+> diff --git a/drivers/base/property.c b/drivers/base/property.c
+> index 8cbf33f3a9428..badb49ac3d8a4 100644
+> --- a/drivers/base/property.c
+> +++ b/drivers/base/property.c
 
-[Severity: Medium]
-Does this code leak the fwnode reference? fwnode_graph_get_port_by_id()
-returns a firmware node with its reference count incremented, and the caller
-is expected to drop it using fwnode_handle_put() when it is no longer
-needed.
+[ ... ]
 
-device_set_node() merely assigns the fwnode to the device without taking
-ownership of the reference count. If device_register() fails:
+> @@ -1099,6 +1099,39 @@ int fwnode_irq_get_byname(const struct fwnode_hand=
+le *fwnode, const char *name)
+>  }
+>  EXPORT_SYMBOL(fwnode_irq_get_byname);
+> =20
+> +/**
+> + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware node=
+ in port
+> + * @port: Pointer to the target port firmware node
+> + * @prev: Previous endpoint node or %NULL to get the first
+> + *
+> + * The caller is responsible for calling fwnode_handle_put() on the retu=
+rned
+> + * fwnode pointer. Note that this function also puts a reference to @prev
+> + * unconditionally.
+> + *
+> + * Return: an endpoint firmware node pointer or %NULL if no more endpoin=
+ts
+> + * are available.
+> + */
+> +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct f=
+wnode_handle *port,
+> +							  struct fwnode_handle *prev)
+> +{
+> +	struct fwnode_handle *ep;
 
-drivers/usb/core/port.c:usb_hub_create_port_device() {
-	...
-	retval =3D device_register(&port_dev->dev);
-	if (retval) {
-		put_device(&port_dev->dev);
-		return retval;
-	}
-	...
-}
+[Severity: Low]
+Are there plans to use this local variable later? It appears to be declared
+here but never used, which could cause a compiler warning.
 
-put_device() eventually calls usb_port_device_release(), which frees the
-device memory but does not release the fwnode:
+> +
+> +	while (1) {
+> +		prev =3D fwnode_get_next_child_node(port, prev);
 
-drivers/usb/core/port.c:usb_port_device_release() {
-	struct usb_port *port_dev =3D to_usb_port(dev);
+[Severity: High]
+This is a pre-existing issue, but does calling fwnode_get_next_child_node()
+here expose a use-after-free and double-free when crossing from primary to
+secondary fwnodes?
 
-	kfree(port_dev->req);
-	kfree(port_dev);
-}
+If a fwnode has both primary (OF) and secondary (swnode) children:
 
-The reference also appears to be permanently leaked upon normal device
-removal via usb_hub_remove_port_device(), since usb_port_device_release()
-lacks a corresponding fwnode_handle_put(dev_fwnode(dev)) call.
+1. When reaching the end of the primary OF children,
+of_fwnode_get_next_child_node() drops the reference to the last OF child
+and returns NULL.
 
->  	mutex_init(&port_dev->status_lock);
->  	retval =3D device_register(&port_dev->dev);
->  	if (retval) {
+2. fwnode_get_next_child_node() then delegates to the secondary ops
+(software_node_get_next_child), passing the exact same child pointer.
+
+Since the OF node was already put, the secondary ops access freed memory
+when checking if the child is a software node, causing a use-after-free.
+
+3. software_node_get_next_child() then unconditionally calls
+fwnode_handle_put(child), triggering a double-free.
+
+4. It then returns the first secondary software node. On the next iteration,
+the caller passes this swnode back.
+
+The primary OF ops evaluate to_of_node(swnode) as NULL, which causes
+of_get_next_available_child() to restart iteration and return the first
+OF child again. It also fails to put the swnode, causing a memory leak.
+
+Could this create an infinite loop alternating between the first OF child
+and the first software node, repeatedly triggering the use-after-free and
+double-free on every cycle?
+
+> +		if (!prev)
+> +			break;
+> +
+> +		if (WARN(!fwnode_name_eq(prev, "endpoint"),
+> +			 "non endpoint node is used (%pfw)", prev))
+> +			continue;
+> +
+> +		break;
+> +	}
+> +
+> +	return prev;
+> +}
+> +EXPORT_SYMBOL_GPL(fwnode_graph_get_next_port_endpoint);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610084053.2059=
-858-1-wenst@chromium.org?part=3D5
+858-1-wenst@chromium.org?part=3D2
