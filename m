@@ -1,488 +1,181 @@
-Received: from mail.eswincomputing.com (mail.eswincomputing.com [123.124.195.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B83264A9D;
-	Wed, 10 Jun 2026 01:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=123.124.195.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781055165; cv=none; b=KVPR/tB+4cTA2uT5Wx4UCOErqTuDrvjjoe+JHVoTvEdIGrmT6/bSicEQz/o7T05fGWNhxsV2YNoDYGkinquYki/s16StHXBbRsjQ90Ct26Z7XmZIDhOr9cK9vaZXIsLRYmrV326QjOVZXZORmiMDHtOgSBWadP+FAWDWrlxoHJg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781055165; c=relaxed/simple;
-	bh=jYYIResz2pwTYuOUSj8NJjtteeEO46bwEgp5v6qW/yg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fWVYsIhDPHkcL5+8gCw8xuKaMjFtdVoeNwIZqonJkTfScNTnJW4RqJcdRi2WqzdS0NnDRDUdcf62RqjESkqVtoTZOlpDjGbw/2yZIMxoaGMbo+dQkEm/z9exGlPrhUvSo/UKkABqbK6tTvhEFJfH/Qfs+NHiyo4kxc/PW7kJB/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=123.124.195.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app1 (Coremail) with SMTP id TAJkCgA32XKnvihqQJQlAA--.2890S2;
-	Wed, 10 Jun 2026 09:32:25 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	horms@kernel.org,
-	lee@kernel.org,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net-next v8 6/6] riscv: dts: eswin: eic7700-hifive-premier-p550: enable Ethernet controller
-Date: Wed, 10 Jun 2026 09:32:23 +0800
-Message-ID: <20260610013223.972-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260610012727.848-1-lizhi2@eswincomputing.com>
-References: <20260610012727.848-1-lizhi2@eswincomputing.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C94283CAF
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 02:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781056996; cv=pass; b=sUdKWiAqjwq24dZkeP6snJWqGfsqhujH2JuaF4rfUYbf/Dcad6JP3n7JDvCK1YGIGTWJEPjV33fqcx3PUbFqXKu3jKCkYnVFwQW78+skNcTHfWDE5T3d2ncqiWF+VTa5is8SM/AA7vdo4ZYM3hNilME7gj5fE2Z1Y4Pi3XCxrfo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781056996; c=relaxed/simple;
+	bh=mN0qO1W4eKttCnWZt65WuENyWYP5YOyP3GTRiHgHM8E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KsfmPltKMZApcOLniaEdl3bywLgt8dIaA+WnDmdqQEkEUMgSr3MPQzucZ4gqYE6nAMFJzDgvDm2DT4wUj5eXOlioKhFzKKJzpuPn7xWFM8HbD/MGUUfhGlOGgXvcQNY4yQMWOBdsZv8uHqgHbUSzHV0yc6Ljpt37M+C889ac5Zg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Nangwpxd; arc=pass smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Nangwpxd"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e6e41cf7aeso3776185a34.0
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 19:03:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781056993; cv=none;
+        d=google.com; s=arc-20240605;
+        b=U7/Amg/Q+tWCJirG7kdsIPtt9twuUXX5hNNhlPSJjkrMCRvR4AAlWmVlKr2QS8FshX
+         3SLZ8hphZOBu5dnK8dm2aDxcyuYQ2m6U8h8obb12wSE/GFZCFfQnFiavBvXkqBkAioWV
+         I2WUiE4qCkCLb3/04gcDmRiecWEpaGi90NPDFWpQRh6pS5ew08or6QD4z/tgF/9c2e4r
+         MUoehf7UCRBso8UBHoaEykKfO/hoX9rZZXnmCq1c27IAEtkZBG/cyeWb7XHVp6Pf6+0c
+         zV4uE3BNmLglbhkyYgSoJ5AAxl5mR5vdwB4sdnm8Gx4bvj0t/XkR4CiS4Fe+nMPn5fwN
+         rymg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UVLKzHHipOPmzpzXCQLBwTllh/qtjlZjlrowYfX4R2g=;
+        fh=vgRIRFSidG8ioLZH1JjkiCo/HNuc4QQ98AVVceJANQM=;
+        b=J6u7QVHKpbPyEQOeWNxghieid5fFvfwZ5qO6r6p5QQzDtrKpmDIMhrP5K/VRFnPgXP
+         StYah+EUoviTupt4idUAckD7fllBxWfflVeYp1cyb+Enpoikrv7UOOyXO4zKie2NphME
+         mjXMfeS1wWqq0L9voRd6riqLiRdKOFy+6BX4DPBcUQYVjKK2U9J9SgHLBk5vyqbqsm3A
+         Pv8jAkRA1yCjfbGKOpfSja+8V1Z90NTCUpRlW/Xr2I458/49ZlJjftISDXdSAjZLKcAr
+         Tb25mBigJd1rDjc5RoarbfFmZOOA4lEFUH4eEw9+fTAQuZRVOqaokqPtn/GLgyUS8tj3
+         pGHA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1781056993; x=1781661793; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UVLKzHHipOPmzpzXCQLBwTllh/qtjlZjlrowYfX4R2g=;
+        b=NangwpxdI9Oik0Z+Ye+nGyzNiTQ/j4oL8iWTGGERh6s58Xs4z9P8mMu6EZXmUHBML7
+         BVx5ek46JjoTLKNxEs2e+ufPGEufQM7fVg3z/W7ABHOtqp6F9m0Uxegq4ezuNCzK9alr
+         6xxlZgf7k/I3lLq6b8tYe+NqImYBMJQa4K/Rl2vCGrd7eMh+CGHLxZW0rE6GF96SXmLk
+         2DQgNMQE2zeu1ZxoWCmC1uoSwcWHrmREypzfcV57NzNoLFac8jxPUpiH0KZpcwAca8LW
+         lUmpX3aPaf6jMPufhXB0+kLG5SEyA/wPjfIvbLLHP9ra/JoeerVJIKaIvtPvup2j7e3V
+         j42w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781056993; x=1781661793;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=UVLKzHHipOPmzpzXCQLBwTllh/qtjlZjlrowYfX4R2g=;
+        b=EeXzPOkMGbIWWWLajmcDevxHtEViVzrIc+T357iWJEdYQQX0AnFFHcfPd2x3wHiW2R
+         C/6Q1TG1Olxr0+yDF4FcyfEedtI2H+3hODJTusQYz65SWG/sXEY1TlKT14MR9e4ioZ8m
+         Rfdp0ykHph+QuYhlK1ZOtf3FZ9KaQ/Smea/akGrp2lsKclREUBSX9/2XAySRqJRZCwA4
+         UH4aWD6VNiuWI/zeWSPhS67BC00us66MLjvw0zjICqU742iz4EdRaAhKZWaNXKhZBPtb
+         y5bAuHdvbwlUX2xw/MY51B7KlMhgz/S/hikjz8nmIY7SayaVPnfEq17qHwWVZfpCAggY
+         EvXw==
+X-Forwarded-Encrypted: i=1; AFNElJ9gciwkg6S1XCrBajoHeBZbH258Ii1JcPbgpyjFO5RQtJX+pvTPFaDIYQAoVp+UawwNSn98ElxXDdTY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTyEY04tLr3e9FZICIX+4Xx+NbWERFI+1Q6X+rooYDHyRYi0jh
+	ZNQxw5rgQbM85BG/nqK9blpPfTaMjCEw3+eq3N7P2lj0VvZpWSlo2bIgodRrlS5VBCVeZVAa9tV
+	QvR2lMBOCNmhtI1egHYJQhhXbO6AZlux1WBCVNxjBvw==
+X-Gm-Gg: Acq92OHAsekXigiF2wzrh6+HigU5VHMIm7uXx3jrqhWOf5NB8nzFwk2CkCd4FiusUTo
+	D/zJ8mUKaFaduojJmkCpwFfKiix7yMY4EjV0SDufDsje6WjYNWA2a98ATwmlBRcuWn49siNJ75T
+	BZh+t36wRGcEeIHVFAfH+9aLaDdIkIOO1KfSAKYi52n1j8c7llGGvcIPuCRLlgCrqRIM+A0iCDK
+	LbDguXqs8lftWyKpXp2d/wpr3s73aVIwIL/Mp1YbdlPJ6zS47I6OQzbn0g7ecrqs0GLWacIinKT
+	PzkRiqqbN01TtdzZi3Kitwor3i3Wkx6Ls4A=
+X-Received: by 2002:a05:6830:81d8:b0:7e7:31c:c121 with SMTP id
+ 46e09a7af769-7e70c78fc87mr14626623a34.12.1781056993185; Tue, 09 Jun 2026
+ 19:03:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgA32XKnvihqQJQlAA--.2890S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JF45GryxJr1fXr1DGFWkXrb_yoW3Kr4kpa
-	13urWfJr4kZFWSvw4jvF40kFZrGan7KFykCrnrtFy8Jw1v9FnYk34jqFy5XF1DZrW5Xw13
-	XFnrJ34IyF1Iy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4U
-	JVW0owA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRQ6p9UUUUU=
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+References: <20260609130021.99899-1-cuiyunhui@bytedance.com>
+ <20260609130021.99899-2-cuiyunhui@bytedance.com> <20260609-washboard-fantasize-ddf0a9752df8@spud>
+In-Reply-To: <20260609-washboard-fantasize-ddf0a9752df8@spud>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Wed, 10 Jun 2026 10:03:01 +0800
+X-Gm-Features: AVVi8CdRlV_dg_ea73FD1rM-qQA_K4_GqKNrryZYAfOnnfoVb9mqcROreM8Nqss
+Message-ID: <CAEEQ3w=C_z8awtevLhceTgqLW79ONzKTm5MRJeoSTLB9q_CeiQ@mail.gmail.com>
+Subject: Re: [External] Re: [PATCH v3 1/3] dt-bindings: riscv: clarify Svadu
+ boot-time behavior
+To: Conor Dooley <conor@kernel.org>
+Cc: akpm@linux-foundation.org, alex@ghiti.fr, andrew+kernel@donnellan.id.au, 
+	aou@eecs.berkeley.edu, apatel@ventanamicro.com, apopple@nvidia.com, 
+	atishp@rivosinc.com, baolin.wang@linux.alibaba.com, cleger@rivosinc.com, 
+	conor+dt@kernel.org, debug@rivosinc.com, devicetree@vger.kernel.org, 
+	guodong@riscstar.com, hui.wang@canonical.com, krzk+dt@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	liu.xuemei1@zte.com.cn, namcao@linutronix.de, nick.hu@sifive.com, 
+	palmer@dabbelt.com, pincheng.plct@isrc.iscas.ac.cn, pjw@kernel.org, 
+	qingwei.hu@bytedance.com, ritesh.list@gmail.com, rmclure@linux.ibm.com, 
+	robh@kernel.org, wangruikang@iscas.ac.cn, zhangchunyan@iscas.ac.cn, 
+	zong.li@sifive.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+Hi Conor,
 
-Enable the on-board Gigabit Ethernet controller on the
-HiFive Premier P550 development board.
+On Wed, Jun 10, 2026 at 12:09=E2=80=AFAM Conor Dooley <conor@kernel.org> wr=
+ote:
+>
+> On Tue, Jun 09, 2026 at 09:00:18PM +0800, Yunhui Cui wrote:
+> > Clarify that systems which advertise only Svadu have hardware PTE A/D
+> > updating enabled at boot, while systems advertising both Svade and Svad=
+u
+> > must enable Svadu explicitly with SBI FWFT.
+> >
+> > Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+> > Reviewed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+> > ---
+> >  Documentation/devicetree/bindings/riscv/extensions.yaml | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/=
+Documentation/devicetree/bindings/riscv/extensions.yaml
+> > index 2b0a8a93bb214..b09888e9988de 100644
+> > --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
+> > +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
+> > @@ -294,10 +294,10 @@ properties:
+> >                 of the PTE A/D bits or page faults when they need updat=
+ed.
+> >              2) Only Svade present in DT =3D> Supervisor must assume Sv=
+ade to be
+> >                 always enabled.
+> > -            3) Only Svadu present in DT =3D> Supervisor must assume Sv=
+adu to be
+> > -               always enabled.
+> > +            3) Only Svadu present in DT =3D> Supervisor must assume Sv=
+adu is
+> > +               enabled at boot.
+>
+> Commit message is missing an explanation of why this behaviour change is
+> not problematic. Although, to be honest, I am not sure what the changed t=
+ext
+> actually means. If only Svadu is present, then the hardware doesn't suppo=
+rt
+> Svade, and therefore Svadu would never be anything other than enabled so
+> changing the wording to specify "at boot" seems less clear?
 
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- .../dts/eswin/eic7700-hifive-premier-p550.dts | 240 ++++++++++++++++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        | 105 ++++++++
- 2 files changed, 345 insertions(+)
+The "enabled at boot" wording came from Andrew's feedback on the previous
+version: "always" is a sensitive term here because ADUE is writable when
+Svadu is implemented, and ADUE=3D0 behaves as though Svade were implemented=
+.
 
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-index 131ed1fc6b2e..edd91b04e251 100644
---- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-+++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-@@ -13,11 +13,251 @@ / {
- 
- 	aliases {
- 		serial0 = &uart0;
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
- 	};
- 
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	vcc_1v8: vcc1v8 {
-+		 compatible = "regulator-fixed";
-+		 regulator-name = "vcc1v8";
-+		 regulator-always-on;
-+		 regulator-boot-on;
-+		 regulator-min-microvolt = <1800000>;
-+		 regulator-max-microvolt = <1800000>;
-+	 };
-+};
-+
-+&xtal24m {
-+	clock-frequency = <24000000>;
-+	clock-output-names = "xtal24m";
-+};
-+
-+&pinctrl {
-+	status = "okay";
-+	vrgmii-supply = <&vcc_1v8>;
-+
-+	pinctrl_gpio0: gpio0-grp {
-+		gpio0-pins {
-+			pins = "gpio0";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio5: gpio5-grp {
-+		gpio5-pins {
-+			pins = "gpio5";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio11: gpio11-grp {
-+		gpio11-pins {
-+			pins = "gpio11";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio14: gpio14-grp {
-+		gpio14-pins {
-+			pins = "mode_set1";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio15: gpio15-grp {
-+		gpio15-pins {
-+			pins = "mode_set2";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio28: gpio28-grp {
-+		gpio28-pins {
-+			pins = "gpio28";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio43: gpio43-grp {
-+		gpio43-pins {
-+			pins = "usb1_pwren";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio71: gpio71-grp {
-+		gpio71-pins {
-+			pins = "mipi_csi0_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio74: gpio74-grp {
-+		gpio74-pins {
-+			pins = "mipi_csi1_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio76: gpio76-grp {
-+		gpio76-pins {
-+			pins = "mipi_csi2_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio77: gpio77-grp {
-+		gpio77-pins {
-+			pins = "mipi_csi2_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio79: gpio79-grp {
-+		gpio79-pins {
-+			pins = "mipi_csi3_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio80: gpio80-grp {
-+		gpio80-pins {
-+			pins = "mipi_csi3_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio82: gpio82-grp {
-+		gpio82-pins {
-+			pins = "mipi_csi4_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio84: gpio84-grp {
-+		gpio84-pins {
-+			pins = "mipi_csi4_mclk";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio85: gpio85-grp {
-+		gpio85-pins {
-+			pins = "mipi_csi5_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio94: gpio94-grp {
-+		gpio94-pins {
-+			pins = "s_mode";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio106: gpio106-grp {
-+		gpio106-pins {
-+			pins = "gpio106";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio111: gpio111-grp {
-+		gpio111-pins {
-+			pins = "gpio111";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+};
-+
-+&gmac0 {
-+	phy-handle = <&gmac0_phy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio106>;
-+	rx-internal-delay-ps = <20>;
-+	tx-internal-delay-ps = <100>;
-+	status = "okay";
-+};
-+
-+&gmac0_mdio {
-+	gmac0_phy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0>;
-+		reset-gpios = <&gpioD 10 GPIO_ACTIVE_LOW>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <80000>;
-+	};
-+};
-+
-+&gmac1 {
-+	phy-handle = <&gmac1_phy0>;
-+	/*
-+	 * The MAC silicon unconditionally introduces an ~2 ns TX clock-to-data
-+	 * skew (MAC-side TX internal delay). The PHY provides the standard
-+	 * ~2 ns RX internal delay. The driver additionally inverts the RX
-+	 * clock at 1000 Mb/s to correct a silicon RX sampling timing issue.
-+	 * phy-mode is "rgmii-id": TX delay from the MAC silicon, RX delay
-+	 * from the PHY.
-+	 */
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio111>;
-+	rx-internal-delay-ps = <200>;
-+	tx-internal-delay-ps = <2200>;
-+	status = "okay";
-+};
-+
-+&gmac1_mdio {
-+	gmac1_phy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0>;
-+		reset-gpios = <&gpioD 15 GPIO_ACTIVE_LOW>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <80000>;
-+	};
- };
- 
- &uart0 {
-diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-index c3ed93008bca..c77bc8b1b7bc 100644
---- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-+++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-@@ -5,6 +5,9 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/reset/eswin,eic7700-reset.h>
-+
- / {
- 	#address-cells = <2>;
- 	#size-cells = <2>;
-@@ -202,6 +205,11 @@ pmu {
- 				<0x00000000 0x0000000f 0xfffffffc 0x000000ff 0x00000078>;
- 	};
- 
-+	xtal24m: oscillator {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		ranges;
-@@ -245,6 +253,85 @@ plic: interrupt-controller@c000000 {
- 			#interrupt-cells = <1>;
- 		};
- 
-+		hsp_power_domain: bus@50400000 {
-+			compatible = "simple-pm-bus";
-+			ranges;
-+			clocks = <&clk 171>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+
-+			hsp_sp_csr: hsp-sp-top-csr@50440000 {
-+				compatible = "eswin,eic7700-syscfg", "syscon";
-+				reg = <0x0 0x50440000 0x0 0x2000>;
-+			};
-+
-+			gmac0: ethernet@50400000 {
-+				compatible = "eswin,eic7700-qos-eth",
-+					     "snps,dwmac-5.20";
-+				reg = <0x0 0x50400000 0x0 0x10000>;
-+				interrupts = <61>;
-+				interrupt-names = "macirq";
-+				clocks = <&clk 186>,
-+					 <&clk 171>,
-+					 <&clk 40>,
-+					 <&clk 193>;
-+				clock-names = "axi", "cfg", "stmmaceth", "tx";
-+				resets = <&reset EIC7700_RESET_HSP_ETH0_ARST>;
-+				reset-names = "stmmaceth";
-+				eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
-+				snps,aal;
-+				snps,fixed-burst;
-+				snps,tso;
-+				snps,axi-config = <&stmmac_axi_setup_gmac0>;
-+				status = "disabled";
-+
-+				gmac0_mdio: mdio {
-+					compatible = "snps,dwmac-mdio";
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
-+
-+				stmmac_axi_setup_gmac0: stmmac-axi-config {
-+					snps,blen = <0 0 0 0 16 8 4>;
-+					snps,rd_osr_lmt = <2>;
-+					snps,wr_osr_lmt = <2>;
-+				};
-+			};
-+
-+			gmac1: ethernet@50410000 {
-+				compatible = "eswin,eic7700-qos-eth-clk-inversion",
-+					     "snps,dwmac-5.20";
-+				reg = <0x0 0x50410000 0x0 0x10000>;
-+				interrupts = <70>;
-+				interrupt-names = "macirq";
-+				clocks = <&clk 186>,
-+					 <&clk 171>,
-+					 <&clk 40>,
-+					 <&clk 194>;
-+				clock-names = "axi", "cfg", "stmmaceth", "tx";
-+				resets = <&reset EIC7700_RESET_HSP_ETH1_ARST>;
-+				reset-names = "stmmaceth";
-+				eswin,hsp-sp-csr = <&hsp_sp_csr 0x200 0x208 0x218 0x214 0x21c>;
-+				snps,aal;
-+				snps,fixed-burst;
-+				snps,tso;
-+				snps,axi-config = <&stmmac_axi_setup_gmac1>;
-+				status = "disabled";
-+
-+				gmac1_mdio: mdio {
-+					compatible = "snps,dwmac-mdio";
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
-+
-+				stmmac_axi_setup_gmac1: stmmac-axi-config {
-+					snps,blen = <0 0 0 0 16 8 4>;
-+					snps,rd_osr_lmt = <2>;
-+					snps,wr_osr_lmt = <2>;
-+				};
-+			};
-+		};
-+
- 		uart0: serial@50900000 {
- 			compatible = "snps,dw-apb-uart";
- 			reg = <0x0 0x50900000 0x0 0x10000>;
-@@ -341,5 +428,23 @@ gpioD: gpio-port@3 {
- 				#gpio-cells = <2>;
- 			};
- 		};
-+
-+		pinctrl: pinctrl@51600080 {
-+			compatible = "eswin,eic7700-pinctrl";
-+			reg = <0x0 0x51600080 0x0 0x1fff80>;
-+		};
-+
-+		clk: clock-controller@51828000 {
-+			compatible = "eswin,eic7700-clock";
-+			reg = <0x0 0x51828000 0x0 0x300>;
-+			clocks = <&xtal24m>;
-+			#clock-cells = <1>;
-+		};
-+
-+		reset: reset-controller@51828300 {
-+			compatible = "eswin,eic7700-reset";
-+			reg = <0x0 0x51828300 0x0 0x200>;
-+			#reset-cells = <1>;
-+		};
- 	};
- };
--- 
-2.25.1
+Would this wording work?
 
+3) Only Svadu present in DT =3D> Supervisor must assume hardware PTE A/D
+    updating is enabled by default.
+
+>
+> >              4) Both Svade and Svadu present in DT =3D> Supervisor must=
+ assume
+> > -               Svadu turned-off at boot time. To use Svadu, supervisor=
+ must
+> > +               Svadu is disabled at boot time. To use Svadu, superviso=
+r must
+>
+> This change doesn't actually do anything, "turned-off" and "disabled"
+> are the same thing - although the latter is more desirable wording I
+> think. I have no problems with this portion of the patch.
+>
+> >                 explicitly enable it using the SBI FWFT extension.
+> >
+> >          - const: svadu
+> > --
+> > 2.39.5
+> >
+
+Thanks,
+Yunhui
