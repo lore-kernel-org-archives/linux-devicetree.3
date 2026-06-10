@@ -1,72 +1,75 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876B73AF64D;
-	Wed, 10 Jun 2026 08:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28943ADBAC;
+	Wed, 10 Jun 2026 08:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781080577; cv=none; b=s7+XMuVpckiMx5EkHcKVRuqygUFDWMQQPzkDaZ36KtPLm6HWE6e/pwv9FzZNYLno99U5GatVOpx9b90B8pkqf02B5PtTPy6aLeRlQdE4CnIqKEEMEwU+PlsAxPFeycz+nwTlZ0wA7awjLi1uzKnjml1WUCxMJokC7nv8wYGZ0Hs=
+	t=1781080665; cv=none; b=IscigrYCynT6A2829sExKEK6UPls++ok8xU4VUhWQsAz3yL74FOzDTcmM7NggopUvU9TBZI/fGj10nIe/U9WgN3QmyNYh4s090IBlevyKJgKTmsgysGvBtJGUrUWtAgFD17PIUkXv+bLx8Rz/au5SYGnwIvezkh5J93q7mNht5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781080577; c=relaxed/simple;
-	bh=vOo/tE7kGuYvJUMkS5OxRcLdJGXjNXDuLlkmHSJKihI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CsIO6Ne6zk2ttl6LEmkY8uw4U6d9e8zyGuO2j/rDFn9KmIWmEbuR+SHmgJ+IQcgqggzur8f7ngsqMkZiY1e1ePMgbEpUu2ZzR98MD+4w7RC//HfQ6pKgH7ksCEPT5NzZ8vq2rn+0dvorSzOhPzzDS9X3RKnd8Zmv6W/GkTPHvD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MM96T2y0; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1781080665; c=relaxed/simple;
+	bh=tcbFhstZvDMLooVGAnAA0q6BJigRQM6AnmZcPZAetSU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aUNkOgVcjlMpknwKl9CX6L6olzyqyk/pz82lxk+CI/QKJ8632r4ZX9U40ZsGTrYX8tRdk/AOY8fStc8HZhLjB7O7h9fh3hbJxXouxLMYPB0nUCXRUzoL0TgoEziWKKL2I7UcYi8HxXWnDFj5pgpPMjDwexRX0kFoa9aPLQ3NclE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bb2oL9nE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MM96T2y0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=dbF+u9MCQaSiWZamh0+5faBsEfrJDh5ad4WQZGC2TTw=; b=MM96T2y0l+VYgp/No8oauvu3aZ
-	tT36y3o3u3C7zcijjwK4AryBXXVFxGq/UcGyhrkMvODzDNbTz5v0Sv4GzBNC2Q/7pmCt+qCCLBwm1
-	xAHHmULbtrAgPodDN+QdBo4TS53bst3/K1msj2P1T/7ZgFdafmrirDniaGoik1/Tza38=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wXEPn-006wrN-KY; Wed, 10 Jun 2026 10:35:59 +0200
-Date: Wed, 10 Jun 2026 10:35:59 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
-	daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 5/5] net: mdio: realtek-rtl9300: Add support
- for RTL931x
-Message-ID: <bff6ddb7-f2bf-45c9-b617-b7f82a20a0c9@lunn.ch>
-References: <20260609052856.3142922-1-markus.stockhausen@gmx.de>
- <20260609052856.3142922-6-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bb2oL9nE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426C61F00893;
+	Wed, 10 Jun 2026 08:37:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781080663;
+	bh=tcbFhstZvDMLooVGAnAA0q6BJigRQM6AnmZcPZAetSU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Bb2oL9nEUkfth/lhqVPvd8yW4czizO6Zs5o02b8an7CfOBUPNO5pzzA5ovWkEJkjo
+	 EROFu07YRPbKIrDAPJLNVWjzu3HdPnEoZpNUnPsQoMJIbl0KNqUqUELD+PgDpGkLIb
+	 WCOPEuKvfOx+J1qSafam9RXV1j/udMuDukUugdhXhJnzcWwNSrmEicExquuls9BZ8L
+	 guCM1caL1+0pPWtX/GagfDjEOQxWkksKjW6YnnqVgtUwf1lLvLczih8r3e06H3LyfN
+	 PYnloicRppqs6Jox1tOrVQlBoxRpYSr1gVQGYzBuZFC8QvGtDBKv8sglYd4H/dAjQR
+	 ZtwjQ0Wnql/DA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: monaco-arduino-monza: add ina232
+ power sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260610-monza-ina232-v1-3-925b0d12771b@oss.qualcomm.com>
+References: <20260610-monza-ina232-v1-3-925b0d12771b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 08:37:42 +0000
+Message-Id: <20260610083743.426C61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609052856.3142922-6-markus.stockhausen@gmx.de>
 
-On Tue, Jun 09, 2026 at 07:28:56AM +0200, Markus Stockhausen wrote:
-> The MDIO driver has been prepared for multiple device support. Add all
-> required bits for the RTL931x (aka mango) series. This is straightforward
-> but some things are worth to be mentioned.
-> 
-> - In contrast to RTL930x the I/O register has the input/output fields
->   swapped. Upper 16 bits are for read/outputs, and the lower 16 bits
->   are for write/inputs.
-> - The supported "pages" are 8192 and thus the raw page is 8191
-> - The devices support up to 56 ports. Thus the MAX_PORTS definition
->   is increased by this commit.
-> - There are multiple global SMI controller registers with a different
->   layout from RTL930x devices. Therefore a separate setup_controller()
->   callback is added.
-> 
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The commit message incorrectly states the shunt resistor is '2Mohm'=
+ (2 Mega-ohms) instead of '2mOhm' (2 milli-ohms). The device tree property =
+`shunt-resistor =3D <2000>;` correctly sets the value to 2000 micro-ohms (2=
+ milli-ohms), meaning this is a commit message typo.
+--
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+commit e207629f293c0c8e295115a6f01dea08156bf3e5
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-    Andrew
+arm64: dts: qcom: monaco-arduino-monza: add ina232 power sensor
+
+This commit adds a TI INA232 power sensor to the Arduino Monza board's
+device tree. It configures the sensor on I2C12 to measure the board supply
+current using a shunt resistor.
+
+> The Arduino Monza board has a TI INA232 current/power monitor connected
+> on I2C12 at address 0x40. It is used to measure the board supply current
+> through a 2Mohm shunt resistor.
+
+[Severity: Low]
+This isn't a bug, but there is a typo in the commit message. The text states
+2Mohm (Mega-ohm), but the device tree property shunt-resistor =3D <2000>
+configures the hardware for 2000 micro-ohms, which is 2mOhm (milli-ohm).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-monza-ina2=
+32-v1-0-925b0d12771b@oss.qualcomm.com?part=3D3
