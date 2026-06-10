@@ -1,205 +1,167 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011023.outbound.protection.outlook.com [40.93.194.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D0B3932F7;
-	Wed, 10 Jun 2026 11:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103CA3EDAA0
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781092621; cv=fail; b=t1+k6HTAQaFb1J3I92MQeEiUzz84aDsW4XdXqmepEtQfcjnX+EkYUmJKwZxqv286O4MTX8qT2mLiyqypBeI93z+mNcVE1G304w9tH0s+qEgHJmOtDZUeTSBctokpWLKJXf6dp+iD2Ix1FEoK+YJSSp1gQPZsV7P7epYgruCV4wc=
+	t=1781092624; cv=pass; b=EgJ1n+dTaBpKY/wgEzTPnJFad271DDK89a+MSABW9Nkfb7hF/X7+A/CFTOm9d7+sPg0SGPIGpIcnYJncXdnUqXghHwhvAB7RFUCksnuxPYosd0z5LoX2DApD6zwMn/YWHGBU0Iv6/uYLqONcMHXaPIEey1gc/Q0yxnuGOlm3VSs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781092621; c=relaxed/simple;
-	bh=GBUkSxra48CobRabLu5WReIvPyyIMK0K2dIBlYRcYAU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=njLXczkTog91ZAFIauFtvafCzLzmq05lAmWEWi2nJmSyq9IOb7Q0l1kgz8MryvRhW1g1cF5tPj2Yw/+NHdIvYBKlx1yI0VjjtQpwoBOvX+xu2/PquBfaHQBumPA3GK+1f975utAP1WxXYX6XzCLyCLPkgP0bNJLOEIpcBUGhOvY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=avcxcumx; arc=fail smtp.client-ip=40.93.194.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1781092624; c=relaxed/simple;
+	bh=g9gENECLjqpwTfBJQOObPdITxQAcT49QARwQwMzJgqg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MB9piELtH0+jtEWcYqOlmZbUlTs0gXrpJgPRUUI0G5IwqXmYjQ7HpPR/x/feMZUDFs/TfOvlSje47I9PBYDtGXa5mUt4KmebCMoMVWw/oZIUuaXo20uSM5buH5idlCAAaX0dwT0FI4+179lPopUNcRIbrW7HCvvIO6JVRwXtP08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PX/QY0mF; arc=pass smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="avcxcumx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SVbYhR3jNBOWRrYVUmlL6eZkGysjiWxvTZNY8l/5ia9KB4K8hIc30zl0iHHKab93dM8Qsd2ojgfC4hr4IfrbkOsVS8hrEA9w7xhZBCHL6WitdbcKW38IMek9ogt1hEH0ImSPHzG4IHAR3wVnp+DWdhwHD2P60awlkUPUukIl9Md3RKOsBfwNPmNah3FrzJnIMZI7QYJqk8wTtl1RkMOKb2pxnang+89MEuPlzHcPItPtvhxUZe1OexGskVo7UZYChek5WetvVsyAUyZAuEaffasCkIJihbGUqKSu8TlAHQzT4QhRu5LGjfV9fh/L3qoflT5HkDYwpEi3nKKj1IPjHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gBg9uFwfE4or8TQrsajeNEKuEqcyGKpEWOhmI9bfJAM=;
- b=hGLkhR/hdfAW0lY5opu/4eUdUcmO3nFgP0t9Fws9ptvv0E6r9z71bHsXFQ5Xpel7ESWAO+fj4LNZV57ie4/hZIEBkWpRo3P+GKdNTWB71SdbvDer7gv8N0nFhG63HF91hEcSzEKqPCSLC3S7OSQZDIrKVg8M8Wd6Zzu8fzCTLmemkYP1BjIrctgTJ8UgYhP/1izw8hlbiIRrcuc8IKszOIbz+odV5Pyp7SSHOuJ7R5AJATrVZsX6RE/Oyw9Pb8GIBBnl0mXbYr/l/tXW0xkmWcKFd8w8qe2SjI3etCxGz2+fQTyqBZpGpmFpvFPiQ+2zRr15YnDoCc3JpWjfP/OOYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gBg9uFwfE4or8TQrsajeNEKuEqcyGKpEWOhmI9bfJAM=;
- b=avcxcumx+aP0PY9KUF1WUdEivaqgRH8OjAhZOWfPtMLJI2IAydFxXUckpRS4JaQnU691O4obykPlH7fIWm88ATReh6+faf/KqPpTLWKqGaUDv3lUm1NxNufWbKbUxodYOMnSVfHdfeFQ3zDD5P3wzKxQogsJjZ1nmZVJq3BpWzQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by PH7PR12MB8427.namprd12.prod.outlook.com (2603:10b6:510:242::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 11:56:56 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
- 11:56:56 +0000
-Message-ID: <4416c930-73a1-43c2-a60a-852898c64f1a@amd.com>
-Date: Wed, 10 Jun 2026 12:56:52 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] iio: adc: versal-sysmon: add I2C driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
- linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260608183801.1257051-1-salih.erim@amd.com>
- <20260608183801.1257051-4-salih.erim@amd.com>
- <aihPvR0u5Lo3xELX@ashevche-desk.local>
-Content-Language: en-US
-From: "Erim, Salih" <salih.erim@amd.com>
-In-Reply-To: <aihPvR0u5Lo3xELX@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO6P265CA0027.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ff::13) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PX/QY0mF"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-660390acd71so6177671d50.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:57:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781092621; cv=none;
+        d=google.com; s=arc-20240605;
+        b=b9i6JwWFzPHfGmSc6TGQ54AnfS2wLzsKlDReJI0+xLFrGtnDaKxdJJt9xwFXkLpdoE
+         239S7gJRiIVqxDLnSDx3fhi9KMO8Ra6yT/oQfGOJLv0GaWJVF4d6uvkn1Nx+rcivIX5X
+         AtRjzaHKFbmyln2NI3s4AdjREbmS52ntXG4U6vFc2cgJvSLyTm5h2odPbwknIPV+u9Zd
+         wVWYPJ6hc5saC+UnV2oNbRZZ98Oi2EukOpt8uZ04m2HVelntf+Enkw9eXkimMFNiOrPy
+         v6RLDL5/eEH+zGdDXCWAw+cTYhtl3Uiy8FPDWC5czdGPVggD2qjQnaGo0c2nBFDgmozc
+         IuvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=BXH8Qat3tlEctSHgaHbXW/OuqgxXWKUgbkKdMHQiIsc=;
+        fh=Y4UTbPQM12p4cCkzOl5uluc4VrgTrNC1BlhhQfIgfdk=;
+        b=Rh1bcWIM3gLaGZp2HYbLVukLSGEIarsVIqoP4BPJ5Nh0NYgKP5V4mT8nqB7S3wHFae
+         ecVrJS9nsRo7EZd8C6F/v0Ev8HWiQENM8vR/ARmBhDc/4IOqfELfERX+/3QbR0ORHYra
+         O1PMrbBTqkp3g1jcc+06Qut6isqb+CyV26KoXd5zTPwWaaoPtAMgFGm32K+yqErHnyL8
+         cRMKTSfVm386KlX5q75mZXSQx2Hs1tahVCwclxwvjW7qPGFzVM1JlempSYNMnuKJQBa/
+         bai6ktf90GAGbXxk9EVxsS4yMHA6kFURzZo7KReuJS1Olyprml2x1T1LhIKnO8PzT6bN
+         k3qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781092621; x=1781697421; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=BXH8Qat3tlEctSHgaHbXW/OuqgxXWKUgbkKdMHQiIsc=;
+        b=PX/QY0mFn5ZIB5rtK5uS8JXLcUJ1lWpwbxLz+nU6Fcaru3NProQmylQkdujZkVuhFj
+         PPoeOk8B+H6iSJwmuq426kOh4LuKcS5Ysom5xleXTrixSxnRQwobQ+RZIV/SWYKGsp7q
+         /3OTvg0ImLK6y2GQnMHl3KdCDel3+UMjD6uBd3tP0evMstMOP0NqMb7+Qq33u9nyxXNe
+         1r72cONiIvq+yz/tsNbybXg7PeCxzypLzfHW7jFdCFLQFmCSkd3uFuqzO55DkR/3E3Hd
+         pGCLvrol+1yy6D9x05W76G+2WFDcjnbSYXItY+LZmLqHN8NU2xTTGlZ3v8PBKuhx5wvr
+         VvWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781092621; x=1781697421;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BXH8Qat3tlEctSHgaHbXW/OuqgxXWKUgbkKdMHQiIsc=;
+        b=nYyeXneMIHdXzvZbOCo1Nxy+D9ZaOln+fJvIJjuifHy9o1fHWuCBFh8nb1sTwa6YEx
+         CCzWESmmiuVjamoJF2aoRVNynb6i4tulX6PIcfNb5M+aw9EEx7ls0uKa4r4j1dGYV7qf
+         s/1u2lB5SfyUT/RRwFDIYAKxUHpHnd9KaDiK4PckKOz7YXi4jzvRz4DGUyzEDE4fvADj
+         64Nfa8R1iSKLDayHR89PMrI9iduvlaU2xDcyv1nWibfjvaHr8TsFIREtWhFfunmMXXtl
+         vZGyRZFBz+u37byyGVZaH1e4MBRHPKHO7IpzBH2cIdMgTf+gXBU5c8ebV+m6kdS/tw7k
+         //tg==
+X-Forwarded-Encrypted: i=1; AFNElJ9D9i52nEycXQx1oD/d2Oa2eq/CjO8h3ydW74vp/674nRAJVkzuqhXuuczb6hPZGIpSvd/Bl1MANZOK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFauCgebf6s/SHAXpdjYZ65Z+AfgLfKNcLgZHDlCyzZIcckXMj
+	yFrIHBio1KCiLDb1fcIKXfF1MtV2qkbvQhNMGEaCyPsoRzgVEpVSCQrxzX39ycD9zZgmS7MUHfb
+	D5IOvNnanr5PoweSu4pXiA3v5LpSf63s=
+X-Gm-Gg: Acq92OEOzXhRSomJpsu2vpy3fy+pq7D7ZQPBHq3ZXfPgsZZ5xWkn6D7f9KyTaeySMYe
+	JOZMQRGJchT/pAbmUIjLqUs8qUrjityXbVVZeI9m2XZKv9mI9wy9J0rvvEYSzEXGrzilz0uMSoD
+	BxD6+VjLzy0tt4U5Rji+l2WdF/xsn4usd04OCTPo3ACXq4OE3dAgW0VE0oYuIN9uBuINVe+1gvU
+	k00CAvVhT7A12viOimOw9wJfBQf8IBbo4Gos7x7Rluyc4ArybLXK4RsLBc12ASKrytw6cEWDX5N
+	Aq4szq4tjCANSHwC1UanLYykLwJm7Rs=
+X-Received: by 2002:a53:ac87:0:b0:660:6e93:1958 with SMTP id
+ 956f58d0204a3-6610a1bdbecmr18780971d50.0.1781092620933; Wed, 10 Jun 2026
+ 04:57:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|PH7PR12MB8427:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac379902-6e5d-4cbf-a81b-08dec6e75e71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|11063799006|3023799007|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IDVMzKqFoIHdAlMsdVoMotzmADSxHP15pVLrcO/cu6jmlzq+ZbyrVSgNeD3bpybWzf/XWbMoTbxPC88gjTJgk1Wqmk8QyUprHwHNrFD8ecmM6VFFJU+j4IqO2GTya4fEMu97Kz6vh8ARgEox4Gmjiu4wdNwF0oDAlfBn2iqaISWiz0dRjSXKLtalKQ8p+ikYjXcfFmPqF+PGhFvWPo63J6uMVh2DmmB70ObOFRU74B05ygKj8g+PKE3rdEPmowgqSp7LRjkbqpz7p2kYG9JmjYN4Q7EP6SM8+CAWORdXw8KcYYr6EeMRvP5fRhghHIWWUOXkkY+kYdrXmGaq9jV+agJw1zHGz3Wkal32uDf8T3xr5OBq33B5oDJDL23Y3VxLWQO2IFCUeFxn3kuhBtKZXayawp3bjYYvDAmTkJKCi8ew6D1pZkBtXThCBOur78RwzMBOKhnVN3xwODak8KGYieTNiXC/MUmH7VR4RkmUfmKpNy3itjN3+0Vr/7NOnOrFqbBbcgN4fqy/DC8zj6UGmyo4wCNJpoOF3hTZlINvwEooXxAR0uF7QCTc1VUbJTNzWSN1LlB9cDp4G6f8ou3N4D8AmesbjO5ZcTGGuYfzVLPyNcMmtmg6fXmRghWmNyoBSaZwgUiqCz3OdWVWWmfMBqY12i29bWW++UL8TlViVlAyB9xP87NOL6UIWfMFA567
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(11063799006)(3023799007)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TFN3VU0rL3E1b2g0cjFKNUtSNWMvaDU4bHZFSlNkZTRtT2ZWbGlNd0c0WWk3?=
- =?utf-8?B?VXJBQjJhSDQ0R2wxNUtRK3BkTGlTSnZ3OEluQnU0cGdrQ3I5K0c0VThITlVM?=
- =?utf-8?B?ZHM3NHdVT0s0NnI1bUN3UnhqY0pTd0tNYkh1ZlVtOGZKdmxIYXZ6Q1AvV3lh?=
- =?utf-8?B?SWhFUVlLaVFlWTlneng0aDRMNzhiZ25DN0pPRm1FUFNyTjlheDdlancwWS9S?=
- =?utf-8?B?ckFFWERScjB6cndXL2xKL0VLcXp0YTkyUlJpN216Mi9LQTF0cEZrbGcxKzhQ?=
- =?utf-8?B?YXlQMC9FeWJrdHNxTlNGLzVnQnpTdG8xZGVjOFBhZGUwYVU1QVNVZHJteEVJ?=
- =?utf-8?B?RW0ra0lEdER3eVM0L3Jnb3RTV21KRXo4MFlMMUxIZ1RTYWVYTVBvSlAxSm1X?=
- =?utf-8?B?R2szZk9sZFA0ZjhPRGMrMHlFUVp0TjgrSmtvOVVFN2Rxem1CbjFOeFlXZmhK?=
- =?utf-8?B?a0tDWkdRNVlmWENYV21mWUkxVmJPMHR3WXA1eUs4YU1MOW5LVW15aGR2VXVO?=
- =?utf-8?B?TDloMzMyY1Jmb05lLytUZ1hZVEZTQWVZK2h2UEY0eDRIYU1PaTJGdkorUU5w?=
- =?utf-8?B?eGFvdW9JWWQxSzI4a09ZRXdJaUlVSFRURGx5UmdNZDE2cThFT2hGRHZ2T3ds?=
- =?utf-8?B?bXNKT0RIOUc0cU5zamkvYVBqbVJIem5UenRzWmM5cGY2YnNCbWNvTGZKaXli?=
- =?utf-8?B?TDZPMldrelpXU3hPelVFZkFjQlR0dzlDUEJBcWU2QkVuODNCaStEcXlEL00r?=
- =?utf-8?B?bXhRanp3S0ZSOXE0b1pzVSt1Z0lYYVQ5SGl6V3JaUlc2c3hwc0pxNTEwSVNV?=
- =?utf-8?B?U3B5MTVab0ZSYkxBemc0SlhGOG1OVGpHZHc5eTV5aUkyNksxMWdJU0lFNWM4?=
- =?utf-8?B?ZTNMczNZWmFld0F2NlVXcUZQSHJ3WHRWUFR4YjIvbVNMcVdGK2tHMFdHdDl6?=
- =?utf-8?B?NFJQeW1VLzNFMHRSc1VzcWFJSGQ5VTB1dkxLdkxQSW9oM3AvNFhDQ1FDMWhJ?=
- =?utf-8?B?azVWVUxRcHNiRFVuT3FzdXFWTjZjV2dNYjFsVXRBakFBWWtBRmorQ0ZjWnoz?=
- =?utf-8?B?UjY1eFN5ZmIyenJCRjJLb1lzRk5hZEdwekQ5WW12VzdjVjRDZUVWL2hxSGYy?=
- =?utf-8?B?cGc1MFFjM2pIZStYM1cxbW00V0dTNXpyQitIbDV3SkJQSTVXbzUyL1c3V3Vq?=
- =?utf-8?B?RHEzVUpYYVFUcUdrZjFJZUx6RHh0U0oxMUlkbkNrTlRsbzVwL2JieUJvb0FZ?=
- =?utf-8?B?aU9Ub2VvWWJVbnhVZm0xcytBSEM4M3pQY0NkWUJQNlc2TlJ1dFBhVHRVN05X?=
- =?utf-8?B?eXNzQkd3ZGdWcW54VVVZbUF2dHZlUXpQRmJ3K0lQVUZJYS9nc3A0UGwwaVNS?=
- =?utf-8?B?NTFWdTBuYTdMLytjQ1Q1eWt3UGFvMW1EaUlKWnNjZkcxVGwxWlRyZTZvWWJF?=
- =?utf-8?B?TmRZSHNJWnJtV3FRaHJOMXhQZXc2cUpKeVFnZWlSd2JJMGNkaTl6a1h1VlRO?=
- =?utf-8?B?QjNMMEtQK29OeHkyaDJOaEhDRzNWc2VKbUVlaCtodWtHbmdhYkcwUGxEejVY?=
- =?utf-8?B?RVVIRzdwYjlTY05sVWlRSU1jd1ZhSnlHMTZ5VzdOcU9MV1phYjFKRmhSTGJP?=
- =?utf-8?B?alpCMFNYQms5eDh5VHRNaWMyME5kRjROZ0VJNUxxclVmbGpadEJXTm85SW5x?=
- =?utf-8?B?SENOVHcvOVFLVWpjd3JKbHFQTUoveGVjYjdjVmlxbjRGc2JHT2ZqUS9yUG1u?=
- =?utf-8?B?ajRBOEY0VVJmRDU3U3JBSzhmN0xSWEhZVEtLZkxzbDdOL3dWMVJCTWhta2hD?=
- =?utf-8?B?dkJHRVgyYjJXdGgzNVUrVmVmV0tXWEFoaVN2MEYvRVA4VXMyVllFSVZha3k4?=
- =?utf-8?B?dlRNQUwyYW9ZM3liamJ4YW1yQlloWVMrb1hSdHpVR2VkZnNBWFFmN0VCOWg1?=
- =?utf-8?B?MVdDbXJoRlgzaERYeUNBdjNCQk1KVlVYano0Tjh0MUhMdlk4SUtLamFMSklJ?=
- =?utf-8?B?MVF0ZWVsend3bkRKUHVxcGlPa2l5dVZoVTlRelhEYVM1czlYbUFvQUVoWnhK?=
- =?utf-8?B?OGdEd0Yva29BQXdrSnA5aUNKaC9sa3lWOWxYaWFmTWR1S0lVdm1YZWZzalEw?=
- =?utf-8?B?TEd1alcyaEphU21Cc083Qk8vME5xZW0welQ0VldQR0VNTCtBY0lVeG5nN2po?=
- =?utf-8?B?K2lRNG15aVBOMGRNR1dRZG5yQXJFcGdGS1ZWR0dZYzYzbi9aeCtDY0ROSFZV?=
- =?utf-8?B?a3dWWVowZUxsYVcvUVNyZkJ2b3JPR1B0T0FYSy9ibGYvZmtONVlBRGJXWUgw?=
- =?utf-8?Q?FHCnA04utYHy2ZDWnp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac379902-6e5d-4cbf-a81b-08dec6e75e71
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 11:56:56.0196
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g6sqBE9LslJrMwtxdcf+pJbjKiudkG6tlPK/AjDfEEfSORAMWFef0ShIAyJlGNoH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8427
+References: <20260609163919.3321228-1-tmaimon77@gmail.com> <20260609163919.3321228-3-tmaimon77@gmail.com>
+ <ff53862950a6075c43bb8f1e47c14389d6fc7575.camel@codeconstruct.com.au>
+In-Reply-To: <ff53862950a6075c43bb8f1e47c14389d6fc7575.camel@codeconstruct.com.au>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Wed, 10 Jun 2026 14:56:50 +0300
+X-Gm-Features: AVVi8Ce1xyKX-eTc7JFGyjnn8l2QiZByZq625HpF-ttuxQcOhnM9x3cJlI6wb60
+Message-ID: <CAP6Zq1gBcSEQznnQ+awrqacBXjTOWELQsMLDXL1yw8_daCzMOQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/3] arm: dts: nuvoton: npcm7xx: Drop redundant FIU clock-names
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com, 
+	yuenn@google.com, benjaminfair@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andy,
-
-On 09/06/2026 18:39, Andy Shevchenko wrote:
-> On Mon, Jun 08, 2026 at 07:37:59PM +0100, Salih Erim wrote:
->> Add an I2C transport driver for the Versal SysMon block. The SysMon
->> provides an I2C slave interface that allows an external master to
->> read voltage and temperature measurements through the same register
->> map used by the MMIO path.
->>
->> The I2C command frame is an 8-byte structure containing a 4-byte data
->> payload, a 2-byte register offset, and a 1-byte instruction field.
->> Read operations send the frame with a read instruction, then receive
->> a 4-byte response containing the register value.
->>
->> Events are not supported on the I2C path because there is no
->> interrupt line and the I2C regmap backend cannot be called from
->> atomic context.
-> 
-> ...
-> 
->> +#include <linux/bits.h>
->> +#include <linux/err.h>
->> +#include <linux/i2c.h>
->> +#include <linux/mod_devicetable.h>
->> +#include <linux/module.h>
->> +#include <linux/regmap.h>
-> 
-> + types.h // uXX
-
-Accepted. Needed for u8/u16/u32.
-
-> 
->> +#include <linux/unaligned.h>
->> +
->> +#include "versal-sysmon.h"
-> 
-> ...
-> 
->> +static int sysmon_i2c_probe(struct i2c_client *client)
->> +{
-> 
->          struct device *dev = &client->dev;
-> 
->> +     struct regmap *regmap;
->> +
->> +     regmap = devm_regmap_init(&client->dev, NULL, client,
->> +                               &sysmon_i2c_regmap_config);
-> 
->          regmap = devm_regmap_init(dev, NULL, client, &sysmon_i2c_regmap_config);
-> 
-> (exactly 80 characters, so inside the limit).
-
-Accepted.
+On Wed, 10 Jun 2026 at 13:49, Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
+>
+> On Tue, 2026-06-09 at 19:39 +0300, Tomer Maimon wrote:
+> > The NPCM7xx FIU controller driver gets its single clock with
+> > devm_clk_get_enabled(dev, NULL) and does not perform a named
+> > clock lookup. Drop the redundant clock-names properties from the
+> > FIU controller nodes so the DTS describes only the resources the
+> > driver actually uses.
+>
+> The devicetree is a description of the hardware in the form documented
+> by the bindings. Generally it's not right to discuss Linux drivers
+> here: they're only relevant in the context of Linux, but the devicetree
+> binding governs devicetrees over multiple projects.
+>
+> From a quick look it seems that these names are not described in the
+> corresponding binding, therefore no drivers should be using them and as
+> such they can (and should) be dropped. A driver would only be worth
+> mentioning if it did use the undocumented names (as that would be a
+> complication).
+>
+> Can you please rework the description?
+do you mean change the description as follows
+"
+The NPCM7xx FIU controller nodes reference a single clock,
+but the FIU binding does not describe their clock-names properties.
+Drop the undocumented names so the DTS matches the binding.
+"
+>
+> Andrew
+>
+> >
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> > ---
+> >  arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 3 ---
+> >  1 file changed, 3 deletions(-)
+> >
+> > diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+> > index a16450abea0e..83cd10b47273 100644
+> > --- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+> > +++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+> > @@ -193,7 +193,6 @@ fiu0: spi@fb000000 {
+> >                       reg = <0xfb000000 0x1000>;
+> >                       reg-names = "control";
+> >                       clocks = <&clk NPCM7XX_CLK_SPI0>;
+> > -                     clock-names = "clk_spi0";
+> >                       status = "disabled";
+> >               };
+> >
+> > @@ -204,7 +203,6 @@ fiu3: spi@c0000000 {
+> >                       reg = <0xc0000000 0x1000>;
+> >                       reg-names = "control";
+> >                       clocks = <&clk NPCM7XX_CLK_SPI3>;
+> > -                     clock-names = "clk_spi3";
+> >                       pinctrl-names = "default";
+> >                       pinctrl-0 = <&spi3_pins>;
+> >                       status = "disabled";
+> > @@ -217,7 +215,6 @@ fiux: spi@fb001000 {
+> >                       reg = <0xfb001000 0x1000>;
+> >                       reg-names = "control";
+> >                       clocks = <&clk NPCM7XX_CLK_SPIX>;
+> > -                     clock-names = "clk_spix";
+> >                       status = "disabled";
+> >               };
+> >
 
 Thanks,
-Salih
 
-> 
->> +     if (IS_ERR(regmap))
->> +             return PTR_ERR(regmap);
->> +
->> +     /* I2C has no IRQ connection; events are not supported */
->> +     return sysmon_core_probe(&client->dev, regmap);
->> +}
-> 
-> --
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
-
+Tomer
