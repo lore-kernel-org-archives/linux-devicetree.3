@@ -1,131 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4653403F3;
-	Wed, 10 Jun 2026 16:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406CD29D266;
+	Wed, 10 Jun 2026 16:42:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781109611; cv=none; b=tuT3PYQl2biMiNQVwpbWF+guDKPlcL47nnXv9WBD4CPb51TWmD64UwqQefH4H6Nbf2h6gf1A4bqkamq08VFxKTx4oEYUsisVkh8wZsw4k5a2H5T5VsGxueUrgRrXuiZFGGLXM3B418SouvHPElNldpuwmGgPBqaVr6oBkrJzDCg=
+	t=1781109733; cv=none; b=EVqZFE3+qwreOylRQalZun5Tbz56++KZezr6NTtpFQ6M2de6SLU3mnKirX5fXDv7W9rIHPAK1CIagCCZzq+t3O9jnlQ42LKqt2enDd4Aq2eWqrRkbmWhkNyPw1P9Mkf6PrCvela5XXAHuCOQ1FmPui2+U//0r6MmCb+Y3P54r7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781109611; c=relaxed/simple;
-	bh=nU1z4/2jYS0ts535BlBVbl9gu2e8Hj1RELMs1z3VxVs=;
+	s=arc-20240116; t=1781109733; c=relaxed/simple;
+	bh=eA0BTjC7roZkBQyuYLYbCK8oC+CuUwcnIBiS2S3V2lw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K9eTUeMceX4YjAiHNm1Eosltht4UzF0C12z6bxxsqzoJBTW0+8ECplDTeKTJt8+oc55Z5UK2ZL4pCmhAMljJh8y7Q7uGBMwozUabNZe5MVU9ZvbSx/8TZmoTfVp+AKreNqShPw8QIPKOB3mOXa5iJde6LcLGN79WHcJQrwxWH8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wxl4Pb5A; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YEzzGgqZ0H1xt77Q+GlzJQjIkRWTtnuVUSED5hpaeVtIbiOl6g0qG/OA1ABaaMvRt+fVYQs4XCIhchtjXfGtRPDy8EGPEmEvVzOY7RGScShEpGcq813Tgyk5V6trk6KkQPrhYQCa41lNbU12ChIesCSuCuQDFB8ruVanq2QI0eU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QwFBHfec; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wxl4Pb5A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55C61F00893;
-	Wed, 10 Jun 2026 16:40:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QwFBHfec"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74631F00899;
+	Wed, 10 Jun 2026 16:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781109610;
-	bh=6K53fYIzePRMi3VKw2KNkHC9Iei0sXsajuMmd1hOxjo=;
+	s=k20260515; t=1781109732;
+	bh=Xef98mP1MGAw6RwWxPpvhMdt6Ao9d0YrsHgC34pKfZQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wxl4Pb5AlvyA50000Phkxu+BoSnzrctNyPP9TPE391xbvsHu+ZbNyCck93UltaS/V
-	 g1cgXFUNZzarzElz2XW/6Olqe5nAekvajXNoBwMXCpej/EZfbmzqE+VV16UgVI39i6
-	 2HpUmom/stpNq53hRXfmkQtykcrAsYeCVa2yi57vCumlS3O4GBUxy3MwzzSnDe8DiD
-	 7ybfTeB11RcSIwBOoV8KMXBYwCyK7JYrdXL079K2gK7nOY9ZoPfMQs80bRmBI7UWmI
-	 6jvayWs+87l2popZTgJ+uX7iFSYCYOApxg70OUY1VMO2wSmDZJH9802Q4ETi4AXD7R
-	 z42dJupoeLufQ==
-Date: Wed, 10 Jun 2026 17:40:04 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Md Shofiqul Islam <shofiqtest@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, krzk@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: accel: Convert lis302 binding to YAML
- schema
-Message-ID: <20260610-cytoplast-pessimism-dea888887526@spud>
-References: <20260610110051.1228-1-shofiqtest@gmail.com>
- <20260610165640.411c1477@jic23-huawei>
+	b=QwFBHfecxJCvxHGywktWKI2TXD1aDOupuAm+hxm8dlnrJFMFAojvODhlyXVEfu9yv
+	 oyrAOzHT8QXkR20RoaPRF/wNX+wYooZ+a9EmSVhjrRiECBwzWJSrbxTK84m74b55XT
+	 xGb2fXAQbrkfEKkvwB+lORojM/HKbz+8ftTkPjc0PiReMBglObXLexO/pg46e5INDO
+	 g3ELVWkgc4qFw5lt5nFsuaKSAAZcMR78/rGsvqdT0VwKMKlktskaVL46GrrbHGiGaY
+	 PR32G/HpRQZiFS1xDy3b2jKZ6sm7uRcSOmdFaibXlX9KJ5RbI2VqHO6K8odxMTx/6a
+	 DN6UjNxd0WyxA==
+Date: Wed, 10 Jun 2026 18:42:02 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: monaco-arduino-monza: Add QCA2066
+ M.2 WiFi/BT support
+Message-ID: <ibfbihcivzxmy4go6w6a6jvohha72inadqg7jgy4qnvzhc34wx@qsfbybbqcpxi>
+References: <20260520-monza-wireless-v1-0-9f6942310653@oss.qualcomm.com>
+ <20260520-monza-wireless-v1-3-9f6942310653@oss.qualcomm.com>
+ <jetl37zsfcs5kl4b7iarbngrdu4ebp7ag2cvpqvkku6tbl6r5n@qozh6n5fq7f3>
+ <CAFEp6-0A=LrU44pu2rfUqXW9k9peSu=b2qq_FVs4WZUj-g4pDA@mail.gmail.com>
+ <n6kl7y47hztf7tgtdxhakpekwkxlleggv4sbzpsd2ncpill6ii@bdk5esjubv4t>
+ <CAFEp6-3Gbd1gzfeu5xdfBJixL6JXaoSFkRUsBjOji0ZEOHHyvw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VpX2iA/EHztjt9DW"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260610165640.411c1477@jic23-huawei>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFEp6-3Gbd1gzfeu5xdfBJixL6JXaoSFkRUsBjOji0ZEOHHyvw@mail.gmail.com>
 
+On Wed, May 20, 2026 at 04:41:18PM +0200, Loic Poulain wrote:
+> On Wed, May 20, 2026 at 4:36 PM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> >
+> > On Wed, May 20, 2026 at 04:29:40PM +0200, Loic Poulain wrote:
+> > > On Wed, May 20, 2026 at 2:34 PM Dmitry Baryshkov
+> > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> > > >
+> > > > On Wed, May 20, 2026 at 01:01:44PM +0200, Loic Poulain wrote:
+> > > > > Add support for the QCA2066 (QCNFA765) WiFi/Bluetooth module on the
+> > > > > Arduino VENTUNO Q board. The module is interfaced via LGA and is
+> > > > > compatible with the M.2 Key E.
+> > > > >
+> > > > > Add wireless-lga-connector node using pcie-m2-e-connector binding,
+> > > > > connecting PCIe port 0 to the WiFi interface and UART10 port 3 to
+> > > > > the Bluetooth interface.
+> > > > >
+> > > > > Add pcie@1,0 downstream port node with pciclass,0604 compatible so
+> > > > > the pci-pwrctrl driver can acquire the power sequencer and enable
+> > > > > the M.2 slot before PCIe enumeration.
+> > > > >
+> > > > > Add nfa725b_default_state pinctrl for the W_DISABLE1/2 GPIOs
+> > > > > (gpio56/gpio55) used by the power sequencer.
+> > > > >
+> > > > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > > > > ---
+> > > > >  arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 65 +++++++++++++++++++++++
+> > > > >  1 file changed, 65 insertions(+)
+> > > > >
+> > > > > diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> > > > > index 93ed575817af1c5e903662c209ead629fe202ee2..6fcad77f320cb82eccb6f07244d185abfb1976d9 100644
+> > > > > --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> > > > > +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> > > > > @@ -154,6 +154,39 @@ vreg_nvme: regulator-3p3-m2 {
+> > > > >               enable-active-high;
+> > > > >               startup-delay-us = <20000>;
+> > > > >       };
+> > > > > +
+> > > > > +     wireless-lga-connector {
+> > > > > +             compatible = "pcie-m2-e-connector";
+> > > >
+> > > > I think it was discussed that LGA can't be an actual M.2 E-key
+> > > > connector.
+> > >
+> > > I am not sure I followed this discussion. Do you mean that I should
+> > > introduce a dedicated LGA/vendor-compatible string in the compatible
+> > > list of the pcie-m2-e-connector binding, or that LGA-based designs
+> > > should not be described using the pcie-m2-e-connector binding (graph
+> > > representation)?
+> >
+> > I think, it should be a separate, vendor-specific compat (maybe using
+> > m2-e as a fallback).
+> 
 
---VpX2iA/EHztjt9DW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+You can use "qcom,pcie-m2-<size>-lga-connector", where size depends on the
+module size, like 1620.
 
-On Wed, Jun 10, 2026 at 04:56:40PM +0100, Jonathan Cameron wrote:
-> On Wed, 10 Jun 2026 14:00:51 +0300
-> Md Shofiqul Islam <shofiqtest@gmail.com> wrote:
->=20
-> > Convert the STMicroelectronics LIS302DL/LIS3LV02D accelerometer device
-> > tree binding from plain text format to YAML schema format.
-> >=20
-> > The binding covers two variants matched via their respective bus driver=
-s:
-> > - SPI: st,lis302dl-spi (drivers/misc/lis3lv02d/lis3lv02d_spi.c)
-> > - I2C: st,lis3lv02d   (drivers/misc/lis3lv02d/lis3lv02d_i2c.c)
-> >=20
-> > Document all vendor-specific properties read by the driver via
-> > of_property_read_*(), including click detection, IRQ routing, free-fall/
-> > wake-up engines, high-pass filtering, axis remapping, output data rate,
-> > and self-test limits.
-> >=20
-> > Also correct the click threshold property names: the driver reads
-> > "st,click-threshold-{x,y,z}" but the old .txt documented them as
-> > "st,click-thresh-{x,y,z}".
-> >=20
-> > Validated with: make dt_binding_check   DT_SCHEMA_FILES=3DDocumentation=
-/devicetree/bindings/iio/accel/st,lis302dl.yaml
-> >=20
-> > Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
->=20
-> Hi.
->=20
-> So the conundrum here is whether we want to keep carrying this binding
-> as it dates to a previous era.
->=20
-> The driver never made it to IIO and is still in drivers/misc.
-> The majority of what is the text document should never have been
-> in DT in the first place. I'll guess this dates all the way back
-> to the wild west days before we had regular binding review.
+- Mani
 
-I'd say this should be treated like a staging binding but for the fact
-that this has a user in arm. Problem of course is that it's probably
-impossible to get that board and so doing any rework is probably not
-realistic for this submitter?
-Is there a general policy for iio devices in misc? Do they get reworked
-to be moved?
-
-The user funnily enough has the binding's click-thresh properties:
-		st,click-single-x;
-		st,click-single-y;
-		st,click-single-z;
-		st,click-thresh-x =3D <10>;
-		st,click-thresh-y =3D <10>;
-		st,click-thresh-z =3D <10>;
-		st,irq1-click;
-		st,irq2-click;
-		st,wakeup-x-lo;
-		st,wakeup-x-hi;
-		st,wakeup-y-lo;
-		st,wakeup-y-hi;
-		st,wakeup-z-lo;
-		st,wakeup-z-hi;
-Dunno what that ultimately means in terms of which should be used
-though.
-
---VpX2iA/EHztjt9DW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaimTZAAKCRB4tDGHoIJi
-0ujBAQD+bLuNLaxrQr1IuXSkMlh8vJ7cW/WsI9rV/kIRxQGxrwD9Gc8tk4zk09mW
-s8vOug6gHHjHCmkI0OARu6xf80ZqBAs=
-=aWJj
------END PGP SIGNATURE-----
-
---VpX2iA/EHztjt9DW--
+-- 
+மணிவண்ணன் சதாசிவம்
