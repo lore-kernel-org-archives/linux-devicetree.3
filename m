@@ -1,119 +1,213 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D07A3F7AB4
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2D93FD132
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781089771; cv=none; b=GizttOoI3/x07lREOgcwFJxtQoYXqBrlUcbroGPAMpMkMyF5hFBtoeNZqzyTW9Uwda5xnjmeTDseNd7a0+n/Vm51FTsU/0Gs3SGDcHLzbe1Kkj/eSw/zJ4vKmSpDKv4xp9xUD2isX4ZtDIXkGV8FKfn+7Ck0zhahN8mS12f74FI=
+	t=1781089824; cv=none; b=PUyghMNskpySObUlNSqn/TOU7FRVrrraKYfXJb/TQO3f59EvOKifMWluyqiQl/k8C8PeAlOr/5rr0pw+Gf3g0w7TeL2AhbkIWHGgzDqsNflZ21yasEb1rEUm1WFgi3CfeFC7DYc8pZ0nQNxmdPUJxJqAVxtrFKTbI3zNrwmn6vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781089771; c=relaxed/simple;
-	bh=mw99y74tTiT+Yv7ARtfFvLrX/Ph+tYkk1fxLoJ5G0P8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ioJb5Z4hH5nGCt8wr84+HZCj0Gsqqwh0vxSlx9lq6+Rv2SOV+odb/cftVy0NhvLcGc5XjVOJ2jwKKRqeAXpZafKVf2J71TwivYEk90qgp4SRNg7Uzdd21+HJRZ7ZZ6DfFIPCN9fytmmwtT4av27o1CMp7EhOSPuWDgn0pl6gPKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=QWHYOVHk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ahxuvUqe; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1781089824; c=relaxed/simple;
+	bh=AeMf5Wr6Pe7z04trz/jF9RfVqQlRMCsK6v0jvJ8gVWI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i+gY8Z/DxShb8mQTiZmOeTKXm/aItfbjJOKanPItZedCw0PEPqJB6Ck/0iKDWWm+X5mJD1pArYgRsxCwXITh2+k4uN/M3Ug1ZaSBcLKID0ViNJYSTPUPUGU5PF2S1eVzsj0JimLwh2lmpe6Uk3zKja/C9b8t4/YznKjyuITAUHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fhoVTNSX; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="QWHYOVHk";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ahxuvUqe"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 020B07A013A;
-	Wed, 10 Jun 2026 07:09:24 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Wed, 10 Jun 2026 07:09:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781089764;
-	 x=1781176164; bh=V+gvRaZjGPl4C6oecnTGKPnx3zPKeQQ92TgKB4vAoi8=; b=
-	QWHYOVHkoX9nsCdcvxIHsT29dynYif0i7kSUf3YKBh4mP0AimU66iJ4qGZDtkedq
-	MU+vXaOHMl9fNfmxeVb9T8rWfA25CjgFwYpfrO6d5UK33mBVJRB6ZHRoPa8u3EBz
-	M4Kl9OwWFr1e6TKSUHU3//qOKvXQgeDnwSMaArRLHKNtcvd2KgguYeNlZ6fych54
-	LxtOPbex1Z3IQiWPECmzyFyFiQyliHqpq1BMjvcWYBG38TDaKQpOdUvI7KO+MSuZ
-	Xhifzr4N7mx7Qo7QwqxfeFjtrpJdJwMatCGSt/9ikDstYd7nb8tG5HMKbsW4VZ7s
-	w28Ib5Z3PfTl+pVBXIMM5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781089764; x=
-	1781176164; bh=V+gvRaZjGPl4C6oecnTGKPnx3zPKeQQ92TgKB4vAoi8=; b=a
-	hxuvUqe0wyaOLp3hcPFMEenC+nHPvTZT3VGhXSYmtxG/nIPC53E9r65Y5NnB8jn+
-	yViflYdwaRX4adezxjJMQwQ4iuRIAxaauTvshBmk44eKrymF6qaFTTBb9M9ettEB
-	yoSWK1BQT+zrW9K4DXQ5xooE+iEYJzOgeq1umq2NG4t7Z5Xg1cofmy5V0rUcFqhc
-	PqOJI1PCnEsUbda9QMuSAU7KDtp7iC3oDbi4eUddbkmmDVR55ORp/XJcnRsyeWeB
-	iCN4PIThztovxzumjeE0jxH8ybwOIrz9tsdk0IRBrUfrGV+fX3fcxK0I3otr4s8R
-	Vc1YEPjHyDwUwG3mCd0Rg==
-X-ME-Sender: <xms:5EUparwfu2wb_AfHnwAmR67-Z_Joyy-qRGRpPtRjpFaHy8VsOHTJWQ>
-    <xme:5EUpauE-Do-xFH9QDgkjR4fjCsKB9QuuCSBXc714SO2KEphGgo3QT8sarDtA2iupJ
-    gmg6uhukL81A-zwI3S6PRAlNby6tEgUaPfwA7pVZZgkAg8MAZxwWBw>
-X-ME-Proxy-Cause: dmFkZTERsvZj9LHqlkxNtYF3dmGxkHADfxwPXY+fsKBUII4XRvequ9shdUxzWId4G9Vpfv
-    vmDOrRyUkgPYWshTqX8lO5zULYIl95x/qLSSJbxORvSmu8NZxttnjaZKM/P7xwXwwr633K
-    uSX8xlobDWDEw2psTkZ1TwI2smnzzc4y86II9ayYHztsk/TK+TXRS2lmpFV2G6tbyDVEeK
-    w5v1saa0YUOiKmcQS13tNp9VSa3eeKcWsfPMsecCGPOPz1L36lXEX/SJ+sNhqhggWzJLnj
-    axHVPP/zXmUrePQCTI72rNfD8hcmFk3J3N65H0iTd9+J5yaQqOPW+tqZrB8uZZ/bhLQ+ja
-    h+EOpyYLIpmVnjb3WvBAw4kRXQSXIaoJcwaNaNhTWsHkHpAxBWcAbzS1LOSD1YSLOWWXbC
-    uW38dyH3j6Zv5lKC2VQ5jPBVP3PXqKcyd3z20ABCHjs0ZxzEZtp1PVXShmXUJk3eaaeYlp
-    k5YaELEi3JcIoIcNvZsW1Kqg92QXvyiKKusnPcPqxySPy9BsljuYeStrax8K4SqhIJ7et6
-    NALBtDUauNVprDZTkceuoOHcA3gPbLe7hpp4qlyX0DZoxaxP9jEfhlaa2xkwKQeAIopbEL
-    xcf5pvX6c0IpFD+McZ5UcyGM3jwbFZIqM+jom4mUNvbU7IWuAIiyp4LsGkWw
-X-ME-Proxy: <xmx:5EUpapvUqauAX_CzpbQsoPMOucbnFpULggVPIhrICHcu4RtieNomAA>
-    <xmx:5EUpanZ9wyK_JkERDQMdkMt4sBYG7m49nxeLvFApuTCm8BtYrZl0xg>
-    <xmx:5EUpahCfPO6OeZLnJKLiQqbL96xCMbIxlrpmRzHrXn8-wIuld_hkPg>
-    <xmx:5EUpav_PGXs7MB8E2OBtHb0STQan685-bU9edGamQFO8x7zNYsy2Iw>
-    <xmx:5EUparuYz0TE2t3VoB_IbQovdzoza3JmCtkJQCaDbPwW55zsP1P-so3Y>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 858B81820082; Wed, 10 Jun 2026 07:09:24 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fhoVTNSX"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c0c35980fdso66403345ad.2
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:10:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781089819; x=1781694619; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ONdaAz3lAyvZtpSLEpD0avPz3gy5OYFvenkxhDXGSww=;
+        b=fhoVTNSX6pMa9cZQ0lVHJDYBt7GzzofA9HeZ9YGJxJMVxetbCx0qWsndAFLNDp3g88
+         ILYlzLHkXr36UG+MzsC1Pon7F883xZ64PWKMyNN53sJqbql31806NnsH+oWo+bZAglji
+         /nhP3Wj2/ivAq+uwd2HVlEGhITf7hrV1Y8cu98KXdavePFybdn/dGTo+5kpgfrbp6Gpw
+         TiI2QvLFs8gyLa3aL+Z7jk1sS3Uocau7dhxyeI2xBoOQHGFuCT9nPyuyDcHue0cc2z11
+         luoy0mzmv0HDsc9VBKsM4tkzHbXze+EQAziBBkZ+S8TbVcGdACmYdzdtGo/q3YjrlsK5
+         5cPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781089819; x=1781694619;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ONdaAz3lAyvZtpSLEpD0avPz3gy5OYFvenkxhDXGSww=;
+        b=CYKv3BIcKlx2wwMDHi+JZPwW4zLAqYMt2QdoUjwVAx2csvT7Q2R9zPOsDNBifFqoe+
+         rq/26idhYXz43p+GsSwVq0c0H0xeh8dt5ew1GgI4FwM5AWvWARf8XgGDoiga4iMriYhm
+         hR2Ah7oajUfe6IOfXT/rjE2wBp7Ydwr9FlW5u3wYE2oBCwDk3tCf40Qp3czxY2pps/T1
+         rqeHbMfyDeyhC4xA/esz1/dfPrN7/8eFcp2XMyZ+e6+Pja5pa8cyqU36W1AzggdHtbbo
+         Qf0lGTHmBBgf/qtZR6oCVMvourCmD5ctLwu86iikaZcjSv6gwt5qATmqJGEUGS6HTrur
+         X6Fw==
+X-Forwarded-Encrypted: i=1; AFNElJ/LUO7bE/b0o5rJRapdorAZWN2FgFgExeDkSUR7wS605a+n+dJY/Mf3xCZHrnSF9EgT8z5pwh+Gdk1d@vger.kernel.org
+X-Gm-Message-State: AOJu0Yztjgq7tqbCwVXYz3tU6Z5TWtDCudNm2U8caiNx3ew10IbFyl4M
+	j4lKkd/K9aPaOPwSYNCLp641sqQLDZAIJVcbPseyTFsoh7/KJwEn4jVX
+X-Gm-Gg: Acq92OFymEeuS5AzuCzXF7vYCDydWWN+MrdVdCAuKOdrD+nWnXx1CT+91AXePKwcwWO
+	2zV4l5Nb2TVFqAHqnGW8c3GB/q5gjzX7RomMo5fw/dxmULIRbYCaKB2O90jeFvWcxRDn/wsO6UP
+	Mji2NqoO5MwtNsw1TnLxD5bZpn6YdyZR7ibg2JEXfqBgJybOP5JJc19X3hzH6VLDUjTZ8YkZ23u
+	TKeN7A+6K3M7ITg/m2p8/4cppXYTh9yUwC3qVFq26SSqrP3yMm2OmJ0gneqRR7xZXUIRip6shW6
+	GgzFh7dDkZyVPy28E+QVTwWm3Okj7HbNwdWAx6NHOtFCajmsPYK7syLRG/TAJ9jmJrZmO+iaY+f
+	sYBJhUuSJNHhLePSDdlYP3hUqdZNDXaxR6bkSnStry1p3WACjnMfWgSRLWpqeX93VM4Y2vIUvop
+	YAuTdra5W3eERa2EZna2RpPO9iPMiC8drAKWLXOQ==
+X-Received: by 2002:a17:903:94b:b0:2b2:4bf9:1766 with SMTP id d9443c01a7336-2c1e85c736bmr283708325ad.33.1781089818833;
+        Wed, 10 Jun 2026 04:10:18 -0700 (PDT)
+Received: from [127.0.1.1] ([2409:40f4:4111:52c8:138e:8096:a8df:e68b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.10.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 04:10:18 -0700 (PDT)
+From: Ramshouriesh <rshouriesh@gmail.com>
+Subject: [PATCH 0/9] media/arm64: HM1092 IR camera and ASUS Zenbook A14
+ (X1P42100) camera support
+Date: Wed, 10 Jun 2026 16:39:25 +0530
+Message-Id: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AdNNzaliM6k3
-Date: Wed, 10 Jun 2026 13:09:04 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Josua Mayer" <josua@solid-run.com>, "Frank Li" <frank.li@oss.nxp.com>,
- "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Frank Li" <Frank.Li@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>
-Message-Id: <e9410cd9-5c5a-4251-ae37-236e86cc7f7f@app.fastmail.com>
-In-Reply-To: <d8373e08-bbd0-4a6c-849b-628c49fc2ec4@solid-run.com>
-References: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
- <20260524151347.BD92A1F000E9@smtp.kernel.org>
- <3528dc91-1ffc-42f9-94ea-a27c6c1d6a50@solid-run.com>
- <9e6326f6-dad1-4169-a63c-e62ee5b341f2@app.fastmail.com>
- <023aa47c-6fbc-486f-b5c7-5145ddf8e8fe@oss.nxp.com>
- <72087d5c-c6f9-4452-b4bd-a9f086700e62@app.fastmail.com>
- <48248207-7b4f-43c9-85e9-64e8440fab10@oss.nxp.com>
- <753fca23-c3eb-45e3-aeac-b7b248fa723a@app.fastmail.com>
- <177431ea-c4ba-4424-b17e-9d2e2884d466@oss.nxp.com>
- <4f7cc399-785f-4967-adec-714ccc69ada8@app.fastmail.com>
- <d8373e08-bbd0-4a6c-849b-628c49fc2ec4@solid-run.com>
-Subject: Re: [PATCH v7 1/9] arm64: dts: lx2160a-rev2: extend 32-bit, and add 64-bit pci
- regions
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WS3W6kMAyFX2XE9WYU549ktFr1Papq5SSmpCowJ
+ TBlVfXd19De7E9vkAz2Od+xeWsqzYVqczm9NTPdSi3TyAV8OzWpx/GRRMlcN0oqJ50MAsGIvgy
+ 4iX4AGZSIMUWSSgXsqOGx60xd2Q7J+4ePuq7xidKy63x2zPSystfy0dYMVCseXpfT98NKKyvyt
+ f8lrjjjUAVtC407nLiBkCK53FkbgvIG757LiPN0nubHH4c8Lqk/pJQxyoAPEQATkZLGMWdog/T
+ ZW5TUxais1PvUvwhWabEBiVSLEjvKzbMzeuucNzZYBX87/y+GE9EI7ls3MXIIwbmkFqBFXmrZ9
+ b0EyYE4ZOVsezgbgzZgI7mcvw4X096nIIEyGHNwgAQdHwlkTsa1EnLyEtOfUy5r1xGiRsW2OnS
+ +JTQtYsu70shjTN1F98VKmO+6zq/485NXMa7iDx5jAOXS3VTr+WXF5zQNw5kfB3TEymvkN2W5n
+ Ezgv8V7SUmiT7r15AFiCnyRjOB9bpPjS6Xm4f39N7otzSKfAgAA
+X-Change-ID: 20260609-a14-himax-hm1092-bbcbe0229afe
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Aleksandrs Vinarskis <alex@vinarskis.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Ramshouriesh <rshouriesh@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5829; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=AeMf5Wr6Pe7z04trz/jF9RfVqQlRMCsK6v0jvJ8gVWI=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYM2l5gT0Awhq5dKGACM7kdseuFqcEgj2gyc
+ pzwu1jPtKiJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGDAAKCRAVlYpeERwF
+ 3oYxEAC5nHpEAyEA4fCAKgzeJ3lXKotkjbpCfMKRL1zBudNQMlIs/HN/H6t1AeZEM4KAJlukbyr
+ Cf0bp+Clcv3fFxIMECzY0r7qGBa8BPsCFskwq5uUaTWeWSWwAbEXnIlhIE5xWZOy92UDR9rNICf
+ Ozf87E/nTvTNcbyiX0/7cD03kS+Sxgg1uILpWdg4OP0QrM/sq/smE0utdPrII6qScg/ZofQPGIr
+ vkasL+LeylBhPRUlIBKSsh+XKHtA95aKpGSEEH4WhBOXmFIA+W5KWofEFd6HFwez+XLa90Q3hhX
+ fhD+NHC0QlnKCORmN16z3I09Ojb2ycpUuxMmJKxF4jRAckFsFbFFyxkZsVKoDnt73Xjo3xHlqKW
+ lyArs1KCQQl7QxyQjB0zmiV+7TcpS/o8bZtqLIT7LcOGKkP7vh0qs2rosXKazXSmhjmjyamUYMK
+ tonVC+6ztjPNK9zs28u18evTXJg799+tw7cL70XFcZfSUiSR9CeT4o9m11F26bNurs2ZMxVV+fn
+ xWREw3eebSBnDuGAUIob+hIhzQ4f81vt+hAFxDJSG9WeMCO5eyDwj99fivDCDuc0rwzfoVxi2cN
+ lI6LDH+LK2XP26lYxq/zgBTwA+/MfYcNNKmACnMcfIiE0AugLWSvInWnQLN+Km8aVGNnp+0LDcw
+ 8qC2h4Fbj7ir0hQ==
+X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
+ fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-On Wed, Jun 10, 2026, at 12:36, Josua Mayer wrote:
-> Am 10.06.26 um 09:43 schrieb Arnd Bergmann:
->> On Wed, Jun 10, 2026, at 00:13, Frank Li wrote:
->>
->> If everything goes well otherwise, this PR should still make
->> it in time, but it would be nice to avoid such minute
->> excitement in the future.
->
-> Thank you for discussing this issue in detail!
->
-> If you need me to send a fixup, kindly let me know.
+The ASUS Zenbook A14 (Qualcomm X1P42100, "Purwa") has two front cameras
+behind the SoC CAMSS: an OV02C10 RGB sensor and a Himax HM1092 mono NIR
+sensor used for face unlock. This series adds a driver for the HM1092 and
+the device tree to wire both sensors up on the A14.
 
-I think that would be best, yes. Then Frank can apply
-the patch on top and send the updated pull request.
+The HM1092 binding, driver and MAINTAINERS entry do not depend on the
+rest of the series and can go through the media tree on their own.
 
-      Arnd
+The remaining DTS and PHY patches are the A14 camera enablement. They sit
+on top of several series that are not in mainline yet, listed below. With
+those applied the series builds on next-20260609: the A14 dtb and every
+module it touches (hm1092, qcom-camss including csiphy, and the
+qcom-mipi-csi2 phy) compile and work: both sensors probe and stream
+frames on the A14.
+
+Prerequisites, in the order they apply:
+
+  1. phy: dphy: Extend phy_configure_opts_mipi_dphy to support position
+     and polarity (Bryan O'Donoghue, v1)
+     https://lore.kernel.org/all/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org/
+  2. clk: qcom: videocc and camcc for X1P42100 (Jagadeesh Kona, v5)
+     https://lore.kernel.org/all/20260507-purwa-videocc-camcc-v5-0-fc3af4130282@oss.qualcomm.com/
+  3. phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver (Bryan O'Donoghue, v8)
+     https://lore.kernel.org/all/20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org/
+  4. media: dt-bindings and PHY updates for CAMSS on x1e80100 (Bryan O'Donoghue, v11)
+     https://lore.kernel.org/all/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org/
+  5. arm64: dts: qcom: x1e/Hamoa camera DTSI (Bryan O'Donoghue, v3)
+     https://lore.kernel.org/all/20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org/
+  6. media: qcom: camss: Add support for X1P42100 camss (Wenmeng Liu, v2)
+     https://lore.kernel.org/all/20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com/
+
+From the videocc/camcc series only the CAMCC block (patch 6/6) is still
+needed; its clock drivers and bindings are already in linux-next. That
+patch adds the camcc node and sets the Purwa camcc and videocc compatibles.
+
+From the x1e/Hamoa camera DTSI series only the CCI and CAMSS-block patches
+are needed; its CAMCC block duplicates the videocc/camcc series, and the
+x1e80100 board patches do not apply to the A14.
+
+Patch 1 adds the OV02C10 node. It is Aleksandrs Vinarskis' work, carried
+here with his Signed-off-by so the A14 camera support stays one chain.
+
+Signed-off-by: Ramshouriesh <rshouriesh@gmail.com>
+---
+Aleksandrs Vinarskis (1):
+      arm64: dts: qcom: x1-asus-zenbook-a14: Add on OV02C10 RGB sensor on CSIPHY4
+
+Ramshouriesh (8):
+      media: dt-bindings: Add Himax HM1092 NIR sensor
+      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+      MAINTAINERS: add entry for the Himax HM1092 sensor driver
+      arm64: dts: qcom: x1-asus-zenbook-a14: add HM1092 IR camera and wire cameras to camss
+      arm64: dts/media: qcom: keep PLL8 out of Purwa camss hot path
+      arm64: dts: qcom: hamoa: reorder csiphy power-domains for v8 CSI2-PHY
+      dt-bindings: phy: qcom: add MIPI CSI2 mode constants
+      phy: qcom-mipi-csi2: accept PHY_QCOM_CSI2_MODE_DPHY phy-cell
+
+ .../bindings/media/i2c/himax,hm1092.yaml           | 118 ++++
+ MAINTAINERS                                        |   9 +
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  32 +-
+ arch/arm64/boot/dts/qcom/purwa.dtsi                |  12 +
+ arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi  | 227 ++++++-
+ drivers/media/i2c/Kconfig                          |  14 +
+ drivers/media/i2c/Makefile                         |   1 +
+ drivers/media/i2c/hm1092.c                         | 685 +++++++++++++++++++++
+ drivers/media/i2c/hm1092_regs.h                    | 223 +++++++
+ drivers/media/platform/qcom/camss/camss.c          |  16 +-
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |   3 +-
+ include/dt-bindings/phy/phy-qcom-mipi-csi2.h       |  15 +
+ 12 files changed, 1326 insertions(+), 29 deletions(-)
+---
+base-commit: 49e02880ec0a8c378e811bc9d85da188d7c6204c
+change-id: 20260609-a14-himax-hm1092-bbcbe0229afe
+prerequisite-message-id: <20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org>
+prerequisite-patch-id: 471e9403130bb3e65cea1d2365d75ef664662306
+prerequisite-patch-id: 075fa72fba3c4f51138b88972e6a5e240038d90c
+prerequisite-patch-id: 4edca361ad7d370a338641d1ebb5ca65b114a244
+prerequisite-patch-id: 32dd1b55ba678d00088b376e33e12d9da6241aca
+prerequisite-patch-id: 24424189b11acee204622997908d85a0efbb2503
+prerequisite-message-id: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+prerequisite-patch-id: dc660c63d4382e84af51241381727954bd5ed013
+prerequisite-patch-id: 237410e8df475d80bede4590288b6b053b1483e5
+prerequisite-message-id: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org>
+prerequisite-patch-id: 6e8e67cd3ab96a602971bbeeb7dfdeaf3f1426a2
+prerequisite-patch-id: bbf431fcabc17c30fa5e804eb4accb8275198b37
+prerequisite-patch-id: a7fbea14628b62a8de096dea420473b283010aba
+prerequisite-patch-id: b6b6c4e7a5818e1b93fe2758902bd32d2be48509
+prerequisite-patch-id: 4f11e3d079a484008a03ce750952d6e2933c0253
+prerequisite-patch-id: 5f5504fd7b5eee72c3fb8c045fa57219fd2f0456
+prerequisite-patch-id: 570b65b326f4c684d813f6ebeda152378dc2a47f
+prerequisite-patch-id: bc5b9321c124abd961ae1f60610dc46701dc80ac
+prerequisite-patch-id: 6d36feaa3a210039f87ea47aa74423a670260fb6
+prerequisite-message-id: <20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com>
+prerequisite-patch-id: 9430f9db2ca3486da39606aa806db3c1973ad2d1
+prerequisite-patch-id: d90c86fbd38851530f9480562647703c32a86a91
+prerequisite-patch-id: baa498638bf0da1bdc25a3c5e827c351d3b78e79
+
+Best regards,
+--  
+Ramshouriesh <rshouriesh@gmail.com>
+
