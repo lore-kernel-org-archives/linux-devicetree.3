@@ -1,304 +1,266 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2980B40BCCE
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 13:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781098540; cv=pass; b=W4SKkl3NAa9w6+d9tn1xi/qGTUTc9SzXnAskZkpLnAXhkjUnH8h9pDTj29/MeX+fScJPK4p2aCOcaWAh1p1o8JJ1GGjSkpti2jCxZx5feI5YPnEztlC8DByBCbTpCqohfi3OgoY1zZfCqk1+542LlGjAmOKdoYAK+0k+o63omgo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781098540; c=relaxed/simple;
-	bh=IjellU6GdCTPU+dpw2ZpLQIFTTy78pz+4EJk9IWCewE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Udu6v7PS9kwVK5SIxhVvqWJhqqoQNh6uvMj/2XrBNhO6g187OYCNCG5ingHALyk6H0/vcIhzOGGPLXre6qyIXIrjR6MftVVBK9tf73Jc9mhb62aR4fPKNV+Z+v0Wag7m2UFQFgirBMYr5OAV8eCveOKAeF4QOUJzXP9zUGdi0nE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e27ks5vo; arc=pass smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECF63DEFE3
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 13:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781098593; cv=none; b=ZUmBjyAduB7uPwA8+ZzCmoa0vvxUeWp0nfI/ODI/036g//iH1vQuCuSUpymc3iDh07ykO7aLXzdDuILCjecw1psHLlH3U6esqUqb6fwOC3jtfWFvCmt3jviOzAu6r9ZNguQYzvXwnmJgvD1q09CeYjOj0iDx7Lvm+UoZWjsZb8M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781098593; c=relaxed/simple;
+	bh=AGdgc/LNIiNu/Pqb58ZW43s1W2veDo5Rgo02Lj4z3iA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W5KRhXI7AwsL1O8vajhlCmDoX9bCT17rhNNvqKWtrdNwByy3aM1X1X1dHIOPfnEEuXF/rcxvlnDX8wZ/8LSJKlIXA4SsFxe2YFSQP8YaiIjcu85zWqGE4lJ2R/peQM3VBnFZcvH4jfGWcvB4q6Q9BKZepdlo0jZaQr70jm4F9/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OWTgv2oa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IOzlYEZR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e27ks5vo"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-bebbc325000so890038166b.0
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:35:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781098532; cv=none;
-        d=google.com; s=arc-20240605;
-        b=bKGZqQZwJPGA+hvMpdyzHUPa9GtR5yroNmFa2y2tbPAT0K1ik9raPIDsH7fMNJTdlS
-         eziNa34r7bXYAM4nUvLjWr3/CjpnVQi/endv4ttbeBhAUj99b3Ne5TTOmktdC69DSI7L
-         w4q1yPh6YRmo3OXKfzwZYkXif+Zwl+4AQ503wZy+pTs8ob+HcAxwU340ZwY4si2Fkyhh
-         wbKN916OuWKm46dplAJC60dqRkmgAVUQKm47bSavk4QCj+gmCWC7wxXaHYffdUauWveP
-         VzA+NdOm2QMWBwacRPtVKtdZYWOCtzVwk/dXypQCZ8xPRlwpbaD1TL/BgKMn3TWEioTv
-         H8Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WboogWqcoT+OL/ZD2SYskMF+y3oh6ksVJtvN7OeY8rI=;
-        fh=c7lbBrdMHBRqFYxsegBiaHO5tLbabzMwO+IkVFJWPeI=;
-        b=KGNql2rKUEuPF6Lj8JIzGfNC/AosJ8X/8tRq5CzODM3E4DJgKfF/2X8ov3a/5DEKO0
-         Znq3mQjCM3wmToVHgSsJTdjYYOMcZMGgAuVV49yhsli+UIJeuDUiGGGWO1D2kMANInbh
-         AMLO/c6h/+M2acKOGUvtH8LmHgqlgIOVNLiGRPW/3MbFEY8sok02nUNL3RrFVMxFsKR2
-         UVqCNxI94hA8YnVf5VeZ/ziA4yvoUp2N1FFKzK2MsljB8ZQFUgAaqAJEdXnsUy76w2EX
-         tRmYzMYCC5qqZQ6LAEC6psOc4uT403HlxbXHpSIhHTeuylaF7IrsWjsauRXyzffJ5DiZ
-         w6OA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OWTgv2oa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IOzlYEZR"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ACBd7G1137374
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 13:36:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	niaQqv0TO5ktLYqg+JO/ci5vasrTsTgygjoHApXMLdA=; b=OWTgv2oaKoYu+Oxi
+	VNZ76vqVmqiS/eGjNkXMa2iUd0Tl4HisiGBqKPqVFt94l8QR17+d5j8gFNk8Qt2f
+	U4ntb1tbPqN3YksGILZG8O/TWQlSdpm1BECXv5okFUjBKo2j8s8a/Ug2QMTnmFGr
+	asxkwXaPH/LE+4XDsdvyLfd2jdHcqIb5rJgd4giZCnsZ6/IeZmyjkbALdGyKM198
+	ltTLB33uASNfRwhjLXG0kpnLsiGzw4w4pSf2jVlx0hv9tw6O/bOmueZUkoQn1bAC
+	P20aoUCkr7MtPvQnhyWXZsoAPOm7iWWz3lLq1vhWqRBn6iF1jCex4ECoapCqWvcL
+	ivZvCg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epwnh2qay-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 13:36:26 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-915a547f4b3so160666785a.3
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:36:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781098532; x=1781703332; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WboogWqcoT+OL/ZD2SYskMF+y3oh6ksVJtvN7OeY8rI=;
-        b=e27ks5vo/jOD8jBywFg+Yzm0alYcaL4aQKyMNx/kjnxkZxTcJ+iEPVgcuLCPdacOsC
-         VZCPlLZFw9DBN7MvlmSCJj7O/OcSaHeke2wUgz1zbFiyuVhMli0lCtLqEXQqPbnQzGCk
-         6+CNQUnAolwtG42aYN+/0MRR4Bn8fyJyWZn1AW7Gm7C6NLcIAPTZdm7NrITimoWLOQ85
-         1YbtUjI7NDv7xywrmeOBphTwkg+uZwP2RIAiIXkQv91DKgZXRxwBGszV+7uSGK0IMheU
-         3wfa61T4byklTVSUVS4laeSEfnlUSpPyM++5yirBSXySBaH8oUG6uFq7ZmPUZ2+LZkhG
-         40CA==
+        d=oss.qualcomm.com; s=google; t=1781098586; x=1781703386; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=niaQqv0TO5ktLYqg+JO/ci5vasrTsTgygjoHApXMLdA=;
+        b=IOzlYEZRlG8nj50T25Iv33du+LSCd/ZqbSRljisgkGedVg3slCqLi+hZL8HTqsjvAB
+         tTmOzEXa67SpYLzwqgK93uq9jJX5PeCn/a4zi94zE4p2anGhsL6GuGFIHvylrSXS28nd
+         7Yxqjt/n1CGksRfROVLsc2XHxHOttP4ziME6bGjTLry+0Ziht05qaqff0+wAz9XTOQcb
+         sCAHKA13ICDT0D3saIbZhhQ91a9dW9mpME2cv0Cru3C/7KrodWHrJcYR8YWMdct9pG55
+         Lj44FqSg1GgvtOpIcmUXKIY2wFOuIYJJOP8ugf/DLSVLjO1zB4TS1vfEB06+4dD8o5J9
+         Hd2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781098532; x=1781703332;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WboogWqcoT+OL/ZD2SYskMF+y3oh6ksVJtvN7OeY8rI=;
-        b=WwP4OfAFV/OJqbAC7PVilP7g5FerBCWC/jryjZPGWl5V39EVQtIdOdlHvyQqqRPicA
-         NAt84ce9hdmMFf34OrWoNEieekxmgTnvFzTNj+2xII4NEHrOzTQk+2rbcfZLbCtpsEGG
-         Ylf1PQFiDeXjO4NrAAE2wnb9Gdfd3VenSi+5QSU2c2cryGcLlZkfW69H5UK37Vwocbrh
-         Xju/LnehNYQAoRt7bFeMVvxWmWSrWFaaxYYRNCtv1027gc54/MgUJwSbPmVCybOFh+h8
-         LlV1/+pCReGaELkxjFNWLBYzbV7wSuI3HU6ixcvzUQtDu7ncCUkz8+O2Fw8nsp8t+/2Y
-         3tDg==
-X-Forwarded-Encrypted: i=1; AFNElJ/NfE9R8eKlulXmTOOXwhKwaKBvp8kZa9tvxlGLOJYwMyFGVrhfneTMGOPpvSVM7cemDMmj6kc37jhn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+EuR3DVaGxxDQ1XFYUXnCkW9EOu6u1iLSPajFqecr6bNSkOZt
-	4s1qeLEzl2AFubTaT5+YQbr0+Knasizl+JsLW+188yVfb4lSToKGIxv/Zk8bzjCgUmDY9M958YL
-	vIqJPhQsbOMi30a0PXX7YlLRIWjJ6EAk=
-X-Gm-Gg: Acq92OFSo48PzKimKLPg0RjE5z9zy4WW5hH/xH5J41beP3jxpGIE2dQjeL4s6PEX6SP
-	xqfnW6on2fy2kGI1qFZJUnG/ahX1Di8tC9U+ny2S5g5jgNWncIkzedJ00pQZQueaa20k6ZJVhHe
-	+lNTO0abbVfcFXFHW6YhEFjUKq3/kv6fwrZgF6Ianzyse6Nl63gY0FWd3Esw68icUo0scu+kKrd
-	RozbKShsxzEya/MiGsb9n2yQ1A2NM/Nx17shZwil3rib4lsg3by0S1v32wl+fPhniZ3etav4iOm
-	5clNtPjDrGUzyed/Ow==
-X-Received: by 2002:a17:907:948e:b0:bec:5ebd:e169 with SMTP id
- a640c23a62f3a-bf37263c586mr1377264466b.22.1781098531867; Wed, 10 Jun 2026
- 06:35:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781098586; x=1781703386;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=niaQqv0TO5ktLYqg+JO/ci5vasrTsTgygjoHApXMLdA=;
+        b=phR4Ycc1uxs4Rjjyc7xjKJWp8sPlM4lrpj+S1/n7w145pMXGdOclA9OtfOkW6ohf1B
+         rk1nB05WqfIfQVotpaGfQ8Or/82ZBsQZ0dlFhtP4aON/IuSxeoag9ynYFbG55Q7x+PJa
+         Ik4JztH+6k+W29LmC6/HAW+Hogspswa3iFwp6LtLFxERZxWcipInwdZs7rPxEn4fEqPu
+         5tm7oxoHEYqkxgrck5LHbUZ/8WGt7KyRMYBRCvhikllp5b3g1pwBGjNGogwdX/IX+eTu
+         xtyFcfSW/EhFKttOXf9NMbZYb4+KcSv7ir5RN+XzBfeiCl1p3D5T4nV+txJCpFcUU2bn
+         fuhw==
+X-Forwarded-Encrypted: i=1; AFNElJ8/52a4ACsA5NUp7MiKIAaynzz5rOy/gRgNdIMTMO1inFHZxkrQUKOCVjhgwhrGMvNHum0KiHbRiipg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQEj/kVFSQedM1FepFtFHMW034nV5B059lNIS0qpD3K4Xzm+sc
+	0Yo2CIrLJf9qTGiwYfqE2HEGof/7zCRLFHtLCgjmqslpXJs30u7ngCxkmUcKTReEGHNNHfS1phj
+	Wn1gqBVc+46C1mPFb8/i94YpC9uga5gc5Q9hxswj917VGZhHej9Ck+wgG/nbIj/k9
+X-Gm-Gg: Acq92OGVoIZc0oYqNDrD7PfoFxvCrKa57X3BmuKxvMP9EaTv/U00F/vZHOq1aLFv8Wd
+	jVtWcoPIXgos634p/Swl/XNdGLgzwOwuYTiBGGKpKvEtsCViYO8FWdYjy2o173fACKjwKMkvOOE
+	Mc1LaEw2u/SNzdejtmjoy2r7Nl8pa19cvKkqr24ZnmMghkfFqnRZDa8jcTk+P3FRHTZo2zv2yz+
+	Z+0eF2odZ92+PBOmjWlR17c20q+rtMkCL1qZRtX8EVgDgo9HcFflxIwgoELy9rpxzOjhTsKNLoV
+	wxAWMnoIzuP5x5ldyU0h4p1jaTS77wTLxcB8rznnfLj+jfEryTMOeUUhYgZj4jP7ncAEwacZf+J
+	h/THW68xrAibL0zLsF/9Vbf6d0aMT6ZxMUEqbUlcepi2/OD4vVBazNw43
+X-Received: by 2002:a05:620a:7113:b0:914:ea37:6f14 with SMTP id af79cd13be357-915a9c7736dmr2175327485a.1.1781098585655;
+        Wed, 10 Jun 2026 06:36:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:7113:b0:914:ea37:6f14 with SMTP id af79cd13be357-915a9c7736dmr2175321485a.1.1781098584986;
+        Wed, 10 Jun 2026 06:36:24 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed718sm5324751e87.14.2026.06.10.06.36.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 10 Jun 2026 06:36:23 -0700 (PDT)
+Message-ID: <0947e485-4619-43a3-a127-5b887780190b@oss.qualcomm.com>
+Date: Wed, 10 Jun 2026 15:36:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604135255.62682-1-midgy971@gmail.com> <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
- <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
- <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com> <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
- <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
- <bcedaff0-abf8-4585-a0ea-057062cd0411@rock-chips.com> <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
- <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com> <DJ5A9XL183RZ.20J3ASQ3EWUZ6@cknow-tech.com>
-In-Reply-To: <DJ5A9XL183RZ.20J3ASQ3EWUZ6@cknow-tech.com>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Wed, 10 Jun 2026 15:38:24 +0200
-X-Gm-Features: AVVi8Cf8gCpLbNssJy_FW_CB2ltoJNgKiOGOa6bXMaOGRFQOxsnQSP0W6Cmk0Xc
-Message-ID: <CA+GS1Y1xAq-9eMyMmoVE6NG9KLG7XRxgPoSr5RkW=6fT5D820g@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
-To: Diederik de Haas <diederik@cknow-tech.com>
-Cc: Chaoyi Chen <chaoyi.chen@rock-chips.com>, tomeu@tomeuvizoso.net, ogabbay@kernel.org, 
-	heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Simon Xue <xxm@rock-chips.com>, Finley Xiao <finley.xiao@rock-chips.com>, 
-	Jonas Karlman <jonas@kwiboo.se>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] dt-bindings: phy: qcom,msm8998-qmp-usb3-phy: Add
+ support for Shikra
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <8cd564af-9646-40c5-a8ef-c7197fb3cfe9@kernel.org>
+ <95b567cc-b83c-4154-9520-e624555f1882@oss.qualcomm.com>
+ <29571bdd-23bf-42a7-a9e3-918a28c79700@kernel.org>
+ <62161822-2365-4ec7-80f7-8660bdadb177@oss.qualcomm.com>
+ <40b5e0f6-bc61-4750-9560-bdcc268f0fe3@kernel.org>
+ <d52c5039-9431-44ed-9f3b-bb00d03ae176@oss.qualcomm.com>
+ <5baeeeed-7c18-46f7-82a3-5bb299ba05ef@kernel.org>
+ <42ba6ac7-306a-419f-96b6-3427c51ef567@oss.qualcomm.com>
+ <9ed7c714-07c1-48de-8d27-cbe24356c606@kernel.org>
+ <34586ed6-4f78-490f-a916-baf7657cca7a@oss.qualcomm.com>
+ <xw7f24rvxhkfntui4jjswyyabb5be4cbkfgh7fico6vlhfvf5b@d4axfyz6gds5>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <xw7f24rvxhkfntui4jjswyyabb5be4cbkfgh7fico6vlhfvf5b@d4axfyz6gds5>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDEzMCBTYWx0ZWRfX033kxL8sNG5w
+ 0lCL+3tsTW7lvE27rNwCOyApW8yrRsPf3iB4rhvKkkjDbUK6GuPzhL4FiBFsTfHH0xh6Zg6+gt5
+ C3LElfe2tfOYYbn8nd2ltoQxlBxUaxXisiOT0otdWOMBCvWlh6gD7fuTWQdgCeMkE5xoPHSbw3G
+ ges8oQ1LkkoFZlJCAa0xFheVzKbmby+HMgNdh1C6M3dGD+QfjOgYG3s4qdJWmr73zYDG6OoCRr6
+ UU932QRbd0qtPWa20jYHrvHPxrnN4xLA4YNiEPNLvgkzZuPBMrlItkUcML39NT3o6EpAsLdIjgj
+ oJRp0iILZ15u89BVididBRLTmZ1wjvT2YN005MlcBJ12Pu6OZku320XhECHHlr0CiTabnkh4MwH
+ vKAki2gKcXo0sGKOh2DnC6SyYLEE/Glgt6Kwh2WW9ZHegiw9X7WoF33Mwr1jzD5dAJhNIJwxdRf
+ 5QZVfarEp1SzTSvAFLw==
+X-Authority-Analysis: v=2.4 cv=Xce5Co55 c=1 sm=1 tr=0 ts=6a29685a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=eIvkFyfHag2gwDMtOzUA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: -20xY1ksxGdHhyJJE_Owbi6uQisFpGoQ
+X-Proofpoint-GUID: -20xY1ksxGdHhyJJE_Owbi6uQisFpGoQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_03,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 impostorscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606100130
 
-Hello Chaoyi & Diederik,
+On 5/17/26 9:16 PM, Dmitry Baryshkov wrote:
+> On Fri, May 15, 2026 at 09:06:21PM +0530, Krishna Kurapati wrote:
+>>
+>>
+>> On 5/14/2026 8:07 PM, Krzysztof Kozlowski wrote:
+>>> On 14/05/2026 08:22, Krishna Kurapati wrote:
+>>>>
+>>>>
+>>>> On 5/14/2026 12:26 AM, Krzysztof Kozlowski wrote:
+>>>>> On 07/05/2026 13:37, Krishna Kurapati wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 5/5/2026 7:30 PM, Krzysztof Kozlowski wrote:
+>>>>>>> On 05/05/2026 15:57, Krishna Kurapati wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 5/5/2026 6:59 PM, Krzysztof Kozlowski wrote:
+>>>>>>>>> On 05/05/2026 15:27, Krishna Kurapati wrote:
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> On 5/5/2026 4:22 PM, Krzysztof Kozlowski wrote:
+>>>>>>>>>>> On 05/05/2026 12:49, Krzysztof Kozlowski wrote:
+>>>>>>>>>>>> On Mon, May 04, 2026 at 10:36:57PM +0530, Krishna Kurapati wrote:
+>>>>>>>>>>>>> Declare the USB-C QMP PHY present on the Qualcomm Shikra platform.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>       .../devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml      | 2 ++
+>>>>>>>>>>>>>       1 file changed, 2 insertions(+)
+>>>>>>>>>>>>
+>>>>>>>>>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>>>>>>>>>
+>>>>>>>>>>> ... and then I looked at the driver. So un-reviewed. Devices are clearly
+>>>>>>>>>>> compatible. If not, explain what is not compatible.
+>>>>>>>>>>>
+>>>>>>>>>> Talos uses GCC_USB3_PRIM_PHY_AUX_CLK.
+>>>>>>>>>>
+>>>>>>>>>> In Shikra, we are using GCC_USB3_PRIM_PHY_COM_AUX_CLK. We don't have
+>>>>>>>>>> GCC_USB3_PRIM_PHY_AUX_CLK.
+>>>>>>>>>>
+>>>>>>>>>> Hence, I didn't use a fallback compatible.
+>>>>>>>>>
+>>>>>>>>> This still explains nothing. How different clock makes interface for SW
+>>>>>>>>> incompatible exactly?
+>>>>>>>>>
+>>>>>>>> So I went by the naming. AUX vs COM_AUX.
+>>>>>>>
+>>>>>>> The naming does not matter. If the clock is called
+>>>>>>> "no_one_expects_spanish_inquisition", does that make software
+>>>>>>> incompatible? Why would the name itself matter?
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Can I use a fallback compatible and in DT vote for "COM_AUX" clock with
+>>>>>>>> clock-names mentioning "aux" ?
+>>>>>>>
+>>>>>>> I don't know, I asked what is different in software interface.
+>>>>>>>
+>>>>>>
+>>>>>> Hi Krzysztof,
+>>>>>>
+>>>>>>     I checked with the hw team here and found out two things.
+>>>>>>
+>>>>>>     1. Shikra is a spinoff of Agatti and its sw interface (clocks used and
+>>>>>> regulators used) is the same as agatti.
+>>>>>>
+>>>>>>     2. I thought we could use qcm2290 as a fallback since the phy register
+>>>>>> init sequence is the same for Talos/Shikra/Agatti. The difference
+>>>>>> between Talos and agatti when checked in the driver was the init load
+>>>>>> settings. I checked with the hw team and they suggested using the init
+>>>>>> load settings which talos was using.
+>>>>>>
+>>>>>>     Hence both these compatibles (qcm2290 and qcs615) cannot be used as
+>>>>>> fallback for Shikra.
+>>>>>
+>>>>> Then I do not understand why you are using qcs615_usb3phy_cfg for
+>>>>> Shikra. You say that the initialization is different, but you use
+>>>>> exactly the same initialization. So in a meaning of compatibility
+>>>>> between hardware for Devicetree they are compatible.
+>>>>>
+>>>> Hi Krzysztof,
+>>>>
+>>>>    There are 3 things:
+>>>>
+>>>> 1. Clocks used:
+>>>> -> Talos supports AUX Clock since it supports DP over USB.
+>>>> -> Agatti and Shikra use COM_AUX clock since they dont support DP over USB.
+>>>>
+>>>> 2. Phy register Init sequence - same for all 3 targets
+>>>>
+>>>> 3. Regulator init load:
+>>>> -> Different for both Talos and Agatti
+>>>> -> Recommendation is to use Talos regulator load values.
+>>>>
+>>>> SW interface wise, shikra is comaptible with agatti. If we use agatti as
+>>>> fallback, we would end up using the platform data of Agatti where the
+>>>> regulator init load is not suitable for Shikra. Hence not using Agatti
+>>>> as fallback.
+>>>>
+>>>> Coming to driver changes, I used qcs615_cfg because it has required phy
+>>>> register sequence and regulator init load as needed by shikra.
+>>>
+>>> So is it compatible with QCS615? If not, then something is incomplete or
+>>> confusing. The driver uses the same software interface.
+>>>
+>> Sorry for the confusion. The Talos compatible represents the USB/DP PHY with
+>> aux clock input, while Shikra is a USB-only PHY with com_aux input clock, so
+>> the two PHYs are not compatible with each other.
+> 
+> According to the memory map, there is an (unused) DP registers part
+> right after the QMP USB3 PHY. So, sofware-wise it is compatible to
+> Talos. Having the different clock input means different integration of
+> the block rather than the differences in the hardware block.
+> 
+> So, the block should be compatible to qcom,qcs615-qmp-usb3-dp-phy
 
-I compared the RK3568 and RK3588 NPU power-domain + DTS as you
-suggested, and it lines up
-exactly with what you described.
+It should still carry its own compatible though, to let the driver
+disallow powering up the DP part
 
-The difference is the `need_regulator` capability. RK3588's NPU domain is
-`DOMAIN_RK3588("npu", =E2=80=A6, false, true)` =E2=80=94 the trailing `true=
-` is
-`regulator`/`need_regulator`.
-The mainline RK3568 macro `DOMAIN_RK3568(name, pwr, req, wakeup)` has
-no regulator parameter at
-all, so `RK3568_PD_NPU` can't be marked need_regulator. My v4 adds
-that: a regulator-capable
-RK3568 NPU domain (need_regulator =3D true) plus `domain-supply =3D
-<&vdd_npu>` on the NPU node =E2=80=94
-i.e. the same shape as RK3588.
-
-And the fix you referenced (Frank Zhang's "pmdomain: rockchip: Fix init gen=
-pd as
-GENPD_STATE_ON before regulator ready", plus "quiet regulator error on
--EPROBE_DEFER") is
-already in my base (v7.1-rc6), so the `if (need_regulator)
-rockchip_pd_power(pd, false)`
-default-off path is in effect. That's what resolves the actual problem
-for me: with rocket
-built as a module (the normal config), need_regulator on the NPU
-domain, and those pmdomain
-patches in place, the board boots cleanly and NPU jobs run with no RCU
-stall / no deadlock. My
-earlier hang was an artifact of a self-contained rocket=3Dy image
-probing in the initcalls before
-the I2C regulator core was up =E2=80=94 as a module it loads ~6.8 s in, wel=
-l
-after, so it's gone.
-
-I also went back and checked the `fw_devlink=3Dpermissive` question
-myself =E2=80=94 and good news, it
-turns out it is NOT needed. I rebooted the exact same kernel with
-permissive removed from the
-cmdline (strict fw_devlink, the default), and the board boots cleanly,
-the NPU probes
-(`rocket fde40000.npu: Rockchip NPU core 0 version: 0`), and NPU jobs
-submit and run five times
-in a row with no deadlock and no RCU stall. So strict fw_devlink
-resolves the NPU/PMIC ordering
-fine via deferred probe.
-
-The one remaining thing is cosmetic: at power-domain-controller probe
-(~2.94 s) I still get,
-in BOTH modes (with or without permissive):
-
-  rockchip-pm-domain =E2=80=A6: Failed to create device link (0x180) with
-supplier 0-0020 =E2=80=A6power-domain@6
-
-i.e. genpd can't form the link to the rk809 (the I2C PMIC supplying
-vdd_npu) because the PMIC
-isn't registered yet at that point. It's non-fatal =E2=80=94 the domain
-defaults off (Frank's patch),
-the rail comes up via the regulator core, the NPU probes a few seconds
-later, and all jobs run.
-
-One question: on RK3588 with need_regulator, do you also see that
-"Failed to create device
-link =E2=80=A6 supplier <pmic>" line at pmdomain probe, or does it order
-cleanly? If RK3588 is clean,
-is there a DTS detail (e.g. the regulator's bus/probe order) I should
-mirror on RK3568 to make
-the link form in time =E2=80=94 or is this line just expected/harmless and
-best left as-is?
-
-@Diederik =E2=80=94 thanks; the DCDC_REG2 change and Jonas's USB-suspend
-series look like generally
-useful RK356x robustness fixes, though for this specific NPU
-device-link the need_regulator +
-Frank's pmdomain patches seem to be the relevant piece. I'll keep them
-in mind for suspend.
-
-The convolution-output / compute-completion issue is still separate
-and open (@Finley =E2=80=94 that's
-the PVTPLL/NoC one); the power-domain side is in good shape for v4.
-
-Thanks y'all for your help :)
-
-Kind regards,
-Midgy
-
-Le mer. 10 juin 2026 =C3=A0 12:05, Diederik de Haas
-<diederik@cknow-tech.com> a =C3=A9crit :
->
-> Hi,
->
-> On Wed Jun 10, 2026 at 3:14 AM CEST, Chaoyi Chen wrote:
-> > Hi Midgy,
-> >
-> > On 6/9/2026 7:11 PM, Midgy Balon wrote:
-> >> Hello Chaoyi,
-> >>
-> >> You were right - building rocket as a module fixes it. Thanks for the =
-pointer.
-> >>
-> >> I rebuilt with CONFIG_DRM_ACCEL_ROCKET=3Dm (everything else the same:
-> >> need_regulator on
-> >> the RK3568 NPU power domain via a DOMAIN_M_R variant, domain-supply =
-=3D
-> >> <&vdd_npu>, and the
-> >> regulator-always-on workaround dropped). The board now boots cleanly
-> >> and, more importantly,
-> >> an NPU job submit no longer hangs: I ran the test workload five times
-> >> with no RCU stall and
-> >> no freeze.
-> >>
-> >> So with rocket=3Dm the need_regulator approach works on RK3568, and I'=
-ll
-> >> keep it for v4
-> >> (domain-supply + need_regulator, instead of marking vdd_npu
-> >> always-on). rocket=3Dm is the
-> >> normal configuration anyway; my earlier hang came from building it =3D=
-y
-> >> in a self-contained
-> >> image, so it probed in the initcalls (around 2 s) and the genpd ->
-> >> I2C-PMIC regulator
-> >> transition ran before the system was ready. As a module it loads from
-> >> udev much later
-> >> (~6.8 s here), after the I2C controller and regulator core are fully u=
-p.
-> >>
-> >> On your question of when the device-link error is printed - it is at
-> >> power-domain
-> >> controller probe, not at the rocket probe:
-> >>
-> >>   [    2.700618] vdd_npu: Bringing 500000uV into 825000-825000uV
-> >>   [    2.749637] rockchip-pm-domain fdd90000.power-management:power-co=
-ntroller:
-> >>                  Failed to create device link (0x180) with supplier 0-=
-0020 for
-> >>                  /power-management@fdd90000/power-controller/power-dom=
-ain@6
-> >>   [    2.945955] platform fde40000.npu: Adding to iommu group 3
-> >>   ...
-> >>   [    6.840374] rocket: loading out-of-tree module taints kernel.
-> >>   [    6.877647] [drm] Initialized rocket 0.0.0 for rknn on minor 0
-> >>   [    6.879950] rocket fde40000.npu: Rockchip NPU core 0 version: 0
-> >>
-> >> So the device-link to the rk809 PMIC (0-0020) fails to form at ~2.75
-> >> s, well before rocket
-> >> loads at ~6.8 s. It is non-fatal here - the vdd_npu rail is brought up
-> >> by the regulator core
-> >> and all jobs run - and there is no "failed to get ack on domain npu"
-> >> NoC warning this boot
-> >> (the always-on kernel had one). The complete boot log is attached.
-> >>
-> >> Two notes / one question:
-> >> - This boot used fw_devlink=3Dpermissive on the command line. Is the
-> >> "Failed to create device
-> >>   link ... supplier 0-0020" at pmdomain probe expected/benign, or is
-> >> there a clean way to make
-> >>   it order correctly (so it also works without permissive, and a =3Dy
-> >> build wouldn't deadlock in
-> >>   the initcalls)?
-> >
-> > We encountered the same issue on the RK3588 NPU before. And it was
-> > resolved with the following patch at that time.
-> >
-> > https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
-> >
-> > Please compare the differences in NPU pmdomain and DTS configuration
-> > between the RK3568 and RK3588.
->
-> About a month ago on #linux-rockchip we were discussing PM 'stuff':
-> https://libera.catirclogs.org/linux-rockchip/2026-05-15#39939137;
-> which references this paste
-> https://paste.sr.ht/~diederik/89d9f84e22474e837b55286d213b67f03859ce2e
-> I've since removed the DCDC_REG2 for PineTab2 and the 'fix' should likely
-> be extended to cover all RK3566/RK3568 devices though.
->
-> It's what I made at the time hoping to fix a suspend/resume issue when
-> trying upstream TF-A. It didn't fix the issue at the time, but may still
-> be useful/needed and I think it's what Chaoyi hinted at.
->
-> Just yesterday, Jonas posted this patch which may be useful/needed too:
-> https://lore.kernel.org/linux-rockchip/20260609154124.445182-1-jonas@kwib=
-oo.se/
->
-> HTH,
->   Diederik
->
-> >> - (The convolution output is still uniform zero-point / the job times
-> >> out - that is the
-> >>   separate NPU compute-completion issue, unrelated to the power-domain
-> >> work. Finley, that is
-> >>   the one I flagged earlier re PVTPLL/NoC.)
-> >>
-> >> Kind regards,
-> >> Midgy
-> >>
->
+Konrad
