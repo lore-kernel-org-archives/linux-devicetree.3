@@ -1,95 +1,492 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3600B43C063;
-	Wed, 10 Jun 2026 15:49:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F0A425CF2;
+	Wed, 10 Jun 2026 15:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781106602; cv=none; b=IbO9T2Li3RycG1AvFeDV7KI+/UTTDAtbEORkurec7hpGQq8hTL+MqDnSDawTrDxMHwVOuwdiAehCbYIC6Q9ddwZOQbntvMcq7wozgk0qRgkEDLwCxoHZCe23HOkmY2SisHznTRIoObYbQav1m84Q2WfmTqamlR1RtzqQDtDrlRQ=
+	t=1781107011; cv=none; b=n2zBVOMMWzcVirVw1EIpOVYaXQP2IxRxPmlLsGf2J/wnS4lAzs2WRRy5ac3y892h0zWGXmZuJ88pTeHjH2k+7Av22pWYukqQFrz0hC7BLuu3OL07+0uHn5JJF68N76+JNtPuBS3Ci6sUa8CrATxFAB/EOgVJmlvR/7ONpw3dUjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781106602; c=relaxed/simple;
-	bh=1HLHVotbcuXMCV9qhlxe/fp4cX8c46z4aJrEatBj7JM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D+0er24nIJCa1kWMPgFQdV0ZfgxAMOTDDmnlB0p8GoMWXEigRkfjr1nL+CqBXXP/REx5VlVNG96U3AhgNSFVftMbfG/qVqYNKlQIFGyZBGtQdte5WrIlBkEKqwHdlawI3mFfO95KI6lXFPJ3ZSyaXTMo9oIHXXQ/JRBukVZcDOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=MenOPSRW; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781107011; c=relaxed/simple;
+	bh=ecYYcI7OGaxfESYz1T2yQys5OqEzE5OKWKiNJ/3bAPo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rG46HTwJTHk3FdmxdcbUPv2I71nEeo9+ILGZhnPH0Q9uXmdipDzQX15CIv2Jl5s7uwViZ9jB3Kci1tEZAO2CmptO9dgPPT4x8b67EYpl7FdrT7IbdMY26tD6koOj7g4jkx6agGFkHdDpR11DOag4/k75uTzBJe+Wm+CPo1ZucJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0P4/f05; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MenOPSRW"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3DB3B6DF;
-	Wed, 10 Jun 2026 17:49:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781106567;
-	bh=1HLHVotbcuXMCV9qhlxe/fp4cX8c46z4aJrEatBj7JM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MenOPSRWFuX3Je9PwZ1VrE10Dt5Hw6SyfZgi70H7epYacaBQ20LgOOo3UaHpjB+x7
-	 WG+ZiCK1Twbfn+Dzekt21xjOXo9dsyLkKxON01o9ChhYWv1Vdl/FybtVL8BIgVGUSM
-	 5afqTePVl4BJ7weA/XYA0dNzMxJ1g3V7csbjRsUo=
-Date: Wed, 10 Jun 2026 18:49:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 3/3] media: renesas: vsp1: Make reset control optional to
- support platforms without a reset line
-Message-ID: <20260610154954.GC1335994@killaraus.ideasonboard.com>
-References: <20260430100929.1088281-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260430100929.1088281-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0P4/f05"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F2F1F00893;
+	Wed, 10 Jun 2026 15:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781107010;
+	bh=f+sYq0Yn5WJCXocg14S0rZGqlqPs0y/kVktvVs2h6e0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h0P4/f05sAaF8GtI+LcKXPUTBtBc27SLV0aX/mrqaFNEtLi4zRyz0JJn76VEdONAC
+	 mgoijmGE85Yfvd2/BbJCr6aBxj5+9S9slLhXJ2jznF+7HeLZxZs3XVGoEdG/JcJRLk
+	 plSwsusOzJtcWNy8kUNe/OzQ42l6H+EnQIL7dTMZ/c27b7VCJUPOeYgjqo5Us+yOIH
+	 lcdGZDt8VslFP9XwLjXizieklcF7IgMTYTInaheqXwLEC8dPzfLmoNA3+JTKfyXiw/
+	 xQzyoi6MaOGaRoOntcoA47F8PfbOFd50nGesnHftRmlEFSso3TlFwEFMSJb3vgeyvj
+	 cg42njMK7PrHA==
+Date: Wed, 10 Jun 2026 16:56:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Md Shofiqul Islam <shofiqtest@gmail.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, krzk@kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: iio: accel: Convert lis302 binding to YAML
+ schema
+Message-ID: <20260610165640.411c1477@jic23-huawei>
+In-Reply-To: <20260610110051.1228-1-shofiqtest@gmail.com>
+References: <20260610110051.1228-1-shofiqtest@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260430100929.1088281-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Prabhakar,
+On Wed, 10 Jun 2026 14:00:51 +0300
+Md Shofiqul Islam <shofiqtest@gmail.com> wrote:
 
-Thank you for the patch.
-
-On Thu, Apr 30, 2026 at 11:09:29AM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Convert the STMicroelectronics LIS302DL/LIS3LV02D accelerometer device
+> tree binding from plain text format to YAML schema format.
 > 
-> Switch the VSP1 driver to use devm_reset_control_get_optional_shared()
-> when requesting its reset control. Some newer Renesas SoCs integrating
-> VSP1 such as RZ/T2H do not provide a reset line for the VSP IP block.
+> The binding covers two variants matched via their respective bus drivers:
+> - SPI: st,lis302dl-spi (drivers/misc/lis3lv02d/lis3lv02d_spi.c)
+> - I2C: st,lis3lv02d   (drivers/misc/lis3lv02d/lis3lv02d_i2c.c)
 > 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
->  drivers/media/platform/renesas/vsp1/vsp1_drv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Document all vendor-specific properties read by the driver via
+> of_property_read_*(), including click detection, IRQ routing, free-fall/
+> wake-up engines, high-pass filtering, axis remapping, output data rate,
+> and self-test limits.
 > 
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drv.c b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> index 627b5046fa80..605fac57bd93 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> @@ -947,7 +947,7 @@ static int vsp1_probe(struct platform_device *pdev)
->  	if (irq < 0)
->  		return irq;
->  
-> -	vsp1->rstc = devm_reset_control_get_shared(&pdev->dev, NULL);
-> +	vsp1->rstc = devm_reset_control_get_optional_shared(&pdev->dev, NULL);
->  	if (IS_ERR(vsp1->rstc))
->  		return dev_err_probe(&pdev->dev, PTR_ERR(vsp1->rstc),
->  				     "failed to get reset control\n");
+> Also correct the click threshold property names: the driver reads
+> "st,click-threshold-{x,y,z}" but the old .txt documented them as
+> "st,click-thresh-{x,y,z}".
+> 
+> Validated with: make dt_binding_check   DT_SCHEMA_FILES=Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
+> 
+> Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
 
--- 
-Regards,
+Hi.
 
-Laurent Pinchart
+So the conundrum here is whether we want to keep carrying this binding
+as it dates to a previous era.
+
+The driver never made it to IIO and is still in drivers/misc.
+The majority of what is the text document should never have been
+in DT in the first place. I'll guess this dates all the way back
+to the wild west days before we had regular binding review.
+
+
+
+> diff --git a/Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml b/Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
+> new file mode 100644
+> index 000000000000..befc419f7f39
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
+> @@ -0,0 +1,343 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/accel/st,lis302dl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics LIS302DL/LIS3LV02D 3-Axis Accelerometer
+> +
+> +maintainers:
+> +  - Jonathan Cameron <jic23@kernel.org>
+
+NACK for that.  I'll only maintain bindings that are both in a good
+form and typically even then only ones I have written.
+
+
+> +
+> +description: |
+> +  STMicroelectronics LIS302DL (SPI) and LIS3LV02D (I2C) 3-axis MEMS
+> +  accelerometers. Supports click detection, free-fall/wake-up interrupts,
+> +  high-pass filtering, axis remapping, and self-test functions.
+> +
+> +  Driver located at drivers/misc/lis3lv02d/.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,lis302dl-spi
+
+That wants deprecating. We don't include the bus in a compatible
+as it can be trivially derived from where the device is declared.
+
+> +      - st,lis3lv02d
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  Vdd-supply:
+> +    description: Main power supply regulator (I2C variant).
+
+That is very odd. Power supply that is only there when using one bus?
+If there was an alternative for SPI and some weird naming thing
+maybe but it seems that if not on I2C the device works fine without
+power :)
+
+> +
+> +  Vdd_IO-supply:
+> +    description: I/O power supply regulator (I2C variant).
+> +
+> +  st,click-single-x:
+> +    type: boolean
+> +    description: Enable single-click detection on X axis.
+Everything from this one down to...
+
+> +
+> +  st,click-double-x:
+> +    type: boolean
+> +    description: Enable double-click detection on X axis.
+> +
+> +  st,click-single-y:
+> +    type: boolean
+> +    description: Enable single-click detection on Y axis.
+> +
+> +  st,click-double-y:
+> +    type: boolean
+> +    description: Enable double-click detection on Y axis.
+> +
+> +  st,click-single-z:
+> +    type: boolean
+> +    description: Enable single-click detection on Z axis.
+> +
+> +  st,click-double-z:
+> +    type: boolean
+> +    description: Enable double-click detection on Z axis.
+> +
+> +  st,click-threshold-x:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Click detection threshold for X axis.
+> +
+> +  st,click-threshold-y:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Click detection threshold for Y axis.
+> +
+> +  st,click-threshold-z:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Click detection threshold for Z axis.
+> +
+> +  st,click-time-limit:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Click time limit, 0 to 127.5 ms in 0.5 ms steps.
+> +
+> +  st,click-latency:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Click latency, 0 to 255 ms in 1 ms steps.
+> +
+> +  st,click-window:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Click window, 0 to 255 ms in 1 ms steps.
+
+This one are userspace decisions.
+
+> +
+> +  st,irq1-disable:
+> +    type: boolean
+> +    description: Disable IRQ1 pin.
+This one and the next lot 
+> +
+> +  st,irq1-ff-wu-1:
+> +    type: boolean
+> +    description: Route free-fall/wake-up 1 event to IRQ1 pin.
+> +
+> +  st,irq1-ff-wu-2:
+> +    type: boolean
+> +    description: Route free-fall/wake-up 2 event to IRQ1 pin.
+> +
+> +  st,irq1-data-ready:
+> +    type: boolean
+> +    description: Route data-ready event to IRQ1 pin.
+> +
+> +  st,irq1-click:
+> +    type: boolean
+> +    description: Route click event to IRQ1 pin.
+> +
+> +  st,irq2-disable:
+> +    type: boolean
+> +    description: Disable IRQ2 pin.
+> +
+> +  st,irq2-ff-wu-1:
+> +    type: boolean
+> +    description: Route free-fall/wake-up 1 event to IRQ2 pin.
+> +
+> +  st,irq2-ff-wu-2:
+> +    type: boolean
+> +    description: Route free-fall/wake-up 2 event to IRQ2 pin.
+> +
+> +  st,irq2-data-ready:
+> +    type: boolean
+> +    description: Route data-ready event to IRQ2 pin.
+> +
+> +  st,irq2-click:
+> +    type: boolean
+> +    description: Route click event to IRQ2 pin.
+> +
+
+are driver internal decisions. The dt-binding should tell
+us which pins are wired, not make decisions on how the driver
+uses them.
+
+> +  st,irq-open-drain:
+> +    type: boolean
+> +    description: Configure IRQ lines as open-drain.
+This one is fine but there is a generic binding for it IIRC.
+> +
+> +  st,irq-active-low:
+> +    type: boolean
+> +    description: Configure IRQ lines as active-low.
+This one we normally do via the admittedly slightly dubious approach
+of assuming the IRQ flags tell us this one.
+> +
+> +  st,wu-duration-1:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Duration register for free-fall/wake-up interrupt 1.
+Back to stuff that should be userspace controlled.
+> +
+> +  st,wu-duration-2:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Duration register for free-fall/wake-up interrupt 2.
+> +
+> +  st,wakeup-x-lo:
+> +    type: boolean
+> +    description: Enable wake-up on X axis lower threshold crossing.
+> +
+> +  st,wakeup-x-hi:
+> +    type: boolean
+> +    description: Enable wake-up on X axis upper threshold crossing.
+> +
+> +  st,wakeup-y-lo:
+> +    type: boolean
+> +    description: Enable wake-up on Y axis lower threshold crossing.
+> +
+> +  st,wakeup-y-hi:
+> +    type: boolean
+> +    description: Enable wake-up on Y axis upper threshold crossing.
+> +
+> +  st,wakeup-z-lo:
+> +    type: boolean
+> +    description: Enable wake-up on Z axis lower threshold crossing.
+> +
+> +  st,wakeup-z-hi:
+> +    type: boolean
+> +    description: Enable wake-up on Z axis upper threshold crossing.
+> +
+> +  st,wakeup-threshold:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Threshold for wake-up engine 1.
+> +
+> +  st,wakeup2-x-lo:
+> +    type: boolean
+> +    description: Enable wake-up engine 2 on X axis lower threshold.
+> +
+> +  st,wakeup2-x-hi:
+> +    type: boolean
+> +    description: Enable wake-up engine 2 on X axis upper threshold.
+> +
+> +  st,wakeup2-y-lo:
+> +    type: boolean
+> +    description: Enable wake-up engine 2 on Y axis lower threshold.
+> +
+> +  st,wakeup2-y-hi:
+> +    type: boolean
+> +    description: Enable wake-up engine 2 on Y axis upper threshold.
+> +
+> +  st,wakeup2-z-lo:
+> +    type: boolean
+> +    description: Enable wake-up engine 2 on Z axis lower threshold.
+> +
+> +  st,wakeup2-z-hi:
+> +    type: boolean
+> +    description: Enable wake-up engine 2 on Z axis upper threshold.
+> +
+> +  st,wakeup2-threshold:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Threshold for wake-up engine 2.
+> +
+> +  st,highpass-cutoff-hz:
+> +    enum: [1, 2, 4, 8]
+> +    description: High-pass filter cut-off frequency in Hz.
+> +
+> +  st,hipass1-disable:
+> +    type: boolean
+> +    description: Disable high-pass filter 1.
+> +
+> +  st,hipass2-disable:
+> +    type: boolean
+> +    description: Disable high-pass filter 2.
+
+End of userspace stuff.
+
+> +
+> +  st,axis-x:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: |
+> +      Map physical X axis. Negative values invert the direction.
+> +      Valid range -3 to 3, excluding 0.
+> +
+> +  st,axis-y:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: |
+> +      Map physical Y axis. Negative values invert the direction.
+> +      Valid range -3 to 3, excluding 0.
+> +
+> +  st,axis-z:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: |
+> +      Map physical Z axis. Negative values invert the direction.
+> +      Valid range -3 to 3, excluding 0.
+
+The 3 are fine but should be deprecated and replaced with mount-matrix
+which makes it a userspace problem on the whole.  There is little
+reason to ever have this stuff down in the driver.
+
+> +
+
+> +  st,default-rate:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Default output data rate in Hz.
+Nope. Driver should pick a value, then control from userspace.
+No reason to have a default in DT.
+
+> +
+> +  st,min-limit-x:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: Minimum self-test limit for X axis.
+> +
+> +  st,min-limit-y:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: Minimum self-test limit for Y axis.
+> +
+> +  st,min-limit-z:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: Minimum self-test limit for Z axis.
+> +
+> +  st,max-limit-x:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: Maximum self-test limit for X axis.
+> +
+> +  st,max-limit-y:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: Maximum self-test limit for Y axis.
+> +
+> +  st,max-limit-z:
+> +    $ref: /schemas/types.yaml#/definitions/int32
+> +    description: Maximum self-test limit for Z axis.
+Those are actually plausible things to have in DT. Maybe...
+Depends a bit on what governs how they are set and whether
+there are always 'good enough' numbers we can hard code in
+the driver.
+
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+Supplies etc.
+
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - st,lis302dl-spi
+> +    then:
+> +      required:
+> +        - spi-max-frequency
+> +        - interrupts
+Seems unlikely the other part doesn't have an interrupt or
+that the device is useless with out one.  Note we don't care if the
+driver requires it - that has nothing to do with the binding.
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - st,lis3lv02d
+> +    then:
+> +      required:
+> +        - Vdd-supply
+> +        - Vdd_IO-supply
+as above. This smells like documenting the driver, not what the wiring is.
+I would be very surprised if the other part doesn't have power.
+
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        accelerometer@0 {
+> +            compatible = "st,lis302dl-spi";
+> +            reg = <0>;
+> +            spi-max-frequency = <1000000>;
+> +            interrupt-parent = <&gpio>;
+> +            interrupts = <104 IRQ_TYPE_EDGE_RISING>;
+> +            st,click-single-x;
+> +            st,click-single-y;
+> +            st,click-single-z;
+> +            st,click-threshold-x = <10>;
+> +            st,click-threshold-y = <10>;
+> +            st,click-threshold-z = <10>;
+> +            st,irq1-click;
+> +            st,irq2-click;
+> +            st,wakeup-x-lo;
+> +            st,wakeup-x-hi;
+> +            st,wakeup-y-lo;
+> +            st,wakeup-y-hi;
+> +            st,wakeup-z-lo;
+> +            st,wakeup-z-hi;
+> +        };
+> +    };
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        accelerometer@18 {
+> +            compatible = "st,lis3lv02d";
+> +            reg = <0x18>;
+> +            Vdd-supply = <&lis3_reg>;
+> +            Vdd_IO-supply = <&lis3_reg>;
+> +            st,click-single-x;
+> +            st,click-single-y;
+> +            st,click-single-z;
+> +            st,click-threshold-x = <10>;
+> +            st,click-threshold-y = <10>;
+> +            st,click-threshold-z = <10>;
+> +            st,irq1-click;
+> +            st,irq2-click;
+> +            st,wakeup-x-lo;
+> +            st,wakeup-x-hi;
+> +            st,wakeup-y-lo;
+> +            st,wakeup-y-hi;
+> +            st,wakeup-z-lo;
+> +            st,wakeup-z-hi;
+> +            st,min-limit-x = <120>;
+> +            st,min-limit-y = <120>;
+> +            st,min-limit-z = <140>;
+> +            st,max-limit-x = <550>;
+> +            st,max-limit-y = <550>;
+> +            st,max-limit-z = <750>;
+> +        };
+> +    };
+> +...
+
