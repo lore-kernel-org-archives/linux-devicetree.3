@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED2537D128;
-	Wed, 10 Jun 2026 20:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EE65B1EB;
+	Wed, 10 Jun 2026 20:16:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781121615; cv=none; b=pJ/oTRKyjiwnkJeO6NACJRzPOX0/2mdjEAjsYGvhC0IWwt7PIOIK7P99o8abVqcS0UelfcNZ2GNGlykaO8uW+Xhh3IlghOPMCJ5wsy6SYIQ7Bu/vSEqY6aGN/4eA3L5BaAb7ptJFM2LPhKOOAcy8/VPtG5JtHa3VOv3qD1EF/qA=
+	t=1781122570; cv=none; b=Ms6gU5Yqel27OyFtUvdHrHINGBFmDZuQqePK0nRlaKjlYXLdq+rypeyFUu41qYEgw0ojdLV1oV6nabWWX38QqfR1srg2g/c1diT4Fd4xYeDy7NgjizI3MqVjwQFmd+Wv+5sVojRqtQhua4EegipV1TigmF5xUXoyLQoC5HygyDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781121615; c=relaxed/simple;
-	bh=Rtu4PCPrQrnpGXPDWa37Ka+8zUeOAO5dxlEBpiDJ9Ec=;
+	s=arc-20240116; t=1781122570; c=relaxed/simple;
+	bh=1n3bZS8I/VceVU3Bld5daiuU36dh1kTtX7dWM0RSfUI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cyCylHB4hD/uflhqQp31iXhZHoZAXZ9yur+H4fwaTdQgheDbBtvXDCm4vKUOs+tPddWtuI6PaDrNEE5rNyjqL8SG4Np333erMFnPuJRZmYheYu0hrNZISG6/Z9evbPG7HPcNQFiXky5n4VL5HT2EhzOx9PajBPnV1Pyr+SUYTQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAf4Nh34; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bPQ7ZIlLkswen9MV01kPGnelwKia8uFNxbEnWkvyYqsZM6/a4dX8sUxIDYnoU5/xuepeDh2NVSV2pr5XRGPhq5nWUE77v6mTRKyHxq5viAGKSAE0QIbl1TCQTqCE1s8yvLvqYqxOqz3rvDLXDSXxEG/LHrykfBpOKtP0IuIBWZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdpK5zYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAf4Nh34"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1237A1F00893;
-	Wed, 10 Jun 2026 20:00:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdpK5zYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740131F00893;
+	Wed, 10 Jun 2026 20:16:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781121614;
-	bh=lEiT5nfQy5M2WcLyUsRW0iH+7nklJOdrIO/F3wDlgbw=;
+	s=k20260515; t=1781122568;
+	bh=so9DqOpbIr30UHFoCxEBiHg7QsGE3smYdeJydKVvvS0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VAf4Nh34MZ0WafXhdetK/bmREXXT5GVeCvBWaxJYyp86JhxsavKNUzrAdEFZV9VgY
-	 cE4Q5K4DAYXZe3I4n8TWkrTzIHhPqWF0zf7PU7ixahduD3Bw6Mb08seckroYON2Vzy
-	 etJKo01eFEwOVlPfNc7+5DXWjJ5Bn01Sqvy3adj3ODYMsfY12AIQtSIxGcPXfMtpa5
-	 s6SHxwZdKsgieg8qwtUnD2mEcX+fgx4Oug66gfEFA0gtrrRacskBeKgu7Lg3Riyxm3
-	 k8n06TKWq3aL5N80saIPiQ8OLd/N/97UIhN2dE94WkarTO+7s5HFZFW5ZyvxoQNq+u
-	 YphEfbhuFiEXw==
-Date: Wed, 10 Jun 2026 15:00:13 -0500
+	b=IdpK5zYkk+IyW2kCCxwDA2A7EX4v2QYUOHaHhMdBiJ4pekOBqmTg/4B3pXiwr/1vS
+	 V8QWIWSGADQmVCQIdFtMX1UyyKSgO3fqSGngcIecwIg+AQW66HLzhRoaVMBkfiBciR
+	 lBdL+7Tsp6VuhA4r3uxV5N8+qKdXdchKPMKCDvxFnO9LxIR7/pfAFg3ackZUy9q2Mc
+	 x6XUyaU9HjRZaemwOfp52LXeh3s6vsa8bdDyPeO7CiE3ZAkhvNRLMFjIHwIn9f4X5R
+	 WgHqTjsrDFI6WJHosOQZ+vnuZbHtKnwcf7BMu25Dr8++mmtRXCm1HE3j5EM3hke5ly
+	 qrWs3fkqcRjSg==
+Date: Wed, 10 Jun 2026 15:16:07 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-phy@lists.infradead.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	YijieYang <yijie.yang@oss.qualcomm.com>,
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: phy: sc8280xp-qmp-pcie: Disallow
- bifurcation register on Purwa
-Message-ID: <178112161290.713172.14002683325677777588.robh@kernel.org>
-References: <20260610-topic-purwa_phy_shutup_warning-v2-1-951c1fbfe9b2@oss.qualcomm.com>
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: interrupt-controller:
+ renesas,r9a09g077-icu: Fix reg size in example
+Message-ID: <178112255975.731343.7950819042460717467.robh@kernel.org>
+References: <364ff570c8a1845fab24bd89557f06c9e406f8de.1781105007.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,47 +48,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260610-topic-purwa_phy_shutup_warning-v2-1-951c1fbfe9b2@oss.qualcomm.com>
+In-Reply-To: <364ff570c8a1845fab24bd89557f06c9e406f8de.1781105007.git.geert+renesas@glider.be>
 
 
-On Wed, 10 Jun 2026 11:45:12 +0200, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, 10 Jun 2026 17:24:45 +0200, Geert Uytterhoeven wrote:
+> According to Figure 5.1 ("Unified memory map"), the safety register
+> block is 64 KiB large, just like the non-safety register block.
 > 
-> Neither of the two Gen4x4 PHYs found on Purwa supports bifurcation.
-> The PHY is however physically laid out as if it were to, since there
-> are two separate ports (A/B).
-> 
-> Split out a new if-then block to un-require the bifurcation register
-> handle to squash this warning:
-> 
-> purwa-iot-evk.dtb: phy@1bd4000 (qcom,x1p42100-qmp-gen4x4-pcie-phy): 'qcom,4ln-config-sel' is a required property
-> 
-> Fixes: 2e1ffd4c1805 ("dt-bindings: phy: qcom,qmp-pcie: Add X1P42100 PCIe Gen4x4 PHY")
-> Reported-by: Rob Herring <robh@kernel.org>
-> Closes: https://lore.kernel.org/linux-arm-msm/176857775469.1631885.16133311938753588148.robh@kernel.org/
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
-> Changes in v2:
-> - Rebase
-> - Don't drop the mention of the warning, as it now actually exists in
->   the tree..
-> - Link to v1: https://lore.kernel.org/r/20260119-topic-purwa_phy_shutup_warning-v1-1-997a692b31c6@oss.qualcomm.com
-> 
-> To: Vinod Koul <vkoul@kernel.org>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Cc: Krzysztof Kozlowski <krzk@kernel.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
+> v2:
+>   - Drop Fixes tag,
+>   - Add Acked-by.
 > ---
->  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
+>  .../bindings/interrupt-controller/renesas,r9a09g077-icu.yaml    | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Applied, thanks!
 
