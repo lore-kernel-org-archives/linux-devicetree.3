@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D7434B1B0
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 18:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB78352F85
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 18:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781115052; cv=none; b=Vedq6UtWKfUVhkQrdiJBvYbAu0O+MBAQsMFLDt/Cj7UoUsos8gx8HgBSWORx3QI79K+pb/Tg7idmDSD8bjGeSdKPn/h3Tg/fxy5CQ2I4jN9eJ/YTbD3wGSLgOgv1wcx8XcUlk+5FitGBCmqvQsEi3gzs3x3riWTokbbje5dbjZM=
+	t=1781115088; cv=none; b=bNB5pNsA9C8IPLfrESxKFE8zXDvHVQ4S4HSCxY/KaxHhuD2usE2v9hGK9pAEk9kXHumnnhQUtEaiXut7DTqDZIdgAHCn6TT/kdX/X9SAxnKPVaPtJioXRdDkeCutKMRr4MHytYG8QKekR2W/DkePLuyOsuAlKAmOfeV08R86LWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781115052; c=relaxed/simple;
-	bh=idCqPoKV4lmFetOSlf24Y3hNwoJ4RaKtobqNF+QWOv0=;
+	s=arc-20240116; t=1781115088; c=relaxed/simple;
+	bh=nlYeBuilx3W2e8o+NTHLxAY+1E09UKhAVH4FbtO0HH4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I4GtEj+ZKageZSDoj5dIKX2Or9rS1OzP9mVYwXma+vySSEm4T4/nVfBdApytZ4x5+cqD5Xc/Nqb2l9ndzUONkO7toU+NzPk3uYWg2Ejc/w8gxZXkJl5dhMLd6dEA5x0pojV4fiaMK5GSqN5MmaGKb7b3oKmSsrvysuXxmhQWChg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXNQF1iJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YHht9AFxCYOmWyYN2yHE85YMRjO6bkikkXRIJLY9nbfYgCVz2EqHvkoRmrGoTd4D8stlmm1EbkOZLSOEh/KXFUsEfkbj/ybjB7RaKs9q51m/oYGEO0xXIc7ahmCnRU4V08mfnCPt9Z8CSER2OS3NoB01HKr1pOGRQtTbrSgFXDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fI+eIH/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXNQF1iJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2991A1F00893;
-	Wed, 10 Jun 2026 18:10:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fI+eIH/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75A11F00893;
+	Wed, 10 Jun 2026 18:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781115051;
-	bh=27ZQfl8sz+uVeISilrymjEiFD2S1U+S9ZaXU/IxF4iA=;
+	s=k20260515; t=1781115086;
+	bh=7j5LSjZVBIjEXarCFP2Zz+ZTCzSQfRMDsxFoxQVGNqQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lXNQF1iJu5FaUjRExBjeI9vDQl0YhVkl2Jog2y1tnltPbonq+UcJ60tmP6j1TWOMN
-	 g+j8bHwlJFm6LfkmAIhXxu8ijNAprC6OnGy96o7nciUDWQixUSVYy4G56/hZCj1j3+
-	 8W2zHcKZgJiX6D2KyeQ0RlVxr7vQ3GQOb9HVHpWwUKzosJzLao/39+7L9fxmx6QKuK
-	 l6jZUVk8kmkEw14sTuTtL7HctVMJ8KfLQ6osRgJOM+enIakvxNafY2iYcVxIVlp/lO
-	 nYwoil34s7tGUjQadZj/xGLYzTsnbG57rnFrkGlB9jTqBUiQ58aTeT6gDZmJOxY2lf
-	 7JuGQqcPwJmBQ==
+	b=fI+eIH/aP3rZlJyw8QX0SAn9KuJLy+s14vVrUFPBvMIdZ3ZasVWPWqzU0sOoL6cpy
+	 mAAHhFdn6Ji56B48H0RK4Rr5x+VKCFCmVUScDlYSEVKp3CL5NGnvJGhW/ewKt55l7Z
+	 dv6SdFB7R10Ws+KKjTMTf5/6YQrkRJXWIKwbNOQuSChSjIC5/h05Lt0OY+L6yjDGKF
+	 pc4ZxOdas0StYb/8Bxjqv6a7f4X/uorXJLnIPaqXA4b8jRul6DNaCbus2OiQoBNfGu
+	 7XOZ8GfeYEqMuqmM67YtT6K1gb83zMn1dqQ9IBg9+GOJ0ygWcj4sdYIWVg7Bpff6AL
+	 hQR+06ColpZww==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V11 7/9] iio: imu: inv_icm42607: Add Accelerometer for
- icm42607
+Subject: Re: [PATCH V11 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260610175455.19006-8-macroalpha82@gmail.com>
-References: <20260610175455.19006-8-macroalpha82@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260610175455.19006-4-macroalpha82@gmail.com>
+References: <20260610175455.19006-4-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 18:10:50 +0000
-Message-Id: <20260610181051.2991A1F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 18:11:25 +0000
+Message-Id: <20260610181125.E75A11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,61 +46,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing `iio_device_claim_direct()` protection when changing the=
- sampling frequency (ODR) in `inv_icm42607_accel_write_raw()`.
+- [Medium] Incorrect use of `regcache_sync()` in probe writes to the read-o=
+nly WHOAMI register and executes before bus setup.
 --
 
-commit 09acc28167411b3db95fd7b8d7918637d445b62b
+commit 40cc0df3cdc00863249296cfd5a6b946f44cff13
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-iio: imu: inv_icm42607: Add Accelerometer for icm42607
+iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
 
-This commit adds support for the accelerometer sensor to the icm42607
-driver.
+This commit adds the core component of a new inv_icm42607 driver. It includ=
+es
+the initial setup functions and full register definitions for the device.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
-iio/imu/inv_icm42607/inv_icm42607_accel.c
-> new file mode 100644
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
 > --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 [ ... ]
-
-> +static int inv_icm42607_accel_write_raw(struct iio_dev *indio_dev,
-> +					struct iio_chan_spec const *chan,
-> +					int val, int val2, long mask)
+> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> +			      inv_icm42607_bus_setup inv_icm42607_bus_setup)
 > +{
+> +	const struct device *dev =3D regmap_get_device(st->map);
+> +	unsigned int val;
 > +	int ret;
 > +
-> +	if (chan->type !=3D IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +		ret =3D inv_icm42607_accel_write_scale(indio_dev, val, val2);
-> +		iio_device_release_direct(indio_dev);
+> +	ret =3D regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
+> +	if (ret)
 > +		return ret;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		return inv_icm42607_accel_write_odr(indio_dev, val, val2);
+[ ... ]
+> +	/* Sync the regcache again after a reset. */
+> +	regcache_mark_dirty(st->map);
+> +	ret =3D regcache_sync(st->map);
+> +	if (ret)
+> +		return ret;
 
 [Severity: Medium]
-Should this IIO_CHAN_INFO_SAMP_FREQ case be protected by
-iio_device_claim_direct() and iio_device_release_direct() similar to the
-IIO_CHAN_INFO_SCALE case above it?
+Will regcache_sync() attempt to write the cached value back to the read-only
+WHOAMI register here?
 
-While the driver currently only supports INDIO_DIRECT_MODE, omitting the lo=
-ck
-here leaves the state management inconsistent. If buffered mode is added in
-the future, modifying the sampling frequency while the buffer is actively
-streaming could lead to stream breakage or corrupted timestamps.
+Since WHOAMI is read earlier in this function and is not marked as volatile=
+ in
+inv_icm42607_regmap_config, its value is cached. Because the regmap_config
+lacks a writeable_reg or wr_table definition, regmap assumes all non-volati=
+le
+registers are writable.
 
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
+Could this unintended write to a read-only register cause a bus NACK or
+unexpected hardware behavior, especially since it occurs before
+inv_icm42607_bus_setup() configures bus-specific settings?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610175455.1900=
-6-1-macroalpha82@gmail.com?part=3D7
+6-1-macroalpha82@gmail.com?part=3D3
