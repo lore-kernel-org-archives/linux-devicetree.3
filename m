@@ -1,87 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023116.outbound.protection.outlook.com [40.107.159.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E09404BFB;
-	Wed, 10 Jun 2026 11:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781091859; cv=none; b=D0fh/WfKKdRC8ZMgiMgU+OAJrwPmo4eeWH0l2rhocLEZenAm5Nq54VRAxOHgqfFECIDuf9e1xckM9ZDhKjExz1CyIxs/pTdB4xU+fqB91oBAZqzNobgNTgt4fKetkMRBGDotAai+yRE7gBDT0cMf8WfofDPKjbhIHlBWncQEleA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781091859; c=relaxed/simple;
-	bh=c9zVqc+Dg0vMNXViG49tyap+X0Kh/Gcx0gmpuuGB2S8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ntnbXdbkz6VQUD2AZaqNBOHUSO9R1q1AKfAn/V96/B6mwcdsKZPPNK5DsOv6jw69Y5iy0Z212VXy5RfflVJsAE4rySYFcFNbpTSfxyiJcYC1/6uq/MAZGrcHAyiP65j3VMUQAly03+DnEYG39tFnnjiGkt+OmhtozugU7sVxsqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQkonQ6R; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A57313531;
+	Wed, 10 Jun 2026 11:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.116
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781091957; cv=fail; b=okWYRBSpaTN0zq0JfLAYoru2ziVUtFZ+btQ7JWHZ5/v4037rI0fuCf0LC+lNF5hftOBbaTXYxVbEfnj0gNG6vQ85rgzkrSsWD0b44rh9Ry+TFqxRinBFzgmMgZwFVpQ/fmWiTBw7Ntr1I/IETOmlxXB61xA9vGL7B7q3cSRT8po=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781091957; c=relaxed/simple;
+	bh=rCfPJxOxs9n4bac9OOy0Ox08ggfEWBt1PZwvKFQe2gE=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=VwWMCUJEBYNsea4hz8BY1g2F0B/bOVAyVAEYiyJ9Q3b4Gc976BoINgHeRbAimMceROUjguZra/cpAIHHV1FqFTO10r67rdHYYl0t7GUhLiebk1C/b9t5ToEh3ZHIXsfSl2rkX82MsPm8xb5L2MikAG9tI+M1ut0vMV4lZ/g1MPE=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=tC4HZGHn; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=tC4HZGHn; arc=fail smtp.client-ip=40.107.159.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQkonQ6R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A61D1F00893;
-	Wed, 10 Jun 2026 11:44:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781091853;
-	bh=eRJvBOXJ/Qv5JJo142rYyyMf3WPgC0W2vX9VVYiXlhI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=NQkonQ6RlavGI/5D5JoMtQ++jj4sGflaqKGJqQJiZ1k3QkbFXcXVB/437qK5Wwy8p
-	 NjgxTUp2Iajww3c3ptVtURaB57bQCfm89gsBPRjIu/oL8mHsYc49wpzl+5t53ZZq5N
-	 nZFamnI1h3wKcMBWEN3JpILiO47QOXwFnUZzNydJIzhM12YrBxWU1xmNVbiuul9msv
-	 iWJfOOCg+W5Sa1LZuC75AHW0dgVXKf7vzJejrPD2RewjNZkAKUB1uzv7bN9IEl6oUn
-	 zF3yFG3Qw36EmQPULMQyuR2MPe9ji7YXfkjMjfPoxYd1FRAT7VoQUNnd49HI2ipCkB
-	 upY3XLWfaY0kw==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 10 Jun 2026 13:43:50 +0200
-Subject: [PATCH 5/5] arm64: dts: qcom: talos-evk-som: Fix BT RFA supply
- name
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="tC4HZGHn";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="tC4HZGHn"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=F64GKpMmK2mPgl8qnxLzbK4YPZBugn6fpEImVqeP2mUId4p0tzawiR5pOotP4ybMppHpxc9H7kr6MOQIWkhkjHemW4fpdTdjZpycXRHrAaddzUPRq5aVVidrTZfg0ve03SMLTqaQw4CAspws3N6w/tN0ztL0CbHqq7HBxrJ69D2FpELuM4Lh2tmVRKTxzinKGAapxu2fHLv3ejxXAcT9Ekf+WWg7Tw/q+IMfr6VARa4Ifycxcb208TEGYuKLMJBWZs1NvZtiZPPTO6pPsZupEx8CKMeF/brhScN9IN3nel1ZkNTc1GsHSXA107rVYfMex7Wc3zjmuhDo+j7x83cR9A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9AqqUjFSgl9zOmmkeX7H2z9IxjyyxSSFdcMxSsFztVo=;
+ b=J4CAkPzSZ7pVrJ64uA8xmSp2ChHYejEcRcpPAPwPCN0+O+RuuhFo7j1k4WPOMK9wM4Jq84///KDGi/FmCMwOYWNnU1/a1pY2Pg4tkwCMl2RNQYbQqk9qFyGHh2JqvrDq/VOZn9sE+KhkcE4887+hiO6g5xhWgUjEPtKVnSBy19F0UiJ/sC0BJUmEBohbsazFUY3yMopP1uPrNAYEVP2OK5hwXqS/l/MajP38gKRFM7R25OFt+wx6f5AfG5Zq0YL6w1Y0P3zQGhW9Z4fH+CyqYymCU8xi/LzGft7vcKml68OS2357x7RXcy2jjzbvze3Mi9CwRr+GAKp+TL2NUkIGlg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=arndb.de smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9AqqUjFSgl9zOmmkeX7H2z9IxjyyxSSFdcMxSsFztVo=;
+ b=tC4HZGHnJksnJy45ew0LKURDKoGEn6KkoRYMUEv16I1QzRDQJnmn7XOMKVTndVMA8CpMRqp7JhFlW0TEiTVHCZzmay4+dmKlkzlVvfiwhOijbAopDr5x6ibBg6fpTS7mEGXkHF+o4FVOLJ2zI5gtbAu/ddScf7aufdinU67BHpf8/5GNb1Pm+k81gkk1Gv/bgGWi9MaH/pRFwxGUeoaUHz6BpuG2K7kYnDIbxqURXVqGLNMEBXLiYPlNDeMxeHAo4bPdNR3bSumiHZJp/KGpJM/tm+6fCmZPttqg3sB0Ou9MFpJcLwRVE6lkTsaDIzwjTvzVZjrW9hAdXgSazqP9Tw==
+Received: from CWLP265CA0402.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d6::12)
+ by PA1PR04MB11506.eurprd04.prod.outlook.com (2603:10a6:102:4df::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
+ 2026 11:45:46 +0000
+Received: from AM4PEPF00027A63.eurprd04.prod.outlook.com
+ (2603:10a6:400:1d6:cafe::d7) by CWLP265CA0402.outlook.office365.com
+ (2603:10a6:400:1d6::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.10 via Frontend Transport; Wed,
+ 10 Jun 2026 11:45:46 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
+ smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ AM4PEPF00027A63.mail.protection.outlook.com (10.167.16.73) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.7
+ via Frontend Transport; Wed, 10 Jun 2026 11:45:46 +0000
+Received: from emails-6124461-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-195.eu-west-1.compute.internal [10.20.6.195])
+	by mta-outgoing-dlp-305-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 1DCAA7FFEB;
+	Wed, 10 Jun 2026 11:45:46 +0000 (UTC)
+X-Mailbox-Line: From b'josua@solid-run.com' Wed Jun 10 11:45:37 2026
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dx2Bi+zLHnH9+da88v8zJfnae1ZyZ8DZE7aEqE83PX4uSBWRSsr1V+3Gy5WTAC6SBlSCpTmCa7bK86/38fctVkdA/8OSe6znOtuysII+4Ot1KaYZM/XQGSbifuOY4g0xUjx+bHlUZb11FBM7MVkHcC8SlEYYsW/nZE0Kmwo014GLhASCLbDkhTvvaPeZMMsuKB9LeWecpyrC/4XcxKwrtHZQAjLT92Ib8tFBWJIPE5FFzzg7HbOE0Ee1mzvaeG1xvNSoqKEJsL5E9fu0LvP3kKL6fGE1U1qKeCR+mXq4EPaOhscIztXw+80td3x4Lk19DbkK2pQJNmpIJ0BLXxhHag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9AqqUjFSgl9zOmmkeX7H2z9IxjyyxSSFdcMxSsFztVo=;
+ b=yrv3hjX/3c1IQB6r/VNkpghBDpgOnO8Lt+KZUb45NZHuDNdiI/RovQaaZPBPo4DUOVOIY/PwVdBeYtGB5sqSGn5WeBsFT4EpP9AZUdal7awPx9CzM60alGZ9WQ6ylxrQQx58LpD+ZMVFKAUhLUls1yB968LXC8zAAdczUP2GK0hD/EcHmHdKQmTg78NFXUdGfG5F2Wpe9CHTLVuxbLJQLAxdjKv9kbTH4kp6dPb3dg0+zuIwxAr+X11ZxNdzYXLCjcw8XGF7YfWFjCh2qFB1VBdSq9eLfiX1zoFBhTHXFc04auimj+cab/TnwAOfsRqr6P7yUDLhzrhWQsOS0ZrlTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9AqqUjFSgl9zOmmkeX7H2z9IxjyyxSSFdcMxSsFztVo=;
+ b=tC4HZGHnJksnJy45ew0LKURDKoGEn6KkoRYMUEv16I1QzRDQJnmn7XOMKVTndVMA8CpMRqp7JhFlW0TEiTVHCZzmay4+dmKlkzlVvfiwhOijbAopDr5x6ibBg6fpTS7mEGXkHF+o4FVOLJ2zI5gtbAu/ddScf7aufdinU67BHpf8/5GNb1Pm+k81gkk1Gv/bgGWi9MaH/pRFwxGUeoaUHz6BpuG2K7kYnDIbxqURXVqGLNMEBXLiYPlNDeMxeHAo4bPdNR3bSumiHZJp/KGpJM/tm+6fCmZPttqg3sB0Ou9MFpJcLwRVE6lkTsaDIzwjTvzVZjrW9hAdXgSazqP9Tw==
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=solid-run.com;
+Received: from PAXPR04MB8813.eurprd04.prod.outlook.com (2603:10a6:102:20c::24)
+ by AS8PR04MB8977.eurprd04.prod.outlook.com (2603:10a6:20b:42c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
+ 2026 11:45:35 +0000
+Received: from PAXPR04MB8813.eurprd04.prod.outlook.com
+ ([fe80::4c11:9f48:de3e:a67f]) by PAXPR04MB8813.eurprd04.prod.outlook.com
+ ([fe80::4c11:9f48:de3e:a67f%4]) with mapi id 15.21.0092.014; Wed, 10 Jun 2026
+ 11:45:34 +0000
+From: Josua Mayer <josua@solid-run.com>
+Date: Wed, 10 Jun 2026 13:45:23 +0200
+Subject: [PATCH] arm64: dts: lx2160a-rev2: avoid 32-bit pcie window system
+ ram overlap
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-lx2160-pcie-fix-ranges-32bit-v1-1-98086fc5fb6b@solid-run.com>
+X-B4-Tracking: v=1; b=H4sIAFJOKWoC/x3MSQqAMAxA0auUrA2kVetwFXHhEDUgWloRQby71
+ eWHx78hsBcOUKsbPJ8SZN9i6ETBsHTbzChjbDBkLFlNuF5GW0I3COMkF/oPBUxNLwdSacu8IM6
+ qfIK4cJ6j+fdN+zwv3bmX1W4AAAA=
+X-Change-ID: 20260610-lx2160-pcie-fix-ranges-32bit-0868570e495f
+To: Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
+ Josua Mayer <josua@solid-run.com>
+X-Mailer: b4 0.14.3
+X-ClientProxiedBy: FR2P281CA0063.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::19) To PAXPR04MB8813.eurprd04.prod.outlook.com
+ (2603:10a6:102:20c::24)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-topic-june26_dts_fixes-v1-5-2e0c953a6c08@oss.qualcomm.com>
-References: <20260610-topic-june26_dts_fixes-v1-0-2e0c953a6c08@oss.qualcomm.com>
-In-Reply-To: <20260610-topic-june26_dts_fixes-v1-0-2e0c953a6c08@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca@lucaweiss.eu>, Gabriela David <ultracoolguy@disroot.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781091829; l=752;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=nEE1IHsqEXA3r32tvW6HQEnG8rfUgsSym0NIWAlgBVw=;
- b=eyrjCyRKRKpiC7v+2JPST/f27erblO+cPk9F4WL77EakiK+a0gUAsJ7RdnsgdtdUDM4Z++ue7
- l4qENEMKncLC8Wp9y5TNiO8allW189SYzVA4erBTUfU+2vdSYhjzTSh
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+X-MS-TrafficTypeDiagnostic:
+	PAXPR04MB8813:EE_|AS8PR04MB8977:EE_|AM4PEPF00027A63:EE_|PA1PR04MB11506:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9111d51-81fb-4ce6-e7aa-08dec6e5cf83
+X-CLOUD-SEC-AV-Info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|52116014|18002099003|38350700014|56012099006;
+X-Microsoft-Antispam-Message-Info-Original:
+ vItWBnyASUd7BqYgs0oRDp68cwHcbQSRsxUbZ4nrJb+hsKKr4t94XBIPpb1/3aTVo7x23yIDRG0fvYbKz7fqsH4KgThp7EUN9SzDfCL0vnSQGd7qvca99Jwhh/1k8SwqyeoXhlrGISYVeU3Yd7kmVrQBa7tfiUKYIqEonQXMR615XiOcBCJlEZggc4M9jWgva/UfOZKhK6YVFPx+uH0K50ts2lsL4A5z6RgxZINe9LdxWrFeNt8fcAPVbzWOylsGYvT0R+O9GZapycBAF8U9EKjFiSWEtUUWVcJEkklUhHAnmsydwF6GrZmK5R9oW/oET5YydJnHwRYGfpQQ91LXwhWtnDKDQKI2K/Nr9K69LaYRC/QgKRdS1Yj8fJOqQIl6iqXIpej3xUkrrIrMxB6V8th5rX03bEsSqNcaUypDN0IKwvxG4F6mp7n5hQspHVn2Xh4OkwwuvM7scI2sOlq0Qc1rcZXJjdkZ4n4MaLMHPOcn+1lLtcO/inZxuokzz+G1kcYYzmz3gp84nVSeEUI8X9qTwuIXqUuZoOvOzJ3rARdUk5Gbd5oxw0RA47ypGPkctJPxwRIn+3fSLfJkVL6shtUwUw7dx+co5pFIBT2yDvX2qlDERjnfsONqEjQ6BYrZD6QoV5DVubBGr+46T5Mn4U/f+tZc0OrzJq6nPvTgyycR0YV18Jb9p/471h8GhLkHDK6k/XudCDxRP9XToQ07HZw260pNWEvc0c0QIxlL9D5C01I+MSB+Xd97YfI/ZhXW
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8813.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(52116014)(18002099003)(38350700014)(56012099006);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked:
+ sprGWXXMD95agIF5ukSvsR/78wt1ALVzEhEzyofCAI2J/zkReSxSpe60eT7AsU4XCQDyHI8aIDNRXS92mSzHqXokwjQwPVIi6rRERdrT5l/eQyUkCUIbLHH6MGvsETw9QGf/2IViQMkm+gBsPqLfm62ffAq4foBRe/IqexB8pz+cAKaUi0vEqCBdPPTPV1AWiiZsP8OeAVQ9ulhLIIM1CiE8TfenS1bDLGQb3RRr0k2LGtSkP/hb5CxBRoBzvAuEq7Knew/Ur/jeaOhVi6euyUh9AcV+6F4m+qivfBCJqjCzfAaP6FEltFZVDBx3nBt0qCRzbcz7s1XKPLEOKvmgRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8977
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2-7.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: 31adadc390aa4b25a226cd26126eb5b5:solidrun,office365_emails,sent,inline:a41bf6707d170c0a63bddbe0b5c1ea23
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM4PEPF00027A63.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d1b98c96-b1f9-42ad-5893-08dec6e5c86c
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|14060799003|1800799024|36860700016|376014|35042699022|82310400026|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	lZBe5awcF5HCJKdRgn8lDaF5v98bxehUDahCnkg4Y4nrGp9czyGlWhlhsa/QnMdUs9sfR/MlgrJgUb2J2zxcjrIWtHaLJcr3clps/pVs5CFj9+kKhwbDYMneKXnfgmKxt4LgsbU1+YrtgwBrycTadtZJqT7EHHpMll5Rt76/SwVAiRfd7BtPrFxQRnIyFfsaQKueP7s37Zv8Cv6iK9lYfuRvUa0bfV7IItuG/rsgX+IeMXQY+X/FpT/qhK8cWev7upQnVmah/O2+LDMehFclRvhbcOeAz6rIB/8qSsMMT12jUDsGgb7xKZH9yb4iatc8XtDg8R/iaXGIoCufXD4W6XcEI/j588m8gco9O8wy1spFmXgTf2lFtF1HJLh/W7PzkBHthdcdwpJEx2Uc6wrXVihcc+0io3My6gj/X4b7R4PhGQt/e5h1p7GL9Bt46c4fmztRnbUOfXbK5ctQyuf3b4w9rd38qz28TeJEXhXRTyUb1pjqKf6lolWKgkf1XyUzoN03lD5HzA0Q2ReVU+l9HPTZ53ldt2HKeeW3WymIYITEfd7Piw2mqy0GbBOr9Wg0Fi1OWDQt1IOJ+wTmdemEyzX4sXZMCUgT4WK/uzKYXE0/n9zM49Ia3pWqeLFJWyg+0zYMtUsUxvTTgjo1HRFhsp7dxmqtbJX2uc9zQq8MWjsWix8/wszqAICxJmg1rL9EyDIK9U1BTDQvGyaqCP/ZNuv70x/i33lmOYtsgntRqKY=
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(23010399003)(14060799003)(1800799024)(36860700016)(376014)(35042699022)(82310400026)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yVnKLhox6Ih3EA2PmZXmkhYLyR/oU+HA0zmoDCzYkRWqx3HPOQR2jtx/Sd/9QGXZBlPaUUgOr1Q+EIgtwf04vzIE2PWhLMsL4rZ4/2xYy9xlRVAlMUKArjTYrkHyq2q9r/eoziIvGgJW4o8tV6yIP2DUJjbAEAYgK1ckMh5Q3MbJvXSJKD2yo3MBZDk/vsbQc8tCUQwoZIjQnw/bDSaqTBWBRckXFznyB/CSGAvXcpmZpBgT5MBEODKHH00adm4vfhjubYxp4KD+J/z6cOrkfveRFYo+xr796va9on3gPDZaXSeQpcjypCcziYo0EKrluwe3JWuxDKWB80XnVAF5NZTNkDP/YhEw6Gfjjeb+Up/3xXfxSyKh+Gdv2JHi/KJmq03H7B+JonWDE/swtoY6PGfkFIvXDkrFoFPVRojxWkoM49d/gsYamBPJbabsp7xa
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 11:45:46.3540
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9111d51-81fb-4ce6-e7aa-08dec6e5cf83
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00027A63.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11506
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+A 3GB non-prefetchable PCIe bus window can overlap with inbound DMA
+addresses for low system RAM, so DMA transactions may be routed to a BAR
+on the same host bridge instead of memory.
 
-Fix up the supply name to align with bindings.
+Change the 32-bit non-prefetchable PCIe window back from 3GB to 1GB on all
+controllers, avoiding that overlap while keeping the added 64-bit
+prefetchable region.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This partially reverts commit 9ed301397090 ("arm64: dts: lx2160a-rev2:
+extend 32-bit and add 64-bit pci regions").
+
+Fixes: 9ed301397090 ("arm64: dts: lx2160a-rev2: extend 32-bit and add 64-bit pci regions")
+Reported-by: Arnd Bergmann <arnd@arndb.de>
+Closes: https://lore.kernel.org/r/9e6326f6-dad1-4169-a63c-e62ee5b341f2@app.fastmail.com
+Signed-off-by: Josua Mayer <josua@solid-run.com>
 ---
- arch/arm64/boot/dts/qcom/talos-evk-som.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-index 294354c034c3..93e08e141dfb 100644
---- a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-@@ -527,7 +527,7 @@ bluetooth {
- 		vddbtcmx-supply = <&vreg_pmu_btcmx_0p85>;
- 		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
- 		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
--		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
-+		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
- 	};
- };
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+index 3570399f9b21c..3d2637fee2d35 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+@@ -17,7 +17,7 @@ &pcie1 {
+ 	ranges = /* 16-Bit IO Window */
+ 		 <0x81000000 0x00 0x00000000 0x80 0x00010000 0x00 0x00010000>,
+ 		 /* 32-Bit - non-prefetchable */
+-		 <0x82000000 0x00 0x40000000 0x80 0x40000000 0x00 0xc0000000>,
++		 <0x82000000 0x00 0x40000000 0x80 0x40000000 0x00 0x40000000>,
+ 		 /* 64-Bit - prefetchable - 16GB */
+ 		 <0xC3000000 0x84 0x00000000 0x84 0x00000000 0x04 0x00000000>;
+ 
+@@ -37,7 +37,7 @@ &pcie2 {
+ 	ranges = /* 16-Bit IO Window */
+ 		 <0x81000000 0x00 0x00000000 0x88 0x00010000 0x00 0x00010000>,
+ 		 /* 32-Bit - non-prefetchable */
+-		 <0x82000000 0x00 0x40000000 0x88 0x40000000 0x00 0xc0000000>,
++		 <0x82000000 0x00 0x40000000 0x88 0x40000000 0x00 0x40000000>,
+ 		 /* 64-Bit - prefetchable - 16GB */
+ 		 <0xC3000000 0x8c 0x00000000 0x8c 0x00000000 0x04 0x00000000>;
+ 
+@@ -57,7 +57,7 @@ &pcie3 {
+ 	ranges = /* 16-Bit IO Window */
+ 		 <0x81000000 0x00 0x00000000 0x90 0x00010000 0x00 0x00010000>,
+ 		 /* 32-Bit - non-prefetchable */
+-		 <0x82000000 0x00 0x40000000 0x90 0x40000000 0x00 0xc0000000>,
++		 <0x82000000 0x00 0x40000000 0x90 0x40000000 0x00 0x40000000>,
+ 		 /* 64-Bit - prefetchable - 16GB */
+ 		 <0xC3000000 0x94 0x00000000 0x94 0x00000000 0x04 0x00000000>;
+ 
+@@ -78,7 +78,7 @@ &pcie4 {
+ 	ranges = /* 16-Bit IO Window */
+ 		 <0x81000000 0x00 0x00000000 0x98 0x00010000 0x00 0x00010000>,
+ 		 /* 32-Bit - non-prefetchable */
+-		 <0x82000000 0x00 0x40000000 0x98 0x40000000 0x00 0xc0000000>,
++		 <0x82000000 0x00 0x40000000 0x98 0x40000000 0x00 0x40000000>,
+ 		 /* 64-Bit - prefetchable - 16GB */
+ 		 <0xC3000000 0x9c 0x00000000 0x9c 0x00000000 0x04 0x00000000>;
+ 
+@@ -98,7 +98,7 @@ &pcie5 {
+ 	ranges = /* 16-Bit IO Window */
+ 		 <0x81000000 0x00 0x00000000 0xa0 0x00010000 0x00 0x00010000>,
+ 		 /* 32-Bit - non-prefetchable */
+-		 <0x82000000 0x00 0x40000000 0xa0 0x40000000 0x00 0xc0000000>,
++		 <0x82000000 0x00 0x40000000 0xa0 0x40000000 0x00 0x40000000>,
+ 		 /* 64-Bit - prefetchable - 16GB */
+ 		 <0xC3000000 0xa4 0x00000000 0xa4 0x00000000 0x04 0x00000000>;
+ 
+@@ -118,7 +118,7 @@ &pcie6 {
+ 	ranges = /* 16-Bit IO Window */
+ 		 <0x81000000 0x00 0x00000000 0xa8 0x00010000 0x00 0x00010000>,
+ 		 /* 32-Bit - non-prefetchable */
+-		 <0x82000000 0x00 0x40000000 0xa8 0x40000000 0x00 0xc0000000>,
++		 <0x82000000 0x00 0x40000000 0xa8 0x40000000 0x00 0x40000000>,
+ 		 /* 64-Bit - prefetchable - 16GB */
+ 		 <0xC3000000 0xac 0x00000000 0xac 0x00000000 0x04 0x00000000>;
  
 
+---
+base-commit: c10cfc952215644956284a42fa7b7860dfbcb5f5
+change-id: 20260610-lx2160-pcie-fix-ranges-32bit-0868570e495f
+
+Best regards,
 -- 
-2.54.0
+Josua Mayer <josua@solid-run.com>
 
