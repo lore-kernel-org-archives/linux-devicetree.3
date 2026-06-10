@@ -1,87 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2566232B105;
-	Wed, 10 Jun 2026 18:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A292346AE3;
+	Wed, 10 Jun 2026 18:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781117324; cv=none; b=nVFHRJDbjMx3/KSTTE8qMwcSy9i154Fp+jr3GHY1mFrRX3gxqbjLY+ly7iuD5oXkQDHDRPTQd1U7UBJghmDGBhLs5FXn2honHnR6vf5LlXUvAtiMUR6Evd+4+fablz1Q3wjobK+CIfBLytQ1p/2POTymmWlOMp912tpEaLcRdpI=
+	t=1781117497; cv=none; b=FI+/U9jxP3TbfN1InPoSB4QoQgJqyr4Pa2QvvtK7bFs3cZtgFMrOvqTJ0a4dedWxKzX10m1HFOHFjc0W1NXPoznq9mGOyfhHtbd1nigyS0llMHmEgxIbJfAW1fdB7xA+CL60lCovaAbmEyygAHSNoFvLoiFgoU8yMKCzZHuCeLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781117324; c=relaxed/simple;
-	bh=e7juAKMdbJE8c41ddoVMN0a+q6SHhmeQ5SmeOwcgzYU=;
+	s=arc-20240116; t=1781117497; c=relaxed/simple;
+	bh=IAJeaJCSOrokeJqsoh7ZMS5JEDntzqitc8aG5X9uM6A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=biQCYEN1kGBwvurB/8FRha5+L0UVn3OpSjbPqq0BqTE/NLfXAib7bRbc4MjVTqHF6p2UpiPF6Xbj03LpFB3IASsYYpSx0KTUmFgVK+Rikwc6Lv668oLTDC/z2VDJx9PEF4C2I0cNAwuSYQArfH5cTvCU6gTRAzDydtp9WE5HCrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5N58tyF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VW4n48saM8n31LoJ/zJdSz89rL4u5z7BsaxbVk7m2XTdfmMl51cqFZ8nMJ1VdIJNgOl7dmVrVcBNrj4B8f3gQvsCXg54vI87fASPceEKKI7BPSLaQMLT7L4R4PFYX41+0d3MEVcB9ctqvyffeT7sHj0PoYfopsrsOrasLAgouAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aye66uGD; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5N58tyF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DB71F00893;
-	Wed, 10 Jun 2026 18:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781117322;
-	bh=IeaOgv8VGi8NiS/EDinHm2Q+9rwa2YqYo89AIX6kVBw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z5N58tyF9roa6CWq4gbKB7l16zKv7j1T52ICIRV+2JEGOByBessKPyUmNLtpng/n5
-	 01It/aEyXBYdFM1JUBWjN2Gl1w11fM4CfxXePTanpUfDPY8m8TOquE5dih4a7XPlgg
-	 btBlortY85j/zu8nYrc2DaUFvL/EFLsl3Xw//gKj/OKOnegGnJ3DuGlfoIp82T9kdN
-	 +LeNPNctygUsNJydo8PzVwS54vo/JQP2aFu7ZBQ4ue9Ra7gi/BwVyIT/oKRXJpC5Nw
-	 SfPYoqrejZxl/5hYBuvFWtJR+cpsHk3syvcyCIXUMdFTuPxg1ih8UEmJjb5oemikYV
-	 cFj/czkl27sVA==
-Date: Wed, 10 Jun 2026 13:48:41 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
-	linux-hardening@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
-	linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH next v2] drivers/of/overlay: Use memcpy() to copy known
- length strings
-Message-ID: <178111732108.625216.12806954968096989058.robh@kernel.org>
-References: <20260608185121.22331-1-david.laight.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aye66uGD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781117496; x=1812653496;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=IAJeaJCSOrokeJqsoh7ZMS5JEDntzqitc8aG5X9uM6A=;
+  b=aye66uGDZKdQa9WjHMvX9ETjKqfTUZgBFSSA0Bq5xxh5lzQAfK+g2BqH
+   LAU0myHxq65Fo0sCMoTh7EZ4yMDs7hhfZQ2jxn42oSfgCFgmotgjyyiNf
+   BPsP1dCs0bt1oevZytmakFJebNOlM1SObYjyqOB60q30Gk96MG7A4J6R3
+   M26/9n/89fyX5FywxFTLCUC48dG2L/9dD7Ymt/ocgDY24uvrh0B1sxKn1
+   +2DxP4/VM1Jt9NLVafPLnBffLumN67z4JKgW85x0uecoAknFlfx0IHyoT
+   05myRlxrMGUf3W2rN/UMKBmJuIY4Txt5X5CxqWeSmOMJ1Ysb99rdAOn03
+   Q==;
+X-CSE-ConnectionGUID: lBddJ2uWRcyl589jQROy0Q==
+X-CSE-MsgGUID: SG/qs1cmS4633UOA0NuT9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81054028"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="81054028"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 11:51:35 -0700
+X-CSE-ConnectionGUID: Ld7552xLQuatmRnoelVB+w==
+X-CSE-MsgGUID: 6f666/mdTJOs8w9zQz3/bA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="245385735"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.38])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 11:51:30 -0700
+Date: Wed, 10 Jun 2026 21:51:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v4 10/14] mfd: lm3533: Set DMA mask
+Message-ID: <aimyLwhc_BT6I5wD@ashevche-desk.local>
+References: <20260606045738.21050-1-clamor95@gmail.com>
+ <20260606045738.21050-11-clamor95@gmail.com>
+ <aihm315UtdqJclhh@ashevche-desk.local>
+ <CAPVz0n01ymfYGH+_MgfHvWqzg+tczLi8E-1q=rZ5cHu+uJrpdg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260608185121.22331-1-david.laight.linux@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n01ymfYGH+_MgfHvWqzg+tczLi8E-1q=rZ5cHu+uJrpdg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Wed, Jun 10, 2026 at 05:40:56PM +0300, Svyatoslav Ryhel wrote:
+> вт, 9 черв. 2026 р. о 22:17 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
+> > On Sat, Jun 06, 2026 at 07:57:34AM +0300, Svyatoslav Ryhel wrote:
+> > > Missing coherent_dma_mask assigning triggers the following warning in
+> > > dmesg:
+> > >
+> > > [    3.287872] platform lm3533-backlight.0: DMA mask not set
+> > >
+> > > Since this warning might be elevated to an error in the future, set
+> > > coherent_dma_mask to zero because both the core and cells do not utilize
+> > > DMA.
+> >
+> > Hmm... I am not sure about this. The entire kernel has only two drivers that
+> > do that, and thanks to their commit messages one of them pointed out to the
+> > commit from 2018. So, if no other devices suffer from this, I think it has to
+> > be a better way of achieving the same.
+> 
+> If mfd framework warns that DMA mask is not set then this must be
+> addressed. Why then there is such warning at the first place if mask
+> can be just skipped. Then warning would be just a debug message. What
+> is warning today can become error tomorrow.
 
-On Mon, 08 Jun 2026 19:51:21 +0100, David Laight wrote:
-> Avoid calls to strcpy().
-> The lengths of the strings have been used for the kzalloc(), replace
-> the strcpy() calls with memcpy() using the known lengths.
-> 
-> Signed-off-by: David Laight <david.laight.linux@gmail.com>
-> ---
-> 
-> v2: Improve commit message
-> 
-> This is one of a group of patches that remove potentially unbounded
-> strcpy() calls.
-> 
-> They are mostly replaced by strscpy() or, when strlen() has just been
-> called, with memcpy() (usually including the '\0').
-> 
-> Calls with copy string literals into arrays are left unchanged.
-> They are safe and easily detected as such.
-> 
-> The changes were made by getting the compiler to detect the calls and
-> then fixing the code by hand.
-> 
-> Note that all the changes are only compile tested.
-> 
-> Some Makefiles were changed to allow files to contain strcpy().
-> As well as 'difficult to fix' files, this included 'show' functions
-> as they really need to use sysfs_emit() or seq_printf().
-> 
-> All the patches are being sent individually to avoid very long cc lists.
-> Apologies for the terse commit messages and likely unexpected tags.
-> (There are about 100 patches in total.)
-> 
->  drivers/of/overlay.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+It's there for 8 years. And only a few drivers explicitly nullify it.
+I think doing this patch one should really understand what's going on.
+(Note, I'm not that person, it's my gut feelings based on the experience
+ and the above statistics.) MFD creates a lot of platform devices for
+which DMA mask is set automatically. So, why is it not set properly for
+this device?
 
-Applied, thanks!
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
