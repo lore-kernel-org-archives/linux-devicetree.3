@@ -1,151 +1,145 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5263A4F58
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4432A1AA7A6;
+	Wed, 10 Jun 2026 08:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079725; cv=none; b=EmrqFRP5h6SdWVIUAQkoXO5orV2Us74YJzi3VOb8pldCWUubq1HQZN6yqdSdKBleehp+fVR29ulcRkAhOvhyuDKA20VLIA9bW4hbTJu9xkKrVoZI1awxgdcy4hkMRoGRdNktWLSArJxBeQUXP/hZ/a9CL/GHwqBlW7kBTSQwCg8=
+	t=1781079737; cv=none; b=pK0Od+dDbMcDmK0jZRdqE2CuQglpr7zN0tbCAXTMKrzUwjKE+FqjkQJV2uf5Kly51EAOv3IpsXqZGOLVsb/BVlsP6RK7YMapUr+naV+QfeDRnfeUX3NhTlZzyw7es3ZfOo+s6iieCSPRI7sOKA7qnyQAhnRKsizT3wCFNGvz0Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781079725; c=relaxed/simple;
-	bh=nE8gNuplIhw6p4dYDUNxSa5zUE0zr4R5hqpSrc/T3vQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ywi/Lw2pWcVM9VwaXMbw8EES/Mm9wGkAxnGAFcjoZUotEkbdXyIpqMpaPIelHZvgo/pbFpf1Dr5TqNYSrnAUw7oCILKr1zdPOzX+VF1K2Bl0qMCEQNljQG5D0/IZWsQSw5eXdBLn1FMQxQFmUI/rV/CluNABqC6AfQoa/a7W3EI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VgIleMGE; arc=none smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781079737; c=relaxed/simple;
+	bh=y/8iwhBGrz+460yP9z42mHYiw/ZuWpDLnM1e8u/ZHbQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Q1T1ufer/KAI3XMexRiOy1SZmv5OQ+SkCxlFgUgIA6cE95/b4tj+daGzvDPGCsj6p6fumOirVjWYTeLcZO3w2egjBcFVpDbynO9TWGks/ZQD9qJG3FQKq+fFxNz1E6jYhOHNH1r27L6Beff5uQZWEG0QrYPlr1jF+pykJjlgHvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tb9qsZXI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VgIleMGE"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-396aa835272so4378071fa.3
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:22:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781079721; x=1781684521; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0ujN0Hk27ShmSn5usfdP+E/0ZsnXl4co2IQGGfBFpB8=;
-        b=VgIleMGExBkSnjjOc4t/4oVkLqb/wW3BDN5gIuV0n2IIkmcqVs7bs/K2pgOMleaNJg
-         u45VT7CMx65c7dLyf9a+tV6DOAs+zCehwZLk10kvE6gFedHTrHjez3IzToivnbzWF8Cx
-         JzywrjkAkjLo3bLgXtfEOxQfpdDb7NrYyc/ojjSFqKv+y3XAL1Lcil51ayZ6935mnYv8
-         5+cdCICEdaSuUjHh/fY2319gL3ApNFFTM0w4KNS3U5Wn+E8UGKMBurtjgsxrgS6hUJQj
-         BEFxvDFrnqS/u6IY6E93HpqrHDiqOsAWHhD42FSIdVvRPS3/EpkCArXN/q+u3Q1WcD61
-         pEHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781079721; x=1781684521;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0ujN0Hk27ShmSn5usfdP+E/0ZsnXl4co2IQGGfBFpB8=;
-        b=LBB6vD1MRLKxcHyfpeG90Mr2m8/45URcXVS2zWO3YQDzoKqz2nx9bO4mQvHBCGwjFy
-         ADW8seKOCr13E+SXKJiI/lp4VoNw/n2pT1gLAhg+QpbJNL93MTjgdLMT6HAPgVkgyHH9
-         qAv5MLLwLx7NAy3z3NQVgsHBjWHnVS1lGwUtl4PmGgRswAaqiSRLYWqICk/YBy/CUC1G
-         HTOxfG1Ak2bXs4OIw5pCafqYmRhnUz7J8CWFbfiscpNvE3oENKlZUYvCdgyg+Uvb8pP1
-         YPLDF2ioI4IP7c6xVMJWPD078RutVWuN0PUo627LXsGqejrUxEcpxD0yITJFewfVquGh
-         PsHA==
-X-Forwarded-Encrypted: i=1; AFNElJ8+iJzvNpbsr6EfdqI+9UPq23SnikM5AocjtB/8khiRVJ5A2OM27k+xVpv/oNyAf1bNttRp8IR+c6Ho@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYmPMHH6cknyS5EakMyn66rzHJoWQYI8naYltkLZb3qWdnVLrI
-	oYv4R66vlkb6los50VuTkmhfab5MlLMw/NO08BbX0fd1c9L4qF0FyVOkfB3sDe77jJE=
-X-Gm-Gg: Acq92OH3Wkb7RdCWAVEwj+c3V/aLo1elYkRGXbEL5j28T3Rw/6mF5F12zm1KywWCer3
-	AKm7i1EaL+AuWX7vl9pply34U0kvdIvspw4JgbzsFFPlmjN1WmXseyqztyFkMesdTdFiLMRIDZ6
-	9oq//QpGnHvoCOEuOUGaFqVwaHQcHtzEZ1N6QPOIJWMP9uOiRe+YfPLXqrA/Lh1jEa+NXWPI9I2
-	/2y1aTnhUD8+Vx2nyHZJF0pJjyFKAlLS6f/tvSUsVIEk88ZXm1VCbYubLoIzoAAVRnrtdhJ5u+x
-	ES9ckZg+KCDPxfmodlLhfTpmvYp7Ix/yxn+N4EmnaB6vzh8/51GE7RH3oVv9prvC8ahLcg4XXCn
-	coeMHIz4Zs32v/W4ICjmk4adi8Db03f9zlxpGHtKnQ88s1UnOj6UJAp7Ftx/VzzqFG3AWnKZQoo
-	Cwfm/vzLyQyLly4P7YKssbA7Vw2N/QjaC7cSP7YBPfEiVvkWvSESFfEb8HBhfeaqZuOucTu4HGo
-	y4UOkNtPJDNFx0y
-X-Received: by 2002:a05:651c:1a2c:b0:396:7eba:a8 with SMTP id 38308e7fff4ca-397f78270bbmr7911561fa.8.1781079721231;
-        Wed, 10 Jun 2026 01:22:01 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2be04esm63290161fa.25.2026.06.10.01.22.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Jun 2026 01:22:00 -0700 (PDT)
-Message-ID: <5a5cbf8f-07ef-419a-8d30-c1b0b2786312@linaro.org>
-Date: Wed, 10 Jun 2026 11:21:53 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tb9qsZXI"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D536FC2BCB9;
+	Wed, 10 Jun 2026 08:22:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781079736;
+	bh=y/8iwhBGrz+460yP9z42mHYiw/ZuWpDLnM1e8u/ZHbQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Tb9qsZXIdt0YOkpWWPVODa5nYl3Nfd9QcCZTGOEvoJkYG2u1k+mbpIunKb+RXR9Dm
+	 HQX0XX++ZwLvh5SP2nh4VTYKVGQbxqvSPQHcZNQj31Fn9VJ+T6p+c6rtbf8y5zn7at
+	 yFaojCyFFO1pW0GVqW8u5CH0F7gg4cFI/zvukkBzko7nBlA4m7ZQhAz99FZawjKjbQ
+	 FQ0XUl2ozzlHknWNbx2VcyaHCBfmuLcKqBvG4GpQedE7ORfeoaBXddNS9movEwlzQ8
+	 9B8i0LFco+83IFFzsOUbzz5TwMKznHZ/As35Hy5OJw2Q7HEtbTDcECJSgTQRVH07db
+	 MtjmVGmJYwldg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8EF2CD8CB2;
+	Wed, 10 Jun 2026 08:22:16 +0000 (UTC)
+From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Subject: [PATCH v8 0/3] riscv: Use GCR.U timer device as clocksource
+Date: Wed, 10 Jun 2026 10:22:12 +0200
+Message-Id: <20260610-riscv-time-mmio-v8-0-a865206675c6@htecgroup.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
-To: William Bright <william.bright@imd-tec.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ram Boukobza <ram@imd-tec.com>, Tendai Makumire <tendai.makumire@imd-tec.com>
-References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
- <e0731edc-81da-429a-a12e-a1d1b75f9544@linaro.org>
- <aig9licCxhtZbHMq@will-Legion-Slim-5-16APH8>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <aig9licCxhtZbHMq@will-Legion-Slim-5-16APH8>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALQeKWoC/23OwW7DIAyA4VepOJfKeEBgp73HtAMF03BIqSBDr
+ aq8e2mnqYfk+FvyZ99ZpZKoss/dnRVqqaZ87mH2O+ZHdz4RT6E3Q0AFEiUvqfrG5zQRn6aUudJ
+ oCKJ3xkXWty6FYrq+xO+f3mOqcy6314Emn9M/S4m11SQH7o/gI1rEoPXXOJM/lfx7Ofg8safX1
+ NsYhFgbqhuWgogGlQuKtgz9NgzotaG7gSECGRTWWrNlDP+Gho+tP4ZugNBGKgfRwMpYluUBRAt
+ 5b34BAAA=
+X-Change-ID: 20250424-riscv-time-mmio-5628e0fca8af
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, 
+ Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Paul Walmsley <pjw@kernel.org>, 
+ John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Vivian Wang <wangruikang@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, 
+ Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
+ Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
+ Chao-ying Fu <cfu@mips.com>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781079735; l=3233;
+ i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
+ bh=y/8iwhBGrz+460yP9z42mHYiw/ZuWpDLnM1e8u/ZHbQ=;
+ b=WcRCMW6dQrxGWDk0yKwSrjsjywVVmU2dsOM9xJyjDNcgC1qzPdcrhNmK5Xxlfl3WsvMUbhn04
+ d3t4MiDkJGYAdDNXkgyIK9cGLK/xIGOEzpfLlGyrHzLrRYJjLdnSL3H
+X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
+ pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
+X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
+ with auth_id=476
+X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+Reply-To: aleksa.paunovic@htecgroup.com
 
-On 6/9/26 19:21, William Bright wrote:
-> On Thu, Jun 04, 2026 at 07:01:22PM +0300, Vladimir Zapolskiy wrote:
->>
->> How do you know that these modes are broken in hardware and not
->> caused by something else?
->>
->> It was stated before, but it was proven to be invalid as the statement.
->>
-> Thanks Vladimir for your feedback.
-> 
-> I copied this statement from when these modes were also masked out on
-> sdhc_2. I see that there was progress since then and the caps mask has
-> been dropped so I agree that I shouldn't have this comment that these
-> modes are broken due to hardware.
+This series adds bindings for the GCR.U timer device and corresponding
+driver support. Accessing the memory mapped shadow of the mtime register
+in the GCR.U region should be faster
+than trapping to M mode each time the timer needs to be read.
+The timer device does not implement any interrupts, therefore the
+timer-riscv clockevent implementation should suffice.
 
-Well, it might be broken due to hardware, but not necessarily due to
-Qualcomm SoC IP, there is a chance of a PCB design flaw.
+We tested the patchset both on QEMU and the Boston board with the P8700 bitfile:
+- v7, v8 testing:
+  - Coremark and timer kselftests on QEMU emulating an 8 core CPU
+  - Coremark and timer kselftests on the Boston board with a single core CPU.
 
-> 
-> I have tested this patch after rebasing onto the latest tree with the
-> recent changes that allowed for the caps mask to be dropped for sdhc_2
-> and I still see dll tuning failing. To progress, I need some guidance
-> from qcom as to what dll-config value should be used as I am uncertain
-> about this. I noticed that ftbl_gcc_sdcc4_apps_clk_src only goes up to
-> 75MHz so perhaps this needs modifying for DLL-tuning to pass and maybe
-> there needs to be schematic/routing guidance that needs to be strictly
-> followed as-well besides the usual 50 ohm impedance rules?
->>> - Forbid SDR104/SDR50 via sdhci-caps-mask, matching the previously
->>>     existing sdhc_2 workaround in the same file.
->>>     The SDHCI capabilities register on this SoC advertises SDR50/SDR104
->>>     modes that are broken on sdhc_4; without masking them the MMC
->>>     core selects SDR50 and fails DLL tuning with
->>>     -ETIMEDOUT during SDIO card initialisation.
->>
->> Which one SDIO card do you test?
->>
-> My apologies, I made a mistake in the cover letter, I wasn't testing with
-> an SDIO card, I was testing with an NXP IW416 which is hard-wired to
-> sdhc_4.
+Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+Signed-off-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
+Signed-off-by: Chao-ying Fu <cfu@mips.com>
+---
+Changes in v8:
+- Make the 64 bit timer mmio reads and the main timer driver depend on CONFIG_64BIT
+- Add timer_of_cleanup to the driver code
+- Link to v7: https://lore.kernel.org/r/20260311-riscv-time-mmio-v7-0-016845a0f808@htecgroup.com
 
-FWIW due to https://www.nxp.com/docs/en/data-sheet/IW416.pdf "10.7.1 VIO_SD
-DC characteristics" SDR104 speed mode is not supported by the module, thus
-the selection of the SDR50 speed mode on the host side sounds to be correct
-in your case.
+Changes in v7:
+- Replace the previous implementation with a new timer driver for mips,p8700-gcru
+- Add a patch for 64bit reads for timer mmio
+- Link to v6: https://lore.kernel.org/r/20250806-riscv-time-mmio-v6-0-2df0e8219998@htecgroup.com
 
-In SDR50 speed mode gcc_sdcc4_apps_clk clock frequency should be exactly
-100MHz, and since it differs, it has an impact during the tuning phase.
+Changes in v6:
+- Rename mti,gcru to mips,p8700-gcru
+- Link to v5: https://lore.kernel.org/r/20250711-riscv-time-mmio-v5-0-9ed1f825ad5e@htecgroup.com
 
-Definitely clk/qcom/gcc-sm8550.c says that the maximum supported frequency
-is 75MHz, the same is found in the downstream v5.15 kernel:
+Changes in v5:
+- Fixed build issues on 32-bit RISC-V and sparse warnings
+- Remove clint_time_val and clint.h, replace with riscv_time_val
+- Depend on RISCV_TIMER in Kconfig
 
-static const struct freq_tbl ftbl_gcc_sdcc4_apps_clk_src[] = {
-         F(400000, P_BI_TCXO, 12, 1, 4),
-         F(25000000, P_GCC_GPLL0_OUT_EVEN, 12, 0, 0),
-         F(37500000, P_GCC_GPLL0_OUT_EVEN, 8, 0, 0),
-         F(75000000, P_GCC_GPLL0_OUT_EVEN, 4, 0, 0),
-         { }
-};
+Changes in v4:
+- Remove "select" from mti,gcru.yaml.
+- Refactor the driver to use function pointers instead of static keys.
 
-Can you dump CAPS1 register value of SM8550 SDHC4? What does it say about
-SDR50 mode support and need for SDR50 mode tuning?
+Previous versions:
+v1: https://lore.kernel.org/lkml/20241227150056.191794-1-arikalo@gmail.com/#t
+v2: https://lore.kernel.org/linux-riscv/20250409143816.15802-1-aleksa.paunovic@htecgroup.com/
+v3: https://lore.kernel.org/linux-riscv/DU0PR09MB61968695A2A3146EE83B7708F6BA2@DU0PR09MB6196.eurprd09.prod.outlook.com/
+v4: https://lore.kernel.org/r/20250514-riscv-time-mmio-v4-0-cb0cf2922d66@htecgroup.com
+v5: https://lore.kernel.org/r/20250711-riscv-time-mmio-v5-0-9ed1f825ad5e@htecgroup.com
+v6: https://lore.kernel.org/r/20250806-riscv-time-mmio-v6-0-2df0e8219998@htecgroup.com
+v7: https://lore.kernel.org/r/20260311-riscv-time-mmio-v7-0-016845a0f808@htecgroup.com
 
+---
+Aleksa Paunovic (3):
+      dt-bindings: timer: mips,p8700-gcru
+      riscv: clocksource: Add readq options to clocksource mmio
+      riscv: clocksource: Add p8700-gcru driver
+
+ .../devicetree/bindings/timer/mips,p8700-gcru.yaml | 38 +++++++++++++++++
+ drivers/clocksource/Kconfig                        |  9 +++++
+ drivers/clocksource/Makefile                       |  1 +
+ drivers/clocksource/mmio.c                         | 14 +++++++
+ drivers/clocksource/timer-p8700.c                  | 47 ++++++++++++++++++++++
+ include/linux/clocksource.h                        |  4 ++
+ 6 files changed, 113 insertions(+)
+---
+base-commit: ac3fd01e4c1efce8f2c054cdeb2ddd2fc0fb150d
+change-id: 20250424-riscv-time-mmio-5628e0fca8af
+
+Best regards,
 -- 
-Best wishes,
-Vladimir
+Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+
+
