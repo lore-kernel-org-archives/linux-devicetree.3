@@ -1,205 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956631DDA18
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B29C379C48;
+	Wed, 10 Jun 2026 06:54:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781074391; cv=none; b=enrVR0kb3UBsUiGMLB44udChxvlYVKkDrc9TmOR81TsJ1xCNnesjPg8puSyxQg8P6IOZoUwhi/UT6tJP6X8vN+oob6yrM18G+6NozyrgIGbh7876E64tL9G1bt9SyAFy2RBb1j467US9MdPFeN/JFzA7+uaaTEliQrAcJhC/ZuI=
+	t=1781074456; cv=none; b=DJ2KADy8cxQo1WZ6f0SKIPVnY6DtkljOezKpnxVpWkpfl116wzVzgiHpKUrIU2VZkdpFdjgDyeh20UQ3aw/KHSLkTsVJt6Parxzbl/BtCBDP1ZCuBHcr2cwAHlYMMTaS3SmdzUZDHX91HFiPHa3x7qpGNOB5ZInQ/AqtICOsZ0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781074391; c=relaxed/simple;
-	bh=1k1BHymPjKmVaT1olpPJjhr2INme4XjVaq90Oi8AceU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ii9TfwrLZyA8YEyoDSL2fzQGXTyMNIOLFZgtDw/J5HLWN+ylcGHRVBxmQHDIzxRpMCRmS1huP90i/39TEoOvo284otVp2BsWDexWQ8wM8dDkZpxe7fyAi5XDkTWWIc0bsB0DgcKrje25cRwhbjyyAgOkpMR9fj+kGpLs8pG3u3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1Ut5gf+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781074456; c=relaxed/simple;
+	bh=vninL9vr3iJarLE1AcSHNljqr3Xe4j3TbLmikMIoe/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=D9WBtaFdtFDSM0xRcrBsKMhaVn7SKP9Mm+t+CS3DOUfY7oBaRlln52OU+uI2Ao5YrHoqAZIKEL3R2aExo7XaHp4E1MUgGS1thaG3Djl2dwrcEcnOwZu+xUWYB6jVI2VGF4T1HOJ76et+B7RNvYPQqEXvEKyB3GESo4Ufn+TeTr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+QiMkWi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1Ut5gf+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416351F00893;
-	Wed, 10 Jun 2026 06:53:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+QiMkWi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3410A1F00893;
+	Wed, 10 Jun 2026 06:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781074390;
-	bh=Y40ISAwiha/7SHpt5x0zmt9EU8KuMRmxPmWCRIQ/3/0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a1Ut5gf+4a7WjZ3hI3C93NsS2RsnczLJ/sY6WG7QXLbAzz4gu4tnQBY56SzGapRCe
-	 dz4JanYf/uTWbRzbpqIkGWvuD3U0g1uGzcExeKoy5z4z9exSzYf7SZ2aXnnoKowaoE
-	 8iYmZRen0GuqWKocnrtqz280PmIRFKhy3bvnxNbak+1vbY/txMVFwC9RV3iels4Y3E
-	 ENe6RuMyyehUrqloop3QCSEVKAEIngg/Vr5mrS/FiERWCuQCy2WUDWUvFjGe8skylt
-	 IgKSU5zcZK7ED3KoW6n4xJ5r0/BKy2fzLfafEAjlybSIcjywOXbmEDsC2G6XnOIrbN
-	 jHm3IapeRlydA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 09/12] media: iris: Add support to select core for
- dual core platforms
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260610-glymur-v8-9-1c79b9d51fc0@oss.qualcomm.com>
-References: <20260610-glymur-v8-9-1c79b9d51fc0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 06:53:09 +0000
-Message-Id: <20260610065310.416351F00893@smtp.kernel.org>
+	s=k20260515; t=1781074455;
+	bh=9K2g/Vxczuc522ijWC1UP39o6qSw2+XJGcitWPlMCGk=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=l+QiMkWi9KOxUgcT43WgknZU8IB6nDGaDffvVPvY9xzfOq4SI7CrI0BqiSlRR9zTb
+	 seJ9pBIh8D+WpsQqHBiF7czj1qj0kHdj2LD+N0sVzMMV+dUBa42dE8jkUpkt5LdtjB
+	 g4J47C737onpMD0btSS0xzaEHljOZO5nSq0U0RufxZAlT3k99Gz8IPmubfbfSuU4T/
+	 i20RuodE0BcnN/yUa0q/FmmeW+1iGj8yNKmoreCtyNVRhh/ATijPxFjrNKTts9Hrxj
+	 zS4Gl1yOn6mO99aPMsH173yvcPjNEM9Fvhln6vPjx3dNJR6lS1ouQ8si2uYHQ9YCTm
+	 5xh8bi3MHC0Pw==
+Message-ID: <6bd0229b-4895-48a2-9e36-0ea5296c7fb5@kernel.org>
+Date: Wed, 10 Jun 2026 08:54:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next 1/3] dt-bindings: ptp: renesas,rcar-gen4-gptp: Add
+ binding for R-Car Gen4
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
+ <niklas.soderlund+renesas@ragnatech.se>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260609215711.2960150-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260609215711.2960150-2-niklas.soderlund+renesas@ragnatech.se>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260609215711.2960150-2-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On 09/06/2026 23:57, Niklas Söderlund wrote:
+> Add bindings for the R-Car Gen4 gPTP timer. The timer enables accurate
+> synchronization of the clock in the control system. The timer is
+> system-wide and used by different Ethernet devices on each Gen4 platform.
 
-New issues:
-- [High] Independent evaluation of MBPF and MBPS loads overwrites core sele=
-ction, allowing sessions to bypass hardware capacity limits.
-- [High] Dynamically altering stream parameters via `VIDIOC_S_PARM` mutates=
- the session's assigned hardware core in software, corrupting load tracking=
- and miscalculating frequency requirements.
-- [High] `iris_vpu36_check_core_load()` permanently unassigns a session's `=
-core_id` if the load check fails, dropping it from future hardware load acc=
-ounting.
-- [High] The macroblocks-per-second (MBPS) hardware limit is never checked =
-at stream-on, allowing sessions to bypass MBPS constraints and contradictin=
-g the commit message.
+A nit, subject: drop second/last, redundant "binding for". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
 
-Pre-existing issues:
-- [Critical] Race condition between asynchronous firmware message handlers =
-and file closing causes a Use-After-Free on `inst`.
---
 
-commit 6d93c47ec9e78218d02741995430e7d85a3d1c7a
-Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-
-media: iris: Add support to select core for dual core platforms
-
-> On platforms with two video codec cores, select the hardware core for
-> a new session based on the current Macroblocks Per Frame (MBPF) and
-> Macroblocks Per Second (MBPS) load on each core. The selected core is
-> communicated to the firmware via the HFI_PROP_CORE_ID property at
-> stream-on time.
-
-[Severity: High]
-The commit message states the core is selected based on both MBPF and
-MBPS load. However, looking at the stream-on path:
-
-iris_vb2_start_streaming()
-  iris_check_session_supported()
-
-Does iris_check_session_supported() only check MBPF at stream-on? If the
-MBPS check is omitted, could a session with an excessively high frame rate
-bypass MBPS constraints and be incorrectly admitted based solely on its
-MBPF footprint?
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_utils.c b/drivers/medi=
-a/platform/qcom/iris/iris_utils.c
-> index ba5c8dc1280c2..4608e3f288326 100644
-> --- a/drivers/media/platform/qcom/iris/iris_utils.c
-> +++ b/drivers/media/platform/qcom/iris/iris_utils.c
-
-[ ... ]
-
-> @@ -101,40 +109,52 @@ struct iris_inst *iris_get_instance(struct iris_cor=
-e *core, u32 session_id)
->  	return NULL;
->  }
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does dropping core->lock
-without taking a reference count in iris_get_instance() allow a
-use-after-free?
-
-If a userspace close() runs concurrently:
-
-CPU1
-close()
-  iris_remove_session()
-  kfree(inst)
-
-Could CPU2 then resume in iris_hfi_gen2_handle_session_response() and
-execute mutex_lock(&inst->lock) on the freed memory?
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu3x.c
-> index bafa2ab645b17..dc491a5aecf52 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-
-[ ... ]
-
-> +static int iris_vpu36_check_core_load(struct iris_inst *inst, bool mbpf)
-> +{
-> +	const struct iris_platform_data *platform_data =3D inst->core->iris_pla=
-tform_data;
-> +	u32 max_load =3D mbpf ? platform_data->max_core_mbpf : platform_data->m=
-ax_core_mbps;
-> +	u32 max_session_cnt =3D platform_data->max_session_count;
-> +	u32 core0_session_cnt =3D 0, core1_session_cnt =3D 0;
-> +	u32 core0_load =3D 0, core1_load =3D 0;
-> +	bool select_core0, select_core1;
-> +	struct iris_inst *instance;
-> +	u32 load, new_load;
+> 
+>   - On R-Car S4 it is shared between RSWITCH and RAVB.
+> 
+>   - On R-Car V4H it is shared between RTSN and RAVB.
+> 
+>   - On R-Car V4M it is only used by RAVB.
+> 
+> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> ---
+>  .../bindings/ptp/renesas,rcar-gen4-gptp.yaml  | 64 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 70 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> new file mode 100644
+> index 000000000000..99e6e3ca73b6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> @@ -0,0 +1,64 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +# Copyright (C) 2026 Renesas Electronics Corp.
+> +# Copyright (C) 2026 Niklas Söderlund <niklas.soderlund@ragnatech.se>
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/ptp/renesas,rcar-gen4-gptp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	inst->core_id =3D 0;
+> +title: Renesas R-Car Gen4 gPTP timer
+> +
+> +maintainers:
+> +  - Niklas Söderlund <niklas.soderlund@ragnatech.se>
+> +
+> +description:
+> +  The R-Car Gen4 gPTP timer enables accurate synchronization of the clock in
+> +  the control system. The timer is system-wide and used by different Ethernet
+> +  devices on each Gen4 platform.
+> +
+> +    - On R-Car S4 it is shared between RSWITCH and RAVB.
+> +    - On R-Car V4H it is shared between RTSN and RAVB.
+> +    - On R-Car V4M it is only used by RAVB.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - renesas,r8a779f0-gptp # S4-8
+> +          - renesas,r8a779g0-gptp # V4H
+> +          - renesas,r8a779h0-gptp # V4M
+> +      - const: renesas,rcar-gen4-gptp # Generic R-Car Gen4
 
-[Severity: High]
-If the load exceeds hardware limits and we return -ENOMEM below, does this
-leave inst->core_id as 0? When VIDIOC_S_PARM handles this error and
-gracefully reverts the frame rate, does the session remain active on the
-hardware with core_id =3D=3D 0? Could this cause its load to be silently
-ignored in future core assignments, and its frequency requirements
-misattributed to VCODEC1 via the fallback else logic?
-
-> +
-> +	list_for_each_entry(instance, &inst->core->instances, list) {
-> +		load =3D mbpf ? iris_get_mbpf(instance) : iris_get_mbps(instance);
-> +
-> +		if (instance->core_id =3D=3D IRIS_VCODEC0) {
-> +			core0_load +=3D load;
-> +			core0_session_cnt++;
-> +		} else if (instance->core_id =3D=3D IRIS_VCODEC1) {
-> +			core1_load +=3D load;
-> +			core1_session_cnt++;
-> +		}
-> +	}
-> +
-> +	new_load =3D mbpf ? iris_get_mbpf(inst) : iris_get_mbps(inst);
-> +
-> +	select_core0 =3D core0_load + new_load <=3D max_load && core0_session_c=
-nt < max_session_cnt;
-> +	select_core1 =3D core1_load + new_load <=3D max_load && core1_session_c=
-nt < max_session_cnt;
-> +
-> +	if (select_core0 && select_core1)
-> +		inst->core_id =3D (core0_load <=3D core1_load) ? IRIS_VCODEC0 : IRIS_V=
-CODEC1;
-> +	else if (select_core0)
-> +		inst->core_id =3D IRIS_VCODEC0;
-> +	else if (select_core1)
-> +		inst->core_id =3D IRIS_VCODEC1;
-> +	else
-> +		return -ENOMEM;
-
-[Severity: High]
-When iris_check_core_mbpf() and iris_check_core_mbps() are called
-sequentially (for example, in iris_venc_s_param()), does the second call
-unconditionally overwrite the inst->core_id assigned by the first call?
-Could this allow a session to be assigned to a core that has sufficient
-MBPS capacity but violates its maximum MBPF capacity?
-
-[Severity: High]
-If a session is actively streaming and the frame rate is changed via
-VIDIOC_S_PARM, this recalculates and mutates inst->core_id here. Is any
-command sent to the firmware to migrate the active session to the new
-core? If not, will the hardware continue running on the original core
-while the software incorrectly redirects required clock frequencies to
-the newly assigned core, potentially underclocking the active core?
+Please drop comment or drop generic compatible and make it specific.
+Generic compatibles are discouraged, so don't advertise that. Look how
+other RECENT Renesas bindings do it.
 
 > +
-> +	return 0;
-> +}
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - power-domains
+> +  - resets
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> +
+> +    gptp: gptp@e6449000 {
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-glymur-v8-=
-0-1c79b9d51fc0@oss.qualcomm.com?part=3D9
+Drop unused label. Node name usually is "phc". Could be "ptp", but not
+"gptp". What is gptp in generic names?
+
+>  L:	linux-iio@vger.kernel.org
+
+
+Best regards,
+Krzysztof
