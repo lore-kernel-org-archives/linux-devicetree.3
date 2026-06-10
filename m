@@ -1,91 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3175633438F;
-	Wed, 10 Jun 2026 09:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781083729; cv=none; b=uOoh5u7fdmiZv4cVJwvz/egQldzZUw8qXb2zOxC1ixWQbuoqUAPnK+X8XxMQ2WyPo4BTL5ce3EYYqK0sOcHMjVVAhZrH5eB60ipZH4kVCpLNVWm50jArAHoWFjw5aXQYt65QIDmGFfYL06FO0QnXRiwrw8yJKrk2cW6wlpOGg3U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781083729; c=relaxed/simple;
-	bh=lwH4ZfrUxirKaBBeG24NcNOxwXVFZDIxg2Ure2KWCW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=npcPJciEROc/mPJLjiyljEqTHKEc399KAUHxTUwiKzmjEXQLnwk6i/FcYvgewVS5wBJF5kwSfKvCY4BXv5ga+/48cBy8CicnohyfTasJXiESQgrbCE3+4Q+Iu79zl03Og8sKhc8a4K06VbmGS/SmJu19oqXBArx1o32LFmJIofY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VChNE68i; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C8D3CB2FE
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781084047; cv=pass; b=W9pSRavETACCWv8nYnr1OQ29ka6FvUkvA3j4MOgUW5UtDd04oBRS/H/DE4/LLJQB/ZPCOs12/BqWvFManfQu1bxqL9Y+UJD4o5rBhqkWBVTGYGaX7r/5nO5eJQrWolyhRh0+yiBSfq5M4rXNt4mlzj/Ozrtel7kPSuTY2SXn1po=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781084047; c=relaxed/simple;
+	bh=TEdCx4Ul4BPkVidIQLKMS6KkTXZps8JZ9GJQJ87hLI8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E7F+Olm6fEsbWSY/RBeoqqzgHhmZZjq+HGPw6G52Dnk4NBq7Qz/4MTx02EQlx1J1n5iFZ8BnYTU/x0/cw/swClpFcHnyBt1FAh6Q0dFP+UNaUPsB2HNKz59yQZLXn9mmkV3Wx9QdtqWYZysaZrOIhSa7adCYn8jtscapeiMN26c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O48KkhDw; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VChNE68i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A021F00893;
-	Wed, 10 Jun 2026 09:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781083727;
-	bh=WZrxmTMENGKmsKf33gp0XWxjNcKEiwhVqt+tFHKcI4k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VChNE68i9UsIZCwss5eZHoy6gOmeWDyM9xS3xoD1tjxYwUDJqrKNnpGXdaUBk0seE
-	 e1lOqYhqSpNQ4o98X5yLxpx5p5Jm1g4cbjYRTp4cbQFUbQrp7p73JuMS5M+4NDDRWS
-	 uRMZ8zEQwDav0mfJyXZAVvyTbE3yGenVnEELKjMGw7ZIP1BZrmCgia0ZyFHv5wg8ZM
-	 b017KBl7lGo6j2Dso6W4yDo1sRGwEdSdZBgz7j3f13p7ed5HXnNuPzeiqMbHh9zycE
-	 blMAk3VrfcpG6O1jMj7QxxpqI9MGlqmWU5piTi8G6UTgekS4FZ25EpY+kwOSA8BvZS
-	 i+1YwZSLNX0wA==
-Date: Wed, 10 Jun 2026 11:28:40 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>, 
-	"manivannan.sadhasivam@oss.qualcomm.com" <manivannan.sadhasivam@oss.qualcomm.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-	"robh@kernel.org" <robh@kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>, 
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"imx@lists.linux.dev" <imx@lists.linux.dev>
-Subject: Re: [PATCH 1/2] dt-bindings: connector: pcie-m2-e: Add 3.3Vaux
- supply support
-Message-ID: <mvxoynvocxcalxcwogbiovg5yurjczxqfu2fqkji33bunmlplz@zxqjsdjts65j>
-References: <20260609033840.2006078-2-sherry.sun@oss.nxp.com>
- <20260609034408.BC69D1F00893@smtp.kernel.org>
- <20260609-unique-magnificent-eel-eb623f@quoll>
- <VI0PR04MB121140EFB8E614326D799503A921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O48KkhDw"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-307263ad0cbso8983171eec.0
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 02:34:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781084045; cv=none;
+        d=google.com; s=arc-20240605;
+        b=aJpTUZNofdXtIcajYTjHeL0lu3kq93Si97+bf0rZ7xcifPqUJY75lE4q5H70DwuK5r
+         9uizTJcaxSknbTzKlge1vBSajosZ5Guy+ZDo14m2kodIsJ24Qu7t1w6rp17gX6E+fqH7
+         ejRnSHv37vQW5ReyZ7r4l/gARRZPipkUl83F01B3S9SNOjZ2xnwXDlAJb0aG8abdOjuy
+         JYdBKb0niKTOB46CMPJfIL4TkV+JXSBdf2or29daTtP9BEfwPSgPShWiwo5O+IVC/xwl
+         5T3hyhinXtIU8GOdMZOn23aK9KeXLGpJLc2OclEK3tlodH2K9H1xcVVrQkBgjybpbMG/
+         MDNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I/WBNx7vmi5VT9dRS7lbKabVM89kwH/AFfI7EJS7Ghw=;
+        fh=VMy8Y/F6zWgcPPlVygqzyIezHCxeDiGdt3gDdywINok=;
+        b=da0FMjJZp9Hxqk1jDMOsYguMFb0xp0mnZzOcaW/w4NH/nOXu2UW1/IPLa23NIdg3o8
+         Zs0h6SQoTGguBQlj8kILqKfACLzAfyH+Ba1OQ/UgSYhiQy0LCyGusfHF+GLw3TCquQ8u
+         owOdlkkxb+qySJjLseIyMGQs5z2CAT9AucvtqlPpsjrUZcbDDt6oKzN+tS707UsXJi+A
+         igyMIoN6CjYVH5MCNWysfda/GbKfArq9unZI3+d/9H3JFtVFGO4qOoWHPX2akXMRYxNt
+         lNR5LR1b9M4d20/M+HktzPdUW1CZOpOpChkHH2nAIUVKyms8LWRY+VPOmktKpKFf63zK
+         mTsw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781084045; x=1781688845; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I/WBNx7vmi5VT9dRS7lbKabVM89kwH/AFfI7EJS7Ghw=;
+        b=O48KkhDw4b9ie38dSOwhENbOhrKFtAC9GMzhH5sNlNAUv7HMI2IlSijZhcpI98us/o
+         DYdZ0rxjcBsXb48g/PYWEZ78JaefrT0mzytZlBBabznYv6VC9LJYZL4t5ZuvqJWh1xE6
+         by0Lyhk2R18ojiBi/MX2XC9Jm0RDJ8H3OelBW9ua1Xrq84tuw0iKurPciNNQMczRMaNZ
+         1afo/wQ6fr43ySzDaYqgVmqIDV1XV1rkVLScsWilGGN17NOq44srPbMf7f/6RU1K9Vot
+         jL/Jmcxqj44P/p21JKikTJhAvy458fhkpNGaX6w5RaqtdPwRXTtVutkueUmgWbGc/QxU
+         BotA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781084045; x=1781688845;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=I/WBNx7vmi5VT9dRS7lbKabVM89kwH/AFfI7EJS7Ghw=;
+        b=kI8ZPAP8BNxwZAKRoYs4ppLIQQGwmlI0kF70zPsl9wjccqSH/GD4XxAWP0wv7tb1Ac
+         T8xy6OhLd5on3fXrO/TS35mHk4iSh00VJ4MG654skAFbrzmI1EGmFX2H/1RmMJJ0sj/9
+         HDQBNlprYg+LfzLsv0dpAqSeE1y38GfQH4Ls2c7Ppp6ZK+QDcRk3uCRNHDoqbdRbBUUf
+         pJDBY6z+yUjnDWu6640yz8nrGHGaXbCp0Hss+wgq0QguYw+2ZDsOs9SjHfI1lRO9cKV7
+         9yl1uCqCQBEpoz3obcFp74L1I3Z9R2O9czUO+Ga/cBb9UHaX/Hy1j8vOQuoQlKnvz5rY
+         VchA==
+X-Forwarded-Encrypted: i=1; AFNElJ8L0HizpCIYDRBAakz4jY9Hn7gYfjH6GAZ+BBomGO/VmD5dhWJWMArO8o41LIMj5gPrIFhubUanlZcy@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxdv+Cg5xU95Y7/P/LP+8/hTq3PQ+o5zOe8ItGegvSdyX37L0A8
+	t+4VBwMRlQwSSfmyDgADp/AvmlFCThltcmYde/nIKMuwOy3+b/D6W1DgsGTBxmYdvIqLJTBsIzN
+	b3ThuiKkLalVJwSFISdfcjLdo6lyLGL0=
+X-Gm-Gg: Acq92OFqS7whAvyfjM93+UfAlWeH959t9qe71BdgusbzOBlYIarUuac/ahexR6h3xVl
+	zIBfR4MW6kPo1HWZ7lOJztW91BVovN9oi5IGAoJBDxrCo1kqbto7DysxBjV6ApF3PSvfT92UHlB
+	IjMCsH3wnCN5aMXb7JyIohYWXm5D5rKVLu3XMotx3b1fc9RKfh7sx+1tb4cCWTVHiKV53t0pBLD
+	oezQzHSjx5vuylhmplG5yDpjlSHYcST5ni40CNuIpwqslMqQsdUVFn6Af0nMtHrACfADfprDMM5
+	hP+KLZoXrAkzj5CD0kbzkV0SKSM8fCn6oIDYbI5wfTNw0RLNzxHMy+D6y+0LcGfUilq2WWKU6nQ
+	CNto=
+X-Received: by 2002:a05:7301:22a3:b0:2c1:7793:7bbb with SMTP id
+ 5a478bee46e88-3077b2615bamr15346976eec.27.1781084045265; Wed, 10 Jun 2026
+ 02:34:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <VI0PR04MB121140EFB8E614326D799503A921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
+References: <20260607234343.22109-1-kimjinseob88@gmail.com>
+ <20260607234343.22109-2-kimjinseob88@gmail.com> <20260609-glacial-colossal-38b4937ec620@spud>
+In-Reply-To: <20260609-glacial-colossal-38b4937ec620@spud>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Wed, 10 Jun 2026 18:33:54 +0900
+X-Gm-Features: AVVi8CeIpvFBux1wEAZY6Bff68TrrIEZ3OnIKWyWrYDouz-MKRCStpTldHFDGGg
+Message-ID: <CALMSew+cL0_kG6W15RapxLtE+Fw2_DYdrYoRFSjENQktWw2H4Q@mail.gmail.com>
+Subject: Re: [PATCH RFC v4 1/6] dt-bindings: iio: add Open Sensor Fusion device
+To: Conor Dooley <conor@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 10, 2026 at 08:40:54AM +0000, Sherry Sun wrote:
-> > On Tue, Jun 09, 2026 at 03:44:08AM +0000, sashiko-bot@kernel.org wrote:
-> > > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider:
-> > > - [Medium] The `vpcie3v3aux-supply` property describes a non-existent
-> > hardware feature on the M.2 Key E connector to work around a software
-> > policy.
-> > 
-> > Feels valid. Describe which pin on M2 connector are you representing.
-> > 
-> 
-> Refer to PCI Express M.2 Specification r5.1 sec3.1.1 Power Sources and
-> Grounds.
-> 
-> PCI Express M.2 Socket 1 utilizes a 3.3 V power source. The voltage
-> source, 3.3 V, is expected to be available during the system’s
-> stand-by/suspend state to support wake event processing on the
-> communications card.
-> 
-> But the current vpcie3v3-supply may be gated off during system suspend.
-> So I  tried to add vpcie3v3aux-supply to let this 3.3 V power source
-> always on for PCIe M.2 Key E connector. That means vpcie3v3aux-supply
-> and vpcie3v3-supply actually refer to the same 3.3 V power source.
-> 
-> @Mani, do you think this is reasonable? Or do you have any other better
-> solutions? Thanks!
-> 
+> Do you think it makes sense to permit a regulator here, so that the
+> "host" OS can power on/off the board running the osf stack?
 
-There is no Vaux defined in the M.2 spec. So you cannot define that supply in
-the binding. You can define the custom Vaux supply as a fixed regulator in DT
-and mark it always on so that it is keeps supplying 3.3v to the card.
+From the OSF hardware side, yes, that makes sense.
 
-- Mani
+The current prototype used for testing is powered independently, but an OSF
+device may also be integrated as a host-powered UART peripheral. In that ca=
+se
+allowing the host to control the board supply through an optional regulator
+would be useful.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Unless the IIO side prefers otherwise, I will add an optional supply proper=
+ty
+to the binding and matching optional regulator handling in the driver in th=
+e
+next revision.
+
+Jinseob
+
+
+2026=EB=85=84 6=EC=9B=94 10=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 1:19, C=
+onor Dooley <conor@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Jonathan/IIO folks,
+>
+> On Mon, Jun 08, 2026 at 08:43:38AM +0900, Jinseob Kim wrote:
+>
+> > diff --git a/Documentation/devicetree/bindings/iio/opensensorfusion,osf=
+.yaml b/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+> > new file mode 100644
+> > index 000000000..a4049715a
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+> > @@ -0,0 +1,43 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/opensensorfusion,osf.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Open Sensor Fusion Sensor Aggregation Hub
+> > +
+> > +maintainers:
+> > +  - Jinseob Kim <kimjinseob88@gmail.com>
+> > +
+> > +description: |
+> > +  Open Sensor Fusion is a sensor aggregation hub. The hub exposes an O=
+SF
+> > +  protocol data stream over its host interface and may report capabili=
+ties and
+> > +  samples for multiple sensor classes. The Linux driver discovers the =
+actual
+> > +  sensor channels from OSF capability reports instead of describing th=
+ose
+> > +  sensors in Device Tree.
+> > +
+> > +  Open Sensor Fusion is not a generic industry standard. Public projec=
+t
+> > +  documentation is available at:
+> > +
+> > +    https://github.com/opensensorfusion
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: opensensorfusion,osf
+> > +
+> > +required:
+> > +  - compatible
+>
+> Do you think it makes sense to permit a regulator here, so that the
+> "host" OS can power on/off the board running the osf stack?
+>
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    serial {
+> > +        sensor {
+> > +            compatible =3D "opensensorfusion,osf";
+> > +        };
+> > +    };
+> > +...
