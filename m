@@ -1,67 +1,67 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CA4403EB3
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E55403AFD
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781089862; cv=none; b=jcFqZ5A7nvFXwvyfMXonaXphf3qn3OsALuELtY/oWTAuIYlUjLcpCpZtGGNZr9+r+XDZ2A3sHf1TPMlaFiJ8Pn2nc1iSNr/5YVQGdwKbNGChhqLZCy1UH5zcbUOyWpmb0uVZ01KuBaGdJyMDCjZ/IQYMaGz2MFQ05ybA872ophI=
+	t=1781089874; cv=none; b=hynFi7egDHj9vox27KgJ12ctBY7zUOlBOJ1/bNLITB8+2+iL6xF1Kv8Vh1bQC+68eYj9YMS8UTE2CTWMBmKsxN92JO7mxwmibp8Og/Wa/Cbiwbk8RoQ/reMuzqMNVs6LKdlp0WJdHfO+o5BnEJvE4/iMSTPRqggOF/u2AYz0+X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781089862; c=relaxed/simple;
-	bh=XHn7KPrJ2p0ewsN97d6TWFtfPpubwutN2aH4bFYak88=;
+	s=arc-20240116; t=1781089874; c=relaxed/simple;
+	bh=BQDr02hg8bk8b59H7xT+yIe/Vc7+/qS3L7NVG79dJZk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SFrPaXIipuC57QCEmRYGdIr0oz/zBTdGMhyToujP6F4V8Ovm9VB57gb2Ja3s290uKjJcyiVKpZiZ19dEpjvZXpAe97OQJH4G/30BFxGVn073SuSZyLLbUdgmPMuVR/yJ7ICx8oc48UDkzUjRJEX+VlynGanfgZGB4nei63Fu8b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4G329sX; arc=none smtp.client-ip=209.85.214.173
+	 In-Reply-To:To:Cc; b=TSbM+a2sJdzcWojPtmnosV9YtbJTjMruN9xAwty60NS+YcB717k8cWD1q0MWrCWjgxLoBHXJrDN8r7D7C+OCoRARuOTwsS7C22XNjbQq8xPJrUJI90p63VwF13vcZ3ZPJ10jZqwRjIR3FvcvHc+RCaFppU+hPQv0oSCe19nccHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z1RscwSA; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4G329sX"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c0bb4a94b8so55702165ad.2
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:10:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z1RscwSA"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2bf36a6905cso47219245ad.3
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:11:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781089857; x=1781694657; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781089867; x=1781694667; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=tPG5xL6X64inzSZqvGNNgIEqvH99YJwMXuPIgK1PxVY=;
-        b=V4G329sXR9TGPJ0o7W8pSRWUe1t1SS1ClwHEoSOUNxqUB6abxKEozkX8oapYjNWyoW
-         UuB9Dd7eq9xSFk71wQ9x2efNKy4NsPuqkNAmfTtc1d6fVnO6SafsdtusdOj7BCf7Mv4i
-         kxQVNqoW1c3eSzzMX0OlB7EHaDEm6r/DHAFEfaMelUELTENZReGOOaO7XVlFKtC7z7gx
-         tfeMpYeJL5BYrsPWcyJhAGpPzKZlunM/ZJ4lFDSWu88+r7eoqCnhMAdiQj7tGjnOSikc
-         GSHGb6iwCm+/PaI8G6tSFzv3/OehaugeWJM+8a9ls0QZY8M0a4idofOhoOyZXUnxfUOG
-         rEAA==
+        bh=58KjIEm+tfUZ6/SnUCwcMgCfLciGELGpkY//C+CJsmc=;
+        b=Z1RscwSAIvqTQbQAReZTdaF05AAd85eTraQ5Q4hartPj2Af+q21cTTyAuqibRdeb/l
+         oAi2rxESCYBZ5XGShRVu36ImtydsQgq/nJHwAkcgoMroHG1IvkbB1uReFs8zzqKE9pId
+         wPy+2Jfdi7h8InRtMs8w+vcfpxs5Fce9ihJ/fEhcQTP02ERgZ9WTcet3qxR0XLuIkYUQ
+         L/+DfTWUeZOPYyJFcF31EjU8eB0ljjUqRn00D8m0/cJ04FQRfoV5ahmtMaY/LeMI4PEt
+         egA52mwNK8baKX/FQp17bsxiRpr9SH5S+FClWptdFzK2iqHkAfm/MTsnRhxcGBVsGF24
+         qEwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781089857; x=1781694657;
+        d=1e100.net; s=20251104; t=1781089867; x=1781694667;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=tPG5xL6X64inzSZqvGNNgIEqvH99YJwMXuPIgK1PxVY=;
-        b=KFMN/adyjCifxCx4Iu1EOG/nQs0jATSJecdnH2Zikz4VQbmXAgNaldyXuM06DLVb7X
-         2eelKN9AawUlKgogwWbAAs3+FMviuqck8KfTCxU/BrxEQs76OdaQMHCOlAt0SuBI6Q0I
-         QbZwthM3YKPD5beKrJsLjbJPTOJoRGgGhlc1QLVZNUP0O05BCT/VEh3ORnRwKvr6y5Hl
-         kRXre+70xrvE501BKWLsfwzM7OrlKsPb9Tka2Zm3Rq1NfvFMVrm7nD6c1uibNlQf4GdQ
-         Owj/7seHmoVqkFycDiYl3jVlCpadqtouUmevUO2tPIvwePM4mv0rjsyue6FJzqQ4CRu8
-         tVmw==
-X-Forwarded-Encrypted: i=1; AFNElJ+FMTzKMiUojXGXV15l72z7f608PNDNkaPcZChWJhn2trGJqAx3YHjoif2sOQdenysOIN+uOgFlZbGK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6BzSiJ0HcM8WW4syuDGxX6x29bMe6hqc+esADHlQkCBv/ZgvP
-	cDRUYwQ4iLA+Pyh12FxVYIDLKeMzvpuwRHzHpuj/gm4buJZF/74rIY4z
-X-Gm-Gg: Acq92OH01TsFPdg9eEzkrgvKTWHob6mCX3IJLi7i1ONfB4rbHQs+9zTyaG+7MfxvHZ+
-	Kfp7s2m4FPrcH7xQnedzNR1Nj8mBuSdJ0G2Xu3FAej6Tu2Yve3U0cFC2kz8oNEOpsLW8yy++Oxe
-	T3BJ/Uwn2tdaU3EMvRo9w76XOiFexprO1qDI1IZV3s/8lYahkT+p7Zs31cQ9dYvJ28BDWgc64Us
-	ofgL0waiSHBVlhKsqYzSu6NE8SS7w8HpyXgr61I1Qj2zlI1oLGMpTihNoqD0Q8FCpSDhwukRDec
-	33gNVdiegRIUGlvn+F0WjBtMXRoRqRCOtYpz3JPgMMBtNxder2lytQqCshYtcziVrCenpOTpRKE
-	p1tug4S17U2V+m12dR2ybKW12Nhe8f3opy1QDoSwsiI2SqZGo5wLzZxwX4eVWkFrcp8K+pvlrMJ
-	PynMEyIBwXMZsMUKBdh7JHXiumyJUk6HMjyJZBoLKEmsfxFShH
-X-Received: by 2002:a17:902:ecc3:b0:2b7:aa20:3c61 with SMTP id d9443c01a7336-2c1e8339808mr278966455ad.33.1781089857057;
-        Wed, 10 Jun 2026 04:10:57 -0700 (PDT)
+        bh=58KjIEm+tfUZ6/SnUCwcMgCfLciGELGpkY//C+CJsmc=;
+        b=McBA/zgZPruzK7GSrtrmrCEQ0r/9OxZvCLJFCtGxOEdCiELIeI3vFUmAMa0OJ9RsWw
+         xiPzWkDDNrYmgAjCGAsbxjZVvPmgmzUoSWGbcNEkXHWpMORFDSJIfM/IbyXDpdcn201c
+         +wO2bjTS4zqj7ejX+76bE5Cop5/Na+m4gwUevFNIzyPqoU4WtmCktyn/nxLkSgvw4FAK
+         3QhHFpA02etudEy30DqTjVJ1sjixJPOxUqPDLOIAzIDkFl9BheiHBSaB+LMZopxRdJSz
+         9rcNqkIVrD3Y2cOrKMXEN6r+/WmI1FAL6vWUG7GEaQ/raBXOiGD0kikMwxTE0U+qtsS0
+         Cn5Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+f7+1ZtnmRFipsTDmc5aMOW7z6Pd7pG6YWX5Qp/nV2ZORRG4Hr/t4pgxWHq8koDlF/NYvLruVDgKLt@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPY56jd1njAzIJH757RapJPNp7b1jjeFBj/aWyWP4S6udVWFeL
+	3CMS4/WmyRx/sRteLz08PdpOeNV0y5FUI2two+XIW55clfxZ1CO657J/
+X-Gm-Gg: Acq92OEUZ9XL5tA0YV5pXTvJVSCHcHdEqemHh+hq/q+mWDQqROzYZw/SXj5+WJuDkpO
+	ImT+Dhct/bzXilfSwoqXNP0luTEAELExpKkPzxKvCBm1xf5OELc67bONi5zgOFo9lT9yeHD9lPj
+	N1QT3ArUq02tyIht+dchl0dRLlIEJ6Ra9EQ1h0f/UBbWjSiJyiLoVfboh2XolBx755Zj8D5xo+/
+	E2iLz5P/C5U92LMv6IKqTgqUwLy8lqoXXvJVvfHVXxuHJjtrKKorytE/TH32skzLaSHKY5WJToY
+	Sc2xv7onqKL4+PKhkM4NcuFu0zzzKa5D12ZDEa9Zc7GdI7qHvSeRAWlf7MJcOMy8XhqK0wHKD1a
+	eSHnB/0vZTt1Op3H1hBoTEF5+1Y38yDKOyDMHEpVC1VjPJjDr3LDiQNeeEAVgzG6+m2oCxNrzsp
+	YMUpI4TlPHAzfzuQ/8oDT2bTqpvkK2qA9PQadLpg==
+X-Received: by 2002:a17:902:cecc:b0:2c2:9254:4c22 with SMTP id d9443c01a7336-2c2a1c66cbcmr84952005ad.17.1781089867451;
+        Wed, 10 Jun 2026 04:11:07 -0700 (PDT)
 Received: from [127.0.1.1] ([2409:40f4:4111:52c8:138e:8096:a8df:e68b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.10.48
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.10.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:10:56 -0700 (PDT)
+        Wed, 10 Jun 2026 04:11:06 -0700 (PDT)
 From: Ramshouriesh <rshouriesh@gmail.com>
-Date: Wed, 10 Jun 2026 16:39:29 +0530
-Subject: [PATCH 4/9] MAINTAINERS: add entry for the Himax HM1092 sensor
- driver
+Date: Wed, 10 Jun 2026 16:39:30 +0530
+Subject: [PATCH 5/9] arm64: dts: qcom: x1-asus-zenbook-a14: add HM1092 IR
+ camera and wire cameras to camss
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-a14-himax-hm1092-v1-4-0c9907da47ed@gmail.com>
+Message-Id: <20260610-a14-himax-hm1092-v1-5-0c9907da47ed@gmail.com>
 References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 In-Reply-To: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -88,50 +88,242 @@ Cc: Aleksandrs Vinarskis <alex@vinarskis.com>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  linux-phy@lists.infradead.org, Ramshouriesh <rshouriesh@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=822; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=XHn7KPrJ2p0ewsN97d6TWFtfPpubwutN2aH4bFYak88=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYOY+2bxqPX1ojdxk+vvzgmcLZnSyOoaAYMQ
- HpRDlIdPFCJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGDgAKCRAVlYpeERwF
- 3qDsEACjzb9x/8nckfrFGo0m5UCdxAiUwRrnwyY3IU+svHoFZIYklIViyHgK99TWKEme6Rzj+Tl
- 7hCc8VP8aPvNBTa4f4VbAFPTboeLZaJ3aUk025O6s48y0w1M3gM4DCE64PaejgoRkMosAvJB+tA
- DSpV2dvKVAcHscHQ1hIJnBr4YHzyYDAlcDi2XSgmYTQhy24owgngdMiIjULBZo6pqyrGxHI2PC9
- Yzlwba0LHtLgBR/aRUSbSqAZVzbnFxIz06bdsEXcl4MT/lsT+iQ5S+C04vOn8tnGJqmlMPcVQr2
- VAn6ZlyxG5qklxons9I2R6fMXzxjyT8IGpw31An4ix2W0rEf28e191Q11toJgcDYuRCA9nULjNd
- r4lERaJ3ELlOg2KPmOLh9eEbf/w7pmo5lxCSQe2N6qkzxu2iA2lA+HNFp6KzjmOl6rCqJBkkXo1
- nmvkLdCoAU1Saag/vz4OX6Sek5ayCX+Fji/GEaMsYdsmfH03mLExJoyvcoMxMN7WJMXzG0Dd/Q9
- g2y83UwvQ13A20GKRcxiS6ImZXIaoU9EP+BRevhPxlJt7V5OMHlF58/1rBoiT/wPbd+YbESwQUx
- f8MTtEpRj9WD+Jms4Y2wSSShDOln/Z7BhsL75NMHMg4hWWd2JssyT8LXZViHyFv8s+TrUsCC68f
- yHhNgvuRKASw2Ag==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5785; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=BQDr02hg8bk8b59H7xT+yIe/Vc7+/qS3L7NVG79dJZk=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYPclse7Xk1U2IV8599YPyXZ1Qn7Qx2T31xb
+ lmTDWgaRkCJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGDwAKCRAVlYpeERwF
+ 3hI1D/9k344JCUn7kvROvURKzlIeZDMuy0eNOWRzc6bvZJDEwlNi8/6QEaYyeqEHXnKwrq67O3g
+ gy9O9IFbNAJq3KW/6CgzGNIPhfmHaSg9CT3YFCdQiGgOee05na4PlhWE4+GTmePg7LkndgP9vtd
+ IRv29T5+x9rGybFaG7Hjvp66xfwJL+PC5znBRvWtdI0Znkbvh9s2/prR05Zbx2zB5DvIWc71iBe
+ HD1hwAclGTd7mbWidYJrp4OjxlxqcTPvVG4PdkqGy+xP9oDT+UjOmyu6PvP5bAB0kqJJkoyJ9PD
+ W22HglRMS2Fsa/+mGPCp4AmqlkMR63fnPNtzRnZCr83zceS6dIuTXbQOrBTK7p823ukc2oYfauG
+ riTHhePz/kvVA4g8r9bbCXyDQiYxukJ5XzuNPp7YMFR/nV2obIofiEWR1QSjM/GNlQc74Gc8J5o
+ TzR5+SLMOyD0yCi6gOieIZZwr4+aJBN1MmyTMNrHOYkptDcYnJvD+IJUjwNrccXmSCnoap9qet+
+ UAPu6yClV/LtMjbNb+mpR2dOZio5qr7F6woIeKnSFFRUqGGgiiTE+2CPkG89lfiun65NSSsNzDj
+ G6NdP/PQ0B0qPAjE9bH2YGD9nI5xifpMuGasLWOb2ULPuwZfjoR+6OlT+qxYiA7XlI3y7Mmfk2m
+ vuF/bFiLCUQgfNw==
 X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
  fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-Add a MAINTAINERS entry covering the Himax HM1092 NIR sensor driver and
-its DT binding.
+Add the Himax HM1092 mono NIR (Windows-Hello IR) sensor on CSIPHY0,
+together with its PM8550 IR illuminator and the pm8010 l4m/l7m camera
+rails, and connect both sensors to the CAMSS input ports defined in
+hamoa.dtsi.
+
+On Purwa CAMSS exposes two CSIPHYs (0 and 4) and the camss input port
+number selects the CSIPHY by index, so the board wiring is:
+
+  camss port@0 -> HM1092  (IR,  1 data lane,  CSIPHY0)
+  camss port@1 -> OV02C10 (RGB, 2 data lanes, CSIPHY4)
+
+Each CSIPHY node carries its sensor's D-PHY lane routing in its own
+port@0 endpoint, per the qcom,x1e80100-csi2-phy binding: the PHY driver
+parses data-lanes from that endpoint at probe time, and its
+remote-endpoint must reference an available device for
+fwnode_graph_get_endpoint_by_id() to return it, hence each csiphy
+port@0 points at its sensor. The CAMSS-to-CSIPHY association itself
+comes from the phys/phy-names properties inherited from hamoa.dtsi.
+
+The IR illuminator is a PM8550 flash LED (channel 4) referenced through
+the generic "leds" consumer property from video-interface-devices.yaml.
+The HM1092 driver strobes it while streaming (700 mA, re-fired within
+the 1.28 s hardware safety timeout) so the scene stays lit for IR
+face-unlock capture.
 
 Signed-off-by: Ramshouriesh <rshouriesh@gmail.com>
 ---
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi | 140 ++++++++++++++++++++--
+ 1 file changed, 129 insertions(+), 11 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index dadc54fe2bc8..ece71732e6dd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11643,6 +11643,14 @@ L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	drivers/misc/hisi_hikey_usb.c
+diff --git a/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi b/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
+index 388737eaa624..ab8f231cad8d 100644
+--- a/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
+@@ -8,7 +8,6 @@
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
+-#include <dt-bindings/phy/phy.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
  
-+HIMAX HM1092 SENSOR DRIVER
-+M:	Ramshouriesh <rshouriesh@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-+F:	drivers/media/i2c/hm1092.c
-+F:	drivers/media/i2c/hm1092_regs.h
+@@ -815,6 +814,20 @@ vreg_l3m_1p8: ldo3 {
+ 			regulator-max-microvolt = <1800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
 +
- HIMAX HX83112B TOUCHSCREEN SUPPORT
- M:	Job Noorman <job@noorman.info>
- L:	linux-input@vger.kernel.org
++		vreg_l4m_1p8: ldo4 {
++			regulator-name = "vreg_l4m_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7m_2p9: ldo7 {
++			regulator-name = "vreg_l7m_2p9";
++			regulator-min-microvolt = <2912000>;
++			regulator-max-microvolt = <2912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
+ 	};
+ };
+ 
+@@ -824,14 +837,19 @@ &camss {
+ 	ports {
+ 		/*
+ 		 * port0 => csiphy0
+-		 * port1 => csiphy1
+-		 * port2 => csiphy2
+-		 * port3 => csiphy4
++		 * port1 => csiphy4
+ 		 */
+-		port@3 {
+-			csiphy4_ep: endpoint@4 {
+-				reg = <4>;
+-				clock-lanes = <7>;
++		port@0 {
++			camss_csiphy0_inep: endpoint@0 {
++				reg = <0>;
++				data-lanes = <0>;
++				remote-endpoint = <&hm1092_ep>;
++			};
++		};
++
++		port@1 {
++			camss_csiphy4_inep: endpoint@0 {
++				reg = <0>;
+ 				data-lanes = <0 1>;
+ 				remote-endpoint = <&ov02c10_ep>;
+ 			};
+@@ -869,18 +887,102 @@ port {
+ 			ov02c10_ep: endpoint {
+ 				data-lanes = <1 2>;
+ 				link-frequencies = /bits/ 64 <400000000>;
+-				remote-endpoint = <&csiphy4_ep>;
++				remote-endpoint = <&camss_csiphy4_inep>;
+ 			};
+ 		};
+ 	};
+ };
+ 
+ &csiphy4 {
+-	vdda-0p8-supply = <&vreg_l2c_0p8>;
++	vdda-0p9-supply = <&vreg_l2c_0p8>;
++	vdda-1p2-supply = <&vreg_l1c_1p2>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* Sensor input: D-PHY lane routing for the OV02C10 */
++		port@0 {
++			reg = <0>;
++			endpoint {
++				data-lanes = <0 1>;
++				remote-endpoint = <&ov02c10_ep>;
++			};
++		};
++	};
++};
++
++&cci0 {
++	status = "okay";
++};
++
++&cci0_i2c0 {
++	/* Himax HM1092 mono NIR sensor (Windows-Hello IR camera) on CSIPHY0 */
++	camera@24 {
++		compatible = "himax,hm1092";
++		reg = <0x24>;
++
++		reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
++		pinctrl-0 = <&cam_ir_default>;
++		pinctrl-names = "default";
++
++		clocks = <&camcc CAM_CC_MCLK0_CLK>;
++		assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
++		assigned-clock-rates = <24000000>;
++
++		orientation = <0>;
++
++		/* PM8550 IR illuminator, pulsed by the driver while streaming */
++		leds = <&ir_flash>;
++
++		avdd-supply = <&vreg_l7m_2p9>;
++		dvdd-supply = <&vreg_l7m_2p9>;
++		dovdd-supply = <&vreg_l4m_1p8>;
++
++		port {
++			hm1092_ep: endpoint {
++				data-lanes = <1>;
++				link-frequencies = /bits/ 64 <400000000>;
++				remote-endpoint = <&camss_csiphy0_inep>;
++			};
++		};
++	};
++};
++
++&csiphy0 {
++	vdda-0p9-supply = <&vreg_l2c_0p8>;
+ 	vdda-1p2-supply = <&vreg_l1c_1p2>;
+-	phy-type = <PHY_TYPE_DPHY>;
+ 
+ 	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* Sensor input: D-PHY lane routing for the HM1092 */
++		port@0 {
++			reg = <0>;
++			endpoint {
++				data-lanes = <0>;
++				remote-endpoint = <&hm1092_ep>;
++			};
++		};
++	};
++};
++
++&pm8550_flash {
++	status = "okay";
++
++	ir_flash: led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_IR>;
++		led-sources = <4>;
++		led-max-microamp = <180000>;
++		flash-max-microamp = <700000>;
++		flash-max-timeout-us = <1280000>;
++	};
+ };
+ 
+ &i2c0 {
+@@ -1384,6 +1486,22 @@ reset-n-pins {
+ 		};
+ 	};
+ 
++	cam_ir_default: cam-ir-default-state {
++		mclk-pins {
++			pins = "gpio96";
++			function = "cam_mclk";
++			drive-strength = <16>;
++			bias-disable;
++		};
++
++		reset-n-pins {
++			pins = "gpio109";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++
+ 	edp_reg_en: edp-reg-en-state {
+ 		pins = "gpio70";
+ 		function = "gpio";
 
 -- 
 2.53.0
