@@ -1,69 +1,90 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546993B9D98;
-	Wed, 10 Jun 2026 11:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00ECD3DEFF1
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781090547; cv=none; b=EmcGIdnGXc5CKWXI5MBmBH/v+WgXTCyxnGKlFqMk7X/1gZ2xYp+hW5VUbzWjASUg9d+PkfkJqg7DKRQYbu7jqzlRDeY+5ibeELY209cIEOAbeGseWjPhmPNpRIZaZvjt7aKYN3oTlPyTbnIJVVRchZOw5Sr4pJahWoYlXrJbYf8=
+	t=1781090769; cv=none; b=g/5KBdmyvgGQbib8UZqFDFnFVVlFNOOsbBnFQRgsf11z43yPwMM/Gs651BnRAqDLC+u7LsrMTR1E2J3ONQfV93CCdbqHPaRtAO9u0+0HameYWsIvfq+PV+priI4EGL2cB/v4sw7700XAlNE4gzmuiB3h8ZzBoIHFlNn635rWLqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781090547; c=relaxed/simple;
-	bh=aBDEY71A7aCboQvqZmdLZCfK9+flfFgYZqgP3Td8iQw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CUXOfhQ7qqX1jwQG027SyU4QEvFv4NLZ2CVoJIBE4bBanTavvih/AKxJGVC93RCiBh8RH0orMu6UUvQfwfvuFnJ5PEQU6bSYl8p9WYihrFDfdyTD56w0kNTe61rfKDs2h8ryG55NCSMeizTxIZRlZ2h53soPz425v9Cs+uzPP2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=LVch8VCH; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1781090769; c=relaxed/simple;
+	bh=LkRX8UFvgtZbMA3fFHZqw0dlZwzGnch+TmMIftEv4P0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pfHjGhypfH0hDZMKCC2WII2Kac08ttfX1BKWwSmIwzZKbtEfFz/gCayD1mFsf2eoUNiUgDzpcXwtl9bT9j+yo+qxiBzSWLcu2JhA4mJ9AjNIVAnAZKnGMAu7NFIU0fHo1u113zt1J1uFlEb6s/BTIlyRhK+t/tZ5KIdfY+dKPrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UryZY2IN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="LVch8VCH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1781090544;
-	bh=aBDEY71A7aCboQvqZmdLZCfK9+flfFgYZqgP3Td8iQw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LVch8VCH0zomK1nWEJ90cjd/By0E1ewlQ5r2fkj526WecOoevRMgO1i6dynMrgDSC
-	 CMKfHYRsoLGH5A6+q/WeH4LpdgVjogq8E6BWaft5NDo8vMO5YB6DxQO+BFizdyoToY
-	 +SnQjofpJeFRyril0GtxrqlER1F89XaqcmaC9W/+RyoGBFHJTtxx+SlGRCPRSHzBFE
-	 lZjas42RoA5evv+8gaWjzM0IN+KYkV3pni3kb+J09X1dg5bJ+pPZZhvIZL//ZHpRHW
-	 MxUFftFZQ3jez5zOGwZ3jnQ1sIoaP7BCTa8OzmYR/Ed6kNmaWIydKoW1s2SogFhFR4
-	 IkdElg6fpkrLg==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id EFA2C60A14;
-	Wed, 10 Jun 2026 19:22:23 +0800 (AWST)
-Message-ID: <a8cdc7c23166823a8e1969408c667e6a8d758fe7.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v6 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Kyle Hsieh <kylehsieh1995@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	 <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Date: Wed, 10 Jun 2026 20:52:23 +0930
-In-Reply-To: <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com>
-References: <20260610-ventura2_initial_dts-v6-0-375d8e9d7ebf@gmail.com>
-	 <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UryZY2IN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D8F1F00898;
+	Wed, 10 Jun 2026 11:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781090767;
+	bh=/WwvvOHSwVxV8ivENQpditDF3vMCQpiGrYrWshfvu2M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UryZY2INzvJXOzNQyftuMNvDxhcU01zvWFXuxCZSwhOuKOUfy80ojiVvJjLeSfnV/
+	 NiHOnCJJWKub425foZ+sHt/slgoeSm1DOrh+30tUhps49WokssSH7Jj7au/VXbDcOQ
+	 lOsoVvMGtEWP2aytTD7FIkaHlHQTLGJ3L9PK37YyDYE33SshghBAfv9FpJfD85fdor
+	 nuBzNZUPB+SbQFUO3eZprIWzUGtaj2+wAONCEiaJ1wVdwVLJhS0JHD513EiXEt7VVl
+	 7Le/w5RlH9v815cDdqUgZqUBd9xbtWxwKyounZ+vjYy+CycmGe3k++oc6yrha8upt8
+	 beHtQX5co+5CQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add SD Card support for Glymur
+ SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260610111508.3941207-4-mchunara@oss.qualcomm.com>
+References: <20260610111508.3941207-4-mchunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Wed, 10 Jun 2026 11:26:06 +0000
+Message-Id: <20260610112607.62D8F1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Hi Kyle,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing `resets` hardware reset property for the `sdhc_2` node
+--
 
-On Wed, 2026-06-10 at 09:22 +0800, Kyle Hsieh wrote:
-> Add linux device tree entry related to the Meta(Facebook) rmc-node.
-> The system uses an AT2600 BMC.
-> This node is named "ventura2".
->=20
-> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+commit 3328d962d23c195e0ded6a5fa736fc357bc968ef
+Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
 
-I have some comments on v5 that are applicable here too.
+arm64: dts: qcom: Add SD Card support for Glymur SoC
 
-https://lore.kernel.org/all/3d56889c004fc2d11b76ace6033c7ccfb8a37d03.camel@=
-codeconstruct.com.au/
+This commit adds support for the SD card on the Glymur SoC and enables
+the required pinctrl configurations.
 
-Andrew
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
+com/glymur.dtsi
+> index 20b49af7298e9..0989fe39e7ef7 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+[ ... ]
+> @@ -3927,6 +3927,57 @@ lpass_ag_noc: interconnect@7e40000 {
+>  			#interconnect-cells =3D <2>;
+>  		};
+> =20
+> +		sdhc_2: mmc@8804000 {
+> +			compatible =3D "qcom,glymur-sdhci", "qcom,sdhci-msm-v5";
+> +
+
+[Severity: Medium]
+Should this node include the resets =3D <&gcc GCC_SDCC2_BCR>; property?
+
+The SDHCI-MSM driver typically uses the core_reset (fetched via the resets
+device tree property) to explicitly reset the SDHC hardware block during pr=
+obe,
+ensuring it is in a clean and known state.
+
+Although the driver requests the reset as optional, omitting it means the
+kernel cannot reset the controller. Could this lead to unpredictable contro=
+ller
+behavior or probe failures if the bootloader leaves the block in an
+inconsistent state?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610111508.3941=
+207-1-mchunara@oss.qualcomm.com?part=3D3
