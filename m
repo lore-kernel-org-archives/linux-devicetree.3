@@ -1,190 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F453E44EA
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EA43E4505
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781091417; cv=none; b=uj3L0W6IkEmg331CZn0jLGpPytRLMDIfwbXEpHclygHLbFxyz63xS304g8olX8sZeRahq3AJQq9E/iTvFsEhikQCiccXAl4OwLrvTxob5imxYTHVahI/wgbKo4n4fcMizeA/ISVDzi4PPYtVk1pjRSzRJsXEFr3z3UU48lpU7ek=
+	t=1781091442; cv=none; b=BKOuf+MIUrsp1JCnAh84ReDlJUnc/UKrFnE9nOnpYnV+y/GDe7wZ5CDuY+xNggQP/e58zDchFSkwm3QyBXOVwCs9xlteTNvWv+Hl4ylAvAsIzMnAZbZP6j9KnAwpchj+IC8/n5YLixWdZ4sK2nU9SQLcF/LLqcaKSyicuFmjQ0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781091417; c=relaxed/simple;
-	bh=gFuo4vfFNbq1ksipMi/FovTUWkjQJbBP5iWLRSF23kk=;
+	s=arc-20240116; t=1781091442; c=relaxed/simple;
+	bh=BxVPRC2l2dt/u797CUS7H7awCrNeF/c3TGDvLjbwjCs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XahHnQZzY81YKjag2yuaL8FzKDyKmtp4TB61HR9bGCpHAHP2VHxZGbFfgTlqp5q/FHC7141O8RBH4j2IKeQcwvCtyEPC2a+AnfSb06+rrRXJsTz94BkLXNncIiLVVoAnOVVRcP3xRpbmtHaaxc/5vlqwE4Ocgt0Ia8FygVMgoUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLmGvMR2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VAbXHaUMf7e916qoS3QReScdZK1ITZ69PYRczmUayKm/Xioc6mTpCf2tWIZ8H5LXqGr+RBvSXfHLGZo9P+evhPNXJF6ORbp6H4MYnjUb6NxEADmeHdeZvf+YJ2BMM9yEDURkx6ByYldP7pcxVVQMB6hhPjU+zO9urXh6VtZWlIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRjiv5Sk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLmGvMR2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72371F00893;
-	Wed, 10 Jun 2026 11:36:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRjiv5Sk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3F91F00893;
+	Wed, 10 Jun 2026 11:37:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781091416;
-	bh=LCCurZQi/xC6pNZNdO56hbjLI1hOzqOBQGxB0VK43os=;
+	s=k20260515; t=1781091441;
+	bh=bf324chqa8INaw8Izfb5VwFNFYvWZHn9WVdxWuyyUws=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mLmGvMR2J4EGQy/R8tehW7RGdLW+r6Ah5/VHXwyI+qr6oo2e8mevHeDHss40ekbyD
-	 BWoB1d9XTKVR9iFDmvifeo4wiIw4HQ/aiPTruuYaWvmGtasZG5WB0RtDSGNfrEDATl
-	 w1rnY68a07D1s8W0MdPKbE5QexQPILrCAiFjHkHKJDyyLq5jwkn9XXbq138jpSgB73
-	 jgWPwffXiYaqyJx43zxR9f9Lu0JeU1ZEQLKuw59t2Y5sXK+JDYVwqG1XMq3xITDObe
-	 xJXl4WtVncpn99dXDjCzduU4FuysxTOMqHDbiUVHaABMDvK5mMhfnm137TGVo7Zsjf
-	 HseJVDfmhUmWg==
+	b=hRjiv5SkFgsc8OjOQwdloBXFpVeSW/CjiiQhpIdLWMRA9Ek6RIkjCCLXTtKG/prtA
+	 Qjh/a9taV2Xp5Aw6NZw4okk0cZlv1XHpSuGixEl+vZ0l13fgBNss2C+SLXBYPjZDsL
+	 L7PDIeCTMnzxBhgNfCI0wlYMj0Dkofdx0ac73KeJhC054k0//5cJviK710pPyQjH57
+	 +iFsntR1w25ZQpwRikOB6ImCeMi3Nbbsc16oquLDtSkwBZzGR1eSYEcXm8/WR1zMpA
+	 AhGEcK7FCaeQPBw9sBfR1swrfmHcOuPjJSPZWSrZn/0/gHfr4Bj0ZIKBjpU94TD2HI
+	 vtV8rwWQ8p8Og==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: serial: Add binding for Cortina-Access
- UART
+Subject: Re: [PATCH 3/3] arm64: dts: cortina-access: Add DTS for CA8289 SoC
+ and Venus board
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jason Li" <jason.lee651024@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260610112821.3030099-3-jason.li@cortina-access.com>
-References: <20260610112821.3030099-3-jason.li@cortina-access.com>
+In-Reply-To: <20260610112821.3030099-5-jason.li@cortina-access.com>
+References: <20260610112821.3030099-5-jason.li@cortina-access.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 11:36:54 +0000
-Message-Id: <20260610113655.C72371F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 11:37:20 +0000
+Message-Id: <20260610113721.0B3F91F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The board compatible strings restrict the array to a single stri=
-ng, forbidding the required generic SoC fallback.
-- [Low] The UART binding example defines a 4-cell `reg` property without sp=
-ecifying the parent bus `#address-cells` and `#size-cells`, which causes `d=
-t_binding_check` to fail.
-- [Low] Alphabetical sorting violation in `vendor-prefixes.yaml` and `MAINT=
-AINERS`, breaking devicetree tooling and sorting guidelines.
-- [Low] The UART binding uses a generic device class compatible string inst=
-ead of a specific implementation string.
+- [Medium] Use of discouraged `clock-frequency` property in the ARMv8 timer=
+ node.
+- [Low] Missing root `#address-cells` and `#size-cells` in SoC DTSI.
 --
 
-commit 32a23126a643cf7b114be8e3c3826bc3ea97f447
+commit bb6d4b41e4c489bdce2ba3142178fa3654514276
 Author: Jason Li <jason.lee651024@gmail.com>
 
-dt-bindings: serial: Add binding for Cortina-Access UART
-   =20
-This commit adds a new device tree binding schema for the Cortina-Access
-UART controller, targeting the CAXXXX SoC family. It also introduces the
-vendor prefix for Cortina Access and a top-level ARM board binding for the
-CA8289 (Venus) SoC.
+arm64: dts: cortina-access: Add DTS for CA8289 SoC and Venus board
 
-> diff --git a/Documentation/devicetree/bindings/arm/cortina-access.yaml b/=
-Documentation/devicetree/bindings/arm/cortina-access.yaml
+Add SoC DTSI for the Cortina-Access CA8289 (Venus) and a board DTS for
+the Venus engineering board. The description covers the minimum set of
+hardware nodes needed to boot a kernel with an INITRD rootfs.
+
+> diff --git a/arch/arm64/boot/dts/cortina-access/ca8289-soc.dtsi b/arch/ar=
+m64/boot/dts/cortina-access/ca8289-soc.dtsi
 > new file mode 100644
+> index 0000000000000..8e7ffcf4ccab4
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/cortina-access.yaml
+> +++ b/arch/arm64/boot/dts/cortina-access/ca8289-soc.dtsi
+> @@ -0,0 +1,118 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * dts file for Cortina Access CA8289 SoC
+> + *
+> + * Copyright (C) 2026, Cortina Access Inc.
+> + */
+> +
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +/ {
+
+[Severity: Low]
+Should the root node of this DTSI include its own #address-cells and
+#size-cells declarations?
+
+While the top-level ca8289-engboard.dts provides these, defining several
+top-level nodes (like gic, uart0, uart1) that use 64-bit addresses relies
+on the board file to satisfy the DTSI's cell size requirements. Could
+these be added to the DTSI root node so it remains self-contained?
+
+> +	cpus {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <0>;
+
 [ ... ]
-> +properties:
-> +  $nodename:
-> +    const: /
-> +  compatible:
-> +    oneOf:
-> +      - description: Cortina-Access CA8289 (Venus) engineering board
-> +        const: cortina-access,ca8289-engboard
+
+> +	/* See Documentation/devicetree/bindings/timer/arm,arch_timer.yaml */
+> +	timer {
+> +		compatible =3D "arm,armv8-timer";
+> +		interrupt-parent =3D <&gic>;
+> +		interrupts =3D <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+> +			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+> +			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+> +		clock-frequency =3D <25000000>;
 
 [Severity: Medium]
-Will rigidly enforcing a single compatible string cause dtbs_check to fail
-on standard board device trees?
+Is this clock-frequency property strictly necessary for this new SoC?
 
-Standard ARM platform device trees typically define the board compatible as
-an array containing the specific board followed by the generic SoC string.
-Should this use an items array to explicitly define and allow both the
-board string and the required SoC fallback string instead of const?
+For ARMv8 architectures, the system timer frequency should typically be
+programmed into the CNTFRQ_EL0 register by the boot firmware (e.g., TF-A)
+on all CPUs.
 
-> +
-> +      - description: Cortina-Access CA8289 (Venus) reference board
-> +        const: cortina-access,ca8289-refboard
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/serial/cortina-access,seri=
-al.yaml b/Documentation/devicetree/bindings/serial/cortina-access,serial.ya=
-ml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/serial/cortina-access,serial.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    const: cortina-access,serial
+The devicetree clock-frequency property is generally treated as a workaround
+for legacy firmware that cannot be modified. For new SoC ports, can the boot
+firmware be updated to properly initialize CNTFRQ_EL0 instead?
 
-[Severity: Low]
-Is this compatible string too generic?
-
-The Devicetree specification generally advises against using generic device
-class names in compatible strings. Would it be better to name the
-compatible string after the first specific SoC implementation, such as
-cortina-access,ca8289-uart, and use that as the generic fallback?
-
-> +
-> +  reg:
-> +    maxItems: 1
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    serial@f4329188 {
-> +        compatible =3D "cortina-access,serial";
-> +        reg =3D <0 0xf4329188 0 0x30>;
-
-[Severity: Low]
-Does this example fail dt_binding_check?
-
-The schema restricts the reg property to maxItems: 1. Because no parent bus
-node is defined, the dt-extract-example tool wraps this in a default root
-node with 1-cell address and size. This causes the 4-cell reg array here to
-be parsed as two distinct register regions, violating the maxItems constrai=
-nt.
-
-> +        interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks =3D <&apb_pclk>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -367,6 +367,8 @@ patternProperties:
->      description: Chengdu Corpro Technology Co., Ltd.
->    "^corechips,.*":
->      description: Shenzhen Corechips Microelectronics Co., Ltd.
-> +  "^cortina-access,.*":
-> +    description: Cortina Access, Inc.
-
-[Severity: Low]
-Could this insertion break schema validation due to alphabetical sorting?
-
-The vendor-prefixes.yaml file enforces strict ASCII alphabetical sorting.
-A comma (ASCII 44) is less than a hyphen (ASCII 45), so ^cortina,.* should
-precede ^cortina-access,.*.
-
->    "^cortina,.*":
->      description: Cortina Systems, Inc.
->    "^cosmic,.*":
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2749,6 +2749,13 @@ F:	tools/perf/tests/shell/lib/*coresight*
->  F:	tools/perf/util/cs-etm-decoder/*
->  F:	tools/perf/util/cs-etm.*
-> =20
-> +ARM/CORTINA-ACCESS VENUS ARM ARCHITECTURE
-> +M:	Jason Li <jason.li@cortina-access.com>
-> +L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/arm/cortina-access.yaml
-> +F:	Documentation/devicetree/bindings/serial/cortina-access,serial.yaml
-> +
-
-[Severity: Low]
-Does this entry violate the alphabetical sorting guidelines for the
-MAINTAINERS file?
-
-A space (ASCII 32) is less than a hyphen (ASCII 45), so ARM/CORTINA SYSTEMS
-should appear before ARM/CORTINA-ACCESS.
-
->  ARM/CORTINA SYSTEMS GEMINI ARM ARCHITECTURE
->  M:	Hans Ulli Kroll <ulli.kroll@googlemail.com>
->  M:	Linus Walleij <linusw@kernel.org>
+> +	};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610112821.3030=
-099-1-jason.li@cortina-access.com?part=3D1
+099-1-jason.li@cortina-access.com?part=3D3
