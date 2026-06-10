@@ -1,145 +1,110 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1750C3EAC61
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 10:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911E23F23BE;
+	Wed, 10 Jun 2026 10:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781087631; cv=none; b=ARiRPBnaIrbkKzHeFIvW1i6uX0UAIIb/23AowceDEccLeX9EjwoAUon5XNhtTGWThn527JLi9RRZpDO5lbWjf2Ph/Mtbp8KamULyMK7fn264OUL9A910DNADPts7HOIPgTqKuwAdBESh35TiJHOL9v2fS0OjNjqXe8JoxX5Zu78=
+	t=1781087705; cv=none; b=EAt6Dkc3wc5P5p+6ZGvQ99F/cgSZzbcvomGjk7arVLRHp4peKEvRhWwh43ULDmEvAfQw3Fc6o+We41Zap4pWLw5CkgrLfr3DNhj1wv3x3R1vjiqo4clxRLlEI/UKrNGMB3gwgoJHA4941wkeM8tceql9lNtOYEi/xurjVhW22aM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781087631; c=relaxed/simple;
-	bh=yNvme85oo3d4KkJuNkf68y0a7Zc+qE604sjJhFN7+zQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=VhtMlUA1GsEUBeYy95mLBIqdCz8TnUumxYNAzrcD+ty9UmloKcXZbOvYxzQMpMPVrBL+xDqk4EFV4a5I+RwjHoPjxylma2Jd4rE1UXbe1bxlnyN4JIMwU0OGufe8nLYyYCFnTms3iZDXQAqsMG2k7tvM4/2OBemv9KO8GxiYWlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kxaUp2lP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WKtQslUA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781087705; c=relaxed/simple;
+	bh=PLk6E/1F4XKbP8E1C/TyTqMlBWSE19MdrRg66+4D9+o=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=J/omqguN6vR3HCN94ukln0vtJvlV2+iC12hrHxBct/aTlIRwVTp8xL+xvQkOwLCgq/obxvFagA13z0+HbXgSPFY2ApSpF1sSZg8302j9BXH8/5r0SN6NIbI0Rr2xQIlghoIhfDRJBM1mWy6rtkiebL5OhBRTTDas3doyZn9FaiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndepELuE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kxaUp2lP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WKtQslUA"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65A7inM9997558
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 10:33:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	o/2WnocrnpuSiCW6MaX5GTAHjfkhonjDtGxDdr+xkp0=; b=kxaUp2lPvj+fd91Q
-	DHY8/3eIEPCDC/MBaZgzgLbCrX6Nx0KxWYUX+yChzxqUqSbzKfiBu9PDuzgVNHth
-	J2MSTCK0pfHQUdeWgQ/kpBNJ81khlFvusEsFM2Y8zkLPG94+/8P7gFTeoBnrFeiV
-	0UeSL2SeKMVX/uuQBmimGUdd3yCes5vkbha0IQo4BaWFEVdLSU03xkQIdNsKAKUB
-	OH4uCT3yh2C1pyXVKPO7Niekjlgopl0vnVehX55UNtyG7o9JgN+HXCRl1Oe2WKCS
-	4kDWSgnacv+s5qLMXkECVc1is7/XZvIf8emg6Q2GhnPFhjpc7VA5uLY+0usobb1u
-	sWJsWw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eq10a9b1k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 10:33:48 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-517647fbff1so21710831cf.2
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 03:33:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781087628; x=1781692428; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=o/2WnocrnpuSiCW6MaX5GTAHjfkhonjDtGxDdr+xkp0=;
-        b=WKtQslUAMz+7KJ4hsz8W/i7H02VMk4KOMvfkmXsXR3OVSAIntU0OsURXLYkIwoTIYd
-         7V6c1NOf7X3fmkCroGz5bu2xGwcDXIXelxqdf/Qn7Q/QrzBgAWWLZWnq0efue+WYjyPX
-         MQ0c0zSLkNCY6ibyPCgKdHY3nuSV097asY0WMfG0ZUcR/NhIRA3WqDmGFQQAtJihZMKJ
-         x9Xo1hh2F8/iTyjk1DFbJMhSnsrIPY/+FagF2IxuhtijfiYDZ/rSPD/DLydJiDVSO6WG
-         cTNx3yFLmVN3JZ9HAgWhsW+3TwWXuQvnNMwPq+JQ4WhwsPb/T019dobP+CBoUcUXdqqz
-         aMhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781087628; x=1781692428;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=o/2WnocrnpuSiCW6MaX5GTAHjfkhonjDtGxDdr+xkp0=;
-        b=npwB4/GSNl9lqtq3/WIup0TC7xNR6+vS8cb5v5Fru5ypEHSLXqsbqqjVU6vgDge64y
-         EMkTcnveVK489biv1G4mWC1TvI8VDnUG/o5pLHAimTbL5Vi+l+6Mf4gOCeHwYHUuvA/R
-         Q4H8TfvxCn6vGiiIkAJ/NTh4MReXnozDPfr3CLJ7bGPC1r8XdfwNtxpLR3qtuBGSbcXj
-         9mojbWSyGIebA3QfKvxN2lZp+4HE/DvEJ0y9CrseD8+T9A/k/6dsybSoPDQ4tDCbhWoX
-         ALD1FXFNAYwVfnMG0rS4YwY/pyk67w18wKPMdtppukImIkgGOFY3G9eewbwhyoA1vzfD
-         BiBw==
-X-Forwarded-Encrypted: i=1; AFNElJ8XwcxBC5wWU1nxH9vSJqfGQNBX+vn/P9yIZHCD4I9nkkO9fmcno6gU+P7Rm58jfSkfwof3/p0JWB7X@vger.kernel.org
-X-Gm-Message-State: AOJu0YzM+YTWtAowbSHuzBhjwoVboLTKoH3vZYxw9oFXWUQrDvQKaXsu
-	EVweCvbJ336LIhwkjrEtpaLHFoBzK8ohO+hS0xLuWYX9LmZel0U+EmXHYatShu14OC8jbWVes+k
-	p4hKFStBRcG6FW/h0AzsQAd1uLgxCniHPYVkgxiGg/r0AkhlikCMtHyxZHQ/nXiWr
-X-Gm-Gg: Acq92OG2iT/wzEdDLaZ4B6lMmBL69XSV6gg8MsgFEwb062N/aksOAFYW7Q86J3/lWW4
-	jGURFj2g0/ci+NGq+kfzUqubnRyyG+XoY/3hzCjJ5PNeBHWQ0ZjKxvVowoTUvy9Gy8PD7R8wSqr
-	z3E7P/UBCuqNYRewu8sSwWAQ2D8OzKhclPFIUYdV9Ie3Tea9wxq/EbhDYysfP0hOchGicrnIlX1
-	3Qs73Sq4gQlRevffHow5VZlWKQZI2p9UEyLPeFUD1qpI5n91YTS8c83HYzCUQCmBQAHV4P3yxMO
-	mUINKzHorkR67aCCJHN1lS3e+Tl4IJsJ7S7pipqDrwZ/lWW/YPNx18BYyaVSQp5UqL8FdqWZdUB
-	+26sA9+Ev5EvrqGo5+ebd2OKH9YtjlD57YT+2BUVFBeEzUg/55wF2JKoe
-X-Received: by 2002:a05:620a:1647:b0:915:f92e:86 with SMTP id af79cd13be357-915f92e065cmr142430985a.2.1781087628333;
-        Wed, 10 Jun 2026 03:33:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:1647:b0:915:f92e:86 with SMTP id af79cd13be357-915f92e065cmr142429185a.2.1781087627924;
-        Wed, 10 Jun 2026 03:33:47 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055307ce3sm1163172466b.43.2026.06.10.03.33.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Jun 2026 03:33:47 -0700 (PDT)
-Message-ID: <1b05d626-3a04-404d-96bb-57eb57db46a0@oss.qualcomm.com>
-Date: Wed, 10 Jun 2026 12:33:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndepELuE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CB61F00893;
+	Wed, 10 Jun 2026 10:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781087703;
+	bh=SeOChWWJdDACbt30MITEXDeeuwEhEpNLmKLuGmA/Y00=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=ndepELuEHqpBhPWtk8+T7QxUJ/uN2VgyVfUAVl2V9Zb/LNq6RP2LD3ONqBPSEjEXI
+	 jnYfrHRi13CVP4wJ6xun3OwQQUWYbycmBQAoxf/smG2TUYJBls8vSjSG3sIhi02W4m
+	 wUO4iGhLgI/bJUnpe4xiXKjzUzbPQHHE2ud14jni5qk5Ijb415qETMK5xA3gqGqEKa
+	 OXtCPQeX0hEod8qm3A+3Uluqxq9qVULJt2Xi8DdJXl7OlYuFIcvFEkCydh203mzHZU
+	 +ysCQ5FPR90Rlj6xyJ0uUuYFXKCrofECdXpn9A45dpdglf0mTxLeWfxlPHulf71UWk
+	 cLEgCQ2w+Mpdg==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Akhil R <akhilrajeev@nvidia.com>
+Subject: Re: (subset) [PATCH v6 00/10] Add GPCDMA support in Tegra264
+Date: Wed, 10 Jun 2026 12:34:57 +0200
+Message-ID: <178108768743.3388678.911465959943818936.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260331102303.33181-1-akhilrajeev@nvidia.com>
+References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm670-google: add lpi reserved gpios
-To: Richard Acayan <mailingradian@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260602021722.30760-1-mailingradian@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260602021722.30760-1-mailingradian@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=GoFyPE1C c=1 sm=1 tr=0 ts=6a293d8c cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=BITVXKfNEooxrV_AlJUA:9 a=QEXdDO2ut3YA:10
- a=zZCYzV9kfG8A:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: pOkQSQXo-YNYGscvxVbXEF5Ec4sKcLoN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDEwMCBTYWx0ZWRfX4e6PUSPvW1XX
- SIFrMfY3Bkxhwf4Yk37iW3XcpetJvAwMa3jaz1NvSsfl2BeiUFOgBe1Kst1+9K5qdRExD+ihWdl
- AquIiAnPYxef9O9jF/4zDseME4zAjwkCJa8kaFGcgDTZadYPCIk9rBZ69GoMBjz0miEDySmFjH4
- O8uvFmLb/PdO567eIHa8Dm4jCSsjiIeXAwbPRMih4jmVQ+xNQ432gbS4pVE6YntW9JHjnX0JHxH
- cZwGTql6CGzAxmf9R84HroozPdJ4uOr6y/Aaw5Ycwd+wuRDpitpiwpSIqpWSMOW9wwSlwUckb8K
- W1zMuRH+cOBEj1CWQb18TP2tjEBXswX63c22CN1PodDKrmYkg9w2ZcMXDrhKYWQzOIuPEUTpD3l
- R9q06KNXFmby04Et64NZxo2rHbUyEkdN8Ftkoj9VK9CeLspXHOomfOy6kOfdwJdANp4NYP7+vR9
- ktsde5UwcfwFMHR4SnA==
-X-Proofpoint-GUID: pOkQSQXo-YNYGscvxVbXEF5Ec4sKcLoN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-10_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
- suspectscore=0 adultscore=0 clxscore=1015 spamscore=0 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606100100
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 6/2/26 4:17 AM, Richard Acayan wrote:
-> Add reserved GPIOs for the Pixel 3a, which blocks access to the sensor
-> GPIOs. The hunk in the original patch was dropped in the commit because
-> it depended on an unapplied patch, which is now commit fe9f4a46895d
-> ("arm64: dts: qcom: sdm670-google: add common device tree include").
+From: Thierry Reding <treding@nvidia.com>
+
+
+On Tue, 31 Mar 2026 15:52:53 +0530, Akhil R wrote:
+> This series adds support for GPCDMA in Tegra264 with additional
+> support for separate stream ID for each channel. Tegra264 GPCDMA
+> controller has changes in the register offsets and uses 41-bit
+> addressing for memory. Add changes in the tegra186-gpc-dma driver
+> to support these.
 > 
-> Fixes: c4b423835ee7 ("arm64: dts: qcom: sdm670: add lpi pinctrl")
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> ---
+> v5->v6:
+> - Replace dev_err() with dev_err_probe() in the probe function for fixed
+>   return values also.
+> v4->v5:
+> - Use dev_err_probe() when returning error from the probe function.
+> - Remove tegra194 and tegra234 compatible from the reset 'if' condition
+>   in the bindings as suggested in v2 (which I missed).
+> v3->v4:
+> - Split device tree changes to two patches.
+> - Reordered patches to have fixes first.
+> - Added fixes tag to dt-bindings and device tree changes.
+> v2->v3:
+> - Add description for iommu-map property and update commit descriptions.
+> - Use enum for compatible string instead of const.
+> - Remove unused registers from struct tegra_dma_channel_regs.
+> - Use devm_of_dma_controller_register() to register the DMA controller.
+> - Remove return value check for mask setting in the driver as the bitmask
+>   value is always greater than 32.
+> v1->v2:
+> - Fix dt_bindings_check warnings
+> - Drop fallback compatible "nvidia,tegra186-gpcdma" from Tegra264 DT
+> - Use dma_addr_t for sg_req src/dst fields and drop separate high_add
+>   variable and check for the addr_bits only when programming the
+>   registers.
+> - Update address width to 39 bits for Tegra234 and before since the SMMU
+>   supports only up to 39 bits till Tegra234.
+> - Add a patch to do managed DMA controller registration.
+> - Describe the second iteration in the probe.
+> - Update commit descriptions.
+> 
+> [...]
 
-that's a lot of GPIOs..
+Applied, thanks!
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+[02/10] arm64: tegra: Remove fallback compatible for GPCDMA
+        commit: ee7863e43228a3143398dc5bbb943c9a735a8fca
+[10/10] arm64: tegra: Enable GPCDMA in Tegra264 and add iommu-map
+        commit: d2bca791d5a6c00ed24e92fa71f829553b1b1674
 
-Konrad
+Best regards,
+-- 
+Thierry Reding <treding@nvidia.com>
