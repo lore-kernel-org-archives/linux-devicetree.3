@@ -1,69 +1,99 @@
-Received: from r3-47.sinamail.sina.com.cn (r3-47.sinamail.sina.com.cn [202.108.3.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D8537DADD
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 10:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642713E834B;
+	Wed, 10 Jun 2026 10:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781086014; cv=none; b=MW5tqJxXpRJADAWhs5A2dqWjdg3YX6i6I8xKNSHB7iWGCGzX/e52Q/Qww9QhJWPHLcVSPOsrFNK0D+eK7n1mnKOA67pdB+tLdGEVbZ73RglvhYLRotFYsWL4NxxClQ7EJz8BJNmTJZO/1hILtJ5GymmehJvOjQKBnf76fn8PprM=
+	t=1781086313; cv=none; b=Y9NufuykGK3CynW+yC8S3Pg6iSSklqCbx8RnK4gAhvG14z7nbblcP+l4BhtHIH52e0Jrr++WVx0JMpD4+wbk65ox9Ki3I8QpEcexRIbUa+9vojDlH3BQdL+cYzf7khINKRZ6rDQsj7ZEvWzbfaMiyiRJvaLFCFsN0kQo/P2Ibi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781086014; c=relaxed/simple;
-	bh=CE1nX27oBcL6Tl6vMv7Z3wZ/+naPHmaEsSzFKbyRHkY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=W5UZ75QGy3sFyJrBgfdTw4Gb4fB7bYAXsMenhiTxKQ0PsIdJdG9yWc9QLtcM+x3S3dToORBkGL/F7iW6Fzut9v/Z/UELjgREmC1paaqurfhYV3DclMrRUW7qnukqtf8WoM9FB6rG3sKF73uvT6GAieTscbKo8644TMEXiebkQnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
-Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
-	by sina.net (10.54.253.39) with ESMTP
-	id 6A29372F00006380; Wed, 10 Jun 2026 18:06:40 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: EE711B62DD7844089AB2C86FCA8A4203
-X-SMAIL-UIID: EE711B62DD7844089AB2C86FCA8A4203-20260610-180640
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: krzk@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	tiwai@suse.com,
-	zhangyi@everest-semi.com
-Subject: RE: [PATCH 2/7] ASoC: codecs: ES8389: Fix the issue about mclk_src
-Date: Wed, 10 Jun 2026 18:06:37 +0800
-Message-Id: <20260610100637.25568-1-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260609-visionary-truthful-viper-ceff75@quoll>
-References: <20260609-visionary-truthful-viper-ceff75@quoll>
+	s=arc-20240116; t=1781086313; c=relaxed/simple;
+	bh=TGppL9hDgW5mi5BZI2txZVKn4B8Bduk6VVtIfcRfxcU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WsPG+8R9kLW05mK98qCdZ9VfO1T5r5chJyHocPW7I08G0QJcqpVwmIktFGdvurissZPveO+2eGKm9WNzs+4xjPJ3QUCizzmhDUK6Pf2iUKGMg9tFRhRZWhV1mb4SCRDoYT9AA238mMyMjIYBwhQXYqTPPDgn1ja8OAKMmMb0nhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mThRrkQu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mThRrkQu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1611F00893;
+	Wed, 10 Jun 2026 10:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781086312;
+	bh=w2L/TnCaqDd4KnTRIQ+TaHnC3QgS/VxXV74wjJWXoG4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mThRrkQusiGr8imwkIt5HOS7tZlAK8UwMj6FPIg9iAPFP3GvN1zrRtUbLN/07uPKo
+	 KFScJG5xbtLlguGnyc7HGTvMXwNRu54MlEe8cCOVkV6BeaOP+Hu49Dhlku0k1hbE/t
+	 X8IxNyArUuf6I8IE8OmVUlI3pYh142nnxX7dfSCBFGxSaeclD7bwt3M2ZSLjSJK2yf
+	 wE/noCbSn109cGucbeMzbCuWObtn2bjiHHWfWqo3O6HDhCx/jAwBsLqnQhya5m1Oeh
+	 m6kUSl6w1JsIAVMH56Rva12S08hcJwd2e3omZrFSKxyThxaLU0+7MJRJVlF6sn9mgO
+	 XcLE+IHndrALg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: dmaengine: Add support for
+ ATCDMAC300 DMA engine
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "CL Wang" <cl634@andestech.com>
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, vkoul@kernel.org
+In-Reply-To: <20260610095724.1980622-2-cl634@andestech.com>
+References: <20260610095724.1980622-2-cl634@andestech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 10:11:50 +0000
+Message-Id: <20260610101151.AA1611F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> > Fix the issue with incorrect modifications to mclk_src
-> 
-> What issue? Your commit msgs are really poor - explain nothing. You just
-> duplicated subject... and anything can be a fix.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The schema uses `additionalProperties: false` instead of `unevaluat=
+edProperties: false` while referencing a common subsystem schema.
+--
 
-I'm sorry I didn't explain that clearly.
-When the system needs to be configured to use the MCLK from the SCLK pin,
-the old code still sets the relevant registers to use the MCLK from the MCLK pin.
-I will include a more detailed description in future versions.
+commit 0c4fc28dab967baedae4dfdcb32dfa0eb77d45a5
+Author: CL Wang <cl634@andestech.com>
 
-> >  	struct es8389_private *es8389 = snd_soc_component_get_drvdata(component);
-> >  
-> > -	ret = device_property_read_u8(component->dev, "everest,mclk-src", &es8389->mclk_src);
-> 
-> Why are you changing implemented ABI?
+dt-bindings: dmaengine: Add support for ATCDMAC300 DMA engine
 
-In the old ABI, `mclk_src` was defined as `u8`, which meant that users could set `mclk_src` to any value in the DTS¡ªsuch as `0x02`,
-but the code wouldn't recognize what that value represented.
-The actual purpose of `mclk_src` is to indicate whether `sclk` should be used as `mclk`.
-So I've changed it to bool.
+This commit documents devicetree bindings for the Andes ATCDMAC300 DMA
+engine, which is embedded in AndesCore-based platforms such as AE350 and
+Qilai.
 
+> diff --git a/Documentation/devicetree/bindings/dma/andestech,ae350-dma.ya=
+ml b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+> new file mode 100644
+> index 0000000000000..f040a2bf7d4b9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+
+[ ... ]
+
+> +allOf:
+> +  - $ref: dma-controller.yaml#
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - "#dma-cells"
+> +
+> +additionalProperties: false
+
+[Severity: Low]
+Does using additionalProperties: false here prevent the use of common DMA
+properties defined in dma-controller.yaml (like dma-channels or
+dma-requests)?=20
+
+Since this binding includes another schema under allOf, should it use
+unevaluatedProperties: false instead, so that dt-validate correctly
+evaluates and permits those inherited properties?
+
+> +
+> +examples:
+> +  - |
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610095724.1980=
+622-1-cl634@andestech.com?part=3D1
