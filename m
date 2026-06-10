@@ -1,325 +1,90 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15A03F410C
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B64661AA7A6;
+	Wed, 10 Jun 2026 11:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781090955; cv=none; b=ohDv6/w4DsIyCMww4l/BM5xs3YI8/5RUKznW29xclluXdxs1Gyk8LB/nQuwOsTKdpQYPDUe7Ca04sEMhoex7J22c5JQqiIz1VGW0JvVQWwuFTsaqr4+OGzk6GLoMsfsmeTBryAeczI3mIIRE5aaGVFL4W+mAk3045oD4E1jfIbU=
+	t=1781091280; cv=none; b=uPfIWKLCeqzRhOU20XNYObBNDNHN3bsu+GN5mnpwmgPNiHMOZbdU36lI1UeKFlnMYs+0Ffku2oW8A2I9sEIx+Z8QgPch6yj7bxOQeCZBl34Jqsfm1sDFQ6DK8R0UtfLQ5EXWZs5Gz/qOWYA3yCd7HBK1RoGzIQkT4qaEiIkBaq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781090955; c=relaxed/simple;
-	bh=zVc0MC2bXysppqkQRDtDyDZJUBKZd60hfNtOAwtOqxc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fQbD9+cwQVnX4rRuQIPyBgIYwMBHTUE5ip51bRtFY4lqmmLVqibsn2gprK2xGqWNF8ROZXldkgwk6XCMyQF91/5Tc/BwBnAwan1vK+toM1Rb6iMWmR6K90ppZOWWw4VntZhQVcUsDQbDdg20t8gQhEuG6ZuWezaRk+clpWmNNBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pnNMFeAf; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781091280; c=relaxed/simple;
+	bh=40c2YVnWm1F+cAxSwyKNuTTq6vJFSXb55IXlrE1pdAw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h4bCZcoJYu1sqWg/HyMhfEAuWhzjb850JM7XhxEQXQvhzZGbDksWNuE/L34/R4PWGtvo56OhnIBDuBWhFPbOK55qCbpcc5bbJSXC1dI/HLO7/US0BgaDwIPqXwbWyrEItxo9wP+dAPatFivUQKxFFwqA9PJpyzC2FpGb1oNs/bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KtTEi6m+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pnNMFeAf"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36b9b15af73so6149337a91.0
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:29:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781090953; x=1781695753; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=M48g1rCWscfQlBlf5X+TWnsGxGVdXiBVb0x/zKO5E7k=;
-        b=pnNMFeAf6kGFAPJGq+GrBJwJrISWhZ1bDNfVfK8yEegUEe5rIP+8SpLTbSt/2mSH0Q
-         QOBZ2uZZJqsWEXgZGVNL/KwaAFGkiJmKuAQHVZ8qoVkPwExMeHwalWL1tofRcytI3cAt
-         IpvtMyUYyXjz2ElaN2oZT8Q6T3eicwpE/iwnyeA7w1CPLRLZc8Sb0c+VH0YoK0/cksu4
-         ExAuK7RnuhFbjKL8JDodBE/UYuE7gIq/zWKSJaA9ss6c18AOdydVtiiszN3UslXshVxx
-         nkbBVSumETDW2AvGxQyexPSXDDLOFbgjmKQ+dMotM5JmBoCWzIhUsfO26JwcxqjGcZwq
-         v/rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781090953; x=1781695753;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=M48g1rCWscfQlBlf5X+TWnsGxGVdXiBVb0x/zKO5E7k=;
-        b=hHwUNAnNp3cC7ENLAH+mD2g12amJneWX1//mYnHhJRkpOFHNkq/E10fsbr2jqRtoZ4
-         q8b6qM+t6HHWaoLdpHOsyPb916ut8WL6AGzpjV+0oLVeRuL6eCS3HwhvVdbG4mIeOUzZ
-         7lZ4T6uWC/JcSadlA1L/ADLhpretU2XpHbx6RO5dJiJ8Mig1Y9fb/QiMUqxphpZoBp5R
-         O4Eby2Hgy2cm3NzTPkHJQ3UG6i3jtfwOIMXrO18ILAa4BUeKjCvNLsdIFasVHGEAdOWX
-         ukU/QKTDwJqAb6U75FYht29phl2HzgxjNPv9hRjnRh+yvx8yURec+UynwWjY8RwGR7Ri
-         zMsQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Wdjl6adNjpUfGJaWxnIkLqP9OvtS1JH6i8kE4q5jMvWTneF3lyydxiZM5q4AhwIP+GtF+2D5WVmjP@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlMH5vxfcva+TF5vfG/mJQ698rByM4tCJh4SxgMPTikf+mkH/U
-	PFs0S5Arp8ZZtMaxitEokLQEjP7I9jkuMYSsLGWxli18bANE2L3uT1hf
-X-Gm-Gg: Acq92OGBAEsOlJowtASBPDQW+PT/3hkB6p6qoeQevITaZNf3prKKsjqjWppzPJeGDH1
-	SYfUIas1YNHF7RfozsLBSamqzagqSkDIJL2YTqAjWt02Ti5Ba6vUA3sHnsX5ZmD5uhKRcc6QWEK
-	mXZ00V8Yy78gJbNWKP9/MaKOTVuEKSgigLITobLbNM/wOMiTj/mP35I3dHBECU2OywL8ShVPQLy
-	vora9l+z05qc4V4ho7FMLrBsgJmTgBkSpWf9zuEjxhiCtcZWN6k5GzRwhJ4oQqkFOQl5yP9NHdy
-	LuNCxZNQ1kpBGo2aNtzz/yCU1qhDa1pNt00xI8ud+c98coaIrAT2Cc2EUF5LVo92oofoC131Q0m
-	wsYPNRADQNzuou6m5taZYO3pDEURAOUdd4a2vjNsd4lkfT+lqNizluzQC5zAU/0ux02MkSCM7Rd
-	+1ajJ+dnJXZRPNEqtllTKcOIgx9R62yYFeS7xdu5DbhDPl0tZpBWpYqw==
-X-Received: by 2002:a17:90b:48ca:b0:36b:71e6:3de8 with SMTP id 98e67ed59e1d1-370f122d6a6mr26906196a91.24.1781090953042;
-        Wed, 10 Jun 2026 04:29:13 -0700 (PDT)
-Received: from hc-pb-01.realtek.com ([123.51.179.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-376460ee14fsm2027651a91.1.2026.06.10.04.29.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:29:12 -0700 (PDT)
-From: Jason Li <jason.lee651024@gmail.com>
-X-Google-Original-From: Jason Li <jason.li@cortina-access.com>
-To: jason.li@cortina-access.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: cortina-access: Add DTS for CA8289 SoC and Venus board
-Date: Wed, 10 Jun 2026 19:28:21 +0800
-Message-Id: <20260610112821.3030099-5-jason.li@cortina-access.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260610112821.3030099-1-jason.li@cortina-access.com>
-References: <20260610112821.3030099-1-jason.li@cortina-access.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KtTEi6m+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FA1225E3;
+	Wed, 10 Jun 2026 04:34:33 -0700 (PDT)
+Received: from localhost (e132581.arm.com [10.1.196.87])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8DE353FD88;
+	Wed, 10 Jun 2026 04:34:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781091278; bh=40c2YVnWm1F+cAxSwyKNuTTq6vJFSXb55IXlrE1pdAw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KtTEi6m+08ddxbKLii1Ua3yPwS9YUpWZA4ZClyLyzCSmSc2lKpoHXuJbRdFupRRk6
+	 gHP9Ib3MxB3GJf5NYFeMsiNOlWRr7I6b9xl2BcV/COMJO+4CMJUxzQUGs6gwRf6GW7
+	 4YxXoWE+VXsCZ9ndGWlSI/vmAXZXSN5yzyLeElgM=
+Date: Wed, 10 Jun 2026 12:34:35 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Gary Yang <gary.yang@cixtech.com>
+Cc: Yunseong Kim <yunseong.kim@est.tech>,
+	Peter Chen <peter.chen@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	Guomin Chen <Guomin.Chen@cixtech.com>,
+	Hans Zhang <hans.zhang@cixtech.com>,
+	Joakim Zhang <joakim.zhang@cixtech.com>,
+	Jerry Zhu <jerry.zhu@cixtech.com>,
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Yunseong Kim <ysk@kzalloc.com>,
+	Yunseong Kim <yunseong.kim@ericsson.com>
+Subject: Re: [Question] Enabling CoreSight TRBE in firmware on CIX Orion O6
+Message-ID: <20260610113435.GV101133@e132581.arm.com>
+References: <5d1bdf6d-ed77-4de9-b788-cf04a98d054d@est.tech>
+ <aikVYZDMYuPscIKR@gary-System-Product-Name>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aikVYZDMYuPscIKR@gary-System-Product-Name>
 
-Add SoC DTSI for the Cortina-Access CA8289 (Venus) and a board DTS for
-the Venus engineering board. The description covers the minimum set of
-hardware nodes needed to boot a kernel with an INITRD rootfs: CPUs,
-GIC, timer, PSCI, fixed clock and UART.
+On Wed, Jun 10, 2026 at 03:42:25PM +0800, Gary Yang wrote:
 
-Signed-off-by: Jason Li <jason.li@cortina-access.com>
-Assisted-by: Claude:claude-opus-4-8
----
- MAINTAINERS                                   |   1 +
- arch/arm64/Kconfig.platforms                  |  10 ++
- arch/arm64/boot/dts/Makefile                  |   1 +
- arch/arm64/boot/dts/cortina-access/Makefile   |   2 +
- .../dts/cortina-access/ca8289-engboard.dts    |  31 +++++
- .../boot/dts/cortina-access/ca8289-soc.dtsi   | 118 ++++++++++++++++++
- 6 files changed, 163 insertions(+)
- create mode 100644 arch/arm64/boot/dts/cortina-access/Makefile
- create mode 100644 arch/arm64/boot/dts/cortina-access/ca8289-engboard.dts
- create mode 100644 arch/arm64/boot/dts/cortina-access/ca8289-soc.dtsi
+[...]
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 515d89d96472..ebfdb9c267cc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2826,6 +2826,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
- F:	Documentation/devicetree/bindings/arm/cortina-access.yaml
- F:	Documentation/devicetree/bindings/serial/cortina-access,serial.yaml
-+F:	arch/arm64/boot/dts/cortina-access/
- 
- ARM/CORTINA SYSTEMS GEMINI ARM ARCHITECTURE
- M:	Hans Ulli Kroll <ulli.kroll@googlemail.com>
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index dc995a732117..ba6dda0660c3 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -134,6 +134,16 @@ config ARCH_CIX
- 	  This enables support for the Cixtech SoC family,
- 	  like P1(sky1).
- 
-+config ARCH_CORTINA_ACCESS
-+	bool "Cortina-Access SoC Family"
-+	select GPIOLIB
-+	select PINCTRL
-+	help
-+	  This enables support for Cortina-Access SoCs.  The family
-+	  includes ARMv8-based devices targeting networking and access
-+	  applications.
-+	  If you have a Cortina-Access board, say Y here.
-+
- config ARCH_EXYNOS
- 	bool "Samsung Exynos SoC family"
- 	select COMMON_CLK_SAMSUNG
-diff --git a/arch/arm64/boot/dts/Makefile b/arch/arm64/boot/dts/Makefile
-index 98ec8f1b76e4..a599f525fb9a 100644
---- a/arch/arm64/boot/dts/Makefile
-+++ b/arch/arm64/boot/dts/Makefile
-@@ -16,6 +16,7 @@ subdir-y += broadcom
- subdir-y += bst
- subdir-y += cavium
- subdir-y += cix
-+subdir-y += cortina-access
- subdir-y += exynos
- subdir-y += freescale
- subdir-y += hisilicon
-diff --git a/arch/arm64/boot/dts/cortina-access/Makefile b/arch/arm64/boot/dts/cortina-access/Makefile
-new file mode 100644
-index 000000000000..554893f381fe
---- /dev/null
-+++ b/arch/arm64/boot/dts/cortina-access/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_CORTINA_ACCESS) += ca8289-engboard.dtb
-diff --git a/arch/arm64/boot/dts/cortina-access/ca8289-engboard.dts b/arch/arm64/boot/dts/cortina-access/ca8289-engboard.dts
-new file mode 100644
-index 000000000000..c8289a0f8269
---- /dev/null
-+++ b/arch/arm64/boot/dts/cortina-access/ca8289-engboard.dts
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * dts file for Cortina Access Venus Engineering Board
-+ *
-+ * Copyright (C) 2026, Cortina Access Inc.
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "ca8289-soc.dtsi"
-+
-+/ {
-+	model = "Cortina Access Venus Engineering Board";
-+	compatible = "cortina-access,ca8289-engboard";
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {	/* 512MB */
-+		device_type = "memory";
-+		reg = <0x00000000 0x00000000 0x0 0x20000000>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/cortina-access/ca8289-soc.dtsi b/arch/arm64/boot/dts/cortina-access/ca8289-soc.dtsi
-new file mode 100644
-index 000000000000..8e7ffcf4ccab
---- /dev/null
-+++ b/arch/arm64/boot/dts/cortina-access/ca8289-soc.dtsi
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * dts file for Cortina Access CA8289 SoC
-+ *
-+ * Copyright (C) 2026, Cortina Access Inc.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/ {
-+	cpus {
-+		#address-cells = <2>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			compatible = "arm,cortex-a55", "arm,armv8";
-+			device_type = "cpu";
-+			reg = <0x0 0x0>;
-+			enable-method = "psci";
-+		};
-+		cpu1: cpu@100 {
-+			compatible = "arm,cortex-a55", "arm,armv8";
-+			device_type = "cpu";
-+			reg = <0x0 0x100>;
-+			enable-method = "psci";
-+		};
-+		cpu2: cpu@200 {
-+			compatible = "arm,cortex-a55", "arm,armv8";
-+			device_type = "cpu";
-+			reg = <0x0 0x200>;
-+			enable-method = "psci";
-+		};
-+		cpu3: cpu@300 {
-+			compatible = "arm,cortex-a55", "arm,armv8";
-+			device_type = "cpu";
-+			reg = <0x0 0x300>;
-+			enable-method = "psci";
-+		};
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+				core1 {
-+					cpu = <&cpu1>;
-+				};
-+				core2 {
-+					cpu = <&cpu2>;
-+				};
-+				core3 {
-+					cpu = <&cpu3>;
-+				};
-+			};
-+		};
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-0.2";
-+		method = "smc";
-+	};
-+
-+	gic: interrupt-controller@4f8000000 {
-+		compatible = "arm,gic-v3";
-+		#interrupt-cells = <3>;
-+		interrupt-controller;
-+		#redistributor-regions = <1>;
-+		reg = <0x00000004 0xF8000000 0 0x10000>,
-+		      <0x00000004 0xF8040000 0 0x80000>;
-+	};
-+
-+	apb_pclk: apb-pclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <125000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		/* TrustZone reserved region; must not be mapped by the kernel */
-+		tz_pool: tz-buffer@f000000 {
-+			reg = <0x0 0x0F000000 0x0 0x1000000>;
-+			no-map;
-+		};
-+	};
-+
-+	/* See Documentation/devicetree/bindings/timer/arm,arch_timer.yaml */
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
-+		clock-frequency = <25000000>;
-+	};
-+
-+	uart0: serial@f4329188 {
-+		device_type = "serial";
-+		compatible = "cortina-access,serial";
-+		reg = <0x00000000 0xf4329188 0x0 0x30>;
-+		clocks = <&apb_pclk>;
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
-+	uart1: serial@f43291b8 {
-+		device_type = "serial";
-+		compatible = "cortina-access,serial";
-+		reg = <0x00000000 0xf43291b8 0x0 0x30>;
-+		clocks = <&apb_pclk>;
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+};
--- 
-2.39.5
+> >   (2) Or expose the full CoreSight topology in ACPI:
+> >      - Add ARMHC97C (TMC-ETR) device with MMIO base address
+> >      - Add ARMHC502 (funnel) devices if applicable
+> >      - Reference: ARM DEN0067 (CoreSight Architecture ACPI bindings)
 
+The CPUs on O6 support ETE + TRBE, you don't need to use ETR or funnel
+modules.
+
+> The firmware (TF-A) for the Radxa O6 is provided and maintained by Radxa. We 
+> will forward your request to the Radxa firmware team and ask them to evaluate 
+> enabling TRBE access from non-secure EL1/EL2 (i.e. setting MDCR_EL3.NSTBE = 1 
+> in TF-A), as you suggested.
+
+The issue is caused by ACPI: the APIC table does not contain a TRBE
+interrupt, and the SSDT is missing ETE nodes (ETE node should be
+present for each CPU):
+
+  Device (CPU0)
+  {
+    ...
+
+    Device ( ETE0 ) {
+        Name (_UID, Zero)
+        Name (_HID , "ARMHC500")
+    }
+  }
+
+Thanks,
+Leo
