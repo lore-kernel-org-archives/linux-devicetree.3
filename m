@@ -1,98 +1,97 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224CC19AD5C
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 02:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEBA3FBA7
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 02:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781057410; cv=none; b=ewPOJYHKT+82v1J1qNvS6L63dGeEZYPnhYyqhNjg9MOKegbvVaDxGv+jSBoFYfp7D2mn7lt5pVVAaO3JNlTvxQVEnAaMv6Ldxl/vxRyHxqx/0B8cABVI6fC4HL76NxRmOS+4pilzxCo+ei0O+l0fqzNIT4vASzR9wd5hL8+/3G0=
+	t=1781057666; cv=none; b=WT0umgL8ji1yfkWHXtBkf7nM3tGZWB0EQPXtt58iI4ParoApf3QUf3ASRXoHAu5VRcuHZDUgO67WjY0/UfPnU4M0Lp+KqlBU1VlC6exywrK2Zk8EKgGJ3dil5R0D4CWEJzr5xOXgtyzkQsXY9CJhEKAXh3XmPrzTD02SsHU9k9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781057410; c=relaxed/simple;
-	bh=AzcM/BsSmQHmhGhlf6vveW8ZgrRqVlXrTeTt+urqMw8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NH+GYD6+cVIxOwTr+WNkPR25HZCK3uWyJVs+YfctduWaS5wqLI6V1MASrOBVI7pVGPvqVZ7WvRm2IecrE1TSv2GjfxX8xxF5buZOl2lmsj0m2tAt/NhYI4Hjl+mxLgAdbJ/F9bn5SrhjoBiiuXs/FyNB3XPsixCkHimoPAqefas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qLS2GcwT; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781057666; c=relaxed/simple;
+	bh=oEUF13re047Hnc0C7a0zhG/Dw9pyrW9E+7/wCn4fdhA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dgNekDq1UU/Firg+E2HwnWf8ZH9zCStLEe/QMpgyQAZIVOqL4GBPIjBPqEVX/wY0mvsQOEX1C7ZVRfNQ1CdBzhM2fsq17mp/m/UnJ9bAcGv2HRGVfPJ5aRP469qZMqWHQ5WdwS/ItkPlggkQEi3kIHyIjskT/amHOlLtT/tWQqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TeNULo+x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qLS2GcwT"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-36d6bb38b44so4082446a91.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 19:10:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781057408; x=1781662208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AzcM/BsSmQHmhGhlf6vveW8ZgrRqVlXrTeTt+urqMw8=;
-        b=qLS2GcwTXgYRSwe0AYGj9Uv1/xknWFxLiFRTtTC3rS4Ok+1m6O+eCXQRkbZvGyQzRy
-         17PNFund+5H5q18jnQscMtnlRCPWTIAJTKZnMo2DhIbDo2WYd6QGIHklfUPoNU/qFIDk
-         UDKrGQSg1WzOWx62NJN/PaFiqNyiiTXcRw+se5iQ25oZyfF1SxjXj5J06AmUA9n0GBIW
-         BbtFFYZeD5N1/1wXrB9gU+59RmvGd/oFUEJ6GMRf3REOJjLCGLOAutq37kO0gG275UoW
-         L7tSfFrcfOVan3a0uZIVut+8/kkI2XBWcUTXDErSAO9yIo3n183TYmg6mWcwJCSpjc/a
-         Cwyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781057408; x=1781662208;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=AzcM/BsSmQHmhGhlf6vveW8ZgrRqVlXrTeTt+urqMw8=;
-        b=X6aZyy4YqM+KgYoV3dGcUfjLXKre+qNrgxHmitYiJib+hV4n2fnkWkMPrkqZwWpXaC
-         BrkPd6RDmemZAhVXCJRHKfYB0B59+ASuEEcJC9G7qtMj1cBlCeip2pU64DM1LAJv4fGT
-         g3V01PhnWpvUwekh3Yp3bNr/eHGPupUXgf8ELtQm+dJ/5NACHfe358nBVQXm4cT6bIbg
-         wlclQr7ZgUn7PM2RhKQzSIvZLFL6wPkqyOOibSePbT/s9a2tC/hI7QbIaLHTcpkILIdW
-         62140cPL0v9DfCbobI1DnNbJcByV65CltN1bdGLLEFPQnL/MILTo8flWWW5J24x/HxmA
-         1Clg==
-X-Forwarded-Encrypted: i=1; AFNElJ822RnfeboaIsvfJ/S1PqDjJw0i1yANxlxFO9hOUs4Py7x6fS9pNMfrGcxpJtJ7emTX2Kl2RwfisgV3@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnlCOx9mOqrQKEXmZzJt5uOPCEDWI44GYEs5gWJ5htz8h7Xh9v
-	xjl5EXEjIH3AraADW9zB6xgyhp6cR7uhvIHK14B27U2q1YQJmfWwJubb
-X-Gm-Gg: Acq92OF81odfG5UR7nZwZPhbN0jXuOQrVK/KnsLwO1nqRYBynMtnYdjFQ6ZRV7ZH2Ut
-	01BjT/ktQI5BDtcHrVIHoKMLR4fsMxCjYVzisFf9PlQs8pbYeJu6pgt4yF3VDvd+i16UzKqPbl/
-	i7eoSaGSB2YYRop6C9/fdBMJWJQ7yV/o1Ythur3kL+jA6g3zEJu0uIVkiEEeHOE63aB7ShMdGBW
-	g0YfOqRdLOdQymfYuR7+Ybb4uN5oFq7OydwkDrYNxKep2n4XQ77tIOlqm4L8uRhsQ5MLEdrEQF8
-	U1A2kq7lXWSc+OjygYJ9zHTi6/5zx8c/f3XyiuvaRn99yCJQ40RJ5lEKOk0fHAqtGzguGisuiaX
-	557TSDUWgpuh7CmF2KmWx6hsmgBVQo+Lm4K+1XHumd8TnRTcJ51bwiuB5fTEiKL0+LOm30dUUnZ
-	NgVhEI9OtOjZXktv8/07tw3jKhFcRMosDNDBiN/hbyMH9zgCqaYWRyZ1V5kFKZ6GjwyI56R2/kg
-	k3S56ydnITcnCIdZ2gxcBMlWOzFvsD7lPCCThTyUdMObA==
-X-Received: by 2002:a17:90b:57ef:b0:366:52fe:e749 with SMTP id 98e67ed59e1d1-370ee82fe8dmr24233876a91.5.1781057408350;
-        Tue, 09 Jun 2026 19:10:08 -0700 (PDT)
-Received: from lcwang-Precision-3630-Tower.. (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-376245bb9f0sm831289a91.9.2026.06.09.19.10.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 19:10:07 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-To: tzimmermann@suse.de
-Cc: dri-devel@lists.freedesktop.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-kernel@vger.kernel.org,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	devicetree@vger.kernel.org,
-	onlywig@gmail.com,
-	zaq14760@gmail.com
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
-Date: Wed, 10 Jun 2026 10:10:03 +0800
-Message-Id: <20260610021003.2112300-1-zaq14760@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
-References: <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TeNULo+x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A41A1F00893;
+	Wed, 10 Jun 2026 02:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781057665;
+	bh=e1TQyt/cxynxFiOwDWVMcLV7a/sWHQ3O8A/mq9bYLxw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TeNULo+xg3SRlp7Sv1GsN0ykyElfgkfyPpwPwHYq5chzSosmiJ3sjg7GAYFxSgWyQ
+	 0JvP7oBJkwDEhSDaFHtdAVwnhEH4KNLimMixVEYCUx14SU69SZWPeFV1eVsOpgmq7M
+	 SqTY5bzNaf1Cw8EgiWDvFx6x9qW4BWQQvJ7zyh/pUqv3HZXls+4gffgf85MVYDyi2a
+	 DitZBPmsbXxDwPpEqWko4eO3hb5ieH17PRtaY3FMyI36k67K2soBK0+YjQMNJ9aOuL
+	 xHXPXoCvDc7KhtyW1NNQHvlTfanJxLt1aE1WrQr6OaZROiswcQpRYID1oeNvTyodOe
+	 ylOAsOr4ULy/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] iio: pressure: ms5637: Add variant specific
+ temperature compensation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis Adamian" <adamianlouis@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260610020458.104818-3-adamianlouis@gmail.com>
+References: <20260610020458.104818-3-adamianlouis@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 02:14:25 +0000
+Message-Id: <20260610021425.8A41A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Explicit cast to 64-bit in modulo operation causes build failure on=
+ 32-bit architectures.
+--
 
-A gentle ping for this driver patch.
+commit 5b2cfee8f94f3621de42a9388dafb2dae478fda9
+Author: Louis Adamian <adamianlouis@gmail.com>
 
-The DT binding patch has already received Conor's Acked-by, and I would
-appreciate any further comments on the driver patch.
+iio: pressure: ms5637: Add variant specific temperature compensation
 
-Thanks,
-LiangCheng
+This commit adds variant-specific temperature compensation and pressure
+scaling for ms5637, ms5803, and ms5837 sensors. It extracts the compensation
+constants into a per-device structure to handle differences across the
+sensor variants.
+
+> diff --git a/drivers/iio/pressure/ms5637.c b/drivers/iio/pressure/ms5637.c
+> index 03945a4fc7188..36bda9694b4c4 100644
+> --- a/drivers/iio/pressure/ms5637.c
+> +++ b/drivers/iio/pressure/ms5637.c
+[ ... ]
+> @@ -73,8 +74,10 @@ static int ms5637_read_raw(struct iio_dev *indio_dev,
+> =20
+>  			return IIO_VAL_INT;
+>  		case IIO_PRESSURE:	/* in kPa */
+> -			*val =3D pressure / 1000;
+> -			*val2 =3D (pressure % 1000) * 1000;
+> +			*val =3D pressure / dev_data->comp_consts->press_scale;
+> +			*val2 =3D (pressure %
+> +				 (s64)dev_data->comp_consts->press_scale) *
+> +				(1000000 / dev_data->comp_consts->press_scale);
+
+[Severity: Low]
+Does casting this modulo divisor to a 64-bit integer cause a build failure
+on 32-bit architectures?
+
+Since pressure is an unsigned int and press_scale is a u32, the s64 cast
+promotes the modulo operation to 64-bit. On 32-bit platforms, this typically
+results in an undefined reference to __moddi3 because the kernel does not
+link libgcc.
+
+Since the modulo result easily fits within a 32-bit integer, can this s64
+cast be removed to prevent breaking 32-bit compile targets?
+
+> =20
+>  			return IIO_VAL_INT_PLUS_MICRO;
+>  		default:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610020458.1048=
+18-1-adamianlouis@gmail.com?part=3D2
