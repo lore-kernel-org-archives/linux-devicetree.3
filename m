@@ -1,228 +1,108 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3783FB043;
-	Wed, 10 Jun 2026 10:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278683B4E8A;
+	Wed, 10 Jun 2026 10:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781087173; cv=none; b=nmDhTyZcqP0Zt5tZbWxSnQxwgm4MpGHo80JaID10a1HxCUOQnmjfzx6qB/c/aKk20yMINMLKT8fdKBdjoXR5qsxq15Va1NFVxJhwM3wkfwKl040+F+5Y9pZiXpOa+0JBknMbVIwzsetOt66CDCrtwdSJIFlNyaPPs5/l/EUqwNw=
+	t=1781087265; cv=none; b=kQRTYDqRh1IRnek6AZR7lHyF5EMzHLzo60lv2xUQ9q0D31+OtxIVmufMzZXObw98cvjiBuJymvDr6b1P1SY9zvpt6Z0E7lmfR6vPJneYDLHJbsm1rdRvJXlFMoLnLnWlI8mM87GmN4dX4wS/UykBzaTfoRF9dnoC3YYWeGYyoqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781087173; c=relaxed/simple;
-	bh=OgahX+7YQf85Qe4ZYIlVNVTPoySmTmrc1KnxDVSe2uk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sEdXRSKCnJDyTFuWXUNYegA3iJ14ImNLoEChLN2Qv/dfBK2l1c/7JTpKkYEVWKU19ZXu9LRkz4CgPNiCtLivoTTbf+Lki4+1kF1/IeaggqiTgNgPgShxaQqBEZ42zKgLOvcvY8fAg3+pzhxntEkpHv5fF1otZHsUhHUinbBph0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=i1h3ilk/; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NJ5VKD47; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1781087265; c=relaxed/simple;
+	bh=gqSUj7BP8+cxE/tJWPUQ9h5a/jPgRCqt4stgniSIf98=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QzWf7sk2AYDSuBUVtvh+IJ4X3nhi+J8oxKLKfhmQo62TuY1V5QaJZ9XLyITehEMAytVAYYLk8Mqsc/BF1J5jmaLruwOzmtd9CdSrrNen8NtuCbHJYWWYpS90iWEeJTKAdgk4iRyH6czYmWzwMXRsPBjctwL9M6gfV0cjBECVRr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGu3zhh2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="i1h3ilk/";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NJ5VKD47"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B5EEB7A0140;
-	Wed, 10 Jun 2026 06:26:10 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Wed, 10 Jun 2026 06:26:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781087170;
-	 x=1781173570; bh=MwtKRUQ7qdsV8XHZpJ+jLjWEXvJUP0kybJpn6BpJy54=; b=
-	i1h3ilk/DEpB3/lYJHN8O7cNbCUbHmOQd4kisF5fW12G5fp8DoLvZV+3tQTklvWH
-	F9AThEP+r8RfMaHczoCObFEZbRtxyvGXVV2EtUSo1ytECHtf9wXfAfm5+jhumW8v
-	4j43z0LQdXti6rXg7tUuv5/TBaJjAgAr5Y66zWaIdCGFNr4Bogcl37fVxs3sEhcR
-	RlKMxO0PaejrzDapJh12B3QdN3Jr67oytlbgnge2iHIjDWMTdtr/jmf4BXm/rFnZ
-	4PexwYom/0Z7+1bNsCqtieL5YxDe8ThcGTEbe7AUy3pvEUPdrjfpLIHxWWT2Y+Jl
-	WhPxsSKSoD1cTgcRxat+mA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781087170; x=
-	1781173570; bh=MwtKRUQ7qdsV8XHZpJ+jLjWEXvJUP0kybJpn6BpJy54=; b=N
-	J5VKD47GqdTuZEss6XBRT8AQ+dS0FQYoaDUnK+QCVOkT2d3xE2OYO9dWBNF9hHtU
-	OU0T7t/nbbxr0ameecceH5KUD4Zp7VLtoOrxVx7+6jKBdKZl0pYeytVjXC2Av8D0
-	YfezzbfXceYS8plo6ne+JK3PhJ2oATqxYuiDWXxsi5Oaertkdycbnl7fLjUPJOB5
-	6b2jLvXEn+UmG7ZkTqfWfjy0H3m+AZhUI0M82IyX2D1cUQv53EzvX4fvlR4fxMpN
-	Pkb3Oia2fpc1QoahRAQBoOyjivS9YgSYuWmgxzKvZWl9VzRYEhiDNu+k6/Ld2/+P
-	yt6iHeIWPlTpzHYpR6rlQ==
-X-ME-Sender: <xms:wjspainzCPua9Aksi1N3xbgdmwZ5nE8J1n9180epMFZU_Q6Pw2nu-w>
-    <xme:wjspain6OkKwTGBO2DS0WBN5jRnxTAFO_kBX2De5D-ROWUC1zSNEHk-DeLBHrHHqX
-    JicHR4azFQ6R5snU_e1IkqTK3X341WkJOIUcooF_IqTPRtn0worwlE>
-X-ME-Received: <xmr:wjspavV4SKY4wO3a8DIRB97q3BkFLLm2m4teyZa9Y1HCwooFhfwoEx7VVngLRfxUbCLIzHNurlUp2Hwvg0n7vRmrVp2Lv9qOvI3U>
-X-ME-Proxy-Cause: dmFkZTFouP8mx/3m1LoYRi/YJF1vDxoEpaw9FPXvV3pzOZG51jUj8Q8zt3vQAQAauQOCAP
-    rniaAc1Y4+fivdpO+5npUIl8fZbPIWyv8SUHXINswMuMmEA1ura4CgEJh9+uJoLsy8q7Pk
-    GfpxBZ8wExnOdnZzpTh8c06piIhjpzd+vyw5M6SJos/sOEfPIoOrZ5FcRdFJRYL2GGAvmJ
-    fGkFFiiOjYzVRYUqzK4twmnjM4gLLXMhf8hbzacO7641k9pIridEgKh90g04ktpjqR4784
-    M9CNdla9OCxjj/4r8IYss0MNMRcx8jqCDejKNYx4ETNCLwOoUpo69OLc/ppmJR0cI6HpGs
-    QSC0Y7yhu7k49uje4ZUdy62yO+/3dRHdH3dkaPON5pMxueojUe/DrcYVByhlef/U4RDSSE
-    U/3srhBJkHREOuwrySK8VUggcL2VZIPOnE/f6nvLivnFph2VtxtNWHP2lv9uP9gZS2fI4G
-    p1xpznMM6mXjha+gOjn739VvkReWx7vQITQy78Y8VUB123asmVUZsmO8o2KFZzTWR1fdFy
-    A2yGsWcJGfhxxIFtENIInxFwMlbTlAV0H6I8xjZzvM+j0xykMWunJ9ecvFcA5N/ywo11O+
-    jKXmyA1K4ZeVKJCh/QZ+eOOUtuhPEZuq9B577CdPDPDwU8FHJ7p9XahqD6Uw
-X-ME-Proxy: <xmx:wjspao81fkN1JVhNzh-qnF0imPUeIK_ewcvJsr6TQv1fXB9K9_mogg>
-    <xmx:wjspakoHZh5U6xW65sCD9PrVt862gL7UP8ZeSl3ozCfN_HiasXKxVw>
-    <xmx:wjspailNLIRcRswULZ-8xEQ1NTRJsF9fgmo2tWhLvPQ72GAx8BgHiQ>
-    <xmx:wjspaga6odn_43s6HSiGg1a1vurX2XJZtmfg0SVK1mXD2MAt1bFPSg>
-    <xmx:wjspasI1jxDAUXpcFr0HaOHI7U7ubExpL4r0vVSpG-O_oDpx9MDzyU0X>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 10 Jun 2026 06:26:09 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Paul Barker <paul@pbarker.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Sergei Shtylyov <sergei.shtylyov@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [net-next 9/9] net: ethernet: ravb: Add gPTP support for Gen4
-Date: Wed, 10 Jun 2026 12:24:32 +0200
-Message-ID: <20260610102432.3538432-10-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGu3zhh2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7B71F00893;
+	Wed, 10 Jun 2026 10:27:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781087263;
+	bh=1JDn7CbxH4NkFQTX1xElzM+90pkVv3Q0ucAERFYyNNw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oGu3zhh2OG3sW8byiL4NJ6CQlf9ldAiGwdIcV924G4xpkRt3RwAbsxkuLh7dbwXjO
+	 pBYpbn4rov/isiedEoYakwt/4vHmoj964vLfod9I6M/bic0ewaKckXmS4272RylyZk
+	 Vb1KlUxXLLFYTwSimZ+0TyAK/L2vrxTt0mH+OQPBkpCbl+vGoxJtEHAbiTaIjZM4qY
+	 p2eKDLOTAELQnxC88iPxjB7DXkoPSw4QYQ/y42Axo4u+jGmcVX3QJo940Lai4ihZTw
+	 SGsq/DUdDCYm5WqP6C+8Oa3uJjjiXer8tAdHf6IQ4omjf1lNUnnMDFlesSnRbEN1tE
+	 pOBI8IuAHjVmg==
+Date: Wed, 10 Jun 2026 12:27:36 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>, 
+	"manivannan.sadhasivam@oss.qualcomm.com" <manivannan.sadhasivam@oss.qualcomm.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"robh@kernel.org" <robh@kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>
+Subject: Re: [PATCH 1/2] dt-bindings: connector: pcie-m2-e: Add 3.3Vaux
+ supply support
+Message-ID: <ihrmgh6etb2n5zqjbrykfjjms4a6zgpzwjgrd3rvy24jufbss7@f4nfxrp7jksy>
+References: <20260609033840.2006078-2-sherry.sun@oss.nxp.com>
+ <20260609034408.BC69D1F00893@smtp.kernel.org>
+ <20260609-unique-magnificent-eel-eb623f@quoll>
+ <VI0PR04MB121140EFB8E614326D799503A921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
+ <mvxoynvocxcalxcwogbiovg5yurjczxqfu2fqkji33bunmlplz@zxqjsdjts65j>
+ <VI0PR04MB12114DBDD65F25FB615EA8967921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <VI0PR04MB12114DBDD65F25FB615EA8967921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-While driver advertise gPTP support on Gen4 platforms it is in fact
-completely broken. On R-Car Gen4 devices the RAVB module have no
-internal gPTP clock as generations before it. Instead it utilizes a
-system wide gPTP clock.
+On Wed, Jun 10, 2026 at 10:13:00AM +0000, Sherry Sun wrote:
+> > On Wed, Jun 10, 2026 at 08:40:54AM +0000, Sherry Sun wrote:
+> > > > On Tue, Jun 09, 2026 at 03:44:08AM +0000, sashiko-bot@kernel.org wrote:
+> > > > > Thank you for your contribution! Sashiko AI review found 1
+> > > > > potential
+> > > > issue(s) to consider:
+> > > > > - [Medium] The `vpcie3v3aux-supply` property describes a
+> > > > > non-existent
+> > > > hardware feature on the M.2 Key E connector to work around a
+> > > > software policy.
+> > > >
+> > > > Feels valid. Describe which pin on M2 connector are you representing.
+> > > >
+> > >
+> > > Refer to PCI Express M.2 Specification r5.1 sec3.1.1 Power Sources and
+> > > Grounds.
+> > >
+> > > PCI Express M.2 Socket 1 utilizes a 3.3 V power source. The voltage
+> > > source, 3.3 V, is expected to be available during the system’s
+> > > stand-by/suspend state to support wake event processing on the
+> > > communications card.
+> > >
+> > > But the current vpcie3v3-supply may be gated off during system suspend.
+> > > So I  tried to add vpcie3v3aux-supply to let this 3.3 V power source
+> > > always on for PCIe M.2 Key E connector. That means vpcie3v3aux-supply
+> > > and vpcie3v3-supply actually refer to the same 3.3 V power source.
+> > >
+> > > @Mani, do you think this is reasonable? Or do you have any other
+> > > better solutions? Thanks!
+> > >
+> > 
+> > There is no Vaux defined in the M.2 spec. So you cannot define that supply in
+> > the binding. You can define the custom Vaux supply as a fixed regulator in DT
+> > and mark it always on so that it is keeps supplying 3.3v to the card.
+> > 
+> 
+> Hi Mani, thanks for the suggestion, but adding an always on regulator may
+> cause board power waste, current solution ensures the 3.3v regulator is
+> only enabled when M.2 connector needs to work .
+> 
 
-This change utilizes the refactoring of the RAVB gPTP code to add
-support for a system wide clock and stops the Gen4 devices trying to use
-the non-existing internal gPTP clock.
+What do you mean by 'need to work'? For getting the M.2 card to work, you
+already have 3.3v supply. If you want the board to be always ON, then you need
+to supply 3.3Vaux, which should be always ON too.
 
-To remain backward compatible the device tree property needed
-(renesas,gptp) to get hold of the system gPTP clock is optional. If the
-property is not present, or not enabled, the RAVB driver will no longer
-advertise gPTP support to user-space.
+But who is turning off vpcie3v3-supply? M.2 connector driver or the platform?
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
- drivers/net/ethernet/renesas/ravb.h      |  3 ++
- drivers/net/ethernet/renesas/ravb_main.c | 55 +++++++++++++++++++++++-
- 2 files changed, 57 insertions(+), 1 deletion(-)
+- Mani
 
-diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-index caad95a9c3c5..acdfb56bb135 100644
---- a/drivers/net/ethernet/renesas/ravb.h
-+++ b/drivers/net/ethernet/renesas/ravb.h
-@@ -249,6 +249,8 @@ enum APSR_BIT {
- 	APSR_RDM	= 0x00002000,
- 	APSR_TDM	= 0x00004000,
- 	APSR_MIISELECT	= 0x01000000,	/* R-Car V4M only */
-+	APSR_GPTPTIMER_SOURCE = BIT(25), /* Gen4 */
-+	APSR_GPTPCLOCK	= BIT(29),	/* Gen4 */
- };
- 
- /* RCR */
-@@ -1132,6 +1134,7 @@ struct ravb_private {
- 	struct list_head ts_skb_list;
- 	u32 ts_skb_tag;
- 	struct ravb_ptp ptp;
-+	struct device_node *of_gptp;	/* Reference to external gPTP clock, if any. */
- 	spinlock_t lock;		/* Register access lock */
- 	u32 cur_rx[NUM_RX_QUEUE];	/* Consumer ring indices */
- 	u32 dirty_rx[NUM_RX_QUEUE];	/* Producer ring indices */
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 4b0d06fb5f4c..985b2cb93617 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2749,6 +2749,58 @@ static const struct ravb_hw_info ravb_gen3_hw_info = {
- 	.magic_pkt = 1,
- };
- 
-+static int ravb_gen4_ptp_probe(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	priv->of_gptp = of_parse_phandle(priv->pdev->dev.of_node, "renesas,gptp", 0);
-+	if (!priv->of_gptp)
-+		return 0;
-+
-+	if (!of_device_is_available(priv->of_gptp)) {
-+		of_node_put(priv->of_gptp);
-+		priv->of_gptp = NULL;
-+		return 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ravb_gen4_ptp_clock_index(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	/* If no clock, mimic ptp_clock_index_by_of_node() fail and return -1 */
-+	if (!priv->of_gptp)
-+		return -1;
-+
-+	return ptp_clock_index_by_of_node(priv->of_gptp);
-+}
-+
-+static int ravb_gen4_ptp_set_config_mode(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+	int ret;
-+
-+	/* Enable gPTP Clock and Select High-speed peripheral bus clock. */
-+	ret = ravb_set_opmode(ndev, CCC_OPC_CONFIG | CCC_GAC | CCC_CSEL_HPB);
-+	if (ret)
-+		return ret;
-+
-+	/* Set PTP source to GPTP module, only option on Gen4. */
-+	if (priv->of_gptp)
-+		ravb_modify(ndev, APSR, APSR_GPTPTIMER_SOURCE | APSR_GPTPCLOCK,
-+			    APSR_GPTPTIMER_SOURCE | APSR_GPTPCLOCK);
-+
-+	return 0;
-+}
-+
-+static const struct ravb_gptp_info ravb_gen4_ptp_info = {
-+	.probe = ravb_gen4_ptp_probe,
-+	.clock_index = ravb_gen4_ptp_clock_index,
-+	.set_config_mode = ravb_gen4_ptp_set_config_mode,
-+};
-+
- static const struct ravb_hw_info ravb_gen4_hw_info = {
- 	.receive = ravb_rx_rcar,
- 	.set_rate = ravb_set_rate_rcar,
-@@ -2771,7 +2823,7 @@ static const struct ravb_hw_info ravb_gen4_hw_info = {
- 	.tx_counters = 1,
- 	.multi_irqs = 1,
- 	.irq_en_dis = 1,
--	.ptp = &ravb_gen3_ptp_info,
-+	.ptp = &ravb_gen4_ptp_info,
- 	.nc_queues = 1,
- 	.magic_pkt = 1,
- };
-@@ -3183,6 +3235,7 @@ static void ravb_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- 	clk_unprepare(priv->refclk);
-+	of_node_put(priv->of_gptp);
- 	reset_control_assert(priv->rstc);
- 	free_netdev(ndev);
- 	platform_set_drvdata(pdev, NULL);
 -- 
-2.54.0
-
+மணிவண்ணன் சதாசிவம்
