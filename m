@@ -1,104 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB3532B9A1;
-	Wed, 10 Jun 2026 14:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F0233F36B;
+	Wed, 10 Jun 2026 14:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781102012; cv=none; b=H7pUzxfy6GqNbeb2NMQTwF4GXm3UXHdh4w7ouqHyzH/04yl7yhY3gwqgDAPGmcQm3/Xe2zumV3U81qwK1kUDArdzRm00tp7C4yYhhqubiRvRtayfYlyKOEfzq2YnOkfXUkBdTveXmJhzJKz29uBkKX0gbxL4nPWdIWvejNe/cAQ=
+	t=1781102033; cv=none; b=WluwUUCK4wzcQB1NSBFmjHtzNvqR3teVFgjjYKuoSInbuXWgKJ3k0fcmEUkRg2TvlINcG/ZpFuJFtvcZhtkdNQgPkQHOqsnyvFDFUj6v2USVedUkuUYPhYE1KoxhbtXvrzcCdGMNbS+cRjItLF6FmtOvs80gIB+1tajfo7W4uaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781102012; c=relaxed/simple;
-	bh=nbSpTI+NEem/B8QHO4h+hdqb3YdpkqnxeBRh6LClmIU=;
+	s=arc-20240116; t=1781102033; c=relaxed/simple;
+	bh=i7RQ4Gw4M6Wu82GkUyGskRHB6aI+zOw86mvfJkP5tWE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EK2ZQLvO1pDyFRmQwnL2irxlrqw1EOIlZwC0WEbCxJ9Hxj5VGJ1+cfARtcBqdv7rVFq5L0coOvSLL0yob8ZTYa80oCfjYYea4KX8it1WWlH7DPOK+UVe9JWV/PcJneDbCIlrdaL4pXxmu4OjD4Ej2ltNwppd6DZB0WPCd5uxb0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X5WLT4kU; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nGKQYE6TGlS52dx/2b4yQsD7d5NJtNu3JASbwjDKB2n3Ih0YKDE9zsY9G2RH3G22rPDVQ0dbwIz6zvmUq/K3k6I51croJy9Ywv1UlxADmFmRihh4JbIGCJFpHTb+cx9JSNc7tsSFtUieIMmI0FNnxYx3v3FZACf9PIqFl/pLR9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=KlRY/4B+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X5WLT4kU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781102012; x=1812638012;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nbSpTI+NEem/B8QHO4h+hdqb3YdpkqnxeBRh6LClmIU=;
-  b=X5WLT4kUMOo1wWzZcKmVy5Jj4rem6G8ot/7Fb6V13KL0tbAPQCmubGPK
-   MvqEuCySm6kN72zsExWep/qCjT710X9cOKizj6MCKY1tWC0qjK++BIDAY
-   f6r2s3/xiUl8uFsIAmsKPJ/bIHhf9bpfS90wUYwckNEUn1p2Cad0fX038
-   TjMBzWPH70dmF2fNEt/wrGHFiDwbQo6YQNRJISXNOz660vxTloBcUFtMN
-   au7KRHESa+dc6FuxSkyICUx8hMWidh226XrDx336b2G7rXreX2cdw7HtS
-   OYmkKFo7CgHCiGrOzitY1FV3O/7FU8WlP0S8krPxO8KQjW8YozMxHdgzU
-   g==;
-X-CSE-ConnectionGUID: +EG2NPQCQ6il0PeDC6kYaw==
-X-CSE-MsgGUID: 9k/lZGs4QNCp99jLIWae2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81742953"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="81742953"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 07:33:29 -0700
-X-CSE-ConnectionGUID: H8GN1TzCTVSABF/VcR68RA==
-X-CSE-MsgGUID: 4X+ZiRtBQHWMqwM+SsXzmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="284277249"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.38])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 07:33:23 -0700
-Date: Wed, 10 Jun 2026 17:33:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KlRY/4B+"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 814619A0;
+	Wed, 10 Jun 2026 16:33:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781101998;
+	bh=i7RQ4Gw4M6Wu82GkUyGskRHB6aI+zOw86mvfJkP5tWE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KlRY/4B+3NDJ4asXb99Q1Ud+fRwK17IFnHqQmA0jexOuAeiGG4p4PTYB2NKgysO+5
+	 mZzCri0SH+8nej6YuJb+NunyYI9WJ1PeVb1mc7xTELGrqV27NR6CZbg+I9UEGjXQua
+	 2406mb7uDMeq/zOhnS76Fxs215a5VWVKrPcsjbuY=
+Date: Wed, 10 Jun 2026 17:33:46 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH v2 10/16] power: sequencing: pcie-m2: support matching on
- remote "port" node
-Message-ID: <ail1sAxgh5Xtkj2y@ashevche-desk.local>
-References: <20260610084053.2059858-1-wenst@chromium.org>
- <20260610084053.2059858-11-wenst@chromium.org>
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 1/3] media: dt-bindings: media: renesas,fcp: Document
+ RZ/T2H and RZ/N2H SoCs
+Message-ID: <20260610143346.GA1335994@killaraus.ideasonboard.com>
+References: <20260430100929.1088281-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260430100929.1088281-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260610084053.2059858-11-wenst@chromium.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260430100929.1088281-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Wed, Jun 10, 2026 at 04:40:44PM +0800, Chen-Yu Tsai wrote:
-> A USB hub can have multiple ports, and this driver needs to
-> differentiate which port is being matched to. The USB hub driver now
-> associates the "port" node with the usb_port device, so here we can
-> use the remote "port" node to check for a match. Then fall back to
-> the remote device node for the other connection types.
+Hi Prabhakar,
 
-...
+Thank you for the patch.
 
-> +		if (remote_port && remote_port == dev_of_node(dev))
-> +			return PWRSEQ_MATCH_OK;
->  		if (remote && (remote == dev_of_node(dev)))
->  			return PWRSEQ_MATCH_OK;
+On Thu, Apr 30, 2026 at 11:09:27AM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Document the FCPVD blocks present on the RZ/T2H and RZ/N2H SoCs.
+> 
+> The FCPVD implementation on these SoCs is identical to that found on the
+> RZ/G2L family.
+> 
+> Update the schema to disallow the "resets" property for these SoCs,
+> reflecting the absence of a reset control for the FCPVD instance.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-We have device_match_of_node() IIRC the name of that API.
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
+> ---
+>  .../devicetree/bindings/media/renesas,fcp.yaml | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/renesas,fcp.yaml b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
+> index 5e11ae0ee456..cbb16a7a5481 100644
+> --- a/Documentation/devicetree/bindings/media/renesas,fcp.yaml
+> +++ b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
+> @@ -34,6 +34,8 @@ properties:
+>                - renesas,r9a09g047-fcpvd # RZ/G3E
+>                - renesas,r9a09g056-fcpvd # RZ/V2N
+>                - renesas,r9a09g057-fcpvd # RZ/V2H(P)
+> +              - renesas,r9a09g077-fcpvd # RZ/T2H
+> +              - renesas,r9a09g087-fcpvd # RZ/N2H
+>            - const: renesas,fcpv         # Generic FCP for VSP fallback
+>  
+>    reg:
+> @@ -66,7 +68,6 @@ required:
+>    - reg
+>    - clocks
+>    - power-domains
+> -  - resets
+>  
+>  additionalProperties: false
+>  
+> @@ -83,6 +84,8 @@ allOf:
+>                - renesas,r9a09g047-fcpvd
+>                - renesas,r9a09g056-fcpvd
+>                - renesas,r9a09g057-fcpvd
+> +              - renesas,r9a09g077-fcpvd
+> +              - renesas,r9a09g087-fcpvd
+>      then:
+>        properties:
+>          clocks:
+> @@ -94,6 +97,19 @@ allOf:
+>          clocks:
+>            maxItems: 1
+>          clock-names: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - renesas,r9a09g077-fcpvd
+> +              - renesas,r9a09g087-fcpvd
+> +    then:
+> +      properties:
+> +        resets: false
+> +    else:
+> +      required:
+> +        - resets
+>  
+>  examples:
+>    # R8A7795 (R-Car H3) FCP for VSP-D1
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Regards,
 
-
+Laurent Pinchart
