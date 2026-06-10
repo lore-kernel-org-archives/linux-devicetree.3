@@ -1,114 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8191F4C8E
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 21:57:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781128663; cv=none; b=jEy4tcqqDOlLjDBdhrLqLOMj6uGOcangXiByoGK4y/e7tgPCNeBZDxv+Dl+RynDiq01WbuzielcEI+8IcIXJZWwnhcFHrZZG5KFm+1BRj9ZH4bx9xVgm0ICVECCbPSawZhDQneoSbjnvbL0UBX/K3ddj/MjLbXsO8YMVym0eTBU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781128663; c=relaxed/simple;
-	bh=E+Zp7aKAkCaPAlEiWIYLdJ/S3c8DkcPjJtmk3WQDEjI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nyC6MwhQqD/xtD95/tZvhbPZxPQ0AhwLUtax1lHNrWnfa0esfxn3/5dAM4eiuumhv1LjcS68HijZE60Sd9Bx3i6DlV+kU7Deef644uwZY27Rl1lEJmv97df2VnAvLsMloP+lDYgI94xMVim3VlpKg19XRA8IZpitdJNPS9whioY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YDY3X5Xr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949873451CC
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781130286; cv=pass; b=azyevFGzOBAvwYxjZYVs1+xzfJXusKfBMFWVoWTUqhTW+d3AQVLfZoaBgDK75XHAoLPilHdK8kpAWl3FJ/D8tSFoQ9IuikmOogcoclV1kJbwZDmgtx0MSVrnkah6RBsg2mAe0mGgAP9xa2ohIqapQAC8HZZm0an+Je6whvyfzuU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781130286; c=relaxed/simple;
+	bh=GFOUhfT9LXVoIexQueNFZG57jnrIS8Fo28w9PXTMHIY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dY2s2XRuHAJ5v/mASBvuIXgVEsPg8Rmk9Py1H55lxkgx7PmQJqIXlbXWL9W5z9WjJlG7pCpx9jR7cPcxL6PK2a0P4VyuFPrA9vLwYa6bbtUAVYuQDrr9y6Po8lPkwmO43/GeW6WT3VGZl6+MvXbx+XkhvCmWGybIbvqT5PyxGFc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ebQpNY7j; arc=pass smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YDY3X5Xr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431DE1F00893;
-	Wed, 10 Jun 2026 21:57:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781128662;
-	bh=l+CfX1Yyg08CnY7Cv8qYsE/Y2gCVBBgo3v0K2jRuL1U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YDY3X5Xrq4L2W6AxyTkE9+hQ/gIc8cJv8P0uARszYzj+rkvoWH4tPaH/uicvGSvXT
-	 NoFwn9roXV+wdgD4ueCbDJdlha2Jz8JliXqb3zI0G525saWZmy5LeAN5L/kBEcSnQI
-	 uRVbjk7uMUmCuw0nzjp65pl3X1cyctB37IZnHLplvMzj/cPZBREE2KFN1zMQGA1GJa
-	 ycw+nm/F8PwRYjD5XCzQHN6+ybw2GlAq0hq9xHet6vS00zTviH96kVI5dq3zYoZ7ZJ
-	 RmF7oB+QwM1KDdgkdKoA4lRhhsJeQgdAXOAPMGji+43qqUwCxJoSF9/MvwwTx8tQmO
-	 DdzQxJkEweDLw==
-From: sashiko-bot@kernel.org
-Subject: Re: [net-next 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260609215711.2960150-4-niklas.soderlund+renesas@ragnatech.se>
-References: <20260609215711.2960150-4-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 21:57:40 +0000
-Message-Id: <20260610215741.431DE1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ebQpNY7j"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66077c46c5cso6649355d50.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:24:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781130284; cv=none;
+        d=google.com; s=arc-20240605;
+        b=BH9cTYMQMggFAJECpnp5KWFrjq4g4Hmq2uTkV6995uo2bd5RaFI/XdVt1NoN27qa4R
+         vAJaNJiIRTAhZOY7DxXIDVtmIUziZqDeRJzIyxkB1nW+pFSwiijaAqW6tBo5g0rMxFsP
+         V+h5B5NodSGEr5wQRZIkFcwXdX0m5aQTrZg+PYDp7GRgoTX0bpqsItLGbPxs7KjSHxIl
+         MDJTW57VsDe5DHjmbQ4marA5CCqfx3wIM3Ki6or3Mev4+cayCOpFJ8x7dG0fDTEAw8PK
+         xApkuiHw0hnL9XD00rLOqDMmDyG6NJ9Cx9D6FK2jQjRJ7h6XhaYi4F78XEhf5/kQJXap
+         NoGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GFOUhfT9LXVoIexQueNFZG57jnrIS8Fo28w9PXTMHIY=;
+        fh=AjNtGDQzgJ75dDyDjrGc1ZhJWgELnBILXT1k0QNzgqE=;
+        b=E+CSp1rHsCJRdKusCJhtDtgjDW9DBtdhw+95HDRpXoEMc3fKlu45sP9/paH27wwxBT
+         6RyeWWdqoyBo30VoVYSgnVzJBC6PU2JiJGgZM8I8tpJWgzoVgmuWNQ2x89P5o6p+N+Zk
+         N+0bZPWP5KHSIl5ewStZC+2eTDUdifIZTlmJzqE3WbXiDwZvI9A3wfVVyjSaZSWjWXtF
+         lSeUQxFeCN5+0CAKDXymKA4Klhk5zUKl7woqUbhP47SopRp2hwaFGNEALC+gvMeCVYA0
+         dAM06KesnKnO9FOzK3UHHuouT/XGw8jBM1vSRMYksoXXhwWtDPXWQy5m+RG8nFbzxtu3
+         XmNQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781130284; x=1781735084; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GFOUhfT9LXVoIexQueNFZG57jnrIS8Fo28w9PXTMHIY=;
+        b=ebQpNY7jzgduruCcPrOg8SdioIRDchbS5MOIeeJAQAgUQqLmudo/mcmyUGy5yZdZl9
+         TlvNeCZ5x9391NzFa4fCCcQc0sdtH4lpqgpeb0XY0sCCcx+t4UiKtrjmpNYWq0zcGA45
+         GILznmttyS5fhgpCzOQdHvanYRY7OQxWJ64hRIy9CVwWqIKd0/MkD7HxO2rjOQ2up7pm
+         DTDdvBspKzkl/IL7vSs2dTqweowhzcLHdijSWCiKJZzt6+Ub/WKTxdipRxaVY0fo7Bm7
+         xcZlRNxMCgXKIZcDbe3/GvIP/fp0L1h8tX11s99Id/5ThvL4sdYQT1QzVEx1TNELHT/5
+         /DzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781130284; x=1781735084;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GFOUhfT9LXVoIexQueNFZG57jnrIS8Fo28w9PXTMHIY=;
+        b=GtCBPGTQl9jP2dN2ncRXYeHgGJHaspZ5ZRknULMqDQ+fv7Ryjk8hkILO9wpyXELcai
+         P2ujO8rENPb+WmRokvYcev3j4zNa8zp7BClvGVYwGFFCDGrn1wbIvuvr1lFzr0CWyegG
+         gYhcdKpv6ZbwAd91+YX+O1UTXbpoWUfgTIuwuRf+vZLl+HIr/MzFwLGzT58qQ7EhyO0c
+         /KJP1CnE/UQW0ufasWj2K0cTIesnD85+uwHdq+bFd8LkkcryDlmv6lTPmrR+TrKwsoAu
+         cN1f7OBaNwmA99WEpViijdkCBaQuW7obdLIEXSLkfbOixqjR8rflXfYYcwBDhNctOufG
+         E5ww==
+X-Forwarded-Encrypted: i=1; AFNElJ+yJzuriE53HWguXDirkTi03HAFz/COdj0FuJbQ6SuNdCdGK1BHiFWp4jNjHIn22fed5mY01JLPEUkZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWDPQf6PTg5IEYBXcNdoKK7qU+O21BqxF3jtOtxn0gttxlGT4d
+	9GbdQ2WyOrsCzrWCplvD5CtFsHVhI+BWJxWLXHewC2auNrCGXeo50jKs/QJG6vgNBA2xT+oS7Vk
+	ZJorCyDdvjt09LQVONNv4/M+JEdBXwBc=
+X-Gm-Gg: Acq92OFN+ArV9LN96JLEeh7+gtkkONlUNSHFfeXj+UrEi/vRuS28gP+0uRsIx7Ovp7U
+	DWF9b5XdWaDLwolmaChWP4EQrr2tiGp/0B2/ThcpuJIRLwQdOFX7+JvBhG5adJPyVBHTDDzVaA2
+	CY62++0TvBRE2Aw8gSDFVL39SZUXd4lvFUKslig+H4QNUERnOWm5GHZMgEL5ZcBX+5QsUhB8s+9
+	aNR1YOSN9MiOTN6graNlt/cEk0HQCzY1da/Tb71fSdaNl2IQTPfrQSQj+Fg0dKhH5kDC6EOxJ7l
+	/tXNajbbpC/BeFQ=
+X-Received: by 2002:a05:690e:1908:b0:660:e9fe:48aa with SMTP id
+ 956f58d0204a3-66106e0dfb7mr24207826d50.15.1781130284449; Wed, 10 Jun 2026
+ 15:24:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260609160326.45123-1-m32285159@gmail.com> <20260609160326.45123-3-m32285159@gmail.com>
+ <20260610-pastoral-dark-ostrich-5ca3f6@quoll>
+In-Reply-To: <20260610-pastoral-dark-ostrich-5ca3f6@quoll>
+From: Maxwell Doose <m32285159@gmail.com>
+Date: Wed, 10 Jun 2026 17:24:33 -0500
+X-Gm-Features: AVVi8Ce9qyMQsXZ2KyCqcF6JmCNIPGuspde0vMgV_QNyC6PkUH0aSbo0weFE1ts
+Message-ID: <CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	Tomasz Duszynski <tduszyns@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Device Tree Resource Conflict due to overlapping memory, clock, an=
-d reset regions between `tsn0` and `gptp`.
---
+On Wed, Jun 10, 2026 at 4:09=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Tue, Jun 09, 2026 at 11:03:26AM -0500, Maxwell Doose wrote:
+> > Tomasz's entry is no longer valid, as he is not active anymore. Add
+>
+> Why is not longer valid? I see activity in Feb...
+>
 
-commit 225abba0fdcd1f7e4ebd535f168ba1447d871a7e
-Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
-
-arm64: dts: renesas: r8a779g0: Add gPTP node
-
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
-
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
-dts/renesas/r8a779g0.dtsi
-> index 82a7278836e57..758c4ca0ae5f2 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> @@ -603,6 +603,15 @@ tsn0: ethernet@e6460000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		gptp: gptp@e6449000 {
-> +			compatible =3D "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-> +			reg =3D <0 0xe6449000 0 0x500>;
-> +			clocks =3D <&cpg CPG_MOD 2723>;
-> +			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
-> +			resets =3D <&cpg 2723>;
-
-[Severity: High]
-Will this introduce a regression by duplicating resources already claimed by
-the existing tsn0 node?
-
-Looking at the tsn0 node earlier in this file:
-
-		tsn0: ethernet@e6460000 {
-			compatible =3D "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
-			reg =3D <0 0xe6460000 0 0x7000>,
-			      <0 0xe6449000 0 0x500>;
-			reg-names =3D "tsnes", "gptp";
-			interrupts =3D <GIC_SPI 429 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 430 IRQ_TYPE_LEVEL_HIGH>;
-			interrupt-names =3D "tx", "rx";
-			clocks =3D <&cpg CPG_MOD 2723>;
-			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
-			resets =3D <&cpg 2723>;
-			status =3D "disabled";
-		};
-
-It appears tsn0 already claims the 0xe6449000 memory region, CPG_MOD 2723 c=
-lock,
-and reset 2723.
-
-If both drivers are enabled, will the second driver to probe fail when
-requesting these overlapping resources, such as receiving -EBUSY from
-devm_ioremap_resource() or request_mem_region()?
-
-Should the overlapping resources be removed from the tsn0 node now that the
-gPTP module is represented as a standalone shared node?
-
-> +			status =3D "disabled";
-> +		};
-> +
->  		i2c0: i2c@e6500000 {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609215711.2960=
-150-4-niklas.soderlund+renesas@ragnatech.se?part=3D1
+Strange. According to git log --author=3D"Tomasz Duszynski" last commit
+I have from him is 2023. We also did have an RFC open for a month on
+linux-iio with Tomasz Cced with no response.
