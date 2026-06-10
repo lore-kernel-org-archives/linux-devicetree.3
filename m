@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7912165EA
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:16:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4B72BF3F3
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781108185; cv=none; b=AmFYR8iyXVJvWpE/I9rBek2u6/nVNqIsgBEZc9S3jlg0SXGdl3meVgElpxsIFXfMSauWlDyiPO/kGT/YUOUBEUYvuPNry2h0vLRGDMNwykFQccCwayZGIZ7C/9L3Kj747TZqvlp2S7HPhoJf3fTGy396NMDFP1K5V3Sj2QgdReo=
+	t=1781108186; cv=none; b=QHVmvZncQTo/4zM6fNzrxzJ3+BtIbjTvQIiC3aM5nBB0nSD7qq/jFayddoL5yvpIFDLQHSZ5zYhJoRS6KZQ+HW3nQONLsVgh5wnLEoQpbHYbsLUzYd+wofVpmKhnkoMPYz4TsoVonDMfC5QGEz34UHfMpWGNVBD5uXG+om4PKpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781108185; c=relaxed/simple;
-	bh=xRIPpx6nShIx73o2uqEnebkeCDZSDHG4CQhdR1uU/xs=;
+	s=arc-20240116; t=1781108186; c=relaxed/simple;
+	bh=abdbajGVyQ8OIVQkWWIu7JgktO3YxlJPyDtsqDtJL1M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XYfSCHMI05ChiYi8w4FGR3IgvjA3k5VI5aNWyO+JJCtIlxmVli/0b8qd1hGsm09aLUTxkTCZTkerZZua61LrlUfmEZC2E2xJ2tRwSq94p4sEqDdT5X05xDwSrHcr9XefBxpEKJXII+YIbHeT20tNzN4Y2YrmOrg2sWbM7AdMTm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bs+EAJiQ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cJUua5DnBIJQl0vfYdrpxMSl/lxfN6MD1GUOJQ1CN+eP17gQTWo6MSY7Z6KYWD+JqDe+/Otop1nBFdlLGf+dhE5FPKT8Zywl+ZJt0Gow2LW5NPivCHU1haMp9oQEKoxheBzohnsxb1QMjLyBAI+GMGeVWuVV/5VO9RXM6Bhijl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYFUpNk0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bs+EAJiQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7008B1F00899;
-	Wed, 10 Jun 2026 16:16:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYFUpNk0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 272F61F00893;
+	Wed, 10 Jun 2026 16:16:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781108184;
-	bh=t+gCVhqiOcvc4WzfHv4gcGjb8YORxpO7RF6jKe3s81E=;
+	s=k20260515; t=1781108185;
+	bh=gaRMkL9YzHGSUJLBB/Fev0REPcwsg3uSIg3Hn4r3rSo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bs+EAJiQfC+Lm20MGiv7G5ChMN4+Koxw65JlSm9xqKFUPu2RfmODL2Zz01EOD1elF
-	 SOkGqLrryNHxygeQNgaaWFiXtsYy2tkGmhTc4s+hOUw4EsEQsbZLYYGr+sFjPrclFG
-	 YZnTSuc0xGoA1PHlPbotmI29qdqFSJ+auz5v8g+tcc8+UBNI2PNU9Ua8Bw4GNN1J6T
-	 oYKsMqAmUUKj+MvglacRiafIJN0+s4EIkaXZv8m6KOIPIf9AcXHGTn2ocRBk36a7/D
-	 TBRR0On+aBUxrCz45ApilrF9hbxE69ibUeNaJs00eVu6gBh1PRuR9biFpWkmoyYbL4
-	 aOEimaou0RLEg==
+	b=UYFUpNk06+fAq1+w8ClpLCbfcUqvscD5muzyDIBpFL3o9qr9QdLgnTD9dU4qZSIHY
+	 HvcYiovgGPByrQaavflujOXwK0tV3g4LMDnV89lSsJUuSxbFLseKto/HdoITCigTCE
+	 ijq2M7SyqUqcYinrB2oqdCFhUC/Hjs7xX4jea5p1ymcIF51Hzaknq/iVRGNQl46Zg4
+	 knd97V8Ie2eKZjufxspD/+Bip9Z+OQZvvSV6lKCwT5pcSnJ29rPo8iaWOhKr40ebwR
+	 sDPDzuqMLTcE3z9SS/MakqW0+ZbDghIYlPnge8NqaqWBB6yJqsN69/HshW3EGuTCKZ
+	 233MXKgTn0ClQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 04/12] net: pcs: implement Firmware node
- support for PCS driver
+Subject: Re: [PATCH net-next v6 03/12] net: phylink: add
+ phylink_release_pcs() to externally release a PCS
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260609151212.29469-5-ansuelsmth@gmail.com>
-References: <20260609151212.29469-5-ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260609151212.29469-4-ansuelsmth@gmail.com>
+References: <20260609151212.29469-4-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Wed, 10 Jun 2026 16:16:24 +0000
-Message-Id: <20260610161624.7008B1F00899@smtp.kernel.org>
+Message-Id: <20260610161625.272F61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,135 +46,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Unprotected list modification and iteration in phylink PCS list ha=
-ndling causes race conditions.
-- [Medium] `fwnode_pcs_get_from_pcsspec()` incorrectly returns `-ENODEV` in=
-stead of `-EPROBE_DEFER` when a provider is not found.
-- [Low] `fwnode_parse_pcsspec()` passes a negative error code as an unsigne=
-d index, masking the original error and causing out-of-bounds lookups.
+- [High] Unsynchronized modification of `pl->pcs_list` and TOCTOU access to=
+ `pl->pcs` in `phylink_release_pcs()` leads to data races, list corruption,=
+ and use-after-free.
+- [High] `phylink_release_pcs()` silently fails to remove the PCS from `pl-=
+>pcs_list` if the interface is stopped, leading to a Use-After-Free.
+- [Medium] Releasing an actively running PCS bypasses `phylink_pcs_disable(=
+)`, leaving the hardware permanently enabled.
 --
 
-commit 436ed2d38da7824de31cb0cb85a006f98cbdeb4b
+commit ef373ddee33a54496ae5ebacb3521d9195428672
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: pcs: implement Firmware node support for PCS driver
+net: phylink: add phylink_release_pcs() to externally release a PCS
 
-This commit implements the foundation for firmware node support in PCS driv=
-ers.
-It introduces a simple provider API where a PCS driver can expose multiple =
+Add phylink_release_pcs() to externally release a PCS from a phylink
+instance. This can be used to handle case when a single PCS needs to be
+removed and the phylink instance needs to be refreshed.
+
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 4d6ffda0cdd61..b45bee9273007 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -923,6 +923,55 @@ static void phylink_resolve_an_pause(struct phylink_=
+link_state *state)
+>  	}
+>  }
+> =20
+> +/**
+> + * phylink_release_pcs - Removes a PCS from the phylink PCS available li=
+st
+> + * @pcs: a pointer to the phylink_pcs struct to be released
+> + *
+> + * This function release a PCS from the phylink PCS available list if
+> + * actually in use. It also refreshes the supported interfaces of the
+> + * phylink instance by copying the supported interfaces from the phylink
+> + * conf and merging the supported interfaces of the remaining available =
 PCS
-instances with a get function. It also adds a generic parsing function for =
-MAC
-drivers to declare PCS in DT or ACPI.
-
-> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
-> new file mode 100644
-> index 0000000000000..72f56f55d198d
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs.c
-
-[ ... ]
-
-> +static int fwnode_parse_pcsspec(const struct fwnode_handle *fwnode, int =
-index,
-> +				const char *name,
-> +				struct fwnode_reference_args *out_args)
+> + * in the list and trigger a resolve.
+> + */
+> +void phylink_release_pcs(struct phylink_pcs *pcs)
 > +{
-> +	int ret;
+> +	struct phylink *pl;
 > +
-> +	if (!fwnode)
-> +		return -ENOENT;
+> +	ASSERT_RTNL();
 > +
-> +	if (name)
-> +		index =3D fwnode_property_match_string(fwnode, "pcs-names",
-> +						     name);
-> +
-> +	ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
-> +						 "#pcs-cells",
-> +						 -1, index, out_args);
-
-[Severity: Low]
-If name is provided but fwnode_property_match_string() fails, it returns a
-negative error code. Are we passing this negative value directly into
-fwnode_property_get_reference_args(), which expects an unsigned int?
-
-This could wrap around to a large positive integer, causing an out-of-bounds
-fetch attempt that internally fails with -ENOENT. The original error code
-would therefore be masked by -ENOENT.
-
-Should this function check if (index < 0) return index; before proceeding?
-
-> +	if (ret || (name && index < 0))
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct phylink_pcs *
-> +fwnode_pcs_get_from_pcsspec(struct fwnode_reference_args *pcsspec)
-> +{
-> +	struct fwnode_pcs_provider *provider;
-> +	struct phylink_pcs *pcs =3D ERR_PTR(-ENODEV);
-
-[Severity: Medium]
-As stated in the kernel doc for fwnode_pcs_get(), it must return
--EPROBE_DEFER if the PCS is not present in the global providers list.
-Is it intentional that fwnode_pcs_get_from_pcsspec() defaults to returning
--ENODEV here when a provider is not found?
-
-This could break the standard kernel probe deferral mechanism for the consu=
-mer
-driver, preventing it from deferring its probe to wait for the PCS driver to
-load if fw_devlink is disabled or bypassed.
-
-> +
-> +	if (!pcsspec)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	mutex_lock(&fwnode_pcs_mutex);
-> +	list_for_each_entry(provider, &fwnode_pcs_providers, link) {
-> +		if (provider->fwnode =3D=3D pcsspec->fwnode) {
-> +			pcs =3D provider->get(pcsspec, provider->data);
-> +			if (!IS_ERR(pcs))
-> +				break;
-> +		}
-> +	}
-> +	mutex_unlock(&fwnode_pcs_mutex);
-> +
-> +	return pcs;
-> +}
-
-Regarding the integration of this feature with the phylink subsystem, is th=
-ere a
-risk of unprotected list modification and iteration causing a race conditio=
-n?
+> +	pl =3D pcs->phylink;
+> +	if (!pl)
+> +		return;
 
 [Severity: High]
-The pl->pcs_list appears to be protected by mismatched locks. In
-phylink_release_pcs() and pcs_provider_notify(), list modifications are
-performed under rtnl_lock() but without holding pl->state_mutex:
+Does this early return cause a use-after-free if the interface is stopped?
 
-drivers/net/phy/phylink.c:phylink_release_pcs() {
-    ...
-    list_del(&pcs->list);
-    ...
-}
+When the interface is brought down, phylink_stop() clears pcs->phylink =3D =
+NULL
+for all available PCS instances, while keeping them linked in pl->pcs_list.
 
-Concurrently, the phylink_resolve() workqueue executes
-phylink_major_config(), which iterates over pl->pcs_list using
-list_for_each_entry() while holding pl->state_mutex but without holding
-rtnl_lock():
+If phylink_release_pcs() is called while the interface is stopped, it encou=
+nters
+a NULL pointer here and returns immediately without executing
+list_del(&pcs->list). The caller likely assumes the PCS was successfully
+detached and frees its memory, leaving a dangling pointer in pl->pcs_list.=
+=20
 
-drivers/net/phy/phylink.c:phylink_major_config() {
-    ...
-    list_for_each_entry(pcs, &pl->pcs_list, list) {
-    ...
-}
+When the interface is later brought up, phylink_start() will iterate over
+pl->pcs_list and dereference the freed memory.
 
-Since list modification and iteration are not synchronized by a common lock,
-could this lead to linked-list corruption, torn reads, and use-after-free
-crashes if the workqueue accesses a PCS that is being removed?
+> +
+> +	list_del(&pcs->list);
+> +	pcs->phylink =3D NULL;
+> +
+> +	/* Check if we are removing the PCS currently
+> +	 * in use by phylink. If this is the case,
+> +	 * force phylink resolve to reconfigure the interface
+> +	 * mode and set the phylink PCS to NULL.
+> +	 */
+> +	if (pl->pcs =3D=3D pcs) {
+
+[Severity: High]
+Can modifying the list and checking pl->pcs outside the state_mutex race wi=
+th
+the workqueue?
+
+While this function enforces the RTNL lock, pl->pcs_list is concurrently
+traversed by phylink_major_config() from the phylink_resolve workqueue, whi=
+ch
+holds only pl->state_mutex. Modifying the list outside of pl->state_mutex c=
+ould
+cause the workqueue to dereference LIST_POISON1.
+
+Additionally, checking if (pl->pcs =3D=3D pcs) before acquiring state_mutex=
+ creates
+a Time-of-Check to Time-of-Use race. A concurrent phylink_resolve could upd=
+ate
+pl->pcs between the lockless check and acquiring state_mutex, causing this =
+code
+to inadvertently clear a newly configured PCS.
+
+> +		mutex_lock(&pl->state_mutex);
+> +
+> +		pl->force_major_config =3D true;
+> +		pl->pcs =3D NULL;
+
+[Severity: Medium]
+If pl->pcs is cleared to NULL here, will the released PCS ever be cleanly
+disabled?
+
+During the subsequent reconfiguration triggered by phylink_run_resolve(),
+phylink_major_config() detects a PCS change and attempts to disable the old=
+ PCS
+by calling phylink_pcs_disable(pl->pcs).=20
+
+However, since pl->pcs was already cleared to NULL here, the
+pcs->ops->pcs_disable() callback will never be invoked for the released PCS,
+leaving it hardware-enabled.
+
+> +
+> +		mutex_unlock(&pl->state_mutex);
+> +	}
+> +
+> +	/* Refresh supported interfaces */
+> +	phy_interface_copy(pl->supported_interfaces,
+> +			   pl->config->supported_interfaces);
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		phy_interface_or(pl->supported_interfaces,
+> +				 pl->supported_interfaces,
+> +				 pcs->supported_interfaces);
+> +
+> +	phylink_run_resolve(pl);
+> +}
+> +EXPORT_SYMBOL_GPL(phylink_release_pcs);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609151212.2946=
-9-1-ansuelsmth@gmail.com?part=3D4
+9-1-ansuelsmth@gmail.com?part=3D3
