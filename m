@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4446A374A0A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443DC3164A1;
 	Wed, 10 Jun 2026 08:22:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079737; cv=none; b=RSdfpNGzaRHJxHri8GmJ+B4DBnoQW771DtGNWjd5aPvoSiHKgQY/1Qohxh9dCwJskXl4vuhFlaIp77aI/o2JnZyqSUbp64zcwjPtMiBPEoxupksxn9KObyDFORPyo9xJlK89kK+2Pe768qsMrbtedzOL/azey4T1EnRm5NvW15Q=
+	t=1781079737; cv=none; b=L0v55bfooioSB3TjK5LgagdUzWZYqvL089r7HjsFiZZ9jDbyJoGjJZc7sG1cCu7b0SguUB+urflQVgKfILh/kFIeKxpn++/dyhq+C9z2LdM6Z5wcmYX5A3Q2QFjgeM0G6GNMkonuFm3zy8H1MAyOomYdX27t9VQ8+T8fsmzoPM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781079737; c=relaxed/simple;
-	bh=vMA/TDrL6pX/37cIVwe+uCWPjNEkgQmBnrmcW+A7gxA=;
+	bh=YSQJCU6UP8xSjWxbVovXreGZS/Xd6/2Gt8PJB5MgUBM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EpiwMz3M7VwKVswM46K7u6iCty+nn6ka8wv0/cO7rFsxFtSm+MzxCRuPVgWIiUkVFtkXFuO03uMNrinsKJ7mJCo5IxzPnTq/FxBChIm9zbkUk3oUb3RuYav0oINSiJ4f9OrMM10KPVYc0U9nvR+EzrYSIBw7IXy73D5LO5bkK6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CrHszgjj; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=j7+/ptuDGGdj4GbEiU2YSx8jc5XDyMT4VDW8fTP11+LhbQ7D0EBmM34pfFvWqZaQM97WnIdI7YhzfweQxQHiYJFz+jQ+Nm02oc/r3chmPvsxAUi9kmO8pxmalV4f5wSDg6euKubOGL6hJhenXfV99dUHEHVCeyWhr2hoV8gi4jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DssbTQ4M; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CrHszgjj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E3F57C2BCB8;
-	Wed, 10 Jun 2026 08:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DssbTQ4M"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 00768C4AF0F;
+	Wed, 10 Jun 2026 08:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1781079737;
-	bh=vMA/TDrL6pX/37cIVwe+uCWPjNEkgQmBnrmcW+A7gxA=;
+	bh=YSQJCU6UP8xSjWxbVovXreGZS/Xd6/2Gt8PJB5MgUBM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CrHszgjjpR0TFZA8WAqzc4kIFSNXpAVQg7ey6eavBL7ls3rRsCWJrldnkNdbAlpuX
-	 834r6mXhxEhXRTM3mYNx7VA2ZtvIXn7qekzFUhrOMGq+FGag5/5LJe+sHxI661i9FS
-	 V9nuFmJ0xpbVLNZAvOtSTEnx2mp3ZnqfAUek4mpaqc1VjEg76vyct8OOe4ZX6fG+HX
-	 DcC5voPkqhLYWyneAlikN1Z6/n6tMUQfcIdULj7J2V3n1i9+2PD8Ytbv1d7zIxU6SY
-	 Sdyw6y2Cnf7U26MbBpCvsSuhbIRQyhxenpaXV0vFkaUj/ls6D3ybI0xZUS2mQERtfI
-	 YIwX5HecKsEcg==
+	b=DssbTQ4MZwLSydMjj4GKgx5FU+ps1NurdtpBZ8tq4k0kiIspg4PmLTAGHfCj213vU
+	 Uwv3fPo1FpsBaNt9ufl94ULfYYKPHw5w6vZVKQMcpYxaux02RuAd+rSUgowdFSjy9P
+	 gpqyGd/b//NZpQArwVxQL5LkwSdPDkp+E5HaNIb/xf8Z0SI2Hse6v+GcmO/iHWZKnL
+	 JoJrWjwHve6KM8WBI8Ww00+rqMHwRjW/7SqGpsQr/LJFEIY4nrBAnVe/cUZ68LCxbB
+	 ipvWP4KmlFVJvn09UsTeEYnDrr/4soCQOSW5+ouoUYCIKzI1e3FqDqkV8f61yQ3yUw
+	 aNaTo/csjZx4g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB82ECD8CB9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECC9BCD98CC;
 	Wed, 10 Jun 2026 08:22:16 +0000 (UTC)
 From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Wed, 10 Jun 2026 10:22:13 +0200
-Subject: [PATCH v8 1/3] dt-bindings: timer: mips,p8700-gcru
+Date: Wed, 10 Jun 2026 10:22:14 +0200
+Subject: [PATCH v8 2/3] riscv: clocksource: Add readq options to
+ clocksource mmio
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-riscv-time-mmio-v8-1-a865206675c6@htecgroup.com>
+Message-Id: <20260610-riscv-time-mmio-v8-2-a865206675c6@htecgroup.com>
 References: <20260610-riscv-time-mmio-v8-0-a865206675c6@htecgroup.com>
 In-Reply-To: <20260610-riscv-time-mmio-v8-0-a865206675c6@htecgroup.com>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>, 
@@ -56,13 +57,13 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-riscv@lists.infradead.org, 
  Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
  Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
- Chao-ying Fu <cfu@mips.com>, Conor Dooley <conor.dooley@microchip.com>
+ Chao-ying Fu <cfu@mips.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781079735; l=1839;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781079735; l=1938;
  i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=qlCmLDBO1Y2Dd5pfYZ/Ggi2QMtMAGxo3h0341eF3VPk=;
- b=OaAWvgTi5s6lRwqlpaZOA9PGdBjUjWweevujHSrREmyAkxHvWtniupncOQZTBjJ9xvZ9yQvXQ
- px6UC26oUVCAkR1X5S3PVorefAf04lMXeb6I819y8dC/sxQiw5sDR+X
+ bh=xJr18GUgwDimiDlbxKI0yWHxvsNJAqXLsf1ztMWXw7U=;
+ b=yv5D2RvaX+sHBRQBuSlIIRHz3jJTMIdXpatDDma79NEGCiv2+aRFC0J0r9pLUfMHguQVbone0
+ c0ySsuGxYzMDzaLESRDP3HwkEDEFXOW+38seVYnhH5YD5/qnmQ3mGGB
 X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
  pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
 X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
@@ -72,60 +73,55 @@ Reply-To: aleksa.paunovic@htecgroup.com
 
 From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-Add dt-bindings for the GCR.U memory mapped timer device for RISC-V
-platforms. The GCR.U memory region contains shadow copies of the RISC-V
-mtime register and the hrtime Global Configuration Register.
+Add read functions for 64-bit register size to the generic
+mmio clocksource, covering both up and down counters.
 
 Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../devicetree/bindings/timer/mips,p8700-gcru.yaml | 38 ++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/clocksource/mmio.c  | 14 ++++++++++++++
+ include/linux/clocksource.h |  4 ++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/timer/mips,p8700-gcru.yaml b/Documentation/devicetree/bindings/timer/mips,p8700-gcru.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..3498255762cce6b3f491292d340d9639bb573e6d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/timer/mips,p8700-gcru.yaml
-@@ -0,0 +1,38 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/timer/mips,p8700-gcru.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/clocksource/mmio.c b/drivers/clocksource/mmio.c
+index 9de75153183124cc8997c6ab61d0c01d9b2637bc..f3b6f7e93ffbf0ed68e56c58c3d9f711d2193caa 100644
+--- a/drivers/clocksource/mmio.c
++++ b/drivers/clocksource/mmio.c
+@@ -17,6 +17,20 @@ static inline struct clocksource_mmio *to_mmio_clksrc(struct clocksource *c)
+ 	return container_of(c, struct clocksource_mmio, clksrc);
+ }
+ 
++#if defined(CONFIG_64BIT) && defined(readq_relaxed)
 +
-+title: GCR.U timer device for the MIPS P8700 platform
++u64 clocksource_mmio_readq_up(struct clocksource *c)
++{
++	return (u64)readq_relaxed(to_mmio_clksrc(c)->reg);
++}
 +
-+maintainers:
-+  - Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
++u64 clocksource_mmio_readq_down(struct clocksource *c)
++{
++	return ~(u64)readq_relaxed(to_mmio_clksrc(c)->reg) & c->mask;
++}
 +
-+description:
-+  The GCR.U memory region contains memory mapped shadow copies of
-+  mtime and hrtime Global Configuration Registers,
-+  which software can choose to make accessible from user mode.
++#endif
 +
-+properties:
-+  compatible:
-+    const: mips,p8700-gcru
-+
-+  reg:
-+    items:
-+      - description: Read-only shadow copy of the RISC-V mtime register.
-+      - description: Read-only shadow copy of the P8700 high resolution timer register.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    timer@1617f000 {
-+        compatible = "mips,p8700-gcru";
-+        reg = <0x1617f050 0x8>,
-+              <0x1617f090 0x8>;
-+    };
+ u64 clocksource_mmio_readl_up(struct clocksource *c)
+ {
+ 	return (u64)readl_relaxed(to_mmio_clksrc(c)->reg);
+diff --git a/include/linux/clocksource.h b/include/linux/clocksource.h
+index 65b7c41471c390463770c2da13694e58e83b84ea..39e0df5a0ab52cbb7016b53a4d7500f2697e2797 100644
+--- a/include/linux/clocksource.h
++++ b/include/linux/clocksource.h
+@@ -276,6 +276,10 @@ static inline void clocksource_arch_init(struct clocksource *cs) { }
+ 
+ extern int timekeeping_notify(struct clocksource *clock);
+ 
++#if defined(CONFIG_64BIT) && defined(readq_relaxed)
++extern u64 clocksource_mmio_readq_up(struct clocksource *c);
++extern u64 clocksource_mmio_readq_down(struct clocksource *c);
++#endif
+ extern u64 clocksource_mmio_readl_up(struct clocksource *);
+ extern u64 clocksource_mmio_readl_down(struct clocksource *);
+ extern u64 clocksource_mmio_readw_up(struct clocksource *);
 
 -- 
 2.43.0
