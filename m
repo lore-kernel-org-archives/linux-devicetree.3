@@ -1,128 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705A6403E90
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 12:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3A93FCB03;
+	Wed, 10 Jun 2026 12:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781094236; cv=none; b=HlsNs/hM0eYL7/iInj9Lg6bmC+AN1XU7MSY0Lou72prra3qoNrlkuyJWBmFI4nBfKhMKmcd4KfqSdpjcIw11zDbqZZw/6ha6Co4mlu0GOT6eO8rRLlwRCEW60Eqt+ULSZ+3W2d8j2/6Sq+BEbbskrWArok5MWrh+aBj32K8k+Uc=
+	t=1781094248; cv=none; b=ZhRb7Sfc7nI5N3CiMErUrJkae0z6/ueuRR1AfTfP/4+VWFrVVZAgwv/5jjmrWHamnQjUrq7XbjQMsO373ruDbk3xZmGVS6IPQQbpI6AWzXTWmP2DBkGCnIJvjxmHi5W2wov9mtnsOKmRGlAX9Yc9xe7W+vICZs7AF2gd3hq78ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781094236; c=relaxed/simple;
-	bh=V0mbJqzXlSCOuNFxLBw9XYjjN8mbOlxqq5szWq3JHrY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JMHxWGQZ1VC8ghFrqo5lfO724qHiXKoKT6u/G1nC6IC4zCIjqwNeBXPGb5HlFzUpUqeL1QkfPJWDxOSjivk0Z80dCkpU5MIM8TmtQD47KLBcx+oz2XZpopilcti4eUV6PhgC/3JUS68QYGkdNsvKloOpuuJQQoovP+ABMB6t+/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dD8p5CJF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781094248; c=relaxed/simple;
+	bh=dcquH8sYftv9fQgc0Gfu8oOPpjnYeC/Vsq9dfFU+ttw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rXf9euIdzwEecfv/z1az6NC7kjHsq7PVT1JmfJOlloXLTyBqNO7ngQjXDG5flMHHpdX/s02poMC1X4IH4iINFte5wA3uLycB3i7OVGXlEp3Pu15wyNC07lQ3ZU3GniN7/bAlWK7MKuZyFbDikMrO67rx9CGPa+G68dkckzsK1j4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2J9xLcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dD8p5CJF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B67E1F00899;
-	Wed, 10 Jun 2026 12:23:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2J9xLcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726541F00893;
+	Wed, 10 Jun 2026 12:24:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781094235;
-	bh=hBsn+lwd9hXDDcrMYvF9WP67yF3fAau7tWvcylFjtbw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dD8p5CJFKTeSgbs+3qP/KJuGixAoUgLAqnZz0WMnca44+Fj/YfX0X6OeRQ4J2p4Cr
-	 Hyy7WJDfDz/4yUB44mCXPdReuUX+1e1aKvfNLTwurCGMb+Xiezvuh/QSttnZRuh+PQ
-	 r3hN2zAkdCZR/gIi9qroYg5rQmNpZaBG8NxEiG4jsN2n9IxFYHiKBY6Rnbfcq6jz8/
-	 ZAHuPfDb1k9FPJbLuQjTt+1q3kCjHE5i1YS5sZv7mespLLcW2XQZ8xRchg+hHFTPRL
-	 e73bLdHbH8jMwFt3DfTV1tHnmhbfcNT8TRLxQnxXOHI/9USXfDxXY1laEyDEs9MprO
-	 NfFWYmQyAMjGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add PCIe PHY and controller
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260610-eliza_dt-v1-1-7bb72b75fc5b@oss.qualcomm.com>
-References: <20260610-eliza_dt-v1-1-7bb72b75fc5b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 12:23:54 +0000
-Message-Id: <20260610122355.1B67E1F00899@smtp.kernel.org>
+	s=k20260515; t=1781094247;
+	bh=mtvcuboUrlI0AQsrEOX/TZHrf9WeGic53kIp1kIHFUU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Q2J9xLcRDeMtBiJAGyoR1JrBp7QriTckIB3WKeluy8JE57zoTOx7aP8ewr25cIyya
+	 bKJfGYxjm1s4oyemTKPAGsAB2X/XkLOOYrKR8v17sr1b+SRPGgmlKebNLhdD77bRKd
+	 Td/G8U31VIMaYO4+ev/toWo4wMzJw1+Os6AgA8+aOl6bmRffuhGOy5kWKxWeHmbiJR
+	 4XX8tvvZP1UPqR9NNIaCZ85bXXxvmFpSBMkH+w9udK9+lMJ7zK/qWmvznpocLr/ZET
+	 LOf2xwlYoBPr64zw6uBHyZDUF8BLZrfVBwatA/+Nj/xmATPC9u80Crwnd0Sb0KgFe3
+	 p9ETl3ONTeGRg==
+Message-ID: <0915cf12-a709-4777-aa5b-76c59d7e0cc4@kernel.org>
+Date: Wed, 10 Jun 2026 13:24:03 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/9] MAINTAINERS: add entry for the Himax HM1092 sensor
+ driver
+To: Ramshouriesh <rshouriesh@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Aleksandrs Vinarskis <alex@vinarskis.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
+ <7J-1gC8dgmINtnoLxjOKRYa-3oonvV1RdoNSv3yCbHn_nmRKnHuQdYoxEu3iNdC7CdylTpM_R3WgXSvtxNQGFg==@protonmail.internalid>
+ <20260610-a14-himax-hm1092-v1-4-0c9907da47ed@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260610-a14-himax-hm1092-v1-4-0c9907da47ed@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing `msi-map` device tree property in PCIe controller nodes.
---
-
-commit 0646a5585317fe9881a2b5cfe976f1ab1485cf3c
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-
-arm64: dts: qcom: eliza: Add PCIe PHY and controller nodes
-
-This commit adds the PCIe controller and PHY nodes for the two PCIe instanc=
-es
-on the Eliza platform, and updates the GCC clock references to use the new
-PHY nodes.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
-om/eliza.dtsi
-> index 4a7a0ac40ce62..c4f0923710bbb 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-[ ... ]
-> @@ -716,6 +716,361 @@ mmss_noc: interconnect@1780000 {
->  			#interconnect-cells =3D <2>;
->  		};
-> =20
-> +		pcie0: pcie@1c00000 {
-> +			device_type =3D "pci";
-> +			compatible =3D "qcom,eliza-pcie", "qcom,pcie-sm8550";
-> +			reg =3D <0 0x01c00000 0 0x3000>,
-[ ... ]
-> +			operating-points-v2 =3D <&pcie0_opp_table>;
+On 10/06/2026 12:09, Ramshouriesh wrote:
+> Add a MAINTAINERS entry covering the Himax HM1092 NIR sensor driver and
+> its DT binding.
+> 
+> Signed-off-by: Ramshouriesh <rshouriesh@gmail.com>
+> ---
+>   MAINTAINERS | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index dadc54fe2bc8..ece71732e6dd 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -11643,6 +11643,14 @@ L:	linux-kernel@vger.kernel.org
+>   S:	Maintained
+>   F:	drivers/misc/hisi_hikey_usb.c
+> 
+> +HIMAX HM1092 SENSOR DRIVER
+> +M:	Ramshouriesh <rshouriesh@gmail.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+> +F:	drivers/media/i2c/hm1092.c
+> +F:	drivers/media/i2c/hm1092_regs.h
 > +
-> +			iommu-map =3D <0 &apps_smmu 0x1480 0x1>,
-> +				    <0x100 &apps_smmu 0x1481 0x1>;
-> +
-> +			interrupt-map =3D <0 0 0 1 &intc 0 0 0 564 IRQ_TYPE_LEVEL_HIGH>,
-> +					<0 0 0 2 &intc 0 0 0 565 IRQ_TYPE_LEVEL_HIGH>,
-> +					<0 0 0 3 &intc 0 0 0 566 IRQ_TYPE_LEVEL_HIGH>,
-> +					<0 0 0 4 &intc 0 0 0 567 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-map-mask =3D <0 0 0 0x7>;
-> +			#interrupt-cells =3D <1>;
-> +
-> +			linux,pci-domain =3D <0>;
+>   HIMAX HX83112B TOUCHSCREEN SUPPORT
+>   M:	Job Noorman <job@noorman.info>
+>   L:	linux-input@vger.kernel.org
+> 
+> --
+> 2.53.0
+> 
 
-[Severity: High]
-Should this node include the msi-map property?
+Splitting this will cause checkpatch grumbles.
 
-Without an msi-map property to map PCIe Requester IDs to GIC ITS Device IDs,
-the generic PCI device tree parsing code will fail to assign an MSI domain
-to the PCIe bus. This prevents MSI and MSI-X operation for all downstream
-devices, forcing a fallback to legacy INTx. The property is also required by
-the qcom,pcie-common.yaml binding.
+Squash down into the previous patch.
 
-[ ... ]
-> +		pcie1: pcie@1c08000 {
-> +			device_type =3D "pci";
-> +			compatible =3D "qcom,eliza-pcie", "qcom,pcie-sm8550";
-> +			reg =3D <0 0x01c08000 0 0x3000>,
-[ ... ]
-> +			operating-points-v2 =3D <&pcie1_opp_table>;
-> +
-> +			iommu-map =3D <0 &apps_smmu 0x1400 0x1>,
-> +				    <0x100 &apps_smmu 0x1401 0x1>;
-> +
-> +			interrupt-map =3D <0 0 0 1 &intc 0 0 0 149 IRQ_TYPE_LEVEL_HIGH>,
-> +					<0 0 0 2 &intc 0 0 0 150 IRQ_TYPE_LEVEL_HIGH>,
-> +					<0 0 0 3 &intc 0 0 0 151 IRQ_TYPE_LEVEL_HIGH>,
-> +					<0 0 0 4 &intc 0 0 0 152 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-map-mask =3D <0 0 0 0x7>;
-> +			#interrupt-cells =3D <1>;
-> +
-> +			linux,pci-domain =3D <1>;
-
-[Severity: High]
-Is the msi-map property also missing for the pcie1 controller node?
-
-As with pcie0 above, omitting the msi-map property prevents MSI/MSI-X
-capabilities from being properly established for downstream devices.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-eliza_dt-v=
-1-1-7bb72b75fc5b@oss.qualcomm.com?part=3D1
+---
+bod
