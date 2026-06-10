@@ -1,184 +1,232 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131C2293B5F
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B468D275870
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781107689; cv=none; b=GoRPPmjyuKL+T07K16D9up3rQQu+B8HAOEzq7qIqi9n/pTKE1sYWsrbwXbTBEL1Xgq6j/OKk6T4NzTG0XsJPNhPG/8xYusc4NhRNjxWzeRb5+asIwxrQQ/2H4uB8mVEX/MU2yTVw6lH0ovKtObVmVM6AR+56LLA804mdqr+xNUM=
+	t=1781107689; cv=none; b=QO7kMNefDZhs485T2rLPStRm18bM/WmOUlCZ9cJSJvyNhOx2P4TfFyWjhZUciLwOhyd6yeHb+YXZQ25LJ/sjKd2iHsrXDolcZvXoqplGm/eu9vTWXeGlQlI3DX+ubxuLkORZIxR8YSY02WMF5AO0tnl49JWNGvMwGrFKs8K/i2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781107689; c=relaxed/simple;
-	bh=XbAykx9J9u9kOL4GunpqIJmiwXPHP5eFmyt8Vv/0c14=;
+	bh=4QZz5xfgmU942o6JyFDLJvViW4hPE1PZox/k2LYaNVo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d6Vr0vvJJN34mAbakB2gTG/dR2fxjm+USEI8QgzSGWyIuA46FQQLUVV/MV8FJoRhrSQ3bFFMkvGh3qeoDz4q5fbUrKgfTmwlZiH4h6jeyUIMre0960pdfZeRdZhBbJ0zTUtxMfQb+CwH3YFw3Okt6AlbzjxWYjoS+S7BXllGbsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chSHvxKe; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dSelDrMLkqwOIlK8HHz74W3Vgt8qy1ClbCHJMtwz2f/qi5fKlC+ecUEScuu4A2khQI/9jWiwXirwdhTWhRnHlL6gtGp7UhijF6L1/GOD3iTDTvfOB+1S/9IqcsR4/rc1HtPLG0YWaTcJMbWB/ittDTOpw6d+m9tvvXcpYybUkuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gs3Qs/8i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chSHvxKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7691B1F00893;
-	Wed, 10 Jun 2026 16:08:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gs3Qs/8i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3521F00898;
+	Wed, 10 Jun 2026 16:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781107687;
-	bh=zGfZ84wd/x+FTA/N8qM94clHO5B2Kfcq11AmXApjgeg=;
+	s=k20260515; t=1781107688;
+	bh=7ZBPl1nwBEQ/TFL40fsNy9bHJg1K2TDe3TJCZu+c6v8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=chSHvxKeALJM6sgZQIs1dDlvMkASbAmAkZpJBvltAI+Xcbun0LnYepTCrbKF10h2T
-	 phPtIMFeLKbGPZXw6SegbRlJwLmSGHP+6/5DYBPBpJU0URX5c6M5ASHAkzLyTWoxBB
-	 svi+SH0/JCBpW1oBTtX5kg8KGGQEhNSyGgKb7tk7rZb0vsuLKA6BT6X0uVRv1sn6Ts
-	 V2UxB4ysDGXFJ4urDoGZi82r71bxmlBVfAGg/s7QMs8Rejfgx+VlNN3AHwTifdao2C
-	 BynkT1mncqcuSV7u7+ksVx/E4NmiVxt2dECFIi1hQZjMMsoEli+QiugnzUaY8Mz6jX
-	 8TW6NzinQYCKA==
+	b=gs3Qs/8ioFI2A9z4JRLzmtDJQJQQQVpShdi/LBD/26CtZLnp0x7lWLE8JaVwp2Ywh
+	 1XCfXxD6jFS/lDTcg4GCbJK+RlhZArl/LBkFfqyzAA0aZ59aJ6MjeD2jgSA7f9wBWM
+	 OzoCFC0rgaSa9ORgr8x0trGb+9EH4Ipzw0dmSn2qAWKmwPblc8Zd1rtuIBc8jqq+fx
+	 nn0sZ3YRmGuJPvtzWfm9ybrZchRh15us690yp3fKop6EeDc/27QQwm9W0ftxI3YXKs
+	 1o642eGHYZ0XMSW0w8+3vaJHgern/TvkFwHNJNKc5hjrvdrgDNqK6g5t6Jw5QuEKM3
+	 5bVTG7+JD/kkg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: sound: add qcom,wsa885x-i2c
+Subject: Re: [PATCH v1 2/2] ASoC: codecs: add Qualcomm WSA885X I2C codec
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260610155708.151067-2-prasad.kumpatla@oss.qualcomm.com>
-References: <20260610155708.151067-2-prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260610155708.151067-3-prasad.kumpatla@oss.qualcomm.com>
+References: <20260610155708.151067-3-prasad.kumpatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 16:08:06 +0000
-Message-Id: <20260610160807.7691B1F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 16:08:08 +0000
+Message-Id: <20260610160808.5D3521F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] The schema incorrectly uses `additionalProperties: false` while =
-including a `$ref` to `dai-common.yaml#`, which will erroneously reject val=
-id standard DAI properties.
-- [Medium] The binding uses a custom GPIO property (`interrupt-gpios`) to m=
-odel a hardware interrupt line instead of the standard `interrupts` propert=
-y.
-- [Medium] The `qcom,wsa885x-init-table` property inappropriately encodes r=
-aw hardware register scripts into the Device Tree.
-- [Low] Wildcard ('x') used in the compatible string instead of specific ha=
-rdware part numbers.
+- [Critical] Manual snd_soc_component_exit_regmap() call on a devm-managed =
+regmap causes a double free and potential Use-After-Free.
+- [High] Volume control changes do not take effect dynamically during activ=
+e playback.
+- [Medium] ALSA Kcontrol .put callbacks unconditionally return 0 instead of=
+ 1 when values are successfully changed.
+- [Medium] Shared configuration variables are modified by ALSA kcontrols an=
+d read by DAI callbacks without locking.
+- [Low] Passing 'int *' to regmap_read() causes incompatible pointer type c=
+ompiler warnings.
 --
 
-commit 535bce1da75b7ff8bde3534f15f04d5dbbcc99a2
+commit e03e869e67ca57141b83b27db8520ee9f2d72031
 Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Date:   Wed Jun 10 15:57:08 2026 +0000
 
-dt-bindings: sound: add qcom,wsa885x-i2c
+ASoC: codecs: add Qualcomm WSA885X I2C codec driver
 
-This commit documents the Qualcomm WSA885X I2C smart amplifier binding. It=
-=20
-describes the required supplies, powerdown and interrupt GPIOs, battery=20
-configuration, and an initialization table for programming the device.
+Add an ASoC codec driver for the Qualcomm WSA885X smart speaker
+amplifier accessed over I2C. The driver provides the control-side
+support needed for playback bring-up, including register programming,
+serial interface setup, clock handling, mute and gain control, reset
+handling and interrupt support.
 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wsa885x-i2c.yam=
-l b/Documentation/devicetree/bindings/sound/qcom,wsa885x-i2c.yaml
+> diff --git a/sound/soc/codecs/wsa885x-i2c.c b/sound/soc/codecs/wsa885x-i2=
+c.c
 > new file mode 100644
-> index 0000000000000..1069f470dea5d
+> index 0000000000000..a7d8f8d48a21c
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wsa885x-i2c.yaml
-> @@ -0,0 +1,89 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wsa885x-i2c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm WSA885x I2C smart speaker amplifier
-
+> +++ b/sound/soc/codecs/wsa885x-i2c.c
 [ ... ]
-
-> +allOf:
-> +  - $ref: dai-common.yaml#
+> +static int wsa885x_wait_for_pde_state(struct wsa885x_i2c_priv *wsa885x, =
+int ps)
+> +{
+> +	int act_ps =3D -1, cnt =3D 0, clock_valid =3D -1;
+> +	int rc =3D 0;
 > +
-> +properties:
-> +  compatible:
-> +    const: qcom,wsa885x-i2c
+> +	if (!wsa885x || !wsa885x->regmap)
+> +		return -EINVAL;
+> +
+> +	if (ps < 0 || ps > 3)
+> +		return -EINVAL;
+> +
+> +	do {
+> +		usleep_range(1000, 1500);
+> +		rc =3D regmap_read(wsa885x->regmap,
+> +				 WSA885X_SMP_AMP_CTRL_STEREO_PDE23_ACT_PS,
+> +				 &act_ps);
 
 [Severity: Low]
-Is it standard to use a wildcard (x) in the compatible string here?=20
+Does this trigger a compiler warning? regmap_read() expects an unsigned
+int * for its third argument, but act_ps is declared as an int. Should
+act_ps and clock_valid be declared as unsigned int to match the API
+signature?
 
-Devicetree typically requires specific hardware part numbers, such as=20
-qcom,wsa8850-i2c, to ensure future variant quirks or different tuning=20
-requirements can be handled properly without ambiguity.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  powerdown-gpios:
-> +    description: GPIO controlling the SD_N powerdown pin.
-> +    maxItems: 1
-> +
-> +  interrupt-gpios:
-> +    description: GPIO used for the codec interrupt output.
-> +    maxItems: 1
-
-[Severity: Medium]
-Does this hardware interrupt line need to be modeled as a raw GPIO property=
-=20
-rather than using the standard interrupts and interrupt-parent properties?=
-=20
-
-Modeling it as a standard interrupt allows proper subsystem integration and=
-=20
-routing, whereas interrupt-gpios bypasses the standard IRQ hierarchy.
-
-> +
-> +  vdd-1p8-supply: true
-> +
-> +  vdd-io-supply: true
-> +
-> +  qcom,battery-config:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Speaker battery configuration, 1 for 1S and 2 for 2S.
-> +    default: 1
-> +    enum: [1, 2]
-> +
-> +  qcom,wsa885x-init-table:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 2
-> +    maxItems: 256
-> +    description: |
-> +      Sequence of register/value pairs applied during codec hardware
-> +      initialization. Entries are encoded as alternating register addres=
-s and
-> +      register value cells. The number of entries must be even (register=
-/value
-> +      pairs); maxItems is 256 (128 pairs).
+[ ... ]
+> +static int wsa885x_codec_mute_stream(struct snd_soc_dai *dai, int mute, =
+int stream)
+> +{
+[ ... ]
+> +	} else {
+> +		regmap_multi_reg_write(wsa885x->regmap, unmute_prep_head_regs,
+> +				       ARRAY_SIZE(unmute_prep_head_regs));
+> +		regmap_write(wsa885x->regmap, WSA885X_SMP_AMP_CTRL_STEREO_OT23_USAGE,
+> +			     wsa885x->usage_mode);
+> +		regmap_multi_reg_write(wsa885x->regmap, unmute_prep_tail_regs,
+> +				       ARRAY_SIZE(unmute_prep_tail_regs));
+> +		regmap_write(wsa885x->regmap,
+> +			     WSA885X_SMP_AMP_CTRL_STEREO_FU21_CH_VOL_CH2X0_MSB,
+> +			     (s8)wsa885x->stereo_vol_db);
+> +		regmap_write(wsa885x->regmap,
+> +			     WSA885X_SMP_AMP_CTRL_STEREO_FU21_CH_VOL_CH2X1_MSB,
+> +			     (s8)wsa885x->stereo_vol_db);
 
 [Severity: Medium]
-Does this property encode raw hardware register scripts directly into the=20
-devicetree?=20
+Can this lead to a race condition where mismatched channel volumes are
+applied? The stereo_vol_db is read twice sequentially here without lock
+protection.
 
-The devicetree is generally meant to describe static hardware topology rath=
-er=20
-than act as a repository for magic register initialization sequences.=20
-Typically, this sort of initialization logic resides within the driver code=
-=20
-itself, keyed off specific compatible strings.
+If a concurrent call to wsa885x_stereo_gain_offset_put() occurs, could it
+update stereo_vol_db exactly between these two regmap writes?
 
+[ ... ]
+> +static void wsa885x_component_remove(struct snd_soc_component *component)
+> +{
+> +	if (!component)
+> +		return;
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#sound-dai-cells'
-> +  - powerdown-gpios
-> +  - interrupt-gpios
-> +  - vdd-1p8-supply
-> +  - vdd-io-supply
+> +	snd_soc_component_exit_regmap(component);
+> +}
+
+[Severity: Critical]
+Is it safe to manually exit the regmap here? Since the regmap was allocated
+using devm_regmap_init_i2c(), devres will attempt to free it automatically.
+Calling snd_soc_component_exit_regmap() here causes an early free, which
+can result in a double free.
+
+Additionally, because the interrupt handler is registered via
+devm_request_threaded_irq() before the component is registered, the IRQ
+remains active after this component removal. If the interrupt fires in this
+window, will wsa885x_interrupt_handler() trigger a use-after-free when
+accessing wsa885x->regmap?
+
+[ ... ]
+> +static int wsa885x_stereo_gain_offset_put(struct snd_kcontrol *kcontrol,
+> +					  struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x;
+> +	long val;
 > +
-> +additionalProperties: false
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component =3D snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x =3D snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x)
+> +		return -EINVAL;
+> +
+> +	val =3D ucontrol->value.integer.value[0];
+> +
+> +	if (val < 0 || val > WSA885X_FU21_VOL_STEPS) {
+> +		dev_err(component->dev, "%s: Invalid range, Val: %ld\n", __func__, val=
+);
+> +		return -EINVAL;
+> +	}
+> +	wsa885x->stereo_vol_db =3D (int)val - 84;
+> +	return 0;
+> +}
+
+[Severity: High]
+Will this update take effect immediately during playback? The cached
+volume is updated, but it doesn't look like the new value is written to the
+hardware registers here. Are users expected to pause and restart the stream
+for the volume change to apply?
 
 [Severity: Medium]
-Since this binding includes a reference to dai-common.yaml# in the allOf=20
-block above, will using additionalProperties: false cause standard DAI=20
-properties to be erroneously rejected?=20
+Should this return 1 instead of 0 when the value actually changes?
+ALSA kcontrol .put callbacks are expected to return 1 if the control was
+modified so the core can generate a state change event for userspace.
 
-The additionalProperties keyword only accounts for properties explicitly=20
-defined in the local schema. The standard approach in this scenario is to=20
-use unevaluatedProperties: false so that properties from the referenced=20
-schema are correctly validated.
+[ ... ]
+> +static int wsa885x_i2c_usage_modes_put(struct snd_kcontrol *kcontrol,
+> +				       struct snd_ctl_elem_value *ucontrol)
+> +{
+[ ... ]
+> +	val =3D ucontrol->value.integer.value[0];
+> +
+> +	if (val < 0 || val > WSA885X_USAGE_MODE_MAX)
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c->usage_mode =3D val;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does this need to return 1 when the usage_mode changes so ALSA generates
+a state change event, similar to the volume control above?
+
+[ ... ]
+> +static int wsa885x_i2c_rx_slot_mask_put(struct snd_kcontrol *kcontrol,
+> +					struct snd_ctl_elem_value *ucontrol)
+> +{
+[ ... ]
+> +	mask =3D ucontrol->value.integer.value[0];
+> +
+> +	if (!wsa885x_is_valid_rx_slot_mask(mask))
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c->rx_slot_mask =3D mask;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does this also need to return 1 when the mask changes?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610155708.1510=
-67-1-prasad.kumpatla@oss.qualcomm.com?part=3D1
+67-1-prasad.kumpatla@oss.qualcomm.com?part=3D2
