@@ -1,80 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710E81A6814;
-	Wed, 10 Jun 2026 06:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515AA3019BA
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781072617; cv=none; b=KnqOi2/Scm7giSRcAzHE7iuSAlfpjX8jNOzfLqGgkXUC+q1Nf0IyYdBMLtoiVB+R+Y9hOnMtfPpbhuZooLYS82a1KS0GpDwZyfInIzIQ0lgECy5KwjLEtUrj49eSPsvHERKQ1MjZvf0hZFcIiK85Yvc4wyuTOpr/TuUnuc/BWH4=
+	t=1781072657; cv=none; b=Fl/lPhOEOjYAmELzVTUZculN5CsmfxWkwgIBOjrOlN3hxlrN2enTIXo4NNFKoWjKt26QfprgCPPNKz5FYncMNcu/utu8KUOtb+ZG2dSLIh4o5mKQSn5VZYYayKdbSP9pJlYFRr4KVoBRhwssZBaN6hXBB8eG2+dXoS24P5gTgKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781072617; c=relaxed/simple;
-	bh=rFJSbHbDtoePohRS2EsLsjmHLP6vVMSmcHIITysF5r0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jv+IW5+d88v08txMhxS9+t66+vdStrKMtjYpr+Pg9Oxfv8szHjMuce1xqa1e3/X3+sa8ieFOQHHM8vakUVSY7ojlJV1sK3qmSYRaTVsczsjrChnwH3/2LkKLWz8moED9D2SJ1y2lKDDGAMi8/fvh+41tf5pv7UUkMtnTmustR54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMTQiNER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781072657; c=relaxed/simple;
+	bh=Ji+Y9S1gns4/Us2kyxnnXCXVEvbToU5JSMTdsm1PS/0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tIuWlQFvM90gr+PsM35S+ZQbNh/+cLe9J0KDAt/cfAPN0f1D+MH7/SUtP2rs2e1bs+zf2JT6XtOAXYfTfrYxyOdLSzXhxwyTjym7bfH3ZDEPSWcHr3EXJUOrmI+eFhLRp+SsMO2wuBubydH1IIdvBDJhrDrCL2NKsO1+Y/aHq5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=km68t2iL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMTQiNER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CBC1F00893;
-	Wed, 10 Jun 2026 06:23:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="km68t2iL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28A91F00893;
+	Wed, 10 Jun 2026 06:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781072616;
-	bh=7pJCdmP/I1O9qQOYy3P6wkUiGVmzpOS2+Rao0WrGW64=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IMTQiNERSJazYilIigjjFiYbyNChVIRknRAokvryq5rlvBubewjeD3JaSHn+6UQxN
-	 UM9NOS+leh5PE1n1YNYL93aPK8iSU9m9SNeO8MunUBtPna3GrIpBLTNu4clPEKGxTT
-	 cg0pPPk+9TKrWQ5nOw408qsJSzgtfpJf1HR0mMaUceQYe1IOdH1FEP+Et0hhSuLa/9
-	 CnXaKcNAvdnTZNs27XPdO/+3VCRmOqKwaU0h0UYHFPM7YcMa0A98weK2Jtd0q7/GqO
-	 6C1vGN9GI5ZtUyTqdUKkOFomXKK1ytB9mMvnYH58YnAH1gBlOBEvVFarNPfoPJFvw6
-	 Sy93YFxIdW4tg==
-Date: Wed, 10 Jun 2026 08:23:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v6 1/7] dt-bindings: clock: qcom: Add video clock
- controller on Qualcomm Eliza SoC
-Message-ID: <20260610-lovely-bumblebee-of-fame-505a1c@quoll>
-References: <20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com>
- <20260609-b4-eliza_mm_cc_v6-v6-1-17df09e5940c@oss.qualcomm.com>
+	s=k20260515; t=1781072656;
+	bh=W9c3A1HN7GQ5wHtCSxnx/uCofDdQpuQh7NjRzv91E9U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=km68t2iLIxkOL6zUfcTU/x3SPWiny+mVD4KYSijUFlvkuv2teSQ4zy8qdi705Cdju
+	 bsCHOTZFBd+7RHc7iRrSG5qwNTt97exKWv/z22UReROjHFL+1Es2G4eE5gvAFr5ZEZ
+	 ATlmK/mmo0dwkT60nMFeMDEt2qZwniT0gcQ/WOQIXqXpSnQ5+stJBeD1BO70ihV0qo
+	 99q1zqAkuDUodj9tP/nDy9BzEgKSVhfhyB4jdCGMzZnF8EeANIaWw/fleL2NoAaNBL
+	 QCycD/piq3EF2CxRRw1Gp6VfN4Np70RN827f+2iR5T8zF3nJyK01P5mlBndsOhStf5
+	 WV+JhnC9lSCgg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/5] dt-bindings: clock: cix,sky1-audss-clock: add
+ audss clock controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260610061712.3203984-4-joakim.zhang@cixtech.com>
+References: <20260610061712.3203984-4-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 06:24:15 +0000
+Message-Id: <20260610062415.C28A91F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260609-b4-eliza_mm_cc_v6-v6-1-17df09e5940c@oss.qualcomm.com>
 
-On Tue, Jun 09, 2026 at 08:32:52PM +0530, Taniya Das wrote:
-> Eliza Video clock controller is on CX and MX rails similar to Milos.
-> Add compatible string for Eliza video clock controller to the existing
-> Milos videocc binding and add the dt-bindings header for Eliza.
-> 
-> The video clock controller exposes power domains, so '#power-domain-cells'
-> must be present in the device node. Add it to the required properties list
-> to enforce this in binding validation.
-> 
-> There is no ABI breakage and no impact to the existing devices, since the
-> nodes using this binding already specify the '#power-domain-cells' property
-> for videocc.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,milos-videocc.yaml         | 10 ++++--
->  include/dt-bindings/clock/qcom,eliza-videocc.h     | 37 ++++++++++++++++++++++
->  2 files changed, 45 insertions(+), 2 deletions(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The newly introduced `cix,sky1-audss-clock` schema causes a `dt_bin=
+ding_check` validation failure in the parent `cix,sky1-system-control.yaml`=
+ example.
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 266331103ef923d7816fb4abbe0e462ec90cdfb6
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
 
-Best regards,
-Krzysztof
+dt-bindings: clock: cix,sky1-audss-clock: add audss clock controller
 
+The AUDSS CRU contains an internal clock tree of muxes, dividers and
+gates for DSP, I2S, HDA, DMAC and related blocks. The clock provider is
+a child node of the cix,sky1-audss-system-control syscon and accesses
+registers through the parent MMIO region.
+
+> diff --git a/Documentation/devicetree/bindings/clock/cix,sky1-audss-clock=
+.yaml b/Documentation/devicetree/bindings/clock/cix,sky1-audss-clock.yaml
+> new file mode 100644
+> index 0000000000000..dff56f3a425b9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/cix,sky1-audss-clock.yaml
+> @@ -0,0 +1,80 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/cix,sky1-audss-clock.yaml#
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - '#clock-cells'
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - power-domains
+
+[Severity: Low]
+Will this cause a dt_binding_check validation failure in the parent
+cix,sky1-system-control.yaml example?
+
+The parent binding contains an incomplete subnode example that will fail
+validation against this newly introduced clock schema:
+
+Documentation/devicetree/bindings/soc/cix/cix,sky1-system-control.yaml:
+        clock-controller {
+            compatible =3D "cix,sky1-audss-clock";
+        };
+
+Could the example in cix,sky1-system-control.yaml be updated to include the=
+se
+newly required properties to prevent validation errors?
+
+> +
+> +additionalProperties: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610061712.3203=
+984-1-joakim.zhang@cixtech.com?part=3D3
