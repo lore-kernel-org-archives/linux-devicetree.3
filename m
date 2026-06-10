@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8461F405C21;
-	Wed, 10 Jun 2026 12:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13411405844;
+	Wed, 10 Jun 2026 12:04:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781093080; cv=none; b=MB4FaQRSws8BwyZGvzCltQXEHpQCCBQlgsAsH0mHbu9ps8vC4Lo/xQHrUPuvfJ4j0MhwTmw9o/kRCXXXvlRGCYLNXcpb9WlQBenk/Byh8AzIVijraDrqhwAR/kjCCBIEQzJtIEO26sFz9lYXx+gIKPAb4rOp1Ues8rW2gLZH7c8=
+	t=1781093086; cv=none; b=hdqjYWV7+seuKFBbDB0v30K1Pozp1PPuSjsBSDv1lpz/8x1HXJdc1+eP9pH9620Cn7waLNT06o1X3vJPq7szDxGchWaVCP4QEI1/y9Pw6yVsNv+ReET3hSQs6kOFN2f/o/tpwC+Gmdh4J6/lTOgEIRHEjM8sYhKiDVf5aCgs7rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781093080; c=relaxed/simple;
-	bh=acvQtfaE3Uyr4t9ol0KddBIkrEr9YyjhD1bx/I6Kjto=;
+	s=arc-20240116; t=1781093086; c=relaxed/simple;
+	bh=M5nlokA19VIWfXT0gjerV+iDVU54fVNT5RCYkVfjl+E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=riRX/Dd+Ddcq2Es7sCUN+7AR1o596FMLZbWQMKhrf2g4bUDPuo4ddjn/TvydYLKuyo5g7Tt2gc+846Stm+yaVrGjQAKeC3/Y5QSS+ztwEDKkqjREAqlfNP1+M6XrcvWrBzXTCybnOxiotSLwEt/uHYrKoMkpye+9WKQqeRPdGx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ouj5CA/L; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=SaBJtQRv4BBLT4c7PH2XuSWHsXsZeXLCB5ULDi2UkTpTuAFBRFXkgpmYl/MHR1QOu1q3y5zRW2W98l7BfDB0yZypI40RCdR5YLwn9o7NvLCQyUjV8BTbPQ++6eNwrV3xSDWT5CBzbwkoR4SVinv/L6bxHqeMGOUwaDtBjkI/5xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQ/noQHJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ouj5CA/L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A7F1F00893;
-	Wed, 10 Jun 2026 12:04:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQ/noQHJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95A51F0089A;
+	Wed, 10 Jun 2026 12:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781093079;
-	bh=6MxkLfVTgOymLs1OLxd1A3Z0JsUSiCEc8rBNsWbG15E=;
+	s=k20260515; t=1781093083;
+	bh=uKld6mtpOAHOyUMP6+sCh+13il3I0Ttuj9CS6qy04Q0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ouj5CA/LY6QBdjBUjZt/2iUcJ1cEcJYBD/p/oSlwdA6Xg64rPeha1ewLGHbg1mA9a
-	 55ww20MlyqpeE5W74mncid3rtMrOZ59USrRLbMm7KTuCeQVhBm22/JsLnLdAEV1uVm
-	 Z+vY0y2XXKBjZrrSxxBkDnVEHHicIrZVK70XkUMhN+ZJBf2nHEIl8ZH8xQgcFSN4gy
-	 IYzSnicBP0v+VFRpiOY1HFMRO/aRc3zI7SoQmWuV+3H5/TP9dABeQ8yry3DSTu2T2J
-	 mcxb7kpQpKLQEKBIUKTZl+2PRToyin/M42JY08eWeN+og7sV4TrgxneVhNyQugAeOf
-	 i/GfdDCfN7rZg==
+	b=gQ/noQHJjHau+cQfA7znZdFUPUKda2/ysrQnTRe+jRtP+WekSeG4OzqfBGM3o96Md
+	 6oRlXWKtSnHYCYnla40eUs/hSgtmkhQtKCqqE7x+ANgpcK/9aANooL+nMJP/hzERbN
+	 7sck2bPPvZ0OM4E9eiK69ifEeHCoDQvIqTYsKbT3WTbA9KYPPiQ5OTGKP8dvDRjmzo
+	 K8pASL2EKWYPnhjs5kmY6HeoA86X2EOQQ+/SqWQHo5/IAM0GB8QeE8lzt2vPqgDK43
+	 Ezd4C7mFKbevAzAx6KbKde7uDfqMAA0GIojCIazOfnX/jIe1z5VoaFXiMEQR1k+4S9
+	 tX1epyfW/WPBQ==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 10 Jun 2026 14:04:15 +0200
-Subject: [PATCH 2/4] phy: qcom-qusb2: Fix SM6115 init sequence
+Date: Wed, 10 Jun 2026 14:04:16 +0200
+Subject: [PATCH 3/4] arm64: dts: qcom: msm8996: Add VDD_MX to QUSB2 PHYs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-topic-8996_61x5_qusb2phy-v1-2-d7135980e78f@oss.qualcomm.com>
+Message-Id: <20260610-topic-8996_61x5_qusb2phy-v1-3-d7135980e78f@oss.qualcomm.com>
 References: <20260610-topic-8996_61x5_qusb2phy-v1-0-d7135980e78f@oss.qualcomm.com>
 In-Reply-To: <20260610-topic-8996_61x5_qusb2phy-v1-0-d7135980e78f@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -52,45 +52,54 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781093064; l=1433;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781093064; l=1095;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=/ui5Yg3LXmtp1fdq4VydD+WQDMD4O0VCJcitDenV/8Q=;
- b=tkd/Jk16gkRkcT+qIYZbr5ZcVGq1sOxVojrGlMYXbobcSlJSVXo7JxkDJDgkv4wPnts+YBGYo
- FvJg/ryl2mWCr2uIJziGZn2QPlHToH6ltcxgnTf6G67pzDtW9GQYAfS
+ bh=9ndZtXkmqXo1r/bpwIA6jBPYTw6ttBiubHvsJ0cp8u4=;
+ b=xsEvEhhKA18OgnoIAxsGvKjnXq2ahSZ8va0geoaWMJQGSNKXsDUBlv+EbutsWuW/i5ybHSiiR
+ yznMZvMT/T9BwUY0uaTaq4JpnF0/630KvdM4PSVlD16HY693zOnpizn
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I don't know where the existing one came from, but it's apparently
-wrong, according to both docs and a downstream DT [1]. Fix it up.
+The QUSB2 PHYs are powered by (among others) the VDD_MX power rail.
+Describe that in the DT.
 
-The updated values also happen to match SM6125, which will allow us
-to fix that platform too.
-
-[1] https://android.googlesource.com/kernel/msm-extra/devicetree/+/refs/heads/android-msm-bramble-4.19-android11-qpr1/qcom/bengal-usb.dtsi#145
-Fixes: 7756f1d6369e ("phy: qcom-qusb2: Add configuration for SM4250 and SM6115")
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qusb2.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/qcom/msm8996.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-index eb93015be841..c304ccd9f31f 100644
---- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-@@ -233,9 +233,9 @@ static const struct qusb2_phy_init_tbl msm8998_init_tbl[] = {
+diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+index 2f67e665996f..b7cd1928335c 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+@@ -3192,7 +3192,12 @@ hsusb_phy1: phy@7411000 {
+ 			clock-names = "cfg_ahb", "ref";
  
- static const struct qusb2_phy_init_tbl sm6115_init_tbl[] = {
- 	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE1, 0xf8),
--	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE2, 0x53),
-+	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE2, 0xb3),
- 	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE3, 0x81),
--	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE4, 0x17),
-+	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE4, 0xc0),
+ 			resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
++
++			power-domains = <&rpmpd MSM8996_VDDMX>;
++			required-opps = <&rpmpd_opp4>;
++
+ 			nvmem-cells = <&qusb2p_hstx_trim>;
++
+ 			status = "disabled";
+ 		};
  
- 	QUSB2_PHY_INIT_CFG(QUSB2PHY_PLL_TUNE, 0x30),
- 	QUSB2_PHY_INIT_CFG(QUSB2PHY_PLL_USER_CTL1, 0x79),
+@@ -3206,7 +3211,12 @@ hsusb_phy2: phy@7412000 {
+ 			clock-names = "cfg_ahb", "ref";
+ 
+ 			resets = <&gcc GCC_QUSB2PHY_SEC_BCR>;
++
++			power-domains = <&rpmpd MSM8996_VDDMX>;
++			required-opps = <&rpmpd_opp4>;
++
+ 			nvmem-cells = <&qusb2s_hstx_trim>;
++
+ 			status = "disabled";
+ 		};
+ 
 
 -- 
 2.54.0
