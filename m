@@ -1,138 +1,164 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D9724BBF4
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781054108; cv=pass; b=DNMB4mdQrtBEf7RTcL28loa5+XRvIsPknO7crmdPDCHxGLV6jk7aSBSAsGtMMWRYCKOI5ewWwITL0trdFs4NncPUkK83FcyYnFLVce7KmSk76dGSF0rIZ2uWb4bb4bRtBtjHVC1oAt+uQwgE9XUl8F7HVamhZ6frR9UM5wx9GDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781054108; c=relaxed/simple;
-	bh=UeAssUqYMd9I/hNomjKDWuBothPBNmM7nGphuECKV1Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e1hCBdohnHPef55KEtTsfHIVsohKHI3er19vs1FeIU9ics7ocwFREip0Cxk3TQ0dSW1rD8Jk9LVZppGkV1YOvcsHfDWpAy4aapkeSUfSLWrQjC7RaJ68i6yLXuZVctQcPi7KgR/YIooSJdaG4z4HDmdUzsng87k80og71KEPEiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=qMjegCCc; arc=pass smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FBA23392A
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781054448; cv=none; b=Lh36HQCrQymgRtiukWv5rqWZzZdu4kNLzwqYLoUCOlV317qJ3F9zFX6GFzUwPztTcEhOB914VmXYmhVJakuteCJvtCyibP+TqNpDUCkTKW4CHJ3qiKnQYRpvEPKeiBzxM77eR5NwLLNmm5tMP8SS2rhU7HT1QdMPTM9EDsAm+Mw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781054448; c=relaxed/simple;
+	bh=8Jq4+7GVcOBKAyUmh61mLdl1eJHUvEKS8qVvLj4xWJU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YNqpzVoOKGSyOspTzXOiCOMx5WHKX3onuxe82Og/q01MwGryFsTdb0UTVyiA7v3yQyFHdI6QghjpC9uE8zf6TN16KdTqDgSvuXrCwYJVmE8slPMTnfa5boYvAXnnfmOZaDpPOGINteasn6EQmlBl1Prh+xqIJ/UQSE//FnzWTEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tzs/RZpr; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="qMjegCCc"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c132ac5ec2so61027305ad.1
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 18:15:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781054106; cv=none;
-        d=google.com; s=arc-20240605;
-        b=HSKyW5h2+stJ7fef86jA/mT/NhoWkQ9uDqMzXctwjJYUn5ma9CkfU2k8O0OjXbS0X3
-         xBlo/7aYMsTHymiuj5pB2Delnesy5QaYvznhsQ/KAxiyJpU0Pb5db5LqNWhlYXLxrK5A
-         V+eQ1EiccLlaROBzdq7hGEnvcXvMRbBh15VhY2DraHHNr6YfsQKOUahdUJAj4QFeHTmz
-         q5AyissECMYF03YVE1xgaJ7AbZHdVFp4xhhQAhkMXqze7H+dRlnKzZeKvpP1srSkSdhp
-         3tKdfIF4Hq+pPsB2nsC1ESHx0IwyNelNdIg84PWxp7v7fQNeyp2u9PbUYLLdDs4yVHb4
-         oTNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2Bj40WPn3U8Z/ILKnmF/fVa3Ekp1JSrXZv/lmEeSBo0=;
-        fh=1XSi7XFGdcycMYX7061aVnwKeno/WDRCg0NCM0OA2po=;
-        b=EWug5yUXhKG8Q+0+W4Mjjy9dtqjZP1kpACyW+dQqRMQEXvSOvHoX1CZFYyCuXy8SUS
-         4Fljsa+ZCxG4cS1wUGQtQ1JyNmqB3e94o+Udiulk5f5QQuywOFcgtcQYG1o4Y5MIEuT8
-         +OtPbe+OprIBtYbMn3nBms4uBOnqPWTg2YOOTVxdCo0sxWU7GXYF8V7Z8pMCCcPpUSNI
-         VsJwhslZFD4IR/WQZQnSvog8d1Ir4qzA465rSrJTTYyRvi8uFomBlY8nH9KUgrMlf5tt
-         FuuqXMnu4JHl+2Y4vmPvyQYQsgDScpppoTtb3NWZDQp30HyhbfVqu0Us65Nhg9qFCznx
-         dbqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tzs/RZpr"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c858014845aso2540766a12.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 18:20:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1781054106; x=1781658906; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2Bj40WPn3U8Z/ILKnmF/fVa3Ekp1JSrXZv/lmEeSBo0=;
-        b=qMjegCCcUBDxXDPpfJ9kUjrMc0PeKNq3qpNPV4QavlcRiZSK99bDy4G24FJO3temQ/
-         f7Zv3uYHOTUIwARONd/StE6tPPjor/oI5kCeJZ7TFLqJn5c/8P0M0BEh1vLajwJaYBUD
-         Myg4BfP5r5PX5ieSW2QJ6eVoar+LkRDgNl6GQ=
+        d=gmail.com; s=20251104; t=1781054447; x=1781659247; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pUH4vpTTcuqb8I5puK3jULXEG1NkGmpFTMLsVnbq6C8=;
+        b=Tzs/RZproe9smGIn44QdevaLocZz1xTV9ExwLgbg2tKZBa1517uSHP7ZhMUspwNiOG
+         vlnAzqBhSyBRO1DIDJVib++erh+rUm/NyIpdQqQXuaP3hq8EDJYEUaarZ8gRSLlXLNnT
+         v4rAdWs8jiIwhillqNMnRJF6zt9AkhH0dn/hyM+hF/aI8HvedY1NfYVqfEWs2oZJA+jo
+         +8E4w7P7dNVnGpUUh+wB4cFd07Scoe0Pm0J4Yj3ZfEasI/MRX/9p0LDi2I0Ve6dtHhtY
+         EtyHALPJtUZ4H7/rfmqH1AjNd5yW3FfMecuWyeJy2tjCx8mRahrdo+6RJDdmettWqzYX
+         ZPGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781054106; x=1781658906;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1781054447; x=1781659247;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2Bj40WPn3U8Z/ILKnmF/fVa3Ekp1JSrXZv/lmEeSBo0=;
-        b=GD3Iw9vhYG4QmlIgQEW4FzyKktSR8AP2kt4QbfskCXh5L8F1VsLhSDKwg3SXlvEP8Z
-         8e6OtTmoDWZJ3OrieR9lTdTACF0fnXdacbY74wjSvfYEE/YYLGQG0jH4fxhBEl+uQmj9
-         FDwMxAoMtX8AI31IqqPliNXKBNqbEC/ukaCx3L0dwtpvUpezsFWR30c3niv7DP1PE8Js
-         Lihf98cpllLDf3eO6qdXhjqBM4ytFq2cHSYhV9GKPHrguWBnpkPXYC4jURcDBiSHhiwW
-         KutaSyXjCa3lzHGQAspqJO+p6fkTomwVJokaK7YDh0HfEgXGf5GriM9Xj66m2WZR7iCs
-         y/Og==
-X-Forwarded-Encrypted: i=1; AFNElJ8EQspYe8K+qOOyIMJgoCZ3HzKPZT2ZsANmuib9XUGWtUQPmLLct8vAB8oQGm3NVUDvXHJOWlv+qQes@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/iGRSvbMikXHOGTJsp9G3kywmtWipIkUvL5foLJhvHTd9T4vo
-	S4/KRd4wksz1+CpmEBwBXWWvkwTmmjos5g0XOmpN+1M/plseUg72fc3UoxowZC2Av3H6emuIUeK
-	AHNJ8cFDw2DEXnX7A49URDuhWvABVF/An5df7hSGlYQ==
-X-Gm-Gg: Acq92OFYpORUgYC7UCt9viwQXwgYYH/shVB5WZARNtVT40NOeoaFv/ntH0umIUYX7Wj
-	giJsh96BRKTY4hrE7/KSm9xU4KhehF21Pbetaaq6H9jWRDyhObxXrC4z3y9GSupy4h/d3LePtET
-	Fpf3L3MtAkNHiC0D8U8djC8907xEUVDRzHynz//NE6n5rsz1i8Iy8dvM9uXlHWsMISAwF74Hbi9
-	5hmJFJIKHl5Ox7lBV/RitVKxZfNddLUWhBHK2CEVbYG8O/9nXA0Sxw1SmLPKvUXhFbznGJ1TF6+
-	vuICHzK3F+fQoxvEhTgNRQCTQRN0Ed965kJJ5i1Y7TKbnOQke0grB7i22/KB5ywbw2a55OJV6aW
-	NyNv+uPUwm3I2jLfU1cW9vxQL+EPXlezxPu6t8eMkBd27XdwmwcgvRiSVQe9h874K2uFE3g69mZ
-	NtyiQ6I6MT21+Qw+w3HcIc+MTo1WRoqYF6fjoVLyZeeuODOpyCSbuJTcBDjC/j
-X-Received: by 2002:a17:903:708:b0:2b7:abc0:3bd7 with SMTP id
- d9443c01a7336-2c1e7e3adb6mr148795125ad.9.1781054106527; Tue, 09 Jun 2026
- 18:15:06 -0700 (PDT)
+        bh=pUH4vpTTcuqb8I5puK3jULXEG1NkGmpFTMLsVnbq6C8=;
+        b=rE9lts22lM3x0e85JO3agNfEynp3LpfogDN4Mu2nBr6MeYmHGEypVHZxHBh3DeqA+v
+         PHOoJOzvMUgzA/gauyRKaMSrlWioC+C9k38+YzWRauhr7qkGXyERMG+Rkh0eKBowJqnO
+         tLuWGl003+t1pYuNCVB0hBu81V80m3ZEmMEZ81p7V9zUun5u98QYMAFnV0LCZSDLZHFP
+         xOgdB25eitU1aBMgc2CZ12PnRuWBnqxGSJ10+OFIYjg44kP7FnMgAPKgFM1vD0j/Q74K
+         puazKwhWcpNiYe9wv1D3vLKH529Ii2D13eRYJz9SOJE0Jt6mhc/q91C+grzMBnHDtJbj
+         +1kQ==
+X-Gm-Message-State: AOJu0YzSohxPmSgfTUMLwNlZ35DfmfL82QYYwT5bj6fDtiTGHz9bM2ZS
+	ca1nHUGvGR6slW8pMAWQfnpSqOY3HU1adRkFA7vrTmpWEIyJWBFTWHpx
+X-Gm-Gg: Acq92OHo+g2TIdVLe2tJlmjgSZRsYBoIGbbRz/bJ0e73s1OiWoemRK+nknZxp4WKXfz
+	/kzgbjVYThprNrsOTW21yEH28qBWiUTtoC9WqbMgCJAMGpukmNrXSRdFWx4owRmVnd3S+l2t0Ai
+	IGsthsKnekeDsFx4RepMMUm7UzctYmCMZfS5yvfEa/NGlnhJpn6iU5Ua724ppOO7ygkbg+qKTt/
+	aGblHT7vY9rtzVxsPPI1xd3sH+i4agibyD9o3qwaCSZGbXaVR1+HUjs+f1PV68Of1dLx2nL6pDh
+	CX0MgyAmHaTY1EdJAGmKX6Q7tFR7pDLwXWWOsY6JuePSa9LWVGX2tqzN2Ydg2Kjf9khnqE+l8yq
+	B0UUyS33TvyTTP2LrUVcQkkGicrp5V229f7ED/eSuaqvOHyZEz6hP1DmjEszwmNIwCeZ2dWjQ8y
+	cofKCfRK+JHBgSJ3005aqQdmTvrkt82BahcLZOCWArzMxEGZcrUDvCncMxNugDXb5MRrnJQHcxq
+	Q==
+X-Received: by 2002:a05:6a20:244c:b0:3b3:6db1:5986 with SMTP id adf61e73a8af0-3b4d3d5e346mr19126727637.30.1781054446615;
+        Tue, 09 Jun 2026 18:20:46 -0700 (PDT)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df0b2ddbsm18858370a12.24.2026.06.09.18.20.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 18:20:45 -0700 (PDT)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Subject: [PATCH v6 0/2] Add Meta(Facebook) ventura2 BMC(AST2600)
+Date: Wed, 10 Jun 2026 09:22:21 +0800
+Message-Id: <20260610-ventura2_initial_dts-v6-0-375d8e9d7ebf@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260601041336.9497-1-daniel@quora.org> <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org> <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com> <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-From: Daniel J Blueman <daniel@quora.org>
-Date: Wed, 10 Jun 2026 09:14:55 +0800
-X-Gm-Features: AVVi8CdzfDox6mz_iOGKn72MQqEfSSNkYmI5x8N9Awxjs-n8z1eY5R0tOZeJjNw
-Message-ID: <CAMVG2svgnGKix5vSe8kG694Vm1dU=0Z=MZqR4M5LFOxCXoXYXQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE28KGoC/4XOwWoDIRCA4VcJnmvRUcfdnvoeJQRdNRlIdotup
+ CXsu9cESkLK0uM/MN/MhZWYKRb2trmwHCsVmsYW+LJhw8GN+8gptGYgwEgA4DWO8zk72NFIM7n
+ jLsyF96L3CqwNiIa11c8cE33d2I9t6wOVecrftytVXqf/gFVywWUSKBEH2zn1vj85Or4O04ldw
+ QqPiF5BoCFJ9so7E7SwfxD1i6CQUq0gqiEQfAoOnfHaPiP6jujVT3RDOoFeiOi0kvoZMXcERbe
+ CmIYoG6PxQzKdx0dkWZYfJ2EQ1swBAAA=
+X-Change-ID: 20251222-ventura2_initial_dts-909b3277d665
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Kyle Hsieh <kylehsieh1995@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3264;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=8Jq4+7GVcOBKAyUmh61mLdl1eJHUvEKS8qVvLj4xWJU=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBqKLxQz5qAfvzO4jxu9b6YJUKWGKm/aRg5aCp8u
+ B24zB0LZ3iJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCaii8UAAKCRClg0K3CVbE
+ gXYOCADIiQLAI8zfQcQ9SBWy51b1ync2ztOKHBSaZME7sVhPCmByKYs8LY3CDzTSVlLjgf4+07P
+ 0dejRle1qw/DTXvsWMNy1XKmjAK8RxF6OvS7xY8nKJpefUv25ljPLNhIxo/tbDBMlC1Lgk3eoyV
+ 9+TL/dpe1mYVCLQ+gSy7tav9nxr9lorGts1jZ7fQHN5l/qDIwQlO9+LyEVTE5y7TYdR2c5gDLg0
+ mlyfNzrGq71+yok6pbaJUrvLxoOiioP9NoXCLhlsXx1bxR0ftMQUTmotM7p0+04DPevQ1D4c3gn
+ AiJGC9aObJLixyOcBY1unRxYKQzQDGNaFD5VZF0Nf3sGsQ0h
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-On Thu, 4 Jun 2026 at 14:39, Vikash Garodia
-<vikash.garodia@oss.qualcomm.com> wrote:
-> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
-> > On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
-> >> On 01/06/2026 05:13, Daniel J Blueman wrote:
-> >>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
-> >>> triggers unhandled SMMU page faults
-> >>
-> >> How do we know that is a correct address - does it come from qcom
-> >> documentation or trial and error ?
-> >
-> > @Vikash, beyond your comment I linked in the patch [1] kindly cite a
-> > source for the different stream-ID <600MB behaviour, and share
-> > specifics, eg if silicon, firmware, or driver and constraint, defect
-> > or otherwise, so I can include a definitive description.
-> >
-> > Also good to know if my workaround is good for long-term, or on the
-> > other hand handling streams <600MB is important/useful.
->
-> Thanks Daniel for raising this patch. Did you also try the memory fix i
-> mentioned in the bug [1] discussion ?
+Summary:
+Add linux device tree entry related to Meta(Facebook) ventura2.
+specific devices connected to BMC(AST2600) SoC.
 
-With this patch, my Lenovo Slim 7x spontaneously rebooted after
-opening 3 tabs of https://ui.com rather than 1 without it. No
-crash/reboot is reproducible with the patch I proposed.
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+Changes in v6:
+- Addressed automated feedback from Sashiko bot:
+  * Clarified comments that io_expander0 and io_expander8 physically share the same interrupt line (Wired-OR) by hardware design.
+  * Removed leading zeros from unit addresses in DAC nodes (dac@c, dac@e, dac@f).
+  * Removed unused properties from the adc@48 node.
+- Link to v5: https://lore.kernel.org/r/20260608-ventura2_initial_dts-v5-0-37ee5bcf58b6@gmail.com
 
-> 0-600MB range, VPU hardware would reserve this to generate different
-> stream-IDs primarily for internal (non-pixel) buffers.
+Changes in v5:
+- Addressed review comments:
+  * Added comments explaining the necessity of 'legacy_' prefixes (hardware label collision), pre-allocated I2C aliases (future expansions), and the 'ledd1' naming convention (schematic alignment).
+  * Removed the empty `&mdio0` node to comply with upstream networking subsystem guidelines.
+  * Removed the redundant `&peci0` node.
+  * Sorted `&kcs3` and `&lpc_ctrl` nodes in strict alphabetical order.
+- Hardware/DT alignment updates:
+  * Removed unpopulated sensors (adi,adt7461, infineon,tda38640, ti,ina230, ti,ina238) to accurately reflect the current board population.
+  * Added the secondary flash node (flash@1 labeled "e810") under the &spi2 bus.
+- Link to v4: https://lore.kernel.org/r/20260424-ventura2_initial_dts-v4-0-806b00ea4314@gmail.com
 
-Thanks for the clearer description; I'll respin my patch with this and
-the DT fixes shortly to get the X1 user experience under control until
-a real fix.
+Changes in v4:
+- Fixed capitalization: "ventura2" -> "Ventura2".
+- Reordered I2C child nodes in ascending order of unit addresses.
+- Enable PECI, LPC control, and KCS3 interfaces for host communication.
+- Configure MCTP controller on I2C4 and enable MCTP support for specific mux channels.
+- Add Infineon TDA38640 and TI INA230 power monitor nodes.
+- GPIO and Pinmux cleanup for PVT:
+    - Aligned gpio-line-names as requested.
+    - Remove unused or non-existent GPIO line names to align with Ventura2 PVT.
+    - Update specific GPIO pins to empty strings where signals were removed or consolidated.
+- Adjust SGPIOM frequency to 200kHz and update signal line names.
+- Enable UART3 and add serial2 alias.
+- Link to v3: https://lore.kernel.org/r/20260113-ventura2_initial_dts-v3-0-2dbfda6a5b47@gmail.com
 
-@all I appreciate the ideas and discussion already ensured!
+Changes in v3:
+- Add annotation for marvel 88e6393x
+- Modify the gpio-line-name
+- Modify the node order alphabetically
+- Modify dt-bindings document for rmc instead of bmc
+- Move the gpio-line-names to original node
+- Link to v2: https://lore.kernel.org/r/20251224-ventura2_initial_dts-v2-0-f193ba5d4073@gmail.com
 
-Dan
+Changes in v2:
+- Remove unused mdio
+- Link to v1: https://lore.kernel.org/r/20251222-ventura2_initial_dts-v1-0-1f06166c78a3@gmail.com
+
+---
+Kyle Hsieh (2):
+      dt-bindings: arm: aspeed: add Meta ventura2 board
+      ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+
+ .../devicetree/bindings/arm/aspeed/aspeed.yaml     |    1 +
+ arch/arm/boot/dts/aspeed/Makefile                  |    1 +
+ .../dts/aspeed/aspeed-bmc-facebook-ventura2.dts    | 2891 ++++++++++++++++++++
+ 3 files changed, 2893 insertions(+)
+---
+base-commit: 9448598b22c50c8a5bb77a9103e2d49f134c9578
+change-id: 20251222-ventura2_initial_dts-909b3277d665
+
+Best regards,
 -- 
-Daniel J Blueman
+Kyle Hsieh <kylehsieh1995@gmail.com>
+
