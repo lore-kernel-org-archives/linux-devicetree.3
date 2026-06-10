@@ -1,134 +1,211 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022106.outbound.protection.outlook.com [52.101.126.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3237838E11C
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 07:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781077416; cv=none; b=kSBITxDImdaLQmKkBjdUGVgXysHcDgOp6ygV846hG7poW/vLeVSlDIoJ2oM4PDJsxRct+FpLohPwTokTz0ZAV/2KsyTdyLrzwF/KBIEyIXu3WZxdHbCCTdyrnhL3ykErccfIQInIzNx6IvbpGS+idzxmblmByvAz5oI7LTfmPXk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781077416; c=relaxed/simple;
-	bh=URQJCTbAJIoCNSIMY8IOF/aYzgKA33LcT/MKWu2oEfE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ebiY+1pbFtC+oR+sj1jbSr4s/TzwKz7V/DFS9oU/Ex9ur4EQKYBCHPjUuCRIbORlqyUfPK30ahLlQJTQszvsF7XUGsGo+XtQajVjnS9yqIVmn/rGt22dWp88HgChnwqXdBIjGBo3liwzMMYn1FTblZ0TbK/bJmq98bFDWpvSHeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=QAJx81ER; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=HqWux+Vj; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="QAJx81ER";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="HqWux+Vj"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 4C2261D000A9;
-	Wed, 10 Jun 2026 03:43:34 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Wed, 10 Jun 2026 03:43:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781077414;
-	 x=1781163814; bh=Bdspv/mWgnec4IJT6Knjkn3iUexEa46V5UFr5fP0nw4=; b=
-	QAJx81ERBEu/VvCfwMYUPfKqkCjRZqAjfnRIYQBn9gLAikBrpvNbUnpFeYz52suf
-	mDQhfsO4msLMs7fZmqWzxMn7150kSu2yqHECVtTuBmS2D3Lhp4v0fbS175kmtBPx
-	o2nU04zklH9Obvv7h8zKyu+xhKxjM/xwogZ8lbpq8+STmq474CBPcXbsBr9kBKts
-	yT7D6zzR2cOhGqGi/geWOC8BsV3Bg9NvyiqMr8okPsJX4BH8elw6Yj1ZBvjFlGUC
-	fyxu9WprD4Lcj+Hs5xn4dkKHNd44VmZqGThJ8SaP7cTqf7/Jv7aDLDFqKXVY4UwP
-	uXl8KXzcbjkPHtcdLXaMdQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781077414; x=
-	1781163814; bh=Bdspv/mWgnec4IJT6Knjkn3iUexEa46V5UFr5fP0nw4=; b=H
-	qWux+VjW2aMM8s9XAUjdJ9AobrpVwjpEevmTBeAvJHsS9vrfEuPnW4lSEet8PCjy
-	if+1rBg5Tp8lqzoS/VzPg+JbT5YOPKZOBqNvWKBSC1tvD8UhidTVNTwxr/mMNF6S
-	udmNjHjXbeZrTryc2w3tLKSE7K08P5Ha6yMS/uqUuU3+7BP38y+aW2BfuDCn49+a
-	zUwaE6IbOZePEtlYE4Ao7TpkFhDhJoBvlB/5X4mT8Y2pOd04s5P5ePQ3JvarvEIW
-	3V8fM2WzxU5NwS2RyHMAG31qnucQCfGEf04i5d7N/ksIGAOtLzRDZcAwIrajRuEH
-	VypOAQifEDE++v1LDwoMg==
-X-ME-Sender: <xms:pRUpamki4cP4W8Mo9wQTtvR1f0mMNHhKaysWivrPr4YLHMxwQU7D5g>
-    <xme:pRUpaorQIE4WsIu3QQq-FLHEdp3zfD2pklNjGwymQlVih6mlSit-YRM9Pa1ePvyJ1
-    hwLDy66qtDrRwVyJwpAvchiUAbmZjXthb2nHMMsgWcpGS2PugUAc3k>
-X-ME-Proxy-Cause: dmFkZTEbSF9yCd3WJfzOG54G2rTUXrqdwsJ0Ppx5q3iCXeGOyJQmUssYWR1FWpFCTWNFX7
-    6CPxLBSxVhu4KIJl5Is1ZoRSxQBxktbZPieOHRcUSKt+ejPzGIdP5vQd7Vx+NGuLRWLAuN
-    ujthz3X+tkgi/Qqq7jiCIRqZ+Cammqb4oASt3li4MYVi6yDCoNPr1iMksy2VwyP08H4Siq
-    j21kffMuz5vubv75vkPLXnmg2Q0J6Ij4EXYfYpEh5MS2oCgxY6c7dYpbbK21IIUXgAq8v3
-    HZsFbPa9KOu7+HwqP4M2ePvRsE/He1a18o1oFPEuuFgSuxwrinysMRDZpNvkBL37CLOjLA
-    UUMXs7AufTgu1PmlZNZwSAO9Zda3G4bfDqZDLvV6mA5xktgqRcANTgNrNUJMi7obj/63uD
-    jwgr/aB1sP//I3GOp0Jqjy36z2eyZiA2o96n3PSqrBs6Txao55f5wcnK43007PHVlXZ/ZQ
-    8wzMJEabdS9eXzuZBkZLFldwISwUnyHkrGDtTwamWSQko8Kz4BBxJ3yMq22PvSHQrKcqHz
-    6Uy7B85NYacqEKi70aNzG/EDBpXd0/VtPYtEqT+sm6rVmc11mLvJ3cXTkwHmgr0/iJ3hGx
-    VxBsvbcYg6Llo5Lx9Kv4g02Gr6Ytvlax9kAqzapmz58qWTjZoaQoaf/T9iHw
-X-ME-Proxy: <xmx:pRUpavAW3P8J60cIOWImZFiuzBNrPYCOBcZhG-aWr3Cu0Soj5Fd2xA>
-    <xmx:pRUpaqcZHgDBifQ4UleK_8w9_D7F7URJympnZdHAOZ_Jq_38fHUo8A>
-    <xmx:pRUpau0lURFWHuaGItLban6Xy3u9AmP0ij6Vg9uFfEIEJ9Y3PM4cLA>
-    <xmx:pRUpahjKvdUZl0vh8-jPlDpLR2iVddxAjDG-1Ien3QI43nTzg21mqw>
-    <xmx:phUpatzMQNIvJMwnOFu1LSJBUDvvVRF9L3xYWYCJFnSR-u-HovqBRdx9>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id C4E40182008A; Wed, 10 Jun 2026 03:43:33 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E82D38E8D5;
+	Wed, 10 Jun 2026 07:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781077447; cv=fail; b=Yn+1g1drauKK9cSt52ZdKtoZ9+fGsR8gZXsz2VnkFvNx/C/igACvjw6Ny3PXmvHG+yqRC71PBaxmBES0i5TH9unfZnwzVrKHI5G3LsOOWOJ6Ww2ByBBEm9qhs5tCeo6IyJJx/t4ZCWJliMetlOLWSA1XSXOoOt95rlBly+xkTRc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781077447; c=relaxed/simple;
+	bh=46VjYmOlaSaNS6Gq4RC8e17azVu7ePRsb/1oIXyFueI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AxTDn982Pvm6g8A17vhFzVAzLzD+9VyN0Rfq704gandWAR6ekFihpNuEpO9QWofLtBI2cULgQ09mB+wVBJNoI0WD7XGkCLcE9N/xW+XrEjesAa2ZVsfeejkqTYViViReLkY32xxPEp6IH+fT7SGxD1PvYxiflmEE/8KKzoMty6w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DM9rzgkrQWX9msKUehw1c1er16GIxnLo5a5pJfU74pDlAHvLQjnDuMqf4mcM+YePOA4eZ0naxlZRZFyu+LomV8KSJEHmkqIpLhfojDOFDjGyEp5vfNpAO/XjAM6GAUmImuSBUfHe5ZHpSmriMVjh2nITh2xBQyPNSwdNUcVm4dEK642Bsr9/qbVo00MrzA39f5wkh8iWhDczOptsaRsB9ks985qh3rX/0N7EX/dbBUd67al7pe6ob4RG7E4WmZKf5CkpEpXQNj/NxabaYlurOd2B6OHn3h+/1ntjKIGPt0zZTLjHKt6FSphRHCIPnYrRhHG4BGKBQ+cxZBywVWRwzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kpBvpmCe4WH0pO0hg0uZk2zeEEhtNXDrMWMFRarIwIg=;
+ b=mPwGsxT6Dj+R+bbdG0ZmrkXfNFJZY30egaalWlNojCBfNzfpk23eNzdQdsmGvXs9liHM1EqNnMOVY6ziJxVsGEvUKt6JPp2eEKFMlYl1tSmeaTEjaVtji0YRbEl0Jaex++0Nw1xrmDVk+fQCILU3AcLENkVO63az6W/S+j4ZaDEL3K7aqW5gVX62T/Cr6193ZoQRv6UVY7RVcMli/SC30QiowT1jBBOHG2Y8BXlWUz1cz2Y2kLp0zLGP98foVL5sem/mpHd6eJL59YWTORZNBpIaHqu7iwmWjPCDIdMsM64N1Lwxvvfx5c+xVF0M0GyqlQs9yChMctu5R6uOWnllIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TY4PR01CA0066.jpnprd01.prod.outlook.com (2603:1096:405:370::7)
+ by TYSPR06MB6442.apcprd06.prod.outlook.com (2603:1096:400:483::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
+ 2026 07:44:01 +0000
+Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
+ (2603:1096:405:370:cafe::50) by TY4PR01CA0066.outlook.office365.com
+ (2603:1096:405:370::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
+ 10 Jun 2026 07:44:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 07:44:00 +0000
+Received: from gary-System-Product-Name (unknown [172.16.64.196])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 1456F408426D;
+	Wed, 10 Jun 2026 15:43:59 +0800 (CST)
+Date: Wed, 10 Jun 2026 15:42:25 +0800
+From: Gary Yang <gary.yang@cixtech.com>
+To: Yunseong Kim <yunseong.kim@est.tech>
+Cc: Peter Chen <peter.chen@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	Guomin Chen <Guomin.Chen@cixtech.com>,
+	Hans Zhang <hans.zhang@cixtech.com>,
+	Joakim Zhang <joakim.zhang@cixtech.com>,
+	Jerry Zhu <jerry.zhu@cixtech.com>,
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	<devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Yunseong Kim <ysk@kzalloc.com>,
+	Yunseong Kim <yunseong.kim@ericsson.com>
+Subject: Re: [Question] Enabling CoreSight TRBE in firmware on CIX Orion O6
+Message-ID: <aikVYZDMYuPscIKR@gary-System-Product-Name>
+References: <5d1bdf6d-ed77-4de9-b788-cf04a98d054d@est.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AdNNzaliM6k3
-Date: Wed, 10 Jun 2026 09:43:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Frank Li" <frank.li@oss.nxp.com>, "Josua Mayer" <josua@solid-run.com>,
- "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Frank Li" <Frank.Li@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>
-Message-Id: <4f7cc399-785f-4967-adec-714ccc69ada8@app.fastmail.com>
-In-Reply-To: <177431ea-c4ba-4424-b17e-9d2e2884d466@oss.nxp.com>
-References: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
- <20260524151347.BD92A1F000E9@smtp.kernel.org>
- <3528dc91-1ffc-42f9-94ea-a27c6c1d6a50@solid-run.com>
- <9e6326f6-dad1-4169-a63c-e62ee5b341f2@app.fastmail.com>
- <023aa47c-6fbc-486f-b5c7-5145ddf8e8fe@oss.nxp.com>
- <72087d5c-c6f9-4452-b4bd-a9f086700e62@app.fastmail.com>
- <48248207-7b4f-43c9-85e9-64e8440fab10@oss.nxp.com>
- <753fca23-c3eb-45e3-aeac-b7b248fa723a@app.fastmail.com>
- <177431ea-c4ba-4424-b17e-9d2e2884d466@oss.nxp.com>
-Subject: Re: [PATCH v7 1/9] arm64: dts: lx2160a-rev2: extend 32-bit, and add 64-bit pci
- regions
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5d1bdf6d-ed77-4de9-b788-cf04a98d054d@est.tech>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|TYSPR06MB6442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ac86d5c-7be2-4531-6189-08dec6c4093e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|6133799003|56012099006|3023799007|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	nESZ/GtQbSQp7ajgWyJfnuC/+xiOIakjlAKr/gJwdf4DkGm2kWL1XvJns0k837ocBnRlBRTbgyw8NVMQwGFsWd4v/YWa3Gv3phOBJidRdoMOywS8s6FVV0wKa7GX4QgawbyP2/i/Z1ZuGRZn4FH2PGwZoktcugoXG1ycYU52JXrZXVmfXo1ax9qHMit1ghU3h5rx4k7UhwokBLgvte/aum32LGAHt08LmYtnX8cuVCr752oSLyrPqptHfliWTRfkTLBFuQ10I/AF9FnG7/DOTU/DZ/nJ8hiuim4g+YyoxCVm1SRtQ1nMFUWYYocWHzolSflY94d8amCqN59AZ1Lubtdrgt4UoLb4a19vxdiAf+BpZ/HnBF2xaCvB9obAHnlJPhsuUelF/wQ6KgM7dJmAy4Q0CsaTc4UjjpDmSshF+g/glco3YfeUURkAE2snJaXyrlF7mbs512n5J8ehpCeVPO6TJ15txkNqP0ePaIrgHSdhF3Xai2P3hqOu8RDMAPVDqtIIOxvJHjfYkIgEJOpcx7ibmNqPefieTXrYm5gq1lXHZTzYj4ZoHFf9/inr/PpEhD/LPqnedvZCvc1cOrSeJ+0Q4kM7t4JaZPJXe6bL4mufwX0VIQlduguhHSFhzoyNXEuo2/TdztWpR6vo8L40pFyFQINILnID/vcoDxQgAbncZrgnA5riZBcecZTlWSGkQdWgtdZHtuVCjbnNmeHVSGoDEevuR6RV1IfUMY4uJBY=
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(6133799003)(56012099006)(3023799007)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zLYEWrerBjdpQGlPBQ8vxo+bxEn13P45tiTrcIB6V7tPL2ut+f5+V10TD332/bS2UOv2a3c8haFKFMs8V0GoRqRuBCGsuMYyjr/fjrVuGowZb/BSgoRAH/8NcBXTJ4dmL189xZ89fsM1n9bLsMAfIkgD98iKDMDM1aqquiVwTR28WfchJyKl39CLQ0jyUcvqTwUIN18o/T/oWehvr+a3j/XNLSNCdgWhkDcqYm4NnZmWqwaD9vNv+LBtW+aKJVNDB9LIQ4BMeTOOBVDgrcs31PYQzsrb4Pjy9i4bQa5SRAez93uzA9GKQRhRr0SzXsn991Kx6ZT1vLnVe1TzH3GyEhda0AvxOtl7W9q9wvg2KW0V0b2uyvPcFrkyVva1FJy1lNffA7cksfWzS6DIPV+maYo7QPtpCRHRv9LFyo0vi5UMYmvQzMVhCgx6oC1bF2oL
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:44:00.1241
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ac86d5c-7be2-4531-6189-08dec6c4093e
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB87.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6442
 
-On Wed, Jun 10, 2026, at 00:13, Frank Li wrote:
-> On 6/9/2026 4:31 PM, Arnd Bergmann wrote:
->
-> If EP itself is PCIe bridge, it may be problem. It'd better to
-> keep 32bit range unchange.
+On 2026-06-09 10:40, Yunseong Kim wrote:
 
-Ok. It is not uncommon to have PCIe bridges either in physical
-form, or inside of devices that have multiple PCIe functions,
-so this does seem like a real problem to me even when more commonly
-you'd only have a single PCIe function with a single memory BAR
-on each host bridge.
+> [Some people who received this message don't often get email from yunseong.kim@est.tech. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> EXTERNAL EMAIL
+> 
+> CAUTION: Suspicious Email from unusual domain.
+> 
+> Hi CIX team,
+> 
+> I'm working on vock (https://github.com/yskzalloc/vock), a tool that maps
+> userspace programs to the exact kernel code they exercise using hardware
+> trace. On arm64, this relies on CoreSight ETM (--mode hw, for non-kcov
+> enabled kernel) to collect kernel coverage without requiring CONFIG_KCOV.
+> Without firmware enabling TRBE or exposing TMC/ETR, I cannot verify or test
+> the arm64 CoreSight code path on the Orion O6 at all.
+> 
+> I've been testing on a CIX Orion O6 board running Debian sid latest generic kernel
+> and found that CoreSight trace is not functional due to firmware-level restrictions.
+> 
+> Test environment running Debian sid arm64 kernel:
+> 
+>   Board:    CIX Orion O6
+>   Kernel:   Debian arm64 generic (7.1+unreleased-arm64, CONFIG_CORESIGHT=m)
+>   CPU:      Cortex-A520 (0xd81) + Cortex-A720 (0xd80), 12 cores
+>   Firmware: UEFI/ACPI (no device tree)
+> 
+> What works:
+> 
+>   - coresight_etm4x module loads successfully
+>   - cs_etm PMU appears at /sys/bus/event_source/devices/cs_etm (type=12)
+>   - nr_addr_filters = 8
+> 
+>   $ lsmod | grep coresight
+>   coresight_etm4x       118784  0
+>   coresight             110592  1 coresight_etm4x
+> 
+>   $ ls /sys/bus/event_source/devices/cs_etm/type
+>   12
+> 
+> What fails:
+> 
+>   1. No CoreSight bus devices are registered:
+> 
+>      $ ls /sys/bus/coresight/devices/
+>      (empty)
+> 
+>   2. perf AUX mmap fails (no trace sink available):
+> 
+>      $ perf record -e cs_etm// -- ls
+>      intel_pt: aux mmap: Cannot allocate memory
+> 
+>   3. TRBE module loads but registers no devices (firmware blocks access):
+> 
+>      $ sudo modprobe coresight-trbe
+>      $ ls /sys/bus/coresight/devices/
+>      (empty)
+> 
+>   4. dmesg shows only configuration manager, no ETM/TRBE device probes:
+> 
+>      [ 4479.881313] cs_system_cfg: CoreSight Configuration manager initialised
+> 
+>   5. DSDT has no CoreSight ACPI devices (no ARMHC500/ARMHC501/ARMHC97C HIDs)
+> 
+> Root cause:
+> 
+>   The Cortex-A520 and Cortex-A720 cores support both ETM and TRBE in
+>   hardware, but the firmware (TF-A/EL3) does not enable OS-level access:
+> 
+>   - TRBE: MDCR_EL3.NSTBE is likely not set, preventing non-secure
+>     trace buffer access
+>   - TMC/ETR: No MMIO-mapped trace sinks are described in the ACPI DSDT
+>   - Self-hosted trace: MDCR_EL3.NSTB / CPTR_EL3.TTA may not be configured
+> 
+> 
+> Can you check enabling CoreSight trace support in the Orion O6 firmware by either:
+> 
+>   (1) (Preferred) Enable TRBE access from non-secure EL1/EL2:
+>      - Set MDCR_EL3.NSTBE = 1 in TF-A
+>      - This allows the per-CPU Trace Buffer Extension to work as a sink
+>        without any additional MMIO hardware
+> 
+>   (2) Or expose the full CoreSight topology in ACPI:
+>      - Add ARMHC97C (TMC-ETR) device with MMIO base address
+>      - Add ARMHC502 (funnel) devices if applicable
+>      - Reference: ARM DEN0067 (CoreSight Architecture ACPI bindings)
+> 
+> (1) is simpler and doesn't require ACPI table changes, it's a single register
+> bit in the secure firmware.
+> 
 
-> Do you need rework pull request?  Or you can drop this patch.
+Thank you for your interest in the Radxa O6 board and for the detailed report 
+on the CoreSight trace support.
 
-I can't easily drop the commit without losing your signed tag
-on the pull request. Please update the pull request to either
-drop this on your end or add a fixup patch on top that reverts
-to a 1GB non-prefetchable window for each of the controllers.
+The firmware (TF-A) for the Radxa O6 is provided and maintained by Radxa. We 
+will forward your request to the Radxa firmware team and ask them to evaluate 
+enabling TRBE access from non-secure EL1/EL2 (i.e. setting MDCR_EL3.NSTBE = 1 
+in TF-A), as you suggested.
 
-On a related note, please make sure that you don't send
-a large series like this late in the development cycle
-so we have enough time to resolve any issues that may come
-up. You can also send a follow-up pull request with last
-minute fixups and changes that were still waiting for
-review. The bulk of the branch contents look like they 
-have been stable for a while, so the best thing would have
-been to send those in a first PR.
+We will notify you via email once there is a firmware update available.
 
-If everything goes well otherwise, this PR should still make
-it in time, but it would be nice to avoid such minute
-excitement in the future.
-
-       Arnd
+Best Regards
+Gary
+> 
+> Thank you!
+> 
+> Best regards
