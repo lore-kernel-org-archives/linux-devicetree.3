@@ -1,139 +1,99 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920A3408026;
-	Wed, 10 Jun 2026 12:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108A511CAF;
+	Wed, 10 Jun 2026 12:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781095889; cv=none; b=QscXsGGEeX5Emr0BL2zvygFef8euY/Z38QcpkC/O4kxiCYReoXAfPSsMXbwxsTbcjwSR5NZQC0qL2ec1kpN7+ZdS49Nyak0jSVyMTlr4tlnrK9nthPlcgvw0leaGGu6/i2cd7BGSNXa+Q3KoJuT6SkLFmWycyARvhOyrFL411M0=
+	t=1781095970; cv=none; b=i+XP5ftu5ZyQ9gP8T99hXkZLylOLpguDStqArsaRd+bLRWgUTBkdX1CLdRPVWYyZDU3TvEJypH3Yk7GSPMbS5MztnP0prkYeDZBvjz9gwdARv7SExeBAV6GdEuFbzr1tR0i0mKGnUMo6/V6XvOCV9KAFOmp9HJRVzmFqf8B5G28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781095889; c=relaxed/simple;
-	bh=B+tJ+53oipR+4ON8kY7X2BBYdD+wd6qJQICfL0VUer8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Ras54FlVhBfkNbg9VPCJQivPpcoR6xf+OT8nOY6tnVqnU+jZ+9NcAY2IY9UkEi5R+Te+a1fzsGUbDkXmUezlboDdUil0oaj0nWnkeM7XAAmKw+AuUsIaj0X6B3f4WsK2TDwf7v3MZBsNKSm6drkF+12YspzM99TfvEMTt3Nw5wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=ADPwV7eH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YqRIe0dJ; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1781095970; c=relaxed/simple;
+	bh=8Rnujp6tOFyrP2vtocDoi7YjbJ7MnnkgdDC9OzbaNh0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NHmmrlmel6x00E7B0TMe4si3NoK9yPftp50VHiktF3n2riEghj1yF1fD8KPfth0+Zivut9wu+6R0mQl6pWjFUPl1KmEWrXT+dLPovIme80DezoJZXMDYFM2jNC+mE+6GhZM4RdGj3vh5eCWLrvnSRu4L+ymUW2Bv3uK0KiBweGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iKq5ba9Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="ADPwV7eH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YqRIe0dJ"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id BCC4EEC01CD;
-	Wed, 10 Jun 2026 08:51:27 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Wed, 10 Jun 2026 08:51:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781095887;
-	 x=1781182287; bh=mjr0EJXcf5fpGgfCYEE8UvjJrrggHpGu76Ud0Wa9ei4=; b=
-	ADPwV7eHz6fcYGs1wkZRZgweMUvKqsmngMjiSNqaZXk/FDt21VXVYY5VV//lOYu4
-	UI1mbMcpqQse9raUQESn5x2VUDPQCs4vVkY9UEVJwvG6qyXfQa5c9lyOsl7E4KNj
-	2ZXiusVS7wiK363155BegUeAwNT07tHtMa16TY9UN1Ak0zFVKDo7Ni4oVHMkUw4D
-	X3i4strVI1Kf4z1ZwoOI9NG8GuhWVWJDnNo9clR9yiCsXwv5+uYBLm1MbbrfeE0R
-	bNqAgZU44GFYoDhnkxYN6GpUT3LPxUzgiWwTOU8eIDKzBswiNtxKnmH0UqQCPieh
-	1rGbnMH555gJRca1Zk+XkQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781095887; x=
-	1781182287; bh=mjr0EJXcf5fpGgfCYEE8UvjJrrggHpGu76Ud0Wa9ei4=; b=Y
-	qRIe0dJnvQV6D5AetFv0/TrA3U7HLrvWqT/o9+lVmTartR0GX3ACempMpDgEUcMC
-	NcQJWkpKjWmsNE5f1AqSO3MMA1U8A5R46OfOizhDFbWI1LrfyHPS2Mqs38JmPx5Y
-	n33bS2wIIY8bk3WovAx6T0a7qWSuWscKSqzi/FzayRi8nPtf/IJ6CMZ0+Vs6jm/C
-	3vUK51u2qKAMrIXSsZfOyeKSW7P2kEpWv+K8oPi7nAxygWE3BwbHOOxt+XtP+Gog
-	LHuBiGEzZxQ97eEn9BhqXroQwOcGBgm2+frypKHNkThAT3iQIsGGe2GqEIXclIX3
-	zVxucZN8TI8DRf3DUB18g==
-X-ME-Sender: <xms:z10paitPqf4MmvqIubo_izMLuxIyyJVTm2mFLfVzto3M5hTydAoB0A>
-    <xme:z10paiQraqyfGBTg1-fkRTuc251kworeTC6pHoH8_qYDatRIPo3pQWaRaeDEdy4LV
-    2nRKpW3T1qIDsNlzlX5oBvo5gSD2y-73IPkdGZqBjwK3lfUIINOHsD5>
-X-ME-Proxy-Cause: dmFkZTFq2iEO/MoPXTyaGp2UdguHzuRFH2Rks31lOqsP0RqRUR3u8kgw8zQwlT32SuhXKX
-    VOzT4qS110I3PiAJfbGsC9Hs/n6uakep8NfM7cDrSEnJ5iQgwtE0NqPozXC7Z+TcFp8x7V
-    ah+4bCjpGWvJ4fz1G9SbSfqX1FPjoevYum9vTUc8JN57iX++KTe+Jj0gl9FmfprpVSDMka
-    9z605UgXHTfp7m5Jym/yMiXsoO7/NS0WRfDGh/QH3fPkNEI7RHOzx550wQfIudOKz5S/2q
-    fgb2vDXKnoltEgiNb5fgO6uFes249Zpgea0YVuf6WpItibhpVTakJPnsxSBRPpQ4nlV+s0
-    ZX6IiP6c69+Rc5XigSTeEjGqXD+Uvf9Vg18nc1W2/0kFUstARkdv/bK8YzTXBSRgx00UgF
-    C6d3AAmQrorzZc2Mr1PrdX1+SNV+s/l0rOg5n+xlR/q/3h84Lsjj2h7YbxtvkmTVGdBVHa
-    21lUEl+65l7T4npJo3AZeIDHQSS6J4H4WnhWqRbKXOtTf82Tj4N9i5uSSCNILUg2DdfiFp
-    l2GZTq3yzKhNrkqU3VkdSXwa8zDC4AGRF/YRCVF7msGg0TzQyHYdGGF1hx+o9xutwe6toi
-    QbljgEgTqe2HFkSE3mj19I10YzVAj6sr5OQWIFVXQNOTEC8x4BYkUPlB2ctA
-X-ME-Proxy: <xmx:z10parpNaF_Y5P9htIjVC6i2-Ibu7yW7P0bNV4ZO_A2bxBnHWM21SQ>
-    <xmx:z10paq17NnmaZmNAV-JaoC3oAJSZFrumz5_YlFHdqzY_44I_dFLGEQ>
-    <xmx:z10parmeNriMYSYMJBgDlBjyPUi9I5T_E1r1HcLiHDTcJrKAhTaAyg>
-    <xmx:z10pauYJhuCnsCU7dHU8LiOdMGeuKsWl0Q5oYHdakY8aFDkjjh7jWg>
-    <xmx:z10pakZo0q-H-mXHY8HYckiwxy5SyGqeoxCwiZ3P_m_mu9_hMydleO3D>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 43BD3182007E; Wed, 10 Jun 2026 08:51:27 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iKq5ba9Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2951F00893;
+	Wed, 10 Jun 2026 12:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781095968;
+	bh=kDEObEYKKcX2UhU8hU85dOPs45LnPA2gh1b5QwZvnds=;
+	h=From:Date:Subject:To:Cc;
+	b=iKq5ba9QYuBCPOBWP8muoAxRX1LFf+EnUniWHdQM9Sfkla2Oh/aR7ETk3NfxXttSd
+	 lEWbVm3dPBdZMtPYPC75BdnGV4Hn8rHIoeqFRPI8+p1cJMFydtWFUYQYupN8meAotf
+	 BR53Df4DYHrxCL06BKqzibmhn+PM1nv6ko7xkKh4t4VkhjhcDdUmJjo+IDFImGqPwG
+	 eTJdTf1VcFgoOQSj7fiH818qZJ+/2epJ85VTalb+/vBO+8dGWB9vGSxw4AfVvFcUwS
+	 46w76RSQHhilts0QYwUwynN/5PFjfX2XP6RRYJUT5RFeMz3Ib8VENnm1RcgQnhh56v
+	 r++P4W8GPafJw==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Wed, 10 Jun 2026 14:52:42 +0200
+Subject: [PATCH] dt-bindings: nvmem: consumer: Make 'nvmem' an array of
+ one-item entries
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: APCtYiT4KAZo
-Date: Wed, 10 Jun 2026 14:50:46 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Jason Li" <jason.lee651024@gmail.com>, jason.li@cortina-access.com,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Jiri Slaby" <jirislaby@kernel.org>
-Cc: "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <7dcc8386-a0e0-4c79-a9f7-f63188bb997e@app.fastmail.com>
-In-Reply-To: <20260610112821.3030099-2-jason.li@cortina-access.com>
-References: <20260610112821.3030099-1-jason.li@cortina-access.com>
- <20260610112821.3030099-2-jason.li@cortina-access.com>
-Subject: Re: [PATCH 0/3] tty: serial: Add Cortina-Access UART driver and platform
- support
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-topic-nvmem_schema_warning_fix-v1-1-4029becf13f9@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CMBCF4auQWdukxUjQqxjTlOkIY9KBdABJC
+ He36vJ7i//toJSZFG7VDplWVh6lwJ0qwCFIT4ZjMdS2bmzjrJnHidHImih5xYFS8O+QhaX3T96
+ Moza28Xyli0MokSlTmX8H98ffunQvwvlbheP4AHfvnt2CAAAA
+X-Change-ID: 20260610-topic-nvmem_schema_warning_fix-1e8d8d39e51c
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781095965; l=1589;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=HYWYUgodGxgmuxOWCkH0yh3eKL0fIp02iUNDWitfgB4=;
+ b=raV5ADkI8qmrbE72U13ndLLzaPrZRgTSjRubQ/3QVB6rpa2F59KxDlneNjJCoTPiwaFzDfat2
+ VcALPwdFY75APTcLvSdxamDRmDW221+arJKJzsh7772k1q5Otld6O4f
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Wed, Jun 10, 2026, at 13:28, Jason Li wrote:
-> This series adds Linux kernel support for the UART controller integrated
-> in Cortina-Access SoCs, with CA8289 (Venus) as the first supported device.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Hi Jason,
+'nvmem' unlike 'nvmem-cells', consumes references to just a single
+phandle with no arguments (i.e. with 0 cells).
 
-Thanks a lot for your submission!
+Constrain the schema to enforce that, so that the number of such
+single-item entries can then be regulated by IP block-specific YAMLs.
 
-I'm glad to see Cortina Access is getting back to upstreaming
-this support, I see that you first tries this in 2021 but
-didn't get very far at the time. The last submission was v4,
-so it would make sense to cound this one as v5 and continue
-with v6 next time.
+Suggested-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+qcom/qcs6490-rb3gen2.dtb: pmic@2 (qcom,pm8350c): pwm:nvmem: [[397, 398]] is too short
+        from schema $id: http://devicetree.org/schemas/mfd/qcom,spmi-pmic.yaml
+qcom/qcs6490-rb3gen2.dtb: pwm (qcom,pm8350c-pwm): nvmem: [[397, 398]] is too short
+        from schema $id: http://devicetree.org/schemas/leds/leds-qcom-lpg.yaml
+---
+ Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-You have already received a number of comments, so I'll skip
-looking at the details for the moment and let you work through
-them.
+diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml b/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml
+index a26633bf52db..45836308c724 100644
+--- a/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml
++++ b/Documentation/devicetree/bindings/nvmem/nvmem-consumer.yaml
+@@ -16,6 +16,8 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     description:
+       List of phandle to the nvmem providers.
++    items:
++      maxItems: 1
+ 
+   nvmem-cells:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
 
-Regarding how to split up the patch series between uart and
-soc, I think sending them together during the review phase
-as you do here makes sense, but as they are loosely coupled,
-I think we will likely merge them separately. For simplicity,
-I would then just put the MAINTAINERS entry and the bindings
-for the vendor and board into the series for the soc tree.
+---
+base-commit: 49e02880ec0a8c378e811bc9d85da188d7c6204c
+change-id: 20260610-topic-nvmem_schema_warning_fix-1e8d8d39e51c
 
-It would also help me if you could add some more context about
-the SoC into the patch description for the patch that adds
-the arm64 platform, in particular:
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
- - is this the only one you are planning to upstream at this
-   point, or do you already have plans for other SoCs in this
-   family?
-
- - do you expect to see full support for actual end-user
-   products using these chips?
-
- - is there any shared lineage with the cortina-systems
-   (storlink/storm, now marvell) gemini 32-bit chips that we
-   already support, or with any of the Realtek SoCs that
-   are also being upstreamed now?
-
-       Arnd
