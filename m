@@ -1,257 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2403B345CA3
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD2131B130
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781110543; cv=none; b=htpB7aMCozb+8JF0Aya9cf6yWFw5LvWbQerLL9IAT0+Mf0ypxBQroDAd6u9yC7ehAIJIREH6XXWBDQeqS0K7TCWtD2+9AtyDBKDBMyITMRAqwbakDhaffIz4pBhX0T/SDUsWU4N19+wmfl201WPjFitX9ug+FSBXZhoR6iMiP4M=
+	t=1781110716; cv=none; b=gMa/abDAc6eQdGChxM/EsNeThcDyA07lUq4o4xx8lhcfIl7ahQZk2/hOJeWgqF//1zS+EbFUvWccAYeA3LRc/Mxr+pd3vXDCCQQPU8Ase+4bpCUZn5rP5VEz5olRqWb82znFfreT2tmDFnCaBrlYLgLT4bNreqsAPb0OIpa1tfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781110543; c=relaxed/simple;
-	bh=TIYzwCj0Fn5I9cP0t/q5vU5ilKgvIFU+WEXzGwzHPvs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dpKZvrwgEmu+xmGmYoVyy8kWvqV1bJHih6ZEGiStnSquxOMOS3IbVovk7sxPQQ1TaBj3IPdY1KJyriCMdl0qnBX0hGxf0yiY7LWOSSzOo350YAVW333fWv+1Vd3nRbTKkF162VPv35UCkOYtlX/S2m9tN1SnqKBkxn6h/eECnWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ceFE4p9F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781110716; c=relaxed/simple;
+	bh=coutn8kHZx0KwY6Liu/+GJkAssj3lLlvauFhcZDDVxs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BRsMCaUASmBa71lyNZew9rxEpiuqFD6bedBdoGukU9N8jeuIlAO+QgjpOES0eXzVu/UgD9B/OnFoOTUX46DeXRRwKTUARcQD5zjpMcytEyJqkb9RO5xd1LMQjzMvP4nIX81qHr9OUZXO4r5msAnmeSwbEXvUsGLozn05gcDT3aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dM9noVBE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W9SvX1fE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ceFE4p9F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71DCA1F00893;
-	Wed, 10 Jun 2026 16:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781110541;
-	bh=qGRA09PhlJiCpkvykMU4j0woJcna1jelrO4TO4S+LHc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ceFE4p9FTaFc+4Zsp0xlQFq28Wukt/wf4kF+8HwF+ORHDnjoBIm0bRLej/tSAjms/
-	 nR59QSzacamcQgqbAd7ApFGpa3ZtjINjpbHT7nfVLMmJjKOmMC6PGVthROQBNjLQMG
-	 hPvG523SgLHXOCZlTmyldaJQh3PX8Y7lfOIySoWr0VQKJ6WBIUPM/2MaV0TirMmAAs
-	 3QaCMBTcnp/KhySmYQh6dRPMv6melVuys4XA1mVlao2FqeFB+FeOJIAQi0OzpiGBwj
-	 kHq4Z4Ozs/bzm190nbtiBOo3LEZVN8hyYl/szu2jAXGExKmz2TJAgYML0LLYaa//FJ
-	 myNyyDHuc0JlA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/solomon: Add SSD1351 OLED display driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amit Barzilai" <amit.barzilai22@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260610164428.180091-3-amit.barzilai22@gmail.com>
-References: <20260610164428.180091-3-amit.barzilai22@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 16:55:41 +0000
-Message-Id: <20260610165541.71DCA1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dM9noVBE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W9SvX1fE"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65AFwkSx1690269
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:58:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=lEKTxMakFBBE2KLlDpCjm4
+	7UTf/xRvsT8S1VFXuxhN8=; b=dM9noVBE+7ZK3ka8yYdw5aWUR9puzID72/G66i
+	SmJvdr26bwFvnwPyiIagNnDeMGqw4ucMRp3hWJsOM5M5fptxcw57sq9VzQ+7m4C9
+	7FNUrW7k2wqSKSSC+dQk3i+PK4HMLKe02YVNhTakkjh8DEYOyoC+kvKxXBjgWsFv
+	WVHpcBCGnR3u2WMdW7wdingvrTnJoR4aDBbrVl3K2Zfd7X2lrp/3svHXbPYHIB1f
+	kmN6M7U/hLEv6Yp51vOKoxn1WGZ7pWLHRLxe2BZys4KunJ0gMCBij4PWwa/lm3di
+	u3JBAHomyAVKo62TPznMsCl4G4nycqVhr5HJ7jxuuS1cuGgw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eq4w1sydn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:58:34 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2bf1845bddfso80181235ad.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:58:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781110714; x=1781715514; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lEKTxMakFBBE2KLlDpCjm47UTf/xRvsT8S1VFXuxhN8=;
+        b=W9SvX1fE8e2pBFPJj32Orfd+dyrRcWH0o5u/uqv33QEfCFdObseVV6nD7z6s+2f9T0
+         3XyK4g/CDUihNvbjwJATpQhmnIFI3nnWsAlmcrzsCQUBUTsK1lk6wv6zMKrFeO9zLLiq
+         4I7BAL3JRiaFInAwRZJyOkke8TseFCH/E6EYteyLyJCtQU6o7Mv2J7kiOit5tw3gRpkV
+         sneBEWf+OYw/td3XsJ33wfmiki77dwUtzZDxDorQ9SzNjVRKQL4vOX+Dxz3rEMuR3Oid
+         qE3nodtURZIhhGPpkoVzqi9s9xZpuBuw1JdS2uhFxWTjXRTPkVx+ZHXvzsINybEyfAcm
+         jVBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781110714; x=1781715514;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lEKTxMakFBBE2KLlDpCjm47UTf/xRvsT8S1VFXuxhN8=;
+        b=rUrFMhrp99+3/zRU9/veda17E/S8xiLkiAVpWi6JYMJ0FN7kb7POFBQiWUyN19kG8A
+         AJCMvHMTda/XbI0XzqK7KmUNfPA2gmhzCGplFob5pEuMyrEr9Xpz1DKe125+WPkC+jlS
+         dI8K2A9LD49vDTV9yQvsbkukDN0jmbGNncb79CzOfUqaVLtRl4SZDBxl3yF2sqxFTI7F
+         WUF73g2xABBboOdTyK+lAYTV89rVukfKR+3L6mrWxHPFIT1b8aw/zwnSjpXSIDwQJfmU
+         6c4KjiPO8peMLKos2RIxgkDTf6lkBTYAyuwd1UbOK+I6ZQ97uvLO6XVryPJkapHIkZzd
+         49cw==
+X-Forwarded-Encrypted: i=1; AFNElJ/IqO/vbl5HEg8eCnhIRW/Aq+t73OpmDyOzgdQzM5jmIiCKCeilm1SlsN8s6E5OHfA3wtBHxlrlEq4I@vger.kernel.org
+X-Gm-Message-State: AOJu0YwD0x8q8QrAJ2ModDSjNAFqwtIL4vUVoPqjy6ZxbIdczZ0z9ssZ
+	icY8oBSNtxaAUX+CpVvG4ixGhtpiwZ2reYIp2hAqidkuhKhoy3b+vh8lEDq0gOypXCqxMOKn2Ty
+	VbyEKGNPUIMVXsMsiUbtm4zAFX5GL+e6tBmgfxaOaZjucgVp676TbfUGP3ZyzdoVE
+X-Gm-Gg: Acq92OGNTRTN2d6ql+ooDsrHyd9oBdtm75AODGSL8A8+HatcuY9vgdgNS8zZGenIISv
+	YEXZhNU1jan9VCbcK6b4WsvYbwSTlmQe9ku2m0xN9Srsl57+RBeukKepK1A3U5v6Ks3jZPxwbcd
+	UFDyKUGAUUkJ4f4SXIrWNspUThVk2RphITU8xg6ES8bIGGYWG1eD7RyK95nsqVBedi2WzsoJ+nz
+	bwRNDzSo9TSUoLUJSEBdeR5lAoLHkPVYpzfpnczmPZkm1+Xm88DmWWxvPbdT7t6MuwnHzo1wC3s
+	7deICf6Sc7RMpD3YqjneTf9UTu6xwl4mykhlhZ4Kz7FhlnZkCb7C/G/UPU8qm+B8HZctXyJPBdq
+	JbjSfc+ZLKqKSJnbc3NAGe9XNS6gQb+PhkFJWwsdRy1MKRiNtJK8qYSKASH7o3sRLNQansUDZAX
+	8n92ykJvkJguS2+ujKDfmIxPGvo2YLnzZTe6e9X71/o7Pb/YlmDnB5kIHm+uaM+oklVjo=
+X-Received: by 2002:a17:902:f547:b0:2b9:6458:1a2c with SMTP id d9443c01a7336-2c2da750d42mr1013065ad.13.1781110713712;
+        Wed, 10 Jun 2026 09:58:33 -0700 (PDT)
+X-Received: by 2002:a17:902:f547:b0:2b9:6458:1a2c with SMTP id d9443c01a7336-2c2da750d42mr1012705ad.13.1781110713248;
+        Wed, 10 Jun 2026 09:58:33 -0700 (PDT)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c166396fa9sm253963755ad.66.2026.06.10.09.58.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 09:58:32 -0700 (PDT)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Date: Wed, 10 Jun 2026 22:28:27 +0530
+Subject: [PATCH] arm64: dts: qcom: ipq9574: Add missing PCIe global IRQs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-ipq9574_pcie_global_irq-v1-1-6d6333b95c43@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIALKXKWoC/yXMTQqDMBBA4avIrA0kUaP1KqUEk07tFNH8qAji3
+ Y12+S3e2yFiIIzQZjsEXCnSNCaIPAP77cYeGb2TQXKpuBKckfOPqi61s4S6HybTDZqCZ2hkUzR
+ GqKIuIdUu4Ie2+/x8/R0X80M7Xzs4jhNbSPRMewAAAA==
+X-Change-ID: 20260610-ipq9574_pcie_global_irq-eb2838b16374
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: MIMS2yDnbjRXXMW5txa25dbISKP26pBj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDE2MCBTYWx0ZWRfX5JbvjuIjItw8
+ 3hYhCLcbP2n2XBL0fLAyuUVextsHC3RlEPZhj7E6xEDESMLmY6Zh0clxhMiu8Q86goqqCcBUll8
+ +mWvGBKIH36urPJIrjuf5w1eyWN9RPTGVb70NG5FY7do6A6SM4pDcuGfE9ccWOC6481+gyhIzIA
+ msJPeeJN8fNlpc79c7Y0olfzLVSZYOm2TC+QaY4mI6ZTlc6IeeqjyvOZwJeDLPbIY9I+rg1jo6W
+ JJNlOjUUrFPWu93SgSe5AMWlTGBkI1z6c2V2ZeDQwyX+ylqscz4P2hcX3HjLgOXEHn7fgpHcGeG
+ eFtVYRxVWJcRF9vqEJorQ+AKdbe606I/i3raK1scfG83m7HXffOiS+9HCaynGuv81OXqWJMgW3P
+ qss7dVTLfeVPTUlX7vf88ofEbOML9TIl59rF3zPi9wHnawI15joZ45pA1Bu+k2ReYRATJ4NpIUJ
+ cZ0/xS0yGAG/nG54G8A==
+X-Proofpoint-GUID: MIMS2yDnbjRXXMW5txa25dbISKP26pBj
+X-Authority-Analysis: v=2.4 cv=ZfEt8MVA c=1 sm=1 tr=0 ts=6a2997ba cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=jkYWTDicirnocBHR9mwA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_03,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 spamscore=0 phishscore=0
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606100160
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Calling sleeping functions from within DRM atomic callbacks.
-- [High] Passing stack-allocated variables and read-only data (.rodata) to =
-`spi_write()`, violating the SPI subsystem's DMA-safe memory requirements.
-- [High] The OLED display is not turned off when the driver module is unloa=
-ded due to `drm_dev_unplug()` preventing the `atomic_disable` hook from acc=
-essing hardware.
-- [High] Coordinate space mismatch in the damage handling loop causes incor=
-rect pixel extraction when panning.
---
+IPQ9574 also has the dedicated 'global' IRQ line for each PCIe controller.
+Add the same.
 
-commit 830ebdf4bc79cf5af84541c3dcfa33f751296ed5
-Author: Amit Barzilai <amit.barzilai22@gmail.com>
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/ipq9574.dtsi | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
-drm/solomon: Add SSD1351 OLED display driver
+diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+index 622cfa96ed2b..a7e7115477c8 100644
+--- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+@@ -945,7 +945,8 @@ pcie1: pcie@10000000 {
+ 				     <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
++				     <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "msi0",
+ 					  "msi1",
+ 					  "msi2",
+@@ -953,7 +954,8 @@ pcie1: pcie@10000000 {
+ 					  "msi4",
+ 					  "msi5",
+ 					  "msi6",
+-					  "msi7";
++					  "msi7",
++					  "global";
+ 
+ 			#interrupt-cells = <1>;
+ 			interrupt-map-mask = <0 0 0 0x7>;
+@@ -1031,7 +1033,8 @@ pcie3: pcie@18000000 {
+ 				     <GIC_SPI 326 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 415 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 494 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 495 IRQ_TYPE_LEVEL_HIGH>;
++				     <GIC_SPI 495 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "msi0",
+ 					  "msi1",
+ 					  "msi2",
+@@ -1039,7 +1042,8 @@ pcie3: pcie@18000000 {
+ 					  "msi4",
+ 					  "msi5",
+ 					  "msi6",
+-					  "msi7";
++					  "msi7",
++					  "global";
+ 
+ 			#interrupt-cells = <1>;
+ 			interrupt-map-mask = <0 0 0 0x7>;
+@@ -1117,7 +1121,8 @@ pcie2: pcie@20000000 {
+ 				     <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
++				     <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "msi0",
+ 					  "msi1",
+ 					  "msi2",
+@@ -1125,7 +1130,8 @@ pcie2: pcie@20000000 {
+ 					  "msi4",
+ 					  "msi5",
+ 					  "msi6",
+-					  "msi7";
++					  "msi7",
++					  "global";
+ 
+ 			#interrupt-cells = <1>;
+ 			interrupt-map-mask = <0 0 0 0x7>;
+@@ -1202,7 +1208,8 @@ pcie0: pcie@28000000 {
+ 				     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
++				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "msi0",
+ 					  "msi1",
+ 					  "msi2",
+@@ -1210,7 +1217,8 @@ pcie0: pcie@28000000 {
+ 					  "msi4",
+ 					  "msi5",
+ 					  "msi6",
+-					  "msi7";
++					  "msi7",
++					  "global";
+ 
+ 			#interrupt-cells = <1>;
+ 			interrupt-map-mask = <0 0 0 0x7>;
 
-Add a DRM/KMS driver for the Solomon SSD1351, a 128x128 65k-color RGB
-OLED controller driven over a 4-wire SPI bus.
+---
+base-commit: 49e02880ec0a8c378e811bc9d85da188d7c6204c
+change-id: 20260610-ipq9574_pcie_global_irq-eb2838b16374
 
-> diff --git a/drivers/gpu/drm/solomon/ssd1351.c b/drivers/gpu/drm/solomon/=
-ssd1351.c
-> new file mode 100644
-> index 0000000000000..7c4a5c461afb8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/solomon/ssd1351.c
-[ ... ]
-> +static int ssd1351_write_cmd(struct ssd1351_device *ssd1351, u8 cmd,
-> +			     const u8 *params, size_t num)
-> +{
-> +	int ret;
-> +
-> +	gpiod_set_value_cansleep(ssd1351->dc, 0);
-> +	ret =3D spi_write(ssd1351->spi, &cmd, 1);
+Best regards,
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-[Severity: High]
-Does this code pass a stack-allocated variable to spi_write()?
-
-The SPI subsystem requires that buffers passed to spi_write() be DMA-safe.
-Since cmd is a local variable on the stack, it may not be DMA-coherent
-(especially if CONFIG_VMAP_STACK is enabled). Could this trigger cache
-coherency failures or memory corruption when the SPI core attempts to map i=
-t?
-
-> +	if (ret)
-> +		return ret;
-[ ... ]
-> +/* Send a command followed by a fixed list of single-byte parameters. */
-> +#define ssd1351_command(ssd1351, cmd, ...)                   \
-> +	({                                                   \
-> +		static const u8 _params[] =3D { __VA_ARGS__ }; \
-> +		ssd1351_write_cmd((ssd1351), (cmd), _params, \
-> +				  ARRAY_SIZE(_params));      \
-> +	})
-
-[Severity: High]
-Does this macro pass read-only data (.rodata) to spi_write() via the
-_params array?
-
-Memory placed in .rodata is not DMA-safe. If the SPI subsystem attempts to =
-map
-this buffer for a DMA transfer, could this lead to kernel panics or undefin=
-ed
-behavior?
-
-[ ... ]
-> +static void ssd1351_reset(struct ssd1351_device *ssd1351)
-> +{
-> +	if (!ssd1351->reset)
-> +		return;
-> +
-> +	/*
-> +	 * Work in logical levels: 1 asserts reset, 0 releases it. The DT's
-> +	 * GPIO_ACTIVE_LOW flag handles the physical inversion, so this pulse is
-> +	 * correct regardless of how the board wires the RES# line.
-> +	 */
-> +	gpiod_set_value_cansleep(ssd1351->reset, 1);
-> +	usleep_range(20, 1000);
-> +	gpiod_set_value_cansleep(ssd1351->reset, 0);
-> +	msleep(120);
-> +}
-
-[Severity: High]
-Are we safely calling these sleeping functions?
-
-This function is invoked via ssd1351_init_display() from the
-ssd1351_crtc_atomic_enable() callback. According to DRM subsystem guideline=
-s,
-CRTC atomic callbacks execute in an atomic context where sleeping is strict=
-ly
-forbidden. Calling msleep() and usleep_range() here could result in system
-instability or deadlocks.
-
-[ ... ]
-> +static void ssd1351_fb_blit_rect(struct ssd1351_device *ssd1351,
-> +				 struct drm_framebuffer *fb,
-> +				 const struct iosys_map *vmap,
-> +				 struct drm_rect *rect,
-> +				 struct drm_format_conv_state *fmtcnv_state)
-> +{
-> +	unsigned int width =3D drm_rect_width(rect);
-> +	unsigned int height =3D drm_rect_height(rect);
-> +	unsigned int dst_pitch =3D width * sizeof(u16);
-> +	struct iosys_map dst;
-> +	u8 range[2];
-> +
-> +	iosys_map_set_vaddr(&dst, ssd1351->tx_buf);
-> +
-> +	/*
-> +	 * The panel expects RGB565 most-significant byte first; the big-endian
-> +	 * conversion produces exactly that byte stream for the 8-bit SPI words.
-> +	 */
-> +	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect,
-> +				    fmtcnv_state);
-> +
-> +	range[0] =3D rect->x1;
-> +	range[1] =3D rect->x2 - 1;
-> +	if (ssd1351_write_cmd(ssd1351, SSD1351_SET_COL_ADDRESS, range,
-> +			      sizeof(range)))
-
-[Severity: High]
-Similar to the issue in ssd1351_write_cmd(), does this pass the
-stack-allocated range array down to spi_write()? This memory may not be
-DMA-coherent.
-
-[ ... ]
-> +static void ssd1351_plane_atomic_update(struct drm_plane *plane,
-> +					struct drm_atomic_state *state)
-> +{
-[ ... ]
-> +	if (!drm_dev_enter(&ssd1351->drm, &idx))
-> +		return;
-> +
-> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
-> +		goto out_drm_dev_exit;
-> +
-> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
-> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
-> +		dst_clip =3D plane_state->dst;
-> +
-> +		if (!drm_rect_intersect(&dst_clip, &damage))
-> +			continue;
-> +
-> +		ssd1351_fb_blit_rect(ssd1351, fb, &shadow_plane_state->data[0],
-> +				     &dst_clip,
-> +				     &shadow_plane_state->fmtcnv_state);
-> +	}
-
-[Severity: High]
-Does this code call sleeping functions from within an atomic context?
-
-According to DRM subsystem guidelines, plane atomic update callbacks execute
-in an atomic context during non-blocking commits, where sleeping is strictly
-forbidden. However, drm_gem_fb_begin_cpu_access() can block on dma-buf fenc=
-es,
-and ssd1351_fb_blit_rect() performs blocking SPI writes. The standard DRM
-pattern for SPI displays is to defer hardware updates to a worker thread.
-
-[Severity: High]
-Does this loop also pass destination coordinates to a function expecting so=
-urce
-coordinates?
-
-The helper drm_atomic_for_each_plane_damage() yields damage clips in CRTC
-destination coordinates. The driver intersects these with dst_clip and pass=
-es
-the result to ssd1351_fb_blit_rect(), which then passes it to
-drm_fb_xrgb8888_to_rgb565be().
-
-However, drm_fb_xrgb8888_to_rgb565be() expects the clipping rectangle to be
-in framebuffer (source) coordinates to accurately extract pixels. If the
-framebuffer is panned (i.e., src_x or src_y are non-zero), using destination
-coordinates could extract pixels from the wrong location.
-
-[ ... ]
-> +static void ssd1351_crtc_atomic_disable(struct drm_crtc *crtc,
-> +					struct drm_atomic_state *state)
-> +{
-> +	struct ssd1351_device *ssd1351 =3D drm_to_ssd1351(crtc->dev);
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(crtc->dev, &idx))
-> +		return;
-> +
-> +	ssd1351_command(ssd1351, SSD1351_SET_DISPLAY_OFF);
-> +
-> +	drm_dev_exit(idx);
-> +}
-[ ... ]
-> +static void ssd1351_remove(struct spi_device *spi)
-> +{
-> +	struct drm_device *drm =3D spi_get_drvdata(spi);
-> +
-> +	drm_dev_unplug(drm);
-> +	drm_atomic_helper_shutdown(drm);
-> +}
-
-[Severity: High]
-Could the OLED display remain powered on when the driver module is unloaded?
-
-In ssd1351_remove(), drm_dev_unplug() is called before
-drm_atomic_helper_shutdown(). The drm_dev_unplug() call immediately sets the
-DRM device's unplugged flag.
-
-When drm_atomic_helper_shutdown() subsequently triggers the
-ssd1351_crtc_atomic_disable() callback, the drm_dev_enter() check in that
-callback will fail because the device is already marked as unplugged. As a
-result, the display-off command will never be sent to the hardware.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610164428.1800=
-91-1-amit.barzilai22@gmail.com?part=3D2
