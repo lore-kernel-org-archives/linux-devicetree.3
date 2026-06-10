@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF8639479B
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:19:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719E6399CEC
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079574; cv=none; b=T9Sgg/foxA7ENTM9L6O3skYV+MIbfFcfz+6LdUKT0dK+0bZbOrx+L7PfozHi4cWJ5IXWMssOio+SVLh13oVs5uc/ii5MZqJpkDqZfHWAP9tX1tkYsp6btD51eBsS9f9pMyezFk60kVhwFJIOdVXTOY314ViZvh7AgppixYowoCY=
+	t=1781079586; cv=none; b=OcuAerwFjF//y16c+AA04Ez733tbWq4tP9SXlTnk6bPHu3XT67wReFCEhPgSrPQmZmC1HvAlgEEt269dZX6Tg2SawEt/3IiK3Lsc3APeu+TM3YEl0Zi3advav3u51VrpRZWtym0gata2IEv6puZDEAXVK+bbwik7GcnSyQmAgF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781079574; c=relaxed/simple;
-	bh=jNTLVZsbaFsBNBc6fYAd7hhD8ZINHtjiBXebhem34r8=;
+	s=arc-20240116; t=1781079586; c=relaxed/simple;
+	bh=oM56RiJDSAg8V40bXibHxHgCTxMGleBUXFfUJ2TUM98=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LGlH/dFI1kH7pNoXE/jYLqy0ahpuxAiPkOLUNgOItJXqZIuMMGx2MjgWkTIazGjYm4CXgmyNXD3kbV2M8oMvm5mgXRoWZDybjBt6AP9q2MUv/PLlXCEn8JTwQmNs61JZpIDNHVrRwShOIK1wMSXBHHU4ssV4JAvFXxcxEOEaHa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGrfP24r; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uPrglVpDgtjljMaJfGe+erB98ScKjUiceIp8xM/KAPTDO/ezEL74CC24AMVjhYiVQWuxp7jbialL1W82pguGc+yCkjKi2PXI2oSgcZBq0gzifTQWugRCqDyS/myhVgktpu6S7dbJrkkPW3TNuMM9S4NgJF0QLpmQm9lPlPT53WI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jt9VnbM3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGrfP24r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E271F00893;
-	Wed, 10 Jun 2026 08:19:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jt9VnbM3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A801F00893;
+	Wed, 10 Jun 2026 08:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781079573;
-	bh=Xi8bKyzPttAls5DgcUuTBjHpexQ2xEA5Y+i0v2oq+44=;
+	s=k20260515; t=1781079584;
+	bh=/3sSs+7Efw2Hn1TIi5QXhNdBZJQacLC/eEnXWa2GBEI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hGrfP24rLaLTNbaDzOBDyhi8dJG/z82+PqFXmfHUKkA7exqUPXvEwnbzbXK3atBjd
-	 tHraTp/8Do5xQxvIPlNU5fkL+Y6/C5oOE1C7D34PLLmSzIxpbhQ04Znt6qP0sUk7Mh
-	 P9ywUq3PuHHQbdkblDvs/jXDg42G0/g2z8AVUSOpXdJkl8EyiGW4b+NYMj+IXWqHwH
-	 Xh5m+4nV2NOi2r0P2AGT1r27VgsVY5Z3WgNgEixqdjdgOBjM2zO8OaJ6Isgs9yEZoI
-	 OyCc1u1vOMSSEfdCQhLnKamFEzheHylDq+FwCO2AZvQshk1DBh1JjY3gQIPt+86G96
-	 jdzOELR0xMNkw==
+	b=jt9VnbM39XLVQqG7inq2SiJQX8ExCLyF50fbdxiLwmkMMkFennfCNlt3Q49maJpgj
+	 4MNOVtg4ivyBEnliS57dlCNAr774TRe+MUvunbkYIbuFRdynhjIsNY1ndzBftbv4LZ
+	 erzvISMQSJo35zHu/VtiyTtpt56B7THZBZAghoJUoAt5X2/pvpOakyjoa6PVMMejBt
+	 Xgevk5PC7GmJBOuf0RZ0tN7/oV6CQE9TXCcKGQQYsnITuJVNljYfADOkkUCxOzk3m0
+	 R5eEtowlfDYevJ8mK7h5udwua5TM4pyUbTRUcK4BOepWw04pgHagMNr4m6d26Vytty
+	 o9xh6HVijWTdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 06/10] clk: realtek: Add support for mux clock
+Subject: Re: [PATCH v2 2/2] thermal/drivers/qcom/tsens: Add support for
+ ipq9650 tsens
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260610080824.255063-7-eleanor.lin@realtek.com>
-References: <20260610080824.255063-7-eleanor.lin@realtek.com>
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260610081241.1468507-3-varadarajan.narayanan@oss.qualcomm.com>
+References: <20260610081241.1468507-3-varadarajan.narayanan@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 08:19:32 +0000
-Message-Id: <20260610081933.22E271F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 08:19:43 +0000
+Message-Id: <20260610081943.C6A801F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,55 +46,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] clk_regmap_mux_get_parent() returns 0 instead of an error indicato=
-r when regmap_read() fails, silently masking the I/O error and confusing th=
-e Common Clock Framework.
+
+Pre-existing issues:
+- [High] Pre-existing out-of-bounds array read in tsens_probe() when DT ove=
+rrides `#qcom,sensors`.
 --
 
-commit 6f252a1d2352da3ab0338149dff431cfd1082f04
-Author: Cheng-Yu Lee <cylee12@realtek.com>
+commit 9a11fba8da339febaef9c47f6f85fc5817527502
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-clk: realtek: Add support for mux clock
+thermal/drivers/qcom/tsens: Add support for ipq9650 tsens
 
-Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
-The implementation supports parent selection and rate determination through
-regmap-backed register access.
+This commit adds thermal sensor (tsens) support for the ipq9650 platform by
+reusing the ipq5332 data and modifying the sensor-related information to
+accommodate 11 sensors.
 
-> diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/c=
-lk-regmap-mux.c
-> new file mode 100644
-> index 0000000000000..8bb66a9e244a1
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-mux.c
-
-[ ... ]
-
-> +static u8 clk_regmap_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct clk_regmap_mux *clkm =3D to_clk_regmap_mux(hw);
-> +	int num_parents =3D clk_hw_get_num_parents(hw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
-> +	if (ret)
-> +		return 0;
+> diff --git a/drivers/thermal/qcom/tsens-v2.c b/drivers/thermal/qcom/tsens=
+-v2.c
+> index 8d9698ea3ec40..ef1fee2266a32 100644
+> --- a/drivers/thermal/qcom/tsens-v2.c
+> +++ b/drivers/thermal/qcom/tsens-v2.c
+> @@ -300,6 +300,14 @@ const struct tsens_plat_data data_ipq5424 =3D {
+>  	.fields		=3D tsens_v2_regfields,
+>  };
+> =20
+> +const struct tsens_plat_data data_ipq9650 =3D {
+> +	.num_sensors	=3D 11,
+> +	.ops		=3D &ops_ipq5332,
+> +	.hw_ids		=3D (unsigned int []){5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
 
 [Severity: High]
-When regmap_read() fails here, it returns 0. Since 0 is a valid parent
-index in the Common Clock Framework, will this mask the I/O error and false=
-ly
-report that parent 0 is active?
+This is a pre-existing issue, but I wanted to ask about how hw_ids[] is
+handled if the device tree specifies more sensors than data->num_sensors.
 
-If the hardware was actually using a different parent, this could lead the
-CCF to incorrectly assume the actual parent has no active children and
-potentially gate it during clk_disable_unused(). Would it be safer to
-return an out-of-bounds value like 0xff (which is used later in this
-function) or an error code when the read fails, to prevent the CCF from
-making incorrect assumptions about the hardware state?
+In tsens_probe() in drivers/thermal/qcom/tsens.c, the num_sensors value is
+initially set to data->num_sensors, but can be overridden by the device
+tree:
 
-[ ... ]
+drivers/thermal/qcom/tsens.c:tsens_probe() {
+    ...
+    num_sensors =3D data->num_sensors;
+
+    if (np)
+        of_property_read_u32(np, "#qcom,sensors", &num_sensors);
+    ...
+}
+
+If the overridden num_sensors is larger than data->num_sensors, the
+initialization loop will iterate up to the new priv->num_sensors and read
+from the statically-sized data->hw_ids[] array:
+
+drivers/thermal/qcom/tsens.c:tsens_probe() {
+    ...
+    for (i =3D 0;  i < priv->num_sensors; i++) {
+        if (data->hw_ids)
+            priv->sensor[i].hw_id =3D data->hw_ids[i];
+    ...
+}
+
+Could this result in an out-of-bounds read if the device tree provides a
+malformed or unusually large value for #qcom,sensors, since the hw_ids[]
+array here only has 11 elements?
+
+Reading past the end could assign garbage values to hw_id, which later
+might cause undefined behavior in functions like get_temp_tsens_valid()
+that use hw_id in bit shifts.
+
+> +	.feat		=3D &ipq5332_feat,
+> +	.fields		=3D tsens_v2_regfields,
+> +};
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610080824.2550=
-63-1-eleanor.lin@realtek.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610081241.1468=
+507-1-varadarajan.narayanan@oss.qualcomm.com?part=3D2
