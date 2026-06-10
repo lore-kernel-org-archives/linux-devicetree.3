@@ -1,164 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012052.outbound.protection.outlook.com [40.93.195.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF90639020C;
-	Wed, 10 Jun 2026 11:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781092021; cv=none; b=YOsBsm8fSieV/0fEJ2IUw7C5KBAWSL5D7/Q7G/IuZpe3CccuwbUwiv/LjSUC4p6d2wsYFZO8B1yB19K46tG5IkQ5gJdGB6x5cg0+wDjEKgzsrviJUTs1/YUVGvDaYlPOCkqUOZzcXhyx1wma3mDQ4ay4tjWda/IV4GqeqsM3OH0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781092021; c=relaxed/simple;
-	bh=YRhXPN7B5UqeWnvsFvmUUqRIgzH3uRb2mQF6SiyKDiI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GXg2wl/QehE2HS8H/RCjLZFET2zxHDPq1GNoh8fd+sh6JY3aF+G8AY5YWZ8SkIbppRW2uwBbiOAgua5EZqTKVbv2tz02a4B/3/WJPKD5p0LJmN/NXh0eS9Ky3+AUmbR/BpbB/HjdblPtK6yArIxXiJGc05zbm6yEflYLn46ivcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePnlODfR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B103F23A6;
+	Wed, 10 Jun 2026 11:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781092035; cv=fail; b=hIbaP3o9TOCCdop7OHhRybFa5iA7oQTRyGz+twOjWdhc3WADOLgxWgvAUxEA/J66Ase6K0K3bCSZ+ZwwwJwsnA8BrbdFL42ub56FBPtYBp9E9gPXc0gjRWpzJRbmBY+qI4SVIhRrv920ScMoFFqI6eBWhnLckPhc3oJLv+5DyM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781092035; c=relaxed/simple;
+	bh=yWIkWComVd9cjKBG30/VxocoVj+J7Ia+YtDy7577lOc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HJokGROYYE4Sss65ezexohs6J0pQWdzi9hS4xdHVNrMqGAGetYk8uFShRsh30Ip5zsQ8lCqGitOp6HyAoVRBP1f0B5PiNdjQba+3Phiq5zlZkrYFDLtVW0O+YGvUiHQ8ob2Yjsro4IHoI8/N7miCAX6wUEao6VMUDzaAj13zTbE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rcFTZ3Xf; arc=fail smtp.client-ip=40.93.195.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePnlODfR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A901F00893;
-	Wed, 10 Jun 2026 11:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781092020;
-	bh=n7CSmoeaDtO8zLhqgOXIOpImQqCOsCsBGssO4rDdkZY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ePnlODfRC/ciUUagYmH6hA1bBXrIolsB9q6hkNQiE9bQ2WWB5NIstC6QN+CeXtCxM
-	 gkmAnDWG5NF4mNqf79dfAMER2MKKYaMVTifbGNMdVgxGurIqsKBQpQEFgs62ZCLF5r
-	 oSaSAEr1K6ZT6cIZtrOoNafAUdMrVgQ9m3HXAHkcxX9BHlHEJ6LnzyQvvId01LrzqL
-	 xuzv3dYrlyUPGmp5kriVxgQ6VS8T0JC945RLZqHwU4xVng2vhpqt9V/9JCOjwyjKnC
-	 ehTb71tfK+8DfaTcKGclSzqvXWTeabKhdSA5L2n9glhJYzFmNGuQPkDfuKzEyGcUrV
-	 l14BQHvy8EIIA==
-Message-ID: <068a7ba8-5b1e-46e3-9388-ba288163eb10@kernel.org>
-Date: Wed, 10 Jun 2026 13:46:55 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rcFTZ3Xf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fFqay82S69tW8obZcDXxXIH1Ax7onw01sCfXVAULtWVvh5hMCqDjmEbcWbGWtCUNI+vT+lbxhbOW1/Oy3WIiKct/w+OOmuGQS2p9Es0vAeESfnKbWIueH+Oz+YCZg465InCmvxFYxxEThPzFrfxePAEmsZise0lviHQHQns+OwcA1enlo/8teSDUGWMiS1OIg1mlrtk9qsKNe8P5rF6nVmFzP3SZY6UKgo1ktIKnsMEeHYZZc1w8bvJKBCBSlyx9/ujJ2xg7ujF6FNcpJFkiRqnWCec/eq1trgWWGCeVZFvPLvp57+NuP0ACqJLCpDSM4K4MjOhRp/9w2xviRXReuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u1Uhtgeef7bqqrkTRXVGWYhPxWcpehLhu5u5WAGp514=;
+ b=Afg6pBHaorXVl2RCKz/FU0k3gmB4JapqF8L5rVJL8SKjfLGDwJyyvzU9lFEU8PJAUIX3luhOr6kjmmdiDnV2NX6XR9psfRFAmOQOSLQ9rR9/UWjq3e9wOSrabYxaN2fxq+k1EpSDkxZb0ISfDgxeoCO77t1Xnpv4lnv4Gugrlzw6DRp3A+rUYc/iHABArVvm/aH5ensy56a33HOyzxyEtAPjSmXQ3LFmmyHKVeKZQVhXY4FCNewCx6a3EzXeXKlpWZ2MLSL4FRWjHDT+S97KE5nGIOC9WfYS/NT1qi8IhnLhnK3HhWLkNysgBtbir/l+td9pxsIriSnEm/b9brzdEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u1Uhtgeef7bqqrkTRXVGWYhPxWcpehLhu5u5WAGp514=;
+ b=rcFTZ3Xf7APUrktWC0tnpkhVaw2CaqwcCKd9zff8PDm8kD7zKtmXLtRqc7yJg0BPZMBGWOMpjhiShCANUW350Y/5huxHJsSrshkQdDMPYqc25i8GeRB+VW15Re9mwLvBKnOJh+/WCzm/bnM+K91N2Xw0r10t12lZFfOFeYJSA0A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
+ by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
+ 2026 11:47:09 +0000
+Received: from IA1PR12MB7736.namprd12.prod.outlook.com
+ ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
+ ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
+ 11:47:09 +0000
+Message-ID: <2b3b6577-d850-4102-a77c-8e0f82082a3b@amd.com>
+Date: Wed, 10 Jun 2026 12:46:52 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/5] iio: adc: versal-sysmon: add threshold event
+ support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Conall O'Griofa <conall.ogriofa@amd.com>,
+ Michal Simek <michal.simek@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Salih Erim <erimsalih@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260606051707.535281-1-salih.erim@amd.com>
+ <20260606051707.535281-5-salih.erim@amd.com>
+ <aiUeVs_FoI9vV1Hd@ashevche-desk.local>
+ <0f8f431f-af21-4bad-bff2-e6cde078bd41@amd.com>
+ <aihN7O9noqEa5PlA@ashevche-desk.local>
+Content-Language: en-US
+From: "Erim, Salih" <salih.erim@amd.com>
+In-Reply-To: <aihN7O9noqEa5PlA@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0072.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:153::23) To IA1PR12MB7736.namprd12.prod.outlook.com
+ (2603:10b6:208:420::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: serial: Add binding for Cortina-Access
- UART
-To: Jason Li <jason.lee651024@gmail.com>, jason.li@cortina-access.com,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, linux-serial@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260610112821.3030099-1-jason.li@cortina-access.com>
- <20260610112821.3030099-3-jason.li@cortina-access.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260610112821.3030099-3-jason.li@cortina-access.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|MN2PR12MB4470:EE_
+X-MS-Office365-Filtering-Correlation-Id: e88e81de-0604-41bc-1070-08dec6e600cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|11063799006|4143699003|6133799003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	tvu70NbgocJsirqNdenqvxud7aYOqpL5rZbwfjav+ezGI7bPnrjm1Pq7y1TvR6cSJ5gdQYzYxTSuNewk68lO1lufqkFslP48I3uW0FVTOp8pkIn6V8kXS2LKWHWtelkw9734uQAxrDM5v7KVyAmGg1qJGYpR6RtZeLy+YLXea5cO6GBvgsvqfJA/ZLEqM4i1qi4bvHtz0Arc9/0hkR2qnR+OCw0cZcDSBNHF9wSD3wAtYCUBeaQlXhUY8Nij1/LuIck5tpeAipaSKffeXLbL5zzI+OWnTmUAE+DDW9mUFkARe+/JN1UEtcb4lG7sLA+rTceutccg09qM7Mr/qsSFW9brP55FMte/p6AOUgK//O2VY3dnUQjFSnCpBaz3Px3NVG+Wv9aAltxCIoiHIbejtb4DwGNrFCi/hpWTFyYN6a+I8ZH+xTCSHxE73wLurawHDUGiyLYNbji1XyXQrW7svHP7XuBB7bx+hhI5w95n2rgaAIY/TDHQxVTtIigpopsDA6/yYm6ChBIBT93vysN3qha8Ag0QvPEs0sQGLumqlhivN1XjNeSMSYnWGE3jM+uqNEdzIhblJMDlLvKkpvetGo1xkQ9Ob6syMjp/K7ci9Js6wFEA8FwneNdiAuKpifNv05ubEOsdlpMLp2cspVSKLWwsWy+0+dhgH2dBfPG+C3c1NCF0iLccCR9sn32pU3hQ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U2kzNlJGbDJOUE5wRGdMN0w1cXlwMCtucmpTbUFLTDRiM3dLNGF6S3hPZmh4?=
+ =?utf-8?B?STF5eU5kYWFsSG5iQVBsYnRnL2xXR0ljVm9sYUYrbCtNdWR5T2JUT1lUOUdq?=
+ =?utf-8?B?S2J5UHNSYnhvaDBDN0dnUzJJVjkzblNhaDVYMUlJakJtRkhheDNRdldoWDNS?=
+ =?utf-8?B?QXRRMTYvelBXSzQrQ3FadU1aQXVNc1hEc2NCNkNDbW8rdjBqNEN1ZDM0cTJa?=
+ =?utf-8?B?U2ozbzMyWUJoUE1PV2pxU3NRT2dKZEpQOXNZSk1yeldqN2c1SmJEWEdQMTJ1?=
+ =?utf-8?B?ckhkRmp2WFl4RnJhMldQWTRvQ2txcGFaK2ZNbU1uQjJ4Q0VuaG9oMmpvSm1a?=
+ =?utf-8?B?WEo5WTZldFliajdVQXBjMEFQNEc5UHpDUnB0QzMwOTlqYnk0cGFzQXMvd21F?=
+ =?utf-8?B?QklpMHdEYVVXWHRrMkU3RkdEMWpiYytBN2ZmTzBUY0pMVTI3NDc1WC91TkYy?=
+ =?utf-8?B?OHhDcjdkWXh0S1RXTWJUVld6MGlJWnA4R2pIa2x4dkdEcFkzLzZyY2lOYnI1?=
+ =?utf-8?B?UUR5bmJKM3lmcTU0aEFPQzE0dzFOcWZyWEZneVNObjEwMnNCSkFQMGlTeGYw?=
+ =?utf-8?B?RHRVS2wvdjVuNzJEWXlmdVZoekd6TXNnSWlqcFppUFg5MWZrZjF4ZUswSkli?=
+ =?utf-8?B?REdKMG1SK3JUNEMwaGFHS0duVGRUVTNhemRkSk9MRGt4WlpnRTNUNWFPQnJ1?=
+ =?utf-8?B?OHZMOW1lSHR4TE02SG9LRjBIdUlCb29jY0tGQWJlZVAwZkVnbUQrbngydnIz?=
+ =?utf-8?B?aUdTc0d5am4vQWlxNm90cXVSQ1NNK0JIK0xkVFhmNUJuUFBtYzhvOXJmZmhW?=
+ =?utf-8?B?Q1dwak1UaEZGcXVSK0VEb3lTSWtIWDJMdlhmcnJIMEtUN0xBR3FOWWZoWnp1?=
+ =?utf-8?B?anBCMDk0VXdpNnpRbXpibTdzYW44cFFCSVpRWWpoOWwvVk5xSUNvOHRQSW0r?=
+ =?utf-8?B?ejZ0RnhEeUVscE9xRFN1QVg1QlVGSVQrTGZ3aklwbEYxOXd0YUg4ME9MUXZF?=
+ =?utf-8?B?anE2d2NpV3NHRUhyRzNvajE3dEZhaGpYQzFpSWU1OU1Xb1hmVkprVTUzaE9h?=
+ =?utf-8?B?OVhrQUcxT3FsODdvWVA0cENuTVlmTTVtS1hYNkxnRm9MckRSdDVCYkgwRmM2?=
+ =?utf-8?B?bGxkVGxRaHpTVHZibGNDeGxiN1pOOFUvM010bHp2Nzk4c09oR1VUdmxPOWhv?=
+ =?utf-8?B?a0IyUDJxc0RwcDlvSlcrY0RQTnl5TDVXaStxdUNpYWlaZzRjakRlOGVKUkVB?=
+ =?utf-8?B?TG9tcE10U1JBUzBra0JvbkNHcU13cGNXZlVvTTVBdEZJUDV4NlFKalJuS2xO?=
+ =?utf-8?B?ZVdyaElSeVpTTFBRQUxGeWtoczR0WVd1b0g3Tm8rZC9PRHVrbEpFN1paaTY3?=
+ =?utf-8?B?L3lUd21lajdzaGE3MFpnZ2lNSURpeUhlN054LytyY21XWDVKRnBRQU5zcDFV?=
+ =?utf-8?B?dkRRY1VKSXpaOXVMSW9TM2E3dERIOWcxT3IxcklFZXhhVnlGSzRyTjdySGMv?=
+ =?utf-8?B?bExHakZGOWs3QmRQYkh5aFJnWWRlMDN6YWZZejdmekxzVmtSRFhQSHhRNWgy?=
+ =?utf-8?B?SkU0VTFPQS9KMEZYK083Z2pzK2xCdjduUlhQYnliNk54Z3dQUENzMzl4a3BB?=
+ =?utf-8?B?dTZXcS9NOVZrWk1QeTVnaXpXSWhBYkVRc0RFaEdVV2ZiV0orRnVCSmhvVUhJ?=
+ =?utf-8?B?R1ppWnVtL05IOVI0VERQQTVLSFRpZFFGZVZOZlVmUk5hNkhNdXpnV3NUd3Vs?=
+ =?utf-8?B?NnkrZmlIeGI4ZGVzWEU5ZjZ1U1N5dEtFWTlJSmZmQ3lTaXlnLytyVHJ3cXhw?=
+ =?utf-8?B?UXZGZjZVYzF0eUwwQ1pNbWUxT2xYWlNXdG1xL3VKWmJyaWUvbk1rWTBjcWRO?=
+ =?utf-8?B?dFVSU04vVlZ4WWJLUXZOSGpqVTEzZEkyL3RnWExyOG1WNW1MMHZHTUZkMDdG?=
+ =?utf-8?B?aWxCMzIzeWZmUzR5NTIzTkNEQ3hDL3c5UmVSa3pKaGtFU0thcGROZHAzdzl1?=
+ =?utf-8?B?RW9haVp6RDFUcXh4T1ZUYTczRWZ0RE5hbVFENUVVclFKUTN6U2Eyam1NbFNB?=
+ =?utf-8?B?MkVyU1ZQMk5QRnpmWTFPbzFoaWREYmNtUmJNK3BmUitzVFhBb1VDaUZvOFlj?=
+ =?utf-8?B?WGg5aUx6cnFMNWJqcm55STlBSjd2RmQ5QzJrdDlLdnBpQTlLRHFQRzFScTZU?=
+ =?utf-8?B?MURReGY3Z1B4R3VUMlcvakdrdFhGR3Q1YWlhcWVLNTJpNlJxRUhWM1JCSGpa?=
+ =?utf-8?B?bEI1bFlEZmc0SHpnQk1UakZyTnRaMWNvNUZPSHhia3dJNExpTVpuZGVyWjFM?=
+ =?utf-8?Q?j7yqi1yWdzD+yOaNRZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e88e81de-0604-41bc-1070-08dec6e600cd
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 11:47:09.3865
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ++xRFHq0koABAn9WAkBTCbnxB+NjLTyKA6NhgctT9MYYb6wu1R0WVtzCxOLQshgC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 
-On 10/06/2026 13:28, Jason Li wrote:
-> Add DT binding schema for the Cortina-Access UART controller.
-> This IP is integrated into most CAXXXX SoC family members.
+Hi Andy,
+
+On 09/06/2026 18:31, Andy Shevchenko wrote:
+> On Sun, Jun 07, 2026 at 10:02:47PM +0100, Erim, Salih wrote:
+>> On 07/06/2026 08:31, Andy Shevchenko wrote:
+>>> On Sat, Jun 06, 2026 at 06:17:06AM +0100, Salih Erim wrote:
 > 
-> Also add the vendor prefix for Cortina Access, Inc. and the
-> top-level ARM board binding document for the CA8289 (Venus) SoC.
+> ...
 > 
-> Signed-off-by: Jason Li <jason.li@cortina-access.com>
-> Assisted-by: Claude:claude-opus-4-8
-> ---
->  .../bindings/arm/cortina-access.yaml          | 29 ++++++++++++
->  .../serial/cortina-access,serial.yaml         | 46 +++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
->  MAINTAINERS                                   |  7 +++
-
-This is somehow complete mess. serial and arm together?
-
-Please carefully read submitting patches (both documents!) and don't
-send AI-assisted slop.
-
-You must not combine independent works together.
-
-
->  4 files changed, 84 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/arm/cortina-access.yaml
->  create mode 100644 Documentation/devicetree/bindings/serial/cortina-access,serial.yaml
+>>>> +     ret = regmap_read(sysmon->regmap, upper_off, &upper_reg);
+>>>> +     if (ret)
+>>>> +             return ret;
+>>>> +
+>>>> +     ret = regmap_read(sysmon->regmap, lower_off, &lower_reg);
+>>>> +     if (ret)
+>>>> +             return ret;
+>>>
+>>> Half of the IO accessors have no error checks, these do.
+>>> Why is this inconsistency?
+>>
+>> The regmap calls in sysmon_unmask_worker and sysmon_iio_irq
+>> have no error checks because they run in contexts where errors
+>> cannot be propagated (workqueue, hardirq). The init path checks
+>> errors because it can return them to the caller. Will add a
+>> comment explaining this.
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/cortina-access.yaml b/Documentation/devicetree/bindings/arm/cortina-access.yaml
-> new file mode 100644
-> index 000000000000..ec0320ed0c0b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/cortina-access.yaml
-> @@ -0,0 +1,29 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/cortina-access.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Cortina-Access SoC boards
-> +
-> +maintainers:
-> +  - Jason Li <jason.li@cortina-access.com>
-> +
-> +description:
-> +  Boards based on Cortina-Access ARMv8 SoCs targeting networking and
-> +  access applications.
-> +
-> +properties:
-> +  $nodename:
-> +    const: /
-> +  compatible:
-> +    oneOf:
-> +      - description: Cortina-Access CA8289 (Venus) engineering board
-> +        const: cortina-access,ca8289-engboard
-> +
-> +      - description: Cortina-Access CA8289 (Venus) reference board
-> +        const: cortina-access,ca8289-refboard
+> But the error checks may be used to modify flow inside the respective functions.
 
+Accepted. Will add error checks in sysmon_unmask_worker and
+sysmon_iio_irq to bail out early on regmap failure instead of
+operating on undefined data.
 
-Where is the SoC? This looks like very poor contribution. If you opened
-any existing recent board binding you would see it is done differently.
+Thanks,
+Salih
 
-Best regards,
-Krzysztof
+> 
+> --
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
+
