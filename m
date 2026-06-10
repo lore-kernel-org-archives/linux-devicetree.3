@@ -1,163 +1,101 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09A238E5C5
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E192640D564
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079933; cv=none; b=j5kRJXgKVzjgNxI/BAWfs3MIdjmbzVAWT0pJLFNupfCqWr+aH7yd/NVnyzvwe9vqR6pYa/89wGqaZ8pgGqG/WLKKSI6j/vUK0HsLVD4AEt7nefW1XwSn74bWQoc7hrt5QXjdj9F25gZLnO8avDBH9BVEVwg0eD5ouJQvMZs604Y=
+	t=1781079965; cv=none; b=jmh/h5uFEOhlEpZFSLMf3ktnonnBKEYjxEZ/XZZlJPQ0YP+v4kGB4SrTysuxORWAcGeVfLUdk4ORc/sBBYLDgup8Go4WhWL1ohTfyvGdbhunCgWQiKYj7hKgjXahQE9+/ahyLC3N+qH3X6U7y/giSWvTW+AUUDkVd/ZZ/gD06oE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781079933; c=relaxed/simple;
-	bh=XufgtRG46mdSA4Xe5u8SghU6O2aObVMltjAQFLvDA1A=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KoAjGUUdwwXqGT5OAIyIeqbH7d3o8Nntx9/E11LlmySid7N98fz8xtL8EC9ByyS+uerW4xtPEyjT7i9KaDGve+AB+9zeUiebTYeH+gtO+kHbkgOtL0Ix9Or1Rh43SiGpRQCOnlpmJ68erBcGIIakKPZek0sZNvA6XrZUVjxEKHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jCkl4X/a; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781079965; c=relaxed/simple;
+	bh=uey3v178wvBM6mflUSYyAvM/wdqYyQyoVhHSEGuZ71Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=p/e8+lxzXC8jXXLqyOfiz4/yBpZGI6GOCTfrtiec2qk6i0avDOItKrTmYqphh9dZAed5eECujrBgXGFTfdH6Oq6hHYyciiDDWfPsTsCzBy4ecsXHXX/Jp6IrttAlYgBEeS5TaSdRU/qT9FS02GDjyU3oGPHbbeGmMIlqokfMP5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eeHa93M8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jCkl4X/a"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-bed2195323cso963248766b.1
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:25:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781079931; x=1781684731; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7t+E3OPQw+KHv8N8LE2/GMvZZqMpNz2+txgaF9YQSss=;
-        b=jCkl4X/agg8S8HrqzM2iNkG4+pxFcg89/rJeuajaH6U7tMFr2fNejhgmWiXgcxumig
-         QqxMmcKmraAbMQZ2wQC02vKL1e3G1XwsaQKfi1l5+o/kwvubO88vLEnxlfSP7LnvRPl0
-         hZa1mE8VHdooy5T3K5TWJ/EV1MOy9cRtfu4dJHMyU7yCfzasLOJkrORG3kMDRJ2hwEhP
-         v39A8bk/Jagchph8Ql3LeROrHL1f7AyBxY86fIvbJaLbElHUjfHEYiiQXIIPPcpSHo/e
-         2z1Ec9RY5Bu61q5IV+ARN7bd770gFRxVn8F1GIB9qKHMaxHkkaq7/eTuyT4gRFVYiN0R
-         3CYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781079931; x=1781684731;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7t+E3OPQw+KHv8N8LE2/GMvZZqMpNz2+txgaF9YQSss=;
-        b=aJdTuq5A37Rp50w8sF4tobBXI2gGxAiOU0z2yAXhSmYFEhO46K4b+YCkzoBdDE3Cob
-         wH3h2JteeqYe3+o/YLw3EZ/EHSvTTatYoIUEYyRzB8Be68bwWWAt2vlO5U8adVWfAhg5
-         behiEQ7up+5I2upptDeUFcW11R7vlitBSJ/N90ja02wAYUCvPbjf/c9dOsgGgCYZRYyQ
-         fURZVdaQGz6HTLqiqaN48aHO2Eq464NJFtXrv8J/59LuCyh1yxIgn+JskzsxwPu/avxr
-         RL5CprBEtU4Dy8SykLMqQO3zoQsLlCG9+l6j8a8akyDMjYEG2eCXrLuBpP17xnyEp9Y/
-         pDug==
-X-Forwarded-Encrypted: i=1; AFNElJ83gTSMgtEPBwtT/IocnUNbtAwwMr90nazVYjcu4SaAyok+y1Xt9AzJy22WPtIY2bKht+AOhdIRfmKH@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHsNVPJMmI8tIJ0nSFekfo5KtEDHFBIDJLUHrXB5M1zMismfoO
-	b5TLwNw1OmmxK87DGxTvgo7V2HwqG4uY1r+ysDzpUJ57JmFADMXgt76m
-X-Gm-Gg: Acq92OFYXdaCIHpsQF286eNH5q0JR1T/DrNJqzQEKgDfOB33ORS1myd3fA0PkR5P9NK
-	4eIXHzb2Y/wp1nZaSCG5wYQShEJ4GVKZfl0fTcQPRjfYeed6Cjd8nZNUsriYwZ0sgbV+0iMV1XM
-	t02vQT+Ga8CugTn4MKOeV6+4dudCPdDEH4jCb/q3GMGgGhySjG0fDiPPX1CKq/ICeOWVlejcXkB
-	fPa22tbPSTWYTjavaTU/h597E0ldGl4I9s3PLSUjUvCqV6i+t6cQ/dTzK1BzIfpt60k4dPCKGNp
-	vGyMfVvoaPeJFM0FkBA9qzjDJUGO3tqpN3BSchmJhHzsEwNTEo1uXVzirMFU7sLIkcOcf1VM24t
-	NhKHsFoXpGxeaNsK2FK0epXZfyhqpgQBt5gj9SEZO8pmzofLQlYpBCGYiOA0uM90qp0q5c18CH1
-	NS9XVLmuwLP2qSh3N24J5uCbrpX39KOjPAEzPkdDoQMoJebd+Zmu66cLcBPQVOCCA7JfMdiVEAw
-	PgoUYKk1zGSFnj3ozJdowwmUdTBL9tNOv8q0Wr1hFSZIMV7yA==
-X-Received: by 2002:a17:907:e113:b0:bfa:f563:929c with SMTP id a640c23a62f3a-bfaf5639aacmr42627266b.17.1781079931011;
-        Wed, 10 Jun 2026 01:25:31 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf054e0280asm1148630966b.33.2026.06.10.01.25.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 01:25:30 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Wed, 10 Jun 2026 09:25:25 +0100
-To: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	rodrigo.alencar@analog.com
-Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v2 12/12] iio: dac: ad5686: add gain control support
-Message-ID: <kzfu37rchq7zjus7jpsy745zfvw3zvpz57l7yqvddolwhb4yth@c7qx3pdq7tjy>
-References: <20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com>
- <20260609-ad5686-new-features-v2-12-70b423f5c76d@analog.com>
- <aihYO_X9YEqabaFi@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eeHa93M8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCB61F00893;
+	Wed, 10 Jun 2026 08:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781079964;
+	bh=cRggMLT+rUlz6l8KsEwcxklGmlUb3uPE+MEnS/k5oYo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eeHa93M8l5JH8wkGLYq8w24sgZJYtC/pWVM74gY2B91VZjsx8RsoBPPJupGnpK2eU
+	 f8hDNEWnVQEiD+pe6jN64D3bS+8wcbhot2pZTW4NmkjaY+I2f9HKi2MoavZ5h4DrFb
+	 Suj4hoRW6dRZMmZAGHyK7KZu7R9v4l7Yt3/Xab+zwrqkmyJi4MXBVlkCJeu0DiKTxC
+	 y63j/gGQmmPct3woJb8VcsbyO5sa9i195pKkD461h9+ewa9vwRpJ1J1w4PgJ0iShzj
+	 4lL+OPoy9LV/boS5PECpBV7xJR+zj4O7KjCYSKS3CDJ/oSqhQ7qCrqpUbQQbkjvmrq
+	 P7YMfAPDTqToQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] clk: amlogic: Add A9 peripherals clock
+ controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jian Hu via B4 Relay" <devnull+jian.hu.amlogic.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260610-a9_peripherals-v3-2-d07a78085f71@amlogic.com>
+References: <20260610-a9_peripherals-v3-2-d07a78085f71@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 08:26:03 +0000
+Message-Id: <20260610082604.4DCB61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aihYO_X9YEqabaFi@ashevche-desk.local>
 
-On 09/06/26 21:15, Andy Shevchenko wrote:
-> On Tue, Jun 09, 2026 at 11:13:07AM +0100, Rodrigo Alencar via B4 Relay wrote:
-> 
-> > Most of the supported devices rely on a GAIN pin to control a 2x
-> > multiplier applied to the output voltage. Other devices, e.g. the
-> > single-channel ones, provides a gain control through a bit field in the
-> > control register. Some designs might have the GAIN pin hardwired to
-> > VDD/VLOGIC or GND, which would still be fine for this patch, that allows
-> > the scale property to be configurable with two available options.
-> > vref_mv field is moved down in the ad5686_state struct, so that
-> 
-> Slightly better to use same terminology as in C and documentation, id est
-> 
-> "...the struct ad5686_state, ..."
-> 
-> > overall size increase is reduced.
-> 
-> ...
-> 
-> > +	case IIO_CHAN_INFO_SCALE:
-> > +		if (val == st->scale_avail[0] && val2 == st->scale_avail[1])
-> > +			st->double_scale = false;
-> > +		else if (val == st->scale_avail[2] && val2 == st->scale_avail[3])
-> > +			st->double_scale = true;
-> > +		else
-> > +			return -EINVAL;
-> > +
-> > +		switch (st->chip_info->regmap_type) {
-> > +		case AD5310_REGMAP:
-> > +			return ad5310_control_sync(st);
-> > +		case AD5683_REGMAP:
-> > +			return ad5683_control_sync(st);
-> > +		case AD5686_REGMAP:
-> > +			/*
-> > +			 * Even if the gain pin is hardwired on the board, the
-> > +			 * user is able to control the scale such that it
-> > +			 * matches the actual gain setting.
-> 
-> Rebalance the line lengths to
-> 
-> 			 * Even if the gain pin is hardwired on the board,
-> 			 * the user is able to control the scale such that
-> 			 * it matches the actual gain setting.
-> 
-> makes it more consistent.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The newly added Kconfig symbol `COMMON_CLK_A9_PERIPHERALS` impli=
+es a non-existent config symbol `COMMON_CLK_A9_PLL`.
+--
 
-Thanks for looking into this one. I will address sashiko's concern here
-as userspace might not be fully aware of hardwired signals.
-Will drop this commment. 
- 
-> > +			 */
-> > +			gpiod_set_value_cansleep(st->gain_gpio,
-> > +						 st->double_scale ? 1 : 0);
-> > +			return 0;
-> > +		default:
-> > +			return -EINVAL;
-> > +		}
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +}
-> 
-> ...
-> 
-> > +	unsigned short			vref_mv;
-> 
-> _mV
+commit 01c948d65d7fdd0d90013ab36dfe236bd635347c
+Author: Jian Hu <jian.hu@amlogic.com>
 
-Renaming would need to be a separate refactoring patch. I'll just keep
-as is and just have the field moved down.
+clk: amlogic: Add A9 peripherals clock controller driver
 
--- 
-Kind regards,
+This commit adds the peripherals clock controller driver for the Amlogic A9=
+=20
+SoC family. It introduces the COMMON_CLK_A9_PERIPHERALS Kconfig symbol and=
+=20
+the corresponding driver source.
 
-Rodrigo Alencar
+> diff --git a/drivers/clk/meson/Kconfig b/drivers/clk/meson/Kconfig
+> --- a/drivers/clk/meson/Kconfig
+> +++ b/drivers/clk/meson/Kconfig
+> @@ -132,6 +132,21 @@ config COMMON_CLK_A1_PERIPHERALS
+>  	  device, A1 SoC Family. Say Y if you want A1 Peripherals clock
+>  	  controller to work.
+> =20
+> +config COMMON_CLK_A9_PERIPHERALS
+> +	tristate "Amlogic A9 SoC peripherals clock controller support"
+> +	depends on ARM64 || COMPILE_TEST
+> +	default ARCH_MESON
+> +	select COMMON_CLK_MESON_REGMAP
+> +	select COMMON_CLK_MESON_CLKC_UTILS
+> +	select COMMON_CLK_MESON_DUALDIV
+> +	select COMMON_CLK_MESON_VID_PLL_DIV
+> +	imply COMMON_CLK_SCMI
+> +	imply COMMON_CLK_A9_PLL
+
+[Severity: Medium]
+Does the COMMON_CLK_A9_PLL config symbol exist?=20
+
+Looking through the Kconfig files, there doesn't appear to be a definition=
+=20
+for COMMON_CLK_A9_PLL anywhere in the tree. While an unresolved imply doesn=
+'t
+cause a hard build failure like select or depends on, it has no effect and
+might indicate a missing PLL driver in this patch series or a typo in the=20
+symbol name.
+
+> +	help
+> +	  Support for the peripherals clock controller on Amlogic A311Y3 based
+> +	  device, AKA A9. Peripherals are required by most peripheral to operat=
+e.
+> +	  Say Y if you want A9 peripherals clock controller to work.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-a9_periphe=
+rals-v3-0-d07a78085f71@amlogic.com?part=3D2
