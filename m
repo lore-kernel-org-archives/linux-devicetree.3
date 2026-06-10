@@ -1,66 +1,67 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7A7406268
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E64406809
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781089903; cv=none; b=mxVJ1mU5XGmzGjdgWFYY2heJiKyx/egI53+20KIE69dkeSrK3XFtJfM3j9KgZtkVImAiNGE10fj3Tga5OQbITasVk1nLU5UlgXCWZmFO1k+g/Cs0KwMNNIM5XzsnmkFGfZcMikyVg9dJ8SPySRjKBDtRxsbPxHi17/fyyFrL7ig=
+	t=1781089915; cv=none; b=IA+7HJC7fMumCbp3QMse0VZB1zZxmkf+buJ3tHrH9eW5KphI9Q+jPIwHFftIBGu10++WCt2XsS9299oMdvJoed9oQIY8Pyql1m+DDFq2dPkXZuYprBC+/teO00vaMuHq7rfbHN8xTsggIn0yJwRAW0f9VySbAqzx3zBEsVVFozw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781089903; c=relaxed/simple;
-	bh=u/ihBuRn411q7r2cqeHRKnXLHVg1nNx7cEQIFjgZxiI=;
+	s=arc-20240116; t=1781089915; c=relaxed/simple;
+	bh=uO7dmp+7kXXq35mabsz2m2dY+q1mTPopJfhyX1CU2yw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sc2HdOXomPU/rocuxAF4H5sz6US+bZ6Mu/v5fnMHSXfKBEVK3OlYgtkYGB+4DtRKN0q73vy5gouqv8wJmEjwkFQHeo1CIV//vorm0P3Bt+1akgFYofgrgRnhc4vAgsprRxzgNoNbUKdk9C3Ai6/3hku/fQ5ZSAcsJoteIUNDqa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hxZbFVmB; arc=none smtp.client-ip=209.85.214.169
+	 In-Reply-To:To:Cc; b=X/QurDloq/xKJ/A0IAp53+oqHZ3UC26bz5ZkyhvG7MQGRmRz9aKlOU4gt5dMKuvm3BSH0YzmcjaJX0W8oDYZ49+1dOsGelPgTuW5NL+jsM2CjJjag73eyV8yzAsiRdXpOQx2qZWYjH9IhHdYXMIwim6gK9Wx5grmIrsfqLvE9gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XIPUOzPw; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hxZbFVmB"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c0c2c7e0c5so44291105ad.1
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:11:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XIPUOzPw"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2bf18c30bb2so48325555ad.0
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:11:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781089898; x=1781694698; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781089909; x=1781694709; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=2cQ+ac5l+4cyouLoZKEF9xKzE/GgGPCqhOFMn5EQIOQ=;
-        b=hxZbFVmBPe5cJm7ekFWvttb0yatdBGvl3udE2OfzaGd6VTl108m2fbldPUceXGQQKc
-         87e9JZQjGXqLsKKmBRXxl8eEeR5ddVHnN5H9OS58bQPSN7lkapJ2WX3YOeseitAOPc8g
-         Mjk4sMwi5JUsZN9eiN9tIDgE8+zN7/DLERgT2STodoE+ozcx+7MlXhM4BogBl4hFGSMf
-         UzLcpmDohaUbHMyfHDPM37FzbUT1jezfcDVB73NKfwJ8Nk66U+B1E6vVN9zcPvMJBj/E
-         Jo9myV5zEQ2/2mNPrgK8BplH5iW+qeQkUblvIttF9XYXvxj/gEJe/H/WXSLaFeHy4lI7
-         Hw5Q==
+        bh=jxy+/rJ2nBiXps0IHi4kt0tmpzHJC70O0pAZEhcagdg=;
+        b=XIPUOzPwgjXIPK7biyPPlRzceYZtN7R8dG3p1ulo+zB35BN2yXL8YeFGL2gc/yhuQj
+         pXL6qs/MB2hi2ObsGmd/mf+/W6IybJgn/mR/FBymWLs5KAUOj5BmMNBMwCcPBgYDA73h
+         6unGp/fsP1qf3GfsZXeiiMZWsmY/lWydnv7tDxXl/bXdTKDGoHB+fgzn4Pd9AseUIWsz
+         R4ETxTraXIncb1kAgE9vb5oqL7uMbf5FPwJmwaTt0YxdxoRhlUvOLMJYcxOILk3HXemE
+         P1kVnRkPReSoqeiXku9AMAotf1tESAlCQ1P/2KAYanulyMOYVHAGeIVkRXN6gcSxtXKQ
+         X10w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781089898; x=1781694698;
+        d=1e100.net; s=20251104; t=1781089909; x=1781694709;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=2cQ+ac5l+4cyouLoZKEF9xKzE/GgGPCqhOFMn5EQIOQ=;
-        b=Eak1jleicdBWVqJUH0N/9MgK3QxbvQXsKR1CcDbsfyshkIwwLlm6krHlYf+zr0qF2j
-         7q2/QWoCyxPeibhqBf2VUjV0SKLSi98wK0v7ypNnxT4Y8XHpoiG/kxgpPLJe5CtWBP2n
-         JoXJFtjC7uI9SCP+HnnBuf4Sbz1H7W2bQYRAw5flohDUJ77o3zFWdfOFAhKQ5BJZL5yg
-         j/fwUnLZj2EcdCY8fgbDHu25rd5e+5YlDEerBIMxZpcY0dKwgsiEHEHBybTJ2olJvU1g
-         Mx4wiswPIE/iLNP7LXwXSidkpHFRXgc+IaL03l0ZZuo79zQsHiqkxb56UTlFqiWS1yj2
-         Zx5g==
-X-Forwarded-Encrypted: i=1; AFNElJ81HP2LrIpuD6Q88OsFJJXCgMtQv1iRX+eCQlCLKlXS4ND8b7YK68D8hsBi39Wh1fq1e6NH9mdkthye@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQC2Js7URm6LSa5SxJZxKAwWMN7B3s5Ry4YwBzoU2OKg85Nm1b
-	eUAb+NiiQTopGtcCyfU1iDz9C9xg2lYEGHzs8qy7Ec9O83S4XobIEGNA
-X-Gm-Gg: Acq92OEIo0zi8qjChztIXAXFz8D9CsmggP3ZSjD2Hb8QlIPz9qR7JwxmtfJNkbDshQ7
-	b6XGEh0MYx3USzhJiTjfRj8ZGrIuv3baLUTGn8siHYDFsvzETDeV8RsTfBv3X/A50vQXkFfw0W+
-	0CLkVvzcUdqlTii9UVFgc2zi95srvfYFvC0xILKgFHSgWIponuxiaSQvk12+uKjIxFSjEEqp0FU
-	V58v/8rDTMOOdwm62kfAtHRmVPKVg618uH7ObHN0BLFn9f/n1fZa7jnImH9JqIwX+JyZ0/X2c6T
-	XGSb1kq3y9Y+hIHm/GU8SX7Wrvi4b5zlrmV+/TYyCNRlQCxeTID62FJ9kBZYWOSsPNOvVdREHSS
-	CILm1SW1vcy5dOq0otChlRcE3+O3R1WRFYXu7vOMelJJc4oQnqvPfRBVtAm8W3tbAlHaNkF9UHO
-	VicJXG2/SfenLy5+Hv1nY3qmtr6hriGTVrNsV36w==
-X-Received: by 2002:a17:902:f541:b0:2b7:975c:dacc with SMTP id d9443c01a7336-2c2a1bb43e7mr80521495ad.1.1781089898069;
-        Wed, 10 Jun 2026 04:11:38 -0700 (PDT)
+        bh=jxy+/rJ2nBiXps0IHi4kt0tmpzHJC70O0pAZEhcagdg=;
+        b=NjIe73jE5PXYxWpPMXvVqd+bTvHaj4YtnlxyVGz3otLXoyoU3GO/cGYtQjRlSyw42x
+         5kSYG0sNaqKmzS+ZNHtW383OB+vhBAYr4ic/Q3RCaKMx5nDdRXxGW65oizaG2ZbQRWNv
+         C4ExGssNmdxsQWeylW5+j28rpcmN+iAfaA4G7NcwzHqy0Cq+jhWOpKuWUBNhv82KZYXE
+         Chvj+lDsuPoydTkkzkeGh2nqLvw5UgjGdi4eRYnJ9WxpH5kzrERzJQd+kYBzYoOxf3Hi
+         pOId5R1qJHfeR2HHYHV55QvN9Yu7hvtFd3emFTgp8U4miBEF5j1iJGzOa03Qz5fTvW2G
+         q9Bg==
+X-Forwarded-Encrypted: i=1; AFNElJ+qsAmPcp6ZqYGa4C0PaaXcMsMFQr3K0R5i9h8Vr0oQcJkfbnFhZyWNLxQLu48LjWctEJG1ewY0EO+F@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRX2NwgT2FKAYZdi+NmUECF1HzkCKZ3GZdljtKbi/K8pXuiW4h
+	O+pmVo9gH0GIrEhfX6/KRsYv+s+p3IxafkSN+gUiherwyiJ/IuMeLdFe
+X-Gm-Gg: Acq92OFsijzcdiokp7n/BjalQtOy56W2Fajd1cOJ4KdjR5JdGhA85mA/sXJRHzJgp42
+	Vx4qUgHNWzK9LvD3ea1KXtIqTu/zSGANHz2Qb8cPQ2kV93XMtPzWkxh3ZqUOTsZQDSbYLbeQZk5
+	3eAOBoNtWSyAeletDhQZkqFBIemiXBvWlzewpZo33OBW6Dpc5LGjrkKWKAxHBgRDQn5Sd991WF4
+	PCh10Rm6QJSnR17NkXaHlv2DI25TX+piGnvFnT4xWALAC4cGEz9RkdwIuP584f9mHiXpNV8D/po
+	NGrYeD5TWKwDpigDbGlCTIwKVY0BXkrcIWqEJl1qD+/TfjHPwztyeRSbPBWPElzyTAczfn5yJ8g
+	F3ao9qR9uAj9s8/NJya8vCGM+afiT+erPcb80XRON0mHpqq1y9FsyNKBPyL2Bc9qerowPxH04ST
+	GcnP+ZxYasJV4zVKZvRqiCIcp4xZ9bPs2igIA0j0CT69gcsgVw
+X-Received: by 2002:a17:903:1a10:b0:2bd:606d:b342 with SMTP id d9443c01a7336-2c1e881ff09mr286316365ad.26.1781089909338;
+        Wed, 10 Jun 2026 04:11:49 -0700 (PDT)
 Received: from [127.0.1.1] ([2409:40f4:4111:52c8:138e:8096:a8df:e68b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.11.28
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.11.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:11:37 -0700 (PDT)
+        Wed, 10 Jun 2026 04:11:48 -0700 (PDT)
 From: Ramshouriesh <rshouriesh@gmail.com>
-Date: Wed, 10 Jun 2026 16:39:33 +0530
-Subject: [PATCH 8/9] dt-bindings: phy: qcom: add MIPI CSI2 mode constants
+Date: Wed, 10 Jun 2026 16:39:34 +0530
+Subject: [PATCH 9/9] phy: qcom-mipi-csi2: accept PHY_QCOM_CSI2_MODE_DPHY
+ phy-cell
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-a14-himax-hm1092-v1-8-0c9907da47ed@gmail.com>
+Message-Id: <20260610-a14-himax-hm1092-v1-9-0c9907da47ed@gmail.com>
 References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 In-Reply-To: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -87,69 +88,57 @@ Cc: Aleksandrs Vinarskis <alex@vinarskis.com>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  linux-phy@lists.infradead.org, Ramshouriesh <rshouriesh@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1673; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=u/ihBuRn411q7r2cqeHRKnXLHVg1nNx7cEQIFjgZxiI=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYQ/WfQ91PlBPr5CIEMS+b24iqufT/+lTQZV
- lRTuKzhDL2JAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGEAAKCRAVlYpeERwF
- 3ux5EAComyAGYJYXSz0Kedtwa3VvHC+ooYDXeq57/vamu1NAvwb4diNkw53gmBkSW4le5AFIYdL
- pHh1QptSN1zemv0sXpOlV6geujC7WRUKsD2a5hWAmhaIxH8wClbp3IN29xy6R/eECch4+TLsbpH
- dWurBuTLHJ3mANXIUwlSh5dpyOuwFWbbEXsMO7yMu9gv6tjlRauhXsFoPyTm7kQ5YowStSgNkxc
- k9Un+ZPq/mb6lSsVRpB5BoWutb6zfnJea028Ye7pVswDOv5Y/vZbTRVhRlE5b4kcz+dIzML710j
- w1wzQl1MW/EX0m7RHE5RtuiBb8IefH25HpxZatEoX1ATBMT3cFbGTh1mj/e38VA4eR/HuafsK/7
- +9XDw4IQ3R8aIp0m5O6qxnCapXCaaGD/DEHXQKE3YBFpviAIka+fG5mwdgxSRjGcoBRQ5DU8KTl
- 8KYQVmtArETg4k1WRyxxlgFITfCPIWRrk1ym9SbXsdTSA6RH+BrYDJl+WP1mQ4PUKv/hI7ZkUgc
- BdZ/4LADyfMMkstYmtmF/tXffcTDoqWwDhkOf0M7QdEGlfTNgm0x0lfTByC6t229zVzOmkAWOwg
- +llY8eYurHAkSLTFUU4jXAC3itej7SHqcMgvP1VH76rSQ77fAAVljR541n6AJn267f+3tmjgH/d
- vxLeWjWyurqs//w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1334; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=uO7dmp+7kXXq35mabsz2m2dY+q1mTPopJfhyX1CU2yw=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYRSIMMjLHMhkZR5dO4CGE49UyTRGGP49w1C
+ ttyD41c+g+JAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGEQAKCRAVlYpeERwF
+ 3pYHD/4uAmyfmypJaZPNO+fgd9CIEWOXJil30ot5bQFVpCScoYrN+SscUOUg/0WkUll4bJ3+x07
+ 4lUTL1vAUQBwAXx8sO3k6nnEfy/hQdIYedpATkAFsq1TeLYKhyCamempsswk31EIAiFcJUOC79n
+ G117fd0WQzZq4hF5qG6DyZNmNWEreZZDdi7dNVXHQXgIkV0R+M28rvqsmNYiT2SztbFYux4Gusl
+ 9+bTO20QltCUmvr5DjhjtUpxrwJYZZ8vnVr3BSM6YaQsxq/I4tuT99q/1tWt+Mtb5H6I+9MCw0F
+ dljQE7+DpI96IW1gHamorEK3exUeCkUc4MWz/ulGJmgcKZVlDDkl0lVoUUwEHhaQZ/M/6MybnAC
+ 4C56VRCpTM0y9lfjzrdvU+P8ZIOnbR7A26lMQhHeiGb9twCX9jHX76cpPgQBJetyUlJuxkQG1js
+ neA6ecvVxK0t1kiV0kiP8K4LFIxXFRrQ9gqE9BrvROicKC6dq3YuzXzsMW3Y7vVcuoII/O+I3JD
+ BcYF1fft05FfNsxqDNVRd+6CMwBGXFf+hBjCsELVOJIzG1zipThLmpLhzLuuiP/nk9zOdVSpSI0
+ y8SAVNMGxwOW14k1IkqCE7g8TxwH4bj660ix4jD3y12u74goy2RB0wLdkqojUUM+1Tl06JsG10W
+ /trux3pAPFc86QQ==
 X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
  fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-The CSI2-PHY binding references <dt-bindings/phy/phy-qcom-mipi-csi2.h>
-and consumers (the x1e80100/hamoa camss DTSI) select D-PHY mode with
-PHY_QCOM_CSI2_MODE_DPHY, but the v8 CSI2-PHY series does not ship the
-header, so any DT that includes it fails to build.
+qcom_csi2_phy_xlate() validates the phy-cell against the generic
+PHY_TYPE_DPHY (10) instead of PHY_QCOM_CSI2_MODE_DPHY (0), so a correct
+DPHY request from the camss DTSI is rejected with -EOPNOTSUPP and camss
+probe fails with -95.
 
-Add the header with the CSI2 mode constants and cover it in MAINTAINERS.
+Include the CSI2 mode header and check the phy-cell against
+PHY_QCOM_CSI2_MODE_DPHY.
 
 Signed-off-by: Ramshouriesh <rshouriesh@gmail.com>
 ---
- MAINTAINERS                                  |  1 +
- include/dt-bindings/phy/phy-qcom-mipi-csi2.h | 15 +++++++++++++++
- 2 files changed, 16 insertions(+)
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ece71732e6dd..a7ee9f0aaaa8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22280,6 +22280,7 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/phy/qcom,*-csi2-phy.yaml
- F:	drivers/phy/qualcomm/phy-qcom-mipi-csi2*.c
- F:	drivers/phy/qualcomm/phy-qcom-mipi-csi2*.h
-+F:	include/dt-bindings/phy/phy-qcom-mipi-csi2*
+diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+index dfeff863a406..857c54cbaea6 100644
+--- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
++++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2025, Linaro Ltd.
+  */
+ #include <dt-bindings/phy/phy.h>
++#include <dt-bindings/phy/phy-qcom-mipi-csi2.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/err.h>
+@@ -188,7 +189,7 @@ static struct phy *qcom_csi2_phy_xlate(struct device *dev,
+ {
+ 	struct mipi_csi2phy_device *csi2phy = dev_get_drvdata(dev);
  
- QUALCOMM NAND CONTROLLER DRIVER
- M:	Manivannan Sadhasivam <mani@kernel.org>
-diff --git a/include/dt-bindings/phy/phy-qcom-mipi-csi2.h b/include/dt-bindings/phy/phy-qcom-mipi-csi2.h
-new file mode 100644
-index 000000000000..fa48fd75c58d
---- /dev/null
-+++ b/include/dt-bindings/phy/phy-qcom-mipi-csi2.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
-+/*
-+ * Qualcomm MIPI CSI2 PHY constants
-+ *
-+ * Copyright (C) 2026 Linaro Limited
-+ */
-+
-+#ifndef __DT_BINDINGS_PHY_MIPI_CSI2__
-+#define __DT_BINDINGS_PHY_MIPI_CSI2__
-+
-+#define PHY_QCOM_CSI2_MODE_DPHY		0
-+#define PHY_QCOM_CSI2_MODE_CPHY		1
-+#define PHY_QCOM_CSI2_MODE_SPLIT_DPHY	2
-+
-+#endif /* __DT_BINDINGS_PHY_MIPI_CSI2__ */
+-	if (args->args[0] != PHY_TYPE_DPHY) {
++	if (args->args[0] != PHY_QCOM_CSI2_MODE_DPHY) {
+ 		dev_err(csi2phy->dev, "mode %d -EOPNOTSUPP\n", args->args[0]);
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 	}
 
 -- 
 2.53.0
