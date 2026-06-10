@@ -1,163 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F60399358;
-	Wed, 10 Jun 2026 09:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1943BCD3A;
+	Wed, 10 Jun 2026 09:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781082867; cv=none; b=a1dzat8jb+8MgJZtnoNp78eV2scbJg5vPeZ3P6b57hLyNnMapbq4z4g347KYAd4fyxV96cVaf9MGXa0WlCGiPoZIGxLQCl48eQH2Zhmc+eFN8SU8NyIx8CkQvp+OablU3ZiMs1pnnz9ZirtbG1cFzPcuuTQLektc1csQMRxw3+0=
+	t=1781082896; cv=none; b=YDlZ+kvL7mfV4Ytbk+ki26d+ph6yDUfQqcftFt4pphGgAKjcU2zYp8zRpegTtkpearaUF0kYf4HOkmy1tDkEhvvSVZN7QlTNcA230zpjOrUybyl6AH6vLVs01vJ63+lTjdfkMqfFKuWSPkSzPqcqGKpXAeP4J3JMXggf4c2S04M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781082867; c=relaxed/simple;
-	bh=Su2g6xxlmcA0BfDo/FxGGSZUO07XTGxPyGU7YINLNbU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K0j/CySIs1foSkrrFSeFz1Y3IVQH4QvrDFmFSy+9qEjDGbosiaZ0YsZf6dlwvMn3d0aih45d6eeFV6GUirNJVqHG6girG0A6v7A6c4aHjHMsA1BOKJLaDCSqGLzjQvbZ9mnESqrDtoCLYaHu+MyvmF5laPtZJCwxEqbxEZEelIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cef4/8iq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781082896; c=relaxed/simple;
+	bh=HqIULhI3b7647nddpq6zQkDQPO1NJ/oNd3jU6sTQ44M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fFM4NFKvMadIWZV9JkfwPPug7eEocALvLCR/99A5f46jut84Fkug6SidApbUWwVJM5KGdqchOm8BlyOfMJsRxxiUnyMZ51UMbmo0uRgWADlMtT1cY4VLlxDak4LT4Yb3rsg7uk/DsaY/QMnvfbHxdycAnrQSFbZFdo4RZHHwGmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=hFLhApMX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fbPSEoqi; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cef4/8iq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C351F00898;
-	Wed, 10 Jun 2026 09:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781082865;
-	bh=aN/Cp+ThkwaknSIc3DIlddMyUfF7OTN0+hAp5wJoOIc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cef4/8iq0wTRlqxO6O8ZgCj1XALuP+G8klNrmQ4rsoU6vxVqDrvr43NLhKxxSu+hd
-	 +R5enCvIkL7OG7rPfwFEHw5Bqc13YS8Ao3cNQVn76CCIawr+qc+bBkVSKRU7BzajXf
-	 qC05/UaVVBj8akrvOImlgXyF9yeVjgdh0UD8v7Pyks98uk56+ux4D5n9vEwyZxD4iG
-	 7uoJNLP6Am+vryeKmg9QvBDJxnBELWDcpjamoVUILFc6oWcYjS5IFq++JzoG+QtacL
-	 f/0dZAklYOSveyfpqh6INcVKp/1uFGPZHrUkoZx2qNSl3c/zoGRF0uafzDhsnIrxaq
-	 4TVog9DsVSMnQ==
-Message-ID: <eaa34b4f-4e57-4e5c-878f-4568daad5430@kernel.org>
-Date: Wed, 10 Jun 2026 11:14:18 +0200
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="hFLhApMX";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fbPSEoqi"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 9611D7A00E2;
+	Wed, 10 Jun 2026 05:14:52 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 10 Jun 2026 05:14:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781082892;
+	 x=1781169292; bh=3yo/U4zdqOGiza2buRx7viS4BvrMUEv8SC3a8B6j87M=; b=
+	hFLhApMXWXSNfTuOF3aD+hMvkl/kRdi976659ghl7wtBd1R4RtbMMKDXqCeKLPSH
+	UGwtNwiM5ZI/jTnJGoXdqE2eAWpxJnLm6JO/kbu2lOZbbVpSGJZRMbWIAvLICeh9
+	5Sq/fwTSrdfV5udpWLTjP02JbReE1G6r1LHeIunsoqalDtNwxPvYYh65xb9Slc8x
+	x/o18696boM/zX8PZwGO+bhw6qKix5FWWkf7QcU5YXek1nlLJtifaYWUGbs0xv1R
+	6IYmRbTdEPJ7N2cXvGFoHl6k2hZNW7viHDHFW2v6Lfs9ksX0UAJolZSM/P4znVbn
+	2NdQ2JacgFiJMbdim3FDaw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781082892; x=
+	1781169292; bh=3yo/U4zdqOGiza2buRx7viS4BvrMUEv8SC3a8B6j87M=; b=f
+	bPSEoqiJW7mYRdAJ/0YN/xDLYzZT0+kqHnKsxu7JCJJds9IvB7xvs24d1JypnqhN
+	2Yr8hR0vEJgCL3rqdEEuzczldUe/7Y73W5yD9j9vZ5PS58d3Idk+Q8S+byuf8qMi
+	hcHDGZlTPYRHtYiQfHUVmk2A0jr/IBVX826SA0B9MOdCUpTN6s9mQlsTTxrai5+j
+	8d6APD1VgcWPKu5Te+OmSjJg6aL3U7fhhydGCskrmKgzF8QuRrRZEfdJsYw+F0FK
+	V3BnSOo1jOf6BwfAEXl/9BUl6az1UUoXl4kGJn1ckU6kpXEFa93+rWnxQvRGqhEc
+	1Yk0STi9fDFYMlYtTAV9g==
+X-ME-Sender: <xms:DCspas7o01iDubUTo5FT31CQ5VW_Ry_64WpERVOilHl_dcRyw41Yaw>
+    <xme:DCspasZx0VYsYvCGhIMg-PlTptViZuEsRuW29p1KhFLrLKXlGiWrlTFyM_wFH4a6Q
+    7jpjEs5ufWVF_fnP29gDmc4RsllInyKkq6dTlSjv2lPsRDYtUHY09s>
+X-ME-Received: <xmr:DCspaiRx6S_EnkEZr3kJFwbmYVeNHhdWMKy5yKJIHEQykoVPCGxhb5Sjky6lcPgFwJwWIGjuQQv7GuQlC149aWO5sIO6gnU3SDux>
+X-ME-Proxy-Cause: dmFkZTGs6pOpieH000WI8vwuexWh8o2R1t8h3HIWZjgnuP6wT5WtiXaBnwmkRethnSMxnd
+    YZxod+uyAtqSHF4xD1vBcVdhkhs0RtPKfH+4bP+uygCX5mZTE7NMtD37whpkpbo6AL/YiI
+    3AWwbaXeecdREQkXhD2JyRMOPrw8DtI+XeVS+LgSZDxcEpw2X89FYYvtdW4mNkauIMXECh
+    y4M2OUc10URgivQshWEQTshordWIzEbX2n/KApYJ8hPfyfHdZrgW5ffjHIeZol4UPVK1vY
+    rx4pO8XqNoA71FCdE0VgQjy5mrB7kGiBuqyF57fml1th6TUrn1fcLu0tXGOtAmA0tBsRin
+    gSHVuBkzXlVr/GU/c1wV4NzQc5OhBg+F7VVO8yL2O/DlJvtiGWPVCTDp38mWyJRtfnxRha
+    h+//alNAA0qtwVfO0dsBiRHdBTI5HVluDdBZSXH/2hzvRrwv8ye/ZdaRqD9APJikGFrV3Z
+    FbaM5vPgrcTof/IJ7By+7HM9clgb8/eInnmsF88rtjtMS60AHisKfA0Nbfp5Wr7GgttQUS
+    HpdrVFu1QCpg1iJRqrSkf0jxD+jjl1Z7/3IFgD7GIRlvTx9/GvCFGwMbaIhJQkRAnwAyLe
+    HpOhkH2KGuk8L4V+gqwNG2bHrT/tw9Io6Sa/MU4ZWQIjTyL9fmWAdjgDgKZg
+X-ME-Proxy: <xmx:DCspahLQoXgOxIy1_RX1uThey4w-4AWuf21DeXdvp4v1AgaStU9HYQ>
+    <xmx:DCspaoUBbfpnTJw-qHByqhDkHWiJcJKg8D_tZgOM3pHucPqcrRaoZQ>
+    <xmx:DCspatihm4j41yweRtBYhyarp-00SnsrqOO_oCE-HYe6PAwHJVcK0Q>
+    <xmx:DCspasv-eF9uT5FJn2Utjyo2nJOWyg9mGkGx1TaNepx8-DY_5jxkWQ>
+    <xmx:DCspaunuZxXvnOgCBbxTxV8KPPAUaiGJ8lhOIRB6pFwxkQtjUmf5FW59>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 10 Jun 2026 05:14:51 -0400 (EDT)
+Date: Wed, 10 Jun 2026 11:14:50 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [net-next 1/3] dt-bindings: ptp: renesas,rcar-gen4-gptp: Add
+ binding for R-Car Gen4
+Message-ID: <20260610091450.GD2465390@ragnatech.se>
+References: <20260609215711.2960150-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260609215711.2960150-2-niklas.soderlund+renesas@ragnatech.se>
+ <6bd0229b-4895-48a2-9e36-0ea5296c7fb5@kernel.org>
+ <20260610085354.GC2465390@ragnatech.se>
+ <ded0ae1a-535f-4524-9c3c-e9970bdf387a@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: remoteproc: imx_rproc: document
- optional "memory-region-names"
-To: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Peng Fan <peng.fan@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- Daniel Baluta <daniel.baluta@oss.nxp.com>,
- Francesco Dolcini <francesco@dolcini.it>, linux-remoteproc@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260605113621.1479-1-laurentiumihalcea111@gmail.com>
- <20260605113621.1479-2-laurentiumihalcea111@gmail.com>
- <20260610-adventurous-granite-marmoset-e0eaa8@quoll>
- <2fc48536-5af9-419e-b4df-746b678cb6ab@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <2fc48536-5af9-419e-b4df-746b678cb6ab@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ded0ae1a-535f-4524-9c3c-e9970bdf387a@kernel.org>
 
-On 10/06/2026 11:10, Laurentiu Mihalcea wrote:
+On 2026-06-10 11:01:27 +0200, Krzysztof Kozlowski wrote:
+> On 10/06/2026 10:53, Niklas Söderlund wrote:
+> > Hi Krzysztof,
+> > 
+> > Thanks for your comments.
+> > 
+> > On 2026-06-10 08:54:06 +0200, Krzysztof Kozlowski wrote:
+> >> On 09/06/2026 23:57, Niklas Söderlund wrote:
+> >>> Add bindings for the R-Car Gen4 gPTP timer. The timer enables accurate
+> >>> synchronization of the clock in the control system. The timer is
+> >>> system-wide and used by different Ethernet devices on each Gen4 platform.
+> >>
+> >> A nit, subject: drop second/last, redundant "binding for". The
+> >> "dt-bindings" prefix is already stating that these are bindings.
+> > 
+> > Thanks, will fix.
+> > 
+> >> See also:
+> >> https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
+> > 
+> > Not sure I follow this one, L18 reads,
+> > 
+> >   "Few subsystems, like ASoC, media, regulators and SPI, expect reverse 
+> >   order of the prefixes::"
+> > 
+> > But 'git log Documentation/devicetree/bindings/ptp/' shows all commits 
+> > in that directory use the 'dt-bindings: ptp:' prefix.
+> 
+> 5 lines below.
+> https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+Ahh, thanks.
+
 > 
 > 
-> On 6/10/2026 12:37 AM, Krzysztof Kozlowski wrote:
->> On Fri, Jun 05, 2026 at 04:36:18AM -0700, Laurentiu Mihalcea wrote:
->>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->>>
->>> The names of the carveout regions are derived using the names of the
->>> reserved memory devicetree nodes, which are referenced using the
->>> "memory-region" property. This adds a restriction on the names of said
->>> devicetree nodes, often bearing specific names such as: "vdevbuffer",
->>> "vdev0vring0", "rsc-table", etc... This goes against the devicetree
->>> specification's recommendation, which states that the devicetree node
->>> names should be generic.
->>
->> No, it does not. Names like rsc-table feels exactly like DT spec is
->> asking - for a name matching purpose. Are you sure you read the spec?
-> 
-> Quoting from the spec:
-> 
-> "The name of a node should be somewhat generic, reflecting the function of the
-> device and not its precise programming model"
+> Best regards,
+> Krzysztof
 
-And read the rest of the spec, please.
-
-> 
-> and looking at the examples provided in "2.2.2 Generic Names Recommendation",
-> wouldn't "memory" be a more appropriate choice for the DT node name instead of
-> "rsc-table" since it's more generic, while still matching the purpose
-> of the device? Or perhaps I'm interpreting this the wrong way?
-
-You just took one piece skipping the rest. Also binding in the dtschema
-repeats that.
-
-> 
->>
->>>
->>> Fix this by documenting an additional, optional property:
->>> "memory-region-names". This way, the carveout names can use the values
->>> passed via "memory-region-names", while keeping the devicetree node
->>> names of the reserved memory regions generic.
->>
->> I don't see how anything here is fixed. memory-region-names has nothing
->> to do with node names.
-> 
-> The idea here is that the names of the carveout regions can now be passed
-> via the "memory-region-names" property. Previously, we were using the DT
-> node names for that.
-
-memory-region phandles give you that, not names. You need to state why
-this is not sufficient.
-
-> 
-> Thus, we can now use the more generic "memory" name for the DT nodes since we
-> no longer use them for the carveout names.
-
-That's wrong reason for doing this change. Also random names here change
-nothing.
-
-Best regards,
-Krzysztof
+-- 
+Kind Regards,
+Niklas Söderlund
