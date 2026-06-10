@@ -1,103 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70630388E69
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 07:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781078032; cv=none; b=OH9QAm1Dk+yyazs/8ASBFv50z/7MRJ/YcStpRldspvmkAkhcPPYL5ecqfFxkXM33LxLTk29K9Drhvn99zUgyxL30F8ca1/Zz3BB2yhsyOTulLFqECxRxuTvbn9I6Ias49L4EM6KJ5f50vG63JXrWgiWvcHUOZHi2VP5Rl139u6Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781078032; c=relaxed/simple;
-	bh=TE2mSlkKJ3a0UQ86s/EDswWrC3NwYJ/X2NMVQYYHCxg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aKAmjY3AicBJBqvFibNf60iDNkLvnDKDk+j+HpjvvPQW3N0VElb1GlPr7lb0BfmBkOrZBiSsn66xpxmgy91vUnL633Um1e7EqevKd0YEO0vqx3oCusRo5xlF6aRgrcN+9zE8ebfPVHVhiKQx4Ti6o0Zv9GdWKvbIAeR7nOBGEmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVzaL8oj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5711A38E8A3
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 07:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781078041; cv=pass; b=KxL1NA3LjzpU8SDoA1+EVjKx3NLvFLCjHEMk2H2hORkPDVAVJPMJhT1U/NcN9iq+ZeMKAGovWH9XEPmCbBdytLZUICHYvZOw4VwysXjGCwKJHSkDWGLM8dYjj0pLMgQwrVHZbPuJTCptQRGQ4ZgRl3oj8ZHl6YM+yYyztI9WW54=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781078041; c=relaxed/simple;
+	bh=FirkQ9b3WjcBRyWWTk9l4j2fUhJzIUeGfuR4crWVpwU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ljk+DbmoKztAebnRpJajdkLXcZEYH3WTPe6ij/GyRd8TXjGWR2SeFlMxBGd6i+gZtZNt1R8n9zz0A9iN9UVYi1kxX7jW70TFTYWvRCVOpcs3e9ZApfOw8huvBYrxRd1VdHSlr1DspbkOytDmkuJUH8wzwRFzOaDnsDKoxtLCJdM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V/wa91DK; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVzaL8oj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB741F00899;
-	Wed, 10 Jun 2026 07:53:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781078031;
-	bh=TtZvPafSbGqVx/tSgYTxoCn/RcXXmv+XEUkANrEfnqU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DVzaL8ojt05K+xbOoSoAD61l67qZY4HhpUprA3CvMUY/aeQ1CETIjlfjlbfBMAF5t
-	 wwaD2rvtdEdzm6tcx0B+WsB+v8+O4yNADFTpvslJ1YjTemQ8l2kyttUQ5UuzqW/pzK
-	 elhLMnmkQRiYvOBdUMl4UPdMW8ZzRSK2xbrhQ2kvcR6Nr/2i/KyoTDW+ukGVNYAvQs
-	 Wsxcnw8/8yp63gyVXaihyoRsYNyLRWT7gZizere6X7TBeCcAHyYXeLyNfUmpS37m2e
-	 kWPN966uEInK8cOENxG61gxrckBgxhu20v0GLXiFBdWW4No3LcihQpaSSTkBX3YU6G
-	 UcdNAboypVF4Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 8/8] arm64: dts: qcom: arduino-imola: Describe NVMEM
- layout for WiFi/BT addresses
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260609-block-as-nvmem-v4-8-45712e6b22c6@oss.qualcomm.com>
-References: <20260609-block-as-nvmem-v4-8-45712e6b22c6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 07:53:50 +0000
-Message-Id: <20260610075350.CCB741F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V/wa91DK"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-bec3ffb95dbso1066557466b.0
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 00:54:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781078039; cv=none;
+        d=google.com; s=arc-20240605;
+        b=L8HJhUk/PsKeX1PAJlJYkaC9LtNZZlJ8GY9cfo1IQ3DWEohOyXxp5eQC+D6Hotses0
+         QS3iSYtjl133Cyyu7Gy/AfAinVcU1sLpk+NQpjTpKKEfrfPHNYRnXj+ewysW2o5U97Wu
+         4DQDlmiGFzU8oHKHF0rs7d2N3PX903xrQh1D4PSB1Yl/WcMi04VlkvWWYBYv8WGnnqLM
+         WvqRir29haTWdo8j7Wfn78dHsCuoPpsk1JKPC/VTFN96a9hvZ+bciy5jhr2j23kdGYcF
+         RmgIXBBN/hQSGkVIR+GJFxdMp8B3lhTxB9yiompqispnE9sfgiKBGdx/n+Xp5UP+fS0v
+         1f5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=kQVHlh3s1LVk2DUq8WGmvLFnNuxxdslZRijXwJj3LTA=;
+        fh=F/cb35ozDoEXB32EZ8hAVWmt+AVyAmmkAsIqVQtGPi0=;
+        b=APnJzkqTf2rFymKZWRD4j//ncimlBtz/TC2omczY7FpRnHFJhbfs2+Cw63LpCvbuWR
+         OKDgb+S3Hr+dzyu086OuT+8uliyOQ4DsUhXVOCx5LfOG6GsE1gMBuUiLcHzTKDyY6vky
+         PQX1Af0TXICLQ9EiAEXRhmQBvcZwNYF1WxcC2JV/idVX3douBMheuMM5ALjzTDDlyRwY
+         vxd+azmQ/MvDREn2vE3CgTtmgkygXqEop34s4rEnq/A6/IaMzz8ozWKhM8oh+3sNfZIs
+         PV1umSMbpQn0fThnXdJXxBpPvG2PojFQicV6iTeoPCxsLDL4KxTXTsvrrlrwVtgfp6fi
+         X3Ew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781078039; x=1781682839; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=kQVHlh3s1LVk2DUq8WGmvLFnNuxxdslZRijXwJj3LTA=;
+        b=V/wa91DKWIImVSxUTa6NO84KWNEvsYjd9eOi72KMswNDVQocj0Zo76yA+9VVru8iBG
+         rTkPzY8Kyjzafq7AQSHKtjPZjEjX3rcaFuXDQqXm84K0d+NPJXKUA1yIlhijH4ONPurV
+         GA1t4L8DI1S1IBtIFXqc1knUil6h2Ioh37FUkQyCc0VQsnw3RnT8am+MThZNglwTg4Qp
+         GyhbGoQZmHLR1m5SR+nL4pZRwhELzuCVS+cokT9eH2UyhYcQu+4pTDBqZyfCcJauOaaz
+         IJf1SB2oFStPuhS9hhrtjSRc5yV8S/EsaZXEnDd2UbUIBvqjz15zk8layGNMKop66DRm
+         plGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781078039; x=1781682839;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kQVHlh3s1LVk2DUq8WGmvLFnNuxxdslZRijXwJj3LTA=;
+        b=YFNOtpBhldM7j71+GNiJtNqNymzDlRTcuEMgz69WN8ZabHLjJqyKUnLNZ4NID+zNru
+         iVaqx8sv0/0gL1dW8PRpMHVwZhkQBY0RrBD0NuOhAhGg48k3QYV2M3SrfuAJE/gCdqnA
+         OGE4NUfs3BZAaJpE7g8marnbkNSA0807kELzYXqZAyzH2mS+vnGxnt24/kg+jVxoRUGN
+         JyfDQY/x9gSTt3XJcu5m5a8nAYi/9bAoAFtWScMSOiXuT+jDDG1g/+9d8bt+ILJKWp6q
+         kdZF/pda4QIRNgcG3Kyk2C9GtAj/zoIO715Zgp1xfAetjQjRpMBD9XoCpcHoqtSi7bGI
+         zJXA==
+X-Forwarded-Encrypted: i=1; AFNElJ+lUVHGLN3ThKc9G3M33hpFZGIRNee+BzAOsd8UcF8f7ro7J4tD2e25Ffo+ycJSdPgM5HLDDMp9AzT0@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzykc+kVLLZeyAvwISUQ0XDDhQuyBCw2MjeK13Z0jpuhNwQMIrX
+	bwv9gX7W4jLRjddAlZizucNzh/G/Z03YO0t1koF353HduWUawvrlnid7/8SyRPNKRNOVKGo+MLJ
+	k/GrlDrrxkX76lKyCoVYyDuo+ZQ5GopGKWOIxcuKEQA==
+X-Gm-Gg: Acq92OHea6KN8nwdce6tk2luQS2xfzdqvKWEQow31sAbGSR2wihcrsAwANMX0m2e8Ug
+	vAwVxudxWZGeT9I+o7JEHDhWox5Xsc+gMSYtX7+QAjWJiWBB4ffLrx2x95dw8cGdGgk93kPLDC2
+	uuSZ5D4pnZ0VZwFPbCE+1glZl1CPn6w7JeXZ+UZblbNbDL/RdWto4uxMNvMYcGYQocaoMFaVTbl
+	d3qRD7ebkm1OGKBiITCkV1w6FLRysmJl5TLAQr3EF5MhomW+vJljFd492MS2+14dRpLdr/kzYSS
+	+t10hRQOIpsoUZDhb6q2kjA8n+6azyQZYWIO0CgxEb0E8k7ObvSA
+X-Received: by 2002:a17:907:ca1:b0:bf4:6aca:6ff1 with SMTP id
+ a640c23a62f3a-bf46aca72d8mr639120166b.49.1781078038780; Wed, 10 Jun 2026
+ 00:53:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <CGME20260610050335epcas2p3ec1c019e86b75e9a4edd965a8b27ebd3@epcas2p3.samsung.com>
+ <20260610050326.2903402-1-sh86.bae@samsung.com> <20260610050326.2903402-2-sh86.bae@samsung.com>
+In-Reply-To: <20260610050326.2903402-2-sh86.bae@samsung.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Wed, 10 Jun 2026 08:53:47 +0100
+X-Gm-Features: AVVi8CdBLIK1BYMIyty7W9TdEhhqe-w6-7EwqDM-mk3y9etMhibeEUIwfHY2zNo
+Message-ID: <CADrjBPqhODqeV36+-758h_=34YrL=DYHJh5vCwB+Q+qeEkOHtQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: soc: samsung: exynos-sysreg: Add hsi0
+ for ExynosAutov920
+To: Sanghoon Bae <sh86.bae@samsung.com>
+Cc: robh@kernel.org, krzk@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, 
+	alim.akhtar@samsung.com, kishon@kernel.org, krzk+dt@kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, sowon.na@samsung.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Adding `compatible =3D "fixed-partitions"` to the `partitions-boot=
-1` node causes the block layer OF partition parser to process the `nvmem-la=
-yout` child node as a partition. Since `nvmem-layout` lacks a `reg` propert=
-y, `of_get_property(np, "reg", &len)` in `block/partitions/of.c` returns NU=
-LL and leaves the stack variable `len` uninitialized. This leads to either =
-a boot-time kernel panic (if the uninitialized `len` happens to satisfy `le=
-n / sizeof(*reg) =3D=3D a_cells + s_cells`, causing an unconditional NULL p=
-ointer dereference of `reg` in `of_read_number()`) or an `-EINVAL` error th=
-at aborts partition scanning for the entire `mmcblk0boot0` block device.
---
+On Wed, 10 Jun 2026 at 06:03, Sanghoon Bae <sh86.bae@samsung.com> wrote:
+>
+> Add hsi0 compatible on samsung,exynos-sysreg
+> To support ExynosAutov920 PCIe settings:
+> - PCIe PHY power control
+> - PLL settings for PCIe
+> - PCIe device direction (RC/EP)
+>
+> Signed-off-by: Sanghoon Bae <sh86.bae@samsung.com>
+> ---
 
-commit 1fb34b213f52de7d901295d011ead6f3136f8d92
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-arm64: dts: qcom: arduino-imola: Describe NVMEM layout for WiFi/BT addresses
-
-This commit adds NVMEM cell definitions for WiFi and Bluetooth MAC addresses
-to the eMMC boot1 partition on Arduino Uno-Q. It modifies the SDHC1 node to
-declare a fixed-partitions block with an nvmem-layout.
-
-> diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/ar=
-m64/boot/dts/qcom/qrb2210-arduino-imola.dts
-> index bf088fa9807f0..128c7a7e76b5b 100644
-> --- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-> +++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-> @@ -409,7 +409,40 @@ &sdhc_1 {
-[ ... ]
-> +	card@0 {
-> +		compatible =3D "mmc-card";
-> +		reg =3D <0>;
-> +
-> +		partitions-boot1 {
-> +			compatible =3D "fixed-partitions";
-> +
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +
-> +			nvmem-layout {
-
-[Severity: High]
-Does adding compatible =3D "fixed-partitions" here cause the block layer
-OF partition parser to process the nvmem-layout child node as a partition?
-
-Since nvmem-layout lacks a reg property, this appears to trigger an issue
-in block/partitions/of.c where of_get_property(np, "reg", &len) returns
-NULL and leaves the stack variable len uninitialized.
-
-Depending on the uninitialized stack value, couldn't this cause either a
-boot-time kernel panic due to a NULL pointer dereference in
-of_read_number(), or an -EINVAL error that aborts partition scanning for
-the entire mmcblk0boot0 block device?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-block-as-n=
-vmem-v4-0-45712e6b22c6@oss.qualcomm.com?part=3D8
+>  .../devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml   | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+> index 9c63dbcd4d77..fcdb9ffd2644 100644
+> --- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+> +++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+> @@ -37,6 +37,7 @@ properties:
+>                - samsung,exynos8895-peric1-sysreg
+>                - samsung,exynos990-peric0-sysreg
+>                - samsung,exynos990-peric1-sysreg
+> +              - samsung,exynosautov920-hsi0-sysreg
+>                - samsung,exynosautov920-hsi2-sysreg
+>                - samsung,exynosautov920-peric0-sysreg
+>                - samsung,exynosautov920-peric1-sysreg
+> --
+> 2.45.2
+>
+>
