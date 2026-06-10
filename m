@@ -1,103 +1,183 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AF8346E7E
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 19:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB413603DA
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 19:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781121032; cv=none; b=GvkOcI/6z2t++Ligi3RqZfOvDir63/BB3ek3mP/niRZXGO54gQg2UMqOnxSO1C8glFYXfEIi06mFNMRGC9m84BRBvd9o00/Wut5PYQTbAMDBHqtWiwikhuDwmXgDg+0rigrJDl9fI/SqOORLfYgD7vnTZzk1R3iRJQkBnT1qSyU=
+	t=1781121051; cv=none; b=YuygKVA3iMe2sHqCL2HNmopLvms93eIBkCIToXsiDUoveV/QvHZZTtCntQoOuEpTVbCg6VUZuNkU3sAJd4hi4kY4qnanu6rEg7nGBOfPKQoOP8oEf+Danyfz4GFRFUgai2RqZcqjpO9FVUQSuNYQi+rycpDUIuSfRtcOYNmTsl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781121032; c=relaxed/simple;
-	bh=NdoR2dUOz+cvRTVp6dzp5eO0K7yE82vTXhrdPrgb+7s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y0tVGtQdUSumjsu1kajSr78/gKTIb2kNw2P9VbeNWYHSSzuMhIHc/nGlcx+eu1+PxkEG0IGCoumqn3cvs2mg52eWxsmBs/ymz+/RCEZeLvbsJDz3gWEHQ/WjCqQvG+yvT0dt9hamRRlpyLE4nG6lb9TBGNWngkzaTBh3r5VNQLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TquLqj9a; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781121051; c=relaxed/simple;
+	bh=h6j+KVghOa3b70Rc8c7X86a+7fEgy33fi8HkhEfeq+8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mNgB3ioVLU/u+qPVNpVIfNtbfcEgYfnWledSn2z9XNO2HolywuDWC+4LUuvTSVk98ricL2v5cPzTmUbKm8Lklc/SJj/f6KtadYfy7Ck4nJIEnZSpmFPep046VQSI3gVd/3moPWac3wFMdiF80V5RvEhVzyjX/UvvclhTTT/5t5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UKloc1Yq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TquLqj9a"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-306f36df4feso186961eec.0
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 12:50:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781121031; x=1781725831; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AE+2DETC16XLEWZxUW4XVA4+dACVsOVOfwIUzPMRy7Q=;
-        b=TquLqj9a3Y8qCGW+oxPw2IUauU6GdiR+/BPbr7wSa9q18MaQL0XoM0NQCVP6KcU1W2
-         GqthVJz299q23fApFLZGeLXpgl+e6oO/dWpo5j4LE4HbQaXkN0dp40I4RYSHbbZmDpwK
-         GlP+BPCuEjG5rTOt0iAt/nz9PKy3bEGTLQVfNALxqYB8YrBaqyhW97H1mCE1TdILEXbN
-         /Y4lhOoG0eZn25sR8iIexmP+xHDfgjoXTmNYanDsnNEQUzHT0dBjMUfgfOOHPtcMmVcI
-         lnnsQTJAALFxqyaDGbpUf7wSz2/KOM0z/jnsoeRapHA/XU/j+/9NtkAccMBiP8fvN/iF
-         MOwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781121031; x=1781725831;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=AE+2DETC16XLEWZxUW4XVA4+dACVsOVOfwIUzPMRy7Q=;
-        b=LmUIHHZZCCTzd7O140UKtTukgH+lNR7G551f7TQeEz9u0+7b3RiktoE1O788WuojcC
-         JP+G6Bi3A6/kKaJghlJbj6fxkPELY3t1e7I7b5flJDMCLRGHpQL1rMju3Y4j6ubmvARa
-         cmWfDKUH1uvuH27Dt4WxGAi9sHpfHFvJqZDOI0XefAVHkq4sP3CuwMICfSmXBjWphmlN
-         bDaiFY/W2w8YJY0MjMWsVQXjS6m0g29XSxD7Noj5uAWKZqUqNd2LoSmY3X/L0qcYQeW+
-         P66Ph617H3v23x85s61p/lePLWDqviKmNWN/b51qeWB3BEBiUcDEyZlbc+2EzhTVhVC6
-         qIjQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9/259Z4JH5vkHPeHJ/Fb2NJtsRo/j/SETJr7++g8bZrQpci7p90eqVM4vLV+pE30CGK1wP9wtioHE/@vger.kernel.org
-X-Gm-Message-State: AOJu0YxP2+PUkOjnC76zst7d1+x9SkfqFdfUUcEUZusHDO1FXFoSIrdp
-	u2C8fTD+zeHBJLQcg6MSAnXMAdtcVNi+dy+MGYn7M5rrQjljfCRE2rSy
-X-Gm-Gg: Acq92OEpiW+OZl0QYUS4W4X8W0oLj+dxPqPN2ktpLjvXTv89vXRLVfv0vq21FdkSci9
-	bcZOYjEtflU4eiqbrG2JvzjT/0SO8JIYYbw5GRsPNxK67Wr9sMklz2MvG4bgz3l1IRGBzWkz0j7
-	QBcrUpShPC7ikpZ/6fVhFd3MXjsDLlnKR3o50mIoK++FkfI34Xe94x4a9Mn7VfffranIt07MN7F
-	hoQuXrDGVmXtoN8A6me7dRoZC7TgcFnkaW7eSGmqzs/N/Purx8wP35yVasxBhcNjMTTXDZn6FGK
-	OPjM4V7ebboV7EDkTzALPkzxERk7GXGpYgn13gU9Z7yZkoZdxpr63HgcLnTsvFb/jP9xTT+/wQU
-	1uLo5OQ7MjbS5CWg+mn5N58+r1mzlZO4QUC1j1jB+CToP1q0y81yKDfW9yGr5dWhJZ7Fkco/LUP
-	qlgIM0pDGty7tmRrO05DwkZI1PC8lheTEiYJFuP7bFnN9tkQU=
-X-Received: by 2002:a05:7301:e0c1:b0:2d2:d5a3:e97c with SMTP id 5a478bee46e88-308015d8c77mr47705eec.12.1781121030827;
-        Wed, 10 Jun 2026 12:50:30 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074dea8e76sm25662344eec.18.2026.06.10.12.50.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 12:50:30 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 10 Jun 2026 12:50:29 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Marius Cristea <marius.cristea@microchip.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v11 2/2] hwmon: temperature: add support for EMC1812
-Message-ID: <2cc27856-725b-492e-bce9-f1208a89fd4c@roeck-us.net>
-References: <20260610-hw_mon-emc1812-v11-0-cef809af5c19@microchip.com>
- <20260610-hw_mon-emc1812-v11-2-cef809af5c19@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UKloc1Yq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8983C1F00893;
+	Wed, 10 Jun 2026 19:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781121050;
+	bh=pMvQZxYX+myVk8D3g1dC3leTcq0EyenEhjMXGSPAC14=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UKloc1YqsEglqa947DJNq4iQ6EAgLTpdFGsa6y5pppsUCKEAJV+n0AhJibh3nkFvJ
+	 LGubgMbAVC8dJOvClBcXU8wL+WhN6kfpoUP9/tQeJ2jE/Oks1ObIH9rqQ5X6rq2OpN
+	 bBQOho4PU4UdpdVv+GBqAJni0b4HkeXYF3pq22AZvDkBepko4J+h9qzA+cGVbCryFC
+	 ZJSiPpNqWoegDeNdHMzGRmRIwuFEbHS21tH8JmZ6wJRfMtNCOFRMlVXpFbSPhFHww0
+	 VdQwZ4ThwGU1CY197sdkyXjwW6HlxXiOIgK9sfgyCWL/eBF2eslKECUh4UDI3iWmu7
+	 ETYb3JzF4HFXg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net v4 2/4] net: ethernet: oa_tc6: No return on rx
+ buffer overflow error
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Selvamani Rajagopal via B4 Relay" <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260609-level-trigger-v4-2-6f389abdd192@onsemi.com>
+References: <20260609-level-trigger-v4-2-6f389abdd192@onsemi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 19:50:49 +0000
+Message-Id: <20260610195049.8983C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610-hw_mon-emc1812-v11-2-cef809af5c19@microchip.com>
 
-On Wed, Jun 10, 2026 at 06:19:47PM +0300, Marius Cristea wrote:
-> This is the hwmon driver for Microchip EMC1812/13/14/15/33
-> Multichannel Low-Voltage Remote Diode Sensor Family.
-> 
-> EMC1812 has one external remote temperature monitoring channel.
-> EMC1813 has two external remote temperature monitoring channels.
-> EMC1814 has three external remote temperature monitoring channels,
-> channels 2 and 3 support anti parallel diode.
-> EMC1815 has four external remote temperature monitoring channels and
-> channels 1/2  and 3/4 support anti parallel diode.
-> EMC1833 has two external remote temperature monitoring channels and
-> channels 1 and 2 support anti parallel diode.
-> Resistance Error Correction is supported on channels 1/2 and 3/4.
-> 
-> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Applied.
+New issues:
+- [High] The newly added check for `-EAGAIN` in the threaded IRQ loop is de=
+ad code for its intended purpose (RX overflow recovery) and introduces a da=
+ngerous tight busy-loop if the underlying SPI driver fails.
 
-Thanks,
-Guenter
+Pre-existing issues:
+- [Critical] Missing tailroom check before calling `skb_put()` on the recei=
+ve path allows a malformed or malicious MAC-PHY stream to cause an `skb_ove=
+r_panic()`.
+- [Critical] Out-of-bounds memory access due to unvalidated hardware inputs=
+ for TX credits and RX chunks.
+- [High] The device IRQ is not disabled before freeing SKB pointers in `oa_=
+tc6_exit()`, leading to a race condition and use-after-free.
+--
+
+commit bd14c34a7b1c3dad290ba34e28faf15014377d8e
+Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+net: ethernet: oa_tc6: No return on rx buffer overflow error
+
+This patch modifies the threaded IRQ handler to retry the SPI transfer if
+oa_tc6_try_spi_transfer() returns -EAGAIN. This is intended to gracefully
+recover from RX buffer overflow errors by discarding bad data chunks.
+
+> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+> --- a/drivers/net/ethernet/oa_tc6.c
+> +++ b/drivers/net/ethernet/oa_tc6.c
+> @@ -1111,6 +1111,8 @@ static irqreturn_t oa_tc6_macphy_threaded_irq(int i=
+rq, void *data)
+> =20
+>  	while (tc6->int_flag || (tc6->waiting_tx_skb && tc6->tx_credits)) {
+>  		ret =3D oa_tc6_try_spi_transfer(tc6);
+> +		if (ret =3D=3D -EAGAIN)
+> +			continue;
+
+[Severity: High]
+Can oa_tc6_try_spi_transfer() actually return -EAGAIN for an RX overflow
+condition here?
+
+Looking at oa_tc6_try_spi_transfer(), it catches the -EAGAIN internally:
+
+static int oa_tc6_try_spi_transfer(struct oa_tc6 *tc6)
+{
+        ...
+        ret =3D oa_tc6_process_spi_data_rx_buf(tc6, spi_len);
+        if (ret) {
+                if (ret =3D=3D -EAGAIN)
+                        continue;
+        ...
+}
+
+Since it loops internally, it seems it won't return -EAGAIN to the IRQ
+handler for an RX overflow.
+
+The only way oa_tc6_try_spi_transfer() returns -EAGAIN to the caller
+is if the underlying SPI transfer fails with -EAGAIN.
+
+If that happens, wouldn't this new continue statement create a tight infini=
+te
+busy-loop in the threaded IRQ handler context without sleeping?
+
+>  		if (ret)
+>  			break;
+>  	}
+
+[Severity: Critical]
+This is a pre-existing issue, but does oa_tc6_update_rx_skb() verify that
+the skb has sufficient tailroom before calling skb_put()?
+
+In the receive path, data is copied into the skb:
+
+static void oa_tc6_update_rx_skb(struct oa_tc6 *tc6, u8 *payload, u16 lengt=
+h)
+{
+        ...
+        memcpy(skb_put(tc6->rx_skb, length), payload, length);
+}
+
+This is called repeatedly for ongoing frames by oa_tc6_prcs_ongoing_rx_fram=
+e()
+which appends 64-byte payload chunks to the skb.
+
+If a faulty MAC-PHY or bit-flip streams chunks without setting the end_valid
+bit, could the unconditional calls to skb_put() overrun the SKB's tailroom
+and trigger a kernel panic via skb_over_panic()?
+
+[Severity: High]
+This is a pre-existing issue, but is the device IRQ properly disabled
+before oa_tc6_exit() frees the SKB pointers?
+
+oa_tc6_exit() does the following:
+
+static void oa_tc6_exit(struct oa_tc6 *tc6)
+{
+        ...
+        dev_kfree_skb_any(tc6->ongoing_tx_skb);
+        dev_kfree_skb_any(tc6->waiting_tx_skb);
+        dev_kfree_skb_any(tc6->rx_skb);
+        ...
+}
+
+Since the driver uses devm_request_threaded_irq(), the IRQ remains active
+until the driver unbinds, which happens after oa_tc6_exit() returns.
+
+If an interrupt fires concurrently while oa_tc6_exit() calls
+dev_kfree_skb_any(), could the still-active oa_tc6_macphy_threaded_irq()
+handler attempt to access these freed pointers?
+
+[Severity: Critical]
+This is a pre-existing issue, but do we validate the chunk counts read
+from the hardware?
+
+The driver updates the chunk counts from hardware registers:
+
+static void oa_tc6_update_buffer_status_from_register(struct oa_tc6 *tc6,
+                                                      u32 value)
+{
+        tc6->rx_chunks_available =3D FIELD_GET(BUFFER_STATUS_RX_CHUNKS_AVAI=
+LABLE,
+                                             value);
+        ...
+}
+
+These bitfields are 8 bits wide, allowing values up to 255. However, the
+SPI data buffers are statically sized to handle a maximum of
+OA_TC6_MAX_TX_CHUNKS (48).
+
+If the hardware reports a value larger than 48, could loops like
+oa_tc6_add_empty_chunks_to_spi_buf() write past the bounds of
+spi_data_tx_buf and cause memory corruption during the SPI transfer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-level-trig=
+ger-v4-0-6f389abdd192@onsemi.com?part=3D2
