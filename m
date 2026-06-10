@@ -1,129 +1,134 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFF7394EAD
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 07:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3237838E11C
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 07:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781077318; cv=none; b=dLgVXtzl6+/xrJ5JbBBW4ZfC7nUDROMXNTcgBw2nZIO0XfgHWe54YdBF8BwWtHKQjF6ezNi5LBXTQ9RETjuqkjNBtC4YldU66s9p6I8zyOybl1RIKHBtEU/dHIo26YPFMJeHSMMNfa7ioXFtKDsoQ2z94Df7wKkfYBF43ADEoIc=
+	t=1781077416; cv=none; b=kSBITxDImdaLQmKkBjdUGVgXysHcDgOp6ygV846hG7poW/vLeVSlDIoJ2oM4PDJsxRct+FpLohPwTokTz0ZAV/2KsyTdyLrzwF/KBIEyIXu3WZxdHbCCTdyrnhL3ykErccfIQInIzNx6IvbpGS+idzxmblmByvAz5oI7LTfmPXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781077318; c=relaxed/simple;
-	bh=RUQYACSew3cfYX34zgSR284JiIolXCPlfeeA2gfHrsM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HybEhtwuSTddsFgGnGXp0ssoyYyH2nU9T5xNS67ywzSoIRBZDISL5cbH4dV6bjZ7o2f/oWtQkM9bsn8u05WuWC6ZxvP2m208FaD8s01qV2XlJ52qaFBwsEOXWzWPno8AMXzBvUOa9oTdUr2EazUcfoEpoCjbRm9ZIXcWuOv3xNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MKzBnPJT; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781077416; c=relaxed/simple;
+	bh=URQJCTbAJIoCNSIMY8IOF/aYzgKA33LcT/MKWu2oEfE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ebiY+1pbFtC+oR+sj1jbSr4s/TzwKz7V/DFS9oU/Ex9ur4EQKYBCHPjUuCRIbORlqyUfPK30ahLlQJTQszvsF7XUGsGo+XtQajVjnS9yqIVmn/rGt22dWp88HgChnwqXdBIjGBo3liwzMMYn1FTblZ0TbK/bJmq98bFDWpvSHeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=QAJx81ER; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=HqWux+Vj; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MKzBnPJT"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45eedcdaeaaso4406385f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 00:41:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781077314; x=1781682114; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OrqigCCHxDsMi9xkcr3nQgEkjpdgCmWeRsU/XEzQWc0=;
-        b=MKzBnPJTID6e6EF21YmyQCtBRczubFhoGJDzbSdVy7gb2kD0euOVSRjXSe1e+IAWqg
-         cc/EHBgRUM2N8gPFVYRIrTH7Kol3lLzyM7Ss1EspMX418JCPCD/DAiGZspM2bOQKXo3L
-         j9Z94F14mslPsMEBa1JZS+MoDF3c5UjjIeAS8v3p1dSSgrSOW/oz5Yqh/S2O+9GV1Cow
-         Rimy+6BUwQ0y9vBBmLpWE7piLRWowY/bzGof73kJZcwOyscKfXpkzUV+8EEcG7otXWKj
-         8KxSrsL32F9u9A8yj5dAdgO+qPu5Ho68cl9twdBau3WpSJ2CSalYxpac7UNE7igmTl88
-         TE6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781077314; x=1781682114;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=OrqigCCHxDsMi9xkcr3nQgEkjpdgCmWeRsU/XEzQWc0=;
-        b=VDX7CjlHnkcqmCCPA9rC0B+JuSvrgq0TGbTKvm4Y5Jn1b/bG4PHFXuqMVi1trrRf3G
-         Y6y1O612al+e1iQFokY6yXpkZP35lZCYehvOuSd+BlAD4NN8MChsNOjiBvWkTG6mDRYl
-         wqYYu9D/QClL/pFzCbd9GkHSKhDozGAO+ZIT6US+bZXUZZB7QS8l6bpTowDCZkJ3YSl2
-         FtriTp4aNAeOmqnaXrZN9UUnUm9Pbs+sLvtD4jlZPQOPBuMelbCR8wiYo+Z4g4B+qk3i
-         M6QpRxT1JF+FmL0eIEmJ9Syipr0+fUvC7v/5jnx9SN4STu+UAnohF76OsRNOo2r9GMvx
-         DBWg==
-X-Forwarded-Encrypted: i=1; AFNElJ8+i0/vEAOdsinHyE1Jf0pOgTOMapM5cTNcuSZQDaYlfqD0qKuR0pNlWP6RCGo3pkFmEqmiqTcroV9r@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTrm+sXRS4VGqSYnzFl6VVRzja1Cv7Fgu9imdsXa4uCUIcpcg9
-	8e9deQTdE+wUy1guSvnA/BSAN9OLofxB/SlF8P2eGBHaJw1A1WyNJrmyENyZENYIWFzbUi2u8zL
-	vP1ld
-X-Gm-Gg: Acq92OHrUl6sAPWR6YGJd8KBg/HskaLbyrnbUo2aplU2ehDKvgdjvQjvYSaG6RQzJam
-	rbedczNAOPR3kcH7t+v+WmUyMe16+a7qv5rICwkeN8z0CLIOyjainNQDqjMU7ngzXQ4wGKyBisf
-	tcjUsG+VmhR6zo8+bklu7f02tSALSAb450Mv2F+Fw4PJuX1vJqvs7L3e4BNkViQSkFBL6Tb0Pt2
-	FmUP5SzUCP02/YL/I9bdfb2gCR/Pqi6DKJejeGhqP7lPpPWKlEY0OQop8llS92l7KBlrImEtdBj
-	Uwi/2jouHJBrrb3rtSmTgXdvaHCTdtheAJvsKevCw/QgJH1AnnIEs76Wh+pFOiDYEMVB1j/LNJW
-	O659zAxEQuK+x4RPl/r+rYIOFVKAlkK7JMD3OtxI/mjhlsiWMRufUj0ZqTn4jEaVZUzdCtMrUCW
-	unRKUiZlPrBb0SfB2CpwRNaSgTo17wUbKjvJz5yL0GxPshXYvObwhhjDs=
-X-Received: by 2002:adf:efc6:0:b0:45e:fa7b:a7cf with SMTP id ffacd0b85a97d-460304ee122mr26773651f8f.2.1781077314148;
-        Wed, 10 Jun 2026 00:41:54 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f3444fesm69161344f8f.20.2026.06.10.00.41.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 00:41:53 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 10 Jun 2026 09:41:48 +0200
-Subject: [PATCH 4/4] ASoC: dt-bindings: qcom,sm8250: Add Ayaneo Pocket S2
- sound card
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="QAJx81ER";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="HqWux+Vj"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4C2261D000A9;
+	Wed, 10 Jun 2026 03:43:34 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-04.internal (MEProxy); Wed, 10 Jun 2026 03:43:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781077414;
+	 x=1781163814; bh=Bdspv/mWgnec4IJT6Knjkn3iUexEa46V5UFr5fP0nw4=; b=
+	QAJx81ERBEu/VvCfwMYUPfKqkCjRZqAjfnRIYQBn9gLAikBrpvNbUnpFeYz52suf
+	mDQhfsO4msLMs7fZmqWzxMn7150kSu2yqHECVtTuBmS2D3Lhp4v0fbS175kmtBPx
+	o2nU04zklH9Obvv7h8zKyu+xhKxjM/xwogZ8lbpq8+STmq474CBPcXbsBr9kBKts
+	yT7D6zzR2cOhGqGi/geWOC8BsV3Bg9NvyiqMr8okPsJX4BH8elw6Yj1ZBvjFlGUC
+	fyxu9WprD4Lcj+Hs5xn4dkKHNd44VmZqGThJ8SaP7cTqf7/Jv7aDLDFqKXVY4UwP
+	uXl8KXzcbjkPHtcdLXaMdQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781077414; x=
+	1781163814; bh=Bdspv/mWgnec4IJT6Knjkn3iUexEa46V5UFr5fP0nw4=; b=H
+	qWux+VjW2aMM8s9XAUjdJ9AobrpVwjpEevmTBeAvJHsS9vrfEuPnW4lSEet8PCjy
+	if+1rBg5Tp8lqzoS/VzPg+JbT5YOPKZOBqNvWKBSC1tvD8UhidTVNTwxr/mMNF6S
+	udmNjHjXbeZrTryc2w3tLKSE7K08P5Ha6yMS/uqUuU3+7BP38y+aW2BfuDCn49+a
+	zUwaE6IbOZePEtlYE4Ao7TpkFhDhJoBvlB/5X4mT8Y2pOd04s5P5ePQ3JvarvEIW
+	3V8fM2WzxU5NwS2RyHMAG31qnucQCfGEf04i5d7N/ksIGAOtLzRDZcAwIrajRuEH
+	VypOAQifEDE++v1LDwoMg==
+X-ME-Sender: <xms:pRUpamki4cP4W8Mo9wQTtvR1f0mMNHhKaysWivrPr4YLHMxwQU7D5g>
+    <xme:pRUpaorQIE4WsIu3QQq-FLHEdp3zfD2pklNjGwymQlVih6mlSit-YRM9Pa1ePvyJ1
+    hwLDy66qtDrRwVyJwpAvchiUAbmZjXthb2nHMMsgWcpGS2PugUAc3k>
+X-ME-Proxy-Cause: dmFkZTEbSF9yCd3WJfzOG54G2rTUXrqdwsJ0Ppx5q3iCXeGOyJQmUssYWR1FWpFCTWNFX7
+    6CPxLBSxVhu4KIJl5Is1ZoRSxQBxktbZPieOHRcUSKt+ejPzGIdP5vQd7Vx+NGuLRWLAuN
+    ujthz3X+tkgi/Qqq7jiCIRqZ+Cammqb4oASt3li4MYVi6yDCoNPr1iMksy2VwyP08H4Siq
+    j21kffMuz5vubv75vkPLXnmg2Q0J6Ij4EXYfYpEh5MS2oCgxY6c7dYpbbK21IIUXgAq8v3
+    HZsFbPa9KOu7+HwqP4M2ePvRsE/He1a18o1oFPEuuFgSuxwrinysMRDZpNvkBL37CLOjLA
+    UUMXs7AufTgu1PmlZNZwSAO9Zda3G4bfDqZDLvV6mA5xktgqRcANTgNrNUJMi7obj/63uD
+    jwgr/aB1sP//I3GOp0Jqjy36z2eyZiA2o96n3PSqrBs6Txao55f5wcnK43007PHVlXZ/ZQ
+    8wzMJEabdS9eXzuZBkZLFldwISwUnyHkrGDtTwamWSQko8Kz4BBxJ3yMq22PvSHQrKcqHz
+    6Uy7B85NYacqEKi70aNzG/EDBpXd0/VtPYtEqT+sm6rVmc11mLvJ3cXTkwHmgr0/iJ3hGx
+    VxBsvbcYg6Llo5Lx9Kv4g02Gr6Ytvlax9kAqzapmz58qWTjZoaQoaf/T9iHw
+X-ME-Proxy: <xmx:pRUpavAW3P8J60cIOWImZFiuzBNrPYCOBcZhG-aWr3Cu0Soj5Fd2xA>
+    <xmx:pRUpaqcZHgDBifQ4UleK_8w9_D7F7URJympnZdHAOZ_Jq_38fHUo8A>
+    <xmx:pRUpau0lURFWHuaGItLban6Xy3u9AmP0ij6Vg9uFfEIEJ9Y3PM4cLA>
+    <xmx:pRUpahjKvdUZl0vh8-jPlDpLR2iVddxAjDG-1Ien3QI43nTzg21mqw>
+    <xmx:phUpatzMQNIvJMwnOFu1LSJBUDvvVRF9L3xYWYCJFnSR-u-HovqBRdx9>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id C4E40182008A; Wed, 10 Jun 2026 03:43:33 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AdNNzaliM6k3
+Date: Wed, 10 Jun 2026 09:43:12 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Frank Li" <frank.li@oss.nxp.com>, "Josua Mayer" <josua@solid-run.com>,
+ "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Frank Li" <Frank.Li@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>
+Message-Id: <4f7cc399-785f-4967-adec-714ccc69ada8@app.fastmail.com>
+In-Reply-To: <177431ea-c4ba-4424-b17e-9d2e2884d466@oss.nxp.com>
+References: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
+ <20260524151347.BD92A1F000E9@smtp.kernel.org>
+ <3528dc91-1ffc-42f9-94ea-a27c6c1d6a50@solid-run.com>
+ <9e6326f6-dad1-4169-a63c-e62ee5b341f2@app.fastmail.com>
+ <023aa47c-6fbc-486f-b5c7-5145ddf8e8fe@oss.nxp.com>
+ <72087d5c-c6f9-4452-b4bd-a9f086700e62@app.fastmail.com>
+ <48248207-7b4f-43c9-85e9-64e8440fab10@oss.nxp.com>
+ <753fca23-c3eb-45e3-aeac-b7b248fa723a@app.fastmail.com>
+ <177431ea-c4ba-4424-b17e-9d2e2884d466@oss.nxp.com>
+Subject: Re: [PATCH v7 1/9] arm64: dts: lx2160a-rev2: extend 32-bit, and add 64-bit pci
+ regions
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-4-18bb19c5ca22@linaro.org>
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
-In-Reply-To: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=911;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=RUQYACSew3cfYX34zgSR284JiIolXCPlfeeA2gfHrsM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqKRU8wuDWQxwbLtSGmJeawuYayQs0Qcj0laB5GNNz
- X7mZs6iJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaikVPAAKCRB33NvayMhJ0eykD/
- 47yri/yFEa9A9JkT/e28+Ty0O9LdEXHm1iWQMBFYse3uP5q3qDm4PyuXsgzjBhkrbOdtrgt38OY/P9
- 8goI3bThbQ0y2BaxrAlVTveukcI9xRdNXOae7Ul29NITYrtHCIKNHFO7Zk9S4VZLwbyojH+Iq3WQny
- HTYCrPzx+2v4DPmePsGaTDRCDpc6yVFtpm3NjuwahOFzpLOAMxYupiXLqRRJvZv3BnvOn20Om57HHq
- UdDrKaatlJP6ElvH3540DXldo2UtPr8hpOlA7HFqKEkZ0WA4qOBle1RvbQRjQi1eyKZch5SDmJdTSp
- i1HL+N/NnVSzQZcw2yKdM0tWXfGSO/kJpHuVb/hi1XMGd2VFaGLpaoUy7+blqCybW3VkgRSer24a5C
- 4JpTz7H+6fsTmfL4vohISWvgSBSE/2wocxDQm/Ve+BsdSdpbuB2buXyH0KM1zsX3D14BXf7+C7dXbz
- PvmsmlBVez4cT4Zuiolubyg66PkkgjOUoWKhiQWeDoVz/z5HIB45kWVD5gcoXzumukHymQPsCh4QyL
- zje233G+4XG86o6qRjVx7aZrLTgF+IxH3l37vm1rpfzJ0S+yW+yjhZO1DhPRp9V79OnoVi+4KosAzl
- WjAf2ezex07diTiV4OJxOw4zIX/ea50YPFI98KXrD+07tOiD4zN8iGgt38WA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Document the bindings for the sound card on the Ayaneo Pocket S2
-which uses the special speaker connection incompatible with
-the default SM8650 sound card.
+On Wed, Jun 10, 2026, at 00:13, Frank Li wrote:
+> On 6/9/2026 4:31 PM, Arnd Bergmann wrote:
+>
+> If EP itself is PCIe bridge, it may be problem. It'd better to
+> keep 32bit range unchange.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Ok. It is not uncommon to have PCIe bridges either in physical
+form, or inside of devices that have multiple PCIe functions,
+so this does seem like a real problem to me even when more commonly
+you'd only have a single PCIe function with a single memory BAR
+on each host bridge.
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 15f38622b98b..1fc458276ab3 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -29,6 +29,7 @@ properties:
-               - qcom,sm8750-sndcard
-           - const: qcom,sm8450-sndcard
-       - enum:
-+          - ayaneo,pocket-s2-sndcard
-           - fairphone,fp4-sndcard
-           - fairphone,fp5-sndcard
-           - qcom,apq8096-sndcard
+> Do you need rework pull request?  Or you can drop this patch.
 
--- 
-2.34.1
+I can't easily drop the commit without losing your signed tag
+on the pull request. Please update the pull request to either
+drop this on your end or add a fixup patch on top that reverts
+to a 1GB non-prefetchable window for each of the controllers.
 
+On a related note, please make sure that you don't send
+a large series like this late in the development cycle
+so we have enough time to resolve any issues that may come
+up. You can also send a follow-up pull request with last
+minute fixups and changes that were still waiting for
+review. The bulk of the branch contents look like they 
+have been stable for a while, so the best thing would have
+been to send those in a first PR.
+
+If everything goes well otherwise, this PR should still make
+it in time, but it would be nice to avoid such minute
+excitement in the future.
+
+       Arnd
