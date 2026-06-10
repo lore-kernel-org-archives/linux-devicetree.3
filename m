@@ -1,108 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278683B4E8A;
-	Wed, 10 Jun 2026 10:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114783C109B;
+	Wed, 10 Jun 2026 10:28:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781087265; cv=none; b=kQRTYDqRh1IRnek6AZR7lHyF5EMzHLzo60lv2xUQ9q0D31+OtxIVmufMzZXObw98cvjiBuJymvDr6b1P1SY9zvpt6Z0E7lmfR6vPJneYDLHJbsm1rdRvJXlFMoLnLnWlI8mM87GmN4dX4wS/UykBzaTfoRF9dnoC3YYWeGYyoqA=
+	t=1781087290; cv=none; b=mmB9hXyzIdvMPUoGIAYBPYnd8+LwPHGaqbOhYgXd9U/sEWGdka+IQ5FrMBupJEfrG7LJEo07k6HuxdAKN3NzBpygX2nkVtpQglFJpzwYKVjZw9yxxlp9NfgW/0w0UXwYpuK7xrl2AABlhF/oqYcP6T3nH1u+Psv81oixyXU5g84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781087265; c=relaxed/simple;
-	bh=gqSUj7BP8+cxE/tJWPUQ9h5a/jPgRCqt4stgniSIf98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QzWf7sk2AYDSuBUVtvh+IJ4X3nhi+J8oxKLKfhmQo62TuY1V5QaJZ9XLyITehEMAytVAYYLk8Mqsc/BF1J5jmaLruwOzmtd9CdSrrNen8NtuCbHJYWWYpS90iWEeJTKAdgk4iRyH6czYmWzwMXRsPBjctwL9M6gfV0cjBECVRr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGu3zhh2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781087290; c=relaxed/simple;
+	bh=AkduSbLdnDxU/BxF/v0RcqX7dn/czoKCfzrmm5cQdn0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gnMNFOIH0lUL1FNwltELFEttHhqunkI80zS5FdEmdunrAieglHdxnJIITdr4Acs1nD4mku8pglY4KPT/Soaeb1hYsLme7L1QFAm04+aM46NLO+Qh9Q+l+qFZTxn3Js/Y384gt6Cb1gGBQhvggkVizAw6GjKJxczTExITBPNpnnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S7Da5BCk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGu3zhh2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7B71F00893;
-	Wed, 10 Jun 2026 10:27:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S7Da5BCk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0571F00893;
+	Wed, 10 Jun 2026 10:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781087263;
-	bh=1JDn7CbxH4NkFQTX1xElzM+90pkVv3Q0ucAERFYyNNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oGu3zhh2OG3sW8byiL4NJ6CQlf9ldAiGwdIcV924G4xpkRt3RwAbsxkuLh7dbwXjO
-	 pBYpbn4rov/isiedEoYakwt/4vHmoj964vLfod9I6M/bic0ewaKckXmS4272RylyZk
-	 Vb1KlUxXLLFYTwSimZ+0TyAK/L2vrxTt0mH+OQPBkpCbl+vGoxJtEHAbiTaIjZM4qY
-	 p2eKDLOTAELQnxC88iPxjB7DXkoPSw4QYQ/y42Axo4u+jGmcVX3QJo940Lai4ihZTw
-	 SGsq/DUdDCYm5WqP6C+8Oa3uJjjiXer8tAdHf6IQ4omjf1lNUnnMDFlesSnRbEN1tE
-	 pOBI8IuAHjVmg==
-Date: Wed, 10 Jun 2026 12:27:36 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>, 
-	"manivannan.sadhasivam@oss.qualcomm.com" <manivannan.sadhasivam@oss.qualcomm.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-	"robh@kernel.org" <robh@kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>, 
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"imx@lists.linux.dev" <imx@lists.linux.dev>
-Subject: Re: [PATCH 1/2] dt-bindings: connector: pcie-m2-e: Add 3.3Vaux
- supply support
-Message-ID: <ihrmgh6etb2n5zqjbrykfjjms4a6zgpzwjgrd3rvy24jufbss7@f4nfxrp7jksy>
-References: <20260609033840.2006078-2-sherry.sun@oss.nxp.com>
- <20260609034408.BC69D1F00893@smtp.kernel.org>
- <20260609-unique-magnificent-eel-eb623f@quoll>
- <VI0PR04MB121140EFB8E614326D799503A921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <mvxoynvocxcalxcwogbiovg5yurjczxqfu2fqkji33bunmlplz@zxqjsdjts65j>
- <VI0PR04MB12114DBDD65F25FB615EA8967921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
+	s=k20260515; t=1781087288;
+	bh=P3/SjjzesC+EIAYUeZ7n0UYudTtWnOecqQOCydmgKKU=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=S7Da5BCk3ADWm3jL/MpvWqGyMkGbkCEruUXjvUg8FNDZoFGlubzbzq+cFvpL47nFX
+	 +CUbwcDHOHuXMs1fMWQLxcrUpEmyd1Wy30k/X4meldVYs/1qwRxN1PE+iGUucpQaif
+	 JHSinY7+hmd19CLOM0bA3n4gfMXMXjVnpINTnWDXQYeImL9a21K43KKqcv762fQUAq
+	 whPKMIzKFZ/KrzkyvBLXHeETc/H5iRJfaKhSVsLpD4BNzRqatIwzD75oJzBMdIefdz
+	 mKqiCEaHDX4b9voIJNpj+i1B5JzInXqN5KDsGquipffITvB2cwmzMN0gtO5/yoG0IW
+	 3L5CDdzeHpzwA==
+Message-ID: <d525a1f4-9e87-40cc-9878-2044e5d6dea6@kernel.org>
+Date: Wed, 10 Jun 2026 12:27:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next 0/9] ravb: Add gPTP support for Gen4
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
+ <niklas.soderlund+renesas@ragnatech.se>, Paul Barker <paul@pbarker.dev>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Sergei Shtylyov <sergei.shtylyov@gmail.com>, netdev@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <VI0PR04MB12114DBDD65F25FB615EA8967921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-On Wed, Jun 10, 2026 at 10:13:00AM +0000, Sherry Sun wrote:
-> > On Wed, Jun 10, 2026 at 08:40:54AM +0000, Sherry Sun wrote:
-> > > > On Tue, Jun 09, 2026 at 03:44:08AM +0000, sashiko-bot@kernel.org wrote:
-> > > > > Thank you for your contribution! Sashiko AI review found 1
-> > > > > potential
-> > > > issue(s) to consider:
-> > > > > - [Medium] The `vpcie3v3aux-supply` property describes a
-> > > > > non-existent
-> > > > hardware feature on the M.2 Key E connector to work around a
-> > > > software policy.
-> > > >
-> > > > Feels valid. Describe which pin on M2 connector are you representing.
-> > > >
-> > >
-> > > Refer to PCI Express M.2 Specification r5.1 sec3.1.1 Power Sources and
-> > > Grounds.
-> > >
-> > > PCI Express M.2 Socket 1 utilizes a 3.3 V power source. The voltage
-> > > source, 3.3 V, is expected to be available during the system’s
-> > > stand-by/suspend state to support wake event processing on the
-> > > communications card.
-> > >
-> > > But the current vpcie3v3-supply may be gated off during system suspend.
-> > > So I  tried to add vpcie3v3aux-supply to let this 3.3 V power source
-> > > always on for PCIe M.2 Key E connector. That means vpcie3v3aux-supply
-> > > and vpcie3v3-supply actually refer to the same 3.3 V power source.
-> > >
-> > > @Mani, do you think this is reasonable? Or do you have any other
-> > > better solutions? Thanks!
-> > >
-> > 
-> > There is no Vaux defined in the M.2 spec. So you cannot define that supply in
-> > the binding. You can define the custom Vaux supply as a fixed regulator in DT
-> > and mark it always on so that it is keeps supplying 3.3v to the card.
-> > 
+On 10/06/2026 12:24, Niklas Söderlund wrote:
+> Hello,
 > 
-> Hi Mani, thanks for the suggestion, but adding an always on regulator may
-> cause board power waste, current solution ensures the 3.3v regulator is
-> only enabled when M.2 connector needs to work .
+> This series is the second part cleaning up how PTP timer support is
+> implemented on R-Car Gen4. Currently there is partial support for it in 
+> some of the Ethernet devices that can use it, but not all.
 > 
 
-What do you mean by 'need to work'? For getting the M.2 card to work, you
-already have 3.3v supply. If you want the board to be always ON, then you need
-to supply 3.3Vaux, which should be always ON too.
+Second series doing the same...
 
-But who is turning off vpcie3v3-supply? M.2 connector driver or the platform?
+Please use standard email subjects, so with the PATCH keyword in the
+title. `git format-patch -vX` helps here to create proper versioned
+patches. Another useful tool is b4. Skipping the PATCH keyword makes
+filtering of emails more difficult thus making the review process less
+convenient.
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Best regards,
+Krzysztof
