@@ -1,184 +1,238 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7801D3D9696
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308933ACF1E;
+	Wed, 10 Jun 2026 08:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781081582; cv=none; b=bTYzXEH0kcQGf9AqCYGszqmIRv/le4s9Dc2juA1gn3snqz2emltyLV6houxnURFxiBPoQZdRusqicF+befFgCdKfLHHR589KAiRqJuFOjVVL2qfXCEHkBhF2AuTmEhsWex/OPkXXfj7GrGZuteakUGMHW0liHrgXZf7vy8ajreg=
+	t=1781081640; cv=none; b=GQD1G/5vSpZ8upugpQZ1jC+XCNCc0wc//nNPVI8+88mWSUNJescjwM7g/IgDiZucXGj2/ZR+/4Sq5SDPeHqXV3gMlIYuARYa7OmP+9fHtrWOYvmTg0MmkmNU7rxJIhBqfrLqFWG3ZXyQKKi/mFDJobjDMeG3SKce1Wfglx9xrTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781081582; c=relaxed/simple;
-	bh=Er+6CpPP1ags03vijO+dnfrgarxZPqsc+RHLcBYp2zM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jpUVXLOWSR4PJhmmgE6MiWZHzsL+RPiB5qQvP9xF9oZcprsUe42LddPDOSLahBIALImOIuthaIytH5qRMlRntb9JfbgccYWXVXRBvfKLikYGtuwp1cAEd3h2f3YW6Hd1JzYq4drILfM1Wxu7iBNugW/GQYXy9BkjOYEvR+BUWz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I5zLGlEh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E2l0fIqi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781081640; c=relaxed/simple;
+	bh=6TDivE2SVhi1ZMxwxG8G2BWGcHwicQmwDjQarJWys3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SobrsJ88mB5YTn/j7Q3iSrKUK2C35ZZctQAoUgxn7V7UoWEsJ/IUwiooH6Hs4Da3G35pN4ZrIf0EcskYX6oDVncEavx6zvIcaCyO8NeahnXjo3FTAB10X8ejGWNMZDoqOOycCredDIRdOIafUUa4yBo2ESI7dsdtp6601txb0/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=B9gs8BjO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XagXfH7k; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I5zLGlEh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E2l0fIqi"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65A7hl51469513
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:53:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QVPq+6JkcreslYPvbFLt1vFStJtpeN3cu1CStIhk9yM=; b=I5zLGlEhNhmMArLo
-	xScB9BRdbFxzmPwZiu6nYT4n9EKy8qkBiIl7X2tqvmDQdasx1daFB1a2WsbqIBaz
-	E9W6LoJgrWghQoN0uqjzfAKCqSMKGzsh96zMLtNOnOKrmBmjbVv6ry1KjpTVqb+7
-	gN8PuVsmcKXrb8LuULVDj0+qB00zK/YJBQMgpmbAlTSytWkf4el4/K1bA2Fmo9Kk
-	EXlgZry4ktwTcf4HGpVQcyjBVcG9y7XwO1+ziuYVxA8jen0TECqSjG6AWpM+40RJ
-	1ZOZmLNLyHPUqgWQNM5xaMQ/mhRmWi/1F/biFcmJMsFDeNlmqwuWQMvqeSlCgRja
-	4ExBbQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epxuvhbge-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:52:59 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c0c32f4b1bso67320565ad.2
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:52:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781081579; x=1781686379; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QVPq+6JkcreslYPvbFLt1vFStJtpeN3cu1CStIhk9yM=;
-        b=E2l0fIqiqrc6nW9VozZ8GI0mrMjjCmWv4CCCRUKvizFAoxxDz6niuk7dqhU5A3w/cZ
-         XVs1cuVqcxPEgLT6pboeH/xCB9IZ19/k6BHKC238F3+JfQbuXW0krVeaxKdoLDjp+x6s
-         meyFxSwIxp5wi4zdsbrsPthWQCTlYSB8FvFkeZa3mds7Shh3pwnjPxZ5K8q1ZwZcjUGC
-         +zRTUY2/rzmvn1O0Rmrn8g7gAv2g2zHJt6ELQQ1UUzqDxogWz0+is8E25Dj/T8MadZhg
-         qzC6oXFYTcozW1r01ZmJElr5IqB8LcnGhd0x7JQ+p3bBfgx6wCG5tfTnNvccgAlnGtAB
-         5Kfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781081579; x=1781686379;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QVPq+6JkcreslYPvbFLt1vFStJtpeN3cu1CStIhk9yM=;
-        b=Xy6q+EHADngi14uwPv/P+m+j6fcPQ8jPhb67n2nmn5MSTp2PvCxUQNs/eW/GVtBZlr
-         89XjJ9sd49JL/zZXOTTREIYFhJCSuD1ixCjMQlF6FGFAnbC9jlCnaRQEWP2siFx8TCJ4
-         x9svyxc3PvgYQG4EBzoSIlCzwQu5jJ/LkF4cunBw1q7NBCT3WXPIY5O6OJO+1z/Xr+nB
-         WQEmW9x0gFU7RMX6MgOInBNgb9a1dcudQ7c0GYyGYfd3Km+LeC8oeWD79V7KaibmQFWZ
-         oNZrT7UC4dGC9l2zgBsiZGm8+WcwYO8iCvQaLNBQvq4qk1Y1b/Ds2WOfJWTbCzoQr+wJ
-         wcxw==
-X-Forwarded-Encrypted: i=1; AFNElJ89c3fnAbvALEIdSPYzNmhvxB8aajRsOa+X7jtOf+et97LQjcVK8+fRA87j6uwRdPI11IBF8b7lTxbL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2/6NPWF9/oC90cMFHieIgW7uekuOz+f/bNiXMKjVT+VQPW8GH
-	zfxpgDV7XblGwiKObQRw21lpu5axEDK1JfL+/r4PwV9AyScTm/XeCmnDaO+ZKAarBJ9BNXsylCH
-	jkxt/dAEu21dsmxFCJKrJV8ZGVlaICHGx3fiRqGUGz2Ajc+g6lUaeSyd0ehazQbSI
-X-Gm-Gg: Acq92OHAHPrp/DdLGb8sttxAszV1P5hgiSBWQ/Q9n5FIGl0lMiwlg6jIRvufQcJH/qC
-	wfK5ydBleSfYwVQtkJcjMaTkm8FIdHbyKG1ZW/nXhqGu0QrhkiBfLyRotOQWtqVJbtQavmweKzI
-	ZzghR+RD5jjXLFGSUx6A3fOM26B2jKO1dNfEwdsYghOVCwMqjB17Jg4TlBedfaF+fIqV9HRRPh/
-	Wea1/jx2nM428vOyOUX2M1aAWn7FHgEOXOsJIgDBvTpOD7gNajo80ZB+1+pMAjUY5R/Gln3xH1+
-	688y+0ldyS4hpswsR5IJFIlFcdaEQJQC/Fa7MWLOX9soScWbafHskCD/4GVeajY+KfjmN19A2Zy
-	QO9/EyEHh6X06lji/7xwXd01eYRQfoC8FseHLFY6s9IMKyCAMEkRbo5yoLrx6vZqYLfYrT46W6y
-	B41PgxhJmD3ZLPuEIs3RmY0vXScoMsfXsh8selHHbfrGPZRiEyEFutvgmxoz8=
-X-Received: by 2002:a17:903:41d2:b0:2c2:1982:5270 with SMTP id d9443c01a7336-2c219825471mr224351665ad.21.1781081579141;
-        Wed, 10 Jun 2026 01:52:59 -0700 (PDT)
-X-Received: by 2002:a17:903:41d2:b0:2c2:1982:5270 with SMTP id d9443c01a7336-2c219825471mr224351445ad.21.1781081578690;
-        Wed, 10 Jun 2026 01:52:58 -0700 (PDT)
-Received: from hu-ppapaniy-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c24edc8acasm114618175ad.45.2026.06.10.01.52.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 01:52:58 -0700 (PDT)
-From: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
-Date: Wed, 10 Jun 2026 14:21:36 +0530
-Subject: [PATCH RFC v7 9/9] arm64: dts: qcom: hamoa: Enable
- LLCC/DDR/DDR_QOS DVFS
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="B9gs8BjO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XagXfH7k"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id E1CC71D000A9;
+	Wed, 10 Jun 2026 04:53:56 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 10 Jun 2026 04:53:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781081636;
+	 x=1781168036; bh=K4eA+zCuYdCUlkff/1ZwtZxUp1wrt492KPkKomECcEY=; b=
+	B9gs8BjOcdzdUW6Z6tp2zF8tuWlCM5HpNPdG4cAXfG0WKQtTYVSML7Z5VL3Hm6L1
+	y8sfuF+WJu6/dk8COtGDf9RiuVJcNESxRsVQe+Tq1ZbJUsyBYA+f0ZKxesxjo7Zb
+	6KRZCI8slf7Wp/6vYf7rQkSLHz/hdUO4qtSj6wIdRqYwjSDIzLrtgzdSxq0BhH+I
+	ohj2X7SIPCIGZThnclUzqNzlc4l3qG1eFJOz6x6LV9I0lU4MIYSs26YxBDRE43Nz
+	cqUH+nlYIU7ruuvQLdLbMY4cOW9wITDlv8L2xx76UoeOkUr+UmC+Ae2c0S797e8V
+	KHP96A+0zBZ3TWQTMQMT0Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781081636; x=
+	1781168036; bh=K4eA+zCuYdCUlkff/1ZwtZxUp1wrt492KPkKomECcEY=; b=X
+	agXfH7kbeRt8GPa/9XOmqcvSVERuPI9KK6hzCFH49wHk8v0LwRXwIIwEJosmvhZG
+	H2pKaeqAc5XYyX6dZiRrOIrXg6134RMnXsz78jDrHUhyQhlgu6Z91KyGYZhisRJ9
+	p+NrCfXA74Nfr75rv80i3rgP2hoElc4DVq2q2gb9zTGpoZi9h++qfDTJD60w6YSc
+	P443Who7D7PJFmacIqVq7xygQB0eSlMm4LTkGHtLULGRvx+l5/4QLkwMpdOqXHTV
+	921Xythcc7vgtDJktXCw4wPQUpVHm1O1GcYL8GUbzmfCe/Szg6hrkWpvl1njwCOA
+	3EJZwUquLSjaWxEFTD5GQ==
+X-ME-Sender: <xms:JCYpakofwKEB0fZaOPCQ2bSzdQrsFDiIjjqXRjCN8-c61Wsf3yYK-Q>
+    <xme:JCYpapIMqF7OB5ZWrZ78OA19Dc993IFutcrJsYKWEK4yIuX9oFyDLN0yzinrJB9J3
+    hwCoQxFarAp8QaNVUmHnUSTPwTPyh68CUNb0mA0zFl3u8Z_t2WyqAU>
+X-ME-Received: <xmr:JCYpagCibPG8MXR8XMBmo6rLG4JRJc9Kv0cwO7oUzeVOzh57wyMRseCFaOQceCb6RbKiJjaNZ66yw_okgS60Xv7NmN-iN_J76WDt>
+X-ME-Proxy-Cause: dmFkZTFrzWYbalujk9NkAWD+uOvRH99x2/0/vKKwO2ylyeSLu9NKa+2ruThusc+c33sG1e
+    RuVny5zs1QkmR/Un4aefDM4wkSzrCyr4XGVe04SB7ACOeWMCNXau+wHLrmlv11UqDjeV6S
+    IHsLnPLv7fZV6ybL9SrGIW7XeVtEJAMzsZHIvrnAoVb40MNIef1nNdCv/hCHG3ERkPhPNC
+    LuqtWoE52dJGBZe1j6v14/GmusuolqOwT81UuDI6Meg8CkeYF20wlWBY0A0DX4G2ipZaZC
+    0vwv+zzD4jOCtBe8VgUxTvVZAfA0tb1vhGviO9Zt/hTMF0vy3aPANceCzxlbdsguNKohEh
+    HD+pc4lTJl7JhDGcH/e9oocIy+CYJjuXlT4+lBkmU9NynqcwQfXRJYuRwFckqVIu2Zs0sQ
+    OLhn+Ccd+ZuX6G/DEklMgo9oVmNbhkWFHK90xfVPxg/xaUso6W0kTxFCO5+dIgxz+g5WmC
+    dg/80uLcUnVSkHObDM+t0QcyzgnBMQuZ1pADh7fW4IRk8sAqhAO5w+7i3HDHRma4A6CDDE
+    tNTS7d+clhprvtsrNu4zHF2qZJR73ucW1Y8bsmgv5ZXJ43cHZrlpvTYBvqo3Ct8+V1/Y9l
+    gW1F8C/NNRYNxm6t7mWuZHGTAsW29WmJYZOJzlRFS5zN4BGFsKeZoaR0Jmhw
+X-ME-Proxy: <xmx:JCYpar5FM444ZlLcMC5Ql3ySc-U75p13idzWle5rM5IJ8s8cwp5_VA>
+    <xmx:JCYpasGjpHvHXCJswZcDophdVHOG_pMpEhJeUOYWcyr4JwdvUiX7yA>
+    <xmx:JCYpamSdXSCb6WaAIMQYAmVwFFJgNjVFC8rsX0dZOcLVoVGM-AgGnw>
+    <xmx:JCYpamfhIJI7Ft2qSI1_kp_cqR-OXnM_U-zn9-_6pQppE0KDjjFhmg>
+    <xmx:JCYpauUn_8PGnjB_HopA7l1ujc2eoizpq9pW9W1Q_y9Fs2bzFvBtk3wS>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 10 Jun 2026 04:53:55 -0400 (EDT)
+Date: Wed, 10 Jun 2026 10:53:54 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [net-next 1/3] dt-bindings: ptp: renesas,rcar-gen4-gptp: Add
+ binding for R-Car Gen4
+Message-ID: <20260610085354.GC2465390@ragnatech.se>
+References: <20260609215711.2960150-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260609215711.2960150-2-niklas.soderlund+renesas@ragnatech.se>
+ <6bd0229b-4895-48a2-9e36-0ea5296c7fb5@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-rfc_v7_scmi_memlat-v7-9-f3f68c608f25@oss.qualcomm.com>
-References: <20260610-rfc_v7_scmi_memlat-v7-0-f3f68c608f25@oss.qualcomm.com>
-In-Reply-To: <20260610-rfc_v7_scmi_memlat-v7-0-f3f68c608f25@oss.qualcomm.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        MyungJoo Ham <myungjoo.ham@samsung.com>,
-        Kyungmin Park <kyungmin.park@samsung.com>,
-        Chanwoo Choi <cw00.choi@samsung.com>,
-        Dmitry Osipenko <digetx@gmail.com>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>,
-        Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781081505; l=1003;
- i=pragnesh.papaniya@oss.qualcomm.com; s=20260120; h=from:subject:message-id;
- bh=pXpBJ2FMnY6lmbenFJPBDk6Hui+mpMlqsnwiYYUFJmo=;
- b=uT4AQ8s4GwpWbVI++rigQjrmSyRqAQMCzp8wBbLKhIUF3mfkUffjvFW1pE/JgbPI1qyccp7MQ
- 4sSndpiP+qnBIfJzgN8ufxlztds4HuRMkws/Lip7QRcUDuuys14yYEs
-X-Developer-Key: i=pragnesh.papaniya@oss.qualcomm.com; a=ed25519;
- pk=09P9nFmZLXJ9+4Jx10ZK5rIW0Fmk79A/DLErm6aVA0c=
-X-Proofpoint-GUID: AWbq867aKJ_I2ZAyf0TLnzcWx3NQC7f5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDA4MyBTYWx0ZWRfX30hD3QuyuY76
- aUb6FpK93hPbc7pPzCuIJNR3mDZYYAAHNT9Dni+nzpDnHZtAuhPKLJ0KJzyz/ODPHnu378MNG3a
- LjGOWqalDPcc4DkS6Df8axWcZOPkg/oEc9zY1ev9zfZ2XXm6yGJMkTvlvSizOL7jQoFlnZWV0Cb
- inVmcfCpLSF3MK+zrMyqtOR/yGI5E6YTb+S4nW5Jdnwt6MpAjk6lmw7bIwRZtnDIyZ84kQJprsW
- HaQcbLOypdrnYzqBgEmkTx8EROb6jxP8VQGUhXWx4ifUO1lDm5SZeTbLa/AUmbc9mPjMN4kHc+f
- oSFhJup38kmqysn7YwHcVXDD9wl07wyigAMsiqB69Do7ftOqhjHQOZTpQHmqOBnxPzXAcb1SpR8
- Obar347uGM6SfQMQKJ2zqQB66B6KnaG2SDpPjZdxvQMNVSBVaTW8ubGGMoHxBzU5BssWxwuhzsO
- C6vjJ4/Xhm1jUAyruXQ==
-X-Authority-Analysis: v=2.4 cv=Co+PtH4D c=1 sm=1 tr=0 ts=6a2925eb cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=8E_iI_7X9U7aA52Mj5gA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: AWbq867aKJ_I2ZAyf0TLnzcWx3NQC7f5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-10_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606100083
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6bd0229b-4895-48a2-9e36-0ea5296c7fb5@kernel.org>
 
-From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Hi Krzysztof,
 
-On Qualcomm Hamoa SoCs, the memlat governor and the mechanism for
-controlling the LLCC and DDR/DDR_QOS frequencies run on the CPU Control
-Processor (CPUCP) and are exposed via the QCOM SCMI Generic Extension
-protocol. Add the SCMI vendor protocol node required for the QCOM
-SCMI Generic Extension protocol to probe get functional bus dvfs
-on Hamoa/Purwa SoCs.
+Thanks for your comments.
 
-Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Signed-off-by: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+On 2026-06-10 08:54:06 +0200, Krzysztof Kozlowski wrote:
+> On 09/06/2026 23:57, Niklas Söderlund wrote:
+> > Add bindings for the R-Car Gen4 gPTP timer. The timer enables accurate
+> > synchronization of the clock in the control system. The timer is
+> > system-wide and used by different Ethernet devices on each Gen4 platform.
+> 
+> A nit, subject: drop second/last, redundant "binding for". The
+> "dt-bindings" prefix is already stating that these are bindings.
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 4ba751a65142..abd3e4bb9372 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -338,6 +338,10 @@ scmi_dvfs: protocol@13 {
- 				reg = <0x13>;
- 				#power-domain-cells = <1>;
- 			};
-+
-+			scmi_vendor: protocol@80 {
-+				reg = <0x80>;
-+			};
- 		};
- 	};
- 
+Thanks, will fix.
+
+> See also:
+> https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
+
+Not sure I follow this one, L18 reads,
+
+  "Few subsystems, like ASoC, media, regulators and SPI, expect reverse 
+  order of the prefixes::"
+
+But 'git log Documentation/devicetree/bindings/ptp/' shows all commits 
+in that directory use the 'dt-bindings: ptp:' prefix.
+
+> 
+> 
+> > 
+> >   - On R-Car S4 it is shared between RSWITCH and RAVB.
+> > 
+> >   - On R-Car V4H it is shared between RTSN and RAVB.
+> > 
+> >   - On R-Car V4M it is only used by RAVB.
+> > 
+> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > ---
+> >  .../bindings/ptp/renesas,rcar-gen4-gptp.yaml  | 64 +++++++++++++++++++
+> >  MAINTAINERS                                   |  6 ++
+> >  2 files changed, 70 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> > new file mode 100644
+> > index 000000000000..99e6e3ca73b6
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> > @@ -0,0 +1,64 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +# Copyright (C) 2026 Renesas Electronics Corp.
+> > +# Copyright (C) 2026 Niklas Söderlund <niklas.soderlund@ragnatech.se>
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/ptp/renesas,rcar-gen4-gptp.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Renesas R-Car Gen4 gPTP timer
+> > +
+> > +maintainers:
+> > +  - Niklas Söderlund <niklas.soderlund@ragnatech.se>
+> > +
+> > +description:
+> > +  The R-Car Gen4 gPTP timer enables accurate synchronization of the clock in
+> > +  the control system. The timer is system-wide and used by different Ethernet
+> > +  devices on each Gen4 platform.
+> > +
+> > +    - On R-Car S4 it is shared between RSWITCH and RAVB.
+> > +    - On R-Car V4H it is shared between RTSN and RAVB.
+> > +    - On R-Car V4M it is only used by RAVB.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    items:
+> > +      - enum:
+> > +          - renesas,r8a779f0-gptp # S4-8
+> > +          - renesas,r8a779g0-gptp # V4H
+> > +          - renesas,r8a779h0-gptp # V4M
+> > +      - const: renesas,rcar-gen4-gptp # Generic R-Car Gen4
+> 
+> Please drop comment or drop generic compatible and make it specific.
+> Generic compatibles are discouraged, so don't advertise that. Look how
+> other RECENT Renesas bindings do it.
+
+Thanks, I will drop the 'Generic R-Car Gen4' comment. The reason is to 
+reduce cruft in the driver. My current view is that there are no 
+platform specific quirks needed, but experience show this sometimes 
+happens.
+
+Looking at RECENT Renesas bindings this seems to be the way.
+
+> 
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  power-domains:
+> > +    maxItems: 1
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - clocks
+> > +  - power-domains
+> > +  - resets
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> > +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> > +
+> > +    gptp: gptp@e6449000 {
+> 
+> Drop unused label. Node name usually is "phc". Could be "ptp", but not
+> "gptp". What is gptp in generic names?
+
+Wops, thanks. Indeed there should be no label and the node named ptp.  
+gptp is the name used in the R-Car documentation and I must have typed 
+it from muscle memory, my bad.
+
+> 
+> >  L:	linux-iio@vger.kernel.org
+> 
+> 
+> Best regards,
+> Krzysztof
 
 -- 
-2.34.1
-
+Kind Regards,
+Niklas Söderlund
