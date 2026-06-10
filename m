@@ -1,158 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A9229BD95
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82296358D32
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781081849; cv=none; b=RNwRjIonr076EnhUxzrkBKzu5NDgYyVqtIZdbFlEczyG+vMlniyvQcP8eoE6YESWuRfDx2Ltbw1KEfu8L/OlmaUbeguf7ziThP4XCh/tmpcF+TVZRtyI+dnKAXocMVlikknSFuOcDNicd/7dSf7ClV8sFOsmhwftwj+bOJPsnoA=
+	t=1781081872; cv=none; b=JkAIwreNd0R5LRtv0dKNRvccJPHV6iLTfphARARp86jTuU80hdpZu8+CmozR02zdcWBaoFXgsrn2r+ZPtyYuPC9zBtV/O2DXgMZ7xOh7th+TfcPZ7PvrXUJnvy5dhao6FYJCb+0OJ8ldtpCauR+hKQVcgzLgkcrkcRFm5UW7Q+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781081849; c=relaxed/simple;
-	bh=QL0+NEF30IjiJsPNEjonS9U/+JwL2JG/gDWkxfYeTCg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S07aVrmv1ofyISoTOLbwVQ60K9XMtVdNeRApWPDeOlKfcRBxjPD+XkOE930DHVfDxD/O1OW8qlNajLeKjO8umnC76dBO7MFwMrJ8cWkkQfQKh3qvE7R+Ivfp9w4wXqO+3VFDLkqClYZLCsuGOky+tn8dcxbkwgHx85WzVOOBJsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BRLV7uyF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781081872; c=relaxed/simple;
+	bh=xnjqgJXyoGJWYozez/m84uJbEX14HWPu6Q8EGhsKd1Q=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=trPYszNRindJXq0jwGjoOBwSL/CgxGi5ljA/0OejYSoNFCwmMsf/2Nqmw7sHs8rNjAt7RaAIqd826ubs6UAc62X2OGJISqAATe3WobyR1kmdVQcAhCs/u+1ssLMr8UrzotDeDpDi6nhVPEXeDClqWHbUOgrbYDpRY7WeLePHvXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=LLvXReHY; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BRLV7uyF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A20B1F00893;
-	Wed, 10 Jun 2026 08:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781081848;
-	bh=ZFZP2xdyS3Ep3M6mfHhsTx85aDDCty4Nq1gkI+na5lw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BRLV7uyFS5z8gpac8kebI2ZlLa9HjAmNMIEtqGMXXpTmTZ35k6BFEJ+t7yLEiEqdY
-	 HhFQnN0DkVCz0iBOSDVHrz/ISosK7pbiNBUV3vu9ojlQNDNbRlLKjQxwPreTligs/L
-	 Zpd8K6uBCz2XOpl9+q9udKBG3FSxaVTyPR/YPAi4PUwuT2ZWAvHTn43RLp9YibXa0Y
-	 l5Te1RH5z4QdKm80uKuJljpPb5wB0G4zEFWWXde1TGvhrL3EeevBTAYVlac5UEBGS4
-	 //e8G18LH/438B+mjWhycStaFkUgkH/VA9zy9A1UhlcbnDEEV2MPkqpo2LrKJNQdX6
-	 k/irppf54IL6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/16] device property: Add
- fwnode_graph_get_next_port_endpoint()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260610084053.2059858-3-wenst@chromium.org>
-References: <20260610084053.2059858-3-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 08:57:27 +0000
-Message-Id: <20260610085727.7A20B1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="LLvXReHY"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490ac10e337so54703925e9.3
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:57:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=imd-tec.com; s=google; t=1781081869; x=1781686669; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RGxADFJpFtsaw/tpNTJBftbgVulNnvat2Rp1ypoxt4Q=;
+        b=LLvXReHYs8reLeturs8OrpJU7beEUCGVI7dgyLy7c3QFOMKEbISVtMf1rsp21ylF5w
+         TkGztNtrsSNu0CJVoYv2i24JjpFFNB8QdbmsyBT1IjF4ZQAIuPGb6d0ucMTjewiWaOG7
+         e0umDm8kFHh0tTzhvUVMVt/1xH9atrJyW1PfWOGIeiOQwTGHRTQpro3kWxo9xQUXZ4la
+         IVX9cc3AlMGBOm+s9pwjqkA375kf9NaaIX9VjbIUdakwnxnpXxNK+jhpaxOT6Bpsk70N
+         SYFgFRIklPhuWhiLX99DinGDM4PTJwTe++Nrreo4BKGVqBNiuX18Ame127wiioY899K8
+         XUqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781081869; x=1781686669;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RGxADFJpFtsaw/tpNTJBftbgVulNnvat2Rp1ypoxt4Q=;
+        b=LNMPFhQMBERXFG30+WfNnI0RGhIBrh6vNnpv/sTUuNK5q2M6PjBzY4v05Z8WWgee+5
+         e9WtvuqLEc37pShHBr0/GCF2b6VmgpWB93i1fgZ4mnmgQyD/Pe4I9F6aaMczmBMnAH3i
+         kXuzm162EQoqkNobk7BBBzFPYo+tg+OajeDpB7MehUjNR7O5H7QuqGgmg+eK5zRhkgmR
+         LnDKwzqkmuWWksKdVDbMn4i2iQwtvenWpTYBilAkERkuOmQdoiNGl8JrIm9/Af3bsI5w
+         lS3hrwbtHfjmNRjpdzia+cNCAgcrYZIuwBvndMJzV7M3THGhg2HBj7RH87IhTxGNHqZ7
+         omiw==
+X-Gm-Message-State: AOJu0YxiYUAA89on4kpLSEiVwjR6kn7N4dG2ni+sMzJ7fNUnLGQOIbsM
+	CajbIAx9ZLlXyRvoAQ2sCbQTz7TO6HsP/RtsdJbc+aGg+EwV8xxZGMJko/g6jGgZatA=
+X-Gm-Gg: Acq92OEKB8qwYnD73s4UeVz0RQ9G3jUi6HqrxzA1gPti3Vdg63Ntc0ooSRwMsWquGeo
+	Rex9aAqRnDxWwS/UyaPqhlcgUKHUrIPHIxqXzVuEA7thK8r693O29We/3M62MHH76TGw0vMz/ga
+	QykCrScZFICNGppbk33Bk5gjaBalc7yDOSu/uNTQqUe4dBrBohKCyNqt461eSMzzOyk1tN1lvlM
+	BpLS2EEDNYa3KSP9NCCqypnU8dvOV1+otDGfojFonj8VWaQT29/DjagrM17f/ojTK8+luvYUS50
+	NFDo2Logx8eaFoDqkVgaTDgvmuQ53gLyN8yjBHuATEWD/2tQBRFZjGbA72nNW8nd45mh23dqenl
+	L0kmbmMMPoVMyVOOboD01bC69E2aorhVwIF9d8KahrEnf3sfD0sDT+qlF9k54efAzFB4MpcW6i+
+	oypJVPrjlQ7WTcafhG6q/LGD8HVXMdnXvpVGqP+YjoftEtqj17Qz4LEVGCen0RFLIxnCSu9rBX0
+	GkbA3MzGJ5ASZdJ3Bgg9oIyptmurxuYXw==
+X-Received: by 2002:a05:600d:644a:20b0:490:c6c2:bdc2 with SMTP id 5b1f17b1804b1-490c6c2bdf6mr198982075e9.4.1781081868535;
+        Wed, 10 Jun 2026 01:57:48 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:23c6:2736:8e01:fc17:adf2:34ee:6df])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc40716bsm584495835e9.12.2026.06.10.01.57.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 01:57:48 -0700 (PDT)
+From: William Bright <william.bright@imd-tec.com>
+Subject: [PATCH v4 0/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
+Date: Wed, 10 Jun 2026 09:57:44 +0100
+Message-Id: <20260610-imdt-qcs8550-sbc-rfc-v4-0-358e71d606bc@imd-tec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAgnKWoC/4XOTQ6CMBAF4KuYrh1T+ktceQ/jou0U6QLQljQaw
+ t0tbDQa4vJNZr55E0k+Bp/IcTeR6HNIYehLEPsdca3prx4ClkwYZYoKTiF0OMLdpVpKCsk6iI0
+ D4bWzjXUGsSbl9BZ9Ex4re76U3IY0DvG5fsnVMv0D5gooCGRWKS29MfxU1mD07uCGjixkZm9GU
+ rnBsMJYoZVGiihY9cvwT0ZvMHxpo5Ej55pZ/tVmnucXR9sFbUgBAAA=
+X-Change-ID: 20260430-imdt-qcs8550-sbc-rfc-4e7cbfbcadd8
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, William Bright <william.bright@imd-tec.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+This patch series adds DT support for the IMD Technologies Ltd (IMDT)
+QCS8550 SBC and corresponding SoM. The SBC DTS supports the following
+hardware on the SBC:
+- Gigabit Ethernet (using a Microchip LAN7430 behind the on-board PCIe
+  switch on PCIE1)
+- USB3 as gadget mode only (No DP alt-mode and flip detection support)
+- SD card (SDHC2)
+- Regulators
+- M.2 Key-E (PCIE0) The SoM DTSI supports the following hardware:
+- PM8550 PMICs (similar to the SM8550-HDK)
+- QCS8550 and UFS
 
-New issues:
-- [Low] The local variable `ep` is declared but never used in `fwnode_graph=
-_get_next_port_endpoint()`.
+The IMDT QCS8550 SBC hardware is capable of the following but support is
+not included in this patch series:
+- USB3 flip detection
+- 8 MIPI CSI2 cameras are supported using 8 IAS connectors
+- MIPI DSI Displays via a DSI/I2C connector
+- Microphone input
+- Speaker output
+- Fan control
+- RS232
+- M.2 Key-B (also on PCIE1, selected by toggling the on-board PCIe
+  switch away from the LAN7430 upstream port)
+- Wi-Fi and Bluetooth via SDHC4/UART14 using an NXP-IW416 (SDHC4 patch
+  [1] is awaiting review)
 
-Pre-existing issues:
-- [High] Preexisting Use-After-Free, Double-Free, Memory Leak, and Infinite=
- Loop in `fwnode_get_next_child_node()` when crossing from primary to secon=
-dary fwnodes.
---
+The DTS files were written using the SM8550-HDK as an initial starting
+point with patches ported from downstream [2].
 
-commit ef024cc56635ec6ba836569acc9c332f8f2249dc
-Author: Chen-Yu Tsai <wenst@chromium.org>
+Claude Opus 4.7 was used for formatting and reviewing the device trees
+against other QCS/SM8550 boards.
 
-device property: Add fwnode_graph_get_next_port_endpoint()
+Patch 1 adds the IMDT vendor prefix
+Patch 2 adds DT bindings for the SoM and SBC
+Patch 3 adds the SoM DTSI
+Patch 4 adds the SBC DTS
 
-This commit introduces fwnode_graph_get_next_port_endpoint(), a new helper
-function that allows consumers to find endpoint nodes under a given port
-firmware node. It iterates over the child nodes of the port, checking if
-their name matches "endpoint", and returns the matching node.
+[1] https://lore.kernel.org/all/20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com
+[2] https://github.com/imd-tec/meta-imdt-qcom/tree/kirkstone/patches/msm-kernel-devicetree/files
 
-> diff --git a/drivers/base/property.c b/drivers/base/property.c
-> index 8cbf33f3a9428..badb49ac3d8a4 100644
-> --- a/drivers/base/property.c
-> +++ b/drivers/base/property.c
+Signed-off-by: William Bright <william.bright@imd-tec.com>
+---
+Changes in v4:
+- No code changes.
+- Collected Rob's Acked-by tags on patches 1 and 2.
+- Resubmitting due to inactivity on v3.
+- Link to v3: https://patch.msgid.link/20260507-imdt-qcs8550-sbc-rfc-v3-0-47d3d3372b33@imd-tec.com
 
-[ ... ]
+Changes in v3:
+- Dropped backlight node since it's unused. 
+- Dropped regulators which are dead (no usage or not gpio controllable
+  whilst also not strictly required by a DT node). 
+- Dropped SBC modem remoteproc entry since the modem is fused off on the
+  qcs8550.
+- Reformatted commit bodies and DTS comments.
+- Replaced open-drain properties with bias-disable due to open-drain not
+  being supported by the tlmm.
+- Dropped tlmm entries which are unused.
+- Dropped disabling of LPASS codecs as it was unnecessary.
+- Dropped bluetooth usage on uart14 and removed references to uart14
+  since it became unused.
+- Patch 2 renamed to "dt-bindings: arm: qcom: Add IMDT QCS8550 SBC/SoM"
+- Patch 2 commit body shortened as it had information already found
+  within the patch 3 body.
+- Link to v2: https://patch.msgid.link/20260505-imdt-qcs8550-sbc-rfc-v2-0-b4767d0dd421@imd-tec.com
 
-> @@ -1099,6 +1099,39 @@ int fwnode_irq_get_byname(const struct fwnode_hand=
-le *fwnode, const char *name)
->  }
->  EXPORT_SYMBOL(fwnode_irq_get_byname);
-> =20
-> +/**
-> + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware node=
- in port
-> + * @port: Pointer to the target port firmware node
-> + * @prev: Previous endpoint node or %NULL to get the first
-> + *
-> + * The caller is responsible for calling fwnode_handle_put() on the retu=
-rned
-> + * fwnode pointer. Note that this function also puts a reference to @prev
-> + * unconditionally.
-> + *
-> + * Return: an endpoint firmware node pointer or %NULL if no more endpoin=
-ts
-> + * are available.
-> + */
-> +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct f=
-wnode_handle *port,
-> +							  struct fwnode_handle *prev)
-> +{
-> +	struct fwnode_handle *ep;
+Changes in v2:
+- Patch 1 relocated to be above qcs8550-aim300-aiot instead of below
+- Split the SoM and SBC DT changes into two patches, with patch
+  3 adding the SoM DTSI and patch 4 adding the SBC DTS.
+- Dropped the SDHC4 node in patch 4 to focus on the core
+  SoM and SBC device trees. 
+  This allows the primary hardware support to progress through 
+  review while waiting for feedback for [1].
+- Link to v1: https://patch.msgid.link/20260430-imdt-qcs8550-sbc-rfc-v1-0-4d2b6675eaa3@imd-tec.com
 
-[Severity: Low]
-Are there plans to use this local variable later? It appears to be declared
-here but never used, which could cause a compiler warning.
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
 
-> +
-> +	while (1) {
-> +		prev =3D fwnode_get_next_child_node(port, prev);
+---
+William Bright (4):
+      dt-bindings: vendor-prefixes: Add IMDT
+      dt-bindings: arm: qcom: Document IMDT QCS8550 SBC/SoM
+      arm64: dts: qcom: Add IMDT QCS8550 SoM
+      arm64: dts: qcom: Add IMDT QCS8550 SBC
 
-[Severity: High]
-This is a pre-existing issue, but does calling fwnode_get_next_child_node()
-here expose a use-after-free and double-free when crossing from primary to
-secondary fwnodes?
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   7 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts      | 392 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qcs8550-imdt-som.dtsi     | 319 +++++++++++++++++
+ 5 files changed, 721 insertions(+)
+---
+base-commit: 8a4062d204752e0d66a1e7e1a2f8834571a8d40f
+change-id: 20260430-imdt-qcs8550-sbc-rfc-4e7cbfbcadd8
 
-If a fwnode has both primary (OF) and secondary (swnode) children:
+Best regards,
+--  
+William Bright <william.bright@imd-tec.com>
 
-1. When reaching the end of the primary OF children,
-of_fwnode_get_next_child_node() drops the reference to the last OF child
-and returns NULL.
-
-2. fwnode_get_next_child_node() then delegates to the secondary ops
-(software_node_get_next_child), passing the exact same child pointer.
-
-Since the OF node was already put, the secondary ops access freed memory
-when checking if the child is a software node, causing a use-after-free.
-
-3. software_node_get_next_child() then unconditionally calls
-fwnode_handle_put(child), triggering a double-free.
-
-4. It then returns the first secondary software node. On the next iteration,
-the caller passes this swnode back.
-
-The primary OF ops evaluate to_of_node(swnode) as NULL, which causes
-of_get_next_available_child() to restart iteration and return the first
-OF child again. It also fails to put the swnode, causing a memory leak.
-
-Could this create an infinite loop alternating between the first OF child
-and the first software node, repeatedly triggering the use-after-free and
-double-free on every cycle?
-
-> +		if (!prev)
-> +			break;
-> +
-> +		if (WARN(!fwnode_name_eq(prev, "endpoint"),
-> +			 "non endpoint node is used (%pfw)", prev))
-> +			continue;
-> +
-> +		break;
-> +	}
-> +
-> +	return prev;
-> +}
-> +EXPORT_SYMBOL_GPL(fwnode_graph_get_next_port_endpoint);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610084053.2059=
-858-1-wenst@chromium.org?part=3D2
