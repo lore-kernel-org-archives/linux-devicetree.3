@@ -1,104 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2D3218ADD
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 23:02:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355441898FB;
+	Wed, 10 Jun 2026 23:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781132523; cv=none; b=HO/4g8BfGKy2U3obsBuxr4Qrv7f7TFV+DNjMbgCSdNqShO0ZvsT3iQaBlOg5Eh5bRPCW+0fHJGWdpgs3z2VWXOwvpkj3/JpGeuGr3IQCCHk/aNxThOltQXDQLu51INREh1rmG1GCbtQs2fkbpzJTddX2ePy8c63qV6CpWX7KWh8=
+	t=1781133290; cv=none; b=kiij+yjPcavrTxnuz3K4Ieg/+F1vT2m7X1PGFOR4ZNgpSXQ+f/xjAop0uGrbDKOla9wr4vc0qg1XHnmrWdgUbvEnsfGmq/+wz8Fs0iw5DPLldbqGe8zYzBdEsVIY99ct/Bf0RsR+fc1wxWAB6T1hZSav6rkn+7bQBp8sNwHt/gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781132523; c=relaxed/simple;
-	bh=FooB85FN0eEaIGhjHVGfQM2seucuYsmIQfrk/8uXAZw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S/D9NYcOdjUowEM5yuhuHodvOZLzZIomaHAj0iU/ZzEcX6cTajjmAPppNdQrNMqH6jzb4znRGr2gZqcMG47uy6S0MsF2TYBh+nfbtBHK2NrVZ/w9PD5Blk64A30L/x0qXo1Ng1i4MCSLoeB9KNiVBs3jQK76osFA8PtispcYCT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zcuti8m4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781133290; c=relaxed/simple;
+	bh=qvRqUmsXGAiDCeG0M6um26A7WMTRPlrJmdZSfx/38rI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X3ATjONNqOa3h7JUvl0xBz1/HzgCJ3+Uo49oFPf4ADph4aVuEq8T9aRby0izc1zdittZwk/6tGs6VD1yIcu2T+Uoz3/gJghvxYhh3e+cWz4aQgW16DgFOxZRD6BBpU/6mXH/1db4nnHV/kLHM8B/Dj33uVLYrVyCnMpftFJKAiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YIUzjsVU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zcuti8m4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561561F0089B
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 23:02:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781132522;
-	bh=VjAZ4+QycwjZawI5GowYZjIjW6ZtWHV+9RmG2eokDHQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Zcuti8m4wWEgnmklLh3I9xKGHVZyPPOaT7Zw/4m7zC4kI+yk+GiOHjfPtawzckkkv
-	 hDHu6CF/dFK/u2JZ0Ogz5n5YQYU3tNKsiwgTlQxlycIOQJo6BCOPcqNBbLBtpvmce6
-	 ehVPtyyc1UI78FRPuDRjb5YF5zPAEk2zxiKgah2jypVKioUCEGeEbsfNx7vC50gxFp
-	 K7/Q0XO5fERmwgmm5hz80xpc/C4Wm37PKAGjwcP1YkVg3bORVeTNH01k5JuWvGlWA2
-	 sH2quZZhUT60lf9TdShbhYl7RWPWz8SQvERJpWm5w59qY6SlIqY843HzIHjvDEoNxN
-	 qZ5DgMs3C+zLw==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bec2ddee9bbso1474915066b.3
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:02:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+NsirnhdXi7FPZoaY1MbsOif4jXXbCNTMoayjXNvzxU0AR7wkGXZKCmWiFee7ZxixVsEwWRd6n2+EL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoT0tghvXQ680ZXCw9eiaS9HF51xf2mVSU78d2xshzWchJcPP+
-	OzMNkusPl7W0X8JGh9m7XZpvKxofGYPBliKjD/GwdaLm79scbKpkgNqfmlesrl3hnkvGc6SlWeA
-	ul3xBjo5K/yIP9kztpNamoCHHl1jIjw==
-X-Received: by 2002:a17:907:c0e:b0:bee:e07:3f0e with SMTP id
- a640c23a62f3a-bfc2a1b623cmr48151566b.2.1781132520885; Wed, 10 Jun 2026
- 16:02:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YIUzjsVU"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 93A08228;
+	Thu, 11 Jun 2026 01:14:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781133256;
+	bh=qvRqUmsXGAiDCeG0M6um26A7WMTRPlrJmdZSfx/38rI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YIUzjsVUuTVsjBeaRQ6UDNmE5wjkRu6wotAeDPvLcf9dWwxUUSMN+myIgbzqcvMl8
+	 oJnsm1svgDU+7UZA8+B7pdMOAYynWGxIapk/LGljVBjRiPEy05zoNTWq46CnBemi2C
+	 GI+9s/SuBYtBiY1an0IDnFO37McHMckXzRSOWqfU=
+Date: Thu, 11 Jun 2026 02:14:44 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] clk: renesas: r8a779g0: Add DSC clock
+Message-ID: <20260610231444.GB1632628@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260606-crossbar-v1-0-f67f7cb9ee50@gmail.com>
- <20260606-crossbar-v1-1-f67f7cb9ee50@gmail.com> <20260610195658.GA702518-robh@kernel.org>
- <CAOWyW_4kRcZWCyOjJrWvnZ8meKT-ryJuGozuPvKJgPSUStB3Pg@mail.gmail.com>
-In-Reply-To: <CAOWyW_4kRcZWCyOjJrWvnZ8meKT-ryJuGozuPvKJgPSUStB3Pg@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 10 Jun 2026 18:01:49 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+G83JxXLCL+4jhjTsTKpDSqNde=X2Yzjsg+VSS2iGxtw@mail.gmail.com>
-X-Gm-Features: AVVi8CcuDlvNMDlSr9wFuOfQAk8_fF0hNCin0y2m2BtAmxWkGcVgYjKrwkgPpMk
-Message-ID: <CAL_Jsq+G83JxXLCL+4jhjTsTKpDSqNde=X2Yzjsg+VSS2iGxtw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: interrupt-controller: ti,irq-crossbar:
- Convert to DT schema
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Sricharan R <r.sricharan@ti.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-omap@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
-	daniel.baluta@gmail.com, simona.toaca@nxp.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
 
-On Wed, Jun 10, 2026 at 4:12=E2=80=AFPM Bhargav Joshi <j.bhargav.u@gmail.co=
-m> wrote:
->
-> Hi,
->
-> On Thu, Jun 11, 2026 at 1:27=E2=80=AFAM Rob Herring <robh@kernel.org> wro=
-te:
-> >
-> > On Sat, Jun 06, 2026 at 02:26:10AM +0530, Bhargav Joshi wrote:
-> > > Convert TI irq-crossbar binding from text format to DT schema.
-> > >
-> > > As part of conversion following changes are made:
-> > >  - Add '#interrupt-cells' as a required property which was missing in
-> > >    text binding
-> > >  - As irq-crossbar is interrupt-controller. Move binding from
-> > >    bindings/arm/omap to bindings/interrupt-controller
-> > >  - property ti,irqs-reserved is defined and used as a array but other
-> > >    binding ti,pruss-intc.yaml uses same property name as a unit8 bitm=
-ask
-> > >    which causes erros in dt_binding_check. Update ti,irqs-reserved
-> > >    property name to ti,crossbar-irqs-reserved to resolve duplicate na=
-ming.
-> >
-> > Defining a new property breaks the ABI. We will need to fix dtschema to
-> > handle it. What's the error?
-> property irqs-reserved is defined in two bindings with different types wh=
-ich
-> causes dt_binding_check to raise following errors:
->   - File "/lib/python3.14/site-packages/dtschema/validator.py", line
-> 522, in check_duplicate_property_types
->   - print(f"{self.schemas[sch_id]['$filename']}: {p}: multiple
-> incompatible types: {v['type']}", file=3Dsys.stderr)
->   - KeyError: 'http://devicetree.org/schemas/interrupt-controller/ti,prus=
-s-intc.yaml#'
-> dtschema version: 2026.4
+On Fri, May 15, 2026 at 12:09:26PM +0300, Tomi Valkeinen wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> 
+> Add the DSC module clock for Renesas R-Car V4H (R8A779G0) SoC.
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-I pushed a change to dtschema main branch which should fix this.
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Rob
+> ---
+>  drivers/clk/renesas/r8a779g0-cpg-mssr.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/clk/renesas/r8a779g0-cpg-mssr.c b/drivers/clk/renesas/r8a779g0-cpg-mssr.c
+> index 015b9773cc55..54ba76ff5ab0 100644
+> --- a/drivers/clk/renesas/r8a779g0-cpg-mssr.c
+> +++ b/drivers/clk/renesas/r8a779g0-cpg-mssr.c
+> @@ -245,6 +245,7 @@ static const struct mssr_mod_clk r8a779g0_mod_clks[] __initconst = {
+>  	DEF_MOD("fcpvx0",	1100,	R8A779G0_CLK_S0D1_VIO),
+>  	DEF_MOD("fcpvx1",	1101,	R8A779G0_CLK_S0D1_VIO),
+>  	DEF_MOD("tsn",		2723,	R8A779G0_CLK_S0D4_HSC),
+> +	DEF_MOD("dsc",		2819,	R8A779G0_CLK_VIOBUSD2),
+>  	DEF_MOD("ssiu",		2926,	R8A779G0_CLK_S0D6_PER),
+>  	DEF_MOD("ssi",		2927,	R8A779G0_CLK_S0D6_PER),
+>  };
+> 
+
+-- 
+Regards,
+
+Laurent Pinchart
