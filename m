@@ -1,66 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5193B14B1;
-	Wed, 10 Jun 2026 08:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10603B14D2
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781081711; cv=none; b=aQHx5p7nr4FS4iXitqu1mvrur+/I+MBrWeTRbQIHLIPiZ7Zy22ovqx7eDjlawaEcA/tdTbgd5WxLUmcAGAWCl4Qdg1G7JlMXw5b6DgBtiaMsbPP0DqmGGrp9UCrNU2jeJGlAuU5IGWnyZR/l7tCWsKSfcxqmb0JiD+dyoE4b2E0=
+	t=1781081736; cv=none; b=CX3KKJY86R98EiAifmm9fbujtFwTLXFSs928gXjYVBmiGtqbFEUXZJeey1djp2BxbDOTDXb/ko5Gz2aKfQ89uqkwhR2esx2zQwVUQYofmfQvEGVO1BweL5oqLNnfTqwQVelNtOcjSFGnGo88bpBjvKXElK+/7IVc68KEdHGkHMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781081711; c=relaxed/simple;
-	bh=DuXhchlQRc/ktqxlkDooSIAF8Anm4npGNhalnWTsdOE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kriMMi+lhU31pRWPS892P2smx6xpTamSHc+CSFa4XFh5S0DGMo67ECSEVSRqcBVQY0MUCk4kkEbEvcW6y9DYQqfhYQRg3Fg2lARRguZiUnQevT+sYuygkWYSR+dGFROielsiIwoiU/OpYa/zIP/+HxLxjgAeyXxPPY5rfEVuP6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFTFhevg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781081736; c=relaxed/simple;
+	bh=2Ue6L1lmxGXOGJQEgij9zhvyvTPp5/79eKlMcCxDd/4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cUrYJMVr9x59Hh6OIX5kvj1cE+l6iB/wBIBXR4+wOHWoar9iasi+ueWD48F0LInNQdjHvBvGjMghEUebqicGJ3rvHPd7sudrIWGLjysxv4LA5P+9cslzO7U6H2kQlajo1RVK2LV9/DMhtJGs8hEzRxXOqoyU1bMVtgNi4n6mZh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5287b4J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFTFhevg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1AAA1F00893;
-	Wed, 10 Jun 2026 08:55:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5287b4J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D2D1F00893;
+	Wed, 10 Jun 2026 08:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781081710;
-	bh=TRTyM5MS3WUrXryQN7PJQVfhWuatgRYyBVXvwmd2zTE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WFTFhevgbbLMPMRo1DQ+HhUgrsa6YL87dv+/P14TPw2SeAnJ4j/R5BzbzBuw6GKmF
-	 L2C59ozuazxirlRTHP0jo7MXXuo09SkNSfOrvrLWC9rTCpRna2CIC92Xzcygd8tzsG
-	 cTTj/j6hJWCS5Qc8RPHK7EtEc1TV/Yv1ERTi9YUzWZbEeKPcrknqB7DtkZJ6F5Jjxr
-	 UnyYIHnn9Nm7uApSxihY272Xjo5Gz/KB6n88X2T11FNm8Ei2EQMz4rLsghIdE5GneS
-	 C7RTMULy+gPjqiYjCfQzqxNV5jpA+p1LBHteyCGP2JBI5QVOsEx+0C2Cfx4HXNji9a
-	 EXduVOAXdSySg==
-Date: Wed, 10 Jun 2026 10:55:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com, 
-	yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: crypto: qcom,prng: Document Maili TRNG
-Message-ID: <20260610-spirited-scarlet-tortoise-fad4da@quoll>
-References: <20260609-maili-crypto-v1-0-0f577df56a61@oss.qualcomm.com>
- <20260609-maili-crypto-v1-1-0f577df56a61@oss.qualcomm.com>
+	s=k20260515; t=1781081735;
+	bh=bdXSAgTnBoBqjzn69bwO/SSCQIBKDmceLIPebweWGuU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A5287b4JOfN8K8Euq688ms3HsKIbMZemjX6DF5Hk1gmNb/D7d2PrSUkfjN+TKt+80
+	 /ZKKGpB7anIs7TuWjmyYwpN0Zs+q1ET1kkutUWPFdtsKeSFQVOka3mgyVjU7G3JiyB
+	 fH07JG6GHpGvFwV8yxP1MHYVDOSK/7QO7nhImsK06i8CtRifZFt95IeJeJSP97qy2E
+	 vVPuP4preObRfngwPhwkW9MTRG6sWK28zM8A2wquvdV7GhNtdtr3NyfnIgu6mgtOiV
+	 QrW/p6XaxP9kvGuA2QO1LPZNuSAmcZnXKEk0mFQ9uNHxgwC6LTCTa0IS2RJea7mXAC
+	 +cU1k8Lz2OiIg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 03/16] power: sequencing: Change
+ CONFIG_POWER_SEQUENCING to bool
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260610084053.2059858-4-wenst@chromium.org>
+References: <20260610084053.2059858-4-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 08:55:34 +0000
+Message-Id: <20260610085535.56D2D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260609-maili-crypto-v1-1-0f577df56a61@oss.qualcomm.com>
 
-On Tue, Jun 09, 2026 at 02:08:56AM -0700, Jingyi Wang wrote:
-> Maili SoC has the True Random Number Generator (TRNG) which is compatible
-> with the baseline IP "qcom,trng". Hence, document the compatible as such.
-> 
-> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message incorrectly justifies changing CONFIG_POWER_S=
+EQUENCING to bool by falsely claiming that USB support is a boolean option,=
+ which unnecessarily prevents building the power sequencing subsystem as a =
+module.
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 80f4a7ca3dbefd1dc2ae2274d131e8b5461c5c66
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Best regards,
-Krzysztof
+power: sequencing: Change CONFIG_POWER_SEQUENCING to bool
 
+This commit changes the POWER_SEQUENCING Kconfig option from tristate
+to bool, citing that USB support cannot be built as a module.
+
+> USB support, including the core and hub driver, is bool, no modules. To
+> be able to use the power sequencing API in the USB core, the former must
+> also be bool to avoid the latter being built as a module.
+
+[Severity: Medium]
+Is this description of USB support accurate? Looking at drivers/usb/Kconfig,
+CONFIG_USB is actually defined as a tristate:
+
+config USB
+        tristate "Support for Host-side USB"
+
+Since the USB core can indeed be built as a loadable module, does
+POWER_SEQUENCING strictly need to be restricted to bool here? Could standard
+Kconfig patterns like depends on POWER_SEQUENCING || POWER_SEQUENCING=3Dn be
+used instead if linkage dependencies need to be resolved?
+
+> diff --git a/drivers/power/sequencing/Kconfig b/drivers/power/sequencing/=
+Kconfig
+> index 1c5f5820f5b76..27448fba9dc5d 100644
+> --- a/drivers/power/sequencing/Kconfig
+> +++ b/drivers/power/sequencing/Kconfig
+> @@ -1,7 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+> =20
+>  menuconfig POWER_SEQUENCING
+> -	tristate "Power Sequencing support"
+> +	bool "Power Sequencing support"
+
+[Severity: Medium]
+Given that CONFIG_USB is a tristate, does this change unnecessarily prevent
+the power sequencing subsystem from being built as a module?
+
+>  	help
+>  	  Say Y here to enable the Power Sequencing subsystem.
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610084053.2059=
+858-1-wenst@chromium.org?part=3D3
