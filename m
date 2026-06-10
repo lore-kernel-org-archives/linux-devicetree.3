@@ -1,57 +1,59 @@
 Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2BF2F5A13
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD7430B51D
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781067819; cv=none; b=vBM3sLz+b9+VQ5w+EfZMFwBi/dZBlsc099RFBedKhz2oaH0kTis/iqar7+un7sY3DW/rVP2pg6gdZOPFJH46zOvEiMnZEj1wcOpl/B0Xc0wIUAfS8/pAV3l8qou7+oNym0pM3d4gX3/R13+jvTWZ6nAP1Or6GMogv0vDAh/H6v8=
+	t=1781067820; cv=none; b=HJsBo85dvTQrE2MCIDaF8digSHbDlE9yZ3ls+gybny2mFhtnw+Qet6CJqO5N0OPaeZUODG7LQ+7sKVlNqZNxI7bn5NwHCXTyjmhFpsSfx9jP1QvTWelfZO3Sv993HQqH7geRhn/y6R3es82zgnsyp/L8tUlnJDOCfdOUHa8aK1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781067819; c=relaxed/simple;
-	bh=6+LdkKchSz4QiBF4wEyjhZrrmYq/2In6m0vhW+fMsLY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 References; b=jEJQKy4RGUPwtWfuN5Njd3Q6y3oUCv8eMIMBS0cP7Rlv5XBKuI5DSID0x0XiAhqM1BsR16k4IoiUrTbUIeb4l3wS/3rSGbDUJiID24mbz9nPa13gM6jSr6PskCVy7PUNYUUY6/hk/HW3ZUXUZkGWciFQNa5jbU4i8057y6GNcz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=kTyD4Xni; arc=none smtp.client-ip=203.254.224.33
+	s=arc-20240116; t=1781067820; c=relaxed/simple;
+	bh=Pax4m6nK4pG6R31DiVcIF/qo3cpKDqLqclQ+WpfObnk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:MIME-Version:
+	 Content-Type:References; b=SiOgj2dbcjOdl7cBG4RFKQ8gAt/GVE4XAAEL5iK4wdjdbFiUM4XWvovXeWZQWhdVnlTVxRd1L+rwe11BU4UJ5GfqySbDDh7dQsxzTN5nG++5Npfo51RuTccRzN0g7eud6pnZaAWXz1EDpiWZxt6tAgq8w1S4adTcRp5L19rPQC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=D4we42SI; arc=none smtp.client-ip=203.254.224.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="kTyD4Xni"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260610050334epoutp03bc3739e7b30f5ff487357072b3182f88~3n72Xp4VR0172001720epoutp03f
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:03:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260610050334epoutp03bc3739e7b30f5ff487357072b3182f88~3n72Xp4VR0172001720epoutp03f
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="D4we42SI"
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260610050337epoutp0352b88955416ae9a35c7725058558be0d~3n75Nggn50274902749epoutp03W
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:03:37 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260610050337epoutp0352b88955416ae9a35c7725058558be0d~3n75Nggn50274902749epoutp03W
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1781067814;
-	bh=w0rfj44pzK6uCavvb+j8L9p+5QSuBoPORAdrkd5H7qY=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=kTyD4XnitsJ8wQR9FW6WPKjv4Er3V6EgIy/ttrIdkxEULH0FkbRCHrUU9zpNV9usC
-	 XvIfu3m1AEkhjHjLOx7axHMmgbbSLBZmh3n6LKiWIbtBD5LkLwdZP1DygabyoMUXBQ
-	 BpIYf4tW6SCQR7fSi4IGe5HM/2AUuN/qdGtTvo8Y=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	s=mail20170921; t=1781067817;
+	bh=H9ovJzCXhhhqKYuIwIuvGMuIArl2WOSc/Jo/J9JUc1A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=D4we42SIfe9I3c7LF15XVc4N+Ok5wd1W56VAXG0FMsFcBgtkEBJJJfiz711uqfBrk
+	 L5nbB9FtVEhCQzXt/q9yOPpdydtuGWZeD4IJxa3lmqkCWlmQzET9w+ylABd/LFXukY
+	 wVfXLp4H7JWGdlGG7C7R3ol49iCWaASNqGDpFdqY=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
 	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260610050333epcas2p3de74fefcdd6aa3c57c6afe4449ed8a10~3n71jRxDk1025210252epcas2p32;
-	Wed, 10 Jun 2026 05:03:33 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.200]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4gZtw50ZmBz3hhT9; Wed, 10 Jun
-	2026 05:03:33 +0000 (GMT)
+	20260610050336epcas2p3d4da2a15424dc7cdae9fdc92b8657b4e~3n74t8mKN0743907439epcas2p3-;
+	Wed, 10 Jun 2026 05:03:36 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.204]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4gZtw829kgz6B9m6; Wed, 10 Jun
+	2026 05:03:36 +0000 (GMT)
 Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
 	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260610050332epcas2p32ed8c6f7b410a295a43054a28b711ddb~3n70sHRMf1005110051epcas2p3D;
-	Wed, 10 Jun 2026 05:03:32 +0000 (GMT)
+	20260610050335epcas2p3ec1c019e86b75e9a4edd965a8b27ebd3~3n73kIW3d1025210252epcas2p3D;
+	Wed, 10 Jun 2026 05:03:35 +0000 (GMT)
 Received: from asswp146.dsn.sec.samsung.com (unknown [12.81.221.119]) by
 	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260610050332epsmtip202006736dc7e42d5045a5454abc841fa~3n70lMf2c1155711557epsmtip2a;
-	Wed, 10 Jun 2026 05:03:32 +0000 (GMT)
+	20260610050335epsmtip27ce4fa849c2b99f059a31acdac8909c6~3n73c8N9t1155711557epsmtip2f;
+	Wed, 10 Jun 2026 05:03:35 +0000 (GMT)
 From: Sanghoon Bae <sh86.bae@samsung.com>
 To: robh@kernel.org, krzk@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
 	alim.akhtar@samsung.com, kishon@kernel.org
 Cc: krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
 	sowon.na@samsung.com, Sanghoon Bae <sh86.bae@samsung.com>
-Subject: [PATCH v3 0/2] Add ExynosAutov920 hsi0 support to exynos-sysreg
-Date: Wed, 10 Jun 2026 14:03:24 +0900
-Message-ID: <20260610050326.2903402-1-sh86.bae@samsung.com>
+Subject: [PATCH v3 1/2] dt-bindings: soc: samsung: exynos-sysreg: Add hsi0
+ for ExynosAutov920
+Date: Wed, 10 Jun 2026 14:03:25 +0900
+Message-ID: <20260610050326.2903402-2-sh86.bae@samsung.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260610050326.2903402-1-sh86.bae@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,38 +61,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260610050332epcas2p32ed8c6f7b410a295a43054a28b711ddb
+X-CMS-MailID: 20260610050335epcas2p3ec1c019e86b75e9a4edd965a8b27ebd3
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: AUTO_CONFIDENTIAL
 CMS-TYPE: 102P
 cpgsPolicy: CPGSC10-234,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260610050332epcas2p32ed8c6f7b410a295a43054a28b711ddb
-References: <CGME20260610050332epcas2p32ed8c6f7b410a295a43054a28b711ddb@epcas2p3.samsung.com>
+X-CMS-RootMailID: 20260610050335epcas2p3ec1c019e86b75e9a4edd965a8b27ebd3
+References: <20260610050326.2903402-1-sh86.bae@samsung.com>
+	<CGME20260610050335epcas2p3ec1c019e86b75e9a4edd965a8b27ebd3@epcas2p3.samsung.com>
 
-The ExynosAutov920 SoC includes a PCIe IP and a hsi0 register block that
-is mapped in the exynos-sysreg.
+Add hsi0 compatible on samsung,exynos-sysreg
+To support ExynosAutov920 PCIe settings:
+- PCIe PHY power control
+- PLL settings for PCIe
+- PCIe device direction (RC/EP)
 
-To manage PCIe PHY power, configure the PCIe PLL, and set the device direction,
-the hsi0 registers need to be defined in exynos-sysreg.
+Signed-off-by: Sanghoon Bae <sh86.bae@samsung.com>
+---
+ .../devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml   | 1 +
+ 1 file changed, 1 insertion(+)
 
-This patch must be applied before the ExynosAutov920 PCIe PHY is enabled.
-
-Changes in v3:
-- Rebased on top of origin/next/dt (no functional changes)
-
-Changes in v2:
-- Add exynosautov920-hsi0-sysreg DT node as a binding user (patch 0002)
-
-Sanghoon Bae (2):
-  dt-bindings: soc: samsung: exynos-sysreg: Add hsi0 for ExynosAutov920
-  arm64: dts: exynosautov920: Add hsi0 syscon node for PCIe PHY
-
- .../bindings/soc/samsung/samsung,exynos-sysreg.yaml         | 1 +
- arch/arm64/boot/dts/exynos/exynosautov920.dtsi              | 6 ++++++
- 2 files changed, 7 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+index 9c63dbcd4d77..fcdb9ffd2644 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+@@ -37,6 +37,7 @@ properties:
+               - samsung,exynos8895-peric1-sysreg
+               - samsung,exynos990-peric0-sysreg
+               - samsung,exynos990-peric1-sysreg
++              - samsung,exynosautov920-hsi0-sysreg
+               - samsung,exynosautov920-hsi2-sysreg
+               - samsung,exynosautov920-peric0-sysreg
+               - samsung,exynosautov920-peric1-sysreg
 -- 
 2.45.2
 
