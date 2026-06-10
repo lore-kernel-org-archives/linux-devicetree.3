@@ -1,210 +1,144 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DA57233936;
-	Wed, 10 Jun 2026 01:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from mail-m1973189.qiye.163.com (mail-m1973189.qiye.163.com [220.197.31.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61FD2773E5;
+	Wed, 10 Jun 2026 01:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781054971; cv=none; b=GfaRncctQ8x3z54lYL4jtKv17KI3n5G72Xbu64YiIoBDdBXm+Cc2XSoKYmdqoF5SOcEidNeMKSDXF563fPO756POdo5cUZKUbvKZB30IYlAaDluzg0/rU+ceSfugWYrubOojwjqgv68rQnfNBHJz9M42uYBcmKAHVQp+55NXNJQ=
+	t=1781054976; cv=none; b=T6H/QX+M/Yq+gEKKKBjjOCoNfF9iUoLsOaAgPt495dss3S61R2s92FkwtRAumwvHqJ18AbkL3U1D0x+nomzfyeVXf614jpQSCczLCBoNbByPB006B3gm/LxBdnlQyb/Cj+E/leEDMIq+hlxJ0GRuKjdYZDnWbbp0WJ7e5Tb7GM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781054971; c=relaxed/simple;
-	bh=hphxgFp+JJLvwTFTK6aPyf4RMzYgA95NUSpqUJk/XaY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cOWykCe4MYyxIqD1b6t+pFqUCePLAyIFOxyPUALshDy4hBneO5DbZd7ldZF6ELNN7pfpjsTTBcE9l/rJNr9yzunkjRU7DaazDNERS9Jn6ZQef5+T7xIlUY8CUgsv53UEEI/qG6aSkvuryOqo++H00NE5/JVEqCQ5dz64GawlSzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app1 (Coremail) with SMTP id TAJkCgCHKXPlvShq75MlAA--.2691S2;
-	Wed, 10 Jun 2026 09:29:11 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	horms@kernel.org,
-	lee@kernel.org,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net-next v8 2/6] dt-bindings: ethernet: eswin: add EIC7700 eth1 RX clock inversion variant
-Date: Wed, 10 Jun 2026 09:29:07 +0800
-Message-ID: <20260610012907.894-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260610012727.848-1-lizhi2@eswincomputing.com>
-References: <20260610012727.848-1-lizhi2@eswincomputing.com>
+	s=arc-20240116; t=1781054976; c=relaxed/simple;
+	bh=fqfLMJY/chnkgj0kUutKJERe3LT9Zo86vEHEspY85FQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d3BzA4aZHnwggpT6IubtpwZzeWaqtPERl+i2jKSHwSWZXkLz58ftga9ohqnUaC4TUdk0h+Nr6cSF/N9h5z/V0FnA/IOsKusgLN3nCY9lA0DsEgeBByZdbGaDp3/iJgeAx+PtdH58lCW66kgXWF3UirM61cofbCeobenS30p2mzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=JMc/acb2; arc=none smtp.client-ip=220.197.31.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="JMc/acb2"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 41bfeee6e;
+	Wed, 10 Jun 2026 09:14:04 +0800 (GMT+08:00)
+Message-ID: <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com>
+Date: Wed, 10 Jun 2026 09:14:02 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgCHKXPlvShq75MlAA--.2691S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF43Ww1DuF4rJrW3Gw1rJFb_yoWrGFykpF
-	WDury8Gr18Xr4xAw4xJF10k3W3t397Wry3Kr4kAF1xXw1Dt3Z8XrW29a45Ca48Cr4DZFW3
-	Wa45tF1Fya9Fy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBl14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42
-	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4U
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRiWrW5UUUUU==
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+To: Midgy Balon <midgy971@gmail.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>,
+ Finley Xiao <finley.xiao@rock-chips.com>
+References: <20260604135255.62682-1-midgy971@gmail.com>
+ <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+ <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+ <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
+ <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
+ <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
+ <bcedaff0-abf8-4585-a0ea-057062cd0411@rock-chips.com>
+ <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9eaf17f7ca03a7kunm086ddc0f265e19
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkIaVhgaT0JNSExLGhoeQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=JMc/acb2P5/j0WDgBoNYDEgabsrTG6UUouYskrbbIrI3+e1FIjV+cY3SVNG0i6tQBYa65TADufI1IrcgOpVVxNrpxG7VhU9HVuUDORdfhEobuPvJC/wPn9SI+ziLIe3dHBTZ3H2EfowPzM3i1R4/7UXBr2WSPouPPyabXZj+Hlc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=xT9TRXqNVQ4NrOZ7G30C+sE2EpbR+Jn/B+pjkgNcIuw=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+Hi Midgy,
 
-The EIC7700 SoC integrates two GMAC instances. The eth1 MAC exhibits
-different RX clock sampling characteristics due to silicon-inherent
-timing behavior.
+On 6/9/2026 7:11 PM, Midgy Balon wrote:
+> Hello Chaoyi,
+> 
+> You were right - building rocket as a module fixes it. Thanks for the pointer.
+> 
+> I rebuilt with CONFIG_DRM_ACCEL_ROCKET=m (everything else the same:
+> need_regulator on
+> the RK3568 NPU power domain via a DOMAIN_M_R variant, domain-supply =
+> <&vdd_npu>, and the
+> regulator-always-on workaround dropped). The board now boots cleanly
+> and, more importantly,
+> an NPU job submit no longer hangs: I ran the test workload five times
+> with no RCU stall and
+> no freeze.
+> 
+> So with rocket=m the need_regulator approach works on RK3568, and I'll
+> keep it for v4
+> (domain-supply + need_regulator, instead of marking vdd_npu
+> always-on). rocket=m is the
+> normal configuration anyway; my earlier hang came from building it =y
+> in a self-contained
+> image, so it probed in the initcalls (around 2 s) and the genpd ->
+> I2C-PMIC regulator
+> transition ran before the system was ready. As a module it loads from
+> udev much later
+> (~6.8 s here), after the I2C controller and regulator core are fully up.
+> 
+> On your question of when the device-link error is printed - it is at
+> power-domain
+> controller probe, not at the rocket probe:
+> 
+>   [    2.700618] vdd_npu: Bringing 500000uV into 825000-825000uV
+>   [    2.749637] rockchip-pm-domain fdd90000.power-management:power-controller:
+>                  Failed to create device link (0x180) with supplier 0-0020 for
+>                  /power-management@fdd90000/power-controller/power-domain@6
+>   [    2.945955] platform fde40000.npu: Adding to iommu group 3
+>   ...
+>   [    6.840374] rocket: loading out-of-tree module taints kernel.
+>   [    6.877647] [drm] Initialized rocket 0.0.0 for rknn on minor 0
+>   [    6.879950] rocket fde40000.npu: Rockchip NPU core 0 version: 0
+> 
+> So the device-link to the rk809 PMIC (0-0020) fails to form at ~2.75
+> s, well before rocket
+> loads at ~6.8 s. It is non-fatal here - the vdd_npu rail is brought up
+> by the regulator core
+> and all jobs run - and there is no "failed to get ack on domain npu"
+> NoC warning this boot
+> (the always-on kernel had one). The complete boot log is attached.
+> 
+> Two notes / one question:
+> - This boot used fw_devlink=permissive on the command line. Is the
+> "Failed to create device
+>   link ... supplier 0-0020" at pmdomain probe expected/benign, or is
+> there a clean way to make
+>   it order correctly (so it also works without permissive, and a =y
+> build wouldn't deadlock in
+>   the initcalls)?
 
-The eth1 MAC has a fixed, non-configurable RX clock-to-data skew at the
-MAC input in the order of 4-5 ns. This cannot be compensated solely by
-the standard MAC internal delay configuration and PHY delay, and RX clock
-inversion is required at 1000Mbps for correct sampling.
+We encountered the same issue on the RK3588 NPU before. And it was
+resolved with the following patch at that time.
 
-The eth1 TX path also includes a fixed silicon-inherent delay of
-approximately 2 ns. This delay is always present and cannot be disabled.
-It is therefore part of the effective transmit timing observed on the
-wire.
+https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
 
-For the eth1 variant, the valid tx-internal-delay-ps values include
-this fixed delay component. Consequently, the effective range becomes
-2000-4540 ps (approximately 2000 ps fixed delay plus 0-2540 ps
-programmable delay).
+Please compare the differences in NPU pmdomain and DTS configuration
+between the RK3568 and RK3588.
 
-Introduce a dedicated compatible string
-"eswin,eic7700-qos-eth-clk-inversion" to represent the eth1 variant,
-allowing the driver to apply RX clock inversion only when required by
-hardware variant selection.
+> - (The convolution output is still uniform zero-point / the job times
+> out - that is the
+>   separate NPU compute-completion issue, unrelated to the power-domain
+> work. Finley, that is
+>   the one I flagged earlier re PVTPLL/NoC.)
+> 
+> Kind regards,
+> Midgy
+> 
 
-This keeps SoC-level differentiation without exposing silicon-fixed skew
-as configurable device tree parameters.
-
-Add per-compatible tx-internal-delay-ps constraints using a oneOf
-schema partition:
-- eswin,eic7700-qos-eth: 0-2540 ps
-- eswin,eic7700-qos-eth-clk-inversion: 2000-4540 ps
-
-No functional change for existing "eswin,eic7700-qos-eth" users.
-
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- .../bindings/net/eswin,eic7700-eth.yaml       | 55 +++++++++++++++++--
- 1 file changed, 49 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-index 4e02fedae5c6..8cb7545c56e8 100644
---- a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-+++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-@@ -20,16 +20,38 @@ select:
-       contains:
-         enum:
-           - eswin,eic7700-qos-eth
-+          - eswin,eic7700-qos-eth-clk-inversion
-   required:
-     - compatible
- 
- allOf:
-   - $ref: snps,dwmac.yaml#
- 
-+oneOf:
-+  - properties:
-+      compatible:
-+        contains:
-+          const: eswin,eic7700-qos-eth
-+      tx-internal-delay-ps:
-+        minimum: 0
-+        maximum: 2540
-+        multipleOf: 20
-+
-+  - properties:
-+      compatible:
-+        contains:
-+          const: eswin,eic7700-qos-eth-clk-inversion
-+      tx-internal-delay-ps:
-+        minimum: 2000
-+        maximum: 4540
-+        multipleOf: 20
-+
- properties:
-   compatible:
-     items:
--      - const: eswin,eic7700-qos-eth
-+      - enum:
-+          - eswin,eic7700-qos-eth
-+          - eswin,eic7700-qos-eth-clk-inversion
-       - const: snps,dwmac-5.20
- 
-   reg:
-@@ -67,11 +89,6 @@ properties:
-     maximum: 2540
-     multipleOf: 20
- 
--  tx-internal-delay-ps:
--    minimum: 0
--    maximum: 2540
--    multipleOf: 20
--
-   eswin,hsp-sp-csr:
-     description:
-       HSP CSR is to control and get status of different high-speed peripherals
-@@ -140,3 +157,29 @@ examples:
-             snps,wr_osr_lmt = <2>;
-         };
-     };
-+
-+    ethernet@50410000 {
-+        compatible = "eswin,eic7700-qos-eth-clk-inversion", "snps,dwmac-5.20";
-+        reg = <0x50410000 0x10000>;
-+        interrupt-parent = <&plic>;
-+        interrupts = <70>;
-+        interrupt-names = "macirq";
-+        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
-+                <&d0_clock 194>;
-+        clock-names = "axi", "cfg", "stmmaceth", "tx";
-+        resets = <&reset 94>;
-+        reset-names = "stmmaceth";
-+        eswin,hsp-sp-csr = <&hsp_sp_csr 0x200 0x208 0x218 0x214 0x21c>;
-+        phy-handle = <&gmac1_phy0>;
-+        phy-mode = "rgmii-id";
-+        snps,aal;
-+        snps,fixed-burst;
-+        snps,tso;
-+        snps,axi-config = <&stmmac_axi_setup_gmac1>;
-+
-+        stmmac_axi_setup_gmac1: stmmac-axi-config {
-+            snps,blen = <0 0 0 0 16 8 4>;
-+            snps,rd_osr_lmt = <2>;
-+            snps,wr_osr_lmt = <2>;
-+        };
-+    };
 -- 
-2.25.1
-
+Best, 
+Chaoyi
