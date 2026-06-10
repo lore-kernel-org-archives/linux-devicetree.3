@@ -1,229 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42162D8795
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA64C372ED6
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781072948; cv=none; b=XullOF4ZlKfq73dMPPDAAJw1iR8oKTQHh93Wd6unyGeHuhFVjE4cE7Q8Ebx5YQ6BcbGPN+7zq9EUNuW2kkJ7ZJ6x1sNwHRebMbWofZXT/a06ASqTKWhxgX4aVwBKEbEJdAEWYRTwB1cYS4gsZYYticjZ5Pi8Vt8SLoIoCP0OKkw=
+	t=1781072971; cv=none; b=ERM2skm+sWuaa7htMLbi+pjhu9vbCYvgU8syyWC6qhmLVzAZf98PPBkVUMlp/EP6S/sOSfdsnSUPm5JcT6o/riRX/VZO/fB0lpLp+rnSjgsW1Y50FmBHV37MVD9xSWELihl4AldWUBLLjBSisrYXu9dBU6iX7K3o0K6VHWC8pOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781072948; c=relaxed/simple;
-	bh=IuhAI6CgqbR4Ga04dFCecqoZ9LHB3ZuD+vz6GZnGs4A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=arx8ESwZtvtKQ2N2Tz1OlfgVecjEnvN19Tf4YpkBrYKuW/2nIB2OM7TBGwLJ/sQMDH8KKoYd7ep1FYphWb2AlUH9w6fLebq3wloYuCUSCDxMr0t3BgBO+YtDL01y2k4NL/FcpbQHcMNxUkdb96WHdZ15sOPEXw1zdHLGzkibgeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kf/gfab1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781072971; c=relaxed/simple;
+	bh=PL9zmVN8BWp3nl5/LHjxhY8CnaUHqSBGA85pMRKT9tE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m5YPCjQt1+6L8PETuOTkfBRSLswcR7JXlVf/PmUegJ/4Wrui1IC2zxfqqw+S53mI8DIw0H9AsWJSPTVRxYR9mOHFrcBiS9fiJNgWU45DeZItT5Q0COojQLROyU+U6SPc+U0FVSExEg87Jnoy9ToqYic6TDvN9OB+CJLDWuINUQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RSXfOBAY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QN5tTD3Y; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kf/gfab1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A7C1F00898;
-	Wed, 10 Jun 2026 06:29:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781072947;
-	bh=uOqzymTff/5aoeAK+gqGLLbo8eVpPimqfl4ENEHL0FY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kf/gfab1Baf0D6y57wqBbayN6DLfSyau9aYP9B6Z3XfCNmqTPL7krV91Cl6AtPROC
-	 vu6mv4ulztepdOA8w4YcT2bRQi0Tdxt7+oqV22r/c5enh4yvA1quAm0tmGKzjed9WC
-	 polSHeZYB56sS9KyvcQyb/5mv/MmcL0zkr+Baz4YN81ZOIa8CnN/RgXd9T7PqhLJUN
-	 C7KZtAsF5lBdWBUdg5SKhJYg9UIBaljdaFU4/xZY9IrQHNMGVDG6cqzvkE1H1umB2p
-	 wNAeGtl/cRnEiBjh0BfGNITs4QbfPaOHYiBM2P3rmX5yau+XXbSZXEzZ4OjxL4viyE
-	 a8aHfJyzxu5tg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] clk: cix: add sky1 audss clock controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260610061712.3203984-5-joakim.zhang@cixtech.com>
-References: <20260610061712.3203984-5-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 06:29:06 +0000
-Message-Id: <20260610062907.25A7C1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RSXfOBAY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QN5tTD3Y"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65A45TmG388089
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:29:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=uSzPiF48skHxSUy0gtWGpK
+	Uh+MzE6AD343iEXs64/m4=; b=RSXfOBAY27M70ccj4Z3FsgdGsksoUGEqStojOE
+	2OV5EbVMtJQ6s8xKj53yPFYVldxGD3oeF+G4o19LAbJ2yeRkCN7C2WBIgoJLB5Sq
+	Xcz7SUBM0fgxu2vPDCLQRvMyo8DoENDbEonP5EhvUaf3wZp8UllA2jstBF06Ia80
+	vbSI5yGeX6oTzyLdSOJGdpIDmt28wj4gcN9UCnlm1L0FNgaUQS9/vznE+KEW6BaK
+	/K4kAerA4fcdov6Wk4SJx83V0gEahCR3Z0wXpAwm7JH8TT9QhaSghHKiduT2FC2D
+	pU32EaHRYxjGGEPURZZXm0pn1C34u92BTLIKuhWXudD+U2WA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eq0kd8eby-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 06:29:28 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-307625ee07fso6880046eec.1
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 23:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781072968; x=1781677768; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=uSzPiF48skHxSUy0gtWGpKUh+MzE6AD343iEXs64/m4=;
+        b=QN5tTD3YgL/wOauL2ZTAGBOr8J0AwROjDGGf13CjB48iMyorP+/I6LokyMNsV4MUqe
+         pEjDE15wy82HRLShulMMESHTxmYw7Ulvr6PJEjtc37iAaa6vgLyW6UlaRNq25qLIYvd8
+         4tS0zIVmFSDSwY2BGwMgJB6Xnxpyp3u4ZeDGpETiei25QxrOHXV7XFdsAMLaIJL7Z2v8
+         8zUQPxvLw9oWxbiYoaFlGojR+RKx0u97BRYkR++1jvXBXmeMQeBjgNcl32tKh8YYJIYI
+         DHCGpbW22fv+TSj9Hho5V8HkvmZfqi88HhAaCQ2tyB0eeGwKW1EguYh6/y601WcFLHNy
+         y+6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781072968; x=1781677768;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uSzPiF48skHxSUy0gtWGpKUh+MzE6AD343iEXs64/m4=;
+        b=KIpm7X/y0ZWDZeR0ZeABG8qpGTH9lOs2sbjoeHSmbTWBj+4AQlP6vOe6Xbwy3rlmid
+         IODzNuRKS6klNc+0zAoU1vN6lWjtrUkyMDU8S69gK/T5q6rKWnWUlSDD4Fc3XW1ryDiQ
+         RULeSXWLkn8qImiL70/7C91IwX9SOkiHSUOgi93Ks9e3hEcfSXfpGwDNMF2fuurCbcak
+         3sbDRx55uxvMmUrOPqp5H15FU9RBVWu7KMatgj8preSMATJtwxoWmEck3/tIB1uklOJD
+         pYT9g+PiJAEvdJJeLaRybzNjv7RTJRXzBba/iWdlX3hPPZJqllO+GMHl92OqzXOM0UAV
+         IpAQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9IyniZqOxrxSHWjsibK/4gedN8UisBNqiYHhSHP4F+n5R1yNe7pbUP+2+Uh3IFWY4I6S7slcqdddnK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBbK9eBDBI7aozpxjl/QKJY3J88pLUUbmICmrPby5ixHO5Iyq4
+	7bX7Lh3woc65kY/1/fHCrmTLqWgwt/O137YohpyBabXWHwol/HoSPpDuOVBSLBIfSWFpTUim3tl
+	xcVuAl9qJM+ifFWWxdfSYzean0YnrQ/kWuTsqjSqYn8pXmI64QZJHZ5Txpc+09bgm
+X-Gm-Gg: Acq92OHwdN6tijw5Mqmvx/qMidRIoqYrfQkFNHps7rPul+kDRXockwJ5oSVrhnSkNEl
+	WWwU0bAA7qHgwK0ytPda5hinELJDML1AkAn3gBzEIi9rGJWWEyAKbQgYgknV09fAhJnMNnsNnrn
+	LulzQjtFAjA5Ait/OrTDTak/1rFiTyALnCnNWIg8hFr7MuHydSChY+KSV3J9WmJB/3+RLnMaOSx
+	59FgIx+3LFhXDaQhyLALEuc8v82jBer9twUxoPbhqVtSZTXdanJTDBXr9ZrG4CzQ4JdSJl7/n/K
+	RsoIIsEGfNqrXhW4GHYE9xSFwsYly7114c1Zj15Vy6cjZ69xji/SQ6i/QN2dLPZ/n0kN7SlaaUI
+	wjDBBbt56+OralVS9Jja7ZZxUvE2ALj60nUpfF4YmuePnmPV3X3vYyogfVsbUy6RpNcHJMP7QeU
+	TLeudzMRxk
+X-Received: by 2002:a05:7300:231a:b0:304:8366:9fb6 with SMTP id 5a478bee46e88-3077ae70f45mr15817130eec.2.1781072967723;
+        Tue, 09 Jun 2026 23:29:27 -0700 (PDT)
+X-Received: by 2002:a05:7300:231a:b0:304:8366:9fb6 with SMTP id 5a478bee46e88-3077ae70f45mr15817103eec.2.1781072967160;
+        Tue, 09 Jun 2026 23:29:27 -0700 (PDT)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074dcb98aasm23959540eec.12.2026.06.09.23.29.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 23:29:26 -0700 (PDT)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Date: Tue, 09 Jun 2026 23:29:24 -0700
+Subject: [PATCH] dt-bindings: spmi: glymur-spmi-pmic-arb: Add compatible
+ for Qualcomm Maili SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260609-maili-spmi-binding-v1-1-80fc4b6bb80f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAEMEKWoC/yXMQQqDMBBG4avIrB1IpYTqVcSFSUb7F00lY0she
+ PfGdvkt3sukkiBKXZUpyRuKZyy41BX5+xhnYYRiakxjjTUtryMWsG4r2CEGxJmDEz9Z467tTai
+ EW5IJn9+0H/7Wl3uI388THccX7Lg/5XYAAAA=
+X-Change-ID: 20260609-maili-spmi-binding-dbecf60b498e
+To: linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781072966; l=1220;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=PL9zmVN8BWp3nl5/LHjxhY8CnaUHqSBGA85pMRKT9tE=;
+ b=G8H9L9VJpB0S0A/Igoc5N8iIx8H24F9vRhJKlJYF/ozewAxm4adfbUjpflfNJxrj29kVQ24tN
+ qVm+lENLFIFDIfQxf6W4DdQV9SVxS0ZpmseWKGz89smCo6LIr2CLyof
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Authority-Analysis: v=2.4 cv=TeamcxQh c=1 sm=1 tr=0 ts=6a290448 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=w-QGtfMo4T9X6HggfYsA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: uBKROhEhAQ3egA1wpsj-T7f8pgalf67v
+X-Proofpoint-ORIG-GUID: uBKROhEhAQ3egA1wpsj-T7f8pgalf67v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDA1OSBTYWx0ZWRfX9Xk07Qb8HoWv
+ sSi+YaiwaKeq2VOT+dsQn4DQf+SOUVzjZUfNsIC0G9ha3MR5fO0U036d4TZHdfzd+cuVAcjNCgz
+ 007Wd1d9nKpjpiyHB/jpEUQOLJqNBVrHDEbWC4GBrfnNnJ02xJ/FgXDvZT0mGIOIr8Uc3Rt6bN3
+ U9B7Nx6Gnu7wVw/0x+TkNOxGImyMPIXqBhVTM70dsH5L4b6z4t50hbZ3U+PCG5HCsjiKNeDUx2x
+ 4NY+X7eU2mmObZWmyveIS4LxvWQVfCUs/IUH5+7ztR9+gj8SFuiQPTS/PiwRMkdhY/CHLMK+7XP
+ ZxQbnflw5+FcSQShS/UFHr8X1r2ql8pCuthX2nWLEgYDUmTiuSeQ5MoeK3CQJ/Z08eY9Hg3271h
+ PeyoXvqeN+ys+xs/YpCRLJbcEh0B3vp/9Nmx/sGAulxJg5KlSBxkW12DtQik/usXoT+rOThGWyv
+ coIYbpR6DdJpcc7Zt6Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_01,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606100059
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Device-specific suspend/resume register state is stored in a globa=
-lly shared static array, breaking multi-instance support and causing state =
-corruption.
-- [High] Unchecked regmap_read() results in usage of uninitialized stack va=
-riables.
-- [High] Clock operations access hardware registers without PM runtime prot=
-ection, potentially causing bus faults or lost register updates.
-- [High] Race condition during device removal leading to Use-After-Free of =
-composite clock structures due to LIFO inversion.
-- [High] A massive copy-paste error causes nearly all clocks in the system =
-to write to the exact same divider register bits, leading to silently corru=
-pted hardware states.
-- [High] Non-atomic read-modify-write sequences are performed on a shared s=
-yscon regmap, leading to race conditions.
-- [Medium] Parent clocks enabled during probe are leaked on device removal =
-and probe error paths when CONFIG_PM is disabled.
-- [Low] The `dev_pm_ops` structure pointer is assigned unconditionally in t=
-he driver, producing dead code when CONFIG_PM is disabled.
---
+The PMIC arbiter in the Qualcomm Maili SoC is version v8.5, which
+is the same with Hawi and compatible with Glymur. Hence, add a string
+for "qcom,maili-spmi-pmic-arb" as a compatible entry for
+"qcom,glymur-spmi-pmic-arb".
 
-commit f6414eab975c93e0178027203d04f1647fb5efdb
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
-Date:   Wed Jun 10 06:17:11 2026 +0000
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-    clk: cix: add sky1 audss clock controller
-   =20
-    Add a platform driver for the Cix Sky1 Audio Subsystem (AUDSS) internal
-    clock controller. The driver binds to a cix,sky1-audss-clock device tree
-    node under the AUDSS syscon, obtains the parent regmap via
-    syscon_node_to_regmap(), and registers mux/divider/gate composite clocks
-    for DSP, SRAM, HDA, DMAC, watchdog, timer, mailbox and I2S outputs. Four
-    SoC-level audio reference clocks are brought up as inputs to the tree.
+diff --git a/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml b/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml
+index 1593a1183a36..44c864fd5fc7 100644
+--- a/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml
++++ b/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml
+@@ -27,6 +27,7 @@ properties:
+           - enum:
+               - qcom,hawi-spmi-pmic-arb
+               - qcom,kaanapali-spmi-pmic-arb
++              - qcom,maili-spmi-pmic-arb
+           - const: qcom,glymur-spmi-pmic-arb
+       - enum:
+           - qcom,glymur-spmi-pmic-arb
 
-> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-=
-audss.c
-> new file mode 100644
-> index 0000000000000..3ec6bea93b73c
-> --- /dev/null
-> +++ b/drivers/clk/cix/clk-sky1-audss.c
-[ ... ]
-> +static u32 sky1_reg_save[][2] =3D {
-> +	{ INFO_HIFI0,  0 },
-> +	{ INFO_CLK_GATE,  0 },
-> +	{ INFO_CLK_DIV, 0 },
-> +	{ INFO_CLK_MUX, 0 },
-> +	{ INFO_MCLK, 0 },
-> +};
+---
+base-commit: 3443eec9c55d128064c83225a9111f1a1a37277a
+change-id: 20260609-maili-spmi-binding-dbecf60b498e
 
-[Severity: High]
-Will this global static array cause state corruption if there are multiple
-instances of the device?
+Best regards,
+--  
+Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-It looks like multiple instances would concurrently overwrite each other's
-saved register context during suspend/resume. Should this save buffer be
-allocated per-instance inside struct sky1_audss_clks_priv?
-
-[ ... ]
-> +	CFG(CLK_I2S0_APB,
-> +	    "audss_i2s0_apb",
-> +	    i2s_apb_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_DIV, 0, 2, 0,
-
-[Severity: High]
-Does this configuration accidentally assign the same register and bit shift
-to multiple clocks?
-
-Looking at the array, clocks like CLK_I2S0_APB through CLK_I2S9_APB, as
-well as CLK_DSP_CLK, CLK_SRAM_AXI, and others, all specify
-INFO_CLK_DIV, 0, 2, 0 for their divider.=20
-
-Will updating the rate for any of these clocks silently overwrite the
-hardware divider for all the others?
-
-[ ... ]
-> +static u8 sky1_audss_clk_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct clk_mux *mux =3D to_clk_mux(hw);
-> +	struct sky1_clk_mux *sky1_mux =3D to_sky1_clk_mux(mux);
-> +	u32 val;
-> +
-> +	regmap_read(sky1_mux->regmap, sky1_mux->offset, &val);
-> +	val =3D val >> mux->shift;
-
-[Severity: High]
-If regmap_read() fails, could this use an uninitialized stack variable?
-
-The return value of regmap_read() is ignored, meaning val could remain
-uninitialized when shifted and returned. A similar pattern appears in
-sky1_audss_clk_divider_recalc_rate().
-
-[ ... ]
-> +static int sky1_audss_clk_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-[ ... ]
-> +	if (mux->flags & CLK_MUX_HIWORD_MASK) {
-> +		reg =3D mux->mask << (mux->shift + 16);
-> +	} else {
-> +		regmap_read(sky1_mux->regmap, sky1_mux->offset, &reg);
-> +		reg &=3D ~(mux->mask << mux->shift);
-> +	}
-> +	val =3D val << mux->shift;
-> +	reg |=3D val;
-> +	regmap_write(sky1_mux->regmap, sky1_mux->offset, reg);
-
-[Severity: High]
-Is it safe to access hardware registers here without ensuring the device is
-active via PM runtime functions?
-
-If the clock callbacks are invoked while the subsystem is suspended, this
-might access powered-down MMIO or the changes might be immediately
-overwritten when sky1_audss_clk_runtime_resume() restores the old state.
-
-[Severity: High]
-Can this sequence lose concurrent register updates?
-
-Since the regmap is shared via syscon_node_to_regmap(), the private lock
-doesn't serialize these accesses against other drivers modifying different
-bits in the same syscon.
-
-Would regmap_update_bits() be safer here to atomically perform the update?
-A similar pattern appears in sky1_audss_clk_divider_set_rate() and the gate
-callbacks.
-
-[ ... ]
-> +fail_clks_set:
-> +	pm_runtime_put_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Will the parent clocks leak their prepare/enable references if CONFIG_PM is
-disabled?
-
-The driver relies on pm_runtime_put_sync() to trigger the suspend callback
-to disable the clocks. If runtime PM is stubbed out, the clocks enabled
-during probe might never be disabled on error paths or during device
-removal.
-
-[ ... ]
-> +static void sky1_audss_clk_remove(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	int i =3D 0;
-> +
-> +	for (i =3D 0; i < devtype_data->clk_cfg_size; i++)
-> +		clk_hw_unregister_composite(priv->clk_data->hws[devtype_data->clk_cfg[=
-i].id]);
-
-[Severity: High]
-Does this create a use-after-free window?
-
-The OF clock provider is registered using devm_of_clk_add_hw_provider()
-which will run its cleanup after remove() finishes. If we manually
-unregister and free the composite clocks here, consumers might look up
-a freed clock pointer via the device tree during that window.
-
-[ ... ]
-> +static struct platform_driver sky1_audss_clk_driver =3D {
-> +	.probe =3D sky1_audss_clk_probe,
-> +	.remove =3D sky1_audss_clk_remove,
-> +	.driver =3D {
-> +		.name =3D "sky1-audss-clk",
-> +		.suppress_bind_attrs =3D true,
-> +		.of_match_table =3D sky1_audss_clk_of_match,
-> +		.pm =3D &sky1_audss_clk_pm_ops,
-
-[Severity: Low]
-Is it intended to leave the dev_pm_ops pointer assigned unconditionally?
-
-If CONFIG_PM is disabled, this prevents the compiler from discarding the
-sky1_audss_clk_pm_ops structure and its referenced callbacks as dead code.
-Could we use the pm_ptr() wrapper here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610061712.3203=
-984-1-joakim.zhang@cixtech.com?part=3D4
