@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D11371885
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:01:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E699A40D585
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:02:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781082111; cv=none; b=uDt9z+qwRgLurMLIgfxVN05Xh8yXHXt/KPTAO9Q+BfYfO8WKK7F0PEyRWdz9C9LD6gp4h1lkgI+cJBDxG211wHCYljpxtAoXDHO64eaCqWSC2KWy23VW4QO1bUfSJppynfm1pysxDrbIX0jmWntuzwMQL+zll4TKsdav7bA4BP4=
+	t=1781082158; cv=none; b=HNsqfHhaiAvpEYimONrxpKFeY0BuegDNHLfL/DbAuoWADWZe723mQBPWoACj23HwDuCYlT7cjhH13sik1z29zfJtH2HX37Up4O+PSHNoKKN4OnrXvy84ZstDE5xOMvaZGjNWFBK8egN9uLTyiGo7jaMY3uVpL8p2267Ay4rQIDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781082111; c=relaxed/simple;
-	bh=6Rg2Ul7Fyi77ORk9j086xg0wLokvHp9xy8SWChl6n3c=;
+	s=arc-20240116; t=1781082158; c=relaxed/simple;
+	bh=3kR1dZ2Gc7YMrHKGPGxxf2V1yVJKuYgIuXhD3FG8rOE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D1cQ4BhITkBqnGglXSXi2Ui/kskqXsXA/IodktMuWyTdYaGlLdUQogVpwGh97ygWP08KFoi1T49yXmqsb5egcELb3WAj+1D7cZ3dSJh3VpvL/YzI7OU2tx8p6SAGZHjsHWqA3TGZzCP2JWwtVMXuYgKWtmIlIAgex+1aCnAe+k8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJtIEPGc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NZUu7uCEShNHcmwtWSA9T9kr47pB6agaJgxm7LbOOMGm35bLyZiHZdQDVtTftcSrNbfd3i51p1UYA4qCVY+zMVErxAQ7yCIBBOByS+fk2my0ELBj4U1g4Zu0ZMhFvtGFelTuf7tKKQu1RYxf7o8IqMSuqNj1RrkbabdN3bdMCqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbAIfqpY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJtIEPGc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC91D1F00893;
-	Wed, 10 Jun 2026 09:01:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbAIfqpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8F81F00898;
+	Wed, 10 Jun 2026 09:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781082109;
-	bh=zZoyF2OrIAVoOzypWbOD9neqIyKs0Ciw9sPwebmmGRQ=;
+	s=k20260515; t=1781082157;
+	bh=Db9PYlwm15Z5iuZ3e7tJUmfQ9RXJOY3Oc7W9i1hxoyc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oJtIEPGcx8LwCsJdTMHVEhC+9vFI3GxNj5q02qSBOZRQGNaFRoA2KEi2AgWy014wK
-	 6FRPEoTHeqztAStYKI6UTtUt5EWfkuS50v6I9u/WFENRhGpnfYRW+lOPZaubqPdsGb
-	 IRgmW/ZXJB33Yrmb6w1FI11SYWWURhR4NDPvpYrUGLXgrncWkXMOAe5NDrOqkW6TwV
-	 C2LOCoi5c5w6oKOm6inS7asLaM1G8+Kk9XuULlwKoTiIDg2+dzMq/H6nHyIEk57LQa
-	 CRnWnBmzmwoogfV5PdaDPJSs59QE8EBPQRKg2LLadZAzNAen5BXPfX685r/WH3UuDp
-	 YkLTb5HtfUFGA==
+	b=PbAIfqpYLCZpxghne3ilQrtH3ZlGpymkS9zErxjh34WDr3EL9jLoiS8bVgPQKWYej
+	 ZPh8FfC0ud00csvCLjV8X/gt5UIMkOMzxCk4y/TgGSockQGk0yJpppnx0yFSse7DRq
+	 hGX/sYILCroZDh+5gwpnro8hxghiCBR0LiuZHK8TA1/koNH7T0mSLrkFsSv5nEAPtO
+	 x9kA6xtDIaSap5Nr+yZ3M5Kxbgwfbukr/0zZEFAjlbHMGM2vvGxaWCg4OaZrsZbZM+
+	 B/Fo7qG00tElfMe2mox5nt6GJ9hpysAbv51m48cBJ4/V1vmWI6kmc4Y/1eOhV26Apj
+	 MOfYN9nYUAreQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v7 2/9] dt-bindings: firmware: arm,scmi: Add
- Qualcomm Generic Extension Protocol
+Subject: Re: [PATCH v2 16/16] arm64: dts: mediatek: mt8188-geralt: Add
+ WiFi/BT as M.2 E-key slot
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pragnesh Papaniya" <pragnesh.papaniya@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260610-rfc_v7_scmi_memlat-v7-2-f3f68c608f25@oss.qualcomm.com>
-References: <20260610-rfc_v7_scmi_memlat-v7-2-f3f68c608f25@oss.qualcomm.com>
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260610084053.2059858-17-wenst@chromium.org>
+References: <20260610084053.2059858-17-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 09:01:43 +0000
-Message-Id: <20260610090148.CC91D1F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 09:02:36 +0000
+Message-Id: <20260610090237.0F8F81F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,56 +46,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Adding `qcom,generic-scmi.yaml` to the unconditional `anyOf` blo=
-ck silently bypasses strict schema validation for all other vendor schemas =
-(e.g., `nxp,imx95-scmi.yaml`).
+- [High] The pinctrl configuration for the W_DISABLE kill pins drives them =
+physically HIGH before the VIO/VCC regulators are enabled, causing chip bac=
+k-powering and an initial signal glitch.
 --
 
-commit 4cdbbb0bcf03bec0f34cb611707f09de406a9cfa
-Author: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
+commit c9c4e7dd87a963320b0c2bf646e1e008f5ee5638
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-dt-bindings: firmware: arm,scmi: Add Qualcomm Generic Extension Protocol
+arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
 
-This commit adds the binding schema for the Qualcomm SCMI Generic Extension
-Protocol to support Bus DVFS on several SoCs.
+This commit models the chip-on-board WiFi/BT solution on MT8188 Geralt as
+an M.2 E-key slot. It adds the PMU_EN pin controls and drops the always-on
+property from the pp3300_wlan regulator to properly reflect power sequencin=
+g.
 
-> diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/D=
-ocumentation/devicetree/bindings/firmware/arm,scmi.yaml
-> index d06cca9273c48..aedc57dd3b389 100644
-> --- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> +++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> @@ -24,6 +24,7 @@ description: |
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64=
+/boot/dts/mediatek/mt8188-geralt.dtsi
+> index 4cb23595d17b4..d7b5eb95ba0fe 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+[ ... ]
+> @@ -193,6 +202,39 @@ adsp_dma_mem: memory@61000000 {
+>  			no-map;
+>  		};
+>  	};
+> +
+> +	wifi-bt-connector {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&m2_e_key_kill_pins>;
+> +		vpcie1v8-supply =3D <&mt6359_vcn18_ldo_reg>;
+> +		vpcie3v3-supply =3D <&wlan_pmu>;
+> +		w-disable1-gpios =3D <&pio 13 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&pio 14 GPIO_ACTIVE_LOW>;
+[ ... ]
+> @@ -999,6 +1057,14 @@ pins-bus {
+>  		};
+>  	};
 > =20
->  anyOf:
->    - $ref: /schemas/firmware/nxp,imx95-scmi.yaml
-> +  - $ref: /schemas/firmware/qcom,generic-scmi.yaml
+> +	m2_e_key_kill_pins: m2-e-key-kill-pins {
+> +		pins-kill {
+> +			pinmux =3D <PINMUX_GPIO13__FUNC_B_GPIO13>,
+> +				 <PINMUX_GPIO14__FUNC_B_GPIO14>;
+> +			output-high;
 
-[Severity: Medium]
-Does adding qcom,generic-scmi.yaml to the unconditional anyOf block silently
-bypass strict schema validation for all other vendor schemas?
+[Severity: High]
+Since pp3300_wlan is no longer always-on, does this output-high configurati=
+on
+cause the unpowered Wi-Fi/BT chip to be back-powered?
 
-Due to JSON Schema evaluation rules, an additionalProperties: true keyword =
-in
-the newly added QCOM schema evaluates to boolean true and annotates all
-properties it matches as evaluated.
+The device core automatically applies the default pinctrl state during
+instantiation, before the power sequence driver probes and turns on the
+regulators. Driving a physical HIGH voltage into the w-disable pins of an
+unpowered IC can forward-bias internal ESD diodes and leak current.
 
-If an NXP device tree has an invalid property (for example, wrong types ins=
-ide
-protocol@81 or protocol@84), it correctly fails the nxp,imx95-scmi.yaml
-schema. However, because it is evaluated against the unconditional anyOf bl=
-ock
-here, it then falls back to qcom,generic-scmi.yaml.
+Additionally, when the driver eventually probes, it will request the
+w-disable pins. Since the wifi-bt-connector node defines them as
+GPIO_ACTIVE_LOW, requesting a logical HIGH translates to a physical LOW.
 
-Since the QCOM schema does not define NXP's specific properties, it accepts
-them via its additionalProperties: true directive and annotates them as
-evaluated. The anyOf condition is thus satisfied, and the top-level
-unevaluatedProperties: false check in arm,scmi.yaml passes, silently
-suppressing the NXP schema validation failure.
+Will this result in an unintended HIGH-to-LOW physical glitch on the
+unpowered chip's w-disable lines before the regulators are finally enabled?
 
-Should vendor schemas be conditionally applied based on compatible strings
-(for example, using if: properties: compatible: contains: ...) instead of
-being placed into an unconditional anyOf list?
+> +		};
+> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-rfc_v7_scm=
-i_memlat-v7-0-f3f68c608f25@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610084053.2059=
+858-1-wenst@chromium.org?part=3D16
