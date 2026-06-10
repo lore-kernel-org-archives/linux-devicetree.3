@@ -1,144 +1,120 @@
-Received: from mail-m1973189.qiye.163.com (mail-m1973189.qiye.163.com [220.197.31.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61FD2773E5;
-	Wed, 10 Jun 2026 01:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996E8264A9D
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781054976; cv=none; b=T6H/QX+M/Yq+gEKKKBjjOCoNfF9iUoLsOaAgPt495dss3S61R2s92FkwtRAumwvHqJ18AbkL3U1D0x+nomzfyeVXf614jpQSCczLCBoNbByPB006B3gm/LxBdnlQyb/Cj+E/leEDMIq+hlxJ0GRuKjdYZDnWbbp0WJ7e5Tb7GM0=
+	t=1781055016; cv=none; b=YOLrh3qDjNNORjM/7E6hdaknHULTv0XF56uKOdyhenO9/4hYr4BZ1l6Jc0DyuMLW74P2Ff1EUZvWBXDdpka7zk8SGeJJkGC65GR+ByLHlvJPs4Logv/b4Q3jXwv8/tDmEYJ6bd/oc/Xowkg9I5ChauCHVxJzuk51NtnQbgbw/04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781054976; c=relaxed/simple;
-	bh=fqfLMJY/chnkgj0kUutKJERe3LT9Zo86vEHEspY85FQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d3BzA4aZHnwggpT6IubtpwZzeWaqtPERl+i2jKSHwSWZXkLz58ftga9ohqnUaC4TUdk0h+Nr6cSF/N9h5z/V0FnA/IOsKusgLN3nCY9lA0DsEgeBByZdbGaDp3/iJgeAx+PtdH58lCW66kgXWF3UirM61cofbCeobenS30p2mzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=JMc/acb2; arc=none smtp.client-ip=220.197.31.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1781055016; c=relaxed/simple;
+	bh=8HRdO40GBJZlsE8xL1LHiW4N40f17BWO4Il0MheFkBk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=k/qpG3sUxjVqorh5cwrKFL6HU8247WjGvyiRqHaJRatYHqnTHwLqKpQ6IC5MbuwQmFcb+9uOKLKfoB3eSd9zk9gbfSyK9ykYSo6ruoYdHRKFRzKykVb9FY/filr4RsaAafu9OwHymwUq4SNl5lROj+yD60hmR7DqmznwpPxRFbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XusIAKiX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="JMc/acb2"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 41bfeee6e;
-	Wed, 10 Jun 2026 09:14:04 +0800 (GMT+08:00)
-Message-ID: <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com>
-Date: Wed, 10 Jun 2026 09:14:02 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XusIAKiX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D481F00893;
+	Wed, 10 Jun 2026 01:30:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781055015;
+	bh=SKd2qGF1ZJA/t1JzsOHnzC37DlOVjcdQafz4remRMug=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XusIAKiXOBwu1KZTZ3D4JWpvHErMhOa7Ll1D/obGVuD5sABEwWIIrsv2iKUkm6pvD
+	 Hfnwx2Hln+SAy9lzeVR9XM/jeoTXEIcWguO2uJwAreiR1598ADSPr1UPV2OcyOVEdm
+	 d2IDE22mSlX9Hx4CvBCKnhdLV66My466jXeZ6yqsa/PiaVwf8nN3KR4gHKhuf5jTGn
+	 77My3bQWwEDL1NWSf5zqNUbJkEvwF+n1zp+/kV8jTwwciOeGLqTYQRsW9bRkrDpTHY
+	 W2CiD6oJfWo85gkjU3zKI3dKTkzEysK8i/NtOVz9Hhbh1jcPyrh6Q4+pwqrKaGuanl
+	 bh6Ca9Z1fB/Mg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2
+ BMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyle Hsieh" <kylehsieh1995@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com>
+References: <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 01:30:14 +0000
+Message-Id: <20260610013015.10D481F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
-To: Midgy Balon <midgy971@gmail.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>,
- Finley Xiao <finley.xiao@rock-chips.com>
-References: <20260604135255.62682-1-midgy971@gmail.com>
- <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
- <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
- <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
- <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
- <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
- <bcedaff0-abf8-4585-a0ea-057062cd0411@rock-chips.com>
- <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9eaf17f7ca03a7kunm086ddc0f265e19
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkIaVhgaT0JNSExLGhoeQlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=JMc/acb2P5/j0WDgBoNYDEgabsrTG6UUouYskrbbIrI3+e1FIjV+cY3SVNG0i6tQBYa65TADufI1IrcgOpVVxNrpxG7VhU9HVuUDORdfhEobuPvJC/wPn9SI+ziLIe3dHBTZ3H2EfowPzM3i1R4/7UXBr2WSPouPPyabXZj+Hlc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=xT9TRXqNVQ4NrOZ7G30C+sE2EpbR+Jn/B+pjkgNcIuw=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Midgy,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing `idle-state =3D <6>;` on the PCA9548 I2C mux on `i2c4` bre=
+aks asynchronous MCTP traffic.
+- [Low] The new board compatible string `facebook,ventura2-rmc` is not docu=
+mented in the device tree bindings.
+--
 
-On 6/9/2026 7:11 PM, Midgy Balon wrote:
-> Hello Chaoyi,
-> 
-> You were right - building rocket as a module fixes it. Thanks for the pointer.
-> 
-> I rebuilt with CONFIG_DRM_ACCEL_ROCKET=m (everything else the same:
-> need_regulator on
-> the RK3568 NPU power domain via a DOMAIN_M_R variant, domain-supply =
-> <&vdd_npu>, and the
-> regulator-always-on workaround dropped). The board now boots cleanly
-> and, more importantly,
-> an NPU job submit no longer hangs: I ran the test workload five times
-> with no RCU stall and
-> no freeze.
-> 
-> So with rocket=m the need_regulator approach works on RK3568, and I'll
-> keep it for v4
-> (domain-supply + need_regulator, instead of marking vdd_npu
-> always-on). rocket=m is the
-> normal configuration anyway; my earlier hang came from building it =y
-> in a self-contained
-> image, so it probed in the initcalls (around 2 s) and the genpd ->
-> I2C-PMIC regulator
-> transition ran before the system was ready. As a module it loads from
-> udev much later
-> (~6.8 s here), after the I2C controller and regulator core are fully up.
-> 
-> On your question of when the device-link error is printed - it is at
-> power-domain
-> controller probe, not at the rocket probe:
-> 
->   [    2.700618] vdd_npu: Bringing 500000uV into 825000-825000uV
->   [    2.749637] rockchip-pm-domain fdd90000.power-management:power-controller:
->                  Failed to create device link (0x180) with supplier 0-0020 for
->                  /power-management@fdd90000/power-controller/power-domain@6
->   [    2.945955] platform fde40000.npu: Adding to iommu group 3
->   ...
->   [    6.840374] rocket: loading out-of-tree module taints kernel.
->   [    6.877647] [drm] Initialized rocket 0.0.0 for rknn on minor 0
->   [    6.879950] rocket fde40000.npu: Rockchip NPU core 0 version: 0
-> 
-> So the device-link to the rk809 PMIC (0-0020) fails to form at ~2.75
-> s, well before rocket
-> loads at ~6.8 s. It is non-fatal here - the vdd_npu rail is brought up
-> by the regulator core
-> and all jobs run - and there is no "failed to get ack on domain npu"
-> NoC warning this boot
-> (the always-on kernel had one). The complete boot log is attached.
-> 
-> Two notes / one question:
-> - This boot used fw_devlink=permissive on the command line. Is the
-> "Failed to create device
->   link ... supplier 0-0020" at pmdomain probe expected/benign, or is
-> there a clean way to make
->   it order correctly (so it also works without permissive, and a =y
-> build wouldn't deadlock in
->   the initcalls)?
+commit 5d6ee3a97cd79459755cb6b05c8802e4c5d63cab
+Author: Kyle Hsieh <kylehsieh1995@gmail.com>
 
-We encountered the same issue on the RK3588 NPU before. And it was
-resolved with the following patch at that time.
+ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
 
-https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
+Add linux device tree entry related to the Meta(Facebook) rmc-node.
+The system uses an AT2600 BMC. This node is named "ventura2".
 
-Please compare the differences in NPU pmdomain and DTS configuration
-between the RK3568 and RK3588.
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts b/=
+arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> new file mode 100644
+> index 0000000000000..1111daa22f73e
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> @@ -0,0 +1,2891 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2023 Facebook Inc.
+> +/dts-v1/;
+> +
+> +#include "aspeed-g6.dtsi"
+> +#include <dt-bindings/i2c/i2c.h>
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	model =3D "Facebook Ventura2 RMC";
+> +	compatible =3D "facebook,ventura2-rmc", "aspeed,ast2600";
 
-> - (The convolution output is still uniform zero-point / the job times
-> out - that is the
->   separate NPU compute-completion issue, unrelated to the power-domain
-> work. Finley, that is
->   the one I flagged earlier re PVTPLL/NoC.)
-> 
-> Kind regards,
-> Midgy
-> 
+[Severity: Low]
+Is this new board compatible string documented in the device tree bindings?
+Without documentation (e.g., in
+Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml), dtbs_check might
+fail to validate the device tree.
 
--- 
-Best, 
-Chaoyi
+[ ... ]
+
+> +&i2c4 {
+> +	status =3D "okay";
+> +	multi-master;
+> +	mctp-controller;
+> +	mctp0: mctp@10 {
+> +		compatible =3D "mctp-i2c-controller";
+> +		reg =3D <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
+> +	};
+> +
+> +	i2c-mux@77 {
+> +		compatible =3D "nxp,pca9548";
+> +		reg =3D <0x77>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+
+[Severity: High]
+Does this PCA9548 multiplexer require an idle-state property?
+
+Channel 1 connects to polled temperature sensors, while channel 6 is marked
+with mctp-controller to receive asynchronous MCTP packets. If the mux is le=
+ft
+without an idle-state =3D <6>; configuration, will it remain physically par=
+ked
+on channel 1 after routine temperature polling?
+
+If so, could this cause any subsequent asynchronous MCTP traffic arriving on
+channel 6 to hit the disabled mux channel and be permanently dropped?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-ventura2_i=
+nitial_dts-v6-0-375d8e9d7ebf@gmail.com?part=3D2
