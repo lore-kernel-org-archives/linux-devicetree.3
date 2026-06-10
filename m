@@ -1,42 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F55A3750CA;
-	Wed, 10 Jun 2026 19:59:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED2537D128;
+	Wed, 10 Jun 2026 20:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781121558; cv=none; b=XL6SiT2UUpV9k3fU6eWQMCozc64+f22+Hdhs9uALSbD8UhTNVpNEbBVv+YOkd8vyB0Bh0RxhR+LJLERa+5NKjF9TVQ8Ap2lVQAMHJDlHGWPN8VYcg7Wb11GTfEy4OJkh6u8r9d2G6jY/AMPGtEyQgNRUTJK+RX0Bff7BfxjUMqw=
+	t=1781121615; cv=none; b=pJ/oTRKyjiwnkJeO6NACJRzPOX0/2mdjEAjsYGvhC0IWwt7PIOIK7P99o8abVqcS0UelfcNZ2GNGlykaO8uW+Xhh3IlghOPMCJ5wsy6SYIQ7Bu/vSEqY6aGN/4eA3L5BaAb7ptJFM2LPhKOOAcy8/VPtG5JtHa3VOv3qD1EF/qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781121558; c=relaxed/simple;
-	bh=nM362/82e4cU07NooVJuNAiBZOvrtoWBxTQtUAJoxRM=;
+	s=arc-20240116; t=1781121615; c=relaxed/simple;
+	bh=Rtu4PCPrQrnpGXPDWa37Ka+8zUeOAO5dxlEBpiDJ9Ec=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VVaNka2Ljo6v+W2puDbsxfInNccjpPJTugDKiSd2m8U7tnkPRZO3sMEGHsRkXw7nTMBNqzjJwrYSvtXCwHbiGl/Bt2Ej008jD6Tfx+bLDMB8sM3efT2KLRHZ/kkW16KShvGN5qNsSFibaizfNkq37WXirPag+NvQit2knh7njZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egayTg92; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=cyCylHB4hD/uflhqQp31iXhZHoZAXZ9yur+H4fwaTdQgheDbBtvXDCm4vKUOs+tPddWtuI6PaDrNEE5rNyjqL8SG4Np333erMFnPuJRZmYheYu0hrNZISG6/Z9evbPG7HPcNQFiXky5n4VL5HT2EhzOx9PajBPnV1Pyr+SUYTQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAf4Nh34; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egayTg92"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5751F00898;
-	Wed, 10 Jun 2026 19:59:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAf4Nh34"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1237A1F00893;
+	Wed, 10 Jun 2026 20:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781121556;
-	bh=bkXpye9Dk/pIHO6X5mwJwCLsWt/uoCZ3k5uhJRXjYdw=;
+	s=k20260515; t=1781121614;
+	bh=lEiT5nfQy5M2WcLyUsRW0iH+7nklJOdrIO/F3wDlgbw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=egayTg92orJkUYatqeE0I+/Zmr4GzGsO9z78SbWv/LA57zUSjRC/7lw7+BvcdxrCu
-	 pMMWDG9u9lTcZQoNm0YIYJsEYmbCSEYnzJ6Ml71H5XIdK0C9UWaQRQ8UYZsPUyLTdP
-	 RBsytgE2uqk4uuKbSqTl1L/vmoZw6whyCXgJ/1bZSdTom2JUEUzHdCNIRmhp6MyGz2
-	 mjV+b4Dt5TqLInz3GkQJufogP+YhnaNKB8i2IaFG5I1pDeI1vtdhwzEoO/ocxoH5ag
-	 e+4lXGqWaljjbsLnjj6Eaf215VPIqhE8706hCPGn4WsQ+ioyrGPpucKmgTU/mGIB+k
-	 KfPnzI8lQZeOA==
-Date: Wed, 10 Jun 2026 14:59:16 -0500
+	b=VAf4Nh34MZ0WafXhdetK/bmREXXT5GVeCvBWaxJYyp86JhxsavKNUzrAdEFZV9VgY
+	 cE4Q5K4DAYXZe3I4n8TWkrTzIHhPqWF0zf7PU7ixahduD3Bw6Mb08seckroYON2Vzy
+	 etJKo01eFEwOVlPfNc7+5DXWjJ5Bn01Sqvy3adj3ODYMsfY12AIQtSIxGcPXfMtpa5
+	 s6SHxwZdKsgieg8qwtUnD2mEcX+fgx4Oug66gfEFA0gtrrRacskBeKgu7Lg3Riyxm3
+	 k8n06TKWq3aL5N80saIPiQ8OLd/N/97UIhN2dE94WkarTO+7s5HFZFW5ZyvxoQNq+u
+	 YphEfbhuFiEXw==
+Date: Wed, 10 Jun 2026 15:00:13 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: devicetree@vger.kernel.org, mail@birger-koblitz.de, krzk+dt@kernel.org,
-	conor+dt@kernel.org, john@phrozen.org, tglx@kernel.org,
-	bert@biot.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: realtek,rtl-intc:
- Allow 2 interrupt cells
-Message-ID: <178112155552.711698.8665696871186240007.robh@kernel.org>
-References: <20260605211646.2101652-1-markus.stockhausen@gmx.de>
- <20260605211646.2101652-2-markus.stockhausen@gmx.de>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-phy@lists.infradead.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	YijieYang <yijie.yang@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: phy: sc8280xp-qmp-pcie: Disallow
+ bifurcation register on Purwa
+Message-ID: <178112161290.713172.14002683325677777588.robh@kernel.org>
+References: <20260610-topic-purwa_phy_shutup_warning-v2-1-951c1fbfe9b2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,26 +51,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260605211646.2101652-2-markus.stockhausen@gmx.de>
+In-Reply-To: <20260610-topic-purwa_phy_shutup_warning-v2-1-951c1fbfe9b2@oss.qualcomm.com>
 
 
-On Fri, 05 Jun 2026 23:16:40 +0200, Markus Stockhausen wrote:
-> The Realtek Otto SoC interrupt controller supports hardware interrupt
-> routing to multiple parent CPU interrupt lines. To utilize this
-> multi-domain support, peripheral devices need a way to explicitly
-> specify their desired parent interrupt line in the device tree.
+On Wed, 10 Jun 2026 11:45:12 +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> Update the "#interrupt-cells" property to accept either 1 or 2 cells.
-> - 1 cell: Specifies the hardware interrupt index, implicitly routing it
->   to the first available parent (maintaining backward compatibility).
-> - 2 cells: The first cell specifies the hardware interrupt index and
->   the second cell specifies the targeted parent interrupt index.
+> Neither of the two Gen4x4 PHYs found on Purwa supports bifurcation.
+> The PHY is however physically laid out as if it were to, since there
+> are two separate ports (A/B).
 > 
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+> Split out a new if-then block to un-require the bifurcation register
+> handle to squash this warning:
+> 
+> purwa-iot-evk.dtb: phy@1bd4000 (qcom,x1p42100-qmp-gen4x4-pcie-phy): 'qcom,4ln-config-sel' is a required property
+> 
+> Fixes: 2e1ffd4c1805 ("dt-bindings: phy: qcom,qmp-pcie: Add X1P42100 PCIe Gen4x4 PHY")
+> Reported-by: Rob Herring <robh@kernel.org>
+> Closes: https://lore.kernel.org/linux-arm-msm/176857775469.1631885.16133311938753588148.robh@kernel.org/
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
->  .../bindings/interrupt-controller/realtek,rtl-intc.yaml      | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+> Changes in v2:
+> - Rebase
+> - Don't drop the mention of the warning, as it now actually exists in
+>   the tree..
+> - Link to v1: https://lore.kernel.org/r/20260119-topic-purwa_phy_shutup_warning-v1-1-997a692b31c6@oss.qualcomm.com
+> 
+> To: Vinod Koul <vkoul@kernel.org>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
