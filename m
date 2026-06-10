@@ -1,159 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE03039A7E1
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:19:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF8639479B
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:19:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079548; cv=none; b=aKDiouPRcAuXzU2get5az+gnZpxbec+87+nLblE6174cLu9Wz9mSNiOj+LTeGg+cDf4vxQYYqATj81IRKwJHpfn/4CBFGn+osaiFWAmGENRv37I+sflBzKmcRvKdGSkAyf9MIYrl46KxmkCYH02ZbO+ncz93jBqgvTklJfXBTqk=
+	t=1781079574; cv=none; b=T9Sgg/foxA7ENTM9L6O3skYV+MIbfFcfz+6LdUKT0dK+0bZbOrx+L7PfozHi4cWJ5IXWMssOio+SVLh13oVs5uc/ii5MZqJpkDqZfHWAP9tX1tkYsp6btD51eBsS9f9pMyezFk60kVhwFJIOdVXTOY314ViZvh7AgppixYowoCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781079548; c=relaxed/simple;
-	bh=gJZWhgZjxBzbsRZwXx2iWIN0oKASoml3ECd+SWPyPGk=;
+	s=arc-20240116; t=1781079574; c=relaxed/simple;
+	bh=jNTLVZsbaFsBNBc6fYAd7hhD8ZINHtjiBXebhem34r8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g719hdYABeRaAUiHeoqZq4pk2gsgwhoDMp5vcxK/5oD+DR9JPy4gPbi9AIONnHgnmNlaRCK4ocHC1Bko6x9WblUhFNuy3X86sDPHL32h8URiddGB4MvSYnXWx0sASa24m9R38ZopRZDV2O8K2tK/jjcxLCFXM5VLtzNl/2/h6ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIo+HP6j; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LGlH/dFI1kH7pNoXE/jYLqy0ahpuxAiPkOLUNgOItJXqZIuMMGx2MjgWkTIazGjYm4CXgmyNXD3kbV2M8oMvm5mgXRoWZDybjBt6AP9q2MUv/PLlXCEn8JTwQmNs61JZpIDNHVrRwShOIK1wMSXBHHU4ssV4JAvFXxcxEOEaHa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGrfP24r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIo+HP6j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC081F00893;
-	Wed, 10 Jun 2026 08:19:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGrfP24r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E271F00893;
+	Wed, 10 Jun 2026 08:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781079546;
-	bh=pkXpRIgRgBmnciFEpa3cgwlc4pEEyCuvae9F5zPOFfM=;
+	s=k20260515; t=1781079573;
+	bh=Xi8bKyzPttAls5DgcUuTBjHpexQ2xEA5Y+i0v2oq+44=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oIo+HP6jVm4N57MVlmljZJSnZmQrIaGoiafi1S5+YNJhg/0fYv2Ls7XAaCiGGqbIj
-	 kOMSo9LZAiKC35dqka/7/vq0MUWYZVVly8Z+IvUhilGIxxtIR79H8xpkBChv4NioZy
-	 eCFRe4npBrTDH5WN6WkqCtEg6L1ciwWXjEeKv6Zx7qD6giZTv7XHSVISOxrzT4Z3ou
-	 n8MFgJpPNM3qXnfNWL+r1/FyLhOBkp789T/GI+AHEr8AbwUg2Hd7EqMU+8EOjfut9Z
-	 vm8QXK7QR0FKDE39sFTh1oe3/C2MzqHHLw3UAFxpa+Vn/rF22ZGeSyWawB6nCyib1Z
-	 ZXlSqueJ8PxRQ==
+	b=hGrfP24rLaLTNbaDzOBDyhi8dJG/z82+PqFXmfHUKkA7exqUPXvEwnbzbXK3atBjd
+	 tHraTp/8Do5xQxvIPlNU5fkL+Y6/C5oOE1C7D34PLLmSzIxpbhQ04Znt6qP0sUk7Mh
+	 P9ywUq3PuHHQbdkblDvs/jXDg42G0/g2z8AVUSOpXdJkl8EyiGW4b+NYMj+IXWqHwH
+	 Xh5m+4nV2NOi2r0P2AGT1r27VgsVY5Z3WgNgEixqdjdgOBjM2zO8OaJ6Isgs9yEZoI
+	 OyCc1u1vOMSSEfdCQhLnKamFEzheHylDq+FwCO2AZvQshk1DBh1JjY3gQIPt+86G96
+	 jdzOELR0xMNkw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 07/10] clk: realtek: Add support for MMC-tuned PLL
- clocks
+Subject: Re: [PATCH v8 06/10] clk: realtek: Add support for mux clock
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260610080824.255063-8-eleanor.lin@realtek.com>
-References: <20260610080824.255063-8-eleanor.lin@realtek.com>
+In-Reply-To: <20260610080824.255063-7-eleanor.lin@realtek.com>
+References: <20260610080824.255063-7-eleanor.lin@realtek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 08:19:06 +0000
-Message-Id: <20260610081906.9FC081F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 08:19:32 +0000
+Message-Id: <20260610081933.22E271F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] `clk_pll_mmc_set_rate` entirely ignores dynamic rate parameters an=
-d hardcodes the PLL frequency.
-- [Medium] `clk_pll_mmc_determine_rate` lacks bounds clamping and allows ou=
-t-of-bounds rates that map to unsupported hardware configurations.
-- [Low] The tristate `RTK_CLK_PLL_MMC` config causes `clk-pll-mmc.o` to be =
-silently dropped from the build when `CONFIG_RTK_CLK_COMMON=3Dy` and `CONFI=
-G_RTK_CLK_PLL_MMC=3Dm`.
+- [High] clk_regmap_mux_get_parent() returns 0 instead of an error indicato=
+r when regmap_read() fails, silently masking the I/O error and confusing th=
+e Common Clock Framework.
 --
 
-commit 021382a87679f7b201df250be3c9547b24d2131a
+commit 6f252a1d2352da3ab0338149dff431cfd1082f04
 Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-clk: realtek: Add support for MMC-tuned PLL clocks
+clk: realtek: Add support for mux clock
 
-This commit adds clk_pll_mmc_ops for enable/disable, prepare, rate control,
-and status operations on MMC PLL clocks. It also adds clk_pll_mmc_phase_ops
-to support phase get/set operations.
+Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
+The implementation supports parent selection and rate determination through
+regmap-backed register access.
 
-> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
-> --- a/drivers/clk/realtek/Kconfig
-> +++ b/drivers/clk/realtek/Kconfig
-[ ... ]
-> @@ -27,4 +27,7 @@ config RTK_CLK_COMMON
->  	  multiple Realtek clock implementations, and include integration
->  	  with reset controllers where required.
-> =20
-> +config RTK_CLK_PLL_MMC
-> +	tristate
-> +
->  endif
-
-[ ... ]
-
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-[ ... ]
-> @@ -7,3 +7,5 @@ clk-rtk-y +=3D clk-pll.o
->  clk-rtk-y +=3D clk-regmap-gate.o
->  clk-rtk-y +=3D clk-regmap-mux.o
->  clk-rtk-y +=3D freq_table.o
-> +
-> +clk-rtk-$(CONFIG_RTK_CLK_PLL_MMC) +=3D clk-pll-mmc.o
-
-[Severity: Low]
-When CONFIG_RTK_CLK_COMMON is set to 'y' and CONFIG_RTK_CLK_PLL_MMC is set =
-to
-'m', does Kbuild drop clk-pll-mmc.o from the build entirely?
-
-Since clk-rtk is a built-in object (obj-y) when CONFIG_RTK_CLK_COMMON=3Dy,
-conditionally appending to it via clk-rtk-m +=3D clk-pll-mmc.o will cause
-Kbuild to ignore the module object. This can lead to undefined reference
-build errors when attempting to link against rtk_clk_pll_mmc_ops.
-
-[ ... ]
-
-> diff --git a/drivers/clk/realtek/clk-pll-mmc.c b/drivers/clk/realtek/clk-=
-pll-mmc.c
+> diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/c=
+lk-regmap-mux.c
 > new file mode 100644
+> index 0000000000000..8bb66a9e244a1
 > --- /dev/null
-> +++ b/drivers/clk/realtek/clk-pll-mmc.c
+> +++ b/drivers/clk/realtek/clk-regmap-mux.c
+
 [ ... ]
-> +static int clk_pll_mmc_determine_rate(struct clk_hw *hw, struct clk_rate=
-_request *req)
+
+> +static u8 clk_regmap_mux_get_parent(struct clk_hw *hw)
 > +{
+> +	struct clk_regmap_mux *clkm =3D to_clk_regmap_mux(hw);
+> +	int num_parents =3D clk_hw_get_num_parents(hw);
 > +	u32 val;
-> +
-> +	if (!req->best_parent_rate)
-> +		return -EINVAL;
-> +
-> +	val =3D DIV_ROUND_CLOSEST(req->rate * 4, req->best_parent_rate);
-> +	req->rate =3D req->best_parent_rate * val / 4;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Is there a risk of integer overflow here on 32-bit platforms if req->rate
-exceeds ~1.07 GHz? The calculation req->rate * 4 operates on an unsigned lo=
-ng.
-
-Also, does val need to be bounds-checked against the hardware's supported
-tuning limits? If an extreme rate is requested, the framework might approve=
- it
-but it could map to unsupported hardware configurations later on, since val
-is never clamped here.
-
-[ ... ]
-
-> +static int clk_pll_mmc_set_rate(struct clk_hw *hw, unsigned long rate, u=
-nsigned long parent_rate)
-> +{
-> +	struct clk_pll_mmc *clkm =3D to_clk_pll_mmc(hw);
-> +	u32 val =3D PLL_MMC_SSC_DIV_N_VAL;
 > +	int ret;
+> +
+> +	ret =3D regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
+> +	if (ret)
+> +		return 0;
 
 [Severity: High]
-Does this function intentionally ignore the rate and parent_rate parameters?
+When regmap_read() fails here, it returns 0. Since 0 is a valid parent
+index in the Common Clock Framework, will this mask the I/O error and false=
+ly
+report that parent 0 is active?
 
-Because val is initialized to a hardcoded constant (PLL_MMC_SSC_DIV_N_VAL,
-which is 27), the hardware is strictly locked to a single static configurat=
-ion
-and the dynamic rate arguments are bypassed.
+If the hardware was actually using a different parent, this could lead the
+CCF to incorrectly assume the actual parent has no active children and
+potentially gate it during clk_disable_unused(). Would it be safer to
+return an out-of-bounds value like 0xff (which is used later in this
+function) or an error code when the read fails, to prevent the CCF from
+making incorrect assumptions about the hardware state?
 
-Additionally, this hardcoded value causes the subsequent switch statement
-to unconditionally take the `case 20 ... 30:` branch, making the rest of
-the frequency ranges dead code.
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610080824.2550=
-63-1-eleanor.lin@realtek.com?part=3D7
+63-1-eleanor.lin@realtek.com?part=3D6
