@@ -1,275 +1,146 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546E63DB327
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86FB3B14D2;
+	Wed, 10 Jun 2026 08:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781080951; cv=none; b=SfKUOsl1RwzfXAo/6aTSFonebrYYAcOhiavvIQWax0JO4wNVDuszqpLLnu668De9QBasvei+PthPCQgwnjMXK/R6HzFZdBgigTnX3yi8WCek9BpI4PUvmiwkNY8KjJaY18AXe3jjx/V2KjJdnUy+q6XFKR9VnTeA1GQ/U24NBqE=
+	t=1781081040; cv=none; b=K55lymTTJ8riSDodX31dHkbVXPgH+DoE2A4znUdRVcNkOO1NotZiEN6ACkd7Y13XOlG5YqgkANusKAJaflNFeQt3A6RVReC0+PhEKUUxQX8e2DjC3N3GW2KYDdXcCPoZ2CY3r/wVgxL4QzhrhbrdEjpORoRwefjTJZj81/QldCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781080951; c=relaxed/simple;
-	bh=L0k6uos52VV4wg4MHzXBUup1YCt3bqCKawBNWUGaaBg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hSn0BLi73+2h0d8m4Q12zaVtmVgM+VCUg35e2OwKY+cr3W65BaXmRCoFJkUFaotzCzbUElrmJBl8WEp85RvYsrEZnrwH4B3KtUDnu5MWR5X5OHVCsovP9rn9A+G/ALHwRXBTQQraOdLEoeRNtYKqWemzT6HHPnctE1fbo2q4EME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Qlzr6dIX; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1781081040; c=relaxed/simple;
+	bh=ndGGQizaN8LwgxWI7bf1q8+LUqXP7xA/MgizEu2gOwY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dfVwHeh9Zu9DkuMeSrervvEuxaJKFGz57Z2Y/04isFUVzQlTJvR6Nm6Mcbgu9MOj7iLh9WSjNdckkOBuBYhX49QMv5wxZY5IUse/igxTP2pqz6s0XqFwI4U4gYZW1i7txagEQt9HViNs8ct0vKU6HSqnhv0yZv0591hA8Bb2dPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2XoSJVf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Qlzr6dIX"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c0c32f6ce1so45054225ad.2
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 01:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1781080950; x=1781685750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wIcmQ/+wBM4HApLQCMfHTTwDc3UumPbYrqxn3prOxAY=;
-        b=Qlzr6dIXYLWe+J1AwJtZuVEydjBe/30Rx/JLGcFfo20Wo1t0CTykbRC69z3tMJ91V5
-         4UYX5bZfWp8s1ISrLW/TXHw3uqS1oZwf64wv5UztWEGoGUaZLdTeFVRjb1aVjqXHvZsu
-         llT4AsUREnI9FbCkKNcT73SRhua2vtuyrm2iI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781080950; x=1781685750;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wIcmQ/+wBM4HApLQCMfHTTwDc3UumPbYrqxn3prOxAY=;
-        b=HqsztgpTAlGUgbD9oPlQXofwMk19q51aHj+VYSGQnWM24QO00cUVbZ97jgzEHzhqpv
-         qyPCrmOJwdbNMNOBg/Deozr+VgLMuYxy/ykRo64Pp1pe3cL4fG55RDvbwJsTCF5ioTsv
-         Zm8l6hQG7R9pZN+GAvI+FjTuDuHsoubzVcwv673gCESRRO6gMqIq5xu7tcnEnO9KPWx6
-         199emK/t6fQm0iCGTqjZ34Pt347ZJRijVjEeXqDoJXZYi5/R1Oqj24X/+QPtjw3+fTSD
-         D2wpIvEPjbvTHGGXmJogB5z6jfv1X4RcBzC1M3tgLyvFDwNcfD8ILGuKJSJkg48dU0rN
-         LHEg==
-X-Forwarded-Encrypted: i=1; AFNElJ9jphcxff4IrARspx6RDUd2wW8hVTRNFyqD4svnDbELqBNF2Hg53s+CrhZRrw4P1OkbjHSuHEIrz3Q+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9tmX6epoU+LQgwwoBXQwVZyW+Y11CvS7d/kSLcvOE/l893Nu+
-	ao0KRYw4UPm9XDjZzwkLeyHkqXIcZD6P8cdodlFvAR+x+uKiCe3XgsAq5gkYDt34aA==
-X-Gm-Gg: Acq92OETwQWHDJN6Y5jqkiLRiJkwc1cBGt4QvLXZPQsSACuTOds/l452K3eBFRXchVz
-	hRPfcFVU2IIbZxTFHGNVq2EhYpeQS11GqTczioaNfJxmhHLJzuNHEBNhKViYpo683xmA+wIftob
-	DRFOgEuoqOB9DugyhCeyPYyCLMEVOeUFAYO94fFPST68qx60df2D3DqaFrSLGQ4gT5DCqXsIqhK
-	EJVKiYYaXD0tUDLLnbTSPXUTRc/qg78tBs10/gGsEfkoapWBacr0gaKjKflzikhfIaX8zHHSOwL
-	geLilq62nAqYt25aWCLH1JcG67xLRXfxCcvCNvZwdpzIzATnryjglnePNDnk0wDGp6mKgHtyuE8
-	Zc+F36Gw7npr+UeHCQgAQyMzlV/ADZ0Qo8qZ4E+U+rdiVuwXdlkNE2E5abwVkX+rqNf4ZxWCK8a
-	yxterHzTERJvgLb2ZmU1ujSHVsVYaY6sR9EPBzzhnzPqNRABpawfN9TWtXL8kAngirMYTLw0iDK
-	DjjsWiHBEhEP1668g==
-X-Received: by 2002:a17:902:fc48:b0:2bf:23ad:8595 with SMTP id d9443c01a7336-2c1e78e4f0emr297124555ad.4.1781080949649;
-        Wed, 10 Jun 2026 01:42:29 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3870:6325:16c:d35c])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f890b2sm239223725ad.26.2026.06.10.01.42.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 01:42:29 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: [PATCH v2 16/16] arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
-Date: Wed, 10 Jun 2026 16:40:50 +0800
-Message-ID: <20260610084053.2059858-17-wenst@chromium.org>
-X-Mailer: git-send-email 2.54.0.1099.g489fc7bff1-goog
-In-Reply-To: <20260610084053.2059858-1-wenst@chromium.org>
-References: <20260610084053.2059858-1-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2XoSJVf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62271F00893;
+	Wed, 10 Jun 2026 08:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781081038;
+	bh=R/vd/mzszqC9YRY/ygZRWCmnsryp/1Z1JI1tOwENpy4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M2XoSJVfSpOLnOEyNRcUAnUzDvrGTbH6eMfNRd59+R8UIfZ6Bva/Ux3B2Q6iOhnCa
+	 xzZb1N7z57R20MkfU8Fn1JeQzafK3eOMtcQggXb4LwYSw2jTgqw25pAg3iPCn3OCq7
+	 U2a3a+A1DZanFpfTQ/1dAJIQArIcwgM/ji91dP3jnlB1phnfurjpOx18X5PptxJr+S
+	 +SvkcjXLuBW8Bm3lDOOEeBDXolNa/0mZULYJu1mClhUKw5b6UpeSFzGX054xTUdcHm
+	 r0SloC+PRW3yE4G1BvPo7fEzyB/NYSewYuAO6e5WAxwTaWuoQNl6C1ZTbvjAWd/R4C
+	 6mY0IZyyPXngg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] hwmon: ina2xx: support ina232
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260610-monza-ina232-v1-2-925b0d12771b@oss.qualcomm.com>
+References: <20260610-monza-ina232-v1-2-925b0d12771b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 08:43:57 +0000
+Message-Id: <20260610084357.C62271F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The MT8188 Geralt design features a chip-on-board WiFi/BT solution. This
-is a M.2 E-key WiFi/BT board layout directly inserted into the mainboard
-design. The connections to the rest of the board are almost the same as
-if it were a separate M.2 card. The only addition is the PMU_EN pin on
-the chip; on M.2 cards this would be tied to the primary power source.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Model the chip-on-board WiFi/BT solution as a M.2 E-key slot with PCIe,
-USB and auxiliary signals. The PMU_EN pin, which enables the internal
-power controls and regulators, is modeled as a regulator fed by the
-pp3300_wlan regulator. Since power sequencing is now correctly modeled
-using the M.2 E-key slot, drop the "regulator-always-on" property one
-pp3300_wlan regulator. Also drop the comment in xhci2 saying "MT7921's
-power is controlled by PCIe".
+New issues:
+- [Medium] The INA232 configuration implicitly omits `.has_update_interval =
+=3D true`, silently disabling sysfs update interval configuration.
 
-Also drop the voltage range on the pp3300_wlan regulator. This
-"regulator" is just a load switch and does not provide any regulation.
+Pre-existing issues:
+- [High] Multiple alert limit calculations in `ina226_alert_to_reg` suffer =
+from integer overflows and signedness mismatches on 32-bit systems, causing=
+ hardware limits to be incorrectly programmed.
+- [High] Integer overflow in power calculations inside `ina2xx_get_value()`=
+ incorrectly returns negative power measurements at higher loads.
+--
 
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 93 ++++++++++++++++++-
- 1 file changed, 89 insertions(+), 4 deletions(-)
+commit 553d30269962c93d687fffb0c6e1dcc15cbdf020
+Author: Martino Facchin <m.facchin@arduino.cc>
+Subject: hwmon: ina2xx: support ina232
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index f382f90c48f5..c4cc2cff1b5b 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -86,13 +86,11 @@ pp3300_z1: regulator-pp3300-z1 {
- 	pp3300_wlan: regulator-pp3300-wlan {
- 		compatible = "regulator-fixed";
- 		regulator-name = "pp3300_wlan";
--		regulator-always-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
- 		enable-active-high;
- 		gpio = <&pio 12 GPIO_ACTIVE_HIGH>;
- 		pinctrl-0 = <&wlan_en>;
- 		pinctrl-names = "default";
-+		/* load switch */
- 		vin-supply = <&pp3300_z1>;
- 	};
- 
-@@ -159,6 +157,17 @@ ppvar_mipi_disp_avee: regulator-ppvar-mipi-disp-avee {
- 		vin-supply = <&pp5000_z1>;
- 	};
- 
-+	/* PMU_EN pin controls internal regulators and power sequence */
-+	wlan_pmu: regulator-wlan-pmu {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wlan-pmu";
-+		enable-active-high;
-+		gpio = <&pio 145 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&wlan_pmu_en>;
-+		pinctrl-names = "default";
-+		vin-supply = <&pp3300_wlan>;
-+	};
-+
- 	reserved_memory: reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -193,6 +202,39 @@ adsp_dma_mem: memory@61000000 {
- 			no-map;
- 		};
- 	};
-+
-+	wifi-bt-connector {
-+		compatible = "pcie-m2-e-connector";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&m2_e_key_kill_pins>;
-+		vpcie1v8-supply = <&mt6359_vcn18_ldo_reg>;
-+		vpcie3v3-supply = <&wlan_pmu>;
-+		w-disable1-gpios = <&pio 13 GPIO_ACTIVE_LOW>;
-+		w-disable2-gpios = <&pio 14 GPIO_ACTIVE_LOW>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/* PCIe for WiFi */
-+			port@0 {
-+				reg = <0>;
-+
-+				wifi_ep: endpoint {
-+					remote-endpoint = <&pcie_ep>;
-+				};
-+			};
-+
-+			/* USB for Bluetooth */
-+			port@2 {
-+				reg = <2>;
-+
-+				bt_ep: endpoint {
-+					remote-endpoint = <&usb2_ep>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &adsp {
-@@ -657,6 +699,22 @@ &pcie {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie_pins>;
- 	status = "okay";
-+
-+	pcie@0 {
-+		compatible = "pciclass,0604";
-+		reg = <0 0 0 0 0>;
-+		device_type = "pci";
-+		num-lanes = <1>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		port {
-+			pcie_ep: endpoint {
-+				remote-endpoint = <&wifi_ep>;
-+			};
-+		};
-+	};
- };
- 
- &pciephy {
-@@ -1000,6 +1058,14 @@ pins-bus {
- 		};
- 	};
- 
-+	m2_e_key_kill_pins: m2-e-key-kill-pins {
-+		pins-kill {
-+			pinmux = <PINMUX_GPIO13__FUNC_B_GPIO13>,
-+				 <PINMUX_GPIO14__FUNC_B_GPIO14>;
-+			output-high;
-+		};
-+	};
-+
- 	mipi_disp_avdd_en: mipi-disp-avdd-en-pins {
- 		pins-en-ppvar-mipi-disp {
- 			pinmux = <PINMUX_GPIO3__FUNC_B_GPIO3>;
-@@ -1164,6 +1230,13 @@ pins-bus {
- 		};
- 	};
- 
-+	wlan_pmu_en: wlan-pmu-en-pins {
-+		pins-wlan-pmu-en {
-+			pinmux = <PINMUX_GPIO145__FUNC_B_GPIO145>;
-+			output-low;
-+		};
-+	};
-+
- 	wlan_en: wlan-en-pins {
- 		pins-en-pp3300-wlan {
- 			pinmux = <PINMUX_GPIO12__FUNC_B_GPIO12>;
-@@ -1343,10 +1416,22 @@ vdosys1_ep_ext: endpoint@1 {
- };
- 
- &xhci2 {
--	/* no power supply since MT7921's power is controlled by PCIe */
- 	/* MT7921's USB BT has issues with USB2 LPM */
- 	usb2-lpm-disable;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usb2_ep: endpoint {
-+				remote-endpoint = <&bt_ep>;
-+			};
-+		};
-+	};
- };
- 
- #include <arm/cros-ec-keyboard.dtsi>
--- 
-2.54.0.1099.g489fc7bff1-goog
+This commit adds support for the INA232 current and power monitor. It defin=
+es
+the INA232 configuration values and adds the device to the corresponding i2c
+and device tree identification tables.
 
+> diff --git a/drivers/hwmon/ina2xx.c b/drivers/hwmon/ina2xx.c
+> index 613ffb622b7c4..122e7aa4fdfff 100644
+> --- a/drivers/hwmon/ina2xx.c
+> +++ b/drivers/hwmon/ina2xx.c
+
+[ ... ]
+
+> @@ -196,6 +197,17 @@ static const struct ina2xx_config ina2xx_config[] =
+=3D {
+>  		.current_shift =3D 4,
+>  		.has_update_interval =3D true,
+>  	},
+> +	[ina232] =3D {
+> +		.config_default =3D INA226_CONFIG_DEFAULT,
+> +		.calibration_value =3D 2048,
+> +		.shunt_div =3D 400,
+> +		.bus_voltage_shift =3D 0,
+> +		.bus_voltage_lsb =3D 1600,
+> +		.power_lsb_factor =3D 32,
+
+[Severity: High]
+This is a pre-existing issue, but can the power calculation overflow when
+using larger power_lsb_factor values like the one added here for INA232?
+
+In ina2xx_get_value(), the INA2XX_POWER calculation is:
+
+    val =3D regval * data->power_lsb_uW;
+
+The result is returned as a signed 32-bit int. For the INA232 with a common
+2mOhm shunt, power_lsb_uW becomes 40,000. When the 16-bit regval exceeds
+53,687, the product exceeds INT_MAX. This overflows the 32-bit signed math,
+wrapping to a negative integer and reporting erroneous negative power
+readings to userspace.
+
+[Severity: High]
+This is also a pre-existing issue, but do the alert limit calculations in
+ina226_alert_to_reg() cause hardware limits to be incorrectly programmed on
+32-bit systems?
+
+For INA2XX_POWER, the upper bound is clamped:
+
+    val =3D clamp_val(val, 0, UINT_MAX - data->power_lsb_uW);
+
+clamp_val() implicitly casts the upper bound to a 32-bit signed long on
+32-bit platforms. This results in a negative number, meaning any valid
+power limit is clamped to a negative value and ultimately programmed as 0.
+
+Similarly, for INA2XX_SHUNT_VOLTAGE, the initial clamp uses SHRT_MAX *
+shunt_div instead of division. The subsequent multiplication:
+
+    val *=3D data->config->shunt_div;
+
+overflows LONG_MAX on 32-bit platforms for high inputs, wrapping to a
+negative value and also programming the hardware limit to 0.
+
+Additionally, for INA2XX_BUS_VOLTAGE on parts with bus_voltage_shift > 0,
+the calculation (val * 1000) << shift can exceed LONG_MAX for limits over
+~134V, wrapping to negative and setting the limit to 0.
+
+> +		.has_alerts =3D true,
+> +		.has_ishunt =3D false,
+> +		.has_power_average =3D false,
+> +	},
+
+[Severity: Medium]
+Does this configuration intentionally omit the update interval?
+
+Because has_update_interval is not explicitly set, it defaults to false.
+This hides the hwmon_chip_update_interval sysfs attribute, preventing
+adjustments to the averaging time despite the INA232 sharing the INA226
+register layout.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-monza-ina2=
+32-v1-0-925b0d12771b@oss.qualcomm.com?part=3D2
