@@ -1,96 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7083A5989;
-	Wed, 10 Jun 2026 09:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660CB3B42ED
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:05:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781082282; cv=none; b=D5PDZg7OYnShU6ppsGNGcbUf+kGESupl9JSUytNIXU+3dF4P7QWdUXS9ixtp8RaUh6eEZpfAwHBaSMhb5x+RpFYBchkd5itT960MPhAz5ggxNQ9kBDMhmU3CvmlkHWspgn9ZQJ3sCn5WvQWyo+vWe8fUzbwW20AW4lxJ5bTstGY=
+	t=1781082327; cv=none; b=c+PLOxQcnOpw+n/RLe/RvFSB5Sn1UgUJOr2boK/ByWbkGKbVLrGOsvWA7I57aJmNG7ZWi+umOz0H9X3Yz5tUQDLKoE/E5f6fnn7U4kzxXlznXcFvwmUitaI9GhfPV46Ces16XTkJ7kC9HtiLodaFcP1hEz7neTaviQOgHhNqx5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781082282; c=relaxed/simple;
-	bh=cZpLybn4x4f1p8M7Je1eNrs+9z6NVu2xigKvChxzG3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=thzX9N6AHSZSbBoTIfz5mv19hb0zTwX8/CI1mrAIsVoOeOA0/ZzHk/KvKfnxYeK0k5q8BuUXvltib9BPUtlX+hcNk07+GakQCIwdwI9D9q81go2/vtlEb9huTgfN/lpj2IqZCFdrIy/ks8XrH9MiPd1+KkpvDSrDW5Ww7dfFuio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqhxLFDj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781082327; c=relaxed/simple;
+	bh=yAsgKtf3AQPdZJ4vCLm5aMr7ZMI+/zFq2sCZXUMWvqc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DSIPiXWFMCWCZqnWq9GMLazudXQH+OwVCojkZSN0M1SSbrPuBilv925wfrU6gt4pjWkbxCNu0Wd7AGMZRPt4cTXv3KeJhfyAqK19QAepikegti8aGaNbbW0oCDnTBMdIriScF3OSIFBirY696yLjzpblSNCyk5nMRq17j7U1Dp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQM9NoJb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqhxLFDj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38ADB1F00898;
-	Wed, 10 Jun 2026 09:04:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQM9NoJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1007E1F00898;
+	Wed, 10 Jun 2026 09:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781082281;
-	bh=rX6O3bKY03wuV/N+jcdbUzTrtTw5gMO+dKrOQtLnSfc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AqhxLFDjqlJ5DjcMHkebMyL5qBFeuhZMmitIDJwJ49uFS13iWvQeC/7TCt/D+QcIP
-	 Fr9uIXXN5V/t71/siF7hwDAKxP0FRtKoDzNmr5GEZU4jZtxieIiUvxSrYvYF1zF3xI
-	 fcN3skscwg+N3V6Fs1zp+Ylkcx9iaWehgzeAlnFX1uPMNJIqP9ilR2sbMRHLPYkC4b
-	 lPcfv6G6mbiLbe8uH/OYZUpjV0aHgau55WyRi5FydGKpeKkvG/CNZY58Jk12OM+deX
-	 8rCdFe6gPfQKXfkBj1vJ290SqN5OZQHml6uG/7TQUNscGJH5AmMLnGKsP7xsFOXfr+
-	 d763QXfIygTlA==
-Date: Wed, 10 Jun 2026 11:04:37 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: DhruvinRajpura <dhruvin.rajpura@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, kamal.wadhwa@oss.qualcomm.com, 
-	jishnu.prakash@oss.qualcomm.com, Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Subject: Re: [PATCH 1/2] bindings: power: supply: qcom,pmic-glink: Document
- thermal-mitigation
-Message-ID: <20260610-gracious-badger-of-debate-6ad0ec@quoll>
-References: <20260609-cooling_device_reg-v1-0-e15bddcb0086@qti.qualcomm.com>
- <20260609-cooling_device_reg-v1-1-e15bddcb0086@qti.qualcomm.com>
+	s=k20260515; t=1781082326;
+	bh=FrovIqUaFeZNKASHFeDdUhB77vDAAioxaNiO0Dl1DWI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KQM9NoJbNg1liSpT3xSNkUcmDKYcfCsq0dIAIpC4yOLX8zvpEo5G4+K5cnK6VrITG
+	 sclD8IlELhrY/jfVWeZRKok3VQ2t+/uTro+6ybodCe2t87DHsp5igOCXBL7uhK/pvX
+	 RFYuEdGRgnbXpwsnSfGPs7C2ruxSypgG46prr9qOQurNrxmOHWpukO7C4gxOM4XSm8
+	 AjZUiBVtwHm17pvOkI7xRE9jYw3tpXo1f6Toeie/K4NbuiYs4INe3K8eUPF4UWE6ED
+	 QFMA3Wn+vAa4dJpb8svyw1Cms6xVu9krpquJUlXJxqpKMkZZnbhAa+dNyiSgRjCx7j
+	 BQICVXdYHZZQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v7 5/9] PM / devfreq: Add new track_remote flag for
+ governors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pragnesh Papaniya" <pragnesh.papaniya@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260610-rfc_v7_scmi_memlat-v7-5-f3f68c608f25@oss.qualcomm.com>
+References: <20260610-rfc_v7_scmi_memlat-v7-5-f3f68c608f25@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 09:05:25 +0000
+Message-Id: <20260610090526.1007E1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260609-cooling_device_reg-v1-1-e15bddcb0086@qti.qualcomm.com>
 
-On Tue, Jun 09, 2026 at 02:46:42PM +0530, DhruvinRajpura wrote:
-> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> 
-> The qcom,thermal-mitigation property allows platforms to define
-> discrete fast charge current limits used by the thermal framework
-> to throttle battery charging in response to thermal events.
-> 
-> Document the qcom,thermal-mitigation property to describe the array
-> of fast charge current limits in microamps that map to thermal
-> cooling states.
-> 
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> ---
->  .../devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml          | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> index ff01d2f3ee5b..fcb69ebaa7cb 100644
-> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> @@ -58,6 +58,16 @@ properties:
->        The array should contain a gpio entry for each PMIC Glink connector, in reg order.
->        It is defined that GPIO active level means "CC2" or Reversed/Flipped orientation.
->  
-> +  qcom,thermal-mitigation:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Use proper suffixes, see writing bindings.
+New issues:
+- [High] Bypassing `profile->target()` for `TRACK_REMOTE` governors leaves =
+`new_freq` unaligned to exact OPP frequencies, permanently breaking transit=
+ion statistics and causing a warning flood.
 
-Also, name looks too much as policy. Describe the hardware.
+Pre-existing issues:
+- [High] Unprotected read of `devfreq->governor` can lead to a NULL pointer=
+ dereference or use-after-free due to concurrent modification.
+- [High] The resume_freq state variable is incorrectly overwritten with sus=
+pend_freq during suspend transitions, preventing the device from properly r=
+estoring its pre-suspend frequency on resume.
+--
 
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description:
-> +      Array of fast charge current limit values for different system thermal
-> +      mitigation levels. This should be a flat array that denotes the maximum
-> +      charging current (in uA) for each thermal level. Elements should be listed
-> +      in monotonically decreasing (non-increasing) order.
+commit fa5d93fe675fe1183dc1fbfcc716761f517b7cf0
+Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 
-What is a thermal level? How do you define it? How does it map to
-thermal bindings?
+PM / devfreq: Add new track_remote flag for governors
 
+Some devfreq governors need to track frequency changes performed on remote
+devices rather than driving the frequency updates themselves. In such cases,
+the device's frequency is already updated by an external entity and devfreq
+only needs to keep its transition statistics and notifier subscribers in sy=
+nc.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+> index 2f27a239e34a6..71c6ced9e4e1d 100644
+> --- a/drivers/devfreq/devfreq.c
+> +++ b/drivers/devfreq/devfreq.c
+> @@ -348,6 +348,26 @@ static int devfreq_set_target(struct devfreq *devfre=
+q, unsigned long new_freq,
+>  	unsigned long cur_freq;
+>  	int err =3D 0;
+> =20
+> +	/*
+> +	 * When a remote agent (e.g. firmware) owns the frequency, skip the
+> +	 * local profile->target() call. Still emit the PRECHANGE/POSTCHANGE
+> +	 * pair and the trace event so that transition-notifier subscribers
+> +	 * (passive governor, devfreq cooling, etc.) and tracing observe the
+> +	 * frequency change exactly as they would on the normal path.
+> +	 */
+> +	if (devfreq->governor &&
+> +	    IS_SUPPORTED_FLAG(devfreq->governor->flags, TRACK_REMOTE)) {
 
+[Severity: High]
+This is a pre-existing issue, but does this evaluation of devfreq->governor
+risk a NULL pointer dereference in drivers/devfreq/devfreq.c?
+
+If governor_store() concurrently sets devfreq->governor to NULL,
+devfreq->governor could be evaluated as true for the check, but then become
+NULL when dereferencing devfreq->governor->flags in devfreq_set_target().
+
+> +		freqs.old =3D devfreq->previous_freq;
+> +		freqs.new =3D new_freq;
+> +		devfreq_notify_transition(devfreq, &freqs, DEVFREQ_PRECHANGE);
+> +
+> +		if (trace_devfreq_frequency_enabled() && new_freq !=3D freqs.old)
+> +			trace_devfreq_frequency(devfreq, new_freq, freqs.old);
+> +
+> +		devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
+> +		goto update_status;
+
+[Severity: High]
+Will bypassing profile->target() cause transition statistics to permanently
+break due to unaligned frequencies?
+
+In drivers/devfreq/devfreq.c:devfreq_update_target(), the frequency is
+clamped against PM QoS bounds before calling devfreq_set_target():
+
+	if (freq < min_freq) {
+		freq =3D min_freq;
+		flags &=3D ~DEVFREQ_FLAG_LEAST_UPPER_BOUND; /* Use GLB */
+	}
+	if (freq > max_freq) {
+		freq =3D max_freq;
+		flags |=3D DEVFREQ_FLAG_LEAST_UPPER_BOUND; /* Use LUB */
+	}
+
+Since we skip profile->target() here, unaligned PM QoS values are passed
+directly to devfreq_update_status(). Inside devfreq_update_status(),
+devfreq_get_freq_level() attempts to find an exact match in the OPP table:
+
+	lev =3D devfreq_get_freq_level(devfreq, freq);
+	if (lev < 0) {
+		ret =3D lev;
+		goto out;
+	}
+
+This mismatch causes devfreq_update_status() to return an error, triggering=
+ a
+warning flood. Further, previous_freq will be updated to this invalid
+frequency, causing all future status updates to fail the prev_lev check.
+
+> +	}
+> +
+>  	if (devfreq->profile->get_cur_freq)
+
+[ ... ]
+
+> @@ -375,6 +395,7 @@ static int devfreq_set_target(struct devfreq *devfreq=
+, unsigned long new_freq,
+>  	freqs.new =3D new_freq;
+>  	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
+> =20
+> +update_status:
+>  	if (devfreq_update_status(devfreq, new_freq))
+>  		dev_warn(&devfreq->dev,
+>  			 "Couldn't update frequency transition information.\n");
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the following code at t=
+he
+end of devfreq_set_target() incorrectly overwrite the resume frequency duri=
+ng
+suspend?
+
+	if (devfreq->suspend_freq)
+		devfreq->resume_freq =3D new_freq;
+
+When devfreq_suspend_device() in drivers/devfreq/devfreq.c is called, it
+explicitly initiates a transition to suspend_freq:
+
+	if (devfreq->suspend_freq) {
+		mutex_lock(&devfreq->lock);
+		ret =3D devfreq_set_target(devfreq, devfreq->suspend_freq, 0);
+
+This overwrites devfreq->resume_freq with the suspend_freq, which prevents =
+the
+device from restoring its actual active pre-suspend frequency on resume.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-rfc_v7_scm=
+i_memlat-v7-0-f3f68c608f25@oss.qualcomm.com?part=3D5
