@@ -1,124 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DDE3624DE
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546993B9D98;
+	Wed, 10 Jun 2026 11:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781090368; cv=none; b=hxtb0BVe+rgJbTKCJRpTtkQChdtfC/lvwIBtl2cqpX7jXuiYB+uqvUnIVmlvtpcjJoSHhW8ekTLts7cZLVa6fCW17sQKdUy4ekLVMVDz/w/9nL+ul276fUTVwVDtS3FGk8b7MTOsiuxCzk3p1h0oINFUpWU9bd0S5B9X6xHoh8g=
+	t=1781090547; cv=none; b=EmcGIdnGXc5CKWXI5MBmBH/v+WgXTCyxnGKlFqMk7X/1gZ2xYp+hW5VUbzWjASUg9d+PkfkJqg7DKRQYbu7jqzlRDeY+5ibeELY209cIEOAbeGseWjPhmPNpRIZaZvjt7aKYN3oTlPyTbnIJVVRchZOw5Sr4pJahWoYlXrJbYf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781090368; c=relaxed/simple;
-	bh=D4pdTQ0M7OtzPCyF6Od/Q0aa3o2L1ktk1ypsgyrydRA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TpR9DmwIfDGihe1VHLUvfQhChl7TFhtJNy/n1nEuJ3jUtGB4rXVzlYTWxbIGEFfINGSwTbw4IzgUWgb3zW06g1q2XjbQWJJuR+kE4evp7Hdis1Hs0IxUcNjOxpgqEHdayQQm9HVmxxwpHpU+ilmFRzNvrVghboKbdjXZhyEaUqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfQa8djy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781090547; c=relaxed/simple;
+	bh=aBDEY71A7aCboQvqZmdLZCfK9+flfFgYZqgP3Td8iQw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CUXOfhQ7qqX1jwQG027SyU4QEvFv4NLZ2CVoJIBE4bBanTavvih/AKxJGVC93RCiBh8RH0orMu6UUvQfwfvuFnJ5PEQU6bSYl8p9WYihrFDfdyTD56w0kNTe61rfKDs2h8ryG55NCSMeizTxIZRlZ2h53soPz425v9Cs+uzPP2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=LVch8VCH; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfQa8djy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B596E1F00893;
-	Wed, 10 Jun 2026 11:19:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781090367;
-	bh=k8KbHJ8LO54nRskpwG0IjXtWB6ylJwaMU1w0EHunO2U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kfQa8djyC3glTg7ekzD/IUollSayklaF0rvK8BdB6OcJl2qHCb/szqDIf3umY28Aa
-	 IR1ANRYMmioz27sU7qMlAtVu4+GbRvRw4ev/xqe9yGMd9KIWmxS0z2fZQFTjvdEUDW
-	 /6Ax7oa2IVMee7KswOVQZdFFn3B3YsqrKINfFSKbInfneuKXWcIW5mqIV0gEg4fQLO
-	 wj5apnYrIBt4M2eI40fjGsQpv5KQPpDpcOffHNxpZArADUU+pP97C+yaGeODmaht2U
-	 GuPGjhFywkyTw9vSK1N+S2cxPktGSv56G1VHEThNUIe9pE2OIYHa0Qbl6CETuORWwv
-	 EDHOgk5wW+KtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] riscv: dts: sophgo: Add Milk-V Duo 256M board
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Yeh" <chenyou910331@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260610111136.1514155-2-chenyou910331@gmail.com>
-References: <20260610111136.1514155-2-chenyou910331@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="LVch8VCH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1781090544;
+	bh=aBDEY71A7aCboQvqZmdLZCfK9+flfFgYZqgP3Td8iQw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=LVch8VCH0zomK1nWEJ90cjd/By0E1ewlQ5r2fkj526WecOoevRMgO1i6dynMrgDSC
+	 CMKfHYRsoLGH5A6+q/WeH4LpdgVjogq8E6BWaft5NDo8vMO5YB6DxQO+BFizdyoToY
+	 +SnQjofpJeFRyril0GtxrqlER1F89XaqcmaC9W/+RyoGBFHJTtxx+SlGRCPRSHzBFE
+	 lZjas42RoA5evv+8gaWjzM0IN+KYkV3pni3kb+J09X1dg5bJ+pPZZhvIZL//ZHpRHW
+	 MxUFftFZQ3jez5zOGwZ3jnQ1sIoaP7BCTa8OzmYR/Ed6kNmaWIydKoW1s2SogFhFR4
+	 IkdElg6fpkrLg==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id EFA2C60A14;
+	Wed, 10 Jun 2026 19:22:23 +0800 (AWST)
+Message-ID: <a8cdc7c23166823a8e1969408c667e6a8d758fe7.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v6 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Date: Wed, 10 Jun 2026 20:52:23 +0930
+In-Reply-To: <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com>
+References: <20260610-ventura2_initial_dts-v6-0-375d8e9d7ebf@gmail.com>
+	 <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 11:19:26 +0000
-Message-Id: <20260610111926.B596E1F00893@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] The device tree references a non-existent `&porte` phandle, which w=
-ill cause a fatal `dtc` compilation error.
-- [Low] The device tree references a non-existent `&usb` phandle, which wil=
-l cause a fatal `dtc` compilation error.
-- [Low] An unnecessary trailing blank line is added to the Makefile.
---
+Hi Kyle,
 
-commit 789d472cb56d573e2ba1106b883551407093dd43
-Author: Chen-Yu Yeh <chenyou910331@gmail.com>
+On Wed, 2026-06-10 at 09:22 +0800, Kyle Hsieh wrote:
+> Add linux device tree entry related to the Meta(Facebook) rmc-node.
+> The system uses an AT2600 BMC.
+> This node is named "ventura2".
+>=20
+> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
 
-riscv: dts: sophgo: Add Milk-V Duo 256M board support
+I have some comments on v5 that are applicable here too.
 
-This commit adds basic device tree support for the Milk-V Duo 256M board,=20
-based on the Sophgo SG2002 SoC. It configures the UART console, SD/MMC=20
-controller, USB host, and a status LED.
+https://lore.kernel.org/all/3d56889c004fc2d11b76ace6033c7ccfb8a37d03.camel@=
+codeconstruct.com.au/
 
-> diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/so=
-phgo/Makefile
-> index 6f65526d4193b..e49c8233ae1ff 100644
-> --- a/arch/riscv/boot/dts/sophgo/Makefile
-> +++ b/arch/riscv/boot/dts/sophgo/Makefile
-[ ... ]
-> @@ -2,7 +2,9 @@
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D cv1800b-milkv-duo.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D cv1812h-huashan-pi.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2002-licheerv-nano-b.dtb
-> +dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2002-milkv-duo256m.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-milkv-pioneer.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-evb-v1.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-evb-v2.dtb
->  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2044-sophgo-srd3-10.dtb
-> +
-
-[Severity: Low]
-This isn't a bug, but is this trailing blank line intended? It adds
-unnecessary whitespace at the end of the Makefile.
-
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/r=
-iscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-> new file mode 100644
-> index 0000000000000..882fba441396b
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-[ ... ]
-> +	leds {
-> +		compatible =3D "gpio-leds";
-> +
-> +		led-blue {
-> +			label =3D "milkv:blue:status";
-> +			gpios =3D <&porte 2 GPIO_ACTIVE_HIGH>;
-
-[Severity: Low]
-Will this compile successfully? It appears the porte phandle is not yet
-defined in the parent dtsi files, which would cause a fatal dtc compilation
-error.
-
-[ ... ]
-> +&uart0 {
-> +	pinctrl-0 =3D <&uart0_cfg>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +};
-> +
-> +&usb {
-> +	dr_mode =3D "host";
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Similar to the porte phandle above, is the usb label defined in the
-parent SoC dtsi files? Overriding an undefined label will also cause a
-dtc build failure.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610111136.1514=
-155-1-chenyou910331@gmail.com?part=3D2
+Andrew
