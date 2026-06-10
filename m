@@ -1,461 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CB4429824
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256062BE02A;
+	Wed, 10 Jun 2026 15:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781106219; cv=none; b=ja1eBO1ZBPlHPpRaVKMW96x6QZqdzGIRzyPwdm1GdFy1wv9gfZDDMgKwjVKYK8hKn9Xcl22JRLbJdB84YHAGXGR8+A/lZbKUC2UkG628slqO41XkCak4Q6pWsu4IFlDeYB5YMIQjZscH8uaesZgofmGnMMjzuf1g/35wBvleQEY=
+	t=1781106350; cv=none; b=gWLh4oJKCtIhfpkE7gM4NYRfpvib8f6FXfwqESidArqU/w35uBxvYjmJJKI3+MISN0PPkFKj9lADJVhYIRiSR7KSb2YpH8uBCM5I8VZ4YSxA0FTAO3/i3SsZ8/vfwadjXeDJtONiHIsCLKowD7QasUIFKr6n0ObRw3OnJYJi2ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781106219; c=relaxed/simple;
-	bh=NlPfSK3+b7dqk0LYlUyWz5tLUNehL8pPEG8moAVfECc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mPvGFKS1A4FwC2xskdKl8uPtgLWHwQVRkNjBU8HvoBVamhZ6rSV+rkN/4oO7fYhJTM/TOChjEBB+MQBk3KmMeho/x5yo5EDwb6Fci6XZ3xrDsANuIgkFsopS13BBQmKigogBo9cBj6NGE+O8w1tOQhc4uMcpeSa4/SAX+8UAcQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsdoZZOf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781106350; c=relaxed/simple;
+	bh=tGJWmdZyOe3MDJ4nf2eSRXl6b4K3X1K+78Gq/zmri/8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=YZkajnXz7q081qh2mifKEhfFBi0AJMhW65NF1hCjGk+4pgmPlrmdeucHmlzpB91djHWtLSQDVD/yYbjSU64uyq+fb0Gp3nbJAChi5GpUUfHlSnGuqHhIWxYK3N4eDhRtGkrJmYPpSGjd72kvKZmlLHhQCy0I5uPqPE+Y3AntTwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JkKbn5hQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsdoZZOf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4C21F00893;
-	Wed, 10 Jun 2026 15:43:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781106216;
-	bh=57E2e2D5QPKaxYZKLg2rbK8GRfyeGXYaswh4FB4/Opc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fsdoZZOf5EVz/ptvdQsOEgWUES9vSVmtBKQa+EJjUexMC4eBG0LgF/uhV5MTJNb/v
-	 x4EdViK51rSKdwNs78ukRyfbsDt9lNHguHbyxtEJR51UamS9bV+8JkdCo5cB/Om0Dl
-	 li6MZW2bdaEBF7hRJCIT01Og0vuwS3I/aw/IObQBv4jvlke108+ZauFPzLfalE/5od
-	 TiSCAM4CJqc2UU5pvUw1m9kfqfef0kLqb+d9lr3Rc/NDQAK13DUaxroY7tegXEOF6n
-	 vIcF2bPQFwBIs5MHRxoozJn7bJWfX9LXhhcpZQ0oZQB4Tsu2TTQSDYHqAX63g5sJBC
-	 kQ8bFyOUaL9/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: Add TI ADS1220 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nguyen Minh Tien" <zizuzacker@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260610151342.44274-3-zizuzacker@gmail.com>
-References: <20260610151342.44274-3-zizuzacker@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 15:43:35 +0000
-Message-Id: <20260610154336.1F4C21F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JkKbn5hQ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ACBwPj1169956;
+	Wed, 10 Jun 2026 15:45:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=tkXAkXqrlK1
+	rofHPC1VKknhIHhdjpGHCqUs8h8Q2+Ac=; b=JkKbn5hQrvTjIKdwYJJwPbWSWzT
+	D/t6MBriNm3+FKWN7JF1IfBHYybGlsWg4qWNQ/W8G7jSH6NjhvhKFSJ3yRZgN+W8
+	XDxDhqtVK8lshxiUQ4DC+gLwkCDyoF+fwFgW0+P8D0wUxIMWyKsQtc71ghiLNAhm
+	sYahpy9H/v1Q5t6ECULrLI/xaafRFS/8ELWqL6K/6zmHj8DyQGbMUE973JG+Uawx
+	wDd+LGXwtqVWXLZMwrDTQSAwxSSoA6qtKO6CAIbuu9p2UbCuLymUT7PaVnRAnvjr
+	yICnMI6OuTVApv8flJDJEOQn4MYVbglev6y5MSEgjievbFnsj3l056TyFKg==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eq4w1smy4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 10 Jun 2026 15:45:37 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65AFjW90003510;
+	Wed, 10 Jun 2026 15:45:33 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4emcmk7fwu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 10 Jun 2026 15:45:33 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65AFjWuA003484;
+	Wed, 10 Jun 2026 15:45:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65AFjWp1003477
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 10 Jun 2026 15:45:32 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 70F3B636; Wed, 10 Jun 2026 21:15:31 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla <srini@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: [PATCH v1 2/6] ASoC: qcom: q6apm-lpass-dais: add TDM DAI operations
+Date: Wed, 10 Jun 2026 21:15:13 +0530
+Message-Id: <20260610154517.134570-3-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260610154517.134570-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260610154517.134570-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: XAYEJckqL58NX_KjOHovMkaRXbq4m8pl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDE0OSBTYWx0ZWRfX1PN3s6h5WEkP
+ XP0EVBjVoVjCYIlx3Q10orgOQSZvKXVkSYtXlG9fu15Da1PAbXxzV3FVTxKHHcymPbDpw7Hmz7W
+ PT0y11mLw7H/FKqxfaCr4NPwWu8Uo7/GI3YI4BjY/EmKOwdyIvSk6CCB3nPwsFfFw0/RoK5X6eo
+ bSK06q+dh3kIYpSA6dkU1kMBW4LYVkfaZy2Cco0RFv6m63nTtHqzAhIsJA4R4wO+5x0cA7L0vDK
+ 3u4rnWVlSM5Uqv+jPPWB72nhDiglmL23sEhUDrXRj+ik2eGyqdklGbkZcP7H2lpOySuoIfzU106
+ EeX6hXeHvOj9Lzx5hRjx91UEIK9Gt8gNzQrHQwbC6E5z8rI2cssoPfIqlY5F3uS32pfTYzsdlsy
+ PB8c/Fogzj7JOphfC4X04kmnxY6g8gylb3Q8kqbcxPut+Enjp8lWcFMi4wGjezFAyAJ8YHUO1AA
+ fAEplmW/tf569LZ3X9w==
+X-Proofpoint-GUID: XAYEJckqL58NX_KjOHovMkaRXbq4m8pl
+X-Authority-Analysis: v=2.4 cv=ZfEt8MVA c=1 sm=1 tr=0 ts=6a2986a1 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=ZMHsmkTgFhVY9WPaUOcA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_03,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 spamscore=0 phishscore=0
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606100149
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [Critical] An integer overflow when calculating scale gain leads to a div=
-ide-by-zero kernel panic on 32-bit platforms.
-- [High] Inconsistent formatting for IIO_CHAN_INFO_SCALE breaks IIO UAPI co=
-ntracts. read_raw returns the true scale multiplier, but write_raw expects =
-a gain reciprocal, and read_avail exposes gain reciprocals.
-- [High] Using iio_validate_scan_mask_onehot breaks timestamp functionality=
- and allows an out-of-bounds array read in buffer_preenable.
-- [High] Missing `.validate_trigger` allows external triggers to read async=
-hronously without the RDATA command, causing data corruption.
-- [High] The `rx` buffer is not DMA-aligned, violating DMA API requirements=
- and risking memory corruption during SPI transfers.
-- [High] Disabling the triggered buffer leaves the ADC in continuous conver=
-sion mode, causing DRDY interrupt storms.
-- [High] Missing mutex lock protection for the shared `st->tx` and `st->rx`=
- buffers.
-- [High] Using IRQF_NO_THREAD for a potentially level-triggered interrupt w=
-ithout clearing the interrupt in hardware causes an interrupt storm.
-- [Medium] ads1220_write_raw modifies channel configuration without claimin=
-g direct mode, causing races with active buffers and single-shot conversion=
-s.
-- [Medium] IIO_CHAN_INFO_OFFSET returns the positive uncalibrated raw value=
- instead of its negated value, causing the offset error to be doubled in us=
-er-space.
-- [Medium] Concurrent SPI writes can occur during module removal due to inc=
-orrect `devm` cleanup order.
-- [Medium] ads1220_debugfs_reg_access communicates with the device without =
-resuming it from power-down.
-- [Medium] The driver unconditionally fails probe if the AVDD regulator vol=
-tage cannot be read, breaking support for dummy regulators.
---
+Add TDM DAI operations to q6apm-lpass-dais so AudioReach TDM
+backends can be configured through the normal ASoC hw_params and DAI
+setup flow.
 
-commit 1ae738a6247e14166f63bc753a84967fb3d54773
-Author: Nguyen Minh Tien <zizuzacker@gmail.com>
+The TDM set_tdm_slot() callback validates the supported slot width and
+slot count, stores the active slot mask in the AudioReach module
+configuration, and leaves existing DMA, I2S and HDMI paths unchanged.
 
-iio: adc: Add TI ADS1220 driver
+Reuse the existing LPASS child-clock handling for TDM nodes as well as
+MI2S nodes, since TDM backends also request optional backend clocks
+through the machine driver set_sysclk() path.
 
-Add an IIO driver for the Texas Instruments ADS1220 24-bit delta-sigma
-SPI ADC. The driver supports single-ended and differential voltage
-channels described as device-tree child nodes, per-channel programmable
-gain (exposed through scale) and data rate, internal and external reference
-options, single-shot conversions and a DRDY-interrupt-driven triggered buff=
-er.
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 64 ++++++++++++++++++++++++-
+ 1 file changed, 63 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/ti-ads1220.c b/drivers/iio/adc/ti-ads1220.c
-new file mode 100644
-index 0000000000000..06bcc88418b4c
---- /dev/null
-+++ b/drivers/iio/adc/ti-ads1220.c
-[ ... ]
-> +struct ads1220_state {
-> +	struct spi_device *spi;
-> +	struct completion completion;
-> +	struct iio_trigger *trig;
-> +	struct ads1220_channel_config *channels_cfg;
-> +	unsigned int num_channels_cfg;
-> +	int vref_uV;
-> +	unsigned int vref_source;
-> +
-> +	/*
-> +	 * DMA-safe buffers. tx is used for command/register writes, rx for
-> +	 * register and conversion-result reads. scan holds one sample plus a
-> +	 * timestamp for the triggered buffer.
-> +	 */
-> +	u8 tx[2] __aligned(IIO_DMA_MINALIGN);
-> +	u8 rx[ADS1220_DATA_BYTES];
+diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+index 143750afb..d07b2d751 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
++++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+@@ -336,6 +336,55 @@ static int q6i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return 0;
+ }
+ 
++static int q6tdm_set_tdm_slot(struct snd_soc_dai *dai,
++			      unsigned int tx_mask,
++			      unsigned int rx_mask,
++			      int slots, int slot_width)
++{
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
++	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
++	unsigned int cap_mask;
++
++	if (slot_width != 16 && slot_width != 32) {
++		dev_err(dai->dev, "%s: invalid slot_width %d\n",
++			__func__, slot_width);
++		return -EINVAL;
++	}
++
++	switch (slots) {
++	case 2:
++		cap_mask = 0x03;
++		break;
++	case 4:
++		cap_mask = 0x0f;
++		break;
++	case 8:
++		cap_mask = 0xff;
++		break;
++	case 16:
++		cap_mask = 0xffff;
++		break;
++	default:
++		dev_err(dai->dev, "%s: invalid slots %d\n",
++			__func__, slots);
++		return -EINVAL;
++	}
++
++	switch (dai->id) {
++	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
++		cfg->nslots_per_frame = slots;
++		cfg->slot_width = slot_width;
++		cfg->slot_mask = ((dai->id & 0x1) ? tx_mask : rx_mask) & cap_mask;
++		break;
++	default:
++		dev_err(dai->dev, "%s: invalid dai id 0x%x\n",
++			__func__, dai->id);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_dai_ops q6dma_ops = {
+ 	.prepare	= q6apm_lpass_dai_prepare,
+ 	.startup	= q6apm_lpass_dai_startup,
+@@ -365,6 +414,17 @@ static const struct snd_soc_dai_ops q6hdmi_ops = {
+ 	.trigger	= q6apm_lpass_dai_trigger,
+ };
+ 
++static const struct snd_soc_dai_ops q6tdm_ops = {
++	.prepare	= q6apm_lpass_dai_prepare,
++	.startup	= q6apm_lpass_dai_startup,
++	.shutdown	= q6i2s_lpass_dai_shutdown,
++	.set_tdm_slot	= q6tdm_set_tdm_slot,
++	.hw_params	= q6dma_hw_params,
++	.set_fmt	= q6i2s_set_fmt,
++	.set_sysclk	= q6i2s_set_sysclk,
++	.trigger	= q6apm_lpass_dai_trigger,
++};
++
+ static const struct snd_soc_component_driver q6apm_lpass_dai_component = {
+ 	.name = "q6apm-be-dai-component",
+ 	.of_xlate_dai_name = q6dsp_audio_ports_of_xlate_dai_name,
+@@ -390,9 +450,10 @@ static int of_q6apm_parse_dai_data(struct device *dev,
+ 		}
+ 
+ 		switch (id) {
+-		/* MI2S specific properties */
++		/* MI2S/TDM child clocks */
+ 		case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
+ 		case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
++		case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
+ 			priv = &data->priv[id];
+ 			priv->mclk = of_clk_get_by_name(node, "mclk");
+ 			if (IS_ERR(priv->mclk)) {
+@@ -448,6 +509,7 @@ static int q6apm_lpass_dai_dev_probe(struct platform_device *pdev)
+ 	cfg.q6i2s_ops = &q6i2s_ops;
+ 	cfg.q6dma_ops = &q6dma_ops;
+ 	cfg.q6hdmi_ops = &q6hdmi_ops;
++	cfg.q6tdm_ops = &q6tdm_ops;
+ 	dais = q6dsp_audio_ports_set_config(dev, &cfg, &num_dais);
+ 
+ 	return devm_snd_soc_register_component(dev, &q6apm_lpass_dai_component, dais, num_dais);
+-- 
+2.34.1
 
-[Severity: High]
-Does placing the rx array immediately after the 2-byte tx array without
-alignment cause it to share the same cacheline? If st->rx is passed to
-spi_read(), mapping this unaligned sub-cacheline buffer for DMA might
-corrupt adjacent fields on architectures without hardware cache coherence.
-
-> +	struct {
-> +		s32 sample;
-> +		aligned_s64 timestamp;
-> +	} scan;
-> +};
-[ ... ]
-> +static int ads1220_read_raw(struct iio_dev *indio_dev,
-> +			    const struct iio_chan_spec *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct ads1220_state *st =3D iio_priv(indio_dev);
-> +	struct ads1220_channel_config *cfg =3D &st->channels_cfg[chan->address];
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +		ret =3D ads1220_single_conversion(st, chan, val, false);
-> +		iio_device_release_direct(indio_dev);
-> +		return ret;
-> +	case IIO_CHAN_INFO_OFFSET:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +		ret =3D ads1220_single_conversion(st, chan, val, true);
-
-[Severity: Medium]
-Should the hardware offset be negated before returning it here?
-ads1220_single_conversion() returns the raw measurement of the shorted inpu=
-ts.
-Since the standard IIO calibration formula applied by user-space is
-`value =3D (raw + offset) * scale`, returning a positive offset when the ha=
-rdware
-reads a positive value will apply the offset in the wrong direction and dou=
-ble
-the error.
-
-> +		iio_device_release_direct(indio_dev);
-> +		return ret;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* scale [mV] =3D vref / (gain * 2^23); gain is a power of two. */
-> +		*val =3D st->vref_uV / MILLI;
-> +		*val2 =3D (chan->scan_type.realbits - 1) + ilog2(cfg->gain);
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-
-[Severity: High]
-Are the IIO_CHAN_INFO_SCALE interfaces handling values symmetrically?
-ads1220_read_raw() returns the actual physical scale multiplier here, but
-ads1220_write_raw() treats the user input as a gain reciprocal, and
-ads1220_read_avail() exposes gain reciprocals instead of voltage scales.
-If a user reads the scale and writes the exact same value back, could this
-evaluate to an invalid gain and return -EINVAL?
-
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val =3D cfg->datarate;
-> +		return IIO_VAL_INT;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-[ ... ]
-> +static int ads1220_write_raw(struct iio_dev *indio_dev,
-> +			     const struct iio_chan_spec *chan,
-> +			     int val, int val2, long mask)
-> +{
-> +	struct ads1220_state *st =3D iio_priv(indio_dev);
-> +	struct ads1220_channel_config *cfg =3D &st->channels_cfg[chan->address];
-> +	unsigned int gain;
-> +	int i;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* The available scales are the gain reciprocals (e.g. 1/4). */
-> +		if (val =3D=3D 0 && val2 =3D=3D 0)
-> +			return -EINVAL;
-> +
-> +		gain =3D MICRO / (val * MICRO + val2);
-
-[Severity: Critical]
-Can the expression `(val * MICRO + val2)` overflow on 32-bit platforms if a
-user writes a crafted string (e.g., "4294.967296") to the sysfs scale
-attribute? If the multiplication wraps to exactly zero, does the subsequent
-`gain =3D MICRO / ...` division result in a divide-by-zero kernel panic?
-
-> +		if (!is_power_of_2(gain) || gain > BIT(ADS1220_NUM_GAINS - 1))
-> +			return -EINVAL;
-> +		if (cfg->single_ended && gain > ADS1220_MAX_SE_GAIN)
-> +			return -EINVAL;
-> +
-> +		cfg->gain =3D gain;
-> +		return 0;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		for (i =3D 0; i < ARRAY_SIZE(ads1220_datarates); i++) {
-> +			if (ads1220_datarates[i] =3D=3D val) {
-> +				cfg->datarate =3D val;
-
-[Severity: Medium]
-Does modifying cfg->gain and cfg->datarate in ads1220_write_raw() require
-serialization via iio_device_claim_direct()? Modifying these without the lo=
-ck
-might race with an active triggered buffer or single-shot conversions,
-potentially desynchronizing driver state and hardware or corrupting timeout
-calculations.
-
-> +				return 0;
-> +			}
-> +		}
-> +		return -EINVAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ads1220_debugfs_reg_access(struct iio_dev *indio_dev,
-> +				      unsigned int reg, unsigned int writeval,
-> +				      unsigned int *readval)
-> +{
-> +	struct ads1220_state *st =3D iio_priv(indio_dev);
-> +	u8 val;
-> +	int ret;
-> +
-> +	if (reg > ADS1220_MAX_REG)
-> +		return -EINVAL;
-> +
-> +	if (readval) {
-> +		ret =3D ads1220_read_reg(st, reg, &val);
-
-[Severity: Medium]
-Does ads1220_debugfs_reg_access() need to call pm_runtime_resume_and_get()
-before initiating SPI transfers? If the device is in the autosuspended
-POWERDOWN state, these transactions might fail or return garbage data.
-
-> +		if (ret)
-> +			return ret;
-> +		*readval =3D val;
-> +		return 0;
-> +	}
-> +
-> +	return ads1220_write_reg(st, reg, writeval);
-
-[Severity: High]
-Are the shared st->tx and st->rx buffers protected from concurrent access
-here? Writing to st->tx directly via debugfs or pm_runtime_suspend without
-locking could race with an active triggered buffer reading in
-ads1220_trigger_handler(), potentially overwriting the tx buffer mid-transf=
-er
-and sending corrupted SPI commands.
-
-> +}
-> +
-> +static const struct iio_info ads1220_info =3D {
-> +	.read_raw =3D ads1220_read_raw,
-> +	.read_avail =3D ads1220_read_avail,
-> +	.write_raw =3D ads1220_write_raw,
-> +	.debugfs_reg_access =3D ads1220_debugfs_reg_access,
-> +};
-
-[Severity: High]
-Does this struct need a .validate_trigger callback to prevent arbitrary
-external triggers from being attached? Without it, external triggers could
-execute asynchronously to the ADC's data-ready signal. The trigger handler
-uses spi_read() directly without an RDATA command, which according to the
-datasheet could return corrupted data if a register update overlaps.
-
-> +
-> +static int ads1220_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1220_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &st->spi->dev;
-> +	struct ads1220_channel_config *cfg;
-> +	unsigned int index;
-> +	int ret;
-> +
-> +	index =3D find_first_bit(indio_dev->active_scan_mask,
-> +			       iio_get_masklength(indio_dev));
-> +	cfg =3D &st->channels_cfg[index];
-
-[Severity: High]
-What happens if a user enables ONLY the timestamp channel? The active scan
-mask would have exactly one bit set at index =3D st->num_channels_cfg. Will
-find_first_bit() return this index and cause an out-of-bounds array read
-on st->channels_cfg[index]?
-
-> +
-> +	ret =3D pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ads1220_configure(st, cfg->mux, cfg->gain, cfg->datarate,
-> +				cfg->single_ended, true);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret =3D ads1220_command(st, ADS1220_CMD_START);
-> +	if (ret)
-> +		goto err;
-> +
-> +	return 0;
-> +err:
-> +	pm_runtime_mark_last_busy(dev);
-> +	pm_runtime_put_autosuspend(dev);
-> +	return ret;
-> +}
-> +
-> +static int ads1220_buffer_postdisable(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1220_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &st->spi->dev;
-> +
-> +	pm_runtime_mark_last_busy(dev);
-> +	pm_runtime_put_autosuspend(dev);
-
-[Severity: High]
-Does the device need to be explicitly stopped or powered down here?
-Dropping the PM runtime reference with a 2000ms autosuspend delay leaves
-the ADC running in continuous conversion mode. The hardware might keep
-asserting the DRDY interrupt, but since the buffer is disabled, the IRQ
-handler will only complete the completion without reading data to clear
-the interrupt, potentially causing an immediate IRQ storm.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct iio_buffer_setup_ops ads1220_buffer_setup_ops =3D {
-> +	.preenable =3D ads1220_buffer_preenable,
-> +	.postdisable =3D ads1220_buffer_postdisable,
-> +	.validate_scan_mask =3D &iio_validate_scan_mask_onehot,
-> +};
-
-[Severity: High]
-Is iio_validate_scan_mask_onehot the correct validator for this device?
-This validator requires exactly one bit in the mask to be set. Since the
-IIO core includes the timestamp channel in the active_scan_mask, enabling
-one data channel plus the timestamp results in 2 bits being set, which
-will cause the validator to reject valid configurations.
-
-[ ... ]
-> +static int ads1220_probe(struct spi_device *spi)
-> +{
-> +	struct device *dev =3D &spi->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct ads1220_state *st;
-> +	int avdd_uV;
-> +	int ret;
-[ ... ]
-> +	ret =3D devm_regulator_get_enable(dev, "dvdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable dvdd\n");
-> +
-> +	avdd_uV =3D devm_regulator_get_enable_read_voltage(dev, "avdd");
-> +	if (avdd_uV < 0)
-> +		return dev_err_probe(dev, avdd_uV, "Failed to get avdd\n");
-
-[Severity: Medium]
-Should the driver fail probe unconditionally here? If the devicetree does
-not explicitly model the AVDD supply, the core passes a dummy regulator.
-Reading the voltage from a dummy regulator returns -EINVAL, which might
-prevent the driver from probing entirely on such systems, even when
-ti,vref-avdd is not specified.
-
-[ ... ]
-> +	if (spi->irq > 0) {
-> +		ret =3D devm_request_irq(dev, spi->irq, ads1220_irq_handler,
-> +				       IRQF_NO_THREAD, "ads1220", indio_dev);
-
-[Severity: High]
-Can using IRQF_NO_THREAD without clearing the physical DRDY line cause an
-interrupt storm? The hardirq handler immediately returns IRQ_HANDLED
-without issuing an SPI transaction to read the data. If the interrupt is
-configured as level-triggered, the interrupt controller might repeatedly
-re-fire the interrupt upon return. Does this need IRQF_ONESHOT with a
-threaded handler, or an explicit enforcement of IRQF_TRIGGER_FALLING?
-
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to request irq\n");
-> +
-> +		st->trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d",
-> +						  indio_dev->name,
-> +						  iio_device_id(indio_dev));
-> +		if (!st->trig)
-> +			return -ENOMEM;
-> +
-> +		st->trig->ops =3D &ads1220_trigger_ops;
-> +		iio_trigger_set_drvdata(st->trig, indio_dev);
-> +
-> +		ret =3D devm_iio_trigger_register(dev, st->trig);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to register trigger\n");
-> +	}
-> +
-> +	ret =3D ads1220_init(st);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to initialize device\n");
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, ADS1220_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +
-> +	ret =3D devm_pm_runtime_enable(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable pm runtime\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, ads1220_powerdown, st);
-
-[Severity: Medium]
-Will registering ads1220_powerdown after pm_runtime_enable cause a teardown
-ordering issue? Since devm executes cleanups in reverse order, powerdown
-would execute before PM runtime is disabled. Could the PM autosuspend
-workqueue trigger ads1220_runtime_suspend at the same moment powerdown
-is executing, causing a data race on the unprotected st->tx buffer?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-> +
-> +static int ads1220_runtime_suspend(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> +	struct ads1220_state *st =3D iio_priv(indio_dev);
-> +
-> +	return ads1220_command(st, ADS1220_CMD_POWERDOWN);
-> +}
-
-[Severity: High]
-Does ads1220_runtime_suspend() overwrite the shared st->tx buffer without
-locking? This asynchronous PM runtime suspend could execute concurrently
-with an active triggered buffer reading or other SPI transactions, corrupti=
-ng
-the sent SPI commands.
-
-> +
-> +static int ads1220_runtime_resume(struct device *dev)
-> +{
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610151342.4427=
-4-1-zizuzacker@gmail.com?part=3D2
