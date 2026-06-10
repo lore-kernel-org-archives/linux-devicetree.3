@@ -1,520 +1,335 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58883AC0E9;
-	Wed, 10 Jun 2026 08:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9193383326
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781078975; cv=none; b=gA0Z6IHnRVYK6kqXWA8Bh6q/OjokWBROkmmL2kB3I5QHXtOzUlOAhiRYqVBQMp39/YqMuGkykZfIwmX5kzqEprOabP2BLEe2dv8Ug0Rpzlnm19b88zE2QxFqrszK3Y5o5vbhIWjqHfiO/nTAG/ka0WhUQQMFp/Tz3XVsGB11vkE=
+	t=1781079084; cv=none; b=Eu/EfPLCNnA8VqQ3OPhxXYq5/pnx1yPSO+XD27Tc2v/PrToyVAvhBSxND+DwLdVtucaR0Ma+4SiyEP98DHgxp4IspxBjMGBricsLwQk+qLp3ng/IANwI47HFKXFjXXCGOfFdiJh4b+gqCwxtci+pMITxQJj2vG4CP/mtWKcQXJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781078975; c=relaxed/simple;
-	bh=lQR3W0nnm6LuHXgt9hT+/ww9z8SORNY5w84vtF0I9v8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UsREXKzNmED0MCPQctEPqhafSPb6aSm86hPW9Ps8dWgCpZvX1QkpTFBmZkGnsDCOQ2/vhU6LEwuEmyZh70189EuSwR/hVQRrqeJ3gDAHuX/a6Ywy1K6Q073a9ZbbX+WujWQMFLinY2XUsQBooQvpaI5YyaNn6Gc7ktdMOU3v9hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=kWBhvNdy; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1781079084; c=relaxed/simple;
+	bh=KNs+en9nhr+80/C+0dBqAOTxIiY1w3fGZ814/KD14WQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eCwUWCQtRbdaZOcpE9/UejvYR1tkL0UTOyEglpOP6Sg/BHr359EPJ+YXJUjdCsOQJr1oSuZAlH6HmIoX6ItOq1medzktDhlnGsASv3MzvQdbc3cJdmOv3N5tEgp2ZItjbQ/hUZbp4Cm2kKsrDBfwind0CCaqPU91rY/upCQRNEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKBe6bgv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="kWBhvNdy"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65A88PAw8983533, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1781078905; bh=w/FSQPdVqii7stNPey+CcYJaYeOJoAUxaA0Um/kGUpk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=kWBhvNdyXxBYizpgiaIn9HIhfypUIzoPgakIcM084jjsqwHWWU3Lh7ROLLydQ5ERv
-	 Zlr8W8c+wHo6qFVPSKZHYKKkbtWP95UkuSMpHFTjSU32i3MXB7+DajNVGZtrwRA3oU
-	 XAxju62x7Rdg8l4NYfGQqO90V8KCwPiY3LASPsmcI3vdkvrLWCHAy+th+h36bj7OKQ
-	 iD/FNkVHPSpVskHGyeSBGS1SphTZVtm7pgdYxs6mJKmpaY2IxSdJIAlvRRCKI9B1+T
-	 Lc3OUHaoDgqJLLD4SMn3vTS+OuroFtEM1bnJt10PwVqy25HfPMecVOdCiJZZc9eddq
-	 fKkulIT3wa02w==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 65A88PAw8983533
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 10 Jun 2026 16:08:25 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 10 Jun 2026 16:08:25 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS03.realtek.com.tw
- (10.21.1.53) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 10 Jun 2026 16:08:25 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <p.zabel@pengutronix.de>,
-	<cylee12@realtek.com>, <afaerber@suse.com>, <jyanchou@realtek.com>
-CC: <bmasney@redhat.com>, <devicetree@vger.kernel.org>,
-	<linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
-	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
-	<eleanor.lin@realtek.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v8 01/10] dt-bindings: clock: Add Realtek RTD1625 Clock & Reset Controller
-Date: Wed, 10 Jun 2026 16:08:15 +0800
-Message-ID: <20260610080824.255063-2-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260610080824.255063-1-eleanor.lin@realtek.com>
-References: <20260610080824.255063-1-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKBe6bgv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03D71F00893;
+	Wed, 10 Jun 2026 08:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781079082;
+	bh=RW9Sp5PvUIAlL7F8lNSAcwudZKsVKWfs2acPGTZqbjc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DKBe6bgvBDJYwt22ie9DblCXjZ013jFn7eNldNFmjZfHsBkf65Scnz7tANS1hYHKv
+	 iX5zfTQu418IAw/S5EerMPRAA0Xwhaj1fXZ71PQJjt7iB0uhZ6sQ+mjQVZhr99SxMK
+	 Yo0lCwYZ5XQotjNowA1GgG2IOC2LtDq7BJX5CO1jMvdmpwxBVO7oUd6+nbraWJifgD
+	 WCzkALdeVv3Dq9WTUSpi6VrE8Zn8gGbqHEtvDqd8XsqY4tbyAm5xZ9aI8n4U12bcUE
+	 gFdMS6N1pAaXNb6aSmnTxjoZqjEZCwwZjSrhkl0COogwxAOQeO6wttWd0ZrlghIcds
+	 /yE1/87kEP2hg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] clk: cix: add sky1 audss clock controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260610075645.3581145-5-joakim.zhang@cixtech.com>
+References: <20260610075645.3581145-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 08:11:21 +0000
+Message-Id: <20260610081121.C03D71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Add DT binding schema for Realtek RTD1625 clock and reset controller
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Reading registers while the device is still in reset during the pr=
+obe error path causes a system bus hang.
+- [High] Mismatch between manual unregistration of clocks and devm-managed =
+OF provider registration creates a use-after-free window during device remo=
+val.
+- [High] Seventeen distinct clocks share the exact same physical divider co=
+nfiguration bits, breaking clock topology.
+- [Medium] Parent clocks enabled during probe are permanently leaked on err=
+or paths and during device removal when `CONFIG_PM` is disabled.
+- [Medium] The driver modifies a global static array to save instance-speci=
+fic register states during runtime suspend.
+- [Medium] Manual Read-Modify-Write (RMW) operations on a shared syscon reg=
+map bypass atomicity guarantees.
+- [Medium] Unchecked `regmap_read` calls in clock operations lead to uninit=
+ialized stack memory being written to hardware registers.
+- [Low] Unconditional assignment of `dev_pm_ops` to the platform driver cre=
+ates dead code when PM is disabled.
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Co-developed-by: Cheng-Yu Lee <cylee12@realtek.com>
-Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
----
-Changes in v8:
-- None
----
- .../bindings/clock/realtek,rtd1625-clk.yaml   |  58 ++++++
- MAINTAINERS                                   |  10 +
- .../dt-bindings/clock/realtek,rtd1625-clk.h   | 164 +++++++++++++++++
- include/dt-bindings/reset/realtek,rtd1625.h   | 171 ++++++++++++++++++
- 4 files changed, 403 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/clock/realtek,rtd1625-clk.yaml
- create mode 100644 include/dt-bindings/clock/realtek,rtd1625-clk.h
- create mode 100644 include/dt-bindings/reset/realtek,rtd1625.h
+commit 0916ea34519831a84e69fe5dc0d82f878c51aef8
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
 
-diff --git a/Documentation/devicetree/bindings/clock/realtek,rtd1625-clk.yaml b/Documentation/devicetree/bindings/clock/realtek,rtd1625-clk.yaml
-new file mode 100644
-index 000000000000..1aceef31e148
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/realtek,rtd1625-clk.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/realtek,rtd1625-clk.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Realtek RTD1625 Clock & Reset Controller
-+
-+maintainers:
-+  - Cheng-Yu Lee <cylee12@realtek.com>
-+  - Yu-Chun Lin <eleanor.lin@realtek.com>
-+
-+description: |
-+  The Realtek RTD1625 Clock Controller manages and distributes clock
-+  signals to various controllers and implements a Reset Controller for the
-+  SoC peripherals.
-+
-+  Clocks and resets are referenced by unique identifiers, which are defined as
-+  preprocessor macros in include/dt-bindings/clock/realtek,rtd1625-clk.h and
-+  include/dt-bindings/reset/realtek,rtd1625.h.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - realtek,rtd1625-crt-clk
-+      - realtek,rtd1625-iso-clk
-+      - realtek,rtd1625-iso-s-clk
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  "#reset-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#clock-cells"
-+  - "#reset-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@98000000 {
-+      compatible = "realtek,rtd1625-crt-clk";
-+      reg = <0x98000000 0x1000>;
-+      clocks = <&osc27m>;
-+      #clock-cells = <1>;
-+      #reset-cells = <1>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 355e4ab2f9e5..613ca7e95e47 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22477,6 +22477,16 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/realtek.yaml
- F:	drivers/net/dsa/realtek/*
- 
-+REALTEK SOC CLOCK AND RESET DRIVERS
-+M:	Cheng-Yu Lee <cylee12@realtek.com>
-+M:	Yu-Chun Lin <eleanor.lin@realtek.com>
-+L:	devicetree@vger.kernel.org
-+L:	linux-clk@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/clock/realtek*
-+F:	include/dt-bindings/clock/realtek*
-+F:	include/dt-bindings/reset/realtek*
-+
- REALTEK SPI-NAND
- M:	Chris Packham <chris.packham@alliedtelesis.co.nz>
- S:	Maintained
-diff --git a/include/dt-bindings/clock/realtek,rtd1625-clk.h b/include/dt-bindings/clock/realtek,rtd1625-clk.h
-new file mode 100644
-index 000000000000..61ca652d6880
---- /dev/null
-+++ b/include/dt-bindings/clock/realtek,rtd1625-clk.h
-@@ -0,0 +1,164 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (C) 2025 Realtek Semiconductor Corp.
-+ */
-+#ifndef __DT_BINDINGS_RTK_CLOCK_RTD1625_H
-+#define __DT_BINDINGS_RTK_CLOCK_RTD1625_H
-+
-+#define RTD1625_CRT_CLK_EN_MISC           0
-+#define RTD1625_CRT_CLK_EN_PCIE0          1
-+#define RTD1625_CRT_CLK_EN_DIP            2
-+#define RTD1625_CRT_CLK_EN_GSPI           3
-+#define RTD1625_CRT_CLK_EN_ISO_MISC       5
-+#define RTD1625_CRT_CLK_EN_SDS            6
-+#define RTD1625_CRT_CLK_EN_HDMI           7
-+#define RTD1625_CRT_CLK_EN_GPU            9
-+#define RTD1625_CRT_CLK_EN_VE1            10
-+#define RTD1625_CRT_CLK_EN_VE2            11
-+#define RTD1625_CRT_CLK_EN_MD             18
-+#define RTD1625_CRT_CLK_EN_TP             19
-+#define RTD1625_CRT_CLK_EN_RCIC           20
-+#define RTD1625_CRT_CLK_EN_NF             21
-+#define RTD1625_CRT_CLK_EN_EMMC           22
-+#define RTD1625_CRT_CLK_EN_SD             23
-+#define RTD1625_CRT_CLK_EN_SDIO_IP        24
-+#define RTD1625_CRT_CLK_EN_MIPI_CSI       25
-+#define RTD1625_CRT_CLK_EN_EMMC_IP        26
-+#define RTD1625_CRT_CLK_EN_SDIO           27
-+#define RTD1625_CRT_CLK_EN_SD_IP          28
-+#define RTD1625_CRT_CLK_EN_TPB            30
-+#define RTD1625_CRT_CLK_EN_MISC_SC1       31
-+#define RTD1625_CRT_CLK_EN_MISC_I2C_3     32
-+#define RTD1625_CRT_CLK_EN_ACPU           33
-+#define RTD1625_CRT_CLK_EN_JPEG           34
-+#define RTD1625_CRT_CLK_EN_MISC_SC0       37
-+#define RTD1625_CRT_CLK_EN_HDMIRX         45
-+#define RTD1625_CRT_CLK_EN_HSE            46
-+#define RTD1625_CRT_CLK_EN_FAN            49
-+#define RTD1625_CRT_CLK_EN_SATA_WRAP_SYS  52
-+#define RTD1625_CRT_CLK_EN_SATA_WRAP_SYSH 53
-+#define RTD1625_CRT_CLK_EN_SATA_MAC_SYSH  54
-+#define RTD1625_CRT_CLK_EN_R2RDSC         55
-+#define RTD1625_CRT_CLK_EN_TPC            56
-+#define RTD1625_CRT_CLK_EN_PCIE1          57
-+#define RTD1625_CRT_CLK_EN_MISC_I2C_4     58
-+#define RTD1625_CRT_CLK_EN_MISC_I2C_5     59
-+#define RTD1625_CRT_CLK_EN_TSIO           60
-+#define RTD1625_CRT_CLK_EN_VE4            61
-+#define RTD1625_CRT_CLK_EN_EDP            62
-+#define RTD1625_CRT_CLK_EN_TSIO_TRX       63
-+#define RTD1625_CRT_CLK_EN_PCIE2          64
-+#define RTD1625_CRT_CLK_EN_EARC           66
-+#define RTD1625_CRT_CLK_EN_LITE           67
-+#define RTD1625_CRT_CLK_EN_MIPI_DSI       68
-+#define RTD1625_CRT_CLK_EN_NPUPP          69
-+#define RTD1625_CRT_CLK_EN_NPU            70
-+#define RTD1625_CRT_CLK_EN_AUCPU0         71
-+#define RTD1625_CRT_CLK_EN_AUCPU1         72
-+#define RTD1625_CRT_CLK_EN_NSRAM          73
-+#define RTD1625_CRT_CLK_EN_HDMITOP        74
-+#define RTD1625_CRT_CLK_EN_AUCPU_ISO_NPU  76
-+#define RTD1625_CRT_CLK_EN_KEYLADDER      77
-+#define RTD1625_CRT_CLK_EN_IFCP_KLM       78
-+#define RTD1625_CRT_CLK_EN_IFCP           79
-+#define RTD1625_CRT_CLK_EN_MDL_GENPW      80
-+#define RTD1625_CRT_CLK_EN_MDL_CHIP       81
-+#define RTD1625_CRT_CLK_EN_MDL_IP         82
-+#define RTD1625_CRT_CLK_EN_MDLM2M         83
-+#define RTD1625_CRT_CLK_EN_MDL_XTAL       84
-+#define RTD1625_CRT_CLK_EN_TEST_MUX       85
-+#define RTD1625_CRT_CLK_EN_DLA            86
-+#define RTD1625_CRT_CLK_EN_TPCW           88
-+#define RTD1625_CRT_CLK_EN_GPU_TS_SRC     89
-+#define RTD1625_CRT_CLK_EN_VI             91
-+#define RTD1625_CRT_CLK_EN_LVDS1          92
-+#define RTD1625_CRT_CLK_EN_LVDS2          93
-+#define RTD1625_CRT_CLK_EN_AUCPU          94
-+#define RTD1625_CRT_CLK_EN_UR1            96
-+#define RTD1625_CRT_CLK_EN_UR2            97
-+#define RTD1625_CRT_CLK_EN_UR3            98
-+#define RTD1625_CRT_CLK_EN_UR4            99
-+#define RTD1625_CRT_CLK_EN_UR5            100
-+#define RTD1625_CRT_CLK_EN_UR6            101
-+#define RTD1625_CRT_CLK_EN_UR7            102
-+#define RTD1625_CRT_CLK_EN_UR8            103
-+#define RTD1625_CRT_CLK_EN_UR9            104
-+#define RTD1625_CRT_CLK_EN_UR_TOP         105
-+#define RTD1625_CRT_CLK_EN_MISC_I2C_7     110
-+#define RTD1625_CRT_CLK_EN_MISC_I2C_6     111
-+#define RTD1625_CRT_CLK_EN_SPI0           112
-+#define RTD1625_CRT_CLK_EN_SPI1           113
-+#define RTD1625_CRT_CLK_EN_SPI2           114
-+#define RTD1625_CRT_CLK_EN_LSADC0         120
-+#define RTD1625_CRT_CLK_EN_LSADC1         121
-+#define RTD1625_CRT_CLK_EN_ISOMIS_DMA     122
-+#define RTD1625_CRT_CLK_EN_DPTX           124
-+#define RTD1625_CRT_CLK_EN_NPU_MIPI_CSI   125
-+#define RTD1625_CRT_CLK_EN_EDPTX          126
-+#define RTD1625_CRT_CLK_HIFI              128
-+#define RTD1625_CRT_CLK_NPU_MIPI_CSI      129
-+#define RTD1625_CRT_CLK_NPU               130
-+#define RTD1625_CRT_CLK_NPU_SYSH          132
-+#define RTD1625_CRT_CLK_HIFI_SCPU         133
-+#define RTD1625_CRT_CLK_GPU               134
-+#define RTD1625_CRT_CLK_GPU2D             135
-+#define RTD1625_CRT_CLK_MIPI_DSI_PCLK     136
-+#define RTD1625_CRT_CLK_VE1               137
-+#define RTD1625_CRT_CLK_VE2               138
-+#define RTD1625_CRT_CLK_VE4               139
-+#define RTD1625_CRT_CLK_SYS               141
-+#define RTD1625_CRT_CLK_SYSH              142
-+#define RTD1625_CRT_PLL_SDIO_REF          145
-+#define RTD1625_CRT_PLL_CR_REF            146
-+#define RTD1625_CRT_PLL_EMMC_REF          147
-+#define RTD1625_CRT_CLK_MIS_SC0           148
-+#define RTD1625_CRT_CLK_MIS_SC1           149
-+#define RTD1625_CRT_PLL_SCPU              150
-+#define RTD1625_CRT_PLL_VE1               151
-+#define RTD1625_CRT_PLL_DDSA              152
-+#define RTD1625_CRT_PLL_PSAUDA1           153
-+#define RTD1625_CRT_PLL_PSAUDA2           154
-+#define RTD1625_CRT_PLL_BUS               155
-+#define RTD1625_CRT_PLL_SDIO              156
-+#define RTD1625_CRT_PLL_SDIO_VP0          157
-+#define RTD1625_CRT_PLL_SDIO_VP1          158
-+#define RTD1625_CRT_PLL_DCSB              159
-+#define RTD1625_CRT_PLL_GPU               160
-+#define RTD1625_CRT_PLL_NPU               161
-+#define RTD1625_CRT_PLL_VE2               162
-+#define RTD1625_CRT_PLL_HIFI              163
-+#define RTD1625_CRT_PLL_SD                164
-+#define RTD1625_CRT_PLL_SD_VP0            165
-+#define RTD1625_CRT_PLL_SD_VP1            166
-+#define RTD1625_CRT_PLL_EMMC              167
-+#define RTD1625_CRT_PLL_EMMC_VP0          168
-+#define RTD1625_CRT_PLL_EMMC_VP1          169
-+#define RTD1625_CRT_PLL_ACPU              170
-+#define RTD1625_CRT_CLK_DET               171
-+
-+#define RTD1625_ISO_CLK_EN_USB_P4         0
-+#define RTD1625_ISO_CLK_EN_USB_P3         1
-+#define RTD1625_ISO_CLK_EN_MISC_CEC0      2
-+#define RTD1625_ISO_CLK_EN_CBUSRX_SYS     3
-+#define RTD1625_ISO_CLK_EN_CBUSTX_SYS     4
-+#define RTD1625_ISO_CLK_EN_CBUS_SYS       5
-+#define RTD1625_ISO_CLK_EN_CBUS_OSC       6
-+#define RTD1625_ISO_CLK_EN_MISC_UR0       8
-+#define RTD1625_ISO_CLK_EN_I2C0           9
-+#define RTD1625_ISO_CLK_EN_I2C1           10
-+#define RTD1625_ISO_CLK_EN_ETN_250M       11
-+#define RTD1625_ISO_CLK_EN_ETN_SYS        12
-+#define RTD1625_ISO_CLK_EN_USB_DRD        13
-+#define RTD1625_ISO_CLK_EN_USB_HOST       14
-+#define RTD1625_ISO_CLK_EN_USB_U3_HOST    15
-+#define RTD1625_ISO_CLK_EN_USB            16
-+#define RTD1625_ISO_CLK_EN_VTC            17
-+#define RTD1625_ISO_CLK_EN_MISC_VFD       18
-+
-+#define RTD1625_ISO_S_CLK_EN_ISOM_MIS     0
-+#define RTD1625_ISO_S_CLK_EN_ISOM_GPIOM   1
-+#define RTD1625_ISO_S_CLK_EN_TIMER7       2
-+#define RTD1625_ISO_S_CLK_EN_IRDA         3
-+#define RTD1625_ISO_S_CLK_EN_UR10         4
-+
-+#endif /* __DT_BINDINGS_RTK_CLOCK_RTD1625_H */
-diff --git a/include/dt-bindings/reset/realtek,rtd1625.h b/include/dt-bindings/reset/realtek,rtd1625.h
-new file mode 100644
-index 000000000000..31e7fa66ef31
---- /dev/null
-+++ b/include/dt-bindings/reset/realtek,rtd1625.h
-@@ -0,0 +1,171 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (C)		2025 Realtek Semiconductor Corp.
-+ */
-+
-+#ifndef __DT_BINDINGS_RTK_RESET_RTD1625_H
-+#define __DT_BINDINGS_RTK_RESET_RTD1625_H
-+
-+#define RTD1625_CRT_RSTN_MISC			0
-+#define RTD1625_CRT_RSTN_DIP			1
-+#define RTD1625_CRT_RSTN_GSPI			2
-+#define RTD1625_CRT_RSTN_SDS			3
-+#define RTD1625_CRT_RSTN_SDS_REG		4
-+#define RTD1625_CRT_RSTN_SDS_PHY		5
-+#define RTD1625_CRT_RSTN_GPU2D			6
-+#define RTD1625_CRT_RSTN_DC_PHY			7
-+#define RTD1625_CRT_RSTN_DCPHY_CRT		8
-+#define RTD1625_CRT_RSTN_LSADC			9
-+#define RTD1625_CRT_RSTN_SE			10
-+#define RTD1625_CRT_RSTN_DLA			11
-+#define RTD1625_CRT_RSTN_JPEG			12
-+#define RTD1625_CRT_RSTN_SD			13
-+#define RTD1625_CRT_RSTN_SDIO			14
-+#define RTD1625_CRT_RSTN_PCR_CNT		15
-+#define RTD1625_CRT_RSTN_PCIE0_STITCH		16
-+#define RTD1625_CRT_RSTN_PCIE0_PHY		17
-+#define RTD1625_CRT_RSTN_PCIE0			18
-+#define RTD1625_CRT_RSTN_PCIE0_CORE		19
-+#define RTD1625_CRT_RSTN_PCIE0_POWER		20
-+#define RTD1625_CRT_RSTN_PCIE0_NONSTICH		21
-+#define RTD1625_CRT_RSTN_PCIE0_PHY_MDIO		22
-+#define RTD1625_CRT_RSTN_PCIE0_SGMII_MDIO	23
-+#define RTD1625_CRT_RSTN_VO2			24
-+#define RTD1625_CRT_RSTN_MISC_SC0		25
-+#define RTD1625_CRT_RSTN_MD			26
-+#define RTD1625_CRT_RSTN_LVDS1			27
-+#define RTD1625_CRT_RSTN_LVDS2			28
-+#define RTD1625_CRT_RSTN_MISC_SC1		29
-+#define RTD1625_CRT_RSTN_I2C_3			30
-+#define RTD1625_CRT_RSTN_FAN			31
-+#define RTD1625_CRT_RSTN_TVE			32
-+#define RTD1625_CRT_RSTN_AIO			33
-+#define RTD1625_CRT_RSTN_VO			34
-+#define RTD1625_CRT_RSTN_MIPI_CSI		35
-+#define RTD1625_CRT_RSTN_HDMIRX			36
-+#define RTD1625_CRT_RSTN_HDMIRX_WRAP		37
-+#define RTD1625_CRT_RSTN_HDMI			38
-+#define RTD1625_CRT_RSTN_DISP			39
-+#define RTD1625_CRT_RSTN_SATA_PHY_POW1		40
-+#define RTD1625_CRT_RSTN_SATA_PHY_POW0		41
-+#define RTD1625_CRT_RSTN_SATA_MDIO1		42
-+#define RTD1625_CRT_RSTN_SATA_MDIO0		43
-+#define RTD1625_CRT_RSTN_SATA_WRAP		44
-+#define RTD1625_CRT_RSTN_SATA_MAC_P1		45
-+#define RTD1625_CRT_RSTN_SATA_MAC_P0		46
-+#define RTD1625_CRT_RSTN_SATA_MAC_COM		47
-+#define RTD1625_CRT_RSTN_PCIE1_STITCH		48
-+#define RTD1625_CRT_RSTN_PCIE1_PHY		49
-+#define RTD1625_CRT_RSTN_PCIE1			50
-+#define RTD1625_CRT_RSTN_PCIE1_CORE		51
-+#define RTD1625_CRT_RSTN_PCIE1_POWER		52
-+#define RTD1625_CRT_RSTN_PCIE1_NONSTICH		53
-+#define RTD1625_CRT_RSTN_PCIE1_PHY_MDIO		54
-+#define RTD1625_CRT_RSTN_HDMITOP		55
-+#define RTD1625_CRT_RSTN_I2C_4			56
-+#define RTD1625_CRT_RSTN_I2C_5			57
-+#define RTD1625_CRT_RSTN_TSIO			58
-+#define RTD1625_CRT_RSTN_VI			59
-+#define RTD1625_CRT_RSTN_EDP			60
-+#define RTD1625_CRT_RSTN_VE1_MMU		61
-+#define RTD1625_CRT_RSTN_VE1_MMU_FUNC		62
-+#define RTD1625_CRT_RSTN_HSE_MMU		63
-+#define RTD1625_CRT_RSTN_HSE_MMU_FUNC		64
-+#define RTD1625_CRT_RSTN_MDLM2M			65
-+#define RTD1625_CRT_RSTN_ISO_GSPI		66
-+#define RTD1625_CRT_RSTN_SOFT_NPU		67
-+#define RTD1625_CRT_RSTN_SPI2EMMC		68
-+#define RTD1625_CRT_RSTN_EARC			69
-+#define RTD1625_CRT_RSTN_VE1			70
-+#define RTD1625_CRT_RSTN_PCIE2_STITCH		71
-+#define RTD1625_CRT_RSTN_PCIE2_PHY		72
-+#define RTD1625_CRT_RSTN_PCIE2			73
-+#define RTD1625_CRT_RSTN_PCIE2_CORE		74
-+#define RTD1625_CRT_RSTN_PCIE2_POWER		75
-+#define RTD1625_CRT_RSTN_PCIE2_NONSTICH		76
-+#define RTD1625_CRT_RSTN_PCIE2_PHY_MDIO		77
-+#define RTD1625_CRT_RSTN_DCPHY_UMCTL2		78
-+#define RTD1625_CRT_RSTN_MIPI_DSI		79
-+#define RTD1625_CRT_RSTN_HIFM			80
-+#define RTD1625_CRT_RSTN_NSRAM			81
-+#define RTD1625_CRT_RSTN_AUCPU0_REG		82
-+#define RTD1625_CRT_RSTN_MDL_GENPW		83
-+#define RTD1625_CRT_RSTN_MDL_CHIP		84
-+#define RTD1625_CRT_RSTN_MDL_IP			85
-+#define RTD1625_CRT_RSTN_TEST_MUX		86
-+#define RTD1625_CRT_RSTN_ISO_BIST		87
-+#define RTD1625_CRT_RSTN_MAIN_BIST		88
-+#define RTD1625_CRT_RSTN_MAIN2_BIST		89
-+#define RTD1625_CRT_RSTN_VE1_BIST		90
-+#define RTD1625_CRT_RSTN_VE2_BIST		91
-+#define RTD1625_CRT_RSTN_DCPHY_BIST		92
-+#define RTD1625_CRT_RSTN_GPU_BIST		93
-+#define RTD1625_CRT_RSTN_DISP_BIST		94
-+#define RTD1625_CRT_RSTN_NPU_BIST		95
-+#define RTD1625_CRT_RSTN_CAS_BIST		96
-+#define RTD1625_CRT_RSTN_VE4_BIST		97
-+#define RTD1625_CRT_RSTN_EMMC			98
-+#define RTD1625_CRT_RSTN_GPU			99
-+#define RTD1625_CRT_RSTN_VE2			100
-+#define RTD1625_CRT_RSTN_UR1			101
-+#define RTD1625_CRT_RSTN_UR2			102
-+#define RTD1625_CRT_RSTN_UR3			103
-+#define RTD1625_CRT_RSTN_UR4			104
-+#define RTD1625_CRT_RSTN_UR5			105
-+#define RTD1625_CRT_RSTN_UR6			106
-+#define RTD1625_CRT_RSTN_UR7			107
-+#define RTD1625_CRT_RSTN_UR8			108
-+#define RTD1625_CRT_RSTN_UR9			109
-+#define RTD1625_CRT_RSTN_UR_TOP			110
-+#define RTD1625_CRT_RSTN_I2C_7			111
-+#define RTD1625_CRT_RSTN_I2C_6			112
-+#define RTD1625_CRT_RSTN_SPI0			113
-+#define RTD1625_CRT_RSTN_SPI1			114
-+#define RTD1625_CRT_RSTN_SPI2			115
-+#define RTD1625_CRT_RSTN_LSADC0			116
-+#define RTD1625_CRT_RSTN_LSADC1			117
-+#define RTD1625_CRT_RSTN_ISOMIS_DMA		118
-+#define RTD1625_CRT_RSTN_AUDIO_ADC		119
-+#define RTD1625_CRT_RSTN_DPTX			120
-+#define RTD1625_CRT_RSTN_AUCPU1_REG		121
-+#define RTD1625_CRT_RSTN_EDPTX			122
-+
-+/* ISO reset */
-+#define RTD1625_ISO_RSTN_VFD			0
-+#define RTD1625_ISO_RSTN_CEC0			1
-+#define RTD1625_ISO_RSTN_CEC1			2
-+#define RTD1625_ISO_RSTN_CBUSTX			3
-+#define RTD1625_ISO_RSTN_CBUSRX			4
-+#define RTD1625_ISO_RSTN_USB3_PHY2_XTAL_POW	5
-+#define RTD1625_ISO_RSTN_UR0			6
-+#define RTD1625_ISO_RSTN_GMAC			7
-+#define RTD1625_ISO_RSTN_GPHY			8
-+#define RTD1625_ISO_RSTN_I2C_0			9
-+#define RTD1625_ISO_RSTN_I2C_1			10
-+#define RTD1625_ISO_RSTN_CBUS			11
-+#define RTD1625_ISO_RSTN_USB_DRD		12
-+#define RTD1625_ISO_RSTN_USB_HOST		13
-+#define RTD1625_ISO_RSTN_USB_PHY_0		14
-+#define RTD1625_ISO_RSTN_USB_PHY_1		15
-+#define RTD1625_ISO_RSTN_USB_PHY_2		16
-+#define RTD1625_ISO_RSTN_USB			17
-+#define RTD1625_ISO_RSTN_TYPE_C			18
-+#define RTD1625_ISO_RSTN_USB_U3_HOST		19
-+#define RTD1625_ISO_RSTN_USB3_PHY0_POW		20
-+#define RTD1625_ISO_RSTN_USB3_P0_MDIO		21
-+#define RTD1625_ISO_RSTN_USB3_PHY1_POW		22
-+#define RTD1625_ISO_RSTN_USB3_P1_MDIO		23
-+#define RTD1625_ISO_RSTN_VTC			24
-+#define RTD1625_ISO_RSTN_USB3_PHY2_POW		25
-+#define RTD1625_ISO_RSTN_USB3_P2_MDIO		26
-+#define RTD1625_ISO_RSTN_USB_PHY_3		27
-+#define RTD1625_ISO_RSTN_USB_PHY_4		28
-+
-+/* ISO_S reset */
-+#define RTD1625_ISO_S_RSTN_ISOM_MIS		0
-+#define RTD1625_ISO_S_RSTN_GPIOM		1
-+#define RTD1625_ISO_S_RSTN_TIMER7		2
-+#define RTD1625_ISO_S_RSTN_IRDA			3
-+#define RTD1625_ISO_S_RSTN_UR10			4
-+
-+#endif /* __DT_BINDINGS_RTK_RESET_RTD1625_H */
--- 
-2.43.0
+clk: cix: add sky1 audss clock controller
 
+Add a platform driver for the Cix Sky1 Audio Subsystem (AUDSS) internal
+clock controller. The driver binds to a cix,sky1-audss-clock device tree
+node under the AUDSS syscon, obtains the parent regmap via
+syscon_node_to_regmap(), and registers mux/divider/gate composite clocks
+for DSP, SRAM, HDA, DMAC, watchdog, timer, mailbox and I2S outputs. Four
+SoC-level audio reference clocks are brought up as inputs to the tree.
+
+> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-=
+audss.c
+> new file mode 100644
+> index 0000000000000..3ec6bea93b73c
+> --- /dev/null
+> +++ b/drivers/clk/cix/clk-sky1-audss.c
+> @@ -0,0 +1,1175 @@
+[ ... ]
+> +static u32 sky1_reg_save[][2] =3D {
+> +	{ INFO_HIFI0,  0 },
+> +	{ INFO_CLK_GATE,  0 },
+> +	{ INFO_CLK_DIV, 0 },
+> +	{ INFO_CLK_MUX, 0 },
+> +	{ INFO_MCLK, 0 },
+> +};
+
+[Severity: Medium]
+Since devtype_data->reg_save points to this statically defined sky1_reg_save
+array, won't multiple instances of this device concurrently overwrite each
+other's saved register states during runtime suspend?
+
+Should the register save array be allocated per-instance in
+sky1_audss_clks_priv instead?
+
+[ ... ]
+> +static const struct composite_clk_cfg sky1_audss_clks[] =3D {
+> +	/* dsp */
+> +	CFG(CLK_DSP_CLK,
+> +	    "audss_dsp_clk",
+> +	    dsp_clk_parent,
+> +	    NULL,
+> +	    -1, 0, 0, 0,
+> +	    INFO_CLK_DIV, 0, 2, 0,
+> +	    INFO_HIFI0, 0, 0,
+> +	    0),
+
+[Severity: High]
+Seventeen distinct clocks (from CLK_DSP_CLK through CLK_I2S9_APB) are defin=
+ed
+with the exact same divider offset (INFO_CLK_DIV), shift (0), and width (2).
+
+Won't changing the rate of one clock silently overwrite the physical divider
+for the other 16 clocks without updating their cached rates in the clock co=
+re?
+
+[ ... ]
+> +static int sky1_audss_clk_mux_set_parent(struct clk_hw *hw, u8 index)
+> +{
+> +	struct clk_mux *mux =3D to_clk_mux(hw);
+> +	u32 val =3D clk_mux_index_to_val(mux->table, mux->flags, index);
+> +	struct sky1_clk_mux *sky1_mux =3D to_sky1_clk_mux(mux);
+> +	unsigned long flags =3D 0;
+> +	u32 reg;
+> +
+> +	if (mux->lock)
+> +		spin_lock_irqsave(mux->lock, flags);
+> +	else
+> +		__acquire(mux->lock);
+> +
+> +	if (mux->flags & CLK_MUX_HIWORD_MASK) {
+> +		reg =3D mux->mask << (mux->shift + 16);
+> +	} else {
+> +		regmap_read(sky1_mux->regmap, sky1_mux->offset, &reg);
+> +		reg &=3D ~(mux->mask << mux->shift);
+> +	}
+> +	val =3D val << mux->shift;
+> +	reg |=3D val;
+> +	regmap_write(sky1_mux->regmap, sky1_mux->offset, reg);
+
+[Severity: Medium]
+Since the regmap is obtained via syscon_node_to_regmap(), it may be shared
+with other drivers.
+
+Does relying on the local priv->lock to protect discrete regmap_read() and
+regmap_write() calls leave a race condition against other syscon users?
+
+Should regmap_update_bits() be used instead to ensure atomicity?
+
+Also, if the regmap_read() call fails, reg remains uninitialized. Does this
+result in writing raw stack memory back to the hardware register via the
+subsequent regmap_write()?
+
+[ ... ]
+> +static void sky1_audss_clk_gate_endisable(struct clk_hw *hw, int enable)
+> +{
+> +	struct clk_gate *gate =3D to_clk_gate(hw);
+> +	struct sky1_clk_gate *sky1_gate =3D to_sky1_clk_gate(gate);
+> +	int set =3D gate->flags & CLK_GATE_SET_TO_DISABLE ? 1 : 0;
+> +	unsigned long flags =3D 0;
+> +	u32 reg;
+> +
+> +	set ^=3D enable;
+> +
+> +	if (gate->lock)
+> +		spin_lock_irqsave(gate->lock, flags);
+> +	else
+> +		__acquire(gate->lock);
+> +
+> +	if (gate->flags & CLK_GATE_HIWORD_MASK) {
+> +		reg =3D BIT(gate->bit_idx + 16);
+> +		if (set)
+> +			reg |=3D BIT(gate->bit_idx);
+> +	} else {
+> +		regmap_read(sky1_gate->regmap, sky1_gate->offset, &reg);
+> +
+> +		if (set)
+> +			reg |=3D BIT(gate->bit_idx);
+> +		else
+> +			reg &=3D ~BIT(gate->bit_idx);
+> +	}
+> +
+> +	regmap_write(sky1_gate->regmap, sky1_gate->offset, reg);
+
+[Severity: Medium]
+If the regmap_read() call fails here, reg remains uninitialized.
+
+Could this write uninitialized stack memory back to the hardware register?
+
+[ ... ]
+> +static int sky1_audss_clk_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	ret =3D sky1_audss_clks_set_rate(priv);
+> +	if (ret) {
+> +		dev_err(dev, "failed to set clocks rate\n");
+> +		goto fail_clks_set;
+> +	}
+> +
+> +	/* assert reset */
+> +	reset_control_assert(rst_noc);
+
+[Severity: High]
+If sky1_audss_clks_set_rate() fails, the code jumps to fail_clks_set and
+calls pm_runtime_put_sync(), which invokes sky1_audss_clk_runtime_suspend().
+
+Since reset_control_deassert(rst_noc) has not yet been executed, doesn't th=
+is
+attempt to read registers from a subsystem still held in reset, potentially
+causing a system bus hang?
+
+[ ... ]
+> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, priv->c=
+lk_data);
+
+[Severity: High]
+The OF clock provider is registered using devm_of_clk_add_hw_provider(),
+meaning its cleanup happens during the devres phase, after
+sky1_audss_clk_remove() returns.
+
+By manually freeing the composite clocks in sky1_audss_clk_remove() with
+clk_hw_unregister_composite(), is there a window where the OF provider is
+still globally active but the internal clk_hw pointers have already been
+freed, leading to a use-after-free if a consumer probes during this time?
+
+> +	if (ret) {
+> +		dev_err(dev, "failed to add clock provider: %d\n", ret);
+> +		goto fail_register;
+> +	}
+> +
+> +	pm_runtime_put_sync(dev);
+> +
+> +	return 0;
+> +
+> +fail_register:
+> +fail_array_clk:
+> +	while (i--)
+> +		clk_hw_unregister_composite(clk_table[devtype_data->clk_cfg[i].id]);
+> +fail_fixed_clk:
+> +fail_clks_set:
+> +	pm_runtime_put_sync(dev);
+> +	pm_runtime_disable(dev);
+
+[Severity: Medium]
+If the kernel is built with CONFIG_PM=3Dn, these runtime PM calls become
+no-ops, which means the runtime suspend callback is never invoked.
+
+Does this permanently leak the parent clocks explicitly enabled earlier in
+probe?
+
+Should the clocks be manually disabled in the error path and remove functio=
+n?
+
+> +	return ret;
+> +}
+> +
+> +static void sky1_audss_clk_remove(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
+> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
+pe_data;
+> +	int i =3D 0;
+> +
+> +	for (i =3D 0; i < devtype_data->clk_cfg_size; i++)
+> +		clk_hw_unregister_composite(priv->clk_data->hws[devtype_data->clk_cfg[=
+i].id]);
+> +
+> +	if (!pm_runtime_status_suspended(dev))
+> +		pm_runtime_force_suspend(dev);
+
+[Severity: Medium]
+If CONFIG_PM is disabled, pm_runtime_force_suspend() is a no-op.
+
+Could this leave parent clocks enabled during device removal?
+
+> +
+> +	pm_runtime_disable(dev);
+> +}
+> +
+> +static int __maybe_unused sky1_audss_clk_runtime_suspend(struct device *=
+dev)
+> +{
+> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
+> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
+pe_data;
+> +	unsigned long flags;
+> +	int i;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +	for (i =3D 0; i < devtype_data->reg_save_size; i++)
+> +		regmap_read(priv->regmap_cru,
+> +			    devtype_data->reg_save[i][0], &devtype_data->reg_save[i][1]);
+
+[Severity: High]
+This register read can happen when the device is still in reset if the
+probe function fails at sky1_audss_clks_set_rate().
+
+Can this trigger a system bus hang?
+
+[Severity: Medium]
+This also writes to devtype_data->reg_save[i][1] which points to the global
+sky1_reg_save array.
+
+Does this corrupt the saved state if multiple instances of this driver are
+active?
+
+[ ... ]
+> +static struct platform_driver sky1_audss_clk_driver =3D {
+> +	.probe =3D sky1_audss_clk_probe,
+> +	.remove =3D sky1_audss_clk_remove,
+> +	.driver =3D {
+> +		.name =3D "sky1-audss-clk",
+> +		.suppress_bind_attrs =3D true,
+> +		.of_match_table =3D sky1_audss_clk_of_match,
+> +		.pm =3D &sky1_audss_clk_pm_ops,
+
+[Severity: Low]
+Should this be wrapped with pm_ptr() to avoid leaving dead code when CONFIG=
+_PM
+is disabled?
+
+> +	},
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610075645.3581=
+145-1-joakim.zhang@cixtech.com?part=3D4
