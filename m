@@ -1,165 +1,130 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F0842846D
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08985405C2F
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781104215; cv=none; b=iEY2RMU2TL1RAy15Fh7uwYK2xdpzqgmHAo3MC3orB9q1qfqNUoDvm5Flua+xHmxtlTG/Dpxdd0fjoK90u2BmPL6mQmpUzQRsZqm6yDXXFIQlRhD/BYmbx2xQbUaPkULyyAtT/PoTzLIbuyyi+AXlsdjc4pfDLkGg8LKyWidCxpU=
+	t=1781104431; cv=none; b=QpBPMxJl5uD6hstHeKyhnrOxdMLT9Eb/EyhPTWdbT5G1pJuUz5UGa1tEbu7aCVczZX8Icple1jJeF00M5uuCL0CCLNMta4m35YO//nf5gVlz6FbuMCj/avb7ZowKYA95ffetYiBlOo1e4elOjm8SEuF671Qp7pnPHdjdr7cx25w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781104215; c=relaxed/simple;
-	bh=CxMqc5Z8dZCP7YbevMXRl4wrFU/nva9jNTpDigvQuKk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=LvJvQ+AdNA6bu5q9iINvXOKAfbb7+BDOLuHTGcvl3lW6oDfqnqwkbDWjP3QRbBDf6A57XAau6R5ks+b1Enpi9uvnGvtNu3MIXfFcv88LuNyyVYAbng9UXrVPAfWaqwzmL+Mf1+bo3KCIpeRFU7LnL/PWOPSK0xo1uuYCunNEkmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=bjbOf50B; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1781104431; c=relaxed/simple;
+	bh=ZywlfbF41j2Nded7OQmsl0r2Xwazx+xj+hhYFdpigSM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cQcWYgMresGIwC9KgCcP5QtE6BE4Tf/H0Qhl8iCxYFIOLSfWjTudQY8GcLOKrAqw+ELOSSG5JZUeAKWA3ihopFjwz88AgF4FGkQnT4g1VLFZjKnyvZ3NJJ8X+HoEgQlZCDDmzrui6tGRtdX5AheMyDNlSrP2uTWqSal39JJptbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fdrfmLXd; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="bjbOf50B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1781104213;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CxMqc5Z8dZCP7YbevMXRl4wrFU/nva9jNTpDigvQuKk=;
-	b=bjbOf50BQVYNmJgN5dVLjnGW/uLz/cjZktHzC74isyH+womySN08JGcn9bWZou8pZmtQl7
-	X0fUU9woM6jMhugkExlppAQnUjqEyikQEFDmnumnOejBmQIMypLNTcPqx7SJgHKAKsUZxk
-	vbE0u6pqal6rkr0kUnbHC36nvZTsZLtWJEbMupnVVAkFhoWgDNZEtatrxTLeav/VkXJGuc
-	5RcfNFLCyur4bpfySSLYimHjsGbRVdRktBQs/6Ciuof5OFSTym2agABAvD+cipK1m1ceLf
-	obIvWsPabQBYHEbjjpDYaFSjG5VfimXyL3lBY+WZ5t2vEba0O3IUTOTr5R5Dtw==
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013056.outbound.protection.outlook.com
- [40.93.196.56]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-10-uO4FCk0fNxa9Xtad_a6i1w-1; Wed, 10 Jun 2026 08:10:08 -0700
-X-MC-Unique: uO4FCk0fNxa9Xtad_a6i1w-1
-X-Mimecast-MFC-AGG-ID: uO4FCk0fNxa9Xtad_a6i1w_1781104204
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
- by SN7PR02MB9302.namprd02.prod.outlook.com (2603:10b6:806:34d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
- 2026 15:09:59 +0000
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
- 15:09:59 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
-	<andrew@lunn.ch>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Conor Dooley
-	<conor.dooley@microchip.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, Piergiorgio Beruto <Pier.Beruto@onsemi.com>
-Subject: RE: [PATCH net v4 4/4] dt-bindings: net: updated interrupt type to be
- active low, level triggered
-Thread-Topic: [PATCH net v4 4/4] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Thread-Index: AQHc+ElHB34YcFpMHEOx+ZpC8f1y4rY3YxQAgACCA/A=
-Date: Wed, 10 Jun 2026 15:09:59 +0000
-Message-ID: <CY8PR02MB924967C220439DD4D4B0F699831A2@CY8PR02MB9249.namprd02.prod.outlook.com>
-References: <20260609-level-trigger-v4-0-6f389abdd192@onsemi.com>
- <20260609-level-trigger-v4-4-6f389abdd192@onsemi.com>
- <20260610-glittering-rose-squirrel-b0ccf6@quoll>
-In-Reply-To: <20260610-glittering-rose-squirrel-b0ccf6@quoll>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|SN7PR02MB9302:EE_
-x-ms-office365-filtering-correlation-id: 464afc91-0c33-49cf-8fe4-08dec70256e7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003|38070700021
-x-microsoft-antispam-message-info: cZjqM2UBlZO1Myx/u2/OcIN78N/JeLpTTxQQrPEXTrRB8ffeECWwXu85wO+2LjQxkHI3KgBLe4RrCuvwfeIcDh99SkruNS7zKMX8kcepOfRn0TAHxZ2WbU0SmyXrIYpwCNr5tuxfM5tFNzEzU87FanElTJDUn6/jrSHsd+LTb9F0YHPCo/N0i7iKOZ0/uKC7fhlAzIgri+IOWOElporocPBnDJn+klMLyQIrYWjtSQhbERG1xssh5qvewK4ny/0vMXD3IrEO+G1Oj01lTT+TODbTSwQgoQDb1/rWokm+Xbxor+1rziBraNEx3833PnvCqdfnKscVzRYxQThuYcHDbzTTdmu9YqKd4SbjGAyHeYlegKDnZhr5pi2oVbMUZLyPuKS+t4eB5CLw7J23cRQ0AXLXJVpjSfELpGRmdZlQDlqe0VlvT81VdIrbkRTXjERjwVmbrS5uIGKoJysyoYIYTzyYEOO3yO6kaZeHThHCsdV7iYlxV2jVwtLu7AGVFJV82y2+aVljrnoNi6UcA4twnMakajOi+P35qRCe+0gaTyvdcnwcR+kJuJavarVAoX0tbrsENgLZPhbzI2brqTMem9D98cka5/WZMzB+sqfXm3DtrCCtmX4oVQJm22HGSeV3uq9esf5mvsg2/jRjlUjYWOwKHBSVbVXhCaESaiXe2HSEsrHVHld68ZlsyZfJ3RxMZeufFSWrHeEN39gF0kWCfLW/zZfKjgRpbWbCJ7agsj0sY9QV4RDsn9B+Ktv1wXdN
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZXcwUHdaeWZ1OEJwWElEU1Rrd2NNZmZEMzFOTjVqb2NkdCtPMno0Mi9mUW1C?=
- =?utf-8?B?UU14YlA4Z2tmRElQdVVqaE9tSzA0Tk4rdG1aTmxvdEF5bm84L1VBN3oxZTNx?=
- =?utf-8?B?a2grVE96TDVPUW9TZDNqeFhZRzZmQkc2bzBBdTNOWUtvbUo3dXpiUXlNc2JR?=
- =?utf-8?B?QzVuenoxaW5jdDF2OVRlNkI5RzU4ZCt1TmhETEgrMW9QZjRaNE9zTnprMXBZ?=
- =?utf-8?B?UDBWT0dTWmxWcGtuRFBGWXJtMHY1V3ZuSzlTcnZFc01SWnhVTHJySjNuQ1BM?=
- =?utf-8?B?ekNXcWs3T21lUXF0WVhUNHNoNm5sTjlzL01BMHR2cUNoVFdUNnl1VWsxcmRn?=
- =?utf-8?B?N2E1eTNWNTU2L0doMkV6Y2M0ZXV0ajg4RlNVOU5MYVA2aG9vRHFNT24yREpp?=
- =?utf-8?B?SVlMQjBqekhvSjhxalZoUXVPSWZTSFp3K1JBSzIyOVJDQ0R4QkZPd29qZldM?=
- =?utf-8?B?dkdJRkdBODBVeGRKRTcrd29Ed1h3Q2hha3JiblJ4NTM3VEo1UWdTTTYyQTY1?=
- =?utf-8?B?TzRITEI1cGFqbDJ0bUNEWmFIUjNYM2wrWmRMOTFpeVQzNG95cjdRV28zbkxp?=
- =?utf-8?B?dFhLYUR4dHpwYjZHd1BxbXd6b3JGQWxXZ081SDVkTExqWXJmeFZ3K1Zkcndi?=
- =?utf-8?B?VGdCUGZ4RWh2NmZKTXBUb3djTVJoZmdSa0JJRWI4UHFpaDBZU0EyK0d3OWZO?=
- =?utf-8?B?OHAzLzh4WDBIZHozVW5zcktjSFBpTUlaYnRnMlJhK3JRcHRtRVZ2MlYyOWJw?=
- =?utf-8?B?dWV4enNHNnFhZlZGZjhHTGhteHZSMWJBRnNOaUFuMGlObW96NnRCaTYzcHdh?=
- =?utf-8?B?VG5IRnhMN0t3OC9tS0tFaS9jSDVUQzBsZzZBVGpDZkROUCtVRFUremFXSXdD?=
- =?utf-8?B?bnBmWEtJY3pFc1A3UjRsb2FrN2VUbEZLNHErRHhtWjhFZjZldi9zZm4rVTdx?=
- =?utf-8?B?cUVRSTNSdUhLd0VxM05ycVd6VGM4R3UzRmxpbm40alhIUzY5QnVPdGd3TDBw?=
- =?utf-8?B?ejFFaFdDdVhHQnhDR0pDcDcrWHdvVHhhMG5YMTFiZ3g4bEN6K2F2dlhjR0tI?=
- =?utf-8?B?S3NoUTNFNFpBN1dkZ3BxOVpQRERJdW84Njd5VWtrNmhHcjZkc1hVWE5ZYVAw?=
- =?utf-8?B?eEZoNzZmUm04a1JSWFN4T0FYNlFaSFRxdENqNjBOQmN5VG1mRmFQdXpTSkM4?=
- =?utf-8?B?NTFFYzZjeENxeFBXckZra3ZhT1RsaVRnNUJCalAzakRjblc0UkZJaXNaUmhU?=
- =?utf-8?B?clpqU3R3TEN2U3RUUVM2a0RkcXRSeGY5TDluQlV3VDNRK1lmQVJNRUlGY1Z1?=
- =?utf-8?B?K2h4WVdpVXYrcGUwYk9PN3JlbzlGdlV0bmdqYzBwd0xQSXRwcUhUTUtqcG9z?=
- =?utf-8?B?cWttOTUyQWNLWmxVVnpOQTMzaUJ6dlcwL1V4d0h1YUdwQ1VSTlIyNWZqazJR?=
- =?utf-8?B?TDhBQmpEeVJPVkNqL1NCb3FSSVdXSmdTZmJSdjRENElHMmRMalhRUStqMTNm?=
- =?utf-8?B?cEh6aDkzZWQ0NFNHWFI0bFBOeE85YjNxZ3pIR0hYUWhxZGtyNzBPTklHVjRy?=
- =?utf-8?B?ZGthK1pwRE1panB2U2Z6MFZuSldESXA5TmpOUFNKWDNwN010TmpPNkpiL3Jx?=
- =?utf-8?B?Q29vQ3h0Mzc0Z3RMUW9ha0plVHlMblRTalE2eEx5V2xyeWQ5ZnVsaHBBeUU2?=
- =?utf-8?B?K0p1aWZIWDQraVVCejVZdVhCNFAvSHBrbnNtR2xSdUt4SzZhRU1COHRQTzVa?=
- =?utf-8?B?OVJzQlVIbFQ3UDBCblRRVXQ4bjlnRTRUNDRkNEhvNE1zL3pWcFNLYkFTTHpJ?=
- =?utf-8?B?eklSVk1RYnoxTmZZa0pjenV5bXh2Y2tRdkQrV3dxNVJ0bUp4M1FrTldtckFD?=
- =?utf-8?B?MGEzaGg1OXBBMVhlS3ZLbXhwT21zTFhjTFl2S3laTEVwSE9NNkU5T2pxcFBV?=
- =?utf-8?B?M2IrMTFocDlySHlUN2ZObGtBdDBoWk9pMFdhWFdLZGhpaDhFb0dCaFplUktY?=
- =?utf-8?B?R0JmZytnN1E0YnBGN2tOTTBEUTJPbHc2T3ROSFhmNncrY2t2cmNhRjd6S0tS?=
- =?utf-8?B?TE5GdU1KbEszY28yazFva3RkNlBscHF0c0xwSWtteVRMRnZJZWk1bXRuSVdI?=
- =?utf-8?B?UDlDTERFWmMzSDhaWVpaSWpjdHk0TlRmeVZKaHFnUUhWV0JGeFp3YkpqQmNm?=
- =?utf-8?B?WEFMVlFTbnFMZWJwNDhqQ1dSeDFNQ3Q5dFgxT2VaSk8wZkp6LytXQTdtZ1VF?=
- =?utf-8?B?MEx2Z0hBVjNib3VLY0lHT2g5aXNDZU1CRUdYSDRPRzRheXBhR2pUaC80TnJu?=
- =?utf-8?B?cWEzZVpGUGlJc1U4eE9DREp2Mk04T2JuNWVNbllBUW1Rbkg4eHJzZW1LQ1ox?=
- =?utf-8?Q?A7HjVo5ZiR5/UUzA=3D?=
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fdrfmLXd"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c8573e75425so2698481a12.2
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 08:13:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781104429; x=1781709229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SN2WYk0Xb543ogGLjaeUCwmB6Ei9KYDO2yTRMSZaVpY=;
+        b=fdrfmLXdLBBmNFgpj9WWZcpjiv2zJ4H4C9+UzMHGJcfN+ItNolsWGwwYzaHjYRH7Ee
+         HlSLYKpRFqjupt70WkgSATJiOIn8GTyvD8W5l+AflrxX5cx6ULpCmlZbjPoRamF6fpZ8
+         4uxzy15VhwDngIyZKUgNoFDjza/5EzTyAKBckGzeiINSFinAbNoV1GdzTlir6hlBqojj
+         yifKHid4vhlffYStiQzMmqOeJdkdQjvzYYO1/tX0WGstUblvTnuNpcrpYbMxxpEDiQ4I
+         ByVGft2oIgZTBT8DSYC8KwMRT/eb1cRwRprpAOYQ2wa2TvGd5tnuTR/VQ5ZPp53a18eT
+         5kHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781104429; x=1781709229;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SN2WYk0Xb543ogGLjaeUCwmB6Ei9KYDO2yTRMSZaVpY=;
+        b=l4r5lTI9hiJx92q0yVNhMHCeVPfFDG1I+kk5aFbtXfWeUmltXjkZFVqa225uO3S0o3
+         XM3CfBerrGh5QRMZnx4a2TJ48l3kffApwrDedsXNYbybC0+O1GHnL+9tdHCbUJJu6PGe
+         rlK9g1bvpbI6Egjgxg370GXXaX5GPe5Upv3pM+BJL5pS/pdl5Lgz6fmW4uUFfKCU40YE
+         rvtfeDGNtJsBZw0osjSHB9dKntrQ9MW8AWnydeY0OleyoWdN5HlXv1Zo+g9Q0GVVPnjC
+         cyzUumRAPW60CkomUQkxGGN++BzjNaGukMt5tNS/niQ/PKIBZF0L/9WCkbRpKO4FfXUv
+         s0Fg==
+X-Forwarded-Encrypted: i=1; AFNElJ/D4hTbcJl+YtAUYfrAYLaU5XUGFLljm0a7a6atMMQm4X7TP5dTHuHmSJQ0bZHx3uKQ8X1OtARUAZXn@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYxAJaNHNYkLoB2XUzOWUwvrIXin098GYXY1ondZXqEsIo3kcq
+	n6y81srz5DOq5wlb9i2Gqj3ghqoXEGpO6JrcX6UfjyvOFIrSJVodRAGh
+X-Gm-Gg: Acq92OGJjdey4Q3P+NWwjmxNbXc0+6WsEabYIpY6JSm3R2yuJQKcTPCDzEzs2RI4/Cb
+	WSrFMCFzOAv87tfTmgOi8Y94XjrmWf6oPcGXnXjfhRSiG4cAIy9vZrGWOsF+GMAHkKi0I12Mm8e
+	HhkZOvgdec3fz2r6xBqvrJdYMdgsogrg+mmtd2ewB7MqvoXQlnRIbdJwFNdRo8QEqFNrKbgafOO
+	vF2Gx1y9Un/9J60dwsAnk/9PV7EtjMWyHc+YQMkyIesoLlaaMaHAqgIEI0lWSrcAtjiV2Nc/E6y
+	8yAvQmRWf1twkKETlBj9aKWl1Kn+TvWymTqVF8eBxT886lN1cNLyWcygjJTGSjwm4O41lamb22o
+	dvC0unZrcHsoGRlPdLBcjLVvVpl975fsGxU3zQdk88eoXHVD93GLFejbBO5jzFhfgO5K7Xf7mRr
+	RALo/o6bRWkgrRi0pgaTGIUHA=
+X-Received: by 2002:a17:903:1252:b0:2c0:c625:4010 with SMTP id d9443c01a7336-2c1e8102377mr281161125ad.32.1781104429228;
+        Wed, 10 Jun 2026 08:13:49 -0700 (PDT)
+Received: from ltu.. ([171.245.6.72])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1664a67b0sm254066195ad.80.2026.06.10.08.13.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 08:13:48 -0700 (PDT)
+From: Nguyen Minh Tien <zizuzacker@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	zizuzacker@gmail.com
+Subject: [PATCH 0/2] iio: adc: Add Texas Instruments ADS1220 ADC
+Date: Wed, 10 Jun 2026 22:13:40 +0700
+Message-Id: <20260610151342.44274-1-zizuzacker@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: hDYRWEzzXs5Owf4pc3fcXmFOTZjgpTzxDcyWy29x8ccCgniK5xtkw+ZCWNJGfSkozEWVvnSHGPRjBK/36aHUcJ4aD+j4QhK3nyu3u+21P53YsGbp8rz/ihtzEPAeFYya0UcUizWpc4uGDEflwQIJNuMngh+5KA/TNHpdNvs3rbL1xDnn49CPi/Q852Fl3UKv7aiyhPLiWy0d15wii+F9zDDIRcmECPX8GLB138sfy+z8rkN+6Ot6afhICFRW0qMR+shFdzMFHP0cR7RcEoGsc+IVsUCXoCKRXExpazeo589p1T+rgrk+IwLrnm0l/0pKYOZpRHhT/DHXUAqR92s6fg==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 464afc91-0c33-49cf-8fe4-08dec70256e7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2026 15:09:59.4695
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9CphGw7tJJlagszfosBBYXG5I6lfcZWFAXT2GflzXwAiRWk2nWTsO0lCz4A2rQYVWBZAxim3H1mIry/KoxvJZVP3PSmZn2AUcyGJp+xm9qA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR02MB9302
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: J-NOw1fsh2DUPcMum_ammVgsREjsR3_EF3ba2qJRIpQ_1781104204
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIG5ldCB2NCA0LzRdIGR0LWJpbmRpbmdzOiBuZXQ6IHVwZGF0
-ZWQgaW50ZXJydXB0IHR5cGUgdG8gYmUgYWN0aXZlIGxvdywNCj4gbGV2ZWwgdHJpZ2dlcmVkDQo+
-IA0KPiBPbiBUdWUsIEp1biAwOSwgMjAyNiBhdCAxMjo1MDoyN1BNIC0wNzAwLCBTZWx2YW1hbmkg
-UmFqYWdvcGFsIHdyb3RlOg0KPiA+IEFjY29yZGluZyB0byBPUEVOIEFsbGlhbmNlIDEwQkFTRS1U
-MXggTUFDUEhZIFNlcmlhbCBJbnRlcmZhY2UgKFRDNikNCj4gPiBzcGVjaWZpY2F0aW9uLCBpbnRl
-cnJ1cHQgdHlwZSBpcyBhY3RpdmUgbG93LCBsZXZlbCB0cmlnZ2VyZWQgaW50ZXJydXB0Lg0KPiA+
-DQo+ID4gRml4ZXM6IGFjNDliOTUwYmVhOSAoImR0LWJpbmRpbmdzOiBuZXQ6IGFkZCBNaWNyb2No
-aXAncyBMQU44NjVYIDEwQkFTRS1UMVMNCj4gTUFDUEhZIikNCj4gDQo+IFRoaXMgdG8gYmUgYSBm
-aXgsIHlvdSB3b3VsZCBuZWVkIHRvIGRlc2NyaWJlIHRoZSBpc3N1ZSwgZS5nLiBpbXBhY3QuIEkN
-Cj4gYWxyZWFkeSBhc2tlZCBsYXN0IHRpbWUgYW5kIGNvbW1pdCBtc2cgZGlkIG5vdCBpbXByb3Zl
-Lg0KDQoNCkhhdmUgYWRkZWQgc29tZSBkZXRhaWxzIGluIHRoZSBzb3VyY2UgY2hhbmdlLiBJIHNo
-b3VsZCBoYXZlIGFkZGVkIGhlcmUgdG9vLiBJIHdpbGwgYWRkIGhlcmUgaW4gdGhlIG5leHQgc3Vi
-bWlzc2lvbi4gDQoNCg0KPiANCj4gPiBTaWduZWQtb2ZmLWJ5OiBTZWx2YW1hbmkgUmFqYWdvcGFs
-IDxTZWx2YW1hbmkuUmFqYWdvcGFsQG9uc2VtaS5jb20+DQo+ID4NCj4gDQo+IE1lc3NlZCBwYXRj
-aCAtIG1pc3Npbmcgc2VwYXJhdG9yLg0KDQoNCkkgZGlkbid0IGtub3csIHRoZXJlZm9yZSBkaWRu
-J3QgcmVhbGl6ZS4gV2lsbCBhZGQgaW4gdGhlIG5leHQgc3VibWlzc2lvbi4NCg0KDQo+IA0KPiA+
-IGNoYW5nZXMgaW4gdjQ6DQo+ID4gbm8gY2hhbmdlDQo+ID4gY2hhbmdlcyBpbiB2Mw0KPiA+IGlu
-dGVycnVwdHMgZW50cnkgY2hhbmdlZCB0byBsZXZlbCB0cmlnZ2VyZWQgZnJvbSBlZGdlIHRyaWdn
-ZXJlZA0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg0K
+This series adds support for the Texas Instruments ADS1220, a 24-bit,
+2-kSPS, 4-channel delta-sigma ADC with an SPI (mode 1) interface, a
+programmable gain amplifier (1 to 128), an internal 2.048V reference and
+a dedicated DRDY data-ready output.
+
+The driver supports:
+ - single-ended and differential voltage channels described as
+   device-tree child nodes;
+ - per-channel programmable gain (via _scale) and data rate (via
+   _sampling_frequency), with the matching *_available attributes;
+ - the internal 2.048V reference, an external reference on REFP0/REFN0
+   via a regulator, or the analog supply (AVDD) as a ratiometric
+   reference for single-supply measurements;
+ - single-shot conversions gated on the DRDY interrupt, or on a
+   data-rate-derived delay when no interrupt is wired;
+ - a DRDY-interrupt-driven triggered buffer for streaming;
+ - runtime PM (power-down between conversions).
+
+I tested this on a Lichee Pi Nano (Allwinner F1C100s) running Linux 7.0:
+with a potentiometer on AIN0 (single-ended against AVSS, AVDD as the
+reference), in_voltage0_raw tracks the wiper linearly across the full
+0..3.3V range (0 to 0x7fffff). Nothing in the driver is board-specific -
+it only uses the SPI and IIO frameworks - so it should work on any SPI
+host.
+
+This is my first kernel contribution. I modelled the driver on the
+existing TI ADS-family IIO drivers - ti-ads1119 for the structure and
+ti-ads124s08 for the SPI side - so I'd welcome any feedback on things
+I've missed.
+
+Nguyen Minh Tien (2):
+  dt-bindings: iio: adc: Add TI ADS1220
+  iio: adc: Add TI ADS1220 driver
+
+ .../bindings/iio/adc/ti,ads1220.yaml          | 146 +++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/adc/Kconfig                       |  12 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ti-ads1220.c                  | 835 ++++++++++++++++++
+ 5 files changed, 1001 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
+ create mode 100644 drivers/iio/adc/ti-ads1220.c
+
+
+base-commit: ae696dfa47c30016cd429b9db5e70b259b8f509e
+-- 
+2.34.1
 
