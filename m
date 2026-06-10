@@ -1,333 +1,197 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011010.outbound.protection.outlook.com [52.101.52.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9899240D57E;
-	Wed, 10 Jun 2026 11:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781092420; cv=fail; b=VZ0JhmTUI11lBnYhyUUdf7CPmMxEv2KzEux1Ha6fJOmCfw0m3DkARZ92T6nRx2xWvSklQYRLA9RyH3G6b6QWodKNwEQScC0+p9RwreMBm1rNIPVBrd+jRpVsyB4TU3giWuCP/e1OHxp4wsxOaQUUq5RmVZnV1himeZu+8eKt8os=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781092420; c=relaxed/simple;
-	bh=GJfBDOlAfBeJ60EoHfIszmxObmb3jokk6+adw8tzCbA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ivzdA2KCZ4BE71YVVm7pH/VvCrJjWkWosZMCnmEH17WBUYL1aS5/3176jQERndet1tWq3oZCUV0SIDXN1LwUwrtRSm5sntUUOECzj+BONCvJhdtkpJT9s0G/zoAoUFTkMki6k6ebHwHfNpPGWmRYU7iH8fwAivi7nA4xhelKvjY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GDQKLx48; arc=fail smtp.client-ip=52.101.52.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092D44028C5
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781092614; cv=none; b=hToGWCDr98dsQPuz8OTvE1ShKp6enRJrneJL3qFf5x9UpLMRpgj5tM+f1ljmsYiauaLOn3qSWlrGoos/L4wJRorhfjsSlnH9kfUE7HC2r/ZgPzpOQGr9ZMLUlVDOUl36exhBiqO3ZMLnUF90Oi0Qb964tXWDX1ALztHHKvKBsJY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781092614; c=relaxed/simple;
+	bh=66IqBveo+20pwhaW9xb1axpWXAYkohqaVG/7jNEU5hM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q1YMDVEbufY1CSv0IBY999HioHVA+1vHBN2L0pNbVcwoRnspFmtJzw5OETXaSQHo5DuQcQqvwIRVXq/jfe3DXbiQGrYBC7G7AsKc9smnQFSNprNR39lIzBtAFUjuAU6fPzT8DkL7DBQk3KYZ/WVTgVB7Nl1ioar6aB9EXfAI44s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q4ZWUh08; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jrb1dlnR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GDQKLx48"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J9gVkv1aLanHqCxH3GDVbHeefgRHYBVUP4GIaBOv+0oztDtPCnII4sKj1cgRrxIk34cIIUNM1iSRt2bPvOJHwf4q6tT0JeN1dh1JPu1JGSuq80gc2s8cJjFA3+fNpQ0Kj+1oR3/DHPrWRX/qy/P9GyEWV6jHMHOW90NxvFknPLpyu/nvfRBPwyj/nZgi7i+hZePtrpF0A06rlepjQqadhiYanHIcK71oZByEZF00RfXkaBo3IK8isXfpiLKw01hbE84M+3nunMx08byAv+JYPjcj1JRiGHhjxrAq39Z9t77Vv04av+TxIBtNAVcK0H3KNcMHVoeQ+SLsRyvXwKYRuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hmo1J6VMIKyeDjIkDg7ycxDAtzUiVfaNIWIDPsetQJM=;
- b=IFVqueTQSoo9qaiySFkafLcsGv8SGZezoN8qWvdwEys+0RGsXSENOgkUNNuwIFkdKORk4FQ6acuqMPOuj/ChgSMUobP3M/1Ic5DKmIJNxeAoJ0R0+l3sBtP7RspXAEyfi5zkp43kHOckTSleiyEjdzusDOGglkDT1q2SsaxEwsZ+FjU0DG6LB6pt7uFd3Tc5fAJ6zZ7T457aNL3ACiU4sXYtH8zq/xndm2nns4+YXtaBnOeq3jrLhVz2BbRGQpQGbB8ki77Xvdu/GjReeOWLiRwUgFJk9SlpCKAuGlMRqKB0qUk1/0fQ4NivDWHefe3O+5c/sB48N6Uo8RX+wrJjXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hmo1J6VMIKyeDjIkDg7ycxDAtzUiVfaNIWIDPsetQJM=;
- b=GDQKLx48e0PjdEqH5iLHOUfxmXk9FBUYIFYRmWK9yAO4hXChuGtVpi9oGcvpIMULt6X6BYxEjRvTWu5bPj+znvDdrdyYWI9NZqblkB0Sr4d1+MFt2XvVsrBLJtMj/qlUbyu6deshqYzc6woQjfs67AoybC+W5uy5eSEhWDTxvqE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by PH7PR12MB8427.namprd12.prod.outlook.com (2603:10b6:510:242::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 11:53:33 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
- 11:53:33 +0000
-Message-ID: <154b86ad-052b-477d-ab76-1c91d8089ec1@amd.com>
-Date: Wed, 10 Jun 2026 12:53:30 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/5] iio: adc: add Versal SysMon driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
- linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260608183801.1257051-1-salih.erim@amd.com>
- <20260608183801.1257051-3-salih.erim@amd.com>
- <aigsBk5pj0w8rfFZ@ashevche-desk.local>
-Content-Language: en-US
-From: "Erim, Salih" <salih.erim@amd.com>
-In-Reply-To: <aigsBk5pj0w8rfFZ@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0072.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::23) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q4ZWUh08";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jrb1dlnR"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ABNY5G1031526
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:56:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZD9n6XhJmxub7zVMjUNqjPaNd96A5hGk0u4sEFo2yg8=; b=Q4ZWUh082/I2tJxH
+	wcsRsAAyztNt94BTZQfa0qye8GdRn8zj/iD12UJIwq/wWRsaJpk85ZHgK4Bef27A
+	79XqY3MBHWIiPcZlijG5zbQX4pySNRxHBxexbrCP/WNJBpRU2mpQoxgDpvEujUMv
+	igx18QQsEIQUxxzmNuPL3mrVHcHYXVdKKm74DzfLmJ1/f8+jUK0E3KVClDiBdspK
+	R+wJCRttcpPNGJqtlmyOBuR/oWDUfpkr+7QyynfVKMTYa16bqFxVeVRDfXUS+GiG
+	X5tPqYy/gZtBE+iQrpf3R4jeUA79Zger9qyg1JOVx5qIJjzPoq1OiZV658ONZPAu
+	HPJYcg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eq0m1snj6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:56:51 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9157b3e5182so85569085a.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:56:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781092610; x=1781697410; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ZD9n6XhJmxub7zVMjUNqjPaNd96A5hGk0u4sEFo2yg8=;
+        b=jrb1dlnRsFsuryTxRjq9gufADuopSSQD/a0KKjoVZ8wXLS/YOMA6+3VK+51SKamggD
+         +WbipCuQPcWYN1Ju8ifIB+kv8PRBXAgw7Xlbca3/cxWrPTnOhPMblGArcziW9eYfDPHW
+         WaAo9Ci96ZPxZfZ0SQAGACbtrvtdhTrT+dbrIXBUidk8h/By+4vfBEnNnWfC422MgxFF
+         8oAp2Z89D4fK7GuQmODZjkyS6rVlmwRUHQm6xjU3E0nDBQjs4wJ2x07ZI/z31McV52f5
+         h4faXkMxN79diXFrLs+T5SwtpUbsMQLbxOwRLSATmhl3+QUexV3tKMtycxJ13Ga1Wohy
+         vnaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781092610; x=1781697410;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZD9n6XhJmxub7zVMjUNqjPaNd96A5hGk0u4sEFo2yg8=;
+        b=dfESNy0F18AyfLgXhwyAE8+hkF0RfQriZ387MD0x9qD7g6ehafQLFKpJ7LlH4PfN9Y
+         JyBp2TuImW+q86orr4xJExZKtdd9hPlioeRL8aSSE7Nf6K4kL+eVQpxz9zmZlAa2CL9w
+         bK0Tx4Aj/L44BHHH05NN8C8ZdlaPQgobGGAq4aoTv26xcVKOBiFsxfoMzcYPw0ls2FHH
+         O7N0OHM76GnY+w/RRkFKpbw3oUtv1ycOOGAhh6MN6H/38or45VgVWUSb2JfJKwg7spJz
+         6nEAetX2GZhtux4hlKVp58t9bvX/71ur9Hs+kZutd8+WUe734C6NlnLBJIkPBn9DLJk2
+         aMvQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9InSZR01whh3e+z0Dv2CbHFLoLjf5wTvuZxHMQE/qXDPvivCeBWMy+ChfPLeLCoi+29A11jq1UYYuR@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFm8y6v1/XlYYrMBV2l5GT4x9QOB7yb0B8wnQnsd6GCYms1GmI
+	4wq7Np+E8V5J7yq7XVvYOPaIJ7WT4vAst7MPEyJqrNuCs0mspBn4W28dBbgqNE5anEg7wkK2UvQ
+	iISJxiPmBze5Jr/Ppy9vCuI0+XumtFxWeP7SkB75yppXjGGGfL9xPacoe+mhsh0DW
+X-Gm-Gg: Acq92OEAjDfNU6wSDSXHt4y7VdkTnnKqCK52eUenVqgyYexotSUKona4TfO7Dljqj9X
+	KaTGtPQ8z9kB4yN9ujB25ZxNDpY1vIp2PheZWBvKm8BBRi+rjsYF+lbjnMaM3n6aAy0msJ9Dg2r
+	qn7M48XS/eDc15dVE/aoO1+gxcPYZ11AwvEmO/In2JpoUn1ZH0sbJFpuSmpxeKE5QzKy7MHd0hP
+	5qeXpVK0guw/QAuATGYKXhWkkrYWidIKHnXBK3jGzaCc+PK2KE5lrfG8Y7IxAjo7Hv4IjNB1o+D
+	PJcD9sh6iwmZlmLMUX1B/zzuXvJykz5ySwTLU9eIh+djE1Iqfs5p6ES1QBMlLKMvIKAKEIrnopn
+	Uutacg37CW3S+BGEpVg3fHWPttm9V2c5z5Urhyqtl8+uhw6n9CHc03Yjy
+X-Received: by 2002:a05:620a:3182:b0:90f:7ce2:3019 with SMTP id af79cd13be357-915e6dc038dmr698584985a.7.1781092610264;
+        Wed, 10 Jun 2026 04:56:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:3182:b0:90f:7ce2:3019 with SMTP id af79cd13be357-915e6dc038dmr698580985a.7.1781092609704;
+        Wed, 10 Jun 2026 04:56:49 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65867e7dsm9878414a12.20.2026.06.10.04.56.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 10 Jun 2026 04:56:48 -0700 (PDT)
+Message-ID: <affc72d8-1906-41e7-b889-c5b09d1bdd5c@oss.qualcomm.com>
+Date: Wed, 10 Jun 2026 13:56:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|PH7PR12MB8427:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8564a0b-ba10-4d78-bbac-08dec6e6e5bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|11063799006|3023799007|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	f0BDjwpi6y+DlaeJFlYoxdDGi5YGg59jfkyRTk4ZWV/+367EChsFvNYsgp6ntVOo8tSKPGbzZn0PmSapwkQ0NCkjAbaw8EauFucWHtsLBb00FPu6loeIbcMx5HqRogcYCfOTLT6gLRImX709h4jMEaKOBrg3SrZ2k25yViXBvCzcf/BZYBON//ndUoI8F1DBjWFUiP5QNABTyMiWSszOl97h1Al9Kbov/YujaVPl5+jkDIqJQK7um170qnZ84TQEnfgDT8bWJH/3EoDN/towyVgJAzfns3nTzowku+9Lk815SzsA83MIpfIUdU+XkXbm2N89iZ084QLtxPGcf+6AvLib3ByXTcEdsae2X93fDFqR7XdGyPisxh9jlPqhY5g/BipE2DD07WO45mrQuhY+sVv8O57ms9GKKnvGPhGDwlTICuw4O5k09Czdl90lnAGwzASUSd8PR9GCBP7kJMuFLGys8bHOg8SRY1HAiiu6KnnBaT9x6D0HYgj7BPr0BLYSGrC2lL/xlJgcwqMCtBTMS+K4LBJdAWLKP/BEhRKeVLqW2QgKUAZmFcyXf6QytYv5/x4vZJFH/ENyTVZTVL2FLShjS21Lk8sXtIsnt9Fq3CD75OLs7oHuSg1lkmYiiRYaiVXgas2+Ise9Eih53dOtQsBUtMfQT0LkmF2MyMeJlOCdTWDjnO83cTmGx3LU1iq0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(11063799006)(3023799007)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aW4vYTZWMmZPM1QzS2taS1lwaDhvU09PZDJsNTc1bkxPQUEzNUdkN2JjdnJQ?=
- =?utf-8?B?M3VvcmQ1UkV2VmVWbHR1Y1hnTURGbVRxWFJTUzl0UDBuQkU5RldSMjQyUkF2?=
- =?utf-8?B?WlpjU2VvNVVZRHMyeWJTSHFHaW5UN2V3YklrL1ZCTS9DYm14aExCbDB3blpx?=
- =?utf-8?B?NENzcllSWEhmL2tmUC9WOURmeVQ1K21PTkR5Rk5WZDl2RUZSTEZDS2tCUE5W?=
- =?utf-8?B?TnV2dURleVhJMWVibGRiOGZQTS83bEQzSDVZN3UwbTd2a0NVdDhhZGNDMFVY?=
- =?utf-8?B?S2hNWTZ1bHFYYUVoL1AvZTN4WW9MOHpIai9SZ2xtVXUvaFdYMGtUbWlZejJV?=
- =?utf-8?B?UThycHhzS24rZGVuQlZLdDFGcExIOTIzbm0zOVNISEMxaGtUcDN4eEhudGc2?=
- =?utf-8?B?N2NhdURIdWVuUGZLZTBVU1F3cFAwQXhEMm1oYlRKRThId0FxYnhWNDBXaHVq?=
- =?utf-8?B?NlMzdkpFZ1M4VnExaUpIT1Z5dGY2ellITGZYcENycG5LNUVnb2w5djlIZ1Rn?=
- =?utf-8?B?N3VpaHdIN3k4WDdBcmY5b1RyVFkvbDJ3cTFncWZ6QlFBQWNjMVNrcHJZdDRP?=
- =?utf-8?B?RVUyblRpNWd4ZEJSZXl5OHNsakRsOE1HUVlaNC9XQVNtUHdNTlMwajdoVVRp?=
- =?utf-8?B?dlloVlN2dGZFcWxmcVpWTldiT2E5TDE3K05CWTBZOEo3SlQ5eWxXRTNrRyt3?=
- =?utf-8?B?MHp5WFVqMlpKUmRRNEVJSmJ6dlhDQnM5b3djK1czSm9SNUozZHhNQzYySUsw?=
- =?utf-8?B?MzQ5a3JPdEF6dWRWUUo0YkR2enZRSTJWNHVJQVhkL20vcVgvQXEvUVJyWjdY?=
- =?utf-8?B?MDJkeWVkZSsxTjJUL0dsK2dPU2ZveGIzSVBVK0J0Ulo4a1RFVHl1UTRxdHVS?=
- =?utf-8?B?SStIek4xWGRlVzhDdnNsdi9NOUp5RXllSnpzWnZWUDQ4WHpBU01kazRxeXJq?=
- =?utf-8?B?YkRWWUg5SG5hb0cwWVNNWmI0N1ljVDhpZnZTQmMxZXNxV0E4cWFOL25YOElF?=
- =?utf-8?B?OG00RjZDdFJIWnBTb0doVXJESU02Rm02ZmZabnpsQnVmc0RaaENXM1JXclVV?=
- =?utf-8?B?RVNsWVdjNzFQKzUxU3lIWkVGKy9pOXRZNE1jOVdEZG9LaXlxblY4Mi9TK2s2?=
- =?utf-8?B?WGlXVE1Ea3pUTE9vL0gzNytIZzcrS3diRDdYTjhsSjEyVk1sZ01pcjdhZVFv?=
- =?utf-8?B?cW01QW9nbXZmRnJoY1lIbncrQnR0cUlsVnF0V2Jlbk5xRGhkRmdvRWdZQkEr?=
- =?utf-8?B?cDNFYXpqL0JEcm5hR3lBSktNSVQ3cGZIY081Z2ZZU3R2emtoMld5WEdQSkYx?=
- =?utf-8?B?c294enZXMDJGY3RyR3lVaElKQmthL2JjcUdWc3hmQ2NmdFNvMzJXWjJkQ3Br?=
- =?utf-8?B?eWJ2Q3lVdXhoNVF4NS9QZVZDbTVzd2paNlVSbHdiVS9JY1NxY2lUZHBLMEl1?=
- =?utf-8?B?eXh3elNSUU16OGw1RjFmY2UwVU85U0hoUjBUVTZYR2JOUzA0TUFneUROWWF0?=
- =?utf-8?B?ZURoRU5JdXQ1dGJ5MjhUb0FLQzdPc2VhM21jVmVoR0t1bUFEdHdmckxkdVNy?=
- =?utf-8?B?TjdMMy9PcDRxdDA5RU55UWhtWURMbENGN0dZUG52RWhWRjloN3ZEWWFoQlEw?=
- =?utf-8?B?YWVpVE40bU1TazU0U2JlZXVTWkVGTWUzRGNGekVGaUFrbnpzWHd1Z0dxSzk1?=
- =?utf-8?B?dTlOdnJZd3B2MGdzdTJkWFhrdWxuWitLMVovWFhjb016QjNLZnQyVTJQR280?=
- =?utf-8?B?RjVWUXZEbUJTajViR1owc0w2ZVdjRnN4VmsrcjRLaWdQUTFNQkRBVWM3a2VO?=
- =?utf-8?B?eU5NcWlEZmUxcmZiL0I4R1BYTHJYVXkwaVErbzZjaXNScmVySkc5UlY2TmtF?=
- =?utf-8?B?Y2s0a2pmQXRvNUI5bzFSay9WQlJwcnhuVnNvYzhVekJtaXZUSm00QWNCajRP?=
- =?utf-8?B?YW8rclNpTzdZRTUwTy9EUmZmWlJjQ1hDcWhGeURVaDJGNkp3TmppOUthQisv?=
- =?utf-8?B?NGVXTUdmYW5qWEhKM0taVjZOazZKTGZ0ZkdNcFdmUFpubXZDeEZSajdqOVRr?=
- =?utf-8?B?Z3B5TlBLdHV0YlJLM0h1bmpwK3NFOEVKTUk3RUtOek05b2dtMTZwdHJ2TXFY?=
- =?utf-8?B?MlgrdWVVODR0cjA1cDdFTFQvblliZWlMTG1LVkR2QjV5VEMxcmc5ZVdOTlpG?=
- =?utf-8?B?bXdsczE1dDZ2TGxvZHFpUGtQKzNRTmhqQlhhZjVXZm50VFR2Qk0xelJzYUxU?=
- =?utf-8?B?bkxXLzVvb3hNbFhJVWQvMTVkZStSZkNtdkVmekZkSXhxMDcvUGdsZnl1d1BY?=
- =?utf-8?Q?zRwiPJJxPfe/mmVGrM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8564a0b-ba10-4d78-bbac-08dec6e6e5bb
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 11:53:33.3952
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3LHuifCjm2lafIejff1RvV4+q7z/zEmE4t3bRkmFhyivQ0FTc/q3z/lCVRqlbbms
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8427
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] arm64: dts: qcom: enable WiFi/BT on SM8350 HDK
+To: Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>,
+        linux-bluetooth@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
+ <20260608151835.GA2707238-robh@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260608151835.GA2707238-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDExNCBTYWx0ZWRfX49iFxo12znRI
+ WRMomOkxr9XjYosAiwe3Cm1CVsUS2vVaJYu3+X0mHG5/+qI1JhAtkR4EnrZB5dxOvTnS9wxw0FB
+ N1eb0PIuq7hRewERYU4mZ51ZMbo5A50mRm+Ivjl4rSX3z8bX/FMqZ/W46k12QcKTY+GZEA3LAl8
+ UjdE+7uha+Hxk2sSUr3IPC2RACIPhdmejtUQy8wmRXb6WO1IJYV7fo4y7uJj7Gf7T58qawIfTvX
+ jqqtWkF7OXwAuNi3PGbggoQfttp8vfJNB7AL/+x1itvnoQ6gwhaIreuW9xaNBLizOVxh+kEaT32
+ eCc5gigZ+tzhnAegaa1QbNrMKEzcB/71cJ/iNvrmXtAPeAYdtgBTVdECK50cJVqFLo6/Idmf2c9
+ 467s3Ga/F3kYZ6wk01pSQy9PhDyg++OE4pUk4ZElZmqyT0o0tMJUpHyLnPSFmSojBwXcOHBf1su
+ gmE4AjH9gFfV2FOoqHA==
+X-Proofpoint-GUID: 2XeL7WDSBUdDsP51W8oEkmhEcrTV750E
+X-Authority-Analysis: v=2.4 cv=UdJhjqSN c=1 sm=1 tr=0 ts=6a295103 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=PJdgiX8PLVy5AUVXCKIA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: 2XeL7WDSBUdDsP51W8oEkmhEcrTV750E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606100114
 
-Hi Andy,
-
-Thanks for all reviews.
-On 09/06/2026 16:06, Andy Shevchenko wrote:
-> On Mon, Jun 08, 2026 at 07:37:58PM +0100, Salih Erim wrote:
->> Add the core driver and MMIO platform driver for the AMD/Xilinx Versal
->> System Monitor (SysMon) block.
+On 6/8/26 5:18 PM, Rob Herring wrote:
+> On Mon, Jun 08, 2026 at 09:59:18AM +0300, Dmitry Baryshkov wrote:
+>> The SM8350 HDK has an onboard WCN6851 WiFi/BT chip, which for a long
+>> time was not supported. Bring up different pieces required to enable
+>> this SoC.
 >>
->> The SysMon block resides in the platform management controller (PMC) and
->> provides on-chip voltage and temperature monitoring through a 10-bit,
->> 200 kSPS ADC. It can monitor up to 160 voltage channels and 64
->> temperature satellites distributed across the SoC, with a consistent
->> sample rate of 8 kSPS per channel regardless of how many channels are
->> enabled.
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Bumped num_vdevs to 4 to follow other similar devices (Jeff)
+>> - Link to v1: https://patch.msgid.link/20260601-sm8350-wifi-v1-0-242917d88031@oss.qualcomm.com
 >>
->> The driver is split into three compilation units:
->>    - versal-sysmon-core: Channel parsing, IIO registration, read_raw
->>    - versal-sysmon: MMIO platform driver with custom regmap accessors
->>
->> Voltage results are stored in a 19-bit modified floating-point format
->> and converted to millivolts. Temperature results are stored in Q8.7
->> signed fixed-point Celsius format and converted to millicelsius.
->>
->> The MMIO regmap backend uses a custom reg_write accessor that
->> automatically unlocks the NPI (NoC programming interface) lock
->> register before each write, as required by the hardware. The regmap
->> is configured with fast_io since the underlying MMIO accessors are
->> safe to call from atomic context.
+>> ---
+>> Dmitry Baryshkov (7):
+>>       PCI: qcom: fix parsing of PERST# in the legacy case
+>>       wifi: ath11k: enable support for WCN6851
+>>       regulator: dt-bindings: qcom,qca6390-pmu: document WCN6851
+>>       dt-bindings: bluetooth: qcom,wcn6855-bt: document WCN6851
+>>       arm64: dts: qcom: sm8350: expand UART18 to 4 pins config
+>>       arm64: dts: qcom: sm8350: modernize PCIe entries
+>>       arm64: dts: qcom: sm8350-hdk: describe WiFi/BT chip
 > 
-> Almost there.
+> Before adding new devices, can you (Qcom) fix the all the existing DT 
+> warnings related to QCom WiFi/BT:
 > 
-> ...
-> 
->> +static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev)
->> +{
->> +     unsigned int num_supply = 0, num_temp = 0;
-> 
-> Unneeded assignments.
+>       6 (qcom,wcn6855-bt): 'vddrfa1p7-supply' is a required property
+>       6 (qcom,wcn6855-bt): Unevaluated properties are not allowed ('vddrfa1p8-supply' was unexpected)
+>       2 (qcom,wcn6855-bt): 'vddwlmx-supply' is a required property
+>       2 (qcom,wcn6855-bt): 'vddwlcx-supply' is a required property
+>       2 (qcom,wcn6855-bt): 'vddbtcmx-supply' is a required property
+>       2 (qcom,wcn6855-bt): 'vddaon-supply' is a required property
+>       2 (pci17cb,1103): 'vddwlmx-supply' is a required property
+>       2 (pci17cb,1103): 'vddwlcx-supply' is a required property
+>       2 (pci17cb,1103): 'vddrfacmn-supply' is a required property
+>       2 (pci17cb,1103): 'vddrfa1p8-supply' is a required property
+>       2 (pci17cb,1103): 'vddrfa1p2-supply' is a required property
+>       2 (pci17cb,1103): 'vddrfa0p8-supply' is a required property
+>       2 (pci17cb,1103): 'vddpcie1p8-supply' is a required property
+>       2 (pci17cb,1103): 'vddpcie0p9-supply' is a required property
+>       2 (pci17cb,1103): 'vddaon-supply' is a required property
 
-Accepted.
-> 
->> +     unsigned int idx, temp_chan_idx, volt_chan_idx;
->> +     struct iio_chan_spec *sysmon_channels;
->> +     const char *label;
->> +     u32 reg;
->> +     int ret;
->> +
->> +     struct fwnode_handle *supply_node __free(fwnode_handle) =
->> +             device_get_named_child_node(dev, "voltage-channels");
->> +     num_supply = fwnode_get_child_node_count(supply_node);
->> +
->> +     struct fwnode_handle *temp_node __free(fwnode_handle) =
->> +             device_get_named_child_node(dev, "temperature-channels");
->> +     num_temp = fwnode_get_child_node_count(temp_node);
->> +
->> +     sysmon_channels = devm_kcalloc(dev,
->> +                                    size_add(size_add(ARRAY_SIZE(temp_channels),
->> +                                               num_supply), num_temp),
->> +                                    sizeof(*sysmon_channels), GFP_KERNEL);
-> 
-> Something happened to indentation of the third line (out of four). Taking into
-> account nested size_add(), I would rewrite the whole thing as
+Most of them will be gone with 
 
-Accepted. Will use a temporary variable for the channel count.
+https://lore.kernel.org/linux-arm-msm/20260522-surface-sp9-5g-for-next-v2-8-dd9d477407f5@gmail.com/
 
-> 
->          sysmon_channels = devm_kcalloc(dev,
->                                         size_add(num_temp,
->                                                  size_add(ARRAY_SIZE(temp_channels), num_supply)),
->                                         sizeof(*sysmon_channels), GFP_KERNEL);
-> 
-> Or even use temporary variable
-> 
->          unsigned int num_chan;
-> 
->          num_chan = size_add(num_temp, size_add(ARRAY_SIZE(temp_channels), num_supply)),
->          sysmon_channels = devm_kcalloc(dev, num_chan, sizeof(*sysmon_channels), GFP_KERNEL);
-> 
-> still over 80, but a bit shorter.
-> 
->> +     if (!sysmon_channels)
->> +             return -ENOMEM;
->> +
->> +     /* Static temperature channels first (fixed indices) */
-> 
->> +     idx = 0;
-> 
-> Why?
-> 
->> +     memcpy(sysmon_channels, temp_channels, sizeof(temp_channels));
->> +     idx += ARRAY_SIZE(temp_channels);
-> 
-> Just
+a single dt generates 2 DTBs (one overlayed) that throw almost all of
+these errors.. we should be able to tackle the rest that remain shortly
 
-Accepted. Will initialize idx directly.
-
-> 
->          idx = ARRAY_SIZE(temp_channels);
-> 
->> +     /* Supply channels from DT */
->> +     fwnode_for_each_child_node_scoped(supply_node, child) {
->> +             ret = fwnode_property_read_u32(child, "reg", &reg);
->> +             if (ret)
->> +                     return dev_err_probe(dev, ret,
->> +                                          "missing reg for supply channel\n");
->> +
->> +             if (reg > SYSMON_SUPPLY_IDX_MAX)
->> +                     return dev_err_probe(dev, -EINVAL,
->> +                                          "supply reg %u exceeds max %u\n",
->> +                                          reg, SYSMON_SUPPLY_IDX_MAX);
->> +
->> +             ret = fwnode_property_read_string(child, "label", &label);
->> +             if (ret)
->> +                     return dev_err_probe(dev, ret,
->> +                                          "missing label for supply channel\n");
->> +
->> +             sysmon_channels[idx++] = (struct iio_chan_spec) {
->> +                     .type = IIO_VOLTAGE,
->> +                     .indexed = 1,
->> +                     .address = reg,
-> 
->> +                     .info_mask_separate =
->> +                             BIT(IIO_CHAN_INFO_PROCESSED),
-> 
-> Perfectly one line. Is it going to be expanded in the next changes?
-> If not, join.
-
-Not expanded. Will join on one line.
-
-> 
->> +                     .datasheet_name = label,
->> +             };
->> +     }
->> +
->> +     /* Temperature satellite channels from DT */
->> +     fwnode_for_each_child_node_scoped(temp_node, child) {
->> +             ret = fwnode_property_read_u32(child, "reg", &reg);
->> +             if (ret)
->> +                     return dev_err_probe(dev, ret,
->> +                                          "missing reg for temp channel\n");
->> +
->> +             if (reg < 1 || reg > SYSMON_TEMP_SAT_MAX)
->> +                     return dev_err_probe(dev, -EINVAL,
->> +                                          "temp reg %u out of range [1..%u]\n",
->> +                                          reg, SYSMON_TEMP_SAT_MAX);
->> +
->> +             ret = fwnode_property_read_string(child, "label", &label);
->> +             if (ret)
->> +                     return dev_err_probe(dev, ret,
->> +                                          "missing label for temp channel\n");
->> +
->> +             sysmon_channels[idx++] = (struct iio_chan_spec) {
->> +                     .type = IIO_TEMP,
->> +                     .indexed = 1,
->> +                     .address = SYSMON_TEMP_SAT_BASE +
->> +                                (reg - 1) * SYSMON_REG_STRIDE,
->> +                     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
->> +                     .info_mask_shared_by_type =
->> +                             BIT(IIO_CHAN_INFO_SCALE),
-> 
-> Ditto.
-
-Not expanded. Will join on one line.
-
-Regards,
-Salih
-> 
->> +                     .datasheet_name = label,
->> +             };
->> +     }
->> +
->> +     indio_dev->num_channels = idx;
->> +     indio_dev->info = &sysmon_iio_info;
->> +
->> +     /*
->> +      * Assign per-type sequential channel numbers.
->> +      * IIO sysfs uses type prefix (in_tempN, in_voltageN)
->> +      * so numbers only need to be unique within each type.
->> +      */
->> +     temp_chan_idx = 0;
->> +     volt_chan_idx = 0;
->> +     for (unsigned int idx = 0; idx < indio_dev->num_channels; idx++) {
->> +             if (sysmon_channels[idx].type == IIO_TEMP)
->> +                     sysmon_channels[idx].channel = temp_chan_idx++;
->> +             else
->> +                     sysmon_channels[idx].channel = volt_chan_idx++;
->> +     }
->> +
->> +     indio_dev->channels = sysmon_channels;
->> +
->> +     return 0;
->> +}
-> 
-> --
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
-
+Konrad
