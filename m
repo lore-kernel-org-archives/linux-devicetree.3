@@ -1,100 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9553EDE76
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 10:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4D63750AD;
+	Wed, 10 Jun 2026 10:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781086551; cv=none; b=G6LXIwYSDMojLId71tG4EcmByhFOzsk4ObcwCpRiXIzOGiruhKX9eoY5ej7ojYLCnbT1nNpU3zSFdXhotrxTwWKhBnMkZoPpcCxacHRV/X/8/Jg0Z/8G8TbiKybwBqMjV1tMwbnOW+Z72dAC7n1ZjukpnNTUyTFnh6zIe5TMu78=
+	t=1781086640; cv=none; b=IHdMNuL0tch8JORNY7p1fM8EZqL3J7H+KqrMMCnyJv3kiIf79kAkYeJLGJiN0mQQtMmKR70dMJbx1Qnmd2mN1LFYLCBZ8qAgvSRjau2Sh+0SHEW6DgnvOiXo5q3tWh+vY4oavMGzAnWUIEeiiFN1yU9YwW2fuh1B9uNSfl2hddk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781086551; c=relaxed/simple;
-	bh=NrtbrHsbqjcuKqy75mbvY8XaB/5latQ043Q5aVfYoO0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XPfI/Z1qmeLavEPuCSVR1UaTDh21XUYri+91/GR8Q6eHnnqyAvM/Gm6bFf25Tn0zdl7SFok8cVQk2ZMIAusvJWH0Q8yi5jlMRurIqflA/bT3kO1d3W+tDx3GbdyQXINIDRIDQwZRYenVqtHKT4jKzDal8B5yHqTQ7N1DQh+1A9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0JTVeiN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781086640; c=relaxed/simple;
+	bh=QLs+K8uN6SokZzOdgqRBOhUj93ywnya2oJxjFJmAOwQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c3yNOJZCFN59l6+UyH771kJxAYGw6inZ+z2AdDz+irk08VAr3XB5HGvdLtm9AEP29VzajqCPmMPAlp9jXObhze7WZBfGVv7IanvsnrjA+NobeL1cv8Q2zKVIIo9wcodMp9b/iru92wALCa1baYV7TL5fMLAI/jYxUWwBFmjkQ+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R1SC5xWn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0JTVeiN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743E01F00893;
-	Wed, 10 Jun 2026 10:15:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R1SC5xWn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271C11F00893;
+	Wed, 10 Jun 2026 10:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781086549;
-	bh=Xl6B1n/zAl/JNPQJ9Rf+05hJwG6rsMeINuZzVBO1JXw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k0JTVeiNE+NZKqpRV/JHf4lU7U3EYsMly6ejylIx6uGv7krbgzrRGZhdhAM6j0MTg
-	 H36UcUfvI5pkd/w4qM732oWNlKPgsXQpswdEOjEQsvwPBjn91V4/eTZhEMxbM1WPs0
-	 Ll3s/45T+0pCuZUisO63EXiCs00JQQF0fhwGMyMmN5J85McOV8pzdsrPCSH3RaWi3V
-	 tD5h3u8LBhHgQKa3wyLYYD8bLBT/fhTwIlMarXM1czwxzqn/FwzV27EOq8jclF9YA+
-	 L4JpKczp7+tTOJc1knPpm3H/0DJvi8nshOoTBpsOvE5nANr1se7SAjbZ5UxvjhRA11
-	 eaPJGJjKygRgg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add HINLINK H28K
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chukun Pan" <amadeus@jmu.edu.cn>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260610100006.366963-3-amadeus@jmu.edu.cn>
-References: <20260610100006.366963-3-amadeus@jmu.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 10:15:47 +0000
-Message-Id: <20260610101549.743E01F00893@smtp.kernel.org>
+	s=k20260515; t=1781086639;
+	bh=UDlj2dzavJImff0WXbs/3Ldg9y0HsBfP9xcYgIAc9pw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R1SC5xWnsPrLcF1XIiUaaG0rM+oalmTLb6NIJM6pqulxDtz+89UcrJH0IVFI2HcQa
+	 t+dv73mgK/GiBBqoRzRti8M+J65gqZZTin88iWrezONPFwHGFT5VQ2aH84v8EIrCPN
+	 mv2Yin0JfdnoYqD58hzjTIhbgU5MmP8xW12HQJwTlydeN28L+IK64XCLa/H0hAj3ml
+	 hLnx5vbmJJBmDkz16BeMBSmrky7NxwJQxcsgOWum+H1+1Td2kKmhclHXiYIMD07XwU
+	 H4JdGakx3qCOnfdEmVSLLsYqwjWfg5Fnlci+zh48JwqfF6Tm/SJ8YH9H+6eYbOX2iy
+	 R86fj2DJZQdiQ==
+Message-ID: <09563fd2-344e-4458-831f-1bef862dfb34@kernel.org>
+Date: Wed, 10 Jun 2026 12:17:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] dt-bindings: pwm: dwc: Add eswin compatible and
+ resets property
+To: Xuyang Dong <dongxuyang@eswincomputing.com>
+Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+ p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+ pinkesh.vaghela@einfochips.com
+References: <20260605082242.1541-1-dongxuyang@eswincomputing.com>
+ <20260605082318.1599-1-dongxuyang@eswincomputing.com>
+ <20260605-scrupulous-tasteful-nuthatch-5d8ce3@quoll>
+ <643f9b98.722f.19eabb8fe3e.Coremail.dongxuyang@eswincomputing.com>
+ <c4fa85f1-365e-49ab-9549-d6d46529a68b@kernel.org>
+ <25b0baf0.731a.19eb0d9bf07.Coremail.dongxuyang@eswincomputing.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <25b0baf0.731a.19eb0d9bf07.Coremail.dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added device tree `rk3528-hinlink-h28k.dts` fails to comp=
-ile because it references undefined USB node labels.
---
+On 10/06/2026 11:25, Xuyang Dong wrote:
+>>> Hi Krzysztof,
+>>>
+>>> Thanks for your comments and time.
+>>>
+>>> Regarding snps,dw-apb-timers-pwm2, we previously intended to add the 
+>>> resets property in the same patch. 
+>>> However, as you suggested, we will split it into a separate patch.
+>>
+>> I find commit msg still confusing. Please always clearly explain WHY you
+>> are doing changes.
+>>
+> 
+> Hi Krzysztof,
+> 
+> Thanks for your comments.
+> 
+> According to the DesignWare IP for PWM controllers manual, it seems to me 
+> that Ben's previous submission may have missed the optional resets property.
+> 
+> Therefore, I would like to confirm: should I submit a separate fix patch for
+> the resets property, or include it as a feature patch in this series?
+> 
 
-commit 07ca37acc11522d114428bc076a631a2223bfa47
-Author: Chukun Pan <amadeus@jmu.edu.cn>
-Subject: arm64: dts: rockchip: Add HINLINK H28K
+One change is adding resets to existing binding for existing device.
+With its own rationale.
 
-This commit introduces a new device tree for the HINLINK H28K (LinkStar
-H28K) single-board computer based on the Rockchip RK3528 SoC. It adds
-support for basic features including Ethernet, eMMC, MicroSD, and USB.
+Another change is adding new device compatible with its own necessary
+changes (if resets are different).
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts b/arch/=
-arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
-
-[ ... ]
-
-> +&uart0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&uart0m0_xfer>;
-> +	status =3D "okay";
-> +};
-> +
-> +&usb2phy {
-> +	status =3D "okay";
-> +};
-> +
-> +&usb2phy_host {
-> +	phy-supply =3D <&vcc5v0_sys>;
-> +	status =3D "okay";
-> +};
-> +
-> +&usb_host0_ehci {
-> +	status =3D "okay";
-> +};
-> +
-> +&usb_host0_ohci {
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Are these USB node labels defined in the included rk3528.dtsi at this
-revision? It appears that referencing &usb2phy, &usb2phy_host,
-&usb_host0_ehci, and &usb_host0_ohci here will cause a DTC build failure
-with a "Label or path not found" error because the underlying node labels
-do not seem to exist yet in the included trees.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610100006.3669=
-63-1-amadeus@jmu.edu.cn?part=3D2
+Best regards,
+Krzysztof
