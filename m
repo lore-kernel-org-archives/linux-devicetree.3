@@ -1,600 +1,536 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010031.outbound.protection.outlook.com [40.93.198.31])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907E23F6C2E;
-	Wed, 10 Jun 2026 12:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781093415; cv=fail; b=jbAjizfw4cVmqbt4Pv3xm4rpFKM/LkY4ZEVpaPJTH23hJin5DLk9yRgRZYBI3vMCq/rx1TQPQkP6bcjSqJoOQjTDy4KDCLgEwu8+AyVMqTsSXmPiuTfgB22qf0mgIjPKdUnnuXxQrapS09TH36NwjoKrwjAk4CWFyARO2XqxnuU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781093415; c=relaxed/simple;
-	bh=/bGSbeeHGWzhZ9yWXme+lp/rwAVS9TDpvpLOdQJBuQc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eRs77ESlnhzBKOiKHatnDXZ7qvBng/7cV2GzcPezKN5aYlFapcJZLtXVV7Cd7u5j+zSmwyjKykcOi3jT0KZPvXDone762tcnvkPgx5JgKDo3K+NxoaB/YQghZBFWq6egjVg8jQKENBUEPh7Z8ViOVbzKJWmWCl1Mq+Hq9zXwqrs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HiB40Nvi; arc=fail smtp.client-ip=40.93.198.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08CD403EBA
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 12:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781093422; cv=none; b=Mzvu/4+PJPFqbjEUQOFKasjL1ELQOqnNEsLwJR7YmQE2vnxcUDfyv+QQ8onav15IJ1hZW7lMdxJckrPpDFzah9u3wkUbkUZ6H3vhlR97vrJd8rU2gQOcmKNPkKX2OIOpLJM0/A6eUPVANsPkgsbYhsm36RhVlB06itwd5c1fimk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781093422; c=relaxed/simple;
+	bh=5L6HD2B7635vOlsqIcZK13z4zM+horVPwzgTXq4do9w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tmLY5mWWUUri5Z1mjaY2A9VavWbljYgxLRze2eUsGtsGsGyuhOlukqcC/lYGEo7W/+vWHWqOKIhBXdsP9bMZ3oOw6WYPsl0AKlMCu61+6PvSkHC9zrSux/IWOKfFuSy7E0euvMijstYHQ80C31CakhmB5pk1THSQ02o9LFXm2IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LY3ORE2l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JbZQHK0b; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HiB40Nvi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KPOgs0dTeFpTFDAU1D5l01Ts0h8GUmlJzPkJtD1IL+eVYqFKoHmliEguWV8xLnwzNvEnC3NC2iZRl55MIbZHz5OF6qmn/7vkeT1pP+kyomaVqmxqFrWfBibbuwPMVywxm3gHOBAS0PUZiwI7sjnhAbz7PgRdcS2a8qBny+yXrYZwdjt5rXHJty92EAdyKFjzkbfSogmntR4HHhzYwbeKJdxoS9A3LQO7tGOyZEEa1C7JrUOyqFKEJJmxz041EKoJ+xGcn5bELEcp+Z7D4jrvK3URpJmi17/dVxRObYDeWsyeqVEmzBB9+AxVN0bqJEyKSy6JwHfDTaWmlnX7nEci2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cb8MtV4dnX3Jb/YdZpPTodnmLH2AvI2v81xi+FZPZXU=;
- b=CrC+INMMtFBEzE4vSmFuG+nrishjS6YrAKSlytKvoJXtMs8xDlHozAZjpAooU44eAh2kA2O/VFL17wu7F/82A7bCjWGHURIihQ8afFheDr41snlhl6RkN02tG8pRD3S8gFiS3BWe6/op8HfCXlz8KDuAhyRdCa52q8QJHN1ZmCNrK4z0XzwIaPYCTATM5aMcTGI5sl2sRF1vbXOyKYjiO/A4hsbCEMjS+tR4WmKYdSx3ynQZ7jBIOdsBoEFjRnvU/Jztj+W/Art8QWZyzEbCjeN61A87VtN0yVutsjeqxZRucrMncXEPSBqyAWlqjfb4NgLaJ3gOrGlD7EqVt1yT+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cb8MtV4dnX3Jb/YdZpPTodnmLH2AvI2v81xi+FZPZXU=;
- b=HiB40NviQLYMqbE2H4mHDhj+6CEFtCtJ8hJAWEQXRnx9R42L4YtcyCnwvH20Ip3huVZJooHFOdU7xFBJqea4v1jA5GkZM96XX5GBgOdLFZQ7zt/gCeOVtv7LaMJaySjw2mGlPUGMbFDXKQ2WDHrVsJi4UV0etCci9rkKsQ8G+gI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by SN7PR12MB7854.namprd12.prod.outlook.com (2603:10b6:806:32b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 12:10:09 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
- 12:10:09 +0000
-Message-ID: <6378c39f-f368-4fd6-a51d-6fe057fd38c0@amd.com>
-Date: Wed, 10 Jun 2026 13:10:05 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/5] iio: adc: versal-sysmon: add threshold event
- support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
- linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260608183801.1257051-1-salih.erim@amd.com>
- <20260608183801.1257051-5-salih.erim@amd.com>
- <aihTVQIedgsFKeM7@ashevche-desk.local>
-Content-Language: en-US
-From: "Erim, Salih" <salih.erim@amd.com>
-In-Reply-To: <aihTVQIedgsFKeM7@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0527.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:2c5::11) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LY3ORE2l";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JbZQHK0b"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ABNGpM1447707
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 12:10:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=hLn0YPYEVNitG5z1t7C+Tw
+	0rgmEGuflC+fDnhmLH64Y=; b=LY3ORE2lLxCqswmwKzCghkF+VJwBzrbO3d3BAJ
+	LEHt0RfmhyAQm1VoJpLwhl/yYGG0idDlVLQnkCzW4HrbvwwDbzdd86D7NqaXq2MR
+	drfI06+RCbX2cZCF0yr2xzgF7HRF9t1E+CRpfr80YsO2ajBAqtsn0EmpEmQzJNI/
+	LSsszfCwyglEiBbglNDgzsZSPG3BVJmFKH29q2d+NjaXgtXukWTr1XUPhx2NWoqL
+	QPC0TXS9xvhqhCdMm37QfOCAhgPY5PNCn5U+I2e/klucqvRnWAYA2cvROp/R8hVM
+	f6LyNWOOrTZzMZeYIhhxU6cGGDPfYyKmqex/0YHoJfMmZ7Lg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epwnntcbk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 12:10:19 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c85dcdbe502so4386539a12.2
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:10:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781093418; x=1781698218; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hLn0YPYEVNitG5z1t7C+Tw0rgmEGuflC+fDnhmLH64Y=;
+        b=JbZQHK0bsWwJYw2cwvgMDelukjaAIaI+KK4hsq7f2E8rEAxiu+R8fnA7rh+9aUJCj9
+         XRlpUlGoFp9HW3BG+9N/74tHC1g5/O0QE8Q8LlDARzpxsPj5bGtdwFDUF/j0SGTGgZgE
+         76ub+ZXHiP6zQymQC2I0glV+G+bAmwPFncOQbhppjlQWOMFNvoslgaIJ1FsU8KDaW9G9
+         itXwiFFcw6cvmxPHonYxDtsic/87WIoc57POc90j7Xr8y55ClFCml70GdkyHTwLnV/BO
+         6l+8BZ1wgDfurDJ0GaycXSAUJ/El41raWnWRJsKPLfVNBBxD3sFzzwHyCN1fW6mtXr2+
+         zZvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781093418; x=1781698218;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hLn0YPYEVNitG5z1t7C+Tw0rgmEGuflC+fDnhmLH64Y=;
+        b=XKaRUncQGmeApE2fE63PsMrBbIp4edFbmvW53bD/GJ7yOElN2kFKThWeBGPPm7korK
+         mfePlouOe+q9to/NP3dR8/rPpcF9MdBsSFIMBI+HhWuCOWO24e5DJrcgq7C9p6B5X6sw
+         vdF1AOQVAHZVLhb7B9rOlS0/xSLA3jU2t8UnlGo3CgRFyEAX/c38U+UMqkYoZiW/Wb/v
+         9yGoib5Xwbr2dEG1hQB9mvd/cstW/6lOh+Z8tc5qOtRDHnwWyQlkXrfHWWc9VXNxOJCu
+         xYX1963iPs3FxfI2053qA7Yb+koBzUiD9S7vjth0Hw5BInZnAuOxia5jV8HtMePNXhBH
+         vNoQ==
+X-Forwarded-Encrypted: i=1; AFNElJ933c1xjcSc/wrrX6KaMdXZKDNelL7+pN5OLmLpsSbOfQF6+6F4wDTZZF+b3UBmNgdHOe0dB3X0e17D@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRgg5Cr6b8U5oXKuKzauZkAI3bs9TESrHo333I8iS1LK7iWtnI
+	2ZDXVweGxvED5EZP5L3rqzLWZ3MA6VGLVxRtWpEqLnd30/XKzj03b7ohEhc9edbNKetaTsqVVh2
+	VxXT2dYEuvXdl7WTwO405QQiFvhGO1j01jSPRpo6wQ7vlQtzWv3XHTrNC+SuE01bH
+X-Gm-Gg: Acq92OGmu+4PSl4CENQi9j1T3NtdBgyL6fZZiB4amp7jViCv0Mt/0pBF+MxNG+T7uwn
+	twbizhM0qYjM1BKMMPN1wSWq4RBIcuBN6NMdCPvd0u3OuwyCCDBFdM6iMKfafN9UaS6nbjo7ln/
+	wiWTOG+v1OwMjrLeWJ5UKXv11fCiUF+NOIQIgVppSt4MOqzLdY3SOZc84vzXI64xVuT+Cu6Yrg7
+	c5/4djHaMchDYdFzFwq+MSwwcC4NKA0FA9ZDdEL9YW5exNbOjNTUe5NOF+mFCZFqcPpcNrdtOqJ
+	JuTOn1OpR2Fe2kApwhIWx0IX9dvRraPTadHjusgq/7CjzCYreKEhoRj2ZHcMwxjqWW8ZgakFPna
+	dx69PIvqJua9wFsE43y++MO1TQFdxM5/3pgk63XBD46C1X3mEp7zJB+IAev3fN2EzAio=
+X-Received: by 2002:a05:6a00:3d48:b0:82f:9985:d4a1 with SMTP id d2e1a72fcca58-842b1065038mr27806131b3a.24.1781093418327;
+        Wed, 10 Jun 2026 05:10:18 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3d48:b0:82f:9985:d4a1 with SMTP id d2e1a72fcca58-842b1065038mr27806086b3a.24.1781093417742;
+        Wed, 10 Jun 2026 05:10:17 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842823512b0sm25721328b3a.15.2026.06.10.05.10.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 05:10:17 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Date: Wed, 10 Jun 2026 17:40:09 +0530
+Subject: [PATCH] arm64: dts: qcom: eliza: Add PCIe PHY and controller nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|SN7PR12MB7854:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1f3a67b-1ba2-44f4-e76f-08dec6e93732
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|18002099003|22082099003|6133799003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	7XDTc1cEP08kc4NxVvUEDgrGpJeKm7Z/wE+AdXXIBS1Cc9CZTBXpK1zH3XEZ9fVg1Nj4SsMxbs/NAhf2SdF6Ix+l2w1+lb30HcuOS7LXsP/vk6q20kwlQHERGm8uZuTBda6LcqDBcF8R1qENss3nIKGRj1GAdMu/XSz5Eip/FM6HFg93YxIiJamAXndHYg07Rwl4tsEraHJACcDzL8Z+9v0lzXEj+4xPxKjvjXujpgE7LMlS+JGduDPsJHukNEg+5IBi21Tp2a6Tspx/zGuBo8XixLGcnnV3QO8bgcPEtW2RsTj4vcZaxqvdIdGvgOPH9M2+mdb0zoGGceqlxIQcMCAdnIUhyLGkkTWvaJafFaw5y7CtTani/MrNDRlbPpa28scx55SzqUtQ4L4j8o5LM3vFYXEGdzC+tdwmiGStwlbCc2iSAHnlwKr0YXinYiKe9bjEnAEUJcEektcrT1QIajH6eJvt1NyLzDm0H2jhRtk1N/hIhWraI4YD2xl+ijw2MO7/0gM6I+FeAZeqoPUwANjCypHJpLeCdHRICdPYNm21pp872NKWyA3/j3QTdMgiijJ8ppLGHe8MULJXvRkAiocoAuCz2Bw9pABZl92n9K98MSDLhGT53fohP7+mfp+63Wne9G1c7pCShxcspCAGZgSUqWaVk5kOnj9nW2tkZeHDxfmwvaUqsQ9wVNq7KWcb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZS9IbVk3YUdoMVpDRmtWUHNPVWZ3aXUwY3RXbytQaUMxV2VnRU8vd2ZDYTBh?=
- =?utf-8?B?RmdneVozNWZ1bEFldjVpSTR6MTJxMC9nQTJKN3BtOGdvM1ZxNHlXWlBSV3ps?=
- =?utf-8?B?eldseGdDaDF2Mml2N0JBbFROSk9aRGZjQlpWMEJOMTdZeW1BQ0RYVXltV3A5?=
- =?utf-8?B?bkt3V285MlVydU5Ucm5KNjRCdmM2b3AyZEdRUVpHcGFCR0h6cUJVdEJNZlJq?=
- =?utf-8?B?UE9YSVlqbXR2TVJwN1M2b0NjMzlLSS9qWlAzRndJY3NqRVgraGFGRGZKUE1w?=
- =?utf-8?B?eUhmR1hCNHoxeWJLQUdIRHdLRUQvSmZTMWpYVkdRTi9uQXJ0NjhaUHdzRVBy?=
- =?utf-8?B?bnRabWU4T0hVMGw2ejlxa3I2bXN6OXRubVh4b1J2N3JFdzJUQ3d3TWFiNm11?=
- =?utf-8?B?c3FSbGxaSDBYSWc2ckRnK0tDQ0JDbzV5RjFMMkprRGRoZjhZekEwL241Y0xk?=
- =?utf-8?B?bll5SHg3NGZTZGpJTGdneHNPT1JtbjhITzlIaXA0UWRoVk93OGtiMENVUXNQ?=
- =?utf-8?B?REpzeWRPS0NaaEJzNys4YmV3S285MkVVeGJYREtmVEU2T2JhOGRCNEhDa3V2?=
- =?utf-8?B?NlBpOU11TG1NR3V5K0R1L1lKcGo4S1dNYWFqbG5nWWVSZTErOW83ZHJpNy9s?=
- =?utf-8?B?T3c0ZHhFRXdOSElENGZKeFVDd1h0enlqN3A3RGQ0aTdBYnVsNHB0NnBaM0Nz?=
- =?utf-8?B?ZW5Fc1YzRVN3Tk9TRHViMThqZnd6M3BDVGlkdDlMcVppQzM3TGQ3WWMzZTR4?=
- =?utf-8?B?ZkN0cWZBekFORjAyaEd2MGtxRVhSYUl5UEZzdzlncEJpQ1R4NjFLaUt0a1FG?=
- =?utf-8?B?UFgzeDFLemV0WXczYmVzZktBZjY2eE1JaEE2cnEzTkpzM0lNUnRVVzU4MHBr?=
- =?utf-8?B?Y0VSZkVVQks4OWJkUUZmWHBmTnBMeEpvMjNONVB5YlBhaVZFUE5GNFU5ekhC?=
- =?utf-8?B?WGxQWCtYaWM3azVpU2VFcENnbEZTaE0rUldleXErbnJGMDB3UzFOcy8zc3Nn?=
- =?utf-8?B?M0RrbExJUHpyUldTUnhsOEwrWWtrUW1iVTFWZkNFMGRyYkJOMDNyM2c4SUN0?=
- =?utf-8?B?QVRhSTRHWFcwNVVmbWZXaDUxdTNEQnFUcVZEN3RNeTRFMEUrQjVyS3UzYktJ?=
- =?utf-8?B?YnNDZFY4dlVtbmdJMFlTTWNnV05WU0JQUVRoWjVMZDE3MEdYNkcvRDN1THdp?=
- =?utf-8?B?Y0dyZVZrSmFVVitRRlJzeEZKejdqRzZsWWx6QXpBelhxdXBLUmhnTHgxV3Zi?=
- =?utf-8?B?cFpGUFZHNW1oSktEUW1wL0JiMFNpR1RzYk9mK3paZWljZkdkb1hvZ0JVUkFF?=
- =?utf-8?B?OElTa2lQN29ZN2Vza3NHcnlpWjMyTXJqNGZRTkplWk9kOTlFaTFacGFFdUxt?=
- =?utf-8?B?dmhRSldDY0l5S3l1Y3d6cy9KbEN5eVJhdUxKcitYb3BmT2xwWjBRZDZ3eVdI?=
- =?utf-8?B?Ymd3VGR3RERoanZzUWF1VWFmNmlJVXJ6Mk5jQlM0R2JQdHhXei9OZUpFQXQ0?=
- =?utf-8?B?WXNMb2VkakRsQTVlR1Z3MTQ5dGs2V212OHAxZEZ2MFY1dTlRaHNoWWY1RVQ0?=
- =?utf-8?B?QzExTUJKUXhEMlpGUnR3RmF2WTlzK3dTMEN6bjhkd0FhSG03QjRLNWNRa1Ft?=
- =?utf-8?B?VXlneEUwUTM0NGtVcjhGY0FxQ1ZWSE9aNHY2NlpyaUNDWlhpL3J4VjJoREo4?=
- =?utf-8?B?b1FiTmV1RE9qSU9XRGJobkxqWlRTbHF6RWdvb01rZlRmYjg3eDE3dEM4NUVB?=
- =?utf-8?B?Uml5SzBkREcwVnRsekU1MTM3Y2VLaUNjWHBkTXJIdEEyNUprWEZkNUtYbFRN?=
- =?utf-8?B?bGR0WlNvZi9Ma1RUbnRqc0RIV21RRHZMV2xvS3lWZWR0UVc2ZjlzUDNJTnNz?=
- =?utf-8?B?dXhHNk1sU2F5YlVTbGVuV1dtWnJQaEhWTSs1OHUvTjhoZDhXeVNCRHk2Vmky?=
- =?utf-8?B?Z1NZREdnN3JOU2o1Nmg4clZJNDVidkE0M1l3c0ZweHQzeHVzVEdTWU1pbVB4?=
- =?utf-8?B?N1AvT2cyWDBTRDdBTGFOZWV5dlpsbzZ3SG00czY0QytNOGVyQklqRGlicWo2?=
- =?utf-8?B?Y2hXNkpudmlCN0xhV25aNVIyVElHYnczWktUcmF4djNUME92eE5RMTk0SDB6?=
- =?utf-8?B?WVAyWnY1OXh5OVFIT3g4MVc1VXdBSlNmRlF6cWNJVUdMVmprRllGbkNFOGdh?=
- =?utf-8?B?cWcvdFJGRkVkMjJ6Zmk4T1JrOGpvUVlJd3FRY1lkL2ljSGJaTnhRaFdLcHBW?=
- =?utf-8?B?NUNEeFJPc29ydGVQUTUzeFZldWZjaHVWcWdRZE4wbzZ0VE5DYVdkaUc4eTRJ?=
- =?utf-8?Q?+2IP4y3xEeFCflIEMw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1f3a67b-1ba2-44f4-e76f-08dec6e93732
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 12:10:09.1158
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +n66Lm42I6rYWDY0RtK7sa5p9+eUGBOFRDE+rkeob+TrJF8SMyScPOWFH5e7UUNf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7854
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-eliza_dt-v1-1-7bb72b75fc5b@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIACFUKWoC/y2NWwrCMBBFt1LybWSaV2MRcR8iksdUI9ZqpxVR3
+ Lup9WfgDufe82aEfUJidfFmPT4Spe6aQ7koWDi56xF5ijkzAcKAKYHjJb3cIQ5cK/DRNBVaK1n
+ Gbz026fmb2u3nTKM/Yxim/p/o8T5mxzBjrEUi93PUxXpWgJ0V/CE58JWP6CsllRd22xEt76O7h
+ K5tl/lsplHvCPn0SUNdgBZCo9QQtfLBBaGVaFbW5RUoK2+NhEaDNWz/+XwB8MPvSvsAAAA=
+X-Change-ID: 20260610-eliza_dt-540bd6f7e883
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, abel.vesa@oss.qualcomm.com,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781093414; l=11533;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=5L6HD2B7635vOlsqIcZK13z4zM+horVPwzgTXq4do9w=;
+ b=XnCFoebyoo0H1uUxDLgsKeMLfqN/onSlWB1tj4cvC3oYinCS62g4VWzqXWLtalAspY6K4vx5D
+ JbMrqrdJRVqB5GTO0t1CBxEcI0HlEUJXK4GNuI7801QHEvjTzuXlXCC
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Proofpoint-GUID: g3ntphJTFWxA0W_ffwdXU2SmZd-hIway
+X-Proofpoint-ORIG-GUID: g3ntphJTFWxA0W_ffwdXU2SmZd-hIway
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDExNSBTYWx0ZWRfX1s4BiKFpklrW
+ QA9as6jR3tcGQgGja+niVkKDIcrzvIP8TyAjDsUjt7oc1C7JbTC1+JLp+uO7IRXQN/+sXlG3wNk
+ FhRIxSdQXn08yLC319J52biN84IeLv32C8d1bRkGWvtqqJKSk4AYqiw4bnbWO3K5HLmk50ycszB
+ yN2snZKnzpOk1pOIsBZI5spVOju5bBIpAeHeYX0/WuKy0yAgagfM22VcautNPNfsqw8Jw8b0SPq
+ YiyRH8lU2AcGoZ0mlwm2N2nskGTrsaij3M7dcrY/+tsQtib3Cw12XJcWA3JmBkdsI0NKwbhq+or
+ n+Lu9GAO8luYoUUBA6U9HdkotQ22KhHLWNQxJChe8rn6eCQ5InGAiUIsMQmG8Y0A9memC23aP8A
+ gh912rdLF3P2JfnreX4cVRZ68nrrnYPwq9f9+WAq2UlapRFl2PER7+oVIog2uH/hAqexFR96YL4
+ 5rhwDsZ1WWTkdY1j9jA==
+X-Authority-Analysis: v=2.4 cv=epLvCIpX c=1 sm=1 tr=0 ts=6a29542b cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=sPDGGsNVV7SyBOZRkVwA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 bulkscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606100115
 
-Hi Andy,
+Eliza supports two PCIe instances: one 8GT/s x1 (PCIe0) and one 8GT/s x2
+(PCIe1). Add PCIe controller and PHY nodes for both instances, and update
+the GCC clock references to use the newly added PHY nodes instead of
+placeholder zeros.
 
-On 09/06/2026 18:54, Andy Shevchenko wrote:
-> On Mon, Jun 08, 2026 at 07:38:00PM +0100, Salih Erim wrote:
->> Add threshold event support for temperature and supply voltage
->> channels.
->>
->> Temperature events:
->>    - Rising threshold with configurable value
->>    - Over-temperature (OT) alarm with separate threshold
->>    - Per-channel hysteresis as a millicelsius value
->>    - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
->>
->> Supply voltage events:
->>    - Rising/falling threshold per supply channel
->>    - Per-channel alarm enable via alarm configuration registers
->>
->> The hardware supports both window and hysteresis alarm modes for
->> temperature. This driver uses hysteresis mode, where the upper
->> threshold triggers the alarm and the lower threshold clears it
->> (re-arm point). The hardware has a single ISR bit per temperature
->> channel with no indication of which threshold was crossed, so
->> hysteresis mode is the natural fit. The lower threshold register
->> is computed internally as (upper - hysteresis).
->>
->> Hysteresis is stored in the driver as a millicelsius value,
->> initialized from the hardware registers at probe. Writing the
->> rising threshold or hysteresis recomputes the lower register.
->> ALARM_CONFIG is hard-coded to hysteresis mode during init.
->>
->> The interrupt handler masks active threshold interrupts (which are
->> level-sensitive) and schedules a delayed worker to poll for condition
->> clear before unmasking. When no hardware IRQ is available, event
->> channels are not created and interrupt init is skipped, since the
->> I2C regmap backend cannot be called from atomic context.
->>
->> When disabling a supply channel alarm, the group interrupt remains
->> active if any other channel in the same alarm group still has an
->> alarm enabled.
-> 
-> ...
-> 
->> +#define SYSMON_CHAN_TEMP_EVENT(_chan, _address, _name, _events) {\
-> 
-> Just move { to be on the separate line, it will make the macro look better.
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+This patch depends on https://lore.kernel.org/all/20260608-eliza-v3-0-9bdeb7434b28@oss.qualcomm.com/
+---
+ arch/arm64/boot/dts/qcom/eliza.dtsi | 359 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 357 insertions(+), 2 deletions(-)
 
-Accepted. Will fix both SYSMON_CHAN_TEMP and SYSMON_CHAN_TEMP_EVENT macros.
+diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
+index 7e97361a5dc5..2a51da62270d 100644
+--- a/arch/arm64/boot/dts/qcom/eliza.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+@@ -610,8 +610,8 @@ gcc: clock-controller@100000 {
+ 
+ 			clocks = <&bi_tcxo_div2>,
+ 				 <&sleep_clk>,
+-				 <0>,
+-				 <0>,
++				 <&pcie0_phy>,
++				 <&pcie1_phy>,
+ 				 <&ufs_mem_phy 0>,
+ 				 <&ufs_mem_phy 1>,
+ 				 <&ufs_mem_phy 2>,
+@@ -716,6 +716,361 @@ mmss_noc: interconnect@1780000 {
+ 			#interconnect-cells = <2>;
+ 		};
+ 
++		pcie0: pcie@1c00000 {
++			device_type = "pci";
++			compatible = "qcom,eliza-pcie", "qcom,pcie-sm8550";
++			reg = <0 0x01c00000 0 0x3000>,
++			      <0 0x40000000 0 0xf1d>,
++			      <0 0x40000f20 0 0xa8>,
++			      <0 0x40001000 0 0x1000>,
++			      <0 0x40100000 0 0x100000>,
++			      <0 0x01c03000 0 0x1000>;
++			reg-names = "parf",
++				    "dbi",
++				    "elbi",
++				    "atu",
++				    "config",
++				    "mhi";
++			#address-cells = <3>;
++			#size-cells = <2>;
++			ranges = <0x01000000 0 0x00000000 0 0x40200000 0 0x100000>,
++				 <0x02000000 0 0x40300000 0 0x40300000 0 0x3d00000>;
++
++			interrupts = <GIC_SPI 376 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 478 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 479 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 535 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 536 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 537 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 540 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 653 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 370 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "msi0",
++					  "msi1",
++					  "msi2",
++					  "msi3",
++					  "msi4",
++					  "msi5",
++					  "msi6",
++					  "msi7",
++					  "global";
++
++			clocks = <&gcc GCC_PCIE_0_AUX_CLK>,
++				 <&gcc GCC_PCIE_0_CFG_AHB_CLK>,
++				 <&gcc GCC_PCIE_0_MSTR_AXI_CLK>,
++				 <&gcc GCC_PCIE_0_SLV_AXI_CLK>,
++				 <&gcc GCC_PCIE_0_SLV_Q2A_AXI_CLK>,
++				 <&gcc GCC_DDRSS_PCIE_SF_QTB_CLK>,
++				 <&gcc GCC_AGGRE_NOC_PCIE_AXI_CLK>,
++				 <&gcc GCC_CNOC_PCIE_SF_AXI_CLK>;
++			clock-names = "aux",
++				      "cfg",
++				      "bus_master",
++				      "bus_slave",
++				      "slave_q2a",
++				      "ddrss_sf_tbu",
++				      "noc_aggr",
++				      "cnoc_sf_axi";
++
++			resets = <&gcc GCC_PCIE_0_BCR>,
++				 <&gcc GCC_PCIE_0_LINK_DOWN_BCR>;
++			reset-names = "pci",
++				      "link_down";
++
++			interconnects = <&pcie_noc MASTER_PCIE_0 QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &cnoc_main SLAVE_PCIE_0 QCOM_ICC_TAG_ACTIVE_ONLY>;
++			interconnect-names = "pcie-mem",
++					     "cpu-pcie";
++
++			power-domains = <&gcc GCC_PCIE_0_GDSC>;
++
++			operating-points-v2 = <&pcie0_opp_table>;
++
++			iommu-map = <0 &apps_smmu 0x1480 0x1>,
++				    <0x100 &apps_smmu 0x1481 0x1>;
++
++			interrupt-map = <0 0 0 1 &intc 0 0 0 564 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 2 &intc 0 0 0 565 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 3 &intc 0 0 0 566 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 4 &intc 0 0 0 567 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-map-mask = <0 0 0 0x7>;
++			#interrupt-cells = <1>;
++
++			linux,pci-domain = <0>;
++			num-lanes = <1>;
++			bus-range = <0 0xff>;
++
++			dma-coherent;
++
++			status = "disabled";
++
++			pcie0_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				/* 2.5 GT/s x1 */
++				opp-2500000-1 {
++					opp-hz = /bits/ 64 <2500000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <250000 1>;
++					opp-level = <1>;
++				};
++
++				/* 5 GT/s x1 */
++				opp-5000000-2 {
++					opp-hz = /bits/ 64 <5000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <500000 1>;
++					opp-level = <2>;
++				};
++
++				/* 8 GT/s x1 */
++				opp-8000000-3 {
++					opp-hz = /bits/ 64 <8000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <984500 1>;
++					opp-level = <3>;
++				};
++
++			};
++
++			pcie0port0: pcie@0 {
++				device_type = "pci";
++				reg = <0x0 0x0 0x0 0x0 0x0>;
++				bus-range = <0x01 0xff>;
++
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;
++				phys = <&pcie0_phy>;
++			};
++		};
++
++		pcie0_phy: phy@1c06000 {
++			compatible = "qcom,eliza-qmp-gen3x1-pcie-phy";
++			reg = <0 0x01c06000 0 0x2000>;
++
++			clocks = <&gcc GCC_PCIE_0_AUX_CLK>,
++				 <&gcc GCC_PCIE_0_CFG_AHB_CLK>,
++				 <&tcsr TCSR_PCIE_0_CLKREF_EN>,
++				 <&gcc GCC_PCIE_0_PHY_RCHNG_CLK>,
++				 <&gcc GCC_PCIE_0_PIPE_CLK>,
++				 <&gcc GCC_PCIE_0_PIPE_DIV2_CLK>;
++			clock-names = "aux",
++				      "cfg_ahb",
++				      "ref",
++				      "rchng",
++				      "pipe",
++				      "pipediv2";
++
++			assigned-clocks = <&gcc GCC_PCIE_0_PHY_RCHNG_CLK>;
++			assigned-clock-rates = <100000000>;
++
++			resets = <&gcc GCC_PCIE_0_PHY_BCR>,
++				 <&gcc GCC_PCIE_0_NOCSR_COM_PHY_BCR>;
++			reset-names = "phy",
++				      "phy_nocsr";
++
++			power-domains = <&gcc GCC_PCIE_0_PHY_GDSC>;
++
++			#clock-cells = <0>;
++			clock-output-names = "pcie0_pipe_clk";
++
++			#phy-cells = <0>;
++
++			status = "disabled";
++		};
++
++		pcie1: pcie@1c08000 {
++			device_type = "pci";
++			compatible = "qcom,eliza-pcie", "qcom,pcie-sm8550";
++			reg = <0 0x01c08000 0 0x3000>,
++			      <0 0x44000000 0 0xf1d>,
++			      <0 0x44000f20 0 0xa8>,
++			      <0 0x44001000 0 0x1000>,
++			      <0 0x44100000 0 0x100000>,
++			      <0 0x01c0b000 0 0x1000>;
++			reg-names = "parf",
++				    "dbi",
++				    "elbi",
++				    "atu",
++				    "config",
++				    "mhi";
++			#address-cells = <3>;
++			#size-cells = <2>;
++			ranges = <0x01000000 0 0x00000000 0 0x44200000 0 0x100000>,
++				 <0x02000000 0 0x44300000 0 0x44300000 0 0x3d00000>;
++
++			interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "msi0",
++					  "msi1",
++					  "msi2",
++					  "msi3",
++					  "msi4",
++					  "msi5",
++					  "msi6",
++					  "msi7",
++					  "global";
++
++			clocks = <&gcc GCC_PCIE_1_AUX_CLK>,
++				 <&gcc GCC_PCIE_1_CFG_AHB_CLK>,
++				 <&gcc GCC_PCIE_1_MSTR_AXI_CLK>,
++				 <&gcc GCC_PCIE_1_SLV_AXI_CLK>,
++				 <&gcc GCC_PCIE_1_SLV_Q2A_AXI_CLK>,
++				 <&gcc GCC_DDRSS_PCIE_SF_QTB_CLK>,
++				 <&gcc GCC_AGGRE_NOC_PCIE_AXI_CLK>,
++				 <&gcc GCC_CNOC_PCIE_SF_AXI_CLK>;
++			clock-names = "aux",
++				      "cfg",
++				      "bus_master",
++				      "bus_slave",
++				      "slave_q2a",
++				      "ddrss_sf_tbu",
++				      "noc_aggr",
++				      "cnoc_sf_axi";
++
++			resets = <&gcc GCC_PCIE_1_BCR>,
++				 <&gcc GCC_PCIE_1_LINK_DOWN_BCR>;
++			reset-names = "pci",
++				      "link_down";
++
++			interconnects = <&pcie_noc MASTER_PCIE_1 QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &cnoc_main SLAVE_PCIE_1 QCOM_ICC_TAG_ACTIVE_ONLY>;
++			interconnect-names = "pcie-mem",
++					     "cpu-pcie";
++
++			power-domains = <&gcc GCC_PCIE_1_GDSC>;
++
++			operating-points-v2 = <&pcie1_opp_table>;
++
++			iommu-map = <0 &apps_smmu 0x1400 0x1>,
++				    <0x100 &apps_smmu 0x1401 0x1>;
++
++			interrupt-map = <0 0 0 1 &intc 0 0 0 149 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 2 &intc 0 0 0 150 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 3 &intc 0 0 0 151 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 4 &intc 0 0 0 152 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-map-mask = <0 0 0 0x7>;
++			#interrupt-cells = <1>;
++
++			linux,pci-domain = <1>;
++			num-lanes = <2>;
++			bus-range = <0 0xff>;
++
++			dma-coherent;
++
++			status = "disabled";
++
++			pcie1_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				/* 2.5 GT/s x1 */
++				opp-2500000-1 {
++					opp-hz = /bits/ 64 <2500000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <250000 1>;
++					opp-level = <1>;
++				};
++
++				/* 2.5 GT/s x2 */
++				opp-5000000-1 {
++					opp-hz = /bits/ 64 <5000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <500000 1>;
++					opp-level = <1>;
++				};
++
++				/* 5 GT/s x1 */
++				opp-5000000-2 {
++					opp-hz = /bits/ 64 <5000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <500000 1>;
++					opp-level = <2>;
++				};
++
++				/* 5 GT/s x2 */
++				opp-10000000-2 {
++					opp-hz = /bits/ 64 <10000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <1000000 1>;
++					opp-level = <2>;
++				};
++
++				/* 8 GT/s x1 */
++				opp-8000000-3 {
++					opp-hz = /bits/ 64 <8000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <984500 1>;
++					opp-level = <3>;
++				};
++
++				/* 8 GT/s x2 */
++				opp-16000000-3 {
++					opp-hz = /bits/ 64 <16000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++					opp-peak-kBps = <1969000 1>;
++					opp-level = <3>;
++				};
++
++			};
++			pcie1port0: pcie@0 {
++				device_type = "pci";
++				reg = <0x0 0x0 0x0 0x0 0x0>;
++				bus-range = <0x01 0xff>;
++
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;
++				phys = <&pcie1_phy>;
++			};
++		};
++
++		pcie1_phy: phy@1c0e000 {
++			compatible = "qcom,eliza-qmp-gen3x2-pcie-phy";
++			reg = <0 0x01c0e000 0 0x2000>;
++
++			clocks = <&gcc GCC_PCIE_1_AUX_CLK>,
++				 <&gcc GCC_PCIE_1_CFG_AHB_CLK>,
++				 <&tcsr TCSR_PCIE_1_CLKREF_EN>,
++				 <&gcc GCC_PCIE_1_PHY_RCHNG_CLK>,
++				 <&gcc GCC_PCIE_1_PIPE_CLK>,
++				 <&gcc GCC_PCIE_1_PIPE_DIV2_CLK>;
++			clock-names = "aux",
++				      "cfg_ahb",
++				      "ref",
++				      "rchng",
++				      "pipe",
++				      "pipediv2";
++
++			assigned-clocks = <&gcc GCC_PCIE_1_PHY_RCHNG_CLK>;
++			assigned-clock-rates = <100000000>;
++
++			resets = <&gcc GCC_PCIE_1_PHY_BCR>,
++				 <&gcc GCC_PCIE_1_NOCSR_COM_PHY_BCR>;
++			reset-names = "phy",
++				      "phy_nocsr";
++
++			power-domains = <&gcc GCC_PCIE_1_PHY_GDSC>;
++
++			#clock-cells = <0>;
++			clock-output-names = "pcie1_pipe_clk";
++
++			#phy-cells = <0>;
++
++			status = "disabled";
++		};
++
+ 		ufs_mem_phy: phy@1d80000 {
+ 			compatible = "qcom,eliza-qmp-ufs-phy",
+ 				     "qcom,sm8650-qmp-ufs-phy";
 
-> 
-> #define SYSMON_CHAN_TEMP_EVENT(_chan, _address, _name, _events) \
-> {                                                               \
-> 
->> +     .type = IIO_TEMP,                                       \
->> +     .indexed = 1,                                           \
->> +     .address = _address,                                    \
->> +     .channel = _chan,                                       \
->> +     .event_spec = _events,                                  \
->> +     .num_event_specs = ARRAY_SIZE(_events),                 \
->> +     .datasheet_name = _name,                                \
->> +}
-> 
-> ...
-> 
->> +static int sysmon_write_event_config(struct iio_dev *indio_dev,
->> +                                  const struct iio_chan_spec *chan,
->> +                                  enum iio_event_type type,
->> +                                  enum iio_event_direction dir,
->> +                                  bool state)
->> +{
->> +     u32 offset = SYSMON_ALARM_OFFSET(chan->address);
->> +     u32 ier = sysmon_get_event_mask(chan->address);
->> +     struct sysmon *sysmon = iio_priv(indio_dev);
->> +     unsigned int alarm_config;
->> +     int ret;
->> +
->> +     guard(mutex)(&sysmon->lock);
->> +
->> +     if (chan->type == IIO_VOLTAGE) {
->> +             ret = sysmon_write_alarm_config(sysmon, chan->address, state);
->> +             if (ret)
->> +                     return ret;
->> +
->> +             ret = regmap_read(sysmon->regmap, offset, &alarm_config);
->> +             if (ret)
->> +                     return ret;
->> +
->> +             if (alarm_config)
->> +                     return regmap_write(sysmon->regmap, SYSMON_IER, ier);
->> +
->> +             return regmap_write(sysmon->regmap, SYSMON_IDR, ier);
-> 
->> +     }
->> +
->> +     if (chan->type == IIO_TEMP) {
-> 
-> Still same problem you promised to address. Please, go back to the previous
-> thread and check again what has been addressed and what's not.
+---
+base-commit: 05225e350d54bcac2542f98abde017b8630f5086
+change-id: 20260610-eliza_dt-540bd6f7e883
+prerequisite-message-id: <20260608-eliza-v3-0-9bdeb7434b28@oss.qualcomm.com>
+prerequisite-patch-id: 9f910ecb377e4195299293f27c9892aa1df93943
+prerequisite-patch-id: 246cb54c5e74e3e6ac32772972c26289523a93aa
+prerequisite-patch-id: b8f67adbd27f4738bc31916b7773132383e2415c
 
-You're right on all counts, and I apologize for wasting your time
-reviewing the same issues.
-
-The cascading if statements should have been converted to switch
-in v5. I fixed it in the oversampling patch but missed these event
-functions. All will use switch(chan->type) in v6, and
-read/write_event_value will also use switch(info) for the nested
-dispatch.
-
-> 
->> +             if (state) {
->> +                     ret = regmap_write(sysmon->regmap, SYSMON_IER, ier);
->> +                     if (ret)
->> +                             return ret;
->> +
->> +                     scoped_guard(spinlock_irq, &sysmon->irq_lock)
->> +                             sysmon->temp_mask &= ~ier;
->> +             } else {
->> +                     ret = regmap_write(sysmon->regmap, SYSMON_IDR, ier);
->> +                     if (ret)
->> +                             return ret;
->> +
->> +                     scoped_guard(spinlock_irq, &sysmon->irq_lock)
->> +                             sysmon->temp_mask |= ier;
->> +             }
->> +     }
->> +
->> +     return 0;
->> +}
-> 
-> ...
-> 
->> +static int sysmon_update_temp_lower(struct sysmon *sysmon, int address)
->> +{
->> +     unsigned int upper_reg;
->> +     int upper_mc, lower_mc, hysteresis;
->> +     u32 raw_val;
->> +     int upper_off, lower_off, ret;
-> 
-> Keep in reversed xmas tree order.
-
-Accepted.
-> 
->> +     upper_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_RISING);
->> +     if (upper_off < 0)
->> +             return upper_off;
->> +     lower_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_FALLING);
->> +     if (lower_off < 0)
->> +             return lower_off;
->> +
->> +     if (address == SYSMON_ADDR_OT_EVENT)
->> +             hysteresis = sysmon->ot_hysteresis;
->> +     else
->> +             hysteresis = sysmon->temp_hysteresis;
->> +
->> +     ret = regmap_read(sysmon->regmap, upper_off, &upper_reg);
->> +     if (ret)
->> +             return ret;
->> +
->> +     sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
->> +
->> +     lower_mc = upper_mc - hysteresis;
->> +     sysmon_millicelsius_to_q8p7(&raw_val, lower_mc);
->> +
->> +     return regmap_write(sysmon->regmap, lower_off, raw_val);
->> +}
-> 
-> ...
-> 
->> +static int sysmon_read_event_value(struct iio_dev *indio_dev,
->> +                                const struct iio_chan_spec *chan,
->> +                                enum iio_event_type type,
->> +                                enum iio_event_direction dir,
->> +                                enum iio_event_info info,
->> +                                int *val, int *val2)
->> +{
->> +     struct sysmon *sysmon = iio_priv(indio_dev);
->> +     unsigned int reg_val;
->> +     int offset;
->> +     int ret;
->> +
->> +     guard(mutex)(&sysmon->lock);
->> +
->> +     if (chan->type == IIO_TEMP) {
->> +             if (info == IIO_EV_INFO_VALUE) {
->> +                     /* Only rising threshold is exposed */
->> +                     offset = sysmon_temp_thresh_offset(chan->address,
->> +                                                        IIO_EV_DIR_RISING);
->> +                     if (offset < 0)
->> +                             return offset;
->> +
->> +                     ret = regmap_read(sysmon->regmap, offset, &reg_val);
->> +                     if (ret)
->> +                             return ret;
->> +
->> +                     sysmon_q8p7_to_millicelsius(reg_val, val);
->> +
->> +                     return IIO_VAL_INT;
->> +             }
->> +             if (info == IIO_EV_INFO_HYSTERESIS) {
->> +                     if (chan->address == SYSMON_ADDR_OT_EVENT)
->> +                             *val = sysmon->ot_hysteresis;
->> +                     else
->> +                             *val = sysmon->temp_hysteresis;
->> +                     return IIO_VAL_INT;
->> +             }
-> 
->> +     }
->> +
->> +     if (chan->type == IIO_VOLTAGE) {
-> 
-> Again, same issue. Are you sure you sent the new version?
-
-That's purely my mistake, I will address them all in new version.
-> 
->> +             offset = sysmon_supply_thresh_offset(chan->address, dir);
->> +             if (offset < 0)
->> +                     return offset;
->> +
->> +             ret = regmap_read(sysmon->regmap, offset, &reg_val);
->> +             if (ret)
->> +                     return ret;
->> +
->> +             sysmon_supply_rawtoprocessed(reg_val, val);
->> +
->> +             return IIO_VAL_INT;
->> +     }
->> +
->> +     return -EINVAL;
->> +}
-> 
-> ...
-> 
->> +static int sysmon_write_event_value(struct iio_dev *indio_dev,
->> +                                 const struct iio_chan_spec *chan,
->> +                                 enum iio_event_type type,
->> +                                 enum iio_event_direction dir,
->> +                                 enum iio_event_info info,
->> +                                 int val, int val2)
->> +{
->> +     struct sysmon *sysmon = iio_priv(indio_dev);
->> +     unsigned int reg_val;
->> +     u32 raw_val;
->> +     int offset;
->> +     int ret;
->> +
->> +     guard(mutex)(&sysmon->lock);
->> +
->> +     if (chan->type == IIO_TEMP) {
->> +             if (info == IIO_EV_INFO_VALUE) {
->> +                     /* Only rising threshold is exposed */
->> +                     offset = sysmon_temp_thresh_offset(chan->address,
->> +                                                        IIO_EV_DIR_RISING);
->> +                     if (offset < 0)
->> +                             return offset;
->> +
->> +                     sysmon_millicelsius_to_q8p7(&raw_val, val);
->> +
->> +                     ret = regmap_write(sysmon->regmap, offset, raw_val);
->> +                     if (ret)
->> +                             return ret;
->> +
->> +                     /* Recompute lower = upper - hysteresis */
->> +                     return sysmon_update_temp_lower(sysmon, chan->address);
-> 
->> +             }
->> +             if (info == IIO_EV_INFO_HYSTERESIS) {
-> 
-> Ditto.
-
-Will be fixed in v6.
-> 
->> +                     if (val < 0)
->> +                             return -EINVAL;
->> +
->> +                     if (chan->address == SYSMON_ADDR_OT_EVENT)
->> +                             sysmon->ot_hysteresis = val;
->> +                     else
->> +                             sysmon->temp_hysteresis = val;
->> +
->> +                     return sysmon_update_temp_lower(sysmon, chan->address);
->> +             }
-> 
->> +     }
->> +
->> +     if (chan->type == IIO_VOLTAGE) {
-> 
-> Ditto.
-
-Will be fixed in v6.
-
-> 
->> +             offset = sysmon_supply_thresh_offset(chan->address, dir);
->> +             if (offset < 0)
->> +                     return offset;
->> +
->> +             ret = regmap_read(sysmon->regmap, offset, &reg_val);
->> +             if (ret)
->> +                     return ret;
->> +
->> +             sysmon_supply_processedtoraw(val, reg_val, &raw_val);
->> +
->> +             return regmap_write(sysmon->regmap, offset, raw_val);
->> +     }
->> +
->> +     return -EINVAL;
->> +}
-> 
-> ...
-> 
->> +/*
->> + * Versal threshold interrupts are level-sensitive. Active threshold
->> + * interrupts are masked in the handler and polled via delayed work
->> + * until the condition clears, then unmasked.
->> + */
->> +static void sysmon_unmask_worker(struct work_struct *work)
->> +{
->> +     struct sysmon *sysmon =
->> +             container_of(work, struct sysmon, sysmon_unmask_work.work);
->> +     unsigned int isr;
->> +
->> +     /*
->> +      * regmap errors are not checked here because the worker and IRQ
->> +      * handler cannot propagate errors. The MMIO regmap uses fast_io
->> +      * with direct readl/writel which cannot fail.
-> 
-> OK (but they can fail on HW level to the point of bus errors or so :).
-
-Accepted. Will add error checks to modify flow on failure
-instead of just documenting why they're absent.
-
-> 
->> +      */
->> +     spin_lock_irq(&sysmon->irq_lock);
->> +     regmap_read(sysmon->regmap, SYSMON_ISR, &isr);
->> +     regmap_write(sysmon->regmap, SYSMON_ISR, isr);
->> +     sysmon_unmask_temp(sysmon, isr);
->> +     spin_unlock_irq(&sysmon->irq_lock);
->> +
->> +     if (sysmon->masked_temp)
->> +             schedule_delayed_work(&sysmon->sysmon_unmask_work,
->> +                                   msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
->> +     else
->> +             regmap_write(sysmon->regmap, SYSMON_STATUS_RESET, 1);
->> +}
-> 
-> ...
-> 
->> +static int sysmon_init_interrupt(struct sysmon *sysmon,
->> +                              struct device *dev,
->> +                              struct iio_dev *indio_dev,
->> +                              int irq)
->> +{
->> +     unsigned int imr;
->> +     int ret;
->> +
->> +     /* Events not supported without IRQ (e.g. I2C path) */
->> +     if (!irq)
->> +             return 0;
->> +
->> +     ret = devm_delayed_work_autocancel(dev, &sysmon->sysmon_unmask_work,
->> +                                        sysmon_unmask_worker);
->> +     if (ret)
->> +             return ret;
->> +
->> +     ret = regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
->> +     if (ret)
->> +             return ret;
->> +     sysmon->temp_mask = imr & SYSMON_TEMP_INTR_MASK;
->> +
->> +     return devm_request_irq(dev, irq, sysmon_iio_irq, 0,
->> +                             "sysmon-irq", indio_dev);
-> 
-> I would do that on a single line, but it's 86 characters long, so up to
-> Jonathan.
-
-Accepted. Will join on a single line. Happy to split it back if Jonathan 
-prefers.
-
-> 
->> +}
-> 
-> ...
-> 
->> +static int sysmon_init_hysteresis(struct sysmon *sysmon, unsigned int address,
->> +                               int *hysteresis)
->> +{
->> +     unsigned int upper_reg, lower_reg;
->> +     int upper_mc, lower_mc;
->> +     int upper_off, lower_off;
-> 
-> Reversed xmas tree order.
-
-Accepted.
-
-> 
->> +     int ret;
->> +
->> +     upper_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_RISING);
->> +     if (upper_off < 0)
->> +             return upper_off;
->> +     lower_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_FALLING);
->> +     if (lower_off < 0)
->> +             return lower_off;
->> +
->> +     ret = regmap_read(sysmon->regmap, upper_off, &upper_reg);
->> +     if (ret)
->> +             return ret;
->> +
->> +     ret = regmap_read(sysmon->regmap, lower_off, &lower_reg);
->> +     if (ret)
->> +             return ret;
->> +
->> +     sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
->> +     sysmon_q8p7_to_millicelsius(lower_reg, &lower_mc);
->> +     *hysteresis = upper_mc - lower_mc;
->> +
->> +     return 0;
->> +}
-> 
-> ...
-> 
->>        sysmon_channels = devm_kcalloc(dev,
->> -                                    size_add(size_add(ARRAY_SIZE(temp_channels),
->> +                                    size_add(size_add(num_static,
->>                                                  num_supply), num_temp),
->>                                       sizeof(*sysmon_channels), GFP_KERNEL);
-> 
-> Same comment as per previous patch.
-
-Accepted.
-> 
->>        if (!sysmon_channels)
->>                return -ENOMEM;
-> 
-> ...
-> 
->> --- a/drivers/iio/adc/versal-sysmon.h
->> +++ b/drivers/iio/adc/versal-sysmon.h
-> 
->>   #include <linux/bits.h>
->>   #include <linux/mutex.h>
->> +#include <linux/spinlock_types.h>
-> 
->> +#include <linux/types.h>
-> 
-> Same comment as per previous round. Really, please double check what you missed
-> to address.
-
-I removed types.h from P2 as you asked, then added it at P4
-assuming the new struct members needed it. They don't --
-spinlock_t comes from spinlock_types.h, unsigned int and int are
-built-in, struct delayed_work comes from workqueue.h. Will remove
-types.h from the header entirely.
-
-Regards,
-Salih
-
-> 
->> +#include <linux/workqueue.h>
-> 
-> --
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+Best regards,
+--  
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
