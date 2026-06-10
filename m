@@ -1,108 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33216198E91
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 02:15:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491A027FD4B;
+	Wed, 10 Jun 2026 02:30:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781057733; cv=none; b=stCnp+4GDayTdwa4o8GWJho92u+Leef0ITShbafBWBltxemtXAX1ZKTrKQK/ipVR3TJeCH0xnl8NmZ7PK5EYjsGxT37HCnhgGcrSSImVrZ+pO6GmLOeeRCV1ptdcX2piEp8yCz/8DJ2wbyiNk0RwVZjK7txR0SSgKpfr91yt4NE=
+	t=1781058610; cv=none; b=Qw3trnhGmDaYZz6dZct/Ti0qyYKmBd+zT4H3R5jAkCBJymYwXtYDjjVcK5aPmhJxTVYGMQyPOXOifZJDLxSKjfT8AQGE2uPTNA2KR+nDhkSuweOHMD4xF2wEVTyb0jwH+T1kTqjCKsbVYQuE9Jt1TMxdVq8lyHgaQmrdKttVV6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781057733; c=relaxed/simple;
-	bh=vWFC5gwYnWmCFTCnTqGdtPvTDQvyYYJQ0U31tjPa494=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uYSmwOk3CK15HX22mLcset205jIvec1Ta1G4vgzJcSJMhXFZOtFY0VRFEkTvSTNXFNYp1ggsBRVaSCDYOBMffmpP84H7DnAQGfm4LHWBhQ5l4qXJ9sSyWNWBtrhy54Z0jQzO+djfQXZpp9J00bFvXBjq7JS1FkzcxInVCjQC4Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pf+4pfP2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781058610; c=relaxed/simple;
+	bh=Cl0Yw24+JnYENiMvJKdJq3a73HcfLt5QPvi2HAeay/4=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=BRLzr+wueu2n8Px8jTckUMEgRZ6MujX45yc8uAIvhd6F2coob/hGenvGkTEI2g9TpcXJghY1w8wsduuanUw/4RL/rFZ3svH2MfE/jvi2s7n5b3yvYk/LCfp7seD6l50ch1LExRT5pzL6+2G/hQU8AxgWBx0UjyAGOcXSaWH+1ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mrrjybhu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pf+4pfP2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8BB91F00893;
-	Wed, 10 Jun 2026 02:15:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mrrjybhu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B74621F00893;
+	Wed, 10 Jun 2026 02:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781057732;
-	bh=3jYwYmErqlhV3Nj99/ZBDXBccLhGbeFcQUBAL+1tu/E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pf+4pfP2/FGK5xjthZma5uHFeEMjsihYisY32Qlaqtgozqys5HUT+ztvllD3sdAIn
-	 JZeqdvisoufH4+WAr4UhSJnmp2nQhiTxiYDENrJdpT6denmFAmuSpQTG4hyayojKGw
-	 bO5AaQCTWY1yDYUKf6lECaDyxTM5bAEyQnQPiLSMXw8KOTo1pAQrhanhAQUha6VTg2
-	 wIAHV0NkmokEOjkdhexHDEFAQRSGh7B3Zq0ROaiolsvxC7/uOLpjyQ04XN3utt34+w
-	 k4tI49QQbDxAHPgZ8tx3EYkXI8ofhlIt9ArkV6QxPI0AN41HI5zfAZM8MFuoulO03r
-	 NeaAHLtTLP6Og==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: pressure: Add MS5637
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis Adamian" <adamianlouis@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260610020458.104818-2-adamianlouis@gmail.com>
-References: <20260610020458.104818-2-adamianlouis@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 02:15:31 +0000
-Message-Id: <20260610021531.D8BB91F00893@smtp.kernel.org>
+	s=k20260515; t=1781058608;
+	bh=AkjbPNJOOQcXYpV91PWjTYmuXBqesqJApQu5jGEYqLk=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MrrjybhuN7VNbc2JQwLNuny/9bcmcEA4pmP8qR2DGD0FM5j+ZB36ATHU/NojfOXhB
+	 EzTdzD6BuG1YJgKA4g0fa55Lb2j++elzhPTfx44yANUxvmP9E8iggYO2hnILQOqmH3
+	 0+1msz24DWTRSjsLUFQ2s0i9hQ5cjYsvBVVlGMx0tDeqftqc03xiXl11g75uXh7gw9
+	 D9tHVq0QclpRhrFKZzuYmZ8gvd7YkrrqGF98cP2kbkPCe/aKCgpXlWoVrm2OAlmmZy
+	 ToKN1adb9WxzcOvkL+hP6xc0jixiaDM9IuJwY2obObbLHFAAjxigU++zfpmwTrH6ff
+	 M0gjy1LsAx57g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198443930A20;
+	Wed, 10 Jun 2026 02:30:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd:
+ microchip,pd692x0:
+ add port disable GPIO
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178105860664.2800834.1034333038308969425.git-patchwork-notify@kernel.org>
+Date: Wed, 10 Jun 2026 02:30:06 +0000
+References: <20260607165600.1260210-1-robert.marko@sartura.hr>
+In-Reply-To: <20260607165600.1260210-1-robert.marko@sartura.hr>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel.machon@microchip.com,
+ luka.perkov@sartura.hr
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Adding `vdd-supply` as a strictly required property breaks backwar=
-d compatibility for existing device trees.
---
+Hello:
 
-commit 8073eb9fc3f96931b47510a0323c9f632b9db41f
-Author: Louis Adamian <adamianlouis@gmail.com>
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-dt-bindings: iio: pressure: Add MS5637
+On Sun,  7 Jun 2026 18:55:35 +0200 you wrote:
+> Microchip PSE controllers have a dedicated port disable input that like it
+> name suggest, will disable PoE on all ports.
+> 
+> So, lets document that GPIO.
+> 
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> 
+> [...]
 
-Create meas,ms5637 devicetree binding and move existing devices from
-trivial-devices.yaml. Explicit compatible strings are added for the
-different sub-variants because each requires different constants for the
-second-order temperature compensation formulas.
+Here is the summary with links:
+  - [net-next,v3,1/2] dt-bindings: net: pse-pd: microchip,pd692x0: add port disable GPIO
+    https://git.kernel.org/netdev/net-next/c/a1c4fa71bbbd
+  - [net-next,v3,2/2] net: pse-pd: pd692x0: support disabling disable ports GPIO
+    https://git.kernel.org/netdev/net-next/c/90e63d535495
 
-> diff --git a/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.y=
-aml b/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.yaml
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-[ ... ]
 
-> +properties:
-
-[ ... ]
-
-> +  vdd-supply:
-> +    description: Regulator that provides power to the sensor
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-
-[Severity: High]
-Does adding vdd-supply to the required list break backward compatibility for
-existing device trees?
-
-The generic compatibles like meas,ms5637 and meas,ms5803 were moved from
-trivial-devices.yaml to this new standalone binding. In trivial-devices.yam=
-l,
-vdd-supply was not defined and additionalProperties was set to false.
-
-This means any valid, existing device tree for these sensors strictly could
-not have included a vdd-supply property without failing validation. By
-unconditionally adding vdd-supply to the required list, existing device tre=
-es
-in the wild will fail dtbs_check.
-
-Furthermore, the corresponding Linux driver (drivers/iio/pressure/ms5637.c)
-does not appear to fetch or use a regulator, confirming it is not functiona=
-lly
-required.
-
-Should vdd-supply be omitted from the required list, or only made
-conditionally required for newly introduced compatibles, to preserve the
-Device Tree ABI?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610020458.1048=
-18-1-adamianlouis@gmail.com?part=3D1
