@@ -1,45 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D6731D759;
-	Wed, 10 Jun 2026 16:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9E933C52F;
+	Wed, 10 Jun 2026 16:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781109957; cv=none; b=oaI7hjZURrvd40ASeZcAVjK7751YuWtUmPAhpQFABIYpTLW4scYOfvKK43tKopU85iB6IFEswqdD3zl0McD1pm2kZgSqtfJlQWBTktSd0aGqJHCY+UW4tXGxSLH+IU5EV/G6KSt38aJmEUq+6gGWvuR2+RjU5CHGd/++4AowTo0=
+	t=1781110365; cv=none; b=ojgnVjohUHBJRQbJNPLz+Dit7pVDUMTfaR4HHQMGH4u3cuMMy7xse+iJAt7/uzCkJ6HmH+ZNH9hMjUb1KKZ7lBP/zzxeWo2UYgoSq7a5OmYWmQ4qRDiAGDyYYy78skq7ZGMyCKMBBVB9o97ATvHWu+j8wvyEj6r+/f82L/panM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781109957; c=relaxed/simple;
-	bh=Dwfla7ljRHGOdc2dosvIj1PLGsSY3rDKLsmBWusCknk=;
+	s=arc-20240116; t=1781110365; c=relaxed/simple;
+	bh=9sYkhPmhQrR5yfwiC9BcupwGyFlOcNFocEug02L4Ew4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ueXNMk+NZzR2LUyetZVje6RRn1be6Nkf6LJvL2PeMv0b19UFA60xckwxTM2+Z88IyaukbCUx9owN1dqD5eJAvxvSWzHYUmeviaEJJ/dJU+GbzQ4FcwM+VDga9jo8uUtMA1+RS6UTJNsaQae4qNjRlVMkfxB/0KOKo9pEz4KusO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbTRvuKR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gDQPGcSHfQb/FyEeaSb/FayQL9vINI9qU65szhz90AwmZS1soB/JX1EUz833xEDpb7rigJefQKiRTuPQSSgSEQwZBqCvpthLmWBoqt00S4rYQsBIXQ1wwFqtdTDrSJler4mIV1qyug6NAzVtK80nn/gWO1rWn14BhKQlBc2/mIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndpOyF82; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbTRvuKR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2988E1F00893;
-	Wed, 10 Jun 2026 16:45:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndpOyF82"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BB01F00899;
+	Wed, 10 Jun 2026 16:52:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781109956;
-	bh=Dwfla7ljRHGOdc2dosvIj1PLGsSY3rDKLsmBWusCknk=;
+	s=k20260515; t=1781110364;
+	bh=addipIcASq3ojF947fNGWGLp5EDvGsVvNqYOwdn+Y1Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gbTRvuKRczjMxJjvqmk8hMgddfxW9WKMZDNNqXRHrpsxDOXSgN5G84D/73imxJ+8m
-	 wuEeugbzUyXTiuHILEFMhDGBGfX0hduXfo5mSIFRfzo0rnYl0nfIAovoyh2VvZaw0I
-	 VQUwclLt1HAfVp/Ijmj7ly0wW9LtPcfD09Ot3B6QErTQFd2LXXQGDztuZ+ybONdOn/
-	 6zf9OS4q48sI1YMu6AyEAjJdfirIxH8nqRVqRruv+BsEkjHGeXgOvEOxUAp4WkT6/D
-	 U2MQp//6fNa42X8+CGj9jQu89KJKQQpICT4m3ICaO+Pl9UZl8hF0MAhIb88cBXdVaO
-	 u33EKSmSLfUtA==
-Date: Wed, 10 Jun 2026 17:45:52 +0100
+	b=ndpOyF82eA+xOjW5IzWLC7LUa1XjR9E5RHRbpUi4QeAz9O9yQKJR6eZ+q0jkjX1lE
+	 IznSN9OLG1/pRwRazbqe4Bl7Ijs8W0K43j910rTWKZgBL1uhyFQrMOEB2gN73WIad2
+	 3k8/T6zIb7XlyOd5PtWBlCUmUzge6vtVqlIiZTwbR+lbFwSAB7RTDZ26DoI7avhmoo
+	 tYAPB/6EXHvtA0EbGtdwb4BxLjVx9fAIdvi4EPcOh58fA6nCrp6eRKydkllHxsNHXn
+	 l3BDB8IZ1kCrukPFQzymwQindpr6e2dlcHJUheURsKH6fxEJYh3zJRZMl5HH/Aa+Rs
+	 sC89fzkV+VRzQ==
+Date: Wed, 10 Jun 2026 17:52:37 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Louis Adamian <adamianlouis@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: pressure: Add MS5637
-Message-ID: <20260610-broadness-unraveled-b5187dcb2fb8@spud>
-References: <20260610020458.104818-1-adamianlouis@gmail.com>
- <20260610020458.104818-2-adamianlouis@gmail.com>
+To: yunhui cui <cuiyunhui@bytedance.com>
+Cc: akpm@linux-foundation.org, alex@ghiti.fr, andrew+kernel@donnellan.id.au,
+	aou@eecs.berkeley.edu, apatel@ventanamicro.com, apopple@nvidia.com,
+	atishp@rivosinc.com, baolin.wang@linux.alibaba.com,
+	cleger@rivosinc.com, conor+dt@kernel.org, debug@rivosinc.com,
+	devicetree@vger.kernel.org, guodong@riscstar.com,
+	hui.wang@canonical.com, krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	liu.xuemei1@zte.com.cn, namcao@linutronix.de, nick.hu@sifive.com,
+	palmer@dabbelt.com, pincheng.plct@isrc.iscas.ac.cn, pjw@kernel.org,
+	qingwei.hu@bytedance.com, ritesh.list@gmail.com,
+	rmclure@linux.ibm.com, robh@kernel.org, wangruikang@iscas.ac.cn,
+	zhangchunyan@iscas.ac.cn, zong.li@sifive.com
+Subject: Re: [External] Re: [PATCH v3 1/3] dt-bindings: riscv: clarify Svadu
+ boot-time behavior
+Message-ID: <20260610-prompter-fever-db3f6a200051@spud>
+References: <20260609130021.99899-1-cuiyunhui@bytedance.com>
+ <20260609130021.99899-2-cuiyunhui@bytedance.com>
+ <20260609-washboard-fantasize-ddf0a9752df8@spud>
+ <CAEEQ3w=C_z8awtevLhceTgqLW79ONzKTm5MRJeoSTLB9q_CeiQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,42 +55,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7Pn2wnQn8Xikch5i"
+	protocol="application/pgp-signature"; boundary="jW3aBPRv62t26xHn"
 Content-Disposition: inline
-In-Reply-To: <20260610020458.104818-2-adamianlouis@gmail.com>
+In-Reply-To: <CAEEQ3w=C_z8awtevLhceTgqLW79ONzKTm5MRJeoSTLB9q_CeiQ@mail.gmail.com>
 
 
---7Pn2wnQn8Xikch5i
-Content-Type: text/plain; charset=us-ascii
+--jW3aBPRv62t26xHn
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 09, 2026 at 10:04:57PM -0400, Louis Adamian wrote:
-> Create meas,ms5637 devicetree binding and move existing devices from
-> trivial-devices.yaml. Explicit compatible strings are added for the
-> different sub-variants because each requires different constants for the
-> second-order temperature compensation formulas. Previously, the driver
-> exposed the generic compatibles for the ms5637, MS5803, MS5805
-> and MS5837 families and applied the MS5637-02BA compensation to all of
-> them.To preserve the DT ABI the existing compatibles are retained and
-> mapped to the -02BA variant of each family (ms5637-02ba, ms5803-02ba,
-> ms5837-02ba).
+On Wed, Jun 10, 2026 at 10:03:01AM +0800, yunhui cui wrote:
+> Hi Conor,
+>=20
+> On Wed, Jun 10, 2026 at 12:09=E2=80=AFAM Conor Dooley <conor@kernel.org> =
+wrote:
+> >
+> > On Tue, Jun 09, 2026 at 09:00:18PM +0800, Yunhui Cui wrote:
+> > > Clarify that systems which advertise only Svadu have hardware PTE A/D
+> > > updating enabled at boot, while systems advertising both Svade and Sv=
+adu
+> > > must enable Svadu explicitly with SBI FWFT.
+> > >
+> > > Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+> > > Reviewed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/riscv/extensions.yaml | 6 +++---
+> > >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml =
+b/Documentation/devicetree/bindings/riscv/extensions.yaml
+> > > index 2b0a8a93bb214..b09888e9988de 100644
+> > > --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
+> > > +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
+> > > @@ -294,10 +294,10 @@ properties:
+> > >                 of the PTE A/D bits or page faults when they need upd=
+ated.
+> > >              2) Only Svade present in DT =3D> Supervisor must assume =
+Svade to be
+> > >                 always enabled.
+> > > -            3) Only Svadu present in DT =3D> Supervisor must assume =
+Svadu to be
+> > > -               always enabled.
+> > > +            3) Only Svadu present in DT =3D> Supervisor must assume =
+Svadu is
+> > > +               enabled at boot.
+> >
+> > Commit message is missing an explanation of why this behaviour change is
+> > not problematic. Although, to be honest, I am not sure what the changed=
+ text
+> > actually means. If only Svadu is present, then the hardware doesn't sup=
+port
+> > Svade, and therefore Svadu would never be anything other than enabled so
+> > changing the wording to specify "at boot" seems less clear?
+>=20
+> The "enabled at boot" wording came from Andrew's feedback on the previous
+> version: "always" is a sensitive term here because ADUE is writable when
+> Svadu is implemented, and ADUE=3D0 behaves as though Svade were implement=
+ed.
 
-I think this should be made clear by use of fallbacks, or being marked
-deprecated with a comment.
+Whether or not it is writeable, the current wording means that it is not
+allowed to be changed. I think that's reasonable because there's nothing
+else supported by the hardware so changing it makes no sense.
 
-pw-bot: changes-requested
+> Would this wording work?
 
-Otherwise, it looks okay to me.
-
---7Pn2wnQn8Xikch5i
+--jW3aBPRv62t26xHn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaimUwAAKCRB4tDGHoIJi
-0s4OAPwMqpiW7IcnS9CigZGU1d+dwYAdHTJZ9IW/guciPAcNTwEA/Nq/kb4KqcE0
-U0z/eKjj0CFXyQx/XJL9zJ/CUFvKBAs=
-=1GsX
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaimWVAAKCRB4tDGHoIJi
+0ovZAQDsdOevqi/mtgvfG2Qem6astQNxL/Naaik96bOqN+kdhwEAjqLaOVF0cYio
+hODsSogD1Y2nfNF0rw7vz7r1zbKzPAU=
+=gMgp
 -----END PGP SIGNATURE-----
 
---7Pn2wnQn8Xikch5i--
+--jW3aBPRv62t26xHn--
