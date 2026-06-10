@@ -1,161 +1,476 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023094.outbound.protection.outlook.com [40.107.44.94])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2099.outbound.protection.partner.outlook.cn [139.219.17.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D813955D7;
-	Wed, 10 Jun 2026 07:56:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1010638E8D5;
+	Wed, 10 Jun 2026 07:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.99
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781078217; cv=fail; b=Xhh8TJyzpNxS3HcggCQVxUZUdLF8wHbd6hF/IV5SwlhJKe21UTsPXPG3fp/1tsOE+41Mn9Lfrl1nlkJQj9qo0VcrhdFjL8Du9nSHdM35eTFYbF+FFmBTKM2W8DL5pMs/FMDKK1QGUsCKnc/DmFkogU+eSdKx2A2yyEVNl/TRbew=
+	t=1781078245; cv=fail; b=SPT20HzKw/K+Sim47Vvi/ItLqQLw2mp1IkefpK+ry46RlL1T5VLSzfqon8+6nXmg9ZQk13Ut6JLLFzJaKLfe5Q1oAV3AUnzxPc2ZTBjeqRsWw7Z1pKV9c01eV0J5qXtNnFJOzjPO734tPI1ayQCSTECinQ7XiPHA8BP9CRYXsbA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781078217; c=relaxed/simple;
-	bh=Xs9POHrnx0oSiwLX03/00LNcDAk+gjSZYgWWh0CTXbU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R7GKgz8jUOBJraN92ZyryLK2aqLYXpNqulER8L7QxCnQc7Pirwav76t9RtXsYlBbm94vES1SsXywUjfdql64H2sRPSSlu3ql4+HkFSB/VpMJeCr7R0OvzrQSxqT5mITr0inHriBysx+drE+6WmEUYfvrHwyBIV0zHkbQiHsF8ao=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aDqa4/wAhTk8L+ro79jHuJ6/AdOFUpxmXUuOzLX+U6zXS2L0+gLxKU9VXtAuCLUFqweHl/G04rsMRI85PeBpZaG3UyG/Ykog9tMa1WMFPnfX2u/sjDJppEUCKkmgChyV/zF2EzzMl60MK6/w5aLheH2BRuWotfmcNvpi36P+E7BaudldFHL6NT7rO98eCLfRwhUJRkTuQ+u7SkdHAXsMVY3liXiSD4mcwn0iytkUj/vPQkWRv63LUvAU7VevO58+bMhhjXS6pQhB0wFS4b6wbdC/zD1bh9myGX76nAaQwNwmztGthnELMeuvENrUcXEOj9NjK0TuBNNP9Qy1zuUifw==
+	s=arc-20240116; t=1781078245; c=relaxed/simple;
+	bh=iIml7kccP5nuQ2uRojIlynpb7o6vFmD7IWmKuogVP70=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P8up8jZfrlrD5DJRk7jIugyBDbiykfRXYgEde8pwTBATQdHI3fPfBWkuvUAiOK2fXSL7tUvdxIpikhUomGP8WDWriLmIowdeEp/cKZqoiNPqmvqht3yhEbNhl78MzV5eiTMsOjbDw5ekq5m0wYZfpw1JD6nCNNkfSAuhH9iSADw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kxFN7tjzAzEhImWILdPqsdbRUibYTAwp65aVSHgNcEDNI/0vbYg4FvuDsXrZTdVRq6ysT3ZsjHWgC6zbvv0o1yFCXraPcHgbDlBFAttIh7hQBp83fxq6tT0wjUrz4qP8wqAaSaRQbbIWO/tYg48Isaa66yez0i4tW+BxVQQDit6JyLVz8R75JqDldI7x+WK/Ysd5zZN71J9L8GAKqQaneyYdOndDEIAh3MM29o1XGLCydu9l5bcDP0y8jzcR4zLUd1WWEssRRj9qVgeUVxV4cMuwPg9lwGXQKwhweVOZoGml1CqSVAIh+l+P2nnZ8c+rgTxJnPyL90wAVBEPVN1RKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EQXq7y4VDRCnCs7aTyPe3mddFLkda83JZJ2Nuluqp8U=;
- b=CeBcv5gx3l/ysV6lNAs5WkxCSUWKKPgSjnTZEA0430i8XqW6E8uEqoWyFvSBAjzyjEewn4g7Mf1//irDJXVknktpd8tRfQmqq9OZaF49LLIWfVmNy88XQB7McZUNO1JOqI9yxLaEEGKIuacSBpCAUNFlNtwNyOQqAEKq6o1QPd3r6i81YiDPwCJ51h9zjZl4oW/t2UP5vecfgkmNZZnqu3YE2mJ9mwY6i/vyzR0r6CeN9y+E0fpEJrrkZMsLVg0noS51GoL9ykdiIRJUtC2ejXyh9D/9x8Cbc8duXwUJ47bnKJko50KosDkUIcHZXF7AwSP6RZ0PakIoHPWNW/uDww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=baylibre.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SG2P153CA0025.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::12) by
- SE3PR06MB8666.apcprd06.prod.outlook.com (2603:1096:101:330::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
- 2026 07:56:51 +0000
-Received: from SG2PEPF000B66CC.apcprd03.prod.outlook.com
- (2603:1096:4:c7:cafe::b) by SG2P153CA0025.outlook.office365.com
- (2603:1096:4:c7::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.3 via Frontend Transport; Wed, 10
- Jun 2026 07:56:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CC.mail.protection.outlook.com (10.167.240.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 07:56:48 +0000
-Received: from cix (unknown [172.18.64.61])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id E58D34084279;
-	Wed, 10 Jun 2026 15:56:47 +0800 (CST)
-From: joakim.zhang@cixtech.com
-To: mturquette@baylibre.com,
-	sboyd@kernel.org,
-	bmasney@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	p.zabel@pengutronix.de,
-	gary.yang@cixtech.com
-Cc: cix-kernel-upstream@cixtech.com,
-	linux-clk@vger.kernel.org,
+ bh=4JYXBn8J+9amx3bg18UuFn71laOFFp2Xdr4b1HpjFgY=;
+ b=LZ1ev/I48sVjZD32qLbrN921EwRQ+H3UizHXKAkdtDTeWL/B0N0QZJ86023URk2ydKjTcPYPMawVfTiB/HJUkXT7i3pc17qmhId2uKR27gPq7tyrZqmPI1KLSuv5c6ztf8X6xFGNRqFIa9aFNWBBv874UssKD7Rak99p+iOvvq4zRLbDLVi9u5GV68ItRnYwOLrNkHP8EIkzr6lK1wpY3qzxTZQ/nsZ55MqOvVAndWsl76uadgFw8rek5JzwxdnR1GZpRpRPHxzLPH4DMWSuGfVF3XRNOgziqEZxDoa16uvX5KA3PCHOa39HH8noz7yiBb4CpS0M34vyHrcpyBqNlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0512.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1c::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
+ 2026 07:24:30 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
+ with mapi id 15.21.0092.014; Wed, 10 Jun 2026 07:24:30 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: [PATCH v3 5/5] arm64: dts: cix: sky1: add audss system control
-Date: Wed, 10 Jun 2026 15:56:45 +0800
-Message-ID: <20260610075645.3581145-6-joakim.zhang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260610075645.3581145-1-joakim.zhang@cixtech.com>
-References: <20260610075645.3581145-1-joakim.zhang@cixtech.com>
+	Minda Chen <minda.chen@starfivetech.com>
+Subject: [net-next v1 2/6] net: stmmac: Checking whether priv->phylink if NULL in NCSI case
+Date: Wed, 10 Jun 2026 15:24:16 +0800
+Message-Id: <20260610072420.64699-3-minda.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260610072420.64699-1-minda.chen@starfivetech.com>
+References: <20260610072420.64699-1-minda.chen@starfivetech.com>
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0003.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::15) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CC:EE_|SE3PR06MB8666:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 91c4dacf-e811-4bcf-bb20-08dec6c5d427
+X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0512:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b4cb096-d926-4a85-745d-08dec6c14ff1
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|7416014|376014|18002099003|22082099003|56012099006;
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|52116014|22082099003|18002099003|38350700014|921020|6133799003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	vkNjsul07cBF1weehXO0+vWQbgwA/omBHkB4760pztZuPVw0Oy5vrs7O2TzaW4MDd3P5F2xh+LRLAYXF/A3b93GhG514lNB0IGGJ+kDGUIVSVVtstk1fjaq9UYnnZrn+yXrAYHlBNZrx/k9D+pxMwKiQbrQq5hBujaaqPOF5tz1D9uFEiDCrEhHMEj3M4MhKbNp0OhikplwLdiF17Meprx8PKC9M3deF0AQasGFwGxLDyhRqTPvpe23JWR8z7rxaaj6MYxauG8LzvcUTUaYETLaCqJTzKaXiugJ1BYJSA5ai8KkD0G3Vjus1KZeUftobTsbQVUI8aV8DqLEm93ntX8YNzlSIuQhwc/l6LBw0dqfa9q7X4fA3eCIs/7znH++Q5YID9L0l1V1EOUAAT1pYzSdnztE+tMPCE2LBpaKEtlrkJHWIbN+gF3dEBUkQ2pLnjDITJtRfj8J+216pwdwmMDcVRjkpMArn9yJW5z2lUA0Mjs4WIuDJVtqvcufai8klMh9+MD2UM9K4H9AHXuGXTljqMN5owUoJatsY+X2BTx6npRQD2SBWzV0pDK73RIl/GGalwAcr3aPtNAfT5qJoMzLye77kQ3I9446OE7t7BaGUT22r8EKtjTIPWVvLIO4bfY178hfcBvCA/SnATS0iLSWwX3WwD2BTDaf3HKbVCZv2VipsrdXttmylCgbyy/A/i1pKV1N6IvP/Hd8wdy5qHytHwxDitWbl3oKIqq8OUAs=
+ KdZjo5LtnpabcCzFJtUTOtufvQjbAXBDy+k+u7reDa927uXW6iRHEi8wOZv6itHYLMKigdhTMExUNj5YVz7vGDwagtzPjF2BMA8eeYRun86+ULDiL8FYk+31e+22NyljzN5N7XT4pcja1nXJ9wzsIde6at5DOje5R3+kiWrw0YqtrhX0zXoGVoen4Kp5nOBEz+DjWVAHZDnig0w74Iz7eJYFQ6A8/1lpHoudaTt0JFSN/raoZsTPmu9MOqCbboGw+RKfr0ii9ahJBQWLeEXwhi6CMe1BnGh7cpzaFRC3CG1gffo3IyzjFn7NCfWkrdqiK44xubYkBmrpsSEvaek1j+qPV5FP7ltB8rAkV3BLwbvr2aR5bXyFBwBDvFOvbRjQVoj2SoZhUuXyWdgZY9snsTB2RDFsY+dUGVDbBeLPHv+IjRGFplY2i+GNVWCc0gFf7uU6twd/jl7uQym3xrc/U4CAiqacBu5ygs2NM+6fsNnRVf6sE8M0Y7JYPGw2qDLIngSw96OyHCfSUK0qZN2Tb7a+7LByHS4oesIqnie+CBg1BQlYaXUfj8MjJ47NNiy8oHUSJCyJoIBsL88/Tn/ahw==
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(7416014)(376014)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(52116014)(22082099003)(18002099003)(38350700014)(921020)(6133799003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	bQk0RbH19bSzPj42aRbWh00zZ6YTcnX6Ff3dpLDkcSAP4BJevfMQGmkm0yboHFjXK4P78oz0NonCk5jn+evrZfvhrhy/8Q/o9SMda5r0SX6CxwBx4108AQOBcQEGUZRQn7k29H8Ib4jv2TSwil19WwvPPkGVxcFMxzgigAk79HsvwtHyQaNnlmlpjWnrqnujisYeXoyqWjEShBzg6scBNRtRgnFAtRxfdAUzE+Ju+xt2RgVGVM6S+pF6334nvV1r0lVYwld9QtMsds+qVyGLOgGwK1isU50wtE9uv6vw6E87XxNmYv60H54wzuk07hhPfWN5o2YFtVob+DqHqGu7tuDR8ee8m8AVORl/U4eiN8ZEUkPVGMvAwoRiQfhPxuISj223SL22vHyEn+L2eBIbTo5rbGo6SA8xye0Pn6ny+Ew+gyofb/DBJcfCKa2tBrzF
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:56:48.9439
+ =?us-ascii?Q?Jori/7QTcnKfvJQQEikkxF8gL2xGKolRr+JPDUTlx5ifb4SwWBM8+8PMGDOY?=
+ =?us-ascii?Q?r3V5tqH0r6pBEmS8wwzLGpvucth8gf9Eiw7Exn2acgyUmZWvvSNkZsctE6Ec?=
+ =?us-ascii?Q?CrdC7ERvcYY3d1IWLT8sBlqmACTi07mR9TvNxrDQkNl99A7lK6iw14IgLHFt?=
+ =?us-ascii?Q?bsFWK8me5BbF8Rk+bSVIB+w5UpfZPXTVFYgzjH8EquJFrf1JBmaazx61M1kk?=
+ =?us-ascii?Q?+6IIXcfjXOfylg66cxpUOaHrIznpugzV/sUmf9AOgK20z8kWl314rP7Emiq/?=
+ =?us-ascii?Q?NNhKSMlLa0UPlvpq0eUcpkHV704NMoQAzI/Rx5ESzwMU0Ma2HzQCLvxVVlU+?=
+ =?us-ascii?Q?Vri5gh+qr83/YNuTWvSIUFgbf/qiSuL14wHsct7+kroz9nLzgNKfqIO5DgAZ?=
+ =?us-ascii?Q?4A51zCfRJ1XZhLKDt66aG6wvpLgRxP+UmEgqP25kok/tbH1IYrB1dUflsMuq?=
+ =?us-ascii?Q?NHwzD/Cl4BsoaithId0MlmxUOWeMwmBlJcRWh3ZhMrP//AF4X4YGmpbfZys1?=
+ =?us-ascii?Q?hxKvrJejUe7nQMys64R7VdHQ5/f4ouVpdoOqjqYqDD0nK5BS/v91xT2CrF0S?=
+ =?us-ascii?Q?m7Cx+cDQKbVXeMyvOYSo5C7HDWOZdFmLgptad/yJV091r8YoZFOMTyPIwTqp?=
+ =?us-ascii?Q?5ecA3BG9UqkHNQ6MXrFqyPHCQRG0osLMmyDAQBCW4g8xDvXzchCXAbZeLNC8?=
+ =?us-ascii?Q?YxRs6njYfpZCPxcDGFi8MzB98Qq1Shw+vd906F+s5iR7qWsom1mvYaXJIoAa?=
+ =?us-ascii?Q?x3+NWaGrH2dOjIqzWYMEs5u3QrnRzifcMb7DHRQ5C9qCpQA4n0BshL0us/ts?=
+ =?us-ascii?Q?nulmlzMIpsqqjE39WEzRD8b1aLhbJvHRcRP7DaOjvcSAAGqGhnApwiTDnIFT?=
+ =?us-ascii?Q?qsX1nh2p5yji26b9rJd+hcTQiRN3tuf68JpQ9defurUF5FxnFJYhCV1TrSkw?=
+ =?us-ascii?Q?ktiQm3I3+B9GtHN7y8W6n762jyUAqaYceZr4oKLW/Sybi0eDxInIvnnp073p?=
+ =?us-ascii?Q?lXrCL1NvO3mgvUUxvfh2oTEBbqs8uqUQCyrpZu1cU1azneY0bAOZO0AMkv1A?=
+ =?us-ascii?Q?56UIQgt2PDPBJCQ9NbDm85sxmY5K6yC7wlQ20oBXvWrD9IY0jvGkOAbWQZEn?=
+ =?us-ascii?Q?1mVOUbBms+hzEZTkJALx6WRVpnOYnp29WgqWMz58v7vplW4hZP06q+1PS8ow?=
+ =?us-ascii?Q?4vfNqfiMNIo2aov7F1fPX4ZmXH02cBMb3N7LblR+arF2KjNAfhSLsmaejtdB?=
+ =?us-ascii?Q?ZyiT5YkCQLtv22imstFkiXrMLLPimXpuMuMF6nFopw4yRHYJIX5SQit22Px1?=
+ =?us-ascii?Q?5ufd9x1hwMFOiDGG4wJbIGo4FBHTYw0RztwaMdcxMC17EKs8MdTokwzG7HRC?=
+ =?us-ascii?Q?Ta/XM5zAK9gXhKSrv7ITkQetkMlJtbPQH3JpFeuytv7CAXBQppM4pmvAdp5O?=
+ =?us-ascii?Q?aOaVVwchskaGNv58s0in1hM3XzQMa7pkfPuNy62VZ1M1HcXltNgCHP9LNqoL?=
+ =?us-ascii?Q?YziCongCnyJbQThUsL3eFGL0aqZD1jLitCrBO0MD9sbfU5QAu1Oz0i7a9RPu?=
+ =?us-ascii?Q?AC1/pTWo1b7xzhIwSzgXDeFQCEytkmwtw76xheHeCda5+B5pBp2oS7vNx7AV?=
+ =?us-ascii?Q?1Fkv36Sw6+sfpuSnLlU9oIcyCgTJs1/gygeTu1GpW22nlWFIPMz3p/hJH2uj?=
+ =?us-ascii?Q?WQsZYnr8ajLqlpIE2p6QNLoxKd1rm7aYcXcwzplIn7o0S9XjpnSmuCipSWs6?=
+ =?us-ascii?Q?zgVokH9pKZD4Qgax4iMhkR7ZCkmpdws=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b4cb096-d926-4a85-745d-08dec6c14ff1
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:24:30.6490
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91c4dacf-e811-4bcf-bb20-08dec6c5d427
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CC.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8666
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /gsudee+9wqQXju32n6CrFYucgUKpMSghTGkDZeh/BgGgKIfsOCa172rVx2ArveK8WAMsjkli3pbiyKyJHvELuWmQmqcjnGU5jqHwUREasY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0512
 
-From: Joakim Zhang <joakim.zhang@cixtech.com>
+In NCSI case, RMII do not connect mdio PHY, so the phylink is NULL,
+and need to checking if phylink is NULL, So add stmmac phylink
+wrapper function to checking whether phylink is NULL.
 
-Add audss system control device node, which would provides
-clocks and resets for devices in audss domain.
-
-Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
 ---
- arch/arm64/boot/dts/cix/sky1.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  55 ++++-----
+ .../ethernet/stmicro/stmmac/stmmac_phylink.h  | 106 ++++++++++++++++++
+ 2 files changed, 134 insertions(+), 27 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h
 
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index bb5cfb1f2113..368a1d85c93d 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -6,6 +6,10 @@
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 35da51c26248..010802389772 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -38,7 +38,6 @@
+ #include <linux/seq_file.h>
+ #endif /* CONFIG_DEBUG_FS */
+ #include <linux/net_tstamp.h>
+-#include <linux/phylink.h>
+ #include <linux/udp.h>
+ #include <linux/bpf_trace.h>
+ #include <net/devlink.h>
+@@ -49,6 +48,7 @@
+ #include "stmmac_fpe.h"
+ #include "stmmac.h"
+ #include "stmmac_pcs.h"
++#include "stmmac_phylink.h"
+ #include "stmmac_xdp.h"
+ #include <linux/reset.h>
+ #include <linux/of_mdio.h>
+@@ -1323,7 +1323,7 @@ static int stmmac_init_phy(struct net_device *dev)
+ 	u32 dev_flags = 0;
+ 	int ret;
  
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/clock/cix,sky1.h>
-+#include <dt-bindings/clock/cix,sky1-audss.h>
-+#include <dt-bindings/reset/cix,sky1-system-control.h>
-+#include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+#include <dt-bindings/reset/cix,sky1-audss-system-control.h>
- #include "sky1-power.h"
+-	if (!phylink_expects_phy(priv->phylink))
++	if (!stmmac_phylink_expects_phy(priv->phylink))
+ 		return 0;
  
- / {
-@@ -488,6 +492,26 @@ mbox_pm2ap: mailbox@65a0080 {
- 			cix,mbox-dir = "rx";
- 		};
+ 	if (priv->hw->xpcs &&
+@@ -3655,7 +3655,7 @@ static int stmmac_hw_setup(struct net_device *dev)
  
-+		audss_cru: system-controller@7110000 {
-+			compatible = "cix,sky1-audss-system-control", "simple-mfd", "syscon";
-+			reg = <0x0 0x07110000 0x0 0x10000>;
-+			#reset-cells = <1>;
-+			status = "okay";
+ 	/* Make sure RX clock is enabled */
+ 	if (priv->hw->phylink_pcs)
+-		phylink_pcs_pre_init(priv->phylink, priv->hw->phylink_pcs);
++		stmmac_phylink_pcs_pre_init(priv->phylink, priv->hw->phylink_pcs);
+ 
+ 	/* Note that clk_rx_i must be running for reset to complete. This
+ 	 * clock may also be required when setting the MAC address.
+@@ -3663,12 +3663,12 @@ static int stmmac_hw_setup(struct net_device *dev)
+ 	 * Block the receive clock stop for LPI mode at the PHY in case
+ 	 * the link is established with EEE mode active.
+ 	 */
+-	phylink_rx_clk_stop_block(priv->phylink);
++	stmmac_phylink_rx_clk_stop_block(priv->phylink);
+ 
+ 	/* DMA initialization and SW reset */
+ 	ret = stmmac_init_dma_engine(priv);
+ 	if (ret < 0) {
+-		phylink_rx_clk_stop_unblock(priv->phylink);
++		stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
+ 		netdev_err(priv->dev, "%s: DMA engine initialization failed\n",
+ 			   __func__);
+ 		return ret;
+@@ -3676,7 +3676,7 @@ static int stmmac_hw_setup(struct net_device *dev)
+ 
+ 	/* Copy the MAC addr into the HW  */
+ 	stmmac_set_umac_addr(priv, priv->hw, dev->dev_addr, 0);
+-	phylink_rx_clk_stop_unblock(priv->phylink);
++	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
+ 
+ 	/* Initialize the MAC Core */
+ 	stmmac_core_init(priv, priv->hw, dev);
+@@ -3752,9 +3752,9 @@ static int stmmac_hw_setup(struct net_device *dev)
+ 	/* Start the ball rolling... */
+ 	stmmac_start_all_dma(priv);
+ 
+-	phylink_rx_clk_stop_block(priv->phylink);
++	stmmac_phylink_rx_clk_stop_block(priv->phylink);
+ 	stmmac_set_hw_vlan_mode(priv, priv->hw);
+-	phylink_rx_clk_stop_unblock(priv->phylink);
++	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
+ 
+ 	return 0;
+ }
+@@ -4159,7 +4159,7 @@ static int __stmmac_open(struct net_device *dev,
+ 
+ 	stmmac_init_coalesce(priv);
+ 
+-	phylink_start(priv->phylink);
++	stmmac_phylink_start(priv->phylink);
+ 
+ 	stmmac_vlan_restore(priv);
+ 
+@@ -4174,7 +4174,7 @@ static int __stmmac_open(struct net_device *dev,
+ 	return 0;
+ 
+ irq_error:
+-	phylink_stop(priv->phylink);
++	stmmac_phylink_stop(priv->phylink);
+ 
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
+@@ -4219,14 +4219,14 @@ static int stmmac_open(struct net_device *dev)
+ 	kfree(dma_conf);
+ 
+ 	/* We may have called phylink_speed_down before */
+-	phylink_speed_up(priv->phylink);
++	stmmac_phylink_speed_up(priv->phylink);
+ 
+ 	return ret;
+ 
+ err_serdes:
+ 	stmmac_legacy_serdes_power_down(priv);
+ err_disconnect_phy:
+-	phylink_disconnect_phy(priv->phylink);
++	stmmac_phylink_disconnect_phy(priv->phylink);
+ err_runtime_pm:
+ 	pm_runtime_put(priv->device);
+ err_dma_resources:
+@@ -4241,7 +4241,7 @@ static void __stmmac_release(struct net_device *dev)
+ 	u8 chan;
+ 
+ 	/* Stop and disconnect the PHY */
+-	phylink_stop(priv->phylink);
++	stmmac_phylink_stop(priv->phylink);
+ 
+ 	stmmac_disable_all_queues(priv);
+ 
+@@ -4280,12 +4280,12 @@ static int stmmac_release(struct net_device *dev)
+ 	 * to its slowest speed to save power.
+ 	 */
+ 	if (device_may_wakeup(priv->device))
+-		phylink_speed_down(priv->phylink, false);
++		stmmac_phylink_speed_down(priv->phylink, false);
+ 
+ 	__stmmac_release(dev);
+ 
+ 	stmmac_legacy_serdes_power_down(priv);
+-	phylink_disconnect_phy(priv->phylink);
++	stmmac_phylink_disconnect_phy(priv->phylink);
+ 	pm_runtime_put(priv->device);
+ 
+ 	return 0;
+@@ -6209,9 +6209,9 @@ static int stmmac_set_features(struct net_device *netdev,
+ 	else
+ 		priv->hw->hw_vlan_en = false;
+ 
+-	phylink_rx_clk_stop_block(priv->phylink);
++	stmmac_phylink_rx_clk_stop_block(priv->phylink);
+ 	stmmac_set_hw_vlan_mode(priv, priv->hw);
+-	phylink_rx_clk_stop_unblock(priv->phylink);
++	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
+ 
+ 	return 0;
+ }
+@@ -6386,7 +6386,8 @@ static int stmmac_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)
+ 	case SIOCGMIIPHY:
+ 	case SIOCGMIIREG:
+ 	case SIOCSMIIREG:
+-		ret = phylink_mii_ioctl(priv->phylink, rq, cmd);
++		if (priv->phylink)
++			ret = phylink_mii_ioctl(priv->phylink, rq, cmd);
+ 		break;
+ 	default:
+ 		break;
+@@ -6480,9 +6481,9 @@ static int stmmac_set_mac_address(struct net_device *ndev, void *addr)
+ 	if (ret)
+ 		goto set_mac_error;
+ 
+-	phylink_rx_clk_stop_block(priv->phylink);
++	stmmac_phylink_rx_clk_stop_block(priv->phylink);
+ 	stmmac_set_umac_addr(priv, priv->hw, ndev->dev_addr, 0);
+-	phylink_rx_clk_stop_unblock(priv->phylink);
++	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
+ 
+ set_mac_error:
+ 	pm_runtime_put(priv->device);
+@@ -8081,7 +8082,7 @@ static int __stmmac_dvr_probe(struct device *device,
+ error_netdev_register:
+ 	stmmac_unregister_devlink(priv);
+ error_devlink_setup:
+-	phylink_destroy(priv->phylink);
++	stmmac_phylink_destroy(priv->phylink);
+ error_phy_setup:
+ 	stmmac_pcs_clean(ndev);
+ error_pcs_setup:
+@@ -8147,7 +8148,7 @@ void stmmac_dvr_remove(struct device *dev)
+ #endif
+ 	stmmac_unregister_devlink(priv);
+ 
+-	phylink_destroy(priv->phylink);
++	stmmac_phylink_destroy(priv->phylink);
+ 	if (priv->plat->stmmac_rst)
+ 		reset_control_assert(priv->plat->stmmac_rst);
+ 	reset_control_assert(priv->plat->stmmac_ahb_rst);
+@@ -8214,7 +8215,7 @@ int stmmac_suspend(struct device *dev)
+ 	mutex_unlock(&priv->lock);
+ 
+ 	rtnl_lock();
+-	phylink_suspend(priv->phylink, !!priv->wolopts);
++	stmmac_phylink_suspend(priv->phylink, !!priv->wolopts);
+ 	rtnl_unlock();
+ 
+ 	if (stmmac_fpe_supported(priv))
+@@ -8314,7 +8315,7 @@ int stmmac_resume(struct device *dev)
+ 	/* Prepare the PHY to resume, ensuring that its clocks which are
+ 	 * necessary for the MAC DMA reset to complete are running
+ 	 */
+-	phylink_prepare_resume(priv->phylink);
++	stmmac_phylink_prepare_resume(priv->phylink);
+ 
+ 	mutex_lock(&priv->lock);
+ 
+@@ -8335,9 +8336,9 @@ int stmmac_resume(struct device *dev)
+ 	stmmac_init_timestamping(priv);
+ 
+ 	stmmac_init_coalesce(priv);
+-	phylink_rx_clk_stop_block(priv->phylink);
++	stmmac_phylink_rx_clk_stop_block(priv->phylink);
+ 	stmmac_set_rx_mode(ndev);
+-	phylink_rx_clk_stop_unblock(priv->phylink);
++	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
+ 
+ 	stmmac_vlan_restore(priv);
+ 
+@@ -8350,7 +8351,7 @@ int stmmac_resume(struct device *dev)
+ 	 * initialised because it may bring the link up immediately in a
+ 	 * workqueue thread, which will race with initialisation.
+ 	 */
+-	phylink_resume(priv->phylink);
++	stmmac_phylink_resume(priv->phylink);
+ 	rtnl_unlock();
+ 
+ 	netif_device_attach(ndev);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h
+new file mode 100644
+index 000000000000..046a3e91fb2a
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h
+@@ -0,0 +1,106 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2026, StarFive Corporation. */
 +
-+			audss_clk: clock-controller {
-+				compatible = "cix,sky1-audss-clock";
-+				power-domains = <&smc_devpd SKY1_PD_AUDIO>;
-+				resets = <&s5_syscon SKY1_AUDIO_HIFI5_NOC_RESET_N>;
-+				clocks = <&scmi_clk CLK_TREE_AUDIO_CLK0>,
-+					 <&scmi_clk CLK_TREE_AUDIO_CLK2>,
-+					 <&scmi_clk CLK_TREE_AUDIO_CLK4>,
-+					 <&scmi_clk CLK_TREE_AUDIO_CLK5>;
-+				clock-names = "x8k", "x11k", "sys", "48m";
-+				#clock-cells = <1>;
-+				status = "okay";
-+			};
-+		};
++#ifndef _STMMAC_PHYLINK_H_
++#define _STMMAC_PHYLINK_H_
 +
- 		mbox_sfh2ap: mailbox@8090000 {
- 			compatible = "cix,sky1-mbox";
- 			reg = <0x0 0x08090000 0x0 0x10000>;
++#include <linux/phylink.h>
++
++#ifdef CONFIG_NET_NCSI
++static inline bool stmmac_phylink_expects_phy(struct phylink *link)
++{
++	if (link)
++		return phylink_expects_phy(link);
++
++	return false;
++}
++
++static inline int stmmac_phylink_pcs_pre_init(struct phylink *link, struct phylink_pcs *pcs)
++{
++	if (link)
++		return phylink_pcs_pre_init(link, pcs);
++
++	return 0;
++}
++
++static inline void stmmac_phylink_start(struct phylink *link)
++{
++	if (link)
++		phylink_start(link);
++}
++
++static inline void stmmac_phylink_stop(struct phylink *link)
++{
++	if (link)
++		phylink_stop(link);
++}
++
++static inline void stmmac_phylink_speed_up(struct phylink *link)
++{
++	if (link)
++		phylink_speed_up(link);
++}
++
++static inline void stmmac_phylink_speed_down(struct phylink *link, bool sync)
++{
++	if (link)
++		phylink_speed_down(link, sync);
++}
++
++static inline void stmmac_phylink_disconnect_phy(struct phylink *link)
++{
++	if (link)
++		phylink_disconnect_phy(link);
++}
++
++static inline void stmmac_phylink_destroy(struct phylink *link)
++{
++	if (link)
++		phylink_destroy(link);
++}
++
++static inline void stmmac_phylink_suspend(struct phylink *link, bool mac_wol)
++{
++	if (link)
++		phylink_suspend(link, mac_wol);
++}
++
++static inline void stmmac_phylink_prepare_resume(struct phylink *link)
++{
++	if (link)
++		phylink_prepare_resume(link);
++}
++
++static inline void stmmac_phylink_resume(struct phylink *link)
++{
++	if (link)
++		phylink_resume(link);
++}
++
++static inline void stmmac_phylink_rx_clk_stop_block(struct phylink *link)
++{
++	if (link)
++		phylink_rx_clk_stop_block(link);
++}
++
++static inline void stmmac_phylink_rx_clk_stop_unblock(struct phylink *link)
++{
++	if (link)
++		phylink_rx_clk_stop_unblock(link);
++}
++#else
++#define stmmac_phylink_expects_phy		phylink_expects_phy
++#define stmmac_phylink_pcs_pre_init		phylink_pcs_pre_init
++#define stmmac_phylink_start			phylink_start
++#define stmmac_phylink_stop			phylink_stop
++#define stmmac_phylink_speed_up			phylink_speed_up
++#define stmmac_phylink_speed_down		phylink_speed_down
++#define stmmac_phylink_disconnect_phy		phylink_disconnect_phy
++#define stmmac_phylink_destroy			phylink_destroy
++#define stmmac_phylink_suspend			phylink_suspend
++#define stmmac_phylink_prepare_resume		phylink_prepare_resume
++#define stmmac_phylink_resume			phylink_resume
++#define stmmac_phylink_rx_clk_stop_block	phylink_rx_clk_stop_block
++#define stmmac_phylink_rx_clk_stop_unblock	phylink_rx_clk_stop_unblock
++#endif /* NET_NCSI */
++#endif /* _STMMAC_PHYLINK_H_ */
 -- 
-2.50.1
+2.17.1
 
