@@ -1,289 +1,461 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6FD40DFA3;
-	Wed, 10 Jun 2026 15:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CB4429824
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 15:43:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781106000; cv=none; b=oCsfvmG4nQebF4Ikx8E+fFtA0pwo47GBuw81BnKBXKy8ypFtVRooZuewnyR24Ji+dXUgh3CuWKAH3Ns1C3bx2z0NhNefVZkCKE1mlWA6grwKyv4fUtrXEqOLGZ4A7Z5GrZ/IGxJ/02EouZ8ljThYK9XRqpnQOTspekT5fOf/6dY=
+	t=1781106219; cv=none; b=ja1eBO1ZBPlHPpRaVKMW96x6QZqdzGIRzyPwdm1GdFy1wv9gfZDDMgKwjVKYK8hKn9Xcl22JRLbJdB84YHAGXGR8+A/lZbKUC2UkG628slqO41XkCak4Q6pWsu4IFlDeYB5YMIQjZscH8uaesZgofmGnMMjzuf1g/35wBvleQEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781106000; c=relaxed/simple;
-	bh=Bmh15MS0dApLq7ubfQP9NwtnSZhaysxdLdEXK+WWqV4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FG9f/DYoEmSPqkRLsp/pdwB+1oUQNIxcxymZcAMizcUQmPlhrvyD6gJavNuV8UQp/butAFynDMaa9on0O45Kti3L5eez1tYR+BTcElZIWjsxJq/tzT3fg89jn1Oz8DpLY5XOopLigdGGgZk7E68V2ZFTnVl3algeoTQPlinuUlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5BEHXeZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781106219; c=relaxed/simple;
+	bh=NlPfSK3+b7dqk0LYlUyWz5tLUNehL8pPEG8moAVfECc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mPvGFKS1A4FwC2xskdKl8uPtgLWHwQVRkNjBU8HvoBVamhZ6rSV+rkN/4oO7fYhJTM/TOChjEBB+MQBk3KmMeho/x5yo5EDwb6Fci6XZ3xrDsANuIgkFsopS13BBQmKigogBo9cBj6NGE+O8w1tOQhc4uMcpeSa4/SAX+8UAcQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsdoZZOf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5BEHXeZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222FA1F00893;
-	Wed, 10 Jun 2026 15:39:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsdoZZOf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4C21F00893;
+	Wed, 10 Jun 2026 15:43:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781105998;
-	bh=8ZbANrE8GbdMPDxfDHruVYL7zrqC8/DtyEufGV4lLNQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e5BEHXeZOORN+DQPKhYs9rE+nUfdgo9T01IPosTYH9pIiYRk1m08cFBMM8JxlBL0Z
-	 s5V+1T4lqGv6S+OczxfjQwFwHzgRd+uZX0IkFDxpxrB95YbPMmGm8RefMHsBTnDJ+6
-	 xmNzaYXHSszQtg49BQmlLQgv80Wpew6GtNsDSzrpRS7SNb0X+cNhDnMOnaTIhnvGl4
-	 zggCG9ioEveoqeCJdklOwEGBZyuqo8Tj4KM4nIyqFI3lcVR53b634FGVA0aMMZt4Yn
-	 zja56u7ZEtmjAtTQqgB8q1X5/Gv/YsNLLb3DIVIMph8IOWwpXG7BAm+H78FUoDZix8
-	 iXWYe+ndQMaow==
-From: Jakub Kicinski <kuba@kernel.org>
-To: linusw@kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	woojung.huh@microchip.com,
-	UNGLinuxDriver@microchip.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	marex@denx.de,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	Woojung.Huh@microchip.com,
-	devicetree@vger.kernel.org,
-	nb@tipi-net.de
-Subject: Re: [PATCH net-next v6 4/5] net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
-Date: Wed, 10 Jun 2026 08:39:55 -0700
-Message-ID: <20260610153955.1685913-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260608-ks8995-to-ksz8-v6-4-d91eb43edcc5@kernel.org>
-References: <20260608-ks8995-to-ksz8-v6-4-d91eb43edcc5@kernel.org>
+	s=k20260515; t=1781106216;
+	bh=57E2e2D5QPKaxYZKLg2rbK8GRfyeGXYaswh4FB4/Opc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fsdoZZOf5EVz/ptvdQsOEgWUES9vSVmtBKQa+EJjUexMC4eBG0LgF/uhV5MTJNb/v
+	 x4EdViK51rSKdwNs78ukRyfbsDt9lNHguHbyxtEJR51UamS9bV+8JkdCo5cB/Om0Dl
+	 li6MZW2bdaEBF7hRJCIT01Og0vuwS3I/aw/IObQBv4jvlke108+ZauFPzLfalE/5od
+	 TiSCAM4CJqc2UU5pvUw1m9kfqfef0kLqb+d9lr3Rc/NDQAK13DUaxroY7tegXEOF6n
+	 vIcF2bPQFwBIs5MHRxoozJn7bJWfX9LXhhcpZQ0oZQB4Tsu2TTQSDYHqAX63g5sJBC
+	 kQ8bFyOUaL9/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: Add TI ADS1220 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nguyen Minh Tien" <zizuzacker@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260610151342.44274-3-zizuzacker@gmail.com>
+References: <20260610151342.44274-3-zizuzacker@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 15:43:35 +0000
+Message-Id: <20260610154336.1F4C21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+Thank you for your contribution! Sashiko AI review found 13 potential issue=
+(s) to consider:
+- [Critical] An integer overflow when calculating scale gain leads to a div=
+ide-by-zero kernel panic on 32-bit platforms.
+- [High] Inconsistent formatting for IIO_CHAN_INFO_SCALE breaks IIO UAPI co=
+ntracts. read_raw returns the true scale multiplier, but write_raw expects =
+a gain reciprocal, and read_avail exposes gain reciprocals.
+- [High] Using iio_validate_scan_mask_onehot breaks timestamp functionality=
+ and allows an out-of-bounds array read in buffer_preenable.
+- [High] Missing `.validate_trigger` allows external triggers to read async=
+hronously without the RDATA command, causing data corruption.
+- [High] The `rx` buffer is not DMA-aligned, violating DMA API requirements=
+ and risking memory corruption during SPI transfers.
+- [High] Disabling the triggered buffer leaves the ADC in continuous conver=
+sion mode, causing DRDY interrupt storms.
+- [High] Missing mutex lock protection for the shared `st->tx` and `st->rx`=
+ buffers.
+- [High] Using IRQF_NO_THREAD for a potentially level-triggered interrupt w=
+ithout clearing the interrupt in hardware causes an interrupt storm.
+- [Medium] ads1220_write_raw modifies channel configuration without claimin=
+g direct mode, causing races with active buffers and single-shot conversion=
+s.
+- [Medium] IIO_CHAN_INFO_OFFSET returns the positive uncalibrated raw value=
+ instead of its negated value, causing the offset error to be doubled in us=
+er-space.
+- [Medium] Concurrent SPI writes can occur during module removal due to inc=
+orrect `devm` cleanup order.
+- [Medium] ads1220_debugfs_reg_access communicates with the device without =
+resuming it from power-down.
+- [Medium] The driver unconditionally fails probe if the AVDD regulator vol=
+tage cannot be read, breaking support for dummy regulators.
+--
 
-This patch adds support for the Microchip KSZ8995XA (a.k.a. Micrel
-KS8995XA) switch to the KSZ DSA driver, introducing a new chip entry, a
-restricted dev_ops/switch_ops set, and a ksz_is_ksz8995xa() helper for
-future KSZ8995E/MA differentiation.
+commit 1ae738a6247e14166f63bc753a84967fb3d54773
+Author: Nguyen Minh Tien <zizuzacker@gmail.com>
 
-> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
-> index 0f84b2e7d25d..0b02588e22fc 100644
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
-> @@ -137,7 +138,18 @@ static int ksz8_pme_pwrite8(struct ksz_device *dev, int port, int offset, u8 dat
->  
->  static int ksz8_reset_switch(struct ksz_device *dev)
->  {
-> -	if (ksz_is_ksz88x3(dev)) {
-> +	if (ksz_is_ksz8995xa(dev)) {
-> +		unsigned int port;
+iio: adc: Add TI ADS1220 driver
+
+Add an IIO driver for the Texas Instruments ADS1220 24-bit delta-sigma
+SPI ADC. The driver supports single-ended and differential voltage
+channels described as device-tree child nodes, per-channel programmable
+gain (exposed through scale) and data rate, internal and external reference
+options, single-shot conversions and a DRDY-interrupt-driven triggered buff=
+er.
+
+diff --git a/drivers/iio/adc/ti-ads1220.c b/drivers/iio/adc/ti-ads1220.c
+new file mode 100644
+index 0000000000000..06bcc88418b4c
+--- /dev/null
++++ b/drivers/iio/adc/ti-ads1220.c
+[ ... ]
+> +struct ads1220_state {
+> +	struct spi_device *spi;
+> +	struct completion completion;
+> +	struct iio_trigger *trig;
+> +	struct ads1220_channel_config *channels_cfg;
+> +	unsigned int num_channels_cfg;
+> +	int vref_uV;
+> +	unsigned int vref_source;
 > +
-> +		/* KSZ8995XA is "reset" by stopping the switch and starting it */
-> +		ksz_cfg(dev, REG_SW_ID_1, SW_START_SWITCH, false);
-> +		usleep_range(10, 100);
-> +		ksz_cfg(dev, REG_SW_ID_1, SW_START_SWITCH, true);
+> +	/*
+> +	 * DMA-safe buffers. tx is used for command/register writes, rx for
+> +	 * register and conversion-result reads. scan holds one sample plus a
+> +	 * timestamp for the triggered buffer.
+> +	 */
+> +	u8 tx[2] __aligned(IIO_DMA_MINALIGN);
+> +	u8 rx[ADS1220_DATA_BYTES];
 
-[Medium]
-For KSZ8995XA, ksz8_reset_switch() asserts SW_START_SWITCH before
-ksz8_setup() programs broadcast storm rate, REG_SW_CTRL_2,
-REG_SW_CTRL_9 SW_SPECIAL_TAG, port-membership and the
-PORT_INSERT_TAG/PORT_REMOVE_TAG bits. Other variants in this same file
-(for example ksz88x3) keep the forwarding engine quiescent during
-configuration and only assert SW_START at the end of ksz8_setup() via:
+[Severity: High]
+Does placing the rx array immediately after the 2-byte tx array without
+alignment cause it to share the same cacheline? If st->rx is passed to
+spi_read(), mapping this unaligned sub-cacheline buffer for DMA might
+corrupt adjacent fields on architectures without hardware cache coherence.
 
-    regmap_update_bits(ksz_regmap_8(dev), regs[S_START_CTRL],
-                       SW_START, SW_START);
+> +	struct {
+> +		s32 sample;
+> +		aligned_s64 timestamp;
+> +	} scan;
+> +};
+[ ... ]
+> +static int ads1220_read_raw(struct iio_dev *indio_dev,
+> +			    const struct iio_chan_spec *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct ads1220_state *st =3D iio_priv(indio_dev);
+> +	struct ads1220_channel_config *cfg =3D &st->channels_cfg[chan->address];
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (!iio_device_claim_direct(indio_dev))
+> +			return -EBUSY;
+> +		ret =3D ads1220_single_conversion(st, chan, val, false);
+> +		iio_device_release_direct(indio_dev);
+> +		return ret;
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		if (!iio_device_claim_direct(indio_dev))
+> +			return -EBUSY;
+> +		ret =3D ads1220_single_conversion(st, chan, val, true);
 
-For KSZ8995XA, ksz8995xa_regs has [S_START_CTRL] = 0x01, the same
-register written here, so by the time ksz8_setup() reaches its final
-"start switch" step the engine has been forwarding throughout the
-reconfiguration window. Is that intentional? Could the switch be left
-stopped here and only started at the end of ksz8_setup() like the
-other variants?
+[Severity: Medium]
+Should the hardware offset be negated before returning it here?
+ads1220_single_conversion() returns the raw measurement of the shorted inpu=
+ts.
+Since the standard IIO calibration formula applied by user-space is
+`value =3D (raw + offset) * scale`, returning a positive offset when the ha=
+rdware
+reads a positive value will apply the offset in the wrong direction and dou=
+ble
+the error.
+
+> +		iio_device_release_direct(indio_dev);
+> +		return ret;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/* scale [mV] =3D vref / (gain * 2^23); gain is a power of two. */
+> +		*val =3D st->vref_uV / MILLI;
+> +		*val2 =3D (chan->scan_type.realbits - 1) + ilog2(cfg->gain);
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+
+[Severity: High]
+Are the IIO_CHAN_INFO_SCALE interfaces handling values symmetrically?
+ads1220_read_raw() returns the actual physical scale multiplier here, but
+ads1220_write_raw() treats the user input as a gain reciprocal, and
+ads1220_read_avail() exposes gain reciprocals instead of voltage scales.
+If a user reads the scale and writes the exact same value back, could this
+evaluate to an invalid gain and return -EINVAL?
+
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*val =3D cfg->datarate;
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+[ ... ]
+> +static int ads1220_write_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan,
+> +			     int val, int val2, long mask)
+> +{
+> +	struct ads1220_state *st =3D iio_priv(indio_dev);
+> +	struct ads1220_channel_config *cfg =3D &st->channels_cfg[chan->address];
+> +	unsigned int gain;
+> +	int i;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/* The available scales are the gain reciprocals (e.g. 1/4). */
+> +		if (val =3D=3D 0 && val2 =3D=3D 0)
+> +			return -EINVAL;
+> +
+> +		gain =3D MICRO / (val * MICRO + val2);
+
+[Severity: Critical]
+Can the expression `(val * MICRO + val2)` overflow on 32-bit platforms if a
+user writes a crafted string (e.g., "4294.967296") to the sysfs scale
+attribute? If the multiplication wraps to exactly zero, does the subsequent
+`gain =3D MICRO / ...` division result in a divide-by-zero kernel panic?
+
+> +		if (!is_power_of_2(gain) || gain > BIT(ADS1220_NUM_GAINS - 1))
+> +			return -EINVAL;
+> +		if (cfg->single_ended && gain > ADS1220_MAX_SE_GAIN)
+> +			return -EINVAL;
+> +
+> +		cfg->gain =3D gain;
+> +		return 0;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		for (i =3D 0; i < ARRAY_SIZE(ads1220_datarates); i++) {
+> +			if (ads1220_datarates[i] =3D=3D val) {
+> +				cfg->datarate =3D val;
+
+[Severity: Medium]
+Does modifying cfg->gain and cfg->datarate in ads1220_write_raw() require
+serialization via iio_device_claim_direct()? Modifying these without the lo=
+ck
+might race with an active triggered buffer or single-shot conversions,
+potentially desynchronizing driver state and hardware or corrupting timeout
+calculations.
+
+> +				return 0;
+> +			}
+> +		}
+> +		return -EINVAL;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ads1220_debugfs_reg_access(struct iio_dev *indio_dev,
+> +				      unsigned int reg, unsigned int writeval,
+> +				      unsigned int *readval)
+> +{
+> +	struct ads1220_state *st =3D iio_priv(indio_dev);
+> +	u8 val;
+> +	int ret;
+> +
+> +	if (reg > ADS1220_MAX_REG)
+> +		return -EINVAL;
+> +
+> +	if (readval) {
+> +		ret =3D ads1220_read_reg(st, reg, &val);
+
+[Severity: Medium]
+Does ads1220_debugfs_reg_access() need to call pm_runtime_resume_and_get()
+before initiating SPI transfers? If the device is in the autosuspended
+POWERDOWN state, these transactions might fail or return garbage data.
+
+> +		if (ret)
+> +			return ret;
+> +		*readval =3D val;
+> +		return 0;
+> +	}
+> +
+> +	return ads1220_write_reg(st, reg, writeval);
+
+[Severity: High]
+Are the shared st->tx and st->rx buffers protected from concurrent access
+here? Writing to st->tx directly via debugfs or pm_runtime_suspend without
+locking could race with an active triggered buffer reading in
+ads1220_trigger_handler(), potentially overwriting the tx buffer mid-transf=
+er
+and sending corrupted SPI commands.
+
+> +}
+> +
+> +static const struct iio_info ads1220_info =3D {
+> +	.read_raw =3D ads1220_read_raw,
+> +	.read_avail =3D ads1220_read_avail,
+> +	.write_raw =3D ads1220_write_raw,
+> +	.debugfs_reg_access =3D ads1220_debugfs_reg_access,
+> +};
+
+[Severity: High]
+Does this struct need a .validate_trigger callback to prevent arbitrary
+external triggers from being attached? Without it, external triggers could
+execute asynchronously to the ADC's data-ready signal. The trigger handler
+uses spi_read() directly without an RDATA command, which according to the
+datasheet could return corrupted data if a register update overlaps.
 
 > +
-> +		/* Often boot loaders have fun with ports, so reset them */
-> +		for (port = 0; port < dev->info->port_cnt; port++)
-> +			ksz_port_cfg(dev, port, 0x0f, BIT(4), true);
+> +static int ads1220_buffer_preenable(struct iio_dev *indio_dev)
+> +{
+> +	struct ads1220_state *st =3D iio_priv(indio_dev);
+> +	struct device *dev =3D &st->spi->dev;
+> +	struct ads1220_channel_config *cfg;
+> +	unsigned int index;
+> +	int ret;
+> +
+> +	index =3D find_first_bit(indio_dev->active_scan_mask,
+> +			       iio_get_masklength(indio_dev));
+> +	cfg =3D &st->channels_cfg[index];
 
-[Medium]
-This writes BIT(4) at port-relative offset 0x0F once per port and
-never clears it, with no readback or settling delay before the rest of
-the setup proceeds to read/write port registers. If that bit is a
-level-triggered reset, every port is left held in reset; if it is
-self-clearing or a feature bit, the code happens to work.
+[Severity: High]
+What happens if a user enables ONLY the timestamp channel? The active scan
+mask would have exactly one bit set at index =3D st->num_channels_cfg. Will
+find_first_bit() return this index and cause an out-of-bounds array read
+on st->channels_cfg[index]?
 
-The KSZ8863 path in this same function explicitly clears its reset
-bit:
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D ads1220_configure(st, cfg->mux, cfg->gain, cfg->datarate,
+> +				cfg->single_ended, true);
+> +	if (ret)
+> +		goto err;
+> +
+> +	ret =3D ads1220_command(st, ADS1220_CMD_START);
+> +	if (ret)
+> +		goto err;
+> +
+> +	return 0;
+> +err:
+> +	pm_runtime_mark_last_busy(dev);
+> +	pm_runtime_put_autosuspend(dev);
+> +	return ret;
+> +}
+> +
+> +static int ads1220_buffer_postdisable(struct iio_dev *indio_dev)
+> +{
+> +	struct ads1220_state *st =3D iio_priv(indio_dev);
+> +	struct device *dev =3D &st->spi->dev;
+> +
+> +	pm_runtime_mark_last_busy(dev);
+> +	pm_runtime_put_autosuspend(dev);
 
-    ksz_cfg(dev, KSZ8863_REG_SW_RESET,
-            KSZ8863_GLOBAL_SOFTWARE_RESET | KSZ8863_PCS_RESET, true);
-    ksz_cfg(dev, KSZ8863_REG_SW_RESET,
-            KSZ8863_GLOBAL_SOFTWARE_RESET | KSZ8863_PCS_RESET, false);
+[Severity: High]
+Does the device need to be explicitly stopped or powered down here?
+Dropping the PM runtime reference with a 2000ms autosuspend delay leaves
+the ADC running in continuous conversion mode. The hardware might keep
+asserting the DRDY interrupt, but since the buffer is disabled, the IRQ
+handler will only complete the completion without reading data to clear
+the interrupt, potentially causing an immediate IRQ storm.
 
-and the KSZ87xx path uses an explicit power-down/power-up pair. Could
-this code use named macros in ksz8_reg.h (matching the other named
-constants added in this patch like SW_SPECIAL_TAG, SW_START_SWITCH,
-PORT_INSERT_TAG, PORT_REMOVE_TAG) and document whether the bit is
-self-clearing or whether a paired clear is needed?
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct iio_buffer_setup_ops ads1220_buffer_setup_ops =3D {
+> +	.preenable =3D ads1220_buffer_preenable,
+> +	.postdisable =3D ads1220_buffer_postdisable,
+> +	.validate_scan_mask =3D &iio_validate_scan_mask_onehot,
+> +};
 
-> +	} else if (ksz_is_ksz88x3(dev)) {
->  		/* reset switch */
->  		ksz_cfg(dev, KSZ8863_REG_SW_RESET,
->  			KSZ8863_GLOBAL_SOFTWARE_RESET | KSZ8863_PCS_RESET, true);
+[Severity: High]
+Is iio_validate_scan_mask_onehot the correct validator for this device?
+This validator requires exactly one bit in the mask to be set. Since the
+IIO core includes the timestamp channel in the active_scan_mask, enabling
+one data channel plus the timestamp results in 2 bits being set, which
+will cause the validator to reject valid configurations.
 
 [ ... ]
-
-> @@ -1693,14 +1729,16 @@ static void ksz8_port_setup(struct ksz_device *dev, int port, bool cpu_port)
->  		offset = P1CR1;
->  	ksz_port_cfg(dev, port, offset, PORT_BROADCAST_STORM, true);
->  
-> -	ksz8_port_queue_split(dev, port, dev->info->num_tx_queues);
-> +	if (!ksz_is_ksz8995xa(dev)) {
-> +		ksz8_port_queue_split(dev, port, dev->info->num_tx_queues);
-
-[Medium]
-ksz_chip_data for KSZ8995XA sets .num_tx_queues = 4, and ksz8_setup()
-unconditionally does:
-
-    ds->num_tx_queues = dev->info->num_tx_queues;
-
-But ksz8_port_setup() now skips ksz8_port_queue_split() for
-KSZ8995XA, so the chip's queue-split hardware registers are left at
-their power-on default while DSA is told there are 4 TX queues. If the
-default is not a 4-queue split, classification decisions made by the
-stack (priority/PCP/DSCP-to-queue mapping) will not correspond to the
-queues the hardware actually uses.
-
-Should .num_tx_queues reflect the actual default for this chip, or
-should the queue-split registers be programmed?
-
+> +static int ads1220_probe(struct spi_device *spi)
+> +{
+> +	struct device *dev =3D &spi->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct ads1220_state *st;
+> +	int avdd_uV;
+> +	int ret;
 [ ... ]
-
-> diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
-> index 57c8abfe0147..ac27beb3054b 100644
-> --- a/drivers/net/dsa/microchip/ksz_common.c
-> +++ b/drivers/net/dsa/microchip/ksz_common.c
-> @@ -1485,6 +1499,21 @@ const struct ksz_chip_data ksz_switch_chips[] = {
->  		.internal_phy = {true, true, true, true, false},
->  	},
->  
-> +	[KSZ8995XA] = {
-> +		.chip_id = KSZ8995XA_CHIP_ID, /* Also known as KS8995XA */
-> +		.dev_name = "KSZ8995XA",
-> +		.cpu_ports = 0x10,	/* can be configured as cpu port */
-> +		.port_cnt = 5,		/* total cpu and user ports */
-> +		.num_tx_queues = 4,
-> +		.num_ipms = 4,
-> +		.ops = &ksz8995xa_dev_ops,
-> +		.switch_ops = &ksz8995xa_switch_ops,
-> +		.phylink_mac_ops = &ksz88x3_phylink_mac_ops,
-> +		.regs = ksz8995xa_regs,
-> +		.supports_mii = {true, true, true, true, true},
-> +		.internal_phy = {true, true, true, true, false},
-> +	},
-
-[Low]
-The KSZ8995XA chip data omits .num_vlans, .num_alus, and .num_statics,
-so they default to 0. ksz8_setup() then unconditionally calls:
-
-    dev->vlan_cache = devm_kcalloc(dev->dev, sizeof(struct vlan_table),
-                                   dev->info->num_vlans, GFP_KERNEL);
-    if (!dev->vlan_cache)
-            return -ENOMEM;
-
-devm_kcalloc with n = 0 returns ZERO_SIZE_PTR, which is non-NULL and
-therefore not caught by the !dev->vlan_cache check. Today every
-dereference of vlan_cache is gated by !ksz_is_ksz8995xa(dev) or by the
-absence of VLAN ops in ksz8995xa_switch_ops, so there is no crash, but
-any future shared helper that touches vlan_cache without a chip-id
-gate would dereference ZERO_SIZE_PTR.
-
-Could the allocation be skipped for KSZ8995XA, or could .num_vlans be
-set to a value that makes the !NULL check meaningful?
-
-[ ... ]
-
-> @@ -2826,6 +2855,10 @@ void ksz_init_mib_timer(struct ksz_device *dev)
->  {
->  	int i;
->  
-> +	/* KSZ8995XA lacks MiB features */
-> +	if (ksz_is_ksz8995xa(dev))
-> +		return;
+> +	ret =3D devm_regulator_get_enable(dev, "dvdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable dvdd\n");
 > +
->  	INIT_DELAYED_WORK(&dev->mib_read, ksz_mib_read_work);
+> +	avdd_uV =3D devm_regulator_get_enable_read_voltage(dev, "avdd");
+> +	if (avdd_uV < 0)
+> +		return dev_err_probe(dev, avdd_uV, "Failed to get avdd\n");
 
-[Low]
-This early return skips INIT_DELAYED_WORK(&dev->mib_read, ...). The
-patch then relies on the undocumented invariant that mib_read_interval
-== 0 means dev->mib_read must not be touched.
-
-ksz_suspend()/ksz_resume() in ksz_common.c call
-cancel_delayed_work_sync(&dev->mib_read) and
-schedule_delayed_work(&dev->mib_read, ...) without any chip-id gate.
-ksz8995xa_switch_ops happens to omit .suspend/.resume today, so there
-is no current crash, but any future addition of those ops or any other
-unguarded user of dev->mib_read on this chip will operate on
-uninitialised work_struct memory.
-
-Would it be safer to call INIT_DELAYED_WORK unconditionally and only
-skip the schedule for KSZ8995XA?
+[Severity: Medium]
+Should the driver fail probe unconditionally here? If the devicetree does
+not explicitly model the AVDD supply, the core passes a dummy regulator.
+Reading the voltage from a dummy regulator returns -EINVAL, which might
+prevent the driver from probing entirely on such systems, even when
+ti,vref-avdd is not specified.
 
 [ ... ]
+> +	if (spi->irq > 0) {
+> +		ret =3D devm_request_irq(dev, spi->irq, ads1220_irq_handler,
+> +				       IRQF_NO_THREAD, "ads1220", indio_dev);
 
-> @@ -4662,6 +4700,10 @@ int ksz_switch_register(struct ksz_device *dev)
->  	if (ret)
->  		return ret;
->  
-> +	/* Override ops with something simpler for this legacy chip */
-> +	if (ksz_is_ksz8995xa(dev))
-> +		dev->ds->ops = &ksz8995xa_switch_ops;
+[Severity: High]
+Can using IRQF_NO_THREAD without clearing the physical DRDY line cause an
+interrupt storm? The hardirq handler immediately returns IRQ_HANDLED
+without issuing an SPI transaction to read the data. If the interrupt is
+configured as level-triggered, the interrupt controller might repeatedly
+re-fire the interrupt upon return. Does this need IRQF_ONESHOT with a
+threaded handler, or an explicit enforcement of IRQF_TRIGGER_FALLING?
+
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to request irq\n");
 > +
+> +		st->trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d",
+> +						  indio_dev->name,
+> +						  iio_device_id(indio_dev));
+> +		if (!st->trig)
+> +			return -ENOMEM;
+> +
+> +		st->trig->ops =3D &ads1220_trigger_ops;
+> +		iio_trigger_set_drvdata(st->trig, indio_dev);
+> +
+> +		ret =3D devm_iio_trigger_register(dev, st->trig);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to register trigger\n");
+> +	}
+> +
+> +	ret =3D ads1220_init(st);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to initialize device\n");
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, ADS1220_SUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_active(dev);
+> +
+> +	ret =3D devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable pm runtime\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, ads1220_powerdown, st);
 
-[Low]
-Is this assignment a no-op in the supported flow? ksz_switch_alloc()
-has already set ds->ops = chip->switch_ops, and
-ksz_switch_chips[KSZ8995XA].switch_ops is &ksz8995xa_switch_ops, so
-the same pointer is being written back.
+[Severity: Medium]
+Will registering ads1220_powerdown after pm_runtime_enable cause a teardown
+ordering issue? Since devm executes cleanups in reverse order, powerdown
+would execute before PM runtime is disabled. Could the PM autosuspend
+workqueue trigger ads1220_runtime_suspend at the same moment powerdown
+is executing, causing a data race on the unprotected st->tx buffer?
 
-The comment "Override ops with something simpler for this legacy chip"
-implies a transformation that does not actually occur, and no other
-chip in the family does this. Could this hunk be dropped, or the
-comment reworded to match what the code does?
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static int ads1220_runtime_suspend(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
+> +	struct ads1220_state *st =3D iio_priv(indio_dev);
+> +
+> +	return ads1220_command(st, ADS1220_CMD_POWERDOWN);
+> +}
 
-> diff --git a/drivers/net/dsa/microchip/ksz_common.h b/drivers/net/dsa/microchip/ksz_common.h
-> index b67038cf1bd0..661a82026e47 100644
-> --- a/drivers/net/dsa/microchip/ksz_common.h
-> +++ b/drivers/net/dsa/microchip/ksz_common.h
-> @@ -751,7 +752,13 @@ static inline bool ksz_is_ksz88x3(struct ksz_device *dev)
->  static inline bool ksz_is_8895_family(struct ksz_device *dev)
->  {
->  	return dev->chip_id == KSZ8895_CHIP_ID ||
-> -	       dev->chip_id == KSZ8864_CHIP_ID;
-> +	       dev->chip_id == KSZ8864_CHIP_ID ||
-> +	       dev->chip_id == KSZ8995XA_CHIP_ID;
->  }
+[Severity: High]
+Does ads1220_runtime_suspend() overwrite the shared st->tx buffer without
+locking? This asynchronous PM runtime suspend could execute concurrently
+with an active triggered buffer reading or other SPI transactions, corrupti=
+ng
+the sent SPI commands.
 
-[Low]
-This silently expands ksz_is_8895_family() to include KSZ8995XA, which
-through is_ksz8()/is_ksz88xx() classifies the new chip as an 8895
-family member across ksz_dcb.c, ksz8.c and ksz_common.c.
+> +
+> +static int ads1220_runtime_resume(struct device *dev)
+> +{
 
-Today every potentially-divergent path is explicitly gated by
-ksz_is_ksz8995xa() opt-outs or by the dev->ds->ops override, but this
-"opt in via family helper, then opt out via per-chip checks" pattern
-is brittle: future helper-driven logic touching the 8895 family will
-silently include KSZ8995XA, and comments such as "/* KSZ8864, KSZ8895
-*/" in ksz88xx_get_tag_protocol/ksz88xx_connect_tag_protocol become
-inaccurate.
-
-The commit message also does not acknowledge this expansion or
-explain why a feature-bit approach in ksz_chip_data was not used,
-especially given that the KSZ8995E/MA variants are mentioned as
-future work. Could the commit message cover this design choice, or
-could the family classification be reconsidered?
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610151342.4427=
+4-1-zizuzacker@gmail.com?part=3D2
