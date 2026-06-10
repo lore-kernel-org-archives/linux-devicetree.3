@@ -1,100 +1,104 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A1531282C;
-	Wed, 10 Jun 2026 22:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2D3218ADD
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 23:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781131776; cv=none; b=mW3gv1CeKQS6p1hEzDMpnHJce2YQTnECVq2te4LsrYyd1Qa8SHr31lJUeDgSM6k+8h676+LBE5wtCvQFgrmk2rl1LYjfB4ts5JyRKbRMEKLw+OclY8Ys2MlGHx8EfaoHOa8bHlm+WhNYlBzu2HcbRjTf2s0UVP40imkP/C4CnE4=
+	t=1781132523; cv=none; b=HO/4g8BfGKy2U3obsBuxr4Qrv7f7TFV+DNjMbgCSdNqShO0ZvsT3iQaBlOg5Eh5bRPCW+0fHJGWdpgs3z2VWXOwvpkj3/JpGeuGr3IQCCHk/aNxThOltQXDQLu51INREh1rmG1GCbtQs2fkbpzJTddX2ePy8c63qV6CpWX7KWh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781131776; c=relaxed/simple;
-	bh=XGZQwfm3Zw/+L+OsXTadXn5Irim5PMFROfL3UWOfN70=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GgWeWsYnd5z3pGGO/wtMM+MUraMj8bP5uulWgFRXK+r1q1GFSi4DUagYeTKP4058HHRaUhNYkIfoYPjYm5oS8daLliUrKKDipTCZobDoPGmVLcEXHs2kIU1JJq3BjBUvh28vfvJJ9d+1HI3/rCyRFbctWp1f5wP9SIb+KBnL7kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=z0z2sCNY; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1781132523; c=relaxed/simple;
+	bh=FooB85FN0eEaIGhjHVGfQM2seucuYsmIQfrk/8uXAZw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S/D9NYcOdjUowEM5yuhuHodvOZLzZIomaHAj0iU/ZzEcX6cTajjmAPppNdQrNMqH6jzb4znRGr2gZqcMG47uy6S0MsF2TYBh+nfbtBHK2NrVZ/w9PD5Blk64A30L/x0qXo1Ng1i4MCSLoeB9KNiVBs3jQK76osFA8PtispcYCT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zcuti8m4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="z0z2sCNY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=epk83XHTGPqCs40eb3YUi50QD9q370QPRDNXcn99T0k=; b=z0z2sCNY8au5G0VMfBG8AmWZYB
-	MVF9wp40ED74oFu7+XAAhFM1uZckqdKg+45ABqBKHLH8tRPldJtSlPyTXRfL7UESbvt8c5ZNSQ5lk
-	Q7chlG3IaiWzh/dBoq5eAYqTuqGqSKkFvDYvaAn9QPjATC5pzTZQpPhSqA0yj5FUGku4AgH2tA2Yb
-	Boa2XeiCUAO4v/dqKtbYY807d2ulR8bwQSsJwnIyajdhCq04msbs5yammMZpPHBzYsJu9c8R9w4YA
-	rthGDqbmrbVAzNeECz1l+8a+PoQiBhSi2mK6p2R2L6jyum9Idr7s7RypFbklRiahF6x29ZJlbbyVt
-	fQ1tY58w==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wXRjl-00000008QUp-3nom;
-	Wed, 10 Jun 2026 22:49:29 +0000
-Message-ID: <30ecb791-a9dd-4146-8d8c-b77f1fb31dde@infradead.org>
-Date: Wed, 10 Jun 2026 15:49:29 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zcuti8m4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561561F0089B
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 23:02:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781132522;
+	bh=VjAZ4+QycwjZawI5GowYZjIjW6ZtWHV+9RmG2eokDHQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Zcuti8m4wWEgnmklLh3I9xKGHVZyPPOaT7Zw/4m7zC4kI+yk+GiOHjfPtawzckkkv
+	 hDHu6CF/dFK/u2JZ0Ogz5n5YQYU3tNKsiwgTlQxlycIOQJo6BCOPcqNBbLBtpvmce6
+	 ehVPtyyc1UI78FRPuDRjb5YF5zPAEk2zxiKgah2jypVKioUCEGeEbsfNx7vC50gxFp
+	 K7/Q0XO5fERmwgmm5hz80xpc/C4Wm37PKAGjwcP1YkVg3bORVeTNH01k5JuWvGlWA2
+	 sH2quZZhUT60lf9TdShbhYl7RWPWz8SQvERJpWm5w59qY6SlIqY843HzIHjvDEoNxN
+	 qZ5DgMs3C+zLw==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bec2ddee9bbso1474915066b.3
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 16:02:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+NsirnhdXi7FPZoaY1MbsOif4jXXbCNTMoayjXNvzxU0AR7wkGXZKCmWiFee7ZxixVsEwWRd6n2+EL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoT0tghvXQ680ZXCw9eiaS9HF51xf2mVSU78d2xshzWchJcPP+
+	OzMNkusPl7W0X8JGh9m7XZpvKxofGYPBliKjD/GwdaLm79scbKpkgNqfmlesrl3hnkvGc6SlWeA
+	ul3xBjo5K/yIP9kztpNamoCHHl1jIjw==
+X-Received: by 2002:a17:907:c0e:b0:bee:e07:3f0e with SMTP id
+ a640c23a62f3a-bfc2a1b623cmr48151566b.2.1781132520885; Wed, 10 Jun 2026
+ 16:02:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] tty: serial: Add UART driver for Cortina-Access
- platform
-To: Jason Li <jason.lee651024@gmail.com>, jason.li@cortina-access.com,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, linux-serial@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260610112821.3030099-1-jason.li@cortina-access.com>
- <20260610112821.3030099-4-jason.li@cortina-access.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260610112821.3030099-4-jason.li@cortina-access.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260606-crossbar-v1-0-f67f7cb9ee50@gmail.com>
+ <20260606-crossbar-v1-1-f67f7cb9ee50@gmail.com> <20260610195658.GA702518-robh@kernel.org>
+ <CAOWyW_4kRcZWCyOjJrWvnZ8meKT-ryJuGozuPvKJgPSUStB3Pg@mail.gmail.com>
+In-Reply-To: <CAOWyW_4kRcZWCyOjJrWvnZ8meKT-ryJuGozuPvKJgPSUStB3Pg@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 10 Jun 2026 18:01:49 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+G83JxXLCL+4jhjTsTKpDSqNde=X2Yzjsg+VSS2iGxtw@mail.gmail.com>
+X-Gm-Features: AVVi8CcuDlvNMDlSr9wFuOfQAk8_fF0hNCin0y2m2BtAmxWkGcVgYjKrwkgPpMk
+Message-ID: <CAL_Jsq+G83JxXLCL+4jhjTsTKpDSqNde=X2Yzjsg+VSS2iGxtw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: interrupt-controller: ti,irq-crossbar:
+ Convert to DT schema
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Sricharan R <r.sricharan@ti.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-omap@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+	daniel.baluta@gmail.com, simona.toaca@nxp.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Jun 10, 2026 at 4:12=E2=80=AFPM Bhargav Joshi <j.bhargav.u@gmail.co=
+m> wrote:
+>
+> Hi,
+>
+> On Thu, Jun 11, 2026 at 1:27=E2=80=AFAM Rob Herring <robh@kernel.org> wro=
+te:
+> >
+> > On Sat, Jun 06, 2026 at 02:26:10AM +0530, Bhargav Joshi wrote:
+> > > Convert TI irq-crossbar binding from text format to DT schema.
+> > >
+> > > As part of conversion following changes are made:
+> > >  - Add '#interrupt-cells' as a required property which was missing in
+> > >    text binding
+> > >  - As irq-crossbar is interrupt-controller. Move binding from
+> > >    bindings/arm/omap to bindings/interrupt-controller
+> > >  - property ti,irqs-reserved is defined and used as a array but other
+> > >    binding ti,pruss-intc.yaml uses same property name as a unit8 bitm=
+ask
+> > >    which causes erros in dt_binding_check. Update ti,irqs-reserved
+> > >    property name to ti,crossbar-irqs-reserved to resolve duplicate na=
+ming.
+> >
+> > Defining a new property breaks the ABI. We will need to fix dtschema to
+> > handle it. What's the error?
+> property irqs-reserved is defined in two bindings with different types wh=
+ich
+> causes dt_binding_check to raise following errors:
+>   - File "/lib/python3.14/site-packages/dtschema/validator.py", line
+> 522, in check_duplicate_property_types
+>   - print(f"{self.schemas[sch_id]['$filename']}: {p}: multiple
+> incompatible types: {v['type']}", file=3Dsys.stderr)
+>   - KeyError: 'http://devicetree.org/schemas/interrupt-controller/ti,prus=
+s-intc.yaml#'
+> dtschema version: 2026.4
 
+I pushed a change to dtschema main branch which should fix this.
 
-On 6/10/26 4:28 AM, Jason Li wrote:
-> diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-> index cf7dba473b20..99a1c9308395 100644
-> --- a/drivers/tty/serial/Kconfig
-> +++ b/drivers/tty/serial/Kconfig
-> @@ -1592,6 +1592,27 @@ config SERIAL_NUVOTON_MA35D1_CONSOLE
->  	  but you can alter that using a kernel command line option such as
->  	  "console=ttyNVTx".
->  
-> +config SERIAL_CORTINA_ACCESS
-> +	tristate "Cortina-Access serial port support"
-> +	depends on OF
-> +	select SERIAL_CORE
-> +	help
-> +	  This driver is for the Cortina-Access SoC UART, present in the
-> +	  CA8289 (Venus) and related CAXXXX family of SoCs. If you have a
-> +	  machine based on the Cortina-Access SoC and wish to use the serial
-> +	  port, say 'Y' here. Otherwise, say 'N'.
-
-It could also be 'm' since the kconfig symbol is tristate.
-
-> +
-> +config SERIAL_CORTINA_ACCESS_CONSOLE
-> +	bool "Console on Cortina-Access serial port"
-> +	depends on SERIAL_CORTINA_ACCESS=y
-> +	select SERIAL_CORE_CONSOLE
-> +	select SERIAL_EARLYCON
-> +	help
-> +	  Say 'Y' here if you wish to use the Cortina-Access UART as the system
-> +	  console (the device which receives all kernel messages and warnings
-> +	  and which allows logins in single user mode).
-> +	  /dev/ttyS* is the default device node.
-> +
->  endmenu
-
--- 
-~Randy
-
+Rob
