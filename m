@@ -1,66 +1,66 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E56E30595C
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85569383992
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781091565; cv=none; b=WfrCIrc67Ni7lz2m3cYHnX2jcpQUOEE+RV0Fm9b1fImS6ccxAO+ZKKntI4kkU6qJaHf/Z8EcQ/b6Nh/2G3NX/Oov3Zs9VNZDsGyhmy2Fh+OCiRWn/qyp0DNcBqzy2BHuDONTSMFPKNSFbcYMDim+8h6SC1NSENC/s6/Twq4Utuk=
+	t=1781091569; cv=none; b=qSNzTENhuv5/yWfqwvdSszxoesG8e4FnoAZnkV1mybA4UFBHizKRM8ML3c1x3xnFg0AsCKEQtBXQKRoAXEQijSLh/G/Tre/uJdMp8BF2kovF73Zjy9Vx/c2+OGbIr6j7qULSlIOaDhzDzk3De/tjMNl7XW+qwefbADlIwIR7pdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781091565; c=relaxed/simple;
-	bh=kJlyu0Ku8D5i/hWc61LWnoUqEP/8/5haNfDxLdtNTf4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BbmZ7kfgnwWiqOyk7tRN/3gFnY6ZVe5CUAPQ/dpPwJKBaZ79l2TJqL64/Yp2+SIupqElgP4mAfZrPrmHVP7jNdZJm82Om1Av9FR87UP/yvBAO4ezOvdJQXOyO6qaav2CtPPJM90h+Z2ud3Q9cSBaCgylzj+jFGoD9KuttyA5dIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xzg1Ii7O; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1781091569; c=relaxed/simple;
+	bh=yWzPcHOx9Y0l0sp44ZHSshHjrd7t8NWvm/wcwRs+4y8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YHcDoiyL27T+T/Kgp1fQSXQiFkT/fy+XD9ARkxdMsy4ODN7CCk8hBjQSKMzucUFYSzyjqrsT9m1Ss4YW6DAwabsZTuJ8kD2gzGPAmN/ThIJAMTGSAOHiiFAKf0mWB1cprXlLVFysSJDymlkJQ09rjnObnHh2m0i/l9wWk09OyqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJcS84ar; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xzg1Ii7O"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4908b92904fso76465965e9.0
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:39:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJcS84ar"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45ef41adbc1so4953202f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781091562; x=1781696362; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dLodmWzrTN66XZxi0VhoRsFvF3s+BeRFANK73fDJpdo=;
-        b=Xzg1Ii7OVeJT3vjDySZW+ak5IJ5AtIiF4LsUhdahySxIM/sz2cj3DbGOCmNLvT5pq8
-         EeIkesKWnKX+ekoajvT7mh/3L3BuPdAya+lh4NbUnd6yaS4lVg1tDaHfPFUSNYohHjcD
-         NlQZkTBtUFVsmXN8LAp4CJTJay4Z0CFhBwlh8gHGCawUFvT8uTKuL6XDzHNFHGq/I0gq
-         0bgIo1d8G2kAUSh2FzCpdNc3a0rb5tXl8sYnGLrPL3LIGJl2MBcwgUxLhtMgZTA6aWRO
-         HMMcVkTTluqlj1hFzBCrv66bleeucYqGjcGuXdo3axJtTEveaKWQ1pY2ZWXvw2HBiqbb
-         hTvw==
+        d=gmail.com; s=20251104; t=1781091567; x=1781696367; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=K7SvbeeXWrfwUxsbhsnjjrs0zVBJg/7m9sutmS4WppM=;
+        b=rJcS84arLuPDEGbQ//g6zkTYX8ufd944J15qvPtiApO5xQjyXtn1niYKtlgYqtzDyQ
+         XXAlL3T12CUJ2YrrAUIT+Wq0NK7MWMWYE9lHGf9UUPzKlPCdbTwlkYMG/HjeDSyjdH7e
+         MtYGsAFvZjOnLiJSL0i9EVM+vy+R8nKm3WlEcpyKacFdeRycJs6fJLXa4VxZMVyXmUo9
+         sJIXPwVx7E009a9pAY28DBzTNs7b7E/UhdI3XrJ8EZzFtQqFkrxisCtix99N+GioLSis
+         wtsoUXwBJ4dNMX1YTU0VHFcdnTbHANZ338SR7HFJm01/Sv1r9vntm5vvVxhvsIjmtRiL
+         XyqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781091562; x=1781696362;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dLodmWzrTN66XZxi0VhoRsFvF3s+BeRFANK73fDJpdo=;
-        b=BC9v0fUvSXcs13b/AgplXqlI7MdYh0mBRe/TQ2QSdbJ8VNdBGBcharGXKC1OSn0wep
-         3Q0fmBwcbwHUL8Gq6DUKdegG0I2nnY0JMF42YmbFiX2cP4YSXf+brCpXgP2xNCd3Sbey
-         iH+pb1P9p6hTt+Yc2gcFkr70ApXSAjzsAxOuDU5oHWz7Iwjt/uHz5xvX2V1EGb8pYm3L
-         unaaFW6tOz6TppP7wcZFRX8+M35KGAEmWn6OlcfrxbZrcXGy6KcD20cPXkm4WKQ1jNVB
-         7VH8NjtshaT1qkX2y6vnnZO7zcnJ1uobQ5haeWOPi41mx91yZi/g8hXUlT31XbOjMf5L
-         rNOw==
-X-Forwarded-Encrypted: i=1; AFNElJ8eCQeEEqxV/5NcscdktqTZquG3sClRBv2/VnPtx8JrA/qLT7V49dg9p2UPdKSO1qUAoiU1U7uG5Fmf@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuL4zs342C4nQJ607+7AR96s/1cTNjK/ZVZlscF/LgIe23W5+5
-	WXz0BAJRUJCybPRmStKVD/DgrJ2jSQ7r5P2Fm3vlqGbRgRtJbTtYpogz
-X-Gm-Gg: Acq92OFEHLhsRLSbd522w8YSPokteUSw7JczmFK1B3HUZ0mPbc+VK3A3vl+Yazej6jk
-	x+7/pB3eu6l8uMKK/mhDFhwDagp3KIr59v/yvP99trnHdsqERc+RL87R/aLbuPbMDkOVb2XRbS+
-	Cs7ogPBEqwnz29u+gT4z+MDQWJkXWfwgpnObxi82aW5UvOVQln7mkLplQLhy/T/A8wcl1m4J0+c
-	UIs0aul/YLeLbiKQ+UDxPCnaZLEIC8PCr/I9Lh8ScWDnBssgKtq+2gfWYZ+nIApQYKv51RD0EkK
-	MPuOI2HCrjIHAzbtnkcEHIBaesw6hFDL2agdFUxThnUfAcT97sPmu5cGprONXNNytEHGSYD16Ig
-	MBxXLvoG1H8Xq2DyDbBkO4KWjbcRUmTTu0iphdgSHurqgsaLkHle6tpH0f/2w4OQNyTxaPlqt4G
-	eFP0e4gjqF1J7Gj+pjXuOkzxabDwaCP8/KS2d7rEw=
-X-Received: by 2002:a05:600c:3107:b0:490:9588:bdb6 with SMTP id 5b1f17b1804b1-490c264cc2emr408619475e9.33.1781091561822;
-        Wed, 10 Jun 2026 04:39:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781091567; x=1781696367;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=K7SvbeeXWrfwUxsbhsnjjrs0zVBJg/7m9sutmS4WppM=;
+        b=XdsaCOJftxR8kuC2WIFe6MxWjxtHdxP9vrown55vm8Wq8zQyC1ECMX+Yi9Xu8ex6RA
+         VJhb2mTeM9gi5LRwGesArADwa2ezGUqsHllRIxuEPoS7LoksUOubpBaX5bABIICfWmg0
+         7FdlJdCPS+RAUp2FSLoyyZfgFSk9rD6SSF2BI/Y7yFI58YC9EN3qN1eOnPGZDrpaE7tv
+         /aKUYtbadkhHA6Ym9LrWZBzj1IpxsadhnjGvm50Ynnb86nXV/d1CJ1lPVqsUestLEz9r
+         owAUpEVcHhMfkiyLQ0p57mp46NT5EEpoaKNxJJiDBwJbp9nMhkzwFQxmc6kn2jcDnJbJ
+         CwWg==
+X-Forwarded-Encrypted: i=1; AFNElJ+wsKA/3wryKug2xKbN6QVHdFf+ybzeKNHntG4TdrhsNInaJwxrmUWJWZTXRdgev4wV/hwpwBREVUuA@vger.kernel.org
+X-Gm-Message-State: AOJu0YynTOuh2M4G/i1G4ml5N7m5EfIy4xoeqBwO/W9xbwsTPn1MzAAb
+	zdtzwy/B99nECjaL8zsNH32sO9pwJe+aTKAPknh0vcDLkoUdQpj6e50E
+X-Gm-Gg: Acq92OEwfNzcXhBe450T1kyBXDZT7oZpzn+AjXb1U0AubgtdvYBhwUtsme4cY2Nw/tk
+	cr7ljJ3nkpKKGGCVbviyvuUCaCuaVWb8Jo+n0DlpgCEZPkAVH7TLSRjE2lPMExDpUbQIN0QtTg+
+	LNjfDcywRAE59lWYJfhIgxZfwwkO6SBxFnE9C7eY/v/klRiQP2xsy/S87zEAomN4/enIxcB0iOH
+	T6s6L0JXHICuM1jhTss3wm5a2CPrDKbOkPM+pjrI9c9sghx/YQzWLWVu0JcPG2uLYtpJNEx8ScX
+	sIh6wNgNEpatYIacnDhPoXERKytz87WciagZ5c33/9zPzm+NoXe5CV0DO+RdqF4gpwEBiQLUUQv
+	QrTyWt9E8jNQS0QHFI1B6dpHI0IlHNHvhkq64lLrn+UPv9Xe8TAgBkF4HtdAV0bOx8VeXTp5RXQ
+	t6n1DsQgf22MYJnq+lguQm0s6gLcPuOc1U56HXN+A=
+X-Received: by 2002:a5d:44c6:0:b0:45e:6518:21ad with SMTP id ffacd0b85a97d-460302e0a3cmr27231696f8f.3.1781091566969;
+        Wed, 10 Jun 2026 04:39:26 -0700 (PDT)
 Received: from [192.168.8.79] ([2a00:f502:260:7c0c:c5aa:32d2:49d:5951])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344148sm68042009f8f.19.2026.06.10.04.39.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344148sm68042009f8f.19.2026.06.10.04.39.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:39:21 -0700 (PDT)
+        Wed, 10 Jun 2026 04:39:26 -0700 (PDT)
 From: Erikas Bitovtas <xerikasxx@gmail.com>
-Subject: [PATCH v4 0/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
- add initial device tree
-Date: Wed, 10 Jun 2026 14:38:56 +0300
-Message-Id: <20260610-yukon-eagle-v4-0-763d5698bd2c@gmail.com>
+Date: Wed, 10 Jun 2026 14:38:57 +0300
+Subject: [PATCH v4 1/2] dt-bindings: arm: qcom: Add Sony Xperia M2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,11 +69,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13NTQ6CMBCG4auQrq3pP8WV9zAuCkyhKmAoEAnh7
- lKMEVx+yTzvTMhD68CjUzShFgbnXVMvQxwilJWmLgC7fNmIEaaIZAqP/b2pMZjiAVhJbZnV1FC
- Ro0U8W7DutdYu18/2fXqDrAuJcFE63zXtuL4baLj7luNdeaCY4ERTmuRKmJim56Iy7nHMmgqF8
- sB+VhG+t2yxVqtUCCI1t/Lf8q0Ve8vDX+CpjHNOlNFbO8/zG9fqjxIwAQAA
-X-Change-ID: 20260526-yukon-eagle-658f2f81a14d
+Message-Id: <20260610-yukon-eagle-v4-1-763d5698bd2c@gmail.com>
+References: <20260610-yukon-eagle-v4-0-763d5698bd2c@gmail.com>
+In-Reply-To: <20260610-yukon-eagle-v4-0-763d5698bd2c@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -81,71 +79,31 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
  phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 
-Sony Xperia M2 is a smartphone released in 2014 based on the Qualcomm
-Snapdragon 400 (MSM8926) platform.
+Document the Sony Xperia M2, which is a smartphone based on the
+Qualcomm MSM8926 SoC.
 
-Add initial device tree for Sony Xperia M2 with support for:
-- Framebuffer
-- GPIO buttons (Volume Down and Camera)
-- Regulators
-- Internal storage
-- SD card
-- Accelerometer
-- Ambient Light/Proximity sensor
-- NFC
-- pm8226_resin (Volume Up)
-- Vibrator
-- USB/Charger
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
-Changes in v4:
-- Defined pinctrl for GPIO buttons.
-- Aligned quotation marks in mount-matrix for the accelerator.
-- Dropped magnetometer from the patch. It probes, but fails to read its
-  revision if reset GPIO is not defined, and this model does not have a
-  reset GPIO. Nevertheless, even if one is defined, the probe fails with
-  a timeout. Needs further investigation.
-- Link to v3: https://patch.msgid.link/20260604-yukon-eagle-v3-0-9e3b57d306a8@gmail.com
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v3:
-- Changed incorrect "chassis" to "chassis-type" in the device tree.
-- Mentioned added vibrator in the commit message.
-- Link to v2: https://patch.msgid.link/20260603-yukon-eagle-v2-0-f86b440583f5@gmail.com
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 50cc18a6ec5e..851d1b4d74eb 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -99,6 +99,7 @@ properties:
+               - microsoft,tesla
+               - motorola,peregrine
+               - samsung,matisselte
++              - sony,eagle
+           - const: qcom,msm8926
+           - const: qcom,msm8226
+ 
 
-Changes in v2:
-- Dropped `regulator-always-on` for l3, l6 and l8.
-- Mentioned added GPIO buttons and reset input in the commit message.
-- Link to v1: https://patch.msgid.link/20260527-yukon-eagle-v1-0-98119d64a71b@gmail.com
-
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Erikas Bitovtas (2):
-      dt-bindings: arm: qcom: Add Sony Xperia M2
-      ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle: add initial device tree
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- arch/arm/boot/dts/qcom/Makefile                    |   1 +
- .../dts/qcom/msm8926-sony-xperia-yukon-eagle.dts   | 407 +++++++++++++++++++++
- 3 files changed, 409 insertions(+)
----
-base-commit: 49e02880ec0a8c378e811bc9d85da188d7c6204c
-change-id: 20260526-yukon-eagle-658f2f81a14d
-
-Best regards,
---  
-Erikas Bitovtas <xerikasxx@gmail.com>
+-- 
+2.54.0
 
