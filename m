@@ -1,253 +1,317 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D893403B1D
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0829A3DC873;
+	Wed, 10 Jun 2026 11:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781089935; cv=none; b=Jb06zEoAqXFVvzvyxy4dD1ef1BgtmJMBgoEzNI96ftUCzwa8Q8AlLgmYULnfQbNddHhIM8HqFP8T0lTzI3vjHfkBdlh2hGsmygSratFhDryIBNoRtwpBEXqgQTQqzvsrYKi9XSOTrxzNQEtJulseneEGFc0jZstuq74/y2kA90k=
+	t=1781090113; cv=none; b=BCCFyzoeGDekaSOWYr+DNN+pPWqjpk9xeNgY7BPhhlVYR1fm+wuEuLm2HWLOsWBIlfQedd9yKxjSVWNSkMyJF4S543KxNbs1yGqtltYraLYekEGJUIVrWApqtbQQYOik2OYH8ChA8HawN5cwc1n/HBOaH3YROhF2VIovXcorxfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781089935; c=relaxed/simple;
-	bh=vOmQpMOTQmAD5HUHEObt2DjkT0/15ApbNdH9hc08UQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dr8hRxAMYg1hWFvXIzXuRNgP9H3BsmL954D3Fk1gjF1Fu2xX43apD1x+ut1Q+wcVXubsL0RNHrLJmL2O8SkDrLkNCSoRPjfxV6jemTr8oonpt405fuvHhgRJzRpNjNWhy+DUh9QtyxxdNDIzt9F6Y86vcb7Jz2yfPkemRUnX+5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xn4PZRlg; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781090113; c=relaxed/simple;
+	bh=NxC/buIW3nwDt2WYvtbi/fLzJO4I+WcqsNvm2IQ7gKg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lRDDTN+gMu2aXeC3Of0MLAtc90+hEZLXGB/sOyRzVndRLlihHXM7onL84JgoO9EHVyO4ZpXevJe+echIrmybYCksHd5MTR3R9loNSU74sJpatlboGmaTdu9ixQL10z5EwOUYA2+9v+17k8LC9mpXPARkeYn8jLyHOqMZAwHj0PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=GS2dT7ky; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xn4PZRlg"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2bf13f17da8so5419285ad.3
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:12:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="GS2dT7ky"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781089930; x=1781694730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ax95pId9QMw1FjsoGhe01/2Zutu0csI1tByOFuVoTk0=;
-        b=Xn4PZRlgfGC6rAE7lBHXGGN2/Hah5y/hlNrb7wE/HpbuXzEprgGcLRm4Vah1l7gE6E
-         z0gy7rAGbZsqgYnc48gXNIGF3bbmtSvIQlbBR0enwDl7NPNJoybh7AIrhW/IVgb/QVxe
-         DTfAzsFV6HxqrtL9eYtO5aXkYglr/gDEPc2OkOtrw2wNdNRUmnwQECMhG76Vh2WvcDxS
-         QJJrKYpeAQiNzYB82TB2v0XpGv6d/6xctSr6afvs3VYJXIc1MfKMHji5X4J+E65iFhPo
-         5+tvCyUtGIZ0MiQGOkDAKZLn479iU0Ouqa7PPiyeXHJQ+IjZiv9gmcTS9Y8bWR+5tnSw
-         +SmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781089930; x=1781694730;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Ax95pId9QMw1FjsoGhe01/2Zutu0csI1tByOFuVoTk0=;
-        b=k17aQk49URPHOPaCfZGVwGueGHebQ+LHKiGcBtfVbPaJmQ5IIJU554fkcSFbDmqAQW
-         J5xc0bLblSWYFTyqQIXmRsktffYS8RxHcwneXSs/HuM5myKKm6Nd1Mj2BWjxPnwRhykc
-         vMxedZoeZamjthVf+mLR+NfIR6Cn0UFPDIvCP5zUM9xCvjMLsBh/fg909sX5Ka/A3kjq
-         cT1jT4LlHO+h1NWR3x/Mx/e2R7/i6hBRN+5amIGZxLG+clMZ1d2P50te3yxyg3/1Y7e8
-         rEmMQWKk14PrnpigdyYIC4QeAQbroDRaViIUkmZADC47Zm06YMPO174XuI5iygEzSSlx
-         l63Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/8RkD5IRW8M8lXHkdmYjPGTqbRbNATQr+62PyQX2fN8x6AcHh/vzAyeeBScAr9luLc0tGid/Hj4OZh@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkzrDBXKqqWWFN1+sTVI01dezfXaD9c5p3H6gCl2CYe0PLx4c2
-	Pj92Ne6pIO1gVgzNdb6BUKu4UIhb8zsUGxVNp0O/2Y5jkwkFz6dlZaBP
-X-Gm-Gg: Acq92OGFqGWCVktgNkNn6kFSeZXxyMUBIXtWLTbddauH6Xyx7kXgBxYBXWsrm0ToiHA
-	ubPbzivvTvHNkeLxwMSk9pIYOaZF0vt2nn6C5Acxkd2dUW8zzqXQCtEoM3MIdn+uOI2k1MW3oRe
-	9vy69QGK4PgMGuv59KgGL+5/fAo5K0L+v5RorrNhbORHeINPTnWKKaKVxnrA+FYsox49WWNQvv/
-	Dko0v9MjspyXQi2BzVLs6PsJMRlp8bQXjQ4lUv9qUrTyLvV17eCcHIT/MTCxybxN3IrhOlfaWMR
-	CgJpt1iV/glnN/ks1uRelvsqLFOYDe3il/oFd/04ekr5d0IflyD57SIyCKZHs5rJOn42Ijxq7nm
-	igOB/BQ5UcSMhgDfxuAi8y1gOaj89AI30+H8+NHvEx1OjuF/PqH9HIyGOWJY4iYGjTh2kDIExAe
-	kkdbC/5HCZkP4QaLZxWKPeQa2V072bFslSYsogsifS2oPkNDI=
-X-Received: by 2002:a17:903:46cf:b0:2c1:13cf:19a0 with SMTP id d9443c01a7336-2c1e8332ademr127346645ad.3.1781089929478;
-        Wed, 10 Jun 2026 04:12:09 -0700 (PDT)
-Received: from chenyou.. ([140.116.39.229])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e234sm251328535ad.53.2026.06.10.04.12.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:12:08 -0700 (PDT)
-From: Chen-Yu Yeh <chenyou910331@gmail.com>
-To: unicorn_wang@outlook.com,
-	inochiama@gmail.com
-Cc: Chen-Yu Yeh <chenyou910331@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Han Gao <rabenda.cn@gmail.com>,
-	Nutty Liu <liujingqi@lanxincomputing.com>,
-	Longbin Li <looong.bin@gmail.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	sophgo@lists.linux.dev (open list:SOPHGO DEVICETREES and DRIVERS),
-	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 2/2] riscv: dts: sophgo: Add Milk-V Duo 256M board support
-Date: Wed, 10 Jun 2026 19:11:21 +0800
-Message-ID: <20260610111136.1514155-2-chenyou910331@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260610111136.1514155-1-chenyou910331@gmail.com>
-References: <20260610111136.1514155-1-chenyou910331@gmail.com>
+	d=codeconstruct.com.au; s=2022a; t=1781090103;
+	bh=huOArweXhGZIE9bNjo12S1RadYYw8h6SUyOuwXeK+9c=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GS2dT7kyT+8KmH/uyXKZYYMSKcKjdLp2WjzBp+OrvXxhLfoSk+nuo0AGiKUXPSDKb
+	 ogljH0Z4KhiNg7c7//rN+PxEOaiAIUZnbZxnVQP2BZZ/hOrAcScGbIcA2OyIcG5uY2
+	 3JnXl7nYmOqmNSAY1UTpRdm19/pUHGiCNV4+w37ya5KjAhNGojedO02bv8PDIsuXU0
+	 BAA32Z1hDNlouzgEN4WhBpEZ3IYemBluFlO6V8epIeaz5adY+2b13NdYQ2E3WRPl7f
+	 8Ef+ffTcSoG8ronceSCvim4zaXtgkEws3EqrEZs+tdeo7BOrbvVqMdpHZuajVSSbaq
+	 IJOpOzwdXc3Fg==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E6E3760A19;
+	Wed, 10 Jun 2026 19:15:02 +0800 (AWST)
+Message-ID: <3d56889c004fc2d11b76ace6033c7ccfb8a37d03.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v5 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Date: Wed, 10 Jun 2026 20:45:02 +0930
+In-Reply-To: <20260608-ventura2_initial_dts-v5-2-37ee5bcf58b6@gmail.com>
+References: <20260608-ventura2_initial_dts-v5-0-37ee5bcf58b6@gmail.com>
+	 <20260608-ventura2_initial_dts-v5-2-37ee5bcf58b6@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The Milk-V Duo 256M is a small form factor development board based on
-the Sophgo SG2002 SoC.
+Hi Kyle,
 
-This patch adds basic device tree support for the board, including:
-- UART console
-- SD/MMC controller
-- USB host
-- Onboard blue status LED (connected to PWR_GPIO[2] / porte 2)
+On Mon, 2026-06-08 at 10:42 +0800, Kyle Hsieh wrote:
+> Add linux device tree entry related to the Meta(Facebook) rmc-node.
 
-Tested on actual Milk-V Duo 256M hardware, verified boot to shell and
-heartbeat LED functionality.
+This is redundant as it is evident from the patch itself. Can you
+please remove it?
 
-Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
----
- arch/riscv/boot/dts/sophgo/Makefile           |   2 +
- .../boot/dts/sophgo/sg2002-milkv-duo256m.dts  | 119 ++++++++++++++++++
- 2 files changed, 121 insertions(+)
- create mode 100644 arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> The system use an AT2600 BMC.
+> This node is named "ventura2".
 
-diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
-index 6f65526d4193..e49c8233ae1f 100644
---- a/arch/riscv/boot/dts/sophgo/Makefile
-+++ b/arch/riscv/boot/dts/sophgo/Makefile
-@@ -2,7 +2,9 @@
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
-+dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-milkv-pioneer.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v1.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v2.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2044-sophgo-srd3-10.dtb
-+
-diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-new file mode 100644
-index 000000000000..882fba441396
---- /dev/null
-+++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-@@ -0,0 +1,119 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2023 Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sg2002.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Milk-V Duo 256M";
-+	compatible = "milkv,duo256m", "sophgo,sg2002";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
-+		serial3 = &uart3;
-+		serial4 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-blue {
-+			label = "milkv:blue:status";
-+			gpios = <&porte 2 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+			default-state = "on";
-+		};
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		coprocessor_rtos: region@83f40000 {
-+			reg = <0x83f40000 0xc0000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&osc {
-+	clock-frequency = <25000000>;
-+};
-+
-+&pinctrl {
-+	uart0_cfg: uart0-cfg {
-+		uart0-pins {
-+			pinmux = <PINMUX(PIN_UART0_TX, 0)>,
-+				 <PINMUX(PIN_UART0_RX, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+	};
-+
-+	sdhci0_cfg: sdhci0-cfg {
-+		sdhci0-clk-pins {
-+			pinmux = <PINMUX(PIN_SD0_CLK, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <16100>;
-+			power-source = <3300>;
-+		};
-+
-+		sdhci0-cmd-pins {
-+			pinmux = <PINMUX(PIN_SD0_CMD, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+
-+		sdhci0-data-pins {
-+			pinmux = <PINMUX(PIN_SD0_D0, 0)>,
-+				 <PINMUX(PIN_SD0_D1, 0)>,
-+				 <PINMUX(PIN_SD0_D2, 0)>,
-+				 <PINMUX(PIN_SD0_D3, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+
-+		sdhci0-cd-pins {
-+			pinmux = <PINMUX(PIN_SD0_CD, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+	};
-+};
-+
-+&sdhci0 {
-+	pinctrl-0 = <&sdhci0_cfg>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+	bus-width = <4>;
-+	no-1-8-v;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+};
-+
-+&uart0 {
-+	pinctrl-0 = <&uart0_cfg>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&usb {
-+	dr_mode = "host";
-+	status = "okay";
-+};
--- 
-2.43.0
+Can you provide some more detail about the platform in the commit
+message? What's it's purpose? Can you describe some interesting
+features or details about its design?
 
+>=20
+> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0=C2=A0 1 +
+> =C2=A0.../dts/aspeed/aspeed-bmc-facebook-ventura2.dts=C2=A0=C2=A0=C2=A0 |=
+ 2888 ++++++++++++++++++++
+> =C2=A02 files changed, 2889 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed=
+/Makefile
+> index 9adf9278dc94..6b96997629d4 100644
+> --- a/arch/arm/boot/dts/aspeed/Makefile
+> +++ b/arch/arm/boot/dts/aspeed/Makefile
+> @@ -32,6 +32,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
+> =C2=A0	aspeed-bmc-facebook-minipack.dtb \
+> =C2=A0	aspeed-bmc-facebook-santabarbara.dtb \
+> =C2=A0	aspeed-bmc-facebook-tiogapass.dtb \
+> +	aspeed-bmc-facebook-ventura2.dtb \
+> =C2=A0	aspeed-bmc-facebook-wedge40.dtb \
+> =C2=A0	aspeed-bmc-facebook-wedge100.dtb \
+> =C2=A0	aspeed-bmc-facebook-wedge400-data64.dtb \
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts b/=
+arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> new file mode 100644
+> index 000000000000..9bf7d6e52e40
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> @@ -0,0 +1,2888 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2023 Facebook Inc.
+> +/dts-v1/;
+> +
+> +#include "aspeed-g6.dtsi"
+> +#include <dt-bindings/i2c/i2c.h>
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	model =3D "Facebook Ventura2 RMC";
+> +	compatible =3D "facebook,ventura2-rmc", "aspeed,ast2600";
+>=20
+
+...
+
+> +};
+> +
+
+...
+
+> +&gpio1 {
+> +	gpio-line-names =3D
+> +	/*18A0-18A7*/	"","","","","","","","",
+> +	/*18B0-18B7*/	"","","","",
+> +			"FM_BOARD_BMC_REV_ID0","FM_BOARD_BMC_REV_ID1",
+> +			"FM_BOARD_BMC_REV_ID2","",
+> +	/*18C0-18C7*/	"SPI_BMC_BIOS_ROM_IRQ0_R_N","","","","","","","",
+> +	/*18D0-18D7*/	"","","","","","","","",
+> +	/*18E0-18E3*/	"FM_BMC_PROT_LS_EN","AC_PWR_BMC_BTN_R_N","","";
+> +};
+> +
+> +&i2c0 {
+> +	status =3D "okay";
+> +
+> +	i2c-mux@77 {
+> +		compatible =3D "nxp,pca9548";
+> +		reg =3D <0x77>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		i2c-mux-idle-disconnect;
+> +
+> +		i2c0mux0ch0: i2c@0 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <0>;
+> +		};
+> +
+> +		i2c0mux0ch1: i2c@1 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <1>;
+> +		};
+> +
+> +		i2c0mux0ch2: i2c@2 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <2>;
+> +		};
+> +
+> +		i2c0mux0ch3: i2c@3 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <3>;
+> +			status =3D "okay";
+> +		};
+> +
+> +		i2c0mux0ch4: i2c@4 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <4>;
+> +			status =3D "okay";
+> +		};
+> +
+> +		i2c0mux0ch5: i2c@5 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <5>;
+> +			status =3D "okay";
+> +
+> +			eeprom@56 {
+> +				compatible =3D "atmel,24c128";
+> +				reg =3D <0x56>;
+> +			};
+> +		};
+> +
+> +		i2c0mux0ch6: i2c@6 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <6>;
+> +
+> +			eeprom@56 {
+> +				compatible =3D "atmel,24c128";
+> +				reg =3D <0x56>;
+> +			};
+> +
+> +			fan_io_expander0: gpio@20 {
+> +				compatible =3D "nxp,pca9555";
+> +				reg =3D <0x20>;
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +			};
+> +
+> +			fan_io_expander1: gpio@21 {
+> +				compatible =3D "nxp,pca9555";
+> +				reg =3D <0x21>;
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +			};
+> +
+> +			adc@1d {
+> +				compatible =3D "ti,adc128d818";
+> +				reg =3D <0x1d>;
+> +				ti,mode =3D /bits/ 8 <1>;
+> +			};
+> +
+> +			adc@35 {
+> +				compatible =3D "maxim,max11617";
+> +				reg =3D <0x35>;
+> +			};
+> +		};
+> +
+> +		i2c0mux0ch7: i2c@7 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <7>;
+> +
+> +			fanctl0: fan-controller@20 {
+> +				compatible =3D "maxim,max31790";
+> +				reg =3D <0x20>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +				channel@2 {
+
+Can you make sure that you consistently use a blank line to separate
+child nodes from each other and from properties in their parent?
+
+Please fix throughout.
+
+> +					reg =3D <2>;
+> +					sensor-type =3D "TACH";
+> +				};
+> +				channel@5 {
+> +					reg =3D <5>;
+> +					sensor-type =3D "TACH";
+> +				};
+> +			};
+> +
+> +			fanctl1: fan-controller@23 {
+> +				compatible =3D "nuvoton,nct7363";
+> +				reg =3D <0x23>;
+> +				#pwm-cells =3D <2>;
+> +
+> +				fan-9 {
+> +					pwms =3D <&fanctl1 0 20000>;
+> +					tach-ch =3D /bits/ 8 <0x09>;
+> +				};
+> +
+> +				fan-11 {
+> +					pwms =3D <&fanctl1 0 20000>;
+> +					tach-ch =3D /bits/ 8 <0x0B>;
+> +				};
+> +
+> +				fan-10 {
+> +					pwms =3D <&fanctl1 4 20000>;
+> +					tach-ch =3D /bits/ 8 <0x0A>;
+> +				};
+> +
+> +				fan-13 {
+> +					pwms =3D <&fanctl1 4 20000>;
+> +					tach-ch =3D /bits/ 8 <0x0D>;
+> +				};
+> +
+> +				fan-15 {
+> +					pwms =3D <&fanctl1 6 20000>;
+> +					tach-ch =3D /bits/ 8 <0x0F>;
+> +				};
+> +
+> +				fan-1 {
+
+Can you please sort the fan nodes in ascending order?
+
+> +					pwms =3D <&fanctl1 6 20000>;
+> +					tach-ch =3D /bits/ 8 <0x01>;
+> +				};
+> +
+> +				fan-0 {
+> +					pwms =3D <&fanctl1 10 20000>;
+> +					tach-ch =3D /bits/ 8 <0x00>;
+> +				};
+> +
+> +				fan-3 {
+> +					pwms =3D <&fanctl1 10 20000>;
+> +					tach-ch =3D /bits/ 8 <0x03>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+>=20
+
+...
+
+> +
+> +	// Marvell 88E6393X EEPROM
+
+Please try to be consistent with the comment style (prefer /* */).
+
+> +	eeprom@50 {
+> +		compatible =3D "atmel,24c64";
+> +		reg =3D <0x50>;
+> +	};
+> +
+> +	rtc@51 {
+> +		compatible =3D "nxp,pcf8563";
+> +		reg =3D <0x51>;
+> +	};
+> +};
+> +
