@@ -1,67 +1,66 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F74F3E3C50
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABFF403AE8
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781089837; cv=none; b=dSAIWLTzf9xlJk2OdeeJ8RKOZXzBoZi6HVtQm34RLTkYGF0bHZqUgFh8qJ+pA3ktSovs6GD7KEiKz1YZn+m//DRZtAZuDsEHYLYifIk1SQCtjgqRe9iEvJJDAJEv52sAJQw9+XpgEPglGplPjomUnRzqDnNAypcGFoKMaZHY5RQ=
+	t=1781089846; cv=none; b=NK0quCKIoMaK1QekHcMoVqB4AFrZNAaCV7wrMda1JTHqxl6HPUcovxvOxxRgicLk4CmysaLCa3/U6E9e+dkw06/b600ZDr/6ejhQLuw0jrcS/HMtXWxF95wl+EPB7Ja0fy7dsvbrYHhg4eEUbIt+Nf5+jqAMZssBoXdYzC1t+RA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781089837; c=relaxed/simple;
-	bh=8YxhAGTFZb0zJ+5hLjkmzRBQlB5GdZCVJR37ofmfwbo=;
+	s=arc-20240116; t=1781089846; c=relaxed/simple;
+	bh=VWR+UfxFqG4y2XgGqNFvBLcEeTwzUQd31HSReE2GSKc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iwRJsl1LjRhHQolnacIxqwLF9iK1bWH4ijY2gUKpu4f3rQTPgP5lCIrCcqN86ne81TqB8/52WUiqAJfHcADsqTSnCCulUTor1QzyPFwzjamaiqcqM7V3akXq4ioWzbx/bYtgkaLOWMnAJdM/zz71SO7PoEePwJvKiYAx8WVGbYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GGoX7J+H; arc=none smtp.client-ip=209.85.216.47
+	 In-Reply-To:To:Cc; b=UhyBw9TkrLnNWZ/7MLAqFGzMbSos5vW0Ln3oyftdcuLgnCUzDC5nYlcRyhrez4gH98heFu3Hr4CbwBNSXP90EpHV/uq8ExjwetxlGmHh7TxBJ8JES9gApJE3oWwfsx+RcbX/GYVe2n3gGo+LTa7hBp/3riGL3D2a0DNDXdNAkNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lA+7wizK; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GGoX7J+H"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-36baec934b6so4306262a91.0
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:10:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lA+7wizK"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c0aa420401so51095145ad.3
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:10:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781089828; x=1781694628; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781089838; x=1781694638; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=dePUqSBzKVLV+PoQEp9b+Ylpu4iFynHLielBVDVr8q0=;
-        b=GGoX7J+HqPw01SHiw9alJlAwIPtoim/xDCiFREqTajKrDRCXKbXYGj7WPJlyj6ZFjT
-         SzFwCMJody6MmV6pfwD4rUis95kNmtwCSZPTtWM5nsbYQhbBitQdw5b34fsY9iy67ujj
-         AO9OorjXwVEF30UzvUCL3wiSoHeRl2BeCV+Sbgwv8sys8Dqu+Ev3VoaZGZ9jP+ntFyCh
-         ME2HvWvEF9gPF5Mv3qHo29V29Gl/Afw1qkf57vdIHannQErDeo+J90LS4b6i/GpIFPDn
-         9ZBWl3Vev13R56o5MtKRjedTQ5mGJd1amsX7g6GX0VxPcl0w2YVbVF7Qd7ClLtGPpsq3
-         OktQ==
+        bh=8pl4zL6FnCSl3D9yZvxGpHfWt8VIgNStkRi0gondAh0=;
+        b=lA+7wizKLOBE7xC5N2txvm+9pJKXSjTWBnVrKVaRtyww+2BmSO4v+sMlIKm6OmVPyM
+         coMKzYjgGe8eBWKEPjrRgbTFAVJkwSswW8Wbu0Wcb2a/cxSnqduaeVSNpxV3bum215rJ
+         Mvqjbzhx1SC/G6ZguL6waYGQZWmLU8my3q+VXtnmYWPJ6/F4nAeVsw2tXLBU0sqnZVyb
+         UnQSW0uOefbDPGDkbmd2bkY+4alWYC0a77CZyd8S5DQyxlPRkTtiPo6wxXk/KTmscl5w
+         Stg2gv3GEOVWYbxMsyIzmzH2O2GZ7Z01EBZ3wAvhpRa1cedFfZXZ6EA/6QWjKf1F4kB/
+         Fk3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781089828; x=1781694628;
+        d=1e100.net; s=20251104; t=1781089838; x=1781694638;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=dePUqSBzKVLV+PoQEp9b+Ylpu4iFynHLielBVDVr8q0=;
-        b=k0zkwrzQQ41fJcza0MO3DbJa8RsnHy1GKqRw+5Qc5RPrddb+b++O/ymabsJk0fOv+c
-         tBCBSNnELvLAZcB5f4sjYyHVmjB4sEr9ge0qJQ4gBjBudA78VfzkzMRBopEflEsVDOPW
-         PQ+dW7Ae1K0lve7772eOsTGuvFkryTEkZlM9DaD7NFhC4lqJDiziD/g4X4j98/pGpowZ
-         tsIBApuxnNxaIUKs2ljXTNh/8R8Ap6fwROec8aMCDe/pAFj4oMc8VGn+ecilAewchlwE
-         CxBIoudRcSmcqR1x8inVeKUwgACFqSmuho77SnC33ayTtlT6u8aV1eoPOOGs893CUIW6
-         fgkw==
-X-Forwarded-Encrypted: i=1; AFNElJ+cH13qJ4D2HgQ7qgxIZRqTW980QIYyqMT05FT3KTFVamIv93Pf/Dh46DnpXhMDmrp48r6ca9TX29U9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzhaQcuKJfUE6uNypeMKdiutuomBLRVKJynFOG05FU0wCwdsro6
-	+Bn42Syt35iW+n5B+s4PDww47ofzUXiyBYGsIKE/qZMrs3sAalLGbjO/
-X-Gm-Gg: Acq92OEtSuHsCY2ESyH3/2y8VQJ0uGHcoFj/rBKNvhaxL+iC7YC7mcKIfmxsucVwrBQ
-	+pyydHyiRnwAz+Cq5dm1a+xYH63fSvMadb0h0/YPxf/jkDplp7W82dcK4Sytm/W0/DxbiP3pRxT
-	eFp9OMqqxC6vNV+QUYsHnvjgAYaA6ClITQLiIgjbHHhENB91oNLzVBW+5LknffxbjNea6g98Iha
-	q5UHMbX3kVzUO0qX8zAyWDYTQ9TKRmHvsGvrOdKrpeTQbo6YOLkCiTvtV3LuGqCui+NVwFfsFx/
-	3aPUNa5CCXSf+jcE/GrBMm9Ghr6lqBPPftohoU0IZOs4qTGjT/pk/BDYYUwcbtCMi7Xif70Vzzi
-	gQiox/VkZbDB1dDJCNAJ3fzDBOSAn9o7Raggy/iyLPRAPEWRaOztXTZBHU0h5XJGM4ILjLzb0hF
-	HjEIsfCnyOejwppxmHYmO+EVY6ZzW6q3aC63Xoc4xBG5si7o8w
-X-Received: by 2002:a17:902:ecd0:b0:2c0:b31b:b19 with SMTP id d9443c01a7336-2c1ec7d946fmr212617895ad.21.1781089828462;
-        Wed, 10 Jun 2026 04:10:28 -0700 (PDT)
+        bh=8pl4zL6FnCSl3D9yZvxGpHfWt8VIgNStkRi0gondAh0=;
+        b=LooDJ4onWumb7wGcdxU4ZRUH+Ntl/11e2PKlM8q+eeoPiaY2ELzJdUaI3j0BWO9fRO
+         OYmYWmI7Jja/VKI+Zl2FvTWOmqVrYj1FS2uAfQB+mGIxjOit+1aJYO10NKDBOauADK/u
+         Q0RDy5MStDAWysLJGWP8pPS85dINGKG0HRi0FBSyId7Q5SsHXmnsX/M3E1rbRJZsMtTY
+         I0Qhsr0B8yaPAQJRdZva3xhggE/GJ0g6/bizKC4o8dwVfxJeaQBebmGyFYxcuLS8CuhW
+         twEdHs1GMM7YYeV3w0c1AQne8eofJ1UyfCdM7b8YDms3syJodaWGSivTnKEouxVdHs/t
+         PBvQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/j/Z/L1RT6Lwjgfn3uWbsah5uZ3mmFatPBvSpYyHKIZe27t1b8pO+zKpF1A6rUUu+8d4CPmC3ixN+Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBEOzXXjRmM4DmROg2EEXIAGJrvALkP93YRpFkCnHFOf7sn6UD
+	HqKM+1OicvdBjNB9hfR1VIAP61qgP7EXhWFH5XF5djoypcv94dJSIqd+
+X-Gm-Gg: Acq92OHcsQ3AmYZbuH2H4VKYtPBNVsefNjgxjqipKGgg/4b3qCG4SDwJSqwos/1NV8/
+	RL+MsSxJoeiu07Pn3ujSedpPl1LrE4MiW+A6dMc7Sf/MtOMT3J45bH4e6br8NrCn3gyeyhPhzr4
+	ZGweTJgU5YIbW2wiJ8jMchgLxpst4C0P5us8tVPdOnb2kRC54RV4j26SPzHWvMQMmyI+hRDAiuF
+	FvHkzY+ldP8wwcMnRcMNcrQz/gp8PYf748wLcrlvocTLpHlqoSP39d/Iq7kn0x5z970Eim8fdbZ
+	rUpEbdNgFsLBsunNBTkm9h41N0MP056s4K1yYwnAmXN2hN/XhNAykHvdcPRLFeGar71zzJ698p9
+	H2YKeW5SOYChPeV/0AFHmACa5KSWr7hJdh41WSNTWnXLG0HsR4DBYZoMJdG40oTN1BqU/jfVTRp
+	YVJvrDruq0hEkm4WsdBUAyi+5C/Nh+ZWW9hxLkoyqYWlgVkcjq
+X-Received: by 2002:a17:903:1aed:b0:2c1:69cb:4423 with SMTP id d9443c01a7336-2c1e7e527bdmr282301365ad.14.1781089837945;
+        Wed, 10 Jun 2026 04:10:37 -0700 (PDT)
 Received: from [127.0.1.1] ([2409:40f4:4111:52c8:138e:8096:a8df:e68b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.10.19
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm317175205ad.9.2026.06.10.04.10.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:10:28 -0700 (PDT)
+        Wed, 10 Jun 2026 04:10:36 -0700 (PDT)
 From: Ramshouriesh <rshouriesh@gmail.com>
-Date: Wed, 10 Jun 2026 16:39:26 +0530
-Subject: [PATCH 1/9] arm64: dts: qcom: x1-asus-zenbook-a14: Add on OV02C10
- RGB sensor on CSIPHY4
+Date: Wed, 10 Jun 2026 16:39:27 +0530
+Subject: [PATCH 2/9] media: dt-bindings: Add Himax HM1092 NIR sensor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-a14-himax-hm1092-v1-1-0c9907da47ed@gmail.com>
+Message-Id: <20260610-a14-himax-hm1092-v1-2-0c9907da47ed@gmail.com>
 References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 In-Reply-To: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -88,186 +87,161 @@ Cc: Aleksandrs Vinarskis <alex@vinarskis.com>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  linux-phy@lists.infradead.org, Ramshouriesh <rshouriesh@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4082; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=ExaW/CgRG0HAtMjfXaofM76A3HEZ9NweHa0eL8KHYN0=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYNHeRo8C16a/eQs+ObZDs5Xo5SL21lIPOY/
- Tm3XHkc+cqJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGDQAKCRAVlYpeERwF
- 3mO/EACioDVqwwL0R5nMPC0+fQ3U6mxKkXRbIEJQwb17WeR8zy/5VJxVTVluMl9PWgVyD0Kveef
- 6JnONYCqscivv0zqrj24Sw+JTk6SExuQkePDj7atKMZxFca2Nu5HXpQEAXWbqp5tKwiVWt7GWtj
- FieXbKrSM4Yp3eyOYEIC2e3q+D13idPqfG4jqpExYg59pythhUI+gbgVIQB3dyZkMHtON85SaYX
- zZfWZFoFsiFKDEzIAfh3g7TsU4J8/vp9jSA/J+7KXd3c5kMcyjUFRG2BW2wXcQhQZ3tV4qnfqkV
- ZO4FkWbYzIs6arGWhIcrDRlEtaVDb9vLN0UC+RlOdiU4Lw645d91VQUhe0ImObf3c59rXdnfbU8
- XPOdkVUYm8MPwDFnfWBIkWthblyaQ2hi/f+dBtXF1+5QFNb4Tq8jVkxVks2i1vfQJ2gTnlwB1u5
- 2Af2VBTrQlm4TWu0S7LJ6fuhZn11d4carS1TTDUMvizNhqxkSy1MIxjb7vdhR9tje8O4uA4nBUQ
- U8Si9Ijv54wF3PEanBQaAZcspl8xp8g62L09GbM8EYcBseVlXraavDBtj2qh6mW/lq5Ke8WqH0t
- iOgoPxfbj4SUmw9+W2W3qJ2G/bqupsL+F5qCZB3YiJLCi1vQwEowDhfqoOd60T+wk5uvOjp60oW
- XKHXeefssu7uD1g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3984; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=VWR+UfxFqG4y2XgGqNFvBLcEeTwzUQd31HSReE2GSKc=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqKUYNQ0lDIYKRKLGlAdAaa7mRH+rmFxzbk0An/
+ +RFXhSngMyJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCailGDQAKCRAVlYpeERwF
+ 3vn1EACmNQOTttnHuckeeKdueEVCHPwLA9ghWtrqwfH/g7yudqQ4EM0nI2bRq+SuH6BbXS94Oys
+ /7pgxfpYKk6w2EFHM9BnrQxaGrfTfCEuP1fXmc4VJ9tjOY+PImPr8DgLJ+xYEGdshXN0jRsjiJn
+ rEhgmQyHt5gUj2yDPAw1MFheNT3WOXoI2Ka0ZuE2O9LcW/pPM0eXa06veZM8uBPHz2FZ9PAEbL/
+ s95Aqz8vzDRzj6VZqpqkuAKnZXFb9KVQPzvM6nvxs7c5c6UKBzKKz+b20YFi1Utvcmn4ruGvwAi
+ K0NU3UqPa7XAR2RokYFn8Roxa0ht5eFcsoOXAbaj8OrrBm9YvjN+hHeRM3SpNggHvmxUG9+OrK/
+ SPRRXI8TCZyDQ2bALoGmxlde9tCo5+lAAzz7s/NT78KBLBClDmMuS1/6luPJjpuT6babxRLbmdg
+ i+1FvoFDvlGTJDwzrJPr+nzyPELq4Bw5blBniKcQWSe0VFwG31/W0Htf8xKUjyK1+/Rx2lP8oCT
+ 2dRvK9tfb5dDpjdrm7U3hEgwhu4sNgmD83l2YoEzeJWFVVHCr/oV1YavvYWS0E9/Wsy/IuLMbeS
+ 1dV+NsYpca1XVMKEdkYKT0czF5whnKZ113PTp3wx6ti1iO7/JzWfzIgWy3KhontbvoDbEXwb379
+ KC8OILPPm+CDiBA==
 X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
  fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Add a dt-binding schema for the Himax HM1092 1MP monochrome
+near-infrared CMOS sensor, used as the face-authentication IR camera on
+Snapdragon X laptops such as the ASUS Zenbook A14. The sensor streams
+10-bit RAW over 1 or 2 MIPI CSI-2 data lanes.
 
-The device uses Omnivision ov02c10 RGB sensor. Reset GPIO, privacy LED
-GPIO, LDOs are extracted from decompiled AeoB files.
+The optional generic "leds" property (video-interface-devices.yaml)
+associates an IR illuminator flash LED with the sensor, which the
+driver strobes while streaming.
 
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
 Signed-off-by: Ramshouriesh <rshouriesh@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi | 109 +++++++++++++++++++++-
- 1 file changed, 105 insertions(+), 4 deletions(-)
+ .../bindings/media/i2c/himax,hm1092.yaml           | 118 +++++++++++++++++++++
+ 1 file changed, 118 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi b/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
-index 66d566808f58..388737eaa624 100644
---- a/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
-@@ -8,6 +8,7 @@
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/phy/phy.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
-@@ -108,14 +109,11 @@ leds {
- 		pinctrl-0 = <&cam_indicator_en>;
- 		pinctrl-names = "default";
- 
--		led-camera-indicator {
--			label = "white:camera-indicator";
-+		privacy_led: privacy-led {
- 			function = LED_FUNCTION_INDICATOR;
- 			color = <LED_COLOR_ID_WHITE>;
- 			gpios = <&tlmm 110 GPIO_ACTIVE_HIGH>;
--			linux,default-trigger = "none";
- 			default-state = "off";
--			/* Reuse as a panic indicator until we get a "camera on" trigger */
- 			panic-indicator;
- 		};
- 	};
-@@ -546,6 +544,13 @@ vreg_l6b_1p8: ldo6 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
-+		vreg_l7b_2p8: ldo7 {
-+			regulator-name = "vreg_l7b_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
+diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+new file mode 100644
+index 000000000000..085001493a20
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+@@ -0,0 +1,118 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/himax,hm1092.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 		vreg_l8b_3p0: ldo8 {
- 			regulator-name = "vreg_l8b_3p0";
- 			regulator-min-microvolt = <3072000>;
-@@ -796,6 +801,86 @@ vreg_l3j_0p8: ldo3 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 	};
++title: Himax HM1092 Monochrome NIR Sensor
 +
-+	regulators-8 {
-+		compatible = "qcom,pm8010-rpmh-regulators";
-+		qcom,pmic-id = "m";
++maintainers:
++  - Ramshouriesh <rshouriesh@gmail.com>
 +
-+		vdd-l3-l4-supply = <&vreg_s4c_1p8>;
-+		vdd-l7-supply = <&vreg_bob1>;
++description:
++  The Himax HM1092 is a 1 megapixel monochrome near-infrared CMOS image
++  sensor with a MIPI CSI-2 interface, commonly used as the IR camera for
++  face authentication on laptops. It supports 10 bit RAW output at
++  1288x728 over 1 or 2 CSI-2 data lanes. An optional infrared
++  illuminator LED may be associated with the sensor through the generic
++  "leds" property; the driver strobes it while the sensor is streaming
++  so the scene stays lit for IR capture.
 +
-+		vreg_l3m_1p8: ldo3 {
-+			regulator-name = "vreg_l3m_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
 +
-+&camss {
-+	status = "okay";
++properties:
++  compatible:
++    const: himax,hm1092
 +
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			csiphy4_ep: endpoint@4 {
-+				reg = <4>;
-+				clock-lanes = <7>;
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&ov02c10_ep>;
-+			};
-+		};
-+	};
-+};
++  reg:
++    maxItems: 1
 +
-+&cci1 {
-+	status = "okay";
-+};
++  clocks:
++    maxItems: 1
 +
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov02c10";
-+		reg = <0x36>;
++  avdd-supply:
++    description: Analogue circuit voltage supply.
 +
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_rgb_default>;
-+		pinctrl-names = "default";
++  dovdd-supply:
++    description: I/O circuit voltage supply.
 +
-+		leds = <&privacy_led>;
-+		led-names = "privacy";
++  dvdd-supply:
++    description: Digital circuit voltage supply.
 +
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
++  reset-gpios:
++    maxItems: 1
++    description: Active low GPIO connected to the XSHUTDOWN pad.
 +
-+		orientation = <0>;
++  leds:
++    description:
++      Optional phandle to an infrared illuminator flash LED strobed by
++      the driver while streaming.
 +
-+		avdd-supply = <&vreg_l7b_2p8>;
-+		dvdd-supply = <&vreg_l7b_2p8>;
-+		dovdd-supply = <&vreg_l3m_1p8>;
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
 +
-+		port {
-+			ov02c10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csiphy4_ep>;
-+			};
-+		};
-+	};
-+};
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        additionalProperties: false
 +
-+&csiphy4 {
-+	vdda-0p8-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+	phy-type = <PHY_TYPE_DPHY>;
++        properties:
++          data-lanes:
++            minItems: 1
++            maxItems: 2
++          link-frequencies: true
++          remote-endpoint: true
 +
-+	status = "okay";
- };
- 
- &i2c0 {
-@@ -1283,6 +1368,22 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_rgb_default: cam-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
++        required:
++          - data-lanes
++          - link-frequencies
++          - remote-endpoint
 +
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
++required:
++  - compatible
++  - reg
++  - clocks
++  - port
 +
- 	edp_reg_en: edp-reg-en-state {
- 		pins = "gpio70";
- 		function = "gpio";
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@24 {
++            compatible = "himax,hm1092";
++            reg = <0x24>;
++
++            reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
++            pinctrl-names = "default";
++            pinctrl-0 = <&cam_ir_default>;
++
++            clocks = <&camcc 1>;
++            assigned-clocks = <&camcc 1>;
++            assigned-clock-rates = <24000000>;
++
++            orientation = <0>;
++
++            leds = <&ir_flash>;
++
++            avdd-supply = <&vreg_l7m_2p9>;
++            dvdd-supply = <&vreg_l7m_2p9>;
++            dovdd-supply = <&vreg_l4m_1p8>;
++
++            port {
++                hm1092_ep: endpoint {
++                    data-lanes = <1>;
++                    link-frequencies = /bits/ 64 <400000000>;
++                    remote-endpoint = <&camss_csiphy0_inep>;
++                };
++            };
++        };
++    };
++...
 
 -- 
 2.53.0
