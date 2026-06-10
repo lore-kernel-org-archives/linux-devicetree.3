@@ -1,181 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660CB3B42ED
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:05:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF6C3B3BF5
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 09:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781082327; cv=none; b=c+PLOxQcnOpw+n/RLe/RvFSB5Sn1UgUJOr2boK/ByWbkGKbVLrGOsvWA7I57aJmNG7ZWi+umOz0H9X3Yz5tUQDLKoE/E5f6fnn7U4kzxXlznXcFvwmUitaI9GhfPV46Ces16XTkJ7kC9HtiLodaFcP1hEz7neTaviQOgHhNqx5c=
+	t=1781082333; cv=none; b=e/VfGvJ8z4P8T8KV9gvVVxS8ER90x+hWtafSlpuLdMLIbt6roGyu7cEZl7qlEa5UZnrZh2lACfwtKncVuJpKE12XcmTqTr7iHWt6JcvY6IHV48hFou4WpLOjszZW1AgWle478VuFijY8HVMzHYAKUeBWafAdJAYW++/R4+QJ+yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781082327; c=relaxed/simple;
-	bh=yAsgKtf3AQPdZJ4vCLm5aMr7ZMI+/zFq2sCZXUMWvqc=;
+	s=arc-20240116; t=1781082333; c=relaxed/simple;
+	bh=iKSN6wtrKK1cpabYdgAWe860HbupnqNuo7vZde2kn6A=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DSIPiXWFMCWCZqnWq9GMLazudXQH+OwVCojkZSN0M1SSbrPuBilv925wfrU6gt4pjWkbxCNu0Wd7AGMZRPt4cTXv3KeJhfyAqK19QAepikegti8aGaNbbW0oCDnTBMdIriScF3OSIFBirY696yLjzpblSNCyk5nMRq17j7U1Dp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQM9NoJb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=q08KcxrM1GCQdb05Zl65PHvnctKoIX95w7K+1J6i/6lM3ucWFo0LfrTBrvnwBZDqY7Ou62AdtSQQ6Iaq90p42jfn4NBH6dDyoMY3gq22h6Wq05PpYea5MjB6nIsLM12/rJ0XHm2rMjeIKsP4Gdw2YxWPqimzIFWr8NbxkU/sX7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPrgSp2A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQM9NoJb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1007E1F00898;
-	Wed, 10 Jun 2026 09:05:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPrgSp2A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99511F00893;
+	Wed, 10 Jun 2026 09:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781082326;
-	bh=FrovIqUaFeZNKASHFeDdUhB77vDAAioxaNiO0Dl1DWI=;
+	s=k20260515; t=1781082332;
+	bh=FQ+zh/2sOTD+ifv/sBafdttjA6zEHJ2bZXvOmZtKUCc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KQM9NoJbNg1liSpT3xSNkUcmDKYcfCsq0dIAIpC4yOLX8zvpEo5G4+K5cnK6VrITG
-	 sclD8IlELhrY/jfVWeZRKok3VQ2t+/uTro+6ybodCe2t87DHsp5igOCXBL7uhK/pvX
-	 RFYuEdGRgnbXpwsnSfGPs7C2ruxSypgG46prr9qOQurNrxmOHWpukO7C4gxOM4XSm8
-	 AjZUiBVtwHm17pvOkI7xRE9jYw3tpXo1f6Toeie/K4NbuiYs4INe3K8eUPF4UWE6ED
-	 QFMA3Wn+vAa4dJpb8svyw1Cms6xVu9krpquJUlXJxqpKMkZZnbhAa+dNyiSgRjCx7j
-	 BQICVXdYHZZQg==
+	b=ZPrgSp2A15XAwK6V8NlaXbxs0IWJLZzwUI1iViXxnxx7nnbskl/hezFfR/eiYjmdd
+	 TErOVoHAO8OgrwXavbDRkDiSXs47WrX7S9//jO2pUtj2KqFAQHtehn1x0jVfgVeBrq
+	 kt0fUSXCRB7ln34hgG45nxPhK5x6K0TId9Ygb2mrQfv2J0wbqxP3vbuVH/cPmQaWy2
+	 aOQboDoK3fyu/+b3ewAQ9hgT1jBb6DpkJVzq335j+iPDIqik1NIC9ttfBsZPJjLkJJ
+	 JkTg2SLc+UaQGqAVUE2UoVNNUiOGpVUlCrZu8aRcwoWLHOl7E4byyWL4gVIWTgLjj4
+	 MYo9qo1t1PmfA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v7 5/9] PM / devfreq: Add new track_remote flag for
- governors
+Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pragnesh Papaniya" <pragnesh.papaniya@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260610-rfc_v7_scmi_memlat-v7-5-f3f68c608f25@oss.qualcomm.com>
-References: <20260610-rfc_v7_scmi_memlat-v7-5-f3f68c608f25@oss.qualcomm.com>
+To: "William Bright" <william.bright@imd-tec.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260610-imdt-qcs8550-sbc-rfc-v4-4-358e71d606bc@imd-tec.com>
+References: <20260610-imdt-qcs8550-sbc-rfc-v4-4-358e71d606bc@imd-tec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 09:05:25 +0000
-Message-Id: <20260610090526.1007E1F00898@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 09:05:31 +0000
+Message-Id: <20260610090531.E99511F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Bypassing `profile->target()` for `TRACK_REMOTE` governors leaves =
-`new_freq` unaligned to exact OPP frequencies, permanently breaking transit=
-ion statistics and causing a warning flood.
-
-Pre-existing issues:
-- [High] Unprotected read of `devfreq->governor` can lead to a NULL pointer=
- dereference or use-after-free due to concurrent modification.
-- [High] The resume_freq state variable is incorrectly overwritten with sus=
-pend_freq during suspend transitions, preventing the device from properly r=
-estoring its pre-suspend frequency on resume.
+- [Medium] Encoding downstream device resets and straps into the PCIe host =
+controller's pinctrl to control boot sequencing.
+- [Low] Dangling `enable-active-high` property in `regulator-gpio` without =
+`enable-gpios`.
 --
 
-commit fa5d93fe675fe1183dc1fbfcc716761f517b7cf0
-Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+commit 69cdd29642da9fee5fcb6d62c3df7354abac11dc
+Author: William Bright <william.bright@imd-tec.com>
 
-PM / devfreq: Add new track_remote flag for governors
+arm64: dts: qcom: Add IMDT QCS8550 SBC
 
-Some devfreq governors need to track frequency changes performed on remote
-devices rather than driving the frequency updates themselves. In such cases,
-the device's frequency is already updated by an external entity and devfreq
-only needs to keep its transition statistics and notifier subscribers in sy=
-nc.
+This commit adds device tree support for the IMDT QCS8550 SBC. It enables
+various peripherals including regulators, UART, UFS, PCIe, USB, and Etherne=
+t.
 
-> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-> index 2f27a239e34a6..71c6ced9e4e1d 100644
-> --- a/drivers/devfreq/devfreq.c
-> +++ b/drivers/devfreq/devfreq.c
-> @@ -348,6 +348,26 @@ static int devfreq_set_target(struct devfreq *devfre=
-q, unsigned long new_freq,
->  	unsigned long cur_freq;
->  	int err =3D 0;
-> =20
-> +	/*
-> +	 * When a remote agent (e.g. firmware) owns the frequency, skip the
-> +	 * local profile->target() call. Still emit the PRECHANGE/POSTCHANGE
-> +	 * pair and the trace event so that transition-notifier subscribers
-> +	 * (passive governor, devfreq cooling, etc.) and tracing observe the
-> +	 * frequency change exactly as they would on the normal path.
-> +	 */
-> +	if (devfreq->governor &&
-> +	    IS_SUPPORTED_FLAG(devfreq->governor->flags, TRACK_REMOTE)) {
-
-[Severity: High]
-This is a pre-existing issue, but does this evaluation of devfreq->governor
-risk a NULL pointer dereference in drivers/devfreq/devfreq.c?
-
-If governor_store() concurrently sets devfreq->governor to NULL,
-devfreq->governor could be evaluated as true for the check, but then become
-NULL when dereferencing devfreq->governor->flags in devfreq_set_target().
-
-> +		freqs.old =3D devfreq->previous_freq;
-> +		freqs.new =3D new_freq;
-> +		devfreq_notify_transition(devfreq, &freqs, DEVFREQ_PRECHANGE);
-> +
-> +		if (trace_devfreq_frequency_enabled() && new_freq !=3D freqs.old)
-> +			trace_devfreq_frequency(devfreq, new_freq, freqs.old);
-> +
-> +		devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
-> +		goto update_status;
-
-[Severity: High]
-Will bypassing profile->target() cause transition statistics to permanently
-break due to unaligned frequencies?
-
-In drivers/devfreq/devfreq.c:devfreq_update_target(), the frequency is
-clamped against PM QoS bounds before calling devfreq_set_target():
-
-	if (freq < min_freq) {
-		freq =3D min_freq;
-		flags &=3D ~DEVFREQ_FLAG_LEAST_UPPER_BOUND; /* Use GLB */
-	}
-	if (freq > max_freq) {
-		freq =3D max_freq;
-		flags |=3D DEVFREQ_FLAG_LEAST_UPPER_BOUND; /* Use LUB */
-	}
-
-Since we skip profile->target() here, unaligned PM QoS values are passed
-directly to devfreq_update_status(). Inside devfreq_update_status(),
-devfreq_get_freq_level() attempts to find an exact match in the OPP table:
-
-	lev =3D devfreq_get_freq_level(devfreq, freq);
-	if (lev < 0) {
-		ret =3D lev;
-		goto out;
-	}
-
-This mismatch causes devfreq_update_status() to return an error, triggering=
- a
-warning flood. Further, previous_freq will be updated to this invalid
-frequency, causing all future status updates to fail the prev_lev check.
-
-> +	}
-> +
->  	if (devfreq->profile->get_cur_freq)
+> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts b/arch/arm64/b=
+oot/dts/qcom/qcs8550-imdt-sbc.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts
 
 [ ... ]
 
-> @@ -375,6 +395,7 @@ static int devfreq_set_target(struct devfreq *devfreq=
-, unsigned long new_freq,
->  	freqs.new =3D new_freq;
->  	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
-> =20
-> +update_status:
->  	if (devfreq_update_status(devfreq, new_freq))
->  		dev_warn(&devfreq->dev,
->  			 "Couldn't update frequency transition information.\n");
+> +	sdhci_2_vqmmc: regulator-sdhci-2-vqmmc {
+> +		compatible =3D "regulator-gpio";
+> +
+> +		regulator-name =3D "sdhci_2_vqmmc";
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		regulator-type =3D "voltage";
+> +
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&sd_vset_default>;
+> +
+> +		gpios =3D <&tlmm 4 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the following code at t=
-he
-end of devfreq_set_target() incorrectly overwrite the resume frequency duri=
-ng
-suspend?
+[Severity: Low]
+Is this enable-active-high property needed here?
 
-	if (devfreq->suspend_freq)
-		devfreq->resume_freq =3D new_freq;
+This regulator uses regulator-gpio and defines the gpios array for voltage
+state selection, but it does not specify an enable-gpios property. Since the
+property is dangling, will this trigger a dtbs_check validation warning?
 
-When devfreq_suspend_device() in drivers/devfreq/devfreq.c is called, it
-explicitly initiates a transition to suspend_freq:
+> +
+> +		gpios-states =3D <0>;
+> +		states =3D <3300000 0>,
+> +			 <1800000 1>;
 
-	if (devfreq->suspend_freq) {
-		mutex_lock(&devfreq->lock);
-		ret =3D devfreq_set_target(devfreq, devfreq->suspend_freq, 0);
+[ ... ]
 
-This overwrites devfreq->resume_freq with the suspend_freq, which prevents =
-the
-device from restoring its actual active pre-suspend frequency on resume.
+> +&pcie0 {
+> +	wake-gpios =3D <&tlmm 96 GPIO_ACTIVE_HIGH>;
+> +	perst-gpios =3D <&tlmm 94 GPIO_ACTIVE_LOW>;
+> +
+> +	/*
+> +	 * pcie0 hosts the M.2 Key-E slot. Apply the SDIO
+> +	 * reset de-assert here so any module's chip enable is settled
+> +	 * before pcie0 trains its link.
+> +	 */
+> +	pinctrl-0 =3D <&pcie0_default_state>, <&m2e_sdio_resetn_default>;
+
+[Severity: Medium]
+Is it correct to encode downstream device resets into the PCIe host
+controller's pinctrl?
+
+Tying board-level reset pins like the SDIO reset to the PCIe host
+controller's pinctrl tightly couples peripheral initialization to the host
+driver's state machine.
+
+Should these downstream devices be modeled using PCI child nodes with their
+own reset properties or standard power sequencing mechanisms instead, to
+avoid unintended GPIO toggling during PCIe suspend and resume?
+
+> +	pinctrl-names =3D "default";
+> +
+> +	status =3D "okay";
+> +};
+
+[ ... ]
+
+> +&pcie1 {
+> +	wake-gpios =3D <&tlmm 99 GPIO_ACTIVE_HIGH>;
+> +	perst-gpios =3D <&tlmm 97 GPIO_ACTIVE_LOW>;
+> +
+> +	/*
+> +	 * pcie_switch_sel_default and gbe_reset_default are board-init
+> +	 * lines that must be stable before pcie1 trains its link: the
+> +	 * PCIe switch needs its mode-select strap settled, and the
+> +	 * downstream LAN743x must be out of reset to enumerate.
+> +	 * Applying them via pcie1's pinctrl-0 fires them during
+> +	 * qcom-pcie probe, before bus enumeration.
+> +	 */
+> +	pinctrl-0 =3D <&pcie1_default_state>,
+> +		    <&pcie_switch_sel_default>,
+> +		    <&gbe_reset_default>;
+
+[Severity: Medium]
+Does assigning the PCIe switch strap and downstream GbE PHY reset to the pc=
+ie1
+pinctrl violate device tree abstractions?
+
+Similar to pcie0, this couples downstream device initialization directly to
+the host controller. Modeling this hardware topology through proper PCI chi=
+ld
+nodes might be safer than relying on host driver sequencing.
+
+> +	pinctrl-names =3D "default";
+> +
+> +	status =3D "okay";
+> +};
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-rfc_v7_scm=
-i_memlat-v7-0-f3f68c608f25@oss.qualcomm.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-imdt-qcs85=
+50-sbc-rfc-v4-0-358e71d606bc@imd-tec.com?part=3D4
