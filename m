@@ -1,110 +1,88 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B131C8604
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 03:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781063483; cv=pass; b=hz6hT7f0+mXXla4bT7pl71/LGxpkwY7V4x5VoQ9Krk1OJoO6ky+7638x26yu2AH6XD29AoB7DPxGGO/3EQ3qgXK4vkDl0/BJ1kGepqVKAZxP5Ppaz5bnFfpaVEoVWHOQXwRq36EvUSUecAvTtRYLomrRuHvhCkl9Tp7VlJBRaHI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781063483; c=relaxed/simple;
-	bh=V98JltAyEkn6qhpFu54OMxe/3D7dQgiMQHy3kmlT/Qk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C613B7A8
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781064931; cv=none; b=Bhdagbl9zv+6bkRJlgrM6R8Q8mIsabXPa/PvejR4mOvwqsd6G4ChxQY2jx2DKJaxiH964qzfSD9i2ZgMuc8jHpktPeCshcVyrE5YipdyMJmwXwEbWvWOwPl4FOJQ3/5wDTZYDSlTRuFqMtHwGpYj8vsIVN9Pbofj158A18iPsB0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781064931; c=relaxed/simple;
+	bh=eUPE8jGfX6oj2FLEcxkOZeoAc9Fk+di5f1uC42SHEEA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AJxiT4UjKZOCF9XRgo5idS2/4Kzej+58DNFpiPr0TnouRntfVlecuiykCwkGpM2LOXmdlsWjf0CpFco2lv965ikPfA4ZisSFrJu7dssCFE9VxhdrTFEdvgctsMSP/j4mNb/BoXElA4Zw5U7BLLO+qzAy1KkLSTGDgVqtza1x57w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WMaAyKXD; arc=pass smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=GRPBKL4vCUB1mcExp6+Sf0v4G0Oxb4tZVOaMtCTPtC/EJQqH0blGvRfcO81l8bKrxhbxU1AuhjAiScRnTKDj78GWFXuQAQ/f8+DCXlkAUCCM+4zcz/qlLV8HFFm3KdN5YDnJ99oWsR776HDmbiv2sKadCxkkb46J2U5GwcyrVBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bVAv/P1v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WMaAyKXD"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c86307c4e6bso1071770a12.0
-        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 20:51:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781063482; cv=none;
-        d=google.com; s=arc-20240605;
-        b=dfHpToN/oPSL7G/Q/0ckT9Z72v5MmjU9Olh44APi2Gk/x2QJvN1VeQ0KfZYFE14is6
-         GSAnQpzFQMYRO/wjlLW57RVdYFaqPzXrGiMjcc61uVrnKT5toBf26J+Ly9Uu7yvgOc27
-         7Fr4ha57VsZq7IJqwFMnCZxwLnRUVlHpjeZcC/Xwhil5yyELGFdeJ92LAk60mySXedYe
-         nPBn7qY23bPr/rKQeWCxyblTJ3kVuvBeJ9SSqRMfLEQUkxhy0ff7CoDrd3sJr1IgyI05
-         luIucbpmZTQNpioZWJYqRn+NP3k/Im/X/tsqoD/wi7hZBuqh5WEMSOflH01DRhxSp2g/
-         Dzmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=V98JltAyEkn6qhpFu54OMxe/3D7dQgiMQHy3kmlT/Qk=;
-        fh=xgYURuOhn2Ge31efMV5HEcMRpstR5ZawG/dLG7FICmQ=;
-        b=F5Cp2x3ZVB2JmeKJC1MD6VziDvlBes8sCmo05ZAnYG8mUU0eZoaihBFapSCm2mrVwe
-         aqjYi2DZKK+4CEERkPtQ2Ug4czLyR4mIpnCfUa5LHLPpKuDMxGAL/KhrwzHb6TbEAJ8z
-         tFj+uhco6/huUdWYuMpyW7YghNPNRZCAdFud1+AfzKHAtwjkGsa8l4cikPXBgcMOq9sz
-         ne7Q0vghvNjJTEv0jXCOf46MHBb3pjEszRrrtAYFTZwyOvIFUUlqUC8WHMIQBZ8EYb7/
-         jCzb2ARgSt1AkGFa3LbKhBgpDfIu1vcPOWfstZL4GbxG/fWYM+aCtzJVPi8hzi0KHgl9
-         3GTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781063482; x=1781668282; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=V98JltAyEkn6qhpFu54OMxe/3D7dQgiMQHy3kmlT/Qk=;
-        b=WMaAyKXDvsKebe3ajLA8s2QTa2MieRhwgUT/EMNryGhVESh1e3cgXG2i/XhxIDZVto
-         XVdOEGIkW+sFLMSyKt2/svq+a/utoYc2RjoVDpY8yC/9pWwGyE9dsxEbR+wJ8JiINWa4
-         6avR3lgHnaawrzADa3sYIUk49XlDIXCOe0HaTLGX/YySUcX0UqV9jGk/Y1NQwPHnECRX
-         f/Ck7UGjSe/NHLwkAlFSxsOr/AAmFTIsgtUqrrjOm1hAnGobKm42fDslJzZDYhmKWZVz
-         F/1z4uGSjTpGDCg/Zj8m44nJqqPv6MsipO7v0YGYtRLXK1x8r2Q9ABmq+h8kNqoV3Szv
-         PN3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781063482; x=1781668282;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V98JltAyEkn6qhpFu54OMxe/3D7dQgiMQHy3kmlT/Qk=;
-        b=Y06r+z7VJ0oOwrLvg0Hisy845OdiOb2ngwj/6P8YvO5p7FzjdT7LmkoMVm9OnBfGn+
-         vBIxlVhhaJL/endnUor/T9tQbSWNJ0S8Tc0KrFc4O2BmX7MakTcuOBssppQFvc5aNMjO
-         4xvYyEb9sKdFEgkVx0omS6GOhCdYpljzzbI/z+xyGvR8ziPtZ8YfOGEnBhzQIxcStVDT
-         iSNc5L/ARryUbwuGRS5U3jzfYaiK1Bs46nap5VLYG435UGBEQ0wcNwjn4R4ZTCFU28yf
-         i8CnQlhSvn9poxJk50og1GGtzazAzmJyqfdEBsKP9dTcTQBADpGzMIz77i3FVscpd9Cf
-         bBOg==
-X-Forwarded-Encrypted: i=1; AFNElJ8fDOtcsoYJJMIbkP8GsqEeo8ZRpWgRqqbm4npm7FSCY2Q/Zxnwx++XxpNgKnNx68KuLz5xYigfNSZd@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUJ3jvmT5SGPDd7AX2nsPLnNxHgZSUE3avEmT05X9uw7I7DhxB
-	jDW4ctuuZD7eenxi/v8Cc1CFUyA3AGK9A2bHSV1QwpFqZT+YpY5+ekHNZyg5VtQHnj1/jT6f2U+
-	xLB/Yhcu6nepzeqIlX6Nz/lLpsE7muKbYvpr5
-X-Gm-Gg: Acq92OHci0tRaPC0TUj/uddb0EEMTbEtwRUYqYc0CxK3ZoblFMuDrce2yKAOPlXRGl+
-	mywhLRAiGhPu44Y3j8TINVoMxrgJYtozF3CXMW+yt6lcwf1Knby7xdMW2hb1G3QwYzbwAOdfji0
-	E/V/w40UrnKTtjKLtoL1KI2VZ6/OL6b2y+eHu9UBnoEWQevI+O43sTWSTKtyQazKDAGgoj3Pc0G
-	wEuGHOBybqf98c0QSdgFvKN06qFxEGkkFzm9paepxMEBWW1m2/FBjxadobQxi2TZGEmZBB56tI2
-	B81yRCaz3ppZy0CSbuFQ4HpvTdDTAnnBfjp2+9K3qdB+ky7F
-X-Received: by 2002:a05:6a21:46c9:b0:398:7ffe:472f with SMTP id
- adf61e73a8af0-3b53bbe7ddemr8176176637.2.1781063481857; Tue, 09 Jun 2026
- 20:51:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bVAv/P1v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2971F0089D
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781064930;
+	bh=FOb09lhVyzCo5zVnmWS90KSnu3Di5QWTaMjXUNZXMAY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bVAv/P1vWSpoX8qLcxvbxuWuwCP3U5CdRvnwQzW0yM9ucD1S43C1RZL0sPiznJL0X
+	 aBlgx2YXHjVLhoFoEawfRcpoFB4o2QsvvrCEHbJIGAPlJamN0IVLf446NJivRg2nZS
+	 LQiHXh/N8/61C5OKIIe3NkOTAEs/hrSq7VYsH4EDa5uwaSpOGiVJwhcFkW/6/ixF9f
+	 JXjIa/VznJOlc/Sbxf5dPpNfVlFzBO+PMxQhBGszgCdh/TutBhOMSYxeRHEZSr2Z0i
+	 eqzE9HKzTHeKoiNHjKeUux9pMKkhCtXDojpcf77NjeSOEHLRRAJRMuP0qUJb5pqf8B
+	 E7N/r58CYJ4lg==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6913160c9ddso8381541a12.2
+        for <devicetree@vger.kernel.org>; Tue, 09 Jun 2026 21:15:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ80Pv99gbUprTeyEh3CixRg1AAL5bBdGDbPxPQrfYmVtlz3vFiP5NSFrdwRgbVL08ktI0rXRO1ofJ5o@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywu4XWq79D/n1yw7yjec8Eq7yN8G2HZHsJtKYLLj0gJc5tielpv
+	Wrg95InZuWoCbet5B7W7HdlgC8y7CTvauZzIzOCCZutQn9OxbgPY/tirzUMEXbFqrf5Tkjw6qVM
+	aJ1/ErHn3qKgiNBLx9+P9/4jZsumOw6g=
+X-Received: by 2002:a50:eb47:0:b0:68f:cc95:ba5c with SMTP id
+ 4fb4d7f45d1cf-68fcc95bb2bmr6751799a12.28.1781064928879; Tue, 09 Jun 2026
+ 21:15:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260609113836.45079-1-phucduc.bui@gmail.com> <20260609113836.45079-2-phucduc.bui@gmail.com>
- <20260609-eager-nightingale-of-devotion-b6ca1f@quoll>
-In-Reply-To: <20260609-eager-nightingale-of-devotion-b6ca1f@quoll>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Wed, 10 Jun 2026 10:51:10 +0700
-X-Gm-Features: AVVi8CdZKR_uJCuqPpU7lvaDdZ2lLhaOObi_ZoDUvMu1Slc74HJdSHgV3aKtf8g
-Message-ID: <CAABR9nGuSJ96reQmZqCNT2z-z9op4N80xTPvbWHuVwC-6A3exg@mail.gmail.com>
-Subject: Re: [PATCH v6 01/11] ASoC: dt-bindings: renesas,fsi: add support
- multiple clocks
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260609090543.1462-1-wanghongliang@loongson.cn>
+In-Reply-To: <20260609090543.1462-1-wanghongliang@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 10 Jun 2026 12:15:16 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5UHa+AZG_NQ_Y6Q69TNRYnM8dYKfnz8m7VPEOB_1mSKw@mail.gmail.com>
+X-Gm-Features: AVVi8Cc1jdTH3h7ZNmpNTCXkEU-TRVFKam_RyKaNX1XQp4hhaEffQ7iNGthpn6s
+Message-ID: <CAAhV-H5UHa+AZG_NQ_Y6Q69TNRYnM8dYKfnz8m7VPEOB_1mSKw@mail.gmail.com>
+Subject: Re: [PATCH v1 0/3] LoongArch: dts: i2c: Add clocks and
+ clock-frequency properties
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krysztof,
+Applied, thanks.
 
+Huacai
+
+On Tue, Jun 9, 2026 at 5:06=E2=80=AFPM Hongliang Wang <wanghongliang@loongs=
+on.cn> wrote:
 >
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Hi all:
 >
-
-Thank you for your review and the tag.
-
-Best regards,
-Phuc
+> This patch set adds clocks and clock-frequency properties to i2c nodes of
+> LS2K0500/2K1000/2K2000 dts.
+>
+> Hongliang Wang (3):
+>   LoongArch: dts: i2c: Add clocks and clock-frequency properties to
+>     2K0500
+>   LoongArch: dts: i2c: Add clocks and clock-frequency properties to
+>     2K1000
+>   LoongArch: dts: i2c: Add clocks and clock-frequency properties to
+>     2K2000
+>
+>  arch/loongarch/boot/dts/loongson-2k0500.dtsi | 12 ++++++++++++
+>  arch/loongarch/boot/dts/loongson-2k1000.dtsi |  4 ++++
+>  arch/loongarch/boot/dts/loongson-2k2000.dtsi |  4 ++++
+>  3 files changed, 20 insertions(+)
+>
+> --
+> 2.47.2
+>
+>
