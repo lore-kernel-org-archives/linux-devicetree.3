@@ -1,539 +1,384 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AFD3FADED
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCE63FCB3A
+	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 11:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781091578; cv=none; b=ElwurLD/lUMj1DQHZHaVN9PiWfkgxk73shTQZsYwkqU+bt+5c9QloxRiC/bUCpAMK6jSw3zW7g5llGljolwxfrFJidzTdhlHNqYMNzy6nlEpgiLR01SCp1Jf3L7Kcv9Al0sAHUmkT9Yfp//GNZ2S3QN1pS5RZAYQ2JfaPR26bcQ=
+	t=1781091614; cv=none; b=lZ7UEqsycjKuxFy/8m9jMS5V6JCeFOfOZG2yjIPYOclIiqDq64m0tg0g6CNMhLhhgUmzUcmSjvaK7ZzeMP2/xnkOWE7MQzKVg8dJ+Bx+8KpN2x//hE6YME0aOaAVwpEIPxbhs4LiOA5KBprxZYVNp2/zxDqi7pE8gOXFML0dVFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781091578; c=relaxed/simple;
-	bh=KsvLmvVNiMncHagBXZqXlz/cXl74wxRq4F0VN5QB644=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pUfOtkYzzT5rraxfdaq0ZROOA+Gp4hFNvoJUWxUXCjqRqV7I1AZoffYH4TKPG3laRQVrB7dkdiZWO5sKFcIEQ0oCpZiTDp4yBY+EQRZmNnkeUX4sl9UbBlrQLLd4A4mCXK9eKuk2RR5aPDa4Lw17pAvHkSoEKXPnDG05zLCXCgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XB/LcSNX; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781091614; c=relaxed/simple;
+	bh=XTXPz417NNDRY9tbtz/ji6BoACUBzgx43s55K1Kjass=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YFN6M6zUDOA0aEZ3dO2iJGrcts/GN6U8rG6fnHzBk+kDhyKSbb2/SSy8H5gycRtK76ZYjFVHl1KklMNZYxaImMXlQ73WKK2/ajVqdsAjbOQIOpk5Up4VQI/XwH11vDiW2KLuZBrVNJ0ZrlwKI4DRVDNAUJpxhMKthb+qjwQDVx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bljldU2P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XB/LcSNX"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4601949975dso1268751f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 04:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781091574; x=1781696374; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UXJk2sCEG5oSJVY0V936sPdK0lXWszmX07MVArIqGxw=;
-        b=XB/LcSNXvtn2q7Dbhj00Lf3Dt6jaEWgkd1iRf9amLqfXbFcSnAIMq5Hz0JUxpL5Qp+
-         ITaaOO1nC/mrsllyzA+QlZluj0+yisQdcy4Exh91OEEwivi8jiXFGbfCFHb7gve2ryrZ
-         lttvDDiT3zWOhFzQqSnrivaCL2tS3/hU33CQVG1RMAaXXBwGZ+K8m/4CSNptCFQUbHvU
-         lus3Ljd+ntxkmhxCCMH66utJvmxznxJdC7TxA6uHh2YQ6pGIJzaYDO14/ijr9PqkEytg
-         1ysvSgY90fbHAbFGfUcy68132Fi58n7R8yG8MJ3FdPwUkd0XxEyCnaxK4c2KLbHW0nZs
-         8pxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781091574; x=1781696374;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=UXJk2sCEG5oSJVY0V936sPdK0lXWszmX07MVArIqGxw=;
-        b=d3nPV0U9wrqvgr6LmLVdDIX7e06awRQ5oPGBKiS3qBr0OJ+HGTSH6yB/etSoBgeigw
-         jFXB+WSdbUtrd5bzSUxpiDXLpGXb+npOMunpYWixIjY//25tjDVafYR0NbQ//bzb0/eo
-         67VtkXfII3So3OmJzySnA2nDjs87WWzs+fboNAnrlNPqSa0fWSBFYhtAu588Ebmi/ItR
-         5IJcILAhtFX0cj53aQOr2s4crL/gg6XIFtHxbByfGI1JS0/nZ/7X/H9MnYOInh3Ra5hb
-         WqsW0D1ON1j5gjQxd5ThnbZvWx/mRL4xv41fECiEVQ0jUcumkQ1TWPPAy6ifZRpjHdNQ
-         zqqg==
-X-Forwarded-Encrypted: i=1; AFNElJ8RwXBrjj5KWv70AbtHWdDnmKAh8Ezy/AfqqH12b4SSXxEjs0QSh+09NmDTrhBMGP/g7KtiIhWnywHz@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzk20AJojwmqHC6VCR5M3jeD4piM9HWh1TX/tDzpqICEZCBVnBl
-	8Re+/w4zXlAyKEf/0FMzAhmLRH0xyE+41p3jPzLlYkZJj3rk/VJ2ArvS
-X-Gm-Gg: Acq92OH9SDF28sCLFzAak4euZ9jdoDwicxDHABRHu4GUwHHXmvkmS0yeSv6nEnYdN1s
-	gnMssOk2GZL5PzfAtf2G/tav+FL27J1mdksmjgDEVr9ZHOdvgqpnQMybEZhgvpC8V1nNtVJwJQI
-	kfBgnky/Xedh4Ywyu/A0Dv5+iFrklCByFPVxIVQOqM5vnA/OaBTP89y98vdvDshSNoRGhICdXj0
-	iYnC/tEFvlLPpoTfWsONyTZqk7qCneZnwE1AcV7w1pC0AxXpJwBMcOhvyIVOXNfI4Ej09h5JdRB
-	Na79j4rdcyetCCt/WCV3jmr7ISTy6TzdTiczo1UDX9Qh1vzctStunU2srShXEWykoS91lgVgdKn
-	WQ+YjuUOeTU5FF5AFxCi6AsNAfGURw2GvUq7cZeZs3PqIQrAO+sZDCV5PswwtrtdVDUQKUg1VpM
-	0/d+0aPrsPtCSMIaH/MBHGvqhcBKmeCWHiecaLeL4=
-X-Received: by 2002:adf:f40b:0:b0:45e:f28e:a00d with SMTP id ffacd0b85a97d-460302ec07fmr28217587f8f.16.1781091574087;
-        Wed, 10 Jun 2026 04:39:34 -0700 (PDT)
-Received: from [192.168.8.79] ([2a00:f502:260:7c0c:c5aa:32d2:49d:5951])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344148sm68042009f8f.19.2026.06.10.04.39.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:39:33 -0700 (PDT)
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Wed, 10 Jun 2026 14:38:58 +0300
-Subject: [PATCH v4 2/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
- add initial device tree
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bljldU2P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8501F00893;
+	Wed, 10 Jun 2026 11:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781091610;
+	bh=Ou4Oe0huuTb4StKZ1aEK4BC+UK3bkYkeopZnF3CmCfo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bljldU2PBiVDzmj9brMpveK5W/qAHKFO1ktzGEEklz5pTKYeLGTTqoidv06NZEKpW
+	 SJRpIli1TSNMisC5Bq4ZjuHjCO9oy0h8H110OSHWZg9WcZelhrq46/61nlf64iMJWl
+	 05fIRvF73eDUNB4rO0f9zbrJSPc2oe2LYZPsR1ZO99QuYkf/CvPjxdU7fk6ZF+OEPZ
+	 +GQ9HHFomIkY7l5WmgsAyPd02pubGzD3lOUMFHlQrCOJuegPIx9ESJe6jIksOapnD5
+	 vYXN7sijOAMRPJWpiy5Eo4eVmnsbKTr7DXCU0ayKyAD/GNdHM6D20JADNBICFTkU7t
+	 PrJhXIex4hKgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] tty: serial: Add UART driver for Cortina-Access
+ platform
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jason Li" <jason.lee651024@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260610112821.3030099-4-jason.li@cortina-access.com>
+References: <20260610112821.3030099-4-jason.li@cortina-access.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 11:40:10 +0000
+Message-Id: <20260610114010.9B8501F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-yukon-eagle-v4-2-763d5698bd2c@gmail.com>
-References: <20260610-yukon-eagle-v4-0-763d5698bd2c@gmail.com>
-In-Reply-To: <20260610-yukon-eagle-v4-0-763d5698bd2c@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
 
-Add device tree for Sony Xperia M2 (sony-eagle) smartphone
-based on the Qualcomm MSM8926 SoC.
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [High] Global array allocation, port slot selection, and cleanup lack syn=
+chronization, leading to race conditions, memory leaks, and UAF.
+- [High] Kernel panic in `cortina_console_setup()` due to NULL pointer dere=
+ference when called for an unprobed UART index.
+- [High] `cortina_poll_put_char()` uses `jiffies` for timeout calculations,=
+ resulting in an infinite loop and system hang.
+- [High] Read-modify-write operations on the CFG register are performed wit=
+hout holding the port lock, leading to TOCTOU state corruption.
+- [High] The console write function disables hardware interrupts and then t=
+akes a sleeping spinlock, triggering a lockdep splat on PREEMPT_RT.
+- [Medium] The RX interrupt handler incorrectly applies a single, one-time =
+error status to all characters drained from the FIFO.
+- [Medium] Failed probes permanently leak port slots from the global `corti=
+na_uart_ports` array.
+- [Medium] The wakeup source initialized during probe is never disabled, ca=
+using a memory leak when the driver is unbound or fails to probe.
+- [Medium] The `cortina_uart_shutdown` callback performs read-modify-write =
+operations on the Interrupt Enable (IE) register without holding the port l=
+ock.
+- [Low] The console write function transmits an incorrect LF-CR (`\n\r`) se=
+quence instead of the standard CR-LF (`\r\n`).
+--
 
-Initial features:
-- Framebuffer
-- GPIO buttons (Volume Down and Camera)
-- Regulators
-- Internal storage
-- SD card
-- Accelerometer
-- Ambient Light/Proximity sensor
-- NFC
-- pm8226_resin (Volume Up)
-- Vibrator
-- USB/Charger
+commit fd0d487faa14545601b1e17f9d5e8a68bcd53bfd
+Author: Jason Li <jason.lee651024@gmail.com>
+Subject: tty: serial: Add UART driver for Cortina-Access platform
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
----
- arch/arm/boot/dts/qcom/Makefile                    |   1 +
- .../dts/qcom/msm8926-sony-xperia-yukon-eagle.dts   | 407 +++++++++++++++++++++
- 2 files changed, 408 insertions(+)
+This commit introduces a new UART driver for the Cortina-Access SoC platfor=
+m,
+adding support for the CAXXXX family along with earlycon and console
+functionality.
 
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index 32a44b02d2fa..6b471a346d82 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_QCOM) += \
- 	msm8226-motorola-falcon.dtb \
-+	msm8926-sony-xperia-yukon-eagle.dtb \
- 	qcom-apq8016-sbc.dtb \
- 	qcom-apq8026-asus-sparrow.dtb \
- 	qcom-apq8026-huawei-sturgeon.dtb \
-diff --git a/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
-new file mode 100644
-index 000000000000..b3ef39726b86
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
-@@ -0,0 +1,407 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Erikas Bitovtas <xerikasxx@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "msm8926.dtsi"
-+#include "pm8226.dtsi"
-+
-+/delete-node/ &adsp_region;
-+/delete-node/ &mba_region;
-+/delete-node/ &mpss_region;
-+/delete-node/ &smem_region;
-+
-+/ {
-+	model = "Sony Xperia M2";
-+	compatible = "sony,eagle", "qcom,msm8926", "qcom,msm8226";
-+	chassis-type = "handset";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		mmc1 = &sdhc_2;
-+		display0 = &framebuffer0;
-+	};
-+
-+	chosen {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		stdout-path = "display0";
-+
-+		framebuffer0: framebuffer@3201000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x03201000 0x800000>;
-+			width = <540>;
-+			height = <960>;
-+			stride = <(540 * 3)>;
-+			format = "r8g8b8";
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_BYTE0_CLK>,
-+				 <&mmcc MDSS_MDP_CLK>,
-+				 <&mmcc MDSS_PCLK0_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			power-domains = <&mmcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&gpio_keys_default>;
-+		pinctrl-names = "default";
-+
-+		button-camera-focus {
-+			label = "Camera Focus";
-+			gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_CAMERA_FOCUS>;
-+			debounce-interval = <15>;
-+		};
-+
-+		button-camera-snapshot {
-+			label = "Camera Snapshot";
-+			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_CAMERA>;
-+			debounce-interval = <15>;
-+		};
-+
-+		button-volume-down {
-+			label = "Volume Down";
-+			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	reserved-memory {
-+		framebuffer@3201000 {
-+			reg = <0x03201000 0x800000>;
-+			no-map;
-+		};
-+
-+		mpss_region: mpss@8000000 {
-+			reg = <0x08000000 0x4d00000>;
-+			no-map;
-+		};
-+
-+		reserved@cd00000 {
-+			reg = <0x0cd00000 0x200000>;
-+			no-map;
-+		};
-+
-+		mba_region: mba@d100000 {
-+			reg = <0x0d100000 0x3a000>;
-+			no-map;
-+		};
-+
-+		reserved@d13a000 {
-+			reg = <0x0d13a000 0xc6000>;
-+			no-map;
-+		};
-+
-+		wcnss_region: wcnss@d200000 {
-+			reg = <0x0d200000 0x5ae000>;
-+			no-map;
-+		};
-+
-+		reserved@d850000 {
-+			reg = <0x0d850000 0x3b0000>;
-+			no-map;
-+		};
-+
-+		adsp_region: adsp@dc00000 {
-+			reg = <0x0dc00000 0x1400000>;
-+			no-map;
-+		};
-+
-+		reserved@f000000 {
-+			reg = <0x0f000000 0x500000>;
-+			no-map;
-+		};
-+
-+		venus_region: venus@f500000 {
-+			reg = <0x0f500000 0x500000>;
-+			no-map;
-+		};
-+
-+		smem_region: smem@fa00000 {
-+			reg = <0x0fa00000 0x100000>;
-+			no-map;
-+		};
-+
-+		reserved@fb00000 {
-+			reg = <0x0fb00000 0x280000>;
-+			no-map;
-+		};
-+
-+		rmtfs@fd80000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0x0fd80000 0x180000>;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+		};
-+	};
-+};
-+
-+&blsp1_i2c2 {
-+	status = "okay";
-+
-+	accelerometer@f {
-+		compatible = "kionix,kxtj21009";
-+		reg = <0x0f>;
-+
-+		interrupts-extended = <&tlmm 49 IRQ_TYPE_EDGE_RISING>;
-+
-+		vdd-supply = <&pm8226_l19>;
-+		vddio-supply = <&pm8226_lvs1>;
-+
-+		mount-matrix = "0",  "1", "0",
-+			       "-1", "0", "0",
-+			       "0",  "0", "1";
-+	};
-+
-+	light-sensor@48 {
-+		compatible = "sensortek,stk3310";
-+		reg = <0x48>;
-+
-+		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
-+
-+		proximity-near-level = <1700>;
-+	};
-+};
-+
-+&blsp1_i2c3 {
-+	status = "okay";
-+
-+	nfc@28 {
-+		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
-+		reg = <0x28>;
-+
-+		interrupts-extended = <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
-+
-+		enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
-+		firmware-gpios = <&tlmm 22 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&pm8226_resin {
-+	linux,code = <KEY_VOLUMEUP>;
-+
-+	status = "okay";
-+};
-+
-+&pm8226_vib {
-+	status = "okay";
-+};
-+
-+&rpm_requests {
-+	regulators {
-+		compatible = "qcom,rpm-pm8226-regulators";
-+
-+		pm8226_s3: s3 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1300000>;
-+		};
-+
-+		pm8226_s4: s4 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2200000>;
-+		};
-+
-+		pm8226_s5: s5 {
-+			regulator-min-microvolt = <1150000>;
-+			regulator-max-microvolt = <1150000>;
-+		};
-+
-+		pm8226_l1: l1 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l3: l3 {
-+			regulator-min-microvolt = <750000>;
-+			regulator-max-microvolt = <1287500>;
-+		};
-+
-+		pm8226_l4: l4 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l5: l5 {
-+			regulator-min-microvolt = <1050000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l6: l6 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l7: l7 {
-+			regulator-min-microvolt = <1850000>;
-+			regulator-max-microvolt = <1850000>;
-+		};
-+
-+		pm8226_l8: l8 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l9: l9 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l10: l10 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l12: l12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l14: l14 {
-+			regulator-min-microvolt = <2750000>;
-+			regulator-max-microvolt = <2750000>;
-+		};
-+
-+		pm8226_l15: l15 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8226_l16: l16 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3350000>;
-+		};
-+
-+		pm8226_l17: l17 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l18: l18 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+
-+			regulator-system-load = <200000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l19: l19 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+		};
-+
-+		pm8226_l20: l20 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3075000>;
-+		};
-+
-+		pm8226_l21: l21 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l22: l22 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l23: l23 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l24: l24 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1350000>;
-+		};
-+
-+		pm8226_l25: l25 {
-+			regulator-min-microvolt = <1775000>;
-+			regulator-max-microvolt = <2125000>;
-+		};
-+
-+		pm8226_l26: l26 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l27: l27 {
-+			regulator-min-microvolt = <2100000>;
-+			regulator-max-microvolt = <2100000>;
-+		};
-+
-+		pm8226_l28: l28 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_lvs1: lvs1 {};
-+	};
-+};
-+
-+&smbb {
-+	qcom,fast-charge-current-limit = <1500000>;
-+	qcom,fast-charge-safe-voltage = <4250000>;
-+	qcom,minimum-input-voltage = <4200000>;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8226_l17>;
-+	vqmmc-supply = <&pm8226_l6>;
-+
-+	bus-width = <8>;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_2 {
-+	vmmc-supply = <&pm8226_l18>;
-+	vqmmc-supply = <&pm8226_l21>;
-+
-+	bus-width = <4>;
-+	cd-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	gpio_keys_default: gpio-keys-default-state {
-+		pins = "gpio106", "gpio107", "gpio108";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+};
-+
-+&usb {
-+	extcon = <&smbb>;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	extcon = <&smbb>;
-+	v1p8-supply = <&pm8226_l10>;
-+	v3p3-supply = <&pm8226_l20>;
-+};
+> diff --git a/drivers/tty/serial/serial_cortina-access.c b/drivers/tty/ser=
+ial/serial_cortina-access.c
+> new file mode 100644
+> index 0000000000000..f25eae987ccdc
+> --- /dev/null
+> +++ b/drivers/tty/serial/serial_cortina-access.c
 
--- 
-2.54.0
+[ ... ]
 
+> +static void cortina_uart_shutdown(struct uart_port *port)
+> +{
+> +	cortina_uart_stop_tx(port);
+> +	cortina_uart_stop_rx(port);
+
+[Severity: Medium]
+Could this corrupt the IE register state? The serial core calls the shutdown
+callback without holding the port lock, but the stop_tx and stop_rx functio=
+ns
+perform read-modify-write operations on the IE register.
+
+> +	free_irq(port->irq, port);
+> +}
+
+[ ... ]
+
+> +static void cortina_uart_set_termios(struct uart_port *port,
+> +				     struct ktermios *termios,
+> +				     const struct ktermios *old)
+> +{
+> +	unsigned long flags;
+> +	int baud;
+> +	unsigned int reg_v, sample_freq =3D 0;
+> +
+> +	baud =3D uart_get_baud_rate(port, termios, old, 0, 230400);
+> +	reg_v =3D readl(port->membase + CFG);
+
+[Severity: High]
+Is the CFG register read vulnerable to TOCTOU corruption here? The CFG
+register is read into a local variable outside the port lock, but it is=20
+written inside the lock later. If another context acquires the lock and
+modifies CFG concurrently, it seems this could overwrite and lose those
+changes.
+
+> +	/* mask off the baud settings */
+> +	reg_v &=3D 0xff;
+
+[ ... ]
+
+> +static void cortina_access_power(struct uart_port *port, unsigned int st=
+ate,
+> +				 unsigned int oldstate)
+> +{
+> +	unsigned int reg_v;
+> +
+> +	reg_v =3D readl(port->membase + CFG);
+
+[Severity: High]
+Does this need to hold the port lock? The CFG register is read and written
+here with no locking, which might race with other register accesses.
+
+> +	switch (state) {
+> +	case UART_PM_STATE_ON:
+> +		reg_v |=3D CFG_UART_EN;
+> +		break;
+
+[ ... ]
+
+> +#ifdef CONFIG_CONSOLE_POLL
+> +static int cortina_poll_get_char(struct uart_port *port)
+> +{
+> +	if (readl(port->membase + INFO) & INFO_RX_EMPTY)
+> +		return NO_POLL_CHAR;
+> +
+> +	return readl(port->membase + RX_DAT);
+> +}
+> +
+> +static void cortina_poll_put_char(struct uart_port *port, unsigned char =
+c)
+> +{
+> +	unsigned long time_out;
+> +
+> +	time_out =3D jiffies + usecs_to_jiffies(TX_TIMEOUT);
+> +
+> +	while (time_before(jiffies, time_out) &&
+> +	       (readl(port->membase + INFO) & INFO_TX_FULL))
+> +		cpu_relax();
+
+[Severity: High]
+Will this loop hang the system? Since this polling function is called from =
+the
+kgdb framework with local hardware interrupts disabled, jiffies will not
+increment. Should atomic polling loops use udelay and an iteration counter
+instead?
+
+> +
+> +	/* Give up if FIFO stuck! */
+> +	if (readl(port->membase + INFO) & INFO_TX_FULL)
+> +		return;
+
+[ ... ]
+
+> +static inline void cortina_uart_interrupt_rx_chars(struct uart_port *por=
+t,
+> +						   unsigned long status)
+> +{
+
+[ ... ]
+
+> +	/* Read characters while FIFO is not empty */
+> +	do {
+> +		flg =3D TTY_NORMAL;
+> +		port->icount.rx++;
+> +		ch =3D readl(port->membase + RX_DAT);
+> +		if (status & RX_PARITY_ERRE) {
+
+[Severity: Medium]
+Could this artificially inflate error statistics? The status argument is re=
+ad
+once before the loop, but it is evaluated against every character drained f=
+rom
+the FIFO. If an error bit was set initially, it looks like every subsequent
+valid character in the batch is flagged as an error.
+
+> +			port->icount.parity++;
+> +			flg =3D TTY_PARITY;
+> +		}
+
+[ ... ]
+
+> +#ifdef CONFIG_SERIAL_CORTINA_ACCESS_CONSOLE
+> +static void cortina_console_write(struct console *co, const char *s,
+> +				  unsigned int count)
+> +{
+> +	struct uart_port *port;
+> +	struct cortina_uart_port *pca_port;
+> +	unsigned int i, previous;
+> +	unsigned long flags;
+> +	int locked;
+> +
+> +	pca_port =3D cortina_uart_get_port(co->index);
+> +	port =3D &pca_port->uart;
+> +
+> +	local_irq_save(flags);
+> +	if (port->sysrq) {
+> +		locked =3D 0;
+> +	} else if (oops_in_progress) {
+> +		locked =3D spin_trylock(&port->lock);
+> +	} else {
+> +		spin_lock(&port->lock);
+
+[Severity: High]
+Will this cause a sleeping-while-atomic lockdep warning on PREEMPT_RT?
+Disabling hardware interrupts and then acquiring a sleeping lock (like
+spinlock_t on RT kernels) is not allowed. Should this use
+uart_port_lock_irqsave instead?
+
+> +		locked =3D 1;
+> +	}
+
+[ ... ]
+
+> +	/* Write all the chars */
+> +	for (i =3D 0; i < count; i++) {
+> +		/* Wait for the TX buffer to be empty */
+> +		while (!(readl(port->membase + INFO) & INFO_TX_EMPTY))
+> +			cpu_relax();
+> +
+> +		writel(*s, port->membase + TX_DAT);
+> +
+> +		/* CR/LF handling */
+> +		if (*s++ =3D=3D '\n') {
+
+[Severity: Low]
+Does this transmit an incorrect LF-CR sequence instead of the standard CR-L=
+F?
+It writes the current character and then appends a carriage return if the
+character was a newline. Could this be simplified by using uart_console_wri=
+te?
+
+> +			while (!(readl(port->membase + INFO) & INFO_TX_EMPTY))
+> +				cpu_relax();
+> +			writel('\r', port->membase + TX_DAT);
+> +		}
+> +	}
+
+[ ... ]
+
+> +static int __init cortina_console_setup(struct console *co, char *option=
+s)
+> +{
+> +	struct uart_port *port;
+> +	struct cortina_uart_port *pca_port;
+> +	int baud =3D 115200;
+> +	int bits =3D 8;
+> +	int parity =3D 'n';
+> +	int flow =3D 'n';
+> +
+> +	if (co->index < 0 || co->index >=3D UART_NR)
+> +		return -ENODEV;
+> +
+> +	pca_port =3D cortina_uart_get_port(co->index);
+> +	port =3D &pca_port->uart;
+> +
+> +	if (options)
+> +		uart_parse_options(options, &baud, &parity, &bits, &flow);
+> +
+> +	return uart_set_options(port, co, baud, parity, bits, flow);
+
+[Severity: High]
+Can this cause a kernel panic if a console is requested on an unprobed port
+index (e.g. via the command line)? It looks like this fetches a potentially
+zero-initialized port from the global array and passes it to uart_set_optio=
+ns,
+which will unconditionally dereference the port operations.
+
+> +}
+
+[ ... ]
+
+> +static int serial_cortina_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *np =3D pdev->dev.of_node;
+> +	struct cortina_uart_port *port;
+> +	struct resource *res;
+> +	struct clk *pclk_info;
+> +	int uart_idx;
+> +	int irq;
+> +	int ret;
+> +
+> +	if (!cortina_uart_ports) {
+> +		cortina_uart_ports =3D kcalloc(UART_NR, sizeof(*cortina_uart_ports),
+> +					     GFP_KERNEL);
+
+[Severity: High]
+Is there a race condition with this global array allocation? The
+cortina_uart_ports array is allocated and searched without any locking. Cou=
+ld
+concurrent probing of multiple instances lead to a double allocation and
+memory leak?
+
+> +		if (!cortina_uart_ports)
+> +			return -ENOMEM;
+> +	}
+> +
+> +	port =3D cortina_uart_ports;
+> +	for (uart_idx =3D 0; uart_idx < UART_NR; ++uart_idx) {
+> +		/* Find first empty slot */
+> +		if (strlen(port->name) =3D=3D 0)
+> +			break;
+> +		port++;
+> +	}
+> +
+> +	if (uart_idx >=3D UART_NR)
+> +		return -ENODEV;
+> +
+> +	snprintf(port->name, sizeof(port->name),
+> +		 "Cortina-Access UART%d", uart_idx);
+
+[Severity: Medium]
+If a subsequent initialization step fails in the probe function, does this
+permanently leak the port slot? The name is assigned to claim the slot, but
+it doesn't appear to be cleared on the error paths.
+
+[ ... ]
+
+> +	if (of_property_read_bool(np, "wakeup-source"))
+> +		port->may_wakeup =3D true;
+> +	if (of_property_read_bool(np, "break-indicator"))
+> +		port->has_bi =3D true;
+> +
+> +	if (port->may_wakeup)
+> +		device_init_wakeup(&pdev->dev, true);
+
+[Severity: Medium]
+Does this leak the wakeup source memory? device_init_wakeup is called to
+enable the wakeup source, but it is never disabled on the probe error path =
+or
+in the removal callback.
+
+> +
+> +	ret =3D uart_add_one_port(&cortina_uart_driver, &port->uart);
+
+[ ... ]
+
+> +static void serial_cortina_remove(struct platform_device *pdev)
+> +{
+> +	struct cortina_uart_port *pca_port =3D platform_get_drvdata(pdev);
+> +
+> +	if (pca_port) {
+> +		memset(pca_port->name, 0, CA_UART_NAME_LEN);
+> +		uart_remove_one_port(&cortina_uart_driver, &pca_port->uart);
+
+[Severity: High]
+Does clearing the slot name before unregistering the port open a race
+condition? If the name is cleared early, a concurrent probe might hijack the
+slot and overwrite the port state during active teardown.
+
+> +	}
+> +
+> +	platform_set_drvdata(pdev, NULL);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610112821.3030=
+099-1-jason.li@cortina-access.com?part=3D2
