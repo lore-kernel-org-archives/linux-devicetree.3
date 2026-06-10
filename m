@@ -1,102 +1,142 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328232F5A13
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6200923393E;
+	Wed, 10 Jun 2026 05:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781067821; cv=none; b=Sf8wVE1eWaQIrWOHbcNgjNcl6FOzvJ1ga/VaBa4eV24apFGmOpch8pC6zfRtLMA+AsRXgf1xOnev8UdjQqLwrp1lfaAsvEUucChUb+CxCltbACe2nvFi7/NdsiB2ZdIG9Kz8QFsIX4ech7kMwkf9CoxIR02EXIFW1z1tH8Q/NWg=
+	t=1781069398; cv=none; b=WZkdE3CuNRwLuqyMHfqiNvpoIernru0P41PgSroKvKKJjtM5ELoG4GqeII+pNDkr5750jgvSMgXciAyYFIG/n9GJQprw5IQ9EdWvq3D070yzQl8THpxjNWajvbPOiVU4W2OMiEBXQZU+bF0UCEssQ0ICSTfwpfI4GX4XthTzTOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781067821; c=relaxed/simple;
-	bh=noIEuo4m4RtxryyPPeDY5B2/yJAh86I1RrQWpaZuXrE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=mB5eJU3ONX82bj2BXGqZ+cd86ps+DB9Thbx9BAf53TR4ldx2LagEi69VX0+FZoA982gHCHLFWJCbZG9lqiQQFMm1I0WVRog4W4ctuJqMuCaKjqNGv5BIh3MbPh09Y+t9EYYivY9Evh8Zc4MTZuhSGRFvXfcxNGhFcHE3FRAI780=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bVUcxM80; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1781069398; c=relaxed/simple;
+	bh=apdwZ7rou12zXbDIPX+MxhDBa1i7yNhr4u5YXE2irHU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UtBJ2ZLY8WfzYSMVnWFRRjSMCG8b4C0jHuxMHUE0f6hFFZwDjliQiZgNGFm8U6glogCEciD40ne42QX1eFuewlVykoYre+M9NdtIT6W4sK/Pee7+h9HKVF3pwP86XWNKq0f24J+lH3M5ViivZs3vRglwHHg6PSgE4tUfDAptrxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfxDgH1x; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bVUcxM80"
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260610050338epoutp043dd0493faeee2140ed55c656b75c8fed~3n76JeKB82568725687epoutp04h
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 05:03:38 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260610050338epoutp043dd0493faeee2140ed55c656b75c8fed~3n76JeKB82568725687epoutp04h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1781067818;
-	bh=tkq0fRzfd/K901BPZoES6621kH5OMPmDRlzrVeU+Wpo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bVUcxM80ypG3mu7RLmUFFE5Ksemp/M8EeQ6D6qaYgy9vVxqVKN01lfu2JrrxsAuct
-	 IINqLGZzuK0BjbfJ/YV9yr1Bumi2hmedl8eoYRd9PZ5oHSs2LqROeXGXLfNuiQ4kRh
-	 iLXzX/At+Ylse6nR184dnKEX5ghRB9yZ4RgO5B0Q=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260610050338epcas2p3cd24a4eb507a20db2755a839f834cc72~3n751eDhx0715807158epcas2p3g;
-	Wed, 10 Jun 2026 05:03:38 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4gZtw95Xqmz3hhTJ; Wed, 10 Jun
-	2026 05:03:37 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260610050337epcas2p1f6d27933f30ac063454fd25acbde327f~3n75FdVWB1919519195epcas2p1r;
-	Wed, 10 Jun 2026 05:03:37 +0000 (GMT)
-Received: from asswp146.dsn.sec.samsung.com (unknown [12.81.221.119]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260610050337epsmtip20946b4cb4fa967ce2bcf483b8228ec99~3n74_1iwQ1096610966epsmtip2Q;
-	Wed, 10 Jun 2026 05:03:37 +0000 (GMT)
-From: Sanghoon Bae <sh86.bae@samsung.com>
-To: robh@kernel.org, krzk@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
-	alim.akhtar@samsung.com, kishon@kernel.org
-Cc: krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	sowon.na@samsung.com, Sanghoon Bae <sh86.bae@samsung.com>
-Subject: [PATCH v3 2/2] arm64: dts: exynosautov920: Add hsi0 syscon node for
- PCIe PHY
-Date: Wed, 10 Jun 2026 14:03:26 +0900
-Message-ID: <20260610050326.2903402-3-sh86.bae@samsung.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260610050326.2903402-1-sh86.bae@samsung.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfxDgH1x"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0C274C2BCB8;
+	Wed, 10 Jun 2026 05:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781069398;
+	bh=apdwZ7rou12zXbDIPX+MxhDBa1i7yNhr4u5YXE2irHU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=CfxDgH1x6hi60UGkFvYaFurvhOlYjhgYwlPWo53VwlBLgO3q8d4DZteh7pjI4MQMg
+	 WQWykqo0DhQTjAc4lZ63cY+GfDSrYPBOOF5rLAUB0PzzstO+DdSued21F4CIGeoT3y
+	 79sdNdJChnlOB1ikya6lCyXvlowXWR+eB3gwzSTxV2wKQn7dbINNTibrtnN2er2aSJ
+	 rqJYFmtGiT5u0BnFyYCznHIsMvUl1g/RZUjhDZv4zFlxYROWv/DuYWS5wNNNq1OSMY
+	 BC+Z5UMfwGX6IHD5QcuGgZBsGhZSa11hhDpi4y085BOCJ5Tlh7jzIo6esqhaBz9G0i
+	 cMyiIAOEsIqtw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0F9FCD8CB2;
+	Wed, 10 Jun 2026 05:29:57 +0000 (UTC)
+From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
+Subject: [PATCH v4 0/2] pinctrl: ultrarisc: add DP1000 pinctrl support
+Date: Wed, 10 Jun 2026 13:29:54 +0800
+Message-Id: <20260610-ultrarisc-pinctrl-v4-0-b7e9b2a8ed84@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260610050337epcas2p1f6d27933f30ac063454fd25acbde327f
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260610050337epcas2p1f6d27933f30ac063454fd25acbde327f
-References: <20260610050326.2903402-1-sh86.bae@samsung.com>
-	<CGME20260610050337epcas2p1f6d27933f30ac063454fd25acbde327f@epcas2p1.samsung.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFL2KGoC/23NSw6CMBgE4KuQrq3pG3DlPYyLUn6kBoG0QDSEu
+ 9tCosawnGTmmxl5cBY8OiUzcjBZb7s2BHFIkKl1ewNsy5ARI0wRThUem8FpZ73BvW3N4BoMlVb
+ AhBEZ4SjsegeVfa7m5bplPxZ3MEOEYqO2fujcaz2daOxtvqRyx58oJriopMxlloPO9PnTOZrug
+ eLHxL6KInRPYUEhqTaScqJzVe4p/FfJ9hQelLAnOZSpYKn8V5ZleQPNn8BFVAEAAA==
+X-Change-ID: 20260316-ultrarisc-pinctrl-efa6e24c4803
+To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jia Wang <wangjia@ultrarisc.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781069395; l=3342;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=apdwZ7rou12zXbDIPX+MxhDBa1i7yNhr4u5YXE2irHU=;
+ b=u8fdlGbzSH3DKWPq1UBQO53LJssEw+Pff8FDcAyaV86JMk+oELpmcxZd25salpVyWdojlGe4q
+ Q/IWv2s7cQlCrCP9TD32es4nRRQkRBtqqVWkIEuk70gHQBlF+6zwpMK
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
+ auth_id=779
+X-Original-From: Jia Wang <wangjia@ultrarisc.com>
+Reply-To: wangjia@ultrarisc.com
 
-Add the syscon-hsi0 node to control PCIe PHY power, PLL settings,
-and device direction (RC/EP mode) on ExynosAutov920.
+This series adds the devicetree schema and the pinctrl driver for the
+DP1000 controller using generic pinctrl bindings.
 
-Signed-off-by: Sanghoon Bae <sh86.bae@samsung.com>
+Compared with v1, this series is narrowed down to the pinctrl binding
+and driver only. v1 patches 1, 2, 3, 5, 7, 8, and 9 (vendor prefix,
+CPU/SoC bindings, DTS files, and defconfig update) are not included in
+v2 and will be sent separately.
+
+Note:
+- ARCH_ULTRARISC support is being reviewed separately:
+  * Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-98935f6cdfb5@ultrarisc.com/
+
+Testing:
+- dt_binding_check and yamllint
+- Kernel build for RISC-V and boot-tested on DP1000 (Milk-V Titan and
+  Rongda M0)
+
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 ---
- arch/arm64/boot/dts/exynos/exynosautov920.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v4:
+- Drop the public DT binding header and document the numeric pin IDs
+  directly in the binding schema and examples.
+- Drop the unnecessary GPIOLIB select from the pinctrl Kconfig.
+- Replace the open-coded raw_spin_lock_irqsave()/unlock_irqrestore()
+  pairs with scoped guards.
+- Add comments for ur_find_group_route().
+- Remove the CONFIG_GENERIC_PINCONF ifdef around the generic pinconf
+  ops fields.
+- Link to v3: https://patch.msgid.link/20260608-ultrarisc-pinctrl-v3-0-30a09ed74275@ultrarisc.com
 
-diff --git a/arch/arm64/boot/dts/exynos/exynosautov920.dtsi b/arch/arm64/boot/dts/exynos/exynosautov920.dtsi
-index 0bf7c4cb9846..cc3ed5c52ffe 100644
---- a/arch/arm64/boot/dts/exynos/exynosautov920.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynosautov920.dtsi
-@@ -1382,6 +1382,12 @@ cmu_hsi0: clock-controller@16000000 {
- 				      "noc";
- 		};
- 
-+		syscon_hsi0: syscon@16030000 {
-+			compatible = "samsung,exynosautov920-hsi0-sysreg",
-+				     "syscon";
-+			reg = <0x16030000 0x1000>;
-+		};
-+
- 		pinctrl_hsi0: pinctrl@16040000 {
- 			compatible = "samsung,exynosautov920-pinctrl";
- 			reg = <0x16040000 0x10000>;
--- 
-2.45.2
+Changes in v3:
+- Re-add the DT binding header and use numeric pin IDs in the binding.
+- Replace instance-specific mux names with generic function names.
+- Tighten the schema constraints for A-D and LPC pins.
+- Switch the driver to pinctrl_generic_pins_function_dt_node_to_map()
+  and resolve mux routes from the pins + function combination.
+- Link to v2: https://patch.msgid.link/20260601-ultrarisc-pinctrl-v2-0-07ac5130a96d@ultrarisc.com
+
+Changes in v2:
+- Split the vendor prefix, CPU binding, SoC binding, DTS, and defconfig
+  patches out of this series for separate submission.
+- Drop the legacy DT node format from both the binding and the driver,
+  and switch to the generic pinctrl interface with
+  pinconf_generic_dt_node_to_map_all().
+- Drop the DT binding header from the series.
+- Replace the generic func0/func1 mux names with named hardware functions
+  in the binding and driver.
+- Wire the driver through CONFIG_PINCTRL_ULTRARISC and add COMPILE_TEST
+  coverage.
+- Restrict function selection to valid pins in the driver.
+- Link to v1: https://patch.msgid.link/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com
+
+---
+Jia Wang (2):
+      dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl controller
+      pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl driver
+
+ .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 130 ++++++
+ MAINTAINERS                                        |   7 +
+ drivers/pinctrl/Kconfig                            |   1 +
+ drivers/pinctrl/Makefile                           |   1 +
+ drivers/pinctrl/ultrarisc/Kconfig                  |  20 +
+ drivers/pinctrl/ultrarisc/Makefile                 |   4 +
+ drivers/pinctrl/ultrarisc/pinctrl-dp1000.c         | 168 +++++++
+ drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c      | 517 +++++++++++++++++++++
+ drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.h      |  63 +++
+ 9 files changed, 911 insertions(+)
+---
+base-commit: 2d3090a8aeb596a26935db0955d46c9a5db5c6ce
+change-id: 20260316-ultrarisc-pinctrl-efa6e24c4803
+
+Best regards,
+--  
+Jia Wang <wangjia@ultrarisc.com>
+
 
