@@ -1,130 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76FA348C70
-	for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 18:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDDC222582;
+	Wed, 10 Jun 2026 18:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781115905; cv=none; b=XSNF+UFwEwJHTmcflk3XOrCdLdTGtdfpIIwKWaA+OgA6rpYbYhvGWu+tBzSc4FZHRtRKVqn3ojCnTroIi0zzh5EmuedarBFMhT3Of1zyy9164wZGk2SIQfgQHo4YSAtPecmvuGGAgHKj9fkJo/m4UetGQ6+24g/VWNYWcAcyXZ8=
+	t=1781116687; cv=none; b=p7wVnXB8wqM7vz5EgXnwX7kmyqX0i93vp92EVZz5EbsX0yo1hkvT7AhYa25Hd5rNGE4xbowQC58fJMwdie90okodMPpmTCGvxdPRH9Pho/6Vw2XmKWeDRE7NyAT07C7DWNY8XoKDwzZ8ExR5BOrV5USD7JkoFPVECQE2CkKaFPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781115905; c=relaxed/simple;
-	bh=M6v2m8FKX7LBijBCnQz6iIPkYTF2ctUIGGH026VjGXY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TyLdwlzIjmIc8iX3hzcluqIFsLNNBT0bwSpFEgS4GwUHyrNHGDj5ibqkCGuXZUbi46ihPu8l7GXZnbs1lGbgTB60rrtJ0ewXSDC2EOXxv0LkFBa1UPhqPYlOZZvRsd7vzhxXNzhs5rtomvVW/09QZmSfdKgO3iyFamPx2tr6jh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oV2yQ7TX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781116687; c=relaxed/simple;
+	bh=7NxpVDL3U9isnRJLHACxXEAsc4azboP8sWPfRYo80Ds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sTH2G+eOz8EcnM0VmCkBXeGVZJKaamv5wCti1/kjfPYZ0jsMhoQA0N5AiyjnSao7OVWN+goA1YdebF/PHn6FZfxxd03Yvn+nSxX5SHYACVd9OL49hKoJbJhuRElDtWGdwtbNBu0E1qUrefqZ69EDjYzCX8uA4pZKsRz5HwP3sx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J289lOQh; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oV2yQ7TX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631801F00893;
-	Wed, 10 Jun 2026 18:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781115904;
-	bh=V/xwx4CCatY4jnNaOBYJxAgwxD3F5VUKWRWwlJ4y1wo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oV2yQ7TXVPKBv4ehpbb4C9fBNLdBshEPMQDhCJHpUpVerbn11ADIODBAkWVDACK8Q
-	 PzbvChWDNnLg0WtQhVt0buODbwC9Y28SW3Y1t6ZnkSXrNUOpYXtP8Ie/NjnQ5TYgNo
-	 pz9T36G1GlIPsC+sfhcn2tXDJLR7qulsbSe3MAHKA4It4fI5V2LYIh1t5EN0IjtCXL
-	 jLmzA2nZsCuZ3nHYhc/GD+FbMC5DFmigXuEYruOmJWBo4txofmR3p2GZk8lNKHQ4Rr
-	 rhejevMAyVP70QjI20iu/C2j9DNNBoYmJX4mrM971wcf+4VP0hXnggltgNeDbC7D+7
-	 CAUf4dEM739iw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V11 4/9] iio: imu: inv_icm42607: Add I2C and SPI For
- icm42607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260610175455.19006-5-macroalpha82@gmail.com>
-References: <20260610175455.19006-5-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 18:25:03 +0000
-Message-Id: <20260610182504.631801F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J289lOQh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781116684; x=1812652684;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7NxpVDL3U9isnRJLHACxXEAsc4azboP8sWPfRYo80Ds=;
+  b=J289lOQhzVhWJEV+KLeamRZJqxa6e1vBtxfpdhmSRjQf4JkQqPSDFQgR
+   fznddfv7LrvYf5a+bUtfujfSH50riO2oa+XwfblK6yIbZPAc7H8NzHMjm
+   v/LLRp1q2cFJeiZ96AJnGWzAwwZIhgFr3kQmVeKUCvC5Mjjefinp/SgH9
+   fNK9oqhpFn8aGs+xT9RKYq0f5uhCouC6k/1LnWSCIJZZF6H+JVOJgxbzm
+   IjPacT5DxlfIxxcRvE812BVG4PYwuqZFr8fXk+ew7+vyuk4uefatT70bo
+   2v0GNf43TpSH0VQvy0MZtLlADC/S4yelayqix8LnDf5gE9zJaIrw0caLM
+   A==;
+X-CSE-ConnectionGUID: UOnsywIkR9qtIM/d1QLu9g==
+X-CSE-MsgGUID: IsvhnkQXSmabfLxcIoM8ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983191"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="81983191"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 11:38:04 -0700
+X-CSE-ConnectionGUID: At8iO3BCQcekizLr5CqvQw==
+X-CSE-MsgGUID: y8KMfhWISiKYJbKXdkM3nw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="248120180"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.38])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 11:38:01 -0700
+Date: Wed, 10 Jun 2026 21:37:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Louis Adamian <adamianlouis@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: pressure: ms5637: Add variant specific
+ temperature compensation
+Message-ID: <aimvBvJp8CsNKlPU@ashevche-desk.local>
+References: <20260610020458.104818-1-adamianlouis@gmail.com>
+ <20260610020458.104818-3-adamianlouis@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260610020458.104818-3-adamianlouis@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing `<linux/bitfield.h>` include for the `FIELD_PREP` macro.
---
+On Tue, Jun 09, 2026 at 10:04:58PM -0400, Louis Adamian wrote:
+> Add correct temperature compensation for ms5637-30BA, MS5803-01BA,02BA,
+> 05BA, 14BA, 30BA, MS5837-30BA. The temperature compensation formula is
+> shared across these sensors but with different constants. Add
+> ms_tp_comp_consts to capture these per-device differences. Add pressure
+> variant specific pressure scale variable.
 
-commit 20b53f9fe7967725a7d83e31eaa40543016b6759
-Author: Chris Morgan <macromorgan@hotmail.com>
+Is there SPI driver? If so, why only i2c is affected?
 
-iio: imu: inv_icm42607: Add I2C and SPI For icm42607
+...
 
-Add I2C and SPI driver support for InvenSense ICM-42607 devices.
-Add necessary Kconfig and Makefile to allow building of (incomplete)
-driver.
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c b/drivers/ii=
-o/imu/inv_icm42607/inv_icm42607_i2c.c
-> new file mode 100644
-> index 0000000000000..2946d54658535
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
-> @@ -0,0 +1,92 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2026 InvenSense, Inc.
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "inv_icm42607.h"
-> +
-> +static int inv_icm42607_i2c_bus_setup(struct inv_icm42607_state *st)
+> +/* apply second order temperature compensation */
+> +static void ms_tp_compensate(const struct ms_tp_comp_consts *c,
+> +			     s32 temp, s32 dt, s64 *t2, s64 *off2, s64 *sens2)
 > +{
-> +	unsigned int val;
-> +	int ret;
+> +	if (temp < 2000) {
+> +		s64 tmp = (s64)temp - 2000;
 
-[ ... ]
+Why casting?
 
-> +	ret =3D regmap_clear_bits(st->map, INV_ICM42607_REG_INTF_CONFIG1,
-> +				INV_ICM42607_INTF_CONFIG1_I3C_DDR_EN |
-> +				INV_ICM42607_INTF_CONFIG1_I3C_SDR_EN);
-> +	if (ret)
-> +		return ret;
 > +
-> +	val =3D FIELD_PREP(INV_ICM42607_DRIVE_CONFIG2_I2C_MASK,
-> +			 INV_ICM42607_SLEW_RATE_12_36NS);
+> +		*t2 = (c->low_t2_multiplier * ((s64)dt * (s64)dt)) >>
+> +		      c->low_t2_shift;
+> +		*off2 = (c->low_off2_multiplier * tmp * tmp) >>
+> +			c->low_off2_shift;
+> +		*sens2 = (c->low_sens2_multiplier * tmp * tmp) >>
+> +			 c->low_sens2_shift;
 
-[Severity: Low]
-Does this code require including <linux/bitfield.h>?
 
-This driver, along with inv_icm42607_spi.c, inv_icm42607_core.c, and macro
-definitions in inv_icm42607.h heavily use FIELD_PREP(), but the bitfield
-header isn't included here or in the shared header. Will this result in
-implicit declaration or undefined macro errors during compilation?
+> +		if (temp < -1500) {
+> +			s64 tmp_vlow = (s64)temp + 1500;
 
-[ ... ]
+Missing blank line. But Q here is why tmp can't be used here?
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c b/drivers/ii=
-o/imu/inv_icm42607/inv_icm42607_spi.c
-> new file mode 100644
-> index 0000000000000..3485777ac5b6e
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+> +			*off2 += c->vlow_off2_multiplier * tmp_vlow * tmp_vlow;
+> +			*sens2 +=
+> +				c->vlow_sens2_multiplier * tmp_vlow * tmp_vlow;
 
-[ ... ]
+Make it one line.
 
-> +	ret =3D regmap_clear_bits(st->map, INV_ICM42607_REG_INTF_CONFIG1,
-> +				INV_ICM42607_INTF_CONFIG1_I3C_DDR_EN |
-> +				INV_ICM42607_INTF_CONFIG1_I3C_SDR_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	val =3D FIELD_PREP(INV_ICM42607_DRIVE_CONFIG3_SPI_MASK,
-> +			 INV_ICM42607_SLEW_RATE_2NS);
+> +		}
+> +	} else {
+> +		*sens2 = 0;
+> +		if (c->has_vhigh_temp && temp > 4500)
+> +			*sens2 -= (((s64)temp - 4500) * ((s64)temp - 4500)) >> 3;
 
-[Severity: Low]
-Similar to the I2C driver, should <linux/bitfield.h> be included for this
-FIELD_PREP() usage?
+Here...
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610175455.1900=
-6-1-macroalpha82@gmail.com?part=3D4
+> +		*t2 = (c->high_t2_multiplier * ((s64)dt * (s64)dt)) >>
+> +		      c->high_t2_shift;
+> +		*off2 = (c->high_off2_multiplier *
+> +			 ((s64)temp - 2000) * ((s64)temp - 2000)) >>
+
+...and here you may also use tmp, just make it global to the function.
+
+> +			c->high_off2_shift;
+> +	}
+> +}
+
+Overall this all needs a good comment or even comments to explain all
+calculations with the references to the respective sections / tables / pages
+in the datasheet.
+
+...
+
+> int ms_sensors_read_temp_and_pressure(struct ms_tp_dev *dev_data,
+
+>  	s32 dt, temp;
+>  	s64 off, sens, t2, off2, sens2;
+>  	u16 *prom = dev_data->prom, delay;
+> +	const struct ms_tp_comp_consts *c = dev_data->comp_consts;
+
+Try to keep more or less reversed xmas tree order.
+
+...
+
+>   * struct ms_tp_dev - Temperature/Pressure sensor device structure
+>   * @client:	i2c client
+
+>   * @prom:	array of PROM coefficients used for conversion. Added element
+>   *              for CRC computation
+>   * @res_index:	index to selected sensor resolution
+> + * @comp_consts: temperature compensation constants
+>   */
+>  struct ms_tp_dev {
+>  	struct i2c_client *client;
+
+>  	const struct ms_tp_hw_data *hw;
+>  	u16 prom[MS_SENSORS_TP_PROM_WORDS_NB];
+>  	u8 res_index;
+> +	const struct ms_tp_comp_consts *comp_consts;
+
+Please, check with `pahole` if this is the best layout.
+
+>  };
+
+>  struct ms_tp_data {
+>  	const char *name;
+>  	const struct ms_tp_hw_data *hw;
+> +	const struct ms_tp_comp_consts *comp_consts;
+>  };
+
+Can this be simply embedded into ms_tp_dev (and copied there if required)?
+
+...
+
+>  		case IIO_PRESSURE:	/* in kPa */
+> -			*val = pressure / 1000;
+> -			*val2 = (pressure % 1000) * 1000;
+> +			*val = pressure / dev_data->comp_consts->press_scale;
+> +			*val2 = (pressure %
+> +				 (s64)dev_data->comp_consts->press_scale) *
+> +				(1000000 / dev_data->comp_consts->press_scale);
+
+MICRO (might need units.h)?
+
+>  			return IIO_VAL_INT_PLUS_MICRO;
+
+...
+
+Have you considered to prepare the infrastructure in one patch and add
+the actual compensation data tables in another?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
