@@ -1,161 +1,145 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651CF3C9EC2
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB463CAE66
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781172075; cv=none; b=f/PfL8KyzV881a6Nlw/tyPRd8hl1lI5i7Dg1POYJmJgp2url8+9PX3hyoBclmAf88aEE7/NJPfXvISw4z+3v9PFHfzQpyKO9wo+WQ671vl6QB1uiAhJ4reeqwVxySjSrMWch6R+HrNTPNs3NsiDAvIgloPAOaC7e72rr2CBpN5E=
+	t=1781172097; cv=none; b=La7gM2qkDVV/eVNvB6ZLTXHMh9sed+ivB3Ranu0C/6NBeWJYg2dLqeFvp830pX9GAGLHCGoHNu2bZV+ucE3GPWVPPl+kenm55i7YVp/XVZHpI4Gu7ZRlrS9lbIaMRgxGiBG17oPhfnijnG4adUu27s4A0c/xsCGjARh65zAlSD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781172075; c=relaxed/simple;
-	bh=Xj7t3gOgpcUTF9H2JW8LvlJCBDXFA1ijVl3OU+H77no=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QfRGErI6swJTIzHI8K51E9tBJghl+tS5pK6oLXi/CSiKLTReVwISgCUYZuLlkVMxOL/LB0TALYFZTgCb/HRlfM0ahZypxVt2cedsvRmdt+7fEV6uzC7hYlVvKIBKP8yKO3EQeBtdE0jUf/pxDPzqrE/ohKHpU6VxxLmXt/EYYic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldZZ3MLp; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781172097; c=relaxed/simple;
+	bh=BkqlSsjGcX3YrWJRnGyFmjujGd7WbYe/KgGnMV2dbnw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bS7vUkJSI4ZBshcmjKNvcBA7GyI3G/YBc0S7QKPG0QjAZ11MPVRt2Z1BebyMpG3lUaG/uHlbIvbs1i0wQqX68teanucYz2WvF/w7at2ko8UYErB66ILi8KHqo3je+Yfu8FzQekOmmBzaPl9tVuUZxbmM2Wau0L8R+m2WKe79c1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=KqaeaOVj; arc=none smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldZZ3MLp"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c8583b8fd89so4742193a12.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:01:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="KqaeaOVj"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3966e5e7cebso9129481fa.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:01:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781172074; x=1781776874; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KjBLRWrBJ1wV+e8lZDCHR4CL5EzgVjy+L9xauVIf4pg=;
-        b=ldZZ3MLpcXN55SEP0GB5+xtHWaNTGrv2We+HcOIj2vwLqcLY9qmPrwvk5M5esomWEw
-         dQD0rHwh6ZIWfYV814dJlt7dcav/Uh2PIfJxrupxqZWK4y77SfCggW3mOypu780jwLqE
-         YuaTifksFke3Tx4u3QEnd8GxdPFfBMRm92tmqeSQZ0eiRHDzKf6bOYSRPVX1jhUOJpjP
-         f08Eywj+3bGDBQk8SDShLLlEnXP6Hvd1QnCGQ+MhHXb0gM4p8k4cYK/VvHs2VHTWQG2a
-         4Gv2ElMoL0GgFIxlFcZ8/kDLNe3ZXomZaJ6ZOLVjq549zoKB+m7MNvEE5+mbE8dtXmsi
-         RwhQ==
+        d=linaro.org; s=google; t=1781172094; x=1781776894; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z6S7G7H1yZX6es3QmcIIuBRUMbZtpN//hujuIUHm018=;
+        b=KqaeaOVjI2CMDuBIiV5aYcwu7/00dTJFE01BOl6/Y+uYE4z8cdDNIm17epJmtiX4Up
+         b/HOr9W7lXlOHPYuc3JMc0GGYoLNi6N3mabeTJzFFz7iYnzpevd2zhCg4eIyF5lepdS9
+         YBzAs7cdk7c3QypkFOZ8ivjoMu2VH47A/n9Pnpr5CO3kZSi1DlSpQEJ0qfSDDyeaKjU6
+         x6sRTG0M3nN6W7k21lLE2gIl2ypMJDsQ0WbIypUar9lYqWIcTKdQXpDdArjfn1Q+V2gw
+         DqEf1SzueD7w64jNYlcTPRxNtBDt/UajmHcwENaCOnFAPDvQ9m5xXrSyKkUMUeqMlg/J
+         B4AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781172074; x=1781776874;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KjBLRWrBJ1wV+e8lZDCHR4CL5EzgVjy+L9xauVIf4pg=;
-        b=RCq4lKhiJsPuhCW8YVat5wjXj7qvHsDwBy/Iv7ZhEh/Ulzgj1/TJlG+ukPVycFR/3r
-         7KZctEBoNIT2GWGL1Wa3QPaSIbAeNBT6qYq546qvVxjRa7BQYSVjEte/aLhRG9k9aaY8
-         pgyI2uhZzYv34g0ZITGkwHaWcOMdqI2vjyqFOU/dOLGOmbM6wngalcO/RA+oC48lUXgC
-         G7KbHbefHrgFh4l5aMdqzqpoETkz8p5YcZ6/EilUpGIS+ofFbysXWLDfLfQrAoHeVfz/
-         a3A//HSUxbo/W8Ec0TUhbgNnlDBab0HqAvHma3lFMMhoDqJRT7EJgvOuNXIYHH0pqfCG
-         NVcw==
-X-Forwarded-Encrypted: i=1; AFNElJ+SSixxlGX2uWCefEp5GdVEoqcJWf2/+WPK6r/7vBF4hodWJTj6EOf3kRCcvg8ON477Hw8uqyJ8nruT@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrURr7JWZlHL0iteQjaWfCczBoCMk+q/CIyn7flv2pR8MOvFZ2
-	cXI/xjSHfmESXKZm4Nx0ntnBzxd06FGAS4QwNGwi8ADmCly8UKC7I/g3
-X-Gm-Gg: Acq92OH/aSGeYk7F4TWbkR0Gv17SeaKBfTybiUszxrHscZq3yFssy3kTyOE/cilzwxC
-	RjVsa+OwAgKexiE567eqBQcpI4NQhyJAEqjQ4U3nepNzHiA5RSt6lo60SwrmjkcNnpfj30HN4lg
-	G8pnkObgfWTpKHqaNeRw/C/vRF40loFL04gf4TMfKNpt3TWFaGctZ16MRNEZlVRXjD7H5nX0PTs
-	ag5mplUrlcEDtFCku6fBKtpmiPtJpslJYY6YLJQTX8VtS6HZp5tAtFHZKvRpBzsq/Fhga1DO0rI
-	zKdlQ0nPqkCcQiVTSAyKEEwaz+YQ7NX46pVsvwPQLxnhMBvpaLuR5MUkYE+wixn8NowfTghTPNi
-	93COmVs7hKzjWnLxQWH+sKpRNYl/z9XkwRIkMe9qx87H1xPVeSvHfvh492OFyCbut3zT1Q8ckHB
-	rVRSvVflITqNTGAtSAriie7TUbDP9pkwD2tvEuG5HXbEGmVpxUE9WCKwTM3FJ52WNuq5E/mbNOs
-	/0gynFR31RLOoc=
-X-Received: by 2002:a05:6a00:3ccc:b0:83e:2c38:f5d5 with SMTP id d2e1a72fcca58-84336a8c7a3mr2263009b3a.28.1781172073628;
-        Thu, 11 Jun 2026 03:01:13 -0700 (PDT)
-Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-843380c92edsm1458228b3a.32.2026.06.11.03.01.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 03:01:13 -0700 (PDT)
-From: Potin Lai <potin.lai.pt@gmail.com>
-Date: Thu, 11 Jun 2026 17:58:45 +0800
-Subject: [PATCH 2/2] hwmon: (pmbus/lm25066) add SMBus current limit
- configuration support
+        d=1e100.net; s=20251104; t=1781172094; x=1781776894;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Z6S7G7H1yZX6es3QmcIIuBRUMbZtpN//hujuIUHm018=;
+        b=GTMxEwFmoCO7R6JLoSwxAaLEHVbU8s33JrMlAAT8cW0+6K84Y6BYEqWp8qpKltyffY
+         Uh+YeKyWZam0CTJHlS5gc4nvgpcBSjMQdATgC6P+jW8mDNqY8hhv4WIpWLM9jbEigwM4
+         AR+SKbDOCnzMvWRv+d3wAhAgGK22uiPk3JKP1Lti6PrwKlU9aRj7EYT3KBnRVl8k9FwW
+         nzzJd18sDdeKCycMBuSSZMVnjFbhp/0Kpic0MZYqVlYgSTBNrzDmpxG/6T05+XkhbSLP
+         ExKodA34/MGuY+oR8mtnwCSiFyiW2vR1WqmoLdCF8BAvNBGw4THvyqX9/e0Go/+M5OXd
+         u8BA==
+X-Forwarded-Encrypted: i=1; AFNElJ+fcGfg2ElHokF709Iavaef+unDE2ufLkAROReQzaDTFHHQr8yAVfxrq7tJpzz71NfDGWITwEgBvQtm@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLqXOZHrrA6PY+SAFL4HKaGYkjYjCKrb+064xuymxxYl3Mrctj
+	UmMr4Lsdj1nntFj1Bu/mfHsX4TXwayxnghdcSU2VW5fXGJyfjJXCsVa9JjdaCxqsW1g=
+X-Gm-Gg: Acq92OE0aAzlKI1gd02B6mz96oW+7o+eLAl8Mcjmd31Gmcvlk/BVgDBAK0u1HgrnQHQ
+	MfQrfE8bxySjY/WL12T0ACmMj7XJhnCHkswKlsHLLFR7XaIcS47IL2l2r42/9EzqV5ZZdzFgLyJ
+	dbET/J93jo5ZXXaETi+GKy2UcXPIXYWx/YuANYj7hIr2Tb4STaH5i+h4Tq+iPMMq0UUZBP97KN0
+	mCqruwKXJfG3tM1ad/xTVPD9dIWEZ+93l1nZb2XgOhuQ4FPKGxdr8W+I5A+yVLsCQ0PhFlEMND4
+	rH9rbbD6fqXS0wydi5qdX9/0qatyxBsua/fVs+24nLo3TCSS4ojQrDg+bwGWWnj4g+ToYo1isdq
+	9tZM5TQpbSMTZMiGXD1reryavOuC3jtFn9G8/V6lQmpR5BJouCpoS25eXvHlUmiS642xctWa49l
+	OS3620HS4XglS4DDUrsuc4SYf8P1ghqArqcIOUq4gcTCJwXFojIzjCVKj+OVBjiHxpsqMLqqmVD
+	Z4fhRONIa5p2ASq
+X-Received: by 2002:a2e:a90f:0:b0:396:7e06:4ecd with SMTP id 38308e7fff4ca-3991a0f7804mr2442451fa.7.1781172091878;
+        Thu, 11 Jun 2026 03:01:31 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3991adc355asm3445981fa.41.2026.06.11.03.01.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 11 Jun 2026 03:01:31 -0700 (PDT)
+Message-ID: <8be0a964-e2fc-4c0a-a5ca-0e9e42b3d747@linaro.org>
+Date: Thu, 11 Jun 2026 13:01:30 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] media/arm64: HM1092 IR camera and ASUS Zenbook A14
+ (X1P42100) camera support
+To: Ramshouriesh <rshouriesh@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Aleksandrs Vinarskis <alex@vinarskis.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-lm25066-cl-config-v1-2-02e567bf3d91@gmail.com>
-References: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
-In-Reply-To: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Zev Weiss <zev@bewilderbeest.net>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Cosmo Chou <cosmo.chou@quantatw.com>, 
- Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai <potin.lai@qunatatw.com>, 
- Potin Lai <potin.lai.pt@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781172064; l=2361;
- i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
- bh=Xj7t3gOgpcUTF9H2JW8LvlJCBDXFA1ijVl3OU+H77no=;
- b=7fG5KmTbc55UHzJuv8XriODDk9ISYDQTmyH1ACtk62myjbNLGpEwoFJltdFygBLRUgJcyPb2I
- eyetfvZSQFpBzxRr5uHMQB01yyhRe1OITMd3LUJPB0yO/GaG7bYAKbP
-X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
- pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
-Add support for the mutually exclusive 'ti,cl-smbus-high' and
-'ti,cl-smbus-low' devicetree properties. When present, these properties
-override the hardware configuration pins via the DEVICE_SETUP (0xD9)
-register to set the Current Limit Configuration bit (bit 2) and
-Current Limit Setting bit (bit 4) to SMBus settings.
+On 6/10/26 14:09, Ramshouriesh wrote:
+> The ASUS Zenbook A14 (Qualcomm X1P42100, "Purwa") has two front cameras
+> behind the SoC CAMSS: an OV02C10 RGB sensor and a Himax HM1092 mono NIR
+> sensor used for face unlock. This series adds a driver for the HM1092 and
+> the device tree to wire both sensors up on the A14.
+> 
+> The HM1092 binding, driver and MAINTAINERS entry do not depend on the
+> rest of the series and can go through the media tree on their own.
+> 
+> The remaining DTS and PHY patches are the A14 camera enablement. They sit
+> on top of several series that are not in mainline yet, listed below. With
+> those applied the series builds on next-20260609: the A14 dtb and every
+> module it touches (hm1092, qcom-camss including csiphy, and the
+> qcom-mipi-csi2 phy) compile and work: both sensors probe and stream
+> frames on the A14.
+> 
+> Prerequisites, in the order they apply:
+> 
+>    1. phy: dphy: Extend phy_configure_opts_mipi_dphy to support position
+>       and polarity (Bryan O'Donoghue, v1)
+>       https://lore.kernel.org/all/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org/
+>    2. clk: qcom: videocc and camcc for X1P42100 (Jagadeesh Kona, v5)
+>       https://lore.kernel.org/all/20260507-purwa-videocc-camcc-v5-0-fc3af4130282@oss.qualcomm.com/
+>    3. phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver (Bryan O'Donoghue, v8)
+>       https://lore.kernel.org/all/20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org/
+>    4. media: dt-bindings and PHY updates for CAMSS on x1e80100 (Bryan O'Donoghue, v11)
+>       https://lore.kernel.org/all/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org/
+>    5. arm64: dts: qcom: x1e/Hamoa camera DTSI (Bryan O'Donoghue, v3)
+>       https://lore.kernel.org/all/20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org/
+>    6. media: qcom: camss: Add support for X1P42100 camss (Wenmeng Liu, v2)
+>       https://lore.kernel.org/all/20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com/
 
-The Bit 4 mapping to High/Low current limit is handled dynamically on
-probe because it is swapped for lm25056 and lm25066 compared to other
-supported chips (lm5064, lm5066, and lm5066i).
+That's a long list.
 
-Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
----
- drivers/hwmon/pmbus/lm25066.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+> 
+>  From the videocc/camcc series only the CAMCC block (patch 6/6) is still
+> needed; its clock drivers and bindings are already in linux-next. That
+> patch adds the camcc node and sets the Purwa camcc and videocc compatibles.
+> 
+>  From the x1e/Hamoa camera DTSI series only the CCI and CAMSS-block patches
+> are needed; its CAMCC block duplicates the videocc/camcc series, and the
+> x1e80100 board patches do not apply to the A14.
+> 
+> Patch 1 adds the OV02C10 node. It is Aleksandrs Vinarskis' work, carried
+> here with his Signed-off-by so the A14 camera support stays one chain.
 
-diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
-index dd7275a67a0a..20e114bdc882 100644
---- a/drivers/hwmon/pmbus/lm25066.c
-+++ b/drivers/hwmon/pmbus/lm25066.c
-@@ -34,6 +34,7 @@ enum chips { lm25056, lm25066, lm5064, lm5066, lm5066i };
- #define LM25066_READ_AVG_PIN		0xdf
- 
- #define LM25066_DEV_SETUP_CL		BIT(4)	/* Current limit */
-+#define LM25066_DEV_SETUP_CL_CFG	BIT(2)	/* Current limit configuration */
- 
- #define LM25066_SAMPLES_FOR_AVG_MAX	4096
- 
-@@ -464,6 +465,8 @@ MODULE_DEVICE_TABLE(of, lm25066_of_match);
- static int lm25066_probe(struct i2c_client *client)
- {
- 	int config;
-+	int config_new;
-+	int ret;
- 	u32 shunt;
- 	struct lm25066_data *data;
- 	struct pmbus_driver_info *info;
-@@ -484,6 +487,28 @@ static int lm25066_probe(struct i2c_client *client)
- 
- 	data->id = (enum chips)(unsigned long)i2c_get_match_data(client);
- 
-+	config_new = config;
-+	if (of_property_read_bool(client->dev.of_node, "ti,cl-smbus-high")) {
-+		config_new |= LM25066_DEV_SETUP_CL_CFG;
-+		if (data->id == lm25056 || data->id == lm25066)
-+			config_new |= LM25066_DEV_SETUP_CL;
-+		else
-+			config_new &= ~LM25066_DEV_SETUP_CL;
-+	} else if (of_property_read_bool(client->dev.of_node, "ti,cl-smbus-low")) {
-+		config_new |= LM25066_DEV_SETUP_CL_CFG;
-+		if (data->id == lm25056 || data->id == lm25066)
-+			config_new &= ~LM25066_DEV_SETUP_CL;
-+		else
-+			config_new |= LM25066_DEV_SETUP_CL;
-+	}
-+
-+	if (config_new != config) {
-+		ret = i2c_smbus_write_byte_data(client, LM25066_DEVICE_SETUP, config_new);
-+		if (ret < 0)
-+			return ret;
-+		config = config_new;
-+	}
-+
- 	info = &data->info;
- 
- 	info->pages = 1;
+This patch should be removed from consideration, since it is not based on
+the upstream codebase.
+
+I'd suggest you to upstream the sensor driver only through linux-media, which
+is patches 2/9 and 3/8, all other changes should go only after it.
 
 -- 
-2.52.0
-
+Best wishes,
+Vladimir
