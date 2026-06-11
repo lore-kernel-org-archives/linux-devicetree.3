@@ -1,163 +1,724 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA063ED3CD
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496FE374A1B;
+	Thu, 11 Jun 2026 11:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781178361; cv=none; b=sESy6JqxxyK1RPNGhoS8n9vc/KARrKZtCzMJmJMKrdJZ9wVKGPWj/MH+YSLdIZC+RWI/apFevVzU+fIu7lcRfLfZp4tiuiG5hOv9w9e6UT+JFlHqmc4mvnkhngO8zBbkBsUIiITQuczoYeYfLfQxdkIHSUa41kqyuxYkXZUnPys=
+	t=1781178468; cv=none; b=epSsz9YNYprj7j22Ql/O6MjPGKnylf3y3Sy/TVvx0t/SFfTHDeWfJSyySJT0s/kQgnU0EDhtn3QFg19j+tDX8f1xiWKSp4z4pZle+twUaXHrAO06AOukH0SDWsFpCK6XZF99LaTWzylkvLlmrb3SSznAYPG4t+qQN797SAd/2WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781178361; c=relaxed/simple;
-	bh=abYrsQg4er/DWvcjBUneRpAwhi7Z+PK0VEhY+4Qtu4s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tdUo5/0bzyIPmMgjfRuUkxAfi0SEdaMCnCImMZx4wwqQns3cEMYtyjLiXKwSQWH6Av3XeO8Rol3S8Qwt6TLX3z7qy20WMYYNYoRsisEfdTTIgzb1a9VF6D/+i4rYbURBV2Yf+w9Hlg4FZcutRc95U9HrwiXdRNfcw6m/BR2y09k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DNIkXvKN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xp4MLjep; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781178468; c=relaxed/simple;
+	bh=0yWqyCFPgN97ONbtxt1PXh8r0OBSUYs9NYoX4H5faxY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RIj1bIqUQxKJ4PC5CJq3WpVfB310XblHFcl96b7J/08XTEhHfcR4fKGKV60/uYeqMzAIKiEbK7e0MTiEmMz/WRxZWMHypH1xCIZT452STIWYg+zopvuIjO6hW4AqL4G0jR0KyRWEq8RBOKZDK8JFQ8SRdTmHFCedtzTEqV+aTqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D3e/Apj0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DNIkXvKN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xp4MLjep"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B9xBuk242641
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:45:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3GoBZuDQQVTCw6DoD5D9JhCuK/QhexAtetwEQkmTanE=; b=DNIkXvKNr8QfzWJY
-	F6Ed3/DgN0k+TX0AjDzZjTrJKbmR5bwqmyn+vknmJneBj++S2ItjsQbQByDkHF0V
-	Kvxo/byNnZPCGJqltyS2z5IX+y17c6vZz6rKzNHTZWen1VElUHM2CS2wXKG4vnMY
-	/UAxnP0vMr7hglKS2aT75VsHjMqwQcXE79oqgY0Jw+V8OULdP0lUX0ELU3cIPeiM
-	WXEPtHPpNEjNGAZ4JEgo2ExV/hch9dNNlZ23z7m+vOqpIIwpP/r26mD6ike9YCN3
-	Uk4gpOT5lYw10Rqjg6ETFohtiOH9yZIbOzjMYJz51MeckZz2gi2nO5aRDW+D2OiR
-	CAk5qA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe70388g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:45:57 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5176891d0a9so20064671cf.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:45:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781178357; x=1781783157; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3GoBZuDQQVTCw6DoD5D9JhCuK/QhexAtetwEQkmTanE=;
-        b=Xp4MLjep81OYisa5sOdnLAV5+m7svYo0EK+FEElzX3/fw0nsY+gmkz39AmJY38Kyt+
-         G5UzXyLS2Cj37PrO8oirhcZAU0Z8v7WW6pCAqMQgq2TipC2W0OxZ3jtlOUz0ebi7g3Um
-         HxKHmaPmoMUS+BxGjyg2qff76SAlvA+CDvVnJWME8CmiSlpJWjby/5AsSBam9aaJS8LV
-         BK1k0eG8MNtrIkobESgyp/qhX78G3slGfQXklroWoZVEHQDWd6lThIVsqzSda+8ki9Cz
-         IRwJqgA9ZV+E+6E0QWaL1xRcDFMiY4RUDp6A2qD7GUuNOiRjYW7URvvSU/4QslFwZ4ct
-         Bz1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781178357; x=1781783157;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3GoBZuDQQVTCw6DoD5D9JhCuK/QhexAtetwEQkmTanE=;
-        b=RQ6+iSnsqmL6o5x/y6zh0wmRXXJDT7fQqOh+BFpMbNY8goHyk8MTUw+Hkpi140gpsB
-         dUOa5gz+CiPSdQxznLSxufXw1qGTN6NXYurDH0kLBKvNSeiVvgXyJkl4DNB0yQOQEMI/
-         kMEsTRYIv/oNJXDEFl08zqdxHv/vBT+Cw4c/AcUoHuGfI+o5xy7x10ApPtNA/BLjXL6c
-         eU1J69ucQU3vpQNXyNuP1kHBVYZ2k/JoCoLOExX/RtA/547scLT20QyLQQA/OQeS4uYU
-         siMkTlPzMhrmmFuw2LBbdPus6s5xQgmjyGFgnEDCm9+SINpYTuERRjmrmK8PBhLXtgIp
-         WsGw==
-X-Forwarded-Encrypted: i=1; AFNElJ/TBXDyuGmaxNuQGz6BcKPAITbvAIguBjs852JUkd+JAxaXrXJLcmYPWJ2xCOSNgDb4KHT2m/xaBXAJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyW+eY5ZmQrRNsHeBH+mjM1fKqF/OqOr7Qwu6+CDEbKLlXF1CZ3
-	VbogRluBJYzLq56/kiA8bhGwXaF9FcT2Q0AvHjWIMIwMQZWIyJX8Stup9LL1C06qh+NbscelCE3
-	QB1vvxODuDLS4x38jIX8T7wCD6yY9JG056/l8JW+1fpD6TYFYMQZW3E+O+qcyVjBJ
-X-Gm-Gg: Acq92OGAKwes11dcXy44VpQuGQPyw3eMEQ+PQZk5aLy2maJOkelIv+tanXh6mr4hvTJ
-	CjHzgbBF5feOZTctFPnhhPevVkjUR/w4gTxw8m3JTq2Yksy9HW9QfvY7Fvypw82P0w/9TUmQMn1
-	8B+Ugj2BSajz/RjCEwZcJdW40FI5vnfemU1Jv+vMw8KF9ak1KIlQ4eElFTiYMBtphLZKzVscuS0
-	wHJwgEfXnT2zEDsFP9KxHSJ9uBHvsKrTGz55dB3cGko6sSXiaoCARLklXXBMpv90Dh4txNstCJk
-	13LSeydRAYps25GvLC2+2DAmC8KrYXLZ6mihwataoSSO+mVrOf7Wn7eBO3kLn4N+cPcLvvVywMC
-	z0Nb+bje3SGcaXXzph7HXIqwutQtN8tNp0Jv7qotEpFbKHmlsstO/qiTn
-X-Received: by 2002:ac8:690e:0:b0:509:2a92:8088 with SMTP id d75a77b69052e-517edcd71a4mr23729161cf.1.1781178356888;
-        Thu, 11 Jun 2026 04:45:56 -0700 (PDT)
-X-Received: by 2002:ac8:690e:0:b0:509:2a92:8088 with SMTP id d75a77b69052e-517edcd71a4mr23728891cf.1.1781178356421;
-        Thu, 11 Jun 2026 04:45:56 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb60b771bsm51473566b.54.2026.06.11.04.45.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 04:45:55 -0700 (PDT)
-Message-ID: <004d6bd1-2800-42d5-a6be-1fa69a06194c@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 13:45:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D3e/Apj0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575B01F00893;
+	Thu, 11 Jun 2026 11:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781178466;
+	bh=szS3MnTmJXEXcPbcdS7SWjI1apQnGHmUrVIMk/R50tM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D3e/Apj0RUCtTvJliciIWqf1aRTO8ri9fRf+VURXykUJOgsfgsQ8x0HG1C2rFoP9z
+	 skY1z3In1Hgb3Q4hEJ0EtL3Cf5GGnSX59Ekytosu4SQQOlXEOiN/xS8eYTSxYyh7rX
+	 ovUOps0R3iveElQ9+eYyenbaKCREfjLaV0q4aSvP8fZ74Gj158RaPncwqx+EXGc57m
+	 icWu/lsvFR9CtEt5yz3cJ6ne/sJshmnf+f5yuzHa09hOYmLlpuy5SNl4sZ655Pxowq
+	 uGpTdoUFIqBJ36NTxUTTJUswRi5un5gKFauL8QLmvrCCdkN8jZcJmGEiM7ekXVTe7o
+	 frMm51soC15Zw==
+Date: Thu, 11 Jun 2026 12:47:41 +0100
+From: Lee Jones <lee@kernel.org>
+To: Edelweise Escala <edelweise.escala@analog.com>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 2/2] leds: ltc3220: Add Support for LTC3220 18 channel
+ LED Driver
+Message-ID: <20260611114741.GP4151951@google.com>
+References: <20260528-ltc3220-driver-v9-0-69450fc213cb@analog.com>
+ <20260528-ltc3220-driver-v9-2-69450fc213cb@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/18] firmware: qcom: scm: Add minidump SRAM support
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>
-Cc: cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260522195009.2961022-1-mukesh.ojha@oss.qualcomm.com>
- <20260522195009.2961022-5-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260522195009.2961022-5-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDExOCBTYWx0ZWRfX9xKdI/3Kj9me
- HEnyZm6KscSBhlnB9K4KeACZWpUc1a3YzgcEiGRpr6U+iPt1LcTgx11Afv0a7/Z1buAxXtEMPnN
- p7DWHF4am87FcQV0EElwClDFFH0HgiwLq4jOFYFOfZE/WdnLg/SFdzjT0g3k9cDRiB878NCBLyN
- gnjET/HE176DXnlafQBgfiv22hD7P9ulpGmd6Yhqpms8uE9xMxFFz0UjSedQMVa38Vsu0lSOzuA
- 2eARnCsxn2hJp1KNVqX/+yATWbNkN+Xm3kXFcrS07ecwpHSIP1VT1xjC1SwRRZ/Q2mlUXvgn29l
- RD3cxybD2PiNpRNwYinzSwUjlgcnJJtQl9dobMoaizUPz4kJlTIeX8lXcCCjAS3mj+7safWtTcd
- uhYu/zp/PCPCqx3PraQFXsnqjIUgYVO5XlbjcGz4nNwjKgB2HlNrBhwCwwzluemiqPNzzXpob5f
- IfqKYcdM+SpCw205JaQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDExOCBTYWx0ZWRfX7WH69IBdjBb/
- oXS91V6ElRBJg59V6J/rVFX82qEYxlT7IxS3uJCVi6ddJUdb4lQeedzU/zDKBRNE2F1bwH5iOGu
- Y8Mmdqwtdai3qFWFQ8KO6WgeKS2df6Y=
-X-Proofpoint-GUID: wdsm8eGPa7WUVL1IGmlE_fjZPIg-7kNs
-X-Proofpoint-ORIG-GUID: wdsm8eGPa7WUVL1IGmlE_fjZPIg-7kNs
-X-Authority-Analysis: v=2.4 cv=Z5Tc2nRA c=1 sm=1 tr=0 ts=6a2a9ff5 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=y6rW8TDjuTIuaxCCkQgA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110118
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260528-ltc3220-driver-v9-2-69450fc213cb@analog.com>
 
-On 5/22/26 9:49 PM, Mukesh Ojha wrote:
-> On most Qualcomm SoCs where minidump is supported, a word in always-on
-> SRAM is shared between the kernel and boot firmware. Before DDR is
-> initialised on the warm reset following a crash, firmware reads this
-> word to decide if minidump is enabled and collect a minidump and where
-> to deliver it (USB upload to a host, or save to local storage).
+/* Sashiko Automation: Issues Found (10 Findings) */
+
+Would you mind taking care of these before I conduct my next review please?
+
+On Thu, 28 May 2026, Edelweise Escala wrote:
+
+> Add driver for the LTC3220 18-channel LED driver
+> with I2C interface, individual brightness control, and hardware-assisted
+> blink/gradation features.
 > 
-> The SRAM region is described by a 'sram' phandle on the SCM DT node.
-> If the property is absent the feature is silently disabled, keeping
-> existing SoCs unaffected.
-> 
-> Expose a 'minidump_dest' module parameter (default: usb) so the user can
-> select the destination. Only the string names "usb" or "storage" are
-> acceptable values.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
 > ---
+>  MAINTAINERS                 |   1 +
+>  drivers/leds/Kconfig        |  13 ++
+>  drivers/leds/Makefile       |   1 +
+>  drivers/leds/leds-ltc3220.c | 440 ++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 455 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c8a242577d2f..0f553ada61d9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15229,6 +15229,7 @@ L:	linux-leds@vger.kernel.org
+>  S:	Maintained
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
+> +F:	drivers/leds/leds-ltc3220.c
+>  
+>  LTC4282 HARDWARE MONITOR DRIVER
+>  M:	Nuno Sa <nuno.sa@analog.com>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index f4a0a3c8c870..31b1e3ff094c 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -1000,6 +1000,19 @@ config LEDS_ST1202
+>  	  Say Y to enable support for LEDs connected to LED1202
+>  	  LED driver chips accessed via the I2C bus.
+>  
+> +config LEDS_LTC3220
+> +	tristate "LED Driver for Analog Devices Inc. LTC3220"
+> +	depends on I2C && LEDS_CLASS
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y to enable support for the Analog Devices LTC3220
+> +	  18-channel LED controller with I2C interface.
+> +	  The driver supports individual LED brightness control (64 steps),
+> +	  hardware-assisted blinking and gradation effects.
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called leds-ltc3220.
+> +
+>  config LEDS_TPS6105X
+>  	tristate "LED support for TI TPS6105X"
+>  	depends on LEDS_CLASS
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 7db3768912ca..a68244bd50fb 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
+>  obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
+>  obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
+>  obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
+> +obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
+>  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+>  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+>  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
+> diff --git a/drivers/leds/leds-ltc3220.c b/drivers/leds/leds-ltc3220.c
+> new file mode 100644
+> index 000000000000..a633ac5ca6ae
+> --- /dev/null
+> +++ b/drivers/leds/leds-ltc3220.c
+> @@ -0,0 +1,440 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * LTC3220 18-Channel LED Driver
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + *
+> + * Author: Edelweise Escala <edelweise.escala@analog.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/delay.h>
 
-[...]
+[Severity: Low]
+Is this include needed?
+
+It doesn't appear that any delay functions like msleep() or usleep_range()
+are used in the driver implementation.
 
 
-> +	for (i = 0; i < ARRAY_SIZE(minidump_dest_map); i++)
-> +		if (sysfs_streq(val, minidump_dest_map[i].name))
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/leds.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/types.h>
 
-I'm not sure about sysfs_streq() specifically, but otherwise this lgtm
+[Severity: Low]
+Should this file include <linux/property.h>?
 
-Konrad
+The driver uses fwnode property APIs such as device_for_each_child_node_scoped(),
+fwnode_property_read_u32(), and fwnode_property_present(), which are defined
+in <linux/property.h>.
+
+
+> +
+> +/* LTC3220 Registers */
+> +#define LTC3220_COMMAND_REG				0x00
+> +#define   LTC3220_QUICK_WRITE_MASK			BIT(0)
+> +#define   LTC3220_SHUTDOWN_MASK				BIT(3)
+> +
+> +#define LTC3220_ULED_REG(x)				(0x01 + (x))
+> +#define   LTC3220_LED_CURRENT_MASK			GENMASK(5, 0)
+> +#define   LTC3220_LED_MODE_MASK				GENMASK(7, 6)
+> +
+> +#define LTC3220_GRAD_BLINK_REG				0x13
+> +#define   LTC3220_GRADATION_MASK			GENMASK(2, 0)
+> +#define   LTC3220_GRADATION_DIRECTION_MASK		BIT(0)
+> +#define   LTC3220_GRADATION_PERIOD_MASK			GENMASK(2, 1)
+> +#define   LTC3220_BLINK_MASK				GENMASK(4, 3)
+> +
+> +#define LTC3220_NUM_LEDS				18
+> +
+> +#define LTC3220_GRADATION_START_VALUE			128
+
+[Severity: Low]
+Is this macro used anywhere in the driver?
+
+It appears to be dead code as it is never referenced.
+
+
+> +#define LTC3220_GRADATION_RAMP_TIME_240MS		240
+> +#define LTC3220_GRADATION_RAMP_TIME_480MS		480
+> +
+> +#define LTC3220_BLINK_ON_156MS				156
+> +#define LTC3220_BLINK_ON_625MS				625
+> +#define LTC3220_BLINK_PERIOD_1250MS			1250
+> +#define LTC3220_BLINK_PERIOD_2500MS			2500
+> +
+> +#define LTC3220_BLINK_SHORT_ON_TIME			BIT(0)
+> +#define LTC3220_BLINK_LONG_PERIOD			BIT(1)
+> +
+> +enum ltc3220_led_mode {
+> +	LTC3220_NORMAL_MODE,
+> +	LTC3220_BLINK_MODE,
+> +	LTC3220_GRADATION_MODE,
+> +};
+> +
+> +enum ltc3220_blink_mode {
+> +	LTC3220_BLINK_MODE_625MS_1250MS,
+> +	LTC3220_BLINK_MODE_156MS_1250MS,
+> +	LTC3220_BLINK_MODE_625MS_2500MS,
+> +	LTC3220_BLINK_MODE_156MS_2500MS
+> +};
+> +
+> +enum ltc3220_gradation_mode {
+> +	LTC3220_GRADATION_MODE_DISABLED,
+> +	LTC3220_GRADATION_MODE_240MS_RAMP_TIME,
+> +	LTC3220_GRADATION_MODE_480MS_RAMP_TIME,
+> +	LTC3220_GRADATION_MODE_960MS_RAMP_TIME
+> +};
+> +
+> +static bool ltc3220_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	return reg == LTC3220_GRAD_BLINK_REG;
+> +}
+
+[Severity: High]
+Does this register need to be marked volatile?
+
+Marking a register as volatile tells regmap to bypass the cache and read from
+the physical hardware. If the LTC3220 is a write-only I2C device, the physical
+read will fail, causing regmap_update_bits() to fail entirely in
+ltc3220_pattern_set() and ltc3220_blink_set().
+
+Even if the device supports reads, this register is exclusively controlled by
+software and does not change autonomously, so could it be cached normally to
+avoid unnecessary I2C reads?
+
+
+> +
+> +static const struct regmap_config ltc3220_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = LTC3220_GRAD_BLINK_REG,
+> +	.cache_type = REGCACHE_FLAT_S,
+> +	.volatile_reg = ltc3220_volatile_reg,
+> +};
+> +
+> +struct ltc3220_uled_cfg {
+> +	struct led_classdev led_cdev;
+> +	u8 reg_value;
+> +	u8 led_index;
+> +};
+> +
+> +struct ltc3220 {
+> +	struct ltc3220_uled_cfg uled_cfg[LTC3220_NUM_LEDS];
+> +	struct regmap *regmap;
+> +	bool is_aggregated;
+> +};
+> +
+> +/*
+> + * Set LED brightness. Hardware supports 0-63 brightness levels.
+> + * Mode switching (blink/gradation) is handled through dedicated callbacks.
+> + */
+> +static int ltc3220_set_led_data(struct led_classdev *led_cdev,
+> +				enum led_brightness brightness)
+> +{
+> +	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
+> +							 led_cdev);
+> +	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
+> +					       uled_cfg[uled_cfg->led_index]);
+
+[Severity: Low]
+Will this dynamic variable index inside container_of() cause a build failure?
+
+The driver attempts to retrieve the parent structure using
+uled_cfg[uled_cfg->led_index]. The container_of macro relies on offsetof(),
+which strictly requires the member argument to be a constant expression.
+
+Since uled_cfg->led_index is a runtime variable, this violates the C standard
+and can abort compilation on compilers like Clang with an error about a
+non-constant integer expression.
+
+
+> +	int ret;
+> +
+> +	ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
+> +			   brightness);
+> +	if (ret)
+> +		return ret;
+> +
+> +	uled_cfg->reg_value = brightness;
+> +
+> +	/*
+> +	 * When aggregated LED mode is enabled, writing to LED 1 updates all
+> +	 * LEDs simultaneously via quick-write mode. Update cached values for
+> +	 * all LEDs to reflect the synchronized state.
+> +	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for how
+> +	 * to configure aggregated LED mode.
+> +	 */
+> +	if (ltc3220->is_aggregated && uled_cfg->led_index == 0) {
+> +		for (int i = 0; i < LTC3220_NUM_LEDS; i++)
+> +			ltc3220->uled_cfg[i].reg_value = brightness;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static enum led_brightness ltc3220_get_led_data(struct led_classdev *led_cdev)
+> +{
+> +	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
+> +							 led_cdev);
+> +
+> +	return uled_cfg->reg_value;
+> +}
+> +
+> +/*
+> + * LTC3220 pattern support for hardware-assisted breathing/gradation.
+> + * The hardware supports 3 gradation ramp time 240ms, 480ms, 960ms)
+> + * and can ramp up or down.
+> + *
+> + * Pattern array interpretation:
+> + *   pattern[0].brightness = start brightness (0-63)
+> + *   pattern[0].delta_t = ramp time in milliseconds
+> + *   pattern[1].brightness = end brightness (0-63)
+> + *   pattern[1].delta_t = (optional, can be 0 or same as pattern[0].delta_t)
+> + */
+> +static int ltc3220_pattern_set(struct led_classdev *led_cdev,
+> +			       struct led_pattern *pattern,
+> +			       u32 len, int repeat)
+> +{
+> +	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
+> +							 led_cdev);
+> +	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
+> +					       uled_cfg[uled_cfg->led_index]);
+
+[Severity: Low]
+Will this dynamic variable index inside container_of() cause a build failure?
+
+The driver attempts to retrieve the parent structure using
+uled_cfg[uled_cfg->led_index]. The container_of macro relies on offsetof(),
+which strictly requires the member argument to be a constant expression.
+
+Since uled_cfg->led_index is a runtime variable, this violates the C standard
+and can abort compilation on compilers like Clang with an error about a
+non-constant integer expression.
+
+
+> +	u8 gradation_period;
+> +	u8 start_brightness;
+> +	u8 end_brightness;
+> +	u8 gradation_val;
+> +	bool is_increasing;
+> +	int ret;
+> +
+> +	if (len != 2)
+> +		return -EINVAL;
+> +
+> +	start_brightness = pattern[0].brightness & LTC3220_LED_CURRENT_MASK;
+> +	end_brightness = pattern[1].brightness & LTC3220_LED_CURRENT_MASK;
+> +
+> +	is_increasing = end_brightness > start_brightness;
+> +
+> +	if (pattern[0].delta_t == 0)
+> +		gradation_period = LTC3220_GRADATION_MODE_DISABLED;
+> +	else if (pattern[0].delta_t <= LTC3220_GRADATION_RAMP_TIME_240MS)
+> +		gradation_period = LTC3220_GRADATION_MODE_240MS_RAMP_TIME;
+> +	else if (pattern[0].delta_t <= LTC3220_GRADATION_RAMP_TIME_480MS)
+> +		gradation_period = LTC3220_GRADATION_MODE_480MS_RAMP_TIME;
+> +	else
+> +		gradation_period = LTC3220_GRADATION_MODE_960MS_RAMP_TIME;
+> +
+> +	gradation_val = FIELD_PREP(LTC3220_GRADATION_PERIOD_MASK, gradation_period);
+> +	gradation_val |= FIELD_PREP(LTC3220_GRADATION_DIRECTION_MASK, is_increasing);
+> +
+> +	ret = regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
+> +				 LTC3220_GRADATION_MASK, gradation_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ltc3220_set_led_data(led_cdev, start_brightness);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
+> +			   FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_GRADATION_MODE) |
+> +			   end_brightness);
+> +	if (ret)
+> +		return ret;
+> +
+> +	uled_cfg->reg_value = end_brightness;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ltc3220_pattern_clear(struct led_classdev *led_cdev)
+> +{
+> +	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
+> +							 led_cdev);
+> +	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
+> +					       uled_cfg[uled_cfg->led_index]);
+
+[Severity: Low]
+Will this dynamic variable index inside container_of() cause a build failure?
+
+The driver attempts to retrieve the parent structure using
+uled_cfg[uled_cfg->led_index]. The container_of macro relies on offsetof(),
+which strictly requires the member argument to be a constant expression.
+
+Since uled_cfg->led_index is a runtime variable, this violates the C standard
+and can abort compilation on compilers like Clang with an error about a
+non-constant integer expression.
+
+
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
+> +				 LTC3220_LED_MODE_MASK, LTC3220_NORMAL_MODE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return ltc3220_set_led_data(led_cdev, LED_OFF);
+> +}
+> +
+> +/*
+> + * LTC3220 has a global blink configuration that affects all LEDs.
+> + * This implementation allows per-LED blink requests, but the blink timing
+> + * will be shared across all LEDs. The delay values are mapped to the
+> + * hardware's discrete blink rates.
+> + */
+> +static int ltc3220_blink_set(struct led_classdev *led_cdev,
+> +			     unsigned long *delay_on,
+> +			     unsigned long *delay_off)
+> +{
+> +	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
+> +							 led_cdev);
+> +	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
+> +					       uled_cfg[uled_cfg->led_index]);
+
+[Severity: Low]
+Will this dynamic variable index inside container_of() cause a build failure?
+
+The driver attempts to retrieve the parent structure using
+uled_cfg[uled_cfg->led_index]. The container_of macro relies on offsetof(),
+which strictly requires the member argument to be a constant expression.
+
+Since uled_cfg->led_index is a runtime variable, this violates the C standard
+and can abort compilation on compilers like Clang with an error about a
+non-constant integer expression.
+
+
+> +	u8 blink_mode = 0;
+> +	int ret;
+> +
+> +	if (*delay_on <= LTC3220_BLINK_ON_156MS)
+> +		blink_mode = LTC3220_BLINK_SHORT_ON_TIME;
+> +
+> +	if (*delay_on + *delay_off > LTC3220_BLINK_PERIOD_1250MS)
+> +		blink_mode |= LTC3220_BLINK_LONG_PERIOD;
+> +
+> +	switch (blink_mode) {
+> +	case LTC3220_BLINK_MODE_625MS_1250MS:
+> +		*delay_on = LTC3220_BLINK_ON_625MS;
+> +		*delay_off = LTC3220_BLINK_PERIOD_1250MS - LTC3220_BLINK_ON_625MS;
+> +		break;
+> +	case LTC3220_BLINK_MODE_156MS_1250MS:
+> +		*delay_on = LTC3220_BLINK_ON_156MS;
+> +		*delay_off = LTC3220_BLINK_PERIOD_1250MS - LTC3220_BLINK_ON_156MS;
+> +		break;
+> +	case LTC3220_BLINK_MODE_625MS_2500MS:
+> +		*delay_on = LTC3220_BLINK_ON_625MS;
+> +		*delay_off = LTC3220_BLINK_PERIOD_2500MS - LTC3220_BLINK_ON_625MS;
+> +		break;
+> +	case LTC3220_BLINK_MODE_156MS_2500MS:
+> +		*delay_on = LTC3220_BLINK_ON_156MS;
+> +		*delay_off = LTC3220_BLINK_PERIOD_2500MS - LTC3220_BLINK_ON_156MS;
+> +		break;
+> +	}
+> +
+> +	ret = regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
+> +				 LTC3220_BLINK_MASK, FIELD_PREP(LTC3220_BLINK_MASK, blink_mode));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
+> +				  LTC3220_LED_MODE_MASK,
+> +				  FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_BLINK_MODE));
+> +}
+
+[Severity: Medium]
+Will the hardware blink activate at 0 brightness if the LED was previously off?
+
+When the LED is off, its current bits in LTC3220_ULED_REG are 0. The driver
+updates the mode bits to LTC3220_BLINK_MODE using regmap_update_bits() but
+does not update the brightness bits.
+
+Because the core expects the driver to handle brightness configuration for
+hardware blinking, could this hardware blink execute at 0 brightness, leaving
+the LED unlit?
+
+
+> +
+> +static void ltc3220_reset_gpio_action(void *data)
+> +{
+> +	struct gpio_desc *reset_gpio = data;
+> +
+> +	gpiod_set_value_cansleep(reset_gpio, 1);
+> +}
+> +
+> +static int ltc3220_reset(struct ltc3220 *ltc3220, struct i2c_client *client)
+> +{
+> +	struct gpio_desc *reset_gpio;
+> +	int ret;
+> +
+> +	reset_gpio = devm_gpiod_get_optional(&client->dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(reset_gpio))
+> +		return dev_err_probe(&client->dev, PTR_ERR(reset_gpio), "Failed on reset GPIO\n");
+> +
+> +	if (reset_gpio) {
+> +		gpiod_set_value_cansleep(reset_gpio, 0);
+
+[Severity: High]
+Does this sequence lack the necessary delays to ensure a successful reset?
+
+The driver asserts the reset GPIO by requesting it with GPIOD_OUT_HIGH and
+immediately de-asserts it with gpiod_set_value_cansleep(reset_gpio, 0). There
+is no delay between these calls, creating a near-zero width pulse that may fail
+to meet the IC's minimum reset pulse width requirement.
+
+It also lacks a wakeup delay before subsequent I2C commands might be sent.
+
+
+> +
+> +		return devm_add_action_or_reset(&client->dev, ltc3220_reset_gpio_action,
+> +						reset_gpio);
+
+[Severity: High]
+Does returning early here skip software initialization and regmap cache setup?
+
+If the reset_gpio is successfully acquired, this function immediately returns
+0, entirely skipping the subsequent regmap_write() calls intended to initialize
+the hardware registers.
+
+Because the driver does not define a .reg_defaults table, skipping these writes
+leaves the regmap cache uninitialized, which can break subsequent
+read-modify-write logic via regmap_update_bits().
+
+
+> +	}
+> +
+> +	ret = regmap_write(ltc3220->regmap, LTC3220_COMMAND_REG, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (int i = 0; i < LTC3220_NUM_LEDS; i++) {
+> +		ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(i), 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return regmap_write(ltc3220->regmap, LTC3220_GRAD_BLINK_REG, 0);
+> +}
+> +
+> +static int ltc3220_suspend(struct device *dev)
+> +{
+> +	struct ltc3220 *ltc3220 = i2c_get_clientdata(to_i2c_client(dev));
+> +
+> +	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
+> +				  LTC3220_SHUTDOWN_MASK, LTC3220_SHUTDOWN_MASK);
+> +}
+> +
+> +static int ltc3220_resume(struct device *dev)
+> +{
+> +	struct ltc3220 *ltc3220 = i2c_get_clientdata(to_i2c_client(dev));
+> +
+> +	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
+> +				  LTC3220_SHUTDOWN_MASK, 0);
+> +}
+
+[Severity: High]
+Are the hardware registers left permanently off after resume?
+
+In ltc3220_suspend(), the driver sets the LTC3220_SHUTDOWN_MASK bit. On many
+such chips, asserting the shutdown bit resets internal registers. Additionally,
+power to the IC may be lost during system suspend.
+
+In ltc3220_resume(), the driver clears the shutdown bit but does not call
+regcache_mark_dirty() and regcache_sync(). Could this leave the physical LED
+outputs permanently off, while the kernel's regmap cache and LED classdev state
+incorrectly reflect that the LEDs are still configured and illuminated?
+
+
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(ltc3220_pm_ops, ltc3220_suspend, ltc3220_resume);
+> +
+> +static int ltc3220_probe(struct i2c_client *client)
+> +{
+> +	struct ltc3220 *ltc3220;
+> +	bool aggregated_led_found = false;
+> +	int num_leds = 0;
+> +	u8 led_index = 0;
+> +	int ret;
+> +
+> +	ltc3220 = devm_kzalloc(&client->dev, sizeof(*ltc3220), GFP_KERNEL);
+> +	if (!ltc3220)
+> +		return -ENOMEM;
+> +
+> +	ltc3220->regmap = devm_regmap_init_i2c(client, &ltc3220_regmap_config);
+> +	if (IS_ERR(ltc3220->regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(ltc3220->regmap),
+> +				     "Failed to initialize regmap\n");
+> +
+> +	i2c_set_clientdata(client, ltc3220);
+> +
+> +	ret = ltc3220_reset(ltc3220, client);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to reset device\n");
+> +
+> +	device_for_each_child_node_scoped(&client->dev, child) {
+> +		struct led_init_data init_data = {};
+> +		struct ltc3220_uled_cfg *led;
+> +		u32 source;
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &source);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret, "Couldn't read LED address\n");
+> +
+> +		if (!source || source > LTC3220_NUM_LEDS)
+> +			return dev_err_probe(&client->dev, -EINVAL, "LED address out of range\n");
+> +
+> +		init_data.fwnode = child;
+> +		init_data.devicename = "ltc3220";
+> +
+> +		if (fwnode_property_present(child, "led-sources")) {
+> +			if (source != 1)
+> +				return dev_err_probe(&client->dev, -EINVAL,
+> +						     "Aggregated LED out of range\n");
+> +
+> +			if (aggregated_led_found)
+> +				return dev_err_probe(&client->dev, -EINVAL,
+> +						     "One Aggregated LED only\n");
+> +
+> +			aggregated_led_found = true;
+> +			ltc3220->is_aggregated = true;
+> +
+> +			ret = regmap_update_bits(ltc3220->regmap,
+> +						 LTC3220_COMMAND_REG,
+> +						 LTC3220_QUICK_WRITE_MASK,
+> +						 LTC3220_QUICK_WRITE_MASK);
+> +			if (ret)
+> +				return dev_err_probe(&client->dev, ret,
+> +						     "Failed to set quick write mode\n");
+> +		}
+> +
+> +		num_leds++;
+> +
+> +		/* LED node reg/index/address goes from 1 to 18 */
+> +		led_index = source - 1;
+> +		led = &ltc3220->uled_cfg[led_index];
+> +
+> +		if (led->led_cdev.dev)
+> +			return dev_err_probe(&client->dev, -EINVAL,
+> +					     "Duplicate LED reg %u found", source);
+> +
+> +		led->led_index = led_index;
+> +		led->reg_value = 0;
+> +		led->led_cdev.brightness_set_blocking = ltc3220_set_led_data;
+> +		led->led_cdev.brightness_get = ltc3220_get_led_data;
+> +		led->led_cdev.max_brightness = 63;
+> +		led->led_cdev.blink_set = ltc3220_blink_set;
+> +		led->led_cdev.pattern_set = ltc3220_pattern_set;
+> +		led->led_cdev.pattern_clear = ltc3220_pattern_clear;
+> +
+> +		ret = devm_led_classdev_register_ext(&client->dev, &led->led_cdev, &init_data);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret, "Failed to register LED class\n");
+> +	}
+> +
+> +	/*
+> +	 * Aggregated LED mode uses hardware quick-write to control all 18 LEDs
+> +	 * simultaneously. This is mutually exclusive with individual LED control.
+> +	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for details
+> +	 * on how to configure aggregated LED mode.
+> +	 */
+> +	if (aggregated_led_found && num_leds > 1)
+> +		return dev_err_probe(&client->dev, -EINVAL,
+> +				     "Aggregated LED must be the only LED node\n");
+
+[Severity: Medium]
+Are the LED sysfs interfaces exposed to userspace before the driver probe is
+fully validated?
+
+Inside the loop above, devm_led_classdev_register_ext() is called, which
+immediately exposes sysfs interfaces. If the validation check here fails and
+returns an error, userspace could have already discovered and interacted with
+the LED devices before they are unexpectedly torn down by devres.
+
+Could these validation checks be completed before registering the interfaces?
+
+
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id ltc3220_of_match[] = {
+> +	{ .compatible = "adi,ltc3220" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ltc3220_of_match);
+> +
+> +static struct i2c_driver ltc3220_led_driver = {
+> +	.driver = {
+> +		.name = "ltc3220",
+> +		.of_match_table = ltc3220_of_match,
+> +		.pm = pm_sleep_ptr(&ltc3220_pm_ops),
+> +	},
+> +	.probe = ltc3220_probe,
+> +};
+> +module_i2c_driver(ltc3220_led_driver);
+> +
+> +MODULE_AUTHOR("Edelweise Escala <edelweise.escala@analog.com>");
+> +MODULE_DESCRIPTION("LED driver for LTC3220 controllers");
+> +MODULE_LICENSE("GPL");
+> 
+> -- 
+> 2.43.0
+> 
+
+-- 
+Lee Jones
