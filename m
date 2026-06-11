@@ -1,46 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps125955.inmotionhosting.com (vps125955.inmotionhosting.com [173.231.240.237])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BA1403B17;
-	Thu, 11 Jun 2026 15:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C236280CD5
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 15:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.231.240.237
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781191796; cv=none; b=I67qxIOhhDEKmmON81P7WBefMXcfndVB9aqonNLjCpxo/Erfg+B27qq9aKFNvHz+asG0oiTvZdNJ6D3z3aLPfO9uOQhhcy4msEJ9LLqFDNFGqG7gHyAwTuG+ooj+3aeGJUrqp/fqN0gnF3vK+aRvoiR9ArDk4+NAuPuq2f1VOoY=
+	t=1781191980; cv=none; b=Rct8TsjYL+vjm0cmRv8ef6aPTRSyq4lR3TwaCnroJTjL+IK3e5WbL4jJRANqZySK8m/BWmrsvTrBy6dxt/p70AtcO9swR/5cBi2za0E7XW+ndtUmi8F9D6x3rfiwUHgZ/yPAplKIc9jkUC89cehe5sbIpNyxx0FsennL99CwOwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781191796; c=relaxed/simple;
-	bh=3THXNP0OySDzs9gfN+yJpV3WQlqOYoKVWbwHtCObJZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J3kZnBPSD1KI3lpVGAWs7KPKG72spND07FQ09AXdhz1Waxa+2VTw5eNQik96ceHIoIl7pFKymUqZWDpJNPRnlYbgGylFgifJdULxBZWTQQvjkFtVmROgNFxTDZJSf0f8wXPRpm0a5lYc+1ZROOc38P6eW3/lvVBtLsV8fTQ0Fgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciZs+/De; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781191980; c=relaxed/simple;
+	bh=OO2xzbzxtpu5o8L0beFgsl3gsvs0DQok5PhNZ2Oh5N4=;
+	h=To:Subject:Date:From:Message-ID:MIME-Version:Content-Type; b=rrZtobBeIocQpGwUoKuY7H6P5x3vZTdWWeuLwuhsAm1o+GQXmLQc+dNZQZusUaLJfcZAhFXPcGDgmh/2L1Se88VkWN702HdC7GY2J3myIzHRiHKTY871lR6p5cQiSpQnAvi3HcqVBm0j325iYQ2JdAgHfuwafLMclEITQ9PJXTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jcdt.org.jm; spf=none smtp.mailfrom=vps125955.inmotionhosting.com; dkim=pass (1024-bit key) header.d=jcdt.org.jm header.i=@jcdt.org.jm header.b=JpwGagRQ; arc=none smtp.client-ip=173.231.240.237
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jcdt.org.jm
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=vps125955.inmotionhosting.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciZs+/De"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7715A1F00893;
-	Thu, 11 Jun 2026 15:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781191795;
-	bh=XMXAduZhXMi7sPl7wXbg3EtVrGgXmUglUtg25rqA6sk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ciZs+/DefC3FEetqmSahSCuzh6jGeMeQK5b4Os2DLrT6x8XwCcZ6miyLrc41TLVLE
-	 2b8fO2LcXAv3deQMiZcAHtFSiKZ1pj/dRQRBnjUJFO7IP7wa2kyqAjqd+1xn7IDHEy
-	 n99HHux03s27GRli38vb8VjILwRg3+AFUc7nMqrB9tF5YaoDUAXlMfpDTJTGfCHyDz
-	 KdJ8qbVvvi6MbW84TrdyPpAFiJtDJAS5hCKNsgHriUUP1NDq3sEsTF1sjVN8w7nI5W
-	 NbSvugawn36bUM3j8mftsVeiYpbVbjSZ8sn9HTCRM/z7T7IXNnpkK9REqhTnSzMa0J
-	 GPIkUGgnI9Ktg==
-Date: Thu, 11 Jun 2026 20:59:51 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: palash.kambar@oss.qualcomm.com
-Cc: neil.armstrong@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, mani@kernel.org, alim.akhtar@samsung.com,
-	bvanassche@acm.org, andersson@kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
-	luca.weiss@fairphone.com, linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
-	nitin.rawat@oss.qualcomm.com
-Subject: Re: [PATCH v3 3/3] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
-Message-ID: <airUb6wT-I-7cOXK@vaman>
-References: <20260526090956.2340262-1-palash.kambar@oss.qualcomm.com>
- <20260526090956.2340262-4-palash.kambar@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=jcdt.org.jm header.i=@jcdt.org.jm header.b="JpwGagRQ"
+Received: by vps125955.inmotionhosting.com (Postfix, from userid 1002)
+	id 867A9450D5; Thu, 11 Jun 2026 10:26:21 -0500 (EST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jcdt.org.jm;
+	s=default; t=1781191581;
+	bh=OO2xzbzxtpu5o8L0beFgsl3gsvs0DQok5PhNZ2Oh5N4=;
+	h=To:Subject:Date:From:Reply-To;
+	b=JpwGagRQPG8tPmQ/mIQvSmhlbZgmPnY4zX/45RiBuVI+xr0z0fActx8HhLZKwtBsq
+	 GOGAfP7FpmTLFZ4372HePDEyH3paiLKzkVrXwzWDyruN334iWbLAJgsK3EVAW4zwFm
+	 tf234QP0fx7Pc55LX4+hM5spKT8lifNEhOPKfXZI=
+To: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Copy of: I promised.
+X-PHP-Originating-Script: 1002:PHPMailer.php
+Date: Thu, 11 Jun 2026 10:26:21 -0500
+From: JCDT | Notification <noreply@jcdt.org.jm>
+Reply-To: sarBlova <devicetree@vger.kernel.org>
+Message-ID: <8JmkOEByesBwiTjAnjfZ4DFEfusImjyhgDfYOVCTh0@jcdt.org.jm>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,33 +38,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260526090956.2340262-4-palash.kambar@oss.qualcomm.com>
 
-On 26-05-26, 14:39, palash.kambar@oss.qualcomm.com wrote:
-> From: Palash Kambar <palash.kambar@oss.qualcomm.com>
-> 
-> Add the init sequence tables and config for the UFS QMP phy found in
-> the Hawi SoC.
+This is a copy of the following message you sent to Info via Jamaica Conservation and Development Trust
 
-This fails to build for me on phy/next
+Photos for my escort application are uploaded.   
+Let me know if the quality is good.   
+Preview: https://tinyurl.com/5adbz2mn#aUz4yw
 
-In file included from drivers/phy/qualcomm/phy-qcom-qmp-ufs.c:24:
-drivers/phy/qualcomm/phy-qcom-qmp-ufs.c:1878:26: error: ‘QSERDES_V8_COM_PLL_IVCO_MODE1’ undeclared here (not in a function); did you mean ‘QSERDES_V6_COM_PLL_IVCO_MODE1’?
- 1878 |         QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_IVCO_MODE1, 0x1f),
-      |                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/phy/qualcomm/phy-qcom-qmp-common.h:22:27: note: in definition of macro ‘QMP_PHY_INIT_CFG’
-   22 |                 .offset = o,            \
-      |                           ^
-drivers/phy/qualcomm/phy-qcom-qmp-ufs.c:1879:26: error: ‘QSERDES_V8_COM_CMN_IETRIM’ undeclared here (not in a function); did you mean ‘QSERDES_V6_COM_CMN_IETRIM’?
- 1879 |         QMP_PHY_INIT_CFG(QSERDES_V8_COM_CMN_IETRIM, 0x07),
-      |                          ^~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/phy/qualcomm/phy-qcom-qmp-common.h:22:27: note: in definition of macro ‘QMP_PHY_INIT_CFG’
-   22 |                 .offset = o,            \
-
-And so on. Looks like QSERDES_V8_COM_PLL_IVCO_MODE1 etc are not define.
-Please rebase test and send again
-
--- 
-~Vinod
