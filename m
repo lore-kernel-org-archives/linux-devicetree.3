@@ -1,578 +1,125 @@
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA113F1AB1
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 15:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED182D593E;
+	Thu, 11 Jun 2026 15:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781192475; cv=none; b=a7vL9uxF/GW3snV9kPZnuuTdJQD3ZVoYEJ30EDtOj00egUGdrg7C5rDZXIU+Q8bOtf4eae8n2vWHI4MXzfkDJK5AQ9zRvmfWXMceDAv7fOjWYQeZiaCA/jOuS6MJVUBNPtTVZipOFdpAAK8Ej2awDj2A+J8q63MECwqUeSAY6JU=
+	t=1781192945; cv=none; b=e8GWWi++dVddA7I1YqDtwYTSp9JslS0dLKju8ODyhnLQli/7KKYxeup1NPb7W50Df2TOD0trqD4V81nSPshtvTMhD324OwesLEIn9nx4hq1VvIHL6de7kK05hJAvB3caoh6kb5sb4e0DLRYwV3dGg294naKmm11hP6U0pK9h2gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781192475; c=relaxed/simple;
-	bh=sqFNFBXkXek7UEZoG28vWnt30khU1scMPvEGMNp+0IA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cCxDa3NZ+IXVqoBL08UQXUynffH3pQ7jeaE8fMMQAX/2KD+8dKLqYlrYFsxwRr3Y7/meSa2u1LSTXsQng0eilwkoblxjBeNijjOanjPspliPcBq9IO/+k726c28lMXpTrgQbcbUvLlbG/LbEjB1+v3VAuUesTfvylNYnzRT28F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KW7zyqy4; arc=none smtp.client-ip=209.85.208.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781192945; c=relaxed/simple;
+	bh=eEPYqYwCfV36F7DpKmyY/mBn0JlkcYgtEybyysUnTek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yc0S3n5zoBwjPjrn7Y6FqDg2KKSnQ8hUJmDs4jHexwQMDrJcvlNpfyXd4h0zmxoDkNrABKGggCUE+po9YC1BLEgA1Rwk71zDiolE4fBxBVehbY0KBviSovSUHbIp2bq4hbwsTvxUBeEOH2/Ql1VUuBI6sjEYu1yala6VKIQWYRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KerxuCzC; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KW7zyqy4"
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39697a4e16cso77348051fa.3
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 08:41:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781192471; x=1781797271; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CbpbOEIKe50enqix894PV3p/ZMGmpyIxZkZ04xwhy2I=;
-        b=KW7zyqy4EUm8+I0tCLApX9duVsu08eERTGrx8IbcBcV/TWKOtMIUf2NUm+tSFb8oAG
-         e3JAU2ijw+dAhJPGEsLLhLr4EIcrXShiJ+GGMaSVm1Ovc4VSMYHEkTF/O5sC+5skZTGo
-         X5Ur1EcmoiedNiXCW8/ZQvvrltEhb9ywqe4YWWtWC0wM0odRzxYCZs+z/A4eh4JagGhh
-         S4MgZFlenTVv6aXGUzEsDETM70oVg7jg/fP0ijekHQ3o6Z8a2dWgNURx4199tGxcnd8f
-         +PYbkZ7TsWeKpR8wUtd+KHhrWZbI9ux3njPmHGn97Dl8QF1UcnZKzwFavj8S1BROlrtD
-         zlsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781192471; x=1781797271;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=CbpbOEIKe50enqix894PV3p/ZMGmpyIxZkZ04xwhy2I=;
-        b=jLXL1itlBZmw/J0IxCreJF6VHye8TxqDpQxHmOnIGVV2bryYLUdZ9ASizYSe8PzZf4
-         g3hpvaMRmmIxIFcmXA+ZqNQCQwQ1VfNk7oGx535esKi7z+WMv37oaO3YX16O1M9ltxQz
-         9S502Dznb9N5+VIBTaFr2GH82NO8NMrIDrkBT8Gx2WujIZZJKSsIl6w0cBCcuuayniQI
-         HkzmgW/5TCvHlJqCs0rCEeJ8zfP+CKtfk5eswGkdJj+W5e5exvQrMfA8S0lQFkdkfJgR
-         i+RGZJ8WqnhXvvwzu3/QIYsa6Z0qtHnSGOnYWdDoJdEJkt4hSV4P0N0BwVzhBxhEXlZu
-         semg==
-X-Forwarded-Encrypted: i=1; AFNElJ8gT+pK8Acqm21kg3FCLx63gFcjP3eSXnjQZLxQthtbni/Dg0Oab1P6OEzScoF224NyxysJ7wc/jSAj@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjD3QjZUQEou54f6RuNTnRU/u/gMZyMeizWODofwiPo+zsRBnA
-	rCEMy/fY30qglv9Du8/4cSQ1efDNbC0hZ/3td9+CZy8VGWd6JIkORIra
-X-Gm-Gg: Acq92OGNY7uAayZFNMRE2TWGiDj09UjBQJK0rlZH1DcZxewlalsF0p3a4HzdnMz+lk4
-	DFUozAGOrxEszPQtvOW47IGOheujcDyaC5ev6kEs0YGbC/gvXyNN5giTvkwrOXfLZYueH4B1uyF
-	AOdK9eTr5BG365flNF3V9uDvHBbyfrvg258XptNOgd/nJWLbR1XoDPbkdJU5sM3TM/kjikroptx
-	u3+ROV+oky97WU8dI8RI1nx523k/qvh6xZLYelXlD1ehQI2oNpkPA/O4rPe+4kuxZH3hYDbD8BD
-	xL5bstv9HMgKuEAOpKEcu1cOiTQRAES8ZkdYH+fgByjG4/X6UM785CTt7vTg6Sc3/ucSUQhG4MC
-	Wx0Gn4BRY6wM6R5U2eaAR6ILjmxUPfFKWN2F+ab/T0YRN5OdmkJyayts4QX5iQdSFU+feOIcp9h
-	Czzu4qgHK+GxLFhSGQPso1iI1QNlNHssTTdB5ZzXmWuyO149yP0Xv6D2tzal9A9q0SODE=
-X-Received: by 2002:a2e:ad0a:0:b0:396:73ed:695d with SMTP id 38308e7fff4ca-3991a062724mr9900261fa.11.1781192470662;
-        Thu, 11 Jun 2026 08:41:10 -0700 (PDT)
-Received: from Shofiq.home (87-92-251-137.rev.dnainternet.fi. [87.92.251.137])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3991ac81488sm5994641fa.1.2026.06.11.08.41.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 08:41:10 -0700 (PDT)
-From: Md Shofiqul Islam <shofiqtest@gmail.com>
-To: linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: jic23@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linusw@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Md Shofiqul Islam <shofiqtest@gmail.com>
-Subject: [PATCH v2 3/3] dt-bindings: iio: accel: convert lis302 binding to YAML schema (v2)
-Date: Thu, 11 Jun 2026 18:41:05 +0300
-Message-ID: <20260611154105.3727-4-shofiqtest@gmail.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20260611154105.3727-1-shofiqtest@gmail.com>
-References: <20260611154105.3727-1-shofiqtest@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KerxuCzC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781192945; x=1812728945;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=eEPYqYwCfV36F7DpKmyY/mBn0JlkcYgtEybyysUnTek=;
+  b=KerxuCzCSCGOULJrphchYQHaCY5UAt0HQBcM4Ji8iAxMpptujUtIOTsL
+   YFxYbGvdD9fo5vtD4UHNeg1OWRZCT8gaE7WiZjF7HnIbuK8olivXR7JE3
+   ewYKF265iQ6Rb5cJHHZZfGPPIUxyY6Jzpkn84NmwEisXOJAFoZw3seXBA
+   TJIJxdeh6HXoCm9N+tiqLlhhugXRh31tCZRPT9DL6BpER6xiBE90O92qi
+   p8erfoFkGYYe6RSM5KqM6JtZxknt01kiZ+ssnJwEu2ymCPFLQxnRz7YFX
+   Q4x+VaZRvh5qxuWOCcZRJCyV/YgUnVFTpTNizLppGysQ3EoVebuFw36AJ
+   Q==;
+X-CSE-ConnectionGUID: Fsbzy/hlREKxhLEylEHGow==
+X-CSE-MsgGUID: wXGBiF4mTKCI6WlccaMAyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82200640"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
+   d="scan'208";a="82200640"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 08:49:04 -0700
+X-CSE-ConnectionGUID: vgWRVW9xQsScdhid1DOZgw==
+X-CSE-MsgGUID: Z/YOgAYiTEymviQBo+GIyw==
+X-ExtLoop1: 1
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa003.fm.intel.com with ESMTP; 11 Jun 2026 08:48:59 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id E591098; Thu, 11 Jun 2026 17:48:57 +0200 (CEST)
+Date: Thu, 11 Jun 2026 18:48:56 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Chen-Yu Tsai <wenst@chromium.org>
+Subject: Re: [PATCH v2 05/16] usb: hub: Associate port@ fwnode with USB port
+ device
+Message-ID: <airY6IMz2KFz_z9j@kuha>
+References: <20260610084053.2059858-1-wenst@chromium.org>
+ <20260610084053.2059858-6-wenst@chromium.org>
+ <ailxrP-_9_NL8qnN@ashevche-desk.local>
+ <CAMRc=MdiwQM6yk8FXcc+RisVP2iqWKWzVsn2-Yy6dyJXt-1X=Q@mail.gmail.com>
+ <aipz2zMFcdnZYTxS@ashevche-desk.local>
+ <CAMRc=MdRN7YitmMX8PknbzLh+MdsWm+dDg0MLtCVYOorqNobTw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMRc=MdRN7YitmMX8PknbzLh+MdsWm+dDg0MLtCVYOorqNobTw@mail.gmail.com>
 
-Replace the plain text lis302.txt with a YAML schema for the
-LIS302DL/LIS3LV02D accelerometer family.
+On Thu, Jun 11, 2026 at 11:35:13AM +0200, Bartosz Golaszewski wrote:
+> On Thu, Jun 11, 2026 at 10:37 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Thu, Jun 11, 2026 at 04:20:58AM -0400, Bartosz Golaszewski wrote:
+> > > On Wed, 10 Jun 2026 16:16:12 +0200, Andy Shevchenko
+> > > <andriy.shevchenko@linux.intel.com> said:
+> > > > On Wed, Jun 10, 2026 at 04:40:39PM +0800, Chen-Yu Tsai wrote:
+> > > >> When a USB hub port is connected to a connector in a firmware node
+> > > >> graph, the port itself has a node in the graph.
+> > > >>
+> > > >> Associate the port's firmware node with the USB port's device,
+> > > >> usb_port::dev. This is used in later changes for the M.2 slot power
+> > > >> sequencing provider to match against the requesting port.
+> > > >
+> > > > Okay, would this affect ACPI-based systems? if so, how?
+> > > > Can you elaborate on that, please?
+> > >
+> > > Is it possible that there's an ACPI device node associated with the port like
+> > > on some DT systems? I don't think so and there should be no impact IMO but I
+> > > also don't know enough about ACPI.
 
-Key changes from v1:
-- Add a prominent WARNING in the description that this is a legacy
-  binding and must not be copied for new devices
-- Add st,lis302dl compatible (used by Nokia N900 / omap3-n900.dts)
-  in addition to st,lis302dl-spi and st,lis3lv02d
-- Document both supply naming conventions: Vdd-supply/Vdd_IO-supply
-  (legacy uppercase, used by most boards) and vdd-supply/vddio-supply
-  (modern lowercase, used by Nokia N900)
-- Add mount-matrix support (used by Nokia N900)
-- Add self-test limit properties st,min-limit-x/y/z and
-  st,max-limit-x/y/z (these legitimately belong in DT as they
-  encode per-board hardware tolerances)
-- Mark all click/irq/wakeup/filter properties as deprecated=true.
-  They configure run-time driver behaviour, not hardware, and should
-  not appear in DT for new boards
-- Add st,click-thresh-x/y/z as deprecated with an explicit note that
-  this is a misspelling present in several upstream boards; the driver
-  reads st,click-threshold-x/y/z and never reads the short form
-- Remove driver path reference from description
-- Use schema constraints (minimum/maximum) for axis remapping range
-- Remove Jonathan Cameron as maintainer; use Linus Walleij who
-  already maintains the related st,st-sensors binding
-- Use example based on actual upstream board (Nokia N900)
+There are device nodes for the USB ports in ACPI, and I think they get
+always assigned in drivers/usb/core/usb-acpi.c.
 
-Boards using this as primary binding:
-  st,lis302dl:     omap3-n900.dts
-  st,lis3lv02d:    omap3-n950-n9.dtsi, am335x-pepper.dts
-  st,lis302dl-spi: pxa300-raumfeld-controller.dts
+> > The API is agnostic. There is a possibility to have software nodes associated
+> > with the port. I think the best is to be sure that ACPI-aware people who are
+> > experts in USB will check this (Heikki?).
 
-Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
----
- .../devicetree/bindings/iio/accel/lis302.txt  | 119 -------
- .../bindings/iio/accel/st,lis302dl.yaml       | 320 ++++++++++++++++++
- 2 files changed, 320 insertions(+), 119 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/accel/lis302.txt
- create mode 100644 Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
+I can't say what's the impact from this patch - I'm not an expert with
+this side of USB. Is there a danger that we end up overwriting the
+ACPI node for the port, or something else?
 
-diff --git a/Documentation/devicetree/bindings/iio/accel/lis302.txt b/Documentation/devicetree/bindings/iio/accel/lis302.txt
-deleted file mode 100644
-index 457539647f36..000000000000
---- a/Documentation/devicetree/bindings/iio/accel/lis302.txt
-+++ /dev/null
-@@ -1,119 +0,0 @@
--LIS302 accelerometer devicetree bindings
--
--This device is matched via its bus drivers, and has a number of properties
--that apply in on the generic device (independent from the bus).
--
--
--Required properties for the SPI bindings:
-- - compatible: 		should be set to "st,lis3lv02d-spi"
-- - reg:			the chipselect index
-- - spi-max-frequency:	maximal bus speed, should be set to 1000000 unless
--			constrained by external circuitry
-- - interrupts:		the interrupt generated by the device
--
--Required properties for the I2C bindings:
-- - compatible:		should be set to "st,lis3lv02d"
-- - reg:			i2c slave address
-- - Vdd-supply:		The input supply for Vdd
-- - Vdd_IO-supply:	The input supply for Vdd_IO
--
--
--Optional properties for all bus drivers:
--
-- - st,click-single-{x,y,z}:	if present, tells the device to issue an
--				interrupt on single click events on the
--				x/y/z axis.
-- - st,click-double-{x,y,z}:	if present, tells the device to issue an
--				interrupt on double click events on the
--				x/y/z axis.
-- - st,click-thresh-{x,y,z}:	set the x/y/z axis threshold
-- - st,click-click-time-limit:	click time limit, from 0 to 127.5msec
--				with step of 0.5 msec
-- - st,click-latency:		click latency, from 0 to 255 msec with
--				step of 1 msec.
-- - st,click-window:		click window, from 0 to 255 msec with
--				step of 1 msec.
-- - st,irq{1,2}-disable:		disable IRQ 1/2
-- - st,irq{1,2}-ff-wu-1:		raise IRQ 1/2 on FF_WU_1 condition
-- - st,irq{1,2}-ff-wu-2:		raise IRQ 1/2 on FF_WU_2 condition
-- - st,irq{1,2}-data-ready:	raise IRQ 1/2 on data ready condition
-- - st,irq{1,2}-click:		raise IRQ 1/2 on click condition
-- - st,irq-open-drain:		consider IRQ lines open-drain
-- - st,irq-active-low:		make IRQ lines active low
-- - st,wu-duration-1:		duration register for Free-Fall/Wake-Up
--				interrupt 1
-- - st,wu-duration-2:		duration register for Free-Fall/Wake-Up
--				interrupt 2
-- - st,wakeup-{x,y,z}-{lo,hi}:	set wakeup condition on x/y/z axis for
--				upper/lower limit
-- - st,wakeup-threshold:		set wakeup threshold
-- - st,wakeup2-{x,y,z}-{lo,hi}:	set wakeup condition on x/y/z axis for
--				upper/lower limit for second wakeup
--				engine.
-- - st,wakeup2-threshold:	set wakeup threshold for second wakeup
--				engine.
-- - st,highpass-cutoff-hz=:	1, 2, 4 or 8 for 1Hz, 2Hz, 4Hz or 8Hz of
--				highpass cut-off frequency
-- - st,hipass{1,2}-disable:	disable highpass 1/2.
-- - st,default-rate=:		set the default rate
-- - st,axis-{x,y,z}=:		set the axis to map to the three coordinates.
--				Negative values can be used for inverted axis.
-- - st,{min,max}-limit-{x,y,z}	set the min/max limits for x/y/z axis
--				(used by self-test)
--
--
--Example for a SPI device node:
--
--	accelerometer@0 {
--		compatible = "st,lis302dl-spi";
--		reg = <0>;
--		spi-max-frequency = <1000000>;
--		interrupt-parent = <&gpio>;
--		interrupts = <104 0>;
--
--		st,click-single-x;
--		st,click-single-y;
--		st,click-single-z;
--		st,click-thresh-x = <10>;
--		st,click-thresh-y = <10>;
--		st,click-thresh-z = <10>;
--		st,irq1-click;
--		st,irq2-click;
--		st,wakeup-x-lo;
--		st,wakeup-x-hi;
--		st,wakeup-y-lo;
--		st,wakeup-y-hi;
--		st,wakeup-z-lo;
--		st,wakeup-z-hi;
--	};
--
--Example for a I2C device node:
--
--	lis331dlh: accelerometer@18 {
--		compatible = "st,lis331dlh", "st,lis3lv02d";
--		reg = <0x18>;
--		Vdd-supply = <&lis3_reg>;
--		Vdd_IO-supply = <&lis3_reg>;
--
--		st,click-single-x;
--		st,click-single-y;
--		st,click-single-z;
--		st,click-thresh-x = <10>;
--		st,click-thresh-y = <10>;
--		st,click-thresh-z = <10>;
--		st,irq1-click;
--		st,irq2-click;
--		st,wakeup-x-lo;
--		st,wakeup-x-hi;
--		st,wakeup-y-lo;
--		st,wakeup-y-hi;
--		st,wakeup-z-lo;
--		st,wakeup-z-hi;
--		st,min-limit-x = <120>;
--		st,min-limit-y = <120>;
--		st,min-limit-z = <140>;
--		st,max-limit-x = <550>;
--		st,max-limit-y = <550>;
--		st,max-limit-z = <750>;
--	};
--
-diff --git a/Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml b/Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
-new file mode 100644
-index 000000000000..8a19aa108521
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
-@@ -0,0 +1,320 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/accel/st,lis302dl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics LIS302DL/LIS3LV02D 3-Axis Accelerometer (Legacy Binding)
-+
-+description: |
-+  WARNING: This is a legacy binding for hardware that predates modern DT
-+  practices. It is documented as-found in upstream board files. Do NOT use
-+  this as a template for new drivers or bindings.
-+
-+  The driver lives in drivers/misc/lis3lv02d, not in IIO. Many properties
-+  listed here represent run-time driver configuration that would normally not
-+  appear in device tree. They are documented here only because existing
-+  upstream board DTS files use them.
-+
-+  Compatibles st,lis302dl-spi and st,lis3lv02d were previously listed as
-+  deprecated in st,st-sensors.yaml. They are moved here with their actual
-+  hardware configuration so validation works correctly.
-+
-+maintainers:
-+  - Linus Walleij <linus.walleij@linaro.org>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - description: I2C variant (original part)
-+        const: st,lis302dl
-+      - description: I2C variant (larger range)
-+        const: st,lis3lv02d
-+      - description: SPI variant; including the bus type in the compatible
-+          string is a legacy naming error, do not copy for new bindings
-+        const: st,lis302dl-spi
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    minItems: 1
-+    maxItems: 2
-+
-+  Vdd-supply:
-+    description: Main power supply (legacy uppercase name used by most boards).
-+
-+  Vdd_IO-supply:
-+    description: I/O power supply (legacy uppercase name used by most boards).
-+
-+  vdd-supply:
-+    description: Main power supply (modern lowercase name, used by omap3-n900).
-+
-+  vddio-supply:
-+    description: I/O power supply (modern lowercase name, used by omap3-n900).
-+
-+  mount-matrix:
-+    description: 3x3 mounting rotation matrix.
-+
-+  st,min-limit-x:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: Minimum acceptable self-test delta for X axis.
-+
-+  st,min-limit-y:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: Minimum acceptable self-test delta for Y axis.
-+
-+  st,min-limit-z:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: Minimum acceptable self-test delta for Z axis.
-+
-+  st,max-limit-x:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: Maximum acceptable self-test delta for X axis.
-+
-+  st,max-limit-y:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: Maximum acceptable self-test delta for Y axis.
-+
-+  st,max-limit-z:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: Maximum acceptable self-test delta for Z axis.
-+
-+  # The following properties configure run-time driver behaviour and do not
-+  # describe hardware. They are deprecated. Documented here only so that
-+  # existing upstream board DTS files pass dt_binding_check.
-+
-+  st,click-single-x:
-+    type: boolean
-+    deprecated: true
-+    description: Enable single-click detection on X axis.
-+
-+  st,click-single-y:
-+    type: boolean
-+    deprecated: true
-+    description: Enable single-click detection on Y axis.
-+
-+  st,click-single-z:
-+    type: boolean
-+    deprecated: true
-+    description: Enable single-click detection on Z axis.
-+
-+  st,click-threshold-x:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: Click threshold X axis. Driver default is used if absent.
-+
-+  st,click-threshold-y:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: Click threshold Y axis. Driver default is used if absent.
-+
-+  st,click-threshold-z:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: Click threshold Z axis. Driver default is used if absent.
-+
-+  st,click-thresh-x:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: |
-+      Misspelling of st,click-threshold-x present in several upstream board
-+      files. The driver does not read this property; it is silently ignored.
-+      Documented here only to avoid dt_binding_check failures on those boards.
-+
-+  st,click-thresh-y:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: See st,click-thresh-x.
-+
-+  st,click-thresh-z:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: See st,click-thresh-x.
-+
-+  st,click-time-limit:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: Click time limit in 0.5ms steps (0-127).
-+
-+  st,click-latency:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+    description: Click latency in 1ms steps (0-255).
-+
-+  st,click-window:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,irq1-click:
-+    type: boolean
-+    deprecated: true
-+  st,irq2-click:
-+    type: boolean
-+    deprecated: true
-+  st,irq1-ff-wu-1:
-+    type: boolean
-+    deprecated: true
-+  st,irq1-ff-wu-2:
-+    type: boolean
-+    deprecated: true
-+  st,irq2-ff-wu-1:
-+    type: boolean
-+    deprecated: true
-+  st,irq2-ff-wu-2:
-+    type: boolean
-+    deprecated: true
-+  st,irq1-data-ready:
-+    type: boolean
-+    deprecated: true
-+  st,irq2-data-ready:
-+    type: boolean
-+    deprecated: true
-+  st,irq1-disable:
-+    type: boolean
-+    deprecated: true
-+  st,irq2-disable:
-+    type: boolean
-+    deprecated: true
-+  st,irq-open-drain:
-+    type: boolean
-+    deprecated: true
-+  st,irq-active-low:
-+    type: boolean
-+    deprecated: true
-+
-+  st,wakeup-x-lo:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup-x-hi:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup-y-lo:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup-y-hi:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup-z-lo:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup-z-hi:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,wakeup2-x-lo:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup2-x-hi:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup2-y-lo:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup2-y-hi:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup2-z-lo:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup2-z-hi:
-+    type: boolean
-+    deprecated: true
-+  st,wakeup2-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,wu-duration-1:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+  st,wu-duration-2:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,highpass-cutoff-hz:
-+    enum: [1, 2, 4, 8]
-+    deprecated: true
-+  st,hipass1-disable:
-+    type: boolean
-+    deprecated: true
-+  st,hipass2-disable:
-+    type: boolean
-+    deprecated: true
-+
-+  st,default-rate:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,axis-x:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    minimum: -3
-+    maximum: 3
-+    deprecated: true
-+    description: Axis remapping. Replaced by mount-matrix.
-+
-+  st,axis-y:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    minimum: -3
-+    maximum: 3
-+    deprecated: true
-+    description: Axis remapping. Replaced by mount-matrix.
-+
-+  st,axis-z:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    minimum: -3
-+    maximum: 3
-+    deprecated: true
-+    description: Axis remapping. Replaced by mount-matrix.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        accelerometer@1d {
-+            compatible = "st,lis302dl";
-+            reg = <0x1d>;
-+            vdd-supply = <&vaux1>;
-+            vddio-supply = <&vio>;
-+            interrupt-parent = <&gpio6>;
-+            interrupts = <21 IRQ_TYPE_EDGE_RISING>,
-+                         <20 IRQ_TYPE_EDGE_RISING>;
-+            mount-matrix = "-1", "0", "0",
-+                            "0", "1", "0",
-+                            "0", "0", "-1";
-+        };
-+    };
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        accelerometer@1 {
-+            compatible = "st,lis302dl-spi";
-+            reg = <1>;
-+            spi-max-frequency = <1000000>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <104 IRQ_TYPE_EDGE_FALLING>;
-+            st,click-single-x;
-+            st,click-single-y;
-+            st,click-single-z;
-+            st,irq1-click;
-+            st,irq2-click;
-+        };
-+    };
-+...
+> Even if there is a software node - it shouldn't really matter. It will
+> just be assigned to the port device.
+
+thanks,
+
 -- 
-2.51.1
-
+heikki
