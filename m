@@ -1,85 +1,33 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508383BB694
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DF3347BC1;
+	Thu, 11 Jun 2026 09:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169862; cv=none; b=BmkspNLEHlY088atApXMZRmt+zQuw+/+k2lecKQ0RPLs3IedzsF2Fbmzh/dQfZTSe1AljBX8iByICF8SfVK0jkmd7BiUVt99ur/hCcmsgQRAgilf34eyRdlBuWhl4Yo1bfEQp3D5wtXqrQezTJ/oAFSqoWySbdqGoEd75xhdvPc=
+	t=1781169873; cv=none; b=YcRL4uiTEOIVLgpiAqKmaKmnKg1LiNh4RVANdKpyc8cRpau+Kys16+OrS7CZ74dcNDEm1Ly7eiLD3jMloGDhA543nf1GpsfOKjnajT6mlnz9pO7Mj4ZlL95usLSJGE97rL8j3/+dwa2OOfkRPhkqsHs0QCOUvYORHWjSidmvbm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169862; c=relaxed/simple;
-	bh=TePx6sAT1Rm99eGMWoZiia/B6i/vV66CziWOWxaFkkI=;
+	s=arc-20240116; t=1781169873; c=relaxed/simple;
+	bh=NVWiIJT/7VAsozIULKC9M8FeT0cPIZ4RVnRZNNF7FGo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OdCw9a5BVymFrPsXNAGDzR9slQx/zOcYBPwObzEIZB5qHDBDJur8RbbKL+1mWyMrbbk98iX9UJ563F9rvOpXKOTpXtJ+z6qITYY2MNGFwV7i0zYVXltGHFMYnU3ysh6rDusQif1dEKK3C+3zZQkSvhM7RvCYMcb4PRADhw9UZ48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cLkMayuJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TTd2jaqu; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=dysJHe0ZmuKSgIf9ve8rxv6mcvDmVo+wJi/kSBBwwh9cYEy3T0RbuzCXCIMPmxrxlwjl8JL6dFCmw5UT3Ao8a7LGj9O+d2eTjA12xOuLck5tBqt84h54nsEytB47iYjddZi0jWf7D/hIzk0mN1A9Zt0GZeDoCwQFnl3MICNFuII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TkM1yr05; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cLkMayuJ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TTd2jaqu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781169859;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6+2xaEKiZA3gEu8WbXqmvB4iNhVU2+4QCQa/jHjj52U=;
-	b=cLkMayuJk3uLbZ4+LYQdKPEey1IoirQ6Vp4AVRTGgKRP9TPHVYOvTpT7WcVRf1FChg8DS8
-	qxSrEblPHcRSv+BhUZl237nKJ8apOaIIcGZHBB78Ev/d6Z6CI7RpCfBBpl6cIs5eUnqK/L
-	/2XR7tk19wzeTOT6ALzvQlgXHsk+DCo=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-142-JnPG_xcvMPip5_oanUTDXw-1; Thu, 11 Jun 2026 05:24:18 -0400
-X-MC-Unique: JnPG_xcvMPip5_oanUTDXw-1
-X-Mimecast-MFC-AGG-ID: JnPG_xcvMPip5_oanUTDXw_1781169857
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-490ae016853so14016475e9.2
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 02:24:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781169857; x=1781774657; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6+2xaEKiZA3gEu8WbXqmvB4iNhVU2+4QCQa/jHjj52U=;
-        b=TTd2jaquegp5yUv5/5wXtaycwBPeQ3CG38Od1rELHvlX3PhuKG8AYvbLwwqDkGqFPn
-         sADSh6uTQ1xRPA+EqodNhMKXBku6AtHOTAO41ZYbDAdGyJf6EmBEGM9PceHxekbwYUs6
-         EHRWB0ya1toGJVqvqDU3h3eiewwzQ5owB8q8UxWIEH5oUotfFZMSFeHoz9DUoShWRxBY
-         KYBUBTJxle/QVXkqUuAPiY5D7KqByJJbBdjU2CdkDasC/0mBc9mMTWDuBHO8OQ3tFlqu
-         DROjqoBue6Bc6gObWGysFw4hSUmP0J95De1YDZIF9d4U+ynmc+zBoCArizKN21iOLAjT
-         cXNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781169857; x=1781774657;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6+2xaEKiZA3gEu8WbXqmvB4iNhVU2+4QCQa/jHjj52U=;
-        b=kVCWd36pDVQk42Vr03VvVnhDBPuaq7hc7a1JyffHxdHmwMzR3Ra9sHYHG7tHXCynKj
-         l2CHIMeUIdeNGn/rhiTyYIg3bldzYGOXbb9up7CPf9D83+dKVc79qW3b1qvlsNVvIOFn
-         /PJ9LjZLN/MeO+3SZVactt9iwurIwg1JWj+O2itAoxCkBH7FH8Lg2ZW3Bwe+Wt8Db7Ka
-         2hSWdFs7F7O4T/84Ah0OHnrYnh9Z494WJvJX4XYBK6rJPUEgpHvo4aQFtFHMRqOivLgM
-         CJYT+pCLsPt6rvriNDZfLZ8C45qKYNWKPh3OwfoTUX2pKUQaKVd5usfSnxdhH4f/F9aH
-         lkNg==
-X-Forwarded-Encrypted: i=1; AFNElJ9WayHEMtj+O40tWwbfziceuR7rU0sb10aunCKYdMnKRe9Lvie50wOzphs/J3+z1ilkuZIZf2pJZLj7@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCa8Jq1jJv+2jviW55ScBbmc2QAbOVPJGWthNeSF65bKrZeBr5
-	ZT5ppjU/KGG6nN+C1QtS3X8iuZ5/0Vy4KUantbdztDCEyafoU7Tc0WgxTP7nC9TbNROEElDOhTr
-	tBBGVWVedoQjSHnm+MpfgYIaZ4ZAM8gDUqW5sQuyoJsExpWjKeynsLBLuHq8IW48=
-X-Gm-Gg: Acq92OGjJCK2nVXgsN4Cr0a9PV0Z9I1do4F0Ev6XSrz3Rfr+/JBO+9ANIGid/hwzLf4
-	4ccAXBIOceao13k/QryqGhsZqyLAddE/cIBT0jCrSKF6qB3GSSHt5FkPXWRZccWosa2B1WMmq2n
-	vMUSRC6LpksD5ZfAaPQi/4YxRVvfsgsHbyn6vTTcHdC9EyGAWnY6rvpz5Avd9awoqtyTsH2T1tW
-	IGcRA8PCXP1M02WDbnHDEikgvyCnevn9pCpsJOm5khrLpIB/PKL7smeKKaDJiwNF0/JqDwQa61Y
-	IW0222Tgqv/92a8mJoHUJfFeXITHr4S7idhS0MJhOl/8cKvtLr3rQ4TbuXjB9bBow5SM6Eh+FCQ
-	YGbcUgQqJPHSlOf3R5VaG7GXeilVIba3HDMPkQior/psiNy7I35XrooBfY3YwQrqeYA==
-X-Received: by 2002:a05:600c:4e0c:b0:490:bb45:79ee with SMTP id 5b1f17b1804b1-490e5379dbbmr28531765e9.0.1781169856805;
-        Thu, 11 Jun 2026 02:24:16 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e0c:b0:490:bb45:79ee with SMTP id 5b1f17b1804b1-490e5379dbbmr28531295e9.0.1781169856414;
-        Thu, 11 Jun 2026 02:24:16 -0700 (PDT)
-Received: from [192.168.88.32] ([150.228.93.44])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e2d0475asm78210765e9.12.2026.06.11.02.24.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 02:24:15 -0700 (PDT)
-Message-ID: <03073247-c4c9-4e31-b8d0-2f03c9bbaefb@redhat.com>
-Date: Thu, 11 Jun 2026 11:24:13 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TkM1yr05"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75A61F00899;
+	Thu, 11 Jun 2026 09:24:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781169871;
+	bh=7ZqG1Kuu1Hqp3ozxFW8pzKB7sswpKS1lrkRvC0eSUbE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TkM1yr055E9sopkEmkE7CWjhdMvkmRhCDakkcoKkmFkThH8A2PF6D+jVtjdu+aEvu
+	 sLmxPOSoA9keXrho7QN/4+ynVVk+TsiceKCRKkqrN8A0CjA8Gcrgt5b6L46aahazN8
+	 tMa8eBIvMTrED0ukD+FWMW7DpnKHMZxh9ILtNv9ETs5PkNLrRTwy7o2jS49DDn7MAu
+	 ccNTSHds4NpFb4RkxeyjHWstUO7193Wc6EnpB+x1buyJ4rGiVetAxDRU80rAy7SGBz
+	 p/HpDzmjQJRbIBw5i41oPRr9+fOMmMyjsbXpmddO0uyv/XYqMhR/E+MZPzHPeceNWM
+	 YOUWygnMHIqVw==
+Message-ID: <81632f61-9db2-4b26-9a2a-96013d799e14@kernel.org>
+Date: Thu, 11 Jun 2026 11:24:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,40 +35,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] net: phy: at803x: add RX and TX clock management
- for IPQ5018 PHY
-To: george.moussalem@outlook.com, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+Subject: Re: [PATCH] arm64: defconfig: Enable USB_UAS in arm64 configuration
+To: sashiko-reviews@lists.linux.dev,
+ Akash Kumar <akash.kumar@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
-References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
- <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
-From: Paolo Abeni <pabeni@redhat.com>
+References: <20260611090946.2790631-1-akash.kumar@oss.qualcomm.com>
+ <20260611091509.6E09F1F00898@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260611091509.6E09F1F00898@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/5/26 2:41 PM, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
+On 11/06/2026 11:15, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Mismatch between Author email and Signed-off-by email.
+> --
 > 
-> Acquire and manage the RX and TX clocks for the IPQ5018 PHY.
-> These clocks are required for the PHY's datapath to function correctly.
-> Gate the clocks upon link state changes for improved power management.
+> commit 8dd2d2a3035d6deca9f623e43d26b74e60f0f6d7
+> Author: Akash Kumar <akash.kumar@oss.qualcomm.com>
 > 
-> Fixes: d46502279a11 ("net: phy: qcom: at803x: Add Qualcomm IPQ5018 Internal PHY support")
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> arm64: defconfig: Enable USB_UAS in arm64 configuration
+> 
+> This commit enables CONFIG_USB_UAS=y in the default arm64 configuration
+> to provide better out-of-the-box performance for USB storage devices.
+> 
+>> Author: Akash Kumar <akash.kumar@oss.qualcomm.com>
+> [ ... ]
+>>     Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+> 
+> [Severity: Low]
+> This isn't a bug, but there is a mismatch between the Author email and the
+> Signed-off-by email. 
 
-I read the above as this device never worked. If so I think this should
-probably target the net-next tree with no fixes tag (basically it
-enables new H/W).
+This is a bug... DCO email must match.
 
-/P
-
+Best regards,
+Krzysztof
