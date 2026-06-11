@@ -1,127 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BA22E9ED6
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781155356; cv=none; b=HpMdb56NLNzgGV/kshiv8BXNAYCwEtqjQ02ivUgjKpny/98Q/59U/p5NxZLfhEpxJUpzer9XtkBBxLup4bTK/yZ68mdwtLeUUd1LWYixoiRyGvn+dWFXIhAbOGP/Be+ltCuZ4O44dm22pUasxjRshE5PoLP21NSv5mVgSaZDtxo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781155356; c=relaxed/simple;
-	bh=gdfk1k71Tvny+Ux85VmIuUNOCUB5XrsDwF0dhKKaqnY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CQKT+bxk9hMopZ9Cz23ar4s9VHPfRwRfRuoU7eU+tXIcCpAVxkSgDgxTiiSf+mZ5HmyyoB2FK13otPraNWtzGPdBtod9KWIZFjfG0x8Vr74KMz9YDSxinQxFRAJnIydH0R9onQRA8tdZATGcWl8yJdSYFMcifKdkpOMYAgTo5PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boeRrAlh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05979306742
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781155362; cv=pass; b=uspsBucRq3CEY6Kv32rH9RirenV8GGQSONnM3D8v6gj77yYJk5dYSjMLXg41zmnzayrJDU6hyN6PCrcJPVzms3OYvBnbMwWoviqMqPV7HAB6VGge9dV+PT8K2z8ghEaUHl5B+AifudcKrPnNZRJ90+ShVf+Rhwb7GIG/478h3CQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781155362; c=relaxed/simple;
+	bh=Vv8xc/JE73ka4IbiLvsyGTHwvLLeofhoh5T3QOJOdJ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BFb0ognacXkpv5V1Ef7QYeIyaRCN3coh9T/y4tbgjijejyrn2jP7RrvCw1S9BRvbi0wMPJwfqF47+gjkGdABkuMJmamkUziQetz+k6791PYoGmYMbX6lMjEQWBJlzqt7L3dse39GMQi1SF42By8DItGzqzyYYY4AWGupb52roNw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaG0ltjS; arc=pass smtp.client-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boeRrAlh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E495B1F00893;
-	Thu, 11 Jun 2026 05:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781155352;
-	bh=8VCUPPcSvhc3G/Kwt1PKZdUGLff5ah2+iW1xvzEYtTY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=boeRrAlhy1IzyFyEPaaeB3/TqxBK3diCJ7mAszodRWCUnamPf8wioPRzVDpAvegSL
-	 uvHXV+XhQhCjEG+ZH4IkRDWIqAIq8FbKRFHjln6I39AEfRerIAml8rdHNBvGEjVkrv
-	 dO6xJkVmRRyriDOoy8i99mS+6bRQFekBvdI4BRgDjr7ICV/BHyROvYNIhN9iu4V6A7
-	 OZ4wTKW+y2wODW5ykK0qMJzgYhk92WGi9VCGWGm/bea/DI/l6QIQgVQWt/n9REg5kl
-	 8t6Z9tTsL9Fff2fMv0h1eaF0eBGP3+BxQtJswFVsb+8qTPxVthMJtKVATSZToqeX/2
-	 lVp+XlecDU7wA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 34/37] arm64: dts: qcom: talos: Move PCIe phy and
- GPIOs to root port node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611-wake-v2-34-2744251b1181@oss.qualcomm.com>
-References: <20260611-wake-v2-34-2744251b1181@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 05:22:31 +0000
-Message-Id: <20260611052231.E495B1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaG0ltjS"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3965bc493caso69911871fa.2
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:22:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781155358; cv=none;
+        d=google.com; s=arc-20240605;
+        b=P6iv/rdFx1iO32eoAxStk/0LBaVc8zjhtG47RozghfNaJNl+sN034kIR/wtnUXDLUm
+         22cZooRgKWCc/D2q+8lqv8MlBcll9oaVoVKG5DJ6uGUjIPa4Mjw+BKR5jBSR2r96ZfQx
+         A4hr1jOAdiY2ybh0h8dslQYm7jrE8O5CZ5T2r1hjfkJTcmQ+JYUhsaqgPbc1ui4j6vWj
+         zdce8tscB0hZl1MXDSiFoP4DU7HtkLs+Os4/KilBKeZuVVp9DDptE+mhosxs1jZxNfkt
+         mu0ie2wlHcFPPCR/QTpqItKCiWXkDhphwtNn8b2la0nLuIJATJifipCblTI6KTeDhcto
+         tCxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Vv8xc/JE73ka4IbiLvsyGTHwvLLeofhoh5T3QOJOdJ0=;
+        fh=jd7NNSgZXSe3DCkk1R5DGy66/CyBy8aThUccBGLe0tI=;
+        b=NsLbKaBSqKe/OiPMUA/W5ZhSQheDleWE0eOXRxZenR5pN971gGPU5s7RQfG67QIN2N
+         V5bFUBacU2nlXpKEVcom05QJCrRD82pb5yxNfrtUfe2iCbkJdABBZTW09evrNZJXjcu3
+         GqaBIfC3IXpeu10M+uF6njy71qs795tdbV/QD2Aan01fwLMVMBosspr+qOGjb1c8b2wd
+         8y8m6hJxSEadKNrX61suuXvrvxj+DhuXi89yMtveKGOc9UO8GwxNRMNhF0ahzvmGVfCi
+         OvLC76fr8P4a+2KXOZz11KGTyMc9tC+N9YtFeyW7oTWfpYzAjDYBXzfEQwFs2lOMUy+7
+         XmHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781155358; x=1781760158; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Vv8xc/JE73ka4IbiLvsyGTHwvLLeofhoh5T3QOJOdJ0=;
+        b=qaG0ltjSIEuUhSAUlwsthBNKFo933btKs+b4Othi9CiNDf9IaWu1uspeWb9YbWuKC+
+         F4BCshKmrAS0Oeq49NeW3TNwf9d5r8uqpupclie08o/+5ntaia92Ow2G3wOeWOxRwgQP
+         CJnrz3SaYhB6frS/OVjp3xWYu5oggFq0kFPkl13OU9dNtFwhU2wXMxH0l0kudYTGN8hK
+         a2wdSdY8FXr8XxUu65X2WjU3D4l4a8YoMbDpWD9t0GwCV5rx25ZyRWeMwIvFDCrvoa6u
+         uyCepitLl+l9g03J2FZtidIMyC11H1bPIj4GHFdQWD7NR7t0jHoT5uo95NhcQ7tBrBjn
+         ZO3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781155358; x=1781760158;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Vv8xc/JE73ka4IbiLvsyGTHwvLLeofhoh5T3QOJOdJ0=;
+        b=PLWhNohSEsdkGi+zVXVqYAayZUCcX6q5mh2gFUq7d49HLvf+9/1AEUzw20Gx+qY1mJ
+         aYFZ9pLnz3m6uBZ8qyY1tkag6yvKkherXKncMBnJFSrT4fWWK/vg/g+4tvg4AS6HtNVA
+         zEoDyaSrihTQ02zOlHPm9ErJDof4rVCxMCXrZOI8UJgSOg5sRODDjmG+xtDKueDlyFPc
+         M0x7mQLtVvPoI658vSvwU0FEqFu2+EjdNocZW4bH5RLZTR89LXdF272VfY4QgF2MD91R
+         5dGCVp0a7JL4B3i9T53NUkBI5qTymzEJ8IEkN4hSmxy3NGQY1i0faszaBxE5WzpYhsOd
+         UkwA==
+X-Forwarded-Encrypted: i=1; AFNElJ83qEPeHBoMUcarPPCz9ach12Zb2BcysTA/QTHJ/V5Z0tKfZWMatuUixz4Zm+/KkqeDwToD6+3QCPld@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxT9mXj80xjkhVQmjctg5FKu+qk4M3ILBfOVGjzdoRO8nYvSCE
+	BGpv8Za6CyzwOQbFHrqlgxeyHrNwqKDZwK3bIm1eJCfAa64ElmCTCr1hfx40KqbUR+xNYkeNWU/
+	mfk7xcDlf3Hjr7aaD4ch9LX24/m/gnI4=
+X-Gm-Gg: Acq92OEGH+MB78JQWApi7CzLsHW5SAmqqlQAOOwJsMPwMXR2Ncz2VLVBBGLNaEnHhZ0
+	ufOcalgK4ekW34hTpNeG3P4Tl6CG5q8EHKTCSO7ylV55LIs/92htuBojbJaG6QgXHkOkyFb2gHf
+	e9Ki7MPxxsHlvYm62GZ12MAvpBrjXDj7vf1WQxtKH1qmqgMW8Au8bP8vNFf4JMDuoD7KHj6cc87
+	3GDQpjgTB7sjY1DH+UY67Llhoj/DMuoH4MLOi3b16hn9Pe8OemhFUCxRWh6BlneWTmBKE6LJCf4
+	65b4y295cOavM2X7ZHg=
+X-Received: by 2002:a2e:a583:0:b0:38e:d3e6:a89a with SMTP id
+ 38308e7fff4ca-3991a083973mr2593601fa.20.1781155357644; Wed, 10 Jun 2026
+ 22:22:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260610-ventura2_initial_dts-v6-0-375d8e9d7ebf@gmail.com>
+ <20260610-ventura2_initial_dts-v6-2-375d8e9d7ebf@gmail.com> <a8cdc7c23166823a8e1969408c667e6a8d758fe7.camel@codeconstruct.com.au>
+In-Reply-To: <a8cdc7c23166823a8e1969408c667e6a8d758fe7.camel@codeconstruct.com.au>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Thu, 11 Jun 2026 13:24:08 +0800
+X-Gm-Features: AVVi8Cckj1KMTx5QCbBfuV37allJnJRrSd1WRpg0xdewL4kFILvgYndyDD6MebM
+Message-ID: <CAF7HswMxtzD5KoQRGx4ckA4fUbFr6P7XXnTff_Z+_DmN8i37vQ@mail.gmail.com>
+Subject: Re: [PATCH v6 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Wed, Jun 10, 2026 at 7:22=E2=80=AFPM Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
+>
+> Hi Kyle,
+>
+> On Wed, 2026-06-10 at 09:22 +0800, Kyle Hsieh wrote:
+> > Add linux device tree entry related to the Meta(Facebook) rmc-node.
+> > The system uses an AT2600 BMC.
+> > This node is named "ventura2".
+> >
+> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+>
+> I have some comments on v5 that are applicable here too.
+>
+> https://lore.kernel.org/all/3d56889c004fc2d11b76ace6033c7ccfb8a37d03.came=
+l@codeconstruct.com.au/
+>
+Hi Andrew,
 
-Pre-existing issues:
-- [High] A preexisting error-handling flaw in `qcom_pcie_parse_port()` caus=
-es a resource leak of the initialized PHY. This leak will now be frequently=
- triggered due to this commit moving `reset-gpios` to the port node.
---
+Thanks for the review and suggestions!
 
-commit 689313d243e7ec1e4f35d3db8dcb7b5d6e32d186
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+To briefly answer your question: Ventura2 is Rack Management
+Controller. It is a modular device primarily designed to manage liquid
+cooling systems and monitor rack-level hardware states. Its key
+hardware features include an extensive I2C/GPIO topology for
+tray-level and rack-level liquid leakage detection, as well as MCTP
+over I2C support for asynchronous device communications.
 
-arm64: dts: qcom: talos: Move PCIe phy and GPIOs to root port node
+I will remove the redundant sentence and include this detailed
+description of the platform's purpose and architecture in the commit
+message for v7.
 
-Moves the PCIe phy reference and the perst/wake GPIO properties from the
-RC controller node to the root port node. Also renames perst-gpios to
-reset-gpios to match the root port binding context.
+Also, the Sashiko AI bot just caught a missing `idle-state`
+configuration for the MCTP I2C mux, so I will include that fix in v7
+as well.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/d=
-ts/qcom/qcs615-ride.dts
-> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+I will send out the v7 patch shortly.
 
-[ ... ]
-
-> @@ -444,15 +444,17 @@ &mdss_dsi0_phy {
->  };
-> =20
->  &pcie {
-> -	perst-gpios =3D <&tlmm 101 GPIO_ACTIVE_LOW>;
-> -	wake-gpios =3D <&tlmm 100 GPIO_ACTIVE_LOW>;
-> -
->  	pinctrl-0 =3D <&pcie_default_state>;
->  	pinctrl-names =3D "default";
-> =20
->  	status =3D "okay";
->  };
-> =20
-> +&pcie_port0 {
-> +	reset-gpios =3D <&tlmm 101 GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-This is a pre-existing issue, but will moving these GPIOs here make it
-highly likely to trigger a PHY resource leak during probe deferral?
-
-In drivers/pci/controller/dwc/pcie-qcom.c, qcom_pcie_parse_port()
-initializes the PHY before parsing the perst GPIOs:
-
-drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_parse_port() {
-	...
-	ret =3D phy_init(phy);
-	if (ret)
-		return ret;
-
-	INIT_LIST_HEAD(&port->perst);
-
-	ret =3D qcom_pcie_parse_perst(pcie, port, node);
-	if (ret)
-		return ret;
-
-	port->phy =3D phy;
-	INIT_LIST_HEAD(&port->list);
-	list_add_tail(&port->list, &pcie->ports);
-}
-
-If the newly moved reset-gpios cause qcom_pcie_parse_perst() to return
--EPROBE_DEFER, the function exits before adding the newly allocated port
-to the pcie->ports list.
-
-Since the cleanup routine qcom_pcie_parse_ports() iterates over the
-pcie->ports list to call phy_exit(), does this mean the initialized PHY
-reference (and its underlying clocks/regulators) will be permanently
-leaked on every probe deferral?
-
-> +	wake-gpios =3D <&tlmm 100 GPIO_ACTIVE_LOW>;
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-wake-v2-0-=
-2744251b1181@oss.qualcomm.com?part=3D34
+Best regards,
+Kyle Hsieh
+> Andrew
