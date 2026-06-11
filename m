@@ -1,182 +1,228 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277773ED5AE
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48B83D5226
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781179467; cv=none; b=W/+n8JwwPIJyEMQCc37O+26oN6jFAEuoOvvP97uhMRwRCqG64j3p+nb06u6OijbOWU4Ko5NIx2eBVOdEFpgZmfcvLJqIHe1kZCpibYi3GVXAjpKhI5YODbyGm7Zt6B5cXfjgY3ZQK1DeU0ytFCp541ZTI4H9YAWdwVthI3t6Xhg=
+	t=1781179606; cv=none; b=qAJuRzUfArxaPFfAirRsEOyO+WC0M38Ilu0da8rVqfMMb8aeLl9P6tHDBF+6eeyP0hnjkuu1+SWWEQVjIiwAfnrlWrfvzptadji3NqQCXh7ZFN8gbutNWPIrqrQ23HCVpWLyE5SI2y3XPSoBRHSgM86wWY3pI2WVLaI5bHk92d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781179467; c=relaxed/simple;
-	bh=sEAiz1VLA18B6EqKeEzrbhdLCmp9xlqT08l2BvnWjsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XVqKTXwBZeDvJpRkuH3yFY1YzDxEw0i0gYmMrbznnbc/Jnb08KHg7oH9hGjWqtKa6BwNLjtOZtCq8/58OKYvhYHs7wAwHD8kowafM7H39ZaVYfF9z/D2FQjRhdbMKOEuUdwk1DjX5U96BTZRD8PbV43IkuM7+izl7id87M+7S0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C7VD/ntP; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781179606; c=relaxed/simple;
+	bh=wlwhQdkGb5D5EOr9Nwp4TREnWfUfgJpQ3LhnjufL8pU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uZzdxqIZyyNpN4Rh/zigfRZ0cMCg0k4CYkGBUE45S4XO4/F54pEf2yaJycgf1llXPW2yfbFVRoedVZvF9Tcd3VhEK5bceX1TqEv1GHGFq2IUNCr3cq3W+GIwCHWUSA9GoQV8huD773MpCIf8d8hWC6cemhhJ2iQzNTdA6NGcQDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cj/C87xm; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C7VD/ntP"
-Date: Thu, 11 Jun 2026 20:03:53 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781179452;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f/j69pXYfj34ZmqA6bJCKc0nePFg+h49mJ8/N7zh1iA=;
-	b=C7VD/ntPHBl4YIG9Watr5T2GZLCvEmAzup5tfdjNbozip65PyigVCCrPseQbQKMgC2+M7G
-	fYJkNSWFsX/dRktAsP7CNtY62sQ3fk1oEHQwJa+H4KpymFRmYbGmZ4jTCJo6jBN0nw2upe
-	Z54mPkCYOx99N+izHFLdL+L2Fx6cijE=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Baoquan He <baoquan.he@linux.dev>
-To: Wandun <chenwandun1@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	iommu@lists.linux.dev, zhaomeijing@lixiang.com,
-	Rob Herring <robh@kernel.org>, saravanak@kernel.org, bhe@redhat.com,
-	rppt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, chenhuacai@kernel.org, kernel@xen0n.name,
-	catalin.marinas@arm.com, will@kernel.org, alex@ghiti.fr,
-	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, ruirui.yang@linux.dev,
-	m.szyprowski@samsung.com, robin.murphy@arm.com
-Subject: Re: [PATCH v3 00/11] kdump: reduce vmcore size and capture time
-Message-ID: <aiqkKe1gXPZ5LZ7t@MiWiFi-R3L-srv>
-References: <20260527032917.3385849-1-chenwandun1@gmail.com>
- <7ed207fa-4c86-426a-8570-495902ce04c3@gmail.com>
- <a3993db0-6975-455d-9674-4fd7cfcf80fc@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cj/C87xm"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-36bcbd7821fso3539614a91.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:06:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781179605; x=1781784405; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=YOESj/vm8UEXKqEt301U2+lEFuGwhlHJIvdQRFOion4=;
+        b=Cj/C87xm5mxaHWDBMs50GZFugQSxqRx0Eeii4vd8WjTFialO5Pj553rJyKW817SPdW
+         hvbv4mUVwd15mPei8NL8d+SVqDeBNBUlZ7QhGEK41AkxX7cg6IfQUqvUllHfTv41zclR
+         UjGS0OOOzYLJvqlQPfsw3tcDfUmf1e5tkseTP2toAvISu5kcMu96bkkIgYgveB/Hks8J
+         IFrlcCvjVyxPnW3JXt40I1MYlpuH88wRxmE3P+iF6MnwWV0N+W3VrEXhYNrxMYDrvlOM
+         vCTCrP//Xcau81YszdnT85yO1TThthTFTCN224IVw971SuNLaddQxmnf++DbOkTJjDb6
+         okAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781179605; x=1781784405;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YOESj/vm8UEXKqEt301U2+lEFuGwhlHJIvdQRFOion4=;
+        b=a+DFEDbiPAg1oDuiwOthI21+/ZtdvdX0ImFmWtzIOqZBbioMR6MypB6rQWFfPpOVJM
+         PNaiKdcRIUYStkC/VrGpr10OxOL9FzRf3J69hMyBBOFy6nUezd09OQDmlId0gBgbXHaj
+         j9UTw7ISUa6l8QPh4W4NpBxCa7Srl83c8p4PuQWxPxAbDaDjJNk+1QJy+D3uVEW6Obzv
+         J5h0qBwjWpANYa1HInvOb/n7QDRAITslkMtR/DYMJbs6AM6D1yP5yX3MTd8pcQTlTB38
+         JoiJ/shfS9ak1zF+fYk5deDGgOBo30YorJjGADQG+zetR2w96k+j1kCbTs/RkwFveir+
+         LFKQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/Iyk2vP74DdgRdTk0pYKcGnKDdXnHk9VcjCxO5XaBLH6cRS4nNPpCmMnJTcErMEA1RZS3KMFPgdBY1@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuKJW9WbM/focB9PJ4ErrKoDEK9t6xChdSdeE20i2ZrqkspGOp
+	IHKIuERb+eyF4PkVjOi707Opcesr2sb/+URA4hRDf03/qQMiv0Yn7AgP
+X-Gm-Gg: Acq92OHL6hKsjTc+CyYTjrLgt0NRaN65P30TKpk8sShobxM0bxSo0SVNRiUuTjHeNr+
+	Lc9DRdD5VSmv3JbM5Lva2EVv9UJdhP3+9LV5WTV0jIllvu7OYRV9+lW7SyHGpH7rivCT8h1a7/5
+	Y8UXh2eM4M659Uk2HiRAoOWz55gH31KdGvs+q+hPOp7wUmXsxV8ea2IhNQVBtDWRkPwe8815Uh0
+	EXLLyN4AFdRu+2EwyO7KTYmhipUI36m5xfRg951gE0ytyGRNbQAI+dNwlm24s3KD5NoWNQ8JrcW
+	aMUkzFIotlZsVYzYZfaeO0U8SJwpn1IM2QaNbY7Akps9eIHXYsjgjxpOvAWEblkGphHr3K8Ocj9
+	vgLQ/lOt10U6XP+qxrc1HmES96T6gsJAsCd1jMqx6GRNOW3E12fxHhpv5+fQaHAkcjVwAsZb9Ms
+	uDWimlnR+tg23rDpussJoyEhzV4xjV1Lxy+EK/7xYfyrl/9qzUuOLTm9E7vPQLely51iq95iWiu
+	4fa7fNNusM=
+X-Received: by 2002:a17:90b:1c0e:b0:36d:cc9b:2f67 with SMTP id 98e67ed59e1d1-377a76c21bemr3289918a91.19.1781179604887;
+        Thu, 11 Jun 2026 05:06:44 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37753d02ca4sm2521809a91.12.2026.06.11.05.06.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 11 Jun 2026 05:06:44 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <811d784d-00a8-4a31-8872-e481a30e81a6@roeck-us.net>
+Date: Thu, 11 Jun 2026 05:06:43 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3993db0-6975-455d-9674-4fd7cfcf80fc@gmail.com>
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] hwmon: pmbus: Add support for Silergy SQ24860
+To: sashiko-reviews@lists.linux.dev, Ziming Zhu <zmzhu0630@163.com>
+Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260611074335.4415-3-zmzhu0630@163.com>
+ <20260611075433.325CB1F00893@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260611075433.325CB1F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/11/26 at 11:09am, Wandun wrote:
+On 6/11/26 00:54, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Missing signedness check on PMBus limits causes negative inputs to silently set maximum hardware limits.
+> - [Medium] Returns -EINVAL instead of clamping for out-of-bounds lower limits in PMBUS_IIN_OC_FAULT_LIMIT.
+> --
 > 
+> commit 1edf6322da1b629fce9b16a96496a18863aacef8
+> Author: Ziming Zhu <ziming.zhu@silergycorp.com>
 > 
-> On 6/11/26 10:09, Wandun wrote:
-> > 
-> > 
-> > On 5/27/26 11:29, Wandun Chen wrote:
-> >> From: Wandun Chen <chenwandun@lixiang.com>
-> >>
-> >> On SoCs that carve out large firmware-owned reserved memory (GPU
-> >> firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
-> >> those carveouts as part of system RAM even though their contents are
-> >> firmware state that is not useful for kernel crash analysis.
-> >>
-> >> This series introduces an opt-in 'dumpable' flag [1] on struct
-> >> reserved_mem and uses it to filter the elfcorehdr PT_LOAD ranges on
-> >> DT-based architectures (arm64, riscv, loongarch). By default reserved
-> >> regions are treated as non-dumpable; CMA regions are explicitly opted
-> >> in because their pages are returned to the buddy allocator and may
-> >> carry key crash-analysis data.
-> >>
-> >> The series is organized as follows:
-> >> Patches 1-3: Pre-existing fixes and a small prep change.
-> >> Patches 4-5: Restructure to allow appending /memreserve/ entries.
-> >> Patches 6-7: Add a dumpable flag and append /memreserve/ entries.
-> >> Patch 8: Add generic kdump helpers.
-> >> Patches 9-11: Wire the helpers into arm64, riscv and loongarch kdump
-> >>                elfcorehdr preparation.
-> > Hi,
-> > 
-> > Gentle ping on this series.
-> > 
-> > Status summary:
-> > -patch 03: respun separately per Rob's suggestion, picked up for 7.2
-> > -patch 06: Acked-by: Marek Szyprowski -patch 09: Acked-by: Will Deacon
-> > The remaining patches (01, 02, 04, 05, 07, 08, 10, 11) are still
-> > awaiting review. your feedback would be greately appreciated. I know we
-> > are at the end of 7.1 -rc cycle, I don't want to rush this series, just
-> > collecting more feedback, and will send next version based on 7.2-rc1.
-> > If spliting the series into smaller logical group would make review
-> > easier, please let me know. Best regards, Wandun
+> hwmon: pmbus: Add support for Silergy SQ24860
+>      
+> Add PMBus hwmon support for the Silergy SQ24860 eFuse. The driver reports
+> voltage, current, power, and temperature, along with history attributes
+> and over-current fault limits.
 > 
-> Apologies for the formatting issue in my previous email.
-> Here is the properly formatted version.
+>> diff --git a/drivers/hwmon/pmbus/sq24860.c b/drivers/hwmon/pmbus/sq24860.c
+>> new file mode 100644
+>> index 0000000000000..f16f650ff7ba2
+>> --- /dev/null
+>> +++ b/drivers/hwmon/pmbus/sq24860.c
+> [ ... ]
+>> +static int sq24860_write_word_data(struct i2c_client *client,
+>> +				    int page, int reg, u16 value)
+>> +{
+>> +	int ret;
+>> +
+>> +	switch (reg) {
+>> +	case PMBUS_VIN_UV_WARN_LIMIT:
+>> +	case PMBUS_VIN_UV_FAULT_LIMIT:
+>> +	case PMBUS_VIN_OV_WARN_LIMIT:
+>> +	case PMBUS_VIN_OV_FAULT_LIMIT:
+>> +	case PMBUS_VOUT_UV_WARN_LIMIT:
+>> +	case PMBUS_IIN_OC_WARN_LIMIT:
+>> +	case PMBUS_OT_WARN_LIMIT:
+>> +	case PMBUS_OT_FAULT_LIMIT:
+>> +	case PMBUS_PIN_OP_WARN_LIMIT:
+>> +		value >>= SQ24860_8B_SHIFT;
+>> +		value = clamp_val(value, 0, 0xff);
 > 
-> Gentle ping on this series.
+> [Severity: High]
+> Does this handle negative user inputs correctly?
+> 
+> The PMBus core converts limit values into 16-bit 2's complement integers
+> (s16), but passes them as u16 to sq24860_write_word_data(). Because this
+> driver treats value as an unsigned u16, a negative user limit written via
+> sysfs will become a large positive value (e.g., 0xFFFF).
+> 
+> When this large value is logically right-shifted and clamped here, it
+> results in setting the maximum possible hardware limit (0xff) instead of
+> clamping to the minimum limit (0).
+> 
 
-Thanks for the effort, the overral looks good to me at 1st glance. I will
-check if there's concern on generic part. And meanwhile, I am wondering
-if there's any chance x86 or other ARCH-es w/o OF/FDT can also choose to
-not dump some areas, e.g GPU stolen memory. Surely, that's another story.
+Without a datasheet it is all but impossible to determine how to handle
+this. Is the 8-bit value signed or not ? Who knows. The read function
+suggests that it is unsigned, given that the sign bit is not extended,
+but that is just a guess. If the value is unsigned, negative values
+(0x8000 and higher) would have to be set to 0 prior to shifting and
+clamping. However, that really depends on the chip.
 
+>> +		ret = pmbus_write_word_data(client, page, reg, value);
+>> +		break;
+>> +
+>> +	case PMBUS_IIN_OC_FAULT_LIMIT:
+>> +		if (value < SQ24860_IIN_OCF_OFF)
+>> +			return -EINVAL;
 > 
-> Status summary:
-> - patch 03: respun separately per Rob's suggestion, picked up for 7.2
-> - patch 06: Acked-by: Marek Szyprowski
-> - patch 09: Acked-by: Will Deacon
+> [Severity: High]
+> Could a negative user limit bypass this bounds check?
 > 
-> The remaining patches (01, 02, 04, 05, 07, 08, 10, 11) are still
-> awaiting review. Your feedback would be greatly appreciated.
+> Since value is unsigned, a negative limit (e.g., 0xFFFF) will evaluate
+> as greater than SQ24860_IIN_OCF_OFF (165). This bypasses the check below
+> and overflows the 32-bit unsigned calculation, effectively disabling
+> over-current protection by incorrectly setting the hardware limit to its
+> maximum.
 > 
-> I know we are at the end of 7.1-rc cycle, I don't want to rush this
-> series, just collecting more feedback, and will send next version based
-> on 7.2-rc1.
+Same as above.
+
+> [Severity: Medium]
+> Should this clamp the value instead of returning an error?
 > 
-> If splitting the series into smaller logical groups would make review
-> easier, please let me know.
+> The hwmon sysfs ABI convention requires drivers to silently clamp
+> out-of-range user limits to the nearest supported hardware value rather
+> than returning an error.
 > 
-> Best regards,
-> Wandun
+> If the requested limit translates to a value below SQ24860_IIN_OCF_OFF,
+> returning -EINVAL violates this convention. Would it be better to clamp
+> the limit to SQ24860_IIN_OCF_OFF so the underlying register is set to 0?
 > 
+Yes.
+
+Thanks,
+Guenter
+
+>> +		value -= SQ24860_IIN_OCF_OFF;
+>> +		value = DIV_ROUND_CLOSEST(((unsigned int)value) * SQ24860_IIN_OCF_DIV,
+>> +					  SQ24860_IIN_OCF_NUM);
+>> +		value = clamp_val(value, 0, 0x3f);
+>> +		ret = pmbus_write_byte_data(client, page, SQ24860_VIREF, value);
+>> +		break;
 > 
-> >>
-> >> v2 --> v3:
-> >> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.[2]
-> >> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
-> >> 3. Add some prepare patches.
-> >>
-> >> v1 --> v2:
-> >> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
-> >>     feedback [1], v2 drop that property and exclude reserve memory
-> >>     by default.
-> >> 2. Split some prepared patches from the original patches.
-> >> 3. Address coding-style comments on patch 5 from Rob.
-> >>
-> >> [1] https://lore.kernel.org/lkml/20260506144542.GA2072596-
-> >> robh@kernel.org/
-> >> [2] https://sashiko.dev/#/patchset/20260520091844.592753-1-
-> >> chenwandun%40lixiang.com?part=4
-> >>
-> >> Wandun Chen (11):
-> >>    of: reserved_mem: handle NULL name in of_reserved_mem_lookup()
-> >>    kexec/crash: provide crash_exclude_mem_range() stub when
-> >>      CONFIG_CRASH_DUMP=n
-> >>    of: reserved_mem: avoid post-init UAF when alloc_reserved_mem_array()
-> >>      fails
-> >>    of: reserved_mem: zero total_reserved_mem_cnt if no valid
-> >>      /reserved-memory entry
-> >>    of: reserved_mem: split alloc_reserved_mem_array() from
-> >>      fdt_scan_reserved_mem_late()
-> >>    of: reserved_mem: add dumpable flag to opt-in vmcore
-> >>    of: reserved_mem: save /memreserve/ entries into the reserved_mem
-> >>      array
-> >>    of: reserved_mem: add kdump helpers to exclude non-dumpable regions
-> >>    arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
-> >>    riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
-> >>    loongarch: kdump: exclude non-dumpable reserved memory regions from
-> >>      vmcore
-> >>
-> >>   arch/arm64/kernel/machine_kexec_file.c     |   6 ++
-> >>   arch/loongarch/kernel/machine_kexec_file.c |   6 ++
-> >>   arch/riscv/kernel/machine_kexec_file.c     |   4 +
-> >>   drivers/of/fdt.c                           |  11 +-
-> >>   drivers/of/of_private.h                    |   3 +
-> >>   drivers/of/of_reserved_mem.c               | 117 +++++++++++++++++++--
-> >>   include/linux/crash_core.h                 |   6 ++
-> >>   include/linux/of_reserved_mem.h            |  15 +++
-> >>   kernel/dma/contiguous.c                    |   1 +
-> >>   9 files changed, 157 insertions(+), 12 deletions(-)
-> >>
-> > 
-> 
+
