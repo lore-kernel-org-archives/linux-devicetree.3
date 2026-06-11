@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32583223DEA;
-	Thu, 11 Jun 2026 13:47:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D355B407CCF;
+	Thu, 11 Jun 2026 13:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781185627; cv=none; b=QfHxZVR4CyO3WBbfdxyyKY1R8FrYPSJbNkP1vqc8+JEERplELOJ0IbG7YsEGjR29shJ8QL8ou77EhkHkLqErrf4Do+k4feVDF6HUkk9YwMI1O8qxwrgMBKylmKjMVsGl61DI9KNnPIUO4XrR7XeZLc83+tgYKCdgNJIFjC+Dq58=
+	t=1781185702; cv=none; b=DasKcycKtizvLxuWve92eKWy8mnoTVmm2//PS4PRGwnd3JPNosB3l+fA1uFhehBfir6WZgvX73hVUMEcnek0kTh6Mkk9bYuGtE1wGi6c7+wrDgLxi5qAzoj5jQM6MEBo8MQfEM0SDkEVIgut3hgFqZBkBE61i4uLaPlZjfDTAFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781185627; c=relaxed/simple;
-	bh=ZnqTSYFLPuIAAI41H7B6odkKfOHe+0vnleqlDhsPdDo=;
+	s=arc-20240116; t=1781185702; c=relaxed/simple;
+	bh=xfcR1UboYlxMKpr6D/hSMPuR+aMODhriUaayEJLNxh0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RMAfVlVcwBGKQMUHjFUhDK7qfYxUAeggkd6R5Kkr44+5Cukqsxa49QWw95hTqJJPsQDJqm5nh3dUaXdPHmOK9HqG9+wc7ES3F2SL6J1pvx+KeH4MGCG+4PPug14RN5zOwdBdA7pAzVSyDwee9O61aqvUo0qCnQbkY2zvFNQL7dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y/bn+hnq; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=EhyDQKHAqZDTnhfPMkpp9JzPHb2qoiPs6cGf84WSVVhzB27T5L8muIWI7OZ4u3gtZ544rhuJuPd59ulngxFDS8hJBVbmilykGX72S+OxPA4YmV7zSB3fsV9rbNlnPubVC/Aeo6R3Vuow8eNOTowjyoKnprzJu2QVStNvG1bHjPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kX2o9L+1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y/bn+hnq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDD31F00893;
-	Thu, 11 Jun 2026 13:47:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kX2o9L+1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5FF1F00893;
+	Thu, 11 Jun 2026 13:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781185626;
-	bh=LuQMB79RbDDOwLhgW9lqQxbGn2D38BHbwMssyvZW/xw=;
+	s=k20260515; t=1781185701;
+	bh=aF00A/7LJqHmnZrGb5ZdXoOv2Kq8GHQtu8KTtY3CkN4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Y/bn+hnqn1DELC5TA1uf7Uljt05HLXwE7yiLOtxH2HstVe/7RtnpiZqIFYpF0/eFc
-	 SHG/0vbJGhLm/WCVxZsNlzOwdg/B2DNipaAwRLkC/XkDt1pY56KWqt+7u95hw3qe3N
-	 p6R9vQxLDTkAN7kQ6UziiGSa4dPm8kF1xZ8vh51tqpSBYT5YpzRnMo4oPmTM5M1rkK
-	 iQRsN7FK4UPmXdICRIWzQG2V91V5SIbAcFhTzev+Z9GKq7QdaAOjEJIFM7g22AJ74l
-	 qKmBptqyXmuc/ydde4yobS3xpQLmaFAlJjxAKEnbmq2KoOk3XhMXD7lnA2r5xoYOTl
-	 AJTW1ujGi6QQw==
-Message-ID: <562096a5-6601-42ae-9d88-90a72ee075fc@kernel.org>
-Date: Thu, 11 Jun 2026 15:47:00 +0200
+	b=kX2o9L+1zy0n3E2kY9ryIPg3zWECW8UZdxmdJ4pvDlPElbnUzNpTjsbkWNZ8+izT1
+	 QlFXERUt7CDbJkWLV74cQDE8hWfDagUTWBz/vTmtCc7bqQCB1NQsB1fPrmsMP2ROZQ
+	 85mdSrpgo/c14dkzS1eVKw5uVi+VuhzhVHZO/PI9lABJX/ks9/M7yD5wmMQzeZw342
+	 rNIOSRBMqjrPx9haaPMaJaLzIwpF7RlpkcW2OUZc2nbMPOO4P3EsT96hwkSrUVw4Wn
+	 ucNQLeX11Iz6Pfq5JeH+DX+vpVZ/AuuznsLP8On45sH2ISyzPqgncsHzwSZwYdRDWN
+	 mNpHHd4zeHjXA==
+Message-ID: <ac191a18-bcb4-4fa5-a179-b72a6ac928cb@kernel.org>
+Date: Thu, 11 Jun 2026 15:48:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,25 +35,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: remoteproc: imx_rproc: document
- optional "memory-region-names"
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Peng Fan <peng.fan@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- Daniel Baluta <daniel.baluta@oss.nxp.com>,
- Francesco Dolcini <francesco@dolcini.it>, linux-remoteproc@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260605113621.1479-1-laurentiumihalcea111@gmail.com>
- <20260605113621.1479-2-laurentiumihalcea111@gmail.com>
- <aihB5rVLsVqzg6cb@p14s> <aihIIwt_9T7yYxP3@SMW015318>
- <CANLsYkxw6rbWNom8rNfKurKAXKpihqV1LTd51D5YXG4oFP6-wg@mail.gmail.com>
- <20260610-accomplished-antique-mink-cf0ead@quoll>
- <ail0sH1UhnQBPRkr@SMW015318>
+Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: rob.clark@oss.qualcomm.com, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Douglas Anderson
+ <dianders@chromium.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
+ <7a330941-8715-4523-9f39-10b57586c69d@kernel.org>
+ <CACSVV03J7Y4-ADRNE+4qArqsWvQZ3qmTc04r7vmY64s0qDYFkw@mail.gmail.com>
+ <799fea04-e7d0-4184-b9ae-4cebfdac38d5@kernel.org>
+ <841a54ff-6287-48d2-a513-a7442d624ab6@oss.qualcomm.com>
+ <uieb6ukjokwnppc5zfr6bjychqsnpikwmiy7j7dmt2kgk7k4zi@2stv37ijv36o>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -99,30 +101,36 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ail0sH1UhnQBPRkr@SMW015318>
+In-Reply-To: <uieb6ukjokwnppc5zfr6bjychqsnpikwmiy7j7dmt2kgk7k4zi@2stv37ijv36o>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/06/2026 16:29, Frank Li wrote:
-> For example:
+On 10/06/2026 15:31, Abel Vesa wrote:
+>>>>>> @@ -68,6 +68,7 @@ properties:
+>>>>>>
+>>>>>>        - items:
+>>>>>>            - enum:
+>>>>>> +              - lenovo,yoga-slim7x-gen11
+>>>>>
+>>>>> I imagine you might want different panel variants, just like T14s has
+>>>>> LCD and OLED?
+>>>>
+>>>> I expect this will be the case.
+>>>
+>>> Then better to prepare for this now, otherwise later you need to change
+>>> bindings. If unsure what other variants are, then at least make this
+>>> compatible panel-specific, e.g. lenovo,yoga-slim7x-gen11-oled-foo-bar.
+>>
+>> I took another look at psref [1] and there's only OLED SKUs (today?).
+>> There are however, two different resolutions available and both can be
+>> touch/notouch.
 > 
-> rsc_table: rsc-table@90000000
-> {	ret  = <0x90000000>;
-> 	no-map;
-> }
-> 
-> m4 {
-> 	...
-> 	memory-region = <&rsc_table>;
-> }
-> 
-> If you change node name "rsc-table" to "memory", driver will failure
-> because it parse node name "rsc-table", which phandle point to. but no
-> binding to restrict node name to "rsc-table". So rsc-table became hidden
-> ABI.
+> If the other SKU doesn't have touch, then you might as well mark now this
+> one with touch suffix or something like that.
 
-Then you need to fix the driver to not parse the node names. Node names
-are not supposed to be ABI.
+
+If you decide not to have any changes (new compatibles), then at least
+please document the above reasoning in commit msg.
 
 Best regards,
 Krzysztof
