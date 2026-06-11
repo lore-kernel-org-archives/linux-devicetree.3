@@ -1,170 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B703A8730;
-	Thu, 11 Jun 2026 16:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC67426D09
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 16:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781197058; cv=none; b=rnguvk05ejGY48yJDBZ5dimVMGDPOnXAJPpsBhOgJN3O3CAw6pzeZmQUBaIr2KUPsiyC+ZpH4hSAGZhPzkG/vcIc279FpYj7hF2q2iCfV+rnu1LerrJXMOhlOqocjAgN9rR0OZEmyfoyF0Xlb0HUTE/Bshi1eUfvgco/94jm6qo=
+	t=1781197071; cv=none; b=PQlArJqUFBN70i1dX8cYTXepiJ3p5XJXDf7JGPZ5vN6sMAaI2hdu5fwU8WRmz2lvxbd/4niNEz141bual+zGM6APigOcewkUYChhy5tD4nRyBtH4oX9lM1PyxpE7bhoOvmRXOcwMsyJpEklS1bW0uB4/v/JCdf9xirM2zLOs6DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781197058; c=relaxed/simple;
-	bh=ju3frxCuX47EVbO34+foUxxrb6uvwoLEqG1gXq1dFq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=vDPZa98g3Iz5+wuHFg2jHimAV+3n+HPLgWX8FqJZvGo18BobQMaujwfIbVHwTDHjGMd7bjZBK3CexyLJ4eDoblE1QQSQFi/AFNdB7XL8owTQfa9GCnlwlHFl+6SdagF0i+GQB0Q3I00x5iQeHYsjbpp3XHc1irgSYWbF3R3Bg8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tk5neRmg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781197071; c=relaxed/simple;
+	bh=rNBqmdI32h2ItfYChnrouN6UPvYm8fGizzqJIFfXIfM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D4q0XU34+Dny+71q1+jAAIffH4F04bTTTJp35RicS5XnX9uo7J3/bXlcI6N5UeKz7uIJ8m4ZjVggE7A11B1HTGbcZBoUIZln2doU3pGK7H8Ed3ByOeF49+ALhHZKUtJEpGnxVPG1Z7k6tEX5VSxKVwC+3SMRCY5nBTg+kJVG8zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dgf2Ry88; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tk5neRmg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32B0B1F00893;
-	Thu, 11 Jun 2026 16:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781197056;
-	bh=5J+Qcluqlu/9IAvqNc9qIGS3Z+PkmdQBkuvtGSTT/mU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tk5neRmgDPlVDBhAQI4HBa8m4c1iuxlcMp1LzqsL9JmmiLfDtg3TapaKlZnrTICcw
-	 /dBEExpqpwuGfqpITfZCaoQmIDaIwuSNTQtf0Fu6dR5rUwAKUmfQBtDR0UAVX3n6rt
-	 TfgU5xt1hMCa/v5wn12XANmSYHg7yV3aCDlSAJ+SjMsUVfVKMZvdgdTWjZLsCLfqVY
-	 KOSKc8MvAw/NYDr5gi2XWtPnuFl9aKJnqp71WEzhsVELRgmKxC3Se1d0fQxb06kM4a
-	 6iuDBuAR5c4fT6ytXNYvn4rYlNj46fcEJTLsk1j74i2j+e4oiE7tzpSlz+x5WXsOho
-	 EWdvTNRf51OAA==
-Date: Thu, 11 Jun 2026 17:57:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tomasz =?UTF-8?B?RHVzennFhHNraQ==?= <tduszyns@gmail.com>
-Cc: Maxwell Doose <m32285159@gmail.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Krzysztof Kozlowski <krzk@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "open list:IIO SUBSYSTEM AND DRIVERS"
- <linux-iio@vger.kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE
- TREE BINDINGS" <devicetree@vger.kernel.org>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
-Message-ID: <20260611175728.738ac9c3@jic23-huawei>
-In-Reply-To: <CAObtm8zDk4s3+pmGSxRoVHq7ef1y=_cHdC8YRH6ycRNbjzaNkg@mail.gmail.com>
-References: <20260609160326.45123-1-m32285159@gmail.com>
-	<20260609160326.45123-3-m32285159@gmail.com>
-	<20260610-pastoral-dark-ostrich-5ca3f6@quoll>
-	<CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
-	<e00caff5-55e4-428f-bc57-3885699b221c@kernel.org>
-	<aipatjyVcltbspRJ@ashevche-desk.local>
-	<6c5a657b-f316-4982-8cb8-8c09f1b1669a@kernel.org>
-	<aipfPwT4RJGdA4TT@ashevche-desk.local>
-	<aipfxL3ttO1-7W1T@ashevche-desk.local>
-	<CAKqfh0FQb6tSZrrTHGWcoQqPe-OwD-mW02GOOn9y+ysstRPVzA@mail.gmail.com>
-	<CAObtm8zDk4s3+pmGSxRoVHq7ef1y=_cHdC8YRH6ycRNbjzaNkg@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dgf2Ry88"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso87055e9.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781197068; x=1781801868; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=F6VZrzStJ4BscFJtA3k9EjpEizqcPtVvIB05nAc7hZ0=;
+        b=dgf2Ry88oGGGvGWzhA6bcdDsplonV87NFrLEIE5IYYT328d+RiWfj6hQpgJcHUGczT
+         jQkBWlCkDNSW5elCHb1kUkZMUtvLGKJb5B1Yr7XJowEVv7d0f3ice3a39H2v5dZNQps3
+         XmvE+Zi1dgG1uqUTn/RUAJVwX69bCPfe4UiPKIgLFLyr8MCE6AewqEiVyx67X/DaynFO
+         8KIrZ9LS3nBkWpFSJLUOdCfanNZF0fY2NzOIKLpto2eBFUbaQPpffFA2nIBPZUlfoYGJ
+         RCzt3p270gitckr2hxi5iXZS3RTMPRSgfl3ax16VTHhekBvtyTNsUp6c9OXf3KKl3ALf
+         GWKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781197068; x=1781801868;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=F6VZrzStJ4BscFJtA3k9EjpEizqcPtVvIB05nAc7hZ0=;
+        b=fmg5CCh+lYH5nEiAS42AoI1mzQePcHGVjfYhAgMi7Kl3IeLR3x01cnbR/v8dhnQrw7
+         Ld9sYzKpcRoaiZac6ZTGcVNo0+2NYTg/GCKGHrjYqzU48aXcFf6E/g1nB+jrayR7KYJL
+         69icDDGCwTXtzNWP8nG59NAIli7//joMpSvxD/p6fz39XR1w1daix+/0tWhBQk0wD9HB
+         iBKbLbLN/2twPwZXpaDKeQoYXh1jPmWH07YcDnDW72p4m54mH3yCROrvOZAwRMushYzD
+         nN07zSV4O/OefJRDdbytxCnEqrVfRiQAISPpDuaLM6DuKNcHBmc62H/tEd3cmOND+S1U
+         XPBQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8UiGseFzZsRnVU03Reu/RD3mPfbnAqYr74tCl90Xq4lz3BJK8edvo2dlIRIaJzNKwC4fjWxFYQEoT/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxMK3aYTjr7RzGabi+RbnieA34xC3IKY5Ha8AMOXBx0NSjBdaKO
+	l/MaEGqI29HdJsuM6g+gJeFuKr0wHnxr5DGL55W+yYqV4O1uHH9+jFVz/mBys2maVI4=
+X-Gm-Gg: Acq92OH9RY0J2OADNRI7wsYMlZ20XrdYQG4WPSYfI9oeaa68IAWpP0CvuCt7fO4e4Ku
+	TMHmxMyWLEsjSVqOzc06na9gK3p0Y6pKtVryVVDkiOxudzUVJKRirm1Ox7rNsQAP90HUa2FASiK
+	LcYBn7cvzwT1hDe8I/5Jona0SEGYh7ujIVWsEby7PsnR8THnMd2RQVcZghsXoe3lt6Vutgi8exg
+	rjSfj4BTCz7ImfjUNNm9+6TCGf4pv8ymQlXN3RRT2sd2+PGJlHyV1vNuEm5BFYj2vziHZ2Y/rKz
+	dQliFOi9xp7NNpWJfulibHB9FqYRldjdWLPyPqmTuiNWdfJ2UBimxabWIATcfI+LLN2DEJn9Y7Q
+	AR39j5Vx6LdnVO2nj6TOzwaG2nY5IPx4qUy4yYNpIh8N7zwPAFezcSJKQt4l5VXjPaD81OXj04M
+	U+1srSKacnmDfbispQ/O/vnKV1m++XBXToMAo=
+X-Received: by 2002:a7b:cc04:0:b0:48f:d5b8:5b07 with SMTP id 5b1f17b1804b1-490e5619a8cmr39855435e9.20.1781197067940;
+        Thu, 11 Jun 2026 09:57:47 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff23:4410:ff23:71de:3dfa:4b53])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606c10456esm150482f8f.37.2026.06.11.09.57.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jun 2026 09:57:47 -0700 (PDT)
+Date: Thu, 11 Jun 2026 18:57:41 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bjorn.andersson@oss.qualcomm.com, chris.lew@oss.qualcomm.com
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add BAM-DMUX support
+Message-ID: <airpBYZ2pRdNaE1v@linaro.org>
+References: <20260611-qcom-shikra-dts-bam-dmux-v1-1-43d0b43d41ef@oss.qualcomm.com>
+ <aip3_fyE8tMtJZIW@linaro.org>
+ <17bfa853-d0a6-4f83-a164-a17fb02f67a6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <17bfa853-d0a6-4f83-a164-a17fb02f67a6@oss.qualcomm.com>
 
-On Thu, 11 Jun 2026 15:41:44 +0200
-Tomasz Duszy=C5=84ski <tduszyns@gmail.com> wrote:
+On Thu, Jun 11, 2026 at 09:31:06PM +0530, Vishnu Santhosh wrote:
+> On 11-06-2026 02:25 pm, Stephan Gerhold wrote:
+> > On Thu, Jun 11, 2026 at 02:11:59PM +0530, Vishnu Santhosh wrote:
+> > > +	bam_dmux: bam-dmux {
+> > > +		compatible = "qcom,bam-dmux";
+> > > +
+> > > +		interrupts-extended = <&modem_smsm 1 IRQ_TYPE_EDGE_BOTH>,
+> > > +				      <&modem_smsm 11 IRQ_TYPE_EDGE_BOTH>;
+> > > +		interrupt-names = "pc",
+> > > +				  "pc-ack";
+> > > +
+> > > +		qcom,smem-states = <&apps_smsm 1>,
+> > > +				   <&apps_smsm 11>;
+> > > +		qcom,smem-state-names = "pc",
+> > > +					"pc-ack";
+> > > +
+> > > +		dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
+> > > +		dma-names = "tx", "rx";
+> > > +	};
+> > This should be a child node of the modem remoteproc. See msm8916.dtsi
+> > for example.
+> 
+> Thanks for the context! We actually referenced msm8916.dtsi during bring-up
+> and initially placed bam-dmux as a
+> remoteproc child. We then hit the issue that the driver was not probing at
+> all. After some digging, we realized
+> that qcom_q6v5_mss.c (used by msm8916) explicitly calls
+> of_platform_device_create() for its qcom,bam-dmux child,
+> but qcom_q6v5_pas.c which Shikra uses has no such logic, so the platform
+> device was never created.
+> 
+> There was a prior attempt to fix this generically by adding
+> of_platform_populate() to qcom_q6v5.c
+> (https://lore.kernel.org/all/20251223123227.1317244-3-gaurav.kohli@oss.qualcomm.com/),
+> but it was blocked
+> because GLINK/SMD edge child nodes would also get spurious platform devices
+> registered for them.
+> That series remains unresolved at v1.
+> 
+> Since your driver already manages modem lifecycle independently via SMSM
+> state bits without remoteproc dependency,
+> we moved it to the root level where of_platform_populate() picks it up at
+> boot, and everything worked.
+> 
+> Would love to get your suggestion on whether this approach is welcomed,
+> since it needs zero driver changes.
+> 
 
-> Hi,
->=20
-> I've been trying to catch up on the recent discussion. A few things I
-> want to address:
->=20
-Hi Tomasz,
+Adding the bam-dmux node top-level makes it impossible for userspace to
+associate it with a remoteproc (for this purpose: the "modem"). If you
+add it below the remoteproc the udev/sysfs path will include the
+remoteproc and you can tell that the network interfaces exposed by
+bam_dmux belong to that remoteproc.
 
-> 1. My email is active and I do read patches (when CCd), but by the
-> time I have a proper slot to sit down and review something, it's
-> usually already gone through several rounds.
-> Chiming in at that point just for the sake of it doesn't add much value i=
-mo.
+As you noticed, having a generic of_platform_populate() for remoteproc
+nodes is problematic, because usually subnodes are remoteproc subdevs.
+Also, the cooling device use case in the thread you linked doesn't have
+any resources attached, so the root complaint there was that you don't
+need a separate subnode at all.
 
-On this, if you want to take a look at a patch but are busy at the time
-(happens to all of us!) then feel free to just reply to say that
-is the case. Most stuff isn't urgent enough and I do take things a bit
-quickly sometimes (driven by desire to keep the queue manageable!)
+I would just replicate the special qcom,bam-dmux logic inside
+qcom_q6v5_pas.c. I think the motivation for BAM-DMUX explained in commit
+59983c74fc42 ("remoteproc: qcom_q6v5_mss: Create platform device for
+BAM-DMUX") is still valid. Conceptually, BAM-DMUX is a subdevice of the
+modem remoteproc, since the remoteproc is responsible for powering the
+BAM-DMUX hardware on and off. The fact that BAM-DMUX is not a remoteproc
+subdev in Linux is more an implementation detail of the current Linux
+driver. This is independent from the model in the device tree.
 
->=20
-> 2. I get the impression you're thinking that since I'm not actively
-> maintaining these drivers, you can step in and take ownership. I'm
-> broadly fine with that, but I'd want to see more work and patches
-> coming from you first. If that happens, we can revisit the ownership
-> question. That said, do you actually have these sensors on hand to
-> test more invasive changes? If you've already answered that just skip
-> it as I'll probably stumble upon it whilst going through overdue
-> mails.
->=20
-
-This was driven by some confusion and I think a bounce on a different
-email address (octakon).  For the scd30, would you mind if we put you
-back (can be along side Maxwell who stepped up because the original
-suggestion was to mark it orphaned) with this email address?
-
-> 3. I've managed to carve out some extra time lately, so I'm happy to
-> be more involved with reviews going forward if that's useful.
-
-Excellent!
-
->=20
-> In the meantime I'll go through the remaining emails to get better contex=
-t.
->=20
-> On Thu, Jun 11, 2026 at 2:23=E2=80=AFPM Maxwell Doose <m32285159@gmail.co=
-m> wrote:
-> >
-> > On Thu, Jun 11, 2026 at 2:12=E2=80=AFAM Andy Shevchenko
-> > <andriy.shevchenko@intel.com> wrote: =20
-> > >
-> > > On Thu, Jun 11, 2026 at 10:09:57AM +0300, Andy Shevchenko wrote: =20
-> > > > On Thu, Jun 11, 2026 at 08:58:47AM +0200, Krzysztof Kozlowski wrote=
-: =20
-> > > > > On 11/06/2026 08:50, Andy Shevchenko wrote: =20
-> > > > > > On Thu, Jun 11, 2026 at 08:37:33AM +0200, Krzysztof Kozlowski w=
-rote: =20
-> > > > > >> On 11/06/2026 00:24, Maxwell Doose wrote: =20
-> > > > > >>> On Wed, Jun 10, 2026 at 4:09=E2=80=AFAM Krzysztof Kozlowski <=
-krzk@kernel.org> wrote: =20
-> > > > > >>>> On Tue, Jun 09, 2026 at 11:03:26AM -0500, Maxwell Doose wrot=
-e: =20
-> > > > > >>>>> Tomasz's entry is no longer valid, as he is not active anym=
-ore. Add =20
-> > > > > >>>>
-> > > > > >>>> Why is not longer valid? I see activity in Feb... =20
-> > > > > >>>
-> > > > > >>> Strange. According to git log --author=3D"Tomasz Duszynski" l=
-ast commit
-> > > > > >>> I have from him is 2023. We also did have an RFC open for a m=
-onth on
-> > > > > >>> linux-iio with Tomasz Cced with no response. =20
-> > > > > >>
-> > > > > >> So you did not check enough... and no one needs to read RFC :/=
- =20
-> > > > > >
-> > > > > > Hmm... lore.kernel.org shows last activity November last year (=
-07-11-2025).
-> > > > > > What other sources do you suggest to check? =20
-> > > > >
-> > > > > No, only lore. =20
-> > > >
-> > > > I used this request:
-> > > > https://lore.kernel.org/all/?q=3Df%3A%22Tomasz+Duszynski%22
-> > > > =20
-> > > > > As I said, February this year.
-> > > > >
-> > > > > https://lore.kernel.org/all/CAObtm8zKUAWNS23nRMhc9ZR-zn7xeVOFPiV4=
-ai_x7Bkd5puiyA@mail.gmail.com/ =20
-> > > >
-> > > > Okay, you used UTF-8 name, Where did you get it from? MAINTAINERS h=
-as no
-> > > > diacritics. =20
-> > >
-> > > OTOH, you may have used simply email approach. With
-> > > https://lore.kernel.org/all/?q=3Df%3Atduszyns%40gmail.com
-> > > I got it as well. =20
-> >
-> > Ok, now I see it. I will say though that we've emailed Tomasz at least
-> > 10 times at this point for various things and hasn't responded to even
-> > one :/ if we need to we can allow Jonathan to chime in. =20
->=20
->=20
->=20
-
+Thanks,
+Stephan
