@@ -1,108 +1,197 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4709C344DA4;
-	Thu, 11 Jun 2026 05:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF7B2E62B3
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781156623; cv=none; b=nqupLrLplYmByU9Ir+p90lWwNu6LCOtTeEcAUpXwyEt26TJZrb1B8IOcX9pAXOM7989DPdHwrzyWPiTStpm2x4mFqeQgXW3dOC2bMN5VZz8lS2Rs1JmyBfgU8qUx/9DylaK0YtcHhfgqzZRFrjdCIuWziBKEgj+eHKZ1oHJf9+A=
+	t=1781156786; cv=none; b=DwUrA18cNPMSP4drO5k/Wih3bCtPmAPXCtgAEkInEh4r9FNgePBaKt1O59q7hNeBQK1pSGeUc26hGk6iIq7LKSPRT0xyHsWGUYDresZrIvY84XiLyLPNilAT4eDR9l9OVd7/aGQTLM05rdi0hRowrhMFQdaSB311UyPBk0RNzRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781156623; c=relaxed/simple;
-	bh=CEsXtE7RJUsN+rxk0Lx/Pi6v19bnjVmLwkhNSAJhWWM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hsE8oCDyAFTp6/aLEddNH7Y9i0yqwcwhIiD7XxX/t1aymsrf4hBdOWPiK6owPb5DS0QvF+j9V4m9/ykE8cqMsdJ22SZ8iznXVIzd4zXYaJPM8v/mgjoc6d/SGhvmOv+Y/61Nb9ErnHEB40HZVb7wt6hPeBZGjwZUe5dMmc9bi0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
-	by APP-01 (Coremail) with SMTP id qwCowACXOtMBSypqL+NEAQ--.1358S2;
-	Thu, 11 Jun 2026 13:43:30 +0800 (CST)
-Message-ID: <69a18fd1a1b9f375bbccfbe0d9e88ab31a01a188.camel@iscas.ac.cn>
-Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
- support
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 11 Jun 2026 13:43:29 +0800
-In-Reply-To: <178115560757.199930.5802398831559617564.b4-review@b4>
-References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
-	 <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
-	 <178115560757.199930.5802398831559617564.b4-review@b4>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1781156786; c=relaxed/simple;
+	bh=xRD6hZRTgRk5bU0aSXz2N5Lr8naHvAHxj6/JWVEfoZw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WL+XQmZoOqEfbrYfYxmo2+i/X7zo1QnbWKB7A+9Gy1O3OZJqSV+x4xoEeQD6UfZfbnLz2nBANhJ5XRryf7Y2Z0NkgHDL7pRamC3ATyXY/nOyM07fn8gGHGHPDakFbqqNGogEG2/9DEOWV1oXKJ/g3THQQCFQEmLNg//KQjfbbSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3AQhYL+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3AQhYL+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BC51F00893;
+	Thu, 11 Jun 2026 05:46:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781156784;
+	bh=nUoVYtP/C7KuQmHHma8NQF+c6CF3t5BWiphimxuR9zk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=W3AQhYL+NTelJAv64TibONjawrTMHzYqMypqOQkLXNhjZt1GF4pya7BsNUdSPHfNp
+	 LLm4IdUbllv/4YIuewNU94i8ygZyAQlTZHz9/Ig8MQcwmui0PHLn4R/kNu8BexDCqX
+	 dHHASOvgvwd+REwzu9S2VR+3DMx4MGxbCF20MciGOgvvTRKMZsZD4yHf1cUnfXWEZa
+	 e3YDRNfB7veVoFw9pfR1nL64blmEtjpw+QsWRLKiYmFcg9WY3toa12PEooEPJsR4SN
+	 SlbBscjAxHPzdtoglh9v5VeYoSj+Rel3pdhhCUPzrszhcrKQOufjwHJjZjWwtVqLvQ
+	 4+PxXbmXHx5RQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v32 4/5] i2c: ast2600: Add controller driver for AST2600
+ new register set
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260611-upstream_i2c-v32-4-b66eba921d01@aspeedtech.com>
+References: <20260611-upstream_i2c-v32-4-b66eba921d01@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Date: Thu, 11 Jun 2026 05:46:23 +0000
+Message-Id: <20260611054624.25BC51F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-CM-TRANSID:qwCowACXOtMBSypqL+NEAQ--.1358S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF1fGryxZF1rJFyUKrWUCFg_yoWkZwc_Wr
-	4jqrZFqrWqqr4kCFn7AFyftF93KFs5uFn7Z3ZYy34aka47CrsrZrWUXrWrAas8Jw1FkFyq
-	kanrZFyFvr4DWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbskYjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxU7veHUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-=E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=E5=86=
-=99=E9=81=93=EF=BC=9A
-> On Tue, 09 Jun 2026 00:26:22 +0800, Icenowy Zheng
-> <zhengxingda@iscas.ac.cn> wrote:
-> > diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> > b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> > index 1a7e0125bced..e31e2fba0a78 100644
-> > --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> > +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> > @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct
-> > backlight_device *bl)
-> > [ ... skip 18 lines ... ]
-> > +		ret =3D regulator_enable(ctx->bl_supply);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ctx->backlight_enabled =3D true;
-> > +
->=20
-> If you use a pin, (it is indeed a hwen pin as we know) you can
-> simplify it like this,
->=20
-> bool bl_enable_now =3D !!brightness;
->=20
-> if (ctx->bl_enable !=3D bl_enable_now) {
-> 	gpiod_set_value(ctx->hwen_gpio, bl_enable_now);
-> 	ctx->bl_enable =3D bl_enable_now;
-> }
->=20
-> BTW, iirc, panel bias can be turned off too, although I don't think
-> this will save too much power.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The driver fails to send a NAK on the last byte of an intermediate=
+ read message, causing the slave to hold SDA low and block the subsequent R=
+epeated Start.
+- [High] The interrupt handler does not clear error status bits in the Writ=
+e-1-to-Clear (W1C) ISR register, permanently wedging the controller after a=
+ single error.
+- [Medium] Bus recovery failure and other error interrupts are not enabled =
+in the Interrupt Enable Register (IER), leading to needless blocking timeou=
+ts.
+--
 
-BTW during my test, it seems that DCS backlight 0 isn't turning off
-backlight.
+commit 01c0588191421a92b3d96b7bc246be1fe0958d9f
+Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
-Thanks,
-Icenowy
+i2c: ast2600: Add controller driver for AST2600 new register set
 
->=20
-> Best wishes,
-> Pengyu
+The AST2600 introduces a new I2C controller register layout, selectable
+at runtime via global control registers. Compared to the legacy layout
+used on AST2400/AST2500, the new layout separates controller (master)
+and target (slave) registers and adds support for packet-based transfers
 
+> diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
+t2600.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-ast2600.c
+
+[ ... ]
+
+> +static int ast2600_i2c_setup_buff_rx(u32 cmd, struct ast2600_i2c_bus *i2=
+c_bus)
+> +{
+> +	struct i2c_msg *msg =3D &i2c_bus->msgs[i2c_bus->msgs_index];
+> +	int xfer_len =3D msg->len - i2c_bus->controller_xfer_cnt;
+> +
+> +	cmd |=3D AST2600_I2CM_PKT_EN | AST2600_I2CM_RX_BUFF_EN | AST2600_I2CM_R=
+X_CMD;
+> +
+> +	if (cmd & AST2600_I2CM_START_CMD)
+> +		cmd |=3D AST2600_I2CM_PKT_ADDR(msg->addr);
+> +
+> +	if (msg->flags & I2C_M_RECV_LEN) {
+> +		dev_dbg(i2c_bus->dev, "smbus read\n");
+> +		xfer_len =3D 1;
+> +	} else if (xfer_len > i2c_bus->buf_size) {
+> +		xfer_len =3D i2c_bus->buf_size;
+> +	} else if (i2c_bus->msgs_index + 1 =3D=3D i2c_bus->msgs_count) {
+> +		cmd |=3D CONTROLLER_TRIGGER_LAST_STOP;
+> +	}
+
+[Severity: High]
+Does this logic omit the NAK for intermediate read messages?
+
+The CONTROLLER_TRIGGER_LAST_STOP flag (which applies the hardware NAK via=20
+AST2600_I2CM_RX_CMD_LAST) is strictly tied to the absolute final message in
+the array. If the transfer contains an intermediate read message, such as a
+read before a Repeated Start, the last byte will be ACKed.
+
+This will cause the slave to expect another byte and hold SDA low, leading =
+to
+an arbitration loss or bus hang when attempting the Repeated Start.
+
+[ ... ]
+
+> +static int ast2600_i2c_controller_irq(struct ast2600_i2c_bus *i2c_bus)
+> +{
+> +	u32 sts =3D readl(i2c_bus->reg_base + AST2600_I2CM_ISR);
+> +	u32 ctrl;
+> +
+> +	sts &=3D ~AST2600_I2CM_SMBUS_ALERT;
+> +
+> +	if (sts & AST2600_I2CM_BUS_RECOVER_FAIL) {
+> +		writel(AST2600_I2CM_BUS_RECOVER_FAIL, i2c_bus->reg_base + AST2600_I2CM=
+_ISR);
+> +		ctrl =3D readl(i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
+> +		writel(ctrl, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
+> +		WRITE_ONCE(i2c_bus->msgs, NULL);
+> +		i2c_bus->cmd_err =3D -EPROTO;
+> +		complete(&i2c_bus->cmd_complete);
+> +		return 1;
+> +	}
+> +
+> +	if (sts & AST2600_I2CM_BUS_RECOVER) {
+> +		writel(AST2600_I2CM_BUS_RECOVER, i2c_bus->reg_base + AST2600_I2CM_ISR);
+> +		WRITE_ONCE(i2c_bus->msgs, NULL);
+> +		i2c_bus->cmd_err =3D 0;
+> +		complete(&i2c_bus->cmd_complete);
+> +		return 1;
+> +	}
+> +
+> +	i2c_bus->cmd_err =3D ast2600_i2c_irq_err_to_errno(sts);
+> +	if (i2c_bus->cmd_err) {
+> +		WRITE_ONCE(i2c_bus->msgs, NULL);
+> +		writel(AST2600_I2CM_PKT_DONE, i2c_bus->reg_base + AST2600_I2CM_ISR);
+> +		complete(&i2c_bus->cmd_complete);
+> +		return 1;
+> +	}
+
+[Severity: High]
+Will this permanently wedge the controller after a single error?
+
+When an error occurs, the error path explicitly writes only
+AST2600_I2CM_PKT_DONE to the ISR. W1C error bits like AST2600_I2CM_ARBIT_LO=
+SS
+or AST2600_I2CM_TX_NAK are never written back and will remain set.
+
+Because the error path calls complete() successfully, the timeout fallback
+path that could reset the controller is bypassed. On the very next I2C
+transaction, a new PKT_DONE interrupt will cause the handler to read the
+stale error bits, instantly fail the transaction, and loop in this state.
+
+The same issue appears to exist in ast2600_i2c_controller_packet_irq() for
+bits like AST2600_I2CM_PKT_ERROR.
+
+[ ... ]
+
+> +static int ast2600_i2c_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	ret =3D devm_request_irq(dev, i2c_bus->irq, ast2600_i2c_bus_irq, 0,
+> +			       dev_name(dev), i2c_bus);
+> +	if (ret < 0) {
+> +		ret =3D dev_err_probe(dev, ret, "Unable to request irq %d\n",
+> +				    i2c_bus->irq);
+> +		goto err;
+> +	}
+> +
+> +	writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
+> +	       i2c_bus->reg_base + AST2600_I2CM_IER);
+> +
+> +	ret =3D i2c_add_adapter(&i2c_bus->adap);
+
+[Severity: Medium]
+Are bus recovery failure interrupts intentionally left disabled?
+
+The interrupt enable register is configured here without including the
+AST2600_I2CM_BUS_RECOVER_FAIL bit. If a bus recovery attempt fails, the
+hardware will assert the bit in the ISR, but the interrupt handler will
+never be triggered.
+
+This will cause the driver to needlessly block for the entire duration of
+wait_for_completion_timeout() instead of handling the failure immediately.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-upstream_i=
+2c-v32-0-b66eba921d01@aspeedtech.com?part=3D4
