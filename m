@@ -1,523 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B963E451A
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9693E7BCD
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781177838; cv=none; b=h5TSwawZUhOdg2wKgZoQLM57UKa5kzZhIAp8w/wgQzQ/1j6TDuSWvmrJXpHQ88Wr+xl2/4ytsjCWL+upOK93P1qwyOlnQma1nNLsB1TmLFsiwHFuRSQPXaZlJK7FYcwADYnfZZnllK+wk37cCSdB4PBw9PjPK8yTDreik3B2jUo=
+	t=1781177841; cv=none; b=IwQVl5pKUBMoAag9De4YF1udrEYt3KWac5Ej3R07F0QMC1bQn4PiLM4TPIVgBfshbXS48SUceNcS/6Sn1Toml7S0nQGW6elRL64I3BdawsKq6bMEQiMR60/IRBLqXfskpjrsB8VSUhF3S7fK8fRp9D7jh+GvI97Ok3NDm+9DdcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781177838; c=relaxed/simple;
-	bh=C0kKRMIh6HI0T1/XUBhk37bZFRTSO4ZNr/+RwNnakaw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dhucvfNlAOjN+xChjNi3bYtHu/7Qdvye0mS0likE4QKxmNcjcsR+/Y/tPUtt3GgAxNvLYvFlNEK/e37QJiabgEflxrWxcAkfPp47ieKZl5gou6veD9dnr8xzRKB1Na0KFPWwmpxpST/fraWejhH4dNQvS29+2GIPO8/tryIgM+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3Obh9xB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781177841; c=relaxed/simple;
+	bh=wxd0z1K/jMxfFNLgwOXIm4LHEBf7fMJ8Se4Mlgv2iBY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GQwnnQLh4tuWq+9k20kfUHZG4RTWMbotMxzHzRAdssi3LPaGfegTFCfmIh3vIqA8XMO7yjKZ3+4EH2BbLUPVhI5JxYcW0KBIl7pvIJ45pYLHEdx/oD/NDSOnS6UDZIv7k9hi4BItWAzEWVq1Avt8yTbrhOHhusRPT496NBi5rvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hc4HJ36z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ixP5SY/n; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3Obh9xB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1495E1F008A0
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781177835;
-	bh=gJDHZAUL0K+utDUnXsy7ITPlImx9umJXO30cxi5KeqI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=a3Obh9xBEHyiPmLvZ5Myc+oVGKdj6SSpqRsbuvVjuAX/xeIrQi3sDS+w722yLwVGp
-	 w8b1Yq2izHL0Tt0IuXSlfrxotsjmjFsATRyUSz7W++5MpQSQzgVLgToka4y3sc2W4h
-	 xxjVG0l8opCnObQHf8urxxDO+68Ii2F7fNnU00A03D9ZnGXkodIAA7jfoNtzdmOClz
-	 n/IVEq+yMID1CgaxQ23oYKsUdvSYewxsJELvXmWF7YS4q0z5s3FSak2qfFqrD5Ouwo
-	 Kx/UIizOLLiKZuttqMIvqvz3O+g9856l5ISHNV8+Ck7aedFiwLVvbG/XBhAE0fHucQ
-	 kMbSscD3QOASg==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39666ac91a2so7425641fa.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:37:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/yxUp7D5SVqWasn6uO0Yxt99wdnKvvhB4tDzDuxCUXILc8QvPCl5mOqZNaWX8DPjbm20SmLgZKUxB7@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiDNmlBe06r7Uj/9vQ5msUjcrUZ4A/I7Fh6f5y4/MW0DQZr40s
-	zIaQlAel+YEWMZ+c7yq4hSt0vyND6BoPTEJzWXiPaRQcNxlgtajIx8zF2z+8mSrR98frHqqF+os
-	vnfDhHPzyq8fr5nMeJBGRgZOoOd0mbNU=
-X-Received: by 2002:a05:6512:ac4:b0:5aa:63c2:49ed with SMTP id
- 2adb3069b0e04-5ad285e7e19mr612607e87.6.1781177833719; Thu, 11 Jun 2026
- 04:37:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hc4HJ36z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ixP5SY/n"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BA0pBt303967
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:37:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sNFFQ8ITUaDjSLXfpTnELXU2+/IZ+KPg3CtsndZrQvo=; b=hc4HJ36z1a6qXvH0
+	jMM2ZpIRPA8arwrba3dIz999binhr9pGCvi9ZWYazUqAiodNM5z75MMjecQS0GKf
+	b0FlKmNrpjpXh1yNywIwz+MbbJ009EnM9TtSWBoqcTH29Cz9xbj8CZO+rtiSiF66
+	JqYdtDkhVnzX88rdiIC//LqSCpSldaF7eTGQP9gxuv4X+DAj7m221sqlbl+4xbCS
+	oiqhOPiMtrCPCTHrIW0ERp5GmEIGZrBAAhInGYHbpOuWveteUe8YsKtxIh4sMEZT
+	+WGQmOk61lIdIzUKLkVUAnwBJLmAQpwgt5k0AKrPgmz4tJnNp1y6ywcR2AERb2pu
+	94bRzg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqtb5gfmk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:37:19 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51780e3ca44so15837671cf.3
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:37:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781177838; x=1781782638; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sNFFQ8ITUaDjSLXfpTnELXU2+/IZ+KPg3CtsndZrQvo=;
+        b=ixP5SY/nsIlQATX8QGg9uMCh/W2FtQsUsnlJuT9KxOFCDfHzbkH8Sk787NdDt/Q+vA
+         1HiHAws2V2vzJ0WAr9bO1StZbxHcFjtbYyhlbFXy4WiUIz+QNvRCMcXe9IfWKYBQKAVm
+         VOWAYgD5vV9uEVBFRlZmffhR5fckhTzLU9S/SiEBew8D7u/5MofbV640MdRYqMcM7CCM
+         Yjus9XxpaugkW5vKceqT8JbQc0XIPMFgMFdWbdfU2col7ZJdZt3onT5JWoiymilQdbOP
+         O5UyEUdzC9tFs9rXL9nmnDtLdy4BVR4rQ/HmJRA8npN+K8l4BfJuSfqx4mMcZPGkQwKH
+         TnwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781177838; x=1781782638;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sNFFQ8ITUaDjSLXfpTnELXU2+/IZ+KPg3CtsndZrQvo=;
+        b=aD88MShnHQNxztbjXUjNlBpnLmV5F4VR/D9nfhepMsr4Z2y/h6V6lkurXlP8c85MLF
+         5HHJW0ewTvjBz6Nqyfbp7EaBVYi6b/XDovVDdhDeJvmZxxHmEdSflPmOrKLpGXHnaTTj
+         dftFLzZD+I6K4Hor+hxT2j/rn8CV9lR46lknXSnoKO45R+dbpGqhy8p3zR/PbiDPsw0R
+         YQKMRmxiYLiQ5epp4VByilLjNZrodPJNYHHzXJPgk7+BdRNjJsSrHo+nnJPk4Us/tLy/
+         1RH6oeudS9JwoDkCQZ0fCyLhvY21SGqoFg85AXKJ+/j4lNnHn3Wqs6K5tEMbOVKxgIeB
+         z0Hg==
+X-Forwarded-Encrypted: i=1; AFNElJ+9bBQazkgvSiekC2lWrY4jTD3rcPLV65Gxb2tcLOzsJGA6wPwf1sVk62WJDQgkSumlUjU43V0iorYF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1XF52e234U5mNLZjBoeaE560jmczBlv2gBkWb4q0EqZFFk6fy
+	0VoNeuj6gF+NUjtoEA7iCaNPW+6/jHxJE4ETZs03dJej+OqsENt2SRAXv2u2oqAFumAURNyCuYR
+	KVinKgMHXuhG1ajn/w/7euR6e6DD+CP2GcKjK1JwBrBfREOr4k+GzcfzTzK5PBClk
+X-Gm-Gg: Acq92OGJDLWbiY9DeRh1KNyoVNjenJI0E6wDTR1ypzXlSR5qkbUtuTrmNGjchE+jiqO
+	udmzWau+jAvh/zRA/YsLU9e2x4x1dyOzXV/qDh/ObkQf13RwtTLY0Wk3Ih/19bkmw2pAbflk6if
+	pBABF4GaQ94Mlungu0/gQ0YBy1ixCAlJiSwjhydCIRECGenwarpOcP/JbWvC36DHypNzlQE6ws6
+	h2yV/Jc1BvYAZDtRUC5VvQAH4HZUhK+B06kDkg6N767qLJ8cLvWRZPhwzpcuTXh+EtGht0fn6Zj
+	IiQ6laJk57B0GfNzUOmIWd+tNbO3HSnxPXi0sH6ermh2K9hsWXP4X7r6DSL2DGvQBe8P8LZ832V
+	ee5fX3TPp7amykMFdKKPCQZPT91KXjZZ94fQVgobprt2F3MEm0+gewdij
+X-Received: by 2002:a05:622a:4d09:b0:50e:487a:bfef with SMTP id d75a77b69052e-517edd18bb9mr23051121cf.2.1781177838588;
+        Thu, 11 Jun 2026 04:37:18 -0700 (PDT)
+X-Received: by 2002:a05:622a:4d09:b0:50e:487a:bfef with SMTP id d75a77b69052e-517edd18bb9mr23050661cf.2.1781177837768;
+        Thu, 11 Jun 2026 04:37:17 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb0f147e2sm53745066b.7.2026.06.11.04.37.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 11 Jun 2026 04:37:17 -0700 (PDT)
+Message-ID: <60b4b36e-8752-4e52-b5a3-aecae7986730@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 13:37:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com> <20260603055347.66845-5-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260603055347.66845-5-changhuang.liang@starfivetech.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 11 Jun 2026 13:37:01 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=Qd8ADR_kX2Q7msM4Dd0xFayPGM4ZzB3uv2ufvkuybtQ@mail.gmail.com>
-X-Gm-Features: AVVi8CdGj_YwambI610tLybs-x5ald-wA5S466t0-a_TiSheoDD3ZLXzuT_SxD0
-Message-ID: <CAD++jL=Qd8ADR_kX2Q7msM4Dd0xFayPGM4ZzB3uv2ufvkuybtQ@mail.gmail.com>
-Subject: Re: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
- controller driver
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Changhuang,
-
-thanks for your patch!
-
-On Wed, Jun 3, 2026 at 7:54=E2=80=AFAM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
-
-> Add pinctrl driver for StarFive JHB100 SoC System-0(sys0) pinctrl
-> controller.
->
-> Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-
-This patch adds generic infrastructure "JHB100" that is then used
-by several drivers does it not?
-
-Write something about that and some about the design in the
-commit message.
-
-> +++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys0.c
-> @@ -0,0 +1,123 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Pinctrl / GPIO driver for StarFive JHB100 SoC System-0 domain
-> + *
-> + * Copyright (C) 2024 StarFive Technology Co., Ltd.
-> + * Author: Alex Soo <yuklin.soo@starfivetech.com>
-
-Shouldn't this person be in the Signed-off-by?
-
-I guess it's not legally necessary but feels appropriate.
-
-> +static struct config_reg_layout_desc jhb100_sys0_pinctrl_crl_desc[] =3D =
-{
-> +       {
-> +               .pin_start                      =3D 0,
-> +               .pin_cnt                        =3D 4,
-> +               .drive_strength_2bit            =3D { .shift =3D 0, .widt=
-h =3D 2 },
-> +               .input_enable                   =3D { .shift =3D 2, .widt=
-h =3D 1 },
-> +               .pull_down                      =3D { .shift =3D 3, .widt=
-h =3D 1 },
-> +               .pull_up                        =3D { .shift =3D 4, .widt=
-h =3D 1 },
-> +               .slew_rate                      =3D { .shift =3D 5, .widt=
-h =3D 1 },
-> +               .schmitt_trigger_select         =3D { .shift =3D 6, .widt=
-h =3D 1 },
-> +               .reserved                       =3D { .shift =3D 7, .widt=
-h =3D 8 },
-> +               .debounce_width                 =3D { .shift =3D 15, .wid=
-th =3D 17 },
-> +       },
-> +       {
-> +               .pin_start                      =3D 4,
-> +               .pin_cnt                        =3D 5,
-> +               .schmitt_trigger_select         =3D { .shift =3D 0, .widt=
-h =3D 1 },
-> +               .reserved                       =3D { .shift =3D 1, .widt=
-h =3D 31 },
-> +       },
-> +       {
-> +               .pin_start                      =3D 9,
-> +               .pin_cnt                        =3D 1,
-> +               .drive_strength_2bit            =3D { .shift =3D 0, .widt=
-h =3D 2 },
-> +               .slew_rate                      =3D { .shift =3D 2, .widt=
-h =3D 1 },
-> +               .reserved                       =3D { .shift =3D 3, .widt=
-h =3D 29 },
-> +       },
-> +       {
-> +               .pin_start                      =3D 10,
-> +               .pin_cnt                        =3D 1,
-> +               .drive_strength_2bit            =3D { .shift =3D 0, .widt=
-h =3D 2 },
-> +               .input_enable                   =3D { .shift =3D 2, .widt=
-h =3D 1 },
-> +               .pull_down                      =3D { .shift =3D 3, .widt=
-h =3D 1 },
-> +               .pull_up                        =3D { .shift =3D 4, .widt=
-h =3D 1 },
-> +               .slew_rate                      =3D { .shift =3D 5, .widt=
-h =3D 1 },
-> +               .schmitt_trigger_select         =3D { .shift =3D 6, .widt=
-h =3D 1 },
-> +               .reserved                       =3D { .shift =3D 7, .widt=
-h =3D 25 },
-> +       },
-> +       { 0xff },
-> +};
-
-Would it be appropriate to index the different register variants with
-a enum with a good name so it is easy to understand which
-variant each entry in the array is?
-
-> +#include <linux/string.h>
-> +#include <linux/sort.h>
-
-Hm why... I guess I will see.
-
-> +#define JHB100_DEBOUNCE_WIDTH_STAGES_MAX       0x1FFFFU
-
-Is that a GENMASK(16,0)?
-
-Since it seems to have something to do with bitfield widths.
-
-> +/* i2c open-drain pull-up select */
-> +#define JHB100_I2C_OPEN_DRAIN_PU_600_OHMS      0
-> +#define JHB100_I2C_OPEN_DRAIN_PU_900_OHMS      1
-> +#define JHB100_I2C_OPEN_DRAIN_PU_1200_OHMS     2
-> +#define JHB100_I2C_OPEN_DRAIN_PU_2000_OHMS     3
-
-Very nice and to the point! It's easy to read and understand drivers
-that are writing things out explicitly like this!
-
-> +#define JHB100_NR_GPIOS_PER_BANK               32
-(...)
-> +static inline struct jhb100_gpio_bank *jhb100_gc_to_bank(struct gpio_chi=
-p *gc)
-> +{
-> +       return container_of(gc, struct jhb100_gpio_bank, gc);
-> +}
-> +
-> +static unsigned int jhb100_gpio_to_pin(struct gpio_chip *gc, unsigned in=
-t gpio)
-> +{
-> +       struct jhb100_gpio_bank *bank =3D jhb100_gc_to_bank(gc);
-> +
-> +       return bank->id * JHB100_NR_GPIOS_PER_BANK + gpio;
-> +}
-
-This usually tells me that GPIO_GENERIC can be used but maybe
-this has been discussed before...
-
-> +static const struct pinctrl_ops jhb100_pinctrl_ops =3D {
-> +       .get_groups_count =3D pinctrl_generic_get_group_count,
-> +       .get_group_name   =3D pinctrl_generic_get_group_name,
-> +       .get_group_pins   =3D pinctrl_generic_get_group_pins,
-> +       .dt_node_to_map   =3D pinctrl_generic_pins_function_dt_node_to_ma=
-p,
-> +       .dt_free_map      =3D pinctrl_utils_free_map,
-> +};
-
-Nice use of the generic helpers!
-
-> +static void jhb100_set_gpioval(struct jhb100_pinctrl *sfp, unsigned int =
-pin,
-> +                              unsigned int val)
-> +{
-> +       const struct jhb100_pinctrl_domain_info *info =3D sfp->info;
-> +       unsigned int offset =3D 4 * (pin / 32);
-> +       unsigned int shift =3D 1 * (pin % 32);
-> +       unsigned int fs_offset =3D 4 * (pin / 16);
-> +       unsigned int fs_shift =3D 2 * (pin % 16);
-> +       u32 func_sel_mask;
-> +       u32 dout, doen, fs;
-> +       void __iomem *reg_gpio_o;
-> +       void __iomem *reg_gpio_oen;
-> +       void __iomem *reg_gpio_func_sel;
-> +       unsigned long flags;
-> +
-> +       reg_gpio_o =3D sfp->base + info->regs->output + offset;
-> +       reg_gpio_oen =3D sfp->base + info->regs->output_en + offset;
-> +       reg_gpio_func_sel =3D sfp->base + info->regs->func_sel.reg + fs_o=
-ffset;
-
-The part from here:
-
-> +       func_sel_mask =3D GENMASK(info->regs->func_sel.width_per_pin - 1,=
- 0) << fs_shift;
-(...)
-> +
-> +       raw_spin_lock_irqsave(&sfp->lock, flags);
-> +       fs =3D readl_relaxed(reg_gpio_func_sel);
-> +       if (fs & func_sel_mask) {
-> +               fs &=3D ~func_sel_mask;
-> +               writel_relaxed(fs, reg_gpio_func_sel);
-> +       }
-
-..to here seems to reimplement the shortcut
-.gpio_request_enable() in struct pinmux_ops.
-
-Then this:
-
-> +       dout =3D val << shift;
-> +       doen =3D 0;
-
-> +       dout |=3D readl_relaxed(reg_gpio_o) & ~BIT(shift);
-> +       writel_relaxed(dout, reg_gpio_o);
-> +       doen |=3D readl_relaxed(reg_gpio_oen) & ~BIT(shift);
-> +       writel_relaxed(doen, reg_gpio_oen);
-
-Seems more like the actual code that should be here.
-
-> +       raw_spin_unlock_irqrestore(&sfp->lock, flags);
-
-Please use guards for these spinlocks. They make for less
-bugs.
-
-guard(raw_spinlock_irqsave)(&sfp->lock);
-
-> +static const struct pinmux_ops jhb100_pinmux_ops =3D {
-> +       .get_functions_count =3D pinmux_generic_get_function_count,
-> +       .get_function_name   =3D pinmux_generic_get_function_name,
-> +       .get_function_groups =3D pinmux_generic_get_function_groups,
-> +       .set_mux             =3D jhb100_set_mux,
-> +};
-
-Implement .gpio_request_enable() (see above) and
-.gpio_set_direction() see below.
-
-Maybe also .gpio_disable_free() if you need to deconfigure
-stuff when a pin is release from GPIO.
-
-> +static const struct pinconf_ops jhb100_pinconf_ops =3D {
-> +       .pin_config_get         =3D jhb100_pinconf_get,
-> +       .pin_config_set         =3D jhb100_pinconf_set,
-> +       .pin_config_group_get   =3D jhb100_pinconf_group_get,
-> +       .pin_config_group_set   =3D jhb100_pinconf_group_set,
-> +       .is_generic             =3D true,
-> +};
-
-Overall this looks nice, good use of the group config!
-
-> +static int jhb100_gpio_get_direction(struct gpio_chip *gc,
-> +                                    unsigned int gpio)
-> +{
-> +       struct jhb100_gpio_bank *bank =3D jhb100_gc_to_bank(gc);
-> +       struct jhb100_pinctrl *sfp =3D gpiochip_get_data(gc);
-> +       const struct jhb100_pinctrl_domain_info *info =3D sfp->info;
-> +       unsigned int offset =3D 4 * bank->id;
-> +       u32 doen;
-> +       void __iomem *reg_gpio_oen;
-> +
-> +       reg_gpio_oen =3D sfp->base + info->regs->output_en + offset;
-> +
-> +       doen =3D (readl_relaxed(reg_gpio_oen) & BIT(gpio)) >> gpio;
-> +
-> +       return doen =3D=3D GPOEN_ENABLE ? GPIO_LINE_DIRECTION_OUT : GPIO_=
-LINE_DIRECTION_IN;
-> +}
-> +
-> +static int jhb100_gpio_direction_input(struct gpio_chip *gc,
-> +                                      unsigned int gpio)
-> +{
-> +       struct jhb100_pinctrl *sfp =3D gpiochip_get_data(gc);
-> +       struct device *dev =3D sfp->dev;
-> +       struct config_reg_layout_desc *crl_desc;
-> +       unsigned int pin =3D jhb100_gpio_to_pin(gc, gpio);
-> +
-> +       crl_desc =3D get_crl_desc_by_pin(sfp, pin);
-> +       if (!crl_desc) {
-> +               dev_err(dev, "pin %d can't not found reg layout descripto=
-r\n",
-> +                       pin);
-> +               return -EINVAL;
-> +       }
-> +
-> +       jhb100_padcfg_rmw(sfp, pin,
-> +                         RL_DESC_GENMASK(crl_desc, input_enable) |
-> +                         RL_DESC_GENMASK(crl_desc, schmitt_trigger_selec=
-t),
-> +                         RL_DESC_GENMASK(crl_desc, input_enable) |
-> +                         RL_DESC_GENMASK(crl_desc, schmitt_trigger_selec=
-t));
-
-Instead of doing these writes directly into the config registers, implement
-.gpio_set_direction() in struct pinmux_ops and call the pinmux
-generic back-end.
-
-> +static int jhb100_gpio_direction_output(struct gpio_chip *gc,
-> +                                       unsigned int gpio, int value)
-> +{
-> +       struct jhb100_pinctrl *sfp =3D gpiochip_get_data(gc);
-> +       struct device *dev =3D sfp->dev;
-> +       struct config_reg_layout_desc *crl_desc;
-> +       unsigned int pin =3D jhb100_gpio_to_pin(gc, gpio);
-> +
-> +       jhb100_set_one_pin_mux(sfp, pin, 0,
-> +                              value ? GPOUT_HIGH : GPOUT_LOW);
-> +
-> +       crl_desc =3D get_crl_desc_by_pin(sfp, pin);
-> +       if (!crl_desc) {
-> +               dev_err(dev, "pin %d can't not found reg layout descripto=
-r\n",
-> +                       pin);
-> +               return -EINVAL;
-> +       }
-> +
-> +       jhb100_padcfg_rmw(sfp, pin,
-> +                         RL_DESC_GENMASK(crl_desc, input_enable) |
-> +                         RL_DESC_GENMASK(crl_desc, schmitt_trigger_selec=
-t) |
-> +                         RL_DESC_GENMASK(crl_desc, pull_down) |
-> +                         RL_DESC_GENMASK(crl_desc, pull_up),
-> +                         0);
-
-Dito.
-
-> +static int jhb100_gpio_get(struct gpio_chip *gc, unsigned int gpio)
-> +{
-> +       struct jhb100_gpio_bank *bank =3D jhb100_gc_to_bank(gc);
-> +       struct jhb100_pinctrl *sfp =3D gpiochip_get_data(gc);
-> +       const struct jhb100_pinctrl_domain_info *info =3D sfp->info;
-> +       unsigned int offset =3D 4 * bank->id;
-> +       u32 doen =3D 0;
-> +       void __iomem *reg_gpio_oen;
-> +       void __iomem *reg;
-> +       unsigned long flags;
-> +
-> +       reg_gpio_oen =3D sfp->base + info->regs->output_en + offset;
-> +       reg =3D sfp->base + info->regs->gpio_status + offset;
-> +
-> +       raw_spin_lock_irqsave(&sfp->lock, flags);
-> +       doen =3D readl_relaxed(reg_gpio_oen) | BIT(gpio);
-> +       writel_relaxed(doen, reg_gpio_oen);
-> +       raw_spin_unlock_irqrestore(&sfp->lock, flags);
-
-Why *on* *earth* are you read-modify-writing the output enable
-register in the *get* function? Is this a copy-on-paste error??
-
-> +       return !!(readl_relaxed(reg) & BIT(gpio % 32));
-
-Also you never actuall read reg .... ehhhh this is a glaring bug.
-
-> +static int jhb100_gpio_set(struct gpio_chip *gc, unsigned int gpio, int =
-value)
-> +{
-> +       struct jhb100_gpio_bank *bank =3D jhb100_gc_to_bank(gc);
-> +       struct jhb100_pinctrl *sfp =3D gpiochip_get_data(gc);
-> +       const struct jhb100_pinctrl_domain_info *info =3D sfp->info;
-> +       unsigned int offset =3D 4 * bank->id;
-> +       void __iomem *reg_dout;
-> +       u32 dout;
-> +       unsigned long flags;
-> +
-> +       reg_dout =3D sfp->base + info->regs->output + offset;
-> +       dout =3D (value ? GPOUT_HIGH : GPOUT_LOW) << gpio;
-> +
-> +       raw_spin_lock_irqsave(&sfp->lock, flags);
-> +       dout |=3D readl_relaxed(reg_dout) & ~BIT(gpio);
-> +       writel_relaxed(dout, reg_dout);
-> +       raw_spin_unlock_irqrestore(&sfp->lock, flags);
-> +
-> +       return 0;
-> +}
-
-This looks right, did you only test output and not input..?
-
-> +static const struct irq_chip jhb100_irq_chip =3D {
-> +       .irq_ack        =3D jhb100_irq_ack,
-> +       .irq_mask       =3D jhb100_irq_mask,
-> +       .irq_mask_ack   =3D jhb100_irq_mask_ack,
-> +       .irq_unmask     =3D jhb100_irq_unmask,
-> +       .irq_set_type   =3D jhb100_irq_set_type,
-> +       .irq_set_wake   =3D jhb100_irq_set_wake,
-> +       .irq_print_chip =3D jhb100_irq_print_chip,
-> +       .flags          =3D IRQCHIP_SET_TYPE_MASKED |
-> +                         IRQCHIP_IMMUTABLE |
-> +                         IRQCHIP_ENABLE_WAKEUP_ON_SUSPEND |
-> +                         IRQCHIP_MASK_ON_SUSPEND |
-> +                         IRQCHIP_SKIP_SET_WAKE,
-> +       GPIOCHIP_IRQ_RESOURCE_HELPERS,
-> +};
-
-The irqchip looks good!
-
-> +static int field_compare(const void *a, const void *b)
-> +{
-> +       const struct field_info *fa =3D (const struct field_info *)a;
-> +       const struct field_info *fb =3D (const struct field_info *)b;
-> +
-> +       if (fa->shift < fb->shift)
-> +               return -1;
-> +
-> +       if (fa->shift > fb->shift)
-> +               return 1;
-> +
-> +       return 0;
-> +}
-
-Are you sure the kernel doesn't already have a helper like this...
-
-> +       sfp->num_banks =3D DIV_ROUND_UP(sfp->ngpios, JHB100_NR_GPIOS_PER_=
-BANK);
-> +
-> +       for (unsigned int i =3D 0; i < sfp->num_banks; i++) {
-> +               if (sfp->ngpios > (i + 1) * JHB100_NR_GPIOS_PER_BANK)
-> +                       sfp->banks[i].gc.ngpio =3D (i + 1) * JHB100_NR_GP=
-IOS_PER_BANK;
-> +               else
-> +                       sfp->banks[i].gc.ngpio =3D sfp->ngpios - i * JHB1=
-00_NR_GPIOS_PER_BANK;
-
-This looks completely bananas, shouldn't this be simply:
-
-sfp->banks[i].gc.ngpio =3D JHB100_NR_GPIOS_PER_BANK;
-
-???
-
-What is getting assigned to ngpios looks like a gpiochip base, and have
-all the signs of a real bad AI hallucination.
-
-> +
-> +               sfp->banks[i].id =3D i;
-> +
-> +               sfp->banks[i].gc.parent =3D dev;
-> +               sfp->banks[i].gc.label =3D dev_name(dev);
-> +               sfp->banks[i].gc.owner =3D THIS_MODULE;
-> +               sfp->banks[i].gc.request =3D pinctrl_gpio_request;
-
-Use
-gpiochip_generic_request
-
-> +               sfp->banks[i].gc.free =3D pinctrl_gpio_free;
-
-Use
-gpiochip_generic_free
-
-These calls will do what you want, and also check that the
-right gpio ranges are available.
-
-Make sure you add GPIO ranges (the mapping between pin control
-pins and corresponding GPIO offsets) for this to work properly.
-
-I'm pretty sure you can have a generic pin config backend as well.
-
-sfp->banks[i].gc.set_config =3D gpiochip_generic_config;
-
-This will make config calls to the gpiochip call into the pinctrl
-backend =3D what you want.
-
-> +               sfp->banks[i].gc.get_direction =3D jhb100_gpio_get_direct=
-ion;
-> +               sfp->banks[i].gc.direction_input =3D jhb100_gpio_directio=
-n_input;
-> +               sfp->banks[i].gc.direction_output =3D jhb100_gpio_directi=
-on_output;
-> +               sfp->banks[i].gc.get =3D jhb100_gpio_get;
-> +               sfp->banks[i].gc.set =3D jhb100_gpio_set;
-> +               sfp->banks[i].gc.set_config =3D gpiochip_generic_config;
-> +               sfp->banks[i].gc.base =3D -1;
-> +               sfp->banks[i].gc.of_gpio_n_cells =3D 3;
-> +               sfp->banks[i].gc.of_node_instance_match =3D starfive_of_n=
-ode_instance_match;
-
-Since you have a threecell scheme with 32 gpios
-(JHB100_NR_GPIOS_PER_BANK)  per instance (right? the ngpios
-code above made me really confused....)
-you should be able so select GPIO_GENERIC,
-#include <linux/gpio/generic.h> and use
-the generic GPIO pretty much the same way
-drivers/gpio/gpio-spacemit-k1.c does it, check that driver
-out (especially spacemit_gpio_add_bank()).
-
-Yours,
-Linus Walleij
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 08/18] arm64: dts: qcom: qcs8300: Add minidump SRAM
+ config to SCM node
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>
+Cc: cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260522195009.2961022-1-mukesh.ojha@oss.qualcomm.com>
+ <20260522195009.2961022-9-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260522195009.2961022-9-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDExNiBTYWx0ZWRfX7c7iZ3NvCEhj
+ qeuuH7ybqxZPOnoX/2N7kWVC20viqU0/lhLZ2/vSUvrdUIzxQ0lvMZxVUPXOhAe0noHl/a35LXA
+ P4B/QPcD2p5QWOI6zoIop9DdxOpRnesq7B30VQWQPx6tEGi9WNHF3IKzT03ZVYxpbjmcWrfLauz
+ CqxEGacsftt25yVTtQ1517Bmkla4EQv74LD6cB2r8nyW3eIueILOBzx1MhDD0r7dYmj4BEsVko8
+ VujFZl/ekoIErQtIQWMsusYp18pNonxoX/7ILpKO3t8YYsrskuJVNfyvaR/oouCssq8h/NQdLGn
+ RHH8cq3ITTurvLQb2CWhp9wvP2mJ8NYgjR7xo+WQhHuPTwpyO9LMpwQmmt1V0bYp0vQHjqUPHOh
+ g9HIZi0HIZaWX4chzgKiEQjUNtjU0TCJ7+q8NSPx8SkZKCRid7+Wa+IvnkMUzpIwLmoGC5We8TD
+ 3/cEyHB8Sfk+vh5quwQ==
+X-Proofpoint-ORIG-GUID: 1HIk5vRJRNK8JSY5fEmpGsnPnSMwPv9a
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDExNiBTYWx0ZWRfXyUEqE0MNDpCg
+ sSxjw/AZ37oAZniHmlJ6TMUterr4vd6+f8r5kUjDnnEdyDCjmensgl4NxU8VGkCr6LfmjNnRxLK
+ 36JMqT98GJ46Tq5Pg7LES8Tjm4WXWsM=
+X-Authority-Analysis: v=2.4 cv=e6g2j6p/ c=1 sm=1 tr=0 ts=6a2a9def cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=EbZ0H_4aSGrsEeNKfi0A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: 1HIk5vRJRNK8JSY5fEmpGsnPnSMwPv9a
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ phishscore=0 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110116
+
+On 5/22/26 9:49 PM, Mukesh Ojha wrote:
+> Point the SCM node at the minidump config slot in the always-on SRAM.
+> Boot firmware reads this word before DDR is initialised on a warm reset
+> to decide where to deliver the minidump.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
