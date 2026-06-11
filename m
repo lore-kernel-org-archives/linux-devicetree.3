@@ -1,136 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5585237DE87;
-	Thu, 11 Jun 2026 19:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C2F30DEB2
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781206902; cv=none; b=qds3gQNjdlVlU8UQAX9JStXNuSeGkKT8sK0o5uCeTiSdlpznVDEnp6sJirTLNDCDB+CHMTvThF2lC7Swg74xqm/ICkh2XozleskuyZcl5kQyKExGvVQJz8A3Rqmup91ycEwAvxsCFJitKuhfplpInjOnQqMAzX4ywrtEGfafroc=
+	t=1781207026; cv=none; b=HJANFC/ahbXsVnNKMfEHI6CyV9QU6467/gp6Sz6Qz11h8l8ZksEM6i/r2gKF1Me7HgDOMzwbi4rLCM+yCsBSrmUrBpTFoHz+OHXskxpxyWNOrH+mlcJL2YcaFIdzGUI640h1mqrCKJOrIlCbAewZHIFsGF7crlbhaneNfaqJ22k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781206902; c=relaxed/simple;
-	bh=9HYVqEkTBk+W9sTm/UsyiNOHZTc2Vs3uZL+vLA75+gk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HPC5Jr/aaoYV6tQvlDeRGr9YiExK3/FJTbAD8PebJX6XmlTbi02xxhKuAoUkXDZd3djdiB6LtsAyKyjqjEkQ7K8FNlLIfRdOkT7hpK2s3w4u+sX8RqV+r9rCCR+avkGjZl05xiChQpRrz5xq8N8tOQmGHy3Z11r6wyMfHX5n0hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k4n6ABrC; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781207026; c=relaxed/simple;
+	bh=QjleCp4VyO35ivHHlQ0g5fkQ9JB1AsJoAloO8C5+uUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DwJUvFtVro8w6ei9YY71aifmoKZ/gMzZagesooC1n6O+URZFNr1vNu2Nycg9uFcNt0LnBMMIiLfvV+VZ/apaTtA83eM9tKAlhgin077VQMxaUWCAXhOJ4hALKMYbcXVkTXFvfk9TEUElaeO89k1vOs3gKkT4UOsHRLuMxtefRqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sF9SEcdj; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k4n6ABrC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781206900; x=1812742900;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9HYVqEkTBk+W9sTm/UsyiNOHZTc2Vs3uZL+vLA75+gk=;
-  b=k4n6ABrCqPRIAwrsV76bu4CWp8zUatoM5KM5xG6ZbK5/DMmO2LKtSsgb
-   gT3r04353VyOJ4WPCcM268mOnBp44LFnl7a3epBHk0/DMyhypiK7gOcje
-   YEq0y58vTJ2IlzauwdfbJ77IbKKuYQamSgZV5U3J6IJp50kdWXk5Yc8gT
-   vJ8Na46BZAHYJ5jfDSkBYbxKlWojqrSoeKvbE9VxQCzdfHn+e7E4bn4YO
-   qrL+Vz8voshBqvZByRmRP94WYViLTL+mKxQlzhMKCnTZgc8nSEfTYEfPG
-   VLOGirObUHK1hER92hBcxitZMU3HwP/3XE58LGYwzZTR1/6gREukFEYR6
-   w==;
-X-CSE-ConnectionGUID: EXd6iOJgTJ+mb6MwoljOVw==
-X-CSE-MsgGUID: qqKJWlpUQuy5NMN/gjrVJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93520583"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="93520583"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 12:41:39 -0700
-X-CSE-ConnectionGUID: NZmom4I3TMqhdskBrcAdgg==
-X-CSE-MsgGUID: IFxkRuRCTBy47PiDh/soDw==
-X-ExtLoop1: 1
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.123])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 12:41:35 -0700
-Date: Thu, 11 Jun 2026 22:41:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: add Axiado SARADC driver
-Message-ID: <aisPbXOB6cofF4_r@ashevche-desk.local>
-References: <20260611-axiado-ax3000-ax3005-saradc-v2-0-913c9de7c64c@axiado.com>
- <20260611-axiado-ax3000-ax3005-saradc-v2-2-913c9de7c64c@axiado.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sF9SEcdj"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45ef56d9b67so149050f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:43:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781207023; x=1781811823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=r1KQdWvhqEfny/utP9buNkNl2/nWXIxFcbLtKnInfxQ=;
+        b=sF9SEcdjThrps97RL1+ivPFCGl3dxnEvfA6w9xR+ISPFzHGkee2cYyN0KCgCh1wJj5
+         CfyrgPveEGhBwMgWumBWPK3aWHy/yEEa+7UdctR4KlW2SAvD1oC4rH3yw5v8oCVcFd7K
+         RH3BG3g3fyNhWhwgKPMwA9JvPAJHgt5Z1Sro3S9gYcB5/9juONgHO0QTBYXsgKUGoNj8
+         nQD2ntsBWswOYf4iZOqeL4xoHoQzOKYPD2o28uVb/XZjPgCBU289iaJpJ8bssDoon0yK
+         bO+ixZ2M5EFdPUVAxfNHHkThTUfbuAKUjyvXclp2OrVmQ7xtn8Yu7y4+rz55YSPW60K0
+         /x0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781207023; x=1781811823;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=r1KQdWvhqEfny/utP9buNkNl2/nWXIxFcbLtKnInfxQ=;
+        b=l9k7Iuvsl+npTlAgUg9M4tx6KvLfaay8xncb2laP0MXYSX/CtM4yrX4Mh0Wv7X/7cy
+         zHbltzABc2qm9GnyFSHo0pMJTEFegCzOURBcECxbjaf5TaDDWmF+eafhxl172EwW2poJ
+         oKR3MTzVWfruW5FPa0rbGcObUyZvnyWF/WVI2i70Me1a4tSuDb8LuVtZcm4KjfnVDRAZ
+         VDDM5y+vxtGuNncBPI/hljZxn59M0DpyeJ8hPpqyNabHIyLXAgvLqeUcciMK9iMBU3pw
+         /qFVPhpySrILjpJuXgoCnTkHW7H1E6J0yThKKU2ByY/bOd7FwnfcX9ew+aeXra0NblrQ
+         9/VA==
+X-Forwarded-Encrypted: i=1; AFNElJ8+OgAwM1lVcTmyKuHh/2MTcE5HQS7m2+fVJnpU6NaDFzeygBOXDEPVuFptbL9sQOsh1OX6Dihd9UFS@vger.kernel.org
+X-Gm-Message-State: AOJu0YwE1PP/PfGlEQo51+SQT5TWm1zs3wuOiTblaLAj4yO/B+OV4z1Q
+	/RyjgmWpcHJRGSTHaSbWeY6CT6UsoA1MkqphcAQ3o+vsK7eXKnYmEcYQ
+X-Gm-Gg: Acq92OFEYTYepyvElm2+lDYNVtVTewX4+Dn+VMov8hkaByoadvR/YJYsqf5BHrB3p67
+	PNrvUkeNJLlT9E3iSmnkEwIeacPzCrNnGAcafDcMwE4SjSuxUOIO2WefIvp+M1Lo41eYg8aPPjN
+	MWcj5/vd4JIQ16eW2JGf8an/bTDQwm9Z+yNILe6tqDDxZ79+BTrVS6b8mnmXBeFNk2Cmb+mON0/
+	+K9YAGZghAmWNuSDNXgHeDpn08/uoLNQDazL/X+LiSylZ8+Mox5Xrd5XulRHgIr4oJ30aa3Xz9U
+	OM3jLF+VonAx06T215W2sSZ+piXwBCkE77D7BvCPHdzuCvS3yBRTqCF9GrNSdjtCwPFOHnNGn0y
+	GvXeVNKRyVfd5dGmGJZbVnr9kYXlKPhr3Ct8q5aezH+ixGIMHHdyPz37M6XBWhmeojgRS0mmL0j
+	P9KIAnHwFQgQBhZy2omyDu3l+Q5coQr4jJ9YwH1wOVTu19B9SBchFfhnfzn7DY
+X-Received: by 2002:a05:6000:2911:b0:45e:eec6:5023 with SMTP id ffacd0b85a97d-460677ed2f4mr6812673f8f.37.1781207023291;
+        Thu, 11 Jun 2026 12:43:43 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606c0f5164sm1211937f8f.21.2026.06.11.12.43.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jun 2026 12:43:43 -0700 (PDT)
+Date: Thu, 11 Jun 2026 20:43:41 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Leonard
+ =?UTF-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>, Marc Kleine-Budde
+ <mkl@pengutronix.de>, Alexandre Torgue <alexandre.torgue@st.com>,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de
+Subject: Re: [PATCH 0/3] ARM: dts: stm32: lxa: change stdout-path baud rate
+ from 9600 to 115200
+Message-ID: <20260611204341.147f1afb@pumpkin>
+In-Reply-To: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
+References: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260611-axiado-ax3000-ax3005-saradc-v2-2-913c9de7c64c@axiado.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 11, 2026 at 02:37:44AM -0700, Petar Stepanovic wrote:
-> Add support for the SARADC controller found on Axiado AX3000 and
-> AX3005 SoCs.
+On Thu, 11 Jun 2026 20:12:32 +0200
+Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+
+> The LXA boards are the only STM32 boards that set stdout-path = &uart*
+> instead of explicitly specifying a baud rate.
 > 
-> The driver supports single-shot voltage reads through the IIO
-> subsystem. The number of available input channels is selected from
-> the SoC match data, allowing AX3000 and AX3005 variants to use the
-> same driver.
+> This would mean the default of 9600 is used, but it goes unnoticed when
+> booting normally as barebox fixes up a console= line that includes a
+> baud rate.
+> 
+> When EFI booting GRUB however, GRUB will not pass along the console=
+> line and thus the board ends up with a 9600 baud Linux console,
+> confusing users.
 
-Tried to not overlap Jonathan's review.
+Is it possible to determine the current baud rate (by reading the hardware
+register) and default to that value.
+Then if grub has initialised the uart the kernel will use the same
+baud rate.
 
-...
+	David
 
-> +struct axiado_saradc {
-> +	void __iomem *regs;
-> +	struct clk *clk;
-> +	unsigned long clk_rate;
-> +	int vref_uV;
-> +	struct mutex lock; /* Serializes ADC conversions. */
-> +};
-
-Is `pahole` satisfied with the chosen layout?
-
-
-...
-
-> +static int axiado_saradc_read_raw(struct iio_dev *indio_dev,
-> +				  struct iio_chan_spec const *chan, int *val,
-> +				  int *val2, long mask)
-> +{
-> +	struct axiado_saradc *info = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = axiado_saradc_conversion(info, chan, val);
-> +		return ret ? ret : IIO_VAL_INT;
-
-Better to use plain if.
-
-		if (ret)
-			return ret;
-
-		return IIO_VAL_INT;
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = info->vref_uV / 1000;
-
-1000 --> (MICRO / MILLI) ?
-(yes, with parentheses)
-
-> +		*val2 = AX_RESOLUTION_BITS;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> 
+> This series fixes this. As the device trees were added at different
+> times, they are fixed each in a separate commit with its own Fixes: tag.
+> 
+> ---
+> Ahmad Fatoum (3):
+>       ARM: dts: stm32: lxa-mc1: change stdout-path baud rate from 9600 to 115200
+>       ARM: dts: stm32: lxa-tac: change stdout-path baud rate from 9600 to 115200
+>       ARM: dts: stm32: fairytux2: change stdout-path baud rate from 9600 to 115200
+> 
+>  arch/arm/boot/dts/st/stm32mp153c-lxa-fairytux2.dtsi | 2 +-
+>  arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts        | 2 +-
+>  arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi       | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+> change-id: 20260611-lxa-stdout-path-baudrate-7cf454cdae07
+> 
+> Best regards,
+> --  
+> Ahmad Fatoum <a.fatoum@pengutronix.de>
+> 
+> 
 
