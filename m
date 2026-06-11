@@ -1,136 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CC91A3029;
-	Thu, 11 Jun 2026 07:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0443368962;
+	Thu, 11 Jun 2026 07:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781164474; cv=none; b=ALNETreDr54pcGPX+zHVnF7nnWiMESs7U7kj+uzxZ8wy/tILD9fu6+xAq7zJDSEaGaRPZIxzSXh0HqsnMu6ZUfqFAmaJO5ZXS1RhOOvAbQu1z8vbF4QLMk+vQOwG31RK+orD5RpLbNJsQ9CEn+4chBzcGIc2OKapRUCmLJYFYoc=
+	t=1781164481; cv=none; b=XRNQvWjsqJz1Y6Y9Pj98livJBF7gDy+Z+1IcyJIEpOhomfux50tkA+0yMZEbQOzfapQlQ77w3pJDPFVmq7EOQF18AmrRVuvQlH68Y//K1L4jLHw/WHIWwKH13nzCW4YAzgVho4+xivKdgc7YHLgm2zsFuFXVxQZiIltT23CxOmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781164474; c=relaxed/simple;
-	bh=dH3y3NeENglNd6JKcqyrWOhPdDBcZ9d+w47+01E2DaY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZVQIi8PJfVMAa6QchPxrhuJpuck+yyIB5vHUbS0QcrjrcSN8ZGPoPpTlE85WEM9RbRz1cc6/uVwZm4iWf8htCpslWOnUG/w+dMI1UrDZ/4xBYTL2ZsSbtuQGOb8lxhni8pbJximY3kKv/sQgKlxTQXFW1xQaeXd9IvgnHh5ZzCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NmRofoD4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781164481; c=relaxed/simple;
+	bh=AAkROPjG9vjEI1vREPfQS1ERhGg3Q+Sad8i4hhcHFtA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=afxf1b+C7lIwBOtHIJDkfofW3W064w8cXMk6GYFDbmEDfhN4A9GLSw5zrxOqM4dwCTFv/M5FPKeQmstSpTnbMjIh4EJARG3N81LegQ6jzhT8d5jX5wEqvlS+bkJnJeh+hETwi8Xsv98mWoxSktK8zmRyBbhlOITs/NQHIGrqHwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdaXJyHC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NmRofoD4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325CB1F00893;
-	Thu, 11 Jun 2026 07:54:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781164473;
-	bh=8ojowWtTPVgPf5hhgoYc+r4f6nfa0IXXaUg5qB5PREc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NmRofoD4PQ4wGWWkmvhPcDassMd5dkmvsjaF0q5FE0tQp9S7a6Yev2FbFD0owc6r0
-	 uHV3Vr6Jvqr7598Txt6xcDMfccRU0joUGgfS2DPWkjhfqj5ZfYU4pr2fWYOB7TE8/K
-	 JXBdmCdcWdutiPWIOYdH//3RSC63Zxnxnik9pD/1mzC+FZ4UJHyTa96xZ5j2TeXLh7
-	 YJ4qk4hWcSDsSnVm4RRASwuD9uOhC1VD4Gxsd2/fJx9iu4BEOENXF8aLNtCJQBa4om
-	 vPj+IjH6WrtfrNP1lYppKui7IG2Y+tkXGVvqzRjudCX+Qu2DpO3Ozo7IZT+wLU8prw
-	 Uidzt+G2OuC3Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] hwmon: pmbus: Add support for Silergy SQ24860
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ziming Zhu" <zmzhu0630@163.com>
-Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611074335.4415-3-zmzhu0630@163.com>
-References: <20260611074335.4415-3-zmzhu0630@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 07:54:32 +0000
-Message-Id: <20260611075433.325CB1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdaXJyHC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5F342C2BCB9;
+	Thu, 11 Jun 2026 07:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781164481;
+	bh=AAkROPjG9vjEI1vREPfQS1ERhGg3Q+Sad8i4hhcHFtA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BdaXJyHCSSTXYQ3BmE8gSJTdA8lKaXawkriFhvOq0+DPsTuGkMagQkNgFeYRz6XYo
+	 YS9v+gxVmQXnH7YyVVWUH3g2lSq/amPz+qmrKsLPGIA6GHsXLl0+K0VZGBZ2j0dqfJ
+	 iXvs6KUhcIl1LkqR4AWbRmPfOBTByGZuvEartknrQYfEqUa2bwArIpitVZHP2sU+4q
+	 DP0K2/iNHhA/GJHJ7oF1ONEVI+ucZgtf9bF6gLcMJTHUMBm00M33sN0Q/Ga6ctrbun
+	 ORpmUGeudWt6zALi66eMz4Z6SfiQyFY9kO4nvxAGDsdQf/wdBo15vq2RD6dskBuj0S
+	 Z4cwKiLLHoh4g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4366CCD98C7;
+	Thu, 11 Jun 2026 07:54:41 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 11 Jun 2026 07:54:33 +0000
+Subject: [PATCH RFC 1/2] dt-bindings: pinctl: amlogic,pinctrl-a4: Add gpio
+ irq property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260611-gpio-to-irq-v1-1-12201716f23f@amlogic.com>
+References: <20260611-gpio-to-irq-v1-0-12201716f23f@amlogic.com>
+In-Reply-To: <20260611-gpio-to-irq-v1-0-12201716f23f@amlogic.com>
+To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-amlogic@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781164479; l=1026;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=f2QomikSfT1qCooaMl1RhIsTgkvu22kj3kqZBPEonnA=;
+ b=kaz9R4lN17UNqFjm0N1XpjPESjtpT6n3pIrJdL7Z+WLfsXg1x0aUsq1/0YcSbykV67lX+yyIy
+ lAZ/lmz9+MMA+WvF4oAY7e1cekHyQr9DKu+yJwM0Z0cZHT/CeyO+rRL
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing signedness check on PMBus limits causes negative inputs to=
- silently set maximum hardware limits.
-- [Medium] Returns -EINVAL instead of clamping for out-of-bounds lower limi=
-ts in PMBUS_IIN_OC_FAULT_LIMIT.
---
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-commit 1edf6322da1b629fce9b16a96496a18863aacef8
-Author: Ziming Zhu <ziming.zhu@silergycorp.com>
+Add the hw-irq property for each GPIO bank and enable interrupt-parent
+for pinctrl so that gpiod_to_irq() can translate GPIO lines to IRQs.
 
-hwmon: pmbus: Add support for Silergy SQ24860
-   =20
-Add PMBus hwmon support for the Silergy SQ24860 eFuse. The driver reports
-voltage, current, power, and temperature, along with history attributes
-and over-current fault limits.
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> diff --git a/drivers/hwmon/pmbus/sq24860.c b/drivers/hwmon/pmbus/sq24860.c
-> new file mode 100644
-> index 0000000000000..f16f650ff7ba2
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/sq24860.c
-[ ... ]
-> +static int sq24860_write_word_data(struct i2c_client *client,
-> +				    int page, int reg, u16 value)
-> +{
-> +	int ret;
-> +
-> +	switch (reg) {
-> +	case PMBUS_VIN_UV_WARN_LIMIT:
-> +	case PMBUS_VIN_UV_FAULT_LIMIT:
-> +	case PMBUS_VIN_OV_WARN_LIMIT:
-> +	case PMBUS_VIN_OV_FAULT_LIMIT:
-> +	case PMBUS_VOUT_UV_WARN_LIMIT:
-> +	case PMBUS_IIN_OC_WARN_LIMIT:
-> +	case PMBUS_OT_WARN_LIMIT:
-> +	case PMBUS_OT_FAULT_LIMIT:
-> +	case PMBUS_PIN_OP_WARN_LIMIT:
-> +		value >>=3D SQ24860_8B_SHIFT;
-> +		value =3D clamp_val(value, 0, 0xff);
+diff --git a/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml b/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml
+index b69db1b95345..65ec9121300e 100644
+--- a/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml
+@@ -37,6 +37,8 @@ properties:
+ 
+   ranges: true
+ 
++  interrupt-parent: true
++
+ patternProperties:
+   "^gpio@[0-9a-f]+$":
+     type: object
+@@ -65,6 +67,9 @@ patternProperties:
+       gpio-ranges:
+         maxItems: 1
+ 
++      hw-irq:
++        $ref: /schemas/types.yaml#/definitions/uint32
++
+     required:
+       - reg
+       - reg-names
 
-[Severity: High]
-Does this handle negative user inputs correctly?
+-- 
+2.52.0
 
-The PMBus core converts limit values into 16-bit 2's complement integers
-(s16), but passes them as u16 to sq24860_write_word_data(). Because this
-driver treats value as an unsigned u16, a negative user limit written via
-sysfs will become a large positive value (e.g., 0xFFFF).
 
-When this large value is logically right-shifted and clamped here, it
-results in setting the maximum possible hardware limit (0xff) instead of
-clamping to the minimum limit (0).
-
-> +		ret =3D pmbus_write_word_data(client, page, reg, value);
-> +		break;
-> +
-> +	case PMBUS_IIN_OC_FAULT_LIMIT:
-> +		if (value < SQ24860_IIN_OCF_OFF)
-> +			return -EINVAL;
-
-[Severity: High]
-Could a negative user limit bypass this bounds check?
-
-Since value is unsigned, a negative limit (e.g., 0xFFFF) will evaluate
-as greater than SQ24860_IIN_OCF_OFF (165). This bypasses the check below
-and overflows the 32-bit unsigned calculation, effectively disabling
-over-current protection by incorrectly setting the hardware limit to its
-maximum.
-
-[Severity: Medium]
-Should this clamp the value instead of returning an error?
-
-The hwmon sysfs ABI convention requires drivers to silently clamp
-out-of-range user limits to the nearest supported hardware value rather
-than returning an error.
-
-If the requested limit translates to a value below SQ24860_IIN_OCF_OFF,
-returning -EINVAL violates this convention. Would it be better to clamp
-the limit to SQ24860_IIN_OCF_OFF so the underlying register is set to 0?
-
-> +		value -=3D SQ24860_IIN_OCF_OFF;
-> +		value =3D DIV_ROUND_CLOSEST(((unsigned int)value) * SQ24860_IIN_OCF_DI=
-V,
-> +					  SQ24860_IIN_OCF_NUM);
-> +		value =3D clamp_val(value, 0, 0x3f);
-> +		ret =3D pmbus_write_byte_data(client, page, SQ24860_VIREF, value);
-> +		break;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611074335.4415=
--1-zmzhu0630@163.com?part=3D2
