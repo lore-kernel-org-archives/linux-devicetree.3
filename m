@@ -1,357 +1,278 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011037.outbound.protection.outlook.com [40.107.74.37])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013066.outbound.protection.outlook.com [52.101.83.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF50F3B774B;
-	Thu, 11 Jun 2026 12:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781181800; cv=fail; b=GtvPiNf0iqBq15FIBKAsLcGVTj9LglJLumLrDH5D1vQq8sMYUItZMMSyYilXF9BF44nCOjIOm9ZOKMkOYfmnsYkhY9LjPsFEhAlnMRwAh/EgKiphfZ2BkHkNM7OY0OBD57X07RM+bAsUAgUXNIFb4uxn6fKJUzfZ4/uBHc2V8yg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781181800; c=relaxed/simple;
-	bh=65QkPSEi+CGYg3bvmL9MifV8PyXrB4cdY9ExZnRRuG0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=s+uYM6Rilo9EGvrp+JkCbXDp0I5uK/lc0269HSJ7/oXa35t1SqcBdbkXgge8Mdul5NkD1EoBVbv1zEhzmCEx+tDpAapRciEDXUq4bbEolafCK6wEYclYEQ2yG+ZBs5rt+Z0oUYp9bWWSaaWHXBu999jG/99dbqQwwZkZtgBbP7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=G0/oiEx2; arc=fail smtp.client-ip=40.107.74.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F8835AC33;
+	Thu, 11 Jun 2026 12:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.66
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781181855; cv=fail; b=n1NTr11hO02r1spIlRpJVvJugjc9nbP4urrquXEdwyO1AHYttrhXhCzTHPqCqonxF8tY0gZokmLHGPfS4wMv8gTVQYjRGQLhlwHlz2eQvTwH+LLCTq9KElthATTTPvzI3bXnxrNxUo+rYkp7+BAvQBEjsCQUSaBJ+6eOWXAh8dc=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781181855; c=relaxed/simple;
+	bh=EYZsP7iBxWFTl7K1KvX0pD7T7NLikWBzK/cTtT9UVKI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=vCCYCQkqjKnCIudCuyGGhDFw8Ui8zvGrEGsKf9eGdxcoOFVRVUlRqbY5iAoicoOY11TDCl4qTYT+3oTE9cIHV+7gkK1Mt4S34iFexWu00MULMbavpKnIP10NzX7W7n8XFw99BMh5Xy4XomeAOawdX0x4IZW1Xr0lZ8SqeeBBG3s=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TDXtJhLy; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TDXtJhLy; arc=fail smtp.client-ip=52.101.83.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="G0/oiEx2"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TDXtJhLy";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TDXtJhLy"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=JSuosJXWsqIi7e5bleHdB/EO6ywfhTg7ktNzENURwTgcJq6M5qvtNBqa1Ve4kx0YatRgdwylnpsABluvq8s4z1HuKuLJSj2KmoDbBx2rjpJHBcejDTVNW4d7I4zL1zKMJHjjSGcWZ/a/rLyoR1/c/KtW1pCV8TScSa1nQ5jppBmtV1spVpfLVM49cU3DbSqG7rsXfr1FlKUMGLX/DACEZ/eZVrqj45SHzQ69fDeyKlX7bYkjajvEg8aMHBNgyKPv8f8JxDb/dYgyAh5jZi93eQ66O5YxeLcPHBePq04u3glNTel6GyNltnBvPLldggX9e0fey6w/acu6L864Mw2yPQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ywsnunz5O4sx7NPH+J2HUpV+L5yYIn3iyeiVua0NrOQ=;
+ b=dGIbbe/oEhdhlWz6WGB5YA0s5Sf5ui+lmR6aiZoukXV/MbFd8Pzd6yid2ieG9lZNxeXAX+ie730+PHONHXmIkNkShZglx/s8TfKBgNj4S3MtQLs4JAHaNZ6ips1X542RzbIDGOUmVEeABbvXu0QtgAxu2tO6OK91GiRBqpIfgatgx1bjAPh+Cde+tFqyDg/q8aeamcqoDYBLs5nNLzHVLPqcSB6SIXrDKGChikkre6lrJMyTtOoF+dAxMlu5KZn9/y/Z3gojAHJ+RsSjBGPqI1aw2X9U0SIs+YCGVCPZLq3V3l2M8qD+bEK9giwuj0tRW4eSdkiwL/mXgklhR8jsQA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ywsnunz5O4sx7NPH+J2HUpV+L5yYIn3iyeiVua0NrOQ=;
+ b=TDXtJhLyVpF5izBjVtouGQUmlcrwmB8GIj03PjXhm+wg5cnL+o6On4My4uYBUFFz4kUApvRLXjJrI+ofgp6XJb+SzR2kng/9xjjZF+c0nMzbFNhhf803/e5c/Lu4dbyA7O/PjyjHX1Zi9EJZP4qt2Teq9p/7SMBlqBi7AveU0yI=
+Received: from DUZP191CA0006.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f9::16)
+ by VI0PR08MB11668.eurprd08.prod.outlook.com (2603:10a6:800:30c::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.11; Thu, 11 Jun
+ 2026 12:44:04 +0000
+Received: from DB1PEPF000509F6.eurprd02.prod.outlook.com
+ (2603:10a6:10:4f9:cafe::7a) by DUZP191CA0006.outlook.office365.com
+ (2603:10a6:10:4f9::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.13 via Frontend Transport; Thu,
+ 11 Jun 2026 12:44:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509F6.mail.protection.outlook.com (10.167.242.152) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.7
+ via Frontend Transport; Thu, 11 Jun 2026 12:44:03 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NwBh/pB6t4ruTf2ceZrjBlRkKSpGq/Zw4bjs4EGM1mEAytoVQ5lsiIXDmHthp1ix4VDWe4GL3u+aPClbKM1mKLW28+Z4fcRHv2gsJkmBy0y22IDSPqu5Zy4s2jxfZASLEiDITjM5C9MPyED6UTGNWx0+X7RBVMjixsZA2YbzsXcQX09YD4ShkyEIGRkUah7yHde3Iu0/JohvjRW9YtFTQ7KJn8RHkKp2S0UIPMj6fQjqhyoMG/hAnJaTYcxDYsbUGXzsj214YC34NmJ5rDBTo1/EwVJZGP/TPV9nOlUkHtH1wAFGRsxmTXTDPjrqdLa4GpC09H3qhOIPmXG/HkIqag==
+ b=UzXoOB6N5XaQUkllNRYEINF1eYYg1NDF19GC3UYyItqgn+BBxsKrTxSIpVnCHsF3UMxHXGHfMj+wF5TyKmPuIgutbfMeQXrtK3VPthTDsHF7WYDluVerVcJXMNBnK9h9JbsG8WuDpj7Rh/WkYJjLwAkUX9QCRDj8dmqaJh3javWb/C3TEWGJQiG35VRrwLkyqHrowVaIB01pfnd2DfwDOrgUxwxJuhXd1kJ1OKRm3VzwY8jfhfjGVxNhTlE7jiLSNZosNSCM8tYKk6RSYMPtHwpUjR7OyI6EygfzvSpgK4BYRhvn5VxECLekRMeDz9Bz2HnWsOGcU9D+Sb+Fy4RUow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u5XJXkVNrDm17OfAlSFpeuC//UpaUBrCtDenLrkd/Yo=;
- b=X5uh7N6FgSQ4jAe/5dB0i8mTRQ6uSrMD2fBMFiKTi+gmfi5Oq6aCVKwJTFxIRfbl0apfnfTntwD/VRv+8ZBxpO7lBvhfIinusc2jyB9vVxV64q5UAnJgdf0f24SieZtfQTxnse7SaIcEphTA+1btly7VnmKt6MNZhd0R7hEKiOtf++6LK+fPxqzk1VTXa6DqFSDHORCIVcnNguZZElLW0Ayt610Y2/ezIWcoZyAe6QhZW1LUuK+mZ2fQxgR6Q0az6ZrRkixPDMVxbz3XqrUyQlYEtHST9EZq2Y6hFZuxmumfDfj3bcBuG1ERz1ntQKt8DAp+5ol2DbcHHj18nLD0lw==
+ bh=ywsnunz5O4sx7NPH+J2HUpV+L5yYIn3iyeiVua0NrOQ=;
+ b=bToh8ihN3yWJFx4gh9MFcCN/LmbGLRXR8Mjfhs/9CW/D9Qy+XAfvwb5sZziQ2XgGg89HSoFYP8dz/VonGTgKo3xzUFqpoU5RByrFjo8pkxMFqyIlt9JqEH0QqN1sSQ0EvAot98ZfUDJFl+adzsI7+j8x9ndjm7OnpOIeaa9fEyRPBMB7RBh6zrbtcNeL63TmcUNgF4beLlMjhvXEnhop+QYjtMOVlrYrfa1AHJe7823sey3TReAwKg16i9XbdapFcZ/5kgJMLyL4iLA9RkJFvI31NYIgkrZMubjLf3WqryiV5/R1d5OvWsQpaO7M5TPwR2aqj4IrMRpQxPguCg4hLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u5XJXkVNrDm17OfAlSFpeuC//UpaUBrCtDenLrkd/Yo=;
- b=G0/oiEx2mKrOQxCVUHv0FPcU6KqZjvmdZL7vVe72vdWEAcJFpt8mKx4HHVm4xoTVTkPrC/i5uQ4pJ2Ph79jO+eioy6Mwk7+VWBieXByTX6tDVm6kiKXkZ5gVVo7xQSM8KjYImZWqkG6OgJ2/elqTxUmXU8y/C8MFp57QBeKZfP0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by TY4PR01MB15413.jpnprd01.prod.outlook.com (2603:1096:405:274::9) with
+ bh=ywsnunz5O4sx7NPH+J2HUpV+L5yYIn3iyeiVua0NrOQ=;
+ b=TDXtJhLyVpF5izBjVtouGQUmlcrwmB8GIj03PjXhm+wg5cnL+o6On4My4uYBUFFz4kUApvRLXjJrI+ofgp6XJb+SzR2kng/9xjjZF+c0nMzbFNhhf803/e5c/Lu4dbyA7O/PjyjHX1Zi9EJZP4qt2Teq9p/7SMBlqBi7AveU0yI=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from MRWPR08MB11806.eurprd08.prod.outlook.com (2603:10a6:501:9a::22)
+ by AS4PR08MB8024.eurprd08.prod.outlook.com (2603:10a6:20b:587::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
- 2026 12:43:13 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
- 12:43:12 +0000
-Date: Thu, 11 Jun 2026 14:42:49 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Rob Herring <robh@kernel.org>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
-	laurent.pinchart@ideasonboard.com,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 02/13] dt-bindings: display: renesas,rzg2l-du: Add
- support for RZ/G3E SoC
-Message-ID: <aiqtSWTTa4ZIThrp@tom-desktop>
-References: <cover.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
- <ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
- <20260513222725.GA2069022-robh@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260513222725.GA2069022-robh@kernel.org>
-X-ClientProxiedBy: FR4P281CA0020.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::18) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ 2026 12:42:56 +0000
+Received: from MRWPR08MB11806.eurprd08.prod.outlook.com
+ ([fe80::20ea:c85e:c8c9:a8d4]) by MRWPR08MB11806.eurprd08.prod.outlook.com
+ ([fe80::20ea:c85e:c8c9:a8d4%4]) with mapi id 15.21.0113.013; Thu, 11 Jun 2026
+ 12:42:56 +0000
+Message-ID: <84b929cd-f726-4422-9b1a-1f0edf68e163@arm.com>
+Date: Thu, 11 Jun 2026 13:42:54 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/10] ACPI: APEI: share GHES CPER helpers
+Content-Language: en-GB
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: will@kernel.org, xueshuai@linux.alibaba.com, saket.dumbre@intel.com,
+ mchehab@kernel.org, dave@stgolabs.net, djbw@kernel.org, bp@alien8.de,
+ tony.luck@intel.com, guohanjun@huawei.com, lenb@kernel.org,
+ skhan@linuxfoundation.org, vishal.l.verma@intel.com, rafael@kernel.org,
+ corbet@lwn.net, ira.weiny@intel.com, dave.jiang@intel.com,
+ krzk+dt@kernel.org, robh@kernel.org, catalin.marinas@arm.com,
+ alison.schofield@intel.com, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
+ devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
+References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
+ <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-8-2e0500d42642@arm.com>
+ <20260529173229.18843384@jic23-huawei>
+From: Ahmed Tiba <ahmed.tiba@arm.com>
+In-Reply-To: <20260529173229.18843384@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO6P265CA0020.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ff::11) To MRWPR08MB11806.eurprd08.prod.outlook.com
+ (2603:10a6:501:9a::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|TY4PR01MB15413:EE_
-X-MS-Office365-Filtering-Correlation-Id: f324dddd-42de-49dd-5ddb-08dec7b6fffb
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-TrafficTypeDiagnostic:
+	MRWPR08MB11806:EE_|AS4PR08MB8024:EE_|DB1PEPF000509F6:EE_|VI0PR08MB11668:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61007ce0-fc7c-47ec-94e9-08dec7b71ea5
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ YwTWCEDhAXizuvd4NNmTgkcCv+/TYRlFg54Xa1yk0vNtO+l7uivMsnhmQ+NFp7vJjHizVb+oBmkV7/z8mWsREPk+S9p8ibr8ect7HW7+7576tiuEThdKUiKVkpQZ9T5kZT8pYUy2LV0MHSm9IviNSH0k36oP/gJT0O9NrTxEA19DV059L0X7QuMb47UVCion1nLB6NRELrOdpC0whYfYVbRl7vFw6PdMAwy6qQNwkHnPe+GqlRHx4QGVW7J4Ho3e7Gqs6H8kuTwi067qtOmKQp8vv3wIBZpLLDhK10ofBPu9hcI6eutqGyky+Q2Cx+IbavqVtY7V4N5fasqIo0PpwBJ9o9mj56RcqYdozRkQx85414BEXgetMCj1OBiP91Er3N0A1cZzrUsgQCSnj+79FAPv+//Jcr8kWgvl8djxg6ge8JnGHNl4MdyF2K+V4kh7beYckqBB/PU8TU3LVPofPsgtTL9yvU5AiEaDlvOrElQsICn4TA3vvm3tU892DS3AXTrNJHyEehLz0LBK5rh1a0CrlfV4e3Y9q9qbZYEUOE+kMKvRSrm3bY4TZvHqMbqQ7FjQylQp5Vmbpr0aN2nuCNIuw+cXLhKTRMmIfQ7a60pqElBLiY9Vijj3+xZzbURRCGZ3wTjt4zCH0sGds3NCQyV+hf6QqFv8mji031rQNyk8CyVYJMwXzqwqlOh70wvn
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRWPR08MB11806.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ Jgh3s5cMsIMk12FJzs0jUj2ogbXRritogNb627O0rjxwIp1/3hUXFukYZSycs8Qs1u0tFmYwMuUT/4lXz2szCiLQGsdRn2h9pKI2CZf7Q1huEXpI4jj7DY7DHrQaS3jKqByLxH7YDbgSaHV81zl0rgvXBn4LmC/+nGHuRMWQPMPaO6DVgPcAPVLSm6Hdn1A8eT/ybLCB90G0KmmGRCiHCdoEoe3+oX/nhViMzD7Il81Ic8r1ZDd+WcWEPSzFhNUnwmwztVSW5Mn25pp+WEkVniQs/7GCmNhF1x6/KRWbuux1TfPfpzOvGcZ8Nt3gooZqY05CkagF2jh/AptfCfJRdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB8024
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509F6.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	8807fba9-b2c3-405d-ff6c-08dec7b6f5f5
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|52116014|366016|23010399003|6133799003|13003099007|18002099003|22082099003|38350700014|3023799007|56012099006|4143699003|5023799004|11063799006;
+	BCL:0;ARA:13230040|35042699022|376014|36860700016|7416014|14060799003|82310400026|23010399003|1800799024|11063799006|56012099006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
- zZMaqHpmok8xASZsgS6mvs96tK55EmKzrmIb+OCY/lVZwFd/xHfPsu02F4XPJs3pvbhYpBdTfnWIIQ3gWx97Z/Ifw8J1DDM96ShNn9bNfgmzabS4ZW2ZmWpYuT74QF5WLuiVIuQlqrNWaL1DsEw+VyfETnUOjHtSGqCpUHz8GAzVbVQwYmdx1IbOucGz5nUhJl1Du3TfSo+F6dUJ9k+aHJe0kEgJvCdWbHTYAdiyy17hBUS4cVs2CmyBdXgkft1ZbVAWoXwC9uHZ7I2dM1B9fM2ScpOFGE5FromfdMd4k54gs4o8Xrh2yMVDCeL/R/Jx4vHbqp7hxIObAjMC/8XIV119HCFunJgyZjihBUNen16P1Ynw3M5aGGeywYxvhL4mxZKZ/5AXn2+WkbAgdvT/8jCNvh4afvLUqjAqpf0r9H6psy7IVQavKJsawwiLlNmZxCWg6lrvwX0HtZ1rYBZsVsbNWIK6rZmCIcUemyHCHV8P8oag5bwkPweL8mCHPhjX+0laaaVJ1/IEFvYuz9s2LPipefm0D2akbPmat2fAguwt96Y6UOzuHoopgPh9E0oFmj34nLG1MAWmRt5fvjTDgK2xSPDoHb4F+IbqcjmqZtxuPR8XmnMcgiz13qvVuXMv/wFwFtlD1c816O7ogRDeA3v4GvhULBJyvPYn8mDESYcUelVtTaXbE2CCnLym/YQQRQ1bF11mTTd8g18ofOnk/Hs2mtqJdsLuF5536qVbCpi+hwqfKfya5i/giY7Bh/DV
+	w5EVhT1YexDFpFb1NcgPH/vbyqVb9YsfDfjIq6LXOYfBjv/K0oNbzWa32G5ndYqBIV0y8sb7KDGQ6yKO32CHWa5TK0d5990Ik96twMlQYhPVbRJjD9jQbmJO5LN2RFMKrYW8DENw2bSQjcadxTbV7eRdA3jkWpcJUphbbw2S6hM8teFp/nIVOnqjk3NfC1/Gzn6uZ7bAcApWefyg5kELN09SGlmcVbo/3ti+1cLJZMsn8CzWm6Vc/GIFPdwzjq5q7jtVvWeF+8ZLxymX5I4KHvhHyAklqC/3DbwDbNyzj7WFqVZg35vBV7Mg76OcjTM59VwnOSF826NDkwNFnj6x+MW9GjV5vn5cBkBETgp/h8Ddigu5VDFzST6b09qvyMkY2crkju2sz3f4DBW3QMkY8aEyXPl9mUSCTovdZM8+nr2txBET5lOYEXEfkW0y0vT2ERh4VYWZlDWAoAzTwQQn9HePQ63abQ5NKkfQhvCz9Fe85autWK6el9xqYgkDoxEwE/HTvjHfX+pSIxljXOHmdtSTGLUHunOqiwoGw57pera+2+kWfUBZPW1hFJVYd5xP03fA2mAdnFx6kWwyKEBS9kOCZHF9X6R+GPSzVjPfOHgK8tyhGf5qkJ51/kzuecuAI3Yt/rxxhMjvTyMcOSvJT7mrsg5sbER/29QQyW9oDPxUovR3lMQvdPA/vCQ+EO1SAmk4GMlVw9MtRtUAweFEYHBJ0EE+heITd1KO2/VxvxE=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(52116014)(366016)(23010399003)(6133799003)(13003099007)(18002099003)(22082099003)(38350700014)(3023799007)(56012099006)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(376014)(36860700016)(7416014)(14060799003)(82310400026)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?gF+o49d/2OueZIMJLplMp2lJ+X58wWRtCMVMS0Ehwj4kQXEutuLiF9KEDuxk?=
- =?us-ascii?Q?QrXDA04ChQLHcV4iAFqE5YWG17mZiwFCpk56y9xYfknydQ7d093hIiG6zMHu?=
- =?us-ascii?Q?G199LXxZANUhcAOc8z+AvCpiS+zQHTt/6sJVOKgwenUSEJkzpWU5Rjyfl2jt?=
- =?us-ascii?Q?SgksC2qqZJcC05HIJKC5eHUdP2vOxNCKMKnIgxNPivPopeuUop+tP54wZuKF?=
- =?us-ascii?Q?znMMddeJO025jLUCOoV1EUUH7WBfdnW+Y78W0ovghPO06cnjUnZle8lL49tO?=
- =?us-ascii?Q?cU0cLsVzabg1X7KYxHL3WSZT+0ZAJbbmiKtfqQmLQRyOhxW+tG0ulrLLyQxp?=
- =?us-ascii?Q?9K7JAdGy+G+hCrqfsz+5dUXhnUg1auHS9PYDuMZ9LoSVTqaiaLoR/0AB54rg?=
- =?us-ascii?Q?2du94E3sjhhd9vGgnV9EIgvdF+kyLekalRCEymcgys6P7Ci7fUq9MKo+Qy9e?=
- =?us-ascii?Q?QEsLs89BYmwve+sBvdhb6dBJVmeMRZjF8qBWOFl8/Pzf1tC0kOkW+9adKCOr?=
- =?us-ascii?Q?t8v5TVWTOlWYnUTh+wmAJXhrMSbxiQsLFrNzmrSXerosybu5+VaDrIFUVIcI?=
- =?us-ascii?Q?ldPrfjzfcRB7CPpIP0Z+R/z6SqNCO6cbYrLmxg8u1NaQN/hCs8P419pCJSY6?=
- =?us-ascii?Q?6bqKqLRhGfrkEImB+uo1RhF+04pqQmwI3xGji6KY1HuH0ufgotgbz9FBUw0p?=
- =?us-ascii?Q?6w3QNhGt+Bfc7mQe+SFNq2PKljlUtBNjxvKO18i8cxkxjdcuJ79gb0fG5XMJ?=
- =?us-ascii?Q?G6nhRwPETbVdyvh4IHaGmi3Dup9LNrIyj9Rs6zse+CG4iWkxPQuzUupVtZx8?=
- =?us-ascii?Q?H5C2oOXkx3d3ewD86vhNs9llUOToUdVDH5+NnlG+JBYiFeqklb+VzeUoOBcU?=
- =?us-ascii?Q?3qg7rfqCrR70luSAoUGKsx4wXJ4aKstaHQvhXpnZapoRMIMNKW6qNYfeqmZX?=
- =?us-ascii?Q?WS4imTg5O5REak040sV/oVecSvgVfc0WnTDpOB049wQoPrkJAiVNKnNp8AHq?=
- =?us-ascii?Q?sbp9ztAKq4QJhz0AV3Gkw6xfR3X6h1wxhyMDiY114RwINDlrrqe31IPspg5N?=
- =?us-ascii?Q?j1hizoyLg8sLtd44dRPJDx4pvEOWlbffd2V2S9WElvl3TnUVntLP7WcVHjKF?=
- =?us-ascii?Q?99wJQ6uQ5dbeclthdm39m2BqDWOc0HjwCk7ulAdXkSZKcjkyEiRWlZhLU0/Z?=
- =?us-ascii?Q?+ORLQtz0w+gyZIOLn+DNeQYCn8istFka22/CKtCYeF9jtdpY2HrWyPGdlZpr?=
- =?us-ascii?Q?XxjCPFvhgINyfRNTiBP0KNsv8+I9tfx45ugUXbjD3dyt71Bspc+WW3hcmusY?=
- =?us-ascii?Q?bOL0+Pw+nkSpY7ScDaGWfGyflyTfAgma32lg1RgzUyyJuOPKkETE1h0FN/iy?=
- =?us-ascii?Q?QUtZ+5zucUNEHKeUI+HwrkUZBdFpSsU4heQSsNXsCS0su9bpzki81hGwQqOw?=
- =?us-ascii?Q?Tz51lOyPY0z6xT5iP0iUCVwNPNfbpxZiZrvivdZhgavj6Qw+jBlaOCEO8bwY?=
- =?us-ascii?Q?HYfMHu1DP+Edx7iqQYQ841IDZnxFbnBV/G32BWG5PQ7Uk2nmLf/t/Y56qjMm?=
- =?us-ascii?Q?b3iFl8zKv4cBtG3BJVAJ7Elg+gu9JGWsb+1QGTtpE3tFtdPhYjBO0CeEmSPu?=
- =?us-ascii?Q?tjIRBe1hZx5yfsYbKwAcfP0ZcSk6UvQK/xWAD1lG8DDfZgucNbWZpuFxTUl/?=
- =?us-ascii?Q?Ki3aB7WBW8mXcDrs4cJuRd+Co7WLFn5DGShkvO++WtRM4B8cZbtxsji7vkZc?=
- =?us-ascii?Q?BfR+OJeiT1KT+vyd0HzJWnAFuQ4zPwZ8Myqsvj9nABG4FYVZYo2Y?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f324dddd-42de-49dd-5ddb-08dec7b6fffb
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 12:43:12.8311
+	WKbZOjkcCARuhbiICuw9OKPyURxsLU7PJcQ3tp2Zu4BzZ+Ia9CWlCrHwuGu9hnVnjNJz2YKGwcBOBRn2z23bA1sQ6CqE2mTVPK0o53kRDfl7l6Ad02p20EDQGr4EOcdSNhQdhKaBNhPlpRDmU0YtrJY8WmacfU8fvPhxs4ZKU47utJod6kB043NnKjfrH6pppafbCWR0i/qA9LWnGlQaBgw3POqQJdjPCzWJmLOgVwkcp9LUdy0GVFSd45KxIEW+BkYbf0xpcI+sMeLGtQ9YNjEHGcRjz0y7lowH7XUztYraWtDNbFjzlYVPv0gTmETyeX0N7pAm8qJS8oGXFIRSMH9yM1OFL3Nxg11dXxCanq1+1N033wYjpl7vDHPVxmJ3l3r+GDNcZQK3P7TwrfSGhovb6MQ8Lp1o34HTy4Xd8nyAHLg30aTHps2jF8F5Wn03
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 12:44:03.9088
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VLtpbgNufkH9OfADrndUFZNCdgVX6PZhfNXXGH0zCCE7QhLvt2R7GnKmdYRvNVKXD6DKwkMxJVo8fURtzvcAhC+kMoOGJf6hhulLuis7krE9X4MF0iXlLvUVM3Rtce7T
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB15413
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61007ce0-fc7c-47ec-94e9-08dec7b71ea5
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509F6.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11668
 
-Hi Rob,
-Thanks for your review.
-
-On Wed, May 13, 2026 at 05:27:25PM -0500, Rob Herring wrote:
-> On Thu, May 07, 2026 at 11:21:30AM +0200, Tommaso Merciai wrote:
-> > The RZ/G3E SoC integrates two LCD controllers (LCDC0 and LCDC1), each
-> > containing a FCPVD, VSPD, and Display Unit (DU).
-> > 
-> >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
-> >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
-> > 
-> > Add compatible string 'renesas,r9a09g047-du' and extend the binding to
-> > support two DU instances: add reg-names ('du0'/'du1'), extend reg,
-> > interrupts, and resets to maxItems: 2, and extend clocks/clock-names to
-> > six entries (aclk/pclk/vclk per instance, minItems: 3).
+On 29/05/2026 17:32, Jonathan Cameron wrote:
+> On Fri, 29 May 2026 10:50:48 +0100
+> Ahmed Tiba <ahmed.tiba@arm.com> wrote:
 > 
-> Don't write what the diff has. I can read the diff for that.
+>> Wire GHES up to the helper routines in ghes_cper.c and remove the local
+>> copies from ghes.c. This keeps the control flow identical while letting
+>> the helpers be shared with other firmware-first providers.
+>>
+>> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
+> Mostly looks fine.  The one bit that rather makes this exercise of breaking
+> out generic code look dodgy is the ifdefs in the generic file.
+> 
 
-Ouch, thanks.
+As below.
 
 > 
-> > 
-> > Drop the "Each port shall have a single endpoint." constraint since
-> > RZ/G3E ports expose multiple endpoints.
-> > 
-> > Add a RZ/G3E-specific allOf rule mapping two DU instances to two ports:
-> > 
-> >  - port@0 (DU0): endpoint@0 DSI, endpoint@2 LVDS ch0, endpoint@3 LVDS ch1
-> >  - port@1 (DU1): endpoint@0 DSI, endpoint@1 RGB (DPAD), endpoint@3 LVDS ch1
-> > 
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v6->v7:
-> >  - Rebased on top of [1]
-> >    [1] https://lore.kernel.org/all/20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-> >  - Use single DRM device aggregating both DU instances (1 DU dt node),
-> >    modelling single port for each DU0, DU1 and multiple endpoints for
-> >    outputs.
+>> ---
+>>   drivers/acpi/apei/ghes.c      | 416 +--------------------------------------
+>>   drivers/acpi/apei/ghes_cper.c | 438 +++++++++++++++++++++++++++++++++++++++++-
+>>   include/acpi/ghes_cper.h      |  20 ++
+>>   3 files changed, 459 insertions(+), 415 deletions(-)
+>>
+>> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+>> index 85be2ebf4d3e..f85b97c4db4c 100644
+>> --- a/drivers/acpi/apei/ghes.c
+>> +++ b/drivers/acpi/apei/ghes.c
 > 
-> That seems like the completely wrong thing to do and you've given no 
-> reason why you think it is the right choice.
-
-
-We had a discussion with Laurent at [1] about this topic.
-In particular:
-
-DSI ip can select at runtime input data path or DU0 or DU1
-via DSI_LINK_GPO0R VICH register. This can be done by managing the
-2 DUs as single DRM device aggregating both DU instances that will spawn
-2 crtcs. In this way at runtime we can select the output for DSI ip
-via the following commands:
-
-modetest -M rzg2l-du -s 58@55:800x600-56.25@XR24 (DU0 -> DSI)
-modetest -M rzg2l-du -s 58@56:800x600-56.25@XR24 (DU1 -> DSI)
-
-This can be done using option [B] (single drm device that spawn 2 crtc).
-
-Using option [A] we will have 2 drm devices 1 for DU0 and 1 for DU1
-that each will spawn a single CRTC and the above feature will be not
-achievable.
-
-In the end we need a way to have single DRM device that spawn 2 CRTCs.
-
-A) Two device tree nodes rapresenting DU0 and DU1 design [v6]:
-
-du0: display@16460000 {
-	compatible = "renesas,r9a09g047-du";
-	reg = <0 0x16460000 0 0x10000>;
-	interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
-	clocks = <&cpg CPG_MOD 0xed>,
-			<&cpg CPG_MOD 0xee>,
-			<&cpg CPG_MOD 0xef>;
-	clock-names = "aclk", "pclk", "vclk";
-	power-domains = <&cpg>;
-	resets = <&cpg 0xdc>;
-	renesas,vsps = <&vspd0 0>;
-	status = "disabled";
-
-	ports {
-		#address-cells = <1>;
-		#size-cells = <0>;
-
-		port@0 {
-			reg = <0>;
-			du0_out_dsi: endpoint {
-			};
-		};
-
-		port@2 {
-			reg = <2>;
-			du0_out_lvds0: endpoint {
-			};
-		};
-
-		port@3 {
-			reg = <3>;
-			du0_out_lvds1: endpoint {
-			};
-		};
-	};
-};
-
-du1: display@16490000 {
-	compatible = "renesas,r9a09g047-du";
-	reg = <0 0x16490000 0 0x10000>;
-	interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
-	clocks = <&cpg CPG_MOD 0x1a8>,
-			<&cpg CPG_MOD 0x1a9>,
-			<&cpg CPG_MOD 0x1aa>;
-	clock-names = "aclk", "pclk", "vclk";
-	power-domains = <&cpg>;
-	resets = <&cpg 0x11e>;
-	renesas,vsps = <&vspd1 0>;
-	status = "disabled";
-
-	ports {
-		#address-cells = <1>;
-		#size-cells = <0>;
-
-		port@0 {
-			reg = <0>;
-			du1_out_dsi: endpoint {
-			};
-		};
-
-		port@1 {
-			reg = <1>;
-			du1_out_rgb: endpoint {
-			};
-		};
-
-		port@3 {
-			reg = <3>;
-			du1_out_lvds1: endpoint {
-			};
-		};
-	};
-};
-
----
-
-B) Single device tree node design aggregating both DU instances [v7]:
-
-du: display@16460000 {
-	compatible = "renesas,r9a09g047-du";
-	reg = <0 0x16460000 0 0x10000>,
-		<0 0x16490000 0 0x10000>;
-	reg-names = "du0", "du1";
-	interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>,
-			<GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
-	clocks = <&cpg CPG_MOD 0xed>,
-			<&cpg CPG_MOD 0xee>,
-			<&cpg CPG_MOD 0xef>,
-			<&cpg CPG_MOD 0x1a8>,
-			<&cpg CPG_MOD 0x1a9>,
-			<&cpg CPG_MOD 0x1aa>;
-	clock-names = "aclk", "pclk", "vclk",
-			"aclk1", "pclk1", "vclk1";
-	power-domains = <&cpg>;
-	resets = <&cpg 0xdc>, <&cpg 0x11e>;
-	reset-names = "resetn", "resetn1";
-	renesas,vsps = <&vspd0 0>, <&vspd1 0>;
-	status = "disabled";
-
-	ports {
-		#address-cells = <1>;
-		#size-cells = <0>;
-
-		port@0 {
-			#address-cells = <1>;
-			#size-cells = <0>;
-
-			reg = <0>;
-
-			du0_out_dsi: endpoint@0 {
-				reg = <0>;
-			};
-
-			du0_out_lvds0: endpoint@2 {
-				reg = <2>;
-			};
-
-			du0_out_lvds1: endpoint@3 {
-				reg = <3>;
-			};
-		};
-
-		port@1 {
-			#address-cells = <1>;
-			#size-cells = <0>;
-
-			reg = <1>;
-
-			du1_out_dsi: endpoint@0 {
-				reg = <0>;
-			};
-
-			du1_out_rgb: endpoint@1 {
-				reg = <1>;
-			};
-
-			du1_out_lvds1: endpoint@3 {
-				reg = <3>;
-			};
-		};
-	};
-};
-
----
-
-Please Biju, Laurent correct me if I'm missing something.
-
-[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
-[v6] https://patchwork.kernel.org/project/linux-renesas-soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
-[v7] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com/
-
-Kind Regards,
-Tommaso
-
+>>   
+>>   static void __ghes_panic(struct ghes *ghes,
+>> diff --git a/drivers/acpi/apei/ghes_cper.c b/drivers/acpi/apei/ghes_cper.c
+>> index d7a666a163c3..0ff9d06eb78f 100644
+>> --- a/drivers/acpi/apei/ghes_cper.c
+>> +++ b/drivers/acpi/apei/ghes_cper.c
+>> @@ -13,22 +13,32 @@
 > 
-> Rob
+>>   
+>>   #include "apei-internal.h"
+>>   
+>> +ATOMIC_NOTIFIER_HEAD(ghes_report_chain);
+>> +
+>> +#ifndef CONFIG_ACPI_APEI
+>> +void __weak arch_apei_report_mem_error(int sev, struct cper_sec_mem_err *mem_err) { }
+>> +#endif
+> This is non obvious enough that the reasoning for a new weak function should be mentioned in
+> the patch description.  Why not stub it in include/acpi/apei.h?
+> 
+
+Agreed. I should have explained that in the changelog.
+
+The weak arch_apei_report_mem_error() fallback was only meant to keep
+the shared helper buildable when GHES_CPER_HELPERS is enabled without
+ACPI_APEI, while preserving the current GHES behaviour when ACPI_APEI
+is enabled.
+
+I kept it local because this fallback is only needed by this helper 
+split and I did not want to widen the APEI header API for that.
+
+>> +
+>>   static struct ghes_estatus_cache __rcu *ghes_estatus_caches[GHES_ESTATUS_CACHES_SIZE];
+>>   static atomic_t ghes_estatus_cache_alloced;
+> 
+>> +void __ghes_print_estatus(const char *pfx,
+>> +			  const struct acpi_hest_generic *generic,
+>> +			  const struct acpi_hest_generic_status *estatus)
+>> +{
+>> +	static atomic_t seqno;
+>> +	unsigned int curr_seqno;
+>> +	char pfx_seq[64];
+>> +
+>> +	if (!pfx) {
+>> +		if (ghes_severity(estatus->error_severity) <=
+>> +		    GHES_SEV_CORRECTED)
+>> +			pfx = KERN_WARNING;
+>> +		else
+>> +			pfx = KERN_ERR;
+>> +	}
+>> +	curr_seqno = atomic_inc_return(&seqno);
+>> +	snprintf(pfx_seq, sizeof(pfx_seq), "%s{%u}" HW_ERR, pfx, curr_seqno);
+>> +	printk("%sHardware error from APEI Generic Hardware Error Source: %d\n",
+>> +	       pfx_seq, generic->header.source_id);
+>> +	cper_estatus_print(pfx_seq, estatus);
+>> +}
+>> +
+>> +int ghes_print_estatus(const char *pfx,
+>> +		       const struct acpi_hest_generic *generic,
+>> +		       const struct acpi_hest_generic_status *estatus)
+>> +{
+>> +	/* Not more than 2 messages every 5 seconds */
+>> +	static DEFINE_RATELIMIT_STATE(ratelimit_corrected, 5 * HZ, 2);
+>> +	static DEFINE_RATELIMIT_STATE(ratelimit_uncorrected, 5 * HZ, 2);
+>> +	struct ratelimit_state *ratelimit;
+>> +
+>> +	if (ghes_severity(estatus->error_severity) <= GHES_SEV_CORRECTED)
+>> +		ratelimit = &ratelimit_corrected;
+>> +	else
+>> +		ratelimit = &ratelimit_uncorrected;
+>> +	if (__ratelimit(ratelimit)) {
+>> +		__ghes_print_estatus(pfx, generic, estatus);
+>> +		return 1;
+>> +	}
+>> +	return 0;
+>> +}
+>> +
+>> +#ifdef CONFIG_ACPI_APEI
+> 
+> So after the effort to break the the generic stuff we end up with non generic
+> bits in the broken out file?  Is there no way to avoid this?
+> 
+The intent here was not to create a new generic estatus core
+but to keep the existing GHES control flow and lift the CPER helper flow
+for reuse by the DT provider.
+
+Splitting the remaining ACPI GHES specific read/clear path back out into
+ghes.c would break that flow across files again. The CONFIG_ACPI_APEI
+guard keeps that ACPI specific piece local while the DT side reuses the
+same CPER parsing and status-dispatch path.
+
+Best regards,
+Ahmed
