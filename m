@@ -1,776 +1,172 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906C840E8EA
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 13:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B313F1AA2;
+	Thu, 11 Jun 2026 13:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781184430; cv=none; b=EvEFQuNeriQ8k4F0H2ABCQ63a4v3sB91VGlkT0Y61BGhSO3OxL4N9DV9okMuH1NTGjCfyOC5bdlrMW70dmRYtmyDvudRYDIgeMVzD4cPjgoKkXnpjDH3i9xps5fw5+idzyMflBVw120DsSqrm1Ox+pczu8HJMzTW94bXqxFx67o=
+	t=1781184740; cv=none; b=t6iZCJgY2zh4nTVTMdAXVx65SbjtQ4W8HmzNN9aE9NWeG8NKPG8O5xseKCB0oIaZ/9rfYxUXJ1efdrVboobDiStmHXoNXN3p26jkgO5kBSLTDHH3RpdlkaANloWlDhLgT/k/SjEwD3fygNTuUFaY86szoTOHsrVWVPh2xXqcNkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781184430; c=relaxed/simple;
-	bh=eRj26Lyzx6fXMSpTPcDyIYHCbt9WMvIkavbrIT2euPc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kcRYC38n9Gz4jqY5G9FY8CqvtAZJjDjmflGOANHTkfAzo9QKswJepM21LjuOYa317pB6TmxtqU4JWYFfmmepuZBmuKoxltmAqR2whT+D+68Ln+GNJlZIZNU84fWYw1hJDN6MQt8Emc+/DUJYJCfImQlxNJO5Fo/QSh3b8XTWZGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h9wxvcuS; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781184740; c=relaxed/simple;
+	bh=8K88X6Tpy2PUuNDPzIMi2sx6p+wjeczgy9PIgrKHjzQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cl/ukAHISpuNeWys955Ugw4WPYRWVfwAXpDWImmFFTZd/oWh/T7HkEj+D96Bj2myU++p1J0oocgMbH94hxO/rV6Gtitiom8+aOBcgMbtIIxpRwOC2uK/b+3mBwkqP1lFfEpUFZIr3dDz2tH6nLPjuf5P8DXJ98P/7WyMgHSBqv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZKtCYX6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h9wxvcuS"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bec2ddee9bbso1603470766b.3
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 06:27:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781184427; x=1781789227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VhY/1PsVTZ7UokZx9vJ+lV3ZAaPgcfT0eTiG6MjhSNs=;
-        b=h9wxvcuSmPwZmGMuuXKVW2wcww2++tqJrwcO7i/L5j2q3JMqMz1shO3/jAuiGLThov
-         pzCoAGadth+QHQNx/7AVRtvyW8HZaa6GErofPNYyWn7EJ7JI/S9ssxH2iF0NCpzb4DpV
-         6Te0tEjm454oE6YH5O5eCpQOekApsb4/bv3foCAboOnvG28NXZIcTmpflS+i+3Asgbsn
-         EPGRuHp+Lles8Vgh7BhD3X3jGRICH11k/v3YBmoQ+9vLWQODDH/XkvazbMWEah8GoWfy
-         12ZE1lMbVoqu7sx2Ps/GZu4kp14r0FVyY2+q0q0GNjHRMW/qjKQvJRsDQcYGzwwNtIEr
-         1yuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781184427; x=1781789227;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=VhY/1PsVTZ7UokZx9vJ+lV3ZAaPgcfT0eTiG6MjhSNs=;
-        b=mAGBCt7UyHl/g81oBQ97YEG0toXNmJKs4/1fh6/Cq8twC/IJGbdZ+aloJfXsJLZXh+
-         90NxoUGWKLSHjsZNgy3Z8AdcDXIKjrngGbHZTwcXGEEkxPJQDRDwwB8UzPvSXX/kFBMp
-         YA8RNGdjXlldS3x8QzJviFagMhG/Cam70jQqaehADq3Y1TXeXcMGlxfj2DrBRo62UHMn
-         d+CWRYQfqlHvxWVqwkgecfSwhPqOrBdgShCzBSZaMbG0VQBj0pB9Qy321d82muro9yoU
-         wzx5iriVlEHZZTL2k6Z+X99A2YJ4PkbgtzKjaGkP7u3ixw+n7r4mt8YFO6/MjlI9J0Cw
-         xrmg==
-X-Forwarded-Encrypted: i=1; AFNElJ++RplRkYaZCfAeI/gvm57XdrvV62GyZcLpZdf8QR/mw1vEeHhBNmSvN9QiMBqYhuLMuIs4llsh0QQ9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzceHtfj0GWR6enaBtRCaZSMfOttZXvnY9TBW6m9m0ZWXW5y8l4
-	a5sA7x75OSzia/4TaFNzsZJ1bkNIm8jAXjsTuOT2U2ADL8h7pdsESgOu
-X-Gm-Gg: Acq92OE6dEjuEIiTNuTrA3ZDbcBqvAFW/02Dv9T4yUxu9S34nhHofUMj4TG9iP/FYwp
-	m2pdMrDjoaUjp+P2eOpRunr1cEpMr6M7IBaTNvm7ykWfi/VOM4WJNo71Q6kYpK8hFxppt2XSR70
-	/BLWVxPOOnTtgQ03co0aJsOFVJDcPUqNOBVafJiMuBFwFLbx0W8YlhgDij9QUoO7zLR9eJ/R5d2
-	8rXWNO/5uQ/VLx1TXYTgj83aY6S/DFLZG47l3XnoDkGnNUo1KUFv8TWyN8vJcRqbLkFXxhn3rA4
-	NDanD99gLy7nysbu95UUUD9iqMM36dlREvWs7xEiraTBrRGpj2d6TRkIf27vA9R65X7utKf018R
-	I7SiDZGDX7hCPXaFFuSUk+HKm3Xir1KQAErQR3zuRT0jM+kx85SIFhtDleHlOY7kaTG9/JBNXuJ
-	1ftFRPxmpd9P75ZQSvLfOJwLuJ6Gm3Qn9578/gpzIlACDZ+/p+N/uSJ55OP41fqKgQ//tyn58Vi
-	d44
-X-Received: by 2002:a17:907:c310:b0:beb:e20b:3f86 with SMTP id a640c23a62f3a-bfc885e724emr129399366b.47.1781184426499;
-        Thu, 11 Jun 2026 06:27:06 -0700 (PDT)
-Received: from fedora.clients.cmblu.de (p5df027fc.dip0.t-ipconnect.de. [93.240.39.252])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb1cf077asm65719566b.26.2026.06.11.06.27.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 06:27:06 -0700 (PDT)
-From: Wadim Mueller <wafgo01@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxwell Doose <m32285159@gmail.com>
-Cc: linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
-	Wadim Mueller <wafgo01@gmail.com>
-Subject: [PATCH v4 4/4] iio: flow: add Sensirion SLF3S liquid flow sensor driver
-Date: Thu, 11 Jun 2026 15:27:00 +0200
-Message-ID: <20260611132700.671322-5-wafgo01@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260611132700.671322-1-wafgo01@gmail.com>
-References: <20260611132700.671322-1-wafgo01@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZKtCYX6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7B01F00893;
+	Thu, 11 Jun 2026 13:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781184737;
+	bh=t6ygODEcYQRK3LRl7Bh7Ro1VxZWR/umueHAQE66vTro=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SZKtCYX6inzgVsELbyLK2Ps0br8TUhBVEuPwkE1URkmdB5Z0j7LCeltY8EDuwcFKO
+	 P1C1DSBemMAZ/i/ZegedjKneaJyQc40qG0Oxj1WL2FrGB60bWSi/3+BQH5r0ty8V7E
+	 0xxyroMJZN49IX+qoy3H067d4j/NJvNWRHXQa6WLjYBWHwCO9Titf16HMQ22VMLjJe
+	 d6u8Sj7K5GNFUVmW8yFaWwKGi8plR0T6IHM1bc0W5WLBuPFtDIJk80F9gOQKC9GWq9
+	 TxwS+8V3wmIaQByuZCelHIU9u9PwHRJ7rVQDT6sX50wDse0QXaBHYD9cFRmL6Ap8ts
+	 LNCz0ChnPgYdQ==
+Message-ID: <b62e7f1a-bc13-442c-ad7b-0969e3b9073d@kernel.org>
+Date: Thu, 11 Jun 2026 15:32:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+To: Can Guo <can.guo@oss.qualcomm.com>, bvanassche@acm.org,
+ beanhuo@micron.com, peter.wang@mediatek.com, martin.petersen@oracle.com,
+ mani@kernel.org
+Cc: linux-scsi@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Zhaoming Luo <zhml@posteo.com>,
+ Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+References: <20260610071516.3763916-1-can.guo@oss.qualcomm.com>
+ <20260610071516.3763916-2-can.guo@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260610071516.3763916-2-can.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a driver for the Sensirion SLF3S family of digital
-liquid-flow sensors on I2C.  Currently supported variants are
-SLF3S-0600F, SLF3S-1300F and SLF3S-4000B; they share the same
-register map and differ only in flow-scale factor and calibrated
-measurement range.  The variant (and therefore the scale) is
-auto-detected from the product-information register at probe time;
-a sensor reporting an unknown sub-type falls back to the variant
-named in the device tree, as promised by the fallback compatible.
+On 10/06/2026 09:15, Can Guo wrote:
+> UFS v5.0/UFSHCI v5.0 add HS-G6 support via UniPro v3.0 and M-PHY v6.0.
+> These specs define TX Equalization for all High Speed Gears, and HS-G6 may
+> also require TX precode depending on channel characteristics.
+> 
+> Document vendor-neutral DT properties in ufs-common.yaml:
+> 
+> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
+> - tx-precode-g6-host-lanes
+> - tx-precode-g6-device-lanes
+> 
+> txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6] accept per-lane tuples:
+> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
 
-Each measurement frame returns a 16-bit signed flow value, a
-16-bit signed temperature reading and a status word, each
-protected by a CRC-8 byte.  The driver exposes the flow rate as
-IIO_VOLUMEFLOW and the temperature as IIO_TEMP via the standard
-IIO read_raw / read_scale interface.
+Instead of repeating the diff, you should explain why these properties
+are needed. Insufficient explanation was also pointed out at v1.
 
-The volume-flow scale is reported in m^3/s.  As the per-LSB scale
-is on the order of 1e-12 m^3/s, it is emitted as a 64-bit
-fixed-point value with femto (1e-15) resolution
-(IIO_VAL_DECIMAL64_FEMTO) so the small SI value keeps full
-precision.  This relies on the IIO_VAL_DECIMAL64_FEMTO format type
-added earlier in this series, which extends the IIO_VAL_DECIMAL64
-core formatting introduced by Rodrigo Alencar's ADF41513 series.
+Why this cannot be deduced from the IP compatible? Does it depend on the
+device memory? Who determines the values here and what do they depend
+on? Also here you explain lack of auto tuning for example.
 
-The active calibration medium can be switched at runtime between
-the factory-calibrated water and isopropyl-alcohol modes via the
-in_volumeflow_medium sysfs attribute; the sensor starts in water
-mode after probe.
+> 
+> PreShoot and DeEmphasis values are 0..7 and accept 2 or 4 values for x1/x2
+> lane configurations.
+> 
 
-The sensor has no low-power state of its own, so system suspend
-stops the measurement and disables the vdd supply; resume powers
-the sensor back up, waits out the power-up time and restarts the
-measurement with the previously active medium, following the
-scd30/scd4x precedent.
+...
 
-This driver also creates the drivers/iio/flow/ subdirectory and
-the corresponding Kconfig/Makefile glue.
 
-Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
----
- Documentation/ABI/testing/sysfs-bus-iio-flow |  21 +
- MAINTAINERS                                  |   1 +
- drivers/iio/Kconfig                          |   1 +
- drivers/iio/Makefile                         |   1 +
- drivers/iio/flow/Kconfig                     |  22 +
- drivers/iio/flow/Makefile                    |   7 +
- drivers/iio/flow/slf3s.c                     | 521 +++++++++++++++++++
- 7 files changed, 574 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-bus-iio-flow
- create mode 100644 drivers/iio/flow/Kconfig
- create mode 100644 drivers/iio/flow/Makefile
- create mode 100644 drivers/iio/flow/slf3s.c
+> +      Lane indices for static Host-side TX precode enable settings for HS-G6
+> +      only. Listed lanes have precode enabled; unlisted lanes are disabled.
+> +
+> +  tx-precode-g6-device-lanes:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 1
+> +    maxItems: 2
+> +    uniqueItems: true
+> +    items:
+> +      minimum: 0
+> +      maximum: 1
+> +    description: |
+> +      Lane indices for static Device-side TX precode enable settings for HS-G6
+> +      only. Listed lanes have precode enabled; unlisted lanes are disabled.
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio-flow b/Documentation/ABI/testing/sysfs-bus-iio-flow
-new file mode 100644
-index 000000000..fece2ecfa
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-iio-flow
-@@ -0,0 +1,21 @@
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_medium
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_medium
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		The calibration medium the flow sensor uses to convert its
-+		raw reading into a volumetric flow rate.  Liquid flow sensors
-+		are factory-calibrated per medium, so the selected medium has
-+		to match the fluid actually flowing through the sensor for the
-+		reported flow rate to be correct.
-+
-+		Reading returns the currently active medium; writing one of the
-+		strings listed in in_volumeflow_medium_available selects it.
-+
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_medium_available
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_medium_available
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Space separated list of the calibration media supported by the
-+		device, e.g. "water ipa".
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cdc18a601..222a03b6d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24193,6 +24193,7 @@ R:	Maxwell Doose <m32285159@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
-+F:	drivers/iio/flow/slf3s.c
- 
- SENSIRION SPS30 AIR POLLUTION SENSOR DRIVER
- M:	Tomasz Duszynski <tduszyns@gmail.com>
-diff --git a/drivers/iio/Kconfig b/drivers/iio/Kconfig
-index 661127aed..652557a5b 100644
---- a/drivers/iio/Kconfig
-+++ b/drivers/iio/Kconfig
-@@ -92,6 +92,7 @@ source "drivers/iio/common/Kconfig"
- source "drivers/iio/dac/Kconfig"
- source "drivers/iio/dummy/Kconfig"
- source "drivers/iio/filter/Kconfig"
-+source "drivers/iio/flow/Kconfig"
- source "drivers/iio/frequency/Kconfig"
- source "drivers/iio/gyro/Kconfig"
- source "drivers/iio/health/Kconfig"
-diff --git a/drivers/iio/Makefile b/drivers/iio/Makefile
-index cb80ef837..f03a4100c 100644
---- a/drivers/iio/Makefile
-+++ b/drivers/iio/Makefile
-@@ -29,6 +29,7 @@ obj-y += dac/
- obj-y += dummy/
- obj-y += gyro/
- obj-y += filter/
-+obj-y += flow/
- obj-y += frequency/
- obj-y += health/
- obj-y += humidity/
-diff --git a/drivers/iio/flow/Kconfig b/drivers/iio/flow/Kconfig
-new file mode 100644
-index 000000000..e0e1a8e36
---- /dev/null
-+++ b/drivers/iio/flow/Kconfig
-@@ -0,0 +1,22 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Liquid / gas flow sensor drivers
-+#
-+# When adding new entries keep the list in alphabetical order
-+
-+menu "Flow sensors"
-+
-+config SENSIRION_SLF3S
-+	tristate "Sensirion SLF3S liquid flow sensor"
-+	depends on I2C
-+	select CRC8
-+	help
-+	  Say yes here to build support for the Sensirion SLF3S family of
-+	  digital liquid-flow sensors (SLF3S-0600F, SLF3S-1300F and
-+	  SLF3S-4000B).  The driver reports the volumetric flow rate and the
-+	  embedded temperature reading via the standard IIO interface.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called slf3s.
-+
-+endmenu
-diff --git a/drivers/iio/flow/Makefile b/drivers/iio/flow/Makefile
-new file mode 100644
-index 000000000..3cf4ab95c
---- /dev/null
-+++ b/drivers/iio/flow/Makefile
-@@ -0,0 +1,7 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Makefile for industrial I/O flow sensor drivers
-+#
-+
-+# When adding new entries keep the list in alphabetical order
-+obj-$(CONFIG_SENSIRION_SLF3S) += slf3s.o
-diff --git a/drivers/iio/flow/slf3s.c b/drivers/iio/flow/slf3s.c
-new file mode 100644
-index 000000000..ed7b89e8e
---- /dev/null
-+++ b/drivers/iio/flow/slf3s.c
-@@ -0,0 +1,521 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Sensirion SLF3S liquid flow sensor driver.
-+ *
-+ * Supports the SLF3S-0600F, SLF3S-1300F and SLF3S-4000B liquid-flow
-+ * sensors over I2C.  Each measurement frame returns a 16-bit signed
-+ * flow value, a 16-bit signed temperature value and a status word,
-+ * each protected by a CRC-8 byte.
-+ *
-+ * The active calibration medium (water or isopropyl alcohol) is
-+ * runtime-switchable via the in_volumeflow_medium sysfs attribute and
-+ * defaults to water.
-+ *
-+ * Datasheet: https://sensirion.com/products/catalog/SLF3S-0600F/
-+ *
-+ * Copyright (C) 2026 CMBlu Energy GmbH
-+ * Author: Wadim Mueller <wafgo01@gmail.com>
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitops.h>
-+#include <linux/cleanup.h>
-+#include <linux/crc8.h>
-+#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/device.h>
-+#include <linux/errno.h>
-+#include <linux/i2c.h>
-+#include <linux/math64.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/pm.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define SLF3S_CRC8_POLY			0x31
-+#define SLF3S_CRC8_INIT			0xff
-+
-+#define SLF3S_PRODUCT_ID_LEN		18
-+#define SLF3S_PRODUCT_FAMILY_BYTE	1
-+#define SLF3S_PRODUCT_SUBTYPE_BYTE	3
-+#define SLF3S_PRODUCT_FAMILY_ID		0x03
-+
-+/* Datasheet section 2.2: tPU = 25 ms max from power-on to first cmd. */
-+#define SLF3S_POWER_UP_DELAY_US		(25 * USEC_PER_MSEC)
-+/* Datasheet section 2.2: tw = 60 ms typical until first valid sample. */
-+#define SLF3S_MEAS_START_DELAY_US	(60 * USEC_PER_MSEC)
-+
-+static const u8 slf3s_cmd_prep_pid[]	= { 0x36, 0x7c };
-+static const u8 slf3s_cmd_read_pid[]	= { 0xe1, 0x02 };
-+static const u8 slf3s_cmd_start_water[]	= { 0x36, 0x08 };
-+static const u8 slf3s_cmd_start_ipa[]	= { 0x36, 0x15 };
-+static const u8 slf3s_cmd_stop_meas[]	= { 0x3f, 0xf9 };
-+
-+enum slf3s_medium {
-+	SLF3S_MEDIUM_WATER,
-+	SLF3S_MEDIUM_IPA,
-+};
-+
-+static const char * const slf3s_medium_modes[] = {
-+	[SLF3S_MEDIUM_WATER]	= "water",
-+	[SLF3S_MEDIUM_IPA]	= "ipa",
-+};
-+
-+/**
-+ * struct slf3s_variant - per-variant calibration constants
-+ * @sub_type:	product-info sub-type byte returned by the sensor
-+ * @name:	name reported via @iio_dev.name
-+ * @scale_num:	flow scale numerator (l/s per LSB)
-+ * @scale_den:	flow scale denominator (l/s per LSB)
-+ */
-+struct slf3s_variant {
-+	u8 sub_type;
-+	const char *name;
-+	int scale_num;
-+	int scale_den;
-+};
-+
-+static const struct slf3s_variant slf3s_variants[] = {
-+	[0] = {
-+		.sub_type	= 0x03,
-+		.name		= "slf3s-0600f",
-+		.scale_num	= 1,
-+		.scale_den	= 600 * MICRO,
-+	},
-+	[1] = {
-+		.sub_type	= 0x02,
-+		.name		= "slf3s-1300f",
-+		.scale_num	= 1,
-+		.scale_den	= 30 * MICRO,
-+	},
-+	[2] = {
-+		.sub_type	= 0x05,
-+		.name		= "slf3s-4000b",
-+		.scale_num	= 1,
-+		.scale_den	= 1920 * MILLI,
-+	},
-+};
-+
-+/**
-+ * struct slf3s_data - per-device state
-+ * @client:	I2C client this instance is bound to
-+ * @vdd:	supply regulator, disabled while suspended
-+ * @variant:	pointer into @slf3s_variants for the detected device
-+ * @medium:	currently active calibration medium
-+ * @lock:	serialises the multi-step command/response exchanges
-+ * @crc_table:	pre-computed CRC-8 lookup table for SLF3S_CRC8_POLY
-+ */
-+struct slf3s_data {
-+	struct i2c_client *client;
-+	struct regulator *vdd;
-+	const struct slf3s_variant *variant;
-+	enum slf3s_medium medium;
-+	struct mutex lock; /* serialises command/response exchanges */
-+	u8 crc_table[CRC8_TABLE_SIZE];
-+};
-+
-+static int slf3s_send_cmd(struct i2c_client *client, const u8 cmd[at_least 2])
-+{
-+	int ret = i2c_master_send(client, cmd, 2);
-+
-+	if (ret == 2)
-+		return 0;
-+
-+	return ret < 0 ? ret : -EIO;
-+}
-+
-+/* Start continuous measurement and wait until the first sample is valid. */
-+static int slf3s_start_meas(struct slf3s_data *sf, enum slf3s_medium medium)
-+{
-+	const u8 *cmd = (medium == SLF3S_MEDIUM_IPA) ? slf3s_cmd_start_ipa
-+						     : slf3s_cmd_start_water;
-+	int ret;
-+
-+	ret = slf3s_send_cmd(sf->client, cmd);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(SLF3S_MEAS_START_DELAY_US);
-+
-+	return 0;
-+}
-+
-+static bool slf3s_crc_valid(const struct slf3s_data *sf, const u8 *block)
-+{
-+	return crc8(sf->crc_table, block, 2, SLF3S_CRC8_INIT) == block[2];
-+}
-+
-+/*
-+ * Read the product-info block and pick the matching variant.  The
-+ * sub-type byte returned by the sensor is the source of truth; a
-+ * DT-supplied compatible only seeds an initial guess and is overridden
-+ * on mismatch (with an informational message so misconfigured device
-+ * trees are easy to spot).
-+ *
-+ * Bus / CRC failures are real errors and fail probe.  An unknown
-+ * sub-type byte falls back to the variant named in the device tree /
-+ * I2C table: the fallback compatible promises that future family
-+ * members work as an SLF3S-1300F, so do not reject them.  Without any
-+ * match data probe fails since no meaningful scale can be published.
-+ */
-+static int slf3s_detect_variant(struct slf3s_data *sf)
-+{
-+	struct i2c_client *client = sf->client;
-+	u8 buf[SLF3S_PRODUCT_ID_LEN];
-+	int ret;
-+
-+	ret = slf3s_send_cmd(client, slf3s_cmd_prep_pid);
-+	if (ret)
-+		return ret;
-+
-+	ret = slf3s_send_cmd(client, slf3s_cmd_read_pid);
-+	if (ret)
-+		return ret;
-+
-+	ret = i2c_master_recv(client, buf, sizeof(buf));
-+	if (ret < 0)
-+		return ret;
-+	if (ret != sizeof(buf))
-+		return -EIO;
-+
-+	for (unsigned int i = 0; i < SLF3S_PRODUCT_ID_LEN; i += 3) {
-+		if (!slf3s_crc_valid(sf, &buf[i]))
-+			return -EIO;
-+	}
-+
-+	if (buf[SLF3S_PRODUCT_FAMILY_BYTE] != SLF3S_PRODUCT_FAMILY_ID)
-+		dev_info(&client->dev,
-+			 "unexpected family byte 0x%02x (expected 0x%02x)\n",
-+			 buf[SLF3S_PRODUCT_FAMILY_BYTE],
-+			 SLF3S_PRODUCT_FAMILY_ID);
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(slf3s_variants); i++) {
-+		if (buf[SLF3S_PRODUCT_SUBTYPE_BYTE] !=
-+		    slf3s_variants[i].sub_type)
-+			continue;
-+
-+		if (sf->variant && sf->variant != &slf3s_variants[i])
-+			dev_info(&client->dev,
-+				 "DT compatible says %s but sensor reports %s; using %s\n",
-+				 sf->variant->name,
-+				 slf3s_variants[i].name,
-+				 slf3s_variants[i].name);
-+
-+		sf->variant = &slf3s_variants[i];
-+
-+		return 0;
-+	}
-+
-+	if (sf->variant) {
-+		dev_warn(&client->dev,
-+			 "unknown SLF3S sub-type 0x%02x, assuming %s\n",
-+			 buf[SLF3S_PRODUCT_SUBTYPE_BYTE], sf->variant->name);
-+		return 0;
-+	}
-+
-+	dev_err(&client->dev, "unknown SLF3S sub-type 0x%02x\n",
-+		buf[SLF3S_PRODUCT_SUBTYPE_BYTE]);
-+
-+	return -ENODEV;
-+}
-+
-+static int slf3s_read_sample(struct slf3s_data *sf, int *flow, int *temp)
-+{
-+	/*
-+	 * A measurement frame is flow, temperature and a signaling-flags
-+	 * word, each followed by a CRC byte.  Only flow and temperature are
-+	 * used, so the read is stopped after their two words (6 bytes).
-+	 */
-+	u8 buf[6];
-+	int ret;
-+
-+	ret = i2c_master_recv(sf->client, buf, ARRAY_SIZE(buf));
-+	if (ret < 0)
-+		return ret;
-+	if (ret != ARRAY_SIZE(buf))
-+		return -EIO;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(buf); i += 3) {
-+		if (!slf3s_crc_valid(sf, &buf[i]))
-+			return -EIO;
-+	}
-+
-+	*flow = sign_extend32(get_unaligned_be16(&buf[0]), 15);
-+	*temp = sign_extend32(get_unaligned_be16(&buf[3]), 15);
-+
-+	return 0;
-+}
-+
-+static int slf3s_get_medium(struct iio_dev *indio_dev,
-+			    const struct iio_chan_spec *chan)
-+{
-+	struct slf3s_data *sf = iio_priv(indio_dev);
-+
-+	return sf->medium;
-+}
-+
-+static int slf3s_set_medium(struct iio_dev *indio_dev,
-+			    const struct iio_chan_spec *chan, unsigned int mode)
-+{
-+	struct slf3s_data *sf = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&sf->lock);
-+
-+	ret = slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
-+	if (ret)
-+		return ret;
-+
-+	ret = slf3s_start_meas(sf, mode);
-+	if (ret) {
-+		/*
-+		 * Try to restart with the previous medium so the sensor is
-+		 * not left idle, which would fail all subsequent reads.
-+		 */
-+		if (slf3s_start_meas(sf, sf->medium))
-+			dev_warn(&sf->client->dev,
-+				 "failed to restart measurement, reads will fail until a medium is set\n");
-+		return ret;
-+	}
-+
-+	sf->medium = mode;
-+
-+	return 0;
-+}
-+
-+static const struct iio_enum slf3s_medium_enum = {
-+	.items		= slf3s_medium_modes,
-+	.num_items	= ARRAY_SIZE(slf3s_medium_modes),
-+	.get		= slf3s_get_medium,
-+	.set		= slf3s_set_medium,
-+};
-+
-+static const struct iio_chan_spec_ext_info slf3s_ext_info[] = {
-+	IIO_ENUM("medium", IIO_SHARED_BY_TYPE, &slf3s_medium_enum),
-+	IIO_ENUM_AVAILABLE("medium", IIO_SHARED_BY_TYPE, &slf3s_medium_enum),
-+	{ }
-+};
-+
-+static const struct iio_chan_spec slf3s_channels[] = {
-+	{
-+		.type = IIO_VOLUMEFLOW,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.ext_info = slf3s_ext_info,
-+	},
-+	{
-+		.type = IIO_TEMP,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+	},
-+};
-+
-+static int slf3s_read_raw(struct iio_dev *indio_dev,
-+			  struct iio_chan_spec const *chan, int *val,
-+			  int *val2, long mask)
-+{
-+	struct slf3s_data *sf = iio_priv(indio_dev);
-+	int flow, temp, ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		scoped_guard(mutex, &sf->lock)
-+			ret = slf3s_read_sample(sf, &flow, &temp);
-+		if (ret)
-+			return ret;
-+
-+		*val = (chan->type == IIO_VOLUMEFLOW) ? flow : temp;
-+
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type == IIO_VOLUMEFLOW) {
-+			/*
-+			 * scale_num/scale_den is the flow per LSB in l/s, but
-+			 * IIO reports volume flow in m^3/s (1 l = 1e-3 m^3).
-+			 * These values are tiny (~1.67e-12 m^3/s for the
-+			 * SLF3S-0600F), so emit a 64-bit fixed-point value with
-+			 * femto (1e-15) resolution to preserve precision.
-+			 * Converting l/s to m^3/s (/ MILLI) and scaling to femto
-+			 * (* FEMTO) leaves a net * (FEMTO / MILLI) factor.
-+			 */
-+			const struct slf3s_variant *v = sf->variant;
-+			s64 num = (s64)v->scale_num * FEMTO / MILLI;
-+			s64 scale = DIV_S64_ROUND_CLOSEST(num, v->scale_den);
-+
-+			iio_val_s64_decompose(scale, val, val2);
-+
-+			return IIO_VAL_DECIMAL64_FEMTO;
-+		}
-+		/* Temperature LSB = 1/200 degC; IIO_TEMP wants milli-degC. */
-+		*val = 1000 / 200;
-+
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info slf3s_info = {
-+	.read_raw = slf3s_read_raw,
-+};
-+
-+static void slf3s_stop_meas(void *data)
-+{
-+	struct slf3s_data *sf = data;
-+
-+	slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
-+}
-+
-+static void slf3s_disable_vdd(void *data)
-+{
-+	struct slf3s_data *sf = data;
-+
-+	regulator_disable(sf->vdd);
-+}
-+
-+static int slf3s_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct iio_dev *indio_dev;
-+	struct slf3s_data *sf;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*sf));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	sf = iio_priv(indio_dev);
-+	sf->client = client;
-+	i2c_set_clientdata(client, indio_dev);
-+	sf->variant = i2c_get_match_data(client);
-+	sf->medium = SLF3S_MEDIUM_WATER;
-+	crc8_populate_msb(sf->crc_table, SLF3S_CRC8_POLY);
-+
-+	ret = devm_mutex_init(dev, &sf->lock);
-+	if (ret)
-+		return ret;
-+
-+	sf->vdd = devm_regulator_get(dev, "vdd");
-+	if (IS_ERR(sf->vdd))
-+		return dev_err_probe(dev, PTR_ERR(sf->vdd),
-+				     "failed to get vdd supply\n");
-+
-+	ret = regulator_enable(sf->vdd);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
-+
-+	ret = devm_add_action_or_reset(dev, slf3s_disable_vdd, sf);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(SLF3S_POWER_UP_DELAY_US);
-+
-+	/*
-+	 * The sensor may still be in continuous measurement mode from a
-+	 * previous boot (warm reboot / kexec); in that case it would NACK
-+	 * the product-id command below.  Stop it first and ignore the error
-+	 * if it was already idle.
-+	 */
-+	slf3s_send_cmd(client, slf3s_cmd_stop_meas);
-+
-+	ret = slf3s_detect_variant(sf);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "product info read failed\n");
-+
-+	ret = slf3s_start_meas(sf, sf->medium);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to start measurement\n");
-+
-+	ret = devm_add_action_or_reset(dev, slf3s_stop_meas, sf);
-+	if (ret)
-+		return ret;
-+
-+	indio_dev->name = sf->variant->name;
-+	indio_dev->channels = slf3s_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(slf3s_channels);
-+	indio_dev->info = &slf3s_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+/*
-+ * The sensor has no low-power state of its own, so stop the measurement
-+ * and cut the supply while suspended.  Resume powers it back up, waits
-+ * out the power-up time and restarts with the medium that was active
-+ * before.
-+ */
-+static int slf3s_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct slf3s_data *sf = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&sf->lock);
-+
-+	ret = slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
-+	if (ret)
-+		return ret;
-+
-+	return regulator_disable(sf->vdd);
-+}
-+
-+static int slf3s_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct slf3s_data *sf = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&sf->lock);
-+
-+	ret = regulator_enable(sf->vdd);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(SLF3S_POWER_UP_DELAY_US);
-+
-+	return slf3s_start_meas(sf, sf->medium);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(slf3s_pm_ops, slf3s_suspend, slf3s_resume);
-+
-+static const struct i2c_device_id slf3s_id[] = {
-+	{ .name = "slf3s-0600f",
-+	  .driver_data = (kernel_ulong_t)&slf3s_variants[0] },
-+	{ .name = "slf3s-1300f",
-+	  .driver_data = (kernel_ulong_t)&slf3s_variants[1] },
-+	{ .name = "slf3s-4000b",
-+	  .driver_data = (kernel_ulong_t)&slf3s_variants[2] },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, slf3s_id);
-+
-+static const struct of_device_id slf3s_of_match[] = {
-+	{ .compatible = "sensirion,slf3s-0600f", .data = &slf3s_variants[0] },
-+	{ .compatible = "sensirion,slf3s-1300f", .data = &slf3s_variants[1] },
-+	{ .compatible = "sensirion,slf3s-4000b", .data = &slf3s_variants[2] },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, slf3s_of_match);
-+
-+static struct i2c_driver slf3s_driver = {
-+	.driver = {
-+		.name		= "slf3s",
-+		.of_match_table	= slf3s_of_match,
-+		.pm		= pm_sleep_ptr(&slf3s_pm_ops),
-+	},
-+	.probe		= slf3s_probe,
-+	.id_table	= slf3s_id,
-+};
-+module_i2c_driver(slf3s_driver);
-+
-+MODULE_AUTHOR("Wadim Mueller <wafgo01@gmail.com>");
-+MODULE_DESCRIPTION("Sensirion SLF3S liquid flow sensor driver");
-+MODULE_LICENSE("GPL");
--- 
-2.52.0
 
+I need to reverse my opinion and let's go to v6 implementation. These
+properties look more consistent in v6 with respect to preshoot and
+deepmhasis properties.
+
+You want actually matrix, so:
+
+  tx-precode-enable-g6:
+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+    oneOf:
+      - items:
+          - description: Host_Lane0 precode
+          - description: Device_Lane0 precode
+      - items:
+          - description: Host_Lane0 precode
+          - description: Device_Lane0 precode
+          - description: Host_Lane1 precode
+          - description: Device_Lane1 precode
+    items:
+      enum: [0, 1]
+    description:
+      Static TX Precode enable values for HS-G6 only.
+
+And similar style with items also for preshoot and deepmhasis.
+
+
+Best regards,
+Krzysztof
