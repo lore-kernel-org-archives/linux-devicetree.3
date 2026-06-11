@@ -1,181 +1,149 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3ED361DD5
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244A820DD51
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781204455; cv=none; b=Wy5IJJ1JZZgj3zIxzKGEXf5FmVrM+RPoq+/2Fd6yDYQUSnSwCMtv0lM3lx/J8jpv/G5PwqzJDowgIwvEUtRbXVCs4UO68PCtvGmK3Tdarr+oBSZKlhvd+yeyZS4yc0XwaAkSYacqdSlK9OJwP51uAzjLe01a3souyxYdNQF/7jc=
+	t=1781205035; cv=none; b=Qjl97GITeoNXiijStPKNY4VScXfe35yLqkCzYm3pLLIcvTLPpcfdaSNUQ5PVj11ZR6192+5Ep4gTyd5/m7CavP5UzIXN/JSVpXAZL3Ro9+/x5lDkRFSbojF56GBzCuM/hcu6QnAVB/nhbuOh6YLd32GQZsbMNWET+LAW03qqeSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781204455; c=relaxed/simple;
-	bh=dNJQoite6AIg7TYkGXQpEcEOt87bY7eJFMNvUxKib2A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SSeKKrCfQHiXerur1tvl3oqwQ3u/RACROpIhs0t5xB889nnf82fPX4YnM3OHApC0ihE+YDORYvOGaDJPg/cNE6JKSTOx/YGqERrjwmD4+W+XjrgzWGIEW/qGhv9hg9VP7puX4SNegLHk/FePhmEGOf1z5Bb7gstkpaWoBd1vx5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MqdLMbtB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tn7/7lUC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781205035; c=relaxed/simple;
+	bh=0i91wvPsoFNz5NqYStg6Ytvr9GyMmPyJSl+LIKrKv/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qP6kC23ODAMV/zm6Z94Y2MmW/8ufH+zHAqVJlU3uPQJK1PPhtK48OC2m77RHWk1GLATWJMF0oXfZ2iYlTky3vi6eC/l0xvk3dAdzpBzSP36E1aXovwHJHta0mPYZn8AjVX4JWrUBLV0lWODzLeqJwVkw9uLWoq/BXnCje3tVfUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PWryWPyt; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MqdLMbtB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tn7/7lUC"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BIQDCc1307652
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:00:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=8GKjJL/Uiei3OZXuy/oX4Z
-	O7laqPRfNHUXY1uQc5X88=; b=MqdLMbtBRH3SldMOmZO5e/Sp9kjXoVFIu1ibuY
-	Ufw/DB5/AND/WcCFdSjfMEY5RkXg6PiKIO6gzEGm12xllYyX8umIey3p8YzGlLde
-	oywgxsjjTPEFrLwp767wnXRMbr19Kzpc5CbexzyzOYRyjrMQO0gKwTc12ElzMCJ1
-	89S1kmD4AUyGiYwlTjJd+7M2XEipbqoTwVMlGX2VwlrDvPneJmGl/hEPT+95+9O1
-	cb40jY3lsWYRay9Arxmny7ie/NSRiHTtZ/Ofj1twmb1gqXkH9RRFx/94IYqV6ODb
-	9YSc3MEojHfzNv+4TmKX77xa6qaGC7DFJA3UE/KklKt4yKCg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er1658ga4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:00:53 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3080bb0267dso434141eec.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:00:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PWryWPyt"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-51780bbc560so11150801cf.0
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:10:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781204453; x=1781809253; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8GKjJL/Uiei3OZXuy/oX4ZO7laqPRfNHUXY1uQc5X88=;
-        b=Tn7/7lUC7jT1d/C0mGskOBdph9vl8hLNmz4janv8eeNZk9VgZ8zh1J0OWotMD5L4O3
-         LtN/9JtYtzVM6HVvBTxKQbm2d5iSHEd6Wte9X9cnI+aH6qauOThTMarEXrnpUne7eZLY
-         YRXMUiYoLR40TFz9NLGTLcn5tUq49zpCF0dvVcODGVoRbquF8OpSWH00bfDzTRyGa1Yg
-         f8omURtgD89j6Wgs4FixSOfRAxWlSQCD0vdzGj3BR/9EMUfBN70qWO+MCYKyAZXokykk
-         JSFdzEsSvfzL7dMzISny5dUPL2of4Sws1PlIjRM6NZcWxmIl9pIL1abXTGhDe/zB1LnQ
-         o7Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781204453; x=1781809253;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781205033; x=1781809833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8GKjJL/Uiei3OZXuy/oX4ZO7laqPRfNHUXY1uQc5X88=;
-        b=a/rP3tEqZbu/zFOFEyk44x+Cc/mDAHzFU/mjozu9IzW+AX5he+yMqwr7iOlFU5gQCO
-         RSL5+Gzz7JyM8NmhaU9HKh4mk5U2JMqu9sYKfVWvkBCUc1ICyD+coadyM5FmOraZj7Ow
-         i4x4NsmkbSenYi9Fr96Lyo1GKRfbeAWaOsA8q+gyNcm5pHOKcBNsQAag49GpS9n2GxcM
-         Y1osIYdqOfEd1FHiOX8fm+t2daC904HDLx5xs33xmII7i2mlGqOOf9Ixd7CwrA0LqQqf
-         siH+dPeoYxOVahoN9VIiYvVaSDvpljvqyo4aL3Xl0b5RSDNBsp+Nyhgz2VIDbSQigByF
-         LDnA==
-X-Forwarded-Encrypted: i=1; AFNElJ/QgZDFM34UutluyMhRQ5w4c06HAlK+0+nfDrmQooJeTkZ6YsdPNCAjPMHk4QlNvZOGguCiJvOdxA2N@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRiGCam9mvUH+4F0FPki+6ZjNnMTHYElg2I1Dvjle/hfOubacn
-	b1/XD6kwCMClDS7uuS1sGBFESHnYmjomgLMlvgP2fS7qf9BXt9nt9kHY1ho8WrI19BmKFrgeD1V
-	pYUWnmXWFJWjB2V7K+37LkPC43o249kq3RWfc/HRzlPnmA2lTNmwzJbzaAUhGzvFb
-X-Gm-Gg: Acq92OEoXzZNBtIYB0gblwrhFUVyvsRfVCn1co6EW88Fi5T+ZQsB0+XQCHXUEzWmjOR
-	vhEClEgPKybLyoZ8OyGnrnhsIFegAZxPS471rSVkNNaNkOE3BsLJ8OFzhpyo19a8URJWWF3MwZI
-	bQ+a+tGzkZLPEZv6tKDXwkSBcKK2qiuuYnFe7fv/h/zyns6GTEKQJkyLRsoRpmHXm9SrNh8o6jp
-	cvjRnfByvwbNwT61yEwS4b7eUhHS89k6LT1GpBCk9JDEkC1X4dKRUMNRTi18Cv3Ap3fZsMrPVxx
-	fUge8AjibfE/8CuZp/AbUJwIw0tj6/TmxLC98Obw27mYVlqpDtXyzT6dzfgdAOTLszgDDNO9T6c
-	+BFc4vK5wD4oPhPAufdys++Ca1uqz2Z56uN0638qDYK1s3+4OF6896FV/9roWXQ==
-X-Received: by 2002:a05:693c:25c6:b0:2be:1f58:32a3 with SMTP id 5a478bee46e88-30804a25fb4mr2989940eec.29.1781204453075;
-        Thu, 11 Jun 2026 12:00:53 -0700 (PDT)
-X-Received: by 2002:a05:693c:25c6:b0:2be:1f58:32a3 with SMTP id 5a478bee46e88-30804a25fb4mr2989905eec.29.1781204452521;
-        Thu, 11 Jun 2026 12:00:52 -0700 (PDT)
-Received: from [169.254.0.2] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30806e8a402sm3161023eec.17.2026.06.11.12.00.51
+        bh=1akxBa9Yj2eO0ezJOdd0PYMsv5JHqMaTxTbB2PVknqc=;
+        b=PWryWPytKiNqSIwCJek3s5jXpIzc8dTdnKWtrb/UsrCbVZ/pjn5/aL11z2E/lSOt2M
+         CzgeSqAMUZYnFteoc7fvhKVESI0W3NkYA1MTzooNi74PnKie0Y2MH9TTW+85ctWY9SPY
+         JaCOfVWroKRHIuWg6GkEJQCCvIfk3QkOWRJmV2j/f1zisD+6c/0U9qfpsys3OxHrX++d
+         4Wek+hV3aohJVK6AXfZhSQBgViA9eyaFNlD8q6cT1accQEGm2mkaPJLLegxaR19vMaGY
+         ssn/TUAbwNxFM1FxqE5s35SFp7S1McJygBqUPNqlnQ9W7xUHHAMtp+JoWh34mFTSI7WY
+         ycug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781205033; x=1781809833;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=1akxBa9Yj2eO0ezJOdd0PYMsv5JHqMaTxTbB2PVknqc=;
+        b=lmWGnVUCA3QyUMe0t0OWtcI387hmcIHgbCJGIGgpvYn9JoFJxIGze8pv1jev+5kV2u
+         41ohbU3l6yfMcHvB5XxdyJqR8i82vH/jHz82JvVSAHsDPqzrnsaqDHu9Gf/LkOcmqKvN
+         PYomQvw+3WWdi1ycuaHxJgUVF2BSCwr4zJAGK5KzcwdH0aZEjeAcXhHim3vycaKvV6xu
+         a3MXWstSII6DwuRQLSpdlynzHDLkB4zPKf2LwmtPczaWZTbTruFLtwaErrxUJvW1vz6v
+         bF8YBhkyZTUl0GKORI/Syx9bEMgvYlSMjI4vURjCgyYGS7Uk6DpNR4sGixYe1ZndwuFc
+         vjJQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+eLWNulPUDur7lDpWvjVbeGbWTnAkmpnOja+SvNpgCWnHGE2hLuVxhlYJXTSTG4jzXmb3asQHgsJ7T@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywp0B9+2BI90LGmqrolje4lxrcbvYVtyjVhJ5XnqfpPztEU/FPB
+	2p8T+10vBo7SLksD7qGs54D6ONyjVTE370kKvrh70EMMOGji1JawxPRK
+X-Gm-Gg: Acq92OGM2fazs8v0bIo+GwhsCOdNQk/mnYYt0xKtakglyWdyyRMa9ZgCiIjPcMbmcoZ
+	ipnwvVCmMcwGKM/3BWjMd3eNfk8OlhMo6fhoQ3FqYoVpAL7K+C1g6K5h/UuSE75p2W/pI4wwYa9
+	aRjU+R6ApekIR5oi7eU0QaVTG6+7ywAq1hOaZNyOv2HOTx8MK1Y3APwlRqOXVd+pBk0mRjOIHyK
+	zMJs6aRXzhRQLXk4NiaiGwuXTToWE/lKx37VX7ePzyLZ21+Vbaku1pVZBJaxLvzLVViep0Nnniq
+	+dDXseFYeWMkTTwCj0PR4aUFaMteuD7C74LCDZR9iL6zLOvkSGhXtJIL1i4XTamHwxkqEMoYcqX
+	xLl1tABLWl26sW9jt5o1nYf0yTQSzMIp2EDs6VIYGUe7WEcaP/jxXNgHZGh+5BM3qXX5dIXZnqZ
+	o9WMycX+LK8nVcYIAGx8GVU2s5Z+JtkWKjzLVLQLQNP7WkEuU=
+X-Received: by 2002:a05:622a:c18:b0:517:5f11:b353 with SMTP id d75a77b69052e-517ef177b41mr47422321cf.41.1781205033020;
+        Thu, 11 Jun 2026 12:10:33 -0700 (PDT)
+Received: from louisarchdesktop ([2601:184:417f:5ad5:c570:9008:5a2b:8db7])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb63e594sm1333661cf.8.2026.06.11.12.10.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 12:00:51 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 19:00:44 +0000
-Subject: [PATCH] arm64: dts: qcom: glymur: fix PCIe SMMU interrupts
+        Thu, 11 Jun 2026 12:10:32 -0700 (PDT)
+Date: Thu, 11 Jun 2026 15:10:26 -0400
+From: Louis Adamian <adamianlouis@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: pressure: ms5637: Add variant specific
+ temperature compensation
+Message-ID: <20260611151026.4abf8804@louisarchdesktop>
+In-Reply-To: <aimvBvJp8CsNKlPU@ashevche-desk.local>
+References: <20260610020458.104818-1-adamianlouis@gmail.com>
+	<20260610020458.104818-3-adamianlouis@gmail.com>
+	<aimvBvJp8CsNKlPU@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-glymur-pcie-smmu-espi-v1-1-5effbaa3e1af@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANwFK2oC/yXMQQ6CMBBA0auQWTMJJVLFqxAWpR1xCMWmQw2Ec
- HerLt/i/wOEIpPAvTgg0puFX0uGKguwT7OMhOyyoa5qXWmlcJx3nyIGy4TifUKSwOhu5tI2g7u
- 2uoHchkgP3n7frv9b0jCRXb8zOM8PMwZ1TnkAAAA=
-X-Change-ID: 20260611-glymur-pcie-smmu-espi-d8a495bd7965
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781204451; l=1431;
- i=bjorn.andersson@oss.qualcomm.com; s=20230915; h=from:subject:message-id;
- bh=dNJQoite6AIg7TYkGXQpEcEOt87bY7eJFMNvUxKib2A=;
- b=S5J2B6Zby6ZQDPRc5S57iC0EQBQKymF/ZsZiCN8txeZmeTkCaGTUH9da5AKjCGUs3MRD1GPnn
- MLIiENINJ5ADZwCwA8hNLXCLneC5QzaSJTrvpcn8QkerggsA4J/GdEn
-X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=ed25519;
- pk=VkhObtljigy9k0ZUIE1Mvr0Y+E1dgBEH9WoLQnUtbIM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE5MSBTYWx0ZWRfX91f+aXySUEFk
- zHqY8kA1MqH/Er586KxKlu4g+laOZvF7a6eE7vOY+FN/HP7GWObazfAfLQ9I+ZW31qtPTIdLjp8
- 7QtGLojedMQQ8L7Bcc3jQPYcjqJbCGj1cNvZ1BnZqvmx+w8uIdpM5dKsM2PcrgtvQi9eTe2TC31
- k1Hu2FOkxDF+eHm1m4smIUuaEOhpJ/qjQ91OjdYiAnT365508sluB2EvcKLxdOGeK5oh4J9N9h3
- UsoKR7kgQpSZmfPda0ziPYp6Tut+uSh1y95Fh10eS1r4Opol8yaUlao7mBTs5QNjITB08ml5zcO
- IqtZ7QLBFtydS+/zmHf3PfZgEscVK3Q5TyFQWylN2aWoRIhiNmvtLVS79FZSjlQ5u+UAiApl6Jt
- vPpW7lv4fLxIQju86oMGMrf41DsnQZARxokSEK7AFFVLn0DK25tjiggC5PYNn1zjiN9a8zgulY3
- jH1UsT5Esf2N6F1X7Ww==
-X-Authority-Analysis: v=2.4 cv=LNpWhpW9 c=1 sm=1 tr=0 ts=6a2b05e5 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=u7QxXnNj1dXMMgLrEtEA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: 2DNKEzo5XRONWFtH-dkUO21fbkd4px0z
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE5MSBTYWx0ZWRfX4vLe1q6EsMrN
- GEfVotMzCfAkz7mVUpMFoC8jByVSW43u07n84XyBRUgGJry1ByyfnjPCR2UNvCRzhJQiMW4+4nK
- R5NPaSGNBzf9bSDDqWeXcNqZ6g1kRxs=
-X-Proofpoint-GUID: 2DNKEzo5XRONWFtH-dkUO21fbkd4px0z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_04,2026-06-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0
- clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110191
 
-The PCIe SMMUv3 wired interrupts are routed to GIC extended SPI INTIDs
-4100, 4098 and 4096. Describe them as ESPIs with the ESPI-relative
-interrupt numbers instead of regular SPIs 964, 962 and 960.
+On Wed, 10 Jun 2026 21:37:58 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Assisted-by: Codex:GPT-5.5
-Fixes: 41b6e8db400c ("arm64: dts: qcom: Introduce Glymur base dtsi")
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> On Tue, Jun 09, 2026 at 10:04:58PM -0400, Louis Adamian wrote:
+> > Add correct temperature compensation for ms5637-30BA,
+> > MS5803-01BA,02BA, 05BA, 14BA, 30BA, MS5837-30BA. The temperature
+> > compensation formula is shared across these sensors but with
+> > different constants. Add ms_tp_comp_consts to capture these
+> > per-device differences. Add pressure variant specific pressure
+> > scale variable.  
+> 
+> Is there SPI driver? If so, why only i2c is affected?
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 20b49af7298e..c7edfa8156f3 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -6874,9 +6874,9 @@ apps_smmu: iommu@15000000 {
- 		pcie_smmu: iommu@15480000 {
- 			compatible = "arm,smmu-v3";
- 			reg = <0x0 0x15480000 0x0 0x20000>;
--			interrupts = <GIC_SPI 964 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 962 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 960 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts = <GIC_ESPI 4 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 2 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 0 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "eventq", "cmdq-sync", "gerror";
- 			dma-coherent;
- 			#iommu-cells = <1>;
+As Jonathan noted, there is no SPI driver currently and the
+modified function is only used by i2c. 
 
----
-base-commit: ec039126b7fac4e3af35ebccaa7c6f9b6875ba81
-change-id: 20260611-glymur-pcie-smmu-espi-d8a495bd7965
+> > +		s64 tmp = (s64)temp - 2000;  
+> 
+> Why casting?
 
-Best regards,
---  
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+This is extraneous, I will remove it.
 
+> Overall this all needs a good comment or even comments to explain all
+> calculations with the references to the respective sections / tables
+> / pages in the datasheet.
+
+I'll add comments here explaining the shared equations. There are
+also references to the individual datasheets in the constant structures
+because they differ per device.
+
+> >  struct ms_tp_dev {
+> >  	struct i2c_client *client;  
+> 
+> >  	const struct ms_tp_hw_data *hw;
+> >  	u16 prom[MS_SENSORS_TP_PROM_WORDS_NB];
+> >  	u8 res_index;
+> > +	const struct ms_tp_comp_consts *comp_consts;  
+> 
+> Please, check with `pahole` if this is the best layout.
+
+I will correct the packing on this per pahole's finding.
+> >  struct ms_tp_data {
+> >  	const char *name;
+> >  	const struct ms_tp_hw_data *hw;
+> > +	const struct ms_tp_comp_consts *comp_consts;
+> >  };  
+> 
+> Can this be simply embedded into ms_tp_dev (and copied there if
+> required)?
+
+Copying in ms_tp_comp_consts provides no benefit over
+referencing the pointer; the values are per-descriptor, not
+per-instance and never modified. I'll keep the pointer (same as
+ms_tp_hw_data).
+
+> Have you considered to prepare the infrastructure in one patch and add
+> the actual compensation data tables in another?
+
+I can split this patch for V3 and I will fix the other formatting
+issues.
+
+Thanks,
+Louis
