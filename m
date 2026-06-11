@@ -1,114 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011003.outbound.protection.outlook.com [52.101.65.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F992DC79F;
-	Thu, 11 Jun 2026 19:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781206329; cv=none; b=rS+zW+Np/0mTuQUX+wvq77AActzijFg50Nz3U4K/RtAem5MHrnm+RjhNTnFPSlYxSOC6atLUARvtVDv7Ttg1j33gCIgKeKDrUA/bjpWV/SBszLofAk4O8bhWSrRLnnlLgywmTKhKNk/2I0+uNXiEhOpI9cq2lhM5Q/jbsN4jNHw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781206329; c=relaxed/simple;
-	bh=reUVkLQpt9JbjliIuL4usDWFe38Ql5/YGk1pGoYi8DE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=azTzxwoJeiNlEq4YMBFGcLVQUQwDq8z4bJ59XBrQJPTFDH+VvgvmQE6K8dw/9cPx6JEjJ98IXn6ax2dNkuXk+ef/Cb2j8fSJoas2Oo4JHHjYF+L+EUVGeSaV+6JDCHxTENOqJu97JCTdYgB4Pe+ljJ59htzgkH+VCOoU/C4+j+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fBdqTE+Y; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E47379EFF;
+	Thu, 11 Jun 2026 19:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781206826; cv=fail; b=h0x/SKnNFhdBtEdvJsNqzW2L/p3NL7Pj+/lpjFZA35bqDEuHt2Cf1HUUCjfWlLJej4XqxwnEuECz/Sfr+Nob+pdoRgPfW7+E15MBhXZXLFae64hsPn252TiIo0fQghLaELVLBhiAzQjDsGsAz5IQ7I4ariYQUu2RwK3q73I6l8Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781206826; c=relaxed/simple;
+	bh=JnNiYt8GidlkR9JfJKIdtLi7rQMZpr+7z0wot39nIdY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=swGLY0T4kcspeu6JunY8SXpnSJpZC4o0W7HHo8RDtd8dKUujaR5J1qeUoVVvBQiEUar1II1g+V9FLmj/gDTfWpr3QX+txIj4bNaDYLXlBxiBa71mB0W6qKJiwGfbbDU50GxJQsagEraov7RjG/7EDyz2W8svoXpPJkTjUcZh2iU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=IX+P0ZQa; arc=fail smtp.client-ip=52.101.65.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fBdqTE+Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781206329; x=1812742329;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=reUVkLQpt9JbjliIuL4usDWFe38Ql5/YGk1pGoYi8DE=;
-  b=fBdqTE+YYSNMgsXHp0Wxs+zS84enn/YJzvyV7IdtchRvHvZwH3spqtJ3
-   iF9IrbBaK0j1hFnxBMN06r8uVq9NzdU3ICg8A79JvxlxkFm36B+rcJ+8z
-   Yvq9KM7XNC0wNsXvZWITGHdgiMBBsB6PRMeDGpktBeu6sKmaJTz0eC+r7
-   BOQU94SH2vqb2G42xbFeOO2hbQ1mfsi2lssuMhJZ+2e2aEegOZpVaGybO
-   JeEVDSKQhzeszK1cuhzaN2Jy+iIMqIfvu6OzTCACWcbaZlKnU7znyCiRN
-   ESqsFowAMr6n9dTLpepzra+gmSRazJeYwqQgXZEEcweZs9x+GKGd2Jmtu
-   g==;
-X-CSE-ConnectionGUID: 5r6U8FkETq+/F/je4xwipw==
-X-CSE-MsgGUID: e3J9SxKlSxyYWVT/bWlS4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="69577514"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="69577514"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 12:32:08 -0700
-X-CSE-ConnectionGUID: lCJNRE8HTBaXnj7Lh9IUgw==
-X-CSE-MsgGUID: +Jy20teMQZib86OJkKi0lQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="276774015"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.123])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 12:32:05 -0700
-Date: Thu, 11 Jun 2026 22:32:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Louis Adamian <adamianlouis@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: pressure: ms5637: Add variant specific
- temperature compensation
-Message-ID: <aisNMmwMREF7Iga6@ashevche-desk.local>
-References: <20260610020458.104818-1-adamianlouis@gmail.com>
- <20260610020458.104818-3-adamianlouis@gmail.com>
- <aimvBvJp8CsNKlPU@ashevche-desk.local>
- <20260611151026.4abf8804@louisarchdesktop>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="IX+P0ZQa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JWZZPXaJJXuiR2rXiE95Ecxi5j0K4Af4dYdfQnEo8+IDNnngmhzG+sAI8MH8a3cJuJwnIrjapFkqQcQgXiBCee624Ca+Vob58eKDdVjE5OxwfalhA6WIuEvWfkvxnpDFUip2DnuXmwgtq0yiHhvN9SKJhdrMrVPmNsgI/QepzyN6b2+MI0C40bDU0cpOHrgDJqgcDJJWzRsdQlM5Y66lN9vbVkBnEOJKIJUKeTmQiFc4fo8RjDI2JfN7p04LrD+A0JLqhksO32IV69VwhoBOjYC4+NB4CGbHHitKRcPh46p/a3LNj89tlTuXfZERVO9d3w37x5HUYZHo4ccq761gGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j7rNEP1S7XK0YZyzNph/SaT8wXUQ3uYQB0xA03POlpc=;
+ b=oO1GhlQt48apxLl37H8/EOkfPhyWTq1ehCfQCnrUFHPovp2BksHjUEno9Po0uAcgb6FYU9S6jPPBpL+9a30Hegybt+TPeAjTESHGgUvJx7tnqZyWhOwTuGIP4Yu1oU78gKDyc141+4B420pL753PtnoKqEPNFEqxuqqvjAGdIN+EIcTbSz2Wo5iqR/0cF+A0mlQlqzKBAQzEnI2X//FtIDYfLqt0QDTohA6lg0NKvfW6KMeQ082MmXFXu6PAcoP7ozLhA8m9/X1Odzoo7neoFKtycmFGfPsx7fFunNtGDewNr4C9QONpm5EkQDZtKi2qRwmjyxrL6YpOKF3aUtnRIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j7rNEP1S7XK0YZyzNph/SaT8wXUQ3uYQB0xA03POlpc=;
+ b=IX+P0ZQaqTbHPcetlUxaqjfpXEAL1LvqtntBmxl4KDfLvErWPZJMXD1DxLqvvsC6Afkdb+iklPhPns6PP2axyFyNeLPySqr8gWgWUiyVPTyagmoFt/P8An1R5CVdfkYog/H5FK71wGEySRaLsqUzCOL5y5pKgn7e1SsPCJUX1OkPj4VfEdfufUMJDloQu69+jyMrBziY3/6eM+PcU8S+kW2h0SYq2ctWqiwy830yNCbr83ufy3VlyCO/NuI/YTweDsxSUIWO9Qll0ZhC3l1Kz4EUsMNK/tebLCPCVatW1EQF1+JAHEmjvs8pinjbcuicfgVzmWU8QpQKiP4OtCeQPw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by GVXPR04MB11017.eurprd04.prod.outlook.com (2603:10a6:150:21c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Thu, 11 Jun
+ 2026 19:40:19 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
+ 19:40:19 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Tanjeff Moos <tanjeff.moos@westermo.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 phy-next 1/8] soc: fsl: guts: use a macro to encode the DCFG CCSR space
+Date: Thu, 11 Jun 2026 22:39:33 +0300
+Message-Id: <20260611193940.44416-2-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260611193940.44416-1-vladimir.oltean@nxp.com>
+References: <20260611193940.44416-1-vladimir.oltean@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS4P191CA0012.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d5::11) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260611151026.4abf8804@louisarchdesktop>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|GVXPR04MB11017:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2ec46a1-684e-4ab2-be91-08dec7f14543
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|376014|19092799006|366016|7416014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	HtSTS7t0Z/5EeZO2FgjuFrn2vuMxlEMek4/MAPC624dM8lk934ksfnrGpwETpt+Z5XAqdYX8B80nscwBdi4qcyUm+BbEq/pOC2NcG4YEbRGrvRe+H5eEErtrPhHkhOt2PJxcgqxFqF+68ZYWZt01lx5b0auQLNSbO7YRZps9ak9fsP4lxtPqaFwyCZI8Xi/nBcZP4VUtGauzfFQ2nZqgeXVefa3ngC9+qqxHcVXxKx7bvx1G2ox1IdHq7GmTQeGfEk4VFBPECu4C4YzUHhvAiOHXUyGVTZF54+V+8koa60duvgZO1+YEvN4WMIH23Zr06CSsl2ssH4Yra5BMW7BEK8fYuzY/1m5Cho92TeKyWEoRGSWypQYD/CH0TWMeAONN4kYypMhN/t4cL9PaAyj/3+pWdugEK8CY5xr0r+JDIVACymyebjonoIKLOOA7z+ODDfXLH03pSv1tVc0iiTo82ye9+jx17eFgeg7VXaBW3dKaUgxvMf/mIjGKwa294SHIr0mWKIgsmEnvJzJyQ0RlYf1FyFyO+mQqz1YctG37uScUK8yo2DypJHmJ5X93peYdLGdIKCM7lZe8Ri//r4yTSL+nc8ULLH2URtbTEtMpWgBlBxOW9CTpOgM+GkbiRyfpo3tXcHiutj31VM7aS+q0Yy6NkiUcl4oKat21jpyXdRuBcTToMXXuGd7IPx3o8ZMQ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(19092799006)(366016)(7416014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hcr7O7gDL1y4/IyIL/h+P+f9MzkRJoebUfRtk0vAl+1pK1CxOnGpWfweZXkk?=
+ =?us-ascii?Q?Ur47KxJviMqi7LK8L43PVBZU1+LCvvrAnjruYzsLKsz9H+KPCBSUKqyu+goC?=
+ =?us-ascii?Q?Yfl31ZzZg0I5XES0zboeKjkhJ3Mc6zdiF07+mf6dN9NO0FMI0NeMNrgGCLdy?=
+ =?us-ascii?Q?AzY21MJ97E4kS4ZlhAE1vRinVsbUncow5kdTfWr9RhuCcbGfQSxdkmufD8GH?=
+ =?us-ascii?Q?7Wr7jnh70fe1rJ/rlaNS0lyY5mqYTYBKshKU51+aQdRaMoEgUqqWSWplXhxp?=
+ =?us-ascii?Q?6/iLmN4WXsZjoKbpH48lIigcJ0pifqzSJCFZYkhatB9JiwDK8+6cqc3YRzA1?=
+ =?us-ascii?Q?QYpfeH2cG3XTHKpsAE7saXS10uXm4vHKGwoz5H0wvzYBzqVxDb5rF1FVevO3?=
+ =?us-ascii?Q?3HXMOvZ/cz+sJG5db16z4EAeuBpEuiAiLY50h8nIHgX36vLBmPoqwBZR+rYf?=
+ =?us-ascii?Q?4h6zMN3F0vaTDiCw4gCSPs0Fsl/WWIsRCbbUCDUfdCPipLX1arSpb3nUqKfE?=
+ =?us-ascii?Q?g99Q7mCex3r6dTQ/v7Jw+iFP1Ia/Mw7dBq7l6uL5mnJA44SIVbviDyoEdIRh?=
+ =?us-ascii?Q?IzQRcuoJ3+PpIr6t04B+UsSH/5lC5JXmmbQYk0EjjaahKCwOXcsXQHSx0Im4?=
+ =?us-ascii?Q?1me20uMLtEQ28eB8/Dw/ooBC2p4Ujb4sVulEaGuUXn4oYumTOqbsLsV4z/6b?=
+ =?us-ascii?Q?LTi6v1hlx33oRc6n4zQtAFArpgl96MwJ3dufWpkG1kPMkRRqySOhIESx2OdK?=
+ =?us-ascii?Q?y65xDoob13k2c6JAEbP7m3Xq2cD5Ec47Nr7fDsVNAEYCk2RWW5bS2KVGhAoY?=
+ =?us-ascii?Q?nahnYN2FXbcTepIJZzaW1QG0vVCghW9Mliem/dBWYsaZ1bPVXQ1P0wTB0dH8?=
+ =?us-ascii?Q?6dXjVyV/txuseZRBysKgRADjiRIIp84yoTn4BYu8S7mJwFfdB339eNdtrJX+?=
+ =?us-ascii?Q?6AmMLTjTRv9i4g2otHwyDR63iobkRi7v3ibwGfvTrJfWI0dLTP26NmS5DFpK?=
+ =?us-ascii?Q?HqoHvzUvdrjKmtpr1VGYEGw8lEfxOun8yhTbAKD6tm0+SdoyeiNWp+8ECfac?=
+ =?us-ascii?Q?f/Jpret/9+uUqmpdMrpEOIyV2TLeviGo3yiuBilCc3/zwHLgRxBXz9KPjuyV?=
+ =?us-ascii?Q?8P8QKg3DZZ0hh0IFNiUC2UNMnulzwBVFbtQiQO69MaBaz7Lph2smCebA4uV0?=
+ =?us-ascii?Q?NvPPXEEz1OAuXXP7FMgEs9Z8PeBOEJs9AV7dH6AopbPpqUDuBXq49IbxnUao?=
+ =?us-ascii?Q?uc9CN42ZrmgMmaDtd3kabfex4y9de0+F5ORpyUtJyzmp2ftQKxD6d8T3Vyi/?=
+ =?us-ascii?Q?RsFwpD7nSWvNI+LdeidKCKTGH37+If0iDgEuCTDswPxO7AtD/6APsRsp+gxW?=
+ =?us-ascii?Q?ALDhy8mKucaB/rMg3XBBsD8xQgTpMo+PtwsohZ4Fy5PfHWw65zD7jRnll+kb?=
+ =?us-ascii?Q?BWctnXs4UJRIfwESbb5pW0enOxvRk0QwZESmgnzra/8n+QoYONJ0S8iyV48A?=
+ =?us-ascii?Q?zsoR/Pce4NMp/B/p56Jf1MbDPqa+xu1z9eiANI1ga6SIANOcQiMFCG70ztFp?=
+ =?us-ascii?Q?8aVJUDUWCByjsiaisH+YFP3JZQys22A+Kukgm2xjL5p/SSDFelTF1vL7O1lU?=
+ =?us-ascii?Q?755CN2HtanwhAkBFuuwgHSRDZO7Nnm3Z8vZzVP2Gv/kbQPuHrObig2UBi6H4?=
+ =?us-ascii?Q?wKpK4LhrNLkeO2UKIg5e9b1RGgStgIM+ha2ZDfZvlohnOpXY9fNuA+tPRuw+?=
+ =?us-ascii?Q?kVtD/p/V3rEcYm0osrZmPRtudpY2AKqTTbbJZzBNWuPFELctelay?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2ec46a1-684e-4ab2-be91-08dec7f14543
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 19:40:19.8083
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PxailRuc6o7NoQzdjCvCYf9lAeQWueqE6O2tRW6LCBekJepqA5xxfRCQkwcyhOI8+U3mZmseIUXRG5ZeGJ620w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11017
 
-On Thu, Jun 11, 2026 at 03:10:26PM -0400, Louis Adamian wrote:
-> On Wed, 10 Jun 2026 21:37:58 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Tue, Jun 09, 2026 at 10:04:58PM -0400, Louis Adamian wrote:
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
 
-...
+Instead of using a hardcoded value when iomapping the DCFG CCSR space,
+add a new macro for it. The code will be easier to follow this way,
+especially when we add support for the DCFG DCSR space as well.
 
-> > >  struct ms_tp_dev {
-> > >  	struct i2c_client *client;  
-> > 
-> > >  	const struct ms_tp_hw_data *hw;
-> > >  	u16 prom[MS_SENSORS_TP_PROM_WORDS_NB];
-> > >  	u8 res_index;
-> > > +	const struct ms_tp_comp_consts *comp_consts;  
-> > 
-> > Please, check with `pahole` if this is the best layout.
-> 
-> I will correct the packing on this per pahole's finding.
-> > >  struct ms_tp_data {
-> > >  	const char *name;
-> > >  	const struct ms_tp_hw_data *hw;
-> > > +	const struct ms_tp_comp_consts *comp_consts;
-> > >  };  
-> > 
-> > Can this be simply embedded into ms_tp_dev (and copied there if
-> > required)?
-> 
-> Copying in ms_tp_comp_consts provides no benefit over
-> referencing the pointer; the values are per-descriptor, not
-> per-instance and never modified. I'll keep the pointer (same as
-> ms_tp_hw_data).
+Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+ drivers/soc/fsl/guts.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Okay, let me ask differently then: Can we use the same data type in ms_tp_dev
-instead of adding basically the same fields as in ms_tp_data?
-
+diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+index 9bee7baec2b9..f87ee47c1503 100644
+--- a/drivers/soc/fsl/guts.c
++++ b/drivers/soc/fsl/guts.c
+@@ -14,6 +14,8 @@
+ #include <linux/platform_device.h>
+ #include <linux/fsl/guts.h>
+ 
++#define DCFG_CCSR	0
++
+ struct fsl_soc_die_attr {
+ 	char	*die;
+ 	u32	svr;
+@@ -197,7 +199,7 @@ static int __init fsl_guts_init(void)
+ 		return 0;
+ 	soc_data = match->data;
+ 
+-	regs = of_iomap(np, 0);
++	regs = of_iomap(np, DCFG_CCSR);
+ 	if (!regs) {
+ 		of_node_put(np);
+ 		return -ENOMEM;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
