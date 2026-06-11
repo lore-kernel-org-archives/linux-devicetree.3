@@ -1,176 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505F82DC350;
-	Thu, 11 Jun 2026 06:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2609327380A;
+	Thu, 11 Jun 2026 06:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781158437; cv=none; b=UEd5b0mp6Xh+K2akJjOw74U7oc9RbGPeD7Fn8rIMsIogOb6YATSN6X4PYICk6ysoTkaRLCedYQowpd/ZtpGsecuflbScGn4h3QF9i6V5Gctfh/EFarRYzXdZrTgAPvoFn52tEZ62z6FMqTpyK4mcjrBGKpDsdRMc0LF3o5LlWcM=
+	t=1781158529; cv=none; b=hRIX3fk41pe17asYWmzQj7IyyqpZr478XKtQmcrfgmVTYtsbygnrgHhk9Vo2Q+ljd+I2p3ahXez/ivFV0tW/mOs32wyypPyHYERao+HM7BO29CkqzATJf3u1pEs5M6ge0+sAn55CR7GhnLko9smP/In7ZJwBv4R2POIYRghgcmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781158437; c=relaxed/simple;
-	bh=6zhvURZmlfW8zMTdnfRhUUFf36SCrAG+gzgidGoDtFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nHK+xprwHnnbMSjt+3NauLiGhxRITjDBVuVzDMc1+a7gSgoGO0PV4YYUUduNJxKitYo6fuPxxXhAkw5i9oNsPpphC0wwHW/5De7S8WnG7KhV4B0TmAYYpqJovRaKPCkvX9zNG2d8h29BC/Y5IjMaTjueZnDdrnZvX0Kvwc9aOf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IzmudD+B; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IzmudD+B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5408B1F00893;
-	Thu, 11 Jun 2026 06:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781158436;
-	bh=M5WsnsZ4MAvmLf7nKfATl47R6VK/KMexUssZggzEOs4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IzmudD+B7ZucXc0KDJnmsz9xM1FnRQBwm/PIXROQNKj6CCc+H+5SGsBTgwBzN7Wzu
-	 k9177ZHMbKTJJPj+iXvlHum/tr130j9U5FJ2tdQdqpjH4fjvqcunNJ+a3vx03yeLiF
-	 bOnwBjnGOrrRCEHODZsB98PWCyovwmc3Zi07b1YVQ6Ndggo8QnhXt2pu4kOLA17836
-	 xgb0BlQcTQyI72kjrHIkuVSxKSSC5iDYlBefSbE5xmJpGLSy12blUQ3cMWt+TXAxq2
-	 jTxIykVDfebvWpq/74rFGbk+CpQtJRDmyC4NmI2hxqZne9DkhurG6flVCUgew9n3/G
-	 zkO5RXSENaZUg==
-Date: Thu, 11 Jun 2026 08:13:42 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Qiang Yu <qiang.yu@oss.qualcomm.com>, Jeff Johnson <jjohnson@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
-	Rocky Liao <quic_rjliao@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
-	devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	linux-bluetooth@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 6/7] arm64: dts: qcom: sm8350: modernize PCIe entries
-Message-ID: <3qq4afo425imn25yb74ag62vpd5lhil4ctjbmknd3yrsvq3tw6@3hq23lknpm23>
-References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
- <20260608-sm8350-wifi-v2-6-efb68f1ff04c@oss.qualcomm.com>
+	s=arc-20240116; t=1781158529; c=relaxed/simple;
+	bh=DOWwvGVTxm3PyPrq/yASl2Nu0t60duffwsXAnhS+4NY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MNl7mStNsjc/Bm7M9Ry/NHYcnGigLIrbOwWuj+6Dyw2IqkFY9WH7W2N6F0YB/LicLBg0tFz4HgjUid0M3bQ3+Mh9b72E5wsmS2xg0GXXvQbGDEu0JliAsInfJ44Um4GBO7LLwjmZlSSBHPZH+V3ILvkihqfdx4Cnqh2U25F2yyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
+	by APP-01 (Coremail) with SMTP id qwCowABnB9B2Uipq53FFAQ--.9476S2;
+	Thu, 11 Jun 2026 14:15:19 +0800 (CST)
+Message-ID: <6a756a4b1e48d036329f688f46796161fddd7a50.camel@iscas.ac.cn>
+Subject: Re: [PATCH 1/3] dt-bindings: display: panel: himax,hx83121a: add
+ optional bl supply
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 11 Jun 2026 14:15:18 +0800
+In-Reply-To: <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
+References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+	 <178115560756.199930.11183711627429440356.b4-review@b4>
+	 <2877375c4efee4b4e816b418c965da7bd7d60992.camel@iscas.ac.cn>
+	 <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260608-sm8350-wifi-v2-6-efb68f1ff04c@oss.qualcomm.com>
+X-CM-TRANSID:qwCowABnB9B2Uipq53FFAQ--.9476S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr13KFWrWF43tFyxtrW5KFg_yoW5Jry5p3
+	4DCasxtan5tr1xJ3y0qw1xWr4ftw4kKw47WFn8Wr1xGwsFvw18JrWSyFn5WF4DZr18JF42
+	vFyqgFZ7XFn2y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU8rWrJUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Mon, Jun 08, 2026 at 09:59:24AM +0300, Dmitry Baryshkov wrote:
-> The recent suggestion is to have PERST# / WAKE pins and PHYs in the PCIe
-> port rather than RC device. The kernel recently started warning about
-> the older style of DT. Modernize DT for SM8350 platform by moving the
-> entries under the root port device node.
-> 
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+=E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:45 +0800=EF=BC=8CPengyu Luo=E5=86=
+=99=E9=81=93=EF=BC=9A
+> On Thu, Jun 11, 2026 at 1:36=E2=80=AFPM Icenowy Zheng
+> <zhengxingda@iscas.ac.cn> wrote:
+> >=20
+> > =E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Tue, 09 Jun 2026 00:26:20 +0800, Icenowy Zheng
+> > > <zhengxingda@iscas.ac.cn> wrote:
+> > > > When the backlight is managed by the panel controller IC, an
+> > > > external
+> > > > power rail might be powering the backlight.
+> > > >=20
+> > > > Add an optional `bl-supply` property to describe such power
+> > > > rail,
+> > > > thus
+> > > > allow disabling the backlight.
+> > > >=20
+> > >=20
+> > > Please add it as a hwen pin, this will simplify your code later.
+> >=20
+> > I am not sure whether this should be a pin or a regulator -- the DT
+> > binding should reflect the HW fact, and LCD panel backlights
+> > usually
+> > require a high voltage (or even a current source) that is driven by
+> > a
+> > dedicated regulator.
+> >=20
+>=20
+> Most backlight ICs use a hwen pin to enable the supply, afaik, like
+> ktz8866, ktz8868, aw99706, etc. We don't touch the VIN. (My
+> disclaimer:
+> I am just an amateur, know less about the circuit)
 
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+I found some specificiation of a LCD panel using DCS brightness to
+control backlight at [1] (this panel is supported by panel-himax-
+hx83102 driver), and it has no HWEN pins -- the pins related to
+backlight seem to be LED_{C2,C1,A} and PWM, which means a backlight
+regulator must be present.
 
-- Mani
+Although the situation is a little odd -- the regulator isn't a fixed
+one, but a adjustable one adjusted by the panel.
 
-> ---
->  arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 18 +++++++++++-------
->  arch/arm64/boot/dts/qcom/sm8350.dtsi    | 12 ++++--------
->  2 files changed, 15 insertions(+), 15 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> index 5f975d009465..4973a3eb11b5 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> @@ -493,12 +493,14 @@ &pcie0 {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pcie0_default_state>;
->  
-> -	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-> -	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
-> -
->  	status = "okay";
->  };
->  
-> +&pcie0_port0 {
-> +	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-> +	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
-> +};
-> +
->  &pcie0_phy {
->  	vdda-phy-supply = <&vreg_l5b_0p88>;
->  	vdda-pll-supply = <&vreg_l6b_1p2>;
-> @@ -507,15 +509,17 @@ &pcie0_phy {
->  };
->  
->  &pcie1 {
-> -	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-> -	wake-gpios = <&tlmm 99 GPIO_ACTIVE_HIGH>;
-> -
-> -	pinctrl-names = "default";
->  	pinctrl-0 = <&pcie1_default_state>;
-> +	pinctrl-names = "default";
->  
->  	status = "okay";
->  };
->  
-> +&pcie1_port0 {
-> +	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-> +	wake-gpios = <&tlmm 99 GPIO_ACTIVE_HIGH>;
-> +};
-> +
->  &pcie1_phy {
->  	status = "okay";
->  	vdda-phy-supply = <&vreg_l5b_0p88>;
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> index eb2a795d8edb..136daa444865 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -1583,12 +1583,9 @@ pcie0: pcie@1c00000 {
->  
->  			power-domains = <&gcc PCIE_0_GDSC>;
->  
-> -			phys = <&pcie0_phy>;
-> -			phy-names = "pciephy";
-> -
->  			status = "disabled";
->  
-> -			pcie@0 {
-> +			pcie0_port0: pcie@0 {
->  				device_type = "pci";
->  				reg = <0x0 0x0 0x0 0x0 0x0>;
->  				bus-range = <0x01 0xff>;
-> @@ -1596,6 +1593,7 @@ pcie@0 {
->  				#address-cells = <3>;
->  				#size-cells = <2>;
->  				ranges;
-> +				phys = <&pcie0_phy>;
->  			};
->  		};
->  
-> @@ -1692,12 +1690,9 @@ pcie1: pcie@1c08000 {
->  
->  			power-domains = <&gcc PCIE_1_GDSC>;
->  
-> -			phys = <&pcie1_phy>;
-> -			phy-names = "pciephy";
-> -
->  			status = "disabled";
->  
-> -			pcie@0 {
-> +			pcie1_port0: pcie@0 {
->  				device_type = "pci";
->  				reg = <0x0 0x0 0x0 0x0 0x0>;
->  				bus-range = <0x01 0xff>;
-> @@ -1705,6 +1700,7 @@ pcie@0 {
->  				#address-cells = <3>;
->  				#size-cells = <2>;
->  				ranges;
-> +				phys = <&pcie1_phy>;
->  			};
->  		};
->  
-> 
-> -- 
-> 2.47.3
-> 
+Thanks,
+Icenowy
 
--- 
-மணிவண்ணன் சதாசிவம்
+[1]
+https://www.scribd.com/presentation/759684395/Titan20-TP-LCM-SPEC-XT2073-Mo=
+torola-one-fusion
+
+>=20
+> Best wishes,
+> Pengyu
+>=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > >=20
+> > > >=20
+> > > >=20
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > index e067a2f6d0b2..aeca3c9a599c 100644
+> > > > ---
+> > > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > +++
+> > > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > @@ -40,6 +40,9 @@ properties:
+> > > > =C2=A0=C2=A0 vddi-supply:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 description: power supply for IC
+> > > >=20
+> > > > +=C2=A0 bl-supply:
+> > > > +=C2=A0=C2=A0=C2=A0 description: power supply for backlight, in cas=
+e it's
+> > > > managed
+> > > > via DSC
+> > > > +
+> > >=20
+> > > s/DSC/DCS/
+> > >=20
+> > > Best wishes,
+> > > Pengyu
+> >=20
+
