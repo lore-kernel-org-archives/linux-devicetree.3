@@ -1,95 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B067B389108;
-	Fri, 12 Jun 2026 22:07:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B1A34403D;
+	Fri, 12 Jun 2026 22:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781302043; cv=none; b=Pr9TfUSfV4wvyzjHmOJHm4DQLqXlaKwlGQXRvZG2cXF4v3LhNjYlHcTmvpZ8XHUc9FZiMbgzu7XffKwoNREtUtsb9fwg5Syv0ifIPHacnT6pPbFQnjKVD252O8nbAIxV9CndDtXSmogrQ5m0avRFOcyy2dQZDlly2qub7S3NCBA=
+	t=1781302686; cv=none; b=gyBAdPD1CORPnjQd9H8X7Lvs6ChPq0XcVEMsV/dRAw7+YzYwcfHeZ6w5OzN8b3JYokUsV8OxxPqObUDJBNtL14gRsPLExdKVXHvjhtoCN9P52z1w/PIppo0fhZhk2vT5OYOnB8Z0w/Bqb++AxVn5eVNUSnXMrM1jrNn72Ip/0WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781302043; c=relaxed/simple;
-	bh=kal8MWWC+s3/wQwF8S90+qoOyh5nANqkBNfU/7+MzhM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QqCRd+gSN7EJkO1nNK/06IqwQe+Pf4EJu0oMzk3R1C2avPvRA/+IcYeASissnIs/19KWog2jeQGcVNY0R1BPxYzCQDSip33xcMwBvMhCj6sk7su2NlWY0iq8f+YDzRnKYl4SNK4/lsFPZCpDpuTYlBq3HB+lmru5aCsDcODOFso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eSeH4214; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781302686; c=relaxed/simple;
+	bh=0NZoUi4yTjyjN8hDy2uu0v8x/mi/5bxtA6qsUXoWtT8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ieR9UY12cZzAs/i9Jko8Pk+i6vZ2+/rWRajadSfph7bs95t5cTycZvnCs3rfqcZVcDAIMpi1kQpT+JeB1a/7sCQRKoFS6dXPTAWzMqX4L8T5svjEVRsP0DEMFadzgJEv5pLZRghsNDo2aR+DhzXv6OLrdLFPrBTgp4K7MJ2gFaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+kRQQ2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eSeH4214"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1701F000E9;
-	Fri, 12 Jun 2026 22:07:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+kRQQ2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06251F000E9;
+	Fri, 12 Jun 2026 22:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781302042;
-	bh=IN3NFdrc14uXt12CxYGdLvKSeFnCWmr06lwae8sC5PQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eSeH42147TIqEamoqMGijR7mxIS4V3VFsHwhimWdPwNNtSUKeyvlWgLd8MS9WZAAH
-	 /GU8SoIi0KbUr1+vjmG1SphztmEQwL75hCu2Eb399lVwUaPOSj6IsrDX6RzaSPlAGw
-	 iRNDVY7mR1Mo2yjBAnV5aaLOKMG5zP4KLHJHO9qjPDk/pX4dmWhfSuqLiR+mOf/lt/
-	 zg31BRI2ixfhkVcxPOECcak+LgDtoHUlyWQVCfU5gtiGa/9ickcR4bJ+TjD1nwN9ax
-	 kklPeAovejBrzj7S0qSalz76zg10S42g4ZHMnqqXLeIXn9gOTWLo3xoLozQQHA4ice
-	 rwcQE8V7io5dw==
-Date: Fri, 12 Jun 2026 17:07:21 -0500
-From: Rob Herring <robh@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Alyssa Rosenzweig <alyssa@rosenzweig.io>,
-	Neal Gompa <neal@gompa.dev>, Lee Jones <lee@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Jean Delvare <jdelvare@suse.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 1/7] dt-bindings: hwmon: Add Apple System Management
- Controller hwmon schema
-Message-ID: <20260612220721.GA1901304-robh@kernel.org>
-References: <20251215-macsmc-subdevs-v6-0-0518cb5f28ae@gmail.com>
- <20251215-macsmc-subdevs-v6-1-0518cb5f28ae@gmail.com>
+	s=k20260515; t=1781302685;
+	bh=Z/61KFJYWXrOQyCZbASrU+Xps+NN44QMTC3+w7LhyNQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=E+kRQQ2Jz8K60h4THBnTGpf9+XCJ0p9sE4l8/jsuXsWbB/cti9C96Rljdw3a/6StE
+	 wx3F1e1j0k0Ii1NZfyWPxlQRGpYZtu5zvGM0W2QZfhvnXhI4caNAiGjtviZkjcTDDD
+	 IKquov6oXuYb1HKuiZmkbPX9M8xcY4sl60Yg87oENpd8p4qo9ZGH/vpRvLjmN8f/mO
+	 /zUznIosI2mO2Gfc36Zqmlg/TNJiIWLYRwy7syEbHmqtkljMXP3RLGI9tC6Y4m33hx
+	 NxrZP45XIozxNYtjoGpXiAF9w9QmoDj1wqEqSgTnOIjCV+/5VHRsUs9rwrZ7v8cv5N
+	 3Kg3nE6qO6E3g==
+From: Mark Brown <broonie@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, phucduc.bui@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ devicetree@vger.kernel.org, linux-sound@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260602101608.45137-1-phucduc.bui@gmail.com>
+References: <20260602101608.45137-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH v2 0/5] ASoC: rockchip: Reorder clock enable sequence
+Message-Id: <178120738665.484538.15946340325623351219.b4-ty@b4>
+Date: Thu, 11 Jun 2026 20:49:46 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251215-macsmc-subdevs-v6-1-0518cb5f28ae@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1918; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0NZoUi4yTjyjN8hDy2uu0v8x/mi/5bxtA6qsUXoWtT8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqLIWYYKm9dcS3DYn50RUL4v7kjRB1zbjoRQy7j
+ WrL5egJEiqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaiyFmAAKCRAk1otyXVSH
+ 0DD6B/9NXGfMDpD3AQKfvqaQ35X+zUWCxNdfvPuFh97+ZGUgxMYKtYMKfbdLBs2wtkbMgB92mdv
+ JEXpPBbAdaXnt3Z6WB1YNAtWJZHVxX1b5fBNULp6LHyAhRoXPtDhpGbZ0FgW6Jef6vI0UwB4QVC
+ nxPszabzUQ7gc1z1xi9JVuevsYZ6d0BBG49WguRPQ8EerlSHyMs3UpEkkAHmfBwGwg5H4J5BKxM
+ zGjQceKZVYs4ReVGMP1as4k3EBQ/qjS60QoewXqws9nprfRiJPtzEIpX7X1kZo9EkB9msMYIbWm
+ DvQlJvJVuilSFcr65g8dYawk6T66ujxDPVlIpsgdRtD9aNkc
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Dec 15, 2025 at 07:37:45PM +1000, James Calligeros wrote:
-> Apple Silicon devices integrate a vast array of sensors, monitoring
-> current, power, temperature, and voltage across almost every part of
-> the system. The sensors themselves are all connected to the System
-> Management Controller (SMC). The SMC firmware exposes the data
-> reported by these sensors via its standard FourCC-based key-value
-> API. The SMC is also responsible for monitoring and controlling any
-> fans connected to the system, exposing them in the same way.
+On Tue, 02 Jun 2026 17:16:03 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: rockchip: Reorder clock enable sequence
 > 
-> For reasons known only to Apple, each device exposes its sensors with
-> an almost totally unique set of keys. This is true even for devices
-> which share an SoC. An M1 Mac mini, for example, will report its core
-> temperatures on different keys to an M1 MacBook Pro. Worse still, the
-> SMC does not provide a way to enumerate the available keys at runtime,
-> nor do the keys follow any sort of reasonable or consistent naming
-> rules that could be used to deduce their purpose. We must therefore
-> know which keys are present on any given device, and which function
-> they serve, ahead of time.
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> Add a schema so that we can describe the available sensors for a given
-> Apple Silicon device in the Devicetree.
+> Hi all,
 > 
-> Reviewed-by: Neal Gompa <neal@gompa.dev>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
->  .../bindings/hwmon/apple,smc-hwmon.yaml  | 86 +++++++++++++++++++++++++
->  .../bindings/mfd/apple,smc.yaml          | 36 +++++++++++
->  MAINTAINERS                              |  1 +
->  3 files changed, 123 insertions(+)
+> This series reorders the runtime resume clock enable sequence in the
+> Rockchip SPDIF and PDM drivers to enable the bus clock before the
+> functional controller clock.
+> 
+> [...]
 
-I fixed up the error and applied. Please ensure all your patches get 
-applied.
+Applied to
 
-Rob
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+
+Thanks!
+
+[1/5] ASoC: dt-bindings: rockchip-spdif: Correct SPDIF clock descriptions
+      https://git.kernel.org/broonie/sound/c/d057cbc218ac
+[2/5] ASoC: rockchip: spdif: Reorder clock enable sequence
+      https://git.kernel.org/broonie/sound/c/74d3f01a90ca
+[3/5] ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+      https://git.kernel.org/broonie/sound/c/3168721d6ec3
+[4/5] ASoC: rockchip: spdif: Restore regcache cache-only mode on sync failure
+      https://git.kernel.org/broonie/sound/c/3546e9aa691a
+[5/5] ASoC: rockchip: rockchip_pdm: Handle runtime PM resume failures in set_fmt
+      https://git.kernel.org/broonie/sound/c/ee7b5f7b3933
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
