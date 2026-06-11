@@ -1,105 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E8A3A6B67
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70B223C8C7;
+	Thu, 11 Jun 2026 12:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781182295; cv=none; b=LA3ZoG3CBeS+xWVzJqzejGus54QXb2ubvUOk72Se4Y+p4GSbmj/fkP7qjJbKVt4ad4m+o3/QOV5Qvoe1OGxplrAd5hrl9vVyMiz0M5DES8x45hoiXVKDbpv2JPD6kF9X12OJe+AkfFadRn+/yKkExdcFsAy3ENgq/Iz5KjqpnZs=
+	t=1781182352; cv=none; b=X5H0nF8TvccssbJXA9jfaD96Us86YgCp7B7atxDatdlsuAw4k28Pj3doPCESLPAACuGkErMe5Hr7uPOszZhTCkjSHUPk9hyIcwE01vpeqVc/1julvyT5KQ27TogbW8fTcVgRCjpm7W1zpqsL0KsXG0n5DgPZwXeCA3rN0KxZ+QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781182295; c=relaxed/simple;
-	bh=ZcEyJDUyCpeCJ+KN5CnZSAfgCz0i1CrgESVB3QX8cQE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ksEBxisna3OOHcyalIq477hnQxxSE0ickAPxYIDolTEJt71m/qlhqh3DjdKVz8WvgCNgWirjl+nFz63HY+E/Oo4b97SjEg9gZlbIItxxLPlT/HoVFA/Uy1t5bPM41TxFO2m7txzd5SJAz9kQIF2hm8wbHQAlCubgWrdGlQ7YmxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwaI5VqY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781182352; c=relaxed/simple;
+	bh=/+tXc+z2JushcI1YiVewkG5skjb4gKzsljOWJvYgdUs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oH2rrIxQGJGa8YnjpsEfy9HcTFFWZgtZN5wNnWItp1ojZcfY0WYAZQBxt0HEwcqUa9Ot/DevEPAwuDeTeJILW9NEZPoVHSNXZfY4tFhx0qkHVjTSBH3hbGnst1JOqQt2RI2LvD8uVCU4bIxiSUa0HoEx+hBxekVxGyARn1G++Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=uhAc/8sD; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwaI5VqY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6631F0089E
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:51:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781182294;
-	bh=e9WLujsb76wJX19mGC9SDiFMCyDY7pNnF6G3yu8LFgE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KwaI5VqY0p7DAHXz8MzhJMOIHJOjZed7svN8SV/HGfUR99cKVb7WfZDH2KjdGcW5r
-	 +EzPcme8QoWuXMs3K+H0pPnuXJ9rFvxrqr7Of3PptQnEKQgfGJRQ+98UN4fBIGgLd4
-	 DdzOYTFg8PCu4MroMNudhUK8q15qmG3405HG7hIxt+tqio+jQKNi+UUoLsCmZdON4q
-	 noIDgWUwO0lhkSyJ9oM/prdrsAOcP7v02fA6KBegv70wCGCvJrDOyLUM2rf9nwWpJs
-	 c0iN194kuN0GvY6G4X+fyurayXXGIuuYHXlCaEQRpcG2SyaFfbcdw66g4CkLxe0Ddl
-	 VutqEYt1WmDoA==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-396775c26e0so72918591fa.2
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:51:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9shoc1LievlkqkiEa7gfKYOs2yuIR2O8f9Y4BUscvmIK3u+3di7OyuI1jILHOp0j7QcRJ+aeE5y4z1@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUc7uK8A4aLh7Kk59H8L5WA/6hqlwVL1i7tl24Yg5BuL51jz/j
-	XI6STesps8TRVScuc1X7FcXX/VlEL5xQMMClwRCX6BW+5ghRZ1IDUTjH6EEuAw75iJlI+ctz6DC
-	poT2/D/SB3devyHVlzxfKd6yS1Bz9zvk=
-X-Received: by 2002:a05:6512:104f:b0:5a3:6731:910a with SMTP id
- 2adb3069b0e04-5ad27ab9e1amr954915e87.11.1781182293519; Thu, 11 Jun 2026
- 05:51:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="uhAc/8sD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=31VgQsFzFepavMOOxKoMWZGOpsqgkKg4iMLx2GTebx0=; b=uhAc/8sDXZ0PTkQw2QVMq3Q2BJ
+	q3XJUJjftEE1IWsdQwlsN513seZYnBuzqqAGI+53DxxeHmBL4ipMmFPawHO6Z2WAXXYXktpRk5PfZ
+	fW6txLg4pzVq3dvKbT4/IGK5kdBVpdRmtiTZDl7zv/8FwAZTdqhTnlPhjdF72KTjbjyA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wXetJ-0079pc-VT; Thu, 11 Jun 2026 14:52:13 +0200
+Date: Thu, 11 Jun 2026 14:52:13 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: George Moussalem <george.moussalem@outlook.com>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] net: phy: at803x: add RX and TX clock management
+ for IPQ5018 PHY
+Message-ID: <10f2c054-3d5e-4a80-adc8-2e63c655b3ae@lunn.ch>
+References: <20260605-ipq5018-gephy-clocks-v3-0-f232d9ca0966@outlook.com>
+ <20260605-ipq5018-gephy-clocks-v3-4-f232d9ca0966@outlook.com>
+ <36cd63f4-749e-4b09-b8a6-cbf6924dea88@lunn.ch>
+ <SN7PR19MB673634FEEF98FB8BCBBB15979D112@SN7PR19MB6736.namprd19.prod.outlook.com>
+ <471a21f2-7ab0-410c-861d-5722a94b127d@lunn.ch>
+ <SN7PR19MB67363B4F852FB37071637A299D112@SN7PR19MB6736.namprd19.prod.outlook.com>
+ <afdced5b-73b9-4214-a94a-c13fadd39dce@lunn.ch>
+ <f492327c-7ee1-443f-bb11-b78af0eda207@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611-gpio-to-irq-v1-0-12201716f23f@amlogic.com>
-In-Reply-To: <20260611-gpio-to-irq-v1-0-12201716f23f@amlogic.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 11 Jun 2026 14:51:20 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk3YdMUSkk71rgT=taQZnEhqgMgGP0dKBPx7_5Bsxmu+g@mail.gmail.com>
-X-Gm-Features: AVVi8Cd-dIHDWtIpo4Lae4LYz5CqVn4HEUpS_YsaMZ1wtD9Hr9uCut8hp35HQx0
-Message-ID: <CAD++jLk3YdMUSkk71rgT=taQZnEhqgMgGP0dKBPx7_5Bsxmu+g@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/2] pinctrl: Add support gpiod_to_irq
-To: xianwei.zhao@amlogic.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-amlogic@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f492327c-7ee1-443f-bb11-b78af0eda207@oss.qualcomm.com>
 
-Hi Xianwei,
+> Is there any prior art wrt enabling/disabling the PHYs (not necessarily
+> clocks specifically, but say power supplies) at runtime?
+> A quick grep only points to this very driver, which gets the regulator
+> during probe, enables it and never turns it off
 
-thanks for your patches!
+Not really. PHYs which care about power do their own power
+management. They can sense the line and know if there is anything
+plugged in the other end, and only then enable parts of the PHY. The
+difference between an active and sleeping 1G PHY should be around 1
+Watt. I don't think you will save too much more by turning off the
+clocks.
 
-On Thu, Jun 11, 2026 at 9:54=E2=80=AFAM Xianwei Zhao via B4 Relay
-<devnull+xianwei.zhao.amlogic.com@kernel.org> wrote:
-
-> Some users need to obtain an IRQ directly from a GPIO descriptor through =
-gpiod_to_irq().
-> Add the required DT binding and implementation to support this use case.
-> Since this introduces a new DT property, the property is kept optional to
-> maintain compatibility with existing SoCs and DTS files.
-
-To me it looks like you have just re-implemented hierarchical
-irqs.
-
-Look into the section "Infrastructure helpers for GPIO irqchips"
-in Documentation/driver-api/gpio/driver.rst, especially towards
-the end.
-
-Solve this by using GPIOLIB_IRQCHIP and a custom
-child_to_parent_hwirq() callback to translate the GPIO into
-an IRQ.
-
-To just implement gpiod_to_irq() without any irqchip abstraction
-is also broken: you can't force all users to just use this way
-to get an IRQ it's excessively restricting.
-
-Add
-
-  interrupt-controller: true
-
-  "#interrupt-cells":
-    const: 2
-
-to the pinctrl node as well so that DT users can simply request
-the IRQ from the irqchip inside of the pin controller. It will
-be hierarchical and lightweight but an irqchip nevertheless.
-
-The GPIOLIB_IRQCHIP approach will help you to get this
-right.
-
-Yours,
-Linus Walleij
+	Andrew
