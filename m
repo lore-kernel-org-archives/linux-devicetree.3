@@ -1,126 +1,89 @@
-Received: from r3-55.sinamail.sina.com.cn (r3-55.sinamail.sina.com.cn [202.108.3.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18B053E0B
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D4625F7B9
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781147929; cv=none; b=dlsMLm2wfPkd7el/8VqaO/7WXiW52xhP73hUUM1dvwHscMCiFIS7+VwnzYiqaxrhrYib6acrfiG07kq9Drj/T6RqFWwj/KxbWN0ioY2Gp/PX+/ZT4U2OAYgyi9maJww2jMQ9ZZYW4zkNKRg1UcWNAL160c1W9nlMeRg+tByGjvI=
+	t=1781148365; cv=none; b=lPy+msDdm1ZEJf+2sII2+90a1WVDD83KjI7kjgbkmU+DUiz6c6F6BL0UM/CjAZUSnI0KVdYFU6Htmiy7uoqjmaKoKCH3fhNplgNhk6/4DSfC5sk+nphuHYY4E1RmC5U84UuAiz/wL0JYFb/TKAvy+mMEmZsgy9AxSbGBC/SOF6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781147929; c=relaxed/simple;
-	bh=qzMA72d1894zjGI6ssuhjjUnkSGElryWwrFM8JvYHbE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=heiZ8WhbxD6dbR7ntGacvgg7aVzkeI522qb9wmPvN75i4QRQ2rQqQYTSaEsekdX79n8a1WV00eWIDdQ+1zpNsLxuOcqXhWwQYauA+kyecO5p2AGP8rG/UzJeMR9RTCF0Zrsbp0dRmMwdvyhjBXmRX1mG6Y5VyKjr++XF9aex440=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
-Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
-	by sina.net (10.54.253.38) with ESMTP
-	id 6A2A29030000377C; Thu, 11 Jun 2026 11:18:34 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: F64885A907F6436292A9BC8146949318
-X-SMAIL-UIID: F64885A907F6436292A9BC8146949318-20260611-111834
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: linux-sound@vger.kernel.org,
-	broonie@kernel.org,
-	devicetree@vger.kernel.org
-Cc: tiwai@suse.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Zhang Yi <zhangyi@everest-semi.com>
-Subject: [PATCH v1 7/7] ASoC: codecs: ES8389: Add INPUTL MUX and INPUTR MUX
-Date: Thu, 11 Jun 2026 11:18:24 +0800
-Message-Id: <20260611031824.4628-8-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260611031824.4628-1-zhangyi@everest-semi.com>
-References: <20260611031824.4628-1-zhangyi@everest-semi.com>
+	s=arc-20240116; t=1781148365; c=relaxed/simple;
+	bh=vKdXiqNQUrTJnLPiZlwDDA3fAHSSAxJjB/aac4p3WgQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ry4HjpYhtZFQaXoZx4RiZWXMbXtjdy7YD9Jp8WiZOoQo6bH1Jlrl32RAMnHgKW3TDG3vbk5DO/7jaZV0IsBF8mTJhbuDN6BDK0OoEngVrUm69BvCG1yS5kpmjVeB0S4dBU7Zby8FEAqT+CENg+TIJ1IwYWesZxgGep/5naHNzoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE3aSQ7/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE3aSQ7/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B04A1F00893;
+	Thu, 11 Jun 2026 03:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781148364;
+	bh=bAEZv8DaeXD+3OFfBsUHm78w6UMq48pZfc+Q4lwwbDk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZE3aSQ7/tfiw54lc22qEhFc1YHf2VX1S7C9woqr4VS8+fGUjeK36eN9cDq20DJahG
+	 51L9no6f2N4lzGgVTF6BWCR9AL5VpvsTJEhOO+SVIQ7P/BPZl/W58v98m4RM5od4Q7
+	 Mqqn0dBTOzEoIuqt0SF03tOhSzEJ2uhcTxWi31CO9XYoItXCrqqMkAv3HQPTVlWlE9
+	 is93O3hXEa07PMpwLUh1+8O14tUJWhTEof8HQ//1REVM20yuqIjnDPufK9CzDoJ7Vg
+	 9CljRTI8dERbe2iGUJ9xNdSsxhp4uV5kSku1W5OmY748srJvfOi9lzt2GMBlrhOPIk
+	 /2YtptCfHOSRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 5/7] ASoC: codecs: ES8389: Modify the initial
+ configuration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhang Yi" <zhangyi@everest-semi.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260611031824.4628-6-zhangyi@everest-semi.com>
+References: <20260611031824.4628-6-zhangyi@everest-semi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 03:26:03 +0000
+Message-Id: <20260611032604.3B04A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Add INPUTL MUX and INPUTR MUX in route
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
----
- sound/soc/codecs/es8389.c | 35 +++++++++++++++++++++++++++++++++--
- 1 file changed, 33 insertions(+), 2 deletions(-)
+Pre-existing issues:
+- [High] The return values of multiple `regmap_read()` calls are ignored, l=
+eading to the use of uninitialized stack variables.
+--
 
-diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-index 2460cf977..23e85ddfe 100644
---- a/sound/soc/codecs/es8389.c
-+++ b/sound/soc/codecs/es8389.c
-@@ -164,6 +164,16 @@ static const struct soc_enum alc_ramprate =
- static const struct soc_enum alc_winsize =
- 	SOC_ENUM_SINGLE(ES8389_ALC_CTL, 0, 16, winsize);
- 
-+static const char *const es8389_adcl_mux_txt[] = {
-+	"Normal",
-+	"ADC2 channel to ADC1 channel",
-+};
-+
-+static const char *const es8389_adcr_mux_txt[] = {
-+	"Normal",
-+	"ADC1 channel to ADC2 channel",
-+};
-+
- static const char *const es8389_outl_mux_txt[] = {
- 	"Normal",
- 	"DAC2 channel to DAC1 channel",
-@@ -191,6 +201,20 @@ static const unsigned int es8389_pga_values[] = {
- 	1, 5, 6
- };
- 
-+static const struct soc_enum es8389_adcl_mux_enum =
-+	SOC_ENUM_SINGLE(ES8389_ADC_MODE, 5,
-+			ARRAY_SIZE(es8389_adcl_mux_txt), es8389_adcl_mux_txt);
-+
-+static const struct snd_kcontrol_new es8389_adcl_mux_controls =
-+	SOC_DAPM_ENUM("INPUTL MUX", es8389_adcl_mux_enum);
-+
-+static const struct soc_enum es8389_adcr_mux_enum =
-+	SOC_ENUM_SINGLE(ES8389_ADC_MODE, 4,
-+			ARRAY_SIZE(es8389_adcr_mux_txt), es8389_adcr_mux_txt);
-+
-+static const struct snd_kcontrol_new es8389_adcr_mux_controls =
-+	SOC_DAPM_ENUM("INPUTR MUX", es8389_adcr_mux_enum);
-+
- static const struct soc_enum es8389_outl_mux_enum =
- 	SOC_ENUM_SINGLE(ES8389_DAC_MIX, 5,
- 			ARRAY_SIZE(es8389_outl_mux_txt), es8389_outl_mux_txt);
-@@ -319,6 +343,8 @@ static const struct snd_soc_dapm_widget es8389_dapm_widgets[] = {
- 			   &es8389_adc_mixer_controls[0],
- 			   ARRAY_SIZE(es8389_adc_mixer_controls)),
- 	SND_SOC_DAPM_MUX("ADC MUX", SND_SOC_NOPM, 0, 0, &es8389_dmic_mux_controls),
-+	SND_SOC_DAPM_MUX("INPUTL MUX", SND_SOC_NOPM, 0, 0, &es8389_adcl_mux_controls),
-+	SND_SOC_DAPM_MUX("INPUTR MUX", SND_SOC_NOPM, 0, 0, &es8389_adcr_mux_controls),
- 
- 	SND_SOC_DAPM_MUX("OUTL MUX", SND_SOC_NOPM, 0, 0, &es8389_outl_mux_controls),
- 	SND_SOC_DAPM_MUX("OUTR MUX", SND_SOC_NOPM, 0, 0, &es8389_outr_mux_controls),
-@@ -332,10 +358,15 @@ static const struct snd_soc_dapm_route es8389_dapm_routes[] = {
- 	{"ADCL", NULL, "PGAL"},
- 	{"ADCR", NULL, "PGAR"},
- 
-+	{"INPUTL MUX", "Normal", "ADCL"},
-+	{"INPUTL MUX", "ADC2 channel to ADC1 channel", "ADCR"},
-+	{"INPUTR MUX", "Normal", "ADCR"},
-+	{"INPUTR MUX", "ADC1 channel to ADC2 channel", "ADCL"},
-+
- 	{"ADC Mixer", "DACL ADCL Mixer", "DACL"},
- 	{"ADC Mixer", "DACR ADCR Mixer", "DACR"},
--	{"ADC Mixer", NULL, "ADCL"},
--	{"ADC Mixer", NULL, "ADCR"},
-+	{"ADC Mixer", NULL, "INPUTL MUX"},
-+	{"ADC Mixer", NULL, "INPUTR MUX"},
- 
- 	{"ADC MUX", "AMIC", "ADC Mixer"},
- 	{"ADC MUX", "DMIC", "DMIC"},
--- 
-2.17.1
+commit eeca5823fe9bef5ffe179596ec0a3aab2d9ba07a
+Author: Zhang Yi <zhangyi@everest-semi.com>
 
+ASoC: codecs: ES8389: Modify the initial configuration
+
+Modify the initial configuration.
+
+> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+> index 647d9d62820e6..284eb707f9f7f 100644
+> --- a/sound/soc/codecs/es8389.c
+> +++ b/sound/soc/codecs/es8389.c
+> @@ -793,7 +793,7 @@ static void es8389_init(struct snd_soc_component *com=
+ponent)
+> =20
+>  	regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
+>  	es8389->version =3D reg;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed the return value of
+regmap_read() is ignored here. If the read fails, 'reg' will remain
+uninitialized, and es8389->version will be corrupted with stack garbage.
+
+Could this also cause unpredictable behavior in other parts of the driver?
+Similar unchecked regmap_read() calls seem to exist in:
+- es8389_pcm_hw_params() (corrupting dmic_enable)
+- es8389_mute() (triggering spurious state changes)
+- es8389_resume() (potentially triggering es8389_init() erroneously)
+
+> -	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x00);
+> +	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x56);
+>  	regmap_write(es8389->regmap, ES8389_RESET, 0x7E);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611031824.4628=
+-1-zhangyi@everest-semi.com?part=3D5
