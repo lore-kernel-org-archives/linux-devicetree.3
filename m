@@ -1,65 +1,87 @@
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com [209.85.216.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9AE285417
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3DF2E1746
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781147376; cv=none; b=dGIQv3VtG4rP0CMvCeJ1S1WJkBVDWPPyyIfheVMOHUbcg/Al4LU0qzDKZ4IAbh8UdPPu1uVcGyj8zDQyBTfp2FVLtEOAhQKu7zjO0AAteby/qk0IO9HE8CTjk6Iz/4qoqC2ps2yAerghTwjiMcsY1PWX88snXa2J6FPT1C0x8+I=
+	t=1781147437; cv=none; b=SeXh43bugymDktBeCdRPI85rEj5pdfQ6bRBKeEdGuW6qKand4hEoWVutXMVYYWJb3ZRsvcQaA3QYzbjnpOuMAtxerBYwwYbXZmun1mjhf2Q4wEK1Vj82kJdLs6ZBchaLxMH5M4A8PknawrEHUUW179gcHIzBAeQEbN39it+hya8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781147376; c=relaxed/simple;
-	bh=oKZuciULY9JBG2l4enUy3YkyVqstZ1dofPhvmB1PDVk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YB43kn8462MId0MBJZ5Vi6Lm6696HbCSUFKl2vvbmXfHtP+8npIejiQE7f0dMlMV+/n5Sx0XrU2/gq4zf2zm2ffgS3M4xDa9l/DFYXGz9ba85zQw5DSfHLh3hD1spR2Fh8VYiglDn5O6uqAaTg6vPrQrpmAeBc+uCVKwRsra7zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W0Ae/49t; arc=none smtp.client-ip=209.85.216.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781147437; c=relaxed/simple;
+	bh=/xDqAx/7oWtInGBo7t87Mo2o7EzRq/zRTqU+5rnPOvs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=He96pL1ezfCP+BIUzEZg3k4slMgkfOyWGU3NFY1iLNe2mO7qNFp874C8oL/JhcHikLkwub5EnmmNfVcMWcyWV9teyUkEm+msDDYI768NbfpZRM9zxRgUtuzkr77GOiTuPBaLEAGSmyqidk+aS33eQCybwU0sij1pJBW7S5uRhFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KcH+fQ0T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cZLZku9o; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W0Ae/49t"
-Received: by mail-pj1-f68.google.com with SMTP id 98e67ed59e1d1-36d8b644473so6920408a91.3
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 20:09:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KcH+fQ0T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cZLZku9o"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B0O1713180158
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:10:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bfOXY/bV6WKanzF7Cg7TmExSjsVgoEG3Y8BQ1vxwqO0=; b=KcH+fQ0TPi0X+nmB
+	+/D2wqO1pwI3aRF9/pjdfsU8FHH9iIAihTO2EqVifeZQecpVKJ8t5WSbnShJHfM/
+	MlRtMKnfmYAstu9Wn9qnoM7EvNsRxUJwN0FsrLhzqG92LInwz0+H9DjauVR9pnyb
+	lMvnKeGFxcdSpGZQosBMGqdoQn2H3Sakc0sn8hU27KduhdU16WJYFW5KrkMLwGzC
+	AE4EwnEb7d9STfP9QY2zxes7/TfCXs7aJ6j/7xIBCQ28TlMn+VwnwwLvEEFLhEHY
+	W2xL4HDxdUF41mqMQzfvWqBDhHD8P4ifIUyoSEAd3TncAWp9b6KL74qCb00oWBa4
+	cLY9CA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe71hfj0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:10:33 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36bbbaf6b23so1498342a91.0
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 20:10:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781147373; x=1781752173; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZYAsuub7tjh5DE2NtRU43cs+1enZX+YMETetqa3OJBs=;
-        b=W0Ae/49tg+TcDXgzBJ0m3Ehog7mGgnrCj95pPaDToOos5t6JiNZI8jiNPSI9ddbdmH
-         5Yo4y2Gm0IhPAFq4eBNCM0F5IIs08hwa+5JmkDZqlF4dtYRqwAMoQPpmzKAj5TRX1vN1
-         /G1KQyqQnAb8tLAJNbLZ8LnHYTBqC9KpwiiFjzVKOVUCZCRHJrWA/06O4qJhg75SlRES
-         ztJnxg/RiJjX5/RwWCRP6GOtBVZ6NgvCHuVFFSNjkk2iIO5As1XazMB2ONwR89qR5qnX
-         YH02YGKxbiHp3Kq/aqwI5HBbpjZvnsLI21YiXIMR3UBQMn2n/6weqgK8NXRXBytHpJxW
-         MbjA==
+        d=oss.qualcomm.com; s=google; t=1781147433; x=1781752233; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bfOXY/bV6WKanzF7Cg7TmExSjsVgoEG3Y8BQ1vxwqO0=;
+        b=cZLZku9ohUY3Kyh4kJ+N5u+FBb4tognclMkXq8Khwn+fFFuc7z0vl+U5CkTWeNaKbg
+         zTcRzVlOT5f52BgR/ky9jgoDnD3PgDT/UZsFWjMjccxFYL3dGd1b2sMNiwbIGRmffLAv
+         RYwx5yOJB+U6HVpcntj+61N4mUNfmWI3QtnayhQZ+lEpXYYP4kvysBkvliWr3I5/3tvg
+         K9wRDIwzOB7OHZg1/RGSgbgtel7/2J/MErVCqN0vPzPRWFp+rdGcukk6wPXqbaYebECs
+         2SGtm2L6SHnX4UMbutsWbGKEx1Yw4SIXgEuS/f6/l7qrWQS+SVwstv9x0kIfQlAYroXL
+         F8zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781147373; x=1781752173;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZYAsuub7tjh5DE2NtRU43cs+1enZX+YMETetqa3OJBs=;
-        b=drciEplmX9Stb1piZnu7rEOwI8vcG7OW77a6Eu4/Rvb8wM9XjWaEyn/9LGbFAxcApu
-         NcdKsa0zou5r9iHP5tW36lThdiKIWyr5UOQKNJDzMtksB0ob5bfB1SD3Gdb7wclx8riM
-         wbVItRpPTwtufST2KLLpg2GuKOd5tmpXlUG3axCxfBdX7fpryTKtpYz6pCfJ7XE6KuoL
-         QjOSy0B14blbw4wBF1oAIquHTMSTuVyHFwCytSzK+8AxGdmpTiUoFJPIho3SAFvIu+V7
-         Ao1h9shZODf5S6doWDnJrtAzMKbSrtvz8Sx3pDAWPCQpBG8svVMPUQJb5aCgwznzuGi/
-         DVEQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9BiR0gmgmDFqujc+JfqRJq/aQnfglJLdSP5jw7fKk7nljNf7ccPDdvAkbOlWUW8iCRixCZ64VGtXvp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyr1NrAUW3/obWR5/c5YJgqIdAZQYaBp1xbGwqjYpDcPgtxQDY2
-	gUI8jX+wb+I2TzVJftlMj7nWx0yX8fWUEN69LOVckLifIO9VWtT9dma8
-X-Gm-Gg: Acq92OHn7YjZNdCtRWozmkHxG7vv37fVeo4vLc7yRyfJSySSVNsXRG/N5H4BSw/fkdI
-	/sHQdSqZKf9ExOcaifeAh5/xa8tyxF7kUAg8KW4L7Ti54jDdKmHBoZAlsVD+JuOWupHb//E3VDh
-	OFfpTWSG7MU+8xudc/clUKmWE+mGWTcTmMPNPYBJdod+x4MZDjYSK4xqheBOXHYgUGTkLeaYu0S
-	7EsoR9ZTYFP8QzP8rn5n1qIrJzh05j/S32cqw4c3zwB93nsfoqWOH5xj91//PtnSurSOvHdAJj5
-	9CYMRtERB6E1hpYAZ2nbFAdQ/Ks/zg25Rj4ZspuZXd9CF3yQ0m0v2QCbylNhwpQZnMN5yQw8zqE
-	IH80Nvx1FDygnLpxWRpvf/xz2AlOaqNNjkHULjr8+GyTjIk2j+RW4KPECwqrtYNM3UzCMHANElM
-	J1cal/9EgVotB6eJVATYogd1GzfKrMjaOSFgJisHn7DA==
-X-Received: by 2002:a17:90b:570e:b0:36d:df4f:ab2 with SMTP id 98e67ed59e1d1-377a75cc2b7mr1151650a91.13.1781147373379;
-        Wed, 10 Jun 2026 20:09:33 -0700 (PDT)
-Received: from [10.125.112.20] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c86585b5356sm107409a12.14.2026.06.10.20.09.24
+        d=1e100.net; s=20251104; t=1781147433; x=1781752233;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bfOXY/bV6WKanzF7Cg7TmExSjsVgoEG3Y8BQ1vxwqO0=;
+        b=q0jlwaPMY5DZiZGVmLmIFHMXo/hH984xjGhy7K04Jf2btHi0EV0s0UJ87O3sweQBk9
+         iFF8nN4NyfFxZm0MSH0IqmAH6bNZjX97cb8PP3Zx0rH+qqU+ejU3TCBVQQlSCWpI/pzA
+         u3b2peFIkMr0StEBqK20fjSs+WN348bIqwPGq75jaa+BFve/1pWNN+wJM7EQr667UMBm
+         yeTdvipmGesY45j7wht2fjS6smbC/qxDcg1kq9e/XcykOkDAwhKy0ibmm5GQVT8Vv7sV
+         Y4Gc56GJ2OwESnH92lLMgn9n/YSwfbG6rFJG2toBjIfkpa+fWj/vmYMW3sfyJU7YYJ3v
+         mgaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Skf2/gNNtgwptRtJ/UwLVwsmb+ROQ/bcLhOR1qrWhTuja0jH0zo6ohTiCFdcPO0Yedao1NraNJ7Th@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAnkZqXXQ8M/FKNI4pTounRY2n6mqO9ZZVNetSxgp7/7H+3kup
+	U2ar5KHWdVqh9NOquIfnnZ6c4Rl1gYf8qKwHiJsjLK3tvLOakyTswdLqrWgeZQn3NvRlEBWXBKC
+	o1mm+WntjM2cy5DjYHESfbC3jX9nuvBvaLFqdHAgBx4CagU2UOzVNaAHq0V8Ft35BLv/jRJ1N
+X-Gm-Gg: Acq92OGQuBZiJRZ6VO2A6abHEAmw9wVGr+Nthofzo9tN/5CmhlyYJN54tQqYLSKi1yU
+	esu+Gmd5V/UaVJjJTobvAFrhr9Q/LQGShsqiuRVP35ERXAT+ivNo+3m1Dc1qUxv+1D28xr0/Vaf
+	sEHuzgmXM4Ej6Rb1WJt0XKX7xgRLnfPSQFeNy/wOCsW/IwRTPRC4pe2nQ5K+snd47XV1VrrOALB
+	Q2JEp8qOdOPrh8LHvhsB1W0FUbw8qIeqfHLSA2+b1BaUWj8YoWHkJZITOcnSLGAlI+AyFJikxjw
+	YvJCh9/tE4aEoNmgPqCW8+IvzBBgjq0qkAlHbxmYG8T+mVNOh5Om1IA9MQqG3Wf/2sgvOViyG7e
+	z7TJ97Ebqst0nIL3XTw/SeYVHPWKO8cbRHWCO2zU2jV54Prrxe8RFybgtXdk5lojj/DvZAEVBru
+	i8OvnElsRYrynF+geJF8HlTWM=
+X-Received: by 2002:a17:90b:384b:b0:36b:5b82:4846 with SMTP id 98e67ed59e1d1-377a73e2c9cmr539083a91.5.1781147432855;
+        Wed, 10 Jun 2026 20:10:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:384b:b0:36b:5b82:4846 with SMTP id 98e67ed59e1d1-377a73e2c9cmr539052a91.5.1781147432287;
+        Wed, 10 Jun 2026 20:10:32 -0700 (PDT)
+Received: from [10.133.33.246] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3774f99cf24sm847549a91.0.2026.06.10.20.10.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Jun 2026 20:09:32 -0700 (PDT)
-Message-ID: <a3993db0-6975-455d-9674-4fd7cfcf80fc@gmail.com>
-Date: Thu, 11 Jun 2026 11:09:22 +0800
+        Wed, 10 Jun 2026 20:10:31 -0700 (PDT)
+Message-ID: <6df4c351-7287-4fb9-8af8-83b5deabfa07@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 11:10:25 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,137 +89,139 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/11] kdump: reduce vmcore size and capture time
-From: Wandun <chenwandun1@gmail.com>
-To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org,
- iommu@lists.linux.dev, zhaomeijing@lixiang.com, Rob Herring
- <robh@kernel.org>, saravanak@kernel.org, bhe@redhat.com, rppt@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- chenhuacai@kernel.org, kernel@xen0n.name
-Cc: catalin.marinas@arm.com, will@kernel.org, alex@ghiti.fr,
- akpm@linux-foundation.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com
-References: <20260527032917.3385849-1-chenwandun1@gmail.com>
- <7ed207fa-4c86-426a-8570-495902ce04c3@gmail.com>
+Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support for
+ subsystems
+To: Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, shengchao.guo@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
+ <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+ <ahBG6jKYdSAboWjs@linaro.org>
 Content-Language: en-US
-In-Reply-To: <7ed207fa-4c86-426a-8570-495902ce04c3@gmail.com>
+From: "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
+In-Reply-To: <ahBG6jKYdSAboWjs@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: Kbpy5ew8CoaCl7XCdCYFoNz7zIA7cn75
+X-Proofpoint-GUID: Kbpy5ew8CoaCl7XCdCYFoNz7zIA7cn75
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDAyOCBTYWx0ZWRfXwUxBX5zBsyDU
+ R13TbcgKmSXGPyjiGUzyR28oOQ86x0MDEQkXrgO24DkWVSF9XhLbN3dH8As0Tw8voG2EyXAGcsf
+ 89Pl41XVz01UJbowKnlpQs2R5wbfToJF8V49UWrnNWBgKjbf+ve+5rQMVv60T4eVwzcXG7PYgw/
+ 3Pa7Se4Wloav+zYMzMl5SzKymSaKhuE26XeT8s2Olk5tPd2OXIjNP6zqYqpnW4UPmvmVkapgojp
+ +JIV/h+Xf8wqYSw3LyuN2Gra6pWbWSwBtd5sYSPYMfHS7n3IQ88sn0smdW+ua2vOublcB6golNd
+ E2dxeJAKoxe05r+ufGngYB2ZhVTlxIyWZHU03JKUgtIYztzSj32OBScbT7w35JU4P2O/jy9ow4/
+ eMwWeB1lx7eeXgLjn9xTcz3DvAAT9+MxETqBqeuFldAYJxzKRGs4giMq9PZnTt3q4zfSGZn2gWo
+ 2nRouqLsDTRWXdSWMOw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDAyOCBTYWx0ZWRfX919ZiJr+vOXb
+ Qc+RLlkNTSPkvFxm7Lyd5VTTlu7R5HPqQ8itmgyCTmY/9U2fosuSyNbzq8Z5oHJbr9karcVmGT+
+ HyJJOTuEW/wFg+Xv7Ln0ToIL543Ssmo=
+X-Authority-Analysis: v=2.4 cv=Lf0MLDfi c=1 sm=1 tr=0 ts=6a2a2729 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=h3XtbvSS6J2BgG28aqoA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110028
 
-
-
-On 6/11/26 10:09, Wandun wrote:
+On 5/22/2026 8:07 PM, Stephan Gerhold wrote:
+> On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
+>> Subsystems can be brought out of reset by entities such as bootloaders.
+>> As the irq enablement could be later than subsystem bring up, the state
+>> of subsystem should be checked by reading SMP2P bits.
+>>
+>> A new qcom_pas_attach() function is introduced. if a crash state is
+>> detected for the subsystem, rproc_report_crash() is called. If the ready
+>> state is detected, it will be marked as "attached", otherwise it could
+>> be the early boot feature is not supported by other entities. In this
+>> case, the state will be marked as RPROC_OFFLINE so that the PAS driver
+>> can load the firmware and start the remoteproc.
+>>
+>> Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+>> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+>> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 > 
+> Unfortunately, removing the ping-pong functionality that was present in
+> previous patch versions makes the whole mechanism a lot more fragile.
+> I'm not entirely sure if this has changed in SMP2P v2 or more recent
+> firmware versions, but in my experience the SMP2P "ready" bit does not
+> tell you if the remoteproc is actually running. The problem is that the
+> "ready" bit is asserted by the remoteproc when the firmware is ready,
+> but it is not cleared when you shutdown or forcibly stop the remoteproc.
 > 
-> On 5/27/26 11:29, Wandun Chen wrote:
->> From: Wandun Chen <chenwandun@lixiang.com>
->>
->> On SoCs that carve out large firmware-owned reserved memory (GPU
->> firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
->> those carveouts as part of system RAM even though their contents are
->> firmware state that is not useful for kernel crash analysis.
->>
->> This series introduces an opt-in 'dumpable' flag [1] on struct
->> reserved_mem and uses it to filter the elfcorehdr PT_LOAD ranges on
->> DT-based architectures (arm64, riscv, loongarch). By default reserved
->> regions are treated as non-dumpable; CMA regions are explicitly opted
->> in because their pages are returned to the buddy allocator and may
->> carry key crash-analysis data.
->>
->> The series is organized as follows:
->> Patches 1-3: Pre-existing fixes and a small prep change.
->> Patches 4-5: Restructure to allow appending /memreserve/ entries.
->> Patches 6-7: Add a dumpable flag and append /memreserve/ entries.
->> Patch 8: Add generic kdump helpers.
->> Patches 9-11: Wire the helpers into arm64, riscv and loongarch kdump
->>                elfcorehdr preparation.
-> Hi,
+> If this is still the case, you can easily reproduce that with the
+> following test:
 > 
-> Gentle ping on this series.
+>  1. Start the system as usual and let it attach the remoteproc
+>  2. Manually stop the remoteproc in sysfs (echo stop > state)
+>  3. modprobe -r qcom_q6v5_pas
+>  4. modprobe qcom_q6v5_pas
+>  5. If the "ready" bit is still set, the driver will try attaching the
+>     remoteproc, but it's actually not running. No recovery will happen.
 > 
-> Status summary:
-> -patch 03: respun separately per Rob's suggestion, picked up for 7.2
-> -patch 06: Acked-by: Marek Szyprowski -patch 09: Acked-by: Will Deacon
-> The remaining patches (01, 02, 04, 05, 07, 08, 10, 11) are still
-> awaiting review. your feedback would be greately appreciated. I know we
-> are at the end of 7.1 -rc cycle, I don't want to rush this series, just
-> collecting more feedback, and will send next version based on 7.2-rc1.
-> If spliting the series into smaller logical group would make review
-> easier, please let me know. Best regards, Wandun
+> In this situation, it is very difficult to detect the correct remoteproc
+> state without relying on an additional query mechanism like the
+> ping-pong feature.
 
-Apologies for the formatting issue in my previous email.
-Here is the properly formatted version.
+This a valid use case and concern. We had a discussion with Bjorn, and
+want to take this scenario into consideration of the separate robustness
+improvement series[1].
+Stephan could you agree to have the basic function in this series can be
+go in firstly.
 
-Gentle ping on this series.
+[1]
+https://lore.kernel.org/all/20260519-rproc-attach-issue-v2-0-caa1eaf75081@oss.qualcomm.com/
 
-Status summary:
-- patch 03: respun separately per Rob's suggestion, picked up for 7.2
-- patch 06: Acked-by: Marek Szyprowski
-- patch 09: Acked-by: Will Deacon
-
-The remaining patches (01, 02, 04, 05, 07, 08, 10, 11) are still
-awaiting review. Your feedback would be greatly appreciated.
-
-I know we are at the end of 7.1-rc cycle, I don't want to rush this
-series, just collecting more feedback, and will send next version based
-on 7.2-rc1.
-
-If splitting the series into smaller logical groups would make review
-easier, please let me know.
-
-Best regards,
-Wandun
-
-
->>
->> v2 --> v3:
->> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.[2]
->> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
->> 3. Add some prepare patches.
->>
->> v1 --> v2:
->> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
->>     feedback [1], v2 drop that property and exclude reserve memory
->>     by default.
->> 2. Split some prepared patches from the original patches.
->> 3. Address coding-style comments on patch 5 from Rob.
->>
->> [1] https://lore.kernel.org/lkml/20260506144542.GA2072596-
->> robh@kernel.org/
->> [2] https://sashiko.dev/#/patchset/20260520091844.592753-1-
->> chenwandun%40lixiang.com?part=4
->>
->> Wandun Chen (11):
->>    of: reserved_mem: handle NULL name in of_reserved_mem_lookup()
->>    kexec/crash: provide crash_exclude_mem_range() stub when
->>      CONFIG_CRASH_DUMP=n
->>    of: reserved_mem: avoid post-init UAF when alloc_reserved_mem_array()
->>      fails
->>    of: reserved_mem: zero total_reserved_mem_cnt if no valid
->>      /reserved-memory entry
->>    of: reserved_mem: split alloc_reserved_mem_array() from
->>      fdt_scan_reserved_mem_late()
->>    of: reserved_mem: add dumpable flag to opt-in vmcore
->>    of: reserved_mem: save /memreserve/ entries into the reserved_mem
->>      array
->>    of: reserved_mem: add kdump helpers to exclude non-dumpable regions
->>    arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
->>    riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
->>    loongarch: kdump: exclude non-dumpable reserved memory regions from
->>      vmcore
->>
->>   arch/arm64/kernel/machine_kexec_file.c     |   6 ++
->>   arch/loongarch/kernel/machine_kexec_file.c |   6 ++
->>   arch/riscv/kernel/machine_kexec_file.c     |   4 +
->>   drivers/of/fdt.c                           |  11 +-
->>   drivers/of/of_private.h                    |   3 +
->>   drivers/of/of_reserved_mem.c               | 117 +++++++++++++++++++--
->>   include/linux/crash_core.h                 |   6 ++
->>   include/linux/of_reserved_mem.h            |  15 +++
->>   kernel/dma/contiguous.c                    |   1 +
->>   9 files changed, 157 insertions(+), 12 deletions(-)
->>
 > 
+> You can make it a bit more reliable if you also check the status of the
+> "stop-ack" bit. This would tell you if the remoteproc was cleanly
+> stopped with the SMP2P "stop" mechanism. However, that will typically
+> still not fix the case above since nowadays remoteprocs are typically
+> stopped via the QMI qcom_sysmon and the "stop-ack" is not set in that
+> case. I believe this might set the separate "shutdown-ack" bit though
+> that is described for some SoCs, I never finished testing that.
+> 
+> And even if you check both "stop-ack" and "shutdown-ack", that doesn't
+> tell you if the remoteproc was forcibly killed using
+> qcom_scm_pas_shutdown() without gracefully stopping it first. The ideal
+> solution would be querying the PAS API to tell us if the remoteproc is
+> actively running, but the last time I checked I was unfortunately not
+> able to find a documented call that would tell us that.
 
+It is a state currently kernel don't know whether the remoteproc is
+offline or crashed when ready==1 && error==0 && ping-pong==0 scenario.
+If it is re-modprob, the software don't have any data and only the
+firmware can tell us whether if it is active or not per my understanding.
+
+Maybe let's have this scenario and solution discussion in the other
+series I mentioned before.
+
+> 
+> Thanks,
+> Stephan
+
+
+-- 
+Thx and BRs,
+Aiqun(Maria) Yu
