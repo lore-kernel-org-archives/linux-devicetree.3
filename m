@@ -1,89 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D4625F7B9
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:26:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A59D25F7B9
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:27:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781148365; cv=none; b=lPy+msDdm1ZEJf+2sII2+90a1WVDD83KjI7kjgbkmU+DUiz6c6F6BL0UM/CjAZUSnI0KVdYFU6Htmiy7uoqjmaKoKCH3fhNplgNhk6/4DSfC5sk+nphuHYY4E1RmC5U84UuAiz/wL0JYFb/TKAvy+mMEmZsgy9AxSbGBC/SOF6A=
+	t=1781148428; cv=none; b=OYAWtupyLUp+UbflIH70ZsgcNLMaqHkncKBTg7wEv72N59FJCjG61zxwgtw+V2/u8CEZQuwtXRhkF1DbvjIYiY86wjjT51Rs2/KaiaVss0n4/nvKddHpa4m+zfjuUA9ffmzcEUNBU0Kqst7mfSW8/J59sfewFMhAOG86eHlEvhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781148365; c=relaxed/simple;
-	bh=vKdXiqNQUrTJnLPiZlwDDA3fAHSSAxJjB/aac4p3WgQ=;
+	s=arc-20240116; t=1781148428; c=relaxed/simple;
+	bh=+FHkDzp61GYnIcdniKJXOYzD12xnGU1cMbIwcQImUxI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ry4HjpYhtZFQaXoZx4RiZWXMbXtjdy7YD9Jp8WiZOoQo6bH1Jlrl32RAMnHgKW3TDG3vbk5DO/7jaZV0IsBF8mTJhbuDN6BDK0OoEngVrUm69BvCG1yS5kpmjVeB0S4dBU7Zby8FEAqT+CENg+TIJ1IwYWesZxgGep/5naHNzoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE3aSQ7/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=i5fwTBAnebOcN16yPF8EEiQ+i/jkvXBfl9UplGCWSvrElE14OImbCaJF5OEIdY1PSgC5OXvujGAXIUqUeLX79ZNoMXc6Ly1RkUMI2bXLjmAOCpA2FXbxkrCHFTxByABBYDTJIEbtsTnSYvFO6iSaZZeb6c3nOdlyUF0YHL9sNZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VTx2jRYn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE3aSQ7/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B04A1F00893;
-	Thu, 11 Jun 2026 03:26:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VTx2jRYn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776561F00893;
+	Thu, 11 Jun 2026 03:27:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781148364;
-	bh=bAEZv8DaeXD+3OFfBsUHm78w6UMq48pZfc+Q4lwwbDk=;
+	s=k20260515; t=1781148426;
+	bh=l+AE1NZq/8L2WT/KeT0tLP7v6CrJvxifmqEG+ZGHr1Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZE3aSQ7/tfiw54lc22qEhFc1YHf2VX1S7C9woqr4VS8+fGUjeK36eN9cDq20DJahG
-	 51L9no6f2N4lzGgVTF6BWCR9AL5VpvsTJEhOO+SVIQ7P/BPZl/W58v98m4RM5od4Q7
-	 Mqqn0dBTOzEoIuqt0SF03tOhSzEJ2uhcTxWi31CO9XYoItXCrqqMkAv3HQPTVlWlE9
-	 is93O3hXEa07PMpwLUh1+8O14tUJWhTEof8HQ//1REVM20yuqIjnDPufK9CzDoJ7Vg
-	 9CljRTI8dERbe2iGUJ9xNdSsxhp4uV5kSku1W5OmY748srJvfOi9lzt2GMBlrhOPIk
-	 /2YtptCfHOSRw==
+	b=VTx2jRYnRKvaxvOH21V3WcBrnlpTRXxHlmXYIkgpDzOzHJRYKAlD9y+H2DcmqGsgT
+	 iDhpe2IpRi6FWQEdBaPU52rjk38gLnoEUzLLCAL2jpNqx4/MlCAvoqyP9FkMW0wdH+
+	 9+lXfJOhedLZjxXMwRIpmbgT+dFH9h1qLwQUb64UcTvO6Abs3b2ZLvrelIbW3x7rau
+	 X9iODWmcW/gXukM8mdrY20AUxp3Hkiq1P6qaR8CNHzmINUKM4F1Z6tcNHNI41sBtZo
+	 xQdWEZu51ZkeiY9C9VU/wwq4cNeZTuuwxkByGQ7ScnuKgngtZbowC5ocWsrvAJpBB3
+	 cXO4Nlfhn9nwA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 5/7] ASoC: codecs: ES8389: Modify the initial
- configuration
+Subject: Re: [PATCH v1 4/7] ASoC: codecs: ES8389: Modify the clock table
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260611031824.4628-6-zhangyi@everest-semi.com>
-References: <20260611031824.4628-6-zhangyi@everest-semi.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260611031824.4628-5-zhangyi@everest-semi.com>
+References: <20260611031824.4628-5-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 03:26:03 +0000
-Message-Id: <20260611032604.3B04A1F00893@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 03:27:06 +0000
+Message-Id: <20260611032706.776561F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The return values of multiple `regmap_read()` calls are ignored, l=
-eading to the use of uninitialized stack variables.
+- [High] Flawed clock coefficient matching logic makes `dmic_sel =3D 0` and=
+ `dvdd_vol =3D 0` act as wildcards, leading to incorrect hardware configura=
+tion and dead code.
+- [High] Unchecked `regmap_read()` return value leads to the use of uniniti=
+alized stack memory for hardware configuration.
 --
 
-commit eeca5823fe9bef5ffe179596ec0a3aab2d9ba07a
+commit b24373f65176191e8456a8034960817f67429760
 Author: Zhang Yi <zhangyi@everest-semi.com>
 
-ASoC: codecs: ES8389: Modify the initial configuration
+ASoC: codecs: ES8389: Modify the clock table
 
-Modify the initial configuration.
+Updated the configuration for certain frequencies
+If get_coeff does not find a value that matches the condition, return -EINV=
+AL
 
 > diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 647d9d62820e6..284eb707f9f7f 100644
+> index 886069be1535f..647d9d62820e6 100644
 > --- a/sound/soc/codecs/es8389.c
 > +++ b/sound/soc/codecs/es8389.c
-> @@ -793,7 +793,7 @@ static void es8389_init(struct snd_soc_component *com=
-ponent)
-> =20
->  	regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
->  	es8389->version =3D reg;
+[ ... ]
+> @@ -434,52 +434,54 @@ static const struct _coeff_div  coeff_div[] =3D {
+[ ... ]
+>  	{256, 24576000, 96000, 0x00, 0x40, 0x00, 0xC0, 0x10, 0xC1, 0x80, 0xC0, =
+0x00, 0x9F, 0x7F, 0xBF, 0xC0, 0x7F, 0x7F, 0x80, 0x12, 0xC0, 0x35, 0x91, 0x2=
+8, 2, 2},
+>  	{128, 24576000, 192000, 0x00, 0x50, 0x00, 0xC0, 0x18, 0xC1, 0x81, 0xC0,=
+ 0x00, 0x8F, 0x7F, 0xBF, 0xC0, 0x3F, 0x7F, 0x80, 0x12, 0xC0, 0x3F, 0xF9, 0x=
+3F, 2, 2},
+> +	{64, 12288000, 192000, 0x00, 0x41, 0x00, 0xC0, 0x18, 0xC1, 0x80, 0x00, =
+0x00, 0x8F, 0x7F, 0xEF, 0xC0, 0x7F, 0x7F, 0x80, 0x12, 0xC0, 0x3F, 0xF9, 0x3=
+F, 1, 0},
 
 [Severity: High]
-This isn't a bug introduced by this patch, but I noticed the return value of
-regmap_read() is ignored here. If the read fails, 'reg' will remain
-uninitialized, and es8389->version will be corrupted with stack garbage.
+This is a pre-existing issue, but will the wildcard matching logic in
+get_coeff() cause this new entry to match incorrectly?
 
-Could this also cause unpredictable behavior in other parts of the driver?
-Similar unchecked regmap_read() calls seem to exist in:
-- es8389_pcm_hw_params() (corrupting dmic_enable)
-- es8389_mute() (triggering spurious state changes)
-- es8389_resume() (potentially triggering es8389_init() erroneously)
+In get_coeff(), the wildcard logic uses modulo 2:
 
-> -	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x00);
-> +	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x56);
->  	regmap_write(es8389->regmap, ES8389_RESET, 0x7E);
+    dmic_det |=3D ~(coeff_div[i].dmic_sel % 2) & 0x01;
+
+For dmic_sel =3D 0, 0 % 2 =3D=3D 0, which forces dmic_det to 1 regardless o=
+f the
+requested dmic state. This makes 0 behave exactly like the 2 wildcard. As a
+result, entries intending to strictly match dmic =3D 0 (such as this newly
+added entry) will incorrectly match any DMIC state.
+
+Could this also cause existing entries like `{... 2, 0}` to mask subsequent
+`{... 2, 1}` entries, resulting in unreachable dead code and incorrect
+hardware coefficients being applied?
+
+>  };
+> =20
+>  static inline int get_coeff(u8 vddd, u8 dmic, int mclk, int rate)
+[ ... ]
+> @@ -657,7 +659,8 @@ static int es8389_pcm_hw_params(struct snd_pcm_substr=
+eam *substream,
+>  		regmap_write(es8389->regmap, ES8389_SYSTEM18, coeff_div[coeff].Reg0x18=
+);
+>  		regmap_write(es8389->regmap, ES8389_SYSTEM19, coeff_div[coeff].Reg0x19=
+);
+>  	} else {
+> -		dev_warn(component->dev, "Clock coefficients do not match");
+> +		dev_err(component->dev, "Clock coefficients do not match");
+> +		return -EINVAL;
+
+[Severity: High]
+This is a pre-existing issue, but could the lack of error checking on
+regmap_read() lead to the use of uninitialized stack memory for hardware
+configuration?
+
+Earlier in es8389_pcm_hw_params(), the driver calls regmap_read() without
+validating its return value:
+
+    regmap_read(es8389->regmap, ES8389_DMIC_EN, &regv);
+    dmic_enable =3D regv >> 7 & 0x01;
+
+If the underlying communication fails, the local variable regv remains
+uninitialized. This stack memory is then immediately evaluated when selecti=
+ng
+coefficients. Could this cause the driver to select and apply random,
+non-deterministic clock coefficients to the hardware?
+
+>  	}
+> =20
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611031824.4628=
--1-zhangyi@everest-semi.com?part=3D5
+-1-zhangyi@everest-semi.com?part=3D4
