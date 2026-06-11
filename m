@@ -1,82 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A6E37B018
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45463E44F1
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781177409; cv=none; b=ECRXvSc7EJl887/H3vMwaX/HWfespuKZ8jc1yj8X0pRoBt6EZPivSP3QEQZOnZ5Ik9LVJKhtTbViFyGX/y8nxVq26AiFA0rmtBIcX9yS/WHfuU6dtA8JHS1GJLe5SdEkFA1mU11nBeBxN+TyUUouswsmC0vOL1vH0gEzHx4/Bq0=
+	t=1781177415; cv=none; b=nyydwjp5jXJhCDSYsHfLYjW/b20zuf/8TGvc6BwlukqmeStj8rPklzc4X7HCcGSRT0w7FSj+nIvJbinrzMXy0o14/prGqlaJn3SVQbbq3Mmy2UAjLeiDII9scHvSd4JRp5UteDrDqBVjuAPzwfxNzoiMXnBhIropVzImA73e7eM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781177409; c=relaxed/simple;
-	bh=DFBGBI+Fb4TWrbyw8ZhZzKweTDZK+wYo6QnsOwCN+0Q=;
+	s=arc-20240116; t=1781177415; c=relaxed/simple;
+	bh=JxydoAK4c/x7mitXawfZI4XQhQgJPPm7W+ijBGuaEZI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TQFrCt81l7YnWEh1NTJRD9UPsaoVJP2mAsjRcCJvUgk7F/togjsOWxMbUTSITuODGt5wfTaBQhlWP7njFZUJQlQ/I3XghqJKBZggUFi+CCagQKtD30jnAI3olgaR3+5EInTH08naPwFoQ+t+ok/ttuq3QJ8YeQibFmkYmAKBgQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KDW/fS+C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dFG1qcpS; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=nJsqgeoDeXpfYUsWigkgsinTCnjba3wTZQ5XH6iUGu7JmEkoCbOnsW0Axg1UfZrpFFkKJvF2UhfM5nNtlfrqIlU9FNsJXbIkqmhp6Jb4g3nAv9IEodjtY0twAjqNELq1QMUyx0smmYW2H9JWKOHsuf5dGio2KMRx7jRUFrLGjgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SoWBbeX8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JKRWQjZG; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KDW/fS+C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dFG1qcpS"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B9xBMI263553
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:30:08 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SoWBbeX8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JKRWQjZG"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B9x5QW267506
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:30:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=VwDoNWR3cgc
-	GYWF1y/EBG7TuspUZSqg9iMmNPihXvNs=; b=KDW/fS+C5icZv8KjpUzm/iddFJQ
-	VHXCmCrIXb2+5myqa/5XfktpZoaAtWKEiIbPq1Bdm0nTg9X3IZNL+uxMR0U0HX/U
-	SWckIWBn6P+iEz6sLAe3XcueGqjRRBAX0/pV1qTCuiLsocAzX11m3v37yLucE3gD
-	kjsxtFAyFCe6bJ6FmYcdvEWuT8FHSBMPcY4nz5F4RQyC5iJPWHo0EtczrEJItII/
-	iHLsa4EjHqLeHMWO5IMm7EXTj2pGvwlmcBXq+d24reEibbwDH7NQINfHm6bI+UP5
-	pmlc8oMGDB9Aj7dLkPx0qhUj2SxfFAtzYusR1/DdJGSzrlJJy6qEeQ34QRg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6uu52a-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=2ymPIOvipeO
+	RT0yrOudYUfCdj8iM0kkI2XFwKKa8BQo=; b=SoWBbeX8lbujDAgZ74I0WDKQdVT
+	hDSAFKQvm73YPrcLsecCpb+hDv4OBE0hKMf6GXlAHjY32J/Odq2mMfQKlBenzL8b
+	wYMUP1yFXCpXlOXykaiQ+7JW45ErwyJsxYofMMsj6oq8+JFZNrtd6vnO9dZ3GEaZ
+	haIginipou/bYdZBAkLq/lix3DzMZxZuqLkbEmKNXygwY5JJaogxUimsLVaU0DF3
+	dbTkpOyIMrW/2n0RVcsWwJ5qOKr1G3qmCkL6pwf2l2coTo42zzIrY2SkMJ3zXsiO
+	yiM3gnZd1u/9VqbipePGHsspKmSPx2c9CLh/GEgOm/KV6zVjZzO9Q+AHO0w==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6u35b2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:30:08 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84233efcaadso5317084b3a.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:30:08 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:30:13 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8428384f31fso5707014b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781177408; x=1781782208; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781177412; x=1781782212; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VwDoNWR3cgcGYWF1y/EBG7TuspUZSqg9iMmNPihXvNs=;
-        b=dFG1qcpS2cEjoCqwMn9uTxRkc2plmV88JCeQaV27/Ek32UARQnq0w/zPTRexbJ8VNe
-         NZy52SUrG/nK664SY+avM64cuy+Kvn53Erte5OlYqY8wbYlw6PkVGWUqKv9XeURoc2VL
-         JQJrf0zb9itWmBWC2F8JkE7QE58/xwAh9a+O3l6beyd65f0cJojmf4YM7m8+dVB8OURx
-         cd1nV499qhkwq6GYXRJUn6zOQX3Uu5YHQHiCvvIRNHKAA7rwZbq+YcAjpK+NXEZe96ZH
-         Y96PKTJPCiixfZH6f8jERemEsI6l2LzaiNkVwTp0EKsG/CFEdz5vObpiRbBe5zp7R82Y
-         W+Hw==
+        bh=2ymPIOvipeORT0yrOudYUfCdj8iM0kkI2XFwKKa8BQo=;
+        b=JKRWQjZGPqTro066yQQBPv00x9Lmteua5+5oJqPy+JylxJPR1+yXbZH9x+mRRdxQjP
+         vV2Mk4NfaHR8GehyQvKVEg8o5txUDh7tcYbfWDwt4ccsTS2Gl21ZuO1CsVX0yls3MNyM
+         5UMyX4N8+IpN0NMWpjroElBdXJyZ+PEtzIpTlk8lC+7GKKs+ICdj1lMWkT5b4ZmE6SLQ
+         RfBpIpRgNn3joDMdybUwPUWqhskNGPEGNWkDVDAaZfatrv4dTLlirVpfWouJx9on7wik
+         +QS8kZD304MgT+RL5Ed+eJyIHGq97vSnzbjs2TFJu6aYiZsQxTlTSCrHaDkkByILRTQ8
+         DxFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781177408; x=1781782208;
+        d=1e100.net; s=20251104; t=1781177412; x=1781782212;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=VwDoNWR3cgcGYWF1y/EBG7TuspUZSqg9iMmNPihXvNs=;
-        b=AW4kWRiD/AgXZfXLKznGvkx0EYdKuuevqrFANqv5BfNhxYEs1sA+fZqtHUoyuXfjnj
-         kZRFdTwTkkpYdTWI0p0O2PwivIfIZhtipHgG1kjNhpqnn+zQzxH73K6FSmzQZ71Rk2Y2
-         zXriW7LDTXXUuhJDjfMTgNqlMSUSPKQIMKDLRaeXV25suIn/AaS2/SPoWsaxbvHtvXhI
-         ZTohePIjudT1EUY/DTAYan87RbKidam80WXK4vM5gthZjiyaRjfuFwFTUMjqSujpVuzt
-         X2S92iA/TQRd1zFL1SHwuRUdPdBSBhkcwpLQnQXJx8/kOUaUppYW0cFxenJdPmWz8Q+D
-         Jm1w==
-X-Forwarded-Encrypted: i=1; AFNElJ9HAopS/D9ZKC1r+CZ32/A4jr6NUNpESACuv6tbyuTasopHXOCzV7pVVykK8xyuT87T86FmuyxolzRG@vger.kernel.org
-X-Gm-Message-State: AOJu0YyixUthc4cwlerS26e5+8eA76Aoui4wNeJeUW/FdgyvimY7rOHW
-	NG4lkAVO7vvhaEu0GOb1bGPtbDs9PncaAFPse4iLxbz3/y98MRbcduqmKXsA9VrY07pHG9CosQy
-	x6MdWyL//mDWsAm5nNE2GcUXd/m1LRawoNr0PSbeh4ISh+wvl3RAGVxKVSlErZOvT
-X-Gm-Gg: Acq92OG8ueY9j/Lx2c0/2E3s6quqq4UfS0lQuppm5l9aThfUUtNqTYXK4qmA7VKW+6a
-	p0czBctdI6Da5/hzG33XPTvteo2YqQFkvIsW3Y1ettyk4iSsAQUTUT/MsU0BckjGlacubSH5DLR
-	bBv7YN5/k9UFETDPtBpQ8t0t677mRdgFpAg6DLiX2ZJuLJVAEYUWLLGPpzj9RsMwCG1ykEup9Mb
-	m8RL+gPKS/4bTf9HWhwVRDASyCWZSf5f98z/3xgugq/pJRxixklwIDMZS4zLS4rAUydb+uEB9J/
-	+ie+RrIQ/cD+oVL/tqwuvc2pD+aA7RFA5HU54mVOFEJlKIqigmMx+9x1wVc0y40FmLLqm+YJBZ7
-	mVV4IXOkhdKOMlnG8aRtvY/g5Zm1JE35xhO4C8fTxVQ61R9wIM3sNuZNXnmWv
-X-Received: by 2002:a05:6a00:170c:b0:834:e5a2:d089 with SMTP id d2e1a72fcca58-84336aa0882mr2718006b3a.33.1781177407356;
-        Thu, 11 Jun 2026 04:30:07 -0700 (PDT)
-X-Received: by 2002:a05:6a00:170c:b0:834:e5a2:d089 with SMTP id d2e1a72fcca58-84336aa0882mr2717963b3a.33.1781177406887;
-        Thu, 11 Jun 2026 04:30:06 -0700 (PDT)
+        bh=2ymPIOvipeORT0yrOudYUfCdj8iM0kkI2XFwKKa8BQo=;
+        b=N9u6RApzcVKGBjhsWGbrNxCguDyoh1psb8m4+mXnB09P92lhP62kGVZMVZINupaeIt
+         7dlY0UvDpNo8sDKl0hABNKyMmIN5Tf21gOyuu11czeyWCdH0eJUC71IJHtFLYA+Zdnuq
+         PDh+iC8HlVOR8YPGRXVf7YhiaQJRXJv9Vd3YkjFPq9ZkonUCOwsvO295NwlhRcR06wij
+         27S30HD6LLLwNT7M4NsPr2r6nlau/q57S4SjsgPMUqssB0MYg4TKGqsferOEDwt8njOE
+         F/x/4K+kFx48A13stC2mU5Gxyc19XgsrbCO4meVvWyf7hWDhNjk5PjHTcP8fjIfMgCV/
+         Qx6g==
+X-Forwarded-Encrypted: i=1; AFNElJ+M3yWj9SdIRHlrfmnuvZ/2nu3jnSQVEnaMgxLkfxusyZRUUFnqmkkk/8t4+3+sI0InaZ9Zjo/q6suW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6UR2KBF3BRzPNAoAtlaHG3FDcQMFrGTEBMLmPoX20Ppw4TCv6
+	GcP3BW0pwctn3PH+BJxWMqt3HpIuoPN28bDdbEcxinXWsRediozA6igd1pVDzBndOd9AkporxMF
+	n4I07NMLJAL7wRBn1AXMDVMMxeSCOGhirIsO1XMDKw5AIHSxTQY6RJrk/B3FbLlN922fddptz
+X-Gm-Gg: Acq92OEfWOdoSP9ZRUnRU86hzBNPkXgMSivKrn3V3TITuPdZoQY+DnCWOQqLzrQaQuh
+	xdghZaTVyhpCqEu0OVS9QwNyc7MkiJWNwxxhISoZMUf8ClL61nT3yzpCwohxFuVGbuVjd+GvszI
+	OVEj/g5cVVEXnWu0t3rcjgY99Ew94LR9ZHVwbflqG32Zebd3Sg0OjCe0uwYW0oJHsvu9b1AWpPr
+	rWOI1PNXiLdaI7Ei9AlK/HsR4YOdwvl5PWJVB/67Lpdofcn2oGRRdxk4tUG7s7HEfOzWKxqfuWW
+	+6r6ufMsDyEAFAFetoxEtiUu5bx7p/wwloLE4sydcYvGo7vNyyJcpNNTmERUvyZcloYxZbVEkzI
+	VjskZ8CXslmkYszWoA91cyybvOg4p8yDuv1abXvAUJIwuDsani/2spoj6Obll
+X-Received: by 2002:a05:6a00:3e0d:b0:842:5bf3:c53c with SMTP id d2e1a72fcca58-843367eb6e4mr2783311b3a.2.1781177411949;
+        Thu, 11 Jun 2026 04:30:11 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3e0d:b0:842:5bf3:c53c with SMTP id d2e1a72fcca58-843367eb6e4mr2783265b3a.2.1781177411306;
+        Thu, 11 Jun 2026 04:30:11 -0700 (PDT)
 Received: from hu-nandam-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84337b8fcdesm1837301b3a.9.2026.06.11.04.30.03
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84337b8fcdesm1837301b3a.9.2026.06.11.04.30.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 04:30:06 -0700 (PDT)
+        Thu, 11 Jun 2026 04:30:10 -0700 (PDT)
 From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
         Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -87,9 +87,9 @@ Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         ajay.nandam@oss.qualcomm.com,
         Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: [PATCH v1 1/2] ASoC: dt-bindings: qcom,sm8250: add Shikra sound card compatibles
-Date: Thu, 11 Jun 2026 16:59:45 +0530
-Message-Id: <20260611112946.954172-2-ajay.nandam@oss.qualcomm.com>
+Subject: [PATCH v1 2/2] ASoC: qcom: sc8280xp: add Shikra EVK machine variants
+Date: Thu, 11 Jun 2026 16:59:46 +0530
+Message-Id: <20260611112946.954172-3-ajay.nandam@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260611112946.954172-1-ajay.nandam@oss.qualcomm.com>
 References: <20260611112946.954172-1-ajay.nandam@oss.qualcomm.com>
@@ -100,65 +100,211 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=FJ8rAeos c=1 sm=1 tr=0 ts=6a2a9c40 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: p38xcxP04djm0-P_eF0honQPgnrW7eYv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDExNSBTYWx0ZWRfX42DPdrYoWUkF
+ r7NZJz18Q5OYc9+DECiAjGG4zbNNZiP2mI4shG2f8ZY0WJYrBZBPJKODHWrhzuHTrzpNAT5gG8P
+ ilcoAUd1mKEVtsqa54Zt3sPez1I/geA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDExNSBTYWx0ZWRfX41hiHXld4CVJ
+ ZBbqbWtKseJZAECfzB0DmUZC0lMpI3DnUYB/EpQIr/hvOAS4zsK0d64cVrgnwOSXrOE5CPEAmEM
+ 6s7Mozg8o7Floq+CmF6mmPWGESlyyiGMYQceGH5dEV4GWYDDSBBl6l/tfsJ+gSQ81uk1VTeWdoI
+ 3fVIeP5RFES3xNufGNMUCHnp/GKzNbV1nOzaziUSA3Ge4l1O8wWs1FcwvA8NaLP0fo/qGNHM7V+
+ CKlTfqqGikmLMewblIoBBTfV2jDiZUZnLLG4q3hnZVeTQPJs+f9TVXoZjp/6hJFwzl1s4bXLTub
+ t4m+mssn+7/RJGIQLIbwe7DEcqDzJ2Lce3hOnBQUAqgMYXnqo5nDGyc9Drfzaj1D8bf57wupiK5
+ wUZznmyWLzGICg2V2lTj1EnHXCZq+V2cAP3ofu3w5EHorCNy+WCELRVhdq/61IuC0xvqLeXFHus
+ 0ZIvLBl8VgSyQ6xlEdA==
+X-Authority-Analysis: v=2.4 cv=F5lnsKhN c=1 sm=1 tr=0 ts=6a2a9c45 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=IO9S6bmGf6N6HOI-BKEA:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDExNSBTYWx0ZWRfX3u+zMhv46WL7
- tHW5jhsodX7Hc/eE9xj35CyV7uJ0u6c9lSIbHUucP+xaGvDjs6zwJRfYtX3qb4m+omfyuaiXbhT
- sTlCoHJg1F1fH1S8MXF2DP3hrnLJZzk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDExNSBTYWx0ZWRfX6e0J0Yh/EGJw
- xxC11nkBvOL1Rh/zl6hHEqIqJkBxet+T9SmbUSUaXSDckDraCyh0RcyWC5JlOCzUqJ3ov29Hr4L
- Hvakk2hZqKM4lDPymhwYt0HQk2hebELnhIhjpLHA7u+bhu+xwADKK3xNaDpVGenVyOUuFuJ1+ej
- ShqkA9z+lkEpj6IzVtqNuqrV25fymkheL3p0sPSqfCoPTOYnkHbhyjnS+27pXgiC3YaL3iJZVP3
- 1DHfDpuSN6Zz9yFePkL10E7YO8Iz4lePcW9rIhDnhcjr6scli7rMVFh0n5f8447oMu+CTuoy3V5
- uy1Z4DzpPazGgbbj9XHV5q/RhON7rWg+xuP0XJkvZ62Qfc8HLLS42QIhKqi4n97NQ2znzoiHaB3
- O5uXe0rLgpJwTqtbAbM4sBmGP1S1jpxwr2/4NVD5fFV+pO/F0ZIhP9izBy+QYVAk4iZLEE3mSwW
- MUFq58mkEQ/81ymeTxw==
-X-Proofpoint-GUID: mfN9lGEhtq1BVS4BWiwr8l4DHNZS82VJ
-X-Proofpoint-ORIG-GUID: mfN9lGEhtq1BVS4BWiwr8l4DHNZS82VJ
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=t_tmAbmC07WJz_vCYN0A:9 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: p38xcxP04djm0-P_eF0honQPgnrW7eYv
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_02,2026-06-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 suspectscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110115
 
-Add Shikra sound-card compatible strings to the Qualcomm sound card
-binding so DT can describe board-specific audio topologies:
+Add machine-driver support for Qualcomm Shikra EVK variants by matching
+dedicated compatible strings and applying board-specific audio behavior.
 
-- qcom,shikra-cqm-sndcard
-- qcom,shikra-cqs-sndcard
-- qcom,shikra-iqs-sndcard
+Shikra platforms are available as CQM, CQS, and IQS variants with
+different audio components and processing architectures:
 
-Shikra EVK variants use different codec/interface combinations and DSP
-processing paths. Describing these variants explicitly in DT allows the
-machine driver to select the correct DAPM routes, controls, and clocking
-behavior for each board.
+- CQM/CQS use an I2S-based path with WSA885x amplifiers and
+  PM4125 + Rouleur codec components.
+- CQM runs in DSP-bypass mode, where the complete audio pipeline runs
+  on CPU only and no DSP is involved.
+- CQS uses modem-DSP based audio processing.
+- IQS uses a third-party MAX98091 codec with modem-DSP support.
+
+Introduce variant-specific handling so codec controls, DAPM widgets, and
+clock programming match the board design and avoid invalid clock setup on
+variants where it is not applicable.
 
 Co-developed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/qcom/common.c   |  2 ++
+ sound/soc/qcom/sc8280xp.c | 58 +++++++++++++++++++++++++++++++++++++--
+ sound/soc/qcom/sdw.c      |  3 ++
+ 3 files changed, 61 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 15f38622b..c5c7284bf 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -45,6 +45,9 @@ properties:
-           - qcom,sc7180-qdsp6-sndcard
-           - qcom,sc8280xp-sndcard
-           - qcom,sdm845-sndcard
-+          - qcom,shikra-cqm-sndcard
-+          - qcom,shikra-cqs-sndcard
-+          - qcom,shikra-iqs-sndcard
-           - qcom,sm8250-sndcard
-           - qcom,sm8450-sndcard
-           - qcom,x1e80100-sndcard
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index f42c98ded..32d6c09b2 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -3,6 +3,7 @@
+ // Copyright (c) 2018, The Linux Foundation. All rights reserved.
+ 
+ #include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,qaif.h>
+ #include <linux/module.h>
+ #include <sound/jack.h>
+ #include <linux/input-event-codes.h>
+@@ -430,6 +431,7 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 	}
+ 
+ 	switch (cpu_dai->id) {
++	case QAIF_CDC_DMA_RX0:
+ 	case TX_CODEC_DMA_TX_0:
+ 	case TX_CODEC_DMA_TX_1:
+ 	case TX_CODEC_DMA_TX_2:
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index e5d23e244..4c985f81c 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -37,6 +37,25 @@ static struct snd_soc_dapm_widget sc8280xp_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SPK("DP7 Jack", NULL),
+ };
+ 
++static struct snd_soc_dapm_widget shikra_cqm_dapm_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Mic Jack", NULL),
++};
++
++static const struct snd_soc_dapm_widget shikra_iqs_dapm_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MIC("Int Mic", NULL),
++	SND_SOC_DAPM_SPK("Speaker", NULL),
++};
++
++static const struct snd_kcontrol_new shikra_iqs_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++	SOC_DAPM_PIN_SWITCH("Headphone"),
++	SOC_DAPM_PIN_SWITCH("Int Mic"),
++	SOC_DAPM_PIN_SWITCH("Speaker"),
++};
++
+ struct snd_soc_common {
+ 	const char *driver_name;
+ 	const struct snd_soc_dapm_widget *dapm_widgets;
+@@ -49,6 +68,7 @@ struct snd_soc_common {
+ 	bool codec_sysclk_set;
+ 	bool mi2s_mclk_enable;
+ 	bool mi2s_bclk_enable;
++	bool dsp_bypass;
+ };
+ 
+ struct sc8280xp_snd_data {
+@@ -219,6 +239,10 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
+ 	int mclk_freq = sc8280xp_get_mclk_freq(params);
+ 	int bclk_freq = sc8280xp_get_bclk_freq(params);
+ 
++    /* Skip DSP configuration when operating in CPU-only (bypass) mode */
++	if (data->snd_soc_common_priv->dsp_bypass)
++		return 0;
++
+ 	switch (cpu_dai->id) {
+ 	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
+ 	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
+@@ -239,7 +263,7 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
+ 					       SND_SOC_CLOCK_IN);
+ 
+ 		if (data->snd_soc_common_priv->codec_sysclk_set)
+-			snd_soc_dai_set_sysclk(cpu_dai,
++			snd_soc_dai_set_sysclk(codec_dai,
+ 					       0, mclk_freq,
+ 					       SND_SOC_CLOCK_IN);
+ 		break;
+@@ -284,7 +308,7 @@ static void sc8280xp_add_be_ops(struct snd_soc_card *card)
+ 	int i;
+ 
+ 	for_each_card_prelinks(card, i, link) {
+-		if (link->no_pcm == 1) {
++		if (link->no_pcm == 1 || link->num_codecs > 0) {
+ 			link->init = sc8280xp_snd_init;
+ 			link->be_hw_params_fixup = sc8280xp_be_hw_params_fixup;
+ 			link->ops = &sc8280xp_be_ops;
+@@ -375,6 +399,33 @@ static struct snd_soc_common sc8280xp_priv_data = {
+ 	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
+ };
+ 
++static const struct snd_soc_common shikra_cqm_priv_data = {
++	.driver_name = "shikra",
++	.dapm_widgets = shikra_cqm_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(shikra_cqm_dapm_widgets),
++	.dsp_bypass = true,
++};
++
++static const struct snd_soc_common shikra_cqs_priv_data = {
++	.driver_name = "shikra",
++	.dapm_widgets = shikra_cqm_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(shikra_cqm_dapm_widgets),
++	.mi2s_bclk_enable = true,
++	.codec_sysclk_set = true,
++};
++
++static const struct snd_soc_common shikra_iqs_priv_data = {
++	.driver_name = "shikra",
++	.dapm_widgets = shikra_iqs_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(shikra_iqs_dapm_widgets),
++	.controls = shikra_iqs_controls,
++	.num_controls = ARRAY_SIZE(shikra_iqs_controls),
++	.codec_dai_fmt = SND_SOC_DAIFMT_CBP_CFP |
++			 SND_SOC_DAIFMT_NB_NF |
++			 SND_SOC_DAIFMT_I2S,
++	.codec_sysclk_set = true,
++	.mi2s_bclk_enable = true,
++};
++
+ static struct snd_soc_common sm8450_priv_data = {
+ 	.driver_name = "sm8450",
+ 	.dapm_widgets = sc8280xp_dapm_widgets,
+@@ -408,6 +459,9 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
+ 	{.compatible = "qcom,qcs9075-sndcard", .data = &qcs9100_priv_data},
+ 	{.compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data},
+ 	{.compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_priv_data},
++	{.compatible = "qcom,shikra-cqm-sndcard", .data = &shikra_cqm_priv_data},
++	{.compatible = "qcom,shikra-cqs-sndcard", .data = &shikra_cqs_priv_data},
++	{.compatible = "qcom,shikra-iqs-sndcard", .data = &shikra_iqs_priv_data},
+ 	{.compatible = "qcom,sm8450-sndcard", .data = &sm8450_priv_data},
+ 	{.compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data},
+ 	{.compatible = "qcom,sm8650-sndcard", .data = &sm8650_priv_data},
+diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
+index 6576b47a4..0be743cec 100644
+--- a/sound/soc/qcom/sdw.c
++++ b/sound/soc/qcom/sdw.c
+@@ -4,6 +4,7 @@
+ 
+ #include <dt-bindings/sound/qcom,lpass.h>
+ #include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,qaif.h>
+ #include <linux/module.h>
+ #include <sound/soc.h>
+ #include "sdw.h"
+@@ -41,6 +42,8 @@ static bool qcom_snd_is_sdw_dai(int id)
+ 	switch (id) {
+ 	case LPASS_CDC_DMA_TX3:
+ 	case LPASS_CDC_DMA_RX0:
++	case QAIF_CDC_DMA_VA_TX0:
++	case QAIF_CDC_DMA_RX0:
+ 		return true;
+ 	default:
+ 		break;
 -- 
 2.34.1
