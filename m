@@ -1,82 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905A63DCD87;
-	Thu, 11 Jun 2026 13:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49313ACA4D;
+	Thu, 11 Jun 2026 14:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781186200; cv=none; b=PpQI2wCqx81zMvoV8QxmaBh2+AzNCuvL9vrG8yVTyjRKHidF0W+EylOnXU/5x+U/9b5Dcf7c3F4iIhtmd32OqqBoBYJ5moKnR00sWJEJ0TkIOuFgkfhYso7E2ZRJEASVJocGhsslQoIKAiTkKSMnmjrCWvdGVsibUu0iTgc/fqo=
+	t=1781186478; cv=none; b=d18oXLtKVH/K/Je9ipIrlJZRtuj+2TuSFUEnTcCms0NZbmbxTKrOmcBYVmifDWuDQ7HOv8/dYhITXARW2MWYy36PjEz4AfgMyeBWi5mP71kbYcj74WKQgqgAN/cKEZEnP7yhNA8OAJtU5rbLzzpAcB7gAxKry36oHStt0iu0OYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781186200; c=relaxed/simple;
-	bh=JAE5ZVkLHEfGEU64Jj1x/kDtLKxcTsw5P5qF0V67EFk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cLcrO9PbJcveBR8Qz7gGWvNY4loxqYSxtiGgf2yUj6ZXiTRq5gVuYNahDdPsmGtxKA/I9oGxczufUJb68wAlMZCGtYwXAmmM9+JkSwBRDNIVup3aSGF3BzycuShJQPfF1PfMdeQY+xMALqxRcSSXD8Cgo4NY+PxadaVWGC4De38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwftpBK5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781186478; c=relaxed/simple;
+	bh=n4ULx6DpD9LTgzFht1l1c+bH5Mk3FOccOpCCMuh4K88=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UmKtQ7t/ztsvW4k9R2DyqcaCsrksQlYbb4vULONE1dWFFm2yavAGFCTIH5nOQiPVT5SfUelOlmdrxGK7W+tUZpShcZ6awPbsG2WqjfqFrLe0exTrIMT/W18IHeowv+NTZ6OLnMOv7xy62qGi7ih7mQIEfZqidqhEjpEpePzBR3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLVCebqn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwftpBK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789761F00893;
-	Thu, 11 Jun 2026 13:56:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLVCebqn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D86A1F00898;
+	Thu, 11 Jun 2026 14:01:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781186199;
-	bh=Tm5i8T8VZHAsFgDZmgdDx63OEi2Pnzx5WTlvbhLyDEY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NwftpBK5CQsrefCUB/T7Xk7OemkFlvqXsHpPq927dHUF7OJ0nwVGSlO9Gy8oeGDoj
-	 SaLxy8dEs/2skmWCirbLljexcSYRhqfr0IppnxanbAc2wXh7m4mpa1iUXJGjX7vaXU
-	 NjIbYIBD9W2bGxRdp+F2Ae2Y/Wn3Hh5xtftUGKrRcoiI9vGwHjNrkGV6Ymi9WZut8Z
-	 0dhBKq0Ws0g6bXU0yuCLWoiQm3nO0XpmSAAydBKihgiq2bXHLEtDBgeT7AKcTqR+OG
-	 I7z+wzMwZyV0EH+P3OW/fjBUGVAwdi50d7xJJQGP0N2B1CyjtTGbSlSd+2wBTrUzlF
-	 sAv/TuyPpayjw==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260327113006.3135663-1-andre.przywara@arm.com>
-References: <20260327113006.3135663-1-andre.przywara@arm.com>
-Subject: Re: (subset) [PATCH v2 0/3] pinctrl: sunxi: a523: fix GPIO IRQ
- operation
-Message-Id: <178118619718.1357770.10179454069567879597.b4-ty@kernel.org>
-Date: Thu, 11 Jun 2026 21:56:37 +0800
+	s=k20260515; t=1781186477;
+	bh=Yp0nzIlkKz94xz4/lEK7awG/NincgjbDsyAngGGlQ8k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KLVCebqnlAzoEWlhPc1iRdLny1axzXTG+pjiHwxoQz5HDzmNooTSUixJFUt9ysnu6
+	 6Tdc0j3dRdyKORqYw649NoCcwge1mWK2hBCfVLPNtpy2q7OV3ACxRYsm1KrqPjp7p/
+	 PCYrNcJ5dpajgUKJkddJ2K2Io2wN/FXjMsEj5tV/gGM2RCx1iyWb05w9h06NsgP7a2
+	 E82KGB1awf5VUhfcCZme3tUqpmDeO33k07QjQH4wKq98frPcMliDthsOFsB2Uqpa+4
+	 xbxW/wLzmTgeh6w4CYlrctXo8u8VLlzPhW7GYEw786cy5c5amW/48V1L4KvpOdFQXL
+	 1Kwd2ljI61/hA==
+Message-ID: <e01d100b-9809-4af3-8f21-055f687ca6c6@kernel.org>
+Date: Thu, 11 Jun 2026 16:01:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] iio: flow: add Sensirion SLF3S liquid flow sensor
+ driver
+To: Wadim Mueller <wafgo01@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Maxwell Doose <m32285159@gmail.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+References: <20260611132700.671322-1-wafgo01@gmail.com>
+ <20260611132700.671322-5-wafgo01@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260611132700.671322-5-wafgo01@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
 
-On Fri, 27 Mar 2026 11:30:03 +0000, Andre Przywara wrote:
-> this is the minimal fix version for the GPIO IRQ operation on the
-> Allwinner A523/A527/T527 SoCs. SD card detection is broken as a result,
-> which is a major annoyance. Those patches here fix that problem, and
-> should go into v7.0 still, if possible.
-> I dropped the more involved fixes from v1, the risk for regressions is
-> now very low:
-> - The quirk flag is just dropped from the A523, not the other SoCs. I
->   confirmed this again with an experiment, for both the primary and
->   secondary pincontroller. This avoids fixing the workaround code for
->   now, which is more involved, but for now unneeded.
-> - The DT patch just adds the missing interrupt. The IRQ association was
->   always wrong and never worked, so this can't make it possibly worse.
-> Together those two patches (plus the required binding change) fix the
-> problem, I would appreciate if this could be taken ASAP, into v7.0 still.
-> The generic pinctrl code is now untouched, which makes this also much
-> easier to backport, and drops the dependencies on other v7.0-rc fixes.
-> 
-> [...]
+On 11/06/2026 15:27, Wadim Mueller wrote:
+> +
+> +static const struct of_device_id slf3s_of_match[] = {
+> +	{ .compatible = "sensirion,slf3s-0600f", .data = &slf3s_variants[0] },
+> +	{ .compatible = "sensirion,slf3s-1300f", .data = &slf3s_variants[1] },
+> +	{ .compatible = "sensirion,slf3s-4000b", .data = &slf3s_variants[2] },
 
-Applied to sunxi/dt-for-7.2 in sunxi, thanks!
-
-[3/3] arm64: dts: allwinner: a523: Add missing GPIO interrupt
-      https://git.kernel.org/sunxi/linux/c/6b81aa0c8a4f
+You should have only 1300f here and detect the variants. That was my
+point when I suggested to use the fallback.
 
 Best regards,
--- 
-Chen-Yu Tsai <wens@kernel.org>
-
+Krzysztof
