@@ -1,68 +1,68 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5808A3CA499
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651CF3C9EC2
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781172072; cv=none; b=K7gOb15HiS29oR5tGbAM+Mz3wr709mUBBoGJO4UQMWXxxHEl309NE+5AUpMCE8aW1aovCanqxFvUYt8CD2ptBcphqhppXp5WwBDY0U+A6NUZsnpE8Oht2oV7Tn7dghtoFae0vK2ZKdxzKJRJ7bfAGNmJUEOyGhBFZZz2WHzbSNo=
+	t=1781172075; cv=none; b=f/PfL8KyzV881a6Nlw/tyPRd8hl1lI5i7Dg1POYJmJgp2url8+9PX3hyoBclmAf88aEE7/NJPfXvISw4z+3v9PFHfzQpyKO9wo+WQ671vl6QB1uiAhJ4reeqwVxySjSrMWch6R+HrNTPNs3NsiDAvIgloPAOaC7e72rr2CBpN5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781172072; c=relaxed/simple;
-	bh=Bkm56OYbKvczkDcJy+zdbOeLoWcfn+X9KiRBmUlNNFQ=;
+	s=arc-20240116; t=1781172075; c=relaxed/simple;
+	bh=Xj7t3gOgpcUTF9H2JW8LvlJCBDXFA1ijVl3OU+H77no=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OpgnxKQHy6nWENOYEWG7wdI0E73nieEKALTB0mijM0QZ+PxjnqJsolhk2hpHzdZVxP2hMJ90qNG8mgEkHIUSfpj6ugzdFPKy122lH6OYzmtzGj4UWLbnA/DKqucywouDj5LzjCZG1CltOKHNa8EsY3W7i2gBZHu11mVNJ9MzoKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3AAyRpB; arc=none smtp.client-ip=209.85.215.173
+	 In-Reply-To:To:Cc; b=QfRGErI6swJTIzHI8K51E9tBJghl+tS5pK6oLXi/CSiKLTReVwISgCUYZuLlkVMxOL/LB0TALYFZTgCb/HRlfM0ahZypxVt2cedsvRmdt+7fEV6uzC7hYlVvKIBKP8yKO3EQeBtdE0jUf/pxDPzqrE/ohKHpU6VxxLmXt/EYYic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldZZ3MLp; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3AAyRpB"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c85c531d4a9so3170887a12.2
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:01:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldZZ3MLp"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c8583b8fd89so4742193a12.0
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:01:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781172071; x=1781776871; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781172074; x=1781776874; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=H9j8g0i8AVrT8/B0nHX/MRisL409ivSz2STIIFpZzbQ=;
-        b=a3AAyRpBo64ABAhBd21Y1NfVV/4iR1w2L0t5P4l/6xPgyF5oi6Rn/zcEPAsKpPgxwb
-         Y1VAxusnuecbbEoej/LFiiVreFH5tFiKEFqUDiyagV0iErB3m8IsX7pjS6abigpFztMS
-         /qZIOAWoaVXw6M4VpMU+mbSTgAJ8LpiN/CsAQ9eqr2PBKEqoO53Hq4+JVD+BT6n+5mDT
-         m3gqHo/Okv1B2F3ZHgu9edrfIXQhK7qUMWOeuGBi3bGixj2ljJxKvT99YYaQHf+QiQFu
-         J87sS1DnggODFONXxuvn393sr9SRVFS+9YbduAWp2dFckIeLGGcBZoH8hxkYF0LIJ4gK
-         k9OQ==
+        bh=KjBLRWrBJ1wV+e8lZDCHR4CL5EzgVjy+L9xauVIf4pg=;
+        b=ldZZ3MLpcXN55SEP0GB5+xtHWaNTGrv2We+HcOIj2vwLqcLY9qmPrwvk5M5esomWEw
+         dQD0rHwh6ZIWfYV814dJlt7dcav/Uh2PIfJxrupxqZWK4y77SfCggW3mOypu780jwLqE
+         YuaTifksFke3Tx4u3QEnd8GxdPFfBMRm92tmqeSQZ0eiRHDzKf6bOYSRPVX1jhUOJpjP
+         f08Eywj+3bGDBQk8SDShLLlEnXP6Hvd1QnCGQ+MhHXb0gM4p8k4cYK/VvHs2VHTWQG2a
+         4Gv2ElMoL0GgFIxlFcZ8/kDLNe3ZXomZaJ6ZOLVjq549zoKB+m7MNvEE5+mbE8dtXmsi
+         RwhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781172071; x=1781776871;
+        d=1e100.net; s=20251104; t=1781172074; x=1781776874;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=H9j8g0i8AVrT8/B0nHX/MRisL409ivSz2STIIFpZzbQ=;
-        b=Jo7l0BBKwREKEGkvC+K2JeoIKQQCs90lxzL3Cz1ArwkV56UIZW31PGTm3n3+X9OC5k
-         tNeH/U2gjyS1+p6XiSJdZPWLC+AxT9drVOOt/UV4H1sAGVznryt2dG+0/hQ5PZsZ648K
-         cZqiiOQEhJujsRSHNkLG9HJ8HiFDrRU6Ff6MIa3/6/Kny2rh7PUA4w8ixuSOyP7bSTol
-         geJPDTpDG0TDOVgP8ZlukilFkNUG2n6ey3FlyuXhxoY5xGMH9/AWCt7v0w5fckgL6G0X
-         1jt9VCW553FKGjXoPSWk9WdXKpASOfLDe/jPr/T3Ecn9FphWr3Mq6qGre9YPYFK1u3Fx
-         iUow==
-X-Forwarded-Encrypted: i=1; AFNElJ9F3F0Fomm0Kgo2x0WenCfYReCuUW+/tc28YdPvqNecoW6oRyXs3M6R4Zqn9G0PmTfa4r+fl8kBPpGu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAuHiry7vPn3I6d+55LVBjX69pMBqxkwEu4XBguQFsSQAHfB6X
-	H1SV8r53yuY/3od4pI0wUg6JtBMq542Ju5mtNhHYHxgmEthbnwdj10KB
-X-Gm-Gg: Acq92OELhMpapD1zfqbySZC9ULpJu2E8gZfeQ3KpaVB2ic3PcGPK/lPG3TSR5pcrIXp
-	pUOTMugdTno06Tqmf/XFZ8Rn+3I9aa6fw7iSsdVbqR9zroqDq+LScWrhrTUINkmVcBtWZjuFEP9
-	ZBRMOEing5gyl0L8FZrD9P6CBQ9urvJ8pfglx1VwG3QTBRLJ+fVDx8NSkiexM7FOlKy2V5WzYJt
-	gsqrS8qyU6nRBKYCJSbL3DnqD6YQsyEpuhNc3IClh7oBbo0Dr8DEEH090qa4VA+H0HZx7wKmt0/
-	EenJN03NaapWBjKCy/XR30MdDoymPRkbnVOeCrTmsXoi9ZPp6No4rz0JQe7AmYRTpp86ppOb6gU
-	+r4iOcXKvnndKft8Xg9fofDX4v7frVHR18yHyRiRDOsNKFrpQ4CrrfvVCruEd0Tqn/wYMH5TeTh
-	2J1XD54EkBjsf9X11yUuOz1p+sIiglQNvHB1VZgYS2uOgDRE8CQ6yP5ANKcVCIG9p7vaJfBYkSP
-	TdN
-X-Received: by 2002:a05:6a00:3997:b0:83a:78ac:edb7 with SMTP id d2e1a72fcca58-843367c7b55mr2563934b3a.5.1781172070668;
-        Thu, 11 Jun 2026 03:01:10 -0700 (PDT)
+        bh=KjBLRWrBJ1wV+e8lZDCHR4CL5EzgVjy+L9xauVIf4pg=;
+        b=RCq4lKhiJsPuhCW8YVat5wjXj7qvHsDwBy/Iv7ZhEh/Ulzgj1/TJlG+ukPVycFR/3r
+         7KZctEBoNIT2GWGL1Wa3QPaSIbAeNBT6qYq546qvVxjRa7BQYSVjEte/aLhRG9k9aaY8
+         pgyI2uhZzYv34g0ZITGkwHaWcOMdqI2vjyqFOU/dOLGOmbM6wngalcO/RA+oC48lUXgC
+         G7KbHbefHrgFh4l5aMdqzqpoETkz8p5YcZ6/EilUpGIS+ofFbysXWLDfLfQrAoHeVfz/
+         a3A//HSUxbo/W8Ec0TUhbgNnlDBab0HqAvHma3lFMMhoDqJRT7EJgvOuNXIYHH0pqfCG
+         NVcw==
+X-Forwarded-Encrypted: i=1; AFNElJ+SSixxlGX2uWCefEp5GdVEoqcJWf2/+WPK6r/7vBF4hodWJTj6EOf3kRCcvg8ON477Hw8uqyJ8nruT@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrURr7JWZlHL0iteQjaWfCczBoCMk+q/CIyn7flv2pR8MOvFZ2
+	cXI/xjSHfmESXKZm4Nx0ntnBzxd06FGAS4QwNGwi8ADmCly8UKC7I/g3
+X-Gm-Gg: Acq92OH/aSGeYk7F4TWbkR0Gv17SeaKBfTybiUszxrHscZq3yFssy3kTyOE/cilzwxC
+	RjVsa+OwAgKexiE567eqBQcpI4NQhyJAEqjQ4U3nepNzHiA5RSt6lo60SwrmjkcNnpfj30HN4lg
+	G8pnkObgfWTpKHqaNeRw/C/vRF40loFL04gf4TMfKNpt3TWFaGctZ16MRNEZlVRXjD7H5nX0PTs
+	ag5mplUrlcEDtFCku6fBKtpmiPtJpslJYY6YLJQTX8VtS6HZp5tAtFHZKvRpBzsq/Fhga1DO0rI
+	zKdlQ0nPqkCcQiVTSAyKEEwaz+YQ7NX46pVsvwPQLxnhMBvpaLuR5MUkYE+wixn8NowfTghTPNi
+	93COmVs7hKzjWnLxQWH+sKpRNYl/z9XkwRIkMe9qx87H1xPVeSvHfvh492OFyCbut3zT1Q8ckHB
+	rVRSvVflITqNTGAtSAriie7TUbDP9pkwD2tvEuG5HXbEGmVpxUE9WCKwTM3FJ52WNuq5E/mbNOs
+	/0gynFR31RLOoc=
+X-Received: by 2002:a05:6a00:3ccc:b0:83e:2c38:f5d5 with SMTP id d2e1a72fcca58-84336a8c7a3mr2263009b3a.28.1781172073628;
+        Thu, 11 Jun 2026 03:01:13 -0700 (PDT)
 Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-843380c92edsm1458228b3a.32.2026.06.11.03.01.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-843380c92edsm1458228b3a.32.2026.06.11.03.01.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 03:01:09 -0700 (PDT)
+        Thu, 11 Jun 2026 03:01:13 -0700 (PDT)
 From: Potin Lai <potin.lai.pt@gmail.com>
-Date: Thu, 11 Jun 2026 17:58:44 +0800
-Subject: [PATCH 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add current
- limit properties
+Date: Thu, 11 Jun 2026 17:58:45 +0800
+Subject: [PATCH 2/2] hwmon: (pmbus/lm25066) add SMBus current limit
+ configuration support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-lm25066-cl-config-v1-1-02e567bf3d91@gmail.com>
+Message-Id: <20260611-lm25066-cl-config-v1-2-02e567bf3d91@gmail.com>
 References: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
 In-Reply-To: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
@@ -82,54 +82,79 @@ Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
  Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai <potin.lai@qunatatw.com>, 
  Potin Lai <potin.lai.pt@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781172064; l=1259;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781172064; l=2361;
  i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
- bh=Bkm56OYbKvczkDcJy+zdbOeLoWcfn+X9KiRBmUlNNFQ=;
- b=HKVit0bYM3S4HnTyk/8X6vYEEfgCX4OWtNBj/gAbkH0EATS1l3ISrJ1Ljs3WPYTqVrY+awYtr
- 2LeJ0m1TeDdAMTgPJEu0LRwfeFz/r8P6dGwqpx6EJfNQR7p0fUAWu2+
+ bh=Xj7t3gOgpcUTF9H2JW8LvlJCBDXFA1ijVl3OU+H77no=;
+ b=7fG5KmTbc55UHzJuv8XriODDk9ISYDQTmyH1ACtk62myjbNLGpEwoFJltdFygBLRUgJcyPb2I
+ eyetfvZSQFpBzxRr5uHMQB01yyhRe1OITMd3LUJPB0yO/GaG7bYAKbP
 X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
  pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
-Add mutually exclusive 'ti,cl-smbus-high' and 'ti,cl-smbus-low' boolean
-properties to configure the device's Current Limit (CL) behavior using
-SMBus settings instead of physical pins.
+Add support for the mutually exclusive 'ti,cl-smbus-high' and
+'ti,cl-smbus-low' devicetree properties. When present, these properties
+override the hardware configuration pins via the DEVICE_SETUP (0xD9)
+register to set the Current Limit Configuration bit (bit 2) and
+Current Limit Setting bit (bit 4) to SMBus settings.
+
+The Bit 4 mapping to High/Low current limit is handled dynamically on
+probe because it is swapped for lm25056 and lm25066 compared to other
+supported chips (lm5064, lm5066, and lm5066i).
 
 Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
 ---
- .../devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml  | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/hwmon/pmbus/lm25066.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
-index a20f140dc79a..95ea7c26dec2 100644
---- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
-@@ -46,6 +46,26 @@ properties:
+diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
+index dd7275a67a0a..20e114bdc882 100644
+--- a/drivers/hwmon/pmbus/lm25066.c
++++ b/drivers/hwmon/pmbus/lm25066.c
+@@ -34,6 +34,7 @@ enum chips { lm25056, lm25066, lm5064, lm5066, lm5066i };
+ #define LM25066_READ_AVG_PIN		0xdf
  
-     additionalProperties: false
+ #define LM25066_DEV_SETUP_CL		BIT(4)	/* Current limit */
++#define LM25066_DEV_SETUP_CL_CFG	BIT(2)	/* Current limit configuration */
  
-+  ti,cl-smbus-high:
-+    description: |
-+      Configure the Current Limit (CL) to use the SMBus high setting.
-+    type: boolean
+ #define LM25066_SAMPLES_FOR_AVG_MAX	4096
+ 
+@@ -464,6 +465,8 @@ MODULE_DEVICE_TABLE(of, lm25066_of_match);
+ static int lm25066_probe(struct i2c_client *client)
+ {
+ 	int config;
++	int config_new;
++	int ret;
+ 	u32 shunt;
+ 	struct lm25066_data *data;
+ 	struct pmbus_driver_info *info;
+@@ -484,6 +487,28 @@ static int lm25066_probe(struct i2c_client *client)
+ 
+ 	data->id = (enum chips)(unsigned long)i2c_get_match_data(client);
+ 
++	config_new = config;
++	if (of_property_read_bool(client->dev.of_node, "ti,cl-smbus-high")) {
++		config_new |= LM25066_DEV_SETUP_CL_CFG;
++		if (data->id == lm25056 || data->id == lm25066)
++			config_new |= LM25066_DEV_SETUP_CL;
++		else
++			config_new &= ~LM25066_DEV_SETUP_CL;
++	} else if (of_property_read_bool(client->dev.of_node, "ti,cl-smbus-low")) {
++		config_new |= LM25066_DEV_SETUP_CL_CFG;
++		if (data->id == lm25056 || data->id == lm25066)
++			config_new &= ~LM25066_DEV_SETUP_CL;
++		else
++			config_new |= LM25066_DEV_SETUP_CL;
++	}
 +
-+  ti,cl-smbus-low:
-+    description: |
-+      Configure the Current Limit (CL) to use the SMBus low setting.
-+    type: boolean
++	if (config_new != config) {
++		ret = i2c_smbus_write_byte_data(client, LM25066_DEVICE_SETUP, config_new);
++		if (ret < 0)
++			return ret;
++		config = config_new;
++	}
 +
-+dependencies:
-+  ti,cl-smbus-high:
-+    not:
-+      required:
-+        - ti,cl-smbus-low
-+  ti,cl-smbus-low:
-+    not:
-+      required:
-+        - ti,cl-smbus-high
-+
- required:
-   - compatible
-   - reg
+ 	info = &data->info;
+ 
+ 	info->pages = 1;
 
 -- 
 2.52.0
