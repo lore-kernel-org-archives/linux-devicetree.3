@@ -1,154 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E1A18FC97;
-	Thu, 11 Jun 2026 14:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781187546; cv=none; b=CND55zlNqzurR8HXPUcRooHBB8BJJli+NhvzPzwkQG7/NLZjN6DHOWLG8r/lIxMUz5xI+wzRiNaHLkHhwdL64mZ0U3P8LnF4yo/Zf2OGAYYa5iggVSKveIz6PuPF9+YL5LaRJ0BNqs8G2c7nsGMqk3bq+a1a//ScQJk21B7D98U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781187546; c=relaxed/simple;
-	bh=BEP8vt47lMibPi5rraOMux9WZgsqrDGbpToFR83WiLU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qyXJNMgcWzeZ5r95WOFxFKCUaX6ga7B6puIdp2Ynl08HBi/+/3R61xwj2VxA/kSZTrVTQiGw5AQJcCX/Gmmnx8VA4umJ/8v8/fRL9gGwrdLBG0/Tkj4EW56uHoUlMOo6FTdUrH7owsSo9hjbuFKX5L8SBGvOHvMNWwsFYZNfE4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuNTYufQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7983BED69
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 14:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781187622; cv=pass; b=O593MtG6aajZ7ojdMMKg7ufl9CDDli9Y3qQ4UgSvX/KWp7JsryeFb+dnkXzOv7DeAW3yapB8n98Dya29g9VfmAhFryjypfUbgtf5P1nx4yW4Fj/kBQra50JKo2y8hjd3YdqS/PaOwqePl92H28xOVIKidEOsOFgThAdg5WW6NlA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781187622; c=relaxed/simple;
+	bh=ez2ospXstMfaz5xWAd9V4fEufsJqKgDo0LH3emCYfnA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y0wlJop3+gb+Y1l14F2Gdk3gDLpZHvgi9/GVJMwurCnK9UmxHAe5qFWjLBpzVVRkk+ptZsHlq8Vwu2uuIAqgywDh+/rLNYvqeaakm/1qcd03UwbWsP6QtkqGKb77YLCD/SRH/M498N/zubkGX0BQeNAs+28TX67zEmqrvCIs3Ws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kNpb+Cs5; arc=pass smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuNTYufQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8821C1F00893;
-	Thu, 11 Jun 2026 14:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781187544;
-	bh=UfLlXnqFthU2IAGGsWz5h/p8ob89v+Kkme73oAvJqOw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fuNTYufQMznXm7mLbg6X5DaPb4I1aQE8Elei2qcEKpASzV0gVaejanguuyPykC1o5
-	 tHF2aGfX+YNLJHhDRS6Cw+HFKw8cMM28OS50qnAKfE6CBn2t6v1ghdOlhbdMrh9kTY
-	 hukLN8j+KU/m2mW2NDF+c7NwTvtIQ+YgokV/tKTXhK32Kx3jHPhgITY1j4+HJTYl5j
-	 kdsc8jE8zkMgU6Xb+x9OqrK6vltzCYRL13SPL+AZ/qTM0kB6NQ37OqnpHtLE0j6qLj
-	 9pvyq748QW6+xM4cpezc3yQX9/GhN968z+B3GaCzLZaYfmdaoY6tsyAgB2bgm/Bi4A
-	 GjkRXkRlrTi6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] hwmon: ina2xx: support ina232
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260611-monza-ina232-v2-2-e4375ce652d0@oss.qualcomm.com>
-References: <20260611-monza-ina232-v2-2-e4375ce652d0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 14:19:03 +0000
-Message-Id: <20260611141904.8821C1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kNpb+Cs5"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7efd49373c0so58075597b3.1
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 07:20:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781187620; cv=none;
+        d=google.com; s=arc-20240605;
+        b=lAICSf6Y2nvkTu3eM0jLj97Y8VPfGMYiM6SdC7pORx9PB1cf1EF5sPW6+4e7OxLXwW
+         mAuYpgGyapyvTWJ97MMyvwKepOaVsnPonGuC0UY0IPj5Kf1ViHYtgemCa/ND+1fhys6m
+         n//SEVL0yadty6jLA3EGgrEDLh3kLj7zVYu3v/FmUm9G/9rqyRJKqi+Bmxe+L/BQX/CH
+         j8hnan/nUNAHuMdXRrdmb8pFXpy15PoKfxcyKRkf5N3Z60cnAJBWhutzMeZ0QjsTtkGM
+         yTUmGnJRAMdvLKrRcJ4R4SQIB5N/FFudE/JmD76jJFk71uvJTR9mc0wcbTEQBZHDFvFq
+         aI9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ez2ospXstMfaz5xWAd9V4fEufsJqKgDo0LH3emCYfnA=;
+        fh=l37RyoyBEAbtR2Xbnn+WAG9HcrP55IqNGjfXN8BuRk8=;
+        b=AVsxr3U/OVErrG0b7H6lUI1SoLdfYXEYZTJTB1xxtJyhO65L0D8GsHHh1WvFbDasIP
+         NW4FtrNy0o8jBYFM1VlhBjifkvCSVJMt27qvYke7ZoC1vSttJlQoNRLqQTfCFH1cvToW
+         mRaVCVpmmB+w0+iGzKlgTXbl8e7SXBkaGS4CmHT4CT2FoTjKuSbNaHtmQmFBckUgPqcq
+         MJ1upZ4IEn+C1puvE+QJdqH18N0bzr9HxfcztPP0z6QPJB5Q36rusfEmfpyaR1wbsmFX
+         1kp+viF5/WyVgzsxRlQs/+hWXmqeX3yI4dB2xcGimTMvgzXSGmjFhvPHF8cBIPzw4fB2
+         mSxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781187620; x=1781792420; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ez2ospXstMfaz5xWAd9V4fEufsJqKgDo0LH3emCYfnA=;
+        b=kNpb+Cs5tKm094cVt0t8jS8RakndkpFAwyhM5iemGCcV6Is9XNdU31950Mu8Abmn6T
+         FhAcUauP407w2XbTbOYeabZlFpwtpGjPtzICJIQQwnvaXMMsR3at6vXQ4Om77tYudxB/
+         5Qi2PJ2oNEbz0vTNIWeVnDe+Hm6VO0b5Qzugc+xTckEcYIsMi+LHH4DZCxNSUdYu3XSt
+         YJ8fafmXc5Gfc/WGz2hEj1/G+m8Rt9YJ/v/3HcY7S7qO40d6glZCC9sUERrlSPdpuZ+J
+         wJMIZbTObjikG6+GMvAeHc7e5dnAmAX4cmOn41OJpFnjNhKcYrev0WjlkWZaNgOr2JWY
+         5vNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781187620; x=1781792420;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ez2ospXstMfaz5xWAd9V4fEufsJqKgDo0LH3emCYfnA=;
+        b=I9/fP5hhsmZe6J6gaEK6GsK4wIxSkAFNfxb1P5bLNxNqRFCMM9fyr0a8AkDvvmCmmm
+         OkPmnvHKBlGiwdAUQ1su1vfgKI0UzgThpHU2Fes8hKeCrwsZG5oXdzkKvOGRUvJmg0D2
+         sZXLz+pev2v4LSwPR7PY6m9/oSuz24T7zlgoPNyiDtkwmQ+DIZV9ibBX9KEEahjOuupU
+         0L0zvQIOX575bThtMVsvSkK+UfIsXB5KTKVcyo/+xzdZu16UPlEsKFvJjLZ5PDAPzIBx
+         4PhWQ+1JqU3WfkhV9XrA990UedV4V9IN+M6dgR8GMopEZ70j0Vo3/arQCt7pu5PsJsdK
+         IBSA==
+X-Forwarded-Encrypted: i=1; AFNElJ+4fA4rQ4OMX1czwy9ByhBA+6iLCKFvP9mOPblGuQZDwukh59NNpneYgKn+WdvbVfN8G2jdE3tg5PME@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhDY+2IrGlXo58GYjq9yD84N454yTWM+s38Q3auIEk+W2wHUmX
+	alsrWFiF5MDc9HvWMI4uMDVKoqbdM76tIitoC9ikDkgkU0bzd2EwdwrvIxaVPMIqrun/S7VXRVN
+	C7fzmIuZNXMW84K6jBJtdMdClT+RfaR8=
+X-Gm-Gg: Acq92OEl9OqW6O5IKepASVVgBwWN24dEC9Iv8xh/PkEIunAmG1wAUKsHpWBVRCVGJC9
+	rNQXOymg1ltBNzVd/uTxLr7XxomL7+VA98vTEITRD55BPmjy0VZ3bIdmfACb32TPZ1Np/2fWi/E
+	npHqAaR14+9MjSE0LK1mSBwZfoSYteVZV0FIPOX8fELTxYD6ooEvAxensC7CQ2WzRmP3BtlAZwU
+	JSMp029Qb3ayZvFrIoxByyRCYFPZPmNbe/LFgDaNIyAqbBxUIjP6Fk9Zxz79zl1T/SOFCAsLX+o
+	EchGVMGiV98GAMMeZKTIGJsv464ZhEKeIPHbVrSsK+2NSSMTUCs8
+X-Received: by 2002:a05:690c:6f12:b0:79f:d961:47bf with SMTP id
+ 00721157ae682-7f65500800cmr32328977b3.8.1781187620254; Thu, 11 Jun 2026
+ 07:20:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260609160326.45123-1-m32285159@gmail.com> <20260609160326.45123-3-m32285159@gmail.com>
+ <20260610-pastoral-dark-ostrich-5ca3f6@quoll> <CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
+ <e00caff5-55e4-428f-bc57-3885699b221c@kernel.org> <aipatjyVcltbspRJ@ashevche-desk.local>
+ <6c5a657b-f316-4982-8cb8-8c09f1b1669a@kernel.org> <aipfPwT4RJGdA4TT@ashevche-desk.local>
+ <aipfxL3ttO1-7W1T@ashevche-desk.local> <CAKqfh0FQb6tSZrrTHGWcoQqPe-OwD-mW02GOOn9y+ysstRPVzA@mail.gmail.com>
+ <CAObtm8zDk4s3+pmGSxRoVHq7ef1y=_cHdC8YRH6ycRNbjzaNkg@mail.gmail.com>
+In-Reply-To: <CAObtm8zDk4s3+pmGSxRoVHq7ef1y=_cHdC8YRH6ycRNbjzaNkg@mail.gmail.com>
+From: Maxwell Doose <m32285159@gmail.com>
+Date: Thu, 11 Jun 2026 09:20:53 -0500
+X-Gm-Features: AVVi8CdA5UiV9a-9xqLq6QTEun-nOvIwOUegZFB4I_Q6rVn0HPvtIA77vYZzJoQ
+Message-ID: <CAKqfh0E702ANWwXYzcCHQ3V9G2+m9RMRPQA0k+q2jLaQTZtOSQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
+To: =?UTF-8?Q?Tomasz_Duszy=C5=84ski?= <tduszyns@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Thu, Jun 11, 2026 at 8:41=E2=80=AFAM Tomasz Duszy=C5=84ski <tduszyns@gma=
+il.com> wrote:
+>
+> Hi,
+>
+> I've been trying to catch up on the recent discussion. A few things I
+> want to address:
+>
+> 1. My email is active and I do read patches (when CCd), but by the
+> time I have a proper slot to sit down and review something, it's
+> usually already gone through several rounds.
+> Chiming in at that point just for the sake of it doesn't add much value i=
+mo.
+>
+> 2. I get the impression you're thinking that since I'm not actively
+> maintaining these drivers, you can step in and take ownership. I'm
+> broadly fine with that, but I'd want to see more work and patches
+> coming from you first. If that happens, we can revisit the ownership
+> question. That said, do you actually have these sensors on hand to
+> test more invasive changes? If you've already answered that just skip
+> it as I'll probably stumble upon it whilst going through overdue
+> mails.
+>
 
-Pre-existing issues:
-- [High] Power alert limit calculation always evaluates to 0 on 32-bit syst=
-ems due to `UINT_MAX` underflow when cast to a signed long.
-- [High] Setting a high bus voltage alert limit on 32-bit systems causes si=
-gned integer overflow for chips with a high `bus_voltage_shift`.
-- [High] Arithmetic overflow and truncation in power and current reading ca=
-lculations due to 32-bit signed integer limits.
---
+I don't have sps30 or pms7003 but I should be able to get my hands on
+them pretty easily. I did get an scd30 though to do more extensive
+testing with that.
 
-commit 1860bedc8e47e2aefaa388ad7ade74649ff17da9
-Author: Martino Facchin <m.facchin@arduino.cc>
+> 3. I've managed to carve out some extra time lately, so I'm happy to
+> be more involved with reviews going forward if that's useful.
+>
+> In the meantime I'll go through the remaining emails to get better contex=
+t.
+>
 
-hwmon: ina2xx: support ina232
-
-The INA232 is a current/power monitor. It shares the same register
-layout as the INA2xx and uses the INA226 default configuration, but
-differs in its electrical characteristics.
-
-> diff --git a/drivers/hwmon/ina2xx.c b/drivers/hwmon/ina2xx.c
-> index 613ffb622b7c4..fc2319ad99fc3 100644
-> --- a/drivers/hwmon/ina2xx.c
-> +++ b/drivers/hwmon/ina2xx.c
-> @@ -196,6 +197,20 @@ static const struct ina2xx_config ina2xx_config[] =
-=3D {
->  		.current_shift =3D 4,
->  		.has_update_interval =3D true,
->  	},
-> +	[ina232] =3D {
-> +		.config_default =3D INA226_CONFIG_DEFAULT,
-> +		.calibration_value =3D 2048,
-> +		.shunt_div =3D 400,
-> +		.shunt_voltage_shift =3D 0,
-> +		.bus_voltage_shift =3D 0,
-> +		.bus_voltage_lsb =3D 1600,
-> +		.power_lsb_factor =3D 32,
-> +		.has_alerts =3D true,
-> +		.has_ishunt =3D false,
-> +		.has_power_average =3D false,
-> +		.current_shift =3D 0,
-> +		.has_update_interval =3D true,
-> +	},
-
-[Severity: High]
-This is a pre-existing issue, but does power alert configuration work corre=
-ctly
-on 32-bit systems?
-
-In ina226_alert_to_reg() for INA2XX_POWER, the limit is clamped using:
-
-        val =3D clamp_val(val, 0, UINT_MAX - data->power_lsb_uW);
-        val =3D DIV_ROUND_CLOSEST(val, data->power_lsb_uW);
-        return clamp_val(val, 0, USHRT_MAX);
-
-The clamp_val() macro casts its limit arguments to the type of val, which is
-a signed long. On 32-bit systems, UINT_MAX - data->power_lsb_uW evaluates to
-a negative value.
-
-Because the maximum limit is negative, clamp_val() forces any positive input
-to this negative limit, and the final clamp_val(..., 0, USHRT_MAX) will
-unconditionally return 0, silently disabling or instantly triggering alerts.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could setting high bus volta=
-ge
-alerts on 32-bit systems cause an integer overflow?
-
-In ina226_alert_to_reg() for INA2XX_BUS_VOLTAGE, the value is calculated as:
-
-        val =3D clamp_val(val, 0, 200000);
-        val =3D (val * 1000) << data->config->bus_voltage_shift;
-
-For chips with a high bus_voltage_shift like the INA234 (shift =3D 4), a va=
-lid
-high input limit such as 150,000 mV evaluates to (150,000 * 1000) << 4,
-which equals 2,400,000,000.
-
-On 32-bit architectures, this exceeds the maximum positive value for a
-signed long, overflowing into a negative number. The subsequent clamp to
-USHRT_MAX then limits this to 0, converting legitimate high voltage limits
-to 0.
-
-[Severity: High]
-This is a pre-existing issue, but does this calculation overflow for systems
-measuring high loads with low-value shunt resistors?
-
-In ina2xx_get_value(), the calculation is stored in a 32-bit signed integer:
-
-static int ina2xx_get_value(struct ina2xx_data *data, u8 reg,
-                            unsigned int regval)
-{
-        int val;
-        ...
-        case INA2XX_POWER:
-                val =3D regval * data->power_lsb_uW;
-                break;
-
-For a system using a 1 mOhm shunt, power_lsb_uW might be 80,000. If regval
-is large (e.g., 65535), the product exceeds INT_MAX.
-
-This overflows on 32-bit systems or truncates when assigned to the 32-bit
-integer val on 64-bit systems, causing the driver to report completely
-incorrect and often large negative values.
+Ok then, sorry about prematurely trying this. I'll see about doing
+some more patches for sps30 though (I've taken some interest into it).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-monza-ina2=
-32-v2-0-e4375ce652d0@oss.qualcomm.com?part=3D2
+best regards,
+max
