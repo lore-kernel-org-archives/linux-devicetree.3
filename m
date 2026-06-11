@@ -1,235 +1,139 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011044.outbound.protection.outlook.com [40.107.130.44])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CC53BD64E;
-	Thu, 11 Jun 2026 08:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781168312; cv=fail; b=Bo2HChTUNzo7nAIzY6N3l9SlUbqLZ9HeMSHA92pGkTM8ICFCMcI5ClwqEf0gyteUr2xV8kWbPAWX6CgcsyRoN3K3R7A6kNw1r0IXoh+x2x63HznP7Ra7Bvm8yjkQz8UOua+BCzAAsbL4667ZtI2DwykyjStuj6VuirVRFSy1kAo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781168312; c=relaxed/simple;
-	bh=lqh4FRf0jhF+RkkMaxodxOscJiNK5zR5BGjVJCsbq0k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=iKYqeD4VuqIy7bZECxov/6CqQUJ9JxnWoDSOO3TAfxpsKECMyrtIx5/Pf2qukdOlXSUU0S2jPZR1VtKwusqQ5XVjJXJLf3qmbNAkEqRVX2ibn+32mRkT8XEJy0GCzBoE68d7HdxlfvhUqnTcfsQc8HPJ5iDZdHEbbA6MsNN1Urg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=WddpW2zr; arc=fail smtp.client-ip=40.107.130.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EAA3BB104;
+	Thu, 11 Jun 2026 08:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781168360; cv=none; b=CqqZRfV8lNl+ditB2WRXPtJB9UkmLMHVZGRYLvdmhsbQISKHaxmpepd5NGA4KecBjhi3Mox74xLG/rILfodwqPRRLkoKPssUXdf9VIFmYooTwGZ+3bSDq+dCpV0SpOK5qf8jj3QdGImGSIVEF9u28JMABTAcmc1/9e6QaJpi+kw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781168360; c=relaxed/simple;
+	bh=pMkpFpigH4TqQXtMnE2reVI+HT470LvSOcwgsJJV8gU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=os2+P8qDUomt/UgbeUixqiy5lG1GOsnWYUvNU1MgNj6/CCkbv1W+hAJkMvKFPPa927D6qhtXIopihdeXzEwVHwikuXWzaEyIkBfb8mD5q60SmGjrDaXqVu+E16wK/nWZaK4R0Ssv+xu/uKPOTAtJYj5hWxHCaip8Y0XDkYUkRas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLuKIqeT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="WddpW2zr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iw5gymM/D2EXxTgregKaDIaq5oOWg2avgaiZvCQJlB1cX8hPoyvq5U/kIWnj7b5vPGAobgAjEb27f+dHsanko0ojlVAhIhoVOlMJ+Jp0JqGAZfP4lhe8YCxgGIaCIlwVkJDGpAbfdsPrH92XnlJHr2SF8HpN/wn4k5H/8KK/m09GIS98rZJ7DJXEyYdRKQjR26fZTEY2jV4R4xJ1pLqqXa0CoT1M4x1b4/zhOqtzJ6zChRMuemXOt9deEhBHqAKgyUF8Rs624pxGOH3C4LNomZAbLU9hPc39B8mSGYo1sFWLehalL2UpeQJwGIkX3AZiP27bUxSB9/MNPvgnLMz4hA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LkpoZYme1igCYo7RV9Ybu+kOaKS5R0NPA6Zye4F9C2I=;
- b=aYcMEbSYDGhiJbwxw4OnrG63Bbbe5UC7ZapECd+Zp/Bu21Ph9KWhVnaDz+NAphKwGf3RxQDaMNvzW9LdjoHLb6zOxV3RXG4IBgB9nNmRmeBpZfGPxowZEohZ7ynSNUpe616KLRT9YibVeKbcnR9QH5v/zH2PyBVh/9IYPaYb0sHjxOnvd9S8hT88y3EeJOctKaqfIxUufqpGR0VI0lWbCmkG8BuoT9ovIWJD5pZNSOiy5z55dioROEHxL1HCcGxK8PASUbQjXDBrVl0UFzkdjYWQqLGg9guWvg6pyJa/6YGrfxQcfCxXsU1nUZvAeKHwcjuvzOf+GecRMttBcbZs4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LkpoZYme1igCYo7RV9Ybu+kOaKS5R0NPA6Zye4F9C2I=;
- b=WddpW2zrPmJ9bWYFZIK5doJm7RDXKgfVmxAjSqJY5WHqfJakmT2AANw8byi1YYzVD6HQOrSM66IMYyCyhrtiFLCKg9K93erzyNLx6JOwjm4AO8PYQ8VshVV/GojesOFKTPUvPHAH+LLvcpwUQiizF7Z6xJVk7OcCnR/AyuApvTp5NTZ/dgODfGf/Jn5x/IJQ5FxGbWkb9Nil0/3pd65ScPEtQpvHFRX9OSk1kwXGDJ7kEUzLFuoRLAiZr2tPoP94UQFf5svZX50yjIAHEnH5fP7ptsvshAjLvq7mR1u6VokuvnlmsOkCBlOYycTzlOHxNvKQavej5p0AyZ9dFTJz0A==
-Received: from AS4P189CA0015.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:5d7::19)
- by AS2PR10MB7130.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:60e::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
- 2026 08:58:25 +0000
-Received: from AMS1EPF0000008F.eurprd05.prod.outlook.com
- (2603:10a6:20b:5d7:cafe::a2) by AS4P189CA0015.outlook.office365.com
- (2603:10a6:20b:5d7::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.13 via Frontend Transport; Thu,
- 11 Jun 2026 08:58:24 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS1EPF0000008F.mail.protection.outlook.com (10.167.242.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 08:58:24 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 11 Jun
- 2026 11:02:09 +0200
-Received: from localhost (10.48.87.71) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 11 Jun
- 2026 10:58:21 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Thu, 11 Jun 2026 10:58:19 +0200
-Subject: [PATCH 5/5] ARM: dts: stm32: reorder mdma1 node in
- stm32mp15*-scmi.dts
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLuKIqeT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E051F00893;
+	Thu, 11 Jun 2026 08:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781168358;
+	bh=GWaNFhOOLGxPnu6rQcjVsElfwRDiUgkXC+0WSW686b4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kLuKIqeTxvdqhVqJDS4Q4AYgfdwbJeaOBhpSD1S2lLmUnEwvofs9BIzraAwpBjiek
+	 BUZUkUN8L1fJvfx+XpWbCxH0RLhYGlJPojLPzmMO/OXLrBFE328SPJy+eOl0MTCVkZ
+	 OJz6lNHEIDcT7UQDgbnq2NcAZ8GAIW4fbg/OMM5tyZ0eQfKkPWNEky8YtCd8RB8hTa
+	 126KuOG1oL0CdlSwknm/WJ2mE8dj8l+OD+jNakZ+HOmXCqO1yIuiMBSNGzhD9fQepe
+	 vRq+IXruFUhwHDdkLXWdZbvf+m4Ax77BOax/yOSVVaN5KsaU+rA112TzT2fCmTdMAK
+	 Pc+dSAdXBcjnA==
+Message-ID: <6238983c-6b10-4639-b6ed-d1d25b00e748@kernel.org>
+Date: Thu, 11 Jun 2026 10:59:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/6] dt-bindings: sound: qcom,q6dsp-lpass-ports: add
+ Audio IF clocks
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla <srini@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260610154517.134570-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260610154517.134570-4-prasad.kumpatla@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260610154517.134570-4-prasad.kumpatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260611-node_reordering-v1-5-7e519f2cb456@foss.st.com>
-References: <20260611-node_reordering-v1-0-7e519f2cb456@foss.st.com>
-In-Reply-To: <20260611-node_reordering-v1-0-7e519f2cb456@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Amelie Delaunay <amelie.delaunay@foss.st.com>
-X-Mailer: b4 0.14.3
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000008F:EE_|AS2PR10MB7130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3322296f-0a32-49b3-f08e-08dec797987c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	LiPdJxG1DjI9QruEb3nkm1YiWooUrkDhbYOgZGHzWrJrSaBCuf2hut3OT4sLatXhqxwWGrOjHXzM8dW3CDDmgUayZHq3IMbQitHtV8rYLIiaUA2s1FvPxYGG90PZBVBj/dDU512giZQ75p72T8hh3ZJHqtWF3g1aVvYBDyto+6tMLFQrJ90dps0hcMzcLSjtOn99OL38gknJiHAPPPzF3jRHFm7zLyznGQFuC/XecLbmGX2bFkXmML16+1W94jV1vmZ61p3oyFEAzLKjwiGOURZRHYEC1mkzyOBP5NoSrhN2cvBIGS52o8+aw+iCL7QSIx/BAydF3BcfAehu3XUgdAYPyff4nQ0UUSXPzZVPWyPgHPbwAyR+qMQDP/VslMJ+Iy2pSmpqSeV67MA5HHBUQopcDP+bCReY/CzNCUMqy9IfqbMV/hQLqpGLWcyIq1oMXbplSxgV1XKn+oraryPgRfrlwhsr9MLc1r3pokxWUnlGSm0GPtqnl1bbFTAafkzyEvhpIBAXShv5UObBTW85c3WVrccr9WUcwDApHga9bc3KWE3fWCqWGozzsROoLTSlxnIU4gI2HtUPwk+KSKHlEVtxkfK7kq0sTa3uZama6dpeqv4RdTXAoTcYRPJsuOsKhVhdWsMCWdzi5rFgCH8uK+FSlWJcOydQJQ2rjTZtQVKO9sagMmmH/hVwmGQRsUL5DuyhQz57DW5BMHW8kD+86CkCs9o1krtvxoDVJqbTBOs=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jziRpJS+FQCHREkY/q0HYGpJMEsgYQ4ekQ7TIk+zrY0y0zcHedSEI22KG51EaSYG/as9zIJuGnC37Nmzoj7AYa58ytWIm2wGUA6YKLsuzJQ6TKDTg7z4w9Sct4efDHag9r/VYp6H4MSEyAkOeCBEo25HfJQfx7LXffe11yoWRm7mHag23Dico/IaWuBXS+H5KXGvlTN/UFcZLkE9HdtpzB7OecClSo/qcfSH5GHPdiV+k403Mm/9n1uZ5awXtXkoXj59NOlGnBtSIF0R76ifqd24slpWSfnUmLPdzbyblqsCCbJL4zL1dS9k5wq+tmXlO52rX/x4EjDY1bg7KmHMM0kSkzgmd1UrOcwfVro4KFAZmjgSd6SS76QgQ6DfyD1xX95ny0M1EBbxA2rVzL1oZ+DdqggbsMbefbPrtn4hWt2/1pqKV8H95fYh549CGBqv
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 08:58:24.4633
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3322296f-0a32-49b3-f08e-08dec797987c
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF0000008F.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7130
 
-In the ST board DTS files, the &label entries must be ordered
-alphanumerically.
-The nodes became misordered when mlahb was replaced by m4_rproc.
+On 10/06/2026 17:45, Prasad Kumpatla wrote:
+> Add the LPASS Audio IF clock IDs used by newer backend interfaces.
+> 
+> Platforms using Audio IF module backends request the interface bit
+> clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
+> header so these clocks can be referenced from device trees.
+> 
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> ---
+>  .../sound/qcom,q6dsp-lpass-ports.h            | 57 +++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+> 
+> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> index 45850f2d4..bc860fcbf 100644
+> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> @@ -233,6 +233,63 @@
+>  /* Clock ID for RX CORE MCLK2 2X  MCLK */
+>  #define LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK	70
+>  
+> +/** Clock ID of the Audio Intf 0 internal bit clock (IBIT). */
+> +#define LPASS_CLK_ID_AUD_INTF0_IBIT 71
 
-Move mdma1 to the right place to avoid future misordering.
+Missing indent
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 8 ++++----
- arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts | 8 ++++----
- arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 8 ++++----
- arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 8 ++++----
- 4 files changed, 16 insertions(+), 16 deletions(-)
+> +/** Clock ID of the Audio Intf 0 external bit clock (EBIT). */
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-index 847b360f02fc..53e40e2f776b 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-@@ -51,10 +51,6 @@ &iwdg2 {
- 	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -62,6 +58,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-index 43280289759d..0790ed426ebc 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-@@ -57,10 +57,6 @@ &iwdg2 {
- 	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -68,6 +64,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-index 6f27d794d270..0a3894aff4ae 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-@@ -56,10 +56,6 @@ &iwdg2 {
- 	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -67,6 +63,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-index 6ae391bffee5..c2b6efb1cbb7 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-@@ -61,10 +61,6 @@ &m_can1 {
- 	clocks = <&scmi_clk CK_SCMI_HSE>, <&rcc FDCAN_K>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -72,6 +68,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+This is not kerneldoc. Please do not introduce your own style.
 
--- 
-2.43.0
+> +#define LPASS_CLK_ID_AUD_INTF0_EBIT 72
 
+Why everything has "AUD" middle prefix? What is Audio IF and how does it
+differ from Audio on this device? IOW, Why Audio has to be specified? Is
+there non-Audio block?
+
+> +/** Clock ID of the Audio Intf 1 internal bit clock (IBIT). */
+
+All these comments are pointless - you repeat the define name. Explain
+once what is ibit, ebit etc, not every time.
+
+Best regards,
+Krzysztof
