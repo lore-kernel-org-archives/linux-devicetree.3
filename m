@@ -1,59 +1,62 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA432C3757
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 15:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8201DEFE8
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 15:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781192471; cv=none; b=omibOD2x0PwF8hKMV1VrHxSqrzcm9TvAnfg7a4Bb3R+PzvX6crfx003yIphc7WYLQcOWnQ7Ex5MmgsS09ZWaZ2uwR91Vvwk1FJywM1Y7CvfJHIrCKvhzCK8hTb/bAdS7AqOnp6F46NtNGFevPeLQEj1boHRM//E/TSl8C13mOC0=
+	t=1781192471; cv=none; b=BhgR8fjnvg6fE+MKV05XxLvvOuEFuuimYfz+LQ66FGJs/8YWPkr4QcXe3MggetgKQLKQ2A0BlUa2hFZ39DCHre1iXQQOFzZYS7l0zesLCGjecd9XmBKVXhC00t7DSTKwKIV/BRwmHovBRmRJmy1KDXHe5ofM5y7TN0MZ3606oTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781192471; c=relaxed/simple;
-	bh=RPmaQk94XVkHjUWvCHnUNh/oP6dEj3BeRyO7pRtRAQo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IkTNyjMZ4QmhL6vPSaXpfeZ9iymnhEfrw9mx5f7QsRg34vjcAf4jexIl8F7Bm48h979uq1ME73OAzzUS6+aL9OSu36IbxII9SSyrrzABZ5w22ZXkBiXQPj5vkDO6Ct5DUPXI8AznEQYqqAN9V8VoPQASiqVbO3GBPAQE1bq8hdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nWL9kDZ3; arc=none smtp.client-ip=209.85.167.54
+	bh=h6MWLCfUd85/1dSrfNYdTXKwJSaieCPmgnUikAdWiDk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ucnn5tC0xIimMmh+B2+OagMAvR92KWibj5aCUNx48gBpN6ZAyXg1fk5qysXjULVfvmLWEmbR0rJHBpEDCvEfJxIMMbeLqn4njevRSZzxMsEm07V+lLjfnB80yeHUAV6UhQArygliEMivfysc3S7ddc/eHoDJV94BbaHA02RidEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M6MPRow3; arc=none smtp.client-ip=209.85.208.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nWL9kDZ3"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aa65a184f2so8615430e87.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M6MPRow3"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3965f215817so72173201fa.3
         for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 08:41:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1781192468; x=1781797268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5GKrlwR5PMGqe4clCpmusoR6L/gapT+56WN//GZADUM=;
-        b=nWL9kDZ3NWkqMttXrVtBV3cjsBclaBT+YT0mXsxSAMyQAFrs1ThSPrsDqlaoJiUyY5
-         PU04+goNeE1BCRxhlPCJZOQYHA2mzv8ngDEYPltrnrVQrvdd3f2gwUOoBChXOYRl4tZa
-         uqRggtUQm2RpB16zqJJ49hXXCcMLW9A5hg2g2VzdO37iGccgYJRBzT+r4FJCYr3nxvET
-         MvvlRRZm1yLIstlOx9pRXggJa+NrVDTbPW6hOeXN/WD+o+If8iuq3g/zdGRy9GDbI8P2
-         Z0q+IrgGVnP4KjSiXoCBESO9LVnwA5WDu1j2/n9sm11kn/VAT7jsyxMyHrRFiHwPCTZ7
-         M7Ow==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=APKUOIAbDv6xgvZxBxqpunnnVlUhklDqkLiJkSm1Xgo=;
+        b=M6MPRow3UzQLWSYpG65PHzm9p2vZhwDufZ+URknbcmtJjusH6wlZj3Fgr1YcWaQSa+
+         Xx1jY4l3I8RYmrJbFEtZljyWNcPUO2P7pgFNa0iOJpwpNsdWEYAGwRABuuPzFdzw7OML
+         OBvXgamPO+71yIFYPPHZLhIRpG4NEt6CD2hK6fW7b1TxI+a3zJAoN2Lnosexm9KMQCZe
+         ZFoCyhh0CpHpyRN0r7OmLPI10WRfVInLtJ5HHbDDbArKPP1mfL9+XfQF/ttZnagnaoEk
+         I+bE/INOc59Td34hVYGUETEXUD5Oyrpqw0N5Ls4dBwsQcFL/9/11VJ6IvMyYNTwbc76W
+         zYqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1781192468; x=1781797268;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5GKrlwR5PMGqe4clCpmusoR6L/gapT+56WN//GZADUM=;
-        b=gmIjEeFLezxYIa00yzgfyHCfOi8NBcTmSogROmI6C+np7xsxt4vsoWYMvXeIW5qXjS
-         DVagv07UBfM94Xs4TVcHLdkHX11PhuOaI9Yu5f4Z2XQ4dw9sDERODzWomR9H1qJh9YEt
-         HUdYR/JEaUL0AyJ3l5EjwJT7SbP1e8Uxf+mXHGforxZQo0/p2RSSWYI2ZNdyz1OBBQUT
-         WsPuNeBQZFkMfkfiD6zIy42WXY6AFghb8/10g1fao1uHNCSk5hUmRPBCLE6cFYFtJjH6
-         V7NM9xJyVn4p5+YkiiE9Hw1blKSF5BdI/cWi6WCyQsJgy9AQDsg0IxgnuHmCd6TwXA/M
-         kgmw==
-X-Forwarded-Encrypted: i=1; AFNElJ92Zkq8QTYEn27B7oGkLY93dqHmFNYo4j7M7NuqhG3x8zEPxALtKhhuHNLm/cxS7LN01BIhGiNB3v93@vger.kernel.org
-X-Gm-Message-State: AOJu0YygTrSqaNUCmy2M5tVN0VyL51PbORiS7SbLzOEjdQMfdE0IOxfg
-	N9VSGnbQPqxode2k0lXVMAsJSluxUFuPGU4lYBlemffzfEmye/SFzqCueZGVK+xIYag=
-X-Gm-Gg: Acq92OEMnLX04ubcsN74jKHVgdqRgze/A+hdJXoTqqqqegP+BmZ++46HKl4Ezio/BkQ
-	s+E9utqtRoBdNgM/vNrx2elqod3JflG0VSs86z9KDxPbz9GeFZXRatZPpJZpACXTaglRmMTtOYv
-	Y5iFigkQZvt1gGfjtQ8dr2P/0xY4JbbSEOKw45QYKRV/QC+6vyoVrTK1+UPHLh/Kc+ItoM2Q0/K
-	E6+MprYxjmF+1yzcT279XbkSmlBUINozjc5yY8DQhS8qBieZ7Rfyfc2nkDP2LMGxG4CBXilBolR
-	jP4QebYdjLP+5XSxFzaYAAmNoSV+tCfmn3exRNO+1ujX4qaTDrhv+HXUlJs92VntwmivnicfAfY
-	hi3Q0r+LPPs91mzqBQvOCiG9B48nMCifdTLxij1He9yJDw92nrVGcvqJsm3Y5OFa/bNPZ3Ee5tr
-	X2rSIF+wi52yLKRedKp2Gn2gTi9eo84H4ceq1Dg9qt2nwEdDUFe7prHicyARHwgcKga+I=
-X-Received: by 2002:a05:6512:1090:b0:5aa:6a2b:d449 with SMTP id 2adb3069b0e04-5ad27aba631mr1088964e87.21.1781192467393;
-        Thu, 11 Jun 2026 08:41:07 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=APKUOIAbDv6xgvZxBxqpunnnVlUhklDqkLiJkSm1Xgo=;
+        b=oYxLYPvOpZwyeTnZxkKlQwRlE6J4y/lCWTWo63o7PO71x526M5JOB1WZv1GN1wBpAz
+         AuOSN6KIDiW9wzmLViAqqviKrb3543vNBf6PN+hcBVaga0AsqFrLhBjjKQK9g920ly+r
+         UGH1KgZ7p9vRi2kCUhLDiMKpsTvjtzF4i1G0gxS39GCBYg4o+vhpM5JpKQfk72c2Rmyf
+         YNWq4WkOpI4RummGBwFBIX7+tgT6hQavI4Dd2xWEVDiEfAMKU0uRtN/GF3tIZE1mxMVd
+         Cg1IM7L2ftLuOkFLOSdbL7LV0CCRFfYNgFkma4Df+H3SRh6wbhAsS4bS7mJJ6/cF4gzO
+         VmPA==
+X-Forwarded-Encrypted: i=1; AFNElJ9+Qb7cO/LgwE9wbWnK6X0cOCt9yln/9ErEB/8hwOEv6seu8dpQ0m7Q0cnCwisZunKk4XTAfBc+BteM@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsvgkBxVFjRByUCrbUUMg9Qn0sR6kXk/VbB1C5Fs+Bi8KG+SNb
+	mEktccaiOyMsCg3VqbnmZfw/3GCX9+EuEbfIseNTtKTd3XJwrcHY0/fJ
+X-Gm-Gg: Acq92OGM4V+81eZpB9dBmJksk0QiMkOZhWbCRJ3sY/U02nqdN0nZ/85QlaRYfYTk+qe
+	Em3//X9VC+eUynYXFnPxGjpRFvHj58lcns3cndQKXywoAZ+wkmreSa8uBFvBsz0cm1pOYzS9sgS
+	k0Y6Fi8ND527n1ZGdrlwNxsWPwULFssBUIL8BxKnGK2RXhSVXuFk9kYM/Xx8LaVfz4GsMTZD8qE
+	q8E04zio+WSmGXSsAkxoNcP/G4W5RKj79Y1c9/zk+R+PX1F+QLMDuoTvm//yQf236PWp/0oOyMu
+	C2q70kJrfbhGc+vfRqaTEUtmXk5sbwRTRjodZ4FPKVRh0jYk/JsndiGqgrWfmnBvW0OGpntg1rB
+	CTL+rgc+xY9FOnMqhTVLLXydzYRAgOi5669bujZhQBtgxpx9fiZtrlnHHtwoYRFcPQXTjtSYU51
+	SeeZzRfOyfPOA3vTDCKXSwitos+HrPGbmfR5dkoBZm47cYFuV5PJI6ey0H/TQs5phJ8YFNioXUm
+	BjkHg==
+X-Received: by 2002:a2e:bc84:0:b0:396:66c8:1070 with SMTP id 38308e7fff4ca-3991a19e3f6mr10922481fa.21.1781192468187;
+        Thu, 11 Jun 2026 08:41:08 -0700 (PDT)
 Received: from Shofiq.home (87-92-251-137.rev.dnainternet.fi. [87.92.251.137])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3991ac81488sm5994641fa.1.2026.06.11.08.41.06
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3991ac81488sm5994641fa.1.2026.06.11.08.41.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 11 Jun 2026 08:41:07 -0700 (PDT)
 From: Md Shofiqul Islam <shofiqtest@gmail.com>
@@ -66,10 +69,12 @@ Cc: jic23@kernel.org,
 	linusw@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Md Shofiqul Islam <shofiqtest@gmail.com>
-Subject: [PATCH v2 0/3] lis302dl/lis3lv02d: fix click thresholds and add legacy YAML binding
-Date: Thu, 11 Jun 2026 18:41:02 +0300
-Message-ID: <20260611154105.3727-1-shofiqtest@gmail.com>
+Subject: [PATCH v2 1/3] misc: lis3lv02d: set default click detection thresholds
+Date: Thu, 11 Jun 2026 18:41:03 +0300
+Message-ID: <20260611154105.3727-2-shofiqtest@gmail.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20260611154105.3727-1-shofiqtest@gmail.com>
+References: <20260611154105.3727-1-shofiqtest@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,56 +83,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series addresses the review feedback on v1 of the lis302 binding
-conversion.
+Several upstream board DTS files use st,click-thresh-x/y/z (the name
+documented in the old lis302.txt binding), but the driver reads
+st,click-threshold-x/y/z. As a result those boards have had click
+detection silently broken since the DT properties were added.
 
-During the audit of upstream board DTS files I found 11 ARM boards
-referencing st,lis302dl or st,lis3lv02d. This led to two additional
-findings that the v1 patch missed:
+Set a default threshold of 10 for all three axes immediately after
+the platform data allocation so those boards get working click
+detection without requiring a DT change.
 
-1. A longstanding driver bug: the driver reads st,click-threshold-x/y/z
-   but 5 upstream boards use st,click-thresh-x/y/z (the name from the
-   old .txt documentation). Those boards have had silent click detection
-   failures for years because the driver ignores the misspelled property.
-   Patch 1 fixes this by setting a sensible default of 10 in the driver.
+The DT reads for st,click-threshold-x/y/z are unchanged so boards
+using the correct name can still override the default.
 
-2. Three different compatible strings are used as the primary binding
-   for different boards: st,lis302dl (Nokia N900), st,lis3lv02d (Nokia
-   N950/N9, AM335x Pepper), and st,lis302dl-spi (PXA300 Raumfeld).
-   The v1 patch only included st,lis302dl-spi and st,lis3lv02d.
+Fixes: 6a7740c7f5b2 ("lis3lv02d: add device-tree support")
 
-Changes from v1:
-- New patch 1: fix driver click threshold defaults
-- New patch 2: remove st,lis302dl-spi and st,lis3lv02d from the
-  deprecated section of st,st-sensors.yaml (duplicate resolution)
-- Patch 3 (binding, formerly the only patch):
-  - Add prominent WARNING at top of description
-  - Add st,lis302dl compatible (Nokia N900)
-  - Document both supply naming conventions (Vdd-supply/Vdd_IO-supply
-    and vdd-supply/vddio-supply used by N900)
-  - Add mount-matrix (Nokia N900)
-  - Mark all click/irq/wakeup/filter properties as deprecated=true
-  - Add st,click-thresh-x/y/z as deprecated with a note explaining
-    the misspelling situation
-  - Remove Jonathan Cameron as maintainer (declined); use Linus Walleij
-  - Remove driver path reference from description
-  - Add schema range constraints for axis remapping properties
-  - Update example to use Nokia N900 (minimal, modern node)
+Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
+---
+ drivers/misc/lis3lv02d/lis3lv02d.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Md Shofiqul Islam (3):
-  misc: lis3lv02d: set default click detection thresholds
-  dt-bindings: iio: st,st-sensors: remove lis302dl and lis3lv02d from
-    deprecated list
-  dt-bindings: iio: accel: convert lis302 binding to YAML schema (v2)
-
- .../devicetree/bindings/iio/accel/lis302.txt  | 119 -------
- .../bindings/iio/accel/st,lis302dl.yaml       | 320 ++++++++++++++++++
- .../bindings/iio/st,st-sensors.yaml           |   6 -
- drivers/misc/lis3lv02d/lis3lv02d.c            |   8 +
- 4 files changed, 328 insertions(+), 125 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/accel/lis302.txt
- create mode 100644 Documentation/devicetree/bindings/iio/accel/st,lis302dl.yaml
-
---
+diff --git a/drivers/misc/lis3lv02d/lis3lv02d.c b/drivers/misc/lis3lv02d/lis3lv02d.c
+index 21e8ad0a7444..6a028c1bf866 100644
+--- a/drivers/misc/lis3lv02d/lis3lv02d.c
++++ b/drivers/misc/lis3lv02d/lis3lv02d.c
+@@ -956,6 +956,14 @@ int lis3lv02d_init_dt(struct lis3lv02d *lis3)
+ 	if (!pdata)
+ 		return -ENOMEM;
+ 
++	/* Set sensible click threshold defaults. Several upstream board DTS
++	 * files use the misspelled property "st,click-thresh-*" which the
++	 * driver never reads, leaving these at zero. Default to 10 so those
++	 * boards get working click detection without a DT change. */
++	pdata->click_thresh_x = 10;
++	pdata->click_thresh_y = 10;
++	pdata->click_thresh_z = 10;
++
+ 	if (of_property_read_bool(np, "st,click-single-x"))
+ 		pdata->click_flags |= LIS3_CLICK_SINGLE_X;
+ 	if (of_property_read_bool(np, "st,click-double-x"))
+-- 
 2.51.1
 
