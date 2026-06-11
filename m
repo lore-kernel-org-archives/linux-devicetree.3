@@ -1,155 +1,345 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7277149553D
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 16:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21B833A70A;
+	Thu, 11 Jun 2026 16:30:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781194933; cv=none; b=ShaN0t/gxxYY7Yr4EvoIPMPeucLNcY+rCbSwEMn1IYPBk7VeQJ2KUmmSzYYb6pZKXNSHpheGZAEeh1+95P6ttCh2K1rQ80HczEAMfmOLeuI675CCjv6t28DBmKNZ1nR+o3mCC2+6CVKMn4o9tllVdHdjIeKAYWbA7NN1xe42XyQ=
+	t=1781195413; cv=none; b=F5G+UcfsWcNze1t728pn+locmZpkcWYWfy6ofWs+tYVIVb/aT0EJ1IhrYt5mLHZDHU4O49FoAUYGgvoFNUbNHXwIvWsTGtYsPGrQ//BTTcRquvppHgwcxTx843RRvNH6nuxjN5DkBmQHH8wRLx4kyTFrK8tdfX+ZW/Wyy+FAT4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781194933; c=relaxed/simple;
-	bh=MzZh791wBBcduzU8eKa8zBcQoGZIdqkJ3us7JknTT94=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X7hOjib91GivVYC5qJFTJd8W1LcjN6ppkVKDyH6Kx3mG0w1sShd/g1ibRSdZF9OBOOR61vMPF600kWZGJ3xVzPFxqZajxCZ4gBJV92LJZyHGja0zvWBr4fprlRDz23veVghIxfOzZ/HRKJWYeWUoYvbDGGR8H8qejHUwzcVicNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RNEoKpZp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HoKNa+xk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781195413; c=relaxed/simple;
+	bh=YW+tvE4e2OGMpboAEWoc/tMu9cH559mYanqqo1PiA6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L/jWPpFInPhqxd2zF+uslVSh0UXOecBjTrXQo4T/XM7OeeogoM+sHa8hutAcdxjqEbRrMxlMCqO6A98vNRnX3I3qj/R1kd/Fdj3tlxVUedZjObThWB3pTuHZWkjR7y6M/8/fbm/DWUtxunEHA51aj7R82aKyiPXQHcBiNOnAvSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPAUnYjv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RNEoKpZp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HoKNa+xk"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BErwh9975445
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 16:22:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ym9JHhuGJVnxTXzvMLa8Dh5LEiXzF8dTCSzFskP6WRE=; b=RNEoKpZpXXlhW19u
-	rkq2Yg+M6qExhzikZiCg8s/DzeWVooppQDlIjVVrvvAJmismaREsXBMA3P78+34x
-	N9OCj4dDl7wCDhtEyXkecvSMlECLaAxH+lF76hZkkoy4ZypghqJ6irCatdaCnWJO
-	eBQwfW8Lv1f4a7xPiiHP7eeacHVVc7BVMfA8vCvvdoEdWNOKZrDGTv6zWWdpLyyD
-	9XvxXNIpmfJc5z1iCKaprNgfQ07MqaBwmdS68Z+7ETNP5nJV4CrXh/gZetvSVBs2
-	C96DKy3inAJ8+PUCOyCqmOXeWDas3Czz0SR1CBBqFcaqPL0h/QP4kybalCBu2w7a
-	1gDu3Q==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6smess-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 16:22:11 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2bf32259e0eso402825ad.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:22:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781194930; x=1781799730; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ym9JHhuGJVnxTXzvMLa8Dh5LEiXzF8dTCSzFskP6WRE=;
-        b=HoKNa+xkEK3CNEx2tPvy36GJkaky0jPrFTM19FF6Onzq0IwBQ1u9Rw/ako7EnMIz3z
-         HI4cjO+e9QmxP7wZ8h9HaUz9bgViOzUdWDzBKxtehrunR9G5EYe2rx7VM66utEYhwiKc
-         eWwiet8wzLmyLqnB2xD+aqrGMcES9htbYzxHdasjx9uYCJgvkdXUUhDv0cYdjgH/+acN
-         KROQnrqS4Gy4lUEvuevk2qYiLPDaFeITpSMgQDXi2+9yrtXsaWjGAfaJbmv+lYgM2FqG
-         aaKESxg57AWbiFmEnNHBHkW/RG/TYruKCJjy0c1mOETur0J17eQnrM35l88SxmXefw4e
-         M3vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781194930; x=1781799730;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ym9JHhuGJVnxTXzvMLa8Dh5LEiXzF8dTCSzFskP6WRE=;
-        b=jnLrpxZcgmNM1vfmSdj7xxYFu0MzSTDxbVC59f/dMHMGuqzbVBY8CWHguSL9UN62Be
-         NeHsZO2mMCLjUoTf4/YzSI41n2tLmNrseE6AtBLckfxE5jvNxbdLZSsDYC80KV524pqX
-         saWj5F0yuK5goqSyFZ2SnfoQ5wc3wzZI4kFLQfk/paqVUT7/4zuwZNZD649aRWqAYlYe
-         rosEzjZ21PsmQihIHjpWDGE9tEjpoK5h96QTNlEm3vGaiHlGp/2yrFTZIXOAePT6TMmQ
-         Bf3arwVenlUvPjvel2iqphf/5jRc05R0lk3xq+ua+0gODKi4I/iLoogNhljp1ae+Kof/
-         YLig==
-X-Forwarded-Encrypted: i=1; AFNElJ/T8Gxj58L5HPoRf+2JbhzSl7lXRrso7h0WwQ+1WlyYHUVWeV7bdEjnJazpsEcGh9kSSAeL3C7hylej@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzwYOQgL31Y3RhgOHNyPW2xhRRb2UDoQeaw2LDaLfBPO92bQs4
-	MdEWSvnz9NxIYYLdRqiVZRa2MydPFNyvpewlu220bMpmkwrU8MnknvRl2saQCIzBUayCYuqSkzN
-	dUw+ZL1+lCtPKRK+4Oe3ORhx+NWn0EOQ1pVG7kujb42C7xeNxOewk3qXMHMBO7SVOqNJCkkyr
-X-Gm-Gg: Acq92OF1B9oBbvZRlpVSqTazrUVLggd04kuxWDSYrD5SScQkWQe3D84puegtCPOwEBB
-	NAQSBP1w9FahvaLLxxSFwjHu61wWEU5yQsN396QCiFm9RdcgmOZDPNU+mkSyHu1LPnN8LQXhUfz
-	Hr+YzN5dFYEDu8nBurKOH0UMFepQjIksV9lJLmwinXKr58FpG6fRAlr0Qc2jYvXORYRzcLInU4g
-	PohJJLK/dFQWP9T2g+3wzu2LdlmxG4AQWPEw4hlI67hVh/eFiO6QCyaliUnjZi84WQAfZCwsDBk
-	bu5+gc/6HDnv+8iYQDbERhoRLgHMbh2IfnorICNH3NPVgcpacJG8pwFFVGLkfmGJ0mlNIHLCtwz
-	HrjASvzNwg5QHKp6jWnkXwc/8Fs6XU5TUL7Mtx8NEMI03tZXAFb/6CM42D71Ornc=
-X-Received: by 2002:a17:903:1984:b0:2c1:5135:39f3 with SMTP id d9443c01a7336-2c2f0639a6dmr44760155ad.11.1781194930349;
-        Thu, 11 Jun 2026 09:22:10 -0700 (PDT)
-X-Received: by 2002:a17:903:1984:b0:2c1:5135:39f3 with SMTP id d9443c01a7336-2c2f0639a6dmr44759545ad.11.1781194929759;
-        Thu, 11 Jun 2026 09:22:09 -0700 (PDT)
-Received: from [192.168.1.8] ([122.164.81.0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164fa3a5fsm296310835ad.36.2026.06.11.09.22.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 09:22:09 -0700 (PDT)
-Message-ID: <8a0e9314-0c97-48c8-be95-986c7e6fe641@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 21:52:04 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPAUnYjv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7FE1F00893;
+	Thu, 11 Jun 2026 16:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781195411;
+	bh=sUuwlpaBLh6tnQQlebDBJ+Xh85HCcs+ftZZACcojad8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lPAUnYjvERUR/HIfXUfkPZr7mABv/kXAyU0egUEHrOFzHTDGYirZ7Luc/ysaRLhq5
+	 DAusACqbld2BEPZTrtrd515xu6yKzjES5A55v4YZIfyWspMa8geU5kz5SOXKeZXwi1
+	 Mu0wrz3DA21hLRkL0igpjxymCttEJ22owRx4WBptxiZZLorNxeNgyKfNu7lB2yCv1t
+	 mUBfAcMQa1vIzrUNGIwHVfw0FyNZxvVq8bTbtpy/Ure/0sbxcOF3tSORsSf5CxMFZp
+	 kWZF92v4agLONM+Nn56/EN02wkzxV4B/4pzXzq7FChsKuDXrg/8L/xNKpgSkQC+RPA
+	 Qje+L7gFMX7Ug==
+Date: Thu, 11 Jun 2026 17:30:05 +0100
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
+	Frank.Li@nxp.com, lgirdwood@gmail.com, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
+Subject: Re: [PATCH v10 5/9] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+ and on-die regulator
+Message-ID: <20260611163005.GA1140262@google.com>
+References: <20260525064209.2263045-1-lakshay.piplani@nxp.com>
+ <20260525064209.2263045-6-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add support for the QMP PCIe PHYs in Qualcomm IPQ9650
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260602-ipq9650_pcie_phy-v1-0-d8c32a36dbd9@oss.qualcomm.com>
- <aiqYtowP2DQt7Jw0@vaman>
-Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <aiqYtowP2DQt7Jw0@vaman>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: FRw75y9FAcy3XMdzIVAJjBXL9hOAbN9F
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE2NCBTYWx0ZWRfX+rahznOqMt+/
- 3RkcPdanT7EksIoCoSOXgajO3t2OmpDJtl2bIUnWb1v3frBYUEue1Ffu8KnD2QVVL0gaJBouq5q
- C8eTho1sHID6W0at6aIWShSRR5xmOVk=
-X-Proofpoint-ORIG-GUID: FRw75y9FAcy3XMdzIVAJjBXL9hOAbN9F
-X-Authority-Analysis: v=2.4 cv=Kux9H2WN c=1 sm=1 tr=0 ts=6a2ae0b3 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=DVNErGSwdtF8OHn2hLoakQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=MO7iE5JbH1gLMWvasfoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE2NCBTYWx0ZWRfX6q832slbViem
- FGYlnTsVeqc2PpqtL6hKTxKyOUCQ+S3JIWLpLDk22nBQlVqllMw7vHX8j68Z+cJHgxu1z4mQ/Si
- gCErABqRYVyibMyjBvnJ7mZEZpXB/du6VJuXrRPjvCw5Fhvd+GzIX/8xdtxE/269xfiCfzzdI2/
- oyTcFi/Oicxmp6UdaV8XndZGAbvfs8a52I9lldnAFHjhE5rkm0aPYtbLSnJGa70IcI7ObDtHMnj
- u1k15rwWp9Cu7KttFm6EDe2wJcnpq+t++Z+CPHfsOVokkbHoklEY8GG/AjXZw+MvWGPKHcVBvx+
- 4XFBR08GQYd5wiZ9Zy+EZDpsT+2SvFQ2ne6lJXZdxR28aWxJgnRY/qPWjH+QtQj80dujP8kCsdw
- u5aAAw41BsPZqJQvXpjazA51/OEzUVOqZxqgpvac/pX1U7AH2fN6RkQQSeazzPKjyKAtRSmWjaV
- i1egPTcbuPPv+A8EV3A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_03,2026-06-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606110164
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525064209.2263045-6-lakshay.piplani@nxp.com>
 
+On Mon, 25 May 2026, Lakshay Piplani wrote:
 
-On 6/11/2026 4:45 PM, Vinod Koul wrote:
-> On 02-06-26, 14:40, Kathiravan Thirumoorthy wrote:
->> Qualcomm's IPQ9650 SoC has 3 Gen3 dual lane and 2 Gen3 single lane
->> controllers with the QMP PHYs. Unlike the PHYs in the other IPQ SoC,
->> refgen supply is needed to bringup the PHYs. Both single and dual lane
->> shares the same HW init sequence. So reuse the tables.
->>
->> Document the compatible along with refgen supply and add the phy driver
->> support for it.
-> Please rebase this on phy-next tomorrow. It does not apply for me due to
-> changes applied ealier today
+> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> 
+> Add core MFD support for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+> family of multiport I3C hub devices. These devices connect to a host via
+> I3C/I2C/SMBus and expose multiple downstream target ports.
+> 
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> 
+> ---
+> Changes in v10:
+>  - Drop redundant is_p3h2x4x_in_i3c flag
+> 
+> Changes in v9:
+>  - Renamed macros to follow consistent uppercase naming conventions
+>  - Made REGMAP selects in the P3H2X4X MFD Kconfig conditional,
+>    to avoid I3C/I2C dependency issues
+> 
+> Changes in v8:
+>  - No change
+> 
+> Changes in v7:
+>  - Use new config I3C_OR_I2C
+> 
+> Changes in v6:
+>  - No change
+> 
+> Changes in v5:
+>  - Corrected the ordering in the Makefile and Kconfig for MFD_P3H2X4X
+>  - Updated dev_err_probe() for regmap_init failure.
+>  - Updated module description
+> 
+> Changes in v4:
+>  - Split the driver into three separate patches(mfd, regulator and I3C hub)
+>  - Added support for NXP P3H2x4x MFD functionality
+> ---
+> ---
+>  MAINTAINERS                 |   2 +
+>  drivers/mfd/Kconfig         |  13 ++++
+>  drivers/mfd/Makefile        |   1 +
+>  drivers/mfd/p3h2840.c       | 122 ++++++++++++++++++++++++++++++++++++
+>  include/linux/i3c/device.h  |   1 +
+>  include/linux/mfd/p3h2840.h |  26 ++++++++
+>  6 files changed, 165 insertions(+)
+>  create mode 100644 drivers/mfd/p3h2840.c
+>  create mode 100644 include/linux/mfd/p3h2840.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8ae231f67460..25e578dd74dd 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19311,6 +19311,8 @@ L:	linux-kernel@vger.kernel.org
+>  L:	linux-i3c-owner@lists.infradead.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> +F:	drivers/mfd/p3h2840.c
+> +F:	include/linux/mfd/p3h2840.h
+>  
+>  NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
+>  M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index 7192c9d1d268..405b50c3c77b 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -617,6 +617,19 @@ config MFD_MX25_TSADC
+>  	  i.MX25 processors. They consist of a conversion queue for general
+>  	  purpose ADC and a queue for Touchscreens.
+>  
+> +config MFD_P3H2X4X
+> +	tristate "NXP P3H2X4X I3C Hub Device"
+> +	depends on I3C_OR_I2C
+> +	select MFD_CORE
+> +	select REGMAP_I3C if I3C
+> +	select REGMAP_I2C if I2C
+> +	help
+> +	  Enable Support for NXP P3H244x/P3H284x I3C HUB device using I3C/I2C
+> +	  communication interface.
+> +
+> +	  This driver provides support for I3C hub and regulator, each subdriver
+> +	  can be enabled independently depending on the required functionality.
+> +
+>  config MFD_PF1550
+>  	tristate "NXP PF1550 PMIC Support"
+>  	depends on I2C=y && OF
+> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> index e75e8045c28a..a284b22c7b13 100644
+> --- a/drivers/mfd/Makefile
+> +++ b/drivers/mfd/Makefile
+> @@ -122,6 +122,7 @@ obj-$(CONFIG_MFD_MC13XXX)	+= mc13xxx-core.o
+>  obj-$(CONFIG_MFD_MC13XXX_SPI)	+= mc13xxx-spi.o
+>  obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
+>  
+> +obj-$(CONFIG_MFD_P3H2X4X)	+= p3h2840.o
+>  obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
+>  
+>  obj-$(CONFIG_MFD_NCT6694)	+= nct6694.o
+> diff --git a/drivers/mfd/p3h2840.c b/drivers/mfd/p3h2840.c
+> new file mode 100644
+> index 000000000000..9bd8cf6980f1
+> --- /dev/null
+> +++ b/drivers/mfd/p3h2840.c
+> @@ -0,0 +1,122 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright 2025-2026 NXP
+> + * P3H2X4X i3c hub and regulator device.
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/i3c/master.h>
+> +#include <linux/mfd/core.h>
+> +#include <linux/mfd/p3h2840.h>
+> +#include <linux/regmap.h>
+> +
+> +static const struct mfd_cell p3h2x4x_devs[] = {
+> +	{
+> +		.name = "p3h2x4x-regulator",
+> +	},
+> +	{
+> +		.name = "p3h2x4x-i3c-hub",
+> +	},
+> +};
 
-There is a discussion open about the supplies[1]. Once that is 
-clarified, let me re spin. So we can take up this series for v7.3 once 
-that discussion is closed.
+MFD_CELL_NAME()
 
-[1] 
-https://lore.kernel.org/linux-arm-msm/aiqYtowP2DQt7Jw0@vaman/T/#m37a571fac0c77fd00f6379ad9a2414b60431820b
+> +static const struct regmap_config p3h2x4x_regmap_config = {
+> +	.reg_bits = P3H2X4X_REG_BITS,
+> +	.val_bits = P3H2X4X_VAL_BITS,
+> +	.max_register = 0xFF,
+> +};
+> +
+> +static int p3h2x4x_device_probe_i3c(struct i3c_device *i3cdev)
+> +{
+> +	struct p3h2x4x_dev *p3h2x4x;
 
->
+struct p3h2x4x *ddata;
+
+> +	int ret;
+> +
+> +	p3h2x4x = devm_kzalloc(&i3cdev->dev, sizeof(*p3h2x4x), GFP_KERNEL);
+> +	if (!p3h2x4x)
+> +		return -ENOMEM;
+> +
+> +	i3cdev_set_drvdata(i3cdev, p3h2x4x);
+> +
+> +	p3h2x4x->regmap = devm_regmap_init_i3c(i3cdev, &p3h2x4x_regmap_config);
+> +	if (IS_ERR(p3h2x4x->regmap))
+> +		return dev_err_probe(&i3cdev->dev, PTR_ERR(p3h2x4x->regmap),
+> +				     "Failed to register HUB regmap\n");
+> +	p3h2x4x->i3cdev = i3cdev;
+
+Where is this used again?
+
+> +
+> +	ret = devm_mfd_add_devices(&i3cdev->dev, PLATFORM_DEVID_AUTO,
+> +				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
+> +				   NULL, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(&i3cdev->dev, ret, "Failed to add sub devices\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int p3h2x4x_device_probe_i2c(struct i2c_client *client)
+> +{
+> +	struct p3h2x4x_dev *p3h2x4x;
+> +	int ret;
+> +
+> +	p3h2x4x = devm_kzalloc(&client->dev, sizeof(*p3h2x4x), GFP_KERNEL);
+> +	if (!p3h2x4x)
+> +		return -ENOMEM;
+> +
+> +	i2c_set_clientdata(client, p3h2x4x);
+> +
+> +	p3h2x4x->regmap = devm_regmap_init_i2c(client, &p3h2x4x_regmap_config);
+> +	if (IS_ERR(p3h2x4x->regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(p3h2x4x->regmap),
+> +				     "Failed to register HUB regmap\n");
+> +
+> +	p3h2x4x->i3cdev = NULL;
+> +
+> +	ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_AUTO,
+> +				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
+> +				   NULL, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to add sub devices\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct i3c_device_id p3h2x4x_i3c_ids[] = {
+> +	I3C_CLASS(I3C_DCR_HUB, NULL),
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(i3c, p3h2x4x_i3c_ids);
+> +
+> +static const struct i2c_device_id p3h2x4x_i2c_id_table[] = {
+> +	{ "nxp-i3c-hub" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, p3h2x4x_i2c_id_table);
+> +
+> +static const struct of_device_id p3h2x4x_i2c_of_match[] = {
+> +	{ .compatible = "nxp,p3h2840", },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, p3h2x4x_i2c_of_match);
+> +
+> +static struct i3c_driver p3h2x4x_i3c = {
+> +	.driver = {
+> +		.name = "p3h2x4x_i3c_drv",
+> +	},
+
+'-'s only and drop the "_drv" part.
+
+> +	.probe = p3h2x4x_device_probe_i3c,
+> +	.id_table = p3h2x4x_i3c_ids,
+> +};
+> +
+> +static struct i2c_driver p3h2x4x_i2c = {
+> +	.driver = {
+> +		.name = "p3h2x4x_i2c_drv",
+> +		.of_match_table = p3h2x4x_i2c_of_match,
+> +	},
+> +	.probe =  p3h2x4x_device_probe_i2c,
+> +	.id_table = p3h2x4x_i2c_id_table,
+> +};
+> +
+
+Remove this line.
+
+> +module_i3c_i2c_driver(p3h2x4x_i3c, &p3h2x4x_i2c);
+> +
+> +MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
+> +MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
+> +MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
+> +MODULE_DESCRIPTION("NXP P3H2X4X I3C HUB multi function driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/i3c/device.h b/include/linux/i3c/device.h
+> index 971d53349b6f..6188082599dd 100644
+> --- a/include/linux/i3c/device.h
+> +++ b/include/linux/i3c/device.h
+> @@ -85,6 +85,7 @@ struct i3c_xfer {
+>   */
+>  enum i3c_dcr {
+>  	I3C_DCR_GENERIC_DEVICE = 0,
+> +	I3C_DCR_HUB = 194,
+>  };
+>  
+>  #define I3C_PID_MANUF_ID(pid)		(((pid) & GENMASK_ULL(47, 33)) >> 33)
+> diff --git a/include/linux/mfd/p3h2840.h b/include/linux/mfd/p3h2840.h
+> new file mode 100644
+> index 000000000000..18ff15f9e2d9
+> --- /dev/null
+> +++ b/include/linux/mfd/p3h2840.h
+> @@ -0,0 +1,26 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright 2025-2026 NXP
+> + * This header file contain private Reg address and its bit mapping etc.
+> + */
+
+"This header file contains register definitions and bit masks for the P3H2X4X."
+
+> +
+> +#ifndef _LINUX_MFD_P3H2840_H
+> +#define _LINUX_MFD_P3H2840_H
+> +
+> +#include <linux/types.h>
+> +
+> +/* Device Configuration Registers */
+> +#define P3H2X4X_DEV_REG_PROTECTION_CODE				0x10
+> +#define P3H2X4X_REGISTERS_LOCK_CODE				0x00
+> +#define P3H2X4X_REGISTERS_UNLOCK_CODE				0x69
+> +#define P3H2X4X_CP1_REGISTERS_UNLOCK_CODE			0x6a
+> +
+> +/* Reg config for Regmap */
+> +#define P3H2X4X_REG_BITS					8
+> +#define P3H2X4X_VAL_BITS					8
+> +
+> +struct p3h2x4x_dev {
+> +	struct i3c_device *i3cdev;
+> +	struct regmap *regmap;
+> +};
+> +#endif /* _LINUX_MFD_P3H2840_H */
+> -- 
+> 2.25.1
+> 
+
+-- 
+Lee Jones
