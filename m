@@ -1,92 +1,76 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820112F8E9D
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0974B3EFD03
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781180761; cv=none; b=LY4e87TgCTnjmiF6A6XVnTAPaIKWrdaUtCejwVC37W3TcqS6QyF5vgG5BeGUzL3VBCo/3FRUMCBBqa9iGbqzeZf5WITBUceP6vhjf9UJ4/8QQwt4SIZ8STxLu+QFqqwcyi/3BycGVtK2eZF6XbL06tWQa7rnwAlTVP1to4J9aoc=
+	t=1781180778; cv=none; b=iHPZvhFogxPNkLoXxpKFvmP26Ql0e39SnawwPf3A4srSoTOxddDv0Ddp+Exzm8xXzUxv4pr8upQZpdGBUmB3XmFUx/rXXbiDpYFYSrdEw66UJ9wi7XdEywT3N5Zk3imY6zSZr4ELlCrsqGC7UCWS2FmmXN6kOb5R+lFo3GSimlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781180761; c=relaxed/simple;
-	bh=2y9y5GgH737cWdDW9MOPzFlwCufmt62EGuirBI6tVa8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zldqz7i5tg39gErAHjUVu3EO5RtzMkE+8wy7zO/qkfWvdHyRVsPklbnqFzF6vN0PK1kX2Luj4da21oYIfznjYs/iGutnjaOy1GKtKi3wUJtzZ6JvuMvq+eGpkayotbz+vYDepK1tkUc3SEepKjAy5N1e91NUXQg17JBGELhYz8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=FrVFXRtf; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1781180778; c=relaxed/simple;
+	bh=g/VnuIKvkGWSAajf8vvIgUd13LyTGZr4shl0aUhfam8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Nhw4If7KZ3rSL+vGc5S24DBfZhjRdfuu73uWjQEhGGb5NtAgIcw/LukxjoxW0DOEGYqWQAEVPzamCMeykl0tAI0IsAFcP81UGrdVNqMEYeqd5/g2Q1pxiylxKQ41wYS3RowSam+ZbLwPNWNAXq6FsldfSEC3Qt1oUpnOX8t4mxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnlHs3vu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="FrVFXRtf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=2y9y
-	5GgH737cWdDW9MOPzFlwCufmt62EGuirBI6tVa8=; b=FrVFXRtfaMutB4+9Zooe
-	5rIfgazD6jxPD6iIgrbDoOMck2eUhfkbGNJySY23Mn6RqF6lEjNXU2mQsiS1/GCD
-	x1EB6S2qjSzVrjC2nlygz0NOKLkJIIcjW7ClY6qDy6EU4OGuifp02D2FSZhspCVv
-	Sd+5Nj4RRyis1An7plixFtHqKwXAokOof6uo1ahCNKmGKBBaeD2M5vSYvXeyoBxa
-	l6UgHBzb6Azdgoww6N1zxuztmQwUNd9jYO3BZgvFmL57KQEtj39K2RCHKiczed4A
-	DM0wNCsx1XP/Dpamcxb6Giji57c/xYLm46ErAhEo4HJ4bqh5CoNIshj1ksjxcteG
-	8Q==
-Received: (qmail 2112436 invoked from network); 11 Jun 2026 14:25:56 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Jun 2026 14:25:56 +0200
-X-UD-Smtp-Session: l3s3148p1@8s86dvlTQocujnvX
-Date: Thu, 11 Jun 2026 14:25:55 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-i2c@vger.kernel.org
-Cc: Peter Korsgaard <peter.korsgaard@barco.com>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: i2c: mux-gpio: name correct maintainer
-Message-ID: <aiqpU-Mn0HswahCK@shikoro>
-References: <20260611122053.7306-2-wsa+renesas@sang-engineering.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnlHs3vu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03941F00893
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:26:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781180777;
+	bh=Nj6I30dESBei2Zmp1z0LfF/1I7GCQA0Q3yZdhfFji1I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SnlHs3vuJPcJW75myJnz3dI4AwoX607x4PnuASHDNWxd28IFxcdcFVf/1P7kLzdvu
+	 DvJpAMullkHv6B4OijQvNEyBpRxRTaPYwpIGPlzdSOvNsFGSBlsb0kVjrqTxuWeXVw
+	 xtBOpjHiysyHhBYOpwaP2X54HdpJaahbYXByLRHb8wbf3A4hqIjolX6auq26e2Fv3s
+	 CFJ1Wrc+j1E/XRsDyAiJg05zC/44qa+5k+yWpYSdnL2o3n5USwz8jyfEMvJ1ExZ5WY
+	 pkg7EyKleS4vpAiYz1qIMTf/AOpycZwOJCC+YthxdPuZAVI+QdWQxunCzgxIqXZnpo
+	 T3c3vBBCX0sbw==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aa6cdebc33so7248259e87.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:26:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9uen6QG+3apFqZNl+uHj0cNg/3qPNqDZwRtxh85UyfvXJCBawGVTR9P+xVJxJ3tj1qT5Ny4nXWOvB1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6Z9RFnHHuu4ejK06MhSOHJ5dSBtqEntaqpbms/rDACg3tv9CZ
+	hGNoKH8CLvQqzXfDmK7V/yCYtfBJ6FKmNbVgQ+Xk50F/HEek/7WR9R+tdN6qlC0Gbd9P7CcyUZF
+	vL9tbOKOBQxBm+gPqSaXXUS/zzYsG8TU=
+X-Received: by 2002:a05:6512:1282:b0:5a8:8db6:b3d with SMTP id
+ 2adb3069b0e04-5ad27ae3258mr738931e87.24.1781180776604; Thu, 11 Jun 2026
+ 05:26:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VoBUupXxGIIzeo6g"
-Content-Disposition: inline
-In-Reply-To: <20260611122053.7306-2-wsa+renesas@sang-engineering.com>
-
-
---VoBUupXxGIIzeo6g
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260610-pmg1110-gpio-v1-0-a9c50cd8b5d9@oss.qualcomm.com>
+In-Reply-To: <20260610-pmg1110-gpio-v1-0-a9c50cd8b5d9@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 11 Jun 2026 14:26:03 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=SSUOZTyE29C_z0Gj_1iKgdLnqWaMQc5BKdsY1h5OAUQ@mail.gmail.com>
+X-Gm-Features: AVVi8CeqWNRQFQ5gUdmKUsibk9c4XCoQP1UEG8vW5TTxaputcf1j1B_Elc7vDYQ
+Message-ID: <CAD++jL=SSUOZTyE29C_z0Gj_1iKgdLnqWaMQc5BKdsY1h5OAUQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] EDITME: cover title for pmg1110-gpio
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Collins <david.collins@oss.qualcomm.com>, 
+	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, 
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 11, 2026 at 02:20:53PM +0200, Wolfram Sang wrote:
-> The YAML conversion added me as maintainer but I can't recall being
-> asked nor do I want to maintain it. Add Peter as maintainer for the
-> binding as he is maintainer of the driver.
->=20
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Wed, Jun 10, 2026 at 9:05=E2=80=AFAM Fenglin Wu <fenglin.wu@oss.qualcomm=
+.com> wrote:
+
+> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 > ---
+> Fenglin Wu (2):
+>       dt-bindings: pinctrl: qcom,pmic-gpio: Document PMG1110 GPIO support
+>       pinctrl: qcom: spmi-gpio: Add PMG1110 GPIO support
 
-Peter, are you fine with this change? Sorry, forgot to put this in the
-original mail.
+The series:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-
---VoBUupXxGIIzeo6g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoqqVAACgkQFA3kzBSg
-KbY6tQ//SMlt9Gyv95+oCDADCAmnUcqlXOf+u4sBrf3ozvE8C8bH4Boin3Hdqj2y
-C7YZzpClemiNycS4JGlpQRnlEJeYAxPvn9u1pTD35AvQ8VFxONGGGjlH1vpWDToq
-JLcqpeAVVOddpiXD7N+Sqky6iNY8J9N9Ym23bj/qzcZPQvhYQeppf/Vjwo4JOoJ/
-5nn0NSV+8E270XqEUD5oI+/PRcyMEIvQcScjEmo/fSdrOxcWWa99bw8DZOriT8MO
-RoxT8scvFQcW4XLQPn9rHtUdNy7HVfpfqFkHW92YffpmSVooXbWeXyl/JBJVnjvb
-uBu1ycbT2vk0K29Q+GOsF63khEa6aO1cnbG4Ijb82/SmAvgEd96Bb2QtZo5p4dtc
-/xx9b3He6QYjZr6s8bGREntqGuidrEJN2b5uk/qHdB/5u5qGSTL4cpdYLRHveGsB
-xHkUm3ZZ58jBCd4Rt/KAJ54uUTQAhfHcA8ikFHRK9EnrqUFGBiDiH5+TqH3y1h8P
-jl8MdeWlArp8dkaJuDACxAekQwZN+cce/cBRh3W5xNbVne062GfO0c4DvZdGOWdR
-kNULfbBpCHmkmyPzBHMAQHQQz/nTgZ/3R8Yl/sS/xsws3NH3/XpkJZIQhIEJV2ug
-A8MJvWWVvC30jKvBzQgL0PQ1Gq2axuxlSzzCWrIT/y2IEMWzi+E=
-=k40F
------END PGP SIGNATURE-----
-
---VoBUupXxGIIzeo6g--
+Yours,
+Linus Walleij
