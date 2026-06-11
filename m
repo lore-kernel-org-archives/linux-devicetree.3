@@ -1,256 +1,101 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81BD37CD29;
-	Thu, 11 Jun 2026 06:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1743769F7;
+	Thu, 11 Jun 2026 06:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781160621; cv=none; b=gkrskT3VB0P3niIIDTTxwph+qS5I8tSpyLsMxQDkv6G2qy8DE8767YqJRiqggy9cEYU1Tr+xm3VuVVu3uGUDSzhdiWcooewLZTP1XPvEs0FCDtVTTEoaUaBR6B+/pRcZKnrXbxb/z3UZRTmKI1J9GULTefcBGLljiCdYnesgJSA=
+	t=1781160645; cv=none; b=jqJ7ii73sYuRTE6HbG0K1tpZPLOSj52D4cwDDmJ/DdUFnsFSN3bkVc8JAnCGawIUwus/aexDb4xBcXqqzoGJlc8AaCt6pDaIVPIt7itUjWFPefurMd1DebvIRNte0aXVb3wuNMMfR6HUFcHliMxJLtyl2kuX5itM70IQ9OCXvrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781160621; c=relaxed/simple;
-	bh=8U6jz7rXtYL1MwCZPqGDf5fZs+4y+xyGRhjMMf47rOU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=czWZcarNnngnwREOnNc2ztFxi/Lzocmy5KrC0b+KLxwm9H1HODDWPCL6QYlQBHqXjky+Moa3OAd1P+8qk7KNqcQgyOBVDjAuqX1j8agGCuSUzdZpvWKaqkuREGtrM8iMqsM+rDjojJXFsadv6Dm0pgMiRhWR5SNVZGTRrLA4CRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 11 Jun
- 2026 14:50:09 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Thu, 11 Jun 2026 14:50:09 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Thu, 11 Jun 2026 14:50:08 +0800
-Subject: [PATCH] arm64: dts: aspeed: Fix duplicate pinctrl labels and
- address scheme
+	s=arc-20240116; t=1781160645; c=relaxed/simple;
+	bh=iGBe9y93or20Qdzjli2h3cZtD6qMC2vvyAFX5CVUEj8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgGrojvQmGD5FbY2nOAD2QTe4DTxQ0sfrFQhPqJ5s+Ze1xQV9UBueemuVw48t3T3LbzSMysGRJ0pf04GBJXWVH1KnEzqc9J5Gj+T6lzvCGyNsnqqkxhXLB9jZ6Z2ETrqO2tdG81hB5g+FBDVeLlQ+x1UieQCl1mE4V0ikMzai3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B84Zhgzm; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B84Zhgzm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781160638; x=1812696638;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=iGBe9y93or20Qdzjli2h3cZtD6qMC2vvyAFX5CVUEj8=;
+  b=B84ZhgzmdhLqicJV56YeRA/Mzu3ioT3g0QB7cyQsR08MD9Ns7YGUdKX7
+   7Ge9qn0q5zZV/z9Ft8pfxQFIDfyy0Lbf5y7ifFEfdnufXmie+vw3+ZoHa
+   iYyBU9lWnvGelS0dZvo6zhqI28U3xPo8aNlVk1yb91AYUFu2hvevcMraE
+   pOEtRFqOfOkBH59Gw52J/tWRvv0jUMVA/185K9jw0NAWGE9R6TCa0Evkw
+   Nn7MzGKYBKN1oDhEss6h2y1ZyMlX7aoh+kIs8XiChsO7927gTzGMW4itx
+   LhBE0w0A9xFyWIk1A55dmARgFJlvIVx8eGelgF1iXTH0/lWsGSV4T68f9
+   A==;
+X-CSE-ConnectionGUID: eGazaUXjQMKwhpNPtkxMjw==
+X-CSE-MsgGUID: mWoXU/i1T8CyhztzdR1A7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="85863035"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="85863035"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 23:50:37 -0700
+X-CSE-ConnectionGUID: j3IQ+7NyR0KhRCeMrQsDLw==
+X-CSE-MsgGUID: u9ab8cXeTcCzaW0mcI3jww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="246267613"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.123])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 23:50:33 -0700
+Date: Thu, 11 Jun 2026 09:50:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maxwell Doose <m32285159@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	Tomasz Duszynski <tduszyns@gmail.com>
+Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
+Message-ID: <aipatjyVcltbspRJ@ashevche-desk.local>
+References: <20260609160326.45123-1-m32285159@gmail.com>
+ <20260609160326.45123-3-m32285159@gmail.com>
+ <20260610-pastoral-dark-ostrich-5ca3f6@quoll>
+ <CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
+ <e00caff5-55e4-428f-bc57-3885699b221c@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260611-dtsi_fix-v1-1-ef2b7cd86d6d@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIAKBaKmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDM0ND3ZSS4sz4tMwKXQNLyyRDw0RjI8MkUyWg8oKiVKAw2Kjo2NpaAKY
- AXaBaAAAA
-X-Change-ID: 20260611-dtsi_fix-099b11a321b5
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Arnd Bergmann <arnd@arndb.de>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781160609; l=5765;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=8U6jz7rXtYL1MwCZPqGDf5fZs+4y+xyGRhjMMf47rOU=;
- b=O9wmMN7nZjWZ4LiaBz1UQB8K5FQiwQQye3VsCY92aIsBDGfBlwhNQ68rdmVUnuq1MT8XhoL1R
- byIXjsGNhUgDIjxeCHG6e77/P2X8uyQom931Pc1kK32Q0cXBpJexTUJ
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e00caff5-55e4-428f-bc57-3885699b221c@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Fix duplicate pinctrl_tach{0-15} and pinctrl_n{cts,dcd,dsr,ri}5 labels
-in aspeed-g7-soc1-pinctrl.dtsi.
+On Thu, Jun 11, 2026 at 08:37:33AM +0200, Krzysztof Kozlowski wrote:
+> On 11/06/2026 00:24, Maxwell Doose wrote:
+> > On Wed, Jun 10, 2026 at 4:09 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >> On Tue, Jun 09, 2026 at 11:03:26AM -0500, Maxwell Doose wrote:
+> >>> Tomasz's entry is no longer valid, as he is not active anymore. Add
+> >>
+> >> Why is not longer valid? I see activity in Feb...
+> > 
+> > Strange. According to git log --author="Tomasz Duszynski" last commit
+> > I have from him is 2023. We also did have an RFC open for a month on
+> > linux-iio with Tomasz Cced with no response.
+> 
+> So you did not check enough... and no one needs to read RFC :/
 
-Drop the cpu-index from secondary/tertiary container nodes: reduce the
-"#address-cells" from 2 to 1 and update ssp_nvic/tsp_nvic unit-address
-and reg accordingly. Also remove URL comments from the DTS.
+Hmm... lore.kernel.org shows last activity November last year (07-11-2025).
+What other sources do you suggest to check?
 
-Suggested-by: Andrew Jeffery <andrew@codeconstruct.com.au>
-Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device tree")
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
-This series contains follow-up fixes for the AST27xx DTS support that
-was merged into linux-next (e77bb5dc5759).
-
-Two issues were identified after merge by Andrew Jeffery during review
-of the pending v11 series:
-
-1. Duplicate pinctrl state labels in aspeed-g7-soc1-pinctrl.dtsi caused
-   dtc to abort with fatal label-redefinition errors.
-
-2. The synthetic container nodes (secondary, tertiary) for sub-processor
-   interrupt controllers used a 2-cell address scheme to encode a
-   <cpu-index reg-base> tuple.  Since the cpu-index adds no value for
-   nodes that are purely phandle anchors, Andrew requested we drop it
-   and use the bare register address instead.
----
- arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi      |  14 ++-
- .../boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi    | 102 ---------------------
- 2 files changed, 6 insertions(+), 110 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
-index ef283d95649a..58193c3c3696 100644
---- a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
-+++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
-@@ -84,32 +84,30 @@ l2: l2-cache0 {
- 	};
- 
- 	secondary {
--		#address-cells = <2>;
--		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/of/address.c?h=v6.16#n491 */
-+		#address-cells = <1>;
- 		#size-cells = <0>;
--		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/of/address.c?h=v6.16#n430 */
- 
--		ssp_nvic: interrupt-controller@1,e000e100 {
-+		ssp_nvic: interrupt-controller@e000e100 {
- 			compatible = "arm,v7m-nvic";
- 			#interrupt-cells = <2>;
- 			#address-cells = <0>;
- 			interrupt-controller;
--			reg = <1 0xe000e100>;
-+			reg = <0xe000e100>;
- 			arm,num-irq-priority-bits = <3>;
- 			status = "disabled";
- 		};
- 	};
- 
- 	tertiary {
--		#address-cells = <2>;
-+		#address-cells = <1>;
- 		#size-cells = <0>;
- 
--		tsp_nvic: interrupt-controller@2,e000e100 {
-+		tsp_nvic: interrupt-controller@e000e100 {
- 			compatible = "arm,v7m-nvic";
- 			#interrupt-cells = <2>;
- 			#address-cells = <0>;
- 			interrupt-controller;
--			reg = <2 0xe000e100>;
-+			reg = <0xe000e100>;
- 			arm,num-irq-priority-bits = <3>;
- 			status = "disabled";
- 		};
-diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
-index 72d93323593d..6edf14617b09 100644
---- a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
-@@ -496,87 +496,6 @@ pinctrl_hvi3c15_default: hvi3c15-default-state {
- 		function = "I3C15";
- 		groups = "HVI3C15";
- 	};
--
--	pinctrl_tach0_default: tach0-default-state {
--		function = "TACH0";
--		groups = "TACH0";
--	};
--
--	pinctrl_tach1_default: tach1-default-state {
--		function = "TACH1";
--		groups = "TACH1";
--	};
--
--	pinctrl_tach2_default: tach2-default-state {
--		function = "TACH2";
--		groups = "TACH2";
--	};
--
--	pinctrl_tach3_default: tach3-default-state {
--		function = "TACH3";
--		groups = "TACH3";
--	};
--
--	pinctrl_tach4_default: tach4-default-state {
--		function = "TACH4";
--		groups = "TACH4";
--	};
--
--	pinctrl_tach5_default: tach5-default-state {
--		function = "TACH5";
--		groups = "TACH5";
--	};
--
--	pinctrl_tach6_default: tach6-default-state {
--		function = "TACH6";
--		groups = "TACH6";
--	};
--
--	pinctrl_tach7_default: tach7-default-state {
--		function = "TACH7";
--		groups = "TACH7";
--	};
--
--	pinctrl_tach8_default: tach8-default-state {
--		function = "TACH8";
--		groups = "TACH8";
--	};
--
--	pinctrl_tach9_default: tach9-default-state {
--		function = "TACH9";
--		groups = "TACH9";
--	};
--
--	pinctrl_tach10_default: tach10-default-state {
--		function = "TACH10";
--		groups = "TACH10";
--	};
--
--	pinctrl_tach11_default: tach11-default-state {
--		function = "TACH11";
--		groups = "TACH11";
--	};
--
--	pinctrl_tach12_default: tach12-default-state {
--		function = "TACH12";
--		groups = "TACH12";
--	};
--
--	pinctrl_tach13_default: tach13-default-state {
--		function = "TACH13";
--		groups = "TACH13";
--	};
--
--	pinctrl_tach14_default: tach14-default-state {
--		function = "TACH14";
--		groups = "TACH14";
--	};
--
--	pinctrl_tach15_default: tach15-default-state {
--		function = "TACH15";
--		groups = "TACH15";
--	};
--
- 	pinctrl_thru0_default: thru0-default-state {
- 		function = "THRU0";
- 		groups = "THRU0";
-@@ -940,27 +859,6 @@ pinctrl_uart3_default: uart3-default-state {
- 		function = "UART3";
- 		groups = "UART3";
- 	};
--
--	pinctrl_ncts5_default: ncts5-default-state {
--		function = "NCTS5";
--		groups = "NCTS5";
--	};
--
--	pinctrl_ndcd5_default: ndcd5-default-state {
--		function = "NDCD5";
--		groups = "NDCD5";
--	};
--
--	pinctrl_ndsr5_default: ndsr5-default-state {
--		function = "NDSR5";
--		groups = "NDSR5";
--	};
--
--	pinctrl_nri5_default: nri5-default-state {
--		function = "NRI5";
--		groups = "NRI5";
--	};
--
- 	pinctrl_ndtr5_default: ndtr5-default-state {
- 		function = "NDTR5";
- 		groups = "NDTR5";
-
----
-base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
-change-id: 20260611-dtsi_fix-099b11a321b5
-
-Best regards,
 -- 
-Ryan Chen <ryan_chen@aspeedtech.com>
+With Best Regards,
+Andy Shevchenko
+
 
