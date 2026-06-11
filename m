@@ -1,230 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF47134BA20
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781156807; cv=none; b=YtthJncUu0ZPBcyGCGLFoGgvmVYVv01Or9SZV2XnceNoKBLl8v8AdP1Z6vnhVk7TP9PxxgKxIE0qNhu6r+1K+XniOP+5nZcNdeZgqI3XzKZHK8oOnd6PfESJ9Aa5wTnFxNd5Cfo7Xs+rRhFHxd/5QulSOUEZ681YWrY+ryVCMls=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781156807; c=relaxed/simple;
-	bh=mBnd7hwDnDZ4/6RKj5OnY20wHneCq5znEvFo609x2Qs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pIdqWOFAI4TRN1jHPbOMWj9WcDN9ZraGGCpbDUL8PLQxtyY92/S5BIvMaKY+NBv+08Q+z3EdbNjGOm0e2XLvYuPwa31cxDMlKLd4wb5uU7bgyBHRGkMs3g3V1R2MZmRMNfC7POWfy8XqLAMZFBI8NbaIUFYBWmNF5X2CGT0fD38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8AbUAMV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC273403FE
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781156827; cv=pass; b=HDgHsmlWuHHgj+qbR18PrBozg8qOmXEWAKRgWKaiSq0ZOOBRTQTM6aC0iGYbAJqhK9BV8ReVFat5lXF3CaAjQ8z9ANlzX6EtN1/ihmB0urXV/E9CANNHDObhZE0T2Rc4vcp7UjFSCPsU/YaKku1shwxJyB5l8C0OwBggxhSceLI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781156827; c=relaxed/simple;
+	bh=Ccz7zuUKHsMRmZK8XPvEeP2g8VqUvw4d4ZgvOqMW4TM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i091iMKrc29B3TygHwG9F750v4zbXYjvMYpMSk22VQaF0kGHFAq2BhxCwf3jmecIjFN68jID9PEjbOCLlg/ARVwWq9GadwpNn5UJBwM61gLObVy9+N9zaqzwQT6SSEJ3T+kICP5u5DnEYZbICZ8yQCytcGOhyxua16n7qj84kbc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WzIhT6ur; arc=pass smtp.client-ip=209.85.217.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8AbUAMV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FEEF1F00893;
-	Thu, 11 Jun 2026 05:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781156805;
-	bh=z9UDetcYzsCJ6voQhnYWhnTbyGzhpwjDOBeBXWSaRbA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e8AbUAMVFhQKeZ2bFF2pRuuazsX6Moz2Zw1zS/f63FhCaYT6nZcmu8LQ0qcGuj5hW
-	 YMGrtyvpotKxplmKeRQHqY8A+Tu6NWvJSPguAYaItzK0+6OSZdIzICvK4hVsIpr6/P
-	 GoEpVm3AakffbdqXxjjUG2bjPP0ORNOwuyfDGr95koQF5LAqbsbtaOuAbDpu7s9f6o
-	 qjCGpVB11YfhOomL9SYf5xxpqCYXamNUYTu4dXQ3k8YD6Qk/lhamhnLXwOFBIG7mcc
-	 RWqSlxbNUUCv0LPd0SdNeCCjrVG0k1y5PJ/4gudfBygeKhFRtXZuEml4BEkAEKWdqC
-	 H4Nq62J82DChA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v32 5/5] i2c: ast2600: Add target mode support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611-upstream_i2c-v32-5-b66eba921d01@aspeedtech.com>
-References: <20260611-upstream_i2c-v32-5-b66eba921d01@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 05:46:44 +0000
-Message-Id: <20260611054645.3FEEF1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WzIhT6ur"
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-6f0a59f3f2dso2291810137.0
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:47:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781156824; cv=none;
+        d=google.com; s=arc-20240605;
+        b=i07Nth9RmNh9JkZRH6eBtlb4KjKKrO2x/wlRkc2JJmBrWAPMWlUnEzmuamvVidfqJl
+         H0tPT7dj0qVHSJrNqLq2JEaDQagrIGguZ+NwoRlrVxhuivp3WOOdd5EpW/ElR7yzsO2a
+         PteTAl/evWa0bg2bOVbSdTSVlGDzuKJUJw9+0cWMXyvhjklJlJNJSF5LxhcZdPxXxYoN
+         wmvqNaiYs/C4uFreW2MjJjvBkuZSzSbezeXivsJI1eTtnoIP7jDXnTtt5w75jEg/av1H
+         B8vhuTUa5dL3DRlIisOJufkTVkMIUTwoHCSCrWCVwxnyQ5lxUtyeOph5XW1X5Kg8I3dV
+         xzUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dydAG4Kp/furYWpjUKbXSKvzV/lHaP5XQaTw5PF/fbg=;
+        fh=sCet/NRbOxODRjGXu/Wt0FdB2ffVMP27CCnZCqucP4g=;
+        b=T2vrIbg6G+xqUB+TA9Ycb76F/ZnoDV8Uv4WtnX3Zkvgiz8jXyD810CieXGr9KwRXo1
+         jPtAmL+tOhqUEEAPgrWTniggwQfrFSpLEfEkb8qY72sbvo6M0axRu04Kq4Ps2N77gQnN
+         PQyKU1U/rO3+hpJ3dlkqsHODgI+iV69oHtMiMZSGO5UaJC8LaW/rlhz8IJBWueULgrcL
+         c6+DphUvg47g3cMihq5ZlxtdWiEQkoMw7EQ+rQ1vSEISmJS1Li1ECiOeLWKW5FDiHTZb
+         A51i+5wGXYvSH/Kku8sK22EaL4FkysAV/lhvSIJVckbyP9Ow0wMGPUBMnQmDEVcjfuij
+         R4SA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781156824; x=1781761624; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dydAG4Kp/furYWpjUKbXSKvzV/lHaP5XQaTw5PF/fbg=;
+        b=WzIhT6ur0NjZiw2EMF/PBBkn1/Xxn8Q0+/OtnZR5E6WHYaUsT0217NAR7JdsftKMsa
+         bIXVzw6vsOo+d+KIiqIlH7qfr/hYwZnJc6FNhHR8A+EnrIApbJcSRLxDz6JbgIi9CQr+
+         7FTBYscQaFahQhTSGkrhfrz9jd9fJDA/2TjcTRzZsmgTSWdcgZTl0K+iI9fVyncfOLZj
+         Al/1CQg1JsVwjtWwY7Yjx4zZSSYTWODhNJWdz99jxf2oWiIM39YvNlMbzZGb0VtZRmvM
+         +f2KQcQRAiiikHvA2Ve6LkkMHUBDPKiKpmy7AFb1tEFrCXcmSK0dLjwJhQ+aW8uxxF03
+         U5qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781156824; x=1781761624;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=dydAG4Kp/furYWpjUKbXSKvzV/lHaP5XQaTw5PF/fbg=;
+        b=i/BWvl33n14NbxLWyCVmbV28kEe/J+YMg6Z8FpsMGTMqgFSTpxzoXPHZo2omtM1zjR
+         rANzGzJ2fKX9KKw6Cdbil8oP6b4GVlxKt9Ob3nobvwJDWWmteYPgs+lY3A3Rq6qQhUvw
+         i+xEugs2x+Vzp1HPrSAHToiLZBNs1fx8VGo4jAB70BK9bf/L2h3vsA8sHgAMgPa/dZjA
+         JdXN8+SgpCU1md692zJNi+I59FUfkdxN0fI8nPR5vcEMwGAJI7vhb5DqDF+wQ2Fd0bw3
+         6rg88okfkC6C89Yy393Nk/7Yl8ApHqHdkCkhknLcin1bokIVseH3D2xBhEcxvrN9M66L
+         686Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8+/8WPcWcJILEC6iad9K9k1dqSa2cco8wPl8Ke0sOa0fCchukxU5ljJa9yIHGzfHKERDmFRqpON7BC@vger.kernel.org
+X-Gm-Message-State: AOJu0YykgIlsyjRfF91osomMwsrhIY2TZq9YPPdB7v0OoWfQlCKkJ1Dr
+	V8xjCS28APiadkI3nGcakz2YZNQXQ+blFExcU7oEWqODIsPsiLsomPZOW17xEWeGnt5V1u6VRvX
+	XVcyWopMYpnjezUuhvRiaaQx5970yo0A=
+X-Gm-Gg: Acq92OF0o7Ly9KEWeGL92VGCy2xO/l9vPztmWwdlWY9ABpixD/m+SFLgieTXSQfGxly
+	mt8vt0FdmQXb/L0zmx2F7GGsfL6SQh9sjWk8Aej/5radLWhGgarZV1R+HV6/DWzVmBk1AR1Cyjd
+	Uz0mfA6ugOYfUu1a/ENvj1WTjI2geeQj5EK5+ukei8jj+NOymJBjeRyiE7jcrE9mZ3G2EOw8Iv5
+	EuetBpONixadFX6retH2ZUS6eBoARnh1XaCb7Cx4vmolae06/euHR3w4W3t2alEEesDaiE60Urd
+	3h+lH7QEqzsz1rGFeG8QVJOf6QM8lu4GIdTMpTeHNnNtX22TEg==
+X-Received: by 2002:a05:6102:2c85:b0:631:26f6:7016 with SMTP id
+ ada2fe7eead31-71d5fdbe2aamr306752137.28.1781156824074; Wed, 10 Jun 2026
+ 22:47:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+ <178115560756.199930.11183711627429440356.b4-review@b4> <2877375c4efee4b4e816b418c965da7bd7d60992.camel@iscas.ac.cn>
+In-Reply-To: <2877375c4efee4b4e816b418c965da7bd7d60992.camel@iscas.ac.cn>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Thu, 11 Jun 2026 13:45:45 +0800
+X-Gm-Features: AVVi8CftH9gMkFhhJCSYeMYPI9Vx02SeuLOR5XN8R3F715RhJ4bH_68mrqI5Ug8
+Message-ID: <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: display: panel: himax,hx83121a: add
+ optional bl supply
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Incorrect chronological ordering of I2C slave events and spurious =
-event signaling in the target interrupt handler breaks backend state machin=
-es.
-- [High] Controller mode can be permanently locked out because `target_acti=
-ve` is not reliably cleared upon target transaction STOP.
-- [High] Race condition in the target mode master-abort fast path leaves st=
-ale controller interrupts pending, leading to use-after-free and data corru=
-ption of subsequent I2C transfers.
-- [High] Failure to W1C-clear target ISR error bits causes a permanent dead=
-lock where all subsequent controller transfers fail with -EBUSY.
---
+On Thu, Jun 11, 2026 at 1:36=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac=
+.cn> wrote:
+>
+> =E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > On Tue, 09 Jun 2026 00:26:20 +0800, Icenowy Zheng
+> > <zhengxingda@iscas.ac.cn> wrote:
+> > > When the backlight is managed by the panel controller IC, an
+> > > external
+> > > power rail might be powering the backlight.
+> > >
+> > > Add an optional `bl-supply` property to describe such power rail,
+> > > thus
+> > > allow disabling the backlight.
+> > >
+> >
+> > Please add it as a hwen pin, this will simplify your code later.
+>
+> I am not sure whether this should be a pin or a regulator -- the DT
+> binding should reflect the HW fact, and LCD panel backlights usually
+> require a high voltage (or even a current source) that is driven by a
+> dedicated regulator.
+>
 
-commit e5417daca64552c41b25f31b14fb3eb562d3e134
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+Most backlight ICs use a hwen pin to enable the supply, afaik, like
+ktz8866, ktz8868, aw99706, etc. We don't touch the VIN. (My disclaimer:
+I am just an amateur, know less about the circuit)
 
-i2c: ast2600: Add target mode support
+Best wishes,
+Pengyu
 
-Add target mode support to the AST2600 I2C driver, enabling dual-role=20
-capability. This includes adding target interrupt handling and address matc=
-h=20
-response logic.
-
-> diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
-t2600.c
-> index 70f37dc77468a..aace0c7eeb721 100644
-> --- a/drivers/i2c/busses/i2c-ast2600.c
-> +++ b/drivers/i2c/busses/i2c-ast2600.c
-> @@ -348,6 +353,253 @@ static int ast2600_i2c_recover_bus(struct ast2600_i=
-2c_bus *i2c_bus)
-[ ... ]
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static void ast2600_i2c_target_packet_buff_irq(struct ast2600_i2c_bus *i=
-2c_bus, u32 sts)
-> +{
-> +	u8 value =3D 0;
-> +	int target_rx_len =3D 0;
-> +	u32 cmd =3D 0;
-> +	int i;
-> +
-> +	/* due to controller target is common buffer, need force the master sto=
-p not issue */
-> +	if (readl(i2c_bus->reg_base + AST2600_I2CM_CMD_STS) & GENMASK(15, 0)) {
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_CMD_STS);
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
-> +		writel(readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
-> +		       i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +		i2c_bus->cmd_err =3D -EBUSY;
-> +		WRITE_ONCE(i2c_bus->msgs, NULL);
-> +		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
-> +		       i2c_bus->reg_base + AST2600_I2CM_IER);
-> +		complete(&i2c_bus->cmd_complete);
-> +	}
-
-[Severity: High]
-Could this fast path abort leave stale controller interrupts pending?
-
-If the hardware asynchronously asserts PKT_DONE or PKT_ERROR shortly after =
-the
-W1C ISR read here, the complete() call wakes the waiting thread, which might
-immediately start a new controller transfer.
-
-Would the stale interrupt then fire and incorrectly apply to the new transf=
-er,
-potentially leading to a use-after-free on the new msgs buffer?
-
-> +
-> +	/* Handle i2c target timeout condition */
-> +	if (sts & AST2600_I2CS_INACTIVE_TO) {
-> +		/* Reset timeout counter */
-> +		u32 ac_timing =3D readl(i2c_bus->reg_base + AST2600_I2CC_AC_TIMING) &
-> +				AST2600_I2CC_AC_TIMING_MASK;
-> +
-> +		writel(ac_timing, i2c_bus->reg_base + AST2600_I2CC_AC_TIMING);
-> +		ac_timing |=3D AST2600_I2CC_TTIMEOUT(i2c_bus->timeout);
-> +		writel(ac_timing, i2c_bus->reg_base + AST2600_I2CC_AC_TIMING);
-> +		writel(TARGET_TRIGGER_CMD, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
-> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
-> +		WRITE_ONCE(i2c_bus->target_active, false);
-> +		return;
-> +	}
-
-[Severity: High]
-Does this early return fail to clear the AST2600_I2CS_INACTIVE_TO bit from
-the hardware register?
-
-Since it is never W1C-cleared, the ISR register might remain non-zero
-permanently.
-
-> +
-> +	sts &=3D ~(AST2600_I2CS_PKT_DONE | AST2600_I2CS_PKT_ERROR);
-> +
-> +	if (sts & AST2600_I2CS_SLAVE_MATCH)
-> +		WRITE_ONCE(i2c_bus->target_active, true);
-> +
-> +	switch (sts) {
-> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_WAIT_RX_DMA |
-> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
-> +	case AST2600_I2CS_SLAVE_PENDING |
-> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
-> +	case AST2600_I2CS_SLAVE_PENDING |
-> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_STOP:
-> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
-> +		fallthrough;
-
-[Severity: High]
-Is the event ordering inverted here?
-
-This unconditionally emits I2C_SLAVE_STOP first, and then falls through to
-emit I2C_SLAVE_WRITE_REQUESTED and I2C_SLAVE_WRITE_RECEIVED.
-
-Emitting the STOP condition prior to receiving the write data leaves backend
-state machines (like i2c-slave-eeprom) without a terminating event for the
-data, which typically causes writes to be dropped.
-
-[ ... ]
-> +	case AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS=
-_RX_DONE:
-> +	case AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS_RX_DONE:
-> +	case AST2600_I2CS_WAIT_TX_DMA:
-> +		if (sts & AST2600_I2CS_SLAVE_MATCH)
-> +			i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_REQUESTED, &value);
-
-[Severity: High]
-Can this spuriously emit I2C_SLAVE_WRITE_REQUESTED during a repeated start
-transitioning to a Master Read (WAIT_TX_DMA)?
-
-If so, it would reset the backend's internal write pointers, corrupting
-previously received write data before I2C_SLAVE_READ_REQUESTED is processed.
-
-[ ... ]
-> +	if (cmd)
-> +		writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-> +
-> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
-> +	readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
-> +
-> +	if ((sts & AST2600_I2CS_STOP) && !(sts & AST2600_I2CS_SLAVE_PENDING))
-> +		WRITE_ONCE(i2c_bus->target_active, false);
-> +}
-
-[Severity: High]
-Is this condition too strict?
-
-For standard target write transactions, the hardware explicitly combines
-AST2600_I2CS_STOP and AST2600_I2CS_SLAVE_PENDING in the same interrupt even=
-t.
-
-If this evaluates to false in those normal cases, target_active would
-remain permanently true, locking out all subsequent controller mode
-transfers with -EBUSY.
-
-> @@ -682,6 +954,21 @@ static int ast2600_i2c_controller_xfer(struct i2c_ad=
-apter *adap, struct i2c_msg
->  			return ret;
->  	}
-> =20
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +	if (READ_ONCE(i2c_bus->target_active))
-> +		return -EBUSY;
-> +	/*
-> +	 * Controller and target share the same buffer register. A target
-> +	 * transaction can update buffer state asynchronously via IRQ, so block
-> +	 * controller transfers while target is active to avoid buffer corrupti=
-on.
-> +	 */
-> +	writel(0, i2c_bus->reg_base + AST2600_I2CS_IER);
-> +	if (readl(i2c_bus->reg_base + AST2600_I2CS_ISR) || READ_ONCE(i2c_bus->t=
-arget_active)) {
-> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_IER);
-> +		return -EBUSY;
-> +	}
-> +#endif
-
-[Severity: High]
-If AST2600_I2CS_INACTIVE_TO is left uncleared in the target interrupt handl=
-er,
-will this check permanently return -EBUSY for all subsequent controller
-transfers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-upstream_i=
-2c-v32-0-b66eba921d01@aspeedtech.com?part=3D5
+> Thanks,
+> Icenowy
+>
+> >
+> > >
+> > >
+> > > diff --git
+> > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121a.ya
+> > > ml
+> > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121a.ya
+> > > ml
+> > > index e067a2f6d0b2..aeca3c9a599c 100644
+> > > ---
+> > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121a.ya
+> > > ml
+> > > +++
+> > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121a.ya
+> > > ml
+> > > @@ -40,6 +40,9 @@ properties:
+> > >    vddi-supply:
+> > >      description: power supply for IC
+> > >
+> > > +  bl-supply:
+> > > +    description: power supply for backlight, in case it's managed
+> > > via DSC
+> > > +
+> >
+> > s/DSC/DCS/
+> >
+> > Best wishes,
+> > Pengyu
+>
