@@ -1,130 +1,113 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE0833ADB3;
-	Thu, 11 Jun 2026 08:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE4A1F5821;
+	Thu, 11 Jun 2026 08:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781166942; cv=none; b=Mlw0kReOZsmDrMP/tcuCAUZEzYU+5r0dyyGV9oK8SDJmlkNJ1J54G8BGgUQLecss2Rjf58M/ho4OFbSzBtcVd8YxnjjY1fdQXdNnrCrylNppuYbNF0hhPfJMa+fuUFSCuer5W52xYP/JUXz3eP/PwphCWk4jCf8lwh5X/6xd/mM=
+	t=1781167076; cv=none; b=NDvC0mJ05xZ2sI+F0W6vvCbRczb9hKJhfPtPuFFOcDY+z7SMQdFbU71hwvL8yF5T599S2VtKkYq2KZWsk/ltp0ttgN+moOzjD7jR//hGb9XCtZL1PtM5gjifTIrdhuKUCrQaxVi9drz3R1VmFFQ5YsF1ksiWD4dYlsThZtdSYz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781166942; c=relaxed/simple;
-	bh=55GMxwWe/EDOGVQsOBSXMfN0tKbpsnGov84slGU0vcI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=gcIgt/PYOyNQGwPFG4AKVTaqygTOHQMTYnX0HCjTY5IiAxfneDEauAp9ayAcbUm5B/CtNkU3vibQG8zK9zJdkyz2FnVRSGeTrv+P153HXN26EMxQjgSTkFEDCRMCLti9hLhtZu6aPgz7GGt02ka5y4TMnFXzuh8iFCzJAFRXB2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=QpAudo+d; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jhgP7tVG; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1781167076; c=relaxed/simple;
+	bh=Ai4mXzWajtLKC33BxFXRCMf6dWYQxHfjWVW663QbhRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jGvoZHXC1uZOLtbBR7/Gmt7oqzoL1MVvvetl4bq8GffZ8fDGG79qAxd2eY+F7QE9xJRwFTo/onmT5Wva7AxhpTUJ37MQa0e8hO8hOuywWasUCncM+JWqai1cFiw/vgIxJIGe/e7BCSZC8HhRRkIO3z9/iVZ3aQBQyqvhRTOa8bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S9Z07Kot; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="QpAudo+d";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jhgP7tVG"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 01C17EC01CF;
-	Thu, 11 Jun 2026 04:35:40 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Thu, 11 Jun 2026 04:35:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781166939;
-	 x=1781253339; bh=7BodSLv+bcZ9wOA2IVcLisAPbv5be0Uv9Ah/rLATO3o=; b=
-	QpAudo+dZlasRHhV6TfhHiPyMGmUkSvbcZMOT9WD5P//5h9TeZPgUt7UXIuu8MIz
-	+nEJF9CkkyuuEC8vWM9yiX8aAB3tTL4NOITa1/Q3JAK0eCCGhKyGVgQrqHGU4uvC
-	486GTmF39+E6w1li2srV+owcUS+U+c4SjgaFZi2kKCkk/o5QR4XlHFAHkTR7++sJ
-	U9c1pa2n2oclTjGjWSuFNCJ7sH9jijauue+VPHDdAGRchCZGBetqZqGms1u6UPde
-	xJ8AWnqifNHSkgu4tsAzm7R4tGLLwdv6bw+heZfWHidiw8FFVbVXzH0GcBpZsIvx
-	cXIzCjnr4Kna+pr5xC8JEw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781166939; x=
-	1781253339; bh=7BodSLv+bcZ9wOA2IVcLisAPbv5be0Uv9Ah/rLATO3o=; b=j
-	hgP7tVGp1qwdg3dnmcpyQ5Pa0LJgGn46vkG1Zr1LS38cChprECsDNnoyOInVcrw2
-	gyjpSuI6ImG8ZKUXdI/TqmKD+Q5JfWcqpr/G9VTEQPHsDOCrOAfcO8r/d4gV06S9
-	XvPXLXwMBiL4zKe0VHhwFdBweSV5cHQJGh4YiA60UYqJJ7H00vNOG8B1dvpsoN4c
-	OP2S9/i8EE3uA8eqLxQlRZ67AT89k2QRB2DukqcXhjjrB2elgC/cBp4vL6J3uZJW
-	J6EdO8XEEEQJpW1YHVDvD03nQsVBQo1NoQyH3c6XJHyxsGeRfSaOTDfcw52MZUqW
-	kia3/5AX7Yd3xKRp+vIHA==
-X-ME-Sender: <xms:W3MqaiEHCvhgQD7R-k5bw32aCRCXtPyBlVmc6qjL-xKrZUYkQ_a-TQ>
-    <xme:W3MqauKCp6qObdt8UTw-d-utiIvYOlsz1-7NFmBMHMY315vn6-h08QZ6AQVlxGFwx
-    t5g4B87GHeoJm7S-BlK3sxMf2t6KuzBxeadethnl34Lqnsss2IfcSA>
-X-ME-Proxy-Cause: dmFkZTFRxnniak2f8bd9bHlEGEKJqMwWFJelaf+rUBctwzckTZ+EcLfJGYpieiGl5N38KU
-    m5+oqH86Qup/U8ETE7kKwx1+NrCs/eopjBUnJh5Om6EBJaYv8oAIO2fXikquLFTwSKSgiX
-    Oj2oXa96YxHNsXtYkZ+d4j3Uhfpu7RLcAfMDXq6/mS9IQTjj3IMENqG+6lpKxZQBQWIOy+
-    ep83Uf6RA5R7mRp9JtsrZk+1NOL1T/txcWsr2x8lT2tLltKdV3rSCZQ/nd29vpKjXwrRPI
-    kMWalDx1S+wtHiEa6LAlMPmRGOaFuICh1Cmm5nrOSBHr5wSgo8vimlEVOsxiQqFt8wZPmD
-    2TPj6zcQzkocAlfe9Olac4ophjMrZHT0eP1xGar2q+tEyu+SFpgWo8jEXxi9PVI8UjeGcI
-    fXKz6M6dqO47CUuQv4qK4QBKJlvRqFxz4qneS4qIWvzRDLLaiPHydc9FXwPA8qQNG+31un
-    aBEdQH3+gcCYWGTv4s+BrTSf9y9BbGvMFyP2M/Lyn2xWjxVoLSlp5GLf1lPN65dH1b/V30
-    RSiIEVcDSBiKJqnoJDaShAQQWTnJEUfS0s5aOsUIRRd1sHq6y4fBRwEjfo9SrKFjrZq2QA
-    mABk702B02M0tqrnu4HvgMmvZStSNeSfoYWkS6N7Zcf7sdKwE0qTx4pZP54Q
-X-ME-Proxy: <xmx:W3MqavCNXa2Qs6YQAMreSbT8nRieztJ0JYdmMj2JoFKL7Xx0lGsTWg>
-    <xmx:W3MqaqtWGwgtpwYW5G31CCHv_70cNjLw0aKO0Vc1cIC39TmXGEFjRA>
-    <xmx:W3Mqat8QkFIu5VDtxxXDf1eObyHQygraIUNuWN79NHsp4BSHUUz5rg>
-    <xmx:W3MqahTIMSQQ4ooIgaEFRGYmNQYoJO1fIiIcbP485TLjzZBL5jfj9A>
-    <xmx:W3MqaixlyCBr9E5-5P6pO39JYfsPi0AaPnqsS5UA2NVVicc3QP0hIfcf>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 55E6B182007E; Thu, 11 Jun 2026 04:35:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S9Z07Kot"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781167075; x=1812703075;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ai4mXzWajtLKC33BxFXRCMf6dWYQxHfjWVW663QbhRU=;
+  b=S9Z07KothLAUTAqSlSnfPoAICzGqie+6q8AdqoHkKEITBiagZZkmYIUz
+   BNp2Y2z+qyOleHB9RIbYGPgYCJY67RNCpbFWn7T6e86/A3cvB3D+byGDA
+   GgL+lJXHw/qYyOC6wqszIZ0ZiKhE/9BPFsLYX3TsvSXZg9fB9EE3JHT32
+   3mh5ruOPL+TucF4jI80WVA92usBk/A3DKJVkNSDAlzA5Hk0qDh2AgxGd3
+   CQf1lR36Orvy5+gLludeY6ZkRC5bxLB2dGBsbn5iC7zwnzLueOy03HVIa
+   pdDEH7U5gxBjEca78G69JyMSeEtSjjrTwKPhBbD49m/hXooPQNsYmaw5p
+   g==;
+X-CSE-ConnectionGUID: U9BfQpHIQr6wuHuLOkAohg==
+X-CSE-MsgGUID: ToHX3x03Rl2Vh4swPY1DBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93363398"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="93363398"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 01:37:54 -0700
+X-CSE-ConnectionGUID: DG4C+DU7RLqPDacCZUSHiA==
+X-CSE-MsgGUID: dJFo0kyiSgO0ryNVI1csHA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="241987912"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.123])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 01:37:49 -0700
+Date: Thu, 11 Jun 2026 11:37:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Chen-Yu Tsai <wenst@chromium.org>
+Subject: Re: [PATCH v2 05/16] usb: hub: Associate port@ fwnode with USB port
+ device
+Message-ID: <aipz2zMFcdnZYTxS@ashevche-desk.local>
+References: <20260610084053.2059858-1-wenst@chromium.org>
+ <20260610084053.2059858-6-wenst@chromium.org>
+ <ailxrP-_9_NL8qnN@ashevche-desk.local>
+ <CAMRc=MdiwQM6yk8FXcc+RisVP2iqWKWzVsn2-Yy6dyJXt-1X=Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: APCtYiT4KAZo
-Date: Thu, 11 Jun 2026 10:35:09 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Jason Li" <jason.li@cortina-access.com>,
- "Jason Li" <jason.lee651024@gmail.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Jiri Slaby" <jirislaby@kernel.org>
-Cc: "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Message-Id: <d62541fd-36bb-4c67-a81b-a8e66887a2cc@app.fastmail.com>
-In-Reply-To: 
- <JH0PR01MB5777B84BE8D9987329ABA54BA21B2@JH0PR01MB5777.apcprd01.prod.exchangelabs.com>
-References: <20260610112821.3030099-1-jason.li@cortina-access.com>
- <20260610112821.3030099-2-jason.li@cortina-access.com>
- <7dcc8386-a0e0-4c79-a9f7-f63188bb997e@app.fastmail.com>
- <JH0PR01MB5777B84BE8D9987329ABA54BA21B2@JH0PR01MB5777.apcprd01.prod.exchangelabs.com>
-Subject: Re: [PATCH 0/3] tty: serial: Add Cortina-Access UART driver and platform
- support
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MdiwQM6yk8FXcc+RisVP2iqWKWzVsn2-Yy6dyJXt-1X=Q@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Jun 11, 2026, at 07:27, Jason Li wrote:
-> Hi Arnd,
->
-> Your memory is truly amazing; you even remember a submission from a few 
-> years ago.
+On Thu, Jun 11, 2026 at 04:20:58AM -0400, Bartosz Golaszewski wrote:
+> On Wed, 10 Jun 2026 16:16:12 +0200, Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> said:
+> > On Wed, Jun 10, 2026 at 04:40:39PM +0800, Chen-Yu Tsai wrote:
+> >> When a USB hub port is connected to a connector in a firmware node
+> >> graph, the port itself has a node in the graph.
+> >>
+> >> Associate the port's firmware node with the USB port's device,
+> >> usb_port::dev. This is used in later changes for the M.2 slot power
+> >> sequencing provider to match against the requesting port.
+> >
+> > Okay, would this affect ACPI-based systems? if so, how?
+> > Can you elaborate on that, please?
+> 
+> Is it possible that there's an ACPI device node associated with the port like
+> on some DT systems? I don't think so and there should be no impact IMO but I
+> also don't know enough about ACPI.
 
-No, I just looked up your previous submissions when I saw the new one,
-lore.kernel.org never forgets anything ;-)
+The API is agnostic. There is a possibility to have software nodes associated
+with the port. I think the best is to be sure that ACPI-aware people who are
+experts in USB will check this (Heikki?).
 
-> Yes, we expect actual end-user products based on these SoCs, and our 
-> intention is to provide complete upstream support over time. The UART 
-> driver and DTS support submitted in this series are the first step in 
-> that effort.
->
-> Cortina-System and Cortina-Access are now totally different company.
-> Current aarch64 chipset are totally different with legacy gemini 
-> processor.
-> Realtek has many business unit, different BU may have upstream plan but 
-> they are individual.
-> Although Cortina-Access is a wholly-owned subsidiary of Realtek, our 
-> product development is entirely independent.
+Also note Sashiko complain on reference count leakage.
 
-Thanks for the information. Please make sure to add something along
-these into the changeset text for the initial arm64 patch, along
-with a brief description of what type of chip this is
+-- 
+With Best Regards,
+Andy Shevchenko
 
-       Arnd
+
