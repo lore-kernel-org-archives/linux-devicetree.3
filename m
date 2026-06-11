@@ -1,248 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB9D375F80;
-	Thu, 11 Jun 2026 08:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54AD377EAC
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 08:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781166006; cv=none; b=ixhswIch2iwLwQYuLszCUJIA7HwC2aT18illtw8FQBqRWYTIvHVa87eUb//e0fUcPz3A3e4V0anjfdyIxuRhPY5g3PqWgQ5zYad7bbFnQQBx1AE7H/ttJd5fiWEFt4NfXKygvNrohMU1LnrGZuUayQN26nge/ykFXzN8mRMQdpk=
+	t=1781166062; cv=none; b=u96MQHmcwEFFkprLTxFZCKJzZ/LAO0Q8TEhZ8T0mV4E6TyjiwdcIHdl+qdHmyeLXH9P7nzq2lnLjqwQLThaGjF7wo7QJ9o4Ixp3bb6XT+OZJCS6vxz3X4W8HglWjNb5r2E+nasdzfHR4gp1GDX74CLxcjm3eFUFpnOz8cZIW61o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781166006; c=relaxed/simple;
-	bh=jHOP6IhQ37hetV0uorj1mEiX8MFbmjK/VF+clQ/ci64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qnbmaGWrLhbGKMKiIqhXD2OYeRdu9V8VPdUPGqtdBhihveOqc1nvlX1qjA6hMgHiQCutV7WVLRrfmNLr9bkX9UGCDpwJyvaVlxPY2X7H6A/riyAHntzZEyBM2xi5LjFc3dD9CeQ1tP7Ew7ReJBusfm/4XfagNBxZ3IQqkoe3K9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kWlxg8LF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781166062; c=relaxed/simple;
+	bh=OdEKgro4DUDPb8Ko08QQEH38Ak6tb9z6xDfigAPw7do=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JFWShYu/aFcFVuYSObLmAOTepaCPzHvOU99y/ulT/LvbZIuna+FIz53qR/eyvDKtzR1bVCslW9e4Sa56ThuyQxepCf7h9KojjxGkRTuv5OhIdZZDL5gsCIJ1oyDgnOjpDzBEqYXzBuUsS+hXSZdIMaBsMcpxJuRRlQHc1KdHEEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hV3/Jj2u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kWlxg8LF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234A21F00893;
-	Thu, 11 Jun 2026 08:20:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hV3/Jj2u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8561F0089A
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 08:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781166005;
-	bh=fr+DMHV7C/ONH1wbSjwWQxeSkxkzZtV3gH63+z7VYZI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kWlxg8LFLCAeQTFADVA9UsmL3cBo4vuLEta8ks3k/wLAFPzCLSS+3re9JM4+LcpS4
-	 YC2Zl2fRTK4N/76LIk8JgxaUswuj9lgxBFVzcKauEV6v3E4BvZ+oW2Y50sArj+vgKE
-	 sq1GDO7iZ10+PbMUmda/rz6XcgsO09627Ozm7QpJId3hdrOnGzbt9/Uj57tq1hP6Ti
-	 G8PHa81vRpgOkDr0hq64S2tktMrFtJQw84m/Dw8ektnBIwIDu8EhgCd2LX62z+yBAe
-	 Ddnon1tfqm/lJL86YggAekIubSRYedpLks0yh0ucOYfnSff7xzPkwPTODEbN4UgU5J
-	 G8JBHg7C0AXOQ==
-Date: Thu, 11 Jun 2026 09:20:00 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 2/2] mfd: arizona: Convert GPIO IRQ handling to
- descriptors
-Message-ID: <20260611082000.GL4151951@google.com>
-References: <20260527-mfd-arizona-irq-v5-0-ebeda2e925da@kernel.org>
- <20260527-mfd-arizona-irq-v5-2-ebeda2e925da@kernel.org>
+	s=k20260515; t=1781166060;
+	bh=OdEKgro4DUDPb8Ko08QQEH38Ak6tb9z6xDfigAPw7do=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=hV3/Jj2u9lM0OmOzmvK5rItANUjOls0tCbllb5f0jpXETjH2ZOOn5R+/iwupRfQhL
+	 BgZZMwqGimk7lHFrM5QQmJi1julXAAOYvfYTW9u5IJD89UePVlqDyjP2kk5+BpC4uX
+	 ZXNDV4/4g/VT91PdZ/ue+nI0lZvIPF41icwbOupgCcm2YwVB0TioiIs9riuubScW2P
+	 PQ1/sqGRsA6lyeMZI8DUFai/SWw8CK6ySNsilqToQZ9sdqxLqPXpigwQsGxs8eHaKU
+	 1mdigJ/n2n/KpISns10S3s0Gll66/SrHiIfDGVo1U4yKfMLQmidj5i1yo8W84+MPHd
+	 LEd9EQLmgjRoQ==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3965eab14cfso58800771fa.0
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 01:21:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8PqbU9TGu9U1rzmwxjevZpT6Tl0icmdSaFfs/UTLcmnPs8StYTeJRYe1yB3nI5Bn+h+A2mtepS0rlS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCV25y+nE2XvAIbMn52DHuHM1vJLsG/Xe/mz3Zj1klJKkuWlT8
+	FISrsMUgQlcooPn9ARNBWUCWChr9hB/ekpHfQBv8WG3kw9Vj53GVVwdQB+OGlGgsGp+lbcEQHGt
+	E+jnaq07JyX6SCwkAisiXtGPJpS254NdMeFIrpNwzHg==
+X-Received: by 2002:a2e:ad0a:0:b0:396:73ed:695d with SMTP id
+ 38308e7fff4ca-3991a062724mr4519671fa.11.1781166059198; Thu, 11 Jun 2026
+ 01:20:59 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 11 Jun 2026 04:20:58 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 11 Jun 2026 04:20:58 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <ailxrP-_9_NL8qnN@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260527-mfd-arizona-irq-v5-2-ebeda2e925da@kernel.org>
+References: <20260610084053.2059858-1-wenst@chromium.org> <20260610084053.2059858-6-wenst@chromium.org>
+ <ailxrP-_9_NL8qnN@ashevche-desk.local>
+Date: Thu, 11 Jun 2026 04:20:58 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MdiwQM6yk8FXcc+RisVP2iqWKWzVsn2-Yy6dyJXt-1X=Q@mail.gmail.com>
+X-Gm-Features: AVVi8Cdazg-zIlFzKBbJynoz26wIhVLSYD08zrFVf0wIQqHs_X42tMa6pqa8MG0
+Message-ID: <CAMRc=MdiwQM6yk8FXcc+RisVP2iqWKWzVsn2-Yy6dyJXt-1X=Q@mail.gmail.com>
+Subject: Re: [PATCH v2 05/16] usb: hub: Associate port@ fwnode with USB port device
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Couple of Sashiko issues I'd like you to comment on please buddy.
+On Wed, 10 Jun 2026 16:16:12 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> On Wed, Jun 10, 2026 at 04:40:39PM +0800, Chen-Yu Tsai wrote:
+>> When a USB hub port is connected to a connector in a firmware node
+>> graph, the port itself has a node in the graph.
+>>
+>> Associate the port's firmware node with the USB port's device,
+>> usb_port::dev. This is used in later changes for the M.2 slot power
+>> sequencing provider to match against the requesting port.
+>
+> Okay, would this affect ACPI-based systems? if so, how?
+> Can you elaborate on that, please?
+>
 
-On Wed, 27 May 2026, Linus Walleij wrote:
+Is it possible that there's an ACPI device node associated with the port like
+on some DT systems? I don't think so and there should be no impact IMO but I
+also don't know enough about ACPI.
 
-> Convert the arizona polling GPIO handling to use a GPIO descriptor
-> instead of passing a global GPIO number as platform data.
-> 
-> This mechanism is not used in the kernel, but let's preserve
-> the mechanism to be nice.
-> 
-> Users can define "irq-gpios" in the devicetree or software node
-> for the Arizona chip to provide the GPIO line corresponding to
-> the IRQ.
-> 
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  drivers/mfd/arizona-irq.c         | 50 +++++++++++++++++++++------------------
->  include/linux/mfd/arizona/core.h  |  2 ++
->  include/linux/mfd/arizona/pdata.h |  5 ----
->  3 files changed, 29 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/mfd/arizona-irq.c b/drivers/mfd/arizona-irq.c
-> index 544016d420fe..cf8e42662585 100644
-> --- a/drivers/mfd/arizona-irq.c
-> +++ b/drivers/mfd/arizona-irq.c
-> @@ -136,21 +136,19 @@ static irqreturn_t arizona_irq_thread(int irq, void *data)
->  			dev_err(arizona->dev,
->  				"Failed to read main IRQ status: %d\n", ret);
->  		}
-> -#ifdef CONFIG_GPIOLIB_LEGACY
->  		/*
->  		 * Poll the IRQ pin status to see if we're really done
->  		 * if the interrupt controller can't do it for us.
->  		 */
-> -		if (!arizona->pdata.irq_gpio) {
-> +		if (!arizona->irq_gpiod) {
->  			break;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_RISING &&
-> -			   gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   gpiod_get_value_cansleep(arizona->irq_gpiod)) {
-
-[Severity: High]
-Does this incorrectly check the logical value of the GPIO instead of the raw
-physical state?
-
-The legacy gpio_get_value_cansleep() returned the raw physical state of the
-pin. The new gpiod_get_value_cansleep() returns the logical state, which
-incorporates the ACTIVE_LOW flag from the devicetree or software node.
-
-Because the IRQ trigger flags describe physical voltage transitions, comparing
-these physical flags against a logical value might be incorrect. For example,
-if a user defines irq-gpios with GPIO_ACTIVE_LOW for a falling edge interrupt,
-a physically low line becomes logically 1, causing the polling condition
-!gpiod_get_value_cansleep() to evaluate to 0, which fails to poll when the
-interrupt is active.
-
-Conversely, when the line is idle, it evaluates to 1, causing the IRQ handler
-to poll infinitely.
-
-Should this use gpiod_get_raw_value_cansleep() to preserve the original
-physical semantics?
-
-
-
-[Severity: High]
-This is a pre-existing issue, but can this loop forever if the GPIO read
-returns a negative error code?
-
-gpiod_get_value_cansleep() (and its legacy predecessor) can return a negative
-error code (e.g., -EIO) if reading the GPIO state fails over the bus. Since
-negative values are non-zero, this evaluates to true for IRQF_TRIGGER_RISING,
-setting poll = true and causing an infinite loop in the IRQ handler thread if
-the read continues to fail.
-
-Conversely, for IRQF_TRIGGER_FALLING, !(-EIO) evaluates to false, which
-immediately aborts the poll.
-
-Could the return value be stored in an integer and explicitly checked for
-negative errors before evaluating it as a boolean?
-
-
->  			poll = true;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_FALLING &&
-> -			   !gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   !gpiod_get_value_cansleep(arizona->irq_gpiod)) {
->  			poll = true;
->  		}
-> -#endif
->  	} while (poll);
->  
->  	pm_runtime_put_autosuspend(arizona->dev);
-> @@ -210,6 +208,7 @@ int arizona_irq_init(struct arizona *arizona)
->  	const struct regmap_irq_chip *aod, *irq;
->  	struct irq_data *irq_data;
->  	unsigned int virq;
-> +	int gpio_irq;
->  
->  	arizona->ctrlif_error = true;
->  
-> @@ -350,27 +349,32 @@ int arizona_irq_init(struct arizona *arizona)
->  		goto err_map_main_irq;
->  	}
->  
-> -#ifdef CONFIG_GPIOLIB_LEGACY
-> -	/* Used to emulate edge trigger and to work around broken pinmux */
-> -	if (arizona->pdata.irq_gpio) {
-> -		if (gpio_to_irq(arizona->pdata.irq_gpio) != arizona->irq) {
-> -			dev_warn(arizona->dev, "IRQ %d is not GPIO %d (%d)\n",
-> -				 arizona->irq, arizona->pdata.irq_gpio,
-> -				 gpio_to_irq(arizona->pdata.irq_gpio));
-> -			arizona->irq = gpio_to_irq(arizona->pdata.irq_gpio);
-> +	/*
-> +	 * Used to emulate edge trigger and to work around broken pinmux
-> +	 * define "irq-gpios" in device tree or software node.
-> +	 */
-> +	arizona->irq_gpiod = devm_gpiod_get_optional(arizona->dev, "irq",
-> +						     GPIOD_IN);
-> +	if (IS_ERR(arizona->irq_gpiod)) {
-> +		ret = dev_err_probe(arizona->dev,
-> +				    PTR_ERR(arizona->irq_gpiod),
-> +				    "Error getting IRQ GPIO\n");
-> +		goto err_main_irq;
-> +	}
-> +	if (arizona->irq_gpiod) {
-> +		gpio_irq = gpiod_to_irq(arizona->irq_gpiod);
-> +		if (gpio_irq < 0) {
-> +			ret = dev_err_probe(arizona->dev, gpio_irq,
-> +					    "GPIO IRQ line is invalid\n");
-> +			goto err_main_irq;
->  		}
-> -
-> -		ret = devm_gpio_request_one(arizona->dev,
-> -					    arizona->pdata.irq_gpio,
-> -					    GPIOF_IN, "arizona IRQ");
-> -		if (ret != 0) {
-> -			dev_err(arizona->dev,
-> -				"Failed to request IRQ GPIO %d:: %d\n",
-> -				arizona->pdata.irq_gpio, ret);
-> -			arizona->pdata.irq_gpio = 0;
-> +		if (gpio_irq != arizona->irq) {
-> +			dev_warn(arizona->dev, "IRQ %d does not match GPIO's IRQ %d\n",
-> +				 arizona->irq, gpio_irq);
-> +			arizona->irq = gpio_irq;
->  		}
-> +		gpiod_set_consumer_name(arizona->irq_gpiod, "arizona IRQ");
->  	}
-> -#endif
->  
->  	ret = request_threaded_irq(arizona->irq, NULL, arizona_irq_thread,
->  				   flags, "arizona", arizona);
-> diff --git a/include/linux/mfd/arizona/core.h b/include/linux/mfd/arizona/core.h
-> index 6d6f96b2b29f..7129651c9af6 100644
-> --- a/include/linux/mfd/arizona/core.h
-> +++ b/include/linux/mfd/arizona/core.h
-> @@ -11,6 +11,7 @@
->  #define _WM_ARIZONA_CORE_H
->  
->  #include <linux/clk.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/interrupt.h>
->  #include <linux/notifier.h>
->  #include <linux/regmap.h>
-> @@ -136,6 +137,7 @@ struct arizona {
->  	struct irq_domain *virq;
->  	struct regmap_irq_chip_data *aod_irq_chip;
->  	struct regmap_irq_chip_data *irq_chip;
-> +	struct gpio_desc *irq_gpiod;
->  
->  	bool hpdet_clamp;
->  	unsigned int hp_ena;
-> diff --git a/include/linux/mfd/arizona/pdata.h b/include/linux/mfd/arizona/pdata.h
-> index d465dcd8c90a..2f980d51cdfa 100644
-> --- a/include/linux/mfd/arizona/pdata.h
-> +++ b/include/linux/mfd/arizona/pdata.h
-> @@ -178,11 +178,6 @@ struct arizona_pdata {
->  	/** Haptic actuator type */
->  	unsigned int hap_act;
->  
-> -#ifdef CONFIG_GPIOLIB_LEGACY
-> -	/** GPIO for primary IRQ (used for edge triggered emulation) */
-> -	int irq_gpio;
-> -#endif
-> -
->  	/** General purpose switch control */
->  	unsigned int gpsw;
->  };
-> 
-> -- 
-> 2.54.0
-> 
-
--- 
-Lee Jones
+Bart
