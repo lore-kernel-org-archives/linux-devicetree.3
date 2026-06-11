@@ -1,127 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291C63655C1;
-	Thu, 11 Jun 2026 06:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81BD37CD29;
+	Thu, 11 Jun 2026 06:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781160496; cv=none; b=qYmrNbLTHmOCDYsF8IWXF8xhbCRfmn+NbzXCgGV58R8q1fpqvtLVwb9GIs7Hwwt5PtuVzyC25dvq5BkWsUNTpOcyE6abR+ouP0B+pg+Nn3lUMuCWd7wl8JpNzY1pPDy+WPqjUmicJBdgy0U0RwmoWYPVFAR0ImeoprOh6a1+c80=
+	t=1781160621; cv=none; b=gkrskT3VB0P3niIIDTTxwph+qS5I8tSpyLsMxQDkv6G2qy8DE8767YqJRiqggy9cEYU1Tr+xm3VuVVu3uGUDSzhdiWcooewLZTP1XPvEs0FCDtVTTEoaUaBR6B+/pRcZKnrXbxb/z3UZRTmKI1J9GULTefcBGLljiCdYnesgJSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781160496; c=relaxed/simple;
-	bh=436zbTt2shd9fmkt6lKrd093fXSsTh+T2F1PodjR5v8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eLgHeD7D/MvNkvwBhd56YkENlYGXa6sgq1RD1OdCsbYSXgQ92k44klwHzOfdcWDatKiUfUjL3IFBg6lSCDJX75MDMtmKw6A49CHzz0zBZZchiokxfyOUVHMqJtSwSGMPTAI1Zh9ccbIhXTytH5n3P9+dnP/NWx08aaJXdQD+O6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8s2R/eZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8s2R/eZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC691F00893;
-	Thu, 11 Jun 2026 06:48:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781160494;
-	bh=A5oR4FauPfbxaGx2mdOuPjSXxXIDmQ/r7zGhamjwQ0g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b8s2R/eZZPx4Yz+i1c528OVOtoKFJVqYb+qirZy7lWiHTzvezYgKD72ySHgmhvCEN
-	 Bp+e+JzqY0KUq2QgbYYrXa0jP+K7nTlWk22/GoxCtXdmgdQgTjGIt9Xrt5irAOFV7b
-	 6gMNrCjvLQIQ7LiwbD8cJ/6GxAHhbUo/69k6xgQS0vIbR2+hSsR88vc5xu4mBGqgPk
-	 0w6KtoYPZRHumn6C/HLQ3pyCDcoUiJSPyF7xUviPh/9venHdwkOCzeX8M39QSH0lO8
-	 Ol2647ix83zN4Aew234zVraW2RMqFelp5tEUFos6WKSSsgFOoWeTQodNBkfQ/x8777
-	 RJetMGIQHVTBA==
-Message-ID: <db0656c3-ce57-44ba-b827-b95aeb958876@kernel.org>
-Date: Thu, 11 Jun 2026 08:48:10 +0200
+	s=arc-20240116; t=1781160621; c=relaxed/simple;
+	bh=8U6jz7rXtYL1MwCZPqGDf5fZs+4y+xyGRhjMMf47rOU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=czWZcarNnngnwREOnNc2ztFxi/Lzocmy5KrC0b+KLxwm9H1HODDWPCL6QYlQBHqXjky+Moa3OAd1P+8qk7KNqcQgyOBVDjAuqX1j8agGCuSUzdZpvWKaqkuREGtrM8iMqsM+rDjojJXFsadv6Dm0pgMiRhWR5SNVZGTRrLA4CRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 11 Jun
+ 2026 14:50:09 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Thu, 11 Jun 2026 14:50:09 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Date: Thu, 11 Jun 2026 14:50:08 +0800
+Subject: [PATCH] arm64: dts: aspeed: Fix duplicate pinctrl labels and
+ address scheme
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: sensirion,sps30: Add myself as
- maintainer
-To: Maxwell Doose <m32285159@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- Tomasz Duzsynski <tduszyns@gmail.com>
-References: <20260609161701.52513-2-m32285159@gmail.com>
- <20260609161701.52513-3-m32285159@gmail.com>
- <20260610-silver-elk-of-eternity-2beed0@quoll>
- <CAKqfh0GNcOAtW2wEBPhKi2GwdVAJNGcgjdJVidQYvOF7oJ2HVA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAKqfh0GNcOAtW2wEBPhKi2GwdVAJNGcgjdJVidQYvOF7oJ2HVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260611-dtsi_fix-v1-1-ef2b7cd86d6d@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIAKBaKmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDM0ND3ZSS4sz4tMwKXQNLyyRDw0RjI8MkUyWg8oKiVKAw2Kjo2NpaAKY
+ AXaBaAAAA
+X-Change-ID: 20260611-dtsi_fix-099b11a321b5
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Arnd Bergmann <arnd@arndb.de>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Ryan Chen
+	<ryan_chen@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781160609; l=5765;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=8U6jz7rXtYL1MwCZPqGDf5fZs+4y+xyGRhjMMf47rOU=;
+ b=O9wmMN7nZjWZ4LiaBz1UQB8K5FQiwQQye3VsCY92aIsBDGfBlwhNQ68rdmVUnuq1MT8XhoL1R
+ byIXjsGNhUgDIjxeCHG6e77/P2X8uyQom931Pc1kK32Q0cXBpJexTUJ
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-On 11/06/2026 00:27, Maxwell Doose wrote:
-> On Wed, Jun 10, 2026 at 4:10 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Tue, Jun 09, 2026 at 11:17:00AM -0500, Maxwell Doose wrote:
->>> Tomasz's entry is no longer valid, as he is not active anymore. Add
->>> myself as maintainer for the SPS30 to replace his entry.
->>>
->>> Link: https://lore.kernel.org/linux-iio/20260609140712.2e5d1640@jic23-huawei/
->>> Cc: Tomasz Duzsynski <tduszyns@gmail.com>
->>> Signed-off-by: Maxwell Doose <m32285159@gmail.com>
->>> ---
->>>  .../devicetree/bindings/iio/chemical/sensirion,sps30.yaml       | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> How many separate patches are you going to send?
->>
-> 
-> Sorry. I guess the reason these are separate patches is because these
-> are basically across two different subsystems (iio and dt-bindings). I
-> ought to quit doing this.
+Fix duplicate pinctrl_tach{0-15} and pinctrl_n{cts,dcd,dsr,ri}5 labels
+in aspeed-g7-soc1-pinctrl.dtsi.
 
-You sent four patches, not two.
+Drop the cpu-index from secondary/tertiary container nodes: reduce the
+"#address-cells" from 2 to 1 and update ssp_nvic/tsp_nvic unit-address
+and reg accordingly. Also remove URL comments from the DTS.
+
+Suggested-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device tree")
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+This series contains follow-up fixes for the AST27xx DTS support that
+was merged into linux-next (e77bb5dc5759).
+
+Two issues were identified after merge by Andrew Jeffery during review
+of the pending v11 series:
+
+1. Duplicate pinctrl state labels in aspeed-g7-soc1-pinctrl.dtsi caused
+   dtc to abort with fatal label-redefinition errors.
+
+2. The synthetic container nodes (secondary, tertiary) for sub-processor
+   interrupt controllers used a 2-cell address scheme to encode a
+   <cpu-index reg-base> tuple.  Since the cpu-index adds no value for
+   nodes that are purely phandle anchors, Andrew requested we drop it
+   and use the bare register address instead.
+---
+ arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi      |  14 ++-
+ .../boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi    | 102 ---------------------
+ 2 files changed, 6 insertions(+), 110 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+index ef283d95649a..58193c3c3696 100644
+--- a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
++++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+@@ -84,32 +84,30 @@ l2: l2-cache0 {
+ 	};
+ 
+ 	secondary {
+-		#address-cells = <2>;
+-		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/of/address.c?h=v6.16#n491 */
++		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/of/address.c?h=v6.16#n430 */
+ 
+-		ssp_nvic: interrupt-controller@1,e000e100 {
++		ssp_nvic: interrupt-controller@e000e100 {
+ 			compatible = "arm,v7m-nvic";
+ 			#interrupt-cells = <2>;
+ 			#address-cells = <0>;
+ 			interrupt-controller;
+-			reg = <1 0xe000e100>;
++			reg = <0xe000e100>;
+ 			arm,num-irq-priority-bits = <3>;
+ 			status = "disabled";
+ 		};
+ 	};
+ 
+ 	tertiary {
+-		#address-cells = <2>;
++		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
+-		tsp_nvic: interrupt-controller@2,e000e100 {
++		tsp_nvic: interrupt-controller@e000e100 {
+ 			compatible = "arm,v7m-nvic";
+ 			#interrupt-cells = <2>;
+ 			#address-cells = <0>;
+ 			interrupt-controller;
+-			reg = <2 0xe000e100>;
++			reg = <0xe000e100>;
+ 			arm,num-irq-priority-bits = <3>;
+ 			status = "disabled";
+ 		};
+diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
+index 72d93323593d..6edf14617b09 100644
+--- a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
++++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
+@@ -496,87 +496,6 @@ pinctrl_hvi3c15_default: hvi3c15-default-state {
+ 		function = "I3C15";
+ 		groups = "HVI3C15";
+ 	};
+-
+-	pinctrl_tach0_default: tach0-default-state {
+-		function = "TACH0";
+-		groups = "TACH0";
+-	};
+-
+-	pinctrl_tach1_default: tach1-default-state {
+-		function = "TACH1";
+-		groups = "TACH1";
+-	};
+-
+-	pinctrl_tach2_default: tach2-default-state {
+-		function = "TACH2";
+-		groups = "TACH2";
+-	};
+-
+-	pinctrl_tach3_default: tach3-default-state {
+-		function = "TACH3";
+-		groups = "TACH3";
+-	};
+-
+-	pinctrl_tach4_default: tach4-default-state {
+-		function = "TACH4";
+-		groups = "TACH4";
+-	};
+-
+-	pinctrl_tach5_default: tach5-default-state {
+-		function = "TACH5";
+-		groups = "TACH5";
+-	};
+-
+-	pinctrl_tach6_default: tach6-default-state {
+-		function = "TACH6";
+-		groups = "TACH6";
+-	};
+-
+-	pinctrl_tach7_default: tach7-default-state {
+-		function = "TACH7";
+-		groups = "TACH7";
+-	};
+-
+-	pinctrl_tach8_default: tach8-default-state {
+-		function = "TACH8";
+-		groups = "TACH8";
+-	};
+-
+-	pinctrl_tach9_default: tach9-default-state {
+-		function = "TACH9";
+-		groups = "TACH9";
+-	};
+-
+-	pinctrl_tach10_default: tach10-default-state {
+-		function = "TACH10";
+-		groups = "TACH10";
+-	};
+-
+-	pinctrl_tach11_default: tach11-default-state {
+-		function = "TACH11";
+-		groups = "TACH11";
+-	};
+-
+-	pinctrl_tach12_default: tach12-default-state {
+-		function = "TACH12";
+-		groups = "TACH12";
+-	};
+-
+-	pinctrl_tach13_default: tach13-default-state {
+-		function = "TACH13";
+-		groups = "TACH13";
+-	};
+-
+-	pinctrl_tach14_default: tach14-default-state {
+-		function = "TACH14";
+-		groups = "TACH14";
+-	};
+-
+-	pinctrl_tach15_default: tach15-default-state {
+-		function = "TACH15";
+-		groups = "TACH15";
+-	};
+-
+ 	pinctrl_thru0_default: thru0-default-state {
+ 		function = "THRU0";
+ 		groups = "THRU0";
+@@ -940,27 +859,6 @@ pinctrl_uart3_default: uart3-default-state {
+ 		function = "UART3";
+ 		groups = "UART3";
+ 	};
+-
+-	pinctrl_ncts5_default: ncts5-default-state {
+-		function = "NCTS5";
+-		groups = "NCTS5";
+-	};
+-
+-	pinctrl_ndcd5_default: ndcd5-default-state {
+-		function = "NDCD5";
+-		groups = "NDCD5";
+-	};
+-
+-	pinctrl_ndsr5_default: ndsr5-default-state {
+-		function = "NDSR5";
+-		groups = "NDSR5";
+-	};
+-
+-	pinctrl_nri5_default: nri5-default-state {
+-		function = "NRI5";
+-		groups = "NRI5";
+-	};
+-
+ 	pinctrl_ndtr5_default: ndtr5-default-state {
+ 		function = "NDTR5";
+ 		groups = "NDTR5";
+
+---
+base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
+change-id: 20260611-dtsi_fix-099b11a321b5
 
 Best regards,
-Krzysztof
+-- 
+Ryan Chen <ryan_chen@aspeedtech.com>
+
