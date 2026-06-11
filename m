@@ -1,154 +1,456 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4C23C4175;
-	Thu, 11 Jun 2026 09:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C8A3C4552
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781171270; cv=none; b=a/e2v/1JB/12zIkD+8VCElkiUmVRPDV5tzoKN6Cfd1h1izOK0JCMniu5VAUT0fbqepASUCt4vQb1nbBW3Kn4fEEkfHxwp+ooXe88PADKZd9tIttzcKMf9Bg3lYwqKAQGYJOiGb5vBx9GqvYBGQTPtP7sjxa6VJRTdygObv/kQC8=
+	t=1781171363; cv=none; b=cC/bvKcQRwnOVmAC2UCD/YnLTUDgjh2BxOzkMpnzRQ2GjbIxOQJljmbsE5f5QM8tHUBCiUN9CkBofXl+i1ZUOmjRu5sWNEjBHqxt5XJnniZlHl+Lpa4MpRKaDDBj+xVxmrk3jy+wuq7wcSxC/Ey+/0uvQ0zq+kH5Ju22i/BhtNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781171270; c=relaxed/simple;
-	bh=9spieezN/P5yA3PdDpEuoB6NBOOA4SVc5M9BZNlJyWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pBFHrLmcAQrMvsI6e3Qk6PaT1Ra2Hf1dNYx86kN8Lkn77jqTt6T9PdAbWpranHkTx6gK0mR/dSw5u9vlalklQASBeX3HCUX6qJ+2L3bBztWjS6RvG2KysTr1tpmghbPRb3HkO75Xw2WoYr3xvdYEYg6qgIIIipCtbYSNY/ThXCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=RJ01i4F7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=H+VOIoa1; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1781171363; c=relaxed/simple;
+	bh=S4BIUBRbEO29ocPxozqRrFP/C9o8xtnSUSH2KFmCpbg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j1tbpD+0OAoXNMVf8zS7+hFIqVAr+YHcXcEuYcaxfzJ9W9L9pdDP+XRUc1mvbV8xAcnTFQ8lOjqsPd+LUwXdn62Kccig6zw6OHD27/gIbYd61Dyj7FSeGlKhOUYJnwlKOK0BCDTSE/Z5ula1P/yEGj19gXWak5Hblu5Ow4NXheA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ohvexb5v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="RJ01i4F7";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="H+VOIoa1"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 3550C7A0145;
-	Thu, 11 Jun 2026 05:47:47 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 11 Jun 2026 05:47:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781171267;
-	 x=1781257667; bh=UZ2O6D9TYuSc3XK/tGr/NEv5TCWienlMRXuMasKrb3w=; b=
-	RJ01i4F7M6T3NtQbcPpC9m1v53MeVxZalQe5mlgdsR5exsjqrJosyf9l3THwbm5b
-	6xEpOzIu85GFVOWvgGsrLJcRRRLU2MYRJexMGELllcsc43ubuF6Hp6Jpx/YrkSy5
-	ExASw6fgV8XOKbeT/p9OPnuHQAmka8NPpDJyRMA6TWcgCCe0aJ9jXfu/hNhutkY8
-	7ikAGGlTJU6F2Xxst+HZ9I3JC1djRv2TKjcQHmCVIZ/t9d1BhbR7h+TBVNVzeWIA
-	x7LI+lRblZYVryar1Ki6OT0FzdXJBQVQiVK/2/gtjih0NQqWnBbqnW1lkbLz6KGx
-	qfpsInWIruD/+9jZhZrOXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781171267; x=
-	1781257667; bh=UZ2O6D9TYuSc3XK/tGr/NEv5TCWienlMRXuMasKrb3w=; b=H
-	+VOIoa1uDfmQaRubfyPh39kpBBRvWYAFMxB8FHMOaSGKeUMIkpPU4GT2oB6L+V5D
-	l2T++99L5tmIExAy1SKs6NYw4JmmVQb/sGgWb4y6QVG+nWCOpbToUjlbaxCPCtu/
-	+jfmffCmYDmp415jL0gahqIGKfoNn/jL7VFd8Pd/6FTzhEop4KgE85OtMb/P0b+b
-	M1V+CLgAOE+StLpclJx4CYK52OS4RYdo6kYLivxEGN/Zirdkh3snaqp4wjd8JIFr
-	fe+uBec9+BpbzI0qCE/WlH1tYZDbOMGWX035oFLsZUBqMaBviDYR8yzJ/oV9Rcpx
-	9skHkH9l0GBNSzlc+PolQ==
-X-ME-Sender: <xms:QYQqakDSdxbv_5i1gNbWKEvW2MR_QtsN2ggOm8hn8F4ezi2tfqgU-Q>
-    <xme:QYQqaifELtSd_NtVjk_xBz0quXvKdhtlGSRpQef7u7pirneiQuSI0pSGoytXkL5Oy
-    vm5E5pPwwGQltqCwTYqAnUyLQTJ9wIuCphgmUa4Ra6k3-x9Jc-J1g>
-X-ME-Received: <xmr:QYQqatsq-sSd7xL_15hK3W7ecPt53edqEOjMnmmFukkNSC5Km3GcgnG6VXzPQ-WjlF738SnJVdvaIMC3btQszgx9pmsQ>
-X-ME-Proxy-Cause: dmFkZTFSv3JB1Ni2NSAN7aIRmf1apyIuRnKdo8KEYWuccHfmeKPOVWKXC3OfaoSLzL2W7f
-    nNOAnnyYfP8hapRVEhYpYVm5/Z2ckitiCKkSFw2fKP4q9G9hkaJy+1G5/Beuv5/YWp5smA
-    vKG9SdCje210KdC3G6aLaRj+f5ORP48y9jT0dTAzqjlXpou2INuS5XE2SEJcfFsToQLfbB
-    uviAh5Of/P9J2hQ04clNI9hwAbBscNWuVs+bg9B63kxHSfE1VWlAmuQ1asSufXWnRJuvwt
-    NbJJv8FjFR+GluH5q6YvALo2YZQMDCabxEj7lE7VfO23Q8qkC3nPtAIObxqK+E+Bt2R7XO
-    QcvFh1cYrMCCKveZG2bbon9kAS1WNVor1cidvPWgMmaeIy9VJrF1x9hFDpmQpemJJYBjZn
-    F8HQG6l98wlvwkHf1GUWYZ2B5UbRBh6gV85gX/M8+tWhFU8Y+HCOVpj8akvrx7Ewc7M2vf
-    95HcXLaaj9xuJiJmUZqAQyXL21czLEniKui4xhb4VK3Lw33MYs92qrXN+r9HNBbPlOHEmW
-    8N1e7zbyRjbVDEuvlDimYlurEdu3Icq9lxVIvhxmeH1HX3nFyJldQ7A7zbyhK7Jkpd8Gdn
-    a5ySNV0/R+oA6M1f+ZPJaX3prKoFrLF7ZxVZLkwK0cSTQ39DOuxcxz+j75Rg
-X-ME-Proxy: <xmx:QYQqahLaji_soT2YGOOZS0-EiJUy8VumU02i_EKHqltp74Khcn1K-w>
-    <xmx:QYQqana4FklhvInZfs59k1o8X4kgA6FpPhMtCGdiYcqtum_4QOXQNA>
-    <xmx:QYQqavIpV4bNVlgSh1tH6yQmUzIWNn8QXsQlS0GS3Zyqe767rIapnQ>
-    <xmx:QYQqaopng1QiEO4BgdkNqYi-_D5Rr3kfL17-P2MBfxgrY7mtJ-kHFw>
-    <xmx:Q4Qqan6tOiRdTjReYsb2ShalPTv-QKourkashIn1X3L0K6OVill_mQj1>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 11 Jun 2026 05:47:45 -0400 (EDT)
-Date: Thu, 11 Jun 2026 11:47:43 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Frank Binns <frank.binns@imgtec.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Matt Coster <matt.coster@imgtec.com>,
-	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
-	Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: renesas: r8a77965-salvator-x: Enable GPU
- support
-Message-ID: <20260611094743.GC69568@ragnatech.se>
-References: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ohvexb5v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71BB91F00893
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781171360;
+	bh=wytX47iTOVlGsWaMnCOC5biW53KG+PvOIIBEsrB6UeQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Ohvexb5vB0qvNCQ/waG2GHthFxasB5ZPE872j3CZA0Z4xB4Bu3tO97iYU0CgrWhAL
+	 e9Rat1EeRxA6GL3tBTMFwN9296nu3fZ62Z5PlmyPWhoa/XaSUuh6da1x+gN/n1D8g8
+	 xJ6vJwzhDoXjPA1JjwoesYe7BhlTH2R0A46mVDZaJp/8++OqIqYqD5qtS+ZCadmHUS
+	 yIvKXqKdQhyNVdz1FwpzH1BjNEihhErQIUKstpLXqVJH/WlLpyqw7evmVDTAn7B6HY
+	 dGkcC5TdGUW1ya97iuMQIQ/3umFqxkyjGpFMBETm9NYAHajzdv/PJ9KRbM7gerdOtH
+	 anR0kBEaAXN/A==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3967726bc47so71079801fa.1
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 02:49:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/y1tNR+k9RXPTzWVeiJzYEj/bQ9cBWi/u5V/lQPXDzA16DyxqJyvaMEY4CMDajJviQyRMY+rd+UB/u@vger.kernel.org
+X-Gm-Message-State: AOJu0YytLng+3GqBKb9PGP/iC2P0X9Q0o5E8Chmy42RF70SRunprHlOi
+	wqmQcWB86Pju/7GKGIE+FybJCmBEWdoWn9Oa7oaNtshedPenO17DgYP45OdZO2cKXTHddnd4SSf
+	J/haX2HOfwkHY26ZVJ1PAZFA7KPN8vXwhC1xWig9aqg==
+X-Received: by 2002:a2e:bc82:0:b0:396:77aa:1dff with SMTP id
+ 38308e7fff4ca-3991a1634fbmr5864991fa.23.1781171359200; Thu, 11 Jun 2026
+ 02:49:19 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 11 Jun 2026 05:49:17 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 11 Jun 2026 05:49:17 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260610155708.151067-3-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
+References: <20260610155708.151067-1-prasad.kumpatla@oss.qualcomm.com> <20260610155708.151067-3-prasad.kumpatla@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 05:49:17 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mf2oujn6MstGqKg1JCu3hbPD5zHhCB-Zke_hu8LYCz-Xg@mail.gmail.com>
+X-Gm-Features: AVVi8CcPpEoF540dxiZBx5o09HxzmMiojRBzSAzxkGBQgVXV1gCQVjyXXQDH2E4
+Message-ID: <CAMRc=Mf2oujn6MstGqKg1JCu3hbPD5zHhCB-Zke_hu8LYCz-Xg@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] ASoC: codecs: add Qualcomm WSA885X I2C codec driver
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Marek,
-
-Thanks for your work.
-
-On 2026-06-11 02:57:29 +0200, Marek Vasut wrote:
-> Enable GPU on Salvator-X with R-Car M3-N.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-
-For the whole series,
-
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-
+On Wed, 10 Jun 2026 17:57:08 +0200, Prasad Kumpatla
+<prasad.kumpatla@oss.qualcomm.com> said:
+> Add an ASoC codec driver for the Qualcomm WSA885X smart speaker
+> amplifier accessed over I2C.
+>
+> The driver provides the control-side support needed for playback
+> bring-up, including register programming, serial interface setup, clock
+> handling, mute and gain control, reset handling and interrupt support.
+>
+> Program the init table during codec initialization and reapply it only
+> after an explicit device reset so the static device configuration is
+> not rewritten on every playback start. Also program the TDM control
+> slot-count field from the runtime slot configuration so the same codec
+> path can be used with 2-slot, 4-slot, or 8-slot Audio IF backends.
+>
+> Keep the stream-time power-state sequencing in the DAI callbacks and
+> use normal regmap access for the control path.
+>
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 > ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Frank Binns <frank.binns@imgtec.com>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Matt Coster <matt.coster@imgtec.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: "Niklas Söderlund" <niklas.soderlund@ragnatech.se>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: devicetree@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts b/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts
-> index f84c64ed4df7b..af8cfdccd2103 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts
-> +++ b/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts
-> @@ -30,3 +30,7 @@ &du {
->  	clock-names = "du.0", "du.1", "du.3",
->  		      "dclkin.0", "dclkin.1", "dclkin.3";
->  };
+
+...
+
+> diff --git a/sound/soc/codecs/wsa885x-i2c.c b/sound/soc/codecs/wsa885x-i2c.c
+> new file mode 100644
+> index 000000000..a7d8f8d48
+> --- /dev/null
+> +++ b/sound/soc/codecs/wsa885x-i2c.c
+> @@ -0,0 +1,1643 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
 > +
-> +&gpu {
-> +	status = "okay";
-> +};
-> -- 
-> 2.53.0
-> 
+> +/* WSA885X I2C codec driver */
+> +
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/slab.h>
+> +#include <sound/core.h>
+> +#include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc-dapm.h>
+> +#include <sound/soc.h>
+> +#include <sound/tlv.h>
+> +#include <linux/interrupt.h>
 
--- 
-Kind Regards,
-Niklas Söderlund
+Can you keep the headers in alphabetical order?
+
+...
+
+> +
+> +#define WSA885X_FU21_VOL_STEPS 124
+> +#define WSA885X_USAGE_MODE_MAX 8
+> +#define WSA885X_INIT_TABLE_MAX_ITEMS 256
+
+Add newline.
+
+...
+
+> +
+> +static int wsa885x_apply_init_table(struct wsa885x_i2c_priv *wsa885x)
+> +{
+> +	int i;
+> +	int ret;
+
+I'd put it on the same line (elsewhere too) but that's personal preference.
+
+> +
+> +	if (!wsa885x || !wsa885x->regmap)
+> +		return -EINVAL;
+
+
+You have a lot of these checks but this can't really happen, can it?
+
+> +
+> +	if (!wsa885x->init_table_size)
+> +		return 0;
+> +
+> +	if (!wsa885x->init_table)
+> +		return -EINVAL;
+> +
+> +	for (i = 0; i < wsa885x->init_table_size / 2; i++) {
+> +		u32 reg = wsa885x->init_table[2 * i];
+> +		u32 val = wsa885x->init_table[2 * i + 1];
+> +
+> +		if (wsa885x->batt_conf == WSA885X_BATT_2S && reg == WSA885X_SPK_TOP_LF_CH1_CTRL11)
+> +			continue;
+> +
+> +		if (wsa885x->batt_conf == WSA885X_BATT_2S && reg == WSA885X_SPK_TOP_LF_CH2_CTRL11)
+> +			continue;
+> +
+> +		ret = regmap_write(wsa885x->regmap, reg, val);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int wsa885x_hw_init(struct wsa885x_i2c_priv *wsa885x)
+> +{
+> +	static const struct reg_sequence regs[] = {
+> +		{ WSA885X_DIG_CTRL1_SPMI_PAD_GPIO2_CTL, 0x2e },
+> +		{ WSA885X_DIG_CTRL1_INTR_MODE, 0x01 },
+> +		{ WSA885X_DIG_CTRL1_PIN_CT, 0x04 },
+> +	};
+> +	int ret;
+> +
+> +	if (!wsa885x || !wsa885x->regmap)
+> +		return -EINVAL;
+> +
+> +	ret = wsa885x_apply_init_table(wsa885x);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (wsa885x->batt_conf == WSA885X_BATT_2S) {
+> +		ret = wsa885x_2s_conf(wsa885x);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return regmap_multi_reg_write(wsa885x->regmap, regs, ARRAY_SIZE(regs));
+> +}
+> +
+> +static int wsa885x_unmask_interrupts(struct wsa885x_i2c_priv *wsa885x)
+> +{
+> +	static const struct reg_sequence regs[] = {
+> +		{ WSA885X_INTR_MASK0, 0x00 },
+> +		{ WSA885X_INTR_MASK0 + 1, 0x00 },
+> +		{ WSA885X_INTR_MASK0 + 2, 0xf8 },
+> +	};
+> +
+> +	if (!wsa885x || !wsa885x->regmap)
+> +		return -EINVAL;
+> +
+> +	return regmap_multi_reg_write(wsa885x->regmap, regs, ARRAY_SIZE(regs));
+> +}
+> +
+> +static int wsa885x_wait_for_pde_state(struct wsa885x_i2c_priv *wsa885x, int ps)
+> +{
+> +	int act_ps = -1, cnt = 0, clock_valid = -1;
+> +	int rc = 0;
+> +
+> +	if (!wsa885x || !wsa885x->regmap)
+> +		return -EINVAL;
+> +
+> +	if (ps < 0 || ps > 3)
+> +		return -EINVAL;
+> +
+> +	do {
+> +		usleep_range(1000, 1500);
+> +		rc = regmap_read(wsa885x->regmap,
+> +				 WSA885X_SMP_AMP_CTRL_STEREO_PDE23_ACT_PS,
+> +				 &act_ps);
+> +		if (rc) {
+> +			dev_err(wsa885x->dev, "PDE state read failed: %d\n", rc);
+> +			return rc;
+> +		}
+> +		if (act_ps == ps)
+> +			return 0;
+> +	} while (++cnt < 5);
+
+Newline.
+
+> +	if (regmap_read(wsa885x->regmap,
+> +			WSA885X_SMP_AMP_CTRL_STEREO_CS21_CLOCK_VALID,
+> +			&clock_valid))
+> +		dev_err(wsa885x->dev,
+> +			"PDE power state %d request failed, actual_ps %d, clock_valid read failed\n",
+> +			ps, act_ps);
+> +	else
+> +		dev_err(wsa885x->dev,
+> +			"PDE power state %d request failed, actual_ps %d, clock_valid:%d\n",
+> +			ps, act_ps, clock_valid);
+> +
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static int wsa885x_codec_hw_params(struct snd_pcm_substream *substream,
+> +				   struct snd_pcm_hw_params *params,
+> +				   struct snd_soc_dai *dai)
+> +{
+> +	struct wsa885x_i2c_priv *wsa885x;
+> +	u8 pcm_rate, cs21_sample_rate_idx, cs24_sample_rate_idx;
+> +
+> +	(void)substream;
+
+Do we warn about unused arguments in the kernel now?
+
+...
+
+> +
+> +static int wsa885x_stereo_gain_offset_get(struct snd_kcontrol *kcontrol,
+> +					  struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x;
+> +	int val;
+> +
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component = snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x = snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x)
+> +		return -EINVAL;
+> +
+> +	val = wsa885x->stereo_vol_db + 84;
+> +	if (val < 0 || val > WSA885X_FU21_VOL_STEPS)
+> +		return -ERANGE;
+> +
+> +	ucontrol->value.integer.value[0] = val;
+> +	return 0;
+> +}
+> +
+> +static int wsa885x_stereo_gain_offset_put(struct snd_kcontrol *kcontrol,
+> +					  struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x;
+> +	long val;
+> +
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component = snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x = snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x)
+> +		return -EINVAL;
+> +
+> +	val = ucontrol->value.integer.value[0];
+> +
+> +	if (val < 0 || val > WSA885X_FU21_VOL_STEPS) {
+> +		dev_err(component->dev, "%s: Invalid range, Val: %ld\n", __func__, val);
+> +		return -EINVAL;
+> +	}
+> +	wsa885x->stereo_vol_db = (int)val - 84;
+> +	return 0;
+> +}
+> +
+> +static int wsa885x_i2c_usage_modes_get(struct snd_kcontrol *kcontrol,
+> +				       struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x_i2c;
+> +
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component = snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c = snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x_i2c)
+> +		return -EINVAL;
+> +
+> +	if (wsa885x_i2c->usage_mode > WSA885X_USAGE_MODE_MAX)
+> +		return -ERANGE;
+> +
+> +	ucontrol->value.integer.value[0] = wsa885x_i2c->usage_mode;
+> +
+> +	return 0;
+> +}
+> +
+> +static int wsa885x_i2c_usage_modes_put(struct snd_kcontrol *kcontrol,
+> +				       struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x_i2c;
+> +	long val;
+> +
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component = snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c = snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x_i2c)
+> +		return -EINVAL;
+> +
+
+You seem to be repeating the same sequence in multiple functions just to get
+the address of wsa885x_i2c. Can you factor it out into a separate helper and
+save some lines?
+
+> +	val = ucontrol->value.integer.value[0];
+> +
+> +	if (val < 0 || val > WSA885X_USAGE_MODE_MAX)
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c->usage_mode = val;
+> +
+> +	return 0;
+> +}
+> +
+> +static int wsa885x_i2c_rx_slot_mask_get(struct snd_kcontrol *kcontrol,
+> +					struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x_i2c;
+> +	u32 mask;
+> +
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component = snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c = snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x_i2c)
+> +		return -EINVAL;
+> +
+> +	mask = wsa885x_i2c->rx_slot_mask;
+> +	if (!wsa885x_is_valid_rx_slot_mask(mask))
+> +		return -ERANGE;
+> +
+> +	ucontrol->value.integer.value[0] = mask;
+> +
+> +	return 0;
+> +}
+> +
+> +static int wsa885x_i2c_rx_slot_mask_put(struct snd_kcontrol *kcontrol,
+> +					struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component;
+> +	struct wsa885x_i2c_priv *wsa885x_i2c;
+> +	long mask;
+> +
+> +	if (!kcontrol || !ucontrol)
+> +		return -EINVAL;
+> +
+> +	component = snd_kcontrol_chip(kcontrol);
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c = snd_soc_component_get_drvdata(component);
+> +	if (!wsa885x_i2c)
+> +		return -EINVAL;
+> +
+> +	mask = ucontrol->value.integer.value[0];
+> +
+> +	if (!wsa885x_is_valid_rx_slot_mask(mask))
+> +		return -EINVAL;
+> +
+> +	wsa885x_i2c->rx_slot_mask = mask;
+> +
+> +	return 0;
+> +}
+> +
+
+...
+
+> +				/* INTR_CLEAR registers are write-only; use regmap_write
+> +				 * instead of regmap_update_bits to avoid the read-modify-write
+> +				 * that regmap_update_bits performs on non-readable registers.
+> +				 */
+
+/*
+ */
+
+style comments please
+
+...
+
+> +	ret = devm_add_action_or_reset(dev, wsa885x_gpio_powerdown, wsa885x);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "devm_add_action_or_reset failed\n");
+> +
+> +	i2c_set_clientdata(client, wsa885x);
+
+I don't see a corresponding i2c_get_clientdata(). Do you really need it?
+
+...
+
+Bart
