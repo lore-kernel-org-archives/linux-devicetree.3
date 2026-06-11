@@ -1,143 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA56926CE1E
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4709C344DA4;
+	Thu, 11 Jun 2026 05:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781156450; cv=none; b=bqZUvbi2FRiF4V/w/SzrrZ5msD/nM7HrYPwtdgcxafbhkJC/YaRYhVHh+B6sBl5rxxhvkSxN/3tMIGjSyFCsWPScC8jlf/Bnvl25K+Q3P+PBt+DNsDZVWPkUR/oJVUMqkGoPUPobK8DJytEOtcdwShNuN1fKL9B18bUoWCPteM8=
+	t=1781156623; cv=none; b=nqupLrLplYmByU9Ir+p90lWwNu6LCOtTeEcAUpXwyEt26TJZrb1B8IOcX9pAXOM7989DPdHwrzyWPiTStpm2x4mFqeQgXW3dOC2bMN5VZz8lS2Rs1JmyBfgU8qUx/9DylaK0YtcHhfgqzZRFrjdCIuWziBKEgj+eHKZ1oHJf9+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781156450; c=relaxed/simple;
-	bh=N/iei3sTp6mfUPiYT0+v0133dG+WSkIRpT6Onh5HO5s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DjRu3N5/YEaqfBsrW8jHJF+VtoAXKZrW0Ve0WKJ0QNDzzxQOEG2g9niATCw72s2m0qMJxZ03Nt5e3zVdK/qB/RO7pG1gBkbpQpWCIejsOVvQVckNV7oxLJgIc86HswU6IiulQXK/Gm+tKkpdMKwE46DFgUhOLDD5B7CatoPArD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzcIiAkB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzcIiAkB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0C71F00893;
-	Thu, 11 Jun 2026 05:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781156449;
-	bh=1ba6sGH59+yiLoGFczF02ySqyUblepit/Esj3DbPhBs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gzcIiAkBvvsD5tqXVV/YC4eY07oLl77Q3tVT/w/DpNgAROFTFTo6kCf3RyumRnR82
-	 ApGL44SmVDKpgVUq2dJHmJvAMgAzzL0zNu1nfledlARzlmvvNkzUuqSoj/vMyDs+wm
-	 PLssNFs9RMDmTd3BgEQFxi04mWY7RERum/ZUoyAOYl/H5DGUU/cEr8hMq/9kj034Y7
-	 ltEVufr7qnjBMpyab674OxhB4eFZ2dskXfCKimbZ+T4LcSDdlQvndkQRzXwRAG0YyA
-	 xvNjNHhKDBJhP2WEvxHIlCx8pCMJ1czv7dFoKdMiDx7imsix0FvqNckww4D/osdV2F
-	 v+oaHR1O1ZGsQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v32 2/5] i2c: aspeed: Read clock-frequency via
- i2c_parse_fw_timings()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611-upstream_i2c-v32-2-b66eba921d01@aspeedtech.com>
-References: <20260611-upstream_i2c-v32-2-b66eba921d01@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1781156623; c=relaxed/simple;
+	bh=CEsXtE7RJUsN+rxk0Lx/Pi6v19bnjVmLwkhNSAJhWWM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hsE8oCDyAFTp6/aLEddNH7Y9i0yqwcwhIiD7XxX/t1aymsrf4hBdOWPiK6owPb5DS0QvF+j9V4m9/ykE8cqMsdJ22SZ8iznXVIzd4zXYaJPM8v/mgjoc6d/SGhvmOv+Y/61Nb9ErnHEB40HZVb7wt6hPeBZGjwZUe5dMmc9bi0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
+	by APP-01 (Coremail) with SMTP id qwCowACXOtMBSypqL+NEAQ--.1358S2;
+	Thu, 11 Jun 2026 13:43:30 +0800 (CST)
+Message-ID: <69a18fd1a1b9f375bbccfbe0d9e88ab31a01a188.camel@iscas.ac.cn>
+Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
+ support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 11 Jun 2026 13:43:29 +0800
+In-Reply-To: <178115560757.199930.5802398831559617564.b4-review@b4>
+References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+	 <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
+	 <178115560757.199930.5802398831559617564.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 05:40:48 +0000
-Message-Id: <20260611054049.0D0C71F00893@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-CM-TRANSID:qwCowACXOtMBSypqL+NEAQ--.1358S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF1fGryxZF1rJFyUKrWUCFg_yoWkZwc_Wr
+	4jqrZFqrWqqr4kCFn7AFyftF93KFs5uFn7Z3ZYy34aka47CrsrZrWUXrWrAas8Jw1FkFyq
+	kanrZFyFvr4DWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbskYjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxU7veHUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+=E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=E5=86=
+=99=E9=81=93=EF=BC=9A
+> On Tue, 09 Jun 2026 00:26:22 +0800, Icenowy Zheng
+> <zhengxingda@iscas.ac.cn> wrote:
+> > diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > index 1a7e0125bced..e31e2fba0a78 100644
+> > --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct
+> > backlight_device *bl)
+> > [ ... skip 18 lines ... ]
+> > +		ret =3D regulator_enable(ctx->bl_supply);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ctx->backlight_enabled =3D true;
+> > +
+>=20
+> If you use a pin, (it is indeed a hwen pin as we know) you can
+> simplify it like this,
+>=20
+> bool bl_enable_now =3D !!brightness;
+>=20
+> if (ctx->bl_enable !=3D bl_enable_now) {
+> 	gpiod_set_value(ctx->hwen_gpio, bl_enable_now);
+> 	ctx->bl_enable =3D bl_enable_now;
+> }
+>=20
+> BTW, iirc, panel bias can be turned off too, although I don't think
+> this will save too much power.
 
-Pre-existing issues:
-- [High] I2C adapter is removed after asserting hardware reset, preventing =
-I2C transfers during device unbind.
-- [High] Zero value in `bus-frequency` DT property leads to a divide-by-zer=
-o exception.
---
+BTW during my test, it seems that DCS backlight 0 isn't turning off
+backlight.
 
-commit 92481335123f99873954906861adc75752062695
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+Thanks,
+Icenowy
 
-i2c: aspeed: Read clock-frequency via i2c_parse_fw_timings()
+>=20
+> Best wishes,
+> Pengyu
 
-Use i2c_parse_fw_timings() to read the standard "clock-frequency"
-property, and fall back to "bus-frequency" only when the standard
-property is absent.
-
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-asp=
-eed.c
-> index a26b74c712061..f00bd779146e7 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-[ ... ]
-> @@ -1025,12 +1026,18 @@ static int aspeed_i2c_probe_bus(struct platform_d=
-evice *pdev)
->  	}
->  	reset_control_deassert(bus->rst);
-> =20
-> -	ret =3D of_property_read_u32(pdev->dev.of_node,
-> -				   "bus-frequency", &bus->bus_frequency);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev,
-> -			"Could not read bus-frequency property\n");
-> -		bus->bus_frequency =3D I2C_MAX_STANDARD_MODE_FREQ;
-> +	i2c_parse_fw_timings(&pdev->dev, &timings, false);
-> +	if (timings.bus_freq_hz) {
-> +		bus->bus_frequency =3D timings.bus_freq_hz;
-> +	} else {
-> +		ret =3D of_property_read_u32(pdev->dev.of_node,
-> +					   "bus-frequency",
-> +					   &bus->bus_frequency);
-> +		if (ret < 0) {
-> +			dev_err(&pdev->dev,
-> +				"Could not read clock-frequency or bus-frequency property\n");
-> +			bus->bus_frequency =3D I2C_MAX_STANDARD_MODE_FREQ;
-> +		}
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but can this code cause a divide-by-zero
-exception if the device tree sets "bus-frequency" to 0?
-
-If the property is present and set to 0, of_property_read_u32() succeeds
-and leaves bus->bus_frequency as 0. Later, in aspeed_i2c_init_clk(), it
-is used as a divisor:
-
-drivers/i2c/busses/i2c-aspeed.c:aspeed_i2c_init_clk() {
-    ...
-    divisor =3D DIV_ROUND_UP(bus->parent_clk_frequency, bus->bus_frequency);
-    ...
-}
-
-Does the driver need to validate that the read frequency is strictly
-positive to prevent a kernel panic here?
-
-
-[Severity: High]
-This is a pre-existing issue, but does aspeed_i2c_remove_bus() prevent
-I2C transfers during device unbind by asserting hardware reset too early?
-
-In drivers/i2c/busses/i2c-aspeed.c:aspeed_i2c_remove_bus(), the code does:
-
-    /* Disable everything. */
-    writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
-    writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
-
-    spin_unlock_irqrestore(&bus->lock, flags);
-
-    reset_control_assert(bus->rst);
-
-    i2c_del_adapter(&bus->adap);
-
-When i2c_del_adapter() unregisters child I2C devices, their remove
-callbacks may attempt I2C transfers to cleanly shut down the peripherals.
-
-Because the hardware controller is already disabled and in reset, will these
-transfers silently fail, timeout, or cause external aborts when the CPU
-tries to access the registers?
-
-Should i2c_del_adapter() be called before disabling the hardware and
-asserting reset?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-upstream_i=
-2c-v32-0-b66eba921d01@aspeedtech.com?part=3D2
