@@ -1,151 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6424223DEA;
-	Thu, 11 Jun 2026 18:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8E340803F
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 18:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781200861; cv=none; b=HpT958Pprn/hfyMfIsShfTmdk+YJz3k6Lk7PI/KT2p+l/0QGsfiliVI8wmOtRhCwPZ87KNSZ5krDq7M+K7piTGs62aVJsVZaqEBdWMhfXSRnGpUVlw4C0F2BPgluYUEVWaZYsOB4eHbQhraMVLEe95w9IFTIq6FR4rZfkjDxz9A=
+	t=1781201572; cv=none; b=kOmETj7lr8+YT4w06yw5aUcqKPgKQhQsSyjXTTn+adNn6jgRJQYIRyA/StH7bWxH6WrbNsbvvN80R+SyygkfLR5NQER1PPnJ5kY/R/3SXOHi3q4ANbyQyXnxgmQ2FDS5dJvtx0IMJDkES377yX21OREN3Wy2AnTvCkVibiTo4FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781200861; c=relaxed/simple;
-	bh=3lr7Sxwl0HUeHNnGIIGnKfKwo8XvvSf7RE979TESsu8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zu739qG/DvhcGuRTLOjceB1VvSq2Wr9fXN8k6KD0mvd6k9TwW5ag1yOdZXNcrfe+lsL99qocHUYWEUV1HoXjP1jPAp2DlKXvdYZJwafg7EomNfiFEaKicUU13KB6FT7kY2BaY4n/5hCREhPKIzF8o80HxHHCGeJiqgQpcVYFEXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbgJWsEN; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbgJWsEN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A3E1F00893;
-	Thu, 11 Jun 2026 18:00:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781200858;
-	bh=A9Oqqr/l6I/PqOwlMmpBmr2v004b4l/K/iappFZw6cw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fbgJWsENfWIUU78rOo1V6bIPvj7OU2UInIg7BhO/MtyXLz03aNphLkvbQ4sWBH1D8
-	 SZS+xEF5xGl5Z7WFRicCnucNZqZ6Y6z7rTBz6T9S7ipsqMbk+ixpaY2HxX4+o8wicg
-	 1P+gBE8/Y4y6VhP0cdfTmzq0SxHsh0KEFkyoGY3oKpq7qPHvbjtZt4vCPdYN92h7NM
-	 9GfIvbhUcMxe67Suzx5P/6qJ12T6++7SuSOQT3c7cHb8ncKsd3erNXbIWOkvMRST1P
-	 F+qzsLaZQB0TRtE7iJ2uCCXoHkO3M3oPuiPU9b7TKEn/4gqEXqSUICRTOTW9Saex6M
-	 VHyzdoBUp4AuA==
-Date: Thu, 11 Jun 2026 19:00:55 +0100
-From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Nguyen Minh Tien <zizuzacker@gmail.com>, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add TI ADS1220
-Message-ID: <20260611-stump-poison-3d44ee51ecdd@spud>
-References: <20260610151342.44274-2-zizuzacker@gmail.com>
- <20260610152903.54FE61F00893@smtp.kernel.org>
+	s=arc-20240116; t=1781201572; c=relaxed/simple;
+	bh=HkGhT3NjYzPW2BC9L4lIdXyXEwI8DQLjwA7FwJ5RTNI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dQz+cScBWrcXDJKcAKDymOcV0frRJP6Xyi3xU94EgFp0FScQSLR8VKsV1iWnfmj98UhJnh/UObit7W9JWQRfLWIKa/Q/HMdwKOTv3M/AwR8mTNuhtA8eiL9rlffSTiqZ9mqX1EIe2DWGkBf32vkMgmZ/GBR33BLwLQlTiX0F2g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <a.fatoum@pengutronix.de>)
+	id 1wXjtM-0003nU-U2; Thu, 11 Jun 2026 20:12:36 +0200
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <a.fatoum@pengutronix.de>)
+	id 1wXjtM-002Fqt-14;
+	Thu, 11 Jun 2026 20:12:36 +0200
+Received: from [::1] (helo=dude05.red.stw.pengutronix.de)
+	by dude05.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
+	(envelope-from <a.fatoum@pengutronix.de>)
+	id 1wXjtM-00000003Ffp-10qe;
+	Thu, 11 Jun 2026 20:12:36 +0200
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Subject: [PATCH 0/3] ARM: dts: stm32: lxa: change stdout-path baud rate
+ from 9600 to 115200
+Date: Thu, 11 Jun 2026 20:12:32 +0200
+Message-Id: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ibX/47NDqAbngYGw"
-Content-Disposition: inline
-In-Reply-To: <20260610152903.54FE61F00893@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJD6KmoC/yXMwQqDMAyA4VeRnBdoxSnsVcYOsY2aMVSaVATx3
+ dfN43f4/wOUk7DCozog8SYqy1zgbxWEieaRUWIx1K5uXes9fnZCtbhkw5Vswp5yTGSMXRiaexM
+ iseug5GviQfb/+vm6rLl/c7DfD87zC2FpymF8AAAA
+X-Change-ID: 20260611-lxa-stdout-path-baudrate-7cf454cdae07
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Ahmad Fatoum <a.fatoum@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
+The LXA boards are the only STM32 boards that set stdout-path = &uart*
+instead of explicitly specifying a baud rate.
 
---ibX/47NDqAbngYGw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This would mean the default of 9600 is used, but it goes unnoticed when
+booting normally as barebox fixes up a console= line that includes a
+baud rate.
 
-On Wed, Jun 10, 2026 at 03:29:02PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] The `diff-channels` property constraint uses invalid YAML flow s=
-equence syntax (`items: [const: 0, const: 1]`) that will cause a fatal pars=
-er error or evaluate to a single-element list with a collapsed duplicate di=
-ctionary key.
-> - [Medium] The child node regex and `reg` maximum artificially limit the =
-device tree to defining at most 7 channels, despite the hardware supporting=
- 12 unique multiplexer configurations.
-> --
->=20
-> commit 2b3665a0096105a4bb2db6266e47dec0a0802cff
-> Author: Nguyen Minh Tien <zizuzacker@gmail.com>
->=20
-> dt-bindings: iio: adc: Add TI ADS1220
->=20
-> This commit adds a device tree binding for the TI ADS1220 24-bit ADC.
-> It describes the SPI device, its per-input channel child nodes,
-> external reference selection, and the DRDY interrupt.
->=20
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml =
-b/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
-> > new file mode 100644
-> > index 0000000000000..1fedffc2a1475
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
-> [ ... ]
-> > +patternProperties:
-> > +  "^channel@[0-6]$":
-> > +    $ref: adc.yaml
-> > +    type: object
-> > +    description: Represents one ADC input configuration (channel).
-> > +
-> > +    properties:
-> > +      reg:
-> > +        minimum: 0
-> > +        maximum: 6
->=20
-> [Severity: Medium]
-> The ADS1220 hardware supports 12 unique multiplexer combinations
-> (8 differential pairs and 4 single-ended inputs). Does this regex and
-> reg maximum artificially limit the device tree to defining at most 7
-> channels?
->=20
-> System integrators might not be able to represent all available
-> hardware configurations if this limit is enforced.
->=20
-> [ ... ]
-> > +      diff-channels:
-> > +        description:
-> > +          Differential input pair routable by the ADS1220 multiplexer.
-> > +        oneOf:
-> > +          - items: [const: 0, const: 1]
-> > +          - items: [const: 0, const: 2]
-> > +          - items: [const: 0, const: 3]
-> > +          - items: [const: 1, const: 2]
-> > +          - items: [const: 1, const: 3]
-> > +          - items: [const: 2, const: 3]
-> > +          - items: [const: 1, const: 0]
-> > +          - items: [const: 3, const: 2]
->=20
-> [Severity: High]
-> Will this syntax pass the dt_binding_check validation?
->=20
-> In YAML, a flow sequence like [const: 0, const: 1] evaluates to a list
-> containing a single implicit mapping with duplicate keys. The dt-schema
-> toolchain utilizes a strict parser that typically fails on duplicate
-> dictionary keys.
->=20
-> If it did parse, it would likely collapse the duplicate keys into a
-> single element, forcing the diff-channels array to have exactly one
-> element instead of the expected two.
->=20
-> Would it be better to use a valid flow mapping sequence, such as
-> - items: [{const: 0}, {const: 1}]?
+When EFI booting GRUB however, GRUB will not pass along the console=
+line and thus the board ends up with a 9600 baud Linux console,
+confusing users.
 
-dt_binding_check passes actually. Although this syntax has no other
-users in the tree. The only other diff-channel user I saw that applied
-as tight restrictions as this one spelt it out as
-  items:
-    - const: 0
-    - const: 1
-etc but I have no objection to this if it works.
+This series fixes this. As the device trees were added at different
+times, they are fixed each in a separate commit with its own Fixes: tag.
 
---ibX/47NDqAbngYGw
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+Ahmad Fatoum (3):
+      ARM: dts: stm32: lxa-mc1: change stdout-path baud rate from 9600 to 115200
+      ARM: dts: stm32: lxa-tac: change stdout-path baud rate from 9600 to 115200
+      ARM: dts: stm32: fairytux2: change stdout-path baud rate from 9600 to 115200
 
------BEGIN PGP SIGNATURE-----
+ arch/arm/boot/dts/st/stm32mp153c-lxa-fairytux2.dtsi | 2 +-
+ arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts        | 2 +-
+ arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi       | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+---
+base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+change-id: 20260611-lxa-stdout-path-baudrate-7cf454cdae07
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCair31wAKCRB4tDGHoIJi
-0pBWAP47b2XfFh9+TXxIUGnXm9V5k8GySya9KmjNCktoq+wKOwD/ZcE3GcY+7oz1
-TM+DlHHcMdSAqQgtVoS3laZozGMmCQs=
-=Clc4
------END PGP SIGNATURE-----
+Best regards,
+--  
+Ahmad Fatoum <a.fatoum@pengutronix.de>
 
---ibX/47NDqAbngYGw--
