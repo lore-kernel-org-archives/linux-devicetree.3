@@ -1,144 +1,89 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02EC29ACDD
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468F93A257C;
+	Thu, 11 Jun 2026 09:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169211; cv=none; b=bQEJ0sXjOQtC0+MqtpoihrFYnTpJxLe0d5cTub9cDNCHHu4cpnqeY9GNtvPJmc0C5v5Zb8iVoZ8SYnUliZrfT/boqdmQ7jm/j51PMJ6s6q+1MbJE49nTKu7Y8nE+yr0gv8J0LmCzsYZr+hZW4A4suTWH9A+y9nrWpfVt/t3xsMs=
+	t=1781169212; cv=none; b=VSg9jqbA8GrcekPHcz1hC9I6oibVUZmxNrc+BnGNGY7Q0ItC95Boa2qA8c9CxtSha6mqibcbtoMVvSZ53MpJxYn3evn53hVhR8cJksOYbTnAry/jgrGGXaj43yD+rc6yKkG8jL6OQh5lOtfpIcGtzBsaejKrhW6Bm+WOKSN5+tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169211; c=relaxed/simple;
-	bh=T7XryxoFPGMT4dHct0/mm5jUu/6vwSFpJtBOscR5LKY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I+5EHKGzB9W5S7melfJJw6NzbNP1EHMv3eGG8ycfhXjEf/hGrB4Lx10dTxsdTWtBfbZcaX1FeIUmuT6btJ3VlB3eM1tuh3q0fu5b48q9BjryJK141fVq9LC2T01XhWsGC5J/JgOESLN1BIp18aPDKu2YAe9C6OdZllgN7xDEzqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nm7yjAci; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781169212; c=relaxed/simple;
+	bh=gKOCqxKCuRbslboKZqBeDKoCrIbSkktbxTTZx61IGbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ATpdWZhMX6JGrNrRg9rzu7gIn8u6v0IKy5WHO/mtSmhxsnFZFXW+3ODNtOUvcObiklrbea9v8dua0kEt+PZuEgeOPIWzayon6Kb1177HJFLlDgapk4/qEgBH6qxfs+byJRZHnrWJEgtwRw4ZMidU/TLdq0gR2yHvYI/FQ7tdp8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5BO8pcr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nm7yjAci"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84231305a80so4337456b3a.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 02:13:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781169209; x=1781774009; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hizbOWzAp2GvHnkKmoXoB4flLKn0ZG1pSO3As3FJvhg=;
-        b=nm7yjAciTBQ9QEdYri4eIl0GPW/KXPhlfJos4Ba6c74u4cWAbG17bl/eP8lqpld4HB
-         Vrh/gVv8LgWKrxaMDR7SiGGDFN1TQKVWs1rKXOdIZNTi1bVvAAwl1GrFVE+cGSGQtXe8
-         ADn0/6MXt7k+6tzi8KpK5ZkVtTlNyWZ7hdIME4VrCiy82ZF8fYadEOsqVlgCuQcfQrD3
-         rulrcpsCKeV9T2WbfLJzCDJA5hEQ41SZ2XnZEhi3VAcF2vMK8p3Af1Iq0BmgepE2D/zC
-         LJcGRs6YTtSIiHaE+7tshoxDpHNyXbS2yk45o93QYe4JO4eGpgBqGw2gr+r9naNlyN/P
-         XG1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781169209; x=1781774009;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hizbOWzAp2GvHnkKmoXoB4flLKn0ZG1pSO3As3FJvhg=;
-        b=gdOl1hO7VV0B3V4OY628zqvRhzVzgee1djf32y8zWncri/KUMPyAkB/Szbc4juuY8M
-         WUsZ9G4eEXfoSxv1/yT3vMtImue+jvBwF9lXlUkgLqUQR2lMGFiVIxhhNHrfRjlDejRE
-         IibMe2cc/4RCXP+jGvGn9XOWAlXD7TIDab5HWHiKOCGqtWHQRJOYzCXrc1n4VbaFY6FG
-         Bgs0C0nECGcrYx2X0825+b40ZpIMSpZUCveWPR+ew5tKni6p7PzhQnkMh34zQXcTnzIR
-         pQUgBWDHrwpTE4VJHLw7rtpX2HrlbW2vez3dhAmeNt/GxlZjLJGpJxjv62Bv30PaEOZk
-         pzcQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9u+rR4RnZxlot9XQ+DoNqU+COIqU+rd4z2u03Xt8hrcx4cavhiTlmCZMTY4y4UbR561jX6ebPOKruW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw99ehap6tJqSSFfrIpMDDqUQgWoq0RHqJV0HhfbLRe1g4KIE3D
-	/KhYFLKb1jPZr3ZuE1DeQno2xXyGxDAV/gn+UJ7n2NFA0ANnehT6hpx6
-X-Gm-Gg: Acq92OHGC+P4aMYlYW/QRi26J/t/kUZKoPOd8lGb/uMoqfHZ9YRh3nYa4wxjqzGUHwn
-	LjG2fbvwLGnRj3BXHBz9PsPqt3O0vXjBB0y4yKKwH/PzCyUsRZHNjTBJRfRqZvAylPKzvXqKQOo
-	5VZ++1c3OZMb6m8fNau3lbgyAwB/q+md7XJVea2LNlqnBXpZnPolV2lfIFVuNy+t/TCZUphjg9d
-	MEvrjVrsE9FJ7b6Lm/4ipD7H5/eDCgatcCGvn6TLjbP6E1gmikPnpWCdinTuYYTmJZX+rMD+GEB
-	zbkIhyc634F415qeqhOtVpX30CCaTZi2nJsadyjOuOCG/X4a/s9/ZLdm3ezdvqf2MmlVZ4cd3MV
-	Uoqez8H2vJ9ljUkNAGOnpHe/lMRl7BZhDqkFr2oaiiY4iFksiRc9nj0+0QddBvSAboo/LekN+wv
-	h8885sc2UkDLs6LnOeMs04PmjVxTKEOdK1buSivwCsIW/E7gwhR0ne+BO4cpOvifST7/iLCpuvV
-	rMJeFGWNoQnBfhtTXnoXUwz
-X-Received: by 2002:a05:6a00:4512:b0:82c:b808:4c59 with SMTP id d2e1a72fcca58-84336bde6aamr2276246b3a.46.1781169208999;
-        Thu, 11 Jun 2026 02:13:28 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84338319d4esm1417446b3a.51.2026.06.11.02.13.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 02:13:28 -0700 (PDT)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v3 0/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller
-Date: Thu, 11 Jun 2026 17:12:44 +0800
-Message-Id: <20260611091246.2070485-1-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5BO8pcr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3A51F0089C;
+	Thu, 11 Jun 2026 09:13:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781169210;
+	bh=BxXOFmqgKP//yNlaJchWiTOa6h3bEte8EY9Rwi4U/mE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P5BO8pcrwDPMEAjCp8GZuk8zUXnYlfcEZrOUg1x7lzyuj1V0m2o6uiNnh0bGMTGlY
+	 ci0eDgeIPen4OiD7Ttm2DAW/Zn7E0E3F1wHEP1up/v+MH7m0TsifLukne+1QnWJkuC
+	 qG54ld7AXhJvtoWR1Yxmzp0SQ1vzJ9LIvBnKB6dHGtvjX53DU6D8Fbn3YylUS15J57
+	 GkAB4JKboMbSx/Y0a+xe9eoo+sirescKZLM4xeQ04zZHfamsEI/tFFoQi1gyFhTUVd
+	 wCwOXKb7YDPJrVI3CmisAKluhmyZ4sNiB8M1OJHihaF7Hs39fL3j8+BTH3rh/Fr50s
+	 0DjVZ4N5RSdQw==
+Date: Thu, 11 Jun 2026 11:13:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ramshouriesh <rshouriesh@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Aleksandrs Vinarskis <alex@vinarskis.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 3/9] media: i2c: hm1092: add Himax HM1092 mono NIR sensor
+ driver
+Message-ID: <20260611-sloppy-happy-pony-1efc8d@quoll>
+References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
+ <20260610-a14-himax-hm1092-v1-3-0c9907da47ed@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260610-a14-himax-hm1092-v1-3-0c9907da47ed@gmail.com>
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
+On Wed, Jun 10, 2026 at 04:39:28PM +0530, Ramshouriesh wrote:
+> +module_i2c_driver(hm1092_i2c_driver);
+> +
+> +MODULE_DESCRIPTION("Himax HM1092 sensor driver draft");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/media/i2c/hm1092_regs.h b/drivers/media/i2c/hm1092_r=
+egs.h
+> new file mode 100644
+> index 000000000000..4df2d5b49d81
+> --- /dev/null
+> +++ b/drivers/media/i2c/hm1092_regs.h
+> @@ -0,0 +1,223 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* HM1092 register tables extracted from Qualcomm Chromatix sensor modul=
+e.
+> + * Source: com.qti.sensormodule.hm1092.bin
+> + * Generator: hm1092-re/gen_hm1092_regs.py
+> + * DO NOT HAND EDIT =E2=80=94 regenerate from the bin.
+> + */
+> +
+> +struct hm1092_reg {
+> +	u16 address;
+> +	u8 val;
+> +};
+> +
+> +static const struct hm1092_reg hm1092_init_regs[] =3D {
 
-Add devicetree binding and SPI controller driver support for the
-Nuvoton MA35D1 Quad SPI controller.
+You must NOT define data in headers. This is not how C is written - you
+invite data duplication without any gains/benefits.
 
-The MA35D1 QSPI controller supports SPI memory devices such as SPI NOR
-and SPI NAND flashes in single, dual and quad I/O modes. This initial
-driver implements a conservative PIO-based transfer path and spi-mem
-operation support.
-
-Changes in v3:
-- Fixed DCO mismatch by using a consistent author and Signed-off-by
-  address.
-- Added spi_controller_mem_caps and set per_op_freq for spi-mem
-  operations.
-- Added SPI_CS_HIGH to controller mode_bits.
-- Added a short delay after requesting FIFO reset before polling reset
-  completion.
-- Documented that the MA35D1 QSPI controller pushes one RX FIFO entry for
-  each TX word in single, dual-output and quad-output modes, so TX-only
-  transfers intentionally drain and discard RX data.
-- Added missing linux/delay.h include for udelay().
-- Cleaned up unused register bit definitions.
-
-Changes in v2:
-- Updated patch subject lines to match SPI subsystem style.
-- Added commit message to the dt-bindings patch.
-- Added ARCH_MA35 || COMPILE_TEST dependency to Kconfig.
-- Expanded Kconfig help text.
-- Converted the driver file header to // comments.
-- Added reset control handling to the driver.
-- Added resets property to the binding.
-- Added num-cs constraint to the binding.
-- Dropped the flash child node from the binding example.
-- Used op->max_freq for spi-mem operations.
-- Split low-level CS register handling from the SPI core .set_cs()
-  callback.
-- Handled SPI_CS_HIGH explicitly for the spi-mem direct CS path.
-- Fixed spi-mem opcode transfer to use a u8 buffer.
-- Limited spi-mem command opcode length to one byte.
-- Forced spi-mem operations to 8-bit word size.
-- Avoided driving bidirectional data pins during dummy cycles.
-- Drained RX FIFO during TX-only transfers.
-- Rejected invalid chip-select numbers instead of mapping them to SS1.
-- Rejected unsupported dual/quad full-duplex generic SPI transfers.
-- Fixed checkpatch style issues.
-
-Chi-Wen Weng (2):
-  dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton MA35D1 QSPI
-  spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller support
-
- .../bindings/spi/nuvoton,ma35d1-qspi.yaml     |  62 ++
- drivers/spi/Kconfig                           |  10 +
- drivers/spi/Makefile                          |   1 +
- drivers/spi/spi-ma35d1-qspi.c                 | 633 ++++++++++++++++++
- 4 files changed, 706 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
- create mode 100644 drivers/spi/spi-ma35d1-qspi.c
-
--- 
-2.25.1
+Best regards,
+Krzysztof
 
