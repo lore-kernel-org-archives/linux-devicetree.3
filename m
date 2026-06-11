@@ -1,130 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60EE131197C;
-	Thu, 11 Jun 2026 12:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781180625; cv=none; b=sJmVmTTBqeNIqv/OD1zsvEaezTHbNIG8E7EZws9GDED14JfAUdKj3Krpi7qEajW3G8DLYAy2Yw1g86/oZlOvAdprMoQeMJFlmXZh9HNIt1EDCmGnNJMHU4+jNOn+5khzvJQog/zNjyekYFZJ0W71fg45ft8xQ9HngaImpZ3qNLc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9851435CBD6
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781180625; cv=pass; b=Ac7ZwZ9QgryKicaOmPCZTFPOw2KgslOJYjfAq7gxfK5zHeuT/Z3YFA8TeAh5DjBVErIcFiPAAX3sDVa3ljn3O0yyeqXOfd2KhtZCc9ikQI9LODWVt1gsKZUE9D4dD6tWYXPLMuqvoi0SUn+ryeabE1Cmc9yzt4F2O1dtgkIsBLQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781180625; c=relaxed/simple;
-	bh=4lbSdoFTOaZXpKR2einrEErJx+yxV+xV0/fdZzLrFJQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IaVfcwafDfn14w0aAQLTQOj+aNNX3zivgMj5Q2iD4wtx/Hda0nXDSx5X4tZ5YHlgMv/H/V1F/fyfrvIwnOYdybcQUpadPgYf61D50ORB+OHPMmWER34Zgs1qgeXs97Xie3BTbvxhi9hFXwK1G/TFb+6TCovVbiOY5KmcaJ5ZqlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGQDM3sa; arc=none smtp.client-ip=100.103.45.18
+	bh=USzxsT/rGuBT80iTTvsaf5Z0QIstt3wY0fzNpEQe2y0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u2+UhnDtJI5aou9jsclBJ4qS4RkhrJcylu2MXvBgwUeG4uppDo94PEwboh2EMrjtMIBiIlMN4b9eWbdHTmWdR2etZ25FgMsK9xoMY6O1l11PkQBKiPn/7lKZL6hhOMNqgCj/W332gEt82Z9PQa+4f7EGt7z0kDw99kLlm1dH8b8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W/F0mnHP; arc=pass smtp.client-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGQDM3sa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E72B1F00893;
-	Thu, 11 Jun 2026 12:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781180624;
-	bh=QVCQD106udDWHycnJP8Mto0GsT4vXeGJ2ioaKMW4hdo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CGQDM3saVT+/zvD8OXDJMKEdC+DtM9BVP+xjWWl+FTsHr9ilCIJXLx/r1EgrLe7z1
-	 WipYQNCEC4t/HLntUaoE3BB+JXZnQuPT/hDz7pjaz6daaJ85tCIx8Rc0sJXyywaysQ
-	 4fvCQJpMO3U9pG5MOcB2Csd7t/S0F/ZWZE/HoU1hA8LlUpHBF5rAzC3CZLDgEscIHg
-	 gQPZEG7m+erXeUnferTM7aENuKkswGnqQoDFrktraNtC9kavkV8wNLjLerFTwnOhfA
-	 guPMJOEmG7ax9WZa8hAX5GAe+xtypuVSHtk8TBvJ2Fyil86QKsrif4aPyZGckbuMZt
-	 07FGc+RWQt03g==
-Message-ID: <d81bc78e-2c1d-45fd-90c9-f7ec462183a0@kernel.org>
-Date: Thu, 11 Jun 2026 14:23:37 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W/F0mnHP"
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-6604176b575so7334782d50.1
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:23:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781180623; cv=none;
+        d=google.com; s=arc-20240605;
+        b=RPstttnq5jhOExU1sikMYk+6Vfg+DTHk4aAhAbMcxo226bhCFGNUPIw4Yu+YClQIh+
+         5yIIaYCuXCePZLsnupinHY2DaIyLx2QZZK7khBty7GEKuAuNS4LRhpFBX6pmCXcyMkVT
+         NvvU62UyRu01busPxhIT8LPmPWkYfaYJDiVxS5MCN1CMsBkqg3eqholbirOHM65OvjAc
+         nchHvIPoNoQ1xvIP0tKIdahmRS8tDb6YvJDeOQR3fzN0JQpSPwoMa1Hf/nY2DrGCUo90
+         sUqDja45Rk22CJ3aLbC3Avmc0u5QFdlAjDlNXBBl/V/RxD7Xqf/r6JkzXIZxPvca5VoL
+         vFKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=USzxsT/rGuBT80iTTvsaf5Z0QIstt3wY0fzNpEQe2y0=;
+        fh=8ohFOuV8LL5gLFp9meK9yDzMXAaJ8Sn7eINy84R5s6U=;
+        b=YKr27xaDeZ5rGJJBk3s0ojOtaRZ9IHt/scuWDitXIB+i0DqYZdtc0/48MudhZMBDaz
+         /8Mah4fslHDjat2nvUbGlOBX0fIAKJ3ENwQ9uEwKtO1nVV2ftPyMBhRxZ5QYHmladyVJ
+         v8ketqXH7Bj5vpn/06nBwI5t0ddlKQqHQ7/vXu/vU/eM+G9cu2fPnXmX8A/fXObfH51E
+         HB9IAcDnNsUbiTInEjcT0h/wVM4TkiNTasy0ooHL8UR+p1Kn8gzY0Fr5d5QuJD6SWXcI
+         E6KWvje8r4V3OHedezktPFzjFaOPOIfNdfNv2KQwnEGXRHB/ioXvxE9/ItGgTuvFS3bZ
+         SLyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781180623; x=1781785423; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=USzxsT/rGuBT80iTTvsaf5Z0QIstt3wY0fzNpEQe2y0=;
+        b=W/F0mnHPeYeZox/rEXxmJsxxi1Hzt1EsQeg6Aj3nYCrUZPcxYosmLGdihHnpXPBasT
+         C0+g9X/x8CXzg0xIHJHolZNnOoY5DPHQ5b+5hqQMHw3kAuZkZGZ+yNjz6vAsXjFnG1Xg
+         xaPfv79nd3JUM2R76a7WQFsr5MzfBKittrNTDPfMwc7S6Rhua1cgBsfB2Mi+D4M3xGdo
+         X6wS43/wZ9Gnv1izHeoMMEdPDmOPx5Ltt0X+WelpxWRwhSoFvnFxBv4LrpTOtPPyQ6H7
+         yvbAkm0mg4PEWoRq1tWCCBLsw2MQOCmuKAnk0oc/MRZPR6duxwo3VzbeySjuR4Vs4LE3
+         HS6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781180623; x=1781785423;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=USzxsT/rGuBT80iTTvsaf5Z0QIstt3wY0fzNpEQe2y0=;
+        b=pQOkaB0SEdpTrAy5/DI6UpApGhL0kkc9qKzhvN5fBQzhfQLWpMtC5ny+3EfUq0sTAa
+         g8iXkViIiUPNhjo7hOfZ8kk11+UfTIZYfiljFauYJUPXigsi4D16wNmp3P4J63QU65Iq
+         Bm4HyHx1CodvYGqYZVEdEu4RwAbA/0KCoXa+IccWNcUZ3ieM58ccNQwks1YPNUGrzSp7
+         kBIzo3uWnOWl+x4IoO0wua8qntYry7ey3cmip+2THZ/0+pm33Vy8NTxnTgHLe1uU6tqZ
+         rBI7vdBKkwAIgpRopLipDQLb5TzW7/5hIZo9Hkb7wn0l9EBF3sIvQpiWeq2CAQaxjQ08
+         RsdA==
+X-Forwarded-Encrypted: i=1; AFNElJ8RL7CjF4Uyn4/OgVtOboQ1bAdrky7uSBT4jSVA1gXPljbmWrA1F7IzNgxdUCYbUvm44sKrC/CQBb8K@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOsn0XDA9sWDjVN+YQlHBLhVAxfuN0L/z5j3/t3rzQemJRIX5s
+	S9inoRrDYZu8KVkoiNgPKlz6EfucmrwlUPU4Sh7YJlQ7pZQZDy4zTizTxyqsSPIgGjTw+oZFK+j
+	w+4bSYY/BZ9ucrmRFET8wGxf8IZ8sTIo=
+X-Gm-Gg: Acq92OEWSlzTkwcOKes4ULYqx6TNxcwZsH9e5GDltLszc67IGqd4N2JbyYVe43fu6h4
+	73SSJz4lR7/O7RDAhglNYDl5c9SDV1SoLnqoVZMkF8apLp9nZ2bYo4u1pscz6+A5rYubLimAczi
+	MzyAVKfaZ5t7s106ciUs7vWZR2kpwUsMGEiLFwkplF4qmkQz4RncM+AhYHGjR6p9kf9Q2EF+63d
+	aIQ/NEnMCY052z5AWt/mUmbmihT0hj9ArEzTPHh0KNNlsY6gpB3GG3m/UDlSQwqn46VxFiL4Ao4
+	QSOp9j0pDKq3YTlnh4DfE+lX28rdZCEc8+az5t6uB16Z0P8/rQtLZNijJ35ouCQ=
+X-Received: by 2002:a53:ac92:0:b0:658:e645:7736 with SMTP id
+ 956f58d0204a3-662698670a6mr2191068d50.39.1781180623358; Thu, 11 Jun 2026
+ 05:23:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
- mitigation properties
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-hardening@vger.kernel.org,
- Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
- <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
- <20260610-ocelot-of-stimulating-excellence-bcb0fe@quoll>
- <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260609160326.45123-1-m32285159@gmail.com> <20260609160326.45123-3-m32285159@gmail.com>
+ <20260610-pastoral-dark-ostrich-5ca3f6@quoll> <CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
+ <e00caff5-55e4-428f-bc57-3885699b221c@kernel.org> <aipatjyVcltbspRJ@ashevche-desk.local>
+ <6c5a657b-f316-4982-8cb8-8c09f1b1669a@kernel.org> <aipfPwT4RJGdA4TT@ashevche-desk.local>
+ <aipfxL3ttO1-7W1T@ashevche-desk.local>
+In-Reply-To: <aipfxL3ttO1-7W1T@ashevche-desk.local>
+From: Maxwell Doose <m32285159@gmail.com>
+Date: Thu, 11 Jun 2026 07:24:16 -0500
+X-Gm-Features: AVVi8Ccz6yEXC5qaHOYCTp6OBFq_A0v0VfBI7K5RpHEHuZOGWBTkca5pd6-Gp60
+Message-ID: <CAKqfh0FQb6tSZrrTHGWcoQqPe-OwD-mW02GOOn9y+ysstRPVzA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	Tomasz Duszynski <tduszyns@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/06/2026 13:12, Gaurav Kohli wrote:
->> Why? And where is this generic property defined? You cannot just
->> sprinkle generic properties in random bindings.
->>
-> 
-> Ack, will add why part.
-> These names are matched with the thermal mitigation device identifiers
-> populated by remote firmware over QMI and define mitigation devices are 
-> exposed as cooling devices.
+On Thu, Jun 11, 2026 at 2:12=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Thu, Jun 11, 2026 at 10:09:57AM +0300, Andy Shevchenko wrote:
+> > On Thu, Jun 11, 2026 at 08:58:47AM +0200, Krzysztof Kozlowski wrote:
+> > > On 11/06/2026 08:50, Andy Shevchenko wrote:
+> > > > On Thu, Jun 11, 2026 at 08:37:33AM +0200, Krzysztof Kozlowski wrote=
+:
+> > > >> On 11/06/2026 00:24, Maxwell Doose wrote:
+> > > >>> On Wed, Jun 10, 2026 at 4:09=E2=80=AFAM Krzysztof Kozlowski <krzk=
+@kernel.org> wrote:
+> > > >>>> On Tue, Jun 09, 2026 at 11:03:26AM -0500, Maxwell Doose wrote:
+> > > >>>>> Tomasz's entry is no longer valid, as he is not active anymore.=
+ Add
+> > > >>>>
+> > > >>>> Why is not longer valid? I see activity in Feb...
+> > > >>>
+> > > >>> Strange. According to git log --author=3D"Tomasz Duszynski" last =
+commit
+> > > >>> I have from him is 2023. We also did have an RFC open for a month=
+ on
+> > > >>> linux-iio with Tomasz Cced with no response.
+> > > >>
+> > > >> So you did not check enough... and no one needs to read RFC :/
+> > > >
+> > > > Hmm... lore.kernel.org shows last activity November last year (07-1=
+1-2025).
+> > > > What other sources do you suggest to check?
+> > >
+> > > No, only lore.
+> >
+> > I used this request:
+> > https://lore.kernel.org/all/?q=3Df%3A%22Tomasz+Duszynski%22
+> >
+> > > As I said, February this year.
+> > >
+> > > https://lore.kernel.org/all/CAObtm8zKUAWNS23nRMhc9ZR-zn7xeVOFPiV4ai_x=
+7Bkd5puiyA@mail.gmail.com/
+> >
+> > Okay, you used UTF-8 name, Where did you get it from? MAINTAINERS has n=
+o
+> > diacritics.
+>
+> OTOH, you may have used simply email approach. With
+> https://lore.kernel.org/all/?q=3Df%3Atduszyns%40gmail.com
+> I got it as well.
 
-No, -names correspond to values passed via DT, not some remote firmware.
-The remote firmware should give you interface which is explicit and does
-not need such properties.
-
-> 
-> Without tmd-names in DT, it is unclear which index corresponds to which
-> binding. With #cooling-cells, tmd-names in DT provides an explicit
-> name-to-index mapping. Please suggest.
-
-I don't get what is the index here. Index of what?
-
-
-Best regards,
-Krzysztof
+Ok, now I see it. I will say though that we've emailed Tomasz at least
+10 times at this point for various things and hasn't responded to even
+one :/ if we need to we can allow Jonathan to chime in.
