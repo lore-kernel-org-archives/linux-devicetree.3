@@ -1,282 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677DF3E5EF7;
-	Thu, 11 Jun 2026 11:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D23376BE8
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781177475; cv=none; b=JhShpIXtZl8t9OR1VgKskgNxU80T/ag6wp/L9xHZc5ZzbBSVcbr43NHNtiMj/2L9ogQJWu0APJ/z8EECbMc8gbC+py1Q1bO1GOMcD5BYsc06nQRxa4Fd2iSY+5GUbiWi7haAvbcql5qDYz81OXHyiqRs0FbdYuckJcmDFLIAWOE=
+	t=1781177544; cv=none; b=ZAdwP/QSsP7eoue02sU5iY1ugHlFZdO2zmQz0WlFrkwIDkWnGGDXZBDEHWjBzV6zzrcXAOVTz1fJUe7/WRU1bDLTWIreWGD5EtVBvF2zreLOjxmHj4dXHZ9nKc5Gl59JgfgtvtqMjsb7rc1soVxzrBo2lk0lTESVj5gjg2O7Tv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781177475; c=relaxed/simple;
-	bh=GML30N95M7QdExIZP1VZdmbf5T2+Yo45w15hzNP1Czc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rVJTfR4ZKpHPtRkbe2eIgNM+VpTKHZguUPYMNw7ufnl5Keog7QK2FdJe1cJwpvMpLzZEu7gkw9ZOxtaoyfsuwpBOgVrk0TB/zOE5mA33sPhxTK4nnvJukkxaZYV2Sq5SwJxT6dDvNbyjQ9jyR/WilR3QEF7d09b0LCve6CO6Hy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6jquNgb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781177544; c=relaxed/simple;
+	bh=0StIhegVocrr0UB01yU+UcOspZ1FBVgbSkPGYjz3Acs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VneW/AzxbiD1NnHPM7zVsJcYGEb2TOiapsHNdjN9yQu5oc71MqCQ/mLEwTtSOJmUqgpLeQryuMsAEhqmO8iv3zevMzKp8OdIJaVlneHKMD8W7idRCr/vC3GCz+Cg69z5nr0YJUdya2NEJ0WcR/wHjh3IPxFOKLJpNoksMHCWkUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YKmGp2w4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CHN14sKo; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6jquNgb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70111F00893;
-	Thu, 11 Jun 2026 11:31:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781177474;
-	bh=gvVGS7HepZfoFKbsri39B0EmW/0inIjuvnnUqe6DqVI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=S6jquNgbVdPuvewsDdweLdY/y/4LkJhpQuSgCc5hvvGbcXSIwHMYIo4klTYa7xa18
-	 Dw5kaip8ufwOdzTYJSaMIYKOMtDSAQ6/XVae9Lp1AfLCleuPPjct77QUcO3dxCuDDC
-	 /CGLcSQlX3+4MBW1h6VFQ9bhy9Xe8KhaEc1yN7ft+vKlRNmw+bSEGEKXN4kpou5vLb
-	 sXeN4b57aWA5LHOy3/0oWeXE7HFJV/Phbu1AsPePxG0+cBHM4EcATB9JTAFlPMAYob
-	 fPhBBENTEym+Hdx0UWZzRTMw09SRus5aZcFkdN76z627Wr60wVzzzSsAG4eaWOhGCc
-	 cSMek9L2E+fLA==
-Date: Thu, 11 Jun 2026 12:31:03 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V11 7/9] iio: imu: inv_icm42607: Add Accelerometer for
- icm42607
-Message-ID: <20260611123103.198353d3@jic23-huawei>
-In-Reply-To: <20260610175455.19006-8-macroalpha82@gmail.com>
-References: <20260610175455.19006-1-macroalpha82@gmail.com>
-	<20260610175455.19006-8-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YKmGp2w4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CHN14sKo"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BA110w299664
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:32:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yLBwXK7+oD6+XlBvQMPqJDwpfaAh9nMZFyst4JItm4k=; b=YKmGp2w4Uw9sd1Lv
+	n2/3v+0Fvg+ZGtp4HTspljqxGNIj9yWFgrPQFEJ8L1HtgcHfEFzcoHO7RWeqJfB7
+	p/SavtBwi/Aw6c3XmHPakqA9zb4wXeTQbm8P8nYzdLjckTD9F3qRmTrIR7wvLh62
+	/+nV0ddbYvknnbcX7Mt0lKLT2nYfyhoRdg8sNdBOP2FJ8KineipZeIE0Xd5rQ5Nt
+	1cEpcMoBvrPdKLg/Ml9jotWen3SSuIdKSpTNhA2qZfmwPiL7v7s6jUg++lSS1mqM
+	jqVNVnQXFfaf/OGMCxj/LHjL/nJcfNTIzLZbSEDwck1vR/gx6x3pg76ISaqBo9ip
+	GRez7w==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe7034rg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 11:32:21 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5176ff55dc2so13766181cf.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:32:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781177541; x=1781782341; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yLBwXK7+oD6+XlBvQMPqJDwpfaAh9nMZFyst4JItm4k=;
+        b=CHN14sKoGZadYc9af023CA0NJNIAg3Gk2MmLIFjhjuCKjvKdHWjbAT5J0kjJs5jw32
+         udRbYPYhVeHGvdvFdGA/bfSNo5D98j3WAT+yxWDokaKPFD4s2sTHHqUCLvE1yArbRm8u
+         G2i0zM2jC3mAB37fpprceFB2hpakQtQQfIYgLW4jw6Cx8sKV3YCugSq+3xljl9IuJsol
+         lXsX3NxGjeUrd81QW5K/medhfkZs/miwZxdRl9lQJPkoW7fBUd/652fqpLeesTwxG/YE
+         XTVhe8BeQgIAjrZctgiu4TnLHdxCoZ2Efe4lUVZziNJt/DV/j56RAQz0WUGj+rkMPS3W
+         VN0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781177541; x=1781782341;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yLBwXK7+oD6+XlBvQMPqJDwpfaAh9nMZFyst4JItm4k=;
+        b=hvynLOjT28ChxESQmwAVTMU66FP94xeY3VLYEkl2htet3IuMasTE70mEEmQRcfWwvS
+         l0QMKc53C6pmLBiMYcWa3twYcKM7MbAHSRpqpoM+MzmXVfnoC4HjHNBa5b/YSBh8P0yb
+         ngyscbCM+7jyDBvd4rlXbLEhzm7LYp6Fq7fH4fkftuUuHq7BxCfRILraV+PXDDMSGwys
+         WmYYK9ZZTJUWon0QRqBraQrd+cXfh8F09iupK9ePFEhPlUeHeDIwy5Ug+p9Fgs5mL7qj
+         16V/niV+paAfEG8zB1eALF3O7BL/JRLBpDbUx8jqNN0hO8hCCjNxbtlyw9SEuLHpC3cn
+         fRvQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9iU8W+wF8QhBVsYJ1uqiVVBFgyN1LDlTB+Fw82zPW27peSLjStNEERwRS2QFXL0E3VqhzeBvI9Oa7o@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFA/0nJduPVmEHlW1KO9aDzxH3MqU44PA/zOO0cNwxF1yHdkaV
+	bRdXqe7EVY236dCXLiQjoio0DSAqDzwCn6sOE08od7aBy4emQOHOqVbc4xQuBgi38Si6e9Oq0Wo
+	DAS346GTYrOS8YrwiFAuZcX13Yz+itcV279WmFqsl8XPHUyNT9g3pkJcn89NXcDNd
+X-Gm-Gg: Acq92OE5xs2jadPVOgU6hCdL3eFMLhrIagvepNdLYrF8daGIaPDy4bRREjx23BkRYw6
+	mGBYROzgpnMcUaI8KS+sUK36zaBydJUk4O/vpv3wasIWTf6Xg5BLcKm2zYoih6YloE6D+hsVc0d
+	TQFslCzpr8FHnX/V3CIF7Qgf90PEoLTCLcxnm2qxUUVGKy3REHMKemTudNoQLlN/wUi158/SGp3
+	CGsho2C3/0ZXenfOZ9T1rt66idBnWvEPoQinruKwoV8VfvMnrlrrJ9EjjEasSUUpG7V732U4n/Y
+	Ms5ATcTlCP9qDvQMgM/Cb145bdnT6ocZesLhCs1N6HgYy5jHSkSBiiA8mEorumPCetELnM76hw/
+	Rgigc5M4KdVKZYDZIyfeTLfFUOvfp5ILrCvaFWvUgnS2LFpEhbTepKBxa
+X-Received: by 2002:a05:622a:1f18:b0:50b:2875:5782 with SMTP id d75a77b69052e-517ee2375f4mr20213931cf.6.1781177541000;
+        Thu, 11 Jun 2026 04:32:21 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f18:b0:50b:2875:5782 with SMTP id d75a77b69052e-517ee2375f4mr20213461cf.6.1781177540438;
+        Thu, 11 Jun 2026 04:32:20 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb0f14cbdsm52606966b.2.2026.06.11.04.32.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 11 Jun 2026 04:32:19 -0700 (PDT)
+Message-ID: <b6fd22ee-a063-4af7-b21a-5f6268c65b07@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 13:32:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling
+ pinctrl
+To: contact@alex-min.fr, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        MyungJoo Ham <myungjoo.ham@samsung.com>,
+        Chanwoo Choi <cw00.choi@samsung.com>,
+        Guru Das Srinagesh
+ <linux@gurudas.dev>,
+        Linus Walleij <linusw@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        iommu@lists.linux.dev, phone-devel@vger.kernel.org
+References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
+ <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: v3hZdD5KbInj3sutlATppWYsXzOb1U72
+X-Authority-Analysis: v=2.4 cv=B9eJFutM c=1 sm=1 tr=0 ts=6a2a9cc5 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=lq5VANsAAuRygiiSL6QA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDExNSBTYWx0ZWRfX3ijPjai1sHl7
+ 0sKBVFFs29KCWm8dGUBkrfUU70035uhENLiDcpayR6qrroGXDreBwOKzWfoJxbXVOs6tM4G8Hpq
+ oQxdoqls4yCI/KSTijsEMqPYYuVKAfx4kkjjSmvx2aXYMVp0nkeMDRLAiMiXcNimCk4v22L6SxP
+ Ep+A6RINwinwvSPMDOXoKMhmLouMZdVsKVFD/81BqOM4oYPu81zeanJabnUi0zmTv8RdHdjwDTW
+ M5BuXe6VqUvT1uR9RfegpUG70eTQtnmAnI2nhtpDVXZ9Mysn7b8hZqDOODWcM36Swf4VUXos/LD
+ /othSbJj0uOJGxZVHoILF9IORWzsKqe8etx+e1KtEutrahtYITgKgYZETGr3Q0NlX4AndwRu2vo
+ 0eN8ZPRbYgmJsXLYt+Z6m2hYvVCAYBwEO1JvV+B2w06slkDEKNZOKx+lNV2qKPyK4Q+JBY+t9QF
+ Kew3PlOucM1CvUaPhiA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDExNSBTYWx0ZWRfXxWSsCXxmjUvE
+ eh15M/Tx8XSzsyOCAEIpBF0aWOL4r3ZUjPLkqfInMI/gv1Kls4tCmYlo9uo1MVCz6lkW3aol+Q8
+ GqocGGU6OQ0/C+pU5P3h4uU7AaVirsw=
+X-Proofpoint-ORIG-GUID: v3hZdD5KbInj3sutlATppWYsXzOb1U72
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_02,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110115
 
-On Wed, 10 Jun 2026 12:54:51 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
-
-> From: Chris Morgan <macromorgan@hotmail.com>
+On 5/19/26 9:16 AM, Alexandre MINETTE via B4 Relay wrote:
+> From: Alexandre MINETTE <contact@alex-min.fr>
 > 
-> Add icm42607 accelerometer sensor for icm42607.
+> pinctrl consumers can request states while the pinctrl core enables the
+> controller. On Qualcomm pinctrl drivers this can happen before the SoC
+> function list has been registered, which leaves the function table
+> incomplete during state lookup.
 > 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> On APQ8064 this can fail while claiming pinctrl hogs:
+> 
+>    apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map table
+>    apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
+>    apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
+> 
+> Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add the
+> SoC pin functions, and only then enable the pinctrl device.
+> 
+> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+> ---
 
-Minor things inline.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> new file mode 100644
-> index 000000000000..cb60bb5ecc14
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> @@ -0,0 +1,379 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2026 InvenSense, Inc.
-> + */
-> +
-> +#include <linux/iio/iio.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "inv_icm42607.h"
-> +#include "inv_icm42607_temp.h"
-> +
-> +#define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)		\
-> +{									\
-> +	.type = IIO_ACCEL,						\
-> +	.modified = 1,							\
-> +	.channel2 = _modifier,						\
-> +	.info_mask_separate =						\
-> +		BIT(IIO_CHAN_INFO_RAW),					\
-> +	.info_mask_shared_by_type =					\
-> +		BIT(IIO_CHAN_INFO_SCALE),				\
-> +	.info_mask_shared_by_type_available =				\
-> +		BIT(IIO_CHAN_INFO_SCALE),				\
-> +	.info_mask_shared_by_all =					\
-> +		BIT(IIO_CHAN_INFO_SAMP_FREQ),				\
-> +	.info_mask_shared_by_all_available =				\
-> +		BIT(IIO_CHAN_INFO_SAMP_FREQ),				\
-
-See other comments on this is is 'all' and perhaps applies to temperature.
-If it doesn't apply to temperature then it may need splitting up.
-
-Little less clear cut for mount matrix, so I don't mind that one just
-
-> +	.scan_index = _index,						\
-> +	.scan_type = {							\
-> +		.sign = 's',						\
-> +		.realbits = 16,						\
-> +		.storagebits = 16,					\
-> +		.endianness = IIO_BE,					\
-> +	},								\
-> +	.ext_info = _ext_info,						\
-> +}
-
-
-> +static int inv_icm42607_accel_write_odr(struct iio_dev *indio_dev,
-> +					int val, int val2)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	struct device *dev = regmap_get_device(st->map);
-> +	unsigned int idx;
-> +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-> +	int ret;
-> +
-> +	for (idx = 5; idx < ARRAY_SIZE(inv_icm42607_accel_odr); ++idx) {
-> +		if (val == inv_icm42607_accel_odr[idx][0] &&
-> +		    val2 == inv_icm42607_accel_odr[idx][1])
-> +			break;
-> +	}
-> +	if (idx >= ARRAY_SIZE(inv_icm42607_accel_odr))
-> +		return -EINVAL;
-> +
-> +	conf.odr = idx;
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret = inv_icm42607_set_accel_conf(st, &conf, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-
-If this isn't getting more complex later,
-	return inv_...
-
-> +}
-> +
-> +static int inv_icm42607_accel_read_raw(struct iio_dev *indio_dev,
-> +				       struct iio_chan_spec const *chan,
-> +				       int *val, int *val2, long mask)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	s16 data;
-> +	int ret;
-> +
-> +	switch (chan->type) {
-> +	case IIO_ACCEL:
-> +		break;
-> +	case IIO_TEMP:
-> +		return inv_icm42607_temp_read_raw(indio_dev, chan, val, val2, mask);
-
-I commented on this in previous patch, but once the shared_by_all is
-added to the temp channel, this needs modifying to ensure we only call the
-temp handler for cases that aren't shared_by_all.
-
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-
-As below - drop these mode claims as for now there is only one mode.
-
-> +		ret = inv_icm42607_accel_read_sensor(indio_dev, chan, &data);
-> +		iio_device_release_direct(indio_dev);
-> +		if (ret)
-> +			return ret;
-> +		*val = data;
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		return inv_icm42607_accel_read_scale(indio_dev, val, val2);
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		return inv_icm42607_accel_read_odr(st, val, val2);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int inv_icm42607_accel_read_avail(struct iio_dev *indio_dev,
-> +					 struct iio_chan_spec const *chan,
-> +						 const int **vals,
-> +					 int *type, int *length, long mask)
-> +{
-> +	if (chan->type != IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*vals = (const int *)inv_icm42607_accel_scale_nano;
-> +		*type = IIO_VAL_INT_PLUS_NANO;
-> +		*length = ARRAY_SIZE(inv_icm42607_accel_scale_nano) * 2;
-> +		return IIO_AVAIL_LIST;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*vals = (const int *)inv_icm42607_accel_odr[5];
-> +		*type = IIO_VAL_INT_PLUS_MICRO;
-> +		*length = (ARRAY_SIZE(inv_icm42607_accel_odr) - 5) * 2;
-> +		return IIO_AVAIL_LIST;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int inv_icm42607_accel_write_raw(struct iio_dev *indio_dev,
-> +					struct iio_chan_spec const *chan,
-> +					int val, int val2, long mask)
-> +{
-> +	int ret;
-> +
-> +	if (chan->type != IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (!iio_device_claim_direct(indio_dev))
-
-As in previous, this stuff doesn't belong in a driver that is always in direct
-mode.
-
-> +			return -EBUSY;
-> +		ret = inv_icm42607_accel_write_scale(indio_dev, val, val2);
-> +		iio_device_release_direct(indio_dev);
-> +		return ret;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		return inv_icm42607_accel_write_odr(indio_dev, val, val2);
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-> +struct iio_dev *inv_icm42607_accel_init(struct inv_icm42607_state *st)
-> +{
-> +	struct device *dev = regmap_get_device(st->map);
-> +	const char *name;
-
-where no other strong reason for ordering, reverse xmas tree.
-
-> +	struct inv_icm42607_sensor_state *accel_st;
-> +	struct iio_dev *indio_dev;
-> +	int ret;
-> +
-> +	name = devm_kasprintf(dev, GFP_KERNEL, "%s-accel", st->hw->name);
-> +	if (!name)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*accel_st));
-> +	if (!indio_dev)
-> +		return ERR_PTR(-ENOMEM);
-> +	accel_st = iio_priv(indio_dev);
-> +
-> +	accel_st->power_mode = INV_ICM42607_SENSOR_MODE_LOW_NOISE;
-> +	accel_st->filter = INV_ICM42607_FILTER_BW_73HZ;
-> +
-> +	iio_device_set_drvdata(indio_dev, st);
-> +	indio_dev->name = name;
-> +	indio_dev->info = &inv_icm42607_accel_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = inv_icm42607_accel_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(inv_icm42607_accel_channels);
-> +
-> +	ret = devm_iio_device_register(dev, indio_dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return indio_dev;
-> +}
-
+Konrad
