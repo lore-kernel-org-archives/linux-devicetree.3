@@ -1,165 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3143D88EC
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 17:48:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6424223DEA;
+	Thu, 11 Jun 2026 18:00:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781200099; cv=none; b=nHY3niezyb5yqDm5QLEh0Tq4R0adRS5NMrxWE/O8rKYmo+0McP88ehG7PpPM5LQ0DPXMKwDNyBcAyM1NEM40d/igIdegt8XbROMWnk+MZv1iG6O6+j16ZBkOOprrJYYT4yVKmfBecNBDrs7Qdr9Z5Dgw6inFF6caY2KSye0lDuo=
+	t=1781200861; cv=none; b=HpT958Pprn/hfyMfIsShfTmdk+YJz3k6Lk7PI/KT2p+l/0QGsfiliVI8wmOtRhCwPZ87KNSZ5krDq7M+K7piTGs62aVJsVZaqEBdWMhfXSRnGpUVlw4C0F2BPgluYUEVWaZYsOB4eHbQhraMVLEe95w9IFTIq6FR4rZfkjDxz9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781200099; c=relaxed/simple;
-	bh=0NnpuMH9mRrqKjeW+evfNHbhZ2m/HYQNG2dp962jKrE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h1wzrfV6jcOWoL4m/TRibkn0qKG7nujezO/7S9Z/JxEN9TYxix3YK09ZutKloFp92+X3trLVWyAK3iLD/vA22NbXfrcISXV1339BjXRY5ONvrlVfvFoTk+Io5qboDY2BVSmUxQ9rQsJ7tSYWnbchgE0sQI4GFMw9gyzw45/xhp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIOSQKBt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781200861; c=relaxed/simple;
+	bh=3lr7Sxwl0HUeHNnGIIGnKfKwo8XvvSf7RE979TESsu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zu739qG/DvhcGuRTLOjceB1VvSq2Wr9fXN8k6KD0mvd6k9TwW5ag1yOdZXNcrfe+lsL99qocHUYWEUV1HoXjP1jPAp2DlKXvdYZJwafg7EomNfiFEaKicUU13KB6FT7kY2BaY4n/5hCREhPKIzF8o80HxHHCGeJiqgQpcVYFEXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbgJWsEN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIOSQKBt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9A81F0089D
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 17:48:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbgJWsEN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A3E1F00893;
+	Thu, 11 Jun 2026 18:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781200097;
-	bh=/1eVH1A0ZUb/+x3mXdbMrec+jqDfQZJHavxWMtMR4QI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FIOSQKBt2vsmAwv8sxPq/hofX+YM60zhseGh9hqu4r6H1cVhi/mdAQRd0OSyEBP38
-	 AfoTEGacsSld/tIuQIwvPnHH9sot6j2hlGIO38DVUkj2ph/Vj9DijcmyrJwpDdytM/
-	 t6ZcN/+HOvKWpoGIUIoiQV+aLli4Fkcgw37/RxQoAme4ewlb0wDfEDxwSa8+aeM00H
-	 5XdoB4UvUfNdIrxgO4ZdN/9TARKaJim4xICWabFyx9TgI/Kj6MXCNceBSHc04xzPRz
-	 XPzkVhQo8ywdCCjLZgwbwt3hQ9lJPTojDczsBqfp3muVu7V/jN1ofnoYm7u9HLdv+N
-	 G7cl5HVL8KOsg==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-beb1bee8c16so19220466b.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:48:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/7s5fGeH+GX3Z9O7A8py6BXCJN8kbetjH6pgNHTpNoMvTZPKaCya0KcQ54/JMa4NkagdfGq4+uxXHv@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywd7Mpoe32TjvIAueXjp9A6PXXpq/azUL1HWbr+WlxXX2Q4ztgG
-	F8NPcdGBO20NlapdqVlx3C7U7DtJV/iJhg0DrQD70YKOYTOHOZ3xyubMc+RMY8v70LgRD9s6Mrj
-	s1VEu3aaIpHdwndul8sTZEdVBKC29Ng==
-X-Received: by 2002:a17:907:97c1:b0:bd8:bc4e:fb8c with SMTP id
- a640c23a62f3a-bfc7631119dmr169369466b.4.1781200096526; Thu, 11 Jun 2026
- 10:48:16 -0700 (PDT)
+	s=k20260515; t=1781200858;
+	bh=A9Oqqr/l6I/PqOwlMmpBmr2v004b4l/K/iappFZw6cw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fbgJWsENfWIUU78rOo1V6bIPvj7OU2UInIg7BhO/MtyXLz03aNphLkvbQ4sWBH1D8
+	 SZS+xEF5xGl5Z7WFRicCnucNZqZ6Y6z7rTBz6T9S7ipsqMbk+ixpaY2HxX4+o8wicg
+	 1P+gBE8/Y4y6VhP0cdfTmzq0SxHsh0KEFkyoGY3oKpq7qPHvbjtZt4vCPdYN92h7NM
+	 9GfIvbhUcMxe67Suzx5P/6qJ12T6++7SuSOQT3c7cHb8ncKsd3erNXbIWOkvMRST1P
+	 F+qzsLaZQB0TRtE7iJ2uCCXoHkO3M3oPuiPU9b7TKEn/4gqEXqSUICRTOTW9Saex6M
+	 VHyzdoBUp4AuA==
+Date: Thu, 11 Jun 2026 19:00:55 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Nguyen Minh Tien <zizuzacker@gmail.com>, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add TI ADS1220
+Message-ID: <20260611-stump-poison-3d44ee51ecdd@spud>
+References: <20260610151342.44274-2-zizuzacker@gmail.com>
+ <20260610152903.54FE61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610110051.1228-1-shofiqtest@gmail.com> <20260610165640.411c1477@jic23-huawei>
- <20260610-cytoplast-pessimism-dea888887526@spud> <20260611140640.4b144bc2@jic23-huawei>
- <20260611-spoken-prewar-b5a4b94787cd@spud>
-In-Reply-To: <20260611-spoken-prewar-b5a4b94787cd@spud>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 11 Jun 2026 12:48:04 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+DmxwmA0RT3LGiatioo9_tJzkSZV-Nko6ojicb-rKg6A@mail.gmail.com>
-X-Gm-Features: AVVi8CcUq-hF14IYKJrkCRRUQp5ZXm6YA64TylY6ZXaHAH6s5RwlXdSY6lEtClI
-Message-ID: <CAL_Jsq+DmxwmA0RT3LGiatioo9_tJzkSZV-Nko6ojicb-rKg6A@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: iio: accel: Convert lis302 binding to YAML schema
-To: Conor Dooley <conor@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, Md Shofiqul Islam <shofiqtest@gmail.com>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	andy@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, krzk@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ibX/47NDqAbngYGw"
+Content-Disposition: inline
+In-Reply-To: <20260610152903.54FE61F00893@smtp.kernel.org>
+
+
+--ibX/47NDqAbngYGw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 11, 2026 at 12:09=E2=80=AFPM Conor Dooley <conor@kernel.org> wr=
-ote:
->
-> On Thu, Jun 11, 2026 at 02:06:40PM +0100, Jonathan Cameron wrote:
-> > On Wed, 10 Jun 2026 17:40:04 +0100
-> > Conor Dooley <conor@kernel.org> wrote:
-> >
-> > > On Wed, Jun 10, 2026 at 04:56:40PM +0100, Jonathan Cameron wrote:
-> > > > On Wed, 10 Jun 2026 14:00:51 +0300
-> > > > Md Shofiqul Islam <shofiqtest@gmail.com> wrote:
-> > > >
-> > > > > Convert the STMicroelectronics LIS302DL/LIS3LV02D accelerometer d=
-evice
-> > > > > tree binding from plain text format to YAML schema format.
-> > > > >
-> > > > > The binding covers two variants matched via their respective bus =
-drivers:
-> > > > > - SPI: st,lis302dl-spi (drivers/misc/lis3lv02d/lis3lv02d_spi.c)
-> > > > > - I2C: st,lis3lv02d   (drivers/misc/lis3lv02d/lis3lv02d_i2c.c)
-> > > > >
-> > > > > Document all vendor-specific properties read by the driver via
-> > > > > of_property_read_*(), including click detection, IRQ routing, fre=
-e-fall/
-> > > > > wake-up engines, high-pass filtering, axis remapping, output data=
- rate,
-> > > > > and self-test limits.
-> > > > >
-> > > > > Also correct the click threshold property names: the driver reads
-> > > > > "st,click-threshold-{x,y,z}" but the old .txt documented them as
-> > > > > "st,click-thresh-{x,y,z}".
-> > > > >
-> > > > > Validated with: make dt_binding_check   DT_SCHEMA_FILES=3DDocumen=
-tation/devicetree/bindings/iio/accel/st,lis302dl.yaml
-> > > > >
-> > > > > Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
-> > > >
-> > > > Hi.
-> > > >
-> > > > So the conundrum here is whether we want to keep carrying this bind=
-ing
-> > > > as it dates to a previous era.
-> > > >
-> > > > The driver never made it to IIO and is still in drivers/misc.
-> > > > The majority of what is the text document should never have been
-> > > > in DT in the first place. I'll guess this dates all the way back
-> > > > to the wild west days before we had regular binding review.
-> > >
-> > > I'd say this should be treated like a staging binding but for the fac=
-t
-> > > that this has a user in arm. Problem of course is that it's probably
-> > > impossible to get that board and so doing any rework is probably not
-> > > realistic for this submitter?
-> > > Is there a general policy for iio devices in misc? Do they get rework=
-ed
-> > > to be moved?
-> >
-> > It is tricky if we have upstream users because the ABI will change on t=
-hem.
-> >
-> > I'm not sure how easy this would be to add to the existing st sensors d=
-river
-> > as these are very early parts.  If we could maybe we'd do so and just d=
-eal
-> > with the mess of having to disable one or other driver.
-> >
-> > My gut feeling here is ancient part, let it get dropped in a year or
-> > two and not worry about adding support to a standard IIO driver unless
-> > anyone actually has hardware and wants to do it.
-> >
-> > >
-> > > The user funnily enough has the binding's click-thresh properties:
-> > >             st,click-single-x;
-> > >             st,click-single-y;
-> > >             st,click-single-z;
-> > >             st,click-thresh-x =3D <10>;
-> > >             st,click-thresh-y =3D <10>;
-> > >             st,click-thresh-z =3D <10>;
-> > >             st,irq1-click;
-> > >             st,irq2-click;
-> > >             st,wakeup-x-lo;
-> > >             st,wakeup-x-hi;
-> > >             st,wakeup-y-lo;
-> > >             st,wakeup-y-hi;
-> > >             st,wakeup-z-lo;
-> > >             st,wakeup-z-hi;
-> > > Dunno what that ultimately means in terms of which should be used
-> > > though.
-> > Set those as defaults in the driver if all upstream users have those
-> > values and then drop reading them from dt?
->
-> Actually, there's more than one user in arm, but there's a mix of
-> compatibles and properties used. Probably not really viable unless these
-> are all unique compatible + property combinations. FWIW, there's more
-> compatibles used than those documented, that fall back to the documented
-> ones.
+On Wed, Jun 10, 2026 at 03:29:02PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] The `diff-channels` property constraint uses invalid YAML flow s=
+equence syntax (`items: [const: 0, const: 1]`) that will cause a fatal pars=
+er error or evaluate to a single-element list with a collapsed duplicate di=
+ctionary key.
+> - [Medium] The child node regex and `reg` maximum artificially limit the =
+device tree to defining at most 7 channels, despite the hardware supporting=
+ 12 unique multiplexer configurations.
+> --
+>=20
+> commit 2b3665a0096105a4bb2db6266e47dec0a0802cff
+> Author: Nguyen Minh Tien <zizuzacker@gmail.com>
+>=20
+> dt-bindings: iio: adc: Add TI ADS1220
+>=20
+> This commit adds a device tree binding for the TI ADS1220 24-bit ADC.
+> It describes the SPI device, its per-input channel child nodes,
+> external reference selection, and the DRDY interrupt.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml =
+b/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
+> > new file mode 100644
+> > index 0000000000000..1fedffc2a1475
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
+> [ ... ]
+> > +patternProperties:
+> > +  "^channel@[0-6]$":
+> > +    $ref: adc.yaml
+> > +    type: object
+> > +    description: Represents one ADC input configuration (channel).
+> > +
+> > +    properties:
+> > +      reg:
+> > +        minimum: 0
+> > +        maximum: 6
+>=20
+> [Severity: Medium]
+> The ADS1220 hardware supports 12 unique multiplexer combinations
+> (8 differential pairs and 4 single-ended inputs). Does this regex and
+> reg maximum artificially limit the device tree to defining at most 7
+> channels?
+>=20
+> System integrators might not be able to represent all available
+> hardware configurations if this limit is enforced.
+>=20
+> [ ... ]
+> > +      diff-channels:
+> > +        description:
+> > +          Differential input pair routable by the ADS1220 multiplexer.
+> > +        oneOf:
+> > +          - items: [const: 0, const: 1]
+> > +          - items: [const: 0, const: 2]
+> > +          - items: [const: 0, const: 3]
+> > +          - items: [const: 1, const: 2]
+> > +          - items: [const: 1, const: 3]
+> > +          - items: [const: 2, const: 3]
+> > +          - items: [const: 1, const: 0]
+> > +          - items: [const: 3, const: 2]
+>=20
+> [Severity: High]
+> Will this syntax pass the dt_binding_check validation?
+>=20
+> In YAML, a flow sequence like [const: 0, const: 1] evaluates to a list
+> containing a single implicit mapping with duplicate keys. The dt-schema
+> toolchain utilizes a strict parser that typically fails on duplicate
+> dictionary keys.
+>=20
+> If it did parse, it would likely collapse the duplicate keys into a
+> single element, forcing the diff-channels array to have exactly one
+> element instead of the expected two.
+>=20
+> Would it be better to use a valid flow mapping sequence, such as
+> - items: [{const: 0}, {const: 1}]?
 
-There's only 1 for SPI. For I2C, I guess it is a question of which
-driver is used:
+dt_binding_check passes actually. Although this syntax has no other
+users in the tree. The only other diff-channel user I saw that applied
+as tight restrictions as this one spelt it out as
+  items:
+    - const: 0
+    - const: 1
+etc but I have no objection to this if it works.
 
-drivers/iio/accel/st_accel_i2c.c:               .compatible =3D "st,lis3lv0=
-2d",
-drivers/misc/lis3lv02d/lis3lv02d_i2c.c: { .compatible =3D "st,lis3lv02d" },
+--ibX/47NDqAbngYGw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Rob
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCair31wAKCRB4tDGHoIJi
+0pBWAP47b2XfFh9+TXxIUGnXm9V5k8GySya9KmjNCktoq+wKOwD/ZcE3GcY+7oz1
+TM+DlHHcMdSAqQgtVoS3laZozGMmCQs=
+=Clc4
+-----END PGP SIGNATURE-----
+
+--ibX/47NDqAbngYGw--
