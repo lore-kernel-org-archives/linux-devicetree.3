@@ -1,143 +1,157 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023094.outbound.protection.outlook.com [40.107.162.94])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43823FBEBC;
-	Thu, 11 Jun 2026 13:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781182929; cv=fail; b=Ae6IqnHP6E0hVG4Odo6nk3PP8QDP8aC5N2DWCphHbp+fBCJbKY+1i8SP6JkVcJNwAUOZ0BX3a6sK6l5vtipnoq3i/uTqQZ5uLBIF4tv1jMjMcdPRfES66yhVGa1+Oe6oALOU5PSFWmXWqPQyAjgto+NuwqqTRJu+Y6D3sd5rVlU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781182929; c=relaxed/simple;
-	bh=G0YA8skJwzau5y6NPvD24qgDJH4Ml9T2xypekUw08r0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=okwWL/Su/khTbUqqJK/H/CuvhPOyrq/caQ4iYXxNF50qQPVXN9BjNBQhNuUgdqMB17UKF2RkwGgwwxrtX6eeJA4GS5xq+/quj+EyJs3NxMjmdcImffDFMggtQjyTOX8h0t72JBL76UzElLTAxX27LyNH2tXs/Axbz2W5Iqmi9Yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=barco.com; spf=pass smtp.mailfrom=barco.com; dkim=pass (1024-bit key) header.d=barco.com header.i=@barco.com header.b=gCfhek2S; arc=fail smtp.client-ip=40.107.162.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=barco.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barco.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=barco.com header.i=@barco.com header.b="gCfhek2S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bHaVYKh2BzdiaT4isClgkAgU+EN5N5zg64I+Fne9khNyROPtfwKzm/McUdjFlqp9V/wnJTFd2oda2SQkvOs+xKBW1tViVaY04g9IJsSew5fBLppMrAV3CSza4jE4oFUmWdNTKEwJds+arEBGavr3ZsjjzE2WAH4qgi2t6sACo+lg5DQwTRXdtlUQe1f0VSDD5WSNLIX4slFsGDgOJ8wyLje+fvf39ejT/D1tqYI0kLwlKB7vueWJjkoDfzeCRsp+RCryEGYzWqlKZqS+lcR7BDuSIQ770uc9WJh/N6WGoACpOdEjUkHc8O6924yAIBCWLcR9SPk+Qc1/qfSbGvXJoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G0YA8skJwzau5y6NPvD24qgDJH4Ml9T2xypekUw08r0=;
- b=kBLozGHT4oorcKPOLNSCMxALDwV0czfGNJLcDYwHJBz6HcsTje+RMJCH9GzLVXapqTLrJHE4yjM35sRZh010/3aGkvRPxjYk05LAjGqFpgsznuVPZXRXf0dilUlK21f4cS+Z0MU8YvFQmJWPB+yfXCoQHCanQ7Ef7UPRuNtEbaFoENmJ5Hp50lNxHfz2abbxoGP2nXHVHa0E3dqSqtTSqxwmg+bYMnnjpCbe4Ug+n88wQZ8BEnzhRDTrHa6N6/Drh03ArJyrJy/o29/L9NTCbkcJt+L/mbiUcSwn7oNsLgf7yAFhINczV6L+8yB3LGpOLeYOMDZl6hDr0Qj0coayPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=barco.com; dmarc=pass action=none header.from=barco.com;
- dkim=pass header.d=barco.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=barco.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G0YA8skJwzau5y6NPvD24qgDJH4Ml9T2xypekUw08r0=;
- b=gCfhek2SyeuOR9OTeWod0dpcPv9ZeWb6YkoMiLH+kEQZ1gOhBA/+8Ap7MM+nSPcodPhgaFeQ/JTqTnHXAdQvyxLkWMh9s+aOWhafD4MwSTXXOQwEosHXxvXVw8j17L46lq+ndZ9mONqdXcEbZfqMVXKLuSqEDjfEXfjEhtDlvMI=
-Received: from DB9PR09MB6082.eurprd09.prod.outlook.com (2603:10a6:10:3d6::20)
- by GV2PR09MB8857.eurprd09.prod.outlook.com (2603:10a6:150:369::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
- 2026 13:02:03 +0000
-Received: from DB9PR09MB6082.eurprd09.prod.outlook.com
- ([fe80::2bdd:b680:ae9a:cd7d]) by DB9PR09MB6082.eurprd09.prod.outlook.com
- ([fe80::2bdd:b680:ae9a:cd7d%6]) with mapi id 15.21.0092.016; Thu, 11 Jun 2026
- 13:02:03 +0000
-From: "Korsgaard, Peter" <peter.korsgaard@barco.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>
-CC: Peter Rosin <peda@lysator.liu.se>, Andi Shyti <andi.shyti@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: i2c: mux-gpio: name correct maintainer
-Thread-Topic: [PATCH] dt-bindings: i2c: mux-gpio: name correct maintainer
-Thread-Index: AQHc+ZzKt0+yKnItXkmOqCiRwI71+LY5UXWL
-Date: Thu, 11 Jun 2026 13:02:03 +0000
-Message-ID:
- <DB9PR09MB608288AE367DF5F476EA3A4BE41B2@DB9PR09MB6082.eurprd09.prod.outlook.com>
-References: <20260611122053.7306-2-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260611122053.7306-2-wsa+renesas@sang-engineering.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=barco.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR09MB6082:EE_|GV2PR09MB8857:EE_
-x-ms-office365-filtering-correlation-id: d851df37-23b3-4a11-1526-08dec7b9a1f8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|56012099006|11063799006|38070700021|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- Oy6mjMMxHjodFJXohEDtXtTQsHUB3urxa6EY4ZYT6D7GiCXDDsOPHIBuQJGmGrk/ayNNd1gaXwMfoaqHnZlR7D0WvhYa3TWjRPRCuGdRqlAerl6y27T0QH2D2mNnhEM5mgfRt/wXB7mGruJdBW0+/gr3LQh1qQFfuXVQ7K2ni65LF7yBRAqOeq7qy7rkgNL+93crvdq9RPmY2f4bkNZOlXCHSM+AvaCyr0BJtk09ch0ewjm9H9s5yTVA4QIrR5It1QbEjwDxJnxQjLOnUhkcuCUXSXQV0BjEo4TXnqW4RbDKPdXq0f5daMaDuK34mlz4WzCuF102J5CbHiqR4xTnruhfa3oH8Y8qJsr+yEK/+7n1xtWDTO4EeV7F6Nyb+wLi+Ew7TkwOvqOAqzYnHbugRDXa4elMdlbcAXlqcIBxjIYEFtw32xSVOBCuE+4uUNsRAFsWSLUcQ4t41YFs3OCyEh7rE0FJmu4b+3PtMaY2UxrEMXGiPJH5ACp9LncN13tN6mc7CqPfs8NQCURQDpt/ozz5gN09dY8KRFTPGYp+ubNui0hmeSS0ZfCA9Qd98v3vo9GyIrVrxAoMEsat+nb79qFzpCXOks5FUIqiO4THlUmpnlRqOTjKck/buqblI5fmlAslPsFnC2o1HgMrOL14LgcRczvL6Rmjik8laiQgkNPieYqpDJ4OE15/M0BjvZXM1q4MctDQb3TdqqKef2ldQKXidg3/RfREFxIWmntDVCcoQ+fux3FCv7ZSxFVroTPl
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR09MB6082.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?2idx4r27cBg3AAhpBIY9hE77A4fjzW95yUyjb19x3AwlPRjeqRBFe1K7Bv?=
- =?iso-8859-1?Q?pMFfzW77ed03u7fDZUaMggaWBciEw61V16yIDkQnE7yP+MPXDK63vR0kXv?=
- =?iso-8859-1?Q?+bIHOvrWQ0YTK5yzzZLlkkelmM6UhNgyx0+jTiYRO2O3aP4NyTvvZB+RRT?=
- =?iso-8859-1?Q?PVVamoiCHshsM37lQgs4yocNNeSziJ/ngjNWS38x6kqLJx4a9dFWQIuWk/?=
- =?iso-8859-1?Q?FNgb/3DRti8KxVDrIneiv3wpQFEGL4dSS+Qo2TmTFSfyAAscdRwIZmwPQq?=
- =?iso-8859-1?Q?PZT3Spy0g+KQh5GHjzrukflqz2kJ3VF9mCadgjHVIqexqJiFOfG9fcHYGm?=
- =?iso-8859-1?Q?q7KqNdHrQHcaMOw8Wg3mkGiOe+x3k8EoPLHiK8+LHiKrjOXmhyualzd2Zy?=
- =?iso-8859-1?Q?P+B2J4PftSIVrklo+KDkWaEAq+/Xp1qKXWoOlnFrRs0cL6GjK535WBNtw6?=
- =?iso-8859-1?Q?VjRc0WJ9wBw9ow6nSEj5Q8qvPdq1vj7WVvOUitECEUx7/CKvtN4kQJtc/P?=
- =?iso-8859-1?Q?6R6Mn16kQQeuHOcm0VecV+lJ1kzkUIF5mF4XatXhygepkfqNiOLdBMANIk?=
- =?iso-8859-1?Q?dFxSquNSkATizvnZdwxxjrjihk7RsvamizPqKV6D4Uahsb+s7o86J0A+nA?=
- =?iso-8859-1?Q?1R+5j0Xi4E+xXtFCt1/nODEotJAB26vq+STOqgi9HHKtP6WWqehfN90uHf?=
- =?iso-8859-1?Q?hNmf/PA1rS3WV7RFgAms6l55h44LkPCTprY0+lQTzFfokzJrC7ohKv9VtL?=
- =?iso-8859-1?Q?dK10LYh5OtWy0bY9tYVBXqgHu9GM9jKKjK/mQNCwGUK2a8UX52gq3oxZCO?=
- =?iso-8859-1?Q?IwLv9zfKSwxzYfJsfnDfG8fShOR5uJ/IXMgTjrBII/+59hqb+0n2STkzT1?=
- =?iso-8859-1?Q?Cja7gQjHXsKt7dwgego5KUHESdW3Rq+NzUTqYyBumU4p/SmyeT3hN2Atzn?=
- =?iso-8859-1?Q?+wPlQ0B4rjTxt1++1+4hsTCJ/hKsWdWqjnuiL+xb65v+YloeegvDlg4PA6?=
- =?iso-8859-1?Q?nMZ/KCNRNp8Fu4T67Te7jTuZmEccSnz3NT/3B7XA48Ggn0ruydlq35GHjy?=
- =?iso-8859-1?Q?d4cRYyo7ZWINuGhG8f2z+sepaz1oQCRmfQyyb+0hqB2C7s9i1bVr9LHeyd?=
- =?iso-8859-1?Q?hgZcf/pYfqhRcjtI8aG3hynZagmdCfh30/WPs522Xv/nrl+UgAQ2yp9bsF?=
- =?iso-8859-1?Q?SzzJW2hshedkYycRk0xoPT5UWxDdvMDAgfocz9pECt/+K9D3ycVE8IFCoa?=
- =?iso-8859-1?Q?3FFp3m98sjA5PVYO7x2O/0ogJx+HJjPY+ijbgO+qY44hpRNz4jI0JFBxLZ?=
- =?iso-8859-1?Q?kMZp/AbyroiOI4k9oiruejsSMQhPKEQSSLnRzBOPIB32ya/lKcdl67tqN6?=
- =?iso-8859-1?Q?BfYbJ90lJgRjVKAObtONuo5eFUTrSB5AruU6+eXtLVcRJ1Y3CZlc/yLRGd?=
- =?iso-8859-1?Q?iS0HEkmBT8RJFEKzkz2x5WbiDdgGePhkLhNzK5yp9tVm8qChaiaqYRoj5m?=
- =?iso-8859-1?Q?s8K1l2Ao/5NEtPWmrwM+fhF1O/YtJc2/lQJoKTV1MEAU3RUKubN3xFlDPJ?=
- =?iso-8859-1?Q?FkqLQnueZriaQs8ODPRxs8kK+mlnOujM/Uxt+Q4t54LkV52JgheycNTf/b?=
- =?iso-8859-1?Q?C2J3+utb9ThRpSOCJ0kEf36gca1MOF+WJqwfhyfvU46jPju1p9iN6OKydY?=
- =?iso-8859-1?Q?ePk0WhEXI0PNZT9HHnwlhSnaxYSe7g2wQhzP0BGhmPgPaSe+99+p2Hw6YC?=
- =?iso-8859-1?Q?N6HBgRt9VwhNCzMnfBEwUkwpK0ehFS/k44+ISTh5Iuz4CI8r0btZldnRwN?=
- =?iso-8859-1?Q?x8eaZh8cXg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B74E3EFD03;
+	Thu, 11 Jun 2026 13:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781182946; cv=none; b=XK9uEilWlU8IrQtkAt+ll6SFdGswTSZr0h9J9kXKfPAyzzhIN9Ek8k3BqwXs9rkdzMfbd/cKPLPJB3HllhSjDEPy+pjF4nzpvJiamrv+Zy38VsehyHafyRyrqJmoTLM/CAO9BgOnki/vuzrgcCNbhRGtm4ifAWPPYTYcyOMZqs8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781182946; c=relaxed/simple;
+	bh=yUuZmWqRcOoWdR7s/LK4gYFZEOygcUHazqZpj0G5qY8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mxOXcBnUBCA1QdAFPHwOqJZoZYZvp58Nmb7gzr6/hbuZzn3SevXbIfFzG/NzQW+3odPtvxZjdDPXMX8Po83RbOpWFeaN88T2df5oeEWN5tCpLZ/8n+IJy9po36bbfkA4LIgZLJ5yrB90K3zBWeQqOxrqu2XVMRUonU7NmOEc9bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77ED81F00893;
+	Thu, 11 Jun 2026 13:02:21 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH/RFC 0/9] R-Car X5H Ironhide pure SCMI proof-of-concept
+Date: Thu, 11 Jun 2026 15:02:04 +0200
+Message-ID: <cover.1781171705.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: barco.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR09MB6082.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d851df37-23b3-4a11-1526-08dec7b9a1f8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2026 13:02:03.3131
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: aeb84c91-6270-4446-ada5-d71ceba1d535
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: O9V8UmaWgL0j4q65CAsSIkcskCGXBbCRbxYyRxq4WavddgRZoX4iXoPnfPFGuxlF5UUOAW0ghJrPKgVrbjQMXCIV4tZ3k82Abp1GgHjziIQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR09MB8857
+Content-Transfer-Encoding: 8bit
 
-Hi,
+	Hi all,
 
-> The YAML conversion added me as maintainer but I can't recall being
-> asked nor do I want to maintain it. Add Peter as maintainer for the
-> binding as he is maintainer of the driver.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+As promised[1], I tried handling all issues with current R-Car X5H
+Ironhide SCP FW SDK v4.28, v4.31, and v4.32 as SCMI quirks.  This helped
+identifying missing features in the SCMI drivers and/or protocol:
+  - The SCMI PM domain driver does not support always-on domains.
+    This limits the ability of the Linux Power Management core to
+    optimize its decisions by taking into account which PM domains
+    cannot be disabled,
+  - The SCMI protocol does not support clock domains.
+  - Power management of on-SoC modules is typically handled through two
+    methods: module power control and module clock gating.  The former
+    can be exposed as an SCMI power domain, the latter as an SCMI clock.
+    Currently, the SCMI clock protocol does not support advertizing
+    whether a clock is intended for power-management of a hardware
+    module, so such clocks can not be managed automatically through
+    Runtime PM.  To solve this in general, the SCMI CLOCK_ATTRIBUTES
+    could be extended with a new flag in the returned attributes (which
+    is not done by this series).
 
-Acked-by: Peter Korsgaard <peter.korsgaard@barco.com>
+Series overvies:
+  - Patch 1 is a preparatory refactoring,
+  - Patches 2-3 add support for always-on power areas,
+  - Patches 4-7 add support for clock domains,
+  - Patch 8 adds an SCMI quirk to advertize power-management clocks on
+    R-Car X5H,
+  - Patch 9 switches the (still minimal) Ironhide DTS to SCMI (this
+    needs manual configuration for the actual SCP firmware version, as
+    the SCMI domain IDs differ).
+Note that other SCMI quirks than patch 8 are not included in this
+series[2], as IMHO the original issues must be fixed in the SCP firmware
+instead.
+
+While the result works, and we might get stable SCMI domain IDs
+(eventually), I still prefer the approach taking by the CPG/MDLC
+remapping driver series[3], as:
+  - It describes in DT the actual hardware (which is needed for U-Boot
+    IPL),
+  - It does not depend on SCMI domain IDs defined by firmware that is
+    still under active development,
+  - It lets us keep the DTB stable, while SCMI domain IDs may change,
+    depending on system partitioning (i.e. software policy),
+  - It allows us to support (in the Renesas LTS tree, not upstream)
+    firmware versions that already exist, but need quirks for proper
+    operation.
+
+Thanks for your comments!
+
+[1] "Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()"
+    https://lore.kernel.org/CAMuHMdWJvMH+a1RqozbaCxxH_8M569JcruTFa8PW+87FysnjHw@mail.gmail.com
+
+[2] List of SCMI quirks which are not included in this series, but are
+    needed to boot on R-Car X5H Ironhide:
+
+	firmware: arm_scmi: quirk: Handle critical clocks on R-Car X5H
+	firmware: arm_scmi: quirk: Handle bad power domains on R-Car X5H
+	firmware: arm_scmi: quirk: Handle bad clocks on R-Car X5H
+	firmware: arm_scmi: quirk: Handle wrong clock rates on R-Car X5H
+	firmware: arm_scmi: Add support for retrieving rates from another clock
+	firmware: arm_scmi: quirk: Handle zero clock rates on R-Car X5H
+	firmware: arm_scmi: quirk: Add always-on power domains on R-Car X5H
+	firmware: arm_scmi: quirk: Handle broken HSCIF0 reset on R-Car X5H
+
+    With diffstat:
+
+	 drivers/firmware/arm_scmi/clock.c  | 2555 +++++++++++++++++++++++++++-
+	 drivers/firmware/arm_scmi/power.c  |   83 +
+	 drivers/firmware/arm_scmi/quirks.c |   12 +
+	 drivers/firmware/arm_scmi/quirks.h |    4 +
+	 drivers/firmware/arm_scmi/reset.c  |    9 +
+	 5 files changed, 2655 insertions(+), 8 deletions(-)
+
+[3] "[PATCH/RFC 00/14] R-Car X5H Ironhide SCMI CPG/MDLC remapping"
+    https://lore.kernel.org/cover.1776793163.git.geert+renesas@glider.be
+
+Geert Uytterhoeven (9):
+  firmware: arm_scmi: Replace scmi_power_proto_ops.name_get() by
+    .info_get()
+  firmware: arm_scmi: Advertize always-on power domains
+  pmdomain: arm: scmi: Add always-on support
+  firmware: arm_scmi: Add a flag for power-management clocks
+  clk: scmi: Add scmi_clk_is_pm_clk()
+  dt-bindings: firmware: arm,scmi: Document arm,clock-domain
+  pmdomain: arm: scmi: Add clock domain support
+  firmware: arm_scmi: quirk: Handle power management clocks on R-Car X5H
+  arm64: dts: renesas: ironhide: Switch to pure SCMI
+
+ .../bindings/firmware/arm,scmi.yaml           |  7 ++
+ .../boot/dts/renesas/r8a78000-ironhide.dts    | 44 +++++++++
+ drivers/clk/clk-scmi.c                        |  9 ++
+ drivers/firmware/arm_scmi/clock.c             | 15 +++
+ drivers/firmware/arm_scmi/power.c             | 21 +++--
+ drivers/pmdomain/arm/Kconfig                  |  1 +
+ drivers/pmdomain/arm/scmi_pm_domain.c         | 93 ++++++++++++++++++-
+ include/linux/clk/scmi.h                      | 17 ++++
+ include/linux/scmi_protocol.h                 | 12 ++-
+ 9 files changed, 204 insertions(+), 15 deletions(-)
+ create mode 100644 include/linux/clk/scmi.h
+
+-- 
+2.43.0
+
+Gr{oetje,eeting}s,
+
+						Geert
 
 --
-Bye, Peter Korsgaard
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-This message is subject to the following terms and conditions: MAIL DISCLAI=
-MER<https://www.barco.com/en/maildisclaimer>
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
