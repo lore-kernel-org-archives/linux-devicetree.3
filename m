@@ -1,45 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBD825FA29
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 16:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9847F9E8;
+	Thu, 11 Jun 2026 16:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781195775; cv=none; b=n4L2+9I1ikJhE/vuHyr8hQzuVuz9OJaOsjwA22yiTW9OvsGIlpisc5IPteM+DGosxZqcLDDB/SDQkzq8vG6KuF9hDdYsQgj5gu+89lWvI2ErjtkuRZWElAJ/Hlc6wl4Lq5BcLqL/nNOp1ZxUs1dtI2DLV71nD7pVWSxjzeCza2E=
+	t=1781195875; cv=none; b=Dnrg4qyczii2m7oaXpQ+eg1umbBqE+Jy7hJVzgQVjRPMSNgmVKWcBzwDOkS1XGobIkUh7TcHCVQZ6GDwGBiHzcvNqxpc/WsrJdiRL0Y+M58uwg3Asqla0ROD30JbLvm4rzSMN1wnlLJdDXc1IAcy8rU36d8Mo8MdEqVpOenfJvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781195775; c=relaxed/simple;
-	bh=Iq4XE7TZqG/cdWV0AtybQzOvyi1Z+wi0YN/Ff5nygms=;
+	s=arc-20240116; t=1781195875; c=relaxed/simple;
+	bh=Czp49NyWJhyOcAe+nFbYDUszD3TnaiMKBGQg3us4D+E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dQcK0K0LSrQy/Q8Tc/F3cZY9aauYd5AOe1wMH3ICl/PnazWuMcYkdqDR0ixj9BGqq9DAGAhZRzpWlSBOJ0cd+eMuxY9vLqzXICuYU6wqjgUPteHfD6FOLhnd/W29KV+6YWiojKQGuZzPecCdcSuQUm4hQ842At5syqQcHCwWbk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wsae4kLx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=G5zzD6fxVoHZ0GJVFlCbBIcX5lhgEVoeIXZcQ2SLe414FCWeu2PemjPabiMhh7Uf2K8GcSZdc0qPaB9BWp6klYETXUpz/778IepI9G4N4yCkgeHsoqxiH5mAfvyEHbHDuLiIYD5lJN9TKckBd8YjZVZljx72v2ZtEfGNa8FjyGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okaG9bdi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wsae4kLx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB5D1F00899;
-	Thu, 11 Jun 2026 16:36:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okaG9bdi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070CD1F00893;
+	Thu, 11 Jun 2026 16:37:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781195774;
-	bh=2N0qWoXrfak0xGG1eIGg2FqAh+x5olhBjGsCNYaVpCo=;
+	s=k20260515; t=1781195874;
+	bh=ef0nR/F/3mauVtjPQKNzv0MDN5cCbO2Pdn8BUSaOyxI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wsae4kLxtUl5dSecyi05jZETMu0MnLTgTd9dX1xJpZVA0fugJ/oWGd7l42UxCBzJ+
-	 k5yhUosRvgEsU5bd9XuFGhaHF0X+iFeo4ft7z82b1FYPxkUr0LIET6KbF/Va6Kf3xB
-	 iEGcy65AnqL51YqqEPGg2gFvDF0Ow8HIAAwsnHggODykbW7DPgMFiWtvZUMsHfovtW
-	 ZhrJdTuEds0REUghF6LVj4RvAeiqYWcNBLQ4p9cKZ25g29gpOugOxVxY8lphwEH3qk
-	 GjBPOU61yVw4136AA/A7K5VnfMZdoB2ZjSztp78xD8dZQUTLx72MkMEywbRs5vQxV2
-	 K4gBNmhPIp+wg==
-Date: Thu, 11 Jun 2026 11:36:13 -0500
-From: Rob Herring <robh@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
-	airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
-	maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
-	neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V7 1/6] dt-bindings: power: supply: sgm41542: document
- sgm41542
-Message-ID: <20260611163613.GA2922314-robh@kernel.org>
-References: <20260610144407.438846-1-macroalpha82@gmail.com>
- <20260610144407.438846-2-macroalpha82@gmail.com>
+	b=okaG9bdiR0+20Z2ZlUm2AZfM/nYhVULe6RDzWHnaRvEBHroTojrpfwlptOET66ZiA
+	 LHiZgcVYzwnzyRk7IENhOSxWu8MFc6lvQeqxwcqqq/VVgOEKSOzw5AEsBzgNt13C3X
+	 QyVc7Ru+IsBM7hgT1nA7hTZT19XrWi9VYnbH/vAFXguoHRl+Zd4s+yy3BwyPd4RnKb
+	 OTjF+LleVIyGNWhC+5Xg5iyP/YkPGPpr36JlFVI5NP0lfNw+UF9oAkTMj6+6LGcT1+
+	 ObsNTmr8+Q5r5sXFbOSMuj9eR5x8NImDfijzM6x7FzU8jmoqZHoGG7Xr7/NOKUXMTz
+	 jnHBSoHogBd3A==
+Date: Thu, 11 Jun 2026 17:37:48 +0100
+From: Lee Jones <lee@kernel.org>
+To: rva333@protonmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH 3/4] mfd: mt6397-core: add mt6323 AUXADC support
+Message-ID: <20260611163748.GB1212816@google.com>
+References: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
+ <20260602-mt6323-adc-v1-3-68ec737508ee@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,20 +53,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260610144407.438846-2-macroalpha82@gmail.com>
+In-Reply-To: <20260602-mt6323-adc-v1-3-68ec737508ee@protonmail.com>
 
-On Wed, Jun 10, 2026 at 09:44:02AM -0500, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Document the SG Micro sgm41542 battery charger/boost converter.
-> The parameters of input-current-limit-microamp and
-> input-voltage-limit-microvolt are defined as such since they are in
-> common use among multiple bindings currently.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+Interesting.  Has this been considered?
 
-Missing Conor's reviewed-by.
+/* Sashiko Automation: Issues Found (1 Findings) */
+
+On Tue, 02 Jun 2026, Roman Vivchar via B4 Relay wrote:
+
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> The mt6323 PMIC includes an AUXADC. Register the AUXADC in the mt6323
+> devices array to allow the corresponding driver to probe using compatible
+> string.
+> 
+> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 > ---
->  .../power/supply/sgmicro,sgm41542.yaml        | 96 +++++++++++++++++++
->  1 file changed, 96 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
+>  drivers/mfd/mt6397-core.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+> index 3e58d0764c7e..013b0857fb54 100644
+> --- a/drivers/mfd/mt6397-core.c
+> +++ b/drivers/mfd/mt6397-core.c
+> @@ -125,6 +125,9 @@ static const struct resource mt6323_pwrc_resources[] = {
+>  
+>  static const struct mfd_cell mt6323_devs[] = {
+>  	{
+> +		.name = "mt6323-auxadc",
+> +		.of_compatible = "mediatek,mt6323-auxadc",
+
+[Severity: High]
+Does adding this compatible string expose an unhandled edge case in the
+auxadc driver?
+
+If this device is instantiated directly from a Device Tree without an MFD
+parent (e.g., at the DT root), dev->parent could be the platform bus
+(which has a NULL parent) or NULL itself.
+
+Looking at mt6323_auxadc_probe() in drivers/iio/adc/mt6323-auxadc.c:
+
+    regmap = dev_get_regmap(dev->parent->parent, NULL);
+
+Could blindly dereferencing dev->parent->parent here, or passing a NULL
+device to dev_get_regmap() (which calls devres_find()), result in a
+kernel oops if probed as a root node?
+
+
+> +	}, {
+>  		.name = "mt6323-rtc",
+>  		.num_resources = ARRAY_SIZE(mt6323_rtc_resources),
+>  		.resources = mt6323_rtc_resources,
+> 
+> -- 
+> 2.54.0
+> 
+> 
+
+-- 
+Lee Jones
