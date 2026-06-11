@@ -1,72 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D84376465;
-	Thu, 11 Jun 2026 09:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C062F390226;
+	Thu, 11 Jun 2026 09:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781168782; cv=none; b=fSh3YhdJJulMxFsQFAdOGEq78JvKUQr6HUxFGP/5WFhTZQDhqVCmaIMyjvuOM7IAtrB3hOuqlR3/THkOLtmH5UKwFNE1gGg/7qryBC4k/CP6Ypg4t/JY5bi3oehaQwK263e9wt/02K11DaHitS1aPHzHiuby8oMPRXWxvXV8T4U=
+	t=1781168793; cv=none; b=fdRvM/iKFHGkZuKpTGXqT6VghwO5WCzbIUDrtx8wL5xWxmqu0HixG4fpKv7ijfgvsAPdVJuLwskrsCBvx2jhkDsAkzOY9FhSc/MpZZT5OgKPqfNzuJtGGuTicySttYf3gsH9NosfX9xAsfeA//Bk6wUfZwwWvEVCUTZOT+0dgtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781168782; c=relaxed/simple;
-	bh=4AUvjuai4N+RkIT8LkzS8PD4w+SK8CcYOYgKFVO2Vm0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IK0hcsPMcymMkL6Z+fDtI6hOecUCLrZWGehxuRnh1XVFHzu0rVAfg1+n6bRdBhqfdogSVhXsqGLKUbBaHKg61yZtdZOa25EygY/+t1kGi4s5D1/51qL/Yvv3K6Ad6bvuy77AntTHgO6ji+bRXUTZkri5S+rifxuO22CeY5KSf7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kucb9rwc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kucb9rwc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3491F00898;
-	Thu, 11 Jun 2026 09:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781168781;
-	bh=WbHo0RwI9j3Vdth4NfkBJIy1aubZyvoaCPcPZk7uecY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kucb9rwcHEXWUXr8GWMIN4nP/+rRE9XttQY0S+Zj5R9LxhwYhLrtkW7kiqK3T9wsA
-	 K/LYBXzTyz+OXKned5q1s7+VHP8RPSuxThdytrcODgkZ+WJJ/oG+3CGGmKhET8HXpY
-	 96GI9HN+WxBg41+Wpnt2hKpwERANapi38JxjM889yFXkDj+8pqgbvMKmuX+EUpasu0
-	 Y3Pgl6cTE54EJtrPpncQUxLpAF2gizVoAbPBxi0M7QYS767K9QRKZ4hJY4mPgXfCW5
-	 R6GhQAyLqv9M0aK9rFaK9KUUs7A/T4YuH4U5QqSC7E2AxD/lNuY63y47PkN6BMgOHx
-	 eTNvgHmZQX8zA==
-Date: Thu, 11 Jun 2026 11:06:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com, 
-	Stefano Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Daniel Baluta <daniel.baluta@nxp.com>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
-	Josua Mayer <josua@solid-run.com>, Maud Spierings <maudspierings@gocontroll.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
-	Francesco Dolcini <francesco.dolcini@toradex.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Subject: Re: [PATCH v1 1/3] dt-bindings: arm: fsl: add Variscite
- DART-MX8M-MINI Boards
-Message-ID: <20260611-primitive-kind-crane-aa9800@quoll>
-References: <cover.1781024557.git.stefano.r@variscite.com>
- <a3355082aec3454f671b44e1f9a78000d2733470.1781024557.git.stefano.r@variscite.com>
+	s=arc-20240116; t=1781168793; c=relaxed/simple;
+	bh=k/nZRHfqbAt0qxRgkvRw4WOdiOIXdQqfm31GU3E1xv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X4NhZ9oHqiTN3Rk01bkUYdy63/WtTFbWBCKyHJLVFazZnf+U0W5lOAwOuaqRmtMdVPe4nSOAEdBvGLLLAIiVoKgeRy+XwFE1if8kv2bQuDixs8K17gzJ3dkY1k4WFw8AsyptnVhQsneesHq9J8XVK0Ha1T/JuCaEGJokxJD5DJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005156LT.eswin.cn (unknown [10.12.96.79])
+	by app1 (Coremail) with SMTP id TAJkCgDnfHGEeipqwM0mAA--.31766S2;
+	Thu, 11 Jun 2026 17:06:14 +0800 (CST)
+From: hehuan1@eswincomputing.com
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	p.zabel@pengutronix.de,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	luyulin@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	Huan He <hehuan1@eswincomputing.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/2] dt-bindings: hwmon: Add Eswin EIC7700 PVT sensor
+Date: Thu, 11 Jun 2026 17:06:10 +0800
+Message-ID: <20260611090610.757-1-hehuan1@eswincomputing.com>
+X-Mailer: git-send-email 2.47.1.windows.2
+In-Reply-To: <20260611090505.734-1-hehuan1@eswincomputing.com>
+References: <20260611090505.734-1-hehuan1@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <a3355082aec3454f671b44e1f9a78000d2733470.1781024557.git.stefano.r@variscite.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgDnfHGEeipqwM0mAA--.31766S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw43XrWrXF4fKr15KF1UGFg_yoW8tw4kpF
+	4kCryDGr10qryxX3y7tF109F1ftws5CFW7Arn2q3WrKF1DJas0yr43Kr15Was7Cr1fXFW3
+	ZFyaq34jya1DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUXJ5wUUUUU=
+X-CM-SenderInfo: 5khk3tzqr6v25zlqu0xpsx3x1qjou0bp/
 
-On Wed, Jun 10, 2026 at 10:58:53AM +0200, Stefano Radaelli wrote:
-> From: Stefano Radaelli <stefano.r@variscite.com>
-> 
-> Add DT compatible strings for Variscite DART-MX8MM SoM and Variscite
-> development carrier Board.
-> 
-> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
+From: Huan He <hehuan1@eswincomputing.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Add device tree binding documentation for ESWIN EIC7700 Voltage and
+Temperature sensor.
 
-Best regards,
-Krzysztof
+The EIC7700 SoC integrates two PVT instances for monitoring SoC and DDR
+power domains respectively.
+
+Signed-off-by: Yulin Lu <luyulin@eswincomputing.com>
+Signed-off-by: Huan He <hehuan1@eswincomputing.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/hwmon/eswin,eic7700-pvt.yaml     | 63 +++++++++++++++++++
+ 1 file changed, 63 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml
+
+diff --git a/Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml b/Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml
+new file mode 100644
+index 000000000000..27cc90e52d4b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml
+@@ -0,0 +1,63 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/eswin,eic7700-pvt.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ESWIN EIC7700 PVT Sensor
++
++maintainers:
++  - Yulin Lu <luyulin@eswincomputing.com>
++  - Huan He <hehuan1@eswincomputing.com>
++
++description:
++  ESWIN EIC7700 SoC integrates embedded voltage and temperature sensors to
++  monitor the internal SoC environment. The system includes two PVT sensor
++  instances. The PVT0 monitors the main SoC power domain. The PVT1 sensor
++  monitors the DDR core power domain.
++
++allOf:
++  - $ref: /schemas/hwmon/hwmon-common.yaml#
++
++properties:
++  compatible:
++    const: eswin,eic7700-pvt
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  '#thermal-sensor-cells':
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - resets
++  - '#thermal-sensor-cells'
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    sensor@50b00000 {
++      compatible = "eswin,eic7700-pvt";
++      reg = <0x50b00000 0x10000>;
++      clocks = <&clocks 244>;
++      interrupts = <349>;
++      interrupt-parent = <&plic>;
++      label = "pvt0";
++      resets = <&reset 111>;
++      #thermal-sensor-cells = <0>;
++    };
++...
+-- 
+2.25.1
 
