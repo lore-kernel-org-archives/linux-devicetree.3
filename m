@@ -1,743 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011018.outbound.protection.outlook.com [52.101.62.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230FF3195EF;
-	Thu, 11 Jun 2026 13:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781182866; cv=none; b=IRO3YadBLpaMrqXAQz+JRIPzfKN6ysxe7l2xYR8ybY/F/JYZCa2S2VKIaIXqvOPv/3a1uO24DXz0aJ5wCBpxCx4HE8vCMVv5UwErf4ceG1rhmfD09kDVYIc3p3bWbh6p3xu1xIxyOa/gcRaNvnmrmdx7JQhu7fAYClfPOKboarA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781182866; c=relaxed/simple;
-	bh=FRbN5r0M06L3x5Hwwu4xH54nkOoiKmnZ5wmLIs7+SOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X2EZme7yus4bImTX1aokqnLVdn4WvL5MtVjBLlSh9U9jDiM4QSVmd30N8SQecAY1Nfc4/qHBN6xHyNRs2buoKdDndHlONgxyNw+ansiKC3+FnWIgCqEn+bJNicnfTScFxEsTm8WJXb8ELCCIxk8hX3gMihTMJLQvYlO0ValXCwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kISN8keH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F7C3FD125;
+	Thu, 11 Jun 2026 13:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781182875; cv=fail; b=mQ5Yu/SKBItiCZI8o53yn1JYmIb/yMWYJa6JtWP2sCqjs3uqn4T5G7Wu+o25Jla4imHVMKkuFa5mfSqzWYhnqzUrxstkzSZDdrvzZZA38TCqEqzlvfA3kysIQa+viMf+DvPRAvIiMwzkPO5yffkcOUDjm2kzKsQlL3hVYwilq48=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781182875; c=relaxed/simple;
+	bh=7sUkNWp/i2hIuwWjZEU7J/RaU/3m2sa/vRN2u8vYiY4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=P8F67p9a6qf1mBCWLZweO8YSOx9ui/4Xhk4/Ld5+NxJjuipniEaqIJ5uz2tluG1veHQ9fj6AvlSF7WKqvqrMZbT/2CJ3OLrCMHf/Jqjl/OUjVw0tLnFjGu9jPeSaDSZpzxXy8gbpckxlwwOrEUOmP+o+b4rjmOb6AndEPVqm3vg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=yrbQaQyh; arc=fail smtp.client-ip=52.101.62.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kISN8keH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02D351F00899;
-	Thu, 11 Jun 2026 13:01:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781182864;
-	bh=KD1htdO2Dve0nKZm+I0eE7AN29Fseify1QXjvEQOHm0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kISN8keHZlDOdFLamM+o1UxpDbyNwhF40QArKbmXX0QSOGhJZv8u3tMb0x8DVw1Y8
-	 dCKpOiVtuJr1YWZFz4c0b0b0rwRWR4ogVFC9gGRofnfEMyEj0pZG/NOyavL+bz8GWN
-	 pIS93ruLID0OoVHWCzLoE43v9VO/AeQUFl9Sksf4F74Bd8Fnv2pw159zXvMHN4LyJa
-	 LP0EQqJmqxUPTRb7hS7hv0Mstb3ngyllukNERQRNUUIbkX/Y7tJ2OBgH1JoQkAeOFC
-	 Ob3y6Hol/LOIX6ZdpzZNFU+jUww6mmJrbeLx06igXlBp269vtMDb0erYnHZ3CIE9eh
-	 0rwnv0avxqy0g==
-Date: Thu, 11 Jun 2026 14:00:55 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nguyen Minh Tien <zizuzacker@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: Add TI ADS1220 driver
-Message-ID: <20260611140055.31e74a0e@jic23-huawei>
-In-Reply-To: <20260610151342.44274-3-zizuzacker@gmail.com>
-References: <20260610151342.44274-1-zizuzacker@gmail.com>
-	<20260610151342.44274-3-zizuzacker@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="yrbQaQyh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AtxXayjUj2TLaVYIg5RF02HJj0QolIRGlfbR0wmAqp6GzwG6v+GcCpLh6+Sd7F/zLAO8RM7csYEIwdw2q8NkkoHkKRFv2YdBodPE5ghsoj40yBtpX3J6WQRQTY80qDUJ7HE01vnGgv+mebWxJPPFFLI4vUkaEovQyBnNXc6fJab0rWhhdWm5JXTR6cen+y+czstrHcOed0CEt1zdv/zyKmhuLE7IlW2hSHFKZO6yuFuDQ9ig1LSg/bC50irsehesrY9+SQZU+qYJH98wMSe1iBTPbCfE4l1X/3kxppjILSqM0nNKSRqGnyex+1VPjUqM/g4r/rUgLQeyG4Pj+gBzNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7sUkNWp/i2hIuwWjZEU7J/RaU/3m2sa/vRN2u8vYiY4=;
+ b=twNQY7aUUVzPMj7m39MzK5gXHmuiYIaNe6sBSXdUrZ+vxuv21F6mv4Yw5/rLcKuXG/esAJt774I+t+BENive1H5i2m7U/mQDSCX+XlYJy7Aac2yfLPuUBud+VIO4N2f3m9x89eZhRytvpTTNm31RPCg5io9P6lQNQ+6+F11MbpTdlTIJaOSJN0/ajwNX/B3FlzCjztLqNUdQWnOJhRV74Dzv6aN/vZLc5MHp804BGZoAVlePV7NjgUOEyjain7iwmmP9cecpB8N2tMXGqZpnQjODiwymmZRpeDiJ8QJnpb6AzZWn3jujdxzFy9sfwLWuNsSB3b07Sd7Qkthdn4U9EA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7sUkNWp/i2hIuwWjZEU7J/RaU/3m2sa/vRN2u8vYiY4=;
+ b=yrbQaQyhkN7StynEvIAPcOQJdW2GsIQr5POzxDC8f9xdGBxjWXzxzRZv1ncjFNYVU+pMLsLsVZad6efMUcNUfkNbqPM4QIbeT+Casj6no70e2u7KROYribI6FEvSevq5vi3RIZHrTqK7ne5f5juGFXrsNS8KE36fPhDqupIXIcHSE0FQgyB3oSY+VAw/KHV0Eq9LVz7QP1jzzZKd8He443bBo+aSY5hBXlVudMtFUH5zbyX+nI4jQ37bDEFweytQAf1BZeGaSBSsQiuRWTpq1LMQXJiVqdrOUredS9oQ5TUc/V2Tvs5Q4j5pAj4Ev5pqa8DclBDUa1cKotC8v0+m6Q==
+Received: from SA1PR11MB8278.namprd11.prod.outlook.com (2603:10b6:806:25b::19)
+ by CY8PR11MB6866.namprd11.prod.outlook.com (2603:10b6:930:5e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Thu, 11 Jun
+ 2026 13:01:09 +0000
+Received: from SA1PR11MB8278.namprd11.prod.outlook.com
+ ([fe80::3a83:d243:3600:8ecf]) by SA1PR11MB8278.namprd11.prod.outlook.com
+ ([fe80::3a83:d243:3600:8ecf%4]) with mapi id 15.21.0092.010; Thu, 11 Jun 2026
+ 13:01:09 +0000
+From: <Parthiban.Veerasooran@microchip.com>
+To: <Selvamani.Rajagopal@onsemi.com>, <andrew@lunn.ch>, <conor@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <Pier.Beruto@onsemi.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<Conor.Dooley@microchip.com>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
+Thread-Topic: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
+ be active low, level triggered
+Thread-Index:
+ AQHc8eDGO4Y2rMyEmEeRgmYw3vsZ4LYrecyAgAAPEwCAAmo7AIAAlNuAgAAUz4CAAAajgIAFcz6AgAAInwCAAd4WAIAAa50AgABI+YCAAq8HgA==
+Date: Thu, 11 Jun 2026 13:01:08 +0000
+Message-ID: <56e6c9ea-2e2a-406d-b7d0-ec484e3170e6@microchip.com>
+References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
+ <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
+ <20260602-rebel-snide-5036c97e410d@spud>
+ <CY8PR02MB92493D2E5491AAE5416C05A283122@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <a5abb9b8-6ebf-4f95-a684-fc889b98acea@microchip.com>
+ <CY8PR02MB9249E607ACBF3A05AB83ABF683102@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <20260604-swimwear-garnet-3eb092e6fda7@spud>
+ <4df9882b-3426-4c36-8048-0c76d0f11c74@lunn.ch>
+ <7c68173a-ebff-42cc-8519-95e8365805b5@microchip.com>
+ <DM4PR02MB926317F64B5A3827009B66A9831C2@DM4PR02MB9263.namprd02.prod.outlook.com>
+ <a02cd86e-a5b8-481c-a07e-7243ee537b24@microchip.com>
+ <CY8PR02MB9249EC4F3896121911D0FF3C831D2@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <CY8PR02MB9249B913E28E285EB46EC59C831D2@CY8PR02MB9249.namprd02.prod.outlook.com>
+In-Reply-To:
+ <CY8PR02MB9249B913E28E285EB46EC59C831D2@CY8PR02MB9249.namprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla Thunderbird
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB8278:EE_|CY8PR11MB6866:EE_
+x-ms-office365-filtering-correlation-id: 088d41ce-b1a8-4673-2932-08dec7b981a6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|11063799006|56012099006|4143699003|6133799003|18002099003|22082099003|5023799004|38070700021;
+x-microsoft-antispam-message-info:
+ fcdtNnG02IDR2xmHCzsOjIe15aungS2/KebK1PjPvLv+veonENGHIrGc9+iR5CwxwvWW5Uln4adI3dDf6fwU//P6wZO/GgBRNr+Ngjd+WVmUA5dwlTiNTurd9W2RItife4q9CgEvoSsYI7Rr6YU34ONoVr40EFSixF2XVBmjXlFEFg0nMo46VmdoGEygVVVHuFCCgdqTtzu8ttzsMF7WLg0ZV7RbKokfSY5vw62pm/gyJK2WnWTN07VD7+f0sUSvY9VSZZynwj2J/6sx1LO+x8TAXXklacGeM6WMiA30Uq7hTK7JvIMOmFgw3dr+UePTAZD47hFNOkXBqabioytqWGGW3/sU3rAOEivTEoEEpsZok5XcbJtgYJxVHn3EmQAZLY6c2AF2jj/ctvpwsgDtcffD6Xwoe1Qyy1HaXDdvnfFxadiZ0GI11E1wZUmeUvKugoFrE2CkPM50265KfB8leuQVgVYE1wRmhvd5jZqGFHsAn76KzpDIXDdQX3yg02x01D+ZaA9d3xAivrY77QEmjFFBtNEML0B7OX8PsfSU3GZwKeo/SuE5DGEvQa06WUHXA9hms/CVHu1c+yUEwaA45x9F9YNTGz8PLGhGySnYsYBoJ0xazZG2v8bMhWNjflu7S7XiHCrG+90Hi5JIGppS6/E1yM5Tb4Huo1nW40G3eJzrvwnVxnbuF+JNFmBVAN9gpFeRZUk5X8d+1uvHKbGDL+iIG012cT/Yv6iDfc1zx7kooHBEoeD6YwLbM+iP4eex
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB8278.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(6133799003)(18002099003)(22082099003)(5023799004)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SmpDaE1oWTVCVXVMV1c2Ym1CZ0JpLzd1UmRrUWJmd2Z6Ulozdmx2cWN1ZURZ?=
+ =?utf-8?B?NHA3VmxobGFwSmM3dXpzYzd1ZEM5MTZzQk1JTWxyQ1M3M0VBcy91RXJINmJT?=
+ =?utf-8?B?bm9Fd2c4Y1lOVGdlMXQrWkd2WnRsNWJUdmZGbkR0ekZaNXYxUFpIbDlSejhI?=
+ =?utf-8?B?RE9STS9LYUVCNEVYenNpbGI0cURKbW13aG1zczFGdnhTMmgyM0NzWFc0NEhy?=
+ =?utf-8?B?ZmdUNmJ1QUFDN0NrTFlWaFBhckJkeDc5TjVvQ3BMSm5jUUlXam95MVB4Smxi?=
+ =?utf-8?B?N2ZIUjdoZTJNdGhONElGaGJwMENVWEVFeTloeXpYSU5KUmczV1NueUFPcStI?=
+ =?utf-8?B?U0toWWpIYUt6Vzdvd0xuTlhSWEFEU0Ivam05ZEI3ZVVaSHA5a1QyYXV0ek9z?=
+ =?utf-8?B?ejBKekl0Y3diMDdsbGR1SkxRR3BOZGQrK0JGUzBHSkcxYkhWb1ZBczNKWkZE?=
+ =?utf-8?B?NWJsdWNpekdIejAyQmRRN3g2bHRQSUZBSlZjNzVhTjRhbTlteXU3NGgyTnJL?=
+ =?utf-8?B?UitjZG5qTEdZNWYrWnlnZkRGTE5JN0pRcnFlTnZnY0pxOG1xSkxEL2FPSWNE?=
+ =?utf-8?B?Y2lKSFJOU1NneFZNb0t0bms2VEVQUGhpNEFPZTlYM3JNaUFjbzcvNVYxbE9G?=
+ =?utf-8?B?dm9XRkpwM0EvaU10VEY3VDl2VFdZVUwyVUc3QnhTVWthaFZzVzlraXExTTQ0?=
+ =?utf-8?B?bStyelIvQTEyVHVaNTAzajlvQ3NZcjNoS2xESXhQK0RFcGFyR3RNeERpOWxM?=
+ =?utf-8?B?TnQyK3ppZWoxeGJqZysxcDJCRG8vZituZFBTd0p4dnpDYkFyTTRIWk9Ta0FO?=
+ =?utf-8?B?dkRiUjljZEMrbnYvVXFwc3hxUTdVTnVvRG1ka1NUYUFYNU9Db1NUZ2tMSHpU?=
+ =?utf-8?B?QWxPWVZTTUJ2eURidXNhbUZIVWFZaXlZeGgzTThMbHNFK1dlVXRHRXIzVlN2?=
+ =?utf-8?B?SWxYNVlJQnI1QWx6R2QvRmgvR3hESjZVaW0veDAwRERHU1lwR3ZtM1E1UE1a?=
+ =?utf-8?B?ZVFVY0JFRVlERDNZZ1Q2VHFIUER4TFhoWmhsYnk5Nm15RVlXOFdadloyME9m?=
+ =?utf-8?B?TGFOaGpZMUxYa21vWFBucGdvU2plSW9GcUVLSGdJaEYrd2NSVmFhT0kvdFVU?=
+ =?utf-8?B?aTBUbjVNM1JBY3ZlRTlLaDN3U3ZYcXhDR3RMNW8vYzJsQk1ZMjlseEU5VjJl?=
+ =?utf-8?B?VkF3S3lwcjE2eXlmc1d3cGQyY3VWcy9lTzJ0dFJQMnFLZjlKcWlLbDlPZ0py?=
+ =?utf-8?B?MkFJZEhKRXozUThJaWhRT1IvYURDQXZmUk9ua1I1RE5kSTZxLzFyZVZpZG9i?=
+ =?utf-8?B?MDVSSnc5aHBFSFZYV0VJbWhNRUJTK0xYMkRkUldXNmJLN0VTUGFUR1JCejRk?=
+ =?utf-8?B?L0wyN1pDcnRvNGlyWXZzSFlBRi8xaEx1ZDNzUUVtM0thNE5zV0xFWkJJZnNX?=
+ =?utf-8?B?OEFZVnNrdHFkSmZPTzVMNU9vS2I5QWNBUmJPcnJCeGVJNnQzbkpQTFpPWUlX?=
+ =?utf-8?B?WitGNXE5d1A2dC82WUVzemtDOVlnQ1NlLzhzblpsRUw4UEZianVQRjYzYmlE?=
+ =?utf-8?B?ZnJUdUtUUk1UcS9XSFZ3cWNkK0JpSGF5ejhFTlgvWkxxRFlYQmFCUUovNzlM?=
+ =?utf-8?B?bHZ1Qjh3dEpUd2FDcndiU01UNktHTnV6UEJ0cVVFRUJPUDQ1Ui9KZ204UmVv?=
+ =?utf-8?B?YVMzRkFvOGlUNjBGWHhJenNRTDUyVU5PTXk2NytPYkN1NDdiWkFaUEhPQjlT?=
+ =?utf-8?B?UlZhVHRkOHVNVVN3eEQzZis3NEVlbXhUUjR6UVFIb2k0S1c0bk44N2RmUWZW?=
+ =?utf-8?B?SjlmMTBzN0F5bnlXZXg2bE05dVU4d2JRSmVDZ0xjdE16YWdQSnNRWUUyTU5r?=
+ =?utf-8?B?THpHbWRpaHp6WFdvMU5XT1h5UGhmbnhuckJ4WmtWYmVRU1NqK1ZNUENaUm5Y?=
+ =?utf-8?B?TjFSczJEV1BUMU1IUWxnQzZZMjVyNUg5Q203WUthSlVXalVqUjgza21HdHhv?=
+ =?utf-8?B?aUdHcHRISmdoZzZiakQzWmxLa0NxdmVDcUxVeUhSRDRVNEFmWVZRUE9XaWhH?=
+ =?utf-8?B?Uml2YWhrM3d1MWl2TWc2WHpEaUNQbnZoRUlOajNLS1ZkeExnek5pUXZIdTdh?=
+ =?utf-8?B?Ukd4NUV4cGFoVkljK2ZkMXpBempiRkRWcFE2bXJ5ODFQaUlMU1Jvam1TSFlP?=
+ =?utf-8?B?Nlp5Mm80ZHdIU3lSL3ZYQVBTZ3lZSkhhaHNUSkV6VjJBa0lnRFJwNFUvb3BO?=
+ =?utf-8?B?VDNkMm9LODZqa3c5WWZRbmVZVnNvS3BqUGlyRCtpdTJ5NjRwcFd0OWhQaVNh?=
+ =?utf-8?B?WWRtaE40ckJxN0ZmTUFDRW9JMEozcGVIYmFRQ1owMmVMYXpTZVlUWmxBbjA5?=
+ =?utf-8?Q?VE1oZT4y8d8i6IXM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6CF0791AF9FDB64386CD5247BF0F701F@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB8278.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 088d41ce-b1a8-4673-2932-08dec7b981a6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2026 13:01:08.6409
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tmeqBWGuRYGc+JUOqZ89wSTVK3uVnrRe/mW/y02PxeVPfty3s0eUeiSa00QZU6q0H/Dzt+ifQvq0QSkSsosm51RE5tehYH+/vq7E0Nfxw/kBVrs5vQquYg/dD2KnvxXH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB6866
 
-On Wed, 10 Jun 2026 22:13:42 +0700
-Nguyen Minh Tien <zizuzacker@gmail.com> wrote:
-
-> Add an IIO driver for the Texas Instruments ADS1220 24-bit delta-sigma
-> SPI ADC. The driver supports single-ended and differential voltage
-> channels described as device-tree child nodes, per-channel programmable
-> gain (exposed through scale) and data rate (exposed through sampling
-> frequency), the internal 2.048V reference, an external reference via a
-> regulator, or the analog supply (AVDD) as a ratiometric reference,
-> single-shot conversions and a DRDY-interrupt-driven triggered buffer.
-> Conversions are gated either on the DRDY interrupt or, when no interrupt
-> is wired, on a data-rate-derived delay. Runtime PM powers the device down
-> between conversions.
-> 
-> Signed-off-by: Nguyen Minh Tien <zizuzacker@gmail.com>
-
-https://sashiko.dev/#/patchset/20260610151342.44274-1-zizuzacker%40gmail.com
-Has some feedback.  Take a look, but do be aware it is sometimes wrong.
-For example, it is common for SPI controllers to use buffers that are
-next to each other for DMA.  Maybe it's not the intent of the DMA framework
-but in practice it works.
-
-Various comments inline
-
-Thanks,
-
-Jonathan
-
-> ---
->  MAINTAINERS                  |   7 +
->  drivers/iio/adc/Kconfig      |  12 +
->  drivers/iio/adc/Makefile     |   1 +
->  drivers/iio/adc/ti-ads1220.c | 835 +++++++++++++++++++++++++++++++++++
->  4 files changed, 855 insertions(+)
->  create mode 100644 drivers/iio/adc/ti-ads1220.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 396d4e76d..1797af05c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -26661,6 +26661,13 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/adc/ti,ads1119.yaml
->  F:	drivers/iio/adc/ti-ads1119.c
->  
-> +TI ADS1220 ADC DRIVER
-> +M:	Nguyen Minh Tien <zizuzacker@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
-Bring this in with the first file, so in the binding doc.
-> +F:	drivers/iio/adc/ti-ads1220.c
-And add this line in this patch.
-
-> diff --git a/drivers/iio/adc/ti-ads1220.c b/drivers/iio/adc/ti-ads1220.c
-> new file mode 100644
-> index 000000000..06bcc8841
-> --- /dev/null
-> +++ b/drivers/iio/adc/ti-ads1220.c
-;
-> +
-> +/*
-> + * Available scales expressed as gain reciprocals (val / val2), matching the
-> + * convention used by the sibling ti-ads1119 driver: writing 0.25 selects a
-> + * gain of 4. The full list is used for differential channels; single-ended
-> + * channels (which force the PGA into bypass) are limited to the first three
-> + * entries (gains 1, 2, 4).
-
-This doesn't feel right. I'd expect to see scaling including the reference voltage
-so you'll have to compute the array at runtime.  Maybe we have an historical bug
-in the ads1119 if it is not having it's read_raw and write_raw match values.
-
-> + */
-> +static const int ads1220_scale_avail[] = {
-> +	1, 1,
-> +	1, 2,
-> +	1, 4,
-> +	1, 8,
-> +	1, 16,
-> +	1, 32,
-> +	1, 64,
-> +	1, 128,
-> +};
-> +
-> +#define ADS1220_SE_SCALE_AVAIL_LEN	(3 * 2)
-> +#define ADS1220_SCALE_AVAIL_LEN		ARRAY_SIZE(ads1220_scale_avail)
-> +
-> +struct ads1220_channel_config {
-> +	unsigned int mux;
-> +	unsigned int gain;
-> +	unsigned int datarate;
-> +	bool single_ended;
-> +};
-> +
-> +struct ads1220_state {
-> +	struct spi_device *spi;
-> +	struct completion completion;
-> +	struct iio_trigger *trig;
-> +	struct ads1220_channel_config *channels_cfg;
-> +	unsigned int num_channels_cfg;
-> +	int vref_uV;
-> +	unsigned int vref_source;
-> +
-> +	/*
-> +	 * DMA-safe buffers. tx is used for command/register writes, rx for
-> +	 * register and conversion-result reads. scan holds one sample plus a
-> +	 * timestamp for the triggered buffer.
-> +	 */
-> +	u8 tx[2] __aligned(IIO_DMA_MINALIGN);
-> +	u8 rx[ADS1220_DATA_BYTES];
-> +	struct {
-> +		s32 sample;
-> +		aligned_s64 timestamp;
-> +	} scan;
-
-This is accessed other than for DMA.  So if you want it in the structure
-move it before the section that has forced alignment.  However, see below
-- I think in this case simply using spi_write_then_read() everywhere
-will be a useful simplification.
-
-> +};
-> +
-> +static int ads1220_command(struct ads1220_state *st, u8 cmd)
-> +{
-> +	st->tx[0] = cmd;
-> +
-> +	return spi_write(st->spi, st->tx, 1);
-> +}
-> +
-> +static int ads1220_write_reg(struct ads1220_state *st, u8 reg, u8 val)
-> +{
-> +	st->tx[0] = ADS1220_CMD_WREG_REG(reg);
-> +	st->tx[1] = val;
-> +
-> +	return spi_write(st->spi, st->tx, 2);
-
-Given the buffers are small, you could use spi_write_the_read() with 0 sized
-read to avoid need for DMA safe buffers.  I think that would end up
-a little simpler and the cost will be tiny.
-
-> +}
-> +
-> +static int ads1220_read_reg(struct ads1220_state *st, u8 reg, u8 *val)
-> +{
-> +	int ret;
-> +
-> +	st->tx[0] = ADS1220_CMD_RREG_REG(reg);
-> +
-> +	ret = spi_write_then_read(st->spi, st->tx, 1, st->rx, 1);
-
-Can use local variables for the buffers (it bounces the data anyway)
-which might be a little simpler to read.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = st->rx[0];
-> +
-> +	return 0;
-> +}
-> +
-> +static int ads1220_reset(struct ads1220_state *st)
-> +{
-> +	int ret;
-> +
-> +	ret = ads1220_command(st, ADS1220_CMD_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Wait at least 50us + 32 x tCLK after RESET before any command. */
-
-Not obvious how this matches value of 100 to fsleep. Please provide
-a little more info - such as what rate of tCLK is.
-
-> +	fsleep(100);
-> +
-> +	return 0;
-> +}
-
-> +static int ads1220_single_conversion(struct ads1220_state *st,
-> +				     const struct iio_chan_spec *chan,
-> +				     int *val, bool calib_offset)
-> +{
-> +	struct device *dev = &st->spi->dev;
-> +	struct ads1220_channel_config *cfg = &st->channels_cfg[chan->address];
-> +	unsigned int mux = cfg->mux;
-> +	bool single_ended = cfg->single_ended;
-> +	int ret;
-> +
-> +	if (calib_offset) {
-> +		mux = ADS1220_MUX_SHORTED;
-> +		single_ended = false;
-> +	}
-> +
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1220_configure(st, mux, cfg->gain, cfg->datarate,
-> +				single_ended, false);
-> +	if (ret)
-> +		goto out;
-> +
-> +	if (st->spi->irq)
-> +		reinit_completion(&st->completion);
-> +
-> +	ret = ads1220_command(st, ADS1220_CMD_START);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = ads1220_read_sample(st, cfg->datarate, val);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = IIO_VAL_INT;
-> +out:
-> +	pm_runtime_mark_last_busy(dev);
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ads1220_read_raw(struct iio_dev *indio_dev,
-> +			    const struct iio_chan_spec *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct ads1220_state *st = iio_priv(indio_dev);
-> +	struct ads1220_channel_config *cfg = &st->channels_cfg[chan->address];
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +		ret = ads1220_single_conversion(st, chan, val, false);
-> +		iio_device_release_direct(indio_dev);
-> +		return ret;
-> +	case IIO_CHAN_INFO_OFFSET:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +		ret = ads1220_single_conversion(st, chan, val, true);
-
-I think a comment on why this shorted channel is appropriate for offset
-would be good (and sashiko thinks you have the sign wrong)
-
-> +		iio_device_release_direct(indio_dev);
-> +		return ret;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* scale [mV] = vref / (gain * 2^23); gain is a power of two. */
-> +		*val = st->vref_uV / MILLI;
-> +		*val2 = (chan->scan_type.realbits - 1) + ilog2(cfg->gain);
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val = cfg->datarate;
-> +		return IIO_VAL_INT;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ads1220_read_avail(struct iio_dev *indio_dev,
-> +			      const struct iio_chan_spec *chan,
-> +			      const int **vals, int *type, int *length,
-> +			      long mask)
-> +{
-> +	struct ads1220_state *st = iio_priv(indio_dev);
-> +	struct ads1220_channel_config *cfg = &st->channels_cfg[chan->address];
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*type = IIO_VAL_FRACTIONAL;
-> +		*vals = ads1220_scale_avail;
-> +		*length = cfg->single_ended ? ADS1220_SE_SCALE_AVAIL_LEN :
-> +					      ADS1220_SCALE_AVAIL_LEN;
-> +		return IIO_AVAIL_LIST;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*type = IIO_VAL_INT;
-> +		*vals = ads1220_datarates;
-> +		*length = ARRAY_SIZE(ads1220_datarates);
-> +		return IIO_AVAIL_LIST;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ads1220_write_raw(struct iio_dev *indio_dev,
-> +			     const struct iio_chan_spec *chan,
-> +			     int val, int val2, long mask)
-> +{
-> +	struct ads1220_state *st = iio_priv(indio_dev);
-> +	struct ads1220_channel_config *cfg = &st->channels_cfg[chan->address];
-> +	unsigned int gain;
-> +	int i;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* The available scales are the gain reciprocals (e.g. 1/4). */
-> +		if (val == 0 && val2 == 0)
-> +			return -EINVAL;
-> +
-> +		gain = MICRO / (val * MICRO + val2);
-> +		if (!is_power_of_2(gain) || gain > BIT(ADS1220_NUM_GAINS - 1))
-> +			return -EINVAL;
-> +		if (cfg->single_ended && gain > ADS1220_MAX_SE_GAIN)
-> +			return -EINVAL;
-> +
-> +		cfg->gain = gain;
-
-Sashiko called this out.  The value written here should be the same as the
-one we read back from read_raw().  If seems this one isn't taking the reference
-voltage into account and should be doing so.
-
-Sadly there is no way to reverse IIO_VAL_FRACTIONAL so to make things easier
-you may have to stop using that for the avail and read_raw callbacks and instead
-compute the values for IIO_VAL_INT_PLUS_MICRO
-
-> +		return 0;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		for (i = 0; i < ARRAY_SIZE(ads1220_datarates); i++) {
-> +			if (ads1220_datarates[i] == val) {
-> +				cfg->datarate = val;
-> +				return 0;
-> +			}
-> +		}
-> +		return -EINVAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-> +
-> +static int ads1220_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1220_state *st = iio_priv(indio_dev);
-> +	struct device *dev = &st->spi->dev;
-> +	struct ads1220_channel_config *cfg;
-> +	unsigned int index;
-> +	int ret;
-> +
-> +	index = find_first_bit(indio_dev->active_scan_mask,
-> +			       iio_get_masklength(indio_dev));
-> +	cfg = &st->channels_cfg[index];
-> +
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1220_configure(st, cfg->mux, cfg->gain, cfg->datarate,
-> +				cfg->single_ended, true);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret = ads1220_command(st, ADS1220_CMD_START);
-> +	if (ret)
-> +		goto err;
-> +
-> +	return 0;
-> +err:
-> +	pm_runtime_mark_last_busy(dev);
-> +	pm_runtime_put_autosuspend(dev);
-> +	return ret;
-> +}
-> +
-> +static int ads1220_buffer_postdisable(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1220_state *st = iio_priv(indio_dev);
-> +	struct device *dev = &st->spi->dev;
-> +
-> +	pm_runtime_mark_last_busy(dev);
-> +	pm_runtime_put_autosuspend(dev);
-
-Read current kernel implementation of pm_runtime_put_autosuspend()
-and consider if this pair of calls makes sense any more (it used to!)
-
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct iio_buffer_setup_ops ads1220_buffer_setup_ops = {
-> +	.preenable = ads1220_buffer_preenable,
-> +	.postdisable = ads1220_buffer_postdisable,
-> +	.validate_scan_mask = &iio_validate_scan_mask_onehot,
-
-I haven't really thought this through but is onehot suitable for this
-device?  Obvious in simple continuous conversion modes you haven't
-a lot of choice, but I think a more complex SPI handling can do
-the appropriate channel updates in parallel with capture of the
-previous channel.   Fine to leave that until we have a user though!
-
-> +};
-> +
-> +static const struct iio_trigger_ops ads1220_trigger_ops = {
-> +	.validate_device = &iio_trigger_validate_own_device,
-> +};
-
-Just to check, can this device be used with other triggers?
-
-> +
-> +static int ads1220_map_mux(struct device *dev, u32 ain_pos, u32 ain_neg,
-> +			   bool differential, unsigned int *mux,
-> +			   bool *single_ended)
-> +{
-> +	static const u8 diff_mux[ADS1220_MAX_AIN][ADS1220_MAX_AIN] = {
-> +		[0][1] = 0x0, [0][2] = 0x1, [0][3] = 0x2,
-> +		[1][2] = 0x3, [1][3] = 0x4, [1][0] = 0x6,
-> +		[2][3] = 0x5,
-> +		[3][2] = 0x7,
-> +	};
-> +
-> +	if (!differential) {
-> +		if (ain_pos >= ADS1220_MAX_AIN)
-> +			return -EINVAL;
-> +		*mux = ADS1220_MUX_SINGLE(ain_pos);
-> +		*single_ended = true;
-> +		return 0;
-> +	}
-> +
-> +	if (ain_pos >= ADS1220_MAX_AIN || ain_neg >= ADS1220_MAX_AIN)
-> +		return -EINVAL;
-> +
-> +	/* Only the input pairs the multiplexer can route are valid. */
-> +	if (ain_pos == ain_neg || (diff_mux[ain_pos][ain_neg] == 0 &&
-> +				   !(ain_pos == 0 && ain_neg == 1)))
-
-The check is a little ugly.  Maybe it would be simpler to use MAX_U8 as a
-marker and fill the rest of the table above.
-
-> +		return -EINVAL;
-> +
-> +	*mux = diff_mux[ain_pos][ain_neg];
-> +	*single_ended = false;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ads1220_alloc_channels(struct iio_dev *indio_dev)
-> +{
-> +	const struct iio_chan_spec ads1220_channel = {
-> +		.type = IIO_VOLTAGE,
-> +		.indexed = 1,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE) |
-> +				      BIT(IIO_CHAN_INFO_OFFSET) |
-> +				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE) |
-> +						BIT(IIO_CHAN_INFO_SAMP_FREQ),
-> +		.scan_type = {
-> +			.sign = 's',
-> +			.realbits = ADS1220_DATA_BITS,
-> +			.storagebits = 32,
-> +			.endianness = IIO_CPU,
-> +		},
-> +	};
-> +	const struct iio_chan_spec ads1220_ts = IIO_CHAN_SOFT_TIMESTAMP(0);
-
-That is now a designated initializer after a recent patch from David, so you
-can now avoid the local variable and assign from the macro directly.
-
-> +	struct ads1220_state *st = iio_priv(indio_dev);
-> +	struct device *dev = &st->spi->dev;
-> +	struct iio_chan_spec *channels, *chan;
-> +	unsigned int num_channels, i = 0;
-
-Don't mix assigning and non assigning declarations - they are sometimes hard
-to read (though obviously this simple one isn't too bad!)
-
-> +	int ret;
-> +
-> +	st->num_channels_cfg = device_get_child_node_count(dev);
-> +	if (st->num_channels_cfg == 0 ||
-> +	    st->num_channels_cfg > ADS1220_MAX_CHANNELS)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Invalid channel count %u (max %u)\n",
-> +				     st->num_channels_cfg, ADS1220_MAX_CHANNELS);
-> +
-> +	st->channels_cfg = devm_kcalloc(dev, st->num_channels_cfg,
-> +					sizeof(*st->channels_cfg), GFP_KERNEL);
-> +	if (!st->channels_cfg)
-> +		return -ENOMEM;
-> +
-> +	/* One extra channel for the timestamp. */
-> +	num_channels = st->num_channels_cfg + 1;
-> +	channels = devm_kcalloc(dev, num_channels, sizeof(*channels),
-> +				GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		struct ads1220_channel_config *cfg = &st->channels_cfg[i];
-> +		bool differential;
-> +		u32 ain[2];
-> +
-> +		differential = fwnode_property_present(child, "diff-channels");
-> +		if (differential)
-> +			ret = fwnode_property_read_u32_array(child,
-> +							     "diff-channels",
-> +							     ain, 2);
-> +		else
-> +			ret = fwnode_property_read_u32(child, "single-channel",
-> +						       &ain[0]);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to read channel property\n");
-> +
-> +		ret = ads1220_map_mux(dev, ain[0], ain[1], differential,
-> +				      &cfg->mux, &cfg->single_ended);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Invalid input combination\n");
-> +
-> +		cfg->gain = 1;
-> +		cfg->datarate = ads1220_datarates[0];
-> +
-> +		chan = &channels[i];
-> +		*chan = ads1220_channel;
-
-I'd use a designated intializer here instead of a const that you copy.
-That lets us combine a bunch of stuff into one place.
-
-
-		channels[i++] = (struct iio_chan_spec) = {
-			.type = IIO_VOLTAGE,
-			.indexed = 1,
-			.differental = differential ? 1 : 0,
-			.channel = ain[0],
-			.channel2 = ain[1], // just make sure this is set to 0 above.
-			.address = i,
-			.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-					      BIT(IIO_CHAN_INFO_SCALE) |
-					      BIT(IIO_CHAN_INFO_OFFSET) |
-					      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-			.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE) |
-							BIT(IIO_CHAN_INFO_SAMP_FREQ),
-			.scan_index = i,
-			.scan_type = {
-				.sign = 's',
-				.realbits = ADS1220_DATA_BITS,
-				.storagebits = 32,
-				.endianness = IIO_CPU,
-			},
-		};
-
-> +		chan->channel = ain[0];
-> +		chan->address = i;
-> +		chan->scan_index = i;
-> +		if (differential) {
-> +			chan->channel2 = ain[1];
-> +			chan->differential = 1;
-> +		}
-> +
-> +		i++;
-> +	}
-> +
-> +	channels[i] = ads1220_ts;
-> +	channels[i].scan_index = i;
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = num_channels;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ads1220_init(struct ads1220_state *st)
-> +{
-> +	u8 reg2;
-> +	int ret;
-> +
-> +	ret = ads1220_reset(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reg2 = FIELD_PREP(ADS1220_CFG2_VREF, st->vref_source);
-> +
-> +	ret = ads1220_write_reg(st, ADS1220_REG_CONFIG2, reg2);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* DRDY only on the dedicated pin (DRDYM = 0). */
-> +	return ads1220_write_reg(st, ADS1220_REG_CONFIG3, 0);
-
-We might want something in the dt binding about the other case
-not making sense.  We can't safely do interrupts on an SPI data line
-(though some SoCs happen to do the right things to make that work)
-so we will in general use another pin tied to that line.  If that
-were the case might as well wire it to the separate pin instead.
-
-> +}
-
-> +
-> +static int ads1220_probe(struct spi_device *spi)
-> +{
-> +	struct device *dev = &spi->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct ads1220_state *st;
-> +	int avdd_uV;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	st = iio_priv(indio_dev);
-> +	st->spi = spi;
-> +	spi_set_drvdata(spi, indio_dev);
-> +
-> +	/* The ADS1220 uses SPI mode 1 (CPOL = 0, CPHA = 1). */
-> +	spi->mode |= SPI_CPHA;
-> +	spi->bits_per_word = 8;
-
-Fairly sure that 8 is the default, so no point in setting it here.
-
-> +	ret = spi_setup(spi);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "SPI setup failed\n");
-> +
-> +	indio_dev->name = "ads1220";
-> +	indio_dev->info = &ads1220_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	ret = devm_regulator_get_enable(dev, "dvdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable dvdd\n");
-> +
-> +	avdd_uV = devm_regulator_get_enable_read_voltage(dev, "avdd");
-> +	if (avdd_uV < 0)
-> +		return dev_err_probe(dev, avdd_uV, "Failed to get avdd\n");
-Prefer
-	ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
-	if (ret < 0)
-		return dev_err..
-	avdd_uV = ret;
-
-Mostly because we don't need to check avdd_uV is signed and general principle
-of avoiding reading it.
-
-However, given it's fairly common to not be able to read a voltage from a regulator
-you may want to only do this (rather than simply enabling it) if you need
-it for a channel reference.
-
-> +
-> +	/*
-> +	 * Reference source, in priority order:
-> +	 *  - external reference on REFP0/REFN0 if a "vref" regulator is given;
-> +	 *  - the analog supply (AVDD) for ratiometric single-supply setups if
-> +	 *    "ti,vref-avdd" is set - no extra pins, full 0..AVDD input range;
-> +	 *  - otherwise the internal 2.048V reference.
-> +	 */
-> +	st->vref_uV = devm_regulator_get_enable_read_voltage(dev, "vref");
-> +	if (st->vref_uV >= 0) {
-> +		st->vref_source = ADS1220_VREF_REFP0_REFN0;
-> +	} else if (st->vref_uV != -ENODEV) {
-> +		return dev_err_probe(dev, st->vref_uV, "Failed to get vref\n");
-> +	} else if (device_property_read_bool(dev, "ti,vref-avdd")) {
-
-As above, I'd only get the voltage on avdd here.
-
-> +		st->vref_source = ADS1220_VREF_AVDD;
-> +		st->vref_uV = avdd_uV;
-> +	} else {
-> +		st->vref_source = ADS1220_VREF_INTERNAL;
-> +		st->vref_uV = ADS1220_INTERNAL_VREF_uV;
-> +	}
-
-> +
-> +static int ads1220_runtime_resume(struct device *dev)
-> +{
-> +	/*
-> +	 * A START/SYNC command wakes the analog parts from power-down; it is
-> +	 * issued by the conversion path, so there is nothing to do here beyond
-> +	 * letting the device settle after the supplies are active again.
-
-This isn't manipulating the supplies so why do we need to wait for them?
-
-> +	 */
-> +	fsleep(100);
-> +
-> +	return 0;
-> +}
-> +
-> +static DEFINE_RUNTIME_DEV_PM_OPS(ads1220_pm_ops, ads1220_runtime_suspend,
-> +				 ads1220_runtime_resume, NULL);
-> +
-> +static const struct spi_device_id ads1220_id[] = {
-> +	{ "ads1220" },
-
-Please use a name initializer here.  We are cleaning up this across
-IIO at the moment as it makes things easier to read and possible enables
-more interesting spi_device_id structures in future.
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(spi, ads1220_id);
-
+SGkgU2VsdmFtYW5pLA0KDQpPbiAxMC8wNi8yNiAxOjMyIGFtLCBTZWx2YW1hbmkgUmFqYWdvcGFs
+IHdyb3RlOg0KPiBFWFRFUk5BTCBFTUFJTDogRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0
+YWNobWVudHMgdW5sZXNzIHlvdSBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+PiBTdWJq
+ZWN0OiBSRTogW1BBVENIIG5ldCB2MyAyLzJdIGR0LWJpbmRpbmdzOiBuZXQ6IHVwZGF0ZWQgaW50
+ZXJydXB0IHR5cGUgdG8gYmUgYWN0aXZlIGxvdywNCj4+IGxldmVsIHRyaWdnZXJlZA0KPj4NCj4+
+DQo+PiBUaGFua3MgUGFydGhpYmFuLg0KPj4gVGhvdWdoIGNvZGUgd2FzIHJlYWR5LCBJIGdvdCBp
+bnRvIG90aGVyIHRoaW5ncyBmb3IgdGhlIHBhc3QgdHdvIGRheXMuIFBsZWFzZSBzaGFyZSB5b3Vy
+DQo+PiBjaGFuZ2VzLiBJIHdpbGwgY29tcGFyZSB3aXRoIG1pbmUgYmVmb3JlIHN1Ym1pdHRpbmcu
+DQo+IA0KPiANCj4gUGFydGhpYmFuLA0KPiANCj4gSnVzdCBzdWJtaXR0ZWQgdGhlIHBhdGNoZXMu
+IFdoZW4geW91IGhhdmUgdGltZSwgcGxlYXNlIHJldmlldyBhbmQgdGVzdC4NCj4gQXMgeW91IGNv
+dWxkIHNlZSwgb25lIGNoYW5nZSBsZWQgdG8gbW9yZSBpbnZlc3RpZ2F0aW9uLiBJIHNhdyBhIHRy
+YWZmaWMgc3RhbGwNCj4gd2hlbiBJIG92ZXJzdWJzY3JpYmVkIHRoZSB0cmFmZmljLiBUaGF0IGlu
+dmVzdGlnYXRpb24gbGVkIHRvIGV4dHJhIHBhdGNoZXMuDQo+IA0KPiBodHRwczovL3BhdGNod29y
+ay5rZXJuZWwub3JnL3Byb2plY3QvbmV0ZGV2YnBmL2xpc3QvP3Nlcmllcz0xMTA4ODA0DQpUaGFu
+ayB5b3UgZm9yIHRoZSB1cGRhdGUuIEkgd2lsbCB0ZXN0IHlvdXIgdjQgc3VibWlzc2lvbiBhbmQg
+c2hhcmUgdGhlIA0KZmVlZGJhY2sgYXMgc29vbiBhcyBwb3NzaWJsZS4NCg0KQmVzdCByZWdhcmRz
+LA0KUGFydGhpYmFuIFYNCj4gDQo+IA0KPj4NCj4+Pg0KPj4+IEJlc3QgcmVnYXJkcywNCj4+PiBQ
+YXJ0aGliYW4gVg0KPj4+Pg0KPiANCg0K
