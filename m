@@ -1,360 +1,334 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7293CAA57
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F368D3CAA55
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781172657; cv=none; b=ZWx5szii+Kl+65oRdci/mvELixkXMmdwEE6IirX5dmiDmoIchlg4WGLC6L1lT7s7GFE07Hi0FwuRdUgU7VOzleexa6QAgZ7UyAj0yfSW1Ux2Xz6s9lsV2nkrO/WfhAxxhmckLvFo83/XxTm6JVb/yfibwhRE+Cs7Dr4VvzHmKn8=
+	t=1781172809; cv=none; b=RGz07KnUXfWESdacxQwZmayKzzoOaeomem9mm5h8k3otLloRL7bnI6t6ohIXyn+iF4Es0UqrI1Voe3Ux3p4z46y8eJDfJKbZqpHt2JBpeuGeBCTRd7eXj05nxZoD6lo/seF03roueZcsCSjmuLmcm8AG59eHWmnHDbjHPqavZgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781172657; c=relaxed/simple;
-	bh=ZxjX8+A6FBTaecjdAORo5qujDJsZbUaBlBdXJEaxCxI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CpyqybnTpISU6Ir6/6tdY22r644r+M/d/7WZqSFGSA+S2Fsm1lF4uO6taD6Inuj8wEDifPB6fjqgOCKUad/+AtQQAWDYjE2XOZPk8wd3ex33WuMKrTwsB35sQAfQFd5xrKtEyO41raNqUfBQMTybqNVhHIl7hwjFO+ReQw70fTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VgJ5Dp0P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aEKBFhY9; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1781172809; c=relaxed/simple;
+	bh=YDo8f7tzdscheRFFMTexaBZIDM1fKlLwL+kHTprN/vY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZMh53gO1naiMmAAszgV3q8cjJgLTi/Jv0x8PnxKcYuRKwz/S9ZIVmCbU6GrO8niifNJgGPCVNjtLkhPD71wwWu9PxeAVfqTTbnV9gDsKOoIQBpTf3q4+L367V11MFlsuQUVWNORZ5WNKt71eSa/WHnyHf5iSuphZLPA5gw6QJn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j2mQREcJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=StFFehpg; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VgJ5Dp0P";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aEKBFhY9"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B9xRNb174136
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:10:54 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j2mQREcJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="StFFehpg"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BA1Swb168107
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:13:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7Rwc4/nWVfH6Sf7XgvmXET5o5hcWse/f6GCS8/S4cFE=; b=VgJ5Dp0Py87l+223
-	coHdghLh+dO8NRPwaliGPbk7YoYD6yDxs8kwdbOjb9jFIC+yzdXAKpwhtGi/XfxT
-	0B70pPhq0J5p7zTYlN/Bq3GRBCAR8jjZZD7Usa4UIIe20ybNGXiZxvoUpBudaRto
-	ZQ4FPwGiAvytNeLv/IGM55tdbLWqioS0zq2FDGwSuBf7eXGLQAUedoxiweNXBBFX
-	jw6Et7Lj6OyJLsCqpWL1zHuldmt3o44snj/zSEZUEWbZgHr7haa3IsSZ7unNDPM3
-	ooRzbQr/jwTOJNvSTm6Zhe3kDtdutoRNOeUybdVzgpm2IPM00LmWioj9p7VsBWdZ
-	y5wGxQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6vatmy-1
+	Bh0jJTozn65zI8Feh54vu2pvrCDOQPSqIdgZRKqSjj8=; b=j2mQREcJVGn9U4G6
+	cLCM2mYvAT/tC8YYRfzdt76hyaQaOqS4vG60pd5mjHFIKBSCKWkCTE7CpHmKNa5/
+	TkqDmyE2QAkqH9IfdMPqAjeG1pjxbojsEm9PsEB0tBu6rwo7gODMbZttthQnqgOV
+	MKYkrO7AmZCmM43aSSJq/jZ2o2MOjHNPVC3+ZvVhfCWUlHGrtDPG9yfdihu5lQ/Q
+	LGBI7xZbF8+0769YLIh0zDdkImUDf8NzEWujpa+PeW8zNlfKSXSVbwUR+6+xe9fn
+	TV4Ugfn4Hxr1fVFSj+Y5KRIuk1+iUge31Ik8oHikuBOwF7Ku9o5EbADHkHNyv/rh
+	ssNEHA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6uavh8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:10:54 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c85dcdbe502so5136123a12.2
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:10:54 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:13:26 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36d98b74447so6139945a91.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 03:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781172653; x=1781777453; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7Rwc4/nWVfH6Sf7XgvmXET5o5hcWse/f6GCS8/S4cFE=;
-        b=aEKBFhY9HrAOVQ5j+F89vGJ2V3LOWeWuKW6kfsUqpBn5jknrT+yv7vBQyxkdSRJEq+
-         mcB9FQZ1KgXg6opQyTZ48/jc7RiE0mwCq7hpQBuGODC1QHcs27r+CcnPVe6lGMXFYo3U
-         moetKYlHUkf9MXR0PhvMRPgLm7kitRh7fDFL0T+a4AWfbNuyeZrQ1twuJvNAgq1LVgx0
-         mxLb6kJxAeTV6JWgztvngt8O4h7YLy+gWrEwGtywzRQF45QO5IsKgN1XxdoItOmWjkcQ
-         nDRwt4hFhEv1Aue0vPc0iyty43GF3IWOyYzxh6aUAGBxRY0zxE5yuGxH+CQni5cb9COw
-         Q87g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781172653; x=1781777453;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+        d=oss.qualcomm.com; s=google; t=1781172806; x=1781777606; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=7Rwc4/nWVfH6Sf7XgvmXET5o5hcWse/f6GCS8/S4cFE=;
-        b=AnTSLFWIBQ0I+uM1ZEX8RrQD3HefgGEL4ZvTacV2RQG/XJKq3cJK2QND39I0Y303ga
-         fbhslEAX7Psu+I9knQGeiB6YkNo9Na6r0wbp5QkRlIgC2npAL4B7Cgx5ba10ZYyYp9QP
-         uGmJFq2Y5QWjIYWxTd1V41g7gh4pHYkceyILsJbYQx5XbZy+6+xt4QuHxxfwRm46zoZK
-         fIW6bAqy9k+/5Mh3Lxww40ESoi+/IrZSu6E2p4Xvlrj6GNnAr4lg3MsHJZrPy3QMNUjL
-         ej+d1VRfy9wf8cyA6Rr6uH4TXmqKE6Gu0qCZbkRAaCEeP/hkD6xsOFVzPukyoiDSFsPc
-         nRVw==
-X-Forwarded-Encrypted: i=1; AFNElJ+eCyz4aDhG1o1oNSr61rquUfCguHEI3HX8JlSvT218WpB9VoQJXke/J1l1O8NBb6ye8cdHLC7EBrdS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIhGVFA0+zjR4HpgoDH2/GuOfMBOuauzmmmf9J6z5QYpyKGwTI
-	cNScwkEHdk9/EObIE5joxwri1Ci9nyYrdDOq47aUd5wjXdmSXjFNdLDc9sQY4PXF5DJ8cwNO/bk
-	iHTDNstcp/QUSlq6tPpj9aod2xpL21q4kwddTZR8W52exNuXMh2GdCx4W1rmz57PL
-X-Gm-Gg: Acq92OGppAusKZXLALKOpo6Tw7fwHpbyIjApZGGJOX8i6mpUPFx3R4fqMpJLLEmoHOw
-	n0V5LfSoBdlLP4NP/7qdYq2bvdhg7S8Qvu5S7rwp4hmELvmzJD841UYYoNydKB02mi1VdRPudfM
-	d0YzkA/EXpcTqWpfg5BA5lLWV7NsTsstrlsOj/aVwyPgLfY1kygu3gGKTD2qL5p3CmN/vEAMQby
-	JiUrsEjopHSiy2e+CPCiRVU0FQe6qXFEBbsKRK54WXYgNeLGONNR16kIMyE1KnwdNT1otv+TGqS
-	MJUK95rdrqrQzpsdD2X4+0iwnyhZN4H2VB2eZRN8MoKo0wccoF3RFxViYBuPR319rV6kW+DpXtR
-	TrOKFU47ryZUM+4EeLXeYrkMSd7yVxX3DGv+gQuWWKoe4C5o=
-X-Received: by 2002:a05:6a21:1518:b0:3b4:84c5:45d0 with SMTP id adf61e73a8af0-3b5e33223camr2350024637.27.1781172653300;
-        Thu, 11 Jun 2026 03:10:53 -0700 (PDT)
-X-Received: by 2002:a05:6a21:1518:b0:3b4:84c5:45d0 with SMTP id adf61e73a8af0-3b5e33223camr2349962637.27.1781172652791;
-        Thu, 11 Jun 2026 03:10:52 -0700 (PDT)
-Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c865860f3d4sm1279646a12.19.2026.06.11.03.10.45
+        bh=Bh0jJTozn65zI8Feh54vu2pvrCDOQPSqIdgZRKqSjj8=;
+        b=StFFehpgBRBdMoK3HazK2jNH2SSu0KegNXYEs/Fc0BHfok6O65oXcCiMEvf5OwG0QM
+         9aNen2T/TmxYE8uJc4kXih+vzss9ySuUI81R/4q8T909QoRnLHRjCoiHi8WwoC6/iUJW
+         DAnMLqSUHoFymVr3WDsg6PXQllihY9khnfYL4UvjUlxrIvi2vr29zbwqZVYr2oOAk+UQ
+         q1VA2/ed2EYp4NIuU2GI8i3jJWWOyfMZm+3HxV5Yj7aUMDVy3fLTuq223rcLHmgK/Xxm
+         213/O7tn/ogpSsiJfipFSEDrYt17HfelEFfEyle2ntZnOFC+k3vnvvumkcY3RyNxBsj2
+         k/TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781172806; x=1781777606;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Bh0jJTozn65zI8Feh54vu2pvrCDOQPSqIdgZRKqSjj8=;
+        b=agAHsifyFZXWYJSYXjBivUeuF53JES248NHpXQkb3f5OzCT93Sv44oNp2yDIrDI1U/
+         dAowqt+aT9/dlBWKgAB3QQZIQV5xw+qWr6W013AW49g3x/EdXv9naDJZm3Z387AqXGuz
+         o7dq6t7ZCvq6si3Og++VPAByeyrCqsoN6v3Dz+QKPfWTtyczUaMzvn9LynaGlGkfItUv
+         78tKHrdOpDCJK7Lxk/IpWxzKe3a2VX21MC0TV7ymbPSxIIGS6iBBhpkMI5KSwy8MTXfa
+         wg8ECBhGIOLpJp71qAo0b+GycGeCXvg9dhsPkuFe0UAdU/AUrQeTPRwH/moWGw/B5YMZ
+         iXQw==
+X-Forwarded-Encrypted: i=1; AFNElJ9zR27/ARavjGeW3yW4RQuAzfbxuC/nrc7W8HB84DBQUeeR1AI+TEsUO6pL+PgCLiTyplfiRPJhaYzT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJDTE5226hrE67OsDZai6RO5uTM93sQpVnDCmmrhxo4u/Zv9Pw
+	vkmj2t0anFKvOsZKp7Ao9Qq4CslG99H024jPLbNhz/5NzggpyMZtFyqWtK0GuATQtvHyrp9bey7
+	qcI6K3tz/ptbn9aDksN2LoSsK27xGumGMDz7P54Dy/J5ZWa8l3C3CrQBrbun21pwp
+X-Gm-Gg: Acq92OGQccTvzzo7p2C5fcO0qfhbJr3frMRdo4RqMqP7YCATd+lq6pL4S1UvMZ1EJZW
+	vaRepSWzmuoeOknkUJxngXVfmojKBqVKgKbJk5zIT/9ZfrwsolOKkIn00n227CtKE21hwt4Zh4G
+	ixxlh7wocBgmk8aq/2RyeKkl0yJOvfITiHKfWULZTplayC0qeMK5qM62PImWnmOcd2zv9dZJmF1
+	U4G+s95Nwt6IWt2lpDvWtXi8yw4Hvt5PjPF2E9c7GR2NX3uSc2mxN4quVqd1hSp2pYZ6coho82O
+	8pYVROftsYp9e770oJ6Eiczx3oObd/QQp3gsdzCEDrg34qHAfoKpOrCUeDKqfxGW8ED4SjDqFJP
+	XrKROzzS/YxtTdpAIyrLf/xZYa2rqhic9eBIRF1r4CmkyfOUk3bAH35FcaSCxI8rfKiby6Q==
+X-Received: by 2002:a17:90b:390a:b0:36d:b818:f848 with SMTP id 98e67ed59e1d1-3779bade6f1mr2514698a91.5.1781172805709;
+        Thu, 11 Jun 2026 03:13:25 -0700 (PDT)
+X-Received: by 2002:a17:90b:390a:b0:36d:b818:f848 with SMTP id 98e67ed59e1d1-3779bade6f1mr2514650a91.5.1781172805218;
+        Thu, 11 Jun 2026 03:13:25 -0700 (PDT)
+Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-377a5ddd3cdsm797886a91.1.2026.06.11.03.13.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 03:10:52 -0700 (PDT)
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 15:40:12 +0530
-Subject: [PATCH v5 5/5] arm64: dts: qcom: Add Shikra EVK boards
+        Thu, 11 Jun 2026 03:13:24 -0700 (PDT)
+Date: Thu, 11 Jun 2026 15:43:17 +0530
+From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v11 1/6] soc: qcom: ice: Add OPP-based clock scaling
+ support for ICE
+Message-ID: <aiqKPYmkIRl1QiSN@hu-arakshit-hyd.qualcomm.com>
+References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
+ <20260609-enable-ice-clock-scaling-v11-1-1cebc8b3275b@oss.qualcomm.com>
+ <mcqrm4pwziflqomw22gepqusc7jdlb2foslcfvtjufuyyoslb7@37olf54qxtfv>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-shikra-dt-v5-5-103ed26a8529@oss.qualcomm.com>
-References: <20260611-shikra-dt-v5-0-103ed26a8529@oss.qualcomm.com>
-In-Reply-To: <20260611-shikra-dt-v5-0-103ed26a8529@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-mmc@vger.kernel.org, monish.chunara@oss.qualcomm.com,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Monish Chunara <quic_mchunara@quicinc.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Xueyao An <xueyao.an@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781172612; l=6252;
- i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=ZxjX8+A6FBTaecjdAORo5qujDJsZbUaBlBdXJEaxCxI=;
- b=i6ezhM3kDydHfFKwZRjxlvfzeFVgqv/nHdE7z7Xbqsm0UzA5/G71aAoSYcFuZAxM/ytH995VY
- 0rGI3J9OP2EDrTOlhDj/5lXLt6RQD1OO9RDv7b/D02zAvsMt4JA4ZzW
-X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
- pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Proofpoint-ORIG-GUID: xTYZjBNt7RP2FIhG38kQF1LFWUZNuR81
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDEwMSBTYWx0ZWRfX6SpDDWBh3KBs
- HqgkK70W5jJGijI23bqt8yjef6u0L6NI/0iAI7VZKGanQgfwfLZRikTKK+/vIWpIssz01knXIsy
- cOnud6z7v40Q3fzk0LRxb0Y04aegctg=
-X-Proofpoint-GUID: xTYZjBNt7RP2FIhG38kQF1LFWUZNuR81
-X-Authority-Analysis: v=2.4 cv=UsRT8ewB c=1 sm=1 tr=0 ts=6a2a89ae cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <mcqrm4pwziflqomw22gepqusc7jdlb2foslcfvtjufuyyoslb7@37olf54qxtfv>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDEwMSBTYWx0ZWRfX3wgme6wUUiSj
+ 7iX3kJtNnmd74SXpQcAvgQqUCSXmCGd6wlT50ltWO1L90jAp2h7fQtiU6o2noZZFLoUPM8BruAD
+ PH7dxOPEzZ+HZDzndrAckv75gbMBW3U=
+X-Authority-Analysis: v=2.4 cv=atOCzyZV c=1 sm=1 tr=0 ts=6a2a8a46 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=TizygBHPM-tQ0bhc_XQA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDEwMSBTYWx0ZWRfXywOw5YtnQbqN
- B11/qGci7QySr1m21zyapsomAndm9SUs32Fxg+461cR8NxBPDkTk8F9Hb3bySlhuRTy3p5gr/5a
- AiOj+0mGdIs0KUT6k0IoZDDqWpL86EmVrl/rrFEZGb9Hf6E4BsNRfA2KITYYqC9IlxvpGPgwCUq
- XBPWgTuuuja7XKMjjZLwjl9Lyv1WdvMlc3bhb3g5ZrkrpIQWfH80bsK0PQNcokrezoMXRJOE2Zi
- VeunJ5nN90tshSOqyEJQq+c1GsfF7+teKpaszx/nC6Shz11Pet0Rwq7VjwHypGQIgspQwm891m8
- /8fyFjw17ac+5KCbv1CrZSrJR7kohyZKgVhGzKiadJ+4pbEE/lrMey5bBc0x3DJRwLV2U8Cfuo1
- jWHtvp6+ms1Fy/42vDnXcLcaHcCrC2kpfTa6S0dTj0jV86RtYaNh3yEqN4JPBDxDcsIrgGEtG5v
- esrGh4kvy+NTj9tSgCg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=i-GQASlAym38gW1YhUoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDEwMSBTYWx0ZWRfX1Mo46yKhi5+u
+ SkOQf6X15eCKCmd0TN3hFUrrurppVJ4qCvDJaWagrSTCX0Y3azwqgdqzbS0wrpysOaYY2uzRIOL
+ dv9jZYEFNCVELbqkRTyOkPLyQE5Nk7uE7BpF2I+oYYn3wTtbJddRActpzSc1s0/OPoRDBESiMBs
+ ky6mKBjpxtXny36eqmJ/pcdUzUHNnP6qeb4JlN7H8xR3KUGsYmjk1K/SOYD8CuC5UEvCcl8zxJS
+ RcA2P6VtySL0+IrugEHoykzw4bidQzHRkv8FjsotJjTfx2mEbR0/nazTFV7m1hTKLeaAKyHlzrE
+ aOL5Ta9xIH4K1vIoNq/ANshWi4YmedRGEcC4kZ2BgKzy4YXnL6VgUa6DMuFAO6WjL/tXC1vK1/9
+ sYLKVtXg/FgGyGZo2CLkzE1P58vVqzFJfxBTREGueVmDTA+L94K0YdRUhUlVQRaFbqIzcu3PaCA
+ ly3C3Z8OVgwdogZWPKg==
+X-Proofpoint-GUID: EmnxY8ywrHIIcrhY1qj9HtFP_qU8_0Ac
+X-Proofpoint-ORIG-GUID: EmnxY8ywrHIIcrhY1qj9HtFP_qU8_0Ac
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_02,2026-06-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- adultscore=0 bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110101
+ adultscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606110101
 
-Add device trees for the Shikra EVK platform, which combines each
-of Shikra SoM variant with a common carrier board.
+> > diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
+> > index 5f20108aa03ebe9a47a10fba9afde420add0f34a..519d08c4727a6cb2dc5991216a2c042ed6218857 100644
+> > --- a/drivers/soc/qcom/ice.c
+> > +++ b/drivers/soc/qcom/ice.c
+> > @@ -17,6 +17,7 @@
+> >  #include <linux/of_platform.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/xarray.h>
+> > +#include <linux/pm_opp.h>
+> >  
+> >  #include <linux/firmware/qcom/qcom_scm.h>
+> >  
+> > @@ -113,6 +114,8 @@ struct qcom_ice {
+> >  	bool use_hwkm;
+> >  	bool hwkm_init_complete;
+> >  	u8 hwkm_version;
+> > +	unsigned long core_clk_freq;
+> > +	bool has_opp;
+> >  };
+> >  
+> >  static DEFINE_XARRAY(ice_handles);
+> > @@ -315,6 +318,10 @@ int qcom_ice_resume(struct qcom_ice *ice)
+> >  	struct device *dev = ice->dev;
+> >  	int err;
+> >  
+> > +	/* Restore the ICE core clk freq */
+> 
+> Redundant comment.
 
-Three EVK boards are introduced:
-  - shikra-cqm-evk.dts: pairs with CQ2390M SoM (retail, with modem)
-  - shikra-cqs-evk.dts: pairs with CQ2390S SoM (retail, without modem)
-  - shikra-iqs-evk.dts: pairs with IQ2390S SoM (industrial, without modem)
+Ack. Will drop.
 
-Also add shikra-evk.dtsi, it represents the common carrier-board and
-daughter-card configuration shared across all Shikra EVK variants.
+> > +	if (ice->has_opp && ice->core_clk_freq)
+> 
+> Can core clk be 0 if OPP is used?
 
-Co-developed-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
-Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
-Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Co-developed-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Co-developed-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Co-developed-by: Xueyao An <xueyao.an@oss.qualcomm.com>
-Signed-off-by: Xueyao An <xueyao.an@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile           |  3 +++
- arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 40 +++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 40 +++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-evk.dtsi    | 15 +++++++++++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 40 +++++++++++++++++++++++++++++
- 5 files changed, 138 insertions(+)
+In the current logic, core_clk_freq will always be non-zero if has_opp is true.
+I included the check to decouple the two variables defensively, but I agree it's
+redundant if we assume the OPP table is the sole source of frequency scaling here.
+I will simplify this to *if (ice->has_opp)* and ensure core_clk_freq is initialized
+within the OPP registration block.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 6f33c4e2f09c..a9e9d829fb96 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -334,6 +334,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-huawei-matebook-e-2019.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-lenovo-yoga-c630.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-samsung-w737.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-new file mode 100644
-index 000000000000..0a52ab9b7a4c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "shikra-cqm-som.dtsi"
-+#include "shikra-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Shikra CQM EVK";
-+	compatible = "qcom,shikra-cqm-evk", "qcom,shikra-cqm-som", "qcom,shikra";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm4125_l20>;
-+	vqmmc-supply = <&pm4125_l14>;
-+
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	non-removable;
-+	supports-cqe;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-new file mode 100644
-index 000000000000..b3f19a64d7ae
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "shikra-cqm-som.dtsi"
-+#include "shikra-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Shikra CQS EVK";
-+	compatible = "qcom,shikra-cqs-evk", "qcom,shikra-cqs-som", "qcom,shikra";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm4125_l20>;
-+	vqmmc-supply = <&pm4125_l14>;
-+
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	non-removable;
-+	supports-cqe;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-new file mode 100644
-index 000000000000..d0c48bad704c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+&qupv3_0 {
-+	firmware-name = "qcom/shikra/qupv3fw.elf";
-+
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-new file mode 100644
-index 000000000000..3003a47bd759
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "shikra-iqs-som.dtsi"
-+#include "shikra-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Shikra IQS EVK";
-+	compatible = "qcom,shikra-iqs-evk", "qcom,shikra-iqs-som", "qcom,shikra";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8150_l17>;
-+	vqmmc-supply = <&pm8150_s4>;
-+
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	non-removable;
-+	supports-cqe;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
+> > +		dev_pm_opp_set_rate(ice->dev, ice->core_clk_freq);
+> > +
+> >  	err = clk_prepare_enable(ice->core_clk);
+> >  	if (err) {
+> >  		dev_err(dev, "Failed to enable core clock: %d\n", err);
+> > @@ -335,6 +342,11 @@ int qcom_ice_suspend(struct qcom_ice *ice)
+> >  {
+> >  	clk_disable_unprepare(ice->iface_clk);
+> >  	clk_disable_unprepare(ice->core_clk);
+> > +
+> > +	/* Drop the clock votes while suspend */
+> 
+> Redundant comment.
 
--- 
-2.34.1
+Ack. Will drop.
 
+> > +	if (ice->has_opp)
+> > +		dev_pm_opp_set_rate(ice->dev, 0);
+> > +
+> >  	ice->hwkm_init_complete = false;
+> >  
+> >  	return 0;
+> > @@ -560,6 +572,51 @@ int qcom_ice_import_key(struct qcom_ice *ice,
+> >  }
+> >  EXPORT_SYMBOL_GPL(qcom_ice_import_key);
+> >  
+> > +/**
+> > + * qcom_ice_scale_clk() - Scale ICE clock for DVFS-aware operations
+> > + * @ice: ICE driver data
+> > + * @target_freq: requested frequency in Hz
+> > + * @round_ceil: when true, selects nearest freq >= @target_freq;
+> > + *              otherwise, selects nearest freq <= @target_freq
+> > + *
+> > + * Selects an OPP frequency based on @target_freq and the rounding direction
+> > + * specified by @round_ceil, then programs it using dev_pm_opp_set_rate(),
+> > + * including any voltage or power-domain transitions handled by the OPP
+> > + * framework. Updates ice->core_clk_freq on success.
+> > + *
+> > + * Return: 0 on success; -EOPNOTSUPP if no OPP table; or error from
+> 
+> s/error/errno
+
+Ack. Will update.
+
+> > + *         dev_pm_opp_set_rate()/OPP lookup.
+> > + */
+> > +int qcom_ice_scale_clk(struct qcom_ice *ice, unsigned long target_freq,
+> > +		       bool round_ceil)
+> > +{
+> > +	unsigned long ice_freq = target_freq;
+> > +	struct dev_pm_opp *opp;
+> > +	int ret;
+> > +
+> > +	if (!ice->has_opp)
+> > +		return -EOPNOTSUPP;
+> > +
+> > +	if (round_ceil)
+> > +		opp = dev_pm_opp_find_freq_ceil(ice->dev, &ice_freq);
+> > +	else
+> > +		opp = dev_pm_opp_find_freq_floor(ice->dev, &ice_freq);
+> > +
+> > +	if (IS_ERR(opp))
+> > +		return PTR_ERR(opp);
+> > +	dev_pm_opp_put(opp);
+> > +
+> > +	ret = dev_pm_opp_set_rate(ice->dev, ice_freq);
+> > +	if (ret) {
+> > +		dev_err(ice->dev, "Unable to scale ICE clock rate\n");
+> > +		return ret;
+> > +	}
+> > +	ice->core_clk_freq = ice_freq;
+> > +
+> > +	return ret;
+> 
+> return 0;
+
+Ack. Will update.
+
+> > +}
+> > +EXPORT_SYMBOL_GPL(qcom_ice_scale_clk);
+> > +
+> >  static struct qcom_ice *qcom_ice_create(struct device *dev,
+> >  					void __iomem *base)
+> >  {
+> > @@ -738,6 +795,7 @@ static int qcom_ice_probe(struct platform_device *pdev)
+> >  	unsigned long phandle = pdev->dev.of_node->phandle;
+> >  	struct qcom_ice *engine;
+> >  	void __iomem *base;
+> > +	int err;
+> >  
+> >  	guard(mutex)(&ice_mutex);
+> >  
+> > @@ -756,6 +814,41 @@ static int qcom_ice_probe(struct platform_device *pdev)
+> >  		return PTR_ERR(engine);
+> >  	}
+> >  
+> > +	err = devm_pm_opp_set_clkname(&pdev->dev, "core");
+> > +	if (err && err != -ENOENT) {
+> > +		dev_err(&pdev->dev, "Unable to set core clkname to OPP-table\n");
+> > +		/* Store the error pointer for devm_of_qcom_ice_get() */
+> > +		xa_store(&ice_handles, phandle, ERR_PTR(err), GFP_KERNEL);
+> > +		return err;
+> > +	}
+> > +
+> > +	/* OPP table is optional */
+> > +	err = devm_pm_opp_of_add_table(&pdev->dev);
+> > +	if (err && err != -ENODEV) {
+> > +		dev_err(&pdev->dev, "Invalid OPP table in Device tree\n");
+> > +		/* Store the error pointer for devm_of_qcom_ice_get() */
+> > +		xa_store(&ice_handles, phandle, ERR_PTR(err), GFP_KERNEL);
+> > +		return err;
+> > +	}
+> > +
+> > +	/*
+> > +	 * The OPP table is optional. devm_pm_opp_of_add_table() returns
+> > +	 * -ENODEV when no OPP table is present in DT, which is not treated
+> > +	 * as an error. Therefore, track successful OPP registration only
+> > +	 * when err is not -ENODEV.
+> > +	 */
+> > +	if (err == -ENODEV)
+> > +		dev_info(&pdev->dev, "ICE OPP table is not registered, please update your DT\n");
+> 
+> dev_dbg() please. No need to spam old DTs.
+
+I intentionally used dev_info() here as it would provide a quick diagnostic hint
+for KPI/performance regressions as mentioned in the cover-letter, which can be difficult
+to trace. But I’m fine switching to dev_dbg() to avoid log noise if that’s preferred.
+
+> > +	else
+> > +		engine->has_opp = true;
+> > +
+> > +	/*
+> > +	 * Store the core clock rate for suspend resume cycles,
+> > +	 * against OPP aware DVFS operations. core_clk_freq will
+> > +	 * have a valid value only for non-legacy bindings.
+> 
+> use full 80 column width for comments.
+
+Ack. Will reformat the comment to include it within 80 columns.
+
+> > +	 */
+> > +	engine->core_clk_freq = clk_get_rate(engine->core_clk);
+> 
+> Why can't you conditionally cache the freq by moving it to the above else
+> condition?
+
+For core_clk_freq, I agree moving it under the else improves clarity and clearly
+defines the purpose of the variable. I kept it outside earlier to avoid tying it
+strictly to OPP presence, but I can move it for better readability.
+
+Abhinaba Rakshit
