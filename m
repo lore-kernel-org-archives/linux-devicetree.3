@@ -1,284 +1,120 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBD028C869
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 21:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E48155A5D;
+	Thu, 11 Jun 2026 21:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781212370; cv=none; b=cFRXkn365N35N2jjbBSbF7prMA/y/He5XpR/aF8kkMazJtmTrZDw2RhRH9nfhA6GboR32196nzpgw2JQGl0erUHJvZJ2QPxmnR5McyDGCdGkfkk6MwSKgSol/sUjGuliD8DhnKjyLIW1XnwRgJgpTmHTGbFcg+kNbAxV2mS1iG4=
+	t=1781214554; cv=none; b=lORC3OVqhcxOOE1hbb9RGNyK2LzeA92/cAbMp9p6Djn+8Lmeg7Qw5dft5Wk53XQ1MJHFlPvm3yk92d4JhOHRQ+PNh0ZaNFex88j0Zh00Ok8QJKL6C24edkbac5ovT/bewqI2D6StIVoJzzQWC42f9ysAmH86ZY07ND8fr7Tc1Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781212370; c=relaxed/simple;
-	bh=sYeo+A3SSY3pvXBtschc7zbWX8FHUL4YU7BzU04QnOs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aJd22CYT+YRW43lqy9EtOnQ79PoqMTZtkFM370YOB4rjD/QGuOLI9JktIbbNWQ+S/mmmJY2QMLkn4t5AVkGzN5lVAoY6UrwxACmw4P7DrwC2S5A8GTPfG/cZAxEQzgAoQ4ZtnI1ObUrmB/rI+ZYPR4SMs3XF1arl0gIQZAMPhlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icYZRJuF; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781214554; c=relaxed/simple;
+	bh=I4URXZTDAX0QX4GCP4W8fFsHSKtaz/NwacgObngP8Ww=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=rKJuRkRhHTdkyZ+QcDIyWQTtahPI1TQGLFt6QaT0r563cKPF97eRsqVRwWsq6pdgYK4epgSpdCvYCpVVYa78Qpqgp6ym2WMj2y46fXBx1eSB7uYc+34ystA/r44YgI1TVYcvjIQVe3MpleUEVNVIWgOhonPJZv9PqQaR8bPOxMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=RLz0tpBe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EEQlzAKa; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icYZRJuF"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8422a816c89so39013b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 14:12:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781212368; x=1781817168; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9j2IwgW3Jzkk4SQ8A6GHkJn6r7B3WoXNWnbYWl95Ne4=;
-        b=icYZRJuFWc/zTVUVVhqCmpNcP5iCzWcRs57edu6t62iUZ4MfQ2/c2PK3T8IF6hkklF
-         OOcIID1hxGpaeOWNQCz7Nc2f42Qynh4Hs+vF8H2ys+s8/+i5KC7W3+apSASiHWVqIiNU
-         uPCOedpqZ73rXT/5Ayf4j5uJsHlP7QGm9zuQM+I7oNqRI+RFVireaV8Ph0vuLf1Z8m9r
-         bilS8T+/ttsp68+LO0vQqg9thBx/0NHL4401h9ZtcBkcMwslozX7c5Ld3zuW1sNadgnm
-         vmg58QMsjPgECNeVRRXGMNBnOFKSQ6likZd5iJFrV+o6zs75rQuhEH3ijGCZZzUINcFj
-         q0XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781212368; x=1781817168;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9j2IwgW3Jzkk4SQ8A6GHkJn6r7B3WoXNWnbYWl95Ne4=;
-        b=jJfX+bqqydRc+283yPYb/kJa+1Ipfr75wq5Gb9pHyse6iMJnb8NtKdTMR2Ia5ooV3x
-         GdCxIy2VE6SSW5E3H3dYS8RJFN4Qh0ZUAmcJ+uo1IHmUj3reOf6oQkhtw8Cd/oMD1+Km
-         /3udO7cr71UWo0YEVUQvbOor0ZNvswC1u5Ay51evDNOT3vB/qo0n8/xM+ux12Xw6hTSU
-         CVATNkW3yxVgpbQkdfDjjHpVU9dRy/cZg14aDTwTezrZ6cqxSz373e+hMEymjQNn2XLr
-         MUo88fQy9sXw2Lrv2vXeaiDZ9HTG1iNH157anjkHKGF0ErP2Rp4zq6ZNHXsrgoNTVug2
-         OdSg==
-X-Gm-Message-State: AOJu0Ywid3v4UXWyYL22ROL5MI3cvicgZXC7srUL4xUsoiBWatB5FVme
-	unXhlHhycKYTTW4FwFEKXb2pIQKpSQaKvd+JrKsPqzbvYyWlP0frTBVv
-X-Gm-Gg: Acq92OF3s4cdpG7YU1Wf7CnJnvp/pcsIu+6qDM3WuD2rlsvKM+vrEKCpCcWkIDsDHQk
-	MFEdXErs8TleXXFd6HuL/xA4wFls4gF0HR/9Mn5p+YU9wUS5Yjt6JBZJ3O9S5mzw0e+1hyBXNOb
-	Wd6Bp80tjqs3XdktpzwInlMuw04+NfrHXL9g4Gr2glohSD8MX/XK6FoPzktsYchV8iggAU18ag3
-	7hxuL00qQpYTHQw6m8uRp+5gAurAWzeOY7l6gJNcuGFSAPTh1xEatw+969IXu3GpK/iJ4r0RLLB
-	iol/VU3R+K41fNZgEdbW9FO9D7IroOdjriqEogAK9enLQwDnF6rls5Lph9GycVKcimNVMuZuczY
-	Kuo5SUp1YuS/41QeRix2vNjBdq9bT2sVNfavG1KSZXjfB9lpqmL4TNX6VlGVPAkgAiymK0NBou0
-	idh2+/nqCgDb/QKBvCeFJOtltVm8S4L0c=
-X-Received: by 2002:a05:6a00:22c6:b0:842:2efa:5fc3 with SMTP id d2e1a72fcca58-84336df679fmr2387916b3a.7.1781212368474;
-        Thu, 11 Jun 2026 14:12:48 -0700 (PDT)
-Received: from [192.168.1.3] ([2401:4900:881d:daf6:1a73:750:53ec:66c1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc8a5bsm21994b3a.33.2026.06.11.14.12.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 14:12:47 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Fri, 12 Jun 2026 02:42:29 +0530
-Subject: [PATCH v3] dt-bindings: interrupt-controller: ti,irq-crossbar:
- Convert to DT schema
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="RLz0tpBe";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EEQlzAKa"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id E75D3EC00D2;
+	Thu, 11 Jun 2026 17:49:11 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-04.internal (MEProxy); Thu, 11 Jun 2026 17:49:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781214551;
+	 x=1781300951; bh=m3jKUzw1DA57ndb+qyd6HXvDCRAlgjXNw7DsDlmljVM=; b=
+	RLz0tpBebAYx/pMK6JZiLzzgyhGrPzg2Jc1hMen653GiUmJXgFb9eP9l1EbT49Ze
+	+7B1ykOjEqdqiPnX8iVTFvtUhQLME8KvGh6Lu0LOmL80A+WekV/N/z0KMzAYCSqy
+	HPufn7p3rw5VfQ1lssemZiZVm9pW/uUHsWnUFI9OYjFUYLY7h14zvBOAK2MOY5q4
+	Hf/TWs981pkgA5EUZLIDxVsyP6IiX1Fo2ZPokY9dqLhHiMcGSCQa4mRoq8+eKQuZ
+	su0GfCWGUIobnDyaVceVOkde53FrjkO6tRlfO9jMZArN8fXK8EIAp7d2rr7aQKAb
+	8UfgQuoXn+0yOi5KklGsSQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781214551; x=
+	1781300951; bh=m3jKUzw1DA57ndb+qyd6HXvDCRAlgjXNw7DsDlmljVM=; b=E
+	EQlzAKazvoz+UuYDqGVSLlMQopR98anQWtKKX50sQrPShkLHF9l0GEbOcmlv009C
+	RDTCxdFU/3e845e7hg+LG3gfOMhEOyEXe1HvEI/bfdA5TwUVflDMRyZmjRhjjdof
+	OIiRpTqV3jE7sHnxUWE2V5485Qlg9SIeWB2RQVpAigJeI3XYPKL96z5K+9VS4m92
+	F5qmck4bin/i2wAAPnonNYphXiKNknxJ7gBDZJpxaX9gR73tzr5OQw6KZYFNwun8
+	e0lSojAZ+3YaxD1IZRvYFz1+QDPA8YdZeAVbG/tyjv5kGMbB+xNrhwCrhyJjihBz
+	xEXf5Qlu6vOTHRlC7r/9Q==
+X-ME-Sender: <xms:Vy0raqXmdhMDtxNI6Gh4d6BYTIh7eo7DGoHCzQVw521Q6-qch3iz5A>
+    <xme:Vy0rahZGg65i9xHnsITqJzXlIuAjO-BpIOUe0a_4va3Z017ync6gS-lmOz5iu5Y9s
+    Q6jfVCB6U76n_ab5BrpICWkJvJWTyF_f44iW86o1sg8Bhl5cEDKE0On>
+X-ME-Proxy-Cause: dmFkZTEv68Te2GZ7h3XuEhKQ+ysSWDX0V9MP739tmwV8Wek3q0SijvWTpriLzYO2vJXOVF
+    utFDHDyukerFQttdEeKhfVppRRlP1wr7wkFnFJTQsR286WQF23XLo9ielto0G4gG30hCk3
+    sVpxmjf15NyK0BYGiTvSxGe3GaiP3ZpRF46WstGdSdADrsnLFUkBB6Pka7iealiMU3JR3M
+    Nhn5iPMxcUgqZ51gBCk7tDP8B39S7p6REcv6UC7wdrokeCzZLG4bX9VIpssQe31b/qNQps
+    Au4pDopG9XLJCEPB8Zb93Cfavf0fvVCa6XRUGoWaKWxK7f324gmVcE+Kh/l7juiAdGWHn3
+    mP95WyRpVnpqqJ8/CBFLNtdjnNsBMzFmnEvZEKrpljSdf5paARPX5+X1uGwKvmX4R2lnHn
+    bDh98MRs60pulOlDIyDLicrknyJOxEtTYRQVTCBw/dyCxYFjPFdb0UC6VWw6qD8K7QTN+C
+    Mo05L2neB8X6Y6Yt9ZY2fp/GkWdUCmTKbjgfQFwcxu9lHog2NIFODzJxr2JcW+9lAVOJhb
+    E9eI+yLpd5uzLiJKl/bCM/hNmr8uIw6WdZP973qC0XiTz6NIybb6aerbQpZEhEJAltTbN6
+    cb4eeByDtJdfW8uvs7++XWm6g5Qn9YBN2FQe1mLoY2ZYNa/+d9mqD85L2PyQ
+X-ME-Proxy: <xmx:Vy0raol0O6XfJ3uurxHVvBLmka-FpHWaUi9z7FmcswiHtmKWm8EZCA>
+    <xmx:Vy0rarinFZ-SvZCrsatzAVkBMbyEugwwfTLZ8No-QibZhSpm9V29Mw>
+    <xmx:Vy0ravQG_yV4PSP0BhRBIeaW1zB7Quc9FICGJ3CIzLKvNy63IRwjnA>
+    <xmx:Vy0ral91RX_beBK_AmMgMXKDStpb9Z_XYYAtFNYKMUWcO1JFsEoRVw>
+    <xmx:Vy0ralURSPeGEVJi-EUf0FbfQv1LFIWuUIO5pFai688RsJx_0-Xn4D7r>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 6BF81182007E; Thu, 11 Jun 2026 17:49:11 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: A7B3IU8_UIqB
+Date: Thu, 11 Jun 2026 23:48:22 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karthikeyan Mitran" <kmitran@axiado.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Prasad Bolisetty" <pbolisetty@axiado.com>, "Tzu-Hao Wei" <twei@axiado.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Drew Fustini" <fustini@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Harshit Shah" <hshah@axiado.com>
+Message-Id: <1dc47bbd-d13f-4e46-9d52-c2c94eba8394@app.fastmail.com>
+In-Reply-To: 
+ <20260611-maintainers-addition-and-axiado-ax3000_dtsi-update-v6-1-00bdcddc0c29@axiado.com>
+References: 
+ <20260611-maintainers-addition-and-axiado-ax3000_dtsi-update-v6-1-00bdcddc0c29@axiado.com>
+Subject: Re: [PATCH RESEND v6] MAINTAINERS: Add Axiado reviewer and Maintainers
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-crossbar-v3-1-266747bc2e86@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02NQQ6CMBBFr0K6toYZoBRX3sO4KGUKNUJNi0RDu
- LsUFpJZveS/NzML5C0Fdklm5mmywbphheyUMN2poSVum5UZpijSAiXX3oVQK8+xrpTIoUHIBVv
- nL0/GfrbU7b5zeNcP0mP046KzYXT+u/2aIO727Hr/7AQ85UaUptR1RVSk17ZX9nnWrmcxO+FBB
- DiIyIFjBk1upMRK0lFcluUHoElJ+esAAAA=
-X-Change-ID: 20260528-crossbar-2b9a641d2146
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Sricharan R <r.sricharan@ti.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781212364; l=6950;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=sYeo+A3SSY3pvXBtschc7zbWX8FHUL4YU7BzU04QnOs=;
- b=nma2Koew07k7D/EZNPspg+eM8Oz4HDkGnCmyw2Mx+Kj5zkoBAqtsAjctFewIKYoPzwzpazVy1
- Hhm5nPDyD3gCh70jbEwnzvP7C4Bd1dzvCzuJuYKoQM5JOdsCzlKTJZN
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert TI irq-crossbar binding from text format to DT schema.
+On Thu, Jun 11, 2026, at 22:19, Karthikeyan Mitran wrote:
+> From: Prasad Bolisetty <pbolisetty@axiado.com>
+>
+> Adding 3 new maintainers Prasad,Tzu-Hao, and Karthikeyan
+> Removed previous maintainer as the previous maintainer moved from project
+>
+> Signed-off-by: Prasad Bolisetty <pbolisetty@axiado.com>
+> Acked-by: Harshit Shah <hshah@axiado.com>
+> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
+> Signed-off-by: Karthikeyan Mitran <kmitran@axiado.com>
+> ---
 
-As part of conversion following changes are made:
- - Add '#interrupt-cells' as a required property which was missing in
-   text binding
- - As irq-crossbar is interrupt-controller. Move binding from
-   bindings/arm/omap to bindings/interrupt-controller
+I've picked up the patch now for 7.2.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v3:
-- Fixed typo in property description
-- Link to v2: https://lore.kernel.org/r/20260611-crossbar-v2-1-231d4f88298e@gmail.com
+For future content that you want to get merged after it
+has been reviewed, please make sure to send the patches
+or pull requests to soc@lists.linux.dev, and follow the
+additional explanations from
+Documentation/process/maintainer-soc.rst
 
-Changes in v2:
-- Dropped property name change and driver updates. 
-- Link to v1: https://lore.kernel.org/r/20260606-crossbar-v1-0-f67f7cb9ee50@gmail.com
----
- .../devicetree/bindings/arm/omap/crossbar.txt      | 55 -------------
- .../interrupt-controller/ti,irq-crossbar.yaml      | 96 ++++++++++++++++++++++
- 2 files changed, 96 insertions(+), 55 deletions(-)
+Thanks,
 
-diff --git a/Documentation/devicetree/bindings/arm/omap/crossbar.txt b/Documentation/devicetree/bindings/arm/omap/crossbar.txt
-deleted file mode 100644
-index a43e4c7aba3d..000000000000
---- a/Documentation/devicetree/bindings/arm/omap/crossbar.txt
-+++ /dev/null
-@@ -1,55 +0,0 @@
--Some socs have a large number of interrupts requests to service
--the needs of its many peripherals and subsystems. All of the
--interrupt lines from the subsystems are not needed at the same
--time, so they have to be muxed to the irq-controller appropriately.
--In such places a interrupt controllers are preceded by an CROSSBAR
--that provides flexibility in muxing the device requests to the controller
--inputs.
--
--Required properties:
--- compatible : Should be "ti,irq-crossbar"
--- reg: Base address and the size of the crossbar registers.
--- interrupt-controller: indicates that this block is an interrupt controller.
--- ti,max-irqs: Total number of irqs available at the parent interrupt controller.
--- ti,max-crossbar-sources: Maximum number of crossbar sources that can be routed.
--- ti,reg-size: Size of a individual register in bytes. Every individual
--	    register is assumed to be of same size. Valid sizes are 1, 2, 4.
--- ti,irqs-reserved: List of the reserved irq lines that are not muxed using
--		 crossbar. These interrupt lines are reserved in the soc,
--		 so crossbar bar driver should not consider them as free
--		 lines.
--
--Optional properties:
--- ti,irqs-skip: This is similar to "ti,irqs-reserved", but these are for
--  SOC-specific hard-wiring of those irqs which unexpectedly bypasses the
--  crossbar. These irqs have a crossbar register, but still cannot be used.
--
--- ti,irqs-safe-map: integer which maps to a safe configuration to use
--  when the interrupt controller irq is unused (when not provided, default is 0)
--
--Examples:
--		crossbar_mpu: crossbar@4a002a48 {
--			compatible = "ti,irq-crossbar";
--			reg = <0x4a002a48 0x130>;
--			ti,max-irqs = <160>;
--			ti,max-crossbar-sources = <400>;
--			ti,reg-size = <2>;
--			ti,irqs-reserved = <0 1 2 3 5 6 131 132>;
--			ti,irqs-skip = <10 133 139 140>;
--		};
--
--Consumer:
--========
--See Documentation/devicetree/bindings/interrupt-controller/interrupts.txt and
--Documentation/devicetree/bindings/interrupt-controller/arm,gic.yaml for
--further details.
--
--An interrupt consumer on an SoC using crossbar will use:
--	interrupts = <GIC_SPI request_number interrupt_level>
--
--Example:
--	device_x@4a023000 {
--		/* Crossbar 8 used */
--		interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
--		...
--	};
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/ti,irq-crossbar.yaml b/Documentation/devicetree/bindings/interrupt-controller/ti,irq-crossbar.yaml
-new file mode 100644
-index 000000000000..a919db1d0645
---- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/ti,irq-crossbar.yaml
-@@ -0,0 +1,96 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interrupt-controller/ti,irq-crossbar.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments IRQ Crossbar
-+
-+maintainers:
-+  - Sricharan R <r.sricharan@ti.com>
-+
-+description:
-+  Some socs have a large number of interrupts requests to service the needs of
-+  its many peripherals and subsystems. All of the interrupt lines from the
-+  subsystems are not needed at the same time, so they have to be muxed to the
-+  irq-controller appropriately. In such places a interrupt controllers are
-+  preceded by an CROSSBAR that provides flexibility in muxing the device
-+  requests to the controller inputs.
-+
-+properties:
-+  compatible:
-+    const: ti,irq-crossbar
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 3
-+
-+  ti,max-irqs:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Total number of irqs available at the parent interrupt controller.
-+    minimum: 1
-+
-+  ti,max-crossbar-sources:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Maximum number of crossbar sources that can be routed.
-+    minimum: 1
-+
-+  ti,reg-size:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Size of a individual register in bytes. Every individual
-+      register is assumed to be of same size.
-+    enum: [1, 2, 4]
-+
-+  ti,irqs-reserved:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      List of the reserved irq lines that are not muxed using crossbar. These
-+      interrupt lines are reserved in the soc, so crossbar bar driver should not
-+      consider them as free lines.
-+
-+  ti,irqs-skip:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Similar to "ti,irqs-reserved", but these are for SOC-specific hard-wiring
-+      of those irqs which unexpectedly bypasses the crossbar. These irqs have a
-+      crossbar register, but still cannot be used.
-+
-+  ti,irqs-safe-map:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      integer which maps to a safe configuration to use when the interrupt
-+      controller irq is unused.
-+    default: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - ti,max-irqs
-+  - ti,max-crossbar-sources
-+  - ti,reg-size
-+  - ti,irqs-reserved
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    crossbar@4a002a48 {
-+        compatible = "ti,irq-crossbar";
-+        reg = <0x4a002a48 0x130>;
-+        interrupt-controller;
-+        #interrupt-cells = <3>;
-+        ti,max-irqs = <160>;
-+        ti,max-crossbar-sources = <400>;
-+        ti,reg-size = <2>;
-+        ti,irqs-reserved = <0 1 2 3 5 6 131 132>;
-+        ti,irqs-skip = <10 133 139 140>;
-+    };
-
----
-base-commit: eb3f4b7426cfd2b79d65b7d37155480b32259a11
-change-id: 20260528-crossbar-2b9a641d2146
-
-Best regards,
--- 
-Bhargav
-
+     Arnd
