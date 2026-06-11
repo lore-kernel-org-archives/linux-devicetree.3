@@ -1,123 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CBB371065;
-	Thu, 11 Jun 2026 07:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D361372ECF;
+	Thu, 11 Jun 2026 08:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781164753; cv=none; b=iVuoPkZslD9SbQkiQ7bgKDHO9MbD8xAC0zZL4XfavsTGIwrNB0LVQunuFJyI3l4LOPjH459RT9GUvQLdueUPC5JpM2/Z3ViNL5VCe/GuObKygrcq0IiFHZ6uKyCKW5OdoaIdkXUroiWl2Xt8sxwDRhtNog0gnJ5UZ4AYAtqKcPE=
+	t=1781164825; cv=none; b=tYD4+SxCU5niYEaMli+nGOkL7GolhXgUDOnHgXrwEfu0JJU3TTqR7rDVYU4J5oHFPJydCQrJGat6IaoJgaxT73QgUG2e04paZ3Ij0biK88jNDQrC/WXkTA+YuK4Zw/lGFUUzb7naWqzlshQKUdiT/Eq7NBi+TMSXJfQ97BEBwVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781164753; c=relaxed/simple;
-	bh=sjwnPL4FlgueGCT5QoKqiahVrhEuYKmA0r1My4jx34c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GdbHi8zblklH2StRGsUMyluexq42vR9oSAd1aAC3V/EmRc57AYve4JZIX40yhyj9hsnUalanDnWJQ40AephzXTD9sEFS9emnmG7F0ur67wRkIauhvnuc1zrcoVKIJUvcSlSbgUAdaG/Eu4J+14Lxt799KAtBlj+BUGQQvorBQgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kRuxSVm3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781164825; c=relaxed/simple;
+	bh=PGULIhFtjwYzNe2T+HganJaxHbOTqAPqzyO4Ra14zMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cY/EyhNgfmXUDPpZDch3QlBI5MEf5xOeN27fl11c6lT/UHPAzdxc6bPctbMuhcVPmpA8Jtta3Xl74NlVYjC+0rExwZx1evQe/HvzJ/zk0FosRF6x8kiJv7+7bT3NyXxk/exMz73oarIaHEec1qdMZWSZzzDNgULNBiZhNuAAhh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GP5I+hPO; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kRuxSVm3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB011F00893;
-	Thu, 11 Jun 2026 07:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781164752;
-	bh=C3AZ8o2HUdh7PC0h6Ws5LV32kq4gzjgfYRKxWl0KUus=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kRuxSVm3ha76kOo8h/c0ikcanFSstCSogEkE/y4xLdI60K9hhdADRQFo+HyCdd8dM
-	 bWcjMwfEc8wbeiuvWkh7Ap4tkPx3PYRKYG7doSteaPvc1qZ45mUTw+rr26tugvxGUh
-	 vLa9nvHwPEIOoTz8kndnFRERyUewopsfBJdead+XzJe8qAlbhnH4ype6taKiOMDeuE
-	 PjxykFUJ2wc9KNQ49ZRCLgXG/Rx/XFPcBd6V/CVsbox9al42rhNI5QJkp6BZcPcTU3
-	 /5eessU8ACK12D3pYh6O5LNoazYczdQ3TwFiLlBk/yQIuUHYKXTmGcDUuwk/0Lq2fQ
-	 jIMGAjNs7V+/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] arm64: dts: imx94: Add Root Port node and PERST
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: hongxing.zhu@oss.nxp.com
-Cc: conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611075057.2892593-1-hongxing.zhu@oss.nxp.com>
-References: <20260611075057.2892593-1-hongxing.zhu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 07:59:11 +0000
-Message-Id: <20260611075911.AAB011F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GP5I+hPO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781164825; x=1812700825;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PGULIhFtjwYzNe2T+HganJaxHbOTqAPqzyO4Ra14zMw=;
+  b=GP5I+hPOgvvjXqG0h6ZQFdUM8kQokmpUbbFLFP/+ZofNhWY7IwReK00A
+   XV1/Jq09B5Rp2TN7M3l8D+c+a9U5LDCb7hdGKSmrxFixNP25A6ma/pjk6
+   hpDbC98pcq5C38X0impzuKkYuWs8TWGxmh0A3xgIhFiDMTDtnrrG930VS
+   qC9bB/DFwcPbP5SKh+Mtoj3WFL4MkViAJpyuia2QeEHWTWXzx9dK+5qet
+   9Dbv65mAFOkBLhzhr/L58aMrp5IUVjmxpu0kTq13uZ73vWHbhZvuzPrA0
+   JPF4VUmgbtcSgl/6eOP0JnMRHNvwpFAu1xnTfKG7g93F1quWDYNZhRA0L
+   w==;
+X-CSE-ConnectionGUID: gaSR+8vfQqCpLWrhB60ZHw==
+X-CSE-MsgGUID: EyVlsuQaQFG6zlSaDcLSYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81819779"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="81819779"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 01:00:24 -0700
+X-CSE-ConnectionGUID: Y7KQgdkzTPS+9Dm6DR5iiQ==
+X-CSE-MsgGUID: 92yebZMCSiCz1nbtISMqyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="284493565"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.123])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 01:00:20 -0700
+Date: Thu, 11 Jun 2026 11:00:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V11 5/9] iio: imu: inv_icm42607: Add PM support for
+ icm42607
+Message-ID: <aiprEfu5K7rP0LRr@ashevche-desk.local>
+References: <20260610175455.19006-1-macroalpha82@gmail.com>
+ <20260610175455.19006-6-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260610175455.19006-6-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Moving `vpcie3v3aux-supply` from the Host Bridge node to the Root =
-Port node causes the PCIe controller driver to fail to find and enable the =
-auxiliary power supply.
---
+On Wed, Jun 10, 2026 at 12:54:49PM -0500, Chris Morgan wrote:
+> Add power management support for the ICM42607 device driver.
 
-commit 881f61760fe4035aacb7e254c5a7890c62c2bcbf
-Author: Richard Zhu <hongxing.zhu@nxp.com>
+...
 
-arm64: dts: imx94: Add Root Port node and PERST property
-
-This commit moves the reset-gpios property to the new Root Port node as
-recommended. It also moves the vpcie3v3aux-supply properties from the Host
-Bridge nodes to the newly created Root Port nodes.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/bo=
-ot/dts/freescale/imx943-evk.dts
-> --- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
-> @@ -1034,12 +1034,15 @@ &pcie0 {
->  		 <&pcie_ref_clk>;
->  	clock-names =3D "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
->  		      "ref", "extref";
-> -	reset-gpio =3D <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
-> -	vpcie3v3aux-supply =3D <&reg_m2_wlan>;
->  	supports-clkreq;
->  	status =3D "okay";
+>  struct inv_icm42607_state {
+>  	struct mutex lock;
+>  	const struct inv_icm42607_hw *hw;
+>  	struct regmap *map;
+>  	struct regulator *vddio_supply;
+> +	bool vddio_en;
+>  	struct iio_mount_matrix orientation;
+>  	struct inv_icm42607_conf conf;
+> +	struct inv_icm42607_suspended suspended;
 >  };
-> =20
-> +&pcie0_port0 {
-> +	reset-gpios =3D <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
-> +	vpcie3v3aux-supply =3D <&reg_m2_wlan>;
 
-[Severity: High]
-Does moving the vpcie3v3aux-supply property here break the auxiliary power
-regulator initialization for this controller?
+When adding a new member to the data structure always consult with `pahole`
+tool to see if the layout is the best fit.
 
-Looking at imx_pcie_probe() in drivers/pci/controller/dwc/pci-imx6.c, the
-driver retrieves the regulator directly from the host bridge device node:
+...
 
-	imx_pcie->vpcie_aux =3D devm_regulator_get_optional(&pdev->dev, "vpcie3v3a=
-ux");
+> +/*
+> + * Suspend delay assumed from other icm42600 series device, not
+> + * documented in datasheet.
+> + */
+> +#define INV_ICM42607_SUSPEND_DELAY_MS			2000
 
-Since the pci-imx6 driver hasn't been updated to look for the supply in the
-Root Port child node, will devm_regulator_get_optional() now fail to find it
-and leave the 3.3V auxiliary regulators disabled during PCIe initialization?
+2 * USEC_PER_MSEC
 
-> +};
+...
+
+> +	sleepval = 0;
+> +	if (temp && !oldtemp)
+> +		sleepval = max(sleepval, INV_ICM42607_TEMP_STARTUP_TIME_MS);
 > +
+> +	if (accel != oldaccel)
+> +		sleepval = max(sleepval, INV_ICM42607_ACCEL_STARTUP_TIME_MS);
+> +
+> +	if (gyro != oldgyro)
+> +		sleepval = max(sleepval, INV_ICM42607_GYRO_STARTUP_TIME_MS);
+> +
+> +	if (sleep_ms)
+> +		*sleep_ms = sleepval;
+> +	else if (sleepval)
+> +		fsleep(sleepval * USEC_PER_MSEC);
 
-[ ... ]
+Also good to have a _ms suffis in sleepval.
 
-> @@ -1058,12 +1061,15 @@ &pcie1 {
->  		 <&pcie_ref_clk>;
->  	clock-names =3D "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
->  		      "ref", "extref";
-> -	reset-gpio =3D <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
-> -	vpcie3v3aux-supply =3D <&reg_slot_pwr>;
->  	supports-clkreq;
->  	status =3D "okay";
->  };
-> =20
-> +&pcie1_port0 {
-> +	reset-gpios =3D <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
-> +	vpcie3v3aux-supply =3D <&reg_slot_pwr>;
+...
 
-[Severity: High]
-Will this similarly cause the regulator for the second PCIe controller to
-remain disabled, as the pci-imx6 driver will still search the parent &pcie1
-node for the vpcie3v3aux supply?
+> +	dev_set_drvdata(dev, st);
+
+This what requires device.h. So, you can start with it whenever you first need
+dev_printk.h, devres/*.h, but it doesn't mean you are supposed to drop other
+non-device.h related headers, such as err.h.
+
+...
+
+> +EXPORT_NS_GPL_DEV_PM_OPS(inv_icm42607_pm_ops, IIO_ICM42607) = {
+> +	SYSTEM_SLEEP_PM_OPS(inv_icm42607_suspend, inv_icm42607_resume)
+> +	RUNTIME_PM_OPS(inv_icm42607_runtime_suspend,
+> +		       inv_icm42607_runtime_resume, NULL)
+
+Keep it logically split, either as
+
+	RUNTIME_PM_OPS(inv_icm42607_runtime_suspend, inv_icm42607_runtime_resume, NULL)
+
+or as
+
+	RUNTIME_PM_OPS(inv_icm42607_runtime_suspend,
+		       inv_icm42607_runtime_resume,
+		       NULL)
 
 > +};
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611075057.2892=
-593-1-hongxing.zhu@oss.nxp.com?part=3D1
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
