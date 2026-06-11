@@ -1,169 +1,198 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDB84C92;
-	Thu, 11 Jun 2026 00:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3996827442
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 00:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781136210; cv=none; b=BCZuZOrJVu0quO4JfwMEETMgHlCnuwHBtlTnQgw8QRu7U0ZStzh00oOYQsMcsZZlWwpEBR7eUxE/shkLUPjNMmuDgsM9FhklahjpT2vPSQobRxO4USBj/tATMA5t3khcnyBcthnCvSCc/mfO25ylD10d6mNF5YfC4kgn8MM/4EM=
+	t=1781136877; cv=none; b=KLm0c4tybRzAJx6a09cXbLFW4uXLbKeKixh9JGmWk6277jWddUL/U1mjmCjIyE7wW/eiLSS03cVgUO7dDlrx2IFwyg4pcMAaLH1RqZCwk5r5JdqZPDJd1V2vk8k+tSF6yRS5IQ7aW8jJUqADd9Z6txIHSLK2ggzpew+KDfJInCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781136210; c=relaxed/simple;
-	bh=7Lc1rx8Jp41JTvrcWNEo7iJ/+E/l8wCtqHTTiQ1kiKc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rRYNZYH17EvFGU35UJxpegyoCZUIxRngDqX46oWfQwhBKruZxLhDw7aIw4ppb9qBCCrAFPJ0oWGD2Yrv3mdltFqt8ursM18SEqMrjCCoefbh2eU8Pxp8nhgy+YZCgIGk6bJ47XONpUilB0vbfN1+KiQPhJ4gR+JoXPJTj0d/+QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=KkynWMvH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781136877; c=relaxed/simple;
+	bh=d51th9MuthaOOayBAbL9CMzbyqvJX+tXPX48uwtqEKU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Y2CLD/dyQvhNfLwWIB+T2X9jOLc2q3pch2jOdUHQ/yeQsHE9qxo65Sez7An+iQFv3QSxcM14qGbtbBe5SMSes+FlfoyvR7eXLE2Qe0QX40ypbXoMzqegXJMTK7TjRAcKtN/rhR/ChOR0WVfokK7mBERusRyhu24VgncimzFtdyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=VvmBnNRF; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KkynWMvH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 80DE52D9;
-	Thu, 11 Jun 2026 02:02:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781136176;
-	bh=7Lc1rx8Jp41JTvrcWNEo7iJ/+E/l8wCtqHTTiQ1kiKc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KkynWMvH4/GKiABKartnvdELDg8NTpkhQD92fWte+U+KU7Tlt/JUY4Yc+8KJ7k0qG
-	 cBLvV61QlTfXBUChPHMJhNSVPSBT4Aqt+gdcmkMEXhhJiagpstoGWC9nBuu5t3pauW
-	 01H1kUOWt0IQOTdUvUA4AEbjtX6QtanSzrHSPBvY=
-Date: Thu, 11 Jun 2026 03:03:24 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260611000324.GH1632628@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="VvmBnNRF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1781136872;
+	bh=UwL81a4jD1lVgNPbYQb6XSbzauf8TNMOvs4noHtAzVI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VvmBnNRF9gtCAAthcA6MT4X1dKaRsTz5qzc4Ia6/H+jWK/42PBrGgAFDkrfUXo0kc
+	 cnGW3C0GfRV3KTIf00Kq43jo7ZGZB/lsvRucJ5XMLWdaELX/1T37qU8bQKZ2FNL3dN
+	 yViTgSE+B6y1O3eFe0zVm7bJ4bMgl0FcyBhJtjvIbqNvCY++JawLcsK0ZIPeyu7tf3
+	 37ZpDCbyfJeGQGVjutXUoiZ3Os7ss+BB4DrBIF0X3iz0KiRo3kuFXUFKtkn9QVEMyy
+	 CnWfgo9ikEQSyy88PT8EZ7WycUmQnOFSgkJVqCNfYDLm8pFJOjE8oU1Kvhux5CmsgE
+	 XEdF7/6G7+lGg==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 13A8D60975;
+	Thu, 11 Jun 2026 08:14:32 +0800 (AWST)
+Message-ID: <45e1df1ad72eb982ddb13500b9224bf54b6f3fa2.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v9 3/4] arm64: dts: aspeed: Add initial AST27xx SoC
+ device tree
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Ryan Chen <ryan_chen@aspeedtech.com>, "sashiko-reviews@lists.linux.dev"
+	 <sashiko-reviews@lists.linux.dev>
+Cc: "robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"	
+ <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>
+Date: Thu, 11 Jun 2026 09:44:31 +0930
+In-Reply-To: <TY2PPF5CB9A1BE674CFFD62F27DFDFE0B2AF21D2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260609-upstream_ast2700-v9-3-f631752f0cb1@aspeedtech.com>
+	 <20260609025708.ADBFE1F00893@smtp.kernel.org>
+	 <TY2PPF5CB9A1BE674CFFD62F27DFDFE0B2AF21D2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
 
-Hi Tomi,
+Hi Ryan,
 
-Thank you for the patch.
+On Tue, 2026-06-09 at 05:36 +0000, Ryan Chen wrote:
+> > Subject: Re: [PATCH v9 3/4] arm64: dts: aspeed: Add initial AST27xx SoC=
+ device
+> > tree
+> >=20
+> > Thank you for your contribution! Sashiko AI review found 3 potential is=
+sue(s) to
+> > consider:
+> > - [High] INTC1 maps its summary interrupts to INTC0's TSP routing range=
+,
+> > preventing SOC1 interrupts from reaching the Cortex-A35 GIC.
+> > - [Low] The device tree defines ad-hoc top-level nodes ('secondary', 't=
+ertiary',
+> > 'bootmcu') that violate standard naming schemas, and embeds direct Linu=
+x
+> > kernel source URLs to justify '#size-cells' behavior.
+> > - [Low] Duplicate label definitions in the pinctrl device tree include =
+for multiple
+> > pinctrl groups in SOC1 will cause a hard DTC build failure.
+> > --
+> >=20
+> > commit 92031db9a3c255cefbfcc33df4ca0cb9780dd226
+> > Author: Ryan Chen <ryan_chen@aspeedtech.com>
+> >=20
+> > arm64: dts: aspeed: Add initial AST27xx SoC device tree
+> >=20
+> > Add initial device tree support for the ASPEED AST27xx family, the
+> > 8th-generation Baseboard Management Controller (BMC) SoCs.
+> >=20
+> > > diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+> > > b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+> > > new file mode 100644
+> > > index 0000000000000..ef283d95649a3
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+> > [ ... ]
+> > > @@ -82,10 +82,10 @@ l2: l2-cache0 {
+> > > =C2=A0	};
+> > >=20
+> > > =C2=A0	secondary {
+> > > =C2=A0		#address-cells =3D <2>;
+> > > =C2=A0		/*
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/drivers/
+> > of/address.c?h=3Dv6.16#n491 */
+> > > =C2=A0		#size-cells =3D <0>;
+> > > =C2=A0		/*
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
+e
+> > > e/drivers/of/address.c?h=3Dv6.16#n430 */
+> > >=20
+> >=20
+> > [Severity: Low]
+> > Are these OS-specific comments and ad-hoc root nodes ('secondary', 'ter=
+tiary',
+> > 'bootmcu') appropriate here?
+> >=20
+> > Device trees typically provide an OS-agnostic hardware description usin=
+g
+> > generic nodes (like 'bus', 'soc', or 'remoteproc'). Embedding Linux ker=
+nel
+> > source URLs suggests the hardware is being modeled around a specific Li=
+nux
+> > parser implementation rather than providing an independent hardware
+> > description.
+>=20
+> The concern is valid and acknowledged. The sub-processor interrupt
+> controllers (ssp_nvic for SSP/Cortex-M4, tsp_nvic for TSP/Cortex-M4,
+> bootmcu_hlic for BootMCU/RISC-V) cannot be placed under the soc1 bus
+> because their registers reside in each sub-processor's private address
+> space and are not accessible from the Cortex-A35 cores.
+>=20
+> The 2-cell address scheme (#address-cells =3D <2>, #size-cells =3D <0>)
+> encodes a <cpu-index reg-base> tuple as suggested by Matt Johnston [1].
 
-On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
-> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> crtc, when enabling the crtc.
-> 
-> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> the DSI, the above call path is broken as the crtc tries to call
-> rcar_mipi_dsi_pclk_enable() on the DSC.
-> 
-> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
-> in that case gets the next bridge from the DSC, which is the DSI.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
->  1 file changed, 34 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> index 4ef2e3c129ed..085e229bcb0b 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> @@ -88,6 +88,8 @@ struct dsi_setup_info {
->  	const struct dsi_clk_config *clkset;
->  };
->  
-> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
-> +
->  static inline struct rcar_mipi_dsi *
->  bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
->  {
-> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
->  	rcar_mipi_dsi_stop_video(dsi);
->  }
->  
-> +/*
-> + * We need to skip the DSC bridge when we have DSC in between the DU and
-> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
-> + * next_bridge is the DSI bridge. If this is not the case, the DT data
-> + * is wrong (so it shouldn't really happen).
-> + */
-> +static struct drm_bridge *
-> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
-> +{
-> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> +		bridge = bridge->next_bridge;
-> +
-> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> +		return NULL;
-> +
-> +	return bridge;
-> +}
+That was me, not Matt.
 
-Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
-rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
-question is how to then identify the right bridge, as we won't have
-access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
-type field to DRM_MODE_CONNECTOR_DSI ?
+Further, that two cell scheme was part of a tentative sketch for
+discussion from quite some time ago and wasn't intended to be
+copy/pasted without further thought. We should remove the index now.
 
-> +
->  void rcar_mipi_dsi_pclk_enable(struct drm_bridge *bridge,
->  			       struct drm_atomic_state *state)
->  {
-> -	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
->  	const struct drm_display_mode *mode;
->  	struct drm_connector *connector;
-> +	struct rcar_mipi_dsi *dsi;
->  	struct drm_crtc *crtc;
->  	int ret;
->  
-> +	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-> +	if (WARN_ON(!bridge))
-> +		return;
-> +
-> +	dsi = bridge_to_rcar_mipi_dsi(bridge);
-> +
->  	connector = drm_atomic_get_new_connector_for_encoder(state,
->  							     bridge->encoder);
->  	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-> @@ -885,7 +911,13 @@ EXPORT_SYMBOL_GPL(rcar_mipi_dsi_pclk_enable);
->  
->  void rcar_mipi_dsi_pclk_disable(struct drm_bridge *bridge)
->  {
-> -	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
-> +	struct rcar_mipi_dsi *dsi;
-> +
-> +	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-> +	if (WARN_ON(!bridge))
-> +		return;
-> +
-> +	dsi = bridge_to_rcar_mipi_dsi(bridge);
->  
->  	rcar_mipi_dsi_shutdown(dsi);
->  	rcar_mipi_dsi_clk_disable(dsi);
-> 
+> The Linux kernel source URLs in the comments are admittedly
+> Linux-specific and will be removed in v11; the cover letter explains
+> the rationale instead.
+>=20
+> All sub-processor nodes carry status =3D "disabled". They are present
+> solely to provide phandle references for the aspeed,interrupt-ranges
+> properties in intc0 and intc1, which the interrupt controller drivers
+> use to build the interrupt domain hierarchy at boot time.
+>=20
+> [1] https://lore.kernel.org/all/1a2ca78746e00c2ec4bfc2953a897c48376ed36f.=
+camel@codeconstruct.com.au/
+>=20
+> >=20
+> > > =C2=A0		ssp_nvic: interrupt-controller@1,e000e100 {
+> > [ ... ]
+> > > diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
+> > > b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
+> > > new file mode 100644
+> > > index 0000000000000..72d93323593d5
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
+> > [ ... ]
+> > > @@ -475,10 +475,10 @@ pinctrl_hvi3c15_default: hvi3c15-default-state =
+{
+> > > =C2=A0		function =3D "I3C15";
+> > > =C2=A0		groups =3D "HVI3C15";
+> > > =C2=A0	};
+> > >=20
+> > > =C2=A0	pinctrl_tach0_default: tach0-default-state {
+> > > =C2=A0		function =3D "TACH0";
+> > > =C2=A0		groups =3D "TACH0";
+> > > =C2=A0	};
+> > >=20
+> >=20
+> > [Severity: Low]
+> > Is this label duplicated? There is another pinctrl_tach0_default defini=
+tion
+> > earlier in this file.
+> >=20
+> > Defining the same pinctrl label multiple times (such as pinctrl_tach0_d=
+efault
+> > through pinctrl_tach15_default, and pinctrl_ncts5_default) in the same =
+device
+> > tree will cause a fatal syntax error in the Device Tree Compiler.
+>=20
+> Will fixed in v11. The labels pinctrl_tach0_default through
+> pinctrl_tach15_default were duplicated in aspeed-g7-soc1-pinctrl.dtsi
+> due to a copy-paste error. The second block has been removed.
 
--- 
-Regards,
+Please send me fixes for these, and avoid sending patches under review
+to soc@ in the future:
 
-Laurent Pinchart
+> Note that the soc@kernel.org is usually not the place to discuss the
+> patches, thus work sent to this address should be already considered
+> as acceptable by the community.
+
+https://docs.kernel.org/process/maintainer-soc.html#submitting-patches-to-t=
+he-main-soc-maintainers
+
+Andrew
