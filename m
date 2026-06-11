@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F9C37B402;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55174382393;
 	Thu, 11 Jun 2026 21:55:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781214953; cv=none; b=uGSEmHGmj4fIU/NGc/VBmld4mn8DwNGRB/aIFcksA5sv8hGq5LNIDYrrSjcLK7z+JHa4ASr6+lJyN/csBgty3UO8N9U9hR9oZUhXGfjX9+VqOab8iO9PqpmSX6SYpeg+I/yeVYvHFsQyaHapdQGk4AJ2JJOx3ZmY3l0kE8IOQXQ=
+	t=1781214953; cv=none; b=PbVIx+xYC76T48uTHd8/f65HmKAn6Aggd4bB+gXlzsC1eVABGc42+cTL6a+hUmc/Tcrm0uJFOvM4HdhYk9W1Gsl9LBgf84y7aVQAqx9piptKgWmGc+UzsQEqdVusC+ugGKjPzTCjHzhFYiruA27t7fARatPcph8XACWj06uIZFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781214953; c=relaxed/simple;
-	bh=Pacrb1hpDheZGvPj5b6lI5qmEiVD7X2w+vLnvcN2HfM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=awWg6kW28z/5nER8ND2wFRvf6seJxQQdwrmmGJgBLyofK5ao7jhsApc83czXV4zFXwvs+xhYkK77S5UsQIcd85tl1YTHlmE2quuREzb0udDX/DhiDUncXb+mBYMl1lvKgehIEb5xunf6yN25RAj7Il7SrmNmVDOIve9qxmy4wLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdILK1R9; arc=none smtp.client-ip=10.30.226.201
+	bh=G8O/fgkg40yzWQsZV7+qSg2DX9SUdeFeRtf+xvaV66c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JGHFg0z4c/Hi/qb/gEO2oT+gHE9N4Hu96pvRM+p+veWvIzvPDKxAcGrwft1BwbdYynbnusE8i4gTTwrt1K0ujv/fU26810uIXwoTqT4X2Z69CoRCR4lpAQNLB2iMH1yS4XcK2tKuPci2KGXFUtXjQLzMigiQNO7fRv5GVbeciXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fYVkFY5g; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdILK1R9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 165DDC4AF10;
-	Thu, 11 Jun 2026 21:55:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fYVkFY5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E1B6DC2BCB9;
+	Thu, 11 Jun 2026 21:55:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1781214953;
-	bh=Pacrb1hpDheZGvPj5b6lI5qmEiVD7X2w+vLnvcN2HfM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GdILK1R9hVKxL4Wds1s071usBrLyabBWvFR3w/ptHrdV3gMv007OmWy8JWob9IQ5h
-	 lztevHeu4xvdYmOeuQbX9hikTxpRXWX4AqhVsv/T375I9Ljzbc5Hk0fmzWuhh4ene6
-	 q+Mj3uRc+yFpR+DkL7zpUBW9uH7+Q56oWqSod0VabJK+ZUdJn7k1Oyvfj/x7d0Nbbw
-	 YuWz5MA0J1H9iFw0WDfwo89BgfADg98RrNaWClM+cIi8KChZ/RtYetW7bmRA6XP/a1
-	 fdmNUO2oXApz18CZjDcfbdXfRDalgX+FjRKLoX8468vTjLSho4mNEibKarYGNcE7OJ
-	 jdxTdkd+4bnbg==
+	bh=G8O/fgkg40yzWQsZV7+qSg2DX9SUdeFeRtf+xvaV66c=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=fYVkFY5ghFjUVtNKLogRoNOMEobOvXQn1CFFGTlwIqHPE4zmKfkdnn45ChQTezzSI
+	 +QvyE8p9cGYXMAaULInwTOFZqdMzhY4Xii0ykasbMC8gf7xdR1LS1wAZ9ZiFy3qrzf
+	 H4F+6igkWb8Tr7T7afFMqRWzPoQ84v0cC9nBR1zzOjFvMSq81Fuk/vA0AJaGuk1Ncn
+	 rs80PAA8Lav8gHJet1Vh0xtMq4yinCkrqzDt8M2eBGWaiIkB7yNCOStkoOOVbUW3+9
+	 QrPVt0K4j3m3ctcgXgtWuQQdENye0boZC653AYNsC6KIfL2FGLRKW9SQ3SXwjEG6SO
+	 G26tnBE7gN7RA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AE01CD98C7;
-	Thu, 11 Jun 2026 21:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7621CD98CC;
+	Thu, 11 Jun 2026 21:55:52 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Thu, 11 Jun 2026 14:55:39 -0700
-Subject: [PATCH net v5 2/4] net: ethernet: oa_tc6: mdiobus->parent
- initialized with NULL
+Subject: [PATCH net v5 0/4] MAC-PHY interrupt changed to level triggered
+ interrupt
+Date: Thu, 11 Jun 2026 14:55:37 -0700
+Message-Id: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,9 +41,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-level-trigger-v5-2-4533a9e85ce2@onsemi.com>
-References: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
-In-Reply-To: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
+X-B4-Tracking: v=1; b=H4sIANouK2oC/12NywqDMBREf0Xuuil5+Oyq/1G6iOaqFzQpiYQW8
+ d8bsmpdzgznzA4BPWGAW7GDx0iBnE2huhQwzNpOyMikDJLLmldKsAUjLmzzNE3oWTv0QrdKj1y
+ VkJiXx5He2fcAixs8UzlT2Jz/5I+o8pR1NT/romKcGd0obLhId/LubMCVroNbsyqWv3h3xsuE1
+ 6NqO90bI7p//DiOLwZj3WLvAAAA
+X-Change-ID: 20260531-level-trigger-8cb1a83af034
 To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -57,11 +59,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  Parthiban Veerasooran <Parthiban.Veerasooran@microchip.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781214947; l=1364;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781214947; l=2947;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=t+dmUxmhz+NSvTxVN33pXrsCLCkCj0A5Bx5yqncn/ig=;
- b=SkapaNnxGJcsM1J0VF4hAwiBSRzQVsHp2MRugT+VyfsnajInTDc6CHmD91efGhifz9rwphcyU
- OqMNQogUT66BNFLmw8wD9e4B5NjEBaK2lLeP+tQYDBPaEKoo81bJrON
+ bh=G8O/fgkg40yzWQsZV7+qSg2DX9SUdeFeRtf+xvaV66c=;
+ b=Q7Ins9Yrrl0dk8bb2U2sSVW/lnT974k5lqVNm7Gn8eZR3FMWqKX/E4xuR37i5FbXrecRpOjzT
+ K6VyCS9kQOEDM+fBFTje55mc0+k3LiF1fY4xnZ4vLq3z+V1LREywOWH
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -69,47 +71,74 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 Reply-To: Selvamani.Rajagopal@onsemi.com
 
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+According to OPEN Alliance 10BASE-T1x MAC-PHY Serial Interface
+specification, MAC-PHY interrupt is "active low, level triggered".
+The specification mentions about the conditions in which the IRQ
+is asserted and deasserted.
 
-As "dev" pointer in oa_tc6 structure is never initialized,
-mbiobus->parent was initialized with NULL.  This change
-fixes it by initializing it with device pointer of spi.
+Bug is inadvertently introduced by treating the IRQ in the OA TC6
+framework driver and in dt-binding YAML file as edge triggered.
 
-Fixes: 8f9bf857e43b ("net: ethernet: oa_tc6: implement internal PHY initialization")
+With the changes to use level triggered interrupt, use of threaded
+irq is more efficient than the current method that has interrupt hander
+working with work queue.
+
+This change of interrupt handler mechanism exposed couple of race
+conditions due to the fact that interrupts were not masked on protocol
+error. And pointers were not initialized with null after skbs are freed.
+
+Changes are done in two files
+ - OA TC6 framework Ethernet driver
+ - YAML file for the vendor that already uses OA TC6 framework.
+
+Maintainer for this driver is already informed and aware of these
+changes. Testing for these changes was done in onsemi's setup and
+found to be working.
+
+Changes in v5:
+  - Removed the extraneous FCS that came with the frame before passing
+    to the stack
+  - Base commit was upadted on few patches to ensure that it is pointing
+    to the correct commit ID.
+  - Commit messages have been updated to be more descriptive and
+    gives more detail now.
+  - Couple of race conditions pointed out by AI review is fixed.
+
+- Link to v4: https://lore.kernel.org/r/20260609-level-trigger-v4-0-6f389abdd192@onsemi.com
+
+Changes in v4:
+
+- IRQ handler is changed to interrupt handler + wake up thread
+  to interrupt handler + threaded irq. Threaded irq mechanism
+  is better suited for level triggered interrupt. Because it can
+  keep the interrupt disabled until interrupting conditions are 
+  handled by a handler thread.
+- SPI data handling function is called again on EAGAIN error code
+  as it indicates RX buffer overflow error, which requires draining
+  the bad data chunks.
+ 
+  - Changed wakeup thread to threaded IRQ 
+  - RX buffer overflow is handled before threaded irq returns
+
+- Link to v3: https://lore.kernel.org/r/20260601-level-trigger-v3-0-da73e7010532@onsemi.com
+
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-
 ---
-changes in v5:
-  Changed Fixes: commit ID to accurately reflect where issue originated
-changes in v4:
-   new patch
+Selvamani Rajagopal (4):
+      net: ethernet: oa_tc6: Interrupt is active low, level triggered.
+      net: ethernet: oa_tc6: mdiobus->parent initialized with NULL
+      net: ethernet: oa_tc6: Remove FCS size in RX frame
+      dt-bindings: net: updated interrupt type to be active low, level triggered
+
+ .../devicetree/bindings/net/microchip,lan8650.yaml |   2 +-
+ drivers/net/ethernet/oa_tc6.c                      | 140 +++++++++++++--------
+ 2 files changed, 89 insertions(+), 53 deletions(-)
 ---
- drivers/net/ethernet/oa_tc6.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+base-commit: 22e2036479cb77df6281ebbd376ae6c330774790
+change-id: 20260531-level-trigger-8cb1a83af034
 
-diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-index f3ac2875adfb..477ceefde2c5 100644
---- a/drivers/net/ethernet/oa_tc6.c
-+++ b/drivers/net/ethernet/oa_tc6.c
-@@ -110,7 +110,6 @@
- 
- /* Internal structure for MAC-PHY drivers */
- struct oa_tc6 {
--	struct device *dev;
- 	struct net_device *netdev;
- 	struct phy_device *phydev;
- 	struct mii_bus *mdiobus;
-@@ -520,7 +519,7 @@ static int oa_tc6_mdiobus_register(struct oa_tc6 *tc6)
- 	tc6->mdiobus->read_c45 = oa_tc6_mdiobus_read_c45;
- 	tc6->mdiobus->write_c45 = oa_tc6_mdiobus_write_c45;
- 	tc6->mdiobus->name = "oa-tc6-mdiobus";
--	tc6->mdiobus->parent = tc6->dev;
-+	tc6->mdiobus->parent = &tc6->spi->dev;
- 
- 	snprintf(tc6->mdiobus->id, ARRAY_SIZE(tc6->mdiobus->id), "%s",
- 		 dev_name(&tc6->spi->dev));
-
--- 
-2.43.0
+Best regards,
+--  
+Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 
