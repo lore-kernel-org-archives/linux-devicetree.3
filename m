@@ -1,66 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD513BB134;
-	Thu, 11 Jun 2026 09:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3CA3A6B9C
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:15:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169309; cv=none; b=VEPDR2Ng0QNhVer2Hc4Ex6aA34+5TMOdErFFDJ5r8vXgFGGC5E1K78IoY7Yv0MYBFikj2JKNPe7LWsBx1EevkqmlVHQA8JnIQN5d8BY/B+X6W8U9Uq8361MsjyxhVaZdJhptjkIgHKPnLrRhMLU+ANe7B3QPj7jZtp5XOTHjgmY=
+	t=1781169311; cv=none; b=AWeaKSExzMPnBangV0is2G3Ewby6OmD35iV7WEF23KL7uBX1uedijebVXFjS3y1L4lQdFfCNJ9k5pl3AihYpPSn3CwGbGcUYLb7aA/ejOkcsaYhGCjxLVM774IPF9oc+dXNwDcHIwVgXeIwpeo8YK2+VpMZQ6dbPrrl2dLluXwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169309; c=relaxed/simple;
-	bh=vL+KAPwmGDi8Z1ihP1tz+SOOBD0kJiZE8IMdQfmRgoY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qT45Mk0aHUx1wBD3qg1pkEe0Lzz1gX+jvwrwHJM6Ph2g8JUqWy4BH4rX8p8VN6bhOLolNvEIW4Z+WGFeNpaiOFJypGE5yq28Xjj4qhi4+hztb8nHtJ3MqvCJ4N4hq7uyUB45gpeNr0jRG4cnjUJxnfXZvvgX6AbUGKAP1oPzwJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+2ob+7N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781169311; c=relaxed/simple;
+	bh=1Dk0uiE6hYQnxA/reUwzj6Fl9+M3PF0yZCgiXZxD6r4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MGP1BK2WokS0xCYP67ZRI6g3ejsZWEQ40AK3Fk1CJfyaXWDmYlCmrLwJaWSmuM9gNOpmdyJzxW3tD3hf7IB52kWGgHY48T5sjtENAXOLzAaGqKgji115YlR5WTcw/iglze7LS7b6BMfKHqZkKil815MKx3lQDtlGwr05ptjniOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyKZbZEG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+2ob+7N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BFF1F00893;
-	Thu, 11 Jun 2026 09:15:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyKZbZEG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E09F1F00898;
+	Thu, 11 Jun 2026 09:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781169308;
-	bh=7JXC/K/YYswCgRaONX63U5Y+XfOJObbnQSDICLmsE9s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C+2ob+7N2q/Y4M88HEOUYnGbTnKgY9zysmYinGNyA8rRdr9LH6UR5MK49d84rBrXQ
-	 Nt/JNsdnI3FEp9oN4RpKebghpbGBhz5eOryavbOnECa716OVqTUR3qShmV8ue25qnH
-	 9MsJKOqfc9MFmUhYvvzIhkb8cq39sIjf37hp5Kj2BrmBFTdx9zP+l/LJMZUg0aMuTB
-	 Y1lexqTBu7fBJ7kQM9AwhiCfktbW0TDt5DOe45wBVJ9y35hHcTXzJ5NhU2D+bl7QW5
-	 9uVVYz761uk5YAa/tZlItZI46N9WrdiWl2Za+pe/ZepZlkK3qzIE7R5FYOv/xfn7fr
-	 8vtIBtnOen/1w==
-Date: Thu, 11 Jun 2026 11:15:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ramshouriesh <rshouriesh@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Aleksandrs Vinarskis <alex@vinarskis.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 8/9] dt-bindings: phy: qcom: add MIPI CSI2 mode constants
-Message-ID: <20260611-happy-shapeless-capybara-dadd28@quoll>
-References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
- <20260610-a14-himax-hm1092-v1-8-0c9907da47ed@gmail.com>
+	s=k20260515; t=1781169309;
+	bh=/p+Lvt8ewbTVk2z2hFitilux2l9kt1Db/QRRfFyX00g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GyKZbZEGGB9hjiWZiY1sQa9IiC5sIQpM6CyxyFHJY50b74+Du1XhXefQ9TcZYzdTS
+	 OY+aREpqTErUceWsgAwmiEw/MzeABFtQoxZlt8BCjj9QsijwD0l3wDDqfRmKNjjwoe
+	 6Vyb0xx3hvspooGfDvKC7EHUux9AAwdQWA/JqBl+oWDB9AEJMB+vOPvUyNYRVN933L
+	 ue2m0W2GCI3qHQqoLWfPgRUsJ4mKt33MyuUMDl6l2StC6YK6/iLMhgQT8CX0f8VMIi
+	 VHr/ucc9xsc8JAFdUUyjdqBJP72ynKyYztxesSxpjix1mFTcC/aerkr5XfI11ENWfC
+	 LVCLpq/RRAc0w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: defconfig: Enable USB_UAS in arm64 configuration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akash Kumar" <akash.kumar@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260611090946.2790631-1-akash.kumar@oss.qualcomm.com>
+References: <20260611090946.2790631-1-akash.kumar@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 09:15:08 +0000
+Message-Id: <20260611091509.6E09F1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260610-a14-himax-hm1092-v1-8-0c9907da47ed@gmail.com>
 
-On Wed, Jun 10, 2026 at 04:39:33PM +0530, Ramshouriesh wrote:
-> The CSI2-PHY binding references <dt-bindings/phy/phy-qcom-mipi-csi2.h>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Mismatch between Author email and Signed-off-by email.
+--
 
-No, it does not reference it.
+commit 8dd2d2a3035d6deca9f623e43d26b74e60f0f6d7
+Author: Akash Kumar <akash.kumar@oss.qualcomm.com>
 
-  $ git grep phy-qcom-mipi-csi2.h
+arm64: defconfig: Enable USB_UAS in arm64 configuration
 
-Zero results.
+This commit enables CONFIG_USB_UAS=3Dy in the default arm64 configuration
+to provide better out-of-the-box performance for USB storage devices.
 
-Best regards,
-Krzysztof
+> Author: Akash Kumar <akash.kumar@oss.qualcomm.com>
+[ ... ]
+>     Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 
+[Severity: Low]
+This isn't a bug, but there is a mismatch between the Author email and the
+Signed-off-by email.=20
+
+The Author is listed as akash.kumar@oss.qualcomm.com, but the Signed-off-by
+tag uses akakum@qti.qualcomm.com.=20
+
+Should these match to satisfy the standard Developer Certificate of Origin
+expectations for patch submission?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611090946.2790=
+631-1-akash.kumar@oss.qualcomm.com?part=3D1
