@@ -1,72 +1,43 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AAC3B636A;
-	Thu, 11 Jun 2026 07:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8990D3B3C11;
+	Thu, 11 Jun 2026 07:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781161933; cv=none; b=VmN5XJM4oztzVRMcJFYbG4qk1ULC/IkMqiUlWxSqRNqxVF2xcjO06UlvE9AuTAfD2WWpNRKrU11Ljtxv3sQ3YzVdO8UN+7dgGllxczHnYITsQrIl0bs6XRqA2MqQEnhglODG2kSc3Xx1pHddyUal4zxZWIMEBn3HFpmaqx5DkXo=
+	t=1781161939; cv=none; b=tYNb4B7M7BM1tD1TdVcL7UiWlHlou7E7dnMhuyXfaIiYsO00ItxJsu0KQFc7be8/o5HXFHX2b/6onkPv+lkKq8npJvKsMngUbEJFxdOkP1LZqE8C/MKl+tRyJe+Jy0xQnM7vd4JPVCTtCm705jiX0rx/nk08KViXDeQjVA2IA4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781161933; c=relaxed/simple;
-	bh=6/exjtGUI+H+BFU2tn1CFAXIxqVdrkenpMmUmWZvrj8=;
+	s=arc-20240116; t=1781161939; c=relaxed/simple;
+	bh=EJEYQub8wlf0di/iU4ofyqbowmH56ypDX5pVy3n+lc0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PVL+TGjoyJgK3+aVQWb/5aILvF/ILoZ4pt/9WyjNepDEr+sMSp7alxu4Rpv2beDYbjsianXZIZP/MLZTi2umiNfylYR0f6Wxv+kGh6B7UeI6FxwA+heQSjF1fc7JcSbqMrziTAxLtnr/4987T8zBUUAHxKtqXw8JnZCL8acaqAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Or9QGCKh; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=l2sZrbZi90MM+PvuVoLi+XBpZFyupNuHoLmgshrsdcg72lEdc2T+jGzwl5EZMJhmP8NaMXYSCUIjnrT1uXcWPdh47zJdDUzYvOPbwPV5bZoCRsji3m1QZxRA4WsYLY3he1TewUeKSnOte/w/aK5HqiJLmkx4L5j9JmtSoU7WODk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiFBYq3P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Or9QGCKh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781161930; x=1812697930;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=6/exjtGUI+H+BFU2tn1CFAXIxqVdrkenpMmUmWZvrj8=;
-  b=Or9QGCKhD/hmtcywWER6ZxEGOSTCmZ/4AKGMEztBVHQuO6SoCTFbhsCy
-   8NXcw+c9buwS+Tt8blcmcKjrEciy5RoMnJVa98xedkuJPLNn3tDdUteSb
-   3r2aBJZHgoZiVH2+xjPwf+Uz7rg33jtOiI1TNRqq5QH4azhCXCfKzHCjw
-   6XeUnzSrb8Oya9Klr9BPwrWkvCBcS+6FHn2XXQt/YGWMqfsKnfUv4TxrN
-   384iluA2S8cP1ix26d5MOfeDGo0qsix5y4OUfJrHuen1VSF7ovn5WhUPf
-   ycY82nfOZI8VPoM8zcVMgEbneASt/NBmaRGT3sywZYDUOzp6NykgFGzu4
-   A==;
-X-CSE-ConnectionGUID: FQOqnbIxSreMQPuSVs/g8w==
-X-CSE-MsgGUID: /3NWd2IATIKVoCUFwGHoOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81973325"
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
-   d="scan'208";a="81973325"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 00:12:10 -0700
-X-CSE-ConnectionGUID: RbYTuUx7ScGeDpYa6Q4KPQ==
-X-CSE-MsgGUID: CHyDdo05QcCi2c3czCuREA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
-   d="scan'208";a="243947336"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.123])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 00:12:07 -0700
-Date: Thu, 11 Jun 2026 10:12:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maxwell Doose <m32285159@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	Tomasz Duszynski <tduszyns@gmail.com>
-Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
-Message-ID: <aipfxL3ttO1-7W1T@ashevche-desk.local>
-References: <20260609160326.45123-1-m32285159@gmail.com>
- <20260609160326.45123-3-m32285159@gmail.com>
- <20260610-pastoral-dark-ostrich-5ca3f6@quoll>
- <CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
- <e00caff5-55e4-428f-bc57-3885699b221c@kernel.org>
- <aipatjyVcltbspRJ@ashevche-desk.local>
- <6c5a657b-f316-4982-8cb8-8c09f1b1669a@kernel.org>
- <aipfPwT4RJGdA4TT@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiFBYq3P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6551F00893;
+	Thu, 11 Jun 2026 07:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781161938;
+	bh=cb1adLE4OteerCSBk+VBYHwOKwVKIC0OX9Sh5Jg4D0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fiFBYq3PHbybtvQ0Ie7WxptQtEeUaCk6mxPymiXzx2z3zGvV4UAnunhiFpDcL+3ds
+	 8T2iILHFOT5A0QEZ7fBhoMFfMu7p5pdP443UE44k4Op87dski55918WHX+SvKCTWH3
+	 q+v+nE2/qmkjWRxh8ZAVFYaYRYvkSN6mmb8gnVGLWDqHg2r4kyfa74bFTSt+dKNj3Y
+	 ASPKu70fz3eU/2+djxAYm/9Yxva6fleJpBa5FfW0yLlD6mJ1CqrEpgJTmgSLDT+aeB
+	 8dP2VE/RzFF39igauJHUJwvKT1wdM6ivedxpLvfNDVSie0T1A1t0C/MU4X5FUZwHHm
+	 v+w9+NxVjIkpQ==
+Date: Thu, 11 Jun 2026 09:12:08 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org, 
+	naseefkm@gmail.com, ryder.lee@mediatek.com, helgaas@kernel.org, 
+	lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
+	ansuelsmth@gmail.com, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 0/3] Add EcoNet EN7528 (and EN751221) PCIe support.
+Message-ID: <qwjq6jt3akjk6m4qp4s7xpqf2kzc3tyhsrmcoqhc3canknauxh@leu5dbmv5ngl>
+References: <20260521171951.1495781-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,48 +47,80 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aipfPwT4RJGdA4TT@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260521171951.1495781-1-cjd@cjdns.fr>
 
-On Thu, Jun 11, 2026 at 10:09:57AM +0300, Andy Shevchenko wrote:
-> On Thu, Jun 11, 2026 at 08:58:47AM +0200, Krzysztof Kozlowski wrote:
-> > On 11/06/2026 08:50, Andy Shevchenko wrote:
-> > > On Thu, Jun 11, 2026 at 08:37:33AM +0200, Krzysztof Kozlowski wrote:
-> > >> On 11/06/2026 00:24, Maxwell Doose wrote:
-> > >>> On Wed, Jun 10, 2026 at 4:09 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > >>>> On Tue, Jun 09, 2026 at 11:03:26AM -0500, Maxwell Doose wrote:
-> > >>>>> Tomasz's entry is no longer valid, as he is not active anymore. Add
-> > >>>>
-> > >>>> Why is not longer valid? I see activity in Feb...
-> > >>>
-> > >>> Strange. According to git log --author="Tomasz Duszynski" last commit
-> > >>> I have from him is 2023. We also did have an RFC open for a month on
-> > >>> linux-iio with Tomasz Cced with no response.
-> > >>
-> > >> So you did not check enough... and no one needs to read RFC :/
-> > > 
-> > > Hmm... lore.kernel.org shows last activity November last year (07-11-2025).
-> > > What other sources do you suggest to check?
-> > 
-> > No, only lore.
+On Thu, May 21, 2026 at 05:19:48PM +0000, Caleb James DeLisle wrote:
+> Tested on TpLink Archer VR1200V-V2 (EN751221 with Gen2 device)
 > 
-> I used this request:
-> https://lore.kernel.org/all/?q=f%3A%22Tomasz+Duszynski%22
+> Changes since v8:
+> * guard(rwsem_read)(&pci_bus_sem); in mtk_pcie_retrain
+> * v8: https://lore.kernel.org/linux-mips/20260520183827.908243-1-cjd@cjdns.fr
 > 
-> > As I said, February this year.
-> > 
-> > https://lore.kernel.org/all/CAObtm8zKUAWNS23nRMhc9ZR-zn7xeVOFPiV4ai_x7Bkd5puiyA@mail.gmail.com/
+> Changes from v7:
+> * mtk_pcie_retrain retrain all root ports not just first
+> * Include fix from Manivannan Sadhasivam, wrong usage of virt_to_phys()
+> * v7: https://lore.kernel.org/linux-mips/20260514151318.3444959-1-cjd@cjdns.fr
 > 
-> Okay, you used UTF-8 name, Where did you get it from? MAINTAINERS has no
-> diacritics.
+> Changes from v6:
+> * s/reset/resets/ in .yaml
+> * s/re-train/retrain/g
+> * s/Root bridge/Root port/
+> * If module not builtin, log at mtk_pcie_startup_port_en7528()
+> * Do not fail if error in mtk_pcie_retrain()
+> * v6: https://lore.kernel.org/linux-mips/20260513191652.3200607-1-cjd@cjdns.fr
+> 
+> Changes from v5:
+> * s/errno-base.h/errno.h/
+> * Breakout mtk_pcie_retrain() into a function
+> * Use for_each_pci_bridge() to find root bridge
+> * v5: https://lore.kernel.org/linux-mips/20260413140339.16238-1-cjd@cjdns.fr/
+> 
+> Changes from v4:
+> * Fixed missing Acked-by
+> * Rebased to commit 66672af7a095 ("Add linux-next specific files for 20260410")
+> * v4: https://lore.kernel.org/linux-mips/20260404182854.2183651-1-cjd@cjdns.fr/
+> 
+> Changes from v3:
+> * s/initiallized/initialized/
+> * Use PCIE_T_PVPERL_MS for sleep time
+> * Use PCI_PM_D3COLD_WAIT for startup wait time
+> * Clarify comment "Activate INTx interrupts"
+> * Add MTK_PCIE_RETRAIN quirk for devices which require link re-train
+> * Do not retrain *all* bridges, only root bridge
+> * Better comments and logging in retraining logic
+> * v3: https://lore.kernel.org/linux-mips/20260320094212.696671-1-cjd@cjdns.fr/
+> 
+> Changes from v2:
+> * mediatek-pcie.yaml -> s/power-domain/power-domains/ and drop example
+> * Patch 3 dropped as it has been applied (Thanks!)
+> * v2: https://lore.kernel.org/linux-mips/20260316155157.679533-1-cjd@cjdns.fr/
+> 
+> Changes from v1:
+> * mediatek-pcie.yaml slot0 needs device-type = "pci", fix dt_binding_check
+> Link: https://lore.kernel.org/linux-mips/177334026016.3889069.9474337544951486443.robh@kernel.org
+> * v1: https://lore.kernel.org/linux-mips/20260312165332.569772-1-cjd@cjdns.fr/
+> 
+> This was split from a larger PCIe patchset which crossed multiple
+> subsystems. I'm not labeling this a v3 because it's a new patchset, but
+> I'm keeping the historical record anyway.
+> 
+> Changes from econet-pcie v2:
+> * mediatek-pcie.yaml add missing constraints to PCI node properties
+> * econet-pcie v2: https://lore.kernel.org/linux-mips/20260309131818.74467-1-cjd@cjdns.fr
+> 
+> Changes from econet-pcie v1:
+> * pcie-mediatek.c Exclude pcie_retrain_link() when building as a module
+> * econet-pcie v1: https://lore.kernel.org/linux-mips/20260303190948.694783-1-cjd@cjdns.fr/
+> 
+> 
+> Caleb James DeLisle (2):
+>   dt-bindings: PCI: mediatek: Add support for EcoNet EN7528
+>   PCI: mediatek: Add support for EcoNet EN7528 SoC
 
-OTOH, you may have used simply email approach. With
-https://lore.kernel.org/all/?q=f%3Atduszyns%40gmail.com
-I got it as well.
+Patch 3 doesn't apply cleanly. So I applied patches 1 and 2. Please rebase patch
+3 on top of pci/controller/mediatek branch and resend it.
+
+- Mani
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+மணிவண்ணன் சதாசிவம்
