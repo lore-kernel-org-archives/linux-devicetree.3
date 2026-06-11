@@ -1,111 +1,186 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263D038E8D5
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F7C3A254C
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169254; cv=none; b=QARN9TjG0gSHB4ycuTKQfxyArJxSryEJfvTZdcTtmRuMX70gWE0F6/jjtwdsirDZsdmgt7hMHsrKSbPygRKZsvtQsz1JrrWxjyKYF5MVcGcm1rl/5AoyKML5ugMxMDRgcr1dFZl22CknDKcycVWyD+0lyQocsfhSCj8OcXvLPHc=
+	t=1781169258; cv=none; b=tgogHpFo4zmhxanl6HrkxypFJCvk1kl8A5mnjpxmSTQx+bEzVLha3ceUhjcW4z8i/MEf68Pc4EuHy0VBWc6quHu8EW1YmeijwaN9A03MhWRsoEiri504MUb+jD+FC+VKWDldh9QV/D+4O8WcD5M1MGs9iVBIdXGCJfCbf3/MfIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169254; c=relaxed/simple;
-	bh=4CqiEOKp7G7+G9FT5Fh+bQy6KqYzvJWqGt8d9d7QZFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gIDH2T7SCaceN3l4XPX+BVuh1G6rA7fdDSeXIW4FQVKSVo8vdkqS2w/YsOrBBfPqL39+DT+1gU3T2Jw0UiooM3yP0TmUkR7sic19x4YyyE+uEUVGe6W+/N/QKQ4buwc/rn1bCtYDsaHFkYMoq1r+ntUVrdXZHZaa83XQg15BKwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dBxSmj7C; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781169258; c=relaxed/simple;
+	bh=vkmkoCRxO5KqC+ht0+pUldVDMpevd5JAZIEtNHnWUT8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=m4hvx38cbyJa5XbsVPNs/gljCWjXSbXYD4E1H4NgNbgrqHrXSb5/4T/67gzbsltxFg1LeQgS/ZrKurEODD+gYjbeFO3pqxrNhmyCJv687RF0sOZI6Lxa4wUQLpKHo9AQHek9xl0qeBYe0jI/2hI4F+DIpOTRkXMc8MHAgeUmVTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gmym22m9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dBxSmj7C"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490b12270b3so46369935e9.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 02:14:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781169251; x=1781774051; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=M3d4LMOrRVe9Dpt71iC63qNlgFeEkSybcIKSVZrkmmg=;
-        b=dBxSmj7CXI3Ht3IxAZVlELaMcu1PiEN98SwB7gMz2blQqTs2Rn+CTsVRy86A7Hnv1m
-         rF+dJYkWvla6LkuQxSkXgMC9EoW5h8Vu6BXgtIa+SLAyR2EyXNn6KbMj3cJMyy3lPbLG
-         iaKxxSl7ZdmqlB/e1iTfiUuhqGS59eymwvq1tIrM8iU6LhaUxMFZab1fQwaNo8rIKTZV
-         mfdGrcRzWQFVRRpli/5tcZlTH7mlncfEVoW/XEe+P95ovpq72rdPjhi4Tp6SYdAQQl0X
-         wJMkdbOBdiOI+kwWa9QbIV092VqZcCCcoJMDOBcMNJdfmQN7k9qnUN0+Aq0VV6/FemKF
-         Y/fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781169251; x=1781774051;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=M3d4LMOrRVe9Dpt71iC63qNlgFeEkSybcIKSVZrkmmg=;
-        b=tZlwmk3+x71jzV69BlshTKm7uj6Lt7vDa9cQdBYm3iyxmz06w4NjqDz/XwZ+I+sRhY
-         v4pTxQzgMKt0LGxkRcQj9V09Z8TAxIVIifaMWW/AMUCwZFqOktCpu5L2WjH4M9UC9pBu
-         3tK/x1hPxPK6QlkziUF+3XcOGaQ6NMCvto5zoHjUWU0oU6awMX/b9GM2Lf16J8kvr1mq
-         gG6GC4cQM2RgwEzD4et4ABQXMFPeYDdKfXg+LyNV47lzo4ZXe8JyPhdMzu+OtHWyEcpG
-         Yq0RImN0u6uAnoZhA4YSE6WxeuLXGM+56QwMe/d/lSQp/d0PM2CJTdXTbQ8k7WQzEcDP
-         8dSg==
-X-Forwarded-Encrypted: i=1; AFNElJ9PHKZzmEu+myXFdSs/OAGlS3oeYZLzNNyN/CLF73unK/ZvLdq4ndtAnNX7uF1vDgsDJg1MC807oWEq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0SyO54EYgCAO0ZGEC5Glw4ogON2SE/ciYOUtkUHKHyGTAKK0I
-	0hszBh73ofo1StZdwbAfR4tbpYqBgHyHV3d28EkQogTwtq2DOvjvXaok5e6gXUfJ+Os=
-X-Gm-Gg: Acq92OE7RKW+S4OfASCoAMPrGsuS+htx8Swvk6ZQq7cbJxWPqLDCTDlPyRDQRe0e1Lr
-	iqr0MV+hs8ohHwHhkPSQ846z+/40SRXqLGQJoSnWn9Sc/CkBZErYqqXxYsoSiqokuNaEJuhrxEq
-	u6j31oBRBD5Syo0+p9Nls6v7kObRPmrgz8bF7LuKS96tJ70dGlpvEm4xLRPaVkQ4EPC00RFSibW
-	763/0dtw3l2VywLkmTePxBh4nfSjY6X0bMhq9egUPclsxbeuDmFwRkY7pblns14K564qgKDtqmh
-	/Q6AdSNZMIbL17HvIFwzhLzO9eSk//SAhudQCh8m0rpCAz6A68G9evB7ojAijVBaMFHx/iW/o2q
-	YZTXOAW/z2rrWOjcl9XyZNlZboITJy/ltxhKGG6UevgbtiTfSQtqk7iRsq9IprlbWWY1h6CL4o8
-	uMDuDGl3oeTb8XgsjRKOFSMTz41aToY4UWnB/BklSZ12WuHQ==
-X-Received: by 2002:a05:600c:3550:b0:490:e5c1:b897 with SMTP id 5b1f17b1804b1-490e5d0fe68mr19389845e9.20.1781169251573;
-        Thu, 11 Jun 2026 02:14:11 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff23:4410:7bb1:6476:9114:cf39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e2cf5537sm59201665e9.9.2026.06.11.02.14.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 02:14:11 -0700 (PDT)
-Date: Thu, 11 Jun 2026 11:14:06 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bjorn.andersson@oss.qualcomm.com, chris.lew@oss.qualcomm.com
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add BAM-DMUX support
-Message-ID: <aip8XtKoS2xTYv4L@linaro.org>
-References: <20260611-qcom-shikra-dts-bam-dmux-v1-1-43d0b43d41ef@oss.qualcomm.com>
- <aip3_fyE8tMtJZIW@linaro.org>
- <61fea0fa-d7af-47f4-a3c7-21d881090008@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gmym22m9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60AE21F00893;
+	Thu, 11 Jun 2026 09:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781169257;
+	bh=+uGIkDPBZFKsGsyl6Cp6X6gL4+BnzPI6rQdzDnzCQa0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Gmym22m96Dzqj7WX+SEx9ToXrlM46QpMfwriq0d07yopH+A0MW90xC4xyPaI+1uqM
+	 DFVi3BPR1BQzot883nfZ12uMlVCrxHVOtGiNYdrgMYWYcxqwySuWfKT/vdAnNMzIIw
+	 HnXoM2qFZHMxlG8yyZOl172btUhdzPZ3rHOuH6uXIKUA6r96nkNqWL36yMPjBKhp9R
+	 h6kVpru63cxHK1byHTxnBxRxw75070DTbqmseV49h0hL9jWelr0hv6W4s0OSROVSpt
+	 qM6TlpMoLWYw4tLDxEpNpjHckAgT8UJvquTIht9AUZI7J1NiXfa8AZG56kRw9QAVux
+	 gHWEpKSUKzzVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2
+ BMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyle Hsieh" <kylehsieh1995@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260611-ventura2_initial_dts-v7-2-a61d8902bc5f@gmail.com>
+References: <20260611-ventura2_initial_dts-v7-2-a61d8902bc5f@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 09:14:16 +0000
+Message-Id: <20260611091417.60AE21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61fea0fa-d7af-47f4-a3c7-21d881090008@oss.qualcomm.com>
 
-On Thu, Jun 11, 2026 at 11:10:51AM +0200, Konrad Dybcio wrote:
-> On 6/11/26 10:55 AM, Stephan Gerhold wrote:
-> > On Thu, Jun 11, 2026 at 02:11:59PM +0530, Vishnu Santhosh wrote:
-> >> Add required nodes to enable the upstream BAM-DMUX WWAN driver on
-> >> Qualcomm Shikra SoC.
-> >>
-> >> The SMSM (Shared Memory State Machine) node provides the power
-> >> control signaling between the AP and modem for BAM-DMUX. The
-> >> BAM DMA controller node describes the A2 modem BAM hardware as a
-> >> standard DMA controller. The BAM-DMUX node references the DMA
-> >> channels and the pc/pc-ack interrupt lines from the modem SMSM
-> >> entry for power control signaling.
-> >>
-> >> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> > 
-> > I'm quite surprised to see this 15+ years(?) old hardware block being
-> > brought back to a new SoC. Is Shikra not using IPA?
-> 
-> That's correct.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Missing `reg` property in flash nodes causes `unit_address_vs_reg` =
+Device Tree compiler warnings.
+- [Low] Device Tree node names violate naming conventions and will fail `dt=
+bs_check` validation.
+--
 
-Ok, thanks for the confirmation. It's nice to see my driver running on
-some new SoCs 6 years later. :-)
+commit 2eeab78b32b1eec6637ab72a9ca3d05a4cfb0f70
+Author: Kyle Hsieh <kylehsieh1995@gmail.com>
 
-Thanks,
-Stephan
+ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+
+This commit introduces the device tree for the Meta Ventura2 Rack
+Management Controller (RMC). The system uses an AST2600 BMC for managing
+liquid cooling systems, monitoring hardware states, and supports an extensi=
+ve
+I2C and IO expander topology.
+
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts b/=
+arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> new file mode 100644
+> index 0000000000000..12fad349e71b4
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> @@ -0,0 +1,2897 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2023 Facebook Inc.
+> +/dts-v1/;
+> +
+> +#include "aspeed-g6.dtsi"
+> +#include <dt-bindings/i2c/i2c.h>
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	model =3D "Facebook Ventura2 RMC";
+> +	compatible =3D "facebook,ventura2-rmc", "aspeed,ast2600";
+
+[ ... ]
+
+> +	chosen {
+> +		stdout-path =3D "serial4:57600n8";
+> +	};
+> +
+> +	fan_leds {
+        ^^^^^^^^
+
+[Severity: Low]
+Does this node name violate naming conventions? Device tree node names shou=
+ld
+typically use hyphens instead of underscores (e.g., fan-leds) to pass dtbs_=
+check
+validation.
+
+> +		compatible =3D "gpio-leds";
+> +
+> +		led-0 {
+
+[ ... ]
+
+> +&fmc {
+> +	status =3D "okay";
+> +
+> +	flash@0 {
+> +		status =3D "okay";
+> +		m25p,fast-read;
+> +		label =3D "bmc";
+> +		spi-max-frequency =3D <50000000>;
+> +		#include "openbmc-flash-layout-128.dtsi"
+> +	};
+> +
+> +	flash@1 {
+> +		status =3D "okay";
+> +		m25p,fast-read;
+> +		label =3D "alt-bmc";
+> +		spi-max-frequency =3D <50000000>;
+> +	};
+> +};
+
+[Severity: Low]
+Are these flash nodes missing a reg property? Since the parent controller
+defines #address-cells =3D <1>, omitting reg for nodes with a unit address
+(e.g., flash@0, flash@1) will cause dtc to emit a unit_address_vs_reg warni=
+ng.
+
+[ ... ]
+
+> +		i2c4mux0ch1: i2c@1 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <1>;
+> +
+> +			temp-sensor@48 {
+                        ^^^^^^^^^^^
+
+[Severity: Low]
+Is this using a non-standard name? Device tree bindings for temperature sen=
+sors
+typically expect temperature-sensor@ instead of temp-sensor@ to pass valida=
+tion.
+This pattern appears here and in the &i2c5 and &i2c10 nodes.
+
+> +				compatible =3D "ti,tmp75";
+> +				reg =3D <0x48>;
+> +			};
+
+[ ... ]
+
+> +&spi2 {
+> +	status =3D "okay";
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_spi2_default &pinctrl_spi2cs1_default>;
+> +
+> +	flash@0 {
+> +		status =3D "okay";
+> +		m25p,fast-read;
+> +		label =3D "pnor";
+> +		spi-max-frequency =3D <12000000>;
+> +		spi-tx-bus-width =3D <2>;
+> +		spi-rx-bus-width =3D <2>;
+> +	};
+> +
+> +	flash@1 {
+> +		status =3D "okay";
+> +		m25p,fast-read;
+> +		label =3D "e810";
+> +		spi-max-frequency =3D <12000000>;
+> +		spi-tx-bus-width =3D <2>;
+> +		spi-rx-bus-width =3D <2>;
+> +	};
+> +};
+
+[Severity: Low]
+Are the flash nodes under spi2 missing a reg property as well? Just like
+the fmc controller, nodes with unit addresses should include matching reg
+properties.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-ventura2_i=
+nitial_dts-v7-0-a61d8902bc5f@gmail.com?part=3D2
