@@ -1,223 +1,204 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11023128.outbound.protection.outlook.com [40.93.196.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB403BCD3D;
-	Thu, 11 Jun 2026 09:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.128
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781170704; cv=fail; b=pkXzqEPd7aGmjRdhcAzhmtF+93ZUChZUcF60223yvwNZP5zv11naftlbdiUSL67+n+0U7auGtm4r17IHCkIt1Qm63AEXHvwV5np+evz1ODqoyoZKppCKMYtQsLi/okswvRpXxJ1kHDgT7W/kLVBZELYdPWxp+1abro1pdnVRPYw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781170704; c=relaxed/simple;
-	bh=Ew66nKJhFNAmdvqu9iVmRMIwLOJEo8YdAdbb5syWQEs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l4BLhEigbnJUA5x5KkYkEzHrCF2RkztdpryZKZ5mEVeKzBgnWg3KXTgk8IY+Ox1j95r9BEsqjYxwj+E2o9MX7llbCkrA96fFhRN4SgeM33FGDFepzzbQRVJ8xq+RXmWWB71Kq5FOzM7/qLud3oPI9k6+plQ8mtj3Nshv27seDho=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=SzX2KNYy; arc=fail smtp.client-ip=40.93.196.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F7E3451D6;
+	Thu, 11 Jun 2026 09:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781170794; cv=none; b=RPR3HExQGLp5KtjvLkLpfsk6HONWR15JJq4XT/tliY4B5+RkneD2LsqOU/qrmAX3iT0zmRw3tUCeEf03GcARI0+80Ch8yTVhQpPItUFkPs+rEkeBV2l5TzGZE/VLlOmm81nlABTTcm5NXmjO8llUSIh1feDwEmXa8WpVRj/qw68=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781170794; c=relaxed/simple;
+	bh=Kp1l3i82/bTOksbc51tcQ4Gvr9B1S3ou4MHzLSUTFtE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F8Eat02OKnLY2aOv5yjm1qjGB+t/LTpPDa60m7r/la9r7uDbqBsFE6yRLSwP9mL84LoXqluTauN5PocktnOk1YqRP99XjFE2HvQmfdUJWwglVgntmuAPW8OwYRDQArY02mjrphI6un8h7B/AD0PAKEPivrv0yT6nBjKy8+InxxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gO2+HB+d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="SzX2KNYy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pu86YdwCWGwwoLk1M+TQD6K5mrKCMEQ5K6bSUCmYXG6XlI8NAe4vf7If7yALdI80yKX2+TFDhOqjb10awwe7CGnmzceCGQB+d6pY2Jf8FCoqGbwG34zOpjSsF+1LFiVpvrO0JFt6YCfZILHsI+dGL4R0TbH8e29ugt1vhG1hT7cDv7flfLce7bNL/42OxTisKsD8Lvh1b1SqDFdnKDWq58YXFND6L2Fe1XcbzNFdoOHU9Kzk8OfHYVROcQUdH/yj31Q1pvwWN9syMZjPWlYF1/GaYVlBe4zvR46T9+zJ6mvc2EWqCf9/9IIG6uXRAwdMJlbW2eVTT5K1use0lGq9QA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V7PibXAcIGUzMHkMw4d52MV4Cue1riJ2jFkEYSXTQ0M=;
- b=f7O1jFY5StD1zn9El/ZmqbFbVL0OMQoToGCNCwAEoHAQqx1GX7Ml0971ahfBbYmyzyy0SGxn+xkv5Bk/JsP1DRfMl6LbKYhj+t5McS/e3tkcNjLr8lK2cbrtsJhra0xg1cZxbDeXbtS6IxBjLHkR6MbE2Bw+xL9m2+eoKOxQbRKceXa57LWNNanl4iY5/eSZ97tp1+qcRl1ET0H8xIUiSlRJCq42RsZqWgRSCgR3t92isGtnl3iPlcQT6nit7hZsKpyFHSBvNpjdZF0IkHz1xcMvqjq3oFK+V4erCcQvf7cErHl9AzQQvMqdiLdSYe3RGZwDm2pICvui8onz8IB6pA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=analog.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V7PibXAcIGUzMHkMw4d52MV4Cue1riJ2jFkEYSXTQ0M=;
- b=SzX2KNYyk311hr3tymy2OqeJZ6M3+eKOz2/RFVFHvy4/oC097ATrEb7eAEbjNJWoVVnCbDQt3mvSkT42m8Q9YGtTf+nevmfNNSccC+HUn30ZsEd2PVK5X3QjLxfTaUfzjXMKicV/cAJNv81CBRYtwkBUYHCEyDk+WOFIJck+aJReaBWPLM0BgkNWopI5vzTntVcZQCaZ00HqJvuGh32g/sMsi2Pqvi47eXZLElk9zuyhoonVbhDcx9J4JHGUnUzAmSFPlPQtmoOn3YngXYJpJmsQMGedxoNa3tHuZ2YZ2OvoKTvBn7FUx4L7DAndnnyr1qZSksPhzuX+RPl7Xg4nZA==
-Received: from BN9PR03CA0468.namprd03.prod.outlook.com (2603:10b6:408:139::23)
- by PH8PR18MB5292.namprd18.prod.outlook.com (2603:10b6:510:25c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Thu, 11 Jun
- 2026 09:38:17 +0000
-Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:408:139:cafe::7d) by BN9PR03CA0468.outlook.office365.com
- (2603:10b6:408:139::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.12 via Frontend Transport; Thu,
- 11 Jun 2026 09:38:17 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.7
- via Frontend Transport; Thu, 11 Jun 2026 09:38:16 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 18CFF4186B5A;
-	Thu, 11 Jun 2026 02:35:43 -0700 (PDT)
-From: Petar Stepanovic <pstepanovic@axiado.com>
-Date: Thu, 11 Jun 2026 02:37:43 -0700
-Subject: [PATCH v2 1/2] dt-bindings: iio: adc: add Axiado AX3000/AX3005
- SARADC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gO2+HB+d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF741F00893;
+	Thu, 11 Jun 2026 09:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781170793;
+	bh=R5yiotapJVMX0NE8j/ye5/VtU3Y1gWhYPhxIoCxJbW4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gO2+HB+dSMqvPSMzDGoem5nbamut+f22nTmegbMqmhUlvUSbJ5XpYl3jggfkNWw1L
+	 fJK4uKqnjUpoX6GONzuai8pHkOv2Eibbgrjbb0IL3lFhH6BXG1VUc9SAQ521067PFk
+	 kYaYljI44FeHCBzXjxV8HiCZbyvdcbchvaKGB6gJWe63+wPNzr55mgYSC8wcjz4FuZ
+	 ksA/vevapSRQksd8/aid512J9QKxv/DjyKmVhNO940cGm0Eh36+3wbvZT4vfrx2ZMt
+	 HoSyJav6z5ts/HA2ukvNz6o/St9MUgtqBm6IJjmPKLEp/BhnlXr+JD5BaXgoEHgLm8
+	 sXhnPbXNDMKeQ==
+Date: Thu, 11 Jun 2026 11:39:50 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] ASoC: codecs: add Qualcomm WSA885X I2C codec
+ driver
+Message-ID: <20260611-straight-refined-beetle-e2c934@quoll>
+References: <20260610155708.151067-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260610155708.151067-3-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-axiado-ax3000-ax3005-saradc-v2-1-913c9de7c64c@axiado.com>
-References: <20260611-axiado-ax3000-ax3005-saradc-v2-0-913c9de7c64c@axiado.com>
-In-Reply-To: <20260611-axiado-ax3000-ax3005-saradc-v2-0-913c9de7c64c@axiado.com>
-To: Akhila Kavi <akavi@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Petar Stepanovic <pstepanovic@axiado.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781170695; l=2930;
- i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=Ew66nKJhFNAmdvqu9iVmRMIwLOJEo8YdAdbb5syWQEs=;
- b=FTDqt3xI/uHxhXhNWwq+GgXn7EeRGSbsrXP15vtKMxk197apAy4G0V3SUJufYmE5Y8D6ecLpQ
- FYi0yFJQ84vBktDZ2eZmy7+eXKHAo7VkiHrlx8z56kApmSPMk0vkNZy
-X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
- pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|PH8PR18MB5292:EE_
-X-MS-Office365-Filtering-Correlation-Id: caa95dfb-9496-4dbe-ab6e-08dec79d2a82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|82310400026|36860700016|1800799024|3023799007|22082099003|18002099003|56012099006|13003099007|921020;
-X-Microsoft-Antispam-Message-Info:
-	RnY78nlRf8PF0ITObfy4zkcySP2g73WfPKGNaKeSfL5jq1zovCMB7etTYTa9wsnGuCzjRYiJPZKuUmsRjCjAaP0JB+CkW+xVK9VDkoKOH0CsvGkFQQluul0VTqyTwvHWOd/5rJhc4/J4G0VPMchUP/q0PdCEFv7Um8EMOA/2KCALL2diRqnAlaaKo27mpad/GWMeg8fKA/CjLHmZ6ANriLsCznWDnJ7E2kiIigPSjNGMY54DEDYwp+7O9KhHg6JRDd4VpJx6c5BIhtasroi2CmuAss45LWWF2lb83CXReN/0o1+bMX2RYAR1i2xwkDXjr/3/XI7IgmKZfbyFsXhBlRpnGziAoFjfu3dFjmDy7ueNEx5EedmskRf+LBSHcqAgLyunS+v5NKktsK58Ap+bO8Cu+w5hanvhN/shRtCn8NJuNUtNHyKYVeaW+PUSW8J/P0RH62l9Vozwx3YVfrU+0FIFxtX/nNRp8os1OPTlNXckWgcsYNvHjzj1PjFJt/505ApwkZYmg78OFS99+EqljPLL5DDCaaO3CDCpaqmWR3l5RF2n/PBAngTmBIE4b816rrcYSLMS9M5IKLribZHQoVFszHLLID7y/Ykv2Hldkxr6WpoclRJmYelVIic/W9aev4e4THMqfUFIVl6B93t5KtqVmBhrw/O7rudCnSiXtA+6VsosXBw5SPOXi5DS6dyoxI/gW4tVqiwnYWSOOxPBaZREjoyemxDi9kmxn+xQvbM=
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(82310400026)(36860700016)(1800799024)(3023799007)(22082099003)(18002099003)(56012099006)(13003099007)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	B+Yu/fO9JRn3PD05GnEEXysq5UMUODmICN1JxLPKWFFBRTO4C3MnJWQT2s1kZkTVjS86dFfX4NQkFMzJ+ZSNxfWNSGsnzh/BnzVPvo1geW4OtuVEwj4EUovgZAmfJrNXBXIsx1brrIl1jW+wAprSHnFjxfjfWTmf4+vgRwfy01ZKbABR2F5npJM03acJnS2cwWR8l7CRz50eWPgawUEgfMtCeqEj5feYkzy1nGnKgvMCCavJw32IQTwuCiMvNcX93LTHIVxAeW64uvd8qrdq8z9lUVpcus7yC0paaOCgQosP9Ge/lrIV6t2KqEuCDY/SgkaAv2YuwlN+LORIATi+tbLih07ELb05zIisgaS5j2io2oHRWgN/i+Azs72bXQneOU1V7hWZonWJHNmOJ2TZJ8zoZtKtxfoQUngJiUsEOq9Y7H3KhGohyT7rZtBtfEcI
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 09:38:16.8451
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: caa95dfb-9496-4dbe-ab6e-08dec79d2a82
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBB.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR18MB5292
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260610155708.151067-3-prasad.kumpatla@oss.qualcomm.com>
 
-The Axiado AX3000 and AX3005 SoCs include a 10-bit SAR ADC controller.
-AX3000 supports 16 input channels, while AX3005 supports 8 input
-channels.
+On Wed, Jun 10, 2026 at 09:27:08PM +0530, Prasad Kumpatla wrote:
+> +};
+> +
+> +static void wsa885x_gpio_set(struct wsa885x_i2c_priv *wsa885x, bool val)
+> +{
+> +	if (!wsa885x || !wsa885x->sd_n)
 
-Document the compatible strings, register region, clock, reference
-voltage supply, and IIO channel cells.
+How wsa885x can be NULL?
 
-Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
----
- .../bindings/iio/adc/axiado,ax3000-saradc.yaml     | 63 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 +++
- 2 files changed, 70 insertions(+)
+This wrapper is pointless. Avoid creating abstraction layers over single
+call to standard kernel interfaces.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
-new file mode 100644
-index 000000000000..b910852aa56f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/axiado,ax3000-saradc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Axiado AX3000/AX3005 Successive Approximation Register ADC
-+
-+description:
-+  The Axiado AX3000/AX3005 SAR ADC is a 10-bit ADC with sixteen input
-+  channels on AX3000 and eight input channels on AX3005.
-+
-+maintainers:
-+  - Petar Stepanovic <pstepanovic@axiado.com>
-+  - Akhila Kavi <akavi@axiado.com>
-+  - Prasad Bolisetty <pbolisetty@axiado.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - axiado,ax3000-saradc
-+      - axiado,ax3005-saradc
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: saradc
-+
-+  '#io-channel-cells':
-+    const: 1
-+
-+  vref-supply:
-+    description: Reference voltage regulator supplying the ADC
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - '#io-channel-cells'
-+  - vref-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      adc@806a0000 {
-+        compatible = "axiado,ax3000-saradc";
-+        reg = <0x0 0x806a0000 0x0 0x400>;
-+        clocks = <&pclk>;
-+        clock-names = "saradc";
-+        vref-supply = <&vref_reg>;
-+        #io-channel-cells = <1>;
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b2040011a386..932bba890780 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4312,6 +4312,13 @@ S:	Orphan
- F:	Documentation/devicetree/bindings/sound/axentia,*
- F:	sound/soc/atmel/tse850-pcm5142.c
- 
-+AXIADO SARADC DRIVER
-+M:	Petar Stepanovic <pstepanovic@axiado.com>
-+M:	Akhila Kavi <akavi@axiado.com>
-+M:	Prasad Bolisetty <pbolisetty@axiado.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
-+
- AXIS ARTPEC ARM64 SoC SUPPORT
- M:	Jesper Nilsson <jesper.nilsson@axis.com>
- M:	Lars Persson <lars.persson@axis.com>
+> +		return;
+> +
+> +	gpiod_set_value_cansleep(wsa885x->sd_n, val);
+> +}
+> +
 
--- 
-2.34.1
+...
+
+> +
+> +static void wsa885x_gpio_powerdown(void *data)
+> +{
+> +	struct wsa885x_i2c_priv *wsa885x = data;
+> +
+> +	if (!wsa885x)
+> +		return;
+
+How is this possible?
+
+> +
+> +	wsa885x_gpio_set(wsa885x, true);
+> +}
+> +
+
+...
+
+> +	if (count > 0) {
+> +		if (count % 2) {
+> +			dev_err(dev, "%s: Invalid number of elements in %s (%d)\n",
+> +				__func__, init_table_prop, count);
+> +			return -EINVAL;
+> +		}
+> +		if (count > WSA885X_INIT_TABLE_MAX_ITEMS) {
+> +			dev_err(dev, "%s: %s has too many elements (%d > %u)\n",
+> +				__func__, init_table_prop, count,
+> +				WSA885X_INIT_TABLE_MAX_ITEMS);
+> +			return -EINVAL;
+> +		}
+> +		wsa885x->init_table_size = count;
+> +
+> +		wsa885x->init_table = devm_kcalloc(dev, wsa885x->init_table_size,
+> +						   sizeof(*wsa885x->init_table), GFP_KERNEL);
+> +		if (!wsa885x->init_table)
+> +			return -ENOMEM;
+> +
+> +		if (device_property_read_u32_array(dev, init_table_prop,
+> +						   wsa885x->init_table,
+> +						   wsa885x->init_table_size)) {
+> +			dev_err(dev, "%s: Failed to read %s\n",
+> +				__func__, init_table_prop);
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	ret = device_property_read_u32(dev, "qcom,battery-config",
+> +				       &wsa885x->batt_conf);
+> +	if (ret) {
+> +		wsa885x->batt_conf = WSA885X_BATT_1S;
+> +	} else if (wsa885x->batt_conf != WSA885X_BATT_1S &&
+> +		   wsa885x->batt_conf != WSA885X_BATT_2S) {
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Invalid battery config %u (expected 1S or 2S)\n",
+> +				     wsa885x->batt_conf);
+> +	}
+> +
+> +	for (i = 0; i < WSA885X_SUPPLIES_NUM; i++)
+> +		wsa885x->supplies[i].supply = wsa885x_supply_name[i];
+> +
+> +	ret = devm_regulator_bulk_get(dev, WSA885X_SUPPLIES_NUM, wsa885x->supplies);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
+> +
+> +	ret = regulator_bulk_enable(WSA885X_SUPPLIES_NUM, wsa885x->supplies);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable regulators\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, wsa885x_regulator_disable, wsa885x);
+
+Why you cannot simply use devm_regulator_get_enable?
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "devm_add_action_or_reset failed\n");
+> +
+> +	wsa885x->sd_n = devm_gpiod_get(dev, "powerdown", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(wsa885x->sd_n))
+> +		return dev_err_probe(dev, PTR_ERR(wsa885x->sd_n),
+> +							 "Shutdown Control GPIO not found\n");
+
+Messed/misaligned indentation.
+
+> +
+> +	wsa885x_gpio_set(wsa885x, false);
+> +
+> +	ret = devm_add_action_or_reset(dev, wsa885x_gpio_powerdown, wsa885x);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "devm_add_action_or_reset failed\n");
+> +
+> +	i2c_set_clientdata(client, wsa885x);
+> +
+> +	wsa885x->intr_pin = devm_gpiod_get(dev, "interrupt", GPIOD_IN);
+> +	if (IS_ERR(wsa885x->intr_pin))
+> +		return dev_err_probe(dev, PTR_ERR(wsa885x->intr_pin),
+> +							 "Interrupt GPIO not found\n");
+> +
+> +	ret = wsa885x_register_irq(wsa885x);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "wsa885x irq registration failed\n");
+> +
+> +	ret = devm_snd_soc_register_component(dev, component_driver,
+> +					      wsa885x_i2c_dai,
+> +					      ARRAY_SIZE(wsa885x_i2c_dai));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Codec component registration failed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id wsa885x_i2c_dt_match[] = {
+> +	{
+> +		.compatible = "qcom,wsa885x-i2c",
+> +	},
+> +	{}
+> +};
+> +
+> +static const struct i2c_device_id wsa885x_id_i2c[] = {
+> +	{"wsa885x_i2c", 0},
+
+Used named initializers.
+
+> +	{}
+> +};
+> +
+> +MODULE_DEVICE_TABLE(i2c, wsa885x_id_i2c);
+> +MODULE_DEVICE_TABLE(of, wsa885x_i2c_dt_match);
+
+Don't come with own coding style. Each above goes IMMEDIATELY after the table.
+
+Best regards,
+Krzysztof
 
