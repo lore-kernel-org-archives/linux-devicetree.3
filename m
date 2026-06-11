@@ -1,201 +1,189 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013037.outbound.protection.outlook.com [40.107.162.37])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2224331A63;
-	Thu, 11 Jun 2026 03:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781150373; cv=fail; b=Rn8F7hKqvFZ4CXaEhlN/ipvQ6XAboBKDfgPl8mRsYFw5KXkJgixcFEEtsj5vHA9GVu0ShX3vQpiQ60LrFQ8Kgozf3QpNt7tzmxL6zRMvTwxJ4Z6jOQfCsUs98sQ4Y5ve4c+yGL7nVDYB9OoC3DejmOkQ8knMPq6xO/vMz1CprMQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781150373; c=relaxed/simple;
-	bh=gsK3u+nzU62wnJ4kO5nBOCXwrlQQY/sx7++/kXpg+pY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=r1ojgLR6Nx2C6CUkZ/dBKRbiorU8c/Cy8cHIooJET+LvSPzfBD6/dODEMEXgVCvoxWZdCOjUGDvpbBf0n8wNTHYfJnhsAHYxEM7iVQ+T5Sxh/MfZLq7oop2SzoNK6EKsgQ2hTkdovUOl20duJ2LvWIOd3OHsdBAi/alWI4ulodI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Fk65A4+4; arc=fail smtp.client-ip=40.107.162.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A747220F49;
+	Thu, 11 Jun 2026 04:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781150797; cv=none; b=ksv/YEe7+KORuPleXwEVCiQTqM8BhYMqqeM4VmAjkxG9/8cyvj3z5gKwSRDIsRkRMm1hBWKGEGu41LjgA6QHJ+RIV3UxCW9qEjT0uWfPWIzfG7CEf2ZzVCfqiFKPuRY3Pv+7S0r+MjcHzpfmVtN3wvi/L7vu3HC63BW1m6l3BCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781150797; c=relaxed/simple;
+	bh=TEBqkHqiALPM/gieqp+/D4G9XR2dEP42WoB3zeXIIuA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MPv/ictYUSox8D3Jp+4PM06BNVaYyV72HnBlSteRdLTcGeFF9grva38EBGLkWOUdNdSyIK0m9iYi1nc4Zc+4F8MeA47PvSEe5Rmq89n/JXM4IrlW41vGv1WTrSizTRWk6cvflQUvgvYdtKPYgtV87mlR5ejbWPmthstvCXDbvGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=h5T9HOKS; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Fk65A4+4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=avgSKkNcPwtzV6Uz34EW/FLN8A5pYVqv8C+Q11+RulDmzvwfDBAxMApe53CjQudDUqs2Emq8KXac0kSN3XP90lyhSDr8c7ATETETvsz/P1WE+UFrgouWX6RmDInxAzugNPQjAo59hU5cni7n12jk8c2+KqWvDowNO42/469TrKAsg/F+lUrml+oP/z206JAMowm5+jEaHe5I2se4GqLm3EJ/c+I05Zp6K0D3+2plIy86CDSck/fOlGyNvuAoZ792gP4Q1mvpdLxBtYBiNlNA6/GRSFEUYLRRog2QsCSWzHqg4u6QnIDzB4m6UvMN1TdBHZ0i7CfLgFAcnIkEFkXgWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gsK3u+nzU62wnJ4kO5nBOCXwrlQQY/sx7++/kXpg+pY=;
- b=SZnqtdFFh2rRhcS6puUXWWhjE7NtF08b2icnZeAUtX3WUFkm5g5GOMuSc2ZvfdchmhGtDSoehK/dumxkzQrP/pYuKknkoj4CEPF0teMlWbTO3SGImODcLAsquN07nIMhoCzRzSO7jfU1Wfzl8R5qqbO0WzlvC/7WdHXNO+cSbdC4KdtIwxiWtqBBgWLzT8LExP6IDG5U0YRoKHZ70wgXedgtHKX82eHWSv2Z+9yylsRkwLlHslEL00A4N2tqQhvHBSOMXqqpzXDQDraX1wX0V4+yQy1bkZLPLYQ2EyRx6OWrq37Ijz7EqdGkuY8x2MT3gHWzRFz0T1BFkGxkTBOWjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gsK3u+nzU62wnJ4kO5nBOCXwrlQQY/sx7++/kXpg+pY=;
- b=Fk65A4+4mjcmBAJkMGj+JmLxxyMF0QbNEso6SpSwmW/BOE3lOVrUWqo4oxDuv8V31j/30dPA/+PjJtIuIL6vJGFA2gXutcMYpWus890M8c/ZuPnCniIxNVsUdA7BJc16YR7lPmR0U7lZggKNu3s124ADS7Sb+8XzOYrl4/RH1g+uXv6nuKvk8i7Li6Z7f60lg1GOJL9HcuaQjMtmvv1W5+K7PwXTSzbaGueTqrLs1DXp1noIU1th0Me80CG89MOR+N66SCF7ZIZMg2WbbX9iAuYzp9M/fTdjF1pLE9ct9DA/H9wF8SJ0CENWPDhty5SOKq7gpsXamD2bAqtiyRYGAA==
-Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
- (2603:10a6:800:315::13) by DU0PR04MB9636.eurprd04.prod.outlook.com
- (2603:10a6:10:320::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Thu, 11 Jun
- 2026 03:59:28 +0000
-Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
- ([fe80::feda:fd0e:147f:f994]) by VI0PR04MB12114.eurprd04.prod.outlook.com
- ([fe80::feda:fd0e:147f:f994%6]) with mapi id 15.21.0092.011; Thu, 11 Jun 2026
- 03:59:28 +0000
-From: Sherry Sun <sherry.sun@nxp.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, "sashiko-reviews@lists.linux.dev"
-	<sashiko-reviews@lists.linux.dev>, "manivannan.sadhasivam@oss.qualcomm.com"
-	<manivannan.sadhasivam@oss.qualcomm.com>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"Frank.Li@kernel.org" <Frank.Li@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>
-Subject: RE: [PATCH 1/2] dt-bindings: connector: pcie-m2-e: Add 3.3Vaux supply
- support
-Thread-Topic: [PATCH 1/2] dt-bindings: connector: pcie-m2-e: Add 3.3Vaux
- supply support
-Thread-Index:
- AQHc98EqSHx96zAXkk2n7RCbK2H3mLY1lPEAgABAkQCAAaAD0IAAEgQAgAALARCAAAV2AIABGZew
-Date: Thu, 11 Jun 2026 03:59:28 +0000
-Message-ID:
- <VI0PR04MB12114DA25D08329D3DC2C3ADA921B2@VI0PR04MB12114.eurprd04.prod.outlook.com>
-References: <20260609033840.2006078-2-sherry.sun@oss.nxp.com>
- <20260609034408.BC69D1F00893@smtp.kernel.org>
- <20260609-unique-magnificent-eel-eb623f@quoll>
- <VI0PR04MB121140EFB8E614326D799503A921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <mvxoynvocxcalxcwogbiovg5yurjczxqfu2fqkji33bunmlplz@zxqjsdjts65j>
- <VI0PR04MB12114DBDD65F25FB615EA8967921A2@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <ihrmgh6etb2n5zqjbrykfjjms4a6zgpzwjgrd3rvy24jufbss7@f4nfxrp7jksy>
-In-Reply-To: <ihrmgh6etb2n5zqjbrykfjjms4a6zgpzwjgrd3rvy24jufbss7@f4nfxrp7jksy>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI0PR04MB12114:EE_|DU0PR04MB9636:EE_
-x-ms-office365-filtering-correlation-id: 550d5c21-2039-4c85-d4af-08dec76dd5d9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|19092799006|376014|7416014|366016|1800799024|38070700021|56012099006|4143699003|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- KAdV/4cKNEDSr+oWo8AKcCOc5FF0A8jVpNT4LXxn/Pqx+wM9mYM0zIn3NONkfAn7DswV2ofgqVUTuhc5aiGxAe+FX+Vy1WKWBX2YgqvBEr9lgOtnBDKJDH11v4Mx2qy0gJTPA1gpcp2Hi9srqVL+0+oGDA7wKdgCCYoekCkcAIXxKLzs0bPGbP9yffTljDT3wHvjHVrHbDuIOnbPP2xDmd7yQMWVtnSNMmTL4Xk0NU+WnqRdZjFPcN47NQsI0ofxS5ludVSgB6k4EkR28RTDlj7X/Vtoz8V0azCBYdQNolN1Bh/917Q+MXLJm45/1Z3sRLN1w6jEGp5/yOYNGlqllvmEQQlJyIjPCefzt29wdSu1FpSLr2xnFxXZItOZCrdhy6sVwzBW7AmKcwcYUt0V00qkRDPUbKBENdxJV/5BhkenQJ1+bjcQtGVSkL9GHAKDH1zCMLGZoGw7PKwG9RY0Wzy/Ffy4dMicQHneBrJ08lc6QgLsPhDA49UXuNAq0z6MzOjodgEHzvRVy+C2MRxqrWd2ayxbcfY0j49xlUlmREgx4YnvhIzPlh4hkIvws9H9/ax737P7X3aIw9FNCb849QsZgdiow5tqrB4h67gTNp8SIb48V38aQxNO7iscVDcuaR89zVIZQHALTEaTbZETbOVpQkkS/lCCkqEWuhvIG9ki9bn05ge5NS4czgPmL7/3moerjsdnwp43EWhWOjTSQVFGuVDZtN34L6Ult/9OdQjKgNbBNZwGdCdqfILhGVhg
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12114.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(7416014)(366016)(1800799024)(38070700021)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SDhFbm9YenpKZTlDbGY0RjNwTUYvZXpIR2lReUl3UnhuVVQzSm5UZXRwNU1u?=
- =?utf-8?B?TThXdUtSS3kzaXNZWHNTQ2ZySmxKV1AxRit6YUhFOEpMbHlUcmRUbTAyQTVk?=
- =?utf-8?B?KzY0Z0NuZm1FaE41dDJvUDRlSHBpamdDbWRreDBvVUREQ1JwZE1OYm4xcitB?=
- =?utf-8?B?MDlvNmk1TWVVOEQwdEI1WmVMVzZpaGZRcjEzb3p0VnNPcUhRUlBna2VCNmdV?=
- =?utf-8?B?TENCcHQzZ0RtUWlYVVFjTXpMQWNyRFR6aENpZEl4Q1F0SllSSDNBSStXVDkz?=
- =?utf-8?B?S0x1bzdPR09WZ1VlK3d1cU93Qk1TSS9rYk1ENXhJamlFc1BJOURJVW40OVM2?=
- =?utf-8?B?Qm42Y0E0NGZJeGlmUnZxUXh0eWNVZWlhMkZ4R3g4Q0x2ZFJHZHV5MHV4Umdm?=
- =?utf-8?B?a1ZHZzRoT09vSEJrbmZ4NGRCKzlYelJPQStpN3RZVld2N1RjMFVrYkpYQy9H?=
- =?utf-8?B?REJxK2VSWXMvNVgwWTZibm9QT0NMNEhuMUpycU9HZk43Z1M5U2lkWGpLZXNM?=
- =?utf-8?B?NjMrb3IvV1ZkWDUrbzFEQUsyNUhiaytWN1lBYnJTR0dEWHVwU0pJM1Q1QUFj?=
- =?utf-8?B?Sy9aNmpxN01BU0Jwcmt4TUZZcWhObk1qZVI3NTZwTk1OeDR6bnZMZjRZTElE?=
- =?utf-8?B?RXRCbFVjQ0V1VS8xRDZIRXJjSWFkQUsxdjZDSFhlTEhzQVUwSGg2M2NUV1lz?=
- =?utf-8?B?cnZmd3J5d0N3dnBUKzd5Z00rTnZTMXV6ZmxNWVUvWUZzVStacEo5ekNJQ3pQ?=
- =?utf-8?B?bG1zTWxHdFUzbXVsS01zdEoyUVNLZnpZbU1FbnM0TVRGMVBjOVVGWlYxdVBo?=
- =?utf-8?B?blR6bWhFRFhkcUVMUFJoQ0ZWbXpNV3lweEUrZGp1YlR3b01lRmdKZlh6cVlW?=
- =?utf-8?B?RUJpaVZmOHpXZU45dS9SU05iTjhLNC83ZFJxVmNQcmRMVmxLSGV0MnVkcERu?=
- =?utf-8?B?Y05UMlcwU29hT1c4QXU2Y1dmVE1lYnFvYlZIanVEZXJXS0RqSlRML0NIY1BY?=
- =?utf-8?B?KzlTYnRrd3ZpbnF2MEVrcHRweERpUk14Qml0eGd5RWk1VnNORnYyNFordEpS?=
- =?utf-8?B?Z0FCZTc3cFZuVzV0K2M3VlFPYkNsa0dhNnZnRWJFZE9hWnlRQk5LTkpOcm9s?=
- =?utf-8?B?elRJMXAySHpYYTFJUmkrVUlCOVZZaUVjVk5mYWk3ZHZSd0F2dk5rQ0IxYjRJ?=
- =?utf-8?B?cEJGM2dIM2lnNHlpUzQ4YzVlc2wzZlZ6cTE5bEIxdWlCTUEwVTVvQndPRlBl?=
- =?utf-8?B?Ti9Fc3ZCc0pRK2dPSVI5WXl2MUY4MHRhZkRnWW9pYVl0Z2ViYkJPL0ZOd1ZZ?=
- =?utf-8?B?ZnRTMHdTcU00d0l4RXBBdmVvVU9KYkFDcUlNSU5PWjhsWnZFWWxZRmN2QVF0?=
- =?utf-8?B?VGxzeHd6b1NpZTVaQThFbTNuMTFWSU82R0ZXTXNJMDE2OE9mTklmak5ZTCtC?=
- =?utf-8?B?WWxxdmZpUEJwZGJNejhpbitzR0pCbjFETFlIOWo3aXorY3prSm9ubmNsSFFP?=
- =?utf-8?B?RXM3ZDk1NmlvL3JoLytSQyt5V1JQZDdtSVp0b0REVU8wYnNZWkNqcWlDK0dx?=
- =?utf-8?B?Y0dZS3ZRN2svQXZ1WW14OStGUlh6bEV0bmMwNEJHWHF2V1BoaXpwcEFUUWR0?=
- =?utf-8?B?ZFl1bmVnK2RrQXF2ZzNoZGNVL2pOeUVHWDlYcTZkMzh1ZU1QR1VraGt2Ymgv?=
- =?utf-8?B?NG5DS0JEM0N5VGE2RWg2UDBxcHJmRXNoVjFkVW1FbG1YWkZVOU9NNmEwa29T?=
- =?utf-8?B?bWZaVGJtSml2TklLVnJNbVpWQUN0M3M5NGRWVmFTa1ZNUytkQVYvODBkMzFv?=
- =?utf-8?B?c0Z6NmhrcURMalMwRnlIam5OeTNiZU4xNGlpVVNGdWVLQzVVY1NzSzFLWm4x?=
- =?utf-8?B?NHlSck9PUklqeXVyODIyMUpIRmRUNi9maDRYVUVkRlNEeVFubTh5UXlzY0ZQ?=
- =?utf-8?B?QU1pTmNLQ0FPSjlIaXBsRithK1VKT1lIbDAvckdxcHpQUDhJZHJGbk1HaS96?=
- =?utf-8?B?ZXhkNmFIcFJRTkR3aDAydEFLeGpKR0xxMjEyR2t3b0JrS1BXdEdqcVhFcmxY?=
- =?utf-8?B?SmNJQnJ6WWJHbng3QldJLzVyWGN1a2Z3NHU3YU9nYjRjZzNIUzJBMVpZV1ZP?=
- =?utf-8?B?eDIrMG1TbGtrd3pXcWVYbXcrbzMwWk5NbjJtOVRDMnNnZ2p6OE1QUVJUV090?=
- =?utf-8?B?RUhKMkZnTCtsMkNSVCtSamJITlc1bEtKU29laDNWbm4zZlEvbVFZS3RVWWxH?=
- =?utf-8?B?TGc4NkhQQWlMRDZ2UU1nbVFCbDVvY1lTVG50SGlVSFIzOEF6aG9lTjBEV3l2?=
- =?utf-8?Q?Gap0hJ5vxOhLxvjIS/?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="h5T9HOKS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1781150794;
+	bh=fs2D/dmY6qG5eFk5keXxNf0HlHzBHntwLDPmYvPj8xA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=h5T9HOKS7M9O1foYkec/z47r6o6cIhERYKZtRFocOM6fumMx01P4miGrprmiV2Qb/
+	 xhYspqxpGkBpqRCPopb7HhMu4MoxDRO4y3TArJgafrGawwxg+r+LvQPhzS1uoiWgUo
+	 sixF/Ww0INydYwfA+rSm828vbrRIhZHOiBhU3GPI0wjQOfQPOTCdXIvjtKUYB4E5Eb
+	 JhwiYxvKlrOSHe3FohbDfZxBVPbnO7Hg6aLR1FA2IeWqPVFWRZYSej4ODOlKQvnw2e
+	 MW8fX+uej6ProOA7Lpn1bTkRQ5oLrU/patSOT7Mz340qjQpfLF8TOn3uHsorLbKMUJ
+	 MkuYWc7diWwZA==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id CB59160A0C;
+	Thu, 11 Jun 2026 12:06:32 +0800 (AWST)
+Message-ID: <5543c67f4eb6a206e524c6a590e13bbb1756b0df.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v3 0/9] ARM: dts: aspeed: anacapa: restructure
+ devicetree for development-phase
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: u8813345@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	colin.huang2@amd.com, Carl Lee <carl.lee@amd.com>, Rex Fu
+ <rex.fu.amd@gmail.com>,  Andy Chung <Andy.Chung@amd.com>, Peter Shen
+ <peter.shen@amd.com>
+Date: Thu, 11 Jun 2026 13:36:32 +0930
+In-Reply-To: <20260602-anacapa-devlop-phase-devicetree-v3-0-7c93c5df8d9b@gmail.com>
+References: 
+	<20260602-anacapa-devlop-phase-devicetree-v3-0-7c93c5df8d9b@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB12114.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 550d5c21-2039-4c85-d4af-08dec76dd5d9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2026 03:59:28.6366
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KRGJ5By15gKCY32c8HwXPCsMNomCRPvYntYD6G6odbmfloWzBk682icvbaJicLDF47WN6zs9eZzOcKzejBO+Yg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9636
 
-PiBPbiBXZWQsIEp1biAxMCwgMjAyNiBhdCAxMDoxMzowMEFNICswMDAwLCBTaGVycnkgU3VuIHdy
-b3RlOg0KPiA+ID4gT24gV2VkLCBKdW4gMTAsIDIwMjYgYXQgMDg6NDA6NTRBTSArMDAwMCwgU2hl
-cnJ5IFN1biB3cm90ZToNCj4gPiA+ID4gPiBPbiBUdWUsIEp1biAwOSwgMjAyNiBhdCAwMzo0NDow
-OEFNICswMDAwLCBzYXNoaWtvLWJvdEBrZXJuZWwub3JnDQo+IHdyb3RlOg0KPiA+ID4gPiA+ID4g
-VGhhbmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQg
-MQ0KPiA+ID4gPiA+ID4gcG90ZW50aWFsDQo+ID4gPiA+ID4gaXNzdWUocykgdG8gY29uc2lkZXI6
-DQo+ID4gPiA+ID4gPiAtIFtNZWRpdW1dIFRoZSBgdnBjaWUzdjNhdXgtc3VwcGx5YCBwcm9wZXJ0
-eSBkZXNjcmliZXMgYQ0KPiA+ID4gPiA+ID4gbm9uLWV4aXN0ZW50DQo+ID4gPiA+ID4gaGFyZHdh
-cmUgZmVhdHVyZSBvbiB0aGUgTS4yIEtleSBFIGNvbm5lY3RvciB0byB3b3JrIGFyb3VuZCBhDQo+
-ID4gPiA+ID4gc29mdHdhcmUgcG9saWN5Lg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gRmVlbHMgdmFs
-aWQuIERlc2NyaWJlIHdoaWNoIHBpbiBvbiBNMiBjb25uZWN0b3IgYXJlIHlvdSByZXByZXNlbnRp
-bmcuDQo+ID4gPiA+ID4NCj4gPiA+ID4NCj4gPiA+ID4gUmVmZXIgdG8gUENJIEV4cHJlc3MgTS4y
-IFNwZWNpZmljYXRpb24gcjUuMSBzZWMzLjEuMSBQb3dlciBTb3VyY2VzDQo+ID4gPiA+IGFuZCBH
-cm91bmRzLg0KPiA+ID4gPg0KPiA+ID4gPiBQQ0kgRXhwcmVzcyBNLjIgU29ja2V0IDEgdXRpbGl6
-ZXMgYSAzLjMgViBwb3dlciBzb3VyY2UuIFRoZQ0KPiA+ID4gPiB2b2x0YWdlIHNvdXJjZSwgMy4z
-IFYsIGlzIGV4cGVjdGVkIHRvIGJlIGF2YWlsYWJsZSBkdXJpbmcgdGhlDQo+ID4gPiA+IHN5c3Rl
-beKAmXMgc3RhbmQtYnkvc3VzcGVuZCBzdGF0ZSB0byBzdXBwb3J0IHdha2UgZXZlbnQgcHJvY2Vz
-c2luZw0KPiA+ID4gPiBvbiB0aGUgY29tbXVuaWNhdGlvbnMgY2FyZC4NCj4gPiA+ID4NCj4gPiA+
-ID4gQnV0IHRoZSBjdXJyZW50IHZwY2llM3YzLXN1cHBseSBtYXkgYmUgZ2F0ZWQgb2ZmIGR1cmlu
-ZyBzeXN0ZW0NCj4gc3VzcGVuZC4NCj4gPiA+ID4gU28gSSAgdHJpZWQgdG8gYWRkIHZwY2llM3Yz
-YXV4LXN1cHBseSB0byBsZXQgdGhpcyAzLjMgViBwb3dlcg0KPiA+ID4gPiBzb3VyY2UgYWx3YXlz
-IG9uIGZvciBQQ0llIE0uMiBLZXkgRSBjb25uZWN0b3IuIFRoYXQgbWVhbnMNCj4gPiA+ID4gdnBj
-aWUzdjNhdXgtc3VwcGx5IGFuZCB2cGNpZTN2My1zdXBwbHkgYWN0dWFsbHkgcmVmZXIgdG8gdGhl
-IHNhbWUgMy4zIFYNCj4gcG93ZXIgc291cmNlLg0KPiA+ID4gPg0KPiA+ID4gPiBATWFuaSwgZG8g
-eW91IHRoaW5rIHRoaXMgaXMgcmVhc29uYWJsZT8gT3IgZG8geW91IGhhdmUgYW55IG90aGVyDQo+
-ID4gPiA+IGJldHRlciBzb2x1dGlvbnM/IFRoYW5rcyENCj4gPiA+ID4NCj4gPiA+DQo+ID4gPiBU
-aGVyZSBpcyBubyBWYXV4IGRlZmluZWQgaW4gdGhlIE0uMiBzcGVjLiBTbyB5b3UgY2Fubm90IGRl
-ZmluZSB0aGF0DQo+ID4gPiBzdXBwbHkgaW4gdGhlIGJpbmRpbmcuIFlvdSBjYW4gZGVmaW5lIHRo
-ZSBjdXN0b20gVmF1eCBzdXBwbHkgYXMgYQ0KPiA+ID4gZml4ZWQgcmVndWxhdG9yIGluIERUIGFu
-ZCBtYXJrIGl0IGFsd2F5cyBvbiBzbyB0aGF0IGl0IGlzIGtlZXBzIHN1cHBseWluZw0KPiAzLjN2
-IHRvIHRoZSBjYXJkLg0KPiA+ID4NCj4gPg0KPiA+IEhpIE1hbmksIHRoYW5rcyBmb3IgdGhlIHN1
-Z2dlc3Rpb24sIGJ1dCBhZGRpbmcgYW4gYWx3YXlzIG9uIHJlZ3VsYXRvcg0KPiA+IG1heSBjYXVz
-ZSBib2FyZCBwb3dlciB3YXN0ZSwgY3VycmVudCBzb2x1dGlvbiBlbnN1cmVzIHRoZSAzLjN2DQo+
-ID4gcmVndWxhdG9yIGlzIG9ubHkgZW5hYmxlZCB3aGVuIE0uMiBjb25uZWN0b3IgbmVlZHMgdG8g
-d29yayAuDQo+ID4NCj4gDQo+IFdoYXQgZG8geW91IG1lYW4gYnkgJ25lZWQgdG8gd29yayc/IEZv
-ciBnZXR0aW5nIHRoZSBNLjIgY2FyZCB0byB3b3JrLCB5b3UNCj4gYWxyZWFkeSBoYXZlIDMuM3Yg
-c3VwcGx5LiBJZiB5b3Ugd2FudCB0aGUgYm9hcmQgdG8gYmUgYWx3YXlzIE9OLCB0aGVuIHlvdQ0K
-PiBuZWVkIHRvIHN1cHBseSAzLjNWYXV4LCB3aGljaCBzaG91bGQgYmUgYWx3YXlzIE9OIHRvby4N
-Cj4gDQo+IEJ1dCB3aG8gaXMgdHVybmluZyBvZmYgdnBjaWUzdjMtc3VwcGx5PyBNLjIgY29ubmVj
-dG9yIGRyaXZlciBvciB0aGUNCj4gcGxhdGZvcm0/DQo+IA0KDQpIaSBNYW5pLA0KSSdtIG5vdCBz
-dXJlIGlmIEkgdW5kZXJzdGFuZCB5b3VyIHF1ZXN0aW9uIGNvcnJlY3RseSwgYWN0dWFsbHkgaXQn
-cyB0aGUgcGxhdGZvcm0NCmRyaXZlciB0aGF0IGNhbGxzIHRoZSBNLjIgY29ubmVjdG9yIGRyaXZl
-ciB0byB0dXJuIG9mZiB2cGNpZTN2My1zdXBwbHkuDQpUYWtlIGkuTVggcGNpIGRldmljZSBhcyBh
-biBleGFtcGxlLCANCnBtX3N1c3BlbmQoKSAtPiBpbXhfcGNpZV9zdXNwZW5kX25vaXJxKCkgLT4g
-aW14X3BjaWVfaG9zdF9leGl0KCkgLT4NCnBjaV9wd3JjdHJsX3Bvd2VyX29mZl9kZXZpY2VzKCkg
-LT4gcHdyc2VxX3Bvd2VyX29mZigpIC0+DQpwd3JzZXFfdW5pdF9kaXNhYmxlKCkgLT4gcHdyc2Vx
-X3BjaWVfbTJfdnJlZ3NfZGlzYWJsZSgpDQoNClRha2luZyBiYWNrIHRvIE0uMiBTcGVjaWZpY2F0
-aW9uOg0KUENJIEV4cHJlc3MgTS4yIFNvY2tldCAxIHV0aWxpemVzIGEgMy4zIFYgcG93ZXIgc291
-cmNlLiBUaGUNCnZvbHRhZ2Ugc291cmNlLCAzLjMgViwgaXMgZXhwZWN0ZWQgdG8gYmUgYXZhaWxh
-YmxlIGR1cmluZyB0aGUNCnN5c3RlbeKAmXMgc3RhbmQtYnkvc3VzcGVuZCBzdGF0ZSB0byBzdXBw
-b3J0IHdha2UgZXZlbnQgcHJvY2Vzc2luZw0Kb24gdGhlIGNvbW11bmljYXRpb25zIGNhcmQuDQoN
-ClBlciBteSB1bmRlcnN0YW5kaW5nIG9mIHRoZSBhYm92ZSwgdGhlIE0uMiBTcGVjIGFjdHVhbGx5
-IHN1Z2dlc3QgdGhlDQozLjMgViBwb3dlciBzb3VyY2Ugc2hvdWxkIG5vdCBiZSB0dXJuZWQgb2Zm
-Lg0KU2hvdWxkIHdlIHNpbXBseSBlbmFibGUgdGhlIDMuMyBWIHBvd2VyIHNvdXJjZSBpbiBwd3Jz
-ZXFfcGNpZV9tMl9wcm9iZSgpDQphbmQgcmVtb3ZlIHRoZSBwd3JzZXFfcGNpZV9tMl92cmVnc191
-bml0X2RhdGE/DQoNCkJlc3QgUmVnYXJkcw0KU2hlcnJ5DQo=
+Hi Colin,
+
+On Tue, 2026-06-02 at 21:24 +0800, Colin Huang via B4 Relay wrote:
+
+
+...
+
+>=20
+> Colin Huang (5):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ARM: dts: aspeed: anacapa: add EVT1 device=
+tree and point wrapper to it
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ARM: dts: aspeed: anacapa: add EVT2 device=
+tree inheriting EVT1
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ARM: dts: aspeed: anacapa: add DVT devicet=
+ree inheriting EVT2
+
+So my concern with these three are that none of the EVT1, EVT2 or DVT
+devicetrees correspond with the current Anacapa devicetree. All of them
+have variations on the configured GPIOs. Some GPIO lines are renamed
+while others are added.
+
+Adding them is (eventually) fine, but I'd rather not do that while
+we're shuffling the devicetree sources around.
+
+Renaming them to accommodate changes in the one devicetree is what
+we're trying to escape here, so having renames hide in the rest of the
+shuffling is definitely problematic.
+
+For example:
+
+   -""                    =20
+   +"L_FNIC_FLT"     =20
+    "FM_CPU0_SYS_RESET_N"
+   -""                                                                     =
+                                                                           =
+           =20
+   +"L_BNIC0_FLT"
+    "CPU0_KBRST_N"
+   -""
+   +"L_BNIC1_FLT"
+    "FM_CPU0_PROCHOT_trigger_N"
+   -""
+   +"L_BNIC2_FLT"
+    "FM_CLR_CMOS_R_P0"
+   -""
+   +"L_BNIC3_FLT"
+    "Force_I3C_SEL"
+   -""
+   +"L_RTM_SW_FLT"
+    "SYSTEM_Force_Run_AC_Cycle"
+    ""
+    ""
+   @@ -20,55 +20,57 @@
+    "FM_SCM_JTAG_MUX_SEL"
+    "Channel2_leakage_Manifold1"
+    "FM_BRIDGE_JTAG_MUX_SEL"
+   -"Channel3_leakage"
+   +"Channel5_leakage_present_EAM1"
+
+I've pasted a script below that helps compare the various dts files.
+You can use it to generate the reference from the current aspeed-bmc-
+facebook-anacapa.dts, then generate the comparison files from the newly
+introduced dts files.
+
+To reiterate, I expect the shuffling of the dts files to result in at
+least one of the variants producing the same devicetree as the current
+aspeed-bmc-facebook-anacapa.dts.
+
+Andrew
+
+   #!/usr/bin/bash
+  =20
+   set -x
+  =20
+   : ${ANACAPA_VARIANT:=3D""}
+   : ${ANACAPA_REFERENCE:=3D"arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-=
+anacapa.dtb.rt.dts.tmp"}
+  =20
+   if [ -z "$ANACAPA_REFERENCE" ] || ! [ -e "$ANACAPA_REFERENCE" ]
+   then
+     gcc -E -Wp,-MMD,arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anacapa.=
+dtb.d.pre.tmp -nostdinc -I ../scripts/dtc/include-prefixes -undef -D__DTS__=
+ -x assembler-with-cpp -o arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-ana=
+capa.dtb.dts.tmp ../arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dt=
+s ; ./scripts/dtc/dtc -o arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anaca=
+pa.dtb -b 0 -i../arch/arm/boot/dts/aspeed/ -i../scripts/dtc/include-prefixe=
+s -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_=
+addr_size -Wno-alias_paths -Wno-interrupt_map -Wno-simple_bus_reg   -d arch=
+/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anacapa.dtb.d.dtc.tmp arch/arm/bo=
+ot/dts/aspeed/.aspeed-bmc-facebook-anacapa.dtb.dts.tmp ; cat arch/arm/boot/=
+dts/aspeed/.aspeed-bmc-facebook-anacapa.dtb.d.pre.tmp arch/arm/boot/dts/asp=
+eed/.aspeed-bmc-facebook-anacapa.dtb.d.dtc.tmp > arch/arm/boot/dts/aspeed/.=
+aspeed-bmc-facebook-anacapa.dtb.d
+     dtc -I dts -O dts -o arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-ana=
+capa.dtb.rt.dts.tmp arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anacapa.d=
+tb.dts.tmp
+     ANACAPA_REFERENCE=3Darch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anac=
+apa.dtb.rt.dts.tmp
+   fi
+  =20
+   if [ -n "$ANACAPA_VARIANT" ]
+   then
+     gcc -E -Wp,-MMD,arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anacapa-=
+${ANACAPA_VARIANT}.dtb.d.pre.tmp -nostdinc -I ../scripts/dtc/include-prefix=
+es -undef -D__DTS__ -x assembler-with-cpp -o arch/arm/boot/dts/aspeed/.aspe=
+ed-bmc-facebook-anacapa-${ANACAPA_VARIANT}.dtb.dts.tmp ../arch/arm/boot/dts=
+/aspeed/aspeed-bmc-facebook-anacapa-${ANACAPA_VARIANT}.dts ; ./scripts/dtc/=
+dtc -o arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-${ANACAPA_VARIA=
+NT}.dtb -b 0 -i../arch/arm/boot/dts/aspeed/ -i../scripts/dtc/include-prefix=
+es -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary=
+_addr_size -Wno-alias_paths -Wno-interrupt_map -Wno-simple_bus_reg   -d arc=
+h/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anacapa-${ANACAPA_VARIANT}.dtb.d=
+.dtc.tmp arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anacapa-${ANACAPA_VA=
+RIANT}.dtb.dts.tmp ; cat arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-anac=
+apa-${ANACAPA_VARIANT}.dtb.d.pre.tmp arch/arm/boot/dts/aspeed/.aspeed-bmc-f=
+acebook-anacapa-${ANACAPA_VARIANT}.dtb.d.dtc.tmp > arch/arm/boot/dts/aspeed=
+/.aspeed-bmc-facebook-anacapa-${ANACAPA_VARIANT}.dtb.d
+     dtc -I dts -O dts -o arch/arm/boot/dts/aspeed/.aspeed-bmc-facebook-ana=
+capa-${ANACAPA_VARIANT}.dtb.rt.dts.tmp arch/arm/boot/dts/aspeed/.aspeed-bmc=
+-facebook-anacapa-${ANACAPA_VARIANT}.dtb.dts.tmp
+     diff -u "$ANACAPA_REFERENCE" arch/arm/boot/dts/aspeed/.aspeed-bmc-face=
+book-anacapa-${ANACAPA_VARIANT}.dtb.rt.dts.tmp | tee ${ANACAPA_VARIANT}-{re=
+move,add}
+     grep '^-[^-]' ${ANACAPA_VARIANT}-remove | grep gpio-line-names | sed -=
+E 's/.+gpio-line-names =3D //' | tr ',' '\n' | sed -E 's/^ //' | sponge ${A=
+NACAPA_VARIANT}-remove
+     grep '^[+][^+]' ${ANACAPA_VARIANT}-add | grep gpio-line-names | sed -E=
+ 's/.+gpio-line-names =3D //' | tr ',' '\n' | sed -E 's/^ //' | sponge ${AN=
+ACAPA_VARIANT}-add
+     diff -u ${ANACAPA_VARIANT}-{remove,add}
+   fi
+
