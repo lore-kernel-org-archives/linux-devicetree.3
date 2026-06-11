@@ -1,197 +1,230 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF7B2E62B3
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF47134BA20
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:46:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781156786; cv=none; b=DwUrA18cNPMSP4drO5k/Wih3bCtPmAPXCtgAEkInEh4r9FNgePBaKt1O59q7hNeBQK1pSGeUc26hGk6iIq7LKSPRT0xyHsWGUYDresZrIvY84XiLyLPNilAT4eDR9l9OVd7/aGQTLM05rdi0hRowrhMFQdaSB311UyPBk0RNzRk=
+	t=1781156807; cv=none; b=YtthJncUu0ZPBcyGCGLFoGgvmVYVv01Or9SZV2XnceNoKBLl8v8AdP1Z6vnhVk7TP9PxxgKxIE0qNhu6r+1K+XniOP+5nZcNdeZgqI3XzKZHK8oOnd6PfESJ9Aa5wTnFxNd5Cfo7Xs+rRhFHxd/5QulSOUEZ681YWrY+ryVCMls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781156786; c=relaxed/simple;
-	bh=xRD6hZRTgRk5bU0aSXz2N5Lr8naHvAHxj6/JWVEfoZw=;
+	s=arc-20240116; t=1781156807; c=relaxed/simple;
+	bh=mBnd7hwDnDZ4/6RKj5OnY20wHneCq5znEvFo609x2Qs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WL+XQmZoOqEfbrYfYxmo2+i/X7zo1QnbWKB7A+9Gy1O3OZJqSV+x4xoEeQD6UfZfbnLz2nBANhJ5XRryf7Y2Z0NkgHDL7pRamC3ATyXY/nOyM07fn8gGHGHPDakFbqqNGogEG2/9DEOWV1oXKJ/g3THQQCFQEmLNg//KQjfbbSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3AQhYL+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pIdqWOFAI4TRN1jHPbOMWj9WcDN9ZraGGCpbDUL8PLQxtyY92/S5BIvMaKY+NBv+08Q+z3EdbNjGOm0e2XLvYuPwa31cxDMlKLd4wb5uU7bgyBHRGkMs3g3V1R2MZmRMNfC7POWfy8XqLAMZFBI8NbaIUFYBWmNF5X2CGT0fD38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8AbUAMV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3AQhYL+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BC51F00893;
-	Thu, 11 Jun 2026 05:46:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8AbUAMV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FEEF1F00893;
+	Thu, 11 Jun 2026 05:46:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781156784;
-	bh=nUoVYtP/C7KuQmHHma8NQF+c6CF3t5BWiphimxuR9zk=;
+	s=k20260515; t=1781156805;
+	bh=z9UDetcYzsCJ6voQhnYWhnTbyGzhpwjDOBeBXWSaRbA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W3AQhYL+NTelJAv64TibONjawrTMHzYqMypqOQkLXNhjZt1GF4pya7BsNUdSPHfNp
-	 LLm4IdUbllv/4YIuewNU94i8ygZyAQlTZHz9/Ig8MQcwmui0PHLn4R/kNu8BexDCqX
-	 dHHASOvgvwd+REwzu9S2VR+3DMx4MGxbCF20MciGOgvvTRKMZsZD4yHf1cUnfXWEZa
-	 e3YDRNfB7veVoFw9pfR1nL64blmEtjpw+QsWRLKiYmFcg9WY3toa12PEooEPJsR4SN
-	 SlbBscjAxHPzdtoglh9v5VeYoSj+Rel3pdhhCUPzrszhcrKQOufjwHJjZjWwtVqLvQ
-	 4+PxXbmXHx5RQ==
+	b=e8AbUAMVFhQKeZ2bFF2pRuuazsX6Moz2Zw1zS/f63FhCaYT6nZcmu8LQ0qcGuj5hW
+	 YMGrtyvpotKxplmKeRQHqY8A+Tu6NWvJSPguAYaItzK0+6OSZdIzICvK4hVsIpr6/P
+	 GoEpVm3AakffbdqXxjjUG2bjPP0ORNOwuyfDGr95koQF5LAqbsbtaOuAbDpu7s9f6o
+	 qjCGpVB11YfhOomL9SYf5xxpqCYXamNUYTu4dXQ3k8YD6Qk/lhamhnLXwOFBIG7mcc
+	 RWqSlxbNUUCv0LPd0SdNeCCjrVG0k1y5PJ/4gudfBygeKhFRtXZuEml4BEkAEKWdqC
+	 H4Nq62J82DChA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v32 4/5] i2c: ast2600: Add controller driver for AST2600
- new register set
+Subject: Re: [PATCH v32 5/5] i2c: ast2600: Add target mode support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260611-upstream_i2c-v32-4-b66eba921d01@aspeedtech.com>
-References: <20260611-upstream_i2c-v32-4-b66eba921d01@aspeedtech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260611-upstream_i2c-v32-5-b66eba921d01@aspeedtech.com>
+References: <20260611-upstream_i2c-v32-5-b66eba921d01@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 05:46:23 +0000
-Message-Id: <20260611054624.25BC51F00893@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 05:46:44 +0000
+Message-Id: <20260611054645.3FEEF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] The driver fails to send a NAK on the last byte of an intermediate=
- read message, causing the slave to hold SDA low and block the subsequent R=
-epeated Start.
-- [High] The interrupt handler does not clear error status bits in the Writ=
-e-1-to-Clear (W1C) ISR register, permanently wedging the controller after a=
- single error.
-- [Medium] Bus recovery failure and other error interrupts are not enabled =
-in the Interrupt Enable Register (IER), leading to needless blocking timeou=
-ts.
+- [High] Incorrect chronological ordering of I2C slave events and spurious =
+event signaling in the target interrupt handler breaks backend state machin=
+es.
+- [High] Controller mode can be permanently locked out because `target_acti=
+ve` is not reliably cleared upon target transaction STOP.
+- [High] Race condition in the target mode master-abort fast path leaves st=
+ale controller interrupts pending, leading to use-after-free and data corru=
+ption of subsequent I2C transfers.
+- [High] Failure to W1C-clear target ISR error bits causes a permanent dead=
+lock where all subsequent controller transfers fail with -EBUSY.
 --
 
-commit 01c0588191421a92b3d96b7bc246be1fe0958d9f
+commit e5417daca64552c41b25f31b14fb3eb562d3e134
 Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
-i2c: ast2600: Add controller driver for AST2600 new register set
+i2c: ast2600: Add target mode support
 
-The AST2600 introduces a new I2C controller register layout, selectable
-at runtime via global control registers. Compared to the legacy layout
-used on AST2400/AST2500, the new layout separates controller (master)
-and target (slave) registers and adds support for packet-based transfers
+Add target mode support to the AST2600 I2C driver, enabling dual-role=20
+capability. This includes adding target interrupt handling and address matc=
+h=20
+response logic.
 
 > diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
 t2600.c
-> new file mode 100644
-> --- /dev/null
+> index 70f37dc77468a..aace0c7eeb721 100644
+> --- a/drivers/i2c/busses/i2c-ast2600.c
 > +++ b/drivers/i2c/busses/i2c-ast2600.c
-
+> @@ -348,6 +353,253 @@ static int ast2600_i2c_recover_bus(struct ast2600_i=
+2c_bus *i2c_bus)
 [ ... ]
-
-> +static int ast2600_i2c_setup_buff_rx(u32 cmd, struct ast2600_i2c_bus *i2=
-c_bus)
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +static void ast2600_i2c_target_packet_buff_irq(struct ast2600_i2c_bus *i=
+2c_bus, u32 sts)
 > +{
-> +	struct i2c_msg *msg =3D &i2c_bus->msgs[i2c_bus->msgs_index];
-> +	int xfer_len =3D msg->len - i2c_bus->controller_xfer_cnt;
+> +	u8 value =3D 0;
+> +	int target_rx_len =3D 0;
+> +	u32 cmd =3D 0;
+> +	int i;
 > +
-> +	cmd |=3D AST2600_I2CM_PKT_EN | AST2600_I2CM_RX_BUFF_EN | AST2600_I2CM_R=
-X_CMD;
-> +
-> +	if (cmd & AST2600_I2CM_START_CMD)
-> +		cmd |=3D AST2600_I2CM_PKT_ADDR(msg->addr);
-> +
-> +	if (msg->flags & I2C_M_RECV_LEN) {
-> +		dev_dbg(i2c_bus->dev, "smbus read\n");
-> +		xfer_len =3D 1;
-> +	} else if (xfer_len > i2c_bus->buf_size) {
-> +		xfer_len =3D i2c_bus->buf_size;
-> +	} else if (i2c_bus->msgs_index + 1 =3D=3D i2c_bus->msgs_count) {
-> +		cmd |=3D CONTROLLER_TRIGGER_LAST_STOP;
+> +	/* due to controller target is common buffer, need force the master sto=
+p not issue */
+> +	if (readl(i2c_bus->reg_base + AST2600_I2CM_CMD_STS) & GENMASK(15, 0)) {
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_CMD_STS);
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
+> +		writel(readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
+> +		       i2c_bus->reg_base + AST2600_I2CM_ISR);
+> +		i2c_bus->cmd_err =3D -EBUSY;
+> +		WRITE_ONCE(i2c_bus->msgs, NULL);
+> +		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
+> +		       i2c_bus->reg_base + AST2600_I2CM_IER);
+> +		complete(&i2c_bus->cmd_complete);
 > +	}
 
 [Severity: High]
-Does this logic omit the NAK for intermediate read messages?
+Could this fast path abort leave stale controller interrupts pending?
 
-The CONTROLLER_TRIGGER_LAST_STOP flag (which applies the hardware NAK via=20
-AST2600_I2CM_RX_CMD_LAST) is strictly tied to the absolute final message in
-the array. If the transfer contains an intermediate read message, such as a
-read before a Repeated Start, the last byte will be ACKed.
+If the hardware asynchronously asserts PKT_DONE or PKT_ERROR shortly after =
+the
+W1C ISR read here, the complete() call wakes the waiting thread, which might
+immediately start a new controller transfer.
 
-This will cause the slave to expect another byte and hold SDA low, leading =
-to
-an arbitration loss or bus hang when attempting the Repeated Start.
+Would the stale interrupt then fire and incorrectly apply to the new transf=
+er,
+potentially leading to a use-after-free on the new msgs buffer?
 
-[ ... ]
-
-> +static int ast2600_i2c_controller_irq(struct ast2600_i2c_bus *i2c_bus)
-> +{
-> +	u32 sts =3D readl(i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +	u32 ctrl;
 > +
-> +	sts &=3D ~AST2600_I2CM_SMBUS_ALERT;
+> +	/* Handle i2c target timeout condition */
+> +	if (sts & AST2600_I2CS_INACTIVE_TO) {
+> +		/* Reset timeout counter */
+> +		u32 ac_timing =3D readl(i2c_bus->reg_base + AST2600_I2CC_AC_TIMING) &
+> +				AST2600_I2CC_AC_TIMING_MASK;
 > +
-> +	if (sts & AST2600_I2CM_BUS_RECOVER_FAIL) {
-> +		writel(AST2600_I2CM_BUS_RECOVER_FAIL, i2c_bus->reg_base + AST2600_I2CM=
-_ISR);
-> +		ctrl =3D readl(i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +		writel(ctrl, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +		WRITE_ONCE(i2c_bus->msgs, NULL);
-> +		i2c_bus->cmd_err =3D -EPROTO;
-> +		complete(&i2c_bus->cmd_complete);
-> +		return 1;
-> +	}
-> +
-> +	if (sts & AST2600_I2CM_BUS_RECOVER) {
-> +		writel(AST2600_I2CM_BUS_RECOVER, i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +		WRITE_ONCE(i2c_bus->msgs, NULL);
-> +		i2c_bus->cmd_err =3D 0;
-> +		complete(&i2c_bus->cmd_complete);
-> +		return 1;
-> +	}
-> +
-> +	i2c_bus->cmd_err =3D ast2600_i2c_irq_err_to_errno(sts);
-> +	if (i2c_bus->cmd_err) {
-> +		WRITE_ONCE(i2c_bus->msgs, NULL);
-> +		writel(AST2600_I2CM_PKT_DONE, i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +		complete(&i2c_bus->cmd_complete);
-> +		return 1;
+> +		writel(ac_timing, i2c_bus->reg_base + AST2600_I2CC_AC_TIMING);
+> +		ac_timing |=3D AST2600_I2CC_TTIMEOUT(i2c_bus->timeout);
+> +		writel(ac_timing, i2c_bus->reg_base + AST2600_I2CC_AC_TIMING);
+> +		writel(TARGET_TRIGGER_CMD, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
+> +		WRITE_ONCE(i2c_bus->target_active, false);
+> +		return;
 > +	}
 
 [Severity: High]
-Will this permanently wedge the controller after a single error?
+Does this early return fail to clear the AST2600_I2CS_INACTIVE_TO bit from
+the hardware register?
 
-When an error occurs, the error path explicitly writes only
-AST2600_I2CM_PKT_DONE to the ISR. W1C error bits like AST2600_I2CM_ARBIT_LO=
-SS
-or AST2600_I2CM_TX_NAK are never written back and will remain set.
+Since it is never W1C-cleared, the ISR register might remain non-zero
+permanently.
 
-Because the error path calls complete() successfully, the timeout fallback
-path that could reset the controller is bypassed. On the very next I2C
-transaction, a new PKT_DONE interrupt will cause the handler to read the
-stale error bits, instantly fail the transaction, and loop in this state.
+> +
+> +	sts &=3D ~(AST2600_I2CS_PKT_DONE | AST2600_I2CS_PKT_ERROR);
+> +
+> +	if (sts & AST2600_I2CS_SLAVE_MATCH)
+> +		WRITE_ONCE(i2c_bus->target_active, true);
+> +
+> +	switch (sts) {
+> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_WAIT_RX_DMA |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_STOP:
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
+> +		fallthrough;
 
-The same issue appears to exist in ast2600_i2c_controller_packet_irq() for
-bits like AST2600_I2CM_PKT_ERROR.
+[Severity: High]
+Is the event ordering inverted here?
+
+This unconditionally emits I2C_SLAVE_STOP first, and then falls through to
+emit I2C_SLAVE_WRITE_REQUESTED and I2C_SLAVE_WRITE_RECEIVED.
+
+Emitting the STOP condition prior to receiving the write data leaves backend
+state machines (like i2c-slave-eeprom) without a terminating event for the
+data, which typically causes writes to be dropped.
 
 [ ... ]
+> +	case AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS=
+_RX_DONE:
+> +	case AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS_RX_DONE:
+> +	case AST2600_I2CS_WAIT_TX_DMA:
+> +		if (sts & AST2600_I2CS_SLAVE_MATCH)
+> +			i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_REQUESTED, &value);
 
-> +static int ast2600_i2c_probe(struct platform_device *pdev)
-> +{
+[Severity: High]
+Can this spuriously emit I2C_SLAVE_WRITE_REQUESTED during a repeated start
+transitioning to a Master Read (WAIT_TX_DMA)?
+
+If so, it would reset the backend's internal write pointers, corrupting
+previously received write data before I2C_SLAVE_READ_REQUESTED is processed.
 
 [ ... ]
+> +	if (cmd)
+> +		writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +
+> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +	readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +
+> +	if ((sts & AST2600_I2CS_STOP) && !(sts & AST2600_I2CS_SLAVE_PENDING))
+> +		WRITE_ONCE(i2c_bus->target_active, false);
+> +}
 
-> +	ret =3D devm_request_irq(dev, i2c_bus->irq, ast2600_i2c_bus_irq, 0,
-> +			       dev_name(dev), i2c_bus);
-> +	if (ret < 0) {
-> +		ret =3D dev_err_probe(dev, ret, "Unable to request irq %d\n",
-> +				    i2c_bus->irq);
-> +		goto err;
+[Severity: High]
+Is this condition too strict?
+
+For standard target write transactions, the hardware explicitly combines
+AST2600_I2CS_STOP and AST2600_I2CS_SLAVE_PENDING in the same interrupt even=
+t.
+
+If this evaluates to false in those normal cases, target_active would
+remain permanently true, locking out all subsequent controller mode
+transfers with -EBUSY.
+
+> @@ -682,6 +954,21 @@ static int ast2600_i2c_controller_xfer(struct i2c_ad=
+apter *adap, struct i2c_msg
+>  			return ret;
+>  	}
+> =20
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +	if (READ_ONCE(i2c_bus->target_active))
+> +		return -EBUSY;
+> +	/*
+> +	 * Controller and target share the same buffer register. A target
+> +	 * transaction can update buffer state asynchronously via IRQ, so block
+> +	 * controller transfers while target is active to avoid buffer corrupti=
+on.
+> +	 */
+> +	writel(0, i2c_bus->reg_base + AST2600_I2CS_IER);
+> +	if (readl(i2c_bus->reg_base + AST2600_I2CS_ISR) || READ_ONCE(i2c_bus->t=
+arget_active)) {
+> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_IER);
+> +		return -EBUSY;
 > +	}
-> +
-> +	writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
-> +	       i2c_bus->reg_base + AST2600_I2CM_IER);
-> +
-> +	ret =3D i2c_add_adapter(&i2c_bus->adap);
+> +#endif
 
-[Severity: Medium]
-Are bus recovery failure interrupts intentionally left disabled?
-
-The interrupt enable register is configured here without including the
-AST2600_I2CM_BUS_RECOVER_FAIL bit. If a bus recovery attempt fails, the
-hardware will assert the bit in the ISR, but the interrupt handler will
-never be triggered.
-
-This will cause the driver to needlessly block for the entire duration of
-wait_for_completion_timeout() instead of handling the failure immediately.
+[Severity: High]
+If AST2600_I2CS_INACTIVE_TO is left uncleared in the target interrupt handl=
+er,
+will this check permanently return -EBUSY for all subsequent controller
+transfers?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-upstream_i=
-2c-v32-0-b66eba921d01@aspeedtech.com?part=3D4
+2c-v32-0-b66eba921d01@aspeedtech.com?part=3D5
