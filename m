@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF750368D5B;
-	Thu, 11 Jun 2026 06:54:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A247A18AE2;
+	Thu, 11 Jun 2026 06:58:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781160860; cv=none; b=A+2O5Yh1v7reizz6ywVlaHw6h/IXIQDuQ2EkTZ6CBbRa8RXMCYLULDNv0yaTLDJ/ryp78uFAw1eOeuRtWN9tIXmlHfNVaG75RljL35LKlD4weqSFO0jIWyJNpLcfth5NpyUscY6C9oVv8M+M8NqsnAcNWARL8ZwEI2sYPFktCyQ=
+	t=1781161133; cv=none; b=GqlfDQFF8SBLWrUajIzpEfO714cVHRd2q3KOs2xCYI/KIRCk2o4RNZXG8BYFxVbGVZ7tCANLQ4AVodfLs4x6c97eqRklnz1jj46lIKvCgu9KmnXnt12lsBJPQF8A5/6v1VgC9XYrsWArhz5DMFJVjJoyUdOkY5B8ohA6pp1kTdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781160860; c=relaxed/simple;
-	bh=uHbE209o+S2zjt6Lj5QRHSxUY0nqCKSHlAiQ6D/fLRo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=k6x8KfVcMujWTaMwPZzfRHz+QI92TemiJTTLNWXrqtdmnRzjAy0SfqithKiDZSIES79o6bGFBaNKl/dtOPPD2axBFETxjiH1d04j6eHX1pB4R0uQzGXOxo1s6xi7H7jrh1Pdt5qIuWwhBC+sNS3gHZ8wW4VzF69dIxCgkBl/DNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEmu3rxn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781161133; c=relaxed/simple;
+	bh=ILTCwe8+NklxpHWZXmThZMyoTYeL08vv8RZPOuPMLzk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j7Y7Xb/ARbYnBTPx+XgL0x467IxED/wAXI+PakXE7d70mHr/8wSKBMhe9PcRoXz4x97d72whPe1HAbPRoW3be+HuiJ7Utugj9rAmBO73htR8ZbMuNq+45z/w4SZCqE5JMKcdku6/+6bYWM/bXEp8mA89ZNW/VTDXe82h17WM0hQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cfJYYsYI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEmu3rxn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147741F00893;
-	Thu, 11 Jun 2026 06:54:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cfJYYsYI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53E2E1F00893;
+	Thu, 11 Jun 2026 06:58:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781160855;
-	bh=pXixa372b14KKbySQMTQlSQy82hIaK1jH6zCVzAv1rU=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=mEmu3rxnEI93mltW7ykfywO6UE37j+L2ZCngnegSkQfIt+1E5LxydBQChdbmtD1ql
-	 Cb7Ddlmq36vBUkpVuVpZ63F709VSuKEpmMZycc5G000XMbhUryymLN0gBcmezaDIE6
-	 FkfKUTcSPINu3S/CPl/Aj3oGM/p548MwHOMXpxwjnoTzzjN2y5QjVGNpr0Shvdw5jW
-	 QK0TCzgh1ETbU1e1IB7oqXTPMK6+c3yK/x5ZRB+SAPJi961gR0oZYbrwFEl+7U1NlC
-	 CcrYMuoVqatLSZ6PTtkQgQ5UcG6RBuF87782Xxrsg9H3w078Y4X8j0tUBoXh6EIfun
-	 l5u62UYiphgGQ==
-Message-ID: <eda67f3d-9395-4386-9311-d6f6b1c62304@kernel.org>
-Date: Thu, 11 Jun 2026 08:54:09 +0200
+	s=k20260515; t=1781161132;
+	bh=8Jc+3exJOLpmHaPJpAfMqA01reA6uTgwo8bkThST0Zs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cfJYYsYIwRxiR5piYTADVzdLF1X/H9iGbCPN0xk4nlWHv3QpEsGcUe8i60ViuBC3z
+	 +NimtPtf0Rl+qslS+F8J9FWWeLrBNx0tuPBUmwphgYmPj6dx2fceqqHgVwiwEPfM9t
+	 NIsHz0vwpfuqYa7qIv3ad3Au7LljoAfQIhJgAR7HfPowUDvSRXZBMNFL95uh1MidNc
+	 KJGxlT+GyScBD2wB6LKyXBZf5S1GXQNQqR8Vhk3QpsulcR3vtxlloifzPpN67tPv4F
+	 DqKNGrTiF0frRIjlzoWNdy/aZoNXasUh6jbFxENzc+B2rtP+VQinhQwIDHjh8JewO7
+	 DFRSZA/NKptkg==
+Message-ID: <6c5a657b-f316-4982-8cb8-8c09f1b1669a@kernel.org>
+Date: Thu, 11 Jun 2026 08:58:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,23 +35,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/3] dt-bindings: timer: mips,p8700-gcru
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: aleksa.paunovic@htecgroup.com, Daniel Lezcano
- <daniel.lezcano@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
+Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself as maintainer for PMS7003
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maxwell Doose <m32285159@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Paul Walmsley <pjw@kernel.org>, John Stultz <jstultz@google.com>,
- Stephen Boyd <sboyd@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org,
- Djordje Todorovic <djordje.todorovic@htecgroup.com>,
- Chao-ying Fu <cfu@mips.com>, Conor Dooley <conor.dooley@microchip.com>
-References: <20260610-riscv-time-mmio-v8-0-a865206675c6@htecgroup.com>
- <20260610-riscv-time-mmio-v8-1-a865206675c6@htecgroup.com>
- <5e36909c-caf3-4078-b8ec-a77e385d20cf@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ Tomasz Duszynski <tduszyns@gmail.com>
+References: <20260609160326.45123-1-m32285159@gmail.com>
+ <20260609160326.45123-3-m32285159@gmail.com>
+ <20260610-pastoral-dark-ostrich-5ca3f6@quoll>
+ <CAKqfh0Hi8EkShh3s4dUqAJRDExQLR0NVOvd4An+bY5hat4-Lhw@mail.gmail.com>
+ <e00caff5-55e4-428f-bc57-3885699b221c@kernel.org>
+ <aipatjyVcltbspRJ@ashevche-desk.local>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -96,29 +97,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <5e36909c-caf3-4078-b8ec-a77e385d20cf@kernel.org>
+In-Reply-To: <aipatjyVcltbspRJ@ashevche-desk.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/06/2026 08:51, Krzysztof Kozlowski wrote:
-> On 10/06/2026 10:22, Aleksa Paunovic via B4 Relay wrote:
->> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+On 11/06/2026 08:50, Andy Shevchenko wrote:
+> On Thu, Jun 11, 2026 at 08:37:33AM +0200, Krzysztof Kozlowski wrote:
+>> On 11/06/2026 00:24, Maxwell Doose wrote:
+>>> On Wed, Jun 10, 2026 at 4:09 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>> On Tue, Jun 09, 2026 at 11:03:26AM -0500, Maxwell Doose wrote:
+>>>>> Tomasz's entry is no longer valid, as he is not active anymore. Add
+>>>>
+>>>> Why is not longer valid? I see activity in Feb...
+>>>
+>>> Strange. According to git log --author="Tomasz Duszynski" last commit
+>>> I have from him is 2023. We also did have an RFC open for a month on
+>>> linux-iio with Tomasz Cced with no response.
 >>
->> Add dt-bindings for the GCR.U memory mapped timer device for RISC-V
->> platforms. The GCR.U memory region contains shadow copies of the RISC-V
->> mtime register and the hrtime Global Configuration Register.
->>
->> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+>> So you did not check enough... and no one needs to read RFC :/
 > 
-> You keep ignoring reviews you received (14th May!) and sending same mistake.
-> 
-> Can you address the emails?
-> 
-> NAK for this patch.
+> Hmm... lore.kernel.org shows last activity November last year (07-11-2025).
+> What other sources do you suggest to check?
 
-Hm, maybe it's b4 relay issue, so here is the report:
+No, only lore. As I said, February this year.
 
-https://lore.kernel.org/all/20260514055333.A29B8C2BCB7@smtp.kernel.org/
+https://lore.kernel.org/all/CAObtm8zKUAWNS23nRMhc9ZR-zn7xeVOFPiV4ai_x7Bkd5puiyA@mail.gmail.com/
 
 Best regards,
 Krzysztof
