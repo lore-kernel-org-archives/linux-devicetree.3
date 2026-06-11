@@ -1,89 +1,102 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3ED21B9F6;
-	Thu, 11 Jun 2026 10:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059C4282F3F
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 10:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781173761; cv=none; b=ErsNNC1d7CkQhNUgTFk2rkJx0qIjyNjrtjvJXL7KyH01BJtPco94GWG9AtrbYkz5Djfy4ThqdrJMFPUmh6qodmZk7QzDkh7Urb4thRsI0aJ1ZXCidFT7VLeHNrF/MGDmgL1fTt8UxbDnLMlAx8sxBrFOZfC0AZ48CWQmLcEncpY=
+	t=1781173827; cv=none; b=CNgByQuCMmuBUa/TPVtzPscdiYNjU3Qfj5FjOb/HtzI6fG40ZhkV1yTAk0pUHfU6+/FJEL2JxdHTciuRIqXwYnA6Nm92xydoV515WJXc9f4O+UAmFFSYo0jMYN+tE8d60TmgMDPp+f+r9hktlidIOtFmMu31x0wIGmXrRo1IvPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781173761; c=relaxed/simple;
-	bh=QEwbvu7mUl02rdZ2YotbMNLfRzLGoT0E99J+cPvPYOE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a0wPt6DezABbVKW8F7pdm/rbkt80RuaoJY/wWPzoeaoO6lp6IKcLwaLrlG08pHinW6suUlR/EZ/4zkof/U25kEwv6RVBxrPfUY8Rvhny8wyFJSW7HAYGIWr+Sxb+elIOtQvNQOBrkumLrtJwoLL/P/gfU3ve+EU+hOMJ9Db/Ljc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de; spf=pass smtp.mailfrom=free.fr; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
-Received: from albans-vm.. (unknown [213.61.137.106])
-	(Authenticated sender: albeu@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id A285B78035E;
-	Thu, 11 Jun 2026 12:29:02 +0200 (CEST)
-From: Alban Bedel <alban.bedel@lht.dlh.de>
-To: devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Alban Bedel <alban.bedel@lht.dlh.de>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH] of: property: Fix of_fwnode_get_reference_args() with negative index
-Date: Thu, 11 Jun 2026 12:28:06 +0200
-Message-Id: <20260611102806.2643869-1-alban.bedel@lht.dlh.de>
-X-Mailer: git-send-email 2.39.5
+	s=arc-20240116; t=1781173827; c=relaxed/simple;
+	bh=MNVziRs/XTkFNv2V2kHRJKlcL/afc28woUhHfBM4eW0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LWmFsxNMkN0//3FTl4Fg0szQmjfkc4lNKMIR8wBTqTdvD37lyoW5dB/CgWcz5H5PYmoPNkzsCZEocr8aRbfrgKuec95NNXDsU12FUu22mgEMs4l3wDIa2d92JZr37QrVW0ajRU6sTIAk2be30DYJuj3hhAQQLYEePIN53Tv7IpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ja8V2Zr9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ja8V2Zr9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6206E1F00893;
+	Thu, 11 Jun 2026 10:30:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781173825;
+	bh=xrTEWkdpiughuwzgUP8ti9wplAlwmYlUyHghobCDMw8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ja8V2Zr92q9wbuO3X+GkUNBQsKC/gf78xG+VGe401lANEYn2rp2WmdWNlmqHnMGzX
+	 FYEp+IVqIf2aXmNhY64RNGtPmpj8D8G3F2hsfgxVMpeo+ftk0fpzCu201n5oZdk6tV
+	 ofwn7ED0PrvffU1DEaazyNI1EKhnwqR2N1l5Le6ovhe0LEKu5YCwgVyAq0klgWGU4c
+	 fUspyL3vAcBiGg+NHifPNT1nRjt51MDOoNampbKLi+J40Wr/snh5HoNXXTk8HfK0DD
+	 MekYzcRevu1tXci5JykNB6FPqkXmoLtdew/oUkyCZJvuSOrqDqP4S6VkCuABDQqWqX
+	 zc2y8JBa8vUTg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC
+ EFUSE
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260611-mt6323-nvmem-v1-1-b5e1b9ce51f2@protonmail.com>
+References: <20260611-mt6323-nvmem-v1-1-b5e1b9ce51f2@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 10:30:24 +0000
+Message-Id: <20260611103025.6206E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-fwnode_property_get_reference_args() should return -ENOENT when an out
-of bound index is passed. An issue arised with the OF backend because
-the OF API use signed indexes while the fwnode API use unsigned ones.
-When an index value greater the INT_MAX was passed to the OF backend
-it got casted to a negative value and it returned -EINVAL instead of
--ENOENT. This patch add a check to of_fwnode_get_reference_args() to
-catch negative index before they are passed to the OF API and return
--ENOENT right away.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The `efuse` subnode acts as an NVMEM provider but fails to referenc=
+e the common NVMEM provider schema (`/schemas/nvmem/nvmem.yaml#`).
+--
 
-This issue appeared when the following pattern was used in the LED
-subsystem:
+commit 6bc9ae8fe8f4cc07cc7210883f39574a57c6be49
+Author: Roman Vivchar <rva333@protonmail.com>
 
-    index = fwnode_property_match_string(fwnode, "led-names", name)
-    led_node = fwnode_find_reference(fwnode, "leds", index);
+dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC EFUSE
 
-Unlike the same pattern with the OF API, this pattern implicitly cast
-the signed return value of fwnode_property_match_string() to an
-unsigned index leading to the above issue with the OF backend. It can
-be argued that the return value of fwnode_property_match_string()
-should be checked separately, but I think there is value in supporting
-such simple and straight to the point patterns.
+This commit adds the device tree binding documentation for the MediaTek
+mt6323 EFUSE, which is included in the mt6323 PMIC for storing calibration
+data.
 
-Link: https://lore.kernel.org/linux-leds/aimVRwJPhlGxsIUj@tom-desktop/T/#mc43cbf7e0599991b56dd0d9680714d28d145fbc8
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
----
- drivers/of/property.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b=
+/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+[ ... ]
+> @@ -145,6 +145,23 @@ properties:
+>      required:
+>        - compatible
+> =20
+> +  efuse:
+> +    type: object
+> +    unevaluatedProperties: false
 
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 136946f8b746f..eace2d1847b99 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -1157,6 +1157,13 @@ of_fwnode_get_reference_args(const struct fwnode_handle *fwnode,
- 	unsigned int i;
- 	int ret;
- 
-+	/* This function should return -ENOENT for out of bound indexes,
-+	 * but the OF API uses signed indexes and consider negative indexes
-+	 * as invalid. Catch them here to correctly implement the fwnode API.
-+	 */
-+	if ((int)index < 0)
-+		return -ENOENT;
-+
- 	if (nargs_prop)
- 		ret = of_parse_phandle_with_args(to_of_node(fwnode), prop,
- 						 nargs_prop, index, &of_args);
--- 
-2.39.5
+[Severity: Low]
+Does this subnode need a reference to the common NVMEM provider schema?
 
+Because unevaluatedProperties is set to false, any standard NVMEM properties
+such as read-only, #address-cells, or #size-cells will trigger schema
+validation errors if added to a device tree. Including a reference to
+/schemas/nvmem/nvmem.yaml# would allow these standard properties to pass
+validation.
+
+> +    description:
+> +      The efuse is responsible for storing calibration data, such as the=
+rmal
+> +      sensor calibration.
+> +
+> +    properties:
+> +      compatible:
+> +        const: mediatek,mt6323-efuse
+> +
+> +      nvmem-layout:
+> +        $ref: /schemas/nvmem/layouts/nvmem-layout.yaml#
+> +
+> +    required:
+> +      - compatible
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-mt6323-nvm=
+em-v1-0-b5e1b9ce51f2@protonmail.com?part=3D1
