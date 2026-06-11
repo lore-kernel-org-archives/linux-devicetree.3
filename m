@@ -1,86 +1,86 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8451A36BCC4
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:01:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EE4395254
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781154079; cv=none; b=p1ASV3+/fVl57urrLT0wcTex45cQnlqRXKp2ZVyvtfh25VELSpdZmUGwPjl1vuBZRX3AyV6TGeQ+h7BpdxhnUKuoW1ZZ3K+k6CINXY9l8ocJu31mH8jkzvFCOCHha7/AKSEA+mZgw01CbHSB8277fWdGbvERr7b9jT25fgFvtVU=
+	t=1781154081; cv=none; b=i7sygUGcGbrP4ol4JemkIds+G4BVGDeBtCdm0W+9bxku3PEqQOeOYYpiVYkwoYMij2bm/qpoM8Ao6WnXp/f037oS8jxezmlU19+3OFrCdyA9tf0RX2DjCNpDF8SvNQaggrTUwcHu3oJbv5Ji/lydD5lYBiDYotBQJ9aW6vM4Zno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781154079; c=relaxed/simple;
-	bh=QBWtqPgdhnJI/7B+0i5OGO7653R5NO1B7RVCB1wNSec=;
+	s=arc-20240116; t=1781154081; c=relaxed/simple;
+	bh=e53PVnIsiLOc09/gmq/7tWbCF/q53MrOPjxF7RcAI5Q=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=txt7gY4dMpotDsf+TcGpJy7M4YIEEZx8L1qsCjsuLHz/GPXAmKaRZZimOh8xdt9d4D4lUcd9fauvD+9iXWmLx8ef8PVnwMZ5bOXP2RR8mK+NX2NF8FXNHU/7KDonP9ymoEqC8ua2xv0TXelIuBW9/kgcrgsJ2+ioAAgym8ewpNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hUjzLbKw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L5rMtMlW; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=dwl5axMX5Lrioe2Rb6R6TWDH2imFUcdvGfewB+HSEYpV9yL2NgnYP3BqzDu0i/+rr5FULQQ2l9x+GPaQ57KByOwci/dQ6XQLQKVKLgu1ZpL+3HXy1PAcekHI1FH5dlMo9o//VYQn7ianxt9vY9t2K4bOupJ2DivDuzUQHJw5cIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qdsvu00M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jGS7bTW0; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hUjzLbKw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L5rMtMlW"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qdsvu00M";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jGS7bTW0"
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B0NXTR1614603
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:01:07 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B0OGi01615708
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:01:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kDOyjVy7Gm6v5C3VhgQs/uW5jqgiFhnWKhAY4sqkK10=; b=hUjzLbKwJt17496y
-	+MLxC2t4JMpdgVOHsGxRxxFVW3XukS2Ipq27b6NUnEBoCI7VTKiDg09P+6BKEvV7
-	bdYia0EThMAzHfb7vF9iEGQY9ynv4lj9JnwXb/PezvK+R0TOD4KEgGMeh/U3TxFp
-	ux+yo+o13Omp81yfzQ+5t3bp3jl5loD4vLZIKHQxCljM53KI4p9QXQINcZoRg/5e
-	q2yx0h0hrVnJ+KrR454fuS4LenpmjixPx+pXMXk9cUN3vMcrLlqGkqoihdKFu69Q
-	y25kEzwZM3vK+/SkjSnOfDDXkkYz6+FgucKMFYQxeknGrjE6x5fGIfmz0ZqnW5+u
-	2sLM7w==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe79hng0-1
+	LdHF5BK87mzrb2oL7IcQNCyKVDi9pCfEGddXm+4/bts=; b=Qdsvu00Mu5NhgT0T
+	8xOmeDa5Vko5EQCJJicLalN0vOe+SofEYGLaPQ8G0gWeebtNiPl4EV6XFEkAq/tG
+	dL112RavU5fbBVDJiICOC9Z9x1s/rZBZMjyEzVSxSGj7+1b1BCXvFZroUM+e+AZ7
+	CvfqgOMRvQKMKqQNI5uNypmA8NNx3bJbtz2grbfuV/SdGicBjz8FHFgQLttGzJ/5
+	BJ1zmIfOj5lyzW28Zd7A2NN65c+LIi8DPq//wzWUNxMADzJzowEyYRjJYRND8lLX
+	jKVDahV5YWnj8OPA9ncW+eObDW4pPmGOcQYyaLD9MkCZ10njTJO9WW9vgnRH8tp5
+	3i5j9A==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe79hng6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:01:07 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c2d0a8b5beso12290955ad.1
-        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:01:07 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:01:09 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c2b64850easo36788325ad.1
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 22:01:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781154067; x=1781758867; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781154069; x=1781758869; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kDOyjVy7Gm6v5C3VhgQs/uW5jqgiFhnWKhAY4sqkK10=;
-        b=L5rMtMlWLS4A25qi3hN3UWiNTELsscaUjazjnXlhTPpnMHX3HWSW7s0Nh3khM5le6d
-         NNAv8gVdnC1pbJ/CP26cGSALLiibafrZThfkruhSuPSy1W/HY90CcNIpHv+GdOZ2V5ZJ
-         5eUNG1GmoBVR6g12f3h3EJJl0l0m4Qs6ySnY3HvhJboCerl9dZW2pTJq5jvibW53f+HT
-         Gf70fIQS7IZnHXG4FtQfLvbFJ4qXLOLeluJ/pQIjywoK3YUAhPjCLCLTiA4B7Uo3FNVx
-         AdUc/TrzO2KHzfRoCkaMgOuzpZd8drQJDj7uUI3KqNBJbHn58zsPcn8qkaPYQUOSUhMD
-         T9vA==
+        bh=LdHF5BK87mzrb2oL7IcQNCyKVDi9pCfEGddXm+4/bts=;
+        b=jGS7bTW0xBQpNz4CCre1DQX0UaOuWNEukClVzSH6XLjMY3G1IF4te68QurY8m1I7YL
+         aR+s8JHCzkvRqAARwJE18BH1iOVAW5NE/TC1ggWRMxhxXvigrTDMTgDZehF2JsWK9Q68
+         IWev63Ffr0ziGXy6ZEcNGEbNGftrKSOh0m6VNTuJFkBMHSrKG3Ic1/DAFS8C7vbhunQ1
+         BJUkty0D8bEflZFWx+Ze8b6QUykxagCni5BjAXJuuPfzUvef4WsKi8laZ1+CtcYyXcTm
+         uDeaKgVr+8LDIjyEXxbHWm8H/iSGWlEe7EB9nzYfCO4PiSx6JDndo8U4Gr2xDEIA0n+Z
+         Q4kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781154067; x=1781758867;
+        d=1e100.net; s=20251104; t=1781154069; x=1781758869;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kDOyjVy7Gm6v5C3VhgQs/uW5jqgiFhnWKhAY4sqkK10=;
-        b=kS0E5I2UHVRhqJ9LhuTqea+3zBBsGuAQ2yu1UF3oDeA+frY4+Y5I0WM8yBZZC7GI1b
-         VKzJBC8XkyzwkvIULAeDgbll+cQU+1bjVzadpjE0HOH0IhOSk7J32fBEr3EojoXe3Qfi
-         Jxtui2UflS53bss+ZBWQHoV+3L2Orq+4YEIxsEm65jJ//HcqrVrwrfO24Xo5pST3ZeLE
-         agovJ8p1tq8t0Ias8AShgC6brYnFsKwNhIVB3n7iiEJ2K7LYCe6uMn2SFNjU08Y9cias
-         1Sbl6/kWrJEH8zgHKXydP9+6j/AqM2wTDG2z/3K7lJxCr2p7war+cqCDxHpS2qXN+VfE
-         A/0Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/DAbUcjeNNVP/oUflJUcySJgpDKL9i2D3sicO6ZQnAwTWFVf7MAoq2D+8Do7GnoZltfS0EQ5L8MA2o@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6oR7d26tprznR5aIZ0GFUATwJvi7RenaX8WZ/10D/gqujC4eG
-	XCVQ3V9y4s2iZgJJlE7spyLK7CWqSmmloxjRIHoY8HOBNBst0YtnowHIwwA32+M0DqQ2XSAWiRe
-	Y0l4GZ6fug9hTtzJY4SMekOgzeL3h/HiMOVFbavEDYISWrFsir7UjdHISddguQdAi
-X-Gm-Gg: Acq92OEy8zbSCgXuzS0jf11qfd2UmpouTmIpBP0KPRjokaZFUW4s9QmcJe5WVtN+AHL
-	9y1ND3u33zq2267F8CxRrEbsR8PBEMTQd7zPKqkoenppTEzSvvlUd/uSBtP2DHLt331JBqqestU
-	b7zA+gtHMkihHO0MpRpvmOzDBHGyzNic/SMPnP8J0X5ubsV98QxfULEjW2h/zsq4r3KzBs3Owhq
-	HwWBc8hUDI6TYx/fpFhuVS7YISeXGJpwy/C6DhrSiNz1g3im6EXTVg812Y052rl5e2V856Q3S6R
-	TBG/3SpONr50N2g7L7p552u8rU++AZeVBymbQdsrbGcowg51hzsnxEGlo9nvgO/pcd2DG+GaTaq
-	bfyQ0x4Op2pSl8HPQqCz8GNNN4w4S/fMEBEyqYU9T7C6Xv+RLPrp3FZ7Ciqzfzd4xnX8=
-X-Received: by 2002:a17:903:4b46:b0:2c1:6259:cda8 with SMTP id d9443c01a7336-2c2f22a9f06mr14030235ad.25.1781154065146;
-        Wed, 10 Jun 2026 22:01:05 -0700 (PDT)
-X-Received: by 2002:a17:903:4b46:b0:2c1:6259:cda8 with SMTP id d9443c01a7336-2c2f22a9f06mr14029755ad.25.1781154064647;
-        Wed, 10 Jun 2026 22:01:04 -0700 (PDT)
+        bh=LdHF5BK87mzrb2oL7IcQNCyKVDi9pCfEGddXm+4/bts=;
+        b=o+ea4s18q4dD4xPwuiTSglGjf0W5PxnvSNQvn2gaG+jz2ulG8H7gTHzE11u/mpQWOO
+         /I8ce2d+HLCyE5f5Y9pYpyrN/p/ONYdUtZoT8Z5LlHJO9rJ1t3nMyuDRqQOQmyTU7sd0
+         x2mf4TKdNYMN6kuQAaxdJu4rBKpJCT2Bon4e5oDg2D5JgubpCXYQNqwhlT1bEqLwi+qM
+         7Ay0x+wob8pLlOWZxy4XVBM827rxbJvB4iZNK2QM8SY+caHbV9LV8Nqy7p8mIkmq4/IZ
+         QZW6DXfZlJdhQ297c/q8rezZ4mtEVez2YkIhHZE8YTOenxKKxxReSl1+4kU2WofC2yaV
+         pfUg==
+X-Forwarded-Encrypted: i=1; AFNElJ8rAcZ1P97dbFrUcDV/cwhdbX8y/xqXNjrWOhDYIGq/2PgUdLiYOnbzurL1ZIVh5owK3iPK+XtIPgPL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOsxiDP/ymJxbfVfNqnLdkqNAMz2IjxN+iRGBLWJOYXMK0xJbB
+	hKscYa3AmYLlc5wnLU5WYnU0Pf0KbK3R6uURFyJ8t6CJPuxrqWkkRxAY52wGoZI4yTT/VnnYFGr
+	pNN0t/P+c1xajcNCVgWXYCnC816zs1EtlXtiqG+4d0d9Y1Gm4EiFEpYBe7toMb+O469ceCaUy
+X-Gm-Gg: Acq92OEKRPQIBnrzniLwToNqvV512j0HbKYHJ4TnYnglYqFlyov0emX+RWQkXGHuEt9
+	3t5zyu3+fKDOKc5ft+0IdjwEfo25kRQjxhIdoxYhL6c7FHMzqDk5WvXsH49uSz9ZKp5sbbnoWRr
+	nG1MWHcmwViTnOIEMY2mtOm/qPPqCZtAyRFsGMxkI86CyrIsu+XKNdFc/25Ov9h2S/8PK64tN3J
+	3KjEOjZ9INTPDDCuIa2/QGEXvGZ87ScygGn+qf/TJ3XK4eZH8pFacdH5TT+PwUaI2SmHPfnaaz8
+	Z9bAQC8cyf0MDRTjCwSn8tWs8IYGeV84dNlZBlEk+9ZHHrWp/inIQ6uUnYQeq+uz6/bWymFimy+
+	Jj1O7LUyYasIon5mUe83kAgX+ng7dnJvebz5mxtMRzUjfdyEBG4wBjADe311IFHIfM68=
+X-Received: by 2002:a17:903:124d:b0:2c0:bff4:96a7 with SMTP id d9443c01a7336-2c2f278fbe0mr12309685ad.12.1781154069091;
+        Wed, 10 Jun 2026 22:01:09 -0700 (PDT)
+X-Received: by 2002:a17:903:124d:b0:2c0:bff4:96a7 with SMTP id d9443c01a7336-2c2f278fbe0mr12309295ad.12.1781154068589;
+        Wed, 10 Jun 2026 22:01:08 -0700 (PDT)
 Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8bc5asm276188335ad.27.2026.06.10.22.01.01
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8bc5asm276188335ad.27.2026.06.10.22.01.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 22:01:04 -0700 (PDT)
+        Wed, 10 Jun 2026 22:01:08 -0700 (PDT)
 From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 10:29:09 +0530
-Subject: [PATCH v2 33/37] arm64: dts: qcom: sm8550: Move PCIe phy and GPIOs
+Date: Thu, 11 Jun 2026 10:29:10 +0530
+Subject: [PATCH v2 34/37] arm64: dts: qcom: talos: Move PCIe phy and GPIOs
  to root port node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-wake-v2-33-2744251b1181@oss.qualcomm.com>
+Message-Id: <20260611-wake-v2-34-2744251b1181@oss.qualcomm.com>
 References: <20260611-wake-v2-0-2744251b1181@oss.qualcomm.com>
 In-Reply-To: <20260611-wake-v2-0-2744251b1181@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -103,32 +103,32 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
         Krishna Chaitanya Chundru <krishna.chaitanya.chundru@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781153929; l=6736;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781153929; l=2736;
  i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
- bh=QBWtqPgdhnJI/7B+0i5OGO7653R5NO1B7RVCB1wNSec=;
- b=pYDo5/4wLJ8WFVBfC+n+DS6lkP3DkN6ZbIumLStw5B56e409DM2lAK6jDVDFi7GioYmHRpnlC
- 9WGnMp9bg+TDIkREA/uBh0zfRa7pfIFvRgSYpuNKXI0QqGrU+i6DX46
+ bh=e53PVnIsiLOc09/gmq/7tWbCF/q53MrOPjxF7RcAI5Q=;
+ b=HcP5OU2IGal8udyJP/M16TVSaEBeKILqIqLf1hLmIihpKWyDvw8+s5TNbad+VRlY6WjwtgB73
+ bnjjWBeKFQ4AuuZdRrxSMtoD8HWK7gbEDxY19IqzWcKdbIiEGbFE8ht
 X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
  pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
-X-Proofpoint-ORIG-GUID: xBSZUmATcQ4NQ6lb9YIxCIViE6bq7G55
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA0NiBTYWx0ZWRfX3hJjNHm9vqaj
- /GEBbnhfCIJEv+TsbgDUbzsIzPe+GBzfYWpKJHGZsaP82z4tp43GKqO0kAMIqLOCeIgaPI9h6a9
- Xewa4As/vrK16w38l4mcB1KRKPnMp5NxPH9r7Zs1swyJXWs78Rb/5irbiL0WD9a85Ndif8KhbGh
- XaScUDUDW0uxeTdYyFUPLzaz63UrzExO/lWZTGiYUUA/2KULjRRiQtqy2xKJ48SH3UNI/Ius/9Q
- SEEYrXFzwzu1+Jq6Fuua3WsNFVU+iSUQoDXJa03m4j7rDtUaJ3wBXXvQ8nJ6i/qcbrkBkZ+8Aeh
- hyU919i8/GEokTnL9lkH5lTFmSCoTK9n1l98yaSSVlUqp76F61htHS3ZyfDZgA5xW3VD6oiz5Zl
- UaoLBkyupLUJ370Su9HNr5BSsVBndJRZCOpJv4JryK2ejB9RO539DbrT0aRJDC4N/lU0rX4jaR3
- 8C8SZiT4xdP4J714QAg==
-X-Proofpoint-GUID: xBSZUmATcQ4NQ6lb9YIxCIViE6bq7G55
-X-Authority-Analysis: v=2.4 cv=fbydDUQF c=1 sm=1 tr=0 ts=6a2a4113 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: c5mRQi4t5zXSEN7vhTqqFmyyuAGMHErk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA0NiBTYWx0ZWRfXxMfzpE67dtOj
+ IVw4cCllNptB/ZMlghA0/7G5RxrWR2/t3wBGzzIYwZq6JH/3OvFO3YEFcAdniiMibGcH0NMCqh7
+ c0HtD3Z2wZyPIemBXU0uPzovTbuyq2ZDlXDsyItGcTxpGjwMqEiNJgEXeS+OeWtEnxG2SMohyet
+ Bha/DxmbAuyaNPWXKworUZM58f6Pxtw7IWehRPJs8L2I1pnFzxBzldKNTwrSxoMqJWTLA0UoTju
+ FC16GsGFExLsq6rwNKo6t2rPXno+FvGbjimAbWUVLOqpSHB7FzYKOhV/HdHykUdLoYcZDRTQtIL
+ 52wuLRmauqYKHsPk3bq4KNWaSyR0LyUiBjnDl6Nh3NppDESL4GFrDtgphyHA9Nre/CB7obW73vd
+ XoHTU0gkFeaqxjSHkiABV37VEOJ7ZvoTD3ISDEl8UFMbLLBqwe9R65L5Sol8ncO84XFFIVfNs5Z
+ zXNjR7pokS0MgDVkyMQ==
+X-Proofpoint-GUID: c5mRQi4t5zXSEN7vhTqqFmyyuAGMHErk
+X-Authority-Analysis: v=2.4 cv=fbydDUQF c=1 sm=1 tr=0 ts=6a2a4115 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=7SwbUlbDHKIDUUknu0oA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA0NiBTYWx0ZWRfX9Rxt9IKDUYJz
- WApn21RrAsrWaJxh9EIHYIkXFrQD39lXyhAX+3lnblzSwLXZcjPZwDCFU+HmVJpbgtKOT6eR0iR
- MwDCn8yeFofHmpC5KAgaB6AxgFd63gA=
+ a=EUspDBNiAAAA:8 a=xzbAzJKGZiqbpjPgTfkA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA0NiBTYWx0ZWRfX11hD0rvUTzhN
+ fL+GNde4nHx46CtYVR1umyUA2M582OVvQFqoP6tUTNG1dCt/Vs23LBusHD3Kptu/9t+aDCc6IX7
+ rFFO6+Uz/GaUKSP1xKbzNG8fFbYvreM=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
@@ -141,234 +141,88 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
 
 The PCIe phy reference and the perst/wake GPIO properties are
 per root port and belong in the root port node (pcie@0), not in the
-RC controller node. Move phys and phy-names from the controller to
-the existing pcieport0 and newly labeled pcie1_port0, allowing
-board-level overrides. Move perst-gpios/wake-gpios from the
-controller overrides to the respective port nodes in the board files,
-renaming perst-gpios to reset-gpios to match the binding used in the
-root port context.
+RC controller node. Move phys from the controller to pcie_port0, and
+move perst-gpios/wake-gpios from the &pcie controller overrides to the
+&pcie_port0 node in the board files, renaming perst-gpios to reset-gpios
+to match the binding used in the root port context.
 
 Signed-off-by: Krishna Chaitanya Chundru <krishna.chaitanya.chundru@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/sm8550-hdk.dts                  | 14 ++++++++------
- arch/arm64/boot/dts/qcom/sm8550-mtp.dts                  | 16 ++++++++++------
- arch/arm64/boot/dts/qcom/sm8550-qrd.dts                  |  6 +++---
- arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts          |  7 +++++--
- .../boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts     |  8 +++++---
- arch/arm64/boot/dts/qcom/sm8550.dtsi                     | 12 +++++-------
- 6 files changed, 36 insertions(+), 27 deletions(-)
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts    | 8 +++++---
+ arch/arm64/boot/dts/qcom/talos-evk-som.dtsi | 8 +++++---
+ arch/arm64/boot/dts/qcom/talos.dtsi         | 5 ++---
+ 3 files changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-index 4709eb34521d..1488ff8b7bed 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-@@ -1003,9 +1003,6 @@ &mdss_dp0 {
+diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+index d89548a2a3f1..94a6849566f8 100644
+--- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
++++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+@@ -444,15 +444,17 @@ &mdss_dsi0_phy {
  };
  
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
+ &pcie {
+-	perst-gpios = <&tlmm 101 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
 -
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
-@@ -1013,6 +1010,9 @@ &pcie0 {
- };
- 
- &pcieport0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1107";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-@@ -1037,15 +1037,17 @@ &pcie0_phy {
- };
- 
- &pcie1 {
--	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie1_default_state>;
+ 	pinctrl-0 = <&pcie_default_state>;
  	pinctrl-names = "default";
  
  	status = "okay";
  };
  
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
++&pcie_port0 {
++	reset-gpios = <&tlmm 101 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
 +};
 +
- &pcie1_phy {
- 	vdda-phy-supply = <&vreg_l3c_0p9>;
- 	vdda-pll-supply = <&vreg_l3e_1p2>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-mtp.dts b/arch/arm64/boot/dts/qcom/sm8550-mtp.dts
-index 7703ebfc1b67..e44f6a8877bd 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-mtp.dts
-@@ -739,15 +739,17 @@ &mdss_dp0 {
+ &pcie_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l12a>;
+diff --git a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
+index 6eca3791e2b9..619880b0ddc6 100644
+--- a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
+@@ -358,15 +358,17 @@ &mdss_dsi0_phy {
  };
  
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
+ &pcie {
+-	perst-gpios = <&tlmm 89 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
 -
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie0_default_state>;
- 
- 	status = "okay";
- };
- 
-+&pcieport0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie0_phy {
- 	vdda-phy-supply = <&vreg_l1e_0p88>;
- 	vdda-pll-supply = <&vreg_l3e_1p2>;
-@@ -756,15 +758,17 @@ &pcie0_phy {
- };
- 
- &pcie1 {
--	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie1_default_state>;
- 
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie1_phy {
- 	vdda-phy-supply = <&vreg_l3c_0p91>;
- 	vdda-pll-supply = <&vreg_l3e_1p2>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-index 5ce81ac3ab4c..1fe6a8bf0fbc 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-@@ -903,9 +903,6 @@ &mdss_dp0 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
-@@ -913,6 +910,9 @@ &pcie0 {
- };
- 
- &pcieport0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1107";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts b/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts
-index cf4e4e9d9e26..0ff9f3850b0c 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts
-@@ -510,13 +510,16 @@ &i2c_master_hub_0 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 	status = "okay";
- };
- 
-+&pcieport0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie0_phy {
- 	vdda-phy-supply = <&vreg_l1e_0p88>;
- 	vdda-pll-supply = <&vreg_l3e_1p2>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts b/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts
-index d23fe714bd27..678e58694b8a 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts
-@@ -584,15 +584,17 @@ cirrus,gpio-ctrl2 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
+ 	pinctrl-0 = <&pcie_default_state>;
  	pinctrl-names = "default";
  
  	status = "okay";
  };
  
-+&pcieport0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
++&pcie_port0 {
++	reset-gpios = <&tlmm 89 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
 +};
 +
- &pcie0_phy {
- 	vdda-phy-supply = <&pm8550vs_2_l1>;
- 	vdda-pll-supply = <&pm8550vs_2_l3>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 912525e9bca6..a8eccaebcf2d 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -2033,9 +2033,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ &pcie_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l12a>;
+diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
+index ff5afbfce2a4..6f5f468ca4d6 100644
+--- a/arch/arm64/boot/dts/qcom/talos.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+@@ -1337,9 +1337,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
  
  			power-domains = <&gcc PCIE_0_GDSC>;
  
--			phys = <&pcie0_phy>;
+-			phys = <&pcie_phy>;
 -			phy-names = "pciephy";
 -
- 			operating-points-v2 = <&pcie0_opp_table>;
+ 			max-link-speed = <2>;
  
- 			status = "disabled";
-@@ -2100,6 +2097,8 @@ pcieport0: pcie@0 {
- 				#address-cells = <3>;
+ 			operating-points-v2 = <&pcie_opp_table>;
+@@ -1371,6 +1368,8 @@ pcie_port0: pcie@0 {
  				#size-cells = <2>;
  				ranges;
-+
-+				phys = <&pcie0_phy>;
- 			};
- 		};
- 
-@@ -2213,9 +2212,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 
- 			power-domains = <&gcc PCIE_1_GDSC>;
- 
--			phys = <&pcie1_phy>;
--			phy-names = "pciephy";
--
- 			operating-points-v2 = <&pcie1_opp_table>;
- 
- 			status = "disabled";
-@@ -2288,7 +2284,7 @@ opp-32000000-4 {
- 				};
- 			};
- 
--			pcie@0 {
-+			pcie1_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
  				bus-range = <0x01 0xff>;
-@@ -2296,6 +2292,8 @@ pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
 +
-+				phys = <&pcie1_phy>;
++				phys = <&pcie_phy>;
  			};
  		};
  
