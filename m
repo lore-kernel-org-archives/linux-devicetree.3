@@ -1,131 +1,198 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C2F30DEB2
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F02F3769FE
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781207026; cv=none; b=HJANFC/ahbXsVnNKMfEHI6CyV9QU6467/gp6Sz6Qz11h8l8ZksEM6i/r2gKF1Me7HgDOMzwbi4rLCM+yCsBSrmUrBpTFoHz+OHXskxpxyWNOrH+mlcJL2YcaFIdzGUI640h1mqrCKJOrIlCbAewZHIFsGF7crlbhaneNfaqJ22k=
+	t=1781207105; cv=none; b=QXEBy9hqDuzOewpUQv0iw5/qiSBsefge/sYJ/zgAcgMzjqX5MP7kAsn0lnSHyb2bbel/9sZjZKPqxPTgTPMtZex982P3WO5DyDBmoU1gczQ56FTXYRvkeDRZHUzXLW2z4WOofWTKUPG6OzCfXEO47XFT2e8AMxG0cINABk2PmAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781207026; c=relaxed/simple;
-	bh=QjleCp4VyO35ivHHlQ0g5fkQ9JB1AsJoAloO8C5+uUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DwJUvFtVro8w6ei9YY71aifmoKZ/gMzZagesooC1n6O+URZFNr1vNu2Nycg9uFcNt0LnBMMIiLfvV+VZ/apaTtA83eM9tKAlhgin077VQMxaUWCAXhOJ4hALKMYbcXVkTXFvfk9TEUElaeO89k1vOs3gKkT4UOsHRLuMxtefRqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sF9SEcdj; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781207105; c=relaxed/simple;
+	bh=01ioWAHb5nCsaIc11XbExlYS4Qk3/qMPjNMVsOpw1as=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+drvFKSH6uAUnVhaqAZTVmTrlN1DLxlvgt7MuXCTBds65wgWKmLG7Gb8v1hyeLXZhaii0WFwJdyoFxEOid2Raiuo1iB52qdJyd1hbsCVma3jbfqr/fNLYDWOmdWHwp61rt87Wl2vDMhG35Ns3eoTex0kG3ScnVx+3F1hhAqdEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NsgxwsD3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ChWt09wZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sF9SEcdj"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45ef56d9b67so149050f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:43:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NsgxwsD3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ChWt09wZ"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BJ3PHC1457703
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:45:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ET6MuyER7wxqL0ASDlEV4k/M
+	QK1DNFn9BvrzLC069vE=; b=NsgxwsD3g9/tq9EhZ6i+/tcISCfFF7/04AjnxCFQ
+	Ml6KjDCaTQdVQ7/O+jrLiaCqhWqWALIh+4xScFrNXEJjaxa1e99uVeRza6pIO8kS
+	6hcsGgFXizRuscbj97lpaijwrWQV32/x0QIgBLPfPHqms3EOJ/heK1CG59rjJks8
+	XV6fgwZKlJCHBOm0dRHCYTgP9E+a8EAYjLoul37S9v7b3hIxpOEZW8RMrrxqWjId
+	vv3NZrNwStAj/Ls5lRcxQqAhDm2KQ4s1hfuEc5mXEJ+IjcJuAYgagI1a3Cklagkc
+	U/PqeV6jk8kaHrttj5udUw1psw4Zas8zGTIZ5y9LooMAnA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er2r5r6k5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 19:45:03 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51776d4355cso30203101cf.0
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:45:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781207023; x=1781811823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r1KQdWvhqEfny/utP9buNkNl2/nWXIxFcbLtKnInfxQ=;
-        b=sF9SEcdjThrps97RL1+ivPFCGl3dxnEvfA6w9xR+ISPFzHGkee2cYyN0KCgCh1wJj5
-         CfyrgPveEGhBwMgWumBWPK3aWHy/yEEa+7UdctR4KlW2SAvD1oC4rH3yw5v8oCVcFd7K
-         RH3BG3g3fyNhWhwgKPMwA9JvPAJHgt5Z1Sro3S9gYcB5/9juONgHO0QTBYXsgKUGoNj8
-         nQD2ntsBWswOYf4iZOqeL4xoHoQzOKYPD2o28uVb/XZjPgCBU289iaJpJ8bssDoon0yK
-         bO+ixZ2M5EFdPUVAxfNHHkThTUfbuAKUjyvXclp2OrVmQ7xtn8Yu7y4+rz55YSPW60K0
-         /x0w==
+        d=oss.qualcomm.com; s=google; t=1781207102; x=1781811902; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ET6MuyER7wxqL0ASDlEV4k/MQK1DNFn9BvrzLC069vE=;
+        b=ChWt09wZlxE5j1/g37hBp5uXGbKO3DITbM5UEWqcp6HjvCdkXcxW5JJ/yGswHUFnoh
+         KMICONwmJTHsYjM7qc3gaPB38fzQjhrX8fHA/Gjt2ptoMqQPskck/aLvrF9RdDasNT98
+         t6EdtAkki3lZq7TRTvJZ6Yicazt7hDL72Amutc2l2QvGf4zrlx8ScuV6lyhIYP3yJr7h
+         gxnNqHzXgTZDW8DNipL5C99ueaWKlMXQbPFdgyzme26GPweMdfDe3uCp7c0R/ZJUF9Ek
+         YlAebBhW9AFwK9EMfmBCpwkhYYRkWhOCIfjOhBlmNe4FVrvwuLzk5LkgMgodpnoKpQqX
+         ntrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781207023; x=1781811823;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=r1KQdWvhqEfny/utP9buNkNl2/nWXIxFcbLtKnInfxQ=;
-        b=l9k7Iuvsl+npTlAgUg9M4tx6KvLfaay8xncb2laP0MXYSX/CtM4yrX4Mh0Wv7X/7cy
-         zHbltzABc2qm9GnyFSHo0pMJTEFegCzOURBcECxbjaf5TaDDWmF+eafhxl172EwW2poJ
-         oKR3MTzVWfruW5FPa0rbGcObUyZvnyWF/WVI2i70Me1a4tSuDb8LuVtZcm4KjfnVDRAZ
-         VDDM5y+vxtGuNncBPI/hljZxn59M0DpyeJ8hPpqyNabHIyLXAgvLqeUcciMK9iMBU3pw
-         /qFVPhpySrILjpJuXgoCnTkHW7H1E6J0yThKKU2ByY/bOd7FwnfcX9ew+aeXra0NblrQ
-         9/VA==
-X-Forwarded-Encrypted: i=1; AFNElJ8+OgAwM1lVcTmyKuHh/2MTcE5HQS7m2+fVJnpU6NaDFzeygBOXDEPVuFptbL9sQOsh1OX6Dihd9UFS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE1PP/PfGlEQo51+SQT5TWm1zs3wuOiTblaLAj4yO/B+OV4z1Q
-	/RyjgmWpcHJRGSTHaSbWeY6CT6UsoA1MkqphcAQ3o+vsK7eXKnYmEcYQ
-X-Gm-Gg: Acq92OFEYTYepyvElm2+lDYNVtVTewX4+Dn+VMov8hkaByoadvR/YJYsqf5BHrB3p67
-	PNrvUkeNJLlT9E3iSmnkEwIeacPzCrNnGAcafDcMwE4SjSuxUOIO2WefIvp+M1Lo41eYg8aPPjN
-	MWcj5/vd4JIQ16eW2JGf8an/bTDQwm9Z+yNILe6tqDDxZ79+BTrVS6b8mnmXBeFNk2Cmb+mON0/
-	+K9YAGZghAmWNuSDNXgHeDpn08/uoLNQDazL/X+LiSylZ8+Mox5Xrd5XulRHgIr4oJ30aa3Xz9U
-	OM3jLF+VonAx06T215W2sSZ+piXwBCkE77D7BvCPHdzuCvS3yBRTqCF9GrNSdjtCwPFOHnNGn0y
-	GvXeVNKRyVfd5dGmGJZbVnr9kYXlKPhr3Ct8q5aezH+ixGIMHHdyPz37M6XBWhmeojgRS0mmL0j
-	P9KIAnHwFQgQBhZy2omyDu3l+Q5coQr4jJ9YwH1wOVTu19B9SBchFfhnfzn7DY
-X-Received: by 2002:a05:6000:2911:b0:45e:eec6:5023 with SMTP id ffacd0b85a97d-460677ed2f4mr6812673f8f.37.1781207023291;
-        Thu, 11 Jun 2026 12:43:43 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606c0f5164sm1211937f8f.21.2026.06.11.12.43.42
+        d=1e100.net; s=20251104; t=1781207102; x=1781811902;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ET6MuyER7wxqL0ASDlEV4k/MQK1DNFn9BvrzLC069vE=;
+        b=BS+81BbAlTQ9zkoRb3cI57Rl3y+CyMPW5mJDfZG5M2SSY+e4atKuZBT1UUOGvt54fa
+         Vn2Z05w9pYuoziqeXIiAnqqbCCyY6DAvZi+x4xeenLUekYVd/Td2MswzQdW9XrdLi+/G
+         s4W8ToILgL4YOj7hbhUaNqrXOP1qao69Jxz0IysgfcMHi64fTPcLSeEYUMe4ulAtSQQ1
+         g0y87nMUB65oDQl8mLNfD58bJNXpUm/Jpm3O/qpeuu+Yd5H3KSvMehNMWnKuhRWXH502
+         dewKZTG5tQDr/ZbIbC85h9NslUBVBN7ZaOLRDH1aeOb1cuaswz4uuX4yhVPHWzc5fcWm
+         TOfw==
+X-Forwarded-Encrypted: i=1; AFNElJ//Hi57GrivZJzLiZ0jiQBc/KTeXe0tw9BdGupuR8mVMg3jbxbHNYqJ6ZVfLcoc6bZ6kedRlR+stJHi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9x24ypbXUvtzHrWMSSJ1SmKNxRZUi+97CLjZHhU6rHaMKdKdT
+	VoC1Pg64WiaJVYYIXoB1BOm5t07ElCKsvP142WQRDPHWxcRooGDt5LnPEtC8dyfLtlFHNpmS04t
+	0/E1xqNmHpHroYebS7d83tEASnJZ/Qcz7/JVeS21+R6w5vt3jKcipji+KN0FpM54T
+X-Gm-Gg: Acq92OFFOiD45p3TjpOTbLp6/P6cdQKbV0f42ONObDqNkv0RmGEoys3njnoP8+dtrM8
+	50Sq3/neUQwnPYxnoRhJ3tqjXK9qT8FnUmcSYqUre5fcIdUEVZLacZs3ydqGrvPpRXrKDtSsQsa
+	v9qyBzsXEBaKSXiORa/WkhS1nlmT4+uJ1um7/VzMCqM6MRJZ4jfsKVz43edIHmjAxy3YuiCQY5o
+	atsOfaY5r04gV9TUJiElN263wk3R+5wV3Pc85NThzCJN07LVy/8qrrS0LNklhBi15rCfoL5Zkx/
+	SbRdQnkN0QwsnY4piMozjw0fDwZM31abNVv1D66Mu3PVMV/CvV3qLY/uydhVm8i5fi/LLtvYd33
+	ZkTe9fRooIPUNFYMhAsAlotBOUV+gChbBrMA0qM+ofEmAdpeMm7H3rbgsK1oBwJXVeL3rkuNAh+
+	ZF4IwPokbXe2pF6xgxQZok4q8UrZFHiKceYX8=
+X-Received: by 2002:a05:622a:14c8:b0:516:ddfa:b6b9 with SMTP id d75a77b69052e-517fbe619e8mr1984741cf.23.1781207102415;
+        Thu, 11 Jun 2026 12:45:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:14c8:b0:516:ddfa:b6b9 with SMTP id d75a77b69052e-517fbe619e8mr1984411cf.23.1781207101976;
+        Thu, 11 Jun 2026 12:45:01 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2cb46b25sm103098e87.34.2026.06.11.12.45.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 12:43:43 -0700 (PDT)
-Date: Thu, 11 Jun 2026 20:43:41 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Leonard
- =?UTF-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>, Marc Kleine-Budde
- <mkl@pengutronix.de>, Alexandre Torgue <alexandre.torgue@st.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de
-Subject: Re: [PATCH 0/3] ARM: dts: stm32: lxa: change stdout-path baud rate
- from 9600 to 115200
-Message-ID: <20260611204341.147f1afb@pumpkin>
-In-Reply-To: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
-References: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Thu, 11 Jun 2026 12:45:00 -0700 (PDT)
+Date: Thu, 11 Jun 2026 22:44:59 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>,
+        linux-bluetooth@vger.kernel.org
+Subject: Re: [PATCH 7/7] arm64: dts: qcom: sm8350-hdk: describe WiFi/BT chip
+Message-ID: <dz4qovpquxgynnzviqg6g23oa2o3trlkznremnmlqfnlj3b62x@oqgcuvalfcph>
+References: <20260601-sm8350-wifi-v1-0-242917d88031@oss.qualcomm.com>
+ <20260601-sm8350-wifi-v1-7-242917d88031@oss.qualcomm.com>
+ <955691e1-e40d-4584-861e-8f29db4ba8a9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <955691e1-e40d-4584-861e-8f29db4ba8a9@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: pLjwzW9Az0kCLepMW7Qkq5NFK-oY2zdH
+X-Proofpoint-GUID: pLjwzW9Az0kCLepMW7Qkq5NFK-oY2zdH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE5OCBTYWx0ZWRfXwxZb9l8P6QiA
+ z4Bf3vZeKjzAYVqgUD9tYO1GmQ/1VFMDzqrVX2/KDxNYOysHKo5IOI4B0UXrjyQQTfqRfMoh2jE
+ zan4vNea161cFMMn7QMvQfEIXRz0ztU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE5OCBTYWx0ZWRfXya4KjK9FBBXN
+ 4TTI86sUKjg4j6dAnhk2KgQDSAQw6C4i37HGnUWQ3xwdzCbWyCRaIrEODT0uo67jLGJCodlJq1P
+ AvqfksAeZ/ePfoVUWTuOHB1BP9Nx/U7G+I/1OqypXaETcd4gg9IUukylIccTZAb4emvblibvP7f
+ 86lvkbrDXddcnR0s+cHHEjiNDSKvC4iuFZrGcQug9ehLZ20yzZLFe1MeryuBuY58bYxlL0N1uP0
+ LEngUJ3hdvp9duCPsEfLk+2xq2R0X1pRmFvkNlYUfxYYzBdt0e/iaYTXP3SUiLKrSWntSqIq1a/
+ /5+YeI3oNW9YljvllrFHt1lXvAGJ3Y0+1/m0NhLCUU7NbB2jzqE0KNJFPZNyakKtzwyndARFpuf
+ cr30hNCWeM6qm/rNh0ahHXZlcXLtQ8FLwr/Q52KrwiS54Nceak3q9RYeKLigjh5LH3k+7pmmguV
+ XTHUv2KCW336JkXL0wg==
+X-Authority-Analysis: v=2.4 cv=M6p97Sws c=1 sm=1 tr=0 ts=6a2b103f cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=NvgA2eVT_OJx7K5CLicA:9
+ a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_04,2026-06-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110198
 
-On Thu, 11 Jun 2026 20:12:32 +0200
-Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+On Thu, Jun 11, 2026 at 02:09:27PM +0200, Konrad Dybcio wrote:
+> On 6/1/26 11:46 AM, Dmitry Baryshkov wrote:
+> > The SM8350 HDK has onboard WiFi/BT chip, WCN6851. It is an earlier
+> > version of well-known WCN6855 WiFI/BT SoC. Describe the PMU, BT and WiFI
+> > parts of the device.
+> 
+> [...]
+> 
+> > +	wcn6855-pmu {
+> > +		compatible = "qcom,wcn6851-pmu", "qcom,wcn6855-pmu";
+> > +
+> > +		pinctrl-0 = <&bt_en>, <&wlan_en>, <&swctrl>;
+> > +		pinctrl-names = "default";
+> > +
+> > +		wlan-enable-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
+> > +		bt-enable-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
+> > +		swctrl-gpios = <&tlmm 153 GPIO_ACTIVE_HIGH>;
+> > +
+> > +		vddio-supply = <&vreg_s10b_1p8>;
+> > +		vddaon-supply = <&vreg_s11b_0p95>;
+> > +		vddpmu-supply = <&vreg_s11b_0p95>;
+> > +		vddpmumx-supply = <&vreg_s2e_0p85>;
+> > +		vddpmucx-supply = <&vreg_s11b_0p95>;
+> > +		vddrfa0p95-supply = <&vreg_s11b_0p95>;
+> > +		vddrfa1p3-supply = <&vreg_s12b_1p25>;
+> > +		vddrfa1p9-supply = <&vreg_s1c_1p86>;
+> > +		vddpcie1p3-supply = <&vreg_s12b_1p25>;
+> > +		vddpcie1p9-supply = <&vreg_s1c_1p86>;
+> 
+> [...]
+> 
+> > @@ -373,6 +437,13 @@ vreg_l7e_2p8: ldo7 {
+> >  			regulator-name = "vreg_l7e_2p8";
+> >  			regulator-min-microvolt = <2800000>;
+> >  			regulator-max-microvolt = <2800000>;
+> > +
+> > +			/*
+> > +			 * This is used by the RF front-end for which there is
+> > +			 * no way to represent it in DT (yet?).
+> > +			 */
+> > +			regulator-boot-on;
+> > +			regulator-always-on;
+> 
+> msm-5.4 maps this to bt-vdd-asd-supply (asd being a keyboard smash,
+> perhaps?) - what is its actual use?
 
-> The LXA boards are the only STM32 boards that set stdout-path = &uart*
-> instead of explicitly specifying a baud rate.
-> 
-> This would mean the default of 9600 is used, but it goes unnoticed when
-> booting normally as barebox fixes up a console= line that includes a
-> baud rate.
-> 
-> When EFI booting GRUB however, GRUB will not pass along the console=
-> line and thus the board ends up with a 9600 baud Linux console,
-> confusing users.
+WiFI/BT RF front-end, a separate chip containing amplifiers, couplers,
+etc.
 
-Is it possible to determine the current baud rate (by reading the hardware
-register) and default to that value.
-Then if grub has initialised the uart the kernel will use the same
-baud rate.
+It is a separate chip (or a module), it is not powered on by the PMU,
+etc.
 
-	David
-
-> 
-> This series fixes this. As the device trees were added at different
-> times, they are fixed each in a separate commit with its own Fixes: tag.
-> 
-> ---
-> Ahmad Fatoum (3):
->       ARM: dts: stm32: lxa-mc1: change stdout-path baud rate from 9600 to 115200
->       ARM: dts: stm32: lxa-tac: change stdout-path baud rate from 9600 to 115200
->       ARM: dts: stm32: fairytux2: change stdout-path baud rate from 9600 to 115200
-> 
->  arch/arm/boot/dts/st/stm32mp153c-lxa-fairytux2.dtsi | 2 +-
->  arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts        | 2 +-
->  arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi       | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
-> change-id: 20260611-lxa-stdout-path-baudrate-7cf454cdae07
-> 
-> Best regards,
-> --  
-> Ahmad Fatoum <a.fatoum@pengutronix.de>
-> 
-> 
-
+-- 
+With best wishes
+Dmitry
