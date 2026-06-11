@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9A5270EC3
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:56:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9743630DEA6
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781171779; cv=none; b=ViOnsdlRJ4IlT1qGfcTd1qToAQpVB1w+eX1J06RFS5Tm0zybuJq1z40H13Wmt27QFlPrpb2FhW6gWw1sEeuf8UkvJF34DGL9SrdOS0zN81IVg5aKh+89xJp6LkmwRcXJVDQm+7ps4kj/Th8foSCmBjeiSjG9Y5+9TPeWGnRJOcE=
+	t=1781171884; cv=none; b=QzQFmgJTDgp7XiT43h0VLcU+Pr071eBs9jx5+GYluQuv+fbSTDD3eyTQkKc9tvrXAATUgjk/bbPN+Ur0dklCX+1RGeOuIev2w3X5MPO7BUD7ZSeROjuHjqUskf7jeaQwKEe4gXk2vngRb6ScJOxn1U7kUoqTp6jUjr0wNJVTw2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781171779; c=relaxed/simple;
-	bh=MqiVtMbGewciDQakFiiLtZ+z8DagvSctnR02dz4/7Q8=;
+	s=arc-20240116; t=1781171884; c=relaxed/simple;
+	bh=a7fHF4/b22XfHUn1LS6szBLvvhvdBMb+qGAdgySexro=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D+6gkeXcjs9lT/4UW/q1NHNvzPmKlJVFIijV+IX1dNYvpWC55Xr08y+e/NVUFMNSzmWuCP4gpbitQ5S8/riqyxsGNvXXS46RYwgFgk01yXAqB20VaLz4n4QDsm7AMkF3PofN7vvwbfVk6f6qb1QgtMY4ocxmPr5IPsBQ0Y4PfgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eFfprff4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oMVT/KRra2lz/xoKj6gL3GFoRIZjZZrKYl51oS2vJPg3iQ6WXMDbFqJmQ+7zgFHP5f5vaFf0+K/yc6lTwtSbnJxeqgYbXbbUqppRj25uG16Eprl6/EOdL9OGRJDX5FzZpVz4v+go5kCBZcIQjtiOBKtcFn+CLiwKuQP+zfdUlNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOVlzkVg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eFfprff4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765C81F00898;
-	Thu, 11 Jun 2026 09:56:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOVlzkVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E278A1F00893;
+	Thu, 11 Jun 2026 09:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781171777;
-	bh=yfOi0pzwtU/Opdv8dHXnwzRMBvi+fUOJRvsxY74E8js=;
+	s=k20260515; t=1781171883;
+	bh=VKWbhmX0/gCfp28Ap8Rj68Zu8N8lzDgokM+BbNbTMX4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eFfprff4saJc4ZvHWIosoLnRZaGwIMHfwa82//0rjuI0yA11/U1psuwtQDQyzs5+t
-	 pWrjsyTCSPCgwRDaf3ejXumQTWkv0o2MJrEP24Jj6Z90Nj37pReTd11sQbMCTvXEop
-	 8BoqWeLuPJhGEXX0/Y7xxt1QwYl5Zk0bn44NPx2ZsnWfqZ0q92p8mKBJ4nVvvP4jlv
-	 TtG74yomczZDv8nxSunET9oKOUL9nJ20xmrVcOADhrE6oP5sT0RL9n5+AscjrgHHYT
-	 uxAEyxOpEhcdje9SuXmBQF4Mt2h+ha+dPUlK+uFf5bgXkbrAz4/rwGO6zTS3I1v1ZN
-	 tI60Ko0f3li5w==
+	b=JOVlzkVgPUPAF9vlOoqb7u2croW7thJxOMB/2Hh+i2hxUHLGYAjQITiUQsM81Ndyx
+	 djptsp+ynetymdGoK7vh2V5GNT6Q1RX2xsgcT2Ve2dFIGVaruhGjBZt5KSMmfCvttZ
+	 LpAoWRCqOblW2RQxWHurB7JF/i7PxFSlLAeHIvFXwh+0m9oFjpdIxxC23eIg9wjueq
+	 vexEYdTfD0AVMpQYgYfVExKJTBYrOgGklJR516LTk47ZwlHGM2XD6Q5XxJKLzASlep
+	 ym2Y40ZZS3r1LF8IFOLSW2BurcrTvRAmtABLs/uQulYeVQr29dyG8E1+ENPm6gUmCh
+	 9i0s7yoan2DHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] clk: ultrarisc: add DP1000 clock driver
+Subject: Re: [net-next v1 4/6] net: stmmac: Add NCSI VLAN setting
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang via B4 Relay" <devnull+wangjia.ultrarisc.com@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260611-ultrarisc-clock-v1-2-2d93ebb4cc13@ultrarisc.com>
-References: <20260611-ultrarisc-clock-v1-2-2d93ebb4cc13@ultrarisc.com>
+To: "Minda Chen" <minda.chen@starfivetech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260610072420.64699-5-minda.chen@starfivetech.com>
+References: <20260610072420.64699-5-minda.chen@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 09:56:16 +0000
-Message-Id: <20260611095617.765C81F00898@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 09:58:02 +0000
+Message-Id: <20260611095802.E278A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,153 +45,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Missing clocks in `clk_data->hws` evaluate to `NULL` instead of an=
- error pointer, creating dummy clocks.
-- [High] Read-modify-write operations on clock control registers fail to ma=
-sk the self-clearing load bit, risking spurious loads and preventing divide=
-r updates.
-- [Low] Missing `<linux/module.h>` include.
+
+New issues:
+- [High] Bypassing STMMAC VLAN filter programming while enabling NETIF_F_HW=
+_VLAN_CTAG_FILTER causes the host MAC to drop all VLAN-tagged packets.
+
+Pre-existing issues:
+- [High] Missing RCU grace period in NCSI VLAN kill path causes a Use-After=
+-Free when traversing the VLAN list.
+- [High] NCSI request timers can fire after the NCSI device is freed during=
+ unregistration.
 --
 
-commit 8cba5aa205eda7abb58c5b279348bd81f69fdc45
-Author: Jia Wang <wangjia@ultrarisc.com>
+commit f9348a76862879b362b9eac34abff037e5482a9e
+Author: Minda Chen <minda.chen@starfivetech.com>
 
-clk: ultrarisc: add DP1000 clock driver
+net: stmmac: Add NCSI VLAN setting
+
+This commit adds NCSI VLAN setting support for STMMAC when the platform uses
+NCSI. It modifies the driver to delegate VLAN addition and removal to the N=
+CSI
+subsystem and enables the hardware VLAN CTAG filter feature.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b6af537838830..b8ce04d71d08c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -6866,6 +6866,9 @@ static int stmmac_vlan_rx_add_vid(struct net_device=
+ *ndev, __be16 proto, u16 vid
+>  	bool is_double =3D false;
+>  	int ret;
+> =20
+> +	if (priv->plat->use_ncsi)
+> +		return ncsi_vlan_rx_add_vid(ndev, proto, vid);
+> +
+
+[ ... ]
+
+> @@ -6908,6 +6911,9 @@ static int stmmac_vlan_rx_kill_vid(struct net_devic=
+e *ndev, __be16 proto, u16 vi
+>  	bool is_double =3D false;
+>  	int ret;
+> =20
+> +	if (priv->plat->use_ncsi)
+> +		return ncsi_vlan_rx_kill_vid(ndev, proto, vid);
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at the NCSI subsystem
+this delegates to, does ncsi_vlan_rx_kill_vid() have an RCU grace period
+issue?
+
+net/ncsi/ncsi-manage.c:ncsi_vlan_rx_kill_vid() {
+    ...
+    list_del_rcu(&vlan->list);
+    found =3D true;
+    kfree(vlan);
+    ...
+}
+
+Since concurrent NCSI workqueue tasks like set_one_vid() iterate over this
+list using list_for_each_entry_rcu() inside an rcu_read_lock(), could faili=
+ng
+to wait for an RCU grace period before the kfree() lead to a use-after-free
+when dynamic VLAN reconfiguration occurs?
+
+[Severity: High]
+This is a pre-existing issue, but since we are relying on NCSI, does the
+NCSI core handle unregistration safely with respect to pending request time=
+rs?
+
+net/ncsi/ncsi-manage.c:ncsi_unregister_dev() {
+    ...
+    disable_work_sync(&ndp->work);
    =20
-Add a clock driver for the UltraRISC DP1000 SoC.
-   =20
-The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
-the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
-I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
-and SPI0-1.
+    kfree(ndp);
+}
 
-> diff --git a/drivers/clk/ultrarisc/clk-ultrarisc.c b/drivers/clk/ultraris=
-c/clk-ultrarisc.c
-> index 0000000000000..2b970565a4be8
-> --- /dev/null
-> +++ b/drivers/clk/ultrarisc/clk-ultrarisc.c
-> @@ -0,0 +1,417 @@
-[ ... ]
-> +#include <linux/bitfield.h>
-> +#include <linux/clk-provider.h>
-
-[Severity: Low]
-Should <linux/module.h> be explicitly included here?
-
-The file uses module macros like MODULE_DESCRIPTION and EXPORT_SYMBOL_GPL(),
-and relying on implicit inclusion can sometimes cause build failures.
+If an NCSI command is pending during module removal or interface teardown, =
+the
+timer isn't canceled. Could ndp->requests[i].timer fire after ndp is freed,
+causing a use-after-free in the ncsi_request_timeout() callback?
 
 [ ... ]
-> +static int ultrarisc_divider_set_rate(struct clk_hw *hw, unsigned long r=
-ate,
-> +				      unsigned long parent_rate)
-> +{
-[ ... ]
-> +	scoped_guard(spinlock_irqsave, divider->lock) {
-> +		val =3D readl_relaxed(divider->reg);
-> +		val &=3D ~(clk_div_mask(divider->width) << divider->shift);
-> +		val |=3D value << divider->shift;
-> +		writel_relaxed(val, divider->reg);
+
+> @@ -7943,6 +7949,9 @@ static int __stmmac_dvr_probe(struct device *device,
+>  	ndev->xdp_features =3D NETDEV_XDP_ACT_BASIC | NETDEV_XDP_ACT_REDIRECT |
+>  			     NETDEV_XDP_ACT_XSK_ZEROCOPY;
+> =20
+> +	if (priv->plat->use_ncsi)
+> +		ndev->hw_features |=3D NETIF_F_HW_VLAN_CTAG_FILTER;
+> +
 
 [Severity: High]
-Does this read-modify-write sequence need to mask out divider_clk->load_mask
-from the read value before the first write?
+Does enabling NETIF_F_HW_VLAN_CTAG_FILTER here cause the networking stack to
+turn on the MAC's hardware VLAN filtering (VTFE)?=20
 
-If the hardware hasn't cleared the bit from a previous operation, the first
-write could write it as 1. Then the second write (below) would also write 1,
-failing to provide the required 0->1 transition to trigger the hardware.
-
-> +
-> +		if (divider_clk->load_mask) {
-> +			/*
-> +			 * The divider update is triggered by writing 1 to the
-> +			 * self-clearing load bit after programming the new
-> +			 * divider field.
-> +			 */
-> +			writel_relaxed(val | divider_clk->load_mask,
-> +				       divider->reg);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-> +static struct clk_hw *
-> +ultrarisc_clk_register_divider(struct device *dev,
-> +			       const struct ultrarisc_divider_desc *desc,
-> +			       struct clk_hw *parent_hw, void __iomem *base,
-> +			       spinlock_t *lock)
-> +{
-[ ... ]
-> +	if (desc->gate_bit !=3D ULTRARISC_CLK_NO_GATE) {
-> +		divider->gate.reg =3D reg;
-> +		divider->gate.bit_idx =3D desc->gate_bit;
-> +		divider->gate.flags =3D desc->gate_flags;
-> +		divider->gate.lock =3D lock;
-> +		gate_hw =3D &divider->gate.hw;
-> +		gate_ops =3D &clk_gate_ops;
-
-[Severity: High]
-Can using the standard clk_gate_ops here cause spurious loads?
-
-The standard gate ops perform a generic read-modify-write. If a gate
-operation executes while the load_mask bit is still 1, it will blindly
-write 1 back to the load bit, potentially triggering a spurious hardware
-reload or corrupting the update state machine.
-
-> +	}
-> +
-> +	return devm_clk_hw_register_composite_pdata(dev, desc->name, &pdata, 1,
-> +						    NULL, NULL,
-> +						    &divider->divider.hw,
-> +						    &ultrarisc_divider_ops,
-> +						    gate_hw, gate_ops,
-> +						    CLK_GET_RATE_NOCACHE);
-> +}
-
-[ ... ]
-> +static int ultrarisc_clk_register_fixed_factors(struct device *dev,
-> +						struct clk_hw_onecell_data *clk_data,
-> +						const struct ultrarisc_clk_soc_data *soc_data)
-> +{
-[ ... ]
-> +		parent_hw =3D clk_data->hws[desc->parent_id];
-> +		if (!parent_hw)
-> +			return -EINVAL;
-
-[Severity: High]
-If the clk_data initialization (below) is fixed to use error pointers
-instead of NULL, should this validation check use IS_ERR_OR_NULL() or
-IS_ERR() to avoid dereferencing an ERR_PTR?
-
-> +
-> +		hw =3D devm_clk_hw_register_fixed_factor_parent_hw(dev, desc->name,
-> +								 parent_hw,
-
-[ ... ]
-> +int ultrarisc_clk_probe(struct platform_device *pdev,
-> +			const struct ultrarisc_clk_soc_data *soc_data)
-> +{
-[ ... ]
-> +	clk_data =3D devm_kzalloc(dev, struct_size(clk_data, hws,
-> +						 soc_data->num_clks),
-> +				GFP_KERNEL);
-
-[Severity: High]
-Since this array is zero-initialized, any unpopulated clock IDs will remain
-NULL. Does this need to be explicitly filled with ERR_PTR(-ENOENT)?
-
-When a consumer requests an invalid clock index, of_clk_hw_onecell_get()
-returns this NULL pointer. The clock framework considers NULL a valid
-optional dummy clock, allowing consumer drivers to silently succeed at
-enabling the clock instead of failing. If they then access peripheral
-registers without the clock actually being enabled, it could trigger a bus
-fault.
-
-> +	if (!clk_data)
-> +		return -ENOMEM;
+Since stmmac_vlan_rx_add_vid() and stmmac_vlan_rx_kill_vid() were modified =
+to
+return early and bypass the STMMAC hardware filter programming, the filter
+list will remain empty. Could this result in the MAC hardware aggressively
+dropping all incoming VLAN-tagged packets, thereby breaking VLAN reception =
+for
+both the host OS and the NCSI subsystem?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-ultrarisc-=
-clock-v1-0-2d93ebb4cc13@ultrarisc.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610072420.6469=
+9-1-minda.chen@starfivetech.com?part=3D4
