@@ -1,221 +1,181 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3638409135
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 13:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508093CE49E
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 13:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781183867; cv=none; b=Rwf3jaHqgdToocgp7KZBUYC6fUikVkx+1uh8bQ6pQelmAQF0K7sboaxln9RBkTretqww4UuenKh/gAmJK134qzahNGqRiukSqozrc24NrjK17akaopeTbZcZT0jdZ7ghkUosvN1LeAZr5rVpeoBlWom9cETveumEBZCdSbwtLnY=
+	t=1781184425; cv=none; b=K6or/+mXjXxRQrOiwfm73FlfxdHi6VC9TsXiWQuyiTKsibQfYWBqa6JoFONfPva4ptf6VHxnKdJ9/q/5Cdw6rMLU0Der9V/8b8JRyk+BKuN+GU2mZzhzHyrjjjNzPLYY3SX2uW3LAfkmITrb8vHGLWlMG9P03QGtJVUbmjBPKQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781183867; c=relaxed/simple;
-	bh=ioxeCNvToivxf1SJbAe6EIhY0aEComaoX+8RNwBtunE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fzJjmb2PK9iPaMSK4l57rfAzNnbmOhPSYozmkzGX6qn+0c6/N33TtrzYwJ6WwYwYK0bqHcFSu9NdOTicY6KKp5jMRKBS6Kii06kcZeIhCtu+ufBbLurRBtWAJdFqFIaDLZ0HOi61uQ5/oSZoHvHIMNDA83Xxlio1cfDMhwYUjBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rgADs/dF; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1781184425; c=relaxed/simple;
+	bh=AqbY7DH2kgfWUfPRHlz/O0dHt5a2jTDAnyWI0yoNy+g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VV6mj3MaCqRfrhFx4TerqxoXO6JeOvksoBTY5Bt37L1vPGa7RJ76OgFbYoDbNumeGteQlzWENta5VrXioCAY+FATiIE7cdGhlI5hgmtxon9PNUveHEw+F2sEQqFrs0lCTgbWrFUDI93h6vViBekC0DEgri7EXicQ7Zl4MJhYPOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a1GHLIUB; arc=none smtp.client-ip=209.85.218.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rgADs/dF"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-842288702fbso3375986b3a.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 06:17:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a1GHLIUB"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-beb2a97cc9aso1311137866b.2
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 06:27:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781183864; x=1781788664; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=P/xQJbFkRRowzEJ+ZDzKMiiLUlhrEmEVF/BkBQLOp88=;
-        b=rgADs/dFrcS2wSQ6pF4C3j8MXVBZdH/204/249icRSwj73ux9Eohy09XT+1TRb9ZE7
-         m3onpTDhBMYWhhEN2/5rhOhYb6ynpWjkrHCds0muxivzkHps6Mglqsm8R6/5GlefuG4S
-         vcikiANUc4zDeJUZ0f+L7fCXkRJcIYBzgRNPGYrtN1ysFkT7B4clARonymUG6ui1pUKP
-         O2EQsIlJX+emuJkBOgLMWDbZa2Oqkzb12NgAuq3k57SQxmLBMFCV/t8GdBAt2mHssBwq
-         JH5UgwFoCLQ3ZdL2HOkTaah97Rc9SFveUWkjdLP3fbPseMBeZ5WF1/JLry0KVC7YgRCY
-         jWbA==
+        d=gmail.com; s=20251104; t=1781184423; x=1781789223; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hiFK0euPbueRFFIEpqSOevmoidgR/b4o4nT7xg9GQHg=;
+        b=a1GHLIUBm9gSQZhje54oOkDjC8KcaQkMPgtTlzpRgh0yyMhQedclfLywFISeybCT0A
+         5HYaPPDr3fn7cAqxZS2/ks6bXgY3xHZXWHDS8ml4vdtgkCGOTVfefjxWPE/0xk6h6MpV
+         k1LJfaAlSutt+tD+025ikvpURagwqxbqDdBGpdhwhC0n9zvvtW7YxQNDV0oT4RytRyEq
+         qldklXDiYhw3I6a1PI5+rm0DxOjSKpjFKjIo1abjDcn0UmIMAKJ8R+0h4apOdzEE6qlW
+         ZGRRcHQe7ISLE+BTejKsW4RmETp2XEGAyvCjCO0PHbkXsnpyTgFlxGsftRqcYTWutVjb
+         yBWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781183864; x=1781788664;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1781184423; x=1781789223;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P/xQJbFkRRowzEJ+ZDzKMiiLUlhrEmEVF/BkBQLOp88=;
-        b=gIFyMT2MTpCGcU5cNWcJZuf/QwDnUFUtO5QXSOG2S+SCixfslip5WnUM/ddhVjdfFD
-         fpF1KtyE8h4aVA1lWwrPeU8CYSn2W/V9YL4Ed/CkG+mclP31keSIzUSjy/yWbE79ZFM+
-         puu0CazbhD3KQQ4aXrSKe6S1A0VTFhn1UTX/wg2F66WNquze6STdH66FAgNI9J7bQctB
-         q5gAFfAKZOfKFlljk7qiaWxaTH4PmqNhwVd5W0OTZsJN5Q/+mLbUcDcWZ7TuexXpAl8O
-         iVNhUValh9pKbadADmrFJc8LQkxtf5ryWulHfk4zhWGSCMcruWnzF/6/rUxXulHHVZcb
-         vm8w==
-X-Forwarded-Encrypted: i=1; AFNElJ8XOEpqVwckUHEceiiTWyqKEVaikYBKaieZjnOKxhZZYwAGpT3IOxzSOk0ZUbyI1IVf0L209ZMTV1o+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmJOoAoZWB1t9Jjx4Yq1HhS7MX+YPFaILL2PlqG7yZi9cKisjh
-	H3ZdEj9Fu0Admd3eA6Pi42T4zmVCe7/CDnoYsGXFep1luDZzPtiuVCEW
-X-Gm-Gg: Acq92OHgRSH2iKZegX+sTFDTofXUF8BzGSUfQpCL0TCiq/7ON/D59NRlTxmV15+Nhcz
-	jAOVOZhZSkjkil+9AopSKlqRe0W9WXf+ZORsK/mIFwpUvSjbCjHFDuzEUVXY1Fy3aHyR9L25zbq
-	qyoO8N5Kxr0/rAciwIqhihEJ7uEk9LeZUDh5E3a5UpK7/eAVaQNVhDPRSrXlGDGFNYfPmFOjRA2
-	rc7G04Sp4+R8Z4zKPE05p8qQY5iUhTEOw9YiIHT4Q2xQklfRPbJ2dXaFod9OK/7gtznsREAqnx9
-	lUkAFbvJfGZExvSwzDuD7jNFo+scKQRirO1QHzvDYxM9AGQoTbtrO+JVPw0qD2LZaWWWvZlCHfe
-	Gql+Y3eWeR1q8X2eHEF8lcMZ1FrfVLlNO02DrxlKluIsewyMEcA6aZPqi/1nrzcDs8XIxZvzuUl
-	npliHjoMat
-X-Received: by 2002:a05:6a00:9517:b0:842:33f3:da68 with SMTP id d2e1a72fcca58-8433679e608mr3293724b3a.8.1781183863777;
-        Thu, 11 Jun 2026 06:17:43 -0700 (PDT)
-Received: from [127.0.1.1] ([2a12:a305:4::302d])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-843382e5caesm1986491b3a.44.2026.06.11.06.17.38
+        bh=hiFK0euPbueRFFIEpqSOevmoidgR/b4o4nT7xg9GQHg=;
+        b=ZUSUyYuktTXOlIAPz+Dgm82f7N+/VZH5QVgxgf76ceXgK3ZVBbT/zFOWh1E7TnL1om
+         f0NvSmRHJBzUm3Viqnh/5dgrUsdF21QCjpjMyf2S5XzUMjJ31AngX0Bm2Bsd1oJSP6qM
+         zFfYaEiuvIDoQ3wbhiRmNslwKfufdfmABWjiie2j4FKnNT8OtwaKOAhOHE1gvFS/B72O
+         wzOybV9IzabLxyRSyvBbxfUsh5Mk+7qBHWkFAjEejzOsi2/iPHRDT3lX8tE1HG4x6rRb
+         GC4JOpLxIxRrRrpfN9n9JAVJF4vzYsytIahnBfZw3quRXQyDnf1EehADQIz84Br1uBDR
+         ehaw==
+X-Forwarded-Encrypted: i=1; AFNElJ8eTgKsALV6hbym5nd/sG+t0z7tcmFq2un1lhcYEAb7H2xPyX3T26RO88y4kxONk0iOQBXe8w4/UmcT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+v9N7QrUL43OYpSokBFiAISDyklvuhgrISfEwbUAoehzXzLQ2
+	TPH8VUJRQD9QzJ9TYsTNWInfrPoPz1MtAnzcMAkj54Anzfbzd5fXhcac
+X-Gm-Gg: Acq92OHuiB30H/QyLAKSfVk/qqbGhMY+cmv6M8kc6OrWmOromoXphquSGX//kDxYztH
+	Moc27Z2t7H4JqKy4U6a1dZ+SsH6ZVS5DDcoWfgKAGqv9e234G6HuPRdVKvwAxQdIchCel3WR3tz
+	BvhyZlk7yC/SvH5vmzITTzd1NJg/+tkYWHUP9Qaepf4MJ1/mk7YG9F5Eum2p2RiYKDe/gsTlOuR
+	Flf8Y30t1mcfbcvM3YAV1dycLbpnG5hhd7emF4/dFKrnvYeOKbRwwo4wsP3UWSbYDkKFX/cU/sI
+	xa8FiA7IH9RrHUyxyGNZuZ5u8k3vIVn6RmBolQnVjnGkzF7N+urMktioeUK4SOZ1JwQHatjyyAn
+	dHLEjy7w8NxnLWmtmtleX9+orApVfjtHVGy3o9CdUO6LgIEdLgEEaZvftQtijuVEGhbC6khI9Fw
+	FSNVj2K5iltCIDU/fIR8BD6zZkNm99NOfJf9yyOg/T0BajRZBbtbja/Y2TyHT7rKMVLVcR04PFz
+	vanj7IBxG5SFG0=
+X-Received: by 2002:a17:907:e117:b0:bfd:6d25:ba78 with SMTP id a640c23a62f3a-bfd6d25bb8cmr6330866b.39.1781184422208;
+        Thu, 11 Jun 2026 06:27:02 -0700 (PDT)
+Received: from fedora.clients.cmblu.de (p5df027fc.dip0.t-ipconnect.de. [93.240.39.252])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb1cf077asm65719566b.26.2026.06.11.06.27.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 06:17:43 -0700 (PDT)
-From: Guodong Xu <docular.xu@gmail.com>
-Date: Thu, 11 Jun 2026 09:17:28 -0400
-Subject: [PATCH v3] riscv: dts: spacemit: Use symbolic PDMA request numbers
- on K1
+        Thu, 11 Jun 2026 06:27:01 -0700 (PDT)
+From: Wadim Mueller <wafgo01@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxwell Doose <m32285159@gmail.com>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
+	Wadim Mueller <wafgo01@gmail.com>
+Subject: [PATCH v4 0/4] iio: flow: Sensirion SLF3S liquid flow sensor
+Date: Thu, 11 Jun 2026 15:26:56 +0200
+Message-ID: <20260611132700.671322-1-wafgo01@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-b4-k1-pdma-req-macros-v3-1-ae8416052571@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGe1KmoC/4WNTQ6CMBgFr0K69jNtoa248h7GRf+AqgVskWgId
- 5fiho1xOcl7MxOKNjgb0TGbULCji65rF8h3GdKNbGsLziyMKKYccyxAFXAj0BsvIdgHeKlDF+F
- gqOAGE8pNhZZvH2zlXqv3fPlyfKqr1UOSpUXj4tCF9xoeSdr9a4wEMDBFZV4yhrHQp9pLd9/rz
- qPUGOnWUv6y0GQxzAhVlkKxYmuZ5/kDFDYsGBIBAAA=
-X-Change-ID: 20260607-b4-k1-pdma-req-macros-8d276d0126df
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Guodong Xu <docular.xu@gmail.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4245; i=docular.xu@gmail.com;
- h=from:subject:message-id; bh=ioxeCNvToivxf1SJbAe6EIhY0aEComaoX+8RNwBtunE=;
- b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhiytrbnvZJce2757oSbnnvVLs9gtdA5sj2HeuHBP9bul/
- NbcJsdmdpSyMIhxMciKKbIcPtqSvfWVT7Tvc84fMHNYmUCGMHBxCsBE6tIY/kfE/V+SIxx451+e
- 5NKwM/kq3b3dLoKG8+eunnZRuPvuP32G/3lXSuROr9onNc390cECnuzV5S68Jt0vp72MnP1EQen
- wDQ4A
-X-Developer-Key: i=docular.xu@gmail.com; a=openpgp;
- fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
+Content-Transfer-Encoding: 8bit
 
-Add a local DTS header, k1-pdma.h, that gives symbolic names to the K1
-PDMA request numbers. These request numbers are hardware-fixed; their
-allocation can be found in K1 manual.
+Hi all,
 
-Replace the hard-coded numbers in the SPI3 "dmas" property with the
-K1_PDMA_SPI3_RX/TX macros.
+this series adds a driver for the Sensirion SLF3S family of I2C liquid
+flow sensors (SLF3S-0600F / -1300F / -4000B) and a new IIO_VOLUMEFLOW
+channel type.  As in v3 this is posted as a fresh thread.
 
-Signed-off-by: Guodong Xu <docular.xu@gmail.com>
----
-Add a local DTS header naming the K1 PDMA request lines and convert the
-current user (the K1 SPI3 node) to the new K1_PDMA_* macros. The request
-numbers come from the SpacemiT K1 User Manual [1], Chapter 9.4.3 DMA
-Connectivity & Assignments.
+Dependency
+----------
+The volume-flow scale is reported in m^3/s as a 64-bit fixed-point value
+(IIO_VAL_DECIMAL64_FEMTO), so this series depends on Rodrigo Alencar's
+"ADF41513/ADF41510 PLL frequency synthesizers" series, which adds the
+IIO_VAL_DECIMAL64_* core formatting (and the kstrtodec64() and
+div64_s64_rem() helpers it builds on):
 
-[1]: https://www.spacemit.com/community/document/info?lang=en&nodepath=hardware/key_stone/k1/k1_docs/k1_usermanual/9.Top_System.md
+  https://lore.kernel.org/linux-iio/20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com/
 
-Changes in v3:
-- Move the request-number macros from include/dt-bindings/dma/ to a local
-  DTS header arch/riscv/boot/dts/spacemit/k1-pdma.h (Conor).
-- Squash the header and its user into a single patch.
-- Link to v2: https://patch.msgid.link/20260609-b4-k1-pdma-req-macros-v2-0-5d5d7b997b54@gmail.com
+Patch 3/4 adds the IIO_VAL_DECIMAL64_FEMTO format type on top of that.
 
-Changes in v2:
-- Drop the #dma-cells description change in spacemit,k1-pdma.yaml; the request
-  numbers are hardware-fixed and unused by the driver (Conor)
-- Link to v1: https://patch.msgid.link/20260607-b4-k1-pdma-req-macros-v1-0-5b2a3955007c@gmail.com
+Changes since v3
+----------------
+  * volumeflow unit switched from l/s to m^3/s (SI), per Jonathan
+  * scale now reported as IIO_VAL_DECIMAL64_FEMTO instead of
+    IIO_VAL_FRACTIONAL, so the small m^3/s values (~1.7e-12 m^3/s for the
+    SLF3S-0600F) keep full precision; this needs the new FEMTO core type
+    (3/4) and the dependency above
+  * dt-bindings: sensirion,slf3s-1300f now serves as the fallback
+    compatible for the other variants (all variants are detectable from
+    the product-information register), per Krzysztof; Marcelo's
+    Reviewed-by dropped because of this change
+  * dt-bindings: add interrupts (maxItems: 1) back
+  * dt-bindings: reflow the description to 80 columns
+  * dt-bindings: move "F: drivers/iio/flow/slf3s.c" to the driver patch
+  * driver: add system PM ops following the scd30/scd4x precedent: stop
+    the measurement and disable the supply on suspend; power back up,
+    wait out the power-up time and restart with the previously active
+    medium on resume
+  * driver: if switching the medium fails after the stop command, restart
+    with the previous medium instead of leaving the sensor idle
+  * driver: a sensor reporting an unknown sub-type now falls back to the
+    variant named in the device tree instead of failing probe, matching
+    the fallback-compatible semantics
+  * driver: serialise the command/response exchanges with a local mutex
+    instead of iio_device_claim_direct() / release_direct()
+  * driver: issue a stop-measurement at the start of probe(), so a sensor
+    left in continuous mode across a warm reboot does not NACK probe
+  * driver: read only the 6 bytes actually used (flow + temperature) per
+    measurement frame instead of 9
+  * driver: trim the per-variant list out of the Kconfig help text
+  * ABI: in_volumeflow_medium[_available] documented in
+    Documentation/ABI/testing/sysfs-bus-iio-flow; KernelVersion 7.3
 
-BR,
-Guodong Xu
----
- arch/riscv/boot/dts/spacemit/k1-pdma.h | 56 ++++++++++++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1.dtsi   |  4 ++-
- 2 files changed, 59 insertions(+), 1 deletion(-)
+The signaling-flags word (air-in-line / high-flow / smoothing status) in
+each measurement frame is intentionally not read; exposing it can be a
+later follow-up.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-pdma.h b/arch/riscv/boot/dts/spacemit/k1-pdma.h
-new file mode 100644
-index 0000000000000..65112d5847add
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k1-pdma.h
-@@ -0,0 +1,56 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * This header provides DMA request number for non-secure peripherals of
-+ * SpacemiT K1 PDMA.
-+ *
-+ * Copyright (c) 2026 Guodong Xu <docular.xu@gmail.com>
-+ */
-+
-+#ifndef _DTS_SPACEMIT_K1_PDMA_H
-+#define _DTS_SPACEMIT_K1_PDMA_H
-+
-+#define K1_PDMA_UART0_TX	3
-+#define K1_PDMA_UART0_RX	4
-+#define K1_PDMA_UART2_TX	5
-+#define K1_PDMA_UART2_RX	6
-+#define K1_PDMA_UART3_TX	7
-+#define K1_PDMA_UART3_RX	8
-+#define K1_PDMA_UART4_TX	9
-+#define K1_PDMA_UART4_RX	10
-+#define K1_PDMA_I2C0_TX		11
-+#define K1_PDMA_I2C0_RX		12
-+#define K1_PDMA_I2C1_TX		13
-+#define K1_PDMA_I2C1_RX		14
-+#define K1_PDMA_I2C2_TX		15
-+#define K1_PDMA_I2C2_RX		16
-+#define K1_PDMA_I2C4_TX		17
-+#define K1_PDMA_I2C4_RX		18
-+#define K1_PDMA_SPI3_TX		19
-+#define K1_PDMA_SPI3_RX		20
-+#define K1_PDMA_I2S0_TX		21
-+#define K1_PDMA_I2S0_RX		22
-+#define K1_PDMA_I2S1_TX		23
-+#define K1_PDMA_I2S1_RX		24
-+#define K1_PDMA_UART5_TX	25
-+#define K1_PDMA_UART5_RX	26
-+#define K1_PDMA_UART6_TX	27
-+#define K1_PDMA_UART6_RX	28
-+#define K1_PDMA_UART7_TX	29
-+#define K1_PDMA_UART7_RX	30
-+#define K1_PDMA_UART8_TX	31
-+#define K1_PDMA_UART8_RX	32
-+#define K1_PDMA_UART9_TX	33
-+#define K1_PDMA_UART9_RX	34
-+#define K1_PDMA_I2C5_TX		35
-+#define K1_PDMA_I2C5_RX		36
-+#define K1_PDMA_I2C6_TX		37
-+#define K1_PDMA_I2C6_RX		38
-+#define K1_PDMA_I2C7_TX		39
-+#define K1_PDMA_I2C7_RX		40
-+#define K1_PDMA_I2C8_TX		41
-+#define K1_PDMA_I2C8_RX		42
-+#define K1_PDMA_CAN0_RX		43
-+#define K1_PDMA_QSPI_RX		44
-+#define K1_PDMA_QSPI_TX		45
-+
-+#endif /* _DTS_SPACEMIT_K1_PDMA_H */
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index 08a0f28d011fe..7d414e15d2cc2 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -6,6 +6,8 @@
- #include <dt-bindings/clock/spacemit,k1-syscon.h>
- #include <dt-bindings/phy/phy.h>
- 
-+#include "k1-pdma.h"
-+
- /dts-v1/;
- / {
- 	#address-cells = <2>;
-@@ -1094,7 +1096,7 @@ spi3: spi@d401c000 {
- 				clock-names = "core", "bus";
- 				resets = <&syscon_apbc RESET_SSP3>;
- 				interrupts = <55>;
--				dmas = <&pdma 20>, <&pdma 19>;
-+				dmas = <&pdma K1_PDMA_SPI3_RX>, <&pdma K1_PDMA_SPI3_TX>;
- 				dma-names = "rx", "tx";
- 				status = "disabled";
- 			};
+Thanks,
+Wadim
 
----
-base-commit: 793cc54475b49b5b558902b5c13e4bfe66530a50
-change-id: 20260607-b4-k1-pdma-req-macros-8d276d0126df
+Wadim Mueller (4):
+  iio: types: add IIO_VOLUMEFLOW channel type
+  dt-bindings: iio: flow: add Sensirion SLF3S liquid flow sensor
+  iio: core: add IIO_VAL_DECIMAL64_FEMTO format type
+  iio: flow: add Sensirion SLF3S liquid flow sensor driver
 
-Best regards,
---  
-Guodong Xu <docular.xu@gmail.com>
+ Documentation/ABI/testing/sysfs-bus-iio       |  11 +
+ Documentation/ABI/testing/sysfs-bus-iio-flow  |  21 +
+ .../bindings/iio/flow/sensirion,slf3s.yaml    |  58 ++
+ MAINTAINERS                                   |   8 +
+ drivers/iio/Kconfig                           |   1 +
+ drivers/iio/Makefile                          |   1 +
+ drivers/iio/flow/Kconfig                      |  22 +
+ drivers/iio/flow/Makefile                     |   7 +
+ drivers/iio/flow/slf3s.c                      | 521 ++++++++++++++++++
+ drivers/iio/industrialio-core.c               |   3 +
+ include/linux/iio/types.h                     |   1 +
+ include/uapi/linux/iio/types.h                |   1 +
+ tools/iio/iio_event_monitor.c                 |   2 +
+ 13 files changed, 657 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-iio-flow
+ create mode 100644 Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
+ create mode 100644 drivers/iio/flow/Kconfig
+ create mode 100644 drivers/iio/flow/Makefile
+ create mode 100644 drivers/iio/flow/slf3s.c
+
+
+base-commit: 3cd8b194bf3428dfa53120fee47e827a7c495815
+prerequisite-patch-id: b51a25b69f7b78155e78d1a3aab809bcb57e11ae
+prerequisite-patch-id: 1b26fb01ab41218c214fa58657305437565c06f8
+prerequisite-patch-id: 7745e957a25b8673c7f838a9ae7a55269cd21798
+prerequisite-patch-id: 5f805ccb0be820042ac732d0d8e1b188bfd2b2bc
+prerequisite-patch-id: 80967f95ecb0c10fc66b3d073e99906126d5b40b
+prerequisite-patch-id: 729fdedcf2055c506693d28a5dab65a6a3791598
+-- 
+2.52.0
 
