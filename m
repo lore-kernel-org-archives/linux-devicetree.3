@@ -1,128 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9391B366570;
-	Thu, 11 Jun 2026 20:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D84E367B8A
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 20:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781209964; cv=none; b=BlsQlCB1R/F752hSmWu3aM/6fl82m55Vz31xtBX4TZ3yYBcY7g4wPdewx9BVHU3Gfxks/KSzUk5d/3yf+FAwPdg4mPBY4Rsk+604lJMbZCJdZEXl1U8s0PK/1YR+Dj1vPiOYD6cZd1EHxlj2SKrPZ6H8ppmdj5Q5Awzhg+F1JQc=
+	t=1781210013; cv=none; b=ID3kpe+zfq42Ist1PTf2x6eyFCvVp5GFgXhBvemfxq8nzO6LyOQIM/aIHMTBNlvhgoj48K8fTw8qWIZhPejvGQowSs3qNfIqe+xmQic+k8mzsx7UZSnendt5WB+/SiFtaYnu0aDTG+GVnPoI8N41Mm1WeK7Ab/qui2D+MbGQsAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781209964; c=relaxed/simple;
-	bh=J9vpJVNBoEDM8hq1yQvknsbkO8Gt5ANO+GRGOUxjVoA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=keqf46Rmx8RJuwopmIXhaY13wI09tSW7bFigew6qMCOMzA7vUGxFdUCBDMBoKKTpUT0jbOXciYRtpwleDZXEkzs4Zy9mZTWhcWBGypukxHj17NOt0X4uEQuONt2HErfeyaAEjvwD/L8JkTUkmwJ0EDXWUhHdR9/9fV78gxL+FT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0jkA0L9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0jkA0L9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AF41F000E9;
-	Thu, 11 Jun 2026 20:32:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781209963;
-	bh=nnFCs/LAZMeVmfUe/41iQ53dc7VDUqMg3oAcehTfwxg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m0jkA0L9loDkfSC4KPkmP0YYCmogg5E1c9lBcV6u3kiwcqtGCLKloPlIBb8xkf5pL
-	 N0jRerjGZqz8T3R9U/ORGptF+bOZIj++t97NQNmoj0wNOnCgWxxS5aYZ0iixoeY9Nl
-	 L3JyFrHE6WKjHhN0SRyiCQObqjUCaz1eiNoN/1sJGVVcKnsbfAoXGFAGvS5DB8RQ8U
-	 fz2WPWDh6ILBW9N7hA6Yvc6uk/w7LuWyZ8gHBRSpyYCSx87PV+z6jBstEfWC5GIH/G
-	 RbPLbblSpb0dSvS89l/YzTlIVu3Fp9C/BvAZL/2xzJOrow7AI7PHgqx5pbMvo7jlUV
-	 kEgmL4OMAlp7Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 14/16] riscv: cpufeature: Introduce ISA bases bitmap
- and rva23u64 detection
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guodong Xu" <docular.xu@gmail.com>
-Cc: conor+dt@kernel.org, kvm@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-14-3f01a2449488@gmail.com>
-References: <20260611-rva23u64-hwprobe-v2-v4-14-3f01a2449488@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 20:32:42 +0000
-Message-Id: <20260611203242.D1AF41F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1781210013; c=relaxed/simple;
+	bh=1qkBv2E92d47Rqyk4YGIoLhMolxSgS2WPmawO0zUeBc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g5xdhu3YAha0WY/x9S/2qPL4vASi1NngdaD1XuXfY4Z8/GYLJ3qXG4mlew+cdgOsDrLwPhiWKhJzfKvCA68Ugnv9DqIwUdP77mBskCzVPlbhqtFkdozfgGFyoA7tV4H+D5U9iiOaa4tef6DyxcdN+8BwSYtnmqXdx/zK5KPWQQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <a.fatoum@pengutronix.de>)
+	id 1wXm5Y-0004Tb-Hd; Thu, 11 Jun 2026 22:33:20 +0200
+Message-ID: <b4fd25b6-52e3-4b5e-8440-69545bce43e8@pengutronix.de>
+Date: Thu, 11 Jun 2026 22:33:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] ARM: dts: stm32: lxa: change stdout-path baud rate
+ from 9600 to 115200
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Leonard_G=C3=B6hrs?=
+ <l.goehrs@pengutronix.de>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de
+References: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
+ <20260611204341.147f1afb@pumpkin>
+Content-Language: en-US
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+In-Reply-To: <20260611204341.147f1afb@pumpkin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Profile detection incorrectly relies on monolithic superset bits (=
-A, C, B) instead of granular component extensions, bypassing RVA23U64 on co=
-mpliant hardware.
---
+Hi David,
 
-commit 1bae4d63d125b54f3683da372331e97613bffe86
-Author: Guodong Xu <docular.xu@gmail.com>
+On 6/11/26 21:43, David Laight wrote:
+> On Thu, 11 Jun 2026 20:12:32 +0200
+> Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+> 
+>> The LXA boards are the only STM32 boards that set stdout-path = &uart*
+>> instead of explicitly specifying a baud rate.
+>>
+>> This would mean the default of 9600 is used, but it goes unnoticed when
+>> booting normally as barebox fixes up a console= line that includes a
+>> baud rate.
+>>
+>> When EFI booting GRUB however, GRUB will not pass along the console=
+>> line and thus the board ends up with a 9600 baud Linux console,
+>> confusing users.
+> 
+> Is it possible to determine the current baud rate (by reading the hardware
+> register) and default to that value.
+> Then if grub has initialised the uart the kernel will use the same
+> baud rate.
 
-riscv: cpufeature: Introduce ISA bases bitmap and rva23u64 detection
+I think so, yes. In addition to the register divider configuration, one
+would need the input clock rate as well, but that's not a problem.
 
-This commit introduces a per-hart and host-wide bitmap for conformant ISA
-profile bases, such as IMA and RVA23U64. It computes this at initialization
-time by evaluating the resolved ISA bitmap against required extension sets.
-This provides a cached profile state for subsequent consumers like hwprobe.
+Do you know if any drivers already do this?
 
-> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
-e.c
-> --- a/arch/riscv/kernel/cpufeature.c
-> +++ b/arch/riscv/kernel/cpufeature.c
+Nevertheless, I would like the LXA device trees changed, even if only
+to align them with all other existing STM32 device trees.
 
-[ ... ]
+Cheers,
+Ahmad
 
-> @@ -1322,3 +1325,90 @@ void __init_or_module riscv_cpufeature_patch_func(=
-struct alt_entry *begin,
-> +/*
-> + * Compute the set of profile bases (IMA, RVA23U64, ...) a hart
-> + * conforms to, given its resolved ISA bitmap.
-> + *
-> + * If @isa_bitmap is NULL, the host ISA bitmap (the AND across all harts=
-) is
-> + * used.
-> + */
-> +static void riscv_set_isa_bases(unsigned long *bases, const unsigned lon=
-g *isa_bitmap)
-> +{
-> +	const unsigned long *isa =3D isa_bitmap ? isa_bitmap : riscv_isa;
-> +	DECLARE_BITMAP(ext_mask, RISCV_ISA_EXT_MAX) =3D { 0 };
-> +
-> +	/* IMA */
-> +	__set_bit(RISCV_ISA_EXT_I, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_M, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_A, ext_mask);
-> +
-> +	if (!bitmap_subset(ext_mask, isa, RISCV_ISA_EXT_MAX))
-> +		return;
-> +
-> +	set_bit(RISCV_ISA_BASE_IMA, bases);
-> +
-> +	/* RVA23U64 */
-> +
-> +	/* Supm with PMLEN=3D7 */
-> +	if (!riscv_have_user_pmlen(7))
-> +		return;
-> +
-> +	__set_bit(RISCV_ISA_EXT_F, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_D, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_C, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_B, ext_mask);
 
-[Severity: High]
-Does this logic correctly handle device trees that specify granular
-extensions instead of monolithic supersets?
+> 
+> 	David
+> 
+>>
+>> This series fixes this. As the device trees were added at different
+>> times, they are fixed each in a separate commit with its own Fixes: tag.
+>>
+>> ---
+>> Ahmad Fatoum (3):
+>>       ARM: dts: stm32: lxa-mc1: change stdout-path baud rate from 9600 to 115200
+>>       ARM: dts: stm32: lxa-tac: change stdout-path baud rate from 9600 to 115200
+>>       ARM: dts: stm32: fairytux2: change stdout-path baud rate from 9600 to 115200
+>>
+>>  arch/arm/boot/dts/st/stm32mp153c-lxa-fairytux2.dtsi | 2 +-
+>>  arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts        | 2 +-
+>>  arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi       | 2 +-
+>>  3 files changed, 3 insertions(+), 3 deletions(-)
+>> ---
+>> base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+>> change-id: 20260611-lxa-stdout-path-baudrate-7cf454cdae07
+>>
+>> Best regards,
+>> --  
+>> Ahmad Fatoum <a.fatoum@pengutronix.de>
+>>
+>>
+> 
+> 
 
-The kernel's riscv_resolve_isa() expands monolithic extensions into their
-sub-extensions, but it does not synthesize monolithic extensions backwards
-from their components.
 
-If a compliant RVA23U64 platform specifies granular extensions like
-zba, zbb, and zbs in its device tree rather than the legacy 'b' extension,
-will this bitmap_subset() check fail because RISCV_ISA_EXT_B is not set?
-
-This same pattern appears to affect the checks for A and C above as well.
-
-> +	__set_bit(RISCV_ISA_EXT_ZICSR, ext_mask);
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-rva23u64-h=
-wprobe-v2-v4-0-3f01a2449488@gmail.com?part=3D14
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
