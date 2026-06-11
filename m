@@ -1,137 +1,243 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013015.outbound.protection.outlook.com [52.101.72.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CED336DA1B
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 07:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781164118; cv=none; b=cODRLAZsf4R8n2FV3C4MA1nLsCBkrGtS6s18J7wcZbrjzcKRQkLnVtIjXNf0HrUSIngH31VOADTDKvwnh4SJhnOzO3gkzZkNe+6ZL9LMoqRnDUglY0GIV2fJ+CctEJeBLEim6ZNhL3aiHpn5PqCke0jPf/kvvs6CLbDjJup98eo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781164118; c=relaxed/simple;
-	bh=8yu20Ma9s1WIvlVrAU4fqX0rWRixAxYe7co/fckb0bA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7RUI6jqoNvth/E8nwUyl7mqkqTOmGSVeZcmnwQ85LbqmXYYpwho5MYZJYvmC3MLW/vR7TrZn0HG3mPjV5J6GvWN6vKCKEDg/fO8j3RyyvIxsNm93i9I3VEl8zTC8R9MUEoOHwUT5dCVzlXgx3TFa5dX1axdTSq/SKwPBZThuJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LnPQ61Rx; arc=none smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D14D36EAAD;
+	Thu, 11 Jun 2026 07:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781164124; cv=fail; b=ajw3aHK9Dawfy+7CTaL++pZ1KuV/7mWQZcrPvsnEL9ftw1nNsMz+VaGoFbjDcJ55ih4ug7ASPS5wOPcJSpCuyX07kzlGxP6NlbV2K1tBFz7cYTJfYMpxu4o4IlUPO+ORPnDoP04zqALPQL5IlcD/l5h45d/Tz5Bf0qGa7LVtXig=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781164124; c=relaxed/simple;
+	bh=ZO+tTl+rpaCzOk3fvb3daG+IWaTuMb/i4nH2wm0NnS4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=TgEi1FJ+INAwqwoYNhLzrjUZ6LQF3kCWcvhNvGd3QS+mPLnEgrylntGMpi2CQQMc1ISMNc6EXCkfib+J+rvPY6UTkObVUV8QSdmQM/gyp2L0EQNCmbFWIj/NmXr/IQAkA+yYJZ1WPfXq8GhTeclM+zA3fTvNQrMoZfZGLeuvavE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=auUrMdNq; arc=fail smtp.client-ip=52.101.72.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LnPQ61Rx"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-396718028bfso7309791fa.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 00:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781164115; x=1781768915; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mZcNR5v4/Eh8a44MseTXa3O5j0AC/9aZ3E3LNfBSyTU=;
-        b=LnPQ61RxXY+eEap7RCIvLhicDV/eAj/JCLhXYP0od4adCDalutdVBeXdtsYc9KW0eh
-         3U2Xi6v5WNJ0HWhStZRq9sZD09fl3xGH3L5L0U3fsa8IjpVsf2Xjv0Ty4wt/1ZQQ+ENG
-         JsA8qTa0H6+18nv8pL+HFVEPUR7r2Ywty9S44V1JYf8Ijm//PRXhht/XLAs9PWdb4ZRC
-         ds4vj+wYUKFanPr4KEahAvdsMjLyEeB5ZJQbLx2ODm/lYySPaiHJMbbUZbnmMlQxga2q
-         Su2dYXCC/+Z0ztFYZqA77+OIQ2XoESu6bqsJTz5bwQDLjks+m7OCXhTz3Cmcdvcyk2Jy
-         TgdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781164115; x=1781768915;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mZcNR5v4/Eh8a44MseTXa3O5j0AC/9aZ3E3LNfBSyTU=;
-        b=HGXZEfanA5oq7vtdcGMdWnz7rQ7Yz9s/z0XVG1x4Z5lzktV1nbaFHA8/97R3PJbdUd
-         qtrQMc+rCRCJZQhW0L08k8Ct0/dHORMHZql4zc86YT4Kicd6eLo/jGAb3IYQIX8LKI1O
-         d7GH5Bbq9+e72V/TKzcRP2mcoF3PP2NXZOIasMs7gjiKGQ25nMIw4Q7Qxp5wbxfxS818
-         1gw2/xnG2SfNukAVvHXi0W8Bf9ltEIszBrxE+7IPpIllYnEQmk7WP1SWujTiYl4Cfun7
-         TffVAR/AwUomDMuHVZjx5ICYykmUIpoeN92axZlx+7A7G7mehIuQCcL07uCehqG8Xhnu
-         uLmw==
-X-Forwarded-Encrypted: i=1; AFNElJ+LoI9thHLY9RAC4peCWT9BuxEjEtOSsVm/8O20YQ/jU8XcalYwoCDvJC/qI8FvqstKwOTPDpkm5FyN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yylz4sYytMt+JS1t3SG8QKDnl+3QbpNj1C9JDKwEjXf+9PfHP0+
-	AqcR2uUtU7pjOjt05BjZq17fYIhHTwwhYmoAscZfa5gYEx106hIKpHuHRrlhyKLVfKQ=
-X-Gm-Gg: Acq92OFPcgLIA9PfZIiSGyhkoJ3u1BZM2WqNhgpjWdqGfrAWVue36UTaAKSwkAu+6x2
-	16+G8b2g5qGd6hgQqQMvcmQpZIPTRM6AnkgXty5b68GQP15YGvkLc70CVVoIRXFHNQfsmndacVS
-	iNUT+BgCLHYZrRqca7jKXIEs9HAC3W6a+VhbrvfObhT6GREBPruzKPeDv+eZL/728bUo6N6GzP4
-	nAwF8MlCxbE87qGWMcMWmxgKISEgNGUxM3dY8weaZ8VIkuVZpE4q2kajyDRPZgrbo7kJCzovgu+
-	FrG5wZaAr8SDGYMZpzhP2EO518VFcZCS2CY2LZiVp8rhG2Ap/SuumhqfsEJMpm5r5DDHFLm6VwY
-	LK7lrXjB7y2qfI5DwIHVev05auErev+lw7gakqvYXsgWcy8Jq4oUrdpDXU+FAkXoBFxU73YFLbJ
-	SVFrEV2cM9FbkpnNWRCWrRwn2D31K8eOOizdFmsskmG8wIwdyKX4dwb5/Q0diIDn3XfQOcmjUfr
-	bWqDzXNKfQkZYa4
-X-Received: by 2002:a2e:a911:0:b0:396:8491:3135 with SMTP id 38308e7fff4ca-39919fb762emr1851881fa.1.1781164115468;
-        Thu, 11 Jun 2026 00:48:35 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3991ad7af8csm2429681fa.21.2026.06.11.00.48.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 00:48:34 -0700 (PDT)
-Message-ID: <00643a25-040a-4bec-8324-f52b30d84f9f@linaro.org>
-Date: Thu, 11 Jun 2026 10:48:34 +0300
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="auUrMdNq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q+L5Mp8Wr7tzo8Vn63BJ2xJXONGdZ7XKNumvP3ifyQlqAjOB6rb8GMnGiuW8cr4L26g0GJo5YEpWSO1sjJJP6K4jTUfYlJh5c4NJKbTPfuSQAibtheX9Jhxd7I9CEOyEBS1irlh7Jblo2H7wY78IgV9zrVDQqMamyPnKty3uGpVMOCEMTyAeiFSZ/Iym2APPsL3dDaaF3bOV4cAvS6iOyGslGI1HFHYs4WNyl6KVtP7rK5ATinIeW2NlzCdoEyNSusTNkaicaMLtVyBFB4sebac8AOe0ww8/y0ehqo06K/F/IG6qQ7+rpkF1f9OA1BWC5Sxg0nUmin8uBhG0v+cJOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0QFveXB2tUrDn9Y9qK3hMgMQQFy6a50kHWQD34ylhOs=;
+ b=JmEKsXZK47q58RM7JPN68oa1/CxDzBJB5reu94wFEtEtvvK2+ZEu4yp+UWT2ieoZjtMQz2Os7CzXxtJDG1r51xjx4e9TECmG7O+ftAuadnjslaqT0bFrbhkwn51yaNIWsX+30e9+F55n0QfbaIYDz76WR5bbQDrbA7ZCS9lQHcuKcicLYMR3ve0bn2bfHgJ7hiSqnU21FUiE9vNNYNzzatSvNnIv9oGdaup6VqFkfq9jOhvBgE9Enc5GOACPuxyWyF+8WfFpR8ny/wx5U+cUkx5s/cMoW5pfIKpjTxGz9aSKeNa8hbYflHq1iL/2jB+1HS2JT9v4PL1zPWlJ+Dsk1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0QFveXB2tUrDn9Y9qK3hMgMQQFy6a50kHWQD34ylhOs=;
+ b=auUrMdNqfnZCHf58degFxvWzr9AeJsZCnvTBtKPKmkgwyt8e2xPIv3ulR2ff5NaUcIylyyHzz8c0OaJrt2xV+PuUbPH5n2MxzFuWX01zXs5INAn8LgbmR5C2qbV+33gNINhAN2/KMghK1snTaNpA323NFkfo9k4G1c8sBl06V8zTtFFj6xrOqE4eXDm84lU/uTnXUFfU/A71opEFlcyk+PmYMxMJgZaerWD17wfTl6b39BeuyMiexlz5oFNwpneFzbIitvoyMRRcZQ4U+VBZ/eKDH9vyb9AXYxreLycStadsH6BOtnz8ihBNtQx4S0/vjYLZSldnPfmALy8nKazHqg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB8096.eurprd04.prod.outlook.com (2603:10a6:102:1c7::19)
+ by GVXPR04MB10659.eurprd04.prod.outlook.com (2603:10a6:150:214::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Thu, 11 Jun
+ 2026 07:48:39 +0000
+Received: from PAXPR04MB8096.eurprd04.prod.outlook.com
+ ([fe80::68be:f721:5000:3f2d]) by PAXPR04MB8096.eurprd04.prod.outlook.com
+ ([fe80::68be:f721:5000:3f2d%6]) with mapi id 15.21.0092.016; Thu, 11 Jun 2026
+ 07:48:39 +0000
+From: hongxing.zhu@oss.nxp.com
+To: sherry.sun@nxp.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	frank.li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com
+Cc: kernel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Richard Zhu <hongxing.zhu@nxp.com>
+Subject: [PATCH v3] arm64: dts: imx94: Add Root Port node and PERST property
+Date: Thu, 11 Jun 2026 15:50:57 +0800
+Message-Id: <20260611075057.2892593-1-hongxing.zhu@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0015.apcprd02.prod.outlook.com
+ (2603:1096:4:194::16) To PAXPR04MB8096.eurprd04.prod.outlook.com
+ (2603:10a6:102:1c7::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
-To: William Bright <william.bright@imd-tec.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ram Boukobza <ram@imd-tec.com>, Tendai Makumire <tendai.makumire@imd-tec.com>
-References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
- <e0731edc-81da-429a-a12e-a1d1b75f9544@linaro.org>
- <aig9licCxhtZbHMq@will-Legion-Slim-5-16APH8>
- <5a5cbf8f-07ef-419a-8d30-c1b0b2786312@linaro.org>
- <aik1ZYUT-cnpfdQn@will-Legion-Slim-5-16APH8>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <aik1ZYUT-cnpfdQn@will-Legion-Slim-5-16APH8>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8096:EE_|GVXPR04MB10659:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5588aa7e-69bd-443d-0efa-08dec78dd9be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|376014|366016|7416014|1800799024|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	nBDKcok2NKl3ey1cO/M0J6XobqlIvbePgsTAd8nzx72hb83qxOJX4YBUccTFdHMpbnlBmpGyF56y49PsC9CqI1bFJhw1AbXZtKOPrNK7wBrMSoo98vWG4EvH3tKW3D94OgNfWPzYPqXyx9UkDTF0SEZlvZmsHLGYeUbHh9A/55cTAkm6eh2jE+vthoIj+CmkseAXuJkCpM+4Lkz0d+q5szPc8SA9/ctqW7PXYFmqRhYbCiqks7K73LAXbFbOVSEK8PURa9P01gzSbsYyUBWxFZQs+e+/vc+9ZXTGO7Q9ESEdn/4JPzmloVf4vZlElOSpkQbfMQCFsfGdJYr2zXOyprnNwPq5boULC7W5GM+T8nwHd+I1UA8Vi8V1quqBEiwYyJ6ElcJrguxSGCXJb1ZwaYHjMKuEC6MXLLp+/u7qPfCsp0QKpN0mIle34sssGRIWojulPNxw1j+17qi8kNhUossOEaK3edvzkneU5j7pN8M5opJkHU6L2iuXi7pQAuYySMvPNorC3/dKd3fxU4VPa8iR18J0oo6xks493BMIgl47CdGEeNUCPXkkdrS5SkzJmziSIwE7lgiLCAglklcZlBrp0cCJG0cRivDVXoyucQnt5dLbYSgiPZuwjGl/JmkXbaDR4m8+3nZ13ZHT9bqdbXe1+rdLmlELXBhgv955d81RDOECwtEhDGm4eQZk39Q7
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8096.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(366016)(7416014)(1800799024)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/gCAK/SqSW+FiyRRKmEwhUaaaT1FL6PYDIhk2cG6dpUTuMX7c+oeFQ3XgA1n?=
+ =?us-ascii?Q?FoWqLgs4AGtJLMiufcuoEMUcMj78q/dVBv6XzijhWBbhgzwdM6uf/gDM5Wg+?=
+ =?us-ascii?Q?n11IcSA0D/xR9Klotd3g41cFSoRlXQ/wR1uh0CWuoDTGJiqSRMGOwL7rWibv?=
+ =?us-ascii?Q?VEDrMBdvKKbi+BqHoLSUB5rXXkafVA+s6MSNNqcQku8zwF5IGthhO+QDEOem?=
+ =?us-ascii?Q?jB2pqkCpJkGPDYZsWX+qqdhiEMhaW90tgBaKQIxWnFBLM4pjCHiTBIkgpcYM?=
+ =?us-ascii?Q?OW94rmh93gALaTYYoEJQEjYww0TNaBYlzzWpnvlvdfesQ4ZbpL6uNIQgNb+b?=
+ =?us-ascii?Q?UKWoypZPSBWDVwp+/O3ln28X3TJWLx9eab5sHC19W4bDIUWPwbRQ7u9Q2y8W?=
+ =?us-ascii?Q?iPP0NzMV5oyc4tkE9xTubsHjTTvmJdvXosxXD4lNQR0iTizzlqs8vCMQQb9y?=
+ =?us-ascii?Q?VoI0k4IwftHaLEN1Vc/sxpPNL4vAPoWrtKvrMqRy3eyn5kvsdDk3KNV4n/tN?=
+ =?us-ascii?Q?RhdBGu649K7/6GF7jOnl+IyMUFXg3uRhAh5Pf3l/7LIXrsWRwqQATH9WVnah?=
+ =?us-ascii?Q?D1OCPd2IHGa/EknZjPz/fKUD2ds4PdovEWAHMOM9xPyw2Tw+8xKgV7QeFL3v?=
+ =?us-ascii?Q?N0K3zvz+GNARVkdCBGYqwJ05pg4f7CIs0vN4iPnRXstAx2UFvBPcBbQ+RRwx?=
+ =?us-ascii?Q?DSk3/60lGZEORUI5Kdo/DxjvNj1ocjoMdcPLG4PKad28Tq2xBj/lMj4vdPn8?=
+ =?us-ascii?Q?LQuUeuoq1icfXqOWd3ntu/Ng1hp3QAXtYMdJ4UzoQN3oWuVtp3Dp6QOJYqNK?=
+ =?us-ascii?Q?RPJzE4RzZzh2FYi5HlaVJVRvcXUaqzEOenmOz2uroKHv7sVrr2AVjcfVuLyb?=
+ =?us-ascii?Q?jOQ9mhe6QkI8WrOPdqw4mqxikO8gVwnVwGGWBX6MvH3SQOBMue3b6LXEl16I?=
+ =?us-ascii?Q?BwnmyCqsmpSO2HE9E/AH665+Y9eCQ5JS9NK4/2AZEv9/OQ1CjYPMQymgevlG?=
+ =?us-ascii?Q?zrcfNGspOalycj+yvpL/rlt4Gt878C+G8gou2DKIUFfQ0ejS87QinzplG+Zb?=
+ =?us-ascii?Q?gvqQ7Ez4JbH6Fjl+9v25eSpIQASDarxsJT9prK+f8WnWVrM8vSu+pAhOsaNC?=
+ =?us-ascii?Q?O56qBCnlOYxdm1EHYAhmJa6bYhA9yhCcSdWfdGOmeipq0W4DEL1ndFpnQZ3P?=
+ =?us-ascii?Q?iBpV1TzvlnDUjPNASE7yB9tj6g999WfE6wD7TNwt/LdZ3CdDbY3rW7XlVjnb?=
+ =?us-ascii?Q?V8QmNHDcstzbJqVJQrWngNyolEUvTgw2NMthu2hZ/+5/HvJLe1TfGuP3wEgp?=
+ =?us-ascii?Q?fPFghkIj5woTjTsEaYnqHdB57vAoMF0JrVQhvf7621dgNmPTsiCOLnmi7X8/?=
+ =?us-ascii?Q?YZeB+GFrcYbAaE/wRvuRhj7cbFypRMwbVwa3nTZbqxWZE3K8FHPmTUoo9JM0?=
+ =?us-ascii?Q?i5I7p69pWTXTeeEDvjOPGiAe1EGNBWiY0g1yFeAIDJGC1Dyxiz29dkdquuyq?=
+ =?us-ascii?Q?M3eH1sHPdGHjLflcm27WiKQxupxv1zFRzhmw9YnOhoKcSloEdQvtpJhhSp+E?=
+ =?us-ascii?Q?Lu2xZghfWRSwQ0/tWOXufNkCE0UigpLmvXygS0Y16u4g2mA0U1rjeOd2vz6D?=
+ =?us-ascii?Q?pOPi1F4/NWTtJAFA0tzM0ArNAAohRFM93aThxP6TPgc20/A+VOycc6UdTZPx?=
+ =?us-ascii?Q?VysXLCEN5MM5zzIeeV9+FaPlHsJkAiUYxAw+lfGSnSNWqfZgejydT7Yck+oA?=
+ =?us-ascii?Q?34cd6SPf4r8g+qKSovxnA+9/daPUMTwo/zwwxegGHTnbvVWSIKID?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5588aa7e-69bd-443d-0efa-08dec78dd9be
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8096.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 07:48:39.3784
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JRhhjQ5pjrlcGBJvFD44u+8cNbDSv2aJ1Gdn6xpPJY+qkFzIXeA8AT+0uvSMvRBG3s7xSjb/mArDIXTL8aGiCxEH1eLKYHbdkZpvHt2IjlIHoneRL4EXc3sGqON2Zk4S
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10659
 
-On 6/10/26 12:59, William Bright wrote:
-> On Wed, Jun 10, 2026 at 11:21:53AM +0300, Vladimir Zapolskiy wrote:
->> FWIW due to https://www.nxp.com/docs/en/data-sheet/IW416.pdf "10.7.1 VIO_SD
->> DC characteristics" SDR104 speed mode is not supported by the module, thus
->> the selection of the SDR50 speed mode on the host side sounds to be correct
->> in your case.
->>
->> In SDR50 speed mode gcc_sdcc4_apps_clk clock frequency should be exactly
->> 100MHz, and since it differs, it has an impact during the tuning phase.
->>
->> Definitely clk/qcom/gcc-sm8550.c says that the maximum supported frequency
->> is 75MHz, the same is found in the downstream v5.15 kernel:
->>
->> static const struct freq_tbl ftbl_gcc_sdcc4_apps_clk_src[] = {
->>          F(400000, P_BI_TCXO, 12, 1, 4),
->>          F(25000000, P_GCC_GPLL0_OUT_EVEN, 12, 0, 0),
->>          F(37500000, P_GCC_GPLL0_OUT_EVEN, 8, 0, 0),
->>          F(75000000, P_GCC_GPLL0_OUT_EVEN, 4, 0, 0),
->>          { }
->> };
->>
->> Can you dump CAPS1 register value of SM8550 SDHC4? What does it say about
->> SDR50 mode support and need for SDR50 mode tuning?
->>
->> -- 
->> Best wishes,
->> Vladimir
-> CAPS0 and CAPS1 are below:
->    sdhci_msm 8844000.mmc: CAPS0: 0x3029c8b2 CAPS1: 0x0000a08b
-> For CAPS1:
->    Bit 0 (SDR50 support) = 1
->    Bit 13 (Use Tuning for SDR50) = 1
-> It looks to report that SDR50 is supported with tuning required.
-> 
+From: Richard Zhu <hongxing.zhu@nxp.com>
 
-Looks like the SDHC driver behaves expectedly then. For me it's hard to say
-what may be the rootcause, I believe the lower bus frequency should be fine,
-so it sounds like a hardware issue, but could it be PCB/board specific one?
+Since describing the PCIe PERST# property under Host Bridge node is now
+deprecated, it is recommended to add it to the Root Port node, so
+creating the Root Port node and add the reset-gpios property in Root
+Port.
 
-If you find a chance to copy the SDHC driver (and its small dependencies)
-from Android and test it on your board, and if it also fails, then it might
-be well concluded that something is wrong with hardware, still it won't be
-quite convincing that the SoC SDHC is to blame here.
+Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
+Reviewed-by: Sherry Sun <sherry.sun@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/imx94.dtsi     | 11 +++++++++++
+ arch/arm64/boot/dts/freescale/imx943-evk.dts | 14 ++++++++++----
+ arch/arm64/boot/dts/freescale/imx943.dtsi    | 11 +++++++++++
+ 3 files changed, 32 insertions(+), 4 deletions(-)
+---
+Changes in v3:
+- Move the regulator to Root Port node as well, since [2] had been
+  settled.
+- Collect Reviewed-by tag issued by Sherry.
 
-Hope it helps.
+Changes in v2:
+- Delete reset-gpio properties in PCIe bridge node.
+- Correct the "reset-gpio" property to "reset-gpios".
 
+Since the patch-set [1] issued by Sherry had been landed. Add according changes on i.MX943 board too.
+[1] https://lkml.org/lkml/2026/6/1/1461
+[2] https://lore.kernel.org/imx/20260520084904.2424253-1-sherry.sun@oss.nxp.com/
+
+
+diff --git a/arch/arm64/boot/dts/freescale/imx94.dtsi b/arch/arm64/boot/dts/freescale/imx94.dtsi
+index 1f9035e6cf159..dfbb73603cb24 100644
+--- a/arch/arm64/boot/dts/freescale/imx94.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx94.dtsi
+@@ -1411,6 +1411,17 @@ pcie0: pcie@4c300000 {
+ 			power-domains = <&scmi_devpd IMX94_PD_HSIO_TOP>;
+ 			fsl,max-link-speed = <3>;
+ 			status = "disabled";
++
++			pcie0_port0: pcie@0 {
++				compatible = "pciclass,0604";
++				device_type = "pci";
++				reg = <0x0 0x0 0x0 0x0 0x0>;
++				bus-range = <0x01 0xff>;
++
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;
++			};
+ 		};
+ 
+ 		pcie0_ep: pcie-ep@4c300000 {
+diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/boot/dts/freescale/imx943-evk.dts
+index 7cfd424689507..674410e541cba 100644
+--- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
+@@ -1034,12 +1034,15 @@ &pcie0 {
+ 		 <&pcie_ref_clk>;
+ 	clock-names = "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
+ 		      "ref", "extref";
+-	reset-gpio = <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
+-	vpcie3v3aux-supply = <&reg_m2_wlan>;
+ 	supports-clkreq;
+ 	status = "okay";
+ };
+ 
++&pcie0_port0 {
++	reset-gpios = <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
++	vpcie3v3aux-supply = <&reg_m2_wlan>;
++};
++
+ &pcie0_ep {
+ 	pinctrl-0 = <&pinctrl_pcie0>;
+ 	pinctrl-names = "default";
+@@ -1058,12 +1061,15 @@ &pcie1 {
+ 		 <&pcie_ref_clk>;
+ 	clock-names = "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
+ 		      "ref", "extref";
+-	reset-gpio = <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
+-	vpcie3v3aux-supply = <&reg_slot_pwr>;
+ 	supports-clkreq;
+ 	status = "okay";
+ };
+ 
++&pcie1_port0 {
++	reset-gpios = <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
++	vpcie3v3aux-supply = <&reg_slot_pwr>;
++};
++
+ &pcie1_ep {
+ 	pinctrl-0 = <&pinctrl_pcie1>;
+ 	pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/freescale/imx943.dtsi b/arch/arm64/boot/dts/freescale/imx943.dtsi
+index cf5b3dbb47ff7..01152fd0efa5e 100644
+--- a/arch/arm64/boot/dts/freescale/imx943.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx943.dtsi
+@@ -255,6 +255,17 @@ pcie1: pcie@4c380000 {
+ 			power-domains = <&scmi_devpd IMX94_PD_HSIO_TOP>;
+ 			fsl,max-link-speed = <3>;
+ 			status = "disabled";
++
++			pcie1_port0: pcie@0 {
++				compatible = "pciclass,0604";
++				device_type = "pci";
++				reg = <0x0 0x0 0x0 0x0 0x0>;
++				bus-range = <0x01 0xff>;
++
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;
++			};
+ 		};
+ 
+ 		pcie1_ep: pcie-ep@4c380000 {
 -- 
-Best wishes,
-Vladimir
+2.34.1
+
