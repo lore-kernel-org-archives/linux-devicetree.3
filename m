@@ -1,116 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5E4367F3D;
-	Thu, 11 Jun 2026 07:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765E4367F3D;
+	Thu, 11 Jun 2026 07:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781163744; cv=none; b=lRRrNo6Opea/V2z7jiyTc1plkk6eLOO0QJNytItNbb+R+X5Ad/N6gdKUpgUJKreBFCWt5Aeb+pI9y6PJk5vdhROfZsxn4iwQoUBpCCDWyymqM6/1YxoqqIQN2eV8Zavso1JksGvlu40X/bmC7YwYeT3ne4HxWge3B5Q4YOBQpv8=
+	t=1781163864; cv=none; b=qyHfrXupClwSBGyt15TkkOHOdOV7hXwTYKCW+hBIIpHy86hbAFLEdRsTwyVoa3hlg9Bkbk54tV60+Mo8oZMIQIym+7mdZ33bet25mI+l+77RxI73nJGadgiB9pZUMUmGi9lDHXxzZOSwW8UcVIuNw+4h9hlOf7o1E4+rqahEmWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781163744; c=relaxed/simple;
-	bh=Y7KBfZD5DQHBGMMzc6u2sq3+VfCL6Fo7fCWIEQYW7ao=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lG0rbHVWstrSz/Tvf6K9xLXcKKLsTiPJs9OaLhIWT7STyqabsKOLGr6J/Nxcv16s44d15sufPFu15gpy0D+fryhY8Xp8299rfqheldr0KgZ02z514DM6BSVXJwH+hieOr31YdigUzdzm8rudjIWTJgBGpSFZHS9cqC0cJVJwPGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCp2cWJi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781163864; c=relaxed/simple;
+	bh=hKtJBj6NbpM+g6kmjkW4KSom4gFoNvlMbMdPkKuqkbg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Y+lU1IL/EuwCtdWWXJgZlHu7ADLyJ8w/OnwrwjT13VXxdGDIU4isdpKTbHY5Wfrpkxq0OqhJ9awmGMylYJSXiW1oyP7wqOfnCoWc6beJB28KrBRJefKCagI4eZutMk9jGGxiYyalXc0tHrhbZfm5aliKtRvXEDH6p7CMkl2PZqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UUKJ7FxL; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCp2cWJi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267111F00893;
-	Thu, 11 Jun 2026 07:42:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781163742;
-	bh=GfHjmALeSuAk8b8lLGyqi6fhpxEvnN4bOx0UqElVopI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bCp2cWJiqRWgpB/BNvv79HOpoVV4VIpHSU6U7tGRxtVlSVxeckYlbOag//8OLoChE
-	 3q8Fqlx4Jr9E5wtUgb7aChD49Uz9Rsq7xxyKfJcZyogIyMjJ04w7zJsA0kJBIewTZl
-	 pU2lrXflp414X/EzBFAp9skrggETc2wzK7Ttx94XQBi5H+e9lZERPELsQH4kPqsurZ
-	 CkakpoFvSGdg8J5e08ep3IpQqW6KcUewwJlwZ05ipwk9o/7u59XgQNg41LNaINc74i
-	 COvSRxZHjiEW+OwWyh9uEpBoxBvV6ms1zGv/cr7mXSTOM0+RtSNt+Ew/lDCJP9n8kW
-	 AK62cURfu4lcA==
-Date: Thu, 11 Jun 2026 09:42:20 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: joakim.zhang@cixtech.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de, 
-	gary.yang@cixtech.com, cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 3/5] dt-bindings: clock: cix,sky1-audss-clock: add
- audss clock controller
-Message-ID: <20260611-numbat-of-unmistakable-excitement-f6cfed@quoll>
-References: <20260610075645.3581145-1-joakim.zhang@cixtech.com>
- <20260610075645.3581145-4-joakim.zhang@cixtech.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UUKJ7FxL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=PQ
+	iPGhl1R3XE1rfbgWoU/FE0wGrBbGWg/k63y7WgUeQ=; b=UUKJ7FxLX5aYjFmiAC
+	dPkcyEZaIdLE+L55jYIHshTW23JFrZXYzovbqQF7DyF+CsuFOznG2Sjp078juJEI
+	v9GHDb+G9mNvfGTZnUSanN0NS6t7+AP2yWKHjEL9obyKvBDtl+cw8x47QAtoC9uN
+	K78AmzpibTDHqiCDtcoR+keAA=
+Received: from ZM.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3PvcqZypqI94RCw--.19273S3;
+	Thu, 11 Jun 2026 15:43:40 +0800 (CST)
+From: Ziming Zhu <zmzhu0630@163.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Ziming Zhu <ziming.zhu@silergycorp.com>
+Subject: [PATCH v3 1/3] dt-bindings: hwmon: pmbus: Add bindings for Silergy SQ24860
+Date: Thu, 11 Jun 2026 15:43:33 +0800
+Message-Id: <20260611074335.4415-2-zmzhu0630@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260611074335.4415-1-zmzhu0630@163.com>
+References: <20260611074335.4415-1-zmzhu0630@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260610075645.3581145-4-joakim.zhang@cixtech.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3PvcqZypqI94RCw--.19273S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr18KF18uF15Xr4kWFy3Arb_yoW8Kw1DpF
+	Z5uF9rJr48XryxWw47GFykZ3W5Zr1kAa1j9r9xJw1SyF98XFsYvrZIkrW5XF1UCr10yFy3
+	ZFWqyryxt3s7Cr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jOjjDUUUUU=
+X-CM-SenderInfo: x2p2x3aqwtiqqrwthudrp/xtbCwA0KA2oqZy1OlwAA3X
 
-On Wed, Jun 10, 2026 at 03:56:43PM +0800, joakim.zhang@cixtech.com wrote:
-> +  '#clock-cells':
-> +    const: 1
-> +    description:
-> +      Clock indices are defined in include/dt-bindings/clock/cix,sky1-audss.h.
-> +
-> +  clocks:
-> +    items:
-> +      - description: I2S parent clock for sampling rates multiple of 8kHz.
-> +      - description: I2S parent clock for sampling rates multiple of 11.025kHz.
-> +      - description: clock feeding most devices in audss (NOC, DSP, SRAM, HDA, DMAC, I2S, and Mailbox).
-> +      - description: clock feeding for HDA, Timer and Watchdog, which is a delicated 48MHz clock.
-> +
-> +  clock-names:
-> +    items:
-> +      - const: x8k
-> +      - const: x11k
-> +      - const: sys
-> +      - const: 48m
-> +
-> +  resets:
-> +    maxItems: 1
-> +    description: Audio subsystem NoC (or bus) reset line.
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +    description: Audio subsystem power domain.
+From: Ziming Zhu <ziming.zhu@silergycorp.com>
 
-Same comments as last time, but let's keep discussion in previous patch.
+Add devicetree binding documentation for the Silergy SQ24860 eFuse.
 
-> +
-> +required:
-> +  - compatible
-> +  - '#clock-cells'
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - power-domains
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/cix,sky1.h>
-> +
-> +    clock-controller {
-> +        compatible = "cix,sky1-audss-clock";
-> +        power-domains = <&smc_devpd 0>;
-> +        #clock-cells = <1>;
-> +        clocks = <&scmi_clk CLK_TREE_AUDIO_CLK0>, <&scmi_clk CLK_TREE_AUDIO_CLK2>,
-> +                 <&scmi_clk CLK_TREE_AUDIO_CLK4>, <&scmi_clk CLK_TREE_AUDIO_CLK5>;
-> +        clock-names = "x8k", "x11k", "sys", "48m";
-> +        resets = <&s5_syscon 31>;
-> +    };
-> diff --git a/include/dt-bindings/clock/cix,sky1-audss.h b/include/dt-bindings/clock/cix,sky1-audss.h
-> new file mode 100644
-> index 000000000000..033046407dee
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/cix,sky1-audss.h
+The device is a PMBus hardware monitoring device which reports voltage,
+current, power, and temperature telemetry. The board-specific IMON
+resistor value is described with silergy,rimon-micro-ohms.
 
-Filename must match the compatible.
+Signed-off-by: Ziming Zhu <ziming.zhu@silergycorp.com>
+---
+ .../bindings/hwmon/pmbus/silergy,sq24860.yaml | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml
 
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml
+new file mode 100644
+index 000000000000..03ef82c11e1a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++
++$id: http://devicetree.org/schemas/hwmon/pmbus/silergy,sq24860.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Silergy SQ24860 eFuse
++
++maintainers:
++  - Ziming Zhu <ziming.zhu@silergycorp.com>
++
++description:
++  The Silergy SQ24860 is an integrated, high-current circuit protection and
++  power management device with PMBus interface.
++
++properties:
++  compatible:
++    const: silergy,sq24860
++
++  reg:
++    maxItems: 1
++
++  silergy,rimon-micro-ohms:
++    description:
++      Micro-ohms value of the resistance installed between the IMON pin and
++      the ground reference.
++
++  interrupts:
++    description: PMBus SMBAlert interrupt.
++    maxItems: 1
++
++  regulators:
++    type: object
++    description:
++      List of regulators provided by this controller.
++
++    properties:
++      vout:
++        $ref: /schemas/regulator/regulator.yaml#
++        type: object
++        unevaluatedProperties: false
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - silergy,rimon-micro-ohms
++
++additionalProperties: false
++
++examples:
++  - |
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        hw-monitor@40 {
++            compatible = "silergy,sq24860";
++            reg = <0x40>;
++
++            interrupt-parent = <&gpio>;
++            interrupts = <42 8>;
++            silergy,rimon-micro-ohms = <1600000000>;
++
++            regulators {
++                cpu0_vout: vout {
++                    regulator-name = "main_cpu0";
++                };
++            };
++        };
++    };
+-- 
+2.25.1
 
