@@ -1,163 +1,195 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74D533D6F7;
-	Thu, 11 Jun 2026 04:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB1F3081D6
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781152954; cv=none; b=lGh3NRzowfGGMzeumE0LMlX0JHyE6Ote7A0Uh4TdwXtrnQalzx9MagP3g9PFzDLInQlZgnAl3MR7Y+UMKc8EBQ/kFO4EuOgHFnUsaB3xqXTJczq+jcvULevcZK6VKDVUdDZP7Cvb6XU0CFUeEuubg6k5anO+OqrJFM4se6fC63Y=
+	t=1781153141; cv=none; b=PmJT0J2meNcCvZy8S4j41smgFZCRQCTLvDNsOhGKLhldZJJBk+9Dk7Tcae9lKwqQE1nFLzXK//3FflTVXn5PHj7S/aZfHBnkvlotbbY9y4hYkzUd0995PHbz19yRbNRaDXx2EOVb1JongnpEbgq7yXFkAi/Eu8/bVd9Mttm0eNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781152954; c=relaxed/simple;
-	bh=m+lauUpGk4LLE+zWBpWBZpWf5CCZUvP3Ls0+I20GSdA=;
+	s=arc-20240116; t=1781153141; c=relaxed/simple;
+	bh=wDZgTVz/oZs6fHMeDkBQJjN738mapPf0RtpZObfLSGo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qMecD8Rc29qhzKFu7WI65dI2U/HFHCU7J3cUnjARI3D1Gp4z9df1s40wHd3UGjFpIxd5/vvdyyLo4goGkoR5X50VEA8WeaH8bGZMBf+XwTo7NLzRtRqjrNSKo75DQID6q5TF1cE+MRgYP0WA4GMqLU8QnyVAHUJiUPlAg2oTrAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HbNpwvp0; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 In-Reply-To:Content-Type; b=UtehA0QnB4+thXgajg38DD2Hr9T5kYHem2iLPSp+BGj5DR5qP1GENNI1lrbHUGiRarvbRKj+POHIITWD6Qc/OWA/hybDfevKQ0WIqof6oUFgWjNimNB/tudn/jOfnPyFQoKTVn+1ZY+1r/M5ZByHw71RixwLwE5SBwMKScileCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eUCmfE5X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G8QPs6Ma; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HbNpwvp0"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gbVPK5Fbvz9txK;
-	Thu, 11 Jun 2026 06:42:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1781152949;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a6BcnN8rdSZBC0imBDjb7WvsMQmmgBw7lE2xxGdBFAc=;
-	b=HbNpwvp0Zj9yuH8o2oc0btr7NocD+4rpR36lGjssYY90zRMgEJRkepCWreP4M9Nf7FWw2G
-	E9HY7rp4S1MHTyX7QMMv4fee/ekSf8lduJvfBHyzesvL6A0l+8xzJosXYM3uEd5i/B7NCU
-	XmguDNfQaWWdZs542ORZ1bEfxqdHnEaIn+nV+xPx+WSbnnv1kOj/dQZ9e42m4tixPkbJYf
-	XCDZ2t31PxCmC6VKwmLLgG9MPT5QYc9OJeFntCCtD4Aif4NtXPkbD4xa0jiLpOWeWwgjAT
-	pYs0XO2gv848HpNsiV/Bhc9ssNxU0+H+ax/skEM2e6ZHgyZiJJuhS5Ekuv7d+A==
-Message-ID: <7fc8f50f-7f6d-4b45-b172-a83d97164b40@mailbox.org>
-Date: Wed, 10 Jun 2026 18:31:02 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eUCmfE5X";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G8QPs6Ma"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B0NhsX1614764
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:45:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8ks7xcs4CcsvhpxQlRnY7mYEmf/7lZqBcXTDU2LX0qM=; b=eUCmfE5XNyddAO+D
+	0dw0SQBchcu20RPqbpJtWlc+F9af0uhK8DgWGreLf/IcuIAHWstGYcvZE1wBjWrP
+	pOk3mE3TS7UAxtT2EbgtxlrfPWeHICyUpm/5ME2ncJCLlfHIEkDFMKo87wiJVxO9
+	xTRl7wT+haxpU2/pecsGphJf0QdP8yTcuqM4gLs+mnNA/qOkCCwHBtEa4p3C2t/a
+	269c2KgniB28cCu/RNw0PeGLnEqdXZ44WFMg8+cnx3oaU84JBeBc7z2zZvjNgkcL
+	iJo0IJ4q4XAnWtTK5FJhCjIk5z/Zc8YSJ+yDMcDVAAVw5i6mMneD3B0oA02EzWKe
+	yJjCVw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe79hkys-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 04:45:39 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c85dcdbe502so4939488a12.2
+        for <devicetree@vger.kernel.org>; Wed, 10 Jun 2026 21:45:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781153139; x=1781757939; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8ks7xcs4CcsvhpxQlRnY7mYEmf/7lZqBcXTDU2LX0qM=;
+        b=G8QPs6MaIde05IkbfG0Ekp9B3NYDtG+Wikvx63NT4Z3ZspkYV3dy4uEl8bzfL11in6
+         MLrStFDGJVnFYS7e3PchvWDQELTzfFWBcKPMEcT0uJmIW6/2cA5gVXWBiuarZPMHIOv6
+         DH4FbNHrI0Kzt4mlea1EjE5uzodvXYHLFnyWTepjmVGo6dxe0zzm9bNhzJNxc7snDicz
+         O+jUMC/PFR7No/YfTxFjLT7KTnCxl9XXLTtob0AmixFFU4+P4OKHozQ9/KP0mA40d3ae
+         ZXKat/xJchAJ7PuNas9iqqq1gewWuWipGGxLiKW/NBP7NyV3B+R61qq8gTSPNyLU86zl
+         ATng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781153139; x=1781757939;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8ks7xcs4CcsvhpxQlRnY7mYEmf/7lZqBcXTDU2LX0qM=;
+        b=SaFG0USSnpTcupZ3aW//p0lJImqHoaMny2lM9MemOkU9fJ7A+zGGjrnpCutHaKhPA5
+         rNZMwgG/qPNA1ARpPInq0rbCVjrv6LwL3bkjcdXXCbLh4BLRQ5mZp8p22PrvII/FiUc7
+         d/NyNZexKGeIJfTyKKieEQKez3msR2FSQcv0h8JjX+iYEUGHwvFD7jysEXOP5oALxvh0
+         hHQzgQEmzqHqHnrVOSTvRzird7f2jogNafuuk7sDfwZKg+b0j2qzI5huYkpTUM7/Y7ID
+         bcgQETiU5TdJFCo2yfl4k8Piey/+h9zbwnCmr0BescC+/+oxBnbKPmZXZVykQyDhpC2P
+         KsrQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+xQnnrcJ5jiWnoZ6/rfAB++rve0hljiCmU1zpNgiG9xAVnA9W9L0nOCXwkCW60pc1d/gH45pRZXos3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3O/co2mwE+Ni9dDD5YKzmqNFCbwZvToDcX2ztwG7o3td7NKbZ
+	1dvwkNbVceaSvF5Ns8Ip+fOMRWc2M1r2lPu744gvysB8baMBBD2x98wfpCDvwimXnSdnA+EkD8w
+	mfiC6z69N5KEiELS7lwkhVytsNa8XQ7yVG2pLcHxChTVv7Rd7FiH4oKC6h5DNjxnUNgSz1Zzg
+X-Gm-Gg: Acq92OFqXXs6xs2Nh+r1x+MuWv9qG/LdXAZvYm/OvhQjWHTo5X1vMdIsUyP5AA7TuSv
+	OcYXuuReNeyOr/3LR3yuI7hi9r2W5bOHpYC29X9DtE3K0QDGrTYu/y1DfHDvLwQZD8s+Q3n97Lv
+	dYC4sR0CBj9T88dx1mUHXVVJOuuMEjEdZW3bmHqvf71w3SaXJxCNWHGbWeDkYdn4TCFomkvUJdC
+	ih5t52ZYhRBZUGmEzbLNo/2KAgluPmsmPY3ms/zRGBj02k99sId0cMdqq8081hyYqQm95kAuwdm
+	m47Zdh8yc2lFSc2vRv9ASDDEdQZAMtsyl2pfZg4xSGDARAomrloL988sVSTJXRJjXaWGhh3mpFq
+	Twff+25GD4HIFBEGzlTTiKp58pWynmoCPK2dAMthCJ0X76ur6i0Vu4mEhX9ijCwg=
+X-Received: by 2002:a05:6a00:bd89:b0:842:5ea5:5fdd with SMTP id d2e1a72fcca58-84336bc6f14mr1290377b3a.40.1781153138781;
+        Wed, 10 Jun 2026 21:45:38 -0700 (PDT)
+X-Received: by 2002:a05:6a00:bd89:b0:842:5ea5:5fdd with SMTP id d2e1a72fcca58-84336bc6f14mr1290333b3a.40.1781153138304;
+        Wed, 10 Jun 2026 21:45:38 -0700 (PDT)
+Received: from [10.217.199.117] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-843383197e5sm467576b3a.52.2026.06.10.21.45.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 10 Jun 2026 21:45:37 -0700 (PDT)
+Message-ID: <cb244225-5375-4925-8d20-232cae9da672@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 10:15:30 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 00/39] Add i.MX95 DPU/DSI/LVDS support
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Piyush Patle <piyushpatle228@gmail.com>, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Peng Fan <peng.fan@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Abel Vesa <abelvesa@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-References: <20251011170213.128907-1-marek.vasut@mailbox.org>
- <20260605121112.27866-1-piyushpatle228@gmail.com> <aiZzxhljfyYQ68Gl@raspi>
- <9ece4e08-a77f-4410-ba16-a77b9bd0aace@mailbox.org> <aifOQtaAi_7F9hXt@raspi>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/8] remoteproc: qcom: pas: register TMD thermal
+ cooling devices
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-3-291a2ff4c634@oss.qualcomm.com>
+ <e9573827-81b5-4c75-9d1a-d59a4809300c@oss.qualcomm.com>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <aifOQtaAi_7F9hXt@raspi>
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <e9573827-81b5-4c75-9d1a-d59a4809300c@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 8a541f9777ff949760e
-X-MBO-RS-META: trp3ppsudps4pgwo9w4hhy1o1twon399
+X-Proofpoint-ORIG-GUID: hS6o2o3nNuTq8O5y1g30UJMtqqkXW2X8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA0MyBTYWx0ZWRfXwyk07wkDNwbm
+ uUg2q6ubVgWJv1p9QI0W/sm3qcDguAcN1EXG7zRjz+eYsUFjI39+EkD9PhmDgvcPjf45Xts49Us
+ PM0tbz2FAEYgRpwD2vSrpdNR39+DRpqSxNYqT07xL1YBWMO9x8FXIRXmbTwA56JnBAkReQxH4cw
+ UK7F9O3PEqn/S1XddiwSM0bHqP6bLg7BkdqtIYuNSemaw3uGnHtMHIZdbuDAZG8sS8IpOzoIMkB
+ 4Mj547ui6iAK6dV4e9XNYoRMN4d5FyRA0MKWZzXgyR7PorwSpS+gKFNXuI+gd2l5Ck5LFmc/C/g
+ GcmJ6SUj7DJgEQUor1lYnNoawPnLzKwxE4EvKB/0QyGNXsQMOHQHNCMa/w0cnajq5hfJUmvmCcY
+ JWw8iGYKCrb1NS65zU3NyNne7MxZG3CT29Z5yDwTL5eVD8T1yfrE8jW7KMMYdk9PkkcmS46imBi
+ s+V4N2LXW0jhFsICUiA==
+X-Proofpoint-GUID: hS6o2o3nNuTq8O5y1g30UJMtqqkXW2X8
+X-Authority-Analysis: v=2.4 cv=fbydDUQF c=1 sm=1 tr=0 ts=6a2a3d73 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=cgKxsijKBzv_CCWCEVYA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA0MyBTYWx0ZWRfX270OLVkR72oW
+ A+y0ZskVlSe/JIsHsXI4t8wyZmhseJwb6AuQf5Kw6HVmuM3FNoqoSe8Hbbuo9Jo6zdBmCgrm5fb
+ SV4/DZjPEwcNGrpkzOqonm8juhutG/I=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 suspectscore=0 spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606110043
 
-On 6/9/26 10:26 AM, Liu Ying wrote:
 
-Hello Liu,
 
->>>> I brought this series up on the i.MX95 15x15 FRDM (IT6263 LVDS-to-HDMI on
->>>> LVDS ch1). It mostly works, but I ran into a few issues around DI routing,
->>>> LVDS format handling, and DC enable sequencing which needed rework before
->>>> HDMI would come up reliably on the board.
->>>>
->>>> I don't see a v2 of the series and things seem to have been quiet since
->>>> November. Are you planning to post an updated version?
->>>
->>> My plan was to enable prefetch engine support[1] for i.MX8QXP display
->>> controller and add device tree for a whole i.MX8QXP LVDS display pipeline,
->>> before adding i.MX95 display controller support.
->>>
->>> Unfortunately, it seems that Marek is not a big fan of [1]
+On 6/9/2026 5:33 PM, Konrad Dybcio wrote:
+> On 6/9/26 12:22 PM, Gaurav Kohli wrote:
+>> Add support for Thermal Mitigation Devices (TMDs) to enable
+>> thermal throttling of remote processors through QMI.
 >>
->> I am fine with [1] as long as it can be isolated and does not affect every
->> SoC that might reuse this driver, which I think it can be done.
-> 
-> How can it be isolated?
-
-if (compatible("mx8q"))
-   something->prefetch_op = somefunction;
-
-And then wherever is prefetch used, do
-
-if (something->prefetch_op)
-   something->prefetch_op()
-
-Or something along those lines ?
-
->>> and I'm busy
->>> with downstream development so the plan doesn't move forward well.  I still
->>> think [1] makes sense(maybe I need to rebase it on latest drm-misc-next),
->>> so I'd like to see review comments on [1] and hopefully people think that
->>> the overall idea of [1] is ok.
+>> This enables the thermal framework to request mitigation when remote
+>> subsystems (modem, CDSP) contribute to thermal issues.
 >>
->> My only concern is, to keep it isolated to MX8Q, so this driver can be
->> reused by MX95.
->>
->>>> I've accumulated a fair amount of rework while getting this running on the
->>>> FRDM. If you're not planning a v2, I can clean things up and send one based
->>>> on the current series.
->>>
->>> I still think that i.MX95 display controller driver should be in a separate
->>> driver, rather than sharing the same driver with i.MX8QXP display controller
->>> like this patch series does, because the two display controllers are quite
->>> different as I mentioned in comments on this patch series and in discussion
->>> in [1].  Also, the common part between the two display controllers should
->>> be extracted to a common helper library as I mentioned there too.
->> Are they really? It seems this series adds support for the MX95 DC without
->> that many changes, so are the DCs really that different ? It seems the MX95
->> DC is simply a reuse/evolution of the MX8Q DC blocks, so duplicating the
->> code seems like the wrong direction, it will only lead to disparate sets of
->> bugs in two drivers, which isn't desired.
+>> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+>> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 > 
-> I pointed out a lot of H/W differences between the two display controllers
-> during the discussions for this patch series and my i.MX8QXP prefetch engine
-> patch series[1].  Please take a look at [1], which clearly shows that the
-> prefetch engine would considerably impact CRTC/plane atomic callback
-> implementations.
-
-Is the prefetch engine actually grown into the CRTC/DE or not ? I 
-suspect it is separate and instead part of the built-in DMA, right ?
-
-> Display controller internal blocks would also impact
-> the implementations, e.g., DomainBlend block in i.MX95 display controller
-> doesn't present in i.MX8QXP display controller.  It makes sense to use
-> separate drivers for the two display controllers instead of adding 'if/else'
-> checks to a single driver's atomic callbacks or introducing two pairs of
-> atomic callbacks to that single driver.  I mentioned before, the code to
-> simply add a DRM driver(struct drm_driver) is fairly limited.
-
-Can't we simply have two sets of ops (one for mx8q and one for mx95) for 
-those ops which are too complicated to implement as a single op with 
-if/else statements ?
-
-> I also mentioned before that separate drivers make them easier to maintain:
-> we don't have to test both i.MX8QXP and i.MX95 if only one display controller
-> specific code is changed.
-
-The downside is lack of code reuse, which leads to disparate sets of 
-bugs in these two drivers and code duplication. And it seems to me, that 
-large parts of the MX8Q and MX95 DC are effectively identical.
-
->> (I might not fully understand what you have in mind with the helper library
->> though?)
+> There's no other signs of Daniel in this patch, please fix the
+> tags chain
 > 
-> I said this could be something like imx-ldb-helper.c and plus perhaps some
-> callbacks like fg->dc_fg_cfg_videomode().
-Do you perceive that the DC driver cannot be parametrized easily enough 
-that it has to be turned into a library like that ? When I look at this 
-patchset, esp. the first half which updates the various blocks, it does 
-not seem to me that way.
+> [...]
+> 
+
+Thanks Konrad for review, will fix this.
+
+>> +static int qcom_pas_setup_tmd(struct qcom_pas *pas)
+>> +{
+>> +	struct device *dev = pas->dev;
+>> +	struct device_node *np = dev->of_node;
+>> +	const char **tmd_names;
+>> +	int num_tmds, ret, i;
+>> +
+>> +	if (!of_find_property(np, "tmd-names", NULL))
+> 
+> Let's use device_property_present() instead
+> 
+
+Ack.
+
+>> +		return 0;
+>> +
+>> +	/* Get the TMD names array */
+>> +	num_tmds = of_property_count_strings(np, "tmd-names");
+> 
+> Is this something we can stuff into platform_data for a given rproc on a
+> given SoC (for which we already store *some* data in the PAS driver)?
+> 
+
+Without tmd-names in DT, it is unclear which index corresponds to which 
+binding. With #cooling-cells, tmd-names in DT provides an explicit 
+name-to-index mapping. Please suggest.
+> Konrad
+
