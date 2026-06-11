@@ -1,76 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0974B3EFD03
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AE82848BE
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781180778; cv=none; b=iHPZvhFogxPNkLoXxpKFvmP26Ql0e39SnawwPf3A4srSoTOxddDv0Ddp+Exzm8xXzUxv4pr8upQZpdGBUmB3XmFUx/rXXbiDpYFYSrdEw66UJ9wi7XdEywT3N5Zk3imY6zSZr4ELlCrsqGC7UCWS2FmmXN6kOb5R+lFo3GSimlk=
+	t=1781180832; cv=none; b=r/ZGBelrYnhFca2r+gePjSdeQ9Yp3GcAuOOu9+upfBu3REif07xVMd9erpHF03oaM1BR9XrC8xNotS0ijzCgSdPjP2k45bAyhXt5bafdswccaJDdV73dHyEE3R5X72oO4Tq2jyRBQRQR67ONE2DZocgnSnX096nZHtSDI8GrWyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781180778; c=relaxed/simple;
-	bh=g/VnuIKvkGWSAajf8vvIgUd13LyTGZr4shl0aUhfam8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Nhw4If7KZ3rSL+vGc5S24DBfZhjRdfuu73uWjQEhGGb5NtAgIcw/LukxjoxW0DOEGYqWQAEVPzamCMeykl0tAI0IsAFcP81UGrdVNqMEYeqd5/g2Q1pxiylxKQ41wYS3RowSam+ZbLwPNWNAXq6FsldfSEC3Qt1oUpnOX8t4mxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnlHs3vu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781180832; c=relaxed/simple;
+	bh=07XhFOZIzFvouZx4+034ijG/oHYdilZ0gKzqtG233e8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PRE4azbuFKmEoz4BNAIMWSB0srbd0QsiYUb65HoYkzqhH8PRrpDylXsQ7mBeiEoDCmSdciRJtz8T+9thnGyoNsU02h1Rt5epWPSbdSqYFqxXVo3mes9iOOKX+LRsJzZI4U6NrtnYvIeWntyATmJBaBtaD1DB+g+aXSmJJoU/fbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=SRH1Iqmo; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnlHs3vu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03941F00893
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 12:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781180777;
-	bh=Nj6I30dESBei2Zmp1z0LfF/1I7GCQA0Q3yZdhfFji1I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SnlHs3vuJPcJW75myJnz3dI4AwoX607x4PnuASHDNWxd28IFxcdcFVf/1P7kLzdvu
-	 DvJpAMullkHv6B4OijQvNEyBpRxRTaPYwpIGPlzdSOvNsFGSBlsb0kVjrqTxuWeXVw
-	 xtBOpjHiysyHhBYOpwaP2X54HdpJaahbYXByLRHb8wbf3A4hqIjolX6auq26e2Fv3s
-	 CFJ1Wrc+j1E/XRsDyAiJg05zC/44qa+5k+yWpYSdnL2o3n5USwz8jyfEMvJ1ExZ5WY
-	 pkg7EyKleS4vpAiYz1qIMTf/AOpycZwOJCC+YthxdPuZAVI+QdWQxunCzgxIqXZnpo
-	 T3c3vBBCX0sbw==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aa6cdebc33so7248259e87.2
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 05:26:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9uen6QG+3apFqZNl+uHj0cNg/3qPNqDZwRtxh85UyfvXJCBawGVTR9P+xVJxJ3tj1qT5Ny4nXWOvB1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6Z9RFnHHuu4ejK06MhSOHJ5dSBtqEntaqpbms/rDACg3tv9CZ
-	hGNoKH8CLvQqzXfDmK7V/yCYtfBJ6FKmNbVgQ+Xk50F/HEek/7WR9R+tdN6qlC0Gbd9P7CcyUZF
-	vL9tbOKOBQxBm+gPqSaXXUS/zzYsG8TU=
-X-Received: by 2002:a05:6512:1282:b0:5a8:8db6:b3d with SMTP id
- 2adb3069b0e04-5ad27ae3258mr738931e87.24.1781180776604; Thu, 11 Jun 2026
- 05:26:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="SRH1Iqmo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=from:to:cc:subject:date:message-id
+	:mime-version:content-transfer-encoding; s=k1; bh=pzCWhYTTaHarIV
+	WSw9dJjxLQ5h4uRp5jhIoJCVn4y5Q=; b=SRH1IqmoDon1gNM50cL9B7fNXPfWgj
+	RcT1fqj3DDhQC1KVVIrc2UB8alJqNgWPzXkw2IGsABQ0pNNvCAoI54D0l0qEWY3K
+	xHMUsPkEPlL+spAvJ6xGt3yFA0yi4fRzxgdsdVSlygCpp5NUzy1nu5Rjp87zDVBz
+	ELhL1bMq7QPZ5zRF+ojpvpdgP+7i5dkN7bEdTAoPIhGJFw6cH4m05Dn7yUE7F8Yn
+	6zNcK4I711pBK/yUcyUciIug0LvdjZjQA0mNIFAKg/RLdYVycSBkNl0AbD8QbeF0
+	B8BoH2LOSC/Xh3V9OLmNAIho2WdJvG3iuz64WcF281lPeRGHMRJ8mCjw==
+Received: (qmail 2112875 invoked from network); 11 Jun 2026 14:27:07 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Jun 2026 14:27:07 +0200
+X-UD-Smtp-Session: l3s3148p1@dxKCevlToKUujnvX
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-i2c@vger.kernel.org
+Cc: Thierry Reding <treding@nvidia.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Peter Rosin <peda@lysator.liu.se>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH] dt-bindings: i2c: i2c-mux-pinctrl: change maintainer
+Date: Thu, 11 Jun 2026 14:26:24 +0200
+Message-ID: <20260611122704.7559-2-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610-pmg1110-gpio-v1-0-a9c50cd8b5d9@oss.qualcomm.com>
-In-Reply-To: <20260610-pmg1110-gpio-v1-0-a9c50cd8b5d9@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 11 Jun 2026 14:26:03 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=SSUOZTyE29C_z0Gj_1iKgdLnqWaMQc5BKdsY1h5OAUQ@mail.gmail.com>
-X-Gm-Features: AVVi8CeqWNRQFQ5gUdmKUsibk9c4XCoQP1UEG8vW5TTxaputcf1j1B_Elc7vDYQ
-Message-ID: <CAD++jL=SSUOZTyE29C_z0Gj_1iKgdLnqWaMQc5BKdsY1h5OAUQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] EDITME: cover title for pmg1110-gpio
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Collins <david.collins@oss.qualcomm.com>, 
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 10, 2026 at 9:05=E2=80=AFAM Fenglin Wu <fenglin.wu@oss.qualcomm=
-.com> wrote:
+The YAML conversion added me as maintainer but I can't recall being
+asked nor do I want to maintain it. Thierry has created the YAML file
+and works for the company which contributed the driver.
 
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
-> Fenglin Wu (2):
->       dt-bindings: pinctrl: qcom,pmic-gpio: Document PMG1110 GPIO support
->       pinctrl: qcom: spmi-gpio: Add PMG1110 GPIO support
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
 
-The series:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+@Thierry: are you okay with this change?
 
-Yours,
-Linus Walleij
+ Documentation/devicetree/bindings/i2c/i2c-mux-pinctrl.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-mux-pinctrl.yaml b/Documentation/devicetree/bindings/i2c/i2c-mux-pinctrl.yaml
+index 2e3d555eb96c..f7502da71909 100644
+--- a/Documentation/devicetree/bindings/i2c/i2c-mux-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/i2c/i2c-mux-pinctrl.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Pinctrl-based I2C Bus Mux
+ 
+ maintainers:
+-  - Wolfram Sang <wsa@kernel.org>
++  - Thierry Reding <treding@nvidia.com>
+ 
+ description: |
+   This binding describes an I2C bus multiplexer that uses pin multiplexing to route the I2C
+-- 
+2.51.0
+
