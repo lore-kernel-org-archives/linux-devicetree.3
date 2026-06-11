@@ -1,191 +1,156 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B22346FA0
-	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8335537B400
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169031; cv=none; b=a/q7hFwRcLgFUlRR69HqnpX4J2fsMbNhOHce7BZN6vKzYZm4L1Zf7XtZGQiYkRfljpc+XKlDUjcoc6t9tm9kdJBJoLDFqgbC/OhapJPgUkA6Xuci4FEepGBWakS7cKJ+WKn+owXPToCnODW2sFqBHurPsaVw3AIIHxznZ+GxjOc=
+	t=1781169058; cv=none; b=MRkdh/rgP7aEMXYO4+eiEgVnGol757lAabf5mxPKHIOxvoPwY3eHE604lAfU+TXS7Oi5H6m08A5ufL2RGYfqsEzHBmd1RTC+Soa3shmJAxDvQncrvE+SmqwSHUdA4JKE3GD04ktKRutO/5dsJI4O7gA5dlvR2IH9Cr/gY699qcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169031; c=relaxed/simple;
-	bh=j4eAY2w32SKbEshmvsYmWzB3GI+jB07TxlyNvC942Hk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KzEbQ6koEBiIHVFo6i6mFDaDxqVPxjhGWLUdgPJ1bmpHnPgBBZr94emTIE4crp0WLjvbOg9FGzEVfJAmCInU/Dp2o8AnR9du9lBRgpk/QP/vNXTAtn/h053QF+nXSvSC7jVOtMKAz+0DQJvhvsaIw2SYxsSFRHpY46n0soFcKsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QhS9STeM; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781169058; c=relaxed/simple;
+	bh=8m+5CG+b+WzYz8jVeXydTQJ4q8uUlvtHDf9bNzjklvQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hkyCU+4h4a9AW4//rJgTfbxhRGlLAmaQfYGAXhpcOLdStCqn/sX1AQ7BWSz0S+RVgO5Rl9szH4atadAFhi/zRXMbyZD7FsCekh+jrFUuzV/Yi6B9iZmOJ/W1OYLDQPDsGHWcZSlmeVMF1Lcdmf+hPZneI5reejgR+I+o/JwOOtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WtMIXxt+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KyuAGIrY; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QhS9STeM"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso64509105e9.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 02:10:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WtMIXxt+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KyuAGIrY"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B5GGO73863257
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:10:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SWDsntKAlbRqYQFJ9sixUy5ufYt7jtVIUopuYaPGvWA=; b=WtMIXxt+KVKYeuBx
+	IwH/e9wuNi8f86Mk/3Ci6KG9gc/s2GV/WIMwMzMODlt6ZbHSd++JA7UL9THIan7H
+	z9PKbCn1ysEorvYQbSI0ecyC0IjslICvDg95GIXB9JG9IuEzaBsfHS4+c3KNUgUF
+	vMoO3zbgA0xfluKYTVphRU223hib41aVWo7PZgE9yjmTOYZIxgrOVzFWI6fJlO9p
+	LRYUNZssvmMFSgsc9aPoadFMwqQ07vv6/1idryGZpZ8LxxNzqEFAkL2Qw4/X8OGw
+	J7n0MqRHoDmUhyEENQwBxVt2V4BrP4b4ab4cR6VtC2CserEuZoMaaA9KkzWBDph9
+	wwmzdw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6sjpj7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 09:10:55 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-91550f68e7cso183382485a.3
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 02:10:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781169028; x=1781773828; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=9rWlq4as1LWNFg509PkNNd1MIv6uha19xNkTO/t/tj0=;
-        b=QhS9STeMaKgyQFeshDyAKCmjg2vUqzTDFdR3+d9RzDY9eQsoTqzBe6JisJt5NARLMj
-         DJf0/ebGlckLWWqXgbe8IRm5sflARdeJHtz0uYyWFNlJlfgc+khz8vzCkGWOmQjyHu29
-         SDodJnARar8AUsU3x5QySz3pJ2ov6PBJ6rkbxJvLTTpmB+zqfO9F8wd701CnwHwtVWL9
-         qzWcmtMJt69R9e75NkjvFstsQGJeCl57EFsxlY+76YwTAVQd9CwGdeNIIdOKS46y5sE1
-         hFhqDBftcBOQxplx2LM0TzGWKnGPb3RLA2nejnZ+GNLYSGSE42bGJvV+Gk4crYthxzRh
-         W7iA==
+        d=oss.qualcomm.com; s=google; t=1781169055; x=1781773855; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SWDsntKAlbRqYQFJ9sixUy5ufYt7jtVIUopuYaPGvWA=;
+        b=KyuAGIrYPq5ENcVb373Zte5M2diQGkpT0vW9jQ/QwCotNBq9649ZjhNKlUGgiSAibL
+         gKnZgiFZdGqLp0fhXQbekQpEQFcaURDMuImrnhZcEHE2e19eFXHMpd9HXf53lJAjyCUc
+         YC3kIMyAj30EnNlCqJg53lmVQvuznsxX7qQAPVgPS1Kh29ZqFDq81zxyiY05abDKyhlq
+         cxaPrS8w2jsgRDDwnL31bO+ryaIvj/Kh4Di0lw9xA6k3SxDjydKqZGaYIuFyC0DDQa5M
+         vZiH6QlMi2MPl7zA2q1xqCZGRaFfO0m3GZSPPCcXrtQqGaCV8b/DcJBRVFs0kr9/NWzm
+         JJzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781169028; x=1781773828;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9rWlq4as1LWNFg509PkNNd1MIv6uha19xNkTO/t/tj0=;
-        b=sTkbiDmQ29BTQ1y6XV/ZgPvQPlJWKG2+X8BYyaaBmcmJY+prKXv3JNcyxqZHb6Pq++
-         yYPqJXn1kikDXIx/RT1fYXCRPPYX9A6MPa6ocysAsH1nJJTWElSUqV2954bxABNaw0+B
-         /MpH+S6XZOF2J1T4xAvQ3fX73p/8KUYFRHNOhDzeIrCWr7J2lGucxqvHzCXs/wvRbWvH
-         zs/BHq76R1y6AL9rLrUKdUSzUkGKQKPbtdLt0EJDEQ1G5BX6rzFpxYWyMIUcF16bxrUq
-         CyHUi8fi+fZSPQxKT7SuEupZOm8xZ85oSTsxNfrT6Bwwd96K/SL6cJ+Wasroh2IrdoVf
-         LiEw==
-X-Forwarded-Encrypted: i=1; AFNElJ8eIpfufgslnDkM6h6PjbFu86il4Dc3voDUhzWX6vO888mq4duiUpa2msaSrOl1YYzc/2t3uZudSMyh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrjNyjaQ+/9HfpRUPJoXeHTs3s6W+Da56k88h+Gxn1O9Kd8c8O
-	IkXVgV+VRZJpLkno0CR9NL7Eb16HRT1aog5kB/iX52RgTwSL+WWogj+HRDmLJdEkm+c=
-X-Gm-Gg: Acq92OFrL1TdVoTIqDugB2t3jMyiOMVtMp1g52DJ7iwZkIrRBWFXBYQNcnHTtLD9Una
-	bENioRVSVm6GxzPLYZSggHXFY08lrRBuHCI4q3Wx41IoF5eM6jJ1Ryu5mNACA37cqHyMuxMnhHt
-	mn04gcbSObGw8LSvfJ+SDlgxrMiKGu+o3tuC0HK3fWdfUVj4ru6AuU3zwPf1BbgPlronkg44maa
-	Z21AxbbcO3epFIFwTOpSNkbJXtibsuexxlkeMBcDLNeMSrZnLZJ4n5Wz5j/m6DZTU4dcWmuA92r
-	hMtN1qzARSZqLCt+u38bReRSSQABFvOwHvtEXceRgPNCzXSc4euRQ7Pms6oCklbCV4pxZ5CMghz
-	NFuq3ndAigT0Z5ClX9LBnrJ/kJLOFfwiO2vTgrsLATJPZHD6iEP/xss+QxNzFSUGONfuS8Gec49
-	D0r+7P+UBwxUgDW8VqXNH72OekctXa6yOmsfgzR+De+BYfcA==
-X-Received: by 2002:a05:600d:6414:20b0:490:ce99:d2ee with SMTP id 5b1f17b1804b1-490e55e962cmr16950155e9.15.1781169027922;
-        Thu, 11 Jun 2026 02:10:27 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff23:4410:7bb1:6476:9114:cf39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e52ac9aasm33929275e9.4.2026.06.11.02.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 02:10:26 -0700 (PDT)
-Date: Thu, 11 Jun 2026 11:10:21 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
-Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	shengchao.guo@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
-	trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
- for subsystems
-Message-ID: <aip7feoTn0ncwzL7@linaro.org>
-References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
- <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
- <ahBG6jKYdSAboWjs@linaro.org>
- <6df4c351-7287-4fb9-8af8-83b5deabfa07@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1781169055; x=1781773855;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SWDsntKAlbRqYQFJ9sixUy5ufYt7jtVIUopuYaPGvWA=;
+        b=WTLY5f28zA/R4O/Z+EVFPtY1jgQdgYiaKPoMg3QJliiM/6ZCGcEHvIOrBPQNyjoZ3a
+         KetL3Fk+cM8RnhTb2LWUDifiQDrmLbbuosI6teFo1ng8cTo4AOIVZNken8JQH21UD9el
+         pwo9ieicYpmcbNIt8VghDK1Z8k775qGGFgHzOkB85heC0hrfmEE0jPQWkRzNOVbx17XG
+         LOcID6QEnQKJjfrqUr03IjctazzrttBWPpw6HyMDnvBs2TNLGd1pi2HXCCgsWgL1BWQt
+         /wRq0il9ug+RGe524aq7IRSq/HnkZUbH1phS3GUsQv5FFFY1Z9nyBNGEH/NoMs0KENS4
+         utEg==
+X-Forwarded-Encrypted: i=1; AFNElJ8clye5scqhrqGnZmcvwJpt5mEB4A6tpnav/zPOEGfkR1aW9iyjrr8a/UFXJj9Q5VPcKxutdsl/b4F2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcyxQPnW2BYN7DEkZpSJddroiFm0t2xazhqYeqwRfX+LilKvh1
+	IW0WZYLfolsX/B4imrLV6KeHwbiXoINPYa8MZX66Pj44jx0ps0SH47DaNWPKo77PVAGXmxiWsZW
+	RLQxgHTAhrfcX1igDqnUR8Tntmn0EYatjGAjTWNDO8cEDdiL793aYu9Lho6SZB2yh
+X-Gm-Gg: Acq92OFUUrBnGGO08JbGixiwt9h6ToRsfC7NILawFg+bLOMvvruVp6ZH0flJ62ZfFS9
+	hVJa8f9U45eGyiOjNSVkGf25VAUWltrQKfvDJz0AzJFrCsgP9ehBZrHriR02pWpZeOSdz8G8QnY
+	aNtrxmqQpE3wwUl0fLpuUGB2+OXv45ZYQTnATF7EJkJ02fJFZM11blu7/l2+ZpSh1zyEjtSl3zr
+	9bGmIkAR6fTajwqOHDAZKUJUlK1T2m3tICa7pYCAswo41a4o4Yk4fHwOT5JkBoF152TYAzyb+1s
+	gnCwnRD7WUV4oDUzYJIqvN2bFY9b4Iqrsv64+TQ42e75hq7OfFRqfly3nufxTS2xJeIvjgHD48B
+	HIB8q5ngls2qD7KF7vlK04sotidGLdAJVy6NPGKHqVB7sPiQQRzx6SxFr
+X-Received: by 2002:a05:620a:4553:b0:8f1:9e59:2208 with SMTP id af79cd13be357-9160acc6f24mr149935785a.4.1781169054962;
+        Thu, 11 Jun 2026 02:10:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:4553:b0:8f1:9e59:2208 with SMTP id af79cd13be357-9160acc6f24mr149931985a.4.1781169054368;
+        Thu, 11 Jun 2026 02:10:54 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb668ddb4sm37364666b.57.2026.06.11.02.10.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 11 Jun 2026 02:10:53 -0700 (PDT)
+Message-ID: <61fea0fa-d7af-47f4-a3c7-21d881090008@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 11:10:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6df4c351-7287-4fb9-8af8-83b5deabfa07@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add BAM-DMUX support
+To: Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        bjorn.andersson@oss.qualcomm.com, chris.lew@oss.qualcomm.com
+References: <20260611-qcom-shikra-dts-bam-dmux-v1-1-43d0b43d41ef@oss.qualcomm.com>
+ <aip3_fyE8tMtJZIW@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <aip3_fyE8tMtJZIW@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 4-J_tRL_-BzBNTk2OFM1Xjmyh0_O95tc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA5MCBTYWx0ZWRfX0Tm06TNGCrNO
+ V8Y7gNriWTz4Xa9/nChN3TihDorK35lpQN3cYDH4zPZ/N5zoqhxK2qCUHaS9kmhVcG+PaH8uQfe
+ 1wqGqBORyz7OpW5sibr0WMwxHelloqk=
+X-Proofpoint-ORIG-GUID: 4-J_tRL_-BzBNTk2OFM1Xjmyh0_O95tc
+X-Authority-Analysis: v=2.4 cv=Kux9H2WN c=1 sm=1 tr=0 ts=6a2a7b9f cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=PsAYBRyc5tNDhGAdKQEA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA5MCBTYWx0ZWRfX45oLpl8e1yIu
+ t8MkHPdRU72ZXuFBwjPjFroYZV6OkfRFEWH7Um45rNl2Ms3ReVuyvpHz6FAndEGyJURcoI6lZgl
+ JZgOj/SzGIBahsTDg4FXT7Chz5BKJ+3/1byaY92haYXMOF/GSWECuy9SlPE01+xKCrZQGTWxvuM
+ NcAk4DZxRhsHLJ0bJiTHeaHHxeOr7YGbP0aVmH8STZHTn4KNzrhuDhVVKRs1niLBPHuUQwCsOyY
+ PAkywUwtgCfzraFqvfssI2HQYRA6JIWxnC52BGlThRtKjweo9cYdqOpTMUOC6KDdxaniJgzA+OF
+ /LEL2Zyu7XIt0ukQZfPYy+LUz1LzHCfiBfY+x/wzzm/EjCuTLJs+ahHvLB4Gpqq2qpRDZTYzCw7
+ ffdivYO9zDaLrJAUMsz+PpaxI+rr5dX9yvLV9+rjwuiPRKz+g9w+/TjNPx8oESMGqupKXXm9OW2
+ iKpoOHvom0G/N8o9Q9A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606110090
 
-On Thu, Jun 11, 2026 at 11:10:25AM +0800, Aiqun(Maria) Yu wrote:
-> On 5/22/2026 8:07 PM, Stephan Gerhold wrote:
-> > On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
-> >> Subsystems can be brought out of reset by entities such as bootloaders.
-> >> As the irq enablement could be later than subsystem bring up, the state
-> >> of subsystem should be checked by reading SMP2P bits.
-> >>
-> >> A new qcom_pas_attach() function is introduced. if a crash state is
-> >> detected for the subsystem, rproc_report_crash() is called. If the ready
-> >> state is detected, it will be marked as "attached", otherwise it could
-> >> be the early boot feature is not supported by other entities. In this
-> >> case, the state will be marked as RPROC_OFFLINE so that the PAS driver
-> >> can load the firmware and start the remoteproc.
-> >>
-> >> Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> >> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> >> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> > 
-> > Unfortunately, removing the ping-pong functionality that was present in
-> > previous patch versions makes the whole mechanism a lot more fragile.
-> > I'm not entirely sure if this has changed in SMP2P v2 or more recent
-> > firmware versions, but in my experience the SMP2P "ready" bit does not
-> > tell you if the remoteproc is actually running. The problem is that the
-> > "ready" bit is asserted by the remoteproc when the firmware is ready,
-> > but it is not cleared when you shutdown or forcibly stop the remoteproc.
-> > 
-> > If this is still the case, you can easily reproduce that with the
-> > following test:
-> > 
-> >  1. Start the system as usual and let it attach the remoteproc
-> >  2. Manually stop the remoteproc in sysfs (echo stop > state)
-> >  3. modprobe -r qcom_q6v5_pas
-> >  4. modprobe qcom_q6v5_pas
-> >  5. If the "ready" bit is still set, the driver will try attaching the
-> >     remoteproc, but it's actually not running. No recovery will happen.
-> > 
-> > In this situation, it is very difficult to detect the correct remoteproc
-> > state without relying on an additional query mechanism like the
-> > ping-pong feature.
+On 6/11/26 10:55 AM, Stephan Gerhold wrote:
+> On Thu, Jun 11, 2026 at 02:11:59PM +0530, Vishnu Santhosh wrote:
+>> Add required nodes to enable the upstream BAM-DMUX WWAN driver on
+>> Qualcomm Shikra SoC.
+>>
+>> The SMSM (Shared Memory State Machine) node provides the power
+>> control signaling between the AP and modem for BAM-DMUX. The
+>> BAM DMA controller node describes the A2 modem BAM hardware as a
+>> standard DMA controller. The BAM-DMUX node references the DMA
+>> channels and the pc/pc-ack interrupt lines from the modem SMSM
+>> entry for power control signaling.
+>>
+>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 > 
-> This a valid use case and concern. We had a discussion with Bjorn, and
-> want to take this scenario into consideration of the separate robustness
-> improvement series[1].
-> Stephan could you agree to have the basic function in this series can be
-> go in firstly.
-> 
-> [1]
-> https://lore.kernel.org/all/20260519-rproc-attach-issue-v2-0-caa1eaf75081@oss.qualcomm.com/
-> 
-> > 
-> > You can make it a bit more reliable if you also check the status of the
-> > "stop-ack" bit. This would tell you if the remoteproc was cleanly
-> > stopped with the SMP2P "stop" mechanism. However, that will typically
-> > still not fix the case above since nowadays remoteprocs are typically
-> > stopped via the QMI qcom_sysmon and the "stop-ack" is not set in that
-> > case. I believe this might set the separate "shutdown-ack" bit though
-> > that is described for some SoCs, I never finished testing that.
-> > 
-> > And even if you check both "stop-ack" and "shutdown-ack", that doesn't
-> > tell you if the remoteproc was forcibly killed using
-> > qcom_scm_pas_shutdown() without gracefully stopping it first. The ideal
-> > solution would be querying the PAS API to tell us if the remoteproc is
-> > actively running, but the last time I checked I was unfortunately not
-> > able to find a documented call that would tell us that.
-> 
-> It is a state currently kernel don't know whether the remoteproc is
-> offline or crashed when ready==1 && error==0 && ping-pong==0 scenario.
-> If it is re-modprob, the software don't have any data and only the
-> firmware can tell us whether if it is active or not per my understanding.
-> 
-> Maybe let's have this scenario and solution discussion in the other
-> series I mentioned before.
-> 
+> I'm quite surprised to see this 15+ years(?) old hardware block being
+> brought back to a new SoC. Is Shikra not using IPA?
 
-If you add a new feature upstream, you must make sure that it is
-reasonably robust and reliable. The other series is about generic
-limitations in the remoteproc subsystem, so I don't think you should
-move QC-specific parts over there as well (personally, I would have
-probably kept all of it in one series to make it easier to understand,
-but that's subjective).
+That's correct.
 
-With the current firmware design, it's hard - probably impossible - to
-make the status detection perfectably reliable. I would therefore choose
-some reasonable compromise to start with. Given that Shawn (and actually
-me as well) would like to have attach working without firmware support
-for the ping-pong functionality, I think it would be reasonable to start
-with the basic detection scheme discussed above, i.e.
-
-  ready==1 && handover==1 && fatal==0 && stop-ack==0 && shutdown-ack==0
-
-The ping-pong functionality could be added later for platforms that
-support it. It would be good to have the interrupts already defined in
-the device tree, so you can tweak the driver without making DT changes
-later.
-
-Thanks,
-Stephan
+Konrad
