@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C783191CE;
-	Thu, 11 Jun 2026 20:42:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA58366066
+	for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 20:44:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781210524; cv=none; b=PRaft5JH7wZW/3QMRTNO54xtaKguYi0+gWuGUDSB9ujbZeJ13jLgtyFhfKTh409xQzpdFW44LCzEeaCGVAgZvv2z132CIKTd717vnf8WlUCmkQFKHjMoiJbsY0Qpfb6anYzKcRts3a7Bl5x0AluYBgUKaE9IjZx9j5g64751yyw=
+	t=1781210698; cv=none; b=qRyfuXlxnXhRMX+fgYERq8rZ5mrgUGe5/pcTbkrLElel17FmQ7dKLlW7BP891BXTFUTgFNuNps5l7C/4zfV210btpxSMyZqjAIibkzI+GjeLFAgYEG/PSjgIzaGDZmuDxAdaJhSgugPP97bAs6hURQ31DboXMzC+jaK+UzcNTiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781210524; c=relaxed/simple;
-	bh=fbheaSplMSP8dYdGIyEYVaYlO+XnVCz1wSER1lwz0Yw=;
+	s=arc-20240116; t=1781210698; c=relaxed/simple;
+	bh=y1VJXLyb6OMYWllN3OZHENRArO02DydREHzfXVD+hnc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JID8KrWunUAALm9i25976afNfAhnCfI4k0rj/ZYS/EDQE37JqUDTS85tEUSiD813Kv+PuJP+VwBgyJlVzQSf8SM35U05lM4x1wBMgRu0ZSb4ab3C2ztsKs8kJmcP75cVd3t7w3spDz3h9Pqlr1Vr18HKaI1sbPhv5HeJ4CdVJ+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHdfP6td; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Tw4hPtAAQPhGA1V3qoqVmdvd0od3Ig6jEMNVuIPgo4blWGkDvWiW7bAf4wfILAUJGhDXZ91kuHix53M74n5mGqvBSAWrMjkKfwUBJXGcO3nAaZPR9Tmp1cqX+uE5gyqnX7FIHMlGYlExSHL2cSV1Qto3mds/MfA3OWuTbbk6Ifg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeuyW/Dq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHdfP6td"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA601F000E9;
-	Thu, 11 Jun 2026 20:42:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeuyW/Dq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4881F000E9;
+	Thu, 11 Jun 2026 20:44:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781210523;
-	bh=zJhp5KveWagoymz/FvdmkGeyXBQ4nW46MgYP5wXlW28=;
+	s=k20260515; t=1781210697;
+	bh=mWYcpZA/VqJ7Tlis3jLPaXGScN4KrFhkj3ZD+vvSx9s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KHdfP6tdXqDq8e+D4MSr6l7dJTKfDMrBZ6TKHJV2fj63T7JuC3Kdu24zK3hE82BQe
-	 WzpdHrfYJ/F6twIOy2bYva5ok82qCkfX6aGapJf3cPolbayd7mb4zOvu5DfrHWW804
-	 uIrPOc2QKN6UIJv+f4N8Kt81FtKCEhB5Jt7y4k1RAdNnBReDI+3uJWWbMBh/TTW1Ci
-	 nIYo7/73KCDLm5lQ+Q0i9nZAc0rDK9wl+BOJBbrSJnnY+o4+8X7cN429QlwZkgux3Q
-	 smm00p29ISnd1zwIJx+h2Qcb9Y/4JQey3Kg+bzX069GFlAZLtmHc91xtDXfHyCdpdM
-	 PMvdmkpZPyO3g==
+	b=DeuyW/Dqf1NMIXXi6D+oCi3oO2C0xdgVbrUsmhOg+EdA7wTRW2qg25q2qDET3Wfsa
+	 Y2tyMhPZBPAhuSgNFm37xiWFvWpMbEpDG90C5QLhxSoh5wt5Vx5+w3Uq4qkyaAAX6o
+	 Fv8kQKCXbiWbVeAGyEuJZYkrY9iVy4tSXw2ge22n9Lqo4kXq+EflZdDIHfzXkcLJ3N
+	 hTL0TDl37VusRilcYf/zozKymkKcsPdkKkWRZZrPzAxbvtQoKNVTQNY+GnXiDZKvBv
+	 f6vMeDoJQMRil0KeZyAYtzpqJx6vDplkjXkW85Eq8fdo0zWqiiQOrAc9li5X4rE3wR
+	 XDho3SKuz3Dhw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 16/16] riscv: hwprobe: Introduce rva23u64 base
- behavior
+Subject: Re: [PATCH V12 8/9] iio: imu: inv_icm42607: Add Gyroscope to
+ icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guodong Xu" <docular.xu@gmail.com>
-Cc: kvm@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-16-3f01a2449488@gmail.com>
-References: <20260611-rva23u64-hwprobe-v2-v4-16-3f01a2449488@gmail.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260611202607.85376-9-macroalpha82@gmail.com>
+References: <20260611202607.85376-9-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 20:42:02 +0000
-Message-Id: <20260611204203.4EA601F000E9@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 20:44:56 +0000
+Message-Id: <20260611204457.1E4881F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,99 +46,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] In hwprobe_get_cpus(), a stack-allocated cpumask_t is not fully in=
-itialized when cpusetsize is smaller than cpumask_size(), causing unpredict=
-able logic failures and a kernel memory info leak.
+- [High] DMA cacheline sharing vulnerability due to `buffer` placement with=
+out trailing padding.
 --
 
-commit 23f172deab06c9baa8c73280f488bc8016e4c474
-Author: Guodong Xu <docular.xu@gmail.com>
+commit ffab596572628e0ee5392f57ffbac77ad2c58f08
+Author: Chris Morgan <macromorgan@hotmail.com>
+Subject: iio: imu: inv_icm42607: Add Gyroscope to icm42607
 
-riscv: hwprobe: Introduce rva23u64 base behavior
+This commit adds gyroscope functions and IIO device registration to the
+inv_icm42607 driver.
 
-Provide a hwprobe base-behavior bit so userspace can check RVA23U64
-support in one call. Most software treats RVA23U64 as a new base anyway, so
-expose it directly.
-
-> diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwpr=
-obe.c
-> index 3e80e5551ae0d..3f66f2e99d41a 100644
-> --- a/arch/riscv/kernel/sys_hwprobe.c
-> +++ b/arch/riscv/kernel/sys_hwprobe.c
-
-[ ... ]
-
-> @@ -308,14 +319,12 @@ static void hwprobe_one_pair(struct riscv_hwprobe *=
-pair,
->  	case RISCV_HWPROBE_KEY_MIMPID:
->  		hwprobe_arch_id(pair, cpus);
->  		break;
-> -	/*
-> -	 * The kernel already assumes that the base single-letter ISA
-> -	 * extensions are supported on all harts, and only supports the
-> -	 * IMA base, so just cheat a bit here and tell that to
-> -	 * userspace.
-> -	 */
->  	case RISCV_HWPROBE_KEY_BASE_BEHAVIOR:
-> -		pair->value =3D RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-> +		pair->value =3D 0;
-> +		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_IMA))
-> +			pair->value |=3D RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-> +		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_RVA23U64))
-> +			pair->value |=3D RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64;
->  		break;
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/im=
+u/inv_icm42607/inv_icm42607.h
+> index 91ac75bb719e2..ddb354fc57abe 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> @@ -142,6 +143,7 @@ struct inv_icm42607_state {
+>  	const struct inv_icm42607_hw *hw;
+>  	struct regmap *map;
+>  	struct iio_dev *indio_accel;
+> +	struct iio_dev *indio_gyro;
+>  	struct regulator *vddio_supply;
+>  	struct inv_icm42607_suspended suspended;
 
 [Severity: High]
-This is a pre-existing issue, but could this code be used to infer
-uninitialized kernel stack memory?
+Could the structure layout here cause a DMA cacheline sharing regression?
 
-In hwprobe_get_cpus(), a stack-allocated cpumask_t is not fully initialized
-when cpusetsize is smaller than cpumask_size():
+The DMA-mapped buffer array is defined at the beginning of struct
+inv_icm42607_state. While its start is aligned to IIO_DMA_MINALIGN, its
+size is only 6 bytes, and no padding separates it from subsequent members.
+Consequently, the buffer shares a CPU cacheline with other struct members
+(such as hw, map, and lock), depending on the architecture's cacheline
+size.
 
-arch/riscv/kernel/sys_hwprobe.c:hwprobe_get_cpus() {
-    cpumask_t cpus, one_cpu;
-    ...
-    ret =3D copy_from_user(&cpus, cpus_user, cpusetsize);
-    if (ret)
-        return -EFAULT;
+When regmap_bulk_read() triggers an SPI DMA transfer, the SPI core maps
+the buffer with DMA_FROM_DEVICE. If another thread attempts to acquire
+st->lock while the DMA transfer is ongoing (for instance, reading from the
+other sensor exposed by the driver), it will modify the mutex wait queue,
+dirtying the shared cacheline in the CPU cache.
 
-    if (cpumask_empty(&cpus))
-        cpumask_copy(&cpus, cpu_online_mask);
-    ...
-}
+When the DMA transfer completes, dma_unmap_single() invalidates the
+cacheline, silently discarding the concurrent writes to the mutex. This can
+corrupt the mutex state and cause blocked threads to hang forever, leading
+to a system deadlock.
 
-If the user passes an empty mask, they expect the kernel to treat it as
-cpu_online_mask. However, if the stack garbage contains non-zero bits,
-cpumask_empty(&cpus) evaluates to false.
-
-The kernel will skip substituting cpu_online_mask and instead process the
-uninitialized bits.
-
-Uninitialized bits corresponding to online CPUs will remain set after
-cpumask_and(&cpus, &cpus, cpu_online_mask), and the kernel will iterate over
-these garbage CPUs via for_each_cpu(), repeatedly calling hwprobe_one_pair(=
-):
-
-arch/riscv/kernel/sys_hwprobe.c:hwprobe_get_cpus() {
-    ...
-    for_each_cpu(cpu, &cpus) {
-        cpumask_set_cpu(cpu, &one_cpu);
-
-        hwprobe_one_pair(&tmp, &one_cpu);
-
-        if (!riscv_hwprobe_pair_cmp(&tmp, &pair))
-            cpumask_clear_cpu(cpu, &cpus);
-
-        cpumask_clear_cpu(cpu, &one_cpu);
-    }
-    ...
-}
-
-Does this execution time difference act as a timing side-channel, allowing
-an attacker to infer the contents of uninitialized kernel stack memory?
+Would it be safer to move the DMA buffer array to the end of the structure
+so that the IIO_DMA_MINALIGN alignment guarantees it occupies its own
+cacheline without trailing members sharing the space?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-rva23u64-h=
-wprobe-v2-v4-0-3f01a2449488@gmail.com?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611202607.8537=
+6-1-macroalpha82@gmail.com?part=3D8
