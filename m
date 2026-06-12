@@ -1,119 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FE835836B
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36612377ED4
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:56:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781258049; cv=none; b=kkfQeMygETg/sy20+NWBKAqfWe0XYgQmCBG8MDfOoGyuef2pT9VRoFLUZXZcIonPr9/sOunEXjUZ8wZ8mM+gZ3kjTuZhJYkZo6J9UEHedDXz6CygM7ZOBAxh3VjtS5v5fR25OD59GN1fkE0sgx15jIde+jnqMZYOeQ5EHR+ixXA=
+	t=1781258216; cv=none; b=QaPkhNS+pyMIe6DIkSYvetSBHC7+Owl+bIBLy+VdRI4qM9JJ4NVIupaNoWpxxZR3cGA5odi2SvsYSLj05FpMbXF+ZTD4S6jVUxQ1VBkI2RhnxMcId0S0eVEw2nQwZQC/HQyKiPBhuDTIPoTZ9z6IYBeLk71J9Z9fW/Tv3XkuvOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781258049; c=relaxed/simple;
-	bh=GDYf+MLMVFs2s/YmXnkiUngFsf5Yk3Qnegp3Ak2M7Ls=;
+	s=arc-20240116; t=1781258216; c=relaxed/simple;
+	bh=crmQqZDy7rXOlIpu7v4PJUm50EQgTb8mZaGWXwHgwLM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TMx5VZWsroqGmvr9oEp/TtqXt9if5l1CxaRcKDdFxFHPLsyQU/1BVXJHI4zzRRoOzhtl8psMveI5xCV63avaFgj+wN0zMpiFKfTuBVp7XdZRil1+e5jVeqGX01sIrMw48qAuDf94J5wlp/hocyK3fqRG9xw7KNVnnLuA21yrX+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5/lHoQn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=V2ak3auq3Z+5dkFj3pICXDFKBQ6sEtbCSQeHNZpNqQ4OdZNTRV3AkggBA6G3FN73OcHB7GjIQZPeSvjR5nn0rtWWmJu53DHu40maCwcGsiUUHgU56QY6utnLF7I48n8E+o/YFiLhJyoQnf6D8FhPTvU7sAxwemObCJlqR85J/7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ngm74a9w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5/lHoQn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23311F000E9;
-	Fri, 12 Jun 2026 09:54:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ngm74a9w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 525D71F000E9;
+	Fri, 12 Jun 2026 09:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781258048;
-	bh=HP++2BHj1CDDVfF0oQ7GRKPdehOR8FD8083JmWvKUbs=;
+	s=k20260515; t=1781258214;
+	bh=zVdd3uow7YvASAqvFVucv+PRpe6Tv60uxV/EKOoIUtQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A5/lHoQnSDWbEt1q3982bcmgh1hWdf/APlI7hv32XQqVANri45Sc5M+7bGV9j3GAj
-	 XsTOG/wWFJud8mU/t7MeSGVIx5pYKypa1ppGibgPjOhLzfz/+lDcolCAcBQjT4lK8W
-	 lJrqyUY7dqGtLCboCJiuGPpfplyZe/KkWQ+wnQGFmn8U80ADmebklBpbx5Bpx1qMBp
-	 kgsVltgSJyTKU3o1UNaRg2g3bvTDgk7EZMEuPIFFL1w/5gDL5Hkx1VRAPAIs6fwdi0
-	 tGD0X03h5O6zF6z974D8Er1vBfexilBQzTse7nYsAu98HkdsE1cGbYyUmHd7jqYVDi
-	 gmeFX2mn04IQw==
+	b=Ngm74a9w3998+o3mG4a1JYPwTXIx3GzdC8Ugb/k8bqr/YQxaW0K/HnRuEjzwnZsIh
+	 9qX5NZu7n6NtVYmUK2qPifK56rnJuPcyVt04NsQSWio+2xZegExsflKIokB1bFNGnf
+	 YsIcV6Ez/dVYfyyIDRcRBDo/GdYj3u2khKryX/gebTQwIwnxaE891wNFceXE89jnw+
+	 3vewIrRkCd4mzKVgvMKFtlp6XmneV8vWiEjf3JiGS0nWDdLBDX5NYHEdAuXfdj0TWG
+	 xwcmr2UuRFzgcD87lsP+97PPxXmqVsf4/dXZwCNJ/u6NmppCZDGjOOyPOi1hbztPTF
+	 IUtWiVqGpEkuw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/16] media: iris: Add framework support for
- AR50_LITE video core
+Subject: Re: [PATCH v4 10/16] media: iris: add minimal GET_PROPERTY
+ implementation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260612-iris-ar50lt-v4-9-0abfb74d5b3c@oss.qualcomm.com>
-References: <20260612-iris-ar50lt-v4-9-0abfb74d5b3c@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260612-iris-ar50lt-v4-10-0abfb74d5b3c@oss.qualcomm.com>
+References: <20260612-iris-ar50lt-v4-10-0abfb74d5b3c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:54:07 +0000
-Message-Id: <20260612095407.D23311F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 09:56:53 +0000
+Message-Id: <20260612095654.525D71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The VPU clock frequency calculation ignores the actual stream fram=
-e rate and uses a hardcoded 30 FPS.
-- [High] Calculation of VSP frequency causes severe 32-bit integer overflow=
-s on 32-bit architectures, leading to under-provisioned clocks.
+
+Pre-existing issues:
+- [High] Possible Use-After-Free in firmware response handler due to lockle=
+ss instance lookup and lack of reference counting.
 --
 
-commit 117c5206f4fac821d317f597cfe56c462e1556c1
-Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+commit ea864f98c9ad1ba57f2027e2f0fc7f82f044f629
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-media: iris: Add framework support for AR50_LITE video core
+media: iris: add minimal GET_PROPERTY implementation
 
-Add power sequence for ar5lt core.
-Add register handling for ar50lt by hooking up vpu op with ar50lt
-specific implemtation or resue from earlier generation wherever
-feasible.
+AR50Lt with the Gen1 firmware requires host to read
+HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS property, otherwie it doesn't
+update internal data and fails the HFI_CMD_SESSION_LOAD_RESOURCES
+command. Implement minimal support for querying the properties from the
+firmware.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c b/drivers=
-/media/platform/qcom/iris/iris_vpu_ar50lt.c
-> new file mode 100644
-> index 0000000000000..1af20b067c032
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c
+> AR50Lt with the Gen1 firmware requires host to read
+> HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS property, otherwie it doesn't
+
+This isn't a bug, but there's a typo (otherwie) in the commit message.
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/=
+drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> index bfd7495bf44f0..23fc7194b1e3a 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
 [ ... ]
-> +static u64 iris_vpu_ar50lt_calc_freq(struct iris_inst *inst, size_t data=
-_size)
-> +{
-> +	struct platform_inst_caps *caps =3D inst->core->iris_platform_data->ins=
-t_caps;
-> +	struct v4l2_format *inp_f =3D inst->fmt_src;
-> +	u32 mbs_per_second, mbpf, height, width;
-> +	unsigned long vpp_freq, vsp_freq;
-> +	u32 fps =3D DEFAULT_FPS;
+> @@ -652,6 +656,8 @@ static void iris_hfi_gen1_handle_response(struct iris=
+_core *core, void *response
+>  			iris_hfi_gen1_session_etb_done(inst, hdr);
+>  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_FILL_BUFFER) {
+>  			iris_hfi_gen1_session_ftb_done(inst, hdr);
+> +		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_PROPERTY_INFO) {
+> +			complete(&inst->completion);
 
 [Severity: High]
-Does this hardcode the frame rate to 30 FPS instead of using the actual
-stream frame rate from the session (e.g., inst->frame_rate)? For
-high-framerate streams, this might under-provision the VPU clocks and lead
-to dropped frames or hardware stalls.
+This is a pre-existing issue, but could there be a use-after-free race cond=
+ition
+when handling firmware responses here?
 
-> +
-> +	width =3D max(inp_f->fmt.pix_mp.width, inst->crop.width);
-> +	height =3D max(inp_f->fmt.pix_mp.height, inst->crop.height);
-> +
-> +	mbpf =3D NUM_MBS_PER_FRAME(height, width);
-> +	mbs_per_second =3D mbpf * fps;
-> +
-> +	vpp_freq =3D mbs_per_second * caps->mb_cycles_vpp;
-> +
-> +	/* 21 / 20 is overhead factor */
-> +	vpp_freq +=3D vpp_freq / 20;
-> +	vsp_freq =3D mbs_per_second * caps->mb_cycles_vsp;
-> +
-> +	/* 10 / 7 is overhead factor */
-> +	vsp_freq +=3D ((fps * data_size * 8) * 10) / 7;
+Earlier in iris_hfi_gen1_handle_response(), the instance is looked up using
+iris_get_instance():
 
-[Severity: High]
-Can this calculation overflow on 32-bit architectures? Since size_t is 32-b=
-it
-on these platforms, the intermediate product could exceed the 32-bit unsign=
-ed
-maximum before the division by 7, resulting in a wrap-around and an incorre=
-ctly
-low requested clock frequency.
+	inst =3D iris_get_instance(core, pkt->shdr.session_id);
+	...
+	mutex_lock(&inst->lock);
 
-> +
-> +	return max(vpp_freq, vsp_freq);
-> +}
+iris_get_instance() finds the instance in the core->instances list and retu=
+rns
+a raw pointer after dropping core->lock, without incrementing a reference c=
+ount.
+
+Concurrently, if a userspace process closes the device node, iris_close() m=
+ight
+remove the instance from the list, unlock inst->lock, destroy the mutex, and
+call kfree(inst).
+
+If the response handler thread calls iris_get_instance() just before iris_c=
+lose()
+removes the instance from the list, the response thread could receive the p=
+ointer
+and block on mutex_lock(&inst->lock) while iris_close() holds it.
+
+After iris_close() finishes teardown and frees the instance, the response t=
+hread
+would be unblocked and attempt to access the freed memory and destroyed mut=
+ex.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-iris-ar50l=
-t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D9
+t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D10
