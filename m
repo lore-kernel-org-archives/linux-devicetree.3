@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98E639A7F6
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 21:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5CB3603C9
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 21:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781299089; cv=none; b=LPPIPV1OuAV0+/L3ckEDzlLxC4c6JwRjWZ83XLIZKQzKvdLwtLT5RI6oiQsko/CiQfqZyJ8ND01ZdlwPz3N31hsoB/PBpMTvhTfvbuMUEW/g9USBsb6wByYtNoEz0ldyRsGOddtt84JDNjipM4cX7LS3EUzHDLuk+wnK0y2J+Yw=
+	t=1781299287; cv=none; b=UPRm0TomdxujzNK67mRgKTYtnA4Y3BWgkpdfsYcALRmwXesTcwuB1YmFaQEmRo4fEuwhgWhnDEx0W8FjK8rWhU9GypMN5RANz8qCajjiSxeXNYEJsJK7qQI7JmaJnRtj+L6sWmlOYzGPOimf5V6I3ycR4W8BBtF796CvoKcdxZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781299089; c=relaxed/simple;
-	bh=GexfY7151uEjpMET2EFfRky0wuACj3XS7YbZGBuwEoc=;
+	s=arc-20240116; t=1781299287; c=relaxed/simple;
+	bh=PJUxSUBymBoEGurI9MAiMlq4D4ndXtD6DO9I0SIhqCQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZvtJWqb93eOxaCOTsWaiRWOhgwQ6aNIhOuIlWl3piXwYPN02gAODbpKXGuj8392Xc68tfNW3foOjqFjqx5j5dArN2EtEfRGmJXGRG1qWlxmhW4owUjLDkpf2s/ndmTzbRE6iwxaaxS/79JyZLWUtuMHZDKY1u+AVHe7V2+UhO78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bblrr6VO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UFC0xxJ0VyLDaMP+0RAksQdhjQnxoQ99NKxQb3tUG974xId+TWDhao2VLKCPyuG8PJIoANJ4Rf/cvrG/mc9IBjp3ELDe8sRFfKZCtnbJILTSTSWd8nGfX86jitPjNwkKAxq1gXFcFMoeAlTIpbbiWGXZc/FQyiJJ+v+FOK8m91M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOFdOduA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bblrr6VO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC841F00A3F;
-	Fri, 12 Jun 2026 21:18:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOFdOduA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC1A1F000E9;
+	Fri, 12 Jun 2026 21:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781299088;
-	bh=B9RZRB9H4X0305K+mVhn7TcTK57e/5Xqb9XkO7I15M4=;
+	s=k20260515; t=1781299286;
+	bh=xIOPdx0/bo1vXMdraBaUcQS/aCrDyVbwYBfVfqbqu34=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bblrr6VOswsvVqn1qBQ0cwJzZfEBA4MtnJUT+OJfShGt19Ax6AZE/MyHL1ImThnCV
-	 8KQnvqJvcoXpwd6HsrNBkhUh7D54izrlt7Si4EFq5VPAYo/tXdhrvpV6WV/VHdba9t
-	 ynEyCaY4sGVYw1bv8rtuNqg6QV2ZhCqHcy8jhhjPsB+wS3OnW1vRdT+UlhrHxfTMvQ
-	 ndrUNVoul9H3rjKkVuPu8DeDKQw06QNyF8K6mmMDarjAF6vTOAsbgVffKGMZLl9pNv
-	 4limAF/p7BAunrmo7vD2ZQZnxMJCpsA6uqlH+IkqCvrHWTzPYMQQlVYSXm5wGUFhox
-	 rDDk/cH9uR5Ww==
+	b=WOFdOduAhd2gmiGCufYrGjsSHCVHRLyG9dosDdrZWlo8jJmKqEhPiL9+Bc9jAtOl0
+	 gsHf7WnwFuXMsvs8dTwwVXzo8jTPRTK6PSwwnXq37ZpSXITVCXNOxik3qKR4M9m78v
+	 749ZosodVHl3OxcrZW2Po9g5n3XdFCUbcH+c5AvGUcj1p89zSRNjhWvYL9NpFDingY
+	 j/9YfvTHfq85kZFrUdQZQJuP2mJXaz0NjvCtTMrP3nb6tYokKAoDeutnXFMMpLAzDs
+	 uQu2XGX9wXTSOqv/Evr+jdB6rp14bX1C0NRt4wzC/IBKQGig8up9oSD/ty+WIE5X0B
+	 bjKmRitQvSWrQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 phy-next 2/8] soc: fsl: guts: add a global structure
- to hold state
+Subject: Re: [PATCH v2 phy-next 5/8] soc: fsl: guts: make fsl_soc_data
+ available after fsl_guts_init()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260612210859.266759-3-vladimir.oltean@nxp.com>
-References: <20260612210859.266759-3-vladimir.oltean@nxp.com>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260612210859.266759-6-vladimir.oltean@nxp.com>
+References: <20260612210859.266759-6-vladimir.oltean@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 21:18:07 +0000
-Message-Id: <20260612211808.1FC841F00A3F@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 21:21:25 +0000
+Message-Id: <20260612212125.EDC1A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,98 +46,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The global `soc.dcfg_ccsr` pointer is not cleared after being unma=
-pped on the error path, resulting in a dangling pointer.
-- [Medium] The globally mapped `soc.dcfg_ccsr` is leaked on multiple error =
-paths during initialization.
+- [High] The iomem mappings `soc.dcfg_ccsr` and `soc.dcfg_dcsr` are leaked =
+on multiple error paths during initialization.
+- [High] The global `soc.data`, `soc.dcfg_ccsr` and `soc.dcfg_dcsr` pointer=
+s are not cleared on error paths, leading to dangling pointers, Use-After-F=
+ree, and uninitialized spinlock access.
 --
 
-commit 28927a6c50db9adc7ddb8b131d5e08a366298fb3
-Author: Ioana Ciornei <ioana.ciornei@nxp.com>
+commit 9f45015d702d2f4ca41d93015c23b3d9950743a7
+Author: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-soc: fsl: guts: add a global structure to hold state
+soc: fsl: guts: make fsl_soc_data available after fsl_guts_init()
 
-Add the fsl_soc_guts structure in order to pass information like base
-addresses, endianness etc between the init time and the runtime
-operations. There is no point in mapping and unmapping the DCFG CCSR
-space every time we need to make a read, just map it once and keep its
-reference in this new global structure.
+In a future change, struct fsl_soc_data will be extended with methods
+for performing RCW override.
+
+Since this will be performed from a calling context outside
+fsl_guts_init(), we need to keep track of the soc_data that we determine
+at fsl_guts_init() time, so we can reference it later.
 
 > diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index f87ee47c15035..a0a52a5603a5f 100644
+> index 1494b545bbb47..9f2aff07a2744 100644
 > --- a/drivers/soc/fsl/guts.c
 > +++ b/drivers/soc/fsl/guts.c
-
-[ ... ]
-
-> @@ -199,18 +202,17 @@ static int __init fsl_guts_init(void)
+> @@ -243,7 +243,7 @@ static int __init fsl_guts_init(void)
+>  	np =3D of_find_matching_node_and_match(NULL, fsl_guts_of_match, &match);
+>  	if (!np)
 >  		return 0;
->  	soc_data =3D match->data;
+> -	soc_data =3D match->data;
+> +	soc.data =3D match->data;
 > =20
-> -	regs =3D of_iomap(np, DCFG_CCSR);
-> -	if (!regs) {
-> +	soc.dcfg_ccsr =3D of_iomap(np, DCFG_CCSR);
-> +	if (!soc.dcfg_ccsr) {
->  		of_node_put(np);
->  		return -ENOMEM;
->  	}
-> =20
-> -	little_endian =3D of_property_read_bool(np, "little-endian");
-> -	if (little_endian)
-> -		svr =3D ioread32(&regs->svr);
-> +	soc.little_endian =3D of_property_read_bool(np, "little-endian");
-> +	if (soc.little_endian)
-> +		svr =3D ioread32(&soc.dcfg_ccsr->svr);
->  	else
-> -		svr =3D ioread32be(&regs->svr);
-> -	iounmap(regs);
-> +		svr =3D ioread32be(&soc.dcfg_ccsr->svr);
->  	of_node_put(np);
-> =20
->  	/* Register soc device */
+>  	soc.dcfg_ccsr =3D of_iomap(np, DCFG_CCSR);
+>  	if (!soc.dcfg_ccsr) {
 
-[Severity: Medium]
-Since the iounmap() was removed here to keep soc.dcfg_ccsr mapped, what
-happens if the subsequent soc_dev_attr allocation fails?
+[Severity: High]
+Does this code leak the soc.dcfg_ccsr and soc.dcfg_dcsr mappings on error p=
+aths?
 
-fsl_guts_init()
-	/* Register soc device */
+Looking at fsl_guts_init(), if the soc_dev_attr allocation fails, the funct=
+ion
+returns directly, leaking the mappings:
+
+fsl_guts_init() {
+    ...
 	soc_dev_attr =3D kzalloc_obj(*soc_dev_attr);
 	if (!soc_dev_attr)
 		return -ENOMEM;
+    ...
+}
 
-Does this direct return leak the soc.dcfg_ccsr mapping?
+If soc_device_register() fails, the code jumps to the err label, which bypa=
+sses
+the err_nomem block where iounmap() is called, also leaking the mappings:
 
-Also, if soc_device_register() fails later in this function, the code does a
-goto err:
-
+fsl_guts_init() {
+    ...
 	soc_dev =3D soc_device_register(soc_dev_attr);
 	if (IS_ERR(soc_dev)) {
 		ret =3D PTR_ERR(soc_dev);
 		goto err;
 	}
+    ...
+err_nomem:
+	ret =3D -ENOMEM;
 
-Because this bypasses the err_nomem label, does it also leak the
-soc.dcfg_ccsr mapping?
+	iounmap(soc.dcfg_ccsr);
+err:
+    ...
+}
 
-> @@ -263,6 +265,8 @@ static int __init fsl_guts_init(void)
-> =20
->  err_nomem:
->  	ret =3D -ENOMEM;
-> +
-> +	iounmap(soc.dcfg_ccsr);
+Could the error paths be updated to ensure iounmap() is called when these
+failures occur?
 
 [Severity: High]
-Since soc is a static global structure, does calling iounmap() here leave
-soc.dcfg_ccsr with a dangling, non-NULL pointer?
+Are the global soc.data, soc.dcfg_ccsr, and soc.dcfg_dcsr pointers cleared =
+on
+error paths?
 
-If a client driver later attempts to use the API and checks this pointer
-after an initialization failure, could it lead to a kernel oops?
+In fsl_guts_init(), global state is set early:
 
->  err:
->  	kfree(soc_dev_attr->family);
->  	kfree(soc_dev_attr->soc_id);
+fsl_guts_init() {
+    ...
+	soc.data =3D match->data;
+
+	soc.dcfg_ccsr =3D of_iomap(np, DCFG_CCSR);
+    ...
+}
+
+If an error occurs later, the memory is unmapped but the global pointers are
+not cleared to NULL:
+
+fsl_guts_init() {
+    ...
+err_nomem:
+	ret =3D -ENOMEM;
+	if (soc.dcfg_dcsr)
+		iounmap(soc.dcfg_dcsr);
+	iounmap(soc.dcfg_ccsr);
+    ...
+}
+
+External callers checking if the driver is initialized via if (!soc.data) or
+if (!soc.dcfg_dcsr) could bypass the checks and access the unmapped IO memo=
+ry
+or an uninitialized spinlock:
+
+fsl_guts_lane_set_mode() {
+    ...
+	spin_lock(&soc.rcwcr_lock);
+
+	if (soc.data->serdes_init_rcwcr)
+		soc.data->serdes_init_rcwcr(serdes_idx);
+
+	fsl_guts_rmw(override.offset, override.val << __bf_shf(override.mask),
+		     override.mask);
+    ...
+}
+
+Could the error paths be updated to set these pointers to NULL?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612210859.2667=
-59-1-vladimir.oltean@nxp.com?part=3D2
+59-1-vladimir.oltean@nxp.com?part=3D5
