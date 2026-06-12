@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47E4381AE2;
-	Fri, 12 Jun 2026 08:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5967C339844
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781252826; cv=none; b=Rh8sWhe7n2/GF3M0r1kgMVBskhtgbgye/wX7BmiD2MORGp70WH9No19fNToRSIq7rpwMoa+Te6OuMbYOHUqzoufg7UPuEJah3vR4Fms3TaPbntyXlurGUKyADDzON9YFFw4QNWYuSbbVEgu9Sp7r2KSlsygdXNZzPKrBqUda7zY=
+	t=1781253026; cv=none; b=mmbKRYtH4GG3K7+tENZZZWb9G8fU/h9JiMGF7EPLJP1ffwXCfOrdnT9XPj94crACp1LXnQIPTHOC2/3fyF/g8Q9mI3flThgCUptP3Ene+ZETwsuJvLhOlPT6Hq2jAJ2WTGOwz4GkWkgUpFShKJ0leDcyjm9vwnAz32fjE3hlnF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781252826; c=relaxed/simple;
-	bh=gx91AU+xYWZMu1E5l78i54HZqLlcH+Ag+ScKzMTfD08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JtWQjq6Rc85EIoMTYXI7UybtYZJ/m/F3l2qDsoeslnnaOY31F43e5JtwkHwZtMDATkS5VnqFC71TrT/hmcnG2CMyf2EBfpQWZt9THiokjgKVVUcGbz6jwZYwImzTTzyp1lE85O3sFflBh9G16RhW7mdeGoqdVtaHnDT2huJgyBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ntVQkOQl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781253026; c=relaxed/simple;
+	bh=WQZeV3uuxuMZ/eFoHnuhbZDCYnboZroqa/RsuKWP158=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Y979aQroyeQiNp17IbV/IGVhIQzJvqrg0TZv+wK8NTmOR1XAnFwl/aiQJd6yjQDtC+69YBwu+JPShXxrZQqhqTmnKWVEr4GKuJRKHIIody76+7ujmXnScIHYZ6oYpK7lNSIKOsZJ3HHnE7dr0HgwhdC3B9Ht2TG6cZ96c2qvL9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TtR+VJcB; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ntVQkOQl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83AA11F000E9;
-	Fri, 12 Jun 2026 08:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781252824;
-	bh=aCIvGGNlCn3/areAwzPGCMcZ9K6iR0m6gHQcTX8yVnU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ntVQkOQloHJp9kAqqZHkhpUCbsgEkGoJsRhrBxfhgkScFlY4Tew245Z1dp8lHFEfZ
-	 qCbsoum1ceTQtRLlo37izLtbc+kq7yO+17GgL/Pgd1ktdDvHBLy+2Py2CWuH8wmunk
-	 DpzWzU2BS0GXO+9GuzX52QyMzQmSqqs0mNKLTbQPpJ+mG50ezyENNb7dRRoKxYXs9j
-	 p7VZWBUGGtqCfD9MMA+mZo7Q2BHbWDEXxUJzGBh7H1kzifMw6yjKrgWQrrxJLL0nV9
-	 vH7Vo7wFzwujT1gn78CQBPLJmDgI0lnNt3fKuBuvx/UyceUxmyhAOAiyDA0ILY7W8V
-	 DXBoXWasjJ9kw==
-Message-ID: <ac097d05-8fac-4e93-98c0-33224cef782f@kernel.org>
-Date: Fri, 12 Jun 2026 10:26:54 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TtR+VJcB"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45ef56d9b67so528277f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:30:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781253024; x=1781857824; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Gqvsj5yCApToz/Rg23PwADlEjw5eNlHYXwzCtWvvj/4=;
+        b=TtR+VJcBVgikeIMHMvyp3+Ibl5yK1Lt1GG7u9pHItxaSHhOueE8aRAD7Ml6R1lztB7
+         DE3n9JtWMPcmMM+QiCJSymtAK50JEByg48lntj34HkaegmxASXcGTmbA4kDUHesYmKfI
+         iR1HuKosAC/u4hCgX3q/ckjuo5gxfpV5cN4fH26vRTfzAHCNHrTmOLkAnN5bReZgra9f
+         +B/jY4RWgeG1aIYHcqAgXRBPZLAorOaq8vybiR2tmky+NBhJRo1DFLOJWFZ3/B55HWZt
+         b0xEPrgsWHk2FDJbe9XzhyJHO5/Tcq1QBzmxiZ7IXlxHIIz9BDpFgTkf7ScNTfkAnNaf
+         qEqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781253024; x=1781857824;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Gqvsj5yCApToz/Rg23PwADlEjw5eNlHYXwzCtWvvj/4=;
+        b=DOve/P8FhyQ6vbI/RnkmMZiZ/MBmFk4n5Z2Q0tdtheIY6XEaYQsK/IYx/OUZ4XISQ2
+         +HrACX8pl5cArs9NoCx7hmGrcgZtUTgoeL8Dl/dX2F6KBrob39jPobWea3Gv7mRS+t1R
+         yP66y6dBroIWlTB+Gs/S42afXp6JnytcD/8cdveFVbf5tWe4QSJH6miIuXYIPHvtK/tj
+         7L0bha6qr6MaVIK837EE7AaOCgbkODwGHkPqoOeBsuQHkvmw/JsOAO36Sldkui1POkd+
+         zd9wkIj5A+zoHRLe9ae/CU7s87xs93N45LLx36GInnERGoDV7YBpHYAl6abusXe3hsdD
+         zeIQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Pr1vvmrjvM4audfbAN7jMZ6vkY6j8cr+wBZsj7PLb4ai3gPQnIf2+KBQsvpagCLTSjfK9r62d6Fcn@vger.kernel.org
+X-Gm-Message-State: AOJu0YzX4/GiqHqIs5aIsRdTr5jJSZlGiFr1ef14bYKabfhK8Xvrw/OX
+	6jDKZmtnP9xGvCx6eDqnHwvsb82Nw91eAo6jy6e7cly1nqlez0XfytFPUd7/dd/UcSg=
+X-Gm-Gg: Acq92OF8stAGFRQEdG0SDwGHIb/N7n3NSODU4lZ/5DBwhbGlDAY1ejV+bd3kb2t47cv
+	wkurL7W865wvKzRb3Fr80edBomEWqcgA7UJC8yNmbSP1NbiY5VD+oNKp9AGOknNygz2vKzWPPSx
+	oqEAdibSEvGzEWBqlOZgHFCOgqwv28nfHm9lMdr2uieCOO/NctmUe5wd38QiHjjzsPZ30VPacNF
+	U26RpvYkszfd+CuAIE4Uhm2ndACMYhdplSArG4HoZWjpbjsvcliDC68to3LZn1AbhA670dvs5tJ
+	szIYqSLFSRYpwnI4XybX0ihbNMfIIyTZYlBdsMFwM9kRen7Y2fjVDuCCGpfpOhDEhCXKr2qGmm6
+	UhlZSyRqzsfthwNk0ghDsnGqrGhIuwqwCmRzW+gFPvHD2WdkMp9LcUnti3d2x+DdaddqetqZVi3
+	SULljuAyCpYiKCMPE/LjgsRoQvIhFxC1WGmLPcEpsapbcK4fmqo2IBD/ntTCk9POZHNaulv/2Oc
+	ZrJnnQ=
+X-Received: by 2002:adf:e102:0:b0:45e:e50e:3bc with SMTP id ffacd0b85a97d-4606dba5451mr1747177f8f.29.1781253023511;
+        Fri, 12 Jun 2026 01:30:23 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:fe5a:df12:588e:baae? ([2a01:e0a:106d:1080:fe5a:df12:588e:baae])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f3basm3550044f8f.12.2026.06.12.01.30.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 01:30:22 -0700 (PDT)
+Message-ID: <8e1ef34b-7c64-4981-bd5e-33f6341f5aa5@linaro.org>
+Date: Fri, 12 Jun 2026 10:30:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,91 +70,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/8] dt-bindings: net: wireless: qcom,ath10k: Document
- NVMEM cells
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: switch
+ sound card to ayaneo,pocket-s2-sndcard
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Johannes Berg <johannes@sipsolutions.net>, Jeff Johnson
- <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
- netdev@vger.kernel.org, daniel@makrotopia.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260609-block-as-nvmem-v4-0-45712e6b22c6@oss.qualcomm.com>
- <20260609-block-as-nvmem-v4-2-45712e6b22c6@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260609-block-as-nvmem-v4-2-45712e6b22c6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+ <conor+dt@kernel.org>, kancy2333@outlook.com, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
+ <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-3-18bb19c5ca22@linaro.org>
+ <tkgqorjdnvwcx4ddgi5m7j3g6wlawxnm5ugty6y33ftwxzbvv5@uxcai2sgglfs>
+ <e7e6d38b-6d80-4c75-bfbf-eef49589ddbe@linaro.org>
+ <lm3yngkad2wcw3bfjcsfsmucsekmulhov4c7oygtp3e4f54fhl@lgj7gidpma57>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <lm3yngkad2wcw3bfjcsfsmucsekmulhov4c7oygtp3e4f54fhl@lgj7gidpma57>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 09/06/2026 09:52, Loic Poulain wrote:
-> Document the NVMEM cells supported by the ath10k driver, the
-> mac-address, pre-calibration data, and calibration data.
+On 6/12/26 10:23, Dmitry Baryshkov wrote:
+> On Fri, Jun 12, 2026 at 09:59:02AM +0200, Neil Armstrong wrote:
+>> On 6/12/26 09:57, Dmitry Baryshkov wrote:
+>>> On Wed, Jun 10, 2026 at 09:41:47AM +0200, Neil Armstrong wrote:
+>>>> Switch to the ayaneo,pocket-s2-sndcard since the hardware layout
+>>>> is incompatible with the default SM8650 generic sound card.
+>>>
+>>> Incompatible, how?
+>>
+>> As explained on the cover letter, the WAS speakers are not connected
+>> on the same lines as the other devices handled by this card.
 > 
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
+> The cover letter isn't recorded in the Git history. Somebody looking at
+> the commit in a year should not have to look in the mail archive to
+> understand what is incompatible.
 
+Will update the commit message aligned with the bindings change.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Neil
 
-Best regards,
-Krzysztof
+> 
+> 
+
