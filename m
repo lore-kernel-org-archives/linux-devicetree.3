@@ -1,158 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1863D813F
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:44:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55D1395ADC
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781246679; cv=none; b=drDWXSQrrg0jGeDtu2Ultgugsgf9OjLvCrpolQptTNPtbebjxeFyA6O5A4X4DY9xkfWk26uXmnnm+7hWUbsQJEtIh90VMSUdQwVR/XDFhk6UW9t5Yp+O9Jzcs55w40BNYVaRDJhTRxo9ecfi/deBikSFWnhQ841KSZT9W2+kuKA=
+	t=1781246720; cv=none; b=Pdz5wIVHwWhVW/JbCFF05yiQgOsYN4ViVsctIYCj4ss4nfhEPLf19JrLwdi9odXMCDdi/ietAvETVL73oz867U+OeMPEjuDm9F9kD2AIdOToxOopP8K0RMOWRUxbGEfGcWssgt1fQXpD8EmG6TdsRrMtUnUkHG1OCzuohllQC/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781246679; c=relaxed/simple;
-	bh=tMFjQcYVuvAyg4OxNLiudTobzj2+lojeqi++e1QJpNo=;
+	s=arc-20240116; t=1781246720; c=relaxed/simple;
+	bh=aHmJFdNwRdkqK4xfeyuVcRtUivGMFo5h5x/Bt+hRnhg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uCfIiC3AbVhmixB87NVf+qUwi/jodGS9iRdgOX764s3GJ7h9FyNgrY9KepeXMEKtVAHH+wqDjeBM6HGKzhsKRvV/A7vl0x/fOB64Q23AhhtjjBq7qpaIhv18TXqb1a6xMFTy/lBXgcXYCtBkmmo2wXvgzPCe/mVGzo+7Lq64BfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KF0sA6pS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=a3edqG8rsqF2EZem4ffYvB/dhRA8Dk1Tt+DCrueP5FD/aInvVc39vZUAvPhcTja+UKh0m/o01obY2sayaRSZILS2Zp+tojNuNGDPCs+ggLVVaIrm1s1qvnxurRFiiaKQEh7+KsoQ0kXLd7JlwsizZljbz9jEyRupH3XfEqf0fdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvsEKtxw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KF0sA6pS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC701F00A3A;
-	Fri, 12 Jun 2026 06:44:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvsEKtxw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DBE1F000E9;
+	Fri, 12 Jun 2026 06:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781246678;
-	bh=eTErHePYoLyGkrZLddn9Cyf5hPUTgyi1F17SqUCOu5c=;
+	s=k20260515; t=1781246719;
+	bh=+5IpYshApii4IKiGZyWZ+dz3SHGPGdPyQdxJvvkBw0A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KF0sA6pSUUnE2elvhCgH5juRmutyxl4yhstp0gJe8Z5lkCVnl3Npvc5wlcu81a1Qq
-	 Ty5is8lWrlf87sBzpIL3meKQthvrtRYpJZRFsWBa3Xyp7StlEjdwl5yH8xEMnh3ljo
-	 m+vHm0CYGCF0qaG3J2S9T8L0tlhjW5sg6xrfRdhq9ihA1z8xtb++WQ0GM9W7qeTqgd
-	 tVpT9e5++mrvS0sfrDrbabGXLb1u4x3Pq+Djl3cNBaFwS6AbvABLsC8XH58sW5LNqE
-	 gDNu12GiWMKdrmJpfyvS3F0Y4hb/yWeLkYhGtvN80vvqlCu1YIHACGHUxrreFEPhxa
-	 nD4RWrchoQQ9w==
+	b=IvsEKtxwmYHcH5fF6WtIO3D9noEUvd7vPkM4Cp5Y9X6da4Lp0Jocb+qDd9fQ3IxIe
+	 5TqCqYohvOH01H35QCEtCsTJmHr6NqTopyBVempxnsLO5Z3LCCc/sS7CouV1mwhwGX
+	 MF5yVL4+wHu8fNbcFQPuEX9tRLagQqVR/yp2BpaRj7soWj9NsPQgCM8ucx/MkYbKLd
+	 ZZh8HCAGrYENnJKFgiT/v2KhNMzcXLeKkV61csRjRM9Q8EZ/WRk3W8hvibJk7p2Xdz
+	 EJR5JuQpGnnucSApFV4Vu9ucO1miyPz+1sZFN6xccJeloYnTJUnSU5dQPba0tXdht6
+	 k6XyCllVVgZlg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] drm/tegra: falcon: Add support for RISC-V external
- boot
+Subject: Re: [PATCH 3/7] gpu: host1x: Correctly parse linear ranges of
+ context devices
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikko Perttunen" <mperttunen@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260612-t264-host1x-v1-5-8d934987de67@nvidia.com>
-References: <20260612-t264-host1x-v1-5-8d934987de67@nvidia.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612-t264-host1x-v1-3-8d934987de67@nvidia.com>
+References: <20260612-t264-host1x-v1-3-8d934987de67@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 06:44:37 +0000
-Message-Id: <20260612064438.0EC701F00A3A@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 06:45:18 +0000
+Message-Id: <20260612064519.20DBE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing size validation for the `.desc` firmware file allows an ou=
-t-of-bounds read of the firmware descriptor buffer.
-- [High] Inverted condition in `falcon_wait_idle()` for RISC-V incorrectly =
-waits for the CPU to become active rather than idle, causing premature retu=
-rn.
-- [High] Firmware segment offsets and sizes from the `.desc` file are not v=
-alidated against the main firmware buffer size, leading to out-of-bounds DM=
-A reads.
-- [Medium] Missing endianness conversion when reading `u32` fields from the=
- `.desc` firmware descriptor breaks on big-endian architectures.
+
+Pre-existing issues:
+- [High] The driver synchronously frees the dynamically allocated `cdl->dev=
+s` array immediately after calling `device_unregister()`, while using an em=
+pty `.release()` callback. This violates the Linux device model and leads t=
+o a Use-After-Free.
 --
 
-commit 9b921eae84dc7cacf7c324bd76e166d6a5d942be
+commit 46b291569da04e8306d82ff644615dfc60ee956f
 Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-drm/tegra: falcon: Add support for RISC-V external boot
+gpu: host1x: Correctly parse linear ranges of context devices
 
-This commit adds support for loading and booting RISC-V firmwares on Falcons
-with RISC-V hardware. It introduces a new firmware layout and uses different
-registers for the boot flow compared to traditional Falcons.
+The commit updates the parsing of the iommu-map property to support
+linear ranges of context devices instead of assuming each device has
+a one-length entry.
 
-> diff --git a/drivers/gpu/drm/tegra/falcon.c b/drivers/gpu/drm/tegra/falco=
-n.c
-> index 17f616bbcb45b..1172356b6af3b 100644
-> --- a/drivers/gpu/drm/tegra/falcon.c
-> +++ b/drivers/gpu/drm/tegra/falcon.c
-> @@ -26,8 +26,12 @@ int falcon_wait_idle(struct falcon *falcon)
->  {
->  	u32 value;
-> =20
-> -	return readl_poll_timeout(falcon->regs + FALCON_IDLESTATE, value,
-> -				  (value =3D=3D 0), 10, 100000);
-> +	if (falcon->riscv)
-> +		return readl_poll_timeout(falcon->regs + RISCV_CPUCTL, value,
-> +					  (value & RISCV_CPUCTL_ACTIVE_STAT_ACTIVE), 10, 100000);
-
-[Severity: High]
-Does this condition successfully terminate when the CPU is active rather th=
-an
-idle?
-
-If falcon_boot() calls this immediately after issuing the STARTCPU command,
-the processor will instantly become active, and the wait will return
-immediately instead of waiting for the processor to go idle. Would negating
-the condition to !(value & RISCV_CPUCTL_ACTIVE_STAT_ACTIVE) correctly wait
-for the firmware boot sequence to finish?
-
-> +	else
-> +		return readl_poll_timeout(falcon->regs + FALCON_IDLESTATE, value,
-> +					  (value =3D=3D 0), 10, 100000);
->  }
-
+> diff --git a/drivers/gpu/host1x/context.c b/drivers/gpu/host1x/context.c
+> --- a/drivers/gpu/host1x/context.c
+> +++ b/drivers/gpu/host1x/context.c
 [ ... ]
-
-> @@ -122,6 +126,17 @@ static int falcon_parse_firmware_image(struct falcon=
- *falcon)
->  	return 0;
->  }
+> @@ -34,7 +34,16 @@ int host1x_memory_context_list_init(struct host1x *hos=
+t1x)
+>  	if (err < 0)
+>  		return 0;
 > =20
-> +static void falcon_parse_firmware_desc(struct falcon *falcon)
-> +{
-> +	struct falcon_fw_riscv_desc *desc =3D
-> +		(struct falcon_fw_riscv_desc *)falcon->firmware.desc_firmware->data;
-
-[Severity: High]
-Is it possible for the loaded firmware file to be smaller than
-sizeof(struct falcon_fw_riscv_desc)?
-
-If a truncated or malformed .desc file is loaded from userspace, could
-casting and reading desc_firmware->data here result in an out-of-bounds
-memory read of the allocated buffer?
-
+> -	cdl->len =3D err / 4;
+> +	devs =3D 0;
 > +
-> +	falcon->firmware.code.offset =3D desc->code_offset;
-> +	falcon->firmware.code.size =3D desc->code_size;
-> +	falcon->firmware.data.offset =3D desc->data_offset;
-> +	falcon->firmware.data.size =3D desc->data_size;
-
-[Severity: Medium]
-Do these assignments need endianness conversion, such as le32_to_cpu()?
-
-The older .bin parsing path safely copies and byte-swaps the firmware via
-falcon_copy_firmware_image(). Since this RISC-V path appears to perform
-no conversions, could reading these fields directly from the raw byte
-array produce incorrect, byte-swapped values on big-endian architectures?
+> +	for (i =3D 0; i < err / 4; i++) {
+> +		u32 length;
+> +
+> +		of_property_read_u32_index(node, "iommu-map", i * 4 + 3, &length);
+> +		devs +=3D length;
+> +	}
+> +
+> +	cdl->len =3D devs;
+>  	cdl->devs =3D kzalloc_objs(*cdl->devs, cdl->len);
 
 [Severity: High]
-Are these offsets and sizes validated against the main firmware buffer size?
+This isn't a bug introduced by this patch, but there is a pre-existing
+issue with how the cdl->devs array is managed during cleanup.
 
-In falcon_boot(), these sizes are used to calculate bounds and program
-the Falcon hardware DMA engine via falcon_copy_chunk():
+In host1x_memory_context_list_init(), if an error occurs later in the
+initialization, the unreg_devices error path unregisters the devices and
+immediately frees the array:
 
-falcon_boot() {
+host1x_memory_context_list_init() {
     ...
-    for (offset =3D 0; offset < falcon->firmware.data.size; offset +=3D 256)
-        falcon_copy_chunk(falcon,
-                          falcon->firmware.data.offset + offset,
-                          offset, FALCON_MEMORY_DATA);
+unreg_devices:
+    while (i--)
+        device_unregister(&cdl->devs[i].dev);
+       =20
+    kfree(cdl->devs);
     ...
 }
 
-If the values are not checked to ensure
-offset + size <=3D falcon->firmware.size, could a maliciously crafted .desc
-file instruct the DMA controller to read out-of-bounds physical memory?
+The same pattern appears in host1x_memory_context_list_free() during
+normal teardown.
 
-> +}
+The driver also provides a dummy release callback:
+
+static void host1x_memory_context_release(struct device *dev)
+{
+    /* context device is freed in host1x_memory_context_list_free() */
+}
+
+Could this lead to a use-after-free? When device_unregister() is called,
+it drops the initial device reference, but sysfs or userspace might still
+hold elevated references to the embedded kobjects.
+
+Since kfree(cdl->devs) is called synchronously while references could
+still exist, would userspace interaction with the sysfs attributes for
+these devices during teardown end up accessing freed memory?
+
+>  	if (!cdl->devs)
+>  		return -ENOMEM;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-t264-host1=
-x-v1-0-8d934987de67@nvidia.com?part=3D5
+x-v1-0-8d934987de67@nvidia.com?part=3D3
