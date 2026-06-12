@@ -1,136 +1,199 @@
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FFA3793BF
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC88374A1E
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781284045; cv=none; b=oj9ClWXHViYQekzzg79X8mJSF3Tc8M+ELHZbcuT3nJFOH06mPo3s66zT1INWOz158VCXyUMi950NzrwhFSM9qlwmAnwSqo/gWjlgPsD9mElhXG2lWw3TNrOSKD6xXajNN9h7WRoKbhUVGGM2nq5rwxBeH3UlNNebwmjQSbc981w=
+	t=1781284101; cv=none; b=uBLd+WlYRpvQZqbofL7skIiLvwz8AEZIl8gDZyoZnYsJNp/7hopMtWAooYTxRpzuVo7zlGLDWtKvVjne6PAoAsrP5C7GU16CnzgGTizS7YV05db7o1+wZIAh1no3marny9NTSo8dT3TcSa0+GAHxRQCx1Hlpovj3KO3SM+SUsY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781284045; c=relaxed/simple;
-	bh=s8kIyI8Kg8mw2/G73/sI5WPB5OMwNe7xM80CIqvV0jA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GwFb+eEUxeRvCKXCB9MrjScmfZxq26BpTu2ukO2loWRsgAf3jAOudOvP+iLbFBQEw6Ko6Rlv9/j1ii5P5douTRwrns+Tu3O3Z2D7sp+8kWzWAQSWnzpIO0CIf7NyZsPyeMVSV9cb7QgU3WTzkF6YfODD1+cK62CNLHksgbCtal4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YGEDnQQU; arc=none smtp.client-ip=209.85.167.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781284101; c=relaxed/simple;
+	bh=pDs+FD4ADbUn7jDFL19DI/lwK3e7QPdObd/w0xhTSro=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OnwhjCZEmVWwsC3ZVjYYGAweqBVDWRdZTfE6TqgdvIxHqIBY3qz6k45YhJjT4bMUIoLqRsbJLu38kQO6NBQBpRQz0wVzWAX11w5OOCZ1b8gpXq2Lz0rJzd16ZbEPZ/CfPGB4zSF/nr9aphcLsPbgj2QsZkhsEom1dzmVtK9Acws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4JClU9T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YGEDnQQU"
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-486560db81cso1130707b6e.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:07:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781284042; x=1781888842; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xKBQNOcRDd3e+ERR3iAVHd2ZwLSI7ZZFaqAB8m1VpdM=;
-        b=YGEDnQQU0Z8Dh39IITsQxB7QhrG51FX9zkqfdX0w0wXn69gdNM9U0SI7SkAkKafdwm
-         4YXkvTCg/LbbGl+/ljjB7d+LQrdvumzaEx+HkaRiu/HAsiUERgQpHED5a6fvr50V8vm6
-         Be9fv2Pn+ZyyDCsE1fHMb/RK13f6g9GkgBvfaFmYxIasBLI4T6rXDHnXnrs6v8c2+kri
-         QIlV52kcKtqa5FRMvDcaIIdTS6VeTNu81dUhyi9P00isWYsvoCKR8RgHPZAz/BDomHlB
-         +ISRJo1hKO6VV2/DWhYf5puP6qt0WUP7bZgdLwOYULhs9lYxLRlTj+M5/7rz8tyIjAA+
-         mJ7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781284042; x=1781888842;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xKBQNOcRDd3e+ERR3iAVHd2ZwLSI7ZZFaqAB8m1VpdM=;
-        b=BStv9IKgcw5qczvYsE0RMOR/kLG66KSvgAaDtBwxndji6weKIsmMamIMc+337AEl+W
-         6TnlCzhNWCxSi/ONNz59Qf2/Skrtfm1RNXk6AQw86tDppPrkG/N8Qt6wjqgIPwefGKSq
-         anwO2/tSfsonxTKUfQn646YU4XRmgqntM7Df4l0ADAbLgXADlHwl/wHGbMV6SkgRW+aX
-         uw4i1LKsDrrEWz3ScgWo98lPrtNIN9gb/AmWQbIrHXibYTsni0/5mqEL5y7C0dLTriM3
-         3hRDHnrdtGu+uDB6TA2bd0NWhtq3jd3TNgs360XFprCO8ya6MpWgs22cc0LIfubFd8Ra
-         UxqA==
-X-Forwarded-Encrypted: i=1; AFNElJ+pzG/4sYaovWYGgdWRKGRoSgIP82mEfzqR/f44+4JF9yKmNTHsxibg1IkX8xVp66F6HW5JCh1zgr5+@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUT3eubpzTrlvXbMWCKkPzkQ3UWnHrhTzabz2Y9EKRJe8O6g6C
-	rjeHhfrMGDE43PyKZk9wK0Am9WbHWg60NORBY1eDMz5vFmqAe6hWTgDxjUDxcYATzww=
-X-Gm-Gg: Acq92OGWU6oKYnv+P1W75YI7mDDaOqTp+Ly/LQN8vkS1MmQkESWPEDghxxbRbzeqhIU
-	RZRPM6mNaQ2LSYIQOw59swCrnXthchv68CWLz2Gwczs/ApYeuRqpzVF5NRxsMcCbgYPtQvkUOK7
-	lrce7Fd9H9KLyYUxyFpJMH6Qh1K+rwHnrLkgkGduOWicRPAds/H5mUxHU3uyiSZJl7sezpODI9v
-	YZbjF1t//OKJ9z81W/p4aTb9OVAEea7W8rVpE2yFQuYAzznw6VG/wMx8dyge5IAa5C2z/BCv2Vp
-	kxtffbxRiOH3vTR69GkwJpRW4HbdnlMQQea7o/ESWN/1KjG35rCNM3neWod7Js2+ZBdKKNzGvep
-	A3mFcRoi8kxCPAE1lXdxbd7j5ad/HYdo9iHgke3nZnz9UWcq0jVzr5r5gy2rrKXd5rFCRnQmohr
-	SxMsFI2ISpCDOEa1gAFEVj6bedTPorL7/hyx6mLS4jnpA22kvRmXXpyOchmO3RUwwxF6pH2QxQn
-	PIwyRey0Q==
-X-Received: by 2002:a05:6808:6f8e:b0:486:4f16:796c with SMTP id 5614622812f47-4872f55c651mr2546586b6e.33.1781284042259;
-        Fri, 12 Jun 2026 10:07:22 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:cba0:23d4:353:6048? ([2600:8803:e7e4:500:cba0:23d4:353:6048])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4873158579csm1336573b6e.14.2026.06.12.10.07.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 10:07:21 -0700 (PDT)
-Message-ID: <fd8d485c-8251-40cf-925a-5425fdd8b98a@baylibre.com>
-Date: Fri, 12 Jun 2026 12:07:20 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4JClU9T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A4F1F000E9;
+	Fri, 12 Jun 2026 17:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781284099;
+	bh=bxY1cXx71Lfk3cpTAgpNiqW/bLBozXrzsfg7LlYp1Tw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k4JClU9T5y6A+wCQYCmKvBKF7K0BSGvLw2GXqiDS0YJ//7bdqLWOEnXXDdy2/VVx+
+	 H4VnjR5g4eglK705adEuf7qRYvcHVdQeESDsUxCYHPOzOHNZ13uE+RRms6q8/C3cW+
+	 rxzDtbG28peWlJI/mxvixz86WpvrMFrC/NIyywgdZ4zGbCn1Rg1wn3O53/TsrmrWxO
+	 wqB0R0NNfibXzOalWuhDWFz4T+P/WsWs+IwI65vw/L8ZOVfF7NuQ+o6VocgBULn91p
+	 dWhPFEcSamscv48lSXWslmd/zKCiiw8aVcZHs3C0mgiSL1RBzLiqqlDVhXyS7VblLB
+	 7fbv0tssX4uBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 17/18] phy: rockchip: usbdp: Support going from
+ DP-only mode to USB mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-17-efc83069869f@collabora.com>
+References: <20260612-rockchip-usbdp-cleanup-v5-17-efc83069869f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 17:08:18 +0000
+Message-Id: <20260612170819.29A4F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add TI ADS1220
-From: David Lechner <dlechner@baylibre.com>
-To: Nguyen Minh Tien <zizuzacker@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org
-References: <20260610151342.44274-1-zizuzacker@gmail.com>
- <20260610151342.44274-2-zizuzacker@gmail.com>
- <788b7c6f-fae8-47cd-b78a-33f2803d8c88@baylibre.com>
-Content-Language: en-US
-In-Reply-To: <788b7c6f-fae8-47cd-b78a-33f2803d8c88@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 6/12/26 11:10 AM, David Lechner wrote:
-> On 6/10/26 10:13 AM, Nguyen Minh Tien wrote:
->> The ADS1220 is a 24-bit, 2-kSPS, 4-channel delta-sigma ADC from Texas
->> Instruments with an SPI (mode 1) interface, a programmable gain amplifier,
->> an internal 2.048V reference and a dedicated DRDY data-ready output.
->>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-...
+New issues:
+- [Medium] The return value of `rk_udphy_power_on()` is silently ignored du=
+ring Type-C mux state transitions.
+- [Medium] The `usb_in_use` flag is permanently left as `true` if `rk_udphy=
+_power_on()` fails during USB PHY initialization.
 
->> +patternProperties:
->> +  "^channel@[0-6]$":
->> +    $ref: adc.yaml
->> +    type: object
->> +    description: Represents one ADC input configuration (channel).
->> +
->> +    properties:
->> +      reg:
->> +        minimum: 0
->> +        maximum: 6
-> 
-> I would add a comment explaining that the limit here is arbitrary. Also wouldn't
-> hurt to make it a bit bigger. Technically, someone could have every possible
-> combination of all inputs (16 differential + 4 single-ended).
+Pre-existing issues:
+- [High] The `UDPHY_MODE_USB` bit in `udphy->status` is permanently leaked =
+if `rk_udphy_usb3_phy_exit()` is called while the Type-C mux is currently i=
+n DP-only mode.
+- [High] Failing to reinitialize the PHY after a transient error masks subs=
+equent failures and reports false success.
+--
 
-From the dataheet, it looks like there are 12 possible valid
-channel settings rather than 7.
+commit 3ea1c2acafe2e85bbef04dfbb4e06950b88402b0
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-> 
->> +
->> +      diff-channels:
->> +        description:
->> +          Differential input pair routable by the ADS1220 multiplexer.
->> +        oneOf:
->> +          - items: [const: 0, const: 1]
->> +          - items: [const: 0, const: 2]
->> +          - items: [const: 0, const: 3]
->> +          - items: [const: 1, const: 2]
->> +          - items: [const: 1, const: 3]
->> +          - items: [const: 2, const: 3]
->> +          - items: [const: 1, const: 0]
->> +          - items: [const: 3, const: 2]
-> 
-> Sometimes, the same channel may be used as both positive and negative
-> for a diagnostic, so I would just allow any combination instead of
-> listing specific combinations.
-> 
-And now that I read the datasheet better, I guess this is fine.
+phy: rockchip: usbdp: Support going from DP-only mode to USB mode
 
+When a USB-C adapter, which maps all Superspeed lanes to DP is plugged
+in, the USB support is disabled in the PHY. When the adapter is
+unplugged and a different adapter with USB functionality is plugged in
+afterwards, USB functionality is not restored as the USB controller
+keeps the PHY enabled for the entire time.
 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+
+[ ... ]
+
+> @@ -1015,6 +1016,9 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
+, u8 mode)
+>  		ret =3D rk_udphy_init(udphy);
+>  		if (ret)
+>  			return ret;
+
+[Severity: High]
+This is a pre-existing issue, but if rk_udphy_init() fails here,=20
+udphy->phy_needs_reinit was already set to false earlier in the block.
+
+Will subsequent calls to rk_udphy_power_on() skip initialization and=20
+falsely return success while the hardware remains broken?=20
+
+Should phy_needs_reinit be restored to true on the error path?
+
+> +
+> +		if (udphy->mode & UDPHY_MODE_USB)
+> +			rk_udphy_u3_port_disable(udphy, false);
+>  	}
+> =20
+>  	udphy->status |=3D mode;
+
+[ ... ]
+
+> @@ -1278,6 +1282,15 @@ static int rk_udphy_usb3_phy_init(struct phy *phy)
+> =20
+>  	guard(mutex)(&udphy->mutex);
+> =20
+> +	udphy->usb_in_use =3D true;
+> +
+>  	/* DP only or high-speed, disable U3 port */
+>  	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs) {
+>  		rk_udphy_u3_port_disable(udphy, true);
+>  		return 0;
+>  	}
+> =20
+>  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_USB);
+> =20
+>  	return ret;
+>  }
+
+[Severity: Medium]
+If rk_udphy_power_on() fails and returns an error, usb_in_use remains true.=
+=20
+
+Will this cause rk_udphy_typec_mux_set() to incorrectly attempt to power on=
+=20
+the USB PHY later, despite the USB controller not actively using it?
+
+Should the flag be reverted to false on the error path?
+
+> @@ -1295,6 +1301,13 @@ static int rk_udphy_usb3_phy_exit(struct phy *phy)
+> =20
+>  	guard(mutex)(&udphy->mutex);
+> =20
+> +	udphy->usb_in_use =3D false;
+> +
+>  	/* DP only or high-speed */
+>  	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
+>  		return 0;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but if the Type-C mode=20
+transitions to DP-only, udphy->mode loses the UDPHY_MODE_USB bit.=20
+
+When rk_udphy_usb3_phy_exit() is subsequently called, it checks=20
+!(udphy->mode & UDPHY_MODE_USB) and returns 0 early, skipping=20
+rk_udphy_power_off().=20
+
+Does this result in a permanent leak of the PHY's clocks and resets, since=
+=20
+udphy->status never clears the UDPHY_MODE_USB bit?
+
+> =20
+>  	rk_udphy_power_off(udphy, UDPHY_MODE_USB);
+> =20
+>  	return 0;
+>  }
+
+[ ... ]
+
+> @@ -1325,8 +1334,20 @@ static int rk_udphy_typec_mux_set(struct typec_mux=
+_dev *mux,
+> =20
+>  	guard(mutex)(&udphy->mutex);
+> =20
+> +	old_mode =3D udphy->mode;
+> +
+>  	rk_udphy_set_typec_state(udphy, state->mode);
+> =20
+> +	/*
+> +	 * If the new mode includes USB but the old one didn't (e.g. leaving
+> +	 * DP-only), and the USB PHY was already initialized by the USB
+> +	 * controller, we need to power on the USB side now since no
+> +	 * subsequent phy_init call will come from the controller.
+> +	 */
+> +	if ((udphy->mode & UDPHY_MODE_USB) && !(old_mode & UDPHY_MODE_USB) &&
+> +	    udphy->usb_in_use && !udphy->hs)
+> +		rk_udphy_power_on(udphy, UDPHY_MODE_USB);
+
+[Severity: Medium]
+Does this code discard the return value of rk_udphy_power_on()?=20
+
+If initialization fails, the error is ignored and the driver reports succes=
+s=20
+for the Type-C mux state transition, which could leave the USB functionalit=
+y=20
+silently broken.=20
+
+Should this check the return value and at least log or propagate the error?
+
+> +
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
+sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D17
