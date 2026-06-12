@@ -1,159 +1,282 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azolkn19010090.outbound.protection.outlook.com [52.103.10.90])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7C3321B1
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272704; cv=none; b=n6Zb+BmFhfcd3+mQQ2FCXEZWAs8doXQNjyBHYGpCAu/c+19IX2bPzhn3kEta9cLXuYrCJHBtce3V2Rrqc4aHMWtdFg8hU4fKAjeAuzmo1zyNzazLemyTuK7n+LQ57tg4FjE5ARaBQ1L1NmANR8w5VM2ZyypZnzu/3lEVhwZw0rw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272704; c=relaxed/simple;
-	bh=NyT3bvkYhBzVis/qc4NVpDUc0HxiHbXcgKHaKLAMasY=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UU5HjJPt+jXCafBgjfG2q0TbRfsGN7QYcgFrehfWEumG2qk5UdRrWkxQCi4/cJ+qdjkUlRDosbqg9F6LgYAMkQZ5HdpTfaTGR6W6u3t3RtDD3kzEjNnmLVMjEYsiu+Z5RLAziZgWizYxHylglKwRTtJkHjjE03fl0gpQ9NAfj8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=RTodqaUZ; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C743191BB;
+	Fri, 12 Jun 2026 13:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.10.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781272756; cv=fail; b=jeYy0RovEIJmMUducTqNv66htHNNN74cTLgWJmNyztAoJ2AE1XRe5bYb1HbN7Otzr1u9xUwV+S4/YszECu6DWScqq1nqKAijev+5JzldOkuQYg3Gq93GxCZEMB5SBOeyNODfymST8NlsSSVbtihcOMrY/RNgT5Y9r6GhDdMcXVo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781272756; c=relaxed/simple;
+	bh=vW/6vH6SSWbemc28vBQKDpE1wCjTOBJ3HMg2/MJbvAA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ufROyIf/YvzzSA6RIKTtftvqemSKncmk7ITpVICk2p/9gtDO+B2URMYBH177SEwKCf9ofihXN+9ur7leR9NOAV/TQPyjXzytMyu8dvtlET9a3lrkWgZKH1sLBXxftf145Oj5+/Ppu02ud6UTBCpod2Zp+hcXr2RxbTaQH3qZ0fk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=Hr/aTVGV; arc=fail smtp.client-ip=52.103.10.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="RTodqaUZ"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45eecb8bf67so759015f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:58:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781272698; x=1781877498; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
-        b=RTodqaUZNiMYibNCZy8UsWag2ogOPRE5UKowmAB2HNELbe2NAFSAKyV1lt2U6h9iiE
-         eFOVk9VFpyC7yKHSYLtzj7tJOWjxOvLUmeVUS9tXVaG3lE3ZWe2MEpCK2M8DcTRa6tsi
-         RJ9K7dMwoxCsmEcQxyo7qoCL1Kol54otoRGurCjrkkHRyp1ws/VvvHlvUnUe5qMuQ4tp
-         vgSHuE8bU4mrYUJN4v0fqtq/5lFVbyj8bu7OeDezktSTeScCHDP7ASR5bWnGFptdAX8y
-         6ZYS0w4vxgV00DCvxsuYT7meXNBSdAIuB1bzo6+ri7ZqfM4OnSY4anAdNly81nur73pF
-         WdCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272698; x=1781877498;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
-        b=V4CXPZ/6S/LIjsu+JqPew5boZeySuwIeuuU/2qKUf8u9bn/zS09ko2ZbyQwkeQe389
-         P+eURsXIl2TxtPiagTZ0/8d3UyTkUwQ6p6WzZ6m0l1KV4hJUJvl2qFCbchSbuK1GzuPS
-         n7OLnHFN0jNOMVWhyys9esVfqG78vfMWBCw9ntOmXFf9Az1oBr4EvDdMJop2PylqpK5Q
-         Xm9r9Eayf7o34aqQ8qyKh+6Jfx18c8rnTfIfeJVBUDfSQWKbcaqqgPsOKwx9VXZhceKn
-         GSCfR1IqtDFM5kOj307uLKnMYswxEvR3/b3zyVkys9cLwJljKotNSBZ2mQL1d4VkCUrS
-         8EHg==
-X-Forwarded-Encrypted: i=1; AFNElJ9TKDXhT1QWwH52yT/XJo8KSPA78AEMvEFE9YhhazYQIathwoLHok9tF3rJrB2MImqaoLYsbS/uCPyb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxhs3y4Gnd79uDboB7prI8r1S0x9cZTKqWT8J0cVfB3CIGCIs+x
-	Ytdyx1uAGAhtFjUq/emAPKAm/OJ5j9D+1q879KoDekTjEDNhXNzyX2+S53iufsRYwTw=
-X-Gm-Gg: Acq92OEDJZIZMcOMhtEw5ALVmSy0Brwsp3oNv6we11aZDZDAz1mjAQCTl3L2R302qB2
-	Xsh3WHFFSHuNZA87kwDEucT5qLBkOAxxnlJ+RQnkgPNI9RyAVRVrUlbt9b8Z7GfEhhhXw7w7sxc
-	q5gNjCoGGLxn8YUFqAkGU/YCUdLL67DsaXp4oSL442xdWkxzclnXLlbrdutAoymSEIJpIOceTpj
-	K3iQrNxzhx592WfZPs4ZDkTLEwCsvUI3O+/qBpZ96nDbMFehVHbdrcptqaqmywMfiVI2J0b0Yzw
-	Dzc41HjPfbgfhZsRjGqZWu2/q8xRiibgcywyCupTRUSAwLyvP6IaRJRA5kfJcYjq9vbiqfQaU//
-	D1j2YX2deTdZXu5ei6RSLXNNQzoeaMS8ZYYWT3jfkT8pVyzEFwUOB21Uow1YSebY2Fz0g17z5Hm
-	+fvvgAf2z1hi+snZGf09Un
-X-Received: by 2002:a05:6000:1886:b0:460:1a52:8a13 with SMTP id ffacd0b85a97d-4606da0f65emr4345439f8f.0.1781272698170;
-        Fri, 12 Jun 2026 06:58:18 -0700 (PDT)
-Received: from localhost ([195.94.146.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2c5266sm6363550f8f.29.2026.06.12.06.58.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 06:58:17 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrea della Porta <andrea.porta@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>,
-	mbrugger@suse.com
-Subject: [PATCH v5 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
-Date: Fri, 12 Jun 2026 16:01:28 +0200
-Message-ID: <b08d1a25e6f3cd81162805adca878865ad112858.1780670224.git.andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1780670224.git.andrea.porta@suse.com>
-References: <cover.1780670224.git.andrea.porta@suse.com>
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="Hr/aTVGV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aBiZHdwElIx1IViMkFC8Y36MUDSXC0T5DazZdktTXq9ifdGOb45WfhrmSFMvwLW8kJOaWpCt6YbOd5vyhXS/fYA8mAqKEVpA05KektBVNLSSzpC+XhUJ6H+V6wFFg1nD8gSEFIdlYEZJgpwBW7BYaRxBqjASyz8X64pFi2EnTVl3ACMtrcZQWGljou1KKbwpdvuSi9pcgQakAwPxgOzlu49AnU1zRA8wubF3IdnqDzvp8YQQROO2oaO98Kn25fPtdkIDeiKENN2iklX+ZYzNyaWmlhbdbrqvJRRTyKEre70B0bgz8wNVPqZfOAbpGEyFD+yh0dR6/qJbyjfGVpLi2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RD9NDIL9w76waOF+od2YWX0b1tFCVFeKcm8vtwJTqTo=;
+ b=viyK5QPpDLgxNI3nxIQJ6K+NYh3qSZvlUaVYA89hJhqxGMDWrHeOSbsdWnELulm7HzsXt9toWCa2/1UDm/CUd6xs0ZfQmZmbACxhUQX6sfISH1UbAA3rCEXVngs1XKi9v0UL8I+O/PoZG+Q6eCxLm09cX9OQaYUi+o6hMZj6QLxUyYiFQ+GisFozFmYju+PM1KRO4+NAOCgPxxjyDA4waN4rdo5X7YB4tUPG7BRiQtyIeovTjh9t6QVhWbr490GU2G8QhmGBUH45j7rn7ynScMWckWUVN7Y2p6UxgkdJ5Ca8WaBsmvE96s952x+HNKOs156FtjRNBlMV5CetV+EjMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RD9NDIL9w76waOF+od2YWX0b1tFCVFeKcm8vtwJTqTo=;
+ b=Hr/aTVGV6cyvVstsLbaHMRpJZsqz7g9KkoN8oTmXFvtR1jAWHXPNBi9yKusYR7uZyo+AOKdg88w/01YiW8ao2dEbqv4kOshrNmyjgOOLs1t6Clynv+wHfE4KRwRxzgyhSAD1a8Q8SPm+E+teZ6LnMUoW4ebK5dcESbFP99IKDZQmMBLx/D/Fmbynem/GQiMr6lU8F5ih/w0+IBkcm4Mz9Ea5uYKv8kObhipe2xOj9tmaLsZvlUMUWtOZMUIdRfezL6E0EEzxHxuTFJY0sR3+sEwQMbdtm8NX7n9PDFwElpFjA7E5X5SeCvENI5egh/sAsd9IhI9G6YuGIW+7BWr0zQ==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by CYXPR19MB8402.namprd19.prod.outlook.com
+ (2603:10b6:930:de::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 13:59:12 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.21.0113.014; Fri, 12 Jun 2026
+ 13:59:12 +0000
+Date: Fri, 12 Jun 2026 08:59:11 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH V11 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Message-ID:
+ <PH0PR19MB997338A8FD439C0528B96048BDA5182@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260610175455.19006-1-macroalpha82@gmail.com>
+ <20260610175455.19006-4-macroalpha82@gmail.com>
+ <20260611120943.7119975b@jic23-huawei>
+ <PH0PR19MB9973387E29375D4E8F28C6B9D9A51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
+ <20260611172022.4d138820@jic23-huawei>
+ <PH0PR19MB997338CE11110E16E7FB668E3BA51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
+ <20260612114230.0fd2f391@jic23-huawei>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612114230.0fd2f391@jic23-huawei>
+X-ClientProxiedBy: SA9PR13CA0065.namprd13.prod.outlook.com
+ (2603:10b6:806:23::10) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <aiwQr1dWaDzxU3VJ@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|CYXPR19MB8402:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2e0d335-54df-45b3-22d5-08dec88ac860
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|24021099003|13031999006|25031999004|23021999003|37011999003|51005399006|15080799012|41001999006|6090799003|19110799012|8060799015|440099028|3412199025|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?i8vH+ONnaZYHJwsxtyBjJ/86tL39Fzd2T0RlkpzZe0PwPFaMkLsVuRv6CIYU?=
+ =?us-ascii?Q?ZlPAaMRVmKmBoXA3itMTXr5zA+kRzfVvEaiNKXIe8jzZsUA2q/j8Zc1JqyWi?=
+ =?us-ascii?Q?tGzm6wMZvNCiSGjCZhExOiOxdrSXkrqEyL0jwLMAcHtyd5KGWzWLysiHBJjd?=
+ =?us-ascii?Q?/+5exk/1dWBt7waVtswsFeKa8/yekVhGR7zGE9hjddEulddvBJWW84YW438d?=
+ =?us-ascii?Q?rhPn/am/oNrf9GW4hmyWrNsimtLeIjr5d83qUu1gYIpyNBrw7g3DbGlWvEl0?=
+ =?us-ascii?Q?v/6EAdOgvjCY+Org/ZDvkxbf5eXcJlYN0/Y87nJyPiJxRrW7Dry3yLnbDCmh?=
+ =?us-ascii?Q?l8Qi2fm0q9ISSLeRvmAvAPKIt/If7/fS/aRtJ1SsQ7GohBkZaPT3wWeyUfWb?=
+ =?us-ascii?Q?ipIvZMOhomQXvN/qSEuIUl1cTn2+b4ZHpQvLhFReMKn3mlFuqCSWb0dVcMYt?=
+ =?us-ascii?Q?qVj/+nfCrvArJChMOEtXVgOS4vnylCjQDA2yV8knSUhknkpVcI2qbrV29vka?=
+ =?us-ascii?Q?igYA2zaSmfjsO2uiZsFypF1Qn8dv+IDlHMdGLFU3jv75uKHnu3HR4bC2aNzE?=
+ =?us-ascii?Q?Vur423CkDWP5cgbeOGzrYfKR48MNf5aOEyJLoW6d+EbjEQuElyfl30ehbl4x?=
+ =?us-ascii?Q?skzMXBrNUzzoGZmaeOCqi8EDGLNF9D/AYStA0FwEogJAU6HLx6VooURtl2f1?=
+ =?us-ascii?Q?Nb0gaTZL1SwZkV/TjcnjTsVMXi6kqnSfLwoA/FPChf3Y3a/8kCjO7/ewo7Vy?=
+ =?us-ascii?Q?4veIn/KrrY32p9aqxRoLbHsNtZZY1w5zq3/AyiDBboC6/U67+MCib4NiKBai?=
+ =?us-ascii?Q?gFHttyzvqGomuQ/qyMXIILTCAcvIRQLA3GL2UiZZjwF83Gql9UaRGUGV3qlo?=
+ =?us-ascii?Q?b+mJ/Xq4d3GpX0MZspuUwrLhIZ7ZVWLox8O9cKHcZE36EgI2rKCmUM80NnYi?=
+ =?us-ascii?Q?dXf7igKqGzw/dvVgLeOY9pgmF6odLTEWeVEqPGAC7Btg58KulH2+tzvlSW1k?=
+ =?us-ascii?Q?hpHYmuaPIuKAkSZdbnBmC4EMH4+5HhLxFboL3LHGmZcYGuERNjx85j98G/la?=
+ =?us-ascii?Q?SqJX0rZaUObPwOLmxOMgy29+h3un+A=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+IFLsarxVjSxeRX2nUtBKp8XcYtCuEM+W18jKcbHrZOG818b0RAKZ3Lv/flL?=
+ =?us-ascii?Q?DBFnltXjhdw8Aon5COJ4lDufxRLOuAYB6FTp0rlRO73vRpdjhdtCop+uY0o1?=
+ =?us-ascii?Q?fjpzFSbW6opIR0UoEc6DFZgIUreToqp3fBa1L2yGj6oHjhp5Dq252MYATx4x?=
+ =?us-ascii?Q?DbYnf3nBIphCGKZr9ieqG7PUdZ+YpbZLBosmzpRulNntgXn7lBc1ytB64Nmi?=
+ =?us-ascii?Q?1C5UK+bM69hMhPzRxu7w5AqJI1O72mRKybzkrKAvrRuEm7ZYM8y1TYBm1ROQ?=
+ =?us-ascii?Q?RQwaApR8ly5tvkKOFsb68KS00NRPlrZr6yKM8iUftsTYxc8/DPIAvch4VDht?=
+ =?us-ascii?Q?ytydv493EifIswkCR6KF7OPpkeaJyV1gec9S4WrpgO2tW2MYpojb0sE8JUMU?=
+ =?us-ascii?Q?7wTHcmhWGBciNw6dZUysG/cGM1Q3gx9kBNzysV/ZNPBX4rk8mFT0MDJjYtVA?=
+ =?us-ascii?Q?ps+OKrluSmYK+XSwj444m/Pjn3nMly16kFrOnxk/4rY7jPMBJRa1uk/c2Qoc?=
+ =?us-ascii?Q?fg4diVRKkIXFrN9/qT8QrL4JdwEU1/UyrFFno4Uf9t66ZMVr5fhIY1vnXF5e?=
+ =?us-ascii?Q?bda10OtAMGyVxE/23G3cvN9iqroGam33zmYkkD8tlf8LTUwWxAAD4fy8JjGy?=
+ =?us-ascii?Q?iLaHooGK5ZHIMDIMlW5qdJlpR+TB3Hs+463mqMAyESGRAcglkj0xgneMxwqk?=
+ =?us-ascii?Q?nXB25M44kDPlEHE6lfsJK6L3OyMxVHDw8teeaNkj7o3s/g9O4gzts36IsAu+?=
+ =?us-ascii?Q?yJ/1qi8OkMMr2D8qm4ARZe0idgxsBYkQ1rQq9oro3oHh7J9WaCCpZMX8/xH3?=
+ =?us-ascii?Q?fl+T7+6qYt51cA5HVxn2JJKvQnZz7bRM9KUdU7Yknfbj2SZ5k9Y53DZoyuqq?=
+ =?us-ascii?Q?SRuyStXUpMFlAXHZ1WU1wpgamseh9WFUvQC5TU5xJ4hOUa416ew4XVG6mJ9I?=
+ =?us-ascii?Q?IWDlPW0miOPthTH7FTRuAovNA1A8+w+qbQA44HmMyOpAJA5bKZnTQwZYKH+r?=
+ =?us-ascii?Q?IHYaBWk39nXBE0DqrMVm4dkG3zMOq6BlFezlK3qzBja2wmTDZbFjpv9WgW6w?=
+ =?us-ascii?Q?Q3Dv+RGE45bS3Un/bC7kG3kKQimiXlCDWsnx41MrC0QXmV4JxtJv0SbHdQff?=
+ =?us-ascii?Q?jHqUhzFt2ZicDz5LupGsPHVsGmKnOalUKElhgQmCuTuMfQZK+uUhibwL0+fD?=
+ =?us-ascii?Q?WMyjJo6FOh4YMbjOPCRXcegmgNo0FweLIFugirs9QSOXbgzmyBLFgSS1muC0?=
+ =?us-ascii?Q?8uFpB62c5+ueHRXQ1ezKWSmbJLeA0xl/43UJvh40O8IdmbH53nCn5Me4BubW?=
+ =?us-ascii?Q?RkLQmIrWfQLH/W0bVFMiFuEJJMJNhXJANoe5zRiAw4ZEKpxRaeMEt/hV+BXG?=
+ =?us-ascii?Q?jmP5Jjw8kpFreGWyXhmFqrCXXXOZb1J7twMREB6fUScf6c7YqqsrD4uIEHii?=
+ =?us-ascii?Q?JbKSv3/nJkgjBZAZ0VqRngkvRtC0C/Wx?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2e0d335-54df-45b3-22d5-08dec88ac860
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 13:59:12.8199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR19MB8402
 
-From: Stanimir Varbanov <svarbanov@suse.de>
+On Fri, Jun 12, 2026 at 11:42:30AM +0100, Jonathan Cameron wrote:
+> On Thu, 11 Jun 2026 11:31:09 -0500
+> Chris Morgan <macromorgan@hotmail.com> wrote:
+> 
+> > On Thu, Jun 11, 2026 at 05:20:22PM +0100, Jonathan Cameron wrote:
+> > > On Thu, 11 Jun 2026 09:32:38 -0500
+> > > Chris Morgan <macromorgan@hotmail.com> wrote:
+> > >   
+> > > > On Thu, Jun 11, 2026 at 12:09:43PM +0100, Jonathan Cameron wrote:  
+> > > > > On Wed, 10 Jun 2026 12:54:47 -0500
+> > > > > Chris Morgan <macroalpha82@gmail.com> wrote:
+> > > > >     
+> > > > > > From: Chris Morgan <macromorgan@hotmail.com>
+> > > > > > 
+> > > > > > Add the core component of a new inv_icm42607 driver. This includes
+> > > > > > a few setup functions and the full register definition in the
+> > > > > > header file.
+> > > > > > 
+> > > > > > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>    
+> > > > > Hi Chris,
+> > > > > 
+> > > > > A couple more minor things from a fresh read.
+> > > > > 
+> > > > > Thanks
+> > > > > 
+> > > > > Jonathan
+> > > > >     
+> > > > > > ---
+> > > > > >  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 334 ++++++++++++++++++
+> > > > > >  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 197 +++++++++++
+> > > > > >  2 files changed, 531 insertions(+)
+> > > > > >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> > > > > >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > > 
+> > > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> > > > > > new file mode 100644
+> > > > > > index 000000000000..716fc0f1c3fd
+> > > > > > --- /dev/null
+> > > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h    
+> > > > >     
+> > > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > > new file mode 100644
+> > > > > > index 000000000000..334264120b42
+> > > > > > --- /dev/null
+> > > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c    
+> > > > >     
+> > > > > > +
+> > > > > > +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> > > > > > +			      inv_icm42607_bus_setup inv_icm42607_bus_setup)
+> > > > > > +{
+> > > > > > +	const struct device *dev = regmap_get_device(st->map);
+> > > > > > +	unsigned int val;
+> > > > > > +	int ret;
+> > > > > > +
+> > > > > > +	ret = regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
+> > > > > > +	if (ret)
+> > > > > > +		return ret;
+> > > > > > +
+> > > > > > +	/* Warn, but don't fail. */
+> > > > > > +	if (val != st->hw->whoami)
+> > > > > > +		dev_warn(dev, "Unknown whoami %#02x expected %#02x (%s)\n",
+> > > > > > +			 val, st->hw->whoami, st->hw->name);
+> > > > > > +
+> > > > > > +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> > > > > > +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
+> > > > > > +	if (ret)
+> > > > > > +		return ret;
+> > > > > > +
+> > > > > > +	fsleep(INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC);
+> > > > > > +
+> > > > > > +	/*
+> > > > > > +	 * No polling interval specified in datasheet, so use reset time as
+> > > > > > +	 * polling interval and 10x reset time as timeout period.
+> > > > > > +	 */
+> > > > > > +	ret = regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
+> > > > > > +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
+> > > > > > +				       (INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC),
+> > > > > > +				       (INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC * 10));
+> > > > > > +	if (ret)
+> > > > > > +		return dev_err_probe(dev, ret,
+> > > > > > +				     "reset error, reset done bit not set\n");
+> > > > > > +
+> > > > > > +	/* Sync the regcache again after a reset. */
+> > > > > > +	regcache_mark_dirty(st->map);
+> > > > > > +	ret = regcache_sync(st->map);    
+> > > > > 
+> > > > > Sashiko raised the point that you don't have a writeable register list for the regmap
+> > > > > and so potentially we at very least write a bunch of stuff that isn't needed.
+> > > > > I doubt it's actually a problem or you would have seen it, but nice little optimization
+> > > > > to reduce what is written.    
+> > > > 
+> > > > I will add such a list, I'd put it in patch 4 unless you think I should
+> > > > merge patch 3 and 4 to make the driver compileable at the first commit
+> > > > of code (will push the number of lines to the ~850/900 range though).
+> > > >   
+> > > I'm fine with them split but don't mind if Andy prefers them combined.
+> > > His comment on adding a COMPILE_TEST option would allow that to be
+> > > built, but it is a bit odd to do it just for that purpose.
+> > > 
+> > > Jonathan
+> > >   
+> > 
+> > I'm going to add the i2c stuff to this series, and then do the SPI
+> > on the next patch. That should add only a little bit to this one but
+> > still ensure the very first (code) commit has something to compile.
+> > I'm going to avoid doing COMPILE_TEST unless collectively you all
+> > think I should.
+> > 
+> > I'm still racing to try and get this one done before the merge
+> > window opens up, but I'm pretty sure it's already too late at
+> > this point. I'll refrain from submitting updates once the window opens
+> > though.
+> Unfortunately you are correct. IIO in practice closes around 10 days before
+> the merge window to give time to both expose new things to testing in linux-next
+> and to allow time for Greg KH to merge my pull request into char-misc (which
+> is the path IIO takes to upstream)
+> 
+> Sorry about that, and whilst no need to rush as a result, we also don't
+> stop merging IIO stuff in the merge window, it just sits in the testing
+> branch until I can rebase that on rc1 and then push it out for linux-next
+> to pick up.
+> 
+> Thanks,
 
-The RP1 chipset used on the Raspberry Pi 5 features an integrated
-PWM controller to drive the cooling fan.
+No worries. I think I'm down to 2 bugs with sashiko that I'll try to
+quash, then I can move on to other stuff. Note that when it complains
+about the temperature sensor and power management that's a false
+positive. I tried to put a note there to give it a hint but it doesn't
+seem to want to take it.
 
-Add the corresponding DT node for this PWM controller.
+If I haven't communicated it previously, thank you again for your help
+with this. I thought adding an accelerometer to my handheld would be
+easy, but I do appreciate everything you and the other maintainers have
+helped me with.
 
-Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 12 ++++++++++++
- arch/arm64/boot/dts/broadcom/rp1-common.dtsi     |  9 +++++++++
- 2 files changed, 21 insertions(+)
+Chris
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-index 0fc57e72632ed..748be8f1ee9e2 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-@@ -64,6 +64,12 @@ phy1: ethernet-phy@1 {
- };
- 
- &rp1_gpio {
-+	fan_pwm_default_state: fan-pwm-default-state {
-+		function = "pwm1";
-+		pins = "gpio45";
-+		bias-pull-down;
-+	};
-+
- 	usb_vbus_default_state: usb-vbus-default-state {
- 		function = "vbus1";
- 		groups = "vbus1";
-@@ -94,6 +100,12 @@ &rp1_i2c6 {
- 	pinctrl-names = "default";
- };
- 
-+&rp1_pwm1 {
-+	pinctrl-0 = <&fan_pwm_default_state>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
- &rp1_usb0 {
- 	pinctrl-0 = <&usb_vbus_default_state>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-index 16f5359395835..df4c2d09c8d34 100644
---- a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-@@ -99,7 +99,16 @@ rp1_i2c6: i2c@40088000 {
- 		clocks = <&rp1_clocks RP1_CLK_SYS>;
- 		i2c-scl-rising-time-ns = <65>;
- 		i2c-scl-falling-time-ns = <100>;
-+		status = "disabled";
-+	};
- 
-+	rp1_pwm1: pwm@4009c000 {
-+		compatible = "raspberrypi,rp1-pwm";
-+		reg = <0x00 0x4009c000  0x0 0x100>;
-+		clocks = <&rp1_clocks RP1_CLK_PWM1>;
-+		assigned-clocks = <&rp1_clocks RP1_CLK_PWM1>;
-+		assigned-clock-rates = <50000000>;
-+		#pwm-cells = <3>;
- 		status = "disabled";
- 	};
- 
--- 
-2.35.3
-
+> 
+> Jonathan
+> > 
+> > Thank you,
+> > Chris
+> > 
+> 
