@@ -1,219 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61D23A3E76
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781304785; cv=none; b=vBZnrnur6bMT8slMu8QUvzbqlvlRKvGbpBw7HHQfQvVEoaifviHfw9DymLlbnbiXNnpE0NPUokag/Y2o2v2NeG5+ft46tl6goLqttyJOzS7hApnvuF82h5KN85Dli4oOFoO1KlgV9WmODM8wL/5q1LLxkQ7toPq8Zk5fXGxSC6g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781304785; c=relaxed/simple;
-	bh=8xRodfgBzSKdpOj3EtCbpPdnlo6AjQS6X6ftQMuviBU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c5d9RzX4ep1FskjTXjnRyXX7ED3PRZtYr0U9w085dh1R1sNc7PRNbXbjBCMV342UHGwtLHIv5uIHqk1eKYiGqYnumFAg3bssIEAnnAn9LGPbgytmFpqbv1KHGQLpDGHgApjFYpeV+WVHoiiTtp4K5ukf3SgarNvps1KniT0aEjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ab8lbcpM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8413655F6
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781304942; cv=pass; b=psgQqwkjHvjHkM5NKtmcedlJy5GQ6264aF1HR45xZngz4xf28Zu4YK8Vi80vIjtp1tfUbqWd0Bk27kyRcdahqKoSa5FsM+6b2MH73zLgB43hFjHaqtTB34o9G/x0+npuwnzCxhzT70MSYUUmqNbvEzmzD7HFw75ijga2kPhKjvE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781304942; c=relaxed/simple;
+	bh=RnGRLsaryVYMbmEZaBHC0Tao43UKFOd1sK8lgdxTk3E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ao62cl6eqGhTkZGLHNdC9I//MGb3kSekGI0aJgLYTSXsnaZcg1n3jYGAwCRahBNfsC7RL/HRHI5URu2d3Kg5EcZWRiWTx68pOA/Ljiuy/ByZPd1GJ+lR5zbS7JawLFI0vw27D5cgNV34aDkB1MaTKaTixpzWXXJ6Ljs2454D2lI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkhcIDmY; arc=pass smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ab8lbcpM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D541F00A3A;
-	Fri, 12 Jun 2026 22:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781304784;
-	bh=l+iPF5ssyzaHDv1NALzOsUib8JJgN1MFVRa7Z1Xs4+M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ab8lbcpMf3lJxInRE8aKZgrrcCXeye3FvvLj8AlJOqIP6crLOGpvU/iuhmEfEUENL
-	 2cIptHk51yM8MKNm43N1ryuLDCepoE1AbUDbsLgQp9vrjav+m70yXxQa1Avpcn5AtZ
-	 bZOmOJkTY6oN/gaP9IxXC2jlw8g5OJf2T80kIOy9ilK4Pvw4LTn0Ky49wFDdN7I6Qj
-	 W34DTxu3tGL9RC3eHHIq/2RIC9HOW6aYjYZAzeUsgADyy+0meqkZLbpllPXi/qQMgU
-	 4Mndk064dl2wSdMR9Kf8YRzAzMltMwjmzyHDofiR5vbbf6arVyMGpCnmMBUm0VQlhY
-	 /5Moq8vFsI6Kg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 06/31] dt-bindings: firmware: arm,scmi: Add support
- for telemetry protocol
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cristian Marussi" <cristian.marussi@arm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260612223802.1337232-7-cristian.marussi@arm.com>
-References: <20260612223802.1337232-7-cristian.marussi@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 22:53:04 +0000
-Message-Id: <20260612225304.75D541F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkhcIDmY"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c8588ec1b44so1049759a12.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 15:55:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781304941; cv=none;
+        d=google.com; s=arc-20240605;
+        b=RchlZ1Z4dGn5ZiXTNmZ16olxsk3TmUvlPDS+7QODMJC+1S+aX9Pvlr5JmrbUPhgCBp
+         iyyn+/FycS1rJB30SyECMdxTOjgQKhZ0+ZiDTjD9Ng6Inbfnst82o3rzsXsnKjLCI/sG
+         hC7g8651jwi3nvE/jZc9QNU6ilRC/h6XiOpYO2u9DEWquExWbmzNtxpYjtereZrffMM9
+         4hOFMvBw3X0hSH3mX5u2zMYTVVho82f4LI7S0bGOlV4o+d58h24MCNSXZHUroo2E6npJ
+         fzbd3k3sJ8iTybUiqA4+A1mLhsL47msFj2b3QHPjpwvoG2PDlpzXyyb4Hq/ldfo4kuMN
+         WIww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=cemL8pO4O+gor5GCDMKqIY/b/nhS0YXr6Sf7gRABVFE=;
+        fh=0mdCXt8p0q6o1imT0bMHOmqOPQOA/IXVhibCyuG/Xsc=;
+        b=KSEPuDY4VbKogbjwMxSsYYW0jdHu0yvb5aOYY+KJ16zp9m1zKfuQhz8v+GYa8MXszr
+         p84IaB6LvGEl0AD1QGPvjRAzNGCeR+1j03m41khTnLJ20wwZ/ewnQlrliEo+73Q7bD0B
+         qhTKEYIMIuOe2f9NkzdThpMh/hMMYr4bVvYHDEDBXT/16pESvCvWVrlcBEZshBZElBZI
+         pIGgXIK7P2Tm81pY5AADQ0GfUgK5//2DVqSJXOoM8BQdIeEoDZKuMGgnFSVlpBQ/b5nA
+         3+rGTEIY+AVxM3ivamOfqqoQQh1SW1fTPbU/WQo9vLYlsE0bUV2MW8mg5k6vUI6+goMJ
+         ZwHA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781304941; x=1781909741; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=cemL8pO4O+gor5GCDMKqIY/b/nhS0YXr6Sf7gRABVFE=;
+        b=IkhcIDmYzzUQWGOq1uA0Kdk6Ulaoe7lQv+d1O2oiNIxFq3yoV3mAhSNS29A6QzanmE
+         bAcADD8bsl8gDxvn3Ll6m4hB8tG34Pk6qwIPLIMlBLmkHCv2lKMKgyWpb9IvjAiLNyiD
+         n4elFCz5AlCptW9jSDOBtJPsmDDIoFrCPfXNQbdZlFt9NxIRYFr/zgYR320BwvrKln6I
+         BZw3z++91DyQnsZ4R0WZo6yiWTodDnzn13m2QzBdYkTZ+UDeFmCnO3lQ1No5J75IZthp
+         7ohOv0Ddr+Jx43USh+pPc6DyT16CUH9EAew3961zsk4INZqQ8TEXHUOEdIn9LC8rP6VD
+         kxIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781304941; x=1781909741;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cemL8pO4O+gor5GCDMKqIY/b/nhS0YXr6Sf7gRABVFE=;
+        b=bO/Y1okMgDuj2AazQqkhECm274QOwR54QHt6qlFtgCz4u3nAn2p0+f5SEQWJPJOrlb
+         NJKjXc+0wejlF44+b1HMYvZBDs1tzVBlu+s90jdtzOaEStxM0+Uo2A+fzb7AApIrEAe3
+         d4B+7rut1ttcyPyUXPep9/gFnZJDie1ffT/hRSe8zI63C0+Tqs7qnlqgIr1BdsS8v4TP
+         imvMP07hnWQ1yblHuAdLBWQ7PIScTbhPbRQHICJzefDnV/vvvvVy082KrSuFXSsUiZcb
+         qxnI+PIKGMmxXfLlxgMVLn+fovGwtWVI9QoOpo1BcS3Y+cT2hC2XFkDD9pZcxbpuei5G
+         /ooA==
+X-Forwarded-Encrypted: i=1; AFNElJ9oxp5wywwdw/1PFgMM89Vy9dpR/6sP8X+up9RGgYax4xrIVeje+co0u8IkWRa2e5KHkpHp6tnqHzjR@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNIkliIWtMYDO8fFDLZzFIM7HdT6vSf4zyaRyuiCmCQc26J1TG
+	+CpW5hQyvl5sF2OjcapIlx+aDkaMLgtn6i3iOh4QnfILc5PvWYq6/BTEhOzEPB+9KaaixyypmaN
+	4bzdxkH6m7srUQsT6ELbDF+22ru3/Fz8=
+X-Gm-Gg: Acq92OG1QGEz2z7WgZbpYfsxOPmzGyMkD7QF2DM488q1J2/7NeAxbxk+hLVmlC6I4u8
+	XDfhlV8rq6nYTpfgjKG7Y9dBC9DLGTGDQFQh4q8bmzR87wGVSSVMJ+u8Ebjf/wnd6zo9yn98XGE
+	n9IehgCVDNw6N0QUWbrM0HJoXxPBg8wcykWZrjJzlsVfWQYY1dtqPvRr9aDdaGMD2ocIblRetMo
+	owVehrdTg3LAkKTJVE6dRgWMunB8OBH9kLRwRB2mWfAcMbLfjojN457LgMj+Im9YX+/ZI4FxeJ6
+	VUhYVNvyuSO679O1vrVcxH0eCd8w08S1Oba+DZNPT2Mgb9zuP2AdbJZMum3P9c9x/nYgIR+6
+X-Received: by 2002:a05:6300:808b:b0:3b7:99af:2d22 with SMTP id
+ adf61e73a8af0-3b799af3065mr690013637.19.1781304940769; Fri, 12 Jun 2026
+ 15:55:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260609113836.45079-1-phucduc.bui@gmail.com> <20260609113836.45079-3-phucduc.bui@gmail.com>
+ <CAMuHMdXku0BVRgwWWv1vNccKpRbvTu+1b0TjYacNJH94XBDOGg@mail.gmail.com>
+ <CAABR9nHFHWFeEaaYE6X9fqt_Zb-3pF=jJbHQpsiBTgkS5LyTLQ@mail.gmail.com>
+ <CAMuHMdWsLeEzjCPHEa=nY-kC0n34RHL3kUMW30vneUajCWwTRg@mail.gmail.com>
+ <CAABR9nG2kHH3=gkd0H+vhGZJtvkHLA7YMpoWt+p+XtdNV+oe=A@mail.gmail.com> <CAMuHMdVQhVQvvnh-aJxw64_h6jOcfaQFk6_Sez-T9aNV30DfRA@mail.gmail.com>
+In-Reply-To: <CAMuHMdVQhVQvvnh-aJxw64_h6jOcfaQFk6_Sez-T9aNV30DfRA@mail.gmail.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Sat, 13 Jun 2026 05:55:29 +0700
+X-Gm-Features: AVVi8CckQkjD86MDGtEDHBEDRZeUn6MBYP38VksTuYLHBCU5CWlyG_A5TkSZIfE
+Message-ID: <CAABR9nFoLrYTUqRr0__n33EZ9Y+YfM=RxAMsx2EFnDWxHa4k3g@mail.gmail.com>
+Subject: Re: [PATCH v6 02/11] ARM: dts: renesas: r8a7740: Add clocks for FSI
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] A race condition in `scmi_protocol_release()` against `scmi_ge=
-t_protocol_instance()` leads to a Use-After-Free of the protocol instance.
-- [High] Concurrent requests for the same uninitialized protocol will fail =
-instead of waiting for initialization.
-- [Medium] Using `_IOWR` ioctl macros with structures containing flexible a=
-rray members truncates the encoded payload size.
---
+Hi
 
-commit c0ccec86311b387c10216dd1ee33220fb6d9c890
-Author: Cristian Marussi <cristian.marussi@arm.com>
+>
+> Thanks, confirmed.
+> Have a nice weekend!
+>
 
-dt-bindings: firmware: arm,scmi: Add support for telemetry protocol
+I went through the schematics and summarized the FSIA clock and data
+routing below.
+This is mostly for future reference, so that anyone investigating this
+hardware setup later
+can quickly understand the default configuration without having to
+revisit the schematics.
 
-Add new SCMI v4.0 Telemetry protocol bindings definitions.
+In summary, the current hardware connection between FSIA and the
+WM8978 codec is
+configured as follows:
 
-> diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_sc=
-mi/driver.c
-> index f167194f7cf67..9c1ab9925b1d7 100644
-> --- a/drivers/firmware/arm_scmi/driver.c
-> +++ b/drivers/firmware/arm_scmi/driver.c
+Master Clock (MCLK)
 
-[ ... ]
+Pin 11 (MCLK) of the codec is connected to pin 3 of OSC X8, which
+provides the 12.288 MHz clock source,
+and is also connected to the R8A7740.On the R8A7740 side, there are
+two possible routing options:
+1 . Pin G3 (FSIACK - Master Clock Input for PORTA) through resistor R250.
+     R250 is a 0-ohm resistor and is currently populated.
+2. Pin K5 (FSIAOMC - Master Clock Output for PORTA) through resistor R120.
+    R120 is a 0-ohm resistor but is currently not populated.
 
-> @@ -2284,27 +2298,25 @@ scmi_alloc_init_protocol_instance(struct scmi_inf=
-o *info,
->  static struct scmi_protocol_instance * __must_check
->  scmi_get_protocol_instance(const struct scmi_handle *handle, u8 protocol=
-_id)
->  {
-> -	struct scmi_protocol_instance *pi;
->  	struct scmi_info *info =3D handle_to_scmi_info(handle);
-> +	const struct scmi_protocol *proto;
-> =20
-> -	mutex_lock(&info->protocols_mtx);
-> -	pi =3D idr_find(&info->protocols, protocol_id);
-> +	scoped_guard(mutex, &info->protocols_mtx) {
-> +		struct scmi_protocol_instance *pi;
-> =20
-> -	if (pi) {
-> -		refcount_inc(&pi->users);
-> -	} else {
-> -		const struct scmi_protocol *proto;
-> -
-> -		/* Fails if protocol not registered on bus */
-> -		proto =3D scmi_protocol_get(protocol_id, &info->version);
-> -		if (proto)
-> -			pi =3D scmi_alloc_init_protocol_instance(info, proto);
-> -		else
-> -			pi =3D ERR_PTR(-EPROBE_DEFER);
-> +		pi =3D idr_find(&info->protocols, protocol_id);
-> +		if (pi) {
-> +			refcount_inc(&pi->users);
-> +			return pi;
-> +		}
->  	}
-> -	mutex_unlock(&info->protocols_mtx);
-> =20
-> -	return pi;
-> +	/* Fails if protocol not registered on bus */
-> +	proto =3D scmi_protocol_get(protocol_id, &info->version);
-> +	if (!proto)
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +
-> +	return scmi_alloc_init_protocol_instance(info, proto);
->  }
+=> With the default hardware configuration, the master clock is
+supplied by OSC X8 and FSIA operates in slave mode.
 
-[Severity: High]
-What happens if two threads concurrently request the same uninitialized
-protocol?
+Bit Clock (BCLK)
 
-Since the mutex is dropped after failing to find the protocol, both threads
-would independently call scmi_alloc_init_protocol_instance() and initialize
-a new protocol instance. The first thread will successfully call idr_alloc(=
-),
-while the second thread's idr_alloc() for the same ID will fail with -ENOSP=
-C.
+Pin 8 of the codec is connected to the R8A7740.
+On the R8A7740 side, there are two possible routing options:
 
-Would this regression cause the second thread to tear down its allocation a=
-nd
-return an error, leading to a spurious fatal probe failure for concurrent
-devices instead of waiting and reusing the initialized instance?
+1. Pin L5 (FSIAIBT - Sound Input Bit Clock, slave) through resistor R123.
+     R123 is a 0-ohm resistor and is currently populated.
 
-[ ... ]
+2. Pin F2 (FSIAOBT - Sound Output Bit Clock, master) through resistor R139.
+    R139 is a 0-ohm resistor but is currently not populated.
+=> With the default hardware configuration, FSIA operates in slave
+mode and receives the bit clock from the codec.
 
-> @@ -2335,10 +2347,11 @@ void scmi_protocol_release(const struct scmi_hand=
-le *handle, u8 protocol_id)
->  	struct scmi_info *info =3D handle_to_scmi_info(handle);
->  	struct scmi_protocol_instance *pi;
-> =20
-> -	mutex_lock(&info->protocols_mtx);
-> -	pi =3D idr_find(&info->protocols, protocol_id);
-> -	if (WARN_ON(!pi))
-> -		goto out;
-> +	scoped_guard(mutex, &info->protocols_mtx) {
-> +		pi =3D idr_find(&info->protocols, protocol_id);
-> +		if (WARN_ON(!pi))
-> +			return;
-> +	}
-> =20
->  	if (refcount_dec_and_test(&pi->users)) {
+LR Clock (LRCLK)
 
-[Severity: Critical]
-Could dropping the protocols_mtx lock before calling refcount_dec_and_test()
-introduce a use-after-free regression?
+Pin 7 of the codec is connected to the R8A7740.
+On the R8A7740 side, there are two possible routing options:
+1. Pin F1 (FSIAILR - Sound Input LR Clock, slave) through resistor R124.
+   R124 is a 0-ohm resistor and is currently populated.
+2. Pin E2 (FSIAOLR - Sound Output LR Clock, master) through resistor R227.
+   R227 is a 0-ohm resistor but is currently not populated.
+=> With the default hardware configuration, FSIA operates in slave
+mode and receives the LR clock from the codec.
 
-If thread 1 reaches this point and is about to drop the refcount to 0,
-another thread calling scmi_get_protocol_instance() might acquire the lock,
-find the same instance in the IDR, and call refcount_inc(&pi->users) on it
-while its refcount is zero.
+Input Data
 
-Once thread 1 re-acquires the lock to remove the instance via idr_remove()
-and frees it, thread 2 would be left with a dangling pointer.
+Pin 9 (ADCDAT) of the codec is connected to pin H4 (FSIAISLD - Sound
+Input Serial Data) of the R8A7740
+through the DBGMD/LCDC0/FSIA mux path.
 
-[ ... ]
+Output Data
 
-> diff --git a/include/uapi/linux/scmi.h b/include/uapi/linux/scmi.h
-> new file mode 100644
-> index 0000000000000..abf68bb999606
-> --- /dev/null
-> +++ b/include/uapi/linux/scmi.h
+Pin 10 (DACDAT) of the codec is connected directly to pin J4 (FSIAOSLD
+- Sound Output Serial Data) of the R8A7740.
 
-[ ... ]
+Conclusion
 
-> +struct scmi_tlm_intervals {
-> +	__u8 discrete;
-> +	__u8 pad[3];
-> +	__u32 num_intervals;
-> +#define SCMI_TLM_UPDATE_INTVL_SEGMENT_LOW	0
-> +#define SCMI_TLM_UPDATE_INTVL_SEGMENT_HIGH	1
-> +#define SCMI_TLM_UPDATE_INTVL_SEGMENT_STEP	2
-> +	__u32 update_intervals[] __counted_by(num_intervals);
-> +};
+With the current default hardware configuration:
+The WM8978 codec operates as the clock master. FSIA operates as the clock slave.
+If we want to test FSIA in master mode, the resistor configuration for
+all clock lines must be changed:
 
-[ ... ]
+1.Master Clock (MCLK)
+2.Bit Clock (BCLK)
+3.LR Clock (LRCLK)
 
-> +#define SCMI_TLM_GET_INTRVS	_IOWR(SCMI, 0x03, struct scmi_tlm_intervals)
-> +#define SCMI_TLM_GET_DE_CFG	_IOWR(SCMI, 0x04, struct scmi_tlm_de_config)
-> +#define SCMI_TLM_SET_DE_CFG	_IOWR(SCMI, 0x05, struct scmi_tlm_de_config)
-> +#define SCMI_TLM_GET_DE_INFO	_IOWR(SCMI, 0x06, struct scmi_tlm_de_info)
-> +#define SCMI_TLM_GET_DE_LIST	_IOWR(SCMI, 0x07, struct scmi_tlm_des_list)
-> +#define SCMI_TLM_GET_DE_VALUE	_IOWR(SCMI, 0x08, struct scmi_tlm_de_sampl=
-e)
-> +#define SCMI_TLM_SET_ALL_CFG	_IOW(SCMI,  0x09, struct scmi_tlm_de_config)
-> +#define SCMI_TLM_GET_GRP_LIST	_IOWR(SCMI, 0x0A, struct scmi_tlm_grps_lis=
-t)
-> +#define SCMI_TLM_GET_GRP_INFO	_IOR(SCMI,  0x0B, struct scmi_tlm_grp_info)
-> +#define SCMI_TLM_GET_GRP_DESC	_IOWR(SCMI, 0x0C, struct scmi_tlm_grp_desc)
-> +#define SCMI_TLM_SINGLE_SAMPLE	_IOWR(SCMI, 0x0D, struct scmi_tlm_data_re=
-ad)
-> +#define SCMI_TLM_BULK_READ	_IOWR(SCMI, 0x0E, struct scmi_tlm_data_read)
+In other words, all clock routing selections currently connected to
+the slave-side pins must be
+switched to the corresponding master-side pins.
 
-[Severity: Medium]
-Does using the _IOWR() macro with structures containing flexible array
-members cause regressions with payload size encoding?
-
-The _IOWR() macro computes the copy size using sizeof(type), which only
-covers the fixed header bytes and ignores the flexible array elements (like
-update_intervals in struct scmi_tlm_intervals). This embeds an artificially
-small size into the IOCTL command number.
-
-While the native kernel driver handles memory boundaries explicitly via
-copy_from_user lengths, standard system call tracers like strace and
-emulators like QEMU user-mode emulation rely on the _IOC_SIZE() macro
-embedded in the IOCTL definition to identify the memory payload size. Will
-this result in truncating the array copy and causing emulation faults for
-IOCTLs like SCMI_TLM_GET_INTRVS, SCMI_TLM_GET_DE_LIST,
-SCMI_TLM_SINGLE_SAMPLE, and SCMI_TLM_BULK_READ?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612223802.1337=
-232-1-cristian.marussi@arm.com?part=3D6
+Best regards,
+Phuc
