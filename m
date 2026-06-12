@@ -1,136 +1,125 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5AF39DBD0
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781255510; cv=none; b=kaM59PJyhbN1c1aJVipz8ag1NAnN6KP49Tf9vV5i53r8GbYpTbxqxHOUbQXPJaluQBM8VdAmXat+d0MZOmyOwdXcdD5fTTrtlGp3uwexvrHfvC/KaxcWfbs8BP+feYdSGe7vwBdLva/i6Pu36YihxdqndnoarM9XJcCyrerJj7A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781255510; c=relaxed/simple;
-	bh=M2Y7gN389qMGTyy+yo/flfjZkxz6y/4EIFKM+ZT7fgo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l1SxcD3QNt0mIJ9Y5eb1x4Ts11PTG3E20UT4H1bTqklRGFhLceqnX4hGpagDzFUJq3j0L/CPFv9uFNFWJYbpwhVYgC/HZJWHBecLkSB/gP6RCARANyBLIGWEPwZgUCUiM+rQzrtANXCwEbl96b3Vxh8nnJe5uEAiCE/R30NjQ3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=g9DslKmT; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0DC397329
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781255538; cv=pass; b=LILqPYS6LPETgQJgDtxMzVhCMr47KYWqj9Ss52i0SXcKIjnRPpA5LgZ+SKqbFJWJOduatEbizCvpUS73H29j2GFylSdgOgF3B7b8q4NNWZk5qtCOn5InjK/scSgD1f9dAbgC98WAO4nmVM3lkmoAGN6L/imtIhUzTraPy1rYUp8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781255538; c=relaxed/simple;
+	bh=V9+QmrpZdZ64QkPAYEa/J5l5l39WRUXFgGRxiy0LOV0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EADBK1UnsFURHphMYnZEu18MVhyRHL/N48WYigFxSYn08MliQKP8QniZ6yXsUBaxTEEO/CZIIhIjcC51MS9DDkOh1vOOHfH4MoNElLKZ32qgUdPE3B0sheCq/PMgTJjWNm/FqKr3DZ7a1ScGzPhJSVvnegyiY135kywGnqXSWDU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=VY6z8Y27; arc=pass smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="g9DslKmT"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa6091635aso104021e87.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 02:11:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="VY6z8Y27"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7e8833c99fcso7755917b3.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 02:12:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781255532; cv=none;
+        d=google.com; s=arc-20240605;
+        b=LXfJ3ofQHJ10znlYjjPJ56W65IClWp7QSyR9FxeP3KEvWFvMz5CNfeuicrJ0cQcPu3
+         2p/d0EP8kF+d0tQZ/e293snL7IQmr3WuItTPdp4cQLtjUFriv2OP3J0ZEnsRqOrUalP+
+         1vnNwBKoR22/dLyj2L+PGolJ04cfvvU4GZhxA+5uNuArYdCy0LHEaxO0coKARn5tBRk2
+         ACg8ALRtnuKr91FtKWR2umtrBLCRNp1aSS18eCUAXwmSoHWnsDQGQ/nqwQomohbVbAXO
+         H3PUNYvbbDIt3SetvA5Nr2AAimDPvvR0mCwr4/lXyg2Rh5r3RP14QWkN4cZ0MJsZD1S3
+         EUTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GT5k7NNhpJZZ3Z4dV7FccQcGuRptRglhhV64m8hW5dM=;
+        fh=1GzrPr5QrRFpqCpiOO67YgsLZE+f0tG/44nulfanWnE=;
+        b=kKyMbuuJDWJ4DduwkL0D4/f9Z4WuzqnQMdcReBgrOGazxQp8FMI2XXhjJOTmva0/ok
+         cLtUsyL7N7z4tyv39l24OFmbHQtaOQ5Qf2GzJcCnURCCeYWhB/1s7BmqHChRfvMeK6mf
+         pVFKT1wiGub98TUiX1wQbrX9EpFyFOE4hkqcnTiFDkpqABHL5MFwksOy3EQPcsL5KoOw
+         cDW1zNq/rEc0Ev1P5oIXTjoot9w9LCqYGGlfMCQ3ajrGOCC7SBhFHSrFXse7Vdp9aO3N
+         IHJ+yMoRzWQSW35vySvwQBwZzwYNMYCQHAGejaDPvA9uuStJBnSAaZ4YA6Qw6vrdFJzr
+         6qFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781255504; x=1781860304; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1781255532; x=1781860332; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9yBcNvIE7yCQii6ic3E0c4VVkUlJG/VlSUkVp+6fpIo=;
-        b=g9DslKmTv023wXatRi729A8rcsz048im4daipJsG72+5OLRWdSgx6KRo3WOqKaUoeZ
-         iNdsZkkyZep57ZxH90qb15mulz+z4F/tHwiYsbpEvGCcCW1Nt8vWjFo9o2PEMMUiCo+3
-         OSiA8fnsKlfPOEedTAMFE161gio/Z7I7teGdh5/wgX8YEO+CVIxjoqSrLP/TA+Ze4DJ/
-         lwUatb5o1yM2p9PBIDMYkzO36LdkQ/GMciCTVpSb4ECsf8psIBA9TYTaWSq+pLmFxgCi
-         EUxa/gvNyvKlgvIeXzL8nWLQaomIyfXF9ABwtwwW5vEOnnYGGk54c6nhbjIIrWm2JuvT
-         x2Pg==
+        bh=GT5k7NNhpJZZ3Z4dV7FccQcGuRptRglhhV64m8hW5dM=;
+        b=VY6z8Y27Bq/k1VaXQDtfw4d6RhDkAb7ja36E1h1GoBPyxh8YLLuJ0VGxGCciWhduL3
+         K6pOSFQWx1us+l10HBVmKuj+38x5U1b+jmRjcTWKFAb1lZmSa9x2dBwuyDpyBhsriic0
+         0cEp83ACaRF9R3X5w43ashV/jsuNNogzc5ovw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781255504; x=1781860304;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9yBcNvIE7yCQii6ic3E0c4VVkUlJG/VlSUkVp+6fpIo=;
-        b=jSjojkSi6DW3y4Ntoxi3fjOIvMxLTdJLP4uznSFEoSw2jYM+C2Y/DHbrcoXXNBSxl3
-         GGg7LEedbVYz0o7H7z7UDCxYmR5hKgSC8k2lC319X+a9NDHlxP9I3U70BjutctUgGzz/
-         THVLq8DAizZIt7M08o55Ny5yDJ4vKIpHmDCN9CFkqpQ+Se4R0QRYlrxWsJz1C0AvEgSh
-         BJOXooOnc256mxiKJh1vcNFhil1XcsFpXH/p7EnTbosXnxtQRcOWMq4lrZWOwkpVuqIY
-         UJ/oYjoMv9KR0dP6xxOUTacJ+O0xFJYVlPQrGMocoU5Xt0mWD97syN18nIoWB49iBGMZ
-         VuSg==
-X-Forwarded-Encrypted: i=1; AFNElJ+coWP8rt6Qvfm33vee+Uw9mtJ05eVQ3YvBAHRChnlkqA4hy8UxRMxkmWfmV/QUZRYwbho0TjRX/lBR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz99mnB/pTLe9tESw7QXzG0UeesmTIQyqPGFhzRcSvSeziLKRA9
-	4HulAUL5lhRvG7Ls8QdsrdpohNuDSlPjWIRddU4UOu0+UsWnV6m6a/4fpbqwx9H5hpk=
-X-Gm-Gg: Acq92OHbClvdE8gmf/xyjSquR2eO/JMkFfSE2xUf7ifnd9vipfeaUQKA3YwSyiiwQoq
-	VLem6LVb0L/43hX9YNM0d1cFp8Pusb4IUxL+k3U4p8BXAakCDjsUAqwTAhwkfojaV7Fyb6VA4Lm
-	c1WFDEAZopPP7sKNDpPHiUjFgTPVFyhroKeA7qM7YcCmUrzq2I71r/6EfhbgFKXKYgs80EdNC1Y
-	bSrryFW0SN9JLjdnm/Pe9pp/1UJdPhpXZvtPSAmTqpwGAyLo92uzLyr7KZiRXqwtKE9myCVLSw+
-	ns0yVcbgAiQtd81O5gd+9iac5JSFTwY78zyt+PkQE5EhSenzGsMNkXAPD8mGa3cfdIWzeNxB26p
-	IDBty90Z/SXYyoXr5U62RZZxiRYAg9+oPJ8IcD9VV2JywyfqGDa6941tmsJF0bdcuJZ7yWTKj+k
-	N77qQuZqDSgsFb2Yrkb0Rc1pJkKGxZYrmxWBH0G/KYZinbvrv/0TH/FcNWUM2Hpfu0FPFSnJ7V2
-	V2SIg==
-X-Received: by 2002:a05:6512:2253:b0:5aa:62df:cd0a with SMTP id 2adb3069b0e04-5ad2db71582mr315660e87.4.1781255503542;
-        Fri, 12 Jun 2026 02:11:43 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e16fee3sm375352e87.31.2026.06.12.02.11.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 02:11:42 -0700 (PDT)
-Message-ID: <aca9bd93-9dff-4493-a1c4-daf9ba27aad6@linaro.org>
-Date: Fri, 12 Jun 2026 12:11:42 +0300
+        d=1e100.net; s=20251104; t=1781255532; x=1781860332;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GT5k7NNhpJZZ3Z4dV7FccQcGuRptRglhhV64m8hW5dM=;
+        b=IDEsJNIWoQJv2wBFHiKFHNQPvDwmUIbmpM3f0DFBfE6UmVM8gZbVsCWZmlVP2PlZFu
+         ohPb2o6Qnn6EPEST44qmLalu8ttZmUFGatuAb5/sHuWb94nAoU3MYImbwXPEf6GWiAWu
+         yNCCiIFLC9HpdPx6+sMHzsXOdzjX8GtOkuOerYNiF2EzQx7Q/X9TjkMM9LKUmEJuXLBK
+         UQ4thYHi8VzKtx4MhDFHt8OpQCBVyU/6/J7gmT66P4HDXtXOO4R8/sMCJd/U66/CPAEI
+         YUAabVlT2kgiwORLM8Y8frRkHDT/dwNm0zKlM3ot479wRU1q5No98yNfw6q6v778Gjin
+         EiGg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Jb2rMEgP5yG2yO/NWEcgVvJtZODA8pRRCbM5+TdlyiU3X5a/xwmvmrnkd0MGUPhPT3wqVGpPyL23Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNERpp2gkfv6Y0e0taYwp1vtTM9N9xHyTmVVSQ+S0MdcWtvDeK
+	lJQmC+T8P/AVepDYzuGVfThthnqV0d+vRS4kg1SJzUBLvo7+AvFAC6w1L21TWHXoFGNC0O0qDZD
+	Yvf4OS2HSa9g/mrryUwcWNox5xm/fdExUsynatAAG
+X-Gm-Gg: Acq92OEv5BWU7GPkGXgYcPnoDDiLiwcFzxyO0GdahI9HyCfHUV6vbIULOxZLhlcoJly
+	cBJVogGTQDTeHy+wdseLGBBBRD6Tf0hMkyU/R+tq7ighJz6CcCU5lqeQO3Ejn22QfTFhJ4l8W3T
+	2LT6ZbxptEDiTh1Q+/Y+YSI3RJnYAh06/ITs3PsgRaoxCAp8Cge6nwVq7jcodfDqvsH/JmwshUo
+	GAxhWh6SRvD2Q1+yDRREfxQaSLNVk6T9KYeQEnp+smD+n8hjLOPOyQZpRPX+dTXbBfUGCwE9OKC
+	6o/Xqm4L
+X-Received: by 2002:a05:690c:f0a:b0:7ef:d039:a334 with SMTP id
+ 00721157ae682-7f7bcf0d73cmr16871217b3.22.1781255532401; Fri, 12 Jun 2026
+ 02:12:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
-To: William Bright <william.bright@imd-tec.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ram Boukobza <ram@imd-tec.com>, Tendai Makumire <tendai.makumire@imd-tec.com>
-References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
- <e0731edc-81da-429a-a12e-a1d1b75f9544@linaro.org>
- <aig9licCxhtZbHMq@will-Legion-Slim-5-16APH8>
- <5a5cbf8f-07ef-419a-8d30-c1b0b2786312@linaro.org>
- <aik1ZYUT-cnpfdQn@will-Legion-Slim-5-16APH8>
- <00643a25-040a-4bec-8324-f52b30d84f9f@linaro.org>
- <aivHs6p28uN3d6TI@will-Legion-Slim-5-16APH8>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <aivHs6p28uN3d6TI@will-Legion-Slim-5-16APH8>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260610084053.2059858-1-wenst@chromium.org> <20260610084053.2059858-11-wenst@chromium.org>
+ <ail1sAxgh5Xtkj2y@ashevche-desk.local>
+In-Reply-To: <ail1sAxgh5Xtkj2y@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 12 Jun 2026 18:12:01 +0900
+X-Gm-Features: AVVi8Cc47lUt9lrnuGQ2TayhjSsjO0Ufug4-8BS--usEeOHUYmKa3VTCiJvbq60
+Message-ID: <CAGXv+5Fkp9R3i+WnCunbydJpn_rjxX5Cz9Cb=auS-cR1RE=R8g@mail.gmail.com>
+Subject: Re: [PATCH v2 10/16] power: sequencing: pcie-m2: support matching on
+ remote "port" node
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/12/26 11:47, William Bright wrote:
-> On Thu, Jun 11, 2026 at 10:48:34AM +0300, Vladimir Zapolskiy wrote:
->> Looks like the SDHC driver behaves expectedly then. For me it's hard to say
->> what may be the rootcause, I believe the lower bus frequency should be fine,
->> so it sounds like a hardware issue, but could it be PCB/board specific one?
->>
->> If you find a chance to copy the SDHC driver (and its small dependencies)
->> from Android and test it on your board, and if it also fails, then it might
->> be well concluded that something is wrong with hardware, still it won't be
->> quite convincing that the SoC SDHC is to blame here.
->>
->> Hope it helps.
->>
-> My colleague Tendai (<tendai.makumire@imd-tec.com>) had the same issue
-> with dll-tuning failing in SDR50 when working on the downstream 5.15 msm
-> kernel [1].
+On Wed, Jun 10, 2026 at 11:33=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Wed, Jun 10, 2026 at 04:40:44PM +0800, Chen-Yu Tsai wrote:
+> > A USB hub can have multiple ports, and this driver needs to
+> > differentiate which port is being matched to. The USB hub driver now
+> > associates the "port" node with the usb_port device, so here we can
+> > use the remote "port" node to check for a match. Then fall back to
+> > the remote device node for the other connection types.
+>
+> ...
+>
+> > +             if (remote_port && remote_port =3D=3D dev_of_node(dev))
+> > +                     return PWRSEQ_MATCH_OK;
+> >               if (remote && (remote =3D=3D dev_of_node(dev)))
+> >                       return PWRSEQ_MATCH_OK;
+>
+> We have device_match_of_node() IIRC the name of that API.
 
-If Qualcomm supports their downstream Android kernel running on your
-board, it should be worth to contact them.
-
-> It does sound like a potential SI issue so I will try the following:
->    - Sweeping the drive-strength values for the sdhc_4 lines to see if I
->      can find a set of values that work
->    - Scoping the lines to check SI when performing dll-tuning, our board
->      is very dense so this is challenging.
-> I am guessing this patch is only acceptable to be upstreamed once we get
-> to the bottom of why dll-tuning is failing?
-
-Apparently if Qualcomm confirms that SM8550 SDHC4 actually has this
-discovered and unveiled defect, then this change will be accepted for
-all SM8550 platform like you propose it to be done.
-
-According to my experince SM8550 SDHC2 operates properly in UHS-I
-SDR50/SDR104 speed modes, this can be verified on the reference boards
-like HDK or QRD, and for me it sounds oddly that there is such a problem
-with SDHC4.
-
-If the proposed change as is does not enter upstream for SM8550 SoC, you
-may keep it as a necessary change in your particular board .dts file.
-
-> [1] https://github.com/imd-tec/meta-imdt-qcom/tree/kirkstone/patches/msm-kernel/files
-> 
-
--- 
-Best wishes,
-Vladimir
+Ack. Will also replace the existing instance.
