@@ -1,187 +1,229 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013063.outbound.protection.outlook.com [52.101.83.63])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB5A400DF4;
-	Fri, 12 Jun 2026 16:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781283347; cv=fail; b=YIBoU2ZMakvMgSgsMTBxjTHLy6D8Cn2L0qqn1FOBooX8WDzGmeJGyoYs+23mdaNi/3D9DmljMzBK3UvLG1DIN3doNiE6yZ1n5+0ZHIoAdAf1Gr6VzoBt/1Uek79qjCdbGbSLoT5W3WFbk7o4YKTDtTRaG5HqDaTvZegUI72gi7s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781283347; c=relaxed/simple;
-	bh=5uW25Q59jzofXy7LEzrVVB1XU/YVslQf+wNO0GNrDf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=V88O4U3mqsbdJNzZorckd/AaE4OeBt/JBmPbKbXVh/r3RVweAEh9VIQ1DJmVg9bCOUENQsFq1yL3Addcr71kk/v3hiUHPHglpwZKFyDcbOvpNwHTkcbw9J2xZijKDgDW0XNOoP6h9USXeUqBw2ux+ixu79tJWpB2m2PYvaxvOrc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EXU9ADyD; arc=fail smtp.client-ip=52.101.83.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AD63E023A
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781283348; cv=none; b=t4cDoxuBPyJ7kAen65ddGh6/1ELvtdAtAKF6eFmjWoTA4YE9SZgZJermH8/JgNEujQ4dIZi/MHoJAlIuvReXpScLkp5Mzz/PDJMyVUP1FismN5FncVSPA2rRzOtm2dNMrD4DgOy8pKTAxu+hmMsd1uCA2o/4YlSHQKst3Bi3aHI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781283348; c=relaxed/simple;
+	bh=aO1c/EP9pynvs5sP5XSjLsP6xMvrPeEvyqs0urYIlG0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=r5c0luLzaFYE9raVjYaEHKgUHSbYRwyEXLd3G/SRazfuxxvoxgHd+UWQKsCrB1A2f6moHkKsj0OpyHtLQtuc982ToNCBVcBoyGKmGBj/j82XscBWiEyWsQjYC6qQupnARSf271eaSMs4SsXUH5hP2CwFUnUjIBMdoF116RTVzUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAAFFSnq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EXU9ADyD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PdXnLbu4TscwcEPJI1d59tzWijUTq1d9xRE9iZOEbodkgc65dKvva4KJ/EovRthxxxuMYzmoGcpt+GHMxWrYPeQLxfENdJNhrrwA3LRD230qttyprBqmjiGC5DCwDKT3SUwj4o60NiLsqsXinaUdBgcMqoPLW9dx39W5eekasos8j0aIguv29T3oQLUYP6Fd8Yxl0TG71J7XTiTLLbjyA9QE4Y9lt6E+8ZY5Qepas7GmRZJpdXaURc2q6JuDmg0iWUyGptRqPuOtO7VAnL6/S4fvldhWokOWrDbK8tI+serozKF0XGt5rKsxw+mR8ZLGmOkS+hcHmD+H91Ww/u/V2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=STTlgm1YZ1O9G8j3yPM8uxED+OWEdoeaqnWuhmEau98=;
- b=ocqsiLlkdmozfFy7lW0w5exYvzxhBt91xY4ElXUPagDXqaMdMwJe/mJArE/72s5jEict+O5L2lPWm3Hk3OUn7GGdF6dvaZhjEdknJsWhHPxmpqAX12L+GvxYnTI9/svrXyrtec7jUseeJoBjIgsJYtbS4jQME7tyPxvLft9GBwp8LhlA20e4NEbOmDrSynKObMUhJObw6GOJX8UoHrIMA+UPv9zdIdWvAGixGV/E1lY1Z8WixKVXpJdfdeERetLYD3bFXJUBa1nrpeeh1FB+sivpAG7OTGf+1FEtHVpx1KhDxnKn+QB2+GjTjYhGjOg1hcRs2s4SzcqtbGRcalFupA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=STTlgm1YZ1O9G8j3yPM8uxED+OWEdoeaqnWuhmEau98=;
- b=EXU9ADyD5VGSZpl2Ow5yopY3/LhfozVER+WdFm4gZavI+yPtE/gwtQ5Z+Jb1eQc0O2VHkWqRUGZjUpOoV5q3xxfNd5Cjih4fT49N37xd5tmQbd69H3Uz6c3lVd3rRGG7DfwsycLtWFmXe8gT83gzNN/zxqjf86JjMfKLSUIrIbIEsjXLteTC6+jo4D5ZmkKYYQJwp4oh2WQusEB0O9opZVOh8t7/al6bWYylWndIg7sH4sh2Su+DoxZNsX8du68W8F9m9obKcbm9wYgKDgpm5YWeezykajVZlfQhR0KblRGc7YKS/4Qsnci8bfO9COPA9UEHu13fOp7F5CRSNefq5A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8604.eurprd04.prod.outlook.com (2603:10a6:20b:43b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 16:55:42 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
- 16:55:42 +0000
-Date: Fri, 12 Jun 2026 11:55:29 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
-	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
-	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, michael.riesch@collabora.com,
-	anthony.mcgivern@arm.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, ai.luthra@ideasonboard.com,
-	paul.elder@ideasonboard.com, geert@linux-m68k.org,
-	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org
-Subject: Re: [PATCH v3 3/8] media: Add meta formats supported by NXP neoisp
- driver
-Message-ID: <aiw6AexhNWigL-ob@SMW015318>
-References: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
- <20260612132039.2089051-4-antoine.bouyer@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612132039.2089051-4-antoine.bouyer@nxp.com>
-X-ClientProxiedBy: PH0PR07CA0079.namprd07.prod.outlook.com
- (2603:10b6:510:f::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAAFFSnq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E1F1F000E9;
+	Fri, 12 Jun 2026 16:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781283347;
+	bh=3Vzfc9HirnSF3zMElWl/zEwg1b4O0ieN8ZAsLgsaBzA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CAAFFSnqR+ihh1p+h1aP7S60q2OBcEp2cYZ2W6ZqFnZNRzAxM0NXNhzGqtRHpZ+T4
+	 A77PvJKtSxYdN7z4qchS8gfm+gYOF1fz3ZBcmPYM/zHZ8V1GuC6O64MYCVztfSyAMZ
+	 J+Jt8vVn3DegSXlKT65qaYZ/cz4BtIimyjlUcA/4Dc2jz/lJGpzdbwhDCyJqNe9AQW
+	 5qB066+ORiYau3l/98PtxkZ4udBbDlMoxUlVP0FLStjYhmNqg5SSx8dfxQ994K0g/o
+	 yGxc02wzRwmKFeg3Bf5JvW5dg3rqZ1+vkGYnxkoCX/FWFmRL30lJclkHxRjKH5kD48
+	 DBakxSm00vxJg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 07/18] phy: rockchip: usbdp: Support single-lane DP
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-7-efc83069869f@collabora.com>
+References: <20260612-rockchip-usbdp-cleanup-v5-7-efc83069869f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 16:55:45 +0000
+Message-Id: <20260612165546.98E1F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8604:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba9e141e-71e2-4f92-6012-08dec8a37010
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|19092799006|3023799007|56012099006|6133799003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- UnHHRbuqTEi8QjsdMWfx/APBMUtK2pIQpVtXFzf/KmXsCZ370XtX1nNHE1hkPFFe+stltnLSkezhc+dUpiy7jsBnQhXuUXLPclNc8BGcSVM4ChTZQ2KY8Sd90NVlAaxCPir14LIessWQ0TOTMMBmelbNMULzQfetmdtEBC6wLdGSsEvS8QSMVcevS1MSYlnwgeZz2Dl6OK6ZGHNrylkP39k9Q3PPeHyGaPFOpeoBNy7GyLKcHBbqUNt8515d91EZTdG6njjkdA59vajjgi2A/2A3/9lVaMOdKp0m5z/O3mZVBqtadnk/pgbcR4tlSlXShnfhkKVPzSN2NR340JprEbkQxmKgNvBzMNhQCfjkFdbC064kzGB9qpOjB6fNgoOs5z+rq0qg1zu2E3A9U0XpK5Y66UUrXbfxIzY70zTE9+zKi6tD2lBH2ilFq6AvvEo34cJO9Z1JQIyA07DD5Vo1y4iXCU30Iqvqw7KInMlGbBzAVM8Mjddh49Ew0XAoFLm6kcFPKYrvPKePCVd0UFaS6uTxmPebKJxbjnfDHaKIlu4lkSljXAqVoyb3kCpQAN8Gc3HjOEvjwI5dGYWOQE5W4iqXIxBoa8/g8Kj/hvGeCNG05c60uTUEorFMpYTZxEg8AknEkXBm0s4XFCndqYhHxOhdYaTriR5G1H04yYZiY5W8/tcspJWXDFRWjHh2MybA
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(19092799006)(3023799007)(56012099006)(6133799003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?Rwdan8FkdlMD33SEQbyTCxOSQGZbFCHiC5fzzrGdMwc2LHN0QqUBNJ2TP+oV?=
- =?us-ascii?Q?F8MlRY8em3VhIFqphn+2gCEaIe4RjY2QJIi1lb+oKdJkiTeQvFKseIHOLTwd?=
- =?us-ascii?Q?bg4H5zmbJyqWFNJ2y2K4HXTsvJpiAVHDn7W7nsO4Gtq1z1koyR6OQ99CBbKn?=
- =?us-ascii?Q?FDaHQUPeMQskh1TyjHKih1sFUqSeEj590xwiF79BmBUbICvfSnN/mI9Y52oy?=
- =?us-ascii?Q?RhLQDpKsfBzupejifAq7Lgfc0B8E1iTmtmFLCknQouFQw9Xp8Sg8HsXqd+7U?=
- =?us-ascii?Q?CyZaKL2qyfJXTbFtk5CQAEABZON3EoN4gKaClRP2OFxxY/4VvGJVUfmKtLRq?=
- =?us-ascii?Q?jvlGfJyPxsU3YyPpinSTKgb523oqFr1QPaQHeDgazEbn03G4EXuD5K8rBbNr?=
- =?us-ascii?Q?gVJmzaYj5lS4kxzu2tfpOhrTbOYfzY+PWN+3ri5Pb95A1yjsA+nQTmjm9QCq?=
- =?us-ascii?Q?KcO1CRcHeocr2GhpF4X44Yg9ga6wafLH2hOO26tjhmLttLQRmtQTL+GEcerM?=
- =?us-ascii?Q?XSfnpW1v3dszA6sWSvxx+0uzkfNiLAQDe+JkURIX2XIb+mteMd7VnfCUPHoI?=
- =?us-ascii?Q?xECxtR4/t0Kve+DxiSc6ACCx2GAPL1I4drX8p4El2qqsm4ckp9wgMcf3RI3j?=
- =?us-ascii?Q?RxlLHjlMPLSpGOF+rGW3dgh27bhGJMa7NTrCkygPv317wpMtOaQo5+tsvF69?=
- =?us-ascii?Q?CPjmLbHFQ7VPxoEYKXCvLi+ZfqOLOMc+pbFMzfEPd0UtLYx3V7aEnIzvhcTI?=
- =?us-ascii?Q?xCai3J8yKnPbcbfsk33eS830yqod9KJXcbNvuLUcn/tFimX/88SDH5FRFrxo?=
- =?us-ascii?Q?1ZjDlXoereE/WwFpiXQe6a+xwAotxHnag4S3fhKE6j8j0//mOd6XhETPKRmQ?=
- =?us-ascii?Q?mrL6UrW2xURIwT3NIMPdz/Iu0K3VsmkpklegG509azYRYYwAesMjnfQdlM7o?=
- =?us-ascii?Q?K3c995orVHyOBEZwCvdOyq/jZYWvyNkUf1X5tbrYs3g1QaCiZxW2x6dQWM9V?=
- =?us-ascii?Q?IPSh7oldxprs5WVVCn8S9hD0cuNY290YqVoABVAZJ34ZmxdxDavo9IYHzeMd?=
- =?us-ascii?Q?oj0bVgg9uJI3kpdSk9uEvVslVTAtyXCnjjqh5DU2yb2diBTX13WQOhAs7OCO?=
- =?us-ascii?Q?0IrrQx7rFSqcgUT9CSoGP3/JLHs0jTSW47VsCoQRG+FNdaeAYYZtRd2Ks/P2?=
- =?us-ascii?Q?KbobearnlTQ0mBjlexeIVF7kGo4Nh1tuhgpFV5JNE63EiE7jzTcVLhnx05R6?=
- =?us-ascii?Q?1XCVQNq9xuTgmEWYHUl+01S/6HFAHiKTSLtzabIHCXjqEkiEnRVMafDp9MPm?=
- =?us-ascii?Q?m3e2zptUTiN4pQKvi1qvCOXMUNCo44aDFO7OachmPdGvGbBdShhI/YEU/h/9?=
- =?us-ascii?Q?YX396QGR0/RuRNVmoTfyQAlypF2kzTrURAG+najklJFUgYfGp/FNDMZgreGA?=
- =?us-ascii?Q?bDXyA3HDmXk+ImESgzpW85qkMzFJxVCoxTBnVA19/cKPllqQNqoW4PdJd3p2?=
- =?us-ascii?Q?wdRpOKK7Fb7MT+f10sZ7yKaA3ZsIuL/eaE6PF0ABSNwRlZd+V4wDJQwsytfl?=
- =?us-ascii?Q?JkBSPk9pGi4MbH6EZRr5t4OND1Mgd8adGhF1KtuKsVo3Agzz7l5VzX6Cimwl?=
- =?us-ascii?Q?zBox5vD6jEYrRGFO5hPaLsuc5jNHxP+BIpDatPV/3tI2zU9tTOu8xXrDHs6/?=
- =?us-ascii?Q?2/XqizWPBxxI4fNCn+1VHvhno14pcjLuht1hYW+KZpacH+UQS/b9BpyDlweZ?=
- =?us-ascii?Q?JKXi88xXDIUl0jMm/MvHLNiLa8fGzIPz/ZchMakD/jF3zrVucwtp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba9e141e-71e2-4f92-6012-08dec8a37010
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 16:55:42.2250
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mkWCrH33RrSTXz0l5wu3acRSK8mncUBjtFJHEB6BUUwrVVxZYNXiBRIlGZ7JRtFSUWnqbX73kaYQUTWUz+TZLEqgH5H/gjQAo/dndss62Xgn+JbmqorTIhdTt2JsNbDX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8604
 
-On Fri, Jun 12, 2026 at 03:20:34PM +0200, Antoine Bouyer wrote:
-> This patch adds new v4l2 meta formats definitions and descriptions used by
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Avoid use words "This patch"\ "This commit") in commit message.
+New issues:
+- [Medium] Incorrect USB orientation (`flip`) configuration when 1-lane DP =
+is assigned to lane 1.
 
-Add new v4l2 ....
+Pre-existing issues:
+- [High] Writing to PMA registers while PHY clocks are disabled when DP mod=
+e is not supported.
+- [High] Clock resources enabled during probe are leaked on probe error pat=
+hs and upon driver unbind.
+- [High] The DP PHY configuration lacks boundary checks against the physica=
+l lane count, leading to USB register corruption.
+--
 
-> neoisp driver for the parameters and statistics buffers:
->  - `V4L2_META_FMT_NEO_ISP_EXT_PARAMS` used for the generic v4l2-isp
-> extensible parameters structure, supporting a non-fixed-size buffer and
-> changeable ISP configuration blocks.
->  - `V4L2_META_FMT_NEO_ISP_EXT_STATS` used for the generic v4l2-isp
-> extensible statistics structure, supporting a non-fixed-size buffer
-> and changeable ISP statistics blocks.
->
-> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
-> ---
->  drivers/media/v4l2-core/v4l2-ioctl.c | 2 ++
->  include/uapi/linux/videodev2.h       | 4 ++++
->  2 files changed, 6 insertions(+)
->
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-> index a2b650f4ec3c..acc60dc69d31 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1471,6 +1471,8 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
->  	case V4L2_META_FMT_C3ISP_STATS:		descr = "Amlogic C3 ISP Statistics"; break;
->  	case V4L2_META_FMT_MALI_C55_PARAMS:	descr = "ARM Mali-C55 ISP Parameters"; break;
->  	case V4L2_META_FMT_MALI_C55_STATS:	descr = "ARM Mali-C55 ISP 3A Statistics"; break;
-> +	case V4L2_META_FMT_NEO_ISP_EXT_PARAMS:	descr = "NXP Neo ISP ext 3A Parameters"; break;
-> +	case V4L2_META_FMT_NEO_ISP_EXT_STATS:	descr = "NXP Neo ISP ext 3A Statistics"; break;
->  	case V4L2_PIX_FMT_NV12_8L128:	descr = "NV12 (8x128 Linear)"; break;
->  	case V4L2_PIX_FMT_NV12M_8L128:	descr = "NV12M (8x128 Linear)"; break;
->  	case V4L2_PIX_FMT_NV12_10BE_8L128:	descr = "10-bit NV12 (8x128 Linear, BE)"; break;
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-> index eda4492e40dc..e1656520b312 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -889,6 +889,10 @@ struct v4l2_pix_format {
->  #define V4L2_META_FMT_MALI_C55_PARAMS	v4l2_fourcc('C', '5', '5', 'P') /* ARM Mali-C55 Parameters */
->  #define V4L2_META_FMT_MALI_C55_STATS	v4l2_fourcc('C', '5', '5', 'S') /* ARM Mali-C55 3A Statistics */
->
-> +/* Vendor specific - used for NXP NEOISP sub-system */
-> +#define V4L2_META_FMT_NEO_ISP_EXT_PARAMS	v4l2_fourcc('N', 'N', 'E', 'P') /* NXP NEOISP Extensible Parameters */
-> +#define V4L2_META_FMT_NEO_ISP_EXT_STATS		v4l2_fourcc('N', 'N', 'E', 'S') /* NXP NEOISP Extensible Statistics */
+commit c46d73844b37e1f374324a737da2265a3fef0813
+Author: Zhang Yubing <yubing.zhang@rock-chips.com>
+Subject: phy: rockchip: usbdp: Support single-lane DP
 
-Does checkpatch report extend 100 chas warning?
+This commit implements support for using a single DisplayPort line in the
+Rockchip USBDP PHY driver.
 
-Frank
-> +
->  #ifdef __KERNEL__
->  /*
->   * Line-based metadata formats. Remember to update v4l_fill_fmtdesc() when
-> --
-> 2.53.0
->
->
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index febc148a754e0..bf8394174294e 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+[ ... ]
+> @@ -923,7 +910,8 @@ static int rk_udphy_parse_lane_mux_data(struct rk_udp=
+hy *udphy)
+>  	}
+> =20
+>  	udphy->mode =3D UDPHY_MODE_DP;
+> -	if (num_lanes =3D=3D 2) {
+> +	udphy->dp_lanes =3D num_lanes;
+> +	if (num_lanes =3D=3D 1 || num_lanes =3D=3D 2) {
+>  		udphy->mode |=3D UDPHY_MODE_USB;
+>  		udphy->flip =3D (udphy->lane_mux_sel[0] =3D=3D PHY_LANE_MUX_DP);
+>  	}
+
+[Severity: Medium]
+When configuring a single DP lane, does this correctly set the flip state if
+the DP lane is assigned to lane 1 instead of lane 0?
+
+For a 1-lane DP setup where rockchip,dp-lane-mux =3D <1>, lane 1 is occupied
+by DP, so USB must be mapped to the lane 2 and 3 pair. This requires the
+flip state to be true so the driver correctly polls lane 2 for USB RX CDR
+lock.
+
+However, in this scenario lane_mux_sel[0] will not be PHY_LANE_MUX_DP, maki=
+ng
+flip evaluate to false. This might cause the driver to poll the unconnected
+lane 0 for USB lock and time out. Should this condition check if either lane
+0 or lane 1 is occupied by DP?
+
+[ ... ]
+> @@ -1074,18 +1062,17 @@ static int rk_udphy_dp_phy_exit(struct phy *phy)
+>  static int rk_udphy_dp_phy_power_on(struct phy *phy)
+>  {
+>  	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
+> -	int ret, dp_lanes;
+> +	int ret;
+> =20
+>  	mutex_lock(&udphy->mutex);
+> =20
+> -	dp_lanes =3D rk_udphy_dplane_get(udphy);
+> -	phy_set_bus_width(phy, dp_lanes);
+> +	phy_set_bus_width(phy, udphy->dp_lanes);
+> =20
+>  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
+>  	if (ret)
+>  		goto unlock;
+> =20
+> -	rk_udphy_dplane_enable(udphy, dp_lanes);
+> +	rk_udphy_dplane_enable(udphy, udphy->dp_lanes);
+
+[Severity: High]
+This is a pre-existing issue, but can this sequence crash the system if the
+DP mode is not supported?
+
+In rk_udphy_power_on(), if the mode does not include UDPHY_MODE_DP, it
+prints an error message and returns 0 instead of an error code:
+
+rk_udphy_power_on() {
+    if (!(udphy->mode & mode)) {
+        dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
+        return 0;
+    }
+    ...
+}
+
+Because it returns success, the execution falls through in
+rk_udphy_dp_phy_power_on() and proceeds to call rk_udphy_dplane_enable().
+
+This performs register operations on memory-mapped PHY registers. Accessing
+these registers while the corresponding PHY clocks remain disabled can
+result in a synchronous external abort and crash the kernel. Should
+rk_udphy_power_on() return an error like -ENODEV to properly abort this
+sequence?
+
+[ ... ]
+> @@ -1529,7 +1518,7 @@ static int rk_udphy_probe(struct platform_device *p=
+dev)
+>  		ret =3D PTR_ERR(udphy->phy_dp);
+>  		return dev_err_probe(dev, ret, "failed to create DP phy\n");
+>  	}
+> -	phy_set_bus_width(udphy->phy_dp, rk_udphy_dplane_get(udphy));
+> +	phy_set_bus_width(udphy->phy_dp, udphy->dp_lanes);
+
+[Severity: High]
+This is a pre-existing issue, but does the probe sequence leak clock
+resources on error paths?
+
+In rk_udphy_get_initial_status(), if the hardware is already in DP mode,
+the clocks are enabled and intentionally left enabled:
+
+rk_udphy_get_initial_status() {
+    ...
+    if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) &&=20
+        FIELD_GET(CMN_DP_LANE_EN_ALL, value))
+        udphy->status =3D UDPHY_MODE_DP;
+    else
+        rk_udphy_disable(udphy);
+}
+
+However, if subsequent operations in rk_udphy_probe() fail, the probe
+function returns directly without calling clk_bulk_disable_unprepare():
+
+rk_udphy_probe() {
+    ...
+    udphy->phy_u3 =3D devm_phy_create(dev, dev->of_node,=20
+                                    &rk_udphy_usb3_phy_ops);
+    if (IS_ERR(udphy->phy_u3)) {
+        ret =3D PTR_ERR(udphy->phy_u3);
+        return dev_err_probe(dev, ret, "failed to create USB3 phy\n");
+    }
+    ...
+}
+
+Additionally, there appears to be no remove callback or devm action
+registered to clean up these manually enabled clocks when the driver
+unbinds.
+
+[Severity: High]
+This is also a pre-existing issue, but could a consumer request more lanes
+than are physically configured in udphy->dp_lanes?
+
+In rk_udphy_dp_phy_verify_lanes(), the driver validates that the requested
+lane count is 1, 2, or 4, but it does not check if the requested lanes
+exceed the physically configured capacity:
+
+rk_udphy_dp_phy_verify_lanes() {
+    ...
+    switch (dp->lanes) {
+    case 1:
+    case 2:
+    case 4:
+        udphy->lanes =3D dp->lanes;
+        break;
+    ...
+}
+
+If a consumer requests 4 lanes on a 1-lane or 2-lane configuration,
+rk_udphy_dp_phy_configure() will iterate up to the requested lane count,
+reading from unconfigured indices:
+
+rk_udphy_dp_phy_configure() {
+    ...
+    for (i =3D 0; i < udphy->lanes; i++) {
+        lane =3D udphy->dp_lane_sel[i];
+        ...
+        rk_udphy_dp_set_voltage(udphy, udphy->bw, dp->voltage[i],
+                                dp->pre[i], lane);
+    }
+}
+
+When writing voltage settings, this will overwrite the transceiver
+registers for those unintended lanes. If one of those lanes is actively
+assigned to USB, this could silently corrupt the active USB connection.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
+sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D7
