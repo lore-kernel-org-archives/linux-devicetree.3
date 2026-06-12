@@ -1,116 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013006.outbound.protection.outlook.com [52.101.83.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0FC38737E
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781283124; cv=none; b=O1SLmcqmsykVDEG1g3xFXkwxoYD4012Bfwq6MRXfGdcV4hj2/3efJyiPfs6k8q2H+3qiN9psd8xnOEYO/VEanXyMnXXZoyFfLcH0JOJR0kbMVXXh8WQJJsLI0GwLIQOZDfNX6aVO152U5/XcDlueVV2az1Q7Av9xll2vIs8zXMI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781283124; c=relaxed/simple;
-	bh=T/pQCBzRSDc5gIPV7TfqAo/h9W5IrIeBPD8DswnOulQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iUEnN3w3kKamTMR/fz87nl+B7fo+OxGdBMoiKhf5nyiOZUnwhS9rIvtHR6OD6FmMNK1eh2vX6iE/oRFR9eQC5nLuOq063xOHzXQJCb5HJFAsqWQOoDOT7pLxGRiI+3Rv9cb3l8GHCp2EIoD4sR4aOElVpKEYT4VlEptniiKT0jY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHQIakx9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC240403AE1;
+	Fri, 12 Jun 2026 16:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781283174; cv=fail; b=FCKmp4o/Mc36xvbkC35FOZU4OvQ+wSTanwvvbNq3hcQt8ds9JPdQ8s2okznSKhCrpnNYP5RkTY0S53LF94rwZL9ImihxUsQI/LU/1xSYWmWH8gLrrlrSKh1mc1IE/AKuHyTbPO2BljByuvwDQ78BnYIYebh25fS+eVJDTeoeYWY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781283174; c=relaxed/simple;
+	bh=jZ9kngVissZ8nkalzFTk3gmOz9BVfWVALzkW+6nXeSg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VBKRd/ZEHYZ/s3+Rs7fDjEli7b7XeK7R3Yxrv69LSCTTppC5OTAsQgR6LeecquGlCDzY0/rXsJ6Tz1Fo1R3lzPJTg79ZkyuGjsuAAv8R3L5ay7Y2x2esOSNWEQpfrRlRryj9cFIiHn7TQhoH8tZrpIsQSixQsEMRGBwaUue8QME=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ONqhm/wh; arc=fail smtp.client-ip=52.101.83.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHQIakx9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A480A1F000E9;
-	Fri, 12 Jun 2026 16:52:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781283123;
-	bh=/xL5lxno5eFzvLuETBDtARKdEehzYZ62HoRJOsoRVi4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jHQIakx9ZCFc/edP7ZgYzIP8e5i+vrSlCqYS/fzh7QwOR6O7iSsyGkOoe8cPWvfUx
-	 LFoT2XVxKwYXHeSVj1/ts7Ot53P/2pCte7VIixMdJt6I+tSLafLi+W5tV7DSF7aPFt
-	 8C4I9H2Q09GptyRfwB0Jm5esupG255bJNzcItCLVJkXdUDJhNBp8pfVYBzU5L2F8gE
-	 nsCsilgNmTas4+3l6uivy//PgREiQZI14J66h/sd3pnyoBL1UANZOOKUU9QWGyeSVV
-	 OoWntmX7ojchlQ75hHKL1IMoQ6FVnhaeHUHE/ccwTadX19mmqrE3IeGMZj/i6whPNw
-	 7xUU9Hstw4i5Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 13/18] phy: rockchip: usbdp: Rename mode_change to
- phy_needs_reinit
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-13-efc83069869f@collabora.com>
-References: <20260612-rockchip-usbdp-cleanup-v5-13-efc83069869f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 16:52:02 +0000
-Message-Id: <20260612165202.A480A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ONqhm/wh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PDwoA6ew7gMwtfOB2cM5p0pN8I9ofjOSUAl4fX/Sxinz16mQkSGLKy6UsQl5kn657Djq3t7HJ5EfiFGOOQcY0bT3K8pUsJd5fpXx5FBtopNAtz0VU1GZhymxSUs6ZpTBQWrfshr2Y4bMmhIkL7K78ZGyXzUy4/I+u+ZNBpFx0j7qCBr+l3Mrhnm5FEHCALLeL6Bn22qnQPXD6qwojh/u1mGewP4bQXmsWMRGw/SKLQcoYtAon8ea0RtxuYUNos4ugq4yP92PwJDmZ4THFoCHQ79bHonR3dCJuC6Hg3JDmox8fK+VY8sGLhmiOILBseFld1c+5KLWYJ+5uxVlto/+xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O44i1Fwyshg2YQpGEFNiRgDQoEkxRQNSf8YpR8HUdi0=;
+ b=kdzU5M8PmhG3Lo3mkhPuzYJ7aQVXumK5Wt1MaOlVlxinBSzzLhmYTHStnjKS/7crNbpb4vMAqIJ5WBiQQvLvsbE2mhFonKNhoRV/7290S5zhifHjuzMiaexOQc9Y0ItUGoDfunmWps0HPHzUpnkYevEXJvwFYN8pXsi+/HF3nAuakTYJLc1w+wrZymQka7g7Ocz0j40mExEsEGpVMB1GFzoaVkRn5v/4g5Q1kDXtZIBMWB2fOSgGDoATlBdrrPehd1+ty0z8jI2sD6Cwb5uZl/Zp3GzOb1hzOlx3Z1kIqSkroZE/Ir0pB9zfl2Zb4LQbE1pxHhT+6Nu/T6zVafI5ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O44i1Fwyshg2YQpGEFNiRgDQoEkxRQNSf8YpR8HUdi0=;
+ b=ONqhm/wh2t0sIMOP7iFD6JnyHV2BAJEUkjZ3Cyv52Bj4LfT/3yWz/oR7OdmdD5GOyqQerfGyHwrzmAJ2zy3nLnC8UaIFo5cewoFySPjzNV9VqLW/IbUlqcc0XEJU16J5CCuinf0rnO4QfHFNXVH6j23sePn7EBQXLn02LkRBpkwELskIpYYQRdFEG290SaHShrC4Pli4FRU8iTrKaBgV6QWSjBM5oZDKVnWOY2k8xbqXymP4rQMcXVSHOcAaZ91+9OMI8qqSu5byF+rk9rao4C3tdwcv6yvLEWreqamMwnA/XHku1ZukDR7BNFbH1tVxEdApEOtX9Of35N1/rme9Dw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB11544.eurprd04.prod.outlook.com (2603:10a6:150:2c1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 16:52:36 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 16:52:36 +0000
+Date: Fri, 12 Jun 2026 11:52:24 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, michael.riesch@collabora.com,
+	anthony.mcgivern@arm.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, ai.luthra@ideasonboard.com,
+	paul.elder@ideasonboard.com, geert@linux-m68k.org,
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org
+Subject: Re: [PATCH v3 2/8] media: v4l2-ctrls: Add user control base for NXP
+ neoisp controls
+Message-ID: <aiw5SBQpk_tFYJeN@SMW015318>
+References: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
+ <20260612132039.2089051-3-antoine.bouyer@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612132039.2089051-3-antoine.bouyer@nxp.com>
+X-ClientProxiedBy: SA9PR13CA0099.namprd13.prod.outlook.com
+ (2603:10b6:806:24::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB11544:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84de4fb5-e076-4600-66a8-08dec8a300fe
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|22082099003|18002099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ LbGDMJ7oK4XCgFeT42IsWgQnodfVkXST1Mwh5GL4v82kqFCiufQVoPqeHTVKN083Npa1QxzIstAp1U0S0vzuJ8JwXkdHxfBm7QZ1gKTC+IO2qQWx6mLQyPWj43B0QF3raZImG9FXSvCP7CttjtDGogtj0aOy5GibCf6Z8mpL3Wg/NTtUVxSBjzWaNmAgAA2yNuHxCOPMoNdKdVrTl6Vj1IefF0LATrc0oZULkx7ouQ/fzXnoFkZeiFSKdKso+qn3pkn2ZI6D7zxdU0x2UUq/SBIcwjoDgIsy1SnVuR5uDUh5tFGOVZik9sMfcQEzsN4mHq9TcWwxx0w8tEJkVHcAoOF2PKKl9YMqjs4oRvK7qf5R6PkbLGReJM+UvowyLMtuPN3XEY+KIVX7VDONsvXJVK7X81S1ADNiI0T88dgyrj3Q2c0ETLTlo7eGscAKI9hoOLE89N5kEIKT8x3l7uMi0DEssNl/xIX80ZgRKTPqqqR8G5uXVpiNyH81wpsk2Mq1zBAXCK1rxDjc/0r98qbqWeIAVcQOEeovorEiZOnnPNTqxhLG1xfdLcVauXSZVfR+sE+E847+h+ROXg5goqB0FqyQQAQqQ/DWnPVIoS61vxEcILmg8UgFsQri17YnK+eivKoL/9cCVaA016bsnLxdKe2iO96M5NihQGlweQ62VVx0U0mFwl0pJWfXRSahkus1
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?V3pMpigLOckE9Pb+JBBSV0jAXLmb+k1uXKkJ2GaE4DfgkkIMZatNPCagrVjL?=
+ =?us-ascii?Q?NNQ4P8U5aEDReM7rtldHFCFWJIThggQBQXDyLQiaAJe8SFM5Qi/7S+ABNtA1?=
+ =?us-ascii?Q?ZwBu2Jv5MOBQtzbLweHmi9CtypuKH1ZofkcHycQ96mWP8o1D/napWK8JaORN?=
+ =?us-ascii?Q?lxJhg+cenC7/4xe61vhjKHfKzLGy0Aewst+zLxWHW/aGQiGpYUiKxVm1lwvU?=
+ =?us-ascii?Q?PTj3s/vwHPCmTZOKnqmB1Nos9sqcVO6kMT8fgoCzppVF1lCIki6bpYTyzNcq?=
+ =?us-ascii?Q?wnqFlB5C8L/+cByBqT7Y2H6+t76J+a8IPtOdSVLQQzVj0CfmEFlDqbm9kLM2?=
+ =?us-ascii?Q?G9We9iP4PQQ7n4bwmOYy0rH0DHRs8zzP+E+ZIx7uI1ZCXQgYVbuf6WvtFlA7?=
+ =?us-ascii?Q?rOrsdyQjFZRyQeWNq+fK3hKyEMMB3G9CQZmodajX81sZlcq6ZCeWafVdWX/g?=
+ =?us-ascii?Q?+XBCzogtZ/axBAq74HKi2/LLE6IHWJJlAfq6C5DigElP0nNpOSRxnY03GuHk?=
+ =?us-ascii?Q?yD9QooEuMS/SJE69LhwxHOOgto27b+FXUuX5bW0PZWUpEh4cczCO7cBPzzjs?=
+ =?us-ascii?Q?isTJDe4eLuD/EJK7pQcGBwBajg/qSp+v41RoOdWCA3pgvTBCQEOw/aHozO9r?=
+ =?us-ascii?Q?vnraRprOylkVk6uOKD4Lc7DpXh4HjZv6kCjMDidBSdCjKjkzxqzsPRhbk+gx?=
+ =?us-ascii?Q?3FzsRehf9XslyrEFCYSTTcQMMWf7YEzONS57O7yCQMHQsjNNZr9cFD/RxQHl?=
+ =?us-ascii?Q?wehLCBG4v1WSJf+/s8KGoWoiHfiC/qYXOoAM64kkcGNZ9FHXodAMtkYfpsPC?=
+ =?us-ascii?Q?raWmQjODk1CNsji6Pv/xWWneR9Idw0x0YNQdO1/JmmqRM5wi4S2DXoW6dWbt?=
+ =?us-ascii?Q?XniyJTuDH4FSGm/aZhOlU21r20tApjFyX4VlD6sVY3rpRUVI/FlpH5ah46jj?=
+ =?us-ascii?Q?M8slr+PRM6ZPV3hZ9RG69tkU1czcUOiJ9Z332vwEMfabwSeFmUYoM1W7SeHB?=
+ =?us-ascii?Q?K/wn88wDiOStq2vr7i2sA6fWIlD9+HGEp8x4o534Zfr2VFVMIWtAc8nUT9Dr?=
+ =?us-ascii?Q?AtwIJt4DACzSv7N7mITVHa8tpmFvMP2ul8J7H7dd6N9ccW57Yny1T3KcnPFA?=
+ =?us-ascii?Q?rMMoJ7PlyJs3+zajYXnpxapGMeuqH5qIv0tAauO8meUp/W4qzDF5vCSU9gpp?=
+ =?us-ascii?Q?lppBD+FWQ3f/DwVB7m5VJK5aI7DT6yaNbhJjN4Sql0reOjV0Ezi8huSIvyol?=
+ =?us-ascii?Q?EfvZOPtauWzE35Q9UUwxjxTuYwjBkE8M8Z29t1eJ21KYp5fcQ2HANtFJqTAB?=
+ =?us-ascii?Q?9EP/GkOw6/VdU3m3Zsj2C45anL9ZnQud9JlAuAwMj8PRaH5yBVh2EHy0LZJU?=
+ =?us-ascii?Q?TSFdxaMvbXkV0V59Ipip+OoVPSb5ZjkQ/ACf4t2W0dMRIQUqd8sNAUlvvocw?=
+ =?us-ascii?Q?24DFPn/Qb38N55vLD8w/TfV4Kfwih10/ZHmDSlkNBAuZC+FWodY2vhtNyzlo?=
+ =?us-ascii?Q?q7uwxOOAMQafgk9fb01tPk49M7yuaZi3VQR5V0wr8gMlMbOIjj5rVdmhtN+n?=
+ =?us-ascii?Q?liuID6eP3/pLeLtZkY5smDcRtOWL7ABHXsERpGW1uTV9LjwnNB/O9CmMYit9?=
+ =?us-ascii?Q?4mRbyPTn7MpCZJmdBOg9Ftj+Zb4QQVgxV1Yb9jUxcHM80MrErhdvGB2UfbMz?=
+ =?us-ascii?Q?dQdtMyrhM/W/pt+LjLldwgiD5yLw8vDqHgPcR2rjRX4NLCCR+91QW5t6i6pr?=
+ =?us-ascii?Q?0H6cYrkaGj5uGlS3yJYhMeMJwu4Wt3viMbMZ2z1jHurN3m9FNTqy?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84de4fb5-e076-4600-66a8-08dec8a300fe
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 16:52:35.9089
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JSurdobn/NdcvX9iBJ+8Wazb4DcgWvDf0mn1f0LIlaLpAJ9OMx9dnGDa2zKCxe8HgjSB2q59b8zaIhbndkdC33w9dhm9ENJoA+8RCEjxgHru9X8KzfMyv1zM/pFe23TL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11544
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Fri, Jun 12, 2026 at 03:20:33PM +0200, Antoine Bouyer wrote:
+> [You don't often get email from antoine.bouyer@nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Add a control base for the NXP neoisp driver controls, and reserve up to
+> 16 controls.
+>
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+> ---
+>  include/uapi/linux/v4l2-controls.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> index affec0ab4781..1c44229d349d 100644
+> --- a/include/uapi/linux/v4l2-controls.h
+> +++ b/include/uapi/linux/v4l2-controls.h
+> @@ -234,6 +234,12 @@ enum v4l2_colorfx {
+>   */
+>  #define V4L2_CID_USER_MALI_C55_BASE            (V4L2_CID_USER_BASE + 0x1230)
+>
+> +/*
+> + * The base for NEOISP driver controls.
+> + * We reserve 16 controls for this driver.
 
-Pre-existing issues:
-- [High] If `rk_udphy_init()` fails during a mode change or orientation swi=
-tch, the PHY is left in a reset state but `udphy->status` is not updated an=
-d `phy_needs_reinit` is permanently lost. Subsequent operations will silent=
-ly fail to reinitialize the PHY.
---
+Generally, don't use "we" \ "you", just
 
-commit c4618d1b0b4a42d4505fb255a32ef513dc21e759
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+	Reserve 16 controls for NXP NeoISP
 
-phy: rockchip: usbdp: Rename mode_change to phy_needs_reinit
+Frank
 
-This patch renames the mode_change property to phy_needs_reinit. The rename
-prepares the driver to also trigger a PHY re-initialization when the cable
-orientation changes, not just when the mode changes.
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 7255c80e0fe2f..a3b4e2e0f5786 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-[ ... ]
-> @@ -968,15 +968,15 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  	}
-> =20
->  	if (udphy->status =3D=3D UDPHY_MODE_NONE) {
-> -		udphy->mode_change =3D false;
-> +		udphy->phy_needs_reinit =3D false;
->  		ret =3D rk_udphy_setup(udphy);
->  		if (ret)
->  			return ret;
-> =20
->  		if (udphy->mode & UDPHY_MODE_USB)
->  			rk_udphy_u3_port_disable(udphy, false);
-> -	} else if (udphy->mode_change) {
-> -		udphy->mode_change =3D false;
-> +	} else if (udphy->phy_needs_reinit) {
-> +		udphy->phy_needs_reinit =3D false;
->  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
->  			rk_udphy_u3_port_disable(udphy, true);
-> =20
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if rk_udphy_init() fails
-immediately after this block, the PHY is left in a reset state while the
-udphy->phy_needs_reinit flag is permanently lost.
-
-When changing modes on an already active PHY, rk_udphy_power_on() calls
-rk_udphy_init() which immediately asserts all PHY resets. If rk_udphy_init()
-subsequently fails (e.g., due to a PLL lock timeout), it leaves the resets
-asserted and returns an error.
-
-However, udphy->phy_needs_reinit is cleared right before this, and
-udphy->status is not rolled back. As a result, the driver's state tracker
-still believes the previously active modes are operational, but the hardwar=
-e is
-completely in reset.
-
-Will future calls to rk_udphy_power_on() see phy_needs_reinit =3D=3D false =
-and
-skip initialization, permanently breaking the active interfaces until a full
-system reboot or module reload?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
-sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D13
+> + */
+> +#define V4L2_CID_USER_NEOISP_BASE              (V4L2_CID_USER_BASE + 0x1240)
+> +
+>  /* MPEG-class control IDs */
+>  /* The MPEG controls are applicable to all codec controls
+>   * and the 'MPEG' part of the define is historical */
+> --
+> 2.53.0
+>
+>
