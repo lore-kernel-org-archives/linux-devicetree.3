@@ -1,159 +1,189 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3503D3D5C1C;
-	Fri, 12 Jun 2026 16:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781282321; cv=pass; b=qg/Yc0UunQrM9cdyOXy4ncdD7nVZo3tTsR70ybkNq2qrzoE8/8VHy6A8UKrYZtf+eLF6tDRg6bwHixmDfFEnPE+AatiHZ411g0NJzU5PUY/11sQUpbfuntrfeZMn9mzvfDfGRoe38jZA6GCOYw2KEwYnuX8Q3hh4Nc5fwFto8d0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781282321; c=relaxed/simple;
-	bh=kMnr/NncewUs8tafq5klrb7gDwGDQaMhg7RkfiMC45I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRMoMtCOWIwcE7Tb1/Xo9mc6bQG+azf+u78gT3C41XdD+W3cQLOytun/+jLPEWB9zdPZ/SIpg4Y4hz6rO8Tpj7ioxZi5giebdAqFbB4woErntqYKhKhx4QcSDiTq9fMzR4N5EeJBm3Vr4YHlBJYT3jS+CeUXTxBqjBFMn8ZWq3w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=NrYnVgKT; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BCC374A1B
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781282470; cv=none; b=nxg/HaofH6ut2F1UpQ1JuPUAUJkxD9ZmJUCt325uxu50MMR7cCx2JsmcU1T6BdJ8C2Y5GAEO2lrKYu3H8NAZiwtFGhKXC/JtYxayFgkYYdof2UB2wJOffiBbIQ7aJF8b9bHA9qBrfpN8aX2T9FxExWr43Ng24xgavehbnlWc7yo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781282470; c=relaxed/simple;
+	bh=3wCoSRh3j6Wh3cRilinglX2IBmBk0bRDpjL5heho828=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nBIUBmvhwZGpEhcXcBUGxSJg4jUPyZ38/Px2Rb647+8ynfG81rBHScTzuJPTMTkwl9oAxZcP3ANCAY/tfR8ueJe5KgKZ1Oq9UmeWdNfidgvkbcJjxVkWqxYwf2zVUZT+MQivCtVAvuhyUT40c2kxMxsRcCpHeiKqgjU6SjtWOOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erGXlXo/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="NrYnVgKT"
-ARC-Seal: i=1; a=rsa-sha256; t=1781282271; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eZbpZFrHare2ZkdyH2mlS82J2OCdJQ4FvrBiaxu5MQloDqfweBtlqgapAo2lvzBt/VsowUDAujoDmKh65ObWl2o9FTfqFbJmFX64Py2iap5xUUjw2P9BmhpSmHjdqLxJi20fVF60QhdEAJSM9/j+mXPmTwVNjlA8khCCJNdtaoU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1781282271; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cz0JvF5PqRn4+AvgydKR6qxMt5tufCqZlm71fI/zQJE=; 
-	b=U1OSMKMnKPRcdT3LGdJ9VC6S/CrZw9aAwSXQDBEYAuJ7e64Csg2DoHKybxTI6IexcBZqopKtLYW5JwhhFIWckO3jyg2dLeluzcISdClCsJT2kYJDH2vJa7O3dur70uX6BMsPHc0Xl4hMPjSPswZlIWAjQwFwAXDwKEvOnIHu2wA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781282271;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=cz0JvF5PqRn4+AvgydKR6qxMt5tufCqZlm71fI/zQJE=;
-	b=NrYnVgKTaiUOijL3nFNPT0GRc59JHJygJH2GXurDQ5WU52i418+IzzG+cEvPYoFN
-	7wHye0F8/N56hPz0k3y9yYCWJuFbkwsvM1vBOEi7wwMnrtnA3Tq/o9ioKDM8LwQ7yZj
-	fesFoG4rCqM5kfcfuRp9ZlpxUwEpeG0dKw9fuqj8=
-Received: by mx.zohomail.com with SMTPS id 1781282268882444.94252128935307;
-	Fri, 12 Jun 2026 09:37:48 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 137D8180674; Fri, 12 Jun 2026 18:37:42 +0200 (CEST)
-Date: Fri, 12 Jun 2026 18:37:42 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
-	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Damon Ding <damon.ding@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 07/12] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
-Message-ID: <aiw0VKuj6Y6tpr9f@venus>
-References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
- <20260501-synopsys-dw-dp-improvements-v2-7-d7e7f6bac77f@collabora.com>
- <4f4ff085-80ae-4144-b040-be9b136574ee@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erGXlXo/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7DB21F000E9;
+	Fri, 12 Jun 2026 16:41:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781282468;
+	bh=Z4n1vm43k0djrya0Z/OuKO+WXUJY9ePJRT4jLsDPK70=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=erGXlXo/YMXfyl43DspRiIi4jJ9NWrYwgZbJ1VhWYcZ1Bs2J1OFygcISAZ30iGFGY
+	 /v60+gMAl9G9syiEwRSrb6PTBQxqiHQL2HqnmAARwe5dArm7DecdnjsOiREIuHC/D5
+	 aQDuZx0DzMhwbrl2EtjhF2r7/Mo6JHkPggmx5je9oSXfcOUh2aitcCLRJhJM278Rac
+	 UjnWoxXHEziZYbsCFKEwfStcRB1ITlLFBvxGRYFEUF2N6odhcoDJjv7K0Ms/UXTfKs
+	 kLYhybPXg1IvF75EkqnhOFnu30FYt6DXu5he4vyMhTS87xzu7bUHQAJrVXT869Jenk
+	 ZX5swtdcXBvnw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 03/18] phy: rockchip: usbdp: Keep clocks running on
+ PHY re-init
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-3-efc83069869f@collabora.com>
+References: <20260612-rockchip-usbdp-cleanup-v5-3-efc83069869f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 16:41:07 +0000
+Message-Id: <20260612164107.C7DB21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p2h2tj3fgjiazqvf"
-Content-Disposition: inline
-In-Reply-To: <4f4ff085-80ae-4144-b040-be9b136574ee@rock-chips.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/281.270.71
-X-ZohoMailClient: External
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
---p2h2tj3fgjiazqvf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 07/12] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
-MIME-Version: 1.0
+Pre-existing issues:
+- [High] Missing clock disable on probe failure and driver unbind if the bo=
+otloader left the PHY enabled.
+- [High] Premature consumption of the re-initialization flag leads to false=
+ success reporting on subsequent retries if PHY initialization fails.
+- [High] Initialization failure of a new mode silently breaks the already a=
+ctive mode in the combo PHY.
+- [High] Shadowing of error codes from devm_clk_bulk_get_all() breaks defer=
+red probing.
+- [High] Missing mutex_lock(&udphy->mutex) in rk_udphy_dp_phy_configure() a=
+llows data races and hardware state corruption.
+--
 
-Hello Chaoyi,
+commit 352757db3201eb1ea989ca1ac6bc600f268f254c
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-On Tue, Jun 02, 2026 at 04:30:59PM +0800, Chaoyi Chen wrote:
-> On 5/1/2026 6:20 AM, Sebastian Reichel wrote:
-> > Implement out-of-band hotplug handling, which will be used to receive
-> > external hotplug information from the USB-C state machine. This is
-> > currently handled by the USBDP PHY, which brings quite some trouble
-> > as the register being accessed requires the power-domain from the DP
-> > controller and also requires custom TypeC HPD info parsing in the
-> > USBDP PHY driver.
-> >=20
-> > In contrast to the USBDP PHY this does not just enable the hotplug
-> > signal when a DP AltMode capable adapter is plugged in, but instead
-> > properly detects if a cable is plugged in for things like USB-C to
-> > HDMI adapters.
-> >=20
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
->=20
-> [...]
->=20
-> > +static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
-> > +{
-> > +	struct rockchip_dw_dp *dp =3D data;
-> > +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
-> > +
-> > +	dev_dbg(dp->dev, "Force HPD connected=3D%s\n", str_yes_no(hpd));
-> > +
-> > +	dp->hpd_cfg =3D hpd;
-> > +
-> > +	regmap_write(dp->vo_grf, hpd_reg,
-> > +		     FIELD_PREP_WM16_CONST(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_=
-cfg));
->=20
-> FIELD_PREP_WM16() should be used here because "dp->hpd_cfg" is not
-> a constant expression.
->=20
-> Other patches in this series have similar issues. Doesn't your
-> compiler warn you about this? Thanks.
+phy: rockchip: usbdp: Keep clocks running on PHY re-init
 
-The code builds warning free for me. Also FIELD_PREP_WM16_CONST
-requies that the mask is constant, which is the first argument
-(i.e. ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG in this case). The second
-argument should be fine as a variable as far as I can tell.
+This commit avoids unnecessarily disabling and re-enabling clocks when
+re-initializing the PHY during a mode change. Since rk_udphy_init()
+asserts the reset lines anyway, keeping the clocks running simplifies
+the flow and avoids delaying the process.
 
-But since FIELD_PREP_WM16 is shorter anyways, gives better error
-handling and can be used for all occuances in the dw-dp rockchip
-glue I will use that instead.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index 744cc7c642f49..98562a888b42a 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> @@ -1012,8 +1012,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
+, u8 mode)
+>  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
+>  			rk_udphy_u3_port_disable(udphy, true);
+> =20
+> -		rk_udphy_disable(udphy);
+> -		ret =3D rk_udphy_setup(udphy);
+> +		ret =3D rk_udphy_init(udphy);
 
-Thanks,
+[Severity: High]
+This is a pre-existing issue, but by consuming udphy->phy_needs_reinit earl=
+ier
+in rk_udphy_power_on(), could this falsely report success on subsequent
+retries if rk_udphy_init() fails?
 
--- Sebastian
+When transitioning to a combo mode, udphy->phy_needs_reinit is cleared befo=
+re
+rk_udphy_init() is called:
 
---p2h2tj3fgjiazqvf
-Content-Type: application/pgp-signature; name="signature.asc"
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_on() {
+    ...
+	} else if (udphy->phy_needs_reinit) {
+		udphy->phy_needs_reinit =3D false;
+        ...
+		ret =3D rk_udphy_init(udphy);
+		if (ret)
+			return ret;
+    ...
+}
 
------BEGIN PGP SIGNATURE-----
+If rk_udphy_init() returns an error, the flag remains false. On the next re=
+try
+by the framework, it might skip hardware initialization, incorrectly add the
+new mode to udphy->status, and return success despite the PHY not functioni=
+ng.
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmosNdIACgkQ2O7X88g7
-+pr0qRAAj815LPOHnJWGnjzNNkUa/kzLFB4bzesaxqb+wG3aeeh0mPO+oeA95BCm
-SAJ+4pmlt2gMl+ubhV57wIpAqet9TkklmWL1mJjItmbqTWUYO4juygwWu/BuqMBx
-fXdKK6ypbX6wXEfKSA2dfXsjIdAWI1U0w3Ur/tUbWHoaf/18RczSbqaQZo1djjBm
-oszzKbkhNm+y4IN+FgKWKwTWsEjuPU3dO21LwSNU2BU2SwZKXuPeFC+oBOJgikpe
-CtNKqtrU+IRnZTM0G8J00BthrRYV1wCT9e/LxMkEKXDcu1Y20UPoN9FIOvDKkjHZ
-XgilvLd+sd05hogeeTyWHGZsJxj3hIjFQiHGzlxi9TU8/r/m/cVyMDIKfdWWYVVA
-o83o7A1MSDm41PopcT1Ig1x/4EISnG5vl2hgXa6YPEEyc35SJc9p9ONxKx+q4V8z
-uASra69imY+fuQumXJdBFFvKxw2JnGWqvgFWL2J5P6CI7tdhTQEf1FeJbg4JKMxN
-+4iHaKWIkwvBni35M2cqX05bm2CXTXgMQfN8Y3PuBGdeB9tY+n2n8sCFB9CTJbRR
-Z9FyB3EQdld6e2/X/dScExJyHuG4UBgbvys58QuoOd6F8XCFmxoIGpbCedQRMtJH
-eFzckHF+qJfPxAYUfdtEkEK8VAFYb/8BFXBQPCxc0590XvbGvdI=
-=qoV1
------END PGP SIGNATURE-----
+>  		if (ret)
+>  			return ret;
+>  	}
 
---p2h2tj3fgjiazqvf--
+[Severity: High]
+This is a pre-existing issue, but is there a leak of the clock enable count
+during probe error paths or driver unbind if the bootloader left the PHY
+enabled?
+
+In rk_udphy_get_initial_status(), clocks are prepared and enabled:
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_get_initial_status() {
+    ...
+	ret =3D clk_bulk_prepare_enable(udphy->num_clks, udphy->clks);
+    ...
+}
+
+If the PHY was left enabled by the bootloader, udphy->status is set to
+UDPHY_MODE_DP and clocks are intentionally kept running. However, the driver
+does not appear to register a devm cleanup action for these clocks. If
+subsequent steps in rk_udphy_probe() fail, or if the driver is unbound, the
+clock enable count is never decremented.
+
+[Severity: High]
+This is a pre-existing issue, but would an initialization failure of a new
+mode in rk_udphy_init() silently break the already active mode?
+
+If a mode change occurs (e.g., turning on DisplayPort while USB is already
+active) and rk_udphy_init() fails, the error path asserts all reset lines:
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_init() {
+    ...
+assert_resets:
+	rk_udphy_reset_assert_all(udphy);
+	return ret;
+}
+
+This forcefully asserts reset lines for the entire combo PHY, breaking the
+already active USB PHY without notifying the USB subsystem.
+
+[Severity: High]
+This is a pre-existing issue, but by replacing the error code in
+rk_udphy_clk_init(), could deferred probing be broken?
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_clk_init() {
+    ...
+	udphy->num_clks =3D devm_clk_bulk_get_all(dev, &udphy->clks);
+	if (udphy->num_clks < 1)
+		return -ENODEV;
+    ...
+}
+
+If devm_clk_bulk_get_all() returns -EPROBE_DEFER, it is replaced with -ENOD=
+EV,
+permanently failing the driver probe instead of allowing it to defer.
+
+[Severity: High]
+This is a pre-existing issue, but without acquiring udphy->mutex in
+rk_udphy_dp_phy_configure(), are there potential data races or hardware sta=
+te
+corruption?
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
+	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
+	struct phy_configure_opts_dp *dp =3D &opts->dp;
+    ...
+}
+
+The function modifies shared driver state (udphy->dp_lane_sel,
+udphy->lane_mux_sel, udphy->bw, udphy->link_rate) and writes to shared PHY
+hardware registers. Without holding the mutex, this can race with Type-C
+callbacks or concurrent USB PHY operations.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
+sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D3
