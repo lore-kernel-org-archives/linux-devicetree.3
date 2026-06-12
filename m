@@ -1,102 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD693F7A84;
-	Fri, 12 Jun 2026 16:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6443721773D
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781282121; cv=none; b=VKnlMmAPNaSw62+pKO//dOdMNH2KrqMVsaSf1eJw3xI+TzcLQ6JKLRVmuO9beaotzO24Xm5qRoWTJPyh1tdbS5Yz162m2rvffALIISprciszNCYS6bVDWXh+XSYD004gcB0NDFHvQlXAmho6BEse6wO+od3YQrlbxF8V6WidOJw=
+	t=1781282317; cv=none; b=j70E5jWiEppVgHLUzSUiTWNv7D7XgFKbqPKsLZsdTrPkjBqMn4ZwBVFCKp9vNvXdgcw9FOQ9HMuEYSOXG2YWpzI7cnhAKw4JNM2z+w3abg4qXfo9u4kiv1mcT44ApucqsRYkkpiNQHA0IlB15PKd4bfCEjfWeb5dqvYZT7jtoDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781282121; c=relaxed/simple;
-	bh=QhO66wGa8dpax8QyyxAxAgJMNCsuTqfg6dhuXO9n2Y0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OeltYxp765UALZHDs+SKC4sl+nuXHt/v0NbHR8tHnLOQd8VNR3Oh0vw5lHk1DFbydlF5sMa/seRVbpEYcq0zCwXWnqDS7NhHB5XD8lM4UdhVSV+KPJmARmKCBkxsRccB8/NPWTC37kMZj2LUisGJm2Q7Dw4AtXvi65vNmrIJvTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dhR4/+K4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781282317; c=relaxed/simple;
+	bh=RLRsy1dM4Ror35YK6sJF2mQKlunbxTDJFwWX+fyoVoI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Nwb6ISZjOBmzuXANLdQ5vtnJ75hrXRAmgAwul8BaefG4bbmbhpNVCw6dihDShAP0hyJPDwSEdEaTmVYAuS+M6iYTQEYTHZyZfzVfyatSaHzkua+U83miWbzGbUc+/oXSrqE8xTleHOAV4zNaFBLo0+GW4DyH57NmUIdPW+USSpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzz6wV3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dhR4/+K4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E50F1F000E9;
-	Fri, 12 Jun 2026 16:35:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzz6wV3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5471F000E9;
+	Fri, 12 Jun 2026 16:38:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781282118;
-	bh=IE1t3ciRaWNCvOLYw1cgrR91YZzgxvGHt+e93lnNrU8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dhR4/+K45PIUkLy/v6GVNJzCz1LtznCgBv+FVXfMjYLexXYxBok+AXAVMFsY2s0DD
-	 x/+zP95F026+Unt95noeXJVg3+9yFuPk+KS1+Wkd5962sk+/HaRaUvIwxJAeoB7Xlc
-	 6uXrmGnPhs62KZX4JW1d2v83vZebBFoZ0JQxo6GZrvxSdrMhBl0cxAL8eY706uvb82
-	 U41v3/Dd00FTNhnnYkK/bxRYhr+9wQmHWclJPNQAgkC8b1WoVPPhyGvgR8GyXWz6KD
-	 IwDGYXT7MfmmbyBk9oZlQTOxxLPnRZIheDtmEHwzTQ0xUhTlZUC5ipRSd1yoTKD+jN
-	 1QRIfwXvn8Tsw==
-Date: Fri, 12 Jun 2026 17:35:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Siratul Islam <email@sirat.me>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: magnetometer: add driver for QST QMC5883L
- Sensor
-Message-ID: <20260612173509.2d10b77e@jic23-huawei>
-In-Reply-To: <20260612154922.00003723@gmail.com>
-References: <20260612124557.13750-1-email@sirat.me>
-	<20260612124557.13750-4-email@sirat.me>
-	<20260612154922.00003723@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1781282316;
+	bh=QUwoA2La5hrRAZoRb8RcYx50H7iw1ZedS5O39tRcvv0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bzz6wV3Jk0QxRGg5BllRx3qrB0qLEBdgiffID9PbPrPgjCH10lEw2KXfG31JcHLEX
+	 ezK3nhoQcaGYnJMs8SGerwOEiy6SHwlYgnLoa800drA2czsRfUL4QUjPATWzp6sWnQ
+	 adcBnRYDkH89UDgzUUoei1/gGhVr/PhMC3dGYoZOpHI0gvbsoqU7MdVYWqQyVXddAX
+	 PxPWwq89hBr8gUfqWa9SoLHFe/s5jD9ijQZ3QBZn0C1t+z78jbtTigdlOnUC54AX1X
+	 gZ2gJxJ3syx/fKHqLLbRvWXFDuie+XNH6KpfPXaee5dzpBawg1Zugl23G7GrlSgPvZ
+	 hEnuBeIzc2IJA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 02/18] phy: rockchip: usbdp: Do not lose USB3 PHY
+ status
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-2-efc83069869f@collabora.com>
+References: <20260612-rockchip-usbdp-cleanup-v5-2-efc83069869f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 16:38:35 +0000
+Message-Id: <20260612163835.8D5471F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-> 
-> > +	{
-> > +		/* 50ms headroom over the slowest ODR (10Hz) */
-> > +		ret = regmap_read_poll_timeout(data->regmap,
-> > +					       QMC5883L_REG_STATUS1, status,
-> > +					       (status & QMC5883L_STATUS_DRDY),
-> > +					       2 * USEC_PER_MSEC,
-> > +					       150 * USEC_PER_MSEC);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		if (status & QMC5883L_STATUS_OVL)
-> > +			return -ERANGE;  
-> 
-> Sashiko has a remark:
-> 
-> If we return -ERANGE here when the overflow flag (OVL) is set, does the
-> sensor get permanently stuck in an overflow state?
-> In typical I2C magnetometers, the Data Ready (DRDY) and Overflow (OVL)
-> status bits are only cleared by reading the data registers. By returning
-> early without reading the data registers via regmap_bulk_read(), the DRDY
-> and OVL flags might remain set indefinitely. 
-> On subsequent measurement attempts, regmap_read_poll_timeout() will return
-> immediately and this check will instantly fail again, potentially locking up
-> the sensor until a reset.
-> 
+New issues:
+- [High] State desynchronization on `rk_udphy_init` failure causes subseque=
+nt power-on retries to falsely return success without re-initializing the h=
+ardware, leading to dead PHY or bus hangs.
 
-I was curious so checked the datasheet.
-https://www.qstcorp.com/upload/pdf/202512/13-52-04%20QMC5883L%20Datasheet%20Rev.%20B.pdf
+Pre-existing issues:
+- [High] Subsystem power-off requests permanently leak `udphy->status` bits=
+ if the Type-C mode has physically changed, causing a perpetual resource le=
+ak of the PHY clocks.
+--
 
-Sashiko looses this time as overflow resets if the next value is in range.
+commit 93e296ece1bf03449fcdb7d0485cb77da80dd9b7
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-I'm with Sashiko for explicit access being needed for data ready (or a write 1 to clear)
-but overflow is more of an intermittent thing so both styles exist for devices
-(with and without need for specific action to clear).
+phy: rockchip: usbdp: Do not lose USB3 PHY status
 
-Jonathan
-> > +
-> > +		ret = regmap_bulk_read(data->regmap, QMC5883L_REG_X_LSB, buf,
-> > +				       sizeof(buf));
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		*val = (s16)le16_to_cpu(buf[index]);
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
+This commit fixes an issue where the USB3 tracking information is lost
+when the DisplayPort is re-initialized. It does this by preventing the
+status variable from being cleared during mode changes in the PHY driver.
+
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index fba35510d88ce..744cc7c642f49 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> @@ -1009,7 +1009,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
+, u8 mode)
+>  			rk_udphy_u3_port_disable(udphy, false);
+>  	} else if (udphy->mode_change) {
+>  		udphy->mode_change =3D false;
+> -		udphy->status =3D UDPHY_MODE_NONE;
+
+[Severity: High]
+If rk_udphy_init() fails (for example, returning -EPROBE_DEFER after a lock
+timeout), will this lead to a permanent state desynchronization?
+
+By removing the clearing of udphy->status, if the initialization fails,
+udphy->mode_change is already set to false but udphy->status remains
+non-zero.
+
+If the subsystem later retries rk_udphy_power_on(), it will see
+udphy->status !=3D UDPHY_MODE_NONE and udphy->mode_change =3D=3D false. Cou=
+ld
+this cause it to bypass all initialization, blindly update the status, and
+falsely return success while the PHY hardware remains disabled and in reset?
+
+[Severity: High]
+This is a pre-existing issue, but removing the forced clearing of
+udphy->status here exposes a potential permanent resource leak of the PHY
+clocks.
+
+Looking at rk_udphy_power_off():
+
+	if (!(udphy->mode & mode)) {
+		dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
+		return;
+	}
+
+and rk_udphy_usb3_phy_exit():
+
+	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
+		return 0;
+
+If the Type-C multiplexer switches from DP_USB to a DP_ONLY mode,
+udphy->mode loses the USB bit. If the USB controller then unbinds and calls
+phy_exit() while in DP_ONLY mode, the early returns above prevent clearing
+the UDPHY_MODE_USB bit from udphy->status.
+
+When DP eventually powers off, will udphy->status remain non-zero due to
+this orphaned USB bit, preventing rk_udphy_disable() from ever executing
+and leaking the PHY clocks and power?
+
+>  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
+>  			rk_udphy_u3_port_disable(udphy, true);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
+sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D2
