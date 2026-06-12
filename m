@@ -1,173 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013017.outbound.protection.outlook.com [40.107.162.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7900A40D56A
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 12:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781268970; cv=none; b=sVhbUMJHf4L5iqGWq0qkt9KP/GmlxwVqJxahtTwR9jpPKXSlpQeQ6CiukprSl1Lwdm2KlSnlqr0AJQkF161lcvqmpjKgX0K/v25N3uTNMkCtGihujli14BnktkxALuVPnDe0Y79uQ1Zgtj6o1jipFgJOnxn5u5qfM7bE6tFaXaA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781268970; c=relaxed/simple;
-	bh=rNBXnL5gB90ZU2VFSCeIM8faZKvlbH/p1XnDM68wrAA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V6WjaB0vRRIqxaEPeLbAzLVIY8BQlUhMxtQcVZVBnpZxEgDDAK5+9QiDC6EwmGl+avxa5d2ETQ3iYCgdKO7JJsQqtEucEbyKadRLAcC1u2DW4FyUDZvmVmtbh/gyEIEdycLgbJlh08Ttqm0pW5RybB3Xfzrf4F9HUQ3qWRil9O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQWrqa3t; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B1340D56A;
+	Fri, 12 Jun 2026 12:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781268979; cv=fail; b=j0BdUOibGfxFMXTvZFrSgeTFGrEI3DNYQ4YXyIHlA6w3dlzNlpZpnBJtUIGH0KGCkOy2JIDXfUvVIhUNLNoUfMpRoTopHbtVWFfU7DAmHf+XoknDXRAFe/Qq3GU2MwncWwQiuVtDpxg0a3zjkPCynTBrrbSaja45/16ruuakdoU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781268979; c=relaxed/simple;
+	bh=0QW757vzRH4Vym1nI1BXWsTKOnryfBUFMd+ojGmrXYI=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=cV+l+VUDnNg5al/2S5BzUEKRFJARTKpMCpdizfmouXIq0r/mHuSokg0zBttchxcpFSjcoyGkz8SvAjnZKFQ3JL62utIJozbEnYrv4JpsUjPMfxYjAo72WwOnus/5IYrHG5N2n/o0wyp5H2mRKXECBWcQawD9NNO7ZTtJlePN0yk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Y+Krjupz; arc=fail smtp.client-ip=40.107.162.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQWrqa3t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4201F000E9;
-	Fri, 12 Jun 2026 12:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781268969;
-	bh=uaV7ZQ7A4RtMJYEO0efUSf78Z6a4q2bj0asdFhBRS9w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nQWrqa3tdvV5cW78WfCY6eW993Li/lrV9kR4njhDI5zSHDTx7V9SWOljAThOwWUdt
-	 K0ygFHYJkfo6350CVjufybcHLDiMyByFCVBpVT4BpyKnJ+PlbokyFnqdLhWaveFz+j
-	 RJMCyBnZw2lLeQnPCQNH2bM4/43nqegbg7CM9yqPbLOURz5tJxL4BENPH3N4zKCak0
-	 ppDXm1mf+VnCrlHaJ9kI0PWC1A7EZguOUrc3J/x6w0053D+jiagHneU6sKXeT5c+fv
-	 5cYXjSO1MCG78BdzqBxeCdDg6wd60Oedkofz/Scpj9WCXUAvgul8BZzrEEp6ktMQU0
-	 M3cKDkfG4UnDQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] iio: magnetometer: add driver for QST QMC5883L
- Sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Siratul Islam" <email@sirat.me>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260612124557.13750-4-email@sirat.me>
-References: <20260612124557.13750-4-email@sirat.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 12:56:08 +0000
-Message-Id: <20260612125608.DE4201F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Y+Krjupz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PJARFJHiGIIiUjIl3UyLhiho7IIS8iPehP2WQtbq+21mkc4y0SlQsMwjO+7BGEoNyKCS4f3N30MERTobj3pvjwJlmD5iuZ9dn13sFoMvlVqaAdWne+oNXaXWWxO1TJj9hQjmV7ZqLLEL6Zbld4EXvUs+EUyPE/bgwr5xxXMkqEsCXLMis9FHA7XR8K1v7RaC0nsnv0MiPLmzO2l0sF/laJGkGZnPEg94qYssCMZkWfJq7Y78dCGrJzjqH5l6gGBFUJkrGjo3XrWiIQczwmJ/OZbmq8x7clMKvUXL91DlDThxxmy71H3zun/xncyYxX8tpOpOuMDEOYqGjo+o4WfPpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZDi1MyxrSLUx6GyqPfPavwF3oH1yQiqEJj/415VwtX8=;
+ b=V5xPkCEGoN8iSBxWR05yVFXNy3q1C0icLBbUbITc1AzB4h1YjdcSlgqQCRGR3UgnJYKCVBZzcgF9moafeK5Js3xyrWZFf37UndqWVfOnbDWvZxhkjStDEn+wvEbT05FctXVnBqd0swLgGhPyxPgI3LN7dUIvqlusKZjouaRMp6u7F/icWAPrazvneDgzkYetsN53ld+wTNhTnMxbk1NWiVofIjXGqLb4QA8i2sPtjSofXs7Yx+4+ZTLe+bdM2ZzaGnIS7fNkMtYsvezXalnhrISyAYuUyfpc/mqzv3KryxHXboykSi/+tWWSMAhngnBhpzqbHReHxnBFvIpeP+rqCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=lists.infradead.org
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZDi1MyxrSLUx6GyqPfPavwF3oH1yQiqEJj/415VwtX8=;
+ b=Y+KrjupzucNY42rBgLiTFMrd+hoQAv3IFHwArsYoMv28l0kjJjhQszMHkFNRe6vXsw2fl17K3FSeKPbGXLWWK8D/j98iaFKeTVjb91sR1E+3akmX9hRemghyIptOkrkw6T9oIGNmm2Yui1DCE0Zntq+FqbdugrvdMKcGSokpZ/M3nLo+DiPaEADE5nnEBDirZN/mSjtVHvm1mcCg/P5q+6kmW0639+MXSNtEA6FvFyJdR8UjGQElgGYu/OKl3MsKt0xShoc4Cepo+aqXj8TVAdV4LX0LuQFtO/jjd4fPm1OCGUVLvxXZjYepiDs2W+0SRgWaKjPAise8JBckW8ZJnA==
+Received: from DUZPR01CA0206.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b6::21) by VI1PR10MB3341.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:803:13b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Fri, 12 Jun
+ 2026 12:56:13 +0000
+Received: from DU6PEPF0000B620.eurprd02.prod.outlook.com
+ (2603:10a6:10:4b6:cafe::9b) by DUZPR01CA0206.outlook.office365.com
+ (2603:10a6:10:4b6::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Fri,
+ 12 Jun 2026 12:56:13 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU6PEPF0000B620.mail.protection.outlook.com (10.167.8.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 12:56:13 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 12 Jun
+ 2026 15:00:27 +0200
+Received: from localhost (10.48.87.71) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 12 Jun
+ 2026 14:56:12 +0200
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Subject: [PATCH v2 0/5] ARM/arm64: dts: st: fix node ordering in ST board
+ device trees
+Date: Fri, 12 Jun 2026 14:56:01 +0200
+Message-ID: <20260612-node_reordering-v2-0-f68032ca3088@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOEBLGoC/3WNQQ7CIBBFr9LMWhrAlqauvIdpjJShZSGYmYZoG
+ u4udu/y/eS9vwMjBWS4NDsQ5sAhxQr61MC8PuKCIrjKoKU20iglYnJ4J0zkqhgX0dnRqrO2Ug4
+ eqvUi9OF9FG9T5TXwluhzHGT1W/+3shJSDNir0evZdr25+sTc8tbO6QlTKeULA4Jqo7AAAAA=
+X-Change-ID: 20260611-node_reordering-4b9b132b007f
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>
+X-Mailer: b4 0.14.3
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000B620:EE_|VI1PR10MB3341:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82752a1b-a070-445f-36f3-08dec881fbb6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	TUj594l8vFYfvkEQ6/oLVKlZ2sHb1OJ8gJZBsaWl0fNeuFkUwTwN5uaJQ/0f0sA6v0rjMksEOhlxTFs8ecBk8g3Kzbt6k4/v47YPYDnDk1oUm430m+563Q+EpEE/AEtUMCYjBcQ7badO6LpDmwcYkfwQtewxKLtRH4dNx0l/UeD27dhPyGbuBFnbDKUNrKwd46xQb0AgMUXPcSU0N/wz/8PVoMZS/dBBvMF9gbLkLt7izFiYNXCky1KqFV2RPwGCPanjzuVuzF8J70DqtRU3eXcYo67f6puhpYRdy99Q3RnhIt7ISOMtUUUstXZvs1dL4LgIXR2ybaRv00KOpyJniCm+IM+tUBAJGrYBL1p51XwlJ39bmUC+Xkm+qMMqUxwFLM+W6w/0FEhnkFZsbh5P3nsEi6sKHZfzqIckWAjPz+JixEzHiWs9gkLLXIqGyQNmy64Y/m42EHimaXIJFZF7lSA+FKO9SQTsdX9oJTpRqELepysW/NR5z6zy6WHCtUJBqtuViKRw94l28in4Tg9tSVz71Ftez0F1+Cdrk7MMjCgWoTxFEo1ZJRNYShkkKtqTmfuz/wCIg0ZobWSYipIq10egUjA8fno7xmFzhB8KkcsjUNBdc4WL1YruwIs63XFEbXa+Hv7PycWmMqOFwC84v0bWb2M6bAgLCYVq2tQvUX2MVggPIAUHdCJdwuH3wXdXuvHtl11w3apTQaBhzoIEiVd76DH72CLJZKXvuwQSsqA=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TfC8qMInxvbYQD/iwuAoUuo4uoxQjpO4OqBbQwCHY271ymHK4NkdCpUiPSxbcyK4upKXruosrIpuYEKFUXHFx7v0Y7T7T8tzMR2E1Mhs4f00tIG8RIAFXWVYsl1T+PItfabEoLwAxzTz7/gempu/NqNxs67rD0b5uep2ZO2Esl3lEOs2+et9YqDhGihJ1HorxiMOnbCvQtfPLPV06Vhfbb/5VrMhmQwJDw4jS9R7yKUqIYZFyEQDaE/98eMr5rQtVJUqko5nc8d6lGLbTiLGlvJ7q/Ki2jVr12AJlj4z/ZZYu7hGpDFs7LlR58pHX5lE/h0dC2PfGXY8yP3FaFOdlt2yUQn0sdKqgtpQP+ONs9EHV3fFPQt8E2dz1rFT5DG1bgy8Pby0yzjQmu7JWjn/iCxfFKDogbtVltC/SkBrSEExZHqzgbc3SlpQzPdkMbJl
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:56:13.1363
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82752a1b-a070-445f-36f3-08dec881fbb6
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000B620.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3341
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Returning early with `-ERANGE` when the overflow flag (OVL) is set=
- prevents the data registers from being read, leaving the sensor permanentl=
-y stuck in an overflow state.
-- [Medium] The device is left in continuous measurement mode on driver remo=
-val or initialization failure, causing an unnecessary power drain.
---
+In the ST board DTS files, &label entries must be ordered
+alphanumerically.
+Over time, several nodes ended up out of order as a side effect of
+adding new features or refactoring existing ones.
+This series restores the correct alphanumeric ordering across
+all ST board DTS files, with no functional change.
 
-commit 8aa498258e2b8bddd48bf3c46ef8555a7376ea6e
-Author: Siratul Islam <email@sirat.me>
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+Changes in v2:
+- Fix typo in commit message of patch 1.
+- Link to v1: https://lore.kernel.org/r/20260611-node_reordering-v1-0-7e519f2cb456@foss.st.com
 
-iio: magnetometer: add driver for QST QMC5883L Sensor
+---
+Amelie Delaunay (5):
+      arm64: dts: st: reorder ommanager node in stm32mp257f-ev1.dts
+      ARM: dts: stm32: reorder cs_cti_trace node in stm32mp135f-dk.dts
+      ARM: dts: stm32: reorder cs_cti_trace node in stm32mp15xx-dkx.dtsi
+      ARM: dts: stm32: reorder cs_cti_trace node in stm32mp157c-ev1.dts
+      ARM: dts: stm32: reorder mdma1 node in stm32mp15*-scmi.dts
 
-This commit adds a new I2C driver for the QST QMC5883L 3-Axis Magnetic Sens=
-or,
-including continuous measurement mode support and scaling options.
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  4 +-
+ arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts |  8 ++--
+ arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts |  8 ++--
+ arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts |  8 ++--
+ arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts |  8 ++--
+ arch/arm/boot/dts/st/stm32mp157c-ev1.dts      |  6 +--
+ arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi     |  6 +--
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    | 56 +++++++++++++--------------
+ 8 files changed, 52 insertions(+), 52 deletions(-)
+---
+base-commit: fba4a31a7f3b6b29b01c83180f83e7ed4c398738
+change-id: 20260611-node_reordering-4b9b132b007f
 
-> diff --git a/drivers/iio/magnetometer/qmc5883l.c b/drivers/iio/magnetomet=
-er/qmc5883l.c
-> new file mode 100644
-> index 0000000000000..055e51570635c
-> --- /dev/null
-> +++ b/drivers/iio/magnetometer/qmc5883l.c
+Best regards,
+-- 
+Amelie Delaunay <amelie.delaunay@foss.st.com>
 
-[ ... ]
-
-> +static int qmc5883l_take_measurement(struct iio_dev *indio_dev, int inde=
-x,
-> +				     int *val)
-> +{
-> +	struct qmc5883l_data *data =3D iio_priv(indio_dev);
-> +	unsigned int status;
-> +	__le16 buf[3];
-> +	int ret;
-> +
-> +	scoped_guard(mutex, &data->mutex)
-> +	{
-> +		/* 50ms headroom over the slowest ODR (10Hz) */
-> +		ret =3D regmap_read_poll_timeout(data->regmap,
-> +					       QMC5883L_REG_STATUS1, status,
-> +					       (status & QMC5883L_STATUS_DRDY),
-> +					       2 * USEC_PER_MSEC,
-> +					       150 * USEC_PER_MSEC);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (status & QMC5883L_STATUS_OVL)
-> +			return -ERANGE;
-
-[Severity: High]
-If we return -ERANGE here when the overflow flag (OVL) is set, does the
-sensor get permanently stuck in an overflow state?
-
-In typical I2C magnetometers, the Data Ready (DRDY) and Overflow (OVL)
-status bits are only cleared by reading the data registers. By returning
-early without reading the data registers via regmap_bulk_read(), the DRDY
-and OVL flags might remain set indefinitely.=20
-
-On subsequent measurement attempts, regmap_read_poll_timeout() will return
-immediately and this check will instantly fail again, potentially locking up
-the sensor until a reset.
-
-> +
-> +		ret =3D regmap_bulk_read(data->regmap, QMC5883L_REG_X_LSB, buf,
-> +				       sizeof(buf));
-
-[ ... ]
-
-> +static int qmc5883l_init(struct qmc5883l_data *data)
-> +{
-> +	unsigned int reg;
-> +	int ret;
-> +
-
-[ ... ]
-
-> +	data->odr =3D QMC5883L_ODR_50HZ;
-> +	data->range =3D QMC5883L_RNG_2G;
-> +	data->osr =3D QMC5883L_OSR_64;
-> +
-> +	ret =3D regmap_write(data->regmap, QMC5883L_REG_CTRL1,
-> +			   (QMC5883L_MODE_CONT | data->odr | data->range |
-> +			    data->osr));
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int qmc5883l_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	indio_dev->name =3D "qmc5883l";
-> +	indio_dev->info =3D &qmc5883l_info;
-> +	indio_dev->channels =3D qmc5883l_channels;
-> +	indio_dev->num_channels =3D ARRAY_SIZE(qmc5883l_channels);
-> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> +
-> +	ret =3D qmc5883l_init(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "qmc5883l init failed\n");
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
-[Severity: Medium]
-Is there a missing devm teardown callback to power down the sensor when the
-driver is unbound or if registration fails?
-
-In qmc5883l_init(), the sensor is placed into continuous sampling mode. If
-devm_iio_device_register() fails, or when the driver is removed, there
-doesn't appear to be a registered cleanup action (e.g., via
-devm_add_action_or_reset()) to place the device back into standby mode.
-
-Although the devm core disables the VDD/VDDIO regulators during teardown,
-these regulators might be shared with other components on the board. If the
-shared supply remains active, the sensor could continue continuous sampling
-and unnecessarily drain power.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612124557.1375=
-0-1-email@sirat.me?part=3D3
