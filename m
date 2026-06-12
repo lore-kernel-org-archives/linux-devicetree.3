@@ -1,357 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2113.outbound.protection.partner.outlook.cn [139.219.146.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B924E36C0CD;
-	Fri, 12 Jun 2026 12:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781266703; cv=none; b=t524Pd2AO9cDDMBO7mWsSIj+ioPS6uTjuSNzyq6L5qWbqJipmytRB4Fr6uoywRyJPEq4wBr6QQ9uXTNXrIcz/kXgUq1HCtdN/cmKjtjfjJJXhqlbs3ViigSHEFWCVvpdfXWRiZBpx0eBfACNR4VAS2m9axRPsRi/seI+cLTogfA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781266703; c=relaxed/simple;
-	bh=NdkLPJlx7KrJQHOeEhzrSFgpAA/ht/yoeEQ+ehkT2G0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F9wzRf+sRk0Gnat6boUxN/QqG7yr+I41X3d1Pdisj0PlaifzPuSlWlf3VOxPwMcGDKnyce6nEht+GJw7kAOsrhDZmpdXUjmJpEE+BHXKcrdnx74pyb/pfOwFgd8We+sD9kKtzHSXhJgkOulHe5qKdFgZOIeTXhsdnpXIeiLZGe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cj7yS2PP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cj7yS2PP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 226781F00A3A;
-	Fri, 12 Jun 2026 12:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781266701;
-	bh=hEPSysnu3BtUjudGXNksTHjJ4FRqtTwcysb49YgThoo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Cj7yS2PPamWKySGwvDtcy64J7bn1eun53cGt0G7M8Hb/H+Z1sgImwr4nQLJSlSU3H
-	 r++c3nN7MNk3AxC7f89NY9KOSxfGbDUfKTmZsyxpZefhdIFCL4WVAg5nVueamw9lpC
-	 YwVYAcjZ7wtfxkQpRHL+8IQw+882nSi3mA/nn3KPBw14FCFIgYwqwJp8El33HBkefS
-	 pHFmxM0NjIYvoP4CkMDt4F7UQ8HZYbFlyEQm3PTZz7FeDoVeAN6OrFLI3Qzg47RdEK
-	 aL561VAtcxQvazu5TW884k1Empqc59s+NrudUHJKiqZd4WuEUveDb7ElFYSh9aNuGh
-	 JjE9C3CYyAO1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 5/9] drm/imx: Add support for i.MX94 DCIF
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
-In-Reply-To: <20260612-dcif-upstreaming-v9-5-8d0ff89aa3c5@oss.nxp.com>
-References: <20260612-dcif-upstreaming-v9-5-8d0ff89aa3c5@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 12:18:20 +0000
-Message-Id: <20260612121821.226781F00A3A@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA83D3812F2;
+	Fri, 12 Jun 2026 12:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.113
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781267272; cv=fail; b=G33YImyk9t1xAG5dyILHUpcepy8YxbZGMWOphUWT/Qqvm3QMULjN3tzyczaROkAT+orpmWb/4Vn3PDh0zXvb47LU57XKx5lg4UEaLkIiKPPvIdVpIYBiGT/PHXzMMDq0owu45d0uHkj73ovFNlkHbRovAGoiezxhZtyB7yMNNvM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781267272; c=relaxed/simple;
+	bh=cLLv2nKX37ex11u/TH7G1Wgqs7JHBp7LLdigUAKTFv0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=er4GCXag72zh0CGwkGlL2BE1YBxAPtfYa/QkVYub+5vEbXurr4A/RqSKbuBbC03JtMzXWvi2ZknPSJj91PR1FK4ALFjPMxmu8NjxHNJnYrkxW7A1zstSEZ09eB0O5SwbQdXR90b9miSTDWdwTGWIWhN0OD+nrklB6XFo3PBKb70=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RPh8yS5jIWjyJeUulcOcyA0CxH4G9HEN7jH2OlsJcbd6Id2jzwxLg8DqdFzhjsKy81h8IrepNTd2rMIH/Km7eJHM3Jvf7cSVglU4JHq3VphycYZy1hwywQQKtK34VDJRODNnLYJHEcCHcqGXtTugAvSDBvRZW7kJZpqvUx0r6/47XaQMpqFUFn79ovJ5+uCYaKklZptAVObhD5ENYom3FOjfXhBo0Ztpo4mVe8Vu1/fFiQJnDnDI81EphFL1dKVanwLqhMKVz2mFha5zvc4E+JgknBspUcea1UpdZ0bhVyXeIdce6q+0Uhu1XMsAEA0iijlQF0dV2Q2AV0L6ooBymA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cLLv2nKX37ex11u/TH7G1Wgqs7JHBp7LLdigUAKTFv0=;
+ b=Cor3OwvXYWR1Y15cqnZhngIYgqzUZ1nswMWnYWjA054ifyAO7WSMXJ5aY6H80iT2De+S22prPHEy/gDlSm7XX4rORKBV+b9A0WBjKndaA6ZRiQ7OzJ7mgpLPkcg24CTfSOHhHH8FTSm0ZuNlJJoXsuLdvG4zM7ZKwqO5lVx3QTr2NpZzdLQtPaF9Xte9/hLm+uciGekymplxaUABPFLkNFpb95PoH/ggipEcUT9BNMcbPvRba4AEdlKYqw8kN2tZvp4WUlhMFTYlwnY+sArh0DvWHe0cyBwrs0nXjX8/Zb8uLoCtIJXL7kdJvvzEt0l6yxse+lC8z40pgKN/oY4Piw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0768.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:24::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Fri, 12 Jun
+ 2026 10:54:33 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
+ with mapi id 15.21.0092.017; Fri, 12 Jun 2026 10:54:33 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jose Abreu
+	<joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Russell
+ King <linux@armlinux.org.uk>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-stm32@st-md-mailman.stormreply.com"
+	<linux-stm32@st-md-mailman.stormreply.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject:
+ =?gb2312?B?u9i4tDogW25ldC1uZXh0IHYxIDEvNl0gZHQtYmluZGluZ3M6IG5ldDogZHdt?=
+ =?gb2312?Q?ac:_Add_snps,use-ncsi_property?=
+Thread-Topic: [net-next v1 1/6] dt-bindings: net: dwmac: Add snps,use-ncsi
+ property
+Thread-Index: AQHc+Kos0bB42CjcQkupyH6AE8NcHLY3ccQAgANQGfA=
+Date: Fri, 12 Jun 2026 10:54:33 +0000
+Message-ID:
+ <SHXPR01MB0863ADA1F99C2F6A82EA08F9E6182@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+References: <20260610072420.64699-1-minda.chen@starfivetech.com>
+ <20260610072420.64699-2-minda.chen@starfivetech.com>
+ <a542aee0-cc4a-4bed-85fa-1ec6fdfe87d9@lunn.ch>
+In-Reply-To: <a542aee0-cc4a-4bed-85fa-1ec6fdfe87d9@lunn.ch>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0768:EE_
+x-ms-office365-filtering-correlation-id: 977dcd9b-7b61-4a48-7a5b-08dec870fcdf
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|38070700021|22082099003|18002099003|56012099006|4143699003;
+x-microsoft-antispam-message-info:
+ YXsgWOt/oxoDxxAAk0JLwF0+t2+HH2WU0rDb+QrLFOjjon18z+PrRnr8VywhvIR9CliB2mQ8I83I0PA86b+FDrRcfJ/M/2lFSZoLU+DPAZQtbqV6lVNYURmpHKdkxbzhhvtUoY/J0ySJU5QP42H2U7XIuHLTfXtap0w5hF8KKF0Wm1n19PWIYqDtW5JBs+0QganP84evh8vkkzLvRPz03+cpUnwHtrzZlB+UiRNDPfeu8spFM9bmqS15mfsuvrItXXdHjojTf7cOTugY6C+nHnxlji5jANbYVqEQ4oBZkvbZMQSMTAvRM/aDfaVegtR8tJHjOW6B2pFK8GyP3a29Jk2NMFMRYgPAnJ35ORv82vyucC/+qHf3P38zxhpNasSC/hP4jeiG6OFBIXrWW/2GYupwt8zAu9pm537ebkDR2RH+XjZSwWRO1jig9R/WNR/LcjQ7OP9jaYB8Ohvrn97WhPWP5Ug9iFUMM8QmlrPnIGJLaEh1p+f/ngMY/LJIUBmxR2j/OVIUTbM9yiFJZqPbjpIx82VqKdBY1RmI6JcSehlKv9A1y8Eo8RWoCDQ5lNBA
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(38070700021)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?VFhkYS9NUEdEOFE2WjRacEt1cElpcWVzYnBnMlZ4S05QYkhkZW5tU1JzTDhu?=
+ =?gb2312?B?eTA0YVUwZ1VKeWZaZFhUZkhjV05GdW8wQk15QS9JaVdyb0EwSmpzUE1malZP?=
+ =?gb2312?B?NCt1NXdzMkI0ZkVQZzF0TVFYUkdDcytLOWxjNjl1emZaYUtFaVBITHQ4dnhC?=
+ =?gb2312?B?b2lxbDlBaHg2dUdmYjU1b2JtV09ncXJhaGlOUS9MOVBwL1ZkTlFHSWsrdk9l?=
+ =?gb2312?B?VGZRSjhEbmVSY20zamswdFhvS1M3RUIyeEt1dkVrQWxEKzJKcWNUY0hwS2Vy?=
+ =?gb2312?B?VVpzUEo4Q1pXTUxxdVhpSFpNUWpwckdFN2MzSExlZWtDaXBYSzRYN2toZS9t?=
+ =?gb2312?B?SUU1V0JITzIvK1lNQ3lPUlZGbkpOaWRJeFZ3MVFTRXY5V3ZsWVF4TldqbGNI?=
+ =?gb2312?B?eW1DdVgrazkvNlVpd0hna0NZbXhuVFpXOEZ1b2JLclhkTjd4K3h0elNxcjE4?=
+ =?gb2312?B?cU0xTlJJQkg1VXFZWkRGS3dUSm1Lc2JXTXBMSmppZW5acThGMWdHU1VXeDh4?=
+ =?gb2312?B?TFo0YWZQaWxrSzZrQXJtc0dTRUpqVGEzSXZlMFFpdmtncVpkRVQ5NmRha1pL?=
+ =?gb2312?B?eWZNa1M2dzBneG96RUh4eHgxYlRPeVJkVlVlN2ZQdmR6NFZYOUJZMTJTWXZz?=
+ =?gb2312?B?K0MySTZkLy9SSGtLSEppaXJnU2R2dit5VnhUeTFVYTgwMjhiS2sxQ0FxMUhq?=
+ =?gb2312?B?aUVUSW15UDhjT1RJeGtMMDFmSC9PRmxRaloxMGR4cU9LWWdLcEJQNlJFakJs?=
+ =?gb2312?B?eGlIL1Y4VjBoSkcwQVpNbm9lRVNhb2NjQkIvQ1lnTDlKWlhndkVGRE5ZWDhG?=
+ =?gb2312?B?SUdkbFN4ZHdXU29pWVFVV0syTVEyUllFSmNHZjRoYytZT0dNdkhOczZVYXhw?=
+ =?gb2312?B?RFFSUkVGWmFObFRwMHhiSGNTYlhFTTJnMTh4a0VOd01md1A2OHhXZWpnYVFN?=
+ =?gb2312?B?eFIrR2NPT3MyMXNIMlpDOU1FYjNMN0tLdlVsQ3gzTm4xalVKZ25zeFFHMUti?=
+ =?gb2312?B?K3B4Ni83WVdMTUtRSFlvVXlpMm5EQXBheEtoWFZxMHpKQlpvTzR5Y2JCMXds?=
+ =?gb2312?B?VFBhaEVnZjhnSGYxQ2Qwd0NRZ2JIU0xsTityNG0rWFRhb0VHZWxwKzlvcEp5?=
+ =?gb2312?B?WlNjazFmNFNjYTYyczhwSmtZd1NVeS8rUXZXckRHOHNKWEIxSU41Y25yZ3Jt?=
+ =?gb2312?B?aERSa2kwTUUydzFsNWkvNnVHeGc2bzFJT2ZtaTZYSVdyNlBlK1pjQ21XcWtI?=
+ =?gb2312?B?STRaSXl5WTVMd2lEZ2U1MnBvNEVDTFB3b2ZSV2pwNGVYOWdlWkpBczEyOXBS?=
+ =?gb2312?B?VTBMSi9Kd3dQWDk0WmhQUHpLZ3hiOVNEWGxZa3IwYWhnR3plYWtFbjJEU09W?=
+ =?gb2312?B?Q2VpeWQ2K2FOVS8xaG5ONlM1V1Z1dFJjbk1wUGFiQzZPSGJsVFhvNFR2dVM1?=
+ =?gb2312?B?NmtscHJpRUNoRU8zbnVXbkhibjY1NW13c1JVYk1uTk13RWNCWUQzcFU1cnQ5?=
+ =?gb2312?B?TkpRdnVJdGJvWnNJblp4bTc0UGpkaUhHNnFrbzFRbUJSZTdlazRXSGltbURh?=
+ =?gb2312?B?blg1bS9PTVEzdit4UGRlRzlBZ2I0c0I5TXVOR1lFMlY1cWVmMDdmSHJkR09V?=
+ =?gb2312?B?RVFQZHVqMUVHNnhOL1JSUytaL0F2K1pMdTJuRHhYaHpHU2g5Y01xQXptRU0r?=
+ =?gb2312?B?czRaNnpRcHVjWVFBaHgxaUhKZjVsbUZmanp1RytDa3lYcCtRYnEyTU1DaHJU?=
+ =?gb2312?B?ekFMb1RIK2RETEpQbUhXRnhydGxuNzFacHVPUHlHajRTdmczNnl5bkVzMHl4?=
+ =?gb2312?B?MVNZMUJnYmY3cGhFcTAvc1ljOFhZMHBjS1ZXQUp1Q3paUnJJTzZHNkxsWldL?=
+ =?gb2312?B?MVVUOFhDSHg0cTBxYTJLeExLU1NoUTRtdk1EWEpyUjErTzJidm5hMmxneFJt?=
+ =?gb2312?B?MEZHQUFwYXlhZU9Mcnl4NlJKdzJBRUpRdkJ4OE8rYnBHU0I5bktKSktEZFZD?=
+ =?gb2312?B?MW8vekRuYldDMW9GbXV6dE00M2RPTVdvV0s4QUVadDV3Q3FLM010N0hjRG44?=
+ =?gb2312?B?N29DMXl5Z2JPWGRNUUpRcGlkcWpheUk4UzMzY0NSZVBSV0VrZ1Z1UlZUNW4y?=
+ =?gb2312?B?T1lETmhHeElZK3NZZzdhb3lnUFR0SEpTN0hEc3JOVElOOEZGYklRRFl6MWpn?=
+ =?gb2312?B?Y2dTOHF0MFd3ZHhxVlZVS3FMS1ovNEtzK2dramIzSjhwdVVZSFBmR00yRFdy?=
+ =?gb2312?B?MHpTd0VNbENTdWg2MWZGdFFHdjFWMFgvMlh4bUNTb2FPS0dNZXhyZFpsSHVO?=
+ =?gb2312?B?bGtzeGg3RnlBV0REa1U1K2tLUHlISEYwV3F4SXNCMG9obEdpcFovUT09?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 977dcd9b-7b61-4a48-7a5b-08dec870fcdf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 10:54:33.7432
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ILSTqZP9EwVTxQUvHL3mAZuBA74XGZdKeF+LiWDt9w2YLE/sEY4pXY3VLfoOtg1yQnvpgPuq1Zps7Eu0kWwothYS2BGjLT1hv4QUxaFcD6o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0768
 
-Thank you for your contribution! Sashiko AI review found 15 potential issue=
-(s) to consider:
-- [High] Read-modify-write (RMW) operations on Write-1-to-Clear (W1C) inter=
-rupt status registers cause lost interrupts.
-- [High] Module reference count underflow and use-after-free caused by unba=
-lanced `drm_bridge_put`.
-- [High] CRTC `bus_format` and `bus_flags` state is corrupted and permanent=
-ly lost during plane-only atomic updates.
-- [High] Unprotected hardware register accesses in the IRQ handler risk bus=
- errors on runtime suspended devices.
-- [High] System resume fails to enable the display because `pm_runtime_resu=
-me_and_get` is called while PM transitions are disabled.
-- [High] An unhandled pending vblank event in `dcif->event` during CRTC dis=
-able causes userspace to hang indefinitely and memory to leak.
-- [High] Unlocked access to `crtc->state` in `dcif_crc_source_parse` causes=
- a data race and potential use-after-free.
-- [High] Failure of `pm_runtime_resume_and_get` causes the atomic commit to=
- hang permanently.
-- [High] Use of sleeping functions and inappropriate lock guards in atomic =
-context paths.
-- [High] Ignoring the return value of `drm_crtc_vblank_get()` causes vblank=
- reference count underflow on failure.
-- [High] Disabling Layer 0 without triggering `SHADOW_LOAD_EN` causes an ab=
-rupt hardware stop and AXI bus lockup risks.
-- [High] `drm_crtc_vblank_on()` is called before software reset, permanentl=
-y breaking vblank interrupts.
-- [Medium] Dynamic plane color encoding and color range updates are silentl=
-y ignored.
-- [Medium] Transitions between active CRC sources (e.g., updating ROI coord=
-inates) are ignored.
-- [Medium] Data race (TOCTOU) on `dcif->crc_is_enabled` causes garbage CRC =
-reads.
---
-
-commit 4328341d625e1f0fbf8be8ca733a73ea0e76115e
-Author: Sandor Yu <sandor.yu@nxp.com>
-
-drm/imx: Add support for i.MX94 DCIF
-
-This commit introduces DRM support for the i.MX94 Display Control
-Interface (DCIF). It includes core CRTC, plane, and KMS integration,
-along with CRC generation support.
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.h b/drivers/gpu/drm/imx/dc=
-if/dcif-crc.h
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.h
-[ ... ]
-> +static inline bool enable_dcif_crc_needed(struct dcif_crtc_state *new_dc=
-state,
-> +					  struct dcif_crtc_state *old_dcstate)
-> +{
-> +	return old_dcstate->crc.source =3D=3D DCIF_CRC_SRC_NONE &&
-> +	       new_dcstate->crc.source !=3D DCIF_CRC_SRC_NONE;
-> +}
-
-[Severity: Medium]
-Does this prevent updates when transitioning directly between two active
-CRC configurations? If userspace modifies the ROI region while keeping the
-source active, both helpers will return false, meaning the hardware might
-continue capturing the old ROI coordinates.
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.c b/drivers/gpu/drm/imx/dc=
-if/dcif-crc.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
-[ ... ]
-> +void dcif_crc_source_disable(struct dcif_dev *dcif, int ncrc)
-> +{
-[ ... ]
-> +	regmap_clear_bits(dcif->regmap, DCIF_CRC_CTRL, DCIF_CRC_CTRL_CRC_EN(ncr=
-c));
-> +
-> +	dcif->crc_is_enabled =3D false;
-> +}
-
-[Severity: Medium]
-Is there a data race on the crc_is_enabled flag here? This flag is modified
-without holding the event_lock, while the IRQ handler evaluates it with the
-lock held. This could allow the module to power off while the IRQ handler
-attempts to read the disabled register, generating spurious payload data.
-
-[ ... ]
-> +static int dcif_crc_source_parse(struct drm_crtc *crtc, const char *sour=
-ce_name,
-> +				 enum dcif_crc_source *s, struct drm_rect *roi)
-> +{
-> +	static const char roi_prefix[] =3D "roi:";
-> +
-> +	if (!source_name) {
-> +		*s =3D DCIF_CRC_SRC_NONE;
-> +	} else if (!strcmp(source_name, "auto")) {
-> +		struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
-
-[Severity: High]
-Can this unlocked access to the atomic state lead to a use-after-free? This
-parser is called before acquiring any connection locks. A concurrent atomic
-commit could swap and free the atomic state while this thread is referencing
-the adjusted_mode.
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
-cif/dcif-crtc.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
-[ ... ]
-> +static void dcif_disable_controller(struct dcif_dev *dcif)
-> +{
-> +	u32 reg;
-> +	int ret;
-> +
-> +	/* Disable layer 0 */
-> +	regmap_clear_bits(dcif->regmap, DCIF_CTRLDESC0(0), DCIF_CTRLDESC0_EN);
-
-[Severity: High]
-Does clearing the enable bit without also triggering the shadow load bit
-leave the layer hardware active? The hardware typically ignores the register
-change without the shadow load bit, meaning it will continue fetching data
-via DMA. Severing the display controller abruptly while DMA is active could
-risk AXI bus lockups.
-
-[ ... ]
-> +static void dcif_crtc_queue_state_event(struct drm_crtc *crtc)
-> +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +
-> +	scoped_guard(spinlock_irq, &crtc->dev->event_lock) {
-> +		if (crtc->state->event) {
-> +			WARN_ON(drm_crtc_vblank_get(crtc));
-> +			WARN_ON(dcif->event);
-> +			dcif->event =3D crtc->state->event;
-
-[Severity: High]
-What happens if drm_crtc_vblank_get returns an error? The code continues to
-queue the event without having incremented the vblank reference count. When
-the interrupt handler later processes the event and calls the corresponding
-put function, it would cause a reference count underflow.
-
-[ ... ]
-> +static void dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
-> +					      struct drm_crtc_state *crtc_state)
-> +{
-> +	struct dcif_crtc_state *dcif_state =3D to_dcif_crtc_state(crtc_state);
-> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D NULL;
-
-[Severity: High]
-Will the cleanup attribute here cause a use-after-free? The bridge is
-obtained via drm_bridge_chain_get_first_bridge, which does not increment
-the module reference count. When the function returns, drm_bridge_put will
-decrement a reference that was never acquired, potentially allowing the
-bridge module to unload prematurely.
-
-> +	struct drm_bridge_state *bridge_state;
-> +
-> +	dcif_state->bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
-> +	dcif_state->bus_flags =3D 0;
-> +
-> +	bridge =3D dcif_crtc_get_bridge(crtc, crtc_state);
-> +	if (!bridge)
-> +		return;
-
-[Severity: High]
-Could this overwrite destroy the existing bus_format and bus_flags during
-a plane-only update? In a plane update, the bridge is not part of the atomic
-commit state, causing the bridge state query below to return NULL. Returning
-early leaves the state permanently overwritten with default values.
-
-[ ... ]
-> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
-> +				    struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	/* enable power when we start to set mode for CRTC */
-> +	ret =3D pm_runtime_resume_and_get(drm->dev);
-> +	if (ret < 0) {
-> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
-> +		return;
-> +	}
-
-[Severity: High]
-Is pm_runtime_resume_and_get safe to call here? This is an atomic context
-path during non-blocking commits, and this PM function can sleep.
-
-Additionally, if this path executes during system resume, runtime PM
-transitions are disabled and it will return an error, leaving the display
-blanked.
-
-If it does return early, the pending event in crtc->state->event is never
-consumed. The DRM core expects the driver to consume the event, and
-abandoning it here will cause the atomic commit to hang indefinitely
-waiting for a flip completion.
-
-> +	dcif->crtc_pm_enabled =3D true;
-> +
-> +	drm_crtc_vblank_on(crtc);
-> +
-> +	dcif_crtc_mode_set_nofb(crtc_state, plane_state);
-
-[Severity: High]
-Will the software reset performed inside dcif_crtc_mode_set_nofb destroy the
-vblank interrupt enablement? Since drm_crtc_vblank_on is called right before
-the reset, the hardware state and interrupt enable bits will be cleared,
-permanently breaking vblanks.
-
-[ ... ]
-> +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
-> +				     struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	if (dcif->crtc_pm_enabled) {
-> +		dcif->crtc_pm_enabled =3D false;
-> +		pm_runtime_put_sync(drm->dev);
-> +	}
-> +
-> +	scoped_guard(spinlock_irq, &crtc->dev->event_lock) {
-> +		if (crtc->state->event && !crtc->state->active) {
-> +			drm_crtc_send_vblank_event(crtc, crtc->state->event);
-> +			crtc->state->event =3D NULL;
-> +		}
-> +	}
-> +}
-
-[Severity: High]
-Similar to the enable path, pm_runtime_put_sync is a sleeping function
-called in an atomic context.
-
-Also, does the use of the spinlock_irq scoped guard here cause problems?
-When exiting the scoped guard, it unconditionally re-enables hardware
-interrupts, which breaks the caller's atomic execution context.
-
-Finally, if a non-blocking commit queued an event into dcif->event, it
-seems to be ignored here. If the hardware interrupts are turned off, the
-pending event in dcif->event is stranded and never signaled, leaving
-userspace blocked.
-
-[ ... ]
-> +static int dcif_crtc_enable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +	int domain =3D dcif->cpu_domain;
-> +
-> +	/* Clear and enable VS_BLANK IRQ */
-> +	regmap_set_bits(dcif->regmap, DCIF_IS0(domain), DCIF_INT0_VS_BLANK);
-> +	regmap_set_bits(dcif->regmap, DCIF_IE0(domain), DCIF_INT0_VS_BLANK);
-
-[Severity: High]
-Does using a read-modify-write helper on a Write-1-to-Clear register cause
-lost interrupts? regmap_set_bits will read the register, OR the new bit, and
-write it back, which inadvertently clears any already pending interrupts
-before the handler can process them. W1C registers usually need to be
-written directly.
-
-[ ... ]
-> +static void dcif_crtc_disable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +	int domain =3D dcif->cpu_domain;
-> +
-> +	/* Disable and clear VS_BLANK IRQ */
-> +	regmap_clear_bits(dcif->regmap, DCIF_IE0(domain), DCIF_INT0_VS_BLANK);
-> +	regmap_clear_bits(dcif->regmap, DCIF_IS0(domain), DCIF_INT0_VS_BLANK);
-> +}
-
-[Severity: High]
-The same applies here. regmap_clear_bits will write a 1 to all pending
-interrupts while writing a 0 to the target bit, improperly clearing unrelat=
-ed
-interrupts and failing to clear the target bit.
-
-[ ... ]
-> +irqreturn_t dcif_irq_handler(int irq, void *data)
-> +{
-> +	struct drm_device *drm =3D data;
-> +	struct dcif_dev *dcif =3D to_dcif_dev(drm);
-> +	int domain =3D dcif->cpu_domain;
-> +	u32 stat0, stat1, crc;
-> +
-> +	regmap_read(dcif->regmap, DCIF_IS0(domain), &stat0);
-
-[Severity: High]
-Is it safe to read hardware registers here without verifying the power
-management active state? If the device is in runtime suspend and its clocks
-are turned off, a spurious interrupt could trigger this handler, and
-accessing unclocked registers can cause bus faults or system lockups. Should
-this be protected with pm_runtime_get_if_active?
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-plane.c b/drivers/gpu/drm/imx/=
-dcif/dcif-plane.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-plane.c
-[ ... ]
-> +static int dcif_plane_atomic_check(struct drm_plane *plane, struct drm_a=
-tomic_commit *state)
-> +{
-[ ... ]
-> +	/*
-> +	 * Force CRTC mode change if framebuffer stride or pixel format have ch=
-anged.
-> +	 */
-> +	if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY && old_fb &&
-> +	    (fb->pitches[0] !=3D old_fb->pitches[0] || fb->format->format !=3D =
-old_fb->format->format))
-> +		crtc_state->mode_changed =3D true;
-
-[Severity: Medium]
-Will dynamic updates to plane color encoding or color ranges be silently
-ignored? The hardware CSC coefficients are programmed during a full modeset,
-but this check does not flag a mode change if only the color properties are
-modified.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-dcif-upstr=
-eaming-v9-0-8d0ff89aa3c5@oss.nxp.com?part=3D5
+DQoNCj4gDQo+IE9uIFdlZCwgSnVuIDEwLCAyMDI2IGF0IDAzOjI0OjE1UE0gKzA4MDAsIE1pbmRh
+IENoZW4gd3JvdGU6DQo+ID4gQWRkIHNucHMsdXNlLW5jc2kgZHRzIGJpbmRpbmdzIHByb3BlcnR5
+IGZvciBTeW5vcHN5cyBkZXNpZ253YXJlDQo+IA0KPiBJcyB0aGVyZSBhbnl0aGluZyBTTlBTIHNw
+ZWNpZmljIGluIGhvdyBOQ1NJIGlzIGltcGxlbWVudGVkPyBTaG91bGQgdGhpcyBiZSBhDQo+IGdl
+bmVyaWMgb3B0aW9uIHdoaWNoIGFueSBFdGhlcm5ldCBpbnRlcmZhY2UgY2FuIHVzZT8NCj4gDQo+
+ICAgICAgQW5kcmV3DQoNCkkgd2lsbCByZW1vdmUgdGhpcy4gTkNTSSBhY3R1YWxseSBub3QgZ2Vu
+ZXJpYyBmdW5jdGlvbi4gTm93IGp1c3QgZmFyYWRheSBmdGdtYWMxMDAgc3VwcG9ydCB0aGlzLg0K
