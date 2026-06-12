@@ -1,257 +1,177 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010014.outbound.protection.outlook.com [52.101.229.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103FE344D9B
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C55346E54;
+	Fri, 12 Jun 2026 13:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272302; cv=pass; b=jVgI2U/T78vbg7DWONDn31is7+qCRSmHwL6d7yPDIq21hUM4NMsZ4x2ZHRRutsca+/KH7ju6pLlfj2H8CjMSaY9ztXABsKj8myb+UMWGvalgTfajpHPXrok+aqVrtbqtkKeUbcBUfp6fTrhyOGjEOwmZT83WBhc+TDIAreKvVy4=
+	t=1781272314; cv=fail; b=El6sdmwvHoku3CYBWEvXbyvsdC9uA/GZ9FEjphVwCkBdXqZ5wWyiH1YDCnXAYk2mPK8bBWnzMC245PHeD7SaUEKUKIFSj37v87XU+J5qJFq7r6qfPLgzNAjxu3/CjmVtSC4dw6MUZ09BH5syF80lFYqu3q97MYHvPLRmC2JXUPE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272302; c=relaxed/simple;
-	bh=tT4YqoZd40mTDfR7B+ZovVmHGlTP3GckEXJWWqPnoqs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cZ2qENVxrsHwCThA+7Yr/TJvQWYtaXiVwPTJYFD3evw0FYfFr5NYGsnJb1aq7FHgHzp2HPYwgYbyHOgxOWlWjVXvAOrBrkQurp4ocuxD7Eg7btbt9bkl+bg2kcVMbvcJ939KCI2+1NpWZ32TVxcPZ5nsa+dKBMEWqBDPPmqR8lA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OynQW16g; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ibIu2lwG; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781272314; c=relaxed/simple;
+	bh=nmnDoQcUuimZrNyiCkSVtkIeKLeucpmmgbgqcq1HVVY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=G5Q4bjAqyJoeYMEf/vXryOrlAVYZookjUkUpedz4UCUjbhs+vxGuC+JZN12y8KbkZrNBUiDVoYxuZ1p4RskCwhf1fRlwU0g53tzGHYNAViAdaS4MCOh6L0ckmFQJ2yiNzZTQ6X6IxTMGGCWfVqY2nUkz7m22v/kxZO9YIaCZkjE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=oO0FqJua; arc=fail smtp.client-ip=52.101.229.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OynQW16g";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ibIu2lwG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781272300;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
-	b=OynQW16gkfYLqs+w3Vswg0Xt8Eoc7NhdUHEqeE6VkZ7HJt2NCXTKoAvnLpRBGp39Eeuz5b
-	7tGDlNMUqMYTUlMwiExsgcXwQK9lNNojaldLy+gOXxoMtpA51riBQWy5zXGM1lKQZzkQyc
-	hWe2mV/NQN1s4Hr/XMohPxSOjBNMBQE=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-112-8uTUn6fZMSW2e0n-FZK-0w-1; Fri, 12 Jun 2026 09:51:35 -0400
-X-MC-Unique: 8uTUn6fZMSW2e0n-FZK-0w-1
-X-Mimecast-MFC-AGG-ID: 8uTUn6fZMSW2e0n-FZK-0w_1781272295
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-91574ad6871so169420485a.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:51:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781272295; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ag90ZlA+uVWbBOEe9Xc2e+YTH5DaUq7Bqi7HQqu8xV/9qiIQ07vhLBdKh/CfZJMNe1
-         LeAcHNBJb0PwvpZxk16OGkdekQ+3wiu4wQucASlrKBxLINJ84NltvfZtbctxJ3xvxLnB
-         5DPEZvhyiDnFgxgFdvweXAoLfrRvOsOG3Odf4gwBH2NMckrXqFoRCeh9ly7G9iej8l3y
-         fotm10sr86rx/X6C/0fh6h9E0qpC3XpNwLwFpLheLgG1miCYAcr4LeLZIL9AOalFnzLa
-         PckWFZYvkkJiHfWt9eMG06cP7oagRr/l75UqriIEsZ37cHKsY7nU9/Oefr+kNCbpdRAf
-         uKeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
-        fh=WBzRXTU4sq8Ky/BBy2+QVXXk92t1fImV3buRkDwKYEM=;
-        b=CV7l8jG/KLBGqBjfNOCTS+iXeSfTtSN3q/eJ8JVGd++pa+dEVigJAWQDdyb9tcv9aQ
-         nHFHKgDlFz4RjybPspzXoo3Y5s/40MI4CV2Xk1tmzxijAxj5NEvILRaK9v588CxvrCRl
-         74W+1Y/Z+qecMfT0yMQWUFnkQge1sE5SnQ5sc0oK2zH5tB3DuWNYycxLc9HRcAhiDtdJ
-         J8ol+hlY5tWkJ28utHwOsgQZYQL4APg23UFvDhdpqft1BNgd1Rb64SK5JLKBYCipnNDz
-         wGOu2ZfZkGlEr0sS+Nz40XpO6wFQiA7oCqL0IBSZzq7agoW4/w4zEaHb6ilA1hm2hUA4
-         bFww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781272295; x=1781877095; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
-        b=ibIu2lwGWGi5LJXd6uw6IrKW+nTUsdKRyOeOWPAsqY9rq9JHc9pqUcff16cSolR1vk
-         ClWmdurqIH7zKU1tp2RySSbkSM997Zt1Gq4dZGnvTrg9sRjOZQRuVF+gxuH7keIcKfOr
-         dkYawBZ1Fi6xstx1YVK2k+9Z2uBqs2SVNnvhudCZUG/LotUcEg0yAf0o9uUVVTAYupWH
-         gp8BFJ9c+pu9bZ383xN6otcx1vYBLDV6RL1WCzDSSNHB+GyIE+MkEKjKQIfT7nHuRChH
-         Y65UgaKxIxgwJzjqhTCn/DTAeJ7zBwNc8q9n95K7d2Dr2lRpCJkScUXgofmB9lWN2OYL
-         8r5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272295; x=1781877095;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
-        b=Uiz1/EiQ5MDJiT8575HLk2TlsykG6zbBZ4c+nEAYyE/jVFZS6veY9dW6wcwkHwqmb5
-         mDGxhf3wAwLQ7Brg1hGRX8JAZVsRmuPdkBBi4upK3WXmirXkB0FGnkQUYRwThXcitiDn
-         kpy7WmVcgy8VFIdmNc8nUkRM6NiWRy7PsSkruI2/293B5jhy7mi/Cg2ZbO0tc3N8krY7
-         2IihmlryeO8N36X+7ueKodsABSs/oefrP8PcrI7BVw916bFW3/SBcqI5xc0shsBINNh+
-         6zFr94MfnCIvFbR/71a31EtD1SDmAUP5vjDzM3TbWdV1QqRH8B+MttTg4DXfSkiFcULC
-         Av+A==
-X-Forwarded-Encrypted: i=1; AFNElJ+OxJwCsygBWD9hwAMwsyxJPOL0Y/yyeE/lgpoRZfWca/Q8c6xw+xDNHWrnEzyttxkQsGZVwdpLW8V8@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNj2DWdQuGcApZw0rgvut0lsKNiimtQjltACUwvyJjew1SPZbI
-	UnGPGQGcXtQVe6SCnwvAPyxRE8DXgjzjHb59Tdjbn9awW1cjyKccLAm8qwKCowCJJG0HnZJ3JxY
-	BfX+AwUYSwq8/GH7XclA6R9SSA21vaY5YVv79AmBBahMdWFLzq1wNLMpNn3l7DL6v49UdL9/sq/
-	olU2ZmEhdCBMfOqntKKLX7UT4af/3Cfs/3BlNNrQ==
-X-Gm-Gg: Acq92OGaR/rpysOAZMkucxJSAtFxf1SiGHaytVYAga3h6VBHhc/qcPnuUWkxmTt4MlV
-	S1DaYMSDWm9pga7jIVuhq6kW+h9M+awA+JQ0VpU2BYsEfwH5PxonxXN3s7NJ+U9QexR6Glxq1sN
-	yWo8zNiVEoRBw0iZPDF3HLYBs/xJpY6AGZVUHrD7qigW2DprFUbyD20MdpXmhs9wBR+52pwmT7g
-	zaObtlTxq2/zp1CxTB/Orkii2JEbw21BuNNEw==
-X-Received: by 2002:a05:620a:4149:b0:915:d5cd:8cce with SMTP id af79cd13be357-9161bc02c6bmr425212185a.22.1781272295105;
-        Fri, 12 Jun 2026 06:51:35 -0700 (PDT)
-X-Received: by 2002:a05:620a:4149:b0:915:d5cd:8cce with SMTP id
- af79cd13be357-9161bc02c6bmr425204785a.22.1781272294560; Fri, 12 Jun 2026
- 06:51:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="oO0FqJua"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TUts6e1UsKsNLONZeHw3AwlbgIUWar4lY0dGeKzJe/8aN7DJdgvekz8s4Ot70dHQMrEzdo2pxfOR9lcsGzRYhhpsr1kjMWlCQCZ8zYjbwiHRLhIwxt3pqR7aYwW2xGneKQI266nhBlx3oACwFUh4jm7Bm46ZBkyjdt1M8zBfm2gyioZRqjJMYTTGG5dPlpCvO2mi5Np4DXATfPLesZRHP6+/qdFXva+Zga8U6kMxZ6romC9D99bjbMcctv2Uc9SoKs6MWo+OmWNM4EvxzAdj64ru48+pbnn6djtjoPYUBznt0AC7k+qi7RMyLkL7d7tCpuQNRp9lYyM1jhEpCN0Tig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5pxhrjfr2xsDemwg/JBppWDxNpQYg4i28a9yRuKZYVs=;
+ b=MrMsmqMwTak21X2GnElJIOxlLxM0J0mJmxZl3FMmuGBZ5ftFWOVt+EWWpURjJ4GBO8r5dvJgVaHod+p4i5ox1vvPGtdr/pjBgn9HGzITcMRK5MT04zhKWj3wiQVzKkYDgHDu4PLNXqaJJl2lYg+2ydnrG9RGwTe0+BRQSlR8guULrl5lERbPxm/96SYERrhAWMBJ5p0NasuWkKRmOrFNtIcQgCzzQ8WKqejjV+8CbEGB7KaZw1/qOsNgpEyG9/ttGx197kPf1OBUxy+puVO9fVHprENLbEq8YVXJeXpgzoFCt5A4gmAh3/pXzdKBpmf3kX3EVZXQ+tjtaXPJAQB1eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5pxhrjfr2xsDemwg/JBppWDxNpQYg4i28a9yRuKZYVs=;
+ b=oO0FqJuaB8lBKkw6uERvLWy5sws2NqndGsNCXxUEULcwqxB3kzScbXGriGQoJGTdChnij1zgMU9ed29sn3GVy2HG92AWktWmwrtElrrMnzleALF6YWLAjU+0DueZ5XuFNjffDeZA1kNpyS7Nobe6DJa9WPLUbLkCmtLx7uzbQac=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSOPR01MB17772.jpnprd01.prod.outlook.com (2603:1096:604:467::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Fri, 12 Jun
+ 2026 13:51:48 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0113.014; Fri, 12 Jun 2026
+ 13:51:48 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>, wsa+renesas
+	<wsa+renesas@sang-engineering.com>
+CC: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+Thread-Topic: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+Thread-Index: AQHc8yZFMuP1bVIRGUixq2TgdBuPhLYsZmtggAAF44CAAAEkYIAOhcOw
+Date: Fri, 12 Jun 2026 13:51:48 +0000
+Message-ID:
+ <TY3PR01MB113460D9FC3AE79E9391DF4C286182@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
+ <TY3PR01MB11346485C16AFB6299B1711FD86132@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <ah_Ve65DvPhlTZ7a@ninjato>
+ <TY3PR01MB1134651DFD308D3DD8AB20FE386132@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To:
+ <TY3PR01MB1134651DFD308D3DD8AB20FE386132@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSOPR01MB17772:EE_
+x-ms-office365-filtering-correlation-id: 36facad5-6ef9-4c7a-0ac0-08dec889bf7d
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|38070700021|22082099003|18002099003|56012099006|11063799006|6133799003|4143699003;
+x-microsoft-antispam-message-info:
+ I93BvkRCY/jtlmbugFKDGpiHETFf4uGzYztN5y9LXXtptBuFqiYTrH0CAttzLuz8yJcLcCnLam6RNJqXVftj7+gEXn4N5H0i77oPyn+9XH/LtGZ+LpCQ1gevZlf3m9NX9vnrVBVGxRFNG1kbhWADGi21MDONl/STrseFCUBBx7tTmsOVkzz/O1WTPSBAgsU3thFGlpggXM6fLaVYVVhDYmj+EPzhVf3Dy4N768WV9YWbiK+WT6jdZquRRKigVkTM+dmMtsXMefJ6hrD9oBz3AJXOLhdWSsfrlZxbI2gl75mHEeijkowIZtGMduDZp3b+ydan3xNQIDPNavn6qGbfZOlbFMi8qP7c9M1HEN6klf9WBkVh6Vmbn98Hwz0B5TTJeG8qnNv3zEmQg4+Pqi3/TJQHFWGJUBcegFKhqMfowg4CElPN5yKQHUoEh8VItf0mFz6edL6j2Pbur5kE9O9jlwWQWr51Te3vuwd1PluvBhc+PAzu0X7ApNkIe3PTXSRbAuXnh3U32W2tDIzlJgp3SSZgLodK/vPPSnpJmlH0h5IptR7t+3KwLazO05ZVejhHCFDz7gprOwgAY+M2K2yXCIAy2e0WQBQGR0qnfrJqTDQVFKJDA9T47fe1NZ9dB8VWld178NT9KZQ8QRLH87Zr7XCY5cUKyqGEO9noIXdcFnrjWhWsF9k0M/9zgGD0ckL79Luvf7hMBkJdZJ0sXJDywhqSuS3hhGxOH17mOeRS152jzFNEf/TIT+5VlQOmRf3z
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(38070700021)(22082099003)(18002099003)(56012099006)(11063799006)(6133799003)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?CXVV263RAy2+frGczT3cFY2DAkExZ3d10JMGrpRdg1AIEzef5cxEl+dxNtdA?=
+ =?us-ascii?Q?ww3dN8gEwMDqL0IUICzcp4qD4TUPQobGDsT3N2j36+7/aXNIiKn407ui6FcK?=
+ =?us-ascii?Q?/k2epGXC0gEgo6Yig23qoATXEfpWPcaYLWB0mLVaWD1xbp7U2CJGRPPLVrH4?=
+ =?us-ascii?Q?SU1HVJuQ9Nr1PbpYDqCpWRHrAMZu+mKsCe06NsOpaOzUz91FUDJQOHfFC2y2?=
+ =?us-ascii?Q?UiLT4nAl/UhEGgHPmVxB1jET2A8JbJpPvAGlNQg7km7jzoXybjSyH7q/SAc/?=
+ =?us-ascii?Q?r/AO4AySbECxeEgCx6t4UI9l7NCiC5PEffHz8PW/8ynU7lnIpSMMJmATF2od?=
+ =?us-ascii?Q?thRtqC1PV+673C5fEyK9P0h9EOpQh/yQQXZhH8ZBn4hWQx82ru/HtrrAFOL0?=
+ =?us-ascii?Q?u5SoiL4O/TcHqVnWD+2Qt2dp8f+0j3FFsjnf8IEHPeOc2htwfL2YzSrZBdeO?=
+ =?us-ascii?Q?R5y+xJ0BLGM8hHNWbdn1KfWqkT0n+lpSbnBHixEYytBPyhRG75wvrls9oxom?=
+ =?us-ascii?Q?FC4BFREMfH/uf9k942CDIxjQXtNa0Aev5LrI3UwX/JYh9mePW86mHHEk8EPY?=
+ =?us-ascii?Q?0wpHxkW1r5EyOJv87TXIDOmBntdeDPt4DzoWcKgLcm1VISOx92ek6L2/n2ax?=
+ =?us-ascii?Q?AhOt1PCEEm/hRn5UHPuia0D+Fxk7J3Wz6nBp6ZxmC0xqM6yy1nfvZcPIaN5+?=
+ =?us-ascii?Q?Jr5QE+n4s8qtmuV4Mc/0y27R5GqL/8jmXB+JH/P6QlYKxyUJdwa2dkckI3zm?=
+ =?us-ascii?Q?il1UGKp4gI4LaZ32xYcTovlDVlYOlinJ+eDgEbccZ7r0Fd2yFRx5rUFNDO5x?=
+ =?us-ascii?Q?A2qgkxgBa+6FLlU3dJ4+f455UhkAxvLiu+D0TEaAxPj4H2ElNXcpK7QeVhhZ?=
+ =?us-ascii?Q?PMJhQhpz+S6yTF5AfFvcnuf58qe0lGvtDe27cFS/pJ6qq0e+DpFGXVGWYOtR?=
+ =?us-ascii?Q?dxSG5gfNpa0Auog5wt5qxe1mQy5JlSdYkksInkofMLBZfzMQySYjTmvxxRrL?=
+ =?us-ascii?Q?T6JTy5Lda6mMXusMecAVQri10TCJDe1wc8G06GTEuVOKXCQl/r6S3A/yCEU9?=
+ =?us-ascii?Q?s0A0ml34GVEWTNE/EPMzaeTOc5zo+NYb9kWx5c92ymZEwYIHGhU6qpjNiegC?=
+ =?us-ascii?Q?gXAboO+QkzGhCmEUY7qK/S1PEZPXFFCsnMW84KDOGE+jQpjhmUVTC+ejy5EF?=
+ =?us-ascii?Q?CnPFuHjYoDxfyBmFEm0JSb7EhADcJ+6OktigEdjavAStIFuwpeMVpbKhIuKx?=
+ =?us-ascii?Q?tcogsKfD2r9LDkW3aAFJj5FrN6H9wniB8Y0vP4GIeL+RZ0QDeQbQCj7+30fK?=
+ =?us-ascii?Q?x/uC5qixkJAoAvXhmTbup3JRlcbEYgFp6oaT0Idz6UW7oqTtNOB8Pci+Ks2Z?=
+ =?us-ascii?Q?gPmiz3T7tc1qdJMPH91pEZmIlIO3m9aIKTnH9oP9bnBLHZxZIROEuPobkiFA?=
+ =?us-ascii?Q?UYMz1zmM7SgkOrZqlozBGevpnRxWjjlaURE+XsOIZwdsfQg8pH6SkoivXjvU?=
+ =?us-ascii?Q?X+op4sDAYq604/goERmQcT7drN0qPbPA4XtZvkHwW3BPuyj7a5zRhyJJnPeD?=
+ =?us-ascii?Q?AiSLws1UhFgObCrHtczd/7rR04qQBNY2xIn+2JFYc3+YDK+uvCH1NvwWKfUU?=
+ =?us-ascii?Q?Cd1kAq/QaX7bovRn2aTUHHwzcs3SgU7A2BF/AzDrpOH1OeH+jxmx3L3N6bGg?=
+ =?us-ascii?Q?cpF6nNF1NriAPzP140Y0gUK9u7r3buOL5moQMvOOZ3wxa4BqB2fO8CqPtR1E?=
+ =?us-ascii?Q?X3TykrP+Yw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com> <20260611-rva23u64-hwprobe-v2-v4-5-3f01a2449488@gmail.com>
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-5-3f01a2449488@gmail.com>
-From: Jesse Taube <jtaubepe@redhat.com>
-Date: Fri, 12 Jun 2026 09:51:22 -0400
-X-Gm-Features: AVVi8Cei37Nc7wEh-QPxeO4jIlCv0ZbORPC259y2xDJU0379i8L_rI91Rp2DJbE
-Message-ID: <CADRr4bd10AYwAZwHxEiuSJEOwD5qv68L1r5DRjxXFM8pmrG+WA@mail.gmail.com>
-Subject: Re: [PATCH v4 05/16] riscv: Add Zicclsm to cpufeature and hwprobe
-To: Guodong Xu <docular.xu@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Zong Li <zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, 
-	Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yixun Lan <dlan@kernel.org>, Chen Wang <unicorn_wang@outlook.com>, 
-	Inochi Amaoto <inochiama@gmail.com>, linux-doc@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
-	spacemit@lists.linux.dev, sophgo@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, Palmer Dabbelt <palmer@sifive.com>, 
-	Jesse Taube <jesse@rivosinc.com>, Conor Dooley <conor.dooley@microchip.com>, 
-	Charlie Jenkins <charlie@rivosinc.com>, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
-	Andy Chiu <andybnac@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36facad5-6ef9-4c7a-0ac0-08dec889bf7d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 13:51:48.0650
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nOtlj3lctO34OGvi1VXXC7/HuNtKcyTKJ07wtfyKLj4EaF1vHrAuH7theat+VqXw+F9ZG1HmVscfPLFQUvbTuZwWEjv3pYo6ak6Tf7Z2I7Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB17772
 
-On Thu, Jun 11, 2026 at 4:14=E2=80=AFPM Guodong Xu <docular.xu@gmail.com> w=
-rote:
->
-> From: Jesse Taube <jesse@rivosinc.com>
->
-> Zicclsm requires misaligned support for all regular load and store
-> instructions, both scalar and vector, but not AMOs or other
-> specialized forms of memory access, to main memory regions with both
-> the cacheability and coherence PMAs, as defined in the profiles spec.
-> Even though mandated, misaligned loads and stores might execute
-> extremely slowly. Standard software distributions should assume their
-> existence only for correctness, not for performance.
->
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-> Reviewed-by: Andy Chiu <andy.chiu@sifive.com>
-> Reviewed-by: Charlie Jenkins <charlie@rivosinc.com>
-> Tested-by: Charlie Jenkins <charlie@rivosinc.com>
-> Signed-off-by: Jesse Taube <jesse@rivosinc.com>
+Hi Wolfram,
 
-Thanks for the update! Just an fyi email has changed to
-jtaubepe@redhat.com though.
-No need to change the signoff though.
+I found some bugs in RZ/G3L in between
 
-Thanks,
-Jesse Taube
+1) SH_MOBILE_SDHI_SCC_TMPPORT2_HS400OSEL bit is not available in RZ/G3L, bu=
+t instead used
+   as timing value 16 instead of 1.
+2) RZ/G3L needs to set HWADJ2 delays for 3.3V and 1.8V operation
+3) When I added HS400 mode support, forgot to retain HS400 bits (HS400EN an=
+d HS400ENHSTRB) in
+   renesas_sdhi_execute_tuning()
 
-> [Rebased, rewrote doc text, minor commit message revisions]
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
->
-> ---
-> v4: No change.
-> v3:
-> - Move the hwprobe.rst entry to the IMA_EXT_1 section so its
->   documentation matches the IMA_EXT_1 bit it was allocated in v2
->   (Sashiko, agreed by Andrew).
-> v2:
-> - Rebased onto v7.1-rc2; moved ZICCLSM to IMA_EXT_1 and
->   allocated a new bit for it
-> ---
->  Documentation/arch/riscv/hwprobe.rst  | 4 ++++
->  arch/riscv/include/asm/hwcap.h        | 1 +
->  arch/riscv/include/uapi/asm/hwprobe.h | 1 +
->  arch/riscv/kernel/cpufeature.c        | 1 +
->  arch/riscv/kernel/sys_hwprobe.c       | 1 +
->  5 files changed, 8 insertions(+)
->
-> diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/ri=
-scv/hwprobe.rst
-> index d9928641deb99..49d9fb68632d0 100644
-> --- a/Documentation/arch/riscv/hwprobe.rst
-> +++ b/Documentation/arch/riscv/hwprobe.rst
-> @@ -401,3 +401,7 @@ The following keys are defined:
->      as defined in version 1.0 of the RISC-V Control-flow Integrity (CFI)
->      extensions specification, ratified in commit 302a2d45c243
->      ("Update build-pdf.yml") of riscv-cfi.
-> +
-> +  * :c:macro:`RISCV_HWPROBE_EXT_ZICCLSM`: The Zicclsm extension is suppo=
-rted,
-> +    as defined in the RISC-V Profiles specification starting from commit
-> +    b1d80660 ("Updated to ratified state.")
-> diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwca=
-p.h
-> index 44bf8c7d8acc5..e8f4a7dd96a93 100644
-> --- a/arch/riscv/include/asm/hwcap.h
-> +++ b/arch/riscv/include/asm/hwcap.h
-> @@ -112,6 +112,7 @@
->  #define RISCV_ISA_EXT_ZCLSD            103
->  #define RISCV_ISA_EXT_ZICFILP          104
->  #define RISCV_ISA_EXT_ZICFISS          105
-> +#define RISCV_ISA_EXT_ZICCLSM          106
->
->  #define RISCV_ISA_EXT_XLINUXENVCFG     127
->
-> diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/u=
-api/asm/hwprobe.h
-> index 9139edba0aecb..6819df159c51e 100644
-> --- a/arch/riscv/include/uapi/asm/hwprobe.h
-> +++ b/arch/riscv/include/uapi/asm/hwprobe.h
-> @@ -116,6 +116,7 @@ struct riscv_hwprobe {
->  #define RISCV_HWPROBE_KEY_ZICBOP_BLOCK_SIZE    15
->  #define RISCV_HWPROBE_KEY_IMA_EXT_1            16
->  #define                RISCV_HWPROBE_EXT_ZICFISS       (1ULL << 0)
-> +#define                RISCV_HWPROBE_EXT_ZICCLSM       (1ULL << 1)
->
->  /* Increase RISCV_HWPROBE_MAX_KEY when adding items. */
->
-> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
-e.c
-> index 686dde3ce3b98..1fb595581adcf 100644
-> --- a/arch/riscv/kernel/cpufeature.c
-> +++ b/arch/riscv/kernel/cpufeature.c
-> @@ -502,6 +502,7 @@ const struct riscv_isa_ext_data riscv_isa_ext[] =3D {
->         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicbom, RISCV_ISA_EXT_ZICBOM, r=
-iscv_xlinuxenvcfg_exts, riscv_ext_zicbom_validate),
->         __RISCV_ISA_EXT_DATA_VALIDATE(zicbop, RISCV_ISA_EXT_ZICBOP, riscv=
-_ext_zicbop_validate),
->         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicboz, RISCV_ISA_EXT_ZICBOZ, r=
-iscv_xlinuxenvcfg_exts, riscv_ext_zicboz_validate),
-> +       __RISCV_ISA_EXT_DATA(zicclsm, RISCV_ISA_EXT_ZICCLSM),
->         __RISCV_ISA_EXT_DATA(ziccrse, RISCV_ISA_EXT_ZICCRSE),
->         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicfilp, RISCV_ISA_EXT_ZICFILP,=
- riscv_xlinuxenvcfg_exts,
->                                           riscv_cfilp_validate),
-> diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwpr=
-obe.c
-> index f8f68ba781b45..9cf62266f1890 100644
-> --- a/arch/riscv/kernel/sys_hwprobe.c
-> +++ b/arch/riscv/kernel/sys_hwprobe.c
-> @@ -205,6 +205,7 @@ static void hwprobe_isa_ext1(struct riscv_hwprobe *pa=
-ir,
->                  * in the hart_isa bitmap, are made.
->                  */
->                 EXT_KEY(isainfo->isa, ZICFISS, pair->value, missing);
-> +               EXT_KEY(isainfo->isa, ZICCLSM, pair->value, missing);
->         }
->
->         /* Now turn off reporting features if any CPU is missing it. */
->
-> --
-> 2.43.0
->
->
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
->
+I will send v3 with these changes, if it is ok for you.
+
+Cheers,
+Biju
+
+> -----Original Message-----
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> Sent: 03 June 2026 08:27
+> Subject: RE: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+>=20
+> Hi Wolfram,
+>=20
+> Thanks for the feedback.
+>=20
+> > -----Original Message-----
+> > From: wsa+renesas <wsa+renesas@sang-engineering.com>
+> > Sent: 03 June 2026 08:19
+> > Subject: Re: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+> >
+> >
+> > > I will fix the issue soon.
+> >
+> > No need to resend from my POV.
+>=20
+> I will wait for review comments then.
+>=20
+> Cheers,
+> Biju
 
