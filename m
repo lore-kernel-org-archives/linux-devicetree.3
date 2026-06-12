@@ -1,225 +1,192 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A843546F7
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:22:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DE3399004
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781245336; cv=none; b=F0jLrLk1mbPkpR3LC58xMlYtulqBVEeBya0//NnFAUzul6FgxgW9xf5nOTDPjAkxeOy6tEJmdiYUPScyuzKYdUsgqdkJic05wrI/3yrN+14+PH1kofIAau1AwZb0vl7qm1bCEFX03kQBvwJuSTsDEt5elITuzemiMt4EPKPrUrc=
+	t=1781245927; cv=none; b=Ek7S8ptaSacVVuw4KQAE/KLQ2ETSvr8QNzTlIfb6I1lnsjRvQ06Tf/EtyZb68iUXcVBYR9FIjsK//Wpno3fJNOs+vvfl1lpZIP1DhGdM0B0IgFWEw9RqWlkEb4SmSyEfb7kzsLK6ZXx6IwuCle+gLSLVfDwMczH9vGAZcyzcIMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781245336; c=relaxed/simple;
-	bh=9iqy1lLQxvVwdgkFr/jdiScy6r805+sd9YPN4XMJ5oo=;
+	s=arc-20240116; t=1781245927; c=relaxed/simple;
+	bh=mb7tWdKfsGUfdPHeTYpqc1X64RTpGWOLTtT45E4caUg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iILVPvp/rJWmsYCmJdmIuvdirfB9aEzWKovwxzlOkshpiZAoLDjHIz4ijhQHieshlcqVKQtH1Scw7tfsZuJBpi31C2qqi9ZOc8SrGGfnS+oMC3qoiigSvIjQMVQUh9M/cQn4CG0A/UnQH0t+O4soIYCeaz7q0iHfw5nOZioC074=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jZFgzOXK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P7a8XEre; arc=none smtp.client-ip=205.220.168.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=ioh9NwkuQr9G2Qyh9i/WO4upQXaSDwx9GE/PH7lIrll2tTLrGCBELTaqanzeWG/Ig3TW9/VBpPeTVEQ2+VR+Iprk5ZMN20UzRQk1Uo25JzPikgDSaWyAkfm3y2kmk1OZvJ8lSMT9Nc0Ia+H6nvOAZ8ql2xM0KvdaV4oWLjTUdgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dpe6NC6L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dj+W//k2; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jZFgzOXK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P7a8XEre"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C39PKb2475903
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:22:15 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dpe6NC6L";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dj+W//k2"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C39mFW2497232
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:32:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=n7Yf1YYFjiuiIuFcDTEBV9uJ
-	IVRQFm5qqW6YmchUZPg=; b=jZFgzOXK9pKsRi2r5t7j3LL0DzuWJGnuEJvYH0Gd
-	CXK0x0Sn8WX7d28XX2Qz7rbvbz0nvfJyJYkG+FxBa9SzhEK4XlckEZuuhHxna15m
-	vQau1gp5ZqWskc7mVmf3RgoBBRCDbr93dKQ3/iZXoTIPGpn43K/DYvfF/ESw+/ez
-	SfllUhLNKp/jFNUCroHLzTdp+KhLZACJLyb+6Jzi5EIdsX/YZTeruBfkA7lEG9uN
-	cm7OYFoCOyU7WheX24qlJsN969sn17nYm6PUT1GTRhsbdPR7bWRKfXkkMHpNaN2q
-	rYhXJYf6wLuamA70or1UgOrWYGzLoqKtf1lSGMtgC1F7+Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er2r5sv7p-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9dCxCpUJ9uOvzWEit/S9cKtrq1+bIKVK0gCosCHYI8M=; b=dpe6NC6LegZCEKLf
+	huINWtyLIGvqGFM+SJ1aZsLP+XN4z0DT0wjE2uFEFnG55Z+NYNs9a0l6ld2UNbgM
+	S3jIs2zI1uPmlagBhgglUgKKFZp7tOCpsl6J2nceZbq4CuzYbUu05R91CB4STALQ
+	MDdWMXeylw7tGty1G1OCp1VolZDP4t8VKvTjMlPUHOsAnwsdNv78Ywh+VfPyRfFw
+	O4cK5E8iyPE4At/eG5vPFnk7gekjUHNOXBpZBmKqdr6BkhDAl8MjHDBedrZFGmjK
+	7rRSlfQFgu9RTTpP57OV5N95bBDphPYJvq6tVpKUMQDDKBIU74O0KY+9VK/1esGb
+	unWI3w==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er0x7jeu4-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:22:14 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-517dadd84f8so12097011cf.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 23:22:14 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:32:05 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-963b07e2003so583878241.0
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 23:32:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781245334; x=1781850134; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=n7Yf1YYFjiuiIuFcDTEBV9uJIVRQFm5qqW6YmchUZPg=;
-        b=P7a8XEresDdl0eww1tsRJN1CQ+AFQSv15H0dUStl5O3MG9o4hQbdgk0hl73i0Nw2MK
-         WBNEZeRqeb3hVOM4fhRHWTZgVSty1ZeXZg7n6S7WlikaL6V12t1NG6rjFrqYmN+NVSnz
-         WyD4r+NFmVkDzPW2gqiblklKDWPLsAzWWhYKnAcItK2LI12CgEyTb4/U7uvC0kU7MAuE
-         y6ul1KC1UJYTgCGOryIYCMnL3YyYZTQqoeInokm30k8tff7vIWep+guXbbTFtoup+m7j
-         o+QCtJK3/UhBLjGpzg7BjiT9G26gbhXZxFDsKLsCPdf453j4Pq6Y23uPAYrhVEPBwTjT
-         SW2g==
+        d=oss.qualcomm.com; s=google; t=1781245924; x=1781850724; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9dCxCpUJ9uOvzWEit/S9cKtrq1+bIKVK0gCosCHYI8M=;
+        b=Dj+W//k2wtY6mX4eEwBVgAVBjmEGsB0AA7ZHIsC+IGRmU6/jb3Lp4M96wgf56kRjOU
+         gQQUDx5cHLhcwnnSTX9zLSYjExLsmQX6Q3gWjZ/q8fYKPrXYQpcjsdNUB134aWA4V25j
+         /qydBpeP4YTl/6vq1BTZuyLv7anEtK6xZEhVKwnmUUYh3uH1kCMwWxk0853MxV8d3Xy4
+         R4NoqUOnUuVCUE+g02o1n+u4VTmhyHGYHMviDSmecoJm7kWW12JogUkbJHUvVxm1Phtu
+         M0qwMLfeedqkplkstXjvxTNxleZAmeoPGHmvoB8YIbUqED7CWh32QrBb3yliHw+QwWl1
+         80fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781245334; x=1781850134;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=n7Yf1YYFjiuiIuFcDTEBV9uJIVRQFm5qqW6YmchUZPg=;
-        b=RfBZ4/odQkCPOd2E43el42VgCuWncoYPbNq9GAYuYiCRQKPCdB3rqQ15OX/zmZeMPr
-         Qio6UEsX1CVoghTSLIUD8CtpHwyc8juJBGItVuY8sJyRMVBmOZel0H7pdaAUPbgpSnQ8
-         ztueRe5vTTSJmUZgqN2dpoSu8i/jwEM4YNhT/m598q9hz5NYVHPMFmy31csI78L2EwFN
-         TGZK0HSjiuONC6JauFSgt9PvFvPqeC1flviWehsFVC7ECUWL5K+AAu8HDzNTcKY/8Xat
-         cPBLGZ6nzSoreTOV9N3lRz+vZ+CegFZF07/jWLyVTQSxeYtkOh2EwbSQ3L4V3jma0b/s
-         2rog==
-X-Forwarded-Encrypted: i=1; AFNElJ/3kKPqydQ4Kg2aGzMPjE3TKRC1ZTphkoB9jO4hS2Kt6fBa9tHTgLu8YseJpUyfP6O1lNespegJ7GOy@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGEBPmOtlqbHw+t3rg0h8QNpLeN4bbgxITQu7OeAi+DR2lX8Nv
-	7nZcpWi9FtJAyiCNxgUaVbHKAl2Tl1F/vIp5l4DjJWxW7+f/oIZPILT1thEI+gPUUVBTMsEaYr5
-	Aq1GcE0kthh0FZhelgMqpHfPRhDN2Ef5ssKEqUY314NtNJiHF9JGtufoQi8dzb9lQ
-X-Gm-Gg: Acq92OHVDkx0fwuYi+eBReQQ2E7aL8yRZW2jDpRE+0hWS3nz5izIwArmpLaihRyfM4C
-	WAJBg6GLbaK1VprctkH433tj+B5eO1YKjMa+ZWbdEn6XHrPLFAAN1u+qXkpHFphXnxsiQ6gUwVX
-	eyefaWj95XDXb497YIaGsI3ASe/1+CUVy9/XIB5cabjGweZ+Qp9+moe1qIxOgsEewYquT+amFS+
-	LPOUcMvp6QmdMWpVs1jdz6rZsF5b8OXKfEUQB6wdyYgae/Ku7ItrD86eCa2Nt9PM7qZcyKPGxTl
-	40NWLsLBDhshj7aaZwpA2Q3HExp1cWia2iET9d72m0R61/QRz+9Zpxrbwf2+IGUHfXPbwYWXcRf
-	gUS1z5GZ6hsQbcSyxMQoq6zjPySaNJ3MsIL6LvfQAv9w2c6XhxX+PYcY7L6olhqLEaexvPaH1NU
-	KDiIm6WCzmOz2lFipa13hWIFo54hclzW2OiAg=
-X-Received: by 2002:a05:622a:1109:b0:50f:b257:9301 with SMTP id d75a77b69052e-517fe566319mr18736071cf.52.1781245333855;
-        Thu, 11 Jun 2026 23:22:13 -0700 (PDT)
-X-Received: by 2002:a05:622a:1109:b0:50f:b257:9301 with SMTP id d75a77b69052e-517fe566319mr18735801cf.52.1781245333414;
-        Thu, 11 Jun 2026 23:22:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781245924; x=1781850724;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9dCxCpUJ9uOvzWEit/S9cKtrq1+bIKVK0gCosCHYI8M=;
+        b=BH57zSylCXpqweVb/YkN97BSVnW2UvwS0uvo6+Jlx8Lk9TzCp43xTutZCwaFG8ADSC
+         f+KTetL7whwSnVLezzKhTWzZkka/TbHBBztRhq/Iuxkx+qN9vTqyXpP7kn7GRfpBrrhO
+         B5+LHKWNQk9qDYUPbdrDtXohKhQzcUFBu7Cz8WoRanSpnhoWtKBrHAKP0R/C66g5ei7k
+         MkVzDXyIqr60o34LPotvL6jligywtp422UNLIHtnhFJlTdPFMlqaWP2gIE3CW5XTNX4K
+         O1qCsjXSIUiTXIdD4xxiMxDxBafzJga82JFeM1UyjPhB7yxSwdcCFcwkbFu1m9pKQuNB
+         m68w==
+X-Forwarded-Encrypted: i=1; AFNElJ/X9aqvNtB67aR4C8oJANjxVtipJsBgizm6ngHxj1VpBsIXZdl+QOxdK5FPBZ1sRCsqEMxrgX7wLIAS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9qQ58Lyd7iOZA1zO+MCL6+WI/pKSKNCxudw+D0dEUDDUoo0yT
+	jxJ/AIOosIByrPguDfI4fx2b0Zgua5JacJ16pFEQrjLAyYjojceyTDH7qq8wI3H8Mnab/dpNz/O
+	SYUDCSbj4atEh7UhUaoZ35JkE3lqqWkhkIecbCcMP1LiCAW61OP0iYGvQeSZGVdl8
+X-Gm-Gg: Acq92OFljd5jJgV3j72j0tDhc3qRlEbONc42v8+TXwXhr0AC9IuB9HRzUkrCL+/rvEM
+	GqWIYWK6g/RnOr8IiJGTkc0e0vjLyj4EQAjb1R1g5PlmGjCafwYNjQwGz/X2hU7ioG9rWipFznr
+	Y8jY7AGnBP7RfTfV7ZONUkJ5x6xC+4pIyGlaITXiKQuHlrCBE/9DjrJBPR9I4dfcNbSGvLc7/9/
+	U2Cb8+P23GP8cfSMOJSqilKSXbzUrPNY28xydap6RhgfCgHQ+fuMx4LphQd5INYcW9eDvCLsK/9
+	NGUgKKCSUUghGa8FWFI2v6B5a1H3nNDPllogEdeXrRgsrt4HR+wvSduOO9OwQECn5rsrDKBnFAh
+	L5TTVxyGtBUeHKLYGWVkJ2kSUUlhFj1n8HCCy55iwP0hNYb1af6W3kWrkomLdOC+hFVLIwthRVI
+	ilayilO061MshLFaDLTG0cmY5p5h8w/5maVQk=
+X-Received: by 2002:a05:6102:cce:b0:6f0:3c5b:ce7a with SMTP id ada2fe7eead31-71e88e25533mr716364137.17.1781245924534;
+        Thu, 11 Jun 2026 23:32:04 -0700 (PDT)
+X-Received: by 2002:a05:6102:cce:b0:6f0:3c5b:ce7a with SMTP id ada2fe7eead31-71e88e25533mr716350137.17.1781245924088;
+        Thu, 11 Jun 2026 23:32:04 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1aeb6dsm253549e87.64.2026.06.11.23.22.11
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929c29bbdsm3650791fa.8.2026.06.11.23.32.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 23:22:12 -0700 (PDT)
-Date: Fri, 12 Jun 2026 09:22:10 +0300
+        Thu, 11 Jun 2026 23:32:02 -0700 (PDT)
+Date: Fri, 12 Jun 2026 09:31:59 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Matthew Leung <matthew.leung@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: PCI: qcom: Document the Hawi PCIe
- Controller
-Message-ID: <m2kwzigrz4fbdedzr2bj2auqtvafj6qstbplghssato4d6tdnd@ftug3clgxmd6>
-References: <20260529-hawi-pcie-v2-0-de87c6cc230c@oss.qualcomm.com>
- <20260529-hawi-pcie-v2-1-de87c6cc230c@oss.qualcomm.com>
- <2tenqkmwcr2gshtjwh44pvban4gtlzcgrm3iibkfrs4zh6vphb@h5losfunylr6>
- <aiteRU8cWykuhlVO@hu-mattleun-lv.qualcomm.com>
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/3] clk: qcom: camcc-glymur: Add camera clock
+ controller driver
+Message-ID: <dhwkw73psklj75zjufudenn4zal6w7dxo6boxkusz6b3xmtrzd@xztpsyhu4yjf>
+References: <20260517-glymur_camcc-v4-0-9d00acffdbf7@oss.qualcomm.com>
+ <20260517-glymur_camcc-v4-2-9d00acffdbf7@oss.qualcomm.com>
+ <8bd4365e-0171-425c-9738-0b186047cb15@kernel.org>
+ <upcLoSPzJejUNhFiNYlTVH4d8Sh_Pv2o9OZfXsY-CMCDKw19_ci2gL9B3ZwqL1hV1pQeQMLDL8tNLbPzs0JIIg==@protonmail.internalid>
+ <2a496bdf-4728-47b9-84ba-063712a6e5b6@oss.qualcomm.com>
+ <0a197b43-a672-4849-91c7-6e5bfe3175f7@kernel.org>
+ <amL4e4IHe75_j1HTIsmqE_GyurvudlyHQCPW14zs7ivHz0UnalN-yoknJwzaVRgHTT6ftSRCqDyCodh6ABCLxw==@protonmail.internalid>
+ <66335474-d600-45ab-9ac6-e946f24142c8@oss.qualcomm.com>
+ <639c94f9-6f62-4502-ad7e-5ae60f5f6d02@kernel.org>
+ <10c2e008-74fe-4dac-99bf-194a1767bc16@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aiteRU8cWykuhlVO@hu-mattleun-lv.qualcomm.com>
-X-Proofpoint-ORIG-GUID: 6t02o0ebxC4CAEO7tQDbMGA5PeixXtFt
-X-Proofpoint-GUID: 6t02o0ebxC4CAEO7tQDbMGA5PeixXtFt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA1NSBTYWx0ZWRfX94/NyFKBZRO1
- 8bSHjXIA676vUanKngo0ZXUFhkexTvCqbsANXEmeQF/x1Hwk85h/hyRmBmRrjJwL/nI/jga5nNt
- r+iH+hUg82gbFJbfyAVaKrzJizcgB8M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA1NSBTYWx0ZWRfXxfXt0q+x4nRR
- DkhtA3Va7lo6NBJ5+RQX/9FQaS7QqWb8C//HpZv2qMXlJhPQZxYAuJaKn+bIfyDCkBw5EebY6+d
- envhxxz90CBbC4eDNZ4ykrp7Fhc78QwsP5o54PzDqzl5JQfuMl0hfWjpKqE5Z7y6iSuAtsMWc4b
- 8XSOXuFX7i5w94iNvAX2BbSLysW49cyE/GGoRtZskdurVplzemVKGamREf7PHlRJ3lu5KD0E1mp
- +tgsv5XBgFGI7e6JBvGD7UtvAKMAu3F5my/vsOAYIr3502wcWZtbusN//5EQF0zvt7t+VfwpGe8
- X31sUIgQ8lQYJMzuh0DkQQzxYxo/kNwl/kJDR2nkgIpolyE5NIisxqou3h/8HuLE0wVtqnER8rD
- rN0LgSxXwZNsr9Wt4N3wyZWl1i46Mn3fspUtJvvoYuncueZaaA0j4V2WGfJeg79thelrTmBjQj/
- dk7gJxaO5S/Xl9cpgwg==
-X-Authority-Analysis: v=2.4 cv=M6p97Sws c=1 sm=1 tr=0 ts=6a2ba596 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <10c2e008-74fe-4dac-99bf-194a1767bc16@oss.qualcomm.com>
+X-Proofpoint-GUID: S47_skqcvg9pw4s1F7j7jneVpjoS1ROZ
+X-Authority-Analysis: v=2.4 cv=c4abhx9l c=1 sm=1 tr=0 ts=6a2ba7e5 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=onbnNvR133blzQGUTA0A:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=g16n3pgl6Qv7JtVSE6UA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA1NyBTYWx0ZWRfX3lotzN5tJ8Ky
+ 0BN+YIyHiOdWriNIAcQlGcvVF53krsrdhRG11AoT12fPJrW2BRM+TjLd4l4igTfLtwOww1JBD1d
+ j6B1Iww+euaKCPsbev09p7uZlCSEgJUSFW0rvi0FPeIPF+MG59QNYSNm2TrCN5uL46J8TZkNZvq
+ K5JHmDidfSRzLRAgzbPz55O7n5M6HSMpNVaN9/glfDBC7bwgMwuCS2fAIkFuw07LOq35BtlTWaU
+ 5T6JFIhwjml19u07gKxaT6jaZj2a6i5vIpZdRPUWDIkLduWu2bhMN4VFhZtmEbWJOYLV3GWQnVA
+ ranbt1LZNKRYOLRvW0KUegplMUbRpjr0U/EMpbq1hXCfXwezEf6ABTj5Pzm2SRzGaPkOx/9sLtP
+ LfAdre/xQ+6ZwCDNRtf7M8IgDdU/Wx4FMP9w03+3I9+ZLWPqLlk3CI73Lf/mw1Cvp5fmSiagq+q
+ R0gjoVLRtPFxnsaFh+A==
+X-Proofpoint-ORIG-GUID: S47_skqcvg9pw4s1F7j7jneVpjoS1ROZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA1NyBTYWx0ZWRfXwu0X4wpKwIsq
+ do5FGGunqSkY3TtcAo8BApTDYNDqCLPb2oLOKJ9afzZf3IsjzcK5l9YcknRevvMMAsMWOy+YkTp
+ 7nxRhgn6OEW5YEaX0qP3boUCZOyFDyA=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0
- phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120055
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120057
 
-On Thu, Jun 11, 2026 at 06:17:57PM -0700, Matthew Leung wrote:
-> On Sun, Jun 07, 2026 at 11:01:10PM +0300, Dmitry Baryshkov wrote:
-> > On Fri, May 29, 2026 at 01:10:08AM +0000, Matthew Leung wrote:
-> > > Add a dedicated schema for the PCIe controllers found on the Hawi
-> > > platform.
-> > > 
-> > > Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
-> > > ---
-> > >  .../devicetree/bindings/pci/qcom,hawi-pcie.yaml    | 204 +++++++++++++++++++++
-> > >  1 file changed, 204 insertions(+)
-> > > 
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/clock/qcom,hawi-gcc.h>
-> > > +    #include <dt-bindings/gpio/gpio.h>
-> > > +    #include <dt-bindings/interconnect/qcom,icc.h>
-> > > +    #include <dt-bindings/interconnect/qcom,hawi-rpmh.h>
+On Thu, Jun 11, 2026 at 10:51:21AM +0200, Konrad Dybcio wrote:
+> On 5/25/26 9:49 AM, Bryan O'Donoghue wrote:
+> > On 25/05/2026 08:06, Jagadeesh Kona wrote:
+> >>> That's not in your overview letter so generally I'd advise to include things like "did X because Y" - "didn't do Q because Z" anyway, how does it make a difference if the values are static ?
+> >>>
+> >>> They are no less magic numbers that way.
+> >>>
+> >>> What exactly is the resistance to defining the bits ?
+> >>>
+> >>> I'll state again - when a vendor is submitting something upstream where that vendor 100% controls their own documentation - there's no reason at all to be presenting magic hex numbers - even more the case with generated code.
+> >>>
+> >>> Just update the script to enumerate the bit fields, I honestly don't get the aversion.
+> >>>
+> >> Hi Bryan,
+> >>
+> >> There’s no standard interface for these bits, and bit definitions/fields vary across PLL types.
+> >> So, common macros aren’t feasible and would need redefinitions per controller. Since these bits
+> >> are not reused elsewhere
 > > 
-> > Stop referencing clocks and interconnect header files. Replace used nocs
-> > with ephemeral values.
+> > - Asking for named bits not common macros
+> > - Reuse isn't why you name a bit
 > > 
-> > > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > > +
-> > > +    soc {
-> > > +        #address-cells = <2>;
-> > > +        #size-cells = <2>;
+> > , IMO directly using values from the hardware documentation keeps the
+> >> implementation simpler, avoids unnecessary abstraction, and makes debugging—through direct
+> >> comparison with the hardware spec easier.
 > > 
-> > Not looking around should be a sin. Take a look at other Qualcomm PCIe
-> > bindings. Compare them to yours. Then fix yours to follow.
+> > How are hex values in upstream code easier to debug ?
 > > 
-> > Hint: the extra soc node is useless. This is just an example, so use the
-> > default, 1 cells for address and size.
+> > Without the spec you can't change or understand hex values in upstream code, which is the whole point I'm making here.
 > 
-> Thank you for the feedback. This new binding follows the examples set in
-> the qcom,pcie-sm8x50 bindings and retains the same formatting (extra soc
-> node and header references).
-
-Hmm, interesting. Then I'm a sinner :-)
-
-I looked at msm8996, but I didn't notice that the rest of the files use
-the soc node (and match what you've sent). Please excuse me.
-
+> I get the 'understanding' part, but regarding change, as I said
+> previously, these must remain as-is - any difference for a PLL
+> impacts every single clock downstream of it. Some of them also
+> correspond to specific electrical properties, just like with PHY
+> init sequences. The existing values are a result of tuning and
+> silicon validation across presumably many, many chip units.
 > 
-> I understand the example can be simplified with your suggestions but
-> want additional confirmation that these will be the convention for new
-> bindings going forward.
+> There may be updates (very rarely post the chip going into
+> production), but I'd assume these would go through the same
+> testing procedures
 
-At least, let's keep it for now. The other comment stands. To remove
-dependencies please use ephemeral nodes instead of depending on DT
-bindings from other subsystems.
-
-> 
-> > 
-> > > +
-> > > +        pcie@1c00000 {
-> > > +            compatible = "qcom,hawi-pcie";
-> > > +            reg = <0 0x01c00000 0 0x3000>,
-> > > +                  <0 0x40000000 0 0xf1d>,
-> > > +                  <0 0x40000f20 0 0xa8>,
-> > > +                  <0 0x40001000 0 0x1000>,
-> > > +                  <0 0x40100000 0 0x100000>;
-> > > +            reg-names = "parf", "dbi", "elbi", "atu", "config";
-> > > +            ranges = <0x01000000 0x0 0x00000000 0x0 0x40200000 0x0 0x100000>,
-> > > +                     <0x02000000 0x0 0x40300000 0x0 0x40300000 0x0 0x3d00000>;
-> > > +
-> > > +            bus-range = <0x00 0xff>;
-> > > +            device_type = "pci";
-> > > +            linux,pci-domain = <0>;
-> > > +            num-lanes = <2>;
-> > > +
-> > > +            #address-cells = <3>;
-> > > +            #size-cells = <2>;
-> > > +
-> > > +            clocks = <&gcc GCC_PCIE_0_AUX_CLK>,
-> > 
-> > <&gcc_pcie_0_aux_clk>, etc.
-> > 
-> > > +                     <&gcc GCC_PCIE_0_CFG_AHB_CLK>,
-> > > +                     <&gcc GCC_PCIE_0_MSTR_AXI_CLK>,
-> > > +                     <&gcc GCC_PCIE_0_SLV_AXI_CLK>,
-> > > +                     <&gcc GCC_PCIE_0_SLV_Q2A_AXI_CLK>,
-> > > +                     <&gcc GCC_AGGRE_NOC_PCIE_AXI_CLK>,
-> > > +                     <&gcc GCC_CNOC_PCIE_SF_AXI_CLK>;
-> > 
-> > -- 
-> > With best wishes
-> > Dmitry
+The discussion makes me wonder, should we drop various _mask and _val
+bits from the struct alpha_pll_config and use .user_ctl_val as it's done
+for the new PLL types? Using both potentially creates inconsistencies.
 
 -- 
 With best wishes
