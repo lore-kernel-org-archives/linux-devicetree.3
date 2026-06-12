@@ -1,107 +1,237 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012002.outbound.protection.outlook.com [52.101.66.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F0837E2EB
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 18:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781288233; cv=none; b=LaLYyVEgW9L45PmAuDGtu+pOx76bWZUsygpEJUK7MreA+1wqEjHiyUtwLmh7TSxgifsF8FrB2UXVsPRWkEUA2voFnq8o8E5VSkcOQgR37NAN5DOmqv3NI7JMEcBrxaEQaGjYNe2h/8RZOVuPFjYHlFC51dbJmQ4wCnIHqho83tw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781288233; c=relaxed/simple;
-	bh=p/UozsYJO0z6duo7WzsC3D4cFBwaT5yaJi31DXHhCj8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=M69sURLURQB9I4Cprf5kiY62LX38iDcqdfk6z2At2woqbeqNgLmRZYU3P4ThlxQnOYfNp+/TLqz4USRpspeJnJlWehuiw14D2bjRER4qQ6vTlDvWylonxcOlrKnEIswBtL5aYU/WiyuGVdWdmYFftGdxUKv5TTAzr2o786COvzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gBtqjW6P; arc=none smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8D1F099C;
+	Fri, 12 Jun 2026 18:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781289086; cv=fail; b=flRGRuHAhwMfc2+0CIgBRmrrJ5PsUizyFEzkkjAkTDMq0ZB2A6XssMUA4M6bZMZnk1F1XpMnsAJVJraiD4+JRwcW9y9rKBNivPVyvS3Pjy55snLElj/AmIWfBmbm5ruhP8HVtY3BYjdc7xKFVnaFj8WQ/5LM87l4MSFCJxONgYw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781289086; c=relaxed/simple;
+	bh=s8CJDzNEyxOlRh+EEzYbVdD8Ei8CKvmPoCCIjpBtj0o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=um7XMKsANo+qWKcwBhJS7kPHCw9ItfJQq2BtF+gNTU1abz8GluNIesWUg88hcO++AfwyI5olT9mwNZgtQlX+14BfqGoFaakRP/52ydoHJM9g481w7XLHqR7VVYKljkh2kDC6EtGAm8+GSfa9YbtzEV0C5jXt3m8m1pUm8e+Mai4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=E/UerWlY; arc=fail smtp.client-ip=52.101.66.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gBtqjW6P"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39677242021so11297581fa.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 11:17:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781288231; x=1781893031; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=bKvKH4snFOx3a/w17jY1jRQJi3nETniDRUK13h/HlS8=;
-        b=gBtqjW6PYy5OPoT4TwzCu84NVLgmmwe7EG8l5zZbjebV2qLCcqqndLnRFay2P4ixXJ
-         tRp8Mcq8f7ZA1AYOV+KdsGrgf5IFeA77A/2iF0zZFI6esEmNGo0WjSuBOwvdYbaw5gxo
-         kYW/XcaDu9Ypa6u/oyeunlShVr/4iCVV+LLQF8DEOJelMQ1qc6QSwl5sBgmFIENfZEQY
-         lCMorwD5OZOIKOX3+EK3z8MiYe8iqDnFBA/qcaNVYlUj13FQbJRInuRpfne5EqeixJkX
-         rDyOlOw/GPWNS845k2lO8jKmlx0ZfPoEKG83W9JPIvpKiN3nvpW3b/TAOqA7FgeyJAu+
-         G2tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781288231; x=1781893031;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bKvKH4snFOx3a/w17jY1jRQJi3nETniDRUK13h/HlS8=;
-        b=pmd7i5gZ37GxNR/0XCxq8UMytPYmIkVpVUf7IYzMkeJfwR4MjG84KFVhmPKYNEOdA0
-         Bp+67/aLFwH5VdObYn6jq2OyNojRU4IeiJHN8Lg9YTgxYTlB2xES/3W9s85iulaLGwYF
-         MRFvX/GBJROJGivxG869+kJgUI083UDvSMu42ZWuwfaF0kWG26M9pVZdQtRuYtIiG9E0
-         CbG5drg2fgVSV8Gotr1ZPWgx+MIKzj2t3d860/VSDI4HnDEVgJN1PDabxiFQitrPEuXh
-         6Lxffx8JpCC0HD4fThHrKrE4u4G9Pc+fhf7TcojLUxHMapFs3wTQq66vkbHVmlZMLh2k
-         CqEg==
-X-Forwarded-Encrypted: i=1; AFNElJ+Y/yj0I+00QFYYVBsp0HHtq2YufChSuRLNSBk9sAjCcKJ0eqC+YeXSV7bMPVmH2Wrm9iLdQxhElTgB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxX4YgtQrxb6V+YSG7mDMqYYNdstZNgo8jRUZK10swLrZscHZtg
-	ZR3yfYolNQP+ID5yxj8d6HxBVffAshLshuOG2BCJ4UIT6tOO1OrsDTDo
-X-Gm-Gg: Acq92OEMkK0WjcQwIp1lL+kSc/9Ai7maoAlvAlPa9vjcrHUTZGiqa9fEHC4S4XiwdRj
-	eSkG8/lMm2ZN3PZE0pHJBofKPlyVcM3hg4Ahky0LAYtQdgS0rVXkO/juExGZF49f5T2ujlKZ9K1
-	09n53+fw4JVPJLd3V8l4xTyKPP2r7dPzCJfzjEhiY7ILBeH7XoTX7WU1vUlT0sxeHPhILVY9PKR
-	ZNinBwTZTXs7qli1aKli4WBhHKvAqcqaYZVdHpuZo0AwRdIyGvNBO/rv6tDwfmEQkHcJz7Y+P16
-	cTCczQd9GEwiAmb/7zKot23FZwc6Amutyb9SfXOsKLE+faswt68LaoLYGbPXkE18XzcXfrcGY36
-	09GCeTKohSnJZiBmfRWM8l8kBqe0V7tcVhSv2cl1Rp8767uvCkg9YYLEVFWPd20D7m68CY910gW
-	XY9d/wwOzAnCYg96f711c5HsGV5E2jfiGa+eInewbi8erFbcCP5WeFhCQps0IxThTn9T4u59Kd1
-	PQ=
-X-Received: by 2002:a2e:ad91:0:b0:396:74ed:a7b1 with SMTP id 38308e7fff4ca-39935620c54mr855351fa.15.1781288230370;
-        Fri, 12 Jun 2026 11:17:10 -0700 (PDT)
-Received: from ?IPV6:2a00:1fa0:742:25a:e03e:6c9c:49d8:2fee? ([2a00:1fa0:742:25a:e03e:6c9c:49d8:2fee])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929f4049bsm8116191fa.29.2026.06.12.11.17.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 11:17:08 -0700 (PDT)
-Message-ID: <cc81f7fc-59e2-4cc3-baec-dbf2f8fe5388@gmail.com>
-Date: Fri, 12 Jun 2026 21:17:07 +0300
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="E/UerWlY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qkr5LAvL4ccXYmSvH0O4Ldh5OOGeK1vP1HVctLPap58ljwZfZdbiKwj67Gu7OL/vBXuGmzCoZ0kXHXTpiPSpZzkIIfLz5wFjUmzdPsRWzzQH0j1Hidg22Qbknn8DvtWuxFTUILSHVdGEOCzp49d0xLtAFA0EmGGXzTlRbQIo90sYYxTbDOBviuWmwoMVjOTwLHJB2Tji+we9WT7AIJ4w/DCxYRR4BJfSlEKbExW2uE6IpxW45fkmLdFWBj1mQALwtH3AexJ1E7PomLI41NYm6i+fFcp4TjwJU6zNnVsPruXtPaubyw/hTJnzKpxviRtx92CWGfHqlnxqHMHvM3WgIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZN3m0bj521lhsvcvMV5aqGDDp4jeWliz/e6Idb9ypG0=;
+ b=ch5LVGDYjUREjkObVhh4SFJ6j1EHlQ2cfY4rwlm8sUnIeDwOd51ShL5VAjdqYRDvFmo0dst/uBapeF+emxw5lEFD5nykwrkR28l8CV7wMF2ciJFG+j3lcYd6pzI14dWb1ZJe/Y+LnG+e5UrhYnPjg5ZCGrkZd+k1vus5cbXIlV4hjeU57wOR4L6jlMk57rNdiTEgzTd9OCkIsIuTZ93NLOiyGJmuA6NgY13QRzEUd2xcKMRg6uazXLVHjYt7K9oC7GzKyHzJvH9th0ptLGuk5/1GrQz4UtYuxpNCIN2yd+dKYFgDgQejcVodwAJqqWyVd3eJFIPa8M9WRSh9XqyZQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZN3m0bj521lhsvcvMV5aqGDDp4jeWliz/e6Idb9ypG0=;
+ b=E/UerWlYhZzBjPuXOLDamXVzq2ON4NPgnVpzy584UT8ZOCvmPnsoTOtOdH8EdJrjT6BXkzgZGz/FkkHcy61BW1OR0MpmTsZX3cyJ9llW/LXwetavFOz6dyAT/S2mAhxipd8bynx4NcK5oNQ5f0SPtjzJrsi2wHT99sbFLdYgPxieEXbbP4PJ4Ii3MMI3xvHKNXMzEEID6Ly6lLIp1dhgxwuXgQozQ0ovjtaJils67SCE3ONiUH+1XwxdzPKYcn8bPj4mOjvQr/AblQGGahEBVOOY0xw3HBpfvrprNyFT6c3bqaFCeW3VonvrKoVWOwPIkMfKxSCKl3y9lvTV7+poqQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU0PR04MB9346.eurprd04.prod.outlook.com (2603:10a6:10:356::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Fri, 12 Jun
+ 2026 18:31:20 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 18:31:20 +0000
+Date: Fri, 12 Jun 2026 13:31:07 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, michael.riesch@collabora.com,
+	anthony.mcgivern@arm.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, ai.luthra@ideasonboard.com,
+	paul.elder@ideasonboard.com, geert@linux-m68k.org,
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org
+Subject: Re: [PATCH v3 4/8] media: uapi: Add NXP NEOISP user interface header
+ file
+Message-ID: <aixQa13BHIWbT-q1@SMW015318>
+References: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
+ <20260612132039.2089051-5-antoine.bouyer@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612132039.2089051-5-antoine.bouyer@nxp.com>
+X-ClientProxiedBy: SA1PR04CA0011.namprd04.prod.outlook.com
+ (2603:10b6:806:2ce::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next 4/9] net: ethernet: ravb: Remove redundant argument to
- ravb_ptp_init()
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, Paul Barker <paul@pbarker.dev>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, netdev@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
- <20260610102432.3538432-5-niklas.soderlund+renesas@ragnatech.se>
-Content-Language: en-US
-From: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-In-Reply-To: <20260610102432.3538432-5-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU0PR04MB9346:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b765861-2ed3-4bd3-ad8c-08dec8b0cc37
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|19092799006|56012099006|4143699003|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ EyHvLGqWK4gbyiLxuiijhHXPgbmc6ykQaxL6iFxGsQGp6TXjRH1iuWXNSI8+eYqBzf8fuV6kWIbkKqTQ0SmmSTU38fWgXjjMh/05MYGPXJ1EmvFxrcog4X7aHpp3DrGQDD3cKdVUXIm/+5gyGLlsDFswXKGNXtKCC6uFC/GTj0U4lxTZrURuQqCgUAJ+z6a8JIhRmnE9vyjB3Y0YHN2e4DIPfIbJeRar4n7PjlSPcojJ/+yWufdqYy8URU5aHGHbOa+LmN2MryjWMJGSHknLJ8uV/DAB8dVEeqQsbXCzgCM7SVfoHl1XVxKg4LKB6KFtxMXIhLucSI5z6ahn6M4g34K8mfjLDm5lMfxSOI7ruRQA4FzJUh0J7zzCBsdeJpoGYdPVbKjx0e/Pnj4m5gqYgGnZPm8tfw7zLuLG9Ch5ZG+3qkDUyqXpCpRaybrk8dKGDSt8ONGVgVCuTOizetdGx/YdSkw/DmmS95kBr3y07528ss4RdQVYK+oaDr21Pp2ziHLX2LcR74P/x+MHGeMcsCGufKim4vJxyGT1KFiAJ3CPTE6J7YK8JyFDB96BckK22WPxo6cdi8/xzrBCtTuZ0tXYinFK7QsSt5BldbMaJAU2fU69Q0YTfAlbwdaBYwgkXNEM87pFtgd3PB2Z2AHdr4enUL8C8y8sKyYMGi6ZavpFGKjt6MJkrnv1zzAarTuz
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(19092799006)(56012099006)(4143699003)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?KUTweLZkjxL5Y+MbzMcggTFzD58elg0SAbfHJcWGmKCjq4QcgAO8IteTaP8y?=
+ =?us-ascii?Q?tYJYPHXTzVuPcRS2iq/rO4vfYtSoJKpOLl7SIHhiZWpjsZab7xEjqtnQyQ+V?=
+ =?us-ascii?Q?5Y84UqKv5+1DqRUjfhNldOLZJr+V9MSNshJXnyKgepgt1A1a0imIE0GGifRJ?=
+ =?us-ascii?Q?9fHjK4dOhY+mz1v1vvi3U4lZDtOayRECQz46f7BdMsuEZHjq05IduXDRcfUa?=
+ =?us-ascii?Q?Pv40qFk/TtyUx+nIpDEJkuX0ehDugbT06F2/DZEy9kWNUNXDv8bO5ssqeLyd?=
+ =?us-ascii?Q?234K+oUPK8yX1MPJnWi71OSnN6Zp3RiQ0BcsPs/0NGqY0YUgMsZdt3XFM/km?=
+ =?us-ascii?Q?AVzxOeiYmbg+WiLL/YYhVXaEfWxzpwurIGVMpsJirwnfnrcHJgS95ou+WtM4?=
+ =?us-ascii?Q?QGxuGIG8howh2rnIMWyjjXzCFr+AiymqOnPAieKRCAOTpvY56lCOWEbUlJ50?=
+ =?us-ascii?Q?yNDJbG+KMZ7pywx7wQWebXApZkSwi2pIcHrd+YSWSjOiSpuYtP+GsfzEtvHO?=
+ =?us-ascii?Q?0pBpnAmA3WDb4cPKnEW+gNltS3Z/JlUf7HN8Smn6N+XU2LGtQyLxmnkNDequ?=
+ =?us-ascii?Q?P8koDO4brr9MjI3YUHjHVpks1PTvzw+5YexDJy7uZjYXWDK3PCG+3fdzIeAH?=
+ =?us-ascii?Q?zMySig0x4S1o2zwk5hdxYT6B4Z8eROJcHJ8lALteXv64uZ9Qa6Bb06js6b8T?=
+ =?us-ascii?Q?UUt0uwiHjGF3i3oiVc+QllVLppQk9JEi1pb5slHwpEeq+2ThZoaM13Q4UN1l?=
+ =?us-ascii?Q?0mqXRSl5ASjX+RcyR3bX/sA4h3GZcJ6YxSB0F/SvMZWLmLXSqvw3nBhSVQ5D?=
+ =?us-ascii?Q?T2iZUvpGVKo34EmALNpTjff0DpJqdgRa4LRneo0xdnmVyGXgKmwZDPuS24IH?=
+ =?us-ascii?Q?bp9+DUZVr5ytowCZVIvGMicPtvz1PNqTdP3NyIZRYqdQNcK90lzt80KffEne?=
+ =?us-ascii?Q?VjLRnYSTSU0D4G9njZ82UKSA/80TkWVpFoeHlJyARZ7e6zJa2Aw+01rCC5T8?=
+ =?us-ascii?Q?d1+i6xoJVqk0iklseZusko1wFgKWIAcN3yYzYzStdTy0d/SaKvHBJLLJwMNG?=
+ =?us-ascii?Q?6uc6+Hz82QgNDVVVrdjQLvsoUhHGnv4Sdw9CHW6zhA742T002JEFC5/QH4E+?=
+ =?us-ascii?Q?QZjoc/OS/qv10djDBqrB1ovG+5DPjeErtf6+/hLpBlH70zDqjSZfERAgr9dB?=
+ =?us-ascii?Q?CIDZMs9YDVSQYnJ4htH7Q/8cMEQbhr4lITnkemAEuq/kITUCV67l1v4ZLLun?=
+ =?us-ascii?Q?1frLSu6fdC7qdV6cFbp/1CEcZoA70oSp1BOWi9Za70ZR+pIyS/MkqHgXEHJF?=
+ =?us-ascii?Q?p7sgfBmrHPfRQBWeqv5NyTMBhzh8okKqcV+Ey+T8NoAvP3BhPxSGXnR2rt38?=
+ =?us-ascii?Q?JLh9geh2+Tr3+KixHQIlkgZJ0S37qCm0H2mi6+COV4sMSzA1ZIM6AfbnWEJU?=
+ =?us-ascii?Q?JGKYhlipIekPFuIobR5Te8ihxf3DFhxkr+O5LjPviesCRKC0FRRimxK5NxkX?=
+ =?us-ascii?Q?llAFBNQFE3SgjwnmIMfNQHu7pyHQRUdp5sMc8EYn0mJGOq8y3lfsfA/1vHnG?=
+ =?us-ascii?Q?nGLKO2KRWL6ieRCQE6nhcuKTGnswyD+kvsX/cOBuh155PXLvXn17nOR+1T32?=
+ =?us-ascii?Q?p8fJh2XbE/kHmY00NsuuhsttvPlmXifHXFBqjAJdqybBOSdY88a0W80UjrvN?=
+ =?us-ascii?Q?dFfyKJRXbMyYXzs/H5eHJnV3jyS2p+WXB33Q3NDMcbae52zGf++hKR97wsPE?=
+ =?us-ascii?Q?pJlCDUpBn48HgKo9ne54idKyvfIbgdLoaT1o/i70kn5RnCLoskV0?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b765861-2ed3-4bd3-ad8c-08dec8b0cc37
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 18:31:20.4383
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qi4rPG8cr7Yun/0dMyGpS308RH5Ta7Xq/aa+ljItYrZC8Mo10mzjePX40GhxxIp47Lm1817zvkCDbnZ9p87SYNYMuPozkDjrOvw+xHY/B0qDPr6e/2KRLUSFVjZ39B1A
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9346
 
-On 6/10/26 1:24 PM, Niklas Söderlund wrote:
+On Fri, Jun 12, 2026 at 03:20:35PM +0200, Antoine Bouyer wrote:
+>
+> Add user space api header file for meta data structures definitions.
+>
+> This header describes `parameters` buffer for the ISP blocks control by
+> userspace, and `statistics` buffer for userspace and IPA handling.
+>
+> Both buffers use the newly introduced generic `v4l2_isp_buffer`
+> definition, which behaves the same as the generic `v4l2_isp_params_buffer`
+> already used by other ISP devices (rkisp1, mali-c55).
+>
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+> ---
+...
+> + */
+> +struct neoisp_hdr_decompress0_cfg_s {
+> +       __u16 knee_point1;
+> +       __u16 knee_point2;
+> +       __u16 knee_point3;
+> +       __u16 knee_point4;
 
-> There is no need to explicitly pass the struct platform_device pointer
-> to ravb_ptp_init(), it can retrieve it directly from the private data
-> structure.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Not sure why don't use __u16 knee_point[4] to make code clear and short?
 
-Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
+> +       __u16 knee_offset0;
+> +       __u16 knee_offset1;
+> +       __u16 knee_offset2;
+> +       __u16 knee_offset3;
+> +       __u16 knee_offset4;
+...
+> + */
+> +struct neoisp_ir_compress_cfg_s {
+> +       __u8 ctrl_obpp;
 
-[...]
+do we need pad some data to align next __u32
 
-MBR, Sergey
+> +       __u32 knee_point1_kneepoint;
+> +       __u32 knee_point2_kneepoint;
+> +       __u32 knee_point3_kneepoint;
+> +       __u32 knee_point4_kneepoint;
+> +       __u32 knee_offset0_offset;
+> +       __u32 knee_offset1_offset;
+> +       __u32 knee_offset2_offset;
+> +       __u32 knee_offset3_offset;
+> +       __u32 knee_offset4_offset;
+> +       __u16 knee_ratio01_ratio0;
+> +       __u16 knee_ratio01_ratio1;
+> +       __u16 knee_ratio23_ratio2;
+> +       __u16 knee_ratio23_ratio3;
+> +       __u16 knee_ratio4_ratio4;
+> +       __u16 knee_npoint0_kneepoint;
+> +       __u16 knee_npoint1_kneepoint;
+> +       __u16 knee_npoint2_kneepoint;
+> +       __u16 knee_npoint3_kneepoint;
+> +       __u16 knee_npoint4_kneepoint;
+> +};
+> +
+...
+> +struct neoisp_bnr_cfg_s {
+> +       __u8 ctrl_debug;
+> +       __u8 ctrl_obpp;
+> +       __u8 ctrl_nhood;
+> +       __u8 ypeak_peak_outsel;
+> +       __u8 ypeak_peak_sel;
+> +       __u16 ypeak_peak_low;
+> +       __u16 ypeak_peak_high;
+> +       __u32 yedge_th0_edge_th0;
+> +       __u16 yedge_scale_scale;
+> +       __u8 yedge_scale_shift;
+> +       __u32 yedges_th0_edge_th0;
+> +       __u16 yedges_scale_scale;
+> +       __u8 yedges_scale_shift;
+> +       __u32 yedgea_th0_edge_th0;
+> +       __u16 yedgea_scale_scale;
+> +       __u8 yedgea_scale_shift;
+> +       __u32 yluma_x_th0_th;
+> +       __u16 yluma_y_th_luma_y_th0;
+> +       __u16 yluma_y_th_luma_y_th1;
+> +       __u16 yluma_scale_scale;
+> +       __u8 yluma_scale_shift;
+> +       __u16 yalpha_gain_gain;
+> +       __u16 yalpha_gain_offset;
+> +       __u8 cpeak_peak_outsel;
+> +       __u8 cpeak_peak_sel;
+> +       __u16 cpeak_peak_low;
+> +       __u16 cpeak_peak_high;
+> +       __u32 cedge_th0_edge_th0;
+> +       __u16 cedge_scale_scale;
+> +       __u8 cedge_scale_shift;
+> +       __u32 cedges_th0_edge_th0;
+> +       __u16 cedges_scale_scale;
+> +       __u8 cedges_scale_shift;
+> +       __u32 cedgea_th0_edge_th0;
+> +       __u16 cedgea_scale_scale;
+> +       __u8 cedgea_scale_shift;
+> +       __u32 cluma_x_th0_th;
+> +       __u16 cluma_y_th_luma_y_th0;
+> +       __u16 cluma_y_th_luma_y_th1;
+> +       __u16 cluma_scale_scale;
+> +       __u8 cluma_scale_shift;
+> +       __u16 calpha_gain_gain;
+> +       __u16 calpha_gain_offset;
+> +       __u16 stretch_gain;
+> +};
+
+Does have data alginment problem if use difference compiler? User APP
+may difference compiler and compiler options.
 
