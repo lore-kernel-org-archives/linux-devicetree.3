@@ -1,262 +1,499 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011050.outbound.protection.outlook.com [52.101.70.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04833ED3D1
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781270463; cv=none; b=KCamNAIbJsYwJcvXBidJZxxlmxclepc68E96Vo0yhvgUjeJPj99q7wWSD74f734i7jB9bwn5AzL4XG2gc5bzsFqBhLz71bGfvvyGRBX7ih/WnSMpdCJ6I56QSNft/1VRaaf0Lv2z/oTgBu1NNyAztf8fzAOVZAz5GawByCSzkHc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781270463; c=relaxed/simple;
-	bh=GA2hcEO9oG1ygBpxn2AFU64V+84wXeyP6S4shCbyzro=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AEomMQMqSCmXxjS2/Qfbf+OrRcr5B/NZkj4VhMwCNyFHgFjVj3EvKFnbA8LgdTmnlG+CM/XxLogP2lbW6iTBtn0NYsaVHce2tX/c+q4VZEhdIjGS4jSfIWCUA5WCkxRp7Rraue732P1y31lOWEVMToG7rZ6MUB7v48V9jquc/jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oaJQapJL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dJk7jie0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60193EDAD5;
+	Fri, 12 Jun 2026 13:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781270464; cv=fail; b=pEz46CRMvnF5R/RqJtHfSCYUthBrI7nYBKg84X6mk9sfQnfuflXpklytThRGyqi7469mob4/wqrPnXQuZFwBX8YCpkW1cdp8zWpIXF4w5/WUe61VHv6fexrzX0TUMEg03nSRZBSqcHJT+5Tp+wt6MZGnCiZuDrPkEKWQ61yty5Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781270464; c=relaxed/simple;
+	bh=jxJ2Urjr1Gqy5nBVn+PubBSEb1SeEuU5gxubmvePbbA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oO8iIILilvYC8rx2tP+yGaWixRFWGBawZjJhvl2jH7/52PTXWX6rC4fiB60HDmUIAf9R7ELeOwOLhVXCnljyqPx9Ilz9s9BkJgVsZW/x0nnfFtTKy0szOH8AEPEsdqGBmEKKQ+QkDPAGypXtl54tSKuqkRSm+UU0wAuwknmLDPQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YGXrvbyh; arc=fail smtp.client-ip=52.101.70.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oaJQapJL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dJk7jie0"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65CCj5aD3714740
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:21:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=N1CimfNGzeKqFKCWpq+lvs
-	mNvHBjXLnVmVAB9wSi3oU=; b=oaJQapJLrzpwrAd1P0fqL/Enj+7GGiLmyyIkgE
-	IpUoFqTTWP10vsWx/Xg1UOSE4POfkZYqAILg19xsc1JQHg08RGu0ckRWYak2OUMb
-	nXwBOKdplLb8F/C7uPC7wofZZy3UwQprLAjDKUasFbS/qoo8VarphtlqwUrI2EWH
-	pWOEBWoBfttfxYnl5pXNq7Bu49adNtN9J1QN5d7OhmM/jBmm+cMRQQGaMGP2OkbG
-	1/WZp/f4Sf4GUJSB74sJnvoEAYS5Ln5sN+dUd+rZJhuJQeM6uqszs8vy1BTN8xvF
-	mH7zIP2wlG4foxVhYPJ5lWR1nWv9+lx2FO8eN0CiR9UgHj9Q==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er0x7kgtm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:21:00 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-963a96abbb3so1006348241.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:20:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781270459; x=1781875259; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=N1CimfNGzeKqFKCWpq+lvsmNvHBjXLnVmVAB9wSi3oU=;
-        b=dJk7jie0ALcDuhuKmQRiZ8I8FdfOfQSIjY168uPfedE2WH7WAr1LVBMgNfjnehE+73
-         SLNau3j0jcK77CBa2wJJ3VWyBlgK8y/a0QP1PecuK5Wm97duRo5O8+mlA5W4OIcEk76p
-         Urxf3rPngq8wcGSvc5hnJRf79qPfC+dDPPcaUdgBktg/FfYMRAG47gA7Es/nSEo03+xN
-         dnRewhXzwMGFBuiZMEiRZl74tmD2HZtItmJTG1/wCg//sNqBsJjAWGFfj25xig21D0f6
-         epHCcnlooml8eMqdxkhiz4Fouf/lIxBibfTDAMDw72XR6ixipaMriovaAn8J7dZPQJzR
-         J+BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781270459; x=1781875259;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N1CimfNGzeKqFKCWpq+lvsmNvHBjXLnVmVAB9wSi3oU=;
-        b=VUScPt96Wi14o0mxPPTl+1sdUoLAw18PpvSBefh000SdGMqq8JIEE41WKNGRFbigLT
-         VUVRbOVANTQo6IYynw1kQ3N4WpUVzDKP6pLcixl1C5lk0wUFOZR70i2EtiGbT7P7SNJ3
-         394BOM7E92lLPxUQObMGrXz6nlfelvHRl+gxUKYB12QJKtOlFYQGMkrdpCAad3va45Ss
-         7UOAU707UuAftf501SJMjqdZeVIgSa5pGk27F1oaOJR7gFnfBB5qFCtRdjqwnIXTEKTw
-         q4k952WA+VsNNJw7qaTR36sj35/7vfFCxsyvyeQBPA6GeX2WxvxSue+yUC/szvJgSAuG
-         7j5g==
-X-Forwarded-Encrypted: i=1; AFNElJ+PiHyNrDral9fwoRmKRTOf/0wVKaZWIne43VD69XuViMYjiJ90py5qJfs4jScxGInoCSBN6+IFj+dM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxU+nweyeFir8zRlzK7PaN9oQQnOttaraQbStDacQMiyYgurNAg
-	TzQCOThd96MUpIPqPfu0rHxQ3fyrFC7FbplDgg+7FvBK4BcwikjCSOC8VQ31tvdO/U1dxC0c1hE
-	znNgleRktG6Q8D4/C1+tWnCSM/nSh1acu9JfxOQEVqXOCk1G5Zhx8uGydQlmlriLImytmlgjY
-X-Gm-Gg: Acq92OHhskunKmAUVwS4f+Cq3V+BqyqslshnfIXPTWQN/cRFPLI8BWfPARKnUiCYexg
-	cN9tL/O9Qaz7Q3GNqA2LFMIPHT8Sm4ajGjlZimNpH/oQlZbmtl5MDm2rJnL3dcExF9yxm2kj4XD
-	ZI++i31gfulUKuqWTjeIRNTrZH/YMOHQsUJDMmkFWdtOKCW5Z56Mcz2wEAhymXs9WSlsrdHaYJy
-	/nqYyM7YLdV2evdRnIheHJsh5IbV1oFsxuC88cx082qmWsqaRle8/CvH+sogENqNtVQm6+v+ddv
-	xWicO48bxjy+D5ykqISmBuPs8BD+1d8BvRlwDFfQPavZDob59tqH2q9zNndwfgLxz/2va78bwpY
-	QS9K3UmXqwACFBbZZICo2rQqPRfBL13OXCBytAc3Uto4tt5RoJNIqDz7FBNHpBDAZjJwdPeUT10
-	n9jjP2AeJ6h1Z0WiBbprvcz2IzWuA85sItkxGvFJz2CmrJ4H3AIoXLsqP4k5WJxsOQAKvv2qj6
-X-Received: by 2002:a05:6102:580c:b0:6ef:dc8c:9367 with SMTP id ada2fe7eead31-71e88adcb08mr1374103137.5.1781270458890;
-        Fri, 12 Jun 2026 06:20:58 -0700 (PDT)
-X-Received: by 2002:a05:6102:580c:b0:6ef:dc8c:9367 with SMTP id ada2fe7eead31-71e88adcb08mr1374007137.5.1781270458425;
-        Fri, 12 Jun 2026 06:20:58 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:3510:32cf:db6:13c6])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfe6f9c46f0sm59986866b.1.2026.06.12.06.20.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 06:20:57 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Subject: [PATCH v5 0/9] Support for block device NVMEM providers
-Date: Fri, 12 Jun 2026 15:20:52 +0200
-Message-Id: <20260612-block-as-nvmem-v5-0-95e0b30fff90@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YGXrvbyh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nDFrrh0SfCS1HHdXlajlVheNp9ntYS/BiFPmIAaJPzx8/+S32cTOI7MzAdrLHlnSom4OhT4EpIoF3r96pskGSJXBs5SpZWPKiZsF0tpXWpHIUJiqRQy8L5qwqE9banyYFw5yaqloXCY9GOI+Fy0qDzrt3tkfI0oiQ/B9+V/VqJPNAaloiU6hKmEnhjTDAbTOvlaU97VEVkVzRz5OMjIMkhwrBTePTYmFj85SPItx2AbzXJf7trfliO2pc81p9Xbm+k4C2w5Bg55CgznGXJu0yQA/6VM+hGCjN/Dy847LHeiZBG32v5h92mSViQQyWpHGb1qUC9KXhzMqLtG3iiOL0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UdPWwS328qxBWsvVz5I1WqQPinMJqRJVHV18w5JPFug=;
+ b=je/2p/N5Gi/Ru/jx+q796VGZWGWdHeHwYvQeJbSklUOd7DmCAcJ6gN9M7HL4qb5OZz/eY+jCNm4h3FmUGZlbeULf+jdNyR/d5l1BRwlujSo4/coZBK2A3qtRdTxIIjyQPS6z1+X/wQg5NOvJBTtLpADbsblO96sWZjhu2VNpeYQoTf4BsfTHD7GIYv6xuaEXLHZlS12kIyV+rCqPAMnpkwWFOrbWEcT3+k+DKfj6v3jqk/m0h6rWYXa6aN4I4+8IRyOp7WmNV4oRFvwROMX9fPezZlIKM992Ptc3QLW2+hecqdx6/B3+VflCbyQLTOJpoXDvR6KocsYZHNSQrG3NmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UdPWwS328qxBWsvVz5I1WqQPinMJqRJVHV18w5JPFug=;
+ b=YGXrvbyhpBOwEICuV7/AbNjKq+P6FR4uy9AhHgURSN+k0C+aVd+gAZVX3tKaylBBw9dLRgb2fY/avSjzOPAUG/BE/z6RWXxfoEx8CMjpRgHh4WrBTge5rH9QTqTMmbzGdFuuo4exGhasCzefP8ISm1Iqc1/JX7w18wLuEA7Esvn1COJxaMQE9y5haU7SgBIL6QwS5aAguwv8chSsI2WWSnmNTJvp2aSUDOrOGB518POzmkiAaP5pTlRSEGmdhYPvDXtkocyDUql3QAdb6bDf5Jvo4QByL5uKrU39xKhM8/8XG382r3xCRwZSrMT6NKpHkKhwVZCyJZ4FXe87T5jPuQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA6PR04MB11910.eurprd04.prod.outlook.com
+ (2603:10a6:102:516::16) by DB9PR04MB8203.eurprd04.prod.outlook.com
+ (2603:10a6:10:242::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 13:20:56 +0000
+Received: from PA6PR04MB11910.eurprd04.prod.outlook.com
+ ([fe80::d3f0:3c24:f717:4989]) by PA6PR04MB11910.eurprd04.prod.outlook.com
+ ([fe80::d3f0:3c24:f717:4989%4]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 13:20:56 +0000
+From: Antoine Bouyer <antoine.bouyer@nxp.com>
+To: julien.vuillaumier@nxp.com,
+	alexi.birlinger@nxp.com,
+	daniel.baluta@nxp.com,
+	peng.fan@nxp.com,
+	frank.li@nxp.com,
+	jacopo.mondi@ideasonboard.com,
+	laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	michael.riesch@collabora.com,
+	anthony.mcgivern@arm.com
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	ai.luthra@ideasonboard.com,
+	paul.elder@ideasonboard.com,
+	geert@linux-m68k.org,
+	sakari.ailus@linux.intel.com,
+	hverkuil+cisco@kernel.org,
+	Antoine Bouyer <antoine.bouyer@nxp.com>
+Subject: [PATCH v3 5/8] media: Documentation: Add NXP neoisp driver documentation
+Date: Fri, 12 Jun 2026 15:20:36 +0200
+Message-ID: <20260612132039.2089051-6-antoine.bouyer@nxp.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
+References: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0117.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::6) To PA6PR04MB11910.eurprd04.prod.outlook.com
+ (2603:10a6:102:516::16)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALUHLGoC/3XOzW7CMAzA8VdBOS8ocT6actp7IA5O40I02rAGo
- k2o777AhUmlF0t/S/7Jd5ZpipTZbnNnE5WYYxprmI8N6044HonHUJuBACs0OO7PqfvimPlYBhq
- 49ko4cj5gi6weXSbq488T3B9qn2K+pun36Rf52K5SRXLBLQZQ1BjZCvxMOW+/b3ju0jBs62APs
- cBLMaJZKFAV38uGQjBSaVpR1EuxYvmLqooD62RvBKIyK4r+r7QLRVdFm0YCWQ/Q2TfKPM9/L61
- ZOoUBAAA=
-X-Change-ID: 20260428-block-as-nvmem-4b308e8bda9a
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: iTZmdi2n3cO0qcOdc_4CLJpOWv6T7dhT
-X-Authority-Analysis: v=2.4 cv=c4abhx9l c=1 sm=1 tr=0 ts=6a2c07bc cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=VT4XjZGOAAAA:8 a=EUspDBNiAAAA:8 a=H1RoBJpM21yDxn_SvroA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22 a=6CpsfURP9XNmmWg3j1mJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDEyMiBTYWx0ZWRfX8/ZGIhadYp/F
- cj3Jyc3ChQNxeMt2+wZ9QaoKlsBgGuXZpi5/+SkTRP//ZShGK0GpU9aejKBCH7Om08pgI68EpFp
- oyF4hmO9UJDFQsm+tvrMdXuqIk9gREEdaZsqxxQ53184CYekL7GBeg4P8hjTlXdSPV/a7vP+n7d
- WXbuwm3GOgCnKhVy32rlD5PwYqHyKtu9DXIo5suSWn6LwK9SZguaeZsCMQxXARAMtFreVSmCFOm
- XzMhfHejG5gTc00byi1aW+ObltbqtBILg1EBZdJ3tcbJyAdgaIbTamXWZkZvkklmZYLaVDWUssC
- CipDKvkggQmJ5e33R+rasyJf1OsIxn6WwrA182JFhuD6x2wajDFXL8F3i2hOsfkXbRDLSGAWcOa
- b88kLhrVwi5IU9wwU2SY46vetJrXVqgCWO7wBtNzDCbVYXqhstrC1DOSw221EXcg2EpbXGkDQjd
- DH/L7NjYq9ee8wIqHhg==
-X-Proofpoint-ORIG-GUID: iTZmdi2n3cO0qcOdc_4CLJpOWv6T7dhT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDEyMiBTYWx0ZWRfX+ldvhKhV51+V
- xqIdWnmBFZmn1XSA0KdwI0un2v8pF/kj4BoVW2sw+8oUiGXiCuG6a3qMe0ml3z9/iR+zLfKrWuC
- JzN2qm/Nv9qmsq+V71ZlJblYKwCBKw8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120122
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR04MB11910:EE_|DB9PR04MB8203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f0139ad-c107-4424-462f-08dec8856f62
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|366016|23010399003|8126099003|921020|6133799003|18002099003|22082099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ 3TaeGK3rPD/pya+R4Oxyxpihmqhu5zALEQwUSTxE2d7pEzbThQIKgSPzSZfGgKrmoS5xFa9s4VsqxDF13CE0Gw2TU2OVTgMNw2Brx0Oxgr7zBl9LXZnKmbDwHKdoHrScH/2duZgqIocNi297ImALi5p1/nnkdRFXlzzWGicswpTCUNkAj64VfleAyELUaxs7LMZiGG51v33cYdJCK9m2VPUllzo5rPbwQVYpmKx8Cw9WXKJ7UduEhm7INLYtMlpZBZ8uPDlWD2jwaWbgaaXVtzyg+ZCosCaRtSPRiVpm4v8wRBi52jHJzclI5Szs2Q19wtgnbdQZ8x8V8TUD1yGEEuoqcBkuYIrJtiHqmpJw7xoEfJzr9VwcEB+/aKKU8aKjMKLVB+86VBntAhY6JbutOvtx/S7bMYCmUtvCir488sgJU8YUS0MhfLJiDrkKohm4uPhrP6Qy5e2X71iKmv3WPeNWs0lkEZi41D+Ki5BDizkt5MhQ9MmRrDvihF89riUGRQQVtjb2+R6L5rSebwpU2eFD5Nirx/eWxhQDv/LTzd/x53z45FFMYCncyY885SvGHaf+Bd035ktTFhujcL5DCLqBzOzbU6Apj3sCjRPAtrzkgiLF96ZYoo012+6cZL/zaayoAT2fVhE2PeNTOp4wxLvkKyOf7qkd0fer1DJ21bIcQJE4RW4E+SiUQYY12unWw7JHYGWojtHwuFzTGtm5rsdD2cPTS2QN7rkqbWfIIDc=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11910.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(366016)(23010399003)(8126099003)(921020)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?WA2MnUS+Ut4whM0uUtTkAnOPF2gHTyHvNu/Sr+xFMNJpJpVFddhMTdYq/ykA?=
+ =?us-ascii?Q?xl40Vcv3HucuqlVaUfG8ELIn/ogFu9HXZNC3x/iqc+GEUkd+41yGSnG6z3hV?=
+ =?us-ascii?Q?KpQ3W1c1YLTbZkfkGMBG1R4PqA5i/34V/8Uwy+T474xFKci2duM6SguTd+J/?=
+ =?us-ascii?Q?bo477pEkIPwLmSl7nFyEgaSHm4UTXQDzokBnvbadKB0rSRZ/YF0VZ36OUuta?=
+ =?us-ascii?Q?mWTT1sZFszM1RQMBZTHTnW95ODhHIm2ovUe7uitFCy+eQJonLGnGmhRXLCAB?=
+ =?us-ascii?Q?ORgMfVR/C+YlcwuNfEEQJl51iGituPycS3uPbGxcR39bPtu0XO8irI2p+3Cf?=
+ =?us-ascii?Q?4XoR4Srql6PTX4XC7zr8I/5gNRAZ94Pq40Eg1aNXiG1RBoC9Dy6j9ofkeEkK?=
+ =?us-ascii?Q?gO+h/dkDgehb4M18NqBVsQt/0Nls1ronnKM/tJTSA1RWi/fynQJVbMUCdYJB?=
+ =?us-ascii?Q?4A+gTE6G5Pjcow3oodSE5C0WUyLLV/29Xzm0veHDzhBoHeU92cngNXbIQEWl?=
+ =?us-ascii?Q?mYtx56i3dzsJ5af7KZoxst+DhLC7FcQHDMRMhjWo5GYP7DJyWv7MWPcsSS0G?=
+ =?us-ascii?Q?/npkxuJyxsaa3oZzKpI8DXlreR6+42lZ28CCuJpMM7cortime3BU7610S799?=
+ =?us-ascii?Q?0yn6B0IxBlAvtnuYvG+vWYPQFaM5lYkd0qLBLnJCw0jcxfpQ894C0YdwIzis?=
+ =?us-ascii?Q?IGA/x7VHfQVMe2LA9GZm3CPdONLCuUhBHwWG1Atfo7nusUIWlyH5fsFkQqK/?=
+ =?us-ascii?Q?MRhjwEFoLcluYiqEEMHrPomgwStgxKussRDUINpS2NQHhPaWZMjIr8zxgbVv?=
+ =?us-ascii?Q?I3VlHwvdYVleqIGoufy0jg0hPnfoCf02aSHe/FdLA6Jt7w8RQ8EkqzawZn04?=
+ =?us-ascii?Q?8elw0zmJG9IIYUBAMHNsraCl5OfKiTrb2UWqS/ZKMOsrvofX9OyDj2907xu+?=
+ =?us-ascii?Q?s9JgFcu8/9RRmz6f3oD+t4RSA7r9Z29rvEElOyGB6yluvLJSM3wlStKfgD3g?=
+ =?us-ascii?Q?CELUmTrYwYpY9WUBqjHV75Cgfa2/O/mvhPPiO4G5ft1XvAZ1ZTCg4dt1dtfB?=
+ =?us-ascii?Q?nqiHE48uI2KTGaS9IP9IDrNiHEOETPgpDSh+PHNwRD2hA83Rbn3sX6knrHo2?=
+ =?us-ascii?Q?2ZkmyPjNyZxI7uqCMi1ECrssXONOfsw1J+jfJn93uf5iBHGc7Dwfsl5aKTz1?=
+ =?us-ascii?Q?QlB1spoI80PVLJ3h6dMmwx1mSukUjTXZiuCQnIVQNd8r/lAnsoPQKkmd6ylC?=
+ =?us-ascii?Q?dibVwsB39zmkVNnMekRmTwQAvRN5f4n7YWqZWI9MoXkQlGaL7YTRWwZglsMB?=
+ =?us-ascii?Q?q8JRnCtQEscMzwtra5ZezlC5JKZV2ZpWJx+tNtYkFpzV+acjhL9e9uVlPD1S?=
+ =?us-ascii?Q?gVO5TeogpuXFZ7evctG8qzRui9optfk/GmrzPZY4mXvyNKbmBB1d4rNDspa2?=
+ =?us-ascii?Q?Qr78plUmcDsGwz00EJENGXTLzG5mRF2OU1VHQlWKEJVFoIxrkm0IKyiqRR0t?=
+ =?us-ascii?Q?xBbFGIMdOY11PaKZ3oYwuT3iVw77Eel3d7hqMEPzQO0PeFDV55tsvh9aeFKP?=
+ =?us-ascii?Q?Ib3gz4FJ0X3PUKLdN+RPhfg3SSzw6hBcytuG7B3x5Kx052lNMoKVmEmmWDPF?=
+ =?us-ascii?Q?vRGgzGy3CUOLEGnEkF4JWp0ig3qrhJ7B26jDYMhCGCm7Mx/8q+cmid9s6bOk?=
+ =?us-ascii?Q?W57BHLr2h0mHJImXwBi/UUyHe/+BGieduHwHns68uQEGpul1kJK99sAqYksn?=
+ =?us-ascii?Q?XVA+lMWgJQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f0139ad-c107-4424-462f-08dec8856f62
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11910.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 13:20:55.9671
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tEKV+LoiE3wJTW5DhbMyZVqzUKJW2/PaWJthv9+oI2Qme+tCH2j2ezrU/IWExB0yREOy0ERdcaFfm1OvthGu4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8203
 
-On embedded devices, it is common for factory provisioning to store
-device-specific information, such as Ethernet or WiFi MAC addresses,
-in a dedicated area of an eMMC partition. This avoids the need for
-and additional EEPROM/OTP and leverages the persistence of eMMC.
+Document the NXP neoisp driver both in the admin-guide for neoisp IP
+description, and in the userspace-api for neoisp interface description.
 
-One example is the Arduino UNO-Q, where the WiFi MAC address and the
-Bluetooth Device address are stored in the eMMC Boot1 partition.
-
-Until now, accessing this information required a custom bootloader
-to read the data and inject it into the Device Tree before handing
-control over to the kernel. This approach is fragile and leads to
-device-specific workarounds.
-
-Rather than adding a new NVMEM provider specifically to the eMMC
-subsystem, the new support operates at the block layer, allowing any
-block device to behave like other non-volatile memories such as EEPROM
-or OTP.
-
-This series builds on earlier work by Daniel Golle that enables block
-devices to act as NVMEM providers:
-https://lore.kernel.org/all/6061aa4201030b9bb2f8d03ef32a564fdb786ed1.1709667858.git.daniel@makrotopia.org/
-
-It also introduces an NVMEM layout description for the Arduino UNO-Q,
-allowing device-specific data stored in the eMMC Boot1 partition to
-be accessed in a standard way.
-
-WiFi and Ethernet already support retrieving MAC addresses from NVMEM.
-Bluetooth requires similar support, which is also addressed.
-
-Note that this is currently limited to MMC-backed block devices, as
-only the MMC core associates a firmware node with the block device
-(add_disk_fwnode). This can be easily extended in the future to
-support additional block drivers.
-
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
 ---
-Changes in v5:
-- Fixed ath10k binding issue + extended commit message (Krzysztof)
-- Moved blk-nvmem handling to block core instead of a class_interface
-  This allows correct/robust integration with block device life cycle (Bartosz).
-- block: partitions: of: Skip child nodes without reg property (sashiko)
-- Link to v4: https://lore.kernel.org/r/20260609-block-as-nvmem-v4-0-45712e6b22c6@oss.qualcomm.com
+ .../admin-guide/media/nxp-neoisp-diagram.dot  |  24 +++
+ .../admin-guide/media/nxp-neoisp.dot          |  18 ++
+ .../admin-guide/media/nxp-neoisp.rst          | 179 ++++++++++++++++++
+ .../admin-guide/media/v4l-drivers.rst         |   1 +
+ .../userspace-api/media/v4l/meta-formats.rst  |   1 +
+ .../media/v4l/metafmt-nxp-neoisp.rst          |  70 +++++++
+ 6 files changed, 293 insertions(+)
+ create mode 100644 Documentation/admin-guide/media/nxp-neoisp-diagram.dot
+ create mode 100644 Documentation/admin-guide/media/nxp-neoisp.dot
+ create mode 100644 Documentation/admin-guide/media/nxp-neoisp.rst
+ create mode 100644 Documentation/userspace-api/media/v4l/metafmt-nxp-neoisp.rst
 
-Changes in v4:
-- Fix squash issue (dts commit incorrectly squashed) (Konrad)
-- Use devres for nvmem resources (Bartosz)
-- use __free() destructor helper when possible (Bartosz)
-- Fix value return checking for bdev_file_open_by_dev
-- Link to v3: https://lore.kernel.org/r/20260608-block-as-nvmem-v3-0-82681f50aa35@oss.qualcomm.com
-
-Changes in v3:
-- Fixed missing 'fixed-partitions' compatible in partition (Rob)
-- Fixed clashing nvmem cells, document calibration along mac (Sashiko)
-- Remove workaround to handle dangling nvmem references after
-  unregistering, this is a generic nvmem framework issue handled
-  in Bartosz's series:
-   https://lore.kernel.org/all/20260429-nvmem-unbind-v3-0-2a694f95395b@oss.qualcomm.com/
-- Validate mac (is_valid_ether_addr) before copying to output buffer
-- Link to v2: https://lore.kernel.org/r/20260507-block-as-nvmem-v2-0-bf17edd5134e@oss.qualcomm.com
-
-Changes in v2:
-- Fix example nvmem-layout cells to use compatible = "mac-base"
-- Squash WiFi MAC and Bluetooth BD address consumer patches into the nvmem layout patch
-- Fix possible use-after-free in blk-nvmem: bnv (nvmem priv) linked to nvmem lifetime
-- Simplify nvmem-cell-names from items: - const: to plain const:
-- Factor out common NVMEM EUI-48 retrieval logic
-- Reorder changes
-- Link to v1: https://lore.kernel.org/r/20260428-block-as-nvmem-v1-0-6ad23e75190a@oss.qualcomm.com
-
----
-Daniel Golle (1):
-      block: implement NVMEM provider
-
-Loic Poulain (8):
-      block: partitions: of: Skip child nodes without reg property
-      dt-bindings: mmc: Document support for nvmem-layout
-      dt-bindings: net: wireless: qcom,ath10k: Document NVMEM cells
-      dt-bindings: bluetooth: qcom: Add NVMEM BD address cell
-      net: of_net: Add of_get_nvmem_eui48() helper for EUI-48 lookup
-      Bluetooth: hci_sync: Add NVMEM-backed BD address retrieval
-      Bluetooth: qca: Set NVMEM BD address quirks when address is invalid
-      arm64: dts: qcom: arduino-imola: Describe NVMEM layout for WiFi/BT addresses
-
- .../devicetree/bindings/mmc/mmc-card.yaml          |  29 ++++++
- .../net/bluetooth/qcom,bluetooth-common.yaml       |   9 ++
- .../bindings/net/wireless/qcom,ath10k.yaml         |  16 +++
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts |  39 ++++++++
- block/Kconfig                                      |   9 ++
- block/Makefile                                     |   1 +
- block/blk-nvmem.c                                  | 109 +++++++++++++++++++++
- block/blk.h                                        |   8 ++
- block/genhd.c                                      |   4 +
- block/partitions/of.c                              |  20 ++--
- drivers/bluetooth/btqca.c                          |   5 +-
- include/linux/blk_types.h                          |   3 +
- include/linux/blkdev.h                             |   1 +
- include/linux/of_net.h                             |   7 ++
- include/net/bluetooth/hci.h                        |  18 ++++
- net/bluetooth/hci_sync.c                           |  39 +++++++-
- net/core/of_net.c                                  |  49 ++++++---
- 17 files changed, 345 insertions(+), 21 deletions(-)
----
-base-commit: ccb7390d6cdb23b298a6e2a7028ec134dfc4db10
-change-id: 20260428-block-as-nvmem-4b308e8bda9a
-
-Best regards,
+diff --git a/Documentation/admin-guide/media/nxp-neoisp-diagram.dot b/Documentation/admin-guide/media/nxp-neoisp-diagram.dot
+new file mode 100644
+index 000000000000..362723d66bc9
+--- /dev/null
++++ b/Documentation/admin-guide/media/nxp-neoisp-diagram.dot
+@@ -0,0 +1,24 @@
++# SPDX-License-Identifier: GPL-2.0
++
++digraph G {
++  rankdir = "LR";
++  node [shape=rect];
++  splines = ortho;
++  label = "Neoisp pipeline diagram";
++  {In0, In1 } -> HC -> {HDR_decomp0, HDR_decomp1};
++  HDR_decomp0 -> OBWB0 -> HDR_merge;
++  HDR_decomp1 -> OBWB1 -> HDR_merge;
++  HDR_merge -> RGBIR -> IR_compression;
++  RGBIR -> Statistics;
++  RGBIR -> OBWB2 ->BNR -> Vignetting -> ColorTemp;
++  Vignetting -> Demosaic -> RGB2YUV -> DRC -> AF;
++  DRC-> NR -> EE -> DF -> Gamma -> Packetizer;
++  DRC -> DMAP -> DF[weight=2];
++  DRC -> CCONV -> CAS -> Gamma;
++  {rank = "same"; RGBIR, DRC}
++  {rank = "same"; AF, NR, DMAP}
++  {rank = "same"; IR_compression, Vignetting}
++  IR_compression -> AXIOutDMA;
++  Packetizer -> AXIOutDMA [weight=3];
++  AXIOutDMA -> {"Out0", "Out1"}
++}
+diff --git a/Documentation/admin-guide/media/nxp-neoisp.dot b/Documentation/admin-guide/media/nxp-neoisp.dot
+new file mode 100644
+index 000000000000..79d9090dc1f9
+--- /dev/null
++++ b/Documentation/admin-guide/media/nxp-neoisp.dot
+@@ -0,0 +1,18 @@
++# SPDX-License-Identifier: GPL-2.0
++
++digraph board {
++	rankdir=TB
++	n00000001 [label="{{<port0> 0 | <port1> 1 | <port2> 2} | neoisp\n | {<port3> 3 | <port4> 4 | <port5> 5}}", shape=Mrecord, style=filled, fillcolor=green]
++	n00000001:port3 -> n00000020 [style=dashed]
++	n00000001:port4 -> n00000022 [style=dashed]
++	n00000001:port5 -> n00000024 [style=dashed]
++	n0000000a [label="neoisp-input0\n/dev/video0", shape=box, style=filled, fillcolor=yellow]
++	n0000000a -> n00000001:port0 [style=bold]
++	n00000010 [label="neoisp-input1\n/dev/video1", shape=box, style=filled, fillcolor=yellow]
++	n00000010 -> n00000001:port1 [style=dashed]
++	n00000016 [label="neoisp-params\n/dev/video2", shape=box, style=filled, fillcolor=yellow]
++	n00000016 -> n00000001:port2 [style=dashed]
++	n00000020 [label="neoisp-frame\n/dev/video3", shape=box, style=filled, fillcolor=yellow]
++	n00000022 [label="neoisp-ir\n/dev/video4", shape=box, style=filled, fillcolor=yellow]
++	n00000024 [label="neoisp-stats\n/dev/video5", shape=box, style=filled, fillcolor=yellow]
++}
+diff --git a/Documentation/admin-guide/media/nxp-neoisp.rst b/Documentation/admin-guide/media/nxp-neoisp.rst
+new file mode 100644
+index 000000000000..c8e3a2699140
+--- /dev/null
++++ b/Documentation/admin-guide/media/nxp-neoisp.rst
+@@ -0,0 +1,179 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=======================================
++NXP Neo Image Signal Processor (neoisp)
++=======================================
++
++Introduction
++============
++
++Neoisp performs a set of image processing tasks on the RAW camera stream, where
++the input camera stream and Neoisp processed output image are stored in DDR or
++any system memory fast enough to keep up with Neoisp processing.
++The overall Neoisp operation is frame based, that is 1 complete image frame is
++read and output pixel by pixel, line by line wise.
++
++Revisions
++=========
++
++NXP Neoisp driver supports the Neoisp V2 hw revision, used in i.MX95 Soc family.
++
++Neoisp hardware
++===============
++
++The Neoisp registers and pipeline processing are documented in the NXP Image
++Signal Processor Specification document (under NDA).
++
++The NEO pipeline block diagram is shown below:
++
++.. kernel-figure:: nxp-neoisp-diagram.dot
++    :alt:   Diagram of neoisp pipeline
++    :align: center
++
++It is composed of the following HW blocks:
++
++- a Head Color (HC) selection block,
++- two HDR decompression blocks, one for each input,
++- three Optical Black correction and White Balance (OBWB) blocks at different
++  stages in the pipeline,
++- a HDR merge block for HDR image capture from the 2 input lines,
++- a RGB-IR to RGGB converter,
++- a Bayer Noise Reduction (BNR) block,
++- a Vignetting block, aka Lens Shading Correction (LSC),
++- a Demosaic block for RAW image conversion to RGB,
++- a RGB Color Correction Matrix (CCM) and Color Space Converter aka CSC or
++  RGB2YUV,
++- a Dynamic Range Compression (DRC) block,
++- the Denoising pipeline (composed by multiple blocks for Noise Reduction, Edge
++  Enhancement, Gamma Compensation, etc),
++- a Packetizer used for UV sub-sampling or RGB packing.
++
++All these blocks are controlled by SW through registers. Some of these
++registers are accessible by the uAPI, so that userspace application and Image
++Processing Algorithms (IPA) can configure them through the parameters buffers.
++
++Neoisp driver
++=============
++
++Neoisp driver is located under drivers/media/platform/nxp/neoisp.
++It uses the `V4L2 API` and the `V4L2 subdev API` to register capture and output
++video devices in addition to a subdevice for neoisp that connects the video
++devices into a media graph realized using the `Media Controller (MC) API`.
++
++Driver provides a core registration API that allows registering the neoisp core
++media devices into an external media graph. In this case, the neoisp is fully
++integrated into a main media graph which could include other subdevices such as
++camera sensors, crossbar routing, etc. It also provides a module parameter to
++allow running in standalone mode. In such case, the neoisp registers its media
++devices into its own media graph.
++
++The media topology registered by Neoisp driver is represented below:
++
++.. kernel-figure:: nxp-neoisp.dot
++    :alt:   Diagram of neoisp media device topology
++    :align: center
++
++
++The neoisp registers the following video device nodes:
++
++- neoisp-input0: output device for RAW frames to be submitted to the ISP for processing.
++- neoisp-input1: output device for RAW frames short capture in HDR merge mode.
++- neoisp-params: output meta device for parameters provided by user space 3A algorithms.
++- neoisp-frame: capture device for RGB/YUV pixels of the processed images.
++- neoisp-ir: capture device for the infra-red pixels of the processed images.
++- neoisp-stats: capture meta device for generated image statistics for user space 3A algorithms.
++
++neoisp-input0, neoisp-input1
++----------------------------
++
++Images to be processed by Neoisp are queued to the neoisp-input0 (and
++neoisp-input1 when in HDR mode) output device nodes. Supported image formats
++as input to the ISP are:
++
++- Raw bayer formats:
++
++  - 8 bits raw (V4L2_PIX_FMT_SRGGB8, V4L2_PIX_FMT_SBGGR8, V4L2_PIX_FMT_SGBRG8,
++    V4L2_PIX_FMT_SGRBG8)
++  - 10 bits raw (V4L2_PIX_FMT_SRGGB10, V4L2_PIX_FMT_SBGGR10,
++    V4L2_PIX_FMT_SGBRG10, V4L2_PIX_FMT_SGRBG10)
++  - 12 bits raw (V4L2_PIX_FMT_SRGGB12, V4L2_PIX_FMT_SBGGR12,
++    V4L2_PIX_FMT_SGBRG12, V4L2_PIX_FMT_SGRBG12)
++  - 14 bits raw (V4L2_PIX_FMT_SRGGB14, V4L2_PIX_FMT_SBGGR14,
++    V4L2_PIX_FMT_SGBRG14, V4L2_PIX_FMT_SGRBG14)
++  - 16 bits raw (V4L2_PIX_FMT_SRGGB16, V4L2_PIX_FMT_SBGGR16,
++    V4L2_PIX_FMT_SGBRG16, V4L2_PIX_FMT_SGRBG16)
++
++- Monochrome formats:
++
++  - 8 bits Monochrome (V4L2_PIX_FMT_GREY)
++  - 10 bits Monochrome (V4L2_PIX_FMT_Y10)
++  - 12 bits Monochrome (V4L2_PIX_FMT_Y12)
++  - 14 bits Monochrome (V4L2_PIX_FMT_Y14)
++  - 16 bits Monochrome (V4L2_PIX_FMT_Y16)
++
++.. note::
++   RGBIr camera sensors are supported as well, and can be used through user
++   space activation of the IR block.
++
++.. note::
++   neoisp-input1 link is mutable and should be enabled in case a short capture
++   image buffer is provided to the ISP for HDR merge.
++
++.. _neoisp_params:
++
++neoisp-params
++-------------
++
++The neoisp-params output meta device receives configuration data to be written
++to Neoisp registers and internal memory for desired input image processing.
++This v4l2 device accepts the generic `extensible parameters` format.
++
++In this format, the parameters buffer is defined by the generic
++:c:type:`v4l2_isp_buffer`, and userspace should set
++:ref:`V4L2_META_FMT_NEO_ISP_EXT_PARAMS <v4l2-meta-fmt-neo-isp-ext-params>`
++as dataformat.
++
++When the related media link is disabled, the image decoding will be done based
++on the default parameters of the ISP.
++
++neoisp-frame
++------------
++
++The capture device writes to memory the RGB or YUV pixels of the image processed
++by Neoisp when the media link is enabled. If the related media link is disabled,
++the processed image will be written to dummy buffer and not delivered to the
++neoisp-frame video device node.
++
++neoisp-ir
++---------
++
++The capture device writes to memory the RGBIr pixels of the image processed by
++Neoisp when the media link is enabled. If the related media link is disabled,
++the processed image will not be delivered to the neoisp-ir video device node.
++
++.. _neoisp_stats:
++
++neoisp-stats
++------------
++
++The neoisp-stats capture meta device provides statistics data generated by
++Neoisp hardware while processing the input image. This v4l2 device accepts the
++`extensible statistics` format.
++
++In this format, the statistics buffer is defined by the generic
++:c:type:`v4l2_isp_buffer`, and userspace should set
++:ref:`V4L2_META_FMT_NEO_ISP_EXT_STATS <v4l2-meta-fmt-neo-isp-ext-stats>` as
++dataformat.
++
++When the related media link is disabled, the decoding statistics will not be
++delivered to the neoisp-stats meta device node.
++
++Control
++=======
++
++To support additional neoisp hardware revisions, the read-only bitmask control
++``V4L2_CID_NEOISP_SUPPORTED_PARAMS_BLOCKS`` can be used to query the list of
++supported blocks. Each bit represents the availability of the corresponding
++entry from the :c:type:`neoisp_param_block_type_e` enum. In current driver
++version, default and max values represent the blocks supported by the i.MX95
++SoC.
+diff --git a/Documentation/admin-guide/media/v4l-drivers.rst b/Documentation/admin-guide/media/v4l-drivers.rst
+index 4621eae9fa1e..4ae312b6135a 100644
+--- a/Documentation/admin-guide/media/v4l-drivers.rst
++++ b/Documentation/admin-guide/media/v4l-drivers.rst
+@@ -22,6 +22,7 @@ Video4Linux (V4L) driver-specific documentation
+ 	ivtv
+ 	mali-c55
+ 	mgb4
++	nxp-neoisp
+ 	omap3isp
+ 	philips
+ 	qcom_camss
+diff --git a/Documentation/userspace-api/media/v4l/meta-formats.rst b/Documentation/userspace-api/media/v4l/meta-formats.rst
+index 3e0cab153f0a..46268d955d3a 100644
+--- a/Documentation/userspace-api/media/v4l/meta-formats.rst
++++ b/Documentation/userspace-api/media/v4l/meta-formats.rst
+@@ -18,6 +18,7 @@ These formats are used for the :ref:`metadata` interface only.
+     metafmt-d4xx
+     metafmt-generic
+     metafmt-intel-ipu3
++    metafmt-nxp-neoisp
+     metafmt-pisp-be
+     metafmt-pisp-fe
+     metafmt-rkisp1
+diff --git a/Documentation/userspace-api/media/v4l/metafmt-nxp-neoisp.rst b/Documentation/userspace-api/media/v4l/metafmt-nxp-neoisp.rst
+new file mode 100644
+index 000000000000..c631fd50972a
+--- /dev/null
++++ b/Documentation/userspace-api/media/v4l/metafmt-nxp-neoisp.rst
+@@ -0,0 +1,70 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++*****************************************
++V4L2_META_FMT_NEO_ISP_EXT_PARAMS ('nnep')
++*****************************************
++
++The Neoisp image signal processor is configured by userspace through a buffer
++of parameters to :ref:`neoisp-params <neoisp_params>` output device node using
++the :c:type:`v4l2_meta_format` interface.
++
++The parameters buffer uses the generic `extensible parameters` configuration
++format.
++
++.. _v4l2-meta-fmt-neo-isp-ext-params:
++
++Extensible parameters configuration format
++==========================================
++
++When using the `extensible parameters` configuration format, parameters are
++passed to the :ref:`neoisp-params <neoisp_params>` metadata output video node
++using the `V4L2_META_FMT_NEO_ISP_EXT_PARAMS` meta format.
++
++The buffer contains a single instance of the C structure
++:c:type:`v4l2_isp_buffer` defined in `v4l2-isp.h`. The
++:c:type:`v4l2_isp_buffer` structure is designed to allow userspace to
++populate the data buffer with only the configuration data for the Neoisp blocks
++it intends to configure. The extensible parameters format design allows
++developers to define new block types to support new configuration parameters,
++and defines a versioning scheme so that it can be extended and versioned
++without breaking compatibility with existing applications.
++
++****************************************
++V4L2_META_FMT_NEO_ISP_EXT_STATS ('nnes')
++****************************************
++
++The Neoisp image signal processor generates statistics data while processing an
++input image. These statistics are captured in a buffer and provided to
++userspace through the :ref:`neoisp-stats <neoisp_stats>` capture video node
++using the :c:type:`v4l2_meta_format` interface. The statistics data are
++processed by userspace application to produce the next Neoisp parameters.
++
++The statistics buffer uses the generic `extensible statistics` format.
++
++.. _v4l2-meta-fmt-neo-isp-ext-stats:
++
++Extensible statistics format
++============================
++
++When using the `extensible statistics` format, the statistics buffer is passed
++from the :ref:`neoisp-stats <neoisp_stats>` metadata capture video node using
++the `V4L2_META_FMT_NEO_ISP_EXT_STATS` meta format.
++
++The buffer contains a single instance of the C structure
++:c:type:`v4l2_isp_buffer` defined in `v4l2-isp.h`. The
++:c:type:`v4l2_isp_buffer` structure is designed to allow future Neoisp
++driver versions to populate the statistics buffer with future blocks
++statistics, and defines a versioning scheme so that it can be extended and
++versioned without breaking compatibility with existing applications.
++
++**********************
++Neoisp uAPI data types
++**********************
++
++This chapter describes the data types exposed to userspace by Neoisp driver.
++
++Some structure members are in a fixed-point format, in this case the related
++description will be ended by a fixed-point definition between parenthesis.
++
++.. kernel-doc:: include/uapi/linux/media/nxp/nxp_neoisp.h
++
 -- 
-Loic Poulain <loic.poulain@oss.qualcomm.com>
+2.53.0
 
