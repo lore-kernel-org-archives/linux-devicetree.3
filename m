@@ -1,241 +1,185 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010052.outbound.protection.outlook.com [52.101.229.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B0636F91F;
-	Fri, 12 Jun 2026 10:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781260818; cv=fail; b=EfWOwbAIscqdhXHYjvbstZfus1GkRQxP6g+5K/0ytIkEgUtri4rxLPdNqPGZoLgf745q3Q4ZpcbNYjgyLbF9hNu9LaR7Uki/9Xbao0IiYjTe/hIvCveDTPljJxPKJAHKu/DLgUcEUQt7HBQb5MP+bQu07AXT3IJYkIp21Bzb800=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781260818; c=relaxed/simple;
-	bh=sPVNteAiD3W3vQa8OkSFVjOuIPJBBSPBGGecic/KKb0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gzoEz+KEPU222HibLtaz7aL44YBDYwEY5+0uosIHD4rcfbzW0Arc+SH6wJn6Be7DtEyQJWilsI80ZOt26gXQoPPhEtjtAdrgBeMR9Kz3eQ9xxMciFodsV0lRgLsWWo2QcnqGj+66Edsl7ZkR3fswlU+/WTVRNDYrXT/Bq41PxSM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=mEo/b372; arc=fail smtp.client-ip=52.101.229.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B11C392802;
+	Fri, 12 Jun 2026 10:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781260963; cv=none; b=cDDfqBQNhIIbd6BdyQCSUau8OAqtGNmICW1ehftQvnk2aQpKyjgNvspqj8N+aAGcBVqT6MyJpdBsIABsXx39G0Swk1kiK/BoXngKuqPsnuO6dMEczxmpGt+gRrJbOOeuq/H3GEq15kWxB6Rcyu98uaK+pdfMqla9PL9ocYJwtn0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781260963; c=relaxed/simple;
+	bh=d6kXQUKxmwIoAqeaPpUA3CUMu2pW6SHUT+zJ4IoxNzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aE/PeYCiWsGu6PvqRNMBWoWsqdm7lacOmwFgAzFQ3+HoGwL8/XiZUL/l/Nl3b0HGc5Nfr+0h1LnT+THISp40O2Lw2KnR67zfpto5dR+Aa+uRfDlgLSHlqiCw+4LXIjhewGzufAWKRiNS62DEvABbBBx5YkSWW5/qGIIh0VG4Z1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOESSHvn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="mEo/b372"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z5IASiyfQiOJOzdb5d0EvBGIanYsaFZCPnevKiJRKl4Zzz4X7r7AgOIPTBLO4JCkFj8yw8xIq5x9MO68fAmDy/Sb7POy9uV+Es3A9Nr4ubxLXUY0v3TeuB7K5tyOnx0vRKDGS9GrTKqTBM/QZc+rGfAoiB3Yqt/8bp9DmJmO145PDDMYw/KqKoejGCRuae+cBcAlF1sBkjXPXxXJTQv5o023T3zRskGVVrW80Pg7BJOUzG9PIHpraOBaCLDKft3XuYlNugexZOjatQ3l3z+jvbNsHnboOMzXrIzd43BtujHhrwyFUc5VVCkNiv0RJU428hJsfBZf728Efa4p1BO1Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=feGGCptLAr5DW+P/2+JXQ7PuksyXGh9gyDXAa12WCKw=;
- b=LBCLnKPmGee+aURg8P6EFQ1ajJ05ENhdU8SeoG7+q+BKM36LzYLDOzVUUZCx4nlQs9MP/NVF8pkfhmDs4VxF4inlo1YcxAzu/bvPlinNqcBIKpUPqyiKGX6fPeYzyff5aWFhZxbuH3C3qiSQ1GhFCKXX6Vy45Ed3IYNBkh9U3V1x0DDH5sR0UgjamF5hlfffLPLay1iVFj2cCDcIAU/5jAeui3a6wGYkndr7kSwoDY3tGa7xssl04DSrd1DT3c4Sp1QNisXlfWhurOiBe4gcoVezovXXXAoXIy8ZTnnV5CQPHrPsh3aE6CCowUtpmUVhKt7Ss/c1QUX2baLxQNsnaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=feGGCptLAr5DW+P/2+JXQ7PuksyXGh9gyDXAa12WCKw=;
- b=mEo/b372JHqsS/dpfVuVL+aZINeyq2fBxSFaMgnQ/Lc4zZiJKM5infrgYIqYdVEvTB2Agr2zMrc8RSwrQAuUEsCQcJSxOe4eWuVTZbsXomD9MLH6CIIT7EfRoqUAvpNLbVk1KQ3vO4D0FS+gntslivXz/lpSx7mPsyUHXU7FZ8Q=
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
- by OSCPR01MB13411.jpnprd01.prod.outlook.com (2603:1096:604:32d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
- 2026 10:40:11 +0000
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.21.0092.016; Fri, 12 Jun 2026
- 10:40:11 +0000
-From: John Madieu <john.madieu.xa@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>, "geert+renesas@glider.be"
-	<geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"john.madieu@gmail.com" <john.madieu@gmail.com>
-Subject: RE: [PATCH v5 2/4] arm64: dts: renesas: rzg3e-smarc-som: Add Versa3
- clock generator
-Thread-Topic: [PATCH v5 2/4] arm64: dts: renesas: rzg3e-smarc-som: Add Versa3
- clock generator
-Thread-Index: AQHc+K1oWv2WPrhoVUKv/Ec4+yIF4LY3cNCAgANMdGA=
-Date: Fri, 12 Jun 2026 10:40:10 +0000
-Message-ID:
- <TY6PR01MB173776ECE5EFE874F031C5733FF182@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-References: <20260610074702.1743334-1-john.madieu.xa@bp.renesas.com>
- <20260610074702.1743334-3-john.madieu.xa@bp.renesas.com>
- <TY3PR01MB113467A63C78C21DDA14220BE861A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To:
- <TY3PR01MB113467A63C78C21DDA14220BE861A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|OSCPR01MB13411:EE_
-x-ms-office365-filtering-correlation-id: f8543f17-9b97-4dec-b71c-08dec86efa9f
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|4143699003|56012099006|5023799004|3023799007|11063799006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- CtEBJ1KKqUYe4E5aXV2MNfA4eNm4zSah201FzWgQlMQ2Q7QyVO2IZo2VxZSKy/CT7JAKX8cYSrXe/IpLMQUSDTXa1HV+R90TyaO/V2B/Jawdbpt9L1iZAHvmkbaPZ3i+SVATBKpkyyG3mD+qXUXPdetiIjDNxyCZor/1jKF34eKfvWHdkt3lwtVweGazuKuF6qqh3Vo5Qyms19Mj/FpU5SbXBD6zpXuTx3oKKmbT9JrpsdN74pV3NnaI3h/WyfnPaG4MBwNXSe231XYzr+L2kWepukbtDU+YlssaeTQpMElniHYuYSwgAUoRNUweHOHe/3d+QqHeRz54I4333U3vk+SnAGfdql5wxlxp3XRRP1KCK1oJwfg2AFgLwcR0lltzopqrrJ9YEvjFJeVM3oUS2Tjhty173tUZRPVjJ7jEbbRm5pI/s4R9Tfm9BzDaGaMOI9egkfr/Nh7IFacOl747bQsPM2KFsRmUyKLGCd2KpkL4/W56g7Jz7mEFBXmy/nTPIZS2zqJG4sZfoBD7f1+mduJVnWUWE5Y59tlkoWBtm693tMyULLiL4kEeSxmTX92iZNXgyHwqjnxvn2QmlKp5f96i9iqc3kGhT19LYbCwbQkBXzwHhvysOkqSVXZoUND/mMgqH72mh990motZY/KyRRtJ+Plls853ahh+TABpbEkC4ZJ9Huvk3gGE187A0QGgHuxMEwD1IKwhpGgWsOVCpq+hC1kvW0l2m454wzPhIQyrLw10SjfAIXeepf0Bq49C
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(4143699003)(56012099006)(5023799004)(3023799007)(11063799006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Dmex4Kz7LlLtZUb4S7Te0Hih88zE1l4cCC04O9rnfY7ibZscrMaENl+vQncH?=
- =?us-ascii?Q?o6WsQYTk99KACvT4jI0OKX+oiYMDJzUvfCN+KQegQ5g5aDvFdFpd8n4d/hk7?=
- =?us-ascii?Q?CgD6R+BZheJbu6rIURTn4O1MVKVWyb2kdKZwDUAtie3Gk27HLm5drpO9rlaX?=
- =?us-ascii?Q?ZFunPlCocrPtcfQCrodbB6N1rlGH2116UOp/4CHQX/CDGH45QtwADNtWnpBq?=
- =?us-ascii?Q?k5F/83X+utdidy1Hk3iYtc2n+r3gFPVbb4zPTplY4bvB84omWMOmU/xS5533?=
- =?us-ascii?Q?bEYEzPSevuWWeo2eJ1gBReA2aiSxtzMz0YxX8ua9JFqnK409E2+uexvAbZji?=
- =?us-ascii?Q?Gq0RrAk3gjoqRjINdnnzpaFMLlqSVlIU31pON/EVvxEc8A7BNT2rmMfLkBIB?=
- =?us-ascii?Q?+NvopitV8K4DMMZAR2ogV9aQodv0oDjqLqFZ1TG46n4XouvK99l4KvuImmn4?=
- =?us-ascii?Q?ZT1YUJdB7iN0WE8b2DBZpJ+5ciM/4Ou0cEPdK9DakEiWVaEb04rSyWlj1LKc?=
- =?us-ascii?Q?uCOvlU6hAV1SkU1naQYoMNe6eL/VhoH+upseSrXIBFWYX12Av+utSQ/M5nye?=
- =?us-ascii?Q?bRsaZToeqJ2EgDZgM9KQypJYcfj5dJHpLvUKsXqiYdv2SCkp+fQ1aOZ0i4B9?=
- =?us-ascii?Q?FYsLwfSO7WH5/lyrU/tdzoP1LYK7DqhDqUMxU4itsx3ha7kpcorareyv1hsE?=
- =?us-ascii?Q?cJR5wm2n3omI3eYXpHo6LZvIrP7fkKZrrZvR3kd2/2xtqp7e4QdM5nnXjc4X?=
- =?us-ascii?Q?LH14t0Gd6HqNhzGfA8Fc6a1nXe5vCNRZRzckqfBMcz5qKPK2Mi+no6bRuMSY?=
- =?us-ascii?Q?h4yOURn1crDJd6L7sY5595DEvou6GgHIIvKPLfCMy+rS6U25NvNH18nGOl3D?=
- =?us-ascii?Q?mN+A55B2MVawV/Y4LIY52MHKPK1k3Kky+U4elG4f0cba9jb45ksZKYnRodzD?=
- =?us-ascii?Q?dmO61TkL/rHrWHll9+K7oJTjvUp7+DJF7wQzam3gZGcd1EyVjqoak9DzIWCD?=
- =?us-ascii?Q?YcWHdrNf1LL0DjA3QATmv26Hl/H17g45NNvrHOBQVIXXvcPvLvc67FR27LFC?=
- =?us-ascii?Q?kaWh/hpCkf15V1kntwAQo9jh1Gps0RempxarWrjhDj+uDZ6AH4wWioaEUNWB?=
- =?us-ascii?Q?hwhxnCD8XxeXAXZpoBPTjKEA2hY9RqkLo0uNM7jMhEuXyBMSeDFg1+I0CT6T?=
- =?us-ascii?Q?oCbQsJKL01J8mTNdqU/5RlQUx6B7zOTRuYYu3xvi/JtMJSiP7sSTcSLXC72X?=
- =?us-ascii?Q?Loi1fvbfkLdcQaaNX6rcRlqhdNnVOVMwaXXY/+JPLZH4ZA5XQ1MKtbkKKlSk?=
- =?us-ascii?Q?BUQTu1mLQMGKH4g56EWGWFupQf5F2rjH2AsoUmftMnRx+9Wnts6mDzL1h+Vl?=
- =?us-ascii?Q?TInprLwbspOcn9UFmhDYUKu5MKcbdbUs3qZxtQ5HDP/pCWn37bUd0nJesXbr?=
- =?us-ascii?Q?DoGezegrSFC7QyL58OcI8hplX0vr7YzdRJAA3k+ptSWHPkgizOnWmEvsj2iK?=
- =?us-ascii?Q?zSX95jeSy02E08gZR49z4VGP1xMejo9/iSFCWU6EBj5dCFFQSrMZyqWK809f?=
- =?us-ascii?Q?v22YHD2O/SobequZcGNDb07cwXbqsexiD6p7yNyp83foCHo3mQgKnyKB/Gqk?=
- =?us-ascii?Q?R0bLdWzooiOFvlZg3gX4pjlrN5gIUQtql4KcpxEwmyB5YCEN88exG91bJ4Hs?=
- =?us-ascii?Q?gXfhgQ2T3GAUWSJ48jGOK4BUbHWtasoC3FMhUSvYjd/C/cWj/tv8yfKaUdGS?=
- =?us-ascii?Q?/B0FcvqU0Y6KWqhuaYzeTFDtRRN8GJc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOESSHvn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96F381F000E9;
+	Fri, 12 Jun 2026 10:42:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781260960;
+	bh=TDAHrpYZ6EtG6Z5qfwCH1qFBecbQ13ZGD/JYhR1ZyiY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LOESSHvn2qT0OB32WytdOew0BJ0iUhZVcpJIQydN+IsMmKtWZVr3CvQU1jDzwh8NH
+	 PCYdDVhKeyMO0AlAAsu5BjXByuONotT7+PPka18btW68MgpBhAoGfN2l8sIXfkBeid
+	 8Nm95Sr83+mkfhzJ1B5oYHFQDw476nSBxSVUGdNEd75746h2/0HsKkP5bFAAM6EXaX
+	 hGMx1/+FQBn6Vkb1SuiwUAPo62bgCaQYbp7ZpVjtcRyHg38GpjKjg8EzQ0BH/Lq49F
+	 3l1YrO1eWKNzLUDgi0/hKMWW3qwA54B1ksxwhBMhS0ZYGnzpkdwzGGRFn3bRd+mekX
+	 m6jvbFlM1vKoQ==
+Date: Fri, 12 Jun 2026 11:42:30 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+ andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+ jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH V11 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Message-ID: <20260612114230.0fd2f391@jic23-huawei>
+In-Reply-To: <PH0PR19MB997338CE11110E16E7FB668E3BA51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260610175455.19006-1-macroalpha82@gmail.com>
+	<20260610175455.19006-4-macroalpha82@gmail.com>
+	<20260611120943.7119975b@jic23-huawei>
+	<PH0PR19MB9973387E29375D4E8F28C6B9D9A51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
+	<20260611172022.4d138820@jic23-huawei>
+	<PH0PR19MB997338CE11110E16E7FB668E3BA51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8543f17-9b97-4dec-b71c-08dec86efa9f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 10:40:10.9563
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sfofD3+EZ5ALgYGjx59XRRK+fAiBUE2/eGkrZ3MqpjZZETx+B8WZ0msLtzGsdYT7YoEDPXz9WQ1palrCaMCnR7rWvOD751+yaOKjUZBkSRg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB13411
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Biju,
+On Thu, 11 Jun 2026 11:31:09 -0500
+Chris Morgan <macromorgan@hotmail.com> wrote:
 
-Thank you for your review.
+> On Thu, Jun 11, 2026 at 05:20:22PM +0100, Jonathan Cameron wrote:
+> > On Thu, 11 Jun 2026 09:32:38 -0500
+> > Chris Morgan <macromorgan@hotmail.com> wrote:
+> >   
+> > > On Thu, Jun 11, 2026 at 12:09:43PM +0100, Jonathan Cameron wrote:  
+> > > > On Wed, 10 Jun 2026 12:54:47 -0500
+> > > > Chris Morgan <macroalpha82@gmail.com> wrote:
+> > > >     
+> > > > > From: Chris Morgan <macromorgan@hotmail.com>
+> > > > > 
+> > > > > Add the core component of a new inv_icm42607 driver. This includes
+> > > > > a few setup functions and the full register definition in the
+> > > > > header file.
+> > > > > 
+> > > > > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>    
+> > > > Hi Chris,
+> > > > 
+> > > > A couple more minor things from a fresh read.
+> > > > 
+> > > > Thanks
+> > > > 
+> > > > Jonathan
+> > > >     
+> > > > > ---
+> > > > >  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 334 ++++++++++++++++++
+> > > > >  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 197 +++++++++++
+> > > > >  2 files changed, 531 insertions(+)
+> > > > >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> > > > >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > 
+> > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> > > > > new file mode 100644
+> > > > > index 000000000000..716fc0f1c3fd
+> > > > > --- /dev/null
+> > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h    
+> > > >     
+> > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > new file mode 100644
+> > > > > index 000000000000..334264120b42
+> > > > > --- /dev/null
+> > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c    
+> > > >     
+> > > > > +
+> > > > > +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> > > > > +			      inv_icm42607_bus_setup inv_icm42607_bus_setup)
+> > > > > +{
+> > > > > +	const struct device *dev = regmap_get_device(st->map);
+> > > > > +	unsigned int val;
+> > > > > +	int ret;
+> > > > > +
+> > > > > +	ret = regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
+> > > > > +	if (ret)
+> > > > > +		return ret;
+> > > > > +
+> > > > > +	/* Warn, but don't fail. */
+> > > > > +	if (val != st->hw->whoami)
+> > > > > +		dev_warn(dev, "Unknown whoami %#02x expected %#02x (%s)\n",
+> > > > > +			 val, st->hw->whoami, st->hw->name);
+> > > > > +
+> > > > > +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> > > > > +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
+> > > > > +	if (ret)
+> > > > > +		return ret;
+> > > > > +
+> > > > > +	fsleep(INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC);
+> > > > > +
+> > > > > +	/*
+> > > > > +	 * No polling interval specified in datasheet, so use reset time as
+> > > > > +	 * polling interval and 10x reset time as timeout period.
+> > > > > +	 */
+> > > > > +	ret = regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
+> > > > > +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
+> > > > > +				       (INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC),
+> > > > > +				       (INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC * 10));
+> > > > > +	if (ret)
+> > > > > +		return dev_err_probe(dev, ret,
+> > > > > +				     "reset error, reset done bit not set\n");
+> > > > > +
+> > > > > +	/* Sync the regcache again after a reset. */
+> > > > > +	regcache_mark_dirty(st->map);
+> > > > > +	ret = regcache_sync(st->map);    
+> > > > 
+> > > > Sashiko raised the point that you don't have a writeable register list for the regmap
+> > > > and so potentially we at very least write a bunch of stuff that isn't needed.
+> > > > I doubt it's actually a problem or you would have seen it, but nice little optimization
+> > > > to reduce what is written.    
+> > > 
+> > > I will add such a list, I'd put it in patch 4 unless you think I should
+> > > merge patch 3 and 4 to make the driver compileable at the first commit
+> > > of code (will push the number of lines to the ~850/900 range though).
+> > >   
+> > I'm fine with them split but don't mind if Andy prefers them combined.
+> > His comment on adding a COMPILE_TEST option would allow that to be
+> > built, but it is a bit odd to do it just for that purpose.
+> > 
+> > Jonathan
+> >   
+> 
+> I'm going to add the i2c stuff to this series, and then do the SPI
+> on the next patch. That should add only a little bit to this one but
+> still ensure the very first (code) commit has something to compile.
+> I'm going to avoid doing COMPILE_TEST unless collectively you all
+> think I should.
+> 
+> I'm still racing to try and get this one done before the merge
+> window opens up, but I'm pretty sure it's already too late at
+> this point. I'll refrain from submitting updates once the window opens
+> though.
+Unfortunately you are correct. IIO in practice closes around 10 days before
+the merge window to give time to both expose new things to testing in linux-next
+and to allow time for Greg KH to merge my pull request into char-misc (which
+is the path IIO takes to upstream)
 
-> -----Original Message-----
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> Sent: mercredi 10 juin 2026 10:14
-> To: John Madieu <john.madieu.xa@bp.renesas.com>; geert+renesas@glider.be;
-> magnus.damm <magnus.damm@gmail.com>; robh@kernel.org; krzk+dt@kernel.org;
-> conor+dt@kernel.org
-> Subject: RE: [PATCH v5 2/4] arm64: dts: renesas: rzg3e-smarc-som: Add
-> Versa3 clock generator
->=20
-> Hi John,
->=20
-> > -----Original Message-----
-> > From: John Madieu <john.madieu.xa@bp.renesas.com>
-> > Sent: 10 June 2026 08:47
-> > Subject: [PATCH v5 2/4] arm64: dts: renesas: rzg3e-smarc-som: Add
-> > Versa3 clock generator
-> >
-> > Add the Renesas 5P35023 (Versa3) programmable clock generator on the
-> > I2C2 bus along with its 24MHz input clock (x2 oscillator) to feed the
-> audio subsystem.
-> >
-> > The Versa3 provides the following clock outputs:
-> > - Output 0: 24MHz (reference)
-> > - Output 1: 12.288MHz (audio, 48kHz family)
-> > - Output 2: 11.2896MHz (audio, 44.1kHz family)
-> > - Output 3: 12.288MHz (audio)
-> > - Output 4: 25MHz (DIFF1, Ethernet)
-> >
-> > These clocks are required for the audio codec and the Ethernet
-> > controller found on the RZ/G3E SMARC EVK.
-> >
-> > Output 5 (DIFF2) is left out, as it is not connected on this board.
-> >
-> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> > ---
-> >
-> > Changes:
-> >
-> > v5:
-> >  - Drop Versa3 output 5 (DIFF2), as it is not connected.
-> >  - Document output 4 (DIFF1) in the commit message; it is needed for
-> >    Ethernet.
-> >
-> > v4: No changes
-> > v3: No changes
-> > v2: No changes
-> >
-> >  .../boot/dts/renesas/rzg3e-smarc-som.dtsi     | 20 +++++++++++++++++++
-> >  1 file changed, 20 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> > b/arch/arm64/boot/dts/renesas/rzg3e-
-> > smarc-som.dtsi
-> > index 15c22dbf0ad3..e951609d39e9 100644
-> > --- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> > @@ -78,6 +78,12 @@ reg_vdd0p8v_others: regulator-vdd0p8v-others {
-> >  		regulator-always-on;
-> >  	};
-> >
-> > +	x2: x2-clock {
-> > +		compatible =3D "fixed-clock";
-> > +		#clock-cells =3D <0>;
-> > +		clock-frequency =3D <24000000>;
-> > +	};
-> > +
-> >  	/* 32.768kHz crystal */
-> >  	x3: x3-clock {
-> >  		compatible =3D "fixed-clock";
-> > @@ -137,6 +143,20 @@ raa215300: pmic@12 {
-> >
-> >  		interrupts-extended =3D <&pinctrl RZG3E_GPIO(S, 1)
-> IRQ_TYPE_EDGE_FALLING>;
-> >  	};
-> > +
-> > +	versa3: clock-generator@68 {
-> > +		compatible =3D "renesas,5p35023";
-> > +		reg =3D <0x68>;
-> > +		#clock-cells =3D <1>;
-> > +		clocks =3D <&x2>;
-> > +
-> > +		assigned-clocks =3D <&versa3 0>, <&versa3 1>,
-> > +				  <&versa3 2>, <&versa3 3>,
-> > +				  <&versa3 4>, <&versa3 5>;
->=20
-> No need to assign clock rate for unconnected output. So drop <&versa3 5>;
+Sorry about that, and whilst no need to rush as a result, we also don't
+stop merging IIO stuff in the merge window, it just sits in the testing
+branch until I can rebase that on rc1 and then push it out for linux-next
+to pick up.
 
-Noted.
+Thanks,
 
->=20
-> > +		assigned-clock-rates =3D <24000000>, <12288000>,
-> > +				       <11289600>, <12288000>,
-> > +				       <25000000>, <25000000>;
->=20
->=20
-> Drop <25000000>;
-
-My bad. I missed that, these removal should have been handled in v5.
-I'll address in v6.
-
-Regards,
-John
+Jonathan
+> 
+> Thank you,
+> Chris
+> 
 
