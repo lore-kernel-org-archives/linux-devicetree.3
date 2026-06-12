@@ -1,28 +1,28 @@
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91B83CF668;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5AD37756E;
 	Fri, 12 Jun 2026 11:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781263591; cv=none; b=mSzpppFp3Wwmy4vC01zTM/gwO2EkzJGrBjMjG4dATmfptWXoqIUcLUp/h0HYsGVMIWd9JyW5dTLhYiES0psQbZG08rtLbdFQgkR4fyI3JScHuYMM4j+q7fIdEwoSHNLdnotnCk9QBQJhVriXOFIhNiQK9bq3PquQMzml3h5u97o=
+	t=1781263592; cv=none; b=Eibo2U4I6cNvLyp0Hk0N0FZG1r3dM3WiAeYdvwiDSnOzgJwCOl0MQBH/Q3yOPzMpWw5KcZMtzgQnboO7X8u1oTDMX4h/ovBZBMD4qTy0tEtqlIQiufhLkBzyjLefeEfSFEXvIQAn8CN/tdra4DnFgJ39eXH7gWyxn9aVLeIVpy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781263591; c=relaxed/simple;
-	bh=ARIcy1k8l4LXFaC5xgnK/hmNY+m/+cINZYuWmGVmPCY=;
+	s=arc-20240116; t=1781263592; c=relaxed/simple;
+	bh=PZnOlFMfVYJTcvBALMMrY+oSwcdSHXNR+oZuVHV4MZU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uOsKR4GNpjuAzTjWGDu3ix+sMT4tYsqewRFJ7o81Nw+6hcEsTV5rltD/xlpkq7IguA8/N2JuL6D3DPbl9Wczp4X4WBzWRpELQEVTUNz8KRvf2QZroexGdZY216WGUIWV7J9NAqP1AlzJXHj8LHE4jT1RB/+gwHvQ6UVbtZtXkHo=
+	 MIME-Version; b=tpBJhWDDh4DOla8Wk/8sv7a756Ku37Ug4OijGXVbfdTl1lmqa4G+ZWHhKPfyMeW+MU9esBUOhC/wpHHgryrVDXkDp/rHUBsvqxHESQKoCctlMiFEPpQga7Fby5wMPsrPHSrRPJRnmUv0S+bnrd736VimP68M4oC+M0O8Lx16H8A=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D15A0200815;
-	Fri, 12 Jun 2026 13:18:25 +0200 (CEST)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 61BAF200801;
+	Fri, 12 Jun 2026 13:18:28 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 998D42007F9;
-	Fri, 12 Jun 2026 13:18:25 +0200 (CEST)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2A16C2007F9;
+	Fri, 12 Jun 2026 13:18:28 +0200 (CEST)
 Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 4C2791800071;
-	Fri, 12 Jun 2026 19:18:24 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id CF124180007B;
+	Fri, 12 Jun 2026 19:18:26 +0800 (+08)
 From: Lakshay Piplani <lakshay.piplani@nxp.com>
 To: linux-kernel@vger.kernel.org,
 	linux-i3c@lists.infradead.org,
@@ -39,9 +39,9 @@ Cc: vikash.bansal@nxp.com,
 	priyanka.jain@nxp.com,
 	aman.kumarpandey@nxp.com,
 	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [PATCH v11 2/9] i3c: master: Expose the APIs to support I3C hub
-Date: Fri, 12 Jun 2026 16:48:09 +0530
-Message-Id: <20260612111816.3688240-3-lakshay.piplani@nxp.com>
+Subject: [PATCH v11 4/9] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+Date: Fri, 12 Jun 2026 16:48:11 +0530
+Message-Id: <20260612111816.3688240-5-lakshay.piplani@nxp.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260612111816.3688240-1-lakshay.piplani@nxp.com>
 References: <20260612111816.3688240-1-lakshay.piplani@nxp.com>
@@ -56,191 +56,378 @@ X-Virus-Scanned: ClamAV using ClamSMTP
 
 From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-Change the below internal static functions to APIs to allow new I3C hub
-driver to use them
-
-1) i3c_dev_enable_ibi_locked()
-2) i3c_dev_disable_ibi_locked()
-3) i3c_dev_request_ibi_locked()
-4) i3c_dev_free_ibi_locked()
-5) i3c_master_reattach_i3c_dev_locked()
+Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+multiport I3C hub family. These devices connect to a host via
+I3C/I2C/SMBus and allow communication with multiple downstream
+peripherals.
 
 Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
 Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
 ---
-Changes in v11: 
- - No change, added Reviewed-By tag
+Changes in v11:
+ - No change
 
 Changes in v10:
- - Expose the renamed reattach API.
+ - No change, added Reviewed-By tag
 
 Changes in v9:
- - No change
+ - Referenced i3c.yaml and i2c-controller.yaml for child nodes
+ - Dropped unnecessary #address-cells and #size-cells from child nodes
 
 Changes in v8:
- - No change
+ - Add compatible in i3c example
 
 Changes in v7:
- - Fix kernel-doc warnings for *_locked() APIs
- - Clarify API exposure in commit message
+ - Fix schema validation issues
+ - Adjust required properties
+ - Add I2C example
 
 Changes in v6:
- - Split the patch into two parts:
-        1) expose the existing API
-        2) add new APIs.
+ - Use a vendor prefix for the attributes
 
 Changes in v5:
- - No change
+ - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
+   tp0145-ldo-microvolt, tp2367-ldo-microvolt
+ - Changed supply entries and its descriptions
 
 Changes in v4:
- - Updated I3C master to handle hub support
----
----
- drivers/i3c/master.c       | 70 ++++++++++++++++++++++++++++++++++++--
- include/linux/i3c/master.h |  2 ++
- 2 files changed, 70 insertions(+), 2 deletions(-)
+ - Fixed DT binding check warning
+ - Removed SW properties: ibi-enable, local-dev, and always-enable
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index e89d73508b9a..0636e3e21758 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1652,8 +1652,23 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
- 	return 0;
- }
+Changes in v3:
+ - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
+ - Added Regulator supply node
+
+Changes in v2:
+ - Fixed DT binding check warning
+ - Revised logic for parsing DTS nodes
+---
+---
+ .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 291 ++++++++++++++++++
+ MAINTAINERS                                   |   9 +
+ 2 files changed, 300 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+
+diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+new file mode 100644
+index 000000000000..c080eeb0eeaa
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+@@ -0,0 +1,291 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025 NXP
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP P3H2X4X I3C HUB
++
++maintainers:
++  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
++  - Vikash Bansal <vikash.bansal@nxp.com>
++  - Lakshay Piplani <lakshay.piplani@nxp.com>
++
++description: |
++  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
++  hub devices that connect to:-
++  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to multiple
++     peripheral devices on the downstream  side.
++  2. Have two Controller Ports which can support either
++     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
++  3. P3H2840/ P3H2841 are 8 port I3C hub with eight I3C/I2C Target Port.
++  4. P3H2440/ P3H2441 are 4 port I3C hub with four I3C/I2C Target Port.
++     Target ports can be configured as I2C/SMBus, I3C or GPIO and connect to
++     peripherals.
++
++properties:
++  compatible:
++    const: nxp,p3h2840
++
++  reg:
++    maxItems: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  assigned-address:
++    maximum: 0x7f
++
++  nxp,tp0145-pullup-ohms:
++    description:
++      Selects the pull up resistance for target Port 0/1/4/5, in ohms.
++    enum: [250, 500, 1000, 2000]
++    default: 500
++
++  nxp,tp2367-pullup-ohms:
++    description:
++      Selects the pull up resistance for target Port 2/3/6/7, in ohms.
++    enum: [250, 500, 1000, 2000]
++    default: 500
++
++  nxp,cp0-io-strength-ohms:
++    description:
++      Selects the IO drive strength for controller Port 0, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  nxp,cp1-io-strength-ohms:
++    description:
++      Selects the IO drive strength for controller Port 1, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  nxp,tp0145-io-strength-ohms:
++    description:
++      Selects the IO drive strength for target port 0/1/4/5, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  nxp,tp2367-io-strength-ohms:
++    description:
++      Selects the IO drive strength for target port 2/3/6/7, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  vcc1-supply:
++    description: Controller port 0 power supply.
++
++  vcc2-supply:
++    description: Controller port 1 power supply.
++
++  vcc3-supply:
++    description: Target port 0/1/4/5 power supply.
++
++  vcc4-supply:
++    description: Target port 2/3/6/7 power supply.
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    properties:
++      ldo-cp0:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-cp1:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-tpg0:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-tpg1:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++required:
++  - reg
++
++patternProperties:
++  "^i3c@[0-7]$":
++    type: object
++    $ref: /schemas/i3c/i3c.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        description:
++          The I3C HUB Target Port number.
++        maximum: 7
++
++      nxp,pullup-enable:
++        type: boolean
++        description:
++          Enables the on-die pull-up for Target Port.
++
++    required:
++      - reg
++
++  "^(i2c|smbus)@[0-7]$":
++    type: object
++    $ref: /schemas/i2c/i2c-controller.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        description:
++          The I3C HUB Target Port number.
++        maximum: 7
++
++      nxp,pullup-enable:
++        type: boolean
++        description:
++          Enables the on-die pull-up for Target Port.
++
++    required:
++      - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i3c {
++        #address-cells = <3>;
++        #size-cells = <0>;
++
++        hub@70,236153000c2 {
++            reg = <0x70 0x236 0x3000c2>;
++            compatible = "nxp,p3h2840";
++            #address-cells = <1>;
++            #size-cells = <0>;
++            assigned-address = <0x50>;
++
++            nxp,tp0145-pullup-ohms = <1000>;
++            nxp,tp2367-pullup-ohms = <1000>;
++            nxp,cp0-io-strength-ohms = <50>;
++            nxp,cp1-io-strength-ohms = <50>;
++            nxp,tp0145-io-strength-ohms = <50>;
++            nxp,tp2367-io-strength-ohms = <50>;
++            vcc3-supply = <&reg_tpg0>;
++            vcc4-supply = <&reg_tpg1>;
++
++            regulators {
++                reg_cp0: ldo-cp0 {
++                    regulator-name = "ldo-cp0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_cp1: ldo-cp1 {
++                    regulator-name = "ldo-cp1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg0: ldo-tpg0 {
++                    regulator-name = "ldo-tpg0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg1: ldo-tpg1 {
++                    regulator-name = "ldo-tpg1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++            };
++
++            smbus@0 {
++                reg = <0x0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++
++            i2c@1 {
++                reg = <0x1>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++
++            i3c@2 {
++                reg = <0x2>;
++                #address-cells = <3>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++        };
++    };
++
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        hub@70 {
++            reg = <0x70>;
++            compatible = "nxp,p3h2840";
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            nxp,tp0145-pullup-ohms = <1000>;
++            nxp,tp2367-pullup-ohms = <1000>;
++            nxp,cp0-io-strength-ohms = <50>;
++            nxp,cp1-io-strength-ohms = <50>;
++            nxp,tp0145-io-strength-ohms = <50>;
++            nxp,tp2367-io-strength-ohms = <50>;
++            vcc3-supply = <&reg_tpg0_i2c>;
++            vcc4-supply = <&reg_tpg1_i2c>;
++
++            regulators {
++                reg_cp0_i2c: ldo-cp0 {
++                    regulator-name = "ldo-cp0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_cp1_i2c: ldo-cp1 {
++                    regulator-name = "ldo-cp1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg0_i2c: ldo-tpg0 {
++                    regulator-name = "ldo-tpg0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg1_i2c: ldo-tpg1 {
++                    regulator-name = "ldo-tpg1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++            };
++
++            smbus@0 {
++                reg = <0x0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++
++            i2c@1 {
++                reg = <0x1>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c2c6d79275c6..ba65ae5a008b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19303,6 +19303,15 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/ptp/nxp,ptp-netc.yaml
+ F:	drivers/ptp/ptp_netc.c
  
--static int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
--					      u8 old_dyn_addr)
-+/**
-+ * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a new address
-+ * @dev: I3C device descriptor to reattach
-+ * @old_dyn_addr: previous dynamic address of the device
-+ *
-+ * This function reattaches an existing I3C device to the bus when its dynamic
-+ * address has changed. It updates the bus address slot status accordingly:
-+ * - Marks the new dynamic address as occupied by an I3C device.
-+ * - Frees the old dynamic address slot if applicable.
-+ *
-+ * This function must be called with the bus lock held in write mode.
-+ *
-+ * Return: 0 on success, or a negative error code if reattachment fails
-+ *         (e.g. -EBUSY if the new address slot is not free).
-+ */
-+int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
-+				       u8 old_dyn_addr)
- {
- 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
- 	int ret;
-@@ -1677,6 +1692,7 @@ static int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_locked);
- 
- static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
- {
-@@ -3195,6 +3211,16 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
- 	return master->ops->i3c_xfers(dev, xfers, nxfers, mode);
- }
- 
-+/**
-+ * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific device
-+ * @dev: device on which IBIs should be disabled
-+ *
-+ * This function disable IBIs coming from a specific device and wait for
-+ * all pending IBIs to be processed.
-+ *
-+ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
-+ * Return: 0 in case of success, a negative error core otherwise.
-+ */
- int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
- {
- 	struct i3c_master_controller *master;
-@@ -3216,7 +3242,22 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
- 
-+/**
-+ * i3c_dev_enable_ibi_locked() - Enable IBIs from a specific device (lock held)
-+ * @dev: device on which IBIs should be enabled
-+ *
-+ * This function enable IBIs coming from a specific device and wait for
-+ * all pending IBIs to be processed. This should be called on a device
-+ * where i3c_device_request_ibi() has succeeded.
-+ *
-+ * Note that IBIs from this device might be received before this function
-+ * returns to its caller.
-+ *
-+ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
- int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
- {
- 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-@@ -3231,7 +3272,20 @@ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_locked);
- 
-+/**
-+ * i3c_dev_request_ibi_locked() - Request an IBI
-+ * @dev: device for which we should enable IBIs
-+ * @req: setup requested for this IBI
-+ *
-+ * This function is responsible for pre-allocating all resources needed to
-+ * process IBIs coming from @dev. When this function returns, the IBI is not
-+ * enabled until i3c_device_enable_ibi() is called.
-+ *
-+ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
-+ * Return: 0 in case of success, a negative error core otherwise.
-+ */
- int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- 			       const struct i3c_ibi_setup *req)
- {
-@@ -3270,7 +3324,18 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_locked);
- 
-+/**
-+ * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
-+ * @dev: device on which you want to release IBI resources
-+ *
-+ * This function is responsible for de-allocating resources previously
-+ * allocated by i3c_device_request_ibi(). It should be called after disabling
-+ * IBIs with i3c_device_disable_ibi().
-+ *
-+ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
-+ */
- void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
- {
- 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-@@ -3301,6 +3366,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
- 	kfree(dev->ibi);
- 	dev->ibi = NULL;
- }
-+EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_locked);
- 
- static int __init i3c_init(void)
- {
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index 592b646f6134..355e9b3d9ae3 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -613,6 +613,8 @@ void i3c_master_dma_unmap_single(struct i3c_dma *dma_xfer);
- DEFINE_FREE(i3c_master_dma_unmap_single, void *,
- 	    if (_T) i3c_master_dma_unmap_single(_T))
- 
-+int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
-+				       u8 old_dyn_addr);
- int i3c_master_set_info(struct i3c_master_controller *master,
- 			const struct i3c_device_info *info);
- 
++NXP P3H2X4X I3C-HUB DRIVER
++M:	Vikash Bansal <vikash.bansal@nxp.com>
++M:	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
++M:	Lakshay Piplani <lakshay.piplani@nxp.com>
++L:	linux-kernel@vger.kernel.org
++L:	linux-i3c@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
++
+ NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
+ M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
+ S:	Maintained
 -- 
 2.25.1
 
