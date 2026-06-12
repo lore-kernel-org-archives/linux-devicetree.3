@@ -1,51 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF1836F91D;
-	Fri, 12 Jun 2026 08:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D98036CDF8;
+	Fri, 12 Jun 2026 09:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781254751; cv=none; b=Iua3zSykK14N7XUBP07dB2vypLO8Val4307siqFImnDWHyDQo6eEklUta9KX9z7Nhq08onC+vkcObJ92vwFHRCqvtZJ7H3sXoGP72zIBGqfKoisW77AeuupkcXMoFh0iM02M/ZFdlHTSNgZmY6Fhtuv/9q6lcfPyampMym+htow=
+	t=1781254929; cv=none; b=IJC7E4Rj5buV4znDGiyy57tH6afFRgJwaK+fyQZZoB1lgRGRZ/fTvSfhLeixkKgSFpOpWlsqpKO2/Dh0B+3TYLCdNf9bU6a7C3NyC/yBcvMLVnKtDuxuBu9Uw1S0lDiVI79spt6k+nJenww5sqqIbZiOP3AylEWGC4ekaPhgT4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781254751; c=relaxed/simple;
-	bh=2N5flslymz7RAw/OZ9FFZ9ELuTHd7lB+fDalxpANMQk=;
+	s=arc-20240116; t=1781254929; c=relaxed/simple;
+	bh=tu2xAk5qFbJG2QKRAEJmp1lC67rd9ceLoy9+wQLguac=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WaMzeWtEJBVL7UbTboZN7l98DGxr/I+PKetSIhamCPptzqHFHIwECB6/6a/oqcp89Dvk+LhHRJlWiNu5kMhANIl7A2I1+wTlkFq6k22LhZT3QWlQXCw5MjBVMhUJp0EwudB8tusf053hf51khHbHVBaBhsAFhZp5UcKDh+w6kjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjVZEBWx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mIGYxQZeWdsX/TDYQ98LO0uiiCGR2WJS2u4gj9w4jZwFXDW9G79MNHWz8Il5hqhahWZdQAREtNSpfNnUkpz61S4ZpknoIfMp3Jjd7z0OoFgd5YGmRtTM3dxYxd9FMooi4DraL00Lrb68S8qdEQTt0b7msf0FEpOi/gZaBEAhC0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nuIi4zux; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjVZEBWx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3871F000E9;
-	Fri, 12 Jun 2026 08:59:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nuIi4zux"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E801F000E9;
+	Fri, 12 Jun 2026 09:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781254748;
-	bh=rnKde7jvb8fbsVY8tcfCydhDZLMmYRmnejPI5g+nxu4=;
+	s=k20260515; t=1781254926;
+	bh=aeOylT+eihs6gL2pjmAS512uSbrIDD/DuZ/cRWHkn68=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NjVZEBWxc/7zEOGV5VWzGrHB9qPk6pHu5yc1rlcYlA/uEvO+Xa74WpWc5Dkzcco+W
-	 dG7t3yO79VoE/PygF5y44BixZQTMr3MQegNU1YfnS9N0XnS1UQlCsdM0m44O6+v3+e
-	 I2AXvoIekQaAfkSAlyXInGvhjfVmO79BYbB9Nff6KQFSNn1JUM1/uwOaNRLPGRgFlY
-	 Bf4Usd8NwR1uFxaBeDW1hq99RxaWf5X8NwcjiY8bw/7fI1z1rmN+Xm7HUf4MILCDUm
-	 p4fKuMvRus5jb7p14HeduDDCSm4dyQGVhD6RhWloUEfR38uIbIUUwwfXmgll5HWvnG
-	 bVj2G1A9X5pKA==
-Date: Fri, 12 Jun 2026 10:59:06 +0200
+	b=nuIi4zuxSVI0XBk5SI13iIqnlhqWnn5fdDqBkugHXLa8XgkT7LbqBKPaiaCMiQbbz
+	 DS0xKndqAwrHchrPWnDJFmdL4kdOEgwjkCkhR2z7T/RwaHzUXK2fABbl3qaVRHJW6a
+	 x1C3THWvDNpITh3M+csrq7+2gBQQp4XpnZPTKHxspi7OREdf0mmh92B/DUsXFSqGwW
+	 PhYYrd0D4IhDPfQhFNhCsTgHYuEsDywP6IDQuQZoi6bNsQ2VN6e9JEQrRRSoSRUU8+
+	 Zb+QMle9P7pxFMk5Fvs+KrYPs03RXKVOOLqVXTRfjxhCiJTBZy2nM+3AFKmstfO3HE
+	 k5FLmGC5CwQTw==
+Date: Fri, 12 Jun 2026 11:02:04 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Alan Stern <stern@rowland.harvard.edu>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH v2 08/16] Revert "dt-bindings: usb: mediatek,mtk-xhci:
- Add port for SuperSpeed EP"
-Message-ID: <20260612-light-turaco-of-patience-96eef7@quoll>
-References: <20260610084053.2059858-1-wenst@chromium.org>
- <20260610084053.2059858-9-wenst@chromium.org>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] regulator: dt-bindings:
+ qcom,sdm845-refgen-regulator: Document IPQ9650
+Message-ID: <20260612-blazing-brainy-firefly-d77a6b@quoll>
+References: <20260611-ipq9650_refgen-v2-0-d96a91d5b99e@oss.qualcomm.com>
+ <20260611-ipq9650_refgen-v2-2-d96a91d5b99e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,26 +46,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260610084053.2059858-9-wenst@chromium.org>
+In-Reply-To: <20260611-ipq9650_refgen-v2-2-d96a91d5b99e@oss.qualcomm.com>
 
-On Wed, Jun 10, 2026 at 04:40:42PM +0800, Chen-Yu Tsai wrote:
-> This reverts commit 454a1e3cd36c113341d7b71e8e691c6e47ab4a8a.
+On Thu, Jun 11, 2026 at 02:33:17PM +0530, Kathiravan Thirumoorthy wrote:
+> IPQ9650 has two REFGEN blocks which provide reference current to the PCIe,
+> USB and UNIPHY PHYs. Unlike other supported platforms, IPQ9650 requires the
+> REFGEN clocks to be enabled explicitly.
 > 
-> mtk-xhci handles both USB 2.0 High Speed (HS) and USB 3.x SuperSpeed
-> (SS) host connections. And there are USB 2.0 only mtk-xhci blocks.
-> The SSUSB controller handles the device or gadget mode. Saying that
-> SSUSB handles the HS portion is wrong.
+> Document the IPQ9650 compatible and the required clocks for it.
 > 
-> Fixes: 454a1e3cd36c ("dt-bindings: usb: mediatek,mtk-xhci: Add port for SuperSpeed EP")
-> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
->  Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml | 4 ----
->  1 file changed, 4 deletions(-)
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Please squash both commits. Reverting just for sake of revert is
-pointless. We want wrong binding to be corrected, not to be reverted.
-You revert something if there is nothing to fix afterwards, IOW.
+
+You just ignored feedback... From me and Sashiko.
+
+So you got the same comments.
 
 Best regards,
 Krzysztof
