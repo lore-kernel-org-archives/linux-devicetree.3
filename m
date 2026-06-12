@@ -1,144 +1,138 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5967C339844
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2EC31B80E;
+	Fri, 12 Jun 2026 08:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781253026; cv=none; b=mmbKRYtH4GG3K7+tENZZZWb9G8fU/h9JiMGF7EPLJP1ffwXCfOrdnT9XPj94crACp1LXnQIPTHOC2/3fyF/g8Q9mI3flThgCUptP3Ene+ZETwsuJvLhOlPT6Hq2jAJ2WTGOwz4GkWkgUpFShKJ0leDcyjm9vwnAz32fjE3hlnF4=
+	t=1781253716; cv=none; b=AUq6sZJd6E7ETT8PVCP+jmJEpbCVLMBbP+k15MlVG9Aw4at3rQ6UBvuAiph85YrJZRgsPdW/+QPIdB3N9CvxEZ7eXECaU6rVXV8KuGi/Du0F8v9yU21vWvcifbXH7rMM/pB83n9IamYAADN8Baee69EL9fuzj1fUX4loMUopYFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781253026; c=relaxed/simple;
-	bh=WQZeV3uuxuMZ/eFoHnuhbZDCYnboZroqa/RsuKWP158=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Y979aQroyeQiNp17IbV/IGVhIQzJvqrg0TZv+wK8NTmOR1XAnFwl/aiQJd6yjQDtC+69YBwu+JPShXxrZQqhqTmnKWVEr4GKuJRKHIIody76+7ujmXnScIHYZ6oYpK7lNSIKOsZJ3HHnE7dr0HgwhdC3B9Ht2TG6cZ96c2qvL9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TtR+VJcB; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781253716; c=relaxed/simple;
+	bh=cJS4+U+Lvd9JiTFvDEcycO1GrMxgHTDXXvhAFBUdHBY=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H3uagPofKmJ8zg14Occ6viFjskuQMTwf3MSlOU5Kz2OHvA19i4vyfwqDQabx2q8hOMIb7dgSQ7coA9nrtmiIBqWcLOF69UDVHWA8wFLJTGHEFqOglE39VFNnykUhCuqB29ipQLsmuk6vZ2jVQTwD54qcyysCc3/VF8Vj0FfOycU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=rn5Vab6u; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TtR+VJcB"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45ef56d9b67so528277f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:30:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781253024; x=1781857824; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Gqvsj5yCApToz/Rg23PwADlEjw5eNlHYXwzCtWvvj/4=;
-        b=TtR+VJcBVgikeIMHMvyp3+Ibl5yK1Lt1GG7u9pHItxaSHhOueE8aRAD7Ml6R1lztB7
-         DE3n9JtWMPcmMM+QiCJSymtAK50JEByg48lntj34HkaegmxASXcGTmbA4kDUHesYmKfI
-         iR1HuKosAC/u4hCgX3q/ckjuo5gxfpV5cN4fH26vRTfzAHCNHrTmOLkAnN5bReZgra9f
-         +B/jY4RWgeG1aIYHcqAgXRBPZLAorOaq8vybiR2tmky+NBhJRo1DFLOJWFZ3/B55HWZt
-         b0xEPrgsWHk2FDJbe9XzhyJHO5/Tcq1QBzmxiZ7IXlxHIIz9BDpFgTkf7ScNTfkAnNaf
-         qEqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781253024; x=1781857824;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Gqvsj5yCApToz/Rg23PwADlEjw5eNlHYXwzCtWvvj/4=;
-        b=DOve/P8FhyQ6vbI/RnkmMZiZ/MBmFk4n5Z2Q0tdtheIY6XEaYQsK/IYx/OUZ4XISQ2
-         +HrACX8pl5cArs9NoCx7hmGrcgZtUTgoeL8Dl/dX2F6KBrob39jPobWea3Gv7mRS+t1R
-         yP66y6dBroIWlTB+Gs/S42afXp6JnytcD/8cdveFVbf5tWe4QSJH6miIuXYIPHvtK/tj
-         7L0bha6qr6MaVIK837EE7AaOCgbkODwGHkPqoOeBsuQHkvmw/JsOAO36Sldkui1POkd+
-         zd9wkIj5A+zoHRLe9ae/CU7s87xs93N45LLx36GInnERGoDV7YBpHYAl6abusXe3hsdD
-         zeIQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9Pr1vvmrjvM4audfbAN7jMZ6vkY6j8cr+wBZsj7PLb4ai3gPQnIf2+KBQsvpagCLTSjfK9r62d6Fcn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzX4/GiqHqIs5aIsRdTr5jJSZlGiFr1ef14bYKabfhK8Xvrw/OX
-	6jDKZmtnP9xGvCx6eDqnHwvsb82Nw91eAo6jy6e7cly1nqlez0XfytFPUd7/dd/UcSg=
-X-Gm-Gg: Acq92OF8stAGFRQEdG0SDwGHIb/N7n3NSODU4lZ/5DBwhbGlDAY1ejV+bd3kb2t47cv
-	wkurL7W865wvKzRb3Fr80edBomEWqcgA7UJC8yNmbSP1NbiY5VD+oNKp9AGOknNygz2vKzWPPSx
-	oqEAdibSEvGzEWBqlOZgHFCOgqwv28nfHm9lMdr2uieCOO/NctmUe5wd38QiHjjzsPZ30VPacNF
-	U26RpvYkszfd+CuAIE4Uhm2ndACMYhdplSArG4HoZWjpbjsvcliDC68to3LZn1AbhA670dvs5tJ
-	szIYqSLFSRYpwnI4XybX0ihbNMfIIyTZYlBdsMFwM9kRen7Y2fjVDuCCGpfpOhDEhCXKr2qGmm6
-	UhlZSyRqzsfthwNk0ghDsnGqrGhIuwqwCmRzW+gFPvHD2WdkMp9LcUnti3d2x+DdaddqetqZVi3
-	SULljuAyCpYiKCMPE/LjgsRoQvIhFxC1WGmLPcEpsapbcK4fmqo2IBD/ntTCk9POZHNaulv/2Oc
-	ZrJnnQ=
-X-Received: by 2002:adf:e102:0:b0:45e:e50e:3bc with SMTP id ffacd0b85a97d-4606dba5451mr1747177f8f.29.1781253023511;
-        Fri, 12 Jun 2026 01:30:23 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:fe5a:df12:588e:baae? ([2a01:e0a:106d:1080:fe5a:df12:588e:baae])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f3basm3550044f8f.12.2026.06.12.01.30.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 01:30:22 -0700 (PDT)
-Message-ID: <8e1ef34b-7c64-4981-bd5e-33f6341f5aa5@linaro.org>
-Date: Fri, 12 Jun 2026 10:30:21 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="rn5Vab6u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1781253717; x=1812789717;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cJS4+U+Lvd9JiTFvDEcycO1GrMxgHTDXXvhAFBUdHBY=;
+  b=rn5Vab6uWHYXd1rjInpzacx/i9ApDbJQIQ7WtIOeC3zQXDO+WTCSL/a+
+   p8tVZiSkk53fQr0hMwaWkiCfTqyj+tSTWG6evFK5wnJgtSGrrd/B/fsFQ
+   f2ckYMxMvl2UA97xxXtQwX2TjjjptF4gvHouvS4N3RhEKjj8zsbF+ltXj
+   9rqfMuWoIEn/z9XDbDR8/f3XP2LvUmOTtHbJfS78rxYptrns5AJ1bSC9/
+   YNUnsYYU5R2bfBWTKkvujfVUD6RWoE2G82RS63PMLdDROFgY818ER3qoN
+   QZ2l/rwwwX0LrYToVVAPfxLfG7QnIC0Vtb9NEUPKX0nQM4Y8t0F/8d9sd
+   Q==;
+X-CSE-ConnectionGUID: XuaeUrWDQs68NJpIlx5NwQ==
+X-CSE-MsgGUID: /IzbyA5FSWGqN1HaIZcVPg==
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="asc'?scan'208";a="59017390"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Jun 2026 01:41:56 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 12 Jun 2026 01:41:53 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 12 Jun 2026 01:41:48 -0700
+Date: Fri, 12 Jun 2026 09:41:02 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Guodong Xu <docular.xu@gmail.com>
+CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
+ Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Zong Li
+	<zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, Anup Patel
+	<anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Chen Wang
+	<unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
+	<linux-doc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<kvm-riscv@lists.infradead.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+	Conor Dooley <conor@kernel.org>, <devicetree@vger.kernel.org>,
+	<spacemit@lists.linux.dev>, <sophgo@lists.linux.dev>,
+	<linux-kselftest@vger.kernel.org>, Palmer Dabbelt <palmer@sifive.com>,
+	Qingwei Hu <qingwei.hu@bytedance.com>
+Subject: Re: [PATCH v4 09/16] riscv: Add Zic64b to cpufeature and hwprobe
+Message-ID: <20260612-frays-feast-e631e3aa047d@wendy>
+References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com>
+ <20260611-rva23u64-hwprobe-v2-v4-9-3f01a2449488@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: switch
- sound card to ayaneo,pocket-s2-sndcard
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, kancy2333@outlook.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
- <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-3-18bb19c5ca22@linaro.org>
- <tkgqorjdnvwcx4ddgi5m7j3g6wlawxnm5ugty6y33ftwxzbvv5@uxcai2sgglfs>
- <e7e6d38b-6d80-4c75-bfbf-eef49589ddbe@linaro.org>
- <lm3yngkad2wcw3bfjcsfsmucsekmulhov4c7oygtp3e4f54fhl@lgj7gidpma57>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <lm3yngkad2wcw3bfjcsfsmucsekmulhov4c7oygtp3e4f54fhl@lgj7gidpma57>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="yeEbaUwKYQ4BJ0tH"
+Content-Disposition: inline
+In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-9-3f01a2449488@gmail.com>
 
-On 6/12/26 10:23, Dmitry Baryshkov wrote:
-> On Fri, Jun 12, 2026 at 09:59:02AM +0200, Neil Armstrong wrote:
->> On 6/12/26 09:57, Dmitry Baryshkov wrote:
->>> On Wed, Jun 10, 2026 at 09:41:47AM +0200, Neil Armstrong wrote:
->>>> Switch to the ayaneo,pocket-s2-sndcard since the hardware layout
->>>> is incompatible with the default SM8650 generic sound card.
->>>
->>> Incompatible, how?
->>
->> As explained on the cover letter, the WAS speakers are not connected
->> on the same lines as the other devices handled by this card.
-> 
-> The cover letter isn't recorded in the Git history. Somebody looking at
-> the commit in a year should not have to look in the mail archive to
-> understand what is incompatible.
+--yeEbaUwKYQ4BJ0tH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Will update the commit message aligned with the bindings change.
+On Thu, Jun 11, 2026 at 04:12:46PM -0400, Guodong Xu wrote:
+> From: Qingwei Hu <qingwei.hu@bytedance.com>
+>=20
+> Zic64b mandates 64-byte naturally aligned cache blocks and is a
+> mandatory extension of the RVA22 and RVA23 profiles.  Allocate a
+> RISCV_ISA_EXT_ZIC64B id, parse "zic64b" from the ISA string with a
+> validate callback that requires each cbom/cbop/cboz cache block size to
+> be 64 bytes when it is present, and export it through hwprobe.
+>=20
+> Link: https://lists.riscv.org/g/tech-unprivileged/topic/question_about_zi=
+c64b_and/119631059
+> Signed-off-by: Qingwei Hu <qingwei.hu@bytedance.com>
+> Co-developed-by: Guodong Xu <docular.xu@gmail.com>
+> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
 
-Neil
+> +static int riscv_ext_zic64b_validate(const struct riscv_isa_ext_data *da=
+ta,
+> +				     const unsigned long *isa_bitmap)
+> +{
+> +	/*
+> +	 * Zic64b mandates 64-byte naturally aligned cache blocks; cross-check =
+the
+> +	 * cbom/cbop/cboz block-size (when declared) device-tree properties to
+> +	 * avoid inconsistency.
+> +	 */
+> +	if ((riscv_cbom_block_size && riscv_cbom_block_size !=3D 64) ||
+> +	    (riscv_cbop_block_size && riscv_cbop_block_size !=3D 64) ||
+> +	    (riscv_cboz_block_size && riscv_cboz_block_size !=3D 64)) {
+> +		pr_err("Zic64b detected in ISA string, disabling as a CBO block size i=
+s not 64 bytes\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
 
-> 
-> 
+I'm inclined to object to this, but we don't have validation on ACPI
+stuff to be able to mandate that people fill in the rhct entries.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
+
+--yeEbaUwKYQ4BJ0tH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaivGHgAKCRB4tDGHoIJi
+0lFLAQDha3cantxsp/CPLOnAf10qvhl6aJAKsPOLD54gW9K0AQD+I9ggy4JDJWBL
+AjJkB9ffVB058Go53e93Vc4lz51wNQw=
+=4eTb
+-----END PGP SIGNATURE-----
+
+--yeEbaUwKYQ4BJ0tH--
