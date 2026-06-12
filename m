@@ -1,321 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06BD37AA99
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 23:11:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33021CAA7D;
+	Fri, 12 Jun 2026 23:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781305869; cv=none; b=Fho3f4DpMG57jtTtRbOM5GweoTw1XEiObobkH6QsOmqpiEilgSW7ClSOAGhl3Z7ypb8D9HG8O00Dq2PhXqMZpY+uLDSbRnvZoQY9SgDxYvDsW4zjg+4kITQ7zwUcpC+s6UMt7O+97x3NJtCyNZIZpYjuAvg0ZUd0jLKmqvUs1Cc=
+	t=1781306059; cv=none; b=TBV9w7Gx2ocmv2mrbdlGtHFpeyo5Djt91G1/MJWF2juj2sZxVzp4I6gKPLHlnSAc+klgOvg58tD7upjYJDkKHCtZ4SLgvBNpNBq6xVSZFL3CO5sbp9LDcjjJabtE/nJaIp8INefQ1SXkvjoXYVfVnuN6bS4UbPs2Oj3z/Wwv/H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781305869; c=relaxed/simple;
-	bh=TmxanlmAhQ2wak4/ggYe7hWH31WEYAUPCannq5yYL5Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gSdzMK/0b/lu7RGXO9utxy7Ja9z0bFmyI+J0ih7U/YAzAYhyPMZfmNSDgD6PsOjYgVkuaXirWHuUVYgUTMbieyD8lX7kMR6NeypPu/MvsT1z4z51BLlAjsbSs4EWYgbXP+4m8IoL1F5sZImxS5CuH8YNCGFBO0P5gK4A/M6/QH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hv0Gdsku; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781306059; c=relaxed/simple;
+	bh=Ovn9m+uq4wSZj9EuOGbBKrDd9U3AnyPOh4AAlTNT6Ic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VICDh6vP8dNWn6Y8rRPcO1tyBGr/XKzWJrNcMB6lcfjyEaXyfOmCRZg7x+lAlM2GN1kpO72QBpIQ00A5PBe6OTheNQH6arKrxrHDLs4R71IrBDs37rVPd5fWDqRZg2YiKm9BvgIMekvkDzXFXZYCZkGWfm0cdevQJE97e6AxtFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lgJHnN92; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hv0Gdsku"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9BF1F000E9;
-	Fri, 12 Jun 2026 23:11:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lgJHnN92"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141401F000E9;
+	Fri, 12 Jun 2026 23:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781305867;
-	bh=1sRBxVu/0FAZzpMkFsaNdSZls6BbSOsEMXpfvyrKNyc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hv0Gdskur9EwDpXUEXT3AZqMBnm0obDgXTQKtuPOOFBF55bO3rhxSBUaZHAVU2HdT
-	 gG1+778acj/cbVbLADml46dtBx1yzm8X9Q3KtvfFjU8AxA7M4hj9IR93XIPHODZm22
-	 3+qEhZc1LGZ4i5+UwRAeR4MJaOdzIsZXjtyHNfOb/lHUlPpdAuxdid1s+ZqSoD5Lu8
-	 naVwNaDJSg2vZjabwj8aqfBF4JCQ4YjF40wURk488BQA0i+J4mOuPikcq7p4yb3q1O
-	 yAy8FcrRlWJ+Ha6dtn6ENfGPEcMl3vYaZZNpx0nDxhtEMfbDIw01jU4zIdA87ZyZXe
-	 r1LeAoUVlETeg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] iio: adc: Add ti-ads1263-adc2 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260612-ads126x-v1-5-894c788d03ed@gmail.com>
-References: <20260612-ads126x-v1-5-894c788d03ed@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 23:11:06 +0000
-Message-Id: <20260612231107.3F9BF1F000E9@smtp.kernel.org>
+	s=k20260515; t=1781306058;
+	bh=ZQXiGTQ3OtcldVEcro7njYih0r291CC/iIZhpWPa3nk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lgJHnN92hKJcAsa8+IXHN6Mggbiv1tmCipcZMIeD47BSLwZExDNiEdy7AwvO0tOXN
+	 SW6CjyB1FU+qonI43XDu41U9W5uZtPmk0znnD3FV83KIS8a+yTpJ5LCDd8Pwdl3vCt
+	 mr9XXdmEA50lfCnxYKi8DjwTp2xla6As6PFLtQextRSTDYuHee7d0DfsEJHfldSS2B
+	 6mnPYhNq5Fza7HfZP58bLznrbEmKTWQB/sPbzpHfr0iIDwnj8l2ptpZGE7fu5bFqcp
+	 fcdIDQEUrYNu8fdQ5ealNswTToY/FRi6SlIp+Cvsp5Dko419NXRxeEKtzegURVm7tQ
+	 T1Lb60dMbegOg==
+Message-ID: <8d230cca-2023-4a13-876f-d5db8eb200a1@kernel.org>
+Date: Sat, 13 Jun 2026 00:14:14 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] arm64: dts: qcom: sm8550: Add JPEG encoder node
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org
+Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
+ <n0iPW9ltP_HyfKgagM8MIvaGg_NF7KvUV834b6MPuE3llz9v6B1jdn6wEvXMkIHS_zLRsjnb7pXY3dURUOSs9g==@protonmail.internalid>
+ <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Probe silently succeeds with corrupted state when `ti,refmux` prop=
-erty is out of bounds.
-- [High] Unportable C bitfields used for hardware registers break big-endia=
-n architectures.
-- [High] Missing `select AUXILIARY_BUS` in Kconfig causes a build failure.
-- [High] Heap out-of-bounds access if only the timestamp channel is enabled=
- in buffer mode.
-- [Medium] Dead code in `ads1263_adc2_write_raw()` silently prevents hardwa=
-re updates on the fly (hot reload).
-- [Medium] Permanent `fwnode_handle` resource leak on the error path of `ad=
-s1262_aux_device_setup()`.
-- [Low] Semantic API misuse: releasing direct mode lock instead of buffer m=
-ode lock.
---
+On 12/06/2026 20:44, Atanas Filipov wrote:
+> +		qcom_jpeg_enc: jpeg-encoder@ac4e000 {
 
-commit 6e165e44885d4dd5616f87d79875344d0f1cd3cb
-Author: Kurt Borja <kuurtb@gmail.com>
+One key bit of review feedback I gave in the previous leaked version of 
+this driver is that since the jpeg-encoder is part of the CAMSS block it 
+should be a sub-node of camss as OPE, CSIPHY and other blocks will be.
 
-iio: adc: Add ti-ads1263-adc2 driver
+Please take that feedback onboard in your v2.
 
-The TI ADS1263 includes an auxiliary, 24-bit, delta-sigma ADC (ADC2) which
-operates independently of ADC1. This patch adds support for ADC2 as an
-independent IIO device using the auxiliary bus API.
-
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -1809,6 +1809,19 @@ config TI_ADS1262
->  	  This driver can also be built as a module. If so, the module will be
->  	  called ti-ads1262.
-> =20
-> +config TI_ADS1263_ADC2
-> +	tristate "Texas Instruments ADS1263 auxiliary ADC (ADC2) driver"
-> +	depends on TI_ADS1262
-> +	select AUXILIARY_BUS
-
-[Severity: High]
-Since ti-ads1262.c unconditionally calls auxiliary bus APIs like
-auxiliary_device_init(), does config TI_ADS1262 also need to
-select AUXILIARY_BUS?=20
-
-If CONFIG_TI_ADS1262=3Dy and CONFIG_TI_ADS1263_ADC2=3Dn, the auxiliary bus =
-code
-won't be compiled, which could result in undefined reference linker errors
-when building the main driver.
-
-[ ... ]
-> --- /dev/null
-> +++ b/drivers/iio/adc/ti-ads1262.h
-> @@ -0,0 +1,39 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Texas Instruments ADS1262 ADC driver
-> + *
-> + * Copyright (C) 2025 Kurt Borja <kuurtb@gmail.com>
-> + */
-> +
-> +#ifndef _ADS1262_H_
-> +#define _ADS1262_H_
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/types.h>
-> +
-> +struct ads1263_adc2_channel {
-> +	/* ADC2CFG */
-> +	u8 gain:3;
-> +	u8 refmux:3;
-> +	u8 data_rate:2;
-> +
-> +	/* ADC2MUX */
-> +	u8 negative_input:4;
-> +	u8 positive_input:4;
-> +};
-
-[Severity: High]
-Will this structure layout cause issues on big-endian architectures?=20
-
-The memory layout of C bitfields is implementation-defined, and this
-structure appears to be written directly to the SPI hardware using
-regmap_bulk_write() in ads1263_adc2_enable(). On big-endian systems, the
-bits could be packed in reverse order and write invalid configuration data.
-
-[ ... ]
-> --- a/drivers/iio/adc/ti-ads1262.c
-> +++ b/drivers/iio/adc/ti-ads1262.c
-[ ... ]
-> +static int ads1262_aux_device_setup(struct ads1262 *st)
-> +{
-[ ... ]
-> +	adev->dev.parent =3D dev;
-> +	device_set_node(&adev->dev, no_free_ptr(node));
-> +
-> +	ret =3D auxiliary_device_init(adev);
-> +	if (ret)
-> +		goto out_free_channels;
-> +
-> +	ret =3D auxiliary_device_add(adev);
-> +	if (ret) {
-> +		auxiliary_device_uninit(adev);
-> +		return ret;
-> +	}
-> +
-> +	return devm_add_action_or_reset(dev, ads1262_aux_device_destroy, adev);
-> +
-> +out_free_channels:
-> +	kfree(chans);
-> +out_free_id:
-> +	ida_free(&ads1262_ida, id);
-> +out_free_adc2:
-> +	kfree(ctx);
-> +out_node_put:
-> +	fwnode_handle_put(node);
-
-[Severity: Medium]
-Does this error path leak the fwnode reference?=20
-
-When device_set_node() is called above, no_free_ptr(node) unconditionally
-sets the local node pointer to NULL. If auxiliary_device_init() later fails,
-jumping to out_node_put will call fwnode_handle_put(NULL). This becomes a
-no-op, leaving the reference permanently leaked.
-
-[ ... ]
-> --- /dev/null
-> +++ b/drivers/iio/adc/ti-ads1263-adc2.c
-[ ... ]
-> +static int ads1263_adc2_channel_hot_reload(struct ads1263_adc2 *st,
-> +					   const struct iio_chan_spec *chan)
-> +{
-> +	struct ads1263_adc2_ctx *ctx =3D st->ctx;
-> +	unsigned long i;
-> +	int ret;
-> +
-> +	/* Hot reloading is only required on buffer mode */
-> +	if (!iio_device_try_claim_buffer_mode(st->indio_dev))
-> +		return 0;
-> +
-> +	i =3D find_first_bit(st->indio_dev->active_scan_mask,
-> +			   iio_get_masklength(st->indio_dev));
-> +	if (i !=3D chan->scan_index) {
-> +		iio_device_release_direct(st->indio_dev);
-
-[Severity: Low]
-Should this use iio_device_release_buffer_mode() instead of
-iio_device_release_direct()?=20
-
-While both macros currently expand to the same internal unlock function,
-this breaks the IIO API contract which expects symmetric lock and unlock
-function pairs.
-
-> +		return 0;
-> +	}
-[ ... ]
-> +static int ads1263_adc2_write_raw(struct iio_dev *indio_dev,
-> +				  struct iio_chan_spec const *chan,
-> +				  int val, int val2, long mask)
-> +{
-[ ... ]
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_HARDWAREGAIN:
-> +		for (i =3D 0; i < ARRAY_SIZE(ads1263_adc2_gain_avail); i++) {
-> +			if (val =3D=3D ads1263_adc2_gain_avail[i])
-> +				break;
-> +		}
-> +		if (i =3D=3D ARRAY_SIZE(ads1263_adc2_gain_avail))
-> +			return -EINVAL;
-> +
-> +		mutex_lock(&ctx->chan_lock);
-> +		chan_data->gain =3D i;
-> +		mutex_unlock(&ctx->chan_lock);
-> +
-> +		return 0;
-
-[Severity: Medium]
-Will ads1263_adc2_channel_hot_reload() at the end of this function ever be
-reached?=20
-
-Both the IIO_CHAN_INFO_HARDWAREGAIN and IIO_CHAN_INFO_SAMP_FREQ cases use
-a return 0 instead of break after updating the software state. This causes
-the function to exit immediately, which silently prevents hardware updates
-during an active buffer mode.
-
-> +
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		for (i =3D 0; i < ARRAY_SIZE(ads1263_adc2_data_rate_avail); i++) {
-> +			if (val =3D=3D ads1263_adc2_data_rate_avail[i])
-> +				break;
-> +		}
-> +		if (i =3D=3D ARRAY_SIZE(ads1263_adc2_data_rate_avail))
-> +			return -EINVAL;
-> +
-> +		mutex_lock(&ctx->chan_lock);
-> +		chan_data->data_rate =3D i;
-> +		mutex_unlock(&ctx->chan_lock);
-> +
-> +		return 0;
-> +
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	return ads1263_adc2_channel_hot_reload(st, chan);
-> +}
-[ ... ]
-> +static int ads1263_adc2_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1263_adc2 *st =3D iio_priv(indio_dev);
-> +	struct ads1263_adc2_ctx *ctx =3D st->ctx;
-> +	struct device *dev =3D &ctx->adev.dev;
-> +	unsigned long i;
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(dev->parent);
-> +	if (ret)
-> +		return ret;
-> +
-> +	i =3D find_first_bit(indio_dev->active_scan_mask,
-> +			   iio_get_masklength(indio_dev));
-> +	ret =3D ctx->enable(ctx, &ctx->channels[i]);
-
-[Severity: High]
-Is there a potential out-of-bounds array access here if only the timestamp
-channel is enabled?
-
-The iio_validate_scan_mask_onehot function allows a single channel to be
-active. If the user only enables the timestamp channel, find_first_bit()
-will return the timestamp channel's index, which is ctx->num_channels.
-
-Since ctx->channels is allocated with exactly num_channels elements, access=
-ing
-ctx->channels[num_channels] reads out-of-bounds memory and passes that
-data to the hardware via ctx->enable().
-
-> +	if (ret)
-> +		goto out_runtime_autosuspend;
-> +
-> +	ret =3D ctx->start(ctx);
-> +	if (ret)
-> +		goto out_runtime_autosuspend;
-> +
-> +	return 0;
-[ ... ]
-> +static int ads1263_adc2_regulator_setup(struct ads1263_adc2 *st)
-> +{
-> +	struct device *dev =3D &st->ctx->adev.dev;
-> +	const char *reg_id, *propname;
-> +	u32 refmux =3D 0;
-> +	int ret;
-> +
-> +	propname =3D "ti,refmux";
-> +	ret =3D device_property_read_u32(dev, propname, &refmux);
-> +	if (refmux >=3D ADS1263_ADC2_REF2_COUNT)
-> +		return dev_err_probe(dev, ret, "%s out of range\n", propname);
-
-[Severity: High]
-Does this silently succeed on failure?=20
-
-If the ti,refmux value exceeds ADS1263_ADC2_REF2_COUNT, the preceding
-device_property_read_u32() was successful, meaning ret is 0.=20
-
-Because ret is 0, dev_err_probe() will return 0, causing the probe to
-incorrectly succeed with an uninitialized vref_uV value. This could lead
-to a divide-by-zero during scale calculations.
-
-> +	st->refmux =3D refmux;
-> +
-> +	if (refmux =3D=3D ADS1263_ADC2_REF2_INTER) {
-> +		/* The internal voltage reference is 2.5 V */
-> +		st->vref_uV =3D 2500000;
-> +		return 0;
-> +	}
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-ads126x-v1=
--0-894c788d03ed@gmail.com?part=3D5
+---
+bod
