@@ -1,169 +1,205 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011010.outbound.protection.outlook.com [52.101.70.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04EB3812F5;
-	Fri, 12 Jun 2026 20:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781295926; cv=fail; b=jQZoOjRN6vumIAij+sp7mJqbtdTengciq8dqi5NjmrKV585179uxUdELX3lQu6ZrVDnwYTlbDKTOLhHWUvwjBrnB66LlGVp5ay/BKGga03gTttDsp7CHBrRPoSEjWThzG8IL6kKJCf80h3/RXtPX8jA3Fqh2p/OFLv1/NUQFbBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781295926; c=relaxed/simple;
-	bh=iBaCjAHnpd2p5cYZWzciMlFsBhAvWtOH+5VlOctTX9A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nAkUDtHdxmPx1UmVxsUIPSnMRrA9674D0Rt6+4RUWAjOQCyT+DT7mN5cm+ZJCaRsDQjd39ziIEX2oA1iJmWlj3C62NO72RC3NyZbEEXcG1cLXA3h7OSkga8MxOZ0CuYgFR/84zHkEYQ7fJdUqTsgAvBzIlLEFVjYalFwqQWn8ZY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nkKp88Lo; arc=fail smtp.client-ip=52.101.70.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEEB3A4F46
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 20:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781295965; cv=none; b=SiU2qVLaQGdLi58RG4Qn+HaJbjDip3UlZOs/guifNqHjaB3CtThW1S4rcgNypNNBqyszdPX5OgY1XBTdUrK7VbgZYRBkeWH+Ylh/pUlgwn3g4LyTxZWq23GrJOX+SzrtSK1X1mtmmuXngFbQu8yHoq0y9yt4MFy5IP3NQYAQ4Nc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781295965; c=relaxed/simple;
+	bh=Cq8cPoBkI+FB/GEbDx3WtxRVRdZkRoFA54OCpSDtqJE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pylD5BfU4WgRs9JpaQG2E0axLJ6fEEVUb25qp9+TeM7/4op7FlneUChDOkwn0mr7JxYDfsieB00tprhKbHOHCSHCEH92fZFBK2+AfmRP0qHtWTXWHpXXAoegMw0mvKNnaVaETy49lsOhXDOZ5hbIQ2iGzRi/mPOqvVGrrbk74/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K8y6RWvg; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nkKp88Lo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U3S8ANY/ob//8h1OXWJOpKOMvhUgaYJj1fVhXBKQz/x46+iqLrE6ejct4z3G1s1iAEbs76kf0XXFpiTXM61E3oHfODV/ZdjgjR3VAJnZz1joxByDqXCeIm9OYxdAD5/3354qIp0RQVFsTYM2I6gubt6UzW/NbX4s/jXEaOulBuOpOsq02zQFyHw2mcJhsHzyarqCF4MS4kmRi69e1mDBE1XxdjXTErkFVVxtIqFvUHBi1xn3nHSWVHjWnXq2vqTVqGAcoMgyi9or9BgpsGiyj6nInXGipQvCFNep3h1h+sPFHi2T2zFHcqjLmdh0nexkHK7rVBustE1Qpl9f6OFPjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EO4V5ByzoOUfUOvtGGnQNrCFUcLhqCo3frLlVqTdmm0=;
- b=wwYuxG5dFodFoCm6E4sQI0D5fk0koLJp4Fqj9vqoPlOOsczM+JUVwN6PL5CKKy4w+Z0VQCNL5Y8pkikA0SfXHy+MWw2jJYFwdz4g/qfGiU0HSH6yww2SI60XgppWzh6OMp7H+M+gzcsNxS6qIerf9qhfcu+GG86hiqCvfhLBhfemWoEUl2tIAC+4Rrabr4xbaJ0T8bF8SCa7+lXoTsPjDaTbJysxTN8Ge0egycok6ZnajgEud049SWnyIiR0MgBAfvwCVWTiVmyQ2SAhLii2t96hjODO9A9bNAfv55Vq0eg0uoukswy1Riu/wyZnx3eiv4Q8xLP8Lr/DhGHgMfxR8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EO4V5ByzoOUfUOvtGGnQNrCFUcLhqCo3frLlVqTdmm0=;
- b=nkKp88Lo6UPxyB94zmI3p2Thy/MMUjzxXG5mt9/f1qO9OWWNAFM8tETIHT2KxqQtg6++2HjZ4p8Bmsz/gO/ycs1XTRGqkTUM91Lu6gLAFruJDWWoSVTsMTPK+7TBrzmPlr/a2FO3Vu67pWbeN0chdVvIHDOGipUcpcMDHtx+sR0oIKvW2JJI5U0E81NfQTOSYxhxtGoYNn81qxBrxMs5kEHcUU7qSC/IRAzmOZlpHdMQ1klalHUMT9Ig6BXkWUfFBhXqAKj/GbrKW5dIl6QGD2F0Q1PA374OLiqwYehqQ2RRgD7kZvydgvbKf9c1ZIsnHkJ3o0fViEmwLy92dIdoJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by DBBPR04MB7802.eurprd04.prod.outlook.com (2603:10a6:10:1f0::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 20:25:21 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0113.011; Fri, 12 Jun 2026
- 20:25:21 +0000
-Date: Fri, 12 Jun 2026 23:25:17 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tanjeff Moos <tanjeff.moos@westermo.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v1 phy-next 7/8] soc: fsl: guts: implement the RCW
- override procedure
-Message-ID: <20260612202517.tyxmohxy5lyn3zbq@skbuf>
-References: <20260611193940.44416-1-vladimir.oltean@nxp.com>
- <20260611193940.44416-8-vladimir.oltean@nxp.com>
- <20260612-twenty-diary-4aab5327f9c2@spud>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612-twenty-diary-4aab5327f9c2@spud>
-X-ClientProxiedBy: WA2P291CA0035.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1f::11) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K8y6RWvg"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490c1915793so11822295e9.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:26:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781295962; x=1781900762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8rQCLAIxALSz/Z8tD2vL5V4eDD0YacOILyc6cFmNdB8=;
+        b=K8y6RWvg4tLzpXJq9RPzKhkwQeFOMPJRyo/S4I5hrUVeP7lIYA5GAwBMDiA3P9Uz9h
+         UlrIzRUGhST1MO055UjF7IOp4NYiJUTGjHHNvzGJWTzbDXKR7PMgvzxjgvLuxhiqIavz
+         aBFwyR8Mbhxl6FLkDyK7B9snr/G0mKvokym4bhDLm/Jv73Dnudp3b3A0xT9H1M1E9YxW
+         XVW8tZZA0BVKsxpESC2T1D8OJwMyFPy7HLGTD2eRXW77nZ+s6cIjqNVdhzLnnygq8Vhi
+         g+Sgsv8hMXIsfAc5GEU4RPlcHjipzeuhpDusCG1QqRUbuGWpVt7jCJyZNFR6daOJpoTE
+         wCwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781295962; x=1781900762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8rQCLAIxALSz/Z8tD2vL5V4eDD0YacOILyc6cFmNdB8=;
+        b=gUvZLOH4V6277ibVV3T9eT5M5hXP3KtZTvO4EZLSbN6IJm0eQgSl1iayOJ2VjYo4Li
+         AU6SUiYDquT7p75CAmE1CHymNAtw4x1T3QGPeUpq4K4DNCx5BWBL0JLwbmzSNV/4VNmC
+         oJCXrRD7Ygjjts6PnhGwO5Vsp3VgdcWRDF2dzkn61frqGBiwueqchpnbj44DAcp/f7K4
+         iT0B+c2SABZ4BFTo204VDQaIT0XcEeYuPBkB5TVEbnhZWUh6dVYtpBEV/86nQevLA4Xc
+         XI7U8Oy/OWWr2bolPY47WWX2/l+4KkFOvI0CFpZjHhPWFkQK6f6WY2zKqHRfE8oQKgHJ
+         tmGw==
+X-Forwarded-Encrypted: i=1; AFNElJ+52Iup3eC+juFArQyENYFhGXP5YaK884YcUUsDmGYTbdhJGJr4kVbMEOZri/ci2MBzOhiIF9ZmldRo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6YXkP+JrD7UH+hcsPzLxcQ/xJUPYQ0wvX1C4RBFJGO89o3qaZ
+	rK7UDe2SATdP3l2jTE0bo9SbKezi7s8osKOyWsLseCeHSVmBFW1ZoABY
+X-Gm-Gg: Acq92OF603WmzlC4UD84DSkowrafsaA1VqlTGPjyfOfL88M1l+pdanMPcE7piZOX9v2
+	o32XPC0eUim1hIzl5NPTlFAadmCErIdekxDsi23SwzuIluItqQOGL6k23/DxQxBoAU+cPgHO3mn
+	TavR6rTsX/bdrcL43WGRzudnA3nack9FySEQss5Qn5ZxYZ2evchQ6zOcGZvEa+mg/z+u15kD8lw
+	BH593h2PQZe29orM3fME38s4AIwhFtTP7VAi2xuA6VLiGHAKqcJ++gja90ufxRoq8TLwcYy+xUT
+	HopbxQ/NgaQg//VehK685B9grUdVTzTNAKoSR9/VvVA7QvP5Z3EqzpvmJbCPjt9pjjBXwUaI8Jb
+	2DCYgyHDU/vHvPLxlHH/U5DZgis9sjnem9wP2NfcbIocYAL/1gw4JRyFlW1QWD4Z4ABvBj1J6A6
+	hy9lpp+CtkFAWHsJTh
+X-Received: by 2002:a05:600c:3585:b0:490:b642:ce29 with SMTP id 5b1f17b1804b1-490ec4d4f71mr59232905e9.8.1781295962029;
+        Fri, 12 Jun 2026 13:26:02 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26434dsm9173261f8f.1.2026.06.12.13.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 13:26:01 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Julien Massot <julien.massot@collabora.com>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Val Packett <val@packett.cool>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v6 0/7] Add support for MT6392 PMIC
+Date: Fri, 12 Jun 2026 22:04:05 +0200
+Message-ID: <20260612200717.361018-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DBBPR04MB7802:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90fd379e-25a8-48fa-b589-08dec8c0ba06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|10070799003|376014|7416014|56012099006|4143699003|11063799006|3023799007|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	6jLB3c86VLBy2AqshfHIqSAbHuKg3GCy3uBs1hs6Ygmk0WMzm1SokrK3MDKNT7p9ZF11iR+JRzi95oIKic/mDkuWtxbpQ3Moq5RalRBzDOdMaKdTFBhFtFyIc41Tn3Nt9+xAoeLlukZxyuPqIFcMe0bzAMqkzsBTzGJzzfLviyQeJwRem6sHfUBEfqBajwVGksHsd0K2W1JJCGPHJF1YSCmwmMIG5ctLHchWVsWu1i1an+Tgb7hhjQdx9ERAcYr+q0tWxbNCo2UfOAmLgYtiJMwRiyTuKO+g96RCqs1nRabBE7IvzQ8jK42fPU5L7dDUkyKXr2JaRjo7bHLyvdEncsY0JQIT1tA8EWImnQ9lL1b5V+2hjTsJtEbKmNUjkcw8a9IzDWkqtAt66xjH1iK8MfK8CMQ3sUt99znJNo+6FkgG077s7iqwlfKmliYF0FHZV1ghAp+pbdLdd/NJu5FC9vFEJMuKO90cos4lGFi6uGaRW/KADTzCLw87sOSVoqLbt/W4udrK0832Cc63i1AcBHYqIQOT7TlrVZaq22v+Nhg4doOUNgZAOX+oqOYfjzo63w024GurTkr7a+zuCVlupItULVCt3lSnm/MMTEmKCyGN1jhORfPWTbwkDmkjW27OCvS0YMzVUzHjOfomcMg608OEmQO0ImYx3EnQJQj4sbqhvx6UaWFnCX/phl3tDYgB
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(10070799003)(376014)(7416014)(56012099006)(4143699003)(11063799006)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3hMPJlDPMfSzCPqI31eVaNG+k33mShsOaHVqNireeVRLEptM5q+g66d9vRyt?=
- =?us-ascii?Q?MLO7ITXIyzg03UFFBpIK4CyGVoAOt65TC3X7yNOxmUpdM9x98kZLqRLNNdfG?=
- =?us-ascii?Q?fb+oc5ti/jNTwAwG8Vr/aHYMs2kXV14K2G41vYjCXu0T5kGZqgmHtaK4Dd0X?=
- =?us-ascii?Q?xjYBvStHDdFAZ0tyP/jMYWCcAZqsf7ffYH0Wtx8ue6eqtD9TkasKQbeXbIL2?=
- =?us-ascii?Q?Fv6mu6b8md+QZf35+JH2P85yLpSVATT0ecUayCRzzy4sZpWT/qF3TaqgwMas?=
- =?us-ascii?Q?TS1NpLutMSq810qFnXDdGHxLQDqbruIJqdLtnD/VzSPX6xOf1nSgocDY8j4M?=
- =?us-ascii?Q?mA/tFNxpHMifyaOMMf6VJGOe5P82NFHr1UaeIAXpM5egOp18dYjPMRH4XNRu?=
- =?us-ascii?Q?/Rchp2nC1jYn4nKkB8XWmaL91gkddWAq3/3An0nXq9/OgW0QXrrkM0WHDj/z?=
- =?us-ascii?Q?FSKQibMZ6kUJ8oyPn3XyXleP+s7EprDI1Q3Pv+k/O+srkopWWxywihAfu7x/?=
- =?us-ascii?Q?U6bjV+SkRe13aH+5BSpuiU4dVu7/clCoNSY7ZSirxoqj/tIvrTC5Jb6mtqmC?=
- =?us-ascii?Q?OwXCd/H6EXFfpG7XGIFGEK7uRYjkUzAsevSglzXFXTyfJMFtLZKpRzNtLSw7?=
- =?us-ascii?Q?a2Dl1sHCLsCBu2vWCDdgBjrh7zYXMaknmqvtEfxr9rI+ACHa9Vwyw99qgToi?=
- =?us-ascii?Q?CWTuE7wOl4cbVz/mFirTo7Dc+FCrU2hfx2bI6qA+gbtEolfYPRtTR5Dz8KHJ?=
- =?us-ascii?Q?C/MtCAb9NWOBL9FXNblrtCy6xmAgHaU0lHqjFtX5uNGjmJpDTX+1rbn14zXZ?=
- =?us-ascii?Q?yNuny69pnZqSG2dJUaJVgccV9Oo165MxZfjGy4UBzGmTozkySgCKIbiVlMIP?=
- =?us-ascii?Q?R8UTj4NLlWMhI/bbF8HFXK60Y/9ol/ISY5Kty8pjqsW8ebBSDRP4oPm10mtx?=
- =?us-ascii?Q?Gatd8AFPJm1vMcZt9ljkNP8hPKayIWj6LEayPLIob9udhH+STowv33O9myrI?=
- =?us-ascii?Q?cE8qHE6FVYWSmrYCKHkREjiMdpz0GdISwxESA50tohJBi/rehktyyzcOjm8L?=
- =?us-ascii?Q?qyvJ/6XtpYa9cbNN+Dn87rTs0sx6OZMmOtKC7E38yQLrScxFRhMjzCrzlRG0?=
- =?us-ascii?Q?YL1mWrPZVbCkvx57a4TWzqK5o8pt6Oc1KoNUZzlxzXGbRTuLj+KB695SGUyj?=
- =?us-ascii?Q?MUMAcg5Zr48yvwn5Uf0FQjPYae6Dzp3U75CViltBVxAPxRpEjc+FaVt3vk0x?=
- =?us-ascii?Q?dp2aZ+48U2uRcUO2+Tt+w3nHgrB6+MLLUzLg1wxU0t/xzSxUKvucjI6qNcj4?=
- =?us-ascii?Q?pIGAAdlojIw8PacSt20LzO+KWVgcHShUyqQNJ22JzZzLmhB8QXPBurAuaSs5?=
- =?us-ascii?Q?LgWKj0RacT9GV27AFgWLxMsqHAuZKxksDyecIYd8OaCwUM3LfdvIliblkvi+?=
- =?us-ascii?Q?NpzogoWoSx5VPSlYVnc1DhsDtVsWAeEJYUUcjupTkUFYepOi134v2P4sTi0t?=
- =?us-ascii?Q?/cZYpVsij6ZQpyjK+rryqJ1OpkbavAgYPCLGxmDUGBGXrJJXe63Jvtgje/QK?=
- =?us-ascii?Q?JWwf4kIeNIz7pLgkKvOrkpbQ1zRG/DPRY0TSxZwetFslXEU3N5PID85TTEK9?=
- =?us-ascii?Q?3wmm9QQ/Pu6OCmWM0X8TljwblfS72sTIwa5YwB04jhC2PFVR49WYWlO4QUOW?=
- =?us-ascii?Q?bsTLE21uJz4XZ8G/QJgIOXg846fGdrF3po8S76C+8WvR55IgcLTL4T3+u/2Q?=
- =?us-ascii?Q?IWfBE5KudC0NG+jUA07o5/OldMz+Ydc8PwWyPJs8QHgzbgc1qZaD4DMLCZCl?=
-X-MS-Exchange-AntiSpam-MessageData-1: sxNAIOqcBKIuSg==
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90fd379e-25a8-48fa-b589-08dec8c0ba06
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 20:25:21.5105
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r29ESwO5G3hmVSd5IU4EIugIkE0q5yAWEL9Uuo1P10mZxciA7b+DS83uoXKq3GkQdQ49C0DRcWITaUW5fmITTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7802
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 12, 2026 at 04:44:30PM +0100, Conor Dooley wrote:
-> On Thu, Jun 11, 2026 at 10:39:39PM +0300, Vladimir Oltean wrote:
-> > From: Ioana Ciornei <ioana.ciornei@nxp.com>
-> > 
-> > Add support for the RCW override procedure which enables runtime
-> > reconfiguration of the protocol running on a SerDes lane. The procedure
-> > is done through the DCFG DCSR space which now can be defined as the
-> > second memory region of the guts DT node.
-> > Support is added on the following SoCs: LS1046A, LS1088A, LS2088A.
-> > 
-> > The procedure is exported to the "client" driver - the Lynx10G SerDes
-> > PHY driver - through the following functions:
-> > - fsl_guts_lane_init() used to notify the initial / boot time lane mode
-> >   running on a SerDes lane.
-> > - fsl_guts_lane_validate() used to validate that changing the protocol
-> >   on a specific lane is supported.
-> > - fsl_guts_lane_set_mode() which can be used to request the RCW
-> >   procedure be executed for a specific lane.
-> > 
-> > Since the RCW override procedure is different depending on the SoC, the
-> > private fsl_soc_data structure is updated with two new per SoC callbacks
-> > (.serdes_get_rcw_override() and .serdes_init_rcwcr()) which get used
-> > from the generic fsl_guts_lane_set_mode() function. These two callbacks
-> > hide all the SoC specific register offsets, masks and values so that the
-> > _set_mode() procedure is straightforward.
-> > 
-> > Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-> > Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > ---
-> > Cc: Conor Dooley <conor@kernel.org>
-> > Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> > Cc: Rob Herring <robh@kernel.org>
-> > Cc: devicetree@vger.kernel.org
-> 
-> Wrong CC list for this specific patch?
+The MediaTek MT6392 PMIC is usually found on devices powered by
+the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
 
-No, it was intentional. Provided for context, so DT reviewers can check
-that extra properties not defined in the schema aren't being used.
+This series is mostly based around patches submitted a couple
+years ago by Fabien Parent and not merged and from Val Packett's
+submission from Jan 2025 that included extra cleanups, fixes, and a
+new dtsi file similar to ones that exist for other PMICs. Some
+comments weren't addressed and the series was ultimately not merged.
+
+These patches only enable three functions: keys, pinctrl and RTC.
+Regulators and speaker amp will follow later as I still need to further
+improve those two, but getting the main PMIC in will make the series
+easier to review.
+
+I added a handful of device tree improvements to fix some dtbs_check
+errors, added support for the pinctrl device and addressed the comments
+from last year's reviews.
+
+Please note that patch 0005 depends on patch 0004 as they both need the
+registers.h file, but they belong to different driver areas. I'm not sure
+if I'm supposed to squash them even if they belong to different driver
+areas of if it's fine like this. Any advice is welcome.
+
+The series has been tested on Xiaomi Mi Smart Clock X04G and on the
+Lenovo Smart Clock 2.
+
+Changes in v6:
+- Dropped the regulators driver for the moment
+- Explained the FCHR key name origin in the commit message
+- Introduced the MFD_CELL_* macro in the sub-devices definitions.
+  A separate, independent commit introduced MFD_CELL_* to all the
+  subdevices in the mt6397-core.c file for consistency
+- Replaced of_device_get_match_data with device_get_match_data
+- Removed the mfd_match_data enum in favor of the preexisting
+  chip_id enum
+- Adjusted the error message if the device is unsupported
+
+Changes in v5 [5]:
+- Double checked regulator driver with data sheet and Android sources.
+  The data sheet I have misses a lot of register descriptions, but
+  Android sources have been helpful to fill the gaps
+- Reintroduced the required attribute for the regulator compatible
+  in the bindings
+- Fixed the missing reference to the MT6392 schema
+- Fixed casts/unused vars reported by kernel test robot
+- Removed Reviewed-by tags from the regulator patches as they have been
+  modified in this version
+
+Changes in v4 [4]:
+- Dropped usage of the regulator compatible
+- Fixed commit messages text to properly reference the target subsystem
+- Added supply rails to the regulator
+- Reworked the regulator schema and PMIC dtsi. Now all supplies are
+  documented and the schema no longer includes voltage information
+- Removed redundant ldo- / buck- prefixes
+- Renamed the pinfunc header to mediatek,mt6392-pinfunc.h
+- Modified the MFD driver to use a simple identifier in the of_match
+  data properties
+
+Changes in v3 [3]:
+- Added pinctrl device
+- Changed mt6397-rtc fallback to mt6323-rtc
+- Added schema for regulators
+- Fixed checkpatch issues
+
+Changes in v2 [2]:
+- Replaced explicit compatibles with fallbacks
+
+Initial version: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/cover.1771865014.git.l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/20260306120521.163654-1-l.scorcia@gmail.com/
+[3] https://lore.kernel.org/linux-mediatek/20260317184507.523060-1-l.scorcia@gmail.com/
+[4] https://lore.kernel.org/linux-mediatek/20260330083429.359819-1-l.scorcia@gmail.com/
+[5] https://lore.kernel.org/linux-mediatek/20260420213529.1645560-1-l.scorcia@gmail.com/
+
+Fabien Parent (3):
+  dt-bindings: mfd: mt6397: Add MT6392 PMIC
+  dt-bindings: input: mtk-pmic-keys: Add MT6392 PMIC keys
+  mfd: mt6397: Add support for MT6392 PMIC
+
+Luca Leonardo Scorcia (2):
+  mfd: mt6397: Use MFD_CELL_* to describe sub-devices
+  pinctrl: mediatek: mt6397: Add MediaTek MT6392
+
+Val Packett (2):
+  input: keyboard: mtk-pmic-keys: Add MT6392 support
+  arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
+
+ .../bindings/input/mediatek,pmic-keys.yaml    |   1 +
+ .../bindings/mfd/mediatek,mt6397.yaml         |   8 +
+ arch/arm64/boot/dts/mediatek/mt6392.dtsi      |  41 ++
+ drivers/input/keyboard/mtk-pmic-keys.c        |  17 +
+ drivers/mfd/mt6397-core.c                     | 294 +++++------
+ drivers/mfd/mt6397-irq.c                      |   8 +
+ drivers/pinctrl/mediatek/pinctrl-mt6397.c     |  37 +-
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h |  64 +++
+ include/linux/mfd/mt6392/core.h               |  43 ++
+ include/linux/mfd/mt6392/registers.h          | 488 ++++++++++++++++++
+ include/linux/mfd/mt6397/core.h               |   1 +
+ 11 files changed, 840 insertions(+), 162 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+ create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+ create mode 100644 include/linux/mfd/mt6392/core.h
+ create mode 100644 include/linux/mfd/mt6392/registers.h
+
+-- 
+2.43.0
+
