@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D36390618;
-	Fri, 12 Jun 2026 10:26:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0883290C9
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:33:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781260007; cv=none; b=KSvdBAdj1wOTl2yCdmpOE37DHrf4BAxXZ3RR5GW2k1zxP8DnoyUW9L6+XsjtCVYVuXbcOGK58wioJwp82pKKpmVJ95gNIt9xkBd77JVLXtOTR1iFpYIc58zFgorEnkeZaG19eV/iVok51pdFdYK8KkvBd0S6NQbOE/Nt3czAtfU=
+	t=1781260414; cv=none; b=XAGhyET7HBMoJXZyHl4YjZCFjmZ+IYdN9JvhmkhPoI7YMpmgS+6BptBJbnlx72oQcw7O8lnGfnp3JsTYUZG5YDQXUcE53zOk5RxjEv5/2qrVG0mgo6ozsvWw560FRXqxw0vH264vItweyA/s0ayjLVcav0Fm4evh4Ku4/QQSnn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781260007; c=relaxed/simple;
-	bh=a/OT5roFOpiK8nIUo0+Fcrxk+A5JHYPBdVL90nniiuU=;
+	s=arc-20240116; t=1781260414; c=relaxed/simple;
+	bh=ZJQh1Vja37sZ8TKCDHr1RYHX/prZbPJgqnNE87B6pV8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jubxXIP86dZ8F6p9zweM2hPx2EO6VfVcXcHU3HneXzHYSujsGylQtvYsQ1xHRabW4IZp2G3NiGFilLAwqyviZkXNKfhjySTfI2ivb5vfgjfjw6yqY9HZnvPen3bKJVJ9UHgu2oiyA/SZRihRLb/ubsgs+ZV5qoq8n3FMLWyoIoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNlMLqxa; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oIygM64NDVl1p6ts4iMmkW7Zkbv0pu4ZpUnUIzgaOYihDzrAe+lPdn3Vx013vsiypJhqz5h/0ccGRBvllbXeWUw9VH+JHrL8unKjDO22zhP5qjyY9CgTPVybjLdCP9r7Z7OA0HpcuFLwCMcQ6Wxk9t3wkc5hykkQtsTgSi3y2/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hV7Ge9jo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNlMLqxa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613251F00A3A;
-	Fri, 12 Jun 2026 10:26:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hV7Ge9jo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5585D1F000E9;
+	Fri, 12 Jun 2026 10:33:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781260003;
-	bh=57aH8BTzDAXOkaQLQ4ByLOpVljdF7x48XY0tX9dvC7Q=;
+	s=k20260515; t=1781260413;
+	bh=TPtuWCGh7s50chD23d9eDAPJGzK8E47nlnaCvgVi6j0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PNlMLqxa2zsxBI54wZnT/AFNYDY4bqUK7u8a3OiMXrOF+Jh1On6LxkHhUIeytsxyL
-	 eWIM4kd7tVDj4P3MgegvyQKH3/POVDdLrR4v3Ve2OuFFazWSGCvjDBhbFXYV3PAebE
-	 afmyeYgbJ/TiEat6OIJK8n7wf4yez/Ii3+9/Qx7ki6baJw1JXFlmAfCqv7pTK306ev
-	 k/2B1pqcFFFPnZbm1E/amQbR+oXbKRZRQHmvq6JywRah0S8PRntFr06cnkbzcP74Hq
-	 TLiQRch73i7mUyH9vbz4dTc5Y7z5acS67plBw7cHJ3rK/A8nzniiMx6b721IJTRSEs
-	 KdnlvDkeeYH8A==
+	b=hV7Ge9joBQEMlcuXHEZdX9WcxRyYrD9Erq5bgvI3CPBRWjh2+eD/9OZUz4hCuAaco
+	 BINpUJg1cPSjYs7S0V5zCkuIgiCudxJgGYv4A0/XLQPoGvHHOP9/smiQE0CK5f8+58
+	 powy+DFMK+LTzbnmmJd0Bquaw2X0Ju9tLM4f7SI/xj1r9MvbACmeC+UzlLoSbIn5yd
+	 cHJlJV457XHUECUxPu0YZQQS3UZj45l3X5eGdFgYZzce9UNleb2okmZafThA2+3FCX
+	 GUG6pY9pCVsJKbN/ElJU/gDU2x8Lek4uCBLtptI5p3Ry7ROibcwwYywy5PJNCo11BI
+	 HS8kDhOqaLBwQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] perf: marvell: Add CN20K LLC-TAD PMU support
+Subject: Re: [PATCH v4 15/16] media: venus: skip QCM2290 if Iris driver is
+ enabled
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Geetha sowjanya" <gakula@marvell.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260612095746.19679-3-gakula@marvell.com>
-References: <20260612095746.19679-3-gakula@marvell.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260612-iris-ar50lt-v4-15-0abfb74d5b3c@oss.qualcomm.com>
+References: <20260612-iris-ar50lt-v4-15-0abfb74d5b3c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 10:26:42 +0000
-Message-Id: <20260612102643.613251F00A3A@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 10:33:32 +0000
+Message-Id: <20260612103333.5585D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,69 +46,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Inconsistent masking of `event_idx` between validation and execu=
-tion allows userspace to induce an aborted hardware programming state or by=
-pass MPAM filters.
+
+Pre-existing issues:
+- [High] Use-after-free of `hdev` in the IRQ handler due to incorrect teard=
+own sequence.
 --
 
-commit 13a14a3d137a1e1e8ddf65c82eb4ff187ff64ca5
-Author: Geetha sowjanya <gakula@marvell.com>
+commit a490235af4b563cc6644730f4c262f25f52e330a
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-perf: marvell: Add CN20K LLC-TAD PMU support
+media: venus: skip QCM2290 if Iris driver is enabled
 
-This commit adds support for the LLC Tag-and-Data (TAD) PMU on Marvell
-CN20K SoCs. It introduces a new PMU profile, extended event maps, and
-specific register base offsets.
+As the Iris driver now supports the QCM2290 hardware too, there is a
+race between Venus and Iris drivers on binding to the corresponding
+device. Follow the approach used by other platforms and skip QCM2290 in
+the Venus driver if Iris is enabled.
 
-> diff --git a/drivers/perf/marvell_cn10k_tad_pmu.c b/drivers/perf/marvell_=
-cn10k_tad_pmu.c
-> index af706b890bf17..e43598a52859e 100644
-> --- a/drivers/perf/marvell_cn10k_tad_pmu.c
-> +++ b/drivers/perf/marvell_cn10k_tad_pmu.c
+> diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/pla=
+tform/qcom/venus/core.c
+> index 243e342b0ae75..3c88594eb1d00 100644
+> --- a/drivers/media/platform/qcom/venus/core.c
+> +++ b/drivers/media/platform/qcom/venus/core.c
+
 [ ... ]
-> @@ -85,8 +89,15 @@ static void tad_pmu_start_counter(struct tad_pmu *pmu,
->  	if (use_mpam && event_idx > 0x19 && event_idx < 0x21) {
->  		partid_filter =3D TAD_PRF_MATCH_PARTID | TAD_PRF_PARTID_NS |
->  				((u64)partid << 11);
-> +
-> +		if (pdata->id =3D=3D TAD_PMU_V3)
-> +			partid_filter =3D TAD_PRF_MATCH_PARTID | TAD_PRF_MATCH_MPAMNS |
-> +				((u64)partid << 10);
->  	}
+
+> @@ -1169,13 +1168,16 @@ static const struct venus_resources qcm2290_res =
+=3D {
+>  	.enc_nodename =3D "video-encoder",
+>  	.min_fw =3D &min_fw,
+>  };
+> +#endif
 > =20
-> +	/* CN10K support events 0:24*/
-> +	if (pdata->id =3D=3D TAD_PMU_V1 && event_idx >=3D 0x25)
-> +		return;
+>  static const struct of_device_id venus_dt_match[] =3D {
+>  	{ .compatible =3D "qcom,msm8916-venus", .data =3D &msm8916_res, },
+>  	{ .compatible =3D "qcom,msm8939-venus", .data =3D &msm8939_res, },
+>  	{ .compatible =3D "qcom,msm8996-venus", .data =3D &msm8996_res, },
+>  	{ .compatible =3D "qcom,msm8998-venus", .data =3D &msm8998_res, },
+> +#if (!IS_ENABLED(CONFIG_VIDEO_QCOM_IRIS))
+>  	{ .compatible =3D "qcom,qcm2290-venus", .data =3D &qcm2290_res, },
+> +#endif
+>  	{ .compatible =3D "qcom,sc7180-venus", .data =3D &sc7180_res, },
+>  	{ .compatible =3D "qcom,sdm660-venus", .data =3D &sdm660_res, },
+>  	{ .compatible =3D "qcom,sdm845-venus", .data =3D &sdm845_res, },
 
-[Severity: Medium]
-In tad_pmu_event_init(), the event configuration is validated using a masked
-value:
+[Severity: High]
+This is a pre-existing issue, but could there be a use-after-free risk duri=
+ng
+teardown in venus_hfi_destroy()?
 
-tad_pmu_event_init() {
-    ...
-    u32 event_idx =3D (u32)(event->attr.config & GENMASK(7, 0));
-    ...
+In drivers/media/platform/qcom/venus/hfi_venus.c:venus_hfi_destroy(), hdev =
+is
+freed and its lock is destroyed before the IRQ is disabled:
+
+void venus_hfi_destroy(struct venus_core *core)
+{
+	struct venus_hfi_device *hdev =3D to_hfi_priv(core);
+
+	core->priv =3D NULL;
+	venus_interface_queues_release(hdev);
+	mutex_destroy(&hdev->lock);
+	kfree(hdev);
+	disable_irq(core->irq);
+	core->ops =3D NULL;
 }
 
-However, in tad_pmu_start_counter(), event_idx is assigned directly from the
-unmasked event->attr.config.
+If a threaded interrupt (venus_isr_thread) is already running or scheduled
+concurrently, could it pass the initial if (!hdev) check before core->priv
+is set to NULL, and then access the freed hdev structure?
 
-If a user provides an event configuration with upper bits set (e.g., 0x124),
-it will pass the masked initialization checks, but won't it fail the unmask=
-ed
-bounds checks here?
+drivers/media/platform/qcom/venus/hfi_venus.c:venus_isr_thread()
+{
+	struct venus_hfi_device *hdev =3D to_hfi_priv(core);
+	...
+	if (!hdev)
+		return IRQ_NONE;
+	...
+	pkt =3D hdev->pkt_buf;
 
-For V1 hardware, an unmasked config like 0x124 would evaluate as >=3D 0x25 =
-and
-trigger this new early return after clearing the counter but before
-programming it, leaving the hardware in an aborted state.
+	while (!venus_iface_msgq_read(hdev, pkt)) {
+	...
+}
 
-Similarly, for V3 hardware, wouldn't the unmasked event_idx fail the
-MPAM filter condition (event_idx > 0x19 && event_idx < 0x21) earlier in this
-function, causing the counter to incorrectly bypass the filter and record a=
-ll
-partition IDs?
+Because disable_irq() waits for currently executing handlers to complete,
+should it be called before freeing the structures the handler depends on?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612095746.1967=
-9-1-gakula@marvell.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-iris-ar50l=
+t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D15
