@@ -1,315 +1,99 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9729138F94C
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC8E384CF6
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781280653; cv=none; b=QTMI3CAuYhFAGsJTz5GSujqLHawJAzNaLrpz4fzZ5jnWg2FumoSoQjU9UnRES53FF6YzprWPFGugaZKShF+VPsp8N8Mj5zv1Uu1LzCjVEON72+Fj2pxNkIwEMRpT75i8Svn36JrLQ91OTK15/v1caPdSo/2E92DafWJSWG9/FEc=
+	t=1781280698; cv=none; b=ekZ9PWdo+HtJ5Aduxz0KggOSUXsIAqYzvJ9XcXvhrh5/eTPYh/IPwnX0ijsvsr48iuo314JLQFKdV5MvN4V1VQ5KCimpSyK4NTgCSMqSL4EOYdxmKRJmAF0si1vYCQgbfaLeok3v362b9o5bBSoumN78bJBjXGsNSZ3LdZdoylw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781280653; c=relaxed/simple;
-	bh=kcA8/YqeceHkDTks91P3C8LuI7xU6e5a0iE6M02dbOc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uWRBHy5bEBvF2ESYiJPVaIeZtn7c6vMLTKzyXG7aPpyDe3XNjLUwoW66tsddWtyCNyxuZ+6ac+Cl7JYRV5JZnRHhr8mUNAq4c6bnOOZRoQs93L1x8kPBJmI/23HFTQWncoph+/3+K0bGTvLDe6WNDLQuSjhSXi1etdJP1O2Hh6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NZCtUWmt; arc=none smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781280698; c=relaxed/simple;
+	bh=eYfoVTTY5NEjUxbcKceaFp2ZtOa8bfuibisKfUP+gSc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
+	 Content-Type:References; b=dZh0VFcqrZOcDNrg01920jZ16urZT2sNeQSkVguiInDhkGY0gk0vwZaDqyet24YirM7rAtLXWZ3C1RYY/UuM46EVsh0ZDXZQEQcT6qmGwp2l1Uu5I8gk2pJJYtBLsE2gmKQ/3guxt9kXImwHZlri25qy8bRyKp7wBKgzn0EApwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=QuAVxueh; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NZCtUWmt"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6cec1485789so412302137.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:10:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781280648; x=1781885448; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GEbMYrHpODEdrCctGaUdr56/QW91l/U1sHGIDNsbyLA=;
-        b=NZCtUWmtxollHJfxm61BLshCNoKzCaTIrdMBuhu1BkpPwH7essU9wWMBRGAYNpOBFn
-         ldwnme4PcPYTiSipayO+nFO83h7ZLhOCcg9f5zcK4q91hpGKJp5+LxXrwOEH9RX62IU3
-         QUrMNfA3DVlFsI6bI7ZATu69e5CRxk98VaumNVlO9262c726P/LRUaKOoszQBqtngSJ7
-         8FPwtblPbd6fYmQtWahON0dNUbVvHKGNxi2F/Mk4rkh2+aH2eyQoMbgkMIgIuqw0Xg1F
-         Z8j3OvepQLu76Et0zItW3K1ZZiFN5v5nOFfI62zACF254djdr6SCxWcThLUFoXMhOcE9
-         VLQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781280648; x=1781885448;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GEbMYrHpODEdrCctGaUdr56/QW91l/U1sHGIDNsbyLA=;
-        b=rdiDBPtCh5CsNq4gCgF+bWi0kLcwmoAaSVWCxaN+ZRxn+iaVllbIxcDkFyF7q2mFyp
-         IezWv4CScN2V/ylu+5cfl8p3rkvtz2sGs4JYNhq3qfFgNRJKFwkDAAJSmHenq+onTjm/
-         ZJ1Mi1uUjAjuERIc/4+XMYxJvsLHtvsYtQpp9wkHEXtq/NE3/u1VGH3zKKPJfzGYttGP
-         8KO//6lBtSaBJE4dFzeHSXBEI7Cj8DPWPiOChyI3X4OZuvXKR1TNDjE6MIC6j6pVIxdE
-         clHjwm7YMhzHbud562lKMdiVCvzuOkOZhwtBE2tequgYCp6JbNTOVEYLM2Ulrsvf90e4
-         h7Zg==
-X-Forwarded-Encrypted: i=1; AFNElJ/gLgEk+uw8MPTPYHVE0TupE+WO7xTphnJMrP5QDvDAQFZwso7dG7476MmQ3ObuMoZgtdMk+sfkpb4K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxu5hq0AHYGs+u7jlZYrAd+humMKciAUlgFm30ImueJSk9KHf7W
-	FKBCLLaSU6SrruRJ7vTso2u9/3f+QKZQ8sMBiXlM1I9iwXf0WJRiOJhrB9kTF57mjxSFT4TDcu6
-	V24ulOgU=
-X-Gm-Gg: Acq92OHKDDIw4hqM2nkyae93pwSmXeqL0SL1tdgdI1alwDU4sZBZF6otXgPuVy5jqpI
-	Z+HiqpFQ4JOQvHHRiTRy+2Z1wCRNDIpptFUf4Et8kWJ1fdIyUq/wxjZHL/+R/HDFGJsOocGMZaD
-	r00bMemtyuo8gEYOOM8vB+rHlpNpcvy5KKbYm8knMAEhReXAgcQBBGUMKU2SMeQCjj6CxZDEdYq
-	6WS96qCm7FBeWW1ISGcHXfxGqS5q979/Z51rJQKMvJGlKA5Ib3Eg0r0Rk5vSrViEP3kw0QqFDJC
-	ESc+xQJ0aaCPPbJ0hygR1AkKZ+uQVrCQviEtsd93lKDsPfE+bz/rvqKBaRpR4kffSwTKe64bqmB
-	yYci0c89SN5STHplWkCUFCLKUCyaxZdb8IHR5Zk72dfYtKXVChHXOaNgCy+44rGWkMIev7StqCl
-	XSocGlJMcHzTaLUA3pW1pslhWl2n1SrIZ2vfvNNJbuFSJ1CfaV0cWDXpdAOjW7ysjRF69qGms=
-X-Received: by 2002:a05:6102:4187:b0:639:3b08:d64c with SMTP id ada2fe7eead31-71e88c4f8abmr2050956137.13.1781280648334;
-        Fri, 12 Jun 2026 09:10:48 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:cba0:23d4:353:6048? ([2600:8803:e7e4:500:cba0:23d4:353:6048])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96674088249sm1807953241.12.2026.06.12.09.10.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 09:10:47 -0700 (PDT)
-Message-ID: <788b7c6f-fae8-47cd-b78a-33f2803d8c88@baylibre.com>
-Date: Fri, 12 Jun 2026 11:10:45 -0500
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="QuAVxueh"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260612161135epoutp0251d4bb4e9ba0a555a7638b9b7cba2633~4YVrXImIC1807818078epoutp02H
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:11:35 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260612161135epoutp0251d4bb4e9ba0a555a7638b9b7cba2633~4YVrXImIC1807818078epoutp02H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1781280695;
+	bh=wl26fAR/gW6o8YIBNsSnb/apIo7BbF6qv1tG/czd9Dg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=QuAVxueh5b+gJnIuvmTzt8X+Lea7cfhuPPZzK/pB0EKlJf1AVBQu7U89QKEab659J
+	 AwQ5SjFs4JvIWVsmE11d9V0uaGv9UjEGy3DEt6UHjkQlbZMCN8BEE4aibY3UjxYDgR
+	 nzsi+NZokCVy+RXk7VVaDaMF7F1V5rKLqjopr08g=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260612161134epcas5p257c6031f0579b2d030c91f471d59e323~4YVqqIIPJ0551705517epcas5p2J;
+	Fri, 12 Jun 2026 16:11:34 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.87]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4gcPdx51P1z6B9m4; Fri, 12 Jun
+	2026 16:11:33 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260612161132epcas5p154cfe97ffb995875f68d8bb6b73c22ce~4YVohhzY10799207992epcas5p1y;
+	Fri, 12 Jun 2026 16:11:32 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260612161130epsmtip13d86a065431a729a09355266ada97c6e~4YVmu245_0270302703epsmtip1h;
+	Fri, 12 Jun 2026 16:11:30 +0000 (GMT)
+From: Alim Akhtar <alim.akhtar@samsung.com>
+To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	hajun.sung@samsung.com, Alim Akhtar <alim.akhtar@samsung.com>
+Subject: [PATCH 1/5] dt-binding: ARM: samsung: Add Samsung Exynos8855
+Date: Fri, 12 Jun 2026 22:00:16 +0530
+Message-Id: <20260612163020.411761-2-alim.akhtar@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260612163020.411761-1-alim.akhtar@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add TI ADS1220
-To: Nguyen Minh Tien <zizuzacker@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org
-References: <20260610151342.44274-1-zizuzacker@gmail.com>
- <20260610151342.44274-2-zizuzacker@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260610151342.44274-2-zizuzacker@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260612161132epcas5p154cfe97ffb995875f68d8bb6b73c22ce
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260612161132epcas5p154cfe97ffb995875f68d8bb6b73c22ce
+References: <20260612163020.411761-1-alim.akhtar@samsung.com>
+	<CGME20260612161132epcas5p154cfe97ffb995875f68d8bb6b73c22ce@epcas5p1.samsung.com>
 
-On 6/10/26 10:13 AM, Nguyen Minh Tien wrote:
-> The ADS1220 is a 24-bit, 2-kSPS, 4-channel delta-sigma ADC from Texas
-> Instruments with an SPI (mode 1) interface, a programmable gain amplifier,
-> an internal 2.048V reference and a dedicated DRDY data-ready output.
-> 
-> Add a device tree binding describing the SPI device and its per-input
-> channel child nodes (single-ended AINx or the multiplexer's differential
-> pairs), the optional external/AVDD reference selection and the DRDY
-> interrupt.
+Add Samsung Exynos8855 smdk board to documentation
 
-FYI, I have a similar chip I am working on (at least in terms of wiring)
-that I plan to submit probably next week. I think the DT bindings will
-be quite similar, so you might want to wait and see how the review goes
-for that (TI ADS122C14).
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+---
+ .../devicetree/bindings/arm/samsung/samsung-boards.yaml     | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-It could be similar enough that you could add this chip to what I am
-doing rather than having separate files.
-
-> 
-> Signed-off-by: Nguyen Minh Tien <zizuzacker@gmail.com>
-> ---
->  .../bindings/iio/adc/ti,ads1220.yaml          | 146 ++++++++++++++++++
->  1 file changed, 146 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
-> new file mode 100644
-> index 000000000..1fedffc2a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1220.yaml
-> @@ -0,0 +1,146 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1220.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments ADS1220 ADC
-> +
-> +maintainers:
-> +  - Nguyen Minh Tien <zizuzacker@gmail.com>
-> +
-> +description:
-> +  The TI ADS1220 is a precision 24-bit, 2-kSPS, delta-sigma ADC with an SPI
-> +  (mode 1) interface. It provides two differential or four single-ended inputs
-> +  through a multiplexer, a programmable gain amplifier (gain 1 to 128), an
-> +  internal 2.048V reference and oscillator, two programmable excitation current
-> +  sources and a 50/60Hz rejection filter. A dedicated DRDY output signals when a
-> +  new conversion result is available.
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,ads1220
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-cpha: true
-> +
-> +  interrupts:
-> +    description: DRDY pin, signals that a new conversion result is ready.
-> +    maxItems: 1
-
-There are actually 2 DRDY pins, so we need some way to describe which one
-is wired up.
-
-So...
-
-  interrupt-names:
-    items:
-      - enum: [drdy, dout-drdy]
-  
-
-And we have found that when dout-drdy is used, some interrupt controllers
-can't handle it correctly and we also need a dout-drdy-gpios to read the pin.
-
-> +
-> +  avdd-supply:
-> +    description: Analog power supply (AVDD/AVSS).
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply (DVDD/DGND).
-> +
-> +  vref-supply:
-> +    description:
-> +      External reference voltage (REFP0/REFN0). If omitted, the internal
-> +      2.048V reference is used unless ti,vref-avdd is set.
-
-If the pins are REFx0, then let's call it ref0-supply.
-
-There is also a ref1-supply (alternate REFP1/REFN1 function of AIN1/AIN3) so that
-needs to be included as well.
-
-Also, in the case when the sensor is an RDT, we only care about the resistor
-across these inputs rather than the voltage. So in the one I am working on,
-I added extra properties for that.
-
-> +
-> +  ti,vref-avdd:
-> +    type: boolean
-> +    description:
-> +      Use the analog supply (AVDD/AVSS) as the conversion reference instead of
-> +      the internal 2.048V reference. Suited to ratiometric single-supply
-> +      measurements (for example a potentiometer wired across AVDD), giving a
-> +      full 0..AVDD input range without an external reference. Ignored when
-> +      vref-supply is present.
-> +
-
-On the chip I am working on, we want to select the reference source per-channel
-rather than globally, so might want to do the same here.
-
-
-There is also an optional external clock, so we need clocks property.
-
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +  "#io-channel-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - avdd-supply
-> +  - dvdd-supply
-> +
-> +patternProperties:
-> +  "^channel@[0-6]$":
-> +    $ref: adc.yaml
-> +    type: object
-> +    description: Represents one ADC input configuration (channel).
-> +
-> +    properties:
-> +      reg:
-> +        minimum: 0
-> +        maximum: 6
-
-I would add a comment explaining that the limit here is arbitrary. Also wouldn't
-hurt to make it a bit bigger. Technically, someone could have every possible
-combination of all inputs (16 differential + 4 single-ended).
-
-> +
-> +      diff-channels:
-> +        description:
-> +          Differential input pair routable by the ADS1220 multiplexer.
-> +        oneOf:
-> +          - items: [const: 0, const: 1]
-> +          - items: [const: 0, const: 2]
-> +          - items: [const: 0, const: 3]
-> +          - items: [const: 1, const: 2]
-> +          - items: [const: 1, const: 3]
-> +          - items: [const: 2, const: 3]
-> +          - items: [const: 1, const: 0]
-> +          - items: [const: 3, const: 2]
-
-Sometimes, the same channel may be used as both positive and negative
-for a diagnostic, so I would just allow any combination instead of
-listing specific combinations.
-
-> +
-> +      single-channel:
-> +        description:
-> +          Single-ended input channel AINx measured against AVSS.
-> +        minimum: 0
-> +        maximum: 3
-
-On the chip I am working on, I also added properties here for required
-current outputs for the RDT case.
-
-And as mentioned above, a property here to select the reference voltage
-that this specific channel uses It could be Internal, REFx0, REFx1 or AVDD,
-so a boolean flag is not enough.
-
-
-> +
-> +    oneOf:
-> +      - required: [diff-channels]
-> +      - required: [single-channel]
-> +
-> +    required:
-> +      - reg
-> +
-> +    unevaluatedProperties: false
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        adc@0 {
-> +            compatible = "ti,ads1220";
-> +            reg = <0>;
-> +            spi-max-frequency = <2500000>;
-> +            spi-cpha;
-> +            interrupt-parent = <&pio>;
-> +            interrupts = <4 4 IRQ_TYPE_EDGE_FALLING>;
-> +            avdd-supply = <&reg_vcc3v3>;
-> +            dvdd-supply = <&reg_vcc3v3>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +            #io-channel-cells = <1>;
-> +
-> +            channel@0 {
-> +                reg = <0>;
-> +                single-channel = <0>;
-> +            };
-> +
-> +            channel@1 {
-> +                reg = <1>;
-> +                diff-channels = <0 1>;
-> +            };
-> +        };
-> +    };
-> +...
+diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+index 753b3ba1b607..273464400477 100644
+--- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
++++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+@@ -235,6 +235,12 @@ properties:
+               - winlink,e850-96                 # WinLink E850-96
+           - const: samsung,exynos850
+ 
++      - description: Exynos8855 based boards
++        items:
++          - enum:
++              - samsung,exynos8855-smdk         # Samsung SMDK
++          - const: samsung,exynos8855
++
+       - description: Exynos8895 based boards
+         items:
+           - enum:
+-- 
+2.34.1
 
