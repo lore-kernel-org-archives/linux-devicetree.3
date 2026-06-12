@@ -1,111 +1,114 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D157C3655F8;
-	Fri, 12 Jun 2026 08:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AC336F901
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781251417; cv=none; b=F5xcIRoAB1VD6FFJZtn6Pjwsb8catCm0z9Uk9lRG6GCCyICmjoh4tgII2YK31uzdOrO5lUYMLf3g9Y3WCeItC3x3aklXruo+kPuOyxbfU44pfDZ4o7f3u9aXCceja4bsTyN4e3mL316DDK+xaprAYKlcPgPyDwQKqHxUPOEfewY=
+	t=1781251466; cv=none; b=ho9sXVrmhHgVoo8d3kfOAp+UrIDAFQH115k6vJXhpaqhD7zL77V8tJy8nag9NQ6ydrpHfAXEpNGd1x5a53Oo7MkFb4spRslbupxPoNGKahExUSJfm2A2zN3ww35p2/oGDLowhblwukvTUP79NuYJvHhLXjiBsq5X7CA6CyMXIkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781251417; c=relaxed/simple;
-	bh=P4iVxiPDmbhbJzaqrUHlLYRHYp3weiZW/it8LSxUNyk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PHg8TDqcAfurZRnzzaJwEOyxaJmqTBedbOQ+hnDOWp224E2Wt4XdSqfqVK9Gzy/73JckkgbRdC/d10ou2PUxwXu3FbM5DkrEGJHlPXbGu3mbCsO6EoZiiN8OLYBlf73EQtBBxCtzWyeQ8KKPas1gZ1VoUPo6TDpDLgnsC4UZxkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wpoXW6eY; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1781251466; c=relaxed/simple;
+	bh=tdxVXR2Vf4gyVQ8BA0MQiNNlMtfXHD1TVJdxJiHxmR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NX0vaioZPWD/5wI9/kw71GGqEXgZC8szWxFg37HEL7nnY+eprydfjstXj8eGsQqVd2r2VlZ+CPArOaCFRei2UlOgpQMRdoAr5tb6+Wj4UbzMFDT85scJvg5wPx7tjUNDKzj7E+LCpg9UJsPYQLqyCC8hkV/A3+6fQ/ELvf0UuM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=UBHYfxnb; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wpoXW6eY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781251412; x=1812787412;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P4iVxiPDmbhbJzaqrUHlLYRHYp3weiZW/it8LSxUNyk=;
-  b=wpoXW6eYrX31Z4q6ScGwG1tUik1NzrEzngtpN5DTugmdDTv62Gk5P/0Y
-   r36/HXM3N2EgUfFT/Htfclf2A4QOkUSFf99p7oHBpieiKbRbXL9bLw5i0
-   p9NGDGBvQZItdv+zMbAKea/+M+vsTGpu6cOctzgJ+ncrFpEqC6fODNocK
-   XM+Hzn7r4yHdJdO37tPSat4rkCaFeAyZEv6z7fUdXuwbHpMtC1FNj8E+M
-   jW2t0ySPz0FWKIH0l1gbI5NYUPI6dnVArwGY86kqX4CzTvxea/oQlc9/H
-   tdgbbcKVXuuYy1tkTPeJ2pPdW3cLb03iUrKo4WviSAepO/1iPo09cKbJd
-   A==;
-X-CSE-ConnectionGUID: OS0RNmxnQE6XK0OgLov9Ng==
-X-CSE-MsgGUID: l5iiYcgQRueWpaWqOIGeaQ==
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="asc'?scan'208";a="68064594"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 01:03:25 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Fri, 12 Jun 2026 01:03:25 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 12 Jun 2026 01:03:20 -0700
-Date: Fri, 12 Jun 2026 09:02:34 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Guodong Xu <docular.xu@gmail.com>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
- Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Zong Li
-	<zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, Anup Patel
-	<anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Chen Wang
-	<unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
-	<linux-doc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<kvm-riscv@lists.infradead.org>, Paul Walmsley <paul.walmsley@sifive.com>,
-	Conor Dooley <conor@kernel.org>, <devicetree@vger.kernel.org>,
-	<spacemit@lists.linux.dev>, <sophgo@lists.linux.dev>,
-	<linux-kselftest@vger.kernel.org>, Palmer Dabbelt <palmer@sifive.com>
-Subject: Re: [PATCH v4 01/16] dt-bindings: riscv: sort multi-letter Z
- extensions alphanumerically
-Message-ID: <20260612-strength-body-303e6a57218d@wendy>
-References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com>
- <20260611-rva23u64-hwprobe-v2-v4-1-3f01a2449488@gmail.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="UBHYfxnb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=from:to:cc:subject:date:message-id
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=S7eIsNmXUuWZdnb0NIb1YVWhPqho3ZDLb7MIjXioyco=; b=UBHYfx
+	nbRbDdS98Tmm2OMzIfM6YCvkn2wy8jWHxE5cpWYxkzQGz541lDI2X6syr5th91of
+	ldfiBhIlbKYLS0b9exn/bC7qR8O0mQc5MP/ByMMzMWWpSdmHtO1+nj7DMrHVzqDd
+	dzp7t/Lhmf7tyW8EnF8xCzzX2hY4jQzziDiMJBP/Ngzb+iuOO2HXP8mjZmZKO5vW
+	rVqZflrugxXEIRNjC65cGnFiTy6RJc5Hn6T37bfH2GY2cw84AT79/xOeC4cPGJoI
+	6Iq2Tf4ORcb2l9YT+DsfZfV2H0n3dEkJDdviwTs5gObQ6HEAnbyxQeqbd6nX3VWc
+	uNYbseYqkVwz05Yw==
+Received: (qmail 2443853 invoked from network); 12 Jun 2026 10:04:12 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 12 Jun 2026 10:04:12 +0200
+X-UD-Smtp-Session: l3s3148p1@LH0K7AlUwKcujnsK
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH 2/2] ARM: dts: renesas: r9a06g032-rzn1d400-eb: Enable SPI-FRAM
+Date: Fri, 12 Jun 2026 10:03:56 +0200
+Message-ID: <20260612080354.57459-6-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260612080354.57459-4-wsa+renesas@sang-engineering.com>
+References: <20260612080354.57459-4-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/HoYz/XLHMn+tyAX"
-Content-Disposition: inline
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-1-3f01a2449488@gmail.com>
+Content-Transfer-Encoding: 8bit
 
---/HoYz/XLHMn+tyAX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Activate the FRAM and the SPI bus which it is attached to.
 
-On Thu, Jun 11, 2026 at 04:12:38PM -0400, Guodong Xu wrote:
-> The multi-letter extension enum is documented as being sorted
-> alphanumerically (see the "multi-letter extensions, sorted
-> alphanumerically" comment), but several Z entries have drifted out of
-> order.
->=20
-> Reorder the affected entries so the multi-letter Z list is sorted
-> alphanumerically again.
->=20
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
+ .../dts/renesas/r9a06g032-rzn1d400-eb.dts     | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: na
+diff --git a/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts b/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
+index 97a339b30d76..ead379988fb1 100644
+--- a/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
++++ b/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
+@@ -53,6 +53,10 @@ led@1 {
+ 	};
+ };
+ 
++&gpio2 {
++	status = "okay";
++};
++
+ &i2c2 {
+ 	/* Sensors are different across revisions. All are LM75B compatible */
+ 	sensor@49 {
+@@ -152,6 +156,13 @@ pins_sdio1_clk: pins-sdio1-clk {
+ 		drive-strength = <12>;
+ 	};
+ 
++	pins_spi1: pins-spi1 {
++		pinmux = <RZN1_PINMUX(156, RZN1_FUNC_SPI0_M)>,
++			 <RZN1_PINMUX(157, RZN1_FUNC_SPI0_M)>,
++			 <RZN1_PINMUX(158, RZN1_FUNC_SPI0_M)>,
++			 <RZN1_PINMUX(159, RZN1_FUNC_GPIO)>;
++	};
++
+ 	pins_uart2: pins-uart2 {
+ 		pinmux = <RZN1_PINMUX(105, RZN1_FUNC_UART2)>,
+ 			 <RZN1_PINMUX(106, RZN1_FUNC_UART2)>,
+@@ -168,6 +179,20 @@ &sdio1 {
+ 	status = "okay";
+ };
+ 
++&spi1 {
++	pinctrl-0 = <&pins_spi1>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	cs-gpios = <&gpio2a 31 GPIO_ACTIVE_LOW>;
++
++	fram: fram@0 {
++		compatible = "cypress,fm25", "atmel,at25";
++		reg = <0>;
++		spi-max-frequency = <12500000>;
++	};
++};
++
+ &switch {
+ 	pinctrl-0 = <&pins_eth1>, <&pins_eth2>, <&pins_eth3>, <&pins_eth4>,
+ 		    <&pins_mdio1>;
+-- 
+2.47.3
 
---/HoYz/XLHMn+tyAX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiu9GgAKCRB4tDGHoIJi
-0v7zAQDekEYV7GQZKWhpOKggyOP7/VEDaNNIVjsPa4Gj++QaKwD/VvZF9CIz96Nk
-FWyOnzPaRHO4UyHIBXkZHWJO29UlYA0=
-=WZTL
------END PGP SIGNATURE-----
-
---/HoYz/XLHMn+tyAX--
