@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C5436495F;
-	Fri, 12 Jun 2026 23:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41368305E28
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 23:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781307531; cv=none; b=PTL50k6rgilD0bWyRzO6tNPAxkK3wYkmEaWHNjGL3Qlpwp12s29Ad4ls7Jnkt/NDtTjnyDPa7/Yi/2/DzM241yoke4h57kBBwNzkDy2s0B/YfGIyGWO5iUz4KLEsRPQVn2jelClnJ/FZNmgRhdnMGr3+eKqkXXS5SRFbWlZAtdw=
+	t=1781308208; cv=none; b=NyWH+15JP3OAq/JW2AFzGX58hWg7jLymkf9LQQV1Ntm0qCYnAl3zdgi52ZaJLpa/QmaR7RfSFWllxbGeEkOpdoAxK+zN++knTkpmKN0mrYSKvTKeYua46g92UsD9MykHX47w28FC8olziBaZnAP1yBVVACcAdxX7ZwytQ8mTxP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781307531; c=relaxed/simple;
-	bh=OkuRf/bRAiKogAQuuTfeBVzwZ6IvJfvOo2tGKHiklFQ=;
+	s=arc-20240116; t=1781308208; c=relaxed/simple;
+	bh=iUC5KuD8DUpRBxmH8q9YtdnfI/bOwVeYLr89NTEjfAw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ErNqgBtPf7v+9JqtHu7+DaPbX2wbTHtR5r0WvWLMDpUakIZZQFJKJUUjnt/pugsl2qesuScuK8/SkpACTzeSS+HdModsylEF/JiIZtbV5Zw/sMr/SnvHOEmRn6JEVT5UFsKGy5ZDZuw/sOP98AHXsQ+Sh0aTE7p4VoZGOThZY3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7nH6SCR; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ELK8s7NV+qmkk0q9sKG+bVrps0QRnT63ssddfkeufJMf9lN7EaFWR6q/bgsSe/Gi6/OPzvZ9TAu+vWTjVsXyoK0aYRpoyDDq1OR8ZhNrT0BIXHjrZdjHCKqUy28CB5c3R2X8w7sCfV+WtI/fiI6oHEa89oD/nONAo6BsEr9BSUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HPMsgtHd; arc=none smtp.client-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7nH6SCR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69AE1F000E9;
-	Fri, 12 Jun 2026 23:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781307530;
-	bh=8Z7mMgZddwXtcgjr3JS6+y3IO48OGVMzdpCvRhO1ZyQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=V7nH6SCRl82bDZEcsRRSWImhoudGpTPdEw/wl7hkF6R93JcSyR6OKR/bChARiZbyt
-	 ykyVwmK+sg5ueyA4to+NnNats0uCUyvmiT+tmeTUpAfAJrdGfy43wsXHow7Ty4Exuc
-	 JdP//PHVvIvVVulX4jqNaXMdI02m6bpP4mPZh199gHRK3K6MU5WLhFOBCcsaJhZt2i
-	 XGejXwVQvzvMU5rbFsS+XF3buQrUNecpI0yUvR3kP1sdL4P8T1DrCbmzZizgldPqJJ
-	 37+6zGmUkKILhSXnUnvb/7kiZ6RiIIOJpp23MeunhecqrWGrLpmYpywKAKKijh98vz
-	 MdhwN1kIPgwAA==
-Message-ID: <2e39b83d-dab6-4113-8702-b7f97b46bfeb@kernel.org>
-Date: Sat, 13 Jun 2026 00:38:46 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HPMsgtHd"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-43d1470491aso763171fac.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:50:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781308205; x=1781913005; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bYdl9jUW3MXBuDee60djhsxFixkF1o3CC0t5JyKpACQ=;
+        b=HPMsgtHdOOREknh2zMO0uePPRofXpf7ClA9Cw3w3F75oGGdmCIvCtrfgJ8S7fTuiud
+         ILEiZErYb7lf4LppQ6ChJVcZ8hFUUH/9s5t8E/ASYpAbJ/7W1RMa3iza9t75xn0JNpmN
+         mNVuMeri4RlJfOzYice87OfFgOMZMvrRBFG4/LTm96q9PYJtZFsn/WoL1WIVb+LGQnxx
+         fky4oTI3MCFlF84qHMaftmYZW+UsI9tBPqvgMIaqB9fXTA/2rrGrnXIF2J2I5mjqfNcr
+         GWziwqdxze8cyT2gqj60xpWx+jQRwktie/UutVzzMq4ol9dQ8awd7uJqxm3uBWDoNbp9
+         tbwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781308205; x=1781913005;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bYdl9jUW3MXBuDee60djhsxFixkF1o3CC0t5JyKpACQ=;
+        b=YCaY09AHgEsHrhkwxSDmtPpMt846bUoNEc1x7LxPFfepJsioEjJVennQfLKyuz8YYh
+         zUh2v9aD0QINyJOw5Mi+sDQAnRb4FepX5obpc0CREmPXypWXAA9DGT9AB4XBIoO/+OnH
+         fmLccByLacEb44eTZlgZCFPWcjmLBO1J04E/TwliLXAl+7DkTJmLPOtilnh+8wp8jmAv
+         SlBL3JzwDCJva4MqrdLR4BNXIpeXZdlgRbNAQfvaz7wVPtJketehMgj/TT52R9GqgNva
+         5R72TOBZs9cSJhjvtPFu0UItOdM/bBUI5SSqdaTtCXg95Hynk3pMhmd664L4avLgbKTI
+         czOQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/Nxs/W3fpAvmA0nywhbVRQql/941i2v3ZeqJqWLqOpnJhwF+zA2tRI6bwduu1Oj4QmGed3i9fDwG1K@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlE7bQhOjdWAWYFADOt10flDRh/B7U+O6bjuheAK62d8yv8Eyz
+	sFoc1Y7E30tPSTXM1MlUYxSFqueIUDtvnbs/A2wVDJ83+e3XEg/1U0h/tnv93Db6glU=
+X-Gm-Gg: Acq92OFFogDuvcq2kTD1tc6mo6n5dTqkPs5qQzhB/a/rDFXz6ZkOJ/WiDbHO8SpHDWq
+	34WZsdaccnMbhbXcxORe49IQICPeRZ2X4t2yGtFXz62f2VN8JM70RVXJ0yAwXXkIHMSud12QTyO
+	GMUkwWDkVhd9JE9UQwSYWgRtlXO66KjDbWiTTaQBEMIpewN2OtJfe/IVokwPURPtt5PyHoEm7w7
+	Nnxmk8GrTvNTxBYBCf9h45pOmlNW5bvTaBvkHeDBFS5uoY5EP/suf0yDzZvV2fQ/IoCG/tv+gfB
+	di2OcYkrM1eplPkirinEnRHpM34JYRs4tpg4Blq11vjfi7dD7xVELZ5YDYDj7JzXD5kJR4jPlQ8
+	D5hldjVED8fNtcxr9i8HulLA4L/nQXZl5Y7Y8rnsPJ3n5vbD92cXAj9RHPv53GyRpum8vNndYmN
+	4oc4p2/+xOOzjMsbnk9+4e1NiMILlE7O8lsrKHxX5V02Y7d+QGskihEOA8k7bmE8tLAuC3buKzU
+	w==
+X-Received: by 2002:a05:6820:198a:b0:69e:97bf:4756 with SMTP id 006d021491bc7-69eec7b8f0dmr1138577eaf.7.1781308204992;
+        Fri, 12 Jun 2026 16:50:04 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:cb9a:87cc:1314:fef5? ([2600:8803:e7e4:500:cb9a:87cc:1314:fef5])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69ed8575597sm2680424eaf.12.2026.06.12.16.50.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 16:50:03 -0700 (PDT)
+Message-ID: <95291df3-c34b-40a4-ba73-813ccd4b9ef8@baylibre.com>
+Date: Fri, 12 Jun 2026 18:50:01 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,88 +69,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] dt-bindings: media: qcom: Add JPEG encoder binding
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
- <qv-6fR3KVWzU8jGZuWv7QSLxbiKy31Xjpql1NnH6YDj_OwXsNFz-_Lr-bBw6tFyuexHgC8cgAKIDrB58teVAZQ==@protonmail.internalid>
- <20260612194417.1737009-2-atanas.filipov@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
+Subject: Re: [PATCH 0/5] iio: adc: Add TI ADS126X ADC family support
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260612194417.1737009-2-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/06/2026 20:44, Atanas Filipov wrote:
-> +maintainers:
-> +  - Azam Sadiq Pasha Kapatrala Syed<akapatra@quicinc.com>
-> +  - Hariram Purushothaman<hariramp@quicinc.com>
-> +
+On 6/12/26 5:46 PM, Kurt Borja wrote:
+> Hi all,
+> 
+> This series introduces support for TI ADS1262 and ADS1263 ADCs [1].
+> These devices are very similar (if not the same), except ADS1263
+> includes a secondary auxiliary ADC.
+> 
+> The main ADC has quite a few features supported the main driver
+> (ti-ads1262), including:
+> 
+>   - Power management
+>   - IIO direct and buffer modes
+>   - Channel hot-reloading
+>   - Internal or external oscillator
+>   - Internal or external voltage reference
+>   - Filter configuration
+>   - Sensor bias configuration
+>   - IDAC configuration
+>   - Level-shift voltage configuration
+>   - Manual calibration support
+>   - GPIO controller capabilities
+> 
+> I plan to add these features to the main driver soon:
+> 
+>   - SPI offload support (38400 SPS turns out to be too high for some
+>     systems)
+>   - User triggered, automatic calibration (Datasheet 9.4.9)
+> 
+> Additionally, full support for the (less capable) auxiliary ADC is
+> introduced by the auxiliary ti-ads1263-adc2 driver included in this
+> series.
+> 
+> The auxiliary ADC operates almost completely independent of the main
+> ADC. The only consideration that has to be taken for interoperability is
+> when reading conversion data in direct mode (Datasheet 9.4.7.1), which
+> happens only in buffer mode, when multiple channels are enabled.
+> 
+> When reading data in direct mode, all SPI activity is forbidden between
+> the data-ready signal and the data retrieval. To achieve this a second
+> mutex called xfer_lock was introduced to block SPI activity on the
+> device.
+> 
+> This is one of the biggest drivers I've developed, so I hope the code
+> and the comments are self-explainatory. If not, please let me know so I
+> can clarify them.
+> 
+> As always, thanks for your reviews and help. Submitting upstream is
+> always a great learning experience :)
+> 
+> [1] https://www.ti.com/lit/ds/symlink/ads1263.pdf
+> 
+> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+> ---
+> Kurt Borja (5):
+>       dt-bindings: iio: adc: Add TI ADS126x ADC family
+>       iio: adc: Add ti-ads1262 driver
+>       iio: adc: ti-ads1262: Add GPIO controller support
+>       iio: adc: ti-ads1262: Add calibration support
+>       iio: adc: Add ti-ads1263-adc2 driver
+> 
+>  .../devicetree/bindings/iio/adc/ti,ads1262.yaml    |  308 +++
+>  .../bindings/iio/adc/ti,ads1263-adc2.yaml          |   49 +
+>  MAINTAINERS                                        |   10 +
+>  drivers/iio/adc/Kconfig                            |   26 +
+>  drivers/iio/adc/Makefile                           |    2 +
+>  drivers/iio/adc/ti-ads1262.c                       | 2180 ++++++++++++++++++++
+>  drivers/iio/adc/ti-ads1262.h                       |   39 +
+>  drivers/iio/adc/ti-ads1263-adc2.c                  |  470 +++++
+>  8 files changed, 3084 insertions(+)
+> ---
+> base-commit: ae696dfa47c30016cd429b9db5e70b259b8f509e
+> change-id: 20251129-ads126x-fb6107505cae
+> 
 
-I said in the accidental leaked version that the maintainers listed 
-here, are not in the SOB chain, while the submitter is not in the 
-maintainer list.
+Hi Kurt,
 
-https://lore.kernel.org/linux-media/6378b14e-24d4-4a19-a3a5-3f87245d5b9b@kernel.org/
+I'm currently working on the TI ADS112C14 family of chips which
+are functionally very similar (although have a bit of a different
+register map).
 
-It appears none ? of the review feedback from that accidental publish 
-has been taken on board ?
+I have some different ideas for the devicetree bindings that I
+think will make it a bit more flexible. Given how similar the
+chips are, I think we will want to align on how we do these (and
+there was one more similar, and thankfully much simpler, TI ADC
+driver submitted this week too!).
 
-Please READ the review feedback and take action based on that feedback 
-either implementing what the reviewer said or not implementing it but, 
-in either case documenting what was and was not done and why !
+So rather that looking at your stuff too closely yet, I will send
+what I have next week and we can compare notes then.
 
-This is a large body of work demanding significant effort from those 
-reviewing it so please respect our time and effort in this - go through 
-the previous comments and at the very least address them in your 
-submission or explain their omission in your cover letter log.
 
----
-bod
