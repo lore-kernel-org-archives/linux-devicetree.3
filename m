@@ -1,581 +1,311 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5223ACA7A;
-	Fri, 12 Jun 2026 13:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0B43812C2;
+	Fri, 12 Jun 2026 13:43:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781271721; cv=none; b=ZYgaTXDC28INf6rK90WWjQn/7P0BnHqJOHr4L0II99stGdShcIjrFSoizOyy46KW5Mn7EL/7me+WdOVgR8hwsx0ML97ckxJSSyGkYTkeunqp4QItEtxb9ye/zneAbgl3tW39y5NNH/mBK4itb4IfYkbT0bgypNO3apsWQIxQdh4=
+	t=1781271811; cv=none; b=l+704P6kdrxoxVa2mqBy+sJkzWUFDVNVHAukkXMNM6Lk67r6YALloGTUrpA/XN07rs06LE+WXH1TxPFMwMPEp61I9N6Gw5B7F6L2PgBu1tXz2fF0Sr/2F7tuIOvZeTN8J3pDHmR+sEkwkMshD8XePmtLpyvxG14lYaGxDP0K+MU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781271721; c=relaxed/simple;
-	bh=OmL+4tQmsYBu+O7bPCHc04GNp8e7tMfRd2uyM4og//s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lgehaGLq7nrIzAA7I82Ibv2cN2W/09qhGeM3IHwc3arQrro0sXBhkhKWIwTBEnmT3exCBUhOl5W4/kpvk1BYmUktgBRAFkxmP6x8hNTv5XXCG9ai5GMJ+BawCIjI4c/9l4WdiMHALC9Mv/GwRL0qKtD4jchQuRQTdet4PWBYzoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRW95JuS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781271811; c=relaxed/simple;
+	bh=aG1qX9QR+6FrpZu6mpxINHBBlg4axuOBXYYiP++ajso=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Jmz9LzZUBf/NXxa+UX7nqbvz+rzttNaDT1JS/Z9om42zaFgDoSRm7F5mgNgCVGHWJeczDp5D5/eC8rWu/lg7yBa3tEIo+F8fRCfw3W5vhRsZNm2jBMczEas8P0c07xzEQK6X76a3s4WQ4ARWTGLeUljl04KHs1oEvjt8TOa07EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNB/icRh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRW95JuS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B906C1F000E9;
-	Fri, 12 Jun 2026 13:41:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNB/icRh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57DD1F000E9;
+	Fri, 12 Jun 2026 13:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781271718;
-	bh=+/qd9tr6MzoDUh99zVqYGeAiJYLC+iebqr/MWvk3Xiw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LRW95JuSbTzKYQ8tnGDf42PyjwvW6rpwpnm+jesxwCNCGluB5WBBrxYD8n39Jv+Du
-	 jaxaNaGUngY+qLqqlbpwOE+ASHL1/8qhj8SOQ4hRyCUuUx6aa1+r4fkg0GZFWl6/It
-	 5kyASsvL9qS9eN+aJZwWMc+djMPx76k4ukNOlk7B5aok5Ho7+os66tytBCB9fqZ2qY
-	 Ix3XbbKbESaBF22jcUrxa6ByrVThp2YrRxC1KoPgy435Whh9bI2b5DdgW+fR8sxFsH
-	 UOEye95LFkQKL6fER0KcmY0hJ9XiBAU3G5naWIb8P/4gUq14He6MnQmHdjuK0cR+IH
-	 w6JUQBklkhojA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/8] media: platform: Add NXP Neoisp Image Signal
- Processor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoine Bouyer" <antoine.bouyer@nxp.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260612132039.2089051-7-antoine.bouyer@nxp.com>
-References: <20260612132039.2089051-7-antoine.bouyer@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 13:41:57 +0000
-Message-Id: <20260612134157.B906C1F000E9@smtp.kernel.org>
+	s=k20260515; t=1781271809;
+	bh=PW0ch6LzyqRe1DD7YGoIllwa5ppibrk0KebrYTidl70=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BNB/icRhOi/JrMzhsjLioAjhjYVgL4L1ysM1ESoF38GjqLgxeKyI2AYNnV+5YFuMX
+	 PIQcklCv4xlxk4f0KUfNX1+VlLjQv3mSwDiu6tqrOzhC+XD+18H2W6bsyHw6tOaMjR
+	 RCvWfdwtdV0AsgsKz981zLSj9pqDKr0qNYIAcqfkVDkbodY8miwkYPEEO2/CeABc0E
+	 BLQX7Lk0tsxnB102kLPqnbr5CiM+dcnsTDyRGBUonwmH9DaulTXZidxX3JhKc087OO
+	 1lRAqbzl9uGnW/ppmYCWCiZuTG+7aHRPonBNN0ZvgnhmnNhaPQgBpQcJRI6MIetar1
+	 qwTtBgchPWRfg==
+Date: Fri, 12 Jun 2026 14:43:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Erim, Salih" <salih.erim@amd.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ conall.ogriofa@amd.com, michal.simek@amd.com, linux@roeck-us.net,
+ erimsalih@gmail.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 4/5] iio: adc: versal-sysmon: add threshold event
+ support
+Message-ID: <20260612144319.2302418e@jic23-huawei>
+In-Reply-To: <bd6299ae-cd02-4914-ab1b-f6bb9d3d1b9a@amd.com>
+References: <20260611222738.2035062-1-salih.erim@amd.com>
+	<20260611222738.2035062-5-salih.erim@amd.com>
+	<20260612135222.0cec353b@jic23-huawei>
+	<bd6299ae-cd02-4914-ab1b-f6bb9d3d1b9a@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+On Fri, 12 Jun 2026 14:39:12 +0100
+"Erim, Salih" <salih.erim@amd.com> wrote:
+
+> Hi Jonathan,
+> 
+> Thanks for reviews, replies are inline.
+> 
+> On 12/06/2026 13:52, Jonathan Cameron wrote:
+> > On Thu, 11 Jun 2026 23:27:37 +0100
+> > Salih Erim <salih.erim@amd.com> wrote:
+> >   
+> >> Add threshold event support for temperature and supply voltage
+> >> channels.
+> >>
+> >> Temperature events:
+> >>    - Rising threshold with configurable value
+> >>    - Over-temperature (OT) alarm with separate threshold  
+> > 
+> > Ah. I ask about this below.  If this applies to the same channel
+> > as the main threshold we generally don't support that in IIO and
+> > definitely not by introducing a 'magic' extra channel.
+> > See below.
+> >   
+> >>    - Per-channel hysteresis as a millicelsius value
+> >>    - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
+> >>
+> >> Supply voltage events:
+> >>    - Rising/falling threshold per supply channel
+> >>    - Per-channel alarm enable via alarm configuration registers
+> >>
+> >> The hardware supports both window and hysteresis alarm modes for
+> >> temperature. This driver uses hysteresis mode, where the upper
+> >> threshold triggers the alarm and the lower threshold clears it
+> >> (re-arm point). The hardware has a single ISR bit per temperature
+> >> channel with no indication of which threshold was crossed, so
+> >> hysteresis mode is the natural fit. The lower threshold register
+> >> is computed internally as (upper - hysteresis).
+> >>
+> >> Hysteresis is stored in the driver as a millicelsius value,
+> >> initialized from the hardware registers at probe. Writing the
+> >> rising threshold or hysteresis recomputes the lower register.
+> >> ALARM_CONFIG is hard-coded to hysteresis mode during init.
+> >>
+> >> The interrupt handler masks active threshold interrupts (which are
+> >> level-sensitive) and schedules a delayed worker to poll for condition
+> >> clear before unmasking. When no hardware IRQ is available, event
+> >> channels are not created and interrupt init is skipped, since the
+> >> I2C regmap backend cannot be called from atomic context.
+> >>
+> >> When disabling a supply channel alarm, the group interrupt remains
+> >> active if any other channel in the same alarm group still has an
+> >> alarm enabled.
+> >>
+> >> Signed-off-by: Salih Erim <salih.erim@amd.com>  
+> > 
+> > Some follow on questions on the temperature channels and one thing
+> > Sashiko noticed that looks real.
+> >   
+> >> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
+> >> index c875d156dbe..20fd3a87d44 100644
+> >> --- a/drivers/iio/adc/versal-sysmon-core.c
+> >> +++ b/drivers/iio/adc/versal-sysmon-core.c
+> >> @@ -11,7 +11,9 @@
+> >>   #include <linux/bitops.h>
+> >>   #include <linux/cleanup.h>
+> >>   #include <linux/device.h>
+> >> +#include <linux/devm-helpers.h>
+> >>   #include <linux/err.h>
+> >> +#include <linux/interrupt.h>
+> >>   #include <linux/module.h>
+> >>   #include <linux/property.h>
+> >>   #include <linux/regmap.h>
+> >> @@ -19,10 +21,19 @@
+> >>   #include <linux/sysfs.h>
+> >>   #include <linux/units.h>
+> >>
+> >> +#include <linux/iio/events.h>
+> >>   #include <linux/iio/iio.h>
+> >>
+> >>   #include "versal-sysmon.h"
+> >>
+> >> +/* OT and TEMP hysteresis mode bits in SYSMON_TEMP_EV_CFG */
+> >> +#define SYSMON_OT_HYST_MASK          BIT(0)
+> >> +#define SYSMON_TEMP_HYST_MASK                BIT(1)
+> >> +
+> >> +/* Compute alarm register offset from a channel address */
+> >> +#define SYSMON_ALARM_OFFSET(addr) \
+> >> +     (SYSMON_ALARM_REG + ((addr) / SYSMON_ALARM_BITS_PER_REG) * SYSMON_REG_STRIDE)
+> >> +
+> >>   #define SYSMON_CHAN_TEMP(_chan, _address, _name)             \
+> >>   {                                                            \
+> >>        .type = IIO_TEMP,                                       \
+> >> @@ -34,14 +45,87 @@
+> >>        .datasheet_name = _name,                                \
+> >>   }
+> >>
+> >> +#define SYSMON_CHAN_TEMP_EVENT(_chan, _address, _name, _events)      \
+> >> +{                                                            \
+> >> +     .type = IIO_TEMP,                                       \
+> >> +     .indexed = 1,                                           \
+> >> +     .address = _address,                                    \
+> >> +     .channel = _chan,                                       \
+> >> +     .event_spec = _events,                                  \
+> >> +     .num_event_specs = ARRAY_SIZE(_events),                 \
+> >> +     .datasheet_name = _name,                                \
+> >> +}
+> >> +
+> >> +enum sysmon_alarm_bit {
+> >> +     SYSMON_BIT_ALARM0 = 0,
+> >> +     SYSMON_BIT_ALARM1 = 1,
+> >> +     SYSMON_BIT_ALARM2 = 2,
+> >> +     SYSMON_BIT_ALARM3 = 3,
+> >> +     SYSMON_BIT_ALARM4 = 4,
+> >> +     SYSMON_BIT_OT = 8,
+> >> +     SYSMON_BIT_TEMP = 9,
+> >> +};  
+> >   
+> >>   /* Static temperature channels (always present) */
+> >> -static const struct iio_chan_spec temp_channels[] = {
+> >> +static const struct iio_chan_spec temp_channels_no_events[] = {
+> >>        SYSMON_CHAN_TEMP(0, SYSMON_TEMP_MAX, "temp"),
+> >>        SYSMON_CHAN_TEMP(1, SYSMON_TEMP_MIN, "min"),
+> >>        SYSMON_CHAN_TEMP(2, SYSMON_TEMP_MAX_MAX, "max_max"),
+> >>        SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
+> >>   };
+> >>
+> >> +/* Static temperature channels with event support (when IRQ available) */
+> >> +static const struct iio_chan_spec temp_channels_with_events[] = {
+> >> +     SYSMON_CHAN_TEMP(0, SYSMON_TEMP_MAX, "temp"),
+> >> +     SYSMON_CHAN_TEMP(1, SYSMON_TEMP_MIN, "min"),
+> >> +     SYSMON_CHAN_TEMP(2, SYSMON_TEMP_MAX_MAX, "max_max"),
+> >> +     SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
+> >> +     SYSMON_CHAN_TEMP_EVENT(4, SYSMON_ADDR_TEMP_EVENT, "temp",
+> >> +                           sysmon_temp_events),  
+> > Is this not an event on channel 0?  Why does it need a separate one?  
+> 
+> The hardware has two independent threshold register pairs on the
+> same DEVICE_TEMP_MAX measurement: a TEMP threshold (ISR bit 9)
+> and an OT threshold (ISR bit 8), each with its own hysteresis.
+> We modelled them as separate event-only channels because of the
+> independent HW registers.
+> 
+> However, you're right that they don't necessarily need separate
+> channels. Both monitor the same value that channel 0 reads, so
+> the TEMP event spec belongs directly on channel 0.
+> 
+> >> +     SYSMON_CHAN_TEMP_EVENT(5, SYSMON_ADDR_OT_EVENT, "ot",  
+> > 
+> > Why two separate channels for events? Are we dealing with two separate
+> > events on the same signal? Generally we don't support that for IIO because
+> > it's largely meaningless except in hwmon usecases - what is the point in two
+> > thresholds if they are reported through the same path?  Just use one and update
+> > it if you want to add another level of detection.  
+> 
+> Yes, both are thresholds on the same physical measurement. OT is
+> a higher-severity threshold that can trigger the platform
+> management controller to initiate a hardware shutdown sequence.
+> 
+> If you agree, I'd propose for v7:
+>    - Move TEMP threshold event spec onto channel 0 directly
+>    - Drop OT as a separate IIO channel, since it's a hardware
+>      safety mechanism better suited for the thermal framework
+>      as a critical trip point (planned for the follow-up
+>      thermal series)
+> 
+> Happy to take a different direction if you prefer.
+
+That sounds good.
+
+Thanks,
+
+Jonathan
+
+> 
+> >   
+> >> +                           sysmon_temp_events),
+> >> +};  
+> >   
+> >> +
+> >> +static int sysmon_read_event_config(struct iio_dev *indio_dev,
+> >> +                                 const struct iio_chan_spec *chan,
+> >> +                                 enum iio_event_type type,
+> >> +                                 enum iio_event_direction dir)
+> >> +{
+> >> +     u32 alarm_event_mask = sysmon_get_event_mask(chan->address);
+> >> +     struct sysmon *sysmon = iio_priv(indio_dev);
+> >> +     unsigned int imr;
+> >> +     int config_value;
+> >> +     int ret;
+> >> +
+> >> +     ret = regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
+> >> +     if (ret)
+> >> +             return ret;
+> >> +
+> >> +     /* IMR bits are 1=masked, invert to get 1=enabled */
+> >> +     imr = ~imr;
+> >> +
+> >> +     switch (chan->type) {
+> >> +     case IIO_VOLTAGE:
+> >> +             config_value = sysmon_read_alarm_config(sysmon, chan->address);
+> >> +             if (config_value < 0)
+> >> +                     return config_value;
+> >> +             return config_value && (imr & alarm_event_mask);
+> >> +
+> >> +     case IIO_TEMP:
+> >> +             return !!(imr & alarm_event_mask);  
+> > 
+> > Sashiko made a perhaps insightful observation here.  When the interrupt
+> > is masked between sending an event and the worker reenabling it does
+> > this give an unexpected value to userspace?  I think that condition
+> > we'd kind of expect this to return 0.
+> > https://sashiko.dev/#/patchset/20260611222738.2035062-1-salih.erim%40amd.com  
+> 
+> Agreed. read_event_config currently reads the hardware IMR which
+> shows transient masking state during the 500ms polling window.
+> Will fix to return the administrative state from temp_mask instead.
+> 
+> > 
+> > I think the rest of the feedback is probably false positives or debatable
+> > stuff but this one rang true. Please do take a look at the other stuff
+> > as I may have missed something (maybe the comment about needing to disable
+> > event interrupt generation is true?)  
+> 
+> Good point. Will investigate whether a devm_add_action to
+> write SYSMON_IDR is needed on unbind and add it if so.
+> 
+> Reviewed the remaining Sashiko findings:
+> 
+>    - Integer overflow in threshold conversions: for temperature,
+>      the Q8.7 register range is -256C to +255C, so any
+>      reasonable millicelsius input fits after the shift. For
+>      supply, val * scale can overflow int32 above ~32V, but
+>      supply rails on Versal are well under 4V. Extreme sysfs
+>      inputs are outside the hardware range.
+> 
+>    - I2C + IRQ panic on misconfigured DT: if an I2C node
+>      incorrectly specifies an interrupts property, the driver
+>      would register a hardirq handler on a sleeping regmap.
+>      The binding does not list interrupts for I2C, so this
+>      would be a DT authoring error.
+> 
+> Thanks,
+> Salih
+> 
+> >   
+> >> +
+> >> +     default:
+> >> +             return -EINVAL;
+> >> +     }  
+> > 
+> > 
+> > 
+> >   
+> >> +  
+> >   
+> 
 
-Thank you for your contribution! Sashiko AI review found 14 potential issue=
-(s) to consider:
-- [Critical] The driver validates ISP parameters directly in the user-mappe=
-d shared memory buffer without a kernel copy, exposing a critical TOCTOU vu=
-lnerability.
-- [High] Using asynchronous `pm_runtime_put()` before `pm_runtime_disable()=
-` leaves the hardware permanently powered on.
-- [High] Using standard `memcpy` on MMIO mapped memory causes architectural=
- faults.
-- [High] Missing NULL pointer checks for virtual addresses returned by vide=
-obuf2.
-- [High] Invalid V4L2 teardown order in `neoisp_destroy_devices()` causes U=
-se-After-Free of `v4l2_dev`.
-- [High] Missing `media_entity_cleanup()` for video nodes causes memory lea=
-ks of media pads/links.
-- [High] Unbounded wait for hardware completion in `neoisp_node_stop_stream=
-ing()` deadlocks and leaks buffers.
-- [High] The IRQ handler can fire after `neoisp_destroy_devices()` has free=
-d DMA buffers, causing a Use-After-Free.
-- [High] The driver exposes video devices to userspace before initializing =
-`hw_lock` and the hardware.
-- [High] `start_streaming` prepares only a single job, stranding any other =
-initially queued buffers and stalling the pipeline.
-- [High] `start_streaming` modifies the shared `neoispd->context` without l=
-ocking, causing a data race with the active IRQ handler.
-- [High] The IRQ handler accesses hardware registers without checking if th=
-e device is active, violating runtime PM safety.
-- [High] `VIDIOC_S_SELECTION` modifies `node->crop` locklessly while the IR=
-Q handler reads it, causing address corruption.
-- [High] `neoisp_core_media_register` lacks synchronization, allowing concu=
-rrent calls to corrupt media graph initialization.
---
-
-commit 0f5211be403174984a3657c54a249e9f22caa901
-Author: Antoine Bouyer <antoine.bouyer@nxp.com>
-Date:   Fri Jun 12 13:20:37 2026 +0000
-
-    media: platform: Add NXP Neoisp Image Signal Processor
-
-    This commit adds the first version of the NXP neoisp driver for process=
-ing
-    RAW images. It supports single context and multiple M2M operations,
-    including generic v4l2-isp parameters and statistics.
-
-> diff --git a/drivers/media/platform/nxp/neoisp/neoisp_ctx.c b/drivers/med=
-ia/platform/nxp/neoisp/neoisp_ctx.c
-> new file mode 100644
-> index 0000000000000..9d13eb7b732d2
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/neoisp_ctx.c
-
-[ ... ]
-
-> +static inline void
-> +local_mem_blk_write(struct neoisp_dev_s *neoispd, enum isp_block_map_e m=
-ap, void *src)
-> +{
-> +	u32 offset, count;
-> +
-> +	get_offsize(map, &offset, &count);
-> +	memcpy(neoispd->local_mem + offset, src, count);
-> +}
-> +
-> +static inline void
-> +local_mem_blk_read(struct neoisp_dev_s *neoispd, enum isp_block_map_e ma=
-p, void *dst)
-> +{
-> +	u32 offset, count;
-> +
-> +	get_offsize(map, &offset, &count);
-> +	memcpy(dst, neoispd->local_mem + offset, count);
-> +}
-
-[Severity: High]
-Does this usage of memcpy() on an MMIO region trigger architectural faults?
-
-The neoispd->local_mem region is mapped via devm_ioremap_resource_wc(),
-returning an I/O memory pointer. Using standard string routines like
-memcpy() on MMIO violates kernel API rules and can cause unaligned access
-faults on certain architectures.
-
-[ ... ]
-
-> +void neoisp_ctx_update_buf_addr(struct neoisp_dev_s *neoispd)
-> +{
-> +	struct neoisp_job_s *job =3D &neoispd->queued_job;
-> +	struct neoisp_pipe_conf_s *cfg =3D &neoispd->context->hw.pipe_conf;
-> +	struct neoisp_buffer_s *buf_inp0 =3D job->buf[NEOISP_INPUT0_NODE];
-> +	struct neoisp_buffer_s *buf_inp1 =3D job->buf[NEOISP_INPUT1_NODE];
-> +	struct neoisp_buffer_s *buf_out =3D job->buf[NEOISP_FRAME_NODE];
-> +	struct neoisp_buffer_s *buf_ir =3D job->buf[NEOISP_IR_NODE];
-> +	struct neoisp_node_s *nd;
-> +	u32 ibpp, inp0_stride, inp1_stride;
-> +	dma_addr_t inp0_addr, inp1_addr;
-> +
-> +	/* Input0 specific */
-> +	nd =3D &neoispd->node[NEOISP_INPUT0_NODE];
-> +	ibpp =3D (nd->neoisp_format->bit_depth + 7) / 8;
-> +	inp0_stride =3D nd->format.fmt.pix_mp.plane_fmt[0].bytesperline;
-> +
-> +	/* Input0 - Take crop into account if any */
-> +	inp0_addr =3D get_addr(buf_inp0, 0) + (nd->crop.left * ibpp) + (nd->cro=
-p.top * inp0_stride);
-
-[Severity: High]
-Is there a data race on nd->crop here?
-
-In neoisp_s_selection(), the node->crop values are updated without checking
-vb2_is_busy() while only holding the queue_lock. The hardirq handler runs
-this code to calculate the active DMA address without synchronization,
-potentially resulting in an invalid address if crop coordinates change
-during active streaming.
-
-[ ... ]
-
-> +void neoisp_ctx_update_w_user_params(struct neoisp_dev_s *neoispd)
-> +{
-> +	struct neoisp_buffer_s *buf =3D neoispd->queued_job.buf[NEOISP_PARAMS_N=
-ODE];
-> +	struct v4l2_isp_buffer *params;
-> +	size_t block_offset =3D 0, max_offset;
-> +
-> +	if (IS_ERR_OR_NULL(buf))
-> +		return;
-> +
-> +	params =3D (struct v4l2_isp_buffer *)get_vaddr(buf);
-> +
-> +	if (!params || params->data_size =3D=3D 0)
-> +		/* No relevant parameters in this buffer */
-> +		return;
-> +
-> +	max_offset =3D params->data_size;
-> +
-> +	/*
-> +	 * Walk the list of parameter blocks and process them. No
-> +	 * validation is done here, as the content of the parameters
-> +	 * buffer is already checked when the buffer is queued.
-> +	 */
-> +	while (block_offset < max_offset) {
-> +		const struct neoisp_block_handler_s *block_handler;
-> +		const union neoisp_params_block_u *block;
-> +
-> +		block =3D (const union neoisp_params_block_u *)
-> +			&params->data[block_offset];
-> +		block_offset +=3D block->header.size;
-> +
-> +		block_handler =3D &neoisp_block_handlers[block->header.type];
-> +		block_handler->handler(neoispd->context, block);
-> +	}
-> +}
-
-[Severity: Critical]
-Is this vulnerable to a TOCTOU (Time-Of-Check to Time-Of-Use) race?
-
-The parameters are validated during QBUF but never copied into private
-kernel memory. Here, in the hardware interrupt context, the driver
-dereferences block->header.type directly from the user-mapped buffer to
-index the neoisp_block_handlers array.=20
-
-An attacker modifying the mapped buffer after validation could cause an
-out-of-bounds access on the function pointer array and obtain arbitrary
-code execution.
-
-[ ... ]
-
-> +void neoisp_ctx_upload_context(struct neoisp_dev_s *neoispd)
-> +{
-> +	struct neoisp_context_s *ctx =3D neoispd->context;
-> +	u32 *src =3D (u32 *)&ctx->hw.pipe_conf.img_conf;
-> +
-> +	reg_blk_write(neoispd, NEO_PIPE_CONF_IMG_CONF_CAM0, src,
-> +		      NEO_AUTOFOCUS_ROI0_SUM0_CAM0 - NEO_PIPE_CONF_IMG_CONF_CAM0);
-
-[Severity: High]
-Could this copy a partially updated context to the hardware?
-
-This is executed in the hardirq handler, while neoisp_node_start_streaming()
-modifies neoispd->context concurrently without holding hw_lock. If another
-node is streaming, this could write torn configuration data to MMIO.
-
-[ ... ]
-
-> +void neoisp_ctx_get_stats(struct neoisp_dev_s *neoispd, struct neoisp_bu=
-ffer_s *buf)
-> +{
-> +	struct neoisp_node_s *node =3D &neoispd->node[NEOISP_STATS_NODE];
-> +	struct v4l2_isp_buffer *stats;
-> +	u32 *blk_list, count;
-> +
-> +	/* Check if stats node link is enabled */
-> +	if (!neoisp_node_link_is_enabled(node))
-> +		return;
-> +
-> +	if (IS_ERR_OR_NULL(buf)) {
-> +		dev_err(neoispd->dev, "Error: stats pointer\\n");
-> +		return;
-> +	}
-> +
-> +	stats =3D (struct v4l2_isp_buffer *)get_vaddr(buf);
-> +	v4l2_isp_stats_init_buffer(stats, V4L2_ISP_VERSION_V1);
-
-[Severity: High]
-Can get_vaddr() return NULL here and cause an oops?
-
-vb2_plane_vaddr() can return NULL if the memory isn't mapped, which gets
-passed blindly to v4l2_isp_stats_init_buffer() resulting in a dereference
-crash.
-
-> diff --git a/drivers/media/platform/nxp/neoisp/neoisp_main.c b/drivers/me=
-dia/platform/nxp/neoisp/neoisp_main.c
-> new file mode 100644
-> index 0000000000000..b08995403c597
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/neoisp_main.c
-
-[ ... ]
-
-> +static int neoisp_params_node_buf_prepare(struct vb2_buffer *vb)
-> +{
-> +	struct vb2_v4l2_buffer *vbuf =3D to_vb2_v4l2_buffer(vb);
-> +	struct neoisp_node_s *node =3D vb2_get_drv_priv(vb->vb2_queue);
-> +	struct neoisp_dev_s *neoispd =3D node->neoisp;
-> +	struct v4l2_isp_params_buffer *params =3D vb2_plane_vaddr(&vbuf->vb2_bu=
-f, 0);
-> +	int ret;
-> +
-> +	ret =3D v4l2_isp_params_validate_buffer_size(neoispd->dev, vb,
-> +						   node->format.fmt.meta.buffersize);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D v4l2_isp_params_validate_buffer(neoispd->dev, vb,
-> +					      params, neoisp_params_block_types_info,
-> +					      ARRAY_SIZE(neoisp_params_block_types_info));
-
-[Severity: High]
-Should we check if params is NULL before passing it to the validation?
-
-vb2_plane_vaddr() can return NULL, and v4l2_isp_params_validate_buffer()
-will crash if it tries to dereference a NULL pointer.
-
-[ ... ]
-
-> +static int neoisp_node_start_streaming(struct vb2_queue *q, u32 count)
-> +{
-> +	struct neoisp_node_s *node =3D vb2_get_drv_priv(q);
-> +	struct neoisp_dev_s *neoispd =3D node->neoisp;
-> +	struct neoisp_buffer_s *buf, *tmp;
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(neoispd->dev);
-> +	if (ret < 0)
-> +		goto error;
-> +
-> +	ret =3D neoisp_prepare_node_streaming(node);
-> +	if (ret < 0)
-> +		goto error_streaming;
-> +
-> +	scoped_guard(spinlock_irq, &neoispd->hw_lock) {
-> +		neoispd->streaming_map |=3D BIT(node->id);
-> +		neoispd->frame_sequence =3D 0;
-> +	}
-> +
-> +	dev_dbg(neoispd->dev, "%s: for node %s (count %u)\\n",
-> +		__func__, NODE_NAME(node), count);
-> +	dev_dbg(neoispd->dev, "Nodes streaming now 0x%x\\n",
-> +		neoispd->streaming_map);
-> +
-> +	/* Update queued job context with current driver configuration */
-> +	neoisp_ctx_update_packetizer(neoispd);
-> +	neoisp_ctx_update_pipe_conf(neoispd);
-
-[Severity: High]
-Could neoispd->context be corrupted here?
-
-Updating the context configuration is performed here without locking, which
-can race with the hardware interrupt if the device is already streaming on
-another node.
-
-> +
-> +	/* Maybe we're ready to run. */
-> +	if (!neoisp_prepare_job(neoispd))
-> +		neoisp_schedule(neoispd, false);
-
-[Severity: High]
-Is a single neoisp_prepare_job() call sufficient here?
-
-If userspace has queued multiple buffers before starting the stream,
-preparing only one job leaves the rest stranded in the ready_queue, which
-stalls the processing pipeline.
-
-[ ... ]
-
-> +static void neoisp_node_stop_streaming(struct vb2_queue *q)
-> +{
-> +	struct neoisp_node_s *node =3D vb2_get_drv_priv(q);
-> +	struct neoisp_dev_s *neoispd =3D node->neoisp;
-> +	struct neoisp_job_desc_s *job, *temp;
-> +	struct neoisp_buffer_s *buf;
-> +	LIST_HEAD(tmp_list);
-> +
-> +	/*
-> +	 * Now this is a bit awkward. In a simple M2M device we could just wait
-> +	 * for all queued jobs to complete, but here there's a risk that a
-> +	 * partial set of buffers was queued and cannot be run. For now, just
-> +	 * cancel all buffers stuck in the "ready queue", then wait for any
-> +	 * running job.
-> +	 *
-> +	 * This may return buffers out of order.
-> +	 */
-> +	dev_dbg(neoispd->dev, "%s: for node %s\\n", __func__, NODE_NAME(node));
-> +	do {
-> +		buf =3D list_first_entry_or_null(&node->ready_queue,
-> +					       struct neoisp_buffer_s,
-> +					       ready_list);
-> +		if (buf) {
-> +			list_del(&buf->ready_list);
-> +			vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_ERROR);
-> +		}
-> +	} while (buf);
-> +
-> +	vb2_wait_for_all_buffers(&node->queue);
-
-[Severity: High]
-Can this lead to a permanent deadlock?
-
-If the hardware has stalled or an interrupt is missed,
-vb2_wait_for_all_buffers() will block indefinitely because the hardware is
-never forcibly stopped.
-
-> +
-> +	if (node->id =3D=3D NEOISP_INPUT0_NODE)
-> +		neoisp_set_default_context(neoispd);
-> +
-> +	spin_lock_irq(&neoispd->hw_lock);
-> +	neoispd->streaming_map &=3D ~BIT(node->id);
-> +
-> +	if (neoispd->streaming_map =3D=3D 0) {
-> +		/*
-> +		 * If all nodes have stopped streaming release all jobs
-> +		 * without holding the lock.
-> +		 */
-> +		list_splice_init(&neoispd->job_queue, &tmp_list);
-> +	}
-> +	spin_unlock_irq(&neoispd->hw_lock);
-> +
-> +	list_for_each_entry_safe(job, temp, &tmp_list, queue) {
-> +		list_del(&job->queue);
-> +		kfree(job);
-> +	}
-
-[Severity: High]
-Do these freed jobs leak their associated buffers?
-
-Any buffers tracked inside the discarded job->buffers arrays are not
-returned to vb2, resulting in a permanent buffer leak.
-
-[ ... ]
-
-> +static irqreturn_t neoisp_irq_handler(int irq, void *dev_id)
-> +{
-> +	struct neoisp_dev_s *neoispd =3D (struct neoisp_dev_s *)dev_id;
-> +	struct neoisp_buffer_s **buf =3D neoispd->queued_job.buf;
-> +	u64 ts =3D ktime_get_ns();
-> +	u32 irq_status =3D 0;
-> +	u32 irq_clear =3D 0;
-> +	bool done =3D false;
-> +	int i;
-> +
-> +	irq_status =3D neoisp_rd(neoispd, NEO_PIPE_CONF_INT_STAT0);
-
-[Severity: High]
-Does this access the hardware without ensuring it is powered?
-
-The device supports runtime PM, but the IRQ handler does not call
-pm_runtime_get_if_active() before accessing NEO_PIPE_CONF_INT_STAT0. A
-spurious or shared interrupt while the device is suspended could trigger a
-fatal bus error.
-
-[ ... ]
-
-> +static void neoisp_destroy_devices(struct neoisp_dev_s *neoispd)
-> +{
-> +	int i;
-> +
-> +	if (neoispd->context) {
-> +		dma_free_coherent(neoispd->dev,
-> +				  sizeof(struct neoisp_context_s),
-> +				  neoispd->context,
-> +				  neoispd->params_dma_addr);
-> +	}
-> +
-> +	v4l2_device_unregister(&neoispd->v4l2_dev);
-> +
-> +	if (standalone_mdev)
-> +		media_device_unregister(&neoispd->mdev);
-> +	else if (!neoispd->media_registered)
-> +		return;
-> +
-> +	dev_dbg(neoispd->dev, "Unregister from media controller\\n");
-> +
-> +	v4l2_ctrl_handler_free(&neoispd->hdl);
-> +	media_entity_cleanup(&neoispd->sd.entity);
-> +
-> +	for (i =3D NEOISP_NODES_COUNT - 1; i >=3D 0; i--) {
-> +		struct neoisp_node_s *node =3D &neoispd->node[i];
-> +
-> +		video_unregister_device(&node->vfd);
-> +		vb2_queue_release(&node->queue);
-> +	}
-
-[Severity: High]
-Is the v4l2 unregistration sequence safe?
-
-v4l2_device_unregister() is called before the video devices are unregistered
-with video_unregister_device(). The V4L2 core requires video nodes to be
-unregistered first to prevent Use-After-Free bugs if userspace is still
-interacting with an open node.
-
-[Severity: High]
-Are we leaking the media pads allocated for the video nodes?
-
-The video nodes had their pads dynamically initialized via
-media_entity_pads_init() during setup, but media_entity_cleanup() is never
-called for node->vfd.entity before releasing them.
-
-[ ... ]
-
-> +int neoisp_core_media_register(struct device *dev, struct v4l2_subdev *s=
-d)
-> +{
-> +	struct neoisp_dev_s *neoispd =3D dev_get_drvdata(dev);
-> +	struct media_device *mdev =3D sd->v4l2_dev->mdev;
-> +	int ret;
-> +
-> +	if (!neoispd)
-> +		return -EINVAL;
-> +
-> +	if (neoispd->media_registered || standalone_mdev)
-> +		return 0;
-> +
-> +	ret =3D neoisp_init_group(neoispd, mdev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	neoispd->media_registered++;
-> +	return 0;
-> +}
-
-[Severity: High]
-Is neoispd->media_registered protected from concurrent accesses?
-
-This exported function can be called asynchronously. Without locking, two
-callers can bypass the check concurrently, causing double-initialization of
-the video nodes and a corrupted media device graph.
-
-[ ... ]
-
-> +static int neoisp_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct neoisp_dev_s *neoispd;
-> +	struct resource *r;
-> +	int ret, irq;
-
-[ ... ]
-
-> +	ret =3D neoisp_init_devices(neoispd);
-> +	if (ret)
-> +		goto err_pm_runtime_suspend;
-> +
-> +	spin_lock_init(&neoispd->hw_lock);
-> +	neoisp_init_hw(neoispd);
-> +	neoisp_set_default_context(neoispd);
-
-[Severity: High]
-Does this order expose uninitialized locks to userspace?
-
-neoisp_init_devices() registers the /dev/videoX nodes. If userspace
-immediately opens a node and starts streaming, it could hit an uninitialized
-hw_lock or interact with unconfigured hardware before neoisp_init_hw()
-runs.
-
-[ ... ]
-
-> +err_pm_runtime_suspend:
-> +	pm_runtime_put(dev);
-> +err_pm_runtime_disable:
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +err_irq:
-> +	dev_err(dev, "probe: error %d\\n", ret);
-> +	return ret;
-> +}
-
-[Severity: High]
-Does this sequence properly handle the asynchronous pm_runtime_put()?
-
-Calling pm_runtime_disable() immediately after the asynchronous
-pm_runtime_put() will cancel the pending suspend, permanently stranding the
-hardware in a powered-on state. A synchronous put should be used before
-disabling.
-
-> +static void neoisp_remove(struct platform_device *pdev)
-> +{
-> +	struct neoisp_dev_s *neoispd =3D platform_get_drvdata(pdev);
-> +
-> +	neoisp_destroy_devices(neoispd);
-> +
-> +	if (standalone_mdev)
-> +		media_device_cleanup(&neoispd->mdev);
-> +
-> +	pm_runtime_dont_use_autosuspend(neoispd->dev);
-> +	pm_runtime_disable(neoispd->dev);
-> +}
-
-[Severity: High]
-Could the hardware IRQ fire after structures are freed?
-
-The IRQ handler is managed by devm_request_irq() and will remain active
-until the devm teardown phase. However, neoisp_destroy_devices() frees
-neoispd->context. A late or spurious interrupt could trigger a
-use-after-free in the handler. Should the hardware interrupts be explicitly
-disabled here?
-
-[Severity: High]
-Should we use a synchronous PM put here?
-
-Similar to the probe error path, failing to transition the device to suspend
-before calling pm_runtime_disable() can leave the hardware permanently
-powered on.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612132039.2089=
-051-1-antoine.bouyer@nxp.com?part=3D6
