@@ -1,63 +1,63 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E693E00BA
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C6E3DD51A
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781249042; cv=none; b=jjHS6USLD5vs/YlfR42V9jyUVyurUhGeUFtzkuqT+T8iOcat53lJ6mCqmDlGFyM9koUykoCaY+j3g4nBtt53FtQUzpk5aF043fS32T6znfWIXf/JAMKfR/LP5Sd1+nnmzmzrF97v/hZtgXWKGHu8rEbXCtmMW/LV06dTo34wn+0=
+	t=1781249048; cv=none; b=I2AzlOGnWeWZfv0x0cUBhLsp6pUITVIx8ThYt9Qcs3VhoYPO36iM866UViQqsDS21B6Eyz34Eua28Xq17y+ltW9ijLtdzRv4IMH7vET5tGUZmoJ1h75FhH4Lrr/lz20IOe1gpjH+mAGk3rF7rxf1f6zD8Oi6sNaYZ1cMLas2hOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781249042; c=relaxed/simple;
-	bh=2r1POua5Uak1EMM86PHnU2yGF0SZxOkEsj2Qssr0YtE=;
+	s=arc-20240116; t=1781249048; c=relaxed/simple;
+	bh=brLuaCz4tG7g5I266nNqxm6IPkKRFu5uQhdh2hXzmqw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eethd7+SUd1+WCRnXr2Vt/2ukbUvbdE7yURKKufA+Rz/QrrsKfsoIOKaGRLufzgiqTu+IPMABij9EFBT1b/dHNVAeOB954SEwyKAed5vRYsj1YzX7USHtVsTihUB7rNGCSUQQYeJBKtcYEdPhWK7ccsu0Gs/9gk8M47Yizyk4b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aPuO/0BL; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=O/t5wFLDozgkM8PwkG2acUs7ja0a+/GwYcFuASQOoacaOWaw8tY5s28fhjIjxarNbjS0w4H388IvAT5LghAYmqBHzv7SWArwyHXZmiplPupIEVMxEZKOc2kIcCx6jbbbquOQ8PdvbHK16WzwPnwy5yL7/ZlbJrUJZwnrHs882b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FlL4KU0/; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aPuO/0BL"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490cdae130cso2993695e9.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:24:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FlL4KU0/"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so15992435e9.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781249040; x=1781853840; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781249045; x=1781853845; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sdrbtOKOy43UIR4Cul3JyowdVOGtAQchKw9DmBdAo9Y=;
-        b=aPuO/0BL2CtgndKk6i+LsyHYv+KgwI15ilnnxG0IZgwcz1EPLAHBHLlQs3gBXMv6ta
-         A6kjMf8NE3rJ4C3W0J56Cw+vpsSRNrHD0d+TlvPps6mjZjbHkaD9K0KyMhbRJ39HvOfX
-         6abugkSg8CPAaDrAhWNn7/1mUU6HDoHVZ+s36wCOCvMIYFcZ3XjPAGOFGUudRsE7Tmiq
-         4eG588Bu8ezgEeI2e60qInORpu+EvvIRwCYqxaQJX6BWyW1DexvDCs3itrNNRM5OTGQA
-         IW3tKmnAylPSGjUXmymU62D/mchOeS8tJ0oxaHlc7kht+X5a0QX1sUE91VcG5UtAilYt
-         mRmQ==
+        bh=p9lcTv4TvBeGoSmX2RK3FsqdY9z50fC+LqdPWC8A3lg=;
+        b=FlL4KU0/rjn5rOLvZd/mq5QvuDEgYgw1nhcE14ltUPptokPufAYsIqo61ddGU9oOEp
+         8T66GDUSc1gtBCssqwMQvX36Mso7/miZ4N+0WRrNN0Y/zDoTAW5UtQA2jBKx9LESYCyU
+         XZEMfJ0JaSr7NXUENVIpLI1iLjl4v8b5uTgLo0myVfzoQ7pDsZjfMxelrzPEwSxQ/Ahp
+         hkjrQB6GI35ex1CxprfxptKGa7ccgUOYqHLKUjw+/b35syXkbEtHtdEM5jzUI9Okqzbz
+         REJJ7Yq9JF03AbMLUYlfXtjXTEKNECd7uDNyMxt1umtFDP+nUqnW/Vpti+rRy6HPS4pq
+         q1dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781249040; x=1781853840;
+        d=1e100.net; s=20251104; t=1781249045; x=1781853845;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=sdrbtOKOy43UIR4Cul3JyowdVOGtAQchKw9DmBdAo9Y=;
-        b=tCPjLSKip/hXC3x7gi4ew89juNYY/NgNhvFfJR1DM16y9yU/rZMRv9dKLdk5aYbvuE
-         fvlgJEPGjj77W2EXIb1ybKsHku1IuELDOtqHlKV0yttnAxlc8BU3916BamjGJQVpFXnG
-         WYGzzhpi9x9x1tIBvz0xO3//Y4UkOgId39kb2m1Rl9sVW+0vDjBg4YIg5fQulo0YWvFg
-         GFHFciaJoeVhFfMAbqwmvaxe+DsiflfrveeH+6XNH4HtpCAjgl0jAKfimqF+LVmmW2+s
-         PJzV91Y7kAw69R0oA19OB8Jh3NaE8tAdi/N9S036C4VyCIXCbGQTnwgz4rp5yszEWd/p
-         5vVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/kttpIy08ov/IEFZd/5q7PwjIhq+SXlMWn2jai1mNvLNCFtiuD86NvM35Sjb0UKlfvBvKdbU32krFJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YziDdijPwkk/qcNZHBYibNukBj27ljIRGv3zfzKO+wxMEtdjfMZ
-	qqmAQkBwkPIvFXg6/THkFXK965UrWsVfDTftY30yLDlU7BYbN8mzJgq7
-X-Gm-Gg: Acq92OFTsc7ui2wo31ON0BV2fPYZYBpa66Jnwz4MgLValGAhydwsgyhsfEWJFFLfmmQ
-	oRSKwRYmm50v7h/IgpZSCAWAKv6+WeSmvMz+GfBiBkgfRYhe9zqEl+OwjvsF0x7MbaBBYf+Fi9T
-	ZDLukk6aSuy0IB/or9F7t9eOrPQY1uikWwaL87s8W2t5KSGObS30arsFTtFiPIyXyUEUdcgSizh
-	3GpSkRtNHrPPOSozhFPXbtYt4PIQ666LhsnuEb/oqNvXN/bwmiAyrjXYm5JPMIdGrpMot75cgLa
-	NG10iSfs+Rfu+tXfkdhoml+K0BBNM4z2D9P/k8MFCLh4Eniq1sBiUdGCPSzSLFsxAYPJe2pQ+m7
-	907cB0R1RlzF1HlOojNb8Dgee+dZyQU+xesdTtQp1+koMfVoEJOXhQpLlkMX5DM5s9iQEYUEkq3
-	V28XAk1WYUEBQAZHh4HuPN/wQS/+c7frlbr4nTX1E=
-X-Received: by 2002:a05:600c:8b13:b0:490:b724:dbd6 with SMTP id 5b1f17b1804b1-490ec4b8ec8mr18729605e9.6.1781249039726;
-        Fri, 12 Jun 2026 00:23:59 -0700 (PDT)
+        bh=p9lcTv4TvBeGoSmX2RK3FsqdY9z50fC+LqdPWC8A3lg=;
+        b=kiyxiNT+/31fFqvEWwbx6LNc2k1n4GaKUPG1+vdW5f2H1odkANBdWYumRzsBnmjPZw
+         qdXVTLFOvrMTNdem10tj5ccLOCBVUJ/gI2D2jn1ZMGtyF2IK5lnQgfLmpFDTL+RLJr6A
+         RxRIVlUEh5TCNpieR/p0+c/tQjcbGDk9eMsYRyHesRpKcq8LcSPlti1FxrS0sjhh1SU3
+         1XP8NhcTfhOq2hlprCOiPf/PZ3JLfkKYrAsT0NpuVrGWkbl+VjV+OwH6bZbHB+oZKYkf
+         Z/qiUdL7EuJTRp5UwfOGLuGbc93rSMcHHi6B0j8F3hA59RHcqKLfBj9SDrffndHDZ5Hr
+         p7BA==
+X-Forwarded-Encrypted: i=1; AFNElJ9VLHObTcd/ieqYuWdRsaE8IymMcDFlUHmigzWdBoEs/8+EUs4E0RvJO2dYcEVxzxxc9ndGJ6dAubY/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLgInhVncJIh/euNEnbPcFCCdh6BKbYzBO/wp5Peb/udJUY/VF
+	nfroerBkLJV6Qi8f0Rvt+QgyWluir2NizgaKD9/yhtrwQPiTzytMsOOq
+X-Gm-Gg: Acq92OHtEuS59CiTjH3zDfrqRg468eZxFn2+rQzCsGc6yzXbzCtu7Ksy/hjKEDSFD9q
+	8ZujNjIrZiOePx9Dt/IRUqByapKkJfab9iTYBPswtlhKcQbKctX2qVDu3vXQxBkfmaLoWFi/XcV
+	Un2q7qzPZm686mla97xgjT8P7wrA1c7YPJ3+TRcs1LP/mbxFGcade2491trnXa2t4RAz71ZNuZa
+	kalTtVHFYYIWimgjuUwq0ahXcHaMqb+0j1h8o3tDpLbrhJrheJ0bZaANwmAa5dPLOtj/8K0bJnW
+	u2b/74LEYmxNM5RXod5nGN9aNreSINIAuK3eLd2k8sKT35MjI/IzBBqIE/8HQBWhVfbTVEsxwSa
+	o+pgcGReLnSeKt0qGXXGmWLcgEbJtUNUs3dmyzqdNcIv5xcUFFs+GeWPNQCUuUZavK2vThPpcAb
+	ez/4clqQQ768F5sDD/qPAfOo+dej0pXJ7cALotDHU=
+X-Received: by 2002:a05:600c:698c:b0:48f:e230:29f5 with SMTP id 5b1f17b1804b1-490ec4e9147mr12990265e9.16.1781249045047;
+        Fri, 12 Jun 2026 00:24:05 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea963cf8sm28715245e9.2.2026.06.12.00.23.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea963cf8sm28715245e9.2.2026.06.12.00.24.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 00:23:59 -0700 (PDT)
+        Fri, 12 Jun 2026 00:24:04 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -67,9 +67,9 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 8/9] dt-bindings: input: microchip,cap11xx: Add CAP1114 support
-Date: Fri, 12 Jun 2026 15:22:14 +0800
-Message-ID: <20260612072237.1177304-9-jerrysteve1101@gmail.com>
+Subject: [PATCH v2 9/9] Input: cap11xx - add support for CAP1114
+Date: Fri, 12 Jun 2026 15:22:15 +0800
+Message-ID: <20260612072237.1177304-10-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260612072237.1177304-1-jerrysteve1101@gmail.com>
 References: <20260612072237.1177304-1-jerrysteve1101@gmail.com>
@@ -84,111 +84,175 @@ Content-Transfer-Encoding: 8bit
 CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
 and hardware reset support.
 
-Add the compatible string for CAP1114, add its datasheet URL,
-update the maximum of LED channel reg, and add constraint for
-linux,keycodes.
+The CAP1114 uses two control registers for LED output management and
+requires two button status registers for touch input state reporting.
 
-Previously, the LED reg property had a default maximum of 7 for CAP1188.
-With the addition of CAP1114, the default maximum is now 11.
-An if-then constraint is added to limit the LED count for CAP1188.
-
-Update description for microchip,input-threshold: CAP1114 only provides
-eight threshold entries, which does not match its total channel count.
-
-CAP1114 does not support microchip,signal-guard and
-microchip,calib-sensitivity.
-
-Add CAP1114 to the unsupported enum list.
+By default, channels CS8~CS14 operate as a single grouped block.
+Set the corresponding register enable bit to enable these channels as
+independent touch inputs. Note these channels share the input threshold
+of the eighth entry, causing num_sensor_thresholds to differ from
+num_channels.
 
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 ---
- .../bindings/input/microchip,cap11xx.yaml     | 32 ++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
+ drivers/input/keyboard/cap11xx.c | 74 ++++++++++++++++++++++++++++++--
+ 1 file changed, 70 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-index 778ec6d659a8..0e9a1a8a3f3e 100644
---- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-+++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-@@ -12,6 +12,7 @@ description: |
+diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/cap11xx.c
+index d45bb231d7a1..e4da0e26c34a 100644
+--- a/drivers/input/keyboard/cap11xx.c
++++ b/drivers/input/keyboard/cap11xx.c
+@@ -18,6 +18,12 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/bitfield.h>
  
-   For more product information please see the links below:
-     CAP1106: https://ww1.microchip.com/downloads/en/DeviceDoc/00001624B.pdf
-+    CAP1114: https://ww1.microchip.com/downloads/en/DeviceDoc/00002444A.pdf
-     CAP1126: https://ww1.microchip.com/downloads/en/DeviceDoc/00001623B.pdf
-     CAP1188: https://ww1.microchip.com/downloads/en/DeviceDoc/00001620C.pdf
-     CAP1203: https://ww1.microchip.com/downloads/en/DeviceDoc/00001572B.pdf
-@@ -26,6 +27,7 @@ properties:
-   compatible:
-     enum:
-       - microchip,cap1106
-+      - microchip,cap1114
-       - microchip,cap1126
-       - microchip,cap1188
-       - microchip,cap1203
-@@ -122,6 +124,8 @@ properties:
-       is required for a touch to be registered, making the touch sensor less
-       sensitive.
-       The number of entries must correspond to the number of channels.
-+      CAP1114 is an exception where channels 8~14 reuse the eighth entry's
-+      threshold, so counts differ.
- 
-   microchip,calib-sensitivity:
-     $ref: /schemas/types.yaml#/definitions/uint32-array
-@@ -149,7 +153,7 @@ patternProperties:
-       reg:
-         description: LED channel number
-         minimum: 0
--        maximum: 7
-+        maximum: 10
- 
-       label: true
- 
-@@ -178,6 +182,18 @@ allOf:
-       properties:
-         reset-gpios: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,cap1114
-+    then:
-+      properties:
-+        linux,keycodes:
-+          minItems: 14
-+          maxItems: 14
++#define CAP1114_REG_BUTTON_STATUS1	0x03
++#define CAP1114_REG_BUTTON_STATUS2	0x04
++#define CAP1114_REG_CONFIG2			0x40
++#define CAP1114_REG_CONFIG2_VOL_UP_DOWN	BIT(1)
++#define CAP1114_REG_LED_OUTPUT_CONTROL1	0x73
 +
-   - if:
-       properties:
-         compatible:
-@@ -205,12 +221,26 @@ allOf:
-             reg:
-               maximum: 1
+ #define CAP11XX_REG_MAIN_CONTROL	0x00
+ #define CAP11XX_REG_MAIN_CONTROL_GAIN_SHIFT	(6)
+ #define CAP11XX_REG_MAIN_CONTROL_GAIN_MASK	(0xc0)
+@@ -82,6 +88,7 @@ struct cap11xx_hw_model {
+ 	unsigned int num_leds;
+ 	unsigned int num_sensor_thresholds;
+ 	bool has_gain;
++	bool has_grouped_sensors;
+ 	bool has_irq_config;
+ 	bool has_repeat_en;
+ 	bool has_sensitivity_control;
+@@ -98,6 +105,9 @@ static const struct reg_default cap11xx_reg_defaults[] = {
+ 	{ CAP11XX_REG_SENSOR_THRESH(3),		0x40 },
+ 	{ CAP11XX_REG_SENSOR_THRESH(4),		0x40 },
+ 	{ CAP11XX_REG_SENSOR_THRESH(5),		0x40 },
++	{ CAP11XX_REG_SENSOR_THRESH(6),		0x40 },
++	{ CAP11XX_REG_SENSOR_THRESH(7),		0x40 },
++	{ CAP11XX_REG_SENSOR_THRESH(8),		0x40 },
+ 	{ CAP11XX_REG_CONFIG2,			0x40 },
+ };
  
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,cap1188
-+    then:
-+      patternProperties:
-+        "^led@":
-+          properties:
-+            reg:
-+              maximum: 7
+@@ -106,6 +116,12 @@ static bool cap11xx_volatile_reg(struct device *dev, unsigned int reg)
+ 	switch (reg) {
+ 	case CAP11XX_REG_MAIN_CONTROL:
+ 	case CAP11XX_REG_SENSOR_INPUT:
++	/*
++	 * CAP1114_REG_BUTTON_STATUS1 (CAP11XX_REG_SENSOR_INPUT) and
++	 * CAP1114_REG_BUTTON_STATUS2 is volatile for the CAP1114,
++	 * which supports more than 8 touch channels.
++	 */
++	case CAP1114_REG_BUTTON_STATUS2:
+ 		return true;
+ 	}
+ 
+@@ -283,6 +299,17 @@ static int cap11xx_init_keys(struct cap11xx_priv *priv)
+ 	of_property_read_u32_array(node, "linux,keycodes",
+ 				   priv->keycodes, priv->model->num_channels);
+ 
++	/*
++	 * CAP1114 needs dedicated configuration to split
++	 * grouped sensors into independent inputs.
++	 */
++	if (priv->model->has_grouped_sensors) {
++		error = regmap_set_bits(priv->regmap, CAP1114_REG_CONFIG2,
++					CAP1114_REG_CONFIG2_VOL_UP_DOWN);
++		if (error)
++			return error;
++	}
 +
-   - if:
-       properties:
-         compatible:
-           contains:
-             enum:
-               - microchip,cap1106
-+              - microchip,cap1114
-               - microchip,cap1126
-               - microchip,cap1188
-               - microchip,cap1203
+ 	if (priv->model->has_repeat_en) {
+ 		/* Disable autorepeat. The Linux input system has its own handling. */
+ 		error = regmap_write(priv->regmap, CAP11XX_REG_REPEAT_RATE, 0);
+@@ -311,6 +338,21 @@ static irqreturn_t cap11xx_thread_func(int irq_num, void *data)
+ 	if (ret < 0)
+ 		goto out;
+ 
++	if (priv->model->num_channels > 8) {
++		unsigned int status2;
++
++		ret = regmap_read(priv->regmap, priv->model->sensor_input_reg_base + 1, &status2);
++		if (ret < 0)
++			goto out;
++
++		/*
++		 * CAP1114 STATUS1 register only contains data for the first 6 channels.
++		 * the remaining channels is stored in STATUS2.
++		 */
++		status &= GENMASK(5, 0);
++		status |= FIELD_PREP(GENMASK(13, 6), status2);
++	}
++
+ 	for (i = 0; i < priv->idev->keycodemax; i++)
+ 		input_report_key(priv->idev, priv->keycodes[i],
+ 				 status & (1 << i));
+@@ -360,10 +402,16 @@ static int cap11xx_led_set(struct led_classdev *cdev,
+ 	 * limitation. Brightness levels per LED are either
+ 	 * 0 (OFF) and 1 (ON).
+ 	 */
+-	return regmap_update_bits(priv->regmap,
+-				  priv->model->led_output_control_reg_base,
+-				  BIT(led->reg),
+-				  value ? BIT(led->reg) : 0);
++	if (led->reg >= 8)
++		return regmap_update_bits(priv->regmap,
++					  priv->model->led_output_control_reg_base + 1,
++					  BIT(led->reg - 8),
++					  value ? BIT(led->reg - 8) : 0);
++	else
++		return regmap_update_bits(priv->regmap,
++					  priv->model->led_output_control_reg_base,
++					  BIT(led->reg),
++					  value ? BIT(led->reg) : 0);
+ }
+ 
+ static int cap11xx_init_leds(struct device *dev,
+@@ -394,6 +442,14 @@ static int cap11xx_init_leds(struct device *dev,
+ 	if (error)
+ 		return error;
+ 
++	if (num_leds > 8) {
++		error = regmap_update_bits(priv->regmap,
++					   priv->model->led_output_control_reg_base + 1,
++					   GENMASK(num_leds - 8 - 1, 0), 0);
++		if (error)
++			return error;
++	}
++
+ 	duty_val = FIELD_PREP(CAP11XX_REG_LED_DUTY_MAX_MASK,
+ 			      CAP11XX_REG_LED_DUTY_MAX_VALUE);
+ 
+@@ -572,6 +628,14 @@ static const struct cap11xx_hw_model cap1106_model = {
+ 	.has_repeat_en = true,
+ };
+ 
++static const struct cap11xx_hw_model cap1114_model = {
++	.product_id = 0x3a,
++	.num_channels = 14, .num_leds = 11, .num_sensor_thresholds = 8,
++	.led_output_control_reg_base = CAP1114_REG_LED_OUTPUT_CONTROL1,
++	.sensor_input_reg_base = CAP1114_REG_BUTTON_STATUS1,
++	.has_grouped_sensors = true,
++};
++
+ static const struct cap11xx_hw_model cap1126_model = {
+ 	.product_id = 0x53,
+ 	.num_channels = 6, .num_leds = 2, .num_sensor_thresholds = 6,
+@@ -628,6 +692,7 @@ static const struct cap11xx_hw_model cap1298_model = {
+ 
+ static const struct of_device_id cap11xx_dt_ids[] = {
+ 	{ .compatible = "microchip,cap1106", .data = &cap1106_model },
++	{ .compatible = "microchip,cap1114", .data = &cap1114_model },
+ 	{ .compatible = "microchip,cap1126", .data = &cap1126_model },
+ 	{ .compatible = "microchip,cap1188", .data = &cap1188_model },
+ 	{ .compatible = "microchip,cap1203", .data = &cap1203_model },
+@@ -640,6 +705,7 @@ MODULE_DEVICE_TABLE(of, cap11xx_dt_ids);
+ 
+ static const struct i2c_device_id cap11xx_i2c_ids[] = {
+ 	{ .name = "cap1106", .driver_data = (kernel_ulong_t)&cap1106_model },
++	{ .name = "cap1114", .driver_data = (kernel_ulong_t)&cap1114_model },
+ 	{ .name = "cap1126", .driver_data = (kernel_ulong_t)&cap1126_model },
+ 	{ .name = "cap1188", .driver_data = (kernel_ulong_t)&cap1188_model },
+ 	{ .name = "cap1203", .driver_data = (kernel_ulong_t)&cap1203_model },
 -- 
 2.54.0
 
