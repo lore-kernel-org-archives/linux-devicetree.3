@@ -1,104 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F2F31F998;
-	Fri, 12 Jun 2026 16:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781282946; cv=none; b=M3gXuWYbJOKY9uBdR0h/EwbEsNlMXGgbzRlbI8gpBzCh0nYIQtT3wbAe0hIHaPzKDdI05MnY0+IEmPHn0h6ynFqzsC20P7nzYSOx9LtB9CZa+9/joTXriHAWgpuxXMHpZ+O7OD4kXWNFfQgopeZE6LJgGymy0+5nEjO/YMdz7iY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781282946; c=relaxed/simple;
-	bh=bT9lRJt+dwm52f6uacmaifEuDH9YT7X/eCng14IOZ+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nrojc0hY04ecogqVlzcBKcFKthy7d7BLNR82EpFwfU2pL+lS1Ec93OmcmK32T31PvS2/qwugf3aUMqx5Sf9pZBfPQMfalBgkcUGtYhne4eO3344OAc1kKbNsxJuWgylAmwoQAdRZv8QpqQTIq/1gJ1/TNMkufpqEawTc4XAZ80s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPaiYc6O; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA10531F998;
+	Fri, 12 Jun 2026 16:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781283009; cv=fail; b=liymKDqbkFHMtBJRPXxSsCtM7dP1Gh/MvQw4dXJmr0WNjI1BnIZB14MsbYq1oJ/7qW+CxifsC60W4oyjscicsBgA8j+oQttIHDfzd3U2WGRASwazrjlzIyYtfO+42zDYbjwzAytrWfsUd8rsSGtkW4LZRSIquakrVZfptN8tMNw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781283009; c=relaxed/simple;
+	bh=z8VrCIM6jto8Vt6YJMT0WES4lKx76HzvvpXWLPOElYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=sExoX6hm2wpPNB21lusdm7k38Ctl7hTF4klJteM5dmGas4JsmzKfYmwczeKPDUFxyUeb74La0PskBL3pZaGXELnItlbnjRmwHtr7ys5zNgYxTboAJFpiScKjGcb4N3cxnUffJVM3e5WD95aOuOEPs0L7bCaIk3DvIuwQJ4BEPhE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=a3w9uJ5h; arc=fail smtp.client-ip=52.101.66.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPaiYc6O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F7A41F000E9;
-	Fri, 12 Jun 2026 16:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781282945;
-	bh=S832i2jSNg4cBamp8N6WT5Eh3SFFvEOMTQE4vCId6qk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PPaiYc6OrwfmbXE6Vf5bZxB+lEU6BNsq52xUoEUdYTE1fbMFIZMcygF1r2KJSIckI
-	 VpDupvgYar7fFpHTheMQHDvAhgWiVQqmR7xr2LVuFuEMq2lQIS4Y/xpE8Jv9VdvvRf
-	 k5NP13iooljPo6caPprKmTGyMRI1bgVBtdBI9wLGR8CDGeApoc9liY3o9zggLnJLcE
-	 PdxKx1JfoNHYH6zISI9yG/0yeJ8uFqWwet+8ASHZtJ7D3taE56OMPF9mqK6w5qYgmo
-	 0wCed+MN2vmoRpvznQle1utLKnIX3Gmq3qnAUttAbMoelAPj77qIgorl9UCn7DC5p8
-	 VUWN6mguoHx4g==
-Date: Fri, 12 Jun 2026 17:49:01 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Siratul Islam <email@sirat.me>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: add entry for qstcorp
-Message-ID: <20260612-kinsman-wind-ee21a6ca0fef@spud>
-References: <20260612124557.13750-1-email@sirat.me>
- <20260612124557.13750-2-email@sirat.me>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="a3w9uJ5h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fYZr3HMFYtYct7j2PmIj8RMx4fg+G5cjsxEyhtttW4rk0AoCFiG6ZxO7Zte5xCpIDisF9JZnz+da/Wg1u6YtJjbSLhgfvcqLMzpcy7aHDTaMDPXVEkE1AXuupdlwz5CFt9ZXQWdVHTSTD5tZP6IvFWOFrtSTHET0uFmn1hCCfC2KUq3yJXqOazoWNQzNAj8j2D+KY/MOzKfELGSqu479RngOafNrYa8F0UZ5KBcOpWfXiKDUT2RGzx9JpR5Ijqico6sAN/A5t4rR6LKnNsGiGys/8Av1jvRqrh8H5LiPozbY+eBMOJ/05z/82SaBdIxis2yz6jhKpnZeqtMXlEN2UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sDJOZSh0yVW8ptHHyrvHsfIlJIsFpCg0IYF+656SEKQ=;
+ b=LU27Y72uI1TEi+dykRhfbbwHSVexW061BRVsKemjFCuuJWIP4HYrANAkzoCKZi4vkMqfcBYwQ0iuTJ6t9PDkbJ8KEsHb0rlFjoua7v9+X0ua4NXsnfHi/EIR68UyqISRxI6krlS7Dk+gcD3oX0QckhPZnIY1AbzxDdEPQu63ZAg0lQlc0Yr++yO1JsXdroww92ig47jX7Qi6woRmNR8t1KRraXVU92onr9v4K4xaq+FWpDK59hKew6qOFtGCHxRo6x1xtEef8j0K0IDGtjslVI61yqqSpVEvSfzEkFSzPUq7W9NlhIoeHg0CK/roRWPENV2i4u5UV/U3UKi1QddQLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sDJOZSh0yVW8ptHHyrvHsfIlJIsFpCg0IYF+656SEKQ=;
+ b=a3w9uJ5hb2+lYDD07iwmy/5nImpWp/fyvzL1df2mj7vbrY8iYKSDMYky6O9UgsD4kuSQ2WMDjnSGe+rnfBzhI3tPZU/UIQgjULluNrOy8Ie/9MJiugTmy6IPATEAOIuc6K7lIeqcMK5rZo+Vi05sG5gZDDG1P05MBm4sQL0rZYOpnnCV9+6cLq/cqBmeS/6ikTAXsuB3L/QKUs6OkFaBHvLUlqESJbqziq6Y2V9RtLkxV00wSri6fo4+UItr0y6J2w/PQ5WL7tYtGx5u/BHtroNhjL6JRDya9qZRpmH8MpZQJf5L5PChNM13HT6pJeDXYmS0/z7D161surNUKSTn0g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB11544.eurprd04.prod.outlook.com (2603:10a6:150:2c1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 16:50:04 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 16:50:04 +0000
+Date: Fri, 12 Jun 2026 11:49:51 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, michael.riesch@collabora.com,
+	anthony.mcgivern@arm.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, ai.luthra@ideasonboard.com,
+	paul.elder@ideasonboard.com, geert@linux-m68k.org,
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org
+Subject: Re: [PATCH v3 7/8] media: platform: neoisp: Add debugfs support
+Message-ID: <aiw4r5NXBBrMZ0a4@SMW015318>
+References: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
+ <20260612132039.2089051-8-antoine.bouyer@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612132039.2089051-8-antoine.bouyer@nxp.com>
+X-ClientProxiedBy: PH7PR10CA0013.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::9) To DU4PR04MB11791.eurprd04.prod.outlook.com
+ (2603:10a6:10:623::11)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5CjzBW7JmYQ5EH6Q"
-Content-Disposition: inline
-In-Reply-To: <20260612124557.13750-2-email@sirat.me>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB11544:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49c6a2ac-1d99-411b-c1e7-08dec8a2a5ea
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|6133799003|22082099003|18092099006|18002099003|10086099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ 1S9ma+UKxnekJV+Z7zpBQz7grkuQbWeVDUee9oTvk1MSnx3hX8eEjwHZ7GhCBK+JBxw4JoVb/pS4NQuVbDz7i7CgWSe4SeXlic6v6PjCBZqx8R9Vjhei5KIA68d6CoNBB1CJuU5O2Z4GqENQqFkxZ+3refDnC+TTDGOYmrE6KCEl1msVbnlEKXdtDqEueKu5YDKSDROobtCAGardWIOgsaNOisNgZTqmypGg70RpDWxvPtQUt94jTg1re+IFmUggaqNLth6CvSR4fbr0nB9Yy2KbMpNMqM4ZBzXj6N8ma+GXgaNgdpdTs1py9SayHE45H/Lq+kaWd7CAYRXwcvVGBOvLKE3r5kK+UQ1vKLhZ9ob0EQPhO4OeH++mO1KjQsbAsFBKILWsQolEgK5NsGOwL76BMLUqCcMCEQ7Lub4e4Wx+qtUZ0w8aQeP2HqyHBIuOiQrm0hrNuvdtv3fEtlMQqNI3R/hyQIuEDpsoowIQjDzTZopzkwiMbbHDd7W8qesRoxxgp02GqWtbxANmKPQWFZ/w0sdPqsrkAkguyRrYRcksiytJrfm4pXccTw+9D1eKyHCIhKVI0aH243jjmGc8gjDNPY9D//L/4yNq1XfJKf4RUj+chPObp8QJ/k+8O+bsML67UxKoHpuxDwCUelufVug5YAaOBsGpjtQfQQFa5ixPO0H7mORFmbQ9H1AXuDJs
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(6133799003)(22082099003)(18092099006)(18002099003)(10086099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?/YD+vHNGdRmF+xWH1UPF6SHkVNuV1FuevN9rr7EOFqsv+NevienE5zX264+B?=
+ =?us-ascii?Q?KvD8DZWkYlpMi5idV7tnuwyZTS6RF1pBUl7tyykcH1WhO+DrHHB4CbCn7VCh?=
+ =?us-ascii?Q?zaAHJJPJHgtBvjKEoDJ3VBclrcKVoTHrcm2EYI27S6EsfVvUPm8/Bg1tzOOy?=
+ =?us-ascii?Q?tjeH0fWzsuF1JknYqYhX4q0XoIaiYv46AU6ypsTeR7/sLNIgI7SMqs5hm7zg?=
+ =?us-ascii?Q?zrN48OIoy+xxkb0vYRP/i/AhMuCNNvHuVYBe9CBDRa+QByBna3HUbgut77XR?=
+ =?us-ascii?Q?0M6kpAG1Lk/sfDEtQV7OegTa68Dy8neRXA9PknRlUrZBiV0sWr5Y1qH6IM5g?=
+ =?us-ascii?Q?8Jn7wgqpo6NRjMWSmtcye1/8JrJZCpk9VkreMUvNDbLNmGGSDpgeDjqPCL11?=
+ =?us-ascii?Q?iffPqUEQ6wft0ywLtd4JkFHIyihm1/pN004QjFasQTihA6qFpcGobLwzgvx9?=
+ =?us-ascii?Q?PNAiIa4aYftZuUmn5CTfsVTlyf9ZPeF3Upf3HTxtWedjuxTMXsttlfts4rCn?=
+ =?us-ascii?Q?bOCyl4UvzqTZUHcADvvBZcbOh7n9Ldvs4bYvfkrRuyCJiA3ybD4uKFxsTwt+?=
+ =?us-ascii?Q?64NWwJSIjS4vrjJ2Pb7jkpbBZbY0sHq4tyBnkMdsejXmmk923JZrI26gEamm?=
+ =?us-ascii?Q?obWJXgDgJ4hiYkSDOHQK5Fua0JNoOGvPM1qYx5JcXuXTMZ6wYeHIZRX3gZmS?=
+ =?us-ascii?Q?6CZSaKB5ONBwlkMq1gy/CAtV9TGzfIezZ64e/5imalnXYS4kCetBSJn1NDKR?=
+ =?us-ascii?Q?wnFfNYIeRj3n6EkL0k1TnT4S7N4fxC18lbuT26sdlgc/UIfaKWcAwtFOW+uz?=
+ =?us-ascii?Q?WX7jcJQP72Wmzyz+1G55DCqOBRrx6u32vM3GLKVcT92kuk1N5r8p0d63eaWJ?=
+ =?us-ascii?Q?yS2kTkF5PRBw3BopG+hrTGe1DTrf7erOUP1CfEmMZ/95L4vVCmPBq/8YGz6n?=
+ =?us-ascii?Q?9t3pkix44/3KnunMg1Uvin0zrw8DmCKCfoOHOPsRGwBBtq38vx3/zURdQG6Y?=
+ =?us-ascii?Q?yMVgBF5+40cI9dGocAnSnYHvwd8P7rlWuNWiHvaMgZH6/MirKKSsAXRIUs12?=
+ =?us-ascii?Q?pckU1ChTkLAAwaEONPIy3y4lWPKfaCRQM4x6RmNpsF35rk47u+b1Ai2U1cgh?=
+ =?us-ascii?Q?UOEI2wsBd41jrreL/V8OC92/WUZrPjpNZjH8hwhz5ssYMPMHkCozlTKL782D?=
+ =?us-ascii?Q?gth7cTXAviJevPCb62/i8jBnLK6HlJhcPNRB9dHssk5KyWZQ4YHly4Td4LIu?=
+ =?us-ascii?Q?XWEoJCAQvm7E9uLfRTjF1FCctON4VWjnUkxqFQVW6Sb4TSntkh20EZ2JkQXK?=
+ =?us-ascii?Q?XIh1KL4DhJHgS//IrNgei+9+aSeL1hdd064oQk2GkEdsvQydBcUJDl2OVCXN?=
+ =?us-ascii?Q?9yRJ0VR9kj2/xshlQvL+uSR7JSzp56lef8lj3Vk2PyKlYBrt3KppufARQvR5?=
+ =?us-ascii?Q?CVPgrb2YpzS05/Cj17bTpQQgODjw4jfTFSmNlA/kw8KrzBjUGmGKARLwk3rM?=
+ =?us-ascii?Q?Sa5/ahlqtC6p4GIUH6vIexsxgO7ISWSAyPyb07azHZikmGGR9XufaJp13AX0?=
+ =?us-ascii?Q?x5Zvym7gZG9QLIOfKRYF+RhAZD7yedQjsexjn++CWov43ZUX8w+vAlPWfEEp?=
+ =?us-ascii?Q?Vw8z+w+FNn6QBn8vgwjhDP0Y+Vc1+500mnZKLATjYE/K9QYBCnupusgXG8PO?=
+ =?us-ascii?Q?wnVuk8FKB4pCQJLEwbi1SbLNfmU6Sj9i11vlzxBxWaeuVuoBMfs7mtyctXMQ?=
+ =?us-ascii?Q?+D2mD6gjDsyLsJqMR7q4iMqkwEtnZEA5sAlVgTaxUEpXWeuZOVmO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49c6a2ac-1d99-411b-c1e7-08dec8a2a5ea
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR04MB11791.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 16:50:04.0425
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j+x7lu3kFsy6iq9/TK3TiENDjqWRuyzgik03/D+fO02bIOh9XLwlgjqUDH+ibs8CyCRgkhJoqaCOU0fXZDIhhkwLA1J9YMgoxxGzqdzkLa0rvsoTxdY5gBpPfk8VLv3u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11544
 
+On Fri, Jun 12, 2026 at 03:20:38PM +0200, Antoine Bouyer wrote:
+> Add debugfs entries to dump ISP registers, and some internal memory
+> regions used to store Vignetting, DRC global and DRC local coefficients.
+>
+> Debug mode is activated with the `enable_debugfs` module's parameter, to
+> avoid runtime suspend which blocks register access when IP is not active,
+> so we can capture an ISP snapshot after a frame is decoded.
 
---5CjzBW7JmYQ5EH6Q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Look like you needn't this option, see below implementaiton. If you correct
+set regset->dev, it will call pm_runtime_get_sync() for you
 
-On Fri, Jun 12, 2026 at 06:45:25PM +0600, Siratul Islam wrote:
-> Add an entry for QST Corporation Limited
->=20
-> Signed-off-by: Siratul Islam <email@sirat.me>
+static int debugfs_regset32_show(struct seq_file *s, void *data)
+{
+	struct debugfs_regset32 *regset = s->private;
 
-Link: https://www.qstcorp.com/
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+	if (regset->dev)
+		pm_runtime_get_sync(regset->dev);
 
+	debugfs_print_regs32(s, regset->regs, regset->nregs, regset->base, "");
 
-Cheers,
-Conor.
-=02
+	if (regset->dev)
+		pm_runtime_put(regset->dev);
 
-> ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index 28784d66ae7b..11aac47f90ce 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1355,6 +1355,8 @@ patternProperties:
->      description: Shenzhen QiShenglong Industrialist Co., Ltd.
->    "^qnap,.*":
->      description: QNAP Systems, Inc.
-> +  "^qstcorp,.*":
-> +    description: QST Corporation Limited
->    "^quanta,.*":
->      description: Quanta Computer Inc.
->    "^radxa,.*":
-> --=20
-> 2.54.0
->=20
+	return 0;
+}
 
---5CjzBW7JmYQ5EH6Q
-Content-Type: application/pgp-signature; name="signature.asc"
+Frank
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiw4fQAKCRB4tDGHoIJi
-0jSMAP9Z2ImdyL4CMc4szu9odY8gpkujm+mcZ0ZSzAqUUrnewQEA0LHzFy+gwFiL
-rSsofo/4p2hLZnFFv9zhE+WUQq8r7g0=
-=X33N
------END PGP SIGNATURE-----
-
---5CjzBW7JmYQ5EH6Q--
