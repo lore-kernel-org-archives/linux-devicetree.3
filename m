@@ -1,184 +1,276 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C64388862;
-	Fri, 12 Jun 2026 18:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885DE1D61B7;
+	Fri, 12 Jun 2026 18:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781287260; cv=none; b=hCzXfIFughEw8789Fp0qdkvYbpG4MZk7NEmlNvh937jzKWitJ0okM2DHYL+7ALroJKd8fmKBzfK+g9nYnGZ1S5soBBHz59NC8UL0NNvDbcV9G0EEPyOqlssBRkg+gBKchCEekkx2UTe5Ww5Z/3vkwgVQG7MMF88r302ZFnKxB4U=
+	t=1781287550; cv=none; b=EfJIZJokMzyfW544vSZafEgv+dTw31qJhcm2J+QuyuKod/3nHESCuN/Mgk20MRdU4c4PUfVQKI2G6dhz28z1zI2y0lWYVmjwGFK9oTplBV83BslkcXfnuEHFtDN0y8xlTIgWIi/e/xkYWaBhJxME3GNNDc2CUamV8ueQRCyhZ2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781287260; c=relaxed/simple;
-	bh=KpZ/GTLLPgVDKAOSipReW62jls7h/kg8HzcOThxf+bY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JJHbURXCyaaH8tBrA0UpqvWvnLFL28AgdfakZdAfxQrKvGFLYJ70QWtT9V94WnuHeHZyyIOCJhSOmyhZAVlD4PfKAWsevhfRpo/+TxlTQqg/PevcJBd6XO2jCQipNco4YyRuiBcKKlzFefxHvO4KBu0qbxOaC56b5pGqKgIUP68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mDO51Hzs; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1781287550; c=relaxed/simple;
+	bh=rzyUVhdnKI3cuw3sDHkyh2Nf+fYeMexo9/BsW/DFsDQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=W+9weDC9vVrg4fgr/lluKQ24KUs3vXkZBQvZxKcdkCJgK71ffAnAa5CRTNz6cTEXAxqK0gSTUxAcXhF/xDO+ipIFDSgzsc4n3r62UuLpkqzha4SAJI6FS/oGrPCwF5bGAkO1XMQEYcc9Y1WXT+Q3kzxx+VzM8xunVjCZYqKdy28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UyPTqbQu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mDO51Hzs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1781287253;
-	bh=KpZ/GTLLPgVDKAOSipReW62jls7h/kg8HzcOThxf+bY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=mDO51HzsDiBGsO9QlE4qEQ7gfU88d3uubEJU9gj36ij15dRLw+7GSUdECIOtga14k
-	 zJ8gnxc4aRcz4KplzTCyEfhuZa4JC9/cjqPF/u95v94fDQ9qquthbmgPk5iV6aG5Qo
-	 cQ+4X/Cw+FkFrzFROkN5i4rXYi3/lqm/nyK8FKuxy28v76CW1QbGAzM6j/wGQNtiqS
-	 MU/xZX9cLPk9ziVd2pmQhM5su8RAI0fHhrSAAJDqWKSlGj1P5RFsZ7HOJLyzF5TbXn
-	 TlFKV4e/vHwLgNqyE40Rl/JBgorWKhrQYyZmA1uyMgyglHMNL/Zf5j0+QXdydkjixj
-	 pRb64JCS8285A==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2E24417E0E6E;
-	Fri, 12 Jun 2026 20:00:53 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 822DD480035; Fri, 12 Jun 2026 20:00:52 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 12 Jun 2026 20:00:53 +0200
-Subject: [PATCH v3 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UyPTqbQu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE3C1F000E9;
+	Fri, 12 Jun 2026 18:05:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781287549;
+	bh=rlKAWtaO3uaUXKIY3jGJo6R5ZGfhVrWc+hm9+wCBlgY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UyPTqbQuTxjjwyr5nkBA/+uQzIsay1d6TvIfgGaHSYolh7q6L5DeF36UDumYq051K
+	 clKIPUtMONhkwR6CQhJb2uHArS36KhCruL2P+tZjFniM2PVBfwf0KHCpvj7e3W2Q/p
+	 MeWERiYDWpBbXhEaKqcj+VPV/9wGDf/4Ni+eSVjCw+BjgjlEYDpiQAh2latpK3PbpV
+	 310bRErke/zY0liwIjDQP4rPZGiCfPfgOIXd+Etx/Lk8P2dKwrCIuGx29grrWy06ZB
+	 t7NGr91cM3w/0aj5AQgMSIMDT7oEECJ9H2Vcz3+ARsbaF3ANJ1GL40SSVKAv+YB/2o
+	 mfy2NWG3p9Qeg==
+Date: Fri, 12 Jun 2026 19:05:43 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Wadim Mueller <wafgo01@gmail.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Maxwell Doose <m32285159@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: iio: flow: add Sensirion SLF3S
+ liquid flow sensor
+Message-ID: <20260612190543.34d90b87@jic23-huawei>
+In-Reply-To: <20260607-quixotic-steel-puma-133410@quoll>
+References: <20260530205435.37326-1-wafgo01@gmail.com>
+	<20260530205435.37326-3-wafgo01@gmail.com>
+	<20260601-banana-narwhal-of-music-0b4d3a@quoll>
+	<20260601150959.49bbf125@jic23-huawei>
+	<1dbd3ab3-de6c-44dd-8100-e8ee60f558c8@kernel.org>
+	<20260604100304.11d0e003@jic23-huawei>
+	<200a6c34-3321-4c2c-9746-52348e700cd9@kernel.org>
+	<20260605132135.141422d8@jic23-huawei>
+	<20260607-quixotic-steel-puma-133410@quoll>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-synopsys-dw-dp-improvements-v3-7-dc61e6352508@collabora.com>
-References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
-In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3017;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=KpZ/GTLLPgVDKAOSipReW62jls7h/kg8HzcOThxf+bY=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGosSVR4BiIQqHL+BfJfXPL7BIkISy7bH1dRq
- 7ZTxEvb9UpdRIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqLElUAAoJENju1/PI
- O/qanSwP/1Kxg/dEXQeX6oToNqMfpeYNrrseyzEiKoR5WBb50EXZl3UQpMgXARjveRkI6/NV5SY
- vU2OTcs1Pr8INeYLPWt37c8ktmaOfFuNgRtyogC7MqshZKARH+BF3atyeS6WuPkcqq8gCi2AEIM
- 1X2wyVrq/DGf//DoRJhpXSnnqDfuhrHRAjzMaYlhrD2SU5iWtZehMteShj/CCNH7SaT+VbylaS2
- zT4sNwmiXc6us4uMeED762gdCZn4Ti2rGmkoUvTyLALeAigmIKCMEeXsCsYwC5vig1V5EF0qeNT
- Y3YN/Tg/sk9jjQTU7rNXPG3O0IbSoKmh+UcJIXQhi7GpvOTiXIpZl/d7PhVGifM2nN9cekS3fDI
- P7sHl8jQOSQ6ty7cW4VXqpXa+uFv+nCeVZPqf7SeI6QlMwCYGUkJMSfaIzUjG+VsbnEkaLF91xU
- fnBLTryLukcHoVK7+HL67No8WhrZD8DB/j1tW9deFQF74pxZBpydSD3DVhpDLuSBcioTUd+r33r
- Zsf0ea3Bm8Sn8EBuvIotCNzMac1Xpyw1/bm36leXaUEIpnDAokjzMo/oePoVGFl5X7mzUfCjdCe
- owkbT75vJG5cmIHSCG6vb12CZ1OUcIcDnjjOksdcPOHagwsoAeGQN1iFKIVk8vW1mJyoM2wpvVQ
- iJvgD8mOy+0Nl/F5hnK0tiw==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
-driver. Support is not enabled automatically and must be hooked up
-in the vendor specific glue code.
+On Sun, 7 Jun 2026 10:30:07 +0200
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 27 +++++++++++++++++++++++++++
- include/drm/bridge/dw_dp.h              |  3 +++
- 2 files changed, 30 insertions(+)
+> On Fri, Jun 05, 2026 at 01:21:35PM +0100, Jonathan Cameron wrote:
+> > On Thu, 4 Jun 2026 13:22:17 +0200
+> > Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >   
+> > > On 04/06/2026 11:03, Jonathan Cameron wrote:  
+> > > > On Wed, 3 Jun 2026 16:29:10 +0200
+> > > > Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > >     
+> > > >> On 01/06/2026 16:09, Jonathan Cameron wrote:    
+> > > >>> On Mon, 1 Jun 2026 13:53:23 +0200
+> > > >>> Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > >>>       
+> > > >>>> On Sat, May 30, 2026 at 10:54:31PM +0200, Wadim Mueller wrote:      
+> > > >>>>> Document the bindings for the Sensirion SLF3S family of digital
+> > > >>>>> liquid-flow sensors on I2C.  The family currently covers the
+> > > >>>>> SLF3S-0600F, SLF3S-1300F and SLF3S-4000B variants.
+> > > >>>>>
+> > > >>>>> The driver auto-detects the variant from the product-information
+> > > >>>>> register at probe time; the per-variant compatible strings exist
+> > > >>>>> for documentation and dt_binding_check purposes.        
+> > > >>>>
+> > > >>>> Here...
+> > > >>>>      
+> > > >>>>> +description:
+> > > >>>>> +  Family of digital liquid-flow sensors from Sensirion with I2C
+> > > >>>>> +  interface.  All family members share the same register map; sub-types
+> > > >>>>> +  differ only in the flow scale factor and the calibrated measurement
+> > > >>>>> +  range, both of which are detected at probe time via the
+> > > >>>>> +  product-information register.        
+> > > >>>>
+> > > >>>> And here...
+> > > >>>>      
+> > > >>>>> +
+> > > >>>>> +properties:
+> > > >>>>> +  compatible:
+> > > >>>>> +    enum:
+> > > >>>>> +      - sensirion,slf3s-0600f
+> > > >>>>> +      - sensirion,slf3s-1300f
+> > > >>>>> +      - sensirion,slf3s-4000b        
+> > > >>>>
+> > > >>>> And here something else. Confusing. Didn't you say device variants are
+> > > >>>> auto-detectable? So you have only one compatible sensirion,slf3s.      
+> > > >>>
+> > > >>> And then future fallback compatibles can never work. 
+> > > >>> Basically as far as I have ever been able to establish this is why
+> > > >>> generic compatibles are almost always the wrong way to go.
+> > > >>>
+> > > >>> If we get a future part with an unknown ID and don't have these existing
+> > > >>> specific compatibles, then we have no way to specify which one it is      
+> > > >>
+> > > >> But why would you have future part with unknown ID?    
+> > > > 
+> > > > That's what manufacturers do on a very frequent basis.  They tweak something
+> > > > that has no affect on the interface or channel scaling etc and release a new part
+> > > > with a different ID.  Can be something like a part suited to different operating
+> > > > conditions, or with a different supply tolerance.    
+> > > 
+> > > and it will have a different, known that time ID. How could be "unknown"?  
+> > 
+> > Known to us, sure, know to old kernel (or other software), not so much.
+> > For this sort of driver the main use of fallback compatibles is to work on
+> > a not yet aware kernel.  
+> 
+> So you mean a case that sometime in the future, someone will write a DTS
+> with sensirion,slf3s fallback for a sensirion,slf3s-WAHTEVER_NEW_MODEL, use
+> old kernel and be surprised it does not work?
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 7fa38145e35c..7f4f36c61484 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (WARN_ON(msg->size > 16))
- 		return -E2BIG;
- 
-+	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-+
- 	switch (msg->request & ~DP_AUX_I2C_MOT) {
- 	case DP_AUX_NATIVE_WRITE:
- 	case DP_AUX_I2C_WRITE:
-@@ -1655,6 +1657,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 	struct drm_connector_state *conn_state;
- 	int ret;
- 
-+	pm_runtime_get_sync(dp->dev);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
- 	if (!connector) {
- 		dev_err(dp->dev, "failed to get connector\n");
-@@ -1709,6 +1713,7 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 	dw_dp_link_disable(dp);
- 	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
- 	dw_dp_reset(dp);
-+	pm_runtime_put_autosuspend(dp->dev);
- }
- 
- static bool dw_dp_hpd_detect_link(struct dw_dp *dp, struct drm_connector *connector)
-@@ -1729,6 +1734,8 @@ static enum drm_connector_status dw_dp_bridge_detect(struct drm_bridge *bridge,
- {
- 	struct dw_dp *dp = bridge_to_dp(bridge);
- 
-+	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-+
- 	if (!dw_dp_hpd_detect(dp))
- 		return connector_status_disconnected;
- 
-@@ -2153,6 +2160,26 @@ void dw_dp_unbind(struct dw_dp *dp)
- }
- EXPORT_SYMBOL_GPL(dw_dp_unbind);
- 
-+int dw_dp_runtime_suspend(struct dw_dp *dp)
-+{
-+	clk_disable_unprepare(dp->aux_clk);
-+	clk_disable_unprepare(dp->apb_clk);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
-+
-+int dw_dp_runtime_resume(struct dw_dp *dp)
-+{
-+	clk_prepare_enable(dp->apb_clk);
-+	clk_prepare_enable(dp->aux_clk);
-+
-+	dw_dp_init_hw(dp);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
-+
- MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
- MODULE_DESCRIPTION("DW DP Core Library");
- MODULE_LICENSE("GPL");
-diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-index 2127afa26b2c..3037e0290861 100644
---- a/include/drm/bridge/dw_dp.h
-+++ b/include/drm/bridge/dw_dp.h
-@@ -28,4 +28,7 @@ struct dw_dp_plat_data {
- struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- 			 const struct dw_dp_plat_data *plat_data);
- void dw_dp_unbind(struct dw_dp *dp);
-+
-+int dw_dp_runtime_suspend(struct dw_dp *dp);
-+int dw_dp_runtime_resume(struct dw_dp *dp);
- #endif /* __DW_DP__ */
+To me that is exactly what a fallback compatible is promising - if we have
+any kernel / driver that supports the part that we are saying is a valid
+fallback then we are saying we support at least the functionality of that
+part (sure there may be extra stuff that doesn't work)
 
--- 
-2.53.0
+We had a long discussion a few years back on whether code that did
+
+	if (read_reg_whoami() != EXPECTED_ID)
+		return -ENODEV;
+
+was correct. Someone (maybe Rob?) strongly argued that we must not
+do that because it effectively made fallbacks pointless as we always
+needed to upgrade the driver. I argued against this (on basis that
+swapping in incompatible parts is annoyingly common) but was eventually
+persuaded.
+
+If that is not a valid reading of what fallback compatibles mean, is
+there any documentation of the rules I can refer to?
+
+> 
+> Our goal is not to stop whatever poor code people can ever come up with.
+> 
+> Every future user wanting to the fallback MUST understand what the
+> fallback means.
+
+This is where we disagree.
+
+This is not hard to support, it just means not using generic compatibles
+when the device differ (and they are not self describing which these are
+not).
+
+Jonathan
+
+
+> 
+> >   
+> > >   
+> > > >     
+> > > >>
+> > > >> The device is slf3s with variants. All of known variants have an
+> > > >> interface to detect the actual variant. There is no indication that this
+> > > >> won't work - why would company remove the ID register?    
+> > > > 
+> > > > They won't remove the ID, but they will put other values in it to
+> > > > indicate new revisions of a part - often entirely backwards compatible
+> > > > - sometimes with extra features that we don't use until the driver is updated.
+> > > > 
+> > > >     
+> > > >>
+> > > >> But even if this happens, then it would be change of device interface,
+> > > >> thus you cannot use generic compatible and you will have a new dedicated
+> > > >> compatible.    
+> > > > 
+> > > > We've had this discussion a number of times for whether an ID register difference
+> > > > alone makes a device non compatible, and the answer from DT review has always been
+> > > > a firm no and that it is incorrect to reject an unknown ID if the dt-compatible    
+> > > 
+> > > True, but this is not the case here. That incompatible device would
+> > > simply not use this compatible, thus it will not start the probe.  
+> > 
+> > Taking a rather extreme viewpoint: So fallback compatibles are pointless why do
+> > we bother with them?  Note this ID register thing covers most IIO drivers that
+> > have fallback compatibles today. This is not a rare corner case.  
+> 
+> Fallback would not be pointless. It would be used to match and bind the
+> driver. Without fallback, driver would not match.
+> 
+> 
+> >   
+> > > 
+> > >   
+> > > > is known.  The compromise that people were happy with was an info print if
+> > > > such a mismatch is detected as it might indicate an incompatible part replacement
+> > > > and a broken DT.
+> > > > 
+> > > > Probably 80%+ of IIO bindings with fallback compatibles do not have
+> > > > matching "who am I" register values.  This is incredibly common.
+> > > >     
+> > > >>
+> > > >> If the device is actually "slf3s-0600f" (because slf3s is a family),
+> > > >> then I am fine with using that as the fallback. Specific front
+> > > >> compatibles are also fine in such case.    
+> > > > 
+> > > > Yes, it's a part in the family. Each of the compatibles here has a
+> > > > separate datasheet:
+> > > > 
+> > > > https://sensirion.com/media/documents/C4F8D965/66F56F53/LQ_DS_SLF3S-0600F_Datasheet.pdf
+> > > > https://sensirion.com/media/documents/6971528D/63625D22/Sensirion_Datasheet_SLF3S-1300F.pdf
+> > > > etc
+> > > > 
+> > > > (wonderfully inconsistent file naming ;)
+> > > >     
+> > > >>
+> > > >>
+> > > >>    
+> > > >>> compatible with.  Given these are providing scaling info that means we
+> > > >>> can't realistically support such a future part with a fallback at all.
+> > > >>>
+> > > >>> That would only be possible if there was feature level discovery. A single
+> > > >>> whoami register with no structure to the value is useless for this.      
+> > > >>
+> > > >> The whoami register defines all the features, no? What would feature
+> > > >> discovery improve? ID register is simply logical OR of some feature set,
+> > > >> still uniquely identifying the features set/variant.    
+> > > > 
+> > > > Would be lovely if true. Sadly almost never true. They are typically just
+> > > > the next number in a list of parts released. There is no direct information
+> > > > on feature set encoded in that value, we have to have a look up table in
+> > > > the driver to translate to feature set. (Not relevant here but sometimes
+> > > > manufacturers forget to change the number and we get different feature
+> > > > sets with the same ID and no discoverability)    
+> > > 
+> > > I did not mean there is direct information. I meant that you can create
+> > > such map, so basically it is defining all features.
+> > >   
+> > > > 
+> > > > If they were an OR of features that would be great.
+> > > > 
+> > > > The thing is a little structured in this case
+> > > > 
+> > > > 0x07         Liquid flow sensor
+> > > > 0x  03       Product family (e.g. SLF3x)
+> > > > 0x    03     Subtype (e.g. SLF3S-0600F)
+> > > > 0x      02   Revision number (changes with minor firmware or hardware revisions)
+> > > > 
+> > > > But both the product family and subtype are numbers to feed into look up tables
+> > > > (maybe revision number as well)    
+> > > 
+> > > The values don't matter. What only matters is that each is unique, you
+> > > can map it to a real device (and its datasheet) and features are
+> > > decodable from the datasheet.  
+> > 
+> > Sure, but as above, that breaks the use of fallback compatibles for the incredibly
+> > common case of otherwise identical parts that would work fine on an old kernel
+> > but where we can't match them because the ID register differs.  
+> 
+> And it is not a problem. Every other case would not work either. If you
+> have specific compatibles - such device would not work. If you have
+> fallback with ID mapping to features - such device would not work.
+> 
+> In all cases device would not work.
+> 
+> Best regards,
+> Krzysztof
+> 
 
