@@ -1,157 +1,173 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6C0364943
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 12:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781268854; cv=pass; b=Tmq5xTuw1QTxuOi1+PoC0/b5e350zIov5H/cmmPcoNCp1e6emqaUqikfHtY3uUuFPJOsWaGzjidpF6NXFzpCQha4PLo9l3+YwU960slbcxb7O1zqnhGh3w5NYQm1Xjmsf2uQUnqeo65zLhw9FoHPhvAngXakDL7AL8tcmnZtDxE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781268854; c=relaxed/simple;
-	bh=+zmRZkf7AQ7PB9Kx8oHg2bM45aSk4u6jxmk4WYr/q54=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GkxbaZxKotbPFaThcRqcWos+MK5C2OBpi1aapy00zsnw81mnmu4t44QEQmSjWHGfxMAI9C1CRH6tbZiPT8OMI0zG79TYXOtFT/mEryzrlhb4cJt4ylFKYGe7UGpxIFhjXzDVMM9KkbKVtORs6VHRdxHMKVS7i5qiVXLl+1/2SgA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fo6DMMWt; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7900A40D56A
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 12:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781268970; cv=none; b=sVhbUMJHf4L5iqGWq0qkt9KP/GmlxwVqJxahtTwR9jpPKXSlpQeQ6CiukprSl1Lwdm2KlSnlqr0AJQkF161lcvqmpjKgX0K/v25N3uTNMkCtGihujli14BnktkxALuVPnDe0Y79uQ1Zgtj6o1jipFgJOnxn5u5qfM7bE6tFaXaA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781268970; c=relaxed/simple;
+	bh=rNBXnL5gB90ZU2VFSCeIM8faZKvlbH/p1XnDM68wrAA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V6WjaB0vRRIqxaEPeLbAzLVIY8BQlUhMxtQcVZVBnpZxEgDDAK5+9QiDC6EwmGl+avxa5d2ETQ3iYCgdKO7JJsQqtEucEbyKadRLAcC1u2DW4FyUDZvmVmtbh/gyEIEdycLgbJlh08Ttqm0pW5RybB3Xfzrf4F9HUQ3qWRil9O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQWrqa3t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fo6DMMWt"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c0bb4a94b8so7612745ad.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 05:54:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781268852; cv=none;
-        d=google.com; s=arc-20240605;
-        b=BUq2O7Idrg7pwANFA19rp4Uq+Hl21n9lZLr26irfKYZjcdVnvavSDFHKXdqcTAlYsO
-         diTsPR6D0kEb9EKOw1tx7OmSyxGZ+sXzOgAuB4KyeKw8cCEmgjFtGyxfhRagnqai2htq
-         4G83pzNWgHjeEBDMHjOknO4D6hxMf7L51McUekmdRc2SlgVCe7G9NILz5+MaHsouCan3
-         NX90+ovWfSTzp6frIrc0ySZxREMSBcrB5cR3Gt3h1qk191XA64qWe1vz0iae0DfGCd7P
-         ngGgJAeGUaNSWQXf+nlO0gPdx0USdI3KOxbeQgTvROXSyooGrvc1ej2NLvDnlKoM0VYv
-         zbiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=vMiH2ZEz4WyIiZ3v/uym+XH8AqV96aclIybRlnrRB0o=;
-        fh=leeA0DNwI4BbFJage2iApqQ5meFCO5eKTsPR61Uk/C4=;
-        b=WcXngkw64R+EjASyDTzeJBhqgLc8QSk6FzqPAIi8VOIs5kzHCtcTHf+xBAHaJ4Mf80
-         Ij3HsH25MwxzjUZq5Qh5zDvCG+dNng3sjE/j4QLzkXWj+JLlALNfKvThU5fkkm2blGJp
-         j36VFeSNc1Ge4KOXFRJQxUyfw9W5kn8m2FlJhJefLulc6bCBaoEfuXP0ZwlFKIz+LFIP
-         Yg2EiciKVwyVNXLtjBvTGbFD9//FWTxOuNt+hej4PaGfdHHGJaNWHUhnLpci6F7NCn8J
-         DgMl4eU2EDJ2u7LiiOloLFFw4iRLbnDeBAY6rWdJVMGtX9LwJhwnf89+kRDOiWs6Mu+E
-         iwQw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781268852; x=1781873652; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=vMiH2ZEz4WyIiZ3v/uym+XH8AqV96aclIybRlnrRB0o=;
-        b=Fo6DMMWtccis7AzK+idHPXi4Mn2R7/e9J44Wr9w3/C9djLCwS7iNO+Z+INJPkbX/gZ
-         /dkuGTvLBRE2pyEll2Qr3u+LQ6me+imfOltgglHfbaE6mboBV40RYJBeGqLj+Gsld0JL
-         4D9kcftw9ftVpHzxKkSoXYCUhxneL4h6UU2QwYvhSEeSDuSpDIih685eO7kdZ95lfgvO
-         P6sXzuE+L15g9X0phPRvDzZqJgrpjr2AdvvenW1uMS73bW6C0XXYbwA999eX83TzsUjc
-         RJIwCp2N/CdK9d5Tv0XFfgwgU8Bz4AgWQHJzReDoQ0CvJO3/5gIgLtl6fJaU5ep2yp3p
-         MptQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781268852; x=1781873652;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vMiH2ZEz4WyIiZ3v/uym+XH8AqV96aclIybRlnrRB0o=;
-        b=RVlnwWwkAkGYTBbMOFaau61nt0+Bo+MbHiWFRoIOefSaPiKk8i1e9llqvPx/+m+kY/
-         I7O2PfdwF/Fei8ldb8QqKMNAyYO+kFFCKq9sUIJ7WsreCIVLT+sBlm5CvB9n4379zby+
-         gH8qtzdRjJEAX44qjt4jt4tPKT+NODrEY1CIWtQFh2H6HFnB9wl0CdDWrY9iw02uP+q9
-         CIHuFbSLRAWhNONAHnyv2H6mppX6XA3xVeEGzLiaNFkbcO0SSZ3yiVSI2PfFibcpORRb
-         PQ1LW3x9LS71UHYV/fO4Zndbkc9oAe2k/1mwhgVsawu/j8XRkr2VY6hFbigQyFti3w/P
-         uIdw==
-X-Forwarded-Encrypted: i=1; AFNElJ+5BA7H53n8ZXB4suwuNSux8yxZfKozD37HtXMteJ7uRDbyIlrA+SaQQc8UQf6zbmW47gIfOIjTKJt0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzF5YYxiRjsKmRqlpUHXRp/mhNS+UVgt40FuFtIPyWsAx247xff
-	BUEMFCsVIV9ukwHb/RZpqvIV6iiFxrmx0mUgw4AJxfF6vK8i3FtYq+qGBnBZNUpoJiNInzOHRQS
-	AxEgkkFCji5CCfzcpmu3oGRMI7VRMZDg=
-X-Gm-Gg: Acq92OHdeZJKl2PS7whTWsmAi5wyUtHS3v4utD3z3LDffNADAqS5nARGmU8AB6vTvYO
-	N4FLaL9unoaRATASFYbUWpBb5OPZHvNd/ptB5MNv1qk+7Ejz8k7ehxoa+cRST5hdLuqnJ5GKjmd
-	14SLUCAi0pikBcFRvpCbDOuWYGMoYTSdnNXpzpDKa0ZCN2ThT80FHdjBMalREusxxddQ5P37CRY
-	GWyDJURwbzasPXCB6WCKg7/nkjRum1d4ZhQmGzAS4Gkb5j2DJvjLkiBjNeOBuespppQAdqXi+6r
-	Z85xmBgxsBiL1r7KDUt+wFlKzOQqnc76vtJ5Tw==
-X-Received: by 2002:a17:902:ea07:b0:2b7:aa20:3c61 with SMTP id
- d9443c01a7336-2c4134ec603mr33662135ad.33.1781268852381; Fri, 12 Jun 2026
- 05:54:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQWrqa3t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4201F000E9;
+	Fri, 12 Jun 2026 12:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781268969;
+	bh=uaV7ZQ7A4RtMJYEO0efUSf78Z6a4q2bj0asdFhBRS9w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nQWrqa3tdvV5cW78WfCY6eW993Li/lrV9kR4njhDI5zSHDTx7V9SWOljAThOwWUdt
+	 K0ygFHYJkfo6350CVjufybcHLDiMyByFCVBpVT4BpyKnJ+PlbokyFnqdLhWaveFz+j
+	 RJMCyBnZw2lLeQnPCQNH2bM4/43nqegbg7CM9yqPbLOURz5tJxL4BENPH3N4zKCak0
+	 ppDXm1mf+VnCrlHaJ9kI0PWC1A7EZguOUrc3J/x6w0053D+jiagHneU6sKXeT5c+fv
+	 5cYXjSO1MCG78BdzqBxeCdDg6wd60Oedkofz/Scpj9WCXUAvgul8BZzrEEp6ktMQU0
+	 M3cKDkfG4UnDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] iio: magnetometer: add driver for QST QMC5883L
+ Sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Siratul Islam" <email@sirat.me>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260612124557.13750-4-email@sirat.me>
+References: <20260612124557.13750-4-email@sirat.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 12:56:08 +0000
+Message-Id: <20260612125608.DE4201F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260609113836.45079-1-phucduc.bui@gmail.com> <20260609113836.45079-3-phucduc.bui@gmail.com>
- <CAMuHMdXku0BVRgwWWv1vNccKpRbvTu+1b0TjYacNJH94XBDOGg@mail.gmail.com>
- <CAABR9nHFHWFeEaaYE6X9fqt_Zb-3pF=jJbHQpsiBTgkS5LyTLQ@mail.gmail.com> <CAMuHMdWsLeEzjCPHEa=nY-kC0n34RHL3kUMW30vneUajCWwTRg@mail.gmail.com>
-In-Reply-To: <CAMuHMdWsLeEzjCPHEa=nY-kC0n34RHL3kUMW30vneUajCWwTRg@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 12 Jun 2026 19:54:01 +0700
-X-Gm-Features: AVVi8CdLk4S96wYsYDBqrdC7z70oBdDD1ZwZrYm2niDWr8Nvh0Eb0jy8Rs6iHGo
-Message-ID: <CAABR9nG2kHH3=gkd0H+vhGZJtvkHLA7YMpoWt+p+XtdNV+oe=A@mail.gmail.com>
-Subject: Re: [PATCH v6 02/11] ARM: dts: renesas: r8a7740: Add clocks for FSI
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Geert,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Returning early with `-ERANGE` when the overflow flag (OVL) is set=
+ prevents the data registers from being read, leaving the sensor permanentl=
+y stuck in an overflow state.
+- [Medium] The device is left in continuous measurement mode on driver remo=
+val or initialization failure, causing an unnecessary power drain.
+--
 
+commit 8aa498258e2b8bddd48bf3c46ef8555a7376ea6e
+Author: Siratul Islam <email@sirat.me>
 
->
-> According to my schematics (RevA), R120 is not populated, but R250 is.
-> So the 12.288 MHz clock is fed to both the FSIACK-pin of R-Mobile A1,
-> and the MCLK-pin of the WM8978 codec.
-> Which revision of the schematics and board do you have?
->
+iio: magnetometer: add driver for QST QMC5883L Sensor
 
-Oh, sorry, I misread it. You're right, mine is also Rev A, and R120 is
-not populated, but R250 is.
+This commit adds a new I2C driver for the QST QMC5883L 3-Axis Magnetic Sens=
+or,
+including continuous measurement mode support and scaling options.
 
->
-> I haven't located R120 and R250 yet, so I don't know which
-> configuration my board has.
->
+> diff --git a/drivers/iio/magnetometer/qmc5883l.c b/drivers/iio/magnetomet=
+er/qmc5883l.c
+> new file mode 100644
+> index 0000000000000..055e51570635c
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/qmc5883l.c
 
-Please flip the board over; these resistors are located on the bottom
-side of the board rather than the top.
-Other components like R123, R124, R139, and R227 are on the top side,
-but they are only visible after removing the display.
+[ ... ]
 
->
-> That information is found in the R-Mobile A1 docs (PORT11):
->
-> Table 1.3 Pin Assignment (505-Pin BGA Package)
->     Ball No. / Pin Name / Multiplexed Pin Functions / GPIO
->     G3 / FSIACK / FSIACK/FSIBCK / PORT11
->
-> Table 54.1 List of Multiplexed Pins
->     Pin Name / Function 0 / Function 1 / Function 2
->     FSIACK / PORT11 / FSIACK / FSIBCK
->
+> +static int qmc5883l_take_measurement(struct iio_dev *indio_dev, int inde=
+x,
+> +				     int *val)
+> +{
+> +	struct qmc5883l_data *data =3D iio_priv(indio_dev);
+> +	unsigned int status;
+> +	__le16 buf[3];
+> +	int ret;
+> +
+> +	scoped_guard(mutex, &data->mutex)
+> +	{
+> +		/* 50ms headroom over the slowest ODR (10Hz) */
+> +		ret =3D regmap_read_poll_timeout(data->regmap,
+> +					       QMC5883L_REG_STATUS1, status,
+> +					       (status & QMC5883L_STATUS_DRDY),
+> +					       2 * USEC_PER_MSEC,
+> +					       150 * USEC_PER_MSEC);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (status & QMC5883L_STATUS_OVL)
+> +			return -ERANGE;
 
-It would be helpful if there were a more detailed Armadillo schematic available.
-The R-Mobile A1 documentation (PORT11) is generic and shared across
-multiple boards,
-so it does not necessarily reflect the exact wiring used on Armadillo.
+[Severity: High]
+If we return -ERANGE here when the overflow flag (OVL) is set, does the
+sensor get permanently stuck in an overflow state?
 
-I did look at the board support code and pin configuration some time
-ago, and I also tested audio output over HDMI successfully.
-As far as I remember, these pins can be configured as either inputs or
-outputs. For example:
+In typical I2C magnetometers, the Data Ready (DRDY) and Overflow (OVL)
+status bits are only cleared by reading the data registers. By returning
+early without reading the data registers via regmap_bulk_read(), the DRDY
+and OVL flags might remain set indefinitely.=20
 
-fsia_pins: sounda {
-    groups = "fsia_sclk_in", "fsia_mclk_out",
-         "fsia_data_in_1", "fsia_data_out_0";
-    function = "fsia";
-};
+On subsequent measurement attempts, regmap_read_poll_timeout() will return
+immediately and this check will instantly fail again, potentially locking up
+the sensor until a reset.
 
-I'll take another look at it when I have some time next week.
-At the moment I'm busy working on a few ASoC cleanup patches,
-so I haven't had a chance to investigate this further.
+> +
+> +		ret =3D regmap_bulk_read(data->regmap, QMC5883L_REG_X_LSB, buf,
+> +				       sizeof(buf));
 
-Best regards,
-Phuc
+[ ... ]
+
+> +static int qmc5883l_init(struct qmc5883l_data *data)
+> +{
+> +	unsigned int reg;
+> +	int ret;
+> +
+
+[ ... ]
+
+> +	data->odr =3D QMC5883L_ODR_50HZ;
+> +	data->range =3D QMC5883L_RNG_2G;
+> +	data->osr =3D QMC5883L_OSR_64;
+> +
+> +	ret =3D regmap_write(data->regmap, QMC5883L_REG_CTRL1,
+> +			   (QMC5883L_MODE_CONT | data->odr | data->range |
+> +			    data->osr));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int qmc5883l_probe(struct i2c_client *client)
+> +{
+
+[ ... ]
+
+> +	indio_dev->name =3D "qmc5883l";
+> +	indio_dev->info =3D &qmc5883l_info;
+> +	indio_dev->channels =3D qmc5883l_channels;
+> +	indio_dev->num_channels =3D ARRAY_SIZE(qmc5883l_channels);
+> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> +
+> +	ret =3D qmc5883l_init(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "qmc5883l init failed\n");
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+[Severity: Medium]
+Is there a missing devm teardown callback to power down the sensor when the
+driver is unbound or if registration fails?
+
+In qmc5883l_init(), the sensor is placed into continuous sampling mode. If
+devm_iio_device_register() fails, or when the driver is removed, there
+doesn't appear to be a registered cleanup action (e.g., via
+devm_add_action_or_reset()) to place the device back into standby mode.
+
+Although the devm core disables the VDD/VDDIO regulators during teardown,
+these regulators might be shared with other components on the board. If the
+shared supply remains active, the sensor could continue continuous sampling
+and unnecessarily drain power.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612124557.1375=
+0-1-email@sirat.me?part=3D3
