@@ -1,189 +1,672 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2AA331EAB
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573D8331A43
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272107; cv=none; b=rA1kWgzpiSA311SjXlcq/a7/q8+Wp+2/AMw28FqgtsIye7jtnn9OtIaqA4nkkEonFThDTG5EpthHXl0Y5ki/Zs5eH7GtWVFmAVkDbA5CtaE6QITKg/Nlqpyxo7piCLzYjP4oDMLoR3h0FOtoTLy4Em+4LFxIBN+d50lAKrSexZQ=
+	t=1781272168; cv=none; b=kUf5FiDCVVcA3Tk8if3Y447ROsnS9jYSyE7JlvoHp+8GEvPdRw3He4soHvIt0mgh4g5MN2IG0NCUZT4L8zHaNnhMIo+FgUnl9UfcNHFkMGaxHD5eQRX4O/7uicRtRzEVhTXm6/p61oLW8D3+g0nV9I8tOsnZB6/zOfNSHSd6yI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272107; c=relaxed/simple;
-	bh=Nm/CFb+Dox2Afi7pYSuOi5ckPQL3p9sapoD96313IHI=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iInBkmlNhPuEzXnrgCB5ODY0YCG6+xsr5PTk0HbiDFvZPL2hgJl+cKVBx9f99OOlIZEF+cTFk+1RDSmK0CR1AK9yddQf3kAkfGrEdfBjaEYklZejvy84WCGqJItJyrByAlJahdO9Qf9o5OGXqyjSErXLwglnmEEsaMSBI0/TCoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ErY4PUEd; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781272168; c=relaxed/simple;
+	bh=cuVqdlPBE/ZYdGFnfBVcnU7U+YIxtiI4ErQo6Qk6J2E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lJ+EzC4/zzhp8CiEIpdjsxzrpPHyRIFWMAKe9+Na2u+i68iP44aEfL0eK5y19sVOL7AYFPlOBO7OG/h/fw/wV7vhye8v3U0bXK9NHw3ESRelPFqfxftm+AnyTxuj2FsPp7Lz+tdXU+jTdbwl5seGFBHfZ6T2tdmfMasox8yXZAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p2fT5eas; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ErY4PUEd"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490afc47455so4417815e9.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:48:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2fT5eas"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b9318997so7579295e9.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:49:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781272104; x=1781876904; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mipHo0l7RBc0zEMhF8Fz8QvRJ7oAxrgIKC4nNESKUfg=;
-        b=ErY4PUEdqNZ/35649bKLE7SJKD4ZSucvJLnEIfCWqyNnpZ6bTMaP5cqd0g7nIFdaOq
-         sQuem0TA3QWJrlF/oWAa2mlRhTujgwTJlYjA9wWYYt6TXC8+4Ddl3zoZGMJajhSRDp8c
-         VNVFGRAd9x1F1PjJCjffGiqSDR0fxgYfO5r/uBAOXWoYHNuRexwHSDGyL/BpruYtaMys
-         KgBqmwIztjhXLKjbJ5w/9AVZWy13oca/o3BPbbL1D6tATSL0qaRxzCj5AdfZVe1axASx
-         sTbIIGWgGUTBipISFI/OpzZU8i6uNgPM6xwmyeARuN3vOtdIvPOaYr9X1D6sohgwYPKV
-         DFSg==
+        d=gmail.com; s=20251104; t=1781272165; x=1781876965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1KlTuI81fMvZbGzbW+82D669jenQJLv5gsQIFsK9Lzo=;
+        b=p2fT5easxpFZmv2JR74o8HHrl7vi47gwZgL/qufwWiuSZ7MLkDZzi5C/mkUihZg4lq
+         sAoOzCl21MDsyNGMAsFkIfgaR+Gc2hvjjHVN/yfP1uVxjx2R7OIaK8kLF3tsInIyjoM2
+         ACQE7qQJ3NikcsOa5XrLaBzGXhgz8CVXj5kopnK4LHHvc0+4mCqZPVn/D6SOC0Zvx5Ow
+         DwYbmMm8uqJX6Stcm4Yx80Tkgu6k9uwGh/8fxzBDHH+aAubTSyddH78hYXjknUztA+IT
+         RiL7YH0QRtZmMKiOXQ1Cfzu0W2alJv9nydlmPMINwodpe1kpjVk6yeyY/NIzA0vYsbkK
+         FDEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272104; x=1781876904;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mipHo0l7RBc0zEMhF8Fz8QvRJ7oAxrgIKC4nNESKUfg=;
-        b=LT86BVPbnPQoqzHJQuB+R0svgbNW/nmn0NWlHH7y6klyC7X04lvp7G3vCNmJBPoRnZ
-         uf/F7c9F7GkorGOupPUzsjKj1E0w5f6eoj8I8YhdKrJ3y/MjKv4BFXntwLxgX1sczls1
-         5BQlzaDJKr12gvnRdsLYm2hG7peTwwXr+uBvTTP5TmbA86JKMhc4Hz2z2kNIBNI0HGjG
-         tiK21gP2/danJLT91i5lXhUftr+CB7JgY7FyAmkXq1b4e4DfEat6QVvE5TJTW46iBSRV
-         GTOha1/+j1OBt3p75jbyNrZ4vZ0W8Y2Z125Dg8Z7hGSEuhlQTxM9zHmlJEXJQcjnaZ+E
-         NdGg==
-X-Forwarded-Encrypted: i=1; AFNElJ8dlU+3SFkXZaPJmF6F+g0RtY76qDoy8xCQoaFuYkCi80RoONhicSLqXmE+q26fz55yC9WUA2B3fj/K@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJQgc00pr+sNwVvOXPIlefUnHgYVkHgPQX8f86cYpyL2fpd7wA
-	STG9Z/GGaV+wFISdmzzrD/CsAGSyDSwnH/ILwiPhG85RZ97BtPb3vy9jFWtGGYY5Wq4=
-X-Gm-Gg: Acq92OFO8sJvjLlbqPluprMiDcc59+t6X4iKknNac0KkodQkmsAewkJswK7GM1nfKWl
-	95F8MkK7eUEjJiRcQ4keNCry7ACVGmurnOHeZz4h84NMX5rFsC8Zjgdj2pZnaq5uL3CtkV/xa5U
-	Nw43FmSG2zdf9DC2AM0Wu7fZTTGfM8vBMXa7E/OK6Qq7YgzzbHVrbS8DgLZvB6wUFjOgqg+wgBM
-	fQZys9olALhc+cpaTDkX43Ouh3Udmr/OMpczoMb5y+KK9rrYq3r2xOyiq4HVSiU5IbkSjN0Kxjv
-	0xfDm0PbjvYNBl6tQy6nwxaZZhOkYi7aE1ZxrHuZ8FNK2OYVCqlv9TrLzSh9Wg6v+nbO8b0VXot
-	dzckeiCuF4Q7Odm1Ddu+/IONzDHtT8C966HuU9fYFCQyoZ4VoJjNxAMYVCYBC5njgIkswNzHjUc
-	/ABSLqGrEeNq43NbCJaSeh
-X-Received: by 2002:a05:600c:3b15:b0:490:b189:212d with SMTP id 5b1f17b1804b1-490ec522d44mr40387895e9.33.1781272103620;
-        Fri, 12 Jun 2026 06:48:23 -0700 (PDT)
-Received: from localhost ([195.94.146.6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea843cbbsm76137075e9.13.2026.06.12.06.48.22
+        d=1e100.net; s=20251104; t=1781272165; x=1781876965;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=1KlTuI81fMvZbGzbW+82D669jenQJLv5gsQIFsK9Lzo=;
+        b=rK+1WGS1eyo3Vm0BnmoknbBQw9SVgXFQ3dR2cVYt6hyBYn29+qIGHn9FzhR1KhATzr
+         pRZBsic/pxODtnH5wQUWT7G++zk+W7FyfpXeuLvSL+CMaQ2wAaRW3H+ofh41tIJNh06T
+         Uih6qzu05Ya4juetEZuTL4xydFobbdB1qyxLjQu8hPEpGQQxX3AbRXX6UQB+mc8OEHqP
+         W+uOaYdz/vN65fohAI7ycqX+jn1vxRecIf56DzQ4QtEeUNPUYvxoNLdvBuDvsKtXXH1/
+         w5snG7wjOAMZLqS/cygLUzmUxNc63xuVDTBuBE6kKmXpLqB+ZPrSXWJE7UTjde4jZ9RW
+         /ORg==
+X-Forwarded-Encrypted: i=1; AFNElJ9SD/W7gunMWSN4/uOf+7g3tnOlNK4/BIC5ZAPwvF9KgQ4AgWaA8rPJ6v8+967AU9/ZEkF5AuujNx+Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YysdHqs8cBRXagbrBS7BuJFfKxsMo5Xe8GX4CijUtc13EIS/Agm
+	09AzfFf2vt5wzap/dCFB8nxHZJxfQXN/cqehzBoO0bGF+ojWxxDsh1Ax
+X-Gm-Gg: Acq92OGTKn3XWlzA7CwC3J/v8JzDyVnoZjPJiUtNqmaUB5cjSuGf0VXrYT//AIwPc1V
+	36kHLSHwSn7NgZ76H87oLI92W+v5+lCYzZ5UAT7QIck74ZBGlbyVXX3xfS/fBrF7gd+CZHEsvzp
+	6scoWJBoMaW2zWUG6oHncaiTF+OEMxKjEjb7DDe2HgKdHjjYux/LLYO/gdiqNDyQrQf/vgp2eHH
+	2ySOFHZidGeXzz77ROk112pLEPtLC1jG9e16YFVnqgRC8Hs+JSnwGpc9vUIuCKRa+2XpQDqK5R3
+	DQbbpfNvchRnUrh5mYGP8DIxp6KpfHXoW4n2MTtA8XaLHvKiTDihYNxt1WRBrk6FZre1Qag461X
+	v93ANk190KzjGSMavLOHsrt9YVWztd1EYkotm3kK/gyy37eZApW0BdJSrgq9Teh3aH7qegXnf1X
+	t9KyS4awty2yG3JnuX2QWNaJUtYrLnYYuqo0SR7aREwWeF0lCwWvxOtWeTE/Cw4i72WpxSr5rrp
+	JCN9vNqAefXaEkciaZ/dyjIyXovfOsXon76gCn6ueJcXtwFDSjtFw4E4b++GHyczGzZPeOXBTDj
+	mgTk2oS7T5v3Hz+v+Kw7RH1el/hHvGCG3FvTk3e5pdHliyp0zKRtouPuLTFeXUgOAA==
+X-Received: by 2002:a05:600d:8486:20b0:490:5e2a:f924 with SMTP id 5b1f17b1804b1-490ec4809abmr29434765e9.7.1781272164371;
+        Fri, 12 Jun 2026 06:49:24 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea7db56asm85979705e9.7.2026.06.12.06.49.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 06:48:22 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 12 Jun 2026 15:51:44 +0200
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org,
-	Kevin Hilman <khilman@baylibre.com>
-Subject: Re: [PATCH v4 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <aiwO8Ac6btqSes8x@apocalypse>
-References: <8eef956a5eb473f051bbda89ec4c9991c1b47de2.1780498640.git.andrea.porta@suse.com>
- <20260603154716.1B5C41F00893@smtp.kernel.org>
- <aiGAINsTG8VZLn28@apocalypse>
- <aiHn5-gQMbjttrR6@monoceros>
- <aiL-DWqU5bnIPL8B@apocalypse>
- <aiM0VlVXAWs54v-G@monoceros>
+        Fri, 12 Jun 2026 06:49:24 -0700 (PDT)
+Date: Fri, 12 Jun 2026 15:49:22 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Siratul Islam <email@sirat.me>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] iio: magnetometer: add driver for QST QMC5883L
+ Sensor
+Message-ID: <20260612154922.00003723@gmail.com>
+In-Reply-To: <20260612124557.13750-4-email@sirat.me>
+References: <20260612124557.13750-1-email@sirat.me>
+	<20260612124557.13750-4-email@sirat.me>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aiM0VlVXAWs54v-G@monoceros>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Uwe,
+On Fri, 12 Jun 2026 18:45:27 +0600
+Siratul Islam <email@sirat.me> wrote:
 
-On 22:51 Fri 05 Jun     , Uwe Kleine-König wrote:
-> Hello Andrea,
+> Add driver for the QST QMC5883L 3-Axis Magnetic Sensor
+> connected via i2c.
 > 
-> On Fri, Jun 05, 2026 at 06:49:17PM +0200, Andrea della Porta wrote:
-> > On 23:28 Thu 04 Jun     , Uwe Kleine-König wrote:
-> > > Thinking again, the tohw() callback could be a bit more clever and also
-> > > use period_ticks = 0xffffffff, as this fine if duty_ticks is less than
-> > > this value and if duty_ticks = period_ticks = 0xffffffff you can still
-> > > configure the hardware using period_ticks = 0xfffffffe to achieve the
-> > > 100% relative dutycycle. (But keeping the current behaviour is fine for
-> > > me, too.)
-> > 
-> > I think this is what it's currently doing in this patch iteration. I stand
-> > corrected here when I said that period_ticks should be at max U32_MAX-1: logically
-> > it can be U32_MAX but it's getting 'translated' into U32_MAX-1 as the value which 
-> > is fed to the register. So the period is still U32_MAX, accounting for the extra
-> > tick at the end. So I guess we're on the same page.
-> 
-> Not sure you got what I wrote. You can use the maximal value possible in
-> hardware, because for all but 100% relative duty cycle it works as
-> expected. You only need to map 100% relative duty cycle with that
-> maximal period to a different 100% relative duty cycle setting. I think
-> PWM_DEBUG even doesn't yell at you for that. (And if it does, that needs
-> fixing.)
+> Signed-off-by: Siratul Islam <email@sirat.me>
+> ---
 
-I see. Since you said that teh current behaviour is also fine, I'd prefer
-to stick with it to avoid complicating the code.
+Hi Siratul,
 
-> 
-> > > > I'm not sure whether an inverted polarity pin shoudl stay low when disabled.
-> > > > After all, the inactive state for a reversed pin is high.
-> > > 
-> > > Sashiko's concern is correctly stated, if you go from
-> > > 
-> > > 	polarity = inversed, enabled
-> > > 
-> > > to
-> > > 
-> > > 	polarity = normal, disabled
-> > > 
-> > > the output stays high, which is active for polarity = normal.
-> > 
-> > Ack. I'll set the polarity first so there will be no uncovered corner
-> > case.
-> 
-> You can, but as I wrote below, being lazy is also fine.
+various comments inline. I've probably missed a few things
+as I only took a quick look so feel free to call me out on that!
 
-Already done :)
+Josh
 
->  
-> > > However the behaviour of a disabled PWM isn't specified, so any
-> > > behaviour is fine, the only objective is to save power. And if the
-> > > consumer relies on a constant inactive output, it's supposed to not
-> > > disable it.
-> > > 
-> > > For me both behaviours are fine. Making the hardware emit the inactive
-> > > level might prevent a surprise if the consumer isn't aware of the
-> > > missing guarantee, but being lazy and so surprise the consumer is also
-> > > fine as this might uncover that wrong assumption and allow the consumer
-> > > to be fixed.
-> > > 
-> > > (And not all PWM implementations allow to configure the output level, so
-> > > a guarantee cannot be given. Some go to 0 irrespective of the configured
-> > > polarity, some go to High-Z.)
-> > 
-> > I was just curious about sashiko saying it's violating the pwm framework
-> > expectations, while according to your words it seems there's no constraints.
-> 
-> In doubt trust me :-)
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/qmc5883l.c
+> @@ -0,0 +1,512 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +/*
+> + * Support for QST QMC5883L 3-Axis Magnetic Sensor on i2c bus.
 
-Sure!
+Nitpick, but I'd write it I2C with capital letters.
 
-> 
-> > BTW, I've tried to install sashiko and use it on my patches but it's obvious
-> > that some custom settings are in order, since all I can get is some error
-> > aborting the review after 3 attempts. Any chance you can share your Settings.toml
-> > or any customization so I can test it in advance before submitting the new patchset
-> > or do you recommend just throwing the new V5 at your script?
-> 
-> Note that sashiko is not "my script", it was setup by Google engineers
-> and I have nothing to do with it (apart from benefitting from its review
-> feedback). Kevin (added to Cc) tried to setup a local instance with his
-> Claude plan, but (IIUC) it quickly ate his day's amount of tokens before
-> completing review of a series of only 4 patches.
-> 
-> So without knowing the size of Kevin's or your AI plan, probably it's
-> easier to just rely on the public instance. (And IMHO that's nothing to
-> be afraid of, just handle it like a human reviewer. For these you also
-> don't know what they will reply for your next revision.)
+> + *
+> + * Copyright (C) 2026 Siratul Islam <email@sirat.me>
+> + *
+> + * Datasheet available at
+> + * <https://www.qstcorp.com/upload/pdf/202512/13-52-04%20QMC5883L%20Datasheet%20Rev.%20B.pdf>
+> + *
+> + * Default 7-bit i2c slave address 0x0D.
 
-Ack.
+You also have this as a macro, consider removing this comment.
 
-Regards,
-Andrea
+> + *
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/iio/iio.h>
 
-> 
-> Best regards
-> Uwe
+Move IIO specific headers below generic linux headers, i. e.
 
+#include <linux/x.h>
+#include <linux/y.h>
 
+#include <linux/iio/z.h>
+
+> +#include <linux/i2c.h>
+> +#include <linux/kernel.h>
+
+No, refrain from using kernel.h, include the actual headers
+instead of relying on this (on second thought, I think you've
+actually included all the required headers, so you definitely
+don't need this).
+
+> +#include <linux/module.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/time.h>
+> +
+> +#include <asm/byteorder.h>
+> +
+> +#define QMC5883L_REG_X_LSB	0x00
+> +#define QMC5883L_REG_STATUS1	0x06
+> +#define QMC5883L_REG_CTRL1	0x09
+> +#define QMC5883L_REG_CTRL2	0x0A
+> +#define QMC5883L_REG_SET_RESET	0x0B
+> +#define QMC5883L_REG_ID		0x0D
+> +
+> +#define QMC5883L_CHIP_ID	0xFF
+> +
+> +#define QMC5883L_MODE_MASK	GENMASK(1, 0)
+> +#define QMC5883L_ODR_MASK	GENMASK(3, 2)
+> +#define QMC5883L_RNG_MASK	GENMASK(5, 4)
+> +#define QMC5883L_OSR_MASK	GENMASK(7, 6)
+> +
+> +#define QMC5883L_MODE_STANDBY	FIELD_PREP_CONST(QMC5883L_MODE_MASK, 0x00)
+> +#define QMC5883L_MODE_CONT	FIELD_PREP_CONST(QMC5883L_MODE_MASK, 0x01)
+> +
+> +#define QMC5883L_ODR_10HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x00)
+> +#define QMC5883L_ODR_50HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x01)
+> +#define QMC5883L_ODR_100HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x02)
+> +#define QMC5883L_ODR_200HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x03)
+> +
+> +#define QMC5883L_RNG_2G		FIELD_PREP_CONST(QMC5883L_RNG_MASK, 0x00)
+> +#define QMC5883L_RNG_8G		FIELD_PREP_CONST(QMC5883L_RNG_MASK, 0x01)
+> +
+> +#define QMC5883L_OSR_512	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x00)
+> +#define QMC5883L_OSR_256	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x01)
+> +#define QMC5883L_OSR_128	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x02)
+> +#define QMC5883L_OSR_64		FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x03)
+> +
+> +#define QMC5883L_STATUS_DRDY	BIT(0)
+> +#define QMC5883L_STATUS_OVL	BIT(1)
+> +
+> +#define QMC5883L_SET_RESET_VAL	BIT(0)
+> +#define QMC5883L_INT_DISABLE	BIT(0)
+> +#define QMC5883L_SOFT_RESET	BIT(7)
+> +
+> +#define QMC5883L_SCALE_2G	83333
+> +#define QMC5883L_SCALE_8G	333333
+> +
+> +/* POR completion time max per datasheet */
+> +#define QMC5883L_PORT_US	350
+
+If it's POR completion, why does the macro contain PORT instead?
+> +
+> +struct qmc5883l_data {
+> +	struct regmap *regmap;
+> +	struct mutex mutex; /* update and read regmap data */
+> +	u8 range;
+> +	u8 odr;
+> +	u8 osr;
+> +};
+> +
+> +enum qmc5883l_chan {
+> +	QMC5883L_AXIS_X,
+> +	QMC5883L_AXIS_Y,
+> +	QMC5883L_AXIS_Z,
+> +};
+> +
+> +static const int qmc5883l_odr_avail[] = { 10, 50, 100, 200 };
+> +
+> +static const int qmc5883l_osr_avail[] = { 512, 256, 128, 64 };
+> +
+> +static const int qmc5883l_rng_avail[] = {
+> +	0, QMC5883L_SCALE_2G,	/* 2G */
+
+These comments are redundant IMO, you're already mentioning
+the value in the macro name.
+
+> +	0, QMC5883L_SCALE_8G,	/* 8G */
+> +};
+> +
+> +static int qmc5883l_take_measurement(struct iio_dev *indio_dev, int index,
+> +				     int *val)
+> +{
+> +	struct qmc5883l_data *data = iio_priv(indio_dev);
+> +	unsigned int status;
+> +	__le16 buf[3];
+> +	int ret;
+> +
+> +	scoped_guard(mutex, &data->mutex)
+
+Why scoped_guard? I don't see any other possible code paths in this
+function etc., just regular guard() should suffice.
+
+> +	{
+> +		/* 50ms headroom over the slowest ODR (10Hz) */
+> +		ret = regmap_read_poll_timeout(data->regmap,
+> +					       QMC5883L_REG_STATUS1, status,
+> +					       (status & QMC5883L_STATUS_DRDY),
+> +					       2 * USEC_PER_MSEC,
+> +					       150 * USEC_PER_MSEC);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (status & QMC5883L_STATUS_OVL)
+> +			return -ERANGE;
+
+Sashiko has a remark:
+
+If we return -ERANGE here when the overflow flag (OVL) is set, does the
+sensor get permanently stuck in an overflow state?
+In typical I2C magnetometers, the Data Ready (DRDY) and Overflow (OVL)
+status bits are only cleared by reading the data registers. By returning
+early without reading the data registers via regmap_bulk_read(), the DRDY
+and OVL flags might remain set indefinitely. 
+On subsequent measurement attempts, regmap_read_poll_timeout() will return
+immediately and this check will instantly fail again, potentially locking up
+the sensor until a reset.
+
+> +
+> +		ret = regmap_bulk_read(data->regmap, QMC5883L_REG_X_LSB, buf,
+> +				       sizeof(buf));
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = (s16)le16_to_cpu(buf[index]);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int qmc5883l_read_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan, int *val,
+
+I'd put val on the same line as val2 and mask, more logical separation.
+
+> +			     int *val2, long mask)
+> +{
+> +	struct qmc5883l_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (!iio_device_claim_direct(indio_dev))
+> +			return -EBUSY;
+> +		ret = qmc5883l_take_measurement(indio_dev, chan->address, val);
+> +		iio_device_release_direct(indio_dev);
+> +		if (ret)
+> +			return ret;
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+
+Again, you can probably just add guard() before the switch.
+
+> +		scoped_guard(mutex, &data->mutex)
+> +		{
+> +			*val = 0;
+> +			*val2 = data->range == QMC5883L_RNG_2G ?
+> +					QMC5883L_SCALE_2G :
+> +					QMC5883L_SCALE_8G;
+> +		}
+> +		return IIO_VAL_INT_PLUS_NANO;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		scoped_guard(mutex, &data->mutex)
+> +		{
+> +			switch (data->odr) {
+> +			case QMC5883L_ODR_200HZ:
+> +				*val = 200;
+> +				break;
+> +			case QMC5883L_ODR_100HZ:
+> +				*val = 100;
+> +				break;
+> +			case QMC5883L_ODR_50HZ:
+> +				*val = 50;
+> +				break;
+> +			case QMC5883L_ODR_10HZ:
+> +				*val = 10;
+> +				break;
+> +			default:
+> +				return -EINVAL;
+> +			}
+> +		}
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		scoped_guard(mutex, &data->mutex)
+> +		{
+> +			switch (data->osr) {
+> +			case QMC5883L_OSR_64:
+> +				*val = 64;
+> +				break;
+> +			case QMC5883L_OSR_128:
+> +				*val = 128;
+> +				break;
+> +			case QMC5883L_OSR_256:
+> +				*val = 256;
+> +				break;
+> +			case QMC5883L_OSR_512:
+> +				*val = 512;
+> +				break;
+> +			default:
+> +				return -EINVAL;
+> +			}
+> +		}
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int qmc5883l_write_raw(struct iio_dev *indio_dev,
+> +			      const struct iio_chan_spec *chan, int val,
+> +			      int val2, long mask)
+
+Same comment with val as previous function.
+
+> +{
+> +	struct qmc5883l_data *data = iio_priv(indio_dev);
+> +	u8 rng;
+> +	u8 osr;
+> +	u8 odr;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (val != 0)
+> +			return -EINVAL;
+> +
+> +		switch (val2) {
+> +		case QMC5883L_SCALE_2G:
+> +			rng = QMC5883L_RNG_2G;
+> +			break;
+> +		case QMC5883L_SCALE_8G:
+> +			rng = QMC5883L_RNG_8G;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		scoped_guard(mutex, &data->mutex)
+
+Again, guard() is probably good enough.
+
+> +		{
+> +			ret = regmap_update_bits(data->regmap,
+> +						 QMC5883L_REG_CTRL1,
+> +						 QMC5883L_RNG_MASK, rng);
+> +			if (ret)
+> +				return ret;
+> +			data->range = rng;
+> +		}
+> +		break;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		switch (val) {
+> +		case 200:
+> +			odr = QMC5883L_ODR_200HZ;
+> +			break;
+> +		case 100:
+> +			odr = QMC5883L_ODR_100HZ;
+> +			break;
+> +		case 50:
+> +			odr = QMC5883L_ODR_50HZ;
+> +			break;
+> +		case 10:
+> +			odr = QMC5883L_ODR_10HZ;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		scoped_guard(mutex, &data->mutex)
+> +		{
+> +			ret = regmap_update_bits(data->regmap,
+> +						 QMC5883L_REG_CTRL1,
+> +						 QMC5883L_ODR_MASK, odr);
+> +			if (ret)
+> +				return ret;
+> +			data->odr = odr;
+> +		}
+> +		break;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		switch (val) {
+> +		case 64:
+> +			osr = QMC5883L_OSR_64;
+> +			break;
+> +		case 128:
+> +			osr = QMC5883L_OSR_128;
+> +			break;
+> +		case 256:
+> +			osr = QMC5883L_OSR_256;
+> +			break;
+> +		case 512:
+> +			osr = QMC5883L_OSR_512;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		scoped_guard(mutex, &data->mutex)
+> +		{
+> +			ret = regmap_update_bits(data->regmap,
+> +						 QMC5883L_REG_CTRL1,
+> +						 QMC5883L_OSR_MASK, osr);
+> +			if (ret)
+> +				return ret;
+> +			data->osr = osr;
+> +		}
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int qmc5883l_read_avail(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       const int **vals, int *type, int *length,
+> +			       long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*vals = qmc5883l_odr_avail;
+> +		*type = IIO_VAL_INT;
+> +		*length = ARRAY_SIZE(qmc5883l_odr_avail);
+> +		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		*vals = qmc5883l_osr_avail;
+> +		*type = IIO_VAL_INT;
+> +		*length = ARRAY_SIZE(qmc5883l_osr_avail);
+> +		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*vals = qmc5883l_rng_avail;
+> +		*type = IIO_VAL_INT_PLUS_NANO;
+> +		*length = ARRAY_SIZE(qmc5883l_rng_avail);
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int qmc5883l_write_raw_get_fmt(struct iio_dev *indio_dev,
+> +				      struct iio_chan_spec const *chan,
+> +				      long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		return IIO_VAL_INT_PLUS_NANO;
+> +	default:
+> +		return IIO_VAL_INT;
+> +	}
+> +}
+> +
+> +static const struct iio_info qmc5883l_info = {
+> +	.read_raw = qmc5883l_read_raw,
+> +	.write_raw = qmc5883l_write_raw,
+> +	.read_avail = qmc5883l_read_avail,
+> +	.write_raw_get_fmt = qmc5883l_write_raw_get_fmt,
+> +};
+> +
+> +static int qmc5883l_init(struct qmc5883l_data *data)
+> +{
+> +	unsigned int reg;
+> +	int ret;
+
+struct regmap *regmap = data->regmap;
+
+Makes your lines shorter.
+
+> +	ret = regmap_read(data->regmap, QMC5883L_REG_ID, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Not failing because rev 1.0 had this register reserved */
+> +	if (reg != QMC5883L_CHIP_ID)
+> +		dev_warn(regmap_get_device(data->regmap),
+> +			 "unknown chip id: 0x%02x, continuing\n", reg);
+
+I recall a conversation about using dev_warn() or dev_info() for checking
+the chip ID, up to personal preference. Nevertheless, your error messages
+should follow the same format, so capital letter at the beginning (nitpick).
+
+> +
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL2,
+> +			   QMC5883L_SOFT_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(QMC5883L_PORT_US);
+> +
+> +	/* DRDY pin no used in this version of the driver */
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL2,
+> +			   QMC5883L_INT_DISABLE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_SET_RESET,
+> +			   QMC5883L_SET_RESET_VAL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->odr = QMC5883L_ODR_50HZ;
+> +	data->range = QMC5883L_RNG_2G;
+> +	data->osr = QMC5883L_OSR_64;
+> +
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL1,
+> +			   (QMC5883L_MODE_CONT | data->odr | data->range |
+> +			    data->osr));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static bool qmc5883l_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	return reg <= QMC5883L_REG_STATUS1;
+> +}
+> +
+> +static bool qmc5883l_writable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case QMC5883L_REG_CTRL1:
+> +	case QMC5883L_REG_CTRL2:
+> +	case QMC5883L_REG_SET_RESET:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static const struct regmap_config qmc5883l_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = QMC5883L_REG_ID,
+> +	.cache_type = REGCACHE_MAPLE,
+> +	.volatile_reg = qmc5883l_volatile_reg,
+> +	.writeable_reg = qmc5883l_writable_reg
+> +};
+> +
+> +#define QMC5883L_CHANNEL(_axis)                                \
+> +	{                                                      \
+> +		.type = IIO_MAGN,                              \
+> +		.modified = 1,                                 \
+> +		.channel2 = IIO_MOD_##_axis,                   \
+> +		.address = QMC5883L_AXIS_##_axis,              \
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),  \
+> +		.info_mask_shared_by_type =                    \
+> +			BIT(IIO_CHAN_INFO_SCALE) |             \
+> +			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
+> +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
+> +		.info_mask_shared_by_type_available =          \
+> +			BIT(IIO_CHAN_INFO_SCALE) |             \
+> +			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
+> +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
+> +	}
+> +
+> +static const struct iio_chan_spec qmc5883l_channels[] = {
+> +	QMC5883L_CHANNEL(X),
+> +	QMC5883L_CHANNEL(Y),
+> +	QMC5883L_CHANNEL(Z),
+> +};
+> +
+> +static int qmc5883l_probe(struct i2c_client *client)
+> +{
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +	struct qmc5883l_data *data;
+> +	struct device *dev = &client->dev;
+
+Reverse Christmas tree order.
+
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &qmc5883l_regmap_config);
+> +	if (IS_ERR(regmap)) {
+
+No point in adding brackets if this is a single line if statement
+(checkpatch.pl should warn about this IMO).
+
+> +		return dev_err_probe(dev, PTR_ERR(regmap),
+> +				     "regmap initialization failed\n");
+> +	}
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to enable VDD regulator\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "vddio");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to enable VDDIO regulator\n");
+> +
+> +	fsleep(QMC5883L_PORT_US);
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->regmap = regmap;
+
+Blank line here.
+
+> +	ret = devm_mutex_init(dev, &data->mutex);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = "qmc5883l";
+> +	indio_dev->info = &qmc5883l_info;
+> +	indio_dev->channels = qmc5883l_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(qmc5883l_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	ret = qmc5883l_init(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "qmc5883l init failed\n");
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+You're using devm_* functions, however I don't see any callback on driver
+unbinding or a potential error during probing. Consider adding a power off
+callback.
+
+-- 
+Kind regards
+
+CJD
