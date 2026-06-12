@@ -1,63 +1,63 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED5332863D
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7C3321B1
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272703; cv=none; b=pG6aN6XtHldgshMs15qKFy4WBJBta9b6WUkzQHwp16YjnC5tYNjEu5WTVjb1tuF3YpMoyLlmCn90L3lVEOzf2DSbGoPd9aG3Xz1MPgP2Hh6GyzvHCJqC99rAQSYpiYD43WrSDOv1jEMDIY/RqqvG2EHLtbz3YliPoEfqOpHTKuo=
+	t=1781272704; cv=none; b=n6Zb+BmFhfcd3+mQQ2FCXEZWAs8doXQNjyBHYGpCAu/c+19IX2bPzhn3kEta9cLXuYrCJHBtce3V2Rrqc4aHMWtdFg8hU4fKAjeAuzmo1zyNzazLemyTuK7n+LQ57tg4FjE5ARaBQ1L1NmANR8w5VM2ZyypZnzu/3lEVhwZw0rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272703; c=relaxed/simple;
-	bh=Kq7pcy0NEqjHZbPWCnxMIqbQlQLqmOGpLUs2Ik9ywDU=;
+	s=arc-20240116; t=1781272704; c=relaxed/simple;
+	bh=NyT3bvkYhBzVis/qc4NVpDUc0HxiHbXcgKHaKLAMasY=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IufjOAdjqdUr5eJ5ojRC3+BAsSRUoWAOLNdO5Bu9WAiAaR6SKCL5TjL2Y6FptneeUy0VHV924nTVDr5QbObAnA2zlhGHHDkFKYkGifDhxtkHln9QwHQmwkJQb5QD60QCRoVVLEzX/XsrABqkLUOT1drfPLZcnjGULlybY0dqtdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ThQcjIi5; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=UU5HjJPt+jXCafBgjfG2q0TbRfsGN7QYcgFrehfWEumG2qk5UdRrWkxQCi4/cJ+qdjkUlRDosbqg9F6LgYAMkQZ5HdpTfaTGR6W6u3t3RtDD3kzEjNnmLVMjEYsiu+Z5RLAziZgWizYxHylglKwRTtJkHjjE03fl0gpQ9NAfj8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=RTodqaUZ; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ThQcjIi5"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490a76757e5so7675625e9.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:58:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="RTodqaUZ"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45eecb8bf67so759015f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:58:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781272696; x=1781877496; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1781272698; x=1781877498; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=d7fe+dteDdKhfPT1z7eUXkP9O1Kl4KDcGDuFt5baucU=;
-        b=ThQcjIi5x4faKO0k/RS3ImohzXt/RfLONPZt5e2VCZjC8IQFsTBH76eZHtlKK2NopB
-         7dusu4lIhQ1ZFSAgEvqf6mGN7VfhGe8oKkxRv2dAa1ZVCjWrWnvV5ukustaazjRKDnS9
-         nZa+EToPKnmr1vrTq8JSNegWKBxA5l340Gs3iz1K2WrdXqRiXykIpNyl3Me65x63jcIJ
-         9O4uBogY1ULINX6G96Qt/N9H6Vu/vFdoW5Xm1SCe1GNpr+yuQld33eAC/5OnzbZvT0i1
-         rpHe656+cwheOgMmDuCx8Oz4J5qgxX27XrHaocvtXmqGOM/cLrPtCwQLcYrCdRFv6NT6
-         J02w==
+        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
+        b=RTodqaUZNiMYibNCZy8UsWag2ogOPRE5UKowmAB2HNELbe2NAFSAKyV1lt2U6h9iiE
+         eFOVk9VFpyC7yKHSYLtzj7tJOWjxOvLUmeVUS9tXVaG3lE3ZWe2MEpCK2M8DcTRa6tsi
+         RJ9K7dMwoxCsmEcQxyo7qoCL1Kol54otoRGurCjrkkHRyp1ws/VvvHlvUnUe5qMuQ4tp
+         vgSHuE8bU4mrYUJN4v0fqtq/5lFVbyj8bu7OeDezktSTeScCHDP7ASR5bWnGFptdAX8y
+         6ZYS0w4vxgV00DCvxsuYT7meXNBSdAIuB1bzo6+ri7ZqfM4OnSY4anAdNly81nur73pF
+         WdCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272696; x=1781877496;
+        d=1e100.net; s=20251104; t=1781272698; x=1781877498;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=d7fe+dteDdKhfPT1z7eUXkP9O1Kl4KDcGDuFt5baucU=;
-        b=lkg7Ozkp4tr6+8gye3G/ZxFg2OjK+2EFuoOUOetUmau4ZYjAKIvLYBla8I+4F1rJyw
-         Vk9nwzFZfNabK2cRCQRH7dgd4f9ClSAy7OLxSevdYtPenRNI8wiSh3ZmvJBO6QgvhQJ0
-         Un2NJe9Fe7emLe2KAaRpbUvyPMfbUGrwFA4jLewza2jR2RC/54+3CpBuqdHNQipy6kXh
-         GcfkI5TwS7kCyDMiNO6onq75DIXwUtGboB/rJFn4y2HLRZeeL8d5WLvv26Sf4aegXiOb
-         zkuFVFCAuKzy1RgdA3U0R/ZoSs3yGAMbSYFju3WcRr9p+QegF/DhUkT/IhNsW4GIWEdJ
-         AlAQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/fleZMa5xH8oM9Sk9MpNUYnSlwOPq9GN9Y1/2GmgDaRRccH+CW9yfr3lLbtvQvygynQfR7bDyhyBdE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yya1cgfGxRWXeHLyEPPsAES6llw7pC2/TINxBPVcCUBAiLuWtsE
-	5Xk+6YWaG6W2ljfkFefNCfhDRPgTQ5dSp5Hi66GzafS6dxvl9i8tosHOV8FiyJP09ms=
-X-Gm-Gg: Acq92OGIhQjeAAhdHwnyeGFCvR++mNrAhOVtgxFsStaahOeySwt9PXyxjDtPTVeRISt
-	UaJnalNcFhaR/FYFLgo/1OSRhC+7R/roY5I1ATVEBT4MSKzcjoKiy6bKwzyHYydDAfKq5yisapL
-	APem5kq5tgC0kuXAZ3T1RXjRKmasVJfY06eLHwZqCqeHDHkgCgabh/rwrmDXzodBFAaEp/MsysD
-	P1d/jJgMGP4guDkpxZHlDNikAl/9/c0PAQccaw2Pvgj10Nt08CCo5KxClVaTWrwaVKyazjFdUl0
-	hc6K7Yef7cf6/0hcF3LM1MXHEbf0616pNqjXF4VcTNNLPPeILPpbTLbefmiwSGh2Zz86NzumJJs
-	o3GSGPn3WbDeVQWdypW+UbV4278sHkCElqSGYjFItT7lzKmCZouTlwEbF0J36WQEe6P//9ysnnk
-	wybT3YUROgnMoYQIgJmbyW
-X-Received: by 2002:a05:600c:4712:b0:48a:93f8:dd02 with SMTP id 5b1f17b1804b1-490ec4dc15cmr39305655e9.14.1781272696214;
-        Fri, 12 Jun 2026 06:58:16 -0700 (PDT)
+        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
+        b=V4CXPZ/6S/LIjsu+JqPew5boZeySuwIeuuU/2qKUf8u9bn/zS09ko2ZbyQwkeQe389
+         P+eURsXIl2TxtPiagTZ0/8d3UyTkUwQ6p6WzZ6m0l1KV4hJUJvl2qFCbchSbuK1GzuPS
+         n7OLnHFN0jNOMVWhyys9esVfqG78vfMWBCw9ntOmXFf9Az1oBr4EvDdMJop2PylqpK5Q
+         Xm9r9Eayf7o34aqQ8qyKh+6Jfx18c8rnTfIfeJVBUDfSQWKbcaqqgPsOKwx9VXZhceKn
+         GSCfR1IqtDFM5kOj307uLKnMYswxEvR3/b3zyVkys9cLwJljKotNSBZ2mQL1d4VkCUrS
+         8EHg==
+X-Forwarded-Encrypted: i=1; AFNElJ9TKDXhT1QWwH52yT/XJo8KSPA78AEMvEFE9YhhazYQIathwoLHok9tF3rJrB2MImqaoLYsbS/uCPyb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxhs3y4Gnd79uDboB7prI8r1S0x9cZTKqWT8J0cVfB3CIGCIs+x
+	Ytdyx1uAGAhtFjUq/emAPKAm/OJ5j9D+1q879KoDekTjEDNhXNzyX2+S53iufsRYwTw=
+X-Gm-Gg: Acq92OEDJZIZMcOMhtEw5ALVmSy0Brwsp3oNv6we11aZDZDAz1mjAQCTl3L2R302qB2
+	Xsh3WHFFSHuNZA87kwDEucT5qLBkOAxxnlJ+RQnkgPNI9RyAVRVrUlbt9b8Z7GfEhhhXw7w7sxc
+	q5gNjCoGGLxn8YUFqAkGU/YCUdLL67DsaXp4oSL442xdWkxzclnXLlbrdutAoymSEIJpIOceTpj
+	K3iQrNxzhx592WfZPs4ZDkTLEwCsvUI3O+/qBpZ96nDbMFehVHbdrcptqaqmywMfiVI2J0b0Yzw
+	Dzc41HjPfbgfhZsRjGqZWu2/q8xRiibgcywyCupTRUSAwLyvP6IaRJRA5kfJcYjq9vbiqfQaU//
+	D1j2YX2deTdZXu5ei6RSLXNNQzoeaMS8ZYYWT3jfkT8pVyzEFwUOB21Uow1YSebY2Fz0g17z5Hm
+	+fvvgAf2z1hi+snZGf09Un
+X-Received: by 2002:a05:6000:1886:b0:460:1a52:8a13 with SMTP id ffacd0b85a97d-4606da0f65emr4345439f8f.0.1781272698170;
+        Fri, 12 Jun 2026 06:58:18 -0700 (PDT)
 Received: from localhost ([195.94.146.6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e2d0475asm242515275e9.12.2026.06.12.06.58.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2c5266sm6363550f8f.29.2026.06.12.06.58.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 06:58:15 -0700 (PDT)
+        Fri, 12 Jun 2026 06:58:17 -0700 (PDT)
 From: Andrea della Porta <andrea.porta@suse.com>
 To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	linux-pwm@vger.kernel.org,
@@ -74,9 +74,9 @@ To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	Naushir Patuck <naush@raspberrypi.com>,
 	Stanimir Varbanov <svarbanov@suse.de>,
 	mbrugger@suse.com
-Subject: [PATCH v5 2/3] pwm: rp1: Add RP1 PWM controller driver
-Date: Fri, 12 Jun 2026 16:01:27 +0200
-Message-ID: <f8dd46a553351adaf9d29fbba9f98e803b672fe7.1780670224.git.andrea.porta@suse.com>
+Subject: [PATCH v5 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
+Date: Fri, 12 Jun 2026 16:01:28 +0200
+Message-ID: <b08d1a25e6f3cd81162805adca878865ad112858.1780670224.git.andrea.porta@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <cover.1780670224.git.andrea.porta@suse.com>
 References: <cover.1780670224.git.andrea.porta@suse.com>
@@ -86,490 +86,74 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Naushir Patuck <naush@raspberrypi.com>
+From: Stanimir Varbanov <svarbanov@suse.de>
 
-The Raspberry Pi RP1 southbridge features an embedded PWM
-controller with 4 output channels, alongside an RPM interface
-to read the fan speed on the Raspberry Pi 5.
+The RP1 chipset used on the Raspberry Pi 5 features an integrated
+PWM controller to drive the cooling fan.
 
-Add the supporting driver.
+Add the corresponding DT node for this PWM controller.
 
-Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
 Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
 Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 ---
- drivers/pwm/Kconfig   |   9 +
- drivers/pwm/Makefile  |   1 +
- drivers/pwm/pwm-rp1.c | 424 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 434 insertions(+)
- create mode 100644 drivers/pwm/pwm-rp1.c
+ arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 12 ++++++++++++
+ arch/arm64/boot/dts/broadcom/rp1-common.dtsi     |  9 +++++++++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index 6f3147518376a..c3ddc0eb4774f 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -625,6 +625,15 @@ config PWM_ROCKCHIP
- 	  Generic PWM framework driver for the PWM controller found on
- 	  Rockchip SoCs.
+diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+index 0fc57e72632ed..748be8f1ee9e2 100644
+--- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
++++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+@@ -64,6 +64,12 @@ phy1: ethernet-phy@1 {
+ };
  
-+config PWM_RASPBERRYPI_RP1
-+	tristate "RP1 PWM support"
-+	depends on MISC_RP1 || COMPILE_TEST
-+	depends on HAS_IOMEM
-+	select REGMAP_MMIO
-+	select MFD_SYSCON
-+	help
-+	  PWM framework driver for Raspberry Pi RP1 controller.
+ &rp1_gpio {
++	fan_pwm_default_state: fan-pwm-default-state {
++		function = "pwm1";
++		pins = "gpio45";
++		bias-pull-down;
++	};
 +
- config PWM_SAMSUNG
- 	tristate "Samsung PWM support"
- 	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
-diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-index 0dc0d2b69025d..59f29f60f9123 100644
---- a/drivers/pwm/Makefile
-+++ b/drivers/pwm/Makefile
-@@ -56,6 +56,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+= pwm-rzg2l-gpt.o
- obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+= pwm-rz-mtu3.o
- obj-$(CONFIG_PWM_RENESAS_TPU)	+= pwm-renesas-tpu.o
- obj-$(CONFIG_PWM_ROCKCHIP)	+= pwm-rockchip.o
-+obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+= pwm-rp1.o
- obj-$(CONFIG_PWM_SAMSUNG)	+= pwm-samsung.o
- obj-$(CONFIG_PWM_SIFIVE)	+= pwm-sifive.o
- obj-$(CONFIG_PWM_SL28CPLD)	+= pwm-sl28cpld.o
-diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-new file mode 100644
-index 0000000000000..6382a81a5ea0f
---- /dev/null
-+++ b/drivers/pwm/pwm-rp1.c
-@@ -0,0 +1,424 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * pwm-rp1.c
-+ *
-+ * Raspberry Pi RP1 PWM.
-+ *
-+ * Copyright © 2026 Raspberry Pi Ltd.
-+ *
-+ * Author: Naushir Patuck (naush@raspberrypi.com)
-+ *
-+ * Based on the pwm-bcm2835 driver by:
-+ * Bart Tanghe <bart.tanghe@thomasmore.be>
-+ *
-+ * Datasheet: https://pip-assets.raspberrypi.com/categories/892-raspberry-pi-5/documents/RP-008370-DS-1-rp1-peripherals.pdf?disposition=inline
-+ *
-+ * Limitations:
-+ * - Channels can be enabled/disabled through a global update flag, while the
-+ *   period and duty per-channel registers are independently updatable, and
-+ *   they are latched on the end of (specific channel) period strobe.
-+ *   This means that period and duty changes might result in glitches if the
-+ *   period/duty is changed exactly during an end of period strobe.
-+ * - Since the duty/period registers are freely updatable (do not depend on
-+ *   the global update flag), setting one of them close to the period end and
-+ *   the other right afterwards results in a mixed output for that cycle because
-+ *   the write ops are not atomic.
-+ * - The global update flag prevents mis-sampling of multi-bit bus signals in
-+ *   the PWM clock domain. This ensures that all PWM channel settings update
-+ *   on the same PWM clock cycle. Channels start in sync only if they share the
-+ *   same period.
-+ * - If both duty and period are set to 0, the output is a constant low signal
-+ *   if polarity is normal or a constant high signal if polarity is inversed.
-+ * - When disabled the output is driven to 0 if polarity is normal, or to 1
-+ *   if polarity is inversed.
-+ * - Disabling the PWM stops the output immediately, without waiting for current
-+ *   period to complete first.
-+ * - Channels are phase-capable, but on RPi5, the firmware can use a channel
-+ *   phase register to report the RPM of the fan connected to that PWM
-+ *   channel. As a result, phase control will be ignored for now.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pwm.h>
-+#include <linux/regmap.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/units.h>
-+
-+#define RP1_PWM_GLB_CTRL			0x000
-+#define RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(chan)	BIT(chan)
-+#define RP1_PWM_GLB_CTRL_SET_UPDATE		BIT(31)
-+
-+#define RP1_PWM_CHAN_CTRL(chan)			(0x014 + ((chan) * 0x10))
-+#define RP1_PWM_CHAN_CTRL_POLARITY		BIT(3)
-+#define RP1_PWM_CHAN_CTRL_FIFO_POP_MASK		BIT(8)
-+#define RP1_PWM_CHAN_CTRL_MODE			GENMASK(2, 0)
-+enum rp1_pwm_ctrl_mode {
-+	RP1_PWM_CHAN_CTRL_MODE_ZERO,
-+	RP1_PWM_CHAN_CTRL_MODE_TE_MS,
-+	RP1_PWM_CHAN_CTRL_MODE_PC_MS,
-+	RP1_PWM_CHAN_CTRL_MODE_PD_ENC,
-+	RP1_PWM_CHAN_CTRL_MODE_MSB_SER,
-+	RP1_PWM_CHAN_CTRL_MODE_PPM,
-+	RP1_PWM_CHAN_CTRL_MODE_LE_MS,
-+	RP1_PWM_CHAN_CTRL_MODE_LSB_SER,
+ 	usb_vbus_default_state: usb-vbus-default-state {
+ 		function = "vbus1";
+ 		groups = "vbus1";
+@@ -94,6 +100,12 @@ &rp1_i2c6 {
+ 	pinctrl-names = "default";
+ };
+ 
++&rp1_pwm1 {
++	pinctrl-0 = <&fan_pwm_default_state>;
++	pinctrl-names = "default";
++	status = "okay";
 +};
 +
-+#define RP1_PWM_CHAN_CTRL_DEFAULT		(RP1_PWM_CHAN_CTRL_FIFO_POP_MASK +  \
-+						FIELD_PREP(RP1_PWM_CHAN_CTRL_MODE, \
-+						RP1_PWM_CHAN_CTRL_MODE_TE_MS))
-+
-+#define RP1_PWM_RANGE(chan)			(0x018 + ((chan) * 0x10))
-+#define RP1_PWM_PHASE(chan)			(0x01C + ((chan) * 0x10))
-+#define RP1_PWM_DUTY(chan)			(0x020 + ((chan) * 0x10))
-+
-+#define RP1_PWM_NUM_PWMS			4
-+
-+struct rp1_pwm {
-+	struct regmap *regmap;
-+	struct clk *clk;
-+	unsigned long clk_rate;
-+	bool clk_enabled;
-+};
-+
-+struct rp1_pwm_waveform {
-+	u32 period_ticks;
-+	u32 duty_ticks;
-+	bool enabled;
-+	bool inverted_polarity;
-+};
-+
-+static const struct regmap_config rp1_pwm_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = 0x60,
-+};
-+
-+static void rp1_pwm_apply_config(struct pwm_chip *chip, struct pwm_device *pwm)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	u32 value;
-+
-+	/* update the changed registers on the next strobe to avoid glitches */
-+	regmap_read(rp1->regmap, RP1_PWM_GLB_CTRL, &value);
-+	value |= RP1_PWM_GLB_CTRL_SET_UPDATE;
-+	regmap_write(rp1->regmap, RP1_PWM_GLB_CTRL, value);
-+}
-+
-+static int rp1_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+
-+	/* init channel to reset defaults, preserving the polarity bit */
-+	regmap_update_bits(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm),
-+			   ~(u32)RP1_PWM_CHAN_CTRL_POLARITY, RP1_PWM_CHAN_CTRL_DEFAULT);
-+	return 0;
-+}
-+
-+static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-+				       struct pwm_device *pwm,
-+				       const struct pwm_waveform *wf,
-+				       void *_wfhw)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	u64 period_ticks, duty_ticks, offset_ticks;
-+	struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u64 clk_rate = rp1->clk_rate;
-+	int ret = 0;
-+
-+	if (!wf->period_length_ns) {
-+		wfhw->enabled = false;
-+		return 0;
-+	}
-+
-+	period_ticks = mul_u64_u64_div_u64(wf->period_length_ns, clk_rate, NSEC_PER_SEC);
-+
-+	/*
-+	 * The period is limited to U32_MAX, and it will be decremented by one later
-+	 * to allow 100% duty cycle.
-+	 */
-+	if (period_ticks > U32_MAX) {
-+		period_ticks = U32_MAX;
-+	} else if (period_ticks < 2) {
-+		period_ticks = 2;
-+		ret = 1;
-+	}
-+
-+	duty_ticks = mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_SEC);
-+	duty_ticks = min(duty_ticks, period_ticks);
-+	offset_ticks = mul_u64_u64_div_u64(wf->duty_offset_ns, clk_rate, NSEC_PER_SEC);
-+	if (offset_ticks >= period_ticks)
-+		offset_ticks %= period_ticks;
-+	if (duty_ticks && offset_ticks &&
-+	    duty_ticks + offset_ticks >= period_ticks) {
-+		wfhw->duty_ticks = period_ticks - duty_ticks;
-+		wfhw->inverted_polarity = true;
-+	} else {
-+		wfhw->duty_ticks = duty_ticks;
-+		wfhw->inverted_polarity = false;
-+	}
-+	/* Account for the extra tick at the end of the period */
-+	wfhw->period_ticks = period_ticks - 1;
-+
-+	wfhw->enabled = true;
-+
-+	return ret;
-+}
-+
-+static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-+					 struct pwm_device *pwm,
-+					 const void *_wfhw,
-+					 struct pwm_waveform *wf)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	const struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u64 clk_rate = rp1->clk_rate;
-+	u64 ticks;
-+
-+	*wf = (struct pwm_waveform){ };
-+
-+	if (!wfhw->enabled)
-+		return 0;
-+
-+	wf->period_length_ns = DIV_ROUND_UP_ULL(((u64)wfhw->period_ticks + 1) * NSEC_PER_SEC,
-+						clk_rate);
-+
-+	if (!wfhw->inverted_polarity) {
-+		wf->duty_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_PER_SEC,
-+						      clk_rate);
-+	} else {
-+		ticks = (u64)wfhw->period_ticks + 1 - wfhw->duty_ticks;
-+		wf->duty_length_ns = DIV_ROUND_UP_ULL(ticks * NSEC_PER_SEC, clk_rate);
-+		wf->duty_offset_ns = wf->period_length_ns - wf->duty_length_ns;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-+				  struct pwm_device *pwm,
-+				  const void *_wfhw)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	const struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u32 value, ctrl;
-+
-+	/* set polarity */
-+	regmap_read(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), &value);
-+	if (!wfhw->inverted_polarity)
-+		value &= ~RP1_PWM_CHAN_CTRL_POLARITY;
-+	else
-+		value |= RP1_PWM_CHAN_CTRL_POLARITY;
-+	regmap_write(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), value);
-+
-+	/* early exit if disabled */
-+	regmap_read(rp1->regmap, RP1_PWM_GLB_CTRL, &ctrl);
-+	if (!wfhw->enabled) {
-+		ctrl &= ~RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-+		goto exit_disable;
-+	}
-+
-+	/* set period and duty cycle */
-+	regmap_write(rp1->regmap,
-+		     RP1_PWM_RANGE(pwm->hwpwm), wfhw->period_ticks);
-+	regmap_write(rp1->regmap,
-+		     RP1_PWM_DUTY(pwm->hwpwm), wfhw->duty_ticks);
-+
-+	/* enable the channel */
-+	ctrl |= RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-+exit_disable:
-+	regmap_write(rp1->regmap, RP1_PWM_GLB_CTRL, ctrl);
-+
-+	rp1_pwm_apply_config(chip, pwm);
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_read_waveform(struct pwm_chip *chip,
-+				 struct pwm_device *pwm,
-+				 void *_wfhw)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u32 value;
-+
-+	regmap_read(rp1->regmap, RP1_PWM_GLB_CTRL, &value);
-+	wfhw->enabled = !!(value & RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm));
-+
-+	regmap_read(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), &value);
-+	wfhw->inverted_polarity = !!(value & RP1_PWM_CHAN_CTRL_POLARITY);
-+
-+	if (wfhw->enabled) {
-+		regmap_read(rp1->regmap, RP1_PWM_RANGE(pwm->hwpwm), &wfhw->period_ticks);
-+		regmap_read(rp1->regmap, RP1_PWM_DUTY(pwm->hwpwm), &wfhw->duty_ticks);
-+	} else {
-+		wfhw->period_ticks = 0;
-+		wfhw->duty_ticks = 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct pwm_ops rp1_pwm_ops = {
-+	.sizeof_wfhw = sizeof(struct rp1_pwm_waveform),
-+	.request = rp1_pwm_request,
-+	.round_waveform_tohw = rp1_pwm_round_waveform_tohw,
-+	.round_waveform_fromhw = rp1_pwm_round_waveform_fromhw,
-+	.read_waveform = rp1_pwm_read_waveform,
-+	.write_waveform = rp1_pwm_write_waveform,
-+};
-+
-+static int rp1_pwm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
-+	unsigned long clk_rate;
-+	struct pwm_chip *chip;
-+	void __iomem	*base;
-+	struct rp1_pwm *rp1;
-+	int ret;
-+
-+	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
-+	if (IS_ERR(chip))
-+		return PTR_ERR(chip);
-+
-+	rp1 = pwmchip_get_drvdata(chip);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	rp1->regmap = devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config);
-+	if (IS_ERR(rp1->regmap))
-+		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize regmap\n");
-+
-+	rp1->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(rp1->clk))
-+		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
-+
-+	ret = clk_prepare_enable(rp1->clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable clock\n");
-+	rp1->clk_enabled = true;
-+
-+	ret = devm_clk_rate_exclusive_get(dev, rp1->clk);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to get exclusive rate\n");
-+		goto err_disable_clk;
-+	}
-+
-+	clk_rate = clk_get_rate(rp1->clk);
-+	if (!clk_rate) {
-+		ret = dev_err_probe(dev, -EINVAL, "Failed to get clock rate\n");
-+		goto err_disable_clk;
-+	}
-+	/*
-+	 * To prevent u64 overflow in period calculations:
-+	 * mul_u64_u64_div_u64(period_ns, clk_rate, NSEC_PER_SEC)
-+	 * If clk_rate > 1 GHz, the result can overflow.
-+	 */
-+	if (clk_rate > HZ_PER_GHZ) {
-+		ret = dev_err_probe(dev, -EINVAL, "Clock rate > 1 GHz is not supported\n");
-+		goto err_disable_clk;
-+	}
-+	rp1->clk_rate = clk_rate;
-+
-+	chip->ops = &rp1_pwm_ops;
-+
-+	platform_set_drvdata(pdev, chip);
-+
-+	ret = pwmchip_add(chip);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to register PWM chip\n");
-+		goto err_disable_clk;
-+	}
-+
-+	ret = of_syscon_register_regmap(np, rp1->regmap);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to register syscon\n");
-+		goto err_remove_chip;
-+	}
-+
-+	return 0;
-+
-+err_remove_chip:
-+	pwmchip_remove(chip);
-+err_disable_clk:
-+	clk_disable_unprepare(rp1->clk);
-+
-+	return ret;
-+}
-+
-+static void rp1_pwm_remove(struct platform_device *pdev)
-+{
-+	struct pwm_chip *chip = platform_get_drvdata(pdev);
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+
-+	pwmchip_remove(chip);
-+
-+	if (rp1->clk_enabled) {
-+		clk_disable_unprepare(rp1->clk);
-+		rp1->clk_enabled = false;
-+	}
-+}
-+
-+static int rp1_pwm_suspend(struct device *dev)
-+{
-+	struct pwm_chip *chip = dev_get_drvdata(dev);
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+
-+	if (rp1->clk_enabled) {
-+		clk_disable_unprepare(rp1->clk);
-+		rp1->clk_enabled = false;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_resume(struct device *dev)
-+{
-+	struct pwm_chip *chip = dev_get_drvdata(dev);
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	int ret;
-+
-+	ret = clk_prepare_enable(rp1->clk);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable clock on resume: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	rp1->clk_enabled = true;
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(rp1_pwm_pm_ops, rp1_pwm_suspend, rp1_pwm_resume);
-+
-+static const struct of_device_id rp1_pwm_of_match[] = {
-+	{ .compatible = "raspberrypi,rp1-pwm" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, rp1_pwm_of_match);
-+
-+static struct platform_driver rp1_pwm_driver = {
-+	.probe = rp1_pwm_probe,
-+	.remove = rp1_pwm_remove,
-+	.driver = {
-+		.name = "rp1-pwm",
-+		.of_match_table = rp1_pwm_of_match,
-+		.pm = pm_ptr(&rp1_pwm_pm_ops),
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+builtin_platform_driver(rp1_pwm_driver);
-+
-+MODULE_DESCRIPTION("RP1 PWM driver");
-+MODULE_AUTHOR("Naushir Patuck <naush@raspberrypi.com>");
-+MODULE_AUTHOR("Andrea della Porta <andrea.porta@suse.com>");
-+MODULE_LICENSE("GPL");
+ &rp1_usb0 {
+ 	pinctrl-0 = <&usb_vbus_default_state>;
+ 	pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
+index 16f5359395835..df4c2d09c8d34 100644
+--- a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
++++ b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
+@@ -99,7 +99,16 @@ rp1_i2c6: i2c@40088000 {
+ 		clocks = <&rp1_clocks RP1_CLK_SYS>;
+ 		i2c-scl-rising-time-ns = <65>;
+ 		i2c-scl-falling-time-ns = <100>;
++		status = "disabled";
++	};
+ 
++	rp1_pwm1: pwm@4009c000 {
++		compatible = "raspberrypi,rp1-pwm";
++		reg = <0x00 0x4009c000  0x0 0x100>;
++		clocks = <&rp1_clocks RP1_CLK_PWM1>;
++		assigned-clocks = <&rp1_clocks RP1_CLK_PWM1>;
++		assigned-clock-rates = <50000000>;
++		#pwm-cells = <3>;
+ 		status = "disabled";
+ 	};
+ 
 -- 
 2.35.3
 
