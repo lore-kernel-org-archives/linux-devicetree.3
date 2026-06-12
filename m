@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECA83630AE
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:25:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D36390618;
+	Fri, 12 Jun 2026 10:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781259942; cv=none; b=ksPkcgnJtJVZ8DzEwXW8qH6BERcSN3F8YeQvhC43GQ7eOxVmsdt5yGAwfImnAm0OulqfLgokq0YBeoBoGpZCjMdsi00rQJGY2jb79MBa5mJ/qjXHrltVP71OXSNR1XlDYEgdKe3sUDS7KQznjDTVBE0wYF7md2k7XIEXfkIELqo=
+	t=1781260007; cv=none; b=KSvdBAdj1wOTl2yCdmpOE37DHrf4BAxXZ3RR5GW2k1zxP8DnoyUW9L6+XsjtCVYVuXbcOGK58wioJwp82pKKpmVJ95gNIt9xkBd77JVLXtOTR1iFpYIc58zFgorEnkeZaG19eV/iVok51pdFdYK8KkvBd0S6NQbOE/Nt3czAtfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781259942; c=relaxed/simple;
-	bh=85FC6IsjWuimQExtFovXR5Nw80u2LQdOQ4vOZMKJYtk=;
+	s=arc-20240116; t=1781260007; c=relaxed/simple;
+	bh=a/OT5roFOpiK8nIUo0+Fcrxk+A5JHYPBdVL90nniiuU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lcBtW2yzn2KoSc6mbJCp4TfRxv3LIiyB/jhsi1B3RIdXcY9hZAG6XKQS8ZASnv7QM2EOufYo8/O2O5TEVgD6aX8QOVWcLjAX7KtmqGr0jAqas7ggrnVykCoFvFfyNCYs62+pQ30XeAltzudJTy4l7kviVdnzp2VEIEPDlc1uH7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTAUlofp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jubxXIP86dZ8F6p9zweM2hPx2EO6VfVcXcHU3HneXzHYSujsGylQtvYsQ1xHRabW4IZp2G3NiGFilLAwqyviZkXNKfhjySTfI2ivb5vfgjfjw6yqY9HZnvPen3bKJVJ9UHgu2oiyA/SZRihRLb/ubsgs+ZV5qoq8n3FMLWyoIoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNlMLqxa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTAUlofp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8421F000E9;
-	Fri, 12 Jun 2026 10:25:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNlMLqxa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613251F00A3A;
+	Fri, 12 Jun 2026 10:26:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781259940;
-	bh=Wg/NLzF2e4nTHENR3fme8tQL/0fOLDiitKp0Uhqep50=;
+	s=k20260515; t=1781260003;
+	bh=57aH8BTzDAXOkaQLQ4ByLOpVljdF7x48XY0tX9dvC7Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kTAUlofp7iHRAKCJV2I8REvRgrJv53dCHe0uDwrHQHJJkJ9MJEqb2f9cCHIYSyLPN
-	 1N7fTEKlYA3ds7C5k5nIYNAGNh7bwK4URZ5DWlOvpEb3xi0qoSKdXnlo4gUEkrl3HL
-	 2ZPBiBhISssmUEs8Zim3uXz7iKuFCUV5fqj/bwlc/7IznUN7v72xjDPNNMzszOtwqU
-	 KWD/BweSw8Q6NiqLwz6xUS7FtxVmiXQ5QH+QRLSEeAzb9KrOXTO8+zImcRdHOem3TX
-	 KO380iCnxp5qi48/s+2A2WRdhs2YtXPYZ1MnUjQuY5XGXOlBbL8/Q+EG/CPpRH/pyZ
-	 FK9CHns2ExZCw==
+	b=PNlMLqxa2zsxBI54wZnT/AFNYDY4bqUK7u8a3OiMXrOF+Jh1On6LxkHhUIeytsxyL
+	 eWIM4kd7tVDj4P3MgegvyQKH3/POVDdLrR4v3Ve2OuFFazWSGCvjDBhbFXYV3PAebE
+	 afmyeYgbJ/TiEat6OIJK8n7wf4yez/Ii3+9/Qx7ki6baJw1JXFlmAfCqv7pTK306ev
+	 k/2B1pqcFFFPnZbm1E/amQbR+oXbKRZRQHmvq6JywRah0S8PRntFr06cnkbzcP74Hq
+	 TLiQRch73i7mUyH9vbz4dTc5Y7z5acS67plBw7cHJ3rK/A8nzniiMx6b721IJTRSEs
+	 KdnlvDkeeYH8A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 12/16] media: iris: implement support for the Agatti
- platform
+Subject: Re: [PATCH v2 2/3] perf: marvell: Add CN20K LLC-TAD PMU support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260612-iris-ar50lt-v4-12-0abfb74d5b3c@oss.qualcomm.com>
-References: <20260612-iris-ar50lt-v4-12-0abfb74d5b3c@oss.qualcomm.com>
+To: "Geetha sowjanya" <gakula@marvell.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612095746.19679-3-gakula@marvell.com>
+References: <20260612095746.19679-3-gakula@marvell.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 10:25:40 +0000
-Message-Id: <20260612102540.7C8421F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 10:26:42 +0000
+Message-Id: <20260612102643.613251F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,85 +45,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Calling a synchronous HFI command from the ISR response thread cau=
-ses a deadlock.
+- [Medium] Inconsistent masking of `event_idx` between validation and execu=
+tion allows userspace to induce an aborted hardware programming state or by=
+pass MPAM filters.
 --
 
-commit 960bbe7059755e03232b477bd06562c01b126fdd
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit 13a14a3d137a1e1e8ddf65c82eb4ff187ff64ca5
+Author: Geetha sowjanya <gakula@marvell.com>
 
-media: iris: implement support for the Agatti platform
+perf: marvell: Add CN20K LLC-TAD PMU support
 
-Port support for the AR50Lt video codec core (present for example on the
-Agatti platform) to the Iris driver. Unlike more recent cores this
-generation doesn't have the PIPE property (as it always has only one
-pipe). Also, unlike newer platforms, buffer sizes are requested from the
-firmware instead of being calculated by the driver.
+This commit adds support for the LLC Tag-and-Data (TAD) PMU on Marvell
+CN20K SoCs. It introduces a new PMU profile, extended event maps, and
+specific register base offsets.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers=
-/media/platform/qcom/iris/iris_vpu_buffer.c
-> index fb6f1016415e2..4a39b8fef52b0 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> @@ -2194,6 +2194,19 @@ u32 iris_vpu4x_buf_size(struct iris_inst *inst, en=
-um iris_buffer_type buffer_typ
->  	return size;
->  }
+> diff --git a/drivers/perf/marvell_cn10k_tad_pmu.c b/drivers/perf/marvell_=
+cn10k_tad_pmu.c
+> index af706b890bf17..e43598a52859e 100644
+> --- a/drivers/perf/marvell_cn10k_tad_pmu.c
+> +++ b/drivers/perf/marvell_cn10k_tad_pmu.c
+[ ... ]
+> @@ -85,8 +89,15 @@ static void tad_pmu_start_counter(struct tad_pmu *pmu,
+>  	if (use_mpam && event_idx > 0x19 && event_idx < 0x21) {
+>  		partid_filter =3D TAD_PRF_MATCH_PARTID | TAD_PRF_PARTID_NS |
+>  				((u64)partid << 11);
+> +
+> +		if (pdata->id =3D=3D TAD_PMU_V3)
+> +			partid_filter =3D TAD_PRF_MATCH_PARTID | TAD_PRF_MATCH_MPAMNS |
+> +				((u64)partid << 10);
+>  	}
 > =20
-> +u32 iris_vpu_ar50lt_gen1_buf_size(struct iris_inst *inst, enum iris_buff=
-er_type buffer_type)
-> +{
-> +	const struct iris_hfi_session_ops *hfi_ops =3D inst->hfi_session_ops;
-> +	int ret;
-> +
-> +	/* return 0 on error to let the driver cope */
-> +	ret =3D hfi_ops->session_get_property(inst, HFI_PROPERTY_CONFIG_BUFFER_=
-REQUIREMENTS);
+> +	/* CN10K support events 0:24*/
+> +	if (pdata->id =3D=3D TAD_PMU_V1 && event_idx >=3D 0x25)
+> +		return;
 
-[Severity: High]
-Could this lead to a regression by waiting for a response in the response
-handler thread?
+[Severity: Medium]
+In tad_pmu_event_init(), the event configuration is validated using a masked
+value:
 
-When iris_vpu_ar50lt_gen1_buf_size() calls hfi_ops->session_get_property(),
-it synchronously blocks until the firmware responds:
-
-drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c:iris_hfi_gen1_sess=
-ion_get_property() {
+tad_pmu_event_init() {
     ...
-    return iris_wait_for_session_response(inst, false);
-}
-
-However, iris_vpu_ar50lt_gen1_buf_size() (via iris_get_buffer_size()) is
-invoked from iris_hfi_gen1_read_changed_params() during event processing:
-
-drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c:iris_hfi_gen1_rea=
-d_changed_params() {
-    ...
-    pixmp_op->plane_fmt[0].sizeimage =3D iris_get_buffer_size(inst, BUF_OUT=
-PUT);
+    u32 event_idx =3D (u32)(event->attr.config & GENMASK(7, 0));
     ...
 }
 
-This event processing runs inside the driver's response handler:
+However, in tad_pmu_start_counter(), event_idx is assigned directly from the
+unmasked event->attr.config.
 
-drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c:iris_hfi_gen1_res=
-ponse_handler() {
-    ...
-        iris_hfi_gen1_handle_response(core, core->response_packet);
-    ...
-}
+If a user provides an event configuration with upper bits set (e.g., 0x124),
+it will pass the masked initialization checks, but won't it fail the unmask=
+ed
+bounds checks here?
 
-If the response handler thread blocks itself waiting for a response, how wi=
+For V1 hardware, an unmasked config like 0x124 would evaluate as >=3D 0x25 =
+and
+trigger this new early return after clearing the counter but before
+programming it, leaving the hardware in an aborted state.
+
+Similarly, for V3 hardware, wouldn't the unmasked event_idx fail the
+MPAM filter condition (event_idx > 0x19 && event_idx < 0x21) earlier in this
+function, causing the counter to incorrectly bypass the filter and record a=
 ll
-that response ever be dequeued and processed? It appears this will stall the
-response polling loop until the wait times out.
-
-> +	if (ret)
-> +		return 0;
-> +
-> +	return inst->buffers[buffer_type].size;
-> +}
+partition IDs?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-iris-ar50l=
-t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612095746.1967=
+9-1-gakula@marvell.com?part=3D2
