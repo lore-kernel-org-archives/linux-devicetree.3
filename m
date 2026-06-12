@@ -1,164 +1,158 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD7D346AD5;
-	Fri, 12 Jun 2026 15:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781279587; cv=none; b=kS+iK2EAYCWuu4g0YZRu9/Udb9RzTsQAOlnVSBUGF99rXlzTUojJ17N9oay/szMuR1DPUubKD4EtYmRGeHlVrDZ0a9FvMTERSt2jM7yGrfLRy3TXiEc4VeauGJzdkLCe3aeiusI2XgGVLkFXuU/piQoeHmSpYVi1x0AJfDcFnJ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781279587; c=relaxed/simple;
-	bh=Xi4zr6K4kn0ZEMvzzLUuNwWw60sZlDm3SVBSJ/YtuQg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A35C1DF26E;
+	Fri, 12 Jun 2026 15:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781279894; cv=pass; b=rmrxpzs1ntKTMF1wcQV9VhVWrdpaBOwq1kxAb6sp34Ile3rxmnHBRIc+jVSalxCP9RktPMcz4+enk04x+9arvBe/UigE7PxdLAZ484LfeMcGMMrLqmHy4q34ytCu+lD1wUpnhk3olsILhqRipT3xJfrZc8ullCKiNj6s4R0Q5Eg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781279894; c=relaxed/simple;
+	bh=BxEKO7UrkMViC5yVIbY/xbpohVjrOccUAObFA9bxqDI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z4WPelPC+zaiw7v56z/s44mSJKgXKj5wA+9NXwfKLOgbeDMc9y4Prgty1eoA5rsIiF7FpjrR/dKj87Ph9ACLFUH4pMDArVibO0Hl1wFVbW1J2rq5CIBNPh8ty/zTkIfPzREGqVps4ci2r4I31Q+OnUsjlEHcqqild7zja1O62+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Z8S8P5jC; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=gobUb4Qks+aw880rU/lExbRduK3ZYZScGaVvO6S6A/hx/D29Dv+cPJXNp14PuKFP0cRVOtJfEOhPV6yzHUkTRzPCZXGEhqvdf/YDJTLqXCquhoGP4Mv46Gv0m/lG20AjapymAZnfOKup1+Lg748XYzX1mKGpjd+xWjYRHh8weIY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=VRN6z7S5; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Z8S8P5jC"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7554F497;
-	Fri, 12 Jun 2026 17:52:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781279552;
-	bh=Xi4zr6K4kn0ZEMvzzLUuNwWw60sZlDm3SVBSJ/YtuQg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z8S8P5jCFyTJtycXMMjLt/8TwqBV+eybltV90qrojoPBmml1+uvKj11t9HxOnmrmX
-	 B0MOPpBIJsPGPWeh/6ZHZB9OWAvNXvY5ERFpaziK2fsszUVeqh8fdo+0W8uJoicdOL
-	 p3qRuinDJo5SSUZ6aAxCQrkyjnpPiJHBcc8erDIg=
-Date: Fri, 12 Jun 2026 18:53:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="VRN6z7S5"
+ARC-Seal: i=1; a=rsa-sha256; t=1781279867; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nGvzkeuAayjdmBeqtxbjSWHbdPj8/CMrlnp4k5a07CEE11tERyT42JuG3FEpYN8ArfOh7vM3wdb6O43o0CUsmtS83AC6EEJAksu+JBIs+/WKYNjW3XFwZt4WrcEi1ueQR6dotr75yvNLK/ehDEhQJDj+lIZXuNRvjcmrmdRfidE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1781279867; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vzdJ9w2taUV525sIaNdL6rwORL1fnnyeOFL2zOPHUvc=; 
+	b=I64hqWs9kfidq6Sua/Ter/ug4SFISdzHpkNJx3kT4lVm3a19ejchBMK8Z0vw07KYDpEV284wpcIsQomhzLp8PuxSHaczeMU3gVGwmtLJd6OO4+uKFXvrkbH7U8/Q/r+GbHdO7RuqK/R8VMr58hKsXqLd7SKZqM+5nwW4LfeEibM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781279867;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=vzdJ9w2taUV525sIaNdL6rwORL1fnnyeOFL2zOPHUvc=;
+	b=VRN6z7S5+7K9JM9iR+cBluY6aRs1RVeyf7/gayIkp58AnkAg7LGrPlgwMJDWyn1J
+	UuIoGA42i+Jrdm5cqL2X/7ll9Ac+t8wr/HjSVA6URfHh1sHeOuw9QQXw7y76+VZ4b1R
+	AofejKoL13MDuLMr2GbhM8nGZdaZ9U9VQbkoWxS0=
+Received: by mx.zohomail.com with SMTPS id 1781279864587114.40647436656968;
+	Fri, 12 Jun 2026 08:57:44 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id D5B15180674; Fri, 12 Jun 2026 17:57:39 +0200 (CEST)
+Date: Fri, 12 Jun 2026 17:57:39 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Yubing Zhang <yubing.zhang@rock-chips.com>, Alexey Charkov <alchark@gmail.com>, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
 	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260612155301.GC1982714@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
- <20260611000324.GH1632628@killaraus.ideasonboard.com>
- <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
+Subject: Re: [PATCH v4 07/16] phy: rockchip: usbdp: Support single-lane DP
+Message-ID: <aiwrNQhPsqlqDB-Z@venus>
+References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
+ <20260428-rockchip-usbdp-cleanup-v4-7-7775671ece22@collabora.com>
+ <f29df43b-111d-471b-8579-0196596fc32b@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rchdwn5oprkndp3s"
 Content-Disposition: inline
-In-Reply-To: <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
+In-Reply-To: <f29df43b-111d-471b-8579-0196596fc32b@linaro.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/281.270.71
+X-ZohoMailClient: External
 
-On Fri, Jun 12, 2026 at 02:56:11PM +0300, Tomi Valkeinen wrote:
-> On 11/06/2026 03:03, Laurent Pinchart wrote:
-> > On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
-> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> >> crtc, when enabling the crtc.
-> >>
-> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> >> the DSI, the above call path is broken as the crtc tries to call
-> >> rcar_mipi_dsi_pclk_enable() on the DSC.
-> >>
-> >> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
-> >> in that case gets the next bridge from the DSC, which is the DSI.
-> >>
-> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> >> ---
-> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
-> >>   1 file changed, 34 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> >> index 4ef2e3c129ed..085e229bcb0b 100644
-> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> >> @@ -88,6 +88,8 @@ struct dsi_setup_info {
-> >>   	const struct dsi_clk_config *clkset;
-> >>   };
-> >>   
-> >> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
-> >> +
-> >>   static inline struct rcar_mipi_dsi *
-> >>   bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
-> >>   {
-> >> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
-> >>   	rcar_mipi_dsi_stop_video(dsi);
-> >>   }
-> >>   
-> >> +/*
-> >> + * We need to skip the DSC bridge when we have DSC in between the DU and
-> >> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
-> >> + * next_bridge is the DSI bridge. If this is not the case, the DT data
-> >> + * is wrong (so it shouldn't really happen).
-> >> + */
-> >> +static struct drm_bridge *
-> >> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
-> >> +{
-> >> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> >> +		bridge = bridge->next_bridge;
-> >> +
-> >> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> >> +		return NULL;
-> >> +
-> >> +	return bridge;
-> >> +}
-> > 
-> > Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
-> > rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
-> 
-> It's actually cached in rcar_du_encoder.c, but used in rcar_du_crtc.c.
-> 
-> If I understand right, you'd like to do the DSC detection in 
-> rcar_du_crtc, and skip the DSC, if needed, before calling 
-> rcar_mipi_dsi_pclk_enable()?
 
-That would be the idea, yes. Knowledge that there's a DSC in the
-pipeline would be in the DU driver, not the DSI driver. I think it would
-be better, as the DU driver is the one that should have an overall view
-of the display pipeline.
+--rchdwn5oprkndp3s
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 07/16] phy: rockchip: usbdp: Support single-lane DP
+MIME-Version: 1.0
 
-> > question is how to then identify the right bridge, as we won't have
-> > access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
-> > type field to DRM_MODE_CONNECTOR_DSI ?
-> 
-> I'm not sure how that would help. Or, I can, as the dsi driver does not 
-> set the bridge type, so only DSC would set it. But isn't that even more 
-> hacky?
-> 
-> Or did you rather mean that the DSI driver would set the bridge type, 
-> and DSC would not? We can then do:
-> 
-> 		if (bridge->type != DRM_MODE_CONNECTOR_DSI)
-> 			bridge = bridge->next_bridge;
+Hi,
 
-Yes that's what I meant.
+On Wed, May 06, 2026 at 04:53:07PM +0200, Neil Armstrong wrote:
+> > @@ -537,6 +538,13 @@ static void rk_udphy_usb_bvalid_enable(struct rk_u=
+dphy *udphy, u8 enable)
+> >    * <0 1>                  dpln0         dpln1       usbrx         usb=
+tx
+> >    * <2 3>                  usbrx         usbtx       dpln0         dpl=
+n1
+> >    * ------------------------------------------------------------------=
+---------
+> > + * if 1 lane for dp function, 2 lane for usb function, define rockchip=
+,dp-lane-mux =3D <x>;
+> > + * sample as follow:
+> > + * -------------------------------------------------------------------=
+--------
+> > + *                        B11-B10       A2-A3       A11-A10       B2-B3
+> > + * rockchip,dp-lane-mux   ln0(tx/rx)    ln1(tx)     ln2(tx/rx)    ln3(=
+tx)
+> > + * <0>                    dpln0         \           usbrx         usbtx
+> > + * -------------------------------------------------------------------=
+--------
+> >    */
+> >   static void rk_udphy_dplane_select(struct rk_udphy *udphy)
+> > @@ -544,18 +552,18 @@ static void rk_udphy_dplane_select(struct rk_udph=
+y *udphy)
+> >   	const struct rk_udphy_cfg *cfg =3D udphy->cfgs;
+> >   	u32 value =3D 0;
+> > -	switch (udphy->mode) {
+> > -	case UDPHY_MODE_DP:
+> > -		value |=3D 2 << udphy->dp_lane_sel[2] * 2;
+> > +	switch (udphy->dp_lanes) {
+> > +	case 4:
+> >   		value |=3D 3 << udphy->dp_lane_sel[3] * 2;
+> > +		value |=3D 2 << udphy->dp_lane_sel[2] * 2;
+> >   		fallthrough;
+> > -	case UDPHY_MODE_DP_USB:
+> > -		value |=3D 0 << udphy->dp_lane_sel[0] * 2;
+> > +	case 2:
+> >   		value |=3D 1 << udphy->dp_lane_sel[1] * 2;
+> > -		break;
+> > +		fallthrough;
+> > -	case UDPHY_MODE_USB:
+> > +	case 1:
+> > +		value |=3D 0 << udphy->dp_lane_sel[0] * 2;
+>=20
+> What's the point of keeping this no-op calculation ?
 
-> in the crtc driver. This works. It's still a bit hacky, but I think the 
-> chances of the code getting it wrong are quite low. If the output port 
-> is RCAR_DU_OUTPUT_DSIx, then the next bridge must be rcar-dsi or 
-> rcar-dsc, so it's all under our control. Also, it's less code than this 
-> patch, so I'll go with that.
+This function is cleaned up in a later patch to no longer have the
+switch/case at all ("Cleanup DP lane selection function"). I kept
+the no-op calculation here, since it IMHO makes it easier to understand
+the cleanup patch and will be optimized away by the compiler anyways.
 
-Thanks.
+(I will send out a new patch series in a jiffy)
 
--- 
-Regards,
+Greetings,
 
-Laurent Pinchart
+-- Sebastian
+
+--rchdwn5oprkndp3s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmosLG8ACgkQ2O7X88g7
++powOhAAjGKDnrFO/NogQjJApKysPt9NuuN6z1D58zENDmEHAdPNtxLZl9DsyK1f
+bhNbIb/kv9nN3HuJgCHsT3/5FiG7xUMq/FzE/LZXkYv70AA9TC1uH8hd6/JvTxzi
+jVzUVU9Kgxg0Q5RxfOlFF9pC1NhT+BWzbT5vAbdF367hEKzPataR01oYpn/jgEmg
+v7otspxo6li0UWm/kYndVpql9nwDTWTn7upSLcUUNC2JOqVq/JRw9IhX4E+4Q7yO
+05uATUwjSXCsWlP2fvLGTuyouPEnpT4vIZEE5yC4MiY4ZMZJECvluWweAhBsrVf6
+mcztycUWmsTqEtqfAR02KxwtNJS0cmGpCdKfA/n+GulU4TgsCzD3vsUNQcs4sU6V
+rVGb/v4Wh6QJbMBzw8Y+t2ts2coGC27fZUx8f3cSX0KOTqlg2t704/dHvcA9ooAK
+rMUekMp8P4TVtXYf2MHtGU4QwviQUqkXGe2STukCIX/fgNYMGPmDrQKo0NUb1BgU
+UzApK1gna3wOUBXojV1efN/JEpxQqBbEcy8DJeVu31jBO2ymYObn9PKf2hqjSnIG
+HJ/35QT9khXiDj9zcg/pxt7abqwVJVRfIad0nsJ+tIsCYHTlmOzkJTqxauq3A8Zl
+Qqjgl0LYeZotsiZ4PCrEiDJyVqxUwdE9+EQR3gyVNoCUcARsNhw=
+=+Cjz
+-----END PGP SIGNATURE-----
+
+--rchdwn5oprkndp3s--
