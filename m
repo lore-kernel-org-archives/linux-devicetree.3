@@ -1,240 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4E738550C;
-	Fri, 12 Jun 2026 12:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AAC43D47AF
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 12:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781268755; cv=none; b=KGzUKpRdeJe+xRs3TAcFelXEmBfeT2Jjk83Smzuo4eKcYEeOEtIZkxAHjzNLB/3o723z8ahfgitbSQwFbMyrgJSnQjYK+AqVzBvv3jFbKcIcwSZjpf1Dfp3ZUlpXZTUJbYY4cEEIcW1o8NIw57J3zvNJbpq2xUxHxMUTCHJ3txo=
+	t=1781268770; cv=none; b=i+qYn6doahwx3GegTJ1PL1FAdZeYZoFqiRwsRbxOCi7+rAjluU2AXprxBqapjNXO1XVYkTJxS7hBczmWr7zbqReeRrrK1EifboMK81sa7Bg/tqidbx+7204VaJQ6QrB/jgSJn4j7wPMV/4daIIqULTaeNJX3DQnYnmcHhRzcfm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781268755; c=relaxed/simple;
-	bh=v5chSWBWmC7VLMjAZbVh9OAnibCPxEDZipEc5qXY8x0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UN2Q4UYTqnad8GQmxX/UbkLnGpqDywz3oPxkXckf34vDx1C1v22njwAY9jR93996pH+jgk2iRNjE5WB/tJnRWCGRJQJI2QOh1bQE2wDAcus8YKhMx7kgD8iZOwhCkSljhOMEfCWkvasruz61kpzyJR2cT8g8AkNaLiEsdr3p+XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IgkgRHx7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781268770; c=relaxed/simple;
+	bh=+gJoHyGsiFiNaIlHB7RgSHLds74RlNXffkN/maQntfI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XVUoheRawgTTXnmIhYew0oGgNrQV3UP0483h7djyJ/ILn2YPXYuY40MEMLRvUPq9NS5yUhO3o4zWN9uQ5Ea3pGocY4I1vmP2N05bEZsD5FVcScORsG7zgky0X8YP8bocZbNuz0GOjmSzelIQEsZgBKTN8ZckOK/ph0B7Akyiv8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=cuwJq4We; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IgkgRHx7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FE0E1F000E9;
-	Fri, 12 Jun 2026 12:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781268750;
-	bh=PmMLaJXjhRYelS8/jPqk9Km7Z0RgyZ6vCRvUCQiJvys=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IgkgRHx7FYloM1vvW3IahbabCu1JC15CHQFRjCdwxE7jAqjKklXjFkrBWRIjMzXTn
-	 ChEzT3rR0V/zSsKbQwMt6mJKYsCkANMcxfD0p5iXhexRVL7jNqmuH6sfC0mbAEtzjD
-	 iw+P63YtjTLC0wTZJz1mJqNj1vkXl0720SCnFMc2p23xyazlIPiRJQyseTRzz9lLyn
-	 9UCQOrk+fFbzQYmnBYFO9mV5xYQL6h21LhdhDAVbZeoWgP5UCdmNcaPl9tao9kb74G
-	 gBVWPrbyXXxHm/T2UxfhF6svDGb/ouYsDEz2OrO11rVmR3tiIhGeaWbcqSSLrs6d8f
-	 qD25nXiaNT1uQ==
-Date: Fri, 12 Jun 2026 13:52:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Salih Erim <salih.erim@amd.com>
-Cc: <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <conall.ogriofa@amd.com>, <michal.simek@amd.com>, <linux@roeck-us.net>,
- <erimsalih@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 4/5] iio: adc: versal-sysmon: add threshold event
- support
-Message-ID: <20260612135222.0cec353b@jic23-huawei>
-In-Reply-To: <20260611222738.2035062-5-salih.erim@amd.com>
-References: <20260611222738.2035062-1-salih.erim@amd.com>
-	<20260611222738.2035062-5-salih.erim@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="cuwJq4We"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bebb72b845aso156643766b.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 05:52:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1781268765; x=1781873565; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=q6boKDQpN4ENAhHPbAvIJHcNbXUFoJdy37O/+JGrt8U=;
+        b=cuwJq4Weasr8kyaVwhIvSaJh6R+L9O/J6VUXnnI/TFRmx6LrfnOptNtc9HQTWanNU3
+         UV3TUbSUEqjDsqksJUkA1dyUIq3fOPcWx0MGFWRzTMxXVZNRbk1JfGxDc2EDCA9AlQY3
+         wmHcDXo8/UEUFmTTfnrlC+TwPMzRtjcRIpbs173p/tbCVN+6EZJYG4C+K6zRF+8wUZvW
+         nIavBcrgLP5lWYIIN/VWOE1AkcrC37TObuqV2WgfH3lNjrKfQ3RP20fngCXYfnynS1uq
+         l2TknREudIdCZEaIpz8/BwIDttpuO2Z9f19pOOSmCfRbiMPfqqwt2qaHmaTsL04jUB54
+         0yHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781268765; x=1781873565;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=q6boKDQpN4ENAhHPbAvIJHcNbXUFoJdy37O/+JGrt8U=;
+        b=owUrQpcmHDBF4JTffTXWyukclGKti0dRpf8xbiKVU6PjlMxao4YiS1FSI3oITRQz2j
+         9Sc0DyxRQ1oy/fNvKkUVTYx8KZiHrqI/LweUfMl8FqN/6axOf8eSNu/FJEjp2fhK2t8h
+         OUJ1xdV+Xq7jVVsKkO/iOIgmPbhXtSerGyKAqxEAuQcCt0+Wr4apHAQYvvgjuyGL2jvy
+         pFKiECu2NkLRissTT6rZ3pBniZio4Tb1Urbk/TRSPvnMGTLKu3BfgFLqhZZoHhpoC8Z+
+         /imePs3I2UisFvfyxdLEguXg6sKz5a2fnVnExpPUfrQkKUXCdXIYzqkC/bM62s76x60a
+         1/dw==
+X-Forwarded-Encrypted: i=1; AFNElJ/+qQ5gcpJ/O9augcnIh2axmcp0g+Bvtq3ZsHz5E/J4nCJlQaShX6iZVezdMFtSyQJOpRqMHIL8UdJi@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSXoVoPdiuETIHBVcSrwGXMA1gMeL//kjUxZyb9HxL570Kd4+i
+	F/eL21gJeD/PxTpJcK3y2VfhxEdEP3bmSh3qSi4ix2tbJAGmmOOT8Jt3ojVZNAeTtQNiftPHmFm
+	KndLGnbcGNQ==
+X-Gm-Gg: Acq92OEZi1kt7+GqSruzscFLuAxptR7TriRIxfV0UhENV0Z4oyR16cTaMnuCb06318U
+	OSiawCWLFjENYD/DD0Sq47TzXcrzRXGMDfqQnMiRi4aePpeGH4W+pe+G96muEZkxfBOswdZF07A
+	q9qm31rzb/P3n5lFdjzjIq/jEEmZCoeI3s0u/BoJ/4ZbYc8qvkcvGBDUmZ/sh4qNUZXZJZcZsiw
+	OWT6lH8wqvGL3Brt6jcHcBOk2cITeX+BviJr/BacHHjrnr1bQUYl4C1wPt8jivCnSRMVA5iLIHm
+	5fkiRXCJ2Orh3PeIvYYo5vCjSSPFFovsyfFalOhWTfINUd73FjAhaQmHzv5pltWTGAqPcgliGit
+	FE5QFWNMkuKp7R/YHKl6yhpj4ZVWwYAe6oMUEDbdsijmtK7c591XDgEmZQ5nfSUjvtYJek+xJUx
+	ZP1Xjboju5xBQPFRTi4RcRLI5of7zfT0kQWSsOqwqy2qeWZ2SIMUs6K0dRhE5rSEbAvtfREmzUe
+	owewRl69/X48RFXTagQqllfdCPVCuYHMDvHjKwWr6O5ynW8VsjzRs1JGwA=
+X-Received: by 2002:a17:906:4794:b0:bed:a213:a89b with SMTP id a640c23a62f3a-bfe2b0f8f54mr142133466b.37.1781268765453;
+        Fri, 12 Jun 2026 05:52:45 -0700 (PDT)
+Received: from [192.168.178.182] (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfe6f9c46f0sm57823066b.1.2026.06.12.05.52.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 05:52:45 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 12 Jun 2026 14:52:43 +0200
+Subject: [PATCH v2] arm64: dts: qcom: qcm6490-fairphone-fp5: Add AW88261
+ amplifiers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260612-fp5-aw88261-v2-1-f7ef7d060170@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OQQ6CMBREr0L+2hralIquvIdh0daP1IQW24IYw
+ t0txaXLSea9mQUCeoMBLsUCHicTjLMpsEMBupP2gcTcUwZWMlFWjJF2qIh81zUTlMiSKVUiV+J
+ 8gkQMHlszZ9ut2XMY1RN13BS/hsfXmGbiXgMlAxLt+t7ES2FxjiRPCUphU3QmROc/+d9EM/H3y
+ kQJTSRyylBxzfHaSuOHzlk8Jjs067p+AdXc6g3tAAAA
+X-Change-ID: 20260522-fp5-aw88261-a02bb0e4b697
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Val Packett <val@packett.cool>, 
+ Bharadwaj Raju <bharadwaj.raju@machinesoul.in>, 
+ Bhushan Shah <bhushan.shah@machinesoul.in>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781268764; l=2873;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=+gJoHyGsiFiNaIlHB7RgSHLds74RlNXffkN/maQntfI=;
+ b=5ftPVdQT3awobwhdIKpoO8iBgTIf1JN92Puc7p1+tF6/AWKV+9xg1A4MGMO8NQVwuWmKAqkc0
+ NzuiKq3ds/GDe/tNM5BeoXHNWRhS0S1ykKsWEiIsRWgqoFfm2xmAJRE
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-On Thu, 11 Jun 2026 23:27:37 +0100
-Salih Erim <salih.erim@amd.com> wrote:
+Add nodes for the two AW88261 amplifiers, for the top and bottom
+speakers of this phone. Hook them up to the sound card.
 
-> Add threshold event support for temperature and supply voltage
-> channels.
-> 
-> Temperature events:
->   - Rising threshold with configurable value
->   - Over-temperature (OT) alarm with separate threshold
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Co-developed-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Signed-off-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+Changes in v2:
+- Remove awinic,sync-flag for both amps since it's actually not needed
+  (Bhushan, off-list)
+- Remove RFC prefix
+- Pick up tags
+- Link to v1: https://patch.msgid.link/20260522-fp5-aw88261-v1-1-20e412eb4c4e@fairphone.com
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 57 +++++++++++++++++++++-
+ 1 file changed, 55 insertions(+), 2 deletions(-)
 
-Ah. I ask about this below.  If this applies to the same channel
-as the main threshold we generally don't support that in IIO and
-definitely not by introducing a 'magic' extra channel.
-See below.
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 04cb9230d29f..6ed34b5a99b6 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -866,8 +866,33 @@ vibrator@5a {
+ &i2c2 {
+ 	status = "okay";
+ 
+-	/* AW88261FCR amplifier @ 34 */
+-	/* AW88261FCR amplifier @ 35 */
++	/* Top speaker / ear speaker */
++	aw88261_l: audio-codec@34 {
++		compatible = "awinic,aw88261";
++		reg = <0x34>;
++
++		dvdd-supply = <&vreg_l18b>;
++		sound-name-prefix = "Amplifier L";
++		firmware-name = "qcom/qcm6490/fairphone5/aw88261_acf.bin";
++
++		awinic,audio-channel = <0>;
++
++		#sound-dai-cells = <0>;
++	};
++
++	/* Bottom speaker */
++	aw88261_r: audio-codec@35 {
++		compatible = "awinic,aw88261";
++		reg = <0x35>;
++
++		dvdd-supply = <&vreg_l18b>;
++		sound-name-prefix = "Amplifier R";
++		firmware-name = "qcom/qcm6490/fairphone5/aw88261_acf.bin";
++
++		awinic,audio-channel = <1>;
++
++		#sound-dai-cells = <0>;
++	};
+ };
+ 
+ &i2c4 {
+@@ -1161,6 +1186,13 @@ &pon_resin {
+ 	status = "okay";
+ };
+ 
++&q6afedai {
++	dai@127 {
++		reg = <QUINARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
+ &qup_spi13_cs {
+ 	drive-strength = <6>;
+ 	bias-disable;
+@@ -1238,6 +1270,11 @@ &sound {
+ 	compatible = "fairphone,fp5-sndcard";
+ 	model = "Fairphone 5";
+ 
++	pinctrl-0 = <&lpass_i2s1_active>;
++	pinctrl-1 = <&lpass_i2s1_sleep>;
++	pinctrl-names = "default",
++			"sleep";
++
+ 	mm1-dai-link {
+ 		link-name = "MultiMedia1";
+ 
+@@ -1246,6 +1283,22 @@ cpu {
+ 		};
+ 	};
+ 
++	i2s-dai-link {
++		link-name = "Quinary MI2S Playback";
++
++		codec {
++			sound-dai = <&aw88261_l>, <&aw88261_r>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai QUINARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++
+ 	displayport-rx-dai-link {
+ 		link-name = "DisplayPort Playback";
+ 
 
->   - Per-channel hysteresis as a millicelsius value
->   - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
-> 
-> Supply voltage events:
->   - Rising/falling threshold per supply channel
->   - Per-channel alarm enable via alarm configuration registers
-> 
-> The hardware supports both window and hysteresis alarm modes for
-> temperature. This driver uses hysteresis mode, where the upper
-> threshold triggers the alarm and the lower threshold clears it
-> (re-arm point). The hardware has a single ISR bit per temperature
-> channel with no indication of which threshold was crossed, so
-> hysteresis mode is the natural fit. The lower threshold register
-> is computed internally as (upper - hysteresis).
-> 
-> Hysteresis is stored in the driver as a millicelsius value,
-> initialized from the hardware registers at probe. Writing the
-> rising threshold or hysteresis recomputes the lower register.
-> ALARM_CONFIG is hard-coded to hysteresis mode during init.
-> 
-> The interrupt handler masks active threshold interrupts (which are
-> level-sensitive) and schedules a delayed worker to poll for condition
-> clear before unmasking. When no hardware IRQ is available, event
-> channels are not created and interrupt init is skipped, since the
-> I2C regmap backend cannot be called from atomic context.
-> 
-> When disabling a supply channel alarm, the group interrupt remains
-> active if any other channel in the same alarm group still has an
-> alarm enabled.
-> 
-> Signed-off-by: Salih Erim <salih.erim@amd.com>
+---
+base-commit: e7b907ffb2cd66314df92360e41f7bd5fdaa8182
+change-id: 20260522-fp5-aw88261-a02bb0e4b697
 
-Some follow on questions on the temperature channels and one thing
-Sashiko noticed that looks real.
-
-> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
-> index c875d156dbe..20fd3a87d44 100644
-> --- a/drivers/iio/adc/versal-sysmon-core.c
-> +++ b/drivers/iio/adc/versal-sysmon-core.c
-> @@ -11,7 +11,9 @@
->  #include <linux/bitops.h>
->  #include <linux/cleanup.h>
->  #include <linux/device.h>
-> +#include <linux/devm-helpers.h>
->  #include <linux/err.h>
-> +#include <linux/interrupt.h>
->  #include <linux/module.h>
->  #include <linux/property.h>
->  #include <linux/regmap.h>
-> @@ -19,10 +21,19 @@
->  #include <linux/sysfs.h>
->  #include <linux/units.h>
->  
-> +#include <linux/iio/events.h>
->  #include <linux/iio/iio.h>
->  
->  #include "versal-sysmon.h"
->  
-> +/* OT and TEMP hysteresis mode bits in SYSMON_TEMP_EV_CFG */
-> +#define SYSMON_OT_HYST_MASK		BIT(0)
-> +#define SYSMON_TEMP_HYST_MASK		BIT(1)
-> +
-> +/* Compute alarm register offset from a channel address */
-> +#define SYSMON_ALARM_OFFSET(addr) \
-> +	(SYSMON_ALARM_REG + ((addr) / SYSMON_ALARM_BITS_PER_REG) * SYSMON_REG_STRIDE)
-> +
->  #define SYSMON_CHAN_TEMP(_chan, _address, _name)		\
->  {								\
->  	.type = IIO_TEMP,					\
-> @@ -34,14 +45,87 @@
->  	.datasheet_name = _name,				\
->  }
->  
-> +#define SYSMON_CHAN_TEMP_EVENT(_chan, _address, _name, _events)	\
-> +{								\
-> +	.type = IIO_TEMP,					\
-> +	.indexed = 1,						\
-> +	.address = _address,					\
-> +	.channel = _chan,					\
-> +	.event_spec = _events,					\
-> +	.num_event_specs = ARRAY_SIZE(_events),			\
-> +	.datasheet_name = _name,				\
-> +}
-> +
-> +enum sysmon_alarm_bit {
-> +	SYSMON_BIT_ALARM0 = 0,
-> +	SYSMON_BIT_ALARM1 = 1,
-> +	SYSMON_BIT_ALARM2 = 2,
-> +	SYSMON_BIT_ALARM3 = 3,
-> +	SYSMON_BIT_ALARM4 = 4,
-> +	SYSMON_BIT_OT = 8,
-> +	SYSMON_BIT_TEMP = 9,
-> +};
-
->  /* Static temperature channels (always present) */
-> -static const struct iio_chan_spec temp_channels[] = {
-> +static const struct iio_chan_spec temp_channels_no_events[] = {
->  	SYSMON_CHAN_TEMP(0, SYSMON_TEMP_MAX, "temp"),
->  	SYSMON_CHAN_TEMP(1, SYSMON_TEMP_MIN, "min"),
->  	SYSMON_CHAN_TEMP(2, SYSMON_TEMP_MAX_MAX, "max_max"),
->  	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
->  };
->  
-> +/* Static temperature channels with event support (when IRQ available) */
-> +static const struct iio_chan_spec temp_channels_with_events[] = {
-> +	SYSMON_CHAN_TEMP(0, SYSMON_TEMP_MAX, "temp"),
-> +	SYSMON_CHAN_TEMP(1, SYSMON_TEMP_MIN, "min"),
-> +	SYSMON_CHAN_TEMP(2, SYSMON_TEMP_MAX_MAX, "max_max"),
-> +	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
-> +	SYSMON_CHAN_TEMP_EVENT(4, SYSMON_ADDR_TEMP_EVENT, "temp",
-> +			      sysmon_temp_events),
-Is this not an event on channel 0?  Why does it need a separate one?
-> +	SYSMON_CHAN_TEMP_EVENT(5, SYSMON_ADDR_OT_EVENT, "ot",
-
-Why two separate channels for events? Are we dealing with two separate
-events on the same signal? Generally we don't support that for IIO because
-it's largely meaningless except in hwmon usecases - what is the point in two
-thresholds if they are reported through the same path?  Just use one and update
-it if you want to add another level of detection.
-
-> +			      sysmon_temp_events),
-> +};
-
-> +
-> +static int sysmon_read_event_config(struct iio_dev *indio_dev,
-> +				    const struct iio_chan_spec *chan,
-> +				    enum iio_event_type type,
-> +				    enum iio_event_direction dir)
-> +{
-> +	u32 alarm_event_mask = sysmon_get_event_mask(chan->address);
-> +	struct sysmon *sysmon = iio_priv(indio_dev);
-> +	unsigned int imr;
-> +	int config_value;
-> +	int ret;
-> +
-> +	ret = regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* IMR bits are 1=masked, invert to get 1=enabled */
-> +	imr = ~imr;
-> +
-> +	switch (chan->type) {
-> +	case IIO_VOLTAGE:
-> +		config_value = sysmon_read_alarm_config(sysmon, chan->address);
-> +		if (config_value < 0)
-> +			return config_value;
-> +		return config_value && (imr & alarm_event_mask);
-> +
-> +	case IIO_TEMP:
-> +		return !!(imr & alarm_event_mask);
-
-Sashiko made a perhaps insightful observation here.  When the interrupt
-is masked between sending an event and the worker reenabling it does
-this give an unexpected value to userspace?  I think that condition
-we'd kind of expect this to return 0.
-https://sashiko.dev/#/patchset/20260611222738.2035062-1-salih.erim%40amd.com
-
-I think the rest of the feedback is probably false positives or debatable
-stuff but this one rang true. Please do take a look at the other stuff
-as I may have missed something (maybe the comment about needing to disable
-event interrupt generation is true?)
-
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-
-
-
-> +	
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
