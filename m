@@ -1,101 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF02331EBF;
-	Fri, 12 Jun 2026 16:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4028A3E51D4;
+	Fri, 12 Jun 2026 16:31:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781281823; cv=none; b=hdNtmQ9JPlxJdmnO82hS43d631w4yaid4MEpYvioFM/weOj5+SB5Dwu7O5KH9IzTV+pIJKcuAqDFmnurVEd53c7oARW/QT1XWk4TKySJ6EpPo0M675iypT7Apf5/d/wLEunmzJ9/+VXWwiGYo1EtYvmNzet35AzGk1ldjCBgSNM=
+	t=1781281863; cv=none; b=oegM3KP2VdEteJmBPN1zMkxcEGynZT/xLIsKUvYq9mW7+sdgVCejUNhPvfFuvw7rPQTg9gmhaTgUb5gZb0NYjxsAaAJhOHBXoLGmQUZlp1UwioVF8AZWKMkx4nvKMycHg0at8FJCVjg68apjZ+VYjmrzxc5IoBi6uRaGCke+gYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781281823; c=relaxed/simple;
-	bh=eheKkHKXMzklCDKLpMcrXV1m1+X4pO1+oEgc8MJ4gKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m+0V6MpMiV1nAA9eb0C5NTXg1t9ZQBzsOH6ElVY5aEmQ3WVkHHMozojfGHmILYl8PyIzzSNwlTKgs7rCvixEqRAOqJfGXKJIqeodMJ/QpsSEZmG8h5rvYHWHdUYSBty8Hz45KMP0Cuji11lHPHCG085BpcN1ZdmKIMFEI4kBMdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QA+fCtli; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781281863; c=relaxed/simple;
+	bh=jV0vVTCa5nlK8LqMH5R2HuesBRO91PIqYj7bZX0HN5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DQ+eXuH5lcATfdWTg8AGToiupqOwRWwD4kND/vhqLMjSgPfhGf1ar7MOZHlhoBQwXwMYB1ivHVN8u1j1Wz5vpJk2XR9JCGtse4HV3sVWeJ3QJ0DPVGjrGU7Xu9QAm8QWgWOMyVjthSNs2j37mPEQ5UiaTdrAlmS8jV1RpVB7v28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ok9UBUAk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QA+fCtli"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C141F00A3A;
-	Fri, 12 Jun 2026 16:30:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ok9UBUAk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FBD71F000E9;
+	Fri, 12 Jun 2026 16:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781281818;
-	bh=UZ9Iumb2g1TRxob6WsvtSWW84/17leWiNilXq74yt9Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QA+fCtlizB2KYnlOw7dBoRWziA0zii8lLJjx1ObpjMVdFoHNF7f+Q3BXr5a6MKRi1
-	 qCxc4CeW3mQ1xVF2ok+OFC+yj8vfxxO682lxoUZZn3XkqOK+vXowKcr8QUj5Wdqy9O
-	 J/M8S5N1WJaloiMBy8j7Hg/FQAQTOwsSU7NoxEqCDx6kj/+R3aLbiTLLrWkuwrwm2O
-	 xE3ikJexxfoXa2lYSKhNfgVafwgcqgkTRuAvnQjBOsPQhmJ2MSCLT81CCH0cpL8R/m
-	 P8pX0slYIqeJdNJuGR9MoewD7QBhThAcV8i+4glN7ha8JOlvQfFnaPz6qZF//m7Mpv
-	 07g7Y/OC9UryQ==
-Date: Fri, 12 Jun 2026 17:30:13 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Siratul Islam <email@sirat.me>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: iio: magnetometer: add QST QMC5883L
- Sensor
-Message-ID: <20260612173013.64f435ab@jic23-huawei>
-In-Reply-To: <20260612124557.13750-3-email@sirat.me>
-References: <20260612124557.13750-1-email@sirat.me>
-	<20260612124557.13750-3-email@sirat.me>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1781281860;
+	bh=K8GskhQ/tvLBpCO/qOaEalED8OJB7l2RGKXoWhNyljw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ok9UBUAkTb5z4y6JJ4ufptlYuIasM4NiKJSPinBtW7Yx9kvSDI/ceui6RKEDve6kc
+	 MF9P652NgwbizOshbZ2TclRbiDoHfPAOZjh/4tgTidEdW0OXjfEGj95JOdvU1wJN5n
+	 NK+C3VZSFPab7Ytc7eCtBayYrm3XMZtedjjOxqya1YgYrZeBcRCWsCtQSGpRDEx0Ga
+	 ZVthp80HmfrPqkJIE2fj0MWK4DCWBGOpJUuQggi4JH7ipQztt4REPNJuSST0pdBhqk
+	 F2HRFKgPGNRAc6yrwc55inLLecPbjWmPNY2sjcNWFdaomFRPQqPqUxfjrdpSAw1T00
+	 6g/AsGRSRHhXQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id B8A121AC5AC2; Fri, 12 Jun 2026 17:30:57 +0100 (BST)
+Date: Fri, 12 Jun 2026 17:30:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 4/4] regulator: Add support for UGREEN NASync DH2300 MCU
+ SATA power gate
+Message-ID: <aiw0QYnaYHQpIwiq@sirena.co.uk>
+References: <20260612-dh2300-mcu-v1-0-ab8db1617bc0@flipper.net>
+ <20260612-dh2300-mcu-v1-4-ab8db1617bc0@flipper.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tE/94xOCtV2c14jP"
+Content-Disposition: inline
+In-Reply-To: <20260612-dh2300-mcu-v1-4-ab8db1617bc0@flipper.net>
+X-Cookie: Nice guys get sick.
 
-On Fri, 12 Jun 2026 18:45:26 +0600
-Siratul Islam <email@sirat.me> wrote:
 
-> Add devicetree binding for the QST QMC5883L 3-Axis Magnetic Sensor
-> connected via i2c.
-> Interrupt not implemented in driver but kept in the binding for future
-> addition.
-No need to mention that
-> Used enum so that more driver could use this binding
+--tE/94xOCtV2c14jP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-More devices perhaps rather than drivers (binding has nothing
-directly to do with drivers).
+On Fri, Jun 12, 2026 at 07:34:17PM +0400, Alexey Charkov wrote:
 
-> 
-> Signed-off-by: Siratul Islam <email@sirat.me>
-> ---
->  .../iio/magnetometer/qstcorp,qmc5883l.yaml    | 48 +++++++++++++++++++
->  MAINTAINERS                                   |  6 +++
->  2 files changed, 54 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883l.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883l.yaml b/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883l.yaml
-> new file mode 100644
-> index 000000000000..238cc7e22b89
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883l.yaml
-> @@ -0,0 +1,48 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/magnetometer/qstcorp,qmc5883l.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +static int ugreen_dh2300_mcu_regulator_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct regulator_config config = { };
+> +	struct regulator_dev *rdev;
+> +	struct device_node *np;
 > +
-> +title: QST QMC5883L 3-Axis Magnetic Sensor
+> +	np = of_get_child_by_name(dev->parent->of_node, "regulator");
+> +	if (!np)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "missing regulator child node\n");
+
+You should just be able to configured this in the regulator_desc rather
+than describe it.
+
+> +	config.init_data = of_get_regulator_init_data(dev, np,
+> +						      &ugreen_dh2300_sata_desc);
 > +
-> +maintainers:
-> +  - Siratul Islam <email@sirat.me>
-It is a bit unusual to have to description section.  Maybe
-just have a link to a datasheet if there is someone that seems
-reasonable stable to link to.
 
-> +
-> +properties:
-> +  compatible:
+Similarly here, there should be no need for this open coding.
 
-The rest looks good to  me.
+--tE/94xOCtV2c14jP
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
+-----BEGIN PGP SIGNATURE-----
 
-Jonathan
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmosNEAACgkQJNaLcl1U
+h9CG6gf9HwhOxx3ksCksFflAdrKweMiutBoX2cLErbvcRtSA1Zuu+it3ilU8JPCu
+LSdBkPkVH2KOlJaA6ioe5X/MOnnbHej4/QPEFEy2iL6vrcuFzuP4VoSGw3q6tOFK
+3jS/J5gWMXJHYlHpDuc4JdrFAg25gAeYfA0wJyxUxPa61u220L4xzuJS2nSnyF8y
+49HCO70Z6ks5Zn68hF5NL0bx6U4aDrdLROCKv0cHArzrXXuEQvgDC+B7wV+m9/Ea
+1PjtxyuMyb0+D2DByndFI0Iq9lpcVok/4jwNaToUCCLP1LpZN2VvsM+7DI5Nn8MQ
+aYqOVqnhUL6sUdE/Jf5G2Vozx6IJ1g==
+=j+Gg
+-----END PGP SIGNATURE-----
+
+--tE/94xOCtV2c14jP--
