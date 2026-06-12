@@ -1,162 +1,126 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0588E397329
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FB2317153
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781255571; cv=none; b=hT8Clcd3EAL1VA436hl4tsfyuXhnHubK1m/NSoyQ+NbspaJEKyDcDTAzKDcl08bdbxDxpEeeGKLAwj4jk7qxTB4mLZcm8oTZ42YTsLhYEsCc/JSZ3G73H9IsmQreA+9CVnASgX4ggSfUTdtStTJ20o+4N2UtN7U06j4i5ND1G9g=
+	t=1781255776; cv=none; b=H2m0VzpfEEPbwXWaD77uAUaERQqaZW0fLHRIwLdy16nN14RS8QbiTn4N/yVswo5rHIIU3c79Qvj8c1yUs0jzWs/mqhAurx0qQBx/QKwleN1sTG33wre8EsJaExeJDfLjIHxFpvZXKI8SZ1meAgjTv9+qqXdQZ5GSmOLuIme3TYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781255571; c=relaxed/simple;
-	bh=cRz05VYqaWC0pFjf9pY+Rd9eeGNGJS+XDW7NASxs2tU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SNYIJ9ztQgDXxf3CB3me/fwLlkG8mhqfY+JpYps4matLXBxBzfAX7RGHM8qL0W/amTwC9WYV7MV+9C23/hBanfaRKAem+0ZbVU3qIAKMXBq7snfD3i45X5t9OuA32jb+Tgrv2IYR+YqLqSFpKRxzkLnpdRhvYIw5K29Y+JYbCZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qMnh+rbn; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781255776; c=relaxed/simple;
+	bh=MB9DZZAaZWkRym+gxsvhHbmurddSv9+gCVRqxRGwnlo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=F37EgwTQV3u2iIO8n1ZOIZ5aSEU+g8WTDD9n00zr/tv6hQa8bzBaRndnapJyhvrFLDQZFLsrZUssdJT1oHHl1Y/bn1igD03UpS0zSsufAVDEJpNXdxqxewdrH5fcjxLTKRoCsZZeGjY6t/yQrXl1vK9oZEyUvwrwPf01GD2whaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCVu0JCa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qMnh+rbn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 87E0A4E42E58;
-	Fri, 12 Jun 2026 09:12:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5C8C960012;
-	Fri, 12 Jun 2026 09:12:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3ABD1106C8346;
-	Fri, 12 Jun 2026 11:12:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781255565; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hTCnNttXNkRyQ/Mkgo6gIH9yy650MmiE74yN+rCH3aA=;
-	b=qMnh+rbnDB4R3RJ7VJJobF2eQkHuKmZ4RuqvoAtwLnvcWIf8uv0Zz2PPIcEHFpG85DVPo1
-	f8Y2z7kg0r5q6Nf7MtWP76cYK2wZAr7QLdLRS17u5yfxJNEIRfo4fG6Jm/C+uy/tRLQ/4V
-	F6kn2sOMUrXcuIzsBMYJDZljLNfpljjeWzLCJT0HG40IfJAj1KxV79m8430w6HUe5zqWUk
-	CLq+2KFQqbvfhGs6X2TxRhSXhzHpsYRZ1yX9LWOGUQbVLlg9f/S0ARikcnu+4x1QAIXdIt
-	Us/1KZ2HW9x9NxSwahdj9m77/d0riRBNOztQt0O2NWnIYtBZfY+25r5ECbLpCw==
-From: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v8 9/9] clk: eyeq: Add EyeQ7H compatibles
-Date: Fri, 12 Jun 2026 11:12:44 +0200
-Message-ID: <AETjc-68TFets9m9JpDAsg@bootlin.com>
-In-Reply-To: <20260604134302.BD19F1F00893@smtp.kernel.org>
-References:
- <20260604-clk-eyeq7-v8-9-53f618174cf6@bootlin.com>
- <20260604134302.BD19F1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCVu0JCa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E963C1F00A3A;
+	Fri, 12 Jun 2026 09:16:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781255775;
+	bh=pYDYrXiAUH/HVRCUgg/cj1aGE3isuJIHiuZ5T/Nho2I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bCVu0JCac3emMbHn3BUvO6BnHvRFPD75Kn0ktxbck/H2BQjxxbNll53fxQk/ASJEW
+	 TFu5RzhmotaLCG2IZ1GOBGAOa+jCDTxCsYBlFPwrXV225mfSTCHHmij5Uq3o8eJCeO
+	 xMv4lc2W8MFiug66T13ubr7PSpJf179swUFlzeCg187bEy6zlwQtbFZN5uObKX24lm
+	 8fTQ6/pLidVXjNdwq20UPPwrfzqXfcV1nLboSxj8kzYzBsoCrarL/LFa2tPC/IrvON
+	 kTjI+pg5bCG2YgdjxWZs3x6dOp9NircdQuUMxBhT1nsC4eDJ/xAYwZ5IiBjbwRntAs
+	 iQMfhgwFrdP7g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] dt-bindings: pinctrl: qcom,pmic-gpio: Add Qualcomm
+ PMK7750
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 09:16:14 +0000
+Message-Id: <20260612091614.E963C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Thursday, 4 June 2026 at 15:43:02 CEST, sashiko-bot@kernel.org wrote:
-=2E..
-> [Severity: High]
-> This isn't a bug introduced by this patch, but do these calculations sile=
-ntly
-> overflow and truncate on 32-bit architectures?
->=20
-> The variables *mult and *div are unsigned long pointers, which are 32 bits
-> wide on 32-bit systems. When *div is multiplied by (1ULL << 24) and then
-> by 2048 (if DOWN_SPREAD is enabled), it evaluates to ref_div * (1 << 35).
-> If ref_div is 32, this becomes 1 << 40, which truncates to exactly 0.
->=20
-> This truncated 0 is later passed to clk_hw_register_fixed_factor_pdata(),
-> which can cause an immediate division-by-zero panic in the Common Clock
-> Framework when clk_factor_recalc_rate() divides by fix->div.
->=20
-This driver is specific to EyeQ SoCs, and Mobileye EyeQ SoCs are 64 bits.
-So no risk of overflow here.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Missing Compatible String in Conditional Block for 'qcom,pmk7750-gp=
+io'
+- [Low] Missing PMK7750 PMIC parent node in MFD bindings
+--
 
-> > +
-> > +	if (!*mult || !*div)
-> > +		return -EINVAL;
-> > +
-> > +	if (r2 & (JFRACR_PCSR2_RESET | JFRACR_PCSR2_DIS_SSCG)) {
-> > +		*acc =3D 0;
-> > +	} else {
-> > +		/* spread spectrum is identical to FRACG PLL */
-> > +		spread =3D FIELD_GET(JFRACR_PCSR2_SPREAD, r2);
-> > +		*acc =3D DIV_ROUND_CLOSEST(spread * 1000000000, 1024 * 2);
->=20
-> [Severity: High]
-> This is a pre-existing issue in the FRACG code duplicated here, but does
-> this spread spectrum accuracy calculation overflow on 32-bit architecture=
-s?
->=20
-> The operation spread * 1000000000 is evaluated in 32-bit math. If spread
-> is greater than 4, it wraps around UINT_MAX, resulting in an incorrect
-> clock accuracy.
->=20
-Same as above. No risk of overflow on EyeQ SoCs.
+commit 4f1189e771b6e33f2285b6ec22e2635e18bc5718
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> [ ... ]
->=20
-> > @@ -339,6 +481,32 @@ static int eqc_probe_pll_fracg(struct device *dev,=
- struct device_node *np,
-> >  	return 0;
-> >  }
-> > =20
-> > +static int eqc_probe_pll_jfracr(struct device *dev, struct device_node=
- *np,
-> > +				const struct eqc_clock *clk, void __iomem *base,
-> > +				struct clk_hw_onecell_data *cells)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	hw =3D clk_hw_register_fixed_factor_pdata(dev, np, clk->name, &parent=
-_data, 0, mult,
-> > +						div, acc, CLK_FIXED_FACTOR_FIXED_ACCURACY);
->=20
-> [Severity: Medium]
-> This isn't a new bug as it exists in the FRACG probe function as well, but
-> does passing CLK_FIXED_FACTOR_FIXED_ACCURACY unconditionally override the
-> parent clock accuracy when Spread Spectrum is disabled?
->=20
-> When the DIS_SSCG bit is set, the driver calculates acc =3D 0. By always
-> providing this flag, the Common Clock Framework treats the PLL's absolute
-> accuracy as exactly 0 ppb error. This wipes out and fails to inherit the
-> parent clock's natural accuracy, which could break downstream consumers
-> that rely on accurate tolerance reporting.
->=20
-The clock structure of Mobileye EyeQ SoC is such that PLLs with a spread
-spectrum modulator (FRACG, JFRACR) are fed by the main oscillator, or a
-fixed factor from the oscillator. So the parent clock of those PLLs has an
-accuracy of 0 ppb.
+dt-bindings: pinctrl: qcom,pmic-gpio: Add Qualcomm PMK7750
 
-> [ ... ]
->=20
-> > @@ -411,6 +579,22 @@ static int eqc_probe(struct platform_device *pdev)
->=20
-> [Severity: Medium]
-> This is a pre-existing issue in eqc_probe(), but does the error path leak
-> resources?
->=20
-> At the end of eqc_probe(), if of_clk_add_hw_provider() fails, the function
-> returns directly without unmapping the I/O memory from ioremap(), freeing
-> the cells array from kzalloc_flex(), or unregistering the previously
-> initialized clocks.
->=20
-> Because the clocks are registered with clk_hw_register_fixed_factor_pdata=
-()
-> (which bypasses the devm_ auto-cleanup wrapper), failing to unregister th=
-em
-> manually leaves orphaned clock objects in the system.
->=20
-If the clock driver fails to probe, the SoC wont be functional anyway. I do
-not think it is worth adding code for a code path that only leads to a dead
-system when reached.
+Document Qualcomm PMK7750 GPIO used with Eliza SoC.  PMIC is almost the
+same as PMK8550, thus compatible with it.
 
-Best regards,
-=2D-=20
-Beno=C3=AEt Monin, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yam=
+l b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+> index 386c31e9c52b8..5ecf5da3d1000 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+> @@ -15,79 +15,84 @@ description:
+> =20
+>  properties:
+>    compatible:
 
+[ ... ]
 
+> +      - items:
+> +          - enum:
+> +              - qcom,pmk7750-gpio
+> +          - const: qcom,pmk8550-gpio
+> +          - const: qcom,spmi-gpio
+> =20
+>    reg:
+>      maxItems: 1
 
+[Severity: Low]
+Does the allOf conditional block for qcom,pmk8550-gpio need to be updated
+to explicitly include qcom,pmk7750-gpio?
+
+Looking at the existing conditional blocks further down in the file:
+
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - qcom,pm8018-gpio
+              - qcom,pm8019-gpio
+              - qcom,pm8550vs-gpio
+              - qcom,pmk8550-gpio
+    then:
+
+Since qcom,pmk7750-gpio is compatible with qcom,pmk8550-gpio, should it also
+be explicitly listed in these constraints to ensure schema validation remai=
+ns
+complete?
+
+[Severity: Low]
+Does the parent PMIC qcom,pmk7750 need to be added to the MFD bindings in
+Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml?
+
+The MFD binding strictly enforces exactly a two-element array:
+
+  compatible:
+    items:
+      - enum:
+          - qcom,pm2250
+          ...
+          - qcom,pmk8550
+          ...
+      - const: qcom,spmi-pmic
+
+Since qcom,pmk7750-gpio is added here, will device trees fail schema
+validation for the parent PMIC node if qcom,pmk7750 is missing from the
+enum in qcom,spmi-pmic.yaml?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090426.2340=
+3-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
