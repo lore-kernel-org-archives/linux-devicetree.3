@@ -1,80 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312CA218EB1;
-	Fri, 12 Jun 2026 16:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A55138F659
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781281095; cv=none; b=WzUtYXcitEgkHE4ICuJrxa18bGBiDKcrDF9jk77jOxStq6faalVAUGDGAQPOEMpve2l/Ga9IIFikeLPzyebvxyauTTi5Va3opjYu+bxpBPXKN1rw0EKP7ggxrtoH2r+88KHWzp9Uwwe6V0KK2SLWYcO2Ow+XMp9geNWNnF9KRjc=
+	t=1781281316; cv=none; b=qWk1Ryk1BCRE2SY8UW5C0ITpbgkZtryDk4WU9fbHQsW9wpjABnW9pKAm4DWDiMHYOWrFdcrHPtgUdA2LY0fOiTpBNmG6EW7OzsE27RSSo7S5o1qKrfJYb5IXGCfVvQyhwPr0adV2Tst6ZSmwuMQcXTRJb0O/FZul2wK5Kxi8byo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781281095; c=relaxed/simple;
-	bh=gcN/ebDW59Eb8scLHGRO1cBHAeg7AB0pQ62NF8tH3yY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kn5ApB1Vn0I5ZWnfxrYC4UyHHl3Ct2ITzgrho9uMK4oO8TgvgHK4OA3DMimp0VLJ8B4zKgeQzpZM+IfeZHZyxK/qgWOFDCBwIhll4lxjc6sBYXQz1NvidNdRO4DosnEdpYRga0cp1fNH+WksbOsM+xpPjeQMhluDM8nLAvFZWn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kY40Iw/j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781281316; c=relaxed/simple;
+	bh=nHLFqk7uTKHilGq47CFsRkR/6AYC7LNRrVx9m17WTjw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O5Uc+oNjCc+aseQBoF/8aJM2m3pyztPAZ0M7M+amMEFZ6yHZfRWRVnEwpDYJ/L+0pKJiaaship8yUwNRSNNs88dfYokmtuhh/2osmdum1Be9NqiK8/5iPFxJowi+iOTHp+zjzchbr1KHHz5r0aAuIvjFTx71XAos/elfKzVbIPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgODOwPE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kY40Iw/j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F6D1F00A3A;
-	Fri, 12 Jun 2026 16:18:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgODOwPE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471DC1F000E9;
+	Fri, 12 Jun 2026 16:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781281093;
-	bh=t59SHBM/VnxNzq8RXGo9/WOt6b2EmmZZqsobTFLaZsw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kY40Iw/jyhoBShnqbs4tO+X4bPSLaSNBb69NP2nyAtkQfCRIlfETj5U3LYjbg+7vd
-	 VU237ntWsQSo9Yr3akENeHyUQqIe0/Ha3yMvGxa4Ce8xs1/0wFluWa9qeaB3apMACq
-	 EhFaTb5EJ9SX/UnDWB8DEqZB6XBpPCwV+OeXZ31afkcTk5cKdIbnIH1CGVJa7QqVvr
-	 VahhRTGopjjbqlvbKpb+/YQnt0T2uXMsCZ6JTWagTE6k/XtjrxtOr1nlBKaaXGotaB
-	 1ry8eZqr7JMbWcYvHMchXhUmToBacgrwJXkgOLT1NhvZDmnrq9D/TbWcVOj6qLkSm+
-	 eJjd8clEscl/g==
-Date: Fri, 12 Jun 2026 11:18:12 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, Jingoo Han <jingoohan1@gmail.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Johan Hovold <johan@kernel.org>, linux-iio@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Daniel Thompson <danielt@kernel.org>, Lee Jones <lee@kernel.org>,
-	linux-fbdev@vger.kernel.org, Helge Deller <deller@gmx.de>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v4 01/14] dt-bindings: leds: Document TI LM3533 LED
- controller
-Message-ID: <178128109241.1149158.14270432284406889754.robh@kernel.org>
-References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-2-clamor95@gmail.com>
+	s=k20260515; t=1781281311;
+	bh=xCs/IQzKJMEiATbdHAMNlzyS9L7I2jgvyvN+8O4FWOs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cgODOwPE9Qu/vsFy3P4HSs/2f3CNmSbtwgC2yElU2QVyt3YJ6XzuT0+T3kqT4Ie5w
+	 KWoHGiZh1V0ZGVIJuk6C/cCcbDStRLCrGrlyPcmOIf7XTJu8yOdfkm4JeeYfBEHMhC
+	 Rie8S3gpI3/O2iBSEPgC1hYDGU7gooFYXbqvm+oYSqbz6ZJacgvQzz7z0xEvi6iIDu
+	 QPeQfA+tRYGZJTHKvHcoWc+zvaV1cGfWgDlYvn0FYBullJHnc4gOd2H5VPnUKlf+pv
+	 gg/15BdH2In4xanjfD5cWWwmdkSX1mvkfqjodwfSdBij4NacQ0SIok2kIlrCcW94Yq
+	 Zc1IJT9WzXnPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] dt-binding: pinctrl: samsung: Add
+ exynos8855-pinctrl compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alim Akhtar" <alim.akhtar@samsung.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612163020.411761-3-alim.akhtar@samsung.com>
+References: <20260612163020.411761-3-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 16:21:49 +0000
+Message-Id: <20260612162151.471DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260606045738.21050-2-clamor95@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing SoC-specific compatible string for Exynos8855 wake-up inter=
+rupt controller.
+--
 
-On Sat, 06 Jun 2026 07:57:25 +0300, Svyatoslav Ryhel wrote:
-> Document the LM3533 - a complete power source for backlight, keypad and
-> indicator LEDs in smartphone handsets. The high-voltage inductive boost
-> converter provides the power for two series LED strings display backlight
-> and keypad functions.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Reviewed-by: Jonathan Cameron <jic23@kernel.org> #for light sensor
-> Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backlight
-> ---
->  .../leds/backlight/ti,lm3533-backlight.yaml   |  69 +++++++
->  .../bindings/leds/ti,lm3533-leds.yaml         |  67 +++++++
->  .../devicetree/bindings/leds/ti,lm3533.yaml   | 169 ++++++++++++++++++
->  3 files changed, 305 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
->  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
->  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
-> 
+commit 87a449ad3230af2abf934581a9ca7d771b0d6dd7
+Author: Alim Akhtar <alim.akhtar@samsung.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+dt-binding: pinctrl: samsung: Add exynos8855-pinctrl compatible
 
+This commit documents pin controller support for the Exynos8855 SoC. It adds
+the samsung,exynos8855-pinctrl compatible string to the allowed properties
+list in the samsung,pinctrl.yaml schema.
+
+> diff --git a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.ya=
+ml b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+> index 7b006009ca0e7..c4773701c92e3 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+> @@ -53,6 +53,7 @@ properties:
+>        - samsung,exynos7870-pinctrl
+>        - samsung,exynos7885-pinctrl
+>        - samsung,exynos850-pinctrl
+> +      - samsung,exynos8855-pinctrl
+
+[Severity: Low]
+Should this patch also define a corresponding SoC-specific compatible string
+for the child wake-up interrupt controller (samsung,exynos8855-wakeup-eint)
+under properties:compatible:oneOf:items:enum in the following file:
+Documentation/devicetree/bindings/pinctrl/samsung,pinctrl-wakeup-interrupt.=
+yaml?
+
+Standard device tree guidelines require an SoC-specific compatible string
+for all hardware blocks to accommodate potential future quirks, rather than
+relying exclusively on a fallback like samsung,exynos850-wakeup-eint.
+
+>        - samsung,exynos8890-pinctrl
+>        - samsung,exynos8895-pinctrl
+>        - samsung,exynos9610-pinctrl
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612163020.4117=
+61-1-alim.akhtar@samsung.com?part=3D2
