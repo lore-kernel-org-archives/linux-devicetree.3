@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7386C403EA2
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3F8400DF4
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:53:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781283176; cv=none; b=TuH8Fe6HC2Q1YvWB7g2/W6lAAeBlvpf3cktLxIyfwGUl70vil+CII6Xs6xg3vMcPtuP+RfzZIlR7mqBVvQRxzLGlOrWcXWqJyE8aJ0lG4CEdPdBiRucTnCF4+g0tFGVaIh/gjE8FWttLADR/W4P4/sZJZEBQzZFUCMHhUi7BKxA=
+	t=1781283238; cv=none; b=QrQUveEf15QhFdr36u3HwnWH+ciifmXN5VMJ1SuMorRr41NZv5hcVJmvPTLH73fO2JVY/2iiMB4rVAluKOBN6AwtbKCcD+GArwDMuAnpoqzkfUtjrTIJvmCHrQ44PwVJcZ73FRBS/fq5fnhsydh2KnSIJPiGlS+R1ouksjuakdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781283176; c=relaxed/simple;
-	bh=7M0rf/LnCbO8Dbr+xwqdGGb8HLBIj8L6KqGDkP00lxE=;
+	s=arc-20240116; t=1781283238; c=relaxed/simple;
+	bh=4SGz/Xm9yLP0jd8N9KpoAQsFJ/gkUfC79dC5Ln8Jnhg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c2A2AdupYRGiDdz4i8ZT0FyvbihJIG1H4ws4NaAovR6LuCDbBZozqA+dKdYaYuNyUIUmXxNRLN69YZDdXOl4vJ0gbDAKKWunTqTdCRZC2s8VJwpNmsG6egUsSoCpjWUA62zQiYxUjuHRhIdv94ikL5uQYMFxqwJrmUPTsbbDqJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YP9rpwZq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VJ/ULyyxx6dRMD+MV1YlknWcAARVruDZx22Bd+FAj2LV8zPh80/kR9bDNaE7h6cw/5RLcb4lwfmRMQfVzog6Rg2D7hclZkQrig3e2vDT6q6cRues8FxZ6zXE+eTVcuLguzAivIg8F5vkqp/wGBleVrk1LvwoppFFkIe2t7XfkH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GN5dOXmy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YP9rpwZq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06FA81F000E9;
-	Fri, 12 Jun 2026 16:52:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GN5dOXmy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE691F000E9;
+	Fri, 12 Jun 2026 16:53:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781283175;
-	bh=jd92iNnUzcnULIje9ZonErVKpniIoalENDOzdG7ggXc=;
+	s=k20260515; t=1781283237;
+	bh=T+3wuQBA/pNIwYXjXmuTD+jg8D4R1Hgh7oHBezZq35s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YP9rpwZq0PVBmGvP+J38Y5D/7juD9n4CoFfK4rnzIxIox5OV4NgUVktptNl/iSiX2
-	 jY90aWAJZ9k0xFwRvMqma3cUmJ5Kuk0rNagwJ1eEB/8GRH1DnknOWVVUzxfwhmyoN5
-	 vGDjRM+hFBZsapg8Jwh5XU+ynVyGdM/a4xWavMj6qZ4RCXf4S6O7nEwfyYIGAcvd2s
-	 e++AbHVoWuParohEoQ96HgIxqxDl5Tq3QrThXI+ujDr9xbXlb2NOtIUaFqjLI8wqT4
-	 eSrf7e0dDTZKqQQLBCcMWUy22aJUw0ig0X0TZbQzA+X6QWAoUuFKXNV0PdzIFLLrJN
-	 KKec/LrR8/s0g==
+	b=GN5dOXmy8hmau4n7IL8KCfuLrhYc2y1AtNPD5h9OutIoPfknsY4ai/euaTSdSeFZw
+	 rX6KEfkzFTjZNic7HcjSmFphmFdFCwbFfoTZnGYnnGVthZZQEFfq0opgrJ7jCkWoyR
+	 hipMkAvsXpE0vesWXtWup9ZUJYD6ey/cnuOr9F5eWg1hRY1IZeh4OBg4Uj2wmUqZWS
+	 mXDXv0qkrchEleyF1szannLzuWz7cnalmYQn8PfJDhd+53U9jJFCZN2C0AyqPy22Xm
+	 1hGu7eDA37cPwMcmSW5NKWM2t4VAQ0vBjqiQKcE/b1f7PLKtuzzcNa0zG9K88Qp7T4
+	 BhaUgQ1dK436A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: fix eMMC reset polarity on
- PP-1516
+Subject: Re: [PATCH v5 12/18] phy: rockchip: usbdp: Drop DP HPD handling
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Quentin Schulz" <foss+kernel@0leil.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260612-pp1516-emmc-polarity-v1-1-4816c1c909f7@cherry.de>
-References: <20260612-pp1516-emmc-polarity-v1-1-4816c1c909f7@cherry.de>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com
+In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-12-efc83069869f@collabora.com>
+References: <20260612-rockchip-usbdp-cleanup-v5-12-efc83069869f@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 16:52:54 +0000
-Message-Id: <20260612165255.06FA81F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 16:53:56 +0000
+Message-Id: <20260612165356.CCE691F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,53 +47,56 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Incomplete fix: identical incorrect eMMC reset polarity (GPIO_ACTI=
-VE_HIGH) remains in multiple PX30 boards.
+- [High] Lockless access to shared Type-C lane mappings in `rk_udphy_dp_phy=
+_configure` causes data race
 --
 
-commit 764233a2abb692d41607851c93d3fed45fcab940
-Author: Quentin Schulz <quentin.schulz@cherry.de>
+commit 5858d851fd3d6f0beb8a1b3b702ddc25ce1b25b1
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-arm64: dts: rockchip: fix eMMC reset polarity on PP-1516
+phy: rockchip: usbdp: Drop DP HPD handling
 
-This commit fixes the eMMC reset polarity for the px30-pp1516 board by
-changing it to GPIO_ACTIVE_LOW to comply with the Jedec 5.1 specification.
-The previous GPIO_ACTIVE_HIGH polarity caused eMMC devices with specific
-RST_n_FUNCTION bitfield settings to be held in reset forever.
+This commit drops the HPD handling logic from the USBDP PHY. The registers
+involved require the display controller power domain being enabled, so the =
+HPD
+signal should be handled by the displayport controller itself.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi b/arch/arm64/b=
-oot/dts/rockchip/px30-pp1516.dtsi
-> index 192791993f059..02200de695d31 100644
-> --- a/arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi
-> @@ -33,7 +33,7 @@ emmc_pwrseq: emmc-pwrseq {
->  		compatible =3D "mmc-pwrseq-emmc";
->  		pinctrl-0 =3D <&emmc_reset>;
->  		pinctrl-names =3D "default";
-> -		reset-gpios =3D <&gpio1 RK_PB3 GPIO_ACTIVE_HIGH>;
-> +		reset-gpios =3D <&gpio1 RK_PB3 GPIO_ACTIVE_LOW>;
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+
+[ ... ]
+
+> static int rk_udphy_dp_phy_configure(struct phy *phy,
+> 				     union phy_configure_opts *opts)
+> {
+
+[ ... ]
+
+> 	if (dp->set_voltages) {
+> 		for (i =3D 0; i < udphy->lanes; i++) {
+> 			lane =3D udphy->dp_lane_sel[i];
+> 			switch (udphy->link_rate) {
+> 			case 1620:
+> 			case 2700:
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this same fix need to be
-applied to other PX30 boards?
+This isn't a bug introduced by this patch, but I noticed a potential data
+race here. Does this loop access udphy->dp_lane_sel and
+udphy->lane_mux_sel safely?
 
-Looking at the tree, several other PX30 device trees still use the exact sa=
-me
-incorrect GPIO_ACTIVE_HIGH configuration for their emmc_pwrseq nodes:
+These arrays define the active Type-C DP lane mapping and are updated by
+asynchronous Type-C subsystem events in rk_udphy_orien_sw_set() and
+rk_udphy_typec_mux_set() under the protection of udphy->mutex.
 
-arch/arm64/boot/dts/rockchip/px30-cobra.dtsi
-arch/arm64/boot/dts/rockchip/px30-evb.dts
-arch/arm64/boot/dts/rockchip/px30-firefly-jd4-core.dtsi
-arch/arm64/boot/dts/rockchip/px30-ringneck.dtsi
+Since rk_udphy_dp_phy_configure() does not hold udphy->mutex (only the
+framework-level phy->mutex), could a concurrent Type-C cable orientation
+or mode switch cause this code to read a partially updated lane mapping?
 
-Will these boards also fail to boot if used with eMMC devices where the
-RST_n_FUNCTION[162] bitfield is set to 0x1, or do they guarantee different
-hardware behavior?
-
->  	};
-> =20
->  	gpio-leds {
+This might lead to incorrect DP PHY register programming, configuring the
+wrong hardware lanes and causing link training or display failures.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-pp1516-emm=
-c-polarity-v1-1-4816c1c909f7@cherry.de?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
+sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D12
