@@ -1,45 +1,46 @@
 Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013032.outbound.protection.outlook.com [40.107.159.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4CA37B3F7;
-	Fri, 12 Jun 2026 21:09:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CCC37CD48;
+	Fri, 12 Jun 2026 21:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781298552; cv=fail; b=kjfT9VMFyA8TKaHLZ14yfCRZsgR8ZXcpebm0BG4DXHTqh66DV9jVyThiqJwAXHRbXcbXns7O+Epcae/HZI7jBVWj5rnWykmJsPG/n3fLCoAdjQXcVjHzSoUdkSdrQzMNPZAvWoYs2x3rdlZ0vSQtrPmSDBK9fqjhIZtRjDnp1dM=
+	t=1781298553; cv=fail; b=edpB1xS6Pz5/JoyU+6LU2j7WARgaHRsjIKJvK/U2nWXv6t7JigDgUVtR4CPa1PAPhSXq1kRqpOuhsxjFJlkBbjnUzCC4ymRFDJDWfMprFuoHM1K5ISJ36vcD4jK4wesm3D0tOcRnKJX+Uy2j8hsJNBLZBuXh06skoImWTPd4N2U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781298552; c=relaxed/simple;
-	bh=IHEZAoOffEbLzwQKskdSwcrYdHBgOcwRwKkp3bSmm+M=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=dq4aJgvHWu38Do7THBuPpT+QpCp+4tTtkX6iv9rpFp0mFuDe1uhubz82+kTJOFoHEkh+J4LjtPmsgFPAYZZ3GXLtvcS13V+gXZvGo5TPjTtJYjACuYfluYefQUXn49shIizT1Jj/+rYtO8t1Gsz6VU8UkekZ/QKTbVv1OCqETtQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=gFClNyF/; arc=fail smtp.client-ip=40.107.159.32
+	s=arc-20240116; t=1781298553; c=relaxed/simple;
+	bh=bO7ZDsi2wEfmnXvXN46OfCqWu+n51l6riytRLyyWU0M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fGBcGJJGoy2chajuJRJZO+MRIqnIwte0UqCIN2LPzJKsjfyzSF3LSlN1mYPTnExCAZcCyn6dXpzP+ZXItBmeme4e5fRKR+XoxMrdfcxVxYcDgBq5wZwcJ9PykJCxlxb/teaLkxPInrSZ/VEShgpDV5c0V7NYbOdOxSZ+6MInpIA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=DLA0RiV8; arc=fail smtp.client-ip=40.107.159.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="gFClNyF/"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="DLA0RiV8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dftjM8uaOfxLj0x3zj+fNZ3kzBBukwadQGs7gdQW9XwlWKL+GMEVmGCTp7xrBbuITe0fHjLLwg5heWIk7bOECjHHFKzzFQpLDdWYaq8hHDGoHwPYGzzDgLLmZ+OUsiHOR03qpTUPSlWaTwzTTumuSByEpA+fOz7fq1XFtaU+JTugx8qOpb+2j/1bV37Q+KLnfHzSm9JAxd69D4emR9ikD8kFyda36H0LJV13AFCkGTACkRm2t7+fMZbd1Mb4OmBDCG3uQwbW7YlTrBdpM0l2aAK7kpOEkH5beZKo0lmDHYt04iWb7b8O8nTQjm9yuzkg4yALs9JhkSk4SdomsBmLoA==
+ b=gP/124kNaDXxQxtQWKgIgalGAyJzoWrhqjyPDNSglfC04nDoVVbz0m5SUEj1tfgKzkgCIjpMrRq9po50tWWB1dh8kI/8UdvClfBwkqsjJK+Sno6n3NdweY8VG/rF1xKpuL3cRsgnWIgDql7EH/ei1LKR+CtJlXcM4LT6+vdbRiDsPrfcs5NeSGqRkiD2sQqcHn1Zunqv1AqycVyhgcxo+sDMabG8FvfbTyi6TWU5yeBHGldOYCqA3jIW/9QMC+AbXO1zqac2C3Muo+IQ/67kskLFuLgE+UW/MYDQ4WJNFY5eZk/+D4Nrw95fezcrG7Zi9p4Dxo1q0OKq1IpfVtuPqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f3HjaoB5XGe0z6qMLuYHFSUpCX8+fPUAvfGnwKYJ9JM=;
- b=kcu2Az8adxpuUfIxCSlGU4JRZgVuT0728r+aluAy14LmAY5UDE0FVBsrEXbznXGqU60JsCFuHyHre1ZXjtnaQsSR77TFqxGHgowN7c+yaqDjbd/hren+FUgLIRNIKCPFkemWLGvc1nuvJ6lkCe5J5+4pI7/FHK0mJwSmwifbzME3hN4b10xEdqW8zlhtCVXlcYy9TFjzoctkRmhlMzimnETUVoDaifMYM59USXxiuHPHLUUgvjeJovr9gTJoL7oIObaZuks0LcrVwC6NWYl4zKx2/T7JG4zcrianean9eJFN0NoohZYc3UWIbFLAVpl+xnweSiT6+2/kxtqYounfaw==
+ bh=bDAb84mvwzzdH4QlbWfj/UPGvGpj+bM76a5W0SC0Otw=;
+ b=O8EyKNqPfwsU2K/UpOyGJYOl+Nu/Lv/wJToWSlhRZRZsuOV2fHRXhoyQB9e0S56U3gAoLxrHGUNd1vEr1VlcUr1iuu5APsr4fxXCQCDynoLXK1ZO5qA6X/RqyzwJhe0oouLq/2mY1/xleM8EYzWXMfiSZ6ZaJl73miRBgZeWDSElCMoxLti5ta9cq8Ad+FRuYMpot1FubLWSi1lKqV31PXSP/XT0mTokX9ZQJTB6qMKBRsTdQzTxSkWzVI8/QFzatE5UnrVKsEayTKP7E5LCbhHypdZcgkmNfuO0lPHH9Ptknjf+I47k+CP2qVo7qO+Fq/PhhALpA8Ea2ppmeiT+rA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f3HjaoB5XGe0z6qMLuYHFSUpCX8+fPUAvfGnwKYJ9JM=;
- b=gFClNyF/CFeE0wuTMDOAjghdO7+lkI2iOqZkw31fA9f//IyoLA1omxN262t3kUV798PpQJAXphoitzxgYYuZenU5afK572RTG+7y95xWDV47Ur0K4Tna1sSMLkpS9v79yPPC8PkSeJaDf9BEvYACQ8407wbQr/o0DmH2XvFAWmPUzESo9ZGxxTUlvrqr//XBnZDMRhtbFHUdNtyX6HvpgKCKnfMOEW/Al+z4ewdgtRfV38Qr9cGI3nlc03AdZD3Rd7aWeTz4iQo71iIrKc78rCPGoXTG1k0a8/+UM0lC4J+ayYBSd/hD1m0yOlUKl99/OtBsCt/wH+m/Vn0nvsG1aQ==
+ bh=bDAb84mvwzzdH4QlbWfj/UPGvGpj+bM76a5W0SC0Otw=;
+ b=DLA0RiV889CUTgtDDWmqzcTXNh/xFxPOZH9GCAJikaTrHNcR0rnISSW4ou0AQzau0t5L8k9s7Gcwi2cQ2X92AlbEzs/rkGXbMNmTizqSxTodr/U+qSJNl3Wy4C/BdDCA7aoEkCLCwkKzIvSbhYMTUKZS7smARGDTAfsSYXwPweijfuvDidWA+8m1IZxV6c5ZOipqh/2Bbx4Z2hMULHtr9y5qL8GcGZpZ18tANl7JQ4qYo6I40IvJeIO7ncLbAB7YLN87uXlwo6ozzxOcIRRWhoj61TW6ozM6uWjZeoJSKPNeNB8BrBHyWtDhDAmYiRTmv9WBtDv0hi5GnheMHirG1A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
  by GVXPR04MB10969.eurprd04.prod.outlook.com (2603:10a6:150:221::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 21:09:04 +0000
+ 2026 21:09:06 +0000
 Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
  ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
  ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0113.011; Fri, 12 Jun 2026
- 21:09:03 +0000
+ 21:09:06 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -53,18 +54,17 @@ Cc: devicetree@vger.kernel.org,
 	Michael Walle <mwalle@kernel.org>,
 	Shawn Guo <shawnguo@kernel.org>,
 	Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v2 phy-next 0/8] RCW override for 10G Lynx dynamic protocol reconfiguration
-Date: Sat, 13 Jun 2026 00:08:51 +0300
-Message-Id: <20260612210859.266759-1-vladimir.oltean@nxp.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 phy-next 2/8] soc: fsl: guts: add a global structure to hold state
+Date: Sat, 13 Jun 2026 00:08:53 +0300
+Message-Id: <20260612210859.266759-3-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260612210859.266759-1-vladimir.oltean@nxp.com>
+References: <20260612210859.266759-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: AS4PR09CA0014.eurprd09.prod.outlook.com
- (2603:10a6:20b:5e0::17) To AM0PR04MB6900.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS4PR09CA0002.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5e0::9) To AM0PR04MB6900.eurprd04.prod.outlook.com
  (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -74,144 +74,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|GVXPR04MB10969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ebbec01-0467-45ba-1079-08dec8c6d4e1
+X-MS-Office365-Filtering-Correlation-Id: 446c93e8-a68c-4c55-6448-08dec8c6d6bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|10070799003|1800799024|366016|7416014|376014|56012099006|3023799007|11063799006|6133799003|18002099003;
+	BCL:0;ARA:13230040|19092799006|23010399003|10070799003|1800799024|366016|7416014|376014|56012099006|3023799007|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	zqqImel0McPuXvluCS5i1VlJ9C/nzBbqdhLQUqnfGb2OROv0meTZiV0OJkrkyX1hjg/+W/sm3t856/vPQdDnPFssClH5i63KrhhmGzYdM3+62L8D4A2IR4cMGJTu6a7Aiu3JNfUrji8X+V9K27IWlH+mHept5iiwcc9xz10TlopBmb/a6hSzDzkLZRVWZ8jclCN97LIarWVxpiYLnkTn6C6Sk9Sq1TJHE4tmLMwE7CotoaDudXnTLb21LjWTSHgzr8FrNxMvT8CXl3EwitzeCnkFTINvSaFs8l3L9oBFlW2YrdA1ybYBAVtXLtukZ8cutbp9+w9aLscQ6tBBFMzXWcoFdPgFGEXM72AEYYdEK2qUYqQeBuV63jzOYX3RJn57BrFQVp3nDU0MU8co4380vtg3HRfMnYJ8NsWWp4k7hbutrapnyv+3r8T1sSLYfmDNYRDFx0uoijqY1Nf0hCZA/dKTglkHUa4ITEGyXThAyimaHdr04Kuy4SsUY3T3IppxmZLhUp4+EyIw4yrv+0D2/Yeg8AVMEvKpt1Yztwm1an/40YJuxVdv3Be5QhOCjJpoghp0dljqARW4npxRWeaFbw0w1D4kBkkie641GfiSBz5RjYFk9TwWAmHpZITxydpA7zLo6uzNgBeFH8W6NrcahCAqVtC16wraM5BVF3pDLinRup6cArKk9cG2PR1Khs+O
+	BDZIvG8zUJ5AZZwdhF4VwdKq5e+3Tk0Igf+lILf6N0o/EdPiANQ6cjsPr/NIoU1vdkSXu4nTX5QxQpUbooD5iLuXEMfCBkKH0nzFfSPGYbFIDytYzZn3zL8CJDNklvRV4RuzaEQADtp29eGvXkE7RjiUig66nO/MeouqkCi0iUZ/Um5PxugoVaPdvBxn0P/5M3ru07W8+KWpjEpYQwf7vXqmCyDjF4KQVQ0AulJQWw6i5shcWR2lQ3ctGW3pJvw46prbsakXYMJX+5cv3D5O5wVkT1BqSX4HN1ycjknbbQCHQgbNn966g7jOTgrMTwei4Ie7lDJgOeKDZXk7B5N7NoxJpIJ8Gl3JfP3PtHi+ZjL/LXoOV9E3Dkun2imj5WehNAGKwxSiU/b9gHguCVgU6DHIXjs94B6WSFkuGkrVO4wH4esakyd1vlbmvZN6mylWB193MeSAyHOoMDRolZlH0k6HoxYBfzYlAfseProwxlgBAkHFWN5wP3LmA3+tUh7BgFyvRtjxzYoMMZ+UBYUynZ+n7/ev3IAGGHMynz+2PmclKJFf3olazFfXx9+A0Tbtd/hMIJqGW5V9mBgtFMtG+HLZZPrHiyFDB0E1GQNxhDM1PAAB8p5NDC8J2hD0w2nna4ivLQ4P4dfNqVF8KJGV2iQjwM0m4nYpe7vSbXOzLZ4ppYuEfodz32gCpGepp12j
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(10070799003)(1800799024)(366016)(7416014)(376014)(56012099006)(3023799007)(11063799006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(10070799003)(1800799024)(366016)(7416014)(376014)(56012099006)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vC/OCd+kK8rlhHKkT+LItwZSPbwV4FJ5z5FZOKrG82DZyJaYDSW2MkYBTlTo?=
- =?us-ascii?Q?o3hwfYN/jaAA2Ath0OdA0n1+xWMf49Fqcsqx+/qcm6avKDOZl1AV/SdrZmCb?=
- =?us-ascii?Q?QXb1jyT2bfr7WxtVDbjJh3f0bkpaFhPU0J4WbJ+gtvKyXZn2Nbpzba9AkDYN?=
- =?us-ascii?Q?UxuCuY13TWS5/FMURivyNag2B056dgwTHO2MNq9to9hmG9No7AqgQqB/aWMO?=
- =?us-ascii?Q?q4MGV/rDrK+qDn9Frkwf9mdU1ixMDHEarzWFSlGdm8Z3PvU/JjK4/cvoAgPd?=
- =?us-ascii?Q?ZKBzpYWGn0O80QzY9M7cVVhiyCj8fLwQgukVk67HOpnwiRDdHzDeAcmHTB9h?=
- =?us-ascii?Q?WCTL1AI1G3gEVhepMnWmEfV8mEElBpOryg/+kFhEGTcNgwrCSshEP8IwL6iV?=
- =?us-ascii?Q?vDXZ1KtOSsiT26BTqeg3Hv8/ja8VnVgH4YpyhK25AtXKI/IlNwH2xGdmC1Zg?=
- =?us-ascii?Q?IUbidbp25X1kQNOgmKvPWNedoykgsMCJPAeJUx/dV/OXRx0CzCCGfR0lmGg/?=
- =?us-ascii?Q?8cYOZjCxvXyYufhqmxXVZWAQO1FG7A9xyuoGOsImmr6NQYLqVhCUioJ04/3J?=
- =?us-ascii?Q?74bpq+ftdx9Xt+VxFj1jjiT8ZKsGQs131ppmr+gyyJxiKBpSq6i9np7AYHm7?=
- =?us-ascii?Q?1qkGhVihSW+KdPgnxlkbIo7DmTyi/WsaoIjjJwKwuZKe4sAQfmQkLHH5VU+l?=
- =?us-ascii?Q?ktrxq5FDtFKnlxB1JLeId82WHhIEEjlQ87spMAbaqfLOp0VaVuA7Ncf9V9EV?=
- =?us-ascii?Q?cGDuF4G5qf10bTJzIVlXo2YSYr4RH7UMlrwDgMhrv7jj6sK17VDMepHcjWZ8?=
- =?us-ascii?Q?mY+bOlE+xbqV57gSoaI2h/Dv3rDEhqaQ7H6BOn4NOBLYx5G/AUuVx54gqnIO?=
- =?us-ascii?Q?ojQkHNOlDksSis1qkLAhUiUojc1a7BsZjQtaf3Z8puyAARxsWrPPNXHBkzCR?=
- =?us-ascii?Q?OxKMiWZnIqYzAiq/RvyPY2kA8yeDevT5mYSobxXHeBN1tXOOvD5CaNdPwW58?=
- =?us-ascii?Q?Lv248kGf3rt+Yxnz+tU3peMBP/CstnlpVrdb7zFsSd595oUEBjNMLLbbtND+?=
- =?us-ascii?Q?v/VwahFGE3dDdqaCoX79e0L/gEIjAuSDLFJsdzGOwCpecHUj2hP1MeUird4L?=
- =?us-ascii?Q?lICTaGHtuYBKSpeZRuVRXvZ/hVC0DZcCRvHkgYapbBi+3ocAmbP2mPMWujhK?=
- =?us-ascii?Q?12ELTB4s7uTn3PFOtEFIcd8hkghn+oYGgZ9rf573fHjDhVDMXqv6XdV4vJJj?=
- =?us-ascii?Q?h/xLHPwpABbioBOlqosfoiud9Kk+6vvRh9Px5dzrSPe9GgYef5cSiHCMA2zQ?=
- =?us-ascii?Q?yb4DQTq2ULW2dNOk2nLqjqANVp1laLFkJpDoMzsqO9OB3uQ4dO+iLX2GWcgu?=
- =?us-ascii?Q?Ym3OSvrPlEna8YosLJB/1ZIav0V4IR+7onUtbts/IpEVWvdy8ThH70IB3WkM?=
- =?us-ascii?Q?aMwr+hig06Ehza891wjQhkbNyD5PVzN+PVbQfDvsggYk0EmWVbbShnREkhcs?=
- =?us-ascii?Q?GfKCMuFpvwkGm/dXYRjs5NgBispOoPyt5460rnFV8CfQ2t34lyxN82UABsvr?=
- =?us-ascii?Q?Xm73gDjTMl92cK5IWXAxoFN7GDSxrl/YONcf3o8hGmUZzQpCVQKMZx+VH166?=
- =?us-ascii?Q?MPcDp3t84qJTop+NOmA1GZRxUE9tiJVjlROdDJNgWwoPtyWXnYwVzTdbHlYT?=
- =?us-ascii?Q?sfntncAW+L2CuVTX13fD/nTwPtKpyHnfbx3NjjK3nwGsE7n9RfajJE5hmG2v?=
- =?us-ascii?Q?Z6wfRA8MaqRX9QQ0UfgIGGc/jjyF2qwwWVS2aB3ctLSKSPDFC6ee?=
+	=?us-ascii?Q?vGZYtuNugtO4vSYUAo+R6bDELrSA6S3culpP1C5wupM9g0F4//VLKO1QsbUq?=
+ =?us-ascii?Q?c5UmBiPs8l2LQ0bor/6pm9WAeVLEid6Iyknqj26nofbkh39/R5jDkJZDTVjY?=
+ =?us-ascii?Q?A0sAe22lbsJHBr/XApyjZ9KLf3ub7bFDeLbDIYdLM2UGdaqMKyQL3TDyigsa?=
+ =?us-ascii?Q?XWileVSUvTUgCdgZzryXvuVR9tFZmobQau7srCCVhfz3tGCRnFZoTIaqRprI?=
+ =?us-ascii?Q?p+P0kuaJmmlRByK+9ukAzes7QfOAcRt80YqHc5pFI9mNI6sJXsWElO3oLNZa?=
+ =?us-ascii?Q?vXanXlstBd7OgcCgyr6rKr3O43golYABGEmyDN2+0ERNJs+3MA9k6+stVryp?=
+ =?us-ascii?Q?HAqgjHw4fbiwwK+Y7Fzk2mZ7jqHBs/mwZTEnfoXoj7rJRkSBj3o2VU4zA7ys?=
+ =?us-ascii?Q?Sbx4vj/9QbEvPIZPlq40NVKGNXombne1NDFGSHkrEvft2eXpNQPskkPEISE5?=
+ =?us-ascii?Q?is4IHBXQ0Na8VzpRA2Y1vVljXm2M+I8R639PBcdlWGuwSO1G/UvpLL+OfLn8?=
+ =?us-ascii?Q?RdxarlsRh+7VOcIoqMzh2Fh4H0384fCOwpsnjFlMqNbvIprr2qsi8HPpJO6I?=
+ =?us-ascii?Q?WEPz5awx4Ys9YZd3pBqbMPXAqJQ5JPoG6v9Phg+lFYP782i4meRivnXON1RN?=
+ =?us-ascii?Q?Wsh6iy9wL02ZNoJdJLQYghVkCRZ9X2V4mn54detfGWm5wrxFSqRfXBfOWDbE?=
+ =?us-ascii?Q?uoDkgGYfpBuDJXGpcp4UCxRyY+8eO0HaZVlT8rCOp7yF0ovcN27V0278Ba7Z?=
+ =?us-ascii?Q?y0lPKNS1ogzKc8UWfd03GJnJfd91XHXAO9u6xse6H8CFQJwKLC8+HR4eBrJx?=
+ =?us-ascii?Q?cfE7TD1Mc9319xPZvEQj7wUj+vl2wqnqZyJeTW14jPKw2hYwqRtUvr56Zox5?=
+ =?us-ascii?Q?aI+jhiPSDAG9eXS1k5rzrt31y//QQdAvTF9qybUSH7ZDqkTJPWC2R5BTFDhq?=
+ =?us-ascii?Q?fk+g7vV6Lvl6K3xu+8wvmwQ+u2OgIv0OIVw6jm3eUI1lJSs9jI2T016K/83k?=
+ =?us-ascii?Q?FExaUUYGal/ymIHh2hG58s7AWf97QQaO4U0ZiXKR5eDL0eByUDBHT5dAeNEa?=
+ =?us-ascii?Q?I/Pu/GrIUJHbhfQyyvRSr1mBAajcJVe/tyDaQYwdWg3hhgLw89OQtmzb+5QP?=
+ =?us-ascii?Q?xgR2OrlDm7DlTkbmD8dGwaM1OObEiIgxMecGtCPSq+U8ZM3qtCeTMaEc5dIt?=
+ =?us-ascii?Q?X23pHNbRDu5zguw2BPLeVnz7nD2+x5218QTzi1yHMPGVHh7o4I4bBKK+33US?=
+ =?us-ascii?Q?pJhczYWCLny07pm/eZi8BlFe7ND34uIURl7CTcu4XesiGfvIsnG7dvITGxHN?=
+ =?us-ascii?Q?fbmNaRnOdBU0a9CCEAheVBE1xU8rSH1eKGzNBjXsIGVz3zbtBJA4IjG4YxDi?=
+ =?us-ascii?Q?LM4b72MYGUann4Wgu9uYHDGk+haVFaU5OYX0bckhzwFw2A0o7JXYuW5RXfRq?=
+ =?us-ascii?Q?UkU3RMz8JRctbernLYcC9xJs5jGVQm3FQa7/cGw7xSBTREwU5FHYM7zNWx3R?=
+ =?us-ascii?Q?4rp5ZMhgD7TSxTnrCVf8Minyb8Bm9TARRTP52U0IfEPmhhkFmGUmrRLRRNpD?=
+ =?us-ascii?Q?HYlljd158F7qLjeaMW0FbkeR4/eDlk4dSoVl3Ha2PAYcr9XtFJe9T+U2wSQK?=
+ =?us-ascii?Q?wnmeWBIgkpLa3aFNMQUr7lzJgiPDhx1gWy6W7vt0E/LHFuVyNxIpATMUCuGC?=
+ =?us-ascii?Q?VXgWEtCSh1jEQtaIK/KLZjUapsMdWBE6jxd7HyjzNFhtg8x/GJh0PL3HtxHY?=
+ =?us-ascii?Q?eqWAU19cWdCFLWNXTXOPE0Xygm7rPiXJrjHbTvoWUDJFLaqv6zWG?=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ebbec01-0467-45ba-1079-08dec8c6d4e1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 446c93e8-a68c-4c55-6448-08dec8c6d6bb
 X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 21:09:03.5571
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 21:09:06.6210
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9DbJB+5FfEfvY7UkziDNAR5j9x711YiWk8e/I8KVkOohwzuMEAEEB92vFwk0C0OIHibheLbWJsMeJvmmdWHyFA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: YzZL8HhJIu1HYXBhkyyzo6L50kgvkd9AT/0ZPcWZ/ivxgtN0og9uVDg5J/f/R9MfhgDWXghkDJiFOjo/ZeqRPQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10969
 
-Previous set "New Generic PHY driver for Lynx 10G SerDes":
-https://lore.kernel.org/linux-phy/20260610151952.2141019-1-vladimir.oltean@nxp.com/
-introduced the 10G Lynx SerDes driver with a reduced functionality set.
-Namely, only minor protocol changes are supported (1GbE <-> 2.5GbE).
-The major protocol changes need a procedure named RCW override,
-explained in more detail in commits 6/8 and 7/8.
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
 
-This series adds kernel and device tree binding support for RCW
-override, completing the SerDes PHY driver functionality.
+Add the fsl_soc_guts structure in order to pass information like base
+addresses, endianness etc between the init time and the runtime
+operations (RCW override) which will get added in future patches.
+There is no point in mapping and unmapping the DCFG CCSR space every
+time we need to make a read, just map it once and keep its reference in
+this new global struture.
 
-Two components are involved:
-- drivers/soc/fsl/guts.c (binding is fsl,layerscape-dcfg.yaml) - Device
-  Configuration Unit, this is API provider for the SerDes driver to
-  request RCW override depending on SoC
-- drivers/phy/freescale/phy-fsl-lynx-10g.c - SerDes PHY driver, this is
-  API consumer
+Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+v1->v2: none
+---
+ drivers/soc/fsl/guts.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
-The guts driver probes on DCFG blocks from multiple Freescale SoC
-generations:
-- MPC85xx, BSC and QorIQ (PowerPC) are all covered by the
-  Documentation/devicetree/bindings/soc/fsl/guts.txt schema
-- Layerscape (Arm) is covered by
-  Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
-
-It is ultimately the same hardware block, just that (from what I can
-tell) the Layerscape nodes are also compatible with syscon, and PowerPC
-aren't.
-
-RCW override has only been validated on select Layerscape SoCs, so
-converting guts.txt to a PowerPC schema is out of scope for this
-series - we don't even touch that (just in case it gets asked).
-
-Using syscon to map the DCFG_DCSR register block in the Lynx SerDes
-driver instead of creating this guts <-> lynx API was considered, but
-because the RCW procedure is SoC-specific, it was ruled out for
-polluting the SerDes driver. The guts driver is all about SoC awareness
-anyway, and it offers some abstraction of all the gory details.
-
-Resending because Sashiko didn't run on v1 (it runs on linux-phy/master
-instead of linux-phy/next, and linux-next, used as fallback when
-applying to linux-phy/master fails, wasn't regenerated to include the
-Lynx 10G base patches at the time v1 was sent). There was a build
-failure on most arches except arm64 anyway, so it's good to have that
-fixed.
-
-Changes since v1:
-- add Conor's review tag on 6/8
-- update email addresses of DT maintainers
-- drop DT maintainers from explicit CC on patch 7/8
-- keep devicetree@vger.kernel.org CCed on entire series
-- include missing <linux/bitfield.h> in patch 7/8
-- namespace SRDS_PRTCL values for LS1046A and LS1088A, even if they are
-  the same. For LS1028A (not covered here) they are not.
-- prefix SRDS_CLK_SEL_{GMII,XGMII} with LS2088A_
-- reorder alphanumerically (LS1046A should come before LS1088A)
-
-Change log also in individual patches.
-
-v1 at:
-https://lore.kernel.org/linux-phy/20260611193940.44416-1-vladimir.oltean@nxp.com/
-
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-
-Ioana Ciornei (5):
-  soc: fsl: guts: use a macro to encode the DCFG CCSR space
-  soc: fsl: guts: add a global structure to hold state
-  soc: fsl: guts: add a central fsl_guts_read() function
-  soc: fsl: guts: make it easier to determine on which SoC we are
-    running
-  soc: fsl: guts: implement the RCW override procedure
-
-Vladimir Oltean (3):
-  soc: fsl: guts: make fsl_soc_data available after fsl_guts_init()
-  dt-bindings: fsl: layerscape-dcfg: define DCFG_DCSR region
-  phy: lynx-10g: use RCW override procedure for dynamic protocol change
-
- .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml |  15 +-
- drivers/phy/freescale/Kconfig                 |   1 +
- drivers/phy/freescale/phy-fsl-lynx-10g.c      |  24 +-
- drivers/soc/fsl/guts.c                        | 369 ++++++++++++++++--
- include/linux/fsl/guts.h                      |  20 +-
- 5 files changed, 393 insertions(+), 36 deletions(-)
-
+diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+index f87ee47c1503..a0a52a5603a5 100644
+--- a/drivers/soc/fsl/guts.c
++++ b/drivers/soc/fsl/guts.c
+@@ -106,6 +106,11 @@ static const struct fsl_soc_die_attr fsl_soc_die[] = {
+ 	{ },
+ };
+ 
++static struct fsl_soc_guts {
++	struct ccsr_guts __iomem *dcfg_ccsr;
++	bool little_endian;
++} soc;
++
+ static const struct fsl_soc_die_attr *fsl_soc_die_match(
+ 	u32 svr, const struct fsl_soc_die_attr *matches)
+ {
+@@ -187,9 +192,7 @@ static int __init fsl_guts_init(void)
+ 	const struct fsl_soc_die_attr *soc_die;
+ 	const struct fsl_soc_data *soc_data;
+ 	const struct of_device_id *match;
+-	struct ccsr_guts __iomem *regs;
+ 	struct device_node *np;
+-	bool little_endian;
+ 	u64 soc_uid = 0;
+ 	u32 svr;
+ 	int ret;
+@@ -199,18 +202,17 @@ static int __init fsl_guts_init(void)
+ 		return 0;
+ 	soc_data = match->data;
+ 
+-	regs = of_iomap(np, DCFG_CCSR);
+-	if (!regs) {
++	soc.dcfg_ccsr = of_iomap(np, DCFG_CCSR);
++	if (!soc.dcfg_ccsr) {
+ 		of_node_put(np);
+ 		return -ENOMEM;
+ 	}
+ 
+-	little_endian = of_property_read_bool(np, "little-endian");
+-	if (little_endian)
+-		svr = ioread32(&regs->svr);
++	soc.little_endian = of_property_read_bool(np, "little-endian");
++	if (soc.little_endian)
++		svr = ioread32(&soc.dcfg_ccsr->svr);
+ 	else
+-		svr = ioread32be(&regs->svr);
+-	iounmap(regs);
++		svr = ioread32be(&soc.dcfg_ccsr->svr);
+ 	of_node_put(np);
+ 
+ 	/* Register soc device */
+@@ -263,6 +265,8 @@ static int __init fsl_guts_init(void)
+ 
+ err_nomem:
+ 	ret = -ENOMEM;
++
++	iounmap(soc.dcfg_ccsr);
+ err:
+ 	kfree(soc_dev_attr->family);
+ 	kfree(soc_dev_attr->soc_id);
 -- 
 2.34.1
 
