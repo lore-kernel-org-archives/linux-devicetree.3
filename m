@@ -1,220 +1,178 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA38390219;
-	Fri, 12 Jun 2026 10:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85D9388E4B
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781261035; cv=none; b=gFscue5z28QBLs6FyP874CJdXLmyUHRx6hPhTH8L3BtO3c/yM/iukYPVIL7qJyqMbSJ+kxvHht/fm741CSb65NQSodAc/YRwjmpmuC9UbvU7Qfd+2JgS3JbzH0xCJ6dFkovfLXbiLdAu8YTXeLvAO1+zRkKGnGC5qvFy/N3K8+s=
+	t=1781261240; cv=none; b=mFinnb3JRuLPT1eW3MtK0mywGPqaVkkXkoXrKNNIuAlB7YzqN+P7s1hMRykpmL9iRiKEQholcefMmsnkCGL4G1SHiP1nEyKpl/pJ4MQpx2QXYcNhMWoVd2hhKqZjqxVxpOnd4fVsYmnCwvw6xrQdrRXVTotSD8VmneWeh2vMKgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781261035; c=relaxed/simple;
-	bh=F5dcDiD4LJuUQlgCPut/E2WG8SDpGWV9olfhiUg5X7o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LUPlLI3PA0TVZuLq8dOY/fG0ojxjonr0iF9S2krQ5cBVvP59HXfrUvJNadRnrR/O1ID6fFHKgfPj+NPb1/CIxfKVrvcX9jyexSK9tukgolTJI5Bo8YXbTsyjU9O/vD3PwSOLyjEtbI+3H6l2fLw89PdwARd3qUIKnomc8oyOXN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UjpMHCvQ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781261240; c=relaxed/simple;
+	bh=f8o/A6U7OoGeCow9Wv3qAA82ZXHwRJiMj5f6rOrMHew=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Mf0iSl5N68wjJ0APWte692BMKH6MKNwFWjkc+68HUscl1hS6Yk+4iPzZDu2ywbXpUhZ8B3EYe7G1UxSXJ89+S/p8/3NmAUOzQZ9loIGT2KiuJSnb4Sh+8C6kFyGgQenpcj1URlzMX8x86C//o1iADHvkpifh0x2OykuwLZT0ppE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=nJiW+VqX; arc=none smtp.client-ip=95.215.58.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UjpMHCvQ"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3749A497;
-	Fri, 12 Jun 2026 12:43:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781260998;
-	bh=F5dcDiD4LJuUQlgCPut/E2WG8SDpGWV9olfhiUg5X7o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UjpMHCvQ+jzTq1gAsaDygtz+EnTPnHOVkExle/ostJ+/2d0aMvVKqwh10WBcXYRDd
-	 mTh38ELH3SJ5Rt3+6mm2fejvDLonRSjWHJiqdyPCOuEAjYEPPU4WZXRIVVoddwtsWH
-	 MJcWFBrwmGinqpe+t/9j+gSB2jzTpBz7g2Z/3UHo=
-Message-ID: <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
-Date: Fri, 12 Jun 2026 13:43:44 +0300
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="nJiW+VqX"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-To: Conor Dooley <conor@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
- <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
- <20260515-fraying-trickle-7511a2eeaf44@spud>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260515-fraying-trickle-7511a2eeaf44@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1781261224;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuXWeaZUn4HHhcWHF5iQYvYctTIR6OtS7Xwvq7/7gzQ=;
+	b=nJiW+VqX35zVJOKKTD3RZfnVhXf37o0na34SuKhiD5lt8l9vWR0CHSOuZR+Ha0sdlnIjU/
+	+XAeMLl/FFzWb6Ur0lR4QtjRix/kE2NL+zwkBq3Ym3bvIVGLDiF6ZKcPwBxDL74bhk/tZS
+	YqBUrpJ3RfufAvEi+MSAoe3TwDx+GfSmp0uz5FbgkVBSw5HcvuZnwmdvWr3koNvyQGn/SS
+	U6mO/OlredwC8eDP9uO9YqU3EuHtQpfIgUFX10tjBIggJcWuWlkKsXdwmQYZE89D/y560N
+	8w2ZxsvcHLMt2KVmqR4lauCK3hbXtuoQAykouQkbI8FFOpzweX/kpsByQXZRfg==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 12 Jun 2026 12:46:57 +0200
+Message-Id: <DJ70EIJ98W7C.2GFDF1LGW816V@cknow-tech.com>
+Cc: "Diederik de Haas" <diederik@cknow-tech.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, <devicetree@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-usb@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Fix devices suspend freeze on
+ RK3568/RK3566
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Jonas Karlman" <jonas@kwiboo.se>, "Heiko Stuebner" <heiko@sntech.de>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Peter Geis"
+ <pgwipeout@gmail.com>, "Michael Riesch" <michael.riesch@collabora.com>
+References: <20260609154124.445182-1-jonas@kwiboo.se>
+ <20260609154124.445182-3-jonas@kwiboo.se>
+In-Reply-To: <20260609154124.445182-3-jonas@kwiboo.se>
+X-Migadu-Flow: FLOW_OUT
 
-Hi,
+Hi Jonas,
 
-On 15/05/2026 20:32, Conor Dooley wrote:
-> On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
->> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>
->> The Renesas DSC Display Stream Compression is a bridge embedded in the
->> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
->> 8k or 400 Mpixel/s .
->>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> [tomi.valkeinen: fix the example]
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
->> ---
->>   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
->>   1 file changed, 96 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
->> new file mode 100644
->> index 000000000000..2918d592732b
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> 
-> Filename matching the compatible please.
+On Tue Jun 9, 2026 at 5:41 PM CEST, Jonas Karlman wrote:
+> The EHCI/OHCI controller depends on clk_usbphy1_480m being enabled, or
+> the system may freeze when registers are accessed, i.e. during suspend
+> in ohci_suspend().
+>
+> Add the missing clk_usbphy1_480m clocks reference to EHCI/OHCI
+> controllers to ensure the clock is enabled when ECHI/OHCI registers are
+> accessed to prevent a system freeze.
+>
+> Fixes suspend pm_test issue with EHCI/OHCI devices due to the missing
+> clk_usbphy1_480m reference and makes following pm_test modes work:
+>
+>   echo N > /sys/module/printk/parameters/console_suspend
+>
+>   echo devices > /sys/power/pm_test
+>   echo platform > /sys/power/pm_test
+>   echo processors > /sys/power/pm_test
+>   echo core > /sys/power/pm_test
+>
+>   echo mem > /sys/power/state
 
-All the other Documentation/devicetree/bindings/display/bridge/renesas,* 
-files follow the same style, where the file name is in a generic format, 
-but the actual compat strings are per SoC (and no generic compat string).
+I did quite a few of ``echo mem > /sys/power/state`` while switching betwee=
+n
+the various pm_test options on my PineTab2.
 
-So is the fix here to just add "renesas,dsc" compat string (and perhaps 
-later fix the other binding files too)? I'd rather not name this file 
-"renesas,r8a779g0-dsc.yaml".
+On my 7.1-rc7 kernel without this patch that resulted at some point in endl=
+ess
+'rk_iommu' errors and the only way out of that was a hard power down via th=
+e
+power button.
+On my 7.1-rc7 kernel with this patch, I have not been able to trigger such =
+an
+issue. Over multiple boots.=20
 
-> 
-> pw-bot: changes-requested
-> 
->> @@ -0,0 +1,96 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Renesas R-Car DSC Display Stream Compression
->> +
->> +maintainers:
->> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
->> +
->> +description: |
->> +  This binding describes the VESA DSC Display Stream Compression encoder
->> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
->> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
->> +
->> +properties:
->> +  compatible:
->> +    const: renesas,r8a779g0-dsc
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  power-domains:
->> +    maxItems: 1
->> +
->> +  resets:
->> +    maxItems: 1
->> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: R-Car DU input port
->> +
->> +      port@1:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: R-Car DSI output port
->> +
->> +    required:
->> +      - port@0
->> +      - port@1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - interrupts
->> +  - power-domains
->> +  - resets
->> +  - ports
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/power/r8a779g0-sysc.h>
->> +
->> +    dsc@feb8d000 {
-> 
-> Speaking of fixing the example, should this not be "decoder" or
-> "bridge"?
+So feel free to include my
 
-Indeed, bridge or encoder. Both seem to be used in the existing bindings.
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>
 
-  Tomi
+FTR: I'm still able to trigger resume issues, so more is needed to make my
+original tests [1] succeed as well. But I always suspected there were sever=
+al
+issues at play including the display pipeline.
+It looks like this patch fixes at least one of them.
 
-> Not a big deal though.
-> With the changed filename
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> 
-> 
-> Cheers,
-> Conor.
-> 
->> +        compatible = "renesas,r8a779g0-dsc";
->> +        reg = <0xfeb8d000 0x400>;
->> +        interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
->> +        clocks = <&cpg CPG_MOD 2819>;
->> +        power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
->> +        resets = <&cpg 2819>;
->> +
->> +        ports {
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +
->> +            port@0 {
->> +                reg = <0>;
->> +                dsc_in_dsi1: endpoint {
->> +                    remote-endpoint = <&du_out_dsi1>;
->> +                };
->> +            };
->> +
->> +            port@1 {
->> +                reg = <1>;
->> +                dsc_out_dsi1: endpoint {
->> +                    remote-endpoint = <&dsi1_in>;
->> +                };
->> +            };
->> +        };
->> +    };
->> +...
->>
->> -- 
->> 2.43.0
->>
+Thanks :-)
+
+Cheers,
+  Diederik
+
+[1] https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/31265
+
+> Fixes: 91c4c3e06a25 ("arm64: dts: rockchip: add usb2 nodes to rk3568 devi=
+ce tree")
+> Fixes: 78f7186095db ("arm64: dts: rockchip: rename and sort the rk356x us=
+b2 phy handles")
+> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index a5832895bd39..c930a6fd6ea0 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> @@ -321,44 +321,44 @@ its: msi-controller@fd440000 {
+>  	};
+> =20
+>  	usb_host0_ehci: usb@fd800000 {
+> -		compatible =3D "generic-ehci";
+> +		compatible =3D "rockchip,rk3568-ehci", "generic-ehci";
+>  		reg =3D <0x0 0xfd800000 0x0 0x40000>;
+>  		interrupts =3D <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
+>  		clocks =3D <&cru HCLK_USB2HOST0>, <&cru HCLK_USB2HOST0_ARB>,
+> -			 <&cru PCLK_USB>;
+> +			 <&cru PCLK_USB>, <&usb2phy1>;
+>  		phys =3D <&usb2phy1_otg>;
+>  		phy-names =3D "usb";
+>  		status =3D "disabled";
+>  	};
+> =20
+>  	usb_host0_ohci: usb@fd840000 {
+> -		compatible =3D "generic-ohci";
+> +		compatible =3D "rockchip,rk3568-ohci", "generic-ohci";
+>  		reg =3D <0x0 0xfd840000 0x0 0x40000>;
+>  		interrupts =3D <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
+>  		clocks =3D <&cru HCLK_USB2HOST0>, <&cru HCLK_USB2HOST0_ARB>,
+> -			 <&cru PCLK_USB>;
+> +			 <&cru PCLK_USB>, <&usb2phy1>;
+>  		phys =3D <&usb2phy1_otg>;
+>  		phy-names =3D "usb";
+>  		status =3D "disabled";
+>  	};
+> =20
+>  	usb_host1_ehci: usb@fd880000 {
+> -		compatible =3D "generic-ehci";
+> +		compatible =3D "rockchip,rk3568-ehci", "generic-ehci";
+>  		reg =3D <0x0 0xfd880000 0x0 0x40000>;
+>  		interrupts =3D <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
+>  		clocks =3D <&cru HCLK_USB2HOST1>, <&cru HCLK_USB2HOST1_ARB>,
+> -			 <&cru PCLK_USB>;
+> +			 <&cru PCLK_USB>, <&usb2phy1>;
+>  		phys =3D <&usb2phy1_host>;
+>  		phy-names =3D "usb";
+>  		status =3D "disabled";
+>  	};
+> =20
+>  	usb_host1_ohci: usb@fd8c0000 {
+> -		compatible =3D "generic-ohci";
+> +		compatible =3D "rockchip,rk3568-ohci", "generic-ohci";
+>  		reg =3D <0x0 0xfd8c0000 0x0 0x40000>;
+>  		interrupts =3D <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>;
+>  		clocks =3D <&cru HCLK_USB2HOST1>, <&cru HCLK_USB2HOST1_ARB>,
+> -			 <&cru PCLK_USB>;
+> +			 <&cru PCLK_USB>, <&usb2phy1>;
+>  		phys =3D <&usb2phy1_host>;
+>  		phy-names =3D "usb";
+>  		status =3D "disabled";
 
