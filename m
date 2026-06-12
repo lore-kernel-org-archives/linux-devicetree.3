@@ -1,106 +1,124 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EEB305684
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:49:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F9D3E1736
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781250564; cv=none; b=YAS7WHzT2V8A7z6HhlnbuZJmhjbSOrK+DSRSTBhoUPgwCt1TVgXaMdjHLOXaYbaJaRcUNDBhFvOS3G50JmIiEVKFw+zm2Mf4AIYAxXjZGyuJowi1lsy+LMKI8w5pwQaOh8xfAVOjTxSwKAviHxVRga/TrlL+yyCk3JPVU+F6XTk=
+	t=1781250656; cv=none; b=lXkM6Yw4LuGjBiLmt1d/4zNgVYwAB7PDjeCKmrhensfmlJt6gW2GgC0uS9PMG8HOIsgyXb4Ti6AM9ip5Gi3sRRM+RFXw+uybQBrKe6GooefbUdP4Pv2CYd1odUc+BOOPHz5i1/jqvAFWASkkofdHyGHKIV0fJLr2gjCqIZWsO+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781250564; c=relaxed/simple;
-	bh=oSClFw1N6Pzc5mrZzt83o6RTRpl1h132KUxpmGTz/i0=;
+	s=arc-20240116; t=1781250656; c=relaxed/simple;
+	bh=XtBD7I/wcbfYFMlmpNh0CZUl/vymWdbw1dvgjEpRpE4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P3TQcy52N0P9nWOs+sgi34qz2n9fcD2/CMkoiNEEXgLMTBSFyg1HL7Ot0Bh4kNRSOuFAQCeN8vZFp4x5E9zHFq0/kS87pVfdpjkE4EfGis4dtEJg4pxYlwKJQPbyvc3N/RcM4Ydmdvr64rBggmkew43+5FaGNa55SLM8gvYjbZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZFsBO8at; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SjFV5NwR; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=FIu/P9QMtxuflLbM09aSU8VxSZRS/kx3t3hDwVoUdcESfQ4ui9DNb10tRn7VKa0NmJps6Il5qx9Cs3I3Rxf12lNf/uBbxgpJXgjalpjo4rB4KgFMgiXfTvDPn3nb7p5n5/5FUWmGNfKLH+n7Nz/JedaBOg5yRI1eXVf3511pTn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I5SEIU8T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b/fD+se7; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZFsBO8at";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SjFV5NwR"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C3Brfo2506213
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:49:22 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I5SEIU8T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b/fD+se7"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C3Bq2Q2534329
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:50:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	C4AA/oGx5sqKMDcm3WaPRz10s2TG42Ep0EEBjqj7wU8=; b=ZFsBO8atIgbiQHfi
-	CmpJ7BufwbkUat8DmbBUny5rzWMpaaHG9SJkuDKjGTWN9fz8I+175yEdfvVNOl3J
-	Zk7S52nxRpHgRe+utf+b87quHTG2oqrVyN75D53aVcvfdPUZDHKuRr3I1jG7OBLT
-	efj44OHpnd8rdUBXye49gqmLO3Z2sfW2AC7fIIjkans3ftM+BdMxt2eiY4TVCzBp
-	v4raRXmY4P31oK1ejEjDo6bS7M9dONpj/jXTHKAXw4veQKi6i9G+1whZKm3wKkxS
-	XwgEhRRINkPdx57os3waUm87m9TovNncbVDwSh/F1D0gdHRb9MyRg1xxw7UTPs/e
-	yGqimw==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er1cbjkkt-1
+	zFFhwvPhE9ToJAkALCoRS5tzqSMrukK5siAZ9HiB+88=; b=I5SEIU8T6owUNrWo
+	7lurTImZJii/gc5Mf0jzvxW7UqhsFA5cVrnBaqFBPSjaY06gqzKZTB+4SdfruYUC
+	kMYRJEE3l52lRmxqI+W3GSv5/WouxM3m1tAt5AM+nxQXr5i0zBRHk3Jtkp2v9RYV
+	Yscf3ql3ztSfnVNMFMLjEtU/wfTrGL2L7DZstLvXHQdNyMbzbvEYHyU09ZBiit8C
+	B8HIjZjsKXjLkJN82bcUSfA2Ebu32GssC2VGL3oepHtcMH70SmyWRs5VJbLr4/WQ
+	BoayNG+aQYgmnPJlmquSgnd7HWQ/vzksBMqZcUaqZw5vYpv0TIKZ7laa0ne5UkSY
+	GiEFuw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er76eh56u-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:49:21 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6a2b8b91dc5so252076137.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:49:21 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:50:49 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-963b744b61cso653790241.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:50:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781250561; x=1781855361; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781250649; x=1781855449; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=C4AA/oGx5sqKMDcm3WaPRz10s2TG42Ep0EEBjqj7wU8=;
-        b=SjFV5NwRtOtTsbxM6IJr3ehgW1KzkT0A8qZsLC/Tw7vDHcLIk9Fb5XR4V1wTbai7Pe
-         GbNGD3Zq1HlAwidHqj3mhPt27M+A7ooLkOHxkar1hm0bBgmvKoi0OjF2v5fGteqSveHQ
-         Dg6TguXIAHx7ayv7to2QdFfJLKA29jdZV81hKFlBRPgfIOEfKWr4xAp+5l8bbJjK8ACV
-         XiHACFHwwQluHtjcn9l+fyoIecsQ09GHSCP/BwQ5SSdR7X//ZrjfUEM6ckn1ZXk9wB38
-         ZXlPjRSw25mAW/3T0peqitmVPawDkFsFUKMkPtkXhWrZnNoRoCamlZAWN2EJfmfqVIUG
-         ZKAw==
+        bh=zFFhwvPhE9ToJAkALCoRS5tzqSMrukK5siAZ9HiB+88=;
+        b=b/fD+se7Furt1IGKi47J9FXtXkcYT1hzxe+1xtiODsTad9jB+6NZCeTer2UT9CRjdV
+         ymWcbuFwpih/OyywB1SX22PSM+IJozgNO43zEjPT+NwV/5eIB0EW+z4WtpUcldrxfyFN
+         mNyvsDeo4ua0uCOTqgSFM2dXlU71flYbdoMBT1vFSAVLp4LCCGqMWu0uS5oOugJW2yd6
+         RuLrSWqI/cQk2QDeX/0llUkP4OC65grntKgR5kkHPzZHXvWQ/WXgH91y2a3UOT0qYQuW
+         xa5u67gGOBAOs1JwgQaLGvy6/E5EgoPx8D7UioESfylwF84ytmcO+YFaOhAvJP2mVWnN
+         Q1rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781250561; x=1781855361;
+        d=1e100.net; s=20251104; t=1781250649; x=1781855449;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=C4AA/oGx5sqKMDcm3WaPRz10s2TG42Ep0EEBjqj7wU8=;
-        b=aOhEc+R0aTPkQ+wt1i41a6IRTUMHy7+UeHD18rt7QZcnVLvT9ZJ3mS4XEXkqn33Kj3
-         hkhDInLKS2jTVp060CjNDLZDK8fzld/0iv2baPsozCByNLP0dkcODKQpC3vjTSjO8R8r
-         YBUQF3SgQFgKKPXs8Xawls5bw8Zw0E5sixmggbVc+kFcXq5oiYvno9+13muv6epikfcw
-         2TAUZ9PjlSYdovtkRN6YS6YQcy7TV4gd8sK31ct7F8ZruD9eO2o4wvGrjdwACZM65X4q
-         f26kv0YnVdZgIVvgXlA4YbtNjVa3w7ffDQlc35CzAgQ6dSOOJaah1Naw715tzfqMToEJ
-         5blg==
-X-Forwarded-Encrypted: i=1; AFNElJ+o6d3kSJ8Kb6vokftSXcmFihkxxBfHPzjLta3Dh7KYLF9mTvspTV236Vneglw/Z1vDfFDOAsppxctH@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUZIAaXX6d0+ZMXnsmYMu2H+q9jQc0rSAoEmooGmJe1Da1w3zK
-	nEaiku+YuNAK0XVgo1PzI01feASdg/ceQkMUq3VxnA37XsJdDE5+h4P9h8au1cAWyuD5dqAfeP8
-	NN+ZhW8dfb83aSoov8OxdWbUEaqfeuyjRN+wUG5i5dza5EVvLqN9wAy5X43hH0E15TpVpFhDg
-X-Gm-Gg: Acq92OGshytJ5wWfeuO9/vEO9+/3wnrci9eeYruwUU7AmoymT348fEoPA6OH0pAhvNR
-	jcdBfJEkOk4PMRWpwTKkPnymcOqj8l0Z3gYc7v51CAly5fMjFlw/s38WK7aCPNAsJmhKiGptD2N
-	1V6b1yV4PSbNzaGFQ6Kj1VhCc4sEr3UGrzj73OhicDQz39fqR4C2Fd4Gqs80HnYnFMyQFmTAaPD
-	sJ+x6Gpy3Sm/AkA1mhPU/gN2CDr3iBcqtV+Vf75q7SKCzqDYnoKFqmIV5jymoo1mrbZ/A2Vmn+D
-	SQUe8TCtFRb6FlS+XAysMtd4vNMr5W9J58N23hhY3Lhz9phdSLLT5wlV6fEpmGHmju/UubVox46
-	2L25mkiF/QehZ0rGAy/oYDw5VbbYsF1dKX0JVGDiO8qdY2CjWA8U+L9rOObUXkOqeJKSBBMC5z3
-	hiR7RBZ1YT+lNsIsklZ/njwr+QL30EAfejX68=
-X-Received: by 2002:a05:6102:644b:b0:631:4cd8:b6aa with SMTP id ada2fe7eead31-71e88c54814mr544151137.13.1781250561320;
-        Fri, 12 Jun 2026 00:49:21 -0700 (PDT)
-X-Received: by 2002:a05:6102:644b:b0:631:4cd8:b6aa with SMTP id ada2fe7eead31-71e88c54814mr544139137.13.1781250560921;
-        Fri, 12 Jun 2026 00:49:20 -0700 (PDT)
+        bh=zFFhwvPhE9ToJAkALCoRS5tzqSMrukK5siAZ9HiB+88=;
+        b=TQyQNWsnqM3OwoRr/RULOXaiAmU+5vpih1FqtTVMPyaSeokNoGM0Z/qBoGf5c0RiqD
+         FaqfAf4gmLMj0r5B8Ct9LfvVEfiuRB6bOaYqtLjca9VU5seuvpYug+yorzMQ2eK+aT+n
+         pbvXD22lPA5Qz4h8Qn4JOSEm2S5r6rvaokmYnl68lGbc/IPTOAIX17u1/XDKaVk8plXK
+         rwZgWQfE+f7QFM/rHwK3YUaPwi6o17Xkv7zv8UmDtPNWotI6by2/QpBIf3uDt5zjmFoV
+         5d9l1zGoE7JB+uPoGwDkynn7ly3FPAz7on4ShKmVnmlovifJ2s9nnZ9jqHFBoOXb0N4u
+         Ga4g==
+X-Forwarded-Encrypted: i=1; AFNElJ8fBlyoyFpscZ88Vj2ecOC1QFnf0cElKnbu1F3qQdecj8JnDYB300fSfHpgIwF2zpeUfRx0Pn9+y1kl@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbfM1CUB0PiPpD1na3eALWdU/4414Q5dqpLpIVFuS1YAdTCpUl
+	p96Mkn7z8emN/2ljQ9i/Z4RZA/gD2Edcs56R0ikMOO1ZI1Djhbun/ZPMkV+j3rjhwW0R3Q1vO15
+	L1NiHfjzWUvH6zgPoJOTGy8RqHg6beMCbZGKU89g1CXe5YBSfzps1cbzI58C8MwWK
+X-Gm-Gg: Acq92OGs3vvuSUKzKBy5J7ZjYKybjn6PFRRmQVdDbT4IknujnFvzk6TJ0zVDXux2Sb1
+	lbiIzF/ztAlqCDl/49JZFRpmZoBwxwBZv9ltgOwJP2Sqt/Av+6KSOIpmTkTomtBFDKPyOhQwals
+	6G59agwU8a9fwRU5VzHORX2/Pw9WhWVsZ7nhU6suYNrdQuZ+4SsKaUP8A0OSyyCR7ADYhPdOZXA
+	dRPBUUcKc6HXnUqQI/NSom7pv3twlvAQWJW4jDWPw5o8A25Saa0qDUgnyBgeuEugkvIz0w/tADZ
+	X1BfTnJqy/DUgoRQxPeAx2wxH5u8e6Y/YHRtiLGBsSbpokQ52mra+bWAABV5IJur/zP0Y8z82pw
+	1TZXsx2FpCJ+88+/SDpEh+f4o74rnPWB6DavZT7TAvu9vJFi2YoUqFuOUxPi5QioTLl+6HZZEpp
+	CXheh9NQKZiJk/pE3dwdyjf5p/EA1ayn74lBE=
+X-Received: by 2002:a05:6102:5e88:b0:631:4580:6a46 with SMTP id ada2fe7eead31-71e88c4f8c1mr731846137.17.1781250648994;
+        Fri, 12 Jun 2026 00:50:48 -0700 (PDT)
+X-Received: by 2002:a05:6102:5e88:b0:631:4580:6a46 with SMTP id ada2fe7eead31-71e88c4f8c1mr731821137.17.1781250648555;
+        Fri, 12 Jun 2026 00:50:48 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929c4aa1asm4324521fa.10.2026.06.12.00.49.18
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929c6c9f7sm3928361fa.18.2026.06.12.00.50.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 00:49:18 -0700 (PDT)
-Date: Fri, 12 Jun 2026 10:49:16 +0300
+        Fri, 12 Jun 2026 00:50:47 -0700 (PDT)
+Date: Fri, 12 Jun 2026 10:50:44 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Mark Pearson <mpearson-lenovo@squebb.ca>,
         Rob Herring <robh@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nicolas Schier <nicolas.schier@linux.dev>,
+        Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        "Derek J . Clark" <derekjohn.clark@gmail.com>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,qcm2290-venus: document
- shikra Iris compatible
-Message-ID: <q3sr74ncqnmzsjrd6jdbkpplxpnsnifhnvxsdplvogr2kf25p3@taadnzd2qrcu>
-References: <20260609-shikra_vpu-v1-0-3a32bb38b080@oss.qualcomm.com>
- <5YTsRTMAUGw0it3GAWHhKIh77_Hk823-xRJ4WxzQ-ENpdnC9-ttUvWhJI_CqFEetmFXcRel50GK_o2UMGzwZmg==@protonmail.internalid>
- <20260609-shikra_vpu-v1-1-3a32bb38b080@oss.qualcomm.com>
- <f793c665-ac99-4afe-a64b-bbd6d40044e5@kernel.org>
- <bc9a8075-db42-4de1-a3cc-4f6816681290@oss.qualcomm.com>
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bartosz Golaszewski <brgl@bgdev.pl>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+        "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        linux-pm@vger.kernel.org,
+        "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>
+Subject: Re: [PATCH v6 6/9] dt-bindings: connector: m2: Add M.2 1620 LGA
+ soldered down connector
+Message-ID: <ttik5qwtbdqgtuu2hsnqsuok75ofs5itlnkzevawazw7lckuem@l5ogmc4b4u42>
+References: <CAL_JsqJXrHCJt770bJkMmAUhirSF3kHjYwSzkG7cXp7-eys8Rg@mail.gmail.com>
+ <6aef3xxjjd4nbgrfx6jc6jt6rpqmttoui6hil5zqgdpas2j6gj@ie6j72orenou>
+ <fsvmmgoe5wslmxebhrrwmdg2ldcmhzvj53gjkdfnfg2m2rz2lw@dcfboaakz7ae>
+ <bguhzabwryayyqkv4ilzwr3ixwv6bzxncblo3ircz2wm3fs52k@66zvcrfcb4oe>
+ <blhm4csjyw6r667cleljgzd6rpwagttjo5rau7wjrlnjakq2qm@ekyhc4jvwmwf>
+ <m44mupdmg7kgco62n4evcviagqo7wwgyt3gybugbxwesd4ekjz@o24r6v4tpezc>
+ <3faffec9-dc9d-4eec-a652-a84d30d85c96@app.fastmail.com>
+ <cvqdbqnzjmzoowxkvz2lyv4avropu5jw7h2r6zng3ecf245hgg@fsysjqflqd35>
+ <acv2f1qbqu4PlSL1@linaro.org>
+ <eftahohsx3bbvmgxuciofjjcrybnsm2qc752hwyt65rb2uwaon@h32nh5fcpo7p>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -110,93 +128,159 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bc9a8075-db42-4de1-a3cc-4f6816681290@oss.qualcomm.com>
-X-Proofpoint-GUID: 5hDLQVwvX0a8oIAOnFWRCAptrg71DsQ-
-X-Proofpoint-ORIG-GUID: 5hDLQVwvX0a8oIAOnFWRCAptrg71DsQ-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA2OSBTYWx0ZWRfX+6EaYiXkrgUo
- LI75jQTRYJRdVKK+BL7aZvsm72nIY7hWyAxhH6mQy2p7Mtek4G4gX9815t3ZcndZNfn32bU+9gR
- HLRYRF+NGBIMcZmEeIrDpf7xSqkUWF8=
-X-Authority-Analysis: v=2.4 cv=S57pBosP c=1 sm=1 tr=0 ts=6a2bba01 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <eftahohsx3bbvmgxuciofjjcrybnsm2qc752hwyt65rb2uwaon@h32nh5fcpo7p>
+X-Authority-Analysis: v=2.4 cv=O94Jeh9W c=1 sm=1 tr=0 ts=6a2bba59 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=yW9dRt1GCuxPZAtmE0gA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA2OSBTYWx0ZWRfX+7YjUCjJlEm/
- pQq5+z5fjERbxvfKDjmwwKsu9jznhWvdiCxgoU77cR8za4IdCr9uJjzLUFwiMjJp90S+hkxytzs
- KSc+J2NIi7Lzy6KgOfFevp7mSrZtSzRgV88uP8m+9cB3N9dSWffoZHCrZDt1AkSwJ/cX7CwKUVB
- wMUS9WgcsAeAuAGauGHN6JZExjllnb7D8pXw9OC66BZzxZBcS05baVpYvo6nwn7Coy5+5Enim/9
- nIYdIE0Hxml/Kj/lzpDFEWTKNF2J3UKr3ge/uSIsxV3dycCd3nndM8nFMjoQ3ONc9N3+Xex5GQj
- 1FPbtjNIQX2SsuaIX6xTS+OKJIFRowhUofkEdxQgMUcU3WWGuRs/p6N0b0hTsTQHei0fp53WhEQ
- nMfS4zTKr/iROoJLaB7qv2q2LJ0XEmSguvUc+9InAMHL9x3cy1w9jdtQMtGmvbQJgazLPIkHr1Q
- A1Dw46H4/E6ndmqtafw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=GUbesZiWAAAA:8
+ a=VwQbUJbxAAAA:8 a=XDz2VUyccH_bepKxGScA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22 a=-cUrBSrepuC47jtK_ZRV:22
+X-Proofpoint-ORIG-GUID: e462uh0zBVUXmY1sg494j1eINAU_6vyv
+X-Proofpoint-GUID: e462uh0zBVUXmY1sg494j1eINAU_6vyv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA2OSBTYWx0ZWRfX+klVJIsi6U15
+ VNAtjYztyRl4Yyl4EEvfoSzLWp2v5GB8UhSfY+A2uzn/C9WhPBBSgWCb5mCRlry/b2ckXDgfY2x
+ NERiGZFFbyyBNL6/JXlFYTm3p7I3HP3RdpPtr7odklPUZsULL/IwV0SyoFkXs+DfUTPXZNwXblp
+ nMdcOc0sddOCEJNeW4LPG+WNI3WMMTtYFq9OjXqQaqgInzS1jg1PFM5ImKhepW9wMqJ5s3de2w0
+ tNpB8hM8LMz2NzKUGC7Ukm2NsoqgyC6yVgZnOyS3UbEiZijYEuzY72UBBv22yNPnIgalAIYNsi4
+ WfCSOrjdS+lTXeWiaZU76aE6kZg5TSTf21NE5vqPVZEroVKbkDxGdoe6GoHHD/rB3Q7fbxwh5Gh
+ BhUfoV2wLn/09vc4hU59I5s+Sii0g7Co2aFzMLmZE+gCJTEaZpjNOQjBIh5KLAXOsoXnLZxni9e
+ iSXOdMchqlfofQa2JIA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA2OSBTYWx0ZWRfX/QUUxPNfs9ze
+ Ms/XtO8Hn+nITllXQh6eSlRPcnlI3pX/ovyhz2BbU71CU0BbpuX6mHl7dDVJADInCvIKADxdIv2
+ 42mlzEXTPNkH7oMl1mW0b/Htwoj9uwU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 phishscore=0 bulkscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
  definitions=main-2606120069
 
-On Wed, Jun 10, 2026 at 01:20:59PM +0530, Vikash Garodia wrote:
-> 
-> On 6/10/2026 2:07 AM, Bryan O'Donoghue wrote:
-> > On 09/06/2026 17:15, Vikash Garodia wrote:
-> > > Document the iris video accelerator used on shikra platforms by adding
-> > > the qcom,shikra-iris compatible.
+On Wed, Jun 10, 2026 at 06:44:59PM +0200, Manivannan Sadhasivam wrote:
+> On Tue, Mar 31, 2026 at 06:29:51PM +0200, Stephan Gerhold wrote:
+> > On Wed, Mar 25, 2026 at 05:36:08PM +0530, Manivannan Sadhasivam wrote:
+> > > On Mon, Mar 23, 2026 at 01:23:07PM -0400, Mark Pearson wrote:
+> > > > On Mon, Mar 23, 2026, at 12:52 PM, Manivannan Sadhasivam wrote:
+> > > > > On Mon, Mar 23, 2026 at 06:45:15PM +0200, Dmitry Baryshkov wrote:
+> > > > >> On Mon, Mar 23, 2026 at 09:26:04PM +0530, Manivannan Sadhasivam wrote:
+> > > > >> > On Mon, Mar 23, 2026 at 05:14:30PM +0200, Dmitry Baryshkov wrote:
+> > > > >> > > On Mon, Mar 23, 2026 at 07:14:25PM +0530, Manivannan Sadhasivam wrote:
+> > > > >> > > > On Mon, Mar 23, 2026 at 08:39:55AM -0500, Rob Herring wrote:
+> > > > >> > > > > On Mon, Mar 23, 2026 at 7:16 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> > > > >> > > > > >
+> > > > >> > > > > > On Sun, Mar 22, 2026 at 06:37:13PM -0500, Rob Herring wrote:
+> > > > >> > > > > > > On Tue, Mar 17, 2026 at 09:59:56AM +0530, Manivannan Sadhasivam wrote:
+> > > > >> > > > > > > > Lenovo Thinkpad T14s is found to have a soldered down version of M.2 1620
+> > > > >> > > > > > > > LGA connector. Though, there is no 1620 LGA form factor defined in the M.2
+> > > > >> > > > > > > > spec, it looks very similar to the M.2 Key E connector. So add the
+> > > > >> > > > > > > > "pcie-m2-1620-lga-connector" compatible with "pcie-m2-e-connector" fallback
+> > > > >> > > > > > > > to reuse the Key E binding.
+> > > > >> > > > > > >
+> > > > >> > > > > > > What is LGA?
+> > > > >> > > > > > >
+> > > > >> > > > > >
+> > > > >> > > > > > Land Grid Array
+> > > > >> > > > > >
+> > > > >> > > > > > > If not in the spec, is it really something generic?
+> > > > >> > > > > > >
+> > > > >> > > > > >
+> > > > >> > > > > > Good question. Yes and No! LGA is not something that Lenovo only uses. Other
+> > > > >> > > > > > vendors may also use this form factor. PCIe connectors are full of innovation as
+> > > > >> > > > > > the spec gives room for hardware designers to be as innovative as possible to
+> > > > >> > > > > > save the BOM cost.
+> > > > >> > > > > 
+> > > > >> > > > > innovation == incompatible changes
+> > > > >> > > > > 
+> > > > >> > > > 
+> > > > >> > > > Yes, I was trying to sound nice :)
+> > > > >> > > > 
+> > > > >> > > > > > This is why I do not want to make it Lenovo specific. But if you prefer that, I
+> > > > >> > > > > > can name it as "lenovo,pcie-m2-1620-lga-connector".
+> > > > >> > > > > 
+> > > > >> > > > > Depends if you think that s/w needs to know the differences. Hard to
+> > > > >> > > > > say with a sample size of 1.
+> > > > >> > > > > 
+> > > > >> > > > 
+> > > > >> > > > Sure. Will add the 'lenovo' prefix then.
+> > > > >> > > 
+> > > > >> > > Is it really Lenovo? Or is it some other module vendor, whose LGAs are
+> > > > >> > > being used by Lenovo?
+> > > > >> > > 
+> > > > >> > > I remember that DB820c also used some kind of a module for the WiFi card
+> > > > >> > > (which might be M.2 compatible or might not, I can't find exact docs at
+> > > > >> > > this point).
+> > > > >> > > 
+> > > > >> > 
+> > > > >> > I don't know. These kind of designs might be reused by several vendors. But
+> > > > >> > considering that we should not make it generic, I'd go with Lenovo as that's
+> > > > >> > the only vendor we know as of now.
+> > > > >> 
+> > > > >> ... and later we learn that other vendors use the same idea /pinout,
+> > > > >> then nothing stops us from still telling that it's a
+> > > > >> "lenovo,pcie-m2-something-lga". 
+> > > > >> 
+> > > > >
+> > > > > How do you possibly know whether a single vendor has introduced this form factor
+> > > > > or reused by multiple ones? Atleast, I don't have access to such a source to
+> > > > > confirm.
+> > > > >
+> > > > I've not really been following this thread/patchset in detail; but want me to try and check with the T14s platform team if this device is specifically made for us (Lenovo) or not?
+> > > > I doubt it is - we just don't do that usually, but I can go and ask the question if it will help resolve this (with the caveat that it could hold up the review for a bit and I may not be able to get a straight answer)
+> > > > 
 > > > 
-> > > Although QCM2290 and shikra share the same video hardware and overall
-> > > integration, their SMMU programming differs. QCM2290 exposes separate
-> > > stream IDs for the video hardware and the Xtensa path, requiring two
-> > > explicit IOMMU entries, whereas shikra uses a masked SMR to collapse
-> > > equivalent stream IDs into a single mapping. Due to QCM2290’s SID layout
-> > > and Xtensa isolation requirements, such SMR masking is not applicable on
-> > > QCM2290 platforms.
-> > > Since shikra uses the same video hardware as QCM2290 and shares the same
-> > > programming model and capabilities, it is added as a fallback compatible
-> > > to qcom,qcm2290-venus, with conditional handling to allow either one or
-> > > two IOMMU entries.
+> > > I can drop this specific patch in the meantime.
 > > > 
-> > > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> > > ---
-> > >   .../bindings/media/qcom,qcm2290-venus.yaml           | 20
-> > > ++++++++++ ++++++----
-> > >   1 file changed, 16 insertions(+), 4 deletions(-)
+> > > > My vote (for what little it's worth) would be to make it non-Lenovo specific. Then when the same part causes issues on another vendors platform I won't get asked questions about why Lenovo is breaking <other vendor> :)
+> > > > 
 > > > 
-> > > diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-
-> > > venus.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-
-> > > venus.yaml
-> > > index 5977e7d0a71b4fb5681f1c2094439c251366f01f..895533b9756690d075fd7729e3f805c8e72ff0df
-> > > 100644
-> > > --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> > > +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> > > @@ -15,12 +15,27 @@ description:
+> > > Even if Lenovo prefix is used, it won't break other vendors. Just that we will
+> > > end up adding more compatibles.
 > > > 
-> > >   allOf:
-> > >     - $ref: qcom,venus-common.yaml#
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: qcom,shikra-iris
+> > > Anyhow, I'll wait for your reply and drop this patch for next revision.
+> > > 
 > > 
-> > Should this be "iris" in a venus yaml ?
+> > If you need a vendor prefix, I think "qcom," would be more appropriate
+> > than Lenovo. This form factor is used by most vendors for recent
+> > soldered Qualcomm-based wireless cards, not just Lenovo:
+> > 
+> >  - Dell XPS 13 9345 has exactly the same soldered M.2 card, I assume
+> >    there are several other vendors as well.
+> > 
+> >  - https://www.sparklan.com/product/wnsq-290be/ is a third-party
+> >    (Qualcomm-based) M.2 LGA 1620 card, in the block diagram the
+> >    pinout is called "QM.2 1620 LGA 168pin".
+> > 
+> >  - If you press F9 while booting the ThinkPad T14s, you should get to a
+> >    screen with "Regulatory Information". For the T14s, this screen says
+> >    "Contains FCC ID: J9C-QCNCM825". This is the WiFi/BT module in the
+> >    soldered form factor. If you look that up on the FCC website, the
+> >    applicant for this module is "Qualcomm Technologies, Inc.". This
+> >    seems to be some kind of "modular certification" that vendors can
+> >    reuse/adapt without going through the whole process again.
+> > 
+> > Perhaps you should ask around inside Qualcomm? :-)
+> > 
 > 
-> given the vpu core was first enabled on venus and now it same core on a
-> different SOC being enabled on iris. There are 2 ways to do this
-> 1. Add the compat to existing schema which defines the binding for that core
-> i.e existing patch
-> 2. Write a new schema (or say duplicate it) with ...shikra-iris.yaml, but
-> again, the shikra compat would fallback to "qcom,qcm2290-venus" compat.
-> hence even iris yaml would then need to carry the venus *string*.
+> Sorry for getting back after this long. I did ask around, but our HW folks are
+> saying that Qcom is not the first one to use LGA M.2 modules. They claim that
+> other vendors also do that.
+
+I think, the idea was that there is no single standard for LGA modules
+(please correct me if I'm wrong, I haven't checked the latest PCIe
+standards).
+
 > 
-> I followed the first option.
-
-It is a correct approach. However the block should not be called Iris.
-If I remember correctly, the core is still named Venus.
-
+> But for this specific card, it should be fine to use the 'qcom' prefix as
+> apparently the module was supplied by Qcom.
+> 
+> I'll submit the bindings patch together with DTS change for T14s.
+> 
+> - Mani
+> 
+> -- 
+> மணிவண்ணன் சதாசிவம்
 
 -- 
 With best wishes
