@@ -1,195 +1,321 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932A63D0C00
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:59:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8DA7260F
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 23:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781305178; cv=none; b=N4pI+D8B12AbnYOrbf+HgAeWzSQBAVnQNyWZF5bQZN0V8DEpw4FYnkLUhwS7mPe+N/TqPwRUaedqhZ++RNyPOHWPPTsVG8axB4QgYz7woqJYdchA1y/oTVs1N9RPESYUPKnRd1dPlcgLhfcj1WHsHk/mLvHrK7uslRufSG/9dMk=
+	t=1781305294; cv=none; b=mnz9lnWWcGqycuO8tFS8WJXSQ1SIqJo4H89jWXknX0SI/t5NtPkHwo0KUDNs23Rl7LOQyU6Y+fdvvKvxVd4PdYXPd9udHqZAdi/D0RfLCltB5EpQaHjTOjE/0TUwdz6Tz1aKUe1oTc2YTHdMJGfQB+1t69uIcmaOH7XbGDPjfls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781305178; c=relaxed/simple;
-	bh=suH9WSTLs1E0XyzVbjhLBsIiipLv9aYJLpaYrIWMqjk=;
+	s=arc-20240116; t=1781305294; c=relaxed/simple;
+	bh=PE7bhwVJF7dCx/Z/GhwYHVT8XnLWc7GDWjO48SnphLA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PHP3MIO/uxvAzoaQA1tFgX/ET4HBgc/FhN2Ielnd4qLI15nhKWECIaDGJbcl61eApAaGuneRmsoR8XWh+6dV4zZTel8p5ZYNAWH4pOXcPxLISxjQNwjIp9EEFQWB3wJ2zopjrmMlX2eitopF8LcvfPCdPpkqbCVRzCy/xhF6GtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoAZNG9B; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qF9mLQMa2nsXnU1ninSwaoIp3nlRUXFHqEiRsUwaVLQLQqOHvQcDKsytfhJCX5KaFcB+/VPiT10R8OZkhF/prflR2sIc9QUCqZrewRp3sSGz8t5mSJkymN+iWh+rHwf1/6jNtJqoCL46HcHV23yvM/+5DSjuyOVnHH+y74nyhWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEOTxD1w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoAZNG9B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160421F000E9;
-	Fri, 12 Jun 2026 22:59:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEOTxD1w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04DB1F000E9;
+	Fri, 12 Jun 2026 23:01:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781305177;
-	bh=K7tLVNpuWK1gDlgcLjhGLoaUGSLqAMI2xFSw4m+NABw=;
+	s=k20260515; t=1781305293;
+	bh=5IKhgoJtwu+8BcJzr5PMegP6OIPcVOkxCzCKBlqF5qI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HoAZNG9BW+mZknvW6Zz8/zaoKCQ40Him5ZecjKHmL5w8/4EtlEawWZCXV316+poNw
-	 3ZTAEw3RXN43cs/qC1zjplT8jX39HKzaVNajNG8TZ+zFQ5YAkGTHCd1pEpufyKpZVZ
-	 M7/NobSGep673RWJmqqynURkpSwwRgK7pb9fsF/6qREl1v62Ad+DgJU00qgKCdQBGB
-	 Rj0OjIcmLglDZf+rHZImO0T2a3UnfHu8GhNWROJdhacWCDbyH9LFgouumBoNTIj3/f
-	 fy0rC4eV3EVBb8oaPKoOXRiHTesDKWGtKlhZEG3LWiHew39cpgzlqDWG30lQN73q5Z
-	 Bs8wREE5CxpIQ==
+	b=UEOTxD1wFhZ/HwDICwpi8lXJG5CeFpRqxUosBpEimgt90F9iEuRzcF0TFuJ5ykRae
+	 4dr9qeJv+A4WCAXMNy90n4M3Cm1yrNAd/XnnZUtAv7e3IHCrOjKMvRTNiQImf4kEAw
+	 WUDN3ZFwXm8/rkqRklLZ3Sg6DekoACB+pqL36ujcOD40mixaBId9VMO0unDb4JPhjD
+	 nszmyBQlQDoAHS/vA3GPHYUKDuKXEyI7fufb8QVsJeZ+svEXLwId2eY5iCs0Pn6Vya
+	 kYvYOzQx/2YoHKNA1QglWnCJRWDehXsuwmwYjdKdeSFiEXvCMJuPMkEuEpeDy/TWb5
+	 UHsVbc6TYZJ2g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] iio: adc: ti-ads1262: Add GPIO controller support
+Subject: Re: [PATCH 2/5] iio: adc: Add ti-ads1262 driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kurt Borja" <kuurtb@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260612-ads126x-v1-3-894c788d03ed@gmail.com>
-References: <20260612-ads126x-v1-3-894c788d03ed@gmail.com>
+In-Reply-To: <20260612-ads126x-v1-2-894c788d03ed@gmail.com>
+References: <20260612-ads126x-v1-2-894c788d03ed@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 22:59:36 +0000
-Message-Id: <20260612225937.160421F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 23:01:32 +0000
+Message-Id: <20260612230132.E04DB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The `ads1262_gpiochip_request` function leaks a runtime PM usage r=
-eference on the error path if `regmap_update_bits` fails.
-- [High] `ads1262_gpiochip_get_multiple` does not populate the `bits` array=
- and incorrectly returns a positive integer on success.
-- [High] `ads1262_gpiochip_direction_input` clears the direction bit instea=
-d of setting it for any pin other than AIN3, incorrectly configuring them a=
-s outputs.
-- [High] `ads1262_gpiochip_get_direction` returns unnormalized bitmask valu=
-es, causing the GPIO core to reject them as errors.
-- [High] Read-modify-write operations on the volatile `ADS1262_GPIODAT_REG`=
- can corrupt other GPIO output states.
-- [Medium] GPIO output direction and value are configured in the wrong orde=
-r, causing a brief hardware glitch.
-
-Pre-existing issues:
-- [High] The driver uses C bitfields to define hardware registers, leading =
-to incorrect device configuration on big-endian architectures.
+Thank you for your contribution! Sashiko AI review found 15 potential issue=
+(s) to consider:
+- [High] Architecture Compatibility / Undefined Behavior due to direct bitf=
+ield mapping.
+- [High] Out-of-Bounds Memory Access / Hardware Misconfiguration during act=
+ive channel iteration.
+- [High] Infinite Loop / Denial of Service in IDAC microamp parsing.
+- [High] Logic Error: Inverted bounds check rejects valid pin numbers.
+- [High] Race Condition / Lost Wakeup due to reinitializing completion afte=
+r hardware trigger.
+- [High] Missing Error Handling / Type Mismatch: Unsigned check of negative=
+ error code.
+- [High] DMA Memory Corruption: Unaligned DMA buffer in union.
+- [High] Uninitialized Memory Read (KMSAN) on stack variable.
+- [High] Illegal DMA from Stack in regmap bus implementation.
+- [High] Logic Error: GPIO get_multiple returns pin states incorrectly.
+- [High] Hardware State / Timing violation during device reset.
+- [High] Logic Error / Performance: Unconditional stall without IRQ.
+- [Medium] Memory Leak of fwnode_handle reference on the error path.
+- [Medium] Resource Leak of runtime PM usage counter on the error path.
+- [Medium] API Contract Violation: Buffer mode lock released with direct mo=
+de API.
 --
 
-commit eb4400b2ae3fbe9b5c7913202712fe75c797c8c0
+commit bf3bd63a7b09cf7986792e14a3a80853f12e425d
 Author: Kurt Borja <kuurtb@gmail.com>
 
-iio: adc: ti-ads1262: Add GPIO controller support
-
-Add support for the GPIO controller capability found in both TI ADS1262
-and ADS1263 ADCs. Eight analog input pins can be programmed as GPIO.
+    iio: adc: Add ti-ads1262 driver
+   =20
+    Add ti-ads1262 driver for TI ADS1262 and ADS1263 ADCs with initial
+    support for various features including IIO modes and channel configurat=
+ion.
 
 > diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> index fd1911cf65ace..6d5f22836ad8b 100644
-> --- a/drivers/iio/adc/ti-ads1262.c
+> new file mode 100644
+> index 0000000000000..fd1911cf65ace
+> --- /dev/null
 > +++ b/drivers/iio/adc/ti-ads1262.c
-
+> @@ -0,0 +1,1816 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
 [ ... ]
-
-> @@ -1050,6 +1055,146 @@ static irqreturn_t ads1262_trigger_handler(int ir=
-q, void *p)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static int ads1262_gpiochip_request(struct gpio_chip *gc, unsigned int o=
-ffset)
-> +{
-> +	struct ads1262 *st =3D gpiochip_get_data(gc);
-> +	struct device *dev =3D &st->spi->dev;
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(st->regmap, ADS1262_GPIOCON_REG,
-> +				  BIT(offset), BIT(offset));
-
-[Severity: High]
-Does this error path leak a runtime PM usage reference?
-
-If regmap_update_bits() fails:
-
-ads1262_gpiochip_request()
-    ret =3D pm_runtime_resume_and_get(dev);
-    // ...
-    return regmap_update_bits(...); // Fails, returns error
-
-Because the gpiolib core will not invoke .free for a pin that fails to be
-requested, this usage count is permanently leaked, preventing the device fr=
-om
-ever entering runtime suspend.
-
-> +}
-
+> +struct ads1262_channel {
+> +	/* MODE0 */
+> +	u8 conv_delay:4;
+> +	u8 chop_mode:1;
+> +	u8 idac_rot_mode:1;
+> +	u8 runmode:1;
+> +	u8 rev_vref_pol:1;
 [ ... ]
-
-> +static int ads1262_gpiochip_get_direction(struct gpio_chip *gc,
-> +					  unsigned int offset)
+> +static int ads1262_channel_enable_and_read(struct ads1262 *st,
+> +					   struct ads1262_channel *chan,
+> +					   __be32 *val)
 > +{
-> +	struct ads1262 *st =3D gpiochip_get_data(gc);
-> +	unsigned int val;
+[ ... ]
+> +	mutex_lock(&st->chan_lock);
+> +	memcpy(&st->tx[2], chan, sizeof(*chan));
+> +	mutex_unlock(&st->chan_lock);
+
+[Severity: High]
+Does this code map a C bitfield directly to the SPI TX buffer?=20
+
+C bitfield layout is implementation-defined, so this can send garbage
+configuration bits to the hardware on big-endian architectures.
+
+> +struct ads1262 {
+[ ... ]
+> +	u8 tx[6] __aligned(IIO_DMA_MINALIGN);
+> +	union {
+> +		u8 rx[6];
+> +		struct {
+> +			__be32 data;
+> +		} __packed shift_reg;
+> +		struct {
+> +			u8 dummy;
+> +			__be32 data;
+> +		} __packed holding_reg;
+> +	};
+> +};
+
+[Severity: High]
+Can this union cause DMA memory corruption?
+
+Since the anonymous union lacks an __aligned(IIO_DMA_MINALIGN) attribute,
+the RX buffers can share a cache line with surrounding struct members,
+leading to memory corruption during DMA on non-cache-coherent architectures.
+
+> +static int ads1262_dev_reset(struct ads1262 *st)
+> +{
 > +	int ret;
 > +
-> +	ret =3D regmap_read(st->regmap, ADS1262_GPIODIR_REG, &val);
+> +	if (st->reset_gpiod)
+> +		ret =3D gpiod_set_value_cansleep(st->reset_gpiod, 1);
+> +	else
+> +		ret =3D ads1262_dev_cmd(st, ADS1262_OPCODE_RESET);
 > +	if (ret)
 > +		return ret;
 > +
-> +	return val & BIT(offset);
+> +	fsleep(1);
 
 [Severity: High]
-Does this return unnormalized bitmask values?
+Is the 1 microsecond delay sufficient here?=20
 
-For input pins with offset > 0, val & BIT(offset) returns values like 2, 4,
-or 8. The GPIO subsystem strictly checks for 0 or 1 and returns -EBADE
-otherwise, rendering the direction read functionality broken for most pins.
+This short delay might violate hardware timing constraints for the device
+reset, causing subsequent register writes to be ignored.
 
-> +}
-> +
-> +static int ads1262_gpiochip_direction_input(struct gpio_chip *gc,
-> +					    unsigned int offset)
+> +static int ads1262_read_calib(struct ads1262 *st, unsigned int reg, u32 =
+*val)
 > +{
-> +	struct ads1262 *st =3D gpiochip_get_data(gc);
-> +
-> +	return regmap_update_bits(st->regmap, ADS1262_GPIODIR_REG,
-> +				  BIT(offset), 1);
-
-[Severity: High]
-Does this clear the direction bit instead of setting it for any pin other
-than AIN3?
-
-Because val is hardcoded to 1, val & BIT(offset) evaluates to 0 for any
-offset > 0. This unintentionally clears the bit, configuring the pin as an
-output instead of an input. If an external component is actively driving the
-line, this creates an electrical short circuit, potentially causing hardware
-damage.
-
-> +}
-> +
-> +static int ads1262_gpiochip_direction_output(struct gpio_chip *gc,
-> +					     unsigned int offset, int value)
-> +{
-> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +	__le32 lval;
 > +	int ret;
 > +
-> +	ret =3D regmap_update_bits(st->regmap, ADS1262_GPIODIR_REG,
-> +				 BIT(offset), 0);
+> +	/*
+> +	 * The calibration word is a signed 24 bit LSB-first value.
+> +	 */
+> +	ret =3D regmap_bulk_read(st->regmap, reg, &lval, 3);
 > +	if (ret)
 > +		return ret;
+> +	*val =3D sign_extend32(le32_to_cpu(lval), 23);
+
+[Severity: High]
+Does this code evaluate an uninitialized byte?
+
+The lval variable is 4 bytes long, but regmap_bulk_read only writes
+3 bytes to it. The subsequent call to le32_to_cpu reads the
+uninitialized 4th byte from the stack, which can trigger KMSAN warnings
+and result in an incorrect sign extension.
+
+> +static int ads1262_write_calib(struct ads1262 *st, unsigned int reg, u32=
+ val)
+> +{
+> +	__le32 lval =3D cpu_to_le32(val);
 > +
-> +	return regmap_update_bits(st->regmap, ADS1262_GPIODAT_REG,
-> +				  BIT(offset), value ? BIT(offset) : 0);
+> +	/*
+> +	 * The calibration word is a signed 24 bit LSB-first value.
+> +	 */
+> +	return regmap_bulk_write(st->regmap, reg, &lval, 3);
+> +}
+
+[Severity: High]
+Can this result in an illegal DMA from the stack?
+
+Calling regmap_bulk_write passes the lval stack variable to the
+underlying SPI controller. This violates VMAP_STACK constraints and can
+corrupt memory if the SPI controller uses DMA.
+
+> +static void ads1262_wait_for_conversion(struct ads1262 *st)
+> +{
+> +	reinit_completion(&st->drdy);
+> +
+> +	/*
+> +	 * The first conversion latency is affected by the channel's data rate,
+[ ... ]
+> +	wait_for_completion_timeout(&st->drdy, msecs_to_jiffies(6436));
+> +}
+
+[Severity: High]
+Can wait_for_completion_timeout stall unconditionally if no IRQ is present?
+
+Without a polling fallback, raw reads might block for the entire 6.4 second
+timeout if the device isn't wired to an interrupt.
+
+> +static int ads1262_channel_hot_reload(struct ads1262 *st,
+> +				      const struct iio_chan_spec *chan)
+> +{
+[ ... ]
+> +	weight =3D bitmap_weight(st->indio_dev->active_scan_mask,
+> +			       iio_get_masklength(st->indio_dev));
+> +	if (weight !=3D 1) {
+> +		iio_device_release_direct(st->indio_dev);
+> +		return 0;
+> +	}
 
 [Severity: Medium]
-Are the GPIO output direction and value configured in the wrong order?
+Does this code release the wrong type of lock?
 
-The direction register is set to output before setting the data register to
-the desired value. This ordering drives the pin with the previously latched
-output value during the interval between the two SPI transactions, causing a
-brief hardware glitch.
+The iio_device_try_claim_buffer_mode API was used earlier to acquire
+the buffer mode lock, but this path releases it using
+iio_device_release_direct, violating the IIO locking contract.
 
-The data register must be updated to the new output value before changing t=
-he
-direction to output.
+> +static int ads1262_channel_read(struct ads1262 *st,
+> +				struct ads1262_channel *chan_data,
+> +				__be32 *val)
+> +{
+[ ... ]
+> +	ret =3D ads1262_dev_start_one(st, runmode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ads1262_wait_for_conversion(st);
 
+[Severity: High]
+Is there a race condition with the completion here?
+
+By calling ads1262_dev_start_one before ads1262_wait_for_conversion
+(which re-initializes the completion), the hardware might fire the DRDY
+interrupt before the completion is re-initialized, leading to a lost
+wakeup.
+
+> +static int ads1262_parse_idac_pins(struct ads1262 *st, u32 *pins,
+> +				   unsigned int num_pins)
+> +{
+[ ... ]
+> +		ret =3D device_property_read_u32(dev, propname, &val);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to read property %s\n",
+> +					     propname);
+> +		if (val < ADS1262_IDACMUX_COUNT)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "%s: Pin number out of range %d\n",
+> +					     propname, val);
+
+[Severity: High]
+Is the bounds check logic inverted here?
+
+Checking if val < ADS1262_IDACMUX_COUNT causes valid pin numbers to be
+rejected with an error instead of catching out-of-range ones.
+
+> +static int ads1262_parse_idac_mags(struct ads1262 *st, u32 *mags,
+> +				   unsigned int num_mags)
+> +{
+[ ... ]
+> +		for (mode =3D 0; mode < ARRAY_SIZE(idac_microamps); i++) {
+> +			if (val =3D=3D idac_microamps[mode])
+> +				break;
+> +		}
+
+[Severity: High]
+Can this create an infinite loop?
+
+The loop iterates the mode variable but increments i (the outer loop's
+induction variable), resulting in a lockup during probe.
+
+> +static int ads1262_regulator_setup(struct ads1262 *st)
+> +{
+[ ... ]
+> +	reg_id =3D "vref";
+> +	st->vref_uV =3D devm_regulator_get_enable_read_voltage(dev, reg_id);
+> +	if (st->vref_uV < 0)
+> +		goto err_regulator_get;
+
+[Severity: High]
+Will this error check ever succeed?
+
+The return value of devm_regulator_get_enable_read_voltage is stored
+in st->vref_uV, which is an unsigned 32-bit integer. The negative
+error code becomes a large positive number, making st->vref_uV < 0
+statically false.
+
+> +static int ads1262_regmap_read(void *context, const void *reg_buf,
+> +			       size_t reg_size, void *val_buf, size_t val_size)
+> +{
+> +	struct ads1262 *st =3D context;
+> +	struct spi_transfer xfer[3] =3D {
+[ ... ]
+> +		{
+> +			.rx_buf =3D val_buf,
+> +			.len =3D val_size,
+> +		},
+> +	};
+[ ... ]
+> +	return spi_sync_transfer(st->spi, xfer, ARRAY_SIZE(xfer));
 > +}
 
-[ ... ]
+[Severity: High]
+Does this custom regmap bus allow SPI DMA transfers directly to user-provid=
+ed
+buffers?
+
+Passing val_buf directly into rx_buf might result in DMA to stack
+memory if the caller passes a stack variable, violating VMAP_STACK constrai=
+nts
+and causing memory corruption.
 
 > +static int ads1262_gpiochip_get_multiple(struct gpio_chip *gc,
 > +					 unsigned long *mask,
@@ -204,82 +330,75 @@ direction to output.
 > +		return ret;
 > +
 > +	return val & *mask;
+> +}
 
 [Severity: High]
-Does this fail to populate the bits array and incorrectly return a positive
-integer on success?
+Does this code return the pin states incorrectly?
 
-The gpiolib core expects get_multiple to populate the bits bitmap and return
-0 on success. The implementation entirely ignores the bits argument and
-returns the bitwise AND of the register value and mask (val & *mask).
+The GPIO get_multiple callback is expected to write the state to the
+bits bitmap pointer, but instead it returns the state via the integer
+return code.
 
-If any requested GPIO line is high, this returns a positive integer, which
-gpiolib treats as an error (-EBADE). This completely breaks the get_multiple
-operation and leaves the bits array uninitialized.
-
-> +}
-> +
-> +static int ads1262_gpiochip_set(struct gpio_chip *gc, unsigned int offse=
-t,
-> +				int value)
+> +static int ads1262_buffer_preenable(struct iio_dev *indio_dev)
 > +{
-> +	struct ads1262 *st =3D gpiochip_get_data(gc);
-> +
-> +	return regmap_update_bits(st->regmap, ADS1262_GPIODAT_REG,
-> +				  BIT(offset), value ? BIT(offset) : 0);
-
-[Severity: High]
-Can this read-modify-write operation corrupt other GPIO output states?
-
-ADS1262_GPIODAT_REG is a volatile register. Consequently,
-regmap_update_bits() performs a physical read of the current GPIO pin levels
-rather than reading a cached output latch state. If an output pin's physical
-voltage is temporarily dragged down by a load or shorted to ground, the read
-might yield 0 even if its output latch is 1.
-
-The subsequent RMW cycle will permanently overwrite the output latch for th=
-at
-pin with the incorrect physical value. A software shadow copy must be
-maintained to prevent this corruption.
-
-> +}
+[ ... ]
+> +	iio_for_each_active_channel(indio_dev, i)
+> +		ads1262_channel_set_runmode(st, &st->channels[i],
+> +					    ADS1262_RUNMODE_CONTINUOUS);
 
 [ ... ]
+> +static int ads1262_fill_buffer_mult(struct ads1262 *st)
+> +{
+[ ... ]
+> +	iio_for_each_active_channel(st->indio_dev, chan) {
+> +		ret =3D ads1262_channel_enable_and_read(st, &st->channels[chan],
+> +						      &val);
 
 [Severity: High]
-This is a pre-existing issue, but does the driver use C bitfields to define
-hardware registers?
+Can these loops access memory out of bounds?
 
-Looking at the preexisting code in drivers/iio/adc/ti-ads1262.h:
+iio_for_each_active_channel iterates over all active channels, including
+the software timestamp channel if it is enabled. This can result in an
+out-of-bounds array access on st->channels[chan] and misconfiguring the
+hardware.
 
-struct ads1263_adc2_channel {
-	/* ADC2CFG */
-	u8 gain:3;
-	u8 refmux:3;
-	u8 data_rate:2;
+> +static int ads1262_aux_device_setup(struct ads1262 *st)
+> +{
+[ ... ]
+> +out_node_put:
+> +	fwnode_handle_put(node);
+> +
+> +	return ret;
+> +}
 
-	/* ADC2MUX */
-	u8 negative_input:4;
-	u8 positive_input:4;
-};
+[Severity: Medium]
+Does this code leak the fwnode reference on the error path?
 
-And in drivers/iio/adc/ti-ads1262.c:
+Because node is consumed and set to NULL by no_free_ptr(node) during
+device_set_node, any subsequent failures jumping to out_node_put will
+call fwnode_handle_put(NULL), leaving the reference leaked.
 
-ads1262_channel_enable_and_read()
-    static_assert(sizeof(*chan) =3D=3D 4);
-    mutex_lock(&st->chan_lock);
-    memcpy(&st->tx[2], chan, sizeof(*chan));
+> +static int ads1262_gpiochip_request(struct gpio_chip *gc, unsigned int o=
+ffset)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +	struct device *dev =3D &st->spi->dev;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(st->regmap, ADS1262_GPIOCON_REG,
+> +				  BIT(offset), BIT(offset));
+> +}
 
-The C standard leaves bitfield memory layout implementation-defined, and the
-layout varies by architecture endianness. On big-endian systems, bitfields
-are packed in reverse order compared to little-endian CPUs.
+[Severity: Medium]
+Does this leak the runtime PM usage counter on failure?
 
-Copying these structs directly into SPI transfer buffers via memcpy or
-writing them via regmap_bulk_write will send completely corrupted bit
-patterns to the hardware registers. The kernel explicitly forbids using C
-bitfields to describe hardware register layouts; FIELD_PREP, FIELD_GET, and
-fixed-width types must be used instead.
+If regmap_update_bits fails, the function returns the error directly
+without calling pm_runtime_put_autosuspend(dev) to balance the resume.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-ads126x-v1=
--0-894c788d03ed@gmail.com?part=3D3
+-0-894c788d03ed@gmail.com?part=3D2
