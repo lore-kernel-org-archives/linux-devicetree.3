@@ -1,672 +1,257 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573D8331A43
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272168; cv=none; b=kUf5FiDCVVcA3Tk8if3Y447ROsnS9jYSyE7JlvoHp+8GEvPdRw3He4soHvIt0mgh4g5MN2IG0NCUZT4L8zHaNnhMIo+FgUnl9UfcNHFkMGaxHD5eQRX4O/7uicRtRzEVhTXm6/p61oLW8D3+g0nV9I8tOsnZB6/zOfNSHSd6yI4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272168; c=relaxed/simple;
-	bh=cuVqdlPBE/ZYdGFnfBVcnU7U+YIxtiI4ErQo6Qk6J2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lJ+EzC4/zzhp8CiEIpdjsxzrpPHyRIFWMAKe9+Na2u+i68iP44aEfL0eK5y19sVOL7AYFPlOBO7OG/h/fw/wV7vhye8v3U0bXK9NHw3ESRelPFqfxftm+AnyTxuj2FsPp7Lz+tdXU+jTdbwl5seGFBHfZ6T2tdmfMasox8yXZAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p2fT5eas; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103FE344D9B
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781272302; cv=pass; b=jVgI2U/T78vbg7DWONDn31is7+qCRSmHwL6d7yPDIq21hUM4NMsZ4x2ZHRRutsca+/KH7ju6pLlfj2H8CjMSaY9ztXABsKj8myb+UMWGvalgTfajpHPXrok+aqVrtbqtkKeUbcBUfp6fTrhyOGjEOwmZT83WBhc+TDIAreKvVy4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781272302; c=relaxed/simple;
+	bh=tT4YqoZd40mTDfR7B+ZovVmHGlTP3GckEXJWWqPnoqs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cZ2qENVxrsHwCThA+7Yr/TJvQWYtaXiVwPTJYFD3evw0FYfFr5NYGsnJb1aq7FHgHzp2HPYwgYbyHOgxOWlWjVXvAOrBrkQurp4ocuxD7Eg7btbt9bkl+bg2kcVMbvcJ939KCI2+1NpWZ32TVxcPZ5nsa+dKBMEWqBDPPmqR8lA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OynQW16g; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ibIu2lwG; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2fT5eas"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b9318997so7579295e9.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:49:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OynQW16g";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ibIu2lwG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781272300;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
+	b=OynQW16gkfYLqs+w3Vswg0Xt8Eoc7NhdUHEqeE6VkZ7HJt2NCXTKoAvnLpRBGp39Eeuz5b
+	7tGDlNMUqMYTUlMwiExsgcXwQK9lNNojaldLy+gOXxoMtpA51riBQWy5zXGM1lKQZzkQyc
+	hWe2mV/NQN1s4Hr/XMohPxSOjBNMBQE=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-112-8uTUn6fZMSW2e0n-FZK-0w-1; Fri, 12 Jun 2026 09:51:35 -0400
+X-MC-Unique: 8uTUn6fZMSW2e0n-FZK-0w-1
+X-Mimecast-MFC-AGG-ID: 8uTUn6fZMSW2e0n-FZK-0w_1781272295
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-91574ad6871so169420485a.0
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:51:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781272295; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Ag90ZlA+uVWbBOEe9Xc2e+YTH5DaUq7Bqi7HQqu8xV/9qiIQ07vhLBdKh/CfZJMNe1
+         LeAcHNBJb0PwvpZxk16OGkdekQ+3wiu4wQucASlrKBxLINJ84NltvfZtbctxJ3xvxLnB
+         5DPEZvhyiDnFgxgFdvweXAoLfrRvOsOG3Odf4gwBH2NMckrXqFoRCeh9ly7G9iej8l3y
+         fotm10sr86rx/X6C/0fh6h9E0qpC3XpNwLwFpLheLgG1miCYAcr4LeLZIL9AOalFnzLa
+         PckWFZYvkkJiHfWt9eMG06cP7oagRr/l75UqriIEsZ37cHKsY7nU9/Oefr+kNCbpdRAf
+         uKeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
+        fh=WBzRXTU4sq8Ky/BBy2+QVXXk92t1fImV3buRkDwKYEM=;
+        b=CV7l8jG/KLBGqBjfNOCTS+iXeSfTtSN3q/eJ8JVGd++pa+dEVigJAWQDdyb9tcv9aQ
+         nHFHKgDlFz4RjybPspzXoo3Y5s/40MI4CV2Xk1tmzxijAxj5NEvILRaK9v588CxvrCRl
+         74W+1Y/Z+qecMfT0yMQWUFnkQge1sE5SnQ5sc0oK2zH5tB3DuWNYycxLc9HRcAhiDtdJ
+         J8ol+hlY5tWkJ28utHwOsgQZYQL4APg23UFvDhdpqft1BNgd1Rb64SK5JLKBYCipnNDz
+         wGOu2ZfZkGlEr0sS+Nz40XpO6wFQiA7oCqL0IBSZzq7agoW4/w4zEaHb6ilA1hm2hUA4
+         bFww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781272165; x=1781876965; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1781272295; x=1781877095; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1KlTuI81fMvZbGzbW+82D669jenQJLv5gsQIFsK9Lzo=;
-        b=p2fT5easxpFZmv2JR74o8HHrl7vi47gwZgL/qufwWiuSZ7MLkDZzi5C/mkUihZg4lq
-         sAoOzCl21MDsyNGMAsFkIfgaR+Gc2hvjjHVN/yfP1uVxjx2R7OIaK8kLF3tsInIyjoM2
-         ACQE7qQJ3NikcsOa5XrLaBzGXhgz8CVXj5kopnK4LHHvc0+4mCqZPVn/D6SOC0Zvx5Ow
-         DwYbmMm8uqJX6Stcm4Yx80Tkgu6k9uwGh/8fxzBDHH+aAubTSyddH78hYXjknUztA+IT
-         RiL7YH0QRtZmMKiOXQ1Cfzu0W2alJv9nydlmPMINwodpe1kpjVk6yeyY/NIzA0vYsbkK
-         FDEg==
+        bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
+        b=ibIu2lwGWGi5LJXd6uw6IrKW+nTUsdKRyOeOWPAsqY9rq9JHc9pqUcff16cSolR1vk
+         ClWmdurqIH7zKU1tp2RySSbkSM997Zt1Gq4dZGnvTrg9sRjOZQRuVF+gxuH7keIcKfOr
+         dkYawBZ1Fi6xstx1YVK2k+9Z2uBqs2SVNnvhudCZUG/LotUcEg0yAf0o9uUVVTAYupWH
+         gp8BFJ9c+pu9bZ383xN6otcx1vYBLDV6RL1WCzDSSNHB+GyIE+MkEKjKQIfT7nHuRChH
+         Y65UgaKxIxgwJzjqhTCn/DTAeJ7zBwNc8q9n95K7d2Dr2lRpCJkScUXgofmB9lWN2OYL
+         8r5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272165; x=1781876965;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1781272295; x=1781877095;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=1KlTuI81fMvZbGzbW+82D669jenQJLv5gsQIFsK9Lzo=;
-        b=rK+1WGS1eyo3Vm0BnmoknbBQw9SVgXFQ3dR2cVYt6hyBYn29+qIGHn9FzhR1KhATzr
-         pRZBsic/pxODtnH5wQUWT7G++zk+W7FyfpXeuLvSL+CMaQ2wAaRW3H+ofh41tIJNh06T
-         Uih6qzu05Ya4juetEZuTL4xydFobbdB1qyxLjQu8hPEpGQQxX3AbRXX6UQB+mc8OEHqP
-         W+uOaYdz/vN65fohAI7ycqX+jn1vxRecIf56DzQ4QtEeUNPUYvxoNLdvBuDvsKtXXH1/
-         w5snG7wjOAMZLqS/cygLUzmUxNc63xuVDTBuBE6kKmXpLqB+ZPrSXWJE7UTjde4jZ9RW
-         /ORg==
-X-Forwarded-Encrypted: i=1; AFNElJ9SD/W7gunMWSN4/uOf+7g3tnOlNK4/BIC5ZAPwvF9KgQ4AgWaA8rPJ6v8+967AU9/ZEkF5AuujNx+Y@vger.kernel.org
-X-Gm-Message-State: AOJu0YysdHqs8cBRXagbrBS7BuJFfKxsMo5Xe8GX4CijUtc13EIS/Agm
-	09AzfFf2vt5wzap/dCFB8nxHZJxfQXN/cqehzBoO0bGF+ojWxxDsh1Ax
-X-Gm-Gg: Acq92OGTKn3XWlzA7CwC3J/v8JzDyVnoZjPJiUtNqmaUB5cjSuGf0VXrYT//AIwPc1V
-	36kHLSHwSn7NgZ76H87oLI92W+v5+lCYzZ5UAT7QIck74ZBGlbyVXX3xfS/fBrF7gd+CZHEsvzp
-	6scoWJBoMaW2zWUG6oHncaiTF+OEMxKjEjb7DDe2HgKdHjjYux/LLYO/gdiqNDyQrQf/vgp2eHH
-	2ySOFHZidGeXzz77ROk112pLEPtLC1jG9e16YFVnqgRC8Hs+JSnwGpc9vUIuCKRa+2XpQDqK5R3
-	DQbbpfNvchRnUrh5mYGP8DIxp6KpfHXoW4n2MTtA8XaLHvKiTDihYNxt1WRBrk6FZre1Qag461X
-	v93ANk190KzjGSMavLOHsrt9YVWztd1EYkotm3kK/gyy37eZApW0BdJSrgq9Teh3aH7qegXnf1X
-	t9KyS4awty2yG3JnuX2QWNaJUtYrLnYYuqo0SR7aREwWeF0lCwWvxOtWeTE/Cw4i72WpxSr5rrp
-	JCN9vNqAefXaEkciaZ/dyjIyXovfOsXon76gCn6ueJcXtwFDSjtFw4E4b++GHyczGzZPeOXBTDj
-	mgTk2oS7T5v3Hz+v+Kw7RH1el/hHvGCG3FvTk3e5pdHliyp0zKRtouPuLTFeXUgOAA==
-X-Received: by 2002:a05:600d:8486:20b0:490:5e2a:f924 with SMTP id 5b1f17b1804b1-490ec4809abmr29434765e9.7.1781272164371;
-        Fri, 12 Jun 2026 06:49:24 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea7db56asm85979705e9.7.2026.06.12.06.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 06:49:24 -0700 (PDT)
-Date: Fri, 12 Jun 2026 15:49:22 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Siratul Islam <email@sirat.me>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: magnetometer: add driver for QST QMC5883L
- Sensor
-Message-ID: <20260612154922.00003723@gmail.com>
-In-Reply-To: <20260612124557.13750-4-email@sirat.me>
-References: <20260612124557.13750-1-email@sirat.me>
-	<20260612124557.13750-4-email@sirat.me>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=Iy/v7kxpOlqBCTDcC4jlmM2w9KphND71Hvl/We9DfQ4=;
+        b=Uiz1/EiQ5MDJiT8575HLk2TlsykG6zbBZ4c+nEAYyE/jVFZS6veY9dW6wcwkHwqmb5
+         mDGxhf3wAwLQ7Brg1hGRX8JAZVsRmuPdkBBi4upK3WXmirXkB0FGnkQUYRwThXcitiDn
+         kpy7WmVcgy8VFIdmNc8nUkRM6NiWRy7PsSkruI2/293B5jhy7mi/Cg2ZbO0tc3N8krY7
+         2IihmlryeO8N36X+7ueKodsABSs/oefrP8PcrI7BVw916bFW3/SBcqI5xc0shsBINNh+
+         6zFr94MfnCIvFbR/71a31EtD1SDmAUP5vjDzM3TbWdV1QqRH8B+MttTg4DXfSkiFcULC
+         Av+A==
+X-Forwarded-Encrypted: i=1; AFNElJ+OxJwCsygBWD9hwAMwsyxJPOL0Y/yyeE/lgpoRZfWca/Q8c6xw+xDNHWrnEzyttxkQsGZVwdpLW8V8@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNj2DWdQuGcApZw0rgvut0lsKNiimtQjltACUwvyJjew1SPZbI
+	UnGPGQGcXtQVe6SCnwvAPyxRE8DXgjzjHb59Tdjbn9awW1cjyKccLAm8qwKCowCJJG0HnZJ3JxY
+	BfX+AwUYSwq8/GH7XclA6R9SSA21vaY5YVv79AmBBahMdWFLzq1wNLMpNn3l7DL6v49UdL9/sq/
+	olU2ZmEhdCBMfOqntKKLX7UT4af/3Cfs/3BlNNrQ==
+X-Gm-Gg: Acq92OGaR/rpysOAZMkucxJSAtFxf1SiGHaytVYAga3h6VBHhc/qcPnuUWkxmTt4MlV
+	S1DaYMSDWm9pga7jIVuhq6kW+h9M+awA+JQ0VpU2BYsEfwH5PxonxXN3s7NJ+U9QexR6Glxq1sN
+	yWo8zNiVEoRBw0iZPDF3HLYBs/xJpY6AGZVUHrD7qigW2DprFUbyD20MdpXmhs9wBR+52pwmT7g
+	zaObtlTxq2/zp1CxTB/Orkii2JEbw21BuNNEw==
+X-Received: by 2002:a05:620a:4149:b0:915:d5cd:8cce with SMTP id af79cd13be357-9161bc02c6bmr425212185a.22.1781272295105;
+        Fri, 12 Jun 2026 06:51:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:4149:b0:915:d5cd:8cce with SMTP id
+ af79cd13be357-9161bc02c6bmr425204785a.22.1781272294560; Fri, 12 Jun 2026
+ 06:51:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com> <20260611-rva23u64-hwprobe-v2-v4-5-3f01a2449488@gmail.com>
+In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-5-3f01a2449488@gmail.com>
+From: Jesse Taube <jtaubepe@redhat.com>
+Date: Fri, 12 Jun 2026 09:51:22 -0400
+X-Gm-Features: AVVi8Cei37Nc7wEh-QPxeO4jIlCv0ZbORPC259y2xDJU0379i8L_rI91Rp2DJbE
+Message-ID: <CADRr4bd10AYwAZwHxEiuSJEOwD5qv68L1r5DRjxXFM8pmrG+WA@mail.gmail.com>
+Subject: Re: [PATCH v4 05/16] riscv: Add Zicclsm to cpufeature and hwprobe
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Zong Li <zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, 
+	Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yixun Lan <dlan@kernel.org>, Chen Wang <unicorn_wang@outlook.com>, 
+	Inochi Amaoto <inochiama@gmail.com>, linux-doc@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
+	spacemit@lists.linux.dev, sophgo@lists.linux.dev, 
+	linux-kselftest@vger.kernel.org, Palmer Dabbelt <palmer@sifive.com>, 
+	Jesse Taube <jesse@rivosinc.com>, Conor Dooley <conor.dooley@microchip.com>, 
+	Charlie Jenkins <charlie@rivosinc.com>, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
+	Andy Chiu <andybnac@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 12 Jun 2026 18:45:27 +0600
-Siratul Islam <email@sirat.me> wrote:
+On Thu, Jun 11, 2026 at 4:14=E2=80=AFPM Guodong Xu <docular.xu@gmail.com> w=
+rote:
+>
+> From: Jesse Taube <jesse@rivosinc.com>
+>
+> Zicclsm requires misaligned support for all regular load and store
+> instructions, both scalar and vector, but not AMOs or other
+> specialized forms of memory access, to main memory regions with both
+> the cacheability and coherence PMAs, as defined in the profiles spec.
+> Even though mandated, misaligned loads and stores might execute
+> extremely slowly. Standard software distributions should assume their
+> existence only for correctness, not for performance.
+>
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Andy Chiu <andy.chiu@sifive.com>
+> Reviewed-by: Charlie Jenkins <charlie@rivosinc.com>
+> Tested-by: Charlie Jenkins <charlie@rivosinc.com>
+> Signed-off-by: Jesse Taube <jesse@rivosinc.com>
 
-> Add driver for the QST QMC5883L 3-Axis Magnetic Sensor
-> connected via i2c.
-> 
-> Signed-off-by: Siratul Islam <email@sirat.me>
+Thanks for the update! Just an fyi email has changed to
+jtaubepe@redhat.com though.
+No need to change the signoff though.
+
+Thanks,
+Jesse Taube
+
+> [Rebased, rewrote doc text, minor commit message revisions]
+> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+>
 > ---
+> v4: No change.
+> v3:
+> - Move the hwprobe.rst entry to the IMA_EXT_1 section so its
+>   documentation matches the IMA_EXT_1 bit it was allocated in v2
+>   (Sashiko, agreed by Andrew).
+> v2:
+> - Rebased onto v7.1-rc2; moved ZICCLSM to IMA_EXT_1 and
+>   allocated a new bit for it
+> ---
+>  Documentation/arch/riscv/hwprobe.rst  | 4 ++++
+>  arch/riscv/include/asm/hwcap.h        | 1 +
+>  arch/riscv/include/uapi/asm/hwprobe.h | 1 +
+>  arch/riscv/kernel/cpufeature.c        | 1 +
+>  arch/riscv/kernel/sys_hwprobe.c       | 1 +
+>  5 files changed, 8 insertions(+)
+>
+> diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/ri=
+scv/hwprobe.rst
+> index d9928641deb99..49d9fb68632d0 100644
+> --- a/Documentation/arch/riscv/hwprobe.rst
+> +++ b/Documentation/arch/riscv/hwprobe.rst
+> @@ -401,3 +401,7 @@ The following keys are defined:
+>      as defined in version 1.0 of the RISC-V Control-flow Integrity (CFI)
+>      extensions specification, ratified in commit 302a2d45c243
+>      ("Update build-pdf.yml") of riscv-cfi.
+> +
+> +  * :c:macro:`RISCV_HWPROBE_EXT_ZICCLSM`: The Zicclsm extension is suppo=
+rted,
+> +    as defined in the RISC-V Profiles specification starting from commit
+> +    b1d80660 ("Updated to ratified state.")
+> diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwca=
+p.h
+> index 44bf8c7d8acc5..e8f4a7dd96a93 100644
+> --- a/arch/riscv/include/asm/hwcap.h
+> +++ b/arch/riscv/include/asm/hwcap.h
+> @@ -112,6 +112,7 @@
+>  #define RISCV_ISA_EXT_ZCLSD            103
+>  #define RISCV_ISA_EXT_ZICFILP          104
+>  #define RISCV_ISA_EXT_ZICFISS          105
+> +#define RISCV_ISA_EXT_ZICCLSM          106
+>
+>  #define RISCV_ISA_EXT_XLINUXENVCFG     127
+>
+> diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/u=
+api/asm/hwprobe.h
+> index 9139edba0aecb..6819df159c51e 100644
+> --- a/arch/riscv/include/uapi/asm/hwprobe.h
+> +++ b/arch/riscv/include/uapi/asm/hwprobe.h
+> @@ -116,6 +116,7 @@ struct riscv_hwprobe {
+>  #define RISCV_HWPROBE_KEY_ZICBOP_BLOCK_SIZE    15
+>  #define RISCV_HWPROBE_KEY_IMA_EXT_1            16
+>  #define                RISCV_HWPROBE_EXT_ZICFISS       (1ULL << 0)
+> +#define                RISCV_HWPROBE_EXT_ZICCLSM       (1ULL << 1)
+>
+>  /* Increase RISCV_HWPROBE_MAX_KEY when adding items. */
+>
+> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
+e.c
+> index 686dde3ce3b98..1fb595581adcf 100644
+> --- a/arch/riscv/kernel/cpufeature.c
+> +++ b/arch/riscv/kernel/cpufeature.c
+> @@ -502,6 +502,7 @@ const struct riscv_isa_ext_data riscv_isa_ext[] =3D {
+>         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicbom, RISCV_ISA_EXT_ZICBOM, r=
+iscv_xlinuxenvcfg_exts, riscv_ext_zicbom_validate),
+>         __RISCV_ISA_EXT_DATA_VALIDATE(zicbop, RISCV_ISA_EXT_ZICBOP, riscv=
+_ext_zicbop_validate),
+>         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicboz, RISCV_ISA_EXT_ZICBOZ, r=
+iscv_xlinuxenvcfg_exts, riscv_ext_zicboz_validate),
+> +       __RISCV_ISA_EXT_DATA(zicclsm, RISCV_ISA_EXT_ZICCLSM),
+>         __RISCV_ISA_EXT_DATA(ziccrse, RISCV_ISA_EXT_ZICCRSE),
+>         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicfilp, RISCV_ISA_EXT_ZICFILP,=
+ riscv_xlinuxenvcfg_exts,
+>                                           riscv_cfilp_validate),
+> diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwpr=
+obe.c
+> index f8f68ba781b45..9cf62266f1890 100644
+> --- a/arch/riscv/kernel/sys_hwprobe.c
+> +++ b/arch/riscv/kernel/sys_hwprobe.c
+> @@ -205,6 +205,7 @@ static void hwprobe_isa_ext1(struct riscv_hwprobe *pa=
+ir,
+>                  * in the hart_isa bitmap, are made.
+>                  */
+>                 EXT_KEY(isainfo->isa, ZICFISS, pair->value, missing);
+> +               EXT_KEY(isainfo->isa, ZICCLSM, pair->value, missing);
+>         }
+>
+>         /* Now turn off reporting features if any CPU is missing it. */
+>
+> --
+> 2.43.0
+>
+>
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
+>
 
-Hi Siratul,
-
-various comments inline. I've probably missed a few things
-as I only took a quick look so feel free to call me out on that!
-
-Josh
-
-> --- /dev/null
-> +++ b/drivers/iio/magnetometer/qmc5883l.c
-> @@ -0,0 +1,512 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-> +/*
-> + * Support for QST QMC5883L 3-Axis Magnetic Sensor on i2c bus.
-
-Nitpick, but I'd write it I2C with capital letters.
-
-> + *
-> + * Copyright (C) 2026 Siratul Islam <email@sirat.me>
-> + *
-> + * Datasheet available at
-> + * <https://www.qstcorp.com/upload/pdf/202512/13-52-04%20QMC5883L%20Datasheet%20Rev.%20B.pdf>
-> + *
-> + * Default 7-bit i2c slave address 0x0D.
-
-You also have this as a macro, consider removing this comment.
-
-> + *
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/err.h>
-> +#include <linux/iio/iio.h>
-
-Move IIO specific headers below generic linux headers, i. e.
-
-#include <linux/x.h>
-#include <linux/y.h>
-
-#include <linux/iio/z.h>
-
-> +#include <linux/i2c.h>
-> +#include <linux/kernel.h>
-
-No, refrain from using kernel.h, include the actual headers
-instead of relying on this (on second thought, I think you've
-actually included all the required headers, so you definitely
-don't need this).
-
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/time.h>
-> +
-> +#include <asm/byteorder.h>
-> +
-> +#define QMC5883L_REG_X_LSB	0x00
-> +#define QMC5883L_REG_STATUS1	0x06
-> +#define QMC5883L_REG_CTRL1	0x09
-> +#define QMC5883L_REG_CTRL2	0x0A
-> +#define QMC5883L_REG_SET_RESET	0x0B
-> +#define QMC5883L_REG_ID		0x0D
-> +
-> +#define QMC5883L_CHIP_ID	0xFF
-> +
-> +#define QMC5883L_MODE_MASK	GENMASK(1, 0)
-> +#define QMC5883L_ODR_MASK	GENMASK(3, 2)
-> +#define QMC5883L_RNG_MASK	GENMASK(5, 4)
-> +#define QMC5883L_OSR_MASK	GENMASK(7, 6)
-> +
-> +#define QMC5883L_MODE_STANDBY	FIELD_PREP_CONST(QMC5883L_MODE_MASK, 0x00)
-> +#define QMC5883L_MODE_CONT	FIELD_PREP_CONST(QMC5883L_MODE_MASK, 0x01)
-> +
-> +#define QMC5883L_ODR_10HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x00)
-> +#define QMC5883L_ODR_50HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x01)
-> +#define QMC5883L_ODR_100HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x02)
-> +#define QMC5883L_ODR_200HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x03)
-> +
-> +#define QMC5883L_RNG_2G		FIELD_PREP_CONST(QMC5883L_RNG_MASK, 0x00)
-> +#define QMC5883L_RNG_8G		FIELD_PREP_CONST(QMC5883L_RNG_MASK, 0x01)
-> +
-> +#define QMC5883L_OSR_512	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x00)
-> +#define QMC5883L_OSR_256	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x01)
-> +#define QMC5883L_OSR_128	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x02)
-> +#define QMC5883L_OSR_64		FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x03)
-> +
-> +#define QMC5883L_STATUS_DRDY	BIT(0)
-> +#define QMC5883L_STATUS_OVL	BIT(1)
-> +
-> +#define QMC5883L_SET_RESET_VAL	BIT(0)
-> +#define QMC5883L_INT_DISABLE	BIT(0)
-> +#define QMC5883L_SOFT_RESET	BIT(7)
-> +
-> +#define QMC5883L_SCALE_2G	83333
-> +#define QMC5883L_SCALE_8G	333333
-> +
-> +/* POR completion time max per datasheet */
-> +#define QMC5883L_PORT_US	350
-
-If it's POR completion, why does the macro contain PORT instead?
-> +
-> +struct qmc5883l_data {
-> +	struct regmap *regmap;
-> +	struct mutex mutex; /* update and read regmap data */
-> +	u8 range;
-> +	u8 odr;
-> +	u8 osr;
-> +};
-> +
-> +enum qmc5883l_chan {
-> +	QMC5883L_AXIS_X,
-> +	QMC5883L_AXIS_Y,
-> +	QMC5883L_AXIS_Z,
-> +};
-> +
-> +static const int qmc5883l_odr_avail[] = { 10, 50, 100, 200 };
-> +
-> +static const int qmc5883l_osr_avail[] = { 512, 256, 128, 64 };
-> +
-> +static const int qmc5883l_rng_avail[] = {
-> +	0, QMC5883L_SCALE_2G,	/* 2G */
-
-These comments are redundant IMO, you're already mentioning
-the value in the macro name.
-
-> +	0, QMC5883L_SCALE_8G,	/* 8G */
-> +};
-> +
-> +static int qmc5883l_take_measurement(struct iio_dev *indio_dev, int index,
-> +				     int *val)
-> +{
-> +	struct qmc5883l_data *data = iio_priv(indio_dev);
-> +	unsigned int status;
-> +	__le16 buf[3];
-> +	int ret;
-> +
-> +	scoped_guard(mutex, &data->mutex)
-
-Why scoped_guard? I don't see any other possible code paths in this
-function etc., just regular guard() should suffice.
-
-> +	{
-> +		/* 50ms headroom over the slowest ODR (10Hz) */
-> +		ret = regmap_read_poll_timeout(data->regmap,
-> +					       QMC5883L_REG_STATUS1, status,
-> +					       (status & QMC5883L_STATUS_DRDY),
-> +					       2 * USEC_PER_MSEC,
-> +					       150 * USEC_PER_MSEC);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (status & QMC5883L_STATUS_OVL)
-> +			return -ERANGE;
-
-Sashiko has a remark:
-
-If we return -ERANGE here when the overflow flag (OVL) is set, does the
-sensor get permanently stuck in an overflow state?
-In typical I2C magnetometers, the Data Ready (DRDY) and Overflow (OVL)
-status bits are only cleared by reading the data registers. By returning
-early without reading the data registers via regmap_bulk_read(), the DRDY
-and OVL flags might remain set indefinitely. 
-On subsequent measurement attempts, regmap_read_poll_timeout() will return
-immediately and this check will instantly fail again, potentially locking up
-the sensor until a reset.
-
-> +
-> +		ret = regmap_bulk_read(data->regmap, QMC5883L_REG_X_LSB, buf,
-> +				       sizeof(buf));
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = (s16)le16_to_cpu(buf[index]);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int qmc5883l_read_raw(struct iio_dev *indio_dev,
-> +			     const struct iio_chan_spec *chan, int *val,
-
-I'd put val on the same line as val2 and mask, more logical separation.
-
-> +			     int *val2, long mask)
-> +{
-> +	struct qmc5883l_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +		ret = qmc5883l_take_measurement(indio_dev, chan->address, val);
-> +		iio_device_release_direct(indio_dev);
-> +		if (ret)
-> +			return ret;
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-
-Again, you can probably just add guard() before the switch.
-
-> +		scoped_guard(mutex, &data->mutex)
-> +		{
-> +			*val = 0;
-> +			*val2 = data->range == QMC5883L_RNG_2G ?
-> +					QMC5883L_SCALE_2G :
-> +					QMC5883L_SCALE_8G;
-> +		}
-> +		return IIO_VAL_INT_PLUS_NANO;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		scoped_guard(mutex, &data->mutex)
-> +		{
-> +			switch (data->odr) {
-> +			case QMC5883L_ODR_200HZ:
-> +				*val = 200;
-> +				break;
-> +			case QMC5883L_ODR_100HZ:
-> +				*val = 100;
-> +				break;
-> +			case QMC5883L_ODR_50HZ:
-> +				*val = 50;
-> +				break;
-> +			case QMC5883L_ODR_10HZ:
-> +				*val = 10;
-> +				break;
-> +			default:
-> +				return -EINVAL;
-> +			}
-> +		}
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		scoped_guard(mutex, &data->mutex)
-> +		{
-> +			switch (data->osr) {
-> +			case QMC5883L_OSR_64:
-> +				*val = 64;
-> +				break;
-> +			case QMC5883L_OSR_128:
-> +				*val = 128;
-> +				break;
-> +			case QMC5883L_OSR_256:
-> +				*val = 256;
-> +				break;
-> +			case QMC5883L_OSR_512:
-> +				*val = 512;
-> +				break;
-> +			default:
-> +				return -EINVAL;
-> +			}
-> +		}
-> +		return IIO_VAL_INT;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int qmc5883l_write_raw(struct iio_dev *indio_dev,
-> +			      const struct iio_chan_spec *chan, int val,
-> +			      int val2, long mask)
-
-Same comment with val as previous function.
-
-> +{
-> +	struct qmc5883l_data *data = iio_priv(indio_dev);
-> +	u8 rng;
-> +	u8 osr;
-> +	u8 odr;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (val != 0)
-> +			return -EINVAL;
-> +
-> +		switch (val2) {
-> +		case QMC5883L_SCALE_2G:
-> +			rng = QMC5883L_RNG_2G;
-> +			break;
-> +		case QMC5883L_SCALE_8G:
-> +			rng = QMC5883L_RNG_8G;
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		scoped_guard(mutex, &data->mutex)
-
-Again, guard() is probably good enough.
-
-> +		{
-> +			ret = regmap_update_bits(data->regmap,
-> +						 QMC5883L_REG_CTRL1,
-> +						 QMC5883L_RNG_MASK, rng);
-> +			if (ret)
-> +				return ret;
-> +			data->range = rng;
-> +		}
-> +		break;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		switch (val) {
-> +		case 200:
-> +			odr = QMC5883L_ODR_200HZ;
-> +			break;
-> +		case 100:
-> +			odr = QMC5883L_ODR_100HZ;
-> +			break;
-> +		case 50:
-> +			odr = QMC5883L_ODR_50HZ;
-> +			break;
-> +		case 10:
-> +			odr = QMC5883L_ODR_10HZ;
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		scoped_guard(mutex, &data->mutex)
-> +		{
-> +			ret = regmap_update_bits(data->regmap,
-> +						 QMC5883L_REG_CTRL1,
-> +						 QMC5883L_ODR_MASK, odr);
-> +			if (ret)
-> +				return ret;
-> +			data->odr = odr;
-> +		}
-> +		break;
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		switch (val) {
-> +		case 64:
-> +			osr = QMC5883L_OSR_64;
-> +			break;
-> +		case 128:
-> +			osr = QMC5883L_OSR_128;
-> +			break;
-> +		case 256:
-> +			osr = QMC5883L_OSR_256;
-> +			break;
-> +		case 512:
-> +			osr = QMC5883L_OSR_512;
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		scoped_guard(mutex, &data->mutex)
-> +		{
-> +			ret = regmap_update_bits(data->regmap,
-> +						 QMC5883L_REG_CTRL1,
-> +						 QMC5883L_OSR_MASK, osr);
-> +			if (ret)
-> +				return ret;
-> +			data->osr = osr;
-> +		}
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int qmc5883l_read_avail(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan,
-> +			       const int **vals, int *type, int *length,
-> +			       long mask)
-> +{
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*vals = qmc5883l_odr_avail;
-> +		*type = IIO_VAL_INT;
-> +		*length = ARRAY_SIZE(qmc5883l_odr_avail);
-> +		return IIO_AVAIL_LIST;
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		*vals = qmc5883l_osr_avail;
-> +		*type = IIO_VAL_INT;
-> +		*length = ARRAY_SIZE(qmc5883l_osr_avail);
-> +		return IIO_AVAIL_LIST;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*vals = qmc5883l_rng_avail;
-> +		*type = IIO_VAL_INT_PLUS_NANO;
-> +		*length = ARRAY_SIZE(qmc5883l_rng_avail);
-> +		return IIO_AVAIL_LIST;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int qmc5883l_write_raw_get_fmt(struct iio_dev *indio_dev,
-> +				      struct iio_chan_spec const *chan,
-> +				      long mask)
-> +{
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		return IIO_VAL_INT_PLUS_NANO;
-> +	default:
-> +		return IIO_VAL_INT;
-> +	}
-> +}
-> +
-> +static const struct iio_info qmc5883l_info = {
-> +	.read_raw = qmc5883l_read_raw,
-> +	.write_raw = qmc5883l_write_raw,
-> +	.read_avail = qmc5883l_read_avail,
-> +	.write_raw_get_fmt = qmc5883l_write_raw_get_fmt,
-> +};
-> +
-> +static int qmc5883l_init(struct qmc5883l_data *data)
-> +{
-> +	unsigned int reg;
-> +	int ret;
-
-struct regmap *regmap = data->regmap;
-
-Makes your lines shorter.
-
-> +	ret = regmap_read(data->regmap, QMC5883L_REG_ID, &reg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Not failing because rev 1.0 had this register reserved */
-> +	if (reg != QMC5883L_CHIP_ID)
-> +		dev_warn(regmap_get_device(data->regmap),
-> +			 "unknown chip id: 0x%02x, continuing\n", reg);
-
-I recall a conversation about using dev_warn() or dev_info() for checking
-the chip ID, up to personal preference. Nevertheless, your error messages
-should follow the same format, so capital letter at the beginning (nitpick).
-
-> +
-> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL2,
-> +			   QMC5883L_SOFT_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-> +	fsleep(QMC5883L_PORT_US);
-> +
-> +	/* DRDY pin no used in this version of the driver */
-> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL2,
-> +			   QMC5883L_INT_DISABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, QMC5883L_REG_SET_RESET,
-> +			   QMC5883L_SET_RESET_VAL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->odr = QMC5883L_ODR_50HZ;
-> +	data->range = QMC5883L_RNG_2G;
-> +	data->osr = QMC5883L_OSR_64;
-> +
-> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL1,
-> +			   (QMC5883L_MODE_CONT | data->odr | data->range |
-> +			    data->osr));
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static bool qmc5883l_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	return reg <= QMC5883L_REG_STATUS1;
-> +}
-> +
-> +static bool qmc5883l_writable_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case QMC5883L_REG_CTRL1:
-> +	case QMC5883L_REG_CTRL2:
-> +	case QMC5883L_REG_SET_RESET:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static const struct regmap_config qmc5883l_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = QMC5883L_REG_ID,
-> +	.cache_type = REGCACHE_MAPLE,
-> +	.volatile_reg = qmc5883l_volatile_reg,
-> +	.writeable_reg = qmc5883l_writable_reg
-> +};
-> +
-> +#define QMC5883L_CHANNEL(_axis)                                \
-> +	{                                                      \
-> +		.type = IIO_MAGN,                              \
-> +		.modified = 1,                                 \
-> +		.channel2 = IIO_MOD_##_axis,                   \
-> +		.address = QMC5883L_AXIS_##_axis,              \
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),  \
-> +		.info_mask_shared_by_type =                    \
-> +			BIT(IIO_CHAN_INFO_SCALE) |             \
-> +			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
-> +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-> +		.info_mask_shared_by_type_available =          \
-> +			BIT(IIO_CHAN_INFO_SCALE) |             \
-> +			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
-> +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-> +	}
-> +
-> +static const struct iio_chan_spec qmc5883l_channels[] = {
-> +	QMC5883L_CHANNEL(X),
-> +	QMC5883L_CHANNEL(Y),
-> +	QMC5883L_CHANNEL(Z),
-> +};
-> +
-> +static int qmc5883l_probe(struct i2c_client *client)
-> +{
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +	struct qmc5883l_data *data;
-> +	struct device *dev = &client->dev;
-
-Reverse Christmas tree order.
-
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	regmap = devm_regmap_init_i2c(client, &qmc5883l_regmap_config);
-> +	if (IS_ERR(regmap)) {
-
-No point in adding brackets if this is a single line if statement
-(checkpatch.pl should warn about this IMO).
-
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "regmap initialization failed\n");
-> +	}
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to enable VDD regulator\n");
-> +
-> +	ret = devm_regulator_get_enable(dev, "vddio");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to enable VDDIO regulator\n");
-> +
-> +	fsleep(QMC5883L_PORT_US);
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->regmap = regmap;
-
-Blank line here.
-
-> +	ret = devm_mutex_init(dev, &data->mutex);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = "qmc5883l";
-> +	indio_dev->info = &qmc5883l_info;
-> +	indio_dev->channels = qmc5883l_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(qmc5883l_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	ret = qmc5883l_init(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "qmc5883l init failed\n");
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
-You're using devm_* functions, however I don't see any callback on driver
-unbinding or a potential error during probing. Consider adding a power off
-callback.
-
--- 
-Kind regards
-
-CJD
