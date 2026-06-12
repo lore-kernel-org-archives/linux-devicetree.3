@@ -1,202 +1,221 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628442FE066
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141DB2FD1CA;
+	Fri, 12 Jun 2026 06:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781246468; cv=none; b=NS0M1uqZUYRrYh3uFzefSZBCTHY171eS/0JjBgIrbrjOlHU/mnKNrj4c94VcgC0M2exED9IoKlIRbz2+7Izx9ePdh6cRABxQStlJphM8whdKXoiYSK+yRpUGr9f8jOHFpjgy9c9+6eyig8G2za1hENIRkjVKMhKt3j7oGXGAPY8=
+	t=1781246579; cv=none; b=cTvnatuWk3f6Ro7j690iYzgeMr2R74l2RaMw/VfoptDb0gCRg1k/abQtn8W2K3LuS5xdsVdOX6xIjVaXM5O+6zjqvl3u6kKQdBAoZHXLN5u/1FYa5jYRmCPcOvq1n/Sb347zFeuxXlJIe1y6Jtij6ntMEShzDzCF4hSyRyvo2q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781246468; c=relaxed/simple;
-	bh=SCwu4AmAYC2pEDH84RC3L97RW1JBqwpQeUoQyIgVd44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BB6xZwAn5iJKiq5pS99iS79ZAFm/741aqXka1iyuJoZCnZ7jrSPs6/ckvwPGD98tJKuL6LpYSROpVNvNK0G3Sl5awOLYfp2MlxplH3amVLsQHPy8opT84TICkxZwNnxK1h0PZfg7LqQoMIuL54h5DvUn6WtE8f22dTf+3G52dxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mv3ioiRm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BU+3mWTU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781246579; c=relaxed/simple;
+	bh=aQ7NPvW21A0AuWMZ6hlNS1Fsd5TWjDus7fgr6XY/uQ0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pQpVRibxxJiFX0qtdY9ZP9DnLlKpwdJSvWXcXX+I3xS2dB2bQ7OQcDkW5e2vuQKRdp9BEUhZHuETt4fL9kUORMns/PQuDoy8G00s3+tXSJdkrtRJf6y7jnC2o6zCG8c0qT8kDORO+kuRsaDPv1kgjUmoM/xRKi/O2yxXQx8rqkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=V7d4Q44P; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mv3ioiRm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BU+3mWTU"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C3Bqm32451680
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:41:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=OX0aUgrRa9G6MztTipGGrqcI
-	ri5mfaFg+g0QKuO/wuU=; b=mv3ioiRmXXM4DC/Qfh2WvP/hPJgVoNzPaSmtO6/U
-	Gta8kuhvS6UcTG+rYOqAzkv9ttIDpIuntTLYAdvSxK0aAMCvyvD3UJEfTTowX44x
-	VtsVMvkFUW+bBAE1nWxqLu8WE+caR2xROU1Lnus0Z0NilDeHD7GkV4iNA4HoLwdi
-	9G5mpbc2+F9ZdBCF7numg9FxJ4Gzaapizq0yKtNIpWDKRBxGA39eIz4MrvVr2cpD
-	n45gdZJOuPDlUbMrTF8po7k7S7+cJiPrGokxN+ubXJxjrQuzAQatPGRgeiamwNSC
-	9lIlE1s+jEImhtYz7Xw34dOce9P9s7Abc2o7zJjnpT7Q7Q==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er1xcj6pv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:41:06 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-963b07e2003so589023241.0
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 23:41:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="V7d4Q44P"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781246465; x=1781851265; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=OX0aUgrRa9G6MztTipGGrqcIri5mfaFg+g0QKuO/wuU=;
-        b=BU+3mWTUXiJ4MQcmGto01GtK1Ze2Bvtjqa1dC4iLR98mA2pyevBWcq2YijcyqGdzqj
-         MlSvctC1Z9JSmFSk3h2Lzej/ED7baoLPpVqMqKcBfWsUbleHJn0acLXvBXeq8QbAmDYo
-         64eNKExP+N9N6tpLsajxOo7uWCiUR5EYOZITkYX0Br1HV5XNaWi0XgHkgSAknHYJ927y
-         o+5o633lXTDKIvJLyX5Z0GD/NBGwyog9UjO/zJZBILU1NaqZX+8DaZHgbGbjRPUbDTcz
-         lnOZWzdLS8Zi9+ItkT9EV6+R+t5m9S4Gzk1+0Yl+iP5rMJk/ShhEPnuTKOBzk1um/KQh
-         Al9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781246465; x=1781851265;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OX0aUgrRa9G6MztTipGGrqcIri5mfaFg+g0QKuO/wuU=;
-        b=CV/F6uJLk17/7gBf0fDhZSGKooK4aZkoHmi9TyUnOYle+Yjdlc22i9y6w0V6Zkxv9Y
-         DU7uhDgYT2A46gmgQWbQjJzmv0qxEZbd9/mkSdiRAGBFsT6pg5AzMiwUU+awOLA1go5n
-         /o58npA3NfhF1ot8w48rNG9LgvKiJWlrFHi/CcyCbevNAn1hklaDxwYBLkN7hhAAcjjy
-         I0tPr4G+cKFeYH6GbLfCmlismx4bhYC4WmdeL91XOdoWe+As8w8Qkw8fkg13WZX2Z4M7
-         p0brCEUHHsUF5noOFZsGu7maZH3CZ+s/8VVc7pyZXPD3XiOu6F0m/vRJLNPOBJdeFA+C
-         M2VQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/DJGQ/2m0+hZJb6ItxlufAs2NI56zNKMtKJxv/CK/rvo7mBChSZiRN693VerPPid1YVFVCYyEn+Gs2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw92z4QxdFad6dmx2tbwukgihmtMukql1VmFuE1oGQVKvXYua8I
-	OZ15OafkV/XOxCX6ILd4WA1Fjy4x4B3cF0IjWaJkreFjBDv+s1zbODR6Kj9AMiGtwXPvIJkRNqE
-	g8ZyTDf295Kmgd/6ZAbcL4h5H931J+4h5CGrbsHMooZYHG/LtHTBNSN1tQHqXyIui
-X-Gm-Gg: Acq92OF1jUOPzvYqon2kkY3pOfQIb4W/AQXcgxehy0dKm0ndR2yDD0VufPIZAoGsoVc
-	wYfXAM5oQ12Dj6EDH5CVM7x8IBT8vMMM9WWS6+94eLnXlSs/D9hiKGZpJ087HQ+9j0bhJ/DHkfo
-	dZCbSHNkp0p7H47zzRQsDi/tziASJ7aoGaINUFeRqN8E36liMuUbsMX2fYMCrtUrwDzb5w1ro+4
-	xc996npWBUA7133tIlW1CveEybHrjlaQEbj1CC0nvoVjUSSTERjJmmN9BqCKIvxLxlKIZ9SGC0y
-	YnA/zUvgNu9lwuWXwbg42P7uKcv1xtLEzZ4qWqhJGyttBSTPRB7CURLeZRBVH5TA8BsfYXaejUu
-	YQxV20Lah6FbTNhfDdqb28UDHlbKk7dQQuu2nHGahW6Z9lc6fDF79dYEYWxLa8n4BwffxFDGBnV
-	Zx1sAzSwxkug6wiIQPcuSo4r0iThLEEVb7A/w=
-X-Received: by 2002:a05:6102:374f:b0:6cf:f288:f372 with SMTP id ada2fe7eead31-71e88fd0285mr603738137.28.1781246465625;
-        Thu, 11 Jun 2026 23:41:05 -0700 (PDT)
-X-Received: by 2002:a05:6102:374f:b0:6cf:f288:f372 with SMTP id ada2fe7eead31-71e88fd0285mr603725137.28.1781246465226;
-        Thu, 11 Jun 2026 23:41:05 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e161ef4sm271847e87.3.2026.06.11.23.41.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 23:41:04 -0700 (PDT)
-Date: Fri, 12 Jun 2026 09:41:02 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH] usb: dwc3: Update nominal max votes for qcom usb
-Message-ID: <v5okvua6bnicuydjqy5pgha66gbpo46g7o45ejhezsgbae7k3r@wwqpqiu5k5e5>
-References: <20260611081831.2743464-1-akash.kumar@oss.qualcomm.com>
+	d=codeconstruct.com.au; s=2022a; t=1781246569;
+	bh=FWJYhiXqUMaYD6VeHN0j6mrscoHhjJw3Gq3j4k/FXLw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=V7d4Q44PZOFAp2+7I7SwTT38ul/YbkTQd29va1hkNaH+zYcBobk7RogEOG2YbLVjl
+	 K4uDyb9qwqOkpcPju15Khs68B+MFbXitLbTpHJlZil1TZu0K2DEnOGhFTzpEWc3lzt
+	 eo3mS85M3neABGJ04Cqbbxs6rafta//qTCN2H8WCHcQv3ty+oyiSsinE4epJgdTRUV
+	 IuYGhuAPsHkWFRufboSGJ+F0wULuG9fYPOK3NBYJLX+rTLwCkkIffodn8voB7uRYts
+	 OXGeyQ7Fhgr5eiPEYgK9dopGq23+zCj1XGUOPLgWfUQnljeK2vTBJKZGAbOPK6T1fR
+	 kMhVRBbkiH8CA==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E6A3C60931;
+	Fri, 12 Jun 2026 14:42:46 +0800 (AWST)
+Message-ID: <b226339bb2abe42ce23e90eadbc654b426131083.camel@codeconstruct.com.au>
+Subject: Re: [PATCH] arm64: dts: aspeed: Fix duplicate pinctrl labels and
+ address scheme
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Ryan Chen <ryan_chen@aspeedtech.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	 <joel@jms.id.au>, Arnd Bergmann <arnd@arndb.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Date: Fri, 12 Jun 2026 16:12:45 +0930
+In-Reply-To: <20260611-dtsi_fix-v1-1-ef2b7cd86d6d@aspeedtech.com>
+References: <20260611-dtsi_fix-v1-1-ef2b7cd86d6d@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260611081831.2743464-1-akash.kumar@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA1OCBTYWx0ZWRfX8U7V7tAALoeh
- CgP1hvPm6jeyIb1iFFUTf7FfwGFPmeW2gW6nevQ0oxyWMXoJ/AbMKkJpqh8/yrtiPGCbhcb1Gyl
- gp89qmu3Vwpr07aPo4xM9U1Us4zvSlwYt2OfX7ScsgmczPnTfxqo77ga4M9XJeNaH/3l+Et7g5Y
- WR7tds9pRCxyuyq2XkAEUABC0pQAbvqr7pEVkIl7ebOrB7g2th676XIfzCjsZ5SwLj4mn1b4L6y
- FgXkDdPew+4d2Z4om9ByWLsqksywF4qGmcINRZDNcp3D87l2G4bm4id032jRRfPbDXucAF3Aqu5
- JcHjQGaU6ITtrbxGjIcMVSG+N+2OpE1x6WTd2i5Gw/eLXIbV3ItWOv9gduIfK2Z6asxgy3lY+zi
- LPeoXhPwDFvZf3Yglcp/Imt2gLBETy9wAePiaRbRl9VikiKKHsb+F/mGahE8ETOaO6BRIJ9xoJo
- bswtiMDthgGz9TfqgFw==
-X-Proofpoint-GUID: CUSHuSyluQTgNhW_8iW0SFnuJRsp11vw
-X-Proofpoint-ORIG-GUID: CUSHuSyluQTgNhW_8iW0SFnuJRsp11vw
-X-Authority-Analysis: v=2.4 cv=NZPWEWD4 c=1 sm=1 tr=0 ts=6a2baa02 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=nxjr3CeA32HRPHoucToA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA1OCBTYWx0ZWRfX0LBg2nEHWSZU
- qEVMBtM9+4ls8JBynE/WXDna610Odio/yXCnUZzLXV7Rk0N2o15U49M6ppPh4f21+aNXcUy1h51
- EuIzw5SC+i9KbKGqcB2nZDP7EeL8YCE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120058
 
-On Thu, Jun 11, 2026 at 01:48:21PM +0530, Akash Kumar wrote:
-> Increase nominal max votes to improve DDR performance and USB audio
-> use case handling.
-> 
-> Currently, Bandwidth vote for max nominal value is set to 2500,
-> requiring DDR to run at 1GHz under normal load.
+Hi Ryan,
 
-How comes? Please explain the math here.
-
-> 
-> DDR is allowed to run under nominal range at 1.5GHz, which is
-> consistent across all targets. However, with the current nominal
-
-Which targets? Does it cover Agatti? SDX55? IPQ8064?
-
-> vote, glitches are observed during multiple audio use cases over USB.
-> Update the nominal vote to allow DDR to run more
-> efficiently, enabling simultaneous multiple USB audio use cases
-> without glitches.
-> 
-> With the existing vote, throughput is around 125MB/s. The updated nominal
-> value increases throughput to 145MB/s.
-> 
-> Benefits:
-> 
-> Enhanced performance and stability for multiple USB audio use cases.
-> Improved overall system efficiency with higher throughput. Slight
-> improvement in the audio KPI from 17.9ms to 16.6ms RTD-USBC.
-
-What kind of KPI is this?
-
-> By implementing this change, we expect to see significant improvements in
-
-Expect or observe?
-
-> both performance and stability, particularly for USB audio use cases,
-> leading to a more efficient system overall.
-> 
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+On Thu, 2026-06-11 at 14:50 +0800, Ryan Chen wrote:
+> Fix duplicate pinctrl_tach{0-15} and pinctrl_n{cts,dcd,dsr,ri}5 labels
+> in aspeed-g7-soc1-pinctrl.dtsi.
+>=20
+> Drop the cpu-index from secondary/tertiary container nodes: reduce the
+> "#address-cells" from 2 to 1 and update ssp_nvic/tsp_nvic unit-address
+> and reg accordingly. Also remove URL comments from the DTS.
+>=20
+> Suggested-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+> Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device =
+tree")
+> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
 > ---
->  drivers/usb/dwc3/dwc3-qcom.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index f43f73ac36ff..aa43a03f3c7f 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -46,9 +46,9 @@
->  #define USB_MEMORY_AVG_HS_BW MBps_to_icc(240)
->  #define USB_MEMORY_PEAK_HS_BW MBps_to_icc(700)
->  #define USB_MEMORY_AVG_SS_BW  MBps_to_icc(1000)
-> -#define USB_MEMORY_PEAK_SS_BW MBps_to_icc(2500)
-> -#define APPS_USB_AVG_BW 0
-> -#define APPS_USB_PEAK_BW MBps_to_icc(40)
-> +#define USB_MEMORY_PEAK_SS_BW MBps_to_icc(5500)
-> +#define APPS_USB_AVG_BW 40
+> This series contains follow-up fixes for the AST27xx DTS support that
+> was merged into linux-next (e77bb5dc5759).
+>=20
+> Two issues were identified after merge by Andrew Jeffery during review
+> of the pending v11 series:
 
-MBps_to_icc(40)
+These were identified by the sashiko bot, not so much by me, as I
+hadn't got around to looking at the patches at the time. I did comment
+in the replies though:
 
-> +#define APPS_USB_PEAK_BW MBps_to_icc(80)
+https://lore.kernel.org/all/20260609025708.ADBFE1F00893@smtp.kernel.org/
 
-You've tried to explain, why we change USB_MEMORY_PEAK_SS_BW. Why are
-you chahing APPS_USB_*_BW?
+Separately, the series at hand was v9, so any subsequent revision would
+have been v10, not v11. This isn't significant on its own, but it is
+another contribution to the collection of small errors that are
+accumulating at this point, which concerns me. Please take care.
 
->  
->  /* Qualcomm SoCs with multiport support has up to 4 ports */
->  #define DWC3_QCOM_MAX_PORTS	4
-> -- 
-> 2.43.0
-> 
+>=20
+> 1. Duplicate pinctrl state labels in aspeed-g7-soc1-pinctrl.dtsi caused
+> =C2=A0=C2=A0 dtc to abort with fatal label-redefinition errors.
 
--- 
-With best wishes
-Dmitry
+However, it didn't. soc/dt @=C2=A0564edaca1486 ("Merge tag 'sunxi-dt-for-
+7.2-2' of https://git.kernel.org/pub/scm/linux/kernel/git/sunxi/linux
+into soc/dt"), which includes the v9 patches at e77bb5dc5759 ("arm64:
+dts: aspeed: Add initial AST27xx SoC device tree"), builds without
+error.
+
+Why? Well, the report from sashiko appears misleading. Usually
+duplicate labels do cause an error, for example:
+
+   $ cat dle.dts
+   /dts-v1/;
+   / {
+           inner: test1 {
+                   prop-inner;
+           };
+           inner: test1 {
+                   prop-inner;
+           };
+   };
+   $ dtc -o /dev/null dle.dts
+   dle.dts:6.15-8.4: ERROR (duplicate_node_names): /test1: Duplicate node n=
+ame
+   ERROR: Input tree has errors, aborting (use -f to force output)
+  =20
+   $ cat dle-1.dts
+   /dts-v1/;
+   / { };
+   &{/} {
+           inner: test0 {
+                   prop-inner;
+           };
+           inner: test1 {
+                   prop-inner;
+           };
+   };
+   $ dtc -o /dev/null dle-1.dts
+   dle-1.dts:8.15-10.4: ERROR (duplicate_label): /test1: Duplicate label 'i=
+nner' on /test1 and /test0
+   ERROR: Input tree has errors, aborting (use -f to force output)
+
+However, a relatively minimal reproduction of the case at hand is:
+
+   $ cat dlu.dts
+   /dts-v1/;
+   / { };
+   &{/} {
+           inner: test1 {
+                   prop-inner;
+           };
+           inner: test1 {
+                   prop-inner;
+           };
+   };
+   $ dtc -o /dev/null dlu.dts
+   $
+
+This doesn't error out. I recommend not assuming reports from the bot
+are entirely accurate. Please test that its claims make sense before
+proceeding.
+
+While it's not good that there were duplicate nodes and labels, it is
+good that you've tidied them up.
+
+If there are modifications to the aspeed-g7-soc*-pinctrl.dtsi files in
+the future, I ask that you them sorted first so we can minimise the
+chance of falling into this trap again. The current order seems fairly
+haphazard and likely contributed to the oversight.
+
+>=20
+> 2. The synthetic container nodes (secondary, tertiary) for sub-processor
+
+I'm not sure synthetic is the right word here. We're still describing
+the hardware, just components that have their own distinct address
+spaces.
+
+On a separate note, if you feel the need to make a list when describing
+the change (e.g. in the commit message or patch notes) it's usually an
+indicator that the change should be split into separate commits. Please
+keep this in mind for future changes.
+
+> =C2=A0=C2=A0 interrupt controllers used a 2-cell address scheme to encode=
+ a
+> =C2=A0=C2=A0 <cpu-index reg-base> tuple.=C2=A0 Since the cpu-index adds n=
+o value for
+> =C2=A0=C2=A0 nodes that are purely phandle anchors, Andrew requested we d=
+rop it
+> =C2=A0=C2=A0 and use the bare register address instead.
+> ---
+> =C2=A0arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 14 ++-
+> =C2=A0.../boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi=C2=A0=C2=A0=C2=A0 |=
+ 102 ---------------------
+> =C2=A02 files changed, 6 insertions(+), 110 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi b/arch/arm64/b=
+oot/dts/aspeed/aspeed-g7-a35.dtsi
+> index ef283d95649a..58193c3c3696 100644
+> --- a/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+> +++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
+> @@ -84,32 +84,30 @@ l2: l2-cache0 {
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	secondary {
+> -		#address-cells =3D <2>;
+> -		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+tree/drivers/of/address.c?h=3Dv6.16#n491=C2=A0*/
+> +		#address-cells =3D <1>;
+> =C2=A0		#size-cells =3D <0>;
+> -		/* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+tree/drivers/of/address.c?h=3Dv6.16#n430=C2=A0*/
+> =C2=A0
+> -		ssp_nvic: interrupt-controller@1,e000e100 {
+> +		ssp_nvic: interrupt-controller@e000e100 {
+> =C2=A0			compatible =3D "arm,v7m-nvic";
+> =C2=A0			#interrupt-cells =3D <2>;
+> =C2=A0			#address-cells =3D <0>;
+> =C2=A0			interrupt-controller;
+> -			reg =3D <1 0xe000e100>;
+> +			reg =3D <0xe000e100>;
+
+Some other cleanups to consider are ensuring the property ordering
+conforms to the DTS coding style:
+
+   https://docs.kernel.org/devicetree/bindings/dts-coding-style.html#order-=
+of-properties-in-device-node
+
+The following grep is likely helpful:
+
+   git grep -C1 -F 'compatible =3D' arch/arm64/boot/dts/aspeed
+
+Andrew
