@@ -1,110 +1,135 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2D2324B22
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399DB31F984
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272693; cv=none; b=E02GxaxC0EPoCYhKxLeDImi5cU8IcJbckuUQTQuCWWTRUOWdgCbeLE6Qtbh9XZlnPhQG4ZQ9znGye7B5DG2su+hDPyCwSanBRWnSI/9rDuhyg8+MdL30xbz3J7l2bljKCid98/b79z8++b6fO06Kt0BOGXPf6LzDkdrD72Qm+iQ=
+	t=1781272698; cv=none; b=hVsuX4aZdEHJqKhfAktuu524oZPxRzcGmIbI7iYus5BzIxXS9lcVT9RPmCxWk7bgjuf7dbT2SiwDKd82hmxx5NA31CVp4Ru/O8Eb34PXM1lJJBu63h2cJCZ/tnMQTRfoJ28nTbiKEvad7ch0U4j/EMSc/x2unhVAQ+1IyWKIyIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272693; c=relaxed/simple;
-	bh=0ZR2dHBJCJIV7izh6baDvLxom0CSaWn2wTdEurxPKO4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XFY7RS0wAWmzUIgRO3imT7NvkFdyoYcKZc209JUenwyfdP1/Xrb44F/V/2PHxB0lShL/ug2BKRSOzekJ8J3BGSPiXBY0ejHo9YiTVCzvYndstjG0o0+tpQzMRycaZRCWPzCqIPg54v0d40WPnJVZ2RBSfpIyks1PQ26h/m65WX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C9kDxF57; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781272698; c=relaxed/simple;
+	bh=7RAWRz8lfOfarixxNlkFfs+YNhLZePGK79/sjOHb0aM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Xo9PLZv5hKT6GXTHHUwPkeYZOE8aw3K9RU+8+XrSmOWhtuImkC3RatEvII5uP2OG7TbXndTm7Ebj6HbSE3cfTfNFyS7eNlTPceFPaRJ4/AqV8GEAYld0AlK8V0pR3FAhwlW2it4oR4/51unZ+MJpKo61jZlVYq7BEeDPZLSWjA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gE1sjFe3; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9kDxF57"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490d1e54b3bso12767895e9.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:58:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gE1sjFe3"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so10609445e9.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:58:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781272689; x=1781877489; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FFsEYlInaSHqLS2KZVjT1FL0qF+p1vPQhrQhmNDTg1Y=;
-        b=C9kDxF57y+pTzCd9Z+UzZHjEvhufcMlXyLIZtPwIN1s/+u8RRjZq48bvpeuPayOWfW
-         J+Fb/4otzkeaK3Vdy8lCPC3eB9RBCn8GhLc7heN1vFVP9q4ydjXUdvpo2UeODj8w4pnI
-         3U2EskTgi+CybbUvm2ENmYDQI1z+2WGH05tYKoiZpfRiHrWiIe6buKlq89fQvuZW9JBU
-         Tb9vXBnunr44eINAYZ8ro5zF2ZOm/80xDpUf9AwUIovEZ7par2ZmHIZAzqOUsuelXjsX
-         NhRxAmTKN1t8HnqRQxTB8Yt2e4MivMXJb52RcPmh/yVdXF6lHwMJT/sMwqePWJIMNzX+
-         S0gw==
+        d=suse.com; s=google; t=1781272693; x=1781877493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Lqg7EuxMIGmSumS+tdgRe8gbezZdZWcHGXgl7mw39zw=;
+        b=gE1sjFe3wDeow1UANpXJowHeT8qe/uwAhvvEzt5VPJybnWZBn7QtGJiyQdhuCL52wS
+         O5ZZb30mEVmthfXKlmIaBfDjCBk+mPjfCvELC3cYT4Zk1s73/+w6jZa/1wwIqjvNlTRq
+         bavVIvEGbPprnOVSeWJ9rU6qKTeIhBw/KzmyT2BTGtw+njq6WRvFeduwTTQYb5/VLOea
+         gkHIY0cWJ4kbU/C/da7L/s48dOhhAbDTW9Zbp9kYl8sLw4GHyX/zC4E+sUJ8jQPMK4ml
+         JIOD9paiWNSjgXr5Pcv969nuyT53eSb33RD0IS1Q9/GsCpuiJ4w0EYUHy/P5yqB4BKL+
+         Q0MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272689; x=1781877489;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FFsEYlInaSHqLS2KZVjT1FL0qF+p1vPQhrQhmNDTg1Y=;
-        b=P1iS0BAx1fozxpT8BMDqWmclLWXBMYf9xfwtjCsIy3o+k7yF+hyaVnJcysusr2tZ0e
-         Ib4Bvixv4v6iX8CM6NL+nCSkGbkoDGeJhFj7chem9ntONqocZP7g96rs4cEVxqW4NNfg
-         5tvpgsWk6lZBj3sriT1bpptAd0xYpDnK6hBYL8T3lP5swRdBtknhVAnuugek7wucFyZJ
-         gsIT0ONkndEIVD4Uu+i2Wp7b1kCkpZ57rYeJGaKCKfNdPaaiEArTApjFE6MQ6zsDfD/o
-         +R+7Q2XSJMWg17lzWdriJ4BZZdeFRmvoop56B30EEZUjciFCbysujYga0cDCjmurZjgC
-         /W5Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/k3PFwzxelLG4wbso1r+k7ySN20qGw/kWo1mAgZWH978w35M50AQp+p4H5Iw9scd5VaYT/lSetV6Rt@vger.kernel.org
-X-Gm-Message-State: AOJu0YwU5qgToa9qgDeSNRfmQUYGZ3wdX2JaJW+GllwoLnuxzWdgSDHb
-	8d8aK8IpwOTu5W6olFqruWxjGQ//G30hX/MAeZQx9QK7CZFJIk1er5pX
-X-Gm-Gg: Acq92OFespNyacoEINYuDt3v2aRq+s+rR9jTu+RK2WfKQqsiscJG/WACVsgAvYPXAWV
-	Aus5yKVm6hnP/PnqWD1EUpn2lEJHwCftMfhCaz0Rv9bVc2tPx+1ElCCpmGyaF0ICW4JYkZSiblX
-	DRprqcDxkdAefLxlmqT89RpuOwTRndOndFy4TnocGk4og1Y7qmCpIPO4KB0zmD8H2UoNERALlnZ
-	qiqoSSfRKuvO7Hnm/Kwek5gjZxgcKBrVEqtn5kkWoxLgdzrw5hqEfOIS/zitDnm/J6VJ8gse3Zt
-	2vv0JJURkmqIkqrAP9CEl1r1Yzpzl7O8ITM7CKSuA+4Zt8LXUV1HnqvtyuwrLmGwo5uWCQNZp6E
-	GupVWfcSN84gaIidLu/LK1VMbI9dP6I4i9a6wE7ut7fg22m8mPwdNuEwaCKT3+IRJvW4/asUiYo
-	LnYmb6KjXGg+AU7okPoypgbF/G+zBjgqu3uBy7Wwy0ogfHh5ADq7B8FZEka5XWfjwdYeemrEHmX
-	CcNW6ZEujp4yCTrpR4q7INqfo0+fAS7wXDlFjWq+K7jOm3trx3oXkS/y/OxvxRHAtm7QiRo8L2a
-	wF+ieAdw0GD/2MIl4/udEWFo4ui+4tsEcbEvQgbjhouJ7WKNfTjpXj1zsY/PDufmmA==
-X-Received: by 2002:a05:600c:46cf:b0:488:a882:c7 with SMTP id 5b1f17b1804b1-490ec4ee40fmr35602725e9.25.1781272689430;
-        Fri, 12 Jun 2026 06:58:09 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea95c512sm39291915e9.2.2026.06.12.06.58.08
+        d=1e100.net; s=20251104; t=1781272693; x=1781877493;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Lqg7EuxMIGmSumS+tdgRe8gbezZdZWcHGXgl7mw39zw=;
+        b=qp+GnSuGhV8aM0ut7W47XEF8Ei4TqO2ClbbkKW3A2ozOihwbBDC6Qu8lVDSI3Z4T9o
+         pKZCe4BqC4wrd02sqWaXIgymofsvTXu6zqLCSvMlJ5s/ZyXK6UUNWACZoem48hiuN603
+         iksYsv4TK4onEM7/ZXrFE9+uesnBDfdE0v6cdgovQuTYv1FsUEMASVJV4Czpa62N4/yh
+         5CwGc8osQFmHalu9dt+GrSv/jcVZ94fjzLjVYDxvAu7AylYG3Rouh3r2T8owOye+mips
+         PuouXHnYw7JX1W5+rmugnSD1MBbCQoJ7wPWxxL8HJCCXA/g/TGPU/it+rKpxmg/IuoHo
+         hnRg==
+X-Forwarded-Encrypted: i=1; AFNElJ9/gFFmffkTjp/7VzqIJnOFln54VU3/+wnfMdTt0eZc6oZr+vf/fwVcf1lR9DAzTE8T9efbgyq9TexM@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTllFHXivND36A9yA0KVM2LwLBYLOhIUNY+dZ6X5t4DNstW5IB
+	pwL2HT7tlXMfvcfGEFNOCAX8tAeKufOY95Oa5JRmy9QiJey8lJowhnO3LiGZENeJWa4=
+X-Gm-Gg: Acq92OGkFiGfuNMU5DHYHl8aETiubyMOTwjr0m7b9c1VDA3R8xslI1UnaczKUe8a768
+	9Vw1OuBBEBaJ1AOTOpoX3OEVddz7PMKA74X2VlSRZ7OFEENdMSJ0B7S+KbtAK+iFCAjibUyjbAO
+	bSAjn6pymz9RrdLLS3Yof1vtoLm0kxWPAO6NhnvDl6Jo5P2ccbyZ7bmt/3Vy64aJRKIFmOHbuoo
+	a/I4dPhftZV5ZSvcRPBRZRETFuELVy4Ib3lhyLybBW4OHffJIKdqRYfl8n173ummkooGYQow/Jw
+	b0m5JJuOFpfBeYWVhCgKigD3OI332gma6AO4ovsNfoB/I8wSeRyTXWHiT6ZkEsPuS4v71H2h3RJ
+	GjsZXo9tPDXff1Fg3edne/2zehVW4sg3YUYY5QMBonxO6G9dx8oWQxE2XnaY5+/qcmnp0sY387l
+	bZWkn4CFWq01Pf0TMDaC30xAas+DOaJYQ=
+X-Received: by 2002:a7b:cc8e:0:b0:490:b0e1:2161 with SMTP id 5b1f17b1804b1-490ec4c1396mr28431285e9.2.1781272693533;
+        Fri, 12 Jun 2026 06:58:13 -0700 (PDT)
+Received: from localhost ([195.94.146.6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e2c7ea21sm157969205e9.1.2026.06.12.06.58.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 06:58:09 -0700 (PDT)
-Date: Fri, 12 Jun 2026 15:58:07 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Marcin Bis <marcin@bis-linux.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: iio: dac: adi,ad5337: add dt-bindings
-Message-ID: <20260612155807.000059e5@gmail.com>
-In-Reply-To: <20260612133125.196208-2-marcin@bis-linux.com>
-References: <20260612133125.196208-1-marcin@bis-linux.com>
-	<20260612133125.196208-2-marcin@bis-linux.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Fri, 12 Jun 2026 06:58:13 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>,
+	mbrugger@suse.com
+Subject: [PATCH v5 0/3] Add RP1 PWM controller support
+Date: Fri, 12 Jun 2026 16:01:25 +0200
+Message-ID: <cover.1780670224.git.andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 12 Jun 2026 15:31:22 +0200
-Marcin Bis <marcin@bis-linux.com> wrote:
+This patchset adds support for the PWM controller found on the
+Raspberry Pi RP1 southbridge. This is necessary to operate the
+cooling fan connected to one of the PWM channels.
 
-> Add dt-bindings for the AD5337 dual 8-bit I2C voltage-output DAC driver.
-> 
-> Signed-off-by: Marcin Bis <marcin@bis-linux.com>
-> ---
+The tachometer pin for the fan speed is managed by the firmware 
+running on the RP1's M-core. It uses the PHASE2 register
+to report the RPM, which is then exported by this driver via
+syscon registers. A subsequent patch will add a new device
+and driver to read the RPM and export this value via hwmon.
+ 
+Subsequent patches will also add the CPU thermal zone, which
+acts as a consumer of the PWM device.
 
-If you're adding new device support, any dt-binding patches
-should go first in the series.
+Best regards,
+Andrea
 
-Another big problem is that you haven't cc'd any devicetree
-maintainers/reviewers, nor the devicetree mailing list, therefore
-they probably won't see this patch and their automated tooling
-definitely won't check this. If you're unsure where to send this
-patch to, use the get_maintainer.pl script.
+CHANGES in V5:
 
-Also, it seems that you've replied with this patch to the
-first patch in the series, making it appear strangely in my
-(and probably other people's) email clients. Use a cover
-letter when sending patch series, it prevents things like
-this from happening.
+- period_tick is now capped to U32_MAX to avoid breaking
+  monotonicity
+- period_ticks less than 2 are set to 2
+- fixed two casts in fromhw() that could led to an incorrect
+  truncation/underflow
+- when disabling a pwm channel, first set the polarity to
+  avoid unintended quiescent level
+- in probe function, fixed and error path that could leak
+  an invalid pwm_chip struct
 
-+cc'd devicetree@vger.kernel.org
+
+Naushir Patuck (2):
+  dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+  pwm: rp1: Add RP1 PWM controller driver
+
+Stanimir Varbanov (1):
+  arm64: dts: broadcom: rpi-5: Add RP1 PWM node
+
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml     |  54 +++
+ .../boot/dts/broadcom/bcm2712-rpi-5-b.dts     |  12 +
+ arch/arm64/boot/dts/broadcom/rp1-common.dtsi  |   9 +
+ drivers/pwm/Kconfig                           |   9 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-rp1.c                         | 424 ++++++++++++++++++
+ 6 files changed, 509 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+ create mode 100644 drivers/pwm/pwm-rp1.c
 
 -- 
-Kind regards
+2.35.3
 
-CJD
