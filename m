@@ -1,85 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105F53176E0;
-	Fri, 12 Jun 2026 13:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6870227EB9;
+	Fri, 12 Jun 2026 13:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781271084; cv=none; b=bv7i+t6/kz+5p6XgnaY6AEG2p/5eJ70YqEKRQ0IBUpPAvhhIB94H5dWs3duwWE1UBsCT+pKDmtt7ikf2f8y6ciIcUoQCnwZ5WKA4p8pEdmgd0vRKfDousuWI5gT7LjnGexmvkFiWZMHJXTH1J58vPGPIGCXS07HlLmFsIYn8swU=
+	t=1781271246; cv=none; b=JEQ78QsSb2PTom2UchXZZFpnKhCNaHr18TYcR5TMJtSoYUtrwspDy3OSL5GvPbVUCrfKT33x3vOyEme6dREbJx4QwgtL+6VRV9aYCdzTDJTR3b2+SmoK74g5oNKaSZSk3eWSk19pD1ABgiqVoPOtz/2bsf9VAGnKytbqvxRR/+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781271084; c=relaxed/simple;
-	bh=ElUFZ0J71drnXO9dcQjG44rWipWYDV2qGeK3PRPBSoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Am6Z6esnWQzKhzfPx1GRjsGhBiNxfMchdg06Gu5GZN68VVQh9H1Vi2+vmyVP6sr+gXZDrNwNcLBwa/GXzbC33lYj9JFFLdhfW7JBAFAOkPVZOe6VoM1JaRtqo7ozsv0SoImn8yhLpXoa9n6Q8TD3X0y17tANNRM98eGDtJT0OcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ps1qWvVk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781271246; c=relaxed/simple;
+	bh=RPNUxj1GaxD8CB2IpjufuTELUdA6MtI1aZv5yqAmMMM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uLHDVtRkyM6QDTkn0k1BLSk4lk9I0XpZ0cho/4+xqdbWB6uccaYWbG6n/lvPOxeLiOwXX+DdQF8NlwU8cdwsri6VOZmBVBpAO64/KVAW/dU/EmrBCGiLDrc4zrwmu05eo4cy1av9sWsvJnnRiQPFyAVJ9YAct1qvEU137wTz+yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXBj6Rhr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ps1qWvVk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170A61F000E9;
-	Fri, 12 Jun 2026 13:31:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXBj6Rhr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2341F000E9;
+	Fri, 12 Jun 2026 13:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781271083;
-	bh=ElUFZ0J71drnXO9dcQjG44rWipWYDV2qGeK3PRPBSoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ps1qWvVkfWAaxDsjgYj835uoC3J3/BC4WtTYsIcdq4yM2xFXammiqgxnX7lTilyaO
-	 83tNB1J5mUKFkE3SgyJTfNSflNzN7nTxszy10ft5xpajHe+kqMyuvczZmMh4v/Auxm
-	 PXagO+8O6zQzHQTsyEwn06TTpdbEy64DYzPiS3EiaDuqf6XeOHoOPIvY3HnlcDznrR
-	 2yJHeKyCWzgNmBhRpInqCd6BFLEPnDWlgVGAw09u0NMS6lH3cAt/1OttqjaJGJawQR
-	 br02oHO9QGhuuXFGEc0VTLgytVC67/amgz09ljk2ziRMX6EWR7/RBcoKzyy/646AGH
-	 wnJVp7156q+wg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id A34BF1AC58C5; Fri, 12 Jun 2026 14:31:08 +0100 (BST)
-Date: Fri, 12 Jun 2026 14:31:08 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: spi: snps,dw-apb-ssi: Add support
- for snps,dwc-ssi-2.00a
-Message-ID: <aiwKHANdWVWhaSFA@sirena.co.uk>
-References: <20260612125856.8530-1-changhuang.liang@starfivetech.com>
- <20260612125856.8530-2-changhuang.liang@starfivetech.com>
+	s=k20260515; t=1781271245;
+	bh=49jlqhhXCRfMnXGAyjSyohIySAgy5L/GsDjO78YQbL8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fXBj6RhrirGAraH/4DA93OIY4JS9I9NEcChRreCVjz7MpgOVOKfwqE3AiZr1Wd+m1
+	 ZE+Qf2LK876GioOTmVGNQK9D7syp6f3XnZfgPmT3lwD7Iu9O6KSjZyjjd2Clde36++
+	 7AE5twIMpK+w1MPcofZOYwzcYS/f55vrtOJMQp3NWB8IVvlLO+MPf2lQhBj/zCR/gJ
+	 HBdbnN5w8NBjvV9DdoqrnVANluzGrncFgg70NickfkZ1ly/IS+Flh2Y1o75LnytuNw
+	 uPrYV8bm028jyLHRIG9e1ylap6n2pDFFNV0dwgPv/i+iMf+XIw5Kz2IhrY+NW+qF5t
+	 N6+K43BKseDZw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/8] media: uapi: Add NXP NEOISP user interface
+ header file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoine Bouyer" <antoine.bouyer@nxp.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260612132039.2089051-5-antoine.bouyer@nxp.com>
+References: <20260612132039.2089051-5-antoine.bouyer@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 13:34:04 +0000
+Message-Id: <20260612133405.0A2341F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WLwyDBtIUcqAnQnF"
-Content-Disposition: inline
-In-Reply-To: <20260612125856.8530-2-changhuang.liang@starfivetech.com>
-X-Cookie: Nice guys get sick.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] UAPI Compilation Failure due to undefined struct `v4l2_isp_block_h=
+eader`
+- [Medium] Implicit compiler padding (holes) in UAPI structures
+--
 
---WLwyDBtIUcqAnQnF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 07ff92ed00f28aef4b4e762772b07f402cd3490d
+Author: Antoine Bouyer <antoine.bouyer@nxp.com>
 
-On Fri, Jun 12, 2026 at 05:58:55AM -0700, Changhuang Liang wrote:
+media: uapi: Add NXP NEOISP user interface header file
 
-> Add a new compatible string "snps,dwc-ssi-2.00a" for the Synopsys
-> DesignWare SSI controller version 2.00a.
+Add user space api header file for meta data structures definitions.
+This header describes parameters buffer for the ISP blocks control by
+userspace, and statistics buffer for userspace and IPA handling.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+> diff --git a/include/uapi/linux/media/nxp/nxp_neoisp.h b/include/uapi/lin=
+ux/media/nxp/nxp_neoisp.h
+> new file mode 100644
+> index 0000000000000..2dafa19df3242
+> --- /dev/null
+> +++ b/include/uapi/linux/media/nxp/nxp_neoisp.h
 
---WLwyDBtIUcqAnQnF
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +struct neoisp_obwb_cfg_s {
+> +	__u8 ctrl_obpp;
+> +	__u16 r_ctrl_gain;
+> +	__u16 r_ctrl_offset;
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmosChkACgkQJNaLcl1U
-h9DxRgf+I0pbawxU8DD0tiE7vjN+XCjBCDKUpiJ9A03WpZPbcX3GWEryJEPF968U
-1A12GVNnE5/ojtxsoeIhkoS4rODVvqsbCSVctiRkvsH+/eYmkCEmDSDXYusUoRvt
-75JL9TEJBVuXVOgIhG+rsipRw5o1ywWQimMyNTUX//OHPcHbFd+I30MEMHt0hY8U
-ys44058btPGVIuYuHa7Huzxg3vrGgxC4t5qN/JF4it5gvCqHMTf3czu57h1rgiJD
-zP87KeXznkQZoxipF1V8GcNRDzSFW6un4R/epGYJ6F0pGr07nfOb9MdA4m1uaADx
-rVhpHPWfW57zNj5jWB8Q2RX9FI7Wsg==
-=lTWK
------END PGP SIGNATURE-----
+[Severity: Medium]
+Is there an implicit 1-byte compiler padding hole after ctrl_obpp to align
+the __u16 r_ctrl_gain field?
 
---WLwyDBtIUcqAnQnF--
+UAPI guidelines generally require explicit reserved fields to fill all
+holes. This guarantees a stable ABI and prevents uninitialized kernel memory
+from potentially leaking to userspace.
+
+[ ... ]
+
+> +struct neoisp_ir_compress_cfg_s {
+> +	__u8 ctrl_obpp;
+> +	__u32 knee_point1_kneepoint;
+
+[Severity: Medium]
+Does this introduce a 3-byte implicit padding hole after ctrl_obpp to align
+the __u32 knee_point1_kneepoint field?
+
+[ ... ]
+
+> +struct neoisp_bnr_cfg_s {
+> +	__u8 ctrl_debug;
+> +	__u8 ctrl_obpp;
+> +	__u8 ctrl_nhood;
+> +	__u8 ypeak_peak_outsel;
+> +	__u8 ypeak_peak_sel;
+> +	__u16 ypeak_peak_low;
+
+[Severity: Medium]
+Are there implicit padding holes in this structure, such as a 1-byte hole
+after ypeak_peak_sel?
+
+[ ... ]
+
+> +struct neoisp_rgb2yuv_cfg_s {
+> +	__u16 gain_ctrl_rgain;
+> +	__u16 gain_ctrl_bgain;
+> +	__s16 mat_rxcy[NEO_RGB2YUV_MATRIX_SIZE][NEO_RGB2YUV_MATRIX_SIZE];
+> +	__s32 csc_offsets[NEO_RGB2YUV_MATRIX_SIZE];
+> +};
+
+[Severity: Medium]
+Is there a 2-byte implicit padding hole after the 18-byte mat_rxcy array to
+align the __s32 csc_offsets field?
+
+[ ... ]
+
+> +struct neoisp_ee_cfg_s {
+> +	__u8 ctrl_debug;
+> +	__u8 maskgain_gain;
+> +	__u32 coring_coring;
+
+[Severity: Medium]
+Does this leave a 2-byte implicit padding hole after maskgain_gain?
+
+[ ... ]
+
+> +struct neoisp_pipe_conf_cfg_es {
+> +	struct v4l2_isp_block_header header;
+> +	struct neoisp_pipe_conf_cfg_s cfg;
+> +} __attribute__((aligned(8)));
+
+[Severity: High]
+Will embedding struct v4l2_isp_block_header by value cause an incomplete
+type compilation error?
+
+The struct v4l2_isp_block_header does not appear to be defined anywhere,
+as the generic V4L2 ISP framework defines v4l2_isp_params_block_header
+instead. This seems to break compilation for both the driver and any
+userspace program including this header.
+
+[ ... ]
+
+> +struct neoisp_ctemp_reg_stats_es {
+> +	struct v4l2_isp_block_header header;
+> +	struct neoisp_ctemp_reg_stats_s stat;
+> +} __attribute__((aligned(8)));
+
+[Severity: Medium]
+Does forcing 8-byte alignment here add 4 bytes of implicit trailing padding
+to this statistics wrapper structure?
+
+Adding explicit padding fields might be needed to prevent uninitialized
+kernel memory from leaking to userspace via the statistics buffer.
+
+[ ... ]
+
+> +struct neoisp_nr_reg_stats_es {
+> +	struct v4l2_isp_block_header header;
+> +	struct neoisp_nr_reg_stats_s stat;
+> +} __attribute__((aligned(8)));
+
+[Severity: Medium]
+Does this also contain 4 bytes of implicit trailing padding due to the
+explicit 8-byte alignment requirement?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612132039.2089=
+051-1-antoine.bouyer@nxp.com?part=3D4
