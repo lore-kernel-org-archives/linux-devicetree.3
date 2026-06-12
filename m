@@ -1,198 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED52383C65;
-	Fri, 12 Jun 2026 15:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD7D346AD5;
+	Fri, 12 Jun 2026 15:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781279318; cv=none; b=tIILROZqerK1skYP+/JUFj5fqKucmUhjPFmYPWpaX8jTp0do8pjcGMGmFYXg7nmvZ4ODjGN22fom4495SbAlep1lAd8Ex04/zQgDaHzknTmGCO4PYF32oI63UP8/6/uXdBIX+QBrXTk+xs7huOgo0AXugmNWYjRB5PxwAcBsiSc=
+	t=1781279587; cv=none; b=kS+iK2EAYCWuu4g0YZRu9/Udb9RzTsQAOlnVSBUGF99rXlzTUojJ17N9oay/szMuR1DPUubKD4EtYmRGeHlVrDZ0a9FvMTERSt2jM7yGrfLRy3TXiEc4VeauGJzdkLCe3aeiusI2XgGVLkFXuU/piQoeHmSpYVi1x0AJfDcFnJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781279318; c=relaxed/simple;
-	bh=LsR7KpA+fDSHS8txtXxcEBfQLL6FA9LdOsE1OmuaCIM=;
+	s=arc-20240116; t=1781279587; c=relaxed/simple;
+	bh=Xi4zr6K4kn0ZEMvzzLUuNwWw60sZlDm3SVBSJ/YtuQg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o5vGTDTh+VUCKdmnKVW4lMyQGjZKH4klIzHYBYtDDIUMpwKeFwS06NvJVT3h8zHPLrat4sU+guYkfnT/5WoKqgUixd0nNbmXQGyDZTkTN3/oRW4AqtSPAJ9/fgo2AV9B3gMJIbxQu23f8iQPXaiKPs7ZZCRZcp5dbL7cVGugi10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCuIjJzu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z4WPelPC+zaiw7v56z/s44mSJKgXKj5wA+9NXwfKLOgbeDMc9y4Prgty1eoA5rsIiF7FpjrR/dKj87Ph9ACLFUH4pMDArVibO0Hl1wFVbW1J2rq5CIBNPh8ty/zTkIfPzREGqVps4ci2r4I31Q+OnUsjlEHcqqild7zja1O62+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Z8S8P5jC; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCuIjJzu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731841F000E9;
-	Fri, 12 Jun 2026 15:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781279317;
-	bh=P24PzYh2dPfggH2phH0CSdSprDerroPHjb0HskOrFUM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mCuIjJzuVaQ73bpIXBCWHhNagTHww10+4/G86OLA8YHNzLyK0mxgnpCr209pm+xNi
-	 MnN2EVodolcF8B8zpseyDfXQNywmc+F0LxNdQw/7eHeFcz3XAAtRR939BaNnGumqd4
-	 vLXDQUaSpQzE3ZUvZHivRRc2J1wRJly+9mFFrS1waeNeVWopXgy4LhAsQg2cXgQOiJ
-	 1cSHuZUm9hlGZSo61pQOOeeSb0NUq0r3DBsTMi9ilK7Ip2g6e57lc0rATfWfmlGGGi
-	 SctNp+ClycrrpxJ5ROXC0fz8akcZJOBOgKyt1iRRyOddCf/C8iwyMyHGr5BzTQBYYE
-	 14qeOAtMZxdTA==
-Date: Fri, 12 Jun 2026 16:48:33 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Add
- Nuvoton MA35D1 QSPI
-Message-ID: <20260612-diagram-florist-01a0e8f923d8@spud>
-References: <20260611091246.2070485-1-cwweng.linux@gmail.com>
- <20260611091246.2070485-2-cwweng.linux@gmail.com>
- <20260611-decoy-glamorous-81903a5fd1f9@spud>
- <0031379c-0cc3-40c8-8145-5b1991b42f05@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Z8S8P5jC"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7554F497;
+	Fri, 12 Jun 2026 17:52:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781279552;
+	bh=Xi4zr6K4kn0ZEMvzzLUuNwWw60sZlDm3SVBSJ/YtuQg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z8S8P5jCFyTJtycXMMjLt/8TwqBV+eybltV90qrojoPBmml1+uvKj11t9HxOnmrmX
+	 B0MOPpBIJsPGPWeh/6ZHZB9OWAvNXvY5ERFpaziK2fsszUVeqh8fdo+0W8uJoicdOL
+	 p3qRuinDJo5SSUZ6aAxCQrkyjnpPiJHBcc8erDIg=
+Date: Fri, 12 Jun 2026 18:53:01 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260612155301.GC1982714@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+ <20260611000324.GH1632628@killaraus.ideasonboard.com>
+ <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d5KanU3abWapAIHY"
-Content-Disposition: inline
-In-Reply-To: <0031379c-0cc3-40c8-8145-5b1991b42f05@gmail.com>
-
-
---d5KanU3abWapAIHY
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
 
-On Fri, Jun 12, 2026 at 08:33:01AM +0800, Chi-Wen Weng wrote:
-> Hi Conor,
->=20
-> Thanks for the review.
->=20
-> I will add a default value for num-cs in v4:
->=20
-> =C2=A0 num-cs:
-> =C2=A0 =C2=A0 maximum: 2
-> =C2=A0 =C2=A0 default: 2
->=20
-> The controller has two native chip selects and the driver currently uses
-> that hardware default.
+On Fri, Jun 12, 2026 at 02:56:11PM +0300, Tomi Valkeinen wrote:
+> On 11/06/2026 03:03, Laurent Pinchart wrote:
+> > On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
+> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> >> crtc, when enabling the crtc.
+> >>
+> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> >> the DSI, the above call path is broken as the crtc tries to call
+> >> rcar_mipi_dsi_pclk_enable() on the DSC.
+> >>
+> >> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
+> >> in that case gets the next bridge from the DSC, which is the DSI.
+> >>
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> >> ---
+> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
+> >>   1 file changed, 34 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> >> index 4ef2e3c129ed..085e229bcb0b 100644
+> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> >> @@ -88,6 +88,8 @@ struct dsi_setup_info {
+> >>   	const struct dsi_clk_config *clkset;
+> >>   };
+> >>   
+> >> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
+> >> +
+> >>   static inline struct rcar_mipi_dsi *
+> >>   bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
+> >>   {
+> >> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
+> >>   	rcar_mipi_dsi_stop_video(dsi);
+> >>   }
+> >>   
+> >> +/*
+> >> + * We need to skip the DSC bridge when we have DSC in between the DU and
+> >> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
+> >> + * next_bridge is the DSI bridge. If this is not the case, the DT data
+> >> + * is wrong (so it shouldn't really happen).
+> >> + */
+> >> +static struct drm_bridge *
+> >> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
+> >> +{
+> >> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+> >> +		bridge = bridge->next_bridge;
+> >> +
+> >> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+> >> +		return NULL;
+> >> +
+> >> +	return bridge;
+> >> +}
+> > 
+> > Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
+> > rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
+> 
+> It's actually cached in rcar_du_encoder.c, but used in rcar_du_crtc.c.
+> 
+> If I understand right, you'd like to do the DSC detection in 
+> rcar_du_crtc, and skip the DSC, if needed, before calling 
+> rcar_mipi_dsi_pclk_enable()?
 
-The driver should handle the property and fall back to the default.
-It's not complex to support, so surely there's no reason not to?
+That would be the idea, yes. Knowledge that there's a DSC in the
+pipeline would be in the DU driver, not the DSI driver. I think it would
+be better, as the DU driver is the one that should have an overall view
+of the display pipeline.
 
-Cheers,
-Conor.
+> > question is how to then identify the right bridge, as we won't have
+> > access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
+> > type field to DRM_MODE_CONNECTOR_DSI ?
+> 
+> I'm not sure how that would help. Or, I can, as the dsi driver does not 
+> set the bridge type, so only DSC would set it. But isn't that even more 
+> hacky?
+> 
+> Or did you rather mean that the DSI driver would set the bridge type, 
+> and DSC would not? We can then do:
+> 
+> 		if (bridge->type != DRM_MODE_CONNECTOR_DSI)
+> 			bridge = bridge->next_bridge;
 
->=20
-> Best regards,
-> Chi-Wen
->=20
-> Conor Dooley =E6=96=BC 2026/6/12 =E4=B8=8A=E5=8D=88 01:34 =E5=AF=AB=E9=81=
-=93:
-> > On Thu, Jun 11, 2026 at 05:12:45PM +0800, Chi-Wen Weng wrote:
-> > > From: Chi-Wen Weng <cwweng@nuvoton.com>
-> > >=20
-> > > Add a devicetree binding for the Quad SPI controller found in
-> > > Nuvoton MA35D1 SoCs.
-> > >=20
-> > > The controller supports SPI memory devices such as SPI NOR and SPI NA=
-ND
-> > > flashes. It has one register range, one clock input and one reset lin=
-e,
-> > > and supports up to two chip selects.
-> > >=20
-> > > Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
-> > > ---
-> > >   .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 62 ++++++++++++++++=
-+++
-> > >   1 file changed, 62 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma=
-35d1-qspi.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qsp=
-i.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> > > new file mode 100644
-> > > index 000000000000..d3b36e612eb0
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> > > @@ -0,0 +1,62 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/spi/nuvoton,ma35d1-qspi.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Nuvoton MA35D1 Quad SPI Controller
-> > > +
-> > > +maintainers:
-> > > +  - Chi-Wen Weng <cwweng@nuvoton.com>
-> > > +
-> > > +allOf:
-> > > +  - $ref: /schemas/spi/spi-controller.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: nuvoton,ma35d1-qspi
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    maxItems: 1
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1
-> > > +
-> > > +  resets:
-> > > +    maxItems: 1
-> > > +
-> > > +  num-cs:
-> > > +    maximum: 2
-> > Missing a default of 2, unless you make the property required.
-> > FWIW, your driver doesn't appear to read this value.
-> >=20
-> > pw-bot: changes-requested
-> >=20
-> > Cheers,
-> > Conor.
-> >=20
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - clocks
-> > > +  - resets
-> > > +
-> > > +unevaluatedProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > > +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-> > > +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
-> > > +
-> > > +    soc {
-> > > +        #address-cells =3D <2>;
-> > > +        #size-cells =3D <2>;
-> > > +
-> > > +        spi@40680000 {
-> > > +            compatible =3D "nuvoton,ma35d1-qspi";
-> > > +            reg =3D <0 0x40680000 0 0x100>;
-> > > +            interrupts =3D <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> > > +            clocks =3D <&clk QSPI0_GATE>;
-> > > +            resets =3D <&sys MA35D1_RESET_QSPI0>;
-> > > +            #address-cells =3D <1>;
-> > > +            #size-cells =3D <0>;
-> > > +        };
-> > > +    };
-> > > +
-> > > --=20
-> > > 2.25.1
-> > >=20
+Yes that's what I meant.
 
---d5KanU3abWapAIHY
-Content-Type: application/pgp-signature; name="signature.asc"
+> in the crtc driver. This works. It's still a bit hacky, but I think the 
+> chances of the code getting it wrong are quite low. If the output port 
+> is RCAR_DU_OUTPUT_DSIx, then the next bridge must be rcar-dsi or 
+> rcar-dsc, so it's all under our control. Also, it's less code than this 
+> patch, so I'll go with that.
 
------BEGIN PGP SIGNATURE-----
+Thanks.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiwqUQAKCRB4tDGHoIJi
-0hSZAPsGXy7Ljn9Qs0indD+H/DnIcVGLUKT5vrJDctij1nWDoAD/S2RKklLM1fdd
-ssE+s+pAINHsBvdWwhPwG6YnBAEKiAA=
-=gDMh
------END PGP SIGNATURE-----
+-- 
+Regards,
 
---d5KanU3abWapAIHY--
+Laurent Pinchart
