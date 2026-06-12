@@ -1,556 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013057.outbound.protection.outlook.com [40.107.162.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B813911C6
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 20:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781295789; cv=none; b=XaZb3+iXn+D4Z+nl2ZckTcoeVmg4cghpa2XvhQmJtOEvwgf8VgYqHrKOREigqQ1vdDndwWu2jaIAPtR58cm8Kn3yFuYTKBhNVI6l3D5bJBYE7ogTp2Yc9xAbrzpIT+KjmuO7xXtgOqq//JfTwVo+0uZa3vHfyLu1cWpVYcNBIF8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781295789; c=relaxed/simple;
-	bh=dBLwQI/S/Mnzu6a5krFIbnbAVsC87u9RNj1yRAcOjaI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pMEcIDBm/354ZTxYQuY3kKfdkwfqLeSy484Wnk28Z5E03NdVS1mseIqjk85YXk8GwPNPQ2CAc7Cdhk/113Le8GAc48fO15dvY3l3+vBRRv2/h6aDeBRTAQVnxNc0W84dDSb9hOOoGVllBRclZm8mIcFv0aMUnZvHEGDQT2W1DAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMxIYq0L; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79C6389115;
+	Fri, 12 Jun 2026 20:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781295832; cv=fail; b=ajto7fLTukkMe5O8xhD3jDxHJzlkRXpAUwHKDEXPssRngE3DZzPhBPTBBI1Sl+1pK7W+potglAFPWEHmX2J4kRpExKOMhk5xwYHHJKPvZvw8WF7+0gVeLIyB6oi2v2V9HvO0t2DAfv4ArlR6QKVXpPg0ESQXRr3m6sP4Pk/BuGc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781295832; c=relaxed/simple;
+	bh=SwtNg20R1kSjVvG1uhcsOa65m+AeaDoepxx6+w7gPcg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=a2Yyg5wAm9y7ZS9VbgGNf0VIaIzMDItby6K9FCQP+/on9RJMSD5G1n/2ICRcf/9M8qg2yzGm7FdmC5USI29YXymQrYPrkNdlVFSxwGzbdkoLpVhIuDVebUPlnwAuzTfCijGGnm8OkkHxf/qFZCAEV/Ksj/OdX1U8lFRml6ACR+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=n9Z5NeOP; arc=fail smtp.client-ip=40.107.162.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMxIYq0L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8D11F000E9;
-	Fri, 12 Jun 2026 20:23:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781295787;
-	bh=hhRG6oG7diCasmFBYL3B2pvjY4eq7pLDLE5urq73rxg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VMxIYq0LdnpVPDZKB2WxDf1TFC4QfznKt4018+G/C9lSP7O001dtXl3xBkS26TK80
-	 mg2qYAou+q8iIJHlLnKHYi5YxxETm4XlOJLBN1GAg7dKUA2S7GFPDRLwwM/tJ4D8aL
-	 0mGbZZMLi4t+b65ESKE66i4mUp93u7xd7dEr/WfGQ+uoL+xhb9gKzvgedGGlT0cCMJ
-	 YUIj0Jy2qovVaonaAccikKAxQhnAga0Dpiyx38PoJnwJL7sY0Qc+qfVz4nDE3ZlITw
-	 AIJnmUcs4omvCpUqFtUcPE5nEX2ZQcrAM3I5enI1Ac3ujVVohCaFnbCRUYiHnLcSHS
-	 +/wyCNioGuNkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 4/4] media: qcom: jpeg: Add Qualcomm JPEG V4L2
- encoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260612194417.1737009-5-atanas.filipov@oss.qualcomm.com>
-References: <20260612194417.1737009-5-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 20:23:06 +0000
-Message-Id: <20260612202306.DD8D11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="n9Z5NeOP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mEvGgEJ6JDotx5te0cWEWYQt3BBIBsNQh29LnD9UqLJ5ovHJkSnE7Pd0ui01G6JjoN2s3A7aWFE1ms5hWTRxG6xv6n27lakJSDbTLPFyjdexc/un2tM7PsSXiGGJrRBt5NKYtEIeG3/wkMExpPuMpmBFh2+Uerqcd+MxAaZsDX3rKbVx4/QNUe8dK2yNfWteHuf0iyMavHgnLbBaQgg+/kgwGJfRYDxq5gbjpLid8DSWTk4tg02BSUTXNc/L/rCf4PSsUIzs4qILOeAo2m6USM+1PxN6x1Nq7vL7fpcUJG+WLMUQgW6oOjz5c8LvsP9+7us9fnvQRSVmV1kTFWSnrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EJCu7BP7oNAwAWqWZKRWNgigdzLaQeOLs0hy0FjMFsk=;
+ b=UE4mFKlbk7Ve6RUMrAlvFqlxsF+AFg+DR+dCcDZWViIdl47F72DfvQswG9D85lFPPODSwwakOu6FGgzrLO2u642JdBTq0hhxlli44bwsLTmyUf7H4QOTcp3dI+cQaI8A5eJLPORgSm1Y99ESjSLWlRwNJxbDU296h+jTcd3vxdYVWsPXAAG1WkS7liyYb4IsByvoIDmaoPX8zgxjfnFRCCDqf7ksVeaql10fJq+MtcDXSOo1SY8nXrv5+99ljWhOZPjQf4MwPBvQ2DWFvpPyToB9dxVfhVm4gnLOw8MN2oIZnCzA0jgvRhQv5QlPcRI5Yc0rB2OMG/g4cYtgF13oUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EJCu7BP7oNAwAWqWZKRWNgigdzLaQeOLs0hy0FjMFsk=;
+ b=n9Z5NeOPXEZ9zn12NS4wwh2ml8BVVHH0ql00QNjBzFSRBolxJK9QQ1+iCtZghFOEjtT8ZaKKLbARaZz/9uX1J4H8LI+yoCoJ2JqfDhtAi+jW0wgo2bb/r5zrAe30HiZF8ILjC5wxdk/0wlLy84gg2G6ad5i0vws6BEE1GA+HYkpZtiENY3GoNYNTW1RsKUe5y2a1CvHD+s9iMBvlpj6a+mla2dQYOjhXTzdvAeF7UJOxfOd0QMV/xNIbm00Fg51nnQa7mnDaF9iuFTBoajS9l8QJ7AVMNc/wVWZ872Om164VkP+JkWqsyYPlBD8Nm6ovuAkYssMGcxkFOrXf2e3Lcg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by DBBPR04MB7802.eurprd04.prod.outlook.com (2603:10a6:10:1f0::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 20:23:46 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0113.011; Fri, 12 Jun 2026
+ 20:23:46 +0000
+Date: Fri, 12 Jun 2026 23:23:42 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Tanjeff Moos <tanjeff.moos@westermo.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH v1 phy-next 6/8] dt-bindings: fsl: layerscape-dcfg:
+ define DCFG_DCSR region
+Message-ID: <20260612202342.c2suvscqkpkkixro@skbuf>
+References: <20260611193940.44416-1-vladimir.oltean@nxp.com>
+ <20260611193940.44416-7-vladimir.oltean@nxp.com>
+ <20260612-graveyard-hacked-c65d54a1ece8@spud>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612-graveyard-hacked-c65d54a1ece8@spud>
+X-ClientProxiedBy: VIXP296CA0012.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a9::6) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-
-Thank you for your contribution! Sashiko AI review found 14 potential issue=
-(s) to consider:
-- [High] The hardware is programmed with a single DMA base address per plan=
-e, silently assuming the mapping is always contiguous, but the driver utili=
-zes `VIDEOBUF2_DMA_SG`.
-- [High] Active DMA buffers are unconditionally returned to userspace durin=
-g stop or abort operations without halting the hardware, causing use-after-=
-free and DMA memory corruption.
-- [High] The IRQ handler accesses hardware registers without verifying the =
-device's power state, triggering a fatal bus error upon receiving a spuriou=
-s interrupt during runtime suspend.
-- [High] Synchronizing capture buffers with `DMA_BIDIRECTIONAL` when they a=
-re mapped as `DMA_FROM_DEVICE` violates the DMA API rules.
-- [High] The hardware DMA buffer size is programmed improperly, enabling wr=
-ites past the allocation boundary.
-- [High] The main device structure is allocated using devm_kzalloc but its =
-lifetime is decoupled from the video_device file descriptors, resulting in =
-a Use-After-Free upon device unbind.
-- [High] Multiple self-deadlocks and mismatched lock ordering issues relate=
-d to `dev_mutex` in V4L2 callbacks.
-- [High] A race condition between the IRQ bottom half and a worker thread c=
-an erroneously halt a newly started hardware job.
-- [High] Unconditional `schedule_work` during file release after cancellati=
-on barriers leads to a use-after-free of `ectx`.
-- [Medium] The driver reports an overly large payload size for the encoded =
-JPEG, leaking uninitialized buffer contents.
-- [Medium] `V4L2_ENC_CMD_STOP` incorrectly flushes all pending buffers imme=
-diately instead of draining them.
-- [Medium] Hardware teardown hangs due to incorrect `reinit_completion` ord=
-ering in `jpeg_deinit()`.
-- [Medium] Failure to allocate the V4L2 control in `fop_jpeg_file_open` byp=
-asses handler cleanup, leaking bucket memory.
-- [Low] Unconditional assignment of `dev_pm_ops` structure without wrapper =
-macros produces dead code when `CONFIG_PM` is disabled.
---
-
-commit 1ef0c6ce9870449657c8ef931f50d481ec34b483
-Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-
-media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
-
-Add a Qualcomm JPEG encoder driver implemented on top of the
-V4L2 mem2mem framework. The driver handles vb2 queue, formats, header,
-interrupts, and runtime PM/ICC for SM8250, QCM6490, and SM8550.
-
-> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c b/drivers/m=
-edia/platform/qcom/jpeg/qcom_jenc_dev.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
-
-[ ... ]
-
-> +static int qcom_jpeg_probe(struct platform_device *pdev)
-> +{
-> +	const struct qcom_dev_resources *res;
-> +	struct qcom_jenc_dev *jenc;
-> +	int rc;
-> +
-> +	jenc =3D devm_kzalloc(&pdev->dev, sizeof(*jenc), GFP_KERNEL);
-
-[Severity: High]
-Does allocating this structure with devm_kzalloc() decouple its lifetime
-from the video_device file descriptors? Later in qcom_jpeg_v4l2_register(),
-jenc->dev_mutex is used as the vdev->lock. When the device unbinds, devres
-frees jenc, but userspace may still hold open file descriptors that keep
-the video_device alive, leading to a use-after-free when ioctls try to take
-the freed lock.
-
-[ ... ]
-
-> +static struct platform_driver qcom_jpeg_platform_driver =3D {
-> +	.probe  =3D qcom_jpeg_probe,
-> +	.remove =3D qcom_jpeg_remove,
-> +	.driver =3D {
-> +		.name =3D QCOM_JPEG_ENC_NAME,
-> +		.of_match_table =3D qcom_jpeg_of_match,
-> +		.pm             =3D &qcom_jpeg_pm_ops,
-
-[Severity: Low]
-Could this unconditional assignment produce dead code when CONFIG_PM is
-disabled? Using the pm_ptr() wrapper macro here is usually recommended to
-allow the compiler to remove unused power management structures.
-
-> +	},
-> +};
-> +
-> +module_platform_driver(qcom_jpeg_platform_driver);
-> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c b/drivers/m=
-edia/platform/qcom/jpeg/qcom_jenc_ops.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
-
-[ ... ]
-
-> +static int jpeg_deinit(struct qcom_jenc_dev *jenc)
-> +{
-> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
-> +	unsigned long rtime;
-> +
-> +	jpeg_wo_bits(jenc, offs->int_clr, JMSK_IRQ_STATUS_ALL_BITS, JPEG_SET_U3=
-2);
-> +	jpeg_rw_bits(jenc, offs->int_mask, JMSK_IRQ_STATUS_STOP_ACK, JPEG_SET_U=
-32);
-> +
-> +	jpeg_wo_bits(jenc, offs->hw_cmd, JMSK_CMD_HW_STOP, 1);
-> +
-> +	reinit_completion(&jenc->stop_complete);
-
-[Severity: Medium]
-Is there a race condition here if the hardware stops extremely quickly?
-The completion is re-initialized after the STOP command has been written,
-so if the interrupt fires before reinit_completion(), the completion state
-might be incorrectly cleared, causing a timeout.
-
-> +	rtime =3D wait_for_completion_timeout(&jenc->stop_complete,
-
-[ ... ]
-
-> +static int jpeg_store_fe_next(struct jenc_context *ectx, struct vb2_buff=
-er *vb2)
-> +{
-> +	struct qcom_jenc_queue *q =3D &ectx->bufq[TYPE2QID(vb2->type)];
-> +	struct qcom_jpeg_buff *buff =3D &q->buff[vb2->index];
-> +	u8 pln =3D 0;
-> +
-> +	buff->plns[pln].sgt =3D vb2_dma_sg_plane_desc(vb2, pln);
-> +	if (!buff->plns[pln].sgt)
-> +		return -EINVAL;
-> +
-> +	if (!buff->plns[pln].sgt->sgl)
-> +		return -EINVAL;
-> +
-> +	buff->plns[pln].dma =3D sg_dma_address(buff->plns[pln].sgt->sgl);
-
-[Severity: High]
-Does this safely handle fragmented scatterlists? Since the queues are
-configured to use vb2_dma_sg_memops, userspace might provide DMABUF or
-USERPTR buffers mapped into multiple non-contiguous IOVA segments. Just
-extracting the first segment's IOVA without checking contiguousness
-(sg_nents =3D=3D 1) might cause the hardware to write past the first segmen=
-t into
-unmapped memory.
-
-> +	if (!buff->plns[pln].dma)
-> +		return -EINVAL;
-
-[ ... ]
-
-> +static int jpeg_apply_we_addr(struct jenc_context *ectx, struct qcom_jen=
-c_queue *q,
-> +			      struct vb2_buffer *vb)
-> +{
-> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
-> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
-> +	struct qcom_jpeg_buff *frame =3D &q->buff[vb->index];
-> +	void *mptr =3D vb2_plane_vaddr(vb, 0);
-> +	dma_addr_t dma =3D frame->plns[0].dma;
-> +	unsigned long flags;
-> +	int rc;
-> +	u8 pln =3D 0;
-> +
-> +	if (WARN_ON_ONCE(!dma))
-> +		return -EPERM;
-> +
-> +	if (WARN_ON_ONCE(!mptr))
-> +		return -EPERM;
-> +
-> +	rc =3D jpeg_ensure_header_cache(ectx);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/*
-> +	 * Under quality_mutex: force a DQT refresh if the header was just
-> +	 * (re)created (quality_programmed =3D=3D 0) or if quality changed since
-> +	 * the last frame.  Both the cache update and the HW DMI upload are
-> +	 * done here so that hdr_cache and the hardware are always in sync
-> +	 * before jpeg_exec() fires.
-> +	 */
-> +	mutex_lock(&ectx->quality_mutex);
-> +	if (!ectx->hdr_cache.size || ectx->quality_programmed !=3D ectx->qualit=
-y_requested) {
-> +		jpeg_update_dqt_cache(ectx);
-> +		jpeg_upload_dmi_table(ectx);
-> +	}
-> +	mutex_unlock(&ectx->quality_mutex);
-> +
-> +	/*
-> +	 * Invalidate stale CPU cache lines before writing the JPEG header
-> +	 * with the CPU into the destination buffer.
-> +	 */
-> +	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, false);
-
-[Severity: High]
-Does this violate the DMA API rules? The capture buffers are typically
-mapped as DMA_FROM_DEVICE. Syncing them with DMA_BIDIRECTIONAL when the
-mapped direction differs can trigger debug warnings or coherency issues.
-
-> +
-> +	dma +=3D qcom_jenc_header_emit(&ectx->hdr_cache, mptr,
-> +				     min_t(size_t, vb->planes[0].length, ectx->hdr_cache.size),
-> +				     q->vf.width, q->vf.height);
-
-[Severity: High]
-Can this advancement cause a DMA buffer overflow? The hardware limit (bsize)
-is configured to the full sizeimage in jpeg_setup_we_size(). If the base
-address is shifted forward by the header size here, the hardware will attem=
-pt
-to write sizeimage bytes starting from this shifted address, running past t=
-he
-end of the allocated buffer.
-
-> +	qcom_jenc_dqts_emit(&ectx->hdr_cache, mptr);
-
-[ ... ]
-
-> +static irqreturn_t op_jpeg_irq_bot(int irq, void *data)
-> +{
-> +	struct qcom_jenc_dev *jenc =3D data;
-> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
-> +	u32 irq_status;
-> +	u32 irq_mask;
-> +	unsigned long flags;
-> +
-> +	irq_status =3D READ_ONCE(jenc->pending_irq_status);
-> +
-> +	irq_mask =3D jenc->res->hw_mask[JMSK_IRQ_STATUS_SESSION_DONE];
-> +	if (jpeg_bits_get(irq_mask, irq_status)) {
-> +		struct jenc_context *ctx =3D jenc->actx;
-
-[Severity: High]
-Is there a possibility that jenc->actx points to a freed context here?
-Active buffers are forcefully removed and the context can be freed during
-an abort (see jpeg_v4l2_work_stop and fop_jpeg_file_release) without halting
-the hardware. When the interrupt eventually fires, this dereference could
-result in a use-after-free.
-
-> +		struct qcom_jenc_queue *dq;
-> +		size_t out_size;
-> +
-> +		spin_lock_irqsave(&jenc->hw_lock, flags);
-> +		jenc->actx =3D NULL;
-> +		spin_unlock_irqrestore(&jenc->hw_lock, flags);
-> +
-> +		if (!ctx)
-> +			return IRQ_HANDLED;
-> +
-> +		dq =3D &ctx->bufq[JENC_DST_QUEUE];
-> +		if (dq->buff_id >=3D 0) {
-> +			struct qcom_jpeg_buff *frame;
-> +			unsigned long flags;
-> +
-> +			spin_lock_irqsave(&jenc->hw_lock, flags);
-> +			frame =3D &dq->buff[dq->buff_id];
-> +			out_size =3D jpeg_io_read(jenc, offs->enc_out_size);
-> +			spin_unlock_irqrestore(&jenc->hw_lock, flags);
-> +
-> +			dev_dbg(jenc->dev, "complete idx:%d addr=3D0x%llx size=3D%zu\n",
-> +				dq->buff_id, frame->plns[0].dma, out_size);
-> +
-> +			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_DONE,
-> +					    out_size + JPEG_HEADER_MAX);
-
-[Severity: Medium]
-Does adding the fixed JPEG_HEADER_MAX (1024) to out_size accurately reflect
-the payload? The actual header emitted via qcom_jenc_header_emit() is
-usually smaller. Reporting an inflated size can leak residual uninitialized
-memory contents to userspace.
-
-> +			jpeg_stop(jenc);
-
-[Severity: High]
-Could this jpeg_stop() call inadvertently stop a completely new job?
-The callback jenc->enc_hw_irq_cb() schedules work that can queue and start
-the next job asynchronously. Because this jpeg_stop() is called after the
-callback, it could end up cancelling the newly submitted hardware operation
-instead of the current one.
-
-> +		}
-> +	}
-> +
-> +	irq_mask =3D jenc->res->hw_mask[JMSK_IRQ_STATUS_SESSION_ERROR];
-
-[ ... ]
-
-> +static irqreturn_t op_jpeg_irq_top(int irq, void *data)
-> +{
-> +	struct qcom_jenc_dev *jenc =3D data;
-> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
-> +	u32 irq_status;
-> +	u32 irq_mask;
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&jenc->hw_lock, flags);
-> +
-> +	irq_status =3D jpeg_io_read(jenc, offs->int_status);
-
-[Severity: High]
-Is it safe to unconditionally access hardware registers in the interrupt
-handler? If a spurious interrupt arrives while the device is in runtime
-suspend, its interconnects or clocks might be off, which could trigger a
-synchronous external abort. A check using pm_runtime_get_if_active() is
-usually required here before reading.
-
-> +	jpeg_wo_bits(jenc, offs->int_clr, JMSK_IRQ_STATUS_ALL_BITS, irq_status);
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
-media/platform/qcom/jpeg/qcom_jenc_v4l2.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
-
-[ ... ]
-
-> +static void jpeg_v4l2_work_stop(struct jenc_context *ctx, enum vb2_buffe=
-r_state buff_state)
-> +{
-> +	struct vb2_v4l2_buffer *vb;
-> +
-> +	while ((vb =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx))) {
-> +		if (!v4l2_m2m_last_dst_buf(ctx->fh.m2m_ctx)) {
-> +			if (ctx->is_stopping) {
-> +				ctx->is_stopping =3D false;
-> +				vb2_set_plane_payload(&vb->vb2_buf, 0, 0);
-> +			}
-> +			v4l2_m2m_last_buffer_done(ctx->fh.m2m_ctx, vb);
-> +		} else {
-> +			v4l2_m2m_buf_done(vb, buff_state);
-> +		}
-> +	}
-> +
-> +	while ((vb =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx)))
-> +		v4l2_m2m_buf_done(vb, buff_state);
-
-[Severity: High]
-Does draining these buffers while the hardware is potentially still active
-lead to issues? During an abort or streamoff, active buffers are immediately
-returned to userspace via v4l2_m2m_buf_done(), but the driver never issues a
-STOP command to halt the hardware DMA. This can cause the hardware to write
-to buffers that userspace considers free.
-
-> +
-> +	schedule_work(&ctx->finish_work);
-> +}
-
-[ ... ]
-
-> +static void bop_jpeg_vb2_stop_streaming(struct vb2_queue *q)
-> +{
-> +	struct jenc_context *ectx =3D vb2_get_drv_priv(q);
-> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
-> +	const struct qcom_jpeg_hw_ops *hw =3D jenc->res->hw_ops;
-> +
-> +	mutex_lock(&jenc->dev_mutex);
-
-[Severity: High]
-Can this cause a self-deadlock? The V4L2 core invokes the stop_streaming
-callback while already holding the lock assigned to jenc->vdev->lock, which
-in this driver is set to &jenc->dev_mutex. Attempting to acquire the same
-mutex here will hang.
-
-> +
-> +	jpeg_v4l2_work_stop(ectx, VB2_BUF_STATE_ERROR);
-> +
-> +	hw->hw_release(ectx, q);
-> +
-> +	mutex_unlock(&jenc->dev_mutex);
-> +}
-
-[ ... ]
-
-> +static int iop_jpeg_encoder_command(struct file *file, void *priv, struc=
-t v4l2_encoder_cmd *ec)
-> +{
-> +	struct jenc_context *ectx =3D jpeg_file2ctx(file);
-> +	struct vb2_queue *vq;
-> +	int rc;
-> +
-> +	if (ec->cmd =3D=3D V4L2_ENC_CMD_STOP) {
-> +		vq =3D v4l2_m2m_get_src_vq(ectx->fh.m2m_ctx);
-> +		if (!vb2_is_streaming(vq))
-> +			return 0;
-> +
-> +		vq =3D v4l2_m2m_get_dst_vq(ectx->fh.m2m_ctx);
-> +		if (!vb2_is_streaming(vq))
-> +			return 0;
-> +
-> +		rc =3D v4l2_m2m_ioctl_encoder_cmd(file, priv, ec);
-> +		if (rc)
-> +			return rc;
-> +
-> +		ectx->is_stopping =3D true;
-> +		schedule_work(&ectx->stop_work);
-
-[Severity: Medium]
-Should the V4L2_ENC_CMD_STOP command allow currently queued source buffers
-to finish encoding instead of immediately aborting them? The V4L2 spec stat=
-es
-that a stop command on an encoder should encode the remaining buffers and s=
-et
-the LAST flag on the final capture buffer. Scheduling stop_work abruptly dr=
-ops
-all queued data.
-
-> +
-> +		return 0;
-> +	}
-> +
-> +	return v4l2_m2m_ioctl_encoder_cmd(file, priv, ec);
-> +}
-
-[ ... ]
-
-> +static int jpeg_v4l2_init_queue(void *priv, struct vb2_queue *sq, struct=
- vb2_queue *dq)
-> +{
-> +	struct jenc_context *ectx =3D priv;
-> +	int rc;
-> +
-> +	sq->drv_priv		=3D ectx;
-> +	sq->dev			=3D ectx->dev;
-> +	sq->type		=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
-> +	sq->io_modes		=3D VB2_MMAP | VB2_DMABUF | VB2_USERPTR;
-> +	sq->buf_struct_size	=3D sizeof(struct v4l2_m2m_buffer);
-> +	sq->ops			=3D &qcom_jpeg_v4l2_vb2_ops;
-> +	sq->mem_ops		=3D &vb2_dma_sg_memops;
-
-[Severity: High]
-Is it correct to use sg_memops instead of contig_memops? If the hardware
-is programmed with a single DMA base address per plane, it likely expects a
-contiguous physical memory range. Using sg_memops allows fragmented
-scatterlists which the hardware won't be able to process linearly.
-
-> +	sq->timestamp_flags	=3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
-
-[ ... ]
-
-> +static int fop_jpeg_file_open(struct file *file)
-> +{
-> +	struct video_device *vdev =3D video_devdata(file);
-> +	struct qcom_jenc_dev *jenc =3D video_drvdata(file);
-> +	struct jenc_context *ectx;
-> +	int rc;
-> +
-> +	ectx =3D kzalloc_obj(*ectx, GFP_KERNEL);
-> +	if (!ectx)
-> +		return -ENOMEM;
-> +
-> +	ectx->dev  =3D jenc->dev;
-> +	ectx->jenc =3D jenc;
-
-[ ... ]
-
-> +	ectx->quality_ctl =3D v4l2_ctrl_new_std(&ectx->ctrl_hdl,
-> +					      &qcom_jpeg_v4l2_ctrl_ops,
-> +					      V4L2_CID_JPEG_COMPRESSION_QUALITY,
-> +					      QCOM_JPEG_QUALITY_MIN,
-> +					      QCOM_JPEG_QUALITY_MAX,
-> +					      QCOM_JPEG_QUALITY_UNT,
-> +					      QCOM_JPEG_QUALITY_DEF);
-> +	if (ectx->ctrl_hdl.error) {
-> +		rc =3D ectx->ctrl_hdl.error;
-> +		goto err_fh_exit;
-
-[Severity: Medium]
-Will jumping to err_fh_exit leak the V4L2 control handler memory? The
-v4l2_ctrl_handler_free() call is placed at the err_ctrl_handler_free label,
-which gets skipped entirely if we jump to err_fh_exit.
-
-> +	}
-> +
-> +	ectx->fh.ctrl_handler =3D &ectx->ctrl_hdl;
-> +
-> +	rc =3D v4l2_ctrl_handler_setup(&ectx->ctrl_hdl);
-
-[ ... ]
-
-> +static int fop_jpeg_file_release(struct file *file)
-> +{
-> +	struct jenc_context *ectx =3D jpeg_file2ctx(file);
-> +	struct v4l2_m2m_dev *m2m_dev =3D ectx->fh.m2m_ctx->m2m_dev;
-> +
-> +	cancel_work_sync(&ectx->stop_work);
-> +	cancel_work_sync(&ectx->finish_work);
-> +
-> +	v4l2_m2m_ctx_release(ectx->fh.m2m_ctx);
-
-[Severity: High]
-Does v4l2_m2m_ctx_release() re-schedule finish_work after it was just
-cancelled? Internally, it aborts jobs which invokes jpeg_v4l2_work_stop().
-That function unconditionally calls schedule_work(&ctx->finish_work). Becau=
-se
-the cancellation barriers were executed first, the work item will run after
-ectx is freed below, causing a use-after-free.
-
-> +	v4l2_m2m_put(m2m_dev);
-> +	v4l2_ctrl_handler_free(&ectx->ctrl_hdl);
-> +	v4l2_fh_del(&ectx->fh, file);
-> +	v4l2_fh_exit(&ectx->fh);
-> +	kfree(ectx);
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612194417.1737=
-009-1-atanas.filipov@oss.qualcomm.com?part=3D4
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DBBPR04MB7802:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ac43c88-c0a4-4029-1f0c-08dec8c08128
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|10070799003|376014|7416014|56012099006|4143699003|11063799006|5023799004|3023799007|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	WsZQwnzvIFIzOz2wOPG4uwbSUxi5n41vW/zJYKr5lDqk/VL1gBLVknaPfqwxNOp4l4Yxfy5tRIzKl2SxAZ8HbdzyJFi2OQQBrqhxZo1im9i1d5D0NNF3G0F+jvEciN7NmrSt7ILXw5ElbO7wIdo89yPR//S0LCBBJVMt+CACmlwvNMiuDOCLsDGjVBOxCAzKLxZf9+EMrogfh3koZ5b5iHLnbRmvKBpKygdozDV4jH1uJR3J3Fp2Fy+25cG0o+lcPxzidzH3boeDUKqeQcUrSDKESOCAKlFO1dc8Xc3kCsRExCd4aiqoej0gmUZaKncieAXwN17Qe984nzg/GMZWSnAA4hd75t2434O9Sc2LLTDBt1gbzbo2y6yNHRFixv02BSufloWhZsqgMs+6S5TpVtkNsk4iemGQSH64EizstvFdLcOwPLRfG3IDFxqEvN+3uL5mMf+AFEOg/hb4J7lfr7gNH0eWu3/0DtEMah5A98Q9zmjo9ULU4dys3BbfGX5he5lvLkgp9xBbMOIrTODqfLVOzlG5LLZsUkOUS4XUYxrbseMoyYSRmP6SJmN60f+0E7BpoHUWMk9YORHT+v0fLWBQLZcvBkKSLqcOpAuE6GSv2yfOp/KYsMDP6wohGl4Xk9OIfFGQThrO0onuv7eTtFbVXhhEqVzTs1YQkPWS+wNVtuZ6EQHEcT8flq3Ad0g2
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(10070799003)(376014)(7416014)(56012099006)(4143699003)(11063799006)(5023799004)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PgkWDfBR24NLsIIQIu1Nu7VUoe8IwhAfYi2fCkk5w1PQ/VZBVp0W1BrJQgLq?=
+ =?us-ascii?Q?rZnjItOf/nqBBhViFYUUfJzHDKw8ck6Yl2qQyUE6x8DyYi7l87NXzLY9Enhj?=
+ =?us-ascii?Q?e47w4iLKFl0+QnjZjKQvBIqa42Ni+KzCqpChjSc4t/PROInc8fbECAqjn+pV?=
+ =?us-ascii?Q?uG0JXnyuJKUw6WUF2j0w9t2xThTwAxeW0oFrNkac8KcwCkZjLEW7MPglTiHd?=
+ =?us-ascii?Q?u+oiEoqzYb+QC5WcY7XU38OC2xTLBesrKV/res+La2sXjp8PDDTrxuXHvpFc?=
+ =?us-ascii?Q?p4fK8MvJPWqZxVnxMECBk0boapBG0vMK2zF16WiRRgtdFZHk9Tpt83X2xv9d?=
+ =?us-ascii?Q?kJkZUu3BaFHDxPleECYY7mZ+wm1YF4lAcl0dI9lDddNXUT7UW8VFYdIL5XDg?=
+ =?us-ascii?Q?l8i55DBD3PDHch50wRCzvgOL+mkXtqZ3BX0ARxbDINwFRJaD2EJxWMVfeskf?=
+ =?us-ascii?Q?ayYtRI7j8wmjrmvU+gI+LzCOTdSNxfUbODHRcn1TMcBu16EKdNcQc9LAy5Fw?=
+ =?us-ascii?Q?lZyKnvmo2WwjnrmouijgszawGpfUixdnNc/9DLElpqeXQq2/Q0cGb/3Zt++J?=
+ =?us-ascii?Q?vjloGGB9MQ8xMkrtmxMGMjDcBT3QqeCe/nNz/1lxIIOLis3d5geV8SYuLE9Q?=
+ =?us-ascii?Q?EeNEgBqlDHOOqdzaK0AqbcES/L1yUEGNO2HprcFpSUTCqzGEIZy0YUf0cdTG?=
+ =?us-ascii?Q?2U41Uqwoy6i0d4qJRfgUTzY43/KE+rJSELS8U7huhRquZ6Wm926USM64GFaZ?=
+ =?us-ascii?Q?pgypG7BbA+PrTkdrjJXDYwtLmlmpUsQ6bwR37q7V0qiQrgyn8RSAcWvghKN1?=
+ =?us-ascii?Q?zEBxjg+HTw0aTWdFpcL7hY0dOaJOlaaoROYzfRjoj2o5Uapr6RSgGeSuGLpB?=
+ =?us-ascii?Q?vCqI4Rleji2ZAVzGjsv4FY8gWVG0c0enj9mhDSj91w5pEp8Vl0U9UP/TAhXb?=
+ =?us-ascii?Q?su9QLUJBPwY6crqLTVJNdS+00lSDlnHK1/47UzAI6HZ+QUH3U+fqDWoE5zaf?=
+ =?us-ascii?Q?WncwneLNVCzWTVKZ/pP8TWc453rNbPFQc7rDkGOB9g9Hoo/9KbIfJutQ9gik?=
+ =?us-ascii?Q?2Kd2M5jLtA0+ociCVSx+SrBukobOzF4nS9pkYG+05VT1OtL1TsM28SrbArnV?=
+ =?us-ascii?Q?j/lcqgePLVAB8Ot6HGenrVfLUgTbGLl9dM5uwJczig2X55JfbrVAyBNF7DR5?=
+ =?us-ascii?Q?L5n0QgiAP629YivGDcRpU9eToJgaKPSni+m7nyVs+8xR9RaHGo79aPpIBdEB?=
+ =?us-ascii?Q?KhDuXI4MwVyl6+tOzP6yY0XOuAZYlB7kbEfWe16Fuo7sa1tgQagszJMFS+fu?=
+ =?us-ascii?Q?9veO6K9tpW+IREd0KMs4tgValGwM+VqFB+MP4m/LnuZaie1C3qsfS0/xYLnh?=
+ =?us-ascii?Q?pSIoX7lJFSn3Wt/hvL94K5Gr9uZMtokUIFQY7sSSl9C0CIF3XZw/jW1zWNI/?=
+ =?us-ascii?Q?cwIi7zygQMz10JflDTYebWVN12ZEMkvkVbvVgKUn11b/vw/EhyP6igwJca2G?=
+ =?us-ascii?Q?XUr0yeiP6sQyz58Fppio2HhKaEe6zvLtFWHl/3enSXFLnuGZpBD475D7J1U4?=
+ =?us-ascii?Q?QTwACK5pYiz+L4HS/bmrn5dWuvfIFpTmxnbgf9jtWrRL0qoO8PsD89ONPuCB?=
+ =?us-ascii?Q?srk1PEjIWb9ddRdHvatJqWhQtdGjeMymT42PNfRBsXXl1fGRfo6MyIsf+vxw?=
+ =?us-ascii?Q?80bzgl37P9CKAnHGPqXbvFAiNA0ARtmWk9ApzEzw/f0Z+KDHq8tdN/9OiCzp?=
+ =?us-ascii?Q?6R7/Xjz69P7NnMlbk7YfrGQ5o6jLuaxEpVB++LsK7xe+ym5aRedGSGvoZCfR?=
+X-MS-Exchange-AntiSpam-MessageData-1: TxE2rzhpfRHmyA==
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ac43c88-c0a4-4029-1f0c-08dec8c08128
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 20:23:46.1010
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ldnRmx5w/VAZOesLs6UJA0upR5WWW9HBBpGMRjeTCX5oiP8DkgRpWbzb3mL5XEeg1ieMFs7oiKpNe+4pdWjBOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7802
+
+On Fri, Jun 12, 2026 at 04:44:00PM +0100, Conor Dooley wrote:
+> On Thu, Jun 11, 2026 at 10:39:38PM +0300, Vladimir Oltean wrote:
+> > In Layerscape (Arm) and QorIQ (PowerPC) devices, hardware peripherals
+> > are accessed by the CPU through a portion of the SoC address space
+> > called CCSR ("Configuration, Control, and Status Registers"). All
+> > hardware IP blocks have their registers mapped here, and the Device
+> > Configuration block makes no exception.
+> > 
+> > However, there exists a secondary range of the address space named DCSR
+> > ("Debug Control and Status Registers") which, like CCSR, also holds
+> > registers of hardware IP blocks, except the DCSR contents is hidden in
+> > all public reference manuals.
+> > 
+> > The intention of the CCSR/DCSR split, to the best of my knowledge, was
+> > to place the functionality that is too low level for normal use, and
+> > which is necessary only for debug, in a completely separate address
+> > space which can be hidden.
+> > 
+> > A use case has appeared where networking SerDes lanes need to be
+> > reconfigured at runtime for a different protocol (example: 10GBase-R to
+> > SGMII), and the architecture of the SoCs does not normally permit that.
+> > The Reset Configuration Word (RCW) is a data structure read by the SoC
+> > preboot loader (PBL) which contains stuff like pinmuxing and SerDes
+> > protocol mapping for each lane.
+> > 
+> > The RCW that the PBL has loaded is visible in the DCFG block's normal
+> > status registers (from CCSR), as read only. Turns out, the RCW is also
+> > mapped in the DCFG's shadow register map (in DCSR), in a write-only
+> > form. Writing to the RCW registers from the DCFG's DCSR space to change
+> > what the PBL has loaded is called "RCW override".
+> > 
+> > It has been validated that the RCW override procedure is necessary to
+> > reconfigure the networking data path when a SerDes lane performs a major
+> > protocol change. It changes some internal muxes which connect the PCS to
+> > either the 10G MAC or to the 1G MAC.
+> > 
+> > Defining the DCSR area of the DCFG as a secondary 'reg' array element
+> > allows operating systems to perform RCW overrides. Since it is
+> > introduced late in the binding's lifetime, it is optional. It can be
+> > identified by name, but also by index (first 'reg' is CCSR).
+> > 
+> > Note that while all SoCs should have a DCFG register block in DCSR, we
+> > only need to expose it for the SoCs where the RCW override procedure is
+> > known to be needed and has been validated.
+> > 
+> > Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> > ---
+> > Cc: Conor Dooley <conor@kernel.org>
+> 
+> Where did this email come from btw? get_maintainer.pl result should have
+> +dt in it.
+
+Historical data. I am keeping all sorts of commands (here git send-email)
+in *.txt files and that's where I got the stale email addresses from.
+Krzysztof's is also bouncing. Will fix for v2.
+
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
+
+Thanks for the review!
