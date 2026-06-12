@@ -1,75 +1,76 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887A53D75BC
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D7B3DC4B7
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781249020; cv=none; b=vB42vtwRODN29vhvUarM+yGdv1bqrqBaE2mrmjCoUqmnqjgTebeicMLz+GJJ76DtahrV9e7F16Fr+Hbk2UF8YR1IxapQR1Uj8+WH3q8CuYJNvMq4xbzsKNWHB0u0lCCx3lbsautPfJmKyPwx92SkT9mTsdK3I6FlakfztA9VsFA=
+	t=1781249026; cv=none; b=EbmjLKKFEVrLahnlnqHpOl6M5BYGf7xXbxpvenrGc2OyaZWmiGfd18Iwn7NdLpbXHboHpJI8IEqYuWV89YFmOlQ33XgddMLCDCv+ky8pmiSeH3hGMGeFmNlwrqflDs1Hw+KFIbUJwEyz9JW4B5HWWtox3jtMReo3A0g/bk7YjJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781249020; c=relaxed/simple;
-	bh=CoNqm2/IKzxHeL4EMhoqsMiSwsbvySEkzaTN57BAct4=;
+	s=arc-20240116; t=1781249026; c=relaxed/simple;
+	bh=nZi0t8cL78YZmxGZD62T2lYOUTFA1HtfINqkrnLD3oM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L1MY27PTQNVskQwR8vqyIQm4GBnocPeZq7O5PuPjCjA8hGwTTU8Abgw4iYNM5IUhMBaRLRqIPi/9apPwI7VFzJVtJz+WFv2IVaAjSiqeCyavmBgFHcOzvNgpfFBexrVk1M2PdUm/B2MORsFd7e3qVFWhaaBKeVXQDaTufLlyIlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bBku9C+K; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=meb+m7Q/GSh579bKnUiStJfrU6POmRNwXRY1dVTtIEBsAAcJerywHFZNu+/LGH0LKGpvahVlhEs8c28TULNJDkfgB4k5QjwYrjTNSc6HD7Vn1WilGygdT1fDn6T4+hMvdATvUMUvHY7NMKktD9HnK4LHLL74CHdkq4ahizY+oBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lbiOviUp; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bBku9C+K"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490aaeabdb4so3785165e9.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:23:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lbiOviUp"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490b4a8e28bso4182165e9.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:23:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781249018; x=1781853818; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781249024; x=1781853824; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WZ56rq6Rsc3VF5U8Hu6dAL1RpTeX0JyCUsP+ibErqoE=;
-        b=bBku9C+KTdwFzpY8CJ+eKSe0DBpqcNKhH03JAnHa2NwIh5I+xSvbRI04B0J4B3O0j6
-         feIZjL/THXGSNvXPTxMffGJZRhuzWdqrBab5KIvqc2CYVC5z6UZwtQDco5mnhLrU4qrF
-         8mBQZpCqsJbv4n2NA86JxnN9b52MIekm/fYUKVnk0mkNKESnSnJRDOYzEXqbnotgAGAK
-         3jlySR10rl6+urVOrBLkHKmKRcv8Fw1fptmRICh5V9RAXwqIIWeFrL5xrNuTpdPDOoLM
-         C1m7hgJw2lRwOksNgnJhxEtmO3r3QH3bqZBRrNvT8R5IIbFuIp9ixpj3vySGmA7nciLb
-         iI0Q==
+        bh=JLDZVGka1eJnSriA7FyE8scCoa7JYxvPjm4AqcyjUc8=;
+        b=lbiOviUpZTNeDE2WZqskrFhiNEU7m0gY5AAg111BFi7G1z8zo2J0d6OzGqVCFHJLKq
+         I46HtrLjv8KmMObc3wvxNIbkibuYU4LxhWKgRPEHyC93GwSpUyEDQVuatrHCBBrrMKY+
+         9yfa+ZeZHIZTqYLeZZBkNUXX54ePyGa29wBhTJyzIBvHto1ZX1t9d6YXtLPUHWRIdh3o
+         dTTEqskGn9k26YzciqSqW/l5HbKiXSTwvoMPe1xcUqc1UAms8KZeL4mCCbEUHkfGcu70
+         LufndXfU5FCOG13NAerrS2cyRsF5OBj9jlbLa5X3k9VvPjLTrtA0/xBkDbSlvYTqyxXI
+         DYcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781249018; x=1781853818;
+        d=1e100.net; s=20251104; t=1781249024; x=1781853824;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=WZ56rq6Rsc3VF5U8Hu6dAL1RpTeX0JyCUsP+ibErqoE=;
-        b=RaRAh2NiERafBFMMd7R1KFHdZ18Y2il976U+u6AIyCaFjmx8dTj9SYH2m/JPKtw4ke
-         07Oo51rJ83YstnTDKqFPjUzL5cCN2ZOSPao3XdI05iaDHyBP4NiRczTZt0odt9+J+A5v
-         5UX1l1wZYSIt1Pgy6INXiCj1jkQiV22zrzibfYIkJgrWd+g6czsyHquMBSp3Pkz65Wmo
-         rsu4NGRrGGjbLlExfBBoApCsa8uhCBp54i0Hfvusx5TSh5PGRU1L3mJ/D2Bry0cZHJ6C
-         gGcMrL964dlK0h0vQbs65OgWpDbJt7yQSP0adtKfqtcZgGbWuDCaQ682pp9xD5n7jRKN
-         XNig==
-X-Forwarded-Encrypted: i=1; AFNElJ9/n5C0pMMyDyepDXAmoASUPoqWcNR2wQcrO22c+RI65Sd3C25i1cZdgYIausNNIQ1nuyCOId5q3rpV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw6TKRHhVCFzJoiIy4v7ft8Hy58+CghnUuAjXQ5hCCIN6u9NLzH
-	1YVfL7y5SNhX4Qv7UrEU+pU2Z00cXW+JLWSfSk+It+7+5zdAsLn6whl3
-X-Gm-Gg: Acq92OHcv/Va06Gqdfgf9a7ewPKvnkXbQeeahXdgiHSwqoBqclC7VvWgaMFU1qnJYFY
-	KPDSZ4A06u2Qs6ZlDHpvdItvmT+yJVYFCfZOupRHa+UQAtC2Gc/XrGqD7CPxMKqgxYtBCpZFPmT
-	JNnjS02rf9QUIu4PkvBZPZ1YLVO4JDeqh3Ricn//8+XbO8bD1KuDVZc7KQEFg6b71KWwLhjc/b2
-	0GQ/TwLceqOkoDna66FRjX1et9ROyCNWgt6cV9o41EEgO9JVw8SB3SbuzAja96eVT+M+BiCOGXk
-	8lflrxxC4x6nG5Ufa23g5hnlblMXjk2/i/3nYDwhjF6rL3Qetz0SAI2sswDjOEtAMek2f5XGkNz
-	n13j86BVtnjwxxI2NQuhpmquEJbzFopiXB4c+l5ky2I9Gt/rzlb7IGgxMfWbjC5Yw3J5tkkPO4x
-	wdIrhxWT8sncn2RtzMAvLW5kLhniFq2hXLw+RSqBk=
-X-Received: by 2002:a05:600c:354f:b0:490:b00c:8e6a with SMTP id 5b1f17b1804b1-490ec4fe74fmr17921415e9.28.1781249017872;
-        Fri, 12 Jun 2026 00:23:37 -0700 (PDT)
+        bh=JLDZVGka1eJnSriA7FyE8scCoa7JYxvPjm4AqcyjUc8=;
+        b=Ec6Io5Le/qFPKExeRFZPf7dX86GBc8Vt1tOQNAKGsoZpzcHL8Y3rTVdiLLuQ8ifV48
+         N467n3LT0pOltIwK/jXZ5PlHZYO1XWOWVmrmjnfrEPGjYbqnvCVu++rL7wswkk1gTc/f
+         /sWWHccuOibnSeSKEFKnxh3RSoX+AxcIYr5FVBqGCUTOv7040ubR4lP2e3tW35t3V1cU
+         Cj69P2DnxMbCAvn0YX+Z45jtN1XIzd0mCc1yE7zqQIPYgxNGad/r1ppBmRWpwKuZQW6G
+         w5Le0ZJO1WBEahtQ4cudqLoC6ECshzaNdOztGSOaYtvcWsuH0P6LKR9AjTyq4yJdf14g
+         dsRg==
+X-Forwarded-Encrypted: i=1; AFNElJ8+zaTZzw0/zJgv7pA0nPjBf4vt/kyMP8dpMzEAqyUxIeiiU/4VHOnGjHOo7KZcfQrR8etSmJTUiLgF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCjKxz+FUIFY0/D7/J9p9FRRUcM/p8jaYMKe6VkeCla1jGhlaH
+	p82TyMWv7gyEIJlThTI5yDBbxNv7eCDLxu2ZrtngOJG9Bwwd5VM1/ZB5
+X-Gm-Gg: Acq92OEYTkeVk+kPCHDSrR8yXDUwWVOLBaW2fCN/GcvALY9CB4uS2199KW617ewwlqC
+	4l9LWLeTZHvYrnY9V5YQhDiNIJwN7k+TQmrkMiXbpvMCZLcypn+MBG+CDov0753fL8kdF8n8kC3
+	EvVOqS+HLu3GdotTnCuryLMtvoOitwx8jsKaPc73qsa4nU8z/vmEHf4vBhAFs9+yGBlHA4ZRdKm
+	uWPKBxblHL+iDNNXggqkfGpw8XvZ+CsdALzTplEYjQG1y8HHhMzBBLb1glYRihgIoqrEBq9PcIu
+	qiRMmkqLAxKAGfFSmZEzlYYc/Ldcl7tMbtk7tNoK2893wFoPvdKZ9fgAORS9K+NEzs/FvO/JSnE
+	1V84uR6a1/acaRYRiSMCGVIlfZY0j4UsXcdiup0oPA1cGB17DzghOfrjZpRzF8/gUmjJaCP/KTd
+	+NfGR2LlOj5eJrx1VumzbrhaitTGvpZg+/p6csC8KJvwyuZL37bg==
+X-Received: by 2002:a05:600c:4595:b0:490:bada:6b15 with SMTP id 5b1f17b1804b1-490ec4fb597mr17556425e9.17.1781249023729;
+        Fri, 12 Jun 2026 00:23:43 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a54:e741:3a5a:3245:d3dc:4b5d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea963cf8sm28715245e9.2.2026.06.12.00.23.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea963cf8sm28715245e9.2.2026.06.12.00.23.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 00:23:37 -0700 (PDT)
+        Fri, 12 Jun 2026 00:23:43 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>
 Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/9] dt-bindings: input: microchip,cap11xx: Add microchip,cap1126 LED reg constraints
-Date: Fri, 12 Jun 2026 15:22:10 +0800
-Message-ID: <20260612072237.1177304-5-jerrysteve1101@gmail.com>
+Subject: [PATCH v2 5/9] dt-bindings: input: microchip,cap11xx: Add reset-gpios property
+Date: Fri, 12 Jun 2026 15:22:11 +0800
+Message-ID: <20260612072237.1177304-6-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260612072237.1177304-1-jerrysteve1101@gmail.com>
 References: <20260612072237.1177304-1-jerrysteve1101@gmail.com>
@@ -81,40 +82,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Apply per-chip LED channel limits:
-- CAP1126: max 2 channels (0-1)
-- CAP1188: max 8 channels (0-7)
-- CAP1106, CAP12xx: no LED support
+Add support for the optional reset-gpios property to describe
+the active-high reset pin for CAP1126/CAP1188 devices.
+Driving the GPIO high asserts reset and deep sleep, while driving
+it low releases reset for normal operation.
+
+Restrict this property to be available only on CAP1126 and CAP1188
+chips, as other CAP11xx variants do not have a hardware reset pin.
 
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../bindings/input/microchip,cap11xx.yaml           | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../bindings/input/microchip,cap11xx.yaml     | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-index 9578c7c206a2..22a292d4a880 100644
+index 22a292d4a880..778ec6d659a8 100644
 --- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
 +++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-@@ -171,6 +171,19 @@ allOf:
-       patternProperties:
-         "^led@": false
+@@ -49,6 +49,13 @@ properties:
+       device's ALERT#/CM_IRQ# pin is connected to.
+       The device only has one interrupt source.
  
++  reset-gpios:
++    description: |
++      GPIO connected to the active-high RESET pin of the chip;
++      driving it high asserts reset and deep sleep, while driving
++      it low releases reset for normal operation.
++    maxItems: 1
++
+   autorepeat:
+     description: |
+       Enables the Linux input system's autorepeat feature on the input device.
+@@ -157,6 +164,20 @@ patternProperties:
+ 
+ allOf:
+   - $ref: input.yaml
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
 +            enum:
-+              - microchip,cap1126
++              - microchip,cap1106
++              - microchip,cap1203
++              - microchip,cap1206
++              - microchip,cap1293
++              - microchip,cap1298
 +    then:
-+      patternProperties:
-+        "^led@":
-+          properties:
-+            reg:
-+              maximum: 1
++      properties:
++        reset-gpios: false
 +
    - if:
        properties:
          compatible:
+@@ -207,6 +228,8 @@ additionalProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/gpio/gpio.h>
++
+     i2c {
+       #address-cells = <1>;
+       #size-cells = <0>;
+@@ -228,6 +251,8 @@ examples:
+                          <109>,	/* KEY_PAGEDOWN */
+                          <104>;	/* KEY_PAGEUP */
+ 
++        reset-gpios = <&gpio 17 GPIO_ACTIVE_HIGH>;
++
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
 -- 
 2.54.0
 
