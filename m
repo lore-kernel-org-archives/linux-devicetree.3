@@ -1,124 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1323E9286
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 11:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A483ABD95;
+	Fri, 12 Jun 2026 11:56:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781264926; cv=none; b=tBc26DE0X6Ng9u5oKpjxSR6f+HeoowJXoS9k8sZ7fhTuwgqoNLKk6KjBR+kzZn+FZdzbJctgsgR0bpFC5EirnxXawr0g5027KQz6RfyuQkwC/nKYbqu9aB52JfTh/YyolzMrVBBy8RbG5m3w3dVtz6czEKyjqkDwnuCIGV8xb64=
+	t=1781265382; cv=none; b=lCiLfnZpbEkjURNqKLvEAWacXJ2zS02g34juLfS2IOnT1qTzt1ZkCAknRDX9A10u9Uufw6aPYvnOeyNq8hDdBDvlxhiurAcQO53srapPCJuUEYM94Yzh8/b9Va8VXPznps9ap1kZiRgAgjBbNaTsSjG1QOhEJDpIDiBDvJjqhwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781264926; c=relaxed/simple;
-	bh=AF94pZgWZWVqsTIRirBQfoxE7HLABTCo9Nf76oJ0aWM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lV1b6L9N3ef8yBy/Ib0Gl7rVIj6sjy7jpmly+KfBSBN2eSYZgnMq88+04B2l9bmxiJhF708trHmZuYYXhOH/M1e/Fn1+HbZWmosfRSSxrYGE7aw6P7e9ywFD2rFeiExV91+MDpsOQFAi1g+DD5FnX+cqEZxta/ZQNl8rPHftjrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xv8EHyeZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781265382; c=relaxed/simple;
+	bh=/xxC0Hha6e9anXB89K7UKFjQ+uG1t5JBiZJIaIWVBTI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bTKHDURkLsIaDeJjXQ5mAWKs/Q8tRsj2OdHZzUKb2yuJZ3tLwpv2em8TBQr71YaGfRIzTfYZuBNMqXo8cw0objcy5ab8Y8KQ4F6fPBIb3SLr1DUjSU4b9ndr2z8BLcuvnZIMV9igtOz+rmlGDYPlHfLM3s66Lx62G/3inVfQOFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=S5OWJK8k; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xv8EHyeZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7B71F000E9;
-	Fri, 12 Jun 2026 11:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781264924;
-	bh=l0eK6uNfs2/AAI8q6LCmmvtMa8kyEdDo6RbjQv9ERJM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xv8EHyeZCaSx2J93dkoqiTlI/5GZ9btasnMNpkkGm4QQCvGPf5IEF+T6F0tw+VWnv
-	 qitRQULie9owWPFRmKpGtfHTW2abNbDM1snLGLZ+FMzTmq22R1TKFMKi7TWL8KUV5U
-	 1sqmL5C7nCOQO57JUXNIWX/SSPWEFJJ9zp4mJ6nF2Q6cZkHE3Jf4ky+jir7LwpYosE
-	 8IPSPpkHl9LdydpH8fKzL7Qa5fumiHeYMJzxEt9zrAe+zsc23txdyB8/bsoW5Sa8+2
-	 C5QiQsPxSayWgVyDhfqshfA8n2XoI9ZsO/RAFTJip4HnDK9qZYWWisSx+4/H68u3IH
-	 oMNHRgtjJZHpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/9] i3c: master: Add APIs for I3C hub support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org
-In-Reply-To: <20260612111816.3688240-4-lakshay.piplani@nxp.com>
-References: <20260612111816.3688240-4-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 11:48:43 +0000
-Message-Id: <20260612114844.5D7B71F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="S5OWJK8k"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C7E3619EC;
+	Fri, 12 Jun 2026 13:55:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781265346;
+	bh=/xxC0Hha6e9anXB89K7UKFjQ+uG1t5JBiZJIaIWVBTI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S5OWJK8kRzafUXg0MuDQBVbhE6YPjdKfzc72GwxH5rvDO1NR/aqkHMCwtEq2nc+FU
+	 0itHpCzeLULzO8uXyt0fnnbEVdBiC41tPKL1Aj8NQ2l/RHqvbOl9bZiDaClYb8GixQ
+	 2JtwCK/jrNNDav4X7KPHkbeQ3Rp3Z7M0TCanLszI=
+Message-ID: <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
+Date: Fri, 12 Jun 2026 14:56:11 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+ <20260611000324.GH1632628@killaraus.ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260611000324.GH1632628@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] i3c_master_direct_detach_i3c_dev_locked lacks the unaddressable de=
-vice check present in its attach counterpart, leading to a NULL pointer der=
-eference in controller drivers.
---
+Hi,
 
-commit a7f74140d15672b8f2824666071ce06e3051e0d8
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+On 11/06/2026 03:03, Laurent Pinchart wrote:
+> Hi Tomi,
+> 
+> Thank you for the patch.
+> 
+> On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
+>> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+>> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+>> crtc, when enabling the crtc.
+>>
+>> With DSC (added in upcoming patch) in the pipeline, between the DU and
+>> the DSI, the above call path is broken as the crtc tries to call
+>> rcar_mipi_dsi_pclk_enable() on the DSC.
+>>
+>> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
+>> in that case gets the next bridge from the DSC, which is the DSI.
+>>
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+>> ---
+>>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
+>>   1 file changed, 34 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+>> index 4ef2e3c129ed..085e229bcb0b 100644
+>> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+>> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+>> @@ -88,6 +88,8 @@ struct dsi_setup_info {
+>>   	const struct dsi_clk_config *clkset;
+>>   };
+>>   
+>> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
+>> +
+>>   static inline struct rcar_mipi_dsi *
+>>   bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
+>>   {
+>> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
+>>   	rcar_mipi_dsi_stop_video(dsi);
+>>   }
+>>   
+>> +/*
+>> + * We need to skip the DSC bridge when we have DSC in between the DU and
+>> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
+>> + * next_bridge is the DSI bridge. If this is not the case, the DT data
+>> + * is wrong (so it shouldn't really happen).
+>> + */
+>> +static struct drm_bridge *
+>> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
+>> +{
+>> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+>> +		bridge = bridge->next_bridge;
+>> +
+>> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+>> +		return NULL;
+>> +
+>> +	return bridge;
+>> +}
+> 
+> Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
+> rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
 
-i3c: master: Add APIs for I3C hub support
+It's actually cached in rcar_du_encoder.c, but used in rcar_du_crtc.c.
 
-Add helpers for attaching and detaching I3C devices and CCC helpers
-to check CCC support and send CCC commands to prepare for I3C hub support.
+If I understand right, you'd like to do the DSC detection in 
+rcar_du_crtc, and skip the DSC, if needed, before calling 
+rcar_mipi_dsi_pclk_enable()?
 
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index ec3547f75469e..59e0f82de6ebd 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
+> question is how to then identify the right bridge, as we won't have
+> access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
+> type field to DRM_MODE_CONNECTOR_DSI ?
 
-[ ... ]
+I'm not sure how that would help. Or, I can, as the dsi driver does not 
+set the bridge type, so only DSC would set it. But isn't that even more 
+hacky?
 
-> +int i3c_master_direct_attach_i3c_dev_locked(struct i3c_master_controller=
- *master,
-> +					    struct i3c_dev_desc *dev)
-> +{
-> +	int ret =3D 0;
-> +
-> +	/*
-> +	 * We don't attach devices to the controller until they are
-> +	 * addressable on the bus.
-> +	 */
-> +
-> +	if (!dev->info.static_addr && !dev->info.dyn_addr)
-> +		return 0;
-> +
-> +	/* Do not attach the master device itself. */
-> +	if (master->this !=3D dev && master->ops->attach_i3c_dev)
-> +		ret =3D master->ops->attach_i3c_dev(dev);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_direct_attach_i3c_dev_locked);
+Or did you rather mean that the DSI driver would set the bridge type, 
+and DSC would not? We can then do:
 
-[ ... ]
+		if (bridge->type != DRM_MODE_CONNECTOR_DSI)
+			bridge = bridge->next_bridge;
 
-> +void i3c_master_direct_detach_i3c_dev_locked(struct i3c_dev_desc *dev)
-> +{
-> +	struct i3c_master_controller *master =3D i3c_dev_get_master(dev);
-> +
-> +	/* Do not detach the master device itself. */
-> +	if (master->this !=3D dev && master->ops->detach_i3c_dev)
-> +		master->ops->detach_i3c_dev(dev);
+in the crtc driver. This works. It's still a bit hacky, but I think the 
+chances of the code getting it wrong are quite low. If the output port 
+is RCAR_DU_OUTPUT_DSIx, then the next bridge must be rcar-dsi or 
+rcar-dsc, so it's all under our control. Also, it's less code than this 
+patch, so I'll go with that.
 
-[Severity: High]
-Does this missing address check in the detach helper lead to a NULL pointer
-dereference in controller drivers?
+  Tomi
 
-The attach helper i3c_master_direct_attach_i3c_dev_locked() gracefully skips
-attaching devices without a static or dynamic address and returns 0 (succes=
-s).
-Because it returns success, callers might naturally invoke this companion
-detach API during teardown for these same devices.
-
-However, since this helper lacks the corresponding address check, it
-unconditionally invokes the controller's detach callback. Controller drivers
-often retrieve the device's private data and immediately dereference it. Si=
-nce
-the attach phase was skipped, this private data would be NULL.
-
-Should this function also check if the device has an address before calling
-the detach callback?
-
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_direct_detach_i3c_dev_locked);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612111816.3688=
-240-1-lakshay.piplani@nxp.com?part=3D3
