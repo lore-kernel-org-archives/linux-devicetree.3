@@ -1,402 +1,556 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013026.outbound.protection.outlook.com [40.107.162.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1808364E84
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 20:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781295269; cv=fail; b=mqqSLm3K4SzoqX4s3lVj0/igtKqtm6aRbqF2uydOMLVmrVlwO1uNk0nHMSBqCGJ4HMTYVCd0Otf8ejz6Ythc/V2LPv0C9EHpUgM7O7TxHP2YMhrNkascfr6JJps3LksnyHwWQBQvw0Z8EhGc+bE915kSvPvosF1mzMYg/Jze3i8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781295269; c=relaxed/simple;
-	bh=RSD44xF61/pveiF0XD3Yul2F/XNjaKsMD/j9dxd/hYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TfbmtFJlqzX+CGJGIU7gD6CV7fPwR5lducsgHQrI7y2Uv6HoV5xG/9J/u0fy63O0ADrQbdK0pghX4iNBurPlmSyyBPL1i7ukL0GbeS/6pP18QRnZArg0rhJFhqpTYc9NcdJsVZxYUk6Cw2Q4o34YnuQZV334/b2kdzxfu6Wwuo8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YnBH1GE6 reason="signature verification failed"; arc=fail smtp.client-ip=40.107.162.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B813911C6
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 20:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781295789; cv=none; b=XaZb3+iXn+D4Z+nl2ZckTcoeVmg4cghpa2XvhQmJtOEvwgf8VgYqHrKOREigqQ1vdDndwWu2jaIAPtR58cm8Kn3yFuYTKBhNVI6l3D5bJBYE7ogTp2Yc9xAbrzpIT+KjmuO7xXtgOqq//JfTwVo+0uZa3vHfyLu1cWpVYcNBIF8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781295789; c=relaxed/simple;
+	bh=dBLwQI/S/Mnzu6a5krFIbnbAVsC87u9RNj1yRAcOjaI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pMEcIDBm/354ZTxYQuY3kKfdkwfqLeSy484Wnk28Z5E03NdVS1mseIqjk85YXk8GwPNPQ2CAc7Cdhk/113Le8GAc48fO15dvY3l3+vBRRv2/h6aDeBRTAQVnxNc0W84dDSb9hOOoGVllBRclZm8mIcFv0aMUnZvHEGDQT2W1DAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMxIYq0L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YnBH1GE6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fELPlKbnBbADU/N5v4l8qgrSUP+HKqrDctEB7BGBDb8kZ36Vk950U70k3y4tGR7wEhoKOwhq0jCTW8Yy9gAmiAVuWeyhfEFrZIko6RwIXovicqhb6vrL/Tat39G/VxfxGZNUi/QopITh0jCrkhlJ6xUEQ2s0FbH+XqWjmTw+3r66oLzHxe+hvhwPHjNY+CaMWc22b3bq7A/fq5uoIfYcOsHr/5CNPW+2EZJhuM+BNYtaB+pA4R9Vnk46l/eDgbB5U+ufNjeXiZpr3ma8Il6GlIRdvSfg7d7tIU7nKB1sOZLs0yQu3bDZ5TGNa04rKv5KFIUBVqSO6jJeCjSGlsslvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=41dSjCgBPVv2W6tFEp5QB6BPGT3SxHk7+8EqFmYrpmI=;
- b=vbbuIOQM8BsiV5mzhaVazqHepfE3DSDknW6IOAtq67kkKMFItfoUfuaksQZLrSY9frk70768W6Ti98pMRiAdl5aQFNOqy9TQ5lcIteEquDQMQZAquZkF2Yf7SUki7MOpHxm6Gtz36T025c80gSMfXUkr7vsvKkzY7KBRt7kQ26ZDYp2paNzZPh6HMjL82CwLbKy0O4Ui9lmJNKSu0ZCRGsxtHnEnhgn/xptVsUG0VbQrYIdWd+xJL8PL48/JE4asF1kdfWHBQc9bG9r+ljMZNhaziNEgKgFLYPX0mNOVq+9nazZPjMOXXIAfCevhSbvLmBl9q7ub4trPQ9nQV4nq7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=41dSjCgBPVv2W6tFEp5QB6BPGT3SxHk7+8EqFmYrpmI=;
- b=YnBH1GE6BJ/VG2QG1GxPCfFPGqi9tF/kk7kYx84HLIGhpDTRtsJgsRs8+gGtnQNa1P3a7zu8OxXYhoV8ZEVkiw7RDy2GJe1h/eBEXJypQAc26XPah1Ws7uRBA1W9cqQDc20+vwsYTCt8c+kOtStIqlfCF9Oimrce8X0UEddnbZZQhtMNDxE4YUQi8RVsVYp5BA6hnFagU7DRFCGonGyNQQRWy8xfiGw9de8bK9Wm8fPTxB4k7u+qBRpX/htGXv2J3eclcf/n90RQ1Rv/fy4lkNB4+DCHvkgtyZNBIa/e8kNZLAZLst2aY8gImjy7VWrtIvuLp1o/Sz+IkiK899SMOg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
- by GV1PR04MB10200.eurprd04.prod.outlook.com (2603:10a6:150:1ad::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 20:14:23 +0000
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
- 20:14:23 +0000
-Date: Fri, 12 Jun 2026 16:14:15 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Lakshay Piplani <lakshay.piplani@nxp.com>, Frank.Li@kernel.org,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	conor+dt@kernel.org, robh@kernel.org
-Subject: Re: [PATCH v11 8/9] i3c: hub: p3h2x4x: Add support for NXP P3H2x4x
- I3C hub functionality
-Message-ID: <aixol03VstxFCZ3T@lizhi-Precision-Tower-5810>
-References: <20260612111816.3688240-9-lakshay.piplani@nxp.com>
- <20260612113948.F33BF1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260612113948.F33BF1F000E9@smtp.kernel.org>
-X-ClientProxiedBy: SN7PR04CA0074.namprd04.prod.outlook.com
- (2603:10b6:806:121::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMxIYq0L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8D11F000E9;
+	Fri, 12 Jun 2026 20:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781295787;
+	bh=hhRG6oG7diCasmFBYL3B2pvjY4eq7pLDLE5urq73rxg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VMxIYq0LdnpVPDZKB2WxDf1TFC4QfznKt4018+G/C9lSP7O001dtXl3xBkS26TK80
+	 mg2qYAou+q8iIJHlLnKHYi5YxxETm4XlOJLBN1GAg7dKUA2S7GFPDRLwwM/tJ4D8aL
+	 0mGbZZMLi4t+b65ESKE66i4mUp93u7xd7dEr/WfGQ+uoL+xhb9gKzvgedGGlT0cCMJ
+	 YUIj0Jy2qovVaonaAccikKAxQhnAga0Dpiyx38PoJnwJL7sY0Qc+qfVz4nDE3ZlITw
+	 AIJnmUcs4omvCpUqFtUcPE5nEX2ZQcrAM3I5enI1Ac3ujVVohCaFnbCRUYiHnLcSHS
+	 +/wyCNioGuNkg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 4/4] media: qcom: jpeg: Add Qualcomm JPEG V4L2
+ encoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612194417.1737009-5-atanas.filipov@oss.qualcomm.com>
+References: <20260612194417.1737009-5-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 20:23:06 +0000
+Message-Id: <20260612202306.DD8D11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|GV1PR04MB10200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40f4bc02-a3a0-4556-21e1-08dec8bf3118
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|19092799006|1800799024|366016|11063799006|4143699003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	cVe0U0uAQCulQSkbaHvS4sMXJ26OH0E1yVNKs9aYlmPMQjbUGm58YrV2hWb6bimtTs1vp++bdU/om2yaNng0PWh3Nz6GANUtjRd5vBmN6RCOXVzZkmyVrD1SYno+vEERqaf9s1xsz1LbAanoar5Cm3GxDAJy9dzeZOTPeiVMYQpZGwGQP7W5TQ8SVqq7OL1kd5jZTLGfJ10AEDQdZG+snZtwb23zTrd4qBvVNh6sXtKgAnxOQKwvpd9gGzpqBHQEBvc0c6SeMoEIxzYkooRfbTQ6xwhuwS7BcgjOYw7Z7/OdF44UdV4StDbqrp1hVHcSJsUxwlq/pi5xgQ3wi/ugo9oY2ISNnCABYD76gGdo/kgBKG6C1jIhzV/LYY+MkeMjR8fKcqsGRxAzTrCcKeeG7sFX6SgBUaUPTdv7TxCtlKQy7zzLIjNY2+w9HxNm0WnF/qBAdASP6UyO7lytXjM9sQkQ5zRTUm00SN0LVJhym6y9pZ8Au3l0TomGhZNUjHUNfpn5IwPLYM5LQUYdUR+G7rky+NwlUDetRPSJedoLO/ukI/BAYAP/uZxx+sCfsdMerhbQOrYoNt8QlFkF6Ke8Ru4xTasW+Pn4t4CtyHoec/iJC4/RFLDBwkL5bmKxHEAX6ZRh7Nw3JRHxArdTGUWSqQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(19092799006)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?xoQaASlSUI3TKBFmfLXYbAPztRbdWKfq8oaBgy7XYvSNka4fROJS1DgpTZ?=
- =?iso-8859-1?Q?2hbNKKfi6QVaieY6fv05UcSap+AmR1VMCd94XJVFFhZRXBNUzdnqFaMxrZ?=
- =?iso-8859-1?Q?jzXD/dmxMQY34NoKRtyi765RLliPBH0B+9h350U3NX+boA7ApdlzGsoOk4?=
- =?iso-8859-1?Q?+rLSC03HTnOZ16WeCR40O2wfvxa0XizJDSdvD/ghyeYxoNa4TyL5yQ94kc?=
- =?iso-8859-1?Q?4No/KCED02yjlY0FUyHiP+PzjG6KbH9GY8jvi/zdzoVGIma53g5FI/bBOZ?=
- =?iso-8859-1?Q?KJBhmnk2/jFlZTbKs3cStP7xtSeLErRHUJ4dC4F51lgERQPMdWs2N0vCHY?=
- =?iso-8859-1?Q?9OTHeV+7Qy3GDO4EaAaNftuxBxy5X3VobvsCkK/iBHs393ay4tXHVpkY+u?=
- =?iso-8859-1?Q?kfbS1b1gZ/5BEG5BlPTqa+WvjaDFv9uvlwOlGeZSl3aU1qrHAWSQulJThs?=
- =?iso-8859-1?Q?IbWqbePpCzgMUS2BnqGK319bQzQWXPnA/AInysZhAMjBjaSpLNY9BPmwUr?=
- =?iso-8859-1?Q?2G2fCam5lqnUtj0HqwHXnNsANAyyycal30lx2ysWOVjPMxjfp6BvcPRrLr?=
- =?iso-8859-1?Q?sFz0SGFZHm5As1vN5BOjiMWP1b1qiXWiBbqFLulmKnl3zQlJwvfua7JarN?=
- =?iso-8859-1?Q?cmIM++9k+QXJ1crj+NqXk2N6TEH8pppM1WyEV1Mb4bsVNvuROp9dG9VIrb?=
- =?iso-8859-1?Q?OjnwwU22+/x3qUOUuqJNVFXfR+i2j6xV3Cagff46KKIde0R8uYR+EyRNsG?=
- =?iso-8859-1?Q?QeoX6oO1TLHQ6s1S2EsKfBAtQXQ4ab6QZkVdh7cNsjLRTSboBba/MpNorP?=
- =?iso-8859-1?Q?XOQhqgoPNJMK+z+552Mqn/N0bgOD05M6dRtc0a2VIACTzFYCZhonKranh9?=
- =?iso-8859-1?Q?6VB2oCiNubKNMOqtH8i8eRCMF1R1R7XX42onSGCEA5Npw/FT12Xrt2QBsO?=
- =?iso-8859-1?Q?Di1txOGnCMCNQe4fGrehgeqZ41PELlSFu++z9CgK2CLf87ymIdFLkoQbEg?=
- =?iso-8859-1?Q?fe3cnQnwgtGuHU0Dv+YejFRHvIMg8k6VFHKIsRrJZ18KUu0DK0aFpOuZPQ?=
- =?iso-8859-1?Q?NuEaOa0e6mnNApF339Gf+5wOMt9bV/kvfW1iYG9a4uVmJ3XvW9SPKft61W?=
- =?iso-8859-1?Q?DXIEd1s4J91Tdv3NNhV/e/qCe4FRusxZPWkjJi0dOtxgHh1GBIJa+tBj2k?=
- =?iso-8859-1?Q?yX9QbDEqXgIe4s0VOS+KmOBV0pbKR23Mp4VsCZN0vtzweiYw79LIGs/1pa?=
- =?iso-8859-1?Q?utH3VM0v8TziXTwxcnUx8L3ggNbbp11nRQUAH0MST57VQ2e1S7NT83ktUt?=
- =?iso-8859-1?Q?0yVtMf3UIrF5lz/hsjYSa6NTkYQvV4CEnwXFNCJ82OrSlLrn5OEGJFlVpC?=
- =?iso-8859-1?Q?RZHy3bl3dqiaTlQpk0jHrUbU7FsokF+ZynPOE8TkcvjyJ+pWyRezsh76os?=
- =?iso-8859-1?Q?czaMWifAFCg1cuc/pufwlux10JLumdd1r/xYdLUAqw8Y9RBBvmOzSZXThI?=
- =?iso-8859-1?Q?Kzd6+DJdnlyK+dGE7eqYFDY72UmNHUso6O5zfeXrE+UHhUkMCOx44J1bBj?=
- =?iso-8859-1?Q?4T/zL4Kny5BjtLds3Mpwf7C/EVno8rUjcfqbpGjb/BMkZnWvD6WNFLMqSi?=
- =?iso-8859-1?Q?joNUMh48r5IEigtJP+2LXhtHF68zsawFWSZCwY7E6PYKas8wefqMZmnT3g?=
- =?iso-8859-1?Q?AUC23dO0tbgP9LhEc4QjEERsGyvu9eyOzCPgZ8CZQCL44BBZJbEKeTlJrd?=
- =?iso-8859-1?Q?I2t0wsiIy1jglOGYND3Vs5XlF81EhtnUt6yGNywEfELtCsvo14JTpwM2Pi?=
- =?iso-8859-1?Q?6Rza22nKXN+hHwxs1DAMN3cTFqap83fgDCfZOw8M/Cz+Hzwc8H4I?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40f4bc02-a3a0-4556-21e1-08dec8bf3118
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 20:14:23.5200
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r8BH7sbBtTaBoTTyeV68fEDU89PoGY9+PHZOitNFjQ1Z2yHEfCcY6EA0l5o/pGfsqoIAjZErwwrmlNmNdARgrojPm31goIFKMqvsH9KIxVQ1VEldGRx4C1nElEAe9Sc1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10200
 
-On Fri, Jun 12, 2026 at 11:39:48AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 10 potential issue(s) to consider:
-> - [High] Regulator devres cleanup actions are erroneously attached to the parent device instead of the child device being probed.
-> - [High] SMBus I2C adapters are not unregistered on probe error paths, causing a Use-After-Free.
-> - [High] In-Band Interrupt (IBI) remains requested and enabled on probe failure, causing a Use-After-Free.
-> - [High] Unsafe reliance on non-deterministic delays without polling the SMBus finish flag causes premature data reads.
-> - [High] The driver dynamically overwrites the shared platform device's `of_node` pointer, corrupting the core device tree state.
-> - [High] `regmap_update_bits` uses the configuration value as the bitmask, failing to clear stale bits.
-> - [High] DAA is performed on the upstream bus before the downstream target ports are physically enabled.
-> - [Medium] Target port device tree node references acquired during probe are leaked on error paths.
-> - [Medium] Default configuration structures are populated with enum values instead of Ohms, causing misconfiguration.
-> - [Low] Dead code due to incorrect `IS_ERR` check on `devm_kzalloc` return value.
-> --
->
-> commit 8d18a29a52d0297c45635edaf397ce828e709ef9
-> Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
->
-> i3c: hub: p3h2x4x: Add support for NXP P3H2x4x I3C hub functionality
->
-> Add I3C hub functionality for the NXP P3H2x4x family of multiport hubs.
-> These devices support downstream target ports that can be configured
-> as I3C, I2C, or SMBus.
->
-> > diff --git a/drivers/i3c/hub/p3h2840_i3c_hub_common.c b/drivers/i3c/hub/p3h2840_i3c_hub_common.c
-> > new file mode 100644
-> > index 0000000000000..fedcb978f07ee
-> > --- /dev/null
-> > +++ b/drivers/i3c/hub/p3h2840_i3c_hub_common.c
->
-> [ ... ]
->
-> > +static int p3h2x4x_configure_ldo(struct device *dev)
-> > +{
-> > +	static const char * const supplies[] = {
-> > +		"vcc1",
-> > +		"vcc2",
-> > +		"vcc3",
-> > +		"vcc4"
-> > +	};
-> > +	int ret, i;
-> > +
-> > +	for (i = 0; i < ARRAY_SIZE(supplies); i++) {
-> > +		ret = devm_regulator_get_enable_optional(dev->parent, supplies[i]);
->
-> [Severity: High]
-> Could this leak devres memory on the parent device? By passing dev->parent
-> (the MFD parent device) instead of dev (the child hub device), the regulator
-> cleanup actions are attached to the parent. If the hub driver fails probe
-> or is repeatedly bound/unbound, it looks like these regulators won't be
-> disabled and the references will be leaked.
+Thank you for your contribution! Sashiko AI review found 14 potential issue=
+(s) to consider:
+- [High] The hardware is programmed with a single DMA base address per plan=
+e, silently assuming the mapping is always contiguous, but the driver utili=
+zes `VIDEOBUF2_DMA_SG`.
+- [High] Active DMA buffers are unconditionally returned to userspace durin=
+g stop or abort operations without halting the hardware, causing use-after-=
+free and DMA memory corruption.
+- [High] The IRQ handler accesses hardware registers without verifying the =
+device's power state, triggering a fatal bus error upon receiving a spuriou=
+s interrupt during runtime suspend.
+- [High] Synchronizing capture buffers with `DMA_BIDIRECTIONAL` when they a=
+re mapped as `DMA_FROM_DEVICE` violates the DMA API rules.
+- [High] The hardware DMA buffer size is programmed improperly, enabling wr=
+ites past the allocation boundary.
+- [High] The main device structure is allocated using devm_kzalloc but its =
+lifetime is decoupled from the video_device file descriptors, resulting in =
+a Use-After-Free upon device unbind.
+- [High] Multiple self-deadlocks and mismatched lock ordering issues relate=
+d to `dev_mutex` in V4L2 callbacks.
+- [High] A race condition between the IRQ bottom half and a worker thread c=
+an erroneously halt a newly started hardware job.
+- [High] Unconditional `schedule_work` during file release after cancellati=
+on barriers leads to a use-after-free of `ectx`.
+- [Medium] The driver reports an overly large payload size for the encoded =
+JPEG, leaking uninitialized buffer contents.
+- [Medium] `V4L2_ENC_CMD_STOP` incorrectly flushes all pending buffers imme=
+diately instead of draining them.
+- [Medium] Hardware teardown hangs due to incorrect `reinit_completion` ord=
+ering in `jpeg_deinit()`.
+- [Medium] Failure to allocate the V4L2 control in `fop_jpeg_file_open` byp=
+asses handler cleanup, leaking bucket memory.
+- [Low] Unconditional assignment of `dev_pm_ops` structure without wrapper =
+macros produces dead code when `CONFIG_PM` is disabled.
+--
 
-look like make sense, please check it.
+commit 1ef0c6ce9870449657c8ef931f50d481ec34b483
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
->
-> [ ... ]
->
-> > +static int p3h2x4x_configure_tp(struct device *dev)
-> > +{
-> > +	struct p3h2x4x_i3c_hub_dev *hub = dev_get_drvdata(dev);
-> > +	u8 mode = 0, smbus = 0, pullup = 0, target_port = 0;
-> > +	int tp, ret;
-> > +
-> > +	for (tp = 0; tp < P3H2X4X_TP_MAX_COUNT; tp++) {
-> > +		pullup |= hub->hub_config.tp_config[tp].pullup_en ? P3H2X4X_SET_BIT(tp) : 0;
->
-> [ ... ]
->
-> > +	ret = regmap_update_bits(hub->regmap, P3H2X4X_TP_PULLUP_EN, pullup, pullup);
->
-> [Severity: High]
-> Does this fail to clear stale bits? The third argument to regmap_update_bits()
-> is the mask. By using 'pullup' as the mask, it seems this only applies
-> operations to bits that are 1. Any bit that is 0 in 'pullup' is ignored,
-> which might leave stale hardware state (like pullups enabled by the
-> bootloader) unmodified. Should this use a proper mask covering all relevant
-> bits?
+media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
 
-Make sense, please check it.
+Add a Qualcomm JPEG encoder driver implemented on top of the
+V4L2 mem2mem framework. The driver handles vb2 queue, formats, header,
+interrupts, and runtime PM/ICC for SM8250, QCM6490, and SM8550.
 
->
-> [ ... ]
->
-> > +static void p3h2x4x_get_target_port_dt_conf(struct device *dev,
-> > +					    const struct device_node *node)
-> > +{
-> > +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub = dev_get_drvdata(dev);
-> > +	u64 tp_port;
-> > +
-> > +	for_each_available_child_of_node_scoped(node, dev_node) {
-> > +		if (of_property_read_reg(dev_node, 0, &tp_port, NULL))
-> > +			continue;
-> > +
-> > +		if (tp_port < P3H2X4X_TP_MAX_COUNT) {
-> > +			p3h2x4x_i3c_hub->tp_bus[tp_port].of_node = of_node_get(dev_node);
->
-> [Severity: Medium]
-> Is there a resource leak here on probe error paths? This manually increments
-> the reference count of the child nodes using of_node_get(). While
-> p3h2x4x_i3c_hub_remove() correctly drops these references, if
-> p3h2x4x_i3c_hub_probe() fails and returns an error, the remove callback
-> isn't executed. Without a devm cleanup action, could these OF nodes leak
-> memory?
->
-> [ ... ]
->
-> > +static void p3h2x4x_default_configuration(struct device *dev)
-> > +{
-> > +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub = dev_get_drvdata(dev);
-> > +	int tp_count;
-> > +
-> > +	p3h2x4x_i3c_hub->hub_config.tp0145_pullup = P3H2X4X_TP_PULLUP_500R;
->
-> [Severity: Medium]
-> Are these default configuration values being set correctly? These fields
-> appear to be designed to store physical Ohm measurements, but they are
-> initialized to macros like P3H2X4X_TP_PULLUP_500R which evaluate to enum
-> indices (e.g., 1). When the default value 1 is later processed by
-> p3h2x4x_pullup_dt_to_reg() using find_closest(), it would resolve to the
-> closest table entry 250 instead of the intended 500. Should these initialize
-> with real-world units?
->
-> [ ... ]
->
-> > +static int p3h2x4x_i3c_hub_probe(struct platform_device *pdev)
-> > +{
->
-> [ ... ]
->
-> > +	/* Register virtual I2C adapters for SMBus target ports */
-> > +	ret = p3h2x4x_tp_smbus_algo(p3h2x4x_i3c_hub);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "Failed to add i2c adapter\n");
-> > +
-> > +	/* Lock access to protected registers */
-> > +	ret = regmap_write(p3h2x4x_i3c_hub->regmap, P3H2X4X_DEV_REG_PROTECTION_CODE,
-> > +			   P3H2X4X_REGISTERS_LOCK_CODE);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "Failed to lock HUB's protected registers\n");
->
-> [Severity: High]
-> Are the SMBus I2C adapters cleaned up if this final regmap_write() fails?
-> p3h2x4x_tp_smbus_algo() registers adapters using i2c_add_adapter(), which
-> requires an explicit i2c_del_adapter(). If the probe fails here, the adapters
-> are never unregistered, which leaves the I2C core with active references to
-> devm-freed memory. Could this cause a use-after-free?
->
-> > +
-> > +	return 0;
-> > +}
->
-> > diff --git a/drivers/i3c/hub/p3h2840_i3c_hub_i3c.c b/drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
-> > new file mode 100644
-> > index 0000000000000..38505dda0e81b
-> > --- /dev/null
-> > +++ b/drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
->
-> [ ... ]
->
-> > +int p3h2x4x_tp_i3c_algo(struct p3h2x4x_i3c_hub_dev *p3h2x4x_hub)
-> > +{
->
-> [ ... ]
->
-> > +	p3h2x4x_hub->hub = devm_kzalloc(p3h2x4x_hub->dev,
-> > +					sizeof(*p3h2x4x_hub->hub),
-> > +					GFP_KERNEL);
-> > +
-> > +	if (!p3h2x4x_hub->hub)
-> > +		return -ENOMEM;
-> > +
-> > +	i3c_hub_init(p3h2x4x_hub->hub,
-> > +		     &p3h2x4x_hub_ops,
-> > +		     p3h2x4x_hub->i3cdev);
-> > +
-> > +	if (IS_ERR(p3h2x4x_hub->hub))
-> > +		return PTR_ERR(p3h2x4x_hub->hub);
->
-> [Severity: Low]
-> Is this IS_ERR() check necessary? devm_kzalloc() returns either a valid
-> pointer or NULL on failure, never an error pointer. It seems this block of
-> code might be dead.
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_dev.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
 
-Make sense, please fix it
+[ ... ]
 
-Frank
->
-> [ ... ]
->
-> > +	for (tp = 0; tp < P3H2X4X_TP_MAX_COUNT; tp++) {
-> > +		if (!p3h2x4x_hub->tp_bus[tp].of_node ||
-> > +		    p3h2x4x_hub->hub_config.tp_config[tp].mode != P3H2X4X_TP_MODE_I3C)
-> > +			continue;
-> > +
-> > +		/* Assign DT node for this TP */
-> > +		p3h2x4x_hub->dev->of_node = p3h2x4x_hub->tp_bus[tp].of_node;
->
-> [Severity: High]
-> Can dynamically overwriting the platform device's of_node pointer corrupt the
-> core device tree state? By changing p3h2x4x_hub->dev->of_node in a loop
-> without saving and restoring the original, it looks like this permanently
-> changes the node the device points to. Could this break device tree links,
-> sysfs topologies, or devres lookups that rely on the original parent hub
-> of_node?
->
-> [ ... ]
->
-> > +		/* Perform DAA */
-> > +		ret = i3c_master_do_daa(parent);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		ntwk_mask |= p3h2x4x_hub->tp_bus[tp].tp_mask;
-> > +		p3h2x4x_hub->tp_bus[tp].is_registered = true;
-> > +		p3h2x4x_hub->hub_config.tp_config[tp].always_enable = true;
-> > +	}
->
-> [ ... ]
->
-> > +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> > +	ret = i3c_device_request_ibi(p3h2x4x_hub->i3cdev, &p3h2x4x_ibireq);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = i3c_device_enable_ibi(p3h2x4x_hub->i3cdev);
->
-> [Severity: High]
-> If a subsequent step in p3h2x4x_i3c_hub_probe() fails, are the IBIs safely
-> cleaned up? The devm framework would free the p3h2x4x_i3c_hub structure,
-> but the IBI might remain active on the master. If an interrupt fires later
-> and accesses the freed structure via i3cdev_get_drvdata(i3cdev), could this
-> trigger a use-after-free?
->
-> > +	if (ret) {
-> > +		i3c_device_free_ibi(p3h2x4x_hub->i3cdev);
-> > +		return ret;
-> > +	}
-> > +#endif
-> > +	ret = regmap_write(p3h2x4x_hub->regmap, P3H2X4X_TP_NET_CON_CONF, ntwk_mask);
->
-> [Severity: High]
-> Does performing DAA here actually reach the downstream targets? The DAA is
-> executed earlier on the upstream bus inside the target port loop, but the
-> downstream target ports don't appear to be logically connected to the upstream
-> bus until ntwk_mask is written to P3H2X4X_TP_NET_CON_CONF at the end of the
-> function. Will downstream targets receive the ENTDAA command if DAA is done
-> before the physical ports are enabled?
->
-> > diff --git a/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c b/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
-> > new file mode 100644
-> > index 0000000000000..edb75f790e92e
-> > --- /dev/null
-> > +++ b/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
->
-> [ ... ]
->
-> > +static int p3h2x4x_read_smbus_transaction_status(struct p3h2x4x_i3c_hub_dev *hub,
-> > +						 u8 target_port_status,
-> > +						 u8 data_length)
-> > +{
-> > +	u32 status_read;
-> > +	u8 status;
-> > +	int ret;
-> > +
-> > +	fsleep(P3H2X4X_SMBUS_400kHz_TRANSFER_TIMEOUT(data_length));
-> > +
-> > +	ret = regmap_read(hub->regmap, target_port_status, &status_read);
->
-> [Severity: High]
-> Could relying on a fixed timeout instead of polling the hardware finish flag
-> cause the driver to read stale data? Because the top 4 bits of the status
-> register are initialized to 0 before the transaction begins, they remain 0
-> while the hardware is busy. If the transaction exceeds the timeout (e.g., due
-> to clock stretching), status evaluates to 0
-> (P3H2X4X_SMBUS_CNTRL_STATUS_TXN_OK). Should this code poll the
-> P3H2X4X_SMBUS_TRANSACTION_FINISH_FLAG instead to ensure completion?
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260612111816.3688240-1-lakshay.piplani@nxp.com?part=8
+> +static int qcom_jpeg_probe(struct platform_device *pdev)
+> +{
+> +	const struct qcom_dev_resources *res;
+> +	struct qcom_jenc_dev *jenc;
+> +	int rc;
+> +
+> +	jenc =3D devm_kzalloc(&pdev->dev, sizeof(*jenc), GFP_KERNEL);
+
+[Severity: High]
+Does allocating this structure with devm_kzalloc() decouple its lifetime
+from the video_device file descriptors? Later in qcom_jpeg_v4l2_register(),
+jenc->dev_mutex is used as the vdev->lock. When the device unbinds, devres
+frees jenc, but userspace may still hold open file descriptors that keep
+the video_device alive, leading to a use-after-free when ioctls try to take
+the freed lock.
+
+[ ... ]
+
+> +static struct platform_driver qcom_jpeg_platform_driver =3D {
+> +	.probe  =3D qcom_jpeg_probe,
+> +	.remove =3D qcom_jpeg_remove,
+> +	.driver =3D {
+> +		.name =3D QCOM_JPEG_ENC_NAME,
+> +		.of_match_table =3D qcom_jpeg_of_match,
+> +		.pm             =3D &qcom_jpeg_pm_ops,
+
+[Severity: Low]
+Could this unconditional assignment produce dead code when CONFIG_PM is
+disabled? Using the pm_ptr() wrapper macro here is usually recommended to
+allow the compiler to remove unused power management structures.
+
+> +	},
+> +};
+> +
+> +module_platform_driver(qcom_jpeg_platform_driver);
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_ops.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+
+[ ... ]
+
+> +static int jpeg_deinit(struct qcom_jenc_dev *jenc)
+> +{
+> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+> +	unsigned long rtime;
+> +
+> +	jpeg_wo_bits(jenc, offs->int_clr, JMSK_IRQ_STATUS_ALL_BITS, JPEG_SET_U3=
+2);
+> +	jpeg_rw_bits(jenc, offs->int_mask, JMSK_IRQ_STATUS_STOP_ACK, JPEG_SET_U=
+32);
+> +
+> +	jpeg_wo_bits(jenc, offs->hw_cmd, JMSK_CMD_HW_STOP, 1);
+> +
+> +	reinit_completion(&jenc->stop_complete);
+
+[Severity: Medium]
+Is there a race condition here if the hardware stops extremely quickly?
+The completion is re-initialized after the STOP command has been written,
+so if the interrupt fires before reinit_completion(), the completion state
+might be incorrectly cleared, causing a timeout.
+
+> +	rtime =3D wait_for_completion_timeout(&jenc->stop_complete,
+
+[ ... ]
+
+> +static int jpeg_store_fe_next(struct jenc_context *ectx, struct vb2_buff=
+er *vb2)
+> +{
+> +	struct qcom_jenc_queue *q =3D &ectx->bufq[TYPE2QID(vb2->type)];
+> +	struct qcom_jpeg_buff *buff =3D &q->buff[vb2->index];
+> +	u8 pln =3D 0;
+> +
+> +	buff->plns[pln].sgt =3D vb2_dma_sg_plane_desc(vb2, pln);
+> +	if (!buff->plns[pln].sgt)
+> +		return -EINVAL;
+> +
+> +	if (!buff->plns[pln].sgt->sgl)
+> +		return -EINVAL;
+> +
+> +	buff->plns[pln].dma =3D sg_dma_address(buff->plns[pln].sgt->sgl);
+
+[Severity: High]
+Does this safely handle fragmented scatterlists? Since the queues are
+configured to use vb2_dma_sg_memops, userspace might provide DMABUF or
+USERPTR buffers mapped into multiple non-contiguous IOVA segments. Just
+extracting the first segment's IOVA without checking contiguousness
+(sg_nents =3D=3D 1) might cause the hardware to write past the first segmen=
+t into
+unmapped memory.
+
+> +	if (!buff->plns[pln].dma)
+> +		return -EINVAL;
+
+[ ... ]
+
+> +static int jpeg_apply_we_addr(struct jenc_context *ectx, struct qcom_jen=
+c_queue *q,
+> +			      struct vb2_buffer *vb)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+> +	struct qcom_jpeg_buff *frame =3D &q->buff[vb->index];
+> +	void *mptr =3D vb2_plane_vaddr(vb, 0);
+> +	dma_addr_t dma =3D frame->plns[0].dma;
+> +	unsigned long flags;
+> +	int rc;
+> +	u8 pln =3D 0;
+> +
+> +	if (WARN_ON_ONCE(!dma))
+> +		return -EPERM;
+> +
+> +	if (WARN_ON_ONCE(!mptr))
+> +		return -EPERM;
+> +
+> +	rc =3D jpeg_ensure_header_cache(ectx);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/*
+> +	 * Under quality_mutex: force a DQT refresh if the header was just
+> +	 * (re)created (quality_programmed =3D=3D 0) or if quality changed since
+> +	 * the last frame.  Both the cache update and the HW DMI upload are
+> +	 * done here so that hdr_cache and the hardware are always in sync
+> +	 * before jpeg_exec() fires.
+> +	 */
+> +	mutex_lock(&ectx->quality_mutex);
+> +	if (!ectx->hdr_cache.size || ectx->quality_programmed !=3D ectx->qualit=
+y_requested) {
+> +		jpeg_update_dqt_cache(ectx);
+> +		jpeg_upload_dmi_table(ectx);
+> +	}
+> +	mutex_unlock(&ectx->quality_mutex);
+> +
+> +	/*
+> +	 * Invalidate stale CPU cache lines before writing the JPEG header
+> +	 * with the CPU into the destination buffer.
+> +	 */
+> +	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, false);
+
+[Severity: High]
+Does this violate the DMA API rules? The capture buffers are typically
+mapped as DMA_FROM_DEVICE. Syncing them with DMA_BIDIRECTIONAL when the
+mapped direction differs can trigger debug warnings or coherency issues.
+
+> +
+> +	dma +=3D qcom_jenc_header_emit(&ectx->hdr_cache, mptr,
+> +				     min_t(size_t, vb->planes[0].length, ectx->hdr_cache.size),
+> +				     q->vf.width, q->vf.height);
+
+[Severity: High]
+Can this advancement cause a DMA buffer overflow? The hardware limit (bsize)
+is configured to the full sizeimage in jpeg_setup_we_size(). If the base
+address is shifted forward by the header size here, the hardware will attem=
+pt
+to write sizeimage bytes starting from this shifted address, running past t=
+he
+end of the allocated buffer.
+
+> +	qcom_jenc_dqts_emit(&ectx->hdr_cache, mptr);
+
+[ ... ]
+
+> +static irqreturn_t op_jpeg_irq_bot(int irq, void *data)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D data;
+> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+> +	u32 irq_status;
+> +	u32 irq_mask;
+> +	unsigned long flags;
+> +
+> +	irq_status =3D READ_ONCE(jenc->pending_irq_status);
+> +
+> +	irq_mask =3D jenc->res->hw_mask[JMSK_IRQ_STATUS_SESSION_DONE];
+> +	if (jpeg_bits_get(irq_mask, irq_status)) {
+> +		struct jenc_context *ctx =3D jenc->actx;
+
+[Severity: High]
+Is there a possibility that jenc->actx points to a freed context here?
+Active buffers are forcefully removed and the context can be freed during
+an abort (see jpeg_v4l2_work_stop and fop_jpeg_file_release) without halting
+the hardware. When the interrupt eventually fires, this dereference could
+result in a use-after-free.
+
+> +		struct qcom_jenc_queue *dq;
+> +		size_t out_size;
+> +
+> +		spin_lock_irqsave(&jenc->hw_lock, flags);
+> +		jenc->actx =3D NULL;
+> +		spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +		if (!ctx)
+> +			return IRQ_HANDLED;
+> +
+> +		dq =3D &ctx->bufq[JENC_DST_QUEUE];
+> +		if (dq->buff_id >=3D 0) {
+> +			struct qcom_jpeg_buff *frame;
+> +			unsigned long flags;
+> +
+> +			spin_lock_irqsave(&jenc->hw_lock, flags);
+> +			frame =3D &dq->buff[dq->buff_id];
+> +			out_size =3D jpeg_io_read(jenc, offs->enc_out_size);
+> +			spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +			dev_dbg(jenc->dev, "complete idx:%d addr=3D0x%llx size=3D%zu\n",
+> +				dq->buff_id, frame->plns[0].dma, out_size);
+> +
+> +			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_DONE,
+> +					    out_size + JPEG_HEADER_MAX);
+
+[Severity: Medium]
+Does adding the fixed JPEG_HEADER_MAX (1024) to out_size accurately reflect
+the payload? The actual header emitted via qcom_jenc_header_emit() is
+usually smaller. Reporting an inflated size can leak residual uninitialized
+memory contents to userspace.
+
+> +			jpeg_stop(jenc);
+
+[Severity: High]
+Could this jpeg_stop() call inadvertently stop a completely new job?
+The callback jenc->enc_hw_irq_cb() schedules work that can queue and start
+the next job asynchronously. Because this jpeg_stop() is called after the
+callback, it could end up cancelling the newly submitted hardware operation
+instead of the current one.
+
+> +		}
+> +	}
+> +
+> +	irq_mask =3D jenc->res->hw_mask[JMSK_IRQ_STATUS_SESSION_ERROR];
+
+[ ... ]
+
+> +static irqreturn_t op_jpeg_irq_top(int irq, void *data)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D data;
+> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+> +	u32 irq_status;
+> +	u32 irq_mask;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&jenc->hw_lock, flags);
+> +
+> +	irq_status =3D jpeg_io_read(jenc, offs->int_status);
+
+[Severity: High]
+Is it safe to unconditionally access hardware registers in the interrupt
+handler? If a spurious interrupt arrives while the device is in runtime
+suspend, its interconnects or clocks might be off, which could trigger a
+synchronous external abort. A check using pm_runtime_get_if_active() is
+usually required here before reading.
+
+> +	jpeg_wo_bits(jenc, offs->int_clr, JMSK_IRQ_STATUS_ALL_BITS, irq_status);
+
+[ ... ]
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
+media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+
+[ ... ]
+
+> +static void jpeg_v4l2_work_stop(struct jenc_context *ctx, enum vb2_buffe=
+r_state buff_state)
+> +{
+> +	struct vb2_v4l2_buffer *vb;
+> +
+> +	while ((vb =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx))) {
+> +		if (!v4l2_m2m_last_dst_buf(ctx->fh.m2m_ctx)) {
+> +			if (ctx->is_stopping) {
+> +				ctx->is_stopping =3D false;
+> +				vb2_set_plane_payload(&vb->vb2_buf, 0, 0);
+> +			}
+> +			v4l2_m2m_last_buffer_done(ctx->fh.m2m_ctx, vb);
+> +		} else {
+> +			v4l2_m2m_buf_done(vb, buff_state);
+> +		}
+> +	}
+> +
+> +	while ((vb =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx)))
+> +		v4l2_m2m_buf_done(vb, buff_state);
+
+[Severity: High]
+Does draining these buffers while the hardware is potentially still active
+lead to issues? During an abort or streamoff, active buffers are immediately
+returned to userspace via v4l2_m2m_buf_done(), but the driver never issues a
+STOP command to halt the hardware DMA. This can cause the hardware to write
+to buffers that userspace considers free.
+
+> +
+> +	schedule_work(&ctx->finish_work);
+> +}
+
+[ ... ]
+
+> +static void bop_jpeg_vb2_stop_streaming(struct vb2_queue *q)
+> +{
+> +	struct jenc_context *ectx =3D vb2_get_drv_priv(q);
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	const struct qcom_jpeg_hw_ops *hw =3D jenc->res->hw_ops;
+> +
+> +	mutex_lock(&jenc->dev_mutex);
+
+[Severity: High]
+Can this cause a self-deadlock? The V4L2 core invokes the stop_streaming
+callback while already holding the lock assigned to jenc->vdev->lock, which
+in this driver is set to &jenc->dev_mutex. Attempting to acquire the same
+mutex here will hang.
+
+> +
+> +	jpeg_v4l2_work_stop(ectx, VB2_BUF_STATE_ERROR);
+> +
+> +	hw->hw_release(ectx, q);
+> +
+> +	mutex_unlock(&jenc->dev_mutex);
+> +}
+
+[ ... ]
+
+> +static int iop_jpeg_encoder_command(struct file *file, void *priv, struc=
+t v4l2_encoder_cmd *ec)
+> +{
+> +	struct jenc_context *ectx =3D jpeg_file2ctx(file);
+> +	struct vb2_queue *vq;
+> +	int rc;
+> +
+> +	if (ec->cmd =3D=3D V4L2_ENC_CMD_STOP) {
+> +		vq =3D v4l2_m2m_get_src_vq(ectx->fh.m2m_ctx);
+> +		if (!vb2_is_streaming(vq))
+> +			return 0;
+> +
+> +		vq =3D v4l2_m2m_get_dst_vq(ectx->fh.m2m_ctx);
+> +		if (!vb2_is_streaming(vq))
+> +			return 0;
+> +
+> +		rc =3D v4l2_m2m_ioctl_encoder_cmd(file, priv, ec);
+> +		if (rc)
+> +			return rc;
+> +
+> +		ectx->is_stopping =3D true;
+> +		schedule_work(&ectx->stop_work);
+
+[Severity: Medium]
+Should the V4L2_ENC_CMD_STOP command allow currently queued source buffers
+to finish encoding instead of immediately aborting them? The V4L2 spec stat=
+es
+that a stop command on an encoder should encode the remaining buffers and s=
+et
+the LAST flag on the final capture buffer. Scheduling stop_work abruptly dr=
+ops
+all queued data.
+
+> +
+> +		return 0;
+> +	}
+> +
+> +	return v4l2_m2m_ioctl_encoder_cmd(file, priv, ec);
+> +}
+
+[ ... ]
+
+> +static int jpeg_v4l2_init_queue(void *priv, struct vb2_queue *sq, struct=
+ vb2_queue *dq)
+> +{
+> +	struct jenc_context *ectx =3D priv;
+> +	int rc;
+> +
+> +	sq->drv_priv		=3D ectx;
+> +	sq->dev			=3D ectx->dev;
+> +	sq->type		=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+> +	sq->io_modes		=3D VB2_MMAP | VB2_DMABUF | VB2_USERPTR;
+> +	sq->buf_struct_size	=3D sizeof(struct v4l2_m2m_buffer);
+> +	sq->ops			=3D &qcom_jpeg_v4l2_vb2_ops;
+> +	sq->mem_ops		=3D &vb2_dma_sg_memops;
+
+[Severity: High]
+Is it correct to use sg_memops instead of contig_memops? If the hardware
+is programmed with a single DMA base address per plane, it likely expects a
+contiguous physical memory range. Using sg_memops allows fragmented
+scatterlists which the hardware won't be able to process linearly.
+
+> +	sq->timestamp_flags	=3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
+
+[ ... ]
+
+> +static int fop_jpeg_file_open(struct file *file)
+> +{
+> +	struct video_device *vdev =3D video_devdata(file);
+> +	struct qcom_jenc_dev *jenc =3D video_drvdata(file);
+> +	struct jenc_context *ectx;
+> +	int rc;
+> +
+> +	ectx =3D kzalloc_obj(*ectx, GFP_KERNEL);
+> +	if (!ectx)
+> +		return -ENOMEM;
+> +
+> +	ectx->dev  =3D jenc->dev;
+> +	ectx->jenc =3D jenc;
+
+[ ... ]
+
+> +	ectx->quality_ctl =3D v4l2_ctrl_new_std(&ectx->ctrl_hdl,
+> +					      &qcom_jpeg_v4l2_ctrl_ops,
+> +					      V4L2_CID_JPEG_COMPRESSION_QUALITY,
+> +					      QCOM_JPEG_QUALITY_MIN,
+> +					      QCOM_JPEG_QUALITY_MAX,
+> +					      QCOM_JPEG_QUALITY_UNT,
+> +					      QCOM_JPEG_QUALITY_DEF);
+> +	if (ectx->ctrl_hdl.error) {
+> +		rc =3D ectx->ctrl_hdl.error;
+> +		goto err_fh_exit;
+
+[Severity: Medium]
+Will jumping to err_fh_exit leak the V4L2 control handler memory? The
+v4l2_ctrl_handler_free() call is placed at the err_ctrl_handler_free label,
+which gets skipped entirely if we jump to err_fh_exit.
+
+> +	}
+> +
+> +	ectx->fh.ctrl_handler =3D &ectx->ctrl_hdl;
+> +
+> +	rc =3D v4l2_ctrl_handler_setup(&ectx->ctrl_hdl);
+
+[ ... ]
+
+> +static int fop_jpeg_file_release(struct file *file)
+> +{
+> +	struct jenc_context *ectx =3D jpeg_file2ctx(file);
+> +	struct v4l2_m2m_dev *m2m_dev =3D ectx->fh.m2m_ctx->m2m_dev;
+> +
+> +	cancel_work_sync(&ectx->stop_work);
+> +	cancel_work_sync(&ectx->finish_work);
+> +
+> +	v4l2_m2m_ctx_release(ectx->fh.m2m_ctx);
+
+[Severity: High]
+Does v4l2_m2m_ctx_release() re-schedule finish_work after it was just
+cancelled? Internally, it aborts jobs which invokes jpeg_v4l2_work_stop().
+That function unconditionally calls schedule_work(&ctx->finish_work). Becau=
+se
+the cancellation barriers were executed first, the work item will run after
+ectx is freed below, causing a use-after-free.
+
+> +	v4l2_m2m_put(m2m_dev);
+> +	v4l2_ctrl_handler_free(&ectx->ctrl_hdl);
+> +	v4l2_fh_del(&ectx->fh, file);
+> +	v4l2_fh_exit(&ectx->fh);
+> +	kfree(ectx);
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612194417.1737=
+009-1-atanas.filipov@oss.qualcomm.com?part=3D4
