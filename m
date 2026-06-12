@@ -1,142 +1,116 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B559335555
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C13A3793AD;
+	Fri, 12 Jun 2026 08:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781254073; cv=none; b=AuCy5T/uyyGl48rTwQDouYajVaCRNe3mILGke0tVeiLlIlJ/KX9sw5ogai3ZZnM7EOt4EGEoqhOv2So1awr9Ug85XzkLX9B6hOufiLZ8L3V+AtQNWtqnY9cd86xL+qvZv6R3tD6Ilbk8EloqKgj1EHxyh2jhJvyXs4ABPu5nD4s=
+	t=1781254419; cv=none; b=RZqyev3rIl7wkDf8UgKIpzcJbwFTPKDiNF8HzFRYpk9a4F1CmlTuwAu2y4S9glVpMRz5l+kvRa1W1HUpKYi4zhd0Ey5kXAXdifI82UqBuVEBvOKmHUjLM5VXO4umwIx2VQ45/LjkqwakGI3ypGwD8CTt9Zm40QkB6jpWnSCPcMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781254073; c=relaxed/simple;
-	bh=65uwZgvej5il4TwgSj3WG4tlATD19TKgvXSd8rKCPgQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oWs2FAkseVdCrOfIDLMJOKO+va6Abvu+FoGV8/2A488mLG7e1KBRSQKLzgZJNOFUKfoJZvc5D3lnqzFONKA27S39is9Yvz1Sxe07U6Gy2DJayEzJuvNJ67cw6lZIXdWge3oAAjaXFb+obGd2LoDEEUM3Hm5rFPD46Kwgn2E/I08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5b22b023e1dso412656e0c.2
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:47:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781254071; x=1781858871;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tQlK0t9ztcQvgDtgl79EcKdVjd3bkrWM0eY0EPTL4QA=;
-        b=YMsuy/oK6z2sBCJOliaVPbhrK/vd8G1LTHTsEWy6RUCd/T0ikS2zh63dkwXTpbDXtj
-         7pHG9NCNRAuKcXMnkaEtwhLQN94OjqezahPMc2mk1LwUAJSjLnLFNFVdPeLQ2Jgj3LTz
-         ORiKXqYMJA/4zP73Aod1YBgWhRvrkHDAzW4Razo47cY72syAZHatX7KDinSANfw56+1g
-         csdwpSsvSiJyIitn/AjyQiShXBvMCdsm++ay4ZKf+vTTqW0G2t+/QIAgLDsGJ8+BC63e
-         gADNc8ouXSrDDswsG7BaxJ8E3Oq9f6itJCFOOfPkSIZioC67fBIkcaDnfExTBIjvC08W
-         hcdA==
-X-Forwarded-Encrypted: i=1; AFNElJ+i1P6wvgZDE+46eEH0OmQq6DcFyKptVwaPzeC7XCqpSXD0ND2yiT5FOlJTZ/94SOUzwMaB6E2BnrSV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZuxsrle3bO6SZgQKUNdlmCZaI1Y+W2SiOEEEDmw7GeUrC/lWw
-	WYx8jQBl5z8QdidIAE/hMfmK8X2GK1EgMAd+4vxmiGT9zSIIeA2mSTYPHLfgevyd
-X-Gm-Gg: Acq92OGrON5h+Twq1LHAZygoerfIt2EHdNRJk3KzVFodfkpCTi8G7iI0bwJZrUzzYc5
-	Y6yNc3a5LfPGJmQrfhFae8eALx0vf+xq+Lj3clV8L7WOwbvhCdFBYOvZYqUjnnC0aJwTGeayemZ
-	lFl76i29RdTiCvhLjoLz48be5OQP4n+ESJnpeGwcg/YJi0vTxqA97Jzua2vhxnxzN25OAz12UQs
-	ivzuByRc8STEdDvnWksO1sks7EgIKQE4MXJvwH8tDFwoQIXdq0i48I6+9k2xTdjQtPC+tDzg3xY
-	eXcxmgX9+Rcr4VVSSMyTzTGCkjfUSNyNoqFK1rAU0IM6AF+8+yQ1twrBz8aogeoGIVeuBtIv9iR
-	sV2DDM+Co18OXe08upIq/2puYwZnmD6khHMRsvvxVsgFFTXxtb9uahPtx//Oc7ydNSAcjZbbz/Q
-	NvNsOyM0zhC+zJVZ7wBtX3q3WCZ9tTYKuEMRaVe/YW/iLCXMA8HEGY4D2jFIaq
-X-Received: by 2002:a05:6122:1d89:b0:576:1a8d:8989 with SMTP id 71dfb90a1353d-5bb6bddd1d0mr756179e0c.0.1781254071296;
-        Fri, 12 Jun 2026 01:47:51 -0700 (PDT)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb691bc485sm1935462e0c.12.2026.06.12.01.47.50
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 01:47:50 -0700 (PDT)
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-6c4db0bf752so485372137.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:47:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/I1w/vHACInFHALP62d1vMNJ+zfTmL7sMTLFqASwHXNuoBy9YoBGks5CVhrWT6Ou7oXMmK4dUkbVc1@vger.kernel.org
-X-Received: by 2002:a05:6102:2ac3:b0:643:80f1:350a with SMTP id
- ada2fe7eead31-71e88b99e6emr940155137.2.1781254070220; Fri, 12 Jun 2026
- 01:47:50 -0700 (PDT)
+	s=arc-20240116; t=1781254419; c=relaxed/simple;
+	bh=uGH+AK/+/uFo8/TTB+L2s/0uaI8gpZqLM33LrkG6r2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eqxs9J+hpc9CEtjNaGMe9Q5bXmkfFM1lulhfEhLZw+E40RLhARDUEIqjbTpzxsKOP+B7FAL1efb9Eptox9VRJ3bHavkJB5ooqq0ySJH+srxiHxjBRsHA79dIKy/6InR4YqWAPpCVCI4FZTcIYuk1SFk6YNiRNg+9uoFC86Qo5IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ct31lijB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ct31lijB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59751F000E9;
+	Fri, 12 Jun 2026 08:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781254418;
+	bh=mtf0IquBGXiIidIU1CGAyAVk1Qsu4DM+fxc2zCo7xH0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ct31lijBq0C+9xc2OLsJo/ai66t20muhZ7mKzwcQL63wgLe+z8G6i1UU9RKn7Eeu2
+	 6OmEXbCcbskdInLXFDNmJE0JOalHLp5/uOty9ZPQXoAy+KuL4LEP/e/KcCCQQ5PwbE
+	 UvfsWjGxD5MzWPVkixofYruxM+krie1zEghckYCFgUm5b4DsPufdM+aSBgnwOah4Du
+	 mSPe4nef1Dfxzm77kXmYNEe9MXbbK8HXtCs5U3APOFovVIKq1uH3yy8Nph7Z0o5/R5
+	 1MmLOqsWblbfRtnwIuYE0wmVOr4TX6CVsRDdV6YeIaemhjYB1lYXA49SCbk2nn++jv
+	 yoSSbLRUGaAjA==
+Date: Fri, 12 Jun 2026 10:53:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ziming Zhu <zmzhu0630@163.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Ziming Zhu <ziming.zhu@silergycorp.com>, 
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: hwmon: pmbus: Add bindings for
+ Silergy SQ24860
+Message-ID: <20260612-cherubic-exuberant-binturong-35b7ee@quoll>
+References: <20260612030304.5165-1-zmzhu0630@163.com>
+ <20260612030304.5165-2-zmzhu0630@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260612080354.57459-4-wsa+renesas@sang-engineering.com> <20260612080354.57459-6-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260612080354.57459-6-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 12 Jun 2026 10:47:37 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWEJT8JYuSGQmNsbUZuU+zx7prwMHVikOuOS-iXYKenbw@mail.gmail.com>
-X-Gm-Features: AVVi8CffWxOPh1eaDcqwf9PB86jCpddX7GaCPj1O4xWGWk3HI6WTfQ9pJBKeEFw
-Message-ID: <CAMuHMdWEJT8JYuSGQmNsbUZuU+zx7prwMHVikOuOS-iXYKenbw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ARM: dts: renesas: r9a06g032-rzn1d400-eb: Enable SPI-FRAM
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260612030304.5165-2-zmzhu0630@163.com>
 
-Hi Wolfram,
+On Fri, Jun 12, 2026 at 11:03:02AM +0800, Ziming Zhu wrote:
+> From: Ziming Zhu <ziming.zhu@silergycorp.com>
+> 
+> Add devicetree binding documentation for the Silergy SQ24860 eFuse.
+> 
+> The device is a PMBus hardware monitoring device which reports voltage,
+> current, power, and temperature telemetry. The board-specific IMON
+> resistor value is described with silergy,rimon-micro-ohms.
+> 
+> Signed-off-by: Ziming Zhu <ziming.zhu@silergycorp.com>
+> 
 
-On Fri, 12 Jun 2026 at 10:04, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> Activate the FRAM and the SPI bus which it is attached to.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Do not add blank lines between tags. I recommend to use b4 to handle
+this - it would solve your problems, including the missing tag in
+previous version.
 
-Thanks for your patch!
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-> --- a/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-> +++ b/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-
-> @@ -152,6 +156,13 @@ pins_sdio1_clk: pins-sdio1-clk {
->                 drive-strength = <12>;
->         };
->
-> +       pins_spi1: pins-spi1 {
-> +               pinmux = <RZN1_PINMUX(156, RZN1_FUNC_SPI0_M)>,
-> +                        <RZN1_PINMUX(157, RZN1_FUNC_SPI0_M)>,
-> +                        <RZN1_PINMUX(158, RZN1_FUNC_SPI0_M)>,
-> +                        <RZN1_PINMUX(159, RZN1_FUNC_GPIO)>;
-> +       };
+> ---
+>  .../bindings/hwmon/pmbus/silergy,sq24860.yaml | 74 +++++++++++++++++++
+>  1 file changed, 74 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml
+> new file mode 100644
+> index 000000000000..03ef82c11e1a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/silergy,sq24860.yaml
+> @@ -0,0 +1,74 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
 > +
->         pins_uart2: pins-uart2 {
->                 pinmux = <RZN1_PINMUX(105, RZN1_FUNC_UART2)>,
->                          <RZN1_PINMUX(106, RZN1_FUNC_UART2)>,
-> @@ -168,6 +179,20 @@ &sdio1 {
->         status = "okay";
->  };
->
-> +&spi1 {
-> +       pinctrl-0 = <&pins_spi1>;
-> +       pinctrl-names = "default";
-
-Please document that this depends on SW2-4 being OFF.
-
-> +       status = "okay";
+> +$id: http://devicetree.org/schemas/hwmon/pmbus/silergy,sq24860.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +       cs-gpios = <&gpio2a 31 GPIO_ACTIVE_LOW>;
-
-It doesn't work with hardware chip-select?
-
+> +title: Silergy SQ24860 eFuse
 > +
-> +       fram: fram@0 {
-> +               compatible = "cypress,fm25", "atmel,at25";
-> +               reg = <0>;
-> +               spi-max-frequency = <12500000>;
-
-The actual FRAM part seems to support 40 MHz, but that may
-be limited by the board wiring.
-
-> +       };
-> +};
+> +maintainers:
+> +  - Ziming Zhu <ziming.zhu@silergycorp.com>
 > +
->  &switch {
->         pinctrl-0 = <&pins_eth1>, <&pins_eth2>, <&pins_eth3>, <&pins_eth4>,
->                     <&pins_mdio1>;
+> +description:
+> +  The Silergy SQ24860 is an integrated, high-current circuit protection and
+> +  power management device with PMBus interface.
+> +
+> +properties:
+> +  compatible:
+> +    const: silergy,sq24860
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  silergy,rimon-micro-ohms:
 
-Gr{oetje,eeting}s,
+Isn't this just shunt-resistor-micro-ohms? IOW, didn't you just describe
+the shunt?
 
-                        Geert
+> +    description:
+> +      Micro-ohms value of the resistance installed between the IMON pin and
+> +      the ground reference.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Best regards,
+Krzysztof
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
