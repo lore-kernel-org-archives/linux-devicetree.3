@@ -1,229 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AD63E023A
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F53B3F1AAF;
+	Fri, 12 Jun 2026 17:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781283348; cv=none; b=t4cDoxuBPyJ7kAen65ddGh6/1ELvtdAtAKF6eFmjWoTA4YE9SZgZJermH8/JgNEujQ4dIZi/MHoJAlIuvReXpScLkp5Mzz/PDJMyVUP1FismN5FncVSPA2rRzOtm2dNMrD4DgOy8pKTAxu+hmMsd1uCA2o/4YlSHQKst3Bi3aHI=
+	t=1781283713; cv=none; b=XkrwBmW8G2v/EKV+vMFVn4YskLQhMNPatv96fsKg5TZUX0swFSs9KFZECfaq+TazZa74JTJ5ANPeMgyRXR+FCFYSEAA5wOooBAO5Fx+Ue6PgTI3D5VGTjHrtjriqzVH9Q2H6wgS4GvyNOxa6fCmfvK7U3JYVLbOGNsGFy5B7k5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781283348; c=relaxed/simple;
-	bh=aO1c/EP9pynvs5sP5XSjLsP6xMvrPeEvyqs0urYIlG0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r5c0luLzaFYE9raVjYaEHKgUHSbYRwyEXLd3G/SRazfuxxvoxgHd+UWQKsCrB1A2f6moHkKsj0OpyHtLQtuc982ToNCBVcBoyGKmGBj/j82XscBWiEyWsQjYC6qQupnARSf271eaSMs4SsXUH5hP2CwFUnUjIBMdoF116RTVzUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAAFFSnq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781283713; c=relaxed/simple;
+	bh=KVbtAEEtprqp5yyIoAXBQcwpPK0XelSa5kEMMWYCbAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nQ/EzgxMUhuLQBrw7mYKszxnBulazGoc77Z72ngipUyc1V+szNHVQuUhZvV9auBxvIEWzYud5/synh64OY9OzfVisZHuEwmxS9gbNZfY+zSmD1x/qA/w4NkG3vxz7qHX6rD80YNhn/iFQ90+H2khcDPvYPLtE/RYl0MJHFxJyLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=llm605R7; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAAFFSnq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E1F1F000E9;
-	Fri, 12 Jun 2026 16:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781283347;
-	bh=3Vzfc9HirnSF3zMElWl/zEwg1b4O0ieN8ZAsLgsaBzA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CAAFFSnqR+ihh1p+h1aP7S60q2OBcEp2cYZ2W6ZqFnZNRzAxM0NXNhzGqtRHpZ+T4
-	 A77PvJKtSxYdN7z4qchS8gfm+gYOF1fz3ZBcmPYM/zHZ8V1GuC6O64MYCVztfSyAMZ
-	 J+Jt8vVn3DegSXlKT65qaYZ/cz4BtIimyjlUcA/4Dc2jz/lJGpzdbwhDCyJqNe9AQW
-	 5qB066+ORiYau3l/98PtxkZ4udBbDlMoxUlVP0FLStjYhmNqg5SSx8dfxQ994K0g/o
-	 yGxc02wzRwmKFeg3Bf5JvW5dg3rqZ1+vkGYnxkoCX/FWFmRL30lJclkHxRjKH5kD48
-	 DBakxSm00vxJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/18] phy: rockchip: usbdp: Support single-lane DP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-7-efc83069869f@collabora.com>
-References: <20260612-rockchip-usbdp-cleanup-v5-7-efc83069869f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 16:55:45 +0000
-Message-Id: <20260612165546.98E1F1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="llm605R7"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6A615225;
+	Fri, 12 Jun 2026 19:01:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781283677;
+	bh=KVbtAEEtprqp5yyIoAXBQcwpPK0XelSa5kEMMWYCbAI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=llm605R7ZrLc9err8IAkvdf4IzX4Spd6MKK7m6pw5EdHUOYoTigYq5B62jlv0yazg
+	 mbg/joeHg1oy1aTU96k+hDxZ+KHpvqentcezJiiytYRIT/SPXAZ6sC5Np6Zi7D7Han
+	 0pCNsBhLoieIxwIdVVc1UQ6I5cQalETck5BgagGw=
+Date: Fri, 12 Jun 2026 20:01:46 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+Message-ID: <20260612170146.GA2094246@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
+ <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
+ <20260515-fraying-trickle-7511a2eeaf44@spud>
+ <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
+ <20260612-landed-remedial-79582e900699@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260612-landed-remedial-79582e900699@spud>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, Jun 12, 2026 at 05:09:48PM +0100, Conor Dooley wrote:
+> On Fri, Jun 12, 2026 at 01:43:44PM +0300, Tomi Valkeinen wrote:
+> > On 15/05/2026 20:32, Conor Dooley wrote:
+> > > On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
+> > > > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > > > 
+> > > > The Renesas DSC Display Stream Compression is a bridge embedded in the
+> > > > Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> > > > 8k or 400 Mpixel/s .
+> > > > 
+> > > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > > > [tomi.valkeinen: fix the example]
+> > > > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> > > > ---
+> > > >   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
+> > > >   1 file changed, 96 insertions(+)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..2918d592732b
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> > > 
+> > > Filename matching the compatible please.
+> > 
+> > All the other Documentation/devicetree/bindings/display/bridge/renesas,*
+> > files follow the same style, where the file name is in a generic format, but
+> > the actual compat strings are per SoC (and no generic compat string).
+> 
+> No idea why it's like that currently, but filename matching compatible
+> is the policy.
 
-New issues:
-- [Medium] Incorrect USB orientation (`flip`) configuration when 1-lane DP =
-is assigned to lane 1.
+I wonder if we should use
 
-Pre-existing issues:
-- [High] Writing to PMA registers while PHY clocks are disabled when DP mod=
-e is not supported.
-- [High] Clock resources enabled during probe are leaked on probe error pat=
-hs and upon driver unbind.
-- [High] The DP PHY configuration lacks boundary checks against the physica=
-l lane count, leading to USB register corruption.
---
+  compatible:
+    items:
+      - enum:
+          - renesas,r8a779g0-dsc
+      - const: renesas,rcar-dsc
 
-commit c46d73844b37e1f374324a737da2265a3fef0813
-Author: Zhang Yubing <yubing.zhang@rock-chips.com>
-Subject: phy: rockchip: usbdp: Support single-lane DP
+to prepare for the other SoCs that include a DSC. It's of course hard to
+predict how compatible all new silicon will be, but we know there will
+be some compatible ones.
 
-This commit implements support for using a single DisplayPort line in the
-Rockchip USBDP PHY driver.
+This being said, looking for instance at renesas,du.yaml in the same
+directory, we have
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index febc148a754e0..bf8394174294e 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-[ ... ]
-> @@ -923,7 +910,8 @@ static int rk_udphy_parse_lane_mux_data(struct rk_udp=
-hy *udphy)
->  	}
-> =20
->  	udphy->mode =3D UDPHY_MODE_DP;
-> -	if (num_lanes =3D=3D 2) {
-> +	udphy->dp_lanes =3D num_lanes;
-> +	if (num_lanes =3D=3D 1 || num_lanes =3D=3D 2) {
->  		udphy->mode |=3D UDPHY_MODE_USB;
->  		udphy->flip =3D (udphy->lane_mux_sel[0] =3D=3D PHY_LANE_MUX_DP);
->  	}
+  compatible:
+    enum:
+      - renesas,du-r8a7742 # for RZ/G1H compatible DU
+      - renesas,du-r8a7743 # for RZ/G1M compatible DU
+      - renesas,du-r8a7744 # for RZ/G1N compatible DU
+      - renesas,du-r8a7745 # for RZ/G1E compatible DU
+      - renesas,du-r8a77470 # for RZ/G1C compatible DU
+      - renesas,du-r8a774a1 # for RZ/G2M compatible DU
+      - renesas,du-r8a774b1 # for RZ/G2N compatible DU
+      - renesas,du-r8a774c0 # for RZ/G2E compatible DU
+      - renesas,du-r8a774e1 # for RZ/G2H compatible DU
+      - renesas,du-r8a7779 # for R-Car H1 compatible DU
+      - renesas,du-r8a7790 # for R-Car H2 compatible DU
+      - renesas,du-r8a7791 # for R-Car M2-W compatible DU
+      - renesas,du-r8a7792 # for R-Car V2H compatible DU
+      - renesas,du-r8a7793 # for R-Car M2-N compatible DU
+      - renesas,du-r8a7794 # for R-Car E2 compatible DU
+      - renesas,du-r8a7795 # for R-Car H3 compatible DU
+      - renesas,du-r8a7796 # for R-Car M3-W compatible DU
+      - renesas,du-r8a77961 # for R-Car M3-W+ compatible DU
+      - renesas,du-r8a77965 # for R-Car M3-N compatible DU
+      - renesas,du-r8a77970 # for R-Car V3M compatible DU
+      - renesas,du-r8a77980 # for R-Car V3H compatible DU
+      - renesas,du-r8a77990 # for R-Car E3 compatible DU
+      - renesas,du-r8a77995 # for R-Car D3 compatible DU
+      - renesas,du-r8a779a0 # for R-Car V3U compatible DU
+      - renesas,du-r8a779g0 # for R-Car V4H compatible DU
+      - renesas,du-r8a779h0 # for R-Car V4M compatible DU
 
-[Severity: Medium]
-When configuring a single DP lane, does this correctly set the flip state if
-the DP lane is assigned to lane 1 instead of lane 0?
+Could the file have been named renesas,du-r8a7790.yaml ? Sure. Would it
+be better for users than renesas,du.yaml ? I'm less sure.
 
-For a 1-lane DP setup where rockchip,dp-lane-mux =3D <1>, lane 1 is occupied
-by DP, so USB must be mapped to the lane 2 and 3 pair. This requires the
-flip state to be true so the driver correctly polls lane 2 for USB RX CDR
-lock.
+-- 
+Regards,
 
-However, in this scenario lane_mux_sel[0] will not be PHY_LANE_MUX_DP, maki=
-ng
-flip evaluate to false. This might cause the driver to poll the unconnected
-lane 0 for USB lock and time out. Should this condition check if either lane
-0 or lane 1 is occupied by DP?
-
-[ ... ]
-> @@ -1074,18 +1062,17 @@ static int rk_udphy_dp_phy_exit(struct phy *phy)
->  static int rk_udphy_dp_phy_power_on(struct phy *phy)
->  {
->  	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
-> -	int ret, dp_lanes;
-> +	int ret;
-> =20
->  	mutex_lock(&udphy->mutex);
-> =20
-> -	dp_lanes =3D rk_udphy_dplane_get(udphy);
-> -	phy_set_bus_width(phy, dp_lanes);
-> +	phy_set_bus_width(phy, udphy->dp_lanes);
-> =20
->  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
->  	if (ret)
->  		goto unlock;
-> =20
-> -	rk_udphy_dplane_enable(udphy, dp_lanes);
-> +	rk_udphy_dplane_enable(udphy, udphy->dp_lanes);
-
-[Severity: High]
-This is a pre-existing issue, but can this sequence crash the system if the
-DP mode is not supported?
-
-In rk_udphy_power_on(), if the mode does not include UDPHY_MODE_DP, it
-prints an error message and returns 0 instead of an error code:
-
-rk_udphy_power_on() {
-    if (!(udphy->mode & mode)) {
-        dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
-        return 0;
-    }
-    ...
-}
-
-Because it returns success, the execution falls through in
-rk_udphy_dp_phy_power_on() and proceeds to call rk_udphy_dplane_enable().
-
-This performs register operations on memory-mapped PHY registers. Accessing
-these registers while the corresponding PHY clocks remain disabled can
-result in a synchronous external abort and crash the kernel. Should
-rk_udphy_power_on() return an error like -ENODEV to properly abort this
-sequence?
-
-[ ... ]
-> @@ -1529,7 +1518,7 @@ static int rk_udphy_probe(struct platform_device *p=
-dev)
->  		ret =3D PTR_ERR(udphy->phy_dp);
->  		return dev_err_probe(dev, ret, "failed to create DP phy\n");
->  	}
-> -	phy_set_bus_width(udphy->phy_dp, rk_udphy_dplane_get(udphy));
-> +	phy_set_bus_width(udphy->phy_dp, udphy->dp_lanes);
-
-[Severity: High]
-This is a pre-existing issue, but does the probe sequence leak clock
-resources on error paths?
-
-In rk_udphy_get_initial_status(), if the hardware is already in DP mode,
-the clocks are enabled and intentionally left enabled:
-
-rk_udphy_get_initial_status() {
-    ...
-    if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) &&=20
-        FIELD_GET(CMN_DP_LANE_EN_ALL, value))
-        udphy->status =3D UDPHY_MODE_DP;
-    else
-        rk_udphy_disable(udphy);
-}
-
-However, if subsequent operations in rk_udphy_probe() fail, the probe
-function returns directly without calling clk_bulk_disable_unprepare():
-
-rk_udphy_probe() {
-    ...
-    udphy->phy_u3 =3D devm_phy_create(dev, dev->of_node,=20
-                                    &rk_udphy_usb3_phy_ops);
-    if (IS_ERR(udphy->phy_u3)) {
-        ret =3D PTR_ERR(udphy->phy_u3);
-        return dev_err_probe(dev, ret, "failed to create USB3 phy\n");
-    }
-    ...
-}
-
-Additionally, there appears to be no remove callback or devm action
-registered to clean up these manually enabled clocks when the driver
-unbinds.
-
-[Severity: High]
-This is also a pre-existing issue, but could a consumer request more lanes
-than are physically configured in udphy->dp_lanes?
-
-In rk_udphy_dp_phy_verify_lanes(), the driver validates that the requested
-lane count is 1, 2, or 4, but it does not check if the requested lanes
-exceed the physically configured capacity:
-
-rk_udphy_dp_phy_verify_lanes() {
-    ...
-    switch (dp->lanes) {
-    case 1:
-    case 2:
-    case 4:
-        udphy->lanes =3D dp->lanes;
-        break;
-    ...
-}
-
-If a consumer requests 4 lanes on a 1-lane or 2-lane configuration,
-rk_udphy_dp_phy_configure() will iterate up to the requested lane count,
-reading from unconfigured indices:
-
-rk_udphy_dp_phy_configure() {
-    ...
-    for (i =3D 0; i < udphy->lanes; i++) {
-        lane =3D udphy->dp_lane_sel[i];
-        ...
-        rk_udphy_dp_set_voltage(udphy, udphy->bw, dp->voltage[i],
-                                dp->pre[i], lane);
-    }
-}
-
-When writing voltage settings, this will overwrite the transceiver
-registers for those unintended lanes. If one of those lanes is actively
-assigned to USB, this could silently corrupt the active USB connection.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
-sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D7
+Laurent Pinchart
