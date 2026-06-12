@@ -1,141 +1,246 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2123.outbound.protection.partner.outlook.cn [139.219.17.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FA03EA940;
-	Fri, 12 Jun 2026 13:13:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781270018; cv=fail; b=QHeObApM0CeKWoCz+zJT0TuuRo8BRIPrOkNrRB8Lv1j1epsj4qbJAM/8pTnfx7k0i5jQeGyETee+EWibjKK7bkcY6UwEmPJq/1x7fZJcWzCzelfCoPm/OvqPcZokjAvr36AiYK07c7oZ/krsriUzkuY5MBwdJX0pYiK2XWzKt6E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781270018; c=relaxed/simple;
-	bh=WKs/+BVroKcxhyoN9GXRTuRMhgjUaA7f5gRB4RJl/RU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bjKBgnTF5Y2sik5MNs/jDIz2yzoy8BWb0NNPAGso8zzZNrsb7FPHqOw8qqGAuy0LqT1dgY+bbysoUDRKo/J10RNCPMVoY5gS0pl9dIgITQSmEdulkTuJd95EDTcCIQKU3odoIzo7d+ygHCyv+PDmx+jUrmFz4fS5jmeVS3xAngI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TV0b7BvRR+/jS4D/dKmt5cmCw3GEtF9RY95OqkXyAXHkvMHfg+or9YuQMiv2V+Ri+PAnaIwqkZvjnZAd8PfooVHfQsmBemqS8/GIY9WnuxGWggosZ4HB6UqsS4uXqHbjhFa/Lv/kHvPTqtLMLXEOk226RF+7Bo43deLTKL62EvivNtwFOQAQqNaEwjh5LuegUqzRkYVkvMk+R+450Qje2Z3IMC2tx5DIiR541aiH6w58LqFgRwyMyoKRv8P5WUFDTocqkXhrhzpg6oY3LV4iRU+u5cjJdd+wDmU+JNjpchTlvsyksMzyFrxXhMKuY/OP/DiaZk5qubrg+YrVDYXmiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=snGAmiPzCbI2MCF5iBofbJu9tA6iQmGRMbZmGltHpw8=;
- b=WC+E2wLqwrfptDk3gPsf79cOes/J3gEUOGpaNkL+7OIbk+usuNX1PWiJKHtAWvYDKgnZWTmhrzvY+PVvuVBozX/3vbMWljWXCP5OidDwAcfre1Cf98Nm3GpVpoYKZNmQ5Bqyek7gW1y7ch60Yclg5iAPFRSmpZCCVO88ZFbrdClULpuHlt54Y+3/GSdcPQAOFzqLOalAT2l5jL996DyOkayqhyv9STM1AX//oxtm+JGMNKoq5/628I8zWHFGXmympf/I9aWIprTssWMrRF1ecptNZVpomUMs0F+A72k7W8wc6t8XcPg+yl95UOpkR61sIhdevlvkALA9e9giJ8rgJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1201.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:13::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.15; Fri, 12 Jun
- 2026 12:59:10 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.21.0113.014; Fri, 12 Jun 2026 12:59:10 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v1 2/2] spi: dw: Add support for snps,dwc-ssi-2.00a
-Date: Fri, 12 Jun 2026 05:58:56 -0700
-Message-Id: <20260612125856.8530-3-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260612125856.8530-1-changhuang.liang@starfivetech.com>
-References: <20260612125856.8530-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJXPR01CA0063.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:12::30) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904243C8708
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781270169; cv=none; b=ZEMJt+66j52JgVfT/vVaFit2hfZG+0bh4zRsjtjPonQ3PKURCkw9Y4PHnZi0+F8UeM2aT2vh7JMOHsFcnFIuv6uyvbPXaFvPPKUTUiUpVjWTGob03os7GFffmQ80dtjaWbd/0tlMdWdxrJLMRDnBJn3XWIFH458hkJ3WZbjF1JM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781270169; c=relaxed/simple;
+	bh=2RbO04fUi3IJaYFtf7jGrbpwZ5R1BgTfIRB2dy5lXsw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cVSKb7gB2O0EAhXZh1XPKZJQ8l5259JjY3d7hj8BN+0ci7cdwmjOH0s+a38HOiI3zgC+7A2G6O2HH+4hIQwwQl67c8JckAlzl5UX+otq7THqISli26g8WRs1D0T5JH001LW59/zASS1sN6wU6vvQ2oL/VdxDDIWtNX6t0lRcRoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=A9mai+OX; arc=none smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="A9mai+OX"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3967701fc3cso551191fa.0
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:16:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781270166; x=1781874966; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yYJLgdM+gn9R331SmxgguPUu0Ms/YAMbM6ICKsm3dW0=;
+        b=A9mai+OXv3+Wd2fGIt5P1xKq07BegcQr/L/ylU0SPdc5MA/ze/X4TpVjVP3L2khfr6
+         wSmHGhGU9gp57t4HPdIt1FrzuT/wNEXl4fcvoJptzxUJ9qsBgSM3m5pDqZWfX2ou92Xj
+         ymRB9iuuwWxahRHknDf61aCCbCFBHf72WlKmsU842dPy/0Htj2ikNUIXK9CvTsDKY22U
+         IjKUYG2FDPtekcsx4Aq5ozLRAZeg8x5ncKR+UOU0H22CQy10Eo4rKmDQl8RYsriJ0tfa
+         /GQauicj0Ahlh5rvpYcUul+3RehVLdePAeU8nfsGzjMS8XBxcpvSo75rXR9V5mnCvbNk
+         2Swg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781270166; x=1781874966;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yYJLgdM+gn9R331SmxgguPUu0Ms/YAMbM6ICKsm3dW0=;
+        b=fe3LjeUPbbCJLwLK5TLfjSgBntrT40xEQWcJRokB3IN6jt7pSFUf+QfnHAl0EyjDBb
+         1LBP+qT9xDN121aLVTYrxJNarXffC20Sq/nTzPno1Hnb7brhUVgu6/aRD0au4H5MWgcn
+         dTbUo5aSaeHutyAWPFqVJrOyAq3xghUk46ua0Rh/beRsttK1Rp6suOKvN6cdV1XWg7Vm
+         QaVk9MCtgSOJeaNwN8LZYWM48jeGG7ihDSOoHvgGMwtB29BJfSQTsj7nEL11quKRN1lh
+         MehnzZmhLeAJXCGhK3zYyYHRTE/kPoTreRr63CwOkxhhlGrni5aacTLoLUPqdxv41NZ4
+         a64g==
+X-Forwarded-Encrypted: i=1; AFNElJ9bAlsQLTA8ZubvoHPch5X3Drh+ntStdxKom8bEi5b7ZsdZpJC0IZ0FfLzaOnYY3MWtk99mfIlmbP8S@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOiB9yoIUD+stpBaqm/1Vi2NAH6LsVLFnXvVWy2vXPqaLD9gjf
+	jBV6V48JyMVFnRu7FX9Px9OzimBU8mRJpZMhFcKZeRz3x9fpiw5cG3K3lNv9e47tGr8=
+X-Gm-Gg: Acq92OFr0XaDwweLUxS6rvpIRS/vtdBP14AKKhLEOtzT2Y6gBeHn3q3lpJkOHGmaMzL
+	QGCMXpdQhuXKKtlx+zADbpOX4Qpfpp31tw2TCKmqDBHvNbfiMmYwb20w+Hm3WAJrg6R3GgzCBLY
+	7FHOY4fJXlt/JoacoZn4Oe2ZtRce08OEXrpMd5czBksGxOD4kKo7IjvTzCbf0pdBJhww4Jqxbwt
+	/F0LSb3rEMSs8j2Zw2Vj7/LO64V9uk+r6TgqK8SC6utf0jI0KfmJzDMtuBQEyYkdQDgt8R5PLVP
+	3uW28ucFoK38EkTOVWwbgsQ5vFhgUc1g3R2C+cW5GnOYrVqhwE3Ona6iM6KVpqcLDRvHDugcu08
+	SV+jLZfrhxwdT84uToiB1/brsVtQ1yvHb7oDD8qQxxMPg5SOZh0/sIomPKtgEc/CrXyTQdQeddW
+	cZBWHQfLQMejiSrcW5JR6AlqJPShQAFBWyyuyFGm4U5GhRfbvl71iOWhh5hESjb2DoJiUr1BNCe
+	PTZUw==
+X-Received: by 2002:a2e:b88b:0:b0:394:152d:f9c6 with SMTP id 38308e7fff4ca-3992b28f883mr3404631fa.8.1781270165550;
+        Fri, 12 Jun 2026 06:16:05 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929c6c9f7sm5791011fa.18.2026.06.12.06.16.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 06:16:03 -0700 (PDT)
+Message-ID: <6f664514-34bf-44db-8df1-9b1a774e6367@linaro.org>
+Date: Fri, 12 Jun 2026 16:16:02 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 322ccde9-edf2-468b-e872-08dec88264fd
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|52116014|1800799024|376014|366016|38350700014|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	PCv/l5WWbYmYGSvm8bL/8lP3XVbLt42C1z9HfTvOMRn3IujlIkgTl2qx/0ffmaSL6t8E5ElCKVdnOIv2E0FBsuB7WK5JOaYNUSMLvOkE7tIVmCaP/o/chj5TBWOpVHoHeq7JKe4G/SbzheTztc0++OhIrFJoktll7gvwL6kl345Wy/CwElg9dqzBuOG5SrTX98ZS58QbB+m4mZWCT7St9x6vsc36TBVk2VRuAP96iDUBC7qahwbSEhkFks3+RBuxtigM5RdwDthx6f+cYgBguOYtuvRJeM5qMoDpp7TJu+RdOZItR/nACEMeSGivnHq1w4Nh54NRNSLwnZu+I5zYYq5lGKBDC3aYsmjvHN7AtwJdShl/9IetS059xMHzKRtx+Diu8+HKfn0jcSpRvF/hitdrSbCW3C8F9EYM4Pt71j8fhP2l/O64gpTe0fEIHFHWTJdbXt2q9+zYkhquH10MS0AUyMLCc0g5nNJ8t92jX3PKE7b2K3xZqPJHifzJ/kcSGLXEe/D/vI4F5if2DSawVhMDdT2HVhwLJdcSxIdK0FrBwQexybdUtlrkZNCXV+Ef
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(1800799024)(376014)(366016)(38350700014)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tOz+sfkLAj097Sudk4UktFJzZHKsysdMOYJ6x/apMsou6UzNIuFSJfpXCHoI?=
- =?us-ascii?Q?YoXuY23dZu5SX7IifhUtSMNSMql1p2LGtK6PaL08oPU6+9DZM4OUo4CITPZe?=
- =?us-ascii?Q?5HSscC8VT3Kx++Faay7Q9q6quESBdCwxYZw81KYGjGJYpbU7Gpd/rwD9TiPZ?=
- =?us-ascii?Q?d2au8fMnBm9JliqbeoTcVonHaPz9og+XafeKUHNxRrtGdX3s74zjYMtKCebz?=
- =?us-ascii?Q?wh01ARdBML1pA7PIjVCsvS2KXEtWotk8EuIQiXMaHyFRIzaajIkZgZMeQnuw?=
- =?us-ascii?Q?Sywd45Tx1b9esh7OqEN3Y9EbDNZ/xhfKBnhnf0HrWYZKHP5zCJ5mFiRYVEPy?=
- =?us-ascii?Q?5JENpGbY5WVcxULS4MSiqqMe/tv94S+8oHqKzdYLHn/4b7erZCOWru2g17EO?=
- =?us-ascii?Q?w9uiHznOOQwHepXa+4jU1LVbJrB3Fn04NIV9jgAHrbbP87hR5BOHApkfX5y0?=
- =?us-ascii?Q?cKLfJI8Sx/sCiZIsAtbCW1RSewVvVErCYQ6xn4eHCzihxr50YcSCK256bcAF?=
- =?us-ascii?Q?3ZemtXc6x4DFi7nzYRi//x+Z7G2yom85crdx6bUMtkPZY+4gped6gHLL0y7a?=
- =?us-ascii?Q?T1BUclx+nc/S0vyhkcMPQ1wKrNURGIvdXYZGuMAu2ahq2qS8vRu08B1Jwvy9?=
- =?us-ascii?Q?0aYpM5rhaJSeYOQ4ETfKim8S18LMzTHmuprldG/Yb0jESMS1Js3BPWjkoYuR?=
- =?us-ascii?Q?NuH3TraDcCokxf9Oysf8+7DB6xyndIE0WoPCinnWvabi2aXBZgW6SIHeLrCb?=
- =?us-ascii?Q?hWxAvldU2j+XEHvhd4cJ103Ymq8to2tNIYU7ES16fSDfYeEy6RYyMfAF1E4a?=
- =?us-ascii?Q?pKK9pLBv4h24VdBODbLNhTC+vfRI54BvD6lIhgXPqgoyGYKhYnS63iPy8gFm?=
- =?us-ascii?Q?LUm2t1PuEElXhXEDrZ8kA0Gh9opLksQx/C4pDkikjAFKTsZlAPkymueMnLPi?=
- =?us-ascii?Q?27XUeWTcxIoZlIh/b7YoemBa8EgXDq5URI8Xo1Jp9E4hRP7HFahKz/+tn9Xp?=
- =?us-ascii?Q?cjGNCFFRXMg+l5q5AGjBck4shr5/XjPfATowAAZ4U+35LAAbVNYwQbR/vrE5?=
- =?us-ascii?Q?cFWktO1akCmgYK5ur0h5JbKRu6Z+n/bVuutKte8LoQ28w5qEox3GdY65ewg7?=
- =?us-ascii?Q?B6jd86hCu6RsqRoZJC2OMduexxq7qzD+9IsDrVsoy+xqPj8lz0/BU0SRzXJ8?=
- =?us-ascii?Q?bvpB/Ev1HUEYywtUmtzxRxMR4ZfRaiK0fAxw3kEtsEYkWV21uS+gb4D1PS5h?=
- =?us-ascii?Q?nNjci0jV9aCsOvhe2Qj3rAjrQZs5SXkdZMLS+lvBFRXqIqyM2klaUzRA72QU?=
- =?us-ascii?Q?ElwTRW5bQHTdU+N1L39NXpNbJ6+7lI4U3z98tUCttTPCjEANWM5AoKdic0wm?=
- =?us-ascii?Q?qQOF/VZoQseKWmhPiC4ICv9KB5SpFkGkRUxdkoAGlZ1adQjjINR77fbwJspz?=
- =?us-ascii?Q?9AelsVuuz/LUna794Iu+xgFqYmRvHMtH2L4QgJbWvyzR/cVquelhPHDFm+Qn?=
- =?us-ascii?Q?Y1S9pYLiyaxk0aey3iIG8U0bA+oVV7frzDROqnOCQf98+1cCQ7HHPsU0aiN6?=
- =?us-ascii?Q?OMMbbHwD7nkglU67f1kuBu/JFPOQ39uBbnlE088QIGQWk/rLGlVwJ67OqVfx?=
- =?us-ascii?Q?nqYQX+EVlta2barY9EIM36CtGmdI91JbvWEzo04Q3eGUDLM/t+iakIWOwbzb?=
- =?us-ascii?Q?M0UOHaUUcxJ4wDleqRO7m4tTpCKSKMKDKfwr/UZf128BJL/UKbOM+M+OsGR8?=
- =?us-ascii?Q?N7RirYfXfoQQ0/TJKKXswc4212lnkEvsN1VNSRK6kCW79qx49Pl4?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 322ccde9-edf2-468b-e872-08dec88264fd
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:59:09.9594
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BRWC2jlfmR7LycHGj1YUUU8RHZ0YGsffaGkRrIghff+zYyB66gB2vxlZdiRSSuHP+IaxTmNmgGQ5rA2UMyJ+CzQLjIt2eUZnkRi/HPzLcNu/P5j5Yd0dyostM4JQd/CQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1201
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] media: i2c: os02g10: implement crop handling with
+ set_selection
+To: Tarang Raval <tarang.raval@siliconsignals.io>
+Cc: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+ "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+ "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+ Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
+ <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+ <0f4bfe08-0504-48ff-83ce-c84600e6f38d@linaro.org>
+ <PN3P287MB1829A38F1D7D1098CBDEC8F88B182@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <PN3P287MB1829A38F1D7D1098CBDEC8F88B182@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add a new compatible entry "snps,dwc-ssi-2.00a" for the Synopsys
-DesignWare SSI controller version 2.00a. This variant uses the same
-initialization routine as snps,dwc-ssi-1.01a (dw_spi_hssi_init).
+On 6/12/26 14:41, Tarang Raval wrote:
+> Hi Vladimir,
+> 
+> Thank you for the review.
+> 
+> Since I authored this patch, I will try to address the comments below.
+> 
+>> On 4/24/26 12:25, Elgin Perumbilly wrote:
+>>> From: Tarang Raval <tarang.raval@siliconsignals.io>
+>>>
+>>> Add crop support to os02g10 by implementing .set_selection() and
+>>> storing the crop rectangle in subdev state.
+>>>
+>>> Initialize the default crop to the active area, make set_fmt() use the
+>>> current crop, and update the output format when the crop size changes.
+>>> Also program the sensor window from the active crop/format state instead
+>>> of using the fixed supported_modes entry.
+>>>
+>>> This allows userspace to configure the sensor crop window explicitly.
+>>>
+>>> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+>>> Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+>>> ---
+>>>    drivers/media/i2c/os02g10.c | 166 ++++++++++++++++++++++--------------
+>>>    1 file changed, 103 insertions(+), 63 deletions(-)
+>>>
+>>> diff --git a/drivers/media/i2c/os02g10.c b/drivers/media/i2c/os02g10.c
+>>> index fad2dd0ad7aa..9bf8f5d1caea 100644
+>>> --- a/drivers/media/i2c/os02g10.c
+>>> +++ b/drivers/media/i2c/os02g10.c
+>>> @@ -112,6 +112,11 @@
+>>>    #define OS02G10_ORIENTATION_BAYER_FIX               0x32
+>>>
+>>>    #define OS02G10_LINK_FREQ_720MHZ            (720 * HZ_PER_MHZ)
+>>> +#define OS02G10_WINDOW_WIDTH_MIN             2
+>>> +#define OS02G10_WINDOW_HEIGHT_MIN            2
+>>
+>> Add a blank line before the new group of macro.
+>>
+>>> +#define OS02G10_VBLANK_DEF                   166
+>>
+>> This one is computable, and it can be dropped.
+> 
+> 
+> Can you explain how this value can be computed ?
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/spi/spi-dw-mmio.c | 1 +
- 1 file changed, 1 insertion(+)
+It is (supported_modes[0].vts_def - supported_modes[0].height) on
+the base of 2/3 change.
 
-diff --git a/drivers/spi/spi-dw-mmio.c b/drivers/spi/spi-dw-mmio.c
-index 4fc864d38cff..603e81a92c57 100644
---- a/drivers/spi/spi-dw-mmio.c
-+++ b/drivers/spi/spi-dw-mmio.c
-@@ -438,6 +438,7 @@ static const struct of_device_id dw_spi_mmio_of_match[] = {
- 	{ .compatible = "amazon,alpine-dw-apb-ssi", .data = dw_spi_alpine_init},
- 	{ .compatible = "renesas,rzn1-spi", .data = dw_spi_pssi_init},
- 	{ .compatible = "snps,dwc-ssi-1.01a", .data = dw_spi_hssi_init},
-+	{ .compatible = "snps,dwc-ssi-2.00a", .data = dw_spi_hssi_init},
- 	{ .compatible = "intel,keembay-ssi", .data = dw_spi_hssi_no_dma_init},
- 	{
- 		.compatible = "intel,mountevans-imc-ssi",
+> 
+>>> +#define OS02G10_VBLANK_MIN                   25
+>>
+>> This macro shall be added to the group of OS02G10_REG_FRAME_LENGTH
+>> register, and it should be included into the previous change.
+>>
+>>> +#define OS02G10_EXPOSURE_DEF                 1100
+>>
+>> This macro shall be added to the group of OS02G10_REG_LONG_EXPOSURE
+>> register, and it should be included into the previous change.
+> 
+> 
+> I would prefer to introduce these macros here only, as they are related to
+> this patch. There is no use of these macros in the previous patch, so moving
+> them there would not provide any benefit.
+
+Unavoidably there shall be a user of "default exposure" in the change 2/3, and
+therefore the value is present, please reference to supported_modes[0].exp_def.
+
+So, this macro goes to the 2/3 patch.
+
+> 
+> I will group them in the appropriate place within this patch as per your
+> suggestion.
+> 
+> 
+>>>
+>>>    /* OS02G10 native and active pixel array size */
+>>>    static const struct v4l2_rect os02g10_native_area = {
+>>> @@ -152,15 +157,6 @@ struct os02g10 {
+>>>        struct v4l2_ctrl *hflip;
+>>>    };
+>>>
+>>> -struct os02g10_mode {
+>>> -     u32 width;
+>>> -     u32 height;
+>>> -     u32 vts_def;
+>>> -     u32 exp_def;
+>>> -     u32 x_start;
+>>> -     u32 y_start;
+>>> -};
+>>> -
+>>>    static const struct cci_reg_sequence os02g10_common_regs[] = {
+>>>        { OS02G10_REG_PLL_DIV_CTRL,             0x0a},
+>>>        { OS02G10_REG_PLL_DCTL_BIAS_CTRL,       0x04},
+> 
+> ...
+> 
+>>>    static const struct v4l2_subdev_video_ops os02g10_video_ops = {
+>>> @@ -645,6 +684,7 @@ static const struct v4l2_subdev_pad_ops os02g10_pad_ops = {
+>>>        .get_fmt = v4l2_subdev_get_fmt,
+>>>        .set_fmt = os02g10_set_pad_format,
+>>>        .get_selection = os02g10_get_selection,
+>>> +     .set_selection = os02g10_set_selection,
+>>>        .enum_frame_size = os02g10_enum_frame_size,
+>>>        .enable_streams = os02g10_enable_streams,
+>>>        .disable_streams = os02g10_disable_streams,
+>>
+>> I understand that this change is written by another person, and likely
+>> it is not squashed with the previous one to preserve authorship, however
+>> it significantly rewrites the change already found in the series.
+> 
+> I don't think this patch significantly rewrites the previous changes. Its
+> main purpose is to introduce a crop rectangle and implement set_selection(),
+> allowing userspace to stream arbitrary resolutions within the sensor limits
+> instead of being restricted to 1920x1080.
+
+What are these "sensor limits" number? Are they defined in this 3/3 change?
+For whatever reason I can't find it, but I may be blind.
+
+> 
+>> I don't see information about the maximum supported frame height/width
+>> or default VTS setting etc. anymore, for me it's hard to say, if
+>> this kind of information can be dropped with no consequences in runtime.
+> 
+> The maximum supported width and height are still defined and enforced in
+> os02g10_set_selection(). The default VTS handling is implemented in
+> os02g10_set_pad_format(), where VBLANK is adjusted to maintain 30 fps for
+> the selected resolution. So I don't believe any information has been dropped.
+> 
+>> Probably this 3/3 change will break a quick inclusion of the sensor
+>> driver, you may consider to exlcude it from the series now, and publish
+>> it afterwards.
+> 
+> Regarding whether patch 3/3 should be included in the current series, I am
+> happy to leave that decision to Sakari. If needed, this patch can be merged
+> separately once the new raw sensor model is finalized.
+> 
+> This patch was created based on Laurent's suggestion.
+> 
+> Link: https://lore.kernel.org/linux-media/20260414084952.217215-1-elgin.perumbilly@siliconsignals.io/T/#t
+> 
+
+That's a helpful reference to the previous patch review, thank you.
+Likely I don't have the whole picture of the new advances in linux-media.
+
 -- 
-2.25.1
-
+Best wishes,
+Vladimir
