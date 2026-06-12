@@ -1,97 +1,96 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7AE27FD74
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B70425228C
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:56:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781224782; cv=none; b=VzBjlfGzGOmR/GGDPOtBMaXMKnXBkqlII01GTCzoOeHUN/uQKV4UCVnsC/QuxL60zVNXAt2YCKoOSFZsKJL8X38yMx/7rR4gzruKp4p2yjDPI73Ouoc13YSmLJEuonwXPQHp6sNtdCZOUq3dM5LNZyhXsYG0ngfpBlg16YAst20=
+	t=1781225778; cv=none; b=bo5U+cv91yn+UON2OowceiTZn9GVzipIXcLwBLqO0sK/azyX0eudT5FwdzRePqHTz0ACT73KaS47Aw4RgQVwuTfHa73F3Y6EoTCDCO+BiqVSAjd8xqfXnBeNVGyYxJkDUGstc13FDH/TIvUEQjlTCjUNH6hDxdcNTRuHeZzM0rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781224782; c=relaxed/simple;
-	bh=qN3s0xS6mEz5jVfdgX+2b/WgZ8Le4zRpIz5yLmm5qic=;
+	s=arc-20240116; t=1781225778; c=relaxed/simple;
+	bh=pcU5WxnVvahkSdZD5SO01dQyrIQjHHQKRKLM83SFDmk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QCjvk6YQq1LNwB9aJil3wahW//J5mK0f9NlIe+g7PweiFdvdp1pUom8uor/K5o/M8Pq460sHa5uPEMl1AlbkGD/NJRo19tPRRO3sffqDXbYQ3aEFPPkdJJ2htK27v5rZCUg/E10GPgpdp/wB/gusW3BtZQI4oVLpEWN3r+gjs9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DCESS5gI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DFxsqMP0; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=GVrojFRAa0s/mM0z8icPD+zPnNA+YhUgozra9H6oJ71qpN7C2O8Ep2u3wnkV6Tfs/SohsueAmDu5gHQHdEXiHnrIcZ2QIbD90BKLSwXI/0MjUVPsheMbYcTo6XFozr59yJoIV8CAkFViqoXKQAYNoCp6fRnONWaIX0DZvpB2yZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZQcWkhz2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EtGmfOo4; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DCESS5gI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DFxsqMP0"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C00Fld2132623
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:39:40 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZQcWkhz2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EtGmfOo4"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65BMSWhr1891790
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:56:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=5qQ8e+6QnBVjDDTImvqK60bW
-	t8XMxUyo3/iEy7fPpGU=; b=DCESS5gIwMluiS8dJ2s5VqpNPtF6XHo/KaprE3hg
-	79dqmF4Dk0roT2GdajIsDO91xkDoNLwaSg6ZxveHaKF3utWFQUYZMC99YjefrQX2
-	zoKpCLsrzHTaCp4DqbWK7HbLhSbc9sajANAT2xd/hCFQGIG2p02+Dhw6LDoqke4a
-	Fb28BLULMWmnaAfq0zxfF5xSC9uNF4AaGucKzeOj8NTQLScDDK6yasrvHdMJJqSp
-	UZiwV9vl6vIcpRKUpvWoZbWShZ/9P4Lv92RwahBGlXYP8D84MU5SVJi4v9vtL6lX
-	MJu14nBZWgx8aF7QzeCdFH93cs9iNJ2A3IpHzlnMoIa8YA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er76eg3hf-1
+	:references:subject:to; s=qcppdkim1; bh=X1u+3fA7kHIVfDFfKwj+C/37
+	uBiOEHgBubv0x4etziI=; b=ZQcWkhz2ZKDbxvNTWstAFfK4LfbnICpEuZnhBiKj
+	OYj5S89J2hfRgg5vm+KJklqJ0JRzjT1jZ8N7TD2/+8l90ujTkBr9soZ4Vxszk1Pg
+	5OmUuLu7BsN6JFnrhz5ix3XtRkhjbBTCJa5PlgbWcHevcDJyUcmHoFTf2HnrG05p
+	GGlyueGxiDEczVM//XCNSSUMjr+o0v2zp3Z/m7d/DtTOEiH/RrUb20ILqj2l1tGV
+	8Vr59wN4oM2qgssi+NuujCo8p9gGW6b7m8kLykcuY18zDFWl6Og9MkVxB42aDcrE
+	xgqAxqsT0csAN/rGwuAZmGL0oOSYDmygd0kvey+PxDNCHg==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er2r5s5fp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:39:39 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3080bb0267dso1013534eec.1
-        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 17:39:39 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:56:15 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6cfc719d238so172324137.1
+        for <devicetree@vger.kernel.org>; Thu, 11 Jun 2026 17:56:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781224779; x=1781829579; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781225775; x=1781830575; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=5qQ8e+6QnBVjDDTImvqK60bWt8XMxUyo3/iEy7fPpGU=;
-        b=DFxsqMP0rQLIud3HST7+xhirSLEqPOjXTIf8lmdR1uY7XSzTjGwFpdS5b1jDUj5U3g
-         LJMUYirQwt7BDy/s0Esu8OVme8uVjcqeobhbkzbsyDqu9NWx0aJYZLb3QMxhqL4OrIW4
-         xEMDuWCnpav8Hc7XbyvqZmro4NeOT46l9eU6MoBDpj2DrAMxixZAWLbeVOMgL47ZrejO
-         TEj9F9wuokrv6F9R69Zvxt7SQJkb14EDhiH5FYoT9vG+YWH7T1OszqoWcim8+S0bYojb
-         14AWWe1SqW/GFD9i2a3wPyy1xyNLxi4Bp0tZJ0GH2EtyrQfM1I+m1+0INqF3Ve8VRpVY
-         Za7Q==
+        bh=X1u+3fA7kHIVfDFfKwj+C/37uBiOEHgBubv0x4etziI=;
+        b=EtGmfOo4qV+MtDtgD75IGP6U6vX7BoxY0rGhgprOmBBX835W4uiOI8V31f5mKUg06p
+         44QP2lZEfxH8fvR5sVwcRPl6F7Mb0S0B++oxIJYyhXfLPYdBRPjSZHf0RSyhPUVwmmhn
+         VR6bCwycGsF+RdRVz8+3CgPddvyl4wCcJmGGCuR0ToO+KX3apLA5CLCjtdPXtGxmzYvB
+         vVG5WHWPMboQl873ij3yRqbsxXOxcjUA+tY73+ZC6Pr4P1M9sFLKwenaLMiUy07vYCTK
+         1/8WoWNGpNmZLonS5eB5DSwsOInGZ6IXSdDWJdziFBPi8+0dY7h5as1Bgg6JJgkhVO7/
+         gc4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781224779; x=1781829579;
+        d=1e100.net; s=20251104; t=1781225775; x=1781830575;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5qQ8e+6QnBVjDDTImvqK60bWt8XMxUyo3/iEy7fPpGU=;
-        b=HSNvPK6lXskU3pL9QPg1TjKwVCAMZeqZt/ZhmtawinM1Hy1jy32w2R1zNtht91Woci
-         PaICcDWanUDs2moGReg+ftBtxtrmv396TklJuS2FwFnmkpS0QznAlZxQ/4GUg1GBTiHq
-         SGl8tN7hxTV/W++YU3mNmmh7ZRSt+UHeMVPMubOmLXnasHVPGI2mDdHLtcHIw4QNLBIX
-         XVf/b+I2NeZEomqqs12097QYZ6L4gsRxeS0Mi35qy6PHAwvmcTlZof94r81qTMSaltbR
-         zGzO2bJBFUHAvUihLvi+t9jeAveXC4YKT57IZ8JGn+TB1Gh1DHd4N2t2CvVphxLm64E7
-         7rwQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/gheWFmYlybZyxDgPvYc18o4YlEtC6dw+l0yORwLRm7oVDeSlrhUTbMauvJMfPVUTJP9E7UTZeypeo@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaYob5B+vuXmc7SxohI+NPUEMWKsFdh+tsn1wmcbk9juyWnTef
-	jWrnvcP79C9rwAUV+khibxBs2Q/cBOzboEOSoImVQrqvQESec8tMgGYqFWfS7i6OeZokcDUBrTs
-	lcimKvEUP4JgnfVoEbh2UBnJpTpjqFFw7WoEN5FkMwKVAYWCRZ/damW8rzOBQBbeb
-X-Gm-Gg: Acq92OHLJ/yeW8o22G6kVoenolwfJmAPL15QZTwy5RMKEYp61Vnp0bYn8QwT05AGsOK
-	SFwrKOw5tQ+OnH0fvjRFxOYZ5Ih7oCoyo633g4sV3NYE+9rSogrKfSs5fhYkxtdzKoiC7O4VXbD
-	dYjXg0gNvJw3esOJxtdsjS47vQNzTsmRSnCPHye7CBFap7UoCvEVB8hPCeq+6ngR0E0vD3f+bqk
-	JapEgTNYc1r2//H5fkBes+GHITrsXkgss8+AhLcbEqLGeHYNbXi5/n0rI08ZfEv/i7qjMz26K7+
-	S54Mg0LWscMqVpS4Bqc9MXvTkgGHwfPq979ha1UGf1YU2ceREAPhNO/H/Y+2wRfTojXcfR+9RxG
-	0Jih2ikOOm2qGzS/Bj+E8JZyJXKzlc/oDwGwQKLfkMbqIM9gOXXak2MjC2MLhrJsNdbYsGnYvUB
-	OlRg==
-X-Received: by 2002:a05:7300:5b83:b0:305:179:4dde with SMTP id 5a478bee46e88-308201e35c2mr451389eec.35.1781224778914;
-        Thu, 11 Jun 2026 17:39:38 -0700 (PDT)
-X-Received: by 2002:a05:7300:5b83:b0:305:179:4dde with SMTP id 5a478bee46e88-308201e35c2mr451363eec.35.1781224778353;
-        Thu, 11 Jun 2026 17:39:38 -0700 (PDT)
-Received: from hu-mattleun-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb9a2e7sm987482eec.30.2026.06.11.17.39.36
+        bh=X1u+3fA7kHIVfDFfKwj+C/37uBiOEHgBubv0x4etziI=;
+        b=e42xFZtGzYUu1ZlmFoU+URKMyKJDjYwmPLpEz9zdsrOrQBSkRmBbNv3Vgm3J4Ly6qe
+         CAEw/xVOP/l5AafCbZ4dBilUMoU9vXDg0M1eCU6t1W8FF50frnQCaTbFbwYOCvKf7UKq
+         lgnREW+BNrbwY+/vnDci3b+OY8j0ugMfswqSJOSAF8uVpMfhqhb5VP+ERPOkxo+TtwKF
+         0jyq0+mCu/+z7ieKnRON4E5Q3F/RmBWsR1CB/3xdQ0gtpLVIV4tEYldhQHWzHH/hAE+L
+         IHuqbQAlDQyEF+gRdkJQYWr1lRIovvGhON00jSLqO/bZ+fPywsncOaM+UhB12jADuFbP
+         NEoA==
+X-Forwarded-Encrypted: i=1; AFNElJ8jH4ukqsfS9bl10Ghrlh+ZQdL5e1QOdPhc0WVzbYCV/K08BQqWcBkMHJRQUUP+h2mtTVAEyBRWplEV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyA6B7m6GGDbMS3h/ZC6NDNJFTTg/yMj4sY+St+Jrbybte7cKrD
+	EBdBLpdukvxlQUY+OSI/ALWAHe/RzK/zcYnCdylJbpIbFSoVEdnnMamf/7vqez0lx2sZ+DaVVIm
+	MAHnfrqYlw5sSGOyZE1RQLUPRXrhxOGFQhWW5ziRGxtrhaNiI5SipMWfVUetnXgAr
+X-Gm-Gg: Acq92OHDpOieUOgWhT7JfFySjvh/lcL83GjH01zjZCUv900ilgoSFgu7AAYcr9qzZhg
+	ZtE+6zNcKytnKgtOQ0Nbt/5QIqXU3BJ6drNj1sf0z8rusHkw4Tr+8s7qZ50UGMdL+TobUANhkrF
+	UCiy+jOFUnFUdTFfwYkcE0mhXGcmNVU9LvXhNU6+UrzH98qxoS/KY0p7df4OBZmcIWO4Ssdb9dy
+	tugJmCM+/QA3kMRVf2vS2uE61HjoYHfwwdSkFoCRTSiYDRgqblDxbh/xvI6kOdsuu4mNrixO70f
+	31no2QbiTe4UOVioxC3oUkBWK+O96tCi7vzPkevIKc6ckmFBXkMnrDXS8OvYNgpAqGZp3WNN9d3
+	WmRENt4AfB9QSLBoUwEbNvgzEa5gWb2qhBPviez9CFrXtn6kNY8H2nHkiCVoLGFC7qlhV4gGPOS
+	y35RF2l/BfIG399/jSQJ7dcDxbyIlJVJB48i4=
+X-Received: by 2002:a05:6102:5491:b0:660:d26b:506e with SMTP id ada2fe7eead31-71e88ac8860mr284527137.1.1781225774777;
+        Thu, 11 Jun 2026 17:56:14 -0700 (PDT)
+X-Received: by 2002:a05:6102:5491:b0:660:d26b:506e with SMTP id ada2fe7eead31-71e88ac8860mr284519137.1.1781225774269;
+        Thu, 11 Jun 2026 17:56:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929f190e9sm1719881fa.23.2026.06.11.17.56.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 17:39:37 -0700 (PDT)
-Date: Thu, 11 Jun 2026 17:39:34 -0700
-From: Matthew Leung <matthew.leung@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Thu, 11 Jun 2026 17:56:11 -0700 (PDT)
+Date: Fri, 12 Jun 2026 03:56:08 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
         Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 00/10] phy: qcom: qmp-pcie: Add PCIe PHY support for
- Hawi
-Message-ID: <aitVRtzigfZg6Me8@hu-mattleun-lv.qualcomm.com>
-References: <20260604-hawi-phy-pcie-v2-0-be908d3560db@oss.qualcomm.com>
- <egojnbup5igcre6ccegojsdrvtokwfoccqhwmfxkoy5ukvuxvj@ailtbrgrgocs>
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] regulator: qcom-refgen: add support for the
+ IPQ9650 SoC
+Message-ID: <367u4tqrx4wkwepm3pwlbdbqhsquilhmloxkzugvgmzk2iw6dw@ul25u2ynoyzn>
+References: <20260611-ipq9650_refgen-v2-0-d96a91d5b99e@oss.qualcomm.com>
+ <20260611-ipq9650_refgen-v2-3-d96a91d5b99e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,131 +99,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <egojnbup5igcre6ccegojsdrvtokwfoccqhwmfxkoy5ukvuxvj@ailtbrgrgocs>
-X-Authority-Analysis: v=2.4 cv=O94Jeh9W c=1 sm=1 tr=0 ts=6a2b554b cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=JfrnYn6hAAAA:8
- a=KKAkSRfTAAAA:8 a=ph3dTG6zQT6veRjdJtQA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=FO4_E8m0qiDe52t0p3_H:22 a=1CNFftbPRP8L7MoqJWF3:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: wEjHJO8RpJGAZUHwl7J9vTBdHhb74f9o
-X-Proofpoint-GUID: wEjHJO8RpJGAZUHwl7J9vTBdHhb74f9o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDAwMyBTYWx0ZWRfX0E2DVEZskvJO
- O2xQki+eSVTrR+7hejSqoeFXvV2PZ2wdQQbRKuMhH5gHeqQWOkTQ6brZxmpfHyLnyKd108hUDP6
- VxV9keB5ZtyHMbE4sMBZ4doevqsuovsibc8APnNYuNxVy0uoM/c/FO3cneQZLOM5i3chd74KmKu
- 5QXCbHBKvZzwZHdAkNDjWom5hXb5m8lMwGrw9JuOAde/rYDbsbKW+80KxcNIjmTm3EQF5AoMQSU
- VSwUUnV2num+XewqacsGerhbdj0IdD1Jr2Do83bH4omnBEjtdQ44TpUuEiz/hkJJnq82Nz2DXAT
- dmUp4ibguYaBY60S+8/tlLjQgAeSfIOzybODFv1IXUDgmn2mobE4qSITzzPbCEBYhHKKptNYLoj
- KP1s3HLgfSGpSvENlpsi/Sj1IN3hvVxDkWnd1mdYUtSxSSVjNUoQMfGmRRiGRh0R3za4vaCvCtg
- mVC/ge7qOLr/TgF61lQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDAwMyBTYWx0ZWRfX2vzQV9DLnQYm
- HK4cPOBHPdU0PJNRLpbaIc01TKqGLJ8KngLdPnax0lSBlntMSwCIGPz/0PvFU1/DMtg+gU/sLJ0
- PWUiyV81jlkHQRmHIW4v76pjD6Bksy8=
+In-Reply-To: <20260611-ipq9650_refgen-v2-3-d96a91d5b99e@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: Ibjfj7T1REkBst67HFx8XLrPduNzyjaV
+X-Proofpoint-GUID: Ibjfj7T1REkBst67HFx8XLrPduNzyjaV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDAwNiBTYWx0ZWRfX+CBOq+UHS7z8
+ nY+gZhzvRHr/WLLzfndkWfMmtSAbOwieVtpftkktrCL13+YI9u3USXylIiZP/2FbFz9jwpeg6o2
+ 9vybeW9KpXdaH5VZgjTNEOSqiC94QiY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDAwNiBTYWx0ZWRfX13db0orYr5Jr
+ clKY5xjnK9OqJKpgn9/46w840wMdYQUQtZ3PmrN4UPcnIyQw//lTselHQA3dbdB5w5TDSaZTmFG
+ Vg3yHoT83WIbh5EALxJ1D8XUoZHKKfUY48ZxIj3ztdhK6n3cGY7PJSQcHhfkrCY1SrTI+sxCNFM
+ LHrrRpwgDyHJWCDq+vzyiEbHkqOPHnSCrVMKouoik8aUm9yDKnUwX7Jg/90PnR4+KEW+tV2B8qx
+ mZ1hpUFegFjk27K6mNoQ4cV+9WVOk7VPBNFsC2mqcVPUjkPgzyPT82xVAcI7hsXvyg46J0H3rAj
+ KQkIwZs0vVsOXvGk98t+2smN7eBCqA8keJVEcT0hDO8OxB9MaDgO4O1qGDVQcqcMRnSuSBrgih4
+ rKFwY9NCf5Uh2Xj7YWbHPToKRtcTN+faHlHUHMUCia8D5QvSGVZWcBcXox55JfYEVBBHhpcQ3e/
+ x6Fs4EvoJ25TbJ9GDHg==
+X-Authority-Analysis: v=2.4 cv=M6p97Sws c=1 sm=1 tr=0 ts=6a2b592f cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=b784Gs7XNV41u_O6X0EA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_05,2026-06-11_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606120003
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120006
 
-On Mon, Jun 08, 2026 at 12:25:03AM +0300, Dmitry Baryshkov wrote:
-> On Thu, Jun 04, 2026 at 01:32:54AM +0000, Matthew Leung wrote:
-> > This series adds QMP PCIe PHY support for the Qualcomm Hawi SoC. The Hawi
-> > platform features two PCIe PHY configurations: Gen3 x2 and Gen4 x1.
-> > 
-> > The Gen3 x2 PHY uses v10 register definitions, while the Gen4 x1 PHY uses
-> > v10.60 register definitions.
-> > 
-> > The series adds:
-> > - device tree bindings (patch 1)
-> > - v10 register offset headers (patches 2-5)
-> > - v10.60 register offset headers (patches 6-9)
-> > - driver support with PHY initialization tables for both configurations
-> >   (patch 10)
-> > 
-> > Overlap:
-> > The series has overlap with "phy: qcom: Introduce USB support for Hawi"
-> > by Ronak Raheja (see link [1]). Both patch series introduce a subset of
-> > v10 registers (this series for PCIe and Ronak's for USB). I have
-> > coordinated with Ronak regarding the overlap, and we can update the
-> > series to resolve any overlap based on the order of merging.
-> > 
-> > Link: https://lore.kernel.org/all/20260508213234.4643-1-ronak.raheja@oss.qualcomm.com/ [1]
-> > 
-> > Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
-> > ---
-> > Changes in v2:
-> > - Rebased onto v7.1-rc6
-> > - Patch 1: no change (Reviewed-by carried forward)
-> > - Patch 9: rename QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG to
-> >   QPHY_PCIE_V10_60_PCS_TX_RX_CONFIG to be consistent with the
-> >   naming convention used in previous pcs-pcie headers
-> > - Patch 10: update usage of renamed macro
-> > - Link to v1: https://patch.msgid.link/20260508-hawi-phy-pcie-v1-0-237b894353fc@oss.qualcomm.com
-> > 
-> > To: Vinod Koul <vkoul@kernel.org>
-> > To: Neil Armstrong <neil.armstrong@linaro.org>
-> > To: Rob Herring <robh@kernel.org>
-> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > To: Conor Dooley <conor+dt@kernel.org>
-> > Cc: linux-arm-msm@vger.kernel.org
-> > Cc: linux-phy@lists.infradead.org
-> > Cc: devicetree@vger.kernel.org
-> > Cc: linux-kernel@vger.kernel.org
-> > 
-> > ---
-> > Matthew Leung (10):
-> >       dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add Hawi compatibles
-> >       phy: qcom-qmp: qserdes-com: Add v10 register offsets
-> >       phy: qcom-qmp: qserdes-txrx: Add v10 register offsets
-> >       phy: qcom-qmp: pcs: Add v10 register offsets
-> >       phy: qcom-qmp: pcs-pcie: Add v10 register offsets
+On Thu, Jun 11, 2026 at 02:33:18PM +0530, Kathiravan Thirumoorthy wrote:
+> IPQ9650 SoC has 2 REFGEN blocks providing the reference current to the
+> PCIe and USB, UNIPHY PHYs. For the other SoCs, clocks for this block is
+> enabled on power up but that's not the case for IPQ9650 and we have to
+> enable those clocks explicitly to bring up the PHYs properly.
 > 
-> Squash these 4 patches.
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  drivers/regulator/qcom-refgen-regulator.c | 89 +++++++++++++++++++++++++++++--
+>  1 file changed, 85 insertions(+), 4 deletions(-)
 > 
-> >       phy: qcom-qmp: qserdes-com: Add v10.60 register offsets
-> >       phy: qcom-qmp: qserdes-txrx: Add v10.60 register offsets
-> >       phy: qcom-qmp: pcs: Add v10.60 register offsets
-> >       phy: qcom-qmp: pcs-pcie: Add v10.60 register offsets
-> 
-> And these 4
+> diff --git a/drivers/regulator/qcom-refgen-regulator.c b/drivers/regulator/qcom-refgen-regulator.c
+> index 6a3795469927..e8821f159ff1 100644
+> --- a/drivers/regulator/qcom-refgen-regulator.c
+> +++ b/drivers/regulator/qcom-refgen-regulator.c
+> @@ -3,6 +3,7 @@
+>  // Copyright (c) 2023, Linaro Limited
+>  
+>  #include <linux/bitfield.h>
+> +#include <linux/clk.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+> @@ -16,6 +17,10 @@
+>   #define REFGEN_BIAS_EN_ENABLE		0x7
+>   #define REFGEN_BIAS_EN_DISABLE		0x6
+>  
+> +#define REFGEN_REG_REFGEN_STATUS	0xC
 
-Will do.
+Lowercase hex, please.
 
-> 
-> >       phy: qcom: qmp-pcie: Add QMP PCIe PHY support for Hawi
-> > 
-> >  .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   |   6 +
-> >  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           | 382 +++++++++++++++++++++
-> >  drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10.h   |  18 +
-> >  .../phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h    |  26 ++
-> >  drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10.h        |  22 ++
-> >  drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h     |  23 ++
-> >  .../phy/qualcomm/phy-qcom-qmp-qserdes-com-v10.h    |  49 +++
-> >  .../phy/qualcomm/phy-qcom-qmp-qserdes-com-v10_60.h |  55 +++
-> >  .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10.h   |  47 +++
-> >  .../qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h    | 109 ++++++
-> >  drivers/phy/qualcomm/phy-qcom-qmp.h                |  10 +
-> >  11 files changed, 747 insertions(+)
-> > ---
-> > base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
-> > change-id: 20260506-hawi-phy-pcie-283933b4113e
-> > 
-> > Best regards,
-> > --  
-> > Matthew Leung <matthew.leung@oss.qualcomm.com>
-> > 
-> > 
-> > -- 
-> > linux-phy mailing list
-> > linux-phy@lists.infradead.org
-> > https://lists.infradead.org/mailman/listinfo/linux-phy
-> 
-> -- 
-> With best wishes
-> Dmitry
+With that fixed:
+
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+
+> +#define REFGEN_STATUS_OUT_MASK		BIT(3)
+> + #define REFGEN_STATUS_OUT_ENABLE	0x8
+> +
+
+-- 
+With best wishes
+Dmitry
