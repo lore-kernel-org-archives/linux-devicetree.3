@@ -1,51 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07DE37647E;
-	Fri, 12 Jun 2026 21:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781298841; cv=none; b=rUdiOeEkn8RPCe52mozpG5CpDU1TJmstC/QG77oCEMhJxVe1WqJvm3QQ2WUEH7SNcZzYa730P6lV2c1qNqpKge/Tf5jOLXE4qDMmw27uLXNxrrfEX5Q+9ov8y4Z5mxeFdejS0HAIJLhaixpyunt0FzTrrKmzSSh0W1LN7w8Dywc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781298841; c=relaxed/simple;
-	bh=X8/mzh+inunp+gG1BvKDbZBQ7Nsa24AJ7mSimiY5CLg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18693305670;
+	Fri, 12 Jun 2026 21:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781299086; cv=pass; b=kJqEy4VKKRJov0Dx+zXnZzHUv1MOfZDgob7U+icuhJnoVnkSS/ceuyql9wmfIUDDdp2FuWl+akDx0nYVwjBVDCGqsjjLPAOykJs5AU7U/LzahQlPCbQkDdg8cMKRe7GcP1igvqdtXvsyWrp/2M9ojorgzwTjFkMvyB4cZNqyssA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781299086; c=relaxed/simple;
+	bh=x0BaGOsSHLNzJ4cRGNFS/1rXU88Jh9P3Rb3NtyQrVv4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ld4Se586mcFBO2vygEjHpZWbrukBwtqiVnaSIbQ5m1SdoyuNER/CblZKlltUHVW5JPM3UXrHo0KEt1bdZ63JkHkmhUmIHisTluEuWRnHNu4eLfxH1WBAKAM10oPNWt6wtA1SatVD5vo4NKFIxRmsvO+f/zP2XcNRrKWfkw5xf30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSLI2Q3O; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=m6lK76UZiYKsWVrdbXqFytlLIFowHJEQVrTaV7vd4Mw+YYClfh1UOu00WcRC7BLOwN0+Z3M4bkzdEHG8ql+Nh8sJXQyPWGMCtO2xuUDCPrwZDgvfXs7Nr0k8j7paLrrCfue75LfS8cxJ94A8ddFHdQ/AkZKC/RsX5dJiwyK/cdM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=M6v8BK5v; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSLI2Q3O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFDC1F000E9;
-	Fri, 12 Jun 2026 21:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781298839;
-	bh=GVaKUBpztZCZV5GTCEwQbwwfhQ1Fy0JgfjwmlCFG+Y4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PSLI2Q3OE7J9j41eGrFA9z5xL2BsJSw24C/505d08fiGfHnNin0/HZIU33Pcy8JZK
-	 rcHnw59ylwmo76Z7/gRaZ72FNxQgda8svyCynrAvjot1kWFjKv7mF2wYZXVgDEC9bP
-	 flz87xCMdpkZjrqZuGAhsOGaeZu7YRG9fkSN/E+AaMnQEICJfjjz6JUXbaezMJ+nSd
-	 s1eaTpUV2gpcTWif706CVO6u+5sUeFyiwvytYU3yk/O7ezbOOtiIUsog7sv/nD/5SI
-	 mecLptR2+4grUJ4fsvK0ZqnMf5phMNJ9O6HFb1fAOAIK8dXS2HVTDZpGVFmhT93aGQ
-	 3GEnoWk7I8djw==
-Date: Fri, 12 Jun 2026 22:13:55 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Potin Lai <potin.lai.pt@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Zev Weiss <zev@bewilderbeest.net>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Cosmo Chou <cosmo.chou@quantatw.com>,
-	Mike Hsieh <Mike_Hsieh@quantatw.com>,
-	Potin Lai <potin.lai@qunatatw.com>
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add current
- limit properties
-Message-ID: <20260612-sibling-battalion-453d3d239aaa@spud>
-References: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
- <20260611-lm25066-cl-config-v1-1-02e567bf3d91@gmail.com>
- <20260611-mocha-strive-a7f3265dd3f4@spud>
- <CAGfYmwWPhdpTLGhOdddJ0hSj-H86+XOVGTR9eDkZSVqGRLfJvQ@mail.gmail.com>
- <20260612-lecturer-unclad-d80218119ae5@spud>
- <059f9ce2-39f0-4553-909d-58585d46edd3@roeck-us.net>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="M6v8BK5v"
+ARC-Seal: i=1; a=rsa-sha256; t=1781298940; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=OKS40WmHs9HXccer99KYn6oZOd3s7A/QcRyaoSg61l8t/e7/tucKewZS3PjGEb51f1QDfNRq1j6o2EzPQ60ZsxkLkl8tfK7BdcwjWn/idwkDYas2VQ8K/Uv8C3Sy4tVeF+L5iKTH+2cBq6K4m684P//duvIajUSHyz/h48uHfYg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1781298940; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tv6LplnDGDFs2tsuGoRHCdXAYO7jI7MN//DIkYHWNuY=; 
+	b=MNzNQk69za9Qm2cSQJjVXXgqym5J4Sc5mNe79Ajt9yQHQalaVah+IFLVPRtuRe4T1JQxTr0Z//Zt/vxlz1jUQHyRusAU67ZW2Wmo7J8YZwIa+Po20ZuPntfURGbIe5ZeeG/n/9CWaL8boObo0ZnhrZcqoTp8Gyzvf1GqzFGrr4E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781298940;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=tv6LplnDGDFs2tsuGoRHCdXAYO7jI7MN//DIkYHWNuY=;
+	b=M6v8BK5vtjyj0S/NYEsQvgb9mF43z2OvICcosRQ+DQPiPzgBLXD7nzwVSZMAbbCL
+	SGrCvnllAHVCxUC+DlrWRahMKKSy7ohP2m6o4vJpEjLMp5aLA2V9Hj+HdyPldQEH6+U
+	MZ2QxYCzXtsj8E+IVm+alsZV3gSxsGWOetKsyUic=
+Received: by mx.zohomail.com with SMTPS id 1781298939699370.6870059309615;
+	Fri, 12 Jun 2026 14:15:39 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 5638C180674; Fri, 12 Jun 2026 23:15:34 +0200 (CEST)
+Date: Fri, 12 Jun 2026 23:15:34 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Diederik de Haas <diederik@cknow-tech.com>
+Cc: Midgy Balon <midgy971@gmail.com>, 
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>, tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, 
+	will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>, 
+	Finley Xiao <finley.xiao@rock-chips.com>, Jonas Karlman <jonas@kwiboo.se>
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+Message-ID: <aixze8zFboY3huSf@venus>
+References: <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+ <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
+ <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
+ <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
+ <bcedaff0-abf8-4585-a0ea-057062cd0411@rock-chips.com>
+ <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
+ <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com>
+ <DJ5A9XL183RZ.20J3ASQ3EWUZ6@cknow-tech.com>
+ <CA+GS1Y1xAq-9eMyMmoVE6NG9KLG7XRxgPoSr5RkW=6fT5D820g@mail.gmail.com>
+ <DJ5FUW50YM2N.6ZTY4WK27ZP5@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,115 +67,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QGjV0SrnjzKctOUC"
+	protocol="application/pgp-signature"; boundary="73c7cnokjssbpj3q"
 Content-Disposition: inline
-In-Reply-To: <059f9ce2-39f0-4553-909d-58585d46edd3@roeck-us.net>
+In-Reply-To: <DJ5FUW50YM2N.6ZTY4WK27ZP5@cknow-tech.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/281.294.11
+X-ZohoMailClient: External
 
 
---QGjV0SrnjzKctOUC
-Content-Type: text/plain; charset=utf-8
+--73c7cnokjssbpj3q
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+MIME-Version: 1.0
 
-On Fri, Jun 12, 2026 at 10:19:14AM -0700, Guenter Roeck wrote:
-> On 6/12/26 09:12, Conor Dooley wrote:
-> > On Fri, Jun 12, 2026 at 05:10:38PM +0800, Potin Lai wrote:
-> > > On Fri, Jun 12, 2026 at 1:27=E2=80=AFAM Conor Dooley <conor@kernel.or=
-g> wrote:
-> > > >=20
-> > > > On Thu, Jun 11, 2026 at 05:58:44PM +0800, Potin Lai wrote:
-> > > > > Add mutually exclusive 'ti,cl-smbus-high' and 'ti,cl-smbus-low' b=
-oolean
-> > > > > properties to configure the device's Current Limit (CL) behavior =
-using
-> > > > > SMBus settings instead of physical pins.
-> > > > >=20
-> > > > > Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
-> > > > > ---
-> > > > >   .../devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml  | 20 +++++=
-+++++++++++++++
-> > > > >   1 file changed, 20 insertions(+)
-> > > > >=20
-> > > > > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm2=
-5066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
-> > > > > index a20f140dc79a..95ea7c26dec2 100644
-> > > > > --- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.ya=
-ml
-> > > > > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.ya=
-ml
-> > > > > @@ -46,6 +46,26 @@ properties:
-> > > > >=20
-> > > > >       additionalProperties: false
-> > > > >=20
-> > > > > +  ti,cl-smbus-high:
-> > > > > +    description: |
-> > > > > +      Configure the Current Limit (CL) to use the SMBus high set=
-ting.
-> > > > > +    type: boolean
-> > > > > +
-> > > > > +  ti,cl-smbus-low:
-> > > > > +    description: |
-> > > > > +      Configure the Current Limit (CL) to use the SMBus low sett=
-ing.
-> > > > > +    type: boolean
-> > > >=20
-> > > > What's smbus specific about this? If the pin was connected to a GPI=
-O,
-> > > > you'd then need to have different properties or use these ones with=
- an
-> > > > inaccurate name.
-> > > >=20
-> > >=20
-> > > The "smbus" in the property name was originally meant to indicate
-> > > that the setting is configured via the internal register over the SMB=
-us (I2C)
-> > > interface, rather than physical pins.
-> >=20
-> > Right, but if you do it via the physical pins using a gpio, you still
-> > need a way to say what limit is. The status quo only works if the limit
-> > pin is tied high or low.
-> >=20
+Hi,
+
+On Wed, Jun 10, 2026 at 04:28:17PM +0200, Diederik de Haas wrote:
+> On Wed Jun 10, 2026 at 3:36 PM CEST, Midgy Balon wrote:
+> [    2.110935] rockchip-pm-domain fd8d8000.power-management:power-control=
+ler: Failed to create device link (0x180) with supplier 2-0042 for /power-m=
+anagement@fd8d8000/power-controller/power-domain@8
+> [    2.557459] sdhci-dwcmshc fe2e0000.mmc: Can't reduce the clock below 5=
+2MHz in HS200/HS400 mode
+> [    2.647174] rockchip-pm-domain fd8d8000.power-management:power-control=
+ler: Failed to create device link (0x180) with supplier 2-0042 for /power-m=
+anagement@fd8d8000/power-controller/power-domain@8
+> [    2.945089] rockchip-pm-domain fd8d8000.power-management:power-control=
+ler: Failed to create device link (0x180) with supplier spi2.0 for /power-m=
+anagement@fd8d8000/power-controller/power-domain@12
 >=20
-> The physical pin is supposed to be connected to ground or left floating.
-> It seems unlikely that anyone would ever have the idea of connecting it
-> to a GPIO pin, and doing so would for sure mess up the driver because
-> its state is only read in the probe function. The configuration here
+> 8 =3D NPU; 12 =3D GPU
+>=20
+> on both nanopc-t6-lts and nanopc-t6-plus (both RK3588).
+> And on a 6.18 dmesg output I have for Rock 5B, I see the ~ same, but then
+> it's 1-0042 instead of 2-0042.=20
+>=20
+> I don't know if it's bad or harmless, but it is consistent.
 
-Well yeah, "obviously" if someone wanted to use a GPIO the driver would
-have to change to handle that - but probably not that much since it'd be
-a static setting that could be done at probe.
+The fw_devlink framework tries to figure out a sensible probe order
+by analyzing links between devices. The warning is because there is
+a cyclic dependency. This happens because all power domains are
+provided by one device (power-controller).
 
-I get that it may be unlikely, but it seems like a reasonable thing that
-someone might want to do, and renaming the property to not exclude that
-usecase seems to be "free".
+Now if you want to probe the I2C regulator 2-0042, you need the
+I2C controller and to probe the I2C controller you need the I2C
+power domain and for that you need the power-controller. But for
+the power-controller you need 2-0042 (for the NPU power-domain).
+At this point fw_devlink gives up and prints the warning.
 
-> is for setting the limit range (scale) with a configuration register
-> to override the configuration obtained from the external pin.
+Apart from the warning this results in the kernel missing dependency
+information, so there might be some extra probe calls ending in
+-EPROBE_DEFER (which wastes CPU power and delays the boot process).
 
-> Either case, even _if_ the CL pin is connected to a GPIO pin, the status
-> of that pin would be read from the configuration register. A devicetree
+So it's neither super bad, nor completely harmless. Fixing this
+properly requires some heavy restructuring of the Rockchip
+power-controller driver.
 
-This isn't true, I don't think, unless you're using GPIO hogs?
-The GPIO state when linux comes up could be the reset value of the
-controller, rather than the correct configuration. You'd need a way to
-tell the driver what way to drive it.
+Greetings,
 
-> property is not needed for that. The properties are to _override_ the pin
-> configuration, not to reflect it.
+-- Sebastian
 
-TL;DR, I think the removal of smbus from the property name (I'm not
-asking for it to be taken out of the description) is reasonable.
-
-
---QGjV0SrnjzKctOUC
+--73c7cnokjssbpj3q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaix2kgAKCRB4tDGHoIJi
-0p9+AP9b0/VfVteb08FG4efUqinCeQOfdUFTmfnJpX8I+CbavwD7BhsGFwBEXjDC
-syh17asFm+UNGUt1pnjHiBdOp6Vu5Qk=
-=kh2Q
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmosdvIACgkQ2O7X88g7
++poq+Q//WNiAZeCgn2HpeHzvi+tZUbRlCrs91vnfbyyp+MgI5k47fApfmuGuVIcL
+a7FntM6Sm6vK5x1JfXt5tL6Zcvmhpm0YVz3FNvIMn6XMaq25w+qoyyD+Cah7iazS
+hdYmaxEfOq6AaQmAJ0DIvg98xzBovOhk5j94r/CymBTfskaVGJ0kvnleQe4xmTUS
+HOUKdwQSz4BJ8xEIamPZ6kDCyDroQkqgbSlS6T+JjrhYtEYuj4K3B9eYNRZQTYN9
+cdpKUZCoiJz0pRtoi+SKNS7KRYBNPtqHD6KZgctqhjjTB/ZBkwpkawQcct0/JUR1
+2JFNz8EsoYsJdqEvHeFhcpCJYUc6E4+/5tQRPZUaeDW9774A005T6iDbohCKWynG
+fW5i+psb3BOmTyTYFaLduwo9tmGnOX4h13de38FGuGmZX5VrOxLU2urruLVXAeoQ
+gsldVMOQ3ptd47lBH4d7rHe+oRZqs9Qhc9dgg0qFdC705L8tL9vxVsTdySk2zW7V
+N0ojS11VP/1RVFOVcrl9NXFWFojuAKTLlXvEj0u80JHyP1OjjaGTKr2BPGS4G0kI
+5LFZZdwSLbsTpUsXbUyRvz++myq/HlepUhpUTu9RriXFmWRbcXvxfOE84EtvPST9
+fv7vfqWZrycpFf4hqNwXFsEzP8iWPacUFw+Bbn0KW5waxsnQqRI=
+=xMTH
 -----END PGP SIGNATURE-----
 
---QGjV0SrnjzKctOUC--
+--73c7cnokjssbpj3q--
