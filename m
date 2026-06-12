@@ -1,111 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B1A34403D;
-	Fri, 12 Jun 2026 22:18:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF9330F534;
+	Fri, 12 Jun 2026 22:23:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781302686; cv=none; b=gyBAdPD1CORPnjQd9H8X7Lvs6ChPq0XcVEMsV/dRAw7+YzYwcfHeZ6w5OzN8b3JYokUsV8OxxPqObUDJBNtL14gRsPLExdKVXHvjhtoCN9P52z1w/PIppo0fhZhk2vT5OYOnB8Z0w/Bqb++AxVn5eVNUSnXMrM1jrNn72Ip/0WU=
+	t=1781302982; cv=none; b=M5rFwjx9iTVb/fmVXTBKrST/5i2ZVZDjyKZAgumIi2lZtLOK3vBbfBRciG5+9sDRmLkCJX7C5K6jQDr9ONwOiTq2seh8ccG/TA7H2Vgi4Ke3vkfC+MR/p+4uGiRazcWLn1KTscLvtsEFa7F94lpr7GMZSm2bHdim26hnPm1+Bns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781302686; c=relaxed/simple;
-	bh=0NZoUi4yTjyjN8hDy2uu0v8x/mi/5bxtA6qsUXoWtT8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ieR9UY12cZzAs/i9Jko8Pk+i6vZ2+/rWRajadSfph7bs95t5cTycZvnCs3rfqcZVcDAIMpi1kQpT+JeB1a/7sCQRKoFS6dXPTAWzMqX4L8T5svjEVRsP0DEMFadzgJEv5pLZRghsNDo2aR+DhzXv6OLrdLFPrBTgp4K7MJ2gFaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+kRQQ2J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781302982; c=relaxed/simple;
+	bh=NDkKmSPmr91krCNjKPopZNxi0eVtxOKKYhBbQ1qk6y0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WyHyH5epazGNSV2rTpnMXdM/yWXxmwth5IbIAyXKN5HuLC85eo4Wa7Kiu0LdWTydTRc7y9Eh0Kje9XT21m8JRhu46/OP4Ekjt8GeeI6stClVDZN8za8t/o8cFyD1vye4qyTCwqR+oea/fqoc1PTs6xthtAp8Yyfk75f6tB6kAQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+XcxFLu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+kRQQ2J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06251F000E9;
-	Fri, 12 Jun 2026 22:18:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+XcxFLu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBC71F00ACF;
+	Fri, 12 Jun 2026 22:22:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781302685;
-	bh=Z/61KFJYWXrOQyCZbASrU+Xps+NN44QMTC3+w7LhyNQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=E+kRQQ2Jz8K60h4THBnTGpf9+XCJ0p9sE4l8/jsuXsWbB/cti9C96Rljdw3a/6StE
-	 wx3F1e1j0k0Ii1NZfyWPxlQRGpYZtu5zvGM0W2QZfhvnXhI4caNAiGjtviZkjcTDDD
-	 IKquov6oXuYb1HKuiZmkbPX9M8xcY4sl60Yg87oENpd8p4qo9ZGH/vpRvLjmN8f/mO
-	 /zUznIosI2mO2Gfc36Zqmlg/TNJiIWLYRwy7syEbHmqtkljMXP3RLGI9tC6Y4m33hx
-	 NxrZP45XIozxNYtjoGpXiAF9w9QmoDj1wqEqSgTnOIjCV+/5VHRsUs9rwrZ7v8cv5N
-	 3Kg3nE6qO6E3g==
-From: Mark Brown <broonie@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, phucduc.bui@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- devicetree@vger.kernel.org, linux-sound@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260602101608.45137-1-phucduc.bui@gmail.com>
-References: <20260602101608.45137-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH v2 0/5] ASoC: rockchip: Reorder clock enable sequence
-Message-Id: <178120738665.484538.15946340325623351219.b4-ty@b4>
-Date: Thu, 11 Jun 2026 20:49:46 +0100
+	s=k20260515; t=1781302980;
+	bh=qVzSfaQLk0evyCs4Asu2hRrwJkoSAxGRjiHZu1Hl3xs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U+XcxFLuBqz2wekWL8/k7ASYcCHeUU7ND8B7KkFTBOzBUdBhz1qrib3WzWIga3t6h
+	 JvqkzgywfGUUYw9CBI1HqTQntPsE/0hII/PTih4wKQGn/2+RTy2iwoPDw+YbJWSIrF
+	 caVWjByqtKvlaZyXZwcbNtjMkpC7rf4iqh72Wx2y0iKbwGTof9TmK6HeEvpdkCKruo
+	 hsxBN1zCQkb1Q8nbrrshxLaPy9jGgYH9vvAPISFFEmCZUasdiN78SSHBAjIj36AQYz
+	 XT8LHVcYgXA2BBej/3MbQSsj20vxu0IX8yP+fJCSQHX8UxixtZy3LsnLBh3tIUm6tx
+	 7UqiGMjPhZvag==
+Date: Fri, 12 Jun 2026 17:22:59 -0500
+From: Rob Herring <robh@kernel.org>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Maya Matuszczyk <maccraft123mc@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v9 1/6] dt-bindings: embedded-controller: Add Qualcomm
+ reference device EC description
+Message-ID: <20260612222259.GA1960900-robh@kernel.org>
+References: <20260511-add-driver-for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com>
+ <20260511-add-driver-for-ec-v9-1-e5437c39b7f8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1918; i=broonie@kernel.org;
- h=from:subject:message-id; bh=0NZoUi4yTjyjN8hDy2uu0v8x/mi/5bxtA6qsUXoWtT8=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqLIWYYKm9dcS3DYn50RUL4v7kjRB1zbjoRQy7j
- WrL5egJEiqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaiyFmAAKCRAk1otyXVSH
- 0DD6B/9NXGfMDpD3AQKfvqaQ35X+zUWCxNdfvPuFh97+ZGUgxMYKtYMKfbdLBs2wtkbMgB92mdv
- JEXpPBbAdaXnt3Z6WB1YNAtWJZHVxX1b5fBNULp6LHyAhRoXPtDhpGbZ0FgW6Jef6vI0UwB4QVC
- nxPszabzUQ7gc1z1xi9JVuevsYZ6d0BBG49WguRPQ8EerlSHyMs3UpEkkAHmfBwGwg5H4J5BKxM
- zGjQceKZVYs4ReVGMP1as4k3EBQ/qjS60QoewXqws9nprfRiJPtzEIpX7X1kZo9EkB9msMYIbWm
- DvQlJvJVuilSFcr65g8dYawk6T66ujxDPVlIpsgdRtD9aNkc
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511-add-driver-for-ec-v9-1-e5437c39b7f8@oss.qualcomm.com>
 
-On Tue, 02 Jun 2026 17:16:03 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: rockchip: Reorder clock enable sequence
+On Mon, May 11, 2026 at 06:13:19PM +0530, Anvesh Jain P wrote:
+> From: Maya Matuszczyk <maccraft123mc@gmail.com>
 > 
-> From: bui duc phuc <phucduc.bui@gmail.com>
+> Add description for the EC firmware running on Hamoa/Purwa and Glymur
+> reference devices.
 > 
-> Hi all,
-> 
-> This series reorders the runtime resume clock enable sequence in the
-> Rockchip SPDIF and PDM drivers to enable the bus clock before the
-> functional controller clock.
-> 
-> [...]
+> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+> Co-developed-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  .../embedded-controller/qcom,hamoa-crd-ec.yaml     | 56 ++++++++++++++++++++++
+>  1 file changed, 56 insertions(+)
 
-Applied to
+Looks like this was missed, so I applied it. Please make sure your 
+patches are applied. This should have been applied with the driver or 
+.dts files.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
-
-Thanks!
-
-[1/5] ASoC: dt-bindings: rockchip-spdif: Correct SPDIF clock descriptions
-      https://git.kernel.org/broonie/sound/c/d057cbc218ac
-[2/5] ASoC: rockchip: spdif: Reorder clock enable sequence
-      https://git.kernel.org/broonie/sound/c/74d3f01a90ca
-[3/5] ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
-      https://git.kernel.org/broonie/sound/c/3168721d6ec3
-[4/5] ASoC: rockchip: spdif: Restore regcache cache-only mode on sync failure
-      https://git.kernel.org/broonie/sound/c/3546e9aa691a
-[5/5] ASoC: rockchip: rockchip_pdm: Handle runtime PM resume failures in set_fmt
-      https://git.kernel.org/broonie/sound/c/ee7b5f7b3933
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Rob
