@@ -1,64 +1,65 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BA02236E0
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 15:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C058C386543
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 15:34:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781278468; cv=none; b=qYCK8pwduhrXsJv4HPuUzSvTu1KlnH0iu8gFLrXypMfNaIedP9ies4OekcahgROqLh7Kdmxsd5OpASOjh8eKay1KKThFAvCifOSRwjrPmbu4rotZk6Dccjdi16e9cQbE6nuruUlnxKTA0E3FvBEhBg47ip3fKGW5zNfO5RPoLKw=
+	t=1781278470; cv=none; b=TG7OvZxWQM1zY5WCAqAISAybtF47JTEY7RZbdZWCXvb/IPGdIMlMtEfu++Iikz9z1CrScEPFpWJ4xk4ahb/GPUsCHEEL3aHdQiDmWaT9Bto/RZpwZr5cu4X6QC+HAqqQdGO5WuO+1JKTHwjshc4y2p4gYDaPKbET98s0lwu1IAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781278468; c=relaxed/simple;
-	bh=gtvNi33VQsDNDkHYG9DuFjrER9YXOntZMxm2KOrjFjs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZHJjI7XH2oTxGTKm42iskMwI58BAjL33+MDovPDi0BqKwSiMiBzBU8+44AZjBvYy3A3bqt7YDwD3osRMxx3bc+JVgPWhu2NEcTJb/t4IEZYuhEXxwe1rokhlINaVprhkguxRJeO+ydlmUc6Vb26dgms+YSVlJ8KYaolf0Diyu0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=9bi2ctfT; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1781278470; c=relaxed/simple;
+	bh=ALIUQWDYA2tt/w5YoDnsfyeSNacCwhv9VqHFuMI+0is=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qu7kt3ylAJ5zG16KOF4tw2obKzT6DKlWIv09GSMI/NumN12Urd+TZ9dZEKs0c5XOJdFFjhPoNKbkSgxDyAfn2w2VnZ7oLg+6RRjAB0qDXmdeoHEP+6OjbfcpObDe8AQDfjXQe8ZiMpsyrBoBsXSetOGLRwPebLJVvYexXIQV3Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=bQ3xtq5E; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="9bi2ctfT"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-45ef1198766so654052f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:34:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="bQ3xtq5E"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490d1e54b3bso14422365e9.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:34:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1781278464; x=1781883264; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wLR5ceLyn2LWx78PSXIyJ/Cdj4UA0nZ2YxlclNxvI8g=;
-        b=9bi2ctfTx58UeYgPvayKXoZCg7GELVYmiZzdxjNvMAXepzpIAXW+JXg7TOS2MuYGk0
-         4ZMKfmOK5nyOlBD5RvVcZX0xHHpJ0FwS2PNzAhE+WfNNUUKUL+MIiXuL+mFyhGuHuu/p
-         b1ML4R9iS7mZx044b6pa1t2UU/BZyqmrpefGlP8RAlvY80nAwu9xtDGPAth5Kmdfjl3c
-         UH9BWrWRVLuhxhrEOUI1IbpGQJI7kDcLHU/0cYk2PSolfpHRwF08k13gXAq843buOlfW
-         0FQSTucbhbqQMDx836XPUhAKILzE/E9QUsd35JOgOkvx/5gL/qqhzDES2ZdlOqjBkqmT
-         9yYw==
+        d=flipper.net; s=google; t=1781278467; x=1781883267; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dpNtr9K9XTNqCrkpUM3EVF8WuctLCaDVmj8vhM6mxC4=;
+        b=bQ3xtq5EQpn5xcYpzVREf0XIYGHbXWQRO7+EKDVluH5UL0qptgvr+EpvMDYuMxoK0O
+         lTGacqKsYlTP3ccTR7v5riHGM4RJDxKIfp5fEtFb/jgSlWNtlyKxPE+yG8g6I8Fc7p5U
+         j78Kkuw0Rz2sc5/SXh7xhnxHlTa71lSe8n4TOXI7M2jQwhB62hwVu7/LUl5NITfDFL98
+         fbkwp9d96F+AD/0WbkZLmedcP1fJ2eZfaT/jJPg8lSACMC0yL19/Fr7XGO2QIDGftPwH
+         yxAihKfaWBRADGgzHUSr6zETtefSKRNM68GmcOne/AarOeNV3DyIhdOgrOBzSIX0lVn9
+         ZCxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781278464; x=1781883264;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wLR5ceLyn2LWx78PSXIyJ/Cdj4UA0nZ2YxlclNxvI8g=;
-        b=GpwbnQyHZNk1FOMG9jXXt50GTkEmXkewr9LOtf2SaC7b7J3k/buD0A8kiyOmCqt93N
-         jqunFoR+ambeoxN3rmbDEaQD3/4mIjVkCw16GCmQk24gwYI4phO/G+0CgGjDeueGJOPc
-         98OpWBZgISshItXDaGuOqe1mteg4fuuTC432JjMeH+SgKYsKRNQnvHMMP1kLHJjoAnKb
-         ppiu1QihAl/lgKl6SrwQKLuMLE5YcOLiZpMUSmIHTFTkbGcUU0MeBkEHy8vWpFgDRtfh
-         BHHkLrujShRA3LURjbQOPZ1ZP5KRTk39WAID4n6O9YYGbUrGJx5BfT5yGBUH48BIJPbf
-         xBMQ==
-X-Gm-Message-State: AOJu0YzVxyvpm0ymnBnpIimXnI0Xze5VPkpeqZpAKdtuU69f/ZNKFFTm
-	r3Uax8j4YoAjg5ZrZ+ERGCz+GbTpT/7cbVxJaDgcUErcHUmTqo3+fzao4OyNtWu6yOQ=
-X-Gm-Gg: Acq92OHivoZ+3TghSwMnkR/q8DmBcQm2dgfsJXmwb8rKXE2WujwNvUjIGFistazeeA3
-	rCyPI1aURjUZktDWljbOIDTMnzCVHdvX298Ybpn8VUyt310YHpxRhHXQK/G9kx5yyjhCXk8IIV/
-	9KrzAcbl+lYFmDrmWL/hYaPy+fB+hbgts2DxNR5VGZPoWoDRtQa8FB0XzbAijIrG4lyJoBDe/o9
-	Kf0qIP6lDEPGt7LRPhmZQJ1WCqoeXpZOHCh6M6FEtgOYbZ4uqH6QiimWQA70Kr35yLb8lOQ302c
-	HyBfa0BY0LDpXp7SLNrF8CQVNLtErix1jfVL5WrTIdy92oFetgFt4gGoRMYObXSnITB+ZX0gi/2
-	WxJwYPQWE09k9xBHuMlGE8HrEK25Ns9R2lYOWEcdeb0gErt3F3LqGtRrnRR3PDUG3yC5X8DmaXX
-	Ny+vFVPjraWNH6Nzp62rIbsGSbj7TUQBsdgYLMNXRg
-X-Received: by 2002:a05:6000:41f7:b0:45e:dc0a:bcb with SMTP id ffacd0b85a97d-4606d024020mr4921301f8f.22.1781278464037;
-        Fri, 12 Jun 2026 08:34:24 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781278467; x=1781883267;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dpNtr9K9XTNqCrkpUM3EVF8WuctLCaDVmj8vhM6mxC4=;
+        b=p+MsrJGKoLvdBhw+Qd/ak9B4NpxQIQltFMYxg63/mlXWg4A40673rT0RuTWcgXS/XC
+         01SfBdP4vB/mhlNO1Vzt3CoWHuAOU6r9bWbZe2oArZTf1xrHUirEw3ePDVYXxpVFZ5Lp
+         dkAHxoaTNIg6JvC276apUwqtN8zbh0/fj5BN0dZeHloNxafF4r0fWhapf9VAVLAzjJTw
+         uSgl9oCkaBBN9+7ht9LsNuuQbNc9iKSkITjgdP95hD9Qr1gFwBDA903XQVzY6xo4vjhW
+         RZlTrP/ONqV7DyYaVec8b2T3FfaJ9TwLxV8ONYwpi06ES54k1dgAQysYu1P518ZR3vWQ
+         DO0g==
+X-Gm-Message-State: AOJu0YyyRMOYJf9h/MgCMRT9Z2I6CJSz2fuX3w/zcMBMsL3iuLev2BVw
+	phvihZ85gax9VmdWeSZUA7mHEvfpecm7RM5iXPYrVEwYOKMTcgqXFahf5Jrz0af89Wg=
+X-Gm-Gg: Acq92OH+R5Kg3iaa184sEd//8t8q+C0tRYKkRZv7gQhJdEpYV+cYDtXCFVrj7G2qI1K
+	Ek/aqhBD7xNNBuPbes4wGxu2zKdTO/3a8mEffpsivkSvjq6gVTZqd/dGiC5XV7QZT21tjVXBMjg
+	uBGAq+/5wIsLQIZHk7kgnlu6GsoNmist/Ta3jTtKl779G83ed32UweBDur0MqyphA46u3+EEK8O
+	LjMmu8AGz24m0CVT7cg1ObY+AGTIB//Q9EMC+tXqXFlpk+BS8ZHA240vUo5Kifw06VAPjFR+fny
+	8G2RpiYxcIgG07moSMwTnhDI48/Geyv8Rad5n5BO8KZJ12D06CeJHylXxNr3EvLf8AKVmV1CY5f
+	exGDMQFGlgUjbPaDVTKT2iMoKWdFm5ZwYWxf6XGSF3msbORkORLkZo9boGnujXvJk5NR+APypBE
+	AdDfZlhfUfsbj7By7zbtWYNwTGnq9ahjM2xobvSI2m
+X-Received: by 2002:a05:600c:8b31:b0:490:b28d:a6f9 with SMTP id 5b1f17b1804b1-490ec4a8474mr43552025e9.8.1781278467170;
+        Fri, 12 Jun 2026 08:34:27 -0700 (PDT)
 Received: from alchark-surface.localdomain ([5.194.92.128])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0d28sm6916641f8f.20.2026.06.12.08.34.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0d28sm6916641f8f.20.2026.06.12.08.34.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 08:34:23 -0700 (PDT)
+        Fri, 12 Jun 2026 08:34:26 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Subject: [PATCH 0/4] mfd: Add support for the MCU in the UGREEN DH2300 NAS
-Date: Fri, 12 Jun 2026 19:34:13 +0400
-Message-Id: <20260612-dh2300-mcu-v1-0-ab8db1617bc0@flipper.net>
+Date: Fri, 12 Jun 2026 19:34:14 +0400
+Subject: [PATCH 1/4] dt-bindings: vendor-prefixes: Add Ugreen Group Limited
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,10 +68,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDXplFq4iljQThmJn7SIpHF3x
- fJbvBchkGcKUGcRPJ0ceF0SMM/AjN0ykGCbDEqqSlaohB1VIaWYzSF0oUuLTjvEDlKweXJ8fbO
- m/R2OfiKzvwe47wfcjLZGbgAAAA==
-X-Change-ID: 20260612-dh2300-mcu-5354d1f5f11a
+Message-Id: <20260612-dh2300-mcu-v1-1-ab8db1617bc0@flipper.net>
+References: <20260612-dh2300-mcu-v1-0-ab8db1617bc0@flipper.net>
+In-Reply-To: <20260612-dh2300-mcu-v1-0-ab8db1617bc0@flipper.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
  Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>, 
@@ -79,55 +79,38 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2017; i=alchark@flipper.net;
- h=from:subject:message-id; bh=gtvNi33VQsDNDkHYG9DuFjrER9YXOntZMxm2KOrjFjs=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTpqP1lYhRlET4n1B2UyM+qz36ft0rIVjyhOk/10c72j
- q9t9sUdE1kYxLgYLMUUWeZ+W2I71Yhv1i4Pj68wc1iZQIZIizQwAAELA19uYl6pkY6Rnqm2oZ6h
- kY6xjhEDF6cATPXEW4wMr47Msg37u+90m55mcYB3d6rIttuMb+3yjqww4XnvoP57IyNDr/8CzVv
- Cqxs1BQ4HV8f9+9lcvWBNYj7nh07+Pw+ttCfwAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=943; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=ALIUQWDYA2tt/w5YoDnsfyeSNacCwhv9VqHFuMI+0is=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTpqP09+abI9JCu1HVuYVMG5hWKu5UyVdMfu+rJcF+st
+ 5t4T3lex0QWBjEuBksxRZa535bYTjXim7XLw+MrzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjrGPEwMUpAFO9qo/hf+XzqQluPtP5J3jFSOmv/uEtufCL/TUtuRc7uZJPfVRaLsbI8EZE5ve
+ sgqUW1q+rS3ezLJRSmHLNViT13K1qyT9p7bWvGAA=
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-UGREEN DH2300 is a 2-bay SATA NAS based on the Rockchip RK3576 SoC. It
-includes an embedded controller connected over I2C which won't let the
-drives power up without its register being poked first, which precludes
-the use of the device for its main purpose.
+Add Ugreen Group Limited, a consumer technology company producing a range
+of smart charging, office audio and visual, and smart storage products.
 
-There is no public documentation or source code available, but apparently
-the MCU is also responsible for a hardware watchdog function and some type
-of wake functionality, so this series implements an MFD-regulator
-separation right away to allow for adding these functions properly later
-on.
-
-For now though a single-bit write to the MCU seems to be sufficient to get
-the drives to work with only a board DTS addition [1] - to be submitted
-separately.
-
-[1] https://github.com/flipperdevices/flipper-linux-kernel/blob/2c1c5ee609f6ed4c77e9e5428df91e98b3f50cce/arch/arm64/boot/dts/rockchip/rk3576-nasync-dh2300.dts
-
+Link: https://www.ugreen.com/
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
-Alexey Charkov (4):
-      dt-bindings: vendor-prefixes: Add Ugreen Group Limited
-      dt-bindings: mfd: Add UGREEN NASync DH2300 MCU
-      mfd: Add support for UGREEN NASync DH2300 MCU
-      regulator: Add support for UGREEN NASync DH2300 MCU SATA power gate
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- .../devicetree/bindings/mfd/ugreen,dh2300-mcu.yaml | 62 +++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml       |  2 +
- MAINTAINERS                                        |  7 ++
- drivers/mfd/Kconfig                                | 16 +++++
- drivers/mfd/Makefile                               |  1 +
- drivers/mfd/ugreen-dh2300-mcu.c                    | 60 ++++++++++++++++
- drivers/regulator/Kconfig                          | 12 ++++
- drivers/regulator/Makefile                         |  1 +
- drivers/regulator/ugreen-dh2300-mcu-regulator.c    | 80 ++++++++++++++++++++++
- 9 files changed, 241 insertions(+)
----
-base-commit: ec039126b7fac4e3af35ebccaa7c6f9b6875ba81
-change-id: 20260612-dh2300-mcu-5354d1f5f11a
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index dd94c50e97f9..274e52421a5b 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1757,6 +1757,8 @@ patternProperties:
+     description: Ufi Space Co., Ltd.
+   "^ugoos,.*":
+     description: Ugoos Industrial Co., Ltd.
++  "^ugreen,.*":
++    description: Ugreen Group Limited
+   "^ultrapower,.*":
+     description: Beijing Ultrapower Software Co., Ltd.
+   "^uni-t,.*":
 
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+-- 
+2.53.0
 
