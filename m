@@ -1,50 +1,51 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA7638D3F1
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 12:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFC13E274E
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 12:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781268402; cv=none; b=Ho84zcVq3wsePMIPFN/DrVoJ4fZBMuz8MqmzfC0kv4LA5uOAy60S1NE5dhG7VAoH2OC01dJbynPyBjoc+wc3gW0jV+9z7aNrf6p/w3jbjjE/eoVxy6jigRS/AcS6upeFDzoqoCg2TA9qnOYro6J1JhffRhf24hXqoNh/dOYG2QI=
+	t=1781268409; cv=none; b=qo+UU4pRf46hOOtOrhCj9xjkNIuo9HMaNbICHtP4VYUq++WGg+7cblp5Jb/9Y6d/ex0tSztagJvwQcaeEQlvZ750aaj//BieS/rtShW1MwRiO0F5+jo0idRf+bIx2mrxixfu0OJ/cLV6in7b1OyfqOdOF5Glid6IwJMXuBkPlkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781268402; c=relaxed/simple;
-	bh=F7odNu1ja7J6Tec4NNUJr33ZpZFClpcehgSpY+hF7n4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wxo9MlfAmHjs5SkN/+jKAXw7QU7qE2wCfY5x19dcDhKRDw43V3PAioNRaAy8P1r9qvT+dfJAv8JPcgoSVDmsKQUt3K+Fku7jUi5kDq4gdEI2zGDQQwIxzmWNAtW2K6hsXYWthhlcFEu2vjID8Gg2qaZ8zkac0/J2O0ENa69213c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.181
+	s=arc-20240116; t=1781268409; c=relaxed/simple;
+	bh=+AxFDR9s2f5U4K/Sa51Cyqr9XsO4976gs5ZNljqq3X8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VMaL3kWyHoEiuWB/NclOu4lSE5sKJrV8qcK8caqmPhsHY45sN9wrCCK5J2khSxfjArZGXrNbtcGHl68mE8u+8hOjwYhuqnb1/0Us20lzJybhR2ZxPUeH1vuT4EjcmwKbwn2+S319YAeZ8VdwDTEk17gAfrnF9bHPIIi8extO3Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=sirat.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c132ac5ec2so9408665ad.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 05:46:40 -0700 (PDT)
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2c0c3543590so6396015ad.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 05:46:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781268400; x=1781873200;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Tjjr9qakYO64wRYHrlYQ+ZeiGSePqUXQbj+wVa5ikCU=;
-        b=AqLHi/hhHPfAz4mugQAB4sJnDPuzg3X1p7gMkKvrARitmZjlxl4FJy/uFsrQe0vJe2
-         jINxzwVBhDXfCJyspQ8QeecG47ikS5KaBX/BlJaJz9EUDlTU9RQ3cH8OGCM/7qm3Ayo4
-         iGTHS1o6xBbtjvcIigxFIIBcGuQL9nVdf4u+5rc6x4bPpOBqUZPiZo7+H3ktfsGokoXz
-         xvIJXECdc//7jiL7ANrOFo4trViKIhcST93FfPUfLARC49j1AP3cDufqJGIX3ifUC1WI
-         JvpvAh6mEJwOX7ezSwTo1yYGTPDMh/se0mzK0Gndv8apPGnXgGNuoynOCFHGssBbrfWE
-         TD7Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8upqQatJTkRY/K/xTEd66v57xePx1JwOVogi+nGiRrnk5WpcVSk5tCENevI+vcNN0ZDwYyq+wvVnjl@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRATi/qldiAPVcZPRCxfhR2MT153Chg5RtmD6kCkmVYBDSJzFl
-	D83Tli6nQZ4qE0hol6t3VsUrf9g6nw0yswiWQ8CJ5CNoLixHKu+iADRn
-X-Gm-Gg: Acq92OHMkCT/kcTDnV7WipgkHbsAeWPUUUWmmiXbFK+I8YG0TOqEEC7fIDlSCPwD0J1
-	lukj56kuqvglBwEMyqpfTkI3kdNVXc/8vU6JptERjPa5GYR7IWp7gIvNt9nmARcXeSGqBmnv8gY
-	20WTdBDRhCciaR7OzI2PwLhbkeLqABlUzFDmSmdfRovtbZx3n+5cav65xewOjGn09l9UO6luYuj
-	leGdDuJB9JCiFTIMRurIZN9UmxLZuB0aVr6p86vmBuX88BsC206Jv+kavbul7OVK5A9LimkIrH+
-	cpMznBC3MQU9OpKDsNk+y0BIyHiJbOb58tgeNN5924uMOf2jJV/PiekS5T2CFrZ0VPSvPZKJTvp
-	RijUGgwByHrEV0+pVCbKmFV1F8Aho0YQEc8rf90qsVGcoffn3JwjTLMw66Oj+Ugy0JaoGgRASHk
-	NpqnI8JqM31FZsdk8roE6L3qziZqmHokkioG7SlHqf2h9w4Kr85zhUsQVS9DChg2HQPO+HhuRlJ
-	R20ni/CFFGfjdDhMLwpziikwrCTQBJIEqKFoDNWJKc/dor+Au0HVisBP6rSiKny01NYeFormCwE
-	iDjpfet5hZ6EEIoW
-X-Received: by 2002:a17:903:384c:b0:2bf:379b:53d2 with SMTP id d9443c01a7336-2c410601d53mr32046305ad.15.1781268400144;
-        Fri, 12 Jun 2026 05:46:40 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781268407; x=1781873207;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=mokoTEvD6tpZww6g3gJhOSnEQ3UgjOZ7Y3EYoksKiAs=;
+        b=CrxOjud6i8yJsqVdcROM0HbvGr0ExyIDaitf1QTRy1yp/ztacNm6l9lK0euJ7eAsG9
+         M/5YP5El64OGsDDJ0odhjnpidpw59jsuzdggc/5Vy9EeIQjplmiMkYJPJclgEpaDDit/
+         WjLVOXjX6W5EY7Kw+KTvoTvjQz7spQNS4+S7hy81S7jW4anHQxXa1zAC2qrF0skcjkTz
+         KIXvpaMLUPz4QSl5z1k2iSgsc5BJpoahwqftNxVFsyqM8sc/Hyjy4jZGxJL+b/QGy2Ms
+         O9zcG2om05uxZPNsPCQgYBA4AVMn2yCQRpGLW+uo1iTI+wIMNnQLWTm0zErVnxZn1gyT
+         a38g==
+X-Forwarded-Encrypted: i=1; AFNElJ/9Ds687xSb2DJpMqBW2wC+H9U7kLaODq1b5BgG1C7ZiwltRVI9o5RZQoliiJ0AS+stw5ms7ZwhHKCn@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqpVvsK+hq15xryx/bdjytukkcPBN9cGbJhsC30oScoCQfzeua
+	PCY15BUuqm5LKIsy/ip3Ftl4mU4lbMrRhNKGnU/5eAa/vlvcHZNo3zGD
+X-Gm-Gg: Acq92OEy/d3NveoYNFr+/l6KmQ5cuJTXf9sEt83mo1WfKmf+uB8Aq6/kX8F5J/shn67
+	afjbEVFfE0vtI/QAIaV/BLAALK/riaFl8Wt6v0+/uFCTHFn1IwDd/KyvEgZYsAP6SdLu3wKIYht
+	k9mtq7OaXvn6lLF0DQJxs/IWB/Ml8W8RRjY5BnKUup89076xIK96t/MtjTUtkMGRhCzJmJ4CRYF
+	GHm6IfKYoK6ko2+MPJPMUvVVerHp91xbKpoqmaE91QpiPcO1bJNXGibBe5ghNWGQKaRVzv0EVjp
+	5GMW/2hfzCXdLkfBcT9qWRPOjJFyBrRR3af2Ok8Yl/xSw2iGPBA0GlYjHKiTsYAnLUKyYcl4vPn
+	Sr2mW4MYBJcvJ0PlXPS2WZ99wC9zVe2XfzsJciPRSmNBA8HdimERvvYMTF4KgLzZ0eHzOR1zduQ
+	7QqCplUbdWxx+jHLOHARXDveaYFXj3Do3gUAOH4TSQk5tWCr1boYVXYMa/VRhR/SLmbRMFgaJH8
+	0VP+XUAJ5W7EKkz4f093IXNMG6DijR/6VTT9HYzFxMEyZnlkRHIw30XvaZQp1piM2oiRI2wL7Iu
+	oP6ICA==
+X-Received: by 2002:a17:903:8c4:b0:2c2:5446:30eb with SMTP id d9443c01a7336-2c411b7e5a4mr30936005ad.11.1781268406922;
+        Fri, 12 Jun 2026 05:46:46 -0700 (PDT)
 Received: from fedora ([42.0.4.231])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42fbb5411sm21115625ad.32.2026.06.12.05.46.33
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42fbb5411sm21115625ad.32.2026.06.12.05.46.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 05:46:39 -0700 (PDT)
+        Fri, 12 Jun 2026 05:46:46 -0700 (PDT)
 From: Siratul Islam <email@sirat.me>
 To: jic23@kernel.org,
 	robh@kernel.org,
@@ -57,10 +58,12 @@ Cc: dlechner@baylibre.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Siratul Islam <email@sirat.me>
-Subject: [PATCH 0/3] iio: magnetometer: add driver for QST QMC5883L Sensor
-Date: Fri, 12 Jun 2026 18:45:24 +0600
-Message-ID: <20260612124557.13750-1-email@sirat.me>
+Subject: [PATCH 1/3] dt-bindings: add entry for qstcorp
+Date: Fri, 12 Jun 2026 18:45:25 +0600
+Message-ID: <20260612124557.13750-2-email@sirat.me>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260612124557.13750-1-email@sirat.me>
+References: <20260612124557.13750-1-email@sirat.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,40 +72,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series introduces the QST QMC5883L 3-Axis Magnetic Sensor
-driver. It is a simple device with minimal magnetometer functionalities.
-Commonly used as (software incompatible) replacement for the
-Honeywell HMC5883L sensor.
+Add an entry for QST Corporation Limited
 
-This driver implements the basic functionalities of the QMC5883L sensor,
-and intentionally leaves out some features like DRDY interrupt pin support
-and power management for simplicity, both of which will be addressed
-in future patches.
+Signed-off-by: Siratul Islam <email@sirat.me>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-There was an attempt to introduce this device about an year ago but
-the author seems to have abandoned the patch series. Since the device
-is simple enough, I decided to start from scratch.
-
-Note: I also noticed a patch for the QMC5883P variant. Despite similar
-naming, the sensors are different including different register maps,
-so these devices are not compatible with each other.
-
-
-Siratul Islam (3):
-  dt-bindings: add entry for qstcorp
-  dt-bindings: iio: magnetometer: add QST QMC5883L Sensor
-  iio: magnetometer: add driver for QST QMC5883L Sensor
-
- .../iio/magnetometer/qstcorp,qmc5883l.yaml    |  48 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   7 +
- drivers/iio/magnetometer/Kconfig              |  11 +
- drivers/iio/magnetometer/Makefile             |   2 +
- drivers/iio/magnetometer/qmc5883l.c           | 512 ++++++++++++++++++
- 6 files changed, 582 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883l.yaml
- create mode 100644 drivers/iio/magnetometer/qmc5883l.c
-
---
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 28784d66ae7b..11aac47f90ce 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1355,6 +1355,8 @@ patternProperties:
+     description: Shenzhen QiShenglong Industrialist Co., Ltd.
+   "^qnap,.*":
+     description: QNAP Systems, Inc.
++  "^qstcorp,.*":
++    description: QST Corporation Limited
+   "^quanta,.*":
+     description: Quanta Computer Inc.
+   "^radxa,.*":
+-- 
 2.54.0
 
