@@ -1,154 +1,381 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F53B3F1AAF;
-	Fri, 12 Jun 2026 17:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40374028EF;
+	Fri, 12 Jun 2026 17:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781283713; cv=none; b=XkrwBmW8G2v/EKV+vMFVn4YskLQhMNPatv96fsKg5TZUX0swFSs9KFZECfaq+TazZa74JTJ5ANPeMgyRXR+FCFYSEAA5wOooBAO5Fx+Ue6PgTI3D5VGTjHrtjriqzVH9Q2H6wgS4GvyNOxa6fCmfvK7U3JYVLbOGNsGFy5B7k5o=
+	t=1781283764; cv=none; b=DgmVkAbkF2xjp9S4PljRlou3xeD8jvbdKdPO3MdB4J4PMeVrRJlOQA3qVQDS0il5yfL0EpQAu0FfeGSZC9SuMjEihZ4rsTwASNlKHiG54WLTty2oJcfV1Xf8yiKHNA38woNpvIRAw8zykaJ6uFU1kCQ+ZNurZ6KylkLhTkRGVes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781283713; c=relaxed/simple;
-	bh=KVbtAEEtprqp5yyIoAXBQcwpPK0XelSa5kEMMWYCbAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nQ/EzgxMUhuLQBrw7mYKszxnBulazGoc77Z72ngipUyc1V+szNHVQuUhZvV9auBxvIEWzYud5/synh64OY9OzfVisZHuEwmxS9gbNZfY+zSmD1x/qA/w4NkG3vxz7qHX6rD80YNhn/iFQ90+H2khcDPvYPLtE/RYl0MJHFxJyLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=llm605R7; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781283764; c=relaxed/simple;
+	bh=bfXZksGt1/gKOjLOR0XutDcxmFu8uHQ0nucA2A9DyXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=P9KNzilCdU/TaVeC2cGsfZa4qS5ftto5hKmYQHVfbNewzfdtBYqs44uTo1sun0+AJnofnW3GE24yOj/RQv9FTrBV01ZOuAdvgeRKBTs/DoRl9X+t+umHZFhTIfMyz7OAWyq4OGlBB2L95MTXpae7sSgj6kCF7Kal+2Gcv80j280=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lF+7xT1j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="llm605R7"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6A615225;
-	Fri, 12 Jun 2026 19:01:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781283677;
-	bh=KVbtAEEtprqp5yyIoAXBQcwpPK0XelSa5kEMMWYCbAI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=llm605R7ZrLc9err8IAkvdf4IzX4Spd6MKK7m6pw5EdHUOYoTigYq5B62jlv0yazg
-	 mbg/joeHg1oy1aTU96k+hDxZ+KHpvqentcezJiiytYRIT/SPXAZ6sC5Np6Zi7D7Han
-	 0pCNsBhLoieIxwIdVVc1UQ6I5cQalETck5BgagGw=
-Date: Fri, 12 Jun 2026 20:01:46 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-Message-ID: <20260612170146.GA2094246@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
- <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
- <20260515-fraying-trickle-7511a2eeaf44@spud>
- <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
- <20260612-landed-remedial-79582e900699@spud>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lF+7xT1j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BAE31F000E9;
+	Fri, 12 Jun 2026 17:02:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781283762;
+	bh=qw5jOBZvXAaMQsEzZurHqArfFAnQlzR5HfBnGZalYvA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lF+7xT1jcox+U+pikA+26EqeXouyy2jIGQvuzQWe7toMWK3QwcKt574oTU9yRBNYd
+	 i6meEIpP+K2wjkvui8Z5JUHMkMnWXOd7r0cbbVwHhVGeqjRlLxX9NQd67p597k3EuO
+	 o9RJSD1WTlxI5BP5qdaXaSZG66KZ1wTwlEh+sIK8ACo/ju1gWc3aCd/a7Z10JdkntX
+	 wbzBRJbGbleKHVMQWohUK8CaQaD8/oEVXtirg08wDMXbzIpJFQGaKcyN3vWJu+wT5q
+	 hxluk8u/4WixLLsBU9KM+EEL1cchz3b9wCOQpF9EJp8PrIx9G9N9XJgCbQkMg6hP4o
+	 iaWx+dXAJ0kSQ==
+Date: Fri, 12 Jun 2026 18:02:35 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Siratul Islam <email@sirat.me>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] iio: magnetometer: add driver for QST QMC5883L
+ Sensor
+Message-ID: <20260612180235.3e505c66@jic23-huawei>
+In-Reply-To: <20260612124557.13750-4-email@sirat.me>
+References: <20260612124557.13750-1-email@sirat.me>
+	<20260612124557.13750-4-email@sirat.me>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260612-landed-remedial-79582e900699@spud>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 12, 2026 at 05:09:48PM +0100, Conor Dooley wrote:
-> On Fri, Jun 12, 2026 at 01:43:44PM +0300, Tomi Valkeinen wrote:
-> > On 15/05/2026 20:32, Conor Dooley wrote:
-> > > On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
-> > > > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > > > 
-> > > > The Renesas DSC Display Stream Compression is a bridge embedded in the
-> > > > Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> > > > 8k or 400 Mpixel/s .
-> > > > 
-> > > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > > > [tomi.valkeinen: fix the example]
-> > > > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> > > > ---
-> > > >   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
-> > > >   1 file changed, 96 insertions(+)
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..2918d592732b
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> > > 
-> > > Filename matching the compatible please.
-> > 
-> > All the other Documentation/devicetree/bindings/display/bridge/renesas,*
-> > files follow the same style, where the file name is in a generic format, but
-> > the actual compat strings are per SoC (and no generic compat string).
+On Fri, 12 Jun 2026 18:45:27 +0600
+Siratul Islam <email@sirat.me> wrote:
+
+> Add driver for the QST QMC5883L 3-Axis Magnetic Sensor
+> connected via i2c.
 > 
-> No idea why it's like that currently, but filename matching compatible
-> is the policy.
+> Signed-off-by: Siratul Islam <email@sirat.me>
 
-I wonder if we should use
+Trying to avoid repeating stuff Joshua already covered.
+Various comments inline.
 
-  compatible:
-    items:
-      - enum:
-          - renesas,r8a779g0-dsc
-      - const: renesas,rcar-dsc
+Thanks,
 
-to prepare for the other SoCs that include a DSC. It's of course hard to
-predict how compatible all new silicon will be, but we know there will
-be some compatible ones.
+Jonathan
 
-This being said, looking for instance at renesas,du.yaml in the same
-directory, we have
+> diff --git a/drivers/iio/magnetometer/qmc5883l.c b/drivers/iio/magnetometer/qmc5883l.c
+> new file mode 100644
+> index 000000000000..055e51570635
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/qmc5883l.c
 
-  compatible:
-    enum:
-      - renesas,du-r8a7742 # for RZ/G1H compatible DU
-      - renesas,du-r8a7743 # for RZ/G1M compatible DU
-      - renesas,du-r8a7744 # for RZ/G1N compatible DU
-      - renesas,du-r8a7745 # for RZ/G1E compatible DU
-      - renesas,du-r8a77470 # for RZ/G1C compatible DU
-      - renesas,du-r8a774a1 # for RZ/G2M compatible DU
-      - renesas,du-r8a774b1 # for RZ/G2N compatible DU
-      - renesas,du-r8a774c0 # for RZ/G2E compatible DU
-      - renesas,du-r8a774e1 # for RZ/G2H compatible DU
-      - renesas,du-r8a7779 # for R-Car H1 compatible DU
-      - renesas,du-r8a7790 # for R-Car H2 compatible DU
-      - renesas,du-r8a7791 # for R-Car M2-W compatible DU
-      - renesas,du-r8a7792 # for R-Car V2H compatible DU
-      - renesas,du-r8a7793 # for R-Car M2-N compatible DU
-      - renesas,du-r8a7794 # for R-Car E2 compatible DU
-      - renesas,du-r8a7795 # for R-Car H3 compatible DU
-      - renesas,du-r8a7796 # for R-Car M3-W compatible DU
-      - renesas,du-r8a77961 # for R-Car M3-W+ compatible DU
-      - renesas,du-r8a77965 # for R-Car M3-N compatible DU
-      - renesas,du-r8a77970 # for R-Car V3M compatible DU
-      - renesas,du-r8a77980 # for R-Car V3H compatible DU
-      - renesas,du-r8a77990 # for R-Car E3 compatible DU
-      - renesas,du-r8a77995 # for R-Car D3 compatible DU
-      - renesas,du-r8a779a0 # for R-Car V3U compatible DU
-      - renesas,du-r8a779g0 # for R-Car V4H compatible DU
-      - renesas,du-r8a779h0 # for R-Car V4M compatible DU
 
-Could the file have been named renesas,du-r8a7790.yaml ? Sure. Would it
-be better for users than renesas,du.yaml ? I'm less sure.
+> +
+> +#define QMC5883L_REG_X_LSB	0x00
+> +#define QMC5883L_REG_STATUS1	0x06
+> +#define QMC5883L_REG_CTRL1	0x09
+> +#define QMC5883L_REG_CTRL2	0x0A
+> +#define QMC5883L_REG_SET_RESET	0x0B
+> +#define QMC5883L_REG_ID		0x0D
+> +
+> +#define QMC5883L_CHIP_ID	0xFF
+> +
+> +#define QMC5883L_MODE_MASK	GENMASK(1, 0)
+> +#define QMC5883L_ODR_MASK	GENMASK(3, 2)
+> +#define QMC5883L_RNG_MASK	GENMASK(5, 4)
+> +#define QMC5883L_OSR_MASK	GENMASK(7, 6)
+> +
+> +#define QMC5883L_MODE_STANDBY	FIELD_PREP_CONST(QMC5883L_MODE_MASK, 0x00)
+> +#define QMC5883L_MODE_CONT	FIELD_PREP_CONST(QMC5883L_MODE_MASK, 0x01)
+> +
+> +#define QMC5883L_ODR_10HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x00)
+> +#define QMC5883L_ODR_50HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x01)
+> +#define QMC5883L_ODR_100HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x02)
+> +#define QMC5883L_ODR_200HZ	FIELD_PREP_CONST(QMC5883L_ODR_MASK, 0x03)
+> +
+> +#define QMC5883L_RNG_2G		FIELD_PREP_CONST(QMC5883L_RNG_MASK, 0x00)
+> +#define QMC5883L_RNG_8G		FIELD_PREP_CONST(QMC5883L_RNG_MASK, 0x01)
+> +
+> +#define QMC5883L_OSR_512	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x00)
+> +#define QMC5883L_OSR_256	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x01)
+> +#define QMC5883L_OSR_128	FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x02)
+> +#define QMC5883L_OSR_64		FIELD_PREP_CONST(QMC5883L_OSR_MASK, 0x03)
+These are used for matching - normally we'd add defines for the filed value and
+then use FIELD_GET() to extract it for matching.
+e.g.
+#define QMC5883L_OSR_512		0x0
+#define QMC5883L_OSR_256		0x1
+rather these.
 
--- 
-Regards,
+> +
+> +#define QMC5883L_STATUS_DRDY	BIT(0)
+> +#define QMC5883L_STATUS_OVL	BIT(1)
+> +
+> +#define QMC5883L_SET_RESET_VAL	BIT(0)
+> +#define QMC5883L_INT_DISABLE	BIT(0)
+> +#define QMC5883L_SOFT_RESET	BIT(7)
+> +
+> +#define QMC5883L_SCALE_2G	83333
+> +#define QMC5883L_SCALE_8G	333333
+> +
+> +/* POR completion time max per datasheet */
+> +#define QMC5883L_PORT_US	350
+> +
+> +struct qmc5883l_data {
+> +	struct regmap *regmap;
+> +	struct mutex mutex; /* update and read regmap data */
 
-Laurent Pinchart
+Need more than that.  regmap has its own locks that do this bit.
+Be sure to describe exactly what data you are protecting.
+Usually it is something like read / modify / write cycles or
+need to serialize groupd of actions.
+
+> +	u8 range;
+> +	u8 odr;
+> +	u8 osr;
+> +};
+> +
+> +enum qmc5883l_chan {
+> +	QMC5883L_AXIS_X,
+> +	QMC5883L_AXIS_Y,
+> +	QMC5883L_AXIS_Z,
+> +};
+> +
+> +static const int qmc5883l_odr_avail[] = { 10, 50, 100, 200 };
+> +
+> +static const int qmc5883l_osr_avail[] = { 512, 256, 128, 64 };
+> +
+> +static const int qmc5883l_rng_avail[] = {
+> +	0, QMC5883L_SCALE_2G,	/* 2G */
+
+I'm not sure the defines really help. Perhaps push the value down here
+and then look it up from this array when matching.
+
+> +	0, QMC5883L_SCALE_8G,	/* 8G */
+> +};
+
+> +
+> +static int qmc5883l_read_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan, int *val,
+> +			     int *val2, long mask)
+> +{
+> +	struct qmc5883l_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (!iio_device_claim_direct(indio_dev))
+
+What is this serializing?  In a driver that only supports direct mode it should
+never be necessary to claim it.    So this code should only be added in a patch
+adding buffered modes.  If you need to serialize, most likely you should be using
+a local lock as it has nothing to do with state changes from direct to buffered.
+
+> +			return -EBUSY;
+> +		ret = qmc5883l_take_measurement(indio_dev, chan->address, val);
+> +		iio_device_release_direct(indio_dev);
+> +		if (ret)
+> +			return ret;
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		scoped_guard(mutex, &data->mutex)
+
+Joshua already mentioned this, but prefer guard() and defined scope
+for each of these case blocks. That just ends up easier to read.
+
+> +		{
+> +			*val = 0;
+> +			*val2 = data->range == QMC5883L_RNG_2G ?
+> +					QMC5883L_SCALE_2G :
+> +					QMC5883L_SCALE_8G;
+> +		}
+> +		return IIO_VAL_INT_PLUS_NANO;
+...
+
+> +
+> +static int qmc5883l_write_raw(struct iio_dev *indio_dev,
+> +			      const struct iio_chan_spec *chan, int val,
+> +			      int val2, long mask)
+> +{
+> +	struct qmc5883l_data *data = iio_priv(indio_dev);
+> +	u8 rng;
+> +	u8 osr;
+> +	u8 odr;
+Can combine as
+	u8 rng, osr, odr;
+without loosing readability so do that to save a few lines of scrolling!
+
+> +	int ret;
+
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+Add scope by doing
+case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
+
+Same applies for other cases.
+
+
+> +		switch (val) {
+> +		case 64:
+> +			osr = QMC5883L_OSR_64;
+> +			break;
+> +		case 128:
+> +			osr = QMC5883L_OSR_128;
+> +			break;
+> +		case 256:
+> +			osr = QMC5883L_OSR_256;
+> +			break;
+> +		case 512:
+> +			osr = QMC5883L_OSR_512;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		scoped_guard(mutex, &data->mutex)
+then this can be a guard.
+
+Note that if it were a scoped_guard() that should be treated like an if ()
+so formatting wise it would be
+		scoped_guard(mutex, &data->mutex) {
+
+However with scope added as suggested this can be
+		guard(mutex)(&data->mutex);
+and avoid the need for greater indent.
+
+> +		{
+> +			ret = regmap_update_bits(data->regmap,
+> +						 QMC5883L_REG_CTRL1,
+> +						 QMC5883L_OSR_MASK, osr);
+See above,
+						 QMC5883L_OSR_MASK,
+						 FIELD_PREP(QMC5883L_OSR_MASK, osr));
+
+> +			if (ret)
+> +				return ret;
+> +			data->osr = osr;
+Here store the field value not the shifted version.
+
+> +		}
+> +		break;
+		return 0; (see below)
+
+Close scope with 
+	}
+here.
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+Probably better to return in the good paths above and save us having
+to go see if there is anything else to be done.
+
+
+> +}
+
+
+> +static int qmc5883l_init(struct qmc5883l_data *data)
+> +{
+> +	unsigned int reg;
+> +	int ret;
+> +
+> +	ret = regmap_read(data->regmap, QMC5883L_REG_ID, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Not failing because rev 1.0 had this register reserved */
+> +	if (reg != QMC5883L_CHIP_ID)
+> +		dev_warn(regmap_get_device(data->regmap),
+> +			 "unknown chip id: 0x%02x, continuing\n", reg);
+> +
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL2,
+> +			   QMC5883L_SOFT_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(QMC5883L_PORT_US);
+> +
+> +	/* DRDY pin no used in this version of the driver */
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL2,
+> +			   QMC5883L_INT_DISABLE);
+I don't mind if these sorts of cases go a little over 80 chars as sometimes
+it helps readability.
+
+Does it really reset with interrupts on?  That's odd.  Mind you the
+INT_ENB sounds like it would be an enable but as you have named it here
+it is actually a disable so all bets are off when it comes to sensible ;)
+
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_SET_RESET,
+> +			   QMC5883L_SET_RESET_VAL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->odr = QMC5883L_ODR_50HZ;
+> +	data->range = QMC5883L_RNG_2G;
+> +	data->osr = QMC5883L_OSR_64;
+
+Generally should only set these after the write succeeds otherwise on error
+these are out of sync with the device. Not that important though in an init
+function as any error leads to us bailing out anyway.
+
+> +
+> +	ret = regmap_write(data->regmap, QMC5883L_REG_CTRL1,
+> +			   (QMC5883L_MODE_CONT | data->odr | data->range |
+> +			    data->osr));
+
+return regmap_write();
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+
+> +static const struct of_device_id qmc5883l_match[] = {
+> +	{ .compatible = "qstcorp,qmc5883l" },
+> +	{ },
+
+As below, no comma.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, qmc5883l_match);
+> +
+> +static const struct i2c_device_id qmc5883l_id[] = {
+> +	{ "qmc5883l" },
+
+Named initializers for these please. Uwe is doing some work
+to ensure consistency on this across there kernel and queued
+up for this kernel cycle is a patch that does that for all the
+i2c_device_id tables. Uwe mentioned that a checkpatch change
+to check for this was on the todo list.
+
+> +	{ },
+
+No trailing comma on 'terminating' entries like this. 
+Whatever entries are added in the future they must not come
+after this so comma here is never appropriate.
+
+> +};
+> +MODULE_DEVICE_TABLE(i2c, qmc5883l_id);
+> +
+> +static struct i2c_driver qmc5883l_driver = {
+> +	.driver = {
+> +		.name = "qmc5883l",
+> +		.of_match_table = qmc5883l_match,
+> +	},
+> +	.id_table = qmc5883l_id,
+> +	.probe = qmc5883l_probe,
+> +};
+> +
+
+Trivial but a common convention (that I'm trying to encourage in IIO)
+is no blank line here. It is good to keep the tighter coupling between
+the structure and the macro that is its only user.
+
+> +module_i2c_driver(qmc5883l_driver);
+
