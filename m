@@ -1,162 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D98637C0F6
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:16:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1F736E489;
+	Fri, 12 Jun 2026 08:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781252194; cv=none; b=tsgHEZ6wYvIAQ712OKpU3oMyB5Z7+oQbGLNs9bi5kLCDmxlExGen56ikrNLNQBHmJLfwcsfRZNLrCn6bjGejCk34zwAzmBxHZjwnlFdHf0309PYYyVW0kfLuSHIuEofm0e5/9VTwZ1frq2eLkZqLkYUd0m8SKGqKQ+X5QGt2y1s=
+	t=1781252472; cv=none; b=DxYBT+dT17ix1tawzfTRpe87Ctv7QPMJ0d+o+4+bdOlZM6Jf7UAcQHwlMcA+ry+KLaaLdViWVFyIzJxWz/vB4ai40uHVK+O7mvG4HZJU/PcSH+p9Bs2+byUwR6Ca3r4UIHuUyB6i+U7SSmJlHaCRP8AX59bg2dci3ieyGBK+m4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781252194; c=relaxed/simple;
-	bh=XtfhJiDRtO0qVS5lt27jFgSYop8poG8IwV4ZWs4MENI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OZYFiCQIksAu57ZPo3m9BeksBWsiyrV1/rTnNnETZ5r6KJN3HdHs1+c2oxN/tqfkxhmYeu5DcgwVH6gHrs0ucIBrMtNv1I4h6Y0pPbtENigM4ruI1KZgxFvJLPF/E3QJFMHos4RsKOHFsKO69sXP34OSE7QSt4opwjJ0pcCpXCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGMLfup9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781252472; c=relaxed/simple;
+	bh=2fk5A7APxBfGY+Uc34bPTDrO05ybp9CeZsd9hq+Aa/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kGA0ekHJz3CTku6a22qTPuYLdeO7QIahlmvWDqDudOJ6TunR3cIpk60iFCEaUjnfmpSfcq0H1zFZIlsUHhBtoWYPLPES6aOR19uEl1LVK3h2E+3D28/9/aYHYntGFu4BOK9MAgeImc3no8GeNfRezlHoqK2O6eWdn22mOqvgq/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxD4U3p6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGMLfup9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA171F000E9;
-	Fri, 12 Jun 2026 08:16:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxD4U3p6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E1E1F000E9;
+	Fri, 12 Jun 2026 08:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781252192;
-	bh=CFimSGTUOZRs7o47a92OpeJOaJEa9ZiP5H34Nzryqag=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eGMLfup9b856hHyBDE8kS42KoyDvyg9RUWgYG8gby03NUK5MipFOLPJNc2Go3xCSB
-	 l+cmcc23dm67Ij8XEmCACjX77TAERMZ93il7kjFp7NPIGvf21fjFbS2A+ZxveA1l5r
-	 lJDKLdNKjeLWHTVDBNxmOiiESyyeQMTn6zkKzvZKncvIyNl0waYCKCIdoWf5fEK2Il
-	 TnCGaxMjYdJe5MsSxBvEZCF+j6ON8CPr94QDc7xVvrriGBxP2ggD6Z0qvcj0QeJa8W
-	 jzoP017E+kijQJWzg8MxmrLJy71jZ7EXsXlPUnMBxNJx1QCjKGfLdANUlE+EzKcIQH
-	 Fg7wo1K9XYoqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] ARM: dts: renesas: r9a06g032: Describe SPI
- controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260612080354.57459-5-wsa+renesas@sang-engineering.com>
-References: <20260612080354.57459-5-wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 08:16:30 +0000
-Message-Id: <20260612081631.3AA171F000E9@smtp.kernel.org>
+	s=k20260515; t=1781252469;
+	bh=87jdAmviYLDeZfa++fixgb/NLJhsk3e7SaM4A5AzSy4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KxD4U3p6+yW92beGADTrrCG5b0VPcJQVm2Rml0k83RHXa8p7/v1sQXnTTTFQD2laW
+	 Vy+EgI4eA3VlGjpR4oaMu3CbMzqwwnJM7Sf+k2ew5oFjFzWoW45c4eOcFSYf0SVVYG
+	 W9UDREx3fMLngftuDVfs/1oWPRb1EUwwJKnLc0K0n5z+z0e3NfXmkUJIjIHXyCvv96
+	 iPMZ8drbxCmGjkXoMENblzjoa4lHR7fA6u+P2/c70n6J3BvNx2BLj2KRKAC/Xz8TRS
+	 ERIu7xMOPnBEdIPtXGFKDJOR6fsPQYTN1O2myUazIJLE8O87Rxhi+sEhOWdX3UDp4H
+	 kpA/LM/cEt1bw==
+Date: Fri, 12 Jun 2026 10:21:04 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xin Liu <xin.liu@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/2] Add psci_sys_reset2 reboot modes for Qualcomm
+ boards
+Message-ID: <aivBcGQgeKGW45Is@lpieralisi>
+References: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-0-1964ebf1924c@oss.qualcomm.com>
+ <CAFEp6-2-n1L8rLv9zV142D_Q7io1G1ZuFgLHowsf8sObQt6iLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFEp6-2-n1L8rLv9zV142D_Q7io1G1ZuFgLHowsf8sObQt6iLw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Target-only SPI controllers missing the `spi-slave` property and i=
-mproperly configured as hosts.
-- [Low] The `spi-max-frequency` property is improperly placed on SPI contro=
-ller nodes.
---
+On Wed, Jun 10, 2026 at 02:57:19PM +0200, Loic Poulain wrote:
+> Hi Anurag,
+> 
+> On Fri, May 29, 2026 at 4:29 PM Anurag Pateriya
+> <anurag.pateriya@oss.qualcomm.com> wrote:
+> >
+> > Adding PSCI SYSTEM_RESET2 reboot-modes for sm8750 and
+> > kaanapali based boards.
+> 
+> I would like to highlight that when Linux/EFI is enabled, which is a
+> common config, efi_reboot is used as the primary reboot path (see
+> machine_restart). As a result, the PSCI reboot hook is not invoked in
+> this scenario, assuming Qualcomm firmware provides EFI runtime
+> services. As a follow-up, it would therefore be beneficial to also
+> improve the EFI path to support such custom mode(s)...
 
-commit 812adfb1b6b8e7de5a970209c3fa9a2a938214f8
-Author: Wolfram Sang <wsa+renesas@sang-engineering.com>
+I have not checked but we should probably put in a place a way for user
+space to check that PSCI is _not_ the reboot method that will be
+used, lest it would be allowed to send commands to the kernel that
+would be duly ignored.
 
-ARM: dts: renesas: r9a06g032: Describe SPI controllers
+Need to go through the whole thing again before commenting any further.
 
-This commit adds device tree nodes for the six SPI controllers on the Renes=
-as
-RZ/N1D SoC. The first four controllers are configured as hosts, while the
-remaining two are designated as targets.
+Thanks,
+Lorenzo
 
-> diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts=
-/renesas/r9a06g032.dtsi
-> index 442ea26b40f53..e5c76b38a58e4 100644
-> --- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-> +++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-> @@ -563,6 +563,96 @@ gic: interrupt-controller@44101000 {
->  				<GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
->  		};
-> =20
-> +		/* Controller only */
-> +		spi1: spi@50005000 {
-> +			compatible =3D "renesas,r9a06g032-spi", "renesas,rzn1-spi";
-> +			reg =3D <0x50005000 0x200>;
-> +			interrupts =3D <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&sysctrl R9A06G032_CLK_SPI0>, <&sysctrl R9A06G032_HCLK_SP=
-I0>;
-> +			clock-names =3D "ssi_clk", "pclk";
-> +			power-domains =3D <&sysctrl>;
-> +			spi-max-frequency =3D <12500000>;
-
-[Severity: Low]
-Does the spi-max-frequency property belong on the controller node?
-
-According to the SPI bindings, spi-max-frequency is meant to specify the
-maximum operating frequency of an SPI peripheral child node, rather than the
-controller itself.
-
-Setting it on the controller node might be ignored by the driver and could
-trigger dtbs_check warnings. This same pattern appears to be repeated for
-spi2 through spi6.
-
-> +			num-cs =3D <4>;
-> +			status =3D "disabled";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +		};
-
-[ ... ]
-
-> +		/* Target only */
-> +		spi5: spi@50009000 {
-> +			compatible =3D "renesas,r9a06g032-spi", "renesas,rzn1-spi";
-> +			reg =3D <0x50009000 0x200>;
-> +			interrupts =3D <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&sysctrl R9A06G032_CLK_SPI4>, <&sysctrl R9A06G032_HCLK_SP=
-I4>;
-> +			clock-names =3D "ssi_clk", "pclk";
-> +			power-domains =3D <&sysctrl>;
-> +			spi-max-frequency =3D <12500000>;
-> +			num-cs =3D <1>;
-> +			status =3D "disabled";
-> +			#address-cells =3D <1>;
-
-[Severity: High]
-Since this node is designated as "Target only", should it include the
-spi-slave boolean property?
-
-Without spi-slave, the DesignWare SPI core driver evaluates
-device_property_read_bool(dev, "spi-slave") as false and unconditionally
-configures the hardware as an SPI host. This would cause the controller to
-incorrectly attempt to drive the SCK and CS lines.
-
-Additionally, standard SPI slave bindings expect #address-cells =3D <0> and
-generally do not use the num-cs property for slave nodes.
-
-> +			#size-cells =3D <0>;
-> +		};
-> +
-> +		/* Target only */
-> +		spi6: spi@5000a000 {
-> +			compatible =3D "renesas,r9a06g032-spi", "renesas,rzn1-spi";
-> +			reg =3D <0x5000a000 0x200>;
-> +			interrupts =3D <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&sysctrl R9A06G032_CLK_SPI5>, <&sysctrl R9A06G032_HCLK_SP=
-I5>;
-> +			clock-names =3D "ssi_clk", "pclk";
-> +			power-domains =3D <&sysctrl>;
-> +			spi-max-frequency =3D <12500000>;
-> +			num-cs =3D <1>;
-> +			status =3D "disabled";
-> +			#address-cells =3D <1>;
-
-[Severity: High]
-Is this node missing the spi-slave property as well?
-
-Similar to the spi5 node, omitting spi-slave will cause the core driver to
-configure this as a host instead of a target.
-
-The num-cs and #address-cells properties here also appear to violate standa=
-rd
-target node bindings.
-
-> +			#size-cells =3D <0>;
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612080354.5745=
-9-4-wsa+renesas@sang-engineering.com?part=3D1
+> Regards,
+> Loic
+> 
+> 
+> 
+> >
+> > These DT patches depend on PSCI SYSTEM_RESET2 support introduced in:
+> > https://lore.kernel.org/all/20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com/
+> >
+> > To: Bjorn Andersson <andersson@kernel.org>
+> > To: Konrad Dybcio <konradybcio@kernel.org>
+> > To: Rob Herring <robh@kernel.org>
+> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > To: Conor Dooley <conor+dt@kernel.org>
+> > Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> > Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> > Cc: linux-arm-msm@vger.kernel.org
+> > Cc: devicetree@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> >
+> > Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> > ---
+> > Changes in v2:
+> > - Fixed subject lines.
+> > - Link to v1: https://lore.kernel.org/r/20260529-psci_sys_reset-dt-changes-for-pakala-v1-0-7c32161cf50b@oss.qualcomm.com
+> >
+> > ---
+> > Anurag Pateriya (1):
+> >       arm64: dts: qcom: sm8750: add reboot-mode support
+> >
+> > Xin Liu (1):
+> >       arm64: dts: qcom: kaanapali: add reboot-mode support
+> >
+> >  arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 7 +++++++
+> >  arch/arm64/boot/dts/qcom/kaanapali-qrd.dts | 7 +++++++
+> >  arch/arm64/boot/dts/qcom/kaanapali.dtsi    | 2 +-
+> >  arch/arm64/boot/dts/qcom/sm8750-mtp.dts    | 7 +++++++
+> >  arch/arm64/boot/dts/qcom/sm8750-qrd.dts    | 7 +++++++
+> >  arch/arm64/boot/dts/qcom/sm8750.dtsi       | 2 +-
+> >  6 files changed, 30 insertions(+), 2 deletions(-)
+> > ---
+> > base-commit: 6ee02bbf328be8a8586487e3af73b65a906cce58
+> > change-id: 20260529-psci_sys_reset-dt-changes-for-pakala-a09fc0e2a8a8
+> >
+> > Best regards,
+> > --
+> > Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> >
+> >
