@@ -1,157 +1,270 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0BA3DB31C
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB1335B63D
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781251150; cv=none; b=Zh++Sah9/b0hFdvFz97vb/7OWwxviPTpNFBK5Ce61oRcBaCllRJKEAMhCec1ozfB5N19AiNU0dzfIt8Fak5drHpaUdUFiM73dYoDWu2yiqtYFFeERAPaUTAqcrmDbak9Ha6PQXjqW7v6D9N5NngIgwLYvC6NCm5fxADNLRBZMyE=
+	t=1781251216; cv=none; b=RJ+eieoqOa/r81/wCDEESmUZpolnmmaBgRNVOgpYxVo7RBfhmCoeQ9hkRhOkCxhB0m1CkNyoOp0PuFo1m+oc+3UnwJiYQnKJMYBez92tKu29lh6edQq1z8LgfY7Zql/8xq5wZafh8GOSFSASUhMaAFmwLuXbSOy/Lp1KBFtSAPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781251150; c=relaxed/simple;
-	bh=cdQbHbOh7G19cgLNaR2oqye9IBbCmOZ3y0zSOEd1BB4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=WL0jta2rRgFQprAzxsgJrTudQWga7LE9i41lhmOsZFEoBLLeLlqCmACyp7HrIg0sOyLB2YQjVOEKipcHtikX/Mc+bE3p9fP4AfKqP9BCerGMCR8IyJQaw0tZbcduZA15U1+Kph06e1dLGsvggimHuwaOAzca//z4ARemoW/1PEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SYBodW2U; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781251216; c=relaxed/simple;
+	bh=tuAIt/R7Yp0sjjeF+vLC886o/XFYgD5cKQeAyjph9yY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NUdR1e+60bMtuAsPPlpLzH7Y0IdHrCRH10/LnJN/rGROGEc7ynAAxuElJC6Etg501/TzMg8i2h03tyS8ZNmvcln8UNvHlt4FymN/JbzWcLvsGk6oNxUSPI0IqP56LbjN8seIPYaSRv89df6O5RITuj1aTbKUF8uGq/ErVNCFn5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kiggQPRo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RzCJL1rp; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SYBodW2U"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490be03d47bso6121315e9.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:59:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kiggQPRo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RzCJL1rp"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C39mQn2497232
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:00:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=pCUAy39XvVhYmfJPAmpzk/43
+	pUuK99XaLb2hRC0DYLE=; b=kiggQPRoV026e/wndGa3YFp8JUh7kmWlKww9c5oZ
+	M14BlwLPrIAelHYIxtc2OAK+CAp/kml35xbmqqxp77PxXiIm8LSPXmw24bwCgc7D
+	Ei+D5FbV7zj7aQyUGTwDcnsBLdPkvTBQTTF5wJpADwWSGEPCRu5iyeKkfcaX790M
+	hAkZPPYzqMlnOT7eRZzWdMftjYXfCK2cd8m0+bBMsvNawk1ipWARkFegpKm/lWgS
+	hlkHCwA1uxahXcNr0IkFaCf6Tll1Hd5EgqYGdCRXBmHt4OUAuZXvgeULZvas7ceF
+	kyupmAy/aFuk5wxXsz3j7Ry/28/vQj+a+DCbMlCcyh+oug==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er0x7jqg1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:00:13 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-517787172b0so11198031cf.0
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:00:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781251145; x=1781855945; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wlA9CoTRXZR0TaMdtjA4AVATbFz6rhs9UGQiBwINUPY=;
-        b=SYBodW2UaDca+a8ZO0L2hOFUGKeIqZrEQ2QSdz8Tyz7NZSDn13HIn0xZoN4no1fkCJ
-         joljHgalVt3KU0+HP5CMjuW7TDDjsKMe8gSr5/mH90mmzSGVQVSXOeiOaxlkyNEXlWc0
-         bh7UnHiPMcT+d7ko4rPLtQxu+9R0qJ7IKp4WrDH0TVMPv+48pEOzsZUiwecqVTOwMi3i
-         jaXHyN1l3s4jhtICOQmw5elccjqL0H+5kE9hbtlUar0hTob+77JoMcQXGtEwd50dP3gD
-         qjA5x+7mgkRC+QW59EmgkjKcHf9zMQHaysANo/Z5Z5GxCztusehld29a4VPNbwN+qWNR
-         E+DA==
+        d=oss.qualcomm.com; s=google; t=1781251212; x=1781856012; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=pCUAy39XvVhYmfJPAmpzk/43pUuK99XaLb2hRC0DYLE=;
+        b=RzCJL1rpryY06MXdVSdxKrxfH2E6+d8uTQ6Ku9gM+c4ExhKsWrD7NSHtARadQYnjIv
+         A3/ZnJLv/f9RehWWwRoeDIhq+OvI6V8yek7NWWnSJMFYowyDvoiow1XsqMypBM8+21xV
+         EHnbI9JUdm2lwFVsq0PUgJR8E79iUwjFxD3SApyLk2HzVWW4oqKXZZJgWaFo8NwFHZ3I
+         YC/lqDc3RDwsxU9bSozUQXwjxWMUvRsKHv5M9R+pD3XC0BJDU6GHvwfn77ruoJ5aPnak
+         y5+dcp2TJQjfuihmjaaK09gMc+CoZby11f+wEdGii9FS+tuwS1GFK5xNalY2+UychDiQ
+         wR9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781251145; x=1781855945;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1781251212; x=1781856012;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wlA9CoTRXZR0TaMdtjA4AVATbFz6rhs9UGQiBwINUPY=;
-        b=hrgB3jv05i2GBktcVywSmQOhA+WeVYYXyxIYJjGMFGQvS5/SHs8AbInNWtk1Sn4NFK
-         vq1GmyuQ7LqMvKzHi62CsJZclBwoS/t5ItulVtg0rsXSzNvpElKn7Vb022BELhupHLZS
-         +TtvVKZze3MMrbaj2Lqc/jE4OytUy0D0RNTTfTBdGNcRKaNN8E8eK3mrqHMdy2DLvrUt
-         XGw/M6swBfdDwYd7S2Zh9J1nCrZAUCLDhXKic+KxY+Ip2vQbzLGH4kLrDsesQB9o0YgW
-         GKB/JsoUIPV8YK9SUA8pZ0/MKKy7JLYDZBIOg1ySlN276laNnQFuI1WBSl9Db1JN1DsX
-         KC1w==
-X-Forwarded-Encrypted: i=1; AFNElJ9ERKdL3TzMxstOcSBbksutHVlmavQSySf1QAPocIeHodXbmu44XC32AS+qISZpiELMNNxl3pduu7OY@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywiq0v4yNVDT08CdXAp7XTCEkFzyhqulD8pDgS349nVt74SFZk7
-	RRkZYfgkege2CQetRBOxymRJuxq2jXREC6wJ2/a5J9UFtKh9ej9es8ChP4xCz+2f/80=
-X-Gm-Gg: Acq92OEbCbKG7MKjTO18gKysPwfF7tYbZ1+zFvknAfcxvmc1onSsJt0r0CHJgC2a6sy
-	AOzNXRDyamiqsHwpu1e+rIGJU6uweFlyaINSc4ZHaigf4+/t0PU2OjE0RTMT49gS1fRuPuTQ2JP
-	xsZmXai9d7uTwQsWL66v0AeRikqQlv/BXsgLJfIDQZ4cACARr8lLlTCLIh8Wmdm0gOoE3QNyJR9
-	SkS+o+d+t3Yk8RRkOELJoJ6rn9KnS6xJ3V5KLSb04DET2UXbJeO7cDGCiVYpndy0Ou3llvYPueM
-	A7H3XsGDOcp6phEn+LexDKZ+PzxELHRNtKT37zkALV6UDB4X03lc1T3GHVkD4toEzu//OMnruMz
-	HhQOmUCRTU77sMJhqo08Qkpns1kJyxW3pOg6uPod7e9QNf0kt7Oo67/50ucaWk8LEaZHM6GzJNn
-	WLmnkT3As8XABVnre8o51bDeKmygodwYJMVlHRHNYYWqUPfuiFnnMMvYupCdkTEPUg4Zl58URLt
-	0PPMgs=
-X-Received: by 2002:a05:600c:8b06:b0:491:8043:5c4a with SMTP id 5b1f17b1804b1-49180435cf1mr6096185e9.31.1781251145278;
-        Fri, 12 Jun 2026 00:59:05 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:fe5a:df12:588e:baae? ([2a01:e0a:106d:1080:fe5a:df12:588e:baae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea843d63sm45658645e9.12.2026.06.12.00.59.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 00:59:04 -0700 (PDT)
-Message-ID: <e7e6d38b-6d80-4c75-bfbf-eef49589ddbe@linaro.org>
-Date: Fri, 12 Jun 2026 09:59:02 +0200
+        bh=pCUAy39XvVhYmfJPAmpzk/43pUuK99XaLb2hRC0DYLE=;
+        b=IX9sX6I5Qywa1dAS+mQZ7NSZKqu0tcLJQn6Rmz+WRwH6NCTs1fCAaULx5nRZztbP8w
+         CIF/5UOya4umN3/EmyNbxJtGXOX7O1Ge1RJ2a/eHttoQxx2WDItRgO9OqxebpEhrz300
+         OibpvZukoOqgTzSOhEBAC5bWknT+lsvzwLqZyds7DRJq24J1NX2Rt6cKVA8gL8pj1wLA
+         R9q018NDexyj8+XDtZK9K8DGYrzKOeFOaj1jKfzKu+jZmtqN7z4KTnIHTA2BSiO7fFML
+         +0Owu5/GrbDpynYTPofujGJbXL34/LiRZCWZHwomMGOMeVIIC5p5LLUURqMXJdQjNR0S
+         0p6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/LvrruDQuGtIdyXSuJeFyEpzPCAmE7POsAiWmnTM06T3T1T8wTVYI7JNqKYOD5GNpNB6NSIG6KoccZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwiMixXUhFXQAEA5Sh3mAa0am1JjUIwjOi1sZfZ9/4e+rUuHCPZ
+	5grDTa+z30NTZ4la/bcsdmGJq/0ULutsDxaI107MXWHYIKFw9irhr+qYMn3A1Ei5EJ7HY1nOmfd
+	VR9/N+OR//3ittWc/m/Lgu1zY+6CLpWABeHNN8dYYERXFDxazkkLr6ppQ93DIZFOr
+X-Gm-Gg: Acq92OF9vnjtJqFlhSjcjpcdlG7DUx1TNW/bMPEgZ9v559DaaNrZwLtLSj8YZVDyvoq
+	CICXN+Ut44lNeUi55ks+Krhx3d9oUj+CfgCSKbDbtQ5W5pzwP5waEWPaEQmg0CGDvaqKm7dQhT8
+	0Hd8VNtp5X1n29SMj6TFVqpuAE52bJhtDjZ/tBx2AuL2FWKWHz/f4BmSeeHJfQJaAbtHzFlycgF
+	5vyH66HUyvD3fg7q8lViO1mgoKL8N4jvL88v7UaxcRI5onHYu12a6rzXKS3f7sEfzv8Vc5z3TlJ
+	WppEQK01RpRo1uPcr7hufLKTrKCN3htm4kbpeH1O3BrAtNMy3/mcW37wiO12rMiwvL8LboTbf1K
+	e0zr1fINcZXOV7ZXjMwzXsoDhNDc6SIlzTBpEJIAs7Zop5cd9bmPnre+UNNiwRKH6ItcK8PYK7B
+	kkRjfG7fuYldoD0PATzCDNH9RP5aFZtktoZXs=
+X-Received: by 2002:a05:622a:488d:b0:517:8711:d466 with SMTP id d75a77b69052e-517fe59b87cmr21873751cf.56.1781251212120;
+        Fri, 12 Jun 2026 01:00:12 -0700 (PDT)
+X-Received: by 2002:a05:622a:488d:b0:517:8711:d466 with SMTP id d75a77b69052e-517fe59b87cmr21872951cf.56.1781251211630;
+        Fri, 12 Jun 2026 01:00:11 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1b3d0bsm322680e87.71.2026.06.12.01.00.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 01:00:10 -0700 (PDT)
+Date: Fri, 12 Jun 2026 11:00:08 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: phy: qcom,msm8998-qmp-usb3-phy: Add
+ support for Shikra
+Message-ID: <5vfu3h66pelbhzyfqnagxg2j6r5mn7jupx3nmewt2zsggfa6sj@ttqr775cybxa>
+References: <29571bdd-23bf-42a7-a9e3-918a28c79700@kernel.org>
+ <62161822-2365-4ec7-80f7-8660bdadb177@oss.qualcomm.com>
+ <40b5e0f6-bc61-4750-9560-bdcc268f0fe3@kernel.org>
+ <d52c5039-9431-44ed-9f3b-bb00d03ae176@oss.qualcomm.com>
+ <5baeeeed-7c18-46f7-82a3-5bb299ba05ef@kernel.org>
+ <42ba6ac7-306a-419f-96b6-3427c51ef567@oss.qualcomm.com>
+ <9ed7c714-07c1-48de-8d27-cbe24356c606@kernel.org>
+ <34586ed6-4f78-490f-a916-baf7657cca7a@oss.qualcomm.com>
+ <xw7f24rvxhkfntui4jjswyyabb5be4cbkfgh7fico6vlhfvf5b@d4axfyz6gds5>
+ <0947e485-4619-43a3-a127-5b887780190b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: switch
- sound card to ayaneo,pocket-s2-sndcard
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, kancy2333@outlook.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
- <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-3-18bb19c5ca22@linaro.org>
- <tkgqorjdnvwcx4ddgi5m7j3g6wlawxnm5ugty6y33ftwxzbvv5@uxcai2sgglfs>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <tkgqorjdnvwcx4ddgi5m7j3g6wlawxnm5ugty6y33ftwxzbvv5@uxcai2sgglfs>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0947e485-4619-43a3-a127-5b887780190b@oss.qualcomm.com>
+X-Proofpoint-GUID: u0JfmceJe_1h0Cd5y_XUydE72aGLFxn5
+X-Authority-Analysis: v=2.4 cv=c4abhx9l c=1 sm=1 tr=0 ts=6a2bbc8d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=nvlhaSRbYAXosuLdH6gA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA3MSBTYWx0ZWRfXzJyyGMHsWX6T
+ N1suyQizdb/kVGiLFAgEnbcTUfhoQcxLHttpbXRhWAKUuAUzgAgjjrKGieYaeOFNNMvbvSH/Fml
+ rmGdctJ9M5d9OGB+foprowwyrBoQgMRQ3Z3GxGQ34VGYIHH+/PO207w/8umkPT2qPw8NFA7q4V+
+ c4PhsEHgbsy3rKbvbUSCrBZZEdjX69OJc2f7Cczoy3qocByt49BLOjlzyBiDGuLWuPka50shZrc
+ mNaIA2MP+2sWxPK4aBOJeAnAgk+y4Qt5yHuwDHORfBHCYe5K8A8H0tQ/c5jELtzo7rytP/WdDVz
+ uDW49Al9K7uROq+LS0TyImesuXycYYMuT5hxk5SZuy+U19LN/ZlrgTzSVqKYbEXhL2Hu2wQloN+
+ EBy+oc9SzziF2zL/s2rsrZSf0POm24lofVz6AWBUh8PwOBr5uHA/vr/2UXEb2w5TlSM9Fbxn3DB
+ g7hBEP88NtI7T8c+RDA==
+X-Proofpoint-ORIG-GUID: u0JfmceJe_1h0Cd5y_XUydE72aGLFxn5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA3MSBTYWx0ZWRfX4hY+IcTPSUmb
+ f0rAkvWzGgnH6hTB3fW3vVnWFemf6AOmN6aAPVUY9okfda+hDN1EiEwgEDYXfIf8KrEevC1dZ+Z
+ nJl0+6zbFQEbpZsPg/2gGpCPlfLMJ4E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120071
 
-On 6/12/26 09:57, Dmitry Baryshkov wrote:
-> On Wed, Jun 10, 2026 at 09:41:47AM +0200, Neil Armstrong wrote:
->> Switch to the ayaneo,pocket-s2-sndcard since the hardware layout
->> is incompatible with the default SM8650 generic sound card.
+On Wed, Jun 10, 2026 at 03:36:20PM +0200, Konrad Dybcio wrote:
+> On 5/17/26 9:16 PM, Dmitry Baryshkov wrote:
+> > On Fri, May 15, 2026 at 09:06:21PM +0530, Krishna Kurapati wrote:
+> >>
+> >>
+> >> On 5/14/2026 8:07 PM, Krzysztof Kozlowski wrote:
+> >>> On 14/05/2026 08:22, Krishna Kurapati wrote:
+> >>>>
+> >>>>
+> >>>> On 5/14/2026 12:26 AM, Krzysztof Kozlowski wrote:
+> >>>>> On 07/05/2026 13:37, Krishna Kurapati wrote:
+> >>>>>>
+> >>>>>>
+> >>>>>> On 5/5/2026 7:30 PM, Krzysztof Kozlowski wrote:
+> >>>>>>> On 05/05/2026 15:57, Krishna Kurapati wrote:
+> >>>>>>>>
+> >>>>>>>>
+> >>>>>>>> On 5/5/2026 6:59 PM, Krzysztof Kozlowski wrote:
+> >>>>>>>>> On 05/05/2026 15:27, Krishna Kurapati wrote:
+> >>>>>>>>>>
+> >>>>>>>>>>
+> >>>>>>>>>> On 5/5/2026 4:22 PM, Krzysztof Kozlowski wrote:
+> >>>>>>>>>>> On 05/05/2026 12:49, Krzysztof Kozlowski wrote:
+> >>>>>>>>>>>> On Mon, May 04, 2026 at 10:36:57PM +0530, Krishna Kurapati wrote:
+> >>>>>>>>>>>>> Declare the USB-C QMP PHY present on the Qualcomm Shikra platform.
+> >>>>>>>>>>>>>
+> >>>>>>>>>>>>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> >>>>>>>>>>>>> ---
+> >>>>>>>>>>>>>       .../devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml      | 2 ++
+> >>>>>>>>>>>>>       1 file changed, 2 insertions(+)
+> >>>>>>>>>>>>
+> >>>>>>>>>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> >>>>>>>>>>>
+> >>>>>>>>>>> ... and then I looked at the driver. So un-reviewed. Devices are clearly
+> >>>>>>>>>>> compatible. If not, explain what is not compatible.
+> >>>>>>>>>>>
+> >>>>>>>>>> Talos uses GCC_USB3_PRIM_PHY_AUX_CLK.
+> >>>>>>>>>>
+> >>>>>>>>>> In Shikra, we are using GCC_USB3_PRIM_PHY_COM_AUX_CLK. We don't have
+> >>>>>>>>>> GCC_USB3_PRIM_PHY_AUX_CLK.
+> >>>>>>>>>>
+> >>>>>>>>>> Hence, I didn't use a fallback compatible.
+> >>>>>>>>>
+> >>>>>>>>> This still explains nothing. How different clock makes interface for SW
+> >>>>>>>>> incompatible exactly?
+> >>>>>>>>>
+> >>>>>>>> So I went by the naming. AUX vs COM_AUX.
+> >>>>>>>
+> >>>>>>> The naming does not matter. If the clock is called
+> >>>>>>> "no_one_expects_spanish_inquisition", does that make software
+> >>>>>>> incompatible? Why would the name itself matter?
+> >>>>>>>
+> >>>>>>>>
+> >>>>>>>> Can I use a fallback compatible and in DT vote for "COM_AUX" clock with
+> >>>>>>>> clock-names mentioning "aux" ?
+> >>>>>>>
+> >>>>>>> I don't know, I asked what is different in software interface.
+> >>>>>>>
+> >>>>>>
+> >>>>>> Hi Krzysztof,
+> >>>>>>
+> >>>>>>     I checked with the hw team here and found out two things.
+> >>>>>>
+> >>>>>>     1. Shikra is a spinoff of Agatti and its sw interface (clocks used and
+> >>>>>> regulators used) is the same as agatti.
+> >>>>>>
+> >>>>>>     2. I thought we could use qcm2290 as a fallback since the phy register
+> >>>>>> init sequence is the same for Talos/Shikra/Agatti. The difference
+> >>>>>> between Talos and agatti when checked in the driver was the init load
+> >>>>>> settings. I checked with the hw team and they suggested using the init
+> >>>>>> load settings which talos was using.
+> >>>>>>
+> >>>>>>     Hence both these compatibles (qcm2290 and qcs615) cannot be used as
+> >>>>>> fallback for Shikra.
+> >>>>>
+> >>>>> Then I do not understand why you are using qcs615_usb3phy_cfg for
+> >>>>> Shikra. You say that the initialization is different, but you use
+> >>>>> exactly the same initialization. So in a meaning of compatibility
+> >>>>> between hardware for Devicetree they are compatible.
+> >>>>>
+> >>>> Hi Krzysztof,
+> >>>>
+> >>>>    There are 3 things:
+> >>>>
+> >>>> 1. Clocks used:
+> >>>> -> Talos supports AUX Clock since it supports DP over USB.
+> >>>> -> Agatti and Shikra use COM_AUX clock since they dont support DP over USB.
+> >>>>
+> >>>> 2. Phy register Init sequence - same for all 3 targets
+> >>>>
+> >>>> 3. Regulator init load:
+> >>>> -> Different for both Talos and Agatti
+> >>>> -> Recommendation is to use Talos regulator load values.
+> >>>>
+> >>>> SW interface wise, shikra is comaptible with agatti. If we use agatti as
+> >>>> fallback, we would end up using the platform data of Agatti where the
+> >>>> regulator init load is not suitable for Shikra. Hence not using Agatti
+> >>>> as fallback.
+> >>>>
+> >>>> Coming to driver changes, I used qcs615_cfg because it has required phy
+> >>>> register sequence and regulator init load as needed by shikra.
+> >>>
+> >>> So is it compatible with QCS615? If not, then something is incomplete or
+> >>> confusing. The driver uses the same software interface.
+> >>>
+> >> Sorry for the confusion. The Talos compatible represents the USB/DP PHY with
+> >> aux clock input, while Shikra is a USB-only PHY with com_aux input clock, so
+> >> the two PHYs are not compatible with each other.
+> > 
+> > According to the memory map, there is an (unused) DP registers part
+> > right after the QMP USB3 PHY. So, sofware-wise it is compatible to
+> > Talos. Having the different clock input means different integration of
+> > the block rather than the differences in the hardware block.
+> > 
+> > So, the block should be compatible to qcom,qcs615-qmp-usb3-dp-phy
 > 
-> Incompatible, how?
+> It should still carry its own compatible though, to let the driver
+> disallow powering up the DP part
 
-As explained on the cover letter, the WAS speakers are not connected
-on the same lines as the other devices handled by this card.
+Why? The DP part is there, in the PHY, pretty much like it's present on
+most of USBC platforms. I assume it can be powered on.  There is no
+point in it though as there is no DP controller (nor DP pins).
 
-Neil
-
-> 
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
->> index 0dc994f4e48d..508d1445bf21 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
->> @@ -221,7 +221,7 @@ upd720201_vdd33_reg: upd720201-vdd33-regulator {
->>   	};
->>   
->>   	sound {
->> -		compatible = "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
->> +		compatible = "ayaneo,pocket-s2-sndcard";
->>   		model = "SM8650-APS2";
->>   		audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
->>   				"SpkrRight IN", "WSA_SPK2 OUT",
->>
->> -- 
->> 2.34.1
->>
-> 
-
+-- 
+With best wishes
+Dmitry
