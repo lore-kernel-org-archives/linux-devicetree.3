@@ -1,140 +1,127 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2117.outbound.protection.partner.outlook.cn [139.219.17.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3F736BCD7
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 14:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781274798; cv=none; b=efilEgGoqfWctHRMQT80+e2q3nj9O5kO1O8uskpOiHad/Kd5z3QddR+jpUcgi3V3/XbA/uDxt1ykKqjC2p4H64Yj1XRGWtT4izLKqxoEcdFsb4qL8DGjyV1lE819Jj74i3o5l9h2X9VBedN7X1j+sHsbfRa6oBk73grrM9pfMvU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781274798; c=relaxed/simple;
-	bh=tMuFqRJtSjW/BtSIGP7fEghEyWX1qeHJdf7t1D8fGrc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=i0rk7QiAmN/ZjmSsfUe95FU0E6dLrB3dHBVTRGoIo3JQ6eG1mw4MNwl4VBOV42eBZz2glJlfnv4CHTPpxmyIIudk2s5jzgoNikGQTtWHBWCJCtuadneYii1J0WJCGuwv6FBEGXf8i2UzerkrZ0Wbemi/UC6QeuTCjQwlZNhCOcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=nD3x6+aw; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="nD3x6+aw"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bdb3fd39045so158144866b.3
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:33:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1781274795; x=1781879595; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TTLM106efnje673B2OyrJhDO3JKyBJ//Wa8kKGBktzg=;
-        b=nD3x6+awdWyy26Ksyt968dbDCZ8Qpn3bIemKFD9LS0X1++6tQ7bvece/nKWDtBtsuh
-         hAt6hwlxDXWWafeDGCRENBNqbLHjOh/UNwv0iLHubDlDHbuq5QHbFLd0g3YOecbEEs5I
-         K7WfYomB0W/2J/mgxj1vAVocYnyhyZVMWWhwhtT0c8FKb+T8jguBpLQaIapdJ5+o7LU+
-         r1cfWuq1CBr16kFmSjod5ZToTQWKHsIQA6TdalfCugDvV5kqpRY+UjM9KJF0m63Pigrl
-         D3QZhb+LfppCTRo+aeuXi4ulSWlnv0K5lEHr/TYiamrkbCpwsB9qihEdl7/XTxmeJhiu
-         MyjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781274795; x=1781879595;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TTLM106efnje673B2OyrJhDO3JKyBJ//Wa8kKGBktzg=;
-        b=oMFnjWM7ra9+Zlu/Lvq1gYv6Cj8+LJqW0kyUFMULu1u77Q5wuLXmzU3gW1g9VyTN+l
-         NRQtEturK0g0OjbKB28GJp7K+2lUXPIcemC9oCMI82qJ6nN+y3pMMas1UgE/UYNDyVN6
-         ez5NsSJknskIik/FUgi1dAvMJif7nICuSbpqqB4yevcDGKkBb1RCnXsD4ACKs77swiog
-         cZvicXu9TS3rJfB3p1kSiKibCW9+Ce8C20e78f3hzXdnPMxjEA4EIlPCI/rcvA6us5w4
-         vkMC8Y0C4ZjeX9wkLKfH5sptjSoFXzNTnW/AwsFomVPnNdqi+y8KQ5fFYhd7ODhDTtta
-         aTOg==
-X-Forwarded-Encrypted: i=1; AFNElJ/DQ9wOKTrcYtHynSFOUkEFROH/yTKugelnwAb2Pxvr9He14f7tYAxpeUMTkQeiWkDFdTdZgtJwdGju@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFUz4Ra2bYYlH7LyhKZ4I71bGdTzOwBPwO7GWxh20s/zz9clGA
-	m1SK2pzdvtG08Oz5yExTVYYEoo9WjEvnAH3nkalUzlJr02Y8ULBWo+FiVPV0eTDhpNQ=
-X-Gm-Gg: Acq92OEjA3LthZH3l7KNWvvr6g5W2NvlNr4OBJP1a2DWMp9xVclgNPZxhMAKBK2VQbr
-	tYR9SnLloTQNR5AJKv2z/sWZjHe9DTNvMxKEeHKtWOmMmIOKeTUClLT/YOP6EYn5pWeyOAqj2vf
-	spzdDVIzPqTC39arBcC74inuibXvlcqZ2GcmEup9j2e7o5ECUoIJGaPhXK987O0v2/kXZ7Sf0I6
-	CHyIMmjxC/RD8eMJ36+m+SQPRL5gf4JvFscHmSuTbfobznQ0xNNZyZe3mm9DD37uxbVX7dm5uug
-	o9DoKbI55+cu0X5lzwgEC0d8650JBH9Rkj5nw29dKRlOv7LXMt0PgckcCN3wKmBL+Qr2IFb/BIc
-	F77ip4FunbGT98yaVvEGAEA1UudP5KCDIQuBAqTOXv1Gw7soAC+9hzQGOM8j4CzUf0E60vEPAJd
-	/DQfTKx/+um/CkFofZc23MpUojb9tqWE5ttFloV4uAi1mXzvj6plWWMaawIYVzI9TIiIeEpm3XA
-	CVTSbr0XzaIcpd4f2BTUDDAjn1ASte8qko9mA==
-X-Received: by 2002:a17:907:9994:b0:beb:bf23:ac78 with SMTP id a640c23a62f3a-bfe2aefcebcmr149500366b.44.1781274795114;
-        Fri, 12 Jun 2026 07:33:15 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb4b32308sm110137366b.19.2026.06.12.07.33.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 07:33:14 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E45C36B043;
+	Fri, 12 Jun 2026 14:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.117
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781274812; cv=fail; b=NCTDIiHKB37CdWuuf3YPgucapfYgTi8Zjwodl2fkfEep+4UKMENdav0vQx2k6TsXyoIdcvm302oCduuJnpboJ4lLcmtK4rfsEaWJJgrYDdlEbrP73JFnU96+BUVbySEPxE5+xbHa+ABs1QIYNtgUhceN9psLoPRJDCtYW87xTC8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781274812; c=relaxed/simple;
+	bh=fLie5pEZB21YpdkaLiUUtj+J30qtOGCjz0OoP7vfxo4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=TNoRW0xAE5qNgKurhBH+8qqoevCqEzJEusZ5bW04tDS/PDere1L2jdhQOefieF+YJqdIsJQLGQaY70Z32XytuLsjlFCUddYYwVsuR0FCDAdldZ+j7e0Az2z717yxzn71n4SBI8GzIbdD3GC0G37sMgbjpOt4y5BWOcuhxqRoEYI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rsi1lanv6DGhZJyBoPJgR80mokyiO1U/l0CUMmbQ6aCi5vvlB6C9NSBdX/nqOPRbiqH1mOnIRfLUqbX4zPQ/fTEjSwpk+qIbmFB3oSIo50C60xskNEuUjfMxCb/YW8ulK4NOK+TCC6W3QJ/VUws5D0KQTP8jCmhICSwxOOqtVlcMcXnfvE5SnX714NmgzvWZkfSWKqI2X1tJzMiyMbfRWIchW4hIF5yXKV0ehInIdClqBap0qEeRzjx3SF0feF15yubjOBJ+9vq5XMuqu6ihlxLV4gNh9AJarv8s/NbBwj54dZbB3jibQiG88jYOtsL61Ri0OsGYk0cXwgfuYoBuJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NV9Arc+tH+msPyEyY8KzEuiezBHhkfImdsFTfuPpOMQ=;
+ b=Si2uWh727axILiC85NGtSTxz9gflun3Kl2kWnHcNmAFHPIcfd3IwCXn9sGBe4ECPXhNk75NUz37Au8sEGr2RhoCB+D9SoXBtjclTYLrwAOINDxPnhTzoxLMFq1whV2m6AkmaXXmA24E4lsDrDPuyPgzsPbS1qDFajppj9hdegENQSoEwI01uAG68bois4wHaDLG6pWimceZwjNHFRyId9q8hDoi5mq+t0emnymEi1i0hVUcTvvFeqN+YYi3gylT58L0sl5zqDL3Ivfz1tkgEn58R3M6xx8wXAwG60fcqTvQhn4WpL42bkq0HMZMDEQsGfJed3Jw5Ng5VqvUCspFRSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1201.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.15; Fri, 12 Jun
+ 2026 12:59:08 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.21.0113.014; Fri, 12 Jun 2026 12:59:08 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 0/2] Add support for Synopsys DesignWare SSI controller version 2.00a
+Date: Fri, 12 Jun 2026 05:58:54 -0700
+Message-Id: <20260612125856.8530-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJXPR01CA0063.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:12::30) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 12 Jun 2026 16:33:13 +0200
-Message-Id: <DJ757RE8OYHO.2XEXNTLVIJ497@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Luca Weiss" <luca.weiss@fairphone.com>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Alexander Koskovich"
- <AKoskovich@pm.me>, "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "Marcel
- Holtmann" <marcel@holtmann.org>, "Luiz Augusto von Dentz"
- <luiz.dentz@gmail.com>, "Balakrishna Godavarthi"
- <quic_bgodavar@quicinc.com>, "Rocky Liao" <quic_rjliao@quicinc.com>,
- "Johannes Berg" <johannes@sipsolutions.net>, "Jeff Johnson"
- <jjohnson@kernel.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-bluetooth@vger.kernel.org>,
- <linux-wireless@vger.kernel.org>, <ath11k@lists.infradead.org>
-Subject: Re: [PATCH v2 2/7] dt-bindings: bluetooth: qcom,wcn6750-bt:
- Document WCN6755 Bluetooth
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
- <20260403-milos-fp6-bt-wifi-v2-2-393322b27c5f@fairphone.com>
-In-Reply-To: <20260403-milos-fp6-bt-wifi-v2-2-393322b27c5f@fairphone.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d1dfe65-bafc-4d3a-2f0e-08dec882641d
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|52116014|1800799024|376014|366016|38350700014|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	CbKbEw9F3vH4nVSIli7GR+8bOSkqF2FspXj6aPSiT+u2I7HIju8dWA5wIETyyIG1gxuMWo16PMFWf4NqdquiNTmkPqatomOlqFOVMblxPi4Ep8VUsRpf1q7cvsOADP+OiH/g/YT5NPxLKN380PCCY9U6PcUGDIJJJ0mn19SMFWWjeAFGf7+NSW+i0LbCqedDjfQnaPOQnukzWriuLN4QDt/flPodcqtxfBDSROsI84LTN58e6AkzK7W/64OqiLuAmZYxA367r/IuuPkSijbwX5s8wupt0axAd4r09tqlYyHQGlmaSsvj7347jlJ6xgmOv0nMrkbtmRFWDcueSsdOfX0xEZGxT4qdb+9m22igv46mySB6qFjk0NzEeINEwtZiNHVvvxEBSpHACtGA3rikz2+rLB+YazB3kExgcZP6//zjVoktnr4u73+J30TcTat+gZ5XdlPqL2Y4JpatO6EIgWerzzn7MhoNjHTkHbGcFP5EOXxCxKyJZqW+Msm9qvSYvkYD9sR7qv9EHQjax9NxNixwYfJCl1lZBIk17wnfS8xNrU5oobDMERli4gG6O6Cc
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(1800799024)(376014)(366016)(38350700014)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?KhO+2L+4PmxQ7tU/7la8pNSiPXpIobkylCCrz4upHCFkH3hUg6Uv3WT4roeO?=
+ =?us-ascii?Q?OVkElAKUwDvrsNp7vW5O/85tR5M8TTPcQZo08HxyZJCKWaxneVmkSGsOIuE7?=
+ =?us-ascii?Q?amqlNU4ud0fcj4RwYcnY6DjZlpsqL8xp0draVFGudYAo913+JUe3UFJLvtAJ?=
+ =?us-ascii?Q?rOE4EsPljSGoYqdGAGe2R5lQfHpFIPNC6xyJrqXCDWLL59Fhbpv/424d3aAj?=
+ =?us-ascii?Q?CmPxn9sBz3QnIJnTDDSf0+EE7nsqbOMsPwa/bZHyQ9qXq75jVJCZAJlZIP3u?=
+ =?us-ascii?Q?D/ziCpbIekCXNOg45PaWz+Kv2/R7Lj1uQ/wwbqPBMu4AX3TEaikDlDMAhrg6?=
+ =?us-ascii?Q?sgWkonKSAvbLW4R/vq96GraCeJkLzARAdL6CsBAuD0ZyVIf5JbDlQlTwRPuc?=
+ =?us-ascii?Q?u1Kpm+czrfZGaHa/NrZ3aPlAXhb6I5SoVYSnkHMq3m6c+a9Z37xeugclyOxN?=
+ =?us-ascii?Q?fbXSv/QGfyi870whRI0ASYGbBxV+OMj/4lxdZ3wERNZ4eCXZc6NFpfxRj7gS?=
+ =?us-ascii?Q?yX4uoCQm2DM5A8JLw/skN9cTNSNQz5Chr6e2s1TrJfRP4ko1z1idP4XdjNN8?=
+ =?us-ascii?Q?MvdDQyg84bGZRPlNY6ycbXRCDQn+qMelfTZXK/zKP+gpEbDGBbaVF/1rVdZ1?=
+ =?us-ascii?Q?q4A3/L2IJKtc+mSTG7gpMfTyShmz7XMzWZccclYoEAkZkISKFQTxXxQb/EZQ?=
+ =?us-ascii?Q?gid+qCdGk3wyMfIQFJ+kDwuVVMF5yK/6PNxQi6FxZ2Rd3sWzaB4iw6pCqlMD?=
+ =?us-ascii?Q?dWvP+V8Vy2EuUQTMg6Ek+3WflAf0gKiG1j4DMBSfdYbVqnIJhjtE+0OI2xb9?=
+ =?us-ascii?Q?ezfCK4DoB13pFTtv3DxrrjUM5hknrXHmoaachJlaiO6EcdpMkAhrNDroyBxj?=
+ =?us-ascii?Q?wRaCPixJn4uY6KvT1Dd+6p8VDZAJbnYmEl1fzZ/rPcb1PXo6rHiF1FxBUuCv?=
+ =?us-ascii?Q?M/bMnsXSrJQdfYl4VzSdLRM8YZSzOkK4fQ+1MS1peKBkJZ65d31ejwApbvVP?=
+ =?us-ascii?Q?rWAgbwjCX7HSc0YCDdNqvLbNDPxWCIUOPF4Ey1K/eIUtzC7AH38LNJHkqXNp?=
+ =?us-ascii?Q?O1jrnEdpS6RftvmoIhsapzhIwzsd9x+InFKKiC01PBh/vsCV/Bvvl7s/cu80?=
+ =?us-ascii?Q?IESYRJWjTDv2SiGQQbjNj7zrEEf6mPDpsHvpixLVMnBJhM201e60KDC07PuF?=
+ =?us-ascii?Q?IAwaowvYvXFdk4EDTDvkwzD1Us0dxC3TULDDnhLTOm8eJWSrkLXtmK7Wo/SN?=
+ =?us-ascii?Q?hVdcfOodOJloNo34g9dH4zabik2lkIhmC8fzzLRPziQc+c2nKUl2DMNXQ1+0?=
+ =?us-ascii?Q?ttoN28R9wTf6xl7/Q1ui3rNy5Zo3JpuDblGUK7sd+Kj35kNlZNu2BAYjfYhi?=
+ =?us-ascii?Q?g4tI51oB0yDlmmxJW7ZNwdwVhzfJemYcrJquMd482Br6S1MudXomI0Zpue0d?=
+ =?us-ascii?Q?/Ttm0/jDI7EQ+EkiWhOby5WiFXSAaB43gFRwdyvmTYPhyJn+ILHUu2nReXO/?=
+ =?us-ascii?Q?+Yp8F283w/pC5o9GxEklBa1FOjFzZyASs6DXePhggbyZ7t4rCY9k0aP/tLRR?=
+ =?us-ascii?Q?ONCh/xg4RDCd19FaW75kcK4fwEYB0lAjXEREiokU2QsVRhfNFGvNNr0UkI8B?=
+ =?us-ascii?Q?zJMbZyvwCP/SNuAn21EjSji3k16VN4EYaIPXOvlHO7JtbO9wYlnAqTzR9v+5?=
+ =?us-ascii?Q?5hu9igMm8esLpGoVurmWgeRVHQI0BTp0r/fos6ie3m2Y9pVoFOeFcjVl03QO?=
+ =?us-ascii?Q?aOMe+kedsb/NAgSRpLWsC4gbs7zKLsz3GkimYLOYeJD3oz0Z+JCw?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d1dfe65-bafc-4d3a-2f0e-08dec882641d
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:59:08.5652
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KzBL0BQBYcWr6Qt2WHP0gyxKJp0u191CULxyvKawH38HUd1Kp+cKpTGq3EyKtLiGUwJvMGNB4nB3uTKT1hz5m3rLlUDN9M8Od78jdgdm8xVnDOPjMDg6Z7Az0vBzNR1E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1201
 
-Hi Luiz,
+Add support for Synopsys DesignWare SSI controller version 2.00a,
+which is used on the JHB100 SoC.
 
-On Fri Apr 3, 2026 at 3:52 PM CEST, Luca Weiss wrote:
-> Document the WCN6755 Bluetooth using a fallback to WCN6750 since the two
-> chips seem to be completely pin and software compatible. In fact the
-> original downstream kernel just pretends the WCN6755 is a WCN6750.
+Changhuang Liang (2):
+  dt-bindings: spi: snps,dw-apb-ssi: Add support for snps,dwc-ssi-2.00a
+  spi: dw: Add support for snps,dwc-ssi-2.00a
 
-Could you please pick up this patch (or provide an Ack if you want Bjorn
-to pick this up with the rest of the series).
+ Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml | 1 +
+ drivers/spi/spi-dw-mmio.c                                  | 1 +
+ 2 files changed, 2 insertions(+)
 
-Regards
-Luca
-
->
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  .../devicetree/bindings/net/bluetooth/qcom,wcn6750-bt.yaml     | 10 ++++=
-++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/net/bluetooth/qcom,wcn6750=
--bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/qcom,wcn6750-bt.=
-yaml
-> index 8606a45ac9b9..79522409d709 100644
-> --- a/Documentation/devicetree/bindings/net/bluetooth/qcom,wcn6750-bt.yam=
-l
-> +++ b/Documentation/devicetree/bindings/net/bluetooth/qcom,wcn6750-bt.yam=
-l
-> @@ -12,8 +12,14 @@ maintainers:
-> =20
->  properties:
->    compatible:
-> -    enum:
-> -      - qcom,wcn6750-bt
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - qcom,wcn6755-bt
-> +          - const: qcom,wcn6750-bt
-> +
-> +      - enum:
-> +          - qcom,wcn6750-bt
-> =20
->    enable-gpios:
->      maxItems: 1
-
+--
+2.25.1
