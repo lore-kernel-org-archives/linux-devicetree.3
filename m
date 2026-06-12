@@ -1,199 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC88374A1E
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:08:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AA23911CE
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781284101; cv=none; b=uBLd+WlYRpvQZqbofL7skIiLvwz8AEZIl8gDZyoZnYsJNp/7hopMtWAooYTxRpzuVo7zlGLDWtKvVjne6PAoAsrP5C7GU16CnzgGTizS7YV05db7o1+wZIAh1no3marny9NTSo8dT3TcSa0+GAHxRQCx1Hlpovj3KO3SM+SUsY8=
+	t=1781284741; cv=none; b=kWVmP7hUFtnrzGE27lm9us5ZQRyVDQbLqTnxiIOM0b61p/Iu6uM6UTwZnJRjXgrwFAIlyHTNod9qLUlJDkB41kqLO/j047NLnnkv3kP6vq+BXeRlkGjn1dnsT1uJyBIKgNpydx1Tbl+Agl5N9pRULoDG2aQVbw9DECXDwyYIqzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781284101; c=relaxed/simple;
-	bh=pDs+FD4ADbUn7jDFL19DI/lwK3e7QPdObd/w0xhTSro=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OnwhjCZEmVWwsC3ZVjYYGAweqBVDWRdZTfE6TqgdvIxHqIBY3qz6k45YhJjT4bMUIoLqRsbJLu38kQO6NBQBpRQz0wVzWAX11w5OOCZ1b8gpXq2Lz0rJzd16ZbEPZ/CfPGB4zSF/nr9aphcLsPbgj2QsZkhsEom1dzmVtK9Acws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4JClU9T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781284741; c=relaxed/simple;
+	bh=CfhSriWS4WwEYC+i+yk6Zxhywexzlao9E2hEBJT4Q/o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WICxGGlqY40uTP1WALxU9wOfAIoKtAxkarwfP7XJiZ+NKFrTL0hhnU2m1/qMc1UPGZvFn4prbBqgfFvs9H805nCV0D7tQcvo0KMJEWzAivyG41cTmkBXniV8GA6ax3qD6Pa43H8BR8FOWX7KqfT4R8RUsTPAcHlNjjbVJQ5Zs4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KdoQJ+0L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T5y2Ny3Q; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4JClU9T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A4F1F000E9;
-	Fri, 12 Jun 2026 17:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781284099;
-	bh=bxY1cXx71Lfk3cpTAgpNiqW/bLBozXrzsfg7LlYp1Tw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k4JClU9T5y6A+wCQYCmKvBKF7K0BSGvLw2GXqiDS0YJ//7bdqLWOEnXXDdy2/VVx+
-	 H4VnjR5g4eglK705adEuf7qRYvcHVdQeESDsUxCYHPOzOHNZ13uE+RRms6q8/C3cW+
-	 rxzDtbG28peWlJI/mxvixz86WpvrMFrC/NIyywgdZ4zGbCn1Rg1wn3O53/TsrmrWxO
-	 wqB0R0NNfibXzOalWuhDWFz4T+P/WsWs+IwI65vw/L8ZOVfF7NuQ+o6VocgBULn91p
-	 dWhPFEcSamscv48lSXWslmd/zKCiiw8aVcZHs3C0mgiSL1RBzLiqqlDVhXyS7VblLB
-	 7fbv0tssX4uBg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 17/18] phy: rockchip: usbdp: Support going from
- DP-only mode to USB mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-17-efc83069869f@collabora.com>
-References: <20260612-rockchip-usbdp-cleanup-v5-17-efc83069869f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 17:08:18 +0000
-Message-Id: <20260612170819.29A4F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KdoQJ+0L";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T5y2Ny3Q"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65CGVOZM046500
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:18:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9DFmNAH1IgOZkO6kAlv1u8mYMZxyL6dC6r7w1W5gOGE=; b=KdoQJ+0LAD/hkmca
+	YXRDdQiNUDl63NJ7PQBKot7sA7ZbEPRID+2tkW8YtsRh7nBZ5zM4lCx374w2OcgS
+	zxEnJxw4Ac6tlIfCFBJwOfZnoga32RNiB6MNJe5FQmUaXvKLCb8Z3YcRX9mPn9so
+	kb4kO1ByrCy6n/H+EmcNarUdZfGOO6gSOo9fitPKpK3/lTXe7rqYKOemkzyVBxBo
+	AZ4HQR/vinUxPU4LF8+uet7X5FsEdLq6wG8OfXQ9VCiK9zp5VCcH2e9EKTep/ylv
+	CYhp8/UeBeO0VFKiuoWLMgHUiWM66F53+PXwgd+wIKxtLYyy44sqWc2+V6u49V3P
+	+V26ww==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er76ejuff-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:18:59 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8422b544a4bso852954b3a.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:18:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781284738; x=1781889538; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9DFmNAH1IgOZkO6kAlv1u8mYMZxyL6dC6r7w1W5gOGE=;
+        b=T5y2Ny3Q6p/ev5wCKFCX8bfo+Gtxz7TBmnG/aLqP8gjmhhVoWwpqyJjVFeqxLyF0zC
+         5bKv0Q9evgaW/KUPMmHZ49y4fjMH7z9OJS2KLe4afJHN5+VmDf59XtPrdC7hKxAvZcCY
+         qqCBnLMHg9JV1hn+YxJrK8/5VSH2SmzavfXT7wxeXIy2BiXDrAVbLmt7AKepAlPYbjJO
+         FSpec367rSh+wtgLbTSOoMSubuaI0uddwkEtpt7UCwcseBldtQMd49IHNGYLcir3QJWE
+         6PzgVs33bbM5VWGbjlHJmNPabWyX59SHJI/dDTh8GOl0sKSAiROHY2dAzhQ/IMMoGhYQ
+         2luw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781284738; x=1781889538;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9DFmNAH1IgOZkO6kAlv1u8mYMZxyL6dC6r7w1W5gOGE=;
+        b=KGn3MclTXYeFYyE6S49+fFCXW1khgSD0FiQUh1o/9NeJY7MlUulKuvjl+5MB0umKD3
+         CO60VMue+oOa5+LxD8s3Xagn/JI+KJMng9x1FlLa8Bk8UuS889+VonckJSThrwkQo1RD
+         mzf0ScSLlnklE+npcnxnZJFd5wKgBfDR2lezeuJj6NrBQLKJPZvIxh6BZmeJfdr8iTAf
+         ebXK7ptMAFRBFfk2o7cJKAl5UzBEoOJoMHp/Y2bGQ4HVnqLMze8D1rcJitig10NgSsV2
+         zDf21VhF4W4zkGCI/VtvjXt5sA/o1/Uoxg9Wpmw5fD6+wSb5dYx3uMoPMEgjywHS9JeS
+         Qpog==
+X-Forwarded-Encrypted: i=1; AFNElJ/RDkbhHC1YJbJwaQGkUFay9NtJMq6LZdAtp0QZi2K/Ix4mt2I27yx32vGXEJabcQuYA/hWAHfW9tdk@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeFGuK690dOBA9bqCecY38XeAYLNTaQ7HnTnR+mm772MgSxidl
+	onRxaKAYLxQ0fG57zZtcQh6X1+h2AQnIrA2hy1ZXvAq0d3JvDDaHgUE5ijZ6a3Zt02zAtEOG4Oo
+	7RxbMQJl+TkrLi7uDNvxZ7LgK7dP74jcSZaYlcWzCDRTk9ygiamHqhdVfWVPFyMZw
+X-Gm-Gg: Acq92OG6MwNfvOhbEqPK3Jr+QQIVjrwUT5XFr6rY0pYNgA7unBCBpDXa27110jaKYIs
+	k/j7TGV7qP6tps8dPV1rtkt6qPwbOTj+42YOhS3/QpP146LxErJNZ2sQm8PuJ87nQKoZRTZMWdt
+	mMVe9VetQu1nf5H6DDe4gmYhGfMCw1QF1FEG6Gcp3qMkQoQIlT20Xun0WSOi4vCZSoNOPn6dbLn
+	w+5/a+IxXzyKvOS+ascZSclcQDjGkuJRBtLPq+cWyrxuGQYYWQefQC9OTfkTw4+41AAqHYszygY
+	vgiHNAN490yYHqYIKyxaL6eyUAst8np2bTANAf1wcTbyUhHJwNGtghuRXTlPhlGTHJsBdmojev1
+	Gaxldi9SXGcRxfeBla+fp2rOIpD640ErWEYFuqQey6vlW2fpTNSM=
+X-Received: by 2002:a05:6a00:1947:b0:83f:2568:d466 with SMTP id d2e1a72fcca58-8434d0ada54mr3972673b3a.31.1781284738481;
+        Fri, 12 Jun 2026 10:18:58 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1947:b0:83f:2568:d466 with SMTP id d2e1a72fcca58-8434d0ada54mr3972653b3a.31.1781284738042;
+        Fri, 12 Jun 2026 10:18:58 -0700 (PDT)
+Received: from [192.168.29.166] ([49.43.232.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b0112edsm2538142b3a.45.2026.06.12.10.18.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 10:18:57 -0700 (PDT)
+Message-ID: <6cd2c9e0-9e3b-466d-b9ef-586bf6c779a7@oss.qualcomm.com>
+Date: Fri, 12 Jun 2026 22:48:49 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/5] dt-bindings: arm: qcom: Document Shikra and its
+ EVK boards
+To: Rob Herring <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-mmc@vger.kernel.org, monish.chunara@oss.qualcomm.com
+References: <20260611-shikra-dt-v5-0-103ed26a8529@oss.qualcomm.com>
+ <20260611-shikra-dt-v5-1-103ed26a8529@oss.qualcomm.com>
+ <20260611181841.GA3163205-robh@kernel.org>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260611181841.GA3163205-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=O94Jeh9W c=1 sm=1 tr=0 ts=6a2c3f83 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=g0pf6In4uVe9puqoFIUS9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=wogpLHfNZo3oYugl4g0A:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: hK3vrUnkBHcGxheTHo-Ntv2Rg8W7R2WN
+X-Proofpoint-GUID: hK3vrUnkBHcGxheTHo-Ntv2Rg8W7R2WN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDE2MSBTYWx0ZWRfX2Ofwb9lzzD8u
+ 5DIrH/Y+ycPVLJJPQP1xM0eZuinZN1AjkKmawRi27wM32PwWDvRX5CtEX57FdXRs7bL0MhkTkka
+ szgUL0qZcFkKfSEpPT0XTIw1L/kW2fzrRrHexv1uuqNEueTB37BP2wmNuhoBC+re7C4hqI+9+Co
+ CfPCRtJuwxVA+PjdNdKz6X6V2QCI3C3a2bR0s/VQchk2GBJD3TRLP9YY/0vSjLSIWe9IHkIa3nA
+ r8ktZwlepwnnCUYuxHprBzgOSaxp3s/BSa/RoNLHBSFJ7ldkzvBNEClO9g6+WvCdldSKNXKzqAE
+ kd8WuDkBGncF8MaJfu6/h9zXdgZsaCzU0pWVqzmgBDlkt56ruwJZV57St8+3hEWHSxxOa+HCEUm
+ qtN6/VIW23YXqCdpYwlp7OEjQ6k/gl/2kd9v5dzPf9DSXUg9QM61dmIWDgrjLkTzG3AS1sx3JVG
+ QR4MeFnF3D2h2142tzg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDE2MSBTYWx0ZWRfX8BTKHLdRBbCk
+ u5dVidN0xvu52sP5eR+ePYr3jIrPLC9SoeTajwB8YNa7c88ya0zgvrmHjI8xUWRN0CNGQaAd1ts
+ XHDlkTu48GP8IKxtdx9gd1RhZC7Wgd4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-12_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606120161
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 6/11/2026 11:48 PM, Rob Herring wrote:
+> On Thu, Jun 11, 2026 at 03:40:08PM +0530, Komal Bajaj wrote:
+>> Shikra is a Qualcomm IoT SoC available in a System-on-Module (SoM)
+>> form factor. The SoM integrates the Shikra SoC, PMICs, and essential
+>> passives, and is designed to be mounted on carrier boards.
+>>
+>> Three eSoM variant are introduced:
+>>    - CQM: retail variant with integrated modem (PM4125 and PM8005 PMIC)
+>>    - CQS: retail variant without modem (PM4125 and PM8005 PMIC)
+>>    - IQS: industrial-grade variant without modem (PM8150 PMIC)
+>>
+>> Each SoM variant pairs with a common EVK carrier board provides debug
+>> UART, USB, and other peripheral interfaces.
+>>
+>> Add compatible strings for the CQ2390M, CQ2390S, IQ2390S SoM variant and
+>> its corresponding EVK boards.
+>>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> Missing Krzysztof's reviewed-by.
 
-New issues:
-- [Medium] The return value of `rk_udphy_power_on()` is silently ignored du=
-ring Type-C mux state transitions.
-- [Medium] The `usb_in_use` flag is permanently left as `true` if `rk_udphy=
-_power_on()` fails during USB PHY initialization.
+Missed that. Will add his reviewed-by in next revision.
 
-Pre-existing issues:
-- [High] The `UDPHY_MODE_USB` bit in `udphy->status` is permanently leaked =
-if `rk_udphy_usb3_phy_exit()` is called while the Type-C mux is currently i=
-n DP-only mode.
-- [High] Failing to reinitialize the PHY after a transient error masks subs=
-equent failures and reports false success.
---
+Thanks
+Komal
 
-commit 3ea1c2acafe2e85bbef04dfbb4e06950b88402b0
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Support going from DP-only mode to USB mode
-
-When a USB-C adapter, which maps all Superspeed lanes to DP is plugged
-in, the USB support is disabled in the PHY. When the adapter is
-unplugged and a different adapter with USB functionality is plugged in
-afterwards, USB functionality is not restored as the USB controller
-keeps the PHY enabled for the entire time.
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-
-[ ... ]
-
-> @@ -1015,6 +1016,9 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  		ret =3D rk_udphy_init(udphy);
->  		if (ret)
->  			return ret;
-
-[Severity: High]
-This is a pre-existing issue, but if rk_udphy_init() fails here,=20
-udphy->phy_needs_reinit was already set to false earlier in the block.
-
-Will subsequent calls to rk_udphy_power_on() skip initialization and=20
-falsely return success while the hardware remains broken?=20
-
-Should phy_needs_reinit be restored to true on the error path?
-
-> +
-> +		if (udphy->mode & UDPHY_MODE_USB)
-> +			rk_udphy_u3_port_disable(udphy, false);
->  	}
-> =20
->  	udphy->status |=3D mode;
-
-[ ... ]
-
-> @@ -1278,6 +1282,15 @@ static int rk_udphy_usb3_phy_init(struct phy *phy)
-> =20
->  	guard(mutex)(&udphy->mutex);
-> =20
-> +	udphy->usb_in_use =3D true;
-> +
->  	/* DP only or high-speed, disable U3 port */
->  	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs) {
->  		rk_udphy_u3_port_disable(udphy, true);
->  		return 0;
->  	}
-> =20
->  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_USB);
-> =20
->  	return ret;
->  }
-
-[Severity: Medium]
-If rk_udphy_power_on() fails and returns an error, usb_in_use remains true.=
-=20
-
-Will this cause rk_udphy_typec_mux_set() to incorrectly attempt to power on=
-=20
-the USB PHY later, despite the USB controller not actively using it?
-
-Should the flag be reverted to false on the error path?
-
-> @@ -1295,6 +1301,13 @@ static int rk_udphy_usb3_phy_exit(struct phy *phy)
-> =20
->  	guard(mutex)(&udphy->mutex);
-> =20
-> +	udphy->usb_in_use =3D false;
-> +
->  	/* DP only or high-speed */
->  	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
->  		return 0;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if the Type-C mode=20
-transitions to DP-only, udphy->mode loses the UDPHY_MODE_USB bit.=20
-
-When rk_udphy_usb3_phy_exit() is subsequently called, it checks=20
-!(udphy->mode & UDPHY_MODE_USB) and returns 0 early, skipping=20
-rk_udphy_power_off().=20
-
-Does this result in a permanent leak of the PHY's clocks and resets, since=
-=20
-udphy->status never clears the UDPHY_MODE_USB bit?
-
-> =20
->  	rk_udphy_power_off(udphy, UDPHY_MODE_USB);
-> =20
->  	return 0;
->  }
-
-[ ... ]
-
-> @@ -1325,8 +1334,20 @@ static int rk_udphy_typec_mux_set(struct typec_mux=
-_dev *mux,
-> =20
->  	guard(mutex)(&udphy->mutex);
-> =20
-> +	old_mode =3D udphy->mode;
-> +
->  	rk_udphy_set_typec_state(udphy, state->mode);
-> =20
-> +	/*
-> +	 * If the new mode includes USB but the old one didn't (e.g. leaving
-> +	 * DP-only), and the USB PHY was already initialized by the USB
-> +	 * controller, we need to power on the USB side now since no
-> +	 * subsequent phy_init call will come from the controller.
-> +	 */
-> +	if ((udphy->mode & UDPHY_MODE_USB) && !(old_mode & UDPHY_MODE_USB) &&
-> +	    udphy->usb_in_use && !udphy->hs)
-> +		rk_udphy_power_on(udphy, UDPHY_MODE_USB);
-
-[Severity: Medium]
-Does this code discard the return value of rk_udphy_power_on()?=20
-
-If initialization fails, the error is ignored and the driver reports succes=
-s=20
-for the Type-C mux state transition, which could leave the USB functionalit=
-y=20
-silently broken.=20
-
-Should this check the return value and at least log or propagate the error?
-
-> +
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
-sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D17
