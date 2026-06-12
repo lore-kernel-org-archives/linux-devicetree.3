@@ -1,194 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE99381B1D
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 16:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAA6219FC;
+	Fri, 12 Jun 2026 16:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781281416; cv=none; b=l28zZri+bQPwFZhyN987S1MoQw9PxNYhSoaBcV2vN6lvkddcbXm5y8UmIXtctm57k7mi/+T6Nbf6Yqba4ayo7SDOJ8AzebG3dlnCWrm9+de5MjvKV2S9E/QsOd7yprk2kHe620NpbRGrD0HWidV5Tzqg4FUL/2FXjpclCEPPBXQ=
+	t=1781281644; cv=none; b=jYPSD56y1w9CnI7Plna6D5U1QABmbrjtduEvfKcMioXhHXHovhvXsJx3yQyZ6zst5neG4/HHrIK7QaT0aVpE3R1Ntjfjfkqns81ZLf7qugwpBuZvnW2bA6MpL+12jJohUiNJyCHiX3hRNlCf35vVUBpVf95QY7hHmsIIwyHffjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781281416; c=relaxed/simple;
-	bh=6wVbBnB2Itm3XdwxaEqm5T59Ehin1Jaqvd7CnKfnlaU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lssb4QhXbmJcdRzB16rdM1BQxJqByv4N8k0AyX/4+GftX6VvK9jXo8KUkpWnejUw3QNTmb1fylI7zxx1IJhihseq1bmc82CMMYzIXo3suPpUexpMnsa2/friSrLWaXXq48/mw1+xhnfGhLFRQs/GE34+zYVQG/UTgYZjspUazN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eiqba53p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781281644; c=relaxed/simple;
+	bh=HLJfkYvaJE6vU0w2x8CHyfN8q0SgDuG8KtmXkuwPh1Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KhVnPvMLk/Q7m970RT3hfvlFNOmunyy2ZQ0QYmVq0NNzvg/aeiF4fawFuAEU3cmjbmduIo2gjXYTPldLqBhMh5522jtMhX9Tt6C5E5RaDoGF2n5GXQSjdykLsYF1S8EUQ4hwmxbkfqi7QbC58N4DLUCaFdrmPOBvTIdTaCeiNyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ECu1XSFp; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eiqba53p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9361F000E9;
-	Fri, 12 Jun 2026 16:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781281415;
-	bh=OBNnJvOuiKkEWQ9r2pjYu0A1ur5Qd26STMCQabmtbho=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Eiqba53pVy0yYULMQ8CBYH1mzKIF4bYrTygl8UUiWFzOhvpc9kcNsg/PXL7hskN9H
-	 kiP2f7VoKwht5Bn+QM9pdc706Kai/AWdsIUkHaEh5NonFpDAnR7t1tAP+I7EOQ6cGI
-	 dT6J0XODHq/L/6bAhFMevKzSeT1IYy94y6E2P5yKmSfaUkYA+nJcoqtBz4wKZ5YMny
-	 Rd5fSip/DEls1KQRhA0kJ2U2+ZDK19UQnGRNmhaKjoMhg+ddrDislP6l7vWMC4czvW
-	 Jz/1Sk3GFC+Z5W1btqwMHqMEp4ifwZu+H5tP9Do1tba+aXSgpVcCozqHEM0JuebybH
-	 Tizfl2kkPpmnA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] arm64: dts: exynos: add initial support for Samsung
- Exynos8855 smdk
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alim Akhtar" <alim.akhtar@samsung.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260612163020.411761-5-alim.akhtar@samsung.com>
-References: <20260612163020.411761-5-alim.akhtar@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 16:23:34 +0000
-Message-Id: <20260612162335.1F9361F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ECu1XSFp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1781281641;
+	bh=HLJfkYvaJE6vU0w2x8CHyfN8q0SgDuG8KtmXkuwPh1Y=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=ECu1XSFpEXOqmOi7Fkr4XXgpcQpz8O2HOuigN7veLOG5ddPTcKFZKAVuh1pnUYK64
+	 syAJCtGWrtA0egn17fOl4jup3mW1/ODRFVyVJ0SfMNnoT6rf+n1M1p7zf8UT5hRaea
+	 ceyzAeqB1rFYs3DLtKBShAETMAvFtpw55VOowOvMgxtUDUXcFMjZt8RR6Yv9nakZkF
+	 DFA9HK9Iz0c+KZesiCTA3mPzpQeEMCIjbWzCCF+DDm07Tfvh/repGUv4T+g6uVVMlP
+	 ajHKTH1RN31gi2OBjzdVVmDiyUI898ulk3wgvEGZpTURNbSmdwvN+rWW+B+RH1ScMI
+	 E0PEkQqWzRytg==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8FE8717E35E4;
+	Fri, 12 Jun 2026 18:27:21 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id DF5D7480062; Fri, 12 Jun 2026 18:21:53 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 12 Jun 2026 18:21:56 +0200
+Subject: [PATCH v5 18/18] phy: rockchip: usbdp: Add some extra debug
+ messages
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260612-rockchip-usbdp-cleanup-v5-18-efc83069869f@collabora.com>
+References: <20260612-rockchip-usbdp-cleanup-v5-0-efc83069869f@collabora.com>
+In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-0-efc83069869f@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ devicetree@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1819;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=HLJfkYvaJE6vU0w2x8CHyfN8q0SgDuG8KtmXkuwPh1Y=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGosMiEezP9iqnNrRmCYYUGmd407dMDcqIIaU
+ C691vroSvcju4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqLDIhAAoJENju1/PI
+ O/qaL2oQAJLECuKbtLdqJjGnNSLcBZW2EHi//3RjZ/zYADEuirLdgvcQahxUuQLVf1lEDNS3YSr
+ yKdEksEyQfPeut7+aIUTk3UPX1igNwI7FHW4GtBGhu58Uy8D5spq2E34HWbEcWTOjPyk40WuU+P
+ RgwYzJE/An6EVt7du4ilKJa7RbboH0FpzNGz5Jk/zDOhkK9pIoX83BpEVlYLipNUUY6nuI+BT1g
+ 7imDgQPj4w08TsF3udAwv0Csp6kbE2v5k0wHbL0Loi2mmLER3AGs2ZKsLUFtZkjUlY7DwXqwQQi
+ LV01WJmzaMl7P2zORLuxeR/bptX14imFBfFN/N9nworFZCedGwFrYrhjz86WEC5z6VsLM/I3Qbi
+ t28r/GWLtA2D2dPsE8pYzfg145/QExBHfB8/z/ttWVvy4c9lh2QzqJnkbrCxPXHzbSjRL+7k0Nv
+ l/kBva24fKwDtrswhxZ2xYX2Vbj0hHezjiXkHrkO830iMS8oVwCHgu7l9UrsprfYlc+D1PUSa+t
+ Jcc9EE9+hei9N8rYRSu3Te2yBi8N1r5TGUE9vnDbjP3ppM41jPTK028dl76AQJMSnRHJ6OknS35
+ iDAyA/7E6XC/58yURX74vmTRaM8xsLoq/wSJtmFRwZmUlQv55V7xHXYQixC9cDHkej1cgiP8KXc
+ Q5B62NN7XrZpSXVcFa38s6g==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Missing Required Property in UART node `serial_0`
-- [Medium] Device Tree Topology Error: `cluster1` skips `core2`
-- [Low] Device Tree Binding Violation in `timer` node interrupts
-- [Low] DT Binding Violation: Missing `-gpio-bank` suffix on GPIO bank nodes
-- [Low] Device Tree Syntax Error: `gic` node defines `#size-cells =3D <1>` =
-without `#address-cells =3D <1>`
---
+It's useful to log PHY reinit to ease debugging issues around
+USB-C hotplugging.
 
-commit fb7d1034f06462e074dc2aa5a08df68787706d6c
-Author: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-arm64: dts: exynos: add initial support for Samsung Exynos8855 smdk
-   =20
-Add initial devicetree support for Samsung smdk board using
-Exynos8855 SoC.
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index 236331cc0d13..4042e2dd8121 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -491,6 +491,8 @@ static void rk_udphy_u3_port_disable(struct rk_udphy *udphy, u8 disable)
+ 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
+ 	const struct rk_udphy_grf_reg *preg;
+ 
++	dev_dbg(udphy->dev, "USB3 port %s\n", str_on_off(!disable));
++
+ 	preg = udphy->id ? &cfg->grfcfg.usb3otg1_cfg : &cfg->grfcfg.usb3otg0_cfg;
+ 	rk_udphy_grfreg_write(udphy->usbgrf, preg, disable);
+ }
+@@ -784,6 +786,10 @@ static int rk_udphy_init(struct rk_udphy *udphy)
+ 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
+ 	int ret;
+ 
++	dev_dbg(udphy->dev, "(re-)init PHY with USB=%s and DP=%s\n",
++		str_enabled_disabled(udphy->mode & UDPHY_MODE_USB),
++		str_enabled_disabled(udphy->mode & UDPHY_MODE_DP));
++
+ 	rk_udphy_reset_assert_all(udphy);
+ 	usleep_range(10000, 11000);
+ 
+@@ -854,6 +860,8 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
+ {
+ 	int ret;
+ 
++	dev_dbg(udphy->dev, "enable PHY\n");
++
+ 	ret = clk_bulk_prepare_enable(udphy->num_clks, udphy->clks);
+ 	if (ret) {
+ 		dev_err(udphy->dev, "failed to enable clk\n");
+@@ -872,6 +880,7 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
+ 
+ static void rk_udphy_disable(struct rk_udphy *udphy)
+ {
++	dev_dbg(udphy->dev, "disable PHY\n");
+ 	clk_bulk_disable_unprepare(udphy->num_clks, udphy->clks);
+ 	rk_udphy_reset_assert_all(udphy);
+ }
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi b/arch/ar=
-m64/boot/dts/exynos/exynos8855-pinctrl.dtsi
-> new file mode 100644
-> index 0000000000000..f5d30fd299b62
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi
-> @@ -0,0 +1,581 @@
-[ ... ]
-> +&pinctrl_alive {
-> +	gpa0: gpa0 {
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
+-- 
+2.53.0
 
-[Severity: Low]
-Does this missing suffix violate the Exynos pinctrl dt-binding schema?
-
-Nodes such as gpa0 and gpm0 appear to be missing the required
--gpio-bank suffix, which the schema expects to match the pattern:
-
-    ^[a-z0-9-]+-gpio-bank$
-
-Without this suffix, the nodes will fail DT schema validation, even though
-the Linux pinctrl driver will still parse them by iterating over child node=
-s.
-
-> +
-> +		interrupt-controller;
-> +		#interrupt-cells =3D <2>;
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos8855.dtsi
-> new file mode 100644
-> index 0000000000000..cffa40b6bb986
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-> @@ -0,0 +1,214 @@
-[ ... ]
-> +			cluster1 {
-> +				core0 {
-> +					cpu =3D <&cpu4>;
-> +				};
-> +				core1 {
-> +					cpu =3D <&cpu5>;
-> +				};
-> +				core3 {
-> +					cpu =3D <&cpu6>;
-> +				};
-
-[Severity: Medium]
-Is it intentional to skip core2 in the cpu-map topology array?
-
-The cluster1 node defines core0, core1, and core3, completely skipping
-core2. Device tree topology indices are generally expected to be contiguous.
-
-Skipping core2 might misrepresent the actual hardware topology and confuse
-kernel topology parsers or the task scheduler.
-
-> +			};
-> +
-> +			cluster2 {
-[ ... ]
-> +		gic: interrupt-controller@10200000 {
-> +			compatible =3D "arm,gic-v3";
-> +			#interrupt-cells =3D <4>;
-> +			#address-cells =3D <0>;
-> +			#size-cells =3D <1>;
-
-[Severity: Low]
-Is this #size-cells assignment a device tree syntax error?
-
-The gic node explicitly specifies #address-cells =3D <0>, but sets
-#size-cells =3D <1>. In Device Tree syntax, if #address-cells is 0, the nod=
-e's
-children cannot have sizes, so #size-cells must also be 0 or omitted.
-
-This mismatch will trigger the avoid_unnecessary_addr_size dtc compiler
-warning.
-
-> +			reg =3D <0x10200000 0x10000>,
-> +			      <0x10240000 0x100000>;
-[ ... ]
-> +		serial_0: serial@15500000 {
-> +			compatible =3D "samsung,exynos850-uart";
-> +			reg =3D <0x15500000 0x100>;
-> +			interrupts =3D <GIC_SPI 403 IRQ_TYPE_LEVEL_HIGH 0>;
-> +			pinctrl-names =3D "default";
-> +			pinctrl-0 =3D <&uart0_bus>;
-> +		};
-
-[Severity: High]
-Does this node need clocks and clock-names properties?
-
-The samsung_tty driver unconditionally requests the uart clock during its
-probe() function via devm_clk_get(). Without these properties, the driver's
-probe will fail with -ENOENT and abort.
-
-Since serial_0 is set as the stdout-path in the board DTS, this failure
-would result in a non-functional serial console.
-
-> +	};
-> +
-> +	timer {
-> +		compatible =3D "arm,armv8-timer";
-> +		/* Hypervisor Virtual Timer interrupt is not wired to GIC */
-> +		interrupts =3D
-> +		     <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
-
-[Severity: Low]
-Are these interrupt definitions violating the GICv3 device tree bindings?
-
-The timer node defines its GICv3 PPI interrupts using the
-GIC_CPU_MASK_SIMPLE(8) macro and IRQ_TYPE_LEVEL_LOW.
-
-Under GICv3 device tree bindings, the 3rd cell must only encode trigger type
-and level flags; embedding CPU affinity masks violates the schema.
-Additionally, GIC device tree bindings standardly expect
-IRQ_TYPE_LEVEL_HIGH or IRQ_TYPE_EDGE_RISING.
-
-This will trigger dtbs_check validation warnings, though the Linux GICv3
-driver safely masks out the unsupported bits at runtime.
-
-> +		     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
-> +		     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
-> +		     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612163020.4117=
-61-1-alim.akhtar@samsung.com?part=3D4
