@@ -1,126 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FB2317153
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781255776; cv=none; b=H2m0VzpfEEPbwXWaD77uAUaERQqaZW0fLHRIwLdy16nN14RS8QbiTn4N/yVswo5rHIIU3c79Qvj8c1yUs0jzWs/mqhAurx0qQBx/QKwleN1sTG33wre8EsJaExeJDfLjIHxFpvZXKI8SZ1meAgjTv9+qqXdQZ5GSmOLuIme3TYE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781255776; c=relaxed/simple;
-	bh=MB9DZZAaZWkRym+gxsvhHbmurddSv9+gCVRqxRGwnlo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F37EgwTQV3u2iIO8n1ZOIZ5aSEU+g8WTDD9n00zr/tv6hQa8bzBaRndnapJyhvrFLDQZFLsrZUssdJT1oHHl1Y/bn1igD03UpS0zSsufAVDEJpNXdxqxewdrH5fcjxLTKRoCsZZeGjY6t/yQrXl1vK9oZEyUvwrwPf01GD2whaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCVu0JCa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53738366DC1
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781255869; cv=pass; b=HPjbGv6WgWhWuOOiunJanL4IZNvMXwrvKk+bMGbu//HlK2QMcaUM22I3ZqYbQ5M4yPzU5VgBFq3kVo67O1MjLq6dCfMyMQX8oQp4UugbRAFGlXfttBHMjA60Dm2VuTrPmT3Y+6xfsUVDjvih88+DbNehxJ5OwjXnzRIK6rKCGTM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781255869; c=relaxed/simple;
+	bh=hhcCFioqMSZRCk/5HvD/sKp69EwBtqpgSp4Ql/r2CVc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b0OXPM4lVlpcq/COA20diY5L6gK2ACqqY4W1L+55NnVVPpX5NOprhYbv0/m/njAB9X7tHzmWHYscIVGU+YIWXspxyASXnpEjcqGBuvKasJt3e0x59CMT6FcdfEjlDW6NIt9MPfTCDx/rew3X+l8lkM3X9OtBboZEAtgtRtkmw5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Cp45EbXQ; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCVu0JCa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E963C1F00A3A;
-	Fri, 12 Jun 2026 09:16:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781255775;
-	bh=pYDYrXiAUH/HVRCUgg/cj1aGE3isuJIHiuZ5T/Nho2I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bCVu0JCac3emMbHn3BUvO6BnHvRFPD75Kn0ktxbck/H2BQjxxbNll53fxQk/ASJEW
-	 TFu5RzhmotaLCG2IZ1GOBGAOa+jCDTxCsYBlFPwrXV225mfSTCHHmij5Uq3o8eJCeO
-	 xMv4lc2W8MFiug66T13ubr7PSpJf179swUFlzeCg187bEy6zlwQtbFZN5uObKX24lm
-	 8fTQ6/pLidVXjNdwq20UPPwrfzqXfcV1nLboSxj8kzYzBsoCrarL/LFa2tPC/IrvON
-	 kTjI+pg5bCG2YgdjxWZs3x6dOp9NircdQuUMxBhT1nsC4eDJ/xAYwZ5IiBjbwRntAs
-	 iQMfhgwFrdP7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] dt-bindings: pinctrl: qcom,pmic-gpio: Add Qualcomm
- PMK7750
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:16:14 +0000
-Message-Id: <20260612091614.E963C1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Cp45EbXQ"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-7f4f1c27e61so4962297b3.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 02:17:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781255867; cv=none;
+        d=google.com; s=arc-20240605;
+        b=bFVmLgjTqZSO3xrRuwRJIFCQEu6sECyzLhrzwExDGh+2lGnzoaMepHXrqOTSKkGbV6
+         lEbSlC9QITXAEmeePSw6RamAgiOiyru5HQ1RR+dpJfwpntEa1V4kMa/9lPA0dUgcM9on
+         wKLOF+8WfqhnHOKO94DylL2K+5osZdZ3y1HXBJJGzhu7uqjoBflB6p1BE6odev1J5vhk
+         SKqF3tJbiqB6Sb0+tICHJCrpZGH5GiJ9VIrrqKywg3YOeS6GOhXd6VAtXKM8w9np3Uh5
+         PDPACkoqBWf9P0EPRynbyOQMW6Hk90irvpfh9y9kNwvZZgQ8oXs0CInyWPo9xEzuKYtr
+         824g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hhcCFioqMSZRCk/5HvD/sKp69EwBtqpgSp4Ql/r2CVc=;
+        fh=5rdw9V9uFBEGGd+8qpVoWx/BRodQKo3offLnIz7hhQM=;
+        b=QfH1ptD+39Fwh1wC0AeIkRy4NT6hOZQejRIToI9deOFcsA80FMySWKY2r3b5UNR1h1
+         VFxL5ROf0eon8Bd5fpPk6JX78OhS8THpZ3QHjRcpvR2A/R93rHspZSZd3ymKpjMUscaI
+         SEyG8Lic1IAkCjcPwHVZ6LsIYu2os2PR6XPn+FHuo2GH29KMw6UPXNHnDpZ+DMuhnqj9
+         afjhgl0Wkh49SxAVDfU5eMw/zxNqyTFvOYvUDnrUsZIeKp0exgwitti8lEJ6yAxQW1M4
+         AwLX/kc7hMdPww4W9Zox/L2I94P4VblVE8oSd3qYv+XAtbrZ/qWx66A5FOzsIYqirquo
+         q+ng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1781255867; x=1781860667; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hhcCFioqMSZRCk/5HvD/sKp69EwBtqpgSp4Ql/r2CVc=;
+        b=Cp45EbXQPotQHJV6pD9Z1tRcMMw/E1UVxgnMhXoZBjFie5UhROaMkWEwt2QF5D70y8
+         YOD/NxeL/50JCSOtVLg3QZOu3/P+oUy7rMUa01zQtjLxNz547rc1kAL0UpiWXQfOIV15
+         NmZbH96i2TJi0/uf3Vwh2QluHzpV4IczZXOAY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781255867; x=1781860667;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=hhcCFioqMSZRCk/5HvD/sKp69EwBtqpgSp4Ql/r2CVc=;
+        b=g5jwGJDDvgbGELc7sPia7fQNnmAGS2NORaDXy9J0u4Bb9e7E159uH3zBrvAP0JKKeK
+         cDh/ymYKXbcWGym9BKlz4lZ83zVCk11YypEo0vP/NyAMzdfouxoOwe1ovjWqJolGzPlz
+         rDCwlEZGHXzItOLz7bBf/9lYoMmyUM1zlmM6jWidlR7mFFGZ71sPCF6py4Vu5SKRI6/T
+         YHolA1q7J01SbBHXkG/V7bujjr7U/Mqv5+mD4GWLoV1jo68+nsmVVZiuc1lmnzamDVBG
+         NZVEy8gXs+C9QcRpUNF9Xx3pCAt3M8OzY3M5UBz8OR8gS4KfGE9Q9N69MIGtCWz8sCYX
+         sUbw==
+X-Forwarded-Encrypted: i=1; AFNElJ8Zu+YRO+7UUODfrmn/cKe0glz7PTofS6ByQuNfxuTZU6QE49DLAntJuh0IHnMyY1w7VtaazvT3Ii8i@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvJgFZc+AMrEKwQu+WsvoABh+5HiadVk1ttjqacjTGLC3+P8C+
+	yEXh473G9mE9Jgdo8TEUKITLjEHJegnU7YdkbZLUB6oXKJRBpMgesV486pe9nTL5dbnNKsg16LN
+	TlTy7ObWMVDisuYm7RFu+IfgW3ernqdf8ujwrdHtF
+X-Gm-Gg: Acq92OHChLdD04OkAdRUDUCuoZ7qip7R6tgGIaXcnjuf57sWAkA4P7dpr7qIC5oVxm9
+	R/fIsPhNkP63PTkKTGCl+PUqXNm5LIhcc+rs/9PrzkoT8vv18dWs6wlqg902yRKJSU+FeGFd0UC
+	Gfue0VSx4N1S50p08vQ/8B0DLlCRjhREGbQQpi8x3IA3SqdooH7a3uzrxbefWN4uS+2jEEZ13vG
+	yfw3SmbMgvQlmFJrjjNUU0w7dEKU/xR1n5BFQvjS4N8BkTCjG4VzZ8CDNkM0T4gcRivbjyA9ROB
+	AdEtxJoO
+X-Received: by 2002:a05:690c:3a0:b0:7cf:af41:50b0 with SMTP id
+ 00721157ae682-7f7b8d248damr20618557b3.36.1781255867482; Fri, 12 Jun 2026
+ 02:17:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260610084053.2059858-1-wenst@chromium.org> <20260610084053.2059858-12-wenst@chromium.org>
+ <ail2VcubjT7HNGUC@ashevche-desk.local>
+In-Reply-To: <ail2VcubjT7HNGUC@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 12 Jun 2026 18:17:35 +0900
+X-Gm-Features: AVVi8CeDuG6qw5zFxFcHgtnnMaKWsSajO4ZT4D-k-SPwtRIr1WJR_hE6bMB1VZI
+Message-ID: <CAGXv+5GNfWFinO1E=5X46xnBsQpY-_i45mq60eeQu=U3Z0MtDA@mail.gmail.com>
+Subject: Re: [PATCH v2 11/16] power: sequencing: pcie-m2: Add usb and sdio
+ targets for E-key connector
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Missing Compatible String in Conditional Block for 'qcom,pmk7750-gp=
-io'
-- [Low] Missing PMK7750 PMIC parent node in MFD bindings
---
+On Wed, Jun 10, 2026 at 11:36=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Wed, Jun 10, 2026 at 04:40:45PM +0800, Chen-Yu Tsai wrote:
+> > The M.2 E-key connector allows either PCIe or SDIO for WiFi and USB or
+> > UART for BT. Currently the driver only supports PCIe and UART.
+> >
+> > Add power sequencing targets for SDIO and USB. To avoid adding a
+> > complicated dependency tree, rename the existing power sequencing units
+> > "pcie" and "uart" to "wifi" and "bt". The existing target names are lef=
+t
+> > untouched. The new "sdio" and "usb" targets just point to the renamed
+> > "wifi" and "bt" units.
+>
+> Why can we do that? No breakage? Only internal names? No ABI affected?
+> Please, clarify all this in the commit message.
 
-commit 4f1189e771b6e33f2285b6ec22e2635e18bc5718
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Will do.
 
-dt-bindings: pinctrl: qcom,pmic-gpio: Add Qualcomm PMK7750
+In short, the target names (which are not modified) are used by the
+consumer, while the unit names are internal only.
 
-Document Qualcomm PMK7750 GPIO used with Eliza SoC.  PMIC is almost the
-same as PMK8550, thus compatible with it.
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yam=
-l b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
-> index 386c31e9c52b8..5ecf5da3d1000 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
-> @@ -15,79 +15,84 @@ description:
-> =20
->  properties:
->    compatible:
-
-[ ... ]
-
-> +      - items:
-> +          - enum:
-> +              - qcom,pmk7750-gpio
-> +          - const: qcom,pmk8550-gpio
-> +          - const: qcom,spmi-gpio
-> =20
->    reg:
->      maxItems: 1
-
-[Severity: Low]
-Does the allOf conditional block for qcom,pmk8550-gpio need to be updated
-to explicitly include qcom,pmk7750-gpio?
-
-Looking at the existing conditional blocks further down in the file:
-
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - qcom,pm8018-gpio
-              - qcom,pm8019-gpio
-              - qcom,pm8550vs-gpio
-              - qcom,pmk8550-gpio
-    then:
-
-Since qcom,pmk7750-gpio is compatible with qcom,pmk8550-gpio, should it also
-be explicitly listed in these constraints to ensure schema validation remai=
-ns
-complete?
-
-[Severity: Low]
-Does the parent PMIC qcom,pmk7750 need to be added to the MFD bindings in
-Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml?
-
-The MFD binding strictly enforces exactly a two-element array:
-
-  compatible:
-    items:
-      - enum:
-          - qcom,pm2250
-          ...
-          - qcom,pmk8550
-          ...
-      - const: qcom,spmi-pmic
-
-Since qcom,pmk7750-gpio is added here, will device trees fail schema
-validation for the parent PMIC node if qcom,pmk7750 is missing from the
-enum in qcom,spmi-pmic.yaml?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090426.2340=
-3-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+ChenYu
