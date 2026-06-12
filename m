@@ -1,225 +1,180 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFC337DAD6;
-	Fri, 12 Jun 2026 08:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28F1363C64
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781252648; cv=none; b=FEJyUj+1MBhvMjHsTjtAFuzOi/y3AjPKynsVa+a8bTC0VPdWkLeAYQT9rRyvRz5gwJHGFxIYU4GJ2c1fwsRXxr6ZlQql7IkMjcQb8NodrZi7q0GrmCkoASdo2CCRsdhzl1WxAnaIyWroVR4bEOhf7rLl6Q1dmAKM3n9h3bSxT5I=
+	t=1781252728; cv=none; b=ljuTrbn7g3Vc7c3XuKdCUmiJlF2tvoEamHUm2rprwBc4cYkgYvjDKGH2IDGwJiFpePFNVWEiI6WSRVtPK5uwy2NcesIFREbCKxeWDb+nut1syMcm4AfKDFSyQH9afm7DzS9h37RLeS07UnYK67Nq9CcDNsQh8rS1QtNDhM9hnd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781252648; c=relaxed/simple;
-	bh=aik1yZWSrKo57yjYoAjGg1WiRNqIySZleRfYd2RGgiY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WgYkNEW6QEzoOkfYQN5FmJnIVcCr/7GZGdIb+4zNO4g8gk1nZ3B9Pcm0pHT52zGBaEMSCr6Zn/c733DAt0wa3BpAMLqlyDCxH1IQqytKvPFYtAgKNqQMSXUBiNYdx1OFY0PgkkjD1G0mB5Ac7qXVMAvD44ZXBP3gaH2NaSwO/1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=M/qYnh2+; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="M/qYnh2+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781252646; x=1812788646;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aik1yZWSrKo57yjYoAjGg1WiRNqIySZleRfYd2RGgiY=;
-  b=M/qYnh2+vzN1VsNIX0tPDvOnW85ecMAt3gC38tmwrBiJoD+dgPWvOaBa
-   PMZNaTjI1RR6qFedYC0gVKFcQYc2+01pomTsCjt6VpoN9UNa5AqJTZ+fc
-   CkytOOD5UZSqCCEYTgFR90iyJftYn+k0aOYtWJ7kYAyneB8IsOnqY220z
-   gzrsu3b+7ry76uClLhzUYaya0ZZH8EXBIUq2czovOec2ov42UubNLijTb
-   tiwhh13GCY0Z42cw11+tDd3z9RpThKbpCzWvIKw0R7E/0B2cidbpu9xU9
-   eB5CIw2nai+X9JLd3P2kYOGF4doxx8PPRgEfDSBoYSacW9x6Ac1RErXxf
-   A==;
-X-CSE-ConnectionGUID: 5MrWdWtvTtS4GM0us5yIIA==
-X-CSE-MsgGUID: szhd3KRbRoylTsr8ICyu6g==
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="asc'?scan'208";a="59016839"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Jun 2026 01:24:04 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 12 Jun 2026 01:24:02 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 12 Jun 2026 01:23:58 -0700
-Date: Fri, 12 Jun 2026 09:23:12 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Guodong Xu <docular.xu@gmail.com>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
- Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Zong Li
-	<zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, Anup Patel
-	<anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Chen Wang
-	<unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
-	<linux-doc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<kvm-riscv@lists.infradead.org>, Paul Walmsley <paul.walmsley@sifive.com>,
-	Conor Dooley <conor@kernel.org>, <devicetree@vger.kernel.org>,
-	<spacemit@lists.linux.dev>, <sophgo@lists.linux.dev>,
-	<linux-kselftest@vger.kernel.org>, Palmer Dabbelt <palmer@sifive.com>
-Subject: Re: [PATCH v4 08/16] dt-bindings: riscv: Add Zic64b extension
- description
-Message-ID: <20260612-scarcity-willow-c073342b5ac2@wendy>
-References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com>
- <20260611-rva23u64-hwprobe-v2-v4-8-3f01a2449488@gmail.com>
+	s=arc-20240116; t=1781252728; c=relaxed/simple;
+	bh=GBSvLNXoZdRqGrEoUil4FgbmYpylukIOLRE6JinfAl4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DU+l4rdJJNTBIWVUI1Ch4tlkQBdxC5hdURDz9X+wzktvNj48pi9UYHTjo75/lAQrGAkGzDIR44tyYEb2T9XfusztaYf0mcTxY8YAvigKOO0lEeHamt824/afpvFHUFp7yLhv0Z4lZGPt3JDc8y3LQgHDMahkDOgf00Qf0HgC//U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-6c3a36fa9edso560300137.0
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:25:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781252724; x=1781857524;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0BNgEMp+PgvikOQYQ6jo0rnxU2ZwAS3bRz4mmCmta0M=;
+        b=E3UKxJghqKWQUyO5jZi9DSBzo7gz62YF2UguSf0dHZHmph0ZNS00ZHs0YkcmjKlDyi
+         CftECpYn+xYnI6QwkDL5gIYia1PgKRm4uYcz1nTPOAPw3+YPtP67EM2/Xy5o8gac6JFI
+         ZTP+qrfz0NRS5NXzIwR77oksQ4WsCTdncOsNiVZe4J7C4YexIt4DLG0flXcql4UEN6Md
+         ye/cFBQehHKLFvOlCwdjAfWe3MunNgAJuAq32VVuN1xZPPLAchE3nnDc/5KjyzUTkp6M
+         zaehByJ6xltOG6NAkDo4EzkyF32jdVWNt1q2AW+Bm8780f2Qal7pGshewxTpATf7Ajvh
+         xLTg==
+X-Forwarded-Encrypted: i=1; AFNElJ8qT56F/qsMQgkZgV4d+gQG3T2Xi52HwBjMFbF4jBBQdUC5YHubUXFzfJhLhafDqsj2KpsLFPfeCXN8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUTC4VvdXcu+76M4Ft0DBqaPVWtjwG7u/u+sLxiCmRSJWefU74
+	HFJznY5MzV/I7IkZY5KPBvTcZVawuqq49aSZBOJD6ZGTdM0LiaEHH4JtXS9Avdcv
+X-Gm-Gg: Acq92OFgZXK6P6s8YbU2OZ0ZU3E9lIqz+jX6UUHWw05wQzPTLcCgfBrLuRv9xNbO6+t
+	JUQWr/J9Hw910ClOSdZfGBOqKbJYXdWDO0YTfwWibTCE6m1UJyowAU8XFMbn+VVCJdaTOTfpgza
+	pgsogK+euc5///b37DOZ4J1q1SoBWwdelwqNO5YYqn8GlY6GOsptxS2L2pkE+gdiNX4ZvMrUp/2
+	aow4yrIJdK7zjJlEKsSp77Tk1T9mJmE31Q7gTBt7MqarqJNN2hfoWUdsJ5vqfgdFrXRTvLVMExM
+	l0jwfI8cGRIRdADbckgh21rK5SlGDNInhCtCIw2LwN554Vw+R8cYNJI1WE0ujwOqzDobvCKYiTh
+	1afD989G/afFX5FeSSHt8IANE6IVxxV5sUUupao7A3jyLxHlhnUIhG8ZHFP3VpE9BOyI+3OFLEJ
+	UyxReBHEjgcui920Q3rbPnZWYWqR4FSWRaW36L1wf+Ol6SoH9GpKpPBjyaWIMs
+X-Received: by 2002:a05:6102:8385:20b0:6dc:c4aa:472 with SMTP id ada2fe7eead31-71e66c8576dmr603978137.14.1781252724259;
+        Fri, 12 Jun 2026 01:25:24 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com. [209.85.222.46])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9667407bbaasm851292241.11.2026.06.12.01.25.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 01:25:22 -0700 (PDT)
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-96387cf6335so648786241.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:25:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8AXB9Qw+VBxeEsHp45HcBP2DJUHQ0EHRI6vw0yVCIS80EcZ9VrP+57hqyeIMfbXRu9LHuZwEJoZSc+@vger.kernel.org
+X-Received: by 2002:a05:6102:8354:10b0:64e:3424:cd45 with SMTP id
+ ada2fe7eead31-71e6550cd28mr656883137.9.1781252722056; Fri, 12 Jun 2026
+ 01:25:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Dm2P8/tZRoFsL+eF"
-Content-Disposition: inline
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-8-3f01a2449488@gmail.com>
+References: <20260612080354.57459-4-wsa+renesas@sang-engineering.com> <20260612080354.57459-5-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260612080354.57459-5-wsa+renesas@sang-engineering.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 12 Jun 2026 10:25:11 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW6tup=MKtoJBjU1u-3QW+S4zAwrKKngMNy9bqVkgpTFg@mail.gmail.com>
+X-Gm-Features: AVVi8CclvQe54KnQjvARQQ5gtHuWL5zZjaw84bM3DVCNJETR3y--hTHuieZNGgE
+Message-ID: <CAMuHMdW6tup=MKtoJBjU1u-3QW+S4zAwrKKngMNy9bqVkgpTFg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ARM: dts: renesas: r9a06g032: Describe SPI controllers
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---Dm2P8/tZRoFsL+eF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Wolfram,
 
-On Thu, Jun 11, 2026 at 04:12:45PM -0400, Guodong Xu wrote:
-> Zic64b mandates that cache blocks are 64 bytes in size and naturally
-> aligned in the address space.  It is a mandatory extension of both the
-> RVA22 (U64/S64) and RVA23 (U64/S64) profiles, ratified with RISC-V
-> Profiles Version 1.0.
->=20
-> Document it so it can be described in the riscv,isa-extensions property,
-> alongside the related Zicbom/Zicbop/Zicboz cache-block extensions. Since
-> Zic64b fixes the cache block size at 64 bytes, also add a  schema check
-                                                           ^^
-Not that it matters, but there's an extra space here.
+On Fri, 12 Jun 2026 at 10:04, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> Add nodes for the 6 SPI controllers of the Renesas RZ/N1D SoC. The first
+> 4 can only be controllers, the latter 2 can only be targets. DMA nodes
+> are not added yet because DMA needs some extra code in the drivers and
+> cannot be tested yet. Basic FIFO mode works reliably, though.
+>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-> requiring any present cbom/cbop/cboz block size to be 64.
->=20
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
-> ---
-> v4: Insert zic64b at its sorted position (before zicbom).
->     Update the commit message.
-> v3: New patch.
-> ---
->  .../devicetree/bindings/riscv/extensions.yaml        | 20 ++++++++++++++=
-++++++
->  1 file changed, 20 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Do=
-cumentation/devicetree/bindings/riscv/extensions.yaml
-> index 5ffc40d599c02..1c24999beb59e 100644
-> --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> @@ -494,6 +494,12 @@ properties:
->              in commit 64074bc ("Update version numbers for Zfh/Zfinx") of
->              riscv-isa-manual.
-> =20
-> +        - const: zic64b
-> +          description:
-> +            The standard Zic64b extension for 64-byte naturally aligned =
-cache
-> +            blocks, as ratified in RISC-V Profiles Version 1.0, with com=
-mit
-> +            b1d806605f87 ("Updated to ratified state.")
+Thanks for your patch!
+
+> --- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+> +++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+> @@ -563,6 +563,96 @@ gic: interrupt-controller@44101000 {
+>                                 <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
+>                 };
+>
+> +               /* Controller only */
+> +               spi1: spi@50005000 {
+> +                       compatible = "renesas,r9a06g032-spi", "renesas,rzn1-spi";
+> +                       reg = <0x50005000 0x200>;
+> +                       interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&sysctrl R9A06G032_CLK_SPI0>, <&sysctrl R9A06G032_HCLK_SPI0>;
+> +                       clock-names = "ssi_clk", "pclk";
+> +                       power-domains = <&sysctrl>;
+> +                       spi-max-frequency = <12500000>;
+
+That is 12.5 MHz (for all controllers).
+
+According to Table 3.2, the maximum SPI reference clock frequency
+depends on the instance:
+  - spi1: 125 MHz,
+  - spi2: 62.5 MHz,
+  - spi3: 31.25 MHz,
+  - spi4: 15.625 MHz.
+As the minimum divider is 2, spi-max-frequency must be half of the
+reference clock.
+
+However, spi-max-frequency also depends on the target device(s),
+and on board wiring, so typically it is overridden or set in board DTS.
+
+> +                       num-cs = <4>;
+> +                       status = "disabled";
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +               };
+
+> +               /* Target only */
+> +               spi5: spi@50009000 {
+> +                       compatible = "renesas,r9a06g032-spi", "renesas,rzn1-spi";
+> +                       reg = <0x50009000 0x200>;
+> +                       interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&sysctrl R9A06G032_CLK_SPI4>, <&sysctrl R9A06G032_HCLK_SPI4>;
+> +                       clock-names = "ssi_clk", "pclk";
+> +                       power-domains = <&sysctrl>;
+> +                       spi-max-frequency = <12500000>;
+
+spi-max-frequency doe snot make sense for a target-only controller.
+
+> +                       num-cs = <1>;
+> +                       status = "disabled";
+> +                       #address-cells = <1>;
+
+<0>
+
+> +                       #size-cells = <0>;
+
+Missing "spi-slave"
+
+> +               };
 > +
->          - const: zicbom
->            description:
->              The standard Zicbom extension for base cache management oper=
-ations as
-> @@ -1142,6 +1148,20 @@ allOf:
->            not:
->              contains:
->                const: zilsd
-> +  # Zic64b mandates 64-byte naturally aligned cache blocks
-> +  - if:
-> +      properties:
-> +        riscv,isa-extensions:
-> +          contains:
-> +            const: zic64b
-> +    then:
-> +      properties:
-> +        riscv,cbom-block-size:
-> +          const: 64
-> +        riscv,cbop-block-size:
-> +          const: 64
-> +        riscv,cboz-block-size:
-> +          const: 64
+> +               /* Target only */
+> +               spi6: spi@5000a000 {
+> +                       compatible = "renesas,r9a06g032-spi", "renesas,rzn1-spi";
+> +                       reg = <0x5000a000 0x200>;
+> +                       interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&sysctrl R9A06G032_CLK_SPI5>, <&sysctrl R9A06G032_HCLK_SPI5>;
+> +                       clock-names = "ssi_clk", "pclk";
+> +                       power-domains = <&sysctrl>;
+> +                       spi-max-frequency = <12500000>;
+> +                       num-cs = <1>;
+> +                       status = "disabled";
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
 
-I think we also need to have
-diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Docu=
-mentation/devicetree/bindings/riscv/extensions.yaml
-index 1c24999beb59e..bbd442cfbd904 100644
---- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-+++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-@@ -1162,6 +1162,32 @@ allOf:
-           const: 64
-         riscv,cboz-block-size:
-           const: 64
-+  # All three Zicbo* extensions require their block size property as there=
-'s no
-+  # default.
-+  - if:
-+      properties:
-+        riscv,isa-extensions:
-+          contains:
-+            const: zicbom
-+    then:
-+      required:
-+        - riscv,cbom-block-size
-+  - if:
-+      properties:
-+        riscv,isa-extensions:
-+          contains:
-+            const: zicbop
-+    then:
-+      required:
-+        - riscv,cbop-block-size
-+  - if:
-+      properties:
-+        riscv,isa-extensions:
-+          contains:
-+            const: zicboz
-+    then:
-+      required:
-+        - riscv,cboz-block-size
-=20
- additionalProperties: true
- ...
+Likewise
 
-because I don't think there's a warning generated at present* if someone
-does "zicbom" + "zic64b" and doesn't have a riscv,cbom-block-size property,
-only if they have one and it isn't 64. I think the former is a bigger
-problem than the latter.
+> +               };
+> +
+>                 /*
+>                  * The GPIO mapping to the corresponding pins is not obvious.
+>                  * See the hardware documentation for details.
 
-Probably needs to be an additional patch, because it has value whether
-or not we permit zic64b.
+The rest LGTM.
 
-pwbot: cr
+Gr{oetje,eeting}s,
 
-Cheers,
-Conor.
+                        Geert
 
-*: the kernel will warn at runtime, but nothing in dtbs_check etc.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> =20
->  additionalProperties: true
->  ...
->=20
-> --=20
-> 2.43.0
->=20
-
---Dm2P8/tZRoFsL+eF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaivB7wAKCRB4tDGHoIJi
-0r+LAP95Lkh6JmlVNGkOMGiFZ+ds+OC4z1NCcvaGyDDMznHyEQEAk5bm8w0ICEyr
-TwHrpZxora0ISSspUjdDg1Xmy+dJDQM=
-=9gRX
------END PGP SIGNATURE-----
-
---Dm2P8/tZRoFsL+eF--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
