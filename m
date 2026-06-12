@@ -1,96 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DA73911C5
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FFA3793BF
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781284007; cv=none; b=s+10egoTi1Lz9Ywtld6dOoE7gFSYQwueQlvDN0MqO5woP5nRoD5xBSiL0w1gO5FkMhvaPjVUShW64gU36aVTG5RSb8Q2JpBPFEiOFz7nS3gkAFgWcQgN3/eVABbS+GkgZtkjQX70YJXvoyL98dwEFVc1t8uN8tjRLWJxmhVisKY=
+	t=1781284045; cv=none; b=oj9ClWXHViYQekzzg79X8mJSF3Tc8M+ELHZbcuT3nJFOH06mPo3s66zT1INWOz158VCXyUMi950NzrwhFSM9qlwmAnwSqo/gWjlgPsD9mElhXG2lWw3TNrOSKD6xXajNN9h7WRoKbhUVGGM2nq5rwxBeH3UlNNebwmjQSbc981w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781284007; c=relaxed/simple;
-	bh=jlw3Jt0YZjpFWpxaIxPbaBDohf0dkFX4wrPdjfGLq8Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u3Zwv3gn5xJLzeic9TIn9SUWEvnXg50xlca/KwsFiSm2sk8xyhftNPFnWHfFrXBEntc40lfmLu28wkLfMsjTpJ7vZMjIHLq5nM7iSQ5vG4UGI13YCFFEhyEmf37LrcubBAE1PhD3+wA5GFlBAmi62myZFquVOxo/Mk8MjisgGjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CP6/veqR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781284045; c=relaxed/simple;
+	bh=s8kIyI8Kg8mw2/G73/sI5WPB5OMwNe7xM80CIqvV0jA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=GwFb+eEUxeRvCKXCB9MrjScmfZxq26BpTu2ukO2loWRsgAf3jAOudOvP+iLbFBQEw6Ko6Rlv9/j1ii5P5douTRwrns+Tu3O3Z2D7sp+8kWzWAQSWnzpIO0CIf7NyZsPyeMVSV9cb7QgU3WTzkF6YfODD1+cK62CNLHksgbCtal4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YGEDnQQU; arc=none smtp.client-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CP6/veqR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060BC1F000E9;
-	Fri, 12 Jun 2026 17:06:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781284005;
-	bh=B4V1aZFrTPWCVtWm1aK9wzIjct1SKl/aweN1HBLXMwU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CP6/veqRrY9X5Q6XKYSsQbd0CNU2Q+KE4cbjqtixSxeHcSk6BY8sfDOfSj7NNheIg
-	 LiSqzBVa6KJLnHY6MC0NApxeLwFV5w7G+5hWX02FqUcUpwDQZuSHjOFaydlRz7vbPJ
-	 dERvE15mw2gSmOv9nc01Xl4MGFzSK6vvxVjLeojuiXdnCC/mcpd5cKxdQXsbOJDRXU
-	 bZwjjNL0vrcY5km9C5FZnqLNqHLPWaPRSK0N6IuUl1oKLg78ZU7aSF6U8zTml57Sw9
-	 OSUCwU3faFCUcrQA9TWXZ+1pOoDI/F89EMk3TRme86mDZfqIQrAn8vE3WFvT98NKAl
-	 s2IGxRdfKfp0Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 18/18] phy: rockchip: usbdp: Add some extra debug
- messages
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org
-In-Reply-To: <20260612-rockchip-usbdp-cleanup-v5-18-efc83069869f@collabora.com>
-References: <20260612-rockchip-usbdp-cleanup-v5-18-efc83069869f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 17:06:44 +0000
-Message-Id: <20260612170645.060BC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YGEDnQQU"
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-486560db81cso1130707b6e.0
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:07:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781284042; x=1781888842; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=xKBQNOcRDd3e+ERR3iAVHd2ZwLSI7ZZFaqAB8m1VpdM=;
+        b=YGEDnQQU0Z8Dh39IITsQxB7QhrG51FX9zkqfdX0w0wXn69gdNM9U0SI7SkAkKafdwm
+         4YXkvTCg/LbbGl+/ljjB7d+LQrdvumzaEx+HkaRiu/HAsiUERgQpHED5a6fvr50V8vm6
+         Be9fv2Pn+ZyyDCsE1fHMb/RK13f6g9GkgBvfaFmYxIasBLI4T6rXDHnXnrs6v8c2+kri
+         QIlV52kcKtqa5FRMvDcaIIdTS6VeTNu81dUhyi9P00isWYsvoCKR8RgHPZAz/BDomHlB
+         +ISRJo1hKO6VV2/DWhYf5puP6qt0WUP7bZgdLwOYULhs9lYxLRlTj+M5/7rz8tyIjAA+
+         mJ7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781284042; x=1781888842;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xKBQNOcRDd3e+ERR3iAVHd2ZwLSI7ZZFaqAB8m1VpdM=;
+        b=BStv9IKgcw5qczvYsE0RMOR/kLG66KSvgAaDtBwxndji6weKIsmMamIMc+337AEl+W
+         6TnlCzhNWCxSi/ONNz59Qf2/Skrtfm1RNXk6AQw86tDppPrkG/N8Qt6wjqgIPwefGKSq
+         anwO2/tSfsonxTKUfQn646YU4XRmgqntM7Df4l0ADAbLgXADlHwl/wHGbMV6SkgRW+aX
+         uw4i1LKsDrrEWz3ScgWo98lPrtNIN9gb/AmWQbIrHXibYTsni0/5mqEL5y7C0dLTriM3
+         3hRDHnrdtGu+uDB6TA2bd0NWhtq3jd3TNgs360XFprCO8ya6MpWgs22cc0LIfubFd8Ra
+         UxqA==
+X-Forwarded-Encrypted: i=1; AFNElJ+pzG/4sYaovWYGgdWRKGRoSgIP82mEfzqR/f44+4JF9yKmNTHsxibg1IkX8xVp66F6HW5JCh1zgr5+@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUT3eubpzTrlvXbMWCKkPzkQ3UWnHrhTzabz2Y9EKRJe8O6g6C
+	rjeHhfrMGDE43PyKZk9wK0Am9WbHWg60NORBY1eDMz5vFmqAe6hWTgDxjUDxcYATzww=
+X-Gm-Gg: Acq92OGWU6oKYnv+P1W75YI7mDDaOqTp+Ly/LQN8vkS1MmQkESWPEDghxxbRbzeqhIU
+	RZRPM6mNaQ2LSYIQOw59swCrnXthchv68CWLz2Gwczs/ApYeuRqpzVF5NRxsMcCbgYPtQvkUOK7
+	lrce7Fd9H9KLyYUxyFpJMH6Qh1K+rwHnrLkgkGduOWicRPAds/H5mUxHU3uyiSZJl7sezpODI9v
+	YZbjF1t//OKJ9z81W/p4aTb9OVAEea7W8rVpE2yFQuYAzznw6VG/wMx8dyge5IAa5C2z/BCv2Vp
+	kxtffbxRiOH3vTR69GkwJpRW4HbdnlMQQea7o/ESWN/1KjG35rCNM3neWod7Js2+ZBdKKNzGvep
+	A3mFcRoi8kxCPAE1lXdxbd7j5ad/HYdo9iHgke3nZnz9UWcq0jVzr5r5gy2rrKXd5rFCRnQmohr
+	SxMsFI2ISpCDOEa1gAFEVj6bedTPorL7/hyx6mLS4jnpA22kvRmXXpyOchmO3RUwwxF6pH2QxQn
+	PIwyRey0Q==
+X-Received: by 2002:a05:6808:6f8e:b0:486:4f16:796c with SMTP id 5614622812f47-4872f55c651mr2546586b6e.33.1781284042259;
+        Fri, 12 Jun 2026 10:07:22 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:cba0:23d4:353:6048? ([2600:8803:e7e4:500:cba0:23d4:353:6048])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4873158579csm1336573b6e.14.2026.06.12.10.07.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 10:07:21 -0700 (PDT)
+Message-ID: <fd8d485c-8251-40cf-925a-5425fdd8b98a@baylibre.com>
+Date: Fri, 12 Jun 2026 12:07:20 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add TI ADS1220
+From: David Lechner <dlechner@baylibre.com>
+To: Nguyen Minh Tien <zizuzacker@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <20260610151342.44274-1-zizuzacker@gmail.com>
+ <20260610151342.44274-2-zizuzacker@gmail.com>
+ <788b7c6f-fae8-47cd-b78a-33f2803d8c88@baylibre.com>
+Content-Language: en-US
+In-Reply-To: <788b7c6f-fae8-47cd-b78a-33f2803d8c88@baylibre.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing explicit inclusion of `<linux/string_choices.h>` for string=
- choice helpers.
---
+On 6/12/26 11:10 AM, David Lechner wrote:
+> On 6/10/26 10:13 AM, Nguyen Minh Tien wrote:
+>> The ADS1220 is a 24-bit, 2-kSPS, 4-channel delta-sigma ADC from Texas
+>> Instruments with an SPI (mode 1) interface, a programmable gain amplifier,
+>> an internal 2.048V reference and a dedicated DRDY data-ready output.
+>>
 
-commit 1df9f844b4fa19da9efe1fba10ad8a1d451bea55
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+...
 
-phy: rockchip: usbdp: Add some extra debug messages
+>> +patternProperties:
+>> +  "^channel@[0-6]$":
+>> +    $ref: adc.yaml
+>> +    type: object
+>> +    description: Represents one ADC input configuration (channel).
+>> +
+>> +    properties:
+>> +      reg:
+>> +        minimum: 0
+>> +        maximum: 6
+> 
+> I would add a comment explaining that the limit here is arbitrary. Also wouldn't
+> hurt to make it a bit bigger. Technically, someone could have every possible
+> combination of all inputs (16 differential + 4 single-ended).
 
-This commit adds additional debug logging to the Rockchip USBDP PHY
-driver. The new messages report port status and track PHY initialization
-to help debug USB-C hotplugging behavior.
+From the dataheet, it looks like there are 12 possible valid
+channel settings rather than 7.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 236331cc0d132..4042e2dd81219 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -491,6 +491,8 @@ static void rk_udphy_u3_port_disable(struct rk_udphy =
-*udphy, u8 disable)
->  	const struct rk_udphy_cfg *cfg =3D udphy->cfgs;
->  	const struct rk_udphy_grf_reg *preg;
-> =20
-> +	dev_dbg(udphy->dev, "USB3 port %s\n", str_on_off(!disable));
+> 
+>> +
+>> +      diff-channels:
+>> +        description:
+>> +          Differential input pair routable by the ADS1220 multiplexer.
+>> +        oneOf:
+>> +          - items: [const: 0, const: 1]
+>> +          - items: [const: 0, const: 2]
+>> +          - items: [const: 0, const: 3]
+>> +          - items: [const: 1, const: 2]
+>> +          - items: [const: 1, const: 3]
+>> +          - items: [const: 2, const: 3]
+>> +          - items: [const: 1, const: 0]
+>> +          - items: [const: 3, const: 2]
+> 
+> Sometimes, the same channel may be used as both positive and negative
+> for a diagnostic, so I would just allow any combination instead of
+> listing specific combinations.
+> 
+And now that I read the datasheet better, I guess this is fine.
 
-[Severity: Low]
-Does this file explicitly include <linux/string_choices.h>? Relying on
-implicit inclusion for str_on_off() might cause build failures in the future
-if header dependencies are reorganized across architectures.
 
-[ ... ]
-
-> @@ -784,6 +786,10 @@ static int rk_udphy_init(struct rk_udphy *udphy)
->  	const struct rk_udphy_cfg *cfg =3D udphy->cfgs;
->  	int ret;
-> =20
-> +	dev_dbg(udphy->dev, "(re-)init PHY with USB=3D%s and DP=3D%s\n",
-> +		str_enabled_disabled(udphy->mode & UDPHY_MODE_USB),
-> +		str_enabled_disabled(udphy->mode & UDPHY_MODE_DP));
-
-[Severity: Low]
-Similarly, should we add <linux/string_choices.h> here to ensure
-str_enabled_disabled() is safely resolved without relying on transitive
-includes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-rockchip-u=
-sbdp-cleanup-v5-0-efc83069869f@collabora.com?part=3D18
