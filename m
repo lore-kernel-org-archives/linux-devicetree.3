@@ -1,142 +1,202 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3E63812D2
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781248465; cv=none; b=OQNp7qEBqXbP2Www5JdGuJgoVPNOyeM+zxlsYeJtcHfjABtLhrEBKMK2ICjg4v/7enbe7YMxQyRJt2+PCwYtERwg5M5wfUKVTaXyIQKpgPwrj+4ARjv8fmiSSDNGV+7B+1j5otXx96KJ/OCXGtgZvidX/iTPWd1KPPrDXI94anw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781248465; c=relaxed/simple;
-	bh=VW+1netLSKhQaTgm9OLeU/ucpn/ddm2kFU4rfwnFmAQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fkvtJgMNYHTzEdXTaELwkQ2WDDmbWF0d5WEsSyoyivKo4bGPQ12aUU+pQ8lxl1Iv6vVQHK69o1n0J33V+YoDfJOdjPII3qgTWBJTvVVUYxaGha73GsUGEuM5hjRFCPncialCw8BV30gOt+yAfSJ5FO6QU/pvznULBPqVHQ4aq5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HrXJtdVi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DqFXewll; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C082F8EB3
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781248832; cv=pass; b=OrQB6ycoaAiw+C58deKm80KSw/LtqQwGgQSwC6Hpy3nwHORm7/H0N7Mm0EJvnrv8YHnEnu1TYveKIt0wrRQsB3sihEZJPlcx8WcN1Q8DrAPXjySkI2kcIaCU6E5gtnW2365Po/uMhXMZSO2BkycRvMTqgN0zM0FFLywvZL7wslw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781248832; c=relaxed/simple;
+	bh=IkWHCCFQX7aMDTxBgQKIawFEFZfCBBbHv2LydgIraqk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f0V+z6E3I82AjbRZKjK9vpIju555hwybl1l0vbzgaP+Q1mDg5afjOget8ItGpKPvaiSM+CSKbnUHrdwT1d6Flc82nT3QgzZot7xT4oQZfxCeXQXDvS3XYdWsbSt8JOI2YSqTk6lz8vSVnQBJYpw+FqsMfK8CIoMgug9jNPSRHao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Oj4GuGzD; arc=pass smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HrXJtdVi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DqFXewll"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C3A43c2476935
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:14:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3Bk9sdgznjU+BVB3vMLKky6e
-	a1c5xyuTD40o8R4uHrQ=; b=HrXJtdViv/saCAZUb4qyVI9lRZFG1T6VUd5jYFdE
-	McDeP6YSNQIPf0STiZTlj8/rZlJa4/r+bOcCjfotmIgAeRFN0yNGZ5KEUNhW0X8Z
-	P+1w/TG5EnKuPYY1jqCoF93G2lxQ+W5a3yg9udq3nxWCxxvIOAixQGTVmQ543ebV
-	I2annhRWlcvILh1ypniJPqFvdfpHDtXx5MsoPA4NZAE6BFxTHyDsx3MfCA1JUEvh
-	EWtvx4XG9f0Eo1uxDxYkyAPsExKafVUz5vvvyriMUpIOXKy7MgsgjHSjuUgWs6t9
-	uTvTIQzts5v+Hjs6c55bq30BXybPYqic4WWI67zLMt2s/Q==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er2r5t0gx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:14:23 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-6c40601e2b2so636908137.3
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:14:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Oj4GuGzD"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7dc6fbf3e86so7901717b3.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:20:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781248830; cv=none;
+        d=google.com; s=arc-20240605;
+        b=IBiY2qcnwE9ME3dPTl6f7eFAmAiZbFS/SOgCp8RBSA40HW0/zUUF7tC+b46wV99ead
+         FtiOMcr1cxvWG29DWlFBWNYb6aMuriwLvEtMuPfszv+0Qmmxt/SEy0/GojnMvTxFMKCE
+         sohmu97sWivJQbrXyox/CL/UvjIw5ngS4J9ZVEIRavkHn9iDNFI4gfH1S55nY3sb4sAs
+         V2RromzhbyKTfzS3N9ictv3siRGfjucHZy25A6fVf4zLXLp1fLaVntfOCBlxqvFsSdY7
+         exgeaEDJZ1WUoVqE+ljiyullRZ+qTOuXRAJgnbrmhzzQJDfUlfZeLNYaZMtBZxWI17HU
+         Q4gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PEcj4bZjlu2HtgA6/DpQKuZoEr9jILxBgREI+9hl/bg=;
+        fh=y6yU9/ihgPODozzvAVIQF6Nia4OGnXazLxiSCfTvVeE=;
+        b=CgEkq2dVtTI8/U2FEX0HmOGini4EkkXs69Gi8yRpgQCSxkCWjG+GDcfOvvzVGn7G55
+         EkXZ39NmqNpKbNhDUxuS3aw1Iqs+CnRvVxmM9d10tTMFx4dMnZcNpd4B3uAD3ujMOxVq
+         7XF3DuLgEu37QgFdbhyL4XH1zojP+laUwky++FsN33+cfxLPsMXsYHZnCOBGs8xl/T/M
+         jix5I2CW4HLYqVQ4HJ2PMjhMuPdghY1G9pZoQ2QV9jQCA/to5liYZ3vhyBy5yGQMS42t
+         eynK2lnlfapOFmmUJ1nWCP8iLtsKX9DDCqpQGyJVvY90AVJdC+s+uN5CyfD0cCzCfKb/
+         9sqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781248462; x=1781853262; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=3Bk9sdgznjU+BVB3vMLKky6ea1c5xyuTD40o8R4uHrQ=;
-        b=DqFXewllWG751QLcO4iOXEsh8+U7XLJZ0Ve/Dkg6POm8erN1Nt+svtCVaXXFCWOK5E
-         AvcDsQnOIhF97M8halvNt4HTOMt33CwDRkr2A5BAa2O5rPpC+U9UmcwzpyVlukQmdSj6
-         NuqRoLliYl/LvwQn6/I4jK1UA3cfgRbnQkDhVuKE2e+/wbOtWrSQ1i7DK8uwjIT0dsWD
-         1Sbu9IPtC2efrEJ1wPw+ykN+YlkB5VU8TI5oVDA8XiNupL6aMumEwe2+XlPIhi9wPhxE
-         6EbRTL9Fmff4v+bImcIYzeLT9Hq9gk6G9QQBblSwgMrquffFjgTnZXVW/2giEJ9daz0b
-         45eA==
+        d=chromium.org; s=google; t=1781248830; x=1781853630; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PEcj4bZjlu2HtgA6/DpQKuZoEr9jILxBgREI+9hl/bg=;
+        b=Oj4GuGzDu9GI26DqlprSNV/s5e3UxGAX3WAvF5EG3Eog+1hSTDfzsXpVg87iTTjNlf
+         v8jWX1Dd+SPcZvi25Y2OkVchGb6xU6Sg8YfVmgsfJ99CLZH8s5qOmu3/P68rcrtYPtxS
+         k85chdfol8gkgjb95XHASHkvZ+YTtvZKmW/tU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781248462; x=1781853262;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3Bk9sdgznjU+BVB3vMLKky6ea1c5xyuTD40o8R4uHrQ=;
-        b=FjJTLmV+AbNCqjzEx31rxVOCO5T4WxtJeSHwcXyEAhEPzQsYw1XbCZydyPnkoJAMAt
-         edvfgmA0uhnT+TFaVtS/YMU1dsce2hyUVDUcpuRRL5Loi6ZvibBxed68lwYpsswYMWAV
-         Vt7dt+bgCeQhahYuAL2FEX7FEpoyDD5eRlz6PQsn28mAHD/QqJXSVow+y0q98vnYVqCs
-         SB1JZMCuV+wkG3h1iAAOJq0Nzw+mHabno0BSCtvqS91kNCxI+Vc5PrajHbg4dsuouJFz
-         ljbfjbJr7dgq/dSQ3m2mgH7HIS2C35oKWwfAN2btvJakF4X0r8ORjkPpNU2+NN3nRkfp
-         h+tA==
-X-Forwarded-Encrypted: i=1; AFNElJ9L9QEHx6wW3+a8uKRRJ0NTtmd5RRJx4f9X1/z2FMh/a43T7p4QRjQnDZnxDsdR43+rpPwZaIBtL0kb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8x+JFWol0/gZV6p4I+BHALt/hUYDqPifn15YJyAmQQF2ZppTK
-	hL+bw5ohrhm7og6Fg6KzpXFyL0K/odiK5SUFvUD+APgjHPCkNhuUb1qI0d/Bfl0z98Sd8j9Biiy
-	GO/rNJ9Geb5NJDunxoC/i3+hWq7ix8ydaLSB5IAWE28c3yTqkwYLWs/GxV6xSW8Uz
-X-Gm-Gg: Acq92OG+5HWRhDdx/PDtQz6ShCyGjlGQfhh520akWf7bo8gB8IHrISJPy6pfuqf6YWK
-	FR2118CeD6hOTlwSuweKy8/ShqVUKJC4FyYcVlzHCVjdapxWfi52KMR4Agrle6sYJ1TltqoNcWo
-	dTm8BkKgdPFn7HJEledVcjYaS+/ZZGPy/J4crOlqIao+deyLRJ/Ot+RBcqWpGU8T3CGD5Q5fY62
-	QmPIVyCZ43SDD52RV7gZjvrlnciLn5DsyyAYD0qU/njnsf9xXHaGtaaFoD39SPESgzG7ByzJ8Si
-	DKj8dpD8hAeuWDQOi8swcwA3aboH+5fpsJNRYB+cK8R+26A5nhkpr0gOC4dk7iIbcUgku58YB5b
-	Ci+Im754ydLjO4CNhfsHargSgpH6E+9/o+3xWH0DUeJjS89qySXLroBuOAbvxd0mEWF0R0r5zEh
-	UsCs2XN55KMP07f9dAMV5e6G/Qo8oie6O8pBU=
-X-Received: by 2002:a05:6102:3582:b0:62f:2d6f:cc11 with SMTP id ada2fe7eead31-71e88ad70f7mr832348137.2.1781248462415;
-        Fri, 12 Jun 2026 00:14:22 -0700 (PDT)
-X-Received: by 2002:a05:6102:3582:b0:62f:2d6f:cc11 with SMTP id ada2fe7eead31-71e88ad70f7mr832331137.2.1781248461928;
-        Fri, 12 Jun 2026 00:14:21 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39929c6abdcsm3826591fa.13.2026.06.12.00.14.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 00:14:19 -0700 (PDT)
-Date: Fri, 12 Jun 2026 10:14:17 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: ipq9574: Add missing PCIe global IRQs
-Message-ID: <knl25r4g5xw5zkjat7e2kffdhrthgln3mcz3hlic5u35srfsep@stoetxcewzom>
-References: <20260610-ipq9574_pcie_global_irq-v1-1-6d6333b95c43@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1781248830; x=1781853630;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=PEcj4bZjlu2HtgA6/DpQKuZoEr9jILxBgREI+9hl/bg=;
+        b=pxIwW6ddcJ/XSVRMIuZRkjkeFV/6+eFnqaHNKNu4EGd5Jt8S6a0zBN1KPoMeWmRgVY
+         RgsjZqGp5F6kQjQ68ufjZ2sFRPS7aSm53KRxSHeYS65U8ZDilYuFwjI2Tw59rueJHPZ1
+         ZLWFBxOkJZAT96HYR0Kt+mKwmZtikhTqKfn+lseyNaddYc6DWLj9KyUFfiN7zQff4vuT
+         5mFHH0c2NeFINbE6yC+wSynXxWIIQJGmG+70OwNFYPc0C7zSr2swD9XLeE7Qd1EuBcTZ
+         7IyZJ5rD85570XwDjSZQgVNmENKaeL2GwZatIpGkbCmHR0eGlfGqnJIwflLU6q0m0Ph9
+         wzpA==
+X-Forwarded-Encrypted: i=1; AFNElJ94FkClBN2q+y7jwox6MnsWyruPguOiBiQI63JDAd+ynAnsMpoXxjr5+h5EPCsMp4zNch5TZYpr4Xsn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwV6wfo0imKu8s3Zu2ak+ULZb35T7ob369K/uZxxdIhhFnNuS7Z
+	AxK0RhtN5GBGBIqP64kTnrqESblMk/CQc6budOA/zbiVd3TYmj9UlQPbu6qih0kM2ytgyTK9Nv0
+	4jZV7WS4wnfzD031wcLvG1fRHoKuZ7gM/Zoz+E8lt
+X-Gm-Gg: Acq92OFhEXUlMThqcKoRP3lLJOFMkuWl2fFbUUQrjoB4EQ0qDL0LP2bRN/HnDFv0z2Q
+	RQDVv/HnyUfBiqkGb6uh49Pw+OKotOU4Tu61i0spwj7A2ejtvo67v9/8M+8xjVOx+DKud8LWl3M
+	h1n4WrXHAykqdfa2k60lUXozJMr0QtWl6DKPremHcr1EATeUA8AbNLrCboPdaWYP6SV7U1FaB+s
+	D7rkdZfYaBj8XbCF43ngqbAEDy+kPhnRImlc3gQl+LDd7GimefmDck72s7aFQzSYwubgDBx/fuz
+	H3tFQXds
+X-Received: by 2002:a05:690c:c4ce:b0:7ef:81dc:c0e7 with SMTP id
+ 00721157ae682-7f7b6242881mr15277067b3.19.1781248829675; Fri, 12 Jun 2026
+ 00:20:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610-ipq9574_pcie_global_irq-v1-1-6d6333b95c43@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: Gp360zTAX1ZwSkZLFeOeNaQ_WSnNBPbs
-X-Proofpoint-GUID: Gp360zTAX1ZwSkZLFeOeNaQ_WSnNBPbs
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA2NCBTYWx0ZWRfX6bEKN2bYcwig
- GsVW0EQqnQDFhJgML0OBtmahpoNsPVycCkfNJU68XfqNf9lncJLoqM+2u8Aea01VWSW0QW9TxdN
- FzFLhEPVdIvK7uIO/ejFvBxsN7eXs3E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA2NCBTYWx0ZWRfX+x7X7zlM3ris
- +UtG4PL0T7tYa2/pjodvEd/Ujp+uRho1K1FhT6Rok//ykPw5/ATmgP87oWoTCTHp8GMzVA234rL
- x//VaNSRbXjrfvtoNheHG87Jme2B3mtET//7uFDGnWZTEB+0g4qBWDN4vqJXiGoUktPCZvVKYpd
- IwQezVZo1klRviAuqe7fi0wYSLVvulbfQ4LubwIM1Tz19HLt0vn+NpOhDPhRfHF8rxgrL/Mlnk0
- 8QbdBO+RYLHFnYQYNbrYXpYakeft3d9XYNqewGU0hKRZ5051KHs2h5XNrBkOWCaQlQtORqlHGTm
- 96gQVBA4a/ToYNL/AnzeMnZbU6ItrN3Bip2wXOBOgOcnJLvn8zIGEZ1nUu6CV32vQyNiM5AJ+3X
- Z0/JZmf70jS7m4CiacdJ86baHFSUt25WZm5wNypzmc3/mYSDzlctrYAGWmRNqpF8gG1aQKx/P75
- t4HYMlGsmztC+2/VhpQ==
-X-Authority-Analysis: v=2.4 cv=M6p97Sws c=1 sm=1 tr=0 ts=6a2bb1cf cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=jCeJVGeWWU-kfwvKBo8A:9 a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0
- phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120064
+References: <20260610084053.2059858-1-wenst@chromium.org> <20260610084053.2059858-3-wenst@chromium.org>
+ <ailv8HpnrCH3Zb8C@ashevche-desk.local>
+In-Reply-To: <ailv8HpnrCH3Zb8C@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 12 Jun 2026 16:20:18 +0900
+X-Gm-Features: AVVi8Cfix6rlRxpmlL_G61si3smqjEz2qk3oIH1X9DTqc3HutmT3uL6lEMZg0_I
+Message-ID: <CAGXv+5EHHWfiWgqPpf-RMKoSQLc2cd9OA4Z36SNoL5C53kVh2g@mail.gmail.com>
+Subject: Re: [PATCH v2 02/16] device property: Add fwnode_graph_get_next_port_endpoint()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Alan Stern <stern@rowland.harvard.edu>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 10, 2026 at 10:28:27PM +0530, Kathiravan Thirumoorthy wrote:
-> IPQ9574 also has the dedicated 'global' IRQ line for each PCIe controller.
-> Add the same.
-> 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/ipq9574.dtsi | 24 ++++++++++++++++--------
->  1 file changed, 16 insertions(+), 8 deletions(-)
-> 
+On Wed, Jun 10, 2026 at 11:08=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Wed, Jun 10, 2026 at 04:40:36PM +0800, Chen-Yu Tsai wrote:
+> > Due to design constraints of the power sequencing API, the consumer
+> > must first be sure that the other side is actually a provider, or it
+> > will continually get -EPROBE_DEFER when requesting the power
+> > sequencing descriptor.
+> >
+> > In the upcoming USB power sequencing integration, the USB hub driver
+> > first needs to check whether a graph connection exists, and whether
+> > the other side of the connection is a supported connector type. The
+> > USB port is tied to a "port" firmware node, and this new helper will
+> > be used to get the endpoint under the known "port" firmware node.
+>
+> ...
+>
+> > +/**
+> > + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware no=
+de in port
+> > + * @port: Pointer to the target port firmware node
+> > + * @prev: Previous endpoint node or %NULL to get the first
+> > + *
+> > + * The caller is responsible for calling fwnode_handle_put() on the re=
+turned
+> > + * fwnode pointer. Note that this function also puts a reference to @p=
+rev
+> > + * unconditionally.
+> > + *
+> > + * Return: an endpoint firmware node pointer or %NULL if no more endpo=
+ints
+> > + * are available.
+>
+> Yeah, you see, even here is inconsistency with previously added kernel-do=
+c.
+>
+> > + */
+> > +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct=
+ fwnode_handle *port,
+> > +                                                       struct fwnode_h=
+andle *prev)
+> > +{
+> > +     struct fwnode_handle *ep;
+>
+> Unused?
+>
+> > +     while (1) {
+>
+> This is usually harder to read and follow. It's like "pay much attention =
+on
+> the code", but here no rocket science, no code to really pay attention to=
+.
+>
+> > +             prev =3D fwnode_get_next_child_node(port, prev);
+> > +             if (!prev)
+> > +                     break;
+> > +
+> > +             if (WARN(!fwnode_name_eq(prev, "endpoint"),
+> > +                      "non endpoint node is used (%pfw)", prev))
+> > +                     continue;
+> > +
+> > +             break;
+> > +     }
+> > +
+> > +     return prev;
+> > +}
+>
+> So, this can be rewritten as
+>
+>         ep =3D prev;
+>         do {
+>                 ep =3D fwnode_get_next_child_node(port, ep);
+>                 if (fwnode_name_eq(ep, "endpoint"))
+>                         break;
+>
+>                 WARN_ON(ep, ...);
+>         } while (ep);
+>
+>         return ep;
+>
+> But also big question why? to WARN*(). There is no use in the entire
+> property.c.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Will drop. This function was lifted from drivers/of/property.c then
+adapted to the fwnode APIs, so it still has the structure of its
+origin. With the WARN() gone, rewriting it as do {} while() becomes:
+
+do {
+        prev =3D fwnode_get_next_child_node(port, prev);
+        if (prev && fwnode_name_eq(prev, "endpoint"))
+                break;
+} while (prev);
+
+return prev;
 
 
--- 
-With best wishes
-Dmitry
+Thanks
+ChenYu
