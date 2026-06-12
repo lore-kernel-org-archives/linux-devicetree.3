@@ -1,185 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B11C392802;
-	Fri, 12 Jun 2026 10:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA38390219;
+	Fri, 12 Jun 2026 10:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781260963; cv=none; b=cDDfqBQNhIIbd6BdyQCSUau8OAqtGNmICW1ehftQvnk2aQpKyjgNvspqj8N+aAGcBVqT6MyJpdBsIABsXx39G0Swk1kiK/BoXngKuqPsnuO6dMEczxmpGt+gRrJbOOeuq/H3GEq15kWxB6Rcyu98uaK+pdfMqla9PL9ocYJwtn0=
+	t=1781261035; cv=none; b=gFscue5z28QBLs6FyP874CJdXLmyUHRx6hPhTH8L3BtO3c/yM/iukYPVIL7qJyqMbSJ+kxvHht/fm741CSb65NQSodAc/YRwjmpmuC9UbvU7Qfd+2JgS3JbzH0xCJ6dFkovfLXbiLdAu8YTXeLvAO1+zRkKGnGC5qvFy/N3K8+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781260963; c=relaxed/simple;
-	bh=d6kXQUKxmwIoAqeaPpUA3CUMu2pW6SHUT+zJ4IoxNzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aE/PeYCiWsGu6PvqRNMBWoWsqdm7lacOmwFgAzFQ3+HoGwL8/XiZUL/l/Nl3b0HGc5Nfr+0h1LnT+THISp40O2Lw2KnR67zfpto5dR+Aa+uRfDlgLSHlqiCw+4LXIjhewGzufAWKRiNS62DEvABbBBx5YkSWW5/qGIIh0VG4Z1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOESSHvn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781261035; c=relaxed/simple;
+	bh=F5dcDiD4LJuUQlgCPut/E2WG8SDpGWV9olfhiUg5X7o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LUPlLI3PA0TVZuLq8dOY/fG0ojxjonr0iF9S2krQ5cBVvP59HXfrUvJNadRnrR/O1ID6fFHKgfPj+NPb1/CIxfKVrvcX9jyexSK9tukgolTJI5Bo8YXbTsyjU9O/vD3PwSOLyjEtbI+3H6l2fLw89PdwARd3qUIKnomc8oyOXN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UjpMHCvQ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOESSHvn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96F381F000E9;
-	Fri, 12 Jun 2026 10:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781260960;
-	bh=TDAHrpYZ6EtG6Z5qfwCH1qFBecbQ13ZGD/JYhR1ZyiY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LOESSHvn2qT0OB32WytdOew0BJ0iUhZVcpJIQydN+IsMmKtWZVr3CvQU1jDzwh8NH
-	 PCYdDVhKeyMO0AlAAsu5BjXByuONotT7+PPka18btW68MgpBhAoGfN2l8sIXfkBeid
-	 8Nm95Sr83+mkfhzJ1B5oYHFQDw476nSBxSVUGdNEd75746h2/0HsKkP5bFAAM6EXaX
-	 hGMx1/+FQBn6Vkb1SuiwUAPo62bgCaQYbp7ZpVjtcRyHg38GpjKjg8EzQ0BH/Lq49F
-	 3l1YrO1eWKNzLUDgi0/hKMWW3qwA54B1ksxwhBMhS0ZYGnzpkdwzGGRFn3bRd+mekX
-	 m6jvbFlM1vKoQ==
-Date: Fri, 12 Jun 2026 11:42:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
- andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
- jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
- krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
-Subject: Re: [PATCH V11 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
-Message-ID: <20260612114230.0fd2f391@jic23-huawei>
-In-Reply-To: <PH0PR19MB997338CE11110E16E7FB668E3BA51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260610175455.19006-1-macroalpha82@gmail.com>
-	<20260610175455.19006-4-macroalpha82@gmail.com>
-	<20260611120943.7119975b@jic23-huawei>
-	<PH0PR19MB9973387E29375D4E8F28C6B9D9A51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
-	<20260611172022.4d138820@jic23-huawei>
-	<PH0PR19MB997338CE11110E16E7FB668E3BA51B2@PH0PR19MB997338.namprd19.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UjpMHCvQ"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3749A497;
+	Fri, 12 Jun 2026 12:43:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781260998;
+	bh=F5dcDiD4LJuUQlgCPut/E2WG8SDpGWV9olfhiUg5X7o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UjpMHCvQ+jzTq1gAsaDygtz+EnTPnHOVkExle/ostJ+/2d0aMvVKqwh10WBcXYRDd
+	 mTh38ELH3SJ5Rt3+6mm2fejvDLonRSjWHJiqdyPCOuEAjYEPPU4WZXRIVVoddwtsWH
+	 MJcWFBrwmGinqpe+t/9j+gSB2jzTpBz7g2Z/3UHo=
+Message-ID: <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
+Date: Fri, 12 Jun 2026 13:43:44 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+To: Conor Dooley <conor@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
+ <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
+ <20260515-fraying-trickle-7511a2eeaf44@spud>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260515-fraying-trickle-7511a2eeaf44@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 11 Jun 2026 11:31:09 -0500
-Chris Morgan <macromorgan@hotmail.com> wrote:
+Hi,
 
-> On Thu, Jun 11, 2026 at 05:20:22PM +0100, Jonathan Cameron wrote:
-> > On Thu, 11 Jun 2026 09:32:38 -0500
-> > Chris Morgan <macromorgan@hotmail.com> wrote:
-> >   
-> > > On Thu, Jun 11, 2026 at 12:09:43PM +0100, Jonathan Cameron wrote:  
-> > > > On Wed, 10 Jun 2026 12:54:47 -0500
-> > > > Chris Morgan <macroalpha82@gmail.com> wrote:
-> > > >     
-> > > > > From: Chris Morgan <macromorgan@hotmail.com>
-> > > > > 
-> > > > > Add the core component of a new inv_icm42607 driver. This includes
-> > > > > a few setup functions and the full register definition in the
-> > > > > header file.
-> > > > > 
-> > > > > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>    
-> > > > Hi Chris,
-> > > > 
-> > > > A couple more minor things from a fresh read.
-> > > > 
-> > > > Thanks
-> > > > 
-> > > > Jonathan
-> > > >     
-> > > > > ---
-> > > > >  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 334 ++++++++++++++++++
-> > > > >  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 197 +++++++++++
-> > > > >  2 files changed, 531 insertions(+)
-> > > > >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> > > > >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> > > > > 
-> > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> > > > > new file mode 100644
-> > > > > index 000000000000..716fc0f1c3fd
-> > > > > --- /dev/null
-> > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h    
-> > > >     
-> > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> > > > > new file mode 100644
-> > > > > index 000000000000..334264120b42
-> > > > > --- /dev/null
-> > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c    
-> > > >     
-> > > > > +
-> > > > > +static int inv_icm42607_setup(struct inv_icm42607_state *st,
-> > > > > +			      inv_icm42607_bus_setup inv_icm42607_bus_setup)
-> > > > > +{
-> > > > > +	const struct device *dev = regmap_get_device(st->map);
-> > > > > +	unsigned int val;
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	ret = regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
-> > > > > +	if (ret)
-> > > > > +		return ret;
-> > > > > +
-> > > > > +	/* Warn, but don't fail. */
-> > > > > +	if (val != st->hw->whoami)
-> > > > > +		dev_warn(dev, "Unknown whoami %#02x expected %#02x (%s)\n",
-> > > > > +			 val, st->hw->whoami, st->hw->name);
-> > > > > +
-> > > > > +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> > > > > +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
-> > > > > +	if (ret)
-> > > > > +		return ret;
-> > > > > +
-> > > > > +	fsleep(INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC);
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * No polling interval specified in datasheet, so use reset time as
-> > > > > +	 * polling interval and 10x reset time as timeout period.
-> > > > > +	 */
-> > > > > +	ret = regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
-> > > > > +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
-> > > > > +				       (INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC),
-> > > > > +				       (INV_ICM42607_RESET_TIME_MS * USEC_PER_MSEC * 10));
-> > > > > +	if (ret)
-> > > > > +		return dev_err_probe(dev, ret,
-> > > > > +				     "reset error, reset done bit not set\n");
-> > > > > +
-> > > > > +	/* Sync the regcache again after a reset. */
-> > > > > +	regcache_mark_dirty(st->map);
-> > > > > +	ret = regcache_sync(st->map);    
-> > > > 
-> > > > Sashiko raised the point that you don't have a writeable register list for the regmap
-> > > > and so potentially we at very least write a bunch of stuff that isn't needed.
-> > > > I doubt it's actually a problem or you would have seen it, but nice little optimization
-> > > > to reduce what is written.    
-> > > 
-> > > I will add such a list, I'd put it in patch 4 unless you think I should
-> > > merge patch 3 and 4 to make the driver compileable at the first commit
-> > > of code (will push the number of lines to the ~850/900 range though).
-> > >   
-> > I'm fine with them split but don't mind if Andy prefers them combined.
-> > His comment on adding a COMPILE_TEST option would allow that to be
-> > built, but it is a bit odd to do it just for that purpose.
-> > 
-> > Jonathan
-> >   
+On 15/05/2026 20:32, Conor Dooley wrote:
+> On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
+>> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>>
+>> The Renesas DSC Display Stream Compression is a bridge embedded in the
+>> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+>> 8k or 400 Mpixel/s .
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> [tomi.valkeinen: fix the example]
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+>> ---
+>>   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
+>>   1 file changed, 96 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+>> new file mode 100644
+>> index 000000000000..2918d592732b
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
 > 
-> I'm going to add the i2c stuff to this series, and then do the SPI
-> on the next patch. That should add only a little bit to this one but
-> still ensure the very first (code) commit has something to compile.
-> I'm going to avoid doing COMPILE_TEST unless collectively you all
-> think I should.
-> 
-> I'm still racing to try and get this one done before the merge
-> window opens up, but I'm pretty sure it's already too late at
-> this point. I'll refrain from submitting updates once the window opens
-> though.
-Unfortunately you are correct. IIO in practice closes around 10 days before
-the merge window to give time to both expose new things to testing in linux-next
-and to allow time for Greg KH to merge my pull request into char-misc (which
-is the path IIO takes to upstream)
+> Filename matching the compatible please.
 
-Sorry about that, and whilst no need to rush as a result, we also don't
-stop merging IIO stuff in the merge window, it just sits in the testing
-branch until I can rebase that on rc1 and then push it out for linux-next
-to pick up.
+All the other Documentation/devicetree/bindings/display/bridge/renesas,* 
+files follow the same style, where the file name is in a generic format, 
+but the actual compat strings are per SoC (and no generic compat string).
 
-Thanks,
+So is the fix here to just add "renesas,dsc" compat string (and perhaps 
+later fix the other binding files too)? I'd rather not name this file 
+"renesas,r8a779g0-dsc.yaml".
 
-Jonathan
 > 
-> Thank you,
-> Chris
+> pw-bot: changes-requested
 > 
+>> @@ -0,0 +1,96 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Renesas R-Car DSC Display Stream Compression
+>> +
+>> +maintainers:
+>> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> +
+>> +description: |
+>> +  This binding describes the VESA DSC Display Stream Compression encoder
+>> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
+>> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: renesas,r8a779g0-dsc
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  power-domains:
+>> +    maxItems: 1
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +
+>> +    properties:
+>> +      port@0:
+>> +        $ref: /schemas/graph.yaml#/properties/port
+>> +        description: R-Car DU input port
+>> +
+>> +      port@1:
+>> +        $ref: /schemas/graph.yaml#/properties/port
+>> +        description: R-Car DSI output port
+>> +
+>> +    required:
+>> +      - port@0
+>> +      - port@1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - interrupts
+>> +  - power-domains
+>> +  - resets
+>> +  - ports
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/power/r8a779g0-sysc.h>
+>> +
+>> +    dsc@feb8d000 {
+> 
+> Speaking of fixing the example, should this not be "decoder" or
+> "bridge"?
+
+Indeed, bridge or encoder. Both seem to be used in the existing bindings.
+
+  Tomi
+
+> Not a big deal though.
+> With the changed filename
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> 
+> 
+> Cheers,
+> Conor.
+> 
+>> +        compatible = "renesas,r8a779g0-dsc";
+>> +        reg = <0xfeb8d000 0x400>;
+>> +        interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
+>> +        clocks = <&cpg CPG_MOD 2819>;
+>> +        power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+>> +        resets = <&cpg 2819>;
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                dsc_in_dsi1: endpoint {
+>> +                    remote-endpoint = <&du_out_dsi1>;
+>> +                };
+>> +            };
+>> +
+>> +            port@1 {
+>> +                reg = <1>;
+>> +                dsc_out_dsi1: endpoint {
+>> +                    remote-endpoint = <&dsi1_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> +...
+>>
+>> -- 
+>> 2.43.0
+>>
 
