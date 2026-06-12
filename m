@@ -1,151 +1,126 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3DF369D6D
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9288D1E8826;
+	Fri, 12 Jun 2026 18:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781286599; cv=none; b=Rto6yxYH7IHcCpJ6SnGk54V0zm5zlaYjQ7jqgpxf84dz3C/b7dnkTHqRl6594GmicDtF4dDBOxV+IClwNaiTlocHlyugu+dQF4JXMvZeGbEwDkLGpnzQwUq3jwEsDTB1JgpAC6G8erwPRYVv5kvcIxCqg8CBjahXMazfxIledbY=
+	t=1781287255; cv=none; b=Loxnb5NSQJ5Pqj4mEiGY6oA48PGzOzA+v4PiqQ/Zz2KZDITocAGY02YRCfkL4rCYtsxpWo/9a+7c/knJaobwlI39y/aT8JSjRVU2UHkRMX9D3KHVZGEdmud357BLgb9LNB5x4IC9HxpYJQsgHYN1Ng/IC+ShCCt2WR6WT4v8eIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781286599; c=relaxed/simple;
-	bh=h115VTK6dungfQ4qIdCxA3kCKtoEZBfHb83D7Vo31gU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=gvx01IgdWi+9TFvYueDEvdFiEpWZmAoGqpc17sBsdfWl9ck2dJkJg7JV0Jb4pE/89rkptRRNCA4lR6k7qDVhxjumGLPjqk8zlS6c7UPReBoSiugp2Nzgj1ky/KkKJSNMIhI1Z7z0gqq3BGpNlZUL7KN0Xepgv60tkh0nFbXTHNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NO29Eynd; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781287255; c=relaxed/simple;
+	bh=WsmeQvQGeyq2M87UoeoKm+GR3W7WQx6cpiY0EC6vOZA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DnTFuxYUL9KyhiFa4iOW6Q7OCJ8GKnVOQUNtjGv/J1ab/GxTAXQFYNax5BEpLWaEk5Z4TWTQ+QUnS3/5k+fJGvWURutQh3TKOVmYxI0r0TDgQ4/g3PgsSu60rE6ybJlkzX/AUKZhtIG0+OrDx+fhSAG6dlo3Ku4y119ZgkZ0l0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=A9EH7Yv6; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NO29Eynd"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso10518095e9.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781286595; x=1781891395; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=C85wBIXdmOAkbGAX37TSwTaJxl8p7p/GigMbGhAuSmc=;
-        b=NO29EyndaZTP4L9bwqRYnxiwYwu3iC3bkQTJe8JVl/jCSqZDwSLYVhxRAxAAlsZnGq
-         z8ovA9kxiRPX3uNCAtCQQk/40+Vi6nSJYfNxnTHyn0BNUkMogapVhueSRGrJfmlWkluu
-         70Hv+BtE2YYQexNE03azSY4wCAmx8xs/khlZlG7yrX2zCOxYfp1PcbpXYhcH3pVxu8hE
-         1DBjU81toTHYhFse6lhVRyRKCjP4ZBwNZrmUtSNlAUItk9V8115ndCndbEM0uR8d0LFW
-         wom8KKabJYaS0GivkOV0K4ZgeDirCDMp4OqtqGEJSDg1kbnLQrYsMmpIhisaLIjwv5fU
-         hQRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781286595; x=1781891395;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=C85wBIXdmOAkbGAX37TSwTaJxl8p7p/GigMbGhAuSmc=;
-        b=TVv0RUXHx/L2wzHxIzv5x1xofFbjT6o+XAx9tUh0CjVP8ddMJdbvnJ6UTGTgPtzRdJ
-         uOSroBIsxYfYwrkjJFlDG6v/rQxzDTH0+chixFVLQqam0nvSpJuMWmGSmvKFBQJts+1l
-         22a3Mi/spidACQMT0N8voPTuwYDofW4mqX4DPJ8gO5P6m14mj1dU3TpRF436MA0F+D3S
-         /f3jFnMKbt2opqKirQfiu+2R8dt4UFZt0DNX0YMLwZg6RjPUTQKLT8L5EkqyJ2Zq2DnD
-         x/SpOgh3SaeOZS7rhhnVYj7NwtfzxS4QtPFgnZfdkjb+XCoBLorcCajViZUDQ0iSjM1a
-         ZRxg==
-X-Forwarded-Encrypted: i=1; AFNElJ9/r1YvYiV4JaPze5bGAmWOKLuDx4C/31EJGTJwwNs7+a2EnijUwDGLih8cYxZ6REZ1sG5tUBcg/uIs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0kk4foFFj6l7nDSAbOCRVFlYgaPurh5knMU2aE1LcmFa5/6Kd
-	rueUVMMU4mBMONdgUpc99Dgwl2tX1rmNXBNMBSUbkguaD0DSZpKG0OwbYzPbysuZ
-X-Gm-Gg: Acq92OFKywQwGQanMdNkZ7V1TuRBAPwGwS6KMaOHJrByz2LA4U59VlBAQLhlfKsObo0
-	Y14ydllCufTpX4L4wmCJlTCrpNBlvLaHvOH68ZNWe6bSfIlC7K1OZcPs9OKn2Ye0PNWsC7w7nFk
-	5MbOH8Qk//jWOtFFjLLuvnyLKQufQoIFeajZVlCiwek+tTi13F1iNWBxD0AYgCqfDHCs5s3H8Mm
-	KLNQx/fkIA5fDb8TaFA/rHung38/Jujlb7qbUblRubnVh1HuSkFhyf7ctN9HMilMr/Vp/n9bowZ
-	QhXtykXY0gEsnwkgv+ZtuvC5oX7L8oyVloOyaRZzgQYGwjUgioBJGSXVGVSfeqM5yaoxD+Nb0yW
-	EM03hhTk0FYr6nnKIeHuV6TcqoeuCkFJxULxYF5BStjgvn17usW8CMsRJfCBKpGFtk1vMM8p3g1
-	DMCVvG4X7Ik7RP9Qw3RCvjqCgVJPqFXRCqD9hIeUS4HxHMS3e+a//HVaIRKCKYmzHhLlrRop0Oq
-	ts=
-X-Received: by 2002:a05:600c:820c:b0:48e:5d91:cfe3 with SMTP id 5b1f17b1804b1-490ec4cd08fmr53203395e9.1.1781286595100;
-        Fri, 12 Jun 2026 10:49:55 -0700 (PDT)
-Received: from ?IPV6:2a00:1fa0:742:25a:e03e:6c9c:49d8:2fee? ([2a00:1fa0:742:25a:e03e:6c9c:49d8:2fee])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f3basm7395809f8f.12.2026.06.12.10.49.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 10:49:54 -0700 (PDT)
-Message-ID: <31cb54ac-8cf7-45fe-9167-becc4cd2aea9@gmail.com>
-Date: Fri, 12 Jun 2026 20:49:51 +0300
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="A9EH7Yv6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1781287252;
+	bh=WsmeQvQGeyq2M87UoeoKm+GR3W7WQx6cpiY0EC6vOZA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=A9EH7Yv6Nl2PNMowcJr6lTBfy6JU/s51xkh2vXnO5P+wNTjNFA1iyGIV7dzIkGyV2
+	 l+5a55vKE/ecjjoBlZRKdAHEVI6hKtfbwFXzdB+9gzNoPJBdP39/Jpp4hQI/AN6iEx
+	 Qsg7ePdR75pks0xQKHR+mpmzhoSuVpAatKu1NXslKCbZ/LJy3lwgh9+oW6qyDp/jGR
+	 IM38i7FJBR5hTkrqZum0V7dCNn7YLqSFv60DGy37X00CoWAYw7vEKN/3FXLTWR1dky
+	 IGq3XXg1nHrDs5UymY9Q2mNxOow8YFIa0FEelpU6V4grenBKrs/IdfZs1CJfiIDibl
+	 sTyJrYkil7VmQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B62CF17E03C6;
+	Fri, 12 Jun 2026 20:00:52 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 78DC4480026; Fri, 12 Jun 2026 20:00:52 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 12 Jun 2026 20:00:47 +0200
+Subject: [PATCH v3 01/10] drm/bridge: synopsys: dw-dp: Simplify driver data
+ setting
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next 3/9] net: ethernet: ravb: Simplify gPTP start and stop
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, Paul Barker <paul@pbarker.dev>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, netdev@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
- <20260610102432.3538432-4-niklas.soderlund+renesas@ragnatech.se>
-Content-Language: en-US
-From: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-In-Reply-To: <20260610102432.3538432-4-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260612-synopsys-dw-dp-improvements-v3-1-dc61e6352508@collabora.com>
+References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1218;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=WsmeQvQGeyq2M87UoeoKm+GR3W7WQx6cpiY0EC6vOZA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGosSVStviUCLo5za77nTAKT2U13SAsC3EanA
+ N5gu1xsmRuaFIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqLElUAAoJENju1/PI
+ O/qar7AP/0p6E6UzqtGJPOsR5dk62A0zuNQL99x3zENNUW/nku7BjS+u38Y9Gq517FDFvLcKK2J
+ dXn0p114bvNl8+Otw3z3cmhOgVz6iz05jmwi0fzskXRjp0Bz3rGPbAZMX+qIp+9Zqh+jdDJ0Gv7
+ dZ/CH4Nb13A9XGy/OUlow9T2fwDy3k5Ems6/p8DOIjtRinTebqoYkk4+RkA+mDRqeQdYV6f/gNC
+ 26oaFRUB7ULrSyWxsMBbr8AeFpduRjlmsGab7wD2BsPw+nrcEC9p25bSY43jA9Exx7KB6WbSw/n
+ Usnl9hHFWK5aCPPV1DXqkLh7B5A1+SvX4kO78fmmmHtR92UqRSL8HAQzJUxLp58oXA0Oo3MDFSn
+ P1+wfwmL/DdZYO/qmnnV1uy7N46rbt1nY+zfiXMweh8XnATi5SE7yQuS7QuZufKdBOO4OR2MeAP
+ QMXV352wILWNw856ThPKbi7wv4xo18cZxZx9In/xVU5dcufTCvusP6LVUUpN988TY6Nm5ftKNGs
+ J17t5niqT9KHWLAMkv2cETQIvR5XlckJ6CoVgyZZmgba6bI7fJpoFG9szRmD/4ux73Q1YsHGAZj
+ vhZAK8dejMz8G5gJi9JFfPwZwSKd3/utBbzySrejfyzeaCKBBHfUtjFbryv1W37Boqni/QwudGf
+ SQSZtSZS6nX3tVI+vDCsxnQ==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On 6/10/26 1:24 PM, Niklas Söderlund wrote:
+There is no need to get the platform device just for setting up
+the driver data. Simplify the logic.
 
-> For devices that do not support the gPTP clock in config mode the
-> somewhat oddly named flag gptp is set, compared to devices that do
-> support the gPTP clock in config and operation mode where the flag
-> ccc_gac is set instead. The two flags are mutually exclusive.
-> 
-> For the gptp-flag devices (Gen2) the clock is tied to the AVB-DMAC, when
-> it is stopped so is the gPTP clock. For ccc_gac-flag devices (Gen3) the
-> gPTP clock is available whenever the ndev is open.
-> 
-> Prepare to add Gen4 support which will add a third way by cleaning the
-> Gen2 and Gen3 cases up a bit.
-> 
-> Fold the gptp-flag start and stop calls into ravb_dmac_init() and
-> ravb_stop_dma(), which start and stops the AVB-DMAC. There are no
+Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-   s/stops/stop/.
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index 0de822360c8d..35598ab9fe84 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -74,7 +74,6 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
+ 
+ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+ 	const struct dw_dp_plat_data *plat_data;
+ 	struct drm_device *drm_dev = data;
+ 	struct rockchip_dw_dp *dp;
+@@ -87,7 +86,7 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+ 		return -ENOMEM;
+ 
+ 	dp->dev = dev;
+-	platform_set_drvdata(pdev, dp);
++	dev_set_drvdata(dev, dp);
+ 
+ 	plat_data = of_device_get_match_data(dev);
+ 	if (!plat_data)
 
-> functional change as all call sites to the construct,
-
-   s/,/:/?
-
-> 
->     if (info->gptp)
->         ravb_ptp_init(ndev, priv->pdev);
-> 
-> Are always just after a call to into ravb_dmac_init() and all call sites
-
-   s/Are/are/.
-
-> to the to the construct,
-
-   "to the" repeated... And s/,/:/?
-
-> 
->     if (info->gptp)
->         ravb_ptp_stop(ndev);
-> 
-> Are always directly followed by a call to ravb_stop_dma().
-
-   s/Are/are/.
-
-> 
-> There are two special cases where the calling construct covers both the
-> gptp-flag and info->ccc_gac devices, one for start and one for stop. The
-> condition that it is preceded by a call to ravb_dmac_init(), or followed
-> by a call to ravb_stop_dma() are however true for them too. Reworked the
-> two special cases to drop the check of info->gptp.
-> 
-> The end result is that the gPTP clock will be started or stopped for the
-> gptp-flag devices in tandem with the AVB-DMAC, while the info->ccc_gac
-> devices will be controlled, as before, when the ndev is opened or
-> closed.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-[...]
-MBR, Sergey
+-- 
+2.53.0
 
