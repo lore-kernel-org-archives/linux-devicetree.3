@@ -1,112 +1,162 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3845135675D;
-	Fri, 12 Jun 2026 08:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D98637C0F6
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781252004; cv=none; b=I3TsyNptKGImCqd50lVcrKA0Ob4wHWRDr9YETvITrsSoEO/DD7NWgydRaopHmGqaUuzGit8A53kiM+ODUDseGbg4Mc1UXaqKejreMG5r9fzpje+tvBW8VXPqmNMed85vAhCU0bTTPMlMxnHXH8RtuxSOC3vzcceQuiNhmid3954=
+	t=1781252194; cv=none; b=tsgHEZ6wYvIAQ712OKpU3oMyB5Z7+oQbGLNs9bi5kLCDmxlExGen56ikrNLNQBHmJLfwcsfRZNLrCn6bjGejCk34zwAzmBxHZjwnlFdHf0309PYYyVW0kfLuSHIuEofm0e5/9VTwZ1frq2eLkZqLkYUd0m8SKGqKQ+X5QGt2y1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781252004; c=relaxed/simple;
-	bh=EtJZAYs6E/WZgQq7Sg+kISDy17uxy7ak03wdp/fu4Ik=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JS+42z7AdA7ZKY3CgXDJfJf7RPSC7l2iNusQ/lrkjsZcPzvAUzHGsWAGfF7pUkhvdxl0nboqeK5bEifBjaQkOtQL2CX2RWHfVPcPKwXtv8qZaHAn6C1XL46Fe6sPANu3Y4f8/GgB6U8TYVK5uCD95IFzHoyV3dfqP5CxN9YiJo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=flrv6BBr; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1781252194; c=relaxed/simple;
+	bh=XtfhJiDRtO0qVS5lt27jFgSYop8poG8IwV4ZWs4MENI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OZYFiCQIksAu57ZPo3m9BeksBWsiyrV1/rTnNnETZ5r6KJN3HdHs1+c2oxN/tqfkxhmYeu5DcgwVH6gHrs0ucIBrMtNv1I4h6Y0pPbtENigM4ruI1KZgxFvJLPF/E3QJFMHos4RsKOHFsKO69sXP34OSE7QSt4opwjJ0pcCpXCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGMLfup9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="flrv6BBr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781252003; x=1812788003;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EtJZAYs6E/WZgQq7Sg+kISDy17uxy7ak03wdp/fu4Ik=;
-  b=flrv6BBroa09S8MtaPcglDtTAvyNg+Hc3j2E7nPWZRDdfoZYeu+yLQtX
-   Ql+u/bT/54fK4G1yJyIEfXG2mUxhxtZtf/ni5/kN0oGBOtEvM+RAWe763
-   tKLBKDg7/Z7c+p1kMXKgcMFeUemyjvQZh4UJGVQwwzO4S1+oPyRSBDgs+
-   dPqTQjB7xkQqYaWUEcMrvvJMDFldG9XZruprr2qmg1N1FbcGX+Y583UJA
-   e2iNXrLNEGevZBYpW5gpgULPMXZg06kYKFY8+t26mrF4qsM/ZnHE7v5h1
-   r4dHtBRaB1uN2l42JBi8PA7ZX5amyKhwPdJj+21NSneumJQkm++yPBlEp
-   Q==;
-X-CSE-ConnectionGUID: pgiZR6tuTNqjfYasAurGdA==
-X-CSE-MsgGUID: DLJWxWdJR4OYwN1yOiQ8Ow==
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="asc'?scan'208";a="290396387"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 01:13:22 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Fri, 12 Jun 2026 01:13:21 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 12 Jun 2026 01:13:16 -0700
-Date: Fri, 12 Jun 2026 09:12:30 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Guodong Xu <docular.xu@gmail.com>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
- Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Zong Li
-	<zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, Anup Patel
-	<anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Chen Wang
-	<unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
-	<linux-doc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<kvm-riscv@lists.infradead.org>, Paul Walmsley <paul.walmsley@sifive.com>,
-	Conor Dooley <conor@kernel.org>, <devicetree@vger.kernel.org>,
-	<spacemit@lists.linux.dev>, <sophgo@lists.linux.dev>,
-	<linux-kselftest@vger.kernel.org>, Palmer Dabbelt <palmer@sifive.com>, Andrew
- Jones <andrew.jones@oss.qualcomm.com>
-Subject: Re: [PATCH v4 07/16] riscv: Add B to hwcap and hwprobe
-Message-ID: <20260612-unsorted-sequester-6a4ec6b9d583@wendy>
-References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com>
- <20260611-rva23u64-hwprobe-v2-v4-7-3f01a2449488@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGMLfup9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA171F000E9;
+	Fri, 12 Jun 2026 08:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781252192;
+	bh=CFimSGTUOZRs7o47a92OpeJOaJEa9ZiP5H34Nzryqag=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eGMLfup9b856hHyBDE8kS42KoyDvyg9RUWgYG8gby03NUK5MipFOLPJNc2Go3xCSB
+	 l+cmcc23dm67Ij8XEmCACjX77TAERMZ93il7kjFp7NPIGvf21fjFbS2A+ZxveA1l5r
+	 lJDKLdNKjeLWHTVDBNxmOiiESyyeQMTn6zkKzvZKncvIyNl0waYCKCIdoWf5fEK2Il
+	 TnCGaxMjYdJe5MsSxBvEZCF+j6ON8CPr94QDc7xVvrriGBxP2ggD6Z0qvcj0QeJa8W
+	 jzoP017E+kijQJWzg8MxmrLJy71jZ7EXsXlPUnMBxNJx1QCjKGfLdANUlE+EzKcIQH
+	 Fg7wo1K9XYoqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] ARM: dts: renesas: r9a06g032: Describe SPI
+ controllers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260612080354.57459-5-wsa+renesas@sang-engineering.com>
+References: <20260612080354.57459-5-wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 08:16:30 +0000
+Message-Id: <20260612081631.3AA171F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PQqI/ma7D3SyX7fS"
-Content-Disposition: inline
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-7-3f01a2449488@gmail.com>
 
---PQqI/ma7D3SyX7fS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Target-only SPI controllers missing the `spi-slave` property and i=
+mproperly configured as hosts.
+- [Low] The `spi-max-frequency` property is improperly placed on SPI contro=
+ller nodes.
+--
 
-On Thu, Jun 11, 2026 at 04:12:44PM -0400, Guodong Xu wrote:
-> From: Andrew Jones <andrew.jones@oss.qualcomm.com>
->=20
-> Add B to hwcap and ensure when B is present that Zba, Zbb, and Zbs
-> are all set. Also expose B via hwprobe (RISCV_HWPROBE_EXT_B in
-> RISCV_HWPROBE_KEY_IMA_EXT_1) so that userspace can probe B directly,
-> mirroring the F/D/C/V pattern where each is reported via both hwcap
-> and hwprobe.
->=20
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> [Add B to hwprobe]
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+commit 812adfb1b6b8e7de5a970209c3fa9a2a938214f8
+Author: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+ARM: dts: renesas: r9a06g032: Describe SPI controllers
 
---PQqI/ma7D3SyX7fS
-Content-Type: application/pgp-signature; name="signature.asc"
+This commit adds device tree nodes for the six SPI controllers on the Renes=
+as
+RZ/N1D SoC. The first four controllers are configured as hosts, while the
+remaining two are designated as targets.
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts=
+/renesas/r9a06g032.dtsi
+> index 442ea26b40f53..e5c76b38a58e4 100644
+> --- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+> +++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+> @@ -563,6 +563,96 @@ gic: interrupt-controller@44101000 {
+>  				<GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
+>  		};
+> =20
+> +		/* Controller only */
+> +		spi1: spi@50005000 {
+> +			compatible =3D "renesas,r9a06g032-spi", "renesas,rzn1-spi";
+> +			reg =3D <0x50005000 0x200>;
+> +			interrupts =3D <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&sysctrl R9A06G032_CLK_SPI0>, <&sysctrl R9A06G032_HCLK_SP=
+I0>;
+> +			clock-names =3D "ssi_clk", "pclk";
+> +			power-domains =3D <&sysctrl>;
+> +			spi-max-frequency =3D <12500000>;
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiu/bgAKCRB4tDGHoIJi
-0qW0AP4zDRXj0LcaBFyBnGq6O7UoIBzoElEBlRQMmlD1lzUdDAD/WDVIu88sPWvA
-kcQWsFvqgBTiL+CUQBbWI3amTlmHgQI=
-=nHj3
------END PGP SIGNATURE-----
+[Severity: Low]
+Does the spi-max-frequency property belong on the controller node?
 
---PQqI/ma7D3SyX7fS--
+According to the SPI bindings, spi-max-frequency is meant to specify the
+maximum operating frequency of an SPI peripheral child node, rather than the
+controller itself.
+
+Setting it on the controller node might be ignored by the driver and could
+trigger dtbs_check warnings. This same pattern appears to be repeated for
+spi2 through spi6.
+
+> +			num-cs =3D <4>;
+> +			status =3D "disabled";
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +		};
+
+[ ... ]
+
+> +		/* Target only */
+> +		spi5: spi@50009000 {
+> +			compatible =3D "renesas,r9a06g032-spi", "renesas,rzn1-spi";
+> +			reg =3D <0x50009000 0x200>;
+> +			interrupts =3D <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&sysctrl R9A06G032_CLK_SPI4>, <&sysctrl R9A06G032_HCLK_SP=
+I4>;
+> +			clock-names =3D "ssi_clk", "pclk";
+> +			power-domains =3D <&sysctrl>;
+> +			spi-max-frequency =3D <12500000>;
+> +			num-cs =3D <1>;
+> +			status =3D "disabled";
+> +			#address-cells =3D <1>;
+
+[Severity: High]
+Since this node is designated as "Target only", should it include the
+spi-slave boolean property?
+
+Without spi-slave, the DesignWare SPI core driver evaluates
+device_property_read_bool(dev, "spi-slave") as false and unconditionally
+configures the hardware as an SPI host. This would cause the controller to
+incorrectly attempt to drive the SCK and CS lines.
+
+Additionally, standard SPI slave bindings expect #address-cells =3D <0> and
+generally do not use the num-cs property for slave nodes.
+
+> +			#size-cells =3D <0>;
+> +		};
+> +
+> +		/* Target only */
+> +		spi6: spi@5000a000 {
+> +			compatible =3D "renesas,r9a06g032-spi", "renesas,rzn1-spi";
+> +			reg =3D <0x5000a000 0x200>;
+> +			interrupts =3D <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&sysctrl R9A06G032_CLK_SPI5>, <&sysctrl R9A06G032_HCLK_SP=
+I5>;
+> +			clock-names =3D "ssi_clk", "pclk";
+> +			power-domains =3D <&sysctrl>;
+> +			spi-max-frequency =3D <12500000>;
+> +			num-cs =3D <1>;
+> +			status =3D "disabled";
+> +			#address-cells =3D <1>;
+
+[Severity: High]
+Is this node missing the spi-slave property as well?
+
+Similar to the spi5 node, omitting spi-slave will cause the core driver to
+configure this as a host instead of a target.
+
+The num-cs and #address-cells properties here also appear to violate standa=
+rd
+target node bindings.
+
+> +			#size-cells =3D <0>;
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612080354.5745=
+9-4-wsa+renesas@sang-engineering.com?part=3D1
