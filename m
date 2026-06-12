@@ -1,171 +1,189 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172742EF652
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2AA331EAB
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 13:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781271986; cv=none; b=VFldex3p/4To5dVByMhyVRi3Jt3MEILQgCqypbRgiO0Xtc6Ep1YMXx08Cyzb04HyUOaSuSac3s2qcdiQzeYa6fYt4MMMFsyu63T4+5ose1bLxJ1GgJNJEF06ti88yCT5bcfp7ujTpFyNAf1/eYGZPIqdmh6OrD+Ufz1Qs5gSDSo=
+	t=1781272107; cv=none; b=rA1kWgzpiSA311SjXlcq/a7/q8+Wp+2/AMw28FqgtsIye7jtnn9OtIaqA4nkkEonFThDTG5EpthHXl0Y5ki/Zs5eH7GtWVFmAVkDbA5CtaE6QITKg/Nlqpyxo7piCLzYjP4oDMLoR3h0FOtoTLy4Em+4LFxIBN+d50lAKrSexZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781271986; c=relaxed/simple;
-	bh=f8j6pTQh6YCRHfsD/tvylB4gaZX50h6BTuMcY7i9jI4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=TZex0YCGEBaSP6KI70Ck/Ro2oqesM67thAiYz/Fp/mQNe0zkQxHx6THoF7RLrcdfNiOEdt9Dec2stHTPfuBNsoMgMfE1kUqywXXX42UOluX1GzmJuzdCfGgeil07m1fYY4tkuu6kr/3BoqVT/jm7WaKbQeSIByiTrrJ6nxGGD08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=HT4Zui4c; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1781272107; c=relaxed/simple;
+	bh=Nm/CFb+Dox2Afi7pYSuOi5ckPQL3p9sapoD96313IHI=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iInBkmlNhPuEzXnrgCB5ODY0YCG6+xsr5PTk0HbiDFvZPL2hgJl+cKVBx9f99OOlIZEF+cTFk+1RDSmK0CR1AK9yddQf3kAkfGrEdfBjaEYklZejvy84WCGqJItJyrByAlJahdO9Qf9o5OGXqyjSErXLwglnmEEsaMSBI0/TCoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ErY4PUEd; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="HT4Zui4c"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-68b90fc6a1dso2067049a12.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:46:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ErY4PUEd"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490afc47455so4417815e9.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 06:48:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1781271983; x=1781876783; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ylCRDVWR0E0OMduxXy2JHO34dLyiiO1L7Ze1awwPVa0=;
-        b=HT4Zui4cT3cg+FG7kaRP00saJYnbrMS/19SeAguGZ7ETq8q0Tk9oZaYh394GnqrXBH
-         RtqLYGY5DwGolK+RPfqJ2GZ3oBKlzDUOBY/Tp+/Pqgx4t98CBuGErJVKJRlSBNloLxCj
-         UzYOeFpFw+7VUNatoVt4m3mcbEAdZgUVOxPiyJVO6DtnoOXAmJ4RSgnI+iqC7766FuGc
-         peaaujGXIRKUpKV60dv1PclYlk14kJZn+wEH+x5w9grmuqz7x9OtBEW8FCuFDJWWS3cs
-         u7JSg3QWP+ZuiXVbsVD/LMmkk18ZknbTR9bcqlhB3FJbVFDJmG2tuodiY7wTa+9wJ75S
-         K5fA==
+        d=suse.com; s=google; t=1781272104; x=1781876904; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mipHo0l7RBc0zEMhF8Fz8QvRJ7oAxrgIKC4nNESKUfg=;
+        b=ErY4PUEdqNZ/35649bKLE7SJKD4ZSucvJLnEIfCWqyNnpZ6bTMaP5cqd0g7nIFdaOq
+         sQuem0TA3QWJrlF/oWAa2mlRhTujgwTJlYjA9wWYYt6TXC8+4Ddl3zoZGMJajhSRDp8c
+         VNVFGRAd9x1F1PjJCjffGiqSDR0fxgYfO5r/uBAOXWoYHNuRexwHSDGyL/BpruYtaMys
+         KgBqmwIztjhXLKjbJ5w/9AVZWy13oca/o3BPbbL1D6tATSL0qaRxzCj5AdfZVe1axASx
+         sTbIIGWgGUTBipISFI/OpzZU8i6uNgPM6xwmyeARuN3vOtdIvPOaYr9X1D6sohgwYPKV
+         DFSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781271983; x=1781876783;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ylCRDVWR0E0OMduxXy2JHO34dLyiiO1L7Ze1awwPVa0=;
-        b=VNLja78Da53NX8LZHEwpnt0guoTzzIkKs9XZy/1lre+JT+k348JDWCV0kaAY5BCWr3
-         tR2610T7LU5ZBKg1+UeH+nydYT/TmK3ltn7rzgsuW0XvWsme6613tKsIgC+53rgjIsB5
-         qMRKMFWxwamRYyKU5Nt0vGyce/gIJMyVYGctKAuRvs39a8HoJYJ0y8p5ptuDT8DuSRPC
-         ZSCuCcqXU79hVhhO+NmXM1arwIhEh7tLPTqZfk/b4ErDMd8hqbDgDa+yL+Q00mzzZ1fd
-         9Nw6sHLosn4StojHMEoEKzp34Wi/4SdvDZ09F95aZTNc56JegCFoAjjd+hcqMM2zqU+G
-         YewA==
-X-Forwarded-Encrypted: i=1; AFNElJ8gMUM4IEppE3u87lp5B6UkV+tXEDji+m7rUHemWRcZ/p94ElOLBWJrYbAH9yGyph+Y76rjVPHCn1h+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4QmJv/NsHir3OnSFZVZctqvTdeQLxKWJ9z02du+necyAE/mXe
-	jWEpFxsJPl4ruEa4PXrfIz84eARsWg8pWMn1nAuIvZA1UXkXVdgmjfZfS3L2qVU5iHo=
-X-Gm-Gg: Acq92OFvngceDqIOs5lcudzg/s8yBnmLPckzXOyd+7LnMUM3/S9hEHVRZsiiWT+HaZv
-	LyaveIBb+YMz+DF8uVHc87gBwOZhMlRU1BPXa1DWw+r72PYTHJ7gBzxbTly2RZMAomPbQgzXjuB
-	AMhswIeP5h4wyKoysEeQiUsc86H2nk0PLIs6n6PinTTbxTxYCBzeWVD4oInLQryWCxieN1dnUfi
-	fG8P2ffP5Ze6dlj2mTEg179TTp3/DfF4nOSm9+sszJMSPZhNlPw4+IgbXCdLw1LfFjeM0t42S5E
-	F8fEa2tosA35aR0oanz/Jm3kXjei5RcwCWIo0UGy1aazwdR+F40dwDqgiE2nVbrK+N/1k0ZyAF4
-	7hzkWBwTSZ0YSrhAsIn/fydMNJ+8fDLA51s0d4K60BgjbsDA9PTa3DtRb0zBu6sAznUTZB4YogM
-	CtH1o/mua8TrLV4O6ganXdB318S2HnMdRwtTXqo4fAmIukrwmUIuM1v7K+hQCdMetyachCN3EKe
-	wUkERT8BIHc0hN8y/5cpVLTxZf0s7AzRkgs1w==
-X-Received: by 2002:a05:6402:1f06:b0:687:2ab9:f4a0 with SMTP id 4fb4d7f45d1cf-69378daf678mr995497a12.5.1781271983463;
-        Fri, 12 Jun 2026 06:46:23 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6937948fc99sm682580a12.23.2026.06.12.06.46.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 06:46:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781272104; x=1781876904;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mipHo0l7RBc0zEMhF8Fz8QvRJ7oAxrgIKC4nNESKUfg=;
+        b=LT86BVPbnPQoqzHJQuB+R0svgbNW/nmn0NWlHH7y6klyC7X04lvp7G3vCNmJBPoRnZ
+         uf/F7c9F7GkorGOupPUzsjKj1E0w5f6eoj8I8YhdKrJ3y/MjKv4BFXntwLxgX1sczls1
+         5BQlzaDJKr12gvnRdsLYm2hG7peTwwXr+uBvTTP5TmbA86JKMhc4Hz2z2kNIBNI0HGjG
+         tiK21gP2/danJLT91i5lXhUftr+CB7JgY7FyAmkXq1b4e4DfEat6QVvE5TJTW46iBSRV
+         GTOha1/+j1OBt3p75jbyNrZ4vZ0W8Y2Z125Dg8Z7hGSEuhlQTxM9zHmlJEXJQcjnaZ+E
+         NdGg==
+X-Forwarded-Encrypted: i=1; AFNElJ8dlU+3SFkXZaPJmF6F+g0RtY76qDoy8xCQoaFuYkCi80RoONhicSLqXmE+q26fz55yC9WUA2B3fj/K@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJQgc00pr+sNwVvOXPIlefUnHgYVkHgPQX8f86cYpyL2fpd7wA
+	STG9Z/GGaV+wFISdmzzrD/CsAGSyDSwnH/ILwiPhG85RZ97BtPb3vy9jFWtGGYY5Wq4=
+X-Gm-Gg: Acq92OFO8sJvjLlbqPluprMiDcc59+t6X4iKknNac0KkodQkmsAewkJswK7GM1nfKWl
+	95F8MkK7eUEjJiRcQ4keNCry7ACVGmurnOHeZz4h84NMX5rFsC8Zjgdj2pZnaq5uL3CtkV/xa5U
+	Nw43FmSG2zdf9DC2AM0Wu7fZTTGfM8vBMXa7E/OK6Qq7YgzzbHVrbS8DgLZvB6wUFjOgqg+wgBM
+	fQZys9olALhc+cpaTDkX43Ouh3Udmr/OMpczoMb5y+KK9rrYq3r2xOyiq4HVSiU5IbkSjN0Kxjv
+	0xfDm0PbjvYNBl6tQy6nwxaZZhOkYi7aE1ZxrHuZ8FNK2OYVCqlv9TrLzSh9Wg6v+nbO8b0VXot
+	dzckeiCuF4Q7Odm1Ddu+/IONzDHtT8C966HuU9fYFCQyoZ4VoJjNxAMYVCYBC5njgIkswNzHjUc
+	/ABSLqGrEeNq43NbCJaSeh
+X-Received: by 2002:a05:600c:3b15:b0:490:b189:212d with SMTP id 5b1f17b1804b1-490ec522d44mr40387895e9.33.1781272103620;
+        Fri, 12 Jun 2026 06:48:23 -0700 (PDT)
+Received: from localhost ([195.94.146.6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea843cbbsm76137075e9.13.2026.06.12.06.48.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 06:48:22 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Fri, 12 Jun 2026 15:51:44 +0200
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org,
+	Kevin Hilman <khilman@baylibre.com>
+Subject: Re: [PATCH v4 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <aiwO8Ac6btqSes8x@apocalypse>
+References: <8eef956a5eb473f051bbda89ec4c9991c1b47de2.1780498640.git.andrea.porta@suse.com>
+ <20260603154716.1B5C41F00893@smtp.kernel.org>
+ <aiGAINsTG8VZLn28@apocalypse>
+ <aiHn5-gQMbjttrR6@monoceros>
+ <aiL-DWqU5bnIPL8B@apocalypse>
+ <aiM0VlVXAWs54v-G@monoceros>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 12 Jun 2026 15:46:21 +0200
-Message-Id: <DJ747VLQEHIN.Q3SS1FFC9I3L@fairphone.com>
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: kodiak: Sort pinctrl subnodes by
- pins
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Vladimir Zapolskiy" <vladimir.zapolskiy@linaro.org>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260612-kodiak-cam-mclk-v1-0-fd294ff003a2@fairphone.com>
- <f05ad4ae-140a-40a7-a6ef-9ac2ddb0a939@linaro.org>
-In-Reply-To: <f05ad4ae-140a-40a7-a6ef-9ac2ddb0a939@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aiM0VlVXAWs54v-G@monoceros>
 
-On Fri Jun 12, 2026 at 2:59 PM CEST, Vladimir Zapolskiy wrote:
-> As documented in the "Devicetree Sources (DTS) Coding Style" document,
-> pinctrl subnodes should be sorted by the pins property. Do this once for
-> kodiak.dtsi so that future additions can be added at the right places.
->
-> No functional change intended, verified with dtx_diff.
->
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->   arch/arm64/boot/dts/qcom/kodiak.dtsi | 1382 +++++++++++++++++----------=
--------
->   1 file changed, 691 insertions(+), 691 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
-com/kodiak.dtsi
-> index fa540d8c2615..62daef726d32 100644
-> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+Hi Uwe,
 
-<snip>
+On 22:51 Fri 05 Jun     , Uwe Kleine-König wrote:
+> Hello Andrea,
+> 
+> On Fri, Jun 05, 2026 at 06:49:17PM +0200, Andrea della Porta wrote:
+> > On 23:28 Thu 04 Jun     , Uwe Kleine-König wrote:
+> > > Thinking again, the tohw() callback could be a bit more clever and also
+> > > use period_ticks = 0xffffffff, as this fine if duty_ticks is less than
+> > > this value and if duty_ticks = period_ticks = 0xffffffff you can still
+> > > configure the hardware using period_ticks = 0xfffffffe to achieve the
+> > > 100% relative dutycycle. (But keeping the current behaviour is fine for
+> > > me, too.)
+> > 
+> > I think this is what it's currently doing in this patch iteration. I stand
+> > corrected here when I said that period_ticks should be at max U32_MAX-1: logically
+> > it can be U32_MAX but it's getting 'translated' into U32_MAX-1 as the value which 
+> > is fed to the register. So the period is still U32_MAX, accounting for the extra
+> > tick at the end. So I guess we're on the same page.
+> 
+> Not sure you got what I wrote. You can use the maximal value possible in
+> hardware, because for all but 100% relative duty cycle it works as
+> expected. You only need to map 100% relative duty cycle with that
+> maximal period to a different 100% relative duty cycle setting. I think
+> PWM_DEBUG even doesn't yell at you for that. (And if it does, that needs
+> fixing.)
 
-> +			qup_uart12_cts: qup-uart12-cts-state {
-> +				pins =3D "gpio48";
-> +				function =3D "qup14";
-> +			};
-> +
-> +			qup_uart12_rts: qup-uart12-rts-state {
-> +				pins =3D "gpio49";
-> +				function =3D "qup14";
-> +			};
-> +
-> +			qup_uart12_tx: qup-uart12-tx-state {
-> +				pins =3D "gpio50";
-> +				function =3D "qup14";
-> +			};
->
-> I understand and support the intention to keep this change non-functional=
-,
-> but this pad "gpio50" is for qup16 also, right?
+I see. Since you said that teh current behaviour is also fine, I'd prefer
+to stick with it to avoid complicating the code.
 
-According to my QCM6490 data sheet, GPIO_50 has these functions:
-* UART for qup14 (OK)
-* SPI for qup14 (OK)
-* SPI for qup16 (no pinctrl)
+> 
+> > > > I'm not sure whether an inverted polarity pin shoudl stay low when disabled.
+> > > > After all, the inactive state for a reversed pin is high.
+> > > 
+> > > Sashiko's concern is correctly stated, if you go from
+> > > 
+> > > 	polarity = inversed, enabled
+> > > 
+> > > to
+> > > 
+> > > 	polarity = normal, disabled
+> > > 
+> > > the output stays high, which is active for polarity = normal.
+> > 
+> > Ack. I'll set the polarity first so there will be no uncovered corner
+> > case.
+> 
+> You can, but as I wrote below, being lazy is also fine.
 
->
-> Similarly pads "gpio54"/"gpio55" for qup14 function, "gpio62"/"gpio63"
-> for qup16 function, I find all of these are missing on the original list.
+Already done :)
 
-GPIO_54:
-* UART qup15 (OK)
-* SPI qup15 (OK)
-* SPI qup14 (no pinctrl)
+>  
+> > > However the behaviour of a disabled PWM isn't specified, so any
+> > > behaviour is fine, the only objective is to save power. And if the
+> > > consumer relies on a constant inactive output, it's supposed to not
+> > > disable it.
+> > > 
+> > > For me both behaviours are fine. Making the hardware emit the inactive
+> > > level might prevent a surprise if the consumer isn't aware of the
+> > > missing guarantee, but being lazy and so surprise the consumer is also
+> > > fine as this might uncover that wrong assumption and allow the consumer
+> > > to be fixed.
+> > > 
+> > > (And not all PWM implementations allow to configure the output level, so
+> > > a guarantee cannot be given. Some go to 0 irrespective of the configured
+> > > polarity, some go to High-Z.)
+> > 
+> > I was just curious about sashiko saying it's violating the pwm framework
+> > expectations, while according to your words it seems there's no constraints.
+> 
+> In doubt trust me :-)
 
-GPIO_55:
-* UART qup15 (OK)
-* SPI qup15 (OK)
-* SPI qup14 (no pinctrl)
+Sure!
 
-GPIO_62:
-* UART qup17 (OK)
-* SPI qup17 (OK)
-* SPI qup16 (no pinctrl)
+> 
+> > BTW, I've tried to install sashiko and use it on my patches but it's obvious
+> > that some custom settings are in order, since all I can get is some error
+> > aborting the review after 3 attempts. Any chance you can share your Settings.toml
+> > or any customization so I can test it in advance before submitting the new patchset
+> > or do you recommend just throwing the new V5 at your script?
+> 
+> Note that sashiko is not "my script", it was setup by Google engineers
+> and I have nothing to do with it (apart from benefitting from its review
+> feedback). Kevin (added to Cc) tried to setup a local instance with his
+> Claude plan, but (IIUC) it quickly ate his day's amount of tokens before
+> completing review of a series of only 4 patches.
+> 
+> So without knowing the size of Kevin's or your AI plan, probably it's
+> easier to just rely on the public instance. (And IMHO that's nothing to
+> be afraid of, just handle it like a human reviewer. For these you also
+> don't know what they will reply for your next revision.)
 
-GPIO_63:
-* UART qup16 (?)
-* SPI qup16 (lane 3) (?)
-* SPI qup16 (lane 5) (?)
+Ack.
 
-But the GPIO_63 looks weird, is the data sheet wrong?! Where would
-UART_RX of QUP1 SE7 go? Maybe it should be UART qup17 and SPI qup17 and
-then SPI qup16 ??
+Regards,
+Andrea
 
-Can somebody at Qualcomm please check 80-20659-1 Rev. AM and maybe make
-the apppriate people there aware?
+> 
+> Best regards
+> Uwe
 
-So yes Vladimir, you're correct. Some pinctrl definitions for those SPI
-QUPs are not defined. And the datasheet seems wrong as well.
 
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-
-Thanks for checking!
-
-Regards
-Luca
