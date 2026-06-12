@@ -1,158 +1,235 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD40A374198;
-	Fri, 12 Jun 2026 08:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D655C374198
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781251888; cv=none; b=AI3SaalC6nDyWzljI9uOWWt3P1jGEoJYDmtlx8qhsEWDdO6hgJoaj3w18LFfrax5R6NU+hUK2E7/Aqm8Qc6MlOQhI8ecr8R+137cYIMLro4KpLncVm4XPNLj5zktKt7xZOwx0ogareTznIVM2awgrcgdNbxomIMdFaSd8KMCZ5s=
+	t=1781251921; cv=none; b=Nrz8FXtW3YiNi67mKTV18cf6KhU6qkFassZlEy5ZMkSLZcPM/IbuVynfcTirpV2K99y8rWGqFa6z69cPWQyNnKPeX0myKeeSowsEQhI8P2t9coIFFTmfw/Uo/76pN/Oafzf6mrioQqxbmgTvlDARs7VCL8H5k0kSQmwpasaREcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781251888; c=relaxed/simple;
-	bh=09IdOVLMNDB2JSk1h6RiniYc8xGkWsFYI0Azybko6vM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VN68qsLfki2FFEyxlDbspCOqOX9osAhLy/TX6kgGeSmsmHwr5Smv+VvGc7c9wW9Yk32hwI63M8Idf8CkKmJPTYYv0GwyE5JQ/3HIXx+DNEQn1QrTCPH40+TC2ziSS5LZyfo/TIPhcPZpyC4o1+4xA6Xqbk9w8cydCig/slTCFxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=tbWeAlrf; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1781251921; c=relaxed/simple;
+	bh=w/KMCvTAaLSnkJCY40Gg7KHEFZvGewFVkWrfXQdQo0I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dhuPsgJaEhLMyX2O5SiZoD4dfsrF4AXc40zsI9vaRpr5fhSy+++Ahpep2W+PahN4fQ3IotsJLkUZivQkPAKGYTIOrg6WnVJpZb3/rGZ5gFr/6w5aBD+AYDu1GKbRT7cwUOWZOQgIiRQrAprSLVbSSOlu96OX3b73IdIPpWjjqiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Poip8q+F; arc=none smtp.client-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="tbWeAlrf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781251886; x=1812787886;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=09IdOVLMNDB2JSk1h6RiniYc8xGkWsFYI0Azybko6vM=;
-  b=tbWeAlrfL6Ln09mUG89d1Iudb35p2h3WbIvsxolwEeR5+sT82PlkGMBX
-   rP32URH/e1SHKvCF9wswBMtAQv+e8OvWVLexBM+eeN5jZFfUbyYu+5whk
-   hhfYVHZYMqPqasx1ehUknScSIKqUI7crjLmoKK/YnYp/nJesjUGHUX/Uf
-   etEHOiSIeCn5frAMrm1qzQbdv+osj11yzg3FF0OuGP42u4trH9wYvdKsL
-   jTZgceoTndSoog+wcndTs8jKGQXtFQEkXhfL7s9wfrKwmJeclMQyikwq3
-   x+htuuk4/PzXMH+gO5xPHYlNrqFiTgfVEGftT54ge5f3JyXX5pERgOErA
-   w==;
-X-CSE-ConnectionGUID: 7jMcURnnQSWYXlwofOiWTQ==
-X-CSE-MsgGUID: uQQAS81sTPGD4Sp0EYLexQ==
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="asc'?scan'208";a="59402913"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Jun 2026 01:11:19 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 12 Jun 2026 01:11:19 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 12 Jun 2026 01:11:14 -0700
-Date: Fri, 12 Jun 2026 09:10:28 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Guodong Xu <docular.xu@gmail.com>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
- Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Zong Li
-	<zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, Anup Patel
-	<anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Chen Wang
-	<unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
-	<linux-doc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<kvm-riscv@lists.infradead.org>, Paul Walmsley <paul.walmsley@sifive.com>,
-	Conor Dooley <conor@kernel.org>, <devicetree@vger.kernel.org>,
-	<spacemit@lists.linux.dev>, <sophgo@lists.linux.dev>,
-	<linux-kselftest@vger.kernel.org>, Palmer Dabbelt <palmer@sifive.com>, Andrew
- Jones <andrew.jones@oss.qualcomm.com>
-Subject: Re: [PATCH v4 06/16] riscv: Add Ziccamoa, Ziccif, Ziccrse, and
- Za64rs to cpufeature and hwprobe
-Message-ID: <20260612-revered-statue-793228111bf1@wendy>
-References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com>
- <20260611-rva23u64-hwprobe-v2-v4-6-3f01a2449488@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Poip8q+F"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aa5a77c07aso104949e87.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:11:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781251918; x=1781856718; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MrRgMzUk2Tnqgkc/wKcgEOgJeLLj9KV+tTDn5EhNFR8=;
+        b=Poip8q+F82ckFzVo4AomKTGiFGAL3Z6jV0RrXwe/uzdrEIh2x7AXdzqenay0iuT+Iy
+         z5E/Vb0YAuZkpn2QxRWVfCJLgflSlWck9dtY/SLck59166D75HWVGDxIIeMZBI47bKhb
+         Q8W/xGZE2OvLJzbt+35LObA5tx9vOSzDBKVbtb5A/RBIjaWDxaEcO/0DcII9hrcNo3JA
+         /4ByqYZq8TrGaXp5wV94CC6SiMy5KSVCNM4hBSdYRjwG72wW40izLbIrkYpj3iuHpdYm
+         YBOwq1B/Ew/APWxREvh93loWftMHjcO1tOkIl8nHif8ecI8ijTysQcw2LOY64DvqcQt8
+         AJjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781251918; x=1781856718;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MrRgMzUk2Tnqgkc/wKcgEOgJeLLj9KV+tTDn5EhNFR8=;
+        b=GndK2qvpZaLWvQbQw1dry5/kry8LoLtsv8OKjKNTYIx1kgeT2ipWxTJpbWRhnzyk9V
+         DUMX5P5y8r71GWO1U38jB1BbKP2kfMQBz3wlG36nzvjmDBydpKx8h8b/cSw68aW9/qW9
+         hVZ+rF+RuhuNikhdjsxJz/dFwZI2lmymp/OHbQlwAkQTT9lV/6QNgrNvBY1840vMxI5O
+         lJJGUFu82q+ItvkGig88LKrrHR6lgszEXTe05n/DAZiD/JWk76YQjxVb4GZH/PGKh1GJ
+         6P+vfBwmiq8PzSyXs8sZ0ULrG4J/tlG3tZfO7X+zds4IuM+IROhfLI5FlP1MYXRAlIf6
+         4BpA==
+X-Forwarded-Encrypted: i=1; AFNElJ8Wx0GyHBOcVmYZDj034Isn8lxWFONOVsLIL1GBR9YmLNQPgq+2yq5gcvuWPViPF3iVT6oGWqxvplNV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbExRzBwhcrzHZeuHgOvzrbsZi0f4uIiaWr1E+0dmCQmi5KfD/
+	ljhTgJhE7KYkE+GRd1s/z7FBHPXGNEIZXG4FD7Ig0IWDLCihLH7xOg5vqcqyCVKHaE4=
+X-Gm-Gg: Acq92OEF59FovYMVtiGESQ1eMytqH4h+vimUKeUTf3ejqmdpjpaH8oTF3hkMEl1cOal
+	fwhJBkIagJ3OZJCKSf+j3pAjFDcClvr0N4RsXQbXqfZWRmN9z2esPcVOguVXObhden65TUxjO+K
+	zad7m5H0kIQG7qg3Js6/zWg/EFmYmtqTVWsQqDvAccYJ/A7pPe7yWpD7q3v4B3UNjSYDhhl7laH
+	n89gvHhqfgaCENp41h7mG4+hRBxQ+d4L9jN4GmGch7f4U2qeHKs6DY7HCvwTsQCQL86s275P178
+	ke7q4Xs9wWrizmvACegDDOe7ehwc/qom3gJm6tDCTERdjMUVekqZnUeo9Fk+LFkWptuiYeIeTZ6
+	HXwsVFp2RV+pbaUBq6M/iUHOZDHRloDN7LsdZ9wiuJFr6cN1b3D9SUbCa1Ah1U3wlRvjKW8tMO+
+	eixJBET+FEiDSQ0JjKOd9i9iXvq5xBWsrr8jFchJIlx09x2iNGdPDcZ3A9JmHUVKVzJilYz98YY
+	PUPFA==
+X-Received: by 2002:ac2:5f19:0:b0:5aa:6ba5:9a58 with SMTP id 2adb3069b0e04-5ad2db30090mr185209e87.1.1781251917979;
+        Fri, 12 Jun 2026 01:11:57 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1bb12csm324070e87.84.2026.06.12.01.11.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 01:11:57 -0700 (PDT)
+Message-ID: <6ec25a28-9d0f-4c87-a4e1-85d8e410eaba@linaro.org>
+Date: Fri, 12 Jun 2026 11:11:56 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="qxWNCqHoXJi6kp6h"
-Content-Disposition: inline
-In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-6-3f01a2449488@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: shikra-iqs-evk-imx577-camera:
+ Add DT overlay
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ Suresh Vankadara <quic_svankada@quicinc.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com>
+ <20260608-shikra-camss-review-v2-7-ca1936bf1219@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260608-shikra-camss-review-v2-7-ca1936bf1219@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---qxWNCqHoXJi6kp6h
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jun 11, 2026 at 04:12:43PM -0400, Guodong Xu wrote:
-> From: Andrew Jones <andrew.jones@oss.qualcomm.com>
->=20
-> Add Ziccamoa, Ziccif, and Za64rs to riscv_isa_ext[] so they can be
-> parsed from devicetree/ACPI ISA strings. Ziccrse is already present
-> in cpufeature; this patch only adds its hwprobe exposure.
->=20
-> Expose all four extensions via hwprobe through new bits in
-> RISCV_HWPROBE_KEY_IMA_EXT_1 (RISCV_HWPROBE_EXT_ZICCAMOA, _ZICCIF,
-> _ZICCRSE, _ZA64RS), so userspace can probe each of these
-> RVA23U64-mandatory extensions individually.
->=20
-> Rationale for the validation dependencies added for Ziccamoa and Za64rs:
->=20
-> 1) Ziccamoa depends on Zaamo.  The RVA23 profile prose was updated
-> post-ratification to spell out the Zaamo reference: commit
-> 2b218613752d in riscv/riscv-profiles ("Improve description of
-> Ziccamoa (#224)") reworded the rva23-profile.adoc (and other profiles
-> that include Ziccamoa) text from "must support all atomics in A" to
-> "must support all atomics in the Zaamo extension" [1].
->=20
-> 2) Za64rs depends on Zalrsc. The unprivileged ISA manual src/zars.adoc,
-> integrated in commit ebe06adc22cd ("Integrate profiles as Volume III
-> (#2771)"), defines Za64rs as: "The Za64rs extension requires that the
-> reservation sets used by the instructions in the Zalrsc extension be
-> contiguous, naturally aligned, and at most 64 bytes in size" [2].
-
-I think I made the point on either an earlier version of this, or a
-similar thread, that the point of the validate callback stuff is to make
-sure that the kernel is correctly configured to use the extension in
-question or an extension it depends on. It's not the kernel's job to
-make sure that the firmware has not reported having an extension without
-one that it depends on (at least it is not in devicetree land, and I can
-only assume that ACPI is by and large the same.
-
-ziccamoa and za64rs don't depend on kernel configuration and neither do
-zaamo and zalrsc, so these validate callbacks should be removed.
-
-Cheers,
-Conor.
-
-> +static int riscv_ext_zaamo_depends(const struct riscv_isa_ext_data *data,
-> +				   const unsigned long *isa_bitmap)
-> +{
-> +	if (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZAAMO))
-> +		return 0;
+On 6/8/26 17:06, Nihal Kumar Gupta wrote:
+> Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
+> different CSIPHY and sensor supply rails compared to the retail boards
+> (CQM and CQS) which use PM4125.
+> 
+> Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/Makefile                  |  2 +
+>   .../dts/qcom/shikra-iqs-evk-imx577-camera.dtso     | 70 ++++++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts        |  9 +++
+>   3 files changed, 81 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 76b8f144983827f4905a72935e8d5291a227dc97..09f2318d1c12c4239a6a7bac4ecbca38eb65ffa2 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -340,9 +340,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
+>   
+>   shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
+>   shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
+> +shikra-iqs-evk-imx577-camera-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-imx577-camera.dtbo
+>   
+>   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-imx577-camera.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..340d6303adc6e1bea55f1bd0598175f0cb269737
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
+> @@ -0,0 +1,70 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
 > +
-> +	return -EPROBE_DEFER;
-> +}
+> +/dts-v1/;
+> +/plugin/;
 > +
-> +static int riscv_ext_zalrsc_depends(const struct riscv_isa_ext_data *dat=
-a,
-> +				    const unsigned long *isa_bitmap)
-> +{
-> +	if (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZALRSC))
-> +		return 0;
+> +#include <dt-bindings/clock/qcom,shikra-gcc.h>
+> +#include <dt-bindings/gpio/gpio.h>
 > +
-> +	return -EPROBE_DEFER;
-> +}
+> +&camss {
+> +	vdd-csiphy-1p2-supply = <&pm8150_l11>;
+> +	vdd-csiphy-1p8-supply = <&pm8150_l12>;
+> +
+> +	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@1 {
+> +			reg = <1>;
+> +
+> +			csiphy1_ep: endpoint {
+> +				data-lanes = <0 1 2 3>;
+> +				remote-endpoint = <&imx577_ep1>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&cci {
+> +	status = "okay";
+> +};
+> +
+> +&cci_i2c1 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	camera@1a {
+> +		compatible = "sony,imx577";
+> +		reg = <0x1a>;
+> +
+> +		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
+> +		pinctrl-0 = <&cam_mclk1_default &cam1_reset_default>;
+> +		pinctrl-names = "default";
+> +
+> +		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
+> +		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
+> +		assigned-clock-rates = <24000000>;
+> +
+> +		/*
+> +		 * avdd and dvdd are supplied by on-board regulators on the
+> +		 * IMX577 module from the connector's 3.3 V rail; they are
+> +		 * not SoC-controlled. dovdd (1.8 V) powers the carrier board
+> +		 * level-shifter that translates CCI I2C and reset lines
+> +		 * between the SoC and the connector.
+> +		 */
+> +		dovdd-supply = <&pm8150_l15>;
+> +
+> +		port {
+> +			imx577_ep1: endpoint {
+> +				link-frequencies = /bits/ 64 <600000000>;
+> +				data-lanes = <0 1 2 3>;
 
---qxWNCqHoXJi6kp6h
-Content-Type: application/pgp-signature; name="signature.asc"
+Same as before, the numeration of data lanes starts from 1.
 
------BEGIN PGP SIGNATURE-----
+> +				remote-endpoint = <&csiphy1_ep>;
+> +			};
+> +		};
+> +	};
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+> index 3003a47bd7594206f0ac54957e0af509fa365f54..811fd5da4af7babd412d70fee84434849846dc2f 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+> @@ -38,3 +38,12 @@ &sdhc_1 {
+>   
+>   	status = "okay";
+>   };
+> +
+> +&tlmm {
+> +	cam1_reset_default: cam1-reset-default-state {
+> +		pins = "gpio33";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +};
+> 
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiu+8wAKCRB4tDGHoIJi
-0om5AQC8Njoz4GNfpjgzPd4cWpxlA4c1jp3tdh2XAHtySRQDEQEA0ZBPLNZ+r6Ue
-lM5ZxmXdd2griErGWLwGSLQDdTBztQ4=
-=cqPD
------END PGP SIGNATURE-----
+This part goes directly to the mezzanine .dtso file.
 
---qxWNCqHoXJi6kp6h--
+After fixing it,
+
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+
+-- 
+Best wishes,
+Vladimir
