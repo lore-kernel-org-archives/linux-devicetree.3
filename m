@@ -1,81 +1,354 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020087.outbound.protection.outlook.com [52.101.225.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554D7383C96
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 14:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781273792; cv=none; b=WoDccA1FOD3RxEdRmD7IQeNXtEuao+5AjMre9rGvBkOj39LnEkwA4PaUaFMo7m74wTneky4cQgddiVI7URdAbrzTj72pmEhEmEozRaFxm0Os1QYoG2pQCAm7jEWOnF6ppKVcIaNf2OWj3ZfSdlo8eVHauaB8UW9Zbu6My1n4f3U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781273792; c=relaxed/simple;
-	bh=3fGK3MuEMlOcBmW9XxMN5UOMxwFay0WRS+u/9IMQ16U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SrEjd33mq/9Yv3QQckg7/rs1mOJEcaxewnx+9tABZA4z0WKVtChErmC/bM1reTJlHKT4g3m0RjIWfVKU3uUQ3oQbynjHJ5pNrwpsnhkyqRUm4ViyAYB1slDGPzdAxnH7wFwEm+Yp2Zrq9ofcjzDfE2av4Kq51FDJolRhqo6XVgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRxEDs3d; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC7F389105;
+	Fri, 12 Jun 2026 14:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781274051; cv=fail; b=AAOzfMepc+AfpaS8Me6erfAvSE/5RMHVuprFTiiBldMXykp6iC6ei/Q0pBnS0rf8ORF19tXWXdo4I2v8uNFFa1xFTgwusqEHAJZPpW5QlE5+D504NMxNwoOMHQmUKbzFQLW+NziFnMpJ/DBxopJ/BFF6PkEUXz2Ore6/Z4UMk6g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781274051; c=relaxed/simple;
+	bh=1P8gsskM+qRwQOmN7l7ZfGZEaPfK0AirJ7fqOSlayO4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tSAR1zd53h7QdZHkdnoc5bek4JnQJKciXtq2C03hZdks/1rxu7wAEsmZ0F77htk/qmaasIJdyejvf4O/22QW6NDNkbPbxrinC3nr2+nwyQgdx+YEkwOlyoJYMMgMBVfwv63JFc7CHU7tmqaIOeEKF++OmiocIfRUDg6vvy7TT1E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=U8veRpzK reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRxEDs3d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36671F00A3D
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 14:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781273789;
-	bh=zzHvGw4t1ALo5R4403eulHWBiG5vQMAyxhw+Kh/g0Tc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aRxEDs3dz9wpawy0H/gTDRSGiCyhK9eK7C3WEC8II0uj8zWpVKrp5ErvkPYRMm4Fe
-	 NLKP7Lq9Cnn6MQ5LtaWQlK3+f4OdfMN59jA0VjXGaUADOGPVAuyV7foIZONzIRkt9N
-	 /V4pnI+n6WB4rtQ31JzvcYcZAk2CAa2TmNWjyoWa9CIxkGUuE0BPj0C46u+swBNlcX
-	 mXMqd1BX4Zys6e190ggRL20sbgZsifEgObhtes1YaYOK4Hf3vsCyqFzmDjWtH84A87
-	 C2SJJrM7LW8fG+TeHDlQR7vKNhpzGwTBQhy8hhTLx3XgKB8Lxb+lENDU2BHV5s3ZIf
-	 +geBNGicEa4ig==
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e6dcc22cbcso980498a34.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:16:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9qYB3O1dfAfPcWOBocFBF9lk4MroJgVUin5jwbp0vpGxqf2wQvwFtHJIIPCosnsToFeDQenXkIA0Ep@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL8YkJelHQnEaJsvN9nA7QrWaeQW44YNhImCLFZef7WYXIhzQ0
-	g7f6DmaeGej1cRbOF/WZ2lZjRbb6YPDBwOmtSP+2O6abuhWkWA4zfmNqQoW0AHdwpEaLtROM2SM
-	toyvIO5562ntsl/3M1N7JDKA392OIZkk=
-X-Received: by 2002:a05:6830:6d49:b0:7e6:e385:4c1e with SMTP id
- 46e09a7af769-7e7846f019cmr1818964a34.4.1781273789209; Fri, 12 Jun 2026
- 07:16:29 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="U8veRpzK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rka6+XihcMBzWGFSSC22c5uhu9EW5rbNn9bz37OuK2kRqHfSLo27+7A+toOM5jeOW1ugJDp0Bh9/AcG7GSX0ZHgWjRAPkQXAyNHJ7U57y33MaLGK2cgsbADYfC4Fb4LGc68V2QTzXIDTy6ZL+IGZr+6Atm1+DD9yGzcOqJPiRaIqgpNjLtL6P9kQlAUzTWn022aef/juKD3zXT/wvH8Mdl3sYFq41WvFoCmCvjPQZ9tTHRuThWgJt2O6rbxKc4m3sttjnVlF+bL8a7fWBRxoUQ2anKSd44SfTvTgyizJWdxBSwiZr25nbULT/n7kjgKj1C8aktY8UdYGESWypVQnHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wCJwqVTyDlLVTdqrfK7qGAIEBk4E96aEM+OxzGR5Pj0=;
+ b=HbFybjzZWYgcE+6V1HTZJDBOeDVCYMGg+6KQ879pXUc5Zg61C3cnsDk1btNqxyi+vxdiouEwcJL89G51Ow92PY7EykqSgOTj3md9EKdpSJboz+7OpY0D2eSMD1qq5YxNhvin+XV1abMKXz3/0k1l44kDc0pwSpcJlxPsnRJlT8H99NoY/Y7AE+jkrtCP4fqBfzsGr5x2WmwxiGDLQQb6A2KBz86IeShM6WfSIuMW+vCwQ6NntgUdbPwY4RL8Dy1ZaDDq5ceZpbAOH3JKJxiy+dEvLl0Au98rqh0fm9+4Av7T4FIxI71G8qfvSstvB4h6zZQ+RreMVrWmwwARGZja9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wCJwqVTyDlLVTdqrfK7qGAIEBk4E96aEM+OxzGR5Pj0=;
+ b=U8veRpzKdx9xAcOKIWpfC4wo4PSq8FB7zpMzuq0nOqZbODHxPG4VqJ3bn7tuI60kjddfSSQ4fIfdxgdgY4D4oogcksy3Ia1qrzrUcJx2hdJmiFzgJKy+NfDAEdjEOwJUK0xpAuTHy1iez5AMgNium3GAUNzgG0LabWaCnkD7PY3O5uJCbnlgmQ2vzsVNy885lBiRdgnOqji9EwLo4r7iO53HtXomwoXIwjU5iBozoU/0DOvAQkDZ/y543dTQf+auM6WdlaDbKVPRqI8fDiR88uJFaIFhQnSDg02tGPMSz5S8bDLKPiZjLWH18Flcqe8nE73T+YDKsxtAYX1ZrCMPFQ==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by PN4P287MB5252.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:304::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 14:20:42 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%6]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 14:20:42 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+CC: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>, Mauro Carvalho
+ Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans
+ Verkuil <hverkuil+cisco@kernel.org>, Hans de Goede
+	<johannes.goede@oss.qualcomm.com>, Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Benjamin Mugnier
+	<benjamin.mugnier@foss.st.com>, Bryan O'Donoghue
+	<bryan.odonoghue@linaro.org>, Heimir Thor Sverrisson
+	<heimir.sverrisson@gmail.com>, Hardevsinh Palaniya
+	<hardevsinh.palaniya@siliconsignals.io>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 3/3] media: i2c: os02g10: implement crop handling with
+ set_selection
+Thread-Topic: [PATCH v3 3/3] media: i2c: os02g10: implement crop handling with
+ set_selection
+Thread-Index: AQHc08yAQSLYRatbrUS/Khm2VQ9CG7Y7BoMAgAAClOaAACqLAIAAC4Gd
+Date: Fri, 12 Jun 2026 14:20:42 +0000
+Message-ID:
+ <PN3P287MB1829EAFD0A6E205BBE9F93BA8B182@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
+ <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+ <0f4bfe08-0504-48ff-83ce-c84600e6f38d@linaro.org>
+ <PN3P287MB1829A38F1D7D1098CBDEC8F88B182@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+ <6f664514-34bf-44db-8df1-9b1a774e6367@linaro.org>
+In-Reply-To: <6f664514-34bf-44db-8df1-9b1a774e6367@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|PN4P287MB5252:EE_
+x-ms-office365-filtering-correlation-id: b06a014b-87cc-427a-88a5-08dec88dc94f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|10070799003|366016|376014|7416014|1800799024|23010399003|38070700021|18002099003|22082099003|3023799007|56012099006|4143699003;
+x-microsoft-antispam-message-info:
+ jObS+u73sBZG3Aeb81hHHMTUE1h4+PJN0fMsK9I23SMwpHpVcmlTEvqRtwNy+JsTQwiRIc+8+vngV/axKQ6Q5alPSJjALUVwiiQC6/Cx8we58pp5laDh2dXHO0Wtp4xSGqI0ZmCc5oyVj/kqAFN2GpIHK6vPXGUxiPOKV+ARgayYq9xW/C2Tc4mtE+qkDCOxH2nAURuzA54wr4Q2ltDu4Pvs/O/UeeOq2bTC89ZYg996S934dl8vCmUyc/mPEgl5Kj9YxmcX/kcurHvPqsxfv1G0x0jkuuuJydJkgjWaGpUe6V/yG0kp1huSn0Uz4mXJPN1RUzCpeE40kT3l+4TxNTnO/ZWau4MB2FCwJy20EkLsyx7omtt2XQZi48LGFUbX9xXaV94gXGQ8JN67F1yeRPGFageVoFiIfaBxpV0oe+6P1MRtm7mwYrZ9/pq/+wtwN+NqT08J6m7LoFxxzAbH7PJ3xl+TDkSyrW69QxuLTJI2/R9h/XlfO0x8rmdenppCU2n5NC4kQ99ZIL2J14K9qwJceheJnP4jy756aHW8M9fCAw9147D5CBEUhJqZhcdMVUQpf4dTvAJBq+s9nPm6p+IBP/NEZd5KGW3RoL//EorkbLU6rzhf1CKuIeKjnPzDMB83Nw5OxaJ9WcgAgSu2Q1D6HlzJC6cZfNixOWaSTW3s8T954F6tO8xtJHttNxtf97HS+RZ5qyJAKF7ihrOsew==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(7416014)(1800799024)(23010399003)(38070700021)(18002099003)(22082099003)(3023799007)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?1LOShoMDpVn+yOXaaUV7TReFqf8zpotVtLErBbt8BSL/nu4qtR0B5vULJY?=
+ =?iso-8859-1?Q?kIKxONyh/qYRkcmMVM9uZ3yIoC7wa8uGQXfQpCmBJf9VsnAq8eelClxt6g?=
+ =?iso-8859-1?Q?6OeSTFDT4jWZV9hXfSs16odbJ4FqiTbu2xEHX7MwfcbWk8nNiKKUcf5+bf?=
+ =?iso-8859-1?Q?o1K4I5STJapVUaOe/oK2isdOrY7ZfbQKXVDrCTxPqOr2B/eOifckXV9iPt?=
+ =?iso-8859-1?Q?dAtuWnOpATORGkNtXfl/TfE00D7jeJxOi573nxmRRwBDksnz7tg+gyvv7u?=
+ =?iso-8859-1?Q?OMCEjrfbUcqZs8joGgPPQbHV6fLWWnkGg258Us2P1Pr1kAV871EMaP8kv+?=
+ =?iso-8859-1?Q?vMspTlwWrnIK+sTSoZouVFXxMYasaSprzIwIRD+kx5tThFZqRPvBoWUw1a?=
+ =?iso-8859-1?Q?7QzeydmXrzB2EOw0Z5PtQlqyvmqduaimt2AMoko/VAdMpqQHk4fy3wKnyc?=
+ =?iso-8859-1?Q?v4X+MEBim0vcGihYvRGXq9uuV72RE13SxoabR0CUSbLpqJqjA8EqWkbyou?=
+ =?iso-8859-1?Q?/LN1t1qPXAYSfWQuVWyNEL9xBn2QzzlCmNmNSkWw5Xrl5X1bmaZ9J9sAvN?=
+ =?iso-8859-1?Q?6xhb6V7aJ5Iq0nA2dTPPa95DP9LCcDtOxilXuaIhsUku7yvc7j0lqR1Exa?=
+ =?iso-8859-1?Q?tL5WTLBQDb8Ac22HgEif9PDOva8oojMCWHhV740WhiRzNE7Fh+/nXw/pwd?=
+ =?iso-8859-1?Q?P4MmdqI8we0MmX4vwb7X2I97NmXZxWyZIg/WNkgfTPsRuTpKKu1jMftidG?=
+ =?iso-8859-1?Q?SaFYZ/1bI28RV4TDANCRy/FImUCyyOv4lXZIfJgwTb2lC4+mrOJLz70Oui?=
+ =?iso-8859-1?Q?QnbmufQDsdLkqpQgMe4ZV26/dLsvuwb1m4RmOjF6hacBizsuLBKaFDZvl5?=
+ =?iso-8859-1?Q?Yzs8P6kSbhvBEMuP0RF9ecQqAckb84NmEkTn4IAmUMJCNi0heptMS/Onga?=
+ =?iso-8859-1?Q?TeT02FfiZiEe7V+UrHMgrADdOmJClE+AXFd0woBHyWWzC4YCFPl7aiwxnk?=
+ =?iso-8859-1?Q?alHZil3h7gL2wHqWBRD2nSy1mPgRQuEECch+WWE5OwtJvilCE2sxl50/vA?=
+ =?iso-8859-1?Q?p7EX/owL5OQiuDe8P4bP/oHYYhvxgCl8mIxxpGv4hkus1EoGWfLQwTBx1n?=
+ =?iso-8859-1?Q?/wPBA5jppgfzvtqtxoLNjAl3t174ctFJyApflueiP5Rd5Duodmqp5mvRkq?=
+ =?iso-8859-1?Q?R7Tg2LMWz7+QuvRuN9ok87al7JJAAZuKKcTyU4E/v+DoZWr2VxL0XcJwG8?=
+ =?iso-8859-1?Q?GoQ9e473s+2HILVS0z7kIFH2MKuttgCUvfrJHGL8FvBJXBSu+8YgFRtDFY?=
+ =?iso-8859-1?Q?XCpbXnBUdW16JUvwm5Z+nvQjJ6pWthD3ttTz8yUMOLndar+a9u+/Uo/feF?=
+ =?iso-8859-1?Q?LOM98bKQkLExNu6EGjj5+mOcfLZxN6PotVMhG0t/bSBz7bp9oCsp5PMCzT?=
+ =?iso-8859-1?Q?STLx40z7fqNxnYFocRnaQ2fYMp/iL+bdq3pzxRwgXT881yx9decLOxY+KW?=
+ =?iso-8859-1?Q?uPVsATftYcvfn63clYgGRYkoP8DywmxhwqvCMI1myM8h1UUng11AJsxuNl?=
+ =?iso-8859-1?Q?pmgAIBaaal11fEfOk1MDXvJI/sp3aDSkfu8K/W4bG5nbsLfc24tznlIbvV?=
+ =?iso-8859-1?Q?porZH80MGIChYUmNz0gbf0GAGDuBGsP91ZVoQu3Hal+svHrCMnfJkqMuD/?=
+ =?iso-8859-1?Q?JG3Yqs11R+IXXgOJFHRcKeGELQnM8g+fleK5hSufXMNAYQn6/botzTK58H?=
+ =?iso-8859-1?Q?bf/qkOkXY2BLeqtWKpG0GVlH69xissEuRA/9FCIFBkr3qGFyImCcFmJoIF?=
+ =?iso-8859-1?Q?bN0pExIAsZcuJr0/ZvB7t+ThaP5Idper/nnzqZmdhie2KiaHL+lloUb9AC?=
+ =?iso-8859-1?Q?g7?=
+x-ms-exchange-antispam-messagedata-1: 1QPviKhdWUEFTvfy92s91xSa3m89Sf6TclY=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611154105.3727-1-shofiqtest@gmail.com> <20260611154105.3727-4-shofiqtest@gmail.com>
-In-Reply-To: <20260611154105.3727-4-shofiqtest@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 12 Jun 2026 16:16:15 +0200
-X-Gmail-Original-Message-ID: <CAD++jLngjw7WrrAmKW-VTkQzjM_TfK3hg46qbcs6=DW7bgt3qg@mail.gmail.com>
-X-Gm-Features: AVVi8CckmRBftUowDa4_GiG5wg5tFvbvCbslw1rfEAbTZ_KMxVac5yjOhpwxxDA
-Message-ID: <CAD++jLngjw7WrrAmKW-VTkQzjM_TfK3hg46qbcs6=DW7bgt3qg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] dt-bindings: iio: accel: convert lis302 binding to
- YAML schema (v2)
-To: Md Shofiqul Islam <shofiqtest@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: b06a014b-87cc-427a-88a5-08dec88dc94f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 14:20:42.6194
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 56x72JmqCwJMXGiN+zGqe3bjrJsW+qbp+tGmAdDzgz9ksjX08KHxb44tWsyGSEzCl2hYJ6ROs2kCZdSRWnaz59DLmom4TkYLnU4Vv7NW5lE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN4P287MB5252
 
-Hi Shofiqul,
-
-thanks for your patch! And thanks for working with the ST MEMS sensors!
-
-On Thu, Jun 11, 2026 at 5:41=E2=80=AFPM Md Shofiqul Islam <shofiqtest@gmail=
-.com> wrote:
-
-> Replace the plain text lis302.txt with a YAML schema for the
-> LIS302DL/LIS3LV02D accelerometer family.
-(...)
-> +maintainers:
-> +  - Linus Walleij <linus.walleij@linaro.org>
-
-Please use my new email address:
-Linus Walleij <linusw@kernel.org>
-
-I don't mind being listed as maintainer, ideally I think someone at ST
-should pick this up but I have good relationship with them so this
-is fine unless someone signs up for the job.
-
-Yours,
-Linus Walleij
+> On 6/12/26 14:41, Tarang Raval wrote:=0A=
+> > Hi Vladimir,=0A=
+> >=0A=
+> > Thank you for the review.=0A=
+> >=0A=
+> > Since I authored this patch, I will try to address the comments below.=
+=0A=
+> >=0A=
+> >> On 4/24/26 12:25, Elgin Perumbilly wrote:=0A=
+> >>> From: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
+> >>>=0A=
+> >>> Add crop support to os02g10 by implementing .set_selection() and=0A=
+> >>> storing the crop rectangle in subdev state.=0A=
+> >>>=0A=
+> >>> Initialize the default crop to the active area, make set_fmt() use th=
+e=0A=
+> >>> current crop, and update the output format when the crop size changes=
+.=0A=
+> >>> Also program the sensor window from the active crop/format state inst=
+ead=0A=
+> >>> of using the fixed supported_modes entry.=0A=
+> >>>=0A=
+> >>> This allows userspace to configure the sensor crop window explicitly.=
+=0A=
+> >>>=0A=
+> >>> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
+> >>> Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>=
+=0A=
+> >>> ---=0A=
+> >>>    drivers/media/i2c/os02g10.c | 166 ++++++++++++++++++++++----------=
+----=0A=
+> >>>    1 file changed, 103 insertions(+), 63 deletions(-)=0A=
+> >>>=0A=
+> >>> diff --git a/drivers/media/i2c/os02g10.c b/drivers/media/i2c/os02g10.=
+c=0A=
+> >>> index fad2dd0ad7aa..9bf8f5d1caea 100644=0A=
+> >>> --- a/drivers/media/i2c/os02g10.c=0A=
+> >>> +++ b/drivers/media/i2c/os02g10.c=0A=
+> >>> @@ -112,6 +112,11 @@=0A=
+> >>>    #define OS02G10_ORIENTATION_BAYER_FIX               0x32=0A=
+> >>>=0A=
+> >>>    #define OS02G10_LINK_FREQ_720MHZ            (720 * HZ_PER_MHZ)=0A=
+> >>> +#define OS02G10_WINDOW_WIDTH_MIN             2=0A=
+> >>> +#define OS02G10_WINDOW_HEIGHT_MIN            2=0A=
+> >>=0A=
+> >> Add a blank line before the new group of macro.=0A=
+> >>=0A=
+> >>> +#define OS02G10_VBLANK_DEF                   166=0A=
+> >>=0A=
+> >> This one is computable, and it can be dropped.=0A=
+> >=0A=
+> >=0A=
+> > Can you explain how this value can be computed ?=0A=
+>=0A=
+> It is (supported_modes[0].vts_def - supported_modes[0].height) on=0A=
+> the base of 2/3 change.=0A=
+=0A=
+In this patch, the supported_modes structure has been removed, so the value=
+=0A=
+can no longer be computed in that way.=0A=
+=0A=
+> >>> +#define OS02G10_VBLANK_MIN                   25=0A=
+> >>=0A=
+> >> This macro shall be added to the group of OS02G10_REG_FRAME_LENGTH=0A=
+> >> register, and it should be included into the previous change.=0A=
+> >>=0A=
+> >>> +#define OS02G10_EXPOSURE_DEF                 1100=0A=
+> >>=0A=
+> >> This macro shall be added to the group of OS02G10_REG_LONG_EXPOSURE=0A=
+> >> register, and it should be included into the previous change.=0A=
+> >=0A=
+> >=0A=
+> > I would prefer to introduce these macros here only, as they are related=
+ to=0A=
+> > this patch. There is no use of these macros in the previous patch, so m=
+oving=0A=
+> > them there would not provide any benefit.=0A=
+>=0A=
+> Unavoidably there shall be a user of "default exposure" in the change 2/3=
+, and=0A=
+> therefore the value is present, please reference to supported_modes[0].ex=
+p_def.=0A=
+>=0A=
+> So, this macro goes to the 2/3 patch.=0A=
+=0A=
+In patch 2/3, the supported_modes structure is still present, so I don't=0A=
+think introducing a separate macro there provides much benefit.=0A=
+=0A=
+Using:=0A=
+=0A=
+vts_def =3D height + OS02G10_VBLANK_DEF;=0A=
+exp_def =3D OS02G10_VBLANK_DEF;=0A=
+=0A=
+doesn't look particularly readable to me either. However, I'd be interested=
+=0A=
+to hear your preference on this.=0A=
+=0A=
+> >=0A=
+> > I will group them in the appropriate place within this patch as per you=
+r=0A=
+> > suggestion.=0A=
+> >=0A=
+> >=0A=
+> >>>=0A=
+> >>>    /* OS02G10 native and active pixel array size */=0A=
+> >>>    static const struct v4l2_rect os02g10_native_area =3D {=0A=
+> >>> @@ -152,15 +157,6 @@ struct os02g10 {=0A=
+> >>>        struct v4l2_ctrl *hflip;=0A=
+> >>>    };=0A=
+> >>>=0A=
+> >>> -struct os02g10_mode {=0A=
+> >>> -     u32 width;=0A=
+> >>> -     u32 height;=0A=
+> >>> -     u32 vts_def;=0A=
+> >>> -     u32 exp_def;=0A=
+> >>> -     u32 x_start;=0A=
+> >>> -     u32 y_start;=0A=
+> >>> -};=0A=
+> >>> -=0A=
+> >>>    static const struct cci_reg_sequence os02g10_common_regs[] =3D {=
+=0A=
+> >>>        { OS02G10_REG_PLL_DIV_CTRL,             0x0a},=0A=
+> >>>        { OS02G10_REG_PLL_DCTL_BIAS_CTRL,       0x04},=0A=
+> >=0A=
+> > ...=0A=
+> >=0A=
+> >>>    static const struct v4l2_subdev_video_ops os02g10_video_ops =3D {=
+=0A=
+> >>> @@ -645,6 +684,7 @@ static const struct v4l2_subdev_pad_ops os02g10_p=
+ad_ops =3D {=0A=
+> >>>        .get_fmt =3D v4l2_subdev_get_fmt,=0A=
+> >>>        .set_fmt =3D os02g10_set_pad_format,=0A=
+> >>>        .get_selection =3D os02g10_get_selection,=0A=
+> >>> +     .set_selection =3D os02g10_set_selection,=0A=
+> >>>        .enum_frame_size =3D os02g10_enum_frame_size,=0A=
+> >>>        .enable_streams =3D os02g10_enable_streams,=0A=
+> >>>        .disable_streams =3D os02g10_disable_streams,=0A=
+> >>=0A=
+> >> I understand that this change is written by another person, and likely=
+=0A=
+> >> it is not squashed with the previous one to preserve authorship, howev=
+er=0A=
+> >> it significantly rewrites the change already found in the series.=0A=
+> >=0A=
+> > I don't think this patch significantly rewrites the previous changes. I=
+ts=0A=
+> > main purpose is to introduce a crop rectangle and implement set_selecti=
+on(),=0A=
+> > allowing userspace to stream arbitrary resolutions within the sensor li=
+mits=0A=
+> > instead of being restricted to 1920x1080.=0A=
+>=0A=
+> What are these "sensor limits" number? Are they defined in this 3/3 chang=
+e?=0A=
+> For whatever reason I can't find it, but I may be blind.=0A=
+=0A=
+The sensor limits are defined by os02g10_active_area and enforced in=0A=
+os02g10_set_selection(). The crop rectangle cannot extend beyond the=0A=
+active sensor area, and the minimum crop size is also constrained in=0A=
+the same function.=0A=
+=0A=
++       rect.width =3D clamp_t(unsigned int, ALIGN(sel->r.width, 2),=0A=
++                            OS02G10_WINDOW_WIDTH_MIN,=0A=
++                            os02g10_active_area.width);=0A=
++       rect.height =3D clamp_t(unsigned int, ALIGN(sel->r.height, 2),=0A=
++                             OS02G10_WINDOW_HEIGHT_MIN,=0A=
++                             os02g10_active_area.height);=0A=
+=0A=
+> >> I don't see information about the maximum supported frame height/width=
+=0A=
+> >> or default VTS setting etc. anymore, for me it's hard to say, if=0A=
+> >> this kind of information can be dropped with no consequences in runtim=
+e.=0A=
+> >=0A=
+> > The maximum supported width and height are still defined and enforced i=
+n=0A=
+> > os02g10_set_selection(). The default VTS handling is implemented in=0A=
+> > os02g10_set_pad_format(), where VBLANK is adjusted to maintain 30 fps f=
+or=0A=
+> > the selected resolution. So I don't believe any information has been dr=
+opped.=0A=
+> >=0A=
+> >> Probably this 3/3 change will break a quick inclusion of the sensor=0A=
+> >> driver, you may consider to exlcude it from the series now, and publis=
+h=0A=
+> >> it afterwards.=0A=
+> >=0A=
+> > Regarding whether patch 3/3 should be included in the current series, I=
+ am=0A=
+> > happy to leave that decision to Sakari. If needed, this patch can be me=
+rged=0A=
+> > separately once the new raw sensor model is finalized.=0A=
+> >=0A=
+> > This patch was created based on Laurent's suggestion.=0A=
+> >=0A=
+> > Link: https://lore.kernel.org/linux-media/20260414084952.217215-1-elgin=
+.perumbilly@siliconsignals.io/T/#t=0A=
+> >=0A=
+>=0A=
+> That's a helpful reference to the previous patch review, thank you.=0A=
+> Likely I don't have the whole picture of the new advances in linux-media.=
+=0A=
+=0A=
+No worries, and thank you for taking the time to review the series and=0A=
+provide feedback.=0A=
+=0A=
+Best Regards,=0A=
+Tarang=
