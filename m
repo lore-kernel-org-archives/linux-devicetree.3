@@ -1,165 +1,144 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A07376BEF
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 11:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781262494; cv=pass; b=T9Yxcz27CeeAhB40J5eJiC/UBhcdQtAtli1XUobtzR9lwoxArb/UaxUpg+bK9et4x5pj+/wxPLeryDPBSOiPgDjRTOw1SOKdn2uulrpv2ViEN7pEQFGxlO3r+K704eMLD7ZRlkLt8yJXj5tvnDJ4blNDUIoXHHZW5aVTMZNPKiQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781262494; c=relaxed/simple;
-	bh=46tK2SY8oxijrIbVND1wuLnWgyakUWAvGn7lOjZ9328=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EdZBT36WxneA0VPAU6r1tkP4gvACF9UDzgeXUr5j/lKzgyIQOOLUtrpyGESBisur4rhPYCxT+NhNtL7iRHvBIuVkFY6rC1RXMoz8ZIu7GuErlbbo8O4yCP04O+M8l06gxDfjTEmpA6hawnyqcg17Ik1Nc5VRIqd2sGBJvFUPqfg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LrVnDpn7; arc=pass smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF6838D3E0;
+	Fri, 12 Jun 2026 11:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781262852; cv=none; b=BxiuIj/8HqvDU522/2nevoUHdAzmA93KNErr2zOpYG/VbnLlWDHObHfM8c/FmE5Xa/ojdEsqKih1P8MNq2Vbo7ETd8AIJc5/iG17KjNFw4fXGUd8L1HOBdqABFbX3d99nufgx9mwX07K544yu4ayNRr+ouX0mYfubWqpG9vA44M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781262852; c=relaxed/simple;
+	bh=NQzWXkEcu6HV2BAhZhYf7mM7q2QTMJqC9HwiVI/8xrg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WxDZuFFianNOKoZh0dV/ovulBqY1c0aeA2Q+tSHYrL1dXOvME6rj/nUBSkaUa0heLFDQRvoQzxSuF3zy5vV9XLvk3y1G2bORX1OA8OmbBaNRpeGwrbnluwhpksenXrVg5qWkCTD4nR9l87sa6w59jirP+RvWoUZpeYXgJ7UZhUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbY3nnBv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LrVnDpn7"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84347ad88edso536676b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 04:08:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781262493; cv=none;
-        d=google.com; s=arc-20240605;
-        b=k+09NgyaHnFcieYGP7ctLGair/NOresckpERzSY09zmMQBdXo73Ftllzd/I2QC61Gd
-         2MSIJ5Vrtba7IAx3wvsKowsCwp/1RTKHiGVgBraI3m6l8//OXP7eZuay73weuoJj8tU0
-         9NrNpo8yvQlOE20d57NbtkzYH8BMrHwan/EQaNGuxdB1FSj50JbayffzVRDUkAqeXLIR
-         ufjdgUtGl/UXuHNGTI3SREFDGLrVPhXehnG8jeO/To4gWMR39ePaDm0+NUpSL/smm+LE
-         ZfNrydB+lkVIDc2rhroiW7ktlNCdl8eqmqToxZsmbxailsQdpUMnL4fyIR7uN9hN/RqQ
-         3UTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=C8RG8wfZcQWUkvU7NuWObL4uAtXpFMwBEsyZAZlGxso=;
-        fh=1MHh/6qM5+PwA/yuVGE+Sp7ewU2Ny+m92vu/D2ksIfU=;
-        b=bzj8aed4MqM55/F3MpZ1BTUdsLLhNayqeVCx1PcTOVv0Rc9rtcW/pP3jz0uVr7sIMD
-         6vcJFixW0hOCSjxePEFf6+b1pgjzX9B6cUK4RvvcM6jHAY5PXG1Z6MIGtttmf8LKkKMp
-         f2XiOg1zZU9VFo96vGtxFViGXUP5MEkZ78TrZMMkwvQDUkmon0kelNw8lqLen9R0MWqJ
-         f6HCJ9UuT/XwcP7J4qP968dp1Ucm8FCaczike+JF7YDZ0ryuOe4SAE+PQS/HtboomGM5
-         XLzw1KrEht1pJMOiEYjfcDlFzxIx24p/990qLpQKyday1aXVOonFNamSpmUcfZrcdDYv
-         /MBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781262493; x=1781867293; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=C8RG8wfZcQWUkvU7NuWObL4uAtXpFMwBEsyZAZlGxso=;
-        b=LrVnDpn7bA0lGrLH2SO7PGUdXWe3BMQ4RVbOBDaQgZh+k9d6A7aYAB4AIr6AGQzvY9
-         0S1r91PPdcBldK4sTt1uTSyHmos83NTJucuawzTNsazAWSbYopGgsSSbz4GhajxMCtkb
-         cMmEOSFuGzX0hTWKC41NlYycgVV5ZvuL1WHE/9mbAB1Xusoh/VRQGC86V7/d+gjSlnuL
-         dy3Yt2pokH8DI0VRw6zE/gtWXfJw3oCZp2ptPEeJCBz4otDdC4C+1r2eLzbcbZpOweAJ
-         26nIsT+F47av8PppgoTGAtv9JNzsYTdwd0o2lT4GrNKmyfGxv0nY3o2xm4aZTxmS+RcC
-         sSDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781262493; x=1781867293;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C8RG8wfZcQWUkvU7NuWObL4uAtXpFMwBEsyZAZlGxso=;
-        b=RhaSlye/1mjFtrVLukrukcPvpMd1AX4+VZMD4TvOkRp+nXzuJC6IGqX8q3lCoFZ+L9
-         YSn2M9xETS47Php//bYHA701JH48rM9DSLAkgmsdhQh/qdL7AgV+KWvm7SMl/Ut0fTt1
-         /AJ4JyGI4nAgWTm2d3dIGR0tyOfix9BB+ve2iM2ZRZOA8Zx4O8XiqVKbGzFaBiL6fllx
-         rbSoeYgiH7w8Yiil91CTYabVYCglQxWlFEkzH7O+JLE4MZQDlOgfLaNPKqa+qJJPM9sr
-         NJRi3wk902ceuLOTsEyt1w3ve2a6q/OH9vGc/BMjVE3I6leX5G1icrczhsbG0uMy6sIB
-         qd6A==
-X-Forwarded-Encrypted: i=1; AFNElJ9aTSSeCB3wNwGuXkRHY0pbJf51vFJE9s2GZTv9MNqT6t5tcBwr2vkam9Ux27yFEKNX+Gpv9IwM4EWV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlVMy9yDkUSwMzZBq7kIcDae3Voqo45NACyM40YnXoG02DpOKh
-	ueD6uXXIqZYCPXBobENYlFJVWq7fsQT8AhN73RzhSg8v3lj29DhOvQwceaN6lbOT8VuMFETppDd
-	wY0Xu2KwGriYooWoo4mFXpseS1BBgL38=
-X-Gm-Gg: Acq92OHhxgAHrVJSl7xAgPkqhzQiXwYl3B5Vm2AlosDjOV3cu1hKpxWiX2JB+mu2Bls
-	3YFzcPL5Z+p1J8rBEmYPXlTiG5anVNspLIepfT5pLKBaEc6cUiBcKyfSFaRa4UUZgRFHisFJmv8
-	aLuamD8DYev6CQ9DJ2yzEr+GkKS7h8KrmeM79O1V/W/4nYVOywIpydVIw1SWFgs98V1wOHEzNIU
-	olgmhy1jvHDH2VsiM4nBDe6UsqWvcAIqO8/gT1hIJphV3aLazc59fBjlwAcM8tJe8VlPgLf3CbA
-	Q2Jq35RUiyj0Jwn+QEGPGAXD8CzYt2VWAh+YdQ==
-X-Received: by 2002:a05:6a00:805:b0:842:3be7:4d54 with SMTP id
- d2e1a72fcca58-8434cc0b564mr2663158b3a.15.1781262492776; Fri, 12 Jun 2026
- 04:08:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbY3nnBv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379951F000E9;
+	Fri, 12 Jun 2026 11:14:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781262850;
+	bh=PZChMkC0kAP/BeBXhnEtdpKNR5h+zkzjl05C4+3VQCE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NbY3nnBvPtC0c76fY6r1x7jGxNbMEWUItTLyhPzrMo8kOPBrajgapqOcnXV+b5sQE
+	 7d27Gf9zBMcB0QT66Fl2VJoF17+vPCENUy6Kd08N1eW+8Ntk3OeJqWSS+oOTGNIZeB
+	 CAAn3eJMfz88QKlmg7S/XQVpLXgopFkcUU8nOGu44xaeqIF1HngRhkaf1Z6iQoxVCi
+	 sAilo/FxtRvdEleQ1LPGrs5qkBRw/ug8KNvbqK3AMOqxMoNHVAJLuy2Vnir81BNMnr
+	 f3lAk/M8sAWYpfTWjqzThFr/n96JL5jXg4R7jOOdJpS3vtAxJCYP8WmZPL8aGtSWev
+	 8tYRXwZdQSz4g==
+Message-ID: <1de2f9bf-b48c-4acb-882c-9e35a8582d0b@kernel.org>
+Date: Fri, 12 Jun 2026 12:14:06 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260609113836.45079-1-phucduc.bui@gmail.com> <20260609113836.45079-3-phucduc.bui@gmail.com>
- <CAMuHMdXku0BVRgwWWv1vNccKpRbvTu+1b0TjYacNJH94XBDOGg@mail.gmail.com>
-In-Reply-To: <CAMuHMdXku0BVRgwWWv1vNccKpRbvTu+1b0TjYacNJH94XBDOGg@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 12 Jun 2026 18:08:01 +0700
-X-Gm-Features: AVVi8CfMXSYu3RrDvNLF_rgtRUBfjvN1-IvBNNlzLi33SiKq9QBt8Ro97SYOt1A
-Message-ID: <CAABR9nHFHWFeEaaYE6X9fqt_Zb-3pF=jJbHQpsiBTgkS5LyTLQ@mail.gmail.com>
-Subject: Re: [PATCH v6 02/11] ARM: dts: renesas: r8a7740: Add clocks for FSI
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] clk: qcom: camcc-glymur: Add camera clock
+ controller driver
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Taniya Das <taniya.das@oss.qualcomm.com>
+References: <20260517-glymur_camcc-v4-0-9d00acffdbf7@oss.qualcomm.com>
+ <20260517-glymur_camcc-v4-2-9d00acffdbf7@oss.qualcomm.com>
+ <8bd4365e-0171-425c-9738-0b186047cb15@kernel.org>
+ <upcLoSPzJejUNhFiNYlTVH4d8Sh_Pv2o9OZfXsY-CMCDKw19_ci2gL9B3ZwqL1hV1pQeQMLDL8tNLbPzs0JIIg==@protonmail.internalid>
+ <2a496bdf-4728-47b9-84ba-063712a6e5b6@oss.qualcomm.com>
+ <0a197b43-a672-4849-91c7-6e5bfe3175f7@kernel.org>
+ <amL4e4IHe75_j1HTIsmqE_GyurvudlyHQCPW14zs7ivHz0UnalN-yoknJwzaVRgHTT6ftSRCqDyCodh6ABCLxw==@protonmail.internalid>
+ <66335474-d600-45ab-9ac6-e946f24142c8@oss.qualcomm.com>
+ <639c94f9-6f62-4502-ad7e-5ae60f5f6d02@kernel.org>
+ <WdjOMNZ2o-UF6xXKW4LiVgNZB10ZaGze3YWNriL-f1jf7LgBzprN9bqqMYcvMJH8KUF5wtRpyOB0aL_7HEk-yA==@protonmail.internalid>
+ <10c2e008-74fe-4dac-99bf-194a1767bc16@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <10c2e008-74fe-4dac-99bf-194a1767bc16@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Geert,
+On 11/06/2026 09:51, Konrad Dybcio wrote:
+>>> implementation simpler, avoids unnecessary abstraction, and makes debugging—through direct
+>>> comparison with the hardware spec easier.
+>> How are hex values in upstream code easier to debug ?
+>>
+>> Without the spec you can't change or understand hex values in upstream code, which is the whole point I'm making here.
+> I get the 'understanding' part, but regarding change, as I said
+> previously, these must remain as-is - any difference for a PLL
+> impacts every single clock downstream of it. Some of them also
+> correspond to specific electrical properties, just like with PHY
+> init sequences. The existing values are a result of tuning and
+> silicon validation across presumably many, many chip units.
 
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> i.e. will queue in renesas-devel for v7.3.
->
+That's an argument against changing the values, not naming the values. 
+Hexwork in upstream code is a public black box and should be avoided 
+where possible.
 
-Thank you for the review and for the Reviewed-by tag.
+How about, take these fixed hex but someone on the clock-side in qcom 
+agrees to update the script to write defined bitfields not hexwork in 
+future deliveries. AFAIU its a script that mostly spits out these clock 
+descriptors so, it should be possible to fix that script once @ source, 
+without committing to fixing everything _currently_ in flight.
 
-> I have one more general question.
-> arch/arm/boot/dts/renesas/r8a7740-armadillo800eva.dts configures
-> audio for FSI (fsia_pins), but does not fill in a clock-frequency
-> in fsiack_clk.  Instead, it fills in 12.288 MHz in fsibck_clk, while
-> the schematics call it FSIACK.
-> Apparently the FSIACK pin is shared with FSIBCK on R-Mobile A1, so
-> which function is used depends on pin control.  However, the DTS does
-> not perform any pin configuration for this pin?
->
+Qcom can then at its leisure update old controller descriptors by 
+running the script again.
 
-I checked the schematic in more detail.
-On sheet 12 (FSIA section), the FSIACK signal is connected to the
-WM8978 MCLK pin (pin 11).
-It is also connected to the X8 oscillator output (pin 3) through R121.
-By default, the board populates R120 (0 ohm), which routes the signal
-to R8A7740 pin K5 (FSIAOMC).
-If R120 is removed and R250 is populated instead, the signal is routed
-to pin G3 (FSIACK).
+> There may be updates (very rarely post the chip going into
+> production), but I'd assume these would go through the same
+> testing procedures
+> 
+> Konrad
 
-From my understanding, the default resistor configuration places FSIA
-in slave mode.
-In this configuration, FSIA receives BCLK and LRCLK from the WM8978,
-while the codec receives the 12.288 MHz MCLK from oscillator X8.
 
-This matches the current DTS configuration:
-
-simple-audio-card,codec {
-          sound-dai = <&wm8978>;
-          bitclock-master;
-          frame-master;
-          system-clock-frequency = <12288000>;
-};
-
-Therefore, I do not think it is necessary to provide a 12.288 MHz
-frequency for fsiack_clk (xcka) in the current configuration.
-If the hardware were reconfigured to operate FSIA in master mode, that
-might need to be revisited.
-
-I have considered testing the alternative resistor configuration
-(removing R120 and populating R250)
-to switch FSIA into master mode, but I have not done so due to the
-risk of damaging the board.
-
-As for the relationship between FSIACK and FSIBCK, I am not sure.
-The schematic I have does not appear to describe FSIB at all.
-The HDMI section only documents video signals and does not mention audio,
-so I do not have enough information to determine whether FSIACK and
-FSIBCK share the same pin on this board.
-
-> Note that I have never tried audio on Armadillo myself.
->
-
-You should give it a try sometime.
-The audio quality of this board is actually not bad for hardware that
-is more than a decade old :-)
-
-Best regards,
-Phuc
+---
+bod
