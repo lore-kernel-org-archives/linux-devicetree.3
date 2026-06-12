@@ -1,75 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8884F37F8A4;
-	Fri, 12 Jun 2026 08:44:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C60305684
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781253862; cv=none; b=LDwFRPbV7V6/CSH8SEHCbUSrMqouiqydjiav5edMGxdtr5nwGKIcLd6ljw7es3jR3TXHDb/wh3oy3pSTGw1hWd+ijfVGjYplCPFJcxN31hdyxrmWDqKS4e6R7yg+qq2dOthKOBPiI1n+QR9VehEFgueo/Mcz0h5Ssm3L61alrbE=
+	t=1781254073; cv=none; b=jHtxkaE+ftF73zz0apbvB1tKrkI5fyOxMxNpgIyMdg8TL2/Qh5pDVbSRVxEF6w9ekNYoyQDAVn2tJMb5XcYEhN0ajfwuD540lwACgYa0j0gFs1NZ5/w2r4MiBJyUw4rcsKd/AvyAgtZ/WTiwGLiar1W2Fgo2eMwsV+QXkOhWLOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781253862; c=relaxed/simple;
-	bh=opNULbMsLFO7G0iKg0MW34aWlrvrchHIe3SdZYnnk/w=;
+	s=arc-20240116; t=1781254073; c=relaxed/simple;
+	bh=s+bZ0I/wGrEui+NR2iQR7uLXLTlXHTEguWphMfWXwoI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kqXf4JCARlZXoUhkRncYjAF3h6ztTAopQnuyISG43uRCIRmANNVgjz5KIHTckur7QUPahF2YApI2cS2gxiFj/JcpuM87BxoiflIb7/IcjvJK47nkCJzQOvGyUTFbE/5iy1Xbr/AuqTeqpXVy96J7dprC5l9A7GZ9Lvi4YZ63VTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SbFHET31; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Miuqx4mfEPA6n9aVKCATM0fhgn/SIWwdMLH0I05+mxqZQDDGQaXDMP9jwlRbPHvKfceDkl7KF6ZRWG1CaHhtHfZaRYtENGbPwLbqxX8IMfvdLm+Ns1zUvxedEHz9WPUQaakSr2u1U6XPmBbgk3FgeR99iK/UNqJ6Y9qwZQzz0Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=NVIyMojn; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SbFHET31"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327F71F000E9;
-	Fri, 12 Jun 2026 08:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781253857;
-	bh=CnyWSURZdvG7Ai86hnxk/cu/zFJQx0+8PaYVIH2aDoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SbFHET31Qk9YXEEOHwzuAoyb4t4AuSQe1pzSppz5xqB5PDKfIegG69Yp/ThE+WuYS
-	 KwU43YpOz3mp8LmDVn0t1zWptN5RCeIeV1ygPQV0TRxA1leN84q5TmSpzw/Nlpf/MD
-	 YAPazfmjPUEHF7UbRb3Sfc//wEBHSag6bW2RnxLTmUjd+6L/Fro7a6kvXVsnGf2CY+
-	 /dcR2EoGwXr4Hjh/hyOMLX/iiKlta6IE2jeCppIrJptugOTcD4i0X9EO9crUlu+9un
-	 UetTX5cqa2Dy8BmSyaf98ne1uAhssSOiB/wojsDN3Fk3b/llu5/DGsQDgPJZiEOA6B
-	 Otl/hyxzfQG+g==
-Date: Fri, 12 Jun 2026 10:44:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Piergiorgio Beruto <pier.beruto@onsemi.com>, Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net v5 4/4] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Message-ID: <20260612-tangible-supportive-eagle-0dbff6@quoll>
-References: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
- <20260611-level-trigger-v5-4-4533a9e85ce2@onsemi.com>
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="NVIyMojn"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-befee9e5ef7so85850866b.0
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:47:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=imd-tec.com; s=google; t=1781254070; x=1781858870; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZpxlstclOZZ3np0442RuOwgnhT0MaMwJQSqfqAFVDnk=;
+        b=NVIyMojnddBHUwETcPFoKEAzeDMIM4DOXO6JjqH4xE7sdoyqW1M69bLtRj9OhRmrqw
+         j38SiVCcRl3rIxW137hmcK7V1UFck2UDW+OsmWJ7/1JiFWi0FyCz9PsVn+krNk0h/hS8
+         Re+Ou7EBAHkVJMKnlbnPSg2drG99+B+pXQpbf5OMQqbkWt5W0axsmeqb1SgR8iytWnvX
+         P7LUDAsB1SqYkqK3Fb1H/uqLfnHDF/NV7BXDSqknL5Pc3BVXbYxIH1TauQ1etZ/wP1Yd
+         vv9xm11Cy6MC9xTouHZ+GbHuqOjCTijggwAv5gWi90+2DA1aXR9VCicF/fGo0RQ3vLTx
+         a7kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781254070; x=1781858870;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZpxlstclOZZ3np0442RuOwgnhT0MaMwJQSqfqAFVDnk=;
+        b=YqeEftm5OJ4whoD/2A/fGUayL/cqLlQOkfh1+0EzDNDVv1P145LSOPFnawxa4SowJ7
+         FBWVGrodHOeU0g3vtS5ZUFShqB/vx/98KZhgSi6LIjc2WGCskh5sEP0Pg3KBYM6H4VHs
+         I2x6scNZ/f5L5KbrDOoUKZelqUha9nMQrNHwqe9Fjnj5Sja+Usa6TZOeAMaS/yvyOMcz
+         5tYKNCLoKpTnKl35XfT7BYWNRls190mQ8rIyvUSKpvuDQYQ4cPFdatYrrVlLRIHIc30/
+         pQLYd0rE8OuIhRCmiNw2IN+VphrupaTdNKUTObViydbtL49Yxlk/v6d5HjRiQhbxL1yb
+         oW6w==
+X-Forwarded-Encrypted: i=1; AFNElJ+A+iKEI7lVU4/MwfSdSvhrnPFMj87S+LB7VlnEzH/9ZzBu3tIiJh8Pivx4fcEwPj8c/cws/zMhlmOG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWIwRZ+tzPMQovMWzNI4cusKNxQ3EpP1BxqTa8jKgcgDvxUL1l
+	UNr+FoNL7coUJL3gjYSs4I6m86tAv3hYW3TzOwU7eDQNHlBvGW3OrsUOt/wvZTBVm2w=
+X-Gm-Gg: Acq92OH0s0xFL7+ig/+8cjjhU6f7VDpodxssTU+6/jVkinXJp3scmRhuGY+q2KDc/es
+	iIK5fzVRue1FlNekOlDdg4fn1DMi6MMVUl9CrcSjt4jgzHCRAWiaL1sfGkkGMPJu1JxuaB7TZIf
+	3aXeml4WHsHxGycjrsXcy3FWD9WqAuxaQuiQ0gjjwZDYldXpjN+F6IsTYTNh6JPBSvM0g76692z
+	4S337RoZj5+RZM/urKO/GaUwymt7jiX4kg07+jsxiMZW8pGCeut+0KE+Pje6kICVfp0uCF51PIv
+	2YQdn52pYvwQWXAvpvI1SJTZz+XYoBgfiX/jQQE4z3l/07NWprl03KPLain5Syvp4pOzcvsDAbR
+	QGjGN6VfH2Y9qvZI3xRv0UiS7a3b+P5Jx+io+qVyO4zfZrYktHuRwX68CpQZxTKPkStTKnwJ8lm
+	bNoit/kHE7F8Gfl5NMwoHJqsST9zKo2V96TRWerBK/nCEF4RUUXK53n17macdpRGFMvvPM5jmn+
+	e7IWIfRnVPW0peLkTSQ/4wrAGbdXwomlKi5CV0SArs=
+X-Received: by 2002:a17:907:7285:b0:bee:aed6:9d50 with SMTP id a640c23a62f3a-bfe2bfa08a5mr76930866b.48.1781254070073;
+        Fri, 12 Jun 2026 01:47:50 -0700 (PDT)
+Received: from will-Legion-Slim-5-16APH8 ([2a00:23c6:2736:8e01:1873:ad4d:171f:1cab])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb83420e9sm76567166b.45.2026.06.12.01.47.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 01:47:49 -0700 (PDT)
+Date: Fri, 12 Jun 2026 09:47:47 +0100
+From: William Bright <william.bright@imd-tec.com>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ram Boukobza <ram@imd-tec.com>,
+	Tendai Makumire <tendai.makumire@imd-tec.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
+Message-ID: <aivHs6p28uN3d6TI@will-Legion-Slim-5-16APH8>
+References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
+ <e0731edc-81da-429a-a12e-a1d1b75f9544@linaro.org>
+ <aig9licCxhtZbHMq@will-Legion-Slim-5-16APH8>
+ <5a5cbf8f-07ef-419a-8d30-c1b0b2786312@linaro.org>
+ <aik1ZYUT-cnpfdQn@will-Legion-Slim-5-16APH8>
+ <00643a25-040a-4bec-8324-f52b30d84f9f@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260611-level-trigger-v5-4-4533a9e85ce2@onsemi.com>
+In-Reply-To: <00643a25-040a-4bec-8324-f52b30d84f9f@linaro.org>
 
-On Thu, Jun 11, 2026 at 02:55:41PM -0700, Selvamani Rajagopal wrote:
-> According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
-> specification, interrupt type is active low, level triggered interrupt.
+On Thu, Jun 11, 2026 at 10:48:34AM +0300, Vladimir Zapolskiy wrote:
+> Looks like the SDHC driver behaves expectedly then. For me it's hard to say
+> what may be the rootcause, I believe the lower bus frequency should be fine,
+> so it sounds like a hardware issue, but could it be PCB/board specific one?
 > 
-> Specification calls for when interrupt level will be asserted and what
-> condition it is de-asserted. By using edge triggered interrupt, there is a
-> potential chance to miss it, particularly if it is asserted when interrupt
-> is disabled.
+> If you find a chance to copy the SDHC driver (and its small dependencies)
+> from Android and test it on your board, and if it also fails, then it might
+> be well concluded that something is wrong with hardware, still it won't be
+> quite convincing that the SoC SDHC is to blame here.
 > 
-> Level triggered interrupt can't be missed as it gets de-asserted only on
-> interrupt handler taking actions on interrupting conditions.
+> Hope it helps.
 > 
-> Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S MACPHY")
-> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-> 
+> -- 
+> Best wishes,
+> Vladimir
+My colleague Tendai (<tendai.makumire@imd-tec.com>) had the same issue
+with dll-tuning failing in SDR50 when working on the downstream 5.15 msm
+kernel [1].
+It does sound like a potential SI issue so I will try the following:
+  - Sweeping the drive-strength values for the sdhc_4 lines to see if I
+    can find a set of values that work
+  - Scoping the lines to check SI when performing dll-tuning, our board
+    is very dense so this is challenging.
+I am guessing this patch is only acceptable to be upstreamed once we get
+to the bottom of why dll-tuning is failing?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+[1] https://github.com/imd-tec/meta-imdt-qcom/tree/kirkstone/patches/msm-kernel/files
 
-Best regards,
-Krzysztof
-
+Many thanks,
+Will
