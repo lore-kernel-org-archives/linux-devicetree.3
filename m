@@ -1,85 +1,66 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B570636F901
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58A931064B
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781251709; cv=none; b=SVd9mw1MJ8tfaQJd78wPDFV/2ndmyjLMZ96MYVtauWLAe6bLkgNsrb/d0UjAyHPRonCHx2yAVGIsyX7QbNSNaNeIuOmilm5PgLwbmfiwZZi+x4TlqPWL6IWqa7j0HV5QL7ne96MvE9JM3HQj8/PEd2jbqHUCr9qsTg/ib9fTg8c=
+	t=1781251812; cv=none; b=IC2AvOYn8hRxO+1heXuUI+tUOhp5KH++wRaNhUertc9/xS3G3PcoXF2b55o9Utdj7Tu7JRtFD9lJ25ZNyFyLog59vs7U3ZqXtJfZAOihOLGzOf60lz2LxgRwp/3gQ+PfXaZrSWG71mn4g3c0gl/uYYLYN4phiVObDW1BKLJVz5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781251709; c=relaxed/simple;
-	bh=G7R5v7S4yfvUXe2xOvoA2FRSQ5VC1p6ljqF9ti9JpA8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IRdKXy4FjWiWTt4ILOGu+pcc5oKNL80foeDJPu8FaYMDsiinS8xl0gd0CGIBME+SeZAL3Do+ea9sZcmKevBAsp72hVr5+N4QUtPh6g26AqoV6XiDQ8pndq+mEGhHUs51gBy44cANq0d2ntk7bctIF9moMs7biin+Gbbn52hMsww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jUkIZABS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OUkugKBc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781251812; c=relaxed/simple;
+	bh=tlIFSDGimFC4A3TsOlVc1dm/d2ZHPIEkda2SqO3cXYw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d+ogi2+axEiPa7DtE/sVc/keD3Gcd8m8PvJrXuzHsMgkAmwmaPmXIeJMgVtioGTJ6QlToLDIICRWcxqgK84bIGhCryf7/pKPjPPesNNaeFT3HrskR2ngEIWhVzsuNdL7XBk9yGR6D2p4N9RiZO/70WPI/OMtaVnGTAQ1xWsgC8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s4J6cpCW; arc=none smtp.client-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jUkIZABS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OUkugKBc"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C3BqwC2451680
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:08:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DWYvrVR9u8QpN8NdHDBscoTKQgzIdztsQdgF9fhW5bQ=; b=jUkIZABSDjvG2+0e
-	keSeprAhCzaa5ySTpA+uZ+dB0o2jNq+hfFPZlU2qcEzi3gaDJmjvQR3FlVsKBp61
-	TZAMo0kLdzHFxCDKn2VYZWB4VvlT1P6efWlZgYTYh9Xkmn1SIzLdV9J5g0lOfzxR
-	SE8cdlv/MVtNx4sX1WhsxWqIw9qWHNMCS3uHG9DUKtUAyo4xKLqTrdDfEINuUf9i
-	48Plbe2rc6Ly2G3Z3hs0olOn9cJZeXJAvv+qumItGXA8kixES0gI5uzTefL9ZjMi
-	J/5g9HRhH7dVKCeChwtX/Zrxf3z9wgmlybovNvH9U19iKk/ie+C5ytfPLcMAYqFg
-	oAiRTw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er1xcjerd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 08:08:27 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36d99181eaaso944865a91.3
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:08:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s4J6cpCW"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-396aa835272so367121fa.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 01:10:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781251707; x=1781856507; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DWYvrVR9u8QpN8NdHDBscoTKQgzIdztsQdgF9fhW5bQ=;
-        b=OUkugKBcDv9MIDob7X6LZTXBKISXHoVnNdyOUlRgQYJbuvZflkMx1rO4HgmXYSGWPu
-         04Vc8VxjryJuIOBY7bJt3yrFaTvDZwkdwPYPEMGH6Hud0JLGhaLVds5w4c4A60FK60uK
-         WFp31gNjWbjYMKBJKx3OO1yiiOfH4oHbdb4kbiXo8Wisk4uoYDpUJnj6e8qBIUOv57Di
-         /jz9xdX+q7FHuszqDgN/3J4Sq7x2ivWuXRjNqlLSqQYh4IRhfx7h0arHn6DTJLqfo+dC
-         53i5lcOt/37pm4CZ7/jSDLn17VTosC0kxpLAdSK2W41lCJnMgOraS7fwrEQHnFuLUS/o
-         Czdw==
+        d=linaro.org; s=google; t=1781251808; x=1781856608; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Qzqd0JGS+LvqWWHcM0Pu7KnmR8I/e+6J9UGxu+nu8iA=;
+        b=s4J6cpCWL9+J/ts+XsGbAdn3vO8YyU7Ov9Ni7LPEWXJEEbA2ojahSYgc3CfsrfqPId
+         EN/wHJ4v0guU3FrdS0wdj2NZYOi+noTMPZbbCio1Bnv5b6Cx2yME/UThwixIecqgaifj
+         OO22hzzY2t9xHWXt1Egs82Rp44+WD6MHIQJbJintei5or8ZooYZ/lRJ1N8TrBdfuQpNU
+         JX13NFxlQO8+MK6Ku5W6wv4EQfnl10OrQ/d1idwfiH20pdNlQx4Nwrlu861vBSI89z4F
+         X++HBGFstY4A3BCrag8SFqFZiRCr0WvO1uapOlc0Rpi1GPuIHN0+CasPzc4g+mmD9i5/
+         Jstg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781251707; x=1781856507;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DWYvrVR9u8QpN8NdHDBscoTKQgzIdztsQdgF9fhW5bQ=;
-        b=gVZbyRk3N/zUBLxpbE3uQSf3oydgTT72oPdUsGFaJOo9HvVY1lz1VcTwNOPDl+CcWf
-         a7NU5q/nu0b1/mZyTrEMp5EBXneY8n/FPV8nF2HSEaMnkyqegjn/3Z9xrMxiFlvYWeez
-         cIZmLP/XZ4/j4FJDRCkmaFPAQNHsXADVKL+le0x/stt4lAEtY/jwNl0jEsy3I8K8vJmb
-         nRXAoHwCyyK8E4SeoxDVT25Mlr0xm2AaYDTKOCtuM5iVhedOPA2fuWTWlQI1XToiI1/G
-         pzaRXZGkFGoIzQpcPnLjDwRX9zCTglEnn9R1eu08i00Nq9Hb7TYiq+H/Pt8xFVOVsdG5
-         Oc7g==
-X-Forwarded-Encrypted: i=1; AFNElJ+FQ/IylQx5yPWgAuIadKmz6OC4xBoih19kvbUPtDNZ4wNQMtsTG6jEXMzBqGB9Lc/8/80PvPGLGS+q@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUyjzQQaW+jlrTe9lkz2jiyyk96F1FaLX6KppZWn60WyyQfUT9
-	6IRQjHv3nTZG8uJA2KAgUt2X4E2ftlmKvlNJWRFxBXpcSSDmwKY3KjbU4Wb9r9hXXXKh6nT53BG
-	RI4SO3BnFtPia7duriryHZaAPb0YlUUFZOuxuRbLJt0Rg5ESvxaXERumEW1uE+/O7
-X-Gm-Gg: Acq92OFSB+8q4XYDiZNkRLlZTm6G4UFzH89srsveSAyW51vqwQoX/mghD6fXirapSNa
-	GcEFbYQ3haPv1k2+xT/Huhp4y9y8WQwTdXDKHkG++84CO4WvZ600OkUKNVnpeKETjMtLDLRuDGo
-	CkTeff2BVvX8rkTVr/9AE+EgKjnMCttkyJT6hw2KkCWNi5A0lwNmuSg3Y8rpKKWO/n5i1K4eNaN
-	MxFFshR5bZWxj1tpG+h6PZt6Irb7VoWyD0bLaTxnMS76QRpON5Z1FNHFbvHUulekI4XZch5YTPg
-	L/bt1D/43lgCu53jYmbW2R2xE8/WSuaZeeNGZOupdDZ/Bj0X+Dkxfj5ZMXc8lO3WFLf8nGjuftv
-	0haamlZRbBtHgTKFIiTZ9CVYZU72O+VS/Vnhnb2BgD/dCvNRQ1TIqvAAMPkhnbf8=
-X-Received: by 2002:a17:90b:2c84:b0:36d:7a76:827b with SMTP id 98e67ed59e1d1-37a038e1996mr1933135a91.14.1781251706674;
-        Fri, 12 Jun 2026 01:08:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:2c84:b0:36d:7a76:827b with SMTP id 98e67ed59e1d1-37a038e1996mr1933110a91.14.1781251706192;
-        Fri, 12 Jun 2026 01:08:26 -0700 (PDT)
-Received: from [192.168.1.8] ([122.164.81.0])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37a1f07bbfdsm1578146a91.5.2026.06.12.01.08.22
+        d=1e100.net; s=20251104; t=1781251808; x=1781856608;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Qzqd0JGS+LvqWWHcM0Pu7KnmR8I/e+6J9UGxu+nu8iA=;
+        b=DwpJGg2EBsBwjNZS3XlaQNfq+5InvV8JWSaF/OuOlbu4ZLvC4LuzyCOYc1YrSyn5BO
+         49sFOpnLZXB4A85WIkV+5vpiORxopu5YO0V3+hz2jnIVZ0fv7R5nPvzBZ56eJvSI9SyT
+         ckA8FoIJ2fmxjTapX1e0XIios9JEJD3CitpPYLAptHqxSgKwuAslR9nZbXoJQiQXXSYS
+         swa0OjDFz+vYoyY4E4a1a/OoGzp/aTYrWPduLNA382FEphXIsx5EyoBtC1yFSYVNcph6
+         AmMmcBFbQ/sogQ6NoZuy+Rp83hqTZc0C+tV3EQTv2HUsfbZ0N0R14VhKLA4NYDS7IEf1
+         l6CA==
+X-Forwarded-Encrypted: i=1; AFNElJ/AKfKStsVjmrvn5pf1KIpOVx3Bq3jN3fdSJ1tN3jHXdTL5ymU+KKdDY04+iLHDR2nWFwfNrrxlfAs8@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqlhbhHuoQxR80f3i2m6VHkZaxyZaav2aDg87YrAWeVYhNnv3/
+	Ao+Hn1pCAcSAL0v9NqeFOEO4d8N7KabD6FNKX9DZ4RwjL/hHE1tjWF3Uhw90NlpA+MM=
+X-Gm-Gg: Acq92OEg1E6ux1QeE/s3Krbvm8cTvPz8oxzyV4KzoCNDLXgbtSGv0c5fEceHFtQsZ+i
+	omMkNhEP1kjSo9jCmR8nVDvnheKXGgnc9ooWGyBkjSqEmmO0uISl2m5qc3yQCnXjqcuPUXXhx5Z
+	AKtxeZK6I16ZC5miW8/eZTuuV+74h7UebTE6NpCoyaEirZ2DhWYGAZxpze/AjjMN+vm3Q+9cgBj
+	HHz2qCe8iZJuid5+fKdf71T0E2q5tPsLl4VuzxpBldr7BLFb0dwMpUnVYow74xIGhf+cXWM5g/X
+	4OpwhXnQ+hDhd1YgneJKUoBAMFrhPFawZb98UFRgFG9ic0Q07aMqnCq64QjCg8jd1MIquJtVvk8
+	0nBz0gRdrRk+Gvn/mgnYZNw0CPu2XpDiV6wYfcYoLjM8Cwj8Q9pFSVQHqjLau1V/KQsToumuUFt
+	u7/dxUIt2p8qk9B4lW9uHvKa8FzNr8/RQmZ7nyJCBmFOsodg5M74RGMQvXG2MNNrbCtftWaxJPU
+	W/K8Q==
+X-Received: by 2002:a05:6512:3b0a:b0:5aa:6ba4:46f2 with SMTP id 2adb3069b0e04-5ad2db189d7mr289426e87.1.1781251807831;
+        Fri, 12 Jun 2026 01:10:07 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1a6fc0sm332575e87.51.2026.06.12.01.10.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 01:08:25 -0700 (PDT)
-Message-ID: <cb1c557b-c411-4102-ab1f-38fec91d7677@oss.qualcomm.com>
-Date: Fri, 12 Jun 2026 13:38:20 +0530
+        Fri, 12 Jun 2026 01:10:07 -0700 (PDT)
+Message-ID: <b10ecb42-0d4f-4037-b786-cc52bcd1bdd6@linaro.org>
+Date: Fri, 12 Jun 2026 11:10:06 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,77 +68,192 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add support for the QMP PCIe PHYs in Qualcomm IPQ9650
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260602-ipq9650_pcie_phy-v1-0-d8c32a36dbd9@oss.qualcomm.com>
- <aiqYtowP2DQt7Jw0@vaman>
- <8a0e9314-0c97-48c8-be95-986c7e6fe641@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <8a0e9314-0c97-48c8-be95-986c7e6fe641@oss.qualcomm.com>
+Subject: Re: [PATCH v2 6/7] arm64: dts: qcom:
+ shikra-cqm-cqs-evk-imx577-camera: Add DT overlay
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ Suresh Vankadara <quic_svankada@quicinc.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com>
+ <20260608-shikra-camss-review-v2-6-ca1936bf1219@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260608-shikra-camss-review-v2-6-ca1936bf1219@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA3MiBTYWx0ZWRfXzQtX0auXxHW8
- tk26eBSJJ0wOzfLTg2mAKX8qep08AvoP83jaerXKtlAdezo3M3BbJ6zg63wbXT5GHnC+SLkaM5M
- fwlgt5XHqpbAs973ZM0R0LVjHR5VsHISzdH0k0v6GxF4pbCnArAg6EuSbIhE2EUWzCRLFUEpSrN
- whAZgnUj3mXfNAX55MOVWWNQ7ZfczgKvjQhPrmCnHyWVT2ronJlPfNYqVbI8aumelpc+udxk6il
- 36E6S2Gxt824lYh1wJn1LzpRivz+HL68YOgAwSubl5FSrM2dTSTRzPm5fumdCI+SJIU9VK1YnGD
- yBCokdl1XYKIrVvIY432me72w/DZA26d+gVn+3ynz+2EKU/InDwxR55MBpNWQhPp68i4WLQMGKE
- 3Mea20Vptj/YPEIsRpTAfFcshBcoIQL5ptTeZ2rCcyCp/gPwoY7zBlgyyiNaXWs3xIkHMB+7GSx
- zinjWAGuDeyms6cIpjA==
-X-Proofpoint-GUID: WHLIo0wgSlfQusFHUybEmm1o_tXdQOX1
-X-Proofpoint-ORIG-GUID: WHLIo0wgSlfQusFHUybEmm1o_tXdQOX1
-X-Authority-Analysis: v=2.4 cv=NZPWEWD4 c=1 sm=1 tr=0 ts=6a2bbe7b cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=DVNErGSwdtF8OHn2hLoakQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mUgSyTONyoZcvpXPCScA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA3MiBTYWx0ZWRfX+2vwN7gWOYo7
- xEXxfOU4T5I9bTiR2oLLGG9NuN5Ng2Bh8x+B9mz1m8maNkUndTYx6e959FisChq5ySMxxQkyFZY
- b/LNfBLfD6wP+III8fBQnr3ZxniTXuY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120072
+Content-Transfer-Encoding: 7bit
 
+On 6/8/26 17:06, Nihal Kumar Gupta wrote:
+> Shikra CQM and CQS are retail variants sharing the same PM4125 PMIC
+> and identical camera supply rails. The only difference between them
+> is the integrated modem on CQM, which does not affect camera hardware.
+> 
+> Add a shared overlay for optional IMX577 integration via CSIPHY1,
+> used by both CQM and CQS EVK boards.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/Makefile                  |  6 ++
+>   .../dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso | 70 ++++++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts        |  9 +++
+>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts        |  9 +++
+>   4 files changed, 94 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index a9e9d829fb962386b3975f345ec006504607130a..76b8f144983827f4905a72935e8d5291a227dc97 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -337,6 +337,12 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
+> +
+> +shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
+> +shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
+> +
+> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..e3dad7c81e5e8aeb1061c784b5b893965f914a6f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso
+> @@ -0,0 +1,70 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/clock/qcom,shikra-gcc.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +&camss {
+> +	vdd-csiphy-1p2-supply = <&pm4125_l5>;
+> +	vdd-csiphy-1p8-supply = <&pm4125_l13>;
+> +
+> +	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@1 {
+> +			reg = <1>;
+> +
+> +			csiphy1_ep: endpoint {
+> +				data-lanes = <0 1 2 3>;
+> +				remote-endpoint = <&imx577_ep1>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&cci {
+> +	status = "okay";
+> +};
+> +
+> +&cci_i2c1 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	camera@1a {
+> +		compatible = "sony,imx577";
+> +		reg = <0x1a>;
+> +
+> +		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
+> +		pinctrl-0 = <&cam_mclk1_default &cam1_reset_default>;
+> +		pinctrl-names = "default";
+> +
+> +		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
+> +		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
+> +		assigned-clock-rates = <24000000>;
+> +
+> +		/*
+> +		 * avdd and dvdd are supplied by on-board regulators on the
+> +		 * IMX577 module from the connector's 3.3 V rail; they are
+> +		 * not SoC-controlled. dovdd (1.8 V) powers the carrier board
+> +		 * level-shifter that translates CCI I2C and reset lines
+> +		 * between the SoC and the connector.
+> +		 */
+> +		dovdd-supply = <&pm4125_l15>;
+> +
+> +		port {
+> +			imx577_ep1: endpoint {
+> +				link-frequencies = /bits/ 64 <600000000>;
+> +				data-lanes = <0 1 2 3>;
 
-On 6/11/2026 9:52 PM, Kathiravan Thirumoorthy wrote:
->
-> On 6/11/2026 4:45 PM, Vinod Koul wrote:
->> On 02-06-26, 14:40, Kathiravan Thirumoorthy wrote:
->>> Qualcomm's IPQ9650 SoC has 3 Gen3 dual lane and 2 Gen3 single lane
->>> controllers with the QMP PHYs. Unlike the PHYs in the other IPQ SoC,
->>> refgen supply is needed to bringup the PHYs. Both single and dual lane
->>> shares the same HW init sequence. So reuse the tables.
->>>
->>> Document the compatible along with refgen supply and add the phy driver
->>> support for it.
->> Please rebase this on phy-next tomorrow. It does not apply for me due to
->> changes applied ealier today
->
-> There is a discussion open about the supplies[1]. Once that is 
-> clarified, let me re spin. So we can take up this series for v7.3 once 
-> that discussion is closed.
->
-> [1] 
-> https://lore.kernel.org/linux-arm-msm/aiqYtowP2DQt7Jw0@vaman/T/#m37a571fac0c77fd00f6379ad9a2414b60431820b 
->
+The numeration of data-lanes shall be started from 1, this has to be fixed.
 
-Discussion is concluded and I have sent the V2[1] on top of phy-next 
-(2ace2e949979 ("phy: rockchip: inno-usb2: Add missing clkout_ctl_phy 
-kerneldoc")). Please take a look at it.
+> +				remote-endpoint = <&csiphy1_ep>;
+> +			};
+> +		};
+> +	};
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+> index 0a52ab9b7a4c34d371f5ac23efe59d1c9d2723f4..0d5c3e31b1f613157d4d2ec6947c630f1031b73b 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+> @@ -38,3 +38,12 @@ &sdhc_1 {
+>   
+>   	status = "okay";
+>   };
+> +
+> +&tlmm {
+> +	cam1_reset_default: cam1-reset-default-state {
+> +		pins = "gpio33";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +};
 
-[1] 
-https://lore.kernel.org/linux-arm-msm/20260612-ipq9650_pcie_phy-v2-0-b938cc2fc267@qti.qualcomm.com/#t
+Since it's a mezzanine specific pinctl assignment, it shall go to the
+correspondent .dtso file.
 
+It's a concidence that one .dtso file is good enough for describing the
+mezzanine for two diffferent boards, but let's exploit it by keeping one
+dt overlay file as it is now.
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> index b3f19a64d7aed3121ef092df684b19a4de39b497..515af370ca014a668dc035ff944fb82b6e09ceeb 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> @@ -38,3 +38,12 @@ &sdhc_1 {
+>   
+>   	status = "okay";
+>   };
+> +
+> +&tlmm {
+> +	cam1_reset_default: cam1-reset-default-state {
+> +		pins = "gpio33";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +};
+> 
+
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+
+-- 
+Best wishes,
+Vladimir
