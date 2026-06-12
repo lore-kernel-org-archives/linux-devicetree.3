@@ -1,135 +1,441 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0883290C9
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AF8371D0A
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781260414; cv=none; b=XAGhyET7HBMoJXZyHl4YjZCFjmZ+IYdN9JvhmkhPoI7YMpmgS+6BptBJbnlx72oQcw7O8lnGfnp3JsTYUZG5YDQXUcE53zOk5RxjEv5/2qrVG0mgo6ozsvWw560FRXqxw0vH264vItweyA/s0ayjLVcav0Fm4evh4Ku4/QQSnn0=
+	t=1781260478; cv=none; b=exJmtm3QMTss3evEBwcoEjOrkiEilP6IFyfW7fSpSmSOTxXrDKjOyntdTAPW1vzVJZdQQ+HH+kYLM9bP/ajTRFY1buWUPLtTGT9AKUZN8tjpb7UECcRkRke/+BOhdaHlqX0UVfkeU/7JCvFydQqjvRav5I2pV6u2owVG7BFcg7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781260414; c=relaxed/simple;
-	bh=ZJQh1Vja37sZ8TKCDHr1RYHX/prZbPJgqnNE87B6pV8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oIygM64NDVl1p6ts4iMmkW7Zkbv0pu4ZpUnUIzgaOYihDzrAe+lPdn3Vx013vsiypJhqz5h/0ccGRBvllbXeWUw9VH+JHrL8unKjDO22zhP5qjyY9CgTPVybjLdCP9r7Z7OA0HpcuFLwCMcQ6Wxk9t3wkc5hykkQtsTgSi3y2/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hV7Ge9jo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781260478; c=relaxed/simple;
+	bh=q332f//qs/7lWHzxStfraxxnR12Jhs2KA0pej6/0ejc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kSBsS/luvSoq6pIBwM+DcOFg2X4rDhxYBb8VZGjdh4gmwGrt/FIbu+/gi7u+yNu1SNPdBTGtJzbIdLbbKkKJ43cQUgJ2khYTi0GQCQc23DWUoyOH0txhq3sU6oUc/IfP1vKaRtbRynH7Lf18mSGgU7LvZRIULAZuPXorGRGaMz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NuUw24qN; arc=none smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hV7Ge9jo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5585D1F000E9;
-	Fri, 12 Jun 2026 10:33:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781260413;
-	bh=TPtuWCGh7s50chD23d9eDAPJGzK8E47nlnaCvgVi6j0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hV7Ge9joBQEMlcuXHEZdX9WcxRyYrD9Erq5bgvI3CPBRWjh2+eD/9OZUz4hCuAaco
-	 BINpUJg1cPSjYs7S0V5zCkuIgiCudxJgGYv4A0/XLQPoGvHHOP9/smiQE0CK5f8+58
-	 powy+DFMK+LTzbnmmJd0Bquaw2X0Ju9tLM4f7SI/xj1r9MvbACmeC+UzlLoSbIn5yd
-	 cHJlJV457XHUECUxPu0YZQQS3UZj45l3X5eGdFgYZzce9UNleb2okmZafThA2+3FCX
-	 GUG6pY9pCVsJKbN/ElJU/gDU2x8Lek4uCBLtptI5p3Ry7ROibcwwYywy5PJNCo11BI
-	 HS8kDhOqaLBwQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 15/16] media: venus: skip QCM2290 if Iris driver is
- enabled
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260612-iris-ar50lt-v4-15-0abfb74d5b3c@oss.qualcomm.com>
-References: <20260612-iris-ar50lt-v4-15-0abfb74d5b3c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 10:33:32 +0000
-Message-Id: <20260612103333.5585D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NuUw24qN"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-396775428d6so1340521fa.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 03:34:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781260475; x=1781865275; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KgdbnAk3UJEE5zKftaOJQ3yz5TM0Qib/IG+fbBXDUSU=;
+        b=NuUw24qNN1gRPRFzdkBNh6fQFrLsF6brBt57VBk75tGtlAYslVQyUNb7OPTHa+MC8w
+         c2pEK8SVkzHmPuNFteJ+e/WqUx0XPBhI9OBfJxlJoNVbwvuYilyzYSwlsBQkOH+pwWSv
+         MHaA8+T0L7/diSGtLMSzRAJu9xQPk6KEf4/01iqU0W8K3hwZuCj8DtoPZLwBPd/TzFOX
+         tD/ELm7oDAnRj5Vt+g8ndzemfeYjlVn7Kbm5ah4GV/hFaalYuu02saymzmgHYVPRaXS0
+         eYgbWcEv13PGDwmM4vjOn18Rv3AIp2w1N7l4uCnASUI2/j9OjaEghtCRnX01gAmLgCCV
+         gGFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781260475; x=1781865275;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KgdbnAk3UJEE5zKftaOJQ3yz5TM0Qib/IG+fbBXDUSU=;
+        b=YTv2kaMKIqGXwtdHkBxKWzf87KUY9EAPYa4JcfOTvzTd+Qaf8F17wL6oI46pyfigz+
+         tPlTJCChNgWl/C1binu53k+Ue188uBH224ktLkwM3ZVxZGKPMyvSPLMgfC7gFnJ6kd27
+         xJITWXTWBL6IGfdieJVjuJ50q1z2J2U/ePstAyacp9wJGR+VWnKvULx/+rxjPBKqPmnh
+         3ElVSNc9nQxmLYIDhaFQEvJN//HoMFqaAikJaDTpiZxgP5dDqipjMfCsVx8QsaocN9yI
+         zITjVhnpeuJmsBEgaRSMTLQSjHNwJVmzF8gdbpVol+fU+iZ2oKiJZNZFD6nRapLnX9sX
+         z/6g==
+X-Forwarded-Encrypted: i=1; AFNElJ8sH3qhYPi29FufTu9lVKRTF1Cl5yai5g7HlDa6YrK0Y0Tdr8OgkPdJ9ntf2bvdMpTEsCd86VhEtYLK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc8QYxrP0E83f7pvRj9htLfegitD4wsh5FHC8GUkplLEB0ohZZ
+	Ktg5X3AkRg+KbG36vbZUQxcCe8a+C6cKp2n4/iEhPw7Xbenmp2uozOovDNTJfuHabMQ=
+X-Gm-Gg: Acq92OFcidgj3P4alZSmYdCHvQLMkzXk/3b9w4+X8i3kyZQojX85oyE7A30W9n9t8JR
+	Q2x3ADdmxBRo+N5J4wp+QUBAe9MiENlwHm7XfXJjJXjz8humOWLDoSR0CChrlgfc7Xr5ly/kPnF
+	6/m7k+3s+vV/WWuzyT9aDf3owfKTFGBob15jwHgL1betnQK++L1E4eT0dUUCFbVgb1xM1FFheMG
+	0ckMbkU2Nm/sBSfrEiK5RWGiT/TYmoR1vsSSTWkZh2u3LvBz96tbSZZLTIsw2vY9KPw/nO6AQKK
+	DpnByaRdEmIVW4Zs1BVND20UTtQ6IkCVM3NFZPt7lG9wp+4DJfOu6IX63NlkI7qlCZzfG3nfT2H
+	V/ajmLcH1fNFf2bCchDKiex4p/efXNAz/BH8LljxD96y413IcUN1dt5ErRNVHSumMfHZJ/9YexZ
+	foZZcSKNEBR5F4hWZYGqM4rEL9wR82pucD0bhieYVrEw0OV0FoYiXpgwKonYCXGThDdedGnkiln
+	RNgeQ==
+X-Received: by 2002:a05:6512:12c8:b0:5ad:2ac0:9fb0 with SMTP id 2adb3069b0e04-5ad2db7474bmr375307e87.4.1781260474515;
+        Fri, 12 Jun 2026 03:34:34 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1ae1f2sm427142e87.61.2026.06.12.03.34.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 03:34:33 -0700 (PDT)
+Message-ID: <0f4bfe08-0504-48ff-83ce-c84600e6f38d@linaro.org>
+Date: Fri, 12 Jun 2026 13:34:32 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] media: i2c: os02g10: implement crop handling with
+ set_selection
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+ sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com
+Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+ Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
+ <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 4/24/26 12:25, Elgin Perumbilly wrote:
+> From: Tarang Raval <tarang.raval@siliconsignals.io>
+> 
+> Add crop support to os02g10 by implementing .set_selection() and
+> storing the crop rectangle in subdev state.
+> 
+> Initialize the default crop to the active area, make set_fmt() use the
+> current crop, and update the output format when the crop size changes.
+> Also program the sensor window from the active crop/format state instead
+> of using the fixed supported_modes entry.
+> 
+> This allows userspace to configure the sensor crop window explicitly.
+> 
+> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+> Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+> ---
+>   drivers/media/i2c/os02g10.c | 166 ++++++++++++++++++++++--------------
+>   1 file changed, 103 insertions(+), 63 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/os02g10.c b/drivers/media/i2c/os02g10.c
+> index fad2dd0ad7aa..9bf8f5d1caea 100644
+> --- a/drivers/media/i2c/os02g10.c
+> +++ b/drivers/media/i2c/os02g10.c
+> @@ -112,6 +112,11 @@
+>   #define OS02G10_ORIENTATION_BAYER_FIX		0x32
+>   
+>   #define OS02G10_LINK_FREQ_720MHZ		(720 * HZ_PER_MHZ)
+> +#define OS02G10_WINDOW_WIDTH_MIN		2
+> +#define OS02G10_WINDOW_HEIGHT_MIN		2
 
-Pre-existing issues:
-- [High] Use-after-free of `hdev` in the IRQ handler due to incorrect teard=
-own sequence.
---
+Add a blank line before the new group of macro.
 
-commit a490235af4b563cc6644730f4c262f25f52e330a
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> +#define OS02G10_VBLANK_DEF			166
 
-media: venus: skip QCM2290 if Iris driver is enabled
+This one is computable, and it can be dropped.
 
-As the Iris driver now supports the QCM2290 hardware too, there is a
-race between Venus and Iris drivers on binding to the corresponding
-device. Follow the approach used by other platforms and skip QCM2290 in
-the Venus driver if Iris is enabled.
+> +#define OS02G10_VBLANK_MIN			25
 
-> diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/pla=
-tform/qcom/venus/core.c
-> index 243e342b0ae75..3c88594eb1d00 100644
-> --- a/drivers/media/platform/qcom/venus/core.c
-> +++ b/drivers/media/platform/qcom/venus/core.c
+This macro shall be added to the group of OS02G10_REG_FRAME_LENGTH
+register, and it should be included into the previous change.
 
-[ ... ]
+> +#define OS02G10_EXPOSURE_DEF			1100
 
-> @@ -1169,13 +1168,16 @@ static const struct venus_resources qcm2290_res =
-=3D {
->  	.enc_nodename =3D "video-encoder",
->  	.min_fw =3D &min_fw,
->  };
-> +#endif
-> =20
->  static const struct of_device_id venus_dt_match[] =3D {
->  	{ .compatible =3D "qcom,msm8916-venus", .data =3D &msm8916_res, },
->  	{ .compatible =3D "qcom,msm8939-venus", .data =3D &msm8939_res, },
->  	{ .compatible =3D "qcom,msm8996-venus", .data =3D &msm8996_res, },
->  	{ .compatible =3D "qcom,msm8998-venus", .data =3D &msm8998_res, },
-> +#if (!IS_ENABLED(CONFIG_VIDEO_QCOM_IRIS))
->  	{ .compatible =3D "qcom,qcm2290-venus", .data =3D &qcm2290_res, },
-> +#endif
->  	{ .compatible =3D "qcom,sc7180-venus", .data =3D &sc7180_res, },
->  	{ .compatible =3D "qcom,sdm660-venus", .data =3D &sdm660_res, },
->  	{ .compatible =3D "qcom,sdm845-venus", .data =3D &sdm845_res, },
+This macro shall be added to the group of OS02G10_REG_LONG_EXPOSURE
+register, and it should be included into the previous change.
 
-[Severity: High]
-This is a pre-existing issue, but could there be a use-after-free risk duri=
-ng
-teardown in venus_hfi_destroy()?
+>   
+>   /* OS02G10 native and active pixel array size */
+>   static const struct v4l2_rect os02g10_native_area = {
+> @@ -152,15 +157,6 @@ struct os02g10 {
+>   	struct v4l2_ctrl *hflip;
+>   };
+>   
+> -struct os02g10_mode {
+> -	u32 width;
+> -	u32 height;
+> -	u32 vts_def;
+> -	u32 exp_def;
+> -	u32 x_start;
+> -	u32 y_start;
+> -};
+> -
+>   static const struct cci_reg_sequence os02g10_common_regs[] = {
+>   	{ OS02G10_REG_PLL_DIV_CTRL,		0x0a},
+>   	{ OS02G10_REG_PLL_DCTL_BIAS_CTRL,	0x04},
+> @@ -245,17 +241,6 @@ static const struct cci_reg_sequence os02g10_common_regs[] = {
+>   	{ OS02G10_REG_MIPI_TX_SPEED_CTRL,	0x05},
+>   };
+>   
+> -static const struct os02g10_mode supported_modes[] = {
+> -	{
+> -		.width = 1920,
+> -		.height = 1080,
+> -		.vts_def = 1246,
+> -		.exp_def = 1100,
+> -		.x_start = 2,
+> -		.y_start = 6,
+> -	},
+> -};
+> -
+>   static const s64 link_freq_menu_items[] = {
+>   	OS02G10_LINK_FREQ_720MHZ,
+>   };
+> @@ -295,11 +280,12 @@ static int os02g10_set_ctrl(struct v4l2_ctrl *ctrl)
+>   	if (ctrl->id == V4L2_CID_VBLANK) {
+>   		/* Honour the VBLANK limits when setting exposure */
+>   		s64 max = fmt->height + ctrl->val - OS02G10_EXPOSURE_MARGIN;
+> +		s64 def = (max < OS02G10_EXPOSURE_DEF) ? max
+> +			  : OS02G10_EXPOSURE_DEF;
+>   
+>   		ret = __v4l2_ctrl_modify_range(os02g10->exposure,
+>   					       os02g10->exposure->minimum, max,
+> -					       os02g10->exposure->step,
+> -					       os02g10->exposure->default_value);
+> +					       os02g10->exposure->step, def);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -362,10 +348,9 @@ static const struct v4l2_ctrl_ops os02g10_ctrl_ops = {
+>   
+>   static int os02g10_init_controls(struct os02g10 *os02g10)
+>   {
+> -	const struct os02g10_mode *mode = &supported_modes[0];
+>   	struct v4l2_fwnode_device_properties props;
+> -	u64 vblank_def, exp_max, pixel_rate;
+>   	struct v4l2_ctrl_handler *ctrl_hdlr;
+> +	u64 exp_max, pixel_rate;
+>   	int ret;
+>   
+>   	ctrl_hdlr = &os02g10->handler;
+> @@ -384,18 +369,19 @@ static int os02g10_init_controls(struct os02g10 *os02g10)
+>   	if (os02g10->link_freq)
+>   		os02g10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+>   
+> -	vblank_def = mode->vts_def - mode->height;
+>   	os02g10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
+> -					    V4L2_CID_VBLANK, vblank_def,
+> -					    OS02G10_FRAME_LENGTH_MAX - mode->height,
+> -					    1, vblank_def);
+> +					    V4L2_CID_VBLANK, OS02G10_VBLANK_MIN,
+> +					    OS02G10_FRAME_LENGTH_MAX -
+> +					    os02g10_active_area.height,
+> +					    1, OS02G10_VBLANK_DEF);
+>   
+> -	exp_max = mode->vts_def - OS02G10_EXPOSURE_MARGIN;
+> +	exp_max = OS02G10_VBLANK_DEF + os02g10_active_area.height
+> +		  - OS02G10_EXPOSURE_MARGIN;
+>   	os02g10->exposure =
+>   		v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
+>   				  V4L2_CID_EXPOSURE,
+>   				  OS02G10_EXPOSURE_MIN, exp_max,
+> -				  OS02G10_EXPOSURE_STEP, mode->exp_def);
+> +				  OS02G10_EXPOSURE_STEP, OS02G10_EXPOSURE_DEF);
+>   
+>   	v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
+>   			  V4L2_CID_ANALOGUE_GAIN, OS02G10_ANALOG_GAIN_MIN,
+> @@ -445,20 +431,18 @@ static int os02g10_set_framefmt(struct os02g10 *os02g10,
+>   				struct v4l2_subdev_state *state)
+>   {
+>   	const struct v4l2_mbus_framefmt *format;
+> -	const struct os02g10_mode *mode;
+> +	const struct v4l2_rect *crop;
+>   	int ret = 0;
+>   
+> +	crop = v4l2_subdev_state_get_crop(state, 0);
+>   	format = v4l2_subdev_state_get_format(state, 0);
+> -	mode = v4l2_find_nearest_size(supported_modes,
+> -				      ARRAY_SIZE(supported_modes), width,
+> -				      height, format->width, format->height);
+>   
+> -	cci_write(os02g10->cci, OS02G10_REG_V_START, mode->y_start, &ret);
+> -	cci_write(os02g10->cci, OS02G10_REG_V_SIZE, mode->height, &ret);
+> -	cci_write(os02g10->cci, OS02G10_REG_V_SIZE_MIPI, mode->height, &ret);
+> -	cci_write(os02g10->cci, OS02G10_REG_H_START, mode->x_start, &ret);
+> -	cci_write(os02g10->cci, OS02G10_REG_H_SIZE, mode->width, &ret);
+> -	cci_write(os02g10->cci, OS02G10_REG_H_SIZE_MIPI, mode->width, &ret);
+> +	cci_write(os02g10->cci, OS02G10_REG_V_START, crop->top, &ret);
+> +	cci_write(os02g10->cci, OS02G10_REG_V_SIZE, crop->height, &ret);
+> +	cci_write(os02g10->cci, OS02G10_REG_V_SIZE_MIPI, format->height, &ret);
+> +	cci_write(os02g10->cci, OS02G10_REG_H_START, crop->left, &ret);
+> +	cci_write(os02g10->cci, OS02G10_REG_H_SIZE, crop->width, &ret);
+> +	cci_write(os02g10->cci, OS02G10_REG_H_SIZE_MIPI, format->width, &ret);
+>   
+>   	return ret;
+>   }
+> @@ -528,16 +512,67 @@ static int os02g10_disable_streams(struct v4l2_subdev *sd,
+>   	return ret;
+>   }
+>   
+> +static int os02g10_set_selection(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *sd_state,
+> +				 struct v4l2_subdev_selection *sel)
+> +{
+> +	struct v4l2_mbus_framefmt *format;
+> +	struct v4l2_rect *crop;
+> +	struct v4l2_rect rect;
+> +
+> +	if (sel->target != V4L2_SEL_TGT_CROP)
+> +		return -EINVAL;
+> +
+> +	rect.left = clamp_t(unsigned int, ALIGN(sel->r.left, 2),
+> +			    os02g10_active_area.left,
+> +			    os02g10_active_area.left +
+> +			    os02g10_active_area.width -
+> +			    OS02G10_WINDOW_WIDTH_MIN);
+> +	rect.top = clamp_t(unsigned int, ALIGN(sel->r.top, 2),
+> +			   os02g10_active_area.top,
+> +			   os02g10_active_area.top +
+> +			   os02g10_active_area.height -
+> +			   OS02G10_WINDOW_HEIGHT_MIN);
+> +	rect.width = clamp_t(unsigned int, ALIGN(sel->r.width, 2),
+> +			     OS02G10_WINDOW_WIDTH_MIN,
+> +			     os02g10_active_area.width);
+> +	rect.height = clamp_t(unsigned int, ALIGN(sel->r.height, 2),
+> +			      OS02G10_WINDOW_HEIGHT_MIN,
+> +			      os02g10_active_area.height);
+> +
+> +	rect.width = min_t(unsigned int, rect.width,
+> +			   os02g10_active_area.left +
+> +			   os02g10_active_area.width - rect.left);
+> +	rect.height = min_t(unsigned int, rect.height,
+> +			    os02g10_active_area.top +
+> +			    os02g10_active_area.height - rect.top);
+> +
+> +	crop = v4l2_subdev_state_get_crop(sd_state, sel->pad);
+> +
+> +	if (rect.width != crop->width || rect.height != crop->height) {
+> +		format = v4l2_subdev_state_get_format(sd_state, sel->pad);
+> +		format->width = rect.width;
+> +		format->height = rect.height;
+> +	}
+> +
+> +	*crop = rect;
+> +	sel->r = rect;
+> +
+> +	return 0;
+> +}
+> +
+>   static int os02g10_get_selection(struct v4l2_subdev *sd,
+>   				 struct v4l2_subdev_state *sd_state,
+>   				 struct v4l2_subdev_selection *sel)
+>   {
+>   	switch (sel->target) {
+> +	case V4L2_SEL_TGT_CROP:
+> +		sel->r = *v4l2_subdev_state_get_crop(sd_state, sel->pad);
+> +		return 0;
+>   	case V4L2_SEL_TGT_CROP_BOUNDS:
+>   	case V4L2_SEL_TGT_NATIVE_SIZE:
+>   		sel->r = os02g10_native_area;
+>   		return 0;
+> -	case V4L2_SEL_TGT_CROP:
+>   	case V4L2_SEL_TGT_CROP_DEFAULT:
+>   		sel->r = os02g10_active_area;
+>   		return 0;
+> @@ -566,16 +601,16 @@ static int os02g10_enum_frame_size(struct v4l2_subdev *sd,
+>   {
+>   	struct os02g10 *os02g10 = to_os02g10(sd);
+>   
+> -	if (fse->index >= ARRAY_SIZE(supported_modes))
+> +	if (fse->index)
+>   		return -EINVAL;
+>   
+>   	if (fse->code != os02g10_get_format_code(os02g10))
+>   		return -EINVAL;
+>   
+> -	fse->min_width = supported_modes[fse->index].width;
+> -	fse->max_width = fse->min_width;
+> -	fse->min_height = supported_modes[fse->index].height;
+> -	fse->max_height = fse->min_height;
+> +	fse->min_width = OS02G10_WINDOW_WIDTH_MIN;
+> +	fse->max_width = os02g10_active_area.width;
+> +	fse->min_height = OS02G10_WINDOW_HEIGHT_MIN;
+> +	fse->max_height = os02g10_active_area.height;
+>   
+>   	return 0;
+>   }
+> @@ -586,18 +621,14 @@ static int os02g10_set_pad_format(struct v4l2_subdev *sd,
+>   {
+>   	struct os02g10 *os02g10 = to_os02g10(sd);
+>   	struct v4l2_mbus_framefmt *format;
+> -	const struct os02g10_mode *mode;
+> +	struct v4l2_rect *crop;
+>   
+> +	crop = v4l2_subdev_state_get_crop(sd_state, 0);
+>   	format = v4l2_subdev_state_get_format(sd_state, 0);
+>   
+> -	mode = v4l2_find_nearest_size(supported_modes,
+> -				      ARRAY_SIZE(supported_modes),
+> -				      width, height,
+> -				      fmt->format.width, fmt->format.height);
+> -
+>   	fmt->format.code = os02g10_get_format_code(os02g10);
+> -	fmt->format.width = mode->width;
+> -	fmt->format.height = mode->height;
+> +	fmt->format.width = crop->width;
+> +	fmt->format.height = crop->height;
+>   	fmt->format.field = V4L2_FIELD_NONE;
+>   	fmt->format.colorspace = V4L2_COLORSPACE_RAW;
+>   	fmt->format.quantization = V4L2_QUANTIZATION_FULL_RANGE;
+> @@ -606,11 +637,19 @@ static int os02g10_set_pad_format(struct v4l2_subdev *sd,
+>   	*format = fmt->format;
+>   
+>   	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+> -		u32 vblank_def = mode->vts_def - mode->height;
+> +		int ret, vblank;
+>   
+> -		int ret = __v4l2_ctrl_modify_range(os02g10->vblank, vblank_def,
+> -						   OS02G10_FRAME_LENGTH_MAX -
+> -						   mode->height, 1, vblank_def);
+> +		ret = __v4l2_ctrl_modify_range(os02g10->vblank, OS02G10_VBLANK_MIN,
+> +					       OS02G10_FRAME_LENGTH_MAX -
+> +					       fmt->format.height, 1,
+> +					       OS02G10_VBLANK_DEF);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Set VBLANK to maintain 30 fps for the selected format. */
+> +		vblank = os02g10_active_area.height - fmt->format.height
+> +			 + OS02G10_VBLANK_DEF;
+> +		ret = __v4l2_ctrl_s_ctrl(os02g10->vblank, vblank);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -626,14 +665,14 @@ static int os02g10_init_state(struct v4l2_subdev *sd,
+>   		.which = V4L2_SUBDEV_FORMAT_TRY,
+>   		.format = {
+>   			.code = os02g10_get_format_code(os02g10),
+> -			.width = supported_modes[0].width,
+> -			.height = supported_modes[0].height,
+> +			.width = os02g10_active_area.width,
+> +			.height = os02g10_active_area.height,
+>   		},
+>   	};
+> +	struct v4l2_rect *crop = v4l2_subdev_state_get_crop(state, 0);
+> +	*crop = os02g10_active_area;
+>   
+> -	os02g10_set_pad_format(sd, state, &fmt);
+> -
+> -	return 0;
+> +	return os02g10_set_pad_format(sd, state, &fmt);
+>   }
+>   
+>   static const struct v4l2_subdev_video_ops os02g10_video_ops = {
+> @@ -645,6 +684,7 @@ static const struct v4l2_subdev_pad_ops os02g10_pad_ops = {
+>   	.get_fmt = v4l2_subdev_get_fmt,
+>   	.set_fmt = os02g10_set_pad_format,
+>   	.get_selection = os02g10_get_selection,
+> +	.set_selection = os02g10_set_selection,
+>   	.enum_frame_size = os02g10_enum_frame_size,
+>   	.enable_streams = os02g10_enable_streams,
+>   	.disable_streams = os02g10_disable_streams,
 
-In drivers/media/platform/qcom/venus/hfi_venus.c:venus_hfi_destroy(), hdev =
-is
-freed and its lock is destroyed before the IRQ is disabled:
+I understand that this change is written by another person, and likely
+it is not squashed with the previous one to preserve authorship, however
+it significantly rewrites the change already found in the series.
 
-void venus_hfi_destroy(struct venus_core *core)
-{
-	struct venus_hfi_device *hdev =3D to_hfi_priv(core);
+I don't see information about the maximum supported frame height/width
+or default VTS setting etc. anymore, for me it's hard to say, if
+this kind of information can be dropped with no consequences in runtime.
 
-	core->priv =3D NULL;
-	venus_interface_queues_release(hdev);
-	mutex_destroy(&hdev->lock);
-	kfree(hdev);
-	disable_irq(core->irq);
-	core->ops =3D NULL;
-}
+Probably this 3/3 change will break a quick inclusion of the sensor
+driver, you may consider to exlcude it from the series now, and publish
+it afterwards.
 
-If a threaded interrupt (venus_isr_thread) is already running or scheduled
-concurrently, could it pass the initial if (!hdev) check before core->priv
-is set to NULL, and then access the freed hdev structure?
-
-drivers/media/platform/qcom/venus/hfi_venus.c:venus_isr_thread()
-{
-	struct venus_hfi_device *hdev =3D to_hfi_priv(core);
-	...
-	if (!hdev)
-		return IRQ_NONE;
-	...
-	pkt =3D hdev->pkt_buf;
-
-	while (!venus_iface_msgq_read(hdev, pkt)) {
-	...
-}
-
-Because disable_irq() waits for currently executing handlers to complete,
-should it be called before freeing the structures the handler depends on?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-iris-ar50l=
-t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D15
+-- 
+Best wishes,
+Vladimir
