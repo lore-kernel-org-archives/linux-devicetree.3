@@ -1,177 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6DF27A107
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4180E38A71B
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 10:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781258909; cv=none; b=aS1ck1fWtRqcd9lToVcciLGAytoXBQ+5M1XaW0Q+FzGCo2JPIW9QpYFW5g7IIDKbAGo/Qj6iLh0QPHxmVAmr91paOuteWe7fFEsxuLjh1iPLgzv2OA0ARaRbLKXfC4N0ktp6yY89M8hzbuI+vrlatkgLA3x+0EoqhESnQ1Yez/s=
+	t=1781259042; cv=none; b=LTyy8bXU2oT7g3r4ZiDl7/3MvCqhXpZGlYG0QGvBFd70MREYEsAnzsWg35IcKdKguBu1wf+255o2OJqThBjdDl8L3sCoLXjd5xodUWIZndUNPeZKyncjzpffr3ZY3XJxIWE1aoEJhCenEccUEz8V9y0l7WP0/ewnz2/teGX6TKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781258909; c=relaxed/simple;
-	bh=6LRgUqShnniKserhwlLRs5VjBDhjJMUEI2k/adynf2E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=De63Q2WZ7luAr/P6czp4l53ER7ncgeFXOP3hG5SPWjBonpYC23k59uH6Lx09I/aJItlvzdcjBhIImJUCoZLeMNdeO1zFqZ6mc25Ns0lsqwsKLNd/0hVuJXEL2hD2Uif59lwD0itE63TD+w3PQftUY2f7YPqJNtyBHmf3Fs2XSD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fkz4u0+s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781259042; c=relaxed/simple;
+	bh=VfOBVwW66cmgqEpPpdTVfIk63d6iMSbC90a3mU+fYhI=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PI2c6fvpiykcN+T+vtLclm26kOCr+95DCjZl6JLLVaKHuAJ3Xhn6dsYdu3DoGb9PIbEupBvr2kQ7RnqVokmIJ9iVe2P3PKRQ/SlLtOAiHYHAUJ/ZeQCkdOMxVz8s94c/C0k71qXaTnjFvF691BP1TPOO5S4JnuRMxMxXp+V/ai8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lL+AmzC5; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fkz4u0+s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85131F00A3A;
-	Fri, 12 Jun 2026 10:08:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781258907;
-	bh=9EshPrP6w8kev+jqqCppODA8BhEQ4yz+ADGvkhEblDY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Fkz4u0+scTaSTSZNaTVjR189hbCRLaB/x3Y2wHOH0dUOoWY66EdjHnD3VQr9HbGIh
-	 MeKarHuoiEzDFvca/bOACDxNeoHx9FUrrfirHMwUTgY/b9QiJJcShpD42fVs20dhXs
-	 R9ZnDgx1/Rmvq/0ynaaxa2uxR+hznGVrgWtTG02f+hXHHjXqycabG6YL/GAgo9EwVh
-	 ASMAk+Vm/wzqa0znM8fW/pNtX7AxtlAVYy2tH51n7ztbrXeesWTZopsf7n3u+5kv4t
-	 3nhZsnzZyCMjyXKPhHNgSV0E669Pmk6wOoDfO9X4dQomWi71lz1MGHFXixRNdXeJCO
-	 8b95ycUILIztA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 11/16] media: iris: update buffer requirements based
- on received info
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260612-iris-ar50lt-v4-11-0abfb74d5b3c@oss.qualcomm.com>
-References: <20260612-iris-ar50lt-v4-11-0abfb74d5b3c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 10:08:26 +0000
-Message-Id: <20260612100826.D85131F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lL+AmzC5"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-491609cdd8fso1920755e9.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 03:10:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781259039; x=1781863839; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=C9wZyoU1v8zpuY6BFJ/ACEsATO/OwOtgF75ffj8qI+Q=;
+        b=lL+AmzC53BTqQFdAW21zPigq/dUnUvY0Gj+3sQzhRp06HSOBDf4yOGSSyWET+Z1rIR
+         LON+2tOd74QLCOrRofUQHluvGUqasRJCq4BZn7hHz4Ss/+CHHrIjuXJymcLiHl58wAXd
+         WCDTOD6jfbWOqGvizrXovJ4yT3BHsjpVBu40emdlyPuBck+ZVAZ9znZq5zFzqRcubnzM
+         JatLsxH4LyaXD3F8DGKWoq7clHjwIb1JrjZxd1qpe4RneWZs13dZ6RnsABRkFFjNZDgv
+         jxtlyatCN+i3DfurIBkvAFSjoyuK8xH4nN2mqu5SVnukdLiCHQhspb/MACc2rLn4ZD+E
+         95/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781259039; x=1781863839;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=C9wZyoU1v8zpuY6BFJ/ACEsATO/OwOtgF75ffj8qI+Q=;
+        b=GkKAPkSu5Pz1HzaNSMA3r8X/rI1l0Tko6hXP7nDTXGFbX4f2IV7fAn7hIfxMD4q3qS
+         z1X3rhlK7eB7gjMbbZJjTwTw8hJLqLW2XHy2Qc883kyyfVDe+6KN2a64lJjbx0aTxTfP
+         0i6N3bUu7KoIc8HujtO/zDPuf4OsitR7sjuQluJQuhIOqRkhiU96BBOTfVrsiGkKjprE
+         W+9ux1it2M5P/tslU5pxdvTicvegLOx/6zsvtnkhu8xnAAj/LHjcXCsv05JAwfQ3ZlQ7
+         1kNJaps3pm41BHVuL+OUEJcT3R2bc3RHstdE6DaGqmxOy1WxinhMk4p1kLKjPA69P8GK
+         B3Xw==
+X-Gm-Message-State: AOJu0YyIRMsGAjj81oqq7dsPhodZIjmHSe7EhVImS9ztjI8NY5OspXb6
+	ab2TKiMX0P0HzoY7V8a+Xr6wBwX6usx/RqQ/Ya2aOPFsI1mTULacbbx/vfqIHw==
+X-Gm-Gg: Acq92OHUUkbrWcnr5hvEJO1KmTeXZ1VV5hixZS66P6x433srUC/+unScfI9bliOmaSK
+	J3Zj0G84fw+8RNrr6Ra1H9jLhhiZqXVMCoIPD7sinC8DWSl5v6AjTJMhjLQt/gphRXAFdBXzuuG
+	R9BHLvdRsKL3RlX4BfJvLgGChYPkhoqFeB+CHUCuyxC9QM7Q9iu38un+oN2Pr5ujSBQwyUXOVmK
+	8NXCIdLVWbwND1E+L7XiX/Po+Kz2N7XOI0EvYYmOcFuMOfkFhhUdrL3KHCnhzZRvNpsvg7HsMVc
+	Jr63rfpDhYswUTDhk+BgbITAEqLKRz9SWIAiheMlOIgp/+opFBwXUTBTGsaStcgdBpnWgaZG/vw
+	uqtQy81FRemF6Nfs0sk5hb3e4iL5FzT626Y8n432xvH1zllJH8ovJYRjAetK7DFIeT10f/ka0IE
+	BDcdXsivW4233jg4H4qXMGWQ==
+X-Received: by 2002:a05:600c:3b16:b0:491:e3be:1363 with SMTP id 5b1f17b1804b1-491e3be13b3mr3289185e9.0.1781259038325;
+        Fri, 12 Jun 2026 03:10:38 -0700 (PDT)
+Received: from Ansuel-XPS. ([176.200.123.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea83d8dasm70261225e9.11.2026.06.12.03.10.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 03:10:37 -0700 (PDT)
+Message-ID: <6a2bdb1d.dc59d6a3.e1f11.8388@mx.google.com>
+X-Google-Original-Message-ID: <aivbG2gNq60N68uc@Ansuel-XPS.>
+Date: Fri, 12 Jun 2026 12:10:35 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH net-next v6 01/12] net: phylink: keep and use MAC
+ supported_interfaces in phylink struct
+References: <20260609151212.29469-2-ansuelsmth@gmail.com>
+ <20260610161620.99C121F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260610161620.99C121F00893@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The driver incorrectly assigns `req->hold_count` and `req->count_a=
-ctual` from `struct hfi_buffer_requirements` instead of `req->count_min` to=
- instance buffer counts, leading to insufficient buffer allocations.
-
-Pre-existing issues:
-- [High] Preexisting Use-After-Free (UAF) race condition due to missing ref=
-erence counting in `iris_get_instance`.
-- [High] Preexisting Use-After-Free (UAF) of `inst->m2m_ctx` during session=
- teardown in `iris_close()`.
---
-
-commit 07ef5efeab4196fd6eaca945bfba49a95c55f702
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-media: iris: update buffer requirements based on received info
-
-Upon receiving data for HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS the
-driver should update buffer sizes and counts from the received data.
-Implement corresponding functionality updating buffers data. This will
-be used for upcoming support of AR50Lt platforms with Gen1 firmware.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/=
-drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> index 23fc7194b1e3a..ee996eb1f41fa 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-
-[ ... ]
-
-> +static void iris_hfi_gen1_session_buffer_requirements(struct iris_inst *=
-inst,
-> +						      void *data, size_t size)
-> +{
-> +	struct hfi_buffer_requirements *req;
-> +
-> +	if (!size || size % sizeof(*req))
-> +		return;
-> +
-> +	for (req =3D data; size; size -=3D sizeof(*req), req++) {
-> +		enum iris_buffer_type type =3D iris_hfi_gen1_buf_type(inst, req->type);
-> +
-> +		if (type =3D=3D -EINVAL)
-> +			continue;
-> +
-> +		inst->buffers[type].min_count =3D req->hold_count;
-
-[Severity: High]
-Is this assignment correct? The existing firmware semantics appear to expect
-req->count_min to represent the minimum required buffers for forward progre=
-ss.
-
-Will assigning req->hold_count (which is typically lower) cause the driver =
-to
-under-allocate buffers for V4L2, leading to firmware stalls?
-
-> +		inst->buffers[type].size =3D req->size;
-> +
-> +		if (type =3D=3D BUF_OUTPUT)
-> +			inst->fw_min_count =3D req->count_actual;
-
-[Severity: High]
-Similarly, should this be assigned to req->count_min instead of
-req->count_actual to maintain consistent minimum buffer count derivations?
-
-> +	}
-> +}
-
-[ ... ]
-
-> @@ -657,7 +729,7 @@ static void iris_hfi_gen1_handle_response(struct iris=
-_core *core, void *response
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_EMPTY_BUFFER) {
->  			iris_hfi_gen1_session_etb_done(inst, hdr);
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_FILL_BUFFER) {
->  			iris_hfi_gen1_session_ftb_done(inst, hdr);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this lead to a
-use-after-free regression?
-
-During session teardown, iris_close() releases the M2M context before
-shutting down the firmware session:
-
-iris_vidc.c:iris_close() {
-    ...
-    v4l2_m2m_ctx_release(inst->m2m_ctx);
-    ...
-}
-
-If an HFI_MSG_SESSION_FILL_BUFFER event arrives before the session is fully
-closed, the threaded IRQ handler calls iris_hfi_gen1_session_ftb_done() whi=
-ch
-subsequently accesses the freed context in v4l2_m2m_for_each_dst_buf_safe().
-
-Is there a way to defer freeing the M2M context until the session is safely
-stopped?
-
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_PROPERTY_INFO) {
-> -			complete(&inst->completion);
-> +			iris_hfi_gen1_session_property_info(inst, hdr);
-
-[Severity: High]
-This is a pre-existing issue, but is it safe for
-iris_hfi_gen1_handle_response() to use the inst pointer here without a
-reference count?
-
-When iris_get_instance() looks up the instance, it returns the pointer with=
-out
-taking a reference. If a userspace thread executing iris_close() frees the
-instance:
-
-iris_vidc.c:iris_close() {
-    ...
-    kfree(inst);
-}
-
-Could the threaded IRQ handler concurrently attempt to lock the destroyed
-inst->lock or dereference inst while handling responses, resulting in a
-use-after-free?
-
->  		} else {
->  			struct hfi_msg_session_hdr_pkt *shdr;
+On Wed, Jun 10, 2026 at 04:16:20PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Late modification to `config->supported_interfaces` by drivers is silently ignored due to by-value copying in `phylink_create()`, breaking support for devices like MTK GMAC2.
+> --
+> 
+> commit eaea53b185dbdc4c75406c542c97543c4c451c9d
+> Author: Christian Marangi <ansuelsmth@gmail.com>
+> 
+> net: phylink: keep and use MAC supported_interfaces in phylink struct
+> 
+> This patch copies supported_interfaces from phylink_config into the phylink
+> structure to prepare for internal PCS handling. The internal copy is then
+> used in place of the config structure's bitmap.
+> 
+> > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> > index 087ac63f9193d..4d59c0dd78dbf 100644
+> > --- a/drivers/net/phy/phylink.c
+> > +++ b/drivers/net/phy/phylink.c
+> [ ... ]
+> > @@ -1868,6 +1873,9 @@ struct phylink *phylink_create(struct phylink_config *config,
+> >  	mutex_init(&pl->state_mutex);
+> >  	INIT_WORK(&pl->resolve, phylink_resolve);
+> >  
+> > +	phy_interface_copy(pl->supported_interfaces,
+> > +			   config->supported_interfaces);
+> > +
+> 
+> [Severity: High]
+> Will this by-value copy break drivers that modify supported_interfaces after
+> calling phylink_create()?
+> 
+> For example, looking at the mtk_eth_soc driver in mtk_add_mac(), the
+> supported_interfaces bitmap is modified after phylink_create() returns:
+> 
+> drivers/net/ethernet/mediatek/mtk_eth_soc.c:mtk_add_mac() {
+>         ...
+>         mac->phylink = phylink_create(&mac->phylink_config, ...);
+>         ...
+>         if (MTK_HAS_CAPS(mac->hw->soc->caps, MTK_2P5GPHY) &&
+>             id == MTK_GMAC2_ID)
+>                 __set_bit(PHY_INTERFACE_MODE_INTERNAL,
+>                           mac->phylink_config.supported_interfaces);
+>         ...
+> }
+> 
+> Since phylink_create() has already taken a snapshot of the interfaces,
+> this late addition of PHY_INTERFACE_MODE_INTERNAL will be dropped. 
+> Could this cause phylink_validate() to incorrectly reject the internal PHY
+> capability for the MTK GMAC2?
+> 
+> >  	pl->config = config;
+> >  	if (config->type == PHYLINK_NETDEV) {
+> >  		pl->netdev = to_net_dev(config->dev);
 >
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-iris-ar50l=
-t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D11
+I was with the idea that value of phylink_config should be used only for
+phylink_create and then in theory they should not be changed.
+
+Isn't this a bug in MTK code to modify the phylink_config AFTER
+phylink_create?
+
+It was never a problem since it's it's INTERNAL interface mode and a PCS is
+not needed for it but still I feel this should be fixed and this change
+doesn't introduce some kind of regression.
+ 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260609151212.29469-1-ansuelsmth@gmail.com?part=1
+
+-- 
+	Ansuel
