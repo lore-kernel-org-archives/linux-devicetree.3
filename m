@@ -1,137 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8677D3806C6
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C362D238A
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 09:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781257013; cv=none; b=nxWTmoeWyGwiy3O7ioyxLSCjB7uvD+r0vtQjQ5YGohjQVTS/IBHPOr+t/RCmUslbprdbEgqwHnWvfOyrWKbbE2sssuzvZ9Q304BbaQQq6w6IlqXeDRfMibE1jkP5hjH/muVTi12a4ZFoHiUORAfEItwAklbM4Id+ZOCpV6ROsc4=
+	t=1781257268; cv=none; b=kM++Ib+sYuR8UaV/2EWA0GZ1yQBKe4unupuBi3pfIR2joBFmRQjitTI2fxndS7cUjyBDdYhXgX+gzy/n5Zz4ugE16cd46aOtj6kp9y3hqnzRMbc2dx6NdZqU1ZMTJSLQzxM84f3GCo+q70fKHkpi1JEa9olhg0hFlygdSJjRy3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781257013; c=relaxed/simple;
-	bh=lTd4PkkQZKbkdbT7If/X1emPeZ6C+Iszf1tx9Bz2r4Y=;
+	s=arc-20240116; t=1781257268; c=relaxed/simple;
+	bh=YuSoNcILbhvOckq9qwb9Wyp7iZXLW1ZLvmBlVP85sR4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UABzN6qbNLHHPnRR2aKnZm48TMBR8i/EeBPmVhPlCeytZveGfNu/jO5oIJFiuC2FoJ3sd0+faWQ/5cURgu9HuuB4HsLcXD00XTsTaBy90nmWrExE6T+TdbuZgWKegwij9tza0Hr2nvrqTF5ZButFhgUK861vUZw810YOW2RmDv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B7g86kGR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=up9GOG0qppcn1tovnNciCHIGNzAB6wbxpfq7pyrgOVBtGzWonMrhsLaEJ54Hxv8SmTqs/wI5Zziy4a+wGDHmOfprYWmN41EZWOUCdtpu/1MqA9zwdp+XSGY1aBtJNmwmz+6cB6XvOKNZu886+3OOCoakIZSVi8hpR+ziIgcSUTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkaEZCoP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B7g86kGR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8105F1F000E9;
-	Fri, 12 Jun 2026 09:36:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkaEZCoP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7704A1F000E9;
+	Fri, 12 Jun 2026 09:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781257009;
-	bh=SasMNM7f6Ljfea4JniuN6TzvqB5fUsOz6e33s/ItI3s=;
+	s=k20260515; t=1781257265;
+	bh=TEDifnsXW4hmkc3P2yl+J8y1khySwqJ5bRLUFvoIikk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B7g86kGRJp6SG1aPl9qQtNrzAV/MWpANrRWHkr1NG5VYc1eoNYh37eFPiciwEIn2H
-	 8Esf6o/Hti7trRQ7Uv8Gqlfh+s7ULE48PYk0ri9SFJD/j9pku6y0L4tNNvojxg9WtY
-	 lWZGRI20LKzqa8oXKUM41mamq692QCMmozTIY8g7BpHYxILx34v96MfNk0Qn+D86lK
-	 nlNpCRNN03FUTN92TGcE3ucdMHKOJpOgxWYo6yVypzRpT+G7ywdYcn8RBPsO3xXQzA
-	 oV5oCe6d4Tq7ivzqOEUgFP5ni2pDEBgsVPIOkCZaFn9Luezkx5QWrl1qOwQh22wueA
-	 dnQ7EhjEu+2QA==
+	b=XkaEZCoPmUpNCxsqZZ6ZizOeglUP7gTcnVh5sf1bIiLSgV52F9QAY/hWszsohNn51
+	 bsjCKMlhwA9maBh6qU27r9FA6ZpC3bK9Yn+ApBYX4MD9xoHs5sh1kfP0PKGGIHZ2Hw
+	 pzaO1hr9ROWE4ertGp6tir2A7uiD/mxAZ9JDd6OL7kj8oCkmpb6RxKR/HFddm5FkRw
+	 eGjQYCScVRhkcNBdSt174pJO6a68CZWBucG29z6pB+NsFO0AI0mqP4j88GKf35t0Lw
+	 g4l6fzsN1h56G2gJj0+lQ7gBT36DltshXF+RVDTMkJsQcXa2sMmDqZ//xJNujoJkw2
+	 No/SUOuAV0/2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/16] media: iris: Filter UBWC raw formats based on
- hardware capabilities
+Subject: Re: [PATCH v4 06/16] media: iris: Add platform data field for
+ watchdog interrupt mask
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260612-iris-ar50lt-v4-2-0abfb74d5b3c@oss.qualcomm.com>
-References: <20260612-iris-ar50lt-v4-2-0abfb74d5b3c@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260612-iris-ar50lt-v4-6-0abfb74d5b3c@oss.qualcomm.com>
+References: <20260612-iris-ar50lt-v4-6-0abfb74d5b3c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:36:49 +0000
-Message-Id: <20260612093649.8105F1F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 09:41:05 +0000
+Message-Id: <20260612094105.7704A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The logic to dynamically filter out UBWC raw formats in the video =
-decoder is incomplete and fails to omit the 8-bit UBWC format (QC08C).
-- [Medium] Incorrect use of the encoder UBWC version field to validate deco=
-der capabilities.
+- [High] The newly introduced `wd_intr_mask` field is not initialized for t=
+he `x1p42100_data` platform, causing it to default to 0 and completely brea=
+king watchdog interrupt handling for this platform.
 --
 
-commit a8db7d07b5e1a7229c20919b2735cd3483c3c3ab
+commit 0965d657e0a8904cc63b8cbd790144e332d59492
 Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 
-media: iris: Filter UBWC raw formats based on hardware capabilities
+media: iris: Add platform data field for watchdog interrupt mask
 
-The raw formats supported by Iris were previously advertised unconditionall=
-y,
-assuming UBWC support on all platforms. Use the UBWC configuration provided
-by the platform to dynamically filter raw formats at runtime. If UBWC is
-not supported, UBWC-based formats are omitted from the advertised capability
-list.
+This commit introduces the wd_intr_mask platform data field to capture the
+watchdog interrupt bitmask per platform. It also replaces hardcoded
+watchdog bitmasks with this new field during interrupt handling.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media=
-/platform/qcom/iris/iris_vdec.c
-> index 9e228b70420e4..7da43f312ba98 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vdec.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/dri=
+vers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> index 2c63adbc55791..aeffd96a4e1cb 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+
 [ ... ]
-> @@ -82,6 +84,9 @@ static bool check_format(struct iris_inst *inst, u32 pi=
-xfmt, u32 type)
->  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
->  		fmt =3D iris_vdec_formats_cap;
->  		size =3D ARRAY_SIZE(iris_vdec_formats_cap);
-> +		/* Last format is UBWC; drop it if UBWC is unsupported */
-> +		if (!ubwc->ubwc_enc_version)
-> +			size--;
+
+> @@ -208,6 +213,7 @@ const struct iris_platform_data sm8750_data =3D {
+>  	.tz_cp_config_data =3D tz_cp_config_vpu3,
+>  	.tz_cp_config_data_size =3D ARRAY_SIZE(tz_cp_config_vpu3),
+>  	.num_vpp_pipe =3D 4,
+> +	.wd_intr_mask =3D WRAPPER_INTR_STATUS_A2HWD_BMSK,
+>  	.max_session_count =3D 16,
+>  	.max_core_mbpf =3D NUM_MBS_8K * 2,
+>  	.max_core_mbps =3D ((7680 * 4320) / 256) * 60,
 
 [Severity: High]
-Does this logic successfully drop all UBWC formats?
+Does this patch miss updating x1p42100_data?
 
-Looking at the definition of iris_vdec_formats_cap, it appears there are
-multiple UBWC formats interspersed:
+It appears x1p42100_data is defined further down in this file but does not
+have its wd_intr_mask initialized in this commit.
 
-static const u32 iris_vdec_formats_cap[] =3D {
-	[IRIS_FMT_NV12] =3D V4L2_PIX_FMT_NV12,
-	[IRIS_FMT_QC08C] =3D V4L2_PIX_FMT_QC08C,
-	[IRIS_FMT_TP10] =3D V4L2_PIX_FMT_P010,
-	[IRIS_FMT_QC10C] =3D V4L2_PIX_FMT_QC10C,
-};
-
-By just decrementing the size, it seems we only omit the last format
-(QC10C), but QC08C would remain within the array bounds. Could this
-cause QC08C to be incorrectly accepted by check_format() on platforms
-without UBWC support?
-
-[Severity: Medium]
-Should this check use the decoder version instead?
-
-Since this is the video decoder implementation in iris_vdec.c, checking
-ubwc->ubwc_enc_version might lead to incorrect filtering on future hardware
-platforms where UBWC support differs between the encoder and decoder. Would
-ubwc->ubwc_dec_version be more appropriate here?
-
->  		break;
->  	default:
->  		return false;
-> @@ -121,6 +127,9 @@ static u32 find_format_by_index(struct iris_inst *ins=
-t, u32 index, u32 type)
->  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
->  		fmt =3D iris_vdec_formats_cap;
->  		size =3D ARRAY_SIZE(iris_vdec_formats_cap);
-> +		/* Last format is UBWC; drop it if UBWC is unsupported */
-> +		if (!ubwc->ubwc_enc_version)
-> +			size--;
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers=
+/media/platform/qcom/iris/iris_vpu_common.c
+> index 375bcd9234766..41498f94480e8 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> @@ -109,11 +109,11 @@ void iris_vpu_raise_interrupt(struct iris_core *cor=
+e)
+> =20
+>  void iris_vpu_clear_interrupt(struct iris_core *core)
+>  {
+> +	u32 wd_intr_mask =3D core->iris_platform_data->wd_intr_mask;
+>  	u32 intr_status, mask;
+> =20
+>  	intr_status =3D readl(core->reg_base + WRAPPER_INTR_STATUS);
+> -	mask =3D (WRAPPER_INTR_STATUS_A2H_BMSK |
+> -		WRAPPER_INTR_STATUS_A2HWD_BMSK |
+> +	mask =3D (WRAPPER_INTR_STATUS_A2H_BMSK | wd_intr_mask |
+>  		CTRL_INIT_IDLE_MSG_BMSK);
+> =20
+>  	if (intr_status & mask)
 
 [Severity: High]
-Does this also result in find_format_by_index() returning a UBWC format?
+Since x1p42100_data is a static global variable, its uninitialized
+wd_intr_mask will default to 0.
 
-Because QC08C remains within the decremented array bounds, would querying
-index 1 still return V4L2_PIX_FMT_QC08C to userspace even when UBWC is
-unsupported?
+Will this cause the watchdog interrupt bit to be omitted from this mask,
+preventing watchdog interrupts from being captured into core->intr_status
+for the x1p42100 platform?
 
-[Severity: Medium]
-Similar to the issue above, should this use ubwc->ubwc_dec_version instead
-of ubwc->ubwc_enc_version to properly validate decoder capabilities?
+> @@ -124,7 +124,9 @@ void iris_vpu_clear_interrupt(struct iris_core *core)
+> =20
+>  int iris_vpu_watchdog(struct iris_core *core, u32 intr_status)
+>  {
+> -	if (intr_status & WRAPPER_INTR_STATUS_A2HWD_BMSK) {
+> +	u32 wd_intr_mask =3D core->iris_platform_data->wd_intr_mask;
+> +
+> +	if (intr_status & wd_intr_mask) {
+>  		dev_err(core->dev, "received watchdog interrupt\n");
+>  		return -ETIME;
+>  	}
 
->  		break;
->  	default:
->  		return 0;
+[Severity: High]
+Similarly, will this cause intr_status & wd_intr_mask to always evaluate
+to 0 for x1p42100, silently dropping all watchdog timeouts and breaking
+firmware hang recovery?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-iris-ar50l=
-t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D2
+t-v4-0-0abfb74d5b3c@oss.qualcomm.com?part=3D6
