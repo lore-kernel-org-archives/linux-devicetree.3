@@ -1,155 +1,182 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71FD3DDDCF
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF556357CE0;
+	Fri, 12 Jun 2026 07:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781249888; cv=none; b=KEoPVkVbXLhwETyNXQF8DR5uHnlpDq2BBSknPeQ165zffaCtoTRtqEynSrSM+bWCbusDbczKodfZDP+jDSTPE1OrZ2VekuNBEhZZfG8qMV2UWssdGpSVw91emPIOYEhZdpIJjfHQSd6Vzx3/BbSPKfiFEGduiJk8XxolXIN8ZPU=
+	t=1781250160; cv=none; b=Goq3NwL7NCUQ3EXYD/9dtbfOXRouHFf1d1p0flxEOUdLLSOOHghSAYx+4zh/sK3SiBr4cwAqqvqt1hh+V3hfzkyd3fHD/PMGaVBOujupwvN+e3mNxMd4WxLNw2kMBqobROoAqAXPMlte/zojvFcND8J0CvMVyrtFF0SqrWkyis0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781249888; c=relaxed/simple;
-	bh=DOP+NEjs0aZ8AjB9Kb3C72IcIFeqDyCdhC77UBl//ew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKTstBb6nafRpiV29P0NkFsruXe1PeOEURWm6aBjdObgGomVl0kjmHyxBU/ZParuiIodvPh9lXNF6iPgedQL7sjMc0Gii145Snw+jv7N7BLyQw8yDtnje8qC2GXfXa4haIpKMoYyS+iF2WclIco5/UYVpUdIhPDS5OIIcWGp+zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h8SWiVAO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UCdcuW49; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781250160; c=relaxed/simple;
+	bh=rC5snVrxLmY74RcqQSYeqHZgrqf9BYN7q6maKon4Usk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M6TOEIkR/AHwb4vOkayL+57DHSqMxhmxIJxxiO+wuUFgRE6uSqv1iXvXtYgfT2duZyX/xenIOyYAEvZT2UEgCIXZ7PiGYGkqPnPOwhUFk2zvv/Gth3FyPn5eXzM45JP4Y5D4ezx4p+pBOG7MdilCoDu63xv/Z1FM8zUxpw6Low0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDUdB4Tv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h8SWiVAO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UCdcuW49"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65C39Kss2502019
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:38:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=FtRrwXijfX7jRcNOtiyO9WkT
-	MQFqO0ZC2KWKNOB7OPs=; b=h8SWiVAOr/HjgZKoNKMp97PEMyff1+X+dwHmAj9x
-	Jqsvu+PfBmQkjdyCDR/OT4ezsJKcW62RC22owB6l4PF1gIQ1cgdUMeNrsQxyh4gI
-	KwxjsjKD1qOK+8GtryA6UVJRuYYP407gxUG/Mri/1IAdeu+M76ABVs9DP3zBMTu7
-	gfo0GvoEaG+TPBP4HB8gfsRmh+/Yxm7VolXeJ2h3Dl6nbEDiOH6Orml9DkKcWXYG
-	ZuEJtCKbDZG1F3bOaTqmg+EzGdAmJznz8TLvs79QExokC1PAB4oO40nGJiNc4EIU
-	WkDO1UATKOvTG1Q96GvwwWvmZ1oWt1zcvr2PWsR7/57K4A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er0xd2ppw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 07:38:07 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51787404d3eso12993691cf.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 00:38:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781249886; x=1781854686; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FtRrwXijfX7jRcNOtiyO9WkTMQFqO0ZC2KWKNOB7OPs=;
-        b=UCdcuW49u6DGqWrj2mOA+BPv3gyNkR+erBWzO9czokPcSWhaEGo+arhA55gNhrRXCz
-         d4xc8qmPWJ/u5KgReZ3CgTXFctZweGt+epb2yODkwH7TP3Keq0KdobZDX+uog0dUeYDU
-         ejErasHtznHDIGw6xc45I8NbAl2TYFKSw8HCNXTlS63+AgcB3xyIx157XwqzuRAPNOko
-         L+hsi44+Upfc2bef4zaeet8d+MJ3pS6OcJJzB9Q0HeRmX1KhpSJ3mLKXdaG7I59rD7IQ
-         1q9FfwkwWIq/PxnY97EMMFlPVc4WkAJHOe8KmT2X1eEV7cQsH9Zdg9PXuhzQRyJFO1aU
-         rFqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781249886; x=1781854686;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FtRrwXijfX7jRcNOtiyO9WkTMQFqO0ZC2KWKNOB7OPs=;
-        b=R/24b18eUWDB8xSBx14S3eJUnCuGsVSJEgFGOMYrwC2XAmgy6ahyByFbOQFJlKKlUp
-         7jpI/3G+7fa5KcRocnQ0XWLnWkF3tN0Azlqcr1QyPsX0jSRtjS8KwFgM357XKKiOnkS0
-         YZiZQuU7cI0c3V6bLVVCHLb3L+Nj+WayWg4zWrKLPh1MjUyfOqgipM60X+hfBfWCuEX/
-         40reidhUk0rUSCe/wP4ac5l5f8pfoiU9IjZGBv4o7qPTl+K+l9HJRuhr+9zJV62S7ALq
-         pZBo5BXE73sGV+eiI8eUfjmcXpmR8GYeNvvtiOK8JCANYNGVSUfjUfj/pPQSUDoEVa9X
-         vS3g==
-X-Forwarded-Encrypted: i=1; AFNElJ9InRXwWD01Hjsxu8qgn4J6FnRxG338El57PXheQFZIXBmPf4LQWZWKYibRM0nH7amLESdLWPe7zUao@vger.kernel.org
-X-Gm-Message-State: AOJu0YyG8ZobjXH7IGkz7SF2+XyWWdS4lzkmc2bQB492FThrdv3z/rzC
-	P2LopyQQaVZkzXpJpxfr/J+pvqm3/P/HEHECBjIdFfGGkUgpRt3sep6YQCDEI5NBcZe9zL3FS05
-	MbM3TI9iJ0irtEEU9toU2hjlMMPRCBZ3hl7zFwUzexFiRjtaZ8rLQsmIfgASmifm+
-X-Gm-Gg: Acq92OFk9yza4n4yg28BNaWpxer6CwF+oALo/0lqsWyQ9Kqhv0ORLxCAydPQ9XFDFzr
-	vmVdqf0BA+VFPPAm9WQTP1cMMJP27yqhYZpJpHdhfraINKhHK0R1iwOJ1axu02S/AmMVKj2lzER
-	+YavNmjaCVSNFTg53EbZjDlvQVS/JiJXUkn9fu4GD/05moOZsCGACi5hqlqh2C7/uuN6RyfjslU
-	doj/Y6YuR00GuLvOrM5Slqbo5SWjSpbf77u5hQ47bLS95C2ulYUW/i3Zhnp9E/3ws+2Wa9wqzq2
-	HW/xJ4QyFjjwOcZYMrhNxuvRMHXxHvvsH2UVutwm0rF8vl4TDatcloPTSl3Ul3d89dmRL6SWW0G
-	XJpxJirolQEgMjHXib8zF4Lsb2e7TfC3OkMa4NW+WzyQV9ViYL0KvvmJDNBlfmaAnAyyUHfGZ1k
-	vCxUlnsmZX6rf5Gvu/usVw5uiibwwKt26G/2A=
-X-Received: by 2002:a05:622a:24b:b0:517:7d9a:a88 with SMTP id d75a77b69052e-517fe4edb35mr20865731cf.37.1781249886109;
-        Fri, 12 Jun 2026 00:38:06 -0700 (PDT)
-X-Received: by 2002:a05:622a:24b:b0:517:7d9a:a88 with SMTP id d75a77b69052e-517fe4edb35mr20865481cf.37.1781249885707;
-        Fri, 12 Jun 2026 00:38:05 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1a7283sm302576e87.39.2026.06.12.00.38.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 00:38:03 -0700 (PDT)
-Date: Fri, 12 Jun 2026 10:38:02 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-Subject: Re: [PATCH v4 08/10] arm64: dts: qcom: shikra: Enable CDSP, LPAICP
- and MPSS on EVK boards
-Message-ID: <po2gqpbmqw2tnkjn45ywgnsiaz2tpsprr5yowe3lw4y2lxk5ga@m52i77h5ymu4>
-References: <20260608-shikra-dt-m1-v4-0-2114300594a6@oss.qualcomm.com>
- <20260608-shikra-dt-m1-v4-8-2114300594a6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDUdB4Tv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C3371F000E9;
+	Fri, 12 Jun 2026 07:42:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781250158;
+	bh=nF+bRJ02nQ3oK8NGeBYUMV6zWvY3FVqHC5bvOB//Qu0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NDUdB4Tvfu4bvlXozKHR5V+HpEfd5ME8G+DBhBMKz6yF8196lxdxA9fKjkJgqOEQD
+	 9Ki9pjTVC5NYUh04UXIWP00z2SGQTlH2r8twXN8zK8zpL3zkrIWRFzGKAbZrkVV6wB
+	 yhu9RMpyghX83LzR1hw0gBOKzyjMd3ol9j5QtaPmRz+RhXo2QxRN3NeuyTW2iedpXF
+	 TtMCzMIpA8mNSd3kfSYQWAYtTRAaLaeKfEu1oBZCYG8qJWce68iNDhOwi8vpmc2MWU
+	 4zJ+pb6hIwl0E3YlffBEQ1NyM3ypLB6eohxLQa+QsPMJKo2ACquvG2vpvjzUgNtRNt
+	 0JbjkPAq+Dyuw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 9/9] Input: cap11xx - add support for CAP1114
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Yan" <jerrysteve1101@gmail.com>
+Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612072237.1177304-10-jerrysteve1101@gmail.com>
+References: <20260612072237.1177304-10-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 07:42:37 +0000
+Message-Id: <20260612074238.4C3371F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608-shikra-dt-m1-v4-8-2114300594a6@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: gEfAsi5nBGQdJ0BLV6LaJzUGZS0O1J2m
-X-Proofpoint-GUID: gEfAsi5nBGQdJ0BLV6LaJzUGZS0O1J2m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA2OCBTYWx0ZWRfX4MFDqI0v+B8x
- VJMmt4lydo9ir8G0vodB1U8Q6DU3AJGFSzXFZnV5JVLSoGrkGYvQ/P/eHTN6w+MTYkVJo5WRdRF
- 8wp0p81saFqlYJqJGlhc3Ybk88NOulLVs1Ed3oMmpu+Puqa6dGo2NUkMPmNYeHfamvRmrwcIBhP
- EJ99FkyByHY/w4YD8+VjuuSpygl1WJkeYV97Cg2+/zbJTbBwSWyt9yAE6/uiEuGs++ytLX1U+ZD
- ircbfEFgDgTK3gFjkTIwaXgFXUEGqRqxkxJZuEt2S7NrqNXWQSvCdOYScaGBB69M3rBkQmLm7ty
- WqpCFFqan5d2p+d3tw898qNAcDNhCDzS84POKLEVVHQostQXwF3D0DQ4Z0CMgzoJ9yK+yLI+4ca
- Jb78NWaWGx6QawgJM59l049ZJ7GwYhoXwqAL5rJGvqIGqAId4K/RgcMHHFpaINfp2spZFpzu/Su
- bG+xXDC6uQibZHeuAOA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA2OCBTYWx0ZWRfX18PiWjJst0i8
- dch1HU2u28PCiIXVBxI0mZ87Q3Z+mmVBkVspaD5SAzCDGTpEQzR4SRBChSJSc2KKHMPa7jK+4i8
- Wr5lxpRKTIuhd+jCzTrcpuu11FOJwqo=
-X-Authority-Analysis: v=2.4 cv=O6UJeh9W c=1 sm=1 tr=0 ts=6a2bb75f cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=2wNq6JH_cIzNK18R0_EA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
- suspectscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120068
 
-On Mon, Jun 08, 2026 at 06:40:28PM +0530, Komal Bajaj wrote:
-> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> 
-> Enable CDSP, LPAICP and MPSS for Qualcomm's Shikra CQM, CQS and
-> IQS EVK board.
-> 
-> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 19 +++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 19 +++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 19 +++++++++++++++++++
->  3 files changed, 57 insertions(+)
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Buffer overflow when parsing the 'microchip,calib-sensitivity' dev=
+ice tree property for devices with more than 8 channels.
+- [Medium] Integer truncation silently drops signal guard configurations fo=
+r channels 8-13.
+- [Low] Out-of-bounds `GENMASK` generates an 11-bit mask for an 8-bit LED c=
+ontrol register.
+- [Low] Unnecessary 9th threshold register added to regmap defaults.
+--
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit a843fc20f78c2766e479b33ffb3dcd6238d1f3f0
+Author: Jun Yan <jerrysteve1101@gmail.com>
+
+Input: cap11xx - add support for CAP1114
+
+CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
+and hardware reset support. The CAP1114 uses two control registers
+for LED output management and requires two button status registers
+for touch input state reporting.
+
+> diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
+p11xx.c
+> index d45bb231d7a1f..e4da0e26c34a8 100644
+> --- a/drivers/input/keyboard/cap11xx.c
+> +++ b/drivers/input/keyboard/cap11xx.c
+[ ... ]
+> @@ -98,6 +105,9 @@ static const struct reg_default cap11xx_reg_defaults[]=
+ =3D {
+>  	{ CAP11XX_REG_SENSOR_THRESH(3),		0x40 },
+>  	{ CAP11XX_REG_SENSOR_THRESH(4),		0x40 },
+>  	{ CAP11XX_REG_SENSOR_THRESH(5),		0x40 },
+> +	{ CAP11XX_REG_SENSOR_THRESH(6),		0x40 },
+> +	{ CAP11XX_REG_SENSOR_THRESH(7),		0x40 },
+> +	{ CAP11XX_REG_SENSOR_THRESH(8),		0x40 },
+
+[Severity: Low]
+Does this code inadvertently add a 9th threshold register?
+
+Since the indexing is 0-based, an 8-threshold device should only need indic=
+es
+0 through 7.
+
+Register index 8 appears to map to an unused register.
+
+>  	{ CAP11XX_REG_CONFIG2,			0x40 },
+>  };
+[ ... ]
+> @@ -394,6 +442,14 @@ static int cap11xx_init_leds(struct device *dev,
+>  	if (error)
+>  		return error;
+> =20
+> +	if (num_leds > 8) {
+> +		error =3D regmap_update_bits(priv->regmap,
+> +					   priv->model->led_output_control_reg_base + 1,
+> +					   GENMASK(num_leds - 8 - 1, 0), 0);
+
+[Severity: Low]
+Can this result in an out-of-bounds mask generation when num_leds > 8?
+
+In cap11xx_init_leds() just prior to this addition, the code calls:
+
+    error =3D regmap_update_bits(priv->regmap,
+                   priv->model->led_output_control_reg_base,
+                   GENMASK(num_leds - 1, 0), 0);
+
+When num_leds is 11 for the CAP1114 model, this generates an 11-bit mask
+to update an 8-bit register.
+
+While the regmap core safely masks this, should the mask be clamped to
+min(num_leds, 8) to accurately reflect the hardware register's capacity?
+
+> +		if (error)
+> +			return error;
+> +	}
+[ ... ]
+> @@ -572,6 +628,14 @@ static const struct cap11xx_hw_model cap1106_model =
+=3D {
+>  	.has_repeat_en =3D true,
+>  };
+> =20
+> +static const struct cap11xx_hw_model cap1114_model =3D {
+> +	.product_id =3D 0x3a,
+> +	.num_channels =3D 14, .num_leds =3D 11, .num_sensor_thresholds =3D 8,
+
+[Severity: High]
+Does this code overflow the calib_sensitivities array during initialization?
+
+In struct cap11xx_priv, the array is rigidly sized to 8 elements:
+
+    u32 calib_sensitivities[8];
+    u32 keycodes[];
+
+During cap11xx_init_keys(), when parsing "microchip,calib-sensitivity", the
+driver reads priv->model->num_channels elements:
+
+    of_property_read_u32_array(node, "microchip,calib-sensitivity",
+                               priv->calib_sensitivities,
+                               priv->model->num_channels)
+
+With num_channels set to 14, won't this write 14 elements into an 8-element
+array, clobbering the adjacent keycodes flexible array member and potential=
+ly
+causing memory corruption or a kernel panic?
 
 
--- 
-With best wishes
-Dmitry
+[Severity: Medium]
+Will this configuration lead to integer truncation when parsing the
+"microchip,signal-guard" property?
+
+In struct cap11xx_priv, the mask is defined as an 8-bit value:
+
+    u8 signal_guard_inputs_mask;
+
+During cap11xx_init_keys(), a loop iterates up to num_channels (14) and shi=
+fts
+the bits:
+
+    priv->signal_guard_inputs_mask |=3D 0x01 << i;
+
+For channels 8 to 13, won't this bitwise shift exceed the 8-bit variable wi=
+dth
+and silently truncate to 0?
+
+Even if the CAP1114 doesn't support signal guards, this drops the bitmask f=
+or
+the upper channels, bypassing the capability check and failing to emit the
+intended 'unsupported' warning.
+
+> +	.led_output_control_reg_base =3D CAP1114_REG_LED_OUTPUT_CONTROL1,
+> +	.sensor_input_reg_base =3D CAP1114_REG_BUTTON_STATUS1,
+> +	.has_grouped_sensors =3D true,
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612072237.1177=
+304-1-jerrysteve1101@gmail.com?part=3D9
