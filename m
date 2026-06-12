@@ -1,186 +1,285 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8413655F6
-	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781304942; cv=pass; b=psgQqwkjHvjHkM5NKtmcedlJy5GQ6264aF1HR45xZngz4xf28Zu4YK8Vi80vIjtp1tfUbqWd0Bk27kyRcdahqKoSa5FsM+6b2MH73zLgB43hFjHaqtTB34o9G/x0+npuwnzCxhzT70MSYUUmqNbvEzmzD7HFw75ijga2kPhKjvE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781304942; c=relaxed/simple;
-	bh=RnGRLsaryVYMbmEZaBHC0Tao43UKFOd1sK8lgdxTk3E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ao62cl6eqGhTkZGLHNdC9I//MGb3kSekGI0aJgLYTSXsnaZcg1n3jYGAwCRahBNfsC7RL/HRHI5URu2d3Kg5EcZWRiWTx68pOA/Ljiuy/ByZPd1GJ+lR5zbS7JawLFI0vw27D5cgNV34aDkB1MaTKaTixpzWXXJ6Ljs2454D2lI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkhcIDmY; arc=pass smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932A63D0C00
+	for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781305178; cv=none; b=N4pI+D8B12AbnYOrbf+HgAeWzSQBAVnQNyWZF5bQZN0V8DEpw4FYnkLUhwS7mPe+N/TqPwRUaedqhZ++RNyPOHWPPTsVG8axB4QgYz7woqJYdchA1y/oTVs1N9RPESYUPKnRd1dPlcgLhfcj1WHsHk/mLvHrK7uslRufSG/9dMk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781305178; c=relaxed/simple;
+	bh=suH9WSTLs1E0XyzVbjhLBsIiipLv9aYJLpaYrIWMqjk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PHP3MIO/uxvAzoaQA1tFgX/ET4HBgc/FhN2Ielnd4qLI15nhKWECIaDGJbcl61eApAaGuneRmsoR8XWh+6dV4zZTel8p5ZYNAWH4pOXcPxLISxjQNwjIp9EEFQWB3wJ2zopjrmMlX2eitopF8LcvfPCdPpkqbCVRzCy/xhF6GtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoAZNG9B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkhcIDmY"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c8588ec1b44so1049759a12.1
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 15:55:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781304941; cv=none;
-        d=google.com; s=arc-20240605;
-        b=RchlZ1Z4dGn5ZiXTNmZ16olxsk3TmUvlPDS+7QODMJC+1S+aX9Pvlr5JmrbUPhgCBp
-         iyyn+/FycS1rJB30SyECMdxTOjgQKhZ0+ZiDTjD9Ng6Inbfnst82o3rzsXsnKjLCI/sG
-         hC7g8651jwi3nvE/jZc9QNU6ilRC/h6XiOpYO2u9DEWquExWbmzNtxpYjtereZrffMM9
-         4hOFMvBw3X0hSH3mX5u2zMYTVVho82f4LI7S0bGOlV4o+d58h24MCNSXZHUroo2E6npJ
-         fzbd3k3sJ8iTybUiqA4+A1mLhsL47msFj2b3QHPjpwvoG2PDlpzXyyb4Hq/ldfo4kuMN
-         WIww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=cemL8pO4O+gor5GCDMKqIY/b/nhS0YXr6Sf7gRABVFE=;
-        fh=0mdCXt8p0q6o1imT0bMHOmqOPQOA/IXVhibCyuG/Xsc=;
-        b=KSEPuDY4VbKogbjwMxSsYYW0jdHu0yvb5aOYY+KJ16zp9m1zKfuQhz8v+GYa8MXszr
-         p84IaB6LvGEl0AD1QGPvjRAzNGCeR+1j03m41khTnLJ20wwZ/ewnQlrliEo+73Q7bD0B
-         qhTKEYIMIuOe2f9NkzdThpMh/hMMYr4bVvYHDEDBXT/16pESvCvWVrlcBEZshBZElBZI
-         pIGgXIK7P2Tm81pY5AADQ0GfUgK5//2DVqSJXOoM8BQdIeEoDZKuMGgnFSVlpBQ/b5nA
-         3+rGTEIY+AVxM3ivamOfqqoQQh1SW1fTPbU/WQo9vLYlsE0bUV2MW8mg5k6vUI6+goMJ
-         ZwHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781304941; x=1781909741; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=cemL8pO4O+gor5GCDMKqIY/b/nhS0YXr6Sf7gRABVFE=;
-        b=IkhcIDmYzzUQWGOq1uA0Kdk6Ulaoe7lQv+d1O2oiNIxFq3yoV3mAhSNS29A6QzanmE
-         bAcADD8bsl8gDxvn3Ll6m4hB8tG34Pk6qwIPLIMlBLmkHCv2lKMKgyWpb9IvjAiLNyiD
-         n4elFCz5AlCptW9jSDOBtJPsmDDIoFrCPfXNQbdZlFt9NxIRYFr/zgYR320BwvrKln6I
-         BZw3z++91DyQnsZ4R0WZo6yiWTodDnzn13m2QzBdYkTZ+UDeFmCnO3lQ1No5J75IZthp
-         7ohOv0Ddr+Jx43USh+pPc6DyT16CUH9EAew3961zsk4INZqQ8TEXHUOEdIn9LC8rP6VD
-         kxIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781304941; x=1781909741;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cemL8pO4O+gor5GCDMKqIY/b/nhS0YXr6Sf7gRABVFE=;
-        b=bO/Y1okMgDuj2AazQqkhECm274QOwR54QHt6qlFtgCz4u3nAn2p0+f5SEQWJPJOrlb
-         NJKjXc+0wejlF44+b1HMYvZBDs1tzVBlu+s90jdtzOaEStxM0+Uo2A+fzb7AApIrEAe3
-         d4B+7rut1ttcyPyUXPep9/gFnZJDie1ffT/hRSe8zI63C0+Tqs7qnlqgIr1BdsS8v4TP
-         imvMP07hnWQ1yblHuAdLBWQ7PIScTbhPbRQHICJzefDnV/vvvvVy082KrSuFXSsUiZcb
-         qxnI+PIKGMmxXfLlxgMVLn+fovGwtWVI9QoOpo1BcS3Y+cT2hC2XFkDD9pZcxbpuei5G
-         /ooA==
-X-Forwarded-Encrypted: i=1; AFNElJ9oxp5wywwdw/1PFgMM89Vy9dpR/6sP8X+up9RGgYax4xrIVeje+co0u8IkWRa2e5KHkpHp6tnqHzjR@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNIkliIWtMYDO8fFDLZzFIM7HdT6vSf4zyaRyuiCmCQc26J1TG
-	+CpW5hQyvl5sF2OjcapIlx+aDkaMLgtn6i3iOh4QnfILc5PvWYq6/BTEhOzEPB+9KaaixyypmaN
-	4bzdxkH6m7srUQsT6ELbDF+22ru3/Fz8=
-X-Gm-Gg: Acq92OG1QGEz2z7WgZbpYfsxOPmzGyMkD7QF2DM488q1J2/7NeAxbxk+hLVmlC6I4u8
-	XDfhlV8rq6nYTpfgjKG7Y9dBC9DLGTGDQFQh4q8bmzR87wGVSSVMJ+u8Ebjf/wnd6zo9yn98XGE
-	n9IehgCVDNw6N0QUWbrM0HJoXxPBg8wcykWZrjJzlsVfWQYY1dtqPvRr9aDdaGMD2ocIblRetMo
-	owVehrdTg3LAkKTJVE6dRgWMunB8OBH9kLRwRB2mWfAcMbLfjojN457LgMj+Im9YX+/ZI4FxeJ6
-	VUhYVNvyuSO679O1vrVcxH0eCd8w08S1Oba+DZNPT2Mgb9zuP2AdbJZMum3P9c9x/nYgIR+6
-X-Received: by 2002:a05:6300:808b:b0:3b7:99af:2d22 with SMTP id
- adf61e73a8af0-3b799af3065mr690013637.19.1781304940769; Fri, 12 Jun 2026
- 15:55:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoAZNG9B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160421F000E9;
+	Fri, 12 Jun 2026 22:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781305177;
+	bh=K7tLVNpuWK1gDlgcLjhGLoaUGSLqAMI2xFSw4m+NABw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HoAZNG9BW+mZknvW6Zz8/zaoKCQ40Him5ZecjKHmL5w8/4EtlEawWZCXV316+poNw
+	 3ZTAEw3RXN43cs/qC1zjplT8jX39HKzaVNajNG8TZ+zFQ5YAkGTHCd1pEpufyKpZVZ
+	 M7/NobSGep673RWJmqqynURkpSwwRgK7pb9fsF/6qREl1v62Ad+DgJU00qgKCdQBGB
+	 Rj0OjIcmLglDZf+rHZImO0T2a3UnfHu8GhNWROJdhacWCDbyH9LFgouumBoNTIj3/f
+	 fy0rC4eV3EVBb8oaPKoOXRiHTesDKWGtKlhZEG3LWiHew39cpgzlqDWG30lQN73q5Z
+	 Bs8wREE5CxpIQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/5] iio: adc: ti-ads1262: Add GPIO controller support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kurt Borja" <kuurtb@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260612-ads126x-v1-3-894c788d03ed@gmail.com>
+References: <20260612-ads126x-v1-3-894c788d03ed@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 22:59:36 +0000
+Message-Id: <20260612225937.160421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260609113836.45079-1-phucduc.bui@gmail.com> <20260609113836.45079-3-phucduc.bui@gmail.com>
- <CAMuHMdXku0BVRgwWWv1vNccKpRbvTu+1b0TjYacNJH94XBDOGg@mail.gmail.com>
- <CAABR9nHFHWFeEaaYE6X9fqt_Zb-3pF=jJbHQpsiBTgkS5LyTLQ@mail.gmail.com>
- <CAMuHMdWsLeEzjCPHEa=nY-kC0n34RHL3kUMW30vneUajCWwTRg@mail.gmail.com>
- <CAABR9nG2kHH3=gkd0H+vhGZJtvkHLA7YMpoWt+p+XtdNV+oe=A@mail.gmail.com> <CAMuHMdVQhVQvvnh-aJxw64_h6jOcfaQFk6_Sez-T9aNV30DfRA@mail.gmail.com>
-In-Reply-To: <CAMuHMdVQhVQvvnh-aJxw64_h6jOcfaQFk6_Sez-T9aNV30DfRA@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Sat, 13 Jun 2026 05:55:29 +0700
-X-Gm-Features: AVVi8CckQkjD86MDGtEDHBEDRZeUn6MBYP38VksTuYLHBCU5CWlyG_A5TkSZIfE
-Message-ID: <CAABR9nFoLrYTUqRr0__n33EZ9Y+YfM=RxAMsx2EFnDWxHa4k3g@mail.gmail.com>
-Subject: Re: [PATCH v6 02/11] ARM: dts: renesas: r8a7740: Add clocks for FSI
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
->
-> Thanks, confirmed.
-> Have a nice weekend!
->
+New issues:
+- [High] The `ads1262_gpiochip_request` function leaks a runtime PM usage r=
+eference on the error path if `regmap_update_bits` fails.
+- [High] `ads1262_gpiochip_get_multiple` does not populate the `bits` array=
+ and incorrectly returns a positive integer on success.
+- [High] `ads1262_gpiochip_direction_input` clears the direction bit instea=
+d of setting it for any pin other than AIN3, incorrectly configuring them a=
+s outputs.
+- [High] `ads1262_gpiochip_get_direction` returns unnormalized bitmask valu=
+es, causing the GPIO core to reject them as errors.
+- [High] Read-modify-write operations on the volatile `ADS1262_GPIODAT_REG`=
+ can corrupt other GPIO output states.
+- [Medium] GPIO output direction and value are configured in the wrong orde=
+r, causing a brief hardware glitch.
 
-I went through the schematics and summarized the FSIA clock and data
-routing below.
-This is mostly for future reference, so that anyone investigating this
-hardware setup later
-can quickly understand the default configuration without having to
-revisit the schematics.
+Pre-existing issues:
+- [High] The driver uses C bitfields to define hardware registers, leading =
+to incorrect device configuration on big-endian architectures.
+--
 
-In summary, the current hardware connection between FSIA and the
-WM8978 codec is
-configured as follows:
+commit eb4400b2ae3fbe9b5c7913202712fe75c797c8c0
+Author: Kurt Borja <kuurtb@gmail.com>
 
-Master Clock (MCLK)
+iio: adc: ti-ads1262: Add GPIO controller support
 
-Pin 11 (MCLK) of the codec is connected to pin 3 of OSC X8, which
-provides the 12.288 MHz clock source,
-and is also connected to the R8A7740.On the R8A7740 side, there are
-two possible routing options:
-1 . Pin G3 (FSIACK - Master Clock Input for PORTA) through resistor R250.
-     R250 is a 0-ohm resistor and is currently populated.
-2. Pin K5 (FSIAOMC - Master Clock Output for PORTA) through resistor R120.
-    R120 is a 0-ohm resistor but is currently not populated.
+Add support for the GPIO controller capability found in both TI ADS1262
+and ADS1263 ADCs. Eight analog input pins can be programmed as GPIO.
 
-=> With the default hardware configuration, the master clock is
-supplied by OSC X8 and FSIA operates in slave mode.
+> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+> index fd1911cf65ace..6d5f22836ad8b 100644
+> --- a/drivers/iio/adc/ti-ads1262.c
+> +++ b/drivers/iio/adc/ti-ads1262.c
 
-Bit Clock (BCLK)
+[ ... ]
 
-Pin 8 of the codec is connected to the R8A7740.
-On the R8A7740 side, there are two possible routing options:
+> @@ -1050,6 +1055,146 @@ static irqreturn_t ads1262_trigger_handler(int ir=
+q, void *p)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> +static int ads1262_gpiochip_request(struct gpio_chip *gc, unsigned int o=
+ffset)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +	struct device *dev =3D &st->spi->dev;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(st->regmap, ADS1262_GPIOCON_REG,
+> +				  BIT(offset), BIT(offset));
 
-1. Pin L5 (FSIAIBT - Sound Input Bit Clock, slave) through resistor R123.
-     R123 is a 0-ohm resistor and is currently populated.
+[Severity: High]
+Does this error path leak a runtime PM usage reference?
 
-2. Pin F2 (FSIAOBT - Sound Output Bit Clock, master) through resistor R139.
-    R139 is a 0-ohm resistor but is currently not populated.
-=> With the default hardware configuration, FSIA operates in slave
-mode and receives the bit clock from the codec.
+If regmap_update_bits() fails:
 
-LR Clock (LRCLK)
+ads1262_gpiochip_request()
+    ret =3D pm_runtime_resume_and_get(dev);
+    // ...
+    return regmap_update_bits(...); // Fails, returns error
 
-Pin 7 of the codec is connected to the R8A7740.
-On the R8A7740 side, there are two possible routing options:
-1. Pin F1 (FSIAILR - Sound Input LR Clock, slave) through resistor R124.
-   R124 is a 0-ohm resistor and is currently populated.
-2. Pin E2 (FSIAOLR - Sound Output LR Clock, master) through resistor R227.
-   R227 is a 0-ohm resistor but is currently not populated.
-=> With the default hardware configuration, FSIA operates in slave
-mode and receives the LR clock from the codec.
+Because the gpiolib core will not invoke .free for a pin that fails to be
+requested, this usage count is permanently leaked, preventing the device fr=
+om
+ever entering runtime suspend.
 
-Input Data
+> +}
 
-Pin 9 (ADCDAT) of the codec is connected to pin H4 (FSIAISLD - Sound
-Input Serial Data) of the R8A7740
-through the DBGMD/LCDC0/FSIA mux path.
+[ ... ]
 
-Output Data
+> +static int ads1262_gpiochip_get_direction(struct gpio_chip *gc,
+> +					  unsigned int offset)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(st->regmap, ADS1262_GPIODIR_REG, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return val & BIT(offset);
 
-Pin 10 (DACDAT) of the codec is connected directly to pin J4 (FSIAOSLD
-- Sound Output Serial Data) of the R8A7740.
+[Severity: High]
+Does this return unnormalized bitmask values?
 
-Conclusion
+For input pins with offset > 0, val & BIT(offset) returns values like 2, 4,
+or 8. The GPIO subsystem strictly checks for 0 or 1 and returns -EBADE
+otherwise, rendering the direction read functionality broken for most pins.
 
-With the current default hardware configuration:
-The WM8978 codec operates as the clock master. FSIA operates as the clock slave.
-If we want to test FSIA in master mode, the resistor configuration for
-all clock lines must be changed:
+> +}
+> +
+> +static int ads1262_gpiochip_direction_input(struct gpio_chip *gc,
+> +					    unsigned int offset)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +
+> +	return regmap_update_bits(st->regmap, ADS1262_GPIODIR_REG,
+> +				  BIT(offset), 1);
 
-1.Master Clock (MCLK)
-2.Bit Clock (BCLK)
-3.LR Clock (LRCLK)
+[Severity: High]
+Does this clear the direction bit instead of setting it for any pin other
+than AIN3?
 
-In other words, all clock routing selections currently connected to
-the slave-side pins must be
-switched to the corresponding master-side pins.
+Because val is hardcoded to 1, val & BIT(offset) evaluates to 0 for any
+offset > 0. This unintentionally clears the bit, configuring the pin as an
+output instead of an input. If an external component is actively driving the
+line, this creates an electrical short circuit, potentially causing hardware
+damage.
 
-Best regards,
-Phuc
+> +}
+> +
+> +static int ads1262_gpiochip_direction_output(struct gpio_chip *gc,
+> +					     unsigned int offset, int value)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +	int ret;
+> +
+> +	ret =3D regmap_update_bits(st->regmap, ADS1262_GPIODIR_REG,
+> +				 BIT(offset), 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(st->regmap, ADS1262_GPIODAT_REG,
+> +				  BIT(offset), value ? BIT(offset) : 0);
+
+[Severity: Medium]
+Are the GPIO output direction and value configured in the wrong order?
+
+The direction register is set to output before setting the data register to
+the desired value. This ordering drives the pin with the previously latched
+output value during the interval between the two SPI transactions, causing a
+brief hardware glitch.
+
+The data register must be updated to the new output value before changing t=
+he
+direction to output.
+
+> +}
+
+[ ... ]
+
+> +static int ads1262_gpiochip_get_multiple(struct gpio_chip *gc,
+> +					 unsigned long *mask,
+> +					 unsigned long *bits)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(st->regmap, ADS1262_GPIODAT_REG, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return val & *mask;
+
+[Severity: High]
+Does this fail to populate the bits array and incorrectly return a positive
+integer on success?
+
+The gpiolib core expects get_multiple to populate the bits bitmap and return
+0 on success. The implementation entirely ignores the bits argument and
+returns the bitwise AND of the register value and mask (val & *mask).
+
+If any requested GPIO line is high, this returns a positive integer, which
+gpiolib treats as an error (-EBADE). This completely breaks the get_multiple
+operation and leaves the bits array uninitialized.
+
+> +}
+> +
+> +static int ads1262_gpiochip_set(struct gpio_chip *gc, unsigned int offse=
+t,
+> +				int value)
+> +{
+> +	struct ads1262 *st =3D gpiochip_get_data(gc);
+> +
+> +	return regmap_update_bits(st->regmap, ADS1262_GPIODAT_REG,
+> +				  BIT(offset), value ? BIT(offset) : 0);
+
+[Severity: High]
+Can this read-modify-write operation corrupt other GPIO output states?
+
+ADS1262_GPIODAT_REG is a volatile register. Consequently,
+regmap_update_bits() performs a physical read of the current GPIO pin levels
+rather than reading a cached output latch state. If an output pin's physical
+voltage is temporarily dragged down by a load or shorted to ground, the read
+might yield 0 even if its output latch is 1.
+
+The subsequent RMW cycle will permanently overwrite the output latch for th=
+at
+pin with the incorrect physical value. A software shadow copy must be
+maintained to prevent this corruption.
+
+> +}
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but does the driver use C bitfields to define
+hardware registers?
+
+Looking at the preexisting code in drivers/iio/adc/ti-ads1262.h:
+
+struct ads1263_adc2_channel {
+	/* ADC2CFG */
+	u8 gain:3;
+	u8 refmux:3;
+	u8 data_rate:2;
+
+	/* ADC2MUX */
+	u8 negative_input:4;
+	u8 positive_input:4;
+};
+
+And in drivers/iio/adc/ti-ads1262.c:
+
+ads1262_channel_enable_and_read()
+    static_assert(sizeof(*chan) =3D=3D 4);
+    mutex_lock(&st->chan_lock);
+    memcpy(&st->tx[2], chan, sizeof(*chan));
+
+The C standard leaves bitfield memory layout implementation-defined, and the
+layout varies by architecture endianness. On big-endian systems, bitfields
+are packed in reverse order compared to little-endian CPUs.
+
+Copying these structs directly into SPI transfer buffers via memcpy or
+writing them via regmap_bulk_write will send completely corrupted bit
+patterns to the hardware registers. The kernel explicitly forbids using C
+bitfields to describe hardware register layouts; FIELD_PREP, FIELD_GET, and
+fixed-width types must be used instead.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-ads126x-v1=
+-0-894c788d03ed@gmail.com?part=3D3
