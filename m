@@ -1,114 +1,224 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62443CB2CF
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92963CF69D
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781348699; cv=none; b=EzRvp0wYMTjEuLEuGFJBhrVzyDUmOoHEpclPwBuL77BOrNs/c6d/SQrJmtqE67FpioRUFn7+7e9elTkAuXCSb4URRxqyvwPz9Ox8GKIC8JEy5EAYyxkO+47zBl9HvK3cJ3kQ3dXw13nil0IaoiF/XllGW7y81MY5g/PGm3MP664=
+	t=1781348719; cv=none; b=grkuEQOIw+rBLGr+at55O1iLmVZ563NLWRmIRmOWRNcp/X8btmccKxAlH1qH6peWjhTHTnYNZnpfKFzrUiq81FFVh3TRfFugxVXnKtX8wvQklttf3ZpCOp21W3H2+xJfb1zz/UwMaJB8/+w5gEVQPHAfcydsIM7zOEB877L9bI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781348699; c=relaxed/simple;
-	bh=nBEHkzqVLw482vGdz5GT4uuKqoZ91h8lkYDukdrN6Gk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iLm9zC7XB2zonxWMPIpTvq0HXsm3vR0FP7aHYMqQhdmQO8pJO8V9o0z2sga1Sr6N4kXOYIRdyMDEXmGfaSNfTX8iQukZl/9t8trzmDWcYkgI/JOSaBCj5zgS/wjfuuksGG1M2fxeODhGPysOhpQVlgZwY3CTVL8mQjqYBM2bYtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IX7qyOYf; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781348719; c=relaxed/simple;
+	bh=hFuLzAKLku9zjjLmyY1LU1Y3IkgnibQ8as7e14dCSpU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qou0gE36crFXw/6Y9YRiW/g08pXhuVV1jD7a0XJpwqBJAfKBzXVSOo497O0NA7oLe2Q/rRg0LyZX1cx8hIgg0AnUP0jMtpy3kxgvj36BDyS2O+1fZI4kLKYEvPcT58JTHu0whwRVSTpUEX0GZePcoX0sBv/AQQgiO+XjMM0tt4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d+0kXTNF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LLsHKpje; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IX7qyOYf"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so12047475e9.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:04:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d+0kXTNF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LLsHKpje"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65DB09UL2749297
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:05:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fRqve/iiEi4xLe1x8p2XFeA1tSQCSNKv74uJA29YfFI=; b=d+0kXTNFVgiLRzE+
+	p0EZbjEhCmptGdcfghbY0edkgREO5wWW4mkF+qxGEEFgU05qKexaKw+J2YIbE/Jj
+	7WzQbN6Fl4jlgjttjwrsuVCovdW7fEYk5XTcowxWAuAtSHUw8NFGXIDqPDfJQ66F
+	2QE0nmM3wkyJT9cqAXdbTPZEUTfEO49cCGMcKi9al0+vOgSS2bgoy2oFJ/CR6q6w
+	qxpzdDsyUycixWla2S74qN20ZjTgFZD/llKZt5sePyJ5HRchOo3o8ssmt/QyHTL6
+	I1xlM+gd769eNTsx3dy4sFT++VPAu+0DXps7Mm2DQOoNp9FTYWCsJdHWkjppGp2A
+	dxTZqQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery7grw30-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:05:16 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c859d79c10eso1740800a12.0
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:05:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781348696; x=1781953496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nBEHkzqVLw482vGdz5GT4uuKqoZ91h8lkYDukdrN6Gk=;
-        b=IX7qyOYfjgMNF4fMexxdPHB/co5FLq/e9/pvsgv5lH2aGWzZ3b2Hlr25DB/oS5ztt2
-         wjiGPJGd3QPlvBK58KM5OrrG7FEAOKbYzO0z5NYVbVBhuVcYg+KC34BPc+NMUIN5fire
-         ANNBs7N/1RmAxHMQFI6GNTkaRFbpo/aRXJBTm76meAKXi/TljPKTisb8L2jgAOjW9Pzd
-         +jK4vjMTcqEARNb/oSQux4WpJKDXH4zWwqenHalNwtpVN8FIcd4EtjFQWQuDaTusoaTD
-         vbDWYPIsg3fv7hNnTNEaR97ZUxCtLwsZcTbu6pT3BiurRGPLWHeR1ZR3DyJe/Fx1At6e
-         qqEw==
+        d=oss.qualcomm.com; s=google; t=1781348715; x=1781953515; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fRqve/iiEi4xLe1x8p2XFeA1tSQCSNKv74uJA29YfFI=;
+        b=LLsHKpjeQu6OhkG9dnxXSyAD8c83lLCc86oTgHfeKlb1IHK+GZbrYS1UXCGHi78zXq
+         YSq17K3K4eyHQ5EiitCjDmnLeKTuCL94TQTPoBEkgLETw1EAXH9guSJto0TEGW5bAEkN
+         +I7VehrIeteLr06M2hzYN4n7wolE8VxfQFI4iiOdOoiPMu/r/ie1Wsnqc7vycY8i+aGi
+         2Toqn2IA9mQyX+Yy53dJQyZp2riQAuOsjMR7d9swt4io+Dux5thvFxQAeABoEtH/8Hp3
+         BFi6jWg1cDxQlJbjhRBBWIKc021pFuYitnCdB6GFrySwuScJwLFCPqGxbs1nGZcOi8FR
+         TKnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781348696; x=1781953496;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nBEHkzqVLw482vGdz5GT4uuKqoZ91h8lkYDukdrN6Gk=;
-        b=bWooCjLF8Cyy9W9OPJkNj13SUvuAEiMbrslGTfi6ZW1JekxlP4wpBwhgkfx7ADEnZV
-         Lu+Q/jpV3tqaso1D5Za7U8MNkgGk95B+3WdMtCC6gn6UfM7CSiF77Tu0YXMzUGSI7ok0
-         HpjVYKBUBt653Sy0XEYKw59S6qWTWWOj8IBx1T6E8tP3bYfRV9xRUK+XSSD+6aLsVdc0
-         lao1BRNDeGjZjndsYlx86SNKmczcvXSmEXoHLdAQ/Ht3uZ0rVOm9vjUT5j/iCBvF8RAS
-         cdXhly5mHxROLof4/uZWuMkaSkgNK0R6jXJILhyGmxS6egFsAf5mq7ImhSICtWL802np
-         oHYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ89UbvTiekahtv1z0wTOX+qu1bewUEVgUE2xhHWSUS3Z9LLCa5ZwxB1bJi3Ss1eUaCbFbSdrcjpwurU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzoo7GxFhiqhr/Np2XEKKUDOSuIoZv/fulKuHKqr8EUAcXkFGhg
-	gABArGj2UoCGqnC4MACiwv5uxA5FN0hbenF9AabVArDp0WG+HhfW2YR1
-X-Gm-Gg: Acq92OGNGgu7O/TED2th67BJ5m6KZdlvhHg7TV9kKpDxfpQRKObTDUwFx6k1JgNBmSS
-	7kysVF/xayNT3Qvo04wNXW3G53kFY5fHdDgapuERp9+TIOeGTFOZX1DvhKd4C6z64jcdS91iwon
-	DCplDP8hvNeAx5Q1znwpGATyiXMTajzni8k3OLyhSuc9BBzl1REymYSoNpcsjzA2sqEDTDFyjYw
-	sf1mf/JsI0j+KVc56DU56p3YLmsP0YlsI9rWyQBsJzGyVnQA/RQJP4IyFNCmixuNXIgmb8Orc2Z
-	a84PnjW/X62L8g77mVLuIO31FmXNHN5MLJtMSiOY4akB5FIMfB+w2mnAIfC/kFrGbEpaVz33Mlu
-	y+mnR7kaEYIQTt70OJGn3ttOgPG21cvGw+UcDABuEQbHkKp7sHvgMyC3xhThXBCrnpDdijX9vOL
-	VCNBlWoOIygj5yLbDs9mXwx1mcKgWDuCLmLs1PBgl9BGwU
-X-Received: by 2002:a7b:c8ca:0:b0:490:6237:521d with SMTP id 5b1f17b1804b1-49220092e7dmr27202205e9.13.1781348696232;
-        Sat, 13 Jun 2026 04:04:56 -0700 (PDT)
-Received: from jernej-laptop.localnet ([188.159.248.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49220310a58sm75036335e9.4.2026.06.13.04.04.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 04:04:55 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Maxime Ripard <mripard@kernel.org>,
- Lukas Schmid <lukas.schmid@netcube.li>
-Cc: Lukas Schmid <lukas.schmid@netcube.li>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject:
- Re: [PATCH v4 3/3] ARM: dts: sunxi: add support for NetCube Systems OpenNMC
- (dobermann)
-Date: Sat, 13 Jun 2026 13:04:54 +0200
-Message-ID: <sTX6E5Y2SsWfe6WORpTiCA@gmail.com>
-In-Reply-To: <20260606205452.2386930-4-lukas.schmid@netcube.li>
-References:
- <20260606205452.2386930-1-lukas.schmid@netcube.li>
- <20260606205452.2386930-4-lukas.schmid@netcube.li>
+        d=1e100.net; s=20251104; t=1781348715; x=1781953515;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fRqve/iiEi4xLe1x8p2XFeA1tSQCSNKv74uJA29YfFI=;
+        b=iRhd6yQMPOcYUqDsANyAVZgSMUFuPWQWuYWCumfT3s3ToYCZZBE5MyC4A4wZLhN7R9
+         GcqoSd9kytUSdimcv/ilxo6YSIjCME5J8l5eSAE2b/QFgzihuY9dc9kc+XtFY+tuQeDM
+         1dilcaN3D+X19CjDZiiGAe9Lpih9DJmh1DWr9Ti+wVtrGOj6HaYI7ydNeiED3P+f8uXm
+         FW3Q8JxZFSobiBDbsL8BlmHqXQpFNFwallCdpwXomMdF4nNIiQuF7+3s+XytAXUBUEnT
+         WVUnNk6pXwQGMXN3KYj2p5GZvxPIN5JMdBQbPq9AgFcObzCDdnZMLzY2apuZn8WKwuyH
+         6IMg==
+X-Forwarded-Encrypted: i=1; AFNElJ+rIv0DfgWr3yZMpB0bGQ3VnO7xO2ibS/ouLiCRlFhshz1+w67LmXlpyYU9hypxmAvNLb2zKlMLw9a/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwC6mlLqWg+wEsBz3Uh0vTLFUtoFmqc8fQWWSr4nuKYwASB1c6n
+	vktCqQUEPdvFgWoXwAcTscDA6P/JANXVUs5wMrVPhlMYYfF+nNDnsA6aZVHjyHJcoZXUsHi9CY5
+	upCJVEC50XtrZIvtikkP9yb17y3D1LDmjEHjw9vMVkgNwrAH0sKpX+VQMLCiYZgxy
+X-Gm-Gg: Acq92OFwKcL3X7UcYSy47qMwoVh0oMO+tkqJFXyn3yL0b2uvFvybVSyFIr6kQZRzxS9
+	S+NTI+GC/pJUcBdxLtZ2lqxF4foqF6PI73iUxESV0HzGjS17xNUwFmrKtqVWhZ1aBJmEEg9zsql
+	qSj/3rgqWK5gADyeiYBhbjhxnX6rzWytH/Jp2kFJaCPTCc1eqUDIyMrliZtnnkbdSpuWLqGWl4k
+	zNPXxcetnHdDzR6YE3V90iyF5XsxPwK/mL5bUQVk2pW1aLKlPTeQbX16Ute2Evx12KQejiz/KbA
+	+0bJNjRr3OyW1GPb3OtBBeqozrwN8E6wgTX2eCb8kwauReZ40iQDYsYrnliM1V/sLhX/+WveTcL
+	KIb4QXTGF1gK4o6F6IAQ0KHSZfpiO4IkaoN+sFBzPiOmDBV6nrNOI
+X-Received: by 2002:a05:6a21:7a8c:b0:3b3:1a06:e5 with SMTP id adf61e73a8af0-3b78416b85amr8312214637.33.1781348715520;
+        Sat, 13 Jun 2026 04:05:15 -0700 (PDT)
+X-Received: by 2002:a05:6a21:7a8c:b0:3b3:1a06:e5 with SMTP id adf61e73a8af0-3b78416b85amr8312188637.33.1781348715107;
+        Sat, 13 Jun 2026 04:05:15 -0700 (PDT)
+Received: from [192.168.1.13] ([106.222.231.34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9bfe1sm5037247b3a.12.2026.06.13.04.05.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 Jun 2026 04:05:14 -0700 (PDT)
+Message-ID: <ec65893d-873a-4a62-b0e2-5008b2130545@oss.qualcomm.com>
+Date: Sat, 13 Jun 2026 16:35:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
+ mitigation properties
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
+ <20260610-ocelot-of-stimulating-excellence-bcb0fe@quoll>
+ <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
+ <d81bc78e-2c1d-45fd-90c9-f7ec462183a0@kernel.org>
+ <7f1e46fb-15e3-4638-9930-8abc1dd5a778@oss.qualcomm.com>
+ <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
+Content-Language: en-US
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEzMDExMiBTYWx0ZWRfXzbpS3fz9gshk
+ Vb3Mt99RJaa70tZMnBerv0UHhj5RoA+tILW1xsgW960xJcZUSV6tHGAfR9oD+GFN7j4R7O4IVJj
+ rbp251BSFSN4WhBDL/PpS/YaIgbW8jQ=
+X-Authority-Analysis: v=2.4 cv=fLYJG5ae c=1 sm=1 tr=0 ts=6a2d396c cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JaHktJlP2QtFIg7UHuVw+g==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=UvbFL3pLTf4PkRdXo8wA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEzMDExMiBTYWx0ZWRfX0uI4sGN7h4Lk
+ mVRPlmqApVEwq2H2T9pnCavimqp1MclFFngORxwu75/YXsaxNmJvASwfNk4nFZv2r/xIiG+lnih
+ mQE9vPrj3E7opntj/RidXXOXcZf9ucwT0NJHX+tvQ3VOTRqRot9hp22mHLlIdTFYgd7rmsWWANp
+ 1IMhDDqU7D29A0C3HTxBWYBTKGirP0C4Yhh78ABHHnrHmmCmCqXZLV9AS9katZl0KRSRxevDS8u
+ qDg5kWTMzhfd1UGtNulQuyFnoECwaVvu1RSPX2MBjR+o4hm4Szjn4U8KVgDLQQnUEpqhogqtms1
+ a0/RyvsDJhkC6dhhOtZMOULdAdD02oCUpHQ9AbxUZQ1458aIha7ecC17puY2+EfUoJu+v7qYoRt
+ ZTNRUzBVVtVniE82DYHaW4+rqX3RSPkNn4sWbh+dOtFBJG8gkUToCSG7TvqQwJdcxwKVCyOcdNc
+ OpezvfH9ciqJFYoMneA==
+X-Proofpoint-GUID: 5Ev-7VEroKWHVD8g0HNJiIjrFW6oy9vq
+X-Proofpoint-ORIG-GUID: 5Ev-7VEroKWHVD8g0HNJiIjrFW6oy9vq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-13_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606130112
 
-Dne sobota, 6. junij 2026 ob 22:54:43 Srednjeevropski poletni =C4=8Das je L=
-ukas Schmid napisal(a):
-> NetCube Systems OpenNMC is an open replacement for APC SmartSlot Manageme=
-nt
-> Cards. It is based on the Nagami System-on-Module. It breaks out the
-> following interfaces:
->=20
-> - 10/100 Mbps Ethernet
-> - USB Type-C OTG using a TUSB320 (usb0)
-> - USB Type-C Console Port using a CH340 (uart3)
-> - USB Type-A Host with internal CH334 USB-Hub (usb1)
-> - MicroSD Slot with Card-Detect (mmc0)
-> - WiFi/Bluetooth using the modules built-in ESP32
-> - SmartSlot serial interface (uart4)
-> - DS3232 RTC with CR1220 Battery Backup
-> - Extension connector providing SPI,I2C,USB,CAN,UART for future use.
->=20
-> Signed-off-by: Lukas Schmid <lukas.schmid@netcube.li>
 
-DT Check passes, so:
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Best regards,
-Jernej
+On 6/13/2026 1:11 PM, Krzysztof Kozlowski wrote:
+> On 12/06/2026 15:52, Gaurav Kohli wrote:
+>>
+>>
+>> On 6/11/2026 5:53 PM, Krzysztof Kozlowski wrote:
+>>> On 11/06/2026 13:12, Gaurav Kohli wrote:
+>>>>> Why? And where is this generic property defined? You cannot just
+>>>>> sprinkle generic properties in random bindings.
+>>>>>
+>>>>
+>>>> Ack, will add why part.
+>>>> These names are matched with the thermal mitigation device identifiers
+>>>> populated by remote firmware over QMI and define mitigation devices are
+>>>> exposed as cooling devices.
+>>>
+>>> No, -names correspond to values passed via DT, not some remote firmware.
+>>> The remote firmware should give you interface which is explicit and does
+>>> not need such properties.
+>>
+>> thanks Krzysztof for review, We need tmd-names because of following reasons:
+>>
+>> Following Daniel's series [1], the thermal framework supports
+>> mapping multiple cooling devices per remoteproc/device via indexed
+>> cooling-cells.
+>>
+>> 1) The thermal framework's cooling-maps reference
+>> cooling devices by index (for #cooling-cells = <3>). Without tmd-names,
+>> there's no way to know which index corresponds to which TMD, as firmware
+>> may return tmd-names in any order.
+>>
+>> below are the changes post new thermal mapping changes:
+>> DT: tmd-names = "cdsp_sw", "xyz";
+>> Firmware: ["cdsp_sw", "xyz1", "xyz2",]
+>> Driver registers: Only "cdsp_sw" (index 0) and "xyz" (index 1)
+> 
+> names property are not to instruct drivers to register or not to
+> register something.
+> 
+> I don't understand the problem and explanation in the binding is
+> basically non-existing.
+> 
+> Remember that all lists and indices ARE FIXED, so driver knows exactly
+> which index means what.
+> 
 
+thanks for review, shall i use driver data, which is basically pas data 
+structure like below:
+
+static const struct qcom_pas_data {
+     .crash_reason_smem = 601,
+     .firmware_name = "cdsp.mdt",
+     .tmd_names = (const char *[]){"xyz", NULL},
+     .num_tmds = 1,
+
+Is something like above acceptable? and this will also help to filter 
+tmd names as well?
+
+> 
+>>
+>> This allows cooling-maps like below:
+>> cooling-device = <&remoteproc 0 ...>  // "cdsp_sw"
+>> cooling-device = <&remoteproc 1 ...>  // "xyz"
+>>
+>> 2) Not all firmware-provided TMDs should be
+>> exposed as cooling devices. The tmd-names property acts as a filter,
+>> allowing board-specific DT to select only the relevant TMDs for that
+>> platform.
+> 
+> And driver filters, no need for DT property.
+> 
+> 
+> Best regards,
+> Krzysztof
 
