@@ -1,129 +1,109 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517523A0EA6
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 12:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9273DE45B
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 12:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781353430; cv=none; b=jXl1ZXWXdhS2hWOdAxoDJRH+2hKAPG2s8l8C8WoN65cN57KO/aX++ZZLJttb/GHsXPAmg4qReOD47LUgy4Mrp+SmsAHynpMsOcSR+oNiPRDREhO7ybxKoSaaXvB0rj42T4RknBseLkBRpLD4QEc5OOfK5vsGGayw7XgY1nhBSws=
+	t=1781353677; cv=none; b=t8uuJHyLAnNYAZtw/GJvn7OFbV+3us1cPsLbCvvPWv3sW252HmzJ26Ud8WCoeZxBw65YLjsi8RXIh7GRoMIVQI59PR4A2Y2Wm28kg6NHUv36WNeEKFC3l+aHYZlj2zD7c1zXqhGN9hK4k5xLxlWaebS1qFa3x83ZBIIAPMiC/e8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781353430; c=relaxed/simple;
-	bh=UA2EXYJYCNN2s2fDBflhY/TwvwPeAThnGXq65LNlvwY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HzQcZbo+nq3SFs0q82FdjZcWVbmfUmFEU4d+bdaNrh7/nPEUXSfIQKUsyRBVys7oAho2Zk898c8yxn6wDSrY/O8SIGxQq5w8VxJDhYYpeXCiE1e1jtDOi/0ZGKawgydiX5T5AuIyQFOsT73EIKfkc+ubRIBzigACgHFR7KxkPk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MCHvPKm1; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1781353677; c=relaxed/simple;
+	bh=wyBnsEG/WaX5EAHS7GvLfH6Gnbnh7zVFPoJRpUZUsFE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=FnVRNCBncLgqCYWS7xzuVjKizY8gvy579fJXbYcp3IkwarQf9Fykj0jCIAwbi2hd/52vwDyuOx9gAgBA69mKlwXcYVao6ls/Pl6AF0bbiUVBZnSaLkrMkuH6Yj8khude0VqUqrjHRx5bHnJDUVMX3twILLDhNgaehCfklzjEDyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jAoygz65; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MCHvPKm1"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso22036055e9.0
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 05:23:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jAoygz65"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490b64c8311so19401475e9.3
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 05:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781353427; x=1781958227; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=UA2EXYJYCNN2s2fDBflhY/TwvwPeAThnGXq65LNlvwY=;
-        b=MCHvPKm1n9AVsWDxU8v4oFSI+ArOMWuzAFXYrUlYoPudPo1YyAKxoz9/sL38jLa9Ry
-         hYhfBxeU13IR8VKYqG5TIe50A/fbIiQ8U3KNobweetXTe+A8XgI5Mj2pKAW27VSpgyIk
-         XkmfeTzcs4LVFScMp0evRk8IiNYxpHDOpHdDj/B/i9WiCQVNEJqRUSchZVYl7il2zTL/
-         BDkyh9tIk4zC7d+8tm8tm5VrWMXElAaVxXYWhWLypQ0yFuXwVyjCBotW/sQSpc0ORuus
-         1EV1ZyCIovS5d2WVErf82unDeBC7uuxVnPMqaQOoduv0rc+4mY/wC6zCJMWinWkp8QhJ
-         u9Pw==
+        d=gmail.com; s=20251104; t=1781353672; x=1781958472; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=wmpCRbwKcDT9ljmI6gDYWNgoa8Oz6gngcqL23DluDRY=;
+        b=jAoygz65cM6S2sxyLIdQqb7ABrNmv5VDOfcEpA8RZ4hxGICQJqb7g9Oaxk4M0up1nQ
+         Re4lJmxKUhbDS59H1Lp4Fx+v6LMYtHTZfY/Rajt/j3TQtMtOI7DIR0Rj1CwB6ecqe0C0
+         N2/VIVLrR8jhfc+oPy9ldfGVuzJEBSHa3yFk3hDYySDdS8lYC3Hqp7omW47foFVhBFtp
+         ZaXofMlX5JLIsCtaysxr3rCQ7q9FdtPMyEI/2EsYbAppNNOVbylNHHLNz1iPHIlrfoOy
+         QQmQrRRrZpNvgtqzAEFp896LwVWc7N/6Rb0H0sMuhUBxHwVa3FAYIxqXGbd04gKR5Dgc
+         Of8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781353427; x=1781958227;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UA2EXYJYCNN2s2fDBflhY/TwvwPeAThnGXq65LNlvwY=;
-        b=pN+PunbD7e4uG9b7Dg62xfKZOy+XDz6YW8ZwGwHFcTg8cCIiwS5gAMD2MhLcPWotNO
-         XJxWBVy34yvZ3dlqWotBfQES/yYV4OrmswVCxHXNuUBhRS9ChImYXk+E1fl3xYO4onW7
-         56yULeMBU3/tUdvazS8EFZnyD7+46mamTKMn+VGIvnCIR8qkSLozHrYsYX4UOrYtaUZA
-         hsYrRIeAcptR5VX+Pu4TxhzpSvMjyiEAfU5/hctEMhAj3lKCLs7pYqDeb1IC4juGK5bI
-         grEhbfeZmgYin0hhB4kz641wJ5sYUfTuGX3QaVdene0DzYJK72PKUWT6wb4WuY8l+Kyb
-         6ciw==
-X-Forwarded-Encrypted: i=1; AFNElJ8zWne0MjeLHXbAFWQxh4OcB8FR/qmzL4dgB+4qiJpsWFT08Pdz78wFEpJUm7KRtrtuOKGF/rJk/Iff@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRPfTwFRqzwBPe1bjH0lxycW3fAPhq9DqElrQizXTDUgK8p5LX
-	a9xhBL436kXKdNSzRpEohwz7BDaw0+XQl056ysqLU3h0FxotP3MkXbUu
-X-Gm-Gg: Acq92OHdOtg24VQNdfAkiO1OY7HOhBPUObPXw+D3X7KEx1T7cCmB2JGFfx9dCrCldX5
-	2pHWU4rnFVrZQcyUXBHGNFF7z+eD0kEgFS/PYf9bWInGOl76Nh9f1CBqx82AgzBqUXFEUnVrUq5
-	A2L0qPiDEAv4bRuhpky/hS68Ne670Uu4LRDItJOZOJNDgKUDQHj29WGMdoEIUgnbOv49rzInF6l
-	uwcV09pEjDQvAahB6iXe4Y6fiViYBu9YyMGFCtDlo/ga4OtbEjrylV7j7Gt5NlkBOpBOU9KQoEA
-	Qkl/nATKFN+sFFROejiA2LpyYh68NbneR6u2xpVxMNEeEOX49T+9ojAc4Uz3Ld7477raLvCdeeT
-	fTq+AcRxcCSTPqjUUYDIq9iOm07iWWeYzl2w0si9/jUK0Qolh/MiQskEl3MZMlQJo787/6LLNnm
-	e5QvxyAvM9NB8z6iCK95d9XHr+QkjdF+TyEr5BCL4JlnRwUL3d7Dza2t5TmupSzF3EheyAOtlBX
-	u2c1y0=
-X-Received: by 2002:a05:600d:8446:20b0:490:c1cb:48f4 with SMTP id 5b1f17b1804b1-490ec4d77afmr50099355e9.12.1781353427306;
-        Sat, 13 Jun 2026 05:23:47 -0700 (PDT)
-Received: from 0.1.2.1.2.0.a.2.dynamic.cust.swisscom.net ([2a02:1210:8642:2b00:82ee:73ff:feb8:99e3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea4b2e8esm101605395e9.0.2026.06.13.05.23.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 05:23:46 -0700 (PDT)
-Message-ID: <039295d3542deda8c56151252fe5e50c88c13deb.camel@gmail.com>
-Subject: Re: [PATCH v4 6/7] arm64: dts: allwinner: a100: reserve RAM for ATF
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Jernej =?UTF-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Samuel
- Holland <samuel@sholland.org>,  Hans de Goede <hansg@kernel.org>, Dmitry
- Torokhov <dmitry.torokhov@gmail.com>, Andre Przywara	
- <andre.przywara@arm.com>, Jun Yan <jerrysteve1101@gmail.com>, Lukas Schmid	
- <lukas.schmid@netcube.li>, "J." =?ISO-8859-1?Q?Neusch=E4fer?=
- <j.ne@posteo.net>,  Eric Biggers <ebiggers@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Luca Weiss <luca@lucaweiss.eu>,  Sven Peter
- <sven@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org
-Date: Sat, 13 Jun 2026 14:23:46 +0200
-In-Reply-To: <FE7Vh4yfTmGMM24i18Wwwg@gmail.com>
-References: <20260605070923.3045073-1-alexander.sverdlin@gmail.com>
-	 <_6NEZ78hR8a_3V2bhBAGoQ@gmail.com>
-	 <b428d57ba5464f1226daf099877f4c25fa4fc191.camel@gmail.com>
-	 <FE7Vh4yfTmGMM24i18Wwwg@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+        d=1e100.net; s=20251104; t=1781353672; x=1781958472;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wmpCRbwKcDT9ljmI6gDYWNgoa8Oz6gngcqL23DluDRY=;
+        b=GWk+C845jy9UPlsv3TeW0iBQ5+By9z3GyjmAcdxfqktckUDPZter1xRtHqbzoJAvOr
+         ZB/A7YKB/tYSCIwbtNTT82B3oBPT/yF9cEgCdWV8rzcgiW1UlXBlvkkmsupfkFZSWoN6
+         nAA3WkkVNuw4Dx90p8dfTmfxKH1ciZQC2nWLcSM8vktE3isBbPXn3zEO0nusjFaoza7h
+         cpMsh708l2p18cpstv8GORrtkbA14Am8mEhu4zX/+pzOQk+CjHuekcxo38x5UEHCZglY
+         cIwJGw1WgEAXgN5skoHc8Vqr7oJE2RYjR8B1+CxG/00zESFBh+gxfu2F7uWZnAoVgwfR
+         +AAw==
+X-Forwarded-Encrypted: i=1; AFNElJ+8n/hI6DBaUgsnd+P8MTsOH163LLlPzYDbTCGCYKDbbps7TZwB00TUnuin7ucg2rSKwyfnrztqRHRU@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuoKQgngbH7z0mpDbi+JDu5cvSYM4md0mYBpXwgi0odo3oogwj
+	8Yr4fpMOi6KpOT6lMlCeuyrndlBUn1603O80txGFHbUotBBi/MapgO+6
+X-Gm-Gg: Acq92OE/5cmON3hn9yl1VO54uMcIMIi+xopEt8J9gLGyHnHC0LZaSubOn9i6OT6+NvP
+	QevS2dHCkF8gk4yY/vreRGtKnLMtz1PJDR4TB0+N0gkZVLJxJwuWGyOQmZLS2khwDfkqMUWQ2s6
+	/NnvYN3B8Mmn5ruYLgdFKc3JDdeJwPfP49CdhwLfD1lavFuKipTz+X/9L0tGFp57pyG69Um9FjU
+	2aSSWv95DrF2kVG5cMhdHuFfIGpP2FAmpGSstyJ14EWFUqRAn6jQKPg5qtZe8HOK/Ep6VXEhzfs
+	yBqbao4LJZpGQirbNJviONIIOTMOb33waf3toqgaOfi/u2UHQl6qTTg0o3jM9qSJuxsLVJu5EAc
+	BV7/MMenqRsChuBI9JNoOon4021ljKRPpsme9sKIKnhMONy3svCYZAyu+K4rxSJulhpuZ1AZ8LV
+	vNR4csOMxq1X1C/xmTZn9DbCGIpmznrCtwK3h7SGac7mB+i/UxWrBqdv5+PlGWzms4X5OaUbOTR
+	Dwpj6SGajAGR69scCjkMCh7XppAlA==
+X-Received: by 2002:a05:600c:1d11:b0:492:1e36:552c with SMTP id 5b1f17b1804b1-4921e365572mr47345445e9.37.1781353672276;
+        Sat, 13 Jun 2026 05:27:52 -0700 (PDT)
+Received: from [10.128.10.215] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492202e5cbasm62586845e9.2.2026.06.13.05.27.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 Jun 2026 05:27:51 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <0b6a7f41-b753-48dc-b46e-77aaf0e999f4@gmail.com>
+Date: Sat, 13 Jun 2026 13:27:49 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] pwm: rp1: Add RP1 PWM controller driver
+To: Andrea della Porta <andrea.porta@suse.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
+ Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
+References: <cover.1780670224.git.andrea.porta@suse.com>
+ <f8dd46a553351adaf9d29fbba9f98e803b672fe7.1780670224.git.andrea.porta@suse.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <f8dd46a553351adaf9d29fbba9f98e803b672fe7.1780670224.git.andrea.porta@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jernej,
+On 6/12/26 15:01, Andrea della Porta wrote:
 
-On Sat, 2026-06-13 at 11:38 +0200, Jernej =C5=A0krabec wrote:
-> > > > Add reserved-memory node carving out Trusted Firmware-A region span=
-ning
-> > > > fixed 256K from physical address 0x40000000. Even though Allwinner =
-ATF
-> > > > itself passes the address range in the fdt to U-Boot, U-Boot curren=
-tly
-> > > > only reserves this memory internally, but doesn't carve out the reg=
-ion
-> > > > in the fdt passed to Linux.
-> > > >=20
-> > > > Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-> > >=20
-> > > NAK. It is job of boot procedure to properly inject TF-A reserved nod=
-e.
-> > > Any issue should be fixed there.
-> >=20
-> >=20
-> > like in commit 0d17c865118881609ea7e381c7cadbb7979cc596
-> > ("arm64: dts: allwinner: Add Allwinner H616 .dtsi file")
-> > =C2=A0=C2=A0=C2=A0=C2=A0 Signed-off-by: Jernej Skrabec <jernej.skrabec@=
-gmail.com>
-> >=20
-> > ? ;-)
->=20
-> I was against that too.
->=20
-> It's time to be fixed in bootloader.
+> +config PWM_RASPBERRYPI_RP1
+> +	tristate "RP1 PWM support"
+> +	depends on MISC_RP1 || COMPILE_TEST
+> +	depends on HAS_IOMEM
+> +	select REGMAP_MMIO
+> +	select MFD_SYSCON
+> +	help
+> +	  PWM framework driver for Raspberry Pi RP1 controller.
+> +
 
-I agree, I was wondering about this shortcut as well... I'll implement
-some sort of generic reserved memory handling in U-Boot.
+Hi Andrea,
 
---=20
-Alexander Sverdlin.
+Selecting REGMAP_MMIO is unnecessary here since you're already selecting
+MFD_SYSCON.
+
+- Julian Braha
