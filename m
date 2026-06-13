@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAFF3090F5;
-	Sat, 13 Jun 2026 18:29:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509FA2DA74A;
+	Sat, 13 Jun 2026 18:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781375400; cv=none; b=ahi6LDxfgRPiKLRqCNFS5NqGO+/XckWWNUvl+brDK7Kj1YQaSSQxs4qtXIedhgzjXTibQg0DdK0Dk4R4slKEs7FyZUZwVKpn5TnptevyCOCnmd3ZY/wCPiGTUbTnNvV+szI5geWmsQwjVVKfXu88Y1C8lvws2SiA29ss71cBjyY=
+	t=1781375788; cv=none; b=rD3EsI/RNIfCDjwCHYpT+rlK768S40ER33u24boS6JXr8J55VWd5AAfR7G66SQdWocI7v2bVdQbB+7z4sR+H6pf8slUW8Fxm1A9afvyQjFJuD+NlBLJu2ZWR4pUzoxZdc9UndEmfR3P4KOvQbr05zjidYav/JvScuRA2xu4GebU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781375400; c=relaxed/simple;
-	bh=AN0ZpA9iHlqEDGOP2hVl8hG9GkDDp1wZTgjgrMNqxxg=;
+	s=arc-20240116; t=1781375788; c=relaxed/simple;
+	bh=ho29sxaXGWV56cF5WRhiIddoS1uPjloUDvmbmqCLyZs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MwR86+5z72cQCWedeYual/Wb8lTR8CKXdTvhjm90S9RfV6QG91KnDfCDprzys8w4tdT2bqY/zPjJRnA5EzDAdbw4FFtzIPpAC2kNem/y7eemuwTbSKvdlXkFaBqNys0hkuCd4SiA+l7geMyjHAAmv4XeE9xBMSJ2o5tn4RU2kso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxYmAgzI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jhFuCmVZl/r5BmhPbDqTAlzs01uAkkyYuYCDmvldNa00acYATAO93/33mg57tNmIiNA9TnVVCeWl/1M5UFXBdatBYbsJY3kP/s3Da4Gvz8pwB1O4ShlMEfgbBnD9cAxmsv7ii61j49WGAoh87BuyWEotZDgvS7ImsIngYkTl0ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vvr4+y/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxYmAgzI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD001F000E9;
-	Sat, 13 Jun 2026 18:29:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vvr4+y/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DB81F000E9;
+	Sat, 13 Jun 2026 18:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781375399;
-	bh=33Syhvsm5sZiiNLVJUS2RBNw63oGJetk1j5qZL/2MiA=;
+	s=k20260515; t=1781375786;
+	bh=9/fhFUOP6QN8GP6i6zmtZ/S1uM1iIL0AFYQSGlurmeM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SxYmAgzIh9DscHcdrhGxGBo/5V60YWApEi+m/R6/XKqhQpada+bVWx36Cwy/hJ8zT
-	 /t/sQdvOfQgAimhpLXCT+QrCsS+eieMQFvUXLEb/FqV8NpomYYexoW3aY0dwFRu87N
-	 +LvVH1DXQB1WndVI5u9koNvgX/rYNNf8BiAQ3gTTEhpW1MEYktH1hiXyjBkLhhW8bT
-	 kOk1G4c2yLfO7kftEP+lZJYJ0vUkNW24mNlj6z31pHfvVFYAc5a4l8lQwV/ycLXEEp
-	 eE0qhrLquf8LArl+ukokd52mSH2yeQ7mYmLvNPRH6el5EV5EO54gpNZAk0RGfFqqwa
-	 wr0vLKKk2rZEg==
-Date: Sat, 13 Jun 2026 20:29:56 +0200
+	b=Vvr4+y/Dzg+E+ofiujlSepDU9FyS8u7rvFTmEDwvBkhvgB9vOyJ7f2KxNkqfZntOW
+	 t6PvweaRyQc5cVgUjIurjvXuU6n7LNfB4MEyU0IMcUZNlfV70W2XCmDP4W59iTHdz7
+	 ssAP1DC0hyMU0T7l0IMhLBZ1GIbbfCfkEqh346VrjPnir7ub3+LhGGvl45TytPqNjM
+	 c2ddm/8/0IUbOotH20B40qca7ZHGrb9OX6cIRswKGqiHxE6TiT5xCLQmvZEwBdQFgW
+	 wWcDGQMBWHsJ1GoBXYMkTMG+CIXQLA+WNvCJ6Wmjv2M/e9ssM+wFMW67On3uIOI/71
+	 7j1bc9jEgraxg==
+Date: Sat, 13 Jun 2026 20:36:22 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Geetha sowjanya <gakula@marvell.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, mark.rutland@arm.com, 
-	will@kernel.org, krzk+dt@kernel.org
-Subject: Re: [PATCH v2 3/3] dt-bindings: perf: marvell: add CN20K TAD PMU
- support
-Message-ID: <20260613-crystal-chihuahua-of-opportunity-deed7e@quoll>
-References: <20260612095746.19679-1-gakula@marvell.com>
- <20260612095746.19679-4-gakula@marvell.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Iskren Chernev <me@iskren.info>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Bjorn Andersson <andersson@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] dt-bindings: phy: qcom,qusb2: Straighten out SM6125
+ and MSM8996
+Message-ID: <20260613-impartial-cow-of-emphasis-e60cdc@quoll>
+References: <20260610-topic-8996_61x5_qusb2phy-v1-0-d7135980e78f@oss.qualcomm.com>
+ <20260610-topic-8996_61x5_qusb2phy-v1-1-d7135980e78f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,24 +49,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260612095746.19679-4-gakula@marvell.com>
+In-Reply-To: <20260610-topic-8996_61x5_qusb2phy-v1-1-d7135980e78f@oss.qualcomm.com>
 
-On Fri, Jun 12, 2026 at 03:27:46PM +0530, Geetha sowjanya wrote:
-> Marvell CN20K SoCs integrate a Performance Monitoring Unit (PMU)
-> associated with the LLC Tag-and-Data (TAD) blocks. The PMU provides
-> hardware counters to monitor cache traffic and performance events
-> via a dedicated MMIO region.
+On Wed, Jun 10, 2026 at 02:04:14PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> The CN20K LLC-TAD PMU is largely similar to CN10K, but differs in the
-> layout of PFC/PRF register offsets relative to each TAD base. These
-> offsets are derived from the compatible string in the driver and are
-> not described through Devicetree properties.
+> SM6125 DT currently uses just the MSM8996 compatible (without a primary
+> SM6125-specific one). This is not only wrong for the reasons of
+> violating guidelines, but also happens to not be valid.
 > 
-> Because of this, using "marvell,cn10k-tad-pmu" as a fallback for CN20K
-> would result in incorrect register programming. Therefore, add a
-> separate compatible string:
+> The MSM8996 PHY is quite similar, although it requies a different init
+> sequence (for arch reasons). MSM8996 also needs different power
+> plumbing, as the VDD supply is fed through VDD_MX (which we define as
+> a power domain rather than a regulator), unlike on SM6125.
+> 
+> The init sequence seems to have been "good enough", but now that the
+> bindings clearly diverge, add a new compatible for SM6125 with a SM6115
+> fallback (as they seem to be an exact match from the SW interface POV).
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/phy/qcom,qusb2-phy.yaml    | 31 ++++++++++++++++++++--
+>  1 file changed, 29 insertions(+), 2 deletions(-)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
