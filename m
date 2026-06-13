@@ -1,77 +1,107 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E984322B9F;
-	Sat, 13 Jun 2026 17:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490521B85F8;
+	Sat, 13 Jun 2026 17:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781370728; cv=none; b=L4FOENiFcbzP8XjiEK2q67PymYkB4SQ/MJY1ByA2I/OCK0pgfVj0s4O9tFNEuQh9RPx5t4aZlPuT+JEBORGnazYbe+z9WB8JO9+6BXwgIjw2bHcCMoBRNsiPIFW4yDwu/KRgskWfMr6ZdRkwCCuECvX4az9MqjHE23v8RDsPTHM=
+	t=1781372360; cv=none; b=XXTKgJ8iFKuZNJ7Y9NQSeClld3FiuApFRtGkHv68nodVhEnMX8zcpTPrULELbyzXzxen8q+kiQT/gUyXFShc/72OoCa+/53j0oXXSext5gxcF7aEPiOgmWfXBOpCZZ9M9pfn2GTynx+2CTjYwJMRhRsqPD/1AMg/x/oy6chcPdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781370728; c=relaxed/simple;
-	bh=kZazbW3SWAnpIyQOqUnSdo1u52KSwTJ6swcwNHxwxkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GcoY5kDJgZr77xjwwWMcMF9hImsyHy4cOqA4/bjluNUiK/CzC+p+30Q7gxefX+0sgtMvMmdgagNqlKwPCxRC+2y2ZAyychVQ6kdX3XS7MMxsth3p0OwGPCx3fseDjBtQ5Ob41dGnSUiB+xGXsvZUxWmld12BqbC8Jul6AWpbe+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gd2x321nbz9tph;
-	Sat, 13 Jun 2026 19:11:51 +0200 (CEST)
-Date: Sat, 13 Jun 2026 19:11:46 +0200
-From: Lukas Timmermann <linux@timmermann.space>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexandre Marquet <tb@a-marquet.fr>
-Subject: Re: [PATCH] ARM: dts: exynos: Add bluetooth support to manta
-Message-ID: <ai2OYGlCx0x4NUs8@archstation>
-References: <20260408-manta-bluetooth-v1-1-b7658e78359a@timmermann.space>
- <653b640e-8b61-4c60-a455-63a400b308e7@kernel.org>
+	s=arc-20240116; t=1781372360; c=relaxed/simple;
+	bh=bsemIgA80QN1Net2rL2KliKucnd3bqSpPpy6z3xhHVU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ppWqzy9k8dTJ7eUhP5TmvUc5U6kyynrun8kMU1KEs8M1mvv7tQXSWEtd5+sc9y2/fXHQtjdO+ao3XlHvK28EGWsQaRM/T1SV8yEsn93kvvQeUZNxJLOl9s6wLTvU+gOqItLec46FwtO4mq5IHMHH+e0IrYAVTDaJFfCbbUh4tZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogrgEV4+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogrgEV4+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DBD1F000E9;
+	Sat, 13 Jun 2026 17:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781372359;
+	bh=8EzOUDMBGmw4x/8LM30psbSMzM7LJDnVG/eNTZr3kEM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ogrgEV4+X1XWWEeO3pukkUNTR9B77Vn4CuvFRmrEjzKaROns3SYDNnwS71D0cf1tJ
+	 HJ2SWobXTWqkQV8TI2lFsrDbUcHXIu3UdA8u5E64PfoY2Bapkeyf7SKRWA1/TV/yzt
+	 hI2oihbyb1y1mCAi4F57vxp/KN4nyWW7SdMErGmJ/QZin9CnVKwQPQsWOuUlDNjIib
+	 GImzti4SrihhPxtLTKsWHwvwqLHISpuWzWSgQW1VJ+o9z+vSkPpFr7uMUhVJPW4FTN
+	 PmPg2OdgsUlMefNNUFBUFkPULB6LeLamEX28N7W9YbJC/LLt8T0hwcN98RmW7vTppK
+	 oPyNJ2FEVJlFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 6/6] ARM: dts: sun8i: v3s: Add support for the ISP
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Kocialkowski" <paulk@sys-base.io>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260613152655.212490-7-paulk@sys-base.io>
+References: <20260613152655.212490-7-paulk@sys-base.io>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 17:39:18 +0000
+Message-Id: <20260613173918.E4DBD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <653b640e-8b61-4c60-a455-63a400b308e7@kernel.org>
 
-#include <atomic>
-On Mon, Apr 27, 2026 at 03:49:34PM +0200, Krzysztof Kozlowski wrote:
-> On 08/04/2026 13:56, Lukas Timmermann wrote:
-> > Enable the bcm4330-bt device for manta boards on serial0.
-> > Also adds the necessary pin definitions and interrupt handling for
-> > wakeup.
-> > 
-> > Signed-off-by: Lukas Timmermann <linux@timmermann.space>
-> > Co-developed-by: Alexandre Marquet <tb@a-marquet.fr>
-> > Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> 
-> Incomplete/incorrect DCO chain. Please do not reorder tags. Git does
-> them correctly, so you HAD to change them manually.
-> 
-> You send the patch or you apply the patch so you must commit with sign off.
-I developed the actual patch based on his findings. We both don't really
-care about who is mentioned first or anything.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The device tree nodes `isp` and `csi0` include `interconnects` and =
+`interconnect-names` properties that are not documented in their respective=
+ YAML binding schemas (`Documentation/devicetree/bindings/media/allwinner,s=
+un6i-a31-isp.yaml` and `Documentation/devicetree/bindings/media/allwinner,s=
+un6i-a31-csi.yaml`). Because these schemas specify `additionalProperties: f=
+alse`, this causes schema validation failures during `make dtbs_check`.
+--
 
-Sorry. Yes I rearranged stuff. So it should be:
+commit 299a0d91b22100c87010de21ec5908b8fed75e39
+Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
 
-co-dev: alex
-sign-off: alex
-co-dev: me
-sign-off: me
+ARM: dts: sun8i: v3s: Add support for the ISP
+   =20
+This commit adds support for the ISP on V3s and related platforms by
+introducing a dedicated compatible string and device tree node. It links the
+ISP to the CSI bus, module and ram clocks, resets, and adds a port connecti=
+on
+to CSI0. The interconnects property is also used to inherit the proper DMA
+offset.
 
-Correct?
-> 
-> Best regards,
-> Krzysztof
-> 
+> diff --git a/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi b/arch/arm/boot/d=
+ts/allwinner/sun8i-v3s.dtsi
+> --- a/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi
+> +++ b/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi
 
-Best regards,
-Lukas
+[ ... ]
+
+> @@ -755,5 +763,32 @@ csi1: camera@1cb4000 {
+>  			resets =3D <&ccu RST_BUS_CSI>;
+>  			status =3D "disabled";
+>  		};
+> +
+> +		isp: isp@1cb8000 {
+> +			compatible =3D "allwinner,sun8i-v3s-isp";
+> +			reg =3D <0x01cb8000 0x1000>;
+
+[ ... ]
+
+> +			resets =3D <&ccu RST_BUS_CSI>;
+> +			interconnects =3D <&mbus 5>;
+> +			interconnect-names =3D "dma-mem";
+
+[Severity: Low]
+Are these interconnect properties documented in the corresponding YAML bind=
+ing
+schemas (like Documentation/devicetree/bindings/media/allwinner,sun6i-a31-i=
+sp.yaml
+and similarly for csi0)?
+
+Since device tree schemas typically specify additionalProperties: false,=20
+leaving interconnects and interconnect-names undocumented will cause=20
+make dtbs_check to report schema validation failures for these nodes.
+
+> +			status =3D "disabled";
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613152655.2124=
+90-1-paulk@sys-base.io?part=3D6
