@@ -1,125 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E82131DDBB
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 09:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7F81D5160;
+	Sat, 13 Jun 2026 09:50:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781344126; cv=none; b=Ye0UwN9IZFoEB4lKTSC3h3ko8dIezCEn6xPjvxINNR69EQpKnCK+ixogSHDptYhSEVIr5S4w8DVqK2fb5WK+XbD+kWjH5tXGBTtn11ztJaEUOk11c8HK4svHf3GGaByewl3GIuXnWhTLNDES8PmZpw6uSeMbto9NG7vQKmhk2uo=
+	t=1781344259; cv=none; b=fRP9pZ8rinWrPzcNIKuu8Dp86nFgPrn9JWHq+2m+VdIeScm9I5nlEyP41lHN3MScVIxZhKXNdjPbG6mbDTKty0F+LBLWNDqQMZjBQMIr8OoJ/i9TGRaejngv6dnmH4ZfqbcnewrOh6JbizzFe6lxFuNSPN21VtCaT56R0vpLlxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781344126; c=relaxed/simple;
-	bh=Le2TluI4QhioSProWh/T+ChT6gMlyKD/CDA5Y/Z4G2Y=;
+	s=arc-20240116; t=1781344259; c=relaxed/simple;
+	bh=vwB0alkSIDYT3FLbg5ANhcXK4/IxOjKaKmJ6hY0cFpI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UViGzseMwrUpmNaVnacKehDEhwYmdnxPM/qj2fPvCv6WVJiH5HC89FQirrN/As7B6bqmpbKDmZOyrQ0UJvizmaCWf++rTyT0EvyQ7gfghtYOMFTohJt/vtjMkcipVII41Z+Tin4MBdU4Sj3vQ/opAyIJMLjz72r18TXAgE5y25M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXm0O7zi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Jbg4V3EhWey88MffeBbtVe30Ul7jHLQFpxdVzrVGW8/zjjr9u0uEa0F7+aSr8LyYe27cAGVzEfwBkofRGDz3OarfFws3sXbft4ejhd2Ela6DaKMoMPrAylO02weu228g+E9OkSshY4mS+uic/CE+2dmHjvaDUwny2s+jWrEmq98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZWzUcCc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXm0O7zi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA7D1F000E9;
-	Sat, 13 Jun 2026 09:48:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZWzUcCc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0FE1F000E9;
+	Sat, 13 Jun 2026 09:50:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781344125;
-	bh=H0vp+trOASQuyJmUUNeuT7uAJO9F68Wif0rAf01Dmbs=;
+	s=k20260515; t=1781344258;
+	bh=GwlHNxN2/24K0LF41glzYRU0V2y/owMcPA/IrzwXr7o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bXm0O7zi7j4K84kkiWJyCEvL0Vyn2p9LdJIq+FshdLqRQ5twCcgF0hk2jLN7yRCO8
-	 zoxx6xe2VEQf/9ODokIMC9ovsMzPrmMqhH8hIDuA7XL/xLM0kcN2Mt7/LPfXOeMx/W
-	 Je+QcsmBN0IXkXR99xp0UASWF2pkA7hTZslonTjHV7WU7Ko8Coh51oDjGDy+908yy/
-	 l3YMCdKWKK6XOus92sb9yHOvueujnONAYLKDfO6mBht4SkvgjRCKexaLrMh6sFj91j
-	 4qs7c68b2Wq2llO+9e7CpIqizYsNJ6x6uLnutgBH/NtpP34I7hw67Fazr0s5zVcDAG
-	 VMWaa7nDnYRAw==
+	b=bZWzUcCcQwnrN0joeRFVDJWqCJVd5WPar/qKcali9K4YtT2ApPhVZu149kf7AD2a8
+	 9K7mUQe8cTamsn3PM1ztbvYEgY73KzPUhVlOI0/+7v1lqS13EpsLSf4yPHC0PFL+j5
+	 eOy2umB4NzIcEDTvafXZA0PY3Qsdq7t62L9GxW4DgF4u8f9Ih88HI38n0eJSlN3OYD
+	 Rrz/hl5v3dbcgRjb9LmbOPUSdhVs3ZI5hCGAaRALEg2ruRSs/k8/ph7g2lDAqgbO3r
+	 MQwpBqAg0gPh8OFYo88IABkZiHbJ4i3kEr1glC4SZqeskHSVdzpQGZtFKtm6sjxZ/5
+	 fy2qXBBpV/l8Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] arm: dts: st: align node patterns with
- established convention
+Subject: Re: [PATCH 4/4] arm64: dts: allwinner: add Radxa Cubie A7S
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Charan Pedumuru" <charan.pedumuru@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260613-st-mmc-v4-1-b3c385617c16@gmail.com>
-References: <20260613-st-mmc-v4-1-b3c385617c16@gmail.com>
+To: "Enzo Adriano via B4 Relay" <devnull+enzo.adriano.code.gmail.com@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-4-7787c94681db@gmail.com>
+References: <20260613-a733-dts-v1-public-ready-v1-4-7787c94681db@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 13 Jun 2026 09:48:44 +0000
-Message-Id: <20260613094844.EEA7D1F000E9@smtp.kernel.org>
+Date: Sat, 13 Jun 2026 09:50:57 +0000
+Message-Id: <20260613095058.2B0FE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Renaming 'sdhci@...' nodes to 'mmc@...' in the base dtsi file leav=
-es overrides in derived dtsi and dts files orphaned, causing node duplicati=
-on and completely breaking MMC functionality.
+- [Medium] The `&mmc0` node is missing the `cd-gpios` property (or `broken-=
+cd` / `non-removable`), which may be necessary for proper SD card detection.
+- [Low] The new DTB entry in the Makefile breaks alphabetical ordering.
+- [Low] The fixed regulator node name does not match the required device tr=
+ee schema.
 --
 
-commit 40b6fa41749cf01adbee4227ca47061d9fbb6688
-Author: Charan Pedumuru <charan.pedumuru@gmail.com>
+commit f3152d16f1d4c4fabab01c5ee230d7994c9a7898
+Author: Enzo Adriano <enzo.adriano.code@gmail.com>
 
-arm: dts: st: align node patterns with established convention
+arm64: dts: allwinner: add Radxa Cubie A7S
 
-This commit updates ST MMC DTS node patterns to match established convention
-by renaming the base sdhci nodes to mmc.
+Add the Radxa Cubie A7S board description with serial console and SD card
+boot support. Ethernet remains disabled until prerequisites are proven.
 
-> diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts=
-/st/stih407-family.dtsi
-> index 3e6a0542e3aea..08acba209c564 100644
-> --- a/arch/arm/boot/dts/st/stih407-family.dtsi
-> +++ b/arch/arm/boot/dts/st/stih407-family.dtsi
-> @@ -596,7 +596,7 @@ spi@9542000 {
->  			status =3D "disabled";
->  		};
-> =20
-> -		mmc0: sdhci@9060000 {
-> +		mmc0: mmc@9060000 {
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
+/allwinner/Makefile
+> index d116864b6c2b3..824cc35152db8 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -56,6 +56,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35=
+xx-2024.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35xx-h.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35xx-plus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35xx-sp.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun60i-a733-cubie-a7s.dtb
 
-[Severity: High]
-Does renaming these base nodes to mmc@... leave downstream overrides
-orphaned?
+[Severity: Low]
+This isn't a bug, but should this entry be placed further down?
 
-Looking at board files like arch/arm/boot/dts/st/stih410-b2260.dts and
-arch/arm/boot/dts/st/stih418-b2199.dts, there are still overrides using
-the old names:
+Strict alphabetical sorting dictates that sun60i should appear after all
+the sun55i entries to avoid merge conflicts.
 
-mmc0: sdhci@9060000 {
-        pinctrl-0 =3D <&pinctrl_sd0>;
-        bus-width =3D <4>;
-        status =3D "okay";
-};
-
-Because the base node is renamed here without updating the downstream files,
-will the DTC compiler treat the downstream overrides as new node declaratio=
-ns
-rather than property merges?
-
-This would leave the base mmc@9060000 node disabled, while the new
-sdhci@9060000 node would lack essential properties like compatible and reg,
-preventing the kernel from binding the MMC driver to the hardware.
-
->  			compatible =3D "st,sdhci-stih407", "st,sdhci";
->  			status =3D "disabled";
->  			reg =3D <0x09060000 0x7ff>, <0x9061008 0x20>;
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-a527-cubie-a5e.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-h728-x96qpro+.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-t527-avaota-a1.dtb
 
 [ ... ]
 
-> -		mmc1: sdhci@9080000 {
-> +		mmc1: mmc@9080000 {
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts b/ar=
+ch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
+> new file mode 100644
+> index 0000000000000..453761a963237
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
+> @@ -0,0 +1,48 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+> +
+> +/dts-v1/;
+> +
+> +#include "sun60i-a733.dtsi"
+> +
+> +/ {
+> +	model =3D "Radxa Cubie A7S";
+> +	compatible =3D "radxa,cubie-a7s", "allwinner,sun60i-a733";
 
-[Severity: High]
-Are there similar orphaned overrides for this node?
+[ ... ]
 
-Checking arch/arm/boot/dts/st/stih418-b2199.dts, it appears this node is
-also overridden using the old name:
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+> +	};
+> +
+> +	reg_vcc3v3: vcc3v3 {
+> +		compatible =3D "regulator-fixed";
 
-mmc1: sdhci@9080000 {
-        status =3D "okay";
-};
+[Severity: Low]
+This isn't a bug, but does this regulator name trigger a dtbs_check warning?
 
-Would this result in the same missing compatible properties and disabled
-base node?
+The standard device tree binding expects the node name to match the pattern
+^regulator(-[0-9]+v[0-9]+|-[0-9a-z-]+)?$. A standard name like regulator-3v3
+or regulator-vcc-3v3 should be used instead.
 
->  			compatible =3D "st,sdhci-stih407", "st,sdhci";
->  			status =3D "disabled";
->  			reg =3D <0x09080000 0x7ff>;
+> +		regulator-name =3D "vcc-3v3";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		regulator-always-on;
+> +	};
+> +};
+> +
+> +&mmc0 {
+> +	vmmc-supply =3D <&reg_vcc3v3>;
+> +	bus-width =3D <4>;
+> +	no-mmc;
+> +	no-sdio;
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+The commit message states this adds SD card boot support, but is the
+cd-gpios property missing from this node?
+
+Without cd-gpios or an explicit broken-cd fallback, the MMC core might fail
+to detect card presence. If the kernel assumes the slot is empty, it will
+not probe the SD card, causing root filesystem mounting to fail.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613-st-mmc-v4-=
-0-b3c385617c16@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613-a733-dts-v=
+1-public-ready-v1-0-7787c94681db@gmail.com?part=3D4
