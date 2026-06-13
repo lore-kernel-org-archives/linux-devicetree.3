@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6C11E505;
-	Sat, 13 Jun 2026 07:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6908A156C6A
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:33:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781335652; cv=none; b=PV5OtGxozuKWGZcFDMjIz+05oALAwtszfLBQzxC8U11BzEhHjtRTfzySKL/J2E/S/wRThTWhG0sofSMAbYbAJSMCJskJXq0BmyVd5BPHq8CtronsjCsIBQaF/+UNE1Pydoa+jtk2gEPM28A0BAFtTr6Hgxx7sfHL/HBHpBNZjdg=
+	t=1781336036; cv=none; b=AUac+gdNANT5yfnefx7VpQe3w+s5i3d23ffFpU+5PjLc7YxXwdzj1hzEijNDt6utJCGWjsP/rw8mxA7Z87HW+ojKvZbgjxr1I4/vmNqHs/H5emjQ1ltf6vo6Rcqm3AoGsbAepJfM8RC+BfCCng4F68C8CeaSdt30t7Wk0Xx/3+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781335652; c=relaxed/simple;
-	bh=eCSryfYMMZE9e/BMxgwzlEZhws6L9TyR4frOVIL56qs=;
+	s=arc-20240116; t=1781336036; c=relaxed/simple;
+	bh=PxX9K5ZDgh0h3OcsbaIRWuSqmui98K76LJSn1C9+4nA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=My1tdkHLMYLdxWhz/4RH9G4Ew5+Db7Y7ONFSGlcKQ4SqIcn37NEx5cgD6tBfIV6SzGyhFjBgJVw2tHd4J3X8sWc9bSGA1V8wpgIQuZO2+xZrO/onHOk8Dv5XXJr9hzxlXgrHG68exBTBbgcRTE+tc5mmu/dbNWYe1mUTifGmwL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIaKuSuI; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=qAr0KL2pvkEpYLcMi+Q5ZH5b0sXBYTqcDLQOgXVGBENlvbEtfibMm+87rKLdT1LsWEAm9Nc6qafCWIAmp+n8a78m5WaoW6xE20K+PAF5T4HJNZlQW1nNQo5PuZuWnQ7UNUACTNxMEeHmXcVR2udaAQzm9KSGGBy818mXoU6NNLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=as/ZULja; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIaKuSuI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFD91F000E9;
-	Sat, 13 Jun 2026 07:27:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="as/ZULja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4AD1F000E9;
+	Sat, 13 Jun 2026 07:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781335651;
-	bh=YQ9O70EUh8yM5UxCgZhjwJYJ8NL5TMMK2GFpz5MwoEE=;
+	s=k20260515; t=1781336035;
+	bh=ewzja9ztBOPyrsczWsX9X0mxKc4EcOTeQhgKRFEwSmo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EIaKuSuIYHgO8I78NMB8rUtYv/j7O3Gmc8MbJUt0kBl4+wAulcWTS6kyGKLtU/2Yz
-	 aF8Qgi1ty9V6AcQYcCZQXB3q88H99De4tQ3OrGTfMho7oa37bIgkLChAhay6I4x+lL
-	 /wb2jwRjVNAm9P3DhJutuIy4Tzs7mg8rV1jVvKXQjdjIcWGRPl0HUy7xtiitR1wwrM
-	 9ucPfhfO/y74j/JfKPC7L3hhZHaBkK1kms4NOnCi06bQMDx3/6gMAgg0FkPJF3ho5P
-	 K1uYXoqZvSq1U6xIUqkXH0SnSZfhNtS531V7sg0D5pcNNkW8YPghdBEk+FnIUmYjE3
-	 XG344D0nMHwAg==
-Message-ID: <884ab54e-a8ff-4f93-aa6f-9e6a43832ee9@kernel.org>
-Date: Sat, 13 Jun 2026 09:27:26 +0200
+	b=as/ZULjaN3KQJ1AWFBOyUUGfrxS3kL3K8RK/IZNd1Xg8aEre0XHqGgrl7rA0Ra8kY
+	 R2ukAPQqDtzz4e3JmRD93b/WTUgwgr9NwRe2OXxGvhHEZcJ6t5u8LBxGEj9R2Y/Ns7
+	 b8BNrgI/sCMZiSnRWs+PKthdzPhkRPn2jMT7VV1ZSi39GQayjIFTnOo6Y+ka7S030u
+	 uNAAbjw4yKGvS9Ov/BTvjo5gWJQ39XIWtSYbZtA8DEOG52FRLC47/o/GCHkpBbILP3
+	 ztashKoyRk7RF7+Xv+EBXro2JW5wc83FKCiqWnv6uHztQc80iV6W8rs0AAFyT5RWkz
+	 vBwrQffbSx7pA==
+Message-ID: <fbaf1829-723b-4a87-882b-b164bb544912@kernel.org>
+Date: Sat, 13 Jun 2026 09:33:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: power: maxim,max17042: Fix temp types to
- signed
-To: "Rob Herring (Arm)" <robh@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
- Purism Kernel Team <kernel@puri.sm>, Sebastian Reichel <sre@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260612215315.1889039-1-robh@kernel.org>
+Subject: Re: [PATCH 2/7] ASoC: codecs: ES8389: Fix the issue about mclk_src
+To: Zhang Yi <zhangyi@everest-semi.com>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ tiwai@suse.com
+References: <20260609-visionary-truthful-viper-ceff75@quoll>
+ <20260610100637.25568-1-zhangyi@everest-semi.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,26 +87,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260612215315.1889039-1-robh@kernel.org>
+In-Reply-To: <20260610100637.25568-1-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12/06/2026 23:53, Rob Herring (Arm) wrote:
-> The max17042 binding described "maxim,cold-temp" and
-> "maxim,over-heat-temp" as unsigned values, but in-tree DTS examples
-> use negative temperatures such as a cold threshold below zero degrees.
+On 10/06/2026 12:06, Zhang Yi wrote:
+>>> Fix the issue with incorrect modifications to mclk_src
+>>
+>> What issue? Your commit msgs are really poor - explain nothing. You just
+>> duplicated subject... and anything can be a fix.
 > 
-> Document the temperature properties as signed int32 values so the
-> schema matches existing DTS data and the driver can use signed helpers.
+> I'm sorry I didn't explain that clearly.
+> When the system needs to be configured to use the MCLK from the SCLK pin,
+> the old code still sets the relevant registers to use the MCLK from the MCLK pin.
+> I will include a more detailed description in future versions.
 > 
-> Assisted-by: Codex:gpt-5-5
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/power/supply/maxim,max17042.yaml      | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>>>  	struct es8389_private *es8389 = snd_soc_component_get_drvdata(component);
+>>>  
+>>> -	ret = device_property_read_u8(component->dev, "everest,mclk-src", &es8389->mclk_src);
+>>
+>> Why are you changing implemented ABI?
 > 
+> In the old ABI, `mclk_src` was defined as `u8`, which meant that users could set `mclk_src` to any value in the DTS—such as `0x02`,
+> but the code wouldn't recognize what that value represented.
+> The actual purpose of `mclk_src` is to indicate whether `sclk` should be used as `mclk`.
+> So I've changed it to bool.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+You break ABI implemented by this driver, so you must clearly document
+it with reasons, why breaking is necessary. Honestly, without proper
+reason I would just answer that you must keep it backwards compatible.
 
 Best regards,
 Krzysztof
