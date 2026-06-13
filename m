@@ -1,127 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9487A31F98B
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1D0374A04
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781334558; cv=none; b=ABXy1LIoMSAHw2f6r4DNppaXxekrON7JweMkmg24bv1XgwSfcB951UV5UgjHif6HKNwzuSIgMrcg7dMV1djyYCPoqGVjpEpAd6WWE5JX7TXZwXzxoNpRTFawVtqX+sSfTbE/Fdj50lEYxbrZEkpFAf9ode9xr7dm9LIdz/UGv8I=
+	t=1781334577; cv=none; b=FgU2s3FF2OrBrpxOsdCRgnyv3YWFzeKTOw6jI12p3nzmoyiFKzzEJIjqqZyhjkyURV9dgoYruUrJgUf76CjV5KLb/B7GuZxAkNk90reJY2isHojAiqmkjE+xl4HFLVIKYzUQ4nU2OtEJiQpXvqgBbVDucGtFPhoZnv+bgWRfwqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781334558; c=relaxed/simple;
-	bh=du+XA+/6nUdgAn+L20Xa0DQtvFjxHX+nzoSN7aMYNnk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MQFowRfWV7bvxu2VVKwAEbWFN87lhsdIodrHrh7IAIaUD1JEF3OPm8qceqRZkCVcuPZjpj7N5txp+AnZA6iPmaQEFh00LJlbJ9w+SvV9CRPmhu+WjY0ZaVLmV6OfjSTKi04I5huEHaXATeb9dVjqlWFTQXIBPtQhuZ/30XO7JCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HS0Vt6ou; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781334577; c=relaxed/simple;
+	bh=0VWkmQdyK+ohkbIi8obIRcQ1CwP55X4i56+QKTQOCq0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kXgHf9zKwwNV/1RI8GSzADlnpJZ8jvhvTbW9qPCRkLmZsnOlC8bK7UW63D3YYjuaMGgVf43POiG019oZo8GaYjvMPLDacRsvXMDwPe6Bm9md7verZ4/bPkv+jriU4djHIuzuD3l0m1zkSWzv40PkeSkseNbxNVB//xWS0NadhkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klzilNZk; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HS0Vt6ou"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A362E1F000E9;
-	Sat, 13 Jun 2026 07:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781334555;
-	bh=UB3uAjFnfhInw5+4dO1bH2vnDbZT3yG6O7bCyCmnOwU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HS0Vt6ouKAIXqUNd2hLd+H6Sgn/LRnTdVMiy/PtJuglpeCFCJE2erTYo8J/CD6VrQ
-	 XQVdHm2c++31BxPBMXQRmGCxzyQfaouvaRzS/vbE68pPAodbITePM8tcN1WC4baJJu
-	 kRq88kDC+4LYsjHSadxCCK38aptYIGxQIX1W39aGPxPYRC7EgRvZPW9OfvzuDBmYQ/
-	 h0gUA8TgSPKfobJGWt6K41mGJtzcMt3loudRpWWddKPQDTq2Xqw57b8/E7/NXRLEB6
-	 2/HgqBOm4IAm5zJDxLksKzmsB4yeHDHliSl1HUw2ORRDr7f7mieDg1jlH865ih8mHm
-	 HgVPRq0mIcYYw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v4 7/9] arm64: dts: rockchip: rk356x: Add the NPU
- and its IOMMU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: MidG971 <midgy971@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260613070116.438906-8-midgy971@gmail.com>
-References: <20260613070116.438906-8-midgy971@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 13 Jun 2026 07:09:15 +0000
-Message-Id: <20260613070915.A362E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klzilNZk"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36bd175fdbaso1098258a91.0
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 00:09:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781334573; x=1781939373; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yqSQR9XwXClJ1dx3NWVea2VA61Fsyqn6eOD6/POM3iY=;
+        b=klzilNZkRCFWkPmqVz30PTaZLtUjaXlaKNrdEiGPEJDTgfEbROSudIX4Kn9mQyNlxG
+         cRCtM5LeBxYiMj6pqVx+BOxu1KFeE7a8XTimtfut+VxJ+zV8TnF5eVG8frMohJjQ3X+z
+         jNT5fVgAoW4d7Fw2kPQWRXd9XiQyikQcHRqtVCAwZV9QztPrqwmR202D9lYwb9b9iFFe
+         SE+2+hGI+ce/043Sgyy9K6Ffly2RkDUuBP8/B2Kl5eqqTleQTe2tB3VKL6gmmdkVjqtU
+         BJL9C1gU43ePZ4ytcD+aDl68rqC3oWRFt5aEpUbMBmzu7+zvcEpJmtOq1PhN1YUUlXO8
+         hXFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781334573; x=1781939373;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yqSQR9XwXClJ1dx3NWVea2VA61Fsyqn6eOD6/POM3iY=;
+        b=nz7ni58tdGurhg0f5CUV1yM5pua6vMVNBYSSRAW6NIEawl0FNFojts5hRD/XKW5WiG
+         jLKFotbMfBFbCu2QhWXkqju8MltTqAxQdIrptdBoTLgHAJpQAFFl0Fo6xiqGEiYMQaQa
+         xSLSJ+d4FOoB4DXaQsabUQl/dtO2jzPYMglUBrQIDUosSTOj9HiRs15P/JBynWTLJQ77
+         /PFoxOeWt9wO10ZVPps4elYFXRFFRsOzVk7ztxaLilR8M4N74DECve+8BSC8KrjDs9Lr
+         JZGyK4hSCtiwGtCPQm/sW1q3CDb1TKq2mQ9CoqQ+bZK3qmL6PFlnguqpn2RjiAYm3m3d
+         gTTg==
+X-Forwarded-Encrypted: i=1; AFNElJ9pUJ2hi5Fev6ofyaxzmXc6LXASKman5PCGEgdBff5UZBSBz3ROyhj+VbCProdikArVd6ndDe/Ea6wS@vger.kernel.org
+X-Gm-Message-State: AOJu0YwC19//PWgLQZYDnojpuEz8GDDkZh64f3I4RgIc7guTnFKNHi2E
+	+F8IJfahuFfkIXtHKDQTgjq3lV7k4KxqP+pUpVRkfAeihs6ZoYz5/mB6
+X-Gm-Gg: Acq92OGHbWNhAII1hL8IRta91uLcSZIQWT0OZ4mZ66NlYWcllPpYnLLOio2kVPCcSNZ
+	aNqSNIvZAaqv1I4pLS67aNw/LL9rcZg0as7ZqORVujuvHneS1wal+2gQLX5vftt3cYCFWDNi2/E
+	v1n7zM6op7KTvm/G9YxYnHb6rJaFQFk6RGyWR6LqKqpRGc6pTX4QIPkOGfGzFWkaDqCA0vyAmmk
+	ENpZXStVPwX/pu4djxunKO2LAf51AlbMC8XiGJrGGrzpK0bL1g/uv8iAQc1s7irJkQsZODsql76
+	vzni6kt0t7EoLNT+03zyBIWkAwqa1sB70zB3vNdV2LQ/Ph7PIY//AU46vvyEonOuX6EQVCqBXs7
+	kCqFzbjqOBLD0vy0H2KzcQqKSkXAKoeOXOUelepUCXWikAKtJeYZm70AbOm6mmBkIDDgWYSPPtc
+	MnXwDvtE1CrWGOF4QnZrAgVniuPaeVc35NHqMy9vbjYcQP
+X-Received: by 2002:a17:90b:2d4b:b0:368:ed26:15b2 with SMTP id 98e67ed59e1d1-37c2bc65207mr2649723a91.8.1781334573307;
+        Sat, 13 Jun 2026 00:09:33 -0700 (PDT)
+Received: from [192.168.0.8] ([49.207.61.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37a1f363409sm4369435a91.8.2026.06.13.00.09.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 Jun 2026 00:09:32 -0700 (PDT)
+Message-ID: <f3e1ecce-9917-456d-b02e-a75827d9c867@gmail.com>
+Date: Sat, 13 Jun 2026 12:39:27 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] dt-bindings: mmc: st,sdhci: convert
+ STMicroelectronics SDHCI-ST MMC/SD Controller controller binding to YAML
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260508-st-mmc-v3-0-81c329ed28e8@gmail.com>
+ <CAPx+jO9woUB9VGUx+ebWD9oOhqCwzXL9=41MEesnWS15Nyr66g@mail.gmail.com>
+Content-Language: en-US
+From: Charan Pedumuru <charan.pedumuru@gmail.com>
+In-Reply-To: <CAPx+jO9woUB9VGUx+ebWD9oOhqCwzXL9=41MEesnWS15Nyr66g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Incorrect IOMMU compatible string 'rockchip,iommu' is used for the=
- RK3568 NPU IOMMU, which will cause translation faults.
-- [High] The assigned clock rates for the NPU AXI bus and compute core are =
-swapped, severely overclocking the AXI bus.
---
 
-commit a304190b5b1e8ffa602c7c5d7dbdfed3a2c3dcae
-Author: Midgy BALON <midgy971@gmail.com>
-Subject: arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
 
-This patch adds the device tree nodes for the NVDLA-derived NPU and its
-associated IOMMU on the RK3568 SoC. It configures the clocks, resets, power
-domains, and assigns the PMU syscon to manage the NPU NoC bus-idle. The
-configuration also intends to bring up the NPU AXI bus clock at 200 MHz.
+On 29-05-2026 17:40, Ulf Hansson wrote:
+> On Fri, May 8, 2026 at 7:23 PM Charan Pedumuru
+> <charan.pedumuru@gmail.com> wrote:
+>>
+>> This patch series converts the legacy text-based Device Tree binding for
+>> STMicroelectronics SDHCI-ST MMC/SD controller to DT schema (YAML) format.
+>>
+>> Note:
+>> The patch "dt-bindings: mmc: st,sdhci: convert to DT schema"
+>> depends on the patch "arm: dts: st: align node patterns with established
+>> convention". If the DT schema patch is applied before the DTS
+>> cleanup patch, `dtbs_check` will fail due to the presence of the removed
+>> properties in the existing DTS.
+>>
+>> Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
+> 
+> The series looks good to me, but awaiting and ack from some of the dt
+> maintainers before applying.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index 64bdd8b7754b5..313db59c1aed8 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-[ ... ]
-> @@ -572,6 +579,37 @@ power-domain@RK3568_PD_RKVENC {
->  		};
->  	};
-> =20
-> +	rknn_core_0: npu@fde40000 {
-> +		compatible =3D "rockchip,rk3568-rknn-core";
-> +		reg =3D <0x0 0xfde40000 0x0 0x1000>,
-> +		      <0x0 0xfde41000 0x0 0x1000>,
-> +		      <0x0 0xfde43000 0x0 0x1000>;
-> +		reg-names =3D "pc", "cna", "core";
-> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
-> +		clocks =3D <&cru ACLK_NPU>, <&cru HCLK_NPU>,
-> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
-> +		clock-names =3D "aclk", "hclk", "npu", "pclk";
-> +		assigned-clocks =3D <&scmi_clk SCMI_CLK_NPU>, <&cru CLK_NPU>;
-> +		assigned-clock-rates =3D <200000000>, <600000000>;
+Yeah, but until now they is no response from anyone.
 
-[Severity: High]
-Will this configuration inadvertently overclock the AXI bus?
+> 
+> As the change in patch2 for arch/arm/boot/dts/st/stih407-family.dtsi
+> doesn't seem to cause any conflict from soc maintainer trees point of
+> view, I can pick this up too when applying.
 
-The commit message states the intent to assign the CRU CLK_NPU so the NPU
-AXI bus clock comes up at 200 MHz. However, based on the positional mapping
-of assigned-clocks to assigned-clock-rates, this assigns 200 MHz to the SCMI
-compute core and 600 MHz to CLK_NPU.
+Sure.
 
-Should the values in assigned-clock-rates be swapped to match the order
-in assigned-clocks to prevent bus hangs?
+> 
+> Kind regards
+> Uffe
+> 
+> 
+>> ---
+>> Changes in v3:
+>> - st,sdhci: Edit description of reg property. Modify reg-names. Add
+>>   "minItems" for clocks and clock-names properties.
+>> - Modify the commit message to match with the updated changes.
+>> - Link to v2: https://patch.msgid.link/20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com
+>>
+>> Changes in v2:
+>> - Fix node name in DTS for the MMC to match with the estableshed convention.
+>> - st,sdhci: drop unnecessary properties, modify "reg", "reg-names" and
+>>   "clock-names" properties, include an allOf with $ref to mmc-controller.
+>> - Link to v1: https://patch.msgid.link/20260409-st-mmc-v1-1-4c54321c3535@gmail.com
+>>
+>> ---
+>> Charan Pedumuru (2):
+>>       arm: dts: st: align node patterns with established convention
+>>       dt-bindings: mmc: st,sdhci: convert to DT schema
+>>
+>>  Documentation/devicetree/bindings/mmc/sdhci-st.txt | 110 ---------------------
+>>  .../devicetree/bindings/mmc/st,sdhci.yaml          |  91 +++++++++++++++++
+>>  arch/arm/boot/dts/st/stih407-family.dtsi           |   4 +-
+>>  3 files changed, 93 insertions(+), 112 deletions(-)
+>> ---
+>> base-commit: cf2cd8efd046c561191b8541d32a8bfe845bf06b
+>> change-id: 20260327-st-mmc-c906ad95ff83
+>>
+>> Best regards,
+>> --
+>> Charan Pedumuru <charan.pedumuru@gmail.com>
 
-> +		resets =3D <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
-> +		reset-names =3D "srst_a", "srst_h";
-> +		power-domains =3D <&power RK3568_PD_NPU>;
-> +		rockchip,pmu =3D <&pmu>;
-> +		iommus =3D <&rknn_mmu_0>;
-> +		status =3D "disabled";
-> +	};
-> +
-> +	rknn_mmu_0: iommu@fde4b000 {
-> +		compatible =3D "rockchip,iommu";
+-- 
+Best Regards,
+Charan.
 
-[Severity: High]
-Does this compatible string correctly identify the v2 IOMMU hardware
-present on the RK3568?
-
-Using rockchip,iommu binds to the v1 hardware operations in the Rockchip
-IOMMU driver. Because the RK3568 features a v2 IOMMU, configuring it with
-v1 driver operations could result in incorrect page table programming and
-translation faults when the NPU attempts DMA.
-
-Other IOMMU nodes in rk356x-base.dtsi use rockchip,rk3568-iommu. Should
-this node use that compatible string instead?
-
-> +		reg =3D <0x0 0xfde4b000 0x0 0x40>;
-> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
-> +		clock-names =3D "aclk", "iface";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613070116.4389=
-06-1-midgy971@gmail.com?part=3D7
