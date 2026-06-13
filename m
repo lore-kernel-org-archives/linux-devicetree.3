@@ -1,233 +1,255 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C1427F4F5
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923381AE877
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781349140; cv=none; b=hzOW2Xy2Ge2MOgzZHKkotc7OaIBY4Uld7pPbyfq1yCtZsvDGw6qLwIiq6Pjm44JYkN0su1ML0sW7csWqasbQ3Zsm8Z0DOGNP5/SrGqDyekFXjudZhW1RbRdKzHOUyfzvL2h3mqwLsweF3SpLhBk7wHpzCg4dscdBNXx67Vwuu3k=
+	t=1781349368; cv=none; b=foGsmBTeqUJqhjYuFv2Ylb2PBvVplArlvt2gcGa1z0QMnC+gL+jGR4AFSVv6u1TXdJUnC5iKKG9C48o+A2u6eY8PhUgXtY3oeghh8BQSzcJVvzBsJ8E9slA0pDyTWNsljAMcJ0i2JomRYiGSsEMZSOowmqAc/L/xtBUELY4UMBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781349140; c=relaxed/simple;
-	bh=Mxk9izfmJ1iYm8ASdn+hegoHoCOC54G9INbOprZmXnE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J/23JOwQYlyNB/L1Y/OqX7w4CQLfr+qvKNDWFVphIRL2nWJJfav+A1xBOPDRDgO5mg7ntdd4svM8wDbkdZcVXayr5YqrjhsO6O/+hEfTqfWzr5e+XJQK/r1mIwWG/ClJFL/31VsVrA25N1pKlNqwEI+pmdDqWpf+PfL377H9WGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cAbjQl+P; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781349368; c=relaxed/simple;
+	bh=YoKsP5jyQNp2ZucctxAXbiSQWgYelgFgXvNPt7Y3Qn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mCiJbPp1kgkj0YPSqvmibWfY+FA7CqVqxx7Q9ReZI0/lfrWnVSVzQucsENz4qC8OSnN/O0SzYIpOLgz/xpCPCje4UNRjmCPxS+hb5QdOO9DmRg583nKNZYWqSvIu7IWX8b6kn4DFdnwTxYwb8G7Vapm3EgypYyMxpMeMSHlYzEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c0r3M2Jo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RbmjSA9S; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cAbjQl+P"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c40397e3caso15640335ad.2
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:12:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c0r3M2Jo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RbmjSA9S"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65DAuFGl2178696
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:16:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5OmjQdfNxH9BcCMT+yXKYbW4+8NRoGCiNzl/yysDUKI=; b=c0r3M2Jo8P6Jb2YP
+	Gwe926apPB70ZPiTFw/XNm72qXx3dGhZTK8SuobIPhYrVEOWY0Ceeeb7VznX906R
+	DRgkN5HJWKSaSfHYVBePnVUBissJSdIzMsA0TqUwP4NUQ9ztbtahYRSz9saznkDR
+	+4S8eiefw0bjFv6YDAgmq+1tleiOeLcPbkHIFFdHsDZ+GTUFfx4+tXFIN4XwqVCF
+	0C0M0AtVM7ixUZmjOrLIcn5snP5KVkjrNlYrMf/Q8KHve2VkOhqUvVSeB4HzPZGg
+	N3G6DkM8NZC2h4Nt6d/ZeiGTT4UZTwc2l6Ea3Rctu4lruaVZRkaj2KzPTi0/uo8D
+	+mqcuQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eryybrt00-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:16:06 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8cec4d27d33so39762846d6.1
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:16:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781349138; x=1781953938; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Jv/S7oGdPwlP4CzZrwOTO68eimVH3uL1uxQlQb3wY7k=;
-        b=cAbjQl+PKbanUll+WUnaNTqL/LLehNMnUok+CGHR8vQiZg5AJeNU/DuWEOZlRYX8Ji
-         5aDhDPcB3cJKDgHyYGBKawPPbvTAyKz1pkgqYS4eh8cGwNvB1e4wfUKL+W3bcPw8ksHd
-         ZxbWWaubsaNme9TevUZS64aMTsTYPZM4iZNtuoQrsToPb9WbRiBPxQkRlVYqBhay9N8Q
-         F9UfV5wbx40JId88yOMVfQqYeqReOwdqzlZXH47L1WxWtyI+2NmZSY0z2zTUJLpjI+C2
-         7Uj72IEyIoA+GDbnpHU9WJCUCLHOXkMtsJOXoPkm4IN8mstgHkP4Ngxj+Dph5RHir/0n
-         yBpw==
+        d=oss.qualcomm.com; s=google; t=1781349366; x=1781954166; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5OmjQdfNxH9BcCMT+yXKYbW4+8NRoGCiNzl/yysDUKI=;
+        b=RbmjSA9SSjzRQ6eL0+yG35CCBk8LQ6bcN6/t1TxBbMDWJu8JrK1axXxaytO9vL4ctO
+         PtxCjq8u4xCqhr4C/81TGA9VC0j+v44SsauhNuPDfWi/u0FFlx3UiuKmKfCL7zOfs2gI
+         cMnU8FtuBhMCz6TGbLaP6QroqPOC57/+R3i/+HBN8UY+ygLhhcK7Ey7YI03WqtAQuKqG
+         PKNhijiTLxNnmvPGlwlTNHC6IbWSQneQf0vrXqTpLEY3na7lvjhP0uz23lzB9MWHp7JZ
+         KQHOnRO2e+RapUX0lto/VYhdixAx1wc1oVX0UpHjcynMcTEj7egLvHOcHHHhpjh3YqzT
+         5z4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781349138; x=1781953938;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Jv/S7oGdPwlP4CzZrwOTO68eimVH3uL1uxQlQb3wY7k=;
-        b=KxVghUUO25hlJFHu75FHtigWN6q5u07JW9Hj0hVQS0oftQNo93DlhF9gFLhN1VbdkD
-         KpsBx30jtqN9W777/H31xiBkV0T8rUWgvXhbVNVb1JgjQdjOShLcr6LKxHO+5TCV0Lyh
-         evD8A/iQQSkMxnSbxSxItRepHoa/xDsxWT8rECtM8v8lsMqXHofX0Xl2f5EsfhRmCa5V
-         6UPBCBmh8BZVnfG1AuOL8XZfCcKy0BV5RU16jyZhsPpGGVU7NPzrVC0Slx+ZfmmbT98P
-         mKY4OPIKn+2I3M7AsAY8ellDbT3v4BRLQCjyulYdkPG04c/4h78QbDLFhWDjlp7WJDEr
-         kwYA==
-X-Forwarded-Encrypted: i=1; AFNElJ/bmEsyaXkNNctRA7h7JShkzL4PG+FfR8+QP9+tR7FA3U85tExjM9713SS6mpu4mSG5RZvJzF7EUfkt@vger.kernel.org
-X-Gm-Message-State: AOJu0YwyDgpPuQyuPhA8hgGWoJP5qLOChErjBlAWHucEOb8Zi5jwYYes
-	vCH+a7YQApw1VWKNjhAAOs9xio4cZJLom3wl3tU0CkoXUogf6q1AGoWbvlh6g5o/h7o=
-X-Gm-Gg: Acq92OFAwzAsRpYGZBIgCChmBllLJAe0MsqdJTW55xRMfjB9Etq07zfusHAqfhKzBRx
-	dQjytMPVwsRzQWd92kB6JDVQOGkmIRQeFPNlWuwJ+3kDDP4QLND/+g+fWTyB3cA3EZ0lkjoL4gp
-	BAVBjF5vzpPPq2grBNztaeX4jDUWQNhZRmzrwmjvgKUGPR3h0j4r4D52xCSZBV/zrlp6Pze3zPl
-	LzdsIPh8re0Sv3dJwZzVQzYbpP8gJqtnvfKUTlj9fyKo3RcmvS9y6Wwsy7vp0uEcev34D51oy0P
-	LBZuPMyI+oGooCO46PisRUdr+WLUROgofViBzYv8hPYyiCtoTNkvf35IQ3Oyr+kz+JZZaJ42ks4
-	IRWZ0Zv8v5VZzhIjLtCRyjsY7xS92pMEzu8SCypYYSJtBHLi4tC/TnSyB8WiyXK9LwxL+fwanUR
-	rdCVRMmt98qPVk7iwtH54x
-X-Received: by 2002:a17:902:e750:b0:2c1:e04d:7cb5 with SMTP id d9443c01a7336-2c412841372mr79321145ad.34.1781349138173;
-        Sat, 13 Jun 2026 04:12:18 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a54:e741::1003])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f7c58c3sm47466445ad.23.2026.06.13.04.12.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 04:12:17 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: sashiko-bot@kernel.org
-Cc: conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.torokhov@gmail.com,
-	jerrysteve1101@gmail.com,
-	linux-input@vger.kernel.org,
-	robh@kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v2 9/9] Input: cap11xx - add support for CAP1114
-Date: Sat, 13 Jun 2026 19:12:14 +0800
-Message-ID: <20260613111214.17097-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260612074238.4C3371F000E9@smtp.kernel.org>
-References: <20260612074238.4C3371F000E9@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1781349366; x=1781954166;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5OmjQdfNxH9BcCMT+yXKYbW4+8NRoGCiNzl/yysDUKI=;
+        b=TJj7ID/4zqpiuv/DHv23DUrhfjjOCledElsUS6OMW7WgJIPze5PmAxpqNE1RYRF/qa
+         R0tlOGF34h+0T4e3UzLot3OCj8HtZ7A+lzscstrcf4RcyfI/apyi/x9mfJ81gsmnYby5
+         /xrw0VlCoOdA+24gDhX8byIj5petNT0y5Ca7NuC/WDwhVSTlFOi8WewbjQt0pgRFgEDF
+         gvvvEQe8rXW6omWQ853QLxymE7kQSHIV0GeGKCvfsQaZ3QM4LTPoVuGVJGEBju2kwDkK
+         FgoQLbzkq/bSJs7f45nFV66R4JfEvUwGM8e/qXtDdkX2WsyX6zc+B9tvLvLFB+66xmk7
+         bxRA==
+X-Forwarded-Encrypted: i=1; AFNElJ9GhW2ixOSoAd779Ci0Zb71Lkf7vCREcmbtiXxTVfpkQ2IcGFS42Xbe4Qh5tzgCEFQ6qBg241rsmK4N@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvV8dwtiPMnQywDrBLPP+KhXTmIMEvzk2uk0zqDslYM8qN0Fbt
+	BannzUt/okGwd2X9Umys47iqlrOngwATn31R3hbDr3QXaMKaFce/PoMu4BTigcUpfI59LuTyiM4
+	BajG/hK67CfMde95oGg6DJnJihSUtfs89qhwuhzHJ/wg1cVmfkFagrvrpwzkucV6+
+X-Gm-Gg: Acq92OGkexiNXnLRFo+Eu/elanPECrk9Nf+Ku/Br4ER7vYV+o5cQRR8puPqQbIF2Qoz
+	heKs9f+pdR7I+gUF+/1GBnRp7mjTINsZpiGcIkliExJwbdQCIwrylokl03AV01TKGl3GP06TZzm
+	ieIhfBFXgZWZUawUT/mTBUlbVpl62MSBgJ5gbLnydOdqqvEEvbNACD0DCN0lk5Oy4V09fv6/8Ak
+	zvm5wFzPpGa0x6UpUKLP0ZvYS5m2Sk0ykHHiHIeDqZ2apvyE0ZDhw/IOU2hVB1IjyLgMCNGyhOH
+	1fgKt3dDvauIS16vhy+9WjhS8Q6U5LcuXn59896w8yF/PaV0t5DjhfJPqF6zBGtBwXvo/ro0weO
+	pty28a7knEnjaYB/mqk0VVfQTGpKIVwm90tLr9cX5LhFq8ZwNJUluDg==
+X-Received: by 2002:a05:620a:f01:b0:915:29cd:306f with SMTP id af79cd13be357-917f1c55af3mr560613485a.55.1781349365807;
+        Sat, 13 Jun 2026 04:16:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:f01:b0:915:29cd:306f with SMTP id af79cd13be357-917f1c55af3mr560606585a.55.1781349365239;
+        Sat, 13 Jun 2026 04:16:05 -0700 (PDT)
+Received: from [192.168.1.73] ([92.247.57.178])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb44208f8sm214433666b.10.2026.06.13.04.16.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 Jun 2026 04:16:04 -0700 (PDT)
+Message-ID: <9fab1877-976b-4495-86de-a8c853b9ba24@oss.qualcomm.com>
+Date: Sat, 13 Jun 2026 14:16:02 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] arm64: dts: qcom: sm8550: Add JPEG encoder node
+To: Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org
+Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
+ <n0iPW9ltP_HyfKgagM8MIvaGg_NF7KvUV834b6MPuE3llz9v6B1jdn6wEvXMkIHS_zLRsjnb7pXY3dURUOSs9g==@protonmail.internalid>
+ <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
+ <8d230cca-2023-4a13-876f-d5db8eb200a1@kernel.org>
+ <Y69RNi5x51R9xs6wvf1lRTwKww7gu_-s3WDlGvLpDuZ4YEhg4lrXnuwn4V2p9bSGUQRM5x-vVsDTNt29kOst3w==@protonmail.internalid>
+ <3d4e0147-8e62-4872-b881-1452f5e09e85@oss.qualcomm.com>
+ <f754c28c-2d0f-4e10-b542-37eca70b091e@kernel.org>
+Content-Language: en-US
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <f754c28c-2d0f-4e10-b542-37eca70b091e@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: H9nXJZEaeoFKh6xDtadsOzPcySVbxRfr
+X-Proofpoint-ORIG-GUID: H9nXJZEaeoFKh6xDtadsOzPcySVbxRfr
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEzMDExNCBTYWx0ZWRfXx1Xvc8p+ouH/
+ 1H9J7WSKa0y66PjN/KOJVUqxx9eDXo2rrZeNWWUOxEYgkXdz+5AM3jLl5V30EYcBfyCRqM380/a
+ 3oJTKkbmN9/NU1W2mf+GXHuds1s4bl4=
+X-Authority-Analysis: v=2.4 cv=JLYLdcKb c=1 sm=1 tr=0 ts=6a2d3bf6 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=CIwv6HcgfBTlmMJXo-UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEzMDExNCBTYWx0ZWRfX2Q5hgt7MNEeT
+ zvC8vlp5j6yEJUrMA1Tx8Ji9RSaAZNON8/+iMRwG0vW3bXYl1T3I1mzRSFBGeLmHcd9WANb+kvU
+ TUkN/Z8XhNhLOWOgG1L0QKlUkhOtw9nOP31hRuZjMuSb9uZVYfiMVwIaBcyToQr4zgu1holI5Qa
+ mt9zYKRg2cSJQqKE+B4HB2AMekbKoIPplcKvhsrup8MC66HvHkjB1PvwwHf0YeRD4+CfhV8TPFN
+ Kp4EjFeIOhlEy2NLehzk5oX4IN31SYgbXvQU9GQLdLrEU7kKTUknveisbKM/pmGm3ueltFrCOZc
+ qoPsuDniXJOvOF/9oBbg8TjzyhQds6ZAMy33/DQH1Y4dSITrORbKaL/njUiBYTyMWRVvduzaJ1U
+ RhaA6m/rwAAEEkUpzgnS8huIZc+gS5qbsS/dviWEQybvqZXjWMbZOHX/CC2ukcc4j01oPsqqIoR
+ z8nv+jn70dpmG2hDx5w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-13_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606130114
 
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-> s) to consider:
-> - [High] Buffer overflow when parsing the 'microchip,calib-sensitivity' dev=
-> ice tree property for devices with more than 8 channels.
-> - [Medium] Integer truncation silently drops signal guard configurations fo=
-> r channels 8-13.
-> - [Low] Out-of-bounds `GENMASK` generates an 11-bit mask for an 8-bit LED c=
-> ontrol register.
-> - [Low] Unnecessary 9th threshold register added to regmap defaults.
-> --
-> 
-> commit a843fc20f78c2766e479b33ffb3dcd6238d1f3f0
-> Author: Jun Yan <jerrysteve1101@gmail.com>
-> 
-> Input: cap11xx - add support for CAP1114
-> 
-> CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
-> and hardware reset support. The CAP1114 uses two control registers
-> for LED output management and requires two button status registers
-> for touch input state reporting.
-> 
-> > diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
-> p11xx.c
-> > index d45bb231d7a1f..e4da0e26c34a8 100644
-> > --- a/drivers/input/keyboard/cap11xx.c
-> > +++ b/drivers/input/keyboard/cap11xx.c
-> [ ... ]
-> > @@ -98,6 +105,9 @@ static const struct reg_default cap11xx_reg_defaults[]=
->  =3D {
-> >  	{ CAP11XX_REG_SENSOR_THRESH(3),		0x40 },
-> >  	{ CAP11XX_REG_SENSOR_THRESH(4),		0x40 },
-> >  	{ CAP11XX_REG_SENSOR_THRESH(5),		0x40 },
-> > +	{ CAP11XX_REG_SENSOR_THRESH(6),		0x40 },
-> > +	{ CAP11XX_REG_SENSOR_THRESH(7),		0x40 },
-> > +	{ CAP11XX_REG_SENSOR_THRESH(8),		0x40 },
-> 
-> [Severity: Low]
-> Does this code inadvertently add a 9th threshold register?
-> 
-> Since the indexing is 0-based, an 8-threshold device should only need indic=
-> es
-> 0 through 7.
-> 
-> Register index 8 appears to map to an unused register.
+Thank you for the detailed explanation. Let me share my understanding of 
+the shared upper-level blocks. They are exactly the reason we have 
+frameworks like ICC with aggregate bandwidth voting, reference counting 
+in the clock framework, and so on — the same applies to power domains. I 
+do not think using shared resources is a problem when the drivers are 
+correctly designed.
 
-Good catch, CAP11XX_REG_SENSOR_THRESH(8) should be dropped.
+We have actually validated this: we got CAMSS working alongside the 
+Qualcomm downstream camera stack after fixing the shared resource 
+management — something everyone considered nearly impossible at the time.
 
-> 
-> >  	{ CAP11XX_REG_CONFIG2,			0x40 },
-> >  };
-> [ ... ]
-> > @@ -394,6 +442,14 @@ static int cap11xx_init_leds(struct device *dev,
-> >  	if (error)
-> >  		return error;
-> > =20
-> > +	if (num_leds > 8) {
-> > +		error =3D regmap_update_bits(priv->regmap,
-> > +					   priv->model->led_output_control_reg_base + 1,
-> > +					   GENMASK(num_leds - 8 - 1, 0), 0);
-> 
-> [Severity: Low]
-> Can this result in an out-of-bounds mask generation when num_leds > 8?
-> 
-> In cap11xx_init_leds() just prior to this addition, the code calls:
-> 
->     error =3D regmap_update_bits(priv->regmap,
->                    priv->model->led_output_control_reg_base,
->                    GENMASK(num_leds - 1, 0), 0);
-> 
-> When num_leds is 11 for the CAP1114 model, this generates an 11-bit mask
-> to update an 8-bit register.
-> 
-> While the regmap core safely masks this, should the mask be clamped to
-> min(num_leds, 8) to accurately reflect the hardware register's capacity?
+On the CAMNOC and CPAS concern: if that coordination becomes necessary, 
+the right fix is to address the resource management in both drivers 
+independently, using the aggregate capabilities of the existing 
+frameworks — not to introduce a
+hierarchical dependency between them. Moving JPEG under CAMSS does not 
+solve the CAMNOC, clock and power domain coordination problems, it just 
+papers over them.
 
-Agreed, thanks for the correction.
+IMO the problem you are pointing at is more general than just CAMNOC — I 
+would add priorities, QoS and other shared resources to the list as 
+well. The answer to all of them is the same: correct use of the existing 
+frameworks, not driver
+merging.
 
-> 
-> > +		if (error)
-> > +			return error;
-> > +	}
-> [ ... ]
-> > @@ -572,6 +628,14 @@ static const struct cap11xx_hw_model cap1106_model =
-> =3D {
-> >  	.has_repeat_en =3D true,
-> >  };
-> > =20
-> > +static const struct cap11xx_hw_model cap1114_model =3D {
-> > +	.product_id =3D 0x3a,
-> > +	.num_channels =3D 14, .num_leds =3D 11, .num_sensor_thresholds =3D 8,
-> 
-> [Severity: High]
-> Does this code overflow the calib_sensitivities array during initialization?
-> 
-> In struct cap11xx_priv, the array is rigidly sized to 8 elements:
-> 
->     u32 calib_sensitivities[8];
->     u32 keycodes[];
-> 
-> During cap11xx_init_keys(), when parsing "microchip,calib-sensitivity", the
-> driver reads priv->model->num_channels elements:
-> 
->     of_property_read_u32_array(node, "microchip,calib-sensitivity",
->                                priv->calib_sensitivities,
->                                priv->model->num_channels)
-> 
-> With num_channels set to 14, won't this write 14 elements into an 8-element
-> array, clobbering the adjacent keycodes flexible array member and potential=
-> ly
-> causing memory corruption or a kernel panic?
+On the idea of putting JPEG inside CAMSS with an external API: CAMSS has 
+no engine or pipeline that produces YUV output, which is what the JPEG 
+encoder needs as input. If JPEG moves into CAMSS without an external 
+API, it becomes
+inaccessible to userspace. If it does expose one, we end up with a 
+standalone interface anyway, just with an extra layer of indirection on top.
 
-Good point, I'll fix that in v3.
+afilipov
 
+On 6/13/2026 12:52 PM, Bryan O'Donoghue wrote:
+> On 13/06/2026 10:24, Atanas Filipov wrote:
+>> Thank you for the feedback. I understand the reasoning, but I
+>> respectfully disagree with this approach for the following reasons.
+>>
+>> While it is true that the JPEG encoder shares the same camera NOC and
+>> power domain infrastructure as CAMSS, that is a hardware topology detail
+>> — not a sufficient justification for imposing a software dependency. The
+>> driver is a fully
+>> self-contained V4L2 mem2mem encoder, implemented like every other JPEG
+>> encoder driver currently in the kernel (imx-jpeg, s5p-jpeg, mtk-jpeg,
+>> nxp-jpeg). None of those are sub-nodes of a parent ISP or camera
+>> subsystem driver.
 > 
+> That's a backwards understanding of the ethos of DT, which is to 
+> describe hardware architecture, to describe hardware, not to subscribe 
+> to or proscribe a particular software architecture.
 > 
-> [Severity: Medium]
-> Will this configuration lead to integer truncation when parsing the
-> "microchip,signal-guard" property?
+> Those jpeg blocks are standalone, whereas the CAMSS jpeg encoder lives 
+> inside of the CAMSS power-island.
+>> Making the JPEG encoder a sub-node of camss would introduce an
+>> unnecessary and artificial coupling: the JPEG encoder cannot be probed,
+>> built, or used independently of the CAMSS driver, even on platforms
+>> where CAMSS is disabled. This directly contradicts the kernel's
+>> principle of independent, single-purpose drivers.
 > 
-> In struct cap11xx_priv, the mask is defined as an 8-bit value:
+> - Probed true
+> - Built true
+> - Used untrue
 > 
->     u8 signal_guard_inputs_mask;
+> Once probed your current driver can chug along pretty much unperturbed, 
+> however I don't believe that statement can hold true as more of the 
+> camera hardware gets enabled.
+>> The shared hardware resources (clocks, interconnects, IOMMU stream IDs,
+>> power domain) are already fully described in the device tree node and
+>> handled by the standard kernel frameworks — there is no functional
+>> reason to nest the node under camss.
 > 
-> During cap11xx_init_keys(), a loop iterates up to num_channels (14) and shi=
-> fts
-> the bits:
+> Except that it is a real description of the hardware. "We can model it 
+> separately != we have modeled it correctly".
 > 
->     priv->signal_guard_inputs_mask |=3D 0x01 << i;
+> And at least one thing you are leaving out here is the cam noc - which 
+> eventually we will have to start to enable and will almost certainly 
+> have to be controlled by the core driver which also owns the power- 
+> collapse and muxes, the thing that will also program CPAs - the core 
+> CAMSS driver.
 > 
-> For channels 8 to 13, won't this bitwise shift exceed the 8-bit variable wi=
-> dth
-> and silently truncate to 0?
+> Perhaps we choose to model that NOC as a separate driver or perhaps we 
+> expose an API in CAMSS to vote, either way its an intrinsic part of the 
+> voltage and clocks in this block.
+> 
+> Either way sure we could model it as a fully separate node but, that is 
+> not really how/where the block lives. It lives inside of a defined CAMSS 
+> block, which is its own power-island.
+> 
+> Switching on the JPEG part of it by inference switches on the top-level 
+> of the island so, its not separate at all.
+>> For these reasons I would prefer to keep the JPEG encoder as a
+>> standalone platform device with its own DT node, consistent with how all
+>> comparable JPEG encoder drivers are structured in the kernel today.
+>>
+>> afilipov
+>>
+>> On 6/13/2026 2:14 AM, Bryan O'Donoghue wrote:
+>>> On 12/06/2026 20:44, Atanas Filipov wrote:
+>>>> +        qcom_jpeg_enc: jpeg-encoder@ac4e000 {
+>>>
+>>> One key bit of review feedback I gave in the previous leaked version of
+>>> this driver is that since the jpeg-encoder is part of the CAMSS block it
+>>> should be a sub-node of camss as OPE, CSIPHY and other blocks will be.
+>>>
+>>> Please take that feedback onboard in your v2.
+>>>
+>>> ---
+>>> bod
+>>
+>>
+> 
+> And please no top posting !
+> 
+> ---
+> bod
+> 
 
-Good point, I'll fix that in v3.
-
-> 
-> Even if the CAP1114 doesn't support signal guards, this drops the bitmask f=
-> or
-> the upper channels, bypassing the capability check and failing to emit the
-> intended 'unsupported' warning.
-> 
-> > +	.led_output_control_reg_base =3D CAP1114_REG_LED_OUTPUT_CONTROL1,
-> > +	.sensor_input_reg_base =3D CAP1114_REG_BUTTON_STATUS1,
-> > +	.has_grouped_sensors =3D true,
-> > +};
-> 
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612072237.1177=
-> 304-1-jerrysteve1101@gmail.com?part=3D9
-> 
