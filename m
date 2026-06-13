@@ -1,224 +1,233 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92963CF69D
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C1427F4F5
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781348719; cv=none; b=grkuEQOIw+rBLGr+at55O1iLmVZ563NLWRmIRmOWRNcp/X8btmccKxAlH1qH6peWjhTHTnYNZnpfKFzrUiq81FFVh3TRfFugxVXnKtX8wvQklttf3ZpCOp21W3H2+xJfb1zz/UwMaJB8/+w5gEVQPHAfcydsIM7zOEB877L9bI8=
+	t=1781349140; cv=none; b=hzOW2Xy2Ge2MOgzZHKkotc7OaIBY4Uld7pPbyfq1yCtZsvDGw6qLwIiq6Pjm44JYkN0su1ML0sW7csWqasbQ3Zsm8Z0DOGNP5/SrGqDyekFXjudZhW1RbRdKzHOUyfzvL2h3mqwLsweF3SpLhBk7wHpzCg4dscdBNXx67Vwuu3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781348719; c=relaxed/simple;
-	bh=hFuLzAKLku9zjjLmyY1LU1Y3IkgnibQ8as7e14dCSpU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qou0gE36crFXw/6Y9YRiW/g08pXhuVV1jD7a0XJpwqBJAfKBzXVSOo497O0NA7oLe2Q/rRg0LyZX1cx8hIgg0AnUP0jMtpy3kxgvj36BDyS2O+1fZI4kLKYEvPcT58JTHu0whwRVSTpUEX0GZePcoX0sBv/AQQgiO+XjMM0tt4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d+0kXTNF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LLsHKpje; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781349140; c=relaxed/simple;
+	bh=Mxk9izfmJ1iYm8ASdn+hegoHoCOC54G9INbOprZmXnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J/23JOwQYlyNB/L1Y/OqX7w4CQLfr+qvKNDWFVphIRL2nWJJfav+A1xBOPDRDgO5mg7ntdd4svM8wDbkdZcVXayr5YqrjhsO6O/+hEfTqfWzr5e+XJQK/r1mIwWG/ClJFL/31VsVrA25N1pKlNqwEI+pmdDqWpf+PfL377H9WGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cAbjQl+P; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d+0kXTNF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LLsHKpje"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65DB09UL2749297
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:05:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fRqve/iiEi4xLe1x8p2XFeA1tSQCSNKv74uJA29YfFI=; b=d+0kXTNFVgiLRzE+
-	p0EZbjEhCmptGdcfghbY0edkgREO5wWW4mkF+qxGEEFgU05qKexaKw+J2YIbE/Jj
-	7WzQbN6Fl4jlgjttjwrsuVCovdW7fEYk5XTcowxWAuAtSHUw8NFGXIDqPDfJQ66F
-	2QE0nmM3wkyJT9cqAXdbTPZEUTfEO49cCGMcKi9al0+vOgSS2bgoy2oFJ/CR6q6w
-	qxpzdDsyUycixWla2S74qN20ZjTgFZD/llKZt5sePyJ5HRchOo3o8ssmt/QyHTL6
-	I1xlM+gd769eNTsx3dy4sFT++VPAu+0DXps7Mm2DQOoNp9FTYWCsJdHWkjppGp2A
-	dxTZqQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery7grw30-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:05:16 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c859d79c10eso1740800a12.0
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:05:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cAbjQl+P"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c40397e3caso15640335ad.2
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781348715; x=1781953515; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fRqve/iiEi4xLe1x8p2XFeA1tSQCSNKv74uJA29YfFI=;
-        b=LLsHKpjeQu6OhkG9dnxXSyAD8c83lLCc86oTgHfeKlb1IHK+GZbrYS1UXCGHi78zXq
-         YSq17K3K4eyHQ5EiitCjDmnLeKTuCL94TQTPoBEkgLETw1EAXH9guSJto0TEGW5bAEkN
-         +I7VehrIeteLr06M2hzYN4n7wolE8VxfQFI4iiOdOoiPMu/r/ie1Wsnqc7vycY8i+aGi
-         2Toqn2IA9mQyX+Yy53dJQyZp2riQAuOsjMR7d9swt4io+Dux5thvFxQAeABoEtH/8Hp3
-         BFi6jWg1cDxQlJbjhRBBWIKc021pFuYitnCdB6GFrySwuScJwLFCPqGxbs1nGZcOi8FR
-         TKnA==
+        d=gmail.com; s=20251104; t=1781349138; x=1781953938; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jv/S7oGdPwlP4CzZrwOTO68eimVH3uL1uxQlQb3wY7k=;
+        b=cAbjQl+PKbanUll+WUnaNTqL/LLehNMnUok+CGHR8vQiZg5AJeNU/DuWEOZlRYX8Ji
+         5aDhDPcB3cJKDgHyYGBKawPPbvTAyKz1pkgqYS4eh8cGwNvB1e4wfUKL+W3bcPw8ksHd
+         ZxbWWaubsaNme9TevUZS64aMTsTYPZM4iZNtuoQrsToPb9WbRiBPxQkRlVYqBhay9N8Q
+         F9UfV5wbx40JId88yOMVfQqYeqReOwdqzlZXH47L1WxWtyI+2NmZSY0z2zTUJLpjI+C2
+         7Uj72IEyIoA+GDbnpHU9WJCUCLHOXkMtsJOXoPkm4IN8mstgHkP4Ngxj+Dph5RHir/0n
+         yBpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781348715; x=1781953515;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fRqve/iiEi4xLe1x8p2XFeA1tSQCSNKv74uJA29YfFI=;
-        b=iRhd6yQMPOcYUqDsANyAVZgSMUFuPWQWuYWCumfT3s3ToYCZZBE5MyC4A4wZLhN7R9
-         GcqoSd9kytUSdimcv/ilxo6YSIjCME5J8l5eSAE2b/QFgzihuY9dc9kc+XtFY+tuQeDM
-         1dilcaN3D+X19CjDZiiGAe9Lpih9DJmh1DWr9Ti+wVtrGOj6HaYI7ydNeiED3P+f8uXm
-         FW3Q8JxZFSobiBDbsL8BlmHqXQpFNFwallCdpwXomMdF4nNIiQuF7+3s+XytAXUBUEnT
-         WVUnNk6pXwQGMXN3KYj2p5GZvxPIN5JMdBQbPq9AgFcObzCDdnZMLzY2apuZn8WKwuyH
-         6IMg==
-X-Forwarded-Encrypted: i=1; AFNElJ+rIv0DfgWr3yZMpB0bGQ3VnO7xO2ibS/ouLiCRlFhshz1+w67LmXlpyYU9hypxmAvNLb2zKlMLw9a/@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC6mlLqWg+wEsBz3Uh0vTLFUtoFmqc8fQWWSr4nuKYwASB1c6n
-	vktCqQUEPdvFgWoXwAcTscDA6P/JANXVUs5wMrVPhlMYYfF+nNDnsA6aZVHjyHJcoZXUsHi9CY5
-	upCJVEC50XtrZIvtikkP9yb17y3D1LDmjEHjw9vMVkgNwrAH0sKpX+VQMLCiYZgxy
-X-Gm-Gg: Acq92OFwKcL3X7UcYSy47qMwoVh0oMO+tkqJFXyn3yL0b2uvFvybVSyFIr6kQZRzxS9
-	S+NTI+GC/pJUcBdxLtZ2lqxF4foqF6PI73iUxESV0HzGjS17xNUwFmrKtqVWhZ1aBJmEEg9zsql
-	qSj/3rgqWK5gADyeiYBhbjhxnX6rzWytH/Jp2kFJaCPTCc1eqUDIyMrliZtnnkbdSpuWLqGWl4k
-	zNPXxcetnHdDzR6YE3V90iyF5XsxPwK/mL5bUQVk2pW1aLKlPTeQbX16Ute2Evx12KQejiz/KbA
-	+0bJNjRr3OyW1GPb3OtBBeqozrwN8E6wgTX2eCb8kwauReZ40iQDYsYrnliM1V/sLhX/+WveTcL
-	KIb4QXTGF1gK4o6F6IAQ0KHSZfpiO4IkaoN+sFBzPiOmDBV6nrNOI
-X-Received: by 2002:a05:6a21:7a8c:b0:3b3:1a06:e5 with SMTP id adf61e73a8af0-3b78416b85amr8312214637.33.1781348715520;
-        Sat, 13 Jun 2026 04:05:15 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7a8c:b0:3b3:1a06:e5 with SMTP id adf61e73a8af0-3b78416b85amr8312188637.33.1781348715107;
-        Sat, 13 Jun 2026 04:05:15 -0700 (PDT)
-Received: from [192.168.1.13] ([106.222.231.34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9bfe1sm5037247b3a.12.2026.06.13.04.05.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 04:05:14 -0700 (PDT)
-Message-ID: <ec65893d-873a-4a62-b0e2-5008b2130545@oss.qualcomm.com>
-Date: Sat, 13 Jun 2026 16:35:07 +0530
+        d=1e100.net; s=20251104; t=1781349138; x=1781953938;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Jv/S7oGdPwlP4CzZrwOTO68eimVH3uL1uxQlQb3wY7k=;
+        b=KxVghUUO25hlJFHu75FHtigWN6q5u07JW9Hj0hVQS0oftQNo93DlhF9gFLhN1VbdkD
+         KpsBx30jtqN9W777/H31xiBkV0T8rUWgvXhbVNVb1JgjQdjOShLcr6LKxHO+5TCV0Lyh
+         evD8A/iQQSkMxnSbxSxItRepHoa/xDsxWT8rECtM8v8lsMqXHofX0Xl2f5EsfhRmCa5V
+         6UPBCBmh8BZVnfG1AuOL8XZfCcKy0BV5RU16jyZhsPpGGVU7NPzrVC0Slx+ZfmmbT98P
+         mKY4OPIKn+2I3M7AsAY8ellDbT3v4BRLQCjyulYdkPG04c/4h78QbDLFhWDjlp7WJDEr
+         kwYA==
+X-Forwarded-Encrypted: i=1; AFNElJ/bmEsyaXkNNctRA7h7JShkzL4PG+FfR8+QP9+tR7FA3U85tExjM9713SS6mpu4mSG5RZvJzF7EUfkt@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyDgpPuQyuPhA8hgGWoJP5qLOChErjBlAWHucEOb8Zi5jwYYes
+	vCH+a7YQApw1VWKNjhAAOs9xio4cZJLom3wl3tU0CkoXUogf6q1AGoWbvlh6g5o/h7o=
+X-Gm-Gg: Acq92OFAwzAsRpYGZBIgCChmBllLJAe0MsqdJTW55xRMfjB9Etq07zfusHAqfhKzBRx
+	dQjytMPVwsRzQWd92kB6JDVQOGkmIRQeFPNlWuwJ+3kDDP4QLND/+g+fWTyB3cA3EZ0lkjoL4gp
+	BAVBjF5vzpPPq2grBNztaeX4jDUWQNhZRmzrwmjvgKUGPR3h0j4r4D52xCSZBV/zrlp6Pze3zPl
+	LzdsIPh8re0Sv3dJwZzVQzYbpP8gJqtnvfKUTlj9fyKo3RcmvS9y6Wwsy7vp0uEcev34D51oy0P
+	LBZuPMyI+oGooCO46PisRUdr+WLUROgofViBzYv8hPYyiCtoTNkvf35IQ3Oyr+kz+JZZaJ42ks4
+	IRWZ0Zv8v5VZzhIjLtCRyjsY7xS92pMEzu8SCypYYSJtBHLi4tC/TnSyB8WiyXK9LwxL+fwanUR
+	rdCVRMmt98qPVk7iwtH54x
+X-Received: by 2002:a17:902:e750:b0:2c1:e04d:7cb5 with SMTP id d9443c01a7336-2c412841372mr79321145ad.34.1781349138173;
+        Sat, 13 Jun 2026 04:12:18 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a54:e741::1003])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f7c58c3sm47466445ad.23.2026.06.13.04.12.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 13 Jun 2026 04:12:17 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: sashiko-bot@kernel.org
+Cc: conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dmitry.torokhov@gmail.com,
+	jerrysteve1101@gmail.com,
+	linux-input@vger.kernel.org,
+	robh@kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v2 9/9] Input: cap11xx - add support for CAP1114
+Date: Sat, 13 Jun 2026 19:12:14 +0800
+Message-ID: <20260613111214.17097-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260612074238.4C3371F000E9@smtp.kernel.org>
+References: <20260612074238.4C3371F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
- mitigation properties
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
- <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
- <20260610-ocelot-of-stimulating-excellence-bcb0fe@quoll>
- <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
- <d81bc78e-2c1d-45fd-90c9-f7ec462183a0@kernel.org>
- <7f1e46fb-15e3-4638-9930-8abc1dd5a778@oss.qualcomm.com>
- <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
-Content-Language: en-US
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-In-Reply-To: <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEzMDExMiBTYWx0ZWRfXzbpS3fz9gshk
- Vb3Mt99RJaa70tZMnBerv0UHhj5RoA+tILW1xsgW960xJcZUSV6tHGAfR9oD+GFN7j4R7O4IVJj
- rbp251BSFSN4WhBDL/PpS/YaIgbW8jQ=
-X-Authority-Analysis: v=2.4 cv=fLYJG5ae c=1 sm=1 tr=0 ts=6a2d396c cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JaHktJlP2QtFIg7UHuVw+g==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=UvbFL3pLTf4PkRdXo8wA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEzMDExMiBTYWx0ZWRfX0uI4sGN7h4Lk
- mVRPlmqApVEwq2H2T9pnCavimqp1MclFFngORxwu75/YXsaxNmJvASwfNk4nFZv2r/xIiG+lnih
- mQE9vPrj3E7opntj/RidXXOXcZf9ucwT0NJHX+tvQ3VOTRqRot9hp22mHLlIdTFYgd7rmsWWANp
- 1IMhDDqU7D29A0C3HTxBWYBTKGirP0C4Yhh78ABHHnrHmmCmCqXZLV9AS9katZl0KRSRxevDS8u
- qDg5kWTMzhfd1UGtNulQuyFnoECwaVvu1RSPX2MBjR+o4hm4Szjn4U8KVgDLQQnUEpqhogqtms1
- a0/RyvsDJhkC6dhhOtZMOULdAdD02oCUpHQ9AbxUZQ1458aIha7ecC17puY2+EfUoJu+v7qYoRt
- ZTNRUzBVVtVniE82DYHaW4+rqX3RSPkNn4sWbh+dOtFBJG8gkUToCSG7TvqQwJdcxwKVCyOcdNc
- OpezvfH9ciqJFYoMneA==
-X-Proofpoint-GUID: 5Ev-7VEroKWHVD8g0HNJiIjrFW6oy9vq
-X-Proofpoint-ORIG-GUID: 5Ev-7VEroKWHVD8g0HNJiIjrFW6oy9vq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-13_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606130112
+Content-Transfer-Encoding: 8bit
 
-
-
-On 6/13/2026 1:11 PM, Krzysztof Kozlowski wrote:
-> On 12/06/2026 15:52, Gaurav Kohli wrote:
->>
->>
->> On 6/11/2026 5:53 PM, Krzysztof Kozlowski wrote:
->>> On 11/06/2026 13:12, Gaurav Kohli wrote:
->>>>> Why? And where is this generic property defined? You cannot just
->>>>> sprinkle generic properties in random bindings.
->>>>>
->>>>
->>>> Ack, will add why part.
->>>> These names are matched with the thermal mitigation device identifiers
->>>> populated by remote firmware over QMI and define mitigation devices are
->>>> exposed as cooling devices.
->>>
->>> No, -names correspond to values passed via DT, not some remote firmware.
->>> The remote firmware should give you interface which is explicit and does
->>> not need such properties.
->>
->> thanks Krzysztof for review, We need tmd-names because of following reasons:
->>
->> Following Daniel's series [1], the thermal framework supports
->> mapping multiple cooling devices per remoteproc/device via indexed
->> cooling-cells.
->>
->> 1) The thermal framework's cooling-maps reference
->> cooling devices by index (for #cooling-cells = <3>). Without tmd-names,
->> there's no way to know which index corresponds to which TMD, as firmware
->> may return tmd-names in any order.
->>
->> below are the changes post new thermal mapping changes:
->> DT: tmd-names = "cdsp_sw", "xyz";
->> Firmware: ["cdsp_sw", "xyz1", "xyz2",]
->> Driver registers: Only "cdsp_sw" (index 0) and "xyz" (index 1)
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+> s) to consider:
+> - [High] Buffer overflow when parsing the 'microchip,calib-sensitivity' dev=
+> ice tree property for devices with more than 8 channels.
+> - [Medium] Integer truncation silently drops signal guard configurations fo=
+> r channels 8-13.
+> - [Low] Out-of-bounds `GENMASK` generates an 11-bit mask for an 8-bit LED c=
+> ontrol register.
+> - [Low] Unnecessary 9th threshold register added to regmap defaults.
+> --
 > 
-> names property are not to instruct drivers to register or not to
-> register something.
+> commit a843fc20f78c2766e479b33ffb3dcd6238d1f3f0
+> Author: Jun Yan <jerrysteve1101@gmail.com>
 > 
-> I don't understand the problem and explanation in the binding is
-> basically non-existing.
+> Input: cap11xx - add support for CAP1114
 > 
-> Remember that all lists and indices ARE FIXED, so driver knows exactly
-> which index means what.
+> CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
+> and hardware reset support. The CAP1114 uses two control registers
+> for LED output management and requires two button status registers
+> for touch input state reporting.
 > 
+> > diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
+> p11xx.c
+> > index d45bb231d7a1f..e4da0e26c34a8 100644
+> > --- a/drivers/input/keyboard/cap11xx.c
+> > +++ b/drivers/input/keyboard/cap11xx.c
+> [ ... ]
+> > @@ -98,6 +105,9 @@ static const struct reg_default cap11xx_reg_defaults[]=
+>  =3D {
+> >  	{ CAP11XX_REG_SENSOR_THRESH(3),		0x40 },
+> >  	{ CAP11XX_REG_SENSOR_THRESH(4),		0x40 },
+> >  	{ CAP11XX_REG_SENSOR_THRESH(5),		0x40 },
+> > +	{ CAP11XX_REG_SENSOR_THRESH(6),		0x40 },
+> > +	{ CAP11XX_REG_SENSOR_THRESH(7),		0x40 },
+> > +	{ CAP11XX_REG_SENSOR_THRESH(8),		0x40 },
+> 
+> [Severity: Low]
+> Does this code inadvertently add a 9th threshold register?
+> 
+> Since the indexing is 0-based, an 8-threshold device should only need indic=
+> es
+> 0 through 7.
+> 
+> Register index 8 appears to map to an unused register.
 
-thanks for review, shall i use driver data, which is basically pas data 
-structure like below:
-
-static const struct qcom_pas_data {
-     .crash_reason_smem = 601,
-     .firmware_name = "cdsp.mdt",
-     .tmd_names = (const char *[]){"xyz", NULL},
-     .num_tmds = 1,
-
-Is something like above acceptable? and this will also help to filter 
-tmd names as well?
+Good catch, CAP11XX_REG_SENSOR_THRESH(8) should be dropped.
 
 > 
->>
->> This allows cooling-maps like below:
->> cooling-device = <&remoteproc 0 ...>  // "cdsp_sw"
->> cooling-device = <&remoteproc 1 ...>  // "xyz"
->>
->> 2) Not all firmware-provided TMDs should be
->> exposed as cooling devices. The tmd-names property acts as a filter,
->> allowing board-specific DT to select only the relevant TMDs for that
->> platform.
+> >  	{ CAP11XX_REG_CONFIG2,			0x40 },
+> >  };
+> [ ... ]
+> > @@ -394,6 +442,14 @@ static int cap11xx_init_leds(struct device *dev,
+> >  	if (error)
+> >  		return error;
+> > =20
+> > +	if (num_leds > 8) {
+> > +		error =3D regmap_update_bits(priv->regmap,
+> > +					   priv->model->led_output_control_reg_base + 1,
+> > +					   GENMASK(num_leds - 8 - 1, 0), 0);
 > 
-> And driver filters, no need for DT property.
+> [Severity: Low]
+> Can this result in an out-of-bounds mask generation when num_leds > 8?
 > 
+> In cap11xx_init_leds() just prior to this addition, the code calls:
 > 
-> Best regards,
-> Krzysztof
+>     error =3D regmap_update_bits(priv->regmap,
+>                    priv->model->led_output_control_reg_base,
+>                    GENMASK(num_leds - 1, 0), 0);
+> 
+> When num_leds is 11 for the CAP1114 model, this generates an 11-bit mask
+> to update an 8-bit register.
+> 
+> While the regmap core safely masks this, should the mask be clamped to
+> min(num_leds, 8) to accurately reflect the hardware register's capacity?
 
+Agreed, thanks for the correction.
+
+> 
+> > +		if (error)
+> > +			return error;
+> > +	}
+> [ ... ]
+> > @@ -572,6 +628,14 @@ static const struct cap11xx_hw_model cap1106_model =
+> =3D {
+> >  	.has_repeat_en =3D true,
+> >  };
+> > =20
+> > +static const struct cap11xx_hw_model cap1114_model =3D {
+> > +	.product_id =3D 0x3a,
+> > +	.num_channels =3D 14, .num_leds =3D 11, .num_sensor_thresholds =3D 8,
+> 
+> [Severity: High]
+> Does this code overflow the calib_sensitivities array during initialization?
+> 
+> In struct cap11xx_priv, the array is rigidly sized to 8 elements:
+> 
+>     u32 calib_sensitivities[8];
+>     u32 keycodes[];
+> 
+> During cap11xx_init_keys(), when parsing "microchip,calib-sensitivity", the
+> driver reads priv->model->num_channels elements:
+> 
+>     of_property_read_u32_array(node, "microchip,calib-sensitivity",
+>                                priv->calib_sensitivities,
+>                                priv->model->num_channels)
+> 
+> With num_channels set to 14, won't this write 14 elements into an 8-element
+> array, clobbering the adjacent keycodes flexible array member and potential=
+> ly
+> causing memory corruption or a kernel panic?
+
+Good point, I'll fix that in v3.
+
+> 
+> 
+> [Severity: Medium]
+> Will this configuration lead to integer truncation when parsing the
+> "microchip,signal-guard" property?
+> 
+> In struct cap11xx_priv, the mask is defined as an 8-bit value:
+> 
+>     u8 signal_guard_inputs_mask;
+> 
+> During cap11xx_init_keys(), a loop iterates up to num_channels (14) and shi=
+> fts
+> the bits:
+> 
+>     priv->signal_guard_inputs_mask |=3D 0x01 << i;
+> 
+> For channels 8 to 13, won't this bitwise shift exceed the 8-bit variable wi=
+> dth
+> and silently truncate to 0?
+
+Good point, I'll fix that in v3.
+
+> 
+> Even if the CAP1114 doesn't support signal guards, this drops the bitmask f=
+> or
+> the upper channels, bypassing the capability check and failing to emit the
+> intended 'unsupported' warning.
+> 
+> > +	.led_output_control_reg_base =3D CAP1114_REG_LED_OUTPUT_CONTROL1,
+> > +	.sensor_input_reg_base =3D CAP1114_REG_BUTTON_STATUS1,
+> > +	.has_grouped_sensors =3D true,
+> > +};
+> 
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612072237.1177=
+> 304-1-jerrysteve1101@gmail.com?part=3D9
+> 
