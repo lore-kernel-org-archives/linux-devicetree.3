@@ -1,63 +1,63 @@
 Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1921D393DEB
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 06:58:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A6B39937C
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 06:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781333925; cv=none; b=CP8fVzU3Ya4/UaLTX3n72a4hIDjciQiQ6UooWnJVsZ2XPxeZZDEsxCRxffCd3Bk3Iqrds+GMHYvBXrJarfRQ09MkgpeSSAbgwzT8RM6UecsqApFii/UzOIqwTSYmOdbiFt2rT/6hoCWU3JymDIW/eELyJV/Bfm1bPvgu7D2TwNQ=
+	t=1781333931; cv=none; b=MoWUpaXoPHVlUANzXz5+af1Q0Upz8U8MF4TJgYh677ZvYjMOwRmhTRLeQz68vF3MtmFusD37KkIqb5yKdFv3pgnu2qAfmkJlK+nRxGWFJLKB9XXebK5h+j3sem19r5kRIN3qVdZRoyBuUl7lZswcj4+InCJBy2KALMz/6lAUt0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781333925; c=relaxed/simple;
-	bh=nPY3wv2mci8wkKBwmvFP6TpH+QPqSd5Lve4SBi0sdAE=;
+	s=arc-20240116; t=1781333931; c=relaxed/simple;
+	bh=+oC/cphUq61z1tUYe/It2wm8zgDiOcsdp+YquhThWMc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oQRV2MYVaN+ULbP5OWgxjGJSMkh9tziXPC7sMnXktvkxrOgbiQKsocvM0N9+ga4J/JGs3u/sQw7jL+Vzz3wMh5W37Sez1sOKMyjn0Euvo3mgpAGPk6pdD0vSMX+FCWM6kUpjj5ZWzPnJT0FpGnSRNEbY/NtbM94CxJmle4m45+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6AOfF3C; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=K6qme0wMb0hGCj9zFZZlLSfyqQdwz9JhThfCqZqv/muvoQvdO6WRlTC6LdFeab77gXqdUKmkXCo29KCO2zt7FyWB6eG8aZFXfD8/zl0FW0s23NmiBdsjOULJNYrszx+q/LTMsq4rIZtv7bqQ9y3LQvoj0u0dOsgUrmwXpryaiVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dqkxvb1x; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6AOfF3C"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4905529b933so16783875e9.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 23:58:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dqkxvb1x"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490ac357c55so15187155e9.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 23:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781333922; x=1781938722; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781333924; x=1781938724; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6JonI5tVCKFVj4EE3HntNYMlqngF+zGzezn1FD6cSzY=;
-        b=k6AOfF3CoM028XgK9ioM+RJZUwbKRCc/LPiJaAobCyTZCmLDSyvTVC3Dr2yzCdlhoM
-         TPTRHfgG+MVI5nS2tonIMr3jQ7zSKV27xT96MCB2d5JNl0nFBUeb++pJ5KsJpbTIsvVD
-         JdPrrXqOX4djH1gGpP9f908J+j0qPln/eI/RFCjxIvUrY7xDAqxpMPsiGZ3pfovLk9to
-         96lBSPMcBV7VQGn7ZJpR9uG8p6jTm9WdrFpEGSZsxMEP78c5ZwzAPvtoXRSzuA1ItYZF
-         /9+TDnXrRF3JQ6oCxOsYcIyTLbHy42rBQtflfRUO4vzjAMw/5EOaqQByixKntRAjPRRt
-         lbrg==
+        bh=6qXDWY05NWH/jJuuAS5m9EpuxlsKXS/Zj0XFrGsO4MM=;
+        b=Dqkxvb1xPdmE/QivkU0Tep8gUL6/WD4MmKfUCtrgNDooB2RHfshyYYkXYndpy+BVlO
+         H5ycKTW3luL+Vm2DsNGh866zz1NAMBj0WQIzrrOMZdOaiML64q3QeAGQQmoWqLjrodxo
+         d3vuSFeE/8eRR3NiFWyrYVw7d3jNuQC6+9mUlKfJuhPwkTg/JLGEzqM5BjasBGr/jgbN
+         IQhRp4xg/89+FG8GcomlLt7v8fXaD8LLQ0p4Cjl4H3oe1Nwyg05sq8Ud3BmioLiYs+Hx
+         YwbjzdpCO4po64DJzKSLidxm0ZBLr872i9boDOEk19PHKeJU/slYDMvpkxHE1QFwYrf3
+         dK2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781333922; x=1781938722;
+        d=1e100.net; s=20251104; t=1781333924; x=1781938724;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6JonI5tVCKFVj4EE3HntNYMlqngF+zGzezn1FD6cSzY=;
-        b=YJMJFyoaCX9v2D1T0W9yOM5HIxqAR6Vh88gyB4xTU6OLcTpSg8Wc+wngywzU6117C8
-         HPdDnuGS/8WaphIIQ0wY4XWbB/m6tryBlp9LxiuWquerVTAeTyJKknELw+LtJ0rcs31j
-         sppf68Jjd2qqHOckN73y853Pf+OfR2I/835vxpxS9QdZMiXBl3CNGXy+0e/mmkWmDGxO
-         1DBjJ9dp8wHSTS1Ih5pViMVb0lLq2z3M/3oHqS16hPsAlaH24s8y8pcYfRm78xFxkUXX
-         V1d3n8o1NkqnM8KRURCm3BsL1FsMTu+3u4kSEh4yuoDmXRMJgQXA0LKC9WNCwtXpkQf0
-         MJVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+N9anM+DhPwLrdboCh3U82okoOpAwFm9GGGbDbQOdvwOnWX1LIAL8TkHJIT0OubOz/Lkc6FsmBNbF7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzORa4VYf7WFNoDcFh/Wojee2bhE6Ou4Ophvb9qZed+8i7KuWsY
-	e+tKZIp/G83UhCbrF/0rP3p6ARltUczcDs875wshDt2XVJgrs6zRMsnU
-X-Gm-Gg: Acq92OGgyGrXt0FkaZC8tFn06WwUPoZluHykHET5GC5lW5XdnUGmeBkuapdhCTSQbFP
-	LkZuRlR4gA5cxQCuwkG7OCDzs/lJdsC6d3KLlRqgKYYGyk2KeMUfnH8yQXjP299AObtyVwioUqj
-	cQyn5kQLBCv78ORKRisaIsghQ8mbW1wAdhGCONPVYXdDWZ+GhIkVV5iQAqV0+eIA+PeGfhBKLLX
-	di92RmrDmJlILIWeJLR00zf2JizKGObGawvvYOtKob8ydmAjG7/6S9LiMtzoE6raD1EeAxXw/LS
-	rp5jol8IxJGPkdPW6SkahqZUBpLVwxkLcip2lt95DhuQH4iYo8RB6QPFjSsTdNBr4Kva4FPGagg
-	g6MW8fK0eZomeSp8SL/v0ETtQzygNAys/zper+9Q5YRG5KYLxU2W6hqFd6qoPnjR4kW6rMQBGXZ
-	o40SS5cVXXHiR5IZyazbtzLrvIEw+Wm3ul9F+01Vk1Rg==
-X-Received: by 2002:a05:600c:83c8:b0:492:1e36:d16e with SMTP id 5b1f17b1804b1-4921e36d1a9mr40797495e9.36.1781333922475;
-        Fri, 12 Jun 2026 23:58:42 -0700 (PDT)
+        bh=6qXDWY05NWH/jJuuAS5m9EpuxlsKXS/Zj0XFrGsO4MM=;
+        b=jtBQSDBJxgf5bITS4qJXz2ZeS8Nxq+tyAlkljVG1os6Xcdj37Jl9hKv/HaXNYrbevi
+         KkhUh7Q+fB4AsI8ztBXqLY6QY3qry56xaElzil1esvyo0ZEtaqHcV5Yvf0tH2J1gGLYe
+         uBrwzb3hcChzP2IqXdgY4CUfqa2lg7H6p3V62WfTKwAEfVhJ5CYMMcOex1EMuxl+MyKV
+         pIN61F1FKaZ11kaU+Is79uebnIz+EDsBMVbiMSAfIpQNFATTLvuhVpUyGGfSdZpF4Sla
+         8eM2w0opzTl5x7UTG9Zk4msoLACDnWWncPP6fc4oftqqZEEKiQVgAcMJBPgQoJj52aiS
+         xv5g==
+X-Forwarded-Encrypted: i=1; AFNElJ8zqg+3OJK6wXrLMPd4ZLcNUOkWYzYmfKJ/VNk6NqVgZb9qo/7qXsdnzYuiT0sq5I2i4fbJ4pTPLcSe@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYLSCTFBlIprE6vDJboqO855Pk902ZwEotl3ENVvDQ6Nucv1wL
+	dVokCkX4s197GDNo8x/P51lXX/9Y0nKhvueEROcG1A51qHNlJbP5cha8
+X-Gm-Gg: Acq92OH02Lg6sBP1VBIB0cKyl4Yk68KJlBPqVYD85naxHF9EgusxExuHHvM2Dx05wwH
+	QG/E1Y1NizlBNPqeTIMefS5w4Y8NRPeu3OmgvTAqsXYTXHuDzNOTom244RD2LHf+la6xvUDeAXy
+	rWx4+CS5l4Xfga0iMWJacrKEVwsUlu/WDNLwkJ2q/TVRguFnazx7Izabc37fIQwvQysN+iusjou
+	x193IsF9M2+XboEvSiGuHdSQmakWn8ztJm2QBV4z3MoukZugWrajiykcqPho50GVnod6FfNDOvI
+	6x6JZqPKkOBY8PbbP0jORqO8eNzKW+IjRv6UljeAux/VRRZTSYK774iGc01JNWoQqqmryu1LQkL
+	VrjKIeDaLnKKAfWw8hspZUduVOqFNkyR5gFEu1B8dzzRS8HTpoUGI3zwDE9G4T8K6fLqLT0DAr5
+	eqq9IUs3qnXLgnqAZCSjfMySvXNPcbdGlVJL5350dmzw==
+X-Received: by 2002:a05:600c:46c4:b0:490:b355:9c8c with SMTP id 5b1f17b1804b1-490ec4fbcb7mr81233115e9.23.1781333924116;
+        Fri, 12 Jun 2026 23:58:44 -0700 (PDT)
 Received: from debian.tailb81abf.ts.net ([2a01:e0a:104a:4d80:14c0:9448:1c38:77df])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492202e5cbasm42917705e9.2.2026.06.12.23.58.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492202e5cbasm42917705e9.2.2026.06.12.23.58.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 23:58:42 -0700 (PDT)
+        Fri, 12 Jun 2026 23:58:43 -0700 (PDT)
 From: MidG971 <midgy971@gmail.com>
 To: tomeu@tomeuvizoso.net,
 	ogabbay@kernel.org,
@@ -79,9 +79,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	diederik@cknow-tech.com,
 	jonas@kwiboo.se,
 	Midgy BALON <midgy971@gmail.com>
-Subject: [RFC PATCH v4 8/9] arm64: dts: rockchip: rk3568-rock-3b: Enable the NPU
-Date: Sat, 13 Jun 2026 09:01:15 +0200
-Message-Id: <20260613070116.438906-9-midgy971@gmail.com>
+Subject: [RFC PATCH v4 9/9] pmdomain: rockchip: Add a regulator to the RK3568 NPU power domain
+Date: Sat, 13 Jun 2026 09:01:16 +0200
+Message-Id: <20260613070116.438906-10-midgy971@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260613070116.438906-1-midgy971@gmail.com>
 References: <20260613070116.438906-1-midgy971@gmail.com>
@@ -95,55 +95,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Midgy BALON <midgy971@gmail.com>
 
-Enable the NPU and its IOMMU on ROCK 3B and wire vdd_npu as the NPU
-power domain's domain-supply, so genpd brings the rail up and down with
-the domain (the domain is marked need_regulator). The PVTPLL compute
-clock is brought up later by the driver.
+The RK3568 NPU rail (vdd_npu) needs to be enabled before the domain is
+powered on and disabled after it is powered off. Give DOMAIN_RK3568 a
+regulator parameter (like DOMAIN_RK3588 already has) so the NPU domain
+can set need_regulator, letting genpd manage the rail wired up as the
+domain's domain-supply instead of marking it always-on in DT.
 
-The rail is no longer kept always-on, so pin it to 1000 mV (the NPU's
-1 GHz operating voltage; the driver runs a fixed compute rate with no
-devfreq voltage scaling) and mark it boot-on, so it is up before the
-power domain de-idles the NPU NoC at power-on.
-
+Suggested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 Signed-off-by: Midgy BALON <midgy971@gmail.com>
 ---
- .../arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/pmdomain/rockchip/pm-domains.c | 36 ++++++++++++++++++--------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-index 69001e453732e..d3f9776c2bdc3 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-@@ -330,9 +330,10 @@ regulator-state-mem {
+diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+index 490bbb1d1d8e8..19db307e3811d 100644
+--- a/drivers/pmdomain/rockchip/pm-domains.c
++++ b/drivers/pmdomain/rockchip/pm-domains.c
+@@ -138,6 +138,20 @@ struct rockchip_pmu {
+ 	.active_wakeup = wakeup,			\
+ }
  
- 			vdd_npu: DCDC_REG4 {
- 				regulator-name = "vdd_npu";
-+				regulator-boot-on;
- 				regulator-initial-mode = <0x2>;
--				regulator-min-microvolt = <500000>;
--				regulator-max-microvolt = <1350000>;
-+				regulator-min-microvolt = <1000000>;
-+				regulator-max-microvolt = <1000000>;
- 				regulator-ramp-delay = <6001>;
++#define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator)	\
++{							\
++	.name = _name,				\
++	.pwr_w_mask = (pwr) << 16,			\
++	.pwr_mask = (pwr),				\
++	.status_mask = (status),			\
++	.req_w_mask = (req) << 16,			\
++	.req_mask = (req),				\
++	.idle_mask = (idle),				\
++	.ack_mask = (ack),				\
++	.active_wakeup = wakeup,			\
++	.need_regulator = regulator,			\
++}
++
+ #define DOMAIN_M_G(_name, pwr, status, req, idle, ack, g_mask, wakeup, keepon)	\
+ {							\
+ 	.name = _name,					\
+@@ -241,8 +255,8 @@ struct rockchip_pmu {
+ #define DOMAIN_RK3562(name, pwr, req, g_mask, mem, wakeup)		\
+ 	DOMAIN_M_G_SD(name, pwr, pwr, req, req, req, g_mask, mem, wakeup, false)
  
- 				regulator-state-mem {
-@@ -787,3 +788,16 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
+-#define DOMAIN_RK3568(name, pwr, req, wakeup)		\
+-	DOMAIN_M(name, pwr, pwr, req, req, req, wakeup)
++#define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
++	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
+ 
+ #define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
+ 	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
+@@ -1274,15 +1288,15 @@ static const struct rockchip_domain_info rk3562_pm_domains[] = {
  };
-+
-+&pd_npu {
-+	domain-supply = <&vdd_npu>;
-+};
-+
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
+ 
+ static const struct rockchip_domain_info rk3568_pm_domains[] = {
+-	[RK3568_PD_NPU]		= DOMAIN_RK3568("npu",  BIT(1), BIT(2),  false),
+-	[RK3568_PD_GPU]		= DOMAIN_RK3568("gpu",  BIT(0), BIT(1),  false),
+-	[RK3568_PD_VI]		= DOMAIN_RK3568("vi",   BIT(6), BIT(3),  false),
+-	[RK3568_PD_VO]		= DOMAIN_RK3568("vo",   BIT(7), BIT(4),  false),
+-	[RK3568_PD_RGA]		= DOMAIN_RK3568("rga",  BIT(5), BIT(5),  false),
+-	[RK3568_PD_VPU]		= DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false),
+-	[RK3568_PD_RKVDEC]	= DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false),
+-	[RK3568_PD_RKVENC]	= DOMAIN_RK3568("venc", BIT(3), BIT(7),  false),
+-	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), false),
++	[RK3568_PD_NPU]		= DOMAIN_RK3568("npu",  BIT(1), BIT(2),  false, true),
++	[RK3568_PD_GPU]		= DOMAIN_RK3568("gpu",  BIT(0), BIT(1),  false, false),
++	[RK3568_PD_VI]		= DOMAIN_RK3568("vi",   BIT(6), BIT(3),  false, false),
++	[RK3568_PD_VO]		= DOMAIN_RK3568("vo",   BIT(7), BIT(4),  false, false),
++	[RK3568_PD_RGA]		= DOMAIN_RK3568("rga",  BIT(5), BIT(5),  false, false),
++	[RK3568_PD_VPU]		= DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false, false),
++	[RK3568_PD_RKVDEC]	= DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false, false),
++	[RK3568_PD_RKVENC]	= DOMAIN_RK3568("venc", BIT(3), BIT(7),  false, false),
++	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
+ };
+ 
+ static const struct rockchip_domain_info rk3576_pm_domains[] = {
 -- 
 2.39.5
 
