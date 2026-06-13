@@ -1,67 +1,41 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5FA2147E6
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 08:16:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CCE345CBE
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 08:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781338572; cv=none; b=aVEkNGA0TjojsTStD2XBTldLYgwBH6SqSBplzaW90Z6JApL/H/M3Avrlb/Z1lDIhfHeWPLvgD/3bYvNIbwvWDvx2dkFyTW0uvPMpQICONRe+PgoZlFAWCMUISgr96S1eWwFGfgDyFu1E/6mZMq6jetQLdK155DizI5cNVam79+o=
+	t=1781338701; cv=none; b=X8QYFpbEO48i2uXb1WPDRP+gmGCoZ0Kb42mtycMces2YtGD1KCV6kitz0/+Sem+rugJGi75QUMSmwyzehLNbhAAbAKpYXguTv5j3itUeiNoMqJuXNkGBazbe6iPI0cOsr20EHWjuX+VcTpOXT8xauZcU2YuPq420pVljIWz94Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781338572; c=relaxed/simple;
-	bh=gxXIQs4fOYo7UxbFqDXGSyWElu5qYAeUnrJUD0vklmg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KIoNWXEgOi7Q7Sj0p+NKa9sMuYgQWnG7d6C16W6bLsriaj8l8AWcRiGaJqFfnfqq56uBkQnu0xug899TeJ+HjIj5uNvgQ6py+46RYZeomMiWlPgWSthooxzTE1nGbhuXRBV8uOTmM9+JliNq6LRvC4x+oZ9n/4j56NCfPuLcIlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T2+02RrX; arc=none smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781338701; c=relaxed/simple;
+	bh=E1P/mosDI0v9P4PQ9JaDFS3TLFgzbFmLVuCWgYJ1TEw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hlTN6N7ASQdsxfDEXgLTRx5jlDStsKZABL+hQJP1Sw14+5hJDC4Mls6vvDfyT2ht0pD+1QjtIKoa7leWwpopcS0fmTmIQH3nU+XaEdBQOxj9P0dtww5EOvikPr29J7lOOQyrUtRx3tq57BPSC82HXaBMLTSNR6hAejKv+RA37U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=OAHCPxkJ; arc=none smtp.client-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T2+02RrX"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5aa68d7d757so1649994e87.0
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 01:16:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781338568; x=1781943368; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=0iXLstte6ButgpYOzogymHuOexokA1uZth6v7/qqcCo=;
-        b=T2+02RrXMtMJCfwDyutG9OtBlzhRtcAQ00UNE81YQm+J0vWjlCsAZ5fEmKaUrPHWpX
-         w9Heg/Vl3x60KBWHMFhkMVareUkFw8OdZhhVsykUpbgjyz2WL0nxrKLziYhAiTHxLoUG
-         wYaKf7p4+iOG6UXbjV8X+lpNkmFvNGEh+d9TiblbGWZ1cz7TMwZJCkAvXCNQbJja6g7x
-         A+swLSGRoQPkPnf4TXaIO+Ajo4xCEI7KCgj3RHC660LeH3+WQjuLZ+UytDGOeITK6sHK
-         0VPtn2dDCQ6/aGyyTw+9zBrCQ8UsAX68IoLHvSrJp3mdOC/hKPJ8yv4W7YBlCHiSU/WW
-         P61w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781338568; x=1781943368;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0iXLstte6ButgpYOzogymHuOexokA1uZth6v7/qqcCo=;
-        b=jos5woJus6HcP4K4dpvDsnL6k+j0906qYCuGGK54y61G1Z7qqWuBP++dyVKBFmYgVE
-         CQpmz8k6ygHMRYpQi6BT1q5xIWPyPlUblfn2Rqr5JOYfpJJg0J2ttahBuY/FLRnKbdtQ
-         i5eP/MZXVf5T6HGDO7C9VZqUdQdipoVxmZJ1YaPbPCNhmN8kuh9bll1fZxrBTX0etfV2
-         u5wUfTtPcgQ00qcuCk2lHwJIY640KJh2vu76Gvz6wFethJu0w3L+QPIDfjD75ja5qpZE
-         ATBW6QzCFbCwjEe/hPwVCHba3hv2XZyvVIIZkX/yropT3iYB8ablKL/aHHU5ihvyLZaa
-         13hw==
-X-Forwarded-Encrypted: i=1; AFNElJ86hmih75cRYJOMMRAgmgFd6WGh6aJxGRiV+eSOJ63xvriwzWV3IBEeG8K4gseMO2TjGPggdFsqu6k1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9rXE+yK8Cv9QuI67Yn3vtNoyfaGV1qPwlk9yaVLVcRce6AIXd
-	pbRQSa01dWtrUkHwTLacfWHnnBtXihRaEYnKEx4+4WYmvfgz2XXaGsI6
-X-Gm-Gg: Acq92OEi/RDAawzk7BVC4jw+ZLE4pvloZTm/vtCHT0b1hdXpRWH+3zo1oYZkZEGW52l
-	Kp/uSe534ZIJ2sVx2Y+70fOLBWJFyZH5TrnXzUFZp1tw/eUEY92un2cDKFV/ikq0gglUcbR2Vio
-	kdqA6XkQeo8ZrD3LSQRqfrkFyjYiB0UxlAPuyhS+o+HE/KNR66Znf6A6QzzUH9xFE0IxyvOQU9O
-	evyCoyg+CpZyuYP0ifVmlUJacQISPSoCpPso2HpS8BRQeab7zPT9KQNkjDw1h5o/cjsKlYlb36X
-	iZuwtAQbdOeMpcw5fenDztc3nP8QNG6iGKd4XMvnZeC2pjVhX7Y6b4edyKA8XQ34yPKe1Yq1jQ4
-	gP9K+owo0u1X4pBEJP3O4Weu1H5mcNXOHcKVrRD2GMh1Ip1pcRs/A7b0Dy3xXmlM9NFN3cV2gUQ
-	pQrutJ3LQl8auv2oO0KtgveclkNoFduOCkqSQzKUJvjhI8dPOZiuVfjC89ISxyo1oS58uAuEMIr
-	hxWhw==
-X-Received: by 2002:a05:6512:4608:b0:5aa:5a89:c80b with SMTP id 2adb3069b0e04-5ad30dc08a1mr583841e87.30.1781338567680;
-        Sat, 13 Jun 2026 01:16:07 -0700 (PDT)
-Received: from ?IPV6:2a00:1fa0:856:c6e8:742c:af09:78ba:8005? ([2a00:1fa0:856:c6e8:742c:af09:78ba:8005])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e16935esm1124202e87.25.2026.06.13.01.16.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 01:16:06 -0700 (PDT)
-Message-ID: <39720384-28da-4157-8613-8f02ab890abf@gmail.com>
-Date: Sat, 13 Jun 2026 11:16:04 +0300
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="OAHCPxkJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1781338698;
+ bh=xpDULfvSGqlETs98W87UX/kuF4lM1kjk45D89odlqmI=;
+ b=OAHCPxkJufymq9QStuXkAlwjzUbNH1KpoHFsvSYcPnjtQ8eeFo4AAi1SUQgulgtirOLVFihxe
+ SGv5sZfMlSKzuqwzmXANS20DI5++h2wq+ZTlA8e6vE7ke4/UCttAP7ebKhr3ITmWnaWwxypS21Z
+ KgOC1DwX8AiGgrXyoMl6qUPDH/A/OqCslNjljZDTMZlVRTrvKy4+8sTz1UvyNBvNBYqLHkQj7W0
+ Ab4uGdRmhFq2/EBsNqMjNBslqzSI/sk9eZ1+sM4qYg8MzADcP6bQYO3RvFEJ9+DNp1rsuaf7sKE
+ e4iLbhFx6WyjrjOWDtNjILQxnIDJPClGhvN44rwwz2kw==
+X-Forward-Email-ID: 6a2d12469b8e0435f022b519
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.8.26
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <0e6466aa-a153-446b-b31c-e9b331573358@kwiboo.se>
+Date: Sat, 13 Jun 2026 10:18:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,72 +43,121 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next 9/9] net: ethernet: ravb: Add gPTP support for Gen4
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, Paul Barker <paul@pbarker.dev>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, netdev@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se>
- <20260610102432.3538432-10-niklas.soderlund+renesas@ragnatech.se>
+Subject: Re: [RFC PATCH v4 7/9] arm64: dts: rockchip: rk356x: Add the NPU and
+ its IOMMU
+To: MidG971 <midgy971@gmail.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ulf.hansson@linaro.org, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, xxm@rock-chips.com,
+ chaoyi.chen@rock-chips.com, finley.xiao@rock-chips.com,
+ diederik@cknow-tech.com
+References: <20260613070116.438906-1-midgy971@gmail.com>
+ <20260613070116.438906-8-midgy971@gmail.com>
 Content-Language: en-US
-From: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-In-Reply-To: <20260610102432.3538432-10-niklas.soderlund+renesas@ragnatech.se>
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260613070116.438906-8-midgy971@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 6/10/26 1:24 PM, Niklas Söderlund wrote:
+Hi Midgy,
 
-> While driver advertise gPTP support on Gen4 platforms it is in fact
-
-   Advertises.
-
-> completely broken. On R-Car Gen4 devices the RAVB module have no
-> internal gPTP clock as generations before it. Instead it utilizes a
-> system wide gPTP clock.
+On 6/13/2026 9:01 AM, MidG971 wrote:
+> From: Midgy BALON <midgy971@gmail.com>
 > 
-> This change utilizes the refactoring of the RAVB gPTP code to add
-> support for a system wide clock and stops the Gen4 devices trying to use
-
-   System-wide?
-
-> the non-existing internal gPTP clock.
+> The RK3568 has an NVDLA-derived NPU at fde40000 with its own IOMMU at
+> fde4b000. Add both nodes (disabled by default) and the NPU power-domain
+> child under the PMU power-controller, and point rockchip,pmu at the PMU
+> syscon that controls the NPU NoC bus-idle.
 > 
-> To remain backward compatible the device tree property needed
-> (renesas,gptp) to get hold of the system gPTP clock is optional. If the
-
-   Can't parse this statement...
-
-> property is not present, or not enabled, the RAVB driver will no longer
-> advertise gPTP support to user-space.
+> Besides the SCMI compute clock, assign the CRU CLK_NPU so the NPU AXI
+> bus clock comes up at 200 MHz rather than the 12 MHz boot default.
 > 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> The power-domain deliberately carries no pm_qos: qos_npu sits behind the
+> NPU NoC, which is gated until the NPU is brought up, so a genpd power-off
+> QoS save would fault reading it.
+> 
+> Signed-off-by: Midgy BALON <midgy971@gmail.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 38 +++++++++++++++++++
+>  1 file changed, 38 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> index 64bdd8b7754b5..313db59c1aed8 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> @@ -512,6 +512,13 @@ power-domain@RK3568_PD_GPU {
+>  				#power-domain-cells = <0>;
+>  			};
+>  
+> +			pd_npu: power-domain@RK3568_PD_NPU {
+> +				reg = <RK3568_PD_NPU>;
+> +				clocks = <&cru ACLK_NPU_PRE>,
+> +					 <&cru HCLK_NPU_PRE>;
+> +				#power-domain-cells = <0>;
+> +			};
+> +
+>  			/* These power domains are grouped by VD_LOGIC */
+>  			power-domain@RK3568_PD_VI {
+>  				reg = <RK3568_PD_VI>;
+> @@ -572,6 +579,37 @@ power-domain@RK3568_PD_RKVENC {
+>  		};
+>  	};
+>  
+> +	rknn_core_0: npu@fde40000 {
+> +		compatible = "rockchip,rk3568-rknn-core";
+> +		reg = <0x0 0xfde40000 0x0 0x1000>,
+> +		      <0x0 0xfde41000 0x0 0x1000>,
+> +		      <0x0 0xfde43000 0x0 0x1000>;
+> +		reg-names = "pc", "cna", "core";
+> +		interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks = <&cru ACLK_NPU>, <&cru HCLK_NPU>,
+> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
+> +		clock-names = "aclk", "hclk", "npu", "pclk";
+> +		assigned-clocks = <&scmi_clk SCMI_CLK_NPU>, <&cru CLK_NPU>;
+> +		assigned-clock-rates = <200000000>, <600000000>;
 
-Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
+This looks strange, the SCMI clk can be seen as a virtual clock that
+changes between normal CRU NPU clk and a PVTPLL NPU clk (depending on
+rate). 200 MHz, a typical opp-suspend value (switch to CRU clk instead
+of PVTPLL), will set the CLK_NPU rate to 200 MHz, then setting CLK_NPU
+to 600 MHz (the lowest rate that activates PVTPLL mode) outside of SCMI
+control looks strange.
 
-[...]
+Suggest you only set SCMI NPU clk rate to 200 or 400 MHz and drop any
+special handling, e.g. noc_init, to closer match RK3588 and defer any
+use of PVTPLL clk to a future series that also adds OPP support.
 
-> diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-> index caad95a9c3c5..acdfb56bb135 100644
-> --- a/drivers/net/ethernet/renesas/ravb.h
-> +++ b/drivers/net/ethernet/renesas/ravb.h
-> @@ -249,6 +249,8 @@ enum APSR_BIT {
->  	APSR_RDM	= 0x00002000,
->  	APSR_TDM	= 0x00004000,
->  	APSR_MIISELECT	= 0x01000000,	/* R-Car V4M only */
-> +	APSR_GPTPTIMER_SOURCE = BIT(25), /* Gen4 */
-> +	APSR_GPTPCLOCK	= BIT(29),	/* Gen4 */
+> +		resets = <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
+> +		reset-names = "srst_a", "srst_h";
+> +		power-domains = <&power RK3568_PD_NPU>;
+> +		rockchip,pmu = <&pmu>;
 
-   Hum, the other *enum* entries don't use BIT()...
+This looks wrong, the rockchip,pmu prop is typically used to reference
+PMU GRF, see i.e. pinctrl node, not the power-management that is seem to
+be correctly abstracted using power-domains above, please drop this prop.
 
-[...]
+Regards,
+Jonas
 
-MBR, Sergey
+> +		iommus = <&rknn_mmu_0>;
+> +		status = "disabled";
+> +	};
+> +
+> +	rknn_mmu_0: iommu@fde4b000 {
+> +		compatible = "rockchip,iommu";
+> +		reg = <0x0 0xfde4b000 0x0 0x40>;
+> +		interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+> +		clock-names = "aclk", "iface";
+> +		clocks = <&cru ACLK_NPU>, <&cru HCLK_NPU>;
+> +		power-domains = <&power RK3568_PD_NPU>;
+> +		#iommu-cells = <0>;
+> +		status = "disabled";
+> +	};
+> +
+>  	gpu: gpu@fde60000 {
+>  		compatible = "rockchip,rk3568-mali", "arm,mali-bifrost";
+>  		reg = <0x0 0xfde60000 0x0 0x4000>;
 
