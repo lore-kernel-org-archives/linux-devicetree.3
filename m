@@ -1,158 +1,102 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBF5357D14
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 08:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A3F357D14
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 08:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781339686; cv=none; b=V5anaC56wpKqnlaykW0jHLyhiTb4vX6QLp+2OMp/vnLxwewQg4qejWwRa9IURWDM8cZiTANMmVOzHuPQKZUTMejuzcBhB8MxnD8PjfouGLI2WwUf/OzsZ59JzETp6eHbKsYkop+M39TbdRRBlWtB9qrg/+1aXTIf9DlnOhd8AXw=
+	t=1781339731; cv=none; b=ZlwF3AWFEUNR73LiL4kD4bbArJaqwZRJ1hHkils2KPtaAdFV+AxnEPdlKxwpBdLAOmBqTVHkK8G7h0q7UDq/nyPvFNm6yCNzR/l/Buei0b1xUq/nNBPLLTVXAE0pHsYYh7zMk84CXcQoCaIr+OPkQLQLf5q8vbHNnU3L6Xuebe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781339686; c=relaxed/simple;
-	bh=mbzvuH7IfNDrZaVdLFw9eoGGYP0QvKcW4I7S/aIG17k=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OBKceRgwEHFvpeEx6Vr3hdLORRh5lqH59YIRy1ZpmXa6nkNNg9RnGbMNj8uhz1cujppGLEGRaKNIl6Ojb9MgTOX2LkvnTDxjD+MFCPG5AH94DMWvdgL346Em4F5GbLkzjw2KXztyZ5//MIkVyoBUooy9Xj6ye8Ann8CbtxMhRFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=esJ79rNN; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781339731; c=relaxed/simple;
+	bh=U9IUJA3tCxDIlNDvhzxqE4JNO1E+RFRIyJBCdnP/83s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c2d8EjmaTC9o8Nm+bf6OkqKcvwombCHsVUfuLQI7fAbxKKx5jCMCAOEX1RNJh94clfUq4KhzRLgTzHRe3AQelq+4qPoMatmtPW94q68XMWKXBTWVEfQsOwws1FeoJNnMBYM2LrXsV+Xx6Xnt8eEqmmp24gDI0eu6Qm2R0QFBfTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKu+lwOH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="esJ79rNN"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490b7866869so17172445e9.2
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 01:34:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781339683; x=1781944483; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=QHs9yK5AtFf0IN6y8bIIPCYpjsJCXaUVqV8EKE6IMM0=;
-        b=esJ79rNNH2ER9YupQNbJi/a213ecb+1NnOJRa8wyWgjynGc9PsQF7C74n+yAJM0WkV
-         gOPCHP57sN3QbTZR93uALsBLWorCupX0a/gQzEKqDKl9WwY1N1xnKgEt5pE2v1ZOfK7s
-         ZIoPY7YT6QjO0U+dbeNAZwbejPk3qmO/M54j/kJ2RQ7VGF/jfnaI1szSebi6yvPXwYrg
-         jby2yuv/8gr2ay+Umv5iUjgMEBRDSlUtNork97vtkR5+a289GYk7HsvH3wQ50rh10qmK
-         x+OGdxJtRlv8AFsssCbzOFByMA0nhbPRcd0uTw5ZBAODxRojpKFddObnGnpBSNHhN5dG
-         hdow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781339683; x=1781944483;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QHs9yK5AtFf0IN6y8bIIPCYpjsJCXaUVqV8EKE6IMM0=;
-        b=JEesSmT3lZfIGYgIU6hV71CbfmbBp1SAjW285bStxdg5SWrBUMNMiN2b6rjwEubwco
-         SBiKYF9HLdv9d6+wC51fIvVsS5j026Jw2RUTQJLuLCDSz4LvdfSIaGXGQd0soy6SE/Hq
-         1qilt9SR51leX9oIWJgU40fHIIzQr5G72ltw6TfgdWKL/gGxGAck+S05guZwjzV/buU8
-         FMtGvTZ3Dv7RNYnyjqJCS6LEzN1Hs92CSqACizfX9y2zYdiQAg60CM5RRkUgQW3dONwa
-         M3SGGuze9rIfrFDZ7e2cVrnd7yqNsKUClSGVLP4RpOjlkRkiZIOCwI/0UIGXWw+s9tPs
-         lP9Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/7ZtVU+vZ2COYJ4TgYC6R2Cqcf8CVcofacPAOqythxmsZsN5fohTzicdOdl7guiIqxgWs8gchtOJnK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9esKkpJFPA09i1eIru9DQZmKC4v6c6dHCPWXmHzCi/CHfp4iv
-	h472+Vic2Ptr6xFncN8HPdTwFo8SC1UJSPXzTB2syeIwmvF0xVD9JXca
-X-Gm-Gg: Acq92OEwqZDOMgLcFAAZPEr9tRgZ4MXeDIlTbUkuGdPBJJGD557IkEqVXU+7rInSbpQ
-	YgeOagfVdgroqz0SVmUVG0ZPLP3YkDWksXxkwZbpo7nRvhDzFvNmfWm5QOhKQWchoYbP7Pl1jZI
-	heSXsrjgcVCQy0r7V8r7MCsLUtqIJgKI4ToJtRdspYGDyzaSvyOwpxIHN6+k2PbmWo3o4KqiB3v
-	e6ReaXwTZ8iFAbS7lZ2ZiIv3rpDpP8o5gjIN3nKfylq4MypiZeKWbCBcKPekpQUFDbCyDNX+HYp
-	/6ZYOX3Z/RyiT3P0wzezsFcCPNgJh8eHWqbcEmFXuKQmJ/pbCpwMZV9kmYElHll7c6BE4NKmywW
-	cuK7rqddfMikQhXn1SWrd3wJ6+pMHydpf/5bkVcCaoa92JH0QK0rio+tHqxyjUCWVKYuxGmquZd
-	lGLvpOlIGeyUaj20vvcNyO1zWbPUnEKQMP9AuLZc6GES84gW4nB2U0bpZXQhi1vcYmAHAhPaY5v
-	6hpJRUNfvw9RZGTvA==
-X-Received: by 2002:a05:600d:8494:10b0:490:c7dd:de3e with SMTP id 5b1f17b1804b1-490ec521187mr55836955e9.31.1781339683115;
-        Sat, 13 Jun 2026 01:34:43 -0700 (PDT)
-Received: from 0.1.2.1.2.0.a.2.dynamic.cust.swisscom.net ([2a02:1210:8642:2b00:82ee:73ff:feb8:99e3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203d05d1sm72320885e9.12.2026.06.13.01.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 01:34:42 -0700 (PDT)
-Message-ID: <b428d57ba5464f1226daf099877f4c25fa4fc191.camel@gmail.com>
-Subject: Re: [PATCH v4 6/7] arm64: dts: allwinner: a100: reserve RAM for ATF
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Jernej =?UTF-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Samuel
- Holland <samuel@sholland.org>,  Hans de Goede <hansg@kernel.org>, Dmitry
- Torokhov <dmitry.torokhov@gmail.com>, Andre Przywara	
- <andre.przywara@arm.com>, Jun Yan <jerrysteve1101@gmail.com>, Lukas Schmid	
- <lukas.schmid@netcube.li>, "J." =?ISO-8859-1?Q?Neusch=E4fer?=
- <j.ne@posteo.net>,  Eric Biggers <ebiggers@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Luca Weiss <luca@lucaweiss.eu>,  Sven Peter
- <sven@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org
-Date: Sat, 13 Jun 2026 10:34:42 +0200
-In-Reply-To: <_6NEZ78hR8a_3V2bhBAGoQ@gmail.com>
-References: <20260605070923.3045073-1-alexander.sverdlin@gmail.com>
-	 <20260605070923.3045073-7-alexander.sverdlin@gmail.com>
-	 <_6NEZ78hR8a_3V2bhBAGoQ@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKu+lwOH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D791F000E9;
+	Sat, 13 Jun 2026 08:35:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781339730;
+	bh=GDWCm2Xia9VKdf1r3aJApT5CXyXC41+0z9c4dDxNSiU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mKu+lwOHX+kzWGmjD2lhXH9GUAGwQTKUHoDvik4SNUAXMamvgezauMQ82g5TMbNOH
+	 SDj62gLxDxbTQAgOE/JQ2yyQBKGCvG2n1JP0N4y81dOlfO9JInTcE+5+pcVHhej2Tc
+	 dvBcSeiVWtT0wNU1h9tR97bN7lq+gr5sB/xl9TmstYCmU1clsSLIb1B6xJp+lvH5h9
+	 ZqMcFtM7Y350FwsgYAfiVOt0ED970i3RQnNUsh8/DB9K2kk52cCd/Ayqekws+dJKhK
+	 +KOLViRRcDbr2J63MNh2QZqL9Vo44SyN6oxwWtiY5PItnMSkikJ59RGsM5OvOmmrWw
+	 1kRXTQX1SLPiw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: sound: nvidia,tegra30-ahub: Convert to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Charan Pedumuru" <charan.pedumuru@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260613-nvidia-ahub-v1-1-5b7e85301736@gmail.com>
+References: <20260613-nvidia-ahub-v1-1-5b7e85301736@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+Date: Sat, 13 Jun 2026 08:35:29 +0000
+Message-Id: <20260613083529.D9D791F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Hi Jernej,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The `allOf` conditional block for `nvidia,tegra124-ahub` fails to c=
+onstrain the `reg` property count, allowing missing register regions to sil=
+ently pass validation.
+--
 
-On Sat, 2026-06-13 at 10:22 +0200, Jernej =C5=A0krabec wrote:
-> Dne petek, 5. junij 2026 ob 09:09:20 Srednjeevropski poletni =C4=8Das je =
-Alexander Sverdlin napisal(a):
-> > Add reserved-memory node carving out Trusted Firmware-A region spanning
-> > fixed 256K from physical address 0x40000000. Even though Allwinner ATF
-> > itself passes the address range in the fdt to U-Boot, U-Boot currently
-> > only reserves this memory internally, but doesn't carve out the region
-> > in the fdt passed to Linux.
-> >=20
-> > Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
->=20
-> NAK. It is job of boot procedure to properly inject TF-A reserved node.
-> Any issue should be fixed there.
+commit 9a0f1d546144b78d414e177cfaf59f6770e9ba9b
+Author: Charan Pedumuru <charan.pedumuru@gmail.com>
 
+dt-bindings: sound: nvidia,tegra30-ahub: Convert to DT schema
 
-like in commit 0d17c865118881609ea7e381c7cadbb7979cc596
-("arm64: dts: allwinner: Add Allwinner H616 .dtsi file")
-    Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Converts the NVIDIA Tegra Audio Hub (AHUB) binding from text to DT schema.
+The patch enforces per-SoC differences in reset-names, dma-names, and reg
+entry counts using allOf conditionals.
 
-? ;-)
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.=
+yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
+> new file mode 100644
+> index 0000000000000..82738058f6722
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
+[ ... ]
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: nvidia,tegra124-ahub
+> +    then:
+> +      properties:
+> +        "#address-cells":
+> +          const: 2
 
-> Best regards,
-> Jernej Skrabec
->=20
-> > ---
-> > Changelog:
-> > v4:
-> > - new patch
-> >=20
-> > =C2=A0 arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi | 16 ++++++++++++=
-++++
-> > =C2=A0 1 file changed, 16 insertions(+)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi b/arch/arm6=
-4/boot/dts/allwinner/sun50i-a100.dtsi
-> > index 7cb06b19b5a5..d8391663fd1d 100644
-> > --- a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
-> > @@ -87,6 +87,22 @@ osc32k: osc32k-clk {
-> > =C2=A0=C2=A0		#clock-cells =3D <0>;
-> > =C2=A0=C2=A0	};
-> > =C2=A0=20
-> > +	reserved-memory {
-> > +		#address-cells =3D <2>;
-> > +		#size-cells =3D <2>;
-> > +		ranges;
-> > +
-> > +		/*
-> > +		 * 256 KiB reserved for Trusted Firmware-A (BL31).
-> > +		 * This is added by BL31 itself, but some bootloaders fail
-> > +		 * to propagate this into the DTB handed to kernels.
-> > +		 */
-> > +		secmon@40000000 {
-> > +			reg =3D <0x0 0x40000000 0x0 0x40000>;
-> > +			no-map;
-> > +		};
-> > +	};
-> > +
-> > =C2=A0=C2=A0	timer {
-> > =C2=A0=C2=A0		compatible =3D "arm,armv8-timer";
-> > =C2=A0=C2=A0		interrupts =3D <GIC_PPI 13
+[Severity: Low]
+Does the tegra124-ahub conditional need to enforce the reg property count?
+
+The commit message mentions that reg entry counts described in the text
+binding are now enforced via allOf conditionals, but this block omits the
+reg constraints for tegra124-ahub. It falls back to the top-level
+minItems: 2, maxItems: 3, which could allow a tegra124-ahub node with only
+2 register entries to incorrectly pass schema validation. Since tegra114-ah=
+ub
+enforces minItems: 3 and maxItems: 3, should this block do the same?
+
+> +
+> +        "#size-cells":
+> +          const: 2
+> +
+> +        resets:
+> +          minItems: 21
+> +          maxItems: 21
 
 --=20
-Alexander Sverdlin.
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613-nvidia-ahu=
+b-v1-1-5b7e85301736@gmail.com?part=3D1
