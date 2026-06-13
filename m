@@ -1,192 +1,87 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5688829CE9
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 00:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7257B1A4F2F;
+	Sat, 13 Jun 2026 00:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781309187; cv=none; b=CzGjiaxNKoDcBKij4kTe44eoGf/PtB2K1X5VgF8DOfQYS+hCQD6KQdipnDq/qsYpKNYNqPUL6X0gZvZwj24rKZFbLofgjnDQJYSZXoIcm9KMSBU/WSlUtc/JxeZB18r5z13xIq4G7Y53lv+pklUNo4XnF4Q78R5nNjYHgVHI3VA=
+	t=1781310631; cv=none; b=uFuTrbhgyt7tzfDECdqX3TdDdSDQ4jXfJsoJ0Ql0QLL3ewn14bM6ARV0cFz1DuxHIGTbzhihXcq6SW3fzAcS55ZIlpEMf+uHphks9AbSPyK0J+Mdlob4Zm8Q8LsVe/WsEkq8YPBKfxqJNdEyZoW1cZ0lJ4Li3Ki+k0n7722bS80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781309187; c=relaxed/simple;
-	bh=6k16D58X5Hp71dTQ2A4hs7CDJxnziA+HOcbHy3F7wYg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=h9f4X6PQ4hu2YLCsiQq89Y5AY7aY9PFRWrYy3kUr9+8dqjRvHShsLKKncklaIyU1N05ZHq3/TfeRrE/lFWVxKGccM/D+sxVOgW526yhzcJoNs0dr2hH3fc8VqtH2Rh5ULYbBoMFZrmSVl2Yrwt+mIWncSAyu0B6OOklnSdpQDpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OW3k9+kn; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781310631; c=relaxed/simple;
+	bh=55Lql7/jlPLf+UXidgPTbRvesAlaiA8wilA730SAx74=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=QpTDpNDgIR+6cCY8yWw+d/JozLDr8eT1wTr1nddcIM+bOVCPb5Ylq4hw2Xo0GljUuPPSukdl3vJpwR6TasLrOn1gaU+fDBzk8pSpU2CxzS8vwD+DO1ZswewlnxkUun2iqnXBvqotFPl/yJy0iwxf9vEKEoWXed2c+u2ky4FyFHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J67zc2ZW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OW3k9+kn"
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5a082548de2so496313e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:06:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781309184; x=1781913984; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V8p1+OVmvemJz2aH/soukQnCPpp6FHT4E6Hl1lAMDXE=;
-        b=OW3k9+knR2VedobA1/HIDXu1GO//1Xh1WTGPDqubRSdx0XLDCGjapDzJSqgduyXFSR
-         LqmXV3KEnimT17WyfZZX7R9n+SnTI8QowmiYBeiYv4ak9wrlbBKkUmZWfoH6rkQDRnZZ
-         DSq7eLbQHcUvxAhXv3JiiQ26sg/EliQtk7ZXopSwuS3hCyoBxHx1cveaUgYCjFI+/bo6
-         +HhjVRMvdg+MX4/Iv+uk3ujLVWcD70mfbaa2VTlwnTqAQAav7Psr6TiCTkuEIr6Ai0ED
-         IsSlEr8Uw9XNpjZk4ya/IGbOZvxTsyVQQhVlm2QWFCAKFB3vBldEwK2Oi1No3LYHtnyQ
-         lugg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781309184; x=1781913984;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=V8p1+OVmvemJz2aH/soukQnCPpp6FHT4E6Hl1lAMDXE=;
-        b=VIJAsOltNlbXRwDuFsgyMCmhuiwePmDSnTRBqEWbNrDt2IrqfOLtc1RlVyB2m5zKMo
-         AdiJGTOJ+9zlOA8328XSzVlcdX6PwOAzjsSnz1n1BAJIYxGWk4rq7HgvZNw8malX1Z2X
-         GCU+sfbiiu7f3eHAi+pIsrmzfjLrIc4719YTdZ3IOTz1AcmYwS/tznmZQmkZ1bhp7IPN
-         5D6CJuE/QU42cGFXgqSMIMocQYTzT5a5Jkq6Cz+TEJrwAvs+dvVWDkiY5VAtd3CMLiN5
-         rnYuL5w6XyGZQUtlHmAJ82oviXk1xklGKmg6lBIUtVFJsdpi1UKGW2e4JQ/I25prdXR4
-         MgFQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/JefbBrVt/M7kKubFaezgWJwoKpXE8YtUe8inG2icTaoF5J/X7mGvri10mqo0XfWciX3DSaOVJNuff@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDsDTl+xgRVBfGKzDnNtckxFBo6r3MT5fqK/S6qss/A5BS1ckp
-	43YzMX2YlIvo59fLOSRRtrDJlzV+ws1NMRQC4JzhFKH3nrBem9eceGsw
-X-Gm-Gg: Acq92OFaUJPyJvMKVnoXn3gZR5opinBPwA2Tlx246WpdbPvjzbGdnAlNktA6RaSVG2c
-	kWb1CjqlO/NQjOA31j6sfjkEz1EKTyeqM7sI+iAL8lsFwaJRxXReP593E4UaNgspCgD6WXSCUBs
-	+srSUNvEX5nYAJgLZ2EMvqccb2WM8Y7FjacegyQXfZuvfqMOVpcPiTHHihUxJjOHytrlG4u67Hw
-	WBC83SXV0l93A6GtgXMQYD6iQJVAmS7KnHY3V33AQ6o4IEudT1VPVgsiCTQ2h9o7So026nMilIg
-	B90jC+qKXZ1rJTyntGc/iYUxb7IogBmlz6ggl1Q8HqoBMI/ih994Mi9zqEYLFJzAxtAb1aKRfCy
-	M4NrpcTaYHzb6mC1NuNsNRlqcVGFOpADSIQX+n0jbOFuH65g3hqF08PZNC12E6GRiHNpywUuYPy
-	lEWyc2DevzBAxjgw==
-X-Received: by 2002:a05:6122:7d4:b0:56a:fff5:b4d6 with SMTP id 71dfb90a1353d-5bb79a93ec5mr1419591e0c.4.1781309184166;
-        Fri, 12 Jun 2026 17:06:24 -0700 (PDT)
-Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb691bb8a4sm4328705e0c.10.2026.06.12.17.06.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2026 17:06:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J67zc2ZW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3AF1F00A3A;
+	Sat, 13 Jun 2026 00:30:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781310630;
+	bh=K+3fFf7xyfRl6bjkfifquQyPuhOlzULkW6RmmH9d4FA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=J67zc2ZWkbCam+xAPE7g9ysCv2oWPy36oCc+ecIXtDJPUMlSwdxeLebw6UIzuIrwj
+	 MhztPKOuUGNvpQoCReNJiiXHfEEUa0yVOFeGq9c9XQGyRFOcAJlZa3ew+vgsihga8c
+	 c1sH5TJ3l17/gowvvNfix2nxJKM9WYnBGK/TLW1NcuaHc4DhOLxmP9hvZIUkE+i+L2
+	 6V/vHdkTGEj4md80ukUsA5i48F0W10FprFpChQ7M9zc1m8ExDu5/m54FaXoQvETwH6
+	 MByj65hczstQRXGC8YIPI3eZQdqlGMZf/guChanadI46NkjOd9ZPsQBiym02FhISaM
+	 5o31mzWuio+XA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B1639E9607;
+	Sat, 13 Jun 2026 00:30:27 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 12 Jun 2026 19:06:16 -0500
-Message-Id: <DJ7HEIO6NRT4.2C1XVYIG81J4D@gmail.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 0/5] iio: adc: Add TI ADS126X ADC family support
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
- <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
- <95291df3-c34b-40a4-ba73-813ccd4b9ef8@baylibre.com>
-In-Reply-To: <95291df3-c34b-40a4-ba73-813ccd4b9ef8@baylibre.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v3 0/5] net: mdio: realtek-rtl9300: Add RTL931x
+ support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178131062638.1306549.12279863558431672494.git-patchwork-notify@kernel.org>
+Date: Sat, 13 Jun 2026 00:30:26 +0000
+References: <20260610194145.4153668-1-markus.stockhausen@gmx.de>
+In-Reply-To: <20260610194145.4153668-1-markus.stockhausen@gmx.de>
+To: Markus Stockhausen <markus.stockhausen@gmx.de>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
+ daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
 
-On Fri Jun 12, 2026 at 6:50 PM -05, David Lechner wrote:
-> On 6/12/26 5:46 PM, Kurt Borja wrote:
->> Hi all,
->>=20
->> This series introduces support for TI ADS1262 and ADS1263 ADCs [1].
->> These devices are very similar (if not the same), except ADS1263
->> includes a secondary auxiliary ADC.
->>=20
->> The main ADC has quite a few features supported the main driver
->> (ti-ads1262), including:
->>=20
->>   - Power management
->>   - IIO direct and buffer modes
->>   - Channel hot-reloading
->>   - Internal or external oscillator
->>   - Internal or external voltage reference
->>   - Filter configuration
->>   - Sensor bias configuration
->>   - IDAC configuration
->>   - Level-shift voltage configuration
->>   - Manual calibration support
->>   - GPIO controller capabilities
->>=20
->> I plan to add these features to the main driver soon:
->>=20
->>   - SPI offload support (38400 SPS turns out to be too high for some
->>     systems)
->>   - User triggered, automatic calibration (Datasheet 9.4.9)
->>=20
->> Additionally, full support for the (less capable) auxiliary ADC is
->> introduced by the auxiliary ti-ads1263-adc2 driver included in this
->> series.
->>=20
->> The auxiliary ADC operates almost completely independent of the main
->> ADC. The only consideration that has to be taken for interoperability is
->> when reading conversion data in direct mode (Datasheet 9.4.7.1), which
->> happens only in buffer mode, when multiple channels are enabled.
->>=20
->> When reading data in direct mode, all SPI activity is forbidden between
->> the data-ready signal and the data retrieval. To achieve this a second
->> mutex called xfer_lock was introduced to block SPI activity on the
->> device.
->>=20
->> This is one of the biggest drivers I've developed, so I hope the code
->> and the comments are self-explainatory. If not, please let me know so I
->> can clarify them.
->>=20
->> As always, thanks for your reviews and help. Submitting upstream is
->> always a great learning experience :)
->>=20
->> [1] https://www.ti.com/lit/ds/symlink/ads1263.pdf
->>=20
->> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
->> ---
->> Kurt Borja (5):
->>       dt-bindings: iio: adc: Add TI ADS126x ADC family
->>       iio: adc: Add ti-ads1262 driver
->>       iio: adc: ti-ads1262: Add GPIO controller support
->>       iio: adc: ti-ads1262: Add calibration support
->>       iio: adc: Add ti-ads1263-adc2 driver
->>=20
->>  .../devicetree/bindings/iio/adc/ti,ads1262.yaml    |  308 +++
->>  .../bindings/iio/adc/ti,ads1263-adc2.yaml          |   49 +
->>  MAINTAINERS                                        |   10 +
->>  drivers/iio/adc/Kconfig                            |   26 +
->>  drivers/iio/adc/Makefile                           |    2 +
->>  drivers/iio/adc/ti-ads1262.c                       | 2180 +++++++++++++=
-+++++++
->>  drivers/iio/adc/ti-ads1262.h                       |   39 +
->>  drivers/iio/adc/ti-ads1263-adc2.c                  |  470 +++++
->>  8 files changed, 3084 insertions(+)
->> ---
->> base-commit: ae696dfa47c30016cd429b9db5e70b259b8f509e
->> change-id: 20251129-ads126x-fb6107505cae
->>=20
->
-> Hi Kurt,
->
-> I'm currently working on the TI ADS112C14 family of chips which
-> are functionally very similar (although have a bit of a different
-> register map).
->
-> I have some different ideas for the devicetree bindings that I
-> think will make it a bit more flexible. Given how similar the
-> chips are, I think we will want to align on how we do these (and
-> there was one more similar, and thankfully much simpler, TI ADC
-> driver submitted this week too!).
->
-> So rather that looking at your stuff too closely yet, I will send
-> what I have next week and we can compare notes then.
+Hello:
 
-Hi David,
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Of course!
+On Wed, 10 Jun 2026 21:41:40 +0200 you wrote:
+> The Realtek Otto switch platform consists of four different series
+> 
+> - RTL838x aka maple   : 28 port 1G Switches
+> - RTL839x aka cypress : 52 port 1G Switches
+> - RTL930x aka longan  : 28 port 1G/2.5G/10G Switches
+> - RTL931x aka mango   : 56 port 1G/2.5G/10G Switches
+> 
+> [...]
 
-Devicetree bindings were a bit of a pain for me. I definitely want to
-check your approach, specially on the IDAC stuff. The ADS1262 has many
-pin configurations. I even considered a pinctrl driver for it, which
-would have taken care of IDAC, biases, etc.
+Here is the summary with links:
+  - [net-next,v3,1/5] dt-bindings: net: realtek,rtl9301-mdio: Add RTL931x series
+    https://git.kernel.org/netdev/net-next/c/a390863b493e
+  - [net-next,v3,2/5] net: mdio: realtek-rtl9300: Add prefix to register field defines
+    https://git.kernel.org/netdev/net-next/c/29a540b56e51
+  - [net-next,v3,3/5] net: mdio: realtek-rtl9300: Make otto_emdio_read_cmd() generic
+    https://git.kernel.org/netdev/net-next/c/6e1d8b024de7
+  - [net-next,v3,4/5] net: mdio: realtek-rtl9300: Add registers for high port count models
+    https://git.kernel.org/netdev/net-next/c/3e8035b861c2
+  - [net-next,v3,5/5] net: mdio: realtek-rtl9300: Add support for RTL931x
+    https://git.kernel.org/netdev/net-next/c/5ebdcac59aff
 
-I plan to work on sashiko's feedback this weekend and submit next week.
-Won't make huge changes, just fix some rookie mistakes... :/
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
---=20
-Thanks,
- ~ Kurt
+
