@@ -1,99 +1,312 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2061619992C;
-	Sat, 13 Jun 2026 18:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE50519992C;
+	Sat, 13 Jun 2026 18:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781376777; cv=none; b=DQ6sQgdI7w9GqBVLX2hjfyKVV8ZSn3xnjev53XZF7VjTRe4RhLF+4VRVasPegFKfoFNl/6dtIIgEGARCLlrrk5GaDNVOUG1Bv9PtRBMOWgh98XiKJhvW3EOgYnhwsD7AOjbN7lz0ac7W+0f7Qk6Kj+EUO9DwVxSevkc9jkp2Zis=
+	t=1781376895; cv=none; b=KLhBo5Qo4QPK0XpWeexiLV3kjP650SQUVfx4N5IAtqOkFr9juqE2gl2BwYBeOh+cWWKEe8cjzVPNWCCJsP7BfE2yBJKEJD53UXtJ3O/rtHGTLcOX7t6VT+2crIhEFtuErjpF6BB1GCG43xC3N9m41fGz8jwQX1bdQvCQqIWyDHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781376777; c=relaxed/simple;
-	bh=1vURP6x8ko+SoVAdvDeW2alY1GjCKrlk5rZ34TfQ+Wc=;
+	s=arc-20240116; t=1781376895; c=relaxed/simple;
+	bh=jJ8rBGiy2dxWpalW8Igex5kuuAOnmPEKi3aJno92Np0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHLUhRSl98ztepyxJ7NqidDKjZcd/z/+qL6Fnx281BBWNUQiMbIcrCDFmZ8O9gJgm6Y433665d3uwcgoZIXYrygv5HP5zM5jvOtQkrg7dg9MwPH5VVPJN1V0xLmcD/Wc1Y3OD9UUOYW1u5iQNUKoNKtFsNWvxwq47E3NQ2/aqXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1wYTTR-000000002Y0-2HuE;
-	Sat, 13 Jun 2026 18:52:53 +0000
-Date: Sat, 13 Jun 2026 19:52:50 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Joris Vaisvila <joey@tinyisr.com>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
-	kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
-	olteanv@gmail.com, Andrew Lunn <andrew@lunn.ch>,
-	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?QXLEsW7DpyDDnE5BTA==?= <arinc.unal@arinc9.com>,
-	Landen Chao <Landen.Chao@mediatek.com>,
-	DENG Qingfang <dqfext@gmail.com>,
-	Sean Wang <sean.wang@mediatek.com>
-Subject: Re: [PATCH net-next v5 4/4] net: dsa: initial support for MT7628
- embedded switch
-Message-ID: <ai2nAmi2fVFraRbK@makrotopia.org>
-References: <20260613181845.111877-1-joey@tinyisr.com>
- <20260613181845.111877-5-joey@tinyisr.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=VnjddLFO4vkMxgIfCpsgweE4cwsMOjGeHL8fYUwzxyUa6eqg1kyImos6ZJxAgSWYNDrkXEshgWXMWeAdfW3hi7qBxByUh+doVjaPLgjAg8n8TzJJxKCWVlF4bETposku1DPE+R2CAVZT/7Kkq+Qm2I+Qxu0gbiu8nVExh4fafZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZsvjLy2P; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZsvjLy2P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8FE91F000E9;
+	Sat, 13 Jun 2026 18:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781376894;
+	bh=9aRCDqgGSH3iD0ZnGIWR6w5F4sdtrQYSDqoyBQWRMJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZsvjLy2PpWDpdPKRgfJzopHlrckWK4SqIsQkBitrTw5KOzdvpzBIkCYRTwIc31E/L
+	 PVDy2FK+fKoqeV6cUoPpsFt1gLJd+ySD9ciHLXmjHMObSfI7ZqHoWHJNXXAVjno/Cg
+	 HJhzOrE0R7CmvGaTgImH8ybUiQGbOnZXHX0fc/Y2CoKyqXH/iEhxXTX+qvrBmekY58
+	 4EorCWj9M3yj7p256c7hugcC39sKtG9q/lshgs6BXGLuZAIWJTXt/lKclibqMEISHh
+	 HWLvwPUiHaWPgkZmpaq7H9WxnUdJ9YJcYspFcI+Yrz9gHKoXPtqVrgDtUrEb0Nzpiz
+	 pLLnyye8yNsSA==
+Date: Sat, 13 Jun 2026 20:54:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kurt Borja <kuurtb@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: iio: adc: Add TI ADS126x ADC family
+Message-ID: <20260613-loyal-azure-goldfish-cf6d54@quoll>
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+ <20260612-ads126x-v1-1-894c788d03ed@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260613181845.111877-5-joey@tinyisr.com>
+In-Reply-To: <20260612-ads126x-v1-1-894c788d03ed@gmail.com>
 
-On Sat, Jun 13, 2026 at 09:18:45PM +0300, Joris Vaisvila wrote:
-> Add support for the MT7628 embedded switch.
-> 
-> The switch has 5 built-in 100Mbps user ports (ports 0-4) and one 1Gbps
-> port that is internally attached to the SoCs CPU MAC and serves as the
-> CPU port.
-> 
-> The switch hardware has a very limited 16 entry VLAN table. Configuring
-> VLANs is the only way to control switch forwarding. Currently 6 entries
-> are used by tag_8021q to isolate the ports. Double tag feature is
-> enabled to force the switch to append the VLAN tag even if the incoming
-> packet is already tagged, this simulates VLAN-unaware functionality and
-> simplifies the tagger implementation.
-> 
-> Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
-> [...]
-> diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
-> new file mode 100644
-> index 000000000000..cedf063ad749
-> --- /dev/null
-> +++ b/drivers/net/dsa/mt7628.c
-> [...]
+On Fri, Jun 12, 2026 at 05:46:19PM -0500, Kurt Borja wrote:
+> +  ti,neg-refmux:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      Selects the negative voltage reference input:
+> +      0: Internal 2.5 V reference
+> +      1: AIN1 pin
+> +      2: AIN3 pin
+> +      3: AIN5 pin
+> +      4: AVSS pin
+> +    minimum: 0
+> +    maximum: 4
+> +    default: 0
 > +
-> +static const struct regmap_config mt7628_esw_regmap_cfg = {
-> +	.name = "mt7628-esw",
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +	.fast_io = true,
-> +	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-> +	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-> +};
+> +  ti,vbias:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description: Enables the level-shift voltage on the AINCOM pin.
+> +    default: false
+
+There is no such syntax, drop.
+
 > +
-> +struct mt7628_vlan {
-> +	bool active;
-> +	u8 members;
-> +	u8 untag;
-> +	u16 vid;
-> +};
+> +  ti,idac1-pin:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      Selects the analog input pin to connect IDAC1:
+> +      0: AIN0
+> +      1: AIN1
+> +      2: AIN2
+> +      3: AIN3
+> +      4: AIN4
+> +      5: AIN5
+> +      6: AIN6
+> +      7: AIN7
+> +      8: AIN8
+> +      9: AIN9
+> +      10: AINCOM
+> +      11: No Connection
+> +    minimum: 0
+> +    maximum: 11
+> +    default: 11
 > +
-> +struct mt7628_esw {
-> +	void __iomem *base;
+> +  ti,idac1-microamp:
+> +    description: Selects the current values of IDAC1.
+> +    enum: [0, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3000]
+> +    default: 0
+> +
+> +  ti,idac2-pin:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      Selects the analog input pin to connect IDAC2:
+> +      0: AIN0
+> +      1: AIN1
+> +      2: AIN2
+> +      3: AIN3
+> +      4: AIN4
+> +      5: AIN5
+> +      6: AIN6
+> +      7: AIN7
+> +      8: AIN8
+> +      9: AIN9
+> +      10: AINCOM
+> +      11: No Connection
+> +    minimum: 0
+> +    maximum: 11
+> +    default: 11
+> +
+> +  ti,idac2-microamp:
+> +    description: Selects the current values of IDAC2.
+> +    enum: [0, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3000]
+> +    default: 0
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  '#io-channel-cells':
+> +    const: 1
+> +
+> +  '#gpio-cells':
+> +    const: 2
+> +
+> +  gpio-controller: true
+> +
+> +  adc:
+> +    $ref: /schemas/iio/adc/ti,ads1263-adc2.yaml#
 
-Why even keep *base here if actual access all happens via the
-regmap created for it?
+Not a separate device node. Fold into the parent... or explain in
+commit msg. You have entire commit msg to explain odd things.
 
-Other than that lgtm
+In that binding description you call it "independent", so it should have
+its own SPI chip select? Why "independent" and part of this binding?
+Maybe not independent, so basically part of this device?
 
-Reviewed-by: Daniel Golle <daniel@makrotopia.org>
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - avdd-supply
+> +  - dvdd-supply
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +unevaluatedProperties: false
+> +
+> +patternProperties:
+
+patternProps always follow properties. Please open example-schema for
+template.
+
+> +  "^channel@[0-9]+$":
+> +    $ref: /schemas/iio/adc/adc.yaml#
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      diff-channels:
+> +        description: |
+> +          Selects the analog input configuration for this channel. The first
+> +          value is the positive input and the second is the negative input.
+> +          The following values are available:
+> +          0: AIN0 pin
+> +          1: AIN1 pin
+> +          2: AIN2 pin
+> +          3: AIN3 pin
+> +          4: AIN4 pin
+> +          5: AIN5 pin
+> +          6: AIN6 pin
+> +          7: AIN7 pin
+> +          8: AIN8 pin
+> +          9: AIN9 pin
+> +          10: AINCOM pin
+> +          11: Temperature sensor monitor
+> +          12: Analog power supply monitor
+> +          13: Digital power supply monitor
+> +          14: TDAC test signal
+> +          15: Float (open connection)
+> +        items:
+> +          minimum: 0
+> +          maximum: 15
+> +
+> +      ti,chop-mode:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          When enabled, the ADC performs two internal conversions to cancel the
+> +          input offset voltage. The first conversion is taken with normal input
+> +          polarity. The ADC reverses the internal input polarity for the second
+> +          conversion. The difference of the two conversions is computed to yield
+> +          the final corrected result with the offset voltage removed.
+> +        default: false
+> +
+> +      ti,idac-rotation-mode:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          The rotation mode automatically swaps the IDAC1 and IDAC2 connections
+> +          of alternate conversions. The ADC averages the alternate conversions
+> +          to eliminate IDAC mismatch.
+> +        default: false
+> +
+> +      ti,pga-bypass:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description: Bypass the Programmable Gain Amplifier (PGA).
+> +        default: false
+> +
+> +      ti,rev-vref-pol:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          The reference polarity can be negative, but the ADC requires a
+> +          positive voltage reference. In this case, the reference
+> +          polarity-reversal switch changes the reference polarity from negative
+> +          to positive.
+> +        default: false
+> +
+> +      ti,sbias-connection:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: |
+> +          Selects the sensor bias current source connection:
+> +          0: Sensor bias connected to ADC1 mux out
+> +          1: Sensor bias connected to ADC2 mux out
+
+Use string enum.
+
+> +        minimum: 0
+> +        maximum: 1
+> +        default: 0
+> +
+> +      ti,sbias-polarity:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: |
+> +          Selects the sensor bias current source polarity:
+> +          0: Sensor bias pull-up
+> +          1: Sensor bias pull-down
+> +        minimum: 0
+> +        maximum: 1
+> +        default: 0
+
+Use string enum.
+
+> +
+> +      ti,sbias-magnitude:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: |
+> +          Selects the sensor bias magnitude:
+> +          0: No sensor bias current or resistor
+> +          1: 0.5-uA sensor bias current
+> +          2: 2-uA sensor bias current
+> +          3: 10-uA sensor bias current
+> +          4: 50-uA sensor bias current
+> +          5: 200-uA sensor bias current
+> +          6: 10-Mohm resistor
+> +        minimum: 0
+> +        maximum: 6
+> +        default: 0
+> +
+> +    required:
+> +      - reg
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        adc@0 {
+> +            compatible = "ti,ads1263";
+> +            reg = <0>;
+> +            spi-max-frequency = <8000000>;
+> +            spi-cpha;
+> +            avdd-supply = <&avdd>;
+> +            dvdd-supply = <&dvdd>;
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            reset-gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
+> +
+> +            /* AINP: 0 - AINN: AINCOM */
+> +            channel@0 {
+> +                reg = <0>;
+> +                diff-channels = <0x0 0xA>;
+> +            };
+> +
+> +            /* Temperature sensor monitor */
+> +            channel@1 {
+> +                reg = <1>;
+> +                diff-channels = <0xB 0xB>;
+> +            };
+> +
+> +            adc {
+> +                compatible = "ti,ads1263-adc2";
+
+Heavily incomplete... Drop the sub node.
+
+Best regards,
+Krzysztof
+
