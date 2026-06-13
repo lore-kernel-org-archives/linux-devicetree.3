@@ -1,105 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967AA233920;
-	Fri, 12 Jun 2026 23:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5688829CE9
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 00:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781308337; cv=none; b=jq0VRxhV540YjwmJ5Ff9kG6Ewc8IBiOuBT03m8o1qDaOTfQTmJlgUZShFZVU69y+15lPD3KD80rHr0uxiftS406yR6JBWvxXQTu32zm6+QQjt8GpVFuNjpzHF75tsz/6g/BlhjQUdigDhm8hYyelKPCZipBXNByMkjx74JwOzGs=
+	t=1781309187; cv=none; b=CzGjiaxNKoDcBKij4kTe44eoGf/PtB2K1X5VgF8DOfQYS+hCQD6KQdipnDq/qsYpKNYNqPUL6X0gZvZwj24rKZFbLofgjnDQJYSZXoIcm9KMSBU/WSlUtc/JxeZB18r5z13xIq4G7Y53lv+pklUNo4XnF4Q78R5nNjYHgVHI3VA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781308337; c=relaxed/simple;
-	bh=7ajTGkMRXSuC4tG/rASZ3NokB3b7XICYIAQHgCuORAE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dddqJY7W4+daqSOlzZxvVN5shL6jYjqgoEaB8OuuCliS78RyWNNDNYv1mL25PMnddkvtVyfYM86cuSMQBXLYJkibrW4TC6E1t3VToVLECMu3sd8gsps/LrrDymKLygM62Bw2C9vsrwRv2CRtw0dzOHzoGyc7B98n5MuF2DRGHAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcWLt8pG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781309187; c=relaxed/simple;
+	bh=6k16D58X5Hp71dTQ2A4hs7CDJxnziA+HOcbHy3F7wYg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=h9f4X6PQ4hu2YLCsiQq89Y5AY7aY9PFRWrYy3kUr9+8dqjRvHShsLKKncklaIyU1N05ZHq3/TfeRrE/lFWVxKGccM/D+sxVOgW526yhzcJoNs0dr2hH3fc8VqtH2Rh5ULYbBoMFZrmSVl2Yrwt+mIWncSAyu0B6OOklnSdpQDpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OW3k9+kn; arc=none smtp.client-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcWLt8pG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0790D1F000E9;
-	Fri, 12 Jun 2026 23:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781308336;
-	bh=XSnlBee5txbcJRxUOQBwfCkdpA/WSJG8zwRgmSZsVRk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EcWLt8pGRSnJB/6jlQEN6UUyZtfD+mLidtBx+WPWIW0oQ5+Yh3xLvB/yiJ9Pz1nRJ
-	 OnLn19pbqrIt6MGOiIFROU+zHrQv0JzWtTsBM8DTH5y8ObD2Ct/4iiNJ7XEBDbO5yr
-	 lUtxLxXwFwliyDWsPogkRBpITWVs8i9zhhTwk1k+kFy6ESSkplmhyFElsAsogoJJCW
-	 6A1hLbCPbsG2xhG61Isw3Ubt/HrjG3n6QK+9pFoGQoryA7BWcOchl2XggZs+8pvXk/
-	 1CcFETxim8WlmAJmt19hpPqv/Pz2v+5QK5b1TXCqQuBVV2mTxbk8obL1EC4PBstTUa
-	 ZrAZI2jpzETxg==
-Message-ID: <2ad008a6-bf67-4854-906a-bd2ba395cfba@kernel.org>
-Date: Sat, 13 Jun 2026 00:52:12 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OW3k9+kn"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5a082548de2so496313e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 17:06:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781309184; x=1781913984; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V8p1+OVmvemJz2aH/soukQnCPpp6FHT4E6Hl1lAMDXE=;
+        b=OW3k9+knR2VedobA1/HIDXu1GO//1Xh1WTGPDqubRSdx0XLDCGjapDzJSqgduyXFSR
+         LqmXV3KEnimT17WyfZZX7R9n+SnTI8QowmiYBeiYv4ak9wrlbBKkUmZWfoH6rkQDRnZZ
+         DSq7eLbQHcUvxAhXv3JiiQ26sg/EliQtk7ZXopSwuS3hCyoBxHx1cveaUgYCjFI+/bo6
+         +HhjVRMvdg+MX4/Iv+uk3ujLVWcD70mfbaa2VTlwnTqAQAav7Psr6TiCTkuEIr6Ai0ED
+         IsSlEr8Uw9XNpjZk4ya/IGbOZvxTsyVQQhVlm2QWFCAKFB3vBldEwK2Oi1No3LYHtnyQ
+         lugg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781309184; x=1781913984;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=V8p1+OVmvemJz2aH/soukQnCPpp6FHT4E6Hl1lAMDXE=;
+        b=VIJAsOltNlbXRwDuFsgyMCmhuiwePmDSnTRBqEWbNrDt2IrqfOLtc1RlVyB2m5zKMo
+         AdiJGTOJ+9zlOA8328XSzVlcdX6PwOAzjsSnz1n1BAJIYxGWk4rq7HgvZNw8malX1Z2X
+         GCU+sfbiiu7f3eHAi+pIsrmzfjLrIc4719YTdZ3IOTz1AcmYwS/tznmZQmkZ1bhp7IPN
+         5D6CJuE/QU42cGFXgqSMIMocQYTzT5a5Jkq6Cz+TEJrwAvs+dvVWDkiY5VAtd3CMLiN5
+         rnYuL5w6XyGZQUtlHmAJ82oviXk1xklGKmg6lBIUtVFJsdpi1UKGW2e4JQ/I25prdXR4
+         MgFQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/JefbBrVt/M7kKubFaezgWJwoKpXE8YtUe8inG2icTaoF5J/X7mGvri10mqo0XfWciX3DSaOVJNuff@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDsDTl+xgRVBfGKzDnNtckxFBo6r3MT5fqK/S6qss/A5BS1ckp
+	43YzMX2YlIvo59fLOSRRtrDJlzV+ws1NMRQC4JzhFKH3nrBem9eceGsw
+X-Gm-Gg: Acq92OFaUJPyJvMKVnoXn3gZR5opinBPwA2Tlx246WpdbPvjzbGdnAlNktA6RaSVG2c
+	kWb1CjqlO/NQjOA31j6sfjkEz1EKTyeqM7sI+iAL8lsFwaJRxXReP593E4UaNgspCgD6WXSCUBs
+	+srSUNvEX5nYAJgLZ2EMvqccb2WM8Y7FjacegyQXfZuvfqMOVpcPiTHHihUxJjOHytrlG4u67Hw
+	WBC83SXV0l93A6GtgXMQYD6iQJVAmS7KnHY3V33AQ6o4IEudT1VPVgsiCTQ2h9o7So026nMilIg
+	B90jC+qKXZ1rJTyntGc/iYUxb7IogBmlz6ggl1Q8HqoBMI/ih994Mi9zqEYLFJzAxtAb1aKRfCy
+	M4NrpcTaYHzb6mC1NuNsNRlqcVGFOpADSIQX+n0jbOFuH65g3hqF08PZNC12E6GRiHNpywUuYPy
+	lEWyc2DevzBAxjgw==
+X-Received: by 2002:a05:6122:7d4:b0:56a:fff5:b4d6 with SMTP id 71dfb90a1353d-5bb79a93ec5mr1419591e0c.4.1781309184166;
+        Fri, 12 Jun 2026 17:06:24 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb691bb8a4sm4328705e0c.10.2026.06.12.17.06.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 17:06:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] arm64: dts: qcom: sm8550: Add JPEG encoder node
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
- <eY8-IbmZdQzKJEghATTeVJerci7KPVBImWk85jbXw_LZ14uTj2j55zx7DEhdyu6218wQrolFoVbRWTaL3QQjNw==@protonmail.internalid>
- <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 12 Jun 2026 19:06:16 -0500
+Message-Id: <DJ7HEIO6NRT4.2C1XVYIG81J4D@gmail.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 0/5] iio: adc: Add TI ADS126X ADC family support
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+ <95291df3-c34b-40a4-ba73-813ccd4b9ef8@baylibre.com>
+In-Reply-To: <95291df3-c34b-40a4-ba73-813ccd4b9ef8@baylibre.com>
 
-On 12/06/2026 20:44, Atanas Filipov wrote:
-> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+On Fri Jun 12, 2026 at 6:50 PM -05, David Lechner wrote:
+> On 6/12/26 5:46 PM, Kurt Borja wrote:
+>> Hi all,
+>>=20
+>> This series introduces support for TI ADS1262 and ADS1263 ADCs [1].
+>> These devices are very similar (if not the same), except ADS1263
+>> includes a secondary auxiliary ADC.
+>>=20
+>> The main ADC has quite a few features supported the main driver
+>> (ti-ads1262), including:
+>>=20
+>>   - Power management
+>>   - IIO direct and buffer modes
+>>   - Channel hot-reloading
+>>   - Internal or external oscillator
+>>   - Internal or external voltage reference
+>>   - Filter configuration
+>>   - Sensor bias configuration
+>>   - IDAC configuration
+>>   - Level-shift voltage configuration
+>>   - Manual calibration support
+>>   - GPIO controller capabilities
+>>=20
+>> I plan to add these features to the main driver soon:
+>>=20
+>>   - SPI offload support (38400 SPS turns out to be too high for some
+>>     systems)
+>>   - User triggered, automatic calibration (Datasheet 9.4.9)
+>>=20
+>> Additionally, full support for the (less capable) auxiliary ADC is
+>> introduced by the auxiliary ti-ads1263-adc2 driver included in this
+>> series.
+>>=20
+>> The auxiliary ADC operates almost completely independent of the main
+>> ADC. The only consideration that has to be taken for interoperability is
+>> when reading conversion data in direct mode (Datasheet 9.4.7.1), which
+>> happens only in buffer mode, when multiple channels are enabled.
+>>=20
+>> When reading data in direct mode, all SPI activity is forbidden between
+>> the data-ready signal and the data retrieval. To achieve this a second
+>> mutex called xfer_lock was introduced to block SPI activity on the
+>> device.
+>>=20
+>> This is one of the biggest drivers I've developed, so I hope the code
+>> and the comments are self-explainatory. If not, please let me know so I
+>> can clarify them.
+>>=20
+>> As always, thanks for your reviews and help. Submitting upstream is
+>> always a great learning experience :)
+>>=20
+>> [1] https://www.ti.com/lit/ds/symlink/ads1263.pdf
+>>=20
+>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+>> ---
+>> Kurt Borja (5):
+>>       dt-bindings: iio: adc: Add TI ADS126x ADC family
+>>       iio: adc: Add ti-ads1262 driver
+>>       iio: adc: ti-ads1262: Add GPIO controller support
+>>       iio: adc: ti-ads1262: Add calibration support
+>>       iio: adc: Add ti-ads1263-adc2 driver
+>>=20
+>>  .../devicetree/bindings/iio/adc/ti,ads1262.yaml    |  308 +++
+>>  .../bindings/iio/adc/ti,ads1263-adc2.yaml          |   49 +
+>>  MAINTAINERS                                        |   10 +
+>>  drivers/iio/adc/Kconfig                            |   26 +
+>>  drivers/iio/adc/Makefile                           |    2 +
+>>  drivers/iio/adc/ti-ads1262.c                       | 2180 +++++++++++++=
++++++++
+>>  drivers/iio/adc/ti-ads1262.h                       |   39 +
+>>  drivers/iio/adc/ti-ads1263-adc2.c                  |  470 +++++
+>>  8 files changed, 3084 insertions(+)
+>> ---
+>> base-commit: ae696dfa47c30016cd429b9db5e70b259b8f509e
+>> change-id: 20251129-ads126x-fb6107505cae
+>>=20
+>
+> Hi Kurt,
+>
+> I'm currently working on the TI ADS112C14 family of chips which
+> are functionally very similar (although have a bit of a different
+> register map).
+>
+> I have some different ideas for the devicetree bindings that I
+> think will make it a bit more flexible. Given how similar the
+> chips are, I think we will want to align on how we do these (and
+> there was one more similar, and thankfully much simpler, TI ADC
+> driver submitted this week too!).
+>
+> So rather that looking at your stuff too closely yet, I will send
+> what I have next week and we can compare notes then.
 
-This almost certainly should contain MMCX and MXC too.
+Hi David,
 
-Please check.
+Of course!
 
----
-bod
+Devicetree bindings were a bit of a pain for me. I definitely want to
+check your approach, specially on the IDAC stuff. The ADS1262 has many
+pin configurations. I even considered a pinctrl driver for it, which
+would have taken care of IDAC, biases, etc.
+
+I plan to work on sashiko's feedback this weekend and submit next week.
+Won't make huge changes, just fix some rookie mistakes... :/
+
+--=20
+Thanks,
+ ~ Kurt
