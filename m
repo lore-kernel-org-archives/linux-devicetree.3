@@ -1,184 +1,109 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BD43D669F
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 11:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9D3374728;
+	Sat, 13 Jun 2026 11:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781350629; cv=none; b=tfJjV90sTewpybgpXMsEGFU/siyLM6H+iFMid5W6LzvYUrMtJOrsh1dHq1WJJ+4Q+4GhEHn15NKb/QqHkOd651IlqRr8lYbVmrPJg15B171yTdXHZCKedYXzTSMOW2ZemxUaop9nih3t0OKL/o4w8czaBZIu6XFCvuOaELaDTXs=
+	t=1781351420; cv=none; b=pT/HcSC7VjdV0IhqDdXBkHkEMrTQIRly0vffSprkzt6cIw1KP4ccenxyvHwPm0QMtbEorjzHpNJmEbLjXQ4hci18gJVqGd+KXukelJ16y99L1u9HkbGDNShdqu2ImYKWTrlSD2ieecLru8QHWjsUKPuhDgOVKjsm7NwD7mRyHxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781350629; c=relaxed/simple;
-	bh=wlS7xKgyO+XyXN6dNATrd0asFAwdvMwxkQainFP9a4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VsNnWieBx/rwdd6+UtL4S7m7BYp2TJ8Cm/gJjL2wKwQ2YMowjxP89LMzrfTD8GFdsp6/s62E/HlU+IAUBREkadlDoQiKPpuftftXX0M667ZubGnMFk1VdUJpQH+89vWkrPKh6ESwKBvmSdNwr07pehglZOfuKG13r8ZpbhLRtiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=absvLViK; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781351420; c=relaxed/simple;
+	bh=gBPGsjsJJw8C6S1/99m7O7L1JU4dJJlui6HmSTzcJiY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KC/G1RWWVjAn4tvrndF7yI+T91/UibbrnvissCKHdGATbb8O3z5isvItBtpeOQ1hQB/Y67+tfUmm4CcoMavLeuxFnOAyAayCpsAfX08Za7FtU9aiRevJEMKFHQ188MUJtPI+5McjO+kcUfegFdaO8uVYOOQdy4pk4fEhfcuoXIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJiTOny2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="absvLViK"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49222fb062bso5135565e9.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:37:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781350627; x=1781955427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SFT4S6YWGOqkBEGH8f7ZvRxrjPmCEGESiSX2o/TWj+Q=;
-        b=absvLViKKCQdYpmN4gX7HC7PrrRpRyY0+8L28FXUnGjKYg272Augc4WKsKs6Ypx9ez
-         OjpiBFTiMvZJldSHV11rLu/F5zbejhrRIf4V+eCwfsAP6tzQ8AtcvwpK7HVQGrOkD6yk
-         0029mC10yvqMrE+mDrdZ1fBi6GtOZum4XJwH4PPJ3nvuxxjM2DKKtRLMgZicCRPtqmRE
-         SnWctHkgMVnTcmuUIQgJ5yFQ109Qqfc0ST0pEYZ7TTp4EInWfAF2V9Yy9NzgvsUhZ7e/
-         OUFVEI0uC3tUbGLGHyECpZADY2SH4my1gMUOxxDGnFu36H7EfyJrS/nR7W2kwNamMW2G
-         MoVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781350627; x=1781955427;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=SFT4S6YWGOqkBEGH8f7ZvRxrjPmCEGESiSX2o/TWj+Q=;
-        b=phXtCKDPzIHT6s9YnPib3i8IOSlMxKb5AQj3sfC5/qSM+IwD3xt1jvpL6EGJxBHNb1
-         LOCCMQeK95Jrq2UQFXwNNZSJproSGoi4MAQ7OaV/4zQ2JKWWim0xjUnkUEAMVNCKvmaa
-         ZNFTdGMzIdoklj91kjakd0ZMydkzAauW1PVvwOpEVEz9qwxl5+vbiq3DJrTg29WjxrRq
-         YdwIagY4fE3CdUXgLDAN0j1nIgICaakCxLxDKzcJlBZPLJbpdJR0QeW+ExhcLZJ7W44V
-         Pm/IAGSsJLBGaPcFsGRjsjb1ld41+Iuo1LzMb0fB9We8XRG50kV4iIQDVy3l6aDVX0UN
-         Jd/A==
-X-Gm-Message-State: AOJu0Yz5Cy9aQqrsRzUyIEE1TuQvQWCG0OPYnsvwa3BihdM5qMOTKs2M
-	OenEJMqeIFFMMlX2ixTkb6XTnWCXjJZgam9gqsBDYpReLZOwtYcDOg58
-X-Gm-Gg: Acq92OGBdjbsPbMZRRj3FYfMW1v44O8vEX8bVRmU5BbFqgHeZ3LjwQ/n93Hh3/f55c5
-	yiB4YV6RXbAX/dLkR3tqC3W7EjyMR3gPejC7sZRb9GB8/N2OjZOeDoHZYuj4WgrNFm1kuLRjEoC
-	CuKDm1J8eCX6EOdVnr9qgZvt6FW7Buv4B1XaOkU75ZGWswERXM2wXJqxBxRpyQGwkcOkSJxZiAr
-	+zkyTJoR6w3pEoYM4oqgTJqG+VINx7cLeaeWZNkL5bzCXBsbbDRPRnSbzhBlypCo0xWkdJycxJs
-	br95uZTaCMAHdEWdhq1Wqdv5QqhpSxRnpu8IWgFebc7wJQV7zYs6wHzSuFzu20H8fJEgpmeCNn5
-	iLSyuDNrfYNZHRYEev18MK/SFDgFTdWw3JAs1blExAJRewZNQlio5ZPe9LgovxfZLqNtlXjPSJm
-	fFg7DHDPsm7iGEnIomkmIXzncqVSTfLx7K8fu9ECVbUhEK
-X-Received: by 2002:a05:600c:83c8:b0:492:1e36:d16e with SMTP id 5b1f17b1804b1-4921e36d1a9mr50171305e9.36.1781350626544;
-        Sat, 13 Jun 2026 04:37:06 -0700 (PDT)
-Received: from jernej-laptop.localnet ([188.159.248.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922033dd3esm67812295e9.8.2026.06.13.04.37.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 04:37:06 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, enzo.adriano.code@gmail.com
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, Enzo Adriano <enzo.adriano.code@gmail.com>
-Subject: Re: [PATCH 4/4] arm64: dts: allwinner: add Radxa Cubie A7S
-Date: Sat, 13 Jun 2026 13:37:04 +0200
-Message-ID: <yDDIdJcZRCmL2YwI2Wv_ng@gmail.com>
-In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-4-7787c94681db@gmail.com>
-References:
- <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
- <20260613-a733-dts-v1-public-ready-v1-4-7787c94681db@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJiTOny2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A111F00A3F;
+	Sat, 13 Jun 2026 11:50:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781351419;
+	bh=erkZj5hqHW6bXkpo4dZEwW77jrkRwARJOKmvsY/EhT0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DJiTOny2/V6+izDu1dUMfbuCRx2se/NaZmdtbKhOXgy+uvS+Ww8lG/NLuGpiVv4cm
+	 AZsSJodMPaqowPitxJmiJcWx8wfGgMNZ8dUZdRj5ZdeOG6Rm6gu/G21rRlW0AUREeP
+	 iHEp4h5JSJq9PKsLxYs3oi+ENFjtM+NRi9mtf9d9lTb4C2qOxyRnCrPmnWoZ0XhncN
+	 2R4fWO/sA1z5WMC77XLX1x58gmIaMoEaWdbkVRL3zRUEpdgo/x6rdTW9iu1w89WXGW
+	 YGockjpuVJXz8jTWU8GUwstdX8WDx+T6uyX82HiIP4qVJZUstLe+Skx4RydK52HKi+
+	 du6i/3RYAP2dg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] arm64: dts: allwinner: add Allwinner A733 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Enzo Adriano via B4 Relay" <devnull+enzo.adriano.code.gmail.com@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
+References: <20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 11:50:18 +0000
+Message-Id: <20260613115018.D3A111F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Dne sobota, 13. junij 2026 ob 11:42:16 Srednjeevropski poletni =C4=8Das je =
-Enzo Adriano via B4 Relay napisal(a):
-> From: Enzo Adriano <enzo.adriano.code@gmail.com>
->=20
-> Add the Radxa Cubie A7S board description with serial console and SD card
-> boot support.
->=20
-> Ethernet remains disabled until the GMAC210 wrapper, clocks, resets,
-> MDIO, PHY reset, PHY power, and link behavior are proven.
->=20
-> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
-> ---
->  arch/arm64/boot/dts/allwinner/Makefile             |  1 +
->  .../boot/dts/allwinner/sun60i-a733-cubie-a7s.dts   | 48 ++++++++++++++++=
-++++++
->  2 files changed, 49 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
-/allwinner/Makefile
-> index d116864b6c2b..824cc35152db 100644
-> --- a/arch/arm64/boot/dts/allwinner/Makefile
-> +++ b/arch/arm64/boot/dts/allwinner/Makefile
-> @@ -56,6 +56,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35=
-xx-2024.dtb
->  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35xx-h.dtb
->  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35xx-plus.dtb
->  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h700-anbernic-rg35xx-sp.dtb
-> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun60i-a733-cubie-a7s.dtb
->  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-a527-cubie-a5e.dtb
->  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-h728-x96qpro+.dtb
->  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-t527-avaota-a1.dtb
-> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts b/ar=
-ch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The patch references missing header files for CCU clock and reset b=
+indings, which will cause a build failure.
+- [Low] New compatible strings for the CCU and pinctrl are used without bei=
+ng documented in the YAML schemas.
+--
+
+commit 08b3c222d5fc2b42b4c8ea3dd602ebcc113d5545
+Author: Enzo Adriano <enzo.adriano.code@gmail.com>
+
+arm64: dts: allwinner: add Allwinner A733 SoC
+
+Add the initial A733 SoC description with CPUs, timers, interrupt
+controller, clocks, pinctrl, UART0, and MMC0.
+
+Keep peripherals disabled by default. Board DTS files can enable only the
+devices that are proven on their hardware.
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun60i-a733.dtsi
 > new file mode 100644
-> index 000000000000..453761a96323
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
-> @@ -0,0 +1,48 @@
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+> @@ -0,0 +1,198 @@
 > +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
 > +
-> +/dts-v1/;
-> +
-> +#include "sun60i-a733.dtsi"
-> +
-> +/ {
-> +	model =3D "Radxa Cubie A7S";
-> +	compatible =3D "radxa,cubie-a7s", "allwinner,sun60i-a733";
-> +
-> +	aliases {
-> +		serial0 =3D &uart0;
-> +		mmc0 =3D &mmc0;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +	};
-> +
-> +	reg_vcc3v3: vcc3v3 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vcc-3v3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		regulator-always-on;
-> +	};
-> +};
-> +
-> +&mmc0 {
-> +	vmmc-supply =3D <&reg_vcc3v3>;
-> +	bus-width =3D <4>;
-> +	no-mmc;
-> +	no-sdio;
-> +	status =3D "okay";
-> +};
-> +
-> +&pio {
-> +	uart0_pb9_pb10_pins: uart0-pb9-pb10-pins {
-> +		pins =3D "PB9", "PB10";
-> +		function =3D "uart0";
-> +	};
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/clock/sun60i-a733-ccu.h>
+> +#include <dt-bindings/reset/sun60i-a733-ccu.h>
 
-Besides sashiko bot comments, these pins should go to main A733 DTSI,
-like it's done for other SoCs.
+[Severity: Low]
+Are these header files introduced in a different patch? Compiling this devi=
+ce
+tree will fail at the preprocessor stage because these headers are missing
+from the baseline tree and aren't added in this patch.
 
-In any case, it's a bit early for DT. At least clocks should land before.
+[ ... ]
 
-Best regards,
-Jernej
+> +		pio: pinctrl@2000000 {
+> +			compatible =3D "allwinner,sun60i-a733-pinctrl";
 
-> +};
-> +
-> +&uart0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&uart0_pb9_pb10_pins>;
-> +	status =3D "okay";
-> +};
->=20
->=20
+[Severity: Low]
+Are these new compatible strings documented in the dt-binding YAML schemas?
+Adding new compatibles without their corresponding binding documentation wi=
+ll
+trigger make dtbs_check warnings.
 
+> +			reg =3D <0x02000000 0x600>;
 
+[ ... ]
 
+> +		ccu: clock-controller@2002000 {
+> +			compatible =3D "allwinner,sun60i-a733-ccu";
 
+[Severity: Low]
+Will this compatible string also need to be added to the YAML schemas to
+avoid validation warnings?
+
+> +			reg =3D <0x02002000 0x2000>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613-a733-dts-v=
+1-public-ready-v1-0-7787c94681db@gmail.com?part=3D3
