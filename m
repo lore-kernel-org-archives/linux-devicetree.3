@@ -1,66 +1,67 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00913B67E
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 05:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABDF3C199B
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 05:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781328031; cv=none; b=gDHqIFIo9g9aF3XVqtdG6cgsGxyQVp1XDtb4eogpqqGxAViOOnL4TaWKqhC+D/klmzjEs+FRUXvobExR9gdWEDVuvcPIm1Wu8j0M6oyid1RGUcUf/utm/fpg3VxRqst89kZuUYU5E/xNmT2k1PckhypBYK7BP9PayVTrSsdQAHY=
+	t=1781328036; cv=none; b=P5vAwyOLIfVNQZ4dGrgxkvzFT+TDNpXe5klJahPsMbaXf4vXUiznb8+UsnZECkiidGRsNJbMbeo44gaE/fdfI7+3bs089rM/v29JcFIFVoRwNS+t+FDRUaqkhNVu/VyHwXy9/WNrbAS5wAoVdXlkiGSPsyAAVlu59hTkSlJ2Gxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781328031; c=relaxed/simple;
-	bh=9C+9acoU6g7lVamTfAReYE056+Mo4L19daujFjjLyxE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=u7JID2OPQpDZyE57sumNqQkb+fPFt9txQdC6aKptzsxhSf/JkWagCxUErWYTI5L9o8SVgeEAgvgqbevbZiKDKteFKl2lSH2p0Lqjz737DH2RQtPYcNJe2ONb7KBC2+HsnEeQmPL5oAUDPNx9DX2ajb+KtoCwaR7vTtvBpdBcClg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YqkEf2af; arc=none smtp.client-ip=209.85.221.182
+	s=arc-20240116; t=1781328036; c=relaxed/simple;
+	bh=miTCy44j1JAsbaJrI3jZw0x5PRuDRN+dSbWd8toHM6M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qqMuTMvGj12ZUcEXrRgbHQdUwVFW3AlJwHCGEht0CFYn8K0n5yb+rRnB0RpzSfgYbHqyt2r0IrJdru42C5/yc35Qzvwgh1PYUOgcm6sIuOEVilU+sVHmAPf1gtl0zIn1XA7TdI5k0CFa1D2TWCGMkhKiR+6wuZ+bH3Yr8aP75lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iKXMCJsj; arc=none smtp.client-ip=209.85.221.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YqkEf2af"
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5a7c7e13b84so961818e0c.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:20:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iKXMCJsj"
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-59e2b96e3d3so1019602e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 22:20:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781328028; x=1781932828; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=U/CLZ+5qQK6nv7unT8PtYK68qrCmHhJFocTHGDo1YqU=;
-        b=YqkEf2afuLBjIUD5wNsFTd28l/lznIL2zn4hL5yR7Bwv7KutC7JbiX1AeUjpQtS4Cp
-         85G1fE34/Fw9oaoslAIV5u/AtlUVGmsKj2tDuOztf5DP3EAPcBQsAjOwgcd7kAc9MK76
-         GQqS+dixjNWGw8TB6R7yuZS50SacBNxwpcFJjT68Hv4DXzwgh/RDjbIipPdR3vVoi6K7
-         dqRylJDdUDCEVf6QAIEmjQzrz+8LxHdtsorCofLx53BO9ZOAzv25WZRFrP3gvGayfBkC
-         amwcb4NOSBvpFYyzuD/qSewI3KBWg6DThFD6lXPuCMJgaabd6Z8IRqO73I51jwRxZuFz
-         /GEg==
+        d=gmail.com; s=20251104; t=1781328033; x=1781932833; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oh7XZBRFNF3Q1qZUCiPu89RvrIopBJKwT1Tf5U0uHtM=;
+        b=iKXMCJsjLHILUcNx/4bq4kEcAsZyJfsVl9Q+y/KTuevXdFFpADPZSrKj+GZVjAQoa7
+         knOlOwFEUQKtbyMsGuLLXamVZlxN3vRN23HXhwfnZXhU2p+tFUP6310y+aoCBCIo8+4m
+         0wvZycY4TQKD0HZnDmvI05xjb34nLIXHpipd112mzAcAMQx3xl+z+uF5I7i8yJEze8/F
+         5SFP4d+TbRkZ345qTJssk+BEhJ9oVy0/sURdPy5afL3TMT4Y6BEdqKox/kAO23WndMxo
+         PNK7G9c+Lt/bB51Jz7WJOOSKnPX7QeZne4Dxem/kbOzooHY9n2eeHX0QJqZyC1WNU8ok
+         MypQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781328028; x=1781932828;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U/CLZ+5qQK6nv7unT8PtYK68qrCmHhJFocTHGDo1YqU=;
-        b=VumE6lmx/wlRmWJU4wNM+6Bg37jghWTrrXeKJauIpEHv5iLx9robcTbQkgLApKcUgi
-         moGDkbkOizNK36tt0O7kFtERgk5N5r59IrFr/RMFCX13N0DcWzonPwjQsR0lqvtQIkW0
-         QLyNb2WIDHovHCRDn5sfPYmR2sBh4LdU0cyAdmRORDsPWlJsY6z+jdOxcpHAwIhrJalN
-         EQ5yw5NPNQa4yn9z90kZNs5srQWlNcQzts5qG8EocR4Am/xPiNWKc3nBZvkXJ21kASgB
-         d3WhWhzpGeG5b1ijM25nUUVC1WHertfUOzrEyXzhUZnyQCBXvOlNm20RNTDFqQOq3eeD
-         xGfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/axKC5l2uw7tbgcB87bDCg9r9DtzokP1Y/uQgqNxc3pdIXK+1a5X+zt3XJIs1VEo0KzbLu5DYsj/e1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKbk1hQpP3j8nCrlFbXy5OF7STFjJnSxSMOjalQpf3+Tuq5Oyz
-	3Gzypl9WeBSlX3wh+TutNUjeXsA4jy/txyvc/BfnkZarLKp4NRoUfVGj
-X-Gm-Gg: Acq92OF1I1sH07qqATFXjAlgSyyLL/BReyDDC9T7079U5QNYJFoMXBLjiI+74kDSnRI
-	V659vNJkmxVjSXroTZgnVpxPInhnRznWAB4oTqLU6c8qt15Mbd/CKa2nOyeIr5yaWEUiFyiEcbO
-	YENIZKKrvytvks0ZbwSNr+1gx5plp3r4L7jIIm+WkvO686J2OVjauUKUI45QlTz0KcCJAIciFVk
-	4oUMrFPq5Z69P2yMuRkGCs6dATdvHifTv6XBCrGWSop5LJH/iQuyI+tFQGhZNhF9B9I4bySuph5
-	x+6p+BHI2PpauqCa0lI0ucGCQde9VGD3P0AUaUkHX0dKh0cLvs8LRKOZqrlObyXq1frLJMae99C
-	GPgusRfUfFpchpAZ8olmUPZGtpJf7JvlUfD3OGJDNGX5ujjx2gGxmGWsH4R4PUIuPu4fJJoF4hf
-	FesLUCqPO6b5wyb9c9qrq/fouZYny7
-X-Received: by 2002:a05:6122:4204:b0:56c:3a57:aee2 with SMTP id 71dfb90a1353d-5bb6c001fddmr3552398e0c.6.1781328027844;
-        Fri, 12 Jun 2026 22:20:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781328033; x=1781932833;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=oh7XZBRFNF3Q1qZUCiPu89RvrIopBJKwT1Tf5U0uHtM=;
+        b=LSJaKNo4eHtUzoFOYWpA93oSBNGi2evidibRus6RF//shSjyQ6wv//a+gQjHJcFqeD
+         OYfxOZfYjAe4qDz5wCwtwXSiuySTdjHtg/ObmP8okyZARkSpL7O8Ek2kZaa7aEcYfncE
+         O4vsNZZujhgV8P7y7+3A55QN/E0F+Z23GthSK+Fl3SD4m9l5x2y+fFKOdj2f6aTcixH2
+         mposLe+Woo82SMNhRtWygnVIBM1V+/xxFlWSNjqZx9IHa0DT/42IO5wdV4ytRocuV7zr
+         IX+DS2T1289gdj9IR1eljz0TZKpi3eu5yu5O92jf88ERvyIrJopoYMHmi5hjiDanXLgR
+         m7lg==
+X-Forwarded-Encrypted: i=1; AFNElJ/S+SbTqa7MATapZeoTOYe2/JXa5RnG/x2koXG8hafWf9OaRLriOgNtiuUfw5aidivC1L4boHkVMZ7X@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0n2gqPCiGsggDUPq3/whaNQxshZUm77XdKCxg1lCAIiFDrY3i
+	j7UDIB2BljMxuX1aOkNkM8lB1fmos939YyKhb+EcQ8CyrG9ZF+Qyssj9
+X-Gm-Gg: Acq92OFL952VChR0dHQ6zClKXzfsDO3JNLOribf85CGznjYgnOUgr//fN/K+jzkdNUV
+	2voF9/h0UEwfn/8gzpg5vestKS2Z7GsL+FMznNYat1ah50PfaYwPxqpMd/g+Ce/7FRgloCH5DLa
+	PCTo7HWsrrLONwFBy3/azyuayaZILxFlCmm2nEyMQskON4qMSBeJcMqWdSkTpLWlxdUI8TFZyep
+	l17785YmnzdI89Okj9GaySHxURo9Xp66OipkpYoDPrWuHTMtW2PRDRuhKGdr/EAHeVXuyBKTFi/
+	lDpzwCzrR4oYSqFbwpmKGL1zGhvqzKzenTVncA15GsO72aTHlES1LTvfJIAzjEkqoqJyAl5Cvin
+	TC4hL8oCBITBf5T7GK6lTAZIQ8fpod6p9FcaJihKodkKKUDBdfpTYfVsRu38Ywr3qxJ5jb0QfDS
+	kSFHcQwJrx/vK420HB6ZDVwGmSckF5iwSBeS7/0Wo=
+X-Received: by 2002:a05:6122:c90:b0:56d:2ca7:fbc3 with SMTP id 71dfb90a1353d-5bb6c077aa7mr3940480e0c.5.1781328033130;
+        Fri, 12 Jun 2026 22:20:33 -0700 (PDT)
 Received: from [127.0.0.1] ([38.252.222.136])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb69014308sm4848692e0c.7.2026.06.12.22.20.21
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb69014308sm4848692e0c.7.2026.06.12.22.20.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 22:20:27 -0700 (PDT)
+        Fri, 12 Jun 2026 22:20:32 -0700 (PDT)
 From: Denzeel Oliva <wachiturroxd150@gmail.com>
-Subject: [PATCH v2 0/2] clk: samsung: exynos990: Fix PERIS gate clock
- parents and add TMU_SUB
-Date: Sat, 13 Jun 2026 00:19:50 -0500
-Message-Id: <20260613-exynos990-peris-fix-v2-v2-0-3dff7ade75b3@gmail.com>
+Date: Sat, 13 Jun 2026 00:19:51 -0500
+Subject: [PATCH v2 1/2] dt-bindings: clock: exynos990: Add
+ CLK_GOUT_PERIS_TMU_SUB_PCLK
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,10 +70,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHboLGoC/yWMywqDMBAAf0X23IU8IBB/pfSg6dquhxiyKhbx3
- 13tcRhmdhCqTAJts0OllYWnrOAeDaRvlz+E/FYGZ1wwwXqk7ZcnidFg0VJw4A1Xh8HG5Dtveh8
- SaFwqqbnHz9efZelHSvN1g+M4AQ8UKgN6AAAA
-X-Change-ID: 20260613-exynos990-peris-fix-v2-619c3a30b36c
+Message-Id: <20260613-exynos990-peris-fix-v2-v2-1-3dff7ade75b3@gmail.com>
+References: <20260613-exynos990-peris-fix-v2-v2-0-3dff7ade75b3@gmail.com>
+In-Reply-To: <20260613-exynos990-peris-fix-v2-v2-0-3dff7ade75b3@gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
  Sylwester Nawrocki <s.nawrocki@samsung.com>, 
  Chanwoo Choi <cw00.choi@samsung.com>, 
@@ -85,41 +85,33 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Denzeel Oliva <wachiturroxd150@gmail.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781328021; l=954;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781328021; l=704;
  i=wachiturroxd150@gmail.com; s=20250819; h=from:subject:message-id;
- bh=9C+9acoU6g7lVamTfAReYE056+Mo4L19daujFjjLyxE=;
- b=fqNIjsE723ylk8j0/JzkxKuIjpTKFRODde0FklYKkmT158zHx150PVaaryeNmpJCGmx+6lS99
- 9PAJFBwCkZ4Bwe267t1dckNnAYv4pOVr4zr1DpoTDCKAEQiCY6X2cEC
+ bh=miTCy44j1JAsbaJrI3jZw0x5PRuDRN+dSbWd8toHM6M=;
+ b=X/BI2YKdcMP3CkhiT3eTACS7wdsMXf/M0WGqng7um4bnMC6SnlomqHBfhN9Xl3HP24McjUzZ0
+ YwRxI48IP6LCJz590QZQdK+bnFu9pnakOSW8Ptixa5+TeMbengQLGZ4
 X-Developer-Key: i=wachiturroxd150@gmail.com; a=ed25519;
  pk=qNvcL0Ehm3chrW9jFA2JaPVgubN5mHH//uriMxR/DlI=
 
-Fix PERIS CMU gate clock parent mismatches and add the missing
-TMU_SUB_PCLK clock.
-
-Split into dt-bindings (clock ID) and driver (parent fixes) as
-required by checkpatch.
-
-Changes in v2:
-  - Split dt-bindings header change into separate patch (1/2)
-  - Driver fix now only touches clk-exynos990.c (2/2)
-  - Add proper cover letter
-
-v1: TODO-add-lore-link
+Add the missing TMU_SUB_PCLK clock ID for the Exynos990 PERIS CMU.
 
 Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
 ---
-Denzeel Oliva (2):
-      dt-bindings: clock: exynos990: Add CLK_GOUT_PERIS_TMU_SUB_PCLK
-      clk: samsung: exynos990: Fix PERIS gate clock parents
+ include/dt-bindings/clock/samsung,exynos990.h | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/clk/samsung/clk-exynos990.c           | 24 ++++++++++++++----------
- include/dt-bindings/clock/samsung,exynos990.h |  1 +
- 2 files changed, 15 insertions(+), 10 deletions(-)
----
-base-commit: c425609d6ac4012c8bbf01ec2e10e801b1923a7b
-change-id: 20260613-exynos990-peris-fix-v2-619c3a30b36c
+diff --git a/include/dt-bindings/clock/samsung,exynos990.h b/include/dt-bindings/clock/samsung,exynos990.h
+index 47540307cb52..c06f591d9d90 100644
+--- a/include/dt-bindings/clock/samsung,exynos990.h
++++ b/include/dt-bindings/clock/samsung,exynos990.h
+@@ -434,5 +434,6 @@
+ #define CLK_GOUT_PERIS_TMU_TOP_PCLK		17
+ #define CLK_GOUT_PERIS_OTP_CON_BIRA_OSCCLK	18
+ #define CLK_GOUT_PERIS_OTP_CON_TOP_OSCCLK	19
++#define CLK_GOUT_PERIS_TMU_SUB_PCLK		20
+ 
+ #endif
 
-Best regards,
---  
-Denzeel Oliva <wachiturroxd150@gmail.com>
+-- 
+2.54.0
 
