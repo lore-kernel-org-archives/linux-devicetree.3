@@ -1,244 +1,127 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDD5315D21
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9487A31F98B
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781334333; cv=none; b=tIw8RTmPzBugsiL8BpmvJRZKiYlM0mJKBJeOguN6KSebyu5GAqNNaUtMpEFL5s30pPOIXgMxsrr/H2EHXGoJX2MC+YsOOSCuSxulRc+Vli7iijCDqcKg26ctKXGPxUCrzHEmr1iCtt1AQ5m+d1DpcaXysPPRV3UjiGjxQEEt8XM=
+	t=1781334558; cv=none; b=ABXy1LIoMSAHw2f6r4DNppaXxekrON7JweMkmg24bv1XgwSfcB951UV5UgjHif6HKNwzuSIgMrcg7dMV1djyYCPoqGVjpEpAd6WWE5JX7TXZwXzxoNpRTFawVtqX+sSfTbE/Fdj50lEYxbrZEkpFAf9ode9xr7dm9LIdz/UGv8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781334333; c=relaxed/simple;
-	bh=qbuq70Uh3IaPAYxL6RvkUK6WcshvrLB9yDi84mUO810=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QB5IPsHoGotMxWAbum6SbY6wGUMe6eCnEQ4c+GKIzgCV+bqWEZSbmtCWEQ6JRonjoZHwiSESwyw7slVNIP7Icmyt7KOcGeg7RXKPaEZL6CagQTu9p4lABe2ULeuEkE1RRgpRlqL4C+9Pyyt7UAoPxeramPX3RNETs797Cf7aesU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mTVX8aGZ; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781334558; c=relaxed/simple;
+	bh=du+XA+/6nUdgAn+L20Xa0DQtvFjxHX+nzoSN7aMYNnk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MQFowRfWV7bvxu2VVKwAEbWFN87lhsdIodrHrh7IAIaUD1JEF3OPm8qceqRZkCVcuPZjpj7N5txp+AnZA6iPmaQEFh00LJlbJ9w+SvV9CRPmhu+WjY0ZaVLmV6OfjSTKi04I5huEHaXATeb9dVjqlWFTQXIBPtQhuZ/30XO7JCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HS0Vt6ou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mTVX8aGZ"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c85822059d8so1086978a12.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 00:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781334331; x=1781939131; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=whI/KzO8NNp1wQWQVAnpD6KQOZ6KFgZhU/Hu5Fa3ioA=;
-        b=mTVX8aGZh6zblX6gH6N3bHwpYrTh9Q21pj12wRlYLDjvTBpc+D3r/yuN1+hE36gaDd
-         WuzBEVXJW7TVhU333V2byidMfW9UL9KJ5z6N1CpdyGZC31RLQD7YGmP/NNUy0ETyPp7U
-         fG9EKIwUcsYCes7Gha6JeBfQvAiOUbaZ66tb9qgVpq/MEuxlTYgsRdD5kotRHlVN25c+
-         k6gt+tVWqf1U8Zl6/XxVeZ8vHFTHwwBwK76i+COTaWTL1SnxjqlbBRYElTB1V/vha1br
-         ciOeUqct9nx5+QUiPE0WZQnZKf9MAS/DXv3R4qiC5J+jCuuCa/kDigEvoJDJfYKRp/8U
-         8Yww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781334331; x=1781939131;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=whI/KzO8NNp1wQWQVAnpD6KQOZ6KFgZhU/Hu5Fa3ioA=;
-        b=anBwd92V/W7dU7lBOrkKTErpeJ/eaialVMK3FPmyuua54LHHfdVw9L5Nrq1g5cgXTA
-         wEaQGXAzcnNvj8yUZPN+Znk7EQDrm9ZIj6agJ+UGDSuShJ98yk9FxaiwHS+lansx3Ovl
-         Qt/B0Eh4Sw1Ks1CcO+gvrLb/W3LXsrNkB54J4LvIRhpqF2s+iL6Y4Y5WB+BNci23GLKl
-         nnp++lhQf2jU0H4Ic0Oe57U7UjNJP7Rttz2XJqkDMujB0uJXxWJHesqRILXk0PlaqsHX
-         WbAW8LUPsKaS+cd5YWBAuPvYmZWJjD1VNfzYkcRRs5vBhthkWfA2jBjogPH7mRaCoNYz
-         PoXA==
-X-Forwarded-Encrypted: i=1; AFNElJ/IHcPIqSlR1nMwM8w1/XbXLMpm4PBhQuwLXyXHsDtmxMLKGRSSm/TeI1/IEeb2+NjRpnHY9QkJvxSp@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAcLVI8ZP5YyA+51/s++9VA+EpCyCMg+TmEOuCSVWObCAM8dXr
-	1v1K4MGHtvCJd28+qftaFORm3KVMp+LlwdgAMGMwI4VKCO8GUhMc7iaLWqX9NQ==
-X-Gm-Gg: Acq92OEpRQTh+6fnH8l7tEPPvVRjvhbbX0UHkGm2stzq5hSukN/Ukk4EmJdhuh2a/Gs
-	kW0rq1+woI8gKESP2OB5t45vsygbu2ZXXglPvfss8tOn/1CggaaVUg23vBc2wW4TCDpmULXGExK
-	STx8ewfjt1VMcdgXes55Ak5kLvegoYGnchaP8K/lQEyFPSpl3creLPVlyE283ACluy3yYRvjPyd
-	tGswayyYjfI1IIjOhVqThaC5nxwOjswas21cbzQGerExTehyffwMFr9bpfsRIfPQ0anIaJLmpWl
-	slT0V+1KJHqYqLkpkMYKqyq/3KKVSJyXMFj9GOXzbVYWr+aA4mwGZnuLxJySdLVoNtpqfKqchpB
-	P1BYKeSCj0V3Dodka4Ctbczs65IaEYKox67LWIBzRTS1k7lzbNCOQVlyXx/L4bwLZobkiNaB2cH
-	eDjBo4IT7y2H+tJ3ZJ+caZf+4DrVN6Y99T3ofHpWcvWrxX
-X-Received: by 2002:a05:6a20:d04f:b0:39f:3ca8:a33b with SMTP id adf61e73a8af0-3b783bfcce1mr7416051637.17.1781334330831;
-        Sat, 13 Jun 2026 00:05:30 -0700 (PDT)
-Received: from Black-Pearl.localdomain ([49.207.61.84])
-        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-c8665187d3fsm3611552a12.17.2026.06.13.00.05.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 00:05:30 -0700 (PDT)
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-Date: Sat, 13 Jun 2026 07:04:11 +0000
-Subject: [PATCH] dt-bindings: pwm: st,pwm: convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HS0Vt6ou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A362E1F000E9;
+	Sat, 13 Jun 2026 07:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781334555;
+	bh=UB3uAjFnfhInw5+4dO1bH2vnDbZT3yG6O7bCyCmnOwU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HS0Vt6ouKAIXqUNd2hLd+H6Sgn/LRnTdVMiy/PtJuglpeCFCJE2erTYo8J/CD6VrQ
+	 XQVdHm2c++31BxPBMXQRmGCxzyQfaouvaRzS/vbE68pPAodbITePM8tcN1WC4baJJu
+	 kRq88kDC+4LYsjHSadxCCK38aptYIGxQIX1W39aGPxPYRC7EgRvZPW9OfvzuDBmYQ/
+	 h0gUA8TgSPKfobJGWt6K41mGJtzcMt3loudRpWWddKPQDTq2Xqw57b8/E7/NXRLEB6
+	 2/HgqBOm4IAm5zJDxLksKzmsB4yeHDHliSl1HUw2ORRDr7f7mieDg1jlH865ih8mHm
+	 HgVPRq0mIcYYw==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v4 7/9] arm64: dts: rockchip: rk356x: Add the NPU
+ and its IOMMU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: MidG971 <midgy971@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260613070116.438906-8-midgy971@gmail.com>
+References: <20260613070116.438906-8-midgy971@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 07:09:15 +0000
+Message-Id: <20260613070915.A362E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260613-st-pwm-v1-1-458c2c89709a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOoALWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDM0Nj3eIS3YLyXF3DtNTElFSzZCBlrARUXFCUmpZZATYoOhbCLy5Nykp
- NLgHpVqqtBQAWIxEkagAAAA==
-X-Change-ID: 20260613-st-pwm-1feade6cfea3
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Pal Singh <ajitpal.singh@st.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Charan Pedumuru <charan.pedumuru@gmail.com>
-X-Mailer: b4 0.15.2
 
-Convert STMicroelectronics STiH41x PWM/Capture controller binding
-to DT schema.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect IOMMU compatible string 'rockchip,iommu' is used for the=
+ RK3568 NPU IOMMU, which will cause translation faults.
+- [High] The assigned clock rates for the NPU AXI bus and compute core are =
+swapped, severely overclocking the AXI bus.
+--
 
-Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
----
- Documentation/devicetree/bindings/pwm/pwm-st.txt  | 43 -----------
- Documentation/devicetree/bindings/pwm/st,pwm.yaml | 90 +++++++++++++++++++++++
- 2 files changed, 90 insertions(+), 43 deletions(-)
+commit a304190b5b1e8ffa602c7c5d7dbdfed3a2c3dcae
+Author: Midgy BALON <midgy971@gmail.com>
+Subject: arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
 
-diff --git a/Documentation/devicetree/bindings/pwm/pwm-st.txt b/Documentation/devicetree/bindings/pwm/pwm-st.txt
-deleted file mode 100644
-index 19fce774cafa..000000000000
---- a/Documentation/devicetree/bindings/pwm/pwm-st.txt
-+++ /dev/null
-@@ -1,43 +0,0 @@
--STMicroelectronics PWM driver bindings
----------------------------------------
--
--Required parameters:
--- compatible :		"st,pwm"
--- #pwm-cells : 		Number of cells used to specify a PWM. First cell
--			specifies the per-chip index of the PWM to use and the
--			second cell is the period in nanoseconds - fixed to 2
--			for STiH41x.
--- reg :			Physical base address and length of the controller's
--			registers.
--- pinctrl-names: 	Set to "default".
--- pinctrl-0: 		List of phandles pointing to pin configuration nodes
--			for PWM module.
--			For Pinctrl properties, please refer to [1].
--- clock-names: 		Valid entries are "pwm" and/or "capture".
--- clocks: 		phandle of the clock used by the PWM module.
--			For Clk properties, please refer to [2].
--- interrupts:		IRQ for the Capture device
--
--Optional properties:
--- st,pwm-num-chan:	Number of available PWM channels.  Default is 0.
--- st,capture-num-chan:	Number of available Capture channels.  Default is 0.
--
--[1] Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
--[2] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Example:
--
--pwm1: pwm@fe510000 {
--	compatible = "st,pwm";
--	reg = <0xfe510000 0x68>;
--	#pwm-cells = <2>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_pwm1_chan0_default
--		     &pinctrl_pwm1_chan1_default
--		     &pinctrl_pwm1_chan2_default
--		     &pinctrl_pwm1_chan3_default>;
--	clocks = <&clk_sysin>;
--	clock-names = "pwm";
--	st,pwm-num-chan = <4>;
--	st,capture-num-chan = <2>;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/st,pwm.yaml b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
-new file mode 100644
-index 000000000000..2c10f54b5caf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
-@@ -0,0 +1,90 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/st,pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STiH41x PWM/Capture controller
-+
-+maintainers:
-+  - Ajit Pal Singh <ajitpal.singh@st.com>
-+
-+description:
-+  The STiH41x PWM controller supports both PWM output and input capture
-+  functionality. It provides multiple PWM output channels for generating
-+  variable duty-cycle waveforms, and multiple input capture channels for
-+  measuring external signal periods and pulse widths. PWM output channels
-+  and input capture channels are configured independently via
-+  st,pwm-num-chan and st,capture-num-chan respectively.
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: st,pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 2
-+
-+  pinctrl-names:
-+    const: default
-+
-+  clock-names:
-+    items:
-+      enum: [pwm, capture]
-+    minItems: 1
-+    maxItems: 2
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  interrupts:
-+    description: IRQ line for the capture device.
-+    maxItems: 1
-+
-+  st,pwm-num-chan:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of available PWM output channels.
-+    minimum: 0
-+    maximum: 4
-+    default: 0
-+
-+  st,capture-num-chan:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of available input capture channels.
-+    minimum: 0
-+    maximum: 4
-+    default: 0
-+
-+required:
-+  - reg
-+  - compatible
-+  - "#pwm-cells"
-+  - pinctrl-names
-+  - clock-names
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    pwm@fe510000 {
-+        compatible = "st,pwm";
-+        reg = <0xfe510000 0x68>;
-+        #pwm-cells = <2>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_pwm1_chan0_default
-+                     &pinctrl_pwm1_chan1_default
-+                     &pinctrl_pwm1_chan2_default
-+                     &pinctrl_pwm1_chan3_default>;
-+        clocks = <&clk_sysin>;
-+        clock-names = "pwm";
-+        st,pwm-num-chan = <4>;
-+        st,capture-num-chan = <2>;
-+    };
-+...
+This patch adds the device tree nodes for the NVDLA-derived NPU and its
+associated IOMMU on the RK3568 SoC. It configures the clocks, resets, power
+domains, and assigns the PMU syscon to manage the NPU NoC bus-idle. The
+configuration also intends to bring up the NPU AXI bus clock at 200 MHz.
 
----
-base-commit: c425609d6ac4012c8bbf01ec2e10e801b1923a7b
-change-id: 20260613-st-pwm-1feade6cfea3
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index 64bdd8b7754b5..313db59c1aed8 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+[ ... ]
+> @@ -572,6 +579,37 @@ power-domain@RK3568_PD_RKVENC {
+>  		};
+>  	};
+> =20
+> +	rknn_core_0: npu@fde40000 {
+> +		compatible =3D "rockchip,rk3568-rknn-core";
+> +		reg =3D <0x0 0xfde40000 0x0 0x1000>,
+> +		      <0x0 0xfde41000 0x0 0x1000>,
+> +		      <0x0 0xfde43000 0x0 0x1000>;
+> +		reg-names =3D "pc", "cna", "core";
+> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks =3D <&cru ACLK_NPU>, <&cru HCLK_NPU>,
+> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
+> +		clock-names =3D "aclk", "hclk", "npu", "pclk";
+> +		assigned-clocks =3D <&scmi_clk SCMI_CLK_NPU>, <&cru CLK_NPU>;
+> +		assigned-clock-rates =3D <200000000>, <600000000>;
 
-Best regards,
---  
-Charan Pedumuru <charan.pedumuru@gmail.com>
+[Severity: High]
+Will this configuration inadvertently overclock the AXI bus?
 
+The commit message states the intent to assign the CRU CLK_NPU so the NPU
+AXI bus clock comes up at 200 MHz. However, based on the positional mapping
+of assigned-clocks to assigned-clock-rates, this assigns 200 MHz to the SCMI
+compute core and 600 MHz to CLK_NPU.
+
+Should the values in assigned-clock-rates be swapped to match the order
+in assigned-clocks to prevent bus hangs?
+
+> +		resets =3D <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
+> +		reset-names =3D "srst_a", "srst_h";
+> +		power-domains =3D <&power RK3568_PD_NPU>;
+> +		rockchip,pmu =3D <&pmu>;
+> +		iommus =3D <&rknn_mmu_0>;
+> +		status =3D "disabled";
+> +	};
+> +
+> +	rknn_mmu_0: iommu@fde4b000 {
+> +		compatible =3D "rockchip,iommu";
+
+[Severity: High]
+Does this compatible string correctly identify the v2 IOMMU hardware
+present on the RK3568?
+
+Using rockchip,iommu binds to the v1 hardware operations in the Rockchip
+IOMMU driver. Because the RK3568 features a v2 IOMMU, configuring it with
+v1 driver operations could result in incorrect page table programming and
+translation faults when the NPU attempts DMA.
+
+Other IOMMU nodes in rk356x-base.dtsi use rockchip,rk3568-iommu. Should
+this node use that compatible string instead?
+
+> +		reg =3D <0x0 0xfde4b000 0x0 0x40>;
+> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+> +		clock-names =3D "aclk", "iface";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613070116.4389=
+06-1-midgy971@gmail.com?part=3D7
