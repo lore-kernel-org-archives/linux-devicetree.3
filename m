@@ -1,156 +1,257 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1D0374A04
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EF0344D88
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781334577; cv=none; b=FgU2s3FF2OrBrpxOsdCRgnyv3YWFzeKTOw6jI12p3nzmoyiFKzzEJIjqqZyhjkyURV9dgoYruUrJgUf76CjV5KLb/B7GuZxAkNk90reJY2isHojAiqmkjE+xl4HFLVIKYzUQ4nU2OtEJiQpXvqgBbVDucGtFPhoZnv+bgWRfwqA=
+	t=1781334600; cv=none; b=N/Fnqg2UFjg1/7r8CuadU36KJu5uIHrwZwvebEHIwrgHHV+meX8diXqxkJ8iTMja1NupqZKidxlGlz/IauD9ZGIzKsyozW3BS7lN6PAxWU089t5j7fmRNsR7BPvlSQf+LWv5E9THsPZUG+U57OQahhiT773PEvrUA1xvhWJFGVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781334577; c=relaxed/simple;
-	bh=0VWkmQdyK+ohkbIi8obIRcQ1CwP55X4i56+QKTQOCq0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kXgHf9zKwwNV/1RI8GSzADlnpJZ8jvhvTbW9qPCRkLmZsnOlC8bK7UW63D3YYjuaMGgVf43POiG019oZo8GaYjvMPLDacRsvXMDwPe6Bm9md7verZ4/bPkv+jriU4djHIuzuD3l0m1zkSWzv40PkeSkseNbxNVB//xWS0NadhkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klzilNZk; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781334600; c=relaxed/simple;
+	bh=LRZoFFRsC+RYh1i/kA3MZjXd4zWGjViDCrR54/n8xqQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HRCPMZxQiLWxG8cPgcutSxvtke2AQeQJwrRK1So3JSq+ckGvfa5RSVe3n5n6rD5eu4lAc1NvCVudF5aFgjehPtDGYW24q9MyckBeRotKLCFK2W65RPgU+kZr140GJ/mw/x6X3x7AEjDyzAyz62ILimNXWzNAsHZshA6wP3Zs79M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhBP/2Nf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klzilNZk"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36bd175fdbaso1098258a91.0
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 00:09:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781334573; x=1781939373; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yqSQR9XwXClJ1dx3NWVea2VA61Fsyqn6eOD6/POM3iY=;
-        b=klzilNZkRCFWkPmqVz30PTaZLtUjaXlaKNrdEiGPEJDTgfEbROSudIX4Kn9mQyNlxG
-         cRCtM5LeBxYiMj6pqVx+BOxu1KFeE7a8XTimtfut+VxJ+zV8TnF5eVG8frMohJjQ3X+z
-         jNT5fVgAoW4d7Fw2kPQWRXd9XiQyikQcHRqtVCAwZV9QztPrqwmR202D9lYwb9b9iFFe
-         SE+2+hGI+ce/043Sgyy9K6Ffly2RkDUuBP8/B2Kl5eqqTleQTe2tB3VKL6gmmdkVjqtU
-         BJL9C1gU43ePZ4ytcD+aDl68rqC3oWRFt5aEpUbMBmzu7+zvcEpJmtOq1PhN1YUUlXO8
-         hXFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781334573; x=1781939373;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yqSQR9XwXClJ1dx3NWVea2VA61Fsyqn6eOD6/POM3iY=;
-        b=nz7ni58tdGurhg0f5CUV1yM5pua6vMVNBYSSRAW6NIEawl0FNFojts5hRD/XKW5WiG
-         jLKFotbMfBFbCu2QhWXkqju8MltTqAxQdIrptdBoTLgHAJpQAFFl0Fo6xiqGEiYMQaQa
-         xSLSJ+d4FOoB4DXaQsabUQl/dtO2jzPYMglUBrQIDUosSTOj9HiRs15P/JBynWTLJQ77
-         /PFoxOeWt9wO10ZVPps4elYFXRFFRsOzVk7ztxaLilR8M4N74DECve+8BSC8KrjDs9Lr
-         JZGyK4hSCtiwGtCPQm/sW1q3CDb1TKq2mQ9CoqQ+bZK3qmL6PFlnguqpn2RjiAYm3m3d
-         gTTg==
-X-Forwarded-Encrypted: i=1; AFNElJ9pUJ2hi5Fev6ofyaxzmXc6LXASKman5PCGEgdBff5UZBSBz3ROyhj+VbCProdikArVd6ndDe/Ea6wS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC19//PWgLQZYDnojpuEz8GDDkZh64f3I4RgIc7guTnFKNHi2E
-	+F8IJfahuFfkIXtHKDQTgjq3lV7k4KxqP+pUpVRkfAeihs6ZoYz5/mB6
-X-Gm-Gg: Acq92OGHbWNhAII1hL8IRta91uLcSZIQWT0OZ4mZ66NlYWcllPpYnLLOio2kVPCcSNZ
-	aNqSNIvZAaqv1I4pLS67aNw/LL9rcZg0as7ZqORVujuvHneS1wal+2gQLX5vftt3cYCFWDNi2/E
-	v1n7zM6op7KTvm/G9YxYnHb6rJaFQFk6RGyWR6LqKqpRGc6pTX4QIPkOGfGzFWkaDqCA0vyAmmk
-	ENpZXStVPwX/pu4djxunKO2LAf51AlbMC8XiGJrGGrzpK0bL1g/uv8iAQc1s7irJkQsZODsql76
-	vzni6kt0t7EoLNT+03zyBIWkAwqa1sB70zB3vNdV2LQ/Ph7PIY//AU46vvyEonOuX6EQVCqBXs7
-	kCqFzbjqOBLD0vy0H2KzcQqKSkXAKoeOXOUelepUCXWikAKtJeYZm70AbOm6mmBkIDDgWYSPPtc
-	MnXwDvtE1CrWGOF4QnZrAgVniuPaeVc35NHqMy9vbjYcQP
-X-Received: by 2002:a17:90b:2d4b:b0:368:ed26:15b2 with SMTP id 98e67ed59e1d1-37c2bc65207mr2649723a91.8.1781334573307;
-        Sat, 13 Jun 2026 00:09:33 -0700 (PDT)
-Received: from [192.168.0.8] ([49.207.61.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37a1f363409sm4369435a91.8.2026.06.13.00.09.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 00:09:32 -0700 (PDT)
-Message-ID: <f3e1ecce-9917-456d-b02e-a75827d9c867@gmail.com>
-Date: Sat, 13 Jun 2026 12:39:27 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhBP/2Nf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D1D1F000E9;
+	Sat, 13 Jun 2026 07:09:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781334596;
+	bh=LllGNlIctgRpFkMe6kZ0cZis/unjKDzySoabPYqAJQU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XhBP/2NfT7Oza1BkefenP5hDKBDPcAOPdZ9lw2RiNMSNJMwwoPEYU3dBqetVaUpbn
+	 7WRGl2o33MHxabhMRZOgJUY/b8qJXJsgxgS//2wm9IMXTWXKqFwBSoyKixpEtolPma
+	 qNno1ieIp5kVDUaq6ynrlCfNECu7faaTM/7DeKgtm6vdicyf7ZtKnaXmHxbkqA7IuI
+	 NO1wz+whpxnszVNMO8DgNO32MuxAQq8wnqXhdeBZCqrGqn1PUZtIn7wDiKptWpS32b
+	 TOY8EvH0Yz33X8A4EuHIcXBI93j6Ka/0mpJubpyTdatCUMQb6WBpLVzBEqf5gyrDFx
+	 9OmhY4lilhsxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v4 2/9] accel: rocket: Derive DMA width and core
+ count from match data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: MidG971 <midgy971@gmail.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260613070116.438906-3-midgy971@gmail.com>
+References: <20260613070116.438906-3-midgy971@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 07:09:56 +0000
+Message-Id: <20260613070956.90D1D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] dt-bindings: mmc: st,sdhci: convert
- STMicroelectronics SDHCI-ST MMC/SD Controller controller binding to YAML
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260508-st-mmc-v3-0-81c329ed28e8@gmail.com>
- <CAPx+jO9woUB9VGUx+ebWD9oOhqCwzXL9=41MEesnWS15Nyr66g@mail.gmail.com>
-Content-Language: en-US
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-In-Reply-To: <CAPx+jO9woUB9VGUx+ebWD9oOhqCwzXL9=41MEesnWS15Nyr66g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
+New issues:
+- [High] The bounds check for the 'cores' array uses the current node's mat=
+ch data rather than the allocated capacity, allowing an out-of-bounds write=
+ if the device tree has mixed compatible strings.
 
-On 29-05-2026 17:40, Ulf Hansson wrote:
-> On Fri, May 8, 2026 at 7:23 PM Charan Pedumuru
-> <charan.pedumuru@gmail.com> wrote:
->>
->> This patch series converts the legacy text-based Device Tree binding for
->> STMicroelectronics SDHCI-ST MMC/SD controller to DT schema (YAML) format.
->>
->> Note:
->> The patch "dt-bindings: mmc: st,sdhci: convert to DT schema"
->> depends on the patch "arm: dts: st: align node patterns with established
->> convention". If the DT schema patch is applied before the DTS
->> cleanup patch, `dtbs_check` will fail due to the presence of the removed
->> properties in the existing DTS.
->>
->> Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
-> 
-> The series looks good to me, but awaiting and ack from some of the dt
-> maintainers before applying.
+Pre-existing issues:
+- [High] If `rocket_device_init()` fails, the global `rdev` pointer is left=
+ containing an `ERR_PTR`, causing a kernel panic on subsequent core probes.
+- [High] Global DRM device and core arrays are allocated using `devm_` help=
+ers tied to the first probed core's lifecycle, causing a Use-After-Free whe=
+n that core is unbound.
+- [High] Removing and re-probing NPU cores out of order corrupts the 'cores=
+' array because 'num_cores' is incorrectly used as both an active count and=
+ the array index.
+- [High] Missing locking around the global `rdev` initialization and `rdev-=
+>num_cores` access allows concurrent probes to corrupt device tracking and =
+leak allocations.
+- [High] The DRM device is registered before its hardware cores are fully i=
+nitialized, allowing userspace to trigger a NULL pointer dereference.
+--
 
-Yeah, but until now they is no response from anyone.
+commit a4289515ae9af5aaa001a280a8b52c1288f26e24
+Author: Midgy BALON <midgy971@gmail.com>
+One line subject: accel: rocket: Derive DMA width and core count from match=
+ data
 
-> 
-> As the change in patch2 for arch/arm/boot/dts/st/stih407-family.dtsi
-> doesn't seem to cause any conflict from soc maintainer trees point of
-> view, I can pick this up too when applying.
+The probe already has the per-SoC match data, which now records the core
+count and DMA width. This patch uses it for the cores array allocation and
+the device DMA mask instead of re-scanning the device tree for available
+core nodes. It also rejects a device tree that declares more NPU core nodes
+than the SoC has to prevent overrun.
 
-Sure.
+> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
+rocket_device.c
+> index 46e6ee1e72c5f..6186f4faa3a2a 100644
+> --- a/drivers/accel/rocket/rocket_device.c
+> +++ b/drivers/accel/rocket/rocket_device.c
+> @@ -6,18 +6,16 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/platform_device.h>
+> -#include <linux/of.h>
+> =20
+>  #include "rocket_device.h"
+> =20
+>  struct rocket_device *rocket_device_init(struct platform_device *pdev,
+> -					 const struct drm_driver *rocket_drm_driver)
+> +					 const struct drm_driver *rocket_drm_driver,
+> +					 const struct rocket_soc_data *soc_data)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+> -	struct device_node *core_node;
+>  	struct rocket_device *rdev;
+>  	struct drm_device *ddev;
+> -	unsigned int num_cores =3D 0;
+>  	int err;
+> =20
+>  	rdev =3D devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_devic=
+e, ddev);
+> @@ -27,17 +25,14 @@ struct rocket_device *rocket_device_init(struct platf=
+orm_device *pdev,
+>  	ddev =3D &rdev->ddev;
+>  	dev_set_drvdata(dev, rdev);
+> =20
+> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
+> -		if (of_device_is_available(core_node))
+> -			num_cores++;
+> -
+> -	rdev->cores =3D devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_=
+KERNEL);
+> +	rdev->cores =3D devm_kcalloc(dev, soc_data->num_cores, sizeof(*rdev->co=
+res),
+> +				   GFP_KERNEL);
 
-> 
-> Kind regards
-> Uffe
-> 
-> 
->> ---
->> Changes in v3:
->> - st,sdhci: Edit description of reg property. Modify reg-names. Add
->>   "minItems" for clocks and clock-names properties.
->> - Modify the commit message to match with the updated changes.
->> - Link to v2: https://patch.msgid.link/20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com
->>
->> Changes in v2:
->> - Fix node name in DTS for the MMC to match with the estableshed convention.
->> - st,sdhci: drop unnecessary properties, modify "reg", "reg-names" and
->>   "clock-names" properties, include an allOf with $ref to mmc-controller.
->> - Link to v1: https://patch.msgid.link/20260409-st-mmc-v1-1-4c54321c3535@gmail.com
->>
->> ---
->> Charan Pedumuru (2):
->>       arm: dts: st: align node patterns with established convention
->>       dt-bindings: mmc: st,sdhci: convert to DT schema
->>
->>  Documentation/devicetree/bindings/mmc/sdhci-st.txt | 110 ---------------------
->>  .../devicetree/bindings/mmc/st,sdhci.yaml          |  91 +++++++++++++++++
->>  arch/arm/boot/dts/st/stih407-family.dtsi           |   4 +-
->>  3 files changed, 93 insertions(+), 112 deletions(-)
->> ---
->> base-commit: cf2cd8efd046c561191b8541d32a8bfe845bf06b
->> change-id: 20260327-st-mmc-c906ad95ff83
->>
->> Best regards,
->> --
->> Charan Pedumuru <charan.pedumuru@gmail.com>
+[Severity: High]
+This is a pre-existing issue, but does using devres tied to the first
+probed core's lifecycle cause a use-after-free when that core is unbound?
 
--- 
-Best Regards,
-Charan.
+If userspace unbinds this first core via sysfs, rocket_remove() decrements
+num_cores but does not explicitly clean up the DRM device because other
+cores are still bound. Upon returning from remove, the driver core
+automatically frees all devres tied to the first core's device. This
+would destroy the global rdev memory, causing a use-after-free when any
+remaining cores attempt to access it.
 
+[Severity: High]
+This is a pre-existing issue, but does registering the DRM device
+before its hardware cores are fully initialized allow userspace to
+trigger a NULL pointer dereference?
+
+In rocket_device_init(), the driver calls drm_dev_register() to expose
+the character device to userspace. This occurs before the caller,
+rocket_probe(), populates rdev->cores[0].dev and initializes the hardware.
+
+If userspace opens the device during this small timing window,
+rocket_open() is called and invokes:
+
+    rocket_iommu_domain_create(rdev->cores[0].dev);
+
+Since the device pointer is still NULL, this would attempt to dereference
+a NULL device pointer in the IOMMU subsystem, crashing the system.
+
+[ ... ]
+
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 384c38e13acce..f0beed2d522c7 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -159,11 +159,15 @@ static const struct drm_driver rocket_drm_driver =
+=3D {
+> =20
+>  static int rocket_probe(struct platform_device *pdev)
+>  {
+> +	const struct rocket_soc_data *soc_data =3D of_device_get_match_data(&pd=
+ev->dev);
+>  	int ret;
+> =20
+> +	if (!soc_data)
+> +		return -EINVAL;
+> +
+>  	if (rdev =3D=3D NULL) {
+
+[Severity: High]
+This is a pre-existing issue, but does the lack of locking around the global
+rdev initialization allow concurrent probes to corrupt device tracking
+and leak memory?
+
+If concurrent probes occur (for example, via asynchronous probing or
+concurrent sysfs binds), multiple threads can pass this if check,
+causing multiple DRM device allocations. They can also read the same
+num_cores value, leading both threads to overwrite the same index in the
+rdev->cores array.
+
+>  		/* First core probing, initialize DRM device. */
+> -		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+> +		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
+>  		if (IS_ERR(rdev)) {
+>  			dev_err(&pdev->dev, "failed to initialize rocket device\n");
+>  			return PTR_ERR(rdev);
+
+[Severity: High]
+This is a pre-existing issue, but does this error path leave the global
+rdev pointer containing an ERR_PTR?
+
+If rocket_device_init() fails, it returns an error pointer which is
+assigned to the global rdev. The function then returns the error but fails
+to reset rdev to NULL.
+
+When the next core probes, the (rdev =3D=3D NULL) check is bypassed, and the
+driver immediately dereferences the error pointer when reading
+rdev->num_cores:
+
+    unsigned int core =3D rdev->num_cores;
+
+Could this lead to a reproducible kernel panic?
+
+> @@ -172,6 +176,12 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	unsigned int core =3D rdev->num_cores;
+> =20
+> +	if (core >=3D soc_data->num_cores) {
+
+[Severity: High]
+Does this bounds check use the current node's capacity rather than the
+array's actual allocated size?
+
+The array rdev->cores is permanently allocated using soc_data->num_cores
+from the first probed device in rocket_device_init(). However, this bounds
+check evaluates against the soc_data of the current probing device.
+
+If a device tree or overlay declares a node with a smaller num_cores
+followed by one with a larger num_cores, the check will pass for an index
+that exceeds the initial allocation size. Will this cause a direct
+out-of-bounds write into the rdev->cores array, corrupting kernel memory?
+
+> +		dev_err(&pdev->dev, "too many NPU core nodes (max %u)\n",
+> +			soc_data->num_cores);
+> +		return -EINVAL;
+> +	}
+> +
+>  	dev_set_drvdata(&pdev->dev, rdev);
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+
+[Severity: High]
+This is a pre-existing issue, but does removing and re-probing NPU cores
+out of order corrupt the cores array?
+
+When a core is removed, rocket_remove() decrements rdev->num_cores
+without shifting the remaining cores in the array to close the gap:
+
+    rdev->num_cores--;
+
+If cores are removed out of order, active cores are left at indices equal
+to or greater than the new num_cores. The driver later uses num_cores as its
+search bound, making those trailing active cores unreachable.
+
+Furthermore, if a new core is probed, it assigns itself to the index
+rdev->num_cores, blindly overwriting a still-active core:
+
+    rdev->cores[core].rdev =3D rdev;
+
+Could this cause state corruption and resource leaks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613070116.4389=
+06-1-midgy971@gmail.com?part=3D2
