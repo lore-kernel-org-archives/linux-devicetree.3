@@ -1,115 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FFA299929;
-	Sat, 13 Jun 2026 19:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014C53947B8
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 19:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781377818; cv=none; b=feu+3uPwUt/JJks28ldELSETXgxgvS5vpfbnH1kJMQNqmMROx+rXs6IyyLiK0Mi1d2+/SZhHHxZbt+jRoFtTlDJRHh6Q+cSMiC9cXggxrw47zKZLB5Z/J/bCZGC6g3J+2fWzXjAQe7kUBVDWwJJceLiqndlf9oNzgiuaYoaLrBc=
+	t=1781377821; cv=none; b=iTIckD1RwPpFPPlioftrpyrR/VUSMnYvrqVwTte3Rg3wewUKTRwk47cSwsmGr9XHyY8AJ/nXg+JRalfWzVOE3rwBSYTDuMezTNu++eTuOgfBN9QN4whZb+V8b2D99C1fqhyFPLQTne+R9Qyh1hKls/MqrkOpwcZGj/XR0PupWCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781377818; c=relaxed/simple;
-	bh=OfS2x75ziNEyOFpz0RFMDIPEgjsSkvFXG1vNpKZhV6c=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XxlBq20JIXh6aHNto0dKpc17zPPIDb2RT7c+V/mvzFs/GIDb5A36TxmD/sFDe5Az24k/EKg2tCM9m+X0FgjdPU1pK3inJrZCnazZQ90z3SwSsTqH9wL1DomAInmUj/UVoTk/RTxNiz2+Qz38tkgeFrlHIHe+SmnS1XZoN9pDvDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcLdb2TU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781377821; c=relaxed/simple;
+	bh=IarGWq0h4k7YgRYkX36nCoK+3Jt6gr7vdYY/leCwb9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p08mJbPOCEgUvZHEhxEXVJqfJEKreQx/CjdSt/6JVUWtcig2kTo90SFnowvwRfJa8LTmRspu3ga/J6ilzAfVpvgegqZk5o+A1DLON4Ulyd1Z4a5RMGI8B7omMeONzrQGCIMTxJmMOeBMfy9rb6pe2UPX5dheJ6OTsog20+MLPhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YENmbA6k; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcLdb2TU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1FE1F000E9;
-	Sat, 13 Jun 2026 19:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781377817;
-	bh=xxpkgSl/T43aBnkyAH6SoONMOZk321sfOjAncFOm7qk=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=bcLdb2TUy2Av64SlVbSw0kjHXTpqXxllUth5NkFJMmpv5P4MX1I45FoLeDIh05sYC
-	 YSDDt69CSo+yexi/op9ONT/Pyby0IL1vNtbCvXvnsUWBPxG9Xm3cvg9LU8/w4HwYPQ
-	 CjC42LaOsTVZ2ZrBNZ9eIz3Bn9c9IszSfD6TES6k4uZUXI4Wz7a2SL8VwfuKgGF1gz
-	 It9xxxXnMeWhrfd9GW0bWxjYVOxW9vlmBDXHoZQWUU6oknsv/J2MTbu26FWglI4rVT
-	 uoyVYEQlJLBgAMAv7MeFK4tRrHFvvyZ1znXaBINbcVfd7qNVGzsKbRrOpx3nJdyfZm
-	 ytNU5TVifbKOg==
-Message-ID: <9825384b-8e36-4c16-a10c-8abe9d000b56@kernel.org>
-Date: Sat, 13 Jun 2026 21:10:13 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YENmbA6k"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68d234218bcso3569803a12.2
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 12:10:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781377818; x=1781982618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=463x8kT/wzRlmQHGudSYziOyf/LSV3/qWwdmBIWyYR0=;
+        b=YENmbA6kPGE6vQhr4skKsJnq+te3NSsKplGNts63Qs+b5s+NNjLTDe5fx+MtEgdW7T
+         iB/VVCuO76MKSvBpoTZwmgwEWZymCOOMjqvDDzCh8Z5Gg8B03dAFIUJ9NzfXoLTW+IK4
+         Ww3/+J0W7FUgoBCh6A5cx6wnsYLPYuTQIk7e2CCFx+g8qLHo/2r1a1L5GDRXnQmD6aVt
+         bS5JPXNltIJL57AN2xNjuBp8RUFhmb6SbkJuQGLfURAOk0zLsz3NcffFpBid00T/yoes
+         wWjZq+xXGMhrq/WM3wujSlViEZk0I/oRxh/QQM3WBmIjSavgeAzS/1jt577mw0lcCPsN
+         teXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781377818; x=1781982618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=463x8kT/wzRlmQHGudSYziOyf/LSV3/qWwdmBIWyYR0=;
+        b=MmmgWeiD9UDO4lDZ8XP+OGzMrms47z2sVEdgmr5mUnAbpzm0wI5IbgFsm53/Z2nHyV
+         k0WDwv0sEENqYwkqpXnDf/vR79YxK3tUORaWMosmpPAKRfXIASav4pPeQo7LdoNxcnbg
+         bpqs3RDONVSOCMPsvb4VfGlFYwbdugD6SMYfVYbB9vNVoiCITh9/YAo1uLeGyDBt0Oz9
+         bKh0AP1lX4QiC6bV1QLDWdIW2KykbBsLXZw4m41K6r8zVQ2lbhQhHfOS/vPwpYDSq45S
+         SW7kH2L6fHVmW/UmSQtq4ZzaoOnQmpK+c2LHIxohRj/ggAEHLMo4srki2YfJXFJxbMN4
+         yimg==
+X-Forwarded-Encrypted: i=1; AFNElJ+dek23wwJEafvgHmjGWXuN8RZCKg2D2oSLv03wLkaLUad959hwi/Bnk4eeylurDoqAPygwRpGdAE+t@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvYOTzmZPCZTh9wSM7Wf1iQktzi0mukooriCar2xwdNJK8FFkU
+	bv6pfUMbqQ9GqRwKubS3l1Qy7yHcK58UL2olD/3sxmGffVDrEECYY5wp
+X-Gm-Gg: Acq92OGPrJLYEj0MTGTsz52NsmcKCF1L7bohB8zUl/v9x9V2PuLBk43lYwCJeVrlJZY
+	4Fb8Kcwaoez2NNU7Fa2T0T3seQm8+kFVeHhhDBrN77chtO/h85KNFso3u2VoGXQppPEL5qB67Yo
+	53sz7Ns9ABIGpZ1bp6WHDe4nfPTgfCQ4PIcYgua0mo390YBIj1LzoRxoe6twg/Jq8PW174Awe+U
+	G5LbRkd1uWmKx+7g9tMn54lTYrDVcUPmXvlOms0svhpE0ySYCZpqk1h/T3CshZPt1nNP1NuWwEG
+	5tHC/PIjIg41nEsR35c29bqsYGeAePJvw9Xfsfpc9l02l3La/ImD9kaWlTV+TK2vGOt2+qjJ+EW
+	dO7dX7dTGeBGxBuCqs2+iBSecUzET6e2BjxQa66o1NwR6hhMyC2Fh45ZaufgRbRwYKAJJlJ+Pv2
+	PoItT3fOdDfzVkFNEJzKGRNGBbdrxXfXFHjpqPe1s7cZ16adCY1F9sg9CnOQ==
+X-Received: by 2002:a17:907:7f86:b0:bec:894d:dd45 with SMTP id a640c23a62f3a-bff4cdd5123mr180433266b.38.1781377818222;
+        Sat, 13 Jun 2026 12:10:18 -0700 (PDT)
+Received: from MSI-LINUX.kielce.vectranet.pl ([2a02:2a40:27ec:2900:9790:7740:8855:4d8c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb4b2276fsm237193366b.17.2026.06.13.12.10.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 13 Jun 2026 12:10:16 -0700 (PDT)
+From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: andy@kernel.org,
+	antoniu.miclaus@analog.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dlechner@baylibre.com,
+	duje@dujemihanovic.xyz,
+	jic23@kernel.org,
+	jishnu.prakash@oss.qualcomm.com,
+	jorge.marques@analog.com,
+	krzk+dt@kernel.org,
+	linusw@kernel.org,
+	linux-kernel@vger.kernel.org,
+	marcelo.schmitt@analog.com,
+	mazziesaccount@gmail.com,
+	mike.looijmans@topic.nl,
+	nuno.sa@analog.com,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com,
+	wens@kernel.org,
+	joshua.crofts1@gmail.com,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Subject: [PATCH v3 0/3] iio: adc: Add support for TI ADS1110 to  ti-ads1100 driver
+Date: Sat, 13 Jun 2026 21:09:54 +0200
+Message-ID: <20260613190957.654798-1-jakubszczudlo40@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: usb: ti,tps6598x: add TPS6699x compatible
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, bryan.odonoghue@linaro.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260613162335.1490514-1-radhey.shyam.pandey@amd.com>
- <20260613-adorable-sticky-skua-6eec43@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260613-adorable-sticky-skua-6eec43@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/06/2026 21:08, Krzysztof Kozlowski wrote:
-> On Sat, Jun 13, 2026 at 09:53:35PM +0530, Radhey Shyam Pandey wrote:
->  +  switch and Power Delivery controller.
->>  
->>    A variant of this controller known as Apple CD321x or Apple ACE is also
->>    present on hardware with Apple SoCs such as the M1.
->> @@ -19,6 +20,7 @@ properties:
->>    compatible:
->>      enum:
->>        - ti,tps6598x
->> +      - ti,tps6699x
-> 
-> Family compatibles are not allowed. Please use specific models,
-> expressing compatibility (my slides of DTS101 talkmight help you if
-> something is unclear).
+Add support for the TI ADS1110 to the existing ADS1100 ADC IIO driver.
+The ADS1110 is pin-to-pin compatible with the ADS1100 while providing
+higher resolution and an internal voltage reference. This patch series
+extends driver support for ADS1110, updates device tree bindings and
+Kconfig text, and improves the overall hardware description for the
+TI ADS1100 family.
 
+Tested on: Raspberry pi 3b+ with 7.0 stable kernel
 
-And where is any user of this? Why do we want this binding in the first
-place?
+Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 
-Best regards,
-Krzysztof
+---
+V2 -> V3:
+- clean patch from unreleated changes
+- divide adding support for ads1110 into separate patch
+- add missing changelog
+- Link to v2: https://lore.kernel.org/linux-iio/20260607183542.368184-1-jakubszczudlo40@gmail.com/
+
+V1 -> V2:
+- go from creating new driver to extending ADS1100 driver to support ADS1110
+- Link to v1: https://lore.kernel.org/linux-iio/20260527164312.355729-1-jakubszczudlo40@gmail.com/
+
+Jakub Szczudlo (3):
+  dt-bindings: iio: adc: ti,ads1100: add support for ADS1110
+  iio: adc: Add ti-ads1110 support to ti-ads1100 driver
+  iio: adc: Fix incorrect reading when datarate changed in single mode
+
+ .../bindings/iio/adc/ti,ads1100.yaml          |  10 +-
+ drivers/iio/adc/Kconfig                       |   6 +-
+ drivers/iio/adc/ti-ads1100.c                  | 136 +++++++++++++++---
+ 3 files changed, 123 insertions(+), 29 deletions(-)
+
+-- 
+2.47.3
+
