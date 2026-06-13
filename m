@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BBF21FF2E;
-	Sat, 13 Jun 2026 19:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0465713AF2;
+	Sat, 13 Jun 2026 19:03:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781377348; cv=none; b=OYKY5dAkyjIncPq0FJIIpm6BEf5lhVg/lxnfaflHvoBOUkAX8VuOKzRZqO1yujDjGhudDp9ORc2ig/A0Kkvhs0vn9ivwZMHG6XSe3TN0GqB3wU791IG3jEY8w1grWWIsn6eFEcooPHzrgcS8epj+SUMLSfIuLZwfvNJ5Doaa2eU=
+	t=1781377434; cv=none; b=DYC975puuqh2+oJRtCVO6phscVmHNr56n9au4wS5SgtvTfkChw7/mIuI1FjgohArg1m3/DL0IOqFAZSfwPhdOPGqI4QFX3Lh5rLHXnNzJJCt2h/mR/45vSmo6reVASkUIk71iP3P0BlBxE+Lz1dgsjAZIDEjyrYjzCKH4tjozfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781377348; c=relaxed/simple;
-	bh=l3Oc+tbr/RhE1rUi1i5Q1Q+ay5emOzkZruu4ZXSwpfk=;
+	s=arc-20240116; t=1781377434; c=relaxed/simple;
+	bh=4+KDWfUUNzEeT3YxUZvuJFDwUHb/vCxBUo61VrHGPaA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AVRjBdGZg+8lQ9YkPBUTBI0qbU0Aa0JMlJlUeeJ7CPk6b/AdAfBOocLOOWXfGiXTcjkEtcyVAtu4vSV8LppnGFwAC0MBwNDFlEj0fmZREQR5BdGXYU46QDfxnuMIEhno2z6pVWgJsMNEz/PqGv2apR/gIzWaKp1VyTRIpAR//Jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOXRVzde; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E2kgzDW4U+1VMMFtFlNbY3FzxiyGsB57mUGACWcG3Te9MpqPJAv48TPYkM9/6c/twIhPSsfid+dCoJ18yjkyuB8N9cDgzvqCi5msPcTi8HHhm55IoJhSQxBKSrgxnX/7fpif7KPDS/icQbgbOfkJifBJsd7OFKojQBu5Jhr0h5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZyPaiTw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOXRVzde"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780D51F000E9;
-	Sat, 13 Jun 2026 19:02:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZyPaiTw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072D01F000E9;
+	Sat, 13 Jun 2026 19:03:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781377347;
-	bh=BcueLZkozm3anAuTSQFkqhfHePtuZIF+/of8GypqbT8=;
+	s=k20260515; t=1781377433;
+	bh=kNQdqW86qxYa8djwovcvqEdfyYcjTVULQCM3tAzMfOA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VOXRVzdeV+qoT8b1em0T3dLm4ZNgf32iqp3M2/ykzIUWdtfPAq6Hd7lRGatcqgZeH
-	 53XROkmhLfrEqkgMaaTFcktT2GhQ9PZ+FuOs4ZtXMIi0O0p84dc5knPaAWOUuKxIPb
-	 AzmUslwj5K/wMRyqJ+FqgWDuFaF+ncSaDLIPAAWiTqt5hBIuXOM/i0ty+0dcBK7Tak
-	 ghZ4uEFerie7Ae/BJidh2ly5FuurM9spaIYqPK86QrzmCndhLpV5etkxmetePJEcD+
-	 0sHAbu4Z3RskolY9Lip6JJvTVZmxf0K9XjSOkUqW/OI9Ta9r25K5wGULJVBjd4M8u7
-	 7pPQ5tcMf6VLA==
-Date: Sat, 13 Jun 2026 21:02:24 +0200
+	b=JZyPaiTwQEHgFYv9+ptz7FrUfwLZJQCtnmPXoENoJz+BEEG9IgpmWZJlC19D3pv0v
+	 KCXEkY3O6ggSYdMmHOmig9FVqFwIM5Nwc4L3mqTlWcfufd8Mj8vBU+KsyA1JCeTV2B
+	 DHPD4UiExZzcLOuNo3pzTs39AW+cWaNBb6jYn1DzO0JyEUhmVlILqmgxqkixmxLTrc
+	 Gro2XMc3RSJxo0+thwl0IKGjulPPnzCPrwtvnPTpT/wsRfsJBM395uGp5pQQj4SqiH
+	 Q7DVQtExb1DKJEc6l6ya3P4+guOrNgxuK1gBOV0/qItpovtwX9WQojPuPFSg2U2nfT
+	 huGdtoUHGyEWA==
+Date: Sat, 13 Jun 2026 21:03:50 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Charan Pedumuru <charan.pedumuru@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH] dt-bindings: pwm: st,pwm: convert to DT schema
-Message-ID: <20260613-stoic-ambitious-quail-9ea946@quoll>
-References: <20260613-st-pwm-v1-1-458c2c89709a@gmail.com>
- <20260613071327.BE3101F000E9@smtp.kernel.org>
- <84be047f-350f-470c-9680-179805152e1a@gmail.com>
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: mmc: add Allwinner A733 compatible
+Message-ID: <20260613-dexterous-admirable-ostrich-8cc679@quoll>
+References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
+ <20260613-a733-dts-v1-public-ready-v1-2-7787c94681db@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,18 +47,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <84be047f-350f-470c-9680-179805152e1a@gmail.com>
+In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-2-7787c94681db@gmail.com>
 
-On Sat, Jun 13, 2026 at 12:50:54PM +0530, Charan Pedumuru wrote:
+On Sat, Jun 13, 2026 at 05:42:14AM -0400, Enzo Adriano wrote:
+> Document the A733 MMC controller compatible with the existing D1-style
+> fallback.
 > 
+> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> On 13-06-2026 12:43, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] The `interrupts` property is unconditionally required by the driver but omitted from the YAML schema's required list.
+> diff --git a/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml b/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml
+> index 9f3b1edacaa0..9e9590521210 100644
+> --- a/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml
+> @@ -58,6 +58,9 @@ properties:
+>        - items:
+>            - const: allwinner,sun55i-a523-mmc
+>            - const: allwinner,sun20i-d1-mmc
+> +      - items:
+> +          - const: allwinner,sun60i-a733-mmc
 
-interrupts were required by old binding and you should document in
-commit msg all changes done to the binding with a reason.
+So that's enum with previous entry... What's with Allwinner patches
+recently that they do not use that syntax?
 
-Best regards,
-Krzysztof
+items:
+ - enum:
+   - ...
+ - const:
+
+ Best regards,
+ Krzysztof
 
