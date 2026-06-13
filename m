@@ -1,201 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1968D156F45
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 03:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED4D37F8A5
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781320732; cv=none; b=TVTBnYmCBxgw1yX8pS84iC0m/Xn8YpQcpCEC+8WpZUEulRO3GCyPZrYkpPsBFYYKBeMw7yJlq9rVBpI9QNP/yLM2AyAZtUVv1nzv/mM3KT/MzALs4TUyzhXLIamxzDG6Ncb1Y1pT4QJBVzltfcdiIJ89oi10kWS/FWhd1TMdSh8=
+	t=1781323812; cv=none; b=MJi87qDmuv7aXNUa9gufhURga02yG3EgsWDJX2V7i+jHIVuwegJEJTlzPVfGNUurdhN1c9B0uyGv6yFC9CYL6M8cL5X+dwwEFZRp+vSeNgryJPSqd6kTv/+40e7U70O9+FemEhFhG3w+AVyO2H4KdAK960BkzZ6AKSmziKkQ1CY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781320732; c=relaxed/simple;
-	bh=r7l7aVxzs7O7Xak4jlTzUDCoTDD1I+eiZfAJ2L6+r4Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cEZcK+V7bXEPywJLNp5dmc246Dg0DiSbxnV0lHb60i7gw29fDFaGYI5MdXEWMvj/Nhxa0eJjxMULLGo3lYRNOvEsjE4lV3R3JXZl1XxK8Iq61fcQP+8BIa95MMCZ+lMOsH1nZPh4vrPch8EiSIHbRYZatdM++EQJGEyWMfoLh00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=inm/cKV8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781323812; c=relaxed/simple;
+	bh=d+CuOuf3ybPVo31Duy+EpOGsQqxm8eNmSXH5RxEr1bY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s/nR5iWa/AuO6+MWYwDRY6ezm2Dl23niZH6nUVK5Ny81y9CdtRlVXnutATiihXFp3akvD1M8dkLKi9LCSv1Jim/u2vhSrVgI7h70M4cjrY5t4R/6pWrR+6BbaH7OVfGZrrWoPOoMQUXiKBLwWPTptrwNa5fBM2feH06dc0Ar4QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EjX4XkRZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QXBEytuf; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="inm/cKV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2AC11F00A3D
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 03:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781320730;
-	bh=6hjksSQeC+ZsIoDOrxEQzgZgTjPJ+cv9dignez6UBwA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=inm/cKV8um/B4u8UFL6Y3YMdTyrWhrN868DReIZ40B4hAX/Cfi5eWy6hRps1BQT5N
-	 ZmXSrX/LGzxwOavX0Z0wWMRJJtAgObh7gAQxEPr+pdvV7rX/5S05uLVuNBtrdWZJQW
-	 C1twVIjxgfPWZL0w5RzwIy49/U51uC/4zhBgtO4pFVBfTLam6rXOUkJlNchLVy9z2d
-	 vas4IAi4304PiTBux7H+69KSLwqif2JDeMMRGl6NoDJxxaqQE8HlPZcuZlcqeffZ1D
-	 MGBFqX8xhfeV0/YQYDL3LO+gqD96f6eF2L1LqLzMQSfGPkFwEBLcU4/yCXbxL3gYko
-	 Mzz6tU5lg1K/A==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-68d232ed3f9so2639444a12.0
-        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 20:18:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8nRv+viDSKi/99n9+yChHuiwiKwJYDD5aU1ZdjDRgRaf8Qw5/ShGZ85zdhrL+ExEAQIOvPPEGaX+mo@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQGhBtR65Yw1I7vbZWWct6/6inm1hvSGuz1XLV9dHVX3CjU2G6
-	tIg13UwQtrqogu2bXCEKRxD1yk6JUoDbP8qxw+ldldBdQnZfh1mLaHgyKPqKkv0QegWd+iCxSkE
-	9OJPnAoIUi1ULOcquqQnGZW/Fl9ZJzh4=
-X-Received: by 2002:a05:6402:3607:b0:691:956a:cf6a with SMTP id
- 4fb4d7f45d1cf-693785fed15mr2365486a12.12.1781320729386; Fri, 12 Jun 2026
- 20:18:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EjX4XkRZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QXBEytuf"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65D3P0KF1396586
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:10:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LOdBZhTf8TwFyLRvPPm9OlEuuyxWqmYYuZEeSSpKiKE=; b=EjX4XkRZpygOmsXy
+	GVaiA5BwdOv/Yb3hrVzwo6/qftVVOstDIcAxtEZgO+E6ImFeQ+bzCsFcfTccR6AV
+	kHimL7q90XgU6hSIS5504E9F96Z8mGjWkvrsDI+3BgZdXNC38eNugMbNzH+BSRSw
+	e/Xt5yLFD16MFYPFBWIBifvMhxWx6VuMBVe1jvY8SIV3WI33lCE8RwF2ER0/lFhX
+	2s4krj6Sno4qlFdEvF+nUNz0wpzBdaY0KrhVSCAT7m5J3YoyYU5sgQkU30lACJWS
+	tjLeDzFbaV3WB9e/tV8PvwndhzNmm1ARSDRGQfsBFBPa1kONhe2RwHWAK+UZoqi+
+	e90dQA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery8wr2fu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 04:10:10 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8422ca754d8so1242639b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 12 Jun 2026 21:10:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781323810; x=1781928610; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LOdBZhTf8TwFyLRvPPm9OlEuuyxWqmYYuZEeSSpKiKE=;
+        b=QXBEytufWuzTfB4cD/RXyRcDF+MBHUjsNNMLzEBnLHKsB80nwDFufN/J4V0YXrEOpB
+         KSTQ1hYnz1vAtAfzCQWnni8e9Uj5bbfeLZDcBONCVos2Q1+Td++AvoOC8UUW/mjAmf2L
+         CWSFbTBQ0pUTDAWNSow+NLbw7s2dvi56WzGZgZpQ9WG7hfMdtV99DSOR2HP569kk4MoE
+         1DVOPFUZD3LLOXJPZGCrS7DZxJF8ra3QF196B/Fi3F8okY3gp6fW/dG1TW//U9Q27ngz
+         shkTR1RHYs2Dw2il6o5W3OSc3Gv6MnvjeE8F29N62I+i0V6T+jy+l47rW77Q+X8akJpI
+         9d4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781323810; x=1781928610;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LOdBZhTf8TwFyLRvPPm9OlEuuyxWqmYYuZEeSSpKiKE=;
+        b=XGLfJJWkvz6ktp0/C0pQ669i+7cf7YuZU3UhjlZcKuiC2R3xB6N9DuRU1ckosiXmsR
+         5JAtbhzNbQH4x0ZnFYqE95viTdRO3sbjUaShz8+kpeMkcNjwbY463c3Ig7OaMVtswMwn
+         tFeY2ylqFUikVZx5AwBgzNsgKd/sOMYGRiQqmYDmQJSkquWKIGq2267ZRF3QAWI7OSDr
+         da//pwMXKt0Dyg96tLZi7zCUeAKRvtug1a6EbX1SfavMytnZypm1HGXY+GiW5JW1pI3O
+         fPG7nxSdTFfKvv/9+JASZqvI8mrCmyFZVw05FJTbXYHAEdr2HVJrgB/LeoBYme00Kf1Q
+         /ZZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8hxyEhyPRFmcbYZh2BiYjJPUMWiE+Pm2UuUjzUenTcrQkHtmJJTstdF2kQCDxd8i7GWOEF5W8+2ZSd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfpSegJ/itXNBWg2fUbOQeyqXNBUaFHiwKMpihpEJ7FLiLjdjp
+	+P330/xIPJA2ERrNbHKm5hSZUg2WoKcWmUAnkk2sdNul0xDtcrU338u4D+WBwL8sPK3CcRmzH9j
+	rUmoTFWsjS+yG7cuQRtJHUVLNIW86+5WqFrdJIi/tPJlJDKq/rUq/AJP00eyu8YsU
+X-Gm-Gg: Acq92OFQB9qD53ofCeMLoJzJdkGDS9SniYtWClGrFHnL7iqBjhZi8fcHXCg0NZ8WYiX
+	ytSOzqCfVH9bRmFMjfGVS1xuaicx2wiiXqBIz6RywJDVs/7PwSci0bnLtUVhj4iGj1oWZWbZWsZ
+	NmFJvVbCQzTleI84hzh1jB4HAjZ1M2elYBxGoJvX/K87z6SFzMkaTI/CV8cZP2PFMNh/XreewWc
+	0gHfJh8eRgPN7NagMmtTR8WQQCDKZQlfSyBp7ccBFfBkFvfzQovwdByrMDEfuM+DkqnaiSFGvdH
+	OC+ZUG3dNCPXyxZFnnlmJW8x1HD/EYvQbzoCsetXzVkwSU5IVEF1s/geBZymAjVC+Rt4nTGG7R0
+	cX/FrDoq7lOV2GzN8dMFMqlC/QAsH4HsmEAuNCAt+iL624gTaJcI=
+X-Received: by 2002:a05:6a00:1483:b0:827:4bca:f1a2 with SMTP id d2e1a72fcca58-8434ce95f96mr5902244b3a.10.1781323809815;
+        Fri, 12 Jun 2026 21:10:09 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1483:b0:827:4bca:f1a2 with SMTP id d2e1a72fcca58-8434ce95f96mr5902220b3a.10.1781323809366;
+        Fri, 12 Jun 2026 21:10:09 -0700 (PDT)
+Received: from [192.168.1.11] ([103.211.19.106])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afd100esm4480992b3a.34.2026.06.12.21.10.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 21:10:09 -0700 (PDT)
+Message-ID: <fbb00150-e3bd-45b8-a87a-100ecd235a46@oss.qualcomm.com>
+Date: Sat, 13 Jun 2026 09:40:00 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1780538113.git.zhoubinbin@loongson.cn> <4b003425d16a18049c5b90dbdaf91024e265cd8e.1780538113.git.zhoubinbin@loongson.cn>
-In-Reply-To: <4b003425d16a18049c5b90dbdaf91024e265cd8e.1780538113.git.zhoubinbin@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 13 Jun 2026 11:18:42 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6G5vTH_58_pKvBnvjdr2eVTWTctUqmPAX3aMjsFDjsQg@mail.gmail.com>
-X-Gm-Features: AVVi8CfzQWj-D-TJJvfg08UU4k6shbbVHcLWFkeYPG8y4sewERe1-KnaBYwPigg
-Message-ID: <CAAhV-H6G5vTH_58_pKvBnvjdr2eVTWTctUqmPAX3aMjsFDjsQg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/7] ASoC: loongson: Add Loongson-2K0300 I2S controller support
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Xuerui Wang <kernel@xen0n.name>, 
-	loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/7] arm64: dts: qcom: shikra: Add CAMSS node
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org,
+        Suresh Vankadara <quic_svankada@quicinc.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com>
+ <20260608-shikra-camss-review-v2-3-ca1936bf1219@oss.qualcomm.com>
+ <3ec2bd75-4d88-492e-a8c2-b21000ef2afc@linaro.org>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <3ec2bd75-4d88-492e-a8c2-b21000ef2afc@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: SZYxmv6c-bIUDDC7fChCFxQZ0rm4IBd-
+X-Proofpoint-GUID: SZYxmv6c-bIUDDC7fChCFxQZ0rm4IBd-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEzMDAzNyBTYWx0ZWRfXxIN87vHkLz9X
+ alAZ1p/cRy/1xfPxGiBL879uEj8vbFp6SSTavvg96P3hUO3I/O14Bz1OUM7wmich29pIwgkTfyw
+ TAZAdzDdCrrbOzHRZrDaZgNSALCP62E=
+X-Authority-Analysis: v=2.4 cv=IqAutr/g c=1 sm=1 tr=0 ts=6a2cd822 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=RuEr1PiGI7RNW/QBahnYvg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=HRvYZQSnNB20PN4mEw4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEzMDAzNyBTYWx0ZWRfX4IIw9839iU43
+ kZcqp3c2XtjJ7BGD5cCEkjOkW3sHvjbybK7b9E2n050hdfFKSxZgjO8KqmjUc8YGgDugFsl5ZXW
+ Z8Kzz+lzPFGlMmjo8AdNPSGhEDp3I6lduoo6gZ1uU5K1vyaKtLIQMghSfGchhF4avJgiyu48toT
+ ff9a1KAUEsCLR08SQcQQegZxe3LuOvPJlkae4dDjyKCrGel+4loXjyZ2QxjmSrGmj7Z1M+aJpiX
+ NMpQsRLGKIBHUJnXMhQqH/fG8k9N9nTNmHknrlN5THeNwjdILOTVpsuVjsNLY+3JAWCEMmajBO4
+ hQvGAfPOdXs2JuRPlnp9ADH5NirHZX8T/MDBYsq2V58AkdnTgNppBYvfUAJRomjwtd66jsrBeor
+ nHB7nCPlC4Mr75aNCYdHTS0O1vFP7aC8BQMODI6k0R8S1wvQ3beffvyZxlg0inEjGbXLev1UYj8
+ ZSp7gXwsxsbT5fL/VKA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-13_01,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606130037
 
-Hi, Binbin,
 
-On Thu, Jun 4, 2026 at 10:11=E2=80=AFAM Binbin Zhou <zhoubinbin@loongson.cn=
-> wrote:
->
-> The Loongson-2K0300 I2S interface differs significantly from the
-> Loongson-2K1000. Although both utilize external DMA controllers, the
-> Loongson-2K0300 does not require additional registers for routing
-> configuration.
->
-> Due to hardware design flaw, an extra controller reset sequence is
-> required during probe.
->
-> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> ---
->  sound/soc/loongson/loongson_i2s_plat.c | 42 +++++++++++++++++++++-----
->  1 file changed, 35 insertions(+), 7 deletions(-)
->
-> diff --git a/sound/soc/loongson/loongson_i2s_plat.c b/sound/soc/loongson/=
-loongson_i2s_plat.c
-> index ac054b6ce632..b4d807ee7f8f 100644
-> --- a/sound/soc/loongson/loongson_i2s_plat.c
-> +++ b/sound/soc/loongson/loongson_i2s_plat.c
-> @@ -2,7 +2,7 @@
->  //
->  // Loongson I2S controller master mode dirver(platform device)
->  //
-> -// Copyright (C) 2023-2024 Loongson Technology Corporation Limited
-> +// Copyright (C) 2023-2026 Loongson Technology Corporation Limited
->  //
->  // Author: Yingkun Meng <mengyingkun@loongson.cn>
->  //         Binbin Zhou <zhoubinbin@loongson.cn>
-> @@ -21,6 +21,7 @@
->  #include "loongson_i2s.h"
->  #include "loongson_dma.h"
->
-> +/* Loongson-2K1000 APBDMA routing */
->  #define LOONGSON_I2S_RX_DMA_OFFSET     21
->  #define LOONGSON_I2S_TX_DMA_OFFSET     18
->
-> @@ -30,6 +31,11 @@
->  #define LOONGSON_DMA3_CONF     0x3
->  #define LOONGSON_DMA4_CONF     0x4
->
-> +struct loongson_i2s_plat_config {
-> +       int rev_id;
-> +       int (*i2s_dma_config)(struct platform_device *pdev);
-> +};
-> +
->  static int loongson_i2s_apbdma_config(struct platform_device *pdev)
->  {
->         int val;
-> @@ -47,8 +53,18 @@ static int loongson_i2s_apbdma_config(struct platform_=
-device *pdev)
->         return 0;
->  }
->
-> +static struct loongson_i2s_plat_config ls2k1000_i2s_plat_config =3D {
-> +       .rev_id =3D 0,
-> +       .i2s_dma_config =3D loongson_i2s_apbdma_config,
-> +};
-> +
-> +static struct loongson_i2s_plat_config ls2k0300_i2s_plat_config =3D {
-> +       .rev_id =3D 1,
-> +};
-Put  ls2k0300_i2s_plat_config before ls2k1000_i2s_plat_config?
 
-Huacai
+On 12-06-2026 13:26, Vladimir Zapolskiy wrote:
+>> +            iommus = <&apps_smmu 0x400 0x0>;
+>> +            power-domains = <&gcc GCC_CAMSS_TOP_GDSC>;
+> 
+> Please add an empty line between the properties above.
+> 
+>> + 
+ACK
 
-> +
->  static int loongson_i2s_plat_probe(struct platform_device *pdev)
->  {
-> +       const struct loongson_i2s_plat_config *plat_config;
->         struct device *dev =3D &pdev->dev;
->         struct loongson_i2s *i2s;
->         struct resource *res;
-> @@ -59,12 +75,17 @@ static int loongson_i2s_plat_probe(struct platform_de=
-vice *pdev)
->         if (!i2s)
->                 return -ENOMEM;
->
-> -       ret =3D loongson_i2s_apbdma_config(pdev);
-> -       if (ret)
-> -               return ret;
-> +       plat_config =3D device_get_match_data(dev);
-> +       if (!plat_config)
-> +               return -EINVAL;
->
-> -       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> -       i2s->reg_base =3D devm_ioremap_resource(&pdev->dev, res);
-> +       if (plat_config->i2s_dma_config) {
-> +               ret =3D plat_config->i2s_dma_config(pdev);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       i2s->reg_base =3D devm_platform_get_and_ioremap_resource(pdev, 0,=
- &res);
->         if (IS_ERR(i2s->reg_base))
->                 return dev_err_probe(dev, PTR_ERR(i2s->reg_base),
->                                      "devm_ioremap_resource failed\n");
-> @@ -87,11 +108,17 @@ static int loongson_i2s_plat_probe(struct platform_d=
-evice *pdev)
->         if (IS_ERR(i2s_clk))
->                 return dev_err_probe(dev, PTR_ERR(i2s_clk), "clock proper=
-ty invalid\n");
->         i2s->clk_rate =3D clk_get_rate(i2s_clk);
-> +       i2s->rev_id =3D plat_config->rev_id;
->
->         dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
->         dev_set_name(dev, LS_I2S_DRVNAME);
->         dev_set_drvdata(dev, i2s);
->
-> +       if (i2s->rev_id =3D=3D 1) {
-> +               regmap_update_bits(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_RES=
-ET, I2S_CTRL_RESET);
-> +               fsleep(200);
-> +       }
-> +
->         ret =3D devm_snd_soc_register_component(dev, &loongson_i2s_edma_c=
-omponent,
->                                               &loongson_i2s_dai, 1);
->         if (ret)
-> @@ -102,7 +129,8 @@ static int loongson_i2s_plat_probe(struct platform_de=
-vice *pdev)
->  }
->
->  static const struct of_device_id loongson_i2s_ids[] =3D {
-> -       { .compatible =3D "loongson,ls2k1000-i2s" },
-> +       { .compatible =3D "loongson,ls2k0300-i2s", .data =3D &ls2k0300_i2=
-s_plat_config },
-> +       { .compatible =3D "loongson,ls2k1000-i2s", .data =3D &ls2k1000_i2=
-s_plat_config },
->         { /* sentinel */ },
->  };
->  MODULE_DEVICE_TABLE(of, loongson_i2s_ids);
-> --
-> 2.52.0
->
->
+--
+Regards,
+Nihal Kumar Gupta
