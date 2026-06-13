@@ -1,159 +1,96 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED07A2765E2
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 16:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964B5263C8F;
+	Sat, 13 Jun 2026 16:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781368935; cv=none; b=rAyd4HxNFh5AZq1KEljnnlRbayKn7blaUtCEAIuD1AjZA5aB8DFSX1z7f9at4pc0Ry8gfaFJZc0563z2Rsn5e4v1zBD/O7Q3nVotIlBsNjmbwVTDrnGoQuuVG5f2wdcSD42FCBsvmB805j2UPUOBuuxcDRjfDLBGIU9k0XOquy4=
+	t=1781369333; cv=none; b=XO4TeijJ9LCJnqSaKKDsl/JfL4cagaF2hSYTyZpvPNawCS5iU//Y95oL22C7CoylimU2ZVJ6XN20017EWWoHvteZkST6xA/nriEgbIj/2TEtvLgLzlt/IwwuxSqw5qiHK+5fFlJ/yXLRfyW3a84uKTp3lfR0XIXb1TuFUNSJg5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781368935; c=relaxed/simple;
-	bh=IhIQz5jSiL3XNOL1jTbo5CXGeRcji9WKa7mNaIAFqXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tzL8y6PpgrLq3JAzLku+lNA3eximM8Wwqd6V1/FQUEENrTcA7KuDqd+ijM7BizP0H/pDWLXkrp1I2DvtZLN2Cd4FXMMEwgXgiJ1JBfm056mWs2pX+U3HveeEqokAXhpcWuCfE97yoOoD5d3SFGJSM2ngklH9SKsgXKngbXhkbDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=U0Fd+nbn; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781369333; c=relaxed/simple;
+	bh=u18l/tEe4VipANnKG2MxfkxQ+FFaXOgq5noVLMuBeTo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=de2qjcRBSbnRfffSS9edfnkkjh05TTXDiqwoXnEuKwCSZPbNFcjuGKfLGPJjPlla4lBZz1lrQqfo1GOd2NZrzVJONrWV7ePiHMPX4zXAJ4mlbpssJjYwiPHoCGUAwVr+DgNeAeS+dhUG/fx0c+bWpBUDiw9/xXehleRYhOBewpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPBm6DbR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="U0Fd+nbn"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e709dd1ab2so811145a34.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 09:42:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781368933; x=1781973733; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YClLX0yEzKDd8bl1cK6HeZnm+stLvAtsb923iZjql8k=;
-        b=U0Fd+nbnCSmC5+faS7b43X/SuLhkZAldJ/LX/f23IU+F8qE2V3O5vP/O+8K96DOxzU
-         Si0xITrDw9XU818gebvaxsqmhDC6RvAikv6YWpT9jxhfqQ3gCS6mQbJqUth85WPc/sqk
-         j9Ed91t4NevmC70K2jlVghOS0O2vueuMyMe/zkPmiztwYIEGF6TIolLXfS1tvuzToNdU
-         Y11aOQHQDziQUqYYxxZeLMcH3rpJfwhjRrHxj+Hf2sQ+kRLXHUyr7NeGdBNvpHnPE8bl
-         0PQW2JiY1qV9a7gY5Uq0PCjqe+FcWZHoY1uNQqw593T/8pqqN6os8Z4sg0r2gnHkDWRz
-         uDVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781368933; x=1781973733;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YClLX0yEzKDd8bl1cK6HeZnm+stLvAtsb923iZjql8k=;
-        b=lZMd3E/ia044VaSrlkgUTWcp7VQOHvVMsQVDGs8bBa4AlfTacW//z8c2Xo9+cq6FwC
-         5ZGgJgRq9C0dPE5xkVMoTqfXca93RK6ZL7ZJWNKCmYOPjVCGTVleUc5GWSCKxqLLjRs9
-         3y+AJ09XmxGAYxtnzZBq+COOT3WUotMhBf20P/jeBz236dxajuDPog+9nG2R31v096N8
-         s6F1YA/XCCd7joCwCldufkbdv45vYoeyJ9SmP06bC8nsdK7tOl9gj+7OnkgJZZfPpX1U
-         l7qPFHz1ao071fHSbFcKReJjBqg6KhpPTYqVkP1ykragRYc5LY5DRb5Wgn0PwsVf0F+/
-         2oLg==
-X-Forwarded-Encrypted: i=1; AFNElJ+aLdXdtW7goDLre8vg38TFfLOik5jp4j2d4/Z23fr8Xz1Wh2YFXbjyU94yp+Wjt7KtdKuErBiv8/Bw@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVRev8zWdbAGp2qFVKuj7s/wKbu8lZJkZx688VIXGUic2wgnbz
-	Xg/3XjFl3GPgH9usLhkleOLvKxFwATPhVwmo8mnlx9RJQOPMMUq68x01xmfx3siHgtw=
-X-Gm-Gg: Acq92OHy8xzMJyYO4ZQoO6nhl5X36mDfhtIccrxDTdc/VVXfBnmjOu+b+3TfWfCnup1
-	eUKubyXKtHHaSntqtOl/fSCYaX4iLr6MqFvooqkOecbgksQB1rf2LVYulZc0zt72RafaTeh9G/D
-	gYV1vxu/M8WISqFF4MVyOSMpn1KZZ4QbrnlJ0stvlPvFpB38aVZnKBuBpATYga1yOgTck1kCwzt
-	aIuXfAtN6BruqOypB+VA//smu2kBlxOeQzfHJi4YatODqYBIkaPd4twtmFX1hG2Y/LXtbx92uTU
-	g+JNYbjk3UA+4bg5Kpo83xMD5arL4YHvRR/eQ3y3O/S0akli5RBRKrNa1QSYT98UnuULjcMKwuV
-	+N/ytu6nUAJ0J2WYa/YGmXVGt+/9rOxTWjmhoYZjUkYvGsvIOj+2osS0MSojOESUK8Q4ksPJh6h
-	q17ZNF/wv4tHAXixGDMWyPJTrZuAH9cUS3+wYxsP+cXQUeOymHDNwGOrlP09MQUwq2SQJOxby6/
-	Q==
-X-Received: by 2002:a05:6830:6e1f:b0:7e7:9493:dc3e with SMTP id 46e09a7af769-7e794a32092mr1230912a34.3.1781368932957;
-        Sat, 13 Jun 2026 09:42:12 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:cb9a:87cc:1314:fef5? ([2600:8803:e7e4:500:cb9a:87cc:1314:fef5])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e78125d3e3sm4346652a34.0.2026.06.13.09.42.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 09:42:12 -0700 (PDT)
-Message-ID: <8ddb4c1e-d105-49be-a6e0-30c220af98c3@baylibre.com>
-Date: Sat, 13 Jun 2026 11:42:11 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPBm6DbR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4701F000E9;
+	Sat, 13 Jun 2026 16:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781369332;
+	bh=LVBnyWkL2409t5kbHwLTU6uhwAAVAlV9g1CqOb0LOcE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KPBm6DbRE1k0T7fGnKCHKz0da1JpXeBiGifUPNrTt6HWQ4OV2OpvCJjogPVNtWwBF
+	 O+ra2mqYG6V8v7EkkWo3rnupvm1l1+FShOdChM9+ZG5vtWjlvgxtamWLGn6C8MGiDe
+	 H6Y8H4Gav87X4AsxK6uquK/MUGdMhztce/HTsiUo4KEeo+kde+k6mTERTpsldoq8Pq
+	 XrEBWkPyWYdGY1ZygqtqW1OZd8P5kQlDjDkDyg0hgVxKsbWhFY1bd1vRFoiorKma7e
+	 U5ittcyxp5BgM1+d6VmC5rRJBP7a2G3q6Z1xjdeQ3LXEz9B/BIwQWQBVMnibur1XAz
+	 FqInFbyPkG6hQ==
+Date: Sat, 13 Jun 2026 12:48:47 -0400
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>, Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
+ driver
+Message-ID: <20260613164847.GA3152104@ax162>
+References: <20260610-ultrarisc-pinctrl-v4-0-b7e9b2a8ed84@ultrarisc.com>
+ <20260610-ultrarisc-pinctrl-v4-2-b7e9b2a8ed84@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
- driver
-To: Roman Vivchar <rva333@protonmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <noname.nuno@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Ben Grisdale <bengris32@protonmail.ch>
-References: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
- <20260602-mt6323-adc-v1-2-68ec737508ee@protonmail.com>
- <2df4cad5e29fbcb4c5c5f59ea0bf322c7a301bdc.camel@gmail.com>
- <RRvh9UBBrqdfKoCLaqgfcQ06UY-BSM2hQ0F6F1YkdB2k2RXYMQmlCG4phXk72oGY03t1g1kDI4z-SDeKlYkUv84-AjNLaWK7tDQlpEFQVKk=@protonmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <RRvh9UBBrqdfKoCLaqgfcQ06UY-BSM2hQ0F6F1YkdB2k2RXYMQmlCG4phXk72oGY03t1g1kDI4z-SDeKlYkUv84-AjNLaWK7tDQlpEFQVKk=@protonmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260610-ultrarisc-pinctrl-v4-2-b7e9b2a8ed84@ultrarisc.com>
 
-On 6/3/26 6:24 AM, Roman Vivchar wrote:
-> Hi Nuno,
-> 
-> On Tuesday, June 2nd, 2026 at 7:42 PM, Nuno Sá <noname.nuno@gmail.com> wrote:
-> 
->> On Tue, 2026-06-02 at 15:46 +0300, Roman Vivchar via B4 Relay wrote:
-> 
-> ...
-> 
->>>
->>> +MEDIATEK MT6323 PMIC AUXADC DRIVER
->>> +M:	Roman Vivchar <rva333@protonmail.com>
->>> +L:	linux-iio@vger.kernel.org
->>> +L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
->>> +S:	Maintained
->>> +F:	drivers/iio/adc/mt6323-auxadc.c
->>> +F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
->>
->> The above file was not added in this patch
-> 
-> The header file is added in patch 1 (dt-bindings). Following Krzysztof's
-> feedback on the previous version, I squashed the MAINTAINERS into this patch.
-> Please let me know if I misunderstood anything.
+On Wed, Jun 10, 2026 at 01:29:56PM +0800, Jia Wang wrote:
+> diff --git a/drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c b/drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c
+> new file mode 100644
+> index 000000000000..8fb5b0ea5b93
+> --- /dev/null
+> +++ b/drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c
+...
+> +static bool ur_function_is_gpio(struct pinctrl_dev *pctldev,
+> +				unsigned int selector)
+> +{
+> +	const struct function_desc *function;
+> +
+> +	function = pinmux_generic_get_function(pctldev, selector);
+> +	if (!function)
+> +		return false;
+> +
+> +	for (u32 i = 0; i < function->func->ngroups; i++) {
+> +		const char *func_name;
+> +		int group_selector;
+> +
+> +		group_selector = pinctrl_get_group_selector(pctldev,
+> +							    function->func->groups[i]);
+> +		if (group_selector < 0)
+> +			return false;
+> +
+> +		func_name = ur_get_group_function(pctldev, group_selector, 0);
+> +		if (!func_name || strcmp(func_name, "gpio"))
+> +			return false;
+> +	}
+> +
+> +	return true;
+> +}
 
-Usually, we want the MAINTAINERS entry in the same patch that
-the file was added. It is fine to include MAINTAINERS changes
-in the dt-bindings patch.
+The usage of pinctrl_get_group_selector() in this function breaks the
+build when this driver is a module because pinctrl_get_group_selector()
+is not exported for modules:
 
->>> +	case IIO_CHAN_INFO_RAW:
->>> +		scoped_guard(mutex, &auxadc->lock) {
+  ERROR: modpost: "pinctrl_get_group_selector" [drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.ko] undefined!
 
-We can avoid extra indent by making this:
+Also reported by the robots:
 
-	case IIO_CHAN_INFO_RAW: {
-		guard(mutex)(&auxadc->lock);
+  https://lore.kernel.org/202606130210.ytVPxHlm-lkp@intel.com/
 
-		...
-		
-		return IIO_VAL_INT;
-	}
-
->>> +			ret = mt6323_auxadc_prepare_channel(auxadc);
->>> +			if (ret)
->>> +				return ret;
->>> +
->>> +			ret = mt6323_auxadc_request(auxadc, chan->channel);
->>> +			if (ret)
->>> +				return ret;
->>> +
->>> +			/* Hardware limitation: the AUXADC needs a delay to become
->>> ready. */
->>> +			fsleep(300);
->>> +
->>> +			ret = mt6323_auxadc_read(auxadc, chan, val);
->>> +			if (ret)
->>> +				return ret;
->>
->> Could be return mt6323_auxadc_read(...)
-> 
-> The mt6323_auxadc_read returns 0, while IIO expects IIO_VAL_INT (defined as 1).
-> Should the mt6323_auxadc_read function return 1 for success?
-
-mt6323_auxadc_read() would need to return IIO_VAL_INT.
-
+-- 
+Cheers,
+Nathan
