@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78B427AC57;
-	Sat, 13 Jun 2026 18:26:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAFF3090F5;
+	Sat, 13 Jun 2026 18:29:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781375206; cv=none; b=C07CHmXLWRkI+fkVSXMLWHnmWNFkbyqm48dka+u0rdNqmdqbAcFxOkrYr3zCqNYrDCQcOF3qX+2yIWgM8obpMiSYO2xr0EKrFq1OMOXBrYHACNj0aog2BlJ11GwTCbE5HySG5zB7t+JbGuj3fk2i2VtB9uOKDZ0nYMCpTSY8ry0=
+	t=1781375400; cv=none; b=ahi6LDxfgRPiKLRqCNFS5NqGO+/XckWWNUvl+brDK7Kj1YQaSSQxs4qtXIedhgzjXTibQg0DdK0Dk4R4slKEs7FyZUZwVKpn5TnptevyCOCnmd3ZY/wCPiGTUbTnNvV+szI5geWmsQwjVVKfXu88Y1C8lvws2SiA29ss71cBjyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781375206; c=relaxed/simple;
-	bh=ku69+QJTGLVIu+e2VCsIqu28fqjfc41H9M/G8zxv6Ag=;
+	s=arc-20240116; t=1781375400; c=relaxed/simple;
+	bh=AN0ZpA9iHlqEDGOP2hVl8hG9GkDDp1wZTgjgrMNqxxg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gqwmUhYW3on8CoJLbY8XXAxKBu6mm2+UtDvPvhTMNteAymUzmAQbRSLFkd7kVqI+RY6knBR7zIKDdh9l3cpdb6h8kXv7me3gS/6dB01Muh0LCqK7pBIrYv7hNIi0dbhyqrKPGNP3zYTflznGJngPuvGZHA2h0JJ6Y6fk0X8HKJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQkVXJeN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MwR86+5z72cQCWedeYual/Wb8lTR8CKXdTvhjm90S9RfV6QG91KnDfCDprzys8w4tdT2bqY/zPjJRnA5EzDAdbw4FFtzIPpAC2kNem/y7eemuwTbSKvdlXkFaBqNys0hkuCd4SiA+l7geMyjHAAmv4XeE9xBMSJ2o5tn4RU2kso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxYmAgzI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQkVXJeN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74A51F000E9;
-	Sat, 13 Jun 2026 18:26:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxYmAgzI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD001F000E9;
+	Sat, 13 Jun 2026 18:29:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781375205;
-	bh=ku69+QJTGLVIu+e2VCsIqu28fqjfc41H9M/G8zxv6Ag=;
+	s=k20260515; t=1781375399;
+	bh=33Syhvsm5sZiiNLVJUS2RBNw63oGJetk1j5qZL/2MiA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZQkVXJeNXlV81XZi1WUGqWCSL0oIySiPC12pMIN5lENjd7geRmuLD1g/bD1qx8R2C
-	 5p1btKdarR9A8uoPI78Xq8N7acGOu40PFJLO89mI+v79YPIi6jagK/dq9ex7/GPhvj
-	 kB3AAy9Mmf07tM8pq7l46mQjpgcDU9b7wX2VIZ2ElUkenYa6E0YKXjDHZWUKohqQ+S
-	 ns9G87k9DxpS7B7/gmF07gRpKXdy0zzPCR+DVUs1FaVPnhiK6puBPeny0VHiIMer7b
-	 3d+7Ra8X1O3eZ1xsX7DX5nLMdueRgmPOz7G+bYCKgV3SB/sLx+l77d1Q4voaDHutW9
-	 yAao8KY6h1hyA==
-Date: Sat, 13 Jun 2026 20:26:43 +0200
+	b=SxYmAgzIh9DscHcdrhGxGBo/5V60YWApEi+m/R6/XKqhQpada+bVWx36Cwy/hJ8zT
+	 /t/sQdvOfQgAimhpLXCT+QrCsS+eieMQFvUXLEb/FqV8NpomYYexoW3aY0dwFRu87N
+	 +LvVH1DXQB1WndVI5u9koNvgX/rYNNf8BiAQ3gTTEhpW1MEYktH1hiXyjBkLhhW8bT
+	 kOk1G4c2yLfO7kftEP+lZJYJ0vUkNW24mNlj6z31pHfvVFYAc5a4l8lQwV/ycLXEEp
+	 eE0qhrLquf8LArl+ukokd52mSH2yeQ7mYmLvNPRH6el5EV5EO54gpNZAk0RGfFqqwa
+	 wr0vLKKk2rZEg==
+Date: Sat, 13 Jun 2026 20:29:56 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Charan Pedumuru <charan.pedumuru@gmail.com>, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v4 1/2] arm: dts: st: align node patterns with
- established convention
-Message-ID: <20260613-meteoric-qualified-malamute-beea2a@quoll>
-References: <20260613-st-mmc-v4-1-b3c385617c16@gmail.com>
- <20260613094844.EEA7D1F000E9@smtp.kernel.org>
+To: Geetha sowjanya <gakula@marvell.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, mark.rutland@arm.com, 
+	will@kernel.org, krzk+dt@kernel.org
+Subject: Re: [PATCH v2 3/3] dt-bindings: perf: marvell: add CN20K TAD PMU
+ support
+Message-ID: <20260613-crystal-chihuahua-of-opportunity-deed7e@quoll>
+References: <20260612095746.19679-1-gakula@marvell.com>
+ <20260612095746.19679-4-gakula@marvell.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,14 +45,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260613094844.EEA7D1F000E9@smtp.kernel.org>
+In-Reply-To: <20260612095746.19679-4-gakula@marvell.com>
 
-On Sat, Jun 13, 2026 at 09:48:44AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Renaming 'sdhci@...' nodes to 'mmc@...' in the base dtsi file leaves overrides in derived dtsi and dts files orphaned, causing node duplication and completely breaking MMC functionality.
+On Fri, Jun 12, 2026 at 03:27:46PM +0530, Geetha sowjanya wrote:
+> Marvell CN20K SoCs integrate a Performance Monitoring Unit (PMU)
+> associated with the LLC Tag-and-Data (TAD) blocks. The PMU provides
+> hardware counters to monitor cache traffic and performance events
+> via a dedicated MMIO region.
+> 
+> The CN20K LLC-TAD PMU is largely similar to CN10K, but differs in the
+> layout of PFC/PRF register offsets relative to each TAD base. These
+> offsets are derived from the compatible string in the driver and are
+> not described through Devicetree properties.
+> 
+> Because of this, using "marvell,cn10k-tad-pmu" as a fallback for CN20K
+> would result in incorrect register programming. Therefore, add a
+> separate compatible string:
 
-How many times Sashiko needs to provide the same feedback before you
-address it?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
