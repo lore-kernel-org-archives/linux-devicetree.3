@@ -1,30 +1,30 @@
 Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFCE3587DE
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 18:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34E330B53F
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 18:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781374833; cv=none; b=N59WkBdKUr9ytYS+o6FshfPeAZNs8UtRKbf7ja/yK/fw3NqVN1iizKQcUiBMic2qTd10HsViE4+Ft0n1p3YdGCWgIPSFAkmZlSFNL38UP2hfn9OUOxA1P9nlGNKRwOoW60rmsz3K09k45aod0+8iwdiv6vy/Ku6Nf/Lrn4pOYCM=
+	t=1781374834; cv=none; b=SkutEP5IUUNKOg+T6xPaS1toQDV/xB94kP188L1IaiuX/V5/579/2E90m87URo8PRTpL0Z+zCVlmMHG2aY2yLD+AFqNUa3pUzBuEjKfTw/oB2Qo9+9CDap2HFxdb/QlJUA2ouzzWnYPX+SXXODbA3yvXJ/ZWi10FFasCK52zTIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781374833; c=relaxed/simple;
-	bh=1T1ByAraUkYOdhjn7ASEmsGXb0gsHFuGHtFnsbcTujU=;
+	s=arc-20240116; t=1781374834; c=relaxed/simple;
+	bh=/Po4inVZQx7wRoL1GAwxCRAKv5JX9t6MokI5QBRKewo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MA7OnKsWZAHLvtiv38b5Mpj0Fs7qle9Gl6qNXPetm9wNYB6wpsoKaTJFWXx45wnNOkmpkPz0+P7PgfOtQ9EawKwkcC/fatDfof+3jMruGNSR94M0k0+FhoQcVrut5M76BhsRGDFQueX4Cn/34Jlt4OXm9LVJIFH7+fzEX4/zVWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=WC0jOT5W; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=YD5z4CQP; arc=none smtp.client-ip=34.202.193.197
+	 MIME-Version:Content-Type; b=m8C+Et0D/aFB7ODiCuggmocF9H4AzEMMlPf41Xq2AgiITdzjBjkyz2OvpgvW4NFfofqEPWbFDOrN8aZl+iSk74FInlg72iXlmJP3slhMlyvEd48e60fql3/hp+A/50tTW7AcciKevmDeOyDloBt50Q0Ccih01/5Fn6FCCqGFTow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=KVCALDYe; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=i2PIaoM1; arc=none smtp.client-ip=34.202.193.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="WC0jOT5W";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="YD5z4CQP"
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="KVCALDYe";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="i2PIaoM1"
 Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256; b=WC0jOT5WzmuxtjPfPVwjfNP21NE5kwcLQY35vrDpJ5FSVSsYznYYVxdevXLslxb81lW7RFDvQBOsKjzNMYWHhBFlxN1pibPz1mNviB787Xv6hZfUuCD+pSVxXMzXxy0Av1FiCDR1oCouPAsgClH37jjTp/u5bKbDEgHiRIc5L96Qvf2LC+qGDkO17KqonsyeScwwCQQ+VPBddCb57KVg6XMDB7SNM4bRXSKdFVlzwpuEiPu5Kmz/kn7THdPpPk81TjD/ZrtcZw56SURwEzDIi1Z4MmU+AvxVlkI82G4EL+lwqSsnODvme32NkQQmqM2oKHZ6VFL3YBZqXo8hB7FaEA==; s=purelymail3; d=tinyisr.com; v=1; bh=1T1ByAraUkYOdhjn7ASEmsGXb0gsHFuGHtFnsbcTujU=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=YD5z4CQPtzESOu3/iK7snHhyAGwF3oUQLQRLPE9jBW2nxFoQnSjMg3QdJpyf/UbmpmLQ+Ghtixb9Xp3huatMv/K/4tdmJLIn74i8ugBKSXy1ac2o8aD+6WfK/c65HX1nxLm27DLoXEqhrKhBsTse+STOP6kZxZRFeF7TYfVX0+XjTSjg8dTfSZZOuf/7fct5tJuNHvcif3aE0Y53NGmhMK3XCM+Vex4oBqXhBXrtdF0Ldx4C2/0tjI0oXjhE3YyxiBlJYDNqGfbUr/ai55GO4YLMOBuTIKGGgqHuz7hpProv5/dgwvil+xs7u2/qp7k/mltyQO89Lsuv6NJNMCbmRw==; s=purelymail3; d=purelymail.com; v=1; bh=1T1ByAraUkYOdhjn7ASEmsGXb0gsHFuGHtFnsbcTujU=; h=Feedback-ID:Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=KVCALDYegh9aBAlebnZR4LmV0hQXsrWtYV9AVr6flOW+iLCHCLpwV5NQnR/X8fwn9I/DzWwj4eu6LpguPT0fsGP6ZGjVdjnhQ2ftfWMa7+PEj4iy59Kn7t7ahyyufj+ehFBARhVwKBdYnu9bYEUhcRI4N0CW2zy6ppTv22Y+aDuAiO5hCTOb7A/bPu4jBmWZLHt2itGSFSgeUVQIwl68WaX+wazqITOunScUgzoLZdj6y5W2vBRtW1epjYDWpyIp/F60ouIALcZc69/iMB+TEz9lt1pGkG1FbLy36jK+aiAVBhD/YaSyHl0ZJb4+PVuo2xeLjoyZLMY+xbLl4LgmKg==; s=purelymail3; d=tinyisr.com; v=1; bh=/Po4inVZQx7wRoL1GAwxCRAKv5JX9t6MokI5QBRKewo=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=i2PIaoM1UV9xTYNZu+dyqfZ/+loyruCl6Tz1DWGa5acPjEDw9TrJ+I8WVE5AOh9O+xrfeGXwi7NggSiqBqI52birF/45mtLGxnCotgvFesMWWL1cwtUsu9K1TPcJNwrEimLs/OXbzpWR//rKn8/F+dNE02y9QcbcewOLIVExz5yWphdizRm23z2YIi0c16OPZoM+jyVCKzgBXYrap6G8fDZc8QgsDYTRH7lv16nmrEu7PIGCNu0S8t1gdBuGSNL9tErFQbp6dMQi90q30Kq+63cZ2z9C2bI3yhc5+KIyT4Pqmi1dO12Lw3ORiD+lAVLB1OF56HU1wgbPlZPo1FSv1Q==; s=purelymail3; d=purelymail.com; v=1; bh=/Po4inVZQx7wRoL1GAwxCRAKv5JX9t6MokI5QBRKewo=; h=Feedback-ID:Received:From:To:Subject:Date;
 Feedback-ID: 99681:12517:null:purelymail
 X-Pm-Original-To: devicetree@vger.kernel.org
 Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1738339834;
           (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sat, 13 Jun 2026 18:20:06 +0000 (UTC)
+          Sat, 13 Jun 2026 18:20:15 +0000 (UTC)
 From: Joris Vaisvila <joey@tinyisr.com>
 To: netdev@vger.kernel.org
 Cc: horms@kernel.org,
@@ -43,11 +43,10 @@ Cc: horms@kernel.org,
 	DENG Qingfang <dqfext@gmail.com>,
 	Sean Wang <sean.wang@mediatek.com>,
 	Daniel Golle <daniel@makrotopia.org>,
-	Joris Vaisvila <joey@tinyisr.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH net-next v5 1/4] dt-bindings: net: dsa: add MT7628 ESW
-Date: Sat, 13 Jun 2026 21:18:42 +0300
-Message-ID: <20260613181845.111877-2-joey@tinyisr.com>
+	Joris Vaisvila <joey@tinyisr.com>
+Subject: [PATCH net-next v5 3/4] net: dsa: initial MT7628 tagging driver
+Date: Sat, 13 Jun 2026 21:18:44 +0300
+Message-ID: <20260613181845.111877-4-joey@tinyisr.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260613181845.111877-1-joey@tinyisr.com>
 References: <20260613181845.111877-1-joey@tinyisr.com>
@@ -61,127 +60,178 @@ Content-Transfer-Encoding: quoted-printable
 X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
 
-Add device tree bindings for the MediaTek MT7628 embedded Ethernet
-Switch.
+Add support for the MT7628 embedded switch's tag.
 
-The Switch provides 5 external user ports and 1 internal CPU port, with
-integrated 10/100 PHYs and fixed port to PHY mapping.
+The MT7628 tag is merged with the VLAN TPID field when a VLAN is
+appended by the switch hardware. It is not installed if the VLAN tag is
+already there on ingress. Due to this hardware quirk the tag cannot be
+trusted for port 0 if we don't know that the VLAN was added by the
+hardware. As a workaround for this the switch is configured to always
+append the port PVID tag even if the incoming packet is already tagged.
+The tagging driver can then trust that the tag is always accurate and
+the whole VLAN tag can be removed on ingress as it's only metadata for
+the tagger.
 
-The CPU port is internally connected and uses port index 6.
+On egress the MT7628 tag allows precise TX, but the correct VLAN tag
+from tag_8021q is still appended or the switch will not forward the
+packet.
 
 Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- .../bindings/net/dsa/mediatek,mt7628-esw.yaml | 96 +++++++++++++++++++
- 1 file changed, 96 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/dsa/mediatek,mt76=
-28-esw.yaml
+ include/net/dsa.h    |  2 +
+ net/dsa/Kconfig      |  6 +++
+ net/dsa/Makefile     |  1 +
+ net/dsa/tag_mt7628.c | 89 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 98 insertions(+)
+ create mode 100644 net/dsa/tag_mt7628.c
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.=
-yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 8c16ef23cc10..913d1f71e3db 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -59,6 +59,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_MXL_GSW1XX_VALUE=09=0931
+ #define DSA_TAG_PROTO_MXL862_VALUE=09=0932
+ #define DSA_TAG_PROTO_NETC_VALUE=09=0933
++#define DSA_TAG_PROTO_MT7628_VALUE=09=0934
+=20
+ enum dsa_tag_protocol {
+ =09DSA_TAG_PROTO_NONE=09=09=3D DSA_TAG_PROTO_NONE_VALUE,
+@@ -95,6 +96,7 @@ enum dsa_tag_protocol {
+ =09DSA_TAG_PROTO_MXL_GSW1XX=09=3D DSA_TAG_PROTO_MXL_GSW1XX_VALUE,
+ =09DSA_TAG_PROTO_MXL862=09=09=3D DSA_TAG_PROTO_MXL862_VALUE,
+ =09DSA_TAG_PROTO_NETC=09=09=3D DSA_TAG_PROTO_NETC_VALUE,
++=09DSA_TAG_PROTO_MT7628=09=09=3D DSA_TAG_PROTO_MT7628_VALUE,
+ };
+=20
+ struct dsa_switch;
+diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+index d5e725b90d78..23b4b74004ed 100644
+--- a/net/dsa/Kconfig
++++ b/net/dsa/Kconfig
+@@ -98,6 +98,12 @@ config NET_DSA_TAG_EDSA
+ =09  Say Y or M if you want to enable support for tagging frames for the
+ =09  Marvell switches which use EtherType DSA headers.
+=20
++config NET_DSA_TAG_MT7628
++=09tristate "Tag driver for the MT7628 embedded switch"
++=09help
++=09  Say Y or M if you want to enable support for tagging frames for the
++=09  switch embedded in the MT7628 SoC.
++
+ config NET_DSA_TAG_MTK
+ =09tristate "Tag driver for Mediatek switches"
+ =09help
+diff --git a/net/dsa/Makefile b/net/dsa/Makefile
+index b8c2667cd14a..d15bcf5c68f0 100644
+--- a/net/dsa/Makefile
++++ b/net/dsa/Makefile
+@@ -27,6 +27,7 @@ obj-$(CONFIG_NET_DSA_TAG_GSWIP) +=3D tag_gswip.o
+ obj-$(CONFIG_NET_DSA_TAG_HELLCREEK) +=3D tag_hellcreek.o
+ obj-$(CONFIG_NET_DSA_TAG_KSZ) +=3D tag_ksz.o
+ obj-$(CONFIG_NET_DSA_TAG_LAN9303) +=3D tag_lan9303.o
++obj-$(CONFIG_NET_DSA_TAG_MT7628) +=3D tag_mt7628.o
+ obj-$(CONFIG_NET_DSA_TAG_MTK) +=3D tag_mtk.o
+ obj-$(CONFIG_NET_DSA_TAG_MXL_862XX) +=3D tag_mxl862xx.o
+ obj-$(CONFIG_NET_DSA_TAG_MXL_GSW1XX) +=3D tag_mxl-gsw1xx.o
+diff --git a/net/dsa/tag_mt7628.c b/net/dsa/tag_mt7628.c
 new file mode 100644
-index 000000000000..e0e7ffef6648
+index 000000000000..f0e346595f30
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
-@@ -0,0 +1,96 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/dsa/mediatek,mt7628-esw.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/net/dsa/tag_mt7628.c
+@@ -0,0 +1,89 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2026, Joris Vaisvila <joey@tinyisr.com>
++ * MT7628 switch tag support
++ */
 +
-+title: Mediatek MT7628 Embedded Ethernet Switch
++#include <linux/etherdevice.h>
++#include <linux/dsa/8021q.h>
++#include <net/dsa.h>
 +
-+maintainers:
-+  - Joris Vaisvila <joey@tinyisr.com>
++#include "tag.h"
 +
-+description:
-+  The MT7628 SoC's built-in Ethernet Switch has five user ports and one
-+  internally connected CPU port. The user ports are all connected to the S=
-oC's
-+  integrated Fast Ethernet PHYs. The switch registers are directly mapped =
-in
-+  the SoC's memory.
++/*
++ * The MT7628 tag is encoded in the VLAN TPID field.
++ * On TX the lower 6 bits encode the destination port bitmask.
++ * On RX the lower 3 bits encode the source port number.
++ *
++ * The switch hardware will not modify the TPID of an incoming packet if i=
+t is
++ * already VLAN tagged. To work around this the switch is configured to al=
+ways
++ * append a tag_8021q standalone VLAN tag for each port. That means we can
++ * safely strip the outer VLAN tag after parsing it.
++ *
++ * A VLAN tag is constructed on egress to target the standalone VLAN and
++ * destination port.
++ */
 +
-+allOf:
-+  - $ref: dsa.yaml#/$defs/ethernet-ports
++#define MT7628_TAG_NAME "mt7628"
 +
-+properties:
-+  compatible:
-+    const: mediatek,mt7628-esw
++#define MT7628_TAG_TX_PORT GENMASK(5, 0)
++#define MT7628_TAG_RX_PORT GENMASK(2, 0)
++#define MT7628_TAG_LEN 4
 +
-+  reg:
-+    maxItems: 1
++static struct sk_buff *mt7628_tag_xmit(struct sk_buff *skb,
++=09=09=09=09       struct net_device *dev)
++{
++=09struct dsa_port *dp;
++=09u16 xmit_vlan;
++=09__be16 *tag;
 +
-+  resets:
-+    items:
-+      - description: internal switch block reset
-+      - description: internal phy package reset
++=09dp =3D dsa_user_to_port(dev);
++=09xmit_vlan =3D dsa_tag_8021q_standalone_vid(dp);
 +
-+  reset-names:
-+    items:
-+      - const: esw
-+      - const: ephy
++=09skb_push(skb, MT7628_TAG_LEN);
++=09dsa_alloc_etype_header(skb, MT7628_TAG_LEN);
 +
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - reset-names
-+  - ethernet-ports
++=09tag =3D dsa_etype_header_pos_tx(skb);
 +
-+unevaluatedProperties: false
++=09tag[0] =3D htons(ETH_P_8021Q |
++=09=09       FIELD_PREP(MT7628_TAG_TX_PORT,
++=09=09=09=09  dsa_xmit_port_mask(skb, dev)));
++=09tag[1] =3D htons(xmit_vlan);
 +
-+examples:
-+  - |
-+    switch@10110000 {
-+        compatible =3D "mediatek,mt7628-esw";
-+        reg =3D <0x10110000 0x8000>;
++=09return skb;
++}
 +
-+        resets =3D <&sysc 23>, <&sysc 24>;
-+        reset-names =3D "esw", "ephy";
++static struct sk_buff *mt7628_tag_rcv(struct sk_buff *skb,
++=09=09=09=09      struct net_device *dev)
++{
++=09__be16 *phdr;
 +
-+        ethernet-ports {
-+            #address-cells =3D <1>;
-+            #size-cells =3D <0>;
++=09if (unlikely(!pskb_may_pull(skb, MT7628_TAG_LEN)))
++=09=09return NULL;
 +
-+            ethernet-port@0 {
-+                reg =3D <0>;
-+                phy-mode =3D "internal";
-+            };
++=09phdr =3D dsa_etype_header_pos_rx(skb);
++=09skb->dev =3D
++=09    dsa_conduit_find_user(dev, 0,
++=09=09=09=09  FIELD_GET(MT7628_TAG_RX_PORT, ntohs(*phdr)));
++=09if (!skb->dev)
++=09=09return NULL;
 +
-+            ethernet-port@1 {
-+                reg =3D <1>;
-+                phy-mode =3D "internal";
-+            };
++=09skb_pull_rcsum(skb, MT7628_TAG_LEN);
++=09dsa_strip_etype_header(skb, MT7628_TAG_LEN);
++=09dsa_default_offload_fwd_mark(skb);
++=09return skb;
++}
 +
-+            ethernet-port@2 {
-+                reg =3D <2>;
-+                phy-mode =3D "internal";
-+            };
++static const struct dsa_device_ops mt7628_tag_ops =3D {
++=09.name =3D MT7628_TAG_NAME,
++=09.proto =3D DSA_TAG_PROTO_MT7628,
++=09.xmit =3D mt7628_tag_xmit,
++=09.rcv =3D mt7628_tag_rcv,
++=09.needed_headroom =3D MT7628_TAG_LEN,
++};
 +
-+            ethernet-port@3 {
-+                reg =3D <3>;
-+                phy-mode =3D "internal";
-+            };
++module_dsa_tag_driver(mt7628_tag_ops);
 +
-+            ethernet-port@4 {
-+                reg =3D <4>;
-+                phy-mode =3D "internal";
-+            };
-+
-+            ethernet-port@6 {
-+                reg =3D <6>;
-+                phy-mode =3D "internal";
-+                ethernet =3D <&ethernet>;
-+
-+                fixed-link {
-+                    speed =3D <1000>;
-+                    full-duplex;
-+                };
-+            };
-+        };
-+    };
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_MT7628, MT7628_TAG_NAME);
++MODULE_DESCRIPTION("DSA tag driver for MT7628 switch");
++MODULE_LICENSE("GPL");
 --=20
 2.54.0
 
