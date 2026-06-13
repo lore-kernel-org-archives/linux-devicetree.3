@@ -1,67 +1,67 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5FB3E558F
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 12:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385733E5EC5
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 12:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781354204; cv=none; b=QmvskgARj+1/Duydrqxet7ZulunnjCynnGQZE3TPzj9x0p0Ruxr53j1RrGM7L3lrfFmlzS3IePXCd+jIthFKL4nf+yk3/gS86zq8x/qSHZ0LsDExnU7sstbRZZZ2aUoa3EkPKJFC0tF4fgUYHDnQU785DsoQ2qMuwVtoEMz54ME=
+	t=1781354208; cv=none; b=hqHT7rG4L2H/XdkyVZ03wZW2YWUHW+5MK9XX55HSNs+zD192h8Dfys8DV1GFYhaiwOkxsykSIaZl7dd+JNtgPGZIvRuh267nUMq6fo6VM/D+vOPeTNCpo6yQQOBtwXq1Dww/oq0ZHQIewvH9VKGnaLNg/jpcBLOx1oLqBTWzXz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781354204; c=relaxed/simple;
-	bh=miTCy44j1JAsbaJrI3jZw0x5PRuDRN+dSbWd8toHM6M=;
+	s=arc-20240116; t=1781354208; c=relaxed/simple;
+	bh=gF8RhZhckQfgp5FUn7hjE8vKGpGYjIQAejgafafG/xA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TiSnMc6H2suEhatlIuM+6WX4ZeBSCFDTYJwR51DemivDopbWimlGmPrHI2EQaaeLejZhsJbNAL9F/ewmiC4JIbXUD7sJW8V/zWqUcRGmVPFPt3Dpzoltub8s0rI4QPBRgOr00+V2VIbXI5xZbasmSdI1Pk3GSeJ19gC8XnxIAN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qEgLlTSD; arc=none smtp.client-ip=74.125.82.176
+	 In-Reply-To:To:Cc; b=boU8btJTvX7frJxMInVN8eUUsBWEnRGYr1L56xrRcKFknXJt7CpKQ3NXXgBMGNVYhwTtgNuL9mFBA4s8LxUekEzs2Xpva2XglUcymy0SQfjFaA6GP6uLN2mf5uNFIWz33Q+0aZMdOZ1HX/sWaS+ea4xDHRps6orqZbv6OPd5mvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOB7FD1r; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qEgLlTSD"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-30759632453so1193976eec.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 05:36:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOB7FD1r"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-307d0405e07so2927464eec.1
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 05:36:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781354202; x=1781959002; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781354206; x=1781959006; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oh7XZBRFNF3Q1qZUCiPu89RvrIopBJKwT1Tf5U0uHtM=;
-        b=qEgLlTSDGotFWB9EojU+6rrGw5dsg5znJIDFRE0PQLaAL4AlVY7Jv1dskQ0yM1o6lg
-         1CRNW6EnlwHkX/Q0qvpfuTVi650LcbekNt41lbtEnvluW5WIe/UmK9BQj+agXPnQnDEK
-         1wjfup4tU35ncPV46EpuSdam1O7x8IOUQ6JTs4/HZMRtpsP/IKBFyMP0vdGeVY10b0Dy
-         94HVposUzyh9YoxR+o4pPWgyZNzAGrhOLijjYYyXnAt0WmqwYlYR09IAw4iPZC/g0JVn
-         ia/kBDTHQ0b5IvgkwgcugCO5KT2hD5p0XDeiEtOdWWD5496c2Tu1dSA3uszHfSAkJm1J
-         N89Q==
+        bh=y1uJk1iRMlpLvy+nj2qKQd9//VxsTadPO7e314oJSE0=;
+        b=KOB7FD1rf1nJrf+sZxjQho1LITR7ts1LNZLKIi71o6ucCfmXA142ou0StF1cJFvB9K
+         8ARweecCXSL3MYe9PmPKNAGiNDwA5VkUqfOvljxGyuc0k10fcdqfxNR7akvKp5mt89b6
+         RvETAZF2u0Q1tKBBlpmQhaKXu20QALklslp4YAQoBLcinYsVfIuzlQrDH27CChpBoxmA
+         f8bnR76rkQsjUwYugDkviFPJjCoTM7Yn10LCrrp4ryZapr62lD5/yEBHF7PuPdZMKxAL
+         K0SWdU/iN3DbL1mons30PWWBC1GjsELdWQbDt72uWTHsFrerYfe2XeE2YGwqHC66INeC
+         sbug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781354202; x=1781959002;
+        d=1e100.net; s=20251104; t=1781354206; x=1781959006;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=oh7XZBRFNF3Q1qZUCiPu89RvrIopBJKwT1Tf5U0uHtM=;
-        b=Q+eatiE252kQhdw2ZnHTLV1ruAlbEszbQ120/VQ9x+nMNeX/RZazG5Y6n8SMyn2HlE
-         o3Bg70YVRotexLaF/V98yzQvpf+GqyCuwOc8qaOEaH+tCh3GH7keomfcMcCRWyqsBWvP
-         6ovLkbLKroPmtyoEUbtTQlhaCuHhB4Gumuod3U3zFre1UXn1KgbZ2Wnnij6X+5iUMTpN
-         mxIpLvvd9cDNXzVBDwO9pgAGvWoHlTEkH1yocYpRQwQxYC2BrA0fVflPis2Yw1f0Cqi1
-         i9KxqPvKN4/x0wqld3iCFzORNKiHsL8AJvbzEki6tkkMEFg32AqGQp0LTJ/VddlmLGuQ
-         8Z5A==
-X-Forwarded-Encrypted: i=1; AFNElJ9H5Jyn59QT+E7jXGbbVGLB0LozLRJUebMUSehNUy/sFsp+RjlSTB240+FNtXdumdBS0p49I8dpkXze@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjqmqbsSryCRgf6mq4VNRyIdDkaYeMfsc1wzPjPpAzGoflajji
-	wRTi6+IQ7au6JGdTK9STgHdCHBkWpXJ1WrUucDmGiSqe8oF8GAPuZ1wY
-X-Gm-Gg: Acq92OE49SMTszWfZYA5Ieb1Tc9UeS23788SER8TVzbXdpLIviL71tdi35m2zO0IoZE
-	ClLB5fJcNh0SLDFPw0YRhc0X7vpO0dwUgfNVLTA0H6kAawtxon9vILi5ZqNTdenAIzgp8zI9kn1
-	ky+PaVpSQeNXCZm/YPmroWLIAjChq57BxunWg0nxk+OocDdA2WuT94IS6SeicmJh+rG8buSwJcG
-	hTpwz9lyEkgiP260dC2h7tILuqr1K7gGzbedAIW3KbtNxCR9rZSOASB2Rn1StOKMfa1xEc1uFER
-	7mG4HtW0ZC5mcjhwtj6/dRd7ZoBVH6e/AoENEVST7+RhJBtYrp1wpHi8hr09EHsU0yVPZgMNy/v
-	EXcaJLAZiODtkbIATX/S3cpwg+0xrAkBxDvIoNWIAsWWC55/yP1xrGLrjIgjXqJ8FyfMA00qTDN
-	8WjDzfm7STgkignkrP+Ea316gM5Sz/GZg3Z166n2o=
-X-Received: by 2002:a05:693c:2b01:b0:304:8366:9fb6 with SMTP id 5a478bee46e88-3081ff64a9amr3890172eec.2.1781354202552;
-        Sat, 13 Jun 2026 05:36:42 -0700 (PDT)
+        bh=y1uJk1iRMlpLvy+nj2qKQd9//VxsTadPO7e314oJSE0=;
+        b=Bw2ULLps/petBgYOMwdo6NBwnC72irouKjXkga2qEi05xVcNC6yQyGuku2tG2NtC4Z
+         A8khmg4LGE1ktjmsUG2HAxrADMDtEDKou6PlkRNvL5cY19cQJIm1ao26DLGIpFKIsY5H
+         YS988tWagxjbBF6nXsrTQnGbSnXJqh5+DFph1rmBF4r49JpZVPiwxWBShB0Abjwez+vT
+         YwOhSN6h3e95uoofo4fyyvt6TmNLtZUIYvzUjWBH1rc/ifuAIb1TLlIK/u8IF4wTgKbG
+         X19jxSJspz6P2e/dOKyenX4TO1zVeL19eamQHLlh/gCrZh0zcFusjU30NHSHStWXGilm
+         gIPg==
+X-Forwarded-Encrypted: i=1; AFNElJ/xfyChVQF328c++T66df+cvMgAxivQSzGqTAaVcne3m4D2/ArzYh+bM8iY2uojSWeJeGYhBc+aFind@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyv4Cq9Kd7Y9V2kUXyVZqCRtYBwVD/ykNxGDD6LG18SloBa/sOX
+	Koop2e2qY6nUYBDi0WplnqW3tY8HDF52mOPGtaa123m0PY5cbliYa/OC
+X-Gm-Gg: Acq92OEh7KLF2d04O0Fs7oGSnKp3TWr95oW92UeM7a0dc7yuZYEyL6Z4b2+3GkPmcX4
+	6YgzCZsPtzhYt8hGkyfTiihKMvepcVgln4YHx77G1cBwR9E5ULG3me3S9MhKin+XhZlHUxxHLr3
+	wZvr8dpo6Bx96pebXNAXQcVSJpaoecUNBkTBmBjF00XgeoVFixB0WFjgFHOwWZlfGQpjn/OTdWs
+	sQGi3fBEBDO0InCssuBvPALVww+hB950bw0jN5xXJvwVje8OrgAe0se4waU8MQ7++opoI5NVVOL
+	3ewUDX0lS01K3LY1L7rZHMmZHy3mfJVAhtH09CzT9vngrNwEkhmlkKYKrFo364bBXNeZIppSfRV
+	XH9sSB3Q0ZtNhahhXLFvaG/mKOwiFYJynyDQpWfF7nZw8cH5RaXSd2AcgtD3lS7aZCM7tJ3bdZ6
+	2wH5gci5MQ09TvVcVO8xd4pHRl9Vho
+X-Received: by 2002:a05:7300:2393:b0:2cb:4b8f:b2bd with SMTP id 5a478bee46e88-30935239ecdmr1925414eec.6.1781354206251;
+        Sat, 13 Jun 2026 05:36:46 -0700 (PDT)
 Received: from [127.0.0.1] ([38.252.222.142])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb95450sm9176630eec.28.2026.06.13.05.36.39
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb95450sm9176630eec.28.2026.06.13.05.36.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 05:36:42 -0700 (PDT)
+        Sat, 13 Jun 2026 05:36:45 -0700 (PDT)
 From: Denzeel Oliva <wachiturroxd150@gmail.com>
-Date: Sat, 13 Jun 2026 07:36:16 -0500
-Subject: [PATCH v3 1/3] dt-bindings: clock: exynos990: Add
- CLK_GOUT_PERIS_TMU_SUB_PCLK
+Date: Sat, 13 Jun 2026 07:36:17 -0500
+Subject: [PATCH v3 2/3] clk: samsung: exynos990: Add PERIS TMU_SUB_PCLK
+ gate
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260613-exynos990-peris-fix-v3-v3-1-2b230db78ae4@gmail.com>
+Message-Id: <20260613-exynos990-peris-fix-v3-v3-2-2b230db78ae4@gmail.com>
 References: <20260613-exynos990-peris-fix-v3-v3-0-2b230db78ae4@gmail.com>
 In-Reply-To: <20260613-exynos990-peris-fix-v3-v3-0-2b230db78ae4@gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -85,32 +85,46 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Denzeel Oliva <wachiturroxd150@gmail.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781354194; l=704;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781354194; l=1529;
  i=wachiturroxd150@gmail.com; s=20250819; h=from:subject:message-id;
- bh=miTCy44j1JAsbaJrI3jZw0x5PRuDRN+dSbWd8toHM6M=;
- b=cGHudpsuDr4dmEXiqgk4rHAdC5Scnr9s5I+xmQapgQwg9WM2IKjiyONnen2h6xyEJzoB3fPXI
- P//x7ItggwFA7Zu3/Ft7OBNLTnVlO9mc14jJ56iS3njjJLozCLp5HjY
+ bh=gF8RhZhckQfgp5FUn7hjE8vKGpGYjIQAejgafafG/xA=;
+ b=o2goOlTWbYYDbCUO60rEqg8J8rmMntEATawlz4rjphBqaqRbECb5WySBkhToLSZlfPV9X+FcU
+ 8+sOKLSNt3fB/j+xobBQnlKfaA39bvs/+jBurupW+OOY41YPH+N4o97
 X-Developer-Key: i=wachiturroxd150@gmail.com; a=ed25519;
  pk=qNvcL0Ehm3chrW9jFA2JaPVgubN5mHH//uriMxR/DlI=
 
-Add the missing TMU_SUB_PCLK clock ID for the Exynos990 PERIS CMU.
+Add the missing CLK_GOUT_PERIS_TMU_SUB_PCLK gate clock for the Thermal
+Management Unit sub-block and update CLKS_NR_PERIS accordingly.
 
 Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
 ---
- include/dt-bindings/clock/samsung,exynos990.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clk/samsung/clk-exynos990.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/include/dt-bindings/clock/samsung,exynos990.h b/include/dt-bindings/clock/samsung,exynos990.h
-index 47540307cb52..c06f591d9d90 100644
---- a/include/dt-bindings/clock/samsung,exynos990.h
-+++ b/include/dt-bindings/clock/samsung,exynos990.h
-@@ -434,5 +434,6 @@
- #define CLK_GOUT_PERIS_TMU_TOP_PCLK		17
- #define CLK_GOUT_PERIS_OTP_CON_BIRA_OSCCLK	18
- #define CLK_GOUT_PERIS_OTP_CON_TOP_OSCCLK	19
-+#define CLK_GOUT_PERIS_TMU_SUB_PCLK		20
+diff --git a/drivers/clk/samsung/clk-exynos990.c b/drivers/clk/samsung/clk-exynos990.c
+index 4385c3b76dd6..ee3566b8e57c 100644
+--- a/drivers/clk/samsung/clk-exynos990.c
++++ b/drivers/clk/samsung/clk-exynos990.c
+@@ -21,7 +21,7 @@
+ #define CLKS_NR_HSI0 (CLK_GOUT_HSI0_LHS_ACEL_D_HSI0_CLK + 1)
+ #define CLKS_NR_PERIC0 (CLK_GOUT_PERIC0_SYSREG_PCLK + 1)
+ #define CLKS_NR_PERIC1 (CLK_GOUT_PERIC1_XIU_P_ACLK + 1)
+-#define CLKS_NR_PERIS (CLK_GOUT_PERIS_OTP_CON_TOP_OSCCLK + 1)
++#define CLKS_NR_PERIS (CLK_GOUT_PERIS_TMU_SUB_PCLK + 1)
  
- #endif
+ /* ---- CMU_TOP ------------------------------------------------------------- */
+ 
+@@ -2619,6 +2619,10 @@ static const struct samsung_gate_clock peris_gate_clks[] __initconst = {
+ 	     "gout_peris_d_tzpc_peris_pclk", "mout_peris_bus_user",
+ 	     CLK_CON_GAT_GOUT_BLK_PERIS_UID_D_TZPC_PERIS_IPCLKPORT_PCLK,
+ 	     21, 0, 0),
++	GATE(CLK_GOUT_PERIS_TMU_SUB_PCLK,
++	     "gout_peris_tmu_sub_pclk", "mout_peris_bus_user",
++	     CLK_CON_GAT_GOUT_BLK_PERIS_UID_TMU_SUB_IPCLKPORT_PCLK,
++	     21, 0, 0),
+ 	GATE(CLK_GOUT_PERIS_TMU_TOP_PCLK,
+ 	     "gout_peris_tmu_top_pclk", "mout_peris_clk_peris_gic",
+ 	     CLK_CON_GAT_GOUT_BLK_PERIS_UID_TMU_TOP_IPCLKPORT_PCLK,
 
 -- 
 2.54.0
