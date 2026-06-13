@@ -1,75 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A560A3C0A09;
-	Sat, 13 Jun 2026 08:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2717D367B71
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 08:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781338271; cv=none; b=YjsD4hpUuNs/XvwC1NnGkDhx7S3+/5IIO0h9BorLJiOQME/M45weG8mIOLX8uHFKuxp368Uu0WsWpRkiRdkseJMq6TLgBkyKL7gQ2q82+yDS5IsCJ01cutqteXXsqAPt64rSv/nUJwLJLdv7d1+whBeMNseG7B+3d057z1gReV0=
+	t=1781338380; cv=none; b=rXY40D4Kabp3eKQy3YZiSOuCBWh+G72lyj8nKdZE/2Lay8oDqlc/AYWNSIJFrPcb+rNQOTiRVJerUmYGtaJOhiQxs+r7NiHKWuoTf1r3AqrasrJA2KhO9BlC9slkweW9zHL9HCA+u0OeKXNoriLRvgR1/I1NCEuXCokGYtbjgBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781338271; c=relaxed/simple;
-	bh=jNZaWQ7iNWumdWSuXmv/iP8Sz5qHZ6N8IQYXSpab9WQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qn/7Dn1tB4Xi3SX27JDNNKxTRBActztH9NJhUAOk/nyWTfV/x5s6beeljOAKSh439DgmHohjtqF7p2bYaErGDufLML91/9H6k862PQN5iMNfOv0eGleEr+TOn6ZxNZCOYK2Izv4hMF3HAODV2nfR8EfFdMcRhj7TRA4faGS8GuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJt2K1Sw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781338380; c=relaxed/simple;
+	bh=x+DHXyBduh8nW5mH/RwXPnUoFvsJilmF8kF51mFs5s0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WcsSKb7u52JIJr7Sc+t/bvJVj+rtDSA3+OyKtsjJ9xVhVk7mTxnNuej7Yvh6PoeyIdPq+2thMPv6vPpCgSl2ysw103hvizpzZV0YgMLEKjdVcFstV9vg3ourPxBBpZFFdJR9az6DTLHJPf5uMlbbqxtfPFRpbefae2RhJK1TI1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SAoFvKVr; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJt2K1Sw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A382D1F000E9;
-	Sat, 13 Jun 2026 08:11:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781338270;
-	bh=E7A+My7ush8hFIKJNcnfzu6zRqD8QP4Sm/86FcSKN9g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aJt2K1SwTu9DdwrsIbA05RNEHePIk1X7wEc9KpfKHsyf2PfNp2T4dEipBU7q0Fwzw
-	 xqT8iSQXdqJehmK3ZwSl4Lm33tWn9vVzMxrUoHe1hbDvl24bBvt0BzaQJvMwqFAJ/A
-	 EgEPTnWKu8hWSdSjgpwLmzvK6xbFJRwWeOqrd3A7fW7gqwumr20/RHEHjd8QDdKFBW
-	 Go9FWI2OGPth2WnBvUMEeWdgISzSMyK9Neg85AcXV3NlGIl8yuW8PKVkMD1Al+JUm3
-	 sBk3qsLkp6CWAFKpPpjkfH+eGL5v+5uOaDR556gO9XgBk0JdX8+l/LszPVPRDsdgGV
-	 SUyINa6/nu3UA==
-Date: Sat, 13 Jun 2026 10:11:07 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"DavidS. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/3] dt-bindings: ptp:
- renesas,rcar-gen4-gptp: Add R-Car Gen4
-Message-ID: <20260613-perky-omniscient-buzzard-c3b4da@quoll>
-References: <20260612092851.2141782-1-niklas.soderlund+renesas@ragnatech.se>
- <20260612092851.2141782-2-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SAoFvKVr"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-491b390f9e9so10234985e9.0
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 01:12:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781338376; x=1781943176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=x+DHXyBduh8nW5mH/RwXPnUoFvsJilmF8kF51mFs5s0=;
+        b=SAoFvKVrAPS5pH5h0ZFLSCLmSwG3YVuEo7AaEAlGjFjYkwutikYepsKrjR5SaDoWOc
+         lbaQhNP+vsn1ZF779xqg0fWzWE//jtDt/h+JqEdJRQ1IqI/uQ6KLeeM7znpwDVOv3PqF
+         kT+NyqubT/OF+8B8DmmCAwpZXgWpyIU8uSliUj8ccqbkw0VqlYkasucF+L/Mib/ttIPr
+         e8QJ/dRWYv3jv51tp3DdHyUoh4n1E2MI+03KuSmXIXELgxMidRPbcG1T7VqhamlJYMKA
+         ONygYnXihGL8EHIWhKuz304AnGotSvNQoszCmkPsyQ7HlaosbtKsd3sjfFuyBBCiasYt
+         IjlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781338376; x=1781943176;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=x+DHXyBduh8nW5mH/RwXPnUoFvsJilmF8kF51mFs5s0=;
+        b=GTd4cvpqvmluNo+QRJ9vRR3ulpmvs0zpU4Kr6MDwavJPP9R3QqucB6IGvX3zqa+Afo
+         1XNxm9bKj/j0a6adUWwW4KRG7IBRmL247BTmuSvsBYe1vOY95vYAEhQ1qsEHYTh8E0Me
+         qRefIoqPgcMBh3hKyyD166x4s3K5/rNISyJIkKUQKo2xn1u7RtzT9z4T71wUoIPAE4iG
+         EFImRVahh5s/2VhgRXa7P/pv6ZtFilvQxHiNu1BWK81DCjte0azrMEFbXD1p2Kx6NQZW
+         BJRfkcMtlnj9hPyDKCplIPAh3DZoU90ca7a62ygdEbMEORB7Ygy5ir69nZuOtzHXdxFd
+         cI0Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/AQr0v1kaMoDfCl2bLNckqoZ4E23DGtAMp+7vYkM+HUsEopVHWszWv8yFD2X3mDDc3TdQMCLQwKoGZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3tFc5U8AzFlUfKkrKBzc1RJSuOWUpZvBaQSm2CCA4AcKn9PEA
+	m4r5OfswBOMqJxgWaGjHylPJtzryw0ZTPZpHqcGfJmNmBnC8xuW5Io8O
+X-Gm-Gg: Acq92OFC2cw2N5flkZaf6gMaYOQy86pcXyqaAWWk7J9ouBdIsz91Ol5pkOSkoVolaoq
+	r4CnDzCL/TZE51FmeF6/hzbY1bhjc8K+GuqT69VdKK+GOU92FNThWjqoEvf6omcE0+nKXetZsAB
+	BErLF3BcXNAOWwKRCtvOeNm2C3ztRCwRbAQY/DKJ8lF+QCdt8egVLTxPbmlFwR/uvDZcOG+3S6a
+	x/ZPYPirY+q9LfuAm2uZTDEiyGwtBtktN23+wtd21mfmuQwghlI3lvAntl2rMuGndCqoruDqupP
+	dyS8oqgWW+ncXOFxssWihJ2Bf97EaJDqW/boRGIl/Q75rcLF4HKllRsaXtSNmJoIF1z70Z9FdaJ
+	gC+vkm0xaZQ0gbTjVEDjRHLYWWUF49j286WE18hg8qV9WspHJBfS7Hks2X9CKGox7j4V6pXaus2
+	Du9oYDtPJfTPkHL1uYS/g7eAvOmTITMHAjE4UJbChJmfuH
+X-Received: by 2002:a05:600c:8b31:b0:490:e5c1:b8c6 with SMTP id 5b1f17b1804b1-490ec4b58ffmr75929755e9.8.1781338376446;
+        Sat, 13 Jun 2026 01:12:56 -0700 (PDT)
+Received: from jernej-laptop.localnet ([188.159.248.16])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea4b39e9sm88333215e9.0.2026.06.13.01.12.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 13 Jun 2026 01:12:55 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Hans de Goede <hansg@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Andre Przywara <andre.przywara@arm.com>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ =?UTF-8?B?Si4gTmV1c2Now6RmZXI=?= <j.ne@posteo.net>,
+ Eric Biggers <ebiggers@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Luca Weiss <luca@lucaweiss.eu>, Sven Peter <sven@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
+Subject:
+ Re: [PATCH v4 1/7] arm64: defconfig: Enable Allwinner LRADC input driver
+Date: Sat, 13 Jun 2026 10:12:54 +0200
+Message-ID: <sIT7xrHETBux3nDrv9ggVw@gmail.com>
+In-Reply-To: <20260605070923.3045073-2-alexander.sverdlin@gmail.com>
+References:
+ <20260605070923.3045073-1-alexander.sverdlin@gmail.com>
+ <20260605070923.3045073-2-alexander.sverdlin@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260612092851.2141782-2-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Jun 12, 2026 at 11:28:49AM +0200, Niklas S=C3=B6derlund wrote:
-> Add bindings for the R-Car Gen4 gPTP timer. The timer enables accurate
-> synchronization of the clock in the control system. The timer is
-> system-wide and used by different Ethernet devices on each Gen4 platform.
+Dne petek, 5. junij 2026 ob 09:09:15 Srednjeevropski poletni =C4=8Das je Al=
+exander Sverdlin napisal(a):
+> Enable Allwinner LRADC input driver as module to support buttons on Baijie
+> HelperBoard A133.
 >=20
->   - On R-Car S4 it is shared between RSWITCH and RAVB.
->=20
->   - On R-Car V4H it is shared between RTSN and RAVB.
->=20
->   - On R-Car V4M it is only used by RAVB.
->=20
-> Signed-off-by: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.=
-se>
-> ---
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
 Best regards,
-Krzysztof
+Jernej Skrabec
+
 
