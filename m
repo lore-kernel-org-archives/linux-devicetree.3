@@ -1,208 +1,162 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF4919A2A3
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 13:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1322F3C3D
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 13:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781355932; cv=none; b=R6gFtn9aWAV7VNA5SiK2Yvp07VhxC/xBxj92j/0mjOavH0oYSIcrzF7QcqDa7U1PDWKgHFjFucTniZSsQgDkJln+sa3RxCNGdugUOjyS5WPgxMtSOCJ68cAX1nHmignmhUkFWBgsVUJzAWIJ9fsWxdySt6GD76/GyZy6Fugdq7A=
+	t=1781356899; cv=none; b=dAbofyElWQ7AVAinShORn3t2IbD4Uc0pKYQPwKg76BKwzpFSeaT7rqoujh2F7RA69jfJJRjBtCu6Fy9ZCtoi6sZ2CwqpkdYEz/oRb3yT/8Ywsno+b9M6x65F/G4qHskzXfpFqCDB2F9wlWpj8+orsZGtCSXOJR9rW2SpfGbnl3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781355932; c=relaxed/simple;
-	bh=Y8HSeHR6nXrPlWAtA7xiMTkB9LxHnHiAsO+J+VLh9NU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tPhMTfmKNCWIOzvjZZK480YNz4kpa+PHspmMcLn4hTOFxDCZZvhgXKMH8SGw4WZmCzWamjtk+2DIQQrkIVTfg8hrEQw6ZKIh6m9W3wGwM6B8QFY3aV/WiqQnHTDbK7xUlLn1IXM9k4aHPurvPCWSYqoWYqs24nAeuKULQiLCXmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HlXciG0E; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781356899; c=relaxed/simple;
+	bh=Q+WebYzhlR4BljYpUGVIDRgTrd5ZM43i6NMU2SgQois=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ht0oUOMnyk2Ew61aRntPpsgPmEPppmOQBVn8U5hX3QxMXUPUs2+GxxPOo5dWqGwhBPT7vxkQz6VdhKsSLe2OWm3zl6Zt8HeC/+tJl4JZEYMVNBNa+L5322m2ujZQrhdKhUrb/XoYTRq0hb64D/617LgkF2Wdk7oMAB8/oadb01E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=My3AdjwC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HlXciG0E"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8423f420455so939263b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 06:05:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781355930; x=1781960730; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=J0/xN/u9yjMUTPaayxrM2NpfLmKfjqNjjwrj2rQQV1g=;
-        b=HlXciG0EgtbbDOL8avd/BOL0zJV56B2+FpCQ2JHkxgm9RHw6LCnlvDcekSuwfmxEVl
-         FJIvt4RumgCpzWDyq3cBLEL78FiYdurXPN0ZboPQQVTVrgEKepwsXpf16Ndnyf6rgnXx
-         8UQmE6G2AcjcS2ZGZT1iM0t4ML3hEHk1p0taS6qmpAs6ZLzGD64/Y3Q+/Wn3oklR00CI
-         n9mUQtKu/GBgXpg0Cs2XV4Z22Hd7GE+DuhrHZMxFYnDfLAsK8ICZ67d/+sMamsyMMAGe
-         pnguzzyFu5rQBVVr2iJcdFCZA0EWgEmR9y5Hb5ArzzkqBBWvcmh87QafE+sHteFFzKod
-         +fFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781355930; x=1781960730;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=J0/xN/u9yjMUTPaayxrM2NpfLmKfjqNjjwrj2rQQV1g=;
-        b=XgOB0OKezQpfXUolwtksz2IDZpdjfBd8S4t2qnzWPZqVH1ZhxNcfx8vvstpM7uh85Z
-         sHBwES+N1E7UuCe6Bzs8fWma6DwINgndHnBbht/A8zR3rn0G37KkyyOh7fFlLu9eywA1
-         BzuoDpQVV0kwXthXexKIQLLFAqq3Smp562PJ/FyFmW3SV5OZsuI0V0vrnTCwc0uzwKCY
-         hTWeRVoQDOCHKRMn/f1RF/zRYLLw6c6xkq2id/Nxjw9C9AcAGZiE2pr2IKmWpapilMjg
-         HXJTske3EYhjCjiDrjU0Q0R01p3V3Y7oAIIU4/E9EQ9SK6EE3tzJeMIMZH5h34vfOc7H
-         L2Mg==
-X-Forwarded-Encrypted: i=1; AFNElJ8qc8jiDtcsh7nwES4kAZxZrFgX/LVcBtc47+dcj4cT9wMJ5hFEWcEg6tRIHl5CDuxCozzH4BFUceHr@vger.kernel.org
-X-Gm-Message-State: AOJu0YztyyeKpVTChlzXpJCTbgx8ljchzwnBb0zyPqnswMSGC5w+vrrL
-	8sw+s6Q3qCbHFifpQMZyEDKMgQDWlqL/A++v426ofORgiNwmszcWs59F
-X-Gm-Gg: Acq92OH4wcGWnc9Vd67dxAE1eihVMeqvZV3OtqvTjC36MYJYqQc8NwlOL37c78INhad
-	UXpD5lz/YfxIM3pZTHuqXy0Eutuz+7jtiO2dHEs9IxRf6CvtmC8bbEjnK4JepHmAEDZxbTmIf/N
-	s1+ZUKZsMBzCtj+CSgVrqs/c7gtnjGU5x+nnquoS5bEgzek2/y0KGAbqhSzry5EcXRgDIg2DMTY
-	0n6qB/C8ILoyMuK6VVCJjVA05ojP7wgZnewCCBuWOW8mnwEtBwyWsSOKAIf1ZQz4L6CFVcM/Sr/
-	/YeCcWv1MOJIEVg3xzsNy4iQrcq99M/XJHgtK02m4+XM6SgSR6HkPQSrOTnuPSjDKvWdirzD7Ar
-	+rj6Ua4cTYg5Xwsg/eZbuPc/lmqjdhPu03aNJ8+QvMzRn74NhyGSDiDLe8+JEdk6ojY55B9ZrCM
-	ED02bVtdKI5NN0xujnVnQq9+ngZ9w/fBnW+GBGt4XfxqINToBzMqMeLeUdZBqdQH5fYdfgwKGm
-X-Received: by 2002:a05:6a00:4146:b0:837:f79d:909 with SMTP id d2e1a72fcca58-844e1a8c494mr5080470b3a.39.1781355930330;
-        Sat, 13 Jun 2026 06:05:30 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9df57sm5058107b3a.7.2026.06.13.06.05.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 06:05:29 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <4875e6b4-0d9f-4920-9efa-883d1fed983f@roeck-us.net>
-Date: Sat, 13 Jun 2026 06:05:28 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="My3AdjwC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65B51F000E9;
+	Sat, 13 Jun 2026 13:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781356898;
+	bh=6nvQC37/o94GWchnR5XMVH66imYIM7KWjiFY7kVyQ4w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=My3AdjwCxiT7trJ2juq5kHslY0RX29hsDzYC+35zROmaxGaNzh9NqUm62UztG8Hn7
+	 jYXMzcj5KhEiMOpN06kQTGYws02mMWsgmHvY8uH4Jx1I2bBK4XTVGNFHo+UKN2C9Ox
+	 HeNEE5BUI72RIq1NtC3clw3eLy7CtmRFP7iME2GoNzw/vEaKOh3/x3eOkou+n3N+jY
+	 48F1OStyfpTYnW/ryr55qvFFA9UvuhBCuOpScYVaIXXHR739UupZLI0sV6j3R4UjZ9
+	 pD97SkpDrehcTmMwK7cSL486shAVmqhF/V8nNAIXBoCgr4Gn+1B97wlcP8oeE6obkz
+	 lHLG++pw5rYvw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/9] block: implement NVMEM provider
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260612-block-as-nvmem-v5-5-95e0b30fff90@oss.qualcomm.com>
+References: <20260612-block-as-nvmem-v5-5-95e0b30fff90@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 13:21:37 +0000
+Message-Id: <20260613132137.D65B51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add current
- limit properties
-To: Conor Dooley <conor@kernel.org>
-Cc: Potin Lai <potin.lai.pt@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Zev Weiss <zev@bewilderbeest.net>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Cosmo Chou <cosmo.chou@quantatw.com>,
- Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai <potin.lai@qunatatw.com>
-References: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
- <20260611-lm25066-cl-config-v1-1-02e567bf3d91@gmail.com>
- <20260611-mocha-strive-a7f3265dd3f4@spud>
- <CAGfYmwWPhdpTLGhOdddJ0hSj-H86+XOVGTR9eDkZSVqGRLfJvQ@mail.gmail.com>
- <20260612-lecturer-unclad-d80218119ae5@spud>
- <059f9ce2-39f0-4553-909d-58585d46edd3@roeck-us.net>
- <20260612-sibling-battalion-453d3d239aaa@spud>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260612-sibling-battalion-453d3d239aaa@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 6/12/26 14:13, Conor Dooley wrote:
-> On Fri, Jun 12, 2026 at 10:19:14AM -0700, Guenter Roeck wrote:
->> On 6/12/26 09:12, Conor Dooley wrote:
->>> On Fri, Jun 12, 2026 at 05:10:38PM +0800, Potin Lai wrote:
->>>> On Fri, Jun 12, 2026 at 1:27 AM Conor Dooley <conor@kernel.org> wrote:
->>>>>
->>>>> On Thu, Jun 11, 2026 at 05:58:44PM +0800, Potin Lai wrote:
->>>>>> Add mutually exclusive 'ti,cl-smbus-high' and 'ti,cl-smbus-low' boolean
->>>>>> properties to configure the device's Current Limit (CL) behavior using
->>>>>> SMBus settings instead of physical pins.
->>>>>>
->>>>>> Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
->>>>>> ---
->>>>>>    .../devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml  | 20 ++++++++++++++++++++
->>>>>>    1 file changed, 20 insertions(+)
->>>>>>
->>>>>> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
->>>>>> index a20f140dc79a..95ea7c26dec2 100644
->>>>>> --- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
->>>>>> @@ -46,6 +46,26 @@ properties:
->>>>>>
->>>>>>        additionalProperties: false
->>>>>>
->>>>>> +  ti,cl-smbus-high:
->>>>>> +    description: |
->>>>>> +      Configure the Current Limit (CL) to use the SMBus high setting.
->>>>>> +    type: boolean
->>>>>> +
->>>>>> +  ti,cl-smbus-low:
->>>>>> +    description: |
->>>>>> +      Configure the Current Limit (CL) to use the SMBus low setting.
->>>>>> +    type: boolean
->>>>>
->>>>> What's smbus specific about this? If the pin was connected to a GPIO,
->>>>> you'd then need to have different properties or use these ones with an
->>>>> inaccurate name.
->>>>>
->>>>
->>>> The "smbus" in the property name was originally meant to indicate
->>>> that the setting is configured via the internal register over the SMBus (I2C)
->>>> interface, rather than physical pins.
->>>
->>> Right, but if you do it via the physical pins using a gpio, you still
->>> need a way to say what limit is. The status quo only works if the limit
->>> pin is tied high or low.
->>>
->>
->> The physical pin is supposed to be connected to ground or left floating.
->> It seems unlikely that anyone would ever have the idea of connecting it
->> to a GPIO pin, and doing so would for sure mess up the driver because
->> its state is only read in the probe function. The configuration here
-> 
-> Well yeah, "obviously" if someone wanted to use a GPIO the driver would
-> have to change to handle that - but probably not that much since it'd be
-> a static setting that could be done at probe.
-> 
-> I get that it may be unlikely, but it seems like a reasonable thing that
-> someone might want to do, and renaming the property to not exclude that
-> usecase seems to be "free".
-> 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] NVMEM provider opens the block device with exclusive write restric=
+tion, causing conflicts on mounted systems.
+- [High] Hardcoded 4GB size limit incorrectly rejects modern eMMC devices.
+- [High] Integer overflow in size assignment exposes massive out-of-bounds =
+size.
+- [High] Stale `dev_t` reference can cause data leaks across block device h=
+otplugs (ABA problem).
+- [High] Using `__free(fput)` defers block device claim release, creating r=
+ace conditions.
+--
 
-It is not only unlikely, it would be risky and potentially result in
-undefined behavior. The pin is supposed to be static. It is undefined
-if the hardware evaluates it once after power-up, after "power good"
-was detected (if the specific chip supports it), or continuously.
-Making the pin run-time configurable would be a risky endeavor with
-zero gain since the value can be set by software configuration,
-while at the same time adding complexity to the hardware.
+commit 459b659c960efdc8a9e2177c5bc4f832e7ee5730
+Author: Daniel Golle <daniel@makrotopia.org>
 
-Guenter
+block: implement NVMEM provider
 
+On embedded devices using an eMMC it is common that one or more partitions
+on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
+data. Allow referencing the partition in device tree for the kernel and
+Wi-Fi drivers accessing it via the NVMEM layer.
+
+> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> new file mode 100644
+> index 0000000000000..c005f059d9fe5
+> --- /dev/null
+> +++ b/block/blk-nvmem.c
+> @@ -0,0 +1,109 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+[ ... ]
+> +static int blk_nvmem_reg_read(void *priv, unsigned int from, void *val, =
+size_t bytes)
+> +{
+> +	blk_mode_t mode =3D BLK_OPEN_READ | BLK_OPEN_RESTRICT_WRITES;
+
+[Severity: High]
+Since the NVMEM provider claims the whole disk (disk->part0), will opening =
+it
+with BLK_OPEN_RESTRICT_WRITES and an exclusive holder (priv) return -EBUSY =
+if
+any partition on the disk is already mounted or opened for writing?
+
+> +	dev_t devt =3D (dev_t)(uintptr_t)priv;
+> +	size_t bytes_left =3D bytes;
+> +	loff_t pos =3D from;
+> +	int ret =3D 0;
+> +
+> +	struct file *bdev_file __free(fput) =3D bdev_file_open_by_dev(devt, mod=
+e, priv, NULL);
+
+[Severity: High]
+Does using __free(fput) defer the release of the block device claim? Because
+fput() schedules the file release asynchronously, could another subsystem
+trying to mount or claim the device immediately after an NVMEM read
+sporadically fail with -EBUSY?
+
+Should this use bdev_fput() instead to synchronously yield the claim before
+the rest of the file release?
+
+> +	if (IS_ERR(bdev_file))
+> +		return PTR_ERR(bdev_file);
+[ ... ]
+> +void blk_nvmem_add(struct block_device *bdev)
+> +{
+[ ... ]
+> +	/*
+> +	 * skip block device too large to be represented as NVMEM devices,
+> +	 * the NVMEM reg_read callback uses an unsigned int offset
+> +	 */
+> +	if (bdev_nr_bytes(bdev) > UINT_MAX) {
+
+[Severity: High]
+Since the NVMEM provider is registered against the whole disk rather than t=
+he
+individual NVMEM partition, does this 4GB limit incorrectly reject most mod=
+ern
+eMMC devices?
+
+> +		dev_warn(dev, "block device too large to be an NVMEM provider\n");
+> +		return;
+> +	}
+> +
+> +	config.id =3D NVMEM_DEVID_NONE;
+> +	config.dev =3D dev;
+> +	config.name =3D dev_name(dev);
+> +	config.owner =3D THIS_MODULE;
+> +	config.priv =3D (void *)(uintptr_t)dev->devt;
+
+[Severity: High]
+Can storing the ephemeral dev_t identifier without holding a pinned block
+device reference cause an ABA problem?
+
+If the block device is removed, blk_nvmem_del() calls nvmem_unregister()
+which drops a reference but does not synchronously wait for consumers to
+close. If a new device is plugged in and reuses the same dev_t, could a
+consumer reading from the still-alive NVMEM device inadvertently access the
+unrelated new block device?
+
+> +	config.reg_read =3D blk_nvmem_reg_read;
+> +	config.size =3D bdev_nr_bytes(bdev);
+
+[Severity: High]
+Can this assignment cause an integer overflow?
+
+The config.size field in struct nvmem_config is a signed 32-bit int, so disk
+sizes between 2GB and 4GB will overflow to a negative value. When
+nvmem_register() sign-extends this into its 64-bit size_t field, won't it
+result in a massive out-of-bounds size being exposed via sysfs?
+
+> +	config.word_size =3D 1;
+> +	config.stride =3D 1;
+> +	config.read_only =3D true;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-block-as-n=
+vmem-v5-0-95e0b30fff90@oss.qualcomm.com?part=3D5
