@@ -1,152 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C5032B115;
-	Sat, 13 Jun 2026 09:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE0B31DDBB
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 09:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781343733; cv=none; b=k2dMDPcmSqywG4ElT7LmQS9nkMeZR1FLvA1ZARmMa98VG1ZpEN2CueQ1ZMIsVD/rbtv0PZaPtpEzuY23S+11Lh22MUp49xA9mjaAoRXkXz3Nk4J9Kmj/Tg9BgNIvxuHF3J7blO81fPQbfvbA/H+BXmcSy9W8DzMt9OA/s5Ks7xc=
+	t=1781344120; cv=none; b=bCBkTbvNDYuWrAiupQZV3c8ChLnZwMTSbEPPpcQ3xep1Op0ZXfT0LR8YT+J2ErI+H6DjmHdlBWr5591OD5zZQZa/s/k/uAHNaa+qYIHE0lLd4I/+gE11Un1URNgWJff64sELdL4HKvMOp6Ujv8WaWGrHpJeOdDtvwZ/UMUVn0T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781343733; c=relaxed/simple;
-	bh=K3NSNpo9bYvrRkVd6BA97gap7TGSqpSPnzHzv28qtIA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ru2wQDVGEB9/PYWewA+dp+HJu2s5WjrC31noIyFHyy6GYH+0w5bi6VqVzMudsRJ1AZgXV5NQjGytrxCLUQsahSD1gxiufmAWIbexl+8ZZoYxQuw0WxQS06IWtYHOjDiO8vG1Jx+gDCQGInu89bdD70hWAyZlTpi4aYNGB9/wELw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uf/ZT06/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1781344120; c=relaxed/simple;
+	bh=i9POUnSeUlGGt0OQY46tvEVlpopoFe5kEVlRlx9fg8Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nB9WxLjkd6s9kwzXol0PspM5+TLpyAjYQP/168io8+1xTivuzeUc2BSlkfHzSOUkC1pVnUucqYK2Jg9Ywl8/5QkYTAmqHXt1hlVVtkFr+pEDKCqp43zzmdS1rjiHaumzT5Dgrno0oIbkw/jfNfcLMoGAVNmsX6pwo7qKHSGZe7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5rw2D3D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uf/ZT06/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 75CE4C4AF13;
-	Sat, 13 Jun 2026 09:42:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1781343733;
-	bh=K3NSNpo9bYvrRkVd6BA97gap7TGSqpSPnzHzv28qtIA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Uf/ZT06/TJDVvFRDYnIeJY9enLWXaWv18k/d57YXEQXchFp+XqYpjfjrSHO5TE+AD
-	 MLqpphn3Uh/pFFH3u36VRHgxlPoKLPsuoyMjTp9giKQoI6Qo/s7JR+O4c5XDo05sD2
-	 wdhvv9pdzPVstpBcuLu+j0mnVyHLXbO1gBzseu8gP+BEkF6Q/pc3a5DGr8Tn/XFvnI
-	 6yy0hOwGo6fAFc+th8cVKc5k995VqMPmuyOTjISRwck2HVrKHn6ORh7V7XThbRY5g4
-	 4x4uOwCeSzJmDi+4i9RC51bvMUo4DWWpZZZSfLA8LNBeZMI3lo/rXbHLAksSCELBY1
-	 9oo0ZipOkLFzA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 694F7CD98D6;
-	Sat, 13 Jun 2026 09:42:13 +0000 (UTC)
-From: Enzo Adriano via B4 Relay <devnull+enzo.adriano.code.gmail.com@kernel.org>
-Date: Sat, 13 Jun 2026 05:42:16 -0400
-Subject: [PATCH 4/4] arm64: dts: allwinner: add Radxa Cubie A7S
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5rw2D3D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AF11F000E9;
+	Sat, 13 Jun 2026 09:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781344119;
+	bh=zmWgNRapEWoP69A9XvwUbTdGbbDeI4fvtW0+fQAsd34=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h5rw2D3D+/gAUPYbCIRFmN5ycvSD5J5feqBHvWjsD6J9B6EL8XJZNqveXsfVVqUWv
+	 U+3KNTnmlCiac9gV15e8QgfBcZCbQLlGrhtzB3RRjNeBpsZ/Z0lfE6EQTLk+2svKN8
+	 5FBzFhe9X1NS0HunGfLXzIby4NrapbN7CuuNiyUfonS4Jdp1ZIFyBVw+Dwp6lUV/NE
+	 WEH9I3laEbM8ALlB75Y+AM2sFje1kGlSBQUe+1seXPykt4IwSGiyeqH7UW2JMs6zxk
+	 2nbuLK3um6qv7xDZwLb32sEiRkpstM7qdQkrAKh3u8F+jTnxnHA2cv59uaPueEIXX4
+	 eJyhqW0g4Y/RA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] dt-bindings: mmc: st,sdhci: Convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Charan Pedumuru" <charan.pedumuru@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260613-st-mmc-v4-2-b3c385617c16@gmail.com>
+References: <20260613-st-mmc-v4-2-b3c385617c16@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 09:48:38 +0000
+Message-Id: <20260613094838.B5AF11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260613-a733-dts-v1-public-ready-v1-4-7787c94681db@gmail.com>
-References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
-In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-mmc@vger.kernel.org, Enzo Adriano <enzo.adriano.code@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781343732; l=2364;
- i=enzo.adriano.code@gmail.com; s=a733-cubie-a7s;
- h=from:subject:message-id;
- bh=WglawFMrtY9x8pOjuPdnu6SXc40mYnW0SaPFITAFqtE=;
- b=GbPhqn66Lz40aOjXStKHF233v3bsLzM1ml6LsXpvkrLn92HN/jl3uoeOECLYFwLIOOTvAKgWs
- elncJREMxH/DYHkJnIGC2PGIqP1I/hQiHA0jjrPTsST7XrK6bualNwq
-X-Developer-Key: i=enzo.adriano.code@gmail.com; a=ed25519;
- pk=5S3Wmdqa4XfCdeZF/HfeYqnQF8GN9JGt3SE1cxqSX8E=
-X-Endpoint-Received: by B4 Relay for
- enzo.adriano.code@gmail.com/a733-cubie-a7s with auth_id=820
-X-Original-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-Reply-To: enzo.adriano.code@gmail.com
 
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The DT schema fails to conditionally require `reg-names` when mu=
+ltiple `reg` entries are provided, which can lead to silent runtime misconf=
+iguration.
+- [Medium] The YAML schema loses the original specific allowed values const=
+raint for `max-frequency`.
+--
 
-Add the Radxa Cubie A7S board description with serial console and SD card
-boot support.
+commit e2c333948a6b09aa2bb42febade330d8715b076f
+Author: Charan Pedumuru <charan.pedumuru@gmail.com>
 
-Ethernet remains disabled until the GMAC210 wrapper, clocks, resets,
-MDIO, PHY reset, PHY power, and link behavior are proven.
+dt-bindings: mmc: st,sdhci: Convert to DT schema
 
-Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
----
- arch/arm64/boot/dts/allwinner/Makefile             |  1 +
- .../boot/dts/allwinner/sun60i-a733-cubie-a7s.dts   | 48 ++++++++++++++++++++++
- 2 files changed, 49 insertions(+)
+This commit converts the STMicroelectronics sdhci-st MMC/SD controller
+binding from a text format to a YAML DT schema. It preserves the flexibility
+of optional clocks and registers from the original binding.
 
-diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index d116864b6c2b..824cc35152db 100644
---- a/arch/arm64/boot/dts/allwinner/Makefile
-+++ b/arch/arm64/boot/dts/allwinner/Makefile
-@@ -56,6 +56,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-2024.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-h.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-plus.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-sp.dtb
-+dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7s.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-a527-cubie-a5e.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-h728-x96qpro+.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-avaota-a1.dtb
-diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
-new file mode 100644
-index 000000000000..453761a96323
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
-@@ -0,0 +1,48 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+
-+/dts-v1/;
-+
-+#include "sun60i-a733.dtsi"
-+
-+/ {
-+	model = "Radxa Cubie A7S";
-+	compatible = "radxa,cubie-a7s", "allwinner,sun60i-a733";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		mmc0 = &mmc0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	reg_vcc3v3: vcc3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc-3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&reg_vcc3v3>;
-+	bus-width = <4>;
-+	no-mmc;
-+	no-sdio;
-+	status = "okay";
-+};
-+
-+&pio {
-+	uart0_pb9_pb10_pins: uart0-pb9-pb10-pins {
-+		pins = "PB9", "PB10";
-+		function = "uart0";
-+	};
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pb9_pb10_pins>;
-+	status = "okay";
-+};
+> diff --git a/Documentation/devicetree/bindings/mmc/st,sdhci.yaml b/Docume=
+ntation/devicetree/bindings/mmc/st,sdhci.yaml
+> new file mode 100644
+> index 0000000000000..0bf4fc3ca699f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
 
--- 
-2.53.0
+[ ... ]
 
+> +allOf:
+> +  - $ref: mmc-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: st,sdhci
+> +      - items:
+> +          - const: st,sdhci-stih407
+> +          - const: st,sdhci
 
+[Severity: Medium]
+Is this a regression from the strict constraints of the text binding?
+
+The original text binding restricted max-frequency to 200000000, 100000000,
+or 50000000, which matches the driver's behavior in sdhci-st.c. Since this
+new YAML schema omits max-frequency entirely, it falls back to the generic
+mmc-controller.yaml which permits any integer.
+
+Should this explicitly define max-frequency under properties with an enum
+constraint to prevent unsupported frequencies from passing validation and
+silently falling back to 50MHz at runtime?
+
+> +
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description: MMC controller base registers
+> +      - description: FlashSS Top registers for TX/RX DLL delay configura=
+tion
+> +
+> +  reg-names:
+> +    minItems: 1
+> +    items:
+> +      - const: mmc
+> +      - const: top-mmc-delay
+
+[Severity: Medium]
+Does this omission create a regression where the schema validation silently
+accepts an invalid device tree?
+
+The previous text binding explicitly stated that if the FlashSS Top register
+is provided, reg-names must also be specified.
+
+Without an allOf conditional block making reg-names required when the reg
+property contains two items, won't the schema validation pass even if
+reg-names is missing? If the driver relies on
+devm_platform_ioremap_resource_byname() for top-mmc-delay, could this result
+in a silent runtime misconfiguration?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613-st-mmc-v4-=
+0-b3c385617c16@gmail.com?part=3D2
