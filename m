@@ -1,159 +1,147 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772D53537FB
-	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0CD221DB6
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 07:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781335261; cv=none; b=j47VOn9ywphBzPI4QYbcQ7tj9cd5GJ7s3vbP665XT8to+KFoXFOK2c9yDBTCvO+8AQLM8FfN2aJPCq0EQijjC9qeWSqHx1HgCngr3QMMw6V0mUpaDFykQNSQtHs6rARSqGl9u3mvOi0kSdMEEwIcC598oijIcF/YUuHnnam+c3k=
+	t=1781335316; cv=none; b=CtzdKE7eAvS87qUyTVl7FcLhzouh6zFz86t/MnjGFVGnO6rMMPJDU48GFBEOskO+JE9Y1X4seg0g6ArqSRtq8edodQj2ND/28DnQIl5LO7j5u4Aq9g4ixAFvrxl1SWaVwjZZ+xf3dipG+CzDXlapiDeDQhqgnNcITmvJGU4g2Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781335261; c=relaxed/simple;
-	bh=qcp8Hgwj7d1i1tkEvvTQR8k2iNss2g1VzQekPD+R4+w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ab0HJgCWOI9BkaFReCkkVxNf+YyL7RQJU3wFSsObYvpx5PymflKHNiOyDrAaazPCbyz98iEtZkEMZ4gvnaeDT7nZxXqLfF2TYVLSvPjlFcpWS2IUZWw1tP8nOZkL/LRxJLoEK7UTFZflNAtYPxO0IzfqdwGbSPVmiwnIXRCWoiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BuOE8j10; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781335316; c=relaxed/simple;
+	bh=l4KUwkrY92gApD/4Sk4aJZ8YKlEPfhUfGXfhlBmvfUA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rIq4YpRqdTYSetM/yP+aMaPQzoqVmhjbJ4NEaujvQbV9I7I1KJHeqJxkxEUtDj+h36MwS/7ptoTjbdkFjiy+I77A39ojwVgF1tDG2xeramRrKvjeut/ZBw0+Uc7bLUyb7OCZjmPcrdoMtrNQXm7BV/+aOqe/4xBlI3DQJkloWc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBexUrON; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BuOE8j10"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8422a92b6d6so914640b3a.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 00:20:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781335258; x=1781940058; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yFlPsHECvjKKFoSYlqGhFvJ+I6A2Zwo1fKqJVG+6sUs=;
-        b=BuOE8j10qO4tKw2wybfFsSU5sS2/vOmqVh/fZ8fAoxnpQqoD4YDt7rLByKCM0INBan
-         UQvVDkUr398Y5TsL8DuKDJiyASn9Z6isrylt8U7/gvjxDPMAn+3vb5g/UVIGbMkqHxH1
-         CBCYSAP6B7vElz81RtvStfWFBP5YsFO/Rlk0vyQEAWxLzTz0/i7ygqCJN0aneNDn7WRM
-         WoakmtDRqJcbi4orwJ1ISuR+TkwgpcT21O1wwWzkjj9LBF0oyiJVZIh9jlNW3i3SQ1co
-         tSXsNkakkMPu/AotwGxvsQt3jZ+yj7jJqff67jnEHowXDtuc7s3mvgre7vzOcihiNYwy
-         7Hkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781335258; x=1781940058;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yFlPsHECvjKKFoSYlqGhFvJ+I6A2Zwo1fKqJVG+6sUs=;
-        b=jZaWDO6fH1Zw1bExq+E8Jt3sapsSzyflqN91LQ9X40ENx3wqyezxMArHgx5EeRtwK+
-         eU4IN5s2T4Ls4UKEWeSeHricjk3vLQZIcxgI3z7foKPx+xuMpI0wxn2CEIYPM8ZIHmrI
-         IwlTh80zeqkkzyQhyUFsvEFhMzRCGIMpenKvVHjyIAkz7SUutT+EBEZJstf08YpeMqDe
-         bVX9S4of96X8U59J2SGAPbLE9B31tM99dSMweP3YNOsFd2CGcQrZ787g0nW69RzriXSo
-         9uYpNV1/rt8eX0j2fcyygfPjFM4uDkFh4slqEASPBn4UP11i3x6S88GAAY7hTpxlmgnb
-         rD1Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8kCWiNwDAc5bFKGbSWfiUfJDDqfLuEefzqt8JR59/TJWkOYPpoAgyQTrdErv97fQbFTn5cOlk5PTtL@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBYkqaRzjyvzGLL5DjBha+x3XDW7oEo7s4yfN4ZRhG0wIE8WLq
-	xU1L+BGHgi1vaavSGZlkkzUP0jPTRLFEoHZ7905H9z/Tl2Nuvmsu0Rcyo3gp9g==
-X-Gm-Gg: Acq92OE0EqA4vJ+Itnov+gpFix2E3Sopzqgr+nJTPwjTvxMvr3VwLvK7NkJ9DaxARef
-	PpUUuSAH02jGUtCEhXeOENwH2JsERNByRE6pIslmK6feiMnJki/J9R/D5FL5Xpp/aangmpNj0JR
-	sr5y9O8DhYYTzLmgj3gCRMTpxj0eCw+TFlw4TBLVZFwc6xJyHTulAgvypnmn/7VD7ZKXNQ1z47M
-	dlTToklBbLqAxfUykQcLCdtXgEffPk1WWEgeaRaoXJQwMJji5gyr/aNYVp7OS24DhIxrrOiL5/2
-	DtNCEUps0QeYNa8lo6jQc5BPBTtBmqrjYqCw/EFBZM+G9v5nLvRhVZ+1fzZyDZ583ZxzYMD7StO
-	1rhVrV49MhwS+FgOvA1QX88CDtPPaC6dUmRiNq5+d/EzKFUn/GOpTw0Onai7p1zPzLE2X4v0Q0P
-	GTWXqLsr3KBnGonWKJX+E/LQuuWVPDwShwtGqr+lZ45JNo
-X-Received: by 2002:a05:6a00:2995:b0:82f:4725:f6d0 with SMTP id d2e1a72fcca58-843497b8ab4mr5387757b3a.29.1781335258570;
-        Sat, 13 Jun 2026 00:20:58 -0700 (PDT)
-Received: from [192.168.0.8] ([49.207.61.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9df57sm4216413b3a.7.2026.06.13.00.20.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 00:20:58 -0700 (PDT)
-Message-ID: <84be047f-350f-470c-9680-179805152e1a@gmail.com>
-Date: Sat, 13 Jun 2026 12:50:54 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBexUrON"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876DE1F000E9;
+	Sat, 13 Jun 2026 07:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781335315;
+	bh=lyeoeZB4baecDgPEDL9d2+mnsOQkh9CxE9zeseja7XY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DBexUrONr5lk83nbkKVxlbuaMcQNhcG1emWqTiGGCESf3cUUZ1Ld0q/Hvn23WB0gA
+	 5ArqNHaZ0HN3j5+ACCBSB9uUvmO3wK4pxCclRWsh1I0nUmbiFwowuqu+LMdSKXWhpU
+	 TbK5EGu/krrBvuQRBkdkPNsmHvDhQ4OUSEe5Bty5sFRhJMEHAP1FpvfmzhxiUWN2RH
+	 /ToPqxvLNyyypusmUaZneAPSdJNqbfTzO5uxuOJ9RLODon5ommHuPognHJw3Xjf9nN
+	 qa8vU0BCQNSkJMD5D31s/8GVJG9TV1zeE99jKyLoZazkSyXKZRYV1EZcIsNizrMTGU
+	 2PxTeRPPWERBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v4 9/9] pmdomain: rockchip: Add a regulator to the
+ RK3568 NPU power domain
+Reply-To: sashiko-reviews@lists.linux.dev
+To: MidG971 <midgy971@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260613070116.438906-10-midgy971@gmail.com>
+References: <20260613070116.438906-10-midgy971@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jun 2026 07:21:55 +0000
+Message-Id: <20260613072155.876DE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: pwm: st,pwm: convert to DT schema
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260613-st-pwm-v1-1-458c2c89709a@gmail.com>
- <20260613071327.BE3101F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-In-Reply-To: <20260613071327.BE3101F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] Unhandled error from `rockchip_pd_power()` during probe leaves the=
+ power domain in an inconsistent state, causing `genpd` to wrongly assume t=
+he domain is ON.
+--
 
-On 13-06-2026 12:43, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The `interrupts` property is unconditionally required by the driver but omitted from the YAML schema's required list.
-> --
-> 
-> commit b16a62dff3236ec8b123a99775f6c90dbfd9912f
-> Author: Charan Pedumuru <charan.pedumuru@gmail.com>
-> 
-> dt-bindings: pwm: st,pwm: convert to DT schema
-> 
-> Convert STMicroelectronics STiH41x PWM/Capture controller binding
-> to DT schema.
-> 
->> diff --git a/Documentation/devicetree/bindings/pwm/pwm-st.txt b/Documentation/devicetree/bindings/pwm/pwm-st.txt
->> deleted file mode 100644
->> index 19fce774cafad..0000000000000
->> --- a/Documentation/devicetree/bindings/pwm/pwm-st.txt
->> +++ /dev/null
-> 
-> [ ... ]
-> 
->> -Required parameters:
-> 
-> [ ... ]
-> 
->> -- interrupts:		IRQ for the Capture device
+commit 08758fdfbdda5f83d100c68fb3b2bbe8fd467ea7
+Author: Midgy BALON <midgy971@gmail.com>
 
-Okay, I will define and add interrupts to the required.
+pmdomain: rockchip: Add a regulator to the RK3568 NPU power domain
 
-> 
-> [ ... ]
-> 
->> diff --git a/Documentation/devicetree/bindings/pwm/st,pwm.yaml b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
->> new file mode 100644
->> index 0000000000000..2c10f54b5caf3
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
-> 
-> [ ... ]
-> 
->> +required:
->> +  - reg
->> +  - compatible
->> +  - "#pwm-cells"
->> +  - pinctrl-names
->> +  - clock-names
->> +  - clocks
-> 
-> [Severity: Medium]
-> Should interrupts be included in this required list?
-> 
-> The original text binding listed interrupts under the required parameters,
-> and the driver unconditionally requests it during probe:
-> 
-> drivers/pwm/pwm-sti.c:sti_pwm_probe() {
->     ...
->     irq = platform_get_irq(pdev, 0);
->     if (irq < 0)
->         return irq;
-> 
->     ret = devm_request_irq(&pdev->dev, irq, sti_pwm_interrupt, 0,
->                            pdev->name, pc);
->     ...
-> }
-> 
-> Without interrupts in the required list, incomplete device trees will pass
-> schema validation but fail deterministically at runtime.
+This patch gives DOMAIN_RK3568 a regulator parameter, allowing the NPU
+domain to set need_regulator. This enables genpd to manage the NPU rail
+wired up as the domain's domain-supply instead of marking it always-on.
 
-Okay. I will add interrupts to my next revision.
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 490bbb1d1d8e8..19db307e3811d 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+[ ... ]
+> @@ -1274,15 +1288,15 @@ static const struct rockchip_domain_info rk3562_p=
+m_domains[] =3D {
+>  };
+> =20
+>  static const struct rockchip_domain_info rk3568_pm_domains[] =3D {
+> -	[RK3568_PD_NPU]		=3D DOMAIN_RK3568("npu",  BIT(1), BIT(2),  false),
+> -	[RK3568_PD_GPU]		=3D DOMAIN_RK3568("gpu",  BIT(0), BIT(1),  false),
+> -	[RK3568_PD_VI]		=3D DOMAIN_RK3568("vi",   BIT(6), BIT(3),  false),
+> -	[RK3568_PD_VO]		=3D DOMAIN_RK3568("vo",   BIT(7), BIT(4),  false),
+> -	[RK3568_PD_RGA]		=3D DOMAIN_RK3568("rga",  BIT(5), BIT(5),  false),
+> -	[RK3568_PD_VPU]		=3D DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false),
+> -	[RK3568_PD_RKVDEC]	=3D DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false),
+> -	[RK3568_PD_RKVENC]	=3D DOMAIN_RK3568("venc", BIT(3), BIT(7),  false),
+> -	[RK3568_PD_PIPE]	=3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), false),
+> +	[RK3568_PD_NPU]		=3D DOMAIN_RK3568("npu",  BIT(1), BIT(2),  false, true=
+),
 
-> 
+[Severity: High]
+This is a pre-existing issue, but by setting need_regulator to true here,
+does this expose the NPU domain to a potential probe failure and system
+hang?
 
--- 
-Best Regards,
-Charan.
+Looking at rockchip_pm_add_one_domain(), the return value of
+rockchip_pd_power(pd, false) is currently ignored:
 
+drivers/pmdomain/rockchip/pm-domains.c:rockchip_pm_add_one_domain() {
+	...
+	if (pd->info->need_regulator)
+		rockchip_pd_power(pd, false);
+	...
+}
+
+If the bootloader leaves the PMU MTCMOS register ON but the external
+regulator is OFF, rockchip_pd_power() attempts to send an idle request.
+Because the IP is physically unpowered, it cannot assert the ACK signal
+and the request times out:
+
+drivers/pmdomain/rockchip/pm-domains.c:rockchip_pd_power() {
+	...
+	ret =3D rockchip_pmu_set_idle_request(pd, true);
+	if (ret < 0)
+		goto out;
+	...
+}
+
+Since the timeout error is ignored in rockchip_pm_add_one_domain(), the PMU
+MTCMOS register remains ON, which causes pm_genpd_init() to incorrectly
+initialize the domain as ON. When the consumer driver later requests power,
+genpd assumes the domain is already active and skips enabling the regulator,
+causing the driver to access an unpowered IP block.
+
+Should the error handling in rockchip_pm_add_one_domain() be fixed to
+properly synchronize the domain state before enabling this feature for the
+NPU?
+
+> +	[RK3568_PD_GPU]		=3D DOMAIN_RK3568("gpu",  BIT(0), BIT(1),  false, fals=
+e),
+> +	[RK3568_PD_VI]		=3D DOMAIN_RK3568("vi",   BIT(6), BIT(3),  false, false=
+),
+> +	[RK3568_PD_VO]		=3D DOMAIN_RK3568("vo",   BIT(7), BIT(4),  false, false=
+),
+> +	[RK3568_PD_RGA]		=3D DOMAIN_RK3568("rga",  BIT(5), BIT(5),  false, fals=
+e),
+> +	[RK3568_PD_VPU]		=3D DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false, fals=
+e),
+> +	[RK3568_PD_RKVDEC]	=3D DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false, fa=
+lse),
+> +	[RK3568_PD_RKVENC]	=3D DOMAIN_RK3568("venc", BIT(3), BIT(7),  false, fa=
+lse),
+> +	[RK3568_PD_PIPE]	=3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, fals=
+e),
+>  };
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613070116.4389=
+06-1-midgy971@gmail.com?part=3D9
