@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85626324B32;
-	Sat, 13 Jun 2026 18:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683962D7DF1;
+	Sat, 13 Jun 2026 18:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781374930; cv=none; b=ddawDwB+lFskkp1NbBV2azzP6ZK85urjUbzO50+ZPFGuEKFPVPYsZA1Zi1UgwvAIbq4Zc6YMqtxltFaCm2s1RGKWhG5GOH7gGwPmEmE9hMvTxt6QP9+vUfzO2w8AvPs2u57v72HCo6oWTchhWR4J86rQVK6MUDMXSN7lm3t43ac=
+	t=1781375032; cv=none; b=nZVEReNmnNoLEucTAdyXa1AYObiJKeTbs6PCB/DJ8oPfb6UXbM7AHKvPV7Z2FM0o/dbpEDNPDWufjaofzN4i/vT9SKrT5d5HBmM68UDB+mZ0AB0OtXzUfQEx1hqLO4KYybLWX9a8XbqMILz7ptBResbctbBi8s+aNRlP05IO8Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781374930; c=relaxed/simple;
-	bh=/tR1D3Y4OcnKt+Pl/J6KzJ1fOTwDJvC0hgGxqZJ02CY=;
+	s=arc-20240116; t=1781375032; c=relaxed/simple;
+	bh=1gh2xQx7ax35Ma/iu7vPLX6Mu7o7bKJI+5MUIAzfFVs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OCLrnk1F+mBvaLx3Zn0iBtaJEAw2HACzFqvzVohdbyAcDeowKco6DKzNWns3lgYq/BeFKWx4PE8LaYJ8hiL9/ApNI2hCz479nrOQcDCevmnVU3nS1yJJZvUubps4FIWUcPN9spbqu8YAVb7R4TmM6ghhAaA9NcBT2rkv+L1672U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2VRrt7n; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ur56iS0bKPMRf/5UhKgWtAmAzOazs5mV2mqHgoxxB4QxOJQ+LJFtTrMZpNDFFv163wPVJnq6ZE/bTdZ3h4gwZKOGPZXiYxhiioJNO974kMVf/SD6j9rdxDE6CbPM6GmyJklUIk8/0DCuijG+di2VfNySG3jx0jiAITOH7Wb6APk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=No1Ztip0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2VRrt7n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A701F000E9;
-	Sat, 13 Jun 2026 18:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="No1Ztip0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617DC1F000E9;
+	Sat, 13 Jun 2026 18:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781374926;
-	bh=QkmQTRplbsLlEClWTl73mtbbWAT8kZOj5ikRmo3uU40=;
+	s=k20260515; t=1781375031;
+	bh=bW2ZyNL9PiJBJq/IMQkuWCqxi4Vg0c2aSHkAUwoZk6M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D2VRrt7nt9cNV/eOCD6SFCixxhe68HLs4uNnaooCtlfcHq+uQzsaWMH5MXXBEtuh+
-	 Sr8qcIG7kGThYACBkulN5Tgyr44bvXncdSBwjS7ehOjQ6QOghey6Debzld98sCa5nI
-	 UlidaHCmomY6ENn4AzLYHXqSFfEajAJUaxqV4SJpawaZqskSSXfRE2VZmNmu3i3wd5
-	 o+tftEjg2JIFeWICJ4ntJMRF5/b6xYaVK554aBkGqqW+Ugt0G/RJV9SSUp/PEegc0H
-	 raTpvbcdTPpag2kChOE3iWajrHjcAeqd/ACzooLR1Q2Q0XXlJimaLxUm2GP61OB6zc
-	 Fvn0dVTFZcB+A==
-Date: Sat, 13 Jun 2026 20:22:03 +0200
+	b=No1Ztip04mrjRw05vEGbGPvtUmEvkfRBo5kfLRBSnzDsATn8fI3HuMuMXdkr7IBxL
+	 U/j1GNs2mA+/8aRN9VBSYVUDpphiGvaOtc8YU87Zr300snMOrYtWc24nRjrLP0NweU
+	 X6spneq9II0WyxlKl7je+qLjEp8ef6xAvlwaIkilbKuWo1oXfq1l8jMeYI0w6DOVmj
+	 bQ775jZr+KSfKvsRKuVsdlvxI2sapb77Vj654UFyE9KYh/IjCm9nCNNoYYvPQEL8BJ
+	 0MHKiaJZUAwB+2vz5Vrcr5ciDEVX00L9OyRQ2h+orYgi81RBrVJu2yUiz8AtaqHMPz
+	 dcwVc0Ofnix0w==
+Date: Sat, 13 Jun 2026 20:23:48 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Yong Deng <yong.deng@magewell.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH v10 4/6] dt-bindings: sun6i-a31-mipi-dphy: Add V3s SoC
- compatible entry
-Message-ID: <20260613-nondescript-sociable-goat-aee13a@quoll>
-References: <20260613152655.212490-1-paulk@sys-base.io>
- <20260613152655.212490-5-paulk@sys-base.io>
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Patrice Chotard <patrice.chotard@foss.st.com>, 
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4 1/2] arm: dts: st: align node patterns with
+ established convention
+Message-ID: <20260613-wondrous-shapeless-pelican-6b927d@quoll>
+References: <20260613-st-mmc-v4-0-b3c385617c16@gmail.com>
+ <20260613-st-mmc-v4-1-b3c385617c16@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,31 +47,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260613152655.212490-5-paulk@sys-base.io>
+In-Reply-To: <20260613-st-mmc-v4-1-b3c385617c16@gmail.com>
 
-On Sat, Jun 13, 2026 at 05:26:53PM +0200, Paul Kocialkowski wrote:
-> The V3s/V3/S3 comes with a rx-only D-PHY paired with the MIPI CSI-2
-> controller. It is compatible with the D-PHY found on the A31.
+On Sat, Jun 13, 2026 at 09:39:39AM +0000, Charan Pedumuru wrote:
+> Update ST MMC DTS node patterns to match established convention.
 > 
-> Add an entry with a new compatible and the A31 compatible as fallback.
-> 
-> Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
+> Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
 > ---
->  .../devicetree/bindings/phy/allwinner,sun6i-a31-mipi-dphy.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/allwinner,sun6i-a31-mipi-dphy.yaml b/Documentation/devicetree/bindings/phy/allwinner,sun6i-a31-mipi-dphy.yaml
-> index 6a4fd4929959..3ca1a1c47032 100644
-> --- a/Documentation/devicetree/bindings/phy/allwinner,sun6i-a31-mipi-dphy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/allwinner,sun6i-a31-mipi-dphy.yaml
-> @@ -21,6 +21,9 @@ properties:
->        - items:
->            - const: allwinner,sun50i-a64-mipi-dphy
->            - const: allwinner,sun6i-a31-mipi-dphy
-> +      - items:
-> +          - const: allwinner,sun8i-v3s-mipi-dphy
+>  arch/arm/boot/dts/st/stih407-family.dtsi | 4 ++--
 
-So that's enum with previous first entry (50i-a64) - same fallback.
+Thanks, but please fix all the files of stih in one commit, not file by
+file. git grep gives more instances of it.
+
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts/st/stih407-family.dtsi
+> index 3e6a0542e3ae..08acba209c56 100644
+> --- a/arch/arm/boot/dts/st/stih407-family.dtsi
 
 Best regards,
 Krzysztof
