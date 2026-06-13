@@ -1,164 +1,170 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012038.outbound.protection.outlook.com [40.93.195.38])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36117293C4E;
-	Sat, 13 Jun 2026 14:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781362148; cv=fail; b=rHuEC/1T4KzrB5432eEZn8lrrMdvbnPMR66scDdkzzlK9AWbjHQg3uiV98kmrZahHWz8i6jpEX8GRVaq8DYpn4aeCEwGVRHb8AJJNLrkkDGIuBnIFofIbLYmGVsMIrj9Xkyz9eKFD8fd3onprMn7FnS7C2BW+ow8El0eicKuKhk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781362148; c=relaxed/simple;
-	bh=+uKbPNKJOiEeIttWwWV7v6aHTVqmeqCCTvwsjiMkNUw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=vChgl+ewJygXhHcUNc6FlNuaPlFStvTM8IUcZCrtdRdyAEIALsGAdeyjJwpTIrfF84gqWkqHkZhJjhWLqjujcKjED5fRQZcDiEIH767SU7+fkKzXsx0nqJgIVrLMmcjxoq9So2mNPI7fgmzDfk/CTlLov35ZrpkF1xQVwfNyFhs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EE//Z5nq; arc=fail smtp.client-ip=40.93.195.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67387184;
+	Sat, 13 Jun 2026 15:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781363277; cv=none; b=EoQvp56XZoyOg4hlH4QATNxOSABhnYvx+KQJ9cudgLfbp8KAU+Nv9Gsch1uM/0+a6Tp86hBaU2D6GN5OM9EOpbfDAt3gwf7U38pVhgHTDaCEaJ69qqI8jiM7ab7OnYSL9YQd7dNQSLzsk1Al8boKqFuLTCV9PSmg6IDGfuPW+JM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781363277; c=relaxed/simple;
+	bh=ICbOkjn5IbS6WDSvVKepOdPbb232Qq2/gf+4IWBF6jM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NEHxiNQyXWXkCWOwlcJ95Iot5NlsT69Zc/T4G1lQjE111jkJ2RqDOxLsRp+sGiJqA32gBFpTMQjWrGPFojHubol4/470fgecqyc8nKQfTP+AQhUsKjH0ExTrtko8Y/d5bb+ciNvwABYIidxukl4ihbhfsDgXhJlAP3Z6z59yDSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YtrWVRK7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EE//Z5nq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hjZ6bkLzUDp3VkxG/IlhTirFWioOkeXgW74ULTHxuljRyNQvKr9TUM54DEa10z1zGJY+Zcovs90k5wT9rJ0KI+d74Ud8/EeM9FYssgmXrYZ6VAwUvxPJiiRHoZVbuCfpZd7RKGPCvndobnwNgp0VSdGcLgBy1BcG/b+zD5H7mZU+DPRHwBBjl402VGix8LJ6/qRHLZSzqP0ruJiiB7TLOsPWQw/a5+FgRqdYwBiNkGNT1L4TXRfzsDPuqL6bfDUxm6pSqz/hADv98Lv3OAlnBWI2FQ+6t1hZfyuX+R5ww9wI/Wz9d3nvyhoEH+wRAoxP4nDbaqt1BB67r3Ppz/YRCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6UYt5FVpWx9CGCL3RoQYiz39yliDSvkJGCuNN2LqBTI=;
- b=TvBRC9XkNaGHJ+QWjVerSruWyedNTo/fmnsGq0nIt5va6sfZPBdZIndwWS9E4qx5tsi1VQpIACUDeVxfqhfr8t3CUzkMgYg4UcFbP8JlrxbW6UcISN7VC1sWMAJhfeDfsjdhAXK+gMU/wm0D0XWX0R9ZQ/YJhlJrficLLLC1wyqmQ/KiaHvx6d2MDXk1/jcBGJYPqcAjI6TwhlNR23wu1SGWayapZ/oMQRgTft9TiditFPhEm1QjAIesYN9PjeafFYrzA4GKmC4bCb1wN13GPuyLF81YlDnJguC4QZFS9tI+4y3m3FITE6CQmKX+29tFAOeqrZ43WVg25wB0+pZx9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6UYt5FVpWx9CGCL3RoQYiz39yliDSvkJGCuNN2LqBTI=;
- b=EE//Z5nqr0ABNLLmw1XYdnbB6kRvvDfR2A7XiFBRieWF8xy1jOodKAaJ82TsGlKonRkCTcA5TUdYe31ZZBQ3lf7x6uYogP4gbriCwqGnQNMOUHG3iYhqxdjFAkJz62IGnedEROJLSI4wV45Dy8JZy/5fOzsSd4Km7do5huu5sAA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
- by MW4PR12MB7430.namprd12.prod.outlook.com (2603:10b6:303:224::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Sat, 13 Jun
- 2026 14:49:01 +0000
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d%5]) with mapi id 15.21.0113.013; Sat, 13 Jun 2026
- 14:49:01 +0000
-Message-ID: <824dfd2d-cc7e-441e-9635-4004da298f73@amd.com>
-Date: Sat, 13 Jun 2026 20:18:49 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: dma: xilinx: Fix "xlnx,irq-delay" type
-To: "Rob Herring (Arm)" <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Shyam Pandey <radhey.shyam.pandey@amd.com>, Abin Joseph <abin.joseph@amd.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260612215226.1887726-1-robh@kernel.org>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <20260612215226.1887726-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BMXP287CA0021.INDP287.PROD.OUTLOOK.COM
- (2603:1096:b00:2c::25) To CY1PR12MB9697.namprd12.prod.outlook.com
- (2603:10b6:930:107::6)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YtrWVRK7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48E11F000E9;
+	Sat, 13 Jun 2026 15:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781363276;
+	bh=AITbY4Tube4FADzz0RDs3sWOQpXOpb2A2jd+2ehSyIE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YtrWVRK75S0fvsrKt6+QLnb36ap+Tq1DJbZZxrn3ZVI+7mCerF3z/YBN6DKlIAuVU
+	 w/y2H0f6ZhO3i/t4tQ2YIvD999H9iFbOh3aCoVVHGv4sXeXJAXLHiE5qD9zqdBYg8V
+	 8E8fApVa3xtt9HIgKJ8KvXmPwrZcUtbBXRHp0pF0NBOOAoFrX2qNQ7vzDsXO+Kzs0x
+	 lXxnpWsOD8gO27vDIUlltta2m+9y4W131gS9DkHIFtWJj5o/i1B+HJPO+pmfh03EvY
+	 jLKzEnvdnG9GptwUwDLzWVKn42CNYSIHU97KRGJWfZCmeJH5GftjcfKfZN8YCMfaMR
+	 EU6JAjM/bvz3g==
+Date: Sat, 13 Jun 2026 16:07:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Potin Lai <potin.lai.pt@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Zev Weiss <zev@bewilderbeest.net>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Cosmo Chou <cosmo.chou@quantatw.com>,
+	Mike Hsieh <Mike_Hsieh@quantatw.com>,
+	Potin Lai <potin.lai@qunatatw.com>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add current
+ limit properties
+Message-ID: <20260613-synthetic-synopsis-57f40cb2cf92@spud>
+References: <20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com>
+ <20260611-lm25066-cl-config-v1-1-02e567bf3d91@gmail.com>
+ <20260611-mocha-strive-a7f3265dd3f4@spud>
+ <CAGfYmwWPhdpTLGhOdddJ0hSj-H86+XOVGTR9eDkZSVqGRLfJvQ@mail.gmail.com>
+ <20260612-lecturer-unclad-d80218119ae5@spud>
+ <059f9ce2-39f0-4553-909d-58585d46edd3@roeck-us.net>
+ <20260612-sibling-battalion-453d3d239aaa@spud>
+ <4875e6b4-0d9f-4920-9efa-883d1fed983f@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|MW4PR12MB7430:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95c29e46-b3e0-42b8-24ee-08dec95ae842
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|56012099006|11063799006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	waT5zyGQX38Hll51QcwYNCmPJNxYw8Wf3n86QjUkDbYyty+8/N+OI2X5cVve2KYFwXOSbeGz+MZHO1vD/6A6CCUnh9WdFau9fJ/C4kh83C6YG5nl/yZsfKGAnf9ChHmqFO0/89wExZIWXYz0zTE+JuVbCwMHe+SDxkyiKUrdU+UDr87fwqS/si84jqgRvTf6MuzjRzVN9vSvg6XBTJI+rEXBhtgu0dAzH9uPqBHvu0UOdbJQN/QKcaLDtYKGZYLHC8yAXCg+aNJt5NEIffvGxLlsUF9OdB4MUNklYMylJuBpe+YuKCFKZURT5uBmSXIMRFa9gxsf2WV2P8V9I4xaWzjUPkFx0093mJ+ckeMJFiVtdxaHsyg8WmKIeQV1A81Rm1JJfNl+LkdMvcI/HM6X6ty4Y3Z5yM8t2gmwv9q+oOKh+EMVGXn98te8Jw3dIVcoIcfmxn1SWczmVQ5xl5qBvKdJsCd2Zb0GX8ghkcvow/s944od7Em/cY/aaK+qB0Wu3a7Z5EkwuCo29nHC3R+F4tSZT9606qKBEt0c8sXAcPxYC24g6Uy9iYS6pgvuPn8Or4gDnzsujyOPmwg2oL87vQg1KBGhrb2+iH0nR2Ei42nIywFVr9bv3v6SEuKslaIudmkAR2iioHyDRWEeOz94e1jzMmD/ald4Rs47CF4OqYkhFKEkZk8kbVunumkYq/Hd
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnpWU0xES3BPdTJPbURUaTduamo5LzFwdW55ZjFYaUFEOEtBeS9JZ3RYUHJT?=
- =?utf-8?B?YkRHY1p4WDhFZlZWODNzSjZnZExGQ0pkQU9OYWM0MGVScjdoQStpN21IeTNt?=
- =?utf-8?B?ZGVtZmMzUU10bFdsUUYwb2xBcVBSUVVaaVZvc2t0VDZqeDNwK2tnZHBLWUpr?=
- =?utf-8?B?ZmhwRUdEMVRCbHhrMTV4eFRtdXZaQWtJT0Q3anBSTGd1N2dLSkxNeVdCS3BK?=
- =?utf-8?B?VWxkclV2R2Vma3ZpR040bmFRb0RYS0prMnNTbXdpelNjcThqckNXUU14MU8y?=
- =?utf-8?B?b2VWQkxxTGxiN2htR0owVkc2WEw1MWxTSHVMUXYwQXoyMEdLenljTjMrU0gw?=
- =?utf-8?B?aFpSbzFZQjFtU3F3c05QKzBOSTBGM29sRFdZR2xoVUZXQnVoN25GbUd1bTdL?=
- =?utf-8?B?V2Q3UmV4SmVuOEFjVUNYMVBzalczRGg2VnpzZHhkem4wZWRRKzZ4c1c1L2FS?=
- =?utf-8?B?WEs0aFdJNEtha21OZzR3M0JnUkV2amcvdGFYN0xuSHlvc1c0dDhSczFWVFNt?=
- =?utf-8?B?Q1JheGlEUnYvT0lwemVoVG51WGV0QnhuWlVJR3NwN1MzYkFDM0RNMytEbVlS?=
- =?utf-8?B?VVpLY3pHcTQxbXo4U0tLbVllcWVVZUJ0UmF2aU5NQzVIdGY3Zmp4eWEwZlNi?=
- =?utf-8?B?VHNid2oyeENkYzZmV2pNRU1SeXE3a3Uzb3B1UW9hVEtEbklwVENkcGRuUWVw?=
- =?utf-8?B?MGEzZ0swNDJtcGo5QkFROElPTVJrekFjeFZ5d2ZBeVVPYmJIMlBKZGgxQzRX?=
- =?utf-8?B?bUhRRHVVckF1cjliWmtaSmJLQXJGcVUxME5HSlJQNWlPS2JobjRxb2VlTzE0?=
- =?utf-8?B?YjlWUDFnRHlDOGtObURBeGRBRHVxb1pPbnh4dWVPKzB6UnVCVFRZb09TRlZr?=
- =?utf-8?B?QmwvNGMwNFAvMnM0N1FVc2JMbVRQL3F1eG0zNTQzSWJna29nUjNGdFgrU3B5?=
- =?utf-8?B?d3ZUYWsyNDc3azByTTZhaHFvbkxkOW9GSWpWZ3A3bDJ6WS9jV3Y0WWVRT1g4?=
- =?utf-8?B?dXdMeXJ3KzV1bGJ6VFBSNlFHL3JEYkFqZlgzaS9jY1I1YlJLeGZNampEdW0w?=
- =?utf-8?B?QlE2aG5NVlhJbzNPcVVkZGlRV0R1NVZGUHVldjBVSzJqRmVOQVdob0Z3ek9H?=
- =?utf-8?B?alpEMlpnbUtDM1piblZvL3JaMml4K1ZzdTg1QXZ1NVJFTDhmMnpRYlFBTGRj?=
- =?utf-8?B?VlgwbkI1eXVvRlErdDF3TWFOamtqcDN3TE1WbzBtUFp0RTJRMENsTlZOekRp?=
- =?utf-8?B?SzMvaWdWblFLK1FUVUY1UWMrY29ZL3AycUx6WitiN0kwZmdDOTAxUk1pMkVQ?=
- =?utf-8?B?bU9ERVFSeDVDMU8vaHM3eTRwYldtenBGRFlJNzFIZUErc1FoK3pIUTVBU0FN?=
- =?utf-8?B?eENXVHFkdU5LeVBoSC94YTg5UlR2d0N5dzNPZWZqOG1WS0VtYkhhc0wvMSt3?=
- =?utf-8?B?bUJNaDBIUGFtYUxaem9Ya1FIVHFiUnM4WFNvUUZMc21iQjBKc1htenlnN285?=
- =?utf-8?B?WU5YNXBiZUNxUUp2NDUva3JuWCtkbVlmQThJWDVaYmFDYldRS2I0YUlESm4v?=
- =?utf-8?B?NlZUMjYyRTJ3bWg4UERFdDBObEVlaXpyb2h6dURPMkVEV1hjT3RRVW9BSm83?=
- =?utf-8?B?V0FOM2xQTlEvUkZpR0k1T0c4eDhtUGxLMEdmTC84ZTNSK3dBYnJ6RXp2SXFO?=
- =?utf-8?B?S21laExqQkZCVGZnM2Y3VC80T0RKN2tQaEtKWlYyc1RFZ1BkUnh1dmZId2dI?=
- =?utf-8?B?NTZOV1duYmgyUCt0RHFQVlRUdXRDRDVEWWJWdUlsTzhmNlIvWHo3S0p6QWhB?=
- =?utf-8?B?UTF5Ym5OMHVvNjd3c0dVeStkMDhYbk9tL2pPazF0OWlKQ1hxcjlJN2x3Rlcw?=
- =?utf-8?B?OEdQcEVWWEsxclhFZndZSVhqMEpxbWtzeHhFekdiOXQrRTNCZ0VsN2Z2eVNz?=
- =?utf-8?B?bVJGSlVGQUZONjZ1c3hiK2ZoWW40M1VDWEVjWk9Wb0V1SDJLZGdORU41dmdp?=
- =?utf-8?B?TUprTWFteDVBcWNwK1BKUmJ6eU82em5pNDVKMnlVN0E2blZ1YlVsRmxld1Z5?=
- =?utf-8?B?ZGJuam1OM0VVRXNYR1FVUVI4a1A0SG5UeHVIRCtoYnFobUFoL1hIRHNJS0Fv?=
- =?utf-8?B?bnIrN2NHdmFIakgwSHNuMGcvdU5GZUV2czgvRFdPZFVLYy9SamRPMlhVSklR?=
- =?utf-8?B?SnoyR0RWcXcyWWNydThya3kwcXRPbnRSTlRFQWNkeUltSG1RL3VRYjJzRGpR?=
- =?utf-8?B?bXJRQlZJQW1sdXIvMU5KcTJtNENMN2ZZSm50bWk5Y1NOVzlTeHBaUlljRmQz?=
- =?utf-8?B?bDBZQm9yb0NJNEFhWmpHcUFVQi81Z1E0U1Jhd0h2MFdVVzk4VHNLQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95c29e46-b3e0-42b8-24ee-08dec95ae842
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2026 14:49:01.7222
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k36Z1DSQ882GjNVKMK+QLrPmGVDZ396mIZCZUXyAeTxZBqSZUAL7yqN2jfJHk4vp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7430
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WQQ7w2n8+IYsUPvF"
+Content-Disposition: inline
+In-Reply-To: <4875e6b4-0d9f-4920-9efa-883d1fed983f@roeck-us.net>
 
-> "xlnx,irq-delay" programs an 8-bit delay field in the DMA control
-> register, and the driver stores and reads it as a byte. The binding
-> described the property as a uint32 cell, which made the helper type
-> check report the driver as wrong.
-> 
-> Document "xlnx,irq-delay" as uint8 so the generated schema reflects
-> the hardware field width and the existing driver access.
-> 
-> Assisted-by: Codex:gpt-5-5
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Thanks!
+--WQQ7w2n8+IYsUPvF
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> ---
->   Documentation/devicetree/bindings/dma/xilinx/xlnx,axi-dma.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/dma/xilinx/xlnx,axi-dma.yaml b/Documentation/devicetree/bindings/dma/xilinx/xlnx,axi-dma.yaml
-> index 340ae9e91cb0..ba0fc515d825 100644
-> --- a/Documentation/devicetree/bindings/dma/xilinx/xlnx,axi-dma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/xilinx/xlnx,axi-dma.yaml
-> @@ -93,7 +93,7 @@ properties:
->         Width in bits of the length register as configured in hardware.
->   
->     xlnx,irq-delay:
-> -    $ref: /schemas/types.yaml#/definitions/uint32
-> +    $ref: /schemas/types.yaml#/definitions/uint8
->       minimum: 0
->       maximum: 255
->       description:
+On Sat, Jun 13, 2026 at 06:05:28AM -0700, Guenter Roeck wrote:
+> On 6/12/26 14:13, Conor Dooley wrote:
+> > On Fri, Jun 12, 2026 at 10:19:14AM -0700, Guenter Roeck wrote:
+> > > On 6/12/26 09:12, Conor Dooley wrote:
+> > > > On Fri, Jun 12, 2026 at 05:10:38PM +0800, Potin Lai wrote:
+> > > > > On Fri, Jun 12, 2026 at 1:27=E2=80=AFAM Conor Dooley <conor@kerne=
+l.org> wrote:
+> > > > > >=20
+> > > > > > On Thu, Jun 11, 2026 at 05:58:44PM +0800, Potin Lai wrote:
+> > > > > > > Add mutually exclusive 'ti,cl-smbus-high' and 'ti,cl-smbus-lo=
+w' boolean
+> > > > > > > properties to configure the device's Current Limit (CL) behav=
+ior using
+> > > > > > > SMBus settings instead of physical pins.
+> > > > > > >=20
+> > > > > > > Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+> > > > > > > ---
+> > > > > > >    .../devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml  | 20 =
+++++++++++++++++++++
+> > > > > > >    1 file changed, 20 insertions(+)
+> > > > > > >=20
+> > > > > > > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti=
+,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.ya=
+ml
+> > > > > > > index a20f140dc79a..95ea7c26dec2 100644
+> > > > > > > --- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm2506=
+6.yaml
+> > > > > > > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm2506=
+6.yaml
+> > > > > > > @@ -46,6 +46,26 @@ properties:
+> > > > > > >=20
+> > > > > > >        additionalProperties: false
+> > > > > > >=20
+> > > > > > > +  ti,cl-smbus-high:
+> > > > > > > +    description: |
+> > > > > > > +      Configure the Current Limit (CL) to use the SMBus high=
+ setting.
+> > > > > > > +    type: boolean
+> > > > > > > +
+> > > > > > > +  ti,cl-smbus-low:
+> > > > > > > +    description: |
+> > > > > > > +      Configure the Current Limit (CL) to use the SMBus low =
+setting.
+> > > > > > > +    type: boolean
+> > > > > >=20
+> > > > > > What's smbus specific about this? If the pin was connected to a=
+ GPIO,
+> > > > > > you'd then need to have different properties or use these ones =
+with an
+> > > > > > inaccurate name.
+> > > > > >=20
+> > > > >=20
+> > > > > The "smbus" in the property name was originally meant to indicate
+> > > > > that the setting is configured via the internal register over the=
+ SMBus (I2C)
+> > > > > interface, rather than physical pins.
+> > > >=20
+> > > > Right, but if you do it via the physical pins using a gpio, you sti=
+ll
+> > > > need a way to say what limit is. The status quo only works if the l=
+imit
+> > > > pin is tied high or low.
+> > > >=20
+> > >=20
+> > > The physical pin is supposed to be connected to ground or left floati=
+ng.
+> > > It seems unlikely that anyone would ever have the idea of connecting =
+it
+> > > to a GPIO pin, and doing so would for sure mess up the driver because
+> > > its state is only read in the probe function. The configuration here
+> >=20
+> > Well yeah, "obviously" if someone wanted to use a GPIO the driver would
+> > have to change to handle that - but probably not that much since it'd be
+> > a static setting that could be done at probe.
+> >=20
+> > I get that it may be unlikely, but it seems like a reasonable thing that
+> > someone might want to do, and renaming the property to not exclude that
+> > usecase seems to be "free".
+> >=20
+>=20
+> It is not only unlikely, it would be risky and potentially result in
+> undefined behavior. The pin is supposed to be static. It is undefined
+> if the hardware evaluates it once after power-up, after "power good"
+> was detected (if the specific chip supports it), or continuously.
+> Making the pin run-time configurable would be a risky endeavor with
+> zero gain since the value can be set by software configuration,
+> while at the same time adding complexity to the hardware.
 
+Okay, if you think noone will do it, then I will cede to your more
+relevant expertise.
+
+--WQQ7w2n8+IYsUPvF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCai1yRAAKCRB4tDGHoIJi
+0uafAQChruwsjjg6BpbcePQcblVtw8qKqTKoQ+bUWASgMnYLqgD9ExNJ8fzw0+yE
+M1jk7jmJUPWahgqkZAPzbQFWtxe9Ugk=
+=lSJs
+-----END PGP SIGNATURE-----
+
+--WQQ7w2n8+IYsUPvF--
