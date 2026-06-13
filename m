@@ -1,151 +1,159 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010024.outbound.protection.outlook.com [40.93.198.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811A6281532;
-	Sat, 13 Jun 2026 16:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781367845; cv=fail; b=IfYy5w4IgEphW4pcZHKdwgBXmejtAnSD5aGPOVGI4QOdSGzugy3DeS5wKVguVUmvvi0sWNsa0sQfcL3mLnLb2Iqnzbvg2UxFBK0Njcmpxz7EDX7Ljbzk6T6yt2CRpngfrI1JUGnO8S6SC47yYutONf7nNPzf2wXRyh6iq9pNB+M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781367845; c=relaxed/simple;
-	bh=LiaiI20RWICGWDG4TaaP5aUmOF2wTRwKzVjEUaedydM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=k+fRTAokwbIXILSgO149pmPVusfHdg/Vh1mGb9nEbe1XXYRAkTZ1oo10YM4WJ+fjAwVP9/9BOVgsW++j+FB9znlbIZQ2dVk77ahB1C7XDJ/vUG68hRlLNDU2JVQbXLskaU++ZuJ7pfRss7JuhT3dj4ijK0a56xTlWZansOGkGfs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=VEisP4ve; arc=fail smtp.client-ip=40.93.198.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED07A2765E2
+	for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 16:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781368935; cv=none; b=rAyd4HxNFh5AZq1KEljnnlRbayKn7blaUtCEAIuD1AjZA5aB8DFSX1z7f9at4pc0Ry8gfaFJZc0563z2Rsn5e4v1zBD/O7Q3nVotIlBsNjmbwVTDrnGoQuuVG5f2wdcSD42FCBsvmB805j2UPUOBuuxcDRjfDLBGIU9k0XOquy4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781368935; c=relaxed/simple;
+	bh=IhIQz5jSiL3XNOL1jTbo5CXGeRcji9WKa7mNaIAFqXk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tzL8y6PpgrLq3JAzLku+lNA3eximM8Wwqd6V1/FQUEENrTcA7KuDqd+ijM7BizP0H/pDWLXkrp1I2DvtZLN2Cd4FXMMEwgXgiJ1JBfm056mWs2pX+U3HveeEqokAXhpcWuCfE97yoOoD5d3SFGJSM2ngklH9SKsgXKngbXhkbDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=U0Fd+nbn; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="VEisP4ve"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NmIb8Lo8dZVDlwI65sc97WxLnR0szb+FVTnnbh+wohrT8qjWU9FmemoxG1witVzn+DwpB+cSuzubSzxd7JvqgzxS5L9QHZdS42y/AcqokaJAmJvWtFfGu02towMIxKJLI/kJMyyVxMQeqpuzUtJhq5rJpEwpy49vajIjnlp29yLRSD/+orwbDX90OMciqwGLSy/2YMNZ9buJQxWf/mSgF5gu2Xz8/zoq1Az5Ytp3FhYMp7rtoMVGbZSVUZ23vljnt4SSnTQhk9HZrJoybCu2kG9zWcQUV0SYObLYEfaf5QDGJCaAEOFCKe4CLRHd62A7Y4cGmRzCAl8QLqegs/gU8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=POWvknQ9PzvtYpyXPxeS7aZR47Am/wC3B/3ZU155a9g=;
- b=TsxKm9I3iAUJacsUjF9z+mV8aAxBWgENvBH1oJZaHW0hLYUbGyR5PeZcy/dEEYVHK1XyUQvmvE0U1G4QuGQtpiWiuVyQJppb8JraqO1VZ49fFWAHqe+ET8zXbZYc69I9JA51cpEJ3E1LjyPPbpM83c2PKPMta6lWBnJmH6WCpftBThv0bvdxwtvAfbzp4PsGIR/exRHsiO+zIIebweslff7818/owOkKbgCD1LxCqL/VHU8+f+Md55AQjQdaFoGW2d1xY4UAC7As3BVz29qnYMCTAZejUcYMQLa8z+5bwRA5IbXQRiet2l1eyYwNO2LAY4psW9u6O7+VQw4a9+/rUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POWvknQ9PzvtYpyXPxeS7aZR47Am/wC3B/3ZU155a9g=;
- b=VEisP4ve5BfyNkeIYLj6qhEhjeTqn1dM89Gctx83mDScUHhoJwtrfvpis1Vp66Rudm1qkH2K0Cb7D4ftg6F9oaSF+DiE1PVids0F7Rej5Z7p81GIf+kXzhUwY8cvJZR5dCNYlAXDEhYbOqRjx+b1nMkGtWH2Gs4K6tcIoJgjF6w=
-Received: from CY5PR14CA0002.namprd14.prod.outlook.com (2603:10b6:930:2::12)
- by IA0PR12MB8375.namprd12.prod.outlook.com (2603:10b6:208:3dd::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Sat, 13 Jun
- 2026 16:23:59 +0000
-Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2603:10b6:930:2:cafe::5c) by CY5PR14CA0002.outlook.office365.com
- (2603:10b6:930:2::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.16 via Frontend Transport; Sat,
- 13 Jun 2026 16:23:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Sat, 13 Jun 2026 16:23:58 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sat, 13 Jun
- 2026 11:23:58 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sat, 13 Jun
- 2026 11:23:57 -0500
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Sat, 13 Jun 2026 11:23:55 -0500
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <gregkh@linuxfoundation.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <bryan.odonoghue@linaro.org>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Radhey Shyam Pandey
-	<radhey.shyam.pandey@amd.com>
-Subject: [PATCH] dt-bindings: usb: ti,tps6598x: add TPS6699x compatible
-Date: Sat, 13 Jun 2026 21:53:35 +0530
-Message-ID: <20260613162335.1490514-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.49.1
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="U0Fd+nbn"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e709dd1ab2so811145a34.1
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 09:42:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781368933; x=1781973733; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YClLX0yEzKDd8bl1cK6HeZnm+stLvAtsb923iZjql8k=;
+        b=U0Fd+nbnCSmC5+faS7b43X/SuLhkZAldJ/LX/f23IU+F8qE2V3O5vP/O+8K96DOxzU
+         Si0xITrDw9XU818gebvaxsqmhDC6RvAikv6YWpT9jxhfqQ3gCS6mQbJqUth85WPc/sqk
+         j9Ed91t4NevmC70K2jlVghOS0O2vueuMyMe/zkPmiztwYIEGF6TIolLXfS1tvuzToNdU
+         Y11aOQHQDziQUqYYxxZeLMcH3rpJfwhjRrHxj+Hf2sQ+kRLXHUyr7NeGdBNvpHnPE8bl
+         0PQW2JiY1qV9a7gY5Uq0PCjqe+FcWZHoY1uNQqw593T/8pqqN6os8Z4sg0r2gnHkDWRz
+         uDVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781368933; x=1781973733;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YClLX0yEzKDd8bl1cK6HeZnm+stLvAtsb923iZjql8k=;
+        b=lZMd3E/ia044VaSrlkgUTWcp7VQOHvVMsQVDGs8bBa4AlfTacW//z8c2Xo9+cq6FwC
+         5ZGgJgRq9C0dPE5xkVMoTqfXca93RK6ZL7ZJWNKCmYOPjVCGTVleUc5GWSCKxqLLjRs9
+         3y+AJ09XmxGAYxtnzZBq+COOT3WUotMhBf20P/jeBz236dxajuDPog+9nG2R31v096N8
+         s6F1YA/XCCd7joCwCldufkbdv45vYoeyJ9SmP06bC8nsdK7tOl9gj+7OnkgJZZfPpX1U
+         l7qPFHz1ao071fHSbFcKReJjBqg6KhpPTYqVkP1ykragRYc5LY5DRb5Wgn0PwsVf0F+/
+         2oLg==
+X-Forwarded-Encrypted: i=1; AFNElJ+aLdXdtW7goDLre8vg38TFfLOik5jp4j2d4/Z23fr8Xz1Wh2YFXbjyU94yp+Wjt7KtdKuErBiv8/Bw@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVRev8zWdbAGp2qFVKuj7s/wKbu8lZJkZx688VIXGUic2wgnbz
+	Xg/3XjFl3GPgH9usLhkleOLvKxFwATPhVwmo8mnlx9RJQOPMMUq68x01xmfx3siHgtw=
+X-Gm-Gg: Acq92OHy8xzMJyYO4ZQoO6nhl5X36mDfhtIccrxDTdc/VVXfBnmjOu+b+3TfWfCnup1
+	eUKubyXKtHHaSntqtOl/fSCYaX4iLr6MqFvooqkOecbgksQB1rf2LVYulZc0zt72RafaTeh9G/D
+	gYV1vxu/M8WISqFF4MVyOSMpn1KZZ4QbrnlJ0stvlPvFpB38aVZnKBuBpATYga1yOgTck1kCwzt
+	aIuXfAtN6BruqOypB+VA//smu2kBlxOeQzfHJi4YatODqYBIkaPd4twtmFX1hG2Y/LXtbx92uTU
+	g+JNYbjk3UA+4bg5Kpo83xMD5arL4YHvRR/eQ3y3O/S0akli5RBRKrNa1QSYT98UnuULjcMKwuV
+	+N/ytu6nUAJ0J2WYa/YGmXVGt+/9rOxTWjmhoYZjUkYvGsvIOj+2osS0MSojOESUK8Q4ksPJh6h
+	q17ZNF/wv4tHAXixGDMWyPJTrZuAH9cUS3+wYxsP+cXQUeOymHDNwGOrlP09MQUwq2SQJOxby6/
+	Q==
+X-Received: by 2002:a05:6830:6e1f:b0:7e7:9493:dc3e with SMTP id 46e09a7af769-7e794a32092mr1230912a34.3.1781368932957;
+        Sat, 13 Jun 2026 09:42:12 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:cb9a:87cc:1314:fef5? ([2600:8803:e7e4:500:cb9a:87cc:1314:fef5])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e78125d3e3sm4346652a34.0.2026.06.13.09.42.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 Jun 2026 09:42:12 -0700 (PDT)
+Message-ID: <8ddb4c1e-d105-49be-a6e0-30c220af98c3@baylibre.com>
+Date: Sat, 13 Jun 2026 11:42:11 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
+ driver
+To: Roman Vivchar <rva333@protonmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <noname.nuno@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Ben Grisdale <bengris32@protonmail.ch>
+References: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
+ <20260602-mt6323-adc-v1-2-68ec737508ee@protonmail.com>
+ <2df4cad5e29fbcb4c5c5f59ea0bf322c7a301bdc.camel@gmail.com>
+ <RRvh9UBBrqdfKoCLaqgfcQ06UY-BSM2hQ0F6F1YkdB2k2RXYMQmlCG4phXk72oGY03t1g1kDI4z-SDeKlYkUv84-AjNLaWK7tDQlpEFQVKk=@protonmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <RRvh9UBBrqdfKoCLaqgfcQ06UY-BSM2hQ0F6F1YkdB2k2RXYMQmlCG4phXk72oGY03t1g1kDI4z-SDeKlYkUv84-AjNLaWK7tDQlpEFQVKk=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|IA0PR12MB8375:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc4aeb99-c67a-4d19-69e2-08dec9682be9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|13003099007|18002099003|3023799007|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	4j4PhlTyib10nGSC7alPbcf1PZQuvFffJ+5/zh29+zH5lBZ+pGm224BZrCWNfZc6q1NrueGWvxn2R9Esg2hBCefQ044jWwCz4i+uOptIzz25ffcY5yjpZaWq7oimBZOEREzhTr1FPJI2yqokFPmzx1UzwHCbmDip/WTe8c2UrEJaAFig/DwthG+KTWHZfp5cCfUPcdODsn9fLqqS3g1PHssokQvNZJ0YrIb1iew2WKlFDP9r+kPMMXccQOFsgtsN9MOwPxwvDeyYboTjkm1JSEiKWiXyeCJx7qi4ic09S3K1A4tgp2JR1NH5U+33EfEiIbhvIDr2fgechNktBIpKA+i9SdVxaj3fKf1k1w7BDyz96MvlevIjCxF88ZL4cjciH0Hc2e5MImgsGwIe2Bn/Ltf0tme526/5XH6hMpIr+CtaG0jAHYulnx0VdKIjY9nUtxVG/QzlN8gWd5QfRNJ0nHeY6FUYPAzBxGvvQ1mOfKBLN01KCdAPs4tSGL4hCIxdbcQ3ncjp3zfwIO9Gp90C8QMgNqEA7mkVyTjgieqCLxeU0AxljILOCr6bQrWrD460c57ZreQqOd82BHIOt7BkTf+REX+hzAJhGgsn9Xksc+Tqp3uuHbxcel99Z7ibdtXZ/URHr6opvxwmWmYkPrpd188ylLwBddDvdYJ/4QZe/2WOxzoIHP9koLMoDVfGHkBF
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(13003099007)(18002099003)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dPReQEUxDdEhLnj/ZxU7eLV8DeIMZr/RL/0ADwKpcVbA+pQlL1v9HLtky2++EG7HBOsrb+aIYRahteW5vpH97g9bHXP5W1zBZm5ojWpROkXTwkdH8yqWsOmElJzVFlRca3M7e5lzjRxwQ+5KUBq7hsZplIheylw4B9fis6JmbkJQ8bKan0YymSR2OiA4zEa2aAwbpdEhhGzPYoFDYcaVE1wK3nUIAI9Jb3rUUBgnNjfZHEGTLO2bOYlnL9QTrINNBNsRI24l4tVF2Nhf8SS2MZWWXoSHeOKP7HS2/s3yfK4dpBU9AjFyRGKMYlh6SpkN1gg+7fYQrJwdkrEAW0AmjXiqvKFrzNx888r320P2yZn5HDxrKF/j5ss6qKBGi6CY4RNWp389CT1PlVPlGxHSVPS00aUVJwTBxt7cX+LcspVI4JlolTyYfZwkEtwSwLMp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2026 16:23:58.2815
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc4aeb99-c67a-4d19-69e2-08dec9682be9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCBF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8375
 
-Add a ti,tps6699x compatible to explicitly identify TPS6699x devices.
-The TPS6699x family is not host-interface compatible with TPS6598x, so
-a distinct compatible is required.
+On 6/3/26 6:24 AM, Roman Vivchar wrote:
+> Hi Nuno,
+> 
+> On Tuesday, June 2nd, 2026 at 7:42 PM, Nuno Sá <noname.nuno@gmail.com> wrote:
+> 
+>> On Tue, 2026-06-02 at 15:46 +0300, Roman Vivchar via B4 Relay wrote:
+> 
+> ...
+> 
+>>>
+>>> +MEDIATEK MT6323 PMIC AUXADC DRIVER
+>>> +M:	Roman Vivchar <rva333@protonmail.com>
+>>> +L:	linux-iio@vger.kernel.org
+>>> +L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
+>>> +S:	Maintained
+>>> +F:	drivers/iio/adc/mt6323-auxadc.c
+>>> +F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
+>>
+>> The above file was not added in this patch
+> 
+> The header file is added in patch 1 (dt-bindings). Following Krzysztof's
+> feedback on the previous version, I squashed the MAINTAINERS into this patch.
+> Please let me know if I misunderstood anything.
 
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
- Documentation/devicetree/bindings/usb/ti,tps6598x.yaml | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Usually, we want the MAINTAINERS entry in the same patch that
+the file was added. It is fine to include MAINTAINERS changes
+in the dt-bindings patch.
 
-diff --git a/Documentation/devicetree/bindings/usb/ti,tps6598x.yaml b/Documentation/devicetree/bindings/usb/ti,tps6598x.yaml
-index 1745e28b3110..76c9cc392a40 100644
---- a/Documentation/devicetree/bindings/usb/ti,tps6598x.yaml
-+++ b/Documentation/devicetree/bindings/usb/ti,tps6598x.yaml
-@@ -4,13 +4,14 @@
- $id: http://devicetree.org/schemas/usb/ti,tps6598x.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Texas Instruments 6598x Type-C Port Switch and Power Delivery controller
-+title: Texas Instruments Type-C port switch and USB Power Delivery controllers
- 
- maintainers:
-   - Bryan O'Donoghue <bryan.odonoghue@linaro.org>
- 
- description: |
--  Texas Instruments 6598x Type-C Port Switch and Power Delivery controller
-+  Texas Instruments devices (6598x/6699x) that combine a USB Type-C port
-+  switch and Power Delivery controller.
- 
-   A variant of this controller known as Apple CD321x or Apple ACE is also
-   present on hardware with Apple SoCs such as the M1.
-@@ -19,6 +20,7 @@ properties:
-   compatible:
-     enum:
-       - ti,tps6598x
-+      - ti,tps6699x
-       - apple,cd321x
-       - ti,tps25750
- 
+>>> +	case IIO_CHAN_INFO_RAW:
+>>> +		scoped_guard(mutex, &auxadc->lock) {
 
-base-commit: c425609d6ac4012c8bbf01ec2e10e801b1923a7b
--- 
-2.49.1
+We can avoid extra indent by making this:
+
+	case IIO_CHAN_INFO_RAW: {
+		guard(mutex)(&auxadc->lock);
+
+		...
+		
+		return IIO_VAL_INT;
+	}
+
+>>> +			ret = mt6323_auxadc_prepare_channel(auxadc);
+>>> +			if (ret)
+>>> +				return ret;
+>>> +
+>>> +			ret = mt6323_auxadc_request(auxadc, chan->channel);
+>>> +			if (ret)
+>>> +				return ret;
+>>> +
+>>> +			/* Hardware limitation: the AUXADC needs a delay to become
+>>> ready. */
+>>> +			fsleep(300);
+>>> +
+>>> +			ret = mt6323_auxadc_read(auxadc, chan, val);
+>>> +			if (ret)
+>>> +				return ret;
+>>
+>> Could be return mt6323_auxadc_read(...)
+> 
+> The mt6323_auxadc_read returns 0, while IIO expects IIO_VAL_INT (defined as 1).
+> Should the mt6323_auxadc_read function return 1 for success?
+
+mt6323_auxadc_read() would need to return IIO_VAL_INT.
 
