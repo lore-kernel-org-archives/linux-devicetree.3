@@ -1,69 +1,73 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D65347C7
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1013347C7
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781444298; cv=none; b=BrIL4X6YZquyjVzm/T7Vb6Jr0k0t7hnDgdBLZw8FNarsSX1uWg8/Es/zG9Lj2NGL2bbH90bNciTm+eDubnWCNnwDE9HPGS8BKvq/Ads0u2GjEz3yIpYshFlkptCo/EIzy5s6nUoQQHixNiBe4LvyiDP2WvD5HulLQo235oa7KYc=
+	t=1781444301; cv=none; b=qUhKyUPC4XGlgPeUmr5IZkJ+oBfxmr0yVnRrvXps8ETUzhaHDsEwHiAamzrs15aF+R/j9f+Z9BiV2kbC4Tz6rKm5odnqqqd3ZkWcaCPwj/kv7aZTWR3UrHgzbh8hAy1KZXP8ECFTUcV4LsmkLxWEsalPYQYBlaSpYte85LFm4Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781444298; c=relaxed/simple;
-	bh=jtMMS2o7dsbp/nFe3E/8P0x8ALtKX+Kq3ccaZEtMfZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PaCuEQ++VKLBh3W0XyPTfZ6V6Ufvx2Mjp0+WkWtg4FdAxbYnQVXXAv1Id3inrPY8xKS8E4gPNu+yuFtwnIhmO1UlEsR7LGebUnBeBejFWIr4giXYV+0888VEtriddEqJOBwins/x1yYalJD6wqbBWHPEwyXV5of2zBQAjr1MmRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMDo6vkp; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1781444301; c=relaxed/simple;
+	bh=vUtmxaOuhmglCIWFIlFxCZZnqFsBK8grd7j+HBnx0mg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ukI6GUxsZ6R/7k/aQYZyrawT8eaBGvof7YBvxs14cZBxoZDVO8Y9m+N/xDUgZBA9bTPp0TvrosfGDfJ7/W6NLJ7XPfZo9nht6L4420Rjwe/w5d64zqQ28Z6/lXOlPcXV1qVfgqRatF+ecaG7Vde6F6tuaamqK+LtLcF3ELGHvsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJZaTFCh; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMDo6vkp"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c40397e746so12986225ad.3
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 06:38:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJZaTFCh"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c0b9328c4aso18227655ad.0
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 06:38:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781444296; x=1782049096; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3v7kyk93xScSWNN+RVNzjcdObdCe6+cJy2cWMGVN3fk=;
-        b=gMDo6vkpN/m0o6/sZVQxvOVoKHq9D8oJfV+atgoCZWd6Jrqo3+/Cg/yr6JWCiPqO74
-         mz2ImdRHD3uHOVmCJ9JGLMKiiCNKDNHIPoRfAvBba2Kx8P7Qyt7VCScRrtCIBzKIbV6M
-         RoS7bz0VQra3WBMMRXHcO+35SuDubRMfhftzRrnNmfOVb2P70vrCksT721pLF9sHuakx
-         mD6aBQX/5cRlGyAK4+99koOmZal8X5pG4kA0DMAVWJJprcPSD/dM4P4LbGbPwM4NcbL+
-         cNvA3yxMZhjEXgPotdaMZxGfduxK12wx1I9WgtgEUU6GxkBqyQ85lbWWHlSUgf9bdLul
-         u7VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781444296; x=1782049096;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781444299; x=1782049099; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3v7kyk93xScSWNN+RVNzjcdObdCe6+cJy2cWMGVN3fk=;
-        b=I5CjAJKpBqIvesBh6TYiP1zNSgF1ocJsR3wjGXpcJ8XCboo3cAgurS8xhQ/LpNjcHi
-         ZrJddaphVQKaTxzmj5Fs71cF/3xBnHLYlCM6K4T+2ntPsYW2ZcdP0L+sM1oKxvDq1gD4
-         wNAE5eBprFb/+dtr7c57anVJQQancmLV/Mgdt83eLy2yddlleVlo5IBzjXk6s1cSoq1b
-         RCJznZoITuo38Y4yNj9Qs/eZCa+VRsVmGwuOgiJRqeXvbVT7T5C69eBfjpHMNI60mj32
-         CkUPU1jQ6rLYJ2H7l+5UlzWOW627mK6kBsVWfQ5Nm5LwU9zEx9KxOyb9rJmaytDPdJc8
-         +hjw==
-X-Gm-Message-State: AOJu0YyM5B5g96N/dDiTTZPuigsNVh+DSEnnNIHG4l8BIbfHgEk4Vszh
-	YpjBMiU3ENuZSb1+L8iJMi40qURC6cSk5basOanj9+IakJNYcOQXxclP
-X-Gm-Gg: Acq92OHWex9vUlvvdOokjB0BNfCq4zlV2kkw2qM0pId/drhTWvjlQKn/Gg/OGeEjzWg
-	3J/nSw8r1m/ps+b8DBY4RE4iHZYwAB2ARJL7QQZ9VUhRErXDvDjWtQF+1dpaNUIVUIFvIth42X8
-	5QZxgU005opYASpX4Nke286Lf9cr2oxVcKbf1PBcr+zySiLzcSIgs9YeU6ABSGQsWheTW4b+upL
-	OEG6NXrcLg8in7Wj4exxgEJBTihvn/2VivJxIUfjZjIqrOU8XG3pKIV7J4h4MfZrd73zqsipgZh
-	LDPAwnV79vUVZ1EFbJLX3n749jiMm50UgmuHIN3F82a5ukwHJ4lFr3EOF24RxJh84GQNdEdYRM7
-	Wy31gUP/CMO43e4LSWxOs/q8EjyScKTQDg0nf6mTC0va66pcPp2Lr1M2JtjyzMyzQm3uUrxvB8f
-	jAng12o/hBnd2tlYILFQ==
-X-Received: by 2002:a17:902:f54d:b0:2c0:a711:539 with SMTP id d9443c01a7336-2c410411179mr123189555ad.5.1781444296341;
-        Sun, 14 Jun 2026 06:38:16 -0700 (PDT)
+        bh=xQ8BUL4nJm8stdQBbatkJhRPpAhKyxMmORcJxHam3+Q=;
+        b=LJZaTFCh7RGpao0OaMB+0uVNvacF8xIGJS69SAivG++aHG2UEW9+UOKU/fW5TkzXkO
+         4P9olPSotNWegJOMWIb01Q+MsOg16YgFjCnWX056jc6Akgxp7QA6OdnPaiCombEcAVfK
+         iwTFCbxWBfxSa09GI90xWH1lNueUl4V/s2xstU0ahDWI3R2usu83aLjFEHMBg4edx6pB
+         LJRmmkxPw/G7XuE4N2rx4INHDPj2V0s6AHlbmnVT0frdTF7kljBewfRsf/TGGWGmG8So
+         uJyPekjwK03+ivrFJYQl+Yj7+4O1WQKgpHYtrPqHALVSEl69PBJRTxtUatxmXH/tTIvP
+         w0Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781444299; x=1782049099;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=xQ8BUL4nJm8stdQBbatkJhRPpAhKyxMmORcJxHam3+Q=;
+        b=seGRCBJrbeMiGqdhUeIYnWt1kAfn9N6XqIg5vxStA+1NCPgTuget4YQHMncjY/FlG1
+         uOdty47owBOdIbGNPLG+Qg9mYY6RXMzfauF8uYAJYuh60DX09GRrv7OjuiDRA1VwmOOf
+         rEqQdF19vdJCBne0pVQoLkJ+lyU8u41EsnB5QCbkEB4/EZQ1wMSnIBWsKr2vNLkDZF27
+         gHctXhlVwYj0ywrR8rMtlR+W3C59f2+dYud5y8L56oXfu0YjscP0bfAkAPs4vJ2IFF3T
+         zHG641S3TOCWwzpra2Ae9q4HRG2Lynla6xhh0GKwxb9qyDQEbrBSpMXdtSb9DubepYgW
+         5/dA==
+X-Gm-Message-State: AOJu0Ywzqay1HyLOSfCVcS/tAQN6SQ6ggGJmGprT6IJ/wtOMMWFm7yqz
+	tSmYCrrESVOvu5Gxy/HiiceXbKGwpbI6D82mFTO5kkGZ+x6Ee8T7ctTf
+X-Gm-Gg: Acq92OEhHOJPKSTSdbXzxSBWd9Agw3aOdSGoy9xeoUR9Inntjp13q79DyBJ9KIE4mel
+	t1PZ0fDWdjVmstgzAM1J4lMBEFSRHHx8oz8gULB4PwIuGNJBu2Um9YIo50Qk/r1PkdF6sdJ6k3N
+	4hxO7ZTiuJv+IJrLEUXopP8fCjzRjQZQa/F0uecsz34+Y4Qsg2g7ohgkYMLy87pxKoxxI+5N8IP
+	niHsCGh4scI2SODGcevA2mKUSDWDKMgeqD3IzEfir2anLwZGmSB3Orqtg4EXml8/RdxpZBjPOwh
+	5fdEOsvbjVJd/eTcgMIpG24+C7y3UF1BlL6NK/96SxdV4yq0ypveVncT93ilm+WF7iecpk7Fc2u
+	id0e4cuoEzlwBDmJUzNWxlHosnfrdD5N9uQWKpcCofZvck3S2ACZNBatmaqbbDAj8DgLb9DqzFO
+	8Gh493VWdcPTNwDPJjgg==
+X-Received: by 2002:a17:902:c942:b0:2c1:ef9:450e with SMTP id d9443c01a7336-2c41216d3f6mr118002335ad.27.1781444299366;
+        Sun, 14 Jun 2026 06:38:19 -0700 (PDT)
 Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e535csm69043585ad.6.2026.06.14.06.38.14
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e535csm69043585ad.6.2026.06.14.06.38.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 06:38:15 -0700 (PDT)
+        Sun, 14 Jun 2026 06:38:18 -0700 (PDT)
 From: Sang-Heon Jeon <ekffu200098@gmail.com>
 To: robh@kernel.org,
 	saravanak@kernel.org
 Cc: devicetree@vger.kernel.org,
 	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: [PATCH v2 0/2] of: reserved_mem: fix OOB write and name skipped nodes
-Date: Sun, 14 Jun 2026 22:38:05 +0900
-Message-ID: <20260614133807.2165124-1-ekffu200098@gmail.com>
+Subject: [PATCH v2 1/2] of: reserved_mem: prevent OOB when too many dynamic regions are defined
+Date: Sun, 14 Jun 2026 22:38:06 +0900
+Message-ID: <20260614133807.2165124-2-ekffu200098@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260614133807.2165124-1-ekffu200098@gmail.com>
+References: <20260614133807.2165124-1-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,30 +76,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch 1 fixes an out-of-bounds write in fdt_scan_reserved_mem(). When
-more than MAX_RESERVED_REGIONS dynamically-placed regions are defined,
-it writes past the end of the local array.
+On boot, fdt_scan_reserved_mem() saves each dynamically-placed
+/reserved-memory subnode into a local array of size
+MAX_RESERVED_REGIONS.
 
-Patch 2 names the skipped node in fdt_init_reserved_mem_node(), the other
-place that drops regions.
+If the device tree defines more than MAX_RESERVED_REGIONS
+dynamically-placed regions, fdt_scan_reserved_mem() writes past the
+end of the local array.
 
-Changes from v1 [1]
-- fix bounds check to cover the missed case in v1, based on sashiko
-  review
-- print skipped no name error message in fdt_scan_reserved_mem() and
-  fdt_init_reserved_mem_node() both.
+Add a bounds check that logs an error and skips the excess regions,
+restoring the original behavior.
 
-[1] https://lore.kernel.org/all/20260603152709.941788-1-ekffu200098@gmail.com/
+Fixes: 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory regions are processed")
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ drivers/of/of_reserved_mem.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-Sang-Heon Jeon (2):
-  of: reserved_mem: prevent OOB when too many dynamic regions are
-    defined
-  of: reserved_mem: print skipped node name when too many regions are
-    defined
-
- drivers/of/of_reserved_mem.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 82222bd45ac6..42e3e2d8a2b8 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -359,6 +359,7 @@ int __init fdt_scan_reserved_mem(void)
+ 		err = __reserved_mem_reserve_reg(child, uname);
+ 		if (!err)
+ 			count++;
++
+ 		/*
+ 		 * Save the nodes for the dynamically-placed regions
+ 		 * into an array which will be used for allocation right
+@@ -366,10 +367,17 @@ int __init fdt_scan_reserved_mem(void)
+ 		 * or marked as no-map. This is done to avoid dynamically
+ 		 * allocating from one of the statically-placed regions.
+ 		 */
+-		if (err == -ENOENT && of_get_flat_dt_prop(child, "size", NULL)) {
+-			dynamic_nodes[dynamic_nodes_cnt] = child;
+-			dynamic_nodes_cnt++;
++		if (err != -ENOENT || !of_get_flat_dt_prop(child, "size", NULL))
++			continue;
++
++		if (dynamic_nodes_cnt == MAX_RESERVED_REGIONS) {
++			pr_err("too many defined dynamic regions, skip '%s'\n",
++			       uname);
++			continue;
+ 		}
++
++		dynamic_nodes[dynamic_nodes_cnt] = child;
++		dynamic_nodes_cnt++;
+ 	}
+ 	for (int i = 0; i < dynamic_nodes_cnt; i++) {
+ 		const char *uname;
 -- 
 2.43.0
 
