@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB41371041
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:12:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E662FDDA9
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:15:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781424767; cv=none; b=JYArElPmNz96T2VgFHWwsWkYuEEhT2RDrMril3Q+ajHr+bxEWyCdmAhMVOK6EGVkbp573UtCLwVxQYe6W5M+VQWtKKncfz4kaZ4NHEOhV70EDlbdIjuIMimj9uenbY8PmOoZkYsFyPcTO/82TzWbAPWyImyUHZX8jdqY6A5Ul5I=
+	t=1781424947; cv=none; b=nuryHfFtr/cZmhVwZyW5QLW5+w63x7Oh/U48BbFGgC3Tyzi/d0SrMx5wL7MLnw7Z0gCLzZqqmnkVoy3sNilN/h91/7u7R5qjTnhxmehu+omRFIeK9xqp4ztM7sUZbJvGQNHxU/0xeJ/7e3t/UAZXXxkApiHe5oVj9JE2zoaXVMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781424767; c=relaxed/simple;
-	bh=C9QFcVT57r5iXdbmULjIHXtkRDFVc7R72WHGDqxK6ng=;
+	s=arc-20240116; t=1781424947; c=relaxed/simple;
+	bh=YJiVc/A8oo7Y+esyalbRAf6ZSza2Px9jgfvyLJRRulY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NEy8/5UIt3riCrj+azUTVNkEFB+JWoGRr2dmTpm29Z4Z7ComtmjSIHzJetZQlSoJ5syFjZ5WzMSihy3S6gHjTy1ffbYgn4X4TcHh8dKzYCSAkaqUMVTMAv9Xyyj9NbgDxYxMcQKFpKZ0eSNFR6D/HpfCkBmgAQQnHrYLLqHE57Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHz6NKtT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=i2AuqTzLfeJi4F+R+EO/XkhU2Yq4d9RHHfLbMa5uW3ayI7I259d3ftfWogqY3fx82Bc5EOFZpeFgn0S8Cm54Akyqrm18+A3n8H7pA/NEkNUNxcGKuM3OBbqOCzmgBiE6psZjrpNgqiQLWYGeifMeao2X/dNC8eQNzK0KHvj2FYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3EPHs7x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHz6NKtT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2AD81F000E9;
-	Sun, 14 Jun 2026 08:12:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3EPHs7x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585941F000E9;
+	Sun, 14 Jun 2026 08:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781424765;
-	bh=Ae00WZ67fyNRpYZV8XiblT0h+xUPBvTzdrGmmC7/09k=;
+	s=k20260515; t=1781424946;
+	bh=QRTPg0bFeG6+BjTcyS16YvgwayJFsYRD/RwJ5wRsRYs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IHz6NKtTvOcV1xOKTVV7kjFGU52ONWORCmkyLOLqinGK4/doZ3JYnX1jLpUXg48lB
-	 ZBFVgR0G9M/sT1Ix1us1PpqYLug5dnQwJaOxQAz+Bgmg6/sglYjXnz/50ThtNmtWEP
-	 VkLCUWz/QPdGaTR9q5XCGHspygK1D7joEo92YH98dk5AI7RRabe+mdXuZzv5WaMSkp
-	 SlIa+TTo0VwOZ9EcOzvvTccRlBEliCidJ8uR9r6Xzb8He3EOJEkCZpshMhukPv/b0e
-	 QJcY3pUND/55MVKRVFW080fWvLXOlogTWvaxhKqf+kSMmUzWWtl5fi83VUK6h/h0lv
-	 2ZEguR+C7wO/Q==
+	b=O3EPHs7xdxChJo4uvUCDlA2grQgM57JMvKP8aidnkAt4vkhonB/h/Ty8K/jB++jm1
+	 /Ibu3ULMpl1PJxSBqC7jNfP2JumuzGtwobO5xjGxJmwuzNpFbG6QLhz4fBTYbPOTLi
+	 fvoq+hTizAlkLK9q7UJJDuQRbbrjxONi5CFfxsyRLO/OnSXFp+LZkicq+p2OAtXGD0
+	 a8ODDApI5wVlXRzZSr5i68KUSWhM0oIA8y71Nrgauf5mbsAAyA5Y4+sIAhMKC0Rmq8
+	 w3wStnwFu/6NDDWUt4Oj9rjYHUoico/nnuoO3nEnh5rT40OrbVi1Z1hI2E+DgJfGYJ
+	 l/iT9ljWP8fxQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] arm64: dts: qcom: Add header file for ADC5 Gen3
- channel macros
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: monaco-pmics: Add ADC support
+ for PMM8620AU
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260614-adc5_gen3_dt-v2-1-32ec576c5865@oss.qualcomm.com>
-References: <20260614-adc5_gen3_dt-v2-1-32ec576c5865@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260614-adc5_gen3_dt-v2-3-32ec576c5865@oss.qualcomm.com>
+References: <20260614-adc5_gen3_dt-v2-3-32ec576c5865@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 08:12:44 +0000
-Message-Id: <20260614081244.C2AD81F000E9@smtp.kernel.org>
+Date: Sun, 14 Jun 2026 08:15:45 +0000
+Message-Id: <20260614081546.585941F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,49 +46,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Devicetree binding headers for shared hardware components must be p=
-laced in `include/dt-bindings/`, not architecture-specific directories.
+
+Pre-existing issues:
+- [High] The ADC interrupt handler `adc5_gen3_isr()` may dereference a NULL=
+ pointer `adc->handler` if an interrupt fires before the thermal auxiliary =
+driver has registered its event notifier.
 --
 
-commit 7bed566fe71218ad2ab3cd2babe147ee1d601536
-Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+commit 2afa9a558734cf9fc6ad1120da9026df8390137c
+Author: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
 
-arm64: dts: qcom: Add header file for ADC5 Gen3 channel macros
+arm64: dts: qcom: monaco-pmics: Add ADC support for PMM8620AU
+   =20
+This commit adds ADC nodes for PMM8620AU PMIC instances on the Monaco
+platform. It exposes the DIE_TEMP and VPH_PWR channels.
 
-This commit adds macro definitions for ADC5 Gen3 virtual channels to be
-used in devicetrees and ADC channel reg properties.
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h b/arch/arm64/boot/=
-dts/qcom/qcom-adc5-gen3.h
-> new file mode 100644
-> index 0000000000000..aa8e54d7e786a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
-> @@ -0,0 +1,88 @@
-> +/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef __DTS_ARM64_QCOM_ADC5_GEN3_H__
-> +#define __DTS_ARM64_QCOM_ADC5_GEN3_H__
-> +
-> +/* ADC channels for PMIC5 Gen3 */
-> +
-> +#define VIRT_CHAN(sid, chan)			((sid) << 8 | (chan))
-
-[Severity: Low]
-Should this header be placed in include/dt-bindings/ instead of an
-architecture-specific directory?
-
-Devicetree binding headers defining ABI constants for reg values typically
-reside in include/dt-bindings/ like include/dt-bindings/iio/adc/. Placing
-the header in arch/arm64/boot/dts/qcom/ prevents cross-architecture sharing
-and can break dt_binding_check validation, as the schema tooling expects to
-include these headers from the standard dt-bindings location.
-
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi b/arch/arm64/boot=
+/dts/qcom/monaco-pmics.dtsi
+> index e990d7367719b..232bcb942b54c 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
 [ ... ]
+> @@ -20,6 +21,27 @@ pmm8620au_0_rtc: rtc@6100 {
+>  			interrupts =3D <0x0 0x62 0x1 IRQ_TYPE_EDGE_RISING>;
+>  		};
+> =20
+> +		pmm8620au_0_adc: adc@8000 {
+> +			compatible =3D "qcom,spmi-adc5-gen3";
+> +			reg =3D <0x8000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			interrupts =3D <0x0 0x80 0x1 IRQ_TYPE_EDGE_RISING>;
+
+[Severity: High]
+This is a pre-existing issue, but by enabling the qcom,spmi-adc5-gen3
+interrupts here, does this expose a NULL pointer dereference in the
+ADC driver's interrupt handler?
+
+In drivers/iio/adc/qcom-spmi-adc5-gen3.c:adc5_gen3_isr(), the handler
+checks the device driver state rather than the function pointer:
+
+		adev =3D adc->tm_aux;
+		if (!adev || !adev->dev.driver) {
+			dev_err(dev, "adc_tm auxiliary device not initialized\n");
+			return IRQ_HANDLED;
+		}
+
+		adc->handler(adev);
+
+If an interrupt fires after the driver core sets adev->dev.driver but
+before the thermal driver calls adc5_gen3_register_tm_event_notifier()
+to set adc->handler, will this result in a kernel panic by dereferencing
+a NULL adc->handler?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614-adc5_gen3_=
-dt-v2-0-32ec576c5865@oss.qualcomm.com?part=3D1
+dt-v2-0-32ec576c5865@oss.qualcomm.com?part=3D3
