@@ -1,203 +1,235 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643FF3CE0B7;
-	Sun, 14 Jun 2026 17:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFE32F7F08;
+	Sun, 14 Jun 2026 17:09:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781456466; cv=none; b=VSBER45mgFEvokOp3OGXTkAAeF5/IVMU6fjPWonA9a9ZwPg5/xYonLD6znw+Ber9aTFz8CItefvZ/FAfO66LySf0/oOXVeciHAMlsTtWg838DhGrS02CXU520/4srj9S095FvJf6Z0aq6+oq6Dr9q6lB9NxHFEZQs5Gn6EY5nEE=
+	t=1781456978; cv=none; b=sgCG2j0O+9k4vgFQtSPK/LPiANtV58DNq58Oz23NUJFHmdxdap0gL/FG19pPvd1Pqc76u4vbkiWw53p057o/4tdTdSIUAqwhKu5KAwyjZz1HMN+TaXEWQXDwOfzeRkXnRzgvhIU3AqV3UhmTdR8Yc8R6NP6FwOldd/ynYDASXFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781456466; c=relaxed/simple;
-	bh=haRD3iWh8lEkBDoMO8u4q8c5sktBz24gX9ZpQmQ3ZuY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F3G2M0feCO59gHOjwjJxOtJGHYgSQu/+KazaylRcjFmcx5EmC0GahcJ2SeMlaiGUCd6Bi/R+FSE/Tmly7mgDzozrEZMce969llFJh12Xvf39ppz4EFMkF1oA+UhzYaewxodaEFGlpk5Em9GPA+Fz2DlYyFasmqIWz6IEQGMPCQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GeimB15z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1781456978; c=relaxed/simple;
+	bh=21tCmADvjSoTcSLp6aQtmZKv2uhMjrHa0QM0peR/fJo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UBUsPPZFdJD4NWRib0aUalIeAIyz30YLvtO2zrbzPfnjcGALMITFpyK1HQ75XUxEZoalJm7tN1JSaGEEeDP0C6wE1A5f7buZ3W2tYexp/ZVHKn2sTMsYgeEe5gMfnMFBG2/wGjSzvQBBxg6CPL3X0hlkb3f9VNQctkNwwKLHUgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HkO+tGhj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GeimB15z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 44CF3C4AF63;
-	Sun, 14 Jun 2026 17:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1781456466;
-	bh=haRD3iWh8lEkBDoMO8u4q8c5sktBz24gX9ZpQmQ3ZuY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GeimB15zmKVZiWW+EPn3j2kmbyC51Z42GCa9RoCvQcsVGguZNME/+9iALPwLJIAlF
-	 NWtS/hIBg+n1EePKDM1NNtasov/DpOGF4EJfKwM2rga6C4dUUYVuL0kgg1k8EIiM+P
-	 iPTEPSTKuJZbsD+W0wENLmSKQ/TM5exwZ0sBUalTcUGkq2ODUFtVfVI81B1woBgVzC
-	 b224CKieKOspgxCeD0XYOyOaDN4Dg8Lr+832S4RuA+h3mEzn4EzOch7kVBhYQJlcD+
-	 ILvKwK37KhnY8eh0ATMwa3JUa/IdEGmWQHPY9LL941WhoLVBRCA3jucybNb+l1D6Li
-	 folVm92sQf61w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3913BCD98C5;
-	Sun, 14 Jun 2026 17:01:06 +0000 (UTC)
-From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Sun, 14 Jun 2026 10:00:31 -0700
-Subject: [PATCH net-next v5 15/15] Documentation: networking: Add timestamp
- related APIs to OA TC6 framework
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HkO+tGhj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855011F000E9;
+	Sun, 14 Jun 2026 17:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781456976;
+	bh=Uw749H3GGlWTY4KQLHnfokDzek6zUL6dAxCZrm+lzXo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HkO+tGhjXt7ti49O99MSpHcH62zaEjFstpbLJ7Qi8zBsVpmK/OfQPF/MFvJlp/el/
+	 Gti5UKUotwb3E9J8OFGdxkEv1hGIanWXMaYxbjf4e1uOGUOQ8hH3/65lWHgB4YnxpD
+	 DghPGuC2XDuS6m9HdoqmQ2jPSHJqX7UIfKLo1xJqtIAtmNApannuN+/Hh8aBHDAE68
+	 IeYJeMSioEYkOz3zAjBB9jMJQYNAg/PP430grlwf58VcqiZ/tCAmmpsWZqi2Y2srvm
+	 Q+t2Tc0vYeowiReRysOtYZcp/00uKodm8km6ASC7s782WfM2QWLqru1d/lXmi6n7Z3
+	 4mM9SI5lDFjWA==
+Date: Sun, 14 Jun 2026 18:09:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, "Jonathan Corbet" <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, Janani Sunil <jan.sun97@gmail.com>
+Subject: Re: [PATCH v4 2/2] iio: dac: Add AD5529R DAC driver support
+Message-ID: <20260614180925.4d20f529@jic23-huawei>
+In-Reply-To: <20260609-ad5529r-driver-v4-2-2e4c02234a1a@analog.com>
+References: <20260609-ad5529r-driver-v4-0-2e4c02234a1a@analog.com>
+	<20260609-ad5529r-driver-v4-2-2e4c02234a1a@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260614-s2500-mac-phy-support-v5-15-89874b72f725@onsemi.com>
-References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
-In-Reply-To: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
-To: Andrew Lunn <andrew@lunn.ch>, 
- Piergiorgio Beruto <pier.beruto@onsemi.com>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
- Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
- Jerry Ray <jerry.ray@microchip.com>, 
- Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781456463; l=5374;
- i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=hgvCtdXBO6qNFB6GKYRybc5EVqfwJkm2Gr5Ztb9GTVE=;
- b=CNA0jMAaNWq1ffyVwbBtT4TTNlA7lbUBsbcpsdLQzeSFetL1zey1VVsb86NecKFUIYVrsTjC+
- xcYP7hLs3b9Dbj5qaCgRXTOw9XGL6cPvGOkoijuQhRPG0pGxWa30qTd
-X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
- pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
-X-Endpoint-Received: by B4 Relay for
- Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
-X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Reply-To: Selvamani.Rajagopal@onsemi.com
 
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+On Tue, 9 Jun 2026 17:00:21 +0200
+Janani Sunil <janani.sunil@analog.com> wrote:
 
-Added new APIs to support hardware timestamp feature as defined in
-OPEN Alliance 10BASE-T1x MAC-PHY serial interface specification.
+> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+> 
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 
-Expanded read/write APIs to take new mms parameter to avoid
-bit manipulation before calling regular read/write APIs
+A couple of minor things inline.
 
-Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+The sashiko thing about not relying on how gpio resets work and so 
+adding an explicit assert before deassert is best practice so make sure
+to tidy that up as well.
 
----
-changes in v5
-  - Fixed "no blank line" issues in four places
-changes in v4
-  - Added information for new APIs in OA TC6 framework
-changes in v3
-  - Added more information for documentation
-changes in v2
-  - Removed the changes to the existing API
-  - Updated information about newly added APIs
-changes in v1
-  - Added changes to an existing API
-  - Added documentation to new hardware timestamp related APIs
----
- Documentation/networking/oa-tc6-framework.rst | 80 +++++++++++++++++++++++++++
- 1 file changed, 80 insertions(+)
+> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
+> index 003431798498..f35e060b3643 100644
+> --- a/drivers/iio/dac/Makefile
+> +++ b/drivers/iio/dac/Makefile
+> @@ -18,6 +18,7 @@ obj-$(CONFIG_AD5446) += ad5446.o
+>  obj-$(CONFIG_AD5446_SPI) += ad5446-spi.o
+>  obj-$(CONFIG_AD5446_I2C) += ad5446-i2c.o
+>  obj-$(CONFIG_AD5449) += ad5449.o
+> +obj-$(CONFIG_AD5529R) += ad5529r.o
+>  obj-$(CONFIG_AD5592R_BASE) += ad5592r-base.o
+>  obj-$(CONFIG_AD5592R) += ad5592r.o
+>  obj-$(CONFIG_AD5593R) += ad5593r.o
+> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
+> new file mode 100644
+> index 000000000000..d2d0287d0f95
+> --- /dev/null
+> +++ b/drivers/iio/dac/ad5529r.c
+> @@ -0,0 +1,517 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * AD5529R Digital-to-Analog Converter Driver
+> + * 16-Channel, 12/16-Bit, 40V High Voltage Precision DAC
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + * Author: Janani Sunil <janani.sunil@analog.com>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/reset.h>
+> +#include <linux/spi/spi.h>
+> +
+> +#define AD5529R_REG_INTERFACE_CONFIG_A		0x00
+> +#define AD5529R_REG_DEVICE_CONFIG		0x02
+> +#define AD5529R_REG_CHIP_GRADE			0x06
+> +#define AD5529R_REG_SCRATCH_PAD			0x0A
+> +#define AD5529R_REG_SPI_REVISION		0x0B
+> +#define AD5529R_REG_VENDOR_H			0x0D
+> +#define AD5529R_REG_STREAM_MODE			0x0E
+> +#define AD5529R_REG_INTERFACE_STATUS_A		0x11
+> +#define AD5529R_REG_MULTI_DAC_CH_SEL		0x14
+> +#define AD5529R_REG_OUT_RANGE_BASE		0x3C
+> +#define AD5529R_REG_OUT_RANGE(ch)		(AD5529R_REG_OUT_RANGE_BASE + (ch) * 2)
+> +#define AD5529R_REG_DAC_INPUT_A_BASE		0x148
+> +#define AD5529R_REG_DAC_INPUT_A(ch)		(AD5529R_REG_DAC_INPUT_A_BASE + (ch) * 2)
+> +#define AD5529R_REG_DAC_DATA_READBACK_BASE	0x16A
+> +#define AD5529R_REG_TSENS_ALERT_FLAG		0x18C
+> +#define AD5529R_REG_TSENS_SHTD_FLAG		0x18E
+> +#define AD5529R_REG_FUNC_BUSY			0x1A0
+> +#define AD5529R_REG_REF_SEL			0x1A2
+> +#define AD5529R_REG_INIT_CRC_ERR_STAT		0x1A4
+> +#define AD5529R_REG_MULTI_DAC_HOTPATH_SW_LDAC	0x1A8
+> +
+> +#define   AD5529R_INTERFACE_CONFIG_A_SW_RESET	(BIT(7) | BIT(0))
+> +#define   AD5529R_INTERFACE_CONFIG_A_ADDR_ASCENSION	BIT(5)
+> +#define   AD5529R_INTERFACE_CONFIG_A_SDO_ENABLE	BIT(4)
+> +#define   AD5529R_REF_SEL_INTERNAL_REF		BIT(0)
 
-diff --git a/Documentation/networking/oa-tc6-framework.rst b/Documentation/networking/oa-tc6-framework.rst
-index fe2aabde923a..325d299d1a7d 100644
---- a/Documentation/networking/oa-tc6-framework.rst
-+++ b/Documentation/networking/oa-tc6-framework.rst
-@@ -153,6 +153,10 @@ OPEN Alliance TC6 Framework
- - Forwards the received Ethernet frame from 10Base-T1x MAC-PHY to n/w
-   subsystem.
- 
-+- If supported by the hardware and enabled, updates hardware timestamp
-+  in skb, when indicated by one of the three timestamp capture registers
-+  through TSC fields of the header.
-+
- Data Transaction
- ~~~~~~~~~~~~~~~~
- 
-@@ -495,3 +499,79 @@ the MAC-PHY.
- Zero align receive frame feature can be enabled to align all receive ethernet
- frames data to start at the beginning of any receive data chunk payload with a
- start word offset (SWO) of zero.
-+
-+.. c:function:: int oa_tc6_ptp_register(struct oa_tc6 *tc6, \
-+                                        struct ptp_clock_info *info);
-+
-+Registers the PTP hardware clock related functions with the kernel.
-+This API simply registers. Initialization of the fields in the
-+ptp_clock_info structure are left to the vendor as programming hardware
-+timer is expected to be vendor dependent. The fields max_adj, owner,
-+and all the functions for the clock operations, like adjfine, gettimex64,
-+settime64, adjtime are expected to be initialized in the structure before
-+calling the registering the hardware clock.
-+
-+.. c:function:: void oa_tc6_ptp_unregister(struct oa_tc6 *tc6);
-+
-+Unregisters the PTP hardware clock related callbacks.
-+
-+.. c:function:: int oa_tc6_ioctl(struct oa_tc6 *tc6, struct ifreq *rq, \
-+                                 int cmd);
-+
-+ioctl interface to handle hardware timestamp and PHY related commands.
-+
-+.. c:function:: int oa_tc6_get_ts_info(struct oa_tc6 *tc6, \
-+                                       struct kernel_ethtool_ts_info *info);
-+
-+Provides timestamp related settings that are supported to ethtool.
-+
-+.. c:function:: void oa_tc6_hwtstamp_get(struct oa_tc6 *tc6, \
-+                                         struct kernel_hwtstamp_config *cfg);
-+
-+Returns hardware timestamp configuration. Part of net_device_ops callbacks.
-+
-+.. c:function:: void oa_tc6_get_ts_stats(struct oa_tc6 *tc6, \
-+                                         struct ethtool_ts_stats *ts_stats);
-+
-+Provides hardware timestamp related traffic statistics for ethtool.
-+
-+.. c:function:: int oa_tc6_hwtstamp_set(struct oa_tc6 *tc6, \
-+                                         struct kernel_hwtstamp_config *cfg);
-+
-+Helper to set hardware timestamp configuration. Part of net_device_ops
-+callbacks.
-+
-+.. c:function:: void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms);
-+
-+Helper to map MDIO_MMD_VEND1 command to vendor specific Memory Map Select
-+(MMS) value. This function offers flexibility for vendors that may have
-+used any MMS value between 10 and 15 as allowed by the specification.
-+MDIO_MMD_VEND2 is already mapped to MMS4 in the OA TC6 frame work code.
-+
-+.. c:function:: int oa_tc6_write_registers_mms(struct oa_tc6 *tc6, \
-+                                               u16 address, u16 mms, \
-+                                               u32 value[], u8 length);
-+
-+Writing multiple consecutive registers starting from @address for the
-+given @mms memory map selector in the MAC-PHY. Maximum of 128 consecutive
-+registers can be written starting at @address.
-+
-+.. c:function:: int oa_tc6_write_register_mms(struct oa_tc6 *tc6, \
-+                                              u16 address, u16 mms, \
-+                                              u32 value);
-+
-+Write a single register addressed by @address and @mms in the MAC-PHY.
-+
-+.. c:function:: int oa_tc6_read_registers_mms(struct oa_tc6 *tc6, \
-+                                              u16 address, u16 mms, \
-+                                              u32 value[], u8 length);
-+
-+Reading multiple consecutive registers starting from @address for the
-+given @mms memory map selector value, in the MAC-PHY. Maximum of 128
-+consecutive registers can be read starting at @address.
-+
-+.. c:function:: int oa_tc6_read_register_mms(struct oa_tc6 *tc6, \
-+                                             u16 address, u16 mms, \
-+                                             u32 *value);
-+
-+Read a single register addressed by @address and @mms in the MAC-PHY.
+This extra indent thing only makes sense if they are next to the register
+address definitions - the intent is to make the visually different.
 
--- 
-2.43.0
+e.g.
+
+#define AD5529R_REG_INTERFACE_CONFIG_A		0x00
+#define   AD5529R_INTERFACE_CONFIG_A_SW_RESET	(BIT(7) | BIT(0))
+#define   AD5529R_INTERFACE_CONFIG_A_ADDR_ASCENSION	BIT(5)
+#define   AD5529R_INTERFACE_CONFIG_A_SDO_ENABLE	BIT(4)
+#define AD5529R_REG_DEVICE_CONFIG		0x02
+#define AD5529R_REG_CHIP_GRADE			0x06
+#define AD5529R_REG_SCRATCH_PAD			0x0A
+#define AD5529R_REG_SPI_REVISION		0x0B
+#define AD5529R_REG_VENDOR_H			0x0D
+#define AD5529R_REG_STREAM_MODE			0x0E
+#define AD5529R_REG_INTERFACE_STATUS_A		0x11
+#define AD5529R_REG_MULTI_DAC_CH_SEL		0x14
+#define AD5529R_REG_OUT_RANGE_BASE		0x3C
+#define AD5529R_REG_OUT_RANGE(ch)		(AD5529R_REG_OUT_RANGE_BASE + (ch) * 2)
+#define AD5529R_REG_DAC_INPUT_A_BASE		0x148
+#define AD5529R_REG_DAC_INPUT_A(ch)		(AD5529R_REG_DAC_INPUT_A_BASE + (ch) * 2)
+#define AD5529R_REG_DAC_DATA_READBACK_BASE	0x16A
+#define AD5529R_REG_TSENS_ALERT_FLAG		0x18C
+#define AD5529R_REG_TSENS_SHTD_FLAG		0x18E
+#define AD5529R_REG_FUNC_BUSY			0x1A0
+#define AD5529R_REG_REF_SEL			0x1A2
+#define   AD5529R_REF_SEL_INTERNAL_REF		BIT(0)
+
+
+> +#define   AD5529R_MAX_REGISTER			0x232
+> +#define   AD5529R_8BIT_REG_MAX			0x13
+> +#define   AD5529R_SPI_READ_FLAG			0x80
+There is no reason to do the extra indent for these 3.
+
+
+> +static int ad5529r_parse_channel_ranges(struct device *dev,
+> +					struct ad5529r_state *st)
+> +{
+> +	int ret, range_idx;
+> +	u32 ch;
+> +	s32 vals[2];
+> +
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		range_idx = AD5529R_RANGE_0V_5V;
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &ch);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Missing reg property in channel node\n");
+> +
+> +		if (ch >= 16)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Invalid channel number: %u\n", ch);
+> +
+> +		/* Read u32 property into s32 to handle negative voltage ranges */
+
+> +		if (!fwnode_property_read_u32_array(child,
+> +						    "adi,output-range-microvolt",
+> +						    (u32 *)vals, ARRAY_SIZE(vals))) {
+> +			range_idx = ad5529r_find_output_range(vals);
+> +			if (range_idx < 0)
+> +				return dev_err_probe(dev, range_idx,
+> +						     "Invalid range [%d %d] for ch %u\n",
+> +						     vals[0], vals[1], ch);
+> +		}
+
+The indent is a little larger than ideal, but slight preference for doing explicit
+checking for optional properties so as to separate buggy ones from deliberately not
+there.
+
+		if (fwnode_property_present("adi,output-range-microvolt")) {
+			/* Read u32 property into s32 to handle negative voltage ranges */
+			ret = fwnode_property_read_u32_array(child,
+							    "adi,output-range-microvolt",
+							    (u32 *)vals, ARRAY_SIZE(vals));
+			if (ret < 0) // strictly if (ret) but the return value for this one is complex.
+				return dev_err_probe();
+			range_idx = ad5529r_find_output_range(vals);
+			if (range_idx < 0)
+				return dev_err_probe(dev, range_idx,
+						     "Invalid range [%d %d] for ch %u\n",
+						     vals[0], vals[1], ch);
+		} else {
+			range_idx = AD5529R_RANGE_0V_5V;
+		}
+> +
+> +		st->output_range_idx[ch] = range_idx;
+> +		ret = regmap_write(st->regmap_16bit,
+> +				   AD5529R_REG_OUT_RANGE(ch), range_idx);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to configure range for ch %u\n",
+> +					     ch);
+> +	}
+> +
+> +	return 0;
+> +}
 
 
