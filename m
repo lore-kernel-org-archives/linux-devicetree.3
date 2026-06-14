@@ -1,124 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A80288C0E
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0412026CE2D;
+	Sun, 14 Jun 2026 09:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781426900; cv=none; b=XI2eWtukPJw0Nz/MoiGoQWqqy/pP671ndyxoUagem3haWVd05Nf45cpN+I/jtZ8zDHykCa3VX0tEeMmdD5euLil08g2QCFp+6MUB2TsPYL55U5I1NntcCdnDrVb7+usQbQGIMUIY4FjGCOu6JnUJwbt7+/kUf3QUNLCdaHYUYnQ=
+	t=1781427934; cv=none; b=Fr3aKqesVhG52aiYO/yPnrV2lUuiEO3q6q/5Zo9eEq+bVSDGxsgHIwMbuuK34bW2HO/JG5fBLJSIzUyBV4TE3N9d4gLHpJZGFJAsFvL/9TXuyoIvCaGaSmyixabhwpX3xMfsI5h4Y2Dp6aCdQJfKjx4odjahua1ge8lePlgh5FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781426900; c=relaxed/simple;
-	bh=MMY8dgGmn4OwQQAVhGFVLHZHhT1MvfS8AyDz06sq0tI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ElMLioQM4bRQhj8cnVpz/Mh0vlcZylMEYKHVbENZQ0r9S2erxuVsSWvTzM9LxaGtk6Mfn60qLiK5cORIu3Rwu9sc77+s8ZpTSTH8+Ys4TJkt75ykLzAJDojroLJF3d0/Ogr2YlZPfRKd2sZ1JQklIuPwfWLr3TXWgm6EUzL5+q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0YFa103; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781427934; c=relaxed/simple;
+	bh=UvZypzYjdF8HPZjxrmnf1ce5MwC1JzPuB4b+WHL/xzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jtbadbgUCcF9wuhfEnfieRBgNZETE9dDzCCaThamMSiGqEwiuXosjWMYALDVvCWG1w5XuSCdUUB2ep52dwHlLvTsUBIds59HEcwBFuchEtF3EMdm/qTQlrvtuedWZ68haDts2xaE3U/d+iBfupBuPASYsLIhjGk2nYs1AkiCHFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=O90dDmPE; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0YFa103"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21311F000E9;
-	Sun, 14 Jun 2026 08:48:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781426899;
-	bh=sDGbkSMSNDPv/TMiz2heq5B79AN0OnCOCPdDOEj1aaY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m0YFa1039rtQtXxARfXeroS2gelvUAd1O0DdILRp770nqZbb06guXHI07DuhWYK8P
-	 9P7jld9CKLrAGtIGoKbuvDw2mUBPDeaNZ/E+5WkqXtUNt0i4rQM5AxO7O7rAMctRXA
-	 KCFm3lWd3vsKfm+svGevd9O+n7iaaa9JNbjORAU/umYcpsyE4KF5SIYR/Bt4NoniDX
-	 lbJnvmIOz/lHGIxrH+jozFI4yM4Qxn4+UDjqESkovtvpoo5VZE34qQTlckrcwSLh0L
-	 VB09RXw62316ud8jLKwmx3ltpamvCGMCgGk+TFvJvSoccPuNnEyWaIOK5ZBAMRTFfk
-	 H4nivB/qX7ugg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pengyu Luo" <mitltlatltl@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260614083424.464132-2-mitltlatltl@gmail.com>
-References: <20260614083424.464132-2-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 08:48:18 +0000
-Message-Id: <20260614084818.B21311F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="O90dDmPE"
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id 4B9D81F901;
+	Sun, 14 Jun 2026 11:05:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1781427922;
+	bh=/v5VF80W0q06Q/X7DAzHHFRKLij4fTOsjbSF2jdZOmY=; h=From:To:Subject;
+	b=O90dDmPEi2f7Ysil7pJvKzoSYuwM9WtJ0QXHbgsiJvJl2kBmi5JgqiES9m812Z4ft
+	 OC9ROQcUFCApMfQa9AJ/nQRa6WA+95QkmTEfvS+GIbePB9nzOjoiML/pvhpM64Z5Iu
+	 8QVmED0xyQyP+9XO2lAtVVVMsCxq98E7wAjvJJVPpli8TbWE7cJwkJ5daJbuGih52h
+	 xpNyeZ0l8j1/qpomjOTmSgBwnHBpXpijdqfK79U3CSzYuP2xFUH1STFeD7IUCjzRGv
+	 7uAOJ+eIvn85VzawUSdXUo0bsgCeES7gY4jsdUPL1tZz3hubyVotiJ/xCHNLGIp6im
+	 y2rS7shGw7U8Q==
+Date: Sun, 14 Jun 2026 11:05:17 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, michael.riesch@collabora.com,
+	anthony.mcgivern@arm.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, ai.luthra@ideasonboard.com,
+	paul.elder@ideasonboard.com, geert@linux-m68k.org,
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org
+Subject: Re: [PATCH v3 8/8] arm64: dts: freescale: imx95: Add NXP neoisp
+ device tree node
+Message-ID: <20260614090517.GA7434@francesco-nb>
+References: <20260612132039.2089051-1-antoine.bouyer@nxp.com>
+ <20260612132039.2089051-9-antoine.bouyer@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612132039.2089051-9-antoine.bouyer@nxp.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Forcing GSI mode via `qcom,force-gsi-mode` fails to update the har=
-dware configuration registers (`SE_FIFO_IF_DISABLE` and `SE_DMA_IF_EN`), le=
-aving the hardware and software in inconsistent states.
-- [Medium] The new `qcom,force-gsi-mode` property is functionally redundant=
- and bypasses the existing `qcom,enable-gsi-dma` property, muddying the dev=
-ice tree bindings.
---
+Hello Antoine,
+thanks for your patch.
 
-commit 7902ba1d5ce1661e61400f2f7a40e6f1185b3264
-Author: Pengyu Luo <mitltlatltl@gmail.com>
+On Fri, Jun 12, 2026 at 03:20:39PM +0200, Antoine Bouyer wrote:
+> Add neoisp device tree node to imx95.dtsi and enable it by default in
+> 19x19 evk board.
+> 
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
 
-spi: qcom-geni: Add property to force GSI mode
+...
 
-This commit introduces a "qcom,force-gsi-mode" property to force the
-controller into GSI mode during initialization for devices that do not
-disable FIFO mode by default.
+> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
+> index d6c549c16047..5543a6cb1250 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+> @@ -1867,6 +1867,17 @@ pmu@49252000 {
+>  			};
+>  		};
+>  
+> +		neoisp0: isp@4ae00000 {
+> +			compatible = "nxp,imx95-neoisp";
+> +			reg = <0x0 0x4ae00000 0x0 0x8000>,
+> +			      <0x0 0x4afe0000 0x0 0x10000>;
+> +			interrupts = <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&scmi_clk IMX95_CLK_CAMCM0>;
+> +			clock-names = "camcm0";
+> +			power-domains = <&scmi_devpd IMX95_PD_CAMERA>;
+> +			status = "disabled";
+> +		};
 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 26e723cfea61e..eece7312f7805 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
-[ ... ]
-> @@ -655,6 +656,9 @@ static int spi_geni_init(struct spi_geni_master *mas)
->  		mas->oversampling =3D 1;
-> =20
->  	fifo_disable =3D readl(se->base + GENI_IF_DISABLE_RO) & FIFO_IF_DISABLE;
-> +	if (mas->force_gsi_mode)
-> +		fifo_disable =3D 1;
-> +
+Why the node is disabled?  If the node is wholly described in
+imx95.dtsi, it should be enabled.
 
-[Severity: High]
-Does overriding this local variable actually configure the hardware for GSI=
- DMA
-mode?
+Francesco
 
-Looking at the hardware initialization, geni_load_se_fw() is the only place
-where SE_FIFO_IF_DISABLE and SE_DMA_IF_EN are written. By just overriding
-fifo_disable here, the driver will attempt to use GENI_GPI_DMA mode while
-the hardware's core FIFO interface might still be enabled and the DMA
-interface disabled.
-
-Could this lead to DMA failures, timeouts, or lockups since the software and
-hardware states are inconsistent?
-
->  	switch (fifo_disable) {
->  	case 1:
->  		ret =3D spi_geni_grab_gpi_chan(mas);
-[ ... ]
-> @@ -1133,6 +1137,9 @@ static int spi_geni_probe(struct platform_device *p=
-dev)
->  	if (ret)
->  		return ret;
-> =20
-> +	if (device_property_read_bool(&pdev->dev, "qcom,force-gsi-mode"))
-> +		mas->force_gsi_mode =3D true;
-> +
-
-[Severity: Medium]
-Is this new property functionally redundant?
-
-The subsystem already supports the qcom,enable-gsi-dma device tree property
-to configure GSI DMA mode, which is parsed in geni_load_se_firmware().
-
-Would introducing qcom,force-gsi-mode create overlapping bindings for the
-same hardware configuration and pollute the device tree ABI?
-
-It seems this new property might be introduced to work around an internal
-software parsing order issue where geni_load_se_firmware() is skipped if the
-firmware is already loaded.
-
->  	ret =3D spi_geni_init(mas);
->  	if (ret)
->  		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614083424.4641=
-32-1-mitltlatltl@gmail.com?part=3D2
