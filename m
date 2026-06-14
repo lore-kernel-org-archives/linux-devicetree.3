@@ -1,173 +1,101 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62EF3C37B4
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D65347C7
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781444169; cv=none; b=U9JQ4zLfdSsf4eluAM5SqP3tFWIo7hW363mW7dwMtref6uOFpbx/sU/GZvFAC8I5bpDZhBjhlV4TwWSUDdpqKD2A3mhazxY0iPsKYhNebaXIy1QyRueU4NxtSeYnBPARSlpIyeb3BBr5msqJ2X4WMESJwX5hCxg9ZUQUTydaMfk=
+	t=1781444298; cv=none; b=BrIL4X6YZquyjVzm/T7Vb6Jr0k0t7hnDgdBLZw8FNarsSX1uWg8/Es/zG9Lj2NGL2bbH90bNciTm+eDubnWCNnwDE9HPGS8BKvq/Ads0u2GjEz3yIpYshFlkptCo/EIzy5s6nUoQQHixNiBe4LvyiDP2WvD5HulLQo235oa7KYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781444169; c=relaxed/simple;
-	bh=0G8s6U5ZRStGQ6EJ0KRueHdqdQXBK9+8RF1gLCcr2Ew=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dDvHRKPA3ZJfG6BddTRV1AAfVSMNJlTxNO7TjcYyoQ51jFS3UpmMuLWbAemnA++m8/fL3qKHPbRIVwXSWxJufqPK5WkFX/NkkIb2AxUJS7fmuRIgq0109Mcg50ORHypSqJojkjEHdbJJ6lWgtFLvtEvVyujHYe4zVUtDX3ydujw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RpDmrifd; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1781444298; c=relaxed/simple;
+	bh=jtMMS2o7dsbp/nFe3E/8P0x8ALtKX+Kq3ccaZEtMfZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PaCuEQ++VKLBh3W0XyPTfZ6V6Ufvx2Mjp0+WkWtg4FdAxbYnQVXXAv1Id3inrPY8xKS8E4gPNu+yuFtwnIhmO1UlEsR7LGebUnBeBejFWIr4giXYV+0888VEtriddEqJOBwins/x1yYalJD6wqbBWHPEwyXV5of2zBQAjr1MmRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMDo6vkp; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RpDmrifd"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso18335225e9.1
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 06:36:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMDo6vkp"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c40397e746so12986225ad.3
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 06:38:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781444166; x=1782048966; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0G8s6U5ZRStGQ6EJ0KRueHdqdQXBK9+8RF1gLCcr2Ew=;
-        b=RpDmrifdVYRm7w5uVqe6oo3KthisxnGYVHjbrQ/g22lavHg/KGCkoJwNc7ijI0J3eT
-         oTM209FyB8AYtpWmwrOPwjmegbBrr/1YFe0VNxtJOMe1a409Koy3Jx7KtXD9+i0J3wNV
-         YNU5hkJd4x/JIGKAcwANwGMFZcMWprALWSaw9gX50D73us/V+yNYh5DVkNpt0obgkHbn
-         LWbqbr8HEfiDB69a2q7MyHLbZelHT+Xu1frjmwxJQT6KDYlrct0Ny1gvVPjq9lsTcqdD
-         Xr6NBaHwB4WKZOXqaNGoNDwKi9p2e8nCRQ2cHVacT1WKSljxcspjv89OY8BDU2S1ou5A
-         GlVA==
+        d=gmail.com; s=20251104; t=1781444296; x=1782049096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3v7kyk93xScSWNN+RVNzjcdObdCe6+cJy2cWMGVN3fk=;
+        b=gMDo6vkpN/m0o6/sZVQxvOVoKHq9D8oJfV+atgoCZWd6Jrqo3+/Cg/yr6JWCiPqO74
+         mz2ImdRHD3uHOVmCJ9JGLMKiiCNKDNHIPoRfAvBba2Kx8P7Qyt7VCScRrtCIBzKIbV6M
+         RoS7bz0VQra3WBMMRXHcO+35SuDubRMfhftzRrnNmfOVb2P70vrCksT721pLF9sHuakx
+         mD6aBQX/5cRlGyAK4+99koOmZal8X5pG4kA0DMAVWJJprcPSD/dM4P4LbGbPwM4NcbL+
+         cNvA3yxMZhjEXgPotdaMZxGfduxK12wx1I9WgtgEUU6GxkBqyQ85lbWWHlSUgf9bdLul
+         u7VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781444166; x=1782048966;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=0G8s6U5ZRStGQ6EJ0KRueHdqdQXBK9+8RF1gLCcr2Ew=;
-        b=erpDbuh5x/b5wga9Yhd1q+3EXb8I/8HlQQAS0mOhQcK7EIXUVkyj6c3VlskSw8QsGs
-         Md6ivccOcQm+4JvNbwcFV86jD1qRhd6xUrTbGydGpE2W8BSSPBPxSSGQ0MlsHCijXJsh
-         5cq8vvGmoSJ4Iy+hGO0ATbaU4oOaA1YRQEQNNUwVhHxsAEVxpV1mxLr+k5JxAyufItca
-         1rbANKq1Ha6iH2TkX5B9x97BxPqCRJgSdKty3BTOzbXiPacfUQ/w++NyAbJoAWt/qzWp
-         GggSZDbzWYS8/sA8fxrPhxmGK80r7ah/PSoEhdBo+EiLGGQTxT4Nzc7WELiAce/xm/R6
-         qlJw==
-X-Forwarded-Encrypted: i=1; AFNElJ+48K7tmPUqQUA4NOm1v0N7miq2sGXAxJNP9ZS/4CX31h8APYNcjOA5+DyzaSuhK0y9b4rSCbWQCM4j@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYNuvBMeQyJ3L5E7ie1CmQ3NDk5u7KIdEY8jmJXnlE49F9c8zI
-	sm0JiEY+mXbaRdPPQIITjrzeOx8/IaMslBb6m8CdoZxqlQsRGqDG3uiw
-X-Gm-Gg: Acq92OHA3u4+rxwc8Uyez+i/5ZZveze9MU4Y5YhQbfytUuoS36oHrOYs+Ye057ZUwDf
-	k8PUJR34xDvABcA2tazr6xqqdFpNSXxBQx1bpB9t/ZyhgBFCpHG8X5wOoDdtyw6a5v8dFV6RBQb
-	v4MS4wmLGZKg/w7EI9Ew93UjUMyjgHa/D8vh6rNQlhMlHlyS6XeOi3PkRmpXq5XaqesB8Y3l/2L
-	Z/gSnDl1zXV1BBpuI8egYSylXA2QXBOXzNDitWx0HHsMvqFfZnjzDyb3315N+G8Xrb0B5Dvd79U
-	EnprstcMTwLZ+2VTuQB/dwSu/Yfc/lOTSEw0msKyOdUZMeiyrJT70At0MPdXfTs+ptGa9MES+Ed
-	4d6aWcAhGji3ECVmGmV3F3VFDT+BjD/RSKsBR0Q1Zybh7DjsEjZ9q1yAfeahJ4YaqZOS/Zrj56B
-	u+8IxfeO01Ptwj4+O7XVxNK4MazF1TTL0Ha0aR5YaLsLTm
-X-Received: by 2002:a05:600c:58d5:b0:490:c2a2:e91e with SMTP id 5b1f17b1804b1-490ec523a8amr94122335e9.34.1781444165973;
-        Sun, 14 Jun 2026 06:36:05 -0700 (PDT)
-Received: from jernej-laptop.localnet ([188.159.248.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea9520f9sm148794265e9.1.2026.06.14.06.36.04
+        d=1e100.net; s=20251104; t=1781444296; x=1782049096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3v7kyk93xScSWNN+RVNzjcdObdCe6+cJy2cWMGVN3fk=;
+        b=I5CjAJKpBqIvesBh6TYiP1zNSgF1ocJsR3wjGXpcJ8XCboo3cAgurS8xhQ/LpNjcHi
+         ZrJddaphVQKaTxzmj5Fs71cF/3xBnHLYlCM6K4T+2ntPsYW2ZcdP0L+sM1oKxvDq1gD4
+         wNAE5eBprFb/+dtr7c57anVJQQancmLV/Mgdt83eLy2yddlleVlo5IBzjXk6s1cSoq1b
+         RCJznZoITuo38Y4yNj9Qs/eZCa+VRsVmGwuOgiJRqeXvbVT7T5C69eBfjpHMNI60mj32
+         CkUPU1jQ6rLYJ2H7l+5UlzWOW627mK6kBsVWfQ5Nm5LwU9zEx9KxOyb9rJmaytDPdJc8
+         +hjw==
+X-Gm-Message-State: AOJu0YyM5B5g96N/dDiTTZPuigsNVh+DSEnnNIHG4l8BIbfHgEk4Vszh
+	YpjBMiU3ENuZSb1+L8iJMi40qURC6cSk5basOanj9+IakJNYcOQXxclP
+X-Gm-Gg: Acq92OHWex9vUlvvdOokjB0BNfCq4zlV2kkw2qM0pId/drhTWvjlQKn/Gg/OGeEjzWg
+	3J/nSw8r1m/ps+b8DBY4RE4iHZYwAB2ARJL7QQZ9VUhRErXDvDjWtQF+1dpaNUIVUIFvIth42X8
+	5QZxgU005opYASpX4Nke286Lf9cr2oxVcKbf1PBcr+zySiLzcSIgs9YeU6ABSGQsWheTW4b+upL
+	OEG6NXrcLg8in7Wj4exxgEJBTihvn/2VivJxIUfjZjIqrOU8XG3pKIV7J4h4MfZrd73zqsipgZh
+	LDPAwnV79vUVZ1EFbJLX3n749jiMm50UgmuHIN3F82a5ukwHJ4lFr3EOF24RxJh84GQNdEdYRM7
+	Wy31gUP/CMO43e4LSWxOs/q8EjyScKTQDg0nf6mTC0va66pcPp2Lr1M2JtjyzMyzQm3uUrxvB8f
+	jAng12o/hBnd2tlYILFQ==
+X-Received: by 2002:a17:902:f54d:b0:2c0:a711:539 with SMTP id d9443c01a7336-2c410411179mr123189555ad.5.1781444296341;
+        Sun, 14 Jun 2026 06:38:16 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e535csm69043585ad.6.2026.06.14.06.38.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 06:36:05 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: wens@kernel.org
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, devicetree@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 4/7] drivers: staging: media: sunxi: cedrus: add H616 variant
-Date: Sun, 14 Jun 2026 15:36:03 +0200
-Message-ID: <XYko-1bVTYuJiQeSr0cTOA@gmail.com>
-In-Reply-To:
- <CAGb2v677Pi9s3eWC7aXh8j=+eJh7AV5Mucr7SDXMN9Lo8yA2nA@mail.gmail.com>
-References:
- <20260505134812.408316-1-wens@kernel.org> <L1ZJMTqKQbak6NcKbwFkDg@gmail.com>
- <CAGb2v677Pi9s3eWC7aXh8j=+eJh7AV5Mucr7SDXMN9Lo8yA2nA@mail.gmail.com>
+        Sun, 14 Jun 2026 06:38:15 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: robh@kernel.org,
+	saravanak@kernel.org
+Cc: devicetree@vger.kernel.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH v2 0/2] of: reserved_mem: fix OOB write and name skipped nodes
+Date: Sun, 14 Jun 2026 22:38:05 +0900
+Message-ID: <20260614133807.2165124-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Dne sobota, 13. junij 2026 ob 16:34:00 Srednjeevropski poletni =C4=8Das je =
-Chen-Yu Tsai napisal(a):
-> On Sat, Jun 13, 2026 at 6:33=E2=80=AFPM Jernej =C5=A0krabec <jernej.skrab=
-ec@gmail.com> wrote:
-> >
-> > Dne sobota, 30. maj 2026 ob 18:43:05 Srednjeevropski poletni =C4=8Das j=
-e Chen-Yu Tsai napisal(a):
-> > > On Tue, May 5, 2026 at 7:18=E2=80=AFPM Jernej =C5=A0krabec <jernej.sk=
-rabec@gmail.com> wrote:
-> > > >
-> > > > Dne torek, 5. maj 2026 ob 15:48:08 Srednjeevropski poletni =C4=8Das=
- je Chen-Yu Tsai napisal(a):
-> > > > > The Allwinner H616 SoC has a video engine hardware block like the=
- one
-> > > > > found on previous generations such as the H6. In addition to the
-> > > > > currently supported features of the H6, it is also supposed to in=
-clude
-> > > >
-> > > > Remove "supposed".
-> > >
-> > > I can't actually verify that, so "supposed" is accurate from my point=
- of
-> > > view.
-> >
-> > Isn't info from manual good enough?
->=20
-> The manual says the SoC supports it. Same was said for the H6. Then
-> we discovered that the VP9 decoder was a separate Hantro block.
->=20
-> So again, *I* cannot claim in the commit message that the hardware
-> block supports VP9 decoding, because I have not verified it.
->=20
-> > In the interest of unblocking this, I would be fine with "supposed" too,
-> > but manual and all my experiments show VP9 is supported.
->=20
-> Please give an ack or reviewed-by with a comment at the end stating
-> VP9 verified.
+Patch 1 fixes an out-of-bounds write in fdt_scan_reserved_mem(). When
+more than MAX_RESERVED_REGIONS dynamically-placed regions are defined,
+it writes past the end of the local array.
 
-Well, just go with original text.
-=20
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Patch 2 names the skipped node in fdt_init_reserved_mem_node(), the other
+place that drops regions.
 
-Best regards,
-Jernej
+Changes from v1 [1]
+- fix bounds check to cover the missed case in v1, based on sashiko
+  review
+- print skipped no name error message in fdt_scan_reserved_mem() and
+  fdt_init_reserved_mem_node() both.
 
->=20
->=20
-> Thanks
-> ChenYu
->=20
->=20
-> > Best regards,
-> > Jernej
-> >
-> > >
-> > > ChenYu
-> > >
-> > > > > a VP9 decoder. However software support for this is currently mis=
-sing
-> > > > > and still needs to be reverse engineered from the vendor BSP.
-> > > > >
-> > > > > Add the compatible for the H616 variant, using the H6 variant dat=
-a.
-> > > > >
-> > > > > Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
-> > > >
-> > > > With that:
-> > > > Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > >
-> > > > Best regards,
-> > > > Jernej
-> > > >
-> > > >
-> > >
-> >
-> >
-> >
-> >
-> >
->=20
+[1] https://lore.kernel.org/all/20260603152709.941788-1-ekffu200098@gmail.com/
 
+Sang-Heon Jeon (2):
+  of: reserved_mem: prevent OOB when too many dynamic regions are
+    defined
+  of: reserved_mem: print skipped node name when too many regions are
+    defined
 
+ drivers/of/of_reserved_mem.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
+-- 
+2.43.0
 
