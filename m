@@ -1,94 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54632882BE;
-	Sun, 14 Jun 2026 10:33:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116D439B95C
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 10:40:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781433194; cv=none; b=P58DNjV/viBrxFUzcH93rwc2pgtLhLGrD+D7r5S4j6hkhqBuQyeRx5GBETnXmpmxfvzebkmOtaAOM4pMcXK/FS5qY+y+eiISEiY/SGqZSx00k+QLM32CHIcYFRmtwONjZpY+X4KqG69Z4zEFcQFBfdJCZmVqTGsuFk3w/FU3nO4=
+	t=1781433656; cv=none; b=slIGkHcW+jvYHxKCPGarwHzDyP0tvVCyPt9LBOqjIAn+wdx8P2ljjNMHfmGsosSiNTHMpa8YODI6q+0Q96eQ1VdgT9aGYoDyq05UFBIfQ4dEFAK/HRNlinYLYUiyJblxkvjiBUsStxaEFZ1dktnAMxmTXtt2D97hEwmTTNU+Oi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781433194; c=relaxed/simple;
-	bh=91rZC7eRjfoHrghCqA9YiaaHwcTyRV/kUXQoWeAcils=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qOk57jP1Zg9QCr7OrYe/3ubh0I1aPlagX8ZEdCswoOjYfcuVtGyWVlOKqJXvqzNTkiJYA5LHzSDUAcqUn+8mDkHKF1AmhD1BR/glDKFbvJLFT/aP3vF8t9derHME+ACd3k++gGrD+W7eXyUFcFd4nZNY0hdP2sob89mNDti5l4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hqn48KJL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781433656; c=relaxed/simple;
+	bh=636b0kti8B/PhDIC7sBV7d143QGgf8arQBQMrf5skoM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=W7A6b72WSjUCF8+scVCpMqllxXY+yBWIMHCcSHqA7kPp3VjoddZlIGs/CR4OmN3JDwiySWjAsRarG0O2eF+yfuEzi60ahs4eqssXEquDk/jvcc4sBS1j9a+z9kvtFxbe5vD4bSxgASS7r3gdKN6YgRg6aAFrYTNHFKYO+sa3w4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZcJYSM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hqn48KJL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364F61F000E9;
-	Sun, 14 Jun 2026 10:32:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZcJYSM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44D651F000E9;
+	Sun, 14 Jun 2026 10:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781433192;
-	bh=5CAWX7Khbfdhg2hTGawClZJUL/llZb6ih9KuiMJqalA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Hqn48KJLQ8aBpBiUDBYQPcmOzCHiMAM7fnUiay56tkfLegVH/ZOUemtW98GfWJN3n
-	 ruCicf28O8Zt0Y+nElJCYH/mTuCXIl9KsEcS5MlooR62fI0+MwTO/CjM81XIXR0K95
-	 ye8TXU0CFa2sL/xWa5HmNIes123Y3YaA9bAAlonK5XxTeKuO1RjjhRtfYWkXv/gEQG
-	 JLYIYb3D7zVdZGycs4wr6HXKbTcQ4LZxnwNHD/RSnXif8fbO0t0WaWJZuQ0yG852/B
-	 XOhAS/jO1agtv6+4K2VzWLRF/x7mVz4YeAQ75U9cxaoOomjij+nxv1LEmtCLugbeh9
-	 CZv/O40E8e+2g==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Animesh Agarwal <animeshagarwal28@gmail.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260612214911.1883234-1-robh@kernel.org>
-References: <20260612214911.1883234-1-robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: Fix RT5677 "realtek,gpio-config"
- type
-Message-Id: <178139542165.17453.5870015259096662229.b4-ty@b4>
-Date: Sun, 14 Jun 2026 01:03:41 +0100
+	s=k20260515; t=1781433654;
+	bh=kRz/OO9Y9Hj4qqaonkS5NbQy8Jkb1+dCXFxiNHnwbeE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GZcJYSM0eJhHdmOQhutUVjUXMXsUeZaWXnZYH2kHJ0uLastAVp1ugIUid9u7cjCnY
+	 DrROk9JLwHBZSJKRDUQ4cQMBBJKXO28+t6ECX5Mdqu+n/GVoqq5igYCCUb2qboNzLR
+	 JqyUUad1lY9t6QqWKvPh2xq2IrsxRRcaHI6Nenv6AxeKIUSGImtf2XsIAKkUsJ/Gzq
+	 n0JEAYL7AkJiMuGnmntqcjwJgFKohvTPxiSayP5KSSHjpuu/uUPtOpHpkf0ciMwq4z
+	 YlxjbC9xPTaLYETfYjQ6pAhm/ZmC3Fl63VUmL/UX+WcCgNR2/UQ1I3kqlu1ztDWqR3
+	 f7HkZH2ZZJhlw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] spi: dt-bindings: qcom,spi-geni-qcom: Add property
+ to force GSI mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pengyu Luo" <mitltlatltl@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260614083424.464132-1-mitltlatltl@gmail.com>
+References: <20260614083424.464132-1-mitltlatltl@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 14 Jun 2026 10:40:53 +0000
+Message-Id: <20260614104054.44D651F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1135; i=broonie@kernel.org;
- h=from:subject:message-id; bh=91rZC7eRjfoHrghCqA9YiaaHwcTyRV/kUXQoWeAcils=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqLoNaEd5TK0M8972lDUSeOcsiBd/rpU64C4Nwy
- KfETVrmOk6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCai6DWgAKCRAk1otyXVSH
- 0AubB/49DTBtPXNFlKpYVsNh1Is3R52p7Jjzy2fntg6f/q0f84G+BshNh7qc8tbfnbkf0R7B5Dj
- s6YPqaCNvUXZCIB+U7IgZsdCviPj85+0xeDIRaybZwOX7qpKbYNQwRj48gkxC01SBt+DzJchjT2
- PwOgacFEgC51/vqfDum+VDvkJbZsDwXB14ZYIe7bGoFlVWx2dGNH7QLrLIu//Pu8q7tbFsGTeum
- 3g/V13n08ESasnA6drp10YfwrTwApD4sI4TxgKOOmrC/nwR+II86x7TWboDZ4qEKhxiatzGU6dn
- eQFsYFhRhllOM7JYb3CTODmwUGiDdzWgpEHLz2U96BAAH6AX
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 12 Jun 2026 16:49:11 -0500, Rob Herring (Arm) wrote:
-> ASoC: dt-bindings: Fix RT5677 "realtek,gpio-config" type
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `qcom,force-gsi-mode` property dictates driver software beha=
+vior instead of describing hardware configuration, violating Devicetree pri=
+nciples.
+--
 
-Applied to
+commit 0692b669eca2d4de46bd91bb83f4d52a4fe1f11d
+Author: Pengyu Luo <mitltlatltl@gmail.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+spi: dt-bindings: qcom,spi-geni-qcom: Add property to force GSI mode
 
-Thanks!
+This commit introduces a new devicetree property, "qcom,force-gsi-mode",
+to the Qualcomm SPI Geni binding. The property is intended to instruct
+the driver to prioritize DMA (GSI) mode over FIFO mode during initialization
+on platforms where FIFO mode isn't explicitly disabled.
 
-[1/1] ASoC: dt-bindings: Fix RT5677 "realtek,gpio-config" type
-      https://git.kernel.org/broonie/sound/c/4346d91cfa47
+> diff --git a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yam=
+l b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
+> index edf399681d7a9..80e394c1c7159 100644
+> --- a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
+> +++ b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
+> @@ -45,6 +45,11 @@ properties:
+>        - const: tx
+>        - const: rx
+> =20
+> +  qcom,force-gsi-mode:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      Use DMA (GSI) mode, even if FIFO mode is not disabled.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[Severity: Medium]
+Does this property violate the principle that devicetree bindings should
+describe hardware capabilities rather than software behavior?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The hardware's capability to use DMA is typically already described by stan=
+dard
+properties like dmas and dma-names. Since qcom,force-gsi-mode acts as a hin=
+t to
+override the driver's default fallback logic, could the driver instead make
+this decision internally?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+For example, the driver could default to DMA when the resources are availab=
+le,
+or apply a quirk based on the board's compatible string, avoiding the need =
+to
+introduce an OS-specific policy flag into the devicetree.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614083424.4641=
+32-1-mitltlatltl@gmail.com?part=3D1
