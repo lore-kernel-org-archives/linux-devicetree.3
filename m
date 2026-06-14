@@ -1,152 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07773A59A3
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:50:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BBD3905E7
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 14:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781445043; cv=none; b=A05RQBCe/8vwxJ67tCLXm9AuxpwOSxSDctQ2SFs3MQW58OdwdLI2hfyCyZsJbuNW0xyJSCey10T6P7u+9tHTD5ViGMwCI0CzMy7USSqxBr5/EkJq3Y25yi/lFRzX88IwqBmbkFJnCo2hgeGYH1HNRyYmPYSfShR2qE3hpSvLq5s=
+	t=1781446092; cv=none; b=ezJZsCcB0sNpTu29Oq9bxLUfRmRAfF1WfkhN8pEzbF4vM+7RdhrDP1cFsF/kHP0oE68RcJtHm8ewm+c0rYJjlyZJ+hOGNsrNCnYjgQuhD/pYSPBX6QbnXAgRv6sL69GuO7P+wVklb7CHwia3rWyLdW3+EVQtQn9BV3BMMQSqQ7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781445043; c=relaxed/simple;
-	bh=8Gf18LyGLQy/rLGm8Dc2crI3Ocp7L3JWuqi/LNjy1pU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I9Q5E0bKBX4lzWqixK7CIDrOW3RjgQbFEHeX0pekptwnSX4rQj/04Dg0joLrRa38zRPyX1jpkkEYas2It7Uz8rQiTDdn38/NFB/O/zmHODNUy6QWggeKMZBMlhaqlwv0f4eV+taR7cAM+hk9qOeddBAlB85EJmUFnjbN33M2M6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+xbrmPQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781446092; c=relaxed/simple;
+	bh=vZ6sLuNEBwb2pkhd5qu/rn+wBwxOy1DXeVTlXK6rZDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tgAhCQTBOIhFtOCbi3XKnKK7PXwVNmIf4hfL8kXS3dgbbcXg2FpRpUmIvX/viSmiT+cq6cem9vuZYmNJFskJdpb6eetYBIWdCGbVgJ+aa/ojnB6RVVjm7MDhgS47zIIMrrPpJzcDVDtQZEPL/FbG6+G+7UWLSozgMQacZBKOtgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nMEbH2XK; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+xbrmPQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D944B1F000E9;
-	Sun, 14 Jun 2026 13:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781445042;
-	bh=hHBb1v9Vl+Mk5+pl3RKOozs+2PgeOqAx4cZFtoh+eng=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K+xbrmPQa9bPnhV5zZSoedezBvCQcVQCZzPhLg129CfBdMS3SU9tYl4nJsaPnWV2c
-	 sgkBz3nyovBlJth72jmJ9BcSc4+LxEEZaWO9ib2cxoN5V2YERM4ko+8Y1ZyK78BFIq
-	 kNKxd3jTF+0bi1EM5gKShqZYruzpcC7MtHw5chv20E+NTsGe1YwoHb7sZ+lFzOvlUu
-	 0h5x3+tT2+rbK5taW+MafFMK17a/I0SrU0+aWUm1og9libpLCbYzUjQulc/ouObZeF
-	 0WkpCwJTn9gHrWy5AGK01Shz2+LGutgbVPaAnV89F/woGa7uAbjkXvNde9DMhXgSF/
-	 BFXHS/tPsgdUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] of: reserved_mem: print skipped node name when
- too many regions are defined
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sang-Heon Jeon" <ekffu200098@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260614133807.2165124-3-ekffu200098@gmail.com>
-References: <20260614133807.2165124-3-ekffu200098@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 13:50:41 +0000
-Message-Id: <20260614135041.D944B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nMEbH2XK"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45ef616daf6so2758608f8f.3
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 07:08:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781446090; x=1782050890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vZ6sLuNEBwb2pkhd5qu/rn+wBwxOy1DXeVTlXK6rZDU=;
+        b=nMEbH2XKoI01XLI25vYVh5vKg2PFVFxTlyWbzoypcJOVeVVnVg1o5V/Lbx+ZTWVRKt
+         L9lzYKU0uT6xhHwiWu7yARf9a2NN5gTs6rRzEGhde3l8AQztmdzoiPULMlnE9yIwtoJC
+         7vQnaEIX8D++3QfejzVmrDNWt9Ocf4wNJqwirfYhND4PWqY3MEedQFabhgN6rODz+Bx5
+         NIn4/XvtJKd2Uind7HGgqGThflnXMh4GXHuNCbUaaXOgfVSmpHQqjSKYTlRZBmFApzBt
+         BXtbcb1PPLfftiW1VehTRJ5w3eFcfjgxyslHWzxjE0KZjJFwUK4Ai5npXY56I14M64Qa
+         XFtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781446090; x=1782050890;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=vZ6sLuNEBwb2pkhd5qu/rn+wBwxOy1DXeVTlXK6rZDU=;
+        b=bM+S/ZmxixxqloRwxMdaR5aHDy2BWs9gFRv9iRstzaBmOc9YX4G82+Gh6uUmGJ7FTj
+         mrIqQWEZUWhs8UYbGI0YCzgARVL2EZYdGHp4GK48UHIV0ji2sSDG8EfOHa0vdLWWakF1
+         pNEfOljRUzP/ZL4zzxk/wr8xO3aTIod8QDg0rARQXuDGvG2BKDhx6YTFiLN5MZ2Htwpa
+         NdrVCYGCvZseOROsrX5oY4F17Qz5RTTRU6em25WeQLiWcJ0pDFFd0uiGhA+12Xcn6IH4
+         MPBkzSygAF4CqGx3+0uA22SyQajHfTLMTSQnvkL6Lp3PDr0GeJfBEv17gJtADy0SnpLi
+         JU+g==
+X-Forwarded-Encrypted: i=1; AFNElJ/UdzjnEEVeQTAUPEubvz2vbHivcbootC7ITUHFJmv4gh36QuUAQNr2jyFy79BMrBH/qrYA+XyUKQ0g@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMNYg3J5vZxeoRQbHcsKXNGjC6XrPVvxwZtCf5edR7NHh0EskO
+	3Pz1m7X3eKyFJFPLNU7XvoX8tBkMd2WVyMPY/r5H8heJoHgwo0V6Etrf
+X-Gm-Gg: Acq92OFC6QU66j4Bnf5MHrMDBtzEvQSobxzMZm5e5qk/m96YeH8FYZWuVITlg0oAOvR
+	4xx9KEiXgMQhfnIpmlOWj1iFlSGQIm6sag6rD8a2p8+skQxL+Nv9wR7Kjz76iDw2RndtOm0PH4G
+	ibh+zK9RsSOA1sdoEPt61/KKSDl/waUBs6pTyviJLi+pVhXs7BdZ+DqeXY4+pnDAWqJx7gg/2pA
+	968hSeAFLt9eV4KYIQ95lrjDxs6tExqtfI8f8jupuoJeDmh996mjaRNliFDvTCNB9oXc6IUBI+0
+	AGKzcXz2FSk7ejRZUg58PZtgbViniHccx4wMzjUTaJxuE4GErOVlQDnTNB2apfReN+ZDfqBiH82
+	5Fz3WCRqEYxeRBXbZw8YKjxchoZgT9OSQg59hg8Sa6YQ/Q1bkxbPBhMDVVu/9hUwiKX30c83g1H
+	c4LAtGWQvrAYngXCwnOCAn02wGn5A1ONVbGquELKoL0PeO
+X-Received: by 2002:a05:6000:984:b0:460:3234:293d with SMTP id ffacd0b85a97d-4606dbce8a5mr14655307f8f.40.1781446086390;
+        Sun, 14 Jun 2026 07:08:06 -0700 (PDT)
+Received: from jernej-laptop.localnet ([188.159.248.16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f450sm27152837f8f.10.2026.06.14.07.08.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Jun 2026 07:08:05 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: wens@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: samuel@sholland.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+Subject:
+ Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33 layer reg
+ space
+Date: Sun, 14 Jun 2026 16:08:04 +0200
+Message-ID: <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+In-Reply-To: <032c1099-40ab-470e-8cc3-af6d3cad22d4@kernel.org>
+References:
+ <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <ahNuuaVlDl0KvOSj@home.wens.tw>
+ <032c1099-40ab-470e-8cc3-af6d3cad22d4@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni =C4=8Das j=
+e Krzysztof Kozlowski napisal(a):
+> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+> > Hi,
+> >=20
+> > (resent from new email)
+> >=20
+> > On Thu, May 14, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
+> >>
+> >> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+> >>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+> >>>
+> >>> As it turns out, current H616 DE33 binding was written based on
+> >>> incomplete understanding of DE33 design. Namely, planes are shared
+> >>> resource and not tied to specific mixer, which was the case for previ=
+ous
+> >>> generations of Display Engine (DE3 and earlier).
+> >>>
+> >>> This means that current DE33 binding doesn't properly reflect HW and
+> >>> using it would mean that second mixer (used for second display output)
+> >>> can't be supported.
+> >>>
+> >>> Remove layer register space, which will be represented with additional
+> >>> node, and replace it with phandle, which will point to that new, shar=
+ed
+> >>> node. That way, all mixers can share same layers.
+> >>>
+> >>> There is no user of this binding yet, so changes can be made safely,
+> >>> without breaking any backward compatibility.
+> >>
+> >> There is user. git grep gives me:
+> >> drivers/gpu/drm/sun4i/sun8i_mixer.c
+> >>
+> >> which means this is a released ABI. As I understood, the old code was
+> >=20
+> > We held off on merging the DT changes so that we could rework this.
+> > I can't find the actual request though. It was probably over IRC.
+> >=20
+> >> working fine but just did not support all use cases. Why this cannot be
+> >> kept backwards compatible?
+> >=20
+> > AFAIK the "planes" block is shared between two display mixers. As the
+> > commit message explains, this prevents using the second mixer, since
+> > only one of them can claim and map the register space. And on the H700
+> > (which is the same die as the H616 discussed here but with more exposed
+> > interfaces), there could actually be a use case for the second mixer.
+>=20
+> It explains why you want to make the changes but not why you cannot keep
+> it backwards compatible.
 
-Pre-existing issues:
-- [High] Out-of-bounds write to the static `reserved_mem_array` if `membloc=
-k_alloc` fails during dynamic array reallocation.
-- [High] Ignored memory reservation failures allow unreserved memory to be =
-successfully registered and handed out as exclusive reserved memory.
-- [Medium] Dynamically allocated `no-map` reserved memory regions are leake=
-d from `memblock.reserved` if their initialization fails.
---
+I guess it can be backward compatible, but I don't think it makes sense.
+Yes, original driver implemented original DT bindings, but there is no node
+which uses that binding. If there is no user of that, why would driver
+need to support it nevertheless? Supporting only actually used DT binding
+allows for better code architecture, as there is no need to support second,
+unused path. It also simplifies testing, since developer doesn't need to
+test both paths if code is changed in that area.
 
-commit f95986ab58870e3d79cb320c6dc73ef80982357e
-Author: Sang-Heon Jeon <ekffu200098@gmail.com>
+Best regards,
+Jernej
 
-of: reserved_mem: print skipped node name when too many regions are defined
+Best regards,
+Jernej
 
-When too many reserved memory regions are defined,
-fdt_init_reserved_mem_node() logs an error and skips the region without
-naming the node.
 
-Print the node name so the skipped node can be identified, matching
-fdt_scan_reserved_mem().
-
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 499b769e98096..df3d90cb8dbe1 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -623,7 +623,8 @@ static void __init fdt_init_reserved_mem_node(unsigne=
-d long node, const char *un
->  	struct reserved_mem *rmem =3D &reserved_mem[reserved_mem_count];
-> =20
->  	if (reserved_mem_count =3D=3D total_reserved_mem_cnt) {
-> -		pr_err("not enough space for all defined regions.\n");
-> +		pr_err("not enough space for all defined regions, skip '%s'\n",
-> +		       uname);
->  		return;
->  	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does alloc_reserved_mem_arra=
-y()
-fail to reset total_reserved_mem_cnt on error?
-
-If memblock_alloc() fails during dynamic array reallocation, it returns ear=
-ly
-without resetting total_reserved_mem_cnt back to its original value. When t=
-he
-bounds check in fdt_init_reserved_mem_node() is reached later,
-reserved_mem_count can increment beyond the statically-sized
-reserved_mem_array limit, potentially causing an out-of-bounds write:
-
-drivers/of/of_reserved_mem.c:alloc_reserved_mem_array() {
-    ...
-	new_array =3D memblock_alloc(alloc_size, SMP_CACHE_BYTES);
-	if (!new_array) {
-		pr_err("Failed to allocate memory for reserved_mem array...");
-		return;
-	}
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does __reserved_mem_reserve_reg()
-unconditionally return 0 even if early_init_dt_reserve_memory() fails?
-
-If memory reservation fails, it logs an error but returns success, allowing
-unreserved memory to be successfully registered and later handed out as
-exclusive reserved memory:
-
-drivers/of/of_reserved_mem.c:__reserved_mem_reserve_reg() {
-    ...
-		if (early_init_dt_reserve_memory(base, size, nomap)) {
-			pr_err("Reserved memory: failed to reserve...");
-		}
-	}
-	return 0;
-}
-
-[Severity: Medium]
-This is a pre-existing issue, but does fdt_init_reserved_mem_node() leak
-dynamically allocated no-map regions if initialization fails?
-
-If __reserved_mem_init_node() returns an error, the cleanup path for no-map
-regions clears the MEMBLOCK_NOMAP flag but skips calling memblock_phys_free=
-(),
-which permanently leaks the physical memory from memblock.reserved:
-
-drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
-    ...
-	err =3D __reserved_mem_init_node(rmem, node);
-	if (err !=3D 0 && err !=3D -ENODEV) {
-		pr_info("node %s compatible matching fail\n", rmem->name);
-		rmem->name =3D NULL;
-
-		if (nomap)
-			memblock_clear_nomap(rmem->base, rmem->size);
-		else
-			memblock_phys_free(rmem->base, rmem->size);
-		return;
-    ...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614133807.2165=
-124-1-ekffu200098@gmail.com?part=3D2
