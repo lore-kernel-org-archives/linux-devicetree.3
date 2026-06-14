@@ -1,63 +1,63 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5ED23ABA8
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 04:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18AA26D4F7
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 04:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781409674; cv=none; b=iEd96y8k5n6kpbzneR08JBu3ialU9waP6OKf09PsvLOnKn15OFzIWAIEtL32DhCKEt4SxN7Efdd3o7z5Z244z7cqRUWEKVCn+0ZE6N5w1eQE+Z/kNkQQPMgDRMic/0DH0UOMCSQ3twh4bjoqYIWc+aSARW3P4/01pdeaZkf0r/M=
+	t=1781409679; cv=none; b=PjnOB5wRK6CegEJorINSB/FR5BUHBcp67ZjHLyJuG3Tg8y7BH11JAvSiNkGT90oISa4fgQOfoBHpDWvaQ0BwNCtTwnJFIDMRbENyNYsi11QUhoTYyGwdZ7JePBP+Cur1i+tKVqbPEm8rwnP4CjhGQNGOTWu4NxSh4v6piDJaK/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781409674; c=relaxed/simple;
-	bh=kVe9FAvNFPj+G4X6bAwAQlGssRU/9ayG2veBdgiq+m4=;
+	s=arc-20240116; t=1781409679; c=relaxed/simple;
+	bh=QDgfAV4VBjShdSESxH1eFBl7V9Lj53vDxoAG9moo0F8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Esh8nJM4Po94+rYF1yGrSXUkpLPP50wc3jKdETT6vImPQH8Ctz0qe01xsS34iBgyvzkm/+kkV3qg10H5pEYlCtcvqRa5uZ8QJJk2Lj9ok8tPAQGhCZtUvsjIB93d83evX711W7T7tOPBui7LUJfR5Eb94S9tWkNM4aZ4bGPoLGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ALbGQxW5; arc=none smtp.client-ip=209.85.215.180
+	 MIME-Version; b=NNPAkuu7PPmsU2Ey/K1ZAhDFUxL/YvYF2rChh4rxbg9SgukRUDAviPdec5UmCpk9/Ak+DRCX//AYkTFYvWlG5/0j8DrRFWQq69Jr/izXPMkNd9n2NDG1fTAKO3rgIa2pNajQRA3sJ4F9P5M7c64PE1QSzGXTPLUPHemijnF+ixE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VNDL4TUC; arc=none smtp.client-ip=209.85.215.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ALbGQxW5"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c8588ec1b44so1559981a12.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 21:01:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VNDL4TUC"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c858014845aso908122a12.1
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 21:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781409672; x=1782014472; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781409677; x=1782014477; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5Crq5yHDjMfevdls0e5Awy2sd/URrn7kB/WguSFGm/w=;
-        b=ALbGQxW53+/BmF4GJhTKWo4NU65U+1wSG6NtHemim0BPrdiJYXL0jbcwHF9KRe0WAc
-         gXCtGWubcnrdLDIrjNxbwn4qp+9m1rbxP1T6NxzKkWActUo99dso8LvkeRfpkMLCLnah
-         Mp/jlx0PDtKdBhCxawQxGAVHfAnRbiaXmneDB0eczswssTrZviVnUmynYQcLnWAQuBVA
-         5i8lEJfR5VqbIVI+pfx+WrnROPKUDLVgYUH6ZcPM/jtyLg5vB6ZrnmoLl3ElWEGjqo7T
-         QJUJS9tcQ3UW6osHKE9l3ZXLmms99hDBcOQSK/re9j3I4LuRiJosGP+WYPdqSqG0DPA3
-         iX3g==
+        bh=sfS15OIw8F67UTIuCjAbHMvDnlrrFLgfmf6W19AaH38=;
+        b=VNDL4TUCbFdgysEhDFFC3n9PDNhf7xSZd+5w8c7237fF+n7bRvuYhIzwhlR3qOD3VY
+         8tBsnBaTCiTZlj5eqN6xNyUqAiqX2LJU/qcTlt0foH2NCr4wPEHcrwtb3ov5ovCyUR7D
+         9vX2ruCii4oaoH5iRWvSEKWdmupQKswQLMwT1MTGV8HiUFQj0t4iz5Wy/dztfdqWAQYv
+         PTY/Wb9Yk7XG6qHS3LKVvl73dkIY6iWSILrizUES2yQI/79tBXXCcVjqZXhnZsT0+4eH
+         dDraNXWvL+MsAcR9+futA9ZSMxssNUrie72qguHokgyYhkqxvSQvvYFSmtCCqDsUGEUy
+         mGdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781409672; x=1782014472;
+        d=1e100.net; s=20251104; t=1781409677; x=1782014477;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5Crq5yHDjMfevdls0e5Awy2sd/URrn7kB/WguSFGm/w=;
-        b=DmEYHwggU/DcjCvov4cHxfX9gOwvSJ9mpqjMplYY+14ZSeOs6LlBZfH06I8BfuBkfc
-         8Yl8HTblB3ztwbbv0AAUXyNQmReRz1mAa3tvpfuObQGTlOyeek4AAtu0Y0diRnR/g4i0
-         H9t0By5H24MlyY7gSF3pwLYhhW9StpavxnOCeGX3t9t4egvTWSiTHumHMjQ0DYUxxD5i
-         cvlTCmuEiAL2m+JyP4daBSPhPpGumgcyepvwdOm820K/Bbt2UL90oLER+h9ddbiV9+7+
-         jgqjS5MIFLLvSDDPKRM1kW9NoI7SgJSFxyRveQ8RKyniSScxaQOBHBSJ9YwDSxrh6POq
-         vOjA==
-X-Forwarded-Encrypted: i=1; AFNElJ+8apf6//f1vKzyaRJu5+ZFP9JglLm2jrKq4xcTAIkEeZJQ1FGNaYCD03SkTfsKxpiPUNIQg8sxhivS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxduu7m/RNQ5qWxE4gFqE/ZC6kseMjL4AKbGMyL0tWEJiSLDWqj
-	77X133GTirsp4/lfG0SItAKuzcJ8g5E95rRZDVXu9CPQogEirdfKUKiY
-X-Gm-Gg: Acq92OFIn119QITRth6A1h51j7M5Xdiu8jJhjTPVqPjG1FuZrLb6GkL7lUEWC73muTT
-	vmVn+tWsEC8rLz8bS2VdiIfkTHha0Tyn4lv6IUsEt0T2z9SVgdCP37UgTsgyHwgG6MwuQdgdmQC
-	PNs2PXBtd/cJSfJnWpT3+OORw8m9wGrW6zO8r5PTyyYqaO8z81YLjE6Qy7sjeJYSj1c4BEQhi5u
-	ofMb7C2QQqDP4ojpsTaT5PMHtMMithAFhgD0kZ1kx9DSvojhSFbWoFYyNFMgu4UoIoIIogzBgNO
-	vQb4u3DBUT/SxdkuAz/ezCvngjAGBanEh2mnRDDHchkizQ1k1NjF20dmWsDC/uVL0jQ0e/LvEp2
-	iE3EaDq5ylLfxaMH00jm86dt6h5p7DBDG8bqcmBmEA65vqYbay0+nkub90Lq59o09uOZmehhVOj
-	xFgIQpo6nL+Tk+laKGBXA=
-X-Received: by 2002:a05:6a21:6f17:b0:3b2:8675:4866 with SMTP id adf61e73a8af0-3b78415d3f1mr10802330637.31.1781409672295;
-        Sat, 13 Jun 2026 21:01:12 -0700 (PDT)
+        bh=sfS15OIw8F67UTIuCjAbHMvDnlrrFLgfmf6W19AaH38=;
+        b=DD0pK8cl9Ti3auMf2g+0cqbyKzj9sTc/8PfTbHCGOK2s769bkBY5ogM7LqCn21Syww
+         xfvlwpA08XyHybW9mbJbGtM/c3Dl7n/tQ4MXLaExuuAtTRX5ICal1AMTNTQjGD2vutT7
+         OtxgtHo5Y1UpuHt9oT4OLfLHexmERTcrnll/HZT6D8JmGggKYd++ef/2B3njkgYSG8Kv
+         bsdJvGdVp2ApbYDlnKXbaEfGRWzvzdMK/ni819YjsKO6YrFLioQEGKKKivr37vp0NXaw
+         Vre4BAvF5zTXIS3wH8H5U/c+8auwOUHWwqtUiwB5XP66QRZWEzAll7vi/EfznFJGK4i3
+         vruA==
+X-Forwarded-Encrypted: i=1; AFNElJ94nh/wKltMdlXYqpHbNvRFGu86uQIPDt/gxGb2gXjX126Mp1OEqLh+153EuZ9hCG9yZ4U7P3PvhZJh@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdrEsciuq6HuKl70GZ2YrTgs56/Gj5tEURx7EoVjj3qumqXQmE
+	VhFaXl76WhfOX0L2/5YifVh/UopOwXIddLdN+4BUACALthtZgg4ki1yt
+X-Gm-Gg: Acq92OHUzFvVCFMKQ69keaJ5jYJ0Pm5mcW0vPF5ha6Zr2YvNm1sKGYl29J1/1z/bK2e
+	xb1QpnxG13xC6iKXCbkzlo3FX04XzDKdT50ZZP3fUa9cGcJqlEbsg9j3c/Mr0aD4rkhiIny+AUV
+	tHs5alMbcq1ilI71Bj04VDl6cuHs4gYOIABgkw1comZm4w7W2W1VgVX9w30ro7Jzx2Qa5y9ZqmK
+	Zv9XSNA66KK5PEeUX5W/rH9b9oL3Roe/aWAmnBpexrgp1NJsAulHWtSD9b4TEF5kuRIhldyLS3j
+	GsAmJF1z8HCqx8EiFN0g1CqCvCasIRDQDwMjjacC4bJTME9Eu2MOF0l+4wKN7QorxHhEeefpTZm
+	p3GE9QMa7LHjSlIR5n5X98kfHd02IWHXUDvbOX2gZN2CKU0fdJh2zq77R5C0T7wzHooPUMHcINm
+	8n4TVA6G7oEn9lpMRWILw=
+X-Received: by 2002:a05:6a20:7f99:b0:3b4:701f:a0ee with SMTP id adf61e73a8af0-3b785853bacmr7986958637.19.1781409677262;
+        Sat, 13 Jun 2026 21:01:17 -0700 (PDT)
 Received: from mincom1 ([115.4.79.42])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8661a67603sm5676983a12.0.2026.06.13.21.01.07
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8661a67603sm5676983a12.0.2026.06.13.21.01.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 21:01:11 -0700 (PDT)
+        Sat, 13 Jun 2026 21:01:16 -0700 (PDT)
 From: Jihong Min <hurryman2212@gmail.com>
 To: netdev@vger.kernel.org,
 	Lorenzo Bianconi <lorenzo@kernel.org>
@@ -81,9 +81,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	Felix Fietkau <nbd@nbd.name>,
 	linux-kernel@vger.kernel.org,
 	Jihong Min <hurryman2212@gmail.com>
-Subject: [RFC PATCH net-next 3/7] arm64: dts: airoha: add EN7581 SOE node
-Date: Sun, 14 Jun 2026 13:00:28 +0900
-Message-ID: <20260614040032.1567994-4-hurryman2212@gmail.com>
+Subject: [RFC PATCH net-next 4/7] net: airoha: add SOE registers and driver state
+Date: Sun, 14 Jun 2026 13:00:29 +0900
+Message-ID: <20260614040032.1567994-5-hurryman2212@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260614040032.1567994-1-hurryman2212@gmail.com>
 References: <20260614040032.1567994-1-hurryman2212@gmail.com>
@@ -95,30 +95,310 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the EN7581 SOE register window and interrupt so the Ethernet driver can discover and initialize the packet offload engine.
+Add the FE/PPE/QDMA register definitions and shared driver state needed
+by the Secure Offload Engine. Add a small SOE-facing header with stubs so
+later Ethernet and PPE changes remain buildable until the provider is
+enabled.
 
 Signed-off-by: Jihong Min <hurryman2212@gmail.com>
 ---
- arch/arm64/boot/dts/airoha/en7581.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/net/ethernet/airoha/airoha_eth.h  |  40 +++++++
+ drivers/net/ethernet/airoha/airoha_regs.h |  16 +++
+ drivers/net/ethernet/airoha/airoha_soe.h  | 126 ++++++++++++++++++++++
+ 3 files changed, 182 insertions(+)
+ create mode 100644 drivers/net/ethernet/airoha/airoha_soe.h
 
-diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts/airoha/en7581.dtsi
-index ff6908a76e8e..a3c1033d2437 100644
---- a/arch/arm64/boot/dts/airoha/en7581.dtsi
-+++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
-@@ -347,6 +347,12 @@ i2c1: i2c@1fbf8100 {
- 			status = "disabled";
- 		};
+diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
+index 46b1c31939de..c5f09aedd7e7 100644
+--- a/drivers/net/ethernet/airoha/airoha_eth.h
++++ b/drivers/net/ethernet/airoha/airoha_eth.h
+@@ -16,6 +16,8 @@
+ #include <linux/soc/airoha/airoha_offload.h>
+ #include <net/dsa.h>
  
-+		soe: soe@1fbfa000 {
-+			compatible = "airoha,en7581-soe";
-+			reg = <0x0 0x1fbfa000 0x0 0x268>;
-+			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
-+		};
++struct airoha_soe;
 +
- 		eth: ethernet@1fb50000 {
- 			compatible = "airoha,en7581-eth";
- 			reg = <0 0x1fb50000 0 0x2600>,
+ #define AIROHA_MAX_NUM_GDM_PORTS	4
+ #define AIROHA_MAX_NUM_GDM_DEVS		2
+ #define AIROHA_MAX_NUM_QDMA		2
+@@ -189,18 +191,31 @@ struct airoha_queue {
+ 	spinlock_t lock;
+ 	struct airoha_queue_entry *entry;
+ 	struct airoha_qdma_desc *desc;
++	/* Preserved for RX ring reprogramming; dmam_alloc_coherent() owns it. */
++	dma_addr_t desc_dma;
+ 	u16 head;
+ 	u16 tail;
+ 
+ 	int queued;
+ 	int ndesc;
++	/* SOE RX rings may use coherent slots instead of page_pool fragments. */
++	int rx_alloc_ndesc;
+ 	int free_thr;
+ 	int buf_size;
+ 	bool txq_stopped;
++	bool rx_coherent;
++	bool rx_drop_chain;
++	void *rx_coherent_buf;
++	dma_addr_t rx_coherent_dma;
++	size_t rx_coherent_buf_size;
+ 
+ 	struct napi_struct napi;
+ 	struct page_pool *page_pool;
+ 	struct sk_buff *skb;
++	/* First SOE descriptor metadata is kept while a scattered frame is built. */
++	int rx_frame_descs;
++	u32 soe_rx_msg0;
++	u32 soe_rx_msg2;
+ 
+ 	struct list_head tx_list;
+ };
+@@ -434,6 +449,16 @@ struct airoha_foe_stats64 {
+ 	u64 packets;
+ };
+ 
++struct airoha_ppe_soe_meta {
++	unsigned long expires;
++	u32 key_hash;
++	u16 foe_hash;
++	u8 valid;
++	u8 sa_index;
++	u8 hop;
++	u8 seen;
++};
++
+ struct airoha_flow_data {
+ 	struct ethhdr eth;
+ 
+@@ -552,6 +577,11 @@ struct airoha_gdm_dev {
+ 
+ 	u32 flags;
+ 	int nbq;
++	/* Prevent toggling NETIF_F_HW_ESP while programmed SAs still exist. */
++	atomic_t soe_xfrm_state_count;
++	/* Private SOE submit path into this GDM's active QDMA instance. */
++	int (*soe_xmit_skb)(struct airoha_gdm_dev *dev, struct sk_buff *skb,
++			    u32 msg0, u32 msg1, u32 msg2);
+ 
+ 	struct airoha_hw_stats stats;
+ };
+@@ -581,6 +611,7 @@ struct airoha_ppe {
+ 
+ 	struct hlist_head *foe_flow;
+ 	u16 *foe_check_time;
++	struct airoha_ppe_soe_meta *soe_meta;
+ 
+ 	struct airoha_foe_stats *foe_stats;
+ 	dma_addr_t foe_stats_dma;
+@@ -621,6 +652,7 @@ struct airoha_eth {
+ 
+ 	struct airoha_qdma qdma[AIROHA_MAX_NUM_QDMA];
+ 	struct airoha_gdm_port *ports[AIROHA_MAX_NUM_GDM_PORTS];
++	struct airoha_soe *soe;
+ };
+ 
+ u32 airoha_rr(void __iomem *base, u32 offset);
+@@ -676,6 +708,14 @@ static inline bool airoha_is_7583(struct airoha_eth *eth)
+ int airoha_get_fe_port(struct airoha_gdm_dev *dev);
+ bool airoha_is_valid_gdm_dev(struct airoha_eth *eth,
+ 			     struct airoha_gdm_dev *dev);
++int airoha_qdma_xmit_skb(struct airoha_gdm_dev *dev, struct sk_buff *skb,
++			 u32 msg0, u32 msg1, u32 msg2);
++void airoha_ppe_soe_mark_skb(struct airoha_ppe_dev *dev, struct sk_buff *skb,
++			     u16 hash, u8 sa_index, u8 hop);
++bool airoha_ppe_soe_skb_marked(struct sk_buff *skb);
++void airoha_ppe_soe_xmit_skb(struct airoha_ppe_dev *dev, struct sk_buff *skb,
++			     struct net_device *netdev);
++void airoha_ppe_soe_flush_sa(struct airoha_ppe *ppe, u8 sa_index);
+ 
+ void airoha_ppe_set_cpu_port(struct airoha_gdm_dev *dev, u8 ppe_id, u8 fport);
+ bool airoha_ppe_is_enabled(struct airoha_eth *eth, int index);
+diff --git a/drivers/net/ethernet/airoha/airoha_regs.h b/drivers/net/ethernet/airoha/airoha_regs.h
+index 436f3c8779c1..27e158d0fa4b 100644
+--- a/drivers/net/ethernet/airoha/airoha_regs.h
++++ b/drivers/net/ethernet/airoha/airoha_regs.h
+@@ -82,6 +82,10 @@
+ #define PSE_SHARE_USED_MTHD_MASK	GENMASK(31, 16)
+ #define PSE_SHARE_USED_HTHD_MASK	GENMASK(15, 0)
+ 
++/* TDMA/SOE port 7 needs shared-buffer flow control enabled in the PSE. */
++#define REG_PSE_FC_CFG			0x0098
++#define PSE_TDMA_SHARE_BUF_DIS_MASK	BIT(23)
++
+ #define REG_GDM_MISC_CFG		0x0148
+ #define GDM2_RDM_ACK_WAIT_PREF_MASK	BIT(9)
+ #define GDM2_CHN_VLD_MODE_MASK		BIT(5)
+@@ -252,6 +256,8 @@
+ #define PPE_GLO_CFG_EN_MASK			BIT(0)
+ 
+ #define REG_PPE_PPE_FLOW_CFG(_n)		(((_n) ? PPE2_BASE : PPE1_BASE) + 0x204)
++#define PPE_FLOW_CFG_IP6_IPSEC_MASK		BIT(28)
++#define PPE_FLOW_CFG_IP4_IPSEC_MASK		BIT(27)
+ #define PPE_FLOW_CFG_IP6_HASH_GRE_KEY_MASK	BIT(20)
+ #define PPE_FLOW_CFG_IP4_HASH_GRE_KEY_MASK	BIT(19)
+ #define PPE_FLOW_CFG_IP4_HASH_FLOW_LABEL_MASK	BIT(18)
+@@ -851,6 +857,8 @@
+ #define QDMA_DESC_NEXT_ID_MASK		GENMASK(15, 0)
+ /* TX MSG0 */
+ #define QDMA_ETH_TXMSG_MIC_IDX_MASK	BIT(30)
++/* SOE submit metadata: msg0 carries SA index, msg1 selects port 7 OQ8/OQ9. */
++#define QDMA_ETH_TXMSG_SOE_SA_MASK	GENMASK(29, 24)
+ #define QDMA_ETH_TXMSG_SP_TAG_MASK	GENMASK(29, 14)
+ #define QDMA_ETH_TXMSG_ICO_MASK		BIT(13)
+ #define QDMA_ETH_TXMSG_UCO_MASK		BIT(12)
+@@ -873,6 +881,11 @@
+ 
+ /* RX MSG0 */
+ #define QDMA_ETH_RXMSG_SPTAG		GENMASK(21, 14)
++/* SOE completion metadata can use the full 16-bit SP tag word. */
++#define QDMA_ETH_RXMSG_SPTAG_FULL	GENMASK(29, 14)
++/* SOE completion metadata returned by the QDMA RX descriptor. */
++#define QDMA_ETH_RXMSG_SOE_MASK		BIT(10)
++#define QDMA_ETH_RXMSG_HOP_FLAGS_MASK	GENMASK(2, 0)
+ /* RX MSG1 */
+ #define QDMA_ETH_RXMSG_DEI_MASK		BIT(31)
+ #define QDMA_ETH_RXMSG_IP6_MASK		BIT(30)
+@@ -883,6 +896,9 @@
+ #define QDMA_ETH_RXMSG_SPORT_MASK	GENMASK(25, 21)
+ #define QDMA_ETH_RXMSG_CRSN_MASK	GENMASK(20, 16)
+ #define QDMA_ETH_RXMSG_PPE_ENTRY_MASK	GENMASK(15, 0)
++/* RX MSG2 */
++/* SW_UDF carries the SA index for SOE completion frames. */
++#define QDMA_ETH_RXMSG_SW_UDF_MASK	GENMASK(31, 24)
+ 
+ struct airoha_qdma_desc {
+ 	__le32 rsv;
+diff --git a/drivers/net/ethernet/airoha/airoha_soe.h b/drivers/net/ethernet/airoha/airoha_soe.h
+new file mode 100644
+index 000000000000..0bde2e9c6b5b
+--- /dev/null
++++ b/drivers/net/ethernet/airoha/airoha_soe.h
+@@ -0,0 +1,126 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Ethernet-facing declarations for the Airoha Secure Offload Engine (SOE)
++ * packet offload provider.
++ *
++ * airoha_eth owns SOE lifetime and calls these helpers to expose xfrm
++ * ESP/NAT-T offload on its netdevs. When CONFIG_NET_AIROHA_SOE is disabled,
++ * the stubs keep the Ethernet driver buildable without SOE support.
++ */
++
++#ifndef AIROHA_SOE_H
++#define AIROHA_SOE_H
++
++#include <linux/bitops.h>
++#include <linux/errno.h>
++#include <linux/kconfig.h>
++#include <linux/netdev_features.h>
++#include <linux/types.h>
++
++struct airoha_soe;
++struct airoha_soe_sa;
++struct airoha_eth;
++struct airoha_gdm_dev;
++struct device;
++struct dst_entry;
++struct net_device;
++struct netlink_ext_ack;
++struct sk_buff;
++struct xfrm_state;
++
++#define AIROHA_SOE_FEATURE_ESP		BIT(0)
++
++typedef int (*airoha_soe_xmit_skb_t)(struct airoha_gdm_dev *dev,
++				     struct sk_buff *skb, u32 msg0, u32 msg1,
++				     u32 msg2);
++
++#if IS_ENABLED(CONFIG_NET_AIROHA_SOE)
++int airoha_soe_init(struct airoha_eth *eth);
++void airoha_soe_deinit(struct airoha_eth *eth);
++bool airoha_soe_available(struct airoha_soe *soe);
++u32 airoha_soe_features(struct airoha_soe *soe);
++void airoha_soe_build_netdev(struct net_device *dev,
++			     airoha_soe_xmit_skb_t xmit_skb);
++void airoha_soe_teardown_netdev(struct net_device *dev);
++int airoha_soe_set_features(struct net_device *dev,
++			    netdev_features_t features);
++bool airoha_soe_rx_skb(struct airoha_soe *soe, struct sk_buff *skb,
++		       unsigned int sa_index, u32 hop_flags);
++bool airoha_soe_rx_plain_skb(struct airoha_gdm_dev *dev,
++			     struct sk_buff *skb, struct net_device *rx_dev,
++			     u16 foe_hash, u32 foe_reason, bool foe_valid);
++bool airoha_soe_has_pending_rx(struct airoha_soe *soe);
++int airoha_soe_xfrm_ppe_info(const struct dst_entry *dst, u8 *sa_index,
++			     u8 *hop);
++int airoha_soe_xmit(struct airoha_soe_sa *sa, struct airoha_gdm_dev *dev,
++		    struct sk_buff *skb, struct xfrm_state *x);
++#else
++static inline int airoha_soe_init(struct airoha_eth *eth)
++{
++	return 0;
++}
++
++static inline void airoha_soe_deinit(struct airoha_eth *eth)
++{
++}
++
++static inline bool airoha_soe_available(struct airoha_soe *soe)
++{
++	return false;
++}
++
++static inline u32 airoha_soe_features(struct airoha_soe *soe)
++{
++	return 0;
++}
++
++static inline void airoha_soe_build_netdev(struct net_device *dev,
++					   airoha_soe_xmit_skb_t xmit_skb)
++{
++}
++
++static inline void airoha_soe_teardown_netdev(struct net_device *dev)
++{
++}
++
++static inline int airoha_soe_set_features(struct net_device *dev,
++					  netdev_features_t features)
++{
++	return 0;
++}
++
++static inline bool airoha_soe_rx_skb(struct airoha_soe *soe,
++				     struct sk_buff *skb,
++				     unsigned int sa_index, u32 hop_flags)
++{
++	return false;
++}
++
++static inline bool airoha_soe_rx_plain_skb(struct airoha_gdm_dev *dev,
++					   struct sk_buff *skb,
++					   struct net_device *rx_dev,
++					   u16 foe_hash, u32 foe_reason,
++					   bool foe_valid)
++{
++	return false;
++}
++
++static inline bool airoha_soe_has_pending_rx(struct airoha_soe *soe)
++{
++	return false;
++}
++
++static inline int airoha_soe_xfrm_ppe_info(const struct dst_entry *dst,
++					   u8 *sa_index, u8 *hop)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline int airoha_soe_xmit(struct airoha_soe_sa *sa,
++				  struct airoha_gdm_dev *dev,
++				  struct sk_buff *skb, struct xfrm_state *x)
++{
++	return -EOPNOTSUPP;
++}
++#endif
++
++#endif /* AIROHA_SOE_H */
 -- 
 2.53.0
-
