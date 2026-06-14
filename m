@@ -1,109 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D135C39EF20
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 18:20:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC84B27456;
+	Sun, 14 Jun 2026 18:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781461252; cv=none; b=pOb2BMrqJBwXgtX52CHfDSTjmzncVoFKaVjin/juESzX1g1C+LysoGFg4zSsbsNYlWeiY0XM4cVfLdpFGE9fEDa1kyzb5z3slwNDryhI+htqNqL7Msbt8AROrzpKttDSW8ROnAWOs7Kuj7axF8oIEU8KdVfM8RuWNlvjL5YkM40=
+	t=1781462359; cv=none; b=LsKxcpNI+Q2RR/twcXvPrZkNQI/e96Z98pzJAi8tIlij75judlvuUduQaPbl+VojbNs8aH8x8VnrISZxZywOJWCh7JjEw18LuJwyaGXtJc89nlYVGFplTAVo8dmyo7ecqgU97692LqRTntI40nW86ebUAhgo7QJNuNdRLHKHk5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781461252; c=relaxed/simple;
-	bh=9dQUtLTiaoFprClcmbTOIvZ1oMI8ydKarMtkFGRG+dw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gCRTv/H9az/Yy3Lgua5g7O3uQqKnDwoo/AZws6F/BTLUXArNq4eH50HGXY5b+QgWsusjTt/yEqNqRCawseCxZAFZle/PIiMQBHcfR5yfRfA03+a5cx/7d91iMN/fyu8t1Nj30vhNO557tY9mpw6pSDt5ot+cAFZ54rETXFDz8Mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlEv+ZGm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781462359; c=relaxed/simple;
+	bh=RvjanMXVdoCHU+sEKBQhBXK5YAKZqCB8TNkccJmoPSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kHc5BKwVvymzwdlDgeWwITtVEzP3xe57YBwZUJzgkIACG7jN1KoRql10owoJ/EdNqxs7k4+O1lkNBiC4brzssN6VKsxl7fisdp06vrD/OP8i9KK/hj7MqQukFxnD8rs//cpp1RG8NnBoWqmUOVO5EDm9YDcceRVb1M5t+u6hzRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZiKpEf5O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlEv+ZGm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C771F000E9;
-	Sun, 14 Jun 2026 18:20:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZiKpEf5O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99C1B1F000E9;
+	Sun, 14 Jun 2026 18:39:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781461248;
-	bh=fP5POGdbRzDrMNz5+SylWNEZzOdcB2FWXN7ZIB9Zu/0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WlEv+ZGmdh7GcdR6D/N5msU3BmxpA/fKghWi5Rt5KV9j3M3tlJRE1HpP2L8mBqVjI
-	 MZeDMVOuqgJ++jsRoEmIDn91h/LIB3EMAWeDoiptNfHpAtxYnO/VQIkiGVNLPc9k29
-	 kCd0rhuhp0Sn7sMcPsJNzyEgOaa2vjCVWxZkoJkFDI+4gvA8wqPDxtegL7DwQiR9vJ
-	 Up6MkYjYA7Hb0KQM8n2vCl0Va3XdhyoMv1xbltYErlVp2XCnRYQ10fuohj5Cw4dAT/
-	 +u6FD5af9x8lw5yiFLFQBbDKB5ujK8Zp84NrbgxKvM1AArUx573kxWW1KSKapr7PiC
-	 ZzguDpyPA2bow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 2/4] net: phy: mediatek: add phy driver for
- MT7628 built-in Fast Ethernet PHYs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joris Vaisvila" <joey@tinyisr.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260613181845.111877-3-joey@tinyisr.com>
-References: <20260613181845.111877-3-joey@tinyisr.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 18:20:47 +0000
-Message-Id: <20260614182048.68C771F000E9@smtp.kernel.org>
+	s=k20260515; t=1781462358;
+	bh=hnZfNV60rAigRH3hQ4LjU7AzmRwytb/8rJxqwv+6ofY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZiKpEf5OxsPd1Nkh+F1JJalGQKKc/kPNvOXtqEtqkPYirZzUpPNO7nilaZ5zVcI8I
+	 RBunmijVI/1d0WJUoFsc5JAjhZdHfjSxCxRhnljCPf6E8mgIwZOIn/Aed124K3iP8f
+	 Y8yWeQmtOzrIqi03ZvXqohbRUU/IeFNzVfP6Q4uydjckpbYjflDVkdWCZrOJDr9NjN
+	 rgFiXDxfgJlARjntwvNCeSPXys05bLRdcAB2sm4YEc32qhthGKRe9f9ZufPaBqQZ/6
+	 2DiN/rpevR2R7qPWTHyb7sW2yhwVMsuaNPSef7llnrk1Tg/DOiqduzu7vyinJWURNP
+	 QDiuUOehFWIlg==
+Date: Sun, 14 Jun 2026 19:39:08 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: linusw@kernel.org, denis.ciocca@st.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, sanjayembeddedse@gmail.com,
+ maudspierings@gocontroll.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] iio: common: st_sensors: honour channel endianness
+ in read_axis_data
+Message-ID: <20260614193908.522272ed@jic23-huawei>
+In-Reply-To: <0dac8e8e2872dc180b138923b5cd4fd18eee047b.1780652883.git.github.com@herrie.org>
+References: <cover.1780652883.git.github.com@herrie.org>
+	<0dac8e8e2872dc180b138923b5cd4fd18eee047b.1780652883.git.github.com@herrie.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `mtk_soc_fe_phy_driver` lacks `.suspend` and `.resume` callbac=
-ks (typically assigned to `genphy_suspend` and `genphy_resume`). This cause=
-s a severe power management regression and breaks hardware initialization a=
-fter system resume. Without a `.suspend` callback, `phy_suspend()` returns =
-0 without powering down the PHY (`BMCR_PDOWN`). Furthermore, `mdio_bus_phy_=
-may_suspend()` returns false, which prevents `phydev->suspended_by_mdio_bus=
-` from being set to 1 during system suspend. During system resume, `mdio_bu=
-s_phy_resume()` checks this flag and, seeing it is false, completely skips =
-calling `phy_init_hw()`. Because `phy_init_hw()` is bypassed, the driver's =
-`.config_init` callback (`mt7628_phy_config_init`) is never executed. Since=
- this callback sets a critical undocumented bit required for 100 Mbps links=
-, the PHY will silently fail to establish correct links if it loses power o=
-r state during suspend.
---
+On Fri,  5 Jun 2026 12:08:41 +0200
+Herman van Hazendonk <github.com@herrie.org> wrote:
 
-commit 6c0828ab418aa7d550c1020af637c9ed3e4c1236
-Author: Joris Vaisvila <joey@tinyisr.com>
+> st_sensors_read_axis_data() unconditionally decoded multi-byte
+> results with get_unaligned_le16() / get_unaligned_le24() regardless
+> of the channel's declared scan_type.endianness.
+>=20
+> For every ST sensor that has used this helper since it was introduced
+> this happened to be fine because the ST IMU/accel/gyro/pressure
+> families publish their data registers as little-endian and the
+> channel specs in those drivers declare IIO_LE accordingly.
+>=20
+> The LSM303DLH magnetometer however publishes its X/Y/Z output as a
+> pair of big-endian bytes (the H register sits at the lower address,
+> 0x03/0x05/0x07, and the L register immediately after), and its
+> channel specs in st_magn_core.c correctly declare IIO_BE -- but
+> read_axis_data() ignored that and decoded as little-endian, swapping
+> the high and low bytes of every magnetometer sample.
+>=20
+> The bug is most visible on a stationary chip: in earth's field the
+> true X reading is small and the high byte sits at 0x00, so swapping
+> the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
+> =3D 240). Y and Z still appear "to vary" because their magnitudes are
+> larger and the noise in the low byte produces big swings in the
+> swapped high byte:
+>=20
+>   before (chip flat, sysfs in_magn_*_raw):
+>       X=3D240 (stuck), Y=3D 12032..23296, Z=3D-16128..-9728
+>=20
+>   after (direct i2c-dev big-endian decode, same chip same orientation):
+>       X=E2=89=88-4096, Y=E2=89=88210, Z=E2=89=8880     (sensible values r=
+eflecting earth's
+>                                 ambient field at low gauss range)
+>=20
+> Fix read_axis_data() to dispatch on ch->scan_type.endianness and
+> call get_unaligned_be16() / get_unaligned_be24() when the channel
+> declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
+> st_pressure, st_lsm6dsx and others) are unaffected because their
+> channel specs already declare IIO_LE and the LE path is unchanged.
+>=20
+Hi Herman,
 
-net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet PHYs
+Fixes tag please.   We want to know how far to backport and provide
+info to those trying to work out if the bug affects their kernel
+trees.
 
-This commit adds support for the Fast Ethernet PHYs in the MT7628 SoCs.
-It adds the MEDIATEK_FE_SOC_PHY Kconfig option and the corresponding
-mtk-fe-soc.c driver to set an undocumented bit required for 100mbps links.
+Thanks
 
-> diff --git a/drivers/net/phy/mediatek/mtk-fe-soc.c b/drivers/net/phy/medi=
-atek/mtk-fe-soc.c
-> new file mode 100644
-> index 0000000000000..9eb4960bcaade
-> --- /dev/null
-> +++ b/drivers/net/phy/mediatek/mtk-fe-soc.c
+Jonathan
 
-[ ... ]
+> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
 
-> +static struct phy_driver mtk_soc_fe_phy_driver[] =3D {
-> +	{
-> +		PHY_ID_MATCH_EXACT(MTK_FPHY_ID_MT7628),
-> +		.name =3D "MediaTek MT7628 PHY",
-> +		.config_init =3D mt7628_phy_config_init,
-> +		.read_page =3D mt7628_phy_read_page,
-> +		.write_page =3D mt7628_phy_write_page,
-> +	},
-> +};
-
-[Severity: High]
-Does this driver need .suspend and .resume callbacks (like genphy_suspend
-and genphy_resume) to properly handle system power management?
-
-Without a .suspend callback, mdio_bus_phy_may_suspend() returns false,
-which prevents phydev->suspended_by_mdio_bus from being set during system
-suspend.
-
-During resume, mdio_bus_phy_resume() checks this flag and skips calling
-phy_init_hw() entirely. Because phy_init_hw() is bypassed, the
-mt7628_phy_config_init() callback is never executed after a resume.
-
-Will this cause the PHY to silently fail to establish 100 Mbps links after
-waking up from suspend because the undocumented bit is lost?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613181845.1118=
-77-1-joey@tinyisr.com?part=3D2
