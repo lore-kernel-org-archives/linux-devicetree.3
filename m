@@ -1,124 +1,130 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A1C30FC1E
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D910D1FC7FB;
+	Sun, 14 Jun 2026 21:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781470721; cv=none; b=pTAU4zNiG4uSSRhwg973tcShePEKniWe82QJwm7zhkNjeqg1yki+dCB/hFB8HovB3wlmFK8gj9irgVSgq8XVTYCqEGLzHzSgxLYbPKcEbjlKY/vbBbXKBwFZcAmgjEeocyUK7Txwv9bNcURQbJDOpEPC8VUCT/eKw7HDNnVL7s8=
+	t=1781471050; cv=none; b=qEpgq5GzFSfh6P0lvYfu+laGlWkoogqsTwFAbEFwxFB0PO/Yvn3a8/f9Fvvq/admETHR6n3XNE9BmFUqKdFQSSOjwV8SSp/60vLPyq9CYZ1oOVdWmlRTeK/ehsCwIm+9jy2l4jzZbhyI/0P2CgLESuk+AkbXp37y275/9s4pCpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781470721; c=relaxed/simple;
-	bh=lBTPnN9uHjEIpqMJLv78Zrf4kbGuYs2/tRFB+GgGmJA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=QzssgjzsMFokrDzzAcTTzUn3GucbbHDKn3jQaYJQQDiGi5wY90ahwBW3sM20nntiz7wTk7WvUrjc15L1h22sjE2byEu3/Obpq0CGeIUV+zL1nzI87JROZhESP6KvMlXkW0SCWkQ92z15xzPDMmYYHLc7ibq0QPhflLoEmwJt81Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+qVrHZ7; arc=none smtp.client-ip=209.85.222.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781471050; c=relaxed/simple;
+	bh=G8DltNBTaEHOTyxWPMMmHeT53U9g0GmnZz8QY9dJs50=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V0KKxWs3mX6ic2rbVZJI5YmxP/yj8UEPPru1wVoUtidslFKg+QU/10e7j2n8R6Tr5ZhZcCG9NV7HDjOdkXgCjK4WktAqbA/CDKOHGUAoE/Y5InGl0vGaJ79WM0aaRKw0CT785JcUHhQ11AtF+6ty4EzNBMf4KfZ7QAL/nlMYRRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S/7j+Eiw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+qVrHZ7"
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-96392241154so2050065241.1
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:58:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781470719; x=1782075519; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lBTPnN9uHjEIpqMJLv78Zrf4kbGuYs2/tRFB+GgGmJA=;
-        b=I+qVrHZ7I8U4ijJDhrmzvF5/PxMFzJ4oJ+UbjZ0i00oo+uc4k2OAUtGZub+5lTODXY
-         YXIczpM3GxTPVPPJB7931pxuiXTMfOqM5BiB0nr2C+xsZy7YEh9N8g/6G13+EcMoPST6
-         TFqnXeGryKGb7QrTSNCitcDt2LIV6x5W5WFJR8gIPNOPM4LKe8BP1+SuxUjkbYX3B6FB
-         VmQ5QdoKSB2u1stV8Q+xM9bPpYRWPx1HKb5vDrnkFSt1qO38+P/nNbuUr5Sa1xaFDX/H
-         W8vAECOIJx6URZZLw9koKUSP4dBaI9Ksi6vTSoovNsH8pARWqupbsa+2YYA/A2y4Z9/i
-         N9qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781470719; x=1782075519;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lBTPnN9uHjEIpqMJLv78Zrf4kbGuYs2/tRFB+GgGmJA=;
-        b=tRlCoXDb+k7JPrUq74gO3KTrIbVBI+Gl1B6oQpm6YT1/bsi2C6qXpvvQURfNeh9VDY
-         iAW28E4uUKWoTHbmv1fVhIf//5uTRptMWi+G/4k516iXcbSpF/U9Nu6kNTAISiKLAgft
-         G33LDEk37gbadjIvgB9POoCEQt0IEfx0XWVb7T/wnljeXCaaJDI6Lb3ALqLyyQEabhHr
-         bvO0F/Urw/U41buvq2XooQ6yLuLBfhbnfW6IzZH6L4qeW3Lt3EcLxOq/26XAVKC12RBg
-         QoZoSOSMQeskdl5SRMRSW2TVamfvGlhBi9HWGSxMMZ7o9IKOxBdeLuACTipFc8MZar4w
-         2PEw==
-X-Forwarded-Encrypted: i=1; AFNElJ/zO0PiNV/wdfQg2kbTv35+g2cQK0aCREggeSYTH3JFBge4qHw+xG9NpqRPWOXW6x8ftKltLZObeJLE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGUafpd79/8kThuA/CN71/KVtvx9ROV5Jk0ppwLRodi3zWnDvC
-	uscXbUcaPo0yb+iJ0yjvVGwW8oXgZOckoujncxMS/rv+Rs1kEexIE8Wk2t6ung==
-X-Gm-Gg: Acq92OGwhnW3k7iWNCeOx7TucnK7GA6NpZqCkDSfzHuMK+CSt8+B56WEgyc7PlZMTpV
-	B0ghFuoKjO2v9CCdBrzFC4v+72A6vM2IZfIXg2D4MFNyU0ttvPYv2NQU7uO9F9BbEAjDGBEdcG5
-	mKioSXupNM031oDBSc3faSy99irQ+rzXfJNsJUsitQVmZbh5m9Z1i4Yk/knCwZOj15p17AwI2n1
-	r5614S8eul79A8Ukgj6ctYMGiH9sqokI2krYizMzxsyA0fmtHjp0DOKvPNyGD4v4A/EgaZ1QBG7
-	wcKQP1BDSrqApvZs9KAHwlLzbHQAro7uTzn3HbLvJ0EGe9RoFui0InieWOLpZbv26sdD0gH3EIu
-	sIhOmTuBQCq5/t2rHQd2dHZyo3sSNKBl50FQBtSK+q8gt4sZl9/R6t9RhuNyekX61VlvLCeVblz
-	Bsrb6mXKZfisskvQ==
-X-Received: by 2002:a05:6102:5693:b0:631:26f6:7022 with SMTP id ada2fe7eead31-71e88dcef1emr6025602137.23.1781470719221;
-        Sun, 14 Jun 2026 13:58:39 -0700 (PDT)
-Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-966a03767eesm1754284241.3.2026.06.14.13.58.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jun 2026 13:58:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S/7j+Eiw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160021F000E9;
+	Sun, 14 Jun 2026 21:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781471049;
+	bh=MGsdW7+lGFW14M+Vm6B7LTfiA6XZ6ZwPtyqD3IyDKtI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=S/7j+Eiw3CMuECcql5F7qEL+BLbb91CNTW7GgWdSo6bXs1Bni8dDp/sxCUfo7qywy
+	 K+RUgPOfqr/75Le+SbrA75iUEGuih1N0JhFmnj5emA9FXDDJ28LmXNf685ikLnYJcL
+	 +7BvriYok/qnJd/bKFuBleyq+eKnz5h6kwllVSvk0wCAu1MPc3qUqnoz+ABc2Z6Zgs
+	 0oU2sT53jMg0aLN9FEDxvGKECURDKG43e1shXXonyW2+cIxTNcE9K6jyFwYnoA7P0X
+	 3iUDo40QU/bjVdAcHMfkMJxtmtYamll4TlaKinJ7jewTTHLjFWJ8T+GURiAw056u1q
+	 s4ZZgMb5RK4sw==
+Date: Sun, 14 Jun 2026 22:04:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ak@it-klinger.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andy@kernel.org,
+ nuno.sa@analog.com, dlechner@baylibre.com
+Subject: Re: [PATCH v11 00/11] iio: adc: Add support for AVIA HX710B ADC
+Message-ID: <20260614220400.106dd636@jic23-huawei>
+In-Reply-To: <20260603184859.89693-1-piyushpatle228@gmail.com>
+References: <20260603184859.89693-1-piyushpatle228@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 14 Jun 2026 15:58:32 -0500
-Message-Id: <DJ92NVDRAKQY.1RQQVGA7FSK03@gmail.com>
-Cc: "Kurt Borja" <kuurtb@gmail.com>, <robh@kernel.org>,
- <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 2/5] iio: adc: Add ti-ads1262 driver
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>,
- <sashiko-reviews@lists.linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260612-ads126x-v1-2-894c788d03ed@gmail.com>
- <20260612230132.E04DB1F000E9@smtp.kernel.org>
- <20260613-graceful-berserk-rook-cc5ecb@quoll>
-In-Reply-To: <20260613-graceful-berserk-rook-cc5ecb@quoll>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat Jun 13, 2026 at 2:00 PM -05, Krzysztof Kozlowski wrote:
-> On Fri, Jun 12, 2026 at 11:01:32PM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 15 potential is=
-sue(s) to consider:
->> - [High] Architecture Compatibility / Undefined Behavior due to direct b=
-itfield mapping.
->> - [High] Out-of-Bounds Memory Access / Hardware Misconfiguration during =
-active channel iteration.
->> - [High] Infinite Loop / Denial of Service in IDAC microamp parsing.
->> - [High] Logic Error: Inverted bounds check rejects valid pin numbers.
->> - [High] Race Condition / Lost Wakeup due to reinitializing completion a=
-fter hardware trigger.
->> - [High] Missing Error Handling / Type Mismatch: Unsigned check of negat=
-ive error code.
->> - [High] DMA Memory Corruption: Unaligned DMA buffer in union.
->> - [High] Uninitialized Memory Read (KMSAN) on stack variable.
->> - [High] Illegal DMA from Stack in regmap bus implementation.
->> - [High] Logic Error: GPIO get_multiple returns pin states incorrectly.
->> - [High] Hardware State / Timing violation during device reset.
->> - [High] Logic Error / Performance: Unconditional stall without IRQ.
->> - [Medium] Memory Leak of fwnode_handle reference on the error path.
->> - [Medium] Resource Leak of runtime PM usage counter on the error path.
->> - [Medium] API Contract Violation: Buffer mode lock released with direct=
- mode API.
->
-> Amount of findings is horrifying. You should probably involve some
-> internal review before posting next version.
+On Thu,  4 Jun 2026 00:18:48 +0530
+Piyush Patle <piyushpatle228@gmail.com> wrote:
 
-I'll set a local Sashiko instance before submitting the next version.
+> The HX710B is a 24-bit ADC from AVIA Semiconductor, related to the
+> HX711 already supported in this driver.  Unlike the HX711 (which has
+> selectable gain and two input channels), the HX710B has a fixed gain
+> of 128 and two operating modes selected by the trailing PD_SCK pulse
+> count after each conversion:
+> 
+>   25 pulses (1 trailing): differential input at 10 SPS
+>   26 pulses (2 trailing): DVDD-AVDD supply monitor at 40 SPS
+>   27 pulses (3 trailing): differential input at 40 SPS
+> 
+> This series first extends the existing HX711 binding and driver with
+> preparatory refactoring, then adds HX710B support on top.
+> 
+> The differential input is exposed as a single IIO channel with
+> IIO_CHAN_INFO_SAMP_FREQ, allowing userspace to select 10 or 40 SPS
+> without needing two separate channels for the same physical input.
+> The supply monitor is a second channel at fixed 40 SPS.
+> 
+> This revision is rebased onto current mainline.  Note that
+> iio_device_claim_direct_mode() / iio_device_release_direct_mode() were
+> removed from the IIO core since v10, so 11/11 now uses the replacement
+> iio_device_claim_direct() / iio_device_release_direct() API.
+> 
+> Tested on a PocketBeagle2 (TI AM625): the avia,hx710b node probes and
+> the driver registers its two IIO channels.
+> 
+> Changes from v10:
+>   - 02/11: Retitled to "add VSUP and DVDD supply properties"; the
+>     commit message now documents both supplies (the patch already
+>     added both; only the title/text were out of sync). [Jonathan]
+>   - 04/11: Reworded commit message so DVDD is no longer described as
+>     HX710B-specific (it is added for both parts in 02/11). The
+>     compatible match now uses "contains: const: avia,hx710b" so the
+>     constraints still apply if the compatible is later used as a
+>     fallback. dvdd-supply is now required for HX710B (in the HX710B
+>     branch only, so existing HX711 device trees are unaffected) and
+>     added to the HX710B example. [Jonathan, Conor, Sashiko]
+>   - 11/11: Kconfig title and file header use "similar" instead of
+>     "compatible". Simplified the tail of hx711_set_hx710b_channel()
+>     to "return hx711_wait_for_ready()". Dropped an unrelated
+>     reindentation of the iio_push_to_buffers_with_timestamp() call.
+>     Converted hx710b_write_raw() to the new
+>     iio_device_claim_direct() API (see above). [Jonathan]
+> 
+> The Reviewed-by (Andy Shevchenko) and Acked-by (Conor Dooley) tags on
+> 02/11 and 04/11 are carried over although those patches changed; please
+> re-confirm if you disagree with the reworked constraints.
+As the only comments I had (well mostly sashiko) were on the 710b patch
+at the end and some patches were queued from previous patches, I now have
+patches 1-3 and 5-10 applied to the testing branch of iio.git.
 
-Also my local testing is a bit loose. I definitely need to take care of
-it.
-
->
-> Best regards,
-> Krzysztof
-
-Thanks for your feedback!
-
---=20
 Thanks,
- ~ Kurt
+
+Jonathan
+
+> 
+> Patches 01/11, 03/11, and 05/11 are unchanged from v10.
+> 
+> Piyush Patle (11):
+>   dt-bindings: iio: adc: hx711: clean up existing binding text
+>   dt-bindings: iio: adc: hx711: add VSUP and DVDD supply properties
+>   dt-bindings: iio: adc: hx711: add RATE GPIO property
+>   dt-bindings: iio: adc: hx711: add HX710B support
+>   iio: adc: hx711: move scale computation to per-device storage
+>   iio: adc: hx711: introduce hx711_chip_info structure
+>   iio: adc: hx711: pass trailing pulse count into hx711_read
+>   iio: adc: hx711: split variable assignments in hx711_read and
+>     hx711_reset
+>   iio: adc: hx711: localize loop iterators in hx711_read
+>   iio: adc: hx711: pass iio_chan_spec to hx711_reset_read
+>   iio: adc: hx711: add support for HX710B
+> 
+>  .../bindings/iio/adc/avia-hx711.yaml          |  82 ++++-
+>  drivers/iio/adc/Kconfig                       |   8 +-
+>  drivers/iio/adc/hx711.c                       | 343 +++++++++++++++---
+>  3 files changed, 359 insertions(+), 74 deletions(-)
+> 
+
